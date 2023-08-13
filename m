@@ -2,74 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 37AC777AE23
-	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:08:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1241177AE22
+	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:07:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231204AbjHMWI2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 18:08:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58386 "EHLO
+        id S229957AbjHMWHM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 18:07:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45062 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231376AbjHMWIP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:08:15 -0400
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com [IPv6:2001:4860:4864:20::31])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 740FB172B
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:55:47 -0700 (PDT)
-Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-1c4cd0f6cb2so690990fac.0
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:55:47 -0700 (PDT)
+        with ESMTP id S229799AbjHMWHL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:07:11 -0400
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com [IPv6:2607:f8b0:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3E7FD18C
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:07:10 -0700 (PDT)
+Received: by mail-ot1-x331.google.com with SMTP id 46e09a7af769-6bcb15aa074so2395041a34.0
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:07:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691963747; x=1692568547;
+        d=gmail.com; s=20221208; t=1691964429; x=1692569229;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=J9tyu1QELdppt8SZIPws7BPp9G2BK+aooX7zbf1NQcA=;
-        b=UFaqj/CjSCCKbVA9kXY5hWmESf1FMrd2uj/Q9ynkHPliYXbKw8CbdFdJ/bgVVqxejJ
-         gCI8aYLYeAxei0gB5i8KSdzmqATJdipaAXn5TiSQNXzjHkIn2Y0KgJKJayzOUiYXmsAI
-         jXUD9vHRiT+TrnnpUvr3aZyeU6Ft60KuSl9kSEHjXYILLISLOIkV1/7gVg+cV+0OfVm6
-         WOQKHDW9w4hg3FzA2GvPpWdpfv4TsoHFI9Z1lI6+5wMmTNdms6ZBL/caLh6QoSZvm2Ou
-         Cu8OV9LA3jBnS/UtP+utygqJOYjBC9CFdSgFHj9wmuFYvIMufuYIFEIk/7Kw3Mb8v8V3
-         2x0Q==
+        bh=4+lK+U6tKpO74zGqRTF66Q/nI2oexExnlmjbaQaInlU=;
+        b=I9ZtReYZdjyOft2Yi4AeYK0LS/8bzVW1M1Z4K7x6Vu0SG2ozsJNp01cfqvItXMqeGs
+         tFPVs6smMZSnIcYjpImXV0jissPLvX3lPB4QvJv6GUKDKjuLu1Kt+oio1zBFqm2sVed/
+         5cKIFnn5WULLbrCU1sFEmR3N3RmnoFVeWgSnOBCZ84VXShb56k67SbFIbNw/qQB4pw2w
+         vwEwnZWurCeUWLA4K7OmmWodML8s7ieQndU87vcUXvAup31wUFSuWu9cQdx6MZL80ljY
+         QZqof6mEuC17deWq0HAAaVrW+QRqqmp2f4tDlYXpP8WBW+ko+Hpn2RI6gzttpxbeQn0T
+         3Qtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691963747; x=1692568547;
+        d=1e100.net; s=20221208; t=1691964429; x=1692569229;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J9tyu1QELdppt8SZIPws7BPp9G2BK+aooX7zbf1NQcA=;
-        b=MmEIksppeBsgbg4jyU3sUdnm9pgEIxDmDHyyCBzxAvkoWc/IzLcHliUb5pXi8cMaNV
-         qf/IwuTuyXOSQL6FE5t+JGsi2dVkczJDgYj+csrnhXamMJu1sm+iIYW88YV8h/WIOC4d
-         XB3hLSYuhLVngvQ7jhMTPHwnBaauoeGnmzbVBlElvXFdN2b6FFXY2j8LFczVKX9Yel18
-         qt8TP9rUBNt4Xp9xyRVTrw8NoyEIwe5hc9SKKycGhyHGKh48exLgQ1novb8867wxHPXi
-         uvHkJmxan93oT9nvSQ9FPjfxLKz96ozuqSA1GC2+cGXDRv/KSPcAXkPA6MSFQfkeK2DZ
-         +plw==
-X-Gm-Message-State: AOJu0Yz2RK6U4w0rrqkpj3yOnURT+lCHHPrFTAZiS74A63xD6HmGeJ2T
-        mWF4A3te/y+fn6caF/TYcBE=
-X-Google-Smtp-Source: AGHT+IEmjwxUq0PEQF78vi3Ce8fayYVgF2bJYBSOP2xdIj6HXjJizGeXg1dzAI0ctJw8yAIa1OAYtA==
-X-Received: by 2002:a05:6870:c109:b0:1c4:edef:f2d8 with SMTP id f9-20020a056870c10900b001c4edeff2d8mr1118853oad.24.1691963746679;
-        Sun, 13 Aug 2023 14:55:46 -0700 (PDT)
+        bh=4+lK+U6tKpO74zGqRTF66Q/nI2oexExnlmjbaQaInlU=;
+        b=Tkphv7ps8+zmu21C2Ybjjt4/EN/cVkc7HH/x2lJhzsavsFBY+9+vslHEtEyMUqO/pZ
+         UU1w9PFzLshBVpV1GcQDhxdga8HqAc1E3Q8S2rWtV0N9jWwNWS8nkfk/kzzvXfqi9p/D
+         1AIkRJAQPEHV3WaHxlnWcsZ2ZB+lqoF0EJpSeNtiVGo2hMZXgwJnT+T/hsvEZuw1RFL8
+         aY6hyX7TioFhnQybVMGIip2Okq5iRZp/3AjUvRl2y0xd2FysqT3EuGMyDLvQTniUjxdd
+         ysHS79vBOzpvOmUvW3+C0GDaKfeMVkJG9Fmx33rAXhf1dcEDCPynAZUzOyMOUN79yLtr
+         YWpg==
+X-Gm-Message-State: AOJu0YyjhMo4byjUS8I6k1XPwnUNQO1oC69YrNu0cpIIfc4gmzjIxPK7
+        WSwoyGjhHOleVRdtarLZTFY=
+X-Google-Smtp-Source: AGHT+IEmjxcK5jDvbbABhBRI8h+OKZ6AQo9en5kilOyFc1C/ps/DmqxWzVIe9qIKJDcfR4AigQFXQg==
+X-Received: by 2002:a05:6830:3487:b0:6ba:864e:c5de with SMTP id c7-20020a056830348700b006ba864ec5demr6159450otu.8.1691964429497;
+        Sun, 13 Aug 2023 15:07:09 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id du15-20020a0568716e0f00b001beeaa10924sm4506810oac.0.2023.08.13.14.55.45
+        by smtp.gmail.com with ESMTPSA id s13-20020a9d758d000000b006b753685cc5sm3724046otk.79.2023.08.13.15.07.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Aug 2023 14:55:46 -0700 (PDT)
-Date:   Sun, 13 Aug 2023 16:55:44 -0500
+        Sun, 13 Aug 2023 15:07:09 -0700 (PDT)
+Date:   Sun, 13 Aug 2023 17:07:07 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org,
-        Deri <deri@chuzzlewit.myzen.co.uk>,
-        Ralph Corderoy <ralph@inputplus.co.uk>
-Subject: Re: No 6.05/.01 pdf book available
-Message-ID: <20230813215544.xtejrxxeygzxgz7e@illithid>
-References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <21975186.EfDdHjke4D@pip>
- <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
- <3258129.44csPzL39Z@pip>
- <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
- <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
+To:     Brian Inglis <Brian.Inglis@Shaw.ca>
+Cc:     Linux Man-Pages <linux-man@vger.kernel.org>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Re: [PATCH] man-pages-posix-2017/man1p/dd.1p: added missing
+ ASCII-EBCDIC tables
+Message-ID: <20230813220707.vis3pmy57fj4bfew@illithid>
+References: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="2sdruv6uqeikzedm"
+        protocol="application/pgp-signature"; boundary="sfdv2oln32kivjzl"
 Content-Disposition: inline
-In-Reply-To: <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
+In-Reply-To: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -78,63 +73,93 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---2sdruv6uqeikzedm
+--sfdv2oln32kivjzl
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
+Hi Brian,
 
-At 2023-08-13T22:47:34+0200, Alejandro Colomar wrote:
-> > Aha - Alex says .set:
+At 2023-08-13T15:01:44-0600, Brian Inglis wrote:
+> I have an OpenGroup/UNIX.org/Austin Group/POSIX account, so added the
+> missing ASCII-EBCDIC tables by copying from the POSIX PDF, as copying
+> data is fair use, and the man page copy itself is authorized.
+>=20
+> As an aside to that, those ASCII-EBCDIC tables support characters from
+> the old ISO 2033:1983 MICR/OCR character sets now in Unicode OCR block
+> U+2440-U+245F, which appears only in a few fonts like Unifont and SIL
+> LastResort (and MS Segoe UI Symbol), and are still available as TTF
+> (some font formats and support are being dropped in favour of OTF).
+>=20
+> They appear normal on my screen running 'man 1p dd' on my system which
+> has those fallback fonts installed.
+>=20
+> Is it sufficient to run the groff addition install-font.sh script on
+> those fonts and add them to the config as .special, or is anything
+> else required to register and render the glyphs on other devices?
+
+That sounds correct to me.
+
+> Or should I take this up on the groff list?
+
+See if the gropdf(1) and/or grops(1) pages in groff 1.23.0 get the
+essential information across; if either one doesn't (independently of
+the other), please report a bug against groff.
+
+> +.sp
+
+Just use a paragraphing macro call here, like `.P`.
+
+> +.TS
+> +centre;
+> +l   cB sB cB sB cB sB cB sB cB sB cB sB cB sB cB sB
+> +l    _ _   _ _   _ _   _ _   _ _   _ _   _ _   _ _
+> +nB | n l | n l | n l | n l | n l | n l | n l | n l |
+> +.
+> +\&	0	1	2	3	4	5	6	7
+> +\&
+> +0000	0000	NUL	0001	SOH	0002	STX	0003	ETX	0067	EOT	0055	ENQ	0056	ACK	0057=
+	BEL
 [...]
-> > 	https://lists.gnu.org/archive/html/groff/2023-04/msg00213.html
->=20
-> We might as well make it official in suffixes(7).
->=20
-> 	.set	troff(1) typeset output
 
-I don't think this convention is very widely used.  troff(1) output is
-so seldom dealt with by users that it is little wonder to me that no
-convention has arisen here.
+I guess it's hard to change the tab character for this ultra-wide table
+since every printable ASCII character is represented in it, and tbl
+affords no mechanism to escape the tab character.
 
-As noted earlier somewhere, I prefer ".trout" for AT&T-compatible
-troff(1) output, and ".grout" for GNU troff(1) output. Strictly, the
-latter suffix would only be necessary if the syntax extension for
-multi-line device control commands is used, and I don't know for sure
-that late-vintage DWB troff or Research Unix troff didn't support it.
-Things got very murky with AT&T troff after the company decided it to
-try using it as a cash cow.
+> +.TE
+> +.IP
+> +.SB Note:
 
-> Which made me realize .roff is not documented.  Branden, as the
-> maintainer of groff(1), would you mind checking that page and adding
-> all the groff(1)-related suffixes you find (or actually, that you
-> don't find)?
+There's no reason to use `SB` (a SunOS extension) anymore since groff
+1.22.4 (2018) and mandoc 1.14.2 (2017).
 
-Sure, but I've got other things on the burner right now and might need a
-reminder.
+=2EIP
+=2ESM
+=2EB Note:
+
+will work fine.
 
 Regards,
 Branden
 
---2sdruv6uqeikzedm
+--sfdv2oln32kivjzl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTZUWAACgkQ0Z6cfXEm
-bc60PQ/+KU3a8Un7Dxc80VVnPM/PDNcx4f7Qr5/Gvcupek+tbaUh6b0Zh+M6DQmP
-gDoXu750p0j802om15P7HFMFbI+uv5i13k5PGyu5/CvJ9qUdQaIjuNHw4k9vwtt6
-L9yNGhkif845PtGvHjYGgr2LLIXPGxvRkSHEDWUDH2WyF+DpiMlHQolH2wWHsQix
-c/ycefxWNnInfdY8Do0vaAHbopUlnGajia9A30tJHS8mXXkI7BFTr05amhi57ar2
-ctfi7QG9c2BcD8XoUjVW82R2rbZ182+uxMMO7Vp3xABK6N4WN1apY2Y/k4XFOAhS
-CMbfOiZ+ZUeQDkY2bz9DJ0vU4Au3N9pH/EA9Rba8ZQIQhspiUEJxSWjX918qnt4C
-m/yhDtdt0FKztCvoeBhIJMJqZ3iRVCjH2ZXhiDEwv1aOn26geLleIgE3Huev74QP
-RSnMIq8K9rcmkebDDt3NRjx0puydV1U41JuW0xsxrWL6qER/gXzB+jM6dC2HFOMx
-pE1SBMpEo47DiqsL3w5qcPNPe2SPbYi/l48CAmAM2pyzIXrlUVsdF4pXkzYVhnbL
-Hor6whs0rgocKKOJwuvn3z6mi+sPlv4eAYQVhsv50gEWZN+w18qUev1O3tkcTW07
-Uv5vJiDfWj+djdiZYPpWGxZucvievvTl/39OAvbwFG9uNV918x4=
-=ZATQ
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTZVAMACgkQ0Z6cfXEm
+bc4EchAAqDHWWeYHU3NH4W1tpqGx+A6C843Ib30ZdtT3MMRtkNThgBg6qam1BEDa
+yGT8dBA4jP9ZUWpyiX339xZMdizj6F+UEnxr+fI6psqtX/5RPKVySOiqBEuMViLm
+hGFvB3hXn6w5JU4TNo5h324OwVqmWrxdZEgEF/dF1yG153d4NSrZ1nvNkOyQtuuX
+6NufkVW/HLTxvJYwhKt3W29PKoBtEDhXbMCOpc7/2nd9TR7ZpBaheLtHunQQ1CjR
+gDQmSMYDocONBvxZxc3/NwDUgt+8G1yB1MsHs92JDBTwP26PHVRZmBjH+cHKjB2N
+uOde5IyEpNqEkEBcRcSdoF3iLajWNa2CLuqgwEMhOGbzza4TYU0aCZhZU5L9H9GJ
+wTYGlourCE9aLYD0/Cag9jnXR9Fzqf2FeyocsaZvZ693LVifq2nzI3xPxvsvU9qK
+/LWSimgNylf3fyQGvhNRDFda0KHjPkt+zajDhLYuC+QxR7UCh3YmnkFLufTXFcKD
+8gYFTZzRPlJ/5xwBE07fkl7oMuHiu9V1gEradicqRO3h9y2636sGCRhxlk/Dnl1N
+AJuJ1/esC8SvAtcWg6/QKd/FTLpJnFgkyVjijGUNgXKez9rId9+kMRKacgku9sbg
+M4qCYiVJ+tWZi+1TOoLamToS/hQulc6+UI5TFpXvYgGDE+ozpeU=
+=Gd9J
 -----END PGP SIGNATURE-----
 
---2sdruv6uqeikzedm--
+--sfdv2oln32kivjzl--
