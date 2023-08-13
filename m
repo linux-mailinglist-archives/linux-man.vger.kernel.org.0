@@ -2,70 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C05AA77AE40
-	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:20:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3406777AE42
+	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:28:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230170AbjHMWUk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 18:20:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41048 "EHLO
+        id S230366AbjHMW17 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 18:27:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34834 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229892AbjHMWUj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:20:39 -0400
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com [IPv6:2607:f8b0:4864:20::229])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8611511D
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:20:38 -0700 (PDT)
-Received: by mail-oi1-x229.google.com with SMTP id 5614622812f47-3a7d7de894bso2549786b6e.3
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:20:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691965238; x=1692570038;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=/Y3VqeLaWOFVw7V9/6ZULNnkhxT2of8T6TEqF2rfMQ4=;
-        b=ABjUpjX0CMlbgDSPOqiUgSDOKCl/Idx1pOi1eWd9PXnahbCXoABNIGvyHTR1o/G4SZ
-         VDacZ/9gzIRTOdyMjTe5M0CqS2KY+kmz1OcNkkDLsPPeOIcNVHXwDTt9CIkdflTyajjw
-         p6YCo5u8acPcFf+bCnpoloIg2hKP1tUyqjPk54yJH9laUbkyYRT7gCgLSeo+0uJFOAfR
-         N8Qwz5HeP5FMqgS3hN7oj5s/e2qZWers7mUYxFXw/UQQg83wA9/h2IFionCbF26cKib6
-         sirhsCGMWS9jyog3ng2BX7Rvj29nJx4xuHfrcUW6s2q1uf0AO+Mv1KmVwNtIWWSXFhbz
-         lDkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691965238; x=1692570038;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/Y3VqeLaWOFVw7V9/6ZULNnkhxT2of8T6TEqF2rfMQ4=;
-        b=aRM8E6Se9Kxe78uJ78PnMcaXEyIxfzguW0n54aLVdMMGkCUm9e9DX1ANX+6ZhJ3kEJ
-         8I3TQyBODF5W+3TCPf7qrxQSpH0kLz9ewJ0pPEMhEorfdhbmTh5Kfs0Px9POKIKiEfmv
-         wVJlA5cDGvU43Bzz4Dn2nChOKa1PtMmu6S5iBZzS0tuT+N3nvvXOvpJuETsS5nwI1pb7
-         FCyHhKi5hFv4OqpTeK3TD40ZugAtoeRJiLnEHdAwXxUGFyLHbJnXFUOWuqT8gt29idVp
-         2/7VChP04x+drg0ZcNlg6w3J9eJHtcFqrxFiMtU9u7nqoh7Lv2CRkmY0DhsNT+Bcex0D
-         ZKpA==
-X-Gm-Message-State: AOJu0YwtFt2tXSTOAckCaFnNtzBO2c8EpRA+5RUpnEIsIlbG4fMoCGgz
-        tTaKiF1KjvncXKIR1acbgoM76Qsn9cY=
-X-Google-Smtp-Source: AGHT+IHeFnGuN6oOG/AtS4WaSBoC/0lNC7vvyqAhBCv3CFr6EXjBl3is/gY4fOtmI8YWuQK7DEnbcg==
-X-Received: by 2002:a05:6808:2986:b0:3a3:ed41:97d with SMTP id ex6-20020a056808298600b003a3ed41097dmr6387520oib.50.1691965237783;
-        Sun, 13 Aug 2023 15:20:37 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id u30-20020a056808151e00b003a76d7f596esm3901698oiw.54.2023.08.13.15.20.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Aug 2023 15:20:37 -0700 (PDT)
-Date:   Sun, 13 Aug 2023 17:20:35 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
-        Linux Man-Pages <linux-man@vger.kernel.org>
+        with ESMTP id S230292AbjHMW17 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:27:59 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 38D5B18F
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:27:58 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id C67E561BC8
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 22:27:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A633C433C7;
+        Sun, 13 Aug 2023 22:27:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1691965677;
+        bh=kZNnNtUCL0UzpuUVhuu7ohyMt/64MWfRWuM9poMddmU=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=ipezEDemEDk3z5DpZ2zIuEF3D6rVZcqIE841DwHkuN6ByUteUbc3oyt24lgYCGTTu
+         xlUWQ2H9eEpLOugVQVzw6DtwcIGHJv2VbUsq5VDGEMWz0zGGbW+n/IDL7M3yB1B8E+
+         8ztv0c6wX73YsKEHDnsvfWHHHfTgUNr151cZJlvrS8Dld+5JDRYH/7SXGPCVMNv2M/
+         3HHRvqqHKkusXsKttEm6Stb7IwmTCQIu1eSkOeBBGn5LCByMCpQ5FCULL0l7zxXWFm
+         Y2ttqaRhRkI2Y/ogGwIOkEVLBFdXw0v16L0YEpf5z8EugC3Ijx5hmgvwqx6aIL1+Af
+         MPqtc3Qf5pXFg==
+Message-ID: <033cf8fb-5c84-d9eb-a01e-caff597a951b@kernel.org>
+Date:   Mon, 14 Aug 2023 00:27:54 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
 Subject: Re: [PATCH] man-pages-posix-2017/man1p/dd.1p: added missing
  ASCII-EBCDIC tables
-Message-ID: <20230813222035.a5ybcqbpnzlapraz@illithid>
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Eric Blake <eblake@redhat.com>
+Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
+        Linux Man-Pages <linux-man@vger.kernel.org>
 References: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
  <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
-MIME-Version: 1.0
+ <20230813222035.a5ybcqbpnzlapraz@illithid>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <20230813222035.a5ybcqbpnzlapraz@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="bssas4wq36bnipdb"
-Content-Disposition: inline
-In-Reply-To: <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+ protocol="application/pgp-signature";
+ boundary="------------uN0E0LM01ksxLsg1gcyGTM7K"
+X-Spam-Status: No, score=-11.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -73,81 +63,131 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------uN0E0LM01ksxLsg1gcyGTM7K
+Content-Type: multipart/mixed; boundary="------------Si8Eaw9UYvRLNohADpZioaMl";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Eric Blake <eblake@redhat.com>
+Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
+ Linux Man-Pages <linux-man@vger.kernel.org>
+Message-ID: <033cf8fb-5c84-d9eb-a01e-caff597a951b@kernel.org>
+Subject: Re: [PATCH] man-pages-posix-2017/man1p/dd.1p: added missing
+ ASCII-EBCDIC tables
+References: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
+ <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
+ <20230813222035.a5ybcqbpnzlapraz@illithid>
+In-Reply-To: <20230813222035.a5ybcqbpnzlapraz@illithid>
 
---bssas4wq36bnipdb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------Si8Eaw9UYvRLNohADpZioaMl
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-At 2023-08-13T23:30:30+0200, Alejandro Colomar wrote:
-> And also, I don't even have the sources, which makes things more
-> complex.
+[+=3D Eric]
+
+Hi Branden, Eric,
+
+On 2023-08-14 00:20, G. Branden Robinson wrote:
+> At 2023-08-13T23:30:30+0200, Alejandro Colomar wrote:
+>> And also, I don't even have the sources, which makes things more
+>> complex.
+>>
+>> I wish that POSIX allowed us to have a copy of the original source
+>> code of the POSIX manual in the git repository.  With that, I'd find
+>> it more interesting to maintain the project again.
+>>
+>> I'd also like to know what's the original source code of POSIX's
+>> manual, because it may very well be roff(7).  If that happens to be
+>> true, I'd like to have access to that source, instead of the HTML.
 >=20
-> I wish that POSIX allowed us to have a copy of the original source
-> code of the POSIX manual in the git repository.  With that, I'd find
-> it more interesting to maintain the project again.
+> My understanding from hermetic comments to the Austin Group mailing lis=
+t
+> over the years is that:
 >=20
-> I'd also like to know what's the original source code of POSIX's
-> manual, because it may very well be roff(7).  If that happens to be
-> true, I'd like to have access to that source, instead of the HTML.
+> 1. they have used groff for many years (a decade or more);
+> 2. they don't use man(7) for their man pages (I was told this directly)=
+;
+>=20
+> and
+>=20
+> 3. they use (a customized version of) mm(7)--or I _think_ I saw someone=
 
-My understanding from hermetic comments to the Austin Group mailing list
-over the years is that:
+>    say this, but I have no citation and I am not even sure it was an
+>    Open Group employee who claimed it.
 
-1. they have used groff for many years (a decade or more);
-2. they don't use man(7) for their man pages (I was told this directly);
+I'd love to have the ms(7) source then.  That way I would have a reason
+to learn ms(7).  :)
+It would certainly be better than the HTML files.  It would be
+interesting to adapt the Linux man-pages build system to also support
+ms(7) pages.
 
-and
+>=20
+> We fixed a bunch of bugs in GNU mm for groff 1.23.0.[1]  I wonder if
+> they will be cross with me about that.  Even if they didn't rely on any=
 
-3. they use (a customized version of) mm(7)--or I _think_ I saw someone
-   say this, but I have no citation and I am not even sure it was an
-   Open Group employee who claimed it.
+> erstwhile misbehavior, the source churned, some internals changed, and
+> if they patched the package, I wouldn't count on the patches still
+> applying cleanly.
+>=20
+>> Would you mind forwarding my rage towards the Open group, which IMO is=
 
-We fixed a bunch of bugs in GNU mm for groff 1.23.0.[1]  I wonder if
-they will be cross with me about that.  Even if they didn't rely on any
-erstwhile misbehavior, the source churned, some internals changed, and
-if they patched the package, I wouldn't count on the patches still
-applying cleanly.
+>> not so open?
+>=20
+> Maybe scrape off the rage first, or you might get a response from Rober=
+t
+> Elz, who is even more cantankerous and writes at even greater length
+> than I do.  ;-)
 
-> Would you mind forwarding my rage towards the Open group, which IMO is
-> not so open?
+I promise to scrape the rage if I get a name and an email of who to talk
+to.  Maybe Eric can help.  :)
 
-Maybe scrape off the rage first, or you might get a response from Robert
-Elz, who is even more cantankerous and writes at even greater length
-than I do.  ;-)
+Cheers,
+Alex
 
-Some time ago I solicited bug reports against groff from them.  So far,
-nothing, unless they filed anonymously.
+>=20
+> Some time ago I solicited bug reports against groff from them.  So far,=
 
-Regards,
-Branden
+> nothing, unless they filed anonymously.
+>=20
+> Regards,
+> Branden
+>=20
+> [1] https://savannah.gnu.org/bugs/index.php?go_report=3DApply&group=3Dg=
+roff&func=3Dbrowse&set=3Dcustom&msort=3D0&report_id=3D225&advsrch=3D0&bug=
+_id=3D&summary=3D&submitted_by=3D0&resolution_id=3D1&assigned_to=3D0&bug_=
+group_id=3D0&status_id=3D3&severity=3D0&category_id=3D121&plan_release_id=
+=3D103&history_search=3D0&history_field=3D0&history_event=3Dmodified&hist=
+ory_date_dayfd=3D13&history_date_monthfd=3D8&history_date_yearfd=3D2023&c=
+hunksz=3D50&spamscore=3D5&boxoptionwanted=3D1#options
 
-[1] https://savannah.gnu.org/bugs/index.php?go_report=3DApply&group=3Dgroff=
-&func=3Dbrowse&set=3Dcustom&msort=3D0&report_id=3D225&advsrch=3D0&bug_id=3D=
-&summary=3D&submitted_by=3D0&resolution_id=3D1&assigned_to=3D0&bug_group_id=
-=3D0&status_id=3D3&severity=3D0&category_id=3D121&plan_release_id=3D103&his=
-tory_search=3D0&history_field=3D0&history_event=3Dmodified&history_date_day=
-fd=3D13&history_date_monthfd=3D8&history_date_yearfd=3D2023&chunksz=3D50&sp=
-amscore=3D5&boxoptionwanted=3D1#options
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---bssas4wq36bnipdb
-Content-Type: application/pgp-signature; name="signature.asc"
+
+--------------Si8Eaw9UYvRLNohADpZioaMl--
+
+--------------uN0E0LM01ksxLsg1gcyGTM7K
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTZVysACgkQ0Z6cfXEm
-bc4mVw//cJnmiylaav1kRLsFNwF+0Iw0g3CK9OrI47BoUTRPRaDB/3Tz7La27+LS
-kvcvnIzNHA8b30/JwIEQjc4MsIDr7vaSm3Ci8DMAqo2mulqAkoi7a/IRjnWSb58o
-E1ONDMzZCJHXQ05CYZvYN6r/6+USNSqTO9F0TFa49aLpk55CtiDkwiU89lQ4Ky/a
-btjpGr8I8tOzLAZknVNsddpEv8KCN1FYJV/bmfGNvdoRRoW7xvVUY0tE0UKrTcj2
-Bmrt27uysCq89OLOJ6NJkQxFNxFwFM0mGg0yGY62YBPuylgM3zE4sLUVu0bPdbIw
-QHmdfOcUeKydIRKLOp4ButjF5ysp2ltUq1dOeQngRLtnO8Qm/2A7qOjm6j1d5lOX
-DP4WdKoc36veAjWFooFafS7uFS5IA6PZR4M5Bh28IQmorGQAr1FckiJUnZpIhCn6
-ceyKTVGqkqHY9VmtXqceLiE0/ll8MKe+PND2l+XpJpnFD6nxVo9urw23F/6OU5MD
-Qsco2o+tcde7X3e5YHWghJMV3G1ZadKjIDz5ffJGro8wLbPKXpdMhjLK2G3aXIVx
-f1pQA755ZyenZiaiYQxlXm98iCexzZjLbelMk21FodUg0G0ihowqRssWrFmHGpJn
-TOhkd0pf126u5qO+g7oQt16ad2ypf9mCZ2gxNR7CmqkWaSF7dcI=
-=TPza
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTZWOoACgkQnowa+77/
+2zJPKw//beptrLhMY+dUF800AUOlq3SgY4+qLk20HzvntY+M2DY8wHyoPIeVy8E5
+jJI2d4Ujayycv2+c3XQnuuuhi5zUBdj8WlVWopM7Lz9DGd4Dlxf93zxKRQ7sjud0
+14YSoK3Leuh9z00gPIKu98qvkHK4BcRvDmzEr9Sy2SaYqjkIHQuTMagy1TgoQhNf
+APBJZURus/J3cSNAZEMfRWDAVfkZziG+Ssr9oEJ60VNHTIEI9u23AT1KOZu4ABZS
+dNCTC9ix5C6GBIvN/QjwhAZX1j66l14v9mVJAh2L6u0j5emn0OeoOyXps3x1UT7v
+YYbaF1U7fFPTEkazIJw8LqCmcXIqxDYqrE2IGGeKXZ0+ot5u7qLdOfhclE8DWj//
+NnvgXA8QPIvYg84x++omLK7b5W1UiEweBbmjaZRuDcctouv1kNhkYa0aG1RIcRrz
+ic7cM8OTWuw2V29I0ITYAZMND94awYhXhxuODOLLOof77vMMCf32lYOb+mI0w8pI
+ECX4fJkyyb3KwZf3zLoXjn82somydMXUHDp75rB+bbKuOrbEWhzZ+5Sh4QYRYIWj
+7TIKZ5DCrZ85+O/P6AxQgYVJUEukboG3AeipOrDP/cjX5XXhVqp661exbTsqopyO
+TWTl6io2SP2iLlKXv0vfAQiCz4WvgKp8riGkocEY806fJmcZbRQ=
+=7DyR
 -----END PGP SIGNATURE-----
 
---bssas4wq36bnipdb--
+--------------uN0E0LM01ksxLsg1gcyGTM7K--
