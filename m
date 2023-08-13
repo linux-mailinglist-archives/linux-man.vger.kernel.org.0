@@ -2,52 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5727A77A6C3
-	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 16:14:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 68D9B77A6F9
+	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 16:34:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229723AbjHMOO3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 10:14:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40966 "EHLO
+        id S229506AbjHMOez (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 10:34:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59290 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229506AbjHMOO2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 10:14:28 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E408510FC
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 07:14:30 -0700 (PDT)
+        with ESMTP id S229559AbjHMOey (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 10:34:54 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF95D10D7
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 07:34:55 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 79CF262441
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:14:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852AFC433C7;
-        Sun, 13 Aug 2023 14:14:28 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 4D28162806
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:34:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818AFC433C7;
+        Sun, 13 Aug 2023 14:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691936069;
-        bh=QBkA2FOQVE56BSHklilgkS689itSkBkQFFXZRECLZ/A=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=Ss+3I4WuJSpW/R8oocxMrb/tTj2ykye9RJYpXRzPXLHTycmYte/4QPdbEkPk8A+zd
-         taHdgx4ElwINgYaB/F0FufZ93Zc3vJCLotFeuA7t5mumZ5dEsLdwciOE+VgdBNn6Ya
-         b8O0wHA7zC9Rjzp5fdgllzLLZ20XYhlpqFe/SRCPN1PPbIW7PALtn3jUF/cwD8PGDl
-         sv2yz4+r5B1rvC4Qv80Y2qnxnDUAOohtup+W0lk+ACAyPyvvo9pTOmzxYrnqBNPHsm
-         EkZf3OMDZYUmokOpqCa1EecHj19mbqhEewfBCQYSW+C/8GaU+MbDha/tAlhZBpVB1T
-         yX0qxWfTCZWGw==
-From:   Alejandro Colomar <alx@kernel.org>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx@kernel.org>,
-        Sargun Dhillon <sargun@sargun.me>,
-        Serge Hallyn <serge@hallyn.com>,
-        John Watts <contact@jookia.org>
-Subject: [PATCH v4] clone.2: Fix erroneous statement about CLONE_NEWPID|CLONE_PARENT
-Date:   Sun, 13 Aug 2023 16:14:22 +0200
-Message-Id: <20230813141422.37580-1-alx@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230810022603.947583-1-sargun@sargun.me>
-References: <20230810022603.947583-1-sargun@sargun.me>
+        s=k20201202; t=1691937294;
+        bh=ZBQVrDJk5Q4iw8PyGF278Qszk/Ku9ue7ywsEh+Nk1p0=;
+        h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+        b=dj0KMDmQN+ag692EFjp5Su6V3ps2PCXF65mxD5mIfPBRW/Ei7bUEPrmMpjAJVMqkB
+         aboF/2dpAjFl1fCG28ILDBHmXYjtzyQT0XsfUY5fint/y0lWD07k7mvQSusG/V+3UU
+         DDB+++wSdr8bY68wuB0KIux7Od8ogH3P/fZyzUbvTd7oxrat4Y+WqZlnKKPLxenID2
+         Gti4SR/Jw3ofdgnBr2oCwpgNK5QV3wO4Nw+/kGhDXt2xJR/3eA7/4holgqqQDVTgeY
+         ybeYQEWS4cK8nDrYCyTYofaaV1vUe3sGGQTWl9PIDg3Iq0tX/9GUb9EY8Iv+j/7wV2
+         dHDiRGrA5U/zg==
+Message-ID: <c4f49a83-e018-326e-da4e-57dc9e61912f@kernel.org>
+Date:   Sun, 13 Aug 2023 16:34:50 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: [linux-man book] Fonts from a library (was: PDF book improvements)
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Deri <deri@chuzzlewit.myzen.co.uk>,
+        linux-man <linux-man@vger.kernel.org>
+Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        groff <groff@gnu.org>
+References: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
+Content-Language: en-US
+Organization: Linux
+In-Reply-To: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------7zfgAI5RNLQfUncQDuv2VhiS"
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -55,141 +60,60 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Sargun Dhillon <sargun@sargun.me>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------7zfgAI5RNLQfUncQDuv2VhiS
+Content-Type: multipart/mixed; boundary="------------01x0XOnrHrwjCwF4vOmFMwK8";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Deri <deri@chuzzlewit.myzen.co.uk>, linux-man <linux-man@vger.kernel.org>
+Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>, groff <groff@gnu.org>
+Message-ID: <c4f49a83-e018-326e-da4e-57dc9e61912f@kernel.org>
+Subject: [linux-man book] Fonts from a library (was: PDF book improvements)
+References: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
+In-Reply-To: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
 
-CLONE_NEWPID|CLONE_PARENT was only prohibited during a short period.
-That prohibition was introduced in Linux 3.12, in commit 40a0d32d1eaf
-("fork: unify and tighten up CLONE_NEWUSER/CLONE_NEWPID checks"), but
-was a regression, and was fixed in Linux 3.13, in commit 1f7f4dde5c94
-("fork:  Allow CLONE_PARENT after setns(CLONE_NEWPID)").
+--------------01x0XOnrHrwjCwF4vOmFMwK8
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-In this test program, one can see that it works:
+Hi Deri,
 
- #include <err.h>
- #include <linux/sched.h>
- #include <sched.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <sys/syscall.h>
- #include <unistd.h>
+Is there any chance we could use a font that is installed with the
+system (Debian would be good)?  I'd also like to be able to remove the
+font from our source repository, if possible.
 
-static pid_t sys_clone3(struct clone_args *args);
+Cheers,
 
-int
-main(void)
-{
-	int                ret;
-	struct clone_args  args = {
-		.flags = CLONE_PARENT | CLONE_NEWPID,
-	};
+Alex
 
-	printf("main program: pid: %d, and ppid: %d\n", getpid(), getppid());
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
-	ret = sys_clone3(&args);
-	switch (ret) {
-	case -1:
-		err(EXIT_FAILURE, "clone3");
-	case 0:
-		printf("child: pid: %d, and ppid: %d\n", getpid(), getppid());
-		exit(EXIT_SUCCESS);
-	default:
-		exit(EXIT_SUCCESS);
-	}
-}
 
-static pid_t
-sys_clone3(struct clone_args *args)
-{
-	fflush(stdout);
-	fflush(stderr);
-	return syscall(SYS_clone3, args, sizeof(*args));
-}
+--------------01x0XOnrHrwjCwF4vOmFMwK8--
 
-This test program (successfully) outputs:
+--------------7zfgAI5RNLQfUncQDuv2VhiS
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-    # ./a.out
-    main program: pid: 34663, and ppid: 34662
-    child: pid: 1, and ppid: 0
+-----BEGIN PGP SIGNATURE-----
 
-Fixes: f00071920ec3 ("clone.2: EINVAL if (CLONE_NEWUSER|CLONE_NEWPID) && (CLONE_THREAD|CLONE_PARENT)")
-Cowritten-by: Sargun Dhillon <sargun@sargun.me>
-Cc: Serge Hallyn <serge@hallyn.com>
-Cc: John Watts <contact@jookia.org>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man2/clone.2 | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTY6gsACgkQnowa+77/
+2zI1xBAAjXvKMifezKHOylhWfkThyiAjFg7+lr0LmexVA/EuSA66pyoUa3fpmncn
+J0fP5SMCakBQCFF4MuJlS0/FWfjnsovn33DL1GeHhUa05bIXINYUeb4jpENpcQZH
+fd1/poNziHIzHacl4uyZHCE1B+fWaRj1rWhCRNKbZuFVuNOnZ//1UUpOKybIGdlP
+7HCNoSLQFA4OosuBkSi41xyT83BA+Z1rswvWVVBUlvlHY9RFdii59/v4qd9j3j3V
+egIn84mGQ7pudhAzuZyxSy/f7Jf2TgXXB9MSBGdmWAzwX09vkVx/6yHI1GSrazv5
+r6svU+p6a4q8DgoRq18vVZElOtB/ldJP4eVxujdf0NLTzMvq8O6zoCGncHnemtVn
+obu2XBzO0TEekuyQ6DYTG/rK5eNaJZrHWvsf7WXd9ywBgDWkzOOn9W8AaylxpKdb
+SRQB7+pnsebohdYs13pPWrnyVpMqYZ1g/Oho3FSTk8CTTdbk/3tKdmuGVy6yHkT0
++XV8cZtGHoKkj2IQJPyTlh7IzWQ3FVl+PgmlX1g0ha+XGZXnlaL/VYBrXgnslzbw
+ZjmDnBguQgXZh+MRvWHVm5fSR8evvSWqYeiS59Rt1+xj1BTgzoEKHbQwIeorerQj
+Daj1Zaq/GEJAUSmwZ25KOaxhwqAry+8KcQvBmH2JyfE/vvwyZAY=
+=v8L4
+-----END PGP SIGNATURE-----
 
-diff --git a/man2/clone.2 b/man2/clone.2
-index b91b71831..4a75b557b 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -729,23 +729,21 @@ .SS The flags mask
- For further information on PID namespaces, see
- .BR namespaces (7)
- and
- .BR pid_namespaces (7).
- .IP
- Only a privileged process
- .RB ( CAP_SYS_ADMIN )
- can employ
- .BR CLONE_NEWPID .
- This flag can't be specified in conjunction with
--.B CLONE_THREAD
--or
--.BR CLONE_PARENT .
-+.BR CLONE_THREAD .
- .TP
- .B CLONE_NEWUSER
- (This flag first became meaningful for
- .BR clone ()
- in Linux 2.6.23,
- the current
- .BR clone ()
- semantics were merged in Linux 3.5,
- and the final pieces to make the user namespaces completely usable were
- merged in Linux 3.8.)
-@@ -1310,32 +1308,37 @@ .SH ERRORS
- .B EINVAL
- Both
- .B CLONE_NEWIPC
- and
- .B CLONE_SYSVSEM
- were specified in the
- .I flags
- mask.
- .TP
- .B EINVAL
--One (or both) of
- .B CLONE_NEWPID
--or
--.B CLONE_NEWUSER
- and one (or both) of
- .B CLONE_THREAD
- or
- .B CLONE_PARENT
- were specified in the
- .I flags
- mask.
- .TP
-+.B EINVAL
-+.B CLONE_NEWUSER
-+and
-+.B CLONE_THREAD
-+were specified in the
-+.I flags
-+mask.
-+.TP
- .BR EINVAL " (since Linux 2.6.32)"
- .\" commit 123be07b0b399670a7cc3d82fef0cb4f93ef885c
- .B CLONE_PARENT
- was specified, and the caller is an init process.
- .TP
- .B EINVAL
- Returned by the glibc
- .BR clone ()
- wrapper function when
- .I fn
--- 
-2.40.1
-
+--------------7zfgAI5RNLQfUncQDuv2VhiS--
