@@ -2,72 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F5EA77AD22
-	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 23:48:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 37AC777AE23
+	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:08:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230170AbjHMVsI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 17:48:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33818 "EHLO
+        id S231204AbjHMWI2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 18:08:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58386 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229522AbjHMVrW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 17:47:22 -0400
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7CE842D55
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:47:20 -0700 (PDT)
-Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-1bfc2b68090so2871006fac.3
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:47:20 -0700 (PDT)
+        with ESMTP id S231376AbjHMWIP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:08:15 -0400
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com [IPv6:2001:4860:4864:20::31])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 740FB172B
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:55:47 -0700 (PDT)
+Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-1c4cd0f6cb2so690990fac.0
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 14:55:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691963240; x=1692568040;
+        d=gmail.com; s=20221208; t=1691963747; x=1692568547;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=R4+a6SozvZyxWQD42CgDDu9oRYDBzwrmd9QMxQ6+LXw=;
-        b=I6pfJPS2ak9oV0bBXRoq3jJox4cpvlfFI6eceQ8rg18Yy/pZcN/A0a9h/4qD/q2Kxo
-         Ox15m83pqUUqti6lYd/6/rEAFhcZGhDue60Dv2GILZapG9q6BfJ3rmzmxZhZOoUmnHNP
-         J7B3ceAKGga75yMA9+rZOKXmXi9VAUvbx+ZxYLrPqisHfyz1hTZHSvPWSK2n+yLpMLHx
-         28WCN28dP/7JzupOnbEYwlDCA8/rxryBW1U5SEwvtIFxTbi7/OX2RxmNm+df6P66irvZ
-         zuzW3S+8lQcMaaCEvTuYdFVqjE+UpwtnSUBebQ5PkRWgfYbvakmLlDPPHkkCV+bKWkSt
-         Tp4Q==
+        bh=J9tyu1QELdppt8SZIPws7BPp9G2BK+aooX7zbf1NQcA=;
+        b=UFaqj/CjSCCKbVA9kXY5hWmESf1FMrd2uj/Q9ynkHPliYXbKw8CbdFdJ/bgVVqxejJ
+         gCI8aYLYeAxei0gB5i8KSdzmqATJdipaAXn5TiSQNXzjHkIn2Y0KgJKJayzOUiYXmsAI
+         jXUD9vHRiT+TrnnpUvr3aZyeU6Ft60KuSl9kSEHjXYILLISLOIkV1/7gVg+cV+0OfVm6
+         WOQKHDW9w4hg3FzA2GvPpWdpfv4TsoHFI9Z1lI6+5wMmTNdms6ZBL/caLh6QoSZvm2Ou
+         Cu8OV9LA3jBnS/UtP+utygqJOYjBC9CFdSgFHj9wmuFYvIMufuYIFEIk/7Kw3Mb8v8V3
+         2x0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691963240; x=1692568040;
+        d=1e100.net; s=20221208; t=1691963747; x=1692568547;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=R4+a6SozvZyxWQD42CgDDu9oRYDBzwrmd9QMxQ6+LXw=;
-        b=Qlsegulv7FWRZgsI9JNfzane/+7oxBSgAKQJZJhBI7Xqfl1ZXgEKrI8fxZVOfEyXRs
-         sx60z0J8Af2vXIw8AP6V1VsEm7wmj+Jt0zbcQI0maWf55BAnMytwdCNvY5fkPnICFABK
-         ZbVv2m2Powkf64gvrPJwAhQAQDWQAlHLHK3UxdIfRhCr/HZuwZeNXIgrIazclFECt4lf
-         f21MaA5mjF9bcE3PSW+M9Km4tyswevzihf+1m+DUpZfxQ6AQPRno1fmsB0cLOyM/yttr
-         hGOj0IyXb08OoGwPi6z+MTrmuu2a9dmVtWfQJPVMLd29+dlODe0hNC5gBxcHV894TzxE
-         OVVg==
-X-Gm-Message-State: AOJu0YzsN+ReeHt4N18qt42SGsxgtwaXWxdjBzdYFhUJULWC1oUsbRbU
-        QhNrnNN4hUB5VhjphuI7nfpigWFXmBU=
-X-Google-Smtp-Source: AGHT+IFNMnVkKqUf2+vijDlXpblCTgGoZDfd5szD5tQmuCp0ELdKHP3cN3v3m3H9RUVduPWPmpNjhA==
-X-Received: by 2002:a05:6870:219d:b0:1bb:8842:7b5c with SMTP id l29-20020a056870219d00b001bb88427b5cmr7411176oae.43.1691963239759;
-        Sun, 13 Aug 2023 14:47:19 -0700 (PDT)
+        bh=J9tyu1QELdppt8SZIPws7BPp9G2BK+aooX7zbf1NQcA=;
+        b=MmEIksppeBsgbg4jyU3sUdnm9pgEIxDmDHyyCBzxAvkoWc/IzLcHliUb5pXi8cMaNV
+         qf/IwuTuyXOSQL6FE5t+JGsi2dVkczJDgYj+csrnhXamMJu1sm+iIYW88YV8h/WIOC4d
+         XB3hLSYuhLVngvQ7jhMTPHwnBaauoeGnmzbVBlElvXFdN2b6FFXY2j8LFczVKX9Yel18
+         qt8TP9rUBNt4Xp9xyRVTrw8NoyEIwe5hc9SKKycGhyHGKh48exLgQ1novb8867wxHPXi
+         uvHkJmxan93oT9nvSQ9FPjfxLKz96ozuqSA1GC2+cGXDRv/KSPcAXkPA6MSFQfkeK2DZ
+         +plw==
+X-Gm-Message-State: AOJu0Yz2RK6U4w0rrqkpj3yOnURT+lCHHPrFTAZiS74A63xD6HmGeJ2T
+        mWF4A3te/y+fn6caF/TYcBE=
+X-Google-Smtp-Source: AGHT+IEmjwxUq0PEQF78vi3Ce8fayYVgF2bJYBSOP2xdIj6HXjJizGeXg1dzAI0ctJw8yAIa1OAYtA==
+X-Received: by 2002:a05:6870:c109:b0:1c4:edef:f2d8 with SMTP id f9-20020a056870c10900b001c4edeff2d8mr1118853oad.24.1691963746679;
+        Sun, 13 Aug 2023 14:55:46 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id k4-20020a056870350400b001bf120a44f7sm4482517oah.33.2023.08.13.14.47.18
+        by smtp.gmail.com with ESMTPSA id du15-20020a0568716e0f00b001beeaa10924sm4506810oac.0.2023.08.13.14.55.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Aug 2023 14:47:19 -0700 (PDT)
-Date:   Sun, 13 Aug 2023 16:47:17 -0500
+        Sun, 13 Aug 2023 14:55:46 -0700 (PDT)
+Date:   Sun, 13 Aug 2023 16:55:44 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Brian Inglis <Brian.Inglis@Shaw.ca>
-Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
-        Deri <deri@chuzzlewit.myzen.co.uk>
-Subject: hyphens at ends of pages (was: No 6.05/.01 pdf book available)
-Message-ID: <20230813214717.su46tr6jqfist26d@illithid>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org,
+        Deri <deri@chuzzlewit.myzen.co.uk>,
+        Ralph Corderoy <ralph@inputplus.co.uk>
+Subject: Re: No 6.05/.01 pdf book available
+Message-ID: <20230813215544.xtejrxxeygzxgz7e@illithid>
 References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
  <21975186.EfDdHjke4D@pip>
  <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
  <3258129.44csPzL39Z@pip>
  <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
+ <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="uf2csf3kpy6difcc"
+        protocol="application/pgp-signature"; boundary="2sdruv6uqeikzedm"
 Content-Disposition: inline
-In-Reply-To: <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
+In-Reply-To: <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -76,96 +78,63 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---uf2csf3kpy6difcc
-Content-Type: text/plain; charset=utf-8
+--2sdruv6uqeikzedm
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Brian,
+Hi Alex,
 
-At 2023-08-13T14:30:34-0600, Brian Inglis wrote:
-> Please see attached awk script and logs showing pages with end of page
-> "hyphens" in text of PDFs from `pdftotext -layout`: "official" PDF has
-> 47, newer PDFs break only at 5 compound word joins or double dashes.
-
-If hyphenation is occurring at the ends of pages but otherwise normally,
-then that is a symptom of the *roff automatic hyphenation mode being set
-wrong.  The most likely suspect is an argument-free `.hy` invocation
-somewhere in the page sources.
-
-This is why I have nattered on about not messing with the hyphenation
-mode in man page sources in recent mails (and commit messages) to this
-list.[1]
-
-In groff 1.23.0, we smuggled some of the explanation of *roff
-hyphenation out of our Texinfo manual into the groff(7) page.  I'm
-trimming a few sentences man page authors don't need.
-
-Hyphenation
-     When filling, groff hyphenates words as needed at user=E2=80=90specifi=
-ed
-     and automatically determined hyphenation points.  Explicitly
-     hyphenated words such as =E2=80=9Cmother=E2=80=90in=E2=80=90law=E2=80=
-=9D are always eligible for
-     breaking after each of their hyphens.  The hyphenation character \%
-     and non=E2=80=90printing break point \: escape sequences may be used to
-     control the hyphenation and breaking of individual words.  [...]
-     Otherwise, groff determines hyphenation points automatically by
-     default.
-
-     Several requests influence automatic hyphenation.  Because
-     conventions vary, a variety of hyphenation modes is available to
-     the .hy request; these determine whether hyphenation will apply to
-     a word prior to breaking a line at the end of a page (more or less;
-     see below for details), and at which positions within that word
-     automatically determined hyphenation points are permissible.  The
-     default is =E2=80=9C1=E2=80=9D for historical reasons, but this is not=
- an
-     appropriate value for the English hyphenation patterns used by
-     groff; localization macro files loaded by troffrc and macro
-     packages often override it.
-
-     0    disables hyphenation.
-
-     1    enables hyphenation except after the first and before the last
-          character of a word.
-
-     The remaining values =E2=80=9Cimply=E2=80=9D 1; that is, they enable h=
-yphenation
-     under the same conditions as =E2=80=9C.hy 1=E2=80=9D, and then apply o=
-r lift
-     restrictions relative to that basis.
-
-     2    disables hyphenation of the last word on a page.  (Hyphenation
-          is prevented if the next page location trap is closer to the
-          vertical drawing position than the next text baseline would
-          be.  See section =E2=80=9CTraps=E2=80=9D below.)
+At 2023-08-13T22:47:34+0200, Alejandro Colomar wrote:
+> > Aha - Alex says .set:
 [...]
+> > 	https://lists.gnu.org/archive/html/groff/2023-04/msg00213.html
+>=20
+> We might as well make it official in suffixes(7).
+>=20
+> 	.set	troff(1) typeset output
+
+I don't think this convention is very widely used.  troff(1) output is
+so seldom dealt with by users that it is little wonder to me that no
+convention has arisen here.
+
+As noted earlier somewhere, I prefer ".trout" for AT&T-compatible
+troff(1) output, and ".grout" for GNU troff(1) output. Strictly, the
+latter suffix would only be necessary if the syntax extension for
+multi-line device control commands is used, and I don't know for sure
+that late-vintage DWB troff or Research Unix troff didn't support it.
+Things got very murky with AT&T troff after the company decided it to
+try using it as a cash cow.
+
+> Which made me realize .roff is not documented.  Branden, as the
+> maintainer of groff(1), would you mind checking that page and adding
+> all the groff(1)-related suffixes you find (or actually, that you
+> don't find)?
+
+Sure, but I've got other things on the burner right now and might need a
+reminder.
 
 Regards,
 Branden
 
-[1] https://lore.kernel.org/linux-man/20230730200321.ocribgmh2fmk2gto@illit=
-hid/
-
---uf2csf3kpy6difcc
+--2sdruv6uqeikzedm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTZT10ACgkQ0Z6cfXEm
-bc5GNw/+Kku+cmS3d+UaGIC+Liui4fFHfkY8rCAwPGRhPzxzrINkk+RAvZovwQNA
-gF3zc861adKihgQExjIAjdPrUES4V60+x6I6wvwyZFBBX0hvcMWE9WOzCAzHZvrc
-c10o4cXWH7nAwS6Ufwp2ucGQ+rwEyGEp/BkkP505B8D5veYL6e9Edxr++wvocPok
-gT6qt2lcExdB03popveUXpT3z+e4li4Mq0snYR1VYHjmQURPe/EC7yGroRE5Zq3C
-u2/trp+hnFMI9/AbBfKeCbVzfN5jbvUYVruruUhrzgrNtN/iqdpf3iVkKfEhOe6d
-3nTBsD2pmhotTMzlum7NhbIrruUB80n6IR6KzaUagkNz6wY1SAnAzvOF3i2v88Vo
-HMkYkS1DoR7UXDBBxZamX1V3NnvXW+5gDb/mCIVkTrWoP9KUl99VuMmSSJ4LigBd
-twpF+cTYkNsblaGGfycNTEn1wBBT1/f8JzgjbRCuyX67pVltC6IfX/gKb/OmgPQr
-1mz/j/QDYRGHg5q4ypJr9JduMn8pev3k7C1Jeyst97vTdwIedgJzb6fc4lA++jCj
-wpxDS89alMGTEZbjYkCY3PGoVlLHDtfVIc5WA0B2uVBSXD6Tg8PKfTWSeSHoHz4A
-P2Ktbxd27ZEPanplW9Fk4FeI+eCFFHT0FfnC8ecfFDrmO+zr+8g=
-=/0CY
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTZUWAACgkQ0Z6cfXEm
+bc60PQ/+KU3a8Un7Dxc80VVnPM/PDNcx4f7Qr5/Gvcupek+tbaUh6b0Zh+M6DQmP
+gDoXu750p0j802om15P7HFMFbI+uv5i13k5PGyu5/CvJ9qUdQaIjuNHw4k9vwtt6
+L9yNGhkif845PtGvHjYGgr2LLIXPGxvRkSHEDWUDH2WyF+DpiMlHQolH2wWHsQix
+c/ycefxWNnInfdY8Do0vaAHbopUlnGajia9A30tJHS8mXXkI7BFTr05amhi57ar2
+ctfi7QG9c2BcD8XoUjVW82R2rbZ182+uxMMO7Vp3xABK6N4WN1apY2Y/k4XFOAhS
+CMbfOiZ+ZUeQDkY2bz9DJ0vU4Au3N9pH/EA9Rba8ZQIQhspiUEJxSWjX918qnt4C
+m/yhDtdt0FKztCvoeBhIJMJqZ3iRVCjH2ZXhiDEwv1aOn26geLleIgE3Huev74QP
+RSnMIq8K9rcmkebDDt3NRjx0puydV1U41JuW0xsxrWL6qER/gXzB+jM6dC2HFOMx
+pE1SBMpEo47DiqsL3w5qcPNPe2SPbYi/l48CAmAM2pyzIXrlUVsdF4pXkzYVhnbL
+Hor6whs0rgocKKOJwuvn3z6mi+sPlv4eAYQVhsv50gEWZN+w18qUev1O3tkcTW07
+Uv5vJiDfWj+djdiZYPpWGxZucvievvTl/39OAvbwFG9uNV918x4=
+=ZATQ
 -----END PGP SIGNATURE-----
 
---uf2csf3kpy6difcc--
+--2sdruv6uqeikzedm--
