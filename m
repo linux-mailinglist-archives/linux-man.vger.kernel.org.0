@@ -2,66 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A3B377AB0A
-	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 22:06:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DCF3177AB21
+	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 22:20:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229745AbjHMUGv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 16:06:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56298 "EHLO
+        id S231357AbjHMUUB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 16:20:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43202 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229627AbjHMUGv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 16:06:51 -0400
+        with ESMTP id S231309AbjHMUUB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 16:20:01 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A57E10F6
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 13:06:53 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0269010F9
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 13:20:03 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id A333960C91
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 20:06:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A58C433C7;
-        Sun, 13 Aug 2023 20:06:50 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 8CAD56273C
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 20:20:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B09C433C7;
+        Sun, 13 Aug 2023 20:20:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691957212;
-        bh=xWpIOpKC4F1I6CbSvBERWWP6LEDoyYafqaKh5J4mAVk=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=T3axwXBNY3hw0+Oxue+VwcLQYR5AcFCKCYPxZTT/PujaLeEw9SOwDaQHZn5xE3xOY
-         g2CpMPVUEFvKlfM6eGofaNY7hAePe3E6+Tkm7rc2i+TfLWOr6ruy4ur0v7B6N7R7F8
-         lGXBpWogPaD7fjXUch8PehidLoChEHj4v2XQcN4zhK/Mh8NuUBO/74386nPPJgGVGm
-         SIEbLJ12ymuo16gCfrdQIg3t5pEGL8M140nHOVUz2xGV93ZOHhD6wv90IXSyqLEL/U
-         X29zuDSuUV3QhVAJ8Dt/MRQPRbQ2AVhU0ltat0++P3AfvF/wjJhzuV7BdxJdzOfdv5
-         q5PXQR3sIIsjw==
-Message-ID: <ceaaa68f-99fd-f592-29a8-ec931d73c255@kernel.org>
-Date:   Sun, 13 Aug 2023 22:06:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [patch] strerror.3: Change strerror() reference from MT-Unsafe to
- MT-Safe
-Content-Language: en-US
-To:     Shani Leviim <sleviim@redhat.com>
-Cc:     Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org,
-        automotive-devel@redhat.com, Carlos O'Donell <carlos@redhat.com>,
-        Gobinda Das <godas@redhat.com>
-References: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
- <878rbk1b8v.fsf@oldenburg.str.redhat.com>
- <CAMO6KYr2WEdcSz8RtabxO63ge20y2o8VqYgJOB-0mgbAZNXxdA@mail.gmail.com>
- <CAMO6KYpoh-RzJC0Ac=1YDHreLk1J0ctx1y5kbUPriKd-U36BVg@mail.gmail.com>
- <ce1e0e84-8835-8fc3-b344-c3b1b5b7cfdd@kernel.org>
- <CAMO6KYqROAQ5fFMcAESJGvBZ-kiC_VDCegZPJaRAF=Nao_1dJg@mail.gmail.com>
- <92db3ed7-b3ed-6508-ff3f-aa0abef764ed@kernel.org>
- <CAMO6KYo7+y1a4WY5R2pQ+y4Y2k+wCbGLYwU7cih_mDHOT=HFnw@mail.gmail.com>
- <8068e7b6-5cdf-4f0e-6344-0dd6263625f4@kernel.org>
- <CAMO6KYpYO2-jwoiCCJO7we52eDFXMh8OTGn_jf4x1hjCxkjokA@mail.gmail.com>
+        s=k20201202; t=1691958002;
+        bh=nR3CwWcWWqEl3rnGJ9wqfXylGghnEdHXRiynADAd3pw=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=InaFzLxQtAkTlsWoIAIX1DIfWb9kIDIQMXOs4KDYIdhzlmvIIl6OEiMSRH4R1k/Wx
+         3f+FLoj13OMdIH5pPC2zbRko+PPCNXCHYK3svSFzgKxtM2VV/AvTgGXdnR8Ntt6uml
+         8EaulS31bmI4BrJs8rKRveyymmyLPYIjtSAo/jqOaJjhCHMms+Qku2QCHs0NxXhrbW
+         rJvLSWI8eXguNgC2BFP3hAFAgBy54n/vc+g6wpVo3q3cpBdEE9OMMc2I6GUZRt/pat
+         i8ViQSvrbh8fY4v6Yl3XBCmskJUtg+j1ZwUvPkTnVEuCeq2Fots1ZiS3/J5s1o8Fzz
+         EfC8DhKOu4aLg==
 From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <CAMO6KYpYO2-jwoiCCJO7we52eDFXMh8OTGn_jf4x1hjCxkjokA@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------tjyvOUH55VJfP49btqckgfw9"
-X-Spam-Status: No, score=-6.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Shani Leviim <sleviim@redhat.com>
+Subject: [PATCH v2] strerror.3: Change strerror() reference from MT-Unsafe to MT-Safe
+Date:   Sun, 13 Aug 2023 22:19:24 +0200
+Message-Id: <20230813201923.55796-1-alx@kernel.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
+References: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -70,77 +54,106 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------tjyvOUH55VJfP49btqckgfw9
-Content-Type: multipart/mixed; boundary="------------JaEemFSq90lKGCZX2rNCJLKC";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: Shani Leviim <sleviim@redhat.com>
-Cc: Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org,
- automotive-devel@redhat.com, Carlos O'Donell <carlos@redhat.com>,
- Gobinda Das <godas@redhat.com>
-Message-ID: <ceaaa68f-99fd-f592-29a8-ec931d73c255@kernel.org>
-Subject: Re: [patch] strerror.3: Change strerror() reference from MT-Unsafe to
- MT-Safe
-References: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
- <878rbk1b8v.fsf@oldenburg.str.redhat.com>
- <CAMO6KYr2WEdcSz8RtabxO63ge20y2o8VqYgJOB-0mgbAZNXxdA@mail.gmail.com>
- <CAMO6KYpoh-RzJC0Ac=1YDHreLk1J0ctx1y5kbUPriKd-U36BVg@mail.gmail.com>
- <ce1e0e84-8835-8fc3-b344-c3b1b5b7cfdd@kernel.org>
- <CAMO6KYqROAQ5fFMcAESJGvBZ-kiC_VDCegZPJaRAF=Nao_1dJg@mail.gmail.com>
- <92db3ed7-b3ed-6508-ff3f-aa0abef764ed@kernel.org>
- <CAMO6KYo7+y1a4WY5R2pQ+y4Y2k+wCbGLYwU7cih_mDHOT=HFnw@mail.gmail.com>
- <8068e7b6-5cdf-4f0e-6344-0dd6263625f4@kernel.org>
- <CAMO6KYpYO2-jwoiCCJO7we52eDFXMh8OTGn_jf4x1hjCxkjokA@mail.gmail.com>
-In-Reply-To: <CAMO6KYpYO2-jwoiCCJO7we52eDFXMh8OTGn_jf4x1hjCxkjokA@mail.gmail.com>
+From: Shani Leviim <sleviim@redhat.com>
 
---------------JaEemFSq90lKGCZX2rNCJLKC
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+The information in this patch was obtained from a glibc upstream patch,
+commit ID 28aff047818eb1726394296d27b9c7885340bead
 
-On 2023-08-13 18:58, Shani Leviim wrote:
-> That's very strange
-> Working on master, my HEAD commit is commit
-> 60eb580d1e836977d57355b6519f32e37bdc3392.
-> I might be missing something.
+According the patch above, for glibc versions >=2.32,
+strerror() is considered MT-Safe, and the man page should be changed accordingly.
 
-Indeed.  That commit is somewhere between man-pages-6.02 and man-pages-6.=
-03,
-around 600 commits and 8 months ago.  A lot of things have changed since
-then.  I released a few days ago man-pages-6.05.01.  :)
+Signed-off-by: Shani Leviim <sleviim@redhat.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-Don't worry, I'll apply the patch there and rebase it to git HEAD.
+Hi Shani,
+
+This is your patch rebased to the current git HEAD.
 
 Cheers,
 Alex
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+ man3/strerror.3 | 31 +++++++++++++++----------------
+ 1 file changed, 15 insertions(+), 16 deletions(-)
 
+diff --git a/man3/strerror.3 b/man3/strerror.3
+index 8b36d6487..73199ef85 100644
+--- a/man3/strerror.3
++++ b/man3/strerror.3
+@@ -72,11 +72,12 @@ .SH DESCRIPTION
+ is
+ .BR EINVAL ,
+ the returned description will be "Invalid argument".)
+-This string must not be modified by the application, but may be
+-modified by a subsequent call to
++This string must not be modified by the application,
++and the returned pointer will be invalidated on a subsequent call to
+ .BR strerror ()
+ or
+-.BR strerror_l ().
++.BR strerror_l (),
++or if the thread that obtained the string exits.
+ No other library function, including
+ .BR perror (3),
+ will modify this string.
+@@ -101,12 +102,12 @@ .SH DESCRIPTION
+ as an argument, this function returns a pointer to the string "EPERM".
+ .\"
+ .SS strerror_r()
+-The
+ .BR strerror_r ()
+-function is similar to
++is like
+ .BR strerror (),
+-but is
+-thread safe.
++but might use the supplied buffer
++.I buf
++instead of allocating one internally.
+ This function is available in two versions:
+ an XSI-compliant version specified in POSIX.1-2001
+ (available since glibc 2.3.4, but not POSIX-compliant until glibc 2.13),
+@@ -231,7 +232,7 @@ .SH ATTRIBUTES
+ T}	Thread safety	T{
+ .na
+ .nh
+-MT-Unsafe race:strerror
++MT-Safe
+ T}
+ T{
+ .na
+@@ -246,6 +247,10 @@ .SH ATTRIBUTES
+ .BR strerror_l ()
+ T}	Thread safety	MT-Safe
+ .TE
++.PP
++Before glibc 2.32,
++.BR strerror ()
++is not MT-Safe.
+ .SH STANDARDS
+ .TP
+ .BR strerror ()
+@@ -301,13 +306,6 @@ .SH HISTORY
+ .BR strerrordesc_np ()
+ glibc 2.32.
+ .SH NOTES
+-The GNU C Library uses a buffer of 1024 characters for
+-.BR strerror ().
+-This buffer size therefore should be sufficient to avoid an
+-.B ERANGE
+-error when calling
+-.BR strerror_r ().
+-.PP
+ .BR strerrorname_np ()
+ and
+ .BR strerrordesc_np ()
+@@ -318,4 +316,5 @@ .SH SEE ALSO
+ .BR error (3),
+ .BR perror (3),
+ .BR strsignal (3),
+-.BR locale (7)
++.BR locale (7),
++.BR signal-safety (7)
+-- 
+2.40.1
 
---------------JaEemFSq90lKGCZX2rNCJLKC--
-
---------------tjyvOUH55VJfP49btqckgfw9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTZN9gACgkQnowa+77/
-2zL7IBAApBE7WSYEy0NPXtVDAoKlk4PugFU5+1wadk0YfpQDrMXpMR702JOIR8NS
-Mob+bqkwGuiBFIn7dMgsewNx32bWLnOU8DFIMHHjg+GPuN4583RQOHeTGvBRPXRk
-kR3f1dzWwMr7Boye7Qe17df88ies9csBvMwOGDdlrxa+ZYphk+nr2FFt2Bg+r9vi
-hqoB+iLogrSAtjnoNvdreaRMssLrlDk5YSCa5EOqxvbbpgjXlwC7Xut3ZDxHSvPu
-YR6CfQszJQAcnFkEufaeL38CYUpJM72DtoRB0FK9+ElEf2vTOqib1qA7UXe58ORP
-uS50zRVoVjDyyT7l32X74bYHM7gmSIwV3Gl7LN0VegM117scEs4raLf14TsOXYDj
-178rym3TC5k9TPeNFQjXpZszp0JDyWVCKtWHDqt7r/Nr5jC9KueVT3WLTXgh7Vnv
-1CFbZt1+fPcaF58UCu4/DWy7446GWwrj9Hj+idg9rEXQUnGlrxh1IJQUYoCROafB
-DDIFk8ssyP/yByQVwchfOXbNFU9iK8avdEMpyNWhZCLPhDiojwq7id5rFPgFjjdp
-PMvRLTcdazOy86jj2/a+9BTu7JOwIM8PvJ+yaMh8sxFdiXDya8HrrS7rLcpT6Mhn
-p4u0fOEAIFClbfiDkpCuITRgx5nLbYf64UPTv0tRWNBYCNkBggU=
-=Zsfs
------END PGP SIGNATURE-----
-
---------------tjyvOUH55VJfP49btqckgfw9--
