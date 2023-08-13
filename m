@@ -2,43 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DCF3177AB21
-	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 22:20:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ECF4277AB27
+	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 22:21:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231357AbjHMUUB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 16:20:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43202 "EHLO
+        id S231491AbjHMUVx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 16:21:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51294 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231309AbjHMUUB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 16:20:01 -0400
+        with ESMTP id S229745AbjHMUVx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 16:21:53 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0269010F9
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 13:20:03 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B063010F9
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 13:21:55 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 8CAD56273C
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 20:20:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B09C433C7;
-        Sun, 13 Aug 2023 20:20:00 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 4510F61280
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 20:21:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6236C433C8;
+        Sun, 13 Aug 2023 20:21:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691958002;
-        bh=nR3CwWcWWqEl3rnGJ9wqfXylGghnEdHXRiynADAd3pw=;
+        s=k20201202; t=1691958114;
+        bh=YyPd7a/FQhkxY73+WZT1INAwTTJmCf9SK2KJlrsvWRY=;
         h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=InaFzLxQtAkTlsWoIAIX1DIfWb9kIDIQMXOs4KDYIdhzlmvIIl6OEiMSRH4R1k/Wx
-         3f+FLoj13OMdIH5pPC2zbRko+PPCNXCHYK3svSFzgKxtM2VV/AvTgGXdnR8Ntt6uml
-         8EaulS31bmI4BrJs8rKRveyymmyLPYIjtSAo/jqOaJjhCHMms+Qku2QCHs0NxXhrbW
-         rJvLSWI8eXguNgC2BFP3hAFAgBy54n/vc+g6wpVo3q3cpBdEE9OMMc2I6GUZRt/pat
-         i8ViQSvrbh8fY4v6Yl3XBCmskJUtg+j1ZwUvPkTnVEuCeq2Fots1ZiS3/J5s1o8Fzz
-         EfC8DhKOu4aLg==
+        b=bSTIyCSLFeX0zYErdFtE9pL8I6cUkVjUi0h3NJhZk05i6x1LF3sgnfsSGkI8bu4jy
+         4472hDJiBkPe6tbUEV1LuPBIWvKk2KthdiCCyydlfW9o7iyxeqXcnZ5017WMMpU/qw
+         yfRu1B/XY4/oL9L/dYjcZf01CWbUAstz2TpMhOn0JJx2xMeghEvvyUOThNVeYjbE2O
+         BaWfz+h6Ey2O1Vg55QBDo76IL1xjbV4W1j+AUu3pt0NBUZ33fB6HyPxi95oy4geM41
+         dOpEih2Kg7+kWre/1QNqUt1nyIkYWDOFQRVs78NY4xWzs4SqIFa5y3n4+w0FY5zNJW
+         xf2cOcP1S48iQ==
 From:   Alejandro Colomar <alx@kernel.org>
 To:     linux-man@vger.kernel.org
 Cc:     Alejandro Colomar <alx@kernel.org>,
-        Shani Leviim <sleviim@redhat.com>
-Subject: [PATCH v2] strerror.3: Change strerror() reference from MT-Unsafe to MT-Safe
-Date:   Sun, 13 Aug 2023 22:19:24 +0200
-Message-Id: <20230813201923.55796-1-alx@kernel.org>
+        Shani Leviim <sleviim@redhat.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Carlos O'Donell <carlos@redhat.com>,
+        Sergei Gromeniuk <sgromeni@redhat.com>,
+        Gobinda Das <godas@redhat.com>
+Subject: [PATCH v3] strerror.3: Change strerror() reference from MT-Unsafe to MT-Safe
+Date:   Sun, 13 Aug 2023 22:21:33 +0200
+Message-Id: <20230813202132.55879-1-alx@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
 References: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
@@ -63,15 +67,14 @@ According the patch above, for glibc versions >=2.32,
 strerror() is considered MT-Safe, and the man page should be changed accordingly.
 
 Signed-off-by: Shani Leviim <sleviim@redhat.com>
+Cc: Florian Weimer <fweimer@redhat.com>
+Cc: Carlos O'Donell <carlos@redhat.com>
+Cc: Sergei Gromeniuk <sgromeni@redhat.com>
+Cc: Gobinda Das <godas@redhat.com>
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
 
-Hi Shani,
-
-This is your patch rebased to the current git HEAD.
-
-Cheers,
-Alex
+v3: Added the CCs from the original thread.
 
  man3/strerror.3 | 31 +++++++++++++++----------------
  1 file changed, 15 insertions(+), 16 deletions(-)
