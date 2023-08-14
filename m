@@ -2,61 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BE87777B701
-	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 12:46:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CFC2A77B706
+	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 12:47:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229999AbjHNKp3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Aug 2023 06:45:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57702 "EHLO
+        id S231309AbjHNKqd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Aug 2023 06:46:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60688 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230053AbjHNKpD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Aug 2023 06:45:03 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CDB4D2
-        for <linux-man@vger.kernel.org>; Mon, 14 Aug 2023 03:45:02 -0700 (PDT)
+        with ESMTP id S233584AbjHNKqb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Aug 2023 06:46:31 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 74EA9D2
+        for <linux-man@vger.kernel.org>; Mon, 14 Aug 2023 03:46:30 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 223F064E6C
-        for <linux-man@vger.kernel.org>; Mon, 14 Aug 2023 10:45:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA1CC433C7;
-        Mon, 14 Aug 2023 10:45:00 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 12BAB6124C
+        for <linux-man@vger.kernel.org>; Mon, 14 Aug 2023 10:46:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3ADC433C8;
+        Mon, 14 Aug 2023 10:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1692009901;
-        bh=1ZjHYOhDl0RkiAaJLSA9fzCK8t9W08ypCr3fZHMQ/rw=;
+        s=k20201202; t=1692009989;
+        bh=uMxTCxeyXyVINTgF2ddszQo6YnhA8oeNzEv7EaOrNTk=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=e93ZE2HCnr7aQLK5BIKaqrwItOHzJ/y41ie6D1o33Yo+tUdi5+HpcaCBnoVzecX+Q
-         //8z+jpg5EdoZuDi3dPyFFujy0f79Q31mvoozUSVhx0LP/zapjnK8b5Xv3xkBQb77R
-         29nFJ3AreMWU9nnPz9dxEJOnOO8EObhp0gbbjmpfs39X7haeQ8HIIY9hHp/WkMKQbw
-         qyO1+UDPbkgwtEk4GvaH1i8xoVnEO9WDthC1b6K6arkmVwAcPcXp8M0XpFp69My8DU
-         JCAtO9tuMnNWLbOoc0AWjPkK7d3tWzn++7vPFEAyioTtikDyDLFKipwlaN/fplEFkV
-         q0+T1XZlFDB0A==
-Message-ID: <d7e83145-6084-969a-a6ab-91a25473a293@kernel.org>
-Date:   Mon, 14 Aug 2023 12:44:58 +0200
+        b=fogYj+9nYDCUFn6EFscpHY+tZaoZsqtEuBKQRaLTM1vLEVZi0CYC76H9kh91qi44J
+         PFy8Mwnaxle6sbPXkXgLfTTEREF9fS2HdKgkY7FWqlYJ0B9a6SnzbfVRd0hoH5fKd6
+         lNyLmPk56OBRyB+qRwKFOzI3yS2gjxL1sV0xqOYi6WZohTrrzUSqwupYgN67rsrfg7
+         rLvD+V4OTdnnWCcMiH/plS0kpSOyJszSgqg+Vd3TwyZWUXnh3BoX2YGIc/EjJjnQzL
+         pRdZ4AigCmbFe7P27FCMdTXSa/WP/29Htxqppo03o4eqR00Pm9IdbMjaUqIC8QtDDQ
+         Tuw/hkbOUdBdQ==
+Message-ID: <d50e5b60-abd7-52fd-f54b-6a4ffaf5e763@kernel.org>
+Date:   Mon, 14 Aug 2023 12:46:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: Re: [PATCH v3] strerror.3: Change strerror() reference from MT-Unsafe
- to MT-Safe
+Subject: Re: No 6.05/.01 pdf book available
 Content-Language: en-US
-To:     linux-man@vger.kernel.org
-Cc:     Shani Leviim <sleviim@redhat.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Carlos O'Donell <carlos@redhat.com>,
-        Sergei Gromeniuk <sgromeni@redhat.com>,
-        Gobinda Das <godas@redhat.com>
-References: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
- <20230813202132.55879-1-alx@kernel.org>
+To:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org
+Cc:     Deri <deri@chuzzlewit.myzen.co.uk>,
+        Ralph Corderoy <ralph@inputplus.co.uk>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <21975186.EfDdHjke4D@pip> <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
+ <3258129.44csPzL39Z@pip> <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
+ <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
+ <cd7f3f96-4571-22ac-c42a-6877f82b976e@kernel.org>
+ <44a758c5-5f8d-ba1b-2ed2-31aff6aedfa8@Shaw.ca>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <20230813202132.55879-1-alx@kernel.org>
+In-Reply-To: <44a758c5-5f8d-ba1b-2ed2-31aff6aedfa8@Shaw.ca>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------a0J6lgikEj9lZ6bRxtCoMi2g"
-X-Spam-Status: No, score=-6.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+ boundary="------------Vq47mf9ENEuwlroJKysjfNa3"
+X-Spam-Status: No, score=-9.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -65,163 +66,87 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------a0J6lgikEj9lZ6bRxtCoMi2g
-Content-Type: multipart/mixed; boundary="------------Ai3a1UJFsS9gizlLped7xsSF";
+--------------Vq47mf9ENEuwlroJKysjfNa3
+Content-Type: multipart/mixed; boundary="------------salO0tFIiDKVTKCIyDTV1bQf";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Shani Leviim <sleviim@redhat.com>, Florian Weimer <fweimer@redhat.com>,
- Carlos O'Donell <carlos@redhat.com>, Sergei Gromeniuk <sgromeni@redhat.com>,
- Gobinda Das <godas@redhat.com>
-Message-ID: <d7e83145-6084-969a-a6ab-91a25473a293@kernel.org>
-Subject: Re: [PATCH v3] strerror.3: Change strerror() reference from MT-Unsafe
- to MT-Safe
-References: <CAMO6KYomqkRFVnE1gfNa=htbZ5oBrVAm+AsFVqc6+vqZ0YxnAw@mail.gmail.com>
- <20230813202132.55879-1-alx@kernel.org>
-In-Reply-To: <20230813202132.55879-1-alx@kernel.org>
+To: Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org
+Cc: Deri <deri@chuzzlewit.myzen.co.uk>, Ralph Corderoy
+ <ralph@inputplus.co.uk>, "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <d50e5b60-abd7-52fd-f54b-6a4ffaf5e763@kernel.org>
+Subject: Re: No 6.05/.01 pdf book available
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <21975186.EfDdHjke4D@pip> <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
+ <3258129.44csPzL39Z@pip> <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
+ <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
+ <cd7f3f96-4571-22ac-c42a-6877f82b976e@kernel.org>
+ <44a758c5-5f8d-ba1b-2ed2-31aff6aedfa8@Shaw.ca>
+In-Reply-To: <44a758c5-5f8d-ba1b-2ed2-31aff6aedfa8@Shaw.ca>
 
---------------Ai3a1UJFsS9gizlLped7xsSF
+--------------salO0tFIiDKVTKCIyDTV1bQf
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 2023-08-13 22:21, Alejandro Colomar wrote:
-> From: Shani Leviim <sleviim@redhat.com>
+On 2023-08-14 08:49, Brian Inglis wrote:
+>> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?i=
+d=3Daab14503ef101d918046aeaa941f226685fe7bf5>
+>>
+>> #!/bin/sh
+>>
+>> # Copyright 2023, Alejandro Colomar <alx@kernel.org>
+>> # SPDX-License-Identifier: GPL-3.0-or-later
+>>
+>> sed   -E '/\/intro./  s/.*\.([[:digit:]])/\10\t&/' \
+>> | sed -E '/\/intro./! s/.*\.([[:digit:]])\>/\11\t&/' \
+>> | sed -E '/\/intro./! s/.*\.([[:digit:]])([[:alnum:]]+)/\12.\2\t&/' \
+>> | sed -E '            s/\t(.*)/&\n\1/' \
+>> | sed -E '/\t/        s/([^[:digit:]])[_-]([^[:digit:]])/\1\2/g' \
+>> | sed -E '/\t/        s/[_-]/_/g' \
+>> | sed -E '/\t/        {N;s/\n/\t/;}' \
+>> | sort -fV \
+>> | cut -f3;
 >=20
-> The information in this patch was obtained from a glibc upstream patch,=
+> Perl RPM::VersionSort rpmvercmp produces the desired order, ignoring le=
+ading=20
+> non-alphanumerics, treating all non-alphanumerics as field delimiters, =
+treating=20
+> alphabetic and numeric strings as separate fields; see attached log.
 
-> commit ID 28aff047818eb1726394296d27b9c7885340bead
->=20
-> According the patch above, for glibc versions >=3D2.32,
-> strerror() is considered MT-Safe, and the man page should be changed ac=
-cordingly.
->=20
-> Signed-off-by: Shani Leviim <sleviim@redhat.com>
-> Cc: Florian Weimer <fweimer@redhat.com>
-> Cc: Carlos O'Donell <carlos@redhat.com>
-> Cc: Sergei Gromeniuk <sgromeni@redhat.com>
-> Cc: Gobinda Das <godas@redhat.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
-
-Patch applied.
+Nice, it seems they implement a differen version sorting than GNU coreuti=
+ls' sort(1).
 
 Cheers,
 Alex
 
 >=20
-> v3: Added the CCs from the original thread.
->=20
->  man3/strerror.3 | 31 +++++++++++++++----------------
->  1 file changed, 15 insertions(+), 16 deletions(-)
->=20
-> diff --git a/man3/strerror.3 b/man3/strerror.3
-> index 8b36d6487..73199ef85 100644
-> --- a/man3/strerror.3
-> +++ b/man3/strerror.3
-> @@ -72,11 +72,12 @@ .SH DESCRIPTION
->  is
->  .BR EINVAL ,
->  the returned description will be "Invalid argument".)
-> -This string must not be modified by the application, but may be
-> -modified by a subsequent call to
-> +This string must not be modified by the application,
-> +and the returned pointer will be invalidated on a subsequent call to
->  .BR strerror ()
->  or
-> -.BR strerror_l ().
-> +.BR strerror_l (),
-> +or if the thread that obtained the string exits.
->  No other library function, including
->  .BR perror (3),
->  will modify this string.
-> @@ -101,12 +102,12 @@ .SH DESCRIPTION
->  as an argument, this function returns a pointer to the string "EPERM".=
-
->  .\"
->  .SS strerror_r()
-> -The
->  .BR strerror_r ()
-> -function is similar to
-> +is like
->  .BR strerror (),
-> -but is
-> -thread safe.
-> +but might use the supplied buffer
-> +.I buf
-> +instead of allocating one internally.
->  This function is available in two versions:
->  an XSI-compliant version specified in POSIX.1-2001
->  (available since glibc 2.3.4, but not POSIX-compliant until glibc 2.13=
-),
-> @@ -231,7 +232,7 @@ .SH ATTRIBUTES
->  T}	Thread safety	T{
->  .na
->  .nh
-> -MT-Unsafe race:strerror
-> +MT-Safe
->  T}
->  T{
->  .na
-> @@ -246,6 +247,10 @@ .SH ATTRIBUTES
->  .BR strerror_l ()
->  T}	Thread safety	MT-Safe
->  .TE
-> +.PP
-> +Before glibc 2.32,
-> +.BR strerror ()
-> +is not MT-Safe.
->  .SH STANDARDS
->  .TP
->  .BR strerror ()
-> @@ -301,13 +306,6 @@ .SH HISTORY
->  .BR strerrordesc_np ()
->  glibc 2.32.
->  .SH NOTES
-> -The GNU C Library uses a buffer of 1024 characters for
-> -.BR strerror ().
-> -This buffer size therefore should be sufficient to avoid an
-> -.B ERANGE
-> -error when calling
-> -.BR strerror_r ().
-> -.PP
->  .BR strerrorname_np ()
->  and
->  .BR strerrordesc_np ()
-> @@ -318,4 +316,5 @@ .SH SEE ALSO
->  .BR error (3),
->  .BR perror (3),
->  .BR strsignal (3),
-> -.BR locale (7)
-> +.BR locale (7),
-> +.BR signal-safety (7)
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------Ai3a1UJFsS9gizlLped7xsSF--
+--------------salO0tFIiDKVTKCIyDTV1bQf--
 
---------------a0J6lgikEj9lZ6bRxtCoMi2g
+--------------Vq47mf9ENEuwlroJKysjfNa3
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTaBaoACgkQnowa+77/
-2zLlUw/9Erx6FlceFYWcy9fLGfj2X0xU4F9dXMwyemo7sBqodjo5M81i5TnQMASN
-JfxBxDZQe8kYnYfvB5DahyLzpL/98d9777dyv1HYuQzaM9KQzkQuD7Vku6LpqVzW
-kXwkyQ7TbMmNQsq/imOj2fphjUZ6HeqUKeCfO/Yf4DGg9L++pCq3FaQw84y4MgNy
-wsGzgUK56l9l12wvuyZkq8q5ptxQFZ29Q1qcEx6Ui1cqvnA0P2sBGC+eXcSouK41
-auRt2ji+sO5iVcK1+GDnnau+Y1Ym3pIua5fER0UjXnN7uJiohXYlYNpei9OjWRT+
-RRgJqCCcHCoQVqMPTlro7agZ5zugEuai+cHqqwL7dte5UvbEUEHqLv5Vog8a4k4n
-X6XkvPLTcUj1nOuyM/O2WPgtTMrX76EMaG+MHjhfG+8b3MWr1msFNoEkM9O3W6Ak
-xgasRrjo2oh8agOkWC5bM42uZuk9FXsA3sShgvSBHkc5PRouYTG9xcENLY4h5ZZX
-TbO8V/eQ3hg/br0269S+l46ec0785Getrv/YxfrHAzeCaKoUa/ZWbn2N2oC1pUjI
-VbvBL5OuO3ZEKZH15gMnyak1vHYD4L8zb0ZVsftzNV98Z/sPaSgCCEL/57IAH1Jj
-PovRy3y4tOWndIkjrkxqUEIwOSfA1YM3SggOsHJqZvUhI7xuGOU=
-=vu4F
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTaBgIACgkQnowa+77/
+2zIrBw//fOXHRm/2uXEzZv6xAYBEKa3nMcwgDWujpaF22hpmLkwlRBxJYTjrl9wW
+B/aKCGj8AXmTiPwzJtsWWJVL4icyWTXN+00ch9SapgvcZxzPatERP0fqAxnmvPTX
+WfYpWFP9cripV1Lf+wnKKyoj19NowSEsiQ+SWfQQwmuJeKOX5RgA/6xtJ5UfM0QX
+sZbOjNEQMgcPh26aqQU6fYuzOpr1H0CzmK5XKHo8+LP4nCAjofDpZKGDxyex7F/T
+P+TMhQurNeVWT2qF+j9QfmpA9DcVcu71xybyG1LtbizGHLKoHqsvFrgy5QjwIp8N
+XQKRkf5EFrSlX6woIFdHWd7yVdhGS6MghGZQDMocvZXQGm4+FyzLMmoVQYwcjvuG
+pDYwwMZsMK9Rti/FAjIJvt0MCZyLzgV5XQ9qG2/Z9Ngeqgd2jRhRBU21i5VC34fL
+cGV0xURhfPZSVKd9QXZtXuuGoGjJQqCSU5+v3mLe4BGwM3a3PUQDDagV1zw3x6jU
+LZMwpm9kK19CxEF/MiUb1ehulWFm97+k2PUaiD2FxixQV38h7k45TGTfKlfGbyBW
+gpGQU3uTxyV3PzfiHvEYZ/U2eswfr0wL9PuzqQ4jmdRuD3MqUKzAJi+jTMW+HEKt
+KyBVPKuFoef9BNIG7ai2eRFSbKBbkwhNkaCZQbnCZGFeHMA3MtA=
+=DGw+
 -----END PGP SIGNATURE-----
 
---------------a0J6lgikEj9lZ6bRxtCoMi2g--
+--------------Vq47mf9ENEuwlroJKysjfNa3--
