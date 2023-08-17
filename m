@@ -2,61 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DD89777FFB0
-	for <lists+linux-man@lfdr.de>; Thu, 17 Aug 2023 23:20:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D1CF47801ED
+	for <lists+linux-man@lfdr.de>; Fri, 18 Aug 2023 01:50:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244197AbjHQVTb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Aug 2023 17:19:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37274 "EHLO
+        id S1349138AbjHQXtq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Aug 2023 19:49:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43918 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1355319AbjHQVTM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Aug 2023 17:19:12 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 091ED136
-        for <linux-man@vger.kernel.org>; Thu, 17 Aug 2023 14:19:06 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 903C164CEA
-        for <linux-man@vger.kernel.org>; Thu, 17 Aug 2023 21:19:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482EAC433C8;
-        Thu, 17 Aug 2023 21:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1692307144;
-        bh=RvuYoO7fYOo8F7j1hsUU/R5qrViHwSdVLWNuayduThc=;
-        h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-        b=ZiyuV43B4ww0goT5HSSYqeCZZTCADoux5EcYmqYVDCuk1BLHtCriH7Bu1Ahr+TiV+
-         OxFdRGEkUFMwmAc5IiXmnrYmNi0FPScluSFOjf/1SrXgKrO+pi8WMJLbNdXVXd5und
-         MS4gvEYnSPyhvQrPhzVHTgBg+LNf4VBsbBdLqejmM8/Dezo2kZuB7gsx0aEzmt4Q9h
-         IwqHLo2cX9enaNrIXj4oxhenKUAHRXww+FhHT1XVoaJN4BRQzZuAgCszb84WXYWCnF
-         64YZNqfRfYOfKW2Mz6hgch7q+s8LyGdpx+DaXvyrZdb7rIfNcSQMmoEyIiO3HQ2x+d
-         10DfYiycj9VVg==
-Message-ID: <1190c9f7-48f1-4228-945c-a33d5ca6991e@kernel.org>
-Date:   Thu, 17 Aug 2023 23:19:00 +0200
+        with ESMTP id S1356359AbjHQXta (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Aug 2023 19:49:30 -0400
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com [IPv6:2607:f8b0:4864:20::233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 309263C1F
+        for <linux-man@vger.kernel.org>; Thu, 17 Aug 2023 16:49:07 -0700 (PDT)
+Received: by mail-oi1-x233.google.com with SMTP id 5614622812f47-3a812843f0fso204368b6e.2
+        for <linux-man@vger.kernel.org>; Thu, 17 Aug 2023 16:49:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1692316146; x=1692920946;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JVdzhwLRMU+IjYfRvejwcex0Z/v4TcUCLCfz4tmEGV0=;
+        b=nP5NVHJXBKcMuHHxaQAlcrEXFKHZAHfKEXd5pyr/j1GUrDGKqTdhOh8J1JbZ5zwBT5
+         050zxjXBSKi3H5NOqjC2vovu11paHqdhP4vF4hKdlwB/iteiURGEB4UPCnK6DR55S1Jj
+         GOOGP38DxXP5dWVmQVuIzaxvedsPjxDBjS0b4azAhczaW0KCtOeU1Ko5F7y82asPrASZ
+         QPCyjjcCugFJ2G0nO1UpSBk++R/QTZq6VDsHTIRiiQn68yY4NbwmBSKI2Z0gwRXQeO7j
+         5gjcAEwyUTYOnnd13qieUwSZM8d40SWdy/6zj/w/UFCErkRITShCiSiz9bnDRH5fbSvA
+         aeXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692316146; x=1692920946;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JVdzhwLRMU+IjYfRvejwcex0Z/v4TcUCLCfz4tmEGV0=;
+        b=VipPDAuClhTDwzhOZIcXX47fdH2Q6VPbr+Kx3s1KU7Nyi/gxIPyRN+W4E6zPLL1OHw
+         t6mgXnCF0PIWfgeCS8bJh4WSk4+K9CWU91+iyI9qM9vXlx19AdnyEXcng8dmqbgJiGSx
+         LjpoImG8TmG20eDPrOOIspGW4K+ZyAmWhWHyL+Mv71WP14/H7u06IIcStuZQvSzdMSuy
+         u+mRJ6GUOEtyEoql2CEr0ymvgKKFrgd9BUmZzRNu4RgODPVsEIMa8Py3ke77Zfk0AU7d
+         5ffN/BXc7XeSvGZ1+iS7qhP2DauvmRQgROn42v83U+nskBNptGFo7capOWo2ERJ7iPdE
+         6X+Q==
+X-Gm-Message-State: AOJu0Yxr9z3RREsnPLeFM26FEVENXL8HfclYH8uc82re+p4tVrHPF6e8
+        ZEEydmDxDqixvoEDVobOGtS0Eye/Ufs=
+X-Google-Smtp-Source: AGHT+IGM8skJT/spGJpUmaXTbm/8vkKzqrgWV7hz+ShOz/xONDn0RuUK56iePKXfiQbegYcUzEGGAg==
+X-Received: by 2002:a05:6808:219b:b0:3a7:543d:9102 with SMTP id be27-20020a056808219b00b003a7543d9102mr1279389oib.39.1692316146052;
+        Thu, 17 Aug 2023 16:49:06 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id bh19-20020a056808181300b003a7cccd33e8sm367420oib.5.2023.08.17.16.49.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Aug 2023 16:49:05 -0700 (PDT)
+Date:   Thu, 17 Aug 2023 18:49:03 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Eric Blake <eblake@redhat.com>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Brian Inglis <Brian.Inglis@shaw.ca>,
+        Linux Man-Pages <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] man-pages-posix-2017/man1p/dd.1p: added missing
+ ASCII-EBCDIC tables
+Message-ID: <20230817234903.qffupzohqyjslsyf@illithid>
+References: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
+ <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
+ <20230813222035.a5ybcqbpnzlapraz@illithid>
+ <033cf8fb-5c84-d9eb-a01e-caff597a951b@kernel.org>
+ <eb4161c1-6e57-a9d3-a3c3-fed5db55f004@kernel.org>
+ <34ywwugg3sgxlmyrnovuh2co5qbok2dk32hug4r2drfcu3bp33@g62hj2icprgf>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: proc(5)'s sashimi
-Content-Language: en-US
-From:   Alejandro Colomar <alx@kernel.org>
-To:     linux-man <linux-man@vger.kernel.org>
-Cc:     Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
-        =?UTF-8?Q?G=c3=bcnther_Noack?= <guenther@unix-ag.uni-kl.de>,
-        Brian Inglis <Brian.Inglis@Shaw.ca>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
-        Colin Watson <cjwatson@debian.org>,
-        Ingo Schwarze <schwarze@usta.de>
-References: <72378b09-c74b-2d9d-4732-00acd656d052@kernel.org>
- <e3a5bc09-e835-9819-4aaa-12959495ac59@kernel.org>
-Organization: Linux
-In-Reply-To: <e3a5bc09-e835-9819-4aaa-12959495ac59@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------3uae5ZO18czpiEfQgOAUJJGe"
-X-Spam-Status: No, score=-6.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        protocol="application/pgp-signature"; boundary="cjplyar33ms2ag6k"
+Content-Disposition: inline
+In-Reply-To: <34ywwugg3sgxlmyrnovuh2co5qbok2dk32hug4r2drfcu3bp33@g62hj2icprgf>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -65,138 +78,56 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------3uae5ZO18czpiEfQgOAUJJGe
-Content-Type: multipart/mixed; boundary="------------Xw6vOZLvSUN4SaMQjvnj1ITx";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man <linux-man@vger.kernel.org>
-Cc: Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
- =?UTF-8?Q?G=c3=bcnther_Noack?= <guenther@unix-ag.uni-kl.de>,
- Brian Inglis <Brian.Inglis@Shaw.ca>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
- Colin Watson <cjwatson@debian.org>, Ingo Schwarze <schwarze@usta.de>
-Message-ID: <1190c9f7-48f1-4228-945c-a33d5ca6991e@kernel.org>
-Subject: Re: proc(5)'s sashimi
-References: <72378b09-c74b-2d9d-4732-00acd656d052@kernel.org>
- <e3a5bc09-e835-9819-4aaa-12959495ac59@kernel.org>
-In-Reply-To: <e3a5bc09-e835-9819-4aaa-12959495ac59@kernel.org>
 
---------------Xw6vOZLvSUN4SaMQjvnj1ITx
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+--cjplyar33ms2ag6k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2023-08-15 23:47, Alejandro Colomar wrote:
->=20
-> ---
->=20
-> $ git request-pull master \
->       git://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.=
-git \
->       proc-sashimi-v1;
-> The following changes since commit 26ffcd4fa9a4f89ab60371e9c19fa39cae58=
-634b:
->=20
->   scripts/sortman: Ignore only leading underscores or dashes (2023-08-1=
-4 15:16:59 +0200)
->=20
-> are available in the Git repository at:
->=20
->   git://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git =
-tags/proc-sashimi-v1
->=20
-> for you to fetch changes up to 92cdcec79df039146e5ed42cac23cd4b7e3f9e25=
-:
->=20
->   proc.5: Clean up after making sashimi of this page (2023-08-15 23:27:=
-07 +0200)
->=20
-> ----------------------------------------------------------------
-> proc(5) sashimi; v1
->=20
+At 2023-08-17T10:23:55-0500, Eric Blake wrote:
+> | diff --git a/Base/Text/Functions/getlocalename_l.mm b/Base/Text/Functions/getlocalename_l.mm
+> | index 13af2a5..339bfc5 100644
+> | --- a/Base/Text/Functions/getlocalename_l.mm
+> | +++ b/Base/Text/Functions/getlocalename_l.mm
+> | @@ -12,7 +12,9 @@ const char *getlocalename_l(int \f6category\fP, locale_t \f6locobj\fP);
+> |  .sE
+> |  .yE
+> |  .mH DESCRIPTION
+> | -The
+> | +If
+> | +.Ar category
+> | +is not LC_ALL, the
+> |  .Fn getlocalename_l
+> |  function shall return the locale name for the given locale category of
+> |  the locale object
 
+Thanks for the peek behind the curtain, Eric!
 
-I've merged the changes.
+I infer that the Open Group's use of mm has an extensive layer of
+bespoke macros supplementing it (not really a suprise).  _None_ of the
+macro names we see above appears in Documenter's Workbench troff 3.3 mm
+or GNU troff.
 
+Regards,
+Branden
 
-commit 0569afbbccd6de28d1bacd13471a679ad2674aa1 (HEAD -> main, korg/maste=
-r, alx/main, master)
-Merge: 29597f1e7 92cdcec79
-Author: Alejandro Colomar <alx@kernel.org>
-Date:   Thu Aug 17 22:47:16 2023 +0200
-
-    proc*.5: Make sashimi
-   =20
-    [Merge tag 'proc-sashimi-v1' of <git://www.alejandro-colomar.es/src/a=
-lx/linux/man-pages/man-pages.git>]
-   =20
-    proc(5) was a huge page, which was quite hard to maintain, extend, re=
-ad,
-    and refer to.  Split the page into small pages for the different
-    directories and files within /proc.  Some pages are still too large
-    (e.g., proc_sys(5)), and will some day be split even more.
-   =20
-    This split keeps the contents of the original page, without modifying=
-
-    anything; not even the formatting.
-   =20
-    The only thing that has been modified in this patches, is that
-    directories are consistently represented with a trailing slash.
-   =20
-    For the file name of the pages, we've used the name of the interface
-    (e.g., /proc/pid/), removing the leading and trailing '/'s and then
-    translating the remaining ones as `tr / _` (e.g., proc_pid.5).  The
-    title of the pages (TH) is consistent with this.  The NAME of the pag=
-es,
-    however, is the actual path name of the interfaces.
-   =20
-    The man page references have not been updated, as that was a more
-    complex and tedious work, so I expect that they'll be slowly updated =
-as
-    we and users find out.
-   =20
-    Link: <https://lore.kernel.org/linux-man/e3a5bc09-e835-9819-4aaa-1295=
-9495ac59@kernel.org/T/>
-    Acked-by: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-    Acked-by: G=C3=BCnther Noack <gnoack@google.com>
-    Acked-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-    Cc: Brian Inglis <Brian.Inglis@Shaw.ca>
-    Cc: Ingo Schwarze <schwarze@usta.de>
-    Cc: Colin Watson <cjwatson@debian.org>
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-
-Cheers,
-Alex
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------Xw6vOZLvSUN4SaMQjvnj1ITx--
-
---------------3uae5ZO18czpiEfQgOAUJJGe
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--cjplyar33ms2ag6k
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTejsQACgkQnowa+77/
-2zK0/BAAotft23Xph2xbpE0sjxUfE26A+dv8+9r1NpfYpRPzODcE4sOHazygCGS2
-T0L47sQdi1eNalFDjTbnliOnHjPaQuQOi9RTn79Xwt+O8gG4nCFweMs7tA5o8S+L
-ihyny4hADu/CfJRjUh9FP+TlZAyolTsh+N8ZbIZsQQ+4pdUHiUc87/KR9v0rTciL
-3CHb2+7yu71ZAe+kKiTFipkX36OVSx0v2eBkT4AUxPvJeDK3IEyt6ofIyS7ZN+PU
-KCBPOeswg57kVa0QXJiem3K4p7orp4oQrOXCPVinyg7LGMDtNnUI2hRqijiwbJuV
-BwbML7UniAp3Ibbm2YEKlKOb2Q/K4+3D2u6tH365SH4w2ppKhBwKgqnZm/37I8aC
-r9WatD/m3c7elbg8qo3LYwb4HSO05ksRKuK4Ta484pGHBYwkpdsTVnkQWzIN5lvJ
-7KBWHULkol66LpCm1CjGRPbC7Oohp8DdH1b9rW3VWabItrYFhQ9hIK4H1ur33KeV
-hnYVJLusidNV4TcP8rBDU8He6Z9hP1pdhWPjeLNGrDIf0dylIGJD4uXxIvkqjiQf
-F+nMcyz1CTTZwDsqanJ/5B9B+B8EWk64N6JJkMTtMqU6sME0ril/uz7uUz93pt+w
-Hqa74n225omNEg2Ll7E35xw7ETqsHxz7M8FkMw+2riu+vD0oNn4=
-=kAcW
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTese8ACgkQ0Z6cfXEm
+bc478A/8CX4YV8ttQ2kO5NwLBB23kXafUVv3xje5TFwjmWyuVxkekq8/W3Hbzds5
+RvrPN5BCjXR4rHq1Zo+LT8kXNjR12tlCkIErcCM0UohommoqeiDpvbwqDYmAm69H
+iYFLG4ZxRBu0GfWbdwZ0Ky2zXcnB8InbqRKN0lFdhC/c0ODSbut14veOYeYZMC66
+UE/NVBJMNagWDj4sPay998TeAGCMHdi4mS6I41wEJjbudT94Dy6qlRfmZOpkSdAv
+d47FwPP9vIjbDjB9dsbS8mY09xSH1gbqYp22s3IeR4ABFH+/hZc3/bdx43k7xqvb
+UCzlY+bxCFBFNJZ9CYxmYdObqAhAJskUVvEKpx7RVtsCJIqRod6fGFglmSY63WRj
+/GGqQ69PUR0xq6t2Q70oMBOcNV/CRJTSjkqkNbcZVTTptrTkMv/6sR635nOgFROZ
+uHxRwjQY6bGhC4vqX+rSd73ZlJsbDpjtctpK6IfOVQUO/2xft+xhQSUi9kun9Ams
+7OC56QqM4TfAnRFPULpJJDqPqkkoC8SRx9QKXpcgx6R+YCjDYfP4X8L6S6rSobWV
+aJEwKEA6QgKU6am/wAaaBwPj/IDoWy7mRikvkFMXpKS6z14uvbwTLuoF3TzSgNqG
+Fr/YFvZSy2GuXC7aDjRsFXYOIp3wytve4jh8QojcRWHlw+MKX5w=
+=Zqjx
 -----END PGP SIGNATURE-----
 
---------------3uae5ZO18czpiEfQgOAUJJGe--
+--cjplyar33ms2ag6k--
