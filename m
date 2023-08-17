@@ -2,92 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1BA4777EE23
-	for <lists+linux-man@lfdr.de>; Thu, 17 Aug 2023 02:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BA72F77FAAD
+	for <lists+linux-man@lfdr.de>; Thu, 17 Aug 2023 17:25:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1347264AbjHQAOk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 16 Aug 2023 20:14:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41476 "EHLO
+        id S1351725AbjHQPY5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Aug 2023 11:24:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46374 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1347251AbjHQAOP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Aug 2023 20:14:15 -0400
-Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0CFB710F
-        for <linux-man@vger.kernel.org>; Wed, 16 Aug 2023 17:14:13 -0700 (PDT)
-Received: from shw-obgw-4004a.ext.cloudfilter.net ([10.228.9.227])
-        by cmsmtp with ESMTP
-        id WKtuqzJii6NwhWQeTqXvIA; Thu, 17 Aug 2023 00:14:13 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
-        t=1692231253; bh=hRfLnk1/YSgclNYN24Htf+lBK6us0O6QBR4lFbRKDSk=;
-        h=Date:To:Cc:References:Subject:Reply-To:From:In-Reply-To;
-        b=lfnE28XF8HksYTxp9fHYwjMhGJLjm+n0+3Nc1ySxwF7gSJalA5nehkKY2djiC3Srq
-         Y+Z3A/wfLRuDY9ss4+0b7nVKiJh+sXBQu0TLG/tVYCzvqbJc3856YXJgN63pVjGZNT
-         lESaCDPgLoNQ7gaiccl+XaK86QEIPkfBL/rrhwObMfoT5BsnY+3H0JI0WNkXYCt/oI
-         e9XO0UCCQnMsdcsi9vBN8kOvfl3FV3JvX4PTXaKINZu+yM3NaHJublWCCMhCtGP6vg
-         8fUMQ2dInhmoOPZ9YsfLplUZy86i1EbJdAhEaT1yFEigx1YwziIB9EdEvyk2BDEGqr
-         idDpcUv38U05Q==
-Received: from [10.0.0.5] ([184.64.102.149])
-        by cmsmtp with ESMTP
-        id WQeSqGTIe3fOSWQeSq1oeM; Thu, 17 Aug 2023 00:14:13 +0000
-X-Authority-Analysis: v=2.4 cv=J8G5USrS c=1 sm=1 tr=0 ts=64dd6655
- a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
- a=IkcTkHD0fZMA:10 a=I0CVDw5ZAAAA:8 a=NEAV23lmAAAA:8 a=HL3VXnBlkv8nzK4rEAQA:9
- a=QEXdDO2ut3YA:10 a=YdXdGVBxRxTCRzIkH2Jn:22
-Message-ID: <d84ae8ba-fc3e-ac9c-50fa-2d63cb6138ef@Shaw.ca>
-Date:   Wed, 16 Aug 2023 18:14:12 -0600
+        with ESMTP id S1352443AbjHQPYq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Aug 2023 11:24:46 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A0E3E6B
+        for <linux-man@vger.kernel.org>; Thu, 17 Aug 2023 08:24:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1692285839;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=zgrCG+ywd5Y+o9g21S6f5wKn6sm5A8PQAOGPZOemHlE=;
+        b=TrUUimzV9e18OhAhSCmuFHzeGAZHCAaGfZS/jIiX4CGvsK7p6N2GuKunblQCnmnx6q627F
+        pnO1F3cHmu8wMZAhcgMqoBlg44SSlPTXOvOXNswXdKswuU8FQXEuQVnt3SGR2DFo62AT7u
+        4sqwH6Fczq7+imrw2AnPjlM09AKS3wY=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-249-38W1UEkNOUa428318LzI0Q-1; Thu, 17 Aug 2023 11:23:57 -0400
+X-MC-Unique: 38W1UEkNOUa428318LzI0Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 558D13813F43;
+        Thu, 17 Aug 2023 15:23:57 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.62])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id D1AB42166B2D;
+        Thu, 17 Aug 2023 15:23:56 +0000 (UTC)
+Date:   Thu, 17 Aug 2023 10:23:55 -0500
+From:   Eric Blake <eblake@redhat.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Brian Inglis <Brian.Inglis@shaw.ca>,
+        Linux Man-Pages <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] man-pages-posix-2017/man1p/dd.1p: added missing
+ ASCII-EBCDIC tables
+Message-ID: <34ywwugg3sgxlmyrnovuh2co5qbok2dk32hug4r2drfcu3bp33@g62hj2icprgf>
+References: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
+ <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
+ <20230813222035.a5ybcqbpnzlapraz@illithid>
+ <033cf8fb-5c84-d9eb-a01e-caff597a951b@kernel.org>
+ <eb4161c1-6e57-a9d3-a3c3-fed5db55f004@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-To:     linux-man@vger.kernel.org
-Cc:     alx@kernel.org, g.branden.robinson@gmail.com
-References: <20230801201000.xf3tggiatlam5xcj@illithid>
-Subject: Re: [PATCH v2] man*/: ffix (migrate to `MR`)
-Reply-To: Brian.Inglis@Shaw.ca
-Content-Language: en-CA
-From:   Brian Inglis <Brian.Inglis@Shaw.ca>
-Organization: Inglis
-In-Reply-To: <20230801201000.xf3tggiatlam5xcj@illithid>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfIT6oDS9VpLrzGy1PfseIsIOB/mG7tfcjBupVhK9kAf2b3z1/4ol9eQlcP4PiHW0yR+unGKFyIzj/QYSkmIPV5CmtIqzuZ6x5LGaeaLLMpH8MStdGz2a
- SoU0yu+nir+H9a2HaBykNTukncjlTFTm1pxpwYnnIFXU8xgSxoeaCQ5r7eYilzlXih3P1f35mA75FBE6J09YXzjrnvHLnnguTHtVYDcH3g0+pvfkvRAbyaZJ
- nN5iam8vzpLzdlFoepMNEAR3if07S5DYeIqc2gYzgjA=
-X-Spam-Status: No, score=-5.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eb4161c1-6e57-a9d3-a3c3-fed5db55f004@kernel.org>
+User-Agent: NeoMutt/20230517
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, 1 Aug 2023 15:10:00 -0500, G. Branden Robinson wrote
-> At 2023-08-01T01:15:02+0200, Alejandro Colomar wrote:
->> tzfile(5), tzselect(8), zdump(8), and zic(8) come from the tz project
->> <https://www.iana.org/time-zones>. >>
->>        bpf-helpers(7) is autogenerated from the Linux kernel sources
+On Mon, Aug 14, 2023 at 12:29:23AM +0200, Alejandro Colomar wrote:
+> On 2023-08-14 00:27, Alejandro Colomar wrote:
+> > [+= Eric]
+> > 
+> > Hi Branden, Eric,
+> > 
+> > On 2023-08-14 00:20, G. Branden Robinson wrote:
+> >> At 2023-08-13T23:30:30+0200, Alejandro Colomar wrote:
+> >>> And also, I don't even have the sources, which makes things more
+> >>> complex.
+> >>>
+> >>> I wish that POSIX allowed us to have a copy of the original source
+> >>> code of the POSIX manual in the git repository.  With that, I'd find
+> >>> it more interesting to maintain the project again.
+> >>>
+> >>> I'd also like to know what's the original source code of POSIX's
+> >>> manual, because it may very well be roff(7).  If that happens to be
+> >>> true, I'd like to have access to that source, instead of the HTML.
 
-> Unfortunately none of the time zone pages offer any hint I can see that
-> they're autogenerated, so (short of hard-coding a list), they can't be
-> automatically excluded from global changes.
+I'm not sure if the POSIX original is quite roff, but I just confirmed
+that I have access to the repository where Issue 8 is being worked on
+(it required me to have an Open Group login, so you may not be able to
+access this page):
 
-Those man pages plus time2posix(3) are all prefixed with ADO's PD declaration 
-with one of two dates:
+https://gitlab.opengroup.org/the-austin-group/sus_base/-/commits/Issue8/
 
-.\" This file is in the public domain, so clarified as of
-.\" 1996-06-05|2009-05-17 by Arthur David Olson.
+I can also recommend contacting Andrew Josey (ajosey@opengroup.org -
+admin) and/or Geoff Clare (gwc@opengroup.org - most active committer
+in that project) of the Austin Group, to figure out if there is a way
+for you to get access to that repository.
 
-and are maintained in https://github.com/eggert/tz/ so the files are available 
-directly from .../{blame,blob,commits,raw}/main/...
+> >>
+> >> My understanding from hermetic comments to the Austin Group mailing list
+> >> over the years is that:
+> >>
+> >> 1. they have used groff for many years (a decade or more);
+> >> 2. they don't use man(7) for their man pages (I was told this directly);
+> >>
+> >> and
+> >>
+> >> 3. they use (a customized version of) mm(7)--or I _think_ I saw someone
+> >>    say this, but I have no citation and I am not even sure it was an
+> >>    Open Group employee who claimed it.
+> > 
+> > I'd love to have the ms(7) source then.  That way I would have a reason
+> > to learn ms(7).  :)
+> 
+> Oops, mm(7).
 
-I do not know gitmodules well enough to say whether you could add that as a 
-subrepo then gitignore everything but the man pages you want to include.
+Based on my quick perusal, it is indeed .mm files that form the bulk
+of the content in that repository.  For example, even if you can't
+access the repository yet, I don't think there is any problem under
+the fair use doctrine for sharing a snippet of a recent commit:
+
+| commit 7fad34c5f734d7a54c6a5fa8124baf819c2b8de5
+| Author: Geoff Clare <gwc@opengroup.org>
+| Date:   Tue Aug 8 10:52:54 2023 +0100
+| 
+|     Applied bug 1741
+| 
+| diff --git a/Base/Text/Functions/getlocalename_l.mm b/Base/Text/Functions/getlocalename_l.mm
+| index 13af2a5..339bfc5 100644
+| --- a/Base/Text/Functions/getlocalename_l.mm
+| +++ b/Base/Text/Functions/getlocalename_l.mm
+| @@ -12,7 +12,9 @@ const char *getlocalename_l(int \f6category\fP, locale_t \f6locobj\fP);
+|  .sE
+|  .yE
+|  .mH DESCRIPTION
+| -The
+| +If
+| +.Ar category
+| +is not LC_ALL, the
+|  .Fn getlocalename_l
+|  function shall return the locale name for the given locale category of
+|  the locale object
+| ...
+
+> > It would certainly be better than the HTML files.  It would be
+> > interesting to adapt the Linux man-pages build system to also support
+> > ms(7) pages.
+> > 
+> >>
+> >> We fixed a bunch of bugs in GNU mm for groff 1.23.0.[1]  I wonder if
+> >> they will be cross with me about that.  Even if they didn't rely on any
+> >> erstwhile misbehavior, the source churned, some internals changed, and
+> >> if they patched the package, I wouldn't count on the patches still
+> >> applying cleanly.
+> >>
+> >>> Would you mind forwarding my rage towards the Open group, which IMO is
+> >>> not so open?
+> >>
+> >> Maybe scrape off the rage first, or you might get a response from Robert
+> >> Elz, who is even more cantankerous and writes at even greater length
+> >> than I do.  ;-)
+> > 
+> > I promise to scrape the rage if I get a name and an email of who to talk
+> > to.  Maybe Eric can help.  :)
+
+I'm not forwarding this email directly, but I'm happy to be a liaison
+to connect you with other Austin Group members.
 
 -- 
-Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
 
-La perfection est atteinte                   Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
-                                 -- Antoine de Saint-Exupéry
