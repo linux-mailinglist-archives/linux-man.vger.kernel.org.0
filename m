@@ -2,122 +2,156 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B7E1780722
-	for <lists+linux-man@lfdr.de>; Fri, 18 Aug 2023 10:27:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 07FF7780A05
+	for <lists+linux-man@lfdr.de>; Fri, 18 Aug 2023 12:29:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344998AbjHRI0f convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Fri, 18 Aug 2023 04:26:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55656 "EHLO
+        id S233737AbjHRK3Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Aug 2023 06:29:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50846 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1358641AbjHRI01 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Aug 2023 04:26:27 -0400
-X-Greylist: delayed 490 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 18 Aug 2023 01:26:22 PDT
-Received: from smtp99.iad3a.emailsrvr.com (smtp99.iad3a.emailsrvr.com [173.203.187.99])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9CD826BC
-        for <linux-man@vger.kernel.org>; Fri, 18 Aug 2023 01:26:22 -0700 (PDT)
-X-Auth-ID: a.josey@mail.opengroup.org
-Received: by smtp29.relay.iad3a.emailsrvr.com (Authenticated sender: a.josey-AT-mail.opengroup.org) with ESMTPSA id 2AFE22225A;
-        Fri, 18 Aug 2023 04:18:11 -0400 (EDT)
-Content-Type: text/plain;
-        charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.3\))
-Subject: Re: POSIX manual pages
-From:   Andrew Josey <ajosey@opengroup.org>
-In-Reply-To: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
-Date:   Fri, 18 Aug 2023 09:18:09 +0100
-Cc:     Geoff Clare <gwc@opengroup.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Eric Blake <eblake@redhat.com>,
-        Brian Inglis <Brian.Inglis@Shaw.ca>,
+        with ESMTP id S1359618AbjHRK3P (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Aug 2023 06:29:15 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9127112C
+        for <linux-man@vger.kernel.org>; Fri, 18 Aug 2023 03:29:14 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 26EB1660D5
+        for <linux-man@vger.kernel.org>; Fri, 18 Aug 2023 10:29:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B61C433C8;
+        Fri, 18 Aug 2023 10:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1692354553;
+        bh=QnsV55tlRawzL9qfaGEmqoz3+Lldawo3JzAW9w/pZpM=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=D33w3evM5Mj/APP0wbeltEArSALu2jvZf33c1WoPOIZicMH4i9JOnkDvQcJsKh6il
+         O2qWjqRXr3WOTXDeLK8+vQFjhxsjcZudCNUqCQKyOV7nH1RCZNLsV80LPh/SJyBA7B
+         rhkasvgNFg6F1vBMZsMStPFjEX9Pz+/qVcUwCUKWp3NdZ+6e9SR9bRsCoSDDukB9PN
+         PSLc/9KjiDHo68RT3x+YRZ/U/zEyWro8kFKp+UfuM12J1FQyT3wUhjbqTK6AG+goz7
+         dIu8OVVhrTpBxChAmB+Io7GjJz3Oubg8nsaHbpiz8gsQimAmX5XATbmd+rfMJ+8Hwl
+         qP36rC3BMCcAw==
+Message-ID: <56c1efa3-9f23-8c76-6749-5875e5489cb7@kernel.org>
+Date:   Fri, 18 Aug 2023 12:29:03 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: No 6.05/.01 pdf book available
+To:     Deri <deri@chuzzlewit.myzen.co.uk>
+Cc:     linux-man@vger.kernel.org, Brian.Inglis@shaw.ca,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Content-Transfer-Encoding: 8BIT
-Message-Id: <803C785B-DEB7-478C-A79B-29E5A5E7A8B9@opengroup.org>
-References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
-To:     Alejandro Colomar <alx@kernel.org>
-X-Mailer: Apple Mail (2.3696.120.41.1.3)
-X-Classification-ID: 7b153bd9-12e8-4879-bcbe-1031233552af-1-1
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-        autolearn_force=no version=3.4.6
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <21985157.EfDdHjke4D@pip> <04e326c5-1bfa-357f-cce1-d3315615fe86@kernel.org>
+ <8264634.T7Z3S40VBb@pip>
+Content-Language: en-US
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <8264634.T7Z3S40VBb@pip>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------4c4YPrYiZUx9U9z8RbZvWAIi"
+X-Spam-Status: No, score=-5.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-hi Alex
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------4c4YPrYiZUx9U9z8RbZvWAIi
+Content-Type: multipart/mixed; boundary="------------y0cUH4ma77y0BygAgftYEKy0";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Deri <deri@chuzzlewit.myzen.co.uk>
+Cc: linux-man@vger.kernel.org, Brian.Inglis@shaw.ca,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <56c1efa3-9f23-8c76-6749-5875e5489cb7@kernel.org>
+Subject: Re: No 6.05/.01 pdf book available
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <21985157.EfDdHjke4D@pip> <04e326c5-1bfa-357f-cce1-d3315615fe86@kernel.org>
+ <8264634.T7Z3S40VBb@pip>
+In-Reply-To: <8264634.T7Z3S40VBb@pip>
 
-Thanks for your mail. In the past we have liaised with Michael Kerrisk.
-Let me look at what has been done in the past then get back to you.
+--------------y0cUH4ma77y0BygAgftYEKy0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi Deri,
 
-Please note that we develop our pages in our own macro set, although
-do use groff as our typesetter. 
-There are also certain conditions that the copyright holders impose on us.
+On 2023-08-14 23:40, Deri wrote:
+[...]
 
-regards
-Andrew
+>> Do you have an estimate of how long your branch could take to merge?
+>> As in, more than a month or less than a month?
+>=20
+> I'm really hoping Branden's going to help me with that, I think he inti=
+mated=20
+> that he might when he suggested I start a branch for the work. I have o=
+ne more=20
+> push to the branch to do, but I need to contact Peter since there is a =
+minor=20
+> tweak to om.tmac to make expandos work in mom.
 
-> On 17 Aug 2023, at 21:01, Alejandro Colomar <alx@kernel.org> wrote:
-> 
-> Hi Andrew, Geoff,
-> 
-> I'm the maintainer of the Linux man-pages project[1], and also of the
-> man-pages-posix project[2].
-> 
-> [1]:  <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/>
-> [2]:  <https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/>
-> 
-> From those upstream projects, GNU/Linux distros distribute packages like
-> Debian's manpages-posix and manpages-posix-dev (in the non-free
-> section)[3].
-> 
-> [3]:  <https://packages.debian.org/source/sid/hppa/manpages-posix>
-> 
-> I find it very uncomfortable to maintain the man-pages-posix project, as
-> I don't have access to the source code of the pages.  I don't know what
-> agreement was reached with the previous maintainer of the project,
-> Michael Kerrisk, but I'd like to ask if it would be possible to open the
-> sources, and what conditions would be nonnegotiable for something like
-> that to happen.
-> 
-> Ideally, I'd be able to make a fork of POSIX's git repository, and push
-> that fork to the kernel.org repo.  Maybe POSIX requires that the pages
-> not be modified, or some section mentioning that the page has been
-> modified and is not a source of truth.
-> 
-> I intend to distribute the pages as close as possible to the originals,
-> with little to no modification; the only kind of modifications that I
-> have in mind are typo fixes and formatting fixes, and use the build
-> system of the Linux man-pages project, but I'd keep the source code
-> largely untouched.
-> 
-> You'd probably have a source of bug reports here too.  :)
-> 
-> Thanks,
-> 
-> Alex
-> 
-> 
-> -- 
-> <http://www.alejandro-colomar.es/>
-> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+Nice; then I'll wait for that to test groff from git HEAD, so I have less=
 
---------
-Andrew Josey                 
-VP, Standards & Certification,	The Open Group          
-Email: a.josey@opengroup.org
-Apex Plaza,Forbury Road,Reading,Berks. RG1 1AX,UK.
+moving parts.  :)
 
-The Open Group Certifications, see https://www.opengroup.org/certifications
+>=20
+>>> Makefile
+>>>
+>>> The simplest option would be to add a new rule to the Makefile which =
+is
+>>> dependent on all the man pages have been built, and cd's into the scr=
+ipts/
+>>> LinuxManBook directory and calls the program with the location where =
+the
+>>> man pages exist. However, I suspect Alex fancies something more
+>>> complicated by replacing the perl with a hybrid of shell command and =
+make
+>>> magic.
+>>
+>> You suspect well.  :)
+>=20
+> Just like my wife, she often tells me I'm "No longer required on the=20
+> journey!". :-)
 
-ArchiMate, FACE logo, Making Standards Work, Open O  logo, Open O and Check certification logo, OSDU, Platform 3.0, The Open Group, TOGAF, UNIX, UNIXWARE, and X logo are registered trademarks and Boundaryless Information Flow, Build with Integrity Buy with Confidence, Commercial Aviation Reference Architecture, Dependability Through Assuredness, Digital Practitioner Body of Knowledge, DPBoK, EMMM, FACE, FHIM Profile Builder, FHIM  logo, FPB, Future Airborne Capability Environment, IT4IT, IT4IT logo, O-AA, O-DEF, O-HERA, O-PAS, Open Agile Architecture, Open FAIR, Open Footprint, Open Process Automation, Open Subsurface Data Universe, Open Trusted Technology Provider, Sensor Integration Simplified, SOSA, and SOSA logo are trademarks of The Open Group.
+:-)
 
+Cheers,
 
+Alex
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
+--------------y0cUH4ma77y0BygAgftYEKy0--
 
+--------------4c4YPrYiZUx9U9z8RbZvWAIi
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTfR+8ACgkQnowa+77/
+2zLqtw/+Ozeft+dea3MDP5X/vcwBiLKeFoWrs7jjotsalUTVmMvblUgURATE+8F5
+6YtUoF4HeU/Wvx2IEGaYL75r8yPMejHNCKZjEJPj4nND7ksr8uzq9G+Ac0Vpw0fQ
+laMSuRnUHZfbepbTeO5ybdz7+o/yyO8mJG2pdB0Ah0BWz9WC48zrZel8E3VHfY29
+OGtg2a1Gwhrf/jfmm8+s2WZHkmzhd1y4DJx3cyNhzcOty0csx7YkmT8osaRC145P
+xPpzMQa7GNhHMmsJQMUdTf9FZMjVXkPEJcpYHJonulXgp2XElhvSfrspzMyhkogx
+c9K5IbnkhUgveJ5FCgMp7PA9wMuBlB1zHjj4c/u/DBehoZSnJSaNB1+wXjmGlSG0
+rz3UtMV3TzSxnf2N1ji+haRacEU1uhG/FKsgdtntUHOnW9Yc4rzXpB1q1tcodtft
+yVVHR3uG4fP9VyXdaB/2mYTUcsxGGz8s9YVnUaswAPhQ+wtssFGx7//SAHHE60r0
+ZesqejuKxikI5VPUME9qzGT9n2OmKe9y+4djP0jEmBy11UhHd35VRNKj97Q0FKVD
+iFk1lWgV9GzwJAyD1FVAv4Z5RYcNup8j123hHN2gogyWk9Jn3Dh468Sj6mSCWHaL
+dN3aEzAc/qbErLxN8LQepV7Cgz/sFS4j0vaRhSTGv1ZWHBtf+CM=
+=6ObD
+-----END PGP SIGNATURE-----
 
-
+--------------4c4YPrYiZUx9U9z8RbZvWAIi--
