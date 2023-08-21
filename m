@@ -2,36 +2,36 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D1EC78335E
-	for <lists+linux-man@lfdr.de>; Mon, 21 Aug 2023 22:23:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AD2C578322D
+	for <lists+linux-man@lfdr.de>; Mon, 21 Aug 2023 22:21:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229825AbjHUT4X (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 21 Aug 2023 15:56:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40766 "EHLO
+        id S229819AbjHUT4E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 21 Aug 2023 15:56:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52656 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229821AbjHUT4X (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Aug 2023 15:56:23 -0400
+        with ESMTP id S229803AbjHUT4D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Aug 2023 15:56:03 -0400
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C739EFD
-        for <linux-man@vger.kernel.org>; Mon, 21 Aug 2023 12:56:21 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F22F310F
+        for <linux-man@vger.kernel.org>; Mon, 21 Aug 2023 12:55:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1692647781; x=1724183781;
+  t=1692647758; x=1724183758;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=aAE8+E8SKJ57pjWJhO0PbA5JN18+4Flur99ayZLbFAI=;
-  b=Fil4hRazLzMlSivoYq2YxtvgRXJdzLbXJedHqoqUJpP1Tkjz/BJRk38B
-   LoROoDC9pW3Kkgg5M6m35o42O/px5qcHoebYkLbVkkXNz11E46QdWHi2B
-   OvEuZTYDAKoIuR8zAF2VKag9I4zPYM6DS8wS+1oLZPKJAqkRm8KqxnbEg
-   SdPE8PO9nXm7C05YcyqAUpww4pvDDX9GkjQ2fMecInNIUsrMEXhi9PM2p
-   R2gpVltqYYb36cGibZSYTT+NESAKVqhOEUSMmc01uxVLCZoUVl0lcidn7
-   m1mNbJ6UyMKZ6PvDlpZWQHNu4stZi/Z0a/7/piXG5sS+HpQompEtWg65J
-   A==;
+  bh=DfZaNcwTzMsTsMqyLgCUmiaz6u7Nrw2nxBZjuKA4s3M=;
+  b=1KJUHoTu7PxH8utQUNR97/0yIi5BNkdfyVvzNrBjQXfH68FlqLwAcn5T
+   DjcjYGp4SlTivOw8swsI3K0ChKGQexDCqlH2zEN1cRmbM+OyzZFX/OJXT
+   VMj4N2DGOkR3aPzEYAhyi0Z6+CJ0tisOUNHSKITK6AywcM5zQKGgs3aII
+   pOFATjUPke2pRy9UC8A4AtXfrMiQxyM4Wc4u+BMx6XKp0e7eCnCJvFHHk
+   PVPUJMPyTbhyuLya/YunXxCVgUIlIbdg72JFfp56hd/GkmUaRgbSvch57
+   l0gUs+q3EdKH7JJi4dz+1ETGaNQ0b1GqX6htbtyCxnxQXTjNDExezxWiw
+   g==;
 X-IronPort-AV: E=Sophos;i="6.01,191,1684825200"; 
-   d="scan'208";a="528027"
+   d="scan'208";a="230959320"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 21 Aug 2023 12:56:21 -0700
+  by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 21 Aug 2023 12:55:51 -0700
 Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
  chn-vm-ex02.mchp-main.com (10.10.87.72) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
@@ -42,9 +42,9 @@ Received: from brunhilda.pdev.net (10.10.115.15) by chn-vm-ex02.mchp-main.com
 From:   Don Brace <don.brace@microchip.com>
 To:     <mtk.manpages@gmail.com>
 CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH v2 09/10] smartpqi: add device attributes
-Date:   Mon, 21 Aug 2023 14:57:25 -0500
-Message-ID: <20230821195726.446748-10-don.brace@microchip.com>
+Subject: [PATCH v2 10/10] smartpqi: add sg entry to see_also
+Date:   Mon, 21 Aug 2023 14:57:26 -0500
+Message-ID: <20230821195726.446748-11-don.brace@microchip.com>
 X-Mailer: git-send-email 2.42.0.rc2
 In-Reply-To: <20230821195726.446748-1-don.brace@microchip.com>
 References: <20230821195726.446748-1-don.brace@microchip.com>
@@ -61,14 +61,8 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add in some device level sysfs entry descriptions:
-lunid
-unique_id
-path_info
-raid_bypass_cnt
-sas_ncq_prio_enable
-
-These have already been provided by the driver.
+The sg driver can interface with smartpqi. Add
+this into the SEE ALSO section of the man page.
 
 Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
 Reviewed-by: Scott Teel <scott.teel@microchip.com>
@@ -76,111 +70,23 @@ Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
 Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
 Signed-off-by: Don Brace <don.brace@microchip.com>
 ---
- man4/smartpqi.4 | 91 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 91 insertions(+)
+ man4/smartpqi.4 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-index 19708a01f531..3de8b0c97423 100644
+index 3de8b0c97423..7c1da3c80d57 100644
 --- a/man4/smartpqi.4
 +++ b/man4/smartpqi.4
-@@ -356,6 +356,97 @@ $ \c
- 0
- .EE
- .in
-+.TP
-+.IR /sys/class/scsi_disk/c : b : t : l/device/lunid
-+The
-+.I lunid
-+attribute is read-only.
-+This attribute contains the SCSI LUN ID for the device.
-+.IP
-+For example:
-+.IP
-+.in +4n
-+.EX
-+$ \c
-+.B cat /sys/class/scsi_disk/13:1:0:3/device/lunid
-+0x0300004000000000
-+.EE
-+.in
-+.TP
-+.IR /sys/class/scsi_disk/c : b : t : l/device/unique_id
-+The
-+.I unique_id
-+attribute is read-only.
-+This attribute contains a 16-byte ID that uniquely identifies the device within the controller.
-+.IP
-+For example:
-+.IP
-+.in +4n
-+.EX
-+$ \c
-+.B cat /sys/class/scsi_disk/13:1:0:3/device/unique_id
-+600508B1001C6D4723A8E98D704FDB94
-+.EE
-+.in
-+.TP
-+.IR /sys/class/scsi_disk/c : b : t : l/device/path_info
-+The
-+.I path_info
-+attribute is read-only.
-+This attribute contains the c:b:t:l of the device along with the device type and whether the device is Active or Inactive. If the device is an HBA device,
-+.I path_info
-+will also display the PORT, BOX, and BAY the device is plugged into.
-+.IP
-+For example:
-+.IP
-+.in +4n
-+.EX
-+$ \c
-+.B cat /sys/class/scsi_disk/13:1:0:3/device/path_info
-+[13:1:0:3]    Direct-Access     Active
-+
-+$ \c
-+.B cat /sys/class/scsi_disk/12:0:9:0/device/path_info
-+[12:0:9:0]    Direct-Access     PORT: C1 BOX: 1 BAY: 14 Inactive
-+[12:0:9:0]    Direct-Access     PORT: C0 BOX: 1 BAY: 14 Active
-+.EE
-+.in
-+.TP
-+.IR /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
-+The
-+.I raid_bypass_cnt
-+attribute is read-only.
-+This attribute contains the number of I/O requests that have gone through the
-+ioaccel path for ioaccel-enabled volumes. See the
-+.BI ssd_smart_path_enabled
-+disk attribute section for details on ioaccel-enabled volumes.
-+.IP
-+For example:
-+.IP
-+.in +4n
-+.EX
-+$ \c
-+.B cat /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
-+0x300
-+.EE
-+.in
-+.TP
-+.IR /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
-+The
-+.I sas_ncq_prio_enable
-+attribute is read/write.
-+This attribute enables SATA NCQ priority support.
-+This attribute works only when device has NCQ support and
-+controller firmware can handle IO with NCQ priority attribute.
-+.IP
-+For example:
-+.IP
-+.in +4n
-+.EX
-+$ \c
-+.B echo 1 > /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
-+.EE
-+.in
- .SH VERSIONS
- The
- .B smartpqi
+@@ -462,7 +462,8 @@ which can be found by searching for the specific controller at
+ .BR cciss (4),
+ .BR hpsa (4),
+ .BR sd (4),
+-.BR st (4)
++.BR st (4),
++.BR sg (4)
+ .PP
+ .I Documentation/ABI/testing/sysfs\-bus\-pci\-devices\-cciss
+ in the Linux kernel source tree.
 -- 
 2.42.0.rc2
 
