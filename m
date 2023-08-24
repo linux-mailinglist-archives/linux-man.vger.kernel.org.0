@@ -2,63 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A7A4786709
-	for <lists+linux-man@lfdr.de>; Thu, 24 Aug 2023 07:15:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D187787B35
+	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 00:07:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238990AbjHXFPV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Aug 2023 01:15:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53858 "EHLO
+        id S232456AbjHXWHY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Aug 2023 18:07:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43902 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239863AbjHXFPN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Aug 2023 01:15:13 -0400
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com [IPv6:2607:f8b0:4864:20::62c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6AA1310FF
-        for <linux-man@vger.kernel.org>; Wed, 23 Aug 2023 22:15:04 -0700 (PDT)
-Received: by mail-pl1-x62c.google.com with SMTP id d9443c01a7336-1bf57366ccdso3782325ad.1
-        for <linux-man@vger.kernel.org>; Wed, 23 Aug 2023 22:15:04 -0700 (PDT)
+        with ESMTP id S243923AbjHXWHX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Aug 2023 18:07:23 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 58E251BE2
+        for <linux-man@vger.kernel.org>; Thu, 24 Aug 2023 15:07:07 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id ffacd0b85a97d-31c71898109so214659f8f.2
+        for <linux-man@vger.kernel.org>; Thu, 24 Aug 2023 15:07:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692854104; x=1693458904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9+1xdtOFq9KwmmBHP1/G9WX8z7gbQmvsqXI1BUaQAhE=;
-        b=JvVS2pMaUimTROgp5pXeU67SyA6HtYsA+O+B87IlsvRiUWyBebGSXGw2dGY71/6tn3
-         ISZfxyGLoUb1SXJMMRk7FfKOoCb8K8Iz4UIzY+88nYBLWJi+Zh6Gb7zGJGHuFJzwyB7W
-         pTxX0j0DoyV/bfIPHiGGeLyxlBzkjuxmIYONQxVHdWPVIx+RTRiPNmoEJw2igNdUvQJD
-         YTMweYscvfA80CZP4Pt34DxNvHn8+yNl1GFLWrY0WuTcbDnfGTxVE64lBytolDwksw6b
-         7y9pWXESyRWMfW9eWXiXpa0zEC2rQ99KgguymudEltHcZOt1Y/LuAI+GUQuEMrkRgxvQ
-         wqTw==
+        d=gmail.com; s=20221208; t=1692914826; x=1693519626;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DASKa/li088gpEX1WP1cXzYvf31jysy6F6skaH6JKao=;
+        b=INAy9U8MMHh/OEkkODPHOURAjgzg3i532rCVfvPg9iDmralkdUL29lxk73X/lCK1T7
+         ATweWcqyGzKYiIMdsB0fYtbTZEezljuO0hY0kHF4zlEfKvNAAyuLOr4yLzMEKYJlI/w4
+         2adaO3iic8YF58jv7c9O3sqnUqhysNiBIsU4sw5EKtl+09ipjMruVp+n3bKWIpL7hGjO
+         /VCS+Wo3M8+9VecpxqYIVgqkLBaDboeWjsIYONqFJ9uwty5KE2afpQEfDJTwDgy46jUo
+         juaHRlzY/lBjJtdrKneyX4lR7/RIf9xRef6b37L/W6EltrT5dgxtdwDvl0hODR6WUUhk
+         7pCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692854104; x=1693458904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9+1xdtOFq9KwmmBHP1/G9WX8z7gbQmvsqXI1BUaQAhE=;
-        b=T+ByGOy4k1/7wMxkMducckgHxm/PtmZEkO7eabPuSywrrTnqGjtxxZCW9xDxTVVIDN
-         w5f/97zBsSfhW2bAHG5/+yjOro3UNL7sPcYmH8tZoBgfNyaSwqfmpv1gev+dn2CCU2DB
-         7PkUs50rTPd4XVWHCslryEDpk+JH1L22N/USfNGCIdVHllPCXhT3MWdTDflA4RPmhhYh
-         oTiwAO+IOS++VET3p6enYAJCV1hpHBD8dVSlRpBIEA7I0rhnLijUcvNvasd3ZqDt4Ymw
-         zicNXmhvtta4DZX2V4FSILdAjP5nrlCCPK/hJ7mQcEQjwFAuGVT4Pnrmdf28RbxfkTUc
-         nTxQ==
-X-Gm-Message-State: AOJu0YzciQQayGNglNlH/uTdSC7JGZvyrnJT28hpDonfUNa/5cBnivFb
-        8qWCUgqdiD1U0+ayuk4gisWvNAtcWTI=
-X-Google-Smtp-Source: AGHT+IEttKT/G8+AozijjDglbgDtwdUMhrLjTQe6muwHU0DGFGYuhn2d3wEnYh3kfnRAkW9W3REM5Q==
-X-Received: by 2002:a17:902:d488:b0:1bf:7dfd:5b05 with SMTP id c8-20020a170902d48800b001bf7dfd5b05mr16286425plg.27.1692854103510;
-        Wed, 23 Aug 2023 22:15:03 -0700 (PDT)
-Received: from kir-rhat.lan (c-76-104-243-248.hsd1.wa.comcast.net. [76.104.243.248])
-        by smtp.gmail.com with ESMTPSA id u7-20020a170902b28700b001bb9d6b1baasm11761508plr.198.2023.08.23.22.15.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Aug 2023 22:15:02 -0700 (PDT)
-From:   Kir Kolyshkin <kolyshkin@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Kir Kolyshkin <kolyshkin@gmail.com>
-Subject: [PATCH] clone.2: refer to VERSIONS for raw clone prototype
-Date:   Wed, 23 Aug 2023 22:14:52 -0700
-Message-ID: <20230824051452.1293717-1-kolyshkin@gmail.com>
-X-Mailer: git-send-email 2.41.0
+        d=1e100.net; s=20221208; t=1692914826; x=1693519626;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DASKa/li088gpEX1WP1cXzYvf31jysy6F6skaH6JKao=;
+        b=lbx5lCUejomhkaoXRnIRwmyGMYQZ/TFeShU4VpSi2/hnoWdIk2vCBpbepfMgfHHtHd
+         TX2bw64Cg99MeflBK+3T+IhRrHB+zjeJcZ8fK0llprkvPNvETxGl3jJquG6k61g+cPm4
+         8gpRRIWktixGGjAu7oOqyk5qUicULfNw2yqZ3ldblbkYyoi9uBVbNtsIX+TRilE9MHKQ
+         Wb2J//XijSjgsQK4Px28KYuF/kJUGdx9YFiaOyY08L/kiJOSRxOKce8Q4oAEHfbi51Wv
+         P/+wUurwe+XR7IjbnNQIJ0hyKqu3ol100qa7nTWHv9XNvv4wNBvM/bm9Bm79Z1xdDsVu
+         pWZQ==
+X-Gm-Message-State: AOJu0YwoPtmJfnu5zyd5HuSAjS0OVsTPhZOe4hzvMlyBf9sAqUjgTdCy
+        92vpkbuI2j2YgLuiTB4kV+eskO8qsIWjc61Eyx8=
+X-Google-Smtp-Source: AGHT+IEtnfju1jhosxtUM5rYuV6SAdLh7A5zngGJA99XTJYqR+0Em7ihPxx7Pe2tcsxlb05AY7szbw==
+X-Received: by 2002:adf:cf02:0:b0:317:6b0d:1b1 with SMTP id o2-20020adfcf02000000b003176b0d01b1mr13045359wrj.4.1692914825486;
+        Thu, 24 Aug 2023 15:07:05 -0700 (PDT)
+Received: from [10.96.0.3] ([146.70.48.3])
+        by smtp.gmail.com with ESMTPSA id p24-20020a1c7418000000b003fef60005b5sm521982wmc.9.2023.08.24.15.07.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Aug 2023 15:07:04 -0700 (PDT)
+Message-ID: <45b86bac-faeb-b39a-6be4-5c5f1c4bdc6e@gmail.com>
+Date:   Thu, 24 Aug 2023 23:07:00 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] abort.3: Note that the glibc implementation is not
+ async-signal-safe
+Content-Language: en-US
+To:     =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>,
+        Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, Carlos O'Donell <carlos@redhat.com>,
+        Glibc <libc-alpha@sourceware.org>
+References: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
+ <ZOThpIa46irPESgE@cremorrah>
+From:   Gabriel Ravier <gabravier@gmail.com>
+In-Reply-To: <ZOThpIa46irPESgE@cremorrah>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -67,42 +77,65 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Commit 2a15a76bba35c ("clone.2: Document raw syscall interfaces on various other
-architectures") adds this note:
-
-	/* For the prototype of the raw system call, see NOTES */
-
-but places the raw syscall prototypes into DESCRIPTION.
-
-Next, commit 1874193ebf07068b ("clone.2: Add NOTES heading") makes the
-information to appear in NOTES.
-
-Finally, commit 4131356cdab8d ("man*/, man-pages.7: VERSIONS, STANDARDS,
-HISTORY: Reorganize sections") moves the NOTES section (with some but
-not all of the old contents from NOTES and VERSIONS) down, and thus the
-raw prototypes are now under VERSIONS.
-
-Fix the comment accordingly.
-
-Cc:
-Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
----
- man2/clone.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/clone.2 b/man2/clone.2
-index 4a75b557b..73ad5a6fa 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -58,7 +58,7 @@ Standard C library
- .BI "                                       void *_Nullable " tls ,
- .BI "                                       pid_t *_Nullable " child_tid " \fR*/\fP );"
- .PP
--/* For the prototype of the raw clone() system call, see NOTES */
-+/* For the prototype of the raw clone() system call, see VERSIONS */
- .PP
- .BR "#include <linux/sched.h>" "    /* Definition of " "struct clone_args" " */"
- .BR "#include <sched.h>" "          /* Definition of " CLONE_* " constants */"
--- 
-2.41.0
+On 8/22/23 17:26, Tomáš Golembiovský via Libc-alpha wrote:
+> Hi,
+>
+> gentle reminder that this has not received any attention yet.
+I assume this is because there are currently efforts to make glibc's 
+implementation async-signal-safe - which would make this proposed note 
+quite quickly inaccurate (though the fact it has been 
+async-signal-unsafe until now still seems notable enough to be mentioned 
+here).
+>
+> Thanks,
+>
+>      Tomas
+>
+> On Wed, Jul 26, 2023 at 01:55:27PM +0200, Tomáš Golembiovský wrote:
+>> See https://sourceware.org/bugzilla/show_bug.cgi?id=26275
+>>
+>> Cc: Carlos O'Donell <carlos@redhat.com>
+>> Cc: Glibc <libc-alpha@sourceware.org>
+>> Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
+>> ---
+>>   man3/abort.3         | 6 ++++++
+>>   man7/signal-safety.7 | 5 +++++
+>>   2 files changed, 11 insertions(+)
+>>
+>> diff --git a/man3/abort.3 b/man3/abort.3
+>> index 0b57e10ed..827d5c9db 100644
+>> --- a/man3/abort.3
+>> +++ b/man3/abort.3
+>> @@ -85,6 +85,12 @@ terminates the process without flushing streams.
+>>   POSIX.1 permits either possible behavior, saying that
+>>   .BR abort ()
+>>   "may include an attempt to effect fclose() on all open streams".
+>> +.SH BUGS
+>> +The glibc implementation of
+>> +.BR abort ()
+>> +is not async-signal-safe,
+>> +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
+>> +in violation of the requirements of POSIX.1.
+>>   .SH SEE ALSO
+>>   .BR gdb (1),
+>>   .BR sigaction (2),
+>> diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
+>> index 3d6ddc7eb..431a22f89 100644
+>> --- a/man7/signal-safety.7
+>> +++ b/man7/signal-safety.7
+>> @@ -335,6 +335,11 @@ The glibc implementation of
+>>   is not async-signal-safe because it uses
+>>   .BR pthread_mutex_lock (3)
+>>   internally.
+>> +.IP \[bu]
+>> +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
+>> +The glibc implementation of
+>> +.BR abort (3)
+>> +is not async-signal-safe.
+>>   .SH SEE ALSO
+>>   .BR sigaction (2),
+>>   .BR signal (7),
+>> -- 
+>> 2.41.0
+>>
 
