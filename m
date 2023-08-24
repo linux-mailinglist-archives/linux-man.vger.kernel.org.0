@@ -2,140 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D187787B35
-	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 00:07:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D2DA2787BFA
+	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 01:26:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232456AbjHXWHY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Aug 2023 18:07:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43902 "EHLO
+        id S235709AbjHXX0B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Aug 2023 19:26:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52304 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S243923AbjHXWHX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Aug 2023 18:07:23 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 58E251BE2
-        for <linux-man@vger.kernel.org>; Thu, 24 Aug 2023 15:07:07 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id ffacd0b85a97d-31c71898109so214659f8f.2
-        for <linux-man@vger.kernel.org>; Thu, 24 Aug 2023 15:07:07 -0700 (PDT)
+        with ESMTP id S244320AbjHXXZW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Aug 2023 19:25:22 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7539212D
+        for <linux-man@vger.kernel.org>; Thu, 24 Aug 2023 16:25:09 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id 5b1f17b1804b1-40057e09bbaso2905465e9.3
+        for <linux-man@vger.kernel.org>; Thu, 24 Aug 2023 16:25:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692914826; x=1693519626;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=DASKa/li088gpEX1WP1cXzYvf31jysy6F6skaH6JKao=;
-        b=INAy9U8MMHh/OEkkODPHOURAjgzg3i532rCVfvPg9iDmralkdUL29lxk73X/lCK1T7
-         ATweWcqyGzKYiIMdsB0fYtbTZEezljuO0hY0kHF4zlEfKvNAAyuLOr4yLzMEKYJlI/w4
-         2adaO3iic8YF58jv7c9O3sqnUqhysNiBIsU4sw5EKtl+09ipjMruVp+n3bKWIpL7hGjO
-         /VCS+Wo3M8+9VecpxqYIVgqkLBaDboeWjsIYONqFJ9uwty5KE2afpQEfDJTwDgy46jUo
-         juaHRlzY/lBjJtdrKneyX4lR7/RIf9xRef6b37L/W6EltrT5dgxtdwDvl0hODR6WUUhk
-         7pCA==
+        d=gmail.com; s=20221208; t=1692919508; x=1693524308;
+        h=user-agent:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=EOXQed/GutgSngtgQkiIxN51QqZIn6QUAVtQejW8Sb8=;
+        b=S6maP8ESguWYsDUCDfFj3+J+SMiJUeiFiuPISVxAfWl6mEavmX2wl1BeSETowADE7+
+         vXnoXAjkwLD+fBDCZbhE/MzCiNm8ISLf669NPTBmY9h4erpNHZb2Tq/Tohvahdu2IkeC
+         HNQFV4zwfWerKZB8GEiEUnyoUWpvwB9MYAqCiNL8HndB9POckx68swVhSkhYZTXddkPm
+         id2aXvZU3DgbCsy8uT+QHO3c4ZBWRF96kUR2AbODJQ3NPvxF3KALHsHa0PIHX2wff/no
+         FUzOOKiM5TJ4kSFL6ZQqaNm3IEPcLP2/Rbgadi7EMU91XGkcdJGnj+w/UlZnqDYzGTqX
+         u3yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692914826; x=1693519626;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DASKa/li088gpEX1WP1cXzYvf31jysy6F6skaH6JKao=;
-        b=lbx5lCUejomhkaoXRnIRwmyGMYQZ/TFeShU4VpSi2/hnoWdIk2vCBpbepfMgfHHtHd
-         TX2bw64Cg99MeflBK+3T+IhRrHB+zjeJcZ8fK0llprkvPNvETxGl3jJquG6k61g+cPm4
-         8gpRRIWktixGGjAu7oOqyk5qUicULfNw2yqZ3ldblbkYyoi9uBVbNtsIX+TRilE9MHKQ
-         Wb2J//XijSjgsQK4Px28KYuF/kJUGdx9YFiaOyY08L/kiJOSRxOKce8Q4oAEHfbi51Wv
-         P/+wUurwe+XR7IjbnNQIJ0hyKqu3ol100qa7nTWHv9XNvv4wNBvM/bm9Bm79Z1xdDsVu
-         pWZQ==
-X-Gm-Message-State: AOJu0YwoPtmJfnu5zyd5HuSAjS0OVsTPhZOe4hzvMlyBf9sAqUjgTdCy
-        92vpkbuI2j2YgLuiTB4kV+eskO8qsIWjc61Eyx8=
-X-Google-Smtp-Source: AGHT+IEtnfju1jhosxtUM5rYuV6SAdLh7A5zngGJA99XTJYqR+0Em7ihPxx7Pe2tcsxlb05AY7szbw==
-X-Received: by 2002:adf:cf02:0:b0:317:6b0d:1b1 with SMTP id o2-20020adfcf02000000b003176b0d01b1mr13045359wrj.4.1692914825486;
-        Thu, 24 Aug 2023 15:07:05 -0700 (PDT)
-Received: from [10.96.0.3] ([146.70.48.3])
-        by smtp.gmail.com with ESMTPSA id p24-20020a1c7418000000b003fef60005b5sm521982wmc.9.2023.08.24.15.07.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Aug 2023 15:07:04 -0700 (PDT)
-Message-ID: <45b86bac-faeb-b39a-6be4-5c5f1c4bdc6e@gmail.com>
-Date:   Thu, 24 Aug 2023 23:07:00 +0100
+        d=1e100.net; s=20221208; t=1692919508; x=1693524308;
+        h=user-agent:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EOXQed/GutgSngtgQkiIxN51QqZIn6QUAVtQejW8Sb8=;
+        b=D03RXquP4kHxGXv2ZJG+VvhHDXSqk7oHDJwRmDH/dXvwNtPYSverLjKJ+BieqiUN9V
+         Yj3N+oiv4UymWNuend/ipczKVjzk4ljGoaZ+NaaxpO3ntf7j12T3d3j3ipwC01fhh6/S
+         d2RdQKgI5J0LviEaRA7a5w0kZqePkN5By3q0HQXkw1AIFVhRN2ZtjTFpTw3r8dl7aMZl
+         OQjQAOGRl6BTt8JEVc2QzNOxNr8gKqPMGM4Md6luPvardoskLHqDB2mLUOeYcdrWaSNj
+         ncT1cUJSUagekHQ+LYRHUFF3mbYG+Yr9lAZJKq9a62Pk8ry4Xz1paDT0UNJWES+tHRcS
+         m4ww==
+X-Gm-Message-State: AOJu0YwVIf6iQtmyN0WgZq+JzsswQkGkJVpVsvRxyXkPxpcSltokm1G+
+        RyHpS33UwdHPpMxPsW2x4EIlrH9sQFtvvg==
+X-Google-Smtp-Source: AGHT+IFXVrYEqfdSav49qvQam9A4NA4ScJeq1u/oH+Vd/lsky46icHTLJrd77v9vslEsML5y35QOwg==
+X-Received: by 2002:a05:600c:204b:b0:3fe:485f:ed1b with SMTP id p11-20020a05600c204b00b003fe485fed1bmr13739429wmg.28.1692919508050;
+        Thu, 24 Aug 2023 16:25:08 -0700 (PDT)
+Received: from t420 (net-93-70-31-151.cust.vodafonedsl.it. [93.70.31.151])
+        by smtp.gmail.com with ESMTPSA id d15-20020a5d538f000000b0031ae8d86af4sm446908wrv.103.2023.08.24.16.25.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Aug 2023 16:25:07 -0700 (PDT)
+Date:   Fri, 25 Aug 2023 01:25:05 +0200
+From:   Emanuele Torre <torreemanuele6@gmail.com>
+To:     alx@kernel.org
+Cc:     linux-man@vger.kernel.org
+Subject: [man-pages] pidfd_send_signal(2) innacurately describes how to get a
+ pidfd
+Message-ID: <ZOfm0VZha-CLDYgX@t420>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] abort.3: Note that the glibc implementation is not
- async-signal-safe
-Content-Language: en-US
-To:     =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>,
-        Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Carlos O'Donell <carlos@redhat.com>,
-        Glibc <libc-alpha@sourceware.org>
-References: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
- <ZOThpIa46irPESgE@cremorrah>
-From:   Gabriel Ravier <gabravier@gmail.com>
-In-Reply-To: <ZOThpIa46irPESgE@cremorrah>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.2.11 (2023-08-18)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 8/22/23 17:26, Tomáš Golembiovský via Libc-alpha wrote:
-> Hi,
->
-> gentle reminder that this has not received any attention yet.
-I assume this is because there are currently efforts to make glibc's 
-implementation async-signal-safe - which would make this proposed note 
-quite quickly inaccurate (though the fact it has been 
-async-signal-unsafe until now still seems notable enough to be mentioned 
-here).
->
-> Thanks,
->
->      Tomas
->
-> On Wed, Jul 26, 2023 at 01:55:27PM +0200, Tomáš Golembiovský wrote:
->> See https://sourceware.org/bugzilla/show_bug.cgi?id=26275
->>
->> Cc: Carlos O'Donell <carlos@redhat.com>
->> Cc: Glibc <libc-alpha@sourceware.org>
->> Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
->> ---
->>   man3/abort.3         | 6 ++++++
->>   man7/signal-safety.7 | 5 +++++
->>   2 files changed, 11 insertions(+)
->>
->> diff --git a/man3/abort.3 b/man3/abort.3
->> index 0b57e10ed..827d5c9db 100644
->> --- a/man3/abort.3
->> +++ b/man3/abort.3
->> @@ -85,6 +85,12 @@ terminates the process without flushing streams.
->>   POSIX.1 permits either possible behavior, saying that
->>   .BR abort ()
->>   "may include an attempt to effect fclose() on all open streams".
->> +.SH BUGS
->> +The glibc implementation of
->> +.BR abort ()
->> +is not async-signal-safe,
->> +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
->> +in violation of the requirements of POSIX.1.
->>   .SH SEE ALSO
->>   .BR gdb (1),
->>   .BR sigaction (2),
->> diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
->> index 3d6ddc7eb..431a22f89 100644
->> --- a/man7/signal-safety.7
->> +++ b/man7/signal-safety.7
->> @@ -335,6 +335,11 @@ The glibc implementation of
->>   is not async-signal-safe because it uses
->>   .BR pthread_mutex_lock (3)
->>   internally.
->> +.IP \[bu]
->> +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
->> +The glibc implementation of
->> +.BR abort (3)
->> +is not async-signal-safe.
->>   .SH SEE ALSO
->>   .BR sigaction (2),
->>   .BR signal (7),
->> -- 
->> 2.41.0
->>
+Hi.
 
+Today, I was reading pidfd_send_signal(2), and I was suprised to see it
+mentioning that you can get a PID file descriptor by opening a /proc/pid
+directory.
+
+  NOTES
+    PID file descriptors
+      The pidfd argument is a PID file descriptor, a file descriptor
+      that refers to  process.  Such a file descriptor can be obtained
+      in any of the following ways:
+       .  by opening a /proc/pid directory;
+       .  using pidfd_open(2); or
+       .  via the PID file descriptor that is returned by a call to
+          clone(2) or clone3(2) that specifies the CLONE_PIDFD flag.
+
+Unfortunately, if you open /proc/123, you don't get a pidfd for the
+process with pid 123; as expected, you will just get a directory file
+descriptor for /proc/123.
+
+And that directory file descriptor won't be usable as a PID file
+descriptor either.
+(openpidfd, and pidfdgetfd are just simple wrappers for pidfd_open, and
+pidfd_getfd)
+
+  $ pidfdgetfd 9 0 0 echo hello 9</proc/1584616
+  pidfd_getfd: Bad file descriptor
+  $ # you must use pidfd_open
+  $ openpidfd 9 1584616 pidfdgetfd 9 0 0 echo hello
+  hello
+
+I also wrote a test program that uses a /proc/pid directory file
+descriptor as pidfd for  waitid(P_PID)  and that also didnd't work
+(waitid fails with EINVAL).
+
+But those directory file descriptors do work as alternative to actual
+pidfds for  pidfd_send_signal(2)  specifically.
+
+I think the documentation should be changed to say that
+pidfd_send_signal accepts either a PID file descriptor (obtainable using
+pidfd_open or CLONE_PIDFD), or, alternatively, a file descriptor for a
+/proc/pid directory to avoid confusions.
+
+Thank you.
+
+o/
+ emanuele6
