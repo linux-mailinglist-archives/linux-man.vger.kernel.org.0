@@ -2,57 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 35FF8788E14
-	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 19:54:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A70D2788E25
+	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 19:59:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229544AbjHYRy1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Aug 2023 13:54:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51382 "EHLO
+        id S229495AbjHYR6s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Aug 2023 13:58:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40552 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229697AbjHYRyE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Aug 2023 13:54:04 -0400
+        with ESMTP id S234898AbjHYR6m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Aug 2023 13:58:42 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50953212B
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 10:54:02 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB87A213A
+        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 10:58:37 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id E3B0164682
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 17:54:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AED7C433C9;
-        Fri, 25 Aug 2023 17:53:59 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 5939C62257
+        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 17:58:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397AAC433C7;
+        Fri, 25 Aug 2023 17:58:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1692986041;
-        bh=1MwLVWpbf0ZiTmn4kiV1ouT9ma2qtDWmZhBXJpkuqyI=;
+        s=k20201202; t=1692986316;
+        bh=UHLTmelhl24rsojkbuHkGvx0GZNkYqOxgXxNIjV7YkA=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=l+w3rpbNRznA5TMpiQ39uRVyxM6FcBWTlY9AUrUITCds4EZxMMT8tsxPgSikMJMm5
-         PMY+fGh7IarjIDcJEOFTX4KLB79v2+NMUcD20GM//+NDKsRA3BFfeEYNUkS4gk/P1n
-         ++MDP2Lr+yN6YdhLW8tLiUubjgv0r3QPOEtulXTdQL52Xr2DncBJZjCWE22iES9B8t
-         iIBKN+Gllrkq5p0VrbGY6d2wukfa8AwIgoaR7osziMsD2d/ScQNd5BB1S+ZZXuOu7p
-         7HbujFbE/FUOtTvyFdvX5SzG6e5ca6XDsM7AoU/5vbKjrt7x+qYzBBsdRgp/hDGvad
-         RXocNi/5/TCpQ==
-Message-ID: <d21c8f8f-61a0-9309-f43b-9d88f59e8085@kernel.org>
-Date:   Fri, 25 Aug 2023 19:53:58 +0200
+        b=uLxEwq1bJL4sDomHYG1gP+MvolxDKzKN/mHKqAcRnIDKL7/qSbUD/PEFtt545WoF5
+         g4Hx/NFa4/EFIkEVREmtF9088VSzbijmEUCgdQxX8OYY46f/RE765RBls549a0cYeB
+         ieURA3nhWSAqqfiC58qJzmwQcAytSC2lTKhw8VD12ULS+Gw6CXDs/nOWyi283QJpYo
+         yw1cotQf1AbaVI0LrGBp1ynTZZRbsaZA35gH+fPwxp7uw7GQ6aapGtmEeZqZL0Qqri
+         UhhfOMPR1nWy/Ba4uVWXa7F44cyDAa83e6bmbPJjH1+0gjvcFl0zxMfJV3/n5RY/O8
+         GLGGPbo8o24og==
+Message-ID: <6e7c44a4-18b3-89d8-709e-5d01dbc9b3d7@kernel.org>
+Date:   Fri, 25 Aug 2023 19:58:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: Re: [PATCH] abort.3: Note that the glibc implementation is not
- async-signal-safe
+Subject: Re: [man-pages] pidfd_send_signal(2) innacurately describes how to
+ get a pidfd
 Content-Language: en-US
-To:     =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
-Cc:     linux-man@vger.kernel.org, Carlos O'Donell <carlos@redhat.com>,
-        Glibc <libc-alpha@sourceware.org>,
-        Gabriel Ravier <gabravier@gmail.com>
-References: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
- <ZOThpIa46irPESgE@cremorrah> <45b86bac-faeb-b39a-6be4-5c5f1c4bdc6e@gmail.com>
- <ZOifYfs4fxIbk-NF@cremorrah>
+To:     Emanuele Torre <torreemanuele6@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <ZOfm0VZha-CLDYgX@t420>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <ZOifYfs4fxIbk-NF@cremorrah>
+In-Reply-To: <ZOfm0VZha-CLDYgX@t420>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------kIzvdwWq8KsSWm8AJj0bE5Nm"
+ boundary="------------0eTelj1VfH02aCp0WBt5a7ry"
 X-Spam-Status: No, score=-3.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -64,164 +60,112 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kIzvdwWq8KsSWm8AJj0bE5Nm
-Content-Type: multipart/mixed; boundary="------------H3DjTAJ4d739nRz5Bu3DmQwv";
+--------------0eTelj1VfH02aCp0WBt5a7ry
+Content-Type: multipart/mixed; boundary="------------4HmQzTOUxZ0b5GaVTKvRJRye";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
-Cc: linux-man@vger.kernel.org, Carlos O'Donell <carlos@redhat.com>,
- Glibc <libc-alpha@sourceware.org>, Gabriel Ravier <gabravier@gmail.com>
-Message-ID: <d21c8f8f-61a0-9309-f43b-9d88f59e8085@kernel.org>
-Subject: Re: [PATCH] abort.3: Note that the glibc implementation is not
- async-signal-safe
-References: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
- <ZOThpIa46irPESgE@cremorrah> <45b86bac-faeb-b39a-6be4-5c5f1c4bdc6e@gmail.com>
- <ZOifYfs4fxIbk-NF@cremorrah>
-In-Reply-To: <ZOifYfs4fxIbk-NF@cremorrah>
+To: Emanuele Torre <torreemanuele6@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <6e7c44a4-18b3-89d8-709e-5d01dbc9b3d7@kernel.org>
+Subject: Re: [man-pages] pidfd_send_signal(2) innacurately describes how to
+ get a pidfd
+References: <ZOfm0VZha-CLDYgX@t420>
+In-Reply-To: <ZOfm0VZha-CLDYgX@t420>
 
---------------H3DjTAJ4d739nRz5Bu3DmQwv
+--------------4HmQzTOUxZ0b5GaVTKvRJRye
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Tom=C3=A1=C5=A1, Gabriel,
+Hi Emanuele,
 
-On 2023-08-25 14:32, Tom=C3=A1=C5=A1 Golembiovsk=C3=BD wrote:
-> On Thu, Aug 24, 2023 at 11:07:00PM +0100, Gabriel Ravier wrote:
->> On 8/22/23 17:26, Tom=C3=A1=C5=A1 Golembiovsk=C3=BD via Libc-alpha wro=
-te:
->>> Hi,
->>>
->>> gentle reminder that this has not received any attention yet.
->> I assume this is because there are currently efforts to make glibc's
->> implementation async-signal-safe - which would make this proposed note=
- quite
->> quickly inaccurate
-
-I was actually waiting to see if anyone from glibc would comment.
-As Tom=C3=A1=C5=A1 said, I think this should be added even if glibc makes=
- it
-safe in the (near) future.  When that happens, we should move that
-to the HISTORY section.
-
+On 2023-08-25 01:25, Emanuele Torre wrote:
+> Hi.
 >=20
-> I suppose you're referring to this:=20
+> Today, I was reading pidfd_send_signal(2), and I was suprised to see it=
+
+> mentioning that you can get a PID file descriptor by opening a /proc/pi=
+d
+> directory.
 >=20
-> https://inbox.sourceware.org/libc-alpha/20230803173436.4146900-1-adheme=
-rval.zanella@linaro.org/
+>   NOTES
+>     PID file descriptors
+>       The pidfd argument is a PID file descriptor, a file descriptor
+>       that refers to  process.  Such a file descriptor can be obtained
+>       in any of the following ways:
+>        .  by opening a /proc/pid directory;
+>        .  using pidfd_open(2); or
+>        .  via the PID file descriptor that is returned by a call to
+>           clone(2) or clone3(2) that specifies the CLONE_PIDFD flag.
 >=20
-> I was not aware of that. Thanks for bringing that to my attention.
+> Unfortunately, if you open /proc/123, you don't get a pidfd for the
+> process with pid 123; as expected, you will just get a directory file
+> descriptor for /proc/123.
 >=20
->> (though the fact it has been async-signal-unsafe until
->> now still seems notable enough to be mentioned here).
+> And that directory file descriptor won't be usable as a PID file
+> descriptor either.
+> (openpidfd, and pidfdgetfd are just simple wrappers for pidfd_open, and=
+
+> pidfd_getfd)
 >=20
-> Yes, even when this is fixed having a BUGS section with something like
-> "In glibc X.Y.Z and earlier the function was not AS-safe.", might be a
-> good idea.
+>   $ pidfdgetfd 9 0 0 echo hello 9</proc/1584616
+>   pidfd_getfd: Bad file descriptor
+>   $ # you must use pidfd_open
+>   $ openpidfd 9 1584616 pidfdgetfd 9 0 0 echo hello
+>   hello
 >=20
->     Tomas
-
-Agree.  As no-one from glibc commented, I'll take that as an implicit ack=
-=2E
-
+> I also wrote a test program that uses a /proc/pid directory file
+> descriptor as pidfd for  waitid(P_PID)  and that also didnd't work
+> (waitid fails with EINVAL).
 >=20
->>>
->>> Thanks,
->>>
->>>      Tomas
->>>
->>> On Wed, Jul 26, 2023 at 01:55:27PM +0200, Tom=C3=A1=C5=A1 Golembiovsk=
-=C3=BD wrote:
->>>> See https://sourceware.org/bugzilla/show_bug.cgi?id=3D26275
->>>>
->>>> Cc: Carlos O'Donell <carlos@redhat.com>
->>>> Cc: Glibc <libc-alpha@sourceware.org>
->>>> Signed-off-by: Tom=C3=A1=C5=A1 Golembiovsk=C3=BD <tgolembi@redhat.co=
-m>
->>>> ---
->>>>   man3/abort.3         | 6 ++++++
->>>>   man7/signal-safety.7 | 5 +++++
->>>>   2 files changed, 11 insertions(+)
->>>>
->>>> diff --git a/man3/abort.3 b/man3/abort.3
->>>> index 0b57e10ed..827d5c9db 100644
->>>> --- a/man3/abort.3
->>>> +++ b/man3/abort.3
->>>> @@ -85,6 +85,12 @@ terminates the process without flushing streams.
->>>>   POSIX.1 permits either possible behavior, saying that
->>>>   .BR abort ()
->>>>   "may include an attempt to effect fclose() on all open streams".
->>>> +.SH BUGS
->>>> +The glibc implementation of
->>>> +.BR abort ()
->>>> +is not async-signal-safe,
->>>> +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=3D26275=
+> But those directory file descriptors do work as alternative to actual
+> pidfds for  pidfd_send_signal(2)  specifically.
+>=20
+> I think the documentation should be changed to say that
+> pidfd_send_signal accepts either a PID file descriptor (obtainable usin=
+g
+> pidfd_open or CLONE_PIDFD), or, alternatively, a file descriptor for a
+> /proc/pid directory to avoid confusions.
 
+Would you mind sending a patch?  If you do, please include in the commit
+message the source code _and_ the execution of all of the programs you
+mentioned above.
 
-What's that '.' for?
-
->>>> +in violation of the requirements of POSIX.1.
-
-It seems to also be in violation of ISO C, per what the glibc bug claims.=
-
-
-Please also include the links to POSIX.1 and ISO C that confirm this.
-
-Cheers,
+Thanks,
 Alex
 
->>>>   .SH SEE ALSO
->>>>   .BR gdb (1),
->>>>   .BR sigaction (2),
->>>> diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
->>>> index 3d6ddc7eb..431a22f89 100644
->>>> --- a/man7/signal-safety.7
->>>> +++ b/man7/signal-safety.7
->>>> @@ -335,6 +335,11 @@ The glibc implementation of
->>>>   is not async-signal-safe because it uses
->>>>   .BR pthread_mutex_lock (3)
->>>>   internally.
->>>> +.IP \[bu]
->>>> +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=3D26275=
-
->>>> +The glibc implementation of
->>>> +.BR abort (3)
->>>> +is not async-signal-safe.
->>>>   .SH SEE ALSO
->>>>   .BR sigaction (2),
->>>>   .BR signal (7),
->>>> --=20
->>>> 2.41.0
->>>>
->>
 >=20
+> Thank you.
+>=20
+> o/
+>  emanuele6
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------H3DjTAJ4d739nRz5Bu3DmQwv--
+--------------4HmQzTOUxZ0b5GaVTKvRJRye--
 
---------------kIzvdwWq8KsSWm8AJj0bE5Nm
+--------------0eTelj1VfH02aCp0WBt5a7ry
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTo6rYACgkQnowa+77/
-2zK1XQ//b73j1YGPcbb5y10i9IAWLTRj9LfTx3OjfhE/Ghm+91eOLyAY8B6tZlGv
-CjUT5ueioy7/0dDmOvXThr/QT+EVrhhORQyD4kt+D8dSL2QXxB9621KNIZRbpOmy
-cfZ0v8q5BxJUuNWQd0pZnIZBxwuQ12CrECdcmnT8z5NfrGZOJK/y/SeL2IG+7CzW
-mDyOqBXrf70B2GSGZBnzZf/CDeM9opF5LYnHIQDKgT2s54KUBNn+BqZy/HnQAV7m
-pmFL5GMqkCqAJxkr8FXx/ftcF/JN/02s2g/euDnWy3RQMFHYGKqT3CpBAbERVzot
-oStQiUq6ieJVWFX/nnQXnrBTJWLmmpMS76Zo8UyPMYzVIuVF88eKywVzy238HNA1
-N6LBj3Od/n3L6c5PT7SDtIB07ZZwYNJZdTxG7KqQUoXjgv0kkcKU9Vk//gVIEQfw
-qTCY9V3AIWi3puPIR6bT0aE4EHdrdI2PEiPQX9C2aAx7NFaOTb7eJCy6+PxQgTuX
-pgOljZT989q4R9LexW8gcT3vo1fGFOdgSeh8YoJ8OQnpxdfGLfTWs8BXCXCz6e7x
-HNmE9tzCyXxNiIPynh8h6m3z7z5iBtS9jeMTfaCsHzeZaG72K7DIMwsW1vzJcMv8
-Fqdn27Wc8U4Pbuu/Cl7QrNZnmyrlTvTtm0qhod8JfbLrNbHUPm8=
-=xqDl
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTo68oACgkQnowa+77/
+2zLljhAAkOP+cQsfdBqic2YfUGMglXXYpxvusgnz3MxvWHNLDz6m2yzHDtBMS9no
+VUFhzBAtifiOQPC31viqZzhk+Ph1C4N5DVPNy0G+C/FSowFj5qcxh0Gq4+uEsBDA
+vSx5Jb7DfKpSOeSWg0FS++atVsZL6eaF4sJ+OWaWiKhFD/YcA0U6Y0nKTqNYRmw/
+ZQgsl3XnJiU24FdXp2FEgO6K+iAe3UxzB9YgrAYybPbImQE4nZRQrLRiNHzBwciJ
+K47859oaHM86DkkGk8SEIP4EeVFZ24ujSLwmilfo7Vg2UZg+OgcuFqw9ilP4jdCm
+tGWuiZUPf0Y1f74ZCpoN3KRem/lgQx6M45ZVSWI9Osgy3DfyYHfqAjLI6USUT4KK
+CUbUTigxu0LA4ldsmDhDjFdvHWzk3M3F89XybGXqr7ZlBGGs5wWmfj/Ml0rnL5Xw
+UX/4sI4YXqc7c+bbsFumd2XpdW+cQdlFpFWNpWtAnEdk11cQlUXXlpmQR0WN84c8
+8THPymGriaolwaBVQ638fVeyqm9maiNgVsXrLAk7IXqusB8NZPdBEcLgdNnGV/XA
+UBwdiYpXVMT7DOLR0vnYttpVGGIhUZmgzLhHBoJ16fSVQX22xiRhL67vg4SxozZp
+8QNiEFyiTFzqKP/ywKOzagiVuwFNENe64tNbBOeG2g+HY6qm2LU=
+=I3W8
 -----END PGP SIGNATURE-----
 
---------------kIzvdwWq8KsSWm8AJj0bE5Nm--
+--------------0eTelj1VfH02aCp0WBt5a7ry--
