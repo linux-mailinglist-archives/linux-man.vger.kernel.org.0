@@ -2,161 +2,281 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F144788788
-	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 14:34:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9708B7887F1
+	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 14:57:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S243057AbjHYMeJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Aug 2023 08:34:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45318 "EHLO
+        id S242796AbjHYM5O (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Aug 2023 08:57:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53542 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S244899AbjHYMeD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Aug 2023 08:34:03 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF0F626AF
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 05:32:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1692966758;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=5wXP7X/6rZaJWONOSKjenEhS2VhNigdmZcqBn/d2VmE=;
-        b=Rwxhi7AHNXplUWuOdxIO+iKUNSfM6fB/YyfgeilYklptR1LIMZ8FS99DEtfC8TL193+zgt
-        7DFCwS43QV6xuN6v9TE0pVY3ehb+oembDnqtOIaIqvGWibHlVFd7yNxjoooTMcrLAS2pym
-        cYLSK60iQm2iDVEBZwBUtWVsDc+zYpA=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-669--9VxQe_mNDatRzNRP61iXA-1; Fri, 25 Aug 2023 08:32:37 -0400
-X-MC-Unique: -9VxQe_mNDatRzNRP61iXA-1
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-99c0bd2ca23so65439766b.2
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 05:32:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692966756; x=1693571556;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5wXP7X/6rZaJWONOSKjenEhS2VhNigdmZcqBn/d2VmE=;
-        b=VHTiCBbspuKOv9fO3nAhBe/Lqy+5nju0RlKXl0+Ve4qWRtTNCYtYW3qmeMYYdDbdks
-         /zD9Bl5VV3heFU8aZxXMjczwwjoQ7zCT74Zgyhrp90tgCko/lXx8ZWdmhZbpMeZvGTH3
-         /8ecEk6506DugPJ17K4lKtwENacYKIhCmmemjUGhGnqfBDFIST34iABmA5NDKxT/eXY+
-         LVFyOvubns4gRSo0FJCZ0UNx9uo0sHYQ2cDALdP33tx4brOqigNw8u2l6llRUlLVkjFf
-         wb5m1kgujuirFO14KP7Kke5Kvqz8TFK1ZM6VabgdlXFaUBe0paTyNktnf8AScY5f1oD+
-         KoqQ==
-X-Gm-Message-State: AOJu0Yzpd377al21Nrv2xamWj/3Bz78xvXjGtyAafIrqF4HmEz3BbG7V
-        w/ViabxnH/ZWzY8MgrD4u5UC6WGTTh9rszUCK5YU8fj+ahVhC6kmxy3bqP3+4nmFkxqGw6dBDXv
-        5BGmpV4wDKHFj48Y4AuT4
-X-Received: by 2002:a17:906:7695:b0:9a1:bd82:de35 with SMTP id o21-20020a170906769500b009a1bd82de35mr7359577ejm.3.1692966756118;
-        Fri, 25 Aug 2023 05:32:36 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEklG7YUNLGF8PDZeA7Jqic0wa/dZ09N1NinemgNMSGeNhdg97ejTz6ywQiOan7Dt7Xd/9Jlg==
-X-Received: by 2002:a17:906:7695:b0:9a1:bd82:de35 with SMTP id o21-20020a170906769500b009a1bd82de35mr7359569ejm.3.1692966755778;
-        Fri, 25 Aug 2023 05:32:35 -0700 (PDT)
-Received: from cremorrah (ip-86-49-234-148.bb.vodafone.cz. [86.49.234.148])
-        by smtp.gmail.com with ESMTPSA id d7-20020a1709064c4700b0099bd453357esm925582ejw.41.2023.08.25.05.32.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Aug 2023 05:32:35 -0700 (PDT)
-Date:   Fri, 25 Aug 2023 14:32:33 +0200
-From:   =?utf-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
-To:     Gabriel Ravier <gabravier@gmail.com>
-Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
-        Carlos O'Donell <carlos@redhat.com>,
-        Glibc <libc-alpha@sourceware.org>
-Subject: Re: [PATCH] abort.3: Note that the glibc implementation is not
- async-signal-safe
-Message-ID: <ZOifYfs4fxIbk-NF@cremorrah>
-References: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
- <ZOThpIa46irPESgE@cremorrah>
- <45b86bac-faeb-b39a-6be4-5c5f1c4bdc6e@gmail.com>
+        with ESMTP id S244983AbjHYM4x (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Aug 2023 08:56:53 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B523F2681
+        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 05:56:30 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 4518E658B5
+        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 12:56:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99B7C433C9;
+        Fri, 25 Aug 2023 12:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1692968189;
+        bh=pm+Bdz7Dyl7cYyW6uiVwoL8Fi17rAU5E+vuxrWt8w1g=;
+        h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
+        b=ABZR0RM1PWfS03oNySdijfSs+qV1TZVuPdvyP6RennI9jhqNE0uzIbOrLUquwKjwX
+         RuPFdghETnQ6dv1xNJI8/xDLG737qhVUpRZ29RBbE8KSWatxPWSUN9Tj+XiQ7/N2lt
+         wYQG7MDopYHoAk86707XEV01vng7TUGUPji4IoFn9dKes409Xfa2CTAuEV2XrV0DDE
+         cnVQdGU6GVHaS/Ix0ovSG5yY41cwxfjYtjyTNQ1WOsGBlO33+9kIkjYnuf4jaA1XHa
+         i3g7I/vvhzM2RR3XZDM3k9myZTTQYj+qIlOfcaJYxfj0JGQC7fJDCwxG4f2LGQ5ajC
+         H9bZxugBst2JA==
+Message-ID: <961d519a-78d3-25e3-dde8-75d5e0e2fe16@kernel.org>
+Date:   Fri, 25 Aug 2023 14:56:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <45b86bac-faeb-b39a-6be4-5c5f1c4bdc6e@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE
-        autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: groff in openSUSE
+Content-Language: en-US
+To:     Michael Vetter <jubalh@iodoru.org>
+References: <4a600a55-a68c-1c7a-42cb-403e2f51aed0@kernel.org>
+ <2c5edf3e-9e8a-fa7e-410b-8b805bd97461@iodoru.org>
+Cc:     linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <2c5edf3e-9e8a-fa7e-410b-8b805bd97461@iodoru.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Jw0qEDI0wHVdcTuhl9JZwbYM"
+X-Spam-Status: No, score=-3.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Aug 24, 2023 at 11:07:00PM +0100, Gabriel Ravier wrote:
-> On 8/22/23 17:26, Tomáš Golembiovský via Libc-alpha wrote:
-> > Hi,
-> > 
-> > gentle reminder that this has not received any attention yet.
-> I assume this is because there are currently efforts to make glibc's
-> implementation async-signal-safe - which would make this proposed note quite
-> quickly inaccurate
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Jw0qEDI0wHVdcTuhl9JZwbYM
+Content-Type: multipart/mixed; boundary="------------fKZGIrOdsfK4qJGS9Cl4ia45";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Michael Vetter <jubalh@iodoru.org>
+Cc: linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+Message-ID: <961d519a-78d3-25e3-dde8-75d5e0e2fe16@kernel.org>
+Subject: Re: groff in openSUSE
+References: <4a600a55-a68c-1c7a-42cb-403e2f51aed0@kernel.org>
+ <2c5edf3e-9e8a-fa7e-410b-8b805bd97461@iodoru.org>
+In-Reply-To: <2c5edf3e-9e8a-fa7e-410b-8b805bd97461@iodoru.org>
 
-I suppose you're referring to this: 
+--------------fKZGIrOdsfK4qJGS9Cl4ia45
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-https://inbox.sourceware.org/libc-alpha/20230803173436.4146900-1-adhemerval.zanella@linaro.org/
+[CC +=3D linux-man@ & groff@, as we're discussing packaging of both]
 
-I was not aware of that. Thanks for bringing that to my attention.
+Hi Michael!
 
-> (though the fact it has been async-signal-unsafe until
-> now still seems notable enough to be mentioned here).
+On 2023-08-25 14:05, Michael Vetter wrote:
+> Hi Alejandro!
+>=20
+>> Are you a SUSE maintainer?  I'd like to know who is the maintainer of
+>> the groff(1) package in openSUSE.  They released a new version a coupl=
+e
+>> of months ago (the first release in several years), and SUSE seems to
+>> be the only distro that hasn't yet even started packaging it.
+>=20
+> Yep! And thanks for letting me know.
 
-Yes, even when this is fixed having a BUGS section with something like
-"In glibc X.Y.Z and earlier the function was not AS-safe.", might be a
-good idea.
+:)
 
-    Tomas
+>=20
+> Just for your curiousity:
+>=20
+> You can see the maintainers here:=20
+> https://build.opensuse.org/package/users/M17N/groff from there you woul=
+d=20
+> have to click on the users to see their email.
 
-> > 
-> > Thanks,
-> > 
-> >      Tomas
-> > 
-> > On Wed, Jul 26, 2023 at 01:55:27PM +0200, Tomáš Golembiovský wrote:
-> > > See https://sourceware.org/bugzilla/show_bug.cgi?id=26275
-> > > 
-> > > Cc: Carlos O'Donell <carlos@redhat.com>
-> > > Cc: Glibc <libc-alpha@sourceware.org>
-> > > Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
-> > > ---
-> > >   man3/abort.3         | 6 ++++++
-> > >   man7/signal-safety.7 | 5 +++++
-> > >   2 files changed, 11 insertions(+)
-> > > 
-> > > diff --git a/man3/abort.3 b/man3/abort.3
-> > > index 0b57e10ed..827d5c9db 100644
-> > > --- a/man3/abort.3
-> > > +++ b/man3/abort.3
-> > > @@ -85,6 +85,12 @@ terminates the process without flushing streams.
-> > >   POSIX.1 permits either possible behavior, saying that
-> > >   .BR abort ()
-> > >   "may include an attempt to effect fclose() on all open streams".
-> > > +.SH BUGS
-> > > +The glibc implementation of
-> > > +.BR abort ()
-> > > +is not async-signal-safe,
-> > > +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
-> > > +in violation of the requirements of POSIX.1.
-> > >   .SH SEE ALSO
-> > >   .BR gdb (1),
-> > >   .BR sigaction (2),
-> > > diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
-> > > index 3d6ddc7eb..431a22f89 100644
-> > > --- a/man7/signal-safety.7
-> > > +++ b/man7/signal-safety.7
-> > > @@ -335,6 +335,11 @@ The glibc implementation of
-> > >   is not async-signal-safe because it uses
-> > >   .BR pthread_mutex_lock (3)
-> > >   internally.
-> > > +.IP \[bu]
-> > > +.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
-> > > +The glibc implementation of
-> > > +.BR abort (3)
-> > > +is not async-signal-safe.
-> > >   .SH SEE ALSO
-> > >   .BR sigaction (2),
-> > >   .BR signal (7),
-> > > -- 
-> > > 2.41.0
-> > > 
-> 
+Ahh, I tried many times to find that info without luck; I'm quite dumb
+with clicky web UIs.
 
+I now found this with a browser search, which points me at least to
+someone who I could have contacted back then:
+
+<https://build.opensuse.org/package/users/openSUSE:Current/groff-full>
+
+> On openSUSE there exists=20
+> the commandline tool `osc` which can give the information via `osc=20
+> maintainer -e groff`.
+
+Debian user here.  And I was too lazy to install a VM with openSUSE
+just for that :)
+
+>=20
+> I messaged Antonio now.
+
+Thanks!
+
+> As far as I know he just became a maintainer=20
+> recently. I think it is a good task for him to get more familar with th=
+e=20
+> project so I asked him to update groff. If he has any issues or no time=
+=20
+> then I will update the package myself next week.
+
+Heh, he might.  It's a huge release, so he'll very likely stumble upon
+it.  But it'll probably be interesting for him.  If you need help,
+you can ask <groff@gnu.org>.  Branden, the current maintainer, is quite
+friendly and responsive.
+
+>=20
+>> As a maintainer of the Linux man-pages, that's a small problem to me,
+>> as my project has a dependency on groff, and I'm willing to upgrade th=
+e
+>> dep on the new 1.23.0 version of groff(1).  However, I'd like it to
+>> have ample support by distros before doing it.
+>=20
+> After Antonio or I did the upgrade in the (so called) devel project it =
+
+> will go through some reviews and then should land in our repos in a=20
+> couple of days :-)
+
+Nice!  :-)
+
+>=20
+> BTW:
+>=20
+> I'm not sure but maybe this is the Linux man-pages package that that we=
+=20
+> have:=20
+> https://build.opensuse.org/package/view_file/Documentation/man-pages/ma=
+n-pages.spec?expand=3D1
+
+Yes, it's that one.  I am now the maintainer of the project, since a
+couple of years ago the previous maintainer, Michael Kerrisk, retired
+from it.
+
+>=20
+> I'm not sure whether it should, but I see that there is no groff=20
+> dependency or usage in our package?
+
+Hmm.  The dependency is probably indirect through man(1) (from man-db).
+Debian has this problem, which I need to fix for the next release.  In
+openSUSE, I don't even find the dependency on man(1), so it seems it is
+working just because you happen to install man(1) and groff(1) or
+mandoc(1) on every system, but the dependency is missing.
+
+man(1) (from man-db) calls groff(1) internally to format the pages, as
+man(1) is only a librarian, a program that finds the page in the system
+and pipes it to groff(1) to actually format it.
+
+An alternative system is mandoc, which provides in the same package
+their own implementation of man(1), and the proper mandoc(1) program,
+which can format man(7) pages without resorting to groff(1).  So the
+dependency of the Linux man-pages is one of man-db & groff or mandoc.
+
+I documented these dependencies recently in the ./INSTALL file in the
+repository:
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/INSTALL=
+#n124>
+
+Since our pages do need those systems for being formatted, I think it
+would be good to specify them directly on our package.  Also, since
+I'm going to require specific versions soon, independent of which
+version man(1) requires, I think it's even more appropriate to specify
+them directly.
+
+> Do you use this upstream and we just=20
+> use the result maybe?
+
+We're already using groff-1.23.0 upstream for linting the project,
+which BTW would be interesting if you'd like to add it to your package.
+That is specified as Build-Depends (similar to the Debian meaning of
+it).
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/INSTALL=
+#n73>
+
+I've prepared patches to use that linting in the Debian packaging.
+<https://salsa.debian.org/debian/manpages/-/merge_requests/4>
+<https://salsa.debian.org/debian/manpages/-/merge_requests/4/diffs?commit=
+_id=3D87a8494a0d8349c79eaf29956646ae5cb8d64980>
+<https://salsa.debian.org/debian/manpages/-/merge_requests/4/diffs?commit=
+_id=3Ddb036e589538c04373b7b23d95f5e54bb66efa92>
+<https://salsa.debian.org/debian/manpages/-/merge_requests/4/diffs?commit=
+_id=3D8581562446ed73d3318ae13c95d4100eb6ed6cc5>
+Maybe you can add something similar for openSUSE.
+
+For formatting the pages, however, we only require groff (or mandoc),
+at any version.
+
+Here goes some review of your package:
+
+> # remove .so link to bzero.3, conflicts with libbsd
+> rm man3/explicit_bzero.3
+
+Do you move libbsd pages to section 3?  Upstream libbsd has them in
+3bsd precisely to avoid those conflicts.
+
+> # already in bpftool package
+> rm man7/bpf-helpers.7
+
+Where does that package get that page from?  Is it from the Linux
+man-pages upstream?  If not, where does it come from?  Just curious.
+
+> # conflicts with mandoc
+> mkdir man7mp
+> mv man7/man.7 man7mp/man.7mp
+
+Since you use man-db as your primary man(1) implementation --or I
+thought you do--, having man(7) provided by mandoc makes no sense.
+You should have groff's groff_man(7) be your man(7) --maybe via a
+link page (.so), or via a symlink--.
+
+BTW, we're in the process of removing man(7) provided by the Linux
+man-pages project, so that groff_man(7) becomes the new king, as
+it deserves.
+
+Cheers,
+
+Alex
+
+>=20
+> Best,
+>=20
+> Michael
+>=20
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+
+--------------fKZGIrOdsfK4qJGS9Cl4ia45--
+
+--------------Jw0qEDI0wHVdcTuhl9JZwbYM
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTopO8ACgkQnowa+77/
+2zJ6KBAAjVztGPq0KvdPHATYCeQcNrPuA4xXIYlezoMMXDSWciQKvG5f61Lozbhm
+6baRBUG6xzUvpNAzTlhwrhWGJOTlsY8L4mj0PFWwSxZ9MU+BJQsS2IsyYMRtKtnf
+giXeeJwSWB9HmrX7H7Iz5sxYNVGcsMPEZFPaDQRrzOO44DuzWGt/tOgzv86J3jBn
+kaDCbww/dN2JOEKVSUKVRmI/DQHAJG3sGHe4VO6oEQ8ha/ILbJ2DjHWDc0ntF/jH
+gifbsbDRmFHVd2MbrhlGCT1/xnnLYeQOQ80HgyvWQA/PkhAdldSF4qGRH4oxdcvH
+CBFnBrunlu3BRUXgLb1Afpyawzdku+u9GCT/ZPdiRJoHMyXR9CiHDmEYs6AdKPHG
+4AajztoCZf81/4l4LkzG0pNe968Jo1w0S8hq4G8o+Pl7yojKNe30HhvkkBHrV3Tn
+E47jXtlcddn7Bu4f/TcvWzBiytJTjGDUgcoY0wuN4AqqzdRs925PfMoFGfTrpXTG
+/cbqPj7CkCHjWmOU4A3+ZuwW3md6QGT0QqkyzE1dS2QPv2sPKu3i8rI95o+VECrH
+xSkW5MfSUnfZt4Wg7urJgp9y6bR/15DwiSBdpWyHsNbC6mwNjoywPIwLb6q3Rkuw
+tJ/rmL927qTaWE00QrIfrv7eHZn2cPFtYPDPlJGIBKwwvwvDjOo=
+=zRNH
+-----END PGP SIGNATURE-----
+
+--------------Jw0qEDI0wHVdcTuhl9JZwbYM--
