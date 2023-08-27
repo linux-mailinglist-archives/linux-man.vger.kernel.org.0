@@ -2,85 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B374A788FDA
-	for <lists+linux-man@lfdr.de>; Fri, 25 Aug 2023 22:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B15A778A13C
+	for <lists+linux-man@lfdr.de>; Sun, 27 Aug 2023 21:43:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230101AbjHYUbD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Aug 2023 16:31:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39216 "EHLO
+        id S230111AbjH0Tmc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 27 Aug 2023 15:42:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56940 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230117AbjHYUah (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Aug 2023 16:30:37 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5E8881BE6
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 13:30:35 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        with ESMTP id S230117AbjH0TmM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 27 Aug 2023 15:42:12 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CB3A124
+        for <linux-man@vger.kernel.org>; Sun, 27 Aug 2023 12:41:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1693165283;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=q+22GUs5/ZMvXTVj1mwn8w0z3Ji9gnGhfRKJu9ew3s8=;
+        b=bbkcC0sre8vHF2utYfRyIvERUrvOi8NKH28q9h2k0ryFjr0gdL3KiXeshq+Kiv2k3RBkg2
+        MldFBvAnHwq9T0Kcg0pqH8cL0CU1a0f24Ig1giz45tf1yUAiBFrg11q41t4FzEQnaBWyxS
+        lUH3RWTWboczuk/zrGiF2ETo3Gcg68E=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-692-x2W271rANrqKNoO-4MSJ9Q-1; Sun, 27 Aug 2023 15:41:20 -0400
+X-MC-Unique: x2W271rANrqKNoO-4MSJ9Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id EC7B7632F8
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 20:30:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 57EE7C433CB
-        for <linux-man@vger.kernel.org>; Fri, 25 Aug 2023 20:30:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1692995434;
-        bh=XNOFyiFrR5oSUZDcflwckoSmuxO9Psq/oBqRz8Oz9Qs=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=fWL1+tofKme+SeIG118KztnwqWVc0vtoiB27gtnkVuQ/FrQwsz8I5Eq3wNnDLNXVb
-         RWFPRpvtCxviNtpzLjcQ+7hneE2NXTWqEcVYzMX2VqkD5R2TI7YIHjLDMnrjKQTtDb
-         l7kRd7CPQlBdoeWK+ebxvG8qJpuEaaA6WDBHLa+NK7ENUs9GVIAYyJEyY/l01kw6W4
-         7LCW4VDlJ+LEy10of5T3uZhHKBNND7V8NqIsJvVHxT7/78WTIAvLd1RV/wBwlIQVJb
-         fZApsen2GI8IE0WHGFRDH3R44XF5aigrIF0fgqjuttKDVqTO8DkY+G5I+82GL3K6nD
-         lWuPxeD8OeqBw==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 41225C53BC6; Fri, 25 Aug 2023 20:30:34 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217821] document that Linux' open(2) uses ENXIO in case of
- sockets, while POSIX mandates EOPNOTSUPP
-Date:   Fri, 25 Aug 2023 20:30:33 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: enhancement
-X-Bugzilla-Who: calestyo@scientia.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-217821-11311-e9cPH1aOB7@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-217821-11311@https.bugzilla.kernel.org/>
-References: <bug-217821-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D97DA185A78F;
+        Sun, 27 Aug 2023 19:41:19 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.2.16.21])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 26E6540C6F4C;
+        Sun, 27 Aug 2023 19:41:19 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Christoph Anton Mitterer <calestyo@scientia.org>
+Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] open.2: Clarify different POSIX uses of EOPNOTSUPP and
+ ENXIO
+References: <979345cf576e86c42743ea48d797484fc41f8bf7.camel@scientia.org>
+Date:   Sun, 27 Aug 2023 21:41:17 +0200
+In-Reply-To: <979345cf576e86c42743ea48d797484fc41f8bf7.camel@scientia.org>
+        (Christoph Anton Mitterer's message of "Fri, 25 Aug 2023 22:28:14
+        +0200")
+Message-ID: <87ttsk8e8y.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217821
+* Christoph Anton Mitterer:
 
---- Comment #2 from Christoph Anton Mitterer (calestyo@scientia.org) ---
-Patch posted at:
-https://lore.kernel.org/linux-man/979345cf576e86c42743ea48d797484fc41f8bf7.=
-camel@scientia.org/T/#u
+> @@ -1437,6 +1439,12 @@ with a value greater than or equal to 200809L or
+>  with a value greater than or equal to 700.
+>  In glibc 2.11 and earlier, one obtains the definitions by defining
+>  .BR _GNU_SOURCE .
+> +.PP
+> +POSIX.1-2017 uses
+> +.B EOPNOTSUPP
+> +instead of
+> +.B ENXIO
+> +to indicate that the file is a UNIX domain socket.
+>  .SH HISTORY
+>  .TP
+>  .BR open ()
 
---=20
-You may reply to this email to add a comment.
+To what degree is this dependent on the file system?  Does the VFS layer
+restrict these error codes for anything else?  I don't think so.  Maybe
+strictly speaking, the added wording is still accurate, but the
+conclusion that ENXIO means socket would be incorrect draw, I think.
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Thanks,
+Florian
+
