@@ -2,94 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 954EA78B2E1
-	for <lists+linux-man@lfdr.de>; Mon, 28 Aug 2023 16:22:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D9E278B734
+	for <lists+linux-man@lfdr.de>; Mon, 28 Aug 2023 20:25:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229589AbjH1OVe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Aug 2023 10:21:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50578 "EHLO
+        id S232233AbjH1SZR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Aug 2023 14:25:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59898 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231672AbjH1OVI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Aug 2023 10:21:08 -0400
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com [IPv6:2607:f8b0:4864:20::1133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F53BC7
-        for <linux-man@vger.kernel.org>; Mon, 28 Aug 2023 07:21:06 -0700 (PDT)
-Received: by mail-yw1-x1133.google.com with SMTP id 00721157ae682-59288c68eb8so37950967b3.0
-        for <linux-man@vger.kernel.org>; Mon, 28 Aug 2023 07:21:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693232465; x=1693837265;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=em4NUcJdVSVnAA3dlVGsCMXMXSuwUGGiNZAJPQ1nw+0=;
-        b=TrASPxbSpHZhs4nvbOtsa4fGcWeaFN3nG/+ct70YvUiUZpCDqctbyP4KeEv/aMbfD5
-         jtAELjxqXNegOTtOqkrKVRYQ8kYtXhmvmTU6oaifSI1htxobnJPZCvFmaKEKORD5jlXT
-         pLiSeboMPgfFuAVFfvVnPIseA9N/d/GnGN3pEwMjUWsLdBOSnQoIXYN9SAVwTBrL32m3
-         h9kzQwdwapzvDo7tiJVtaXMMU+McFPor+VSAvBa/gCHPThJb+Aztck13ArKMn3Ds/LoH
-         Lga+QFRgu6HFgc6gQaAExa3+XnxQZ5y0iEhQ0lyQLrm98KO/opxPm9A1W0dGGSsZ977U
-         ExEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693232465; x=1693837265;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=em4NUcJdVSVnAA3dlVGsCMXMXSuwUGGiNZAJPQ1nw+0=;
-        b=KhyTmXSIyWns+HkbOJ8vXNBggksQYxlyi1qmjj6fU1lBcisUqWCvEK9R/gfslbtP7E
-         kTuiD4+IGAZQ6QBrsnEtuKPxdKFnKcb/GXdDwIdWM15DzBDBZunwcSJIW+jGr7avNNlv
-         6xxZJV1tTwNUzIEIQhy5EepEDjWgco5acrEhcriEJTRNpffJwPvXTmaP+gmUO5fMqBop
-         KR/B+itBJht3m367cMAj4mh3Jm8AUBscg8pUKl0sZjCjMbTkUFvA6AkPxgK8rAbmFHWV
-         WYEhBHGt6ZXbZWZlYhPlBrK5P67JxjJyhLlNRiHgbpnu2k0nUo1OUZckLmVmzZ6KWvHl
-         B7Hg==
-X-Gm-Message-State: AOJu0YyDmlCgpRus9rEhy28KbldCsm7jTtU54ijSEbbuB4cmcU+Oyhd5
-        pt3lLIggqUvaD9reCGDTTXs=
-X-Google-Smtp-Source: AGHT+IHj2A59H+bOnbIHkeq6AHwLQz9MZ0vT7oN+K2YU7d/8GfTqRxA+Pb6L8LefFvzZSND/ZTGhhA==
-X-Received: by 2002:a0d:c045:0:b0:589:8b55:fe09 with SMTP id b66-20020a0dc045000000b005898b55fe09mr25305228ywd.50.1693232465060;
-        Mon, 28 Aug 2023 07:21:05 -0700 (PDT)
-Received: from firmament.. (h198-137-20-64.xnet.uga.edu. [198.137.20.64])
-        by smtp.gmail.com with ESMTPSA id a1-20020a0df101000000b00577269ba9e9sm2166677ywf.86.2023.08.28.07.21.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Aug 2023 07:21:04 -0700 (PDT)
-From:   Matthew House <mattlloydhouse@gmail.com>
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     Christoph Anton Mitterer <calestyo@scientia.org>,
-        Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] open.2: Clarify different POSIX uses of EOPNOTSUPP and ENXIO
-Date:   Mon, 28 Aug 2023 10:20:25 -0400
-Message-ID: <20230828142038.750693-1-mattlloydhouse@gmail.com>
-In-Reply-To: <87ttsk8e8y.fsf@oldenburg.str.redhat.com>
-References: <979345cf576e86c42743ea48d797484fc41f8bf7.camel@scientia.org> <87ttsk8e8y.fsf@oldenburg.str.redhat.com>
+        with ESMTP id S232930AbjH1SZE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Aug 2023 14:25:04 -0400
+Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3F55613D
+        for <linux-man@vger.kernel.org>; Mon, 28 Aug 2023 11:25:01 -0700 (PDT)
+Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
+        by cmsmtp with ESMTP
+        id aeqHqBmEa6Nwhagv6q1jpD; Mon, 28 Aug 2023 18:25:00 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1693247100; bh=hbOizwAu+X8Ct4DNrz7yKc8aSC8QPur1SNrGeErf1Qw=;
+        h=Date:Reply-To:Subject:To:Cc:References:From:In-Reply-To;
+        b=MFLPSi66nUyC9CDDGD3NuOGv1IRpQ+XCy+cuew1LeHju54d9EnYbCckjF29SbcSbC
+         C9Lal2Gwpb8ZrlQWDTVoWzwR+b8aYw6haDm+MWv/jTuMweDdfWOngbDnUq3Cpl51jm
+         BFtwpV1CCKFnPUB+IvNnU7U756oUSXq/PJ8ZBKeQUvqvUVn+TSDook2Q0Sha511i5Q
+         3HvDn2bXWPfPny6R4GDtlVp72VYwELpQjr3mSfZEAYf3T9KbTLhqvRiyUZaeyLSlJW
+         uqxXQWL/aTRLotwCH0gB3q5Wd9oQ6VFTVV5GJPu6El4WhvznGiH3yqO0MulCig3plO
+         I59Cu+l15mLGw==
+Received: from [10.0.0.5] ([184.64.102.149])
+        by cmsmtp with ESMTP
+        id agv5qdU04yAOeagv5qNSm9; Mon, 28 Aug 2023 18:25:00 +0000
+X-Authority-Analysis: v=2.4 cv=e5oV9Il/ c=1 sm=1 tr=0 ts=64ece67c
+ a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
+ a=IkcTkHD0fZMA:10 a=QaRHPhJ_M_7LzJioXekA:9 a=QEXdDO2ut3YA:10
+Message-ID: <1435b3f6-b4fb-28b1-3c54-547c9a7e919a@Shaw.ca>
+Date:   Mon, 28 Aug 2023 12:24:59 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Reply-To: Brian.Inglis@Shaw.ca
+Subject: Re: No 6.05/.01 pdf book available
+Content-Language: en-CA
+To:     linux-man@vger.kernel.org
+Cc:     Deri <deri@chuzzlewit.myzen.co.uk>,
+        Alejandro Colomar <alx@kernel.org>
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <2704680.mvXUDI8C0e@pip> <a1550f24-6b0f-0173-967a-7dd31dbafd05@Shaw.ca>
+ <3262525.44csPzL39Z@pip> <54945a93-399e-620f-be6e-bbe740abb21e@kernel.org>
+ <d373a66b-8312-fcb4-103d-b6ce22a6b40f@Shaw.ca>
+ <ff61e9fb-b2ed-e136-6249-1b8541a75d7a@kernel.org>
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <ff61e9fb-b2ed-e136-6249-1b8541a75d7a@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfB9fWfBLTy6vzYmiOSXaRPrDAqbpUkrl3VP0TGLtVWj8HUSRMJcLvvCnt9IohbxoFwbf8WNzBPZ8lYZLtaZg8djdLlaWAKf5umJkK/gp8r3OkQiK4Cic
+ SqrrEQ+2NXrS1VSc8gIKYclyT/xYIjlTT+pPwBD43aLiCxHETPyz5BM4z/OisiqKdZS4uzui9LPh8Uogr7044pkU6H7b8WFYqFR0ifduH2HB3vXbPnjMn5jQ
+ TrzTNES/SgR7ehTxSL8o+3tqDyeyiP6g3k/9wITkBlo=
+X-Spam-Status: No, score=-4.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Aug 27, 2023 at 3:41 PM Florian Weimer <fweimer@redhat.com> wrote:
-> To what degree is this dependent on the file system?  Does the VFS layer
-> restrict these error codes for anything else?  I don't think so.  Maybe
-> strictly speaking, the added wording is still accurate, but the
-> conclusion that ENXIO means socket would be incorrect draw, I think.
+On 2023-08-28 06:17, Alejandro Colomar wrote:
+> Hi Brian,
+> 
+> On 2023-08-22 01:45, Brian Inglis wrote:
+>> I am in favour of all punctuation being treated as word spaces and sorting
+>> "cat ..." before "cat..." but find the real orders more evocative and easier to
+>> decide about than examples.
+> 
+> Here's an excerpt of how treating - and _ as spaces looks like.  I think
+> it's a reasonable order.  Should I apply that diff?
+> 
+> Cheers,
+> Alex
+> 
+> $ git diff
+> diff --git a/scripts/sortman b/scripts/sortman
+> index a8f70bab5..6d1d92f09 100755
+> --- a/scripts/sortman
+> +++ b/scripts/sortman
+> @@ -9,7 +9,7 @@ sed   -E '/\/intro./  s/.*\.([[:digit:]])/\10\t&/' \
+>   | sed -E '            s/\t(.*)/&\n\1/' \
+>   | sed -E '/\t/        s/\.[[:digit:]]([[:alpha:]][[:alnum:]]*)?\>.*//' \
+>   | sed -E '/\t/        s/\/[_-]*/\//g' \
+> -| sed -E '/\t/        s/[_-]/_/g' \
+> +| sed -E '/\t/        s/[_-]/ /g' \
+>   | sed -E '/\t/        {N;s/\n/\t/;}' \
+>   | sort -fV -k1,2 \
+>   | cut -f3;
+> $ touch man8/ld-z.8
+> $ touch man8/ld.8
+> $ find man8 | ./scripts/sortman
+> man8/intro.8
+> man8/iconvconfig.8
+> man8/ld.8
+> man8/ld-linux.8
+> man8/ld-linux.so.8
+> man8/ld-z.8
+> man8/ld.so.8
+> man8/ldconfig.8
+> man8/nscd.8
+> man8/sln.8
+> man8/tzselect.8
+> man8/zdump.8
+> man8/zic.8
+> man8
 
--ENXIO is returned by no_open() in fs/inode.c, which is automatically set
-as the ->open() function (by inode_init_always()) for every inode that
-isn't a symlink and doesn't set its ->i_fop to something else. As far as I
-am aware, every filesystem uses this fallback only for files of socket
-type; all non-socket inodes (except for dummy inodes) set either ->i_fop
-or ->i_op->read_link().
+Looks better, but should your sort *key* field instance also drop the section 
+suffix (already in prefix) and also treat "." as space?
+Where would you expect to see ld.so?
 
-Note that this doesn't apply only to Unix domain sockets, but to all
-sockets, if one attempts to open() them via their links in /proc/pid/fd.
-Open sockets in another process can only be duplicated (AFAIK) using
-pidfd_getfd() or SCM_RIGHTS.
+Also, in `sed`, instead of cloning the line, at the start of a series of 
+executions, make them all into a single inline command script, start with `h` to 
+*hold* the input line, and end with `G` instead of `N` to append '\n' then the 
+held line, convert to `\t`, drop the braces, and you can skip the then redundant 
+tests, something like the following should get you close (tried it earlier, now 
+sadly already gone from history):
 
-Of course, some filesystems also return -ENXIO for their own error
-conditions, e.g., opening a pipe for writing with O_NONBLOCK when it has no
-readers.
+| sed -E '
+	h
+	/\/intro./  s/.*\.([[:digit:]])/\10\t&/
+	s/\.[[:digit:]]([[:alpha:]][[:alnum:]]*)?\>.*//
+	s/\/[_-]*/\//g
+	s/[_-]/_/g
+	s/[_-]/ /g
+	G
+	s/\n/\t/
+	' \
+| ...
 
-Matthew House
+-- 
+Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
+
+La perfection est atteinte                   Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
+                                 -- Antoine de Saint-Exupéry
+
