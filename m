@@ -2,130 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F2A1478A31C
-	for <lists+linux-man@lfdr.de>; Mon, 28 Aug 2023 00:53:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 981D678A4B6
+	for <lists+linux-man@lfdr.de>; Mon, 28 Aug 2023 04:56:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229481AbjH0WxA convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Sun, 27 Aug 2023 18:53:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40966 "EHLO
+        id S229456AbjH1C4C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 27 Aug 2023 22:56:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48870 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229513AbjH0Wwd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 27 Aug 2023 18:52:33 -0400
-Received: from bird.elm.relay.mailchannels.net (bird.elm.relay.mailchannels.net [23.83.212.17])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62FC0A9
-        for <linux-man@vger.kernel.org>; Sun, 27 Aug 2023 15:52:31 -0700 (PDT)
-X-Sender-Id: instrampxe0y3a|x-authuser|calestyo@scientia.org
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-        by relay.mailchannels.net (Postfix) with ESMTP id BFE3F540AD3;
-        Sun, 27 Aug 2023 22:52:30 +0000 (UTC)
-Received: from cpanel-007-fra.hostingww.com (unknown [127.0.0.6])
-        (Authenticated sender: instrampxe0y3a)
-        by relay.mailchannels.net (Postfix) with ESMTPA id BEF79540C3F;
-        Sun, 27 Aug 2023 22:52:29 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1693176750; a=rsa-sha256;
-        cv=none;
-        b=r0Mhm6gJNgf+dtctUIQeiobM7C4snlroNVCrZ6JwC6nIIV4KY97XEbO2YCIp/YD2yAm2Pg
-        v7NxN9Rm03LHVTu3TCfmfUzw7Kav2/dITt8mESmvCPywR18SmFo101Kjl5U20trBTlasOk
-        kFZ4rjF0HUZt6c4xh1t7nplnSR5B064//Ig05Sq1MzTE5a+Bq34cYPB8zt8Y4YyOFY19p7
-        QPzNHZiO1GtWbPJIAQSf1It2cME2Mpzkf+42b8UX5uKOG5MNZfmMZrWTXbEV4qiG5U+8m/
-        C/+10dErrjU6PyoZfc07MYhEmUTSUDqKGPQcKI948dr9jQkz5t4qipofyklAfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-        s=arc-2022; t=1693176750;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=XgaqBxwNNnBd/MwkQMiJ6gCNLvYOdXDMExmNg2/0DL0=;
-        b=JXliSa7s9eKZf7b2a1AMvUvW2ZpkxBYUQeEnwZAXoV13YcuuNCeUCOWgA8FcBmLNVFFZRK
-        L89WX4KPYQmjm92h+1li5b9fMoDNcv4++6qZqP1zIxpa2B27/rfPydvkxrZH8tS4CYen9a
-        xAhSqo3Szj1ch6v494+WQRFXXkBmcJD25jGaN4TOsX71/c3MEAv/b3165ZmdsZHkplyCd2
-        YDShFadRTId8rJmZq7WYRMUQ25VIVExgIIqHPWqGyCNvo/4tPMPlR9F10dUUIa9POS24E9
-        j5bFiQwZKtWnoPFz6SjSr4+Q0e6n1sEkYk0K0gv5SlGZwXyyd7Z1cWyNp17kPA==
-ARC-Authentication-Results: i=1;
-        rspamd-bfd6864c7-wdxk2;
-        auth=pass smtp.auth=instrampxe0y3a smtp.mailfrom=calestyo@scientia.org
-X-Sender-Id: instrampxe0y3a|x-authuser|calestyo@scientia.org
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: instrampxe0y3a|x-authuser|calestyo@scientia.org
-X-MailChannels-Auth-Id: instrampxe0y3a
-X-Cooing-Whispering: 06d708cb585c76b6_1693176750536_3634163828
-X-MC-Loop-Signature: 1693176750536:1256834522
-X-MC-Ingress-Time: 1693176750536
-Received: from cpanel-007-fra.hostingww.com (cpanel-007-fra.hostingww.com
- [3.69.87.180])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384)
-        by 100.124.152.234 (trex/6.9.1);
-        Sun, 27 Aug 2023 22:52:30 +0000
-Received: from p54b6d196.dip0.t-ipconnect.de ([84.182.209.150]:60164 helo=heisenberg.fritz.box)
-        by cpanel-007-fra.hostingww.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-        (Exim 4.96)
-        (envelope-from <calestyo@scientia.org>)
-        id 1qaOcK-009V1P-2S;
-        Sun, 27 Aug 2023 22:52:28 +0000
-Message-ID: <798b1909e4172c0d2a7c9f54a9c2720f066de705.camel@scientia.org>
-Subject: Re: [PATCH] open.2: Clarify different POSIX uses of EOPNOTSUPP and
- ENXIO
-From:   Christoph Anton Mitterer <calestyo@scientia.org>
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Date:   Mon, 28 Aug 2023 00:52:22 +0200
-In-Reply-To: <87ttsk8e8y.fsf@oldenburg.str.redhat.com>
-References: <979345cf576e86c42743ea48d797484fc41f8bf7.camel@scientia.org>
-         <87ttsk8e8y.fsf@oldenburg.str.redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
-User-Agent: Evolution 3.49.2-3 
+        with ESMTP id S229810AbjH1Czw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 27 Aug 2023 22:55:52 -0400
+X-Greylist: delayed 1113 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 27 Aug 2023 19:55:47 PDT
+Received: from mail.kjsi.ru (mail.kjsi.ru [81.90.211.38])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BB8510E
+        for <linux-man@vger.kernel.org>; Sun, 27 Aug 2023 19:55:47 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.kjsi.ru (Postfix) with ESMTP id C0D103963EEC;
+        Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
+Received: from mail.kjsi.ru ([127.0.0.1])
+        by localhost (mail.kjsi.ru [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id mGXrvEJpcDmR; Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.kjsi.ru (Postfix) with ESMTP id 405BA3964475;
+        Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.kjsi.ru 405BA3964475
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kjsi.ru;
+        s=D802DCF0-CFA2-11ED-BE7D-898B819B4EFB; t=1693189882;
+        bh=Ws5TcS6EV4V7aiUY6u9eol5cuGGKUQT0mSrLKF+Le3s=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=0Di6EaP5U7GNikhnPmCL76jwo3LVXZFQKAyawVs+qjfKEb2McA5rwOWs6/WeGCrmf
+         8W850OcLGFKKZ785ZHtWFIpr2dyjfYDjOV8fmDZ4gaCyBwlRVmtWMtGrScFqMScM4Z
+         MntwjmwWyiAnNh6qmq4pP6/SWAuNn7+5wJ6SFGkd5Qfn7/XTaBBiw1e9PejdDPTgDG
+         cW+hZ28uuE5eHuEgwx1+AsPof/zsMI/beJuv3rDPfybDmps1JWtcTJgNfL31yhHQhl
+         ttvV5iiz63NHvZytUBf24xIcdMYtie3ZifLeWKiHbmH9aUcBdseT2p+2iaheKAKlp9
+         WoccaWOFYEqdw==
+X-Virus-Scanned: amavisd-new at mail.kjsi.ru
+Received: from mail.kjsi.ru ([127.0.0.1])
+        by localhost (mail.kjsi.ru [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id gfMMbgW-jXED; Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
+Received: from [10.2.0.2] (unknown [185.107.56.105])
+        by mail.kjsi.ru (Postfix) with ESMTPSA id D6E023963E7E;
+        Mon, 28 Aug 2023 02:31:16 +0000 (UTC)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-X-AuthUser: calestyo@scientia.org
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Brauchen Sie einen Kredit?
+To:     Recipients <scan@kjsi.ru>
+From:   Georg Johannes Proksch <scan@kjsi.ru>
+Date:   Sun, 27 Aug 2023 19:31:08 -0700
+Reply-To: kreditschufadeutsch0@gmail.com
+Message-Id: <20230828023116.D6E023963E7E@mail.kjsi.ru>
+X-Spam-Status: No, score=3.3 required=5.0 tests=BAYES_50,DKIM_INVALID,
+        DKIM_SIGNED,FREEMAIL_FORGED_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Level: ***
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey Florian.
+Brauchen Sie einen Kredit?
+Tr=E4umen Sie davon, ein Unternehmen zu gr=FCnden?
+Sie ben=F6tigen Geld f=FCr Ihre Gesch=E4ftsidee, ben=F6tigen aber eine gro=
+=DFe Finanzierung?
+Besitzen Sie ein Unternehmen und m=F6chten expandieren?
 
-On Sun, 2023-08-27 at 21:41 +0200, Florian Weimer wrote:
-> To what degree is this dependent on the file system?  Does the VFS
-> layer
-> restrict these error codes for anything else?  I don't think so. 
+Wir bieten Gesch=E4ftskredite, Privatkredite, Projektkredite und Autokredit=
+e mit einem Zinssatz von 2 % an.
 
-THB, no idea what the various filesystems or the VFS do - I merely
-tried to clarify between what's already documented as of now and what
-POSIX specifies.
+Vollst=E4ndiger Name:
+Kreditbetrag:
+Kreditlaufzeit:
+Land:
+Telefonnummer:
 
-
-> Maybe
-> strictly speaking, the added wording is still accurate, but the
-> conclusion that ENXIO means socket would be incorrect draw, I think.
-
-Well, strictly speaking, I think that my wording doesn't say that...
-but I see that one could easily conclude that.
-
-If I add something like
-
-> …
-> ENXIO, which Linux uses to indicate (amongst others) that the file is
-> a UNIX domain socket.
-
-?
-
-
-But the same possible ambiguity might come up in the future for
-POSIX/EOPNOTSUPP.
-Should POSIX add further semantics to that error (like it also already
-does for ENXIO), a reader could conclude that in POSIX EOPNOTSUPP would
-only be used to indicate a socket (which would then no longer be the
-case).
-
-OTOH, I think it might get a bit overkill if we describe all these
-details.
-
-
-
-Cheers,
-Chris
+Herr Georg Johannes Proksch
+Kreditberater/Berater
