@@ -2,81 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 981D678A4B6
-	for <lists+linux-man@lfdr.de>; Mon, 28 Aug 2023 04:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C841D78A70D
+	for <lists+linux-man@lfdr.de>; Mon, 28 Aug 2023 10:06:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229456AbjH1C4C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 27 Aug 2023 22:56:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48870 "EHLO
+        id S229587AbjH1IF6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Aug 2023 04:05:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45922 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229810AbjH1Czw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 27 Aug 2023 22:55:52 -0400
-X-Greylist: delayed 1113 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 27 Aug 2023 19:55:47 PDT
-Received: from mail.kjsi.ru (mail.kjsi.ru [81.90.211.38])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BB8510E
-        for <linux-man@vger.kernel.org>; Sun, 27 Aug 2023 19:55:47 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.kjsi.ru (Postfix) with ESMTP id C0D103963EEC;
-        Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
-Received: from mail.kjsi.ru ([127.0.0.1])
-        by localhost (mail.kjsi.ru [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id mGXrvEJpcDmR; Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.kjsi.ru (Postfix) with ESMTP id 405BA3964475;
-        Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.kjsi.ru 405BA3964475
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kjsi.ru;
-        s=D802DCF0-CFA2-11ED-BE7D-898B819B4EFB; t=1693189882;
-        bh=Ws5TcS6EV4V7aiUY6u9eol5cuGGKUQT0mSrLKF+Le3s=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=0Di6EaP5U7GNikhnPmCL76jwo3LVXZFQKAyawVs+qjfKEb2McA5rwOWs6/WeGCrmf
-         8W850OcLGFKKZ785ZHtWFIpr2dyjfYDjOV8fmDZ4gaCyBwlRVmtWMtGrScFqMScM4Z
-         MntwjmwWyiAnNh6qmq4pP6/SWAuNn7+5wJ6SFGkd5Qfn7/XTaBBiw1e9PejdDPTgDG
-         cW+hZ28uuE5eHuEgwx1+AsPof/zsMI/beJuv3rDPfybDmps1JWtcTJgNfL31yhHQhl
-         ttvV5iiz63NHvZytUBf24xIcdMYtie3ZifLeWKiHbmH9aUcBdseT2p+2iaheKAKlp9
-         WoccaWOFYEqdw==
-X-Virus-Scanned: amavisd-new at mail.kjsi.ru
-Received: from mail.kjsi.ru ([127.0.0.1])
-        by localhost (mail.kjsi.ru [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id gfMMbgW-jXED; Mon, 28 Aug 2023 02:31:22 +0000 (UTC)
-Received: from [10.2.0.2] (unknown [185.107.56.105])
-        by mail.kjsi.ru (Postfix) with ESMTPSA id D6E023963E7E;
-        Mon, 28 Aug 2023 02:31:16 +0000 (UTC)
-Content-Type: text/plain; charset="iso-8859-1"
+        with ESMTP id S229778AbjH1IFb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Aug 2023 04:05:31 -0400
+X-Greylist: delayed 554 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 28 Aug 2023 01:05:23 PDT
+Received: from mail.clydespay.com (mail.clydespay.com [135.125.235.171])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98E29125
+        for <linux-man@vger.kernel.org>; Mon, 28 Aug 2023 01:05:23 -0700 (PDT)
+Received: by mail.clydespay.com (Postfix, from userid 1002)
+        id 9B949A263C; Mon, 28 Aug 2023 07:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=clydespay.com;
+        s=mail; t=1693209364;
+        bh=vvfT5KcxKPIjxXFqSm5MOJ+qRY14VuG/yg8Lav3pcWQ=;
+        h=Date:From:To:Subject:From;
+        b=P/g+g6oqHqMl+/fCJuc4wcXx829WEz10O14l/l948g3eUbhpCTkD+uMxWKTw0BIiT
+         sZqo2BK8YfDK3BQnetKO9yv8vpivcLsgA+XRvojMKbqXPic/mFLkKosZKfmKS8n8zB
+         cvlBNkTa/csNuvP+usKaspkvV2PNelSaBRdrAM8ushhYbzObMGm0YskNR6LnaDkHpR
+         QVILjSp5EOi+a9+5zmUlmKxGr2AKqnvNfwAIOXxSmFopqdFV12SsYFbnXNxfTrD7kH
+         N6xWdiu+QvOcRhrs871F+R+fBT5RN6AJzDySAZmxBmr7KSQlQND3VorfsHj+mnFyjv
+         fYdYgmfcfWJYA==
+Received: by mail.clydespay.com for <linux-man@vger.kernel.org>; Mon, 28 Aug 2023 07:55:50 GMT
+Message-ID: <20230828064500-0.1.9t.2hlvv.0.hbovb25eqe@clydespay.com>
+Date:   Mon, 28 Aug 2023 07:55:50 GMT
+From:   "Miguel Garcia" <miguel.garcia@clydespay.com>
+To:     <linux-man@vger.kernel.org>
+Subject: Consumo de combustible
+X-Mailer: mail.clydespay.com
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: Brauchen Sie einen Kredit?
-To:     Recipients <scan@kjsi.ru>
-From:   Georg Johannes Proksch <scan@kjsi.ru>
-Date:   Sun, 27 Aug 2023 19:31:08 -0700
-Reply-To: kreditschufadeutsch0@gmail.com
-Message-Id: <20230828023116.D6E023963E7E@mail.kjsi.ru>
-X-Spam-Status: No, score=3.3 required=5.0 tests=BAYES_50,DKIM_INVALID,
-        DKIM_SIGNED,FREEMAIL_FORGED_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Level: ***
+X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Brauchen Sie einen Kredit?
-Tr=E4umen Sie davon, ein Unternehmen zu gr=FCnden?
-Sie ben=F6tigen Geld f=FCr Ihre Gesch=E4ftsidee, ben=F6tigen aber eine gro=
-=DFe Finanzierung?
-Besitzen Sie ein Unternehmen und m=F6chten expandieren?
+Buenos dias
 
-Wir bieten Gesch=E4ftskredite, Privatkredite, Projektkredite und Autokredit=
-e mit einem Zinssatz von 2 % an.
+Le escribo sobre la gesti=C3=B3n de los autom=C3=B3viles de la empresa.
 
-Vollst=E4ndiger Name:
-Kreditbetrag:
-Kreditlaufzeit:
-Land:
-Telefonnummer:
+Gracias a las abundantes funcionalidades de la herramienta GPS, que monit=
+orea cada autom=C3=B3vil de manera continua, puede registrar la posici=C3=
+=B3n, el tiempo y el kilometraje de los autom=C3=B3viles en tiempo real.
 
-Herr Georg Johannes Proksch
-Kreditberater/Berater
+Como resultado, los costos de mantenimiento de la flota de la compa=C3=B1=
+=C3=ADa se reducen en un 20% y el tiempo de viaje o la planificaci=C3=B3n=
+ de la entrega se reduce significativamente. 49 mil est=C3=A1n detr=C3=A1=
+s del =C3=A9xito de nuestras soluciones. Empresas que cooperan con nosotr=
+os.
+
+Si el tema le parece interesante, cont=C3=A1ctame.
+
+
+Atentamente,
+Miguel Garcia
