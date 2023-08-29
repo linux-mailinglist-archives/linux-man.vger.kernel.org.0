@@ -2,54 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DD9AF78C248
-	for <lists+linux-man@lfdr.de>; Tue, 29 Aug 2023 12:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C9FF378C253
+	for <lists+linux-man@lfdr.de>; Tue, 29 Aug 2023 12:31:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231260AbjH2KWA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Aug 2023 06:22:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43302 "EHLO
+        id S231243AbjH2Kag (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Aug 2023 06:30:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53238 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232990AbjH2KVs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Aug 2023 06:21:48 -0400
+        with ESMTP id S235120AbjH2KaK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Aug 2023 06:30:10 -0400
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 95A8791
-        for <linux-man@vger.kernel.org>; Tue, 29 Aug 2023 03:21:41 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC73F103
+        for <linux-man@vger.kernel.org>; Tue, 29 Aug 2023 03:30:07 -0700 (PDT)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
         (No client certificate requested)
-        by smtp-out1.suse.de (Postfix) with ESMTPS id 4C2732185E;
-        Tue, 29 Aug 2023 10:21:40 +0000 (UTC)
+        by smtp-out1.suse.de (Postfix) with ESMTPS id B2581212AE;
+        Tue, 29 Aug 2023 10:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-        t=1693304500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+        t=1693305006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
          mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-        bh=u2/eHsWpL22QEhQERwPRT6ju7nBgcpYEvuDF9d/TbBk=;
-        b=vQU8adZqW3/JfvUddb5d9b937KEIna50MfqRGJASH/RtV9Qt0oDrjFOgwXBLqPX/refnIj
-        40q/MgncVUD9i9LylY8IFuEKaKU0ySOX9YY+oqYfesYj3kPkCBXaqtLUpJlKdeLpfpTjfZ
-        LXwpAbV/gyXZMwkGVZfTrEeWB3xi/8o=
+        bh=RZ9Nl+ph6InrtJ2dNClqEKmHy4gZLi5Pb6qJFU7J97A=;
+        b=SMb6/U/oNDsthlDIvwemy+e7jfX4OH67qZ21DGvHAZ4s+S/gksqdyxUqjv8WVvM7Z2mHQm
+        siQ9g4T05q4O3KxP6H1JQEHWT3KsoOgQ0VSyMAHzKo6Au7szQr7puFHhHugwrASJalqFEp
+        CCVQEhugnQxQ+hVayOzhKrsmnUWsTbI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-        s=susede2_ed25519; t=1693304500;
+        s=susede2_ed25519; t=1693305006;
         h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
          mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-        bh=u2/eHsWpL22QEhQERwPRT6ju7nBgcpYEvuDF9d/TbBk=;
-        b=xApaYIeM5zhiqjtkqk099jks0ohqujJS0PPrvQBXTlmqfReDQ5NUXqkvBAfn0wL8hN9TEz
-        Y7tt74cqkNnOT9Cg==
+        bh=RZ9Nl+ph6InrtJ2dNClqEKmHy4gZLi5Pb6qJFU7J97A=;
+        b=pgrCCF2jtk2Gy0CLOSJldrsTZfAcs38mu2JqXM1vfrpoScvShs4eNCfR70hUOnF7xrO1cu
+        t8POvUfY5E2QGTBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
         (No client certificate requested)
-        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DC44B138E2;
-        Tue, 29 Aug 2023 10:21:39 +0000 (UTC)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4F80B138E2;
+        Tue, 29 Aug 2023 10:30:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
         by imap2.suse-dmz.suse.de with ESMTPSA
-        id ddvAKrPG7WR7dgAAMHmgww
-        (envelope-from <akumar@suse.de>); Tue, 29 Aug 2023 10:21:39 +0000
+        id pS9OCK7I7WTZegAAMHmgww
+        (envelope-from <akumar@suse.de>); Tue, 29 Aug 2023 10:30:06 +0000
 From:   Avinesh Kumar <akumar@suse.de>
 To:     alx@kernel.org
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2] mmap.2: fix missing text
-Date:   Tue, 29 Aug 2023 15:51:34 +0530
-Message-ID: <20230829102137.17409-1-akumar@suse.de>
+Subject: [PATCH v2 1/2] inode.7: Remove duplicate field name
+Date:   Tue, 29 Aug 2023 16:00:00 +0530
+Message-ID: <20230829103004.18459-1-akumar@suse.de>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -62,25 +62,24 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Fixes: 090fdddb43 ("memfd_create.2, mmap.2, shmget.2: Document the EPERM
-for huge page allocations")
+Fixes: b48c75727c64 ("inode.7: New page with information about inodes")
 Signed-off-by: Avinesh Kumar <akumar@suse.de>
 ---
- man2/mmap.2 | 1 +
- 1 file changed, 1 insertion(+)
+ man7/inode.7 | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/man2/mmap.2 b/man2/mmap.2
-index d0530be0f..9de6b2796 100644
---- a/man2/mmap.2
-+++ b/man2/mmap.2
-@@ -629,6 +629,7 @@ and is not a member of the
- group; see the description of
- .I /proc/sys/vm/sysctl_hugetlb_shm_group
- in
-+.BR proc (5).
+diff --git a/man7/inode.7 b/man7/inode.7
+index 2fc4fde3c..5140fb069 100644
+--- a/man7/inode.7
++++ b/man7/inode.7
+@@ -56,7 +56,6 @@ Additional links to an existing file are created using
+ .BR link (2).
  .TP
- .B ETXTBSY
- .B MAP_DENYWRITE
+ User ID
+-.I st_uid
+ \fIstat.st_uid\fP; \fIstatx.stx_uid\fP
+ .IP
+ This field records the user ID of the owner of the file.
 -- 
 2.41.0
 
