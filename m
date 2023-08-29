@@ -2,91 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EA95478C89F
-	for <lists+linux-man@lfdr.de>; Tue, 29 Aug 2023 17:31:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F2FF178CDEC
+	for <lists+linux-man@lfdr.de>; Tue, 29 Aug 2023 22:59:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236112AbjH2Paf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Aug 2023 11:30:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39968 "EHLO
+        id S240561AbjH2U7G (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Aug 2023 16:59:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42820 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237283AbjH2PaG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Aug 2023 11:30:06 -0400
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA7FB99
-        for <linux-man@vger.kernel.org>; Tue, 29 Aug 2023 08:30:03 -0700 (PDT)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-        (No client certificate requested)
-        by smtp-out1.suse.de (Postfix) with ESMTPS id 5E61E21853;
-        Tue, 29 Aug 2023 15:30:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-        t=1693323002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=PQ379Jbw9D7uYxhQ1Nx9tZozX1AmzyeBv7jPLOnIOKg=;
-        b=MnzsPD5qVFmzD80TS6+I2VVqZMyuwmYVKs7HzB8B8G5I+37R0p2fpv6WOXpjppeXtqwlBB
-        LHJ5ABfAhAEr1lhDwmg4our2ds1Cj2BiSTVSWkL34dmI7lvLjXIr5GdqL38XRjQXVJEwQJ
-        v/0gA/LpbyvnbSB6F8oqgZ+bwJfRS0I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-        s=susede2_ed25519; t=1693323002;
-        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=PQ379Jbw9D7uYxhQ1Nx9tZozX1AmzyeBv7jPLOnIOKg=;
-        b=dKzNt51bnNnPvyQXfa1so8iLFW7nxgC0yaORdrIQ7Q9VG3cVis6H1l3oRf7dtgPhJ2lUVn
-        uOPYleNQ0930CqAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-        (No client certificate requested)
-        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F12B413301;
-        Tue, 29 Aug 2023 15:30:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-        by imap2.suse-dmz.suse.de with ESMTPSA
-        id lxj5L/kO7mTFIwAAMHmgww
-        (envelope-from <akumar@suse.de>); Tue, 29 Aug 2023 15:30:01 +0000
-From:   Avinesh Kumar <akumar@suse.de>
-To:     alx@kernel.org
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3] mmap.2: fix missing text
-Date:   Tue, 29 Aug 2023 20:59:59 +0530
-Message-ID: <20230829152959.31056-1-akumar@suse.de>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230829102137.17409-1-akumar@suse.de>
-References: <20230829102137.17409-1-akumar@suse.de>
+        with ESMTP id S240633AbjH2U6y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Aug 2023 16:58:54 -0400
+Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9719A1BC;
+        Tue, 29 Aug 2023 13:58:49 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+        by lithops.sigma-star.at (Postfix) with ESMTP id F197D623489A;
+        Tue, 29 Aug 2023 22:58:46 +0200 (CEST)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+        by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id Y3sq38MqC2IP; Tue, 29 Aug 2023 22:58:46 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+        by lithops.sigma-star.at (Postfix) with ESMTP id 8F80A6234894;
+        Tue, 29 Aug 2023 22:58:46 +0200 (CEST)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+        by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id dWL4oQjI8eUY; Tue, 29 Aug 2023 22:58:46 +0200 (CEST)
+Received: from blindfold.corp.sigma-star.at (84-115-238-89.cable.dynamic.surfer.at [84.115.238.89])
+        by lithops.sigma-star.at (Postfix) with ESMTPSA id F2D166418DB0;
+        Tue, 29 Aug 2023 22:58:45 +0200 (CEST)
+From:   Richard Weinberger <richard@nod.at>
+To:     alx@kernel.org, serge@hallyn.com, christian@brauner.io,
+        ipedrosa@redhat.com, gscrivan@redhat.com,
+        andreas.gruenbacher@gmail.com
+Cc:     acl-devel@nongnu.org, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        ebiederm@xmission.com, Richard Weinberger <richard@nod.at>
+Subject: [PATCH 0/3] Document impact of user namespaces and negative permissions
+Date:   Tue, 29 Aug 2023 22:58:30 +0200
+Message-Id: <20230829205833.14873-1-richard@nod.at>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,T_SPF_PERMERROR autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Fixes: 090fdddb43 ("memfd_create.2, mmap.2, shmget.2: Document the EPERM
-for huge page allocations")
-Signed-off-by: Avinesh Kumar <akumar@suse.de>
----
- man2/mmap.2 | 1 +
- 1 file changed, 1 insertion(+)
+I'm sending out this patch series to document the current situation regar=
+ding
+negative permissions and user namespaces.
 
-diff --git a/man2/mmap.2 b/man2/mmap.2
-index d0530be0f..f7e32013a 100644
---- a/man2/mmap.2
-+++ b/man2/mmap.2
-@@ -629,6 +629,7 @@ and is not a member of the
- group; see the description of
- .I /proc/sys/vm/sysctl_hugetlb_shm_group
- in
-+.BR proc_sys (5).
- .TP
- .B ETXTBSY
- .B MAP_DENYWRITE
--- 
-2.41.0
+From what I understand, the general agreement is that negative permission=
+s
+are not recommended and should be avoided. This is why the ability to som=
+ewhat
+bypass these permissions using user namespaces is tolerated, as it's deem=
+ed
+not worth the complexity to address this without breaking exsting program=
+s such
+as podman.
+
+To be clear, the current way of bypassing negative permissions, whether D=
+AC or
+ACL, isn't a result of a kernel flaw. The kernel issue related to this wa=
+s
+resolved with CVE-2014-8989. Currently, certain privileged helpers like
+newuidmap allow regular users to create user namespaces with subordinate =
+user
+and group ID mappings.
+This allows users to effectively drop their extra group memberships.
+
+I recently stumbled upon this behavior while looking into how rootless co=
+ntainers
+work. In conversations with the maintainers of the shadow package, I lear=
+ned that
+this behavior is both known and intended.
+So, let's make sure to document it as well.
+
+Thanks,
+//richard
+
+--=20
+2.26.2
 
