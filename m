@@ -2,131 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6EC5478C34F
-	for <lists+linux-man@lfdr.de>; Tue, 29 Aug 2023 13:29:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA95478C89F
+	for <lists+linux-man@lfdr.de>; Tue, 29 Aug 2023 17:31:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230431AbjH2L3Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Aug 2023 07:29:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40390 "EHLO
+        id S236112AbjH2Paf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Aug 2023 11:30:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39968 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231945AbjH2L2x (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Aug 2023 07:28:53 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC7B6113
-        for <linux-man@vger.kernel.org>; Tue, 29 Aug 2023 04:28:50 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        with ESMTP id S237283AbjH2PaG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Aug 2023 11:30:06 -0400
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA7FB99
+        for <linux-man@vger.kernel.org>; Tue, 29 Aug 2023 08:30:03 -0700 (PDT)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 81409654C9
-        for <linux-man@vger.kernel.org>; Tue, 29 Aug 2023 11:28:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7197AC433C7;
-        Tue, 29 Aug 2023 11:28:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1693308530;
-        bh=lTOshN4mU3fI8HtaPFiBQSbrYJxcyVa6/yaX/HeNVCw=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=bS86U94zPqG+DN3TZ9L6AZmVgNKtiS6sQwJJ4AdqsEEE3l/PH/x7W1YvA6dykOm5p
-         H2e1P3+L9v37V3LyDg9Hpom+uFGJJ+MfswU7nCmU+IRCFSdJngNk5xS2HOrqmAunci
-         o07OLDpAV14CKVuMX8YdAaZcu3wQoGMilsZZ4c5dPMBRFokHEeC40O7v7+KHvbZU+s
-         lWBzyNXjk7n/M6qfDIlpfMflhy+fAFhKB7rvo/IUKv4EUwQgz0oN9jG+TiZ8Uhv0UE
-         /MYB5v9tXZPgGam7/VuGUyg+5DfuOgBYCXoRsEcYU8F+Vf3pVoZJ4zucIO2EVYxNj4
-         h9MdG6SNUCJ5Q==
-Message-ID: <7f7f2644-d408-969b-6916-ee9cae0962b9@kernel.org>
-Date:   Tue, 29 Aug 2023 13:28:47 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH] man.7: Replace page with `so` of groff_man(7)
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        by smtp-out1.suse.de (Postfix) with ESMTPS id 5E61E21853;
+        Tue, 29 Aug 2023 15:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+        t=1693323002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=PQ379Jbw9D7uYxhQ1Nx9tZozX1AmzyeBv7jPLOnIOKg=;
+        b=MnzsPD5qVFmzD80TS6+I2VVqZMyuwmYVKs7HzB8B8G5I+37R0p2fpv6WOXpjppeXtqwlBB
+        LHJ5ABfAhAEr1lhDwmg4our2ds1Cj2BiSTVSWkL34dmI7lvLjXIr5GdqL38XRjQXVJEwQJ
+        v/0gA/LpbyvnbSB6F8oqgZ+bwJfRS0I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+        s=susede2_ed25519; t=1693323002;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=PQ379Jbw9D7uYxhQ1Nx9tZozX1AmzyeBv7jPLOnIOKg=;
+        b=dKzNt51bnNnPvyQXfa1so8iLFW7nxgC0yaORdrIQ7Q9VG3cVis6H1l3oRf7dtgPhJ2lUVn
+        uOPYleNQ0930CqAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F12B413301;
+        Tue, 29 Aug 2023 15:30:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id lxj5L/kO7mTFIwAAMHmgww
+        (envelope-from <akumar@suse.de>); Tue, 29 Aug 2023 15:30:01 +0000
+From:   Avinesh Kumar <akumar@suse.de>
+To:     alx@kernel.org
 Cc:     linux-man@vger.kernel.org
-References: <20230829112041.sdogksosoylkcoqg@illithid>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230829112041.sdogksosoylkcoqg@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------fun0anpxThqFeMojFKp9PXk8"
-X-Spam-Status: No, score=-5.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Subject: [PATCH v3] mmap.2: fix missing text
+Date:   Tue, 29 Aug 2023 20:59:59 +0530
+Message-ID: <20230829152959.31056-1-akumar@suse.de>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230829102137.17409-1-akumar@suse.de>
+References: <20230829102137.17409-1-akumar@suse.de>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------fun0anpxThqFeMojFKp9PXk8
-Content-Type: multipart/mixed; boundary="------------QO0J4liRFsBD0X1azAIhMFGo";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <7f7f2644-d408-969b-6916-ee9cae0962b9@kernel.org>
-Subject: Re: [PATCH] man.7: Replace page with `so` of groff_man(7)
-References: <20230829112041.sdogksosoylkcoqg@illithid>
-In-Reply-To: <20230829112041.sdogksosoylkcoqg@illithid>
+Fixes: 090fdddb43 ("memfd_create.2, mmap.2, shmget.2: Document the EPERM
+for huge page allocations")
+Signed-off-by: Avinesh Kumar <akumar@suse.de>
+---
+ man2/mmap.2 | 1 +
+ 1 file changed, 1 insertion(+)
 
---------------QO0J4liRFsBD0X1azAIhMFGo
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+diff --git a/man2/mmap.2 b/man2/mmap.2
+index d0530be0f..f7e32013a 100644
+--- a/man2/mmap.2
++++ b/man2/mmap.2
+@@ -629,6 +629,7 @@ and is not a member of the
+ group; see the description of
+ .I /proc/sys/vm/sysctl_hugetlb_shm_group
+ in
++.BR proc_sys (5).
+ .TP
+ .B ETXTBSY
+ .B MAP_DENYWRITE
+-- 
+2.41.0
 
-Hi Branden,
-
-On 2023-08-29 13:20, G. Branden Robinson wrote:
-> Suggested-by: Alejandro Colomar <alx@kernel.org>
-> Acked-by: Ingo Schwarze <schwarze@usta.de>
-> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-
-Heh, nice solution!  Patch applied.
-
-Cheers,
-Alex
-
-> ---
->  man7/man.7 | 508 +----------------------------------------------------=
-
->  1 file changed, 1 insertion(+), 507 deletions(-)
->=20
-> diff --git a/man7/man.7 b/man7/man.7
-> index 583fe354f..f460f4ad3 100644
-> --- a/man7/man.7
-> +++ b/man7/man.7
-> @@ -1,507 +1 @@
-[...]
-> -.BR mdoc (7)
-> +.so man7/groff_man.7
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------QO0J4liRFsBD0X1azAIhMFGo--
-
---------------fun0anpxThqFeMojFKp9PXk8
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTt1m8ACgkQnowa+77/
-2zLoOw//dcm3wrmMpKQB2nvYJo3db81WA2n50LSMbY5MntS2XKFbKvGFuQfqMy9Q
-vX7118KnboFmJcoIk57rfXnLGNNFpGYq/wmT0RfyoiRR7IrNd7vpLt8ZztvGa5jc
-dUKC+CFMwux9diLS4+3+LhBylpNcD4/2y/nBlYmb/lSKfVwI4UQ8e/o+R4btX+q5
-2nuR1H5bRECRsUE1A3oRZ1ka1BF9wFAeqk6ye2fcV+MJ5BB7UkSmGpLN1xew+ITh
-ygz9fkss8ysWzELtbh+SnVQR8+1oaUe9yMJlMBIADD3ZRW1KRm0G3U1DfrzwmnOV
-o/3Dxh6OmRFJSa6OJHURXI4dNE8xopETv1Q2ssNFBOZ4wPAtfyaui9AoYBqKKQR1
-ic1ZacLJPs9blxMlCnSpH7sr6t45KYGtikRjEVdDm4zGrTfFhpHfHybw5lbdlXHy
-5c0TA0nsue80mUiG8wBa9ry75ULRjS66HtR9hcsK9hefgrxKKBlcfUD0DLs/6i6V
-RwvihtfY5zVfOYUQgnFAbXuHgBPHzRG3vRCWYwHj91Uh4Dkbr4AzZpLRfY4DVPfN
-XjN/UUXD0r1Xicxv0BYBT6xmancNgt9WLgvaku+UWJAUgd1TdNPb4O26EdK2aAC2
-Uttg1D4PaoIe6NJhtWE2YTiHzl/zYvRX0grRQJ8elWAhHOhE6Q4=
-=vBpJ
------END PGP SIGNATURE-----
-
---------------fun0anpxThqFeMojFKp9PXk8--
