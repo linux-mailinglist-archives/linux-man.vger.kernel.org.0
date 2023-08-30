@@ -2,63 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EF82A78DC80
-	for <lists+linux-man@lfdr.de>; Wed, 30 Aug 2023 20:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2714B78E348
+	for <lists+linux-man@lfdr.de>; Thu, 31 Aug 2023 01:30:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242352AbjH3Spz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Aug 2023 14:45:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39892 "EHLO
+        id S237188AbjH3Xah (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Aug 2023 19:30:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58844 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242735AbjH3J1A (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Aug 2023 05:27:00 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C308EB0;
-        Wed, 30 Aug 2023 02:26:57 -0700 (PDT)
+        with ESMTP id S232142AbjH3Xag (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Aug 2023 19:30:36 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E6CBC0
+        for <linux-man@vger.kernel.org>; Wed, 30 Aug 2023 16:30:33 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 43AAF61778;
-        Wed, 30 Aug 2023 09:26:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64631C433C7;
-        Wed, 30 Aug 2023 09:26:54 +0000 (UTC)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 2ACDAB81EC5
+        for <linux-man@vger.kernel.org>; Wed, 30 Aug 2023 23:30:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A75C433C7;
+        Wed, 30 Aug 2023 23:30:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1693387616;
-        bh=rNqZ+6682Yz41rw/ZuGQka0Oa9P8E3eyGNXOL0FvqPg=;
-        h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-        b=OvjOjZ0W3lBkwTNcJUVgz2c1Gneoe+fiwx5f4/oes4K+5YIo81WwLAhMSd15IVgD2
-         dLxVgCsvE6NFTbzhUqcs8JN1keMk6ZR+UyrVf1qMpyUw7iriAwoSNTVmvN8rqxLx8E
-         Fc3teozWdKV6ZWnEpAy0UnoSpdvo/m2rAG4abpcx/H5/yX5VBZQe+iF0ZVp7YGQ6ah
-         8oN4+YscmyiSBGOFmQueXTphHLpR1bmPjQVH1Idm4m+wo8vGHGi6eh+As49Fndy9X8
-         jC0woVkVpr/1wgvYjF/FNS/9wlv2suPJM75ePXtlYZ3MIX//1t68OBwZ7Z4ETr1IKN
-         3n93bBDMyjLjw==
-Message-ID: <be7f7173-0ede-9eca-7b4c-9693743c7189@kernel.org>
-Date:   Wed, 30 Aug 2023 11:26:43 +0200
+        s=k20201202; t=1693438230;
+        bh=02SujSi3hF9sZ3cnswrhS5ungBi0sbx5gOlODEMk5bg=;
+        h=Date:To:From:Subject:Cc:From;
+        b=EBfI5UeeD81n1IjtXRn/bVdmcTXubOCVPA6TjxRPUV+oZFyOo6nseI98SXPkgKdff
+         oWDiVCOxFwcFXrnoADgUk96WBrojlFtVNxLr6hgbc9OyTFY2qLL0kpgmlEdox945Pe
+         TcZSmUrHacsLBJbbNYF9hEno8/9AWlE7ttJffewM4vDxx4nfLHtxavtrwO28oMVYCs
+         FPn3DfklOjExWn6kqdByj5Fd0C58urM1pkMikAkpRc8ciwQaVKHy/bkJRfscAlJ68u
+         SEmFPHkmo943OmzJfGwhpVbBgyYum8ncYV1F1yCNIBObhBLjpIkmg5GTodfvm8EFD4
+         ims23m9tgsMrw==
+Message-ID: <e13c74fb-e17a-ba14-f1fc-9c75f05090db@kernel.org>
+Date:   Thu, 31 Aug 2023 01:30:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: Re: [PATCH 2/3] user_namespaces.7: Document pitfall with negative
- permissions and user namespaces
 Content-Language: en-US
+To:     =?UTF-8?Q?Daniel_Marjam=c3=a4ki?= <daniel.marjamaki@gmail.com>
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Richard Weinberger <richard@nod.at>, serge@hallyn.com,
-        christian@brauner.io, ipedrosa@redhat.com, gscrivan@redhat.com,
-        andreas.gruenbacher@gmail.com
-Cc:     acl-devel@nongnu.org, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        ebiederm@xmission.com
-References: <20230829205833.14873-1-richard@nod.at>
- <20230829205833.14873-3-richard@nod.at>
- <51d4691d-dbc8-2e70-edc8-3b5814213c3f@kernel.org>
+Subject: [cppcheck]: [knownConditionTrueFalse]: false positive
 Organization: Linux
-In-Reply-To: <51d4691d-dbc8-2e70-edc8-3b5814213c3f@kernel.org>
+Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------4S5XroqQigwRaLaUtwair0Hr"
-X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+ boundary="------------yeAaA30ELcDOisMyalc1TqQP"
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -66,183 +56,109 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------4S5XroqQigwRaLaUtwair0Hr
-Content-Type: multipart/mixed; boundary="------------rMhNv08gKU4phc6Ts7KQAitv";
+--------------yeAaA30ELcDOisMyalc1TqQP
+Content-Type: multipart/mixed; boundary="------------Rn38B0pVdyWSD0l0VdqukVeQ";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Richard Weinberger <richard@nod.at>, serge@hallyn.com,
- christian@brauner.io, ipedrosa@redhat.com, gscrivan@redhat.com,
- andreas.gruenbacher@gmail.com
-Cc: acl-devel@nongnu.org, linux-man@vger.kernel.org,
- linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- ebiederm@xmission.com
-Message-ID: <be7f7173-0ede-9eca-7b4c-9693743c7189@kernel.org>
-Subject: Re: [PATCH 2/3] user_namespaces.7: Document pitfall with negative
- permissions and user namespaces
-References: <20230829205833.14873-1-richard@nod.at>
- <20230829205833.14873-3-richard@nod.at>
- <51d4691d-dbc8-2e70-edc8-3b5814213c3f@kernel.org>
-In-Reply-To: <51d4691d-dbc8-2e70-edc8-3b5814213c3f@kernel.org>
+To: =?UTF-8?Q?Daniel_Marjam=c3=a4ki?= <daniel.marjamaki@gmail.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Message-ID: <e13c74fb-e17a-ba14-f1fc-9c75f05090db@kernel.org>
+Subject: [cppcheck]: [knownConditionTrueFalse]: false positive
 
---------------rMhNv08gKU4phc6Ts7KQAitv
+--------------Rn38B0pVdyWSD0l0VdqukVeQ
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Daniel,
 
-On 2023-08-29 23:32, Alejandro Colomar wrote:
-> Hi Richard,
->=20
-> On 2023-08-29 22:58, Richard Weinberger wrote:
->> It is little known that user namespaces and some helpers
->> can be used to bypass negative permissions.
->>
->> Signed-off-by: Richard Weinberger <richard@nod.at>
->> ---
->> This patch applies to the Linux man-pages project.
->> ---
->>  man7/user_namespaces.7 | 29 +++++++++++++++++++++++++++++
->>  1 file changed, 29 insertions(+)
->>
->> diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
->> index a65854d737cf..4927e194bcdc 100644
->> --- a/man7/user_namespaces.7
->> +++ b/man7/user_namespaces.7
->> @@ -1067,6 +1067,35 @@ the remaining unsupported filesystems
->>  Linux 3.12 added support for the last of the unsupported major filesy=
-stems,
->>  .\" commit d6970d4b726cea6d7a9bc4120814f95c09571fc3
->>  XFS.
->> +.SS Negative permissions and Linux user namespaces
->> +While it is technically feasible to establish negative permissions th=
-rough
->=20
-> Please use semantic newlines.
->=20
-> $ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
->    Use semantic newlines
->      In the source of a manual page, new sentences should  be  started
->      on new lines, long sentences should be split into lines at clause
->      breaks  (commas, semicolons, colons, and so on), and long clauses
->      should be split at phrase boundaries.  This convention, sometimes
->      known as "semantic newlines", makes it easier to see  the  effect
->      of  patches,  which often operate at the level of individual sen=E2=
-=80=90
->      tences, clauses, or phrases.
->=20
->> +DAC or ACL settings, such an approach is widely regarded as a subopti=
-mal
->> +practice. Furthermore, the utilization of Linux user namespaces intro=
-duces the
->=20
-> Two spaces after period, if at all.  But note that semantic newlines
-> preclude that possibility.
+I found a false positive in cppcheck, regarding knownConditionTrueFalse.
+You can see by yourself.
 
-I should clarify that this is not a matter of style.  Software will
-behave incorrectly if you don't double-space after a period.
+Since I don't know of a mailing list for cppcheck(1), and I found this
+in a program in the EXAMPLES of a Linux manual page, I'm CCing the
+linux-man@ list.
 
-In shadow, I see that there's only one space after period in all of
-the pages.  I'll send a patch to fix that.
+
+$ cat neg.c=20
+#include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int
+main(int argc, char *argv[])
+{
+	int     opt;
+	size_t  s;
+
+	s =3D -1;
+
+	while ((opt =3D getopt(argc, argv, "s:")) !=3D -1) {
+		switch (opt) {
+		case 's':   s =3D strtoul(optarg, NULL, 0);break;
+		default:    break;
+		}
+	}
+	if (s =3D=3D -1)
+		return 1;
+	return 0;
+}
+
+
+$ cc neg.c -Wall -Wextra
+neg.c: In function =E2=80=98main=E2=80=99:
+neg.c:19:15: warning: comparison of integer expressions of different sign=
+edness: =E2=80=98size_t=E2=80=99 {aka =E2=80=98long unsigned int=E2=80=99=
+} and =E2=80=98int=E2=80=99 [-Wsign-compare]
+   20 |         if (s =3D=3D -1)
+      |               ^~
+
+
+$ cppcheck --enable=3Dall --error-exitcode=3D2 --inconclusive --quiet --s=
+uppress=3DmissingIncludeSystem  ./neg.c=20
+neg.c:20:8: style: Condition 's=3D=3D-1' is always false [knownConditionT=
+rueFalse]
+ if (s =3D=3D -1)
+       ^
+
+
+$ ./a.out; echo $?
+1
+
+
+
+While I agree that it's not the best style, that comparison is certainly
+possibly true after integer promotions.
 
 Cheers,
 Alex
 
 
->=20
->> +potential to circumvent specific negative permissions.  This issue st=
-ems
->> +from the fact that privileged helpers, such as
->> +.BR newuidmap (1) ,
->=20
-> Thas second space is spurious.
->=20
->> +enable unprivileged users to create user namespaces with subordinate =
-user and
->> +group IDs. As a consequence, users can drop group memberships, result=
-ing
->> +in a situation where negative permissions based on group membership n=
-o longer
->> +apply.
->> +
->=20
-> Use .PP instead of blanks.
->=20
->> +Example:
->> +.in +4n
->> +.EX
->> +$ \fBid\fP
->> +uid=3D1000(rw) gid=3D1000(rw) groups=3D1000(rw),1001(nogames)
->> +$ \fBunshare -S 0 -G 0 --map-users=3D100000,0,65536 --map-groups=3D10=
-0000,0,65536 id\fP
->> +uid=3D0(root) gid=3D0(root) groups=3D0(root)
->=20
-> This example is not working:
->=20
-> $ echo bar > foo
-> $ sudo chmod g=3D foo
-> $ sudo chown man foo
-> $ ls -l foo
-> -rw----r-- 1 man alx 4 Aug 29 23:28 foo
-> $ cat foo=20
-> cat: foo: Permission denied
-> $ id
-> uid=3D1000(alx) gid=3D1000(alx) groups=3D1000(alx),24(cdrom),25(floppy)=
-,29(audio),30(dip),44(video),46(plugdev),108(netdev),115(lpadmin),118(sca=
-nner)
-> $ unshare =E2=80=90S 0 =E2=80=90G 0 =E2=80=90=E2=80=90map=E2=80=90users=
-=3D100000,0,65536 =E2=80=90=E2=80=90map=E2=80=90groups=3D100000,0,65536 i=
-d
-> unshare: failed to execute =E2=80=90S: No such file or directory
->=20
->=20
->> +.EE
->> +.in
->> +
->> +User rw got rid of it's supplementary groups and can now access files=
- that
->> +have been protected using negative permissions that match groups such=
- as \fBnogames\fP.
->> +Please note that the
->> +.BR unshare (1)
->> +tool uses internally
->> +.BR newuidmap (1) .
->> +
->=20
-> Cheers,
-> Alex
->=20
->>  .\"
->>  .SH EXAMPLES
->>  The program below is designed to allow experimenting with
->=20
-
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
+--------------Rn38B0pVdyWSD0l0VdqukVeQ--
 
---------------rMhNv08gKU4phc6Ts7KQAitv--
-
---------------4S5XroqQigwRaLaUtwair0Hr
+--------------yeAaA30ELcDOisMyalc1TqQP
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTvC1MACgkQnowa+77/
-2zLqQQ/8D9rk3AQK4aVskCN6/3r1zXmXlHTiZPShR0A0ImzXF7xpWSJUJxx7+Bpd
-PICM57jEd1icxGfvYtby5WRzKxLhRCF1eU7/n2ZHkHMab2O0IKLYzxvx1uibD71E
-COmw1DQZjNMVDQGJN6qYKV08xFWZSQ7OE9CeKCpDtNJeFKFp3hzPGLbrl4QH3IBZ
-xnSwGm+5STK024ZLTcuLXSCOzztdw8lFnPziLatC6bUismGW+Q8FbFm9FMBRxJ34
-QeT0PfcR61vh2eKY5UtZ2mXXy+5exYC3sP5CepIiiwxDYPMYaT/uJvvBVev2HbxQ
-lMTUUK0j6aWvj4AXWB3C9S0WCPeWiC5z2Bz3wyognDKwSRsW7iAYA4Noje60vnjZ
-mEPL3f6OGsKiU4+k5kHb/1z94ppPtnErHHf7IMhEcvcr1wXpVZVtT8/BZn9lljA+
-uEmeexz25Lkrzle3vutF1cPFsrkSVzEReYOTDsqmR4J67PNw+qH6ui8+hxRQ7cqz
-7lMuj8jzUquo11txFZiqD2Im3TSYhFZ4sUx642/cYKwkYazxnGKciEJYL69wyVQ8
-ncSq4P7s4ebbwEfGJDxIrExdTe99toL2lkeze9/uYDLE8nC+7m2Xmlzz2UZupSwr
-AGikRHcM3MIRbp+WfQ5oVMPQMcI72snyipU0SnKrCY7Z7nsNwW0=
-=XLy7
+iQIyBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTv0Q0ACgkQnowa+77/
+2zLqSw/3Y6XTDaR536PoNTURm7U5cFIyvfR1iCQRjaUkv3JhUHX8iqKxpN9mA+SG
+NU2ZL1rrADDYbXZGxsmF+/qEPwiagRsQDgKBTqKvgEFNxkhMD3i67N08kTpycxLp
+pL5zTISd0HqUdqEY1ygjynQ8VTv1AKs8wrVdTWIqKohUfHu2u0DrQfLRyK5xM+z7
+v7cwv+JsmI2e7Q62vRPIZNfXTUjxEbl4WIE+U7qGTM0yi5iz3cTtWCoMVRZOGLqD
+0F1DWifKYM87NV27jan6OkPEGcA2HQB/rHNxL9f9LBEmrX/gCbEdQ733gYA/MA53
++DrUS/FTwxrR/IUz+zCopvyR2yW8DkElhe8HCB8GGn3GrPl808dTCRsvhZo6gCCc
+KBUTygzhsh+FwatO9GzoCsvQxcJncSh/52JPRDjZNA4OdCldIEBtXCGxiabhvcsT
+kjisiZK2198aKPPzXm0LT9+YHsPFeuiVsvNUtKgIAa2cfBkTG6L/E2b3u3mxEJ/9
+hClsOFlDtUbS4OjJhtrk6dxcV3f3gG5jpHVB1nQW5jMU9hOx2Zio5gYzIAA2ah5q
+EfJexHbzkKOWPstzFgzhlueb8oQchAKabIaYaKHlA2FMTuQ0NfeIipjCoryaHxUR
+o2WlMnkB3zWFOlN/HYEHYG4yH/Eu1jWVs9OmASIxveEJkN1ndA==
+=2na2
 -----END PGP SIGNATURE-----
 
---------------4S5XroqQigwRaLaUtwair0Hr--
+--------------yeAaA30ELcDOisMyalc1TqQP--
