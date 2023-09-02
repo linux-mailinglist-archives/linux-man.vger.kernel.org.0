@@ -2,163 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2714B78E348
-	for <lists+linux-man@lfdr.de>; Thu, 31 Aug 2023 01:30:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 29534790A40
+	for <lists+linux-man@lfdr.de>; Sun,  3 Sep 2023 01:10:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237188AbjH3Xah (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Aug 2023 19:30:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58844 "EHLO
+        id S235203AbjIBXKI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 2 Sep 2023 19:10:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41774 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232142AbjH3Xag (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Aug 2023 19:30:36 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E6CBC0
-        for <linux-man@vger.kernel.org>; Wed, 30 Aug 2023 16:30:33 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 2ACDAB81EC5
-        for <linux-man@vger.kernel.org>; Wed, 30 Aug 2023 23:30:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A75C433C7;
-        Wed, 30 Aug 2023 23:30:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1693438230;
-        bh=02SujSi3hF9sZ3cnswrhS5ungBi0sbx5gOlODEMk5bg=;
-        h=Date:To:From:Subject:Cc:From;
-        b=EBfI5UeeD81n1IjtXRn/bVdmcTXubOCVPA6TjxRPUV+oZFyOo6nseI98SXPkgKdff
-         oWDiVCOxFwcFXrnoADgUk96WBrojlFtVNxLr6hgbc9OyTFY2qLL0kpgmlEdox945Pe
-         TcZSmUrHacsLBJbbNYF9hEno8/9AWlE7ttJffewM4vDxx4nfLHtxavtrwO28oMVYCs
-         FPn3DfklOjExWn6kqdByj5Fd0C58urM1pkMikAkpRc8ciwQaVKHy/bkJRfscAlJ68u
-         SEmFPHkmo943OmzJfGwhpVbBgyYum8ncYV1F1yCNIBObhBLjpIkmg5GTodfvm8EFD4
-         ims23m9tgsMrw==
-Message-ID: <e13c74fb-e17a-ba14-f1fc-9c75f05090db@kernel.org>
-Date:   Thu, 31 Aug 2023 01:30:21 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Content-Language: en-US
-To:     =?UTF-8?Q?Daniel_Marjam=c3=a4ki?= <daniel.marjamaki@gmail.com>
-From:   Alejandro Colomar <alx@kernel.org>
-Subject: [cppcheck]: [knownConditionTrueFalse]: false positive
-Organization: Linux
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------yeAaA30ELcDOisMyalc1TqQP"
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+        with ESMTP id S229571AbjIBXKI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Sep 2023 19:10:08 -0400
+X-Greylist: delayed 300 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 02 Sep 2023 16:10:03 PDT
+Received: from aib29gb123.yyz1.oracleemaildelivery.com (aib29gb123.yyz1.oracleemaildelivery.com [192.29.72.123])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9314DB3
+        for <linux-man@vger.kernel.org>; Sat,  2 Sep 2023 16:10:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=oci-2023;
+ d=n8pjl.ca;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=5qQ0OYK1FpxJHjMuhcGJ+9PCSTPSBB2u9zONF3WVm9o=;
+ b=T3ljWM2XyqaJgVZgXgWt/Tc9P6pNGUcgWPSL9i0svHRBrNiaG7FAsNiZbZH3uutQ2scSGlRfgvMr
+   a/fBIAODDTYfgTN5Vli0GImgxGnuyQguIxuScgX5/2xGywJMSfOeP1e3+52G3kJ6PN5H7a+jRM6G
+   uyidTcRqUUkS38cnalSpxNH9v6E1Iy01svnYViaSXEFKIWBgSLmHTbspC7/dsdhFC8pOyjJjSF0S
+   ZEKo4vdCqBNnrigQn/jxipsvTjK7xEdY6UBBX1PexqwgZw5R1nyJlWiaGLArlIOWWe2J4Y9rbCQx
+   csOcQWPY+KtUdmE78z9BlmVYjrYk4VtHqiQvaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=prod-yyz-20200204;
+ d=yyz1.rp.oracleemaildelivery.com;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=5qQ0OYK1FpxJHjMuhcGJ+9PCSTPSBB2u9zONF3WVm9o=;
+ b=FWhm/bkI7HXXE0Sm+DXQGPblCslBR/KgLxkpLzJz+4DuJ2goLzu36d07e0pojN7iW3/ibD8ZPoi0
+   WiMifRC7NowNfb00Bgk8KzKZNTbebN1/HQcQZOI4pg3MmHm6mZONYmU/9a9Kmul+jGJtuJJyRxtN
+   kWFRy7+B3zRifLUlM5imHqb6oPXUNpeo0O+waCbFCnSQMIJx0sdjAvHwrPMaqa2+lMkXpqb1LDyR
+   oi+7HIrcvuoRqiQ80OIPrXVT3Wk3Z6uVtLGwR4BLJVrr6kJpwYjIB4yTd08zTYfOCWaNOTxaz7xf
+   bY/k892BA+WXon/o2GHmR5ViQDpkhjdasY+bHw==
+Received: by omta-ad1-fd1-402-ca-toronto-1.omtaad1.vcndpyyz.oraclevcn.com
+ (Oracle Communications Messaging Server 8.1.0.1.20230707 64bit (built Jul  7
+ 2023))
+ with ESMTPS id <0S0D00HHAS4EVF90@omta-ad1-fd1-402-ca-toronto-1.omtaad1.vcndpyyz.oraclevcn.com> for
+ linux-man@vger.kernel.org; Sat, 02 Sep 2023 23:05:02 +0000 (GMT)
+From:   Peter Lafreniere <peter@n8pjl.ca>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Peter Lafreniere <peter@n8pjl.ca>, linux-man@vger.kernel.org
+Subject: [patch] sln.8: wfix
+Date:   Sat,  2 Sep 2023 19:04:58 -0400
+Message-id: <20230902230459.12115-1-peter@n8pjl.ca>
+X-Mailer: git-send-email 2.42.0
+MIME-version: 1.0
+Content-transfer-encoding: 8bit
+Reporting-Meta: AAFWiEryPnrbqUeqhIKHJ0wZHEZlVrb7alOKew4aX85+gcJjdhlULHniXAFs3e5T
+ vtBYAKxHfOi4eC5QbBGdW88tR2EtjDtxhfJHoOJDl+dWHhvwKOoXUzKfTNWllAR0
+ O2vCfm5DhRGZ7DUxyBeKAsrYmGDcYDS9/B+hUP+qtPG4MayhyoHiciVyeH7fAhoO
+ k1Fij2loF4WqdmL6oEWO1SeKpmQj7xuTFnXO7fpdEiBmCISSQRNTTUX4XZORmcr6
+ +CprNtKcsiA09yT4h5G9dOmC6/LgP4SGdwlDkZvmeM6Tppo6uxq4d7UJ1M8vwznd
+ zzU0oWoNdHbSg0bn3sX4wytLPJdchZwOp5AyfFDBHP2747Lf0vo1tOrC478COEoV
+ WqqkMae7AdCNQf/W0meTbwDC083ellCocFJvCu+7KUONfbKYzLKh0kA4pDZ2hg==
+X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------yeAaA30ELcDOisMyalc1TqQP
-Content-Type: multipart/mixed; boundary="------------Rn38B0pVdyWSD0l0VdqukVeQ";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: =?UTF-8?Q?Daniel_Marjam=c3=a4ki?= <daniel.marjamaki@gmail.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Message-ID: <e13c74fb-e17a-ba14-f1fc-9c75f05090db@kernel.org>
-Subject: [cppcheck]: [knownConditionTrueFalse]: false positive
+The description for the second form of sln(8) can be taken at a first
+reading as saying that `filelist' is a list of paths passed via the
+command line, when it is really a path to a file containing that list.
 
---------------Rn38B0pVdyWSD0l0VdqukVeQ
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Although the confusion can be resolved from the surrounding context, it
+is better to be explicit about filelist being a path.
 
-Hi Daniel,
+Signed-off-by: Peter Lafreniere <peter@n8pjl.ca>
+---
+ man8/sln.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I found a false positive in cppcheck, regarding knownConditionTrueFalse.
-You can see by yourself.
+diff --git a/man8/sln.8 b/man8/sln.8
+index 448d0bf07..2a7ed13e5 100644
+--- a/man8/sln.8
++++ b/man8/sln.8
+@@ -29,7 +29,7 @@ as a new symbolic link to
+ .PP
+ In the second form,
+ .I filelist
+-is a list of space-separated pathname pairs,
++points to a list of space-separated pathname pairs,
+ and the effect is as if
+ .B sln
+ was executed once for each line of the file,
+-- 
+2.42.0
 
-Since I don't know of a mailing list for cppcheck(1), and I found this
-in a program in the EXAMPLES of a Linux manual page, I'm CCing the
-linux-man@ list.
-
-
-$ cat neg.c=20
-#include <stddef.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-int
-main(int argc, char *argv[])
-{
-	int     opt;
-	size_t  s;
-
-	s =3D -1;
-
-	while ((opt =3D getopt(argc, argv, "s:")) !=3D -1) {
-		switch (opt) {
-		case 's':   s =3D strtoul(optarg, NULL, 0);break;
-		default:    break;
-		}
-	}
-	if (s =3D=3D -1)
-		return 1;
-	return 0;
-}
-
-
-$ cc neg.c -Wall -Wextra
-neg.c: In function =E2=80=98main=E2=80=99:
-neg.c:19:15: warning: comparison of integer expressions of different sign=
-edness: =E2=80=98size_t=E2=80=99 {aka =E2=80=98long unsigned int=E2=80=99=
-} and =E2=80=98int=E2=80=99 [-Wsign-compare]
-   20 |         if (s =3D=3D -1)
-      |               ^~
-
-
-$ cppcheck --enable=3Dall --error-exitcode=3D2 --inconclusive --quiet --s=
-uppress=3DmissingIncludeSystem  ./neg.c=20
-neg.c:20:8: style: Condition 's=3D=3D-1' is always false [knownConditionT=
-rueFalse]
- if (s =3D=3D -1)
-       ^
-
-
-$ ./a.out; echo $?
-1
-
-
-
-While I agree that it's not the best style, that comparison is certainly
-possibly true after integer promotions.
-
-Cheers,
-Alex
-
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------Rn38B0pVdyWSD0l0VdqukVeQ--
-
---------------yeAaA30ELcDOisMyalc1TqQP
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIyBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTv0Q0ACgkQnowa+77/
-2zLqSw/3Y6XTDaR536PoNTURm7U5cFIyvfR1iCQRjaUkv3JhUHX8iqKxpN9mA+SG
-NU2ZL1rrADDYbXZGxsmF+/qEPwiagRsQDgKBTqKvgEFNxkhMD3i67N08kTpycxLp
-pL5zTISd0HqUdqEY1ygjynQ8VTv1AKs8wrVdTWIqKohUfHu2u0DrQfLRyK5xM+z7
-v7cwv+JsmI2e7Q62vRPIZNfXTUjxEbl4WIE+U7qGTM0yi5iz3cTtWCoMVRZOGLqD
-0F1DWifKYM87NV27jan6OkPEGcA2HQB/rHNxL9f9LBEmrX/gCbEdQ733gYA/MA53
-+DrUS/FTwxrR/IUz+zCopvyR2yW8DkElhe8HCB8GGn3GrPl808dTCRsvhZo6gCCc
-KBUTygzhsh+FwatO9GzoCsvQxcJncSh/52JPRDjZNA4OdCldIEBtXCGxiabhvcsT
-kjisiZK2198aKPPzXm0LT9+YHsPFeuiVsvNUtKgIAa2cfBkTG6L/E2b3u3mxEJ/9
-hClsOFlDtUbS4OjJhtrk6dxcV3f3gG5jpHVB1nQW5jMU9hOx2Zio5gYzIAA2ah5q
-EfJexHbzkKOWPstzFgzhlueb8oQchAKabIaYaKHlA2FMTuQ0NfeIipjCoryaHxUR
-o2WlMnkB3zWFOlN/HYEHYG4yH/Eu1jWVs9OmASIxveEJkN1ndA==
-=2na2
------END PGP SIGNATURE-----
-
---------------yeAaA30ELcDOisMyalc1TqQP--
