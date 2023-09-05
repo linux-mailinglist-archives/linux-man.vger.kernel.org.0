@@ -2,69 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B5FE67929B9
-	for <lists+linux-man@lfdr.de>; Tue,  5 Sep 2023 18:57:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CCA407929BD
+	for <lists+linux-man@lfdr.de>; Tue,  5 Sep 2023 18:57:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1352464AbjIEQ11 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 5 Sep 2023 12:27:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59632 "EHLO
+        id S1344389AbjIEQ1m convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Tue, 5 Sep 2023 12:27:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43194 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1354524AbjIEMTm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Sep 2023 08:19:42 -0400
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EBEA51A8
-        for <linux-man@vger.kernel.org>; Tue,  5 Sep 2023 05:19:36 -0700 (PDT)
-Received: from submission (posteo.de [185.67.36.169]) 
-        by mout02.posteo.de (Postfix) with ESMTPS id 1FF04240105
-        for <linux-man@vger.kernel.org>; Tue,  5 Sep 2023 14:19:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
-        t=1693916374; bh=tPkc/e+g2kvoqyqmuceTWKgjcC9EoW2xQySCy3fLfms=;
-        h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
-         Content-Transfer-Encoding:From;
-        b=pVca6fbBhmWKrmF7cUB7vyVaUOnZWG5Ort9H6myc5I/rWt0YoEuK9ui5LCo5ZBO44
-         dNxGnGItx48TSzBWGt9zZxX/zWlctbGEIChcyFhsLIv7wtSNMobjYv2vC8qYNW3N8j
-         MyqHyVszVa1QY8kXbxyLHUuAqRn4XxFKJfTK4eJxZyODyvmXrmMm2CU53xkcemFLnG
-         A8z5NGQg76cy/2zuniDZvr67xrsGA6vlfycyS2QLlzFGCrQFVPSQZQ96kNykuwdSxL
-         Mpz5v7WORqXnO/HWZ7rB/4zJCgK5RKlzAJFuWw1Bd32tE5Q++WAybf1libHE0mwyiI
-         GBjq31jns7zDw==
-Received: from customer (localhost [127.0.0.1])
-        by submission (posteo.de) with ESMTPSA id 4Rg4Ls40P8z6tvx;
-        Tue,  5 Sep 2023 14:19:33 +0200 (CEST)
-From:   Tom Schwindl <schwindl@posteo.de>
+        with ESMTP id S1354565AbjIEMmH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Sep 2023 08:42:07 -0400
+X-Greylist: delayed 462 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 05 Sep 2023 05:42:01 PDT
+Received: from smtp126.ord1d.emailsrvr.com (smtp126.ord1d.emailsrvr.com [184.106.54.126])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8AD711AD
+        for <linux-man@vger.kernel.org>; Tue,  5 Sep 2023 05:42:01 -0700 (PDT)
+X-Auth-ID: a.josey@mail.opengroup.org
+Received: by smtp8.relay.ord1d.emailsrvr.com (Authenticated sender: a.josey-AT-mail.opengroup.org) with ESMTPSA id 94B7DC00F4;
+        Tue,  5 Sep 2023 08:34:17 -0400 (EDT)
+Content-Type: text/plain;
+        charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.3\))
+Subject: Re: POSIX manual pages
+From:   Andrew Josey <ajosey@opengroup.org>
+In-Reply-To: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
+Date:   Tue, 5 Sep 2023 13:34:15 +0100
+Cc:     Geoff Clare <gwc@opengroup.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Eric Blake <eblake@redhat.com>,
+        Brian Inglis <Brian.Inglis@Shaw.ca>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Content-Transfer-Encoding: 8BIT
+Message-Id: <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
+References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] popen.3: wfix
-Date:   Tue,  5 Sep 2023 12:18:22 +0000
-Message-ID: <20230905121822.17672-1-schwindl@posteo.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Mailer: Apple Mail (2.3696.120.41.1.3)
+X-Classification-ID: c977b65b-4134-4991-97f5-1a619b42d0e9-1-1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
----
- man3/popen.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/popen.3 b/man3/popen.3
-index 533561d60454..9530acfaa217 100644
---- a/man3/popen.3
-+++ b/man3/popen.3
-@@ -188,7 +188,7 @@ before
- .BR popen ().
- .PP
- Failure to execute the shell is indistinguishable from the shell's failure
--to execute command, or an immediate exit of the command.
-+to execute the command, or an immediate exit of the command.
- The only hint is an exit status of 127.
- .\" .SH HISTORY
- .\" A
--- 
-2.41.0
+hi Alejandro
+
+Apologies for the delay.
+
+Are you in touch with Michael Kerrisk? In the past we have worked with him and made a permissions grant - which outlines the terms we are able to grant — these are limited
+by the copyright holders. 
+It also appeared in discussions with Michael in 2020, that he had a way to convert the source format to man page format.
+regards
+Andrew
+
+
+
+> On 17 Aug 2023, at 21:01, Alejandro Colomar <alx@kernel.org> wrote:
+> 
+> Hi Andrew, Geoff,
+> 
+> I'm the maintainer of the Linux man-pages project[1], and also of the
+> man-pages-posix project[2].
+> 
+> [1]:  <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/>
+> [2]:  <https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/>
+> 
+> From those upstream projects, GNU/Linux distros distribute packages like
+> Debian's manpages-posix and manpages-posix-dev (in the non-free
+> section)[3].
+> 
+> [3]:  <https://packages.debian.org/source/sid/hppa/manpages-posix>
+> 
+> I find it very uncomfortable to maintain the man-pages-posix project, as
+> I don't have access to the source code of the pages.  I don't know what
+> agreement was reached with the previous maintainer of the project,
+> Michael Kerrisk, but I'd like to ask if it would be possible to open the
+> sources, and what conditions would be nonnegotiable for something like
+> that to happen.
+> 
+> Ideally, I'd be able to make a fork of POSIX's git repository, and push
+> that fork to the kernel.org repo.  Maybe POSIX requires that the pages
+> not be modified, or some section mentioning that the page has been
+> modified and is not a source of truth.
+> 
+> I intend to distribute the pages as close as possible to the originals,
+> with little to no modification; the only kind of modifications that I
+> have in mind are typo fixes and formatting fixes, and use the build
+> system of the Linux man-pages project, but I'd keep the source code
+> largely untouched.
+> 
+> You'd probably have a source of bug reports here too.  :)
+> 
+> Thanks,
+> 
+> Alex
+> 
+> 
+> -- 
+> <http://www.alejandro-colomar.es/>
+> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------
+Andrew Josey                 
+VP, Standards & Certification,	The Open Group          
+Email: a.josey@opengroup.org
+Apex Plaza,Forbury Road,Reading,Berks. RG1 1AX,UK.
+
+The Open Group Certifications, see https://www.opengroup.org/certifications
+
+ArchiMate, FACE logo, Making Standards Work, Open O  logo, Open O and Check certification logo, OSDU, Platform 3.0, The Open Group, TOGAF, UNIX, UNIXWARE, and X logo are registered trademarks and Boundaryless Information Flow, Build with Integrity Buy with Confidence, Commercial Aviation Reference Architecture, Dependability Through Assuredness, Digital Practitioner Body of Knowledge, DPBoK, EMMM, FACE, FHIM Profile Builder, FHIM  logo, FPB, Future Airborne Capability Environment, IT4IT, IT4IT logo, O-AA, O-DEF, O-HERA, O-PAS, Open Agile Architecture, Open FAIR, Open Footprint, Open Process Automation, Open Subsurface Data Universe, Open Trusted Technology Provider, Sensor Integration Simplified, SOSA, and SOSA logo are trademarks of The Open Group.
+
+
+
+
+
+
+
+
 
