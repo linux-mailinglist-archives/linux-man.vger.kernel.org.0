@@ -2,199 +2,198 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F11079367F
-	for <lists+linux-man@lfdr.de>; Wed,  6 Sep 2023 09:43:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 33AD9793D87
+	for <lists+linux-man@lfdr.de>; Wed,  6 Sep 2023 15:18:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231863AbjIFHnE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 6 Sep 2023 03:43:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46172 "EHLO
+        id S238095AbjIFNSc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 6 Sep 2023 09:18:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50394 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232214AbjIFHnD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 6 Sep 2023 03:43:03 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2EA4D1AB
-        for <linux-man@vger.kernel.org>; Wed,  6 Sep 2023 00:42:57 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-40078c4855fso32870395e9.3
-        for <linux-man@vger.kernel.org>; Wed, 06 Sep 2023 00:42:57 -0700 (PDT)
+        with ESMTP id S233887AbjIFNSb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 6 Sep 2023 09:18:31 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E142FCE2
+        for <linux-man@vger.kernel.org>; Wed,  6 Sep 2023 06:18:27 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id 5b1f17b1804b1-402c1407139so37631175e9.1
+        for <linux-man@vger.kernel.org>; Wed, 06 Sep 2023 06:18:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693986175; x=1694590975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PphspeHdKPjtHF/uLH4EU0Tw7sLAMv3ZfncLI2VKHr0=;
-        b=TLw7Z8jl35Xi0Rrnn1vZS3EPA7/ZaBkU6cn1+aR1jrjMkpD3d/fv6f3siS4z0Ce2/5
-         kp5Na5A4j5X+JfwfNua5xi0MUJ1Kqu/DcjMcN8afTbNBFgOYCN1bbdKsRatzpGveTQv1
-         nwduAH4BsI+9oIrSpskmB+OzYOLFopFYwFjcAxAQevb2D8QgsI097yUYiSExRhsCsaAt
-         88gvX0BQc1RONC0mQjIFfPAuBOPOmVRjNOr/OMSk0KuK4sYf73+m5/WVdG0ntnFiwyZI
-         5dOvhmaMqu3CgyQe6KK1vXWEGd8W6jLO/8KFJCe56ytqywRDkeS1370HvR9V+bL6rMOM
-         BKhQ==
+        d=gmail.com; s=20221208; t=1694006306; x=1694611106; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:content-language:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=/3Ep1v+co0Z3n8HrvMTJrac7HrW3sOJ33mDBg52iTWA=;
+        b=hNrNQoTTYDoICnntmKsgdX/LCuqm8roVsjIwhrjHjoKU8pjWCQVHS4/JxFngA4RRQp
+         L2DYsGOYiFD9NH4I8aHJ26V7aDk8yuSIUtIICBV+2CxLWdydKD5C54KN34id4Sr5rSWj
+         gZfiv9HVfASP/1haIZNGmJGv4mrmCaT7WvFirsv82A9kA0S3YAjjVj6PU9SX2uoVkUE5
+         anrdHc2bllgDYygqJ0lrixJnjtBhztd1Mde25wlmUXCU+jFHlLU+6VgWFj3zyl1Qz/zP
+         m8sb3kW1QEsIdSFj+GO2hNhgb1tqZRrBdGBFso9zSaqNx30AYXX87PNVT5lD52TAv2K1
+         Y1+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693986175; x=1694590975;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PphspeHdKPjtHF/uLH4EU0Tw7sLAMv3ZfncLI2VKHr0=;
-        b=c6NatxeSD+XJ8MEpFyw4b9xJ0binkr1YAK2CyQdLOmDhgV86Gj5aSnErdZJrTkEVVH
-         6iYMhUeKD+kdPmBYlSgd13uz5wpWTrYvYCqzCvix7qKd0X/gC/tggxMfLYZDCzzK4UEC
-         q6VtACK3U6JPdCxOJ602x4XIh+ExTpnPAqyxXx7T/Vv61UH4r2kfNzxlzQZuRlDAI+cK
-         UmF75i5HHvuh58pVIha8mlT9WrlVxZiUeA5Cxt/LRej7RjO39DkncYzmdSMDLkllGCl/
-         xJjV1bl0P+EKFBMT4/6XOhT7DcPuTQmSnxtuD0iFR1wAYAse+pUGfIqvjlGxNMgQBRKn
-         foQg==
-X-Gm-Message-State: AOJu0YzZakM915t4Fmn5XTZCgqNqgZm3SkzAbFcJ06WhvqL2NxyuSDTL
-        DX6W6Js0XcqzjCtY5vawRNo=
-X-Google-Smtp-Source: AGHT+IGYnHYEGTAZ/iT6DR1P5uyvkQ0GunukwSFFa1KntTyUGcNCxeXRe+Od5gCXpRm9R8ptkwKUdg==
-X-Received: by 2002:a05:600c:2409:b0:402:ba85:3e3a with SMTP id 9-20020a05600c240900b00402ba853e3amr1626739wmp.19.1693986175265;
-        Wed, 06 Sep 2023 00:42:55 -0700 (PDT)
-Received: from amir-ThinkPad-T480.lan ([5.29.249.86])
-        by smtp.gmail.com with ESMTPSA id bt12-20020a056000080c00b0031433443265sm13879532wrb.53.2023.09.06.00.42.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Sep 2023 00:42:54 -0700 (PDT)
-From:   Amir Goldstein <amir73il@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Tom Schwindl <schwindl@posteo.de>, Jan Kara <jack@suse.cz>,
-        Jeff Layton <jlayton@poochiereds.net>,
-        Christian Brauner <brauner@kernel.org>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] name_to_handle_at.2,fanotify_mark.2: Document the AT_HANDLE_FID flag
-Date:   Wed,  6 Sep 2023 10:42:51 +0300
-Message-Id: <20230906074251.2788908-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20221208; t=1694006306; x=1694611106;
+        h=in-reply-to:references:cc:to:content-language:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/3Ep1v+co0Z3n8HrvMTJrac7HrW3sOJ33mDBg52iTWA=;
+        b=iqGhAzExyt0VxbIPvzI7/bpJZDvpmebbsOyTYiUXoV1eEPLI9DDVQ86rASSaqls9fT
+         R0/j9hhTlNgNQq1EjXF73s11An3At3jMjzDYRqnz4+Bmhf/Ax7UhN+N+pfqEBSbicZ38
+         iIfQyJ6Way8Wzz2jt94lg/wBEJwxYZuPudmO963Y+kA9+5584Lt0Qgc8d4BNRQbjiMuW
+         cDWkT1xN44LwEiQh0T8FU4nU3kbveBlCM7rlqNh2i+Oub/FHLNlFjxJziEaPCndX69rZ
+         J7UvOmJVhPGiWSkjH4hH/9AW47jfh77HoUookfsylPlYGDoujlA0tsqiaqSLqc4UT2ws
+         Zlaw==
+X-Gm-Message-State: AOJu0Yz3eBQbnmX5TcLo1XgfPyifGfRN9Kf17azXFSMlfwpLpCd71Fzg
+        HgziHaWL/Sw1ZXJwitofT3sJXljLiLo=
+X-Google-Smtp-Source: AGHT+IHgJ2NNQXd4nFDvRz8qk5wdX5sdoFPGgoaVZ9ynLRWcu8L0MOZK3/71mD1RvFaQ4gzNSrsyGg==
+X-Received: by 2002:a1c:6a0c:0:b0:3fb:ff34:a846 with SMTP id f12-20020a1c6a0c000000b003fbff34a846mr2265938wmc.22.1694006306024;
+        Wed, 06 Sep 2023 06:18:26 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.40.43])
+        by smtp.gmail.com with ESMTPSA id a28-20020a5d457c000000b00317f70240afsm20467918wrc.27.2023.09.06.06.18.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 Sep 2023 06:18:25 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx.manpages@gmail.com>
+Message-ID: <75a451b3-eaa3-3826-77f9-fe5b3e675540@gmail.com>
+Date:   Wed, 6 Sep 2023 15:18:17 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Reply-To: alx@kernel.org
+Subject: Re: "VLA" syntax in synopses
+Content-Language: en-US
+To:     Stefan Tauner <stefan.tauner@artech.at>
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <20230906150038.783acf81@tauner-t14s>
+In-Reply-To: <20230906150038.783acf81@tauner-t14s>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------d04OUK69xug0JuSgpfC0t7aX"
+X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,NICE_REPLY_A,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
+        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-A flag to indicate that the requested file_handle is not intended
-to be used for open_by_handle_at(2) and may be needed to identify
-filesystem objects reported in fanotify events.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------d04OUK69xug0JuSgpfC0t7aX
+Content-Type: multipart/mixed; boundary="------------jKaGP05Q671k56jW91mYCxjJ";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+Reply-To: alx@kernel.org
+To: Stefan Tauner <stefan.tauner@artech.at>
+Cc: linux-man <linux-man@vger.kernel.org>
+Message-ID: <75a451b3-eaa3-3826-77f9-fe5b3e675540@gmail.com>
+Subject: Re: "VLA" syntax in synopses
+References: <20230906150038.783acf81@tauner-t14s>
+In-Reply-To: <20230906150038.783acf81@tauner-t14s>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-Acked-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
+--------------jKaGP05Q671k56jW91mYCxjJ
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alejandro,
+Hi Stefan,
 
-This is a followup on AT_HANDLE_FID feature from v6.5.
+On 2023-09-06 15:00, Stefan Tauner wrote:
+> Hi,
+>=20
+> last year a new syntax to indicate the (minimum) length of parameter
+> arrays has been introduced to many function synposes with this commit:
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
+c64cd13e002561c6802c6a1a1a8a640f034fea70
 
-Thanks,
-Amir.
+And these too:
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
+1eed67e75deff662dffce3195e55e608809eaafd>
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
+77f31ff920bc0abdf73ee4ece808ba4eeeff90a4>
 
-Changes from v1:
-- Added RVB/ACK
-- Spelling fixes
+>=20
+> The additional information is great but WTF is the "."? I have asked a
+> few C-programming colleagues and skimmed through the c23 draft to no
+> avail. Then I looked up the respective thread on the ML and there seems=
 
- man2/fanotify_mark.2     | 11 +++++++++--
- man2/open_by_handle_at.2 | 42 +++++++++++++++++++++++++++++++++++++---
- 2 files changed, 48 insertions(+), 5 deletions(-)
+> to be astonishingly little arguing about introducing such a new syntax
+> that is not included in the C language.
+>=20
+> I've been teaching C at university level for almost 10 years and I
+> think the dot is profoundly confusing to most readers and thus is
+> actually harmful in documentation context.
+> Of course it's not code but "just" documentation but its syntax is so
+> similar that every C coder would be stumbled at least the first time
+> they see it - unlike the case w/o the dot, which is legal C. I'd not
+> add the static keyword though due to brevity but I would have strongly
+> advocated against the dot if I'd have known earlier - but maybe I am
+> alone with that opinion?
 
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 3f85deb23..8e885af69 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -743,10 +743,17 @@ do not specify a directory.
- .B EOPNOTSUPP
- The object indicated by
- .I pathname
--is associated with a filesystem that does not support the encoding of file
--handles.
-+is associated with a filesystem
-+that does not support the encoding of file handles.
- This error can be returned only with an fanotify group that identifies
- filesystem objects by file handles.
-+Calling
-+.BR name_to_handle_at (2)
-+with the flag
-+.BR AT_HANDLE_FID " (since Linux 6.5)"
-+.\" commit 96b2b072ee62be8ae68c8ecf14854c4d0505a8f8
-+can be used as a test
-+to check if a filesystem supports reporting events with file handles.
- .TP
- .B EPERM
- The operation is not permitted because the caller lacks a required capability.
-diff --git a/man2/open_by_handle_at.2 b/man2/open_by_handle_at.2
-index 4061faea9..3e38eb8e3 100644
---- a/man2/open_by_handle_at.2
-+++ b/man2/open_by_handle_at.2
-@@ -109,17 +109,44 @@ structure as an opaque data type: the
- .I handle_type
- and
- .I f_handle
--fields are needed only by a subsequent call to
-+fields can be used in a subsequent call to
- .BR open_by_handle_at ().
-+The caller can also use the opaque
-+.I file_handle
-+to compare the identity of filesystem objects
-+that were queried at different times and possibly
-+at different paths.
-+The
-+.BR fanotify (7)
-+subsystem can report events
-+with an information record containing a
-+.I file_handle
-+to identify the filesystem object.
- .PP
- The
- .I flags
- argument is a bit mask constructed by ORing together zero or more of
--.B AT_EMPTY_PATH
-+.BR AT_HANDLE_FID ,
-+.BR AT_EMPTY_PATH ,
- and
- .BR AT_SYMLINK_FOLLOW ,
- described below.
- .PP
-+When
-+.I flags
-+contain the
-+.BR AT_HANDLE_FID " (since Linux 6.5)"
-+.\" commit 96b2b072ee62be8ae68c8ecf14854c4d0505a8f8
-+flag, the caller indicates that the returned
-+.I file_handle
-+is needed to identify the filesystem object,
-+and not for opening the file later,
-+so it should be expected that a subsequent call to
-+.BR open_by_handle_at ()
-+with the returned
-+.I file_handle
-+may fail.
-+.PP
- Together, the
- .I pathname
- and
-@@ -363,8 +390,14 @@ capability.
- .B ESTALE
- The specified
- .I handle
--is not valid.
-+is not valid for opening a file.
- This error will occur if, for example, the file has been deleted.
-+This error can also occur if the
-+.I handle
-+was acquired using the
-+.B AT_HANDLE_FID
-+flag and the filesystem does not support
-+.BR open_by_handle_at ().
- .SH VERSIONS
- FreeBSD has a broadly similar pair of system calls in the form of
- .BR getfh ()
-@@ -386,6 +419,9 @@ file handles, for example,
- .IR /proc ,
- .IR /sys ,
- and various network filesystems.
-+Some filesystems support the translation of pathnames to
-+file handles, but do not support using those file handles in
-+.BR open_by_handle_at ().
- .PP
- A file handle may become invalid ("stale") if a file is deleted,
- or for other filesystem-specific reasons.
--- 
-2.34.1
+Thanks for your feedback!
 
+We discussed the different options, and there seem to be two ways to do
+it: legal C, or what we did:
+
+"legal" C:
+     char *fgets(char s[restrict size], int size, FILE *restrict stream);=
+
+
+current manual:
+     char *fgets(char s[restrict .size], int size, FILE *restrict stream)=
+;
+
+The problem with the "legal" syntax, is that it doesn't mean what we
+want it to mean.  Let's compile a couple of files to see.
+
+    $ cat a.c=20
+    void foo(char s[n], int n);
+
+    $ cc -Wall -Wextra -c a.c=20
+    a.c:1:17: error: =E2=80=98n=E2=80=99 undeclared here (not in a functi=
+on)
+        1 | void foo(char s[n], int n);
+          |                 ^
+
+    $ cat b.c=20
+    int n =3D 3;
+    void foo(char s[n], int n);
+
+    $ cc -Wall -Wextra -c b.c=20
+
+So, I we decided to go with an extension to the language, which doesn't
+mean anything legal yet, and we can give it the precise meaning that we
+want.  This extension is currently not supported by any compiler, but
+we're discussing the addition to GCC.  The conversation was paused for
+a few months, as I wanted to have more feedback, and time to think, but
+I'll soon contact GCC developers again to continue the discussion.
+
+Cheers,
+Alex
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------jKaGP05Q671k56jW91mYCxjJ--
+
+--------------d04OUK69xug0JuSgpfC0t7aX
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmT4fBkACgkQnowa+77/
+2zKvyBAAqWUJj2emb+WBDcn/h6ZEaq+yic2HojJH2ytgEZ3C03Vm+lYS930KmzPE
+6i9nA72epZf57FeEMsGYd6YWcHYU1OCR+GdmsxhdCiNIZniSF2MQrZIJhNFmpJqX
+TaxK0fUNMoaMsAKVSU4k0BOA7qVf5PjfZe7pyUwXSsg+dB+2kfxd2iTqQarSRCAu
+3yJfUpwmHXoKXCBSn6uXqPbmRTRXL0Bd2QUaUjo3SK73hflayoLpl1XMAmxxFhv9
+0uiPVxA0kZI4elOR5+qPl8APGP0B92jdxw9OQ+m+Tz1zIrClAUs6YzwDUqvjgxNW
+8tFpxNEGoUdNRz43AQHAdKqxKictZGw2okvzS20ICEiwp1m2+7KnyDYvS9gOLopx
+314bAGQdIq5wOSRPea8k7S6LdonDBXFb9KNhNMTmUJwboCgKxR4Dj+QVWPyQKMp0
++VuKc0T4dXzLEPG9/tfIW0ko0ekODVyiYOgxr7DgBvVk+tlZxS5kHmhDaLkfivnq
+/etRG4TmpVHJztVmHtX2Ol+gdmRZaVxHoVwbU+9xQJiU9si1tVaHWGsdSD1ezTXy
+bJPDAryZ0PXAWGRlJEhsKJ85uzOaq8WYM6k9GLKIee/Splj8xfFYWubkyObkvt35
+dKKUudMJmySpd9MsT/p5QWwfbjsf0zviiXZKFuExasj15OK3lI0=
+=UBUm
+-----END PGP SIGNATURE-----
+
+--------------d04OUK69xug0JuSgpfC0t7aX--
