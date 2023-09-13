@@ -2,204 +2,245 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C596A79ECB4
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 17:24:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 67FA279ECBC
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 17:25:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241746AbjIMPYA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 11:24:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43524 "EHLO
+        id S241306AbjIMPZO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 11:25:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52634 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241482AbjIMPXn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 11:23:43 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 6AA5B1BE3
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 08:22:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1694618569;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=TIhG5T2KIKMdZjw60PIq0vQttf6HwO/EKV4ZJ8HdZ78=;
-        b=KLu2GdUcy0blz8trPMsr+pl6e5J0Wr6k8BlBgb1Vxf9W9xnUX6GPrxQLEOTL+KFkve9/Rn
-        0hCZ6bVhMRvNohZxqTsrhDzWumFjr4mYH/SH1XX9e1lamks/2pm5m4RrTrZ72OBsXhXG5a
-        8aQG7Kupw/hdb5C/u0QDPDdeNMbTvVA=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-205-HZyaSuhNMtObYvry8LXYpg-1; Wed, 13 Sep 2023 11:22:48 -0400
-X-MC-Unique: HZyaSuhNMtObYvry8LXYpg-1
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-9ad8a967a30so142852366b.0
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 08:22:48 -0700 (PDT)
+        with ESMTP id S236106AbjIMPZB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 11:25:01 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09C33C1
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 08:24:57 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id 5b1f17b1804b1-401da71b85eso75669895e9.1
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 08:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1694618695; x=1695223495; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:content-language:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=UZViJ/udOsr+PGGeiBSQVfB93cDHWVPJ1VuuQZTy4Ec=;
+        b=XZWkz9BsM/Z3AiHqYkveY5SfIRbzblNKOToQ/6DV6nrGUuNOvt/8CbXwXRbF51hO7P
+         lrX7JAqvpG7Ne1WKZPX+Pf+mdP7uSeIeZSvdOZXIjng57lIi631H/WtzLROm0KrOPQWc
+         6h23ybXElpklss1bKnIhBDpfCo04YZijhU6GggRNKufCVINzkzm7DOyRsXkaQgqAfug9
+         UWbkq0KtbnS+22Fq6AdDutMzTZ2Ow79LfLEmhr75DK2OgAi60Vvji0+2xS9HmA+GZIO+
+         VGioGAQKiIOPgVcv3W34hbz5faiuM/htjuJ1NLCC/1Qv2x8yPm2qHiRMfA3vEUS2Jxas
+         k1Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694618567; x=1695223367;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TIhG5T2KIKMdZjw60PIq0vQttf6HwO/EKV4ZJ8HdZ78=;
-        b=ov1ZYNsVJBoutAD4N0efupe/g/5lBhkRbwgU51qIX8m5Ums4GaUDeeDovY+8FoE/yR
-         1PW+DDbs31x+xRzditZeP1z4BwQ9vAvDqUG0saIvoBMwXaNJ071JAJfLCsVfU6ANCQzb
-         ilpZGNOZhxgi2c9oYn/vOCZmaOJPv5NmNvt0YMv0yk99AkEJHVe7eiaSdOJBJJcNerct
-         wGRrCkmu8Db7vPATzoIDHOfmTnemArfgFjSxruvI8Isbn+iXomkG2hznyISGGh1p9eMt
-         H5ZFVy1ue63hCn0O8T3YYXNLfxdZRnphMhhk5eIpYbgkEc3LTx4ixPzT9A/Xc/BXIFIP
-         YEOQ==
-X-Gm-Message-State: AOJu0YxGBrUdZM8hYrU7fQm8Cig+OlA/3Z0C+hmckE6QY2UW8P5FNGOg
-        mrS1RI8xBF/zetiSVVZAdMJ5T5kBAKr2CQy4zykPe0UQlFawzyE9FoYybzOwVQvFvk+bUCP013q
-        1L5wWThbVWPILX4Ep8/+x
-X-Received: by 2002:a17:906:20dd:b0:9a6:5696:388e with SMTP id c29-20020a17090620dd00b009a65696388emr2105311ejc.77.1694618567061;
-        Wed, 13 Sep 2023 08:22:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGUbVOcJrl/IQ8dCV2GLwgGWT9XogEbtVBr/RtvLl6AfXCidW8q9QonDLUeH+Pc13/vJ+qjnA==
-X-Received: by 2002:a17:906:20dd:b0:9a6:5696:388e with SMTP id c29-20020a17090620dd00b009a65696388emr2105305ejc.77.1694618566882;
-        Wed, 13 Sep 2023 08:22:46 -0700 (PDT)
-Received: from maszat.piliscsaba.szeredi.hu (79-120-253-96.pool.digikabel.hu. [79.120.253.96])
-        by smtp.gmail.com with ESMTPSA id q18-20020a170906a09200b0099b8234a9fesm8640663ejy.1.2023.09.13.08.22.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Sep 2023 08:22:45 -0700 (PDT)
-From:   Miklos Szeredi <mszeredi@redhat.com>
-To:     linux-fsdevel@vger.kernel.org
-Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
-        Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>
-Subject: [RFC PATCH 3/3] add listmnt(2) syscall
-Date:   Wed, 13 Sep 2023 17:22:36 +0200
-Message-ID: <20230913152238.905247-4-mszeredi@redhat.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230913152238.905247-1-mszeredi@redhat.com>
-References: <20230913152238.905247-1-mszeredi@redhat.com>
+        d=1e100.net; s=20230601; t=1694618695; x=1695223495;
+        h=in-reply-to:references:cc:to:content-language:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UZViJ/udOsr+PGGeiBSQVfB93cDHWVPJ1VuuQZTy4Ec=;
+        b=VPz3desiAINWMOf3xXgTFdsRhSwhL1XQZE9vDrHXdoPyeVZTGtMbN9u1sSi8NOGfKR
+         GFcVZjKGwJyE+MU8z/5bV+z6Lee2aeNEYHd4E2yCi+j4BJf1BKDtBJwf5HHDxTgL1lkg
+         nKft/9MansCMgwCDiPoxOnrihmAkvm8AYBpL/IUBOW03H8p+79sE735OByNaJrQ1lwVi
+         nqtaiEo4l6cTDSL1PEqolDowiQ1lfIKMzgOC4yy+MtMqUT6Y+kmCk6GLH6q6zG/HpZLs
+         5KG2YixejzOyGSltaBDro4IqozBk2Chfd4qpLn+/jW04ZKjMR3EXlV9nKqZZUbtBNRdj
+         0M7w==
+X-Gm-Message-State: AOJu0YxQxQ52vu4rZwa8JrJtfHPlgJ9ciaZt+dsYAQO9FeGq2xsNwzxb
+        apw/v8oQkga/6+PRIU4u7mnKvJ75DAs=
+X-Google-Smtp-Source: AGHT+IGaXCT6ZSMTjJFXFq8VQSm5iZdQEJnObnX1nQVQdGp/3dTzHzZLyjjWQRN0VWtbzdcrhn0ZCA==
+X-Received: by 2002:a05:600c:2147:b0:3f9:c82e:9d87 with SMTP id v7-20020a05600c214700b003f9c82e9d87mr2403512wml.13.1694618695093;
+        Wed, 13 Sep 2023 08:24:55 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.40.43])
+        by smtp.gmail.com with ESMTPSA id b14-20020a05600c11ce00b003fee8502999sm2328679wmi.18.2023.09.13.08.24.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 Sep 2023 08:24:54 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx.manpages@gmail.com>
+Message-ID: <171eade0-c2f9-4390-a2ff-c5dd9bfe6a99@gmail.com>
+Date:   Wed, 13 Sep 2023 17:24:53 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Reply-To: alx@kernel.org
+Subject: Re: [PATCH] ioctl.2: note "int request" form, HISTORYise a bit
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Jakub Wilk <jwilk@jwilk.net>
+References: <israsi2qmpudilwpy2h6vj4dda7jofrc3oolhrcs4cpwvwzl5x@ur3oua7jxgs3>
+In-Reply-To: <israsi2qmpudilwpy2h6vj4dda7jofrc3oolhrcs4cpwvwzl5x@ur3oua7jxgs3>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------bslPEI2mMjlz05057Cv6eDNh"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add way to query the children of a particular mount.  This is a more
-flexible way to iterate the mount tree than having to parse the complete
-/proc/self/mountinfo.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------bslPEI2mMjlz05057Cv6eDNh
+Content-Type: multipart/mixed; boundary="------------AroEDo1IDQ80vtISONWOYMyn";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+Reply-To: alx@kernel.org
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Jakub Wilk <jwilk@jwilk.net>
+Message-ID: <171eade0-c2f9-4390-a2ff-c5dd9bfe6a99@gmail.com>
+Subject: Re: [PATCH] ioctl.2: note "int request" form, HISTORYise a bit
+References: <israsi2qmpudilwpy2h6vj4dda7jofrc3oolhrcs4cpwvwzl5x@ur3oua7jxgs3>
+In-Reply-To: <israsi2qmpudilwpy2h6vj4dda7jofrc3oolhrcs4cpwvwzl5x@ur3oua7jxgs3>
 
-Lookup the mount by the old (32bit) or new (64bit) mount ID.  If a mount
-needs to be queried based on path, then statx(2) can be used to first query
-the mount ID belonging to the path.
+--------------AroEDo1IDQ80vtISONWOYMyn
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Return an array of new (64bit) mount ID's.  Without privileges only mounts
-are listed which are reachable from the task's root.
+Hi =D0=BD=D0=B0=D0=B1,
 
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
----
- arch/x86/entry/syscalls/syscall_64.tbl |  1 +
- fs/namespace.c                         | 51 ++++++++++++++++++++++++++
- include/linux/syscalls.h               |  2 +
- include/uapi/asm-generic/unistd.h      |  5 ++-
- 4 files changed, 58 insertions(+), 1 deletion(-)
+On 2023-09-04 16:29, =D0=BD=D0=B0=D0=B1 wrote:
+> Bit me in https://github.com/thecoshman/http/issues/155:
+> musl (and, thus, bionic) takes an int!
+>=20
+> Kill the "POSIX says 'request' is int" comment,
+> POSIX says nothing about ioctl:
 
-diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
-index 6d807c30cd16..0d9a47b0ce9b 100644
---- a/arch/x86/entry/syscalls/syscall_64.tbl
-+++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -376,6 +376,7 @@
- 452	common	fchmodat2		sys_fchmodat2
- 453	64	map_shadow_stack	sys_map_shadow_stack
- 454	common	statmnt			sys_statmnt
-+455	common	listmnt			sys_listmnt
- 
- #
- # Due to a historical design error, certain syscalls are numbered differently
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 088a52043bba..5362b1ffb26f 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -4988,6 +4988,57 @@ SYSCALL_DEFINE5(statmnt, u64, mnt_id,
- 	return err;
- }
- 
-+static long do_listmnt(struct vfsmount *mnt, u64 __user *buf, size_t bufsize,
-+		      const struct path *root)
-+{
-+	struct mount *r, *m = real_mount(mnt);
-+	struct path rootmnt = { .mnt = root->mnt, .dentry = root->mnt->mnt_root };
-+	long ctr = 0;
-+
-+	if (!capable(CAP_SYS_ADMIN) &&
-+	    !is_path_reachable(m, mnt->mnt_root, &rootmnt))
-+		return -EPERM;
-+
-+	list_for_each_entry(r, &m->mnt_mounts, mnt_child) {
-+		if (!capable(CAP_SYS_ADMIN) &&
-+		    !is_path_reachable(r, r->mnt.mnt_root, root))
-+			continue;
-+
-+		if (ctr >= bufsize)
-+			return -EOVERFLOW;
-+		if (put_user(r->mnt_id_unique, buf + ctr))
-+			return -EFAULT;
-+		ctr++;
-+		if (ctr < 0)
-+			return -ERANGE;
-+	}
-+	return ctr;
-+}
-+
-+SYSCALL_DEFINE4(listmnt, u64, mnt_id, u64 __user *, buf, size_t, bufsize,
-+		unsigned int, flags)
-+{
-+	struct vfsmount *mnt;
-+	struct path root;
-+	long err;
-+
-+	if (flags)
-+		return -EINVAL;
-+
-+	down_read(&namespace_sem);
-+	mnt = lookup_mnt_in_ns(mnt_id, current->nsproxy->mnt_ns);
-+	err = -ENOENT;
-+	if (mnt) {
-+		get_fs_root(current->fs, &root);
-+		err = do_listmnt(mnt, buf, bufsize, &root);
-+		path_put(&root);
-+	}
-+	up_read(&namespace_sem);
-+
-+	return err;
-+}
-+
-+
- static void __init init_mount_tree(void)
- {
- 	struct vfsmount *mnt;
-diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
-index 1099bd307fa7..5d776cdb6f18 100644
---- a/include/linux/syscalls.h
-+++ b/include/linux/syscalls.h
-@@ -411,6 +411,8 @@ asmlinkage long sys_fstatfs64(unsigned int fd, size_t sz,
- asmlinkage long sys_statmnt(u64 mnt_id, u64 mask,
- 			    struct statmnt __user *buf, size_t bufsize,
- 			    unsigned int flags);
-+asmlinkage long sys_listmnt(u64 mnt_id, u64 __user *buf, size_t bufsize,
-+			    unsigned int flags);
- asmlinkage long sys_truncate(const char __user *path, long length);
- asmlinkage long sys_ftruncate(unsigned int fd, unsigned long length);
- #if BITS_PER_LONG == 32
-diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
-index 640997231ff6..a2b41370f603 100644
---- a/include/uapi/asm-generic/unistd.h
-+++ b/include/uapi/asm-generic/unistd.h
-@@ -826,8 +826,11 @@ __SYSCALL(__NR_fchmodat2, sys_fchmodat2)
- #define __NR_statmnt   454
- __SYSCALL(__NR_statmnt, sys_statmnt)
- 
-+#define __NR_listmnt   455
-+__SYSCALL(__NR_listmnt, sys_listmnt)
-+
- #undef __NR_syscalls
--#define __NR_syscalls 455
-+#define __NR_syscalls 456
- 
- /*
-  * 32 bit systems traditionally used different
--- 
-2.41.0
+Please reword that; while it will say nothing soon, the current
+standard is Issue 7, which still says.  Something like your reply
+to Jakub should be enough.
 
+> it invented tc[gs]etattr() and tc[gs]etwinsize() to avoid having
+> ioctl() at all, and STREAMS is long dead from POSIX.
+>=20
+> Note how the interface evolved in HISTORY. The NetBSD CVS has
+>   revision 1.1
+>   date: 1993-03-21 10:45:37 +0100;  author: cgd;  state: Exp;
+>   branches:  1.1.1;
+>   Initial revision
+>   ----------------------------
+>   revision 1.1.1.2
+>   date: 1995-02-27 11:49:43 +0100;  author: cgd;  state: Exp;  lines: +=
+6
+>   -6;
+>   from Lite
+>   ----------------------------
+>   revision 1.1.1.1
+>   date: 1993-03-21 10:45:37 +0100;  author: cgd;  state: Exp;  lines: +=
+0
+>   -0;
+>   initial import of 386bsd-0.1 sources
+>   ----------------------------
+> and it's char * in 1.1.1.1 and 1.1.1.2 but ... in 1.1, so hell knows.
+>=20
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
+> ---
+>  man2/ioctl.2 | 40 ++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 36 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/man2/ioctl.2 b/man2/ioctl.2
+> index 6b55d47c9..a658da354 100644
+> --- a/man2/ioctl.2
+> +++ b/man2/ioctl.2
+> @@ -20,9 +20,8 @@ .SH SYNOPSIS
+>  .nf
+>  .B #include <sys/ioctl.h>
+>  .PP
+> -.BI "int ioctl(int " fd ", unsigned long " request ", ...);"
+> -.\" POSIX says 'request' is int, but glibc has the above
+> -.\" See https://bugzilla.kernel.org/show_bug.cgi?id=3D42705
+> +.BI "int ioctl(int " fd ", unsigned long " request ", ...);" "\fR  /* =
+glibc, BSD */\fP"
+> +.BI "int ioctl(int " fd ", int " request ", ...);" "\fR            /* =
+musl, other UNIX */\fP"
+
+LGTM.
+
+>  .fi
+>  .SH DESCRIPTION
+>  The
+> @@ -103,7 +102,40 @@ .SH VERSIONS
+>  .SH STANDARDS
+>  None.
+>  .SH HISTORY
+> -Version\~7 AT&T UNIX.
+> +Version\~7 AT&T UNIX has
+> +.nf
+> +.ti +.5i
+
+I prefer using man(7) macros.  Please use
+
+=2EPP
+=2Ein +4n
+=2Enf
+stuff here
+=2Efi
+=2Ein
+=2EPP
+
+If you want to prevent the blanks that this adds, you can
+enclose that in .PD 0 / .PD
+
+(.in is not a man(7) macro, but it is already widespread.)
+
+Cheers,
+Alex
+
+> +.BI "ioctl(int " fildes ", int " request ", struct sgttyb *" argp );
+> +.fi
+> +(where
+> +.B struct sgttyb
+> +has historically been used by
+> +.BR stty (2)
+> +and
+> +.BR gtty(2),
+> +and is polymorphic by request type (like a
+> +.B void *
+> +would be, if it had been available)).
+> +.PP
+> +SysIII documents
+> +.I arg
+> +without a type at all.
+> +.PP
+> +4.3BSD has
+> +.nf
+> +.ti +.5i
+> +.BI "ioctl(int " d ", unsigned long " request ", char *" argp );
+> +.fi
+> +(with
+> +.B char *
+> +similarly in for
+> +.BR "void *" ).
+> +.PP
+> +SysVr4 has
+> +.nf
+> +.ti +.5i
+> +.BI "int ioctl(int " fildes ", int " request ", ... /* " arg " */);"
+> +.fi
+>  .SH NOTES
+>  In order to use this call, one needs an open file descriptor.
+>  Often the
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------AroEDo1IDQ80vtISONWOYMyn--
+
+--------------bslPEI2mMjlz05057Cv6eDNh
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUB1EUACgkQnowa+77/
+2zLlrw/+MVFq0hxRVn+ulhMa5MZudlzztUAxhB4ifwWwcJyfrqXRCKPbgnteUCeE
+mC/Y9pAMqgWy3btZ1zQg1nZllclcSuekWW2DOFZ3JsjC3Z3WImuhiC23Kn1FbogH
+2VdsGU8CRUcHvHIIcQOV6GnFl54W/8gHvxTJFlIG7OEVT9804ajkIGoNo23oLr6W
+PfWKlwLd8yCRCkmJFdnngn5dTlVFVwESx+nK3JT0BHj47+aEUHBp8OK98StioBUb
++2wqE0UJBkJ6Tk2aYYB1kzvhSJ1CCvjRi+KNTXAz+9ys+QgW8SpyoUQKHD208DIE
+YID6nf6lZ0BwunN2rccIIorkOTgQnQW/WXfQDBtwmeHgCUDnwIvJk/kxMyM1jcCy
+aoMU40sVIjtIBo3QogMZwAUX25DYLAIPG2kWhJYrvUeLJm4yHkMiP5XQ0jkaqjCn
+d3CKE/zZBp4YHfx1RJftT+3EViCnOqofLUs2uRPNZZqrltXLlbUMQIxG4UT3yjBA
+ACaPHD+P5y3eQxSlsH2g1RfmmhVaAwAzCYtB75QsiGcobm/KGSd4FoEY5F69GQv+
+buZlJbX/ZxeWnhAhDOEnLz1FhX886DOMoN6ATSEg0+rCy4ZaUdgE8V7PtUyyP1hI
+OIoxS2yFhTH1gUK4gq5+cuq+nxZCRQU/yRnUX/4yVi/SRGOfihA=
+=kdJK
+-----END PGP SIGNATURE-----
+
+--------------bslPEI2mMjlz05057Cv6eDNh--
