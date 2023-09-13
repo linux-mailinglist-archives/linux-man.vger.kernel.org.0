@@ -2,120 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1971079EDEA
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 18:03:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A75579EE1D
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 18:15:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229516AbjIMQDl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 12:03:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54886 "EHLO
+        id S229536AbjIMQP0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 12:15:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36816 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229441AbjIMQDk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 12:03:40 -0400
+        with ESMTP id S229983AbjIMQPZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 12:15:25 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CB4990
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 09:03:36 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB77C433C8;
-        Wed, 13 Sep 2023 16:03:35 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C5B61BC9
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 09:15:20 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D941AC433C8;
+        Wed, 13 Sep 2023 16:15:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1694621016;
-        bh=3UNiPCU4mrRk7ZwWa3psmd6m+bX99nv956JT41SPwb0=;
+        s=k20201202; t=1694621720;
+        bh=CM3mvssLxh/aHChgLdCU40NopkfxoWOgKRbXpbSGc+M=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=VEoEo82Cvix3S/6Qa4t/wRgqwpSxaINck0u+y53LOTkvB+G16+OIRVe8ktU8xguLT
-         aTxR41xwOxHfYiM3MgY9zwpOh7tSUV3zvs/6yULgAuYJz+uYEBveoERZNCnQ1lkc0E
-         VBOMWBOY8MqAaBCCPNTu6raA4hklVswicAbYWvr7itAnInBxpu/MdE1vclUQOKFQJh
-         8TILaq+RMcX2wrmn3MREXGZ0k1gUiW9VR0cGAbCgK1JFGBJidqbn0bqdRpW/X/WWOd
-         fiSQJB2CYH2t16uHbMkpcHGIS1DoXdL9nshP/f8MJSKpPQsD0FiCuwJSQkCUyzutSp
-         YcxPehmvdsgXw==
-Message-ID: <669cf95a-625b-43c4-a99c-183067fb931b@kernel.org>
-Date:   Wed, 13 Sep 2023 18:03:33 +0200
+        b=Kz+ubk2781Z/vgPLzCdfyXnXx8wDRniJubu0RjGLCYrt1nEzCGOhquiYSR9FgC2wn
+         UcPRdG89hjUc0l2trQcP+2jkY9L77pT7TGyhsC1mRA35P8SLclRIFU5RzkXMImYUpN
+         APe3vRKxK6Q8bq2iNWf0PtbTBeX2mcqgkMEovapJPnPuAKcpoGfL8kpIW4sZWi/qqQ
+         WpS3lTQFw6fUee4Anx/m7tnGeKi8lWDArhqtgYnYufK2EI+4Iws2bqXo2V6yCZI271
+         e1PB08p7OO2DyxXu150OBC+A8opkxBHfsT5hg3MdrG3fMNjn2P1svjk17t3eplSH3+
+         3G1NMtvUA8Peg==
+Message-ID: <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+Date:   Wed, 13 Sep 2023 18:15:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] popen.3: wfix
+Subject: Re: POSIX manual pages
 Content-Language: en-US
-To:     Tom Schwindl <schwindl@posteo.de>
-Cc:     linux-man@vger.kernel.org
-References: <20230905121822.17672-1-schwindl@posteo.de>
+To:     Andrew Josey <ajosey@opengroup.org>
+Cc:     Geoff Clare <gwc@opengroup.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Eric Blake <eblake@redhat.com>,
+        Brian Inglis <Brian.Inglis@Shaw.ca>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
+ <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <20230905121822.17672-1-schwindl@posteo.de>
+In-Reply-To: <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------z2V604pEohXsOSFhy0EOeXuu"
+ boundary="------------oaHC696S8qQmBAmXzchxWh9F"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------z2V604pEohXsOSFhy0EOeXuu
-Content-Type: multipart/mixed; boundary="------------LLZaGFu03fJ53nQRE03a3N2a";
+--------------oaHC696S8qQmBAmXzchxWh9F
+Content-Type: multipart/mixed; boundary="------------7nTY8Dri6uKd4N0JjvI8lobN";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Tom Schwindl <schwindl@posteo.de>
-Cc: linux-man@vger.kernel.org
-Message-ID: <669cf95a-625b-43c4-a99c-183067fb931b@kernel.org>
-Subject: Re: [PATCH] popen.3: wfix
-References: <20230905121822.17672-1-schwindl@posteo.de>
-In-Reply-To: <20230905121822.17672-1-schwindl@posteo.de>
+To: Andrew Josey <ajosey@opengroup.org>
+Cc: Geoff Clare <gwc@opengroup.org>, linux-man <linux-man@vger.kernel.org>,
+ Eric Blake <eblake@redhat.com>, Brian Inglis <Brian.Inglis@Shaw.ca>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+Subject: Re: POSIX manual pages
+References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
+ <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
+In-Reply-To: <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
 
---------------LLZaGFu03fJ53nQRE03a3N2a
+--------------7nTY8Dri6uKd4N0JjvI8lobN
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Tom,
+Hi Andrew,
 
-On 2023-09-05 14:18, Tom Schwindl wrote:
-> ---
+[I reordered your answer for my response.]
 
-Patch applied (with the sign-off).
-
-Thanks,
-Alex
-
->  man3/popen.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On 2023-09-05 14:34, Andrew Josey wrote:
 >=20
-> diff --git a/man3/popen.3 b/man3/popen.3
-> index 533561d60454..9530acfaa217 100644
-> --- a/man3/popen.3
-> +++ b/man3/popen.3
-> @@ -188,7 +188,7 @@ before
->  .BR popen ().
->  .PP
->  Failure to execute the shell is indistinguishable from the shell's fai=
-lure
-> -to execute command, or an immediate exit of the command.
-> +to execute the command, or an immediate exit of the command.
->  The only hint is an exit status of 127.
->  .\" .SH HISTORY
->  .\" A
+> hi Alejandro
+>=20
+> Apologies for the delay.
+
+NP
+
+>=20
+> Are you in touch with Michael Kerrisk?
+
+Nope.
+
+> It also appeared in discussions with Michael in 2020, that he had a way=
+ to convert the source format to man page format.
+
+Yep, this is probably "the way":
+
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/tree/p=
+osix.py>
+
+> In the past we have worked with him and made a permissions grant - whic=
+h outlines the terms we are able to grant =E2=80=94 these are limited
+> by the copyright holders.=20
+
+I understand.  Would it be possible to suggest the copyright holders open=
+ing a
+little bit more?  The C++ standard seems to be more open (it has a public=
+ git
+repository with the source of the drafts) [1].  Maybe POSIX could do some=
+thing
+similar?    It would make contributions to the man-pages-posix project ea=
+sier,
+as contributors would be able to test the script with the original source=
+s;
+instead of just blindly trying something, and asking the maintainer to tr=
+y it
+with the secret sources.
+
+[1]:  <https://github.com/cplusplus/draft>
+
+
+Cheers,
+
+Alex
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------LLZaGFu03fJ53nQRE03a3N2a--
+--------------7nTY8Dri6uKd4N0JjvI8lobN--
 
---------------z2V604pEohXsOSFhy0EOeXuu
+--------------oaHC696S8qQmBAmXzchxWh9F
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUB3VYACgkQnowa+77/
-2zIKqQ//bPO5mPUWr0u49i6RpSIyNvzhoBF2S6UTvQi9dVrlg0X4H6xgw/kUS7jx
-XKder/Of0grN35u7DhYZLS9RkOlpkNIi3ln+8O4FXKy02PUSS7i6Tochb7VUsHMq
-tN511RarEkmkHEDcjm8v1Zrqc9DohnG2ukeBLsZD9r9TpJhjROpm53Wv1zIouQuv
-sQMEEL87vQl76CwPkTI/5JMhqYvHwbnMQ4iGANT25LZsZW0R2/jH0+nNuIQlpNtx
-24DbwIW/Fvc0LxDp5Bu7tjI4V8rJXsSrALUPO+7jBR46J/aSyBAra/1p+gkpKZEp
-PzO4Tbm9FmebyDvWnp3DMsbsYzMenk0EtrlnT99OSivkUV93OZNXA8nLYXw9gysC
-OZn7w2FDOtpKttosWRI/lM4PyRwOR+CzhFR0W2xpLu1j8VFWMY6cqdxCwaDWX4RP
-QOr7N44VGWGgZoqniNMxe1kSqNhhvS4P/kJFGHLQVOCGL7CtKXlws7tRlv9rrstJ
-whyGE8QCbJ2tOHG0NYMfzgBDn7lrc3U7MannHa0ku16sjistILo0ZjPPrXPhHuIk
-wFQGYPBgUzERCK2sn/B9W4KxSbayU77uWB5vQT7JsbjrysU6543qGGT9MzmP7jQy
-kCup7KbwHG6isfUqXuilklEoyaSl7T3xiONdiBJhRco4TRKZoNI=
-=SSfF
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUB4A0ACgkQnowa+77/
+2zLbHA/+MVklNhTgxnvvSuar7oL62QPtLQNuPntKcxb3TJnaWGfpVzHUKxs2Nrel
+akLlrRWKAOgUri9sbqXL+PV9bxzqZYFf4NhFpJDzz2oRJ4KSVxEiK52/wNM+GtfN
+VGDVD2Lg2m8g7bJ87TglHe01gZ/EkwFSgXGhehgWSf+CMDAeeFFf+QKQi5KFLFvK
+VMLcpTItrSnU5oDlSrp8OHjmqLPeQ13/hkYTRyNq8Zp704AK4C3ZG0kTVnZ4Wr6A
+pIyvt3pC/7QhBVpmppeYe6qjH6S+rYB8MrsTr+azEFcs6mVr6bhBQ9u0nvPi0XMW
+5HQNWLxcYkReC0+Lua8ID1WPyci3mYDtJ066wPTqpO/B9uuz5IDPVSDsmg8z7hCO
+dz8XyLJXiWl/vMM9k/s2xUMMqX5JdoE0zc3siaCibEv+pggZ1YKxN3RdIeqbP6uP
+mgUdO1kjQt6HxRBvFpbgpjN1mB8/zYuDqlea43cPA4b2pWXgLvhCXz5FcQU6gt9M
+EbAJ7S/mBTeu8UmwiyNX6Hg4VGI6xC99qL8JvMghbVoDYGfWHD+vqeqDeHLVqnLc
+kGrORSEASSEHRUETVLaxs0HyOC7ERmU/nI3BGwlM92PD/zy/LtWQDHY1qDiALRQ/
+q+YbAooC3tzwICRkWlXV6bzVOvxvEO85YB4j0ul4J8SvJq4Cc4E=
+=5/6H
 -----END PGP SIGNATURE-----
 
---------------z2V604pEohXsOSFhy0EOeXuu--
+--------------oaHC696S8qQmBAmXzchxWh9F--
