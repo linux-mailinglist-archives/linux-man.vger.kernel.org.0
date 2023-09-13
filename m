@@ -2,167 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B7D2179F0A0
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 19:49:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A755F79F0E4
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 20:09:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230311AbjIMRt6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 13:49:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48024 "EHLO
+        id S229846AbjIMSKA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 14:10:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55692 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229468AbjIMRt6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 13:49:58 -0400
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com [IPv6:2001:4860:4864:20::2e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 39DC519AE
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 10:49:54 -0700 (PDT)
-Received: by mail-oa1-x2e.google.com with SMTP id 586e51a60fabf-1c4cf775a14so58965fac.3
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 10:49:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1694627392; x=1695232192; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FBPnc5Gaa3X2S6r6FiqXb/jaOf8BeBy67hIeVKTRxL8=;
-        b=CPtuIBWn4KKB2G/paSJHnaLjErUvgFmsitjtLYvsQlomM6F/M34EYxoN27A7y7ioPb
-         EgdB0d9PeXGrlkOKFsFTRSvNtNiykPakln1B7/hex8p9UmlYCVYvAJo40XRgALa4NJT0
-         XMkO+tSnq+ZMrMqSTuYulVdKeg1SUbopyFJfeBRaYg0+5JXhmkIdbqw1A5Iw3T+SKA5A
-         nabHZTrJ3AE+RGXrzjGdUbBzPAkqJg3gcSwI5BUvwIewV3qy+l6fxGCQs01j6SguqLdG
-         omEoSXbPbbdt8k1GpaYzHR81mFrgmUAfruzrm0p9+0bMLEAjcmoUeYLHFlLs/kd/IFw3
-         wn7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694627392; x=1695232192;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FBPnc5Gaa3X2S6r6FiqXb/jaOf8BeBy67hIeVKTRxL8=;
-        b=HMsAk3CNVTjSI3Ir4CwTfIiF6FoNQfVzkJVSTQ3t4Ckt6AHBExptlMH4iI4/rWva2d
-         Cd9hFbkspJ03hWarEwOr7HShWayDHou2jqK3IXE9/UoPsk0v5Mc5a7ZWw7uty4IubOjI
-         Y1bPOaMFHszlagOiinXqm9bghnK8gfeIPmKw0IxstMnQb1ns/F0l3Eo24IHXOLCMSFc8
-         ihYzMFSWuUMMBv0oeVOAXF4yyWFvUklYdWRDBb3o+9xPT8/v+swRIoFbUAMBT03AEtE/
-         OPSLyoCN+tsysSfq1EhoPtPouJGpxhtqY9pJ4keVVF4ItnSM1omvpY31oG4xD9yAQMUj
-         J9rQ==
-X-Gm-Message-State: AOJu0YzC/eSS7IAK8YsQWRWL/TUkNSPinalR7cdzREKF2Y1Li+dtF3iJ
-        LS50dVSz/Jb/ytBDgFCk5SjPKU9xd/g=
-X-Google-Smtp-Source: AGHT+IHv2fsjZndQ6rDhNppboSzrb+yw8F0aGSKzr4YWfQGVNJClhg8j2IBHDcmaiObgOWC7F4rqFQ==
-X-Received: by 2002:a05:6870:65ab:b0:1be:fd4e:e36c with SMTP id fp43-20020a05687065ab00b001befd4ee36cmr3550386oab.2.1694627392474;
-        Wed, 13 Sep 2023 10:49:52 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id zc17-20020a056871271100b001babd036460sm6470025oab.19.2023.09.13.10.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Sep 2023 10:49:52 -0700 (PDT)
-Date:   Wed, 13 Sep 2023 12:49:50 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
-        linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH] ioctl.2: note "int request" form, HISTORYise a bit
-Message-ID: <20230913174950.36crji6z3mzg3j7h@illithid>
+        with ESMTP id S229552AbjIMSJ7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 14:09:59 -0400
+Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0928F19AE
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 11:09:54 -0700 (PDT)
+Received: from shw-obgw-4001a.ext.cloudfilter.net ([10.228.9.142])
+        by cmsmtp with ESMTP
+        id gSmgqSQnI6NwhgUJGqjRNR; Wed, 13 Sep 2023 18:09:54 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1694628594; bh=QX5YuLY092r57YIMSVfqvCYXryrEy3ei1t9mInNHwog=;
+        h=Date:Reply-To:Subject:To:Cc:References:From:In-Reply-To;
+        b=YERFwLgJFULzC495amn8J5WYqiy8aa9wM9lc99xvUlpcYCEZfbSFrWIVKXj8u4udo
+         oF2K+5qdzVpdu5IPIKP6kNFsNMkaYAIXvOnYfd01HbqOdSXXcnyw8QCpXoJ47CRvU3
+         eHIqBg5DxI1g9y1++9xfsy3celExxNS3wLbZJx4a0OQ5OJNPSTET7BHoO90sU0gja1
+         +NtMpyeL4swdsfc42rM+OYi/wVAKaXT8nvl9cS9Qy73OuC9hSFM0y6AQVEUt71bv58
+         B7bHrSFO+fvjFjgA1F5c3EamwCm1bk/7CVMj0pVESvvclmytcFgn6xv6BoneLp7zH/
+         803pL/Q3SNbjA==
+Received: from [10.0.0.5] ([184.64.102.149])
+        by cmsmtp with ESMTP
+        id gUJFqi0HnHFsOgUJFqnj6f; Wed, 13 Sep 2023 18:09:54 +0000
+X-Authority-Analysis: v=2.4 cv=XZqaca15 c=1 sm=1 tr=0 ts=6501faf2
+ a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
+ a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=uZvujYp8AAAA:8
+ a=npldXguGAAAA:8 a=Vt2AcnKqAAAA:8 a=mimUr31Rh0qILy3fxx8A:9 a=QEXdDO2ut3YA:10
+ a=eKhen3bU3p4A:10 a=hT3fivVCblMA:10 a=AjGcO6oz07-iQ99wixmX:22
+ a=SLzB8X_8jTLwj6mN0q5r:22 a=1MEZn5qd6kv58cYvHi58:22 a=v10HlyRyNeVhbzM4Lqgd:22
+Message-ID: <b3f8edc2-aec4-e0e9-e5c9-785183e422ec@Shaw.ca>
+Date:   Wed, 13 Sep 2023 12:09:52 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="kfj4han7ltyrwzue"
-Content-Disposition: inline
-In-Reply-To: <171eade0-c2f9-4390-a2ff-c5dd9bfe6a99@gmail.com>
- <f532a4d8-be27-4b61-bd4e-865722626c06@kernel.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Reply-To: Brian.Inglis@Shaw.ca
+Subject: Re: POSIX manual pages
+Content-Language: en-CA
+To:     linux-man <linux-man@vger.kernel.org>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Geoff Clare <gwc@opengroup.org>,
+        Eric Blake <eblake@redhat.com>,
+        Andrew Josey <ajosey@opengroup.org>
+References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
+ <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
+ <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfB7I7tqtUq0ppMPcg/znqNI77zvs8XCiAujkqeHXJNtWcHyKSrRzc3r90dxLazEqtl3XsM1xUlqrbSXlXqmo79SnaNhlXqPfLj5CGCwtsEt44fFIF2Un
+ xHg4Nn2vLeaE+RKziVmg6SbhBSA5Jr14Fzfs9ccxz5CHW5D0UuY06mJ+ndJDGACFJia0QZrk3FY6Ef1UB7IYP1WdsXgtYo0pUaoYxRH/9q46bdYbxjEtWck1
+ JhJxQZWiX/bxb7nMkn5JZl6GDSiqIzt0Ud/Q7oMHQwzMTEcwLreJ5B4+NaMA6oy4/EfMj6mhy9EnEUNBVWU2eqzKftEz22nWj4kFHNz6OWI5DjaCDdfHERVF
+ 2LXF1fdg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
---kfj4han7ltyrwzue
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 2023-09-13 10:15, Alejandro Colomar wrote:
+> Hi Andrew,
+> 
+> [I reordered your answer for my response.]
+> 
+> On 2023-09-05 14:34, Andrew Josey wrote:
+>>
+>> hi Alejandro
+>>
+>> Apologies for the delay.
+> 
+> NP
+> 
+>>
+>> Are you in touch with Michael Kerrisk?
+> 
+> Nope.
+> 
+>> It also appeared in discussions with Michael in 2020, that he had a way to convert the source format to man page format.
+> 
+> Yep, this is probably "the way":
+> 
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/tree/posix.py>
+> 
+>> In the past we have worked with him and made a permissions grant - which outlines the terms we are able to grant — these are limited
+>> by the copyright holders.
+> 
+> I understand.  Would it be possible to suggest the copyright holders opening a
+> little bit more?  The C++ standard seems to be more open (it has a public git
+> repository with the source of the drafts) [1].  Maybe POSIX could do something
+> similar?    It would make contributions to the man-pages-posix project easier,
+> as contributors would be able to test the script with the original sources;
+> instead of just blindly trying something, and asking the maintainer to try it
+> with the secret sources.
+> 
+> [1]:  <https://github.com/cplusplus/draft>
 
 Hi Alex,
 
-At 2023-09-13T17:24:53+0200, Alejandro Colomar wrote:
-> > diff --git a/man2/ioctl.2 b/man2/ioctl.2
-> > index 6b55d47c9..a658da354 100644
-> > --- a/man2/ioctl.2
-> > +++ b/man2/ioctl.2
-> > @@ -20,9 +20,8 @@ .SH SYNOPSIS
-> >  .nf
-> >  .B #include <sys/ioctl.h>
-> >  .PP
-> > -.BI "int ioctl(int " fd ", unsigned long " request ", ...);"
-> > -.\" POSIX says 'request' is int, but glibc has the above
-> > -.\" See https://bugzilla.kernel.org/show_bug.cgi?id=3D42705
-> > +.BI "int ioctl(int " fd ", unsigned long " request ", ...);" "\fR  /* =
-glibc, BSD */\fP"
-> > +.BI "int ioctl(int " fd ", int " request ", ...);" "\fR            /* =
-musl, other UNIX */\fP"
->=20
-> LGTM.
-[...]
-> [while applying, changed to use the \f[...] form.]
+Perhaps you could request terms allowing you to maintain your own downstream 
+repo(s) of the *generated* man pages, as you do of the linux man pages @ 
+alejandro-colomar.es & git.kernel.org?
 
-It's a shame the ellipsis is in italics.  This will underline it on
-terminals when the user hasn't gone out of their way to exercise the
-italic attribute.[1]  Also, it is idiomatic to write ellipses with `\|`
-escape sequences internally separating the dots; this looks better on
-typesetters.  (It wouldn't matter when a monospaced font is used, but
-the Linux man-pages don't do that for synopses.)
+There would need to be a COPYRIGHT/COLOPHON disclaimer about content issues to 
+be addressed to the Austin Group, and man page formatting issues to a posix-man 
+list, if they are or you want to keep them separate, and kernel.org is agreeable 
+to hosting a vger./lore.kernel.org posix-man list and git.kernel.org repo?
 
-Perhaps consider...
+There are unlikely to be man page changes issued between releases (or released 
+between issues?).
 
-+.BI "int ioctl(int " fd ", unsigned long " request ", \f[R].\|.\|.\f[]);" =
-"\f[R]  /* glibc, BSD */\f[]"
-+.BI "int ioctl(int " fd ", int " request ", \f[R].\|.\|.\f[]);" "\f[R]    =
-        /* musl, other UNIX */\f[]"
+-- 
+Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
 
-What do you think?
+La perfection est atteinte                   Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
+                                 -- Antoine de Saint-Exupéry
 
-At 2023-09-13T18:44:53+0200, Alejandro Colomar wrote:
-> On 2023-09-13 18:02, =D0=BD=D0=B0=D0=B1 wrote:
-> > Bit me in https://github.com/thecoshman/http/issues/155:
->=20
-> Be careful with URIs.  They _must_ be enclosed within <>.  See uri(7).
-> Otherwise, the ':' can be understood as part of the URI.
 
-groff's `UR`/`UE` macros have been available since 2009 for this
-purpose.  mandoc(1) supports them, as does Heirloom Doctools troff (the
-latter because it incorporates an old but usable copy of an-ext.tmac).
-With man.7 now (in Git) sourcing groff_man.7, I expect the quantity of
-submissions using `UR` and `UE` to increase.
+[PDF drafts are freely available to registered users for personal use under:
 
-Also, I thought =D0=BD=D0=B0=D0=B1 was just mentioning the URL in the email=
-, not adding
-it to the man(7) document per se.
+	https://www.opengroup.org/austin/restricted/
 
-But for grins, if one wanted =D0=BD=D0=B0=D0=B1's exact words in a man page=
-, despite
-their informal register, here's what you'd do.
+discussions are freely visible in the bug tracker
 
-Bit me in
-=2EUR https://github.com/thecoshman/http/issues/155
-=2EUE :
+	https://www.austingroupbugs.net/
 
-Regards,
-Branden
+documents are freely available via the document register
 
-[1] In groff 1.24, they may no longer have to go out of their way, but
-    might get italics automatically.
+	https://www.opengroup.org/austin/docreg.html
 
-    https://lists.gnu.org/archive/html/groff/2023-09/msg00027.html
+with both shown on the mailing list archived at
 
-    (I still owe Lennart a review of v3.)
+	https://www.mail-archive.com/austin-group-l@opengroup.org/
 
---kfj4han7ltyrwzue
-Content-Type: application/pgp-signature; name="signature.asc"
+which also has an Atom/RSS feed (which I prefer to use for most lists)
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmUB9jMACgkQ0Z6cfXEm
-bc4sQA//cSdE8id4TzVuyXlm0PA9rDwLbPWgVxBFBG2hpOsPXOYiSx7swKl+4VAb
-3e8vL5Fl79CFR4tkV3vn5ebaufHSdxohfAtf3Sl7OpxXTtBRIcOsoZhen3xd5BZS
-cSHVveMdrXzi9EyByUd/c0+H4Qj5pidw3DxRQs2iox/yvqB17359vWkmLnOp/FoV
-2/8/44iE8GsCvhuFEiMTcDyQ0KBceNF//Xf95+5NpxD2dg1Cb2nnehL/fhkbNBbY
-N9KVXsooya1HYylGkcK+vZoj39eWN7SzNRSk7zaT6NGDcmrRl0DV8hPybV4WpzlH
-6VXjZaRrp7KP8G3vdelfkPqGbnZ9dsCSH426c/JL9T13SUpw3bhhM+bhaM+0IoB5
-4vo0wwDPu3e0os+9zm0qQlHVAExEfajcjR0VdVKrGeQL8zl40Y02m3vQG8JdJBI0
-WkAM5wciuxg6sNmo60NHn2GMDrpAhipUml4oUyNqvUW2LYZxP5+1DJ/2F0Du/yaf
-4Z4x3lxI7ugqbDelMLwHo4/I1Cjcu4tss/qnleIEAt12Uz3KNAzxlbUO5pW06h2a
-X9laG4OJiY+Ow3QoxoffKOk6resYOsuZeGz9iVPdMT/n39TfBP+X4ks2MN9i3xKH
-5JXVg3CsGiyF+OoSAO1RZC/KFK6Avr95ONBdVrt3k5Xzq2/qCOQ=
-=qLKA
------END PGP SIGNATURE-----
-
---kfj4han7ltyrwzue--
+	https://www.mail-archive.com/austin-group-l@opengroup.org/maillist.xml.]
