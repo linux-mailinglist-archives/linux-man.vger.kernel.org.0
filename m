@@ -2,124 +2,169 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 02B8079EBCC
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 16:58:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BD51479EB2E
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 16:35:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234329AbjIMO5w (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 10:57:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50750 "EHLO
+        id S241178AbjIMOf2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 10:35:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33500 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241341AbjIMOci (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 10:32:38 -0400
+        with ESMTP id S235721AbjIMOf1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 10:35:27 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E207492
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 07:32:34 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09CACC433C8;
-        Wed, 13 Sep 2023 14:32:33 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9272391;
+        Wed, 13 Sep 2023 07:35:23 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE452C433C9;
+        Wed, 13 Sep 2023 14:35:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1694615554;
-        bh=S9eyyiTj7+yTPfsy/wfoOOQuDrFbJxQE/uPUvSNqOFg=;
+        s=k20201202; t=1694615723;
+        bh=cfyYnzfLuMJIjcnP59Cc2Ovv2IiXsjzUwiev3pUOe6E=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=kOpvo5GkoXwG1H4D5MWiTOryc5xwE6E98dqcnZtvaYkPBt5g4tngCjx2ZqYpKaz/Z
-         ud9zrqttfnw4wlsCFzPLduoH5xkxfZQKgpCWx1IKutOmqRpY6h5WSUqj4NNbXTL6kz
-         zYt1VPwTO2Hejm1ZlXOhucp82iGWzQdwiKU/FWC5O5AmI3p6hWKkWbCBNiID2UWZ2q
-         DATYrs8WTyfeYVzIvRF6u6tFAoDJbiyocYZG0/raGvK+vB34+9RBco90XqbCQx6aAI
-         lUl1/3N1chEM95KL+vifxt67qxkD9bboeL05LMiXtYO51s2+JAUrsEifYbDAURL/UN
-         pbAOcoLD4yE1A==
-Message-ID: <87ab1012-7c81-4f1a-a799-603da6d4487d@kernel.org>
-Date:   Wed, 13 Sep 2023 16:32:33 +0200
+        b=TiGHBh7agVMf5kiP2KeNHGnJJPfjLzE60MlwRkMXnneU4YxpSYsMrR1kGxQkDcs9v
+         xViONpc5rqFP+oIrOjrRxACIBlx1g+3q9RleVWDKLWNvicgVnF2WCT56K61RhrPJV4
+         J+DIcg3tbTppwNpzCH02IrVNwAXl6fdRzrJ578M59USXJ1v7WYLaCkyGTO17A8x3T0
+         OjyW5hN2MbVrvg2TtZXlDYKCvYelSVVpmZDOiHGaLZbgiCYeoTPtbOVvzoSPbxtvkV
+         7kUwqO3So4BgJmLpYs7CMIdWdRS8/3kyllq3gHl3jUlunhmqM4ZxiBkZ6Qr8n0BCbL
+         fv1dhvS8eZFjw==
+Message-ID: <0e7962b0-4d66-4d86-b245-a695dd421d01@kernel.org>
+Date:   Wed, 13 Sep 2023 16:35:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mmap.2: fix missing text
+Subject: Re: [PATCH 0/3] Document impact of user namespaces and negative
+ permissions
 Content-Language: en-US
-To:     Avinesh Kumar <akumar@suse.de>
-Cc:     linux-man@vger.kernel.org
-References: <20230829102137.17409-1-akumar@suse.de>
- <20230829152959.31056-1-akumar@suse.de>
+To:     Richard Weinberger <richard@nod.at>
+Cc:     "Serge E. Hallyn" <serge@hallyn.com>, christian@brauner.io,
+        ipedrosa@redhat.com, gscrivan@redhat.com,
+        =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>,
+        acl-devel@nongnu.org, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        ebiederm <ebiederm@xmission.com>
+References: <20230829205833.14873-1-richard@nod.at>
+ <81098c50-bfec-9aa2-a302-abfebd0ff332@kernel.org>
+ <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <20230829152959.31056-1-akumar@suse.de>
+In-Reply-To: <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------0prnqHa001Mqke0FEk3X1kJD"
+ boundary="------------R067x8bkytjlXEcwvcELanPQ"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0prnqHa001Mqke0FEk3X1kJD
-Content-Type: multipart/mixed; boundary="------------ODGu7MTs6HVe1Apgwg8h1rhZ";
+--------------R067x8bkytjlXEcwvcELanPQ
+Content-Type: multipart/mixed; boundary="------------GMl6HaueBBR2zGyR2tgyaqkP";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Avinesh Kumar <akumar@suse.de>
-Cc: linux-man@vger.kernel.org
-Message-ID: <87ab1012-7c81-4f1a-a799-603da6d4487d@kernel.org>
-Subject: Re: [PATCH v3] mmap.2: fix missing text
-References: <20230829102137.17409-1-akumar@suse.de>
- <20230829152959.31056-1-akumar@suse.de>
-In-Reply-To: <20230829152959.31056-1-akumar@suse.de>
+To: Richard Weinberger <richard@nod.at>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>, christian@brauner.io,
+ ipedrosa@redhat.com, gscrivan@redhat.com,
+ =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>,
+ acl-devel@nongnu.org, linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ ebiederm <ebiederm@xmission.com>
+Message-ID: <0e7962b0-4d66-4d86-b245-a695dd421d01@kernel.org>
+Subject: Re: [PATCH 0/3] Document impact of user namespaces and negative
+ permissions
+References: <20230829205833.14873-1-richard@nod.at>
+ <81098c50-bfec-9aa2-a302-abfebd0ff332@kernel.org>
+ <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
+In-Reply-To: <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
 
---------------ODGu7MTs6HVe1Apgwg8h1rhZ
+--------------GMl6HaueBBR2zGyR2tgyaqkP
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Avinesh,
+Hi Richard,
 
-On 2023-08-29 17:29, Avinesh Kumar wrote:
-> Fixes: 090fdddb43 ("memfd_create.2, mmap.2, shmget.2: Document the EPER=
-M
-> for huge page allocations")
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-
-Patch applied.
-
-Thanks,
-Alex
-
-> ---
->  man2/mmap.2 | 1 +
->  1 file changed, 1 insertion(+)
+On 2023-08-29 23:32, Richard Weinberger wrote:
+> ----- Urspr=C3=BCngliche Mail -----
+>> Von: "Alejandro Colomar" <alx@kernel.org>
+>> Can you please provide a small shell session where this is exemplified=
+?
 >=20
-> diff --git a/man2/mmap.2 b/man2/mmap.2
-> index d0530be0f..f7e32013a 100644
-> --- a/man2/mmap.2
-> +++ b/man2/mmap.2
-> @@ -629,6 +629,7 @@ and is not a member of the
->  group; see the description of
->  .I /proc/sys/vm/sysctl_hugetlb_shm_group
->  in
-> +.BR proc_sys (5).
->  .TP
->  .B ETXTBSY
->  .B MAP_DENYWRITE
+> Sure. I sent the following to the shadow maintainers privately on Frida=
+y,
+> but since the issue is already known for years I don't hesitate to shar=
+e.
+>=20
+> # On a Debian Bookworm
+> # So far no entries are installed.
+> $ cat /etc/subuid
+>=20
+> # useradd automatically does so.
+> $ useradd -m rw
+> $ cat /etc/subuid
+> rw:100000:65536
+>=20
+> # Let's create a folder where the group "nogames" has no permissions.
+> $ mkdir /games
+> $ echo win > /games/game.txt
+> $ groupadd nogames
+> $ chown -R root:nogames /games
+> $ chmod 705 /games
+>=20
+> # User "rw" must not play games
+> $ usermod -G nogames rw
+>=20
+> # Works as expected
+> rw@localhost:~$ id
+> uid=3D1000(rw) gid=3D1000(rw) groups=3D1000(rw),1001(nogames)
+> rw@localhost:~$ cat /games/game.txt
+> cat: /games/game.txt: Permission denied
+>=20
+> # By using unshare (which utilizes the newuidmap helper) we can get rid=
+ of the "nogames" group.
+> rw@localhost:~$ unshare -S 0 -G 0 --map-users=3D100000,0,65536 --map-gr=
+oups=3D100000,0,65536 id
+> uid=3D0(root) gid=3D0(root) groups=3D0(root)
+>=20
+> rw@localhost:~$ unshare -S 0 -G 0 --map-users=3D100000,0,65536 --map-gr=
+oups=3D100000,0,65536 cat /games/game.txt
+> win
+>=20
+> Thanks,
+> //richard
+
+Thanks!
+
+Please include this in the commit message (at least for the Linux man-pag=
+es
+one).
+
+Cheers,
+Alex
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------ODGu7MTs6HVe1Apgwg8h1rhZ--
+--------------GMl6HaueBBR2zGyR2tgyaqkP--
 
---------------0prnqHa001Mqke0FEk3X1kJD
+--------------R067x8bkytjlXEcwvcELanPQ
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUByAEACgkQnowa+77/
-2zLN1A/+LEw5n222cTkB2NiWyCrA4D+ALdxuVd5+NZZ3DebTmxlaUj1RbxhS8a3L
-3tjWRGzuFICqy1cgPEkKIPND9xmZjL32ioD78hU3uSt4BEZBFbiZxK9VWg3Ekt6A
-8Go0/Kd8e9Xwx/WsalSMt8SwYwY7J0jW5S5PmtinC1sfOtu9wEIwtELcu/isGMUv
-NOCtKGO4cIQlTaOa+2+i7qzkOxZ+UZN+HrJle+Z6fmK0N67z5D+ynYxkrN2lFwK7
-Oujti+bDgRyq9U4ibiLjPH+KPlWzHiRkXKP7ubGaSTrijUDJAHjwFdj0C8ULG4+q
-bfI0kVPDZm+Qe526QpSOE09qcMFPcByAn1Sqx8bOUWTZmXlzcqfix+amaUw9Z9gc
-S24o9+XBUS20u/dzXuuSzzN0UvEMb5T3uPio32JVSt1Z0PXjFCdNjYwxMUPuKBWF
-W/6hTPlAgkn5tKGxL0XZoPMi76AirsGDgKvtFlZVCD8sm4Wm0TfHyUi8NZHhpp7y
-fCKKpplKn5iBaYlgx0Xpa4yAHDsX4CZfjpCYXS170zSef+03A1tU+f5eqmMngOcF
-+SxD5vqcX7fJyUGhwkFU2P76EGM7bnf/nfOWnwa57APvIg9er4B4pxvMzaDWaPUl
-AVDssMeHqFmSTKtGTghSby7INYli2tmzlDQym79M+iN/L1/lfZY=
-=pX4C
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUByKYACgkQnowa+77/
+2zLaag//XpTmNOOuHlT3NLLq2+3NZY2xnbClvJMlT09jYC6VCXrawIBbbZANRmuC
+KNDx8bcVevZUDcBnN7+2tsNpQF+fQWBF4ItAUuwNYPQY+D5sopQaum5at2Tx5YJJ
+CQlbY9nvjaRgewIn9+DaRjaPQ3lgK/d1XcxxVbimV61fRfLdiak9wUs6Fsrp75XP
+zf0Y9jQvYPZk0Np/VCRR7jjzSrEIMOL4XmrcZe7bwrC/kw2cj9Gku+HcHt6FfMq/
+RCJl+MjTVbxafi8PZHpNqAlUY3wtJfd7p/XKf/hHybhFB/x2aWjT3YZ5HC2aN0yD
+ozDgubckLCDZ/4EGnQGLe+QokblXMUbMcotVh7D3ELpKIIDY/hLbi/DmfEWs/1LK
+tr0KwOavX5Koqd6rxcUR6xCC+0q5DZSC7E7lna0r++uUSrkUjdOZAo4pujSJWAEC
+3YMwb/ZlCFMofGc2AEq0jMWDsAw2zob8Q3QKZFSVGGJ9Yf6rfUZlO+jIYztjar90
+cuxZBzzuIVAkq0pwObIWF/Fu3z7F+miG9LSQad4lMJt0T/DaQDQtxXLWRpXwC1PF
+yuVVJv8iV5zK7o2VVnuKePL9yPDNtZZCk81y+6lUZAt9mmlagLjbOieorfMXwLzR
+Qf5sBldhwBjejyuFQTQb1tvi/z0JLiQBzi7L0RjTBpK/b7ZRHpg=
+=SNJR
 -----END PGP SIGNATURE-----
 
---------------0prnqHa001Mqke0FEk3X1kJD--
+--------------R067x8bkytjlXEcwvcELanPQ--
