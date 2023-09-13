@@ -2,169 +2,139 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BD51479EB2E
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 16:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 48BCF79EB4D
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 16:42:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241178AbjIMOf2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 10:35:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33500 "EHLO
+        id S240038AbjIMOmZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 10:42:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235721AbjIMOf1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 10:35:27 -0400
+        with ESMTP id S232390AbjIMOmZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 10:42:25 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9272391;
-        Wed, 13 Sep 2023 07:35:23 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE452C433C9;
-        Wed, 13 Sep 2023 14:35:20 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2357690
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 07:42:21 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FF8C433C9;
+        Wed, 13 Sep 2023 14:42:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1694615723;
-        bh=cfyYnzfLuMJIjcnP59Cc2Ovv2IiXsjzUwiev3pUOe6E=;
+        s=k20201202; t=1694616140;
+        bh=lA6nzruK+D9IygBxdRijoWpN3RrQVxU5euhdWXlD0as=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=TiGHBh7agVMf5kiP2KeNHGnJJPfjLzE60MlwRkMXnneU4YxpSYsMrR1kGxQkDcs9v
-         xViONpc5rqFP+oIrOjrRxACIBlx1g+3q9RleVWDKLWNvicgVnF2WCT56K61RhrPJV4
-         J+DIcg3tbTppwNpzCH02IrVNwAXl6fdRzrJ578M59USXJ1v7WYLaCkyGTO17A8x3T0
-         OjyW5hN2MbVrvg2TtZXlDYKCvYelSVVpmZDOiHGaLZbgiCYeoTPtbOVvzoSPbxtvkV
-         7kUwqO3So4BgJmLpYs7CMIdWdRS8/3kyllq3gHl3jUlunhmqM4ZxiBkZ6Qr8n0BCbL
-         fv1dhvS8eZFjw==
-Message-ID: <0e7962b0-4d66-4d86-b245-a695dd421d01@kernel.org>
-Date:   Wed, 13 Sep 2023 16:35:18 +0200
+        b=HP0SJEETfxwcl0TjxdH8TIfYMxOSGo+yj5Hvwo75IVjU4zqY9YOKkNqSQJwixbq+8
+         HNDxRDqVBOXEGFXnU8vULr+10l8eoT0eA7wL9Ch/ht9ybT78jhg0MS8+qhQx4QvpKi
+         BKX+fTQ57HzQFkEUJ/h3dyTdVH2mv4fupVLaTLVj94+RwkF07yP53xylsHDVkTCH8W
+         82b4hhXvyqrA7YOV5q0ySpVyyBhx409ZJMMKDiXFdInu967Z5P49zLjJJ/NfStTuky
+         ltWlPKFBfnlMC2GuIH410OIB3oPMYn0fjSIPLmTXqBio4wPeAYIWPQfooXwqSv8uYI
+         GzVNcVXJCpyzA==
+Message-ID: <458ad865-2c59-44d4-9f1f-baedbfecfff3@kernel.org>
+Date:   Wed, 13 Sep 2023 16:42:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] Document impact of user namespaces and negative
- permissions
+Subject: Re: [patch] sln.8: wfix
 Content-Language: en-US
-To:     Richard Weinberger <richard@nod.at>
-Cc:     "Serge E. Hallyn" <serge@hallyn.com>, christian@brauner.io,
-        ipedrosa@redhat.com, gscrivan@redhat.com,
-        =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>,
-        acl-devel@nongnu.org, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        ebiederm <ebiederm@xmission.com>
-References: <20230829205833.14873-1-richard@nod.at>
- <81098c50-bfec-9aa2-a302-abfebd0ff332@kernel.org>
- <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
+To:     =?UTF-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@smrk.net>,
+        Peter Lafreniere <peter@n8pjl.ca>
+Cc:     linux-man@vger.kernel.org
+References: <20230902230459.12115-1-peter@n8pjl.ca>
+ <20230903130039+0200.513903-stepnem@smrk.net>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
+In-Reply-To: <20230903130039+0200.513903-stepnem@smrk.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------R067x8bkytjlXEcwvcELanPQ"
+ boundary="------------D0btstE2wkHBXt4y0RuNdUsf"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------R067x8bkytjlXEcwvcELanPQ
-Content-Type: multipart/mixed; boundary="------------GMl6HaueBBR2zGyR2tgyaqkP";
+--------------D0btstE2wkHBXt4y0RuNdUsf
+Content-Type: multipart/mixed; boundary="------------P4DjghGc7klAGEjlrg1Te85Q";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Richard Weinberger <richard@nod.at>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>, christian@brauner.io,
- ipedrosa@redhat.com, gscrivan@redhat.com,
- =?UTF-8?Q?Andreas_Gr=C3=BCnbacher?= <andreas.gruenbacher@gmail.com>,
- acl-devel@nongnu.org, linux-man@vger.kernel.org, linux-api@vger.kernel.org,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- ebiederm <ebiederm@xmission.com>
-Message-ID: <0e7962b0-4d66-4d86-b245-a695dd421d01@kernel.org>
-Subject: Re: [PATCH 0/3] Document impact of user namespaces and negative
- permissions
-References: <20230829205833.14873-1-richard@nod.at>
- <81098c50-bfec-9aa2-a302-abfebd0ff332@kernel.org>
- <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
-In-Reply-To: <1972367750.1870193.1693344767957.JavaMail.zimbra@nod.at>
+To: =?UTF-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@smrk.net>,
+ Peter Lafreniere <peter@n8pjl.ca>
+Cc: linux-man@vger.kernel.org
+Message-ID: <458ad865-2c59-44d4-9f1f-baedbfecfff3@kernel.org>
+Subject: Re: [patch] sln.8: wfix
+References: <20230902230459.12115-1-peter@n8pjl.ca>
+ <20230903130039+0200.513903-stepnem@smrk.net>
+In-Reply-To: <20230903130039+0200.513903-stepnem@smrk.net>
 
---------------GMl6HaueBBR2zGyR2tgyaqkP
+--------------P4DjghGc7klAGEjlrg1Te85Q
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Richard,
+On 2023-09-03 13:00, =C5=A0t=C4=9Bp=C3=A1n N=C4=9Bmec wrote:
+> On Sat,  2 Sep 2023 19:04:58 -0400
+> Peter Lafreniere wrote:
+>=20
+>> The description for the second form of sln(8) can be taken at a first
+>> reading as saying that `filelist' is a list of paths passed via the
+>> command line, when it is really a path to a file containing that list.=
 
-On 2023-08-29 23:32, Richard Weinberger wrote:
-> ----- Urspr=C3=BCngliche Mail -----
->> Von: "Alejandro Colomar" <alx@kernel.org>
->> Can you please provide a small shell session where this is exemplified=
-?
+>>
+>> Although the confusion can be resolved from the surrounding context, i=
+t
+>> is better to be explicit about filelist being a path.
+>>
+>> Signed-off-by: Peter Lafreniere <peter@n8pjl.ca>
+>> ---
+>>  man8/sln.8 | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/man8/sln.8 b/man8/sln.8
+>> index 448d0bf07..2a7ed13e5 100644
+>> --- a/man8/sln.8
+>> +++ b/man8/sln.8
+>> @@ -29,7 +29,7 @@ as a new symbolic link to
+>>  .PP
+>>  In the second form,
+>>  .I filelist
+>> -is a list of space-separated pathname pairs,
+>> +points to a list of space-separated pathname pairs,
+>>  and the effect is as if
+>>  .B sln
+>>  was executed once for each line of the file,
 >=20
-> Sure. I sent the following to the shadow maintainers privately on Frida=
-y,
-> but since the issue is already known for years I don't hesitate to shar=
-e.
+> I find your version more confusing than the original (or rather, I
+> didn't really find the original confusing).
 >=20
-> # On a Debian Bookworm
-> # So far no entries are installed.
-> $ cat /etc/subuid
->=20
-> # useradd automatically does so.
-> $ useradd -m rw
-> $ cat /etc/subuid
-> rw:100000:65536
->=20
-> # Let's create a folder where the group "nogames" has no permissions.
-> $ mkdir /games
-> $ echo win > /games/game.txt
-> $ groupadd nogames
-> $ chown -R root:nogames /games
-> $ chmod 705 /games
->=20
-> # User "rw" must not play games
-> $ usermod -G nogames rw
->=20
-> # Works as expected
-> rw@localhost:~$ id
-> uid=3D1000(rw) gid=3D1000(rw) groups=3D1000(rw),1001(nogames)
-> rw@localhost:~$ cat /games/game.txt
-> cat: /games/game.txt: Permission denied
->=20
-> # By using unshare (which utilizes the newuidmap helper) we can get rid=
- of the "nogames" group.
-> rw@localhost:~$ unshare -S 0 -G 0 --map-users=3D100000,0,65536 --map-gr=
-oups=3D100000,0,65536 id
-> uid=3D0(root) gid=3D0(root) groups=3D0(root)
->=20
-> rw@localhost:~$ unshare -S 0 -G 0 --map-users=3D100000,0,65536 --map-gr=
-oups=3D100000,0,65536 cat /games/game.txt
-> win
->=20
-> Thanks,
-> //richard
+> If you want to be explicit, why don't you say "names a file containing =
+a
+> list of..."?
 
-Thanks!
++1
 
-Please include this in the commit message (at least for the Linux man-pag=
-es
-one).
-
-Cheers,
-Alex
+>=20
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------GMl6HaueBBR2zGyR2tgyaqkP--
+--------------P4DjghGc7klAGEjlrg1Te85Q--
 
---------------R067x8bkytjlXEcwvcELanPQ
+--------------D0btstE2wkHBXt4y0RuNdUsf
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUByKYACgkQnowa+77/
-2zLaag//XpTmNOOuHlT3NLLq2+3NZY2xnbClvJMlT09jYC6VCXrawIBbbZANRmuC
-KNDx8bcVevZUDcBnN7+2tsNpQF+fQWBF4ItAUuwNYPQY+D5sopQaum5at2Tx5YJJ
-CQlbY9nvjaRgewIn9+DaRjaPQ3lgK/d1XcxxVbimV61fRfLdiak9wUs6Fsrp75XP
-zf0Y9jQvYPZk0Np/VCRR7jjzSrEIMOL4XmrcZe7bwrC/kw2cj9Gku+HcHt6FfMq/
-RCJl+MjTVbxafi8PZHpNqAlUY3wtJfd7p/XKf/hHybhFB/x2aWjT3YZ5HC2aN0yD
-ozDgubckLCDZ/4EGnQGLe+QokblXMUbMcotVh7D3ELpKIIDY/hLbi/DmfEWs/1LK
-tr0KwOavX5Koqd6rxcUR6xCC+0q5DZSC7E7lna0r++uUSrkUjdOZAo4pujSJWAEC
-3YMwb/ZlCFMofGc2AEq0jMWDsAw2zob8Q3QKZFSVGGJ9Yf6rfUZlO+jIYztjar90
-cuxZBzzuIVAkq0pwObIWF/Fu3z7F+miG9LSQad4lMJt0T/DaQDQtxXLWRpXwC1PF
-yuVVJv8iV5zK7o2VVnuKePL9yPDNtZZCk81y+6lUZAt9mmlagLjbOieorfMXwLzR
-Qf5sBldhwBjejyuFQTQb1tvi/z0JLiQBzi7L0RjTBpK/b7ZRHpg=
-=SNJR
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUBykoACgkQnowa+77/
+2zK9pw/+JWJLFNGNwpu9CRxl6GYg+Uhg7VUN8CA2Ub0g1aI2r1UaLtYSAtyNfwHA
+25h78hcSPOJynigy7Lmb3yRPLrTndtQjLaN6mbCJAZrgfJu7LjSC3ndL04UJeYor
+YtbX6KnqmTF9RgBFiJlyl2WWiMB5l83y85PTBvkjkXTWHND9XxDrnfJdTyhOWmOx
+1xEAc1FJL0bJueGELIypgFmNFbCxwb7MWb7Z2bbgE+e4v7l/MNhVVE5MbbRzWWMj
+KB1jbJspPCGClq2SSaF6/u+F0btkK/wc/ZcLjIBLFovm0k+qV8nOkZ//YcQfYuuh
+406VyLfiHc6yXeiNP5M5cpsdE76NDHEOaoT6Ct0lsfKxD1RVKGNXjGNF6ck4BTjf
+wwQuR4IsMjUHfUvefS6eoEQnaYFs+VMqh2lCp+aV8Wf3uA//L/EsZjnAqtn5yiH+
+Gl3I/cJisuwVqL6WnHV84vEk1xFIu9bQ+hxDAviP30uoib31Efwv3fmnimByPZ4Q
+bLXAoFl0A09FIgK0kGUiXDldvoYtkJU0uhBIx3McJxiOQndnG9CyOnJBvLfiGPOQ
+HndCmBV4ydG+KS8fOX6Q9+90AQ917YeP+6ki2HZ8mEB+ZCowQpN+VOcXbmCLSVCD
+e3yM4yoRdZiJ30Ldn1eHLABWSUpCdVFu+pOCtphikJAloOl73w0=
+=0ycq
 -----END PGP SIGNATURE-----
 
---------------R067x8bkytjlXEcwvcELanPQ--
+--------------D0btstE2wkHBXt4y0RuNdUsf--
