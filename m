@@ -2,182 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CD0679EDE0
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 18:02:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1971079EDEA
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 18:03:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230272AbjIMQCc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 12:02:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60376 "EHLO
+        id S229516AbjIMQDl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 12:03:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54886 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230233AbjIMQCb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 12:02:31 -0400
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3126292
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 09:02:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1694620942;
-        bh=jqwY06d4DIKgMb7DAQj5k4yA0x+s3wXMQVeWPLrWa1o=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=NWSPRluvrS2SouLxs2nufhvUlH84WjECDhl4zlqHUv2LjpAwDW4lrW51gah1q0ONO
-         2ytjtRKPUsXadWRkGuiRhjihDebuVNMgj6rJM/EvFo1vwGQEcL+gdv0UbukVHSx6TM
-         xrX0Y8kcV47s5Neaeu3HDuftxabUlSbjtUoj86EBKbsMC2EL7JWGMhAi5bYtVn/b8e
-         uQxnQ8Uf1pxWSJD1W8SGH13kx0X810Plghk2Yk93mnO9TcHY5nLBIJLQ7+p6Mm5SVo
-         37jamroY81SLZSgxxq3Ji/QRdVUfCrr47/DKMWYG4D6ioJvQZkSMONDGleYhKEsPuo
-         j89QF6Smmz8lA==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 00CC0CE3A;
-        Wed, 13 Sep 2023 18:02:21 +0200 (CEST)
-Date:   Wed, 13 Sep 2023 18:02:20 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Jakub Wilk <jwilk@jwilk.net>
-Subject: [PATCH] ioctl.2: note "int request" form, HISTORYise a bit
-Message-ID: <r7xxnlpgj3aft424fthkpxtfvhtjc45nsoymr2jlybge2722pn@l7pobift4psj>
-References: <171eade0-c2f9-4390-a2ff-c5dd9bfe6a99@gmail.com>
+        with ESMTP id S229441AbjIMQDk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 12:03:40 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CB4990
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 09:03:36 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB77C433C8;
+        Wed, 13 Sep 2023 16:03:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1694621016;
+        bh=3UNiPCU4mrRk7ZwWa3psmd6m+bX99nv956JT41SPwb0=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=VEoEo82Cvix3S/6Qa4t/wRgqwpSxaINck0u+y53LOTkvB+G16+OIRVe8ktU8xguLT
+         aTxR41xwOxHfYiM3MgY9zwpOh7tSUV3zvs/6yULgAuYJz+uYEBveoERZNCnQ1lkc0E
+         VBOMWBOY8MqAaBCCPNTu6raA4hklVswicAbYWvr7itAnInBxpu/MdE1vclUQOKFQJh
+         8TILaq+RMcX2wrmn3MREXGZ0k1gUiW9VR0cGAbCgK1JFGBJidqbn0bqdRpW/X/WWOd
+         fiSQJB2CYH2t16uHbMkpcHGIS1DoXdL9nshP/f8MJSKpPQsD0FiCuwJSQkCUyzutSp
+         YcxPehmvdsgXw==
+Message-ID: <669cf95a-625b-43c4-a99c-183067fb931b@kernel.org>
+Date:   Wed, 13 Sep 2023 18:03:33 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="gtijv2e6asakqtkl"
-Content-Disposition: inline
-In-Reply-To: <171eade0-c2f9-4390-a2ff-c5dd9bfe6a99@gmail.com>
-User-Agent: NeoMutt/20230517
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] popen.3: wfix
+Content-Language: en-US
+To:     Tom Schwindl <schwindl@posteo.de>
+Cc:     linux-man@vger.kernel.org
+References: <20230905121822.17672-1-schwindl@posteo.de>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <20230905121822.17672-1-schwindl@posteo.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------z2V604pEohXsOSFhy0EOeXuu"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------z2V604pEohXsOSFhy0EOeXuu
+Content-Type: multipart/mixed; boundary="------------LLZaGFu03fJ53nQRE03a3N2a";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Tom Schwindl <schwindl@posteo.de>
+Cc: linux-man@vger.kernel.org
+Message-ID: <669cf95a-625b-43c4-a99c-183067fb931b@kernel.org>
+Subject: Re: [PATCH] popen.3: wfix
+References: <20230905121822.17672-1-schwindl@posteo.de>
+In-Reply-To: <20230905121822.17672-1-schwindl@posteo.de>
 
---gtijv2e6asakqtkl
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+--------------LLZaGFu03fJ53nQRE03a3N2a
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Bit me in https://github.com/thecoshman/http/issues/155:
-musl (and, thus, bionic) takes an int!
+Hi Tom,
 
-Kill the "POSIX says 'request' is int" comment;
-prior to Issue 7, ioctl() is shaded STREAMS,
-it's obsolescent in Issue 7,
-and gone completely in Issue 8.
-The POSIX interface has never been supported by Linux,
-and the common ioctl() interface has never existed in POSIX or the SUS.
+On 2023-09-05 14:18, Tom Schwindl wrote:
+> ---
 
-Note how the interface evolved in HISTORY. The NetBSD CVS has
-  revision 1.1
-  date: 1993-03-21 10:45:37 +0100;  author: cgd;  state: Exp;
-  branches:  1.1.1;
-  Initial revision
-  ----------------------------
-  revision 1.1.1.2
-  date: 1995-02-27 11:49:43 +0100;  author: cgd;  state: Exp;  lines: +6
-  -6;
-  from Lite
-  ----------------------------
-  revision 1.1.1.1
-  date: 1993-03-21 10:45:37 +0100;  author: cgd;  state: Exp;  lines: +0
-  -0;
-  initial import of 386bsd-0.1 sources
-  ----------------------------
-and it's char * in 1.1.1.1 and 1.1.1.2 but ... in 1.1, so hell knows.
+Patch applied (with the sign-off).
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man2/ioctl.2 | 52 ++++++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 48 insertions(+), 4 deletions(-)
+Thanks,
+Alex
 
-diff --git a/man2/ioctl.2 b/man2/ioctl.2
-index 6b55d47c9..d52f245c7 100644
---- a/man2/ioctl.2
-+++ b/man2/ioctl.2
-@@ -20,9 +20,8 @@ .SH SYNOPSIS
- .nf
- .B #include <sys/ioctl.h>
- .PP
--.BI "int ioctl(int " fd ", unsigned long " request ", ...);"
--.\" POSIX says 'request' is int, but glibc has the above
--.\" See https://bugzilla.kernel.org/show_bug.cgi?id=3D42705
-+.BI "int ioctl(int " fd ", unsigned long " request ", ...);" "\fR  /* glib=
-c, BSD */\fP"
-+.BI "int ioctl(int " fd ", int " request ", ...);" "\fR            /* musl=
-, other UNIX */\fP"
- .fi
- .SH DESCRIPTION
- The
-@@ -103,7 +102,52 @@ .SH VERSIONS
- .SH STANDARDS
- None.
- .SH HISTORY
--Version\~7 AT&T UNIX.
-+Version\~7 AT&T UNIX has
-+.PD 0
-+.in +4n
-+.nf
-+.BI "ioctl(int " fildes ", int " request ", struct sgttyb *" argp );
-+.fi
-+.in
-+.PP
-+.PD
-+(where
-+.B struct sgttyb
-+has historically been used by
-+.BR stty (2)
-+and
-+.BR gtty(2),
-+and is polymorphic by request type (like a
-+.B void *
-+would be, if it had been available)).
-+.PP
-+SysIII documents
-+.I arg
-+without a type at all.
-+.PP
-+4.3BSD has
-+.PD 0
-+.in +4n
-+.nf
-+.BI "ioctl(int " d ", unsigned long " request ", char *" argp );
-+.fi
-+.in
-+.PP
-+.PD
-+(with
-+.B char *
-+similarly in for
-+.BR "void *" ).
-+.PP
-+SysVr4 has
-+.PD 0
-+.in +4n
-+.nf
-+.BI "int ioctl(int " fildes ", int " request ", ... /* " arg " */);"
-+.fi
-+.in
-+.PP
-+.PD
- .SH NOTES
- In order to use this call, one needs an open file descriptor.
- Often the
+>  man3/popen.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man3/popen.3 b/man3/popen.3
+> index 533561d60454..9530acfaa217 100644
+> --- a/man3/popen.3
+> +++ b/man3/popen.3
+> @@ -188,7 +188,7 @@ before
+>  .BR popen ().
+>  .PP
+>  Failure to execute the shell is indistinguishable from the shell's fai=
+lure
+> -to execute command, or an immediate exit of the command.
+> +to execute the command, or an immediate exit of the command.
+>  The only hint is an exit status of 127.
+>  .\" .SH HISTORY
+>  .\" A
+
 --=20
-2.39.2
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---gtijv2e6asakqtkl
-Content-Type: application/pgp-signature; name="signature.asc"
+
+--------------LLZaGFu03fJ53nQRE03a3N2a--
+
+--------------z2V604pEohXsOSFhy0EOeXuu
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmUB3QwACgkQvP0LAY0m
-WPGYBg//YouVEptnI8qXzJRdB2hdnXC0jtgUoCAa6TiwFKgRFx2CAWwblQaIh+46
-mT4rinPvxFyFE9gmbZgHhc1/cKhlL5ld5NnINNK8cdqGoUPhyDoV6yvn4wkoCaxx
-YZQgNGBsHjilxf0ZYSp93GDLAwuZbxdBMK6FrdK5k+pFmLb9Yt50VH1Mr77EryCU
-7h5aOjAUSLcpXgv8qBP7c/7Jq4mH1iBj+IZHZOJSGx947/uKmwh/Gg8x6iD4vOag
-P+um9Le4QmjUBld6tKB7L7dwX/Krm0WdHF8XrFdw0UmcJKg2YB+XJp/zuqL0vDKl
-9sthmCByHCmXRWxt3D3Ez8xf36DcygOjeX9mHc8tTDsKcoDrAGBLe7IHATpvv/CG
-0i5y8t1wm1SgDU9RbcBZd1HP9r0MV3phDhU4E56iNEG9/G+t0blHxIMFJ9vfIWxX
-dwHL9HP5K9XWKQIIG388sYtCYY4FJnkuliYlpKfoK7oUAi9N69KzpwYtUNgoSWvZ
-lwLH8p2IAodFL5QAwVmajEXK9+veaATHOBDSA8BGQhHv6qsbFjPvz1JaITAM4tD5
-9weBjh5U3zCAA6yOz3hNriFhvw177CfnoABEa+3h5Py9uM72IV/UotICr0mGk25w
-Jvh3mN0rzBnf63DIGYIlVbOGPDU9Uqcrsxk55HDHs43GJAquJjc=
-=lDpB
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUB3VYACgkQnowa+77/
+2zIKqQ//bPO5mPUWr0u49i6RpSIyNvzhoBF2S6UTvQi9dVrlg0X4H6xgw/kUS7jx
+XKder/Of0grN35u7DhYZLS9RkOlpkNIi3ln+8O4FXKy02PUSS7i6Tochb7VUsHMq
+tN511RarEkmkHEDcjm8v1Zrqc9DohnG2ukeBLsZD9r9TpJhjROpm53Wv1zIouQuv
+sQMEEL87vQl76CwPkTI/5JMhqYvHwbnMQ4iGANT25LZsZW0R2/jH0+nNuIQlpNtx
+24DbwIW/Fvc0LxDp5Bu7tjI4V8rJXsSrALUPO+7jBR46J/aSyBAra/1p+gkpKZEp
+PzO4Tbm9FmebyDvWnp3DMsbsYzMenk0EtrlnT99OSivkUV93OZNXA8nLYXw9gysC
+OZn7w2FDOtpKttosWRI/lM4PyRwOR+CzhFR0W2xpLu1j8VFWMY6cqdxCwaDWX4RP
+QOr7N44VGWGgZoqniNMxe1kSqNhhvS4P/kJFGHLQVOCGL7CtKXlws7tRlv9rrstJ
+whyGE8QCbJ2tOHG0NYMfzgBDn7lrc3U7MannHa0ku16sjistILo0ZjPPrXPhHuIk
+wFQGYPBgUzERCK2sn/B9W4KxSbayU77uWB5vQT7JsbjrysU6543qGGT9MzmP7jQy
+kCup7KbwHG6isfUqXuilklEoyaSl7T3xiONdiBJhRco4TRKZoNI=
+=SSfF
 -----END PGP SIGNATURE-----
 
---gtijv2e6asakqtkl--
+--------------z2V604pEohXsOSFhy0EOeXuu--
