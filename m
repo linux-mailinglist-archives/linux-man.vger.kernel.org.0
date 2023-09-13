@@ -2,127 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 03A7679EAD2
-	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 16:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DCE5479EB22
+	for <lists+linux-man@lfdr.de>; Wed, 13 Sep 2023 16:31:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241185AbjIMORu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Sep 2023 10:17:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59292 "EHLO
+        id S241070AbjIMObM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Sep 2023 10:31:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37530 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239467AbjIMORt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 10:17:49 -0400
+        with ESMTP id S240574AbjIMObK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Sep 2023 10:31:10 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F381393
-        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 07:17:45 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18064C433C8;
-        Wed, 13 Sep 2023 14:17:44 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D070290
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 07:31:06 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD6FC433C8
+        for <linux-man@vger.kernel.org>; Wed, 13 Sep 2023 14:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1694614665;
-        bh=TXYrjemg3S7v4GjHYiaCi7OqTbfRIYpmagMABBxJtCw=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=Ut7ZVbSY5XJ4rA/k21AfowVe8uPdE6u/GzTO+AHo2kfOPVX7fRJGo5S+TZy06uXco
-         Rk6Pj4UWGruQ+Vo5RQiaWeQyPDLzD33+sqN6bdrafwKIUGFSYoe17cLVPBcUk9VArD
-         KcgLBsY/KB5GqtVeAMJyZORtsgtDlM8+4HzwAbkgzL4CdaXo67Oqc1Z0+S3P7lnvhx
-         EXkECftfk5KAVzRQCdvZGZ3uozT+5lAPZCApq5puuT6384LaTpJ+/qj1RHpqDskoDg
-         wmlC3Woz3DMIQI7tv5vG3QR5upAIDpqC4wtEn8PxHJkzos7WXRJtg5SsFyjN2h0XLc
-         rRCEww0QzVhAQ==
-Message-ID: <7e813d02-30cc-468f-9753-00a435cf2b3f@kernel.org>
-Date:   Wed, 13 Sep 2023 16:17:42 +0200
+        s=k20201202; t=1694615466;
+        bh=kmWdkuNsZiTyuL+H/6tP2eM412l4/4AA3hKyk/ZJwjs=;
+        h=Date:To:From:Subject:From;
+        b=UAqhwwEYQnz+OUSNOU1MVrHZRonKT50rzaaTCHWOePbRAz3AfrSleKnOZ2y9JrDCe
+         daJf5+6Ikdxz0STLaWb8T1O51fmOkmr4rAVrmjJfoqCczoDngmEqgeYrdEbob82tMM
+         U+W+HUbedmVvBvbs8axpe0EGH58d33zqIf30lguPaUvqD/Bl5KNLcgfSjqGF/6Esse
+         i58o/yhxbv6RvlcDK6vYjhbJj9AJVvyHPUD9veOLoJzGuJVCCW4GU8Pv1w0xSCuCbT
+         PJKCR1DS7w+xPtT6hYnZZirQXq8EndhyqpWv402LSJF6rubB2InrB0ME5+peUn14ML
+         hVZKH/fjNHRLw==
+Message-ID: <a8269940-3c85-4c67-b733-886b443a2f5e@kernel.org>
+Date:   Wed, 13 Sep 2023 16:30:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] inode.7: correct the field name for number of
- blocks
 Content-Language: en-US
-To:     Avinesh Kumar <akumar@suse.de>
-Cc:     linux-man@vger.kernel.org
-References: <20230829103004.18459-1-akumar@suse.de>
- <20230829103004.18459-2-akumar@suse.de>
+To:     linux-man <linux-man@vger.kernel.org>
 From:   Alejandro Colomar <alx@kernel.org>
+Subject: New 'contrib' branch
 Organization: Linux
-In-Reply-To: <20230829103004.18459-2-akumar@suse.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------LjfZAQnZOCohC0PiZEKt5yGl"
+ boundary="------------Vysp0Bp828pUHyPsPOu0OY0P"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------LjfZAQnZOCohC0PiZEKt5yGl
-Content-Type: multipart/mixed; boundary="------------7m9xLDudkknPMO2hpekEwCAo";
+--------------Vysp0Bp828pUHyPsPOu0OY0P
+Content-Type: multipart/mixed; boundary="------------jwqKSN011yIwzRmSRUkqSyOA";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Avinesh Kumar <akumar@suse.de>
-Cc: linux-man@vger.kernel.org
-Message-ID: <7e813d02-30cc-468f-9753-00a435cf2b3f@kernel.org>
-Subject: Re: [PATCH v2 2/2] inode.7: correct the field name for number of
- blocks
-References: <20230829103004.18459-1-akumar@suse.de>
- <20230829103004.18459-2-akumar@suse.de>
-In-Reply-To: <20230829103004.18459-2-akumar@suse.de>
+To: linux-man <linux-man@vger.kernel.org>
+Message-ID: <a8269940-3c85-4c67-b733-886b443a2f5e@kernel.org>
+Subject: New 'contrib' branch
 
---------------7m9xLDudkknPMO2hpekEwCAo
+--------------jwqKSN011yIwzRmSRUkqSyOA
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Avinesh,
+Hi all,
 
-On 2023-08-29 12:30, Avinesh Kumar wrote:
-> Fixes: b48c75727c64 ("inode.7: New page with information about inodes")=
+I've added a new branch, 'contrib', where I will apply patches from contr=
+ibutors.
+That branch is going to be unstable, and often rebased.  The purpose is t=
+o have
+some buffering before adding stuff to master, to prevent some mistakes, l=
+ike
+missing info in commit messages, or accidental pushes.
 
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-
-Patch set applied.
-
-Thanks,
+Cheers,
 Alex
 
-> ---
->  man7/inode.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man7/inode.7 b/man7/inode.7
-> index 5140fb069..7b7e4dcd9 100644
-> --- a/man7/inode.7
-> +++ b/man7/inode.7
-> @@ -98,7 +98,7 @@ This field gives the "preferred" blocksize for effici=
-ent filesystem I/O.
->  an inefficient read-modify-rewrite.)
->  .TP
->  Number of blocks allocated to the file
-> -\fIstat.st_blocks\fP; \fIstatx.stx_size\fP
-> +\fIstat.st_blocks\fP; \fIstatx.stx_blocks\fP
->  .IP
->  This field indicates the number of blocks allocated to the file,
->  512-byte units,
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
+--------------jwqKSN011yIwzRmSRUkqSyOA--
 
---------------7m9xLDudkknPMO2hpekEwCAo--
-
---------------LjfZAQnZOCohC0PiZEKt5yGl
+--------------Vysp0Bp828pUHyPsPOu0OY0P
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUBxIYACgkQnowa+77/
-2zL1GA/9HGdntJ4jbdMLcqA5VU4egR+SRGUCQJg8qWCtLfXtJqFW+txxKK9a8iXt
-7RWgz3p9D4ogyFw5bLudnlciuRE63xyivAf29c1Qzn+iDVUGF6fPyOZqdaiT8tvk
-iOFFzCW9NOx5rpOKCKE5uFv3mJKcE0973Y1Rh06RHL2R0D0joye9pm2Ffv93iYLT
-WEg9IDDtW7rpTulCTodTqk12rLeY/jyrZpMc1clU/XI8SoI0UGg1Pb4oY0pKTKmR
-+3uCxXBYmU9w1Pns/5azfzYV3zTYJLE5ptxG27cAfucqgM5bLoNJwDkc3C3CMj2T
-I9vbtB/ytMbWeRLK88bmESMIeid0314slsdHT7tmi75+6v/I9rDDCszxA3VjJ4zE
-boxrMqZllTU326b+KiqTxybRQ8Gy2qEYMLWpApDvHPvQhllb+1ccCSXFg0MYcL8g
-y/BPvV2Jja3UvP/FrcUwdfM4+sSIJI+BdE1Wzbbd4rTEbWcNs6zrhDqvpl92O7mV
-9EXLjtzMG5AIsbVwZY4TjnDgTCChhTP+D0RlkyB/1wutL+HSTq90HnreaInykaLI
-hpqBXPHHX+Ca1bDcK/aetSZwTBqCB9Il5QwOP6ev2yvkuJK/mgP/JNbTMNgXbVQj
-bLEQSgtgBM272KSMPEpFV/Qrpcb6NgZOrjRA2H2pH/R8hL3u+h8=
-=sMVR
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUBx6IACgkQnowa+77/
+2zI7RRAAgAUaaSUV+b7DfWymiVXxAdtybVyqT6Sujta/GdgjFRsNp4AnD/bou4lU
+ffPwEqW16ksYd/54bRFnB9VvG/hOpOd5aFBXNhMYgIdJUueTp5n1We4rwhb/YPyB
+vAh7cNtMFgb68SuuG9fdlOJau+hB+hHFT6ucpJ4rTre6Fdjla/x2DkAi0RlY8gZ4
+3SiGHpBnUI/L91XSOMBf/7LD6a3ADOqGrFUpulcx3t62ZX40RpSf9u+IwerlW4De
+1jidFI+H1YVBhb9x/6tsYZF5cTOMRSgFliGD8iNr2TCrZ2vM634kF2xsPCmpPWvl
+7BoniXlmVnz9d8uOgbI0F+xBbNGHMs8/Lzh1iHqOwAeAfUeGs1jeGp2nRdKfP/iG
+eS25b6JibbQLaqqqodksqiH6e4iPWLWIQloiX4M8Txy1TrnUTNZllFWVRP5MqNgG
+WgEQe49T04q2j83uzj10cGJf+PbZfiByNaR9jVFZG2Jkc6h5ugm51h+2yRlqQoQn
+QN4ZS38puEeXDJY0nG89d9kolIvgWqi+39z2Fa2wcGnb+nCh3ZrE7EKzSKLSspmS
+6OsUaX97T1VD91kmrVIwVzEnlhGCLHwjZFa2GXW9EgP54wHy/wR203ywdK2T2U+8
+MlXA5eaa6n4e99+F/hfjCgo4iBowV0q1fZCOLUB30gU0Jo5/f4Q=
+=VW+e
 -----END PGP SIGNATURE-----
 
---------------LjfZAQnZOCohC0PiZEKt5yGl--
+--------------Vysp0Bp828pUHyPsPOu0OY0P--
