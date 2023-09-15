@@ -2,160 +2,163 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 496787A0F12
-	for <lists+linux-man@lfdr.de>; Thu, 14 Sep 2023 22:40:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C288E7A12A8
+	for <lists+linux-man@lfdr.de>; Fri, 15 Sep 2023 03:00:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229628AbjINUkC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 14 Sep 2023 16:40:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58436 "EHLO
+        id S230430AbjIOBA2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 14 Sep 2023 21:00:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40244 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229503AbjINUkC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Sep 2023 16:40:02 -0400
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D9E182698
-        for <linux-man@vger.kernel.org>; Thu, 14 Sep 2023 13:39:54 -0700 (PDT)
-Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-5925e580f12so16325197b3.3
-        for <linux-man@vger.kernel.org>; Thu, 14 Sep 2023 13:39:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1694723994; x=1695328794; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NaSIjMfdl0Gv6CgKXRD6SAmPWndDpWS6dyBZZ4689K4=;
-        b=N5vvMHout599KVr+BGn43S8hqeXB+KRKk6fLGZeqH/6Sa/KHg2mV1dqbVR4OAGBegk
-         Ji5qkNbtns/pRRU4ch0nMHYxILVIki++jUhPsRYJEzKDXwQ3uR6+euAmw7kIRxHk34NN
-         t6m3FY6bN7ptMEUgR4bI3pPfJwdUF1GcsxBDRvFIsHARq4ZzeSAaeHrZD4DvmpJG2usa
-         A6+OMkrr3cpHV9CqRMrtKpuRRz5Tz5V/koYSkndU4SRwuaxDvcx4LjBYwxfELnfuT5i3
-         48NTSzk/fqv2BDjyvYRESc8yRbNb4U+EQY62len0BNjVClZ73w1Zao5CdVDH9iS4jADm
-         eMhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694723994; x=1695328794;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NaSIjMfdl0Gv6CgKXRD6SAmPWndDpWS6dyBZZ4689K4=;
-        b=ft0203mEhmwHHK516fvFz/bAt5evIzQbgDIzHyssxYO22H2KY4dchcc/AvRH6raJG8
-         XLrOgD3A5dF5Y4MCz0OiCkHviqoUpsViKwphYWg+sOY6pFugQdFsW3ey9lrklslSirDz
-         SgqshiT4cAL+is4gOhyZJMNBuNt1fnqOd2YsJe/lWGHRyeykDK0PLkF2byxNctflfRkb
-         sbRqFicPXVUz2+SLPNJI8RtWuCT5CqTYAWc+5e75BrRwyfAWbdilkwweY2/KdfuvwGIK
-         v2x5fLbIstpeHJXtGXFLdjlMMfVcqQCLnFg0hvmHf7HzfmRDUkn70wPGjskB+K2yyF2M
-         AtVw==
-X-Gm-Message-State: AOJu0YxZiRZzYFJ0+P8zS1RNhv5PX3sLZ8Bquf6x7VpY03NUiwSV+h0n
-        RpUGPU84i/JvRTlwY8J8fBzDDNtktpv8vBvcE9tP
-X-Google-Smtp-Source: AGHT+IHq8rrjq9tCJqLC7OfNa2hY3WISMCd4iUOBtPL6TwaHsYbzZZlii/9C2ThIbkYmqI7J/8s3pycN3nmMnaBACaI=
-X-Received: by 2002:a0d:c942:0:b0:577:189b:ad4 with SMTP id
- l63-20020a0dc942000000b00577189b0ad4mr6892155ywd.48.1694723994051; Thu, 14
- Sep 2023 13:39:54 -0700 (PDT)
+        with ESMTP id S230399AbjIOBA2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Sep 2023 21:00:28 -0400
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com [64.147.123.20])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 63BE91FE8;
+        Thu, 14 Sep 2023 18:00:24 -0700 (PDT)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+        by mailout.west.internal (Postfix) with ESMTP id 7E9C83200981;
+        Thu, 14 Sep 2023 21:00:22 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Thu, 14 Sep 2023 21:00:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+        :cc:content-transfer-encoding:content-type:content-type:date
+        :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+        :references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+        1694739622; x=1694826022; bh=EMHXuxFrQtckqm0xBirePySXvbt3CcrfaVO
+        hphckfLs=; b=HSsubA7dfjwk6/cnRxTOQ0uirFf9Gu9PicIpc0IRzOcjsTAgrM5
+        f9LKB8B2XA1qgUXBC19ILZ+KPUBEHWMF+tO5JQpfZsgHhGAp2XIZ5BR1Z3Ji+B9+
+        pYVFeUqTas32nfcvStjyb0WJTZzIEHPVKQdQK+KWFFj9ocZ6+Kv3vzPk+hieoybW
+        WyKGz2IehR2fd7BJAfrKPOCnKHTEtzbEz1/Vao/2zVNjCIDiMeF/NgLhEbDky/nq
+        /o1scyxxoMCkQv1FjDL7dG7PvVMjomd1rlcQuYymUykPaywU0BLeSMkHSEIiWHDz
+        yepwHMQroaqQJDLn/jUtQHWYvYKbxYh+EEg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-transfer-encoding
+        :content-type:content-type:date:date:feedback-id:feedback-id
+        :from:from:in-reply-to:in-reply-to:message-id:mime-version
+        :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+        1694739622; x=1694826022; bh=EMHXuxFrQtckqm0xBirePySXvbt3CcrfaVO
+        hphckfLs=; b=Nt7Fvwzydx2kf2ZlM99uXFbynkHXouVezinuEF4/PTj/k76DHsC
+        P5rwjgrGV12XIFgbv4fzBgw545a0QLrcezFuwGFQ6A+966qMZv/WAbUns471wNec
+        99StB9hlwq8VNbD71QLnp6x/MPfS5qyDhxPJp5DPHFYB+a7eLSX8baaODA5rwBKF
+        xvp40kK+h34T6obof8MoB/PG8j7Y4l9YKf6IK4FRbI8yV7PQSwWqyg2iRfNKHOSu
+        /KeWZEMPv8ZPeCBeQxr41vbfg3UBUDKS05xkev9KUV4WHgZkOsFFvBNTziNzRTLn
+        sMQYvdmLg4RmlOXjZ4L8ITEWCEVMoQjpdLg==
+X-ME-Sender: <xms:pawDZTcVZn0mGWVJHBbsXK2cG1yWizqeNp22pUKpfMQXOm8UvOfIjA>
+    <xme:pawDZZOOMKSJ0rbt-xqhAUVz1qwKkshufkpDTWYCu0YhoebEfTt5Akg7JC4A36_07
+    2WzoJ83Qla7>
+X-ME-Received: <xmr:pawDZcgeqWnzF4m3ZkQJJ3tZmeP37meqJPJHNolB-1K9YXeOgErMW5lpPplh3JZ6RoCQCtKhbMFGYvdnYNxZZaM95pHbg80zmsWj3d4kwjT2mmRrsN1H>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudejuddggeduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtfeejnecuhfhrohhmpefkrghn
+    ucfmvghnthcuoehrrghvvghnsehthhgvmhgrfidrnhgvtheqnecuggftrfgrthhtvghrnh
+    epgedvteevvdefiedvueeujeegtedvheelhfehtefhkefgjeeuffeguefgkeduhfejnecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprhgrvhgvnh
+    esthhhvghmrgifrdhnvght
+X-ME-Proxy: <xmx:pawDZU837QMEysNG0ioEKHukPPbEMoT4GDKgwipwSaEkuogsjgc8CQ>
+    <xmx:pawDZftKyYaxD8Ij_ZXAFpMQYNOQu9wg6E5d0SHhJsbP3NKqVNuS2w>
+    <xmx:pawDZTELXYe1iY6P5XUrYeIVuDh7aauNznM4lwhum3Bn3KOkkHEMNg>
+    <xmx:pqwDZdLJiqa_bTptbahE4YBkaXLP8fPoRQVjuHsZg38ub1XvtCcsfw>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 14 Sep 2023 21:00:16 -0400 (EDT)
+Message-ID: <eec71402-f347-fd86-6c9e-06b78c1ed2eb@themaw.net>
+Date:   Fri, 15 Sep 2023 09:00:13 +0800
 MIME-Version: 1.0
-References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-3-mszeredi@redhat.com>
-In-Reply-To: <20230913152238.905247-3-mszeredi@redhat.com>
-From:   Paul Moore <paul@paul-moore.com>
-Date:   Thu, 14 Sep 2023 16:39:43 -0400
-Message-ID: <CAHC9VhSQb0fYz9FqEu-1jQ1UNsnt-asrKuPt4ufui92GC+=5=Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
-To:     Miklos Szeredi <mszeredi@redhat.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [RFC PATCH 3/3] add listmnt(2) syscall
+To:     Amir Goldstein <amir73il@gmail.com>,
+        Miklos Szeredi <mszeredi@redhat.com>
 Cc:     linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-api@vger.kernel.org, linux-man@vger.kernel.org,
         linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-        Ian Kent <raven@themaw.net>,
         David Howells <dhowells@redhat.com>,
         Linus Torvalds <torvalds@linux-foundation.org>,
         Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+        Christian Brauner <christian@brauner.io>
+References: <20230913152238.905247-1-mszeredi@redhat.com>
+ <20230913152238.905247-4-mszeredi@redhat.com>
+ <CAOQ4uxh4ETADj7cD56d=8+0t7L_DHaSQpoPGHmwHFqCreOQjdQ@mail.gmail.com>
+Content-Language: en-US
+From:   Ian Kent <raven@themaw.net>
+In-Reply-To: <CAOQ4uxh4ETADj7cD56d=8+0t7L_DHaSQpoPGHmwHFqCreOQjdQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Sep 13, 2023 at 11:23=E2=80=AFAM Miklos Szeredi <mszeredi@redhat.co=
-m> wrote:
->
-> Add a way to query attributes of a single mount instead of having to pars=
-e
-> the complete /proc/$PID/mountinfo, which might be huge.
->
-> Lookup the mount by the old (32bit) or new (64bit) mount ID.  If a mount
-> needs to be queried based on path, then statx(2) can be used to first que=
-ry
-> the mount ID belonging to the path.
->
-> Design is based on a suggestion by Linus:
->
->   "So I'd suggest something that is very much like "statfsat()", which ge=
-ts
->    a buffer and a length, and returns an extended "struct statfs" *AND*
->    just a string description at the end."
->
-> The interface closely mimics that of statx.
->
-> Handle ASCII attributes by appending after the end of the structure (as p=
-er
-> above suggestion).  Allow querying multiple string attributes with
-> individual offset/length for each.  String are nul terminated (terminatio=
-n
-> isn't counted in length).
->
-> Mount options are also delimited with nul characters.  Unlike proc, speci=
-al
-> characters are not quoted.
->
-> Link: https://lore.kernel.org/all/CAHk-=3Dwh5YifP7hzKSbwJj94+DZ2czjrZsczy=
-6GBimiogZws=3Drg@mail.gmail.com/
-> Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-> ---
->  arch/x86/entry/syscalls/syscall_64.tbl |   1 +
->  fs/internal.h                          |   5 +
->  fs/namespace.c                         | 312 ++++++++++++++++++++++++-
->  fs/proc_namespace.c                    |  19 +-
->  fs/statfs.c                            |   1 +
->  include/linux/syscalls.h               |   3 +
->  include/uapi/asm-generic/unistd.h      |   5 +-
->  include/uapi/linux/mount.h             |  36 +++
->  8 files changed, 373 insertions(+), 9 deletions(-)
+On 14/9/23 14:00, Amir Goldstein wrote:
+> On Wed, Sep 13, 2023 at 6:22 PM Miklos Szeredi <mszeredi@redhat.com> wrote:
+>> Add way to query the children of a particular mount.  This is a more
+>> flexible way to iterate the mount tree than having to parse the complete
+>> /proc/self/mountinfo.
+>>
+>> Lookup the mount by the old (32bit) or new (64bit) mount ID.  If a mount
+>> needs to be queried based on path, then statx(2) can be used to first query
+>> the mount ID belonging to the path.
+>>
+>> Return an array of new (64bit) mount ID's.  Without privileges only mounts
+>> are listed which are reachable from the task's root.
+>>
+>> Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+>> ---
+>>   arch/x86/entry/syscalls/syscall_64.tbl |  1 +
+>>   fs/namespace.c                         | 51 ++++++++++++++++++++++++++
+>>   include/linux/syscalls.h               |  2 +
+>>   include/uapi/asm-generic/unistd.h      |  5 ++-
+>>   4 files changed, 58 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+>> index 6d807c30cd16..0d9a47b0ce9b 100644
+>> --- a/arch/x86/entry/syscalls/syscall_64.tbl
+>> +++ b/arch/x86/entry/syscalls/syscall_64.tbl
+>> @@ -376,6 +376,7 @@
+>>   452    common  fchmodat2               sys_fchmodat2
+>>   453    64      map_shadow_stack        sys_map_shadow_stack
+>>   454    common  statmnt                 sys_statmnt
+>> +455    common  listmnt                 sys_listmnt
+>>
+>>   #
+>>   # Due to a historical design error, certain syscalls are numbered differently
+>> diff --git a/fs/namespace.c b/fs/namespace.c
+>> index 088a52043bba..5362b1ffb26f 100644
+>> --- a/fs/namespace.c
+>> +++ b/fs/namespace.c
+>> @@ -4988,6 +4988,57 @@ SYSCALL_DEFINE5(statmnt, u64, mnt_id,
+>>          return err;
+>>   }
+>>
+>> +static long do_listmnt(struct vfsmount *mnt, u64 __user *buf, size_t bufsize,
+>> +                     const struct path *root)
+>> +{
+>> +       struct mount *r, *m = real_mount(mnt);
+>> +       struct path rootmnt = { .mnt = root->mnt, .dentry = root->mnt->mnt_root };
+>> +       long ctr = 0;
+>> +
+>> +       if (!capable(CAP_SYS_ADMIN) &&
+>> +           !is_path_reachable(m, mnt->mnt_root, &rootmnt))
+>> +               return -EPERM;
+>> +
+>> +       list_for_each_entry(r, &m->mnt_mounts, mnt_child) {
+>> +               if (!capable(CAP_SYS_ADMIN) &&
+>> +                   !is_path_reachable(r, r->mnt.mnt_root, root))
+>> +                       continue;
+>> +
+>> +               if (ctr >= bufsize)
+>> +                       return -EOVERFLOW;
+>> +               if (put_user(r->mnt_id_unique, buf + ctr))
+>> +                       return -EFAULT;
+>> +               ctr++;
+>> +               if (ctr < 0)
+>> +                       return -ERANGE;
+> I think it'd be good for userspace to be able to query required
+> bufsize with NULL buf, listattr style, rather than having to
+> guess and re-guess on EOVERFLOW.
 
-...
+Agreed, I also think that would be useful.
 
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index de47c5f66e17..088a52043bba 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
 
-...
+Ian
 
-> +static int do_statmnt(struct stmt_state *s)
-> +{
-> +       struct statmnt *sm =3D &s->sm;
-> +       struct mount *m =3D real_mount(s->mnt);
-> +
-> +       if (!capable(CAP_SYS_ADMIN) &&
-> +           !is_path_reachable(m, m->mnt.mnt_root, &s->root))
-> +               return -EPERM;
-
-I realize statmnt() is different from fstatfs(), but from an access
-control perspective they look a lot alike to me which is why I think
-we should probably have a security_sb_statfs() call here.  Same thing
-for the listmnt() syscall in patch 3/3.
-
-> +       stmt_numeric(s, STMT_SB_BASIC, stmt_sb_basic);
-> +       stmt_numeric(s, STMT_MNT_BASIC, stmt_mnt_basic);
-> +       stmt_numeric(s, STMT_PROPAGATE_FROM, stmt_propagate_from);
-> +       stmt_string(s, STMT_MNT_ROOT, stmt_mnt_root, &sm->mnt_root);
-> +       stmt_string(s, STMT_MOUNTPOINT, stmt_mountpoint, &sm->mountpoint)=
-;
-> +       stmt_string(s, STMT_FS_TYPE, stmt_fs_type, &sm->fs_type);
-> +       stmt_string(s, STMT_SB_OPTS, stmt_sb_opts, &sm->sb_opts);
-> +
-> +       if (s->err)
-> +               return s->err;
-> +
-> +       if (copy_to_user(s->buf, sm, min_t(size_t, s->bufsize, sizeof(*sm=
-))))
-> +               return -EFAULT;
-> +
-> +       return 0;
-> +}
-
---=20
-paul-moore.com
