@@ -2,137 +2,226 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 777917A141D
-	for <lists+linux-man@lfdr.de>; Fri, 15 Sep 2023 05:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3FFF27A19D7
+	for <lists+linux-man@lfdr.de>; Fri, 15 Sep 2023 11:01:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231680AbjIODGs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 14 Sep 2023 23:06:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55226 "EHLO
+        id S233171AbjIOJBq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 Sep 2023 05:01:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40272 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229767AbjIODGr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Sep 2023 23:06:47 -0400
-Received: from mail-vk1-xa2d.google.com (mail-vk1-xa2d.google.com [IPv6:2607:f8b0:4864:20::a2d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C46FA270A;
-        Thu, 14 Sep 2023 20:06:43 -0700 (PDT)
-Received: by mail-vk1-xa2d.google.com with SMTP id 71dfb90a1353d-495f20c5832so672325e0c.0;
-        Thu, 14 Sep 2023 20:06:43 -0700 (PDT)
+        with ESMTP id S233773AbjIOJBm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Sep 2023 05:01:42 -0400
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com [IPv6:2a00:1450:4864:20::630])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 87E113A9E
+        for <linux-man@vger.kernel.org>; Fri, 15 Sep 2023 01:58:15 -0700 (PDT)
+Received: by mail-ej1-x630.google.com with SMTP id a640c23a62f3a-9a9d6b98845so660493666b.0
+        for <linux-man@vger.kernel.org>; Fri, 15 Sep 2023 01:58:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1694747203; x=1695352003; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oYtmGG6qL/zG4tahuBG2Sq+on0Fe6qbc1wsa4F9iPKk=;
-        b=AkNLur5sXWUQ6BmzfG7L1n/bqy1lTlERiK8kBrPerF37bNT1lMTSj6kp13ASESDfh9
-         0xno+AXU3lJgy+qWE/hQXZMZXFEtjzPBvPw163xuXVAe7hE5o3QY3Y6VrYRZOChbZ7fw
-         XKn02btuZDsTKbwqLs6m1M5/vCrZ6kccdQLvfb77YWjdIltfZlyGxsD5Crqgv6mj2Sr/
-         dL7Utepivn0ffV7I1PNzSEp3W7bovzmxeaWyL4aLMZ3ojYmpnX9f/pO1W7YhsUUEKUJr
-         2CPI+ddpb3rR0zHEY+ART/goTuJZz8mIZmeufc2oWLIgTrx93v8r7aiemsiMaM70GTN3
-         OV/w==
+        d=szeredi.hu; s=google; t=1694768230; x=1695373030; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=CBIiaOHoOHrCk3LeEQNU7t+gT7xznMj52aOiRS+1hC4=;
+        b=Omd8LNHO/TpEyR1D2FRKgBlsszWtWrz8cNDPH50EdQ+O4GGHmsBFoGC7jbxvQZQrop
+         Sxe1ydVQ3hgGrGoPACkzHEiLeR8/YyQQWhhkbQYvyUY4EfGaHPyzdKIj7t1/mq/wkcOq
+         77jscDTKNpU2lm+taEKQu91RkDbTtw0ejgIZ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694747203; x=1695352003;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oYtmGG6qL/zG4tahuBG2Sq+on0Fe6qbc1wsa4F9iPKk=;
-        b=HgF2pXuszv4qkmda7iI7KpCf9bWl2Z2u0LPxlbIUukJ2Lhk4eltocp6XwAGiIYeXmI
-         9tKg7TUYmH9sTOMaMTQ5IZcyJvLJyjtQ5VYuei/N6gQ+e2UuHd2+6oJz9CvTK+2uwxR/
-         PmdaaSRHIQWNk8tPzZkS8Sj5sYI6D7n6E+sh66C0CqJktX/Z5Xo+kY4giwTSIxeOTVRN
-         P1P7kkr45J58fnOK2RWgeG1cvn5VOG86hpFaHRh1JIlEJnhVAm3TO7dpi1t3qgdA51FV
-         N1J/aUlCvhEUsyVEyn5Zf8nOsH/3WCNEaFeD53D1uj1SSJt/OaxGxEq1UkcOutGh8c2p
-         b1MQ==
-X-Gm-Message-State: AOJu0YyFSN/mWBr0foXyCivwkT8udv3WOXNXbKo0D3W9F9UVwvAz/Ae5
-        p4MU22iWkj94p93hkmZpBy7KUFS22EYZt+ZucYQ=
-X-Google-Smtp-Source: AGHT+IEhMX07JZksQwf7xl95wqZoUqPRGk4v7y/txStcf9i0R4DdtWN/EbCHAyaH4Ri4XhPBhlkDhTEzYcuPbgWxfNk=
-X-Received: by 2002:a1f:eb82:0:b0:493:5363:d1dc with SMTP id
- j124-20020a1feb82000000b004935363d1dcmr576225vkh.12.1694747202792; Thu, 14
- Sep 2023 20:06:42 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1694768230; x=1695373030;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CBIiaOHoOHrCk3LeEQNU7t+gT7xznMj52aOiRS+1hC4=;
+        b=D8In2OxAz6pgr68gUc4J2Kx+lP6xdWccVZoH4p9VrcGPWg9H6ODneWrJBMMD8UpB8p
+         A/hhoRDawL11wq7CvnfupI7hZuX+q0tHIRwTfFIBIRa8K6B/2HxdHKBzsUNI00jILNFd
+         20k779NwDHpi5WbNKSRmBtHTJ5BEBLzaMuQ+1Zhx1rNuulKonRjMlg5M9aPfwTETZzt+
+         D/oCw/r0mEXULqBMDc6j19z1429kN5eisiVHtcjhFZJU8NERPBQCNGJpqQY9flAUkoCm
+         zH4SgQOA4uWSHFER+1W3NLNk3So/S/muxDufHno5UpfTBTcHFGnaxYjepaN/3BYoXwnw
+         lDVQ==
+X-Gm-Message-State: AOJu0Yzy2eX4/hG4kBvB7P6gECbQ0CAj3kagAT7DVzoU5FTT4h6Gy5cI
+        WCEohi1Jxozc3C0h8ZGH6gmgtpzYyjSjprwZ9ptOTA==
+X-Google-Smtp-Source: AGHT+IG38zmA525fy/C/IrBaRcWlpOvf+szMKtBFzKIippNLUVWg1N/ro2hl/mnaBVvita3DyrmGNvsyitNfBphPSDM=
+X-Received: by 2002:a17:907:9620:b0:9a1:c35b:9e09 with SMTP id
+ gb32-20020a170907962000b009a1c35b9e09mr6450533ejc.8.1694768229999; Fri, 15
+ Sep 2023 01:57:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230913152238.905247-1-mszeredi@redhat.com> <CAOQ4uxiuc0VNVaF98SE0axE3Mw6wMJJ1t36cmbcM5vwYLqtWSw@mail.gmail.com>
- <904a8d17-b6df-e294-fcf6-6f95459e1ffa@themaw.net>
-In-Reply-To: <904a8d17-b6df-e294-fcf6-6f95459e1ffa@themaw.net>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Fri, 15 Sep 2023 06:06:31 +0300
-Message-ID: <CAOQ4uxgHxVqtvb51Z27Sgft-U=oYtXeiv+3HJbara4zdRC-FZg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] quering mount attributes
-To:     Ian Kent <raven@themaw.net>
+References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-3-mszeredi@redhat.com>
+ <20230914-salzig-manifest-f6c3adb1b7b4@brauner> <CAJfpegs-sDk0++FjSZ_RuW5m-z3BTBQdu4T9QPtWwmSZ1_4Yvw@mail.gmail.com>
+ <20230914-lockmittel-verknallen-d1a18d76ba44@brauner>
+In-Reply-To: <20230914-lockmittel-verknallen-d1a18d76ba44@brauner>
+From:   Miklos Szeredi <miklos@szeredi.hu>
+Date:   Fri, 15 Sep 2023 10:56:58 +0200
+Message-ID: <CAJfpegt-VPZP3ou-TMQFs1Xupj_iWA5ttC2UUFKh3E43EyCOQQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
+To:     Christian Brauner <brauner@kernel.org>
 Cc:     Miklos Szeredi <mszeredi@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
         linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-api@vger.kernel.org, linux-man@vger.kernel.org,
         linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        Ian Kent <raven@themaw.net>,
         David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
         Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
+        lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Sep 15, 2023 at 4:20=E2=80=AFAM Ian Kent <raven@themaw.net> wrote:
+On Thu, 14 Sept 2023 at 17:27, Christian Brauner <brauner@kernel.org> wrote:
 >
-> On 14/9/23 14:47, Amir Goldstein wrote:
-> > On Wed, Sep 13, 2023 at 6:22=E2=80=AFPM Miklos Szeredi <mszeredi@redhat=
-.com> wrote:
-> >> Implement the mount querying syscalls agreed on at LSF/MM 2023.  This =
-is an
-> >> RFC with just x86_64 syscalls.
-> >>
-> >> Excepting notification this should allow full replacement for
-> >> parsing /proc/self/mountinfo.
-> > Since you mentioned notifications, I will add that the plan discussed
-> > in LFSMM was, once we have an API to query mount stats and children,
-> > implement fanotify events for:
-> > mount [mntuid] was un/mounted at [parent mntuid],[dirfid+name]
+> On Thu, Sep 14, 2023 at 12:13:54PM +0200, Miklos Szeredi wrote:
+> No worries, I think the discussion touching on this starts at:
+> https://youtu.be/j3fp2MtRr2I?si=f-YBg6uWq80dV3VC&t=1603
+> (with David talking quietly without a microphone for some parts
+> unfortunately...)
+
+(Thanks for digging that out.)
+
+That discussion touched on two aspects of using a single call vs.
+multiple calls:
+
+ - atomicity
+ - marshalling
+
+Atomicity of getting a snapshot of the current mount tree with all of
+its attributes was never guaranteed, although reading
+/proc/self/mountinfo into a sufficiently large buffer would work that
+way.   However, I don't see why mount trees would require stronger
+guarantees than dentry trees (for which we have basically none).
+
+Marshalling/demashalling of arbitrary structures is indeed ugly.  I
+think what Linus suggested, and what this interface was based on is
+much less than that.  Also see my suggestion below: it doesn't need
+demashalling at all due to the fact that the kernel can fill in the
+pointers.   And yes, this could be used for arbitrary structures
+without compromising type safety, but at the cost of adding more
+complexity to the kernel (at least ascii strings are just one type).
+
+Even more type clean interface:
+
+struct statmnt *statmnt(u64 mnt_id, u64 mask, void *buf, size_t
+bufsize, unsigned int flags);
+
+Kernel would return a fully initialized struct with the numeric as
+well as string fields filled.  That part is trivial for userspace to
+deal with.
+
+For sizing the buffer and versioning the struct see discussion below.
+
+> > What I'm thinking is making it even simpler for userspace:
 > >
-> > As with other fanotify events, the self mntuid and dirfid+name
-> > information can be omitted and without it, multiple un/mount events
-> > from the same parent mntuid will be merged, allowing userspace
-> > to listmnt() periodically only mntuid whose child mounts have changed,
-> > with little risk of event queue overflow.
+> > struct statmnt {
+> >   ...
+> >   char *mnt_root;
+> >   char *mountpoint;
+> >   char *fs_type;
+> >   u32 num_opts;
+> >   char *opts;
+> > };
 > >
-> > The possible monitoring scopes would be the entire mount namespace
-> > of the monitoring program or watching a single mount for change in
-> > its children mounts. The latter is similar to inotify directory childre=
-n watch,
-> > where the watches needs to be set recursively, with all the weight on
-> > userspace to avoid races.
+> > I'd still just keep options nul delimited.
+> >
+> > Is there a good reason not to return pointers (pointing to within the
+> > supplied buffer obviously) to userspace?
 >
-> It's been my belief that the existing notification mechanisms don't
-> quite fully satisfy the needs of users of these calls (aka. the need
-> I found when implementing David's original calls into systemd).
+> It's really unpleasant to program with. Yes, I think you pointed out
+> before that it often doesn't matter much as long as the system call is
+> really only relevant to some special purpose userspace.
 >
-> Specifically the ability to process a batch of notifications at once.
+> But statmount() will be used pretty extensively pretty quickly for the
+> purpose of finding out mount options on a mount (Querying a whole
+> sequences of mounts via repeated listmount() + statmount() calls on the
+> other hand will be rarer.).
 >
-> Admittedly the notifications mechanism that David originally implemented
-> didn't fully implement what I found I needed but it did provide for a
-> settable queue length and getting a batch of notifications at a time.
+> And there's just so many tools that need this: libmount, systemd, all
+> kinds of container runtimes, path lookup libraries such as libpathrs,
+> languages like go and rust that expose and wrap these calls and so on.
 >
-> Am I mistaken in my belief?
+> Most of these tools don't need to know about filesystem mount options
+> and if they do they can just query that through an extra system call. No
+> harm in doing that.
+
+Just pass sizeof(struct statmnt) as the buffer size, and it will work that way.
+
+> The agreement we came to to split out listing submounts into a separate
+> system call was exactly to avoid having to have a variable sized pointer
+> at the end of the struct statmnt (That's also part of the video above
+> btw.) and to make it as simple as possible.
 >
+> Plus, the format for how to return arbitrary filesystem mount options
+> warrants a separate discussion imho as that's not really vfs level
+> information.
 
-I am not sure I understand the question.
+Okay.   Let's take fs options out of this.
 
-fanotify has an event queue (16K events by default), but it can
-also use unlimited size.
-With a limited size queue, event queue overflow generates an
-overflow event.
+That leaves:
 
-event listeners can read a batch of events, depending on
-the size of the buffer that they provide.
+ - fs type and optionally subtype
+ - root of mount within fs
+ - mountpoint path
 
-when multiple events with same information are queued,
-for example "something was un/mounted over parent mntuid 100"
-fanotify will merged those all those events in the queue and the
-event listeners will get only one such event in the batch.
+The type and subtype are naturally limited to sane sizes, those are
+not an issue.
 
-> Don't misunderstand me, it would be great for the existing notification
-> mechanisms to support these system calls, I just have a specific use case
-> in mind that I think is important, at least to me.
+For paths the evolution of the relevant system/library calls was:
+
+  char *getwd(char buf[PATH_MAX]);
+  char *getcwd(char *buf, size_t size);
+  char *get_current_dir_name(void);
+
+It started out using a fixed size buffer, then a variable sized
+buffer, then an automatically allocated buffer by the library, hiding
+the need to resize on overflow.
+
+The latest style is suitable for the statmnt() call as well, if we
+worry about pleasantness of the API.
+
 >
+> > > This will also allow us to turn statmnt() into an extensible argument
+> > > system call versioned by size just like we do any new system calls with
+> > > struct arguments (e.g., mount_setattr(), clone3(), openat2() and so on).
+> > > Which is how we should do things like that.
+> >
+> > The mask mechanism also allow versioning of the struct.
+>
+> Yes, but this is done with reserved space which just pushes away the
+> problem and bloats the struct for the sake of an unknown future. If we
+> were to use an extensible argument struct we would just version by size.
+> The only requirement is that you extend by 64 bit (see struct
+> clone_args) which had been extended.
 
-Please explain the use case and your belief about existing fanotify
-limitations. I did not understand it.
+No need for reserved space in fact.  Versioning would still work, as
+long as userspace is strictly checking the return mask.  I.e. newly
+added fields will come after the old buffer, as assumed by the kernel.
+But the kernel will never set the mask bits for these fields, so
+userspace should not ever look at them.  Note: the interface does have
+a bufsize parameter, so no possibility of memory corruption in any
+event.
+
+I added the reserved space so that userspace would be protected from
+rubbish at the end of the struct if the kernel was older.  A library
+wrapper could work around that issue (move the variable part beyond
+the end of the new struct), but it would require code update in the
+wrapper, not just updating the struct.
+
+But in fact it's much simpler to just add ample reserved space and be
+done with it forever, no need to worry about versioning at all.
+
+> > > numbers for sub types as well. So we don't need to use strings here.
+> >
+> > Ugh.
+>
+> Hm, idk. It's not that bad imho. We'll have to make some ugly tradeoffs.
+
+Subtype is a fuse thing (e.g. sshfs would show up as  fuse.sshfs
+/proc/self/mountinfo.  Forcing each fuse filesystem to invent a magic
+number... please no.
 
 Thanks,
-Amir.
+Miklos
