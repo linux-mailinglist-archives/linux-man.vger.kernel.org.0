@@ -2,57 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 02F5D7A6B20
-	for <lists+linux-man@lfdr.de>; Tue, 19 Sep 2023 21:02:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B3FEF7A6B23
+	for <lists+linux-man@lfdr.de>; Tue, 19 Sep 2023 21:03:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232759AbjISTC4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Sep 2023 15:02:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47194 "EHLO
+        id S233224AbjISTDJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Sep 2023 15:03:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47250 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232600AbjISTCt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Sep 2023 15:02:49 -0400
+        with ESMTP id S232572AbjISTCu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Sep 2023 15:02:50 -0400
 Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com [IPv6:2607:f8b0:4864:20::1149])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E57E137
-        for <linux-man@vger.kernel.org>; Tue, 19 Sep 2023 12:02:32 -0700 (PDT)
-Received: by mail-yw1-x1149.google.com with SMTP id 00721157ae682-59c0dd156e5so52340107b3.3
-        for <linux-man@vger.kernel.org>; Tue, 19 Sep 2023 12:02:32 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 321F31B4
+        for <linux-man@vger.kernel.org>; Tue, 19 Sep 2023 12:02:34 -0700 (PDT)
+Received: by mail-yw1-x1149.google.com with SMTP id 00721157ae682-59beb3a8291so75108217b3.1
+        for <linux-man@vger.kernel.org>; Tue, 19 Sep 2023 12:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1695150151; x=1695754951; darn=vger.kernel.org;
+        d=google.com; s=20230601; t=1695150153; x=1695754953; darn=vger.kernel.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=B/mBNxS046NndSUiuzLhVh8+as48kp1msWTNOB3shRo=;
-        b=Ua8QGL2++mD9dEdg+sAx/FcJHqAsM5UhJQ3xLWs1T3+FEAbdPlQBBbZiTzJZPtRJcj
-         zEo2awLPU7Rl3GJYMA/0fCdInO64l3hdcByzrVvS9DfW/6sZ41Ny/1Z2A2KCr5xGXn26
-         sPcH9s9TSoeqDyh6IrLOhngvAGHRM9dC3yZ9VbblH0ueTgc4oUxhkNvOYZdwfBPUSaKL
-         wqG3vLEVq+rqRbN+jo1/6jTBdkNAGXOr8XidYggPftdGrLmDdCXpTgn3G2GHZ+p7bSxW
-         8mvRjrXS9Na7HQdrpOlKEyskvUrCScfa0mscy4cxzVDEcv3tsD0FfD/7b/ZNiUm6xKKY
-         X6hA==
+        bh=eY7SX8EsQtNfNMnrsSEHLyVvDJFOwMWgHyNV+Npddic=;
+        b=GpGgJfdziP0T/pNiXVddEP1K/Ux6EdfOFFB79TdlY1L/ZPC2HhgE4xXyrs3h+BMGpX
+         R1E5QoGjEV/KNuQWUFzEjJR1zuyGllv2a6b7Np+8gZYBzT61hgjOl6rBGGsmNZhSy7SE
+         g5A5iti4sDDv6txnntWC7uYID6S7DhAW5bibedJI3jEgNBE99/yY3S597orD1ltXdsZu
+         U3ZGxUFHcHeUhm2VRaP1rUw7dW/vSgPEf2YFJoNFYMjSSikWO4o0uoF2tZyaCis0Wxcx
+         TlSYZvQKLO7ucSSfkCrhBS2qfheOcKmTeOdYt8NBTsLGQmo9jM0FVoJJv0Y2azgb11ba
+         UJ/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695150151; x=1695754951;
+        d=1e100.net; s=20230601; t=1695150153; x=1695754953;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B/mBNxS046NndSUiuzLhVh8+as48kp1msWTNOB3shRo=;
-        b=Gh41djSAI1wI0UxNU0dA3l4L0X/oeLvVLigYYr+1HbDmPN3PO66t4D/CAd9na3pYxQ
-         Sj5J6W+q0/GjlTpY+RnaBXq9SjHzi3lZJzUvi52FNNsJd5JqFoDW2oCuwKSwScO/yj8Q
-         89rtt/IyaWbeyhLIhSbd0DouhGOnTo5C9VpI5+tqnF3J8RwE4HCtHoFb3eJDjEW9K+FH
-         /zTYhBy6gMA5Q+BxWNQa/M26c1SKG0odY7emULf28sBz/BOVqTTaWjNq1wZ65sFrZVky
-         zh+jVByTyQLedgn2b9oMCDXotsRUu0f5Qr5t/VwbzLuq+xZ3DpoJJUcmAUDOTtOhawQI
-         COww==
-X-Gm-Message-State: AOJu0YzvvHIja90Zoj2X4UI9Zd/h4L2SjLk10fSWMaHUf+fqgbpTvXMp
-        lXldHwDKSGKXHejJwFsB20EjusNHHdjvEntuKcN9
-X-Google-Smtp-Source: AGHT+IH7a8feDFG+W7LkkHL8xBQ33JOSLVkr8l24lseUZrRLYRoJu9ErPhz702o9Ru0cy8y+86WKdCJVmDC1f0ZBz4hx
+        bh=eY7SX8EsQtNfNMnrsSEHLyVvDJFOwMWgHyNV+Npddic=;
+        b=fouhpoVlLZ8mhAQ8sQN4C5b1yK7Fqw8IQPTfK93LEobsgEoyRceA3jR0zyeVYdCZVh
+         CLgvyVceIMlimGhcPUIAHJMisakWmGKC9Yv6DEkRtSUOFckPj7XJAQY13tFtIlFS0swA
+         bxj4O1wLD/ee0QC+4NRxjS7D1fc7rtYLX0PTHrEA59scPD5Cr0ehjYjUZ5Ak8N/BLSNc
+         BVwiA0jafeVvCqzefyDK60c+TvfVsS4tWr8QHFBjuBuUgqAPda7IchJGsDuxzq4skaW3
+         6VSaC/ODFNfgwfOINOD/eQj7tQdzr+3d8RhVIAs/KGxctMN7D9e5AgB29V6ABP10FGe/
+         HwMQ==
+X-Gm-Message-State: AOJu0YzAqcGuETIEeOqu0hZ2XED65/tyVmqnZ1x+AOpYM/WkxJ5UIDzm
+        ZNoSc7QPyfK2THBiVtQ0PGVgThGvBVD45DFNn0Wq
+X-Google-Smtp-Source: AGHT+IHpPbS96Mx6MQbi9mIPwv0TNNEi8isBoT3vJcnpji3vR4bjpJymIgfnAn4/hr01wOog5Jn9kpIhiLjimfXb/edb
 X-Received: from axel.svl.corp.google.com ([2620:15c:2a3:200:8f5a:6a6a:cafc:a3ad])
- (user=axelrasmussen job=sendgmr) by 2002:a81:ae07:0:b0:59b:ba8a:97d0 with
- SMTP id m7-20020a81ae07000000b0059bba8a97d0mr6086ywh.3.1695150151389; Tue, 19
- Sep 2023 12:02:31 -0700 (PDT)
-Date:   Tue, 19 Sep 2023 12:02:05 -0700
+ (user=axelrasmussen job=sendgmr) by 2002:a81:ae57:0:b0:59b:ee27:bbe9 with
+ SMTP id g23-20020a81ae57000000b0059bee27bbe9mr5207ywk.9.1695150153232; Tue,
+ 19 Sep 2023 12:02:33 -0700 (PDT)
+Date:   Tue, 19 Sep 2023 12:02:06 -0700
 In-Reply-To: <20230919190206.388896-1-axelrasmussen@google.com>
 Mime-Version: 1.0
 References: <20230919190206.388896-1-axelrasmussen@google.com>
 X-Mailer: git-send-email 2.42.0.459.ge4e396fd5e-goog
-Message-ID: <20230919190206.388896-10-axelrasmussen@google.com>
-Subject: [PATCH 09/10] ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER error
- code list
+Message-ID: <20230919190206.388896-11-axelrasmussen@google.com>
+Subject: [PATCH 10/10] ioctl_userfaultfd.2: document new UFFDIO_POISON ioctl
 From:   Axel Rasmussen <axelrasmussen@google.com>
 To:     Alejandro Colomar <alx@kernel.org>, Peter Xu <peterx@redhat.com>
 Cc:     linux-man@vger.kernel.org, linux-mm@kvack.org,
@@ -62,85 +61,154 @@ Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-        autolearn=ham autolearn_force=no version=3.4.6
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The list of error codes in the man page was out of date with respect to
-the current state of the kernel. Some errors were partially /
-incorrectly described.
+This is a new feature recently added to the kernel. So, document the new
+ioctl the same way we do other UFFDIO_* ioctls.
 
-Update the error code listing, so it matches the current state of the
-kernel, and correctly describes all the errors.
+Also note the corresponding new ioctl flag we can return in reponse to a
+UFFDIO_REGISTER call.
 
 Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
 ---
- man2/ioctl_userfaultfd.2 | 37 +++++++++++++++++++++----------------
- 1 file changed, 21 insertions(+), 16 deletions(-)
+ man2/ioctl_userfaultfd.2 | 112 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
 diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-index 29dca1f6b..afe3caffc 100644
+index afe3caffc..1282f63e1 100644
 --- a/man2/ioctl_userfaultfd.2
 +++ b/man2/ioctl_userfaultfd.2
-@@ -413,12 +413,6 @@ On error, \-1 is returned and
- .I errno
- is set to indicate the error.
- Possible errors include:
--.\" FIXME Is the following error list correct?
--.\"
--.TP
--.B EBUSY
--A mapping in the specified range is registered with another
--userfaultfd object.
- .TP
- .B EFAULT
- .I argp
-@@ -433,21 +427,32 @@ field; or the
- field was zero.
- .TP
- .B EINVAL
--There is no mapping in the specified address range.
--.TP
--.B EINVAL
-+The specified address range was invalid.
-+More specifically,
-+no mapping exists in the given range,
-+or the mapping that exists there is invalid
-+(e.g. unsupported type of memory),
-+or the range values (
- .I range.start
- or
- .I range.len
--is not a multiple of the system page size; or,
-+) are not multiples of the relevant page size,
+@@ -405,6 +405,11 @@ operation is supported.
+ The
+ .B UFFDIO_CONTINUE
+ operation is supported.
++.TP
++.B 1 << _UFFDIO_POISON
++The
++.B UFFDIO_POISON
++operation is supported.
+ .PP
+ This
+ .BR ioctl (2)
+@@ -916,6 +921,113 @@ The faulting process has exited at the time of a
+ .B UFFDIO_CONTINUE
+ operation.
+ .\"
++.SS UFFDIO_POISON
++(Since Linux 6.6.)
++Mark an address range as "poisoned".
++Future accesses to these addresses will raise a
++.B SIGBUS
++signal.
++Unlike
++.B MADV_HWPOISON
++this works by installing page table entries,
++rather than "really" poisoning the underlying physical pages.
++This means it only affects this particular address space.
++.PP
++The
++.I argp
++argument is a pointer to a
++.I uffdio_continue
++structure as shown below:
++.PP
++.in +4n
++.EX
++struct uffdio_poison {
++	struct uffdio_range range;
++	                /* Range to install poison PTE markers in */
++	__u64 mode;     /* Flags controlling the behavior of poison */
++	__s64 updated;  /* Number of bytes poisoned, or negated error */
++};
++.EE
++.in
++.PP
++The following value may be bitwise ORed in
++.I mode
++to change the behavior of the
++.B UFFDIO_POISON
++operation:
++.TP
++.B UFFDIO_POISON_MODE_DONTWAKE
++Do not wake up the thread that waits for page-fault resolution.
++.PP
++The
++.I updated
++field is used by the kernel
++to return the number of bytes that were actually poisoned,
++or an error in the same manner as
++.BR UFFDIO_COPY .
++If the value returned in the
++.I updated
++field doesn't match the value that was specified in
++.IR range.len ,
++the operation fails with the error
++.BR EAGAIN .
++The
++.I updated
++field is output-only;
++it is not read by the
++.B UFFDIO_POISON
++operation.
++.PP
++This
++.BR ioctl (2)
++operation returns 0 on success.
++In this case,
++the entire area was poisoned.
++On error, \-1 is returned and
++.I errno
++is set to indicate the error.
++Possible errors include:
++.TP
++.B EAGAIN
++The number of bytes mapped
++(i.e., the value returned in the
++.I updated
++field)
++does not equal the value that was specified in the
++.I range.len
++field.
++.TP
++.B EINVAL
++Either
++.I range.start
 +or
- .I range.len
--is zero; or these fields are otherwise invalid.
-+is zero.
- .TP
--.B EINVAL
--There as an incompatible mapping in the specified address range.
--.\" Mike Rapoport:
--.\" ENOMEM if the process is exiting and the
--.\" mm_struct has gone by the time userfault grabs it.
++.I range.len
++was not a multiple of the system page size; or
++.I range.len
++was zero; or the range specified was invalid.
++.TP
++.B EINVAL
++An invalid bit was specified in the
++.I mode
++field.
++.TP
++.B EEXIST
++One or more pages were already mapped in the given range.
++.TP
++.B ENOENT
++The faulting process has changed its virtual memory layout simultaneously with
++an outstanding
++.B UFFDIO_POISON
++operation.
++.TP
 +.B ENOMEM
-+The process is exiting,
-+and its address space has already been torn down
-+when userfaultfd attempts to reference it.
++Allocating memory for page table entries failed.
 +.TP
-+.B EPERM
-+The userfaultfd would allow writing to a file backing the mapping,
-+but the calling process lacks such write permissions.
-+.TP
-+.B EBUSY
-+A mapping in the specified range is registered with another
-+userfaultfd object.
- .SS UFFDIO_UNREGISTER
- (Since Linux 4.3.)
- Unregister a memory address range from userfaultfd.
++.B ESRCH
++The faulting process has exited at the time of a
++.B UFFDIO_POISON
++operation.
++.\"
+ .SH RETURN VALUE
+ See descriptions of the individual operations, above.
+ .SH ERRORS
 -- 
 2.42.0.459.ge4e396fd5e-goog
 
