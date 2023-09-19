@@ -2,89 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 434E87A64A7
-	for <lists+linux-man@lfdr.de>; Tue, 19 Sep 2023 15:18:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B94937A6925
+	for <lists+linux-man@lfdr.de>; Tue, 19 Sep 2023 18:47:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232274AbjISNSR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Sep 2023 09:18:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39928 "EHLO
+        id S231809AbjISQrj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Sep 2023 12:47:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38964 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232286AbjISNSP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Sep 2023 09:18:15 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C2B31FB;
-        Tue, 19 Sep 2023 06:18:09 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C133C433C7;
-        Tue, 19 Sep 2023 13:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1695129489;
-        bh=B+8I3aKM/91Zhsrq6ewP8IyGv0QxNwN6RyGlRjopINc=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=qNgu3Pfy4jLszNXbMEb4vwJG05SdOoDIM+ApOEgtH4lxLcQMQ+GdKK2Biq042/jKB
-         Qw9uDXlIZEA+Bf+alZe3RVxZULe1X1it9mZ7dZDcg9sbyNio+WunzJl7LfdX6zvgLi
-         QRXJ5fF+clWvRNzenzBQtQ1F0S1kaFQO1TbWa2w46YTjuwf0N9zk0X+cgfAhtJsjbF
-         HGGLMxZyVMLyjgkIPpo3jx1Ws+j4QQ1U2ILFNpzt+x8j/5G6DXT4QcmlqrBUmySRGE
-         FD8aBeyt95ABKEv/StLzVvwO6FGJPMb5dSJaOjDRYVrMC9R+uGotPcztSM/VIDlpUu
-         tRVmP1CkY9CDw==
-Date:   Tue, 19 Sep 2023 15:18:03 +0200
-From:   Christian Brauner <brauner@kernel.org>
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     Matthew House <mattlloydhouse@gmail.com>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
+        with ESMTP id S230137AbjISQri (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Sep 2023 12:47:38 -0400
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com [IPv6:2607:f8b0:4864:20::b2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E2D690
+        for <linux-man@vger.kernel.org>; Tue, 19 Sep 2023 09:47:32 -0700 (PDT)
+Received: by mail-yb1-xb2b.google.com with SMTP id 3f1490d57ef6-d8162698f0dso5764155276.0
+        for <linux-man@vger.kernel.org>; Tue, 19 Sep 2023 09:47:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1695142051; x=1695746851; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b0a58sjbAG0A2Db53/Y8qtKDwxJA4NQiN/zlKOHGSV8=;
+        b=TM5ZUjOAzUYh87fKhiMIZzbDLLxZSC9g19dR6Q+EqAjA3RUbVL08w5sQA0i/jRpJwF
+         tPoFJz7i1Iw8+NicI8zzMJtfE/IxN9SOqt0mwSVX9BgcAg3MYT5ASg9mIGBOhD1xe2Nh
+         e+u6g+Y+raaSc8Rlza9rqVA7+VfU0JoGmVGmONTXc7BHTjLfGFHdDteXVXiaeamEhaX8
+         HG5Z1H4PLT5JrUycpXIiKN679HLoI8QnvpWbEfFUl2SwzVhZofsDtNQqAnE/N6NPlfm6
+         oK10qiklJ9CXHOAZqLbx7SajBzbMwAelNZO2AOckBqL0L6yDHb+QrDHEyAr0zbseh6BA
+         PbdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695142051; x=1695746851;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=b0a58sjbAG0A2Db53/Y8qtKDwxJA4NQiN/zlKOHGSV8=;
+        b=dNJM3Zl7lgyPTXGrAbDaBHqoV92X4HvMhyrUDQrkewwYVHiNJn26hGIXRMr77ilV58
+         JgQR+GT4csffEWqjjZQkXcgXfeKkFBisfPeamrZjQwpudHIHQK+jr/p5hs1OsGq9e5Q1
+         KXMJnqXtYS81fTNJ7FlxFvH3ZImj5FtppvA9vO4dCpRoWsZv9/JTUCXC4/jOYIq0Haw/
+         M7A9T21Jvvn2ilxv+n7iJfbZ75PL87RQvvnguuHLp1wfYY+dJhNLw0hWPzI0E8c92Sno
+         ZL5PqBO1ohubDsMNHhvuFxnKDg3WJBHeDLKoN1iOIGMV8Bu6lw7Nz5/NmgSeu93qZg5z
+         cKlA==
+X-Gm-Message-State: AOJu0YzezGOXxdRr6abth0dTla4OlZRlSPVNNZfkys+ZcSQXa5IgVuNP
+        NwhclJBkU2mv/RiXCEOiGPmdaPMdww3o5xBnzxUy
+X-Google-Smtp-Source: AGHT+IHQGZRJnMfzYeI6Lr+HTWzOiuLwrjHGYMEEG1yEiRl6RXbYpezvkhRILNjas2h7ziHxZ5/E1l2+WRXKacc09uc=
+X-Received: by 2002:a5b:8d2:0:b0:d5d:4df9:b6e2 with SMTP id
+ w18-20020a5b08d2000000b00d5d4df9b6e2mr105144ybq.46.1695142051445; Tue, 19 Sep
+ 2023 09:47:31 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-4-mszeredi@redhat.com>
+ <20230917005419.397938-1-mattlloydhouse@gmail.com> <CAOssrKcECS_CvifP1vMM8YOyMW7dkGXTDTKY2CRr-fPrJk76ZA@mail.gmail.com>
+ <20230918-einblick-klaut-0a010e0abc70@brauner>
+In-Reply-To: <20230918-einblick-klaut-0a010e0abc70@brauner>
+From:   Paul Moore <paul@paul-moore.com>
+Date:   Tue, 19 Sep 2023 12:47:20 -0400
+Message-ID: <CAHC9VhQsChQO9aaY+NTtmvJgXBodvXO6rUN3d7ZyHGqitLBABw@mail.gmail.com>
+Subject: Re: [RFC PATCH 3/3] add listmnt(2) syscall
+To:     Christian Brauner <brauner@kernel.org>
+Cc:     Miklos Szeredi <mszeredi@redhat.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
         linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-api@vger.kernel.org, linux-man@vger.kernel.org,
         linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
         Ian Kent <raven@themaw.net>,
         David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
         Al Viro <viro@zeniv.linux.org.uk>,
         Christian Brauner <christian@brauner.io>,
         Amir Goldstein <amir73il@gmail.com>
-Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
-Message-ID: <20230919-gecheckt-loyal-a3355735afef@brauner>
-References: <20230918-stuhl-spannend-9904d4addc93@brauner>
- <CAJfpegvxNhty2xZW+4MM9Gepotii3CD1p0fyvLDQB82hCYzfLQ@mail.gmail.com>
- <20230918-bestialisch-brutkasten-1fb34abdc33c@brauner>
- <CAJfpegvTiK=RM+0y07h-2vT6Zk2GCu6F98c=_CNx8B1ytFtO-g@mail.gmail.com>
- <20230919003800.93141-1-mattlloydhouse@gmail.com>
- <CAJfpegs6g8JQDtaHsECA_12ss_8KXOHVRH9gwwPf5WamzxXOWQ@mail.gmail.com>
- <20230919-abfedern-halfen-c12583ff93ac@brauner>
- <CAJfpegsjE_G4d-W2hCZc0y+PioRgvK5TxT7kFAVgBqX6zN2dKg@mail.gmail.com>
- <20230919-hackordnung-asketisch-331907800aa0@brauner>
- <CAJfpeguv+Z6uys18_QYnHcbs_JpMNicRKGt50Scmp82kAOOFOQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAJfpeguv+Z6uys18_QYnHcbs_JpMNicRKGt50Scmp82kAOOFOQ@mail.gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Sep 19, 2023 at 02:59:53PM +0200, Miklos Szeredi wrote:
-> On Tue, 19 Sept 2023 at 14:41, Christian Brauner <brauner@kernel.org> wrote:
+On Mon, Sep 18, 2023 at 12:52=E2=80=AFPM Christian Brauner <brauner@kernel.=
+org> wrote:
+> On Sun, Sep 17, 2023 at 04:32:04PM +0200, Miklos Szeredi wrote:
+> > On Sun, Sep 17, 2023 at 2:54=E2=80=AFAM Matthew House <mattlloydhouse@g=
+mail.com> wrote:
 > >
-> > > >  with __u32 size for mnt_root and mnt_point
-> > >
-> > > Unnecessary if the strings are nul terminated.
-> >
-> > All ok by me so far but how does the kernel know the size of the buffer
-> > to copy into? Wouldn't it be better to allow userspace to specify that?
-> > I'm probably just missing something but I better ask.
-> 
-> Because size of the buffer is given as the syscall argument.
-> 
->   long statmount(u64 mnt_id, u64 mask, struct statmnt __user *buf,
-> size_t bufsize, unsigned int flags);
-> 
-> If you are still hung up about this not being properly typed, how about this:
+> > > > +       list_for_each_entry(r, &m->mnt_mounts, mnt_child) {
+> > > > +               if (!capable(CAP_SYS_ADMIN) &&
+>
+>
+> > Good point.  That issue was nagging at the back of my mind.  Having an
+> > explicit flag nicely solves the issue.
+>
+> Ideally we avoid multiple capable(CAP_SYS_ADMIN) calls by only doing it
+> once and saving the return value. capable() call's aren't that cheap.
 
-I really just wasn't clear how exactly you envisioned this. Your
-proposal as is sounds good to me! I'm on board. I prefer the two offsets
-as that lets us avoid searching for null bytes. So please leave it as is!
-Thanks!
+Agreed.  The capability check doesn't do any subject/object
+comparisons so calling it for each mount is overkill.  However, I
+would think we would want the LSM hook called from inside the loop as
+that could involve a subject (@current) and object (individual mount
+point) comparison.
+
+> Plus, we should decide whether this should trigger an audit event or
+> not: capable(CAP_SYS_ADMIN) triggers an audit event,
+> ns_capable_noaudit(&init_user_ns, CAP_SYS_ADMIN) wouldn't.
+
+Why would we not want to audit the capable() call?
+
+--=20
+paul-moore.com
