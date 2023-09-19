@@ -2,65 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 23CAA7A54A2
-	for <lists+linux-man@lfdr.de>; Mon, 18 Sep 2023 22:58:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CD0717A56A3
+	for <lists+linux-man@lfdr.de>; Tue, 19 Sep 2023 02:38:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230151AbjIRU6R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Sep 2023 16:58:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36942 "EHLO
+        id S230170AbjISAix (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Sep 2023 20:38:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47634 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230099AbjIRU6N (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Sep 2023 16:58:13 -0400
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9BE3134
-        for <linux-man@vger.kernel.org>; Mon, 18 Sep 2023 13:58:03 -0700 (PDT)
-Received: by mail-pl1-x62f.google.com with SMTP id d9443c01a7336-1c337aeefbdso46592515ad.0
-        for <linux-man@vger.kernel.org>; Mon, 18 Sep 2023 13:58:03 -0700 (PDT)
+        with ESMTP id S229508AbjISAix (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Sep 2023 20:38:53 -0400
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7EEDF107;
+        Mon, 18 Sep 2023 17:38:47 -0700 (PDT)
+Received: by mail-yb1-xb32.google.com with SMTP id 3f1490d57ef6-d8162698f0dso4971673276.0;
+        Mon, 18 Sep 2023 17:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dilger-ca.20230601.gappssmtp.com; s=20230601; t=1695070683; x=1695675483; darn=vger.kernel.org;
-        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tauh1TRK/BMeBu2l0gaSo+cZtciZh4ApAYeMwZDiN0w=;
-        b=EtjCD8XVeuyu4XPhxQV+t9HYnYbdWObJjfzOR6vxv4ywzcteSLd7/vnG2MUSzDQt0O
-         LG3v00URknQcK8wR6BKbWHM6eXxfkaSoTz3oz+YjLfafcEqWoJnyWOQMsRNxOTVXNPt1
-         k2+lRenwmrczPR68IB+I7VjepnnPHVIkCEGo9oCT9gNgE61pRdv1/i+GTi8g92PWdnpH
-         L5pXGhySoxVwoCymRI4vbFm7w6Lx9+eU8phNMgqBFG8qk8Mr7IzfHSlpL9Nfmq4N0fxV
-         SyKHj8YGRldXW5vDWguPg+toMxg+W7nv35SzMx4cGWB8jM0fT8CS+mDmZDCF/b9Kq0cs
-         dwBQ==
+        d=gmail.com; s=20230601; t=1695083926; x=1695688726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+BrAIiEZWlqz7+FDnE8u9tarMF/2bVwunjQA4h3kz1Q=;
+        b=QddILysf93vSyhJrIEchOtmhoVZJKsxhMBiZ3qV1aJfTgrzmMj4eRpnJWrcGeNc2P8
+         rV7jU/DHIU215EUzwjRWKtXDE9d2XHUE3qU00EuAn4WrET8angbWR365z4HLRLR/Amnv
+         fFfkDgcrejplWi4ei+4FXHm1wBqzWUhezrWZGnn7JNf87kzOrUs1i9GWK1yGe3okbPbP
+         pMpG+3u+2+e4rGJPsnuueX6z1DK+AQBHsox5Ikz0VxEUFpaWNK3P7kILhL0m9lMF+qdz
+         4o237Kz3CQiNG+T15ciUlmfAs0r9qTdkDdl+w/8QTdII41t/OvFM2JAfgFDAC0ZJ9wmc
+         +yKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695070683; x=1695675483;
-        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tauh1TRK/BMeBu2l0gaSo+cZtciZh4ApAYeMwZDiN0w=;
-        b=OB+iMU22+5J0RD2Oozj6IXxDfW8GaBZpA/pw9zTs2cNRZ3LID8ZSXn5JXmlr1V5NnX
-         VEdr9zVpVVayu3VnbOuXr3RdRKRnOxhb92FvRp66w4rZ9xM46eAUCDi2WB4lmYFm1kon
-         /knemzKXai0XCThUFjCWVLsRBnuoSFIRVhNYZkvGrvY8t5Py25iK5b20AvmjZyrAmvGL
-         cpzmUi0W2K7OFuth5BR1jS8yOFD1cnBPK7vo95mqgho1WUzNCRJ0q1bQ8xBTWEbZiip4
-         CZJpsvMsSsF08XbhSSUSO718DeHva96qTmCj2WFy33bQlOyThBnwDdcLWcN8moqaKuM9
-         DeKg==
-X-Gm-Message-State: AOJu0YxGIaGweiTmRWVRsA7rLZ67GiJDvensxPqMt97bS1Uk0AD7++C+
-        q5GeBcIEGdSuHQIqHghwatIPVg==
-X-Google-Smtp-Source: AGHT+IHW/N9kktGUP1je9DFFNRd7ALIMHRTanWQ0GwsItBzOAA3iVWzYW3fREWh2c3rpYKzuxfVf5w==
-X-Received: by 2002:a17:903:24e:b0:1bc:6799:3f6c with SMTP id j14-20020a170903024e00b001bc67993f6cmr10039131plh.35.1695070683210;
-        Mon, 18 Sep 2023 13:58:03 -0700 (PDT)
-Received: from cabot.adilger.int (S01061cabc081bf83.cg.shawcable.net. [70.77.221.9])
-        by smtp.gmail.com with ESMTPSA id 9-20020a170902c20900b001b87d3e845bsm2813998pll.149.2023.09.18.13.58.01
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 18 Sep 2023 13:58:02 -0700 (PDT)
-From:   Andreas Dilger <adilger@dilger.ca>
-Message-Id: <59DA5D4F-8242-4BD4-AE1C-FC5A6464E377@dilger.ca>
-Content-Type: multipart/signed;
- boundary="Apple-Mail=_5D26C71F-6AC4-4378-9A44-BBCB7136D1A4";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
-Date:   Mon, 18 Sep 2023 14:58:00 -0600
-In-Reply-To: <20230918-grafik-zutreffen-995b321017ae@brauner>
-Cc:     Miklos Szeredi <miklos@szeredi.hu>,
+        d=1e100.net; s=20230601; t=1695083926; x=1695688726;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+BrAIiEZWlqz7+FDnE8u9tarMF/2bVwunjQA4h3kz1Q=;
+        b=gItMRnoCI5W9ldp1c/gXcs9dWPlzD6ZVJUrk+v78mG/5C+ywXcH3bXrJzuDaOjiVbX
+         eO54bVuwSVwep17Vx+tY6mr+ILJYkABXWp6WrCGf6IvJtfqZt2DJ3pbyxlIbb08ufVia
+         tDplrwSGIjcWNd0IuXlXsEGA96YErDh6dX59MmVBZ5sPz/kccT++hDDmg52A62JMSbPN
+         ECdaK366W26yRNACtVqvcEvGqHGvRPLBRAlKPXGarIdAZgOxbc+I56Sa+hmazXrTUEDa
+         cqtOOhn/Jdz9+gqZD2j3Tqul5+zROBHY6L7EITCCrVaed/HgIERdQOZKqlOmN2rkWrpL
+         Dyeg==
+X-Gm-Message-State: AOJu0YzT+Br8y3sShLrspl6HZN4zAaY7BNB8/WBKjGzTVAtAB9iqrft4
+        EW+Zhd6/Riv/9pi4gX56O10=
+X-Google-Smtp-Source: AGHT+IF3HR+pL2xsoZYsXtpvyi+BXF+Ub8xKeYeQ15PAk4FgZND2gP6wDx5pfhfNl49Gtr505BxuQw==
+X-Received: by 2002:a25:25d3:0:b0:d81:8c74:8f88 with SMTP id l202-20020a2525d3000000b00d818c748f88mr9876563ybl.25.1695083926552;
+        Mon, 18 Sep 2023 17:38:46 -0700 (PDT)
+Received: from firmament.. (h198-137-20-64.xnet.uga.edu. [198.137.20.64])
+        by smtp.gmail.com with ESMTPSA id b13-20020a25340d000000b00d81c86f121esm2121537yba.11.2023.09.18.17.38.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 Sep 2023 17:38:46 -0700 (PDT)
+From:   Matthew House <mattlloydhouse@gmail.com>
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     Christian Brauner <brauner@kernel.org>,
         Miklos Szeredi <mszeredi@redhat.com>,
         Linus Torvalds <torvalds@linux-foundation.org>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-api@vger.kernel.org, linux-man@vger.kernel.org,
         linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
         Ian Kent <raven@themaw.net>,
@@ -68,17 +62,16 @@ Cc:     Miklos Szeredi <miklos@szeredi.hu>,
         Al Viro <viro@zeniv.linux.org.uk>,
         Christian Brauner <christian@brauner.io>,
         Amir Goldstein <amir73il@gmail.com>
-To:     Christian Brauner <brauner@kernel.org>
-References: <20230913152238.905247-1-mszeredi@redhat.com>
- <20230913152238.905247-3-mszeredi@redhat.com>
- <20230914-salzig-manifest-f6c3adb1b7b4@brauner>
- <CAJfpegs-sDk0++FjSZ_RuW5m-z3BTBQdu4T9QPtWwmSZ1_4Yvw@mail.gmail.com>
- <20230914-lockmittel-verknallen-d1a18d76ba44@brauner>
- <CAJfpegt-VPZP3ou-TMQFs1Xupj_iWA5ttC2UUFKh3E43EyCOQQ@mail.gmail.com>
- <20230918-grafik-zutreffen-995b321017ae@brauner>
-X-Mailer: Apple Mail (2.3273)
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
+Date:   Mon, 18 Sep 2023 20:37:42 -0400
+Message-ID: <20230919003800.93141-1-mattlloydhouse@gmail.com>
+In-Reply-To: <CAJfpegvTiK=RM+0y07h-2vT6Zk2GCu6F98c=_CNx8B1ytFtO-g@mail.gmail.com>
+References: <20230914-salzig-manifest-f6c3adb1b7b4@brauner> <CAJfpegs-sDk0++FjSZ_RuW5m-z3BTBQdu4T9QPtWwmSZ1_4Yvw@mail.gmail.com> <20230914-lockmittel-verknallen-d1a18d76ba44@brauner> <CAJfpegt-VPZP3ou-TMQFs1Xupj_iWA5ttC2UUFKh3E43EyCOQQ@mail.gmail.com> <20230918-grafik-zutreffen-995b321017ae@brauner> <CAOssrKfS79=+F0h=XPzJX2E6taxAPmEJEYPi4VBNQjgRR5ujqw@mail.gmail.com> <20230918-hierbei-erhielten-ba5ef74a5b52@brauner> <CAJfpegtaGXoZkMWLnk3PcibAvp7kv-4Yobo=UJj943L6v3ctJQ@mail.gmail.com> <20230918-stuhl-spannend-9904d4addc93@brauner> <CAJfpegvxNhty2xZW+4MM9Gepotii3CD1p0fyvLDQB82hCYzfLQ@mail.gmail.com> <20230918-bestialisch-brutkasten-1fb34abdc33c@brauner> <CAJfpegvTiK=RM+0y07h-2vT6Zk2GCu6F98c=_CNx8B1ytFtO-g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -86,93 +79,80 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Mon, Sep 18, 2023 at 11:39 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
+> Okay, so there are now (at least) two buffers, and on overflow the
+> caller cannot know which one got overflown.  It can resize both, but
+> that doesn't make the caller any simpler to implement.
+>
+> Also the interface is kind of weird in that some struct members are
+> out, some are in (the pointers and the lengths).
+>
+> I'd prefer the single buffer interface, which has none of the above issue=
+s.
+>
+> Thanks,
+> Miklos
 
---Apple-Mail=_5D26C71F-6AC4-4378-9A44-BBCB7136D1A4
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain;
-	charset=us-ascii
+One natural solution is to set either of the two lengths to the expected
+size if the provided buffer are too small. That way, the caller learns both
+which of the buffers is too small, and how large they need to be. Replacing
+a provided size with an expected size in this way already has precedent in
+existing syscalls:
 
-On Sep 18, 2023, at 7:51 AM, Christian Brauner <brauner@kernel.org> wrote:
-> 
-> 
->> The type and subtype are naturally limited to sane sizes, those are
->> not an issue.
-> 
-> What's the limit for fstype actually? I don't think there is one.
-> There's one by chance but not by design afaict?
-> 
-> Maybe crazy idea:
-> That magic number thing that we do in include/uapi/linux/magic.h
-> is there a good reason for this or why don't we just add a proper,
-> simple enum:
-> 
-> enum {
-> 	FS_TYPE_ADFS        1
-> 	FS_TYPE_AFFS        2
-> 	FS_TYPE_AFS         3
-> 	FS_TYPE_AUTOFS      4
-> 	FS_TYPE_EXT2	    5
-> 	FS_TYPE_EXT3	    6
-> 	FS_TYPE_EXT4	    7
-> 	.
-> 	.
-> 	.
-> 	FS_TYPE_MAX
-> }
-> 
-> that we start returning from statmount(). We can still return both the
-> old and the new fstype? It always felt a bit odd that fs developers to
-> just select a magic number.
+recvmsg(2):
+    The msg argument points to an in/out struct msghdr, and msg->msg_name
+    points to an optional buffer which receives the source address. If
+    msg->msg_namelen is less than the actual size of the source address,
+    the function truncates the address to that length before storing it in
+    msg->msg_name; otherwise, it stores the full address. In either case,
+    it sets msg->msg_namelen to the full size of the source address before
+    returning.
 
-Yes, there is a very good reason that there isn't an enum for filesystem
-type, which is because this API would be broken if it encounters any
-filesystem that is not listed there.  Often a single filesystem driver in
-the kernel will have multiple different magic numbers to handle versions,
-endianness, etc.
+(An address buffer size is similarly provided directly as an in/out pointer
+in accept(2), accept4(2), getpeername(2), getsockname(2), and recvfrom(2).)
 
-Having a 32-bit magic number allows decentralized development with low
-chance of collision, and using new filesystems without having to patch
-every kernel for this new API to work with that filesystem.  Also,
-filesystems come and go (though more slowly) over time, and keeping the
-full list of every filesystem ever developed in the kernel enum would be
-a headache.
+name_to_handle_at(2):
+    The handle argument points to an in/out struct file_handle, followed by
+    a variable-length char array. If handle->handle_bytes is too small to
+    store the opaque handle, the function returns -EOVERFLOW; otherwise,
+    it succeeds. In either case, it sets handle->handle_bytes to the size
+    of the opaque handle before returning.
 
-The field in the statmnt() call would need to be at a fixed-size 32-bit
-value in any case, so having it return the existing magic will "just work"
-because userspace tools already know and understand these magic values,
-while introducing an in-kernel enum would be broken for multiple reasons.
+perf_event_open(2):
+    The attr argument points to an in/out struct perf_event_attr. If
+    attr->size is not a valid size for the struct, the function sets it to
+    the latest size and returns -E2BIG.
 
-Cheers, Andreas
+sched_setattr(2):
+    The attr argument points to an in/out struct sched_attr. If attr->size
+    is not a valid size for the struct, the function sets it to the latest
+    size and returns -E2BIG.
 
+The specific pattern of returning the actual size of the strings both on
+success and on failure, as with recvmsg(2) and name_to_handle_at(2), is
+beneficial for callers that want to copy the strings elsewhere without
+having to scan for the null byte. (Also, it would work well if we ever
+wanted to return variable-size binary data, such as arrays of structs.)
 
+Indeed, if we returned the actual size of the string, we could even take a
+more radical approach of never setting a null byte after the data, leaving
+the caller to append its own null byte if it really wants one. But perhaps
+that would be taking it a bit too far; I just don't want this API to end up
+in an awful situation like strncpy(3) or struct sockaddr_un, where the
+buffer is always null-terminated except in one particular edge case. Also,
+if we include a null byte in the returned size, it could invite off-by-one
+errors in callers that just expect it to be the length of the string.
 
+Meanwhile, if this solution of in/out size fields were adopted, then
+there'd still be the question of what to do when a provided size is too
+small: should the returned string be truncated (indicating the issue only
+by the returned size being greater than the provided size), or should the
+entire call fail with an -EOVERFLOW? IMO, the former is strictly more
+flexible, since the caller can set a limit on how big a buffer it's willing
+to dedicate to any particular string, and it can still retrieve the
+remaining data if that buffer isn't quite big enough. But the latter might
+be considered a bit more foolproof against callers who don't properly test
+for truncation.
 
-
-
---Apple-Mail=_5D26C71F-6AC4-4378-9A44-BBCB7136D1A4
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
-
------BEGIN PGP SIGNATURE-----
-Comment: GPGTools - http://gpgtools.org
-
-iQIzBAEBCAAdFiEEDb73u6ZejP5ZMprvcqXauRfMH+AFAmUIudgACgkQcqXauRfM
-H+ANkBAAswMy3DnkxDykTG0XPE8YNdNKUuKmr8Ybnx3zZSYjr6gt0M9Z1RjbfXwb
-/gD7LMA5LRDiD18iwMdA7xhAhzCSFdycXADobuQQihqo5gAwRlm4iMDLharQlJSr
-OP5T5z92C7iBtV2ntUZ+vq0Ojh0jshFZXpwcWSMzoG5AD+lY5ci+ML+2fvKdCNbJ
-jUaY2xlOEu5TDwJeI52lT5gxKWezZHxk1oPWtFrAmyenRHDhe6Hq8fL36EtpHyTI
-iBzu3chvZ073H9i72vZt34nQBy7MATe3k4mRQQhsGhKuJGmXY2s/zil60fBzR2oh
-vqW5JGq4cj/HTjDNyjED8wS5yeAlvKFlAL53ojeM6VhipOR9IGUEb+RYefmcVaZ+
-ZyK3IgXrfFNhfLNxlrT33S8Y+EhPg5b8iFF06aroPs4hmwIpMy2whpnmjcQju84w
-4zVjFSo1spBY39cU6YWxGogITC/VT9WOtv4+ckr1Xn4gnMr3PFs7XnAumh3kC1a1
-JqmHbw38TLOFXAFV2Nkc6MWHdxCDjmFr24OkpoaR4sv+QxnK7v62JN8NIBGeVlDC
-+jV5+LjSC2l502sVAqbOxamoTfv3u7r2UvB0zddiirtKl3/dUjwCmXFms90STFxP
-OnbdmtAnZu5wK1yWNVUojzLnWliZmcFAfLA1/lVTl1ttjlmG0Sw=
-=7iPD
------END PGP SIGNATURE-----
-
---Apple-Mail=_5D26C71F-6AC4-4378-9A44-BBCB7136D1A4--
+Thank you,
+Matthew House
