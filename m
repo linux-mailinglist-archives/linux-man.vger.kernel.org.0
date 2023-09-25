@@ -2,201 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0291E7AB27F
-	for <lists+linux-man@lfdr.de>; Fri, 22 Sep 2023 15:02:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BAA937AD857
+	for <lists+linux-man@lfdr.de>; Mon, 25 Sep 2023 14:57:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229971AbjIVNDA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Sep 2023 09:03:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52720 "EHLO
+        id S229450AbjIYM57 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 Sep 2023 08:57:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60878 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229947AbjIVNC7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Sep 2023 09:02:59 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EA0EFC6
-        for <linux-man@vger.kernel.org>; Fri, 22 Sep 2023 06:02:53 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551F1C433C7;
-        Fri, 22 Sep 2023 13:02:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1695387773;
-        bh=/m+fzMJ+SSHZB9PtGrA+hOr0fxZ2awxaTCEGnTwvN3Y=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=aEIUIpdLLnUB1q73EYMAEsnq6nbGxN0p0XI8zQ1sLQpvU7TXzWaW67GwoXVFbJUPn
-         sey8qM0JF2OWkyujLC21t/Ps7fDc/E9NGDt54d1iFmCrW8gva58H+6KQPHiejYtq7o
-         7EYZrt8xPA6wQTiNkHFosT5I8dBKZ6XsLzXbh3plRjmy/AF1Y8bt/NDgmuhycXjWbV
-         ZWgIoRNplAehsDuU1fVc8qoknkyZRuZfjb87ykSVZ++bY2jWgxuYsMX8xP2tBo7bq2
-         arMrW8QA4tEf4qa3U8ab9qK8iJlgKjyxHx+Y8++d+X2nOxZBtJQyabo8YVO99FeFbK
-         GcIRblQ7wu/cw==
-Message-ID: <05865807-7a10-43c1-927d-7f0b82848abb@kernel.org>
-Date:   Fri, 22 Sep 2023 15:02:44 +0200
+        with ESMTP id S230120AbjIYM56 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Sep 2023 08:57:58 -0400
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4980B10A;
+        Mon, 25 Sep 2023 05:57:52 -0700 (PDT)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+        by mailout.nyi.internal (Postfix) with ESMTP id B555B5C2725;
+        Mon, 25 Sep 2023 08:57:51 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+  by compute6.internal (MEProxy); Mon, 25 Sep 2023 08:57:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+        :cc:content-type:content-type:date:date:from:from:in-reply-to
+        :in-reply-to:message-id:mime-version:references:reply-to:sender
+        :subject:subject:to:to; s=fm1; t=1695646671; x=1695733071; bh=GU
+        RwEQjHVcDB6mdGxNVBiDVcooHojwDOtnH43Ifl4O0=; b=E0GtQRrGZ4xYAllJad
+        I+DxPM0CKNc/UPWHvTvQihcdjR7FYSkLepOWzMuGdug/oP/H4ls008ugct6FSzYh
+        wt1OgUEMIO0si9Ep/acl8Z4udTnm1Jp7mW8Yq8TnuCE+5morI7ZxVDG8xjR33ceF
+        jhO1c32TKYnGJPDptO+cCKNcq6D2K1PXrrudu6rMnShE89vkcrq3Nb9e+/36s77m
+        bEwelchxNEG76wfYMWWplmPUJPmdwEVx82EJd52J41bwUOGwzIc0yh0kKzRlWf7A
+        jZIx+sdkC68IbCDk2pA2oaiJ+Xgo2vFVt0lzBtaR+My2OG5r7ENeC8/nqhdhHTXJ
+        3W0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-type:content-type:date:date
+        :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+        :message-id:mime-version:references:reply-to:sender:subject
+        :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+        :x-sasl-enc; s=fm2; t=1695646671; x=1695733071; bh=GURwEQjHVcDB6
+        mdGxNVBiDVcooHojwDOtnH43Ifl4O0=; b=R8tclYI2FqII62SdxIlbAvuaduWu6
+        FEr6D3l9H9B6wgDzSK7i6qAiui6UCmZG8OkUs58DsRP7UWxp55/9P//JX/8WEwDy
+        bp1QnJf0sE6nopvJN+5RT1ykH6aeddglXaZ0H5qT/LjYA6R2j8ctoF6/zeO0aLoC
+        brKtXXN/rPKd1n9lLIS/o/kRT3m7qgsjZRdzL+masZAJlI245MTPdvH8BD/5cBlw
+        QEf4cUVfC8GQCTZ0YolVzsEKDDbdDW3b0PWrB618niRRUg/QMB1kvgmkt6gxINZ0
+        Upg3ZUmV6tTpNJhaPJsg6NBwsabqu9FrlwCMW4ZvHGRK2UhkpJ/Cv8Xmw==
+X-ME-Sender: <xms:z4MRZWN1qqBPYKQl3Rf0QXXn8_rs-cymOhdgtTJA8KTQ3TgG2ku0dg>
+    <xme:z4MRZU8JRedri1jsDJ9sWWA6maVlyd1DfWiDR45cnWCpD6C_oCZV3f_pJ5pljtV62
+    63ud_Yk1nyfMJiWrEs>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudelgedgheejucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
+    nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+    htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
+    teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+    hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:z4MRZdRI9owEyhLNEsFuWNe7f56A0uhIynzQK7ZgztqUR08rABrCIw>
+    <xmx:z4MRZWvmnop5BLLXN0TbEkCoxEcrRkA3uNq4SVHh2eRv0U5UodvYHQ>
+    <xmx:z4MRZecBlDkiQRn1EJmf-Kdr6Q9Jg1gqbFrwCXrdGsxicxMuLNT3og>
+    <xmx:z4MRZfXbqtPxm8s6mmd2WYSBwH2MaP3a6tycQd6de29EbV4LcgSTow>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+        id 498C3B6008D; Mon, 25 Sep 2023 08:57:51 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-761-gece9e40c48-fm-20230913.001-gece9e40c
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: POSIX manual pages
-Content-Language: en-US
-To:     linux-man <linux-man@vger.kernel.org>, Brian.Inglis@Shaw.ca
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Eric Blake <eblake@redhat.com>,
-        Geoff Clare <gwc@opengroup.org>,
-        Andrew Josey <ajosey@opengroup.org>
-References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
- <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
- <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
- <b3f8edc2-aec4-e0e9-e5c9-785183e422ec@Shaw.ca>
- <faade241-51dd-4982-85a8-7729f860f07c@kernel.org>
- <6b7e39fe-9f78-ffd3-b19e-e85211c79b1f@Shaw.ca>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <6b7e39fe-9f78-ffd3-b19e-e85211c79b1f@Shaw.ca>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------gVUcbkCK09Duy1hx6xtf9zwW"
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+Message-Id: <44631c05-6b8a-42dc-b37e-df6776baa5d4@app.fastmail.com>
+In-Reply-To: <20230913152238.905247-3-mszeredi@redhat.com>
+References: <20230913152238.905247-1-mszeredi@redhat.com>
+ <20230913152238.905247-3-mszeredi@redhat.com>
+Date:   Mon, 25 Sep 2023 14:57:31 +0200
+From:   "Arnd Bergmann" <arnd@arndb.de>
+To:     "Miklos Szeredi" <mszeredi@redhat.com>,
+        linux-fsdevel@vger.kernel.org
+Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        "Karel Zak" <kzak@redhat.com>, "Ian Kent" <raven@themaw.net>,
+        "David Howells" <dhowells@redhat.com>,
+        "Linus Torvalds" <torvalds@linux-foundation.org>,
+        "Alexander Viro" <viro@zeniv.linux.org.uk>,
+        "Christian Brauner" <christian@brauner.io>,
+        "Amir Goldstein" <amir73il@gmail.com>
+Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
+Content-Type: text/plain
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gVUcbkCK09Duy1hx6xtf9zwW
-Content-Type: multipart/mixed; boundary="------------oHXcUYdW7SuHqVnZGMDoaLMR";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man <linux-man@vger.kernel.org>, Brian.Inglis@Shaw.ca
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Eric Blake <eblake@redhat.com>, Geoff Clare <gwc@opengroup.org>,
- Andrew Josey <ajosey@opengroup.org>
-Message-ID: <05865807-7a10-43c1-927d-7f0b82848abb@kernel.org>
-Subject: Re: POSIX manual pages
-References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
- <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
- <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
- <b3f8edc2-aec4-e0e9-e5c9-785183e422ec@Shaw.ca>
- <faade241-51dd-4982-85a8-7729f860f07c@kernel.org>
- <6b7e39fe-9f78-ffd3-b19e-e85211c79b1f@Shaw.ca>
-In-Reply-To: <6b7e39fe-9f78-ffd3-b19e-e85211c79b1f@Shaw.ca>
+On Wed, Sep 13, 2023, at 17:22, Miklos Szeredi wrote:
 
---------------oHXcUYdW7SuHqVnZGMDoaLMR
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+>  asmlinkage long sys_fstatfs64(unsigned int fd, size_t sz,
+>  				struct statfs64 __user *buf);
+> +asmlinkage long sys_statmnt(u64 mnt_id, u64 mask,
+> +			    struct statmnt __user *buf, size_t bufsize,
+> +			    unsigned int flags);
 
-Hi Brian,
+This definition is problematic on 32-bit architectures for two
+reasons:
 
-On 2023-09-15 19:17, Brian Inglis wrote:
->> This does exist: <https://git.kernel.org/pub/scm/docs/man-pages/man-pa=
-ges-posix.git/>
->> Although it would be nice to have the terms be explicitly stated in th=
-e repository.
->=20
-> Already there in POSIX-COPYRIGHT?
+- 64-bit register arguments are passed in pairs of registers
+  on two architectures, so anything passing those needs to
+  have a separate entry point for compat syscalls on 64-bit
+  architectures. I would suggest also using the same one on
+  32-bit ones, so you don't rely on the compiler splitting
+  up the long arguments into pairs.
 
-Indeed.
+- There is a limit of six argument registers for system call
+  entry points, but with two pairs and three single registers
+  you end up with seven of them.
 
+The listmnt syscall in patch 3 also has the first problem,
+but not the second.
 
->> -  Contribute directly to the POSIX source code.
->=20
-> The Austin group has their own mailing list, bug tracker, process for t=
-racking=20
-> defect reports, handling their formatting and content issues, and a som=
-etimes=20
-> prolonged timeframe for doing so.
-
-You have to go through many hoops to do that.  They could be more open in=
- that
-regard.  And it would certainly be much better if I could propose a patch=
-
-against the source code.
-
->=20
-> You can only be responsible for formatting POSIX/SUS/Open Group content=
- in a=20
-> compatible manner.
->=20
->> -  Maintain the translation script.
->>
->>     Alternatively, I'd like to make groff(1) be able to translate file=
-s written
->>     in any macro package into roff(7), but that's either hard or impos=
-sible.
->>     Branden, do you regard it as hard or as impossible?  Is the same a=
-nswer true
->>     for a groff(1)-like program written from scratch with this in mind=
-?  :)
->>
->> -  Remove the man(7) generated pages from the repo.  One should build =
-the pages
->>     with make(1), but they should not be part of any repository.
->=20
-> If there are any formatting issues, that is what you have to maintain.
-
-If there are formatting issues, they could fix them upstream.  Of course,=
- if
-upstream doesn't patch, then I'll have to do that, but I'd like to minimi=
-ze it.
-
->=20
->>     I'd like to include the POSIX source code as a git submodule, or s=
-omething
->>     similar.  Or maybe have the man-pages-posix repo be a fork of it.
->=20
-> That may be a good way to access the upstream, but the file names look =
-to me=20
-> like SCCS edit temp files, so perhaps a strictly POSIX system using onl=
-y=20
-> strictly POSIX tools, on which they can "eat their own dog food"?
->=20
-> As your upstream content appears from the sample shown by Eric and the =
-
-> conversion in posix.py to possibly be a mix of mm and mdoc macros and v=
-ariants,=20
-> it might be easier to generate POSIX pages in mandoc/groff_mdoc format,=
- if you=20
-> could live with that, and maintain those.
-
-Yes, although we'd need to generate a script for that.  But yeah, I'm com=
-pletely
-open to mdoc(7) for this.
-
->=20
-> [That is how the other main genre of (BSD) distros do man pages, and mo=
-st=20
-> systems have a mix from BSD derived packages (and those who prefer mand=
-oc to=20
-> man) e.g. dash(1), dejagnu(1), etc.]
->=20
-
-Cheers,
-Alex
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------oHXcUYdW7SuHqVnZGMDoaLMR--
-
---------------gVUcbkCK09Duy1hx6xtf9zwW
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUNkHQACgkQnowa+77/
-2zISyBAAq3B6JHUy/MTd6qxftt1jAPuwlJglNUebnWf27tv2HUIMuWk1st1a3Uti
-2IGRlXp6x4teskhSrm7xwdiM6G9ToCzNsJbuSMwN9uHJKlTBfQ0HYhNbxbBEyF+C
-vZX6F02rcedqZ9cIIRBmjYednU0ZnpDLYDvVOu531cuPSHLq67KLWRnc0+7QOuVM
-r6E66Rp9Ju9kb94qdJ9jQAxA/09OWESIQM/E8j6gHWjp+FeV14/9u0iD9xMOq/v7
-Rg/h1BLDvUjj26eTZGSohy5owkZTY3ds8LRfqAzwJZWHgqyk8BORAPJjr3ED4jtB
-v6zldToiocyc/g0KY95vphMBP4Xd5VIWmIipB5qtEx00m87+7tesyqHkv7d9fFJF
-DjrLMoD6Tz1+PI9ZQriO0ZiqFVYAUo/N5CX3YWDtIev71VC5OqWFvFfxixegxCoD
-bUzsK3M6TpNQDXb4Bka2fmezL1PuKaKc+/VAEx7dAgI0P8VEWbMkWDHyDa4fLHjc
-BDwJVZFmPt4H+lc1LSs4KMp9wL3oznTHeRJA1SqkAC6rqL/mClxnc1sG++kCsbSi
-F/jRb5ApASj8o/l52fMPsXxYFBGETzbs5Ww9Xi9jIus6wUsQCKBLY9KeKPESH+Jm
-ZurXTMLNP1JRA8bwKgT5JRTBGtEzYBYg/8uLSleMGGq521S9n/U=
-=7t25
------END PGP SIGNATURE-----
-
---------------gVUcbkCK09Duy1hx6xtf9zwW--
+      Arnd
