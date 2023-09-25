@@ -2,45 +2,45 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FEA67AE242
-	for <lists+linux-man@lfdr.de>; Tue, 26 Sep 2023 01:29:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CE9FB7AE24E
+	for <lists+linux-man@lfdr.de>; Tue, 26 Sep 2023 01:32:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229485AbjIYX3t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 Sep 2023 19:29:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54928 "EHLO
+        id S233526AbjIYXcZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 Sep 2023 19:32:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46818 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233517AbjIYX3t (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Sep 2023 19:29:49 -0400
+        with ESMTP id S230125AbjIYXcZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Sep 2023 19:32:25 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 03481116;
-        Mon, 25 Sep 2023 16:29:43 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74B96C433C8;
-        Mon, 25 Sep 2023 23:29:41 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17431101;
+        Mon, 25 Sep 2023 16:32:19 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84CBEC433C8;
+        Mon, 25 Sep 2023 23:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1695684582;
-        bh=QWki2CSqm9eYB90M3TIkABMvM25AfYZ4QVC3NVr+usc=;
+        s=k20201202; t=1695684738;
+        bh=g6tAy6hdSxc4KI8v9obT1Yl+ADKftmXOjG6GSK2ZkhE=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=EEi9Erzidy2B4EGgLNyAwUR2I2jQfsADDMRS7eGK4KM1zqCwEKj+JuwE7nSpx69kA
-         /DcFAEy6QyyBgv93ARPrctTWZMbKg/1IKJs4wmIcYj68A8FG2dQlr5VT2b7hhscS0F
-         TnyzyaZTWoq9eHpaYt0SITFgEQ77XE8Too8DA3EMHw2bzsx0F9Sef7HSEWgkRIOcn6
-         jCdNFWVzQ51B3BU4qz5O0bEE+NXixVZRpkmhG1Ysy7OY6DB6CmOaTEMjMPypbXLnWu
-         nE88aaIIPR15qDjzaHPMxMH68yXUFrAYirZo2CACzcE6D/qFH7IdZpkbljTaWU96Pe
-         hReSlUcZElf2g==
-Date:   Tue, 26 Sep 2023 01:29:39 +0200
+        b=dmXc/1pXGW2+/HEeumfywZ51IU4Hs5ACQTZujqaS/qyTSxTlsOeh8HFq8IulI9qqu
+         1uX2Fb+M5C9jdIceHxJ1lmQxiJY1GZm8asgiujFw5MmKrRdh/QqKflnkizvac1oZAB
+         57w1VbzOAW4CAdDxdRUSaAZ1MUUHO5yPdcSK6Pn0pNnC+iWKqOsC7AOJ0o67I2FRR7
+         sdLEBHKlWv1K4WaxL5E4yVIntF7vVbXJMupEw8UY/QrIXCEeSO57MNDIjKjWtiWMh9
+         i66AoBMSH7j1uMEHB8iVA7n5QrRXc1LJyz/LJhnIATMmUI/mgPf4X9RUbC+8AQotBg
+         SRix/cACrcuKw==
+Date:   Tue, 26 Sep 2023 01:32:15 +0200
 From:   Alejandro Colomar <alx@kernel.org>
 To:     Axel Rasmussen <axelrasmussen@google.com>
 Cc:     Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
         linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/10] userfaultfd.2: reword to account for new fault
- resolution ioctls
-Message-ID: <pzeysxf4x5c52rs4i74mvhpc7whuih3sbz3wdv75ll3mih5uur@it6qhwo6idje>
+Subject: Re: [PATCH 03/10] userfaultfd.2: comment on feature detection in the
+ example program
+Message-ID: <fgavhpky2ba3tfv6abkln7kzzayfxl5mnu5vzzzop5ct5mtmdl@dbdf2w4d4fva>
 References: <20230919190206.388896-1-axelrasmussen@google.com>
- <20230919190206.388896-3-axelrasmussen@google.com>
+ <20230919190206.388896-4-axelrasmussen@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="d2rl2hxcti2s7kgj"
+        protocol="application/pgp-signature"; boundary="7eflzcifipfkwrsh"
 Content-Disposition: inline
-In-Reply-To: <20230919190206.388896-3-axelrasmussen@google.com>
+In-Reply-To: <20230919190206.388896-4-axelrasmussen@google.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -52,21 +52,30 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---d2rl2hxcti2s7kgj
+--7eflzcifipfkwrsh
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 02/10] userfaultfd.2: reword to account for new fault
- resolution ioctls
+Subject: Re: [PATCH 03/10] userfaultfd.2: comment on feature detection in the
+ example program
 MIME-Version: 1.0
 
 Hi Axel,
 
-On Tue, Sep 19, 2023 at 12:01:58PM -0700, Axel Rasmussen wrote:
-> Basically, reword the sentence to clarify that this isn't a complete
-> list. I don't believe it's worth maintaining a fully complete list here,
-> instead ioctl_userfaultfd.2 is the place to do that. Let this just be an
-> example.
+On Tue, Sep 19, 2023 at 12:01:59PM -0700, Axel Rasmussen wrote:
+> The example program doesn't depend on any extra features, so it does not
+> make use of the two-step feature handshake process. This is fine, but it
+> might set a bad example for programs which *do* depend on specific
+> features (e.g. they may conclude they don't need to do anything to
+> enable / detect them).
+>=20
+> No need to make the example program more complicated: let's just add a
+> comment indicating why we do it the way we do it in the example, and
+> describing briefly what a more complicated program would need to do
+> instead.
+>=20
+> The comment is kept rather brief; a full description of this feature
+> will be included in ioctl_userfaultfd.2 instead.
 >=20
 > Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
 
@@ -76,50 +85,49 @@ Thanks,
 Alex
 
 > ---
->  man2/userfaultfd.2 | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  man2/userfaultfd.2 | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >=20
 > diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index 1b2af22f9..00d94e514 100644
+> index 00d94e514..b2b79f61d 100644
 > --- a/man2/userfaultfd.2
 > +++ b/man2/userfaultfd.2
-> @@ -222,11 +222,12 @@ operation,
->  a page fault occurring in the requested memory range, and satisfying
->  the mode defined at the registration time, will be forwarded by the kern=
-el to
->  the user-space application.
-> -The application can then use the
-> +The application can then use various (e.g.
->  .B UFFDIO_COPY ,
->  .B UFFDIO_ZEROPAGE ,
->  or
->  .B UFFDIO_CONTINUE
-> +)
->  .BR ioctl (2)
->  operations to resolve the page fault.
->  .PP
+> @@ -881,6 +881,13 @@ main(int argc, char *argv[])
+>      if (uffd =3D=3D \-1)
+>          err(EXIT_FAILURE, "userfaultfd");
+>  \&
+> +    /* NOTE: Two-step feature handshake is not needed here, since this
+> +       example doesn't require any specific features.
+> +
+> +       Programs that *do* should call UFFDIO_API twice: once with
+> +       `features =3D 0` to detect features supported by this kernel, and
+> +       again with the subset of features the program actually wants to
+> +       enable. */
+>      uffdio_api.api =3D UFFD_API;
+>      uffdio_api.features =3D 0;
+>      if (ioctl(uffd, UFFDIO_API, &uffdio_api) =3D=3D \-1)
 > --=20
 > 2.42.0.459.ge4e396fd5e-goog
 >=20
 
---d2rl2hxcti2s7kgj
+--7eflzcifipfkwrsh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUSF+IACgkQnowa+77/
-2zKRUhAAkG+iUG7FNAHqtgzPXEpK39yHzOqX7vFZVGHHXepGD3FJIDOki0IhuQA+
-K80kJl+cU8mAOcKOuzubCt+HsHc+HF9L+4Gxq4DXlo88IQUO6EuBweqJm0syZrkE
-qumOazDIDxsdNQEopIz+UBTk7szDub3vXZlge/XobHfO+EFPRfHvGSICXbKZHADT
-LuyFLeczMbJZrNrYwxr1pBJn8pQK6/hHlEGtjSVyUfXMojxKZH7blZHux4bNheJt
-Y4SEu39b6EK0//HNkKNYQEPdtbQ70XIRFQckufExii7yYHxa92U8T73xNIDvhuNE
-sHVsd0DXJn/AZaa4hLRwgxt+zXpAmOYo5TKainkHOGnnGY2z8DSdvWT9EktUTJXB
-dpsO+2EVKfAKbnTyXMPq8AM1dB4vcuKCHaRPgGLjNSFYHdVIT9hB4XszCF4TdE0F
-HuoIKHCX2PuFfZpgGs+Mbs0+tvYkyogxleJnP9LIU9fHNuxsn31BZN0mcqsVh4hm
-oYkH8Rsdk20CdR/2NdWVLR1J5CMJkja6IwuKc4ADTznEbK5x9SbeoCBk5c8ooFNK
-WjVsiFguSZ00s/dF/mzGO3ca1sfeskQyO5r7ieZqS4BOglH6a+333sYz0yHY6U10
-dLMOftxqT6aCTipY95ookUEzHo3t4fHCiSiIEe7H6UHevo8P/p8=
-=3ZoL
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUSGH8ACgkQnowa+77/
+2zJTTxAAlq3w3g9XKdtWdAY0IFZ8OLHqDNS4ORRDwwc6CYY0LLe7lTDsHVO0jDTl
+Bl4F7WF+OcvPNu9gVwI9Ry8q3uZlOkr6WVi/2wvYV0j6FOmcYf1F4s9mRADGaadZ
+qvjuQbXsXfV6es4zi1j7HpoJ4mh2UwWyYvzm4HHaiGFCeErkj7JOUPCiIY0YjtCu
+HZtSMtKEzq8bhawccBa1yKABrKteu/zykDuo620dybqiDivfrvpLwjRJMJ+uZXXQ
+wis+GPLry0B6ZmfhzIptVQVsm/03bNZU0YrCyGU9VoX/u6W0PqQHRmuedX61F0XI
+8BmVBRpEL7F1tdGe6nCUpWmVVHTSAcb24L2hQ6n3eGOWPDNL3wAXbsIy+Vxfa5nY
+DEkIttpfc4sdfU7UEJ3y/hWkZX/ZKm+CI7opeqkyiw4Qg+sZQGjgudeZ0mSccert
+xgpsLgPT02ZCEqoEFjAK4z50PSrhVxycja1nbMd5ycUzS7Uy72+izckT16YsFf5b
+kgvxXo4BEwps4Sfc2yhXejuVwixzvuoBfTR+GXaiLSfyj3ai/No7wtQZPt2myXT2
+A7xnYpqfR9ilNaug3ZiXY+e28SAcKWCRM8OpEqIy14RKEzkMhf22zzfE6rBOkQ9g
+u0wgcrNXyq4RBjKa3tQxnYeB2/3nNgAK8AT2jgKwZZ9XrFfYCCI=
+=hPpM
 -----END PGP SIGNATURE-----
 
---d2rl2hxcti2s7kgj--
+--7eflzcifipfkwrsh--
