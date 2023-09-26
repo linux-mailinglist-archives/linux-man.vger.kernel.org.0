@@ -2,45 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A8B277AE2AD
-	for <lists+linux-man@lfdr.de>; Tue, 26 Sep 2023 01:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 437E77AE2C5
+	for <lists+linux-man@lfdr.de>; Tue, 26 Sep 2023 02:05:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229726AbjIYX4R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 Sep 2023 19:56:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45614 "EHLO
+        id S229737AbjIZAF2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 Sep 2023 20:05:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41916 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229460AbjIYX4R (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Sep 2023 19:56:17 -0400
+        with ESMTP id S229460AbjIZAF1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Sep 2023 20:05:27 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF05C10A;
-        Mon, 25 Sep 2023 16:56:10 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCCFC433C8;
-        Mon, 25 Sep 2023 23:56:08 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 40BB4116
+        for <linux-man@vger.kernel.org>; Mon, 25 Sep 2023 17:05:20 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73C93C433C7;
+        Tue, 26 Sep 2023 00:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1695686170;
-        bh=BMrAGXuGExETbvl5OiPJxS7FFi7b70fqhN0uHMUVHQg=;
+        s=k20201202; t=1695686719;
+        bh=tP79TnLZnGuc9lTgbpdXJADlXhrmf8utvSoRprVMcBM=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=lFJAIlatXeyOUDs74QXRdl2atE/vvik57PP8PsLPzOPzYJIHXS5PUkApsT9KW+SAh
-         wj7wy/yd8YtQh2GK39lImhNCGiQ/eLstIImoKBLHE7RkWNcjhwhK80pXtnjc0loFtB
-         D6JbzCOyLvnmKJwkmM0ld75rz9qJiMkJ51o4KQfNmuYZ6sn4LKf7KX8ri2Jfm2ZFcG
-         xj+691RvxkWxKF89n+bbEogBf2JTBElhAy6TLaWyp6/IhDubLMirWgnLtjf37UeM/+
-         zLlOTYxjVjc/trSXzY9KXs/veAdh8btFXZRNwjvJMpO8ChX6FLwCz3dKF/gMBVUT7Z
-         nImkyVzEws5/w==
-Date:   Tue, 26 Sep 2023 01:56:06 +0200
+        b=F7yRBeyYjXB/hvaGGEFCvuyyjfnXKwU4TAKXNUpDj1pVu1j6uKbU1R7YJ44NH8Drt
+         qxoY7PqlJEP8P6LN2ibD/XdqDry97MqeATGO3JH5PnySG3Sl/uqGJC/EBewIr4UloT
+         UPQrs1pLnPlLIHlvvCTd+a0cISwdPuFxI4+OnGHQIX/ibExXchpIJUOxTNwnTA2hQ4
+         rlV+1Ww/aHZKesvvZDahqFIOs6UevE9goJy7wVYPhDPSNMZ0m3G7iRXp+9itHQZMpl
+         ZJCyjQ+u/tdDUMcMYw5MkDawwSlHvElrhxzLGl2oHP4nveB4NhNUOG2PkZ3m313l8a
+         1avZql5s3zHTw==
+Date:   Tue, 26 Sep 2023 02:05:16 +0200
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Axel Rasmussen <axelrasmussen@google.com>
-Cc:     Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/10] ioctl_userfaultfd.2: clarify the state of the
- uffdio_api structure on error
-Message-ID: <s4p5qch6llhedcr736vityb6ttvajk5xip7ebdijgw6zt4jbkk@nt2qh2ixmi3e>
-References: <20230919190206.388896-1-axelrasmussen@google.com>
- <20230919190206.388896-9-axelrasmussen@google.com>
+To:     enh <enh@google.com>
+Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Rob Landley <rob@landley.net>
+Subject: Re: [PATCH] fseek.3: incorporate fseeko()/ftello().
+Message-ID: <lpxo26pxl32te6ljhxixhde74ta7jjv5ytw53grhevejdjnyn3@j5zizuxq3l5j>
+References: <CAJgzZoqxNGmDMbp8Dh0n5TQwDu-8POf8=9fyaaRUwLVRw2skZg@mail.gmail.com>
+ <20230223213758.pixv4m6uf4gzhxxo@jwilk.net>
+ <CAJgzZordjqNX4LHq9K9uatcWOoXO0whbHhuOeKgawtzvQ_OE+A@mail.gmail.com>
+ <CAJgzZoqTNiEadyD5uAY17FAwPeMwGzqKVqPaaLy-pTz0tzu=qQ@mail.gmail.com>
+ <CAJgzZood-DOXNw46anDp1wSGO8GzdgJM0gAq2dgG2cAyvXQGEA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="sywgjbkq4kcpxg35"
+        protocol="application/pgp-signature"; boundary="rgent7pmyvpkcfts"
 Content-Disposition: inline
-In-Reply-To: <20230919190206.388896-9-axelrasmussen@google.com>
+In-Reply-To: <CAJgzZood-DOXNw46anDp1wSGO8GzdgJM0gAq2dgG2cAyvXQGEA@mail.gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -52,104 +56,98 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---sywgjbkq4kcpxg35
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--rgent7pmyvpkcfts
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 08/10] ioctl_userfaultfd.2: clarify the state of the
- uffdio_api structure on error
+Subject: Re: [PATCH] fseek.3: incorporate fseeko()/ftello().
 MIME-Version: 1.0
 
-Hi Axel,
+Hi Elliott,
 
-On Tue, Sep 19, 2023 at 12:02:04PM -0700, Axel Rasmussen wrote:
-> The old FIXME noted that the zeroing was done to differentiate the two
-> EINVAL cases. It's possible something like this was true historically,
-> but in current Linux we zero it in *both* EINVAL cases, so this is at
-> least no longer true.
->=20
-> After reading the code, I can't determine any clear reason why we zero
-> it in some cases but not in others. So, some simple advice we can give
-> userspace is: if an error occurs, treat the contents of the structure as
-> unspecified. Just re-initialize it before retrying UFFDIO_API again.
->=20
-> Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
+On Tue, Sep 19, 2023 at 01:49:33PM -0700, enh wrote:
+> On Fri, Feb 24, 2023 at 10:06=E2=80=AFAM enh <enh@google.com> wrote:
+> >
+> > (sending again as plain text.)
+> >
+> >
+> > On Fri, Feb 24, 2023 at 10:02 AM enh <enh@google.com> wrote:
+> > >
+> > >
+> > >
+> > > On Thu, Feb 23, 2023 at 1:38 PM Jakub Wilk <jwilk@jwilk.net> wrote:
+> > >>
+> > >> * enh <enh@google.com>, 2023-02-22 12:42:
+> > >> > The
+> > >> >+.BR fseeko ()
+> > >> >+end
+> > >>
+> > >> s/end/and/
+> > >
+> > >
+> > > ack. will fix.
+> > >
+> > >>
+> > >> >+.BR ftello ()
+> > >> >+functions are similar, except that the
+> > >>
+> > >> "similar, except..." sounds awkward to me. (And it's not the wording
+> > >> fseeko.3 used.)
+> > >
+> > >
+> > > sounds right to me, and seems widely used in existing pages though? s=
+trncmp(), for example. ("same, except" is also used in existing pages, but =
+seems less common.)
+> > >
+> > > but at a higher level (the "not the wording fseeko.3" used) i vacilla=
+ted there between "just copy" and "try to improve" because i have two probl=
+ems i'm trying to solve:
+> > >
+> > > 1. someone (rob) who knows the c library about as well as anyone i kn=
+ow who _isn't_ a c library maintainer themselves wasn't aware of fseeko()/f=
+tello(), and the existing fseek() page misled them into thinking that fsetp=
+os()/fgetpos() was their only option.
+> > >
+> > > 2. in 2023 where most people assume sizeof(long)*8 =3D=3D 64, a lot o=
+f people don't understand why fseek()/ftell() isn't "good enough". my initi=
+al version of the patch talked more about ILP32 systems and LLP64 systems (=
+aka "Windows") where "long" isn't equivalent to "int64_t". (but the need to=
+ talk about _FILE_OFFSET_BITS too made the whole section a bit unwieldy.)
+> > >
+> > > any version of this patch fixes #1.
+> > >
+> > > fixing #2 well is the trickier part, and i'm curious if there are any=
+ other opinions there before i send out a new version of the patch?
+> > >
+> > >>
+> > >> --
+> > >> Jakub Wilk
 
-I can't apply this patch due to conflicts (due to not having applied two
-of the previous ones).  Please resend all remaining patches in following
-revisions of the patch set.
-
-The applied ones are here:
-
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=3Dcontr=
-ib>
-
-It's kind of like Linux's 'next' branch.
+This patch didn't apply.  The reason are some formatting fixes recently
+applied to that page (and many others) a couple of months ago.  Please
+rebase to master.
 
 Cheers,
 Alex
 
-> ---
->  man2/ioctl_userfaultfd.2 | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->=20
-> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-> index 1aa9654be..29dca1f6b 100644
-> --- a/man2/ioctl_userfaultfd.2
-> +++ b/man2/ioctl_userfaultfd.2
-> @@ -272,6 +272,14 @@ operation returns 0 on success.
->  On error, \-1 is returned and
->  .I errno
->  is set to indicate the error.
-> +If an error occurs,
-> +the kernel may zero the provided
-> +.I uffdio_api
-> +structure.
-> +The caller should treat its contents as unspecified,
-> +and reinitialize it before re-attempting another
-> +.B UFFDIO_API
-> +call.
->  Possible errors include:
->  .TP
->  .B EFAULT
-> @@ -305,14 +313,6 @@ twice,
->  the first time with no features set,
->  is explicitly allowed
->  as per the two-step feature detection handshake.
-> -.\" FIXME In the above error case, the returned 'uffdio_api' structure is
-> -.\" zeroed out. Why is this done? This should be explained in the manual=
- page.
-> -.\"
-> -.\" Mike Rapoport:
-> -.\"     In my understanding the uffdio_api
-> -.\"     structure is zeroed to allow the caller
-> -.\"     to distinguish the reasons for -EINVAL.
-> -.\"
->  .SS UFFDIO_REGISTER
->  (Since Linux 4.3.)
->  Register a memory address range with the userfaultfd object.
-> --=20
-> 2.42.0.459.ge4e396fd5e-goog
->=20
-
---sywgjbkq4kcpxg35
+--rgent7pmyvpkcfts
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUSHhYACgkQnowa+77/
-2zKnPw//YWI1d9zlIUx+sIQ+etTFDCgb9G1nFfGeE4qSWGNBDOFlK6D7cKCKBS9P
-mihPubSpiM1xaW281n2kDjxOolWeVwXTJFudUgeSoDPSp9895Pr3FImawj3EbnOp
-rnvn8jmihpy8MhgXMo9onszAC7fvY2vrzeb8e1ftDc6Y0We66Nhl2GtHHpzqtiuv
-G2SoAD7d1ZtK15iU/vYwaSGe/0NZ7HP19ROw2mx/WUDEu0HnzKaN0mgDP1XiMz8w
-Jk6Pxip6e10FeKRzawKps4znFFZP3SfoS6we7whdRkC/fXVTod7eTWMkmwdY+bN2
-PnOQAxKQg7OT6FPcOcH0AgP8Dxgd+9OLiFwbsmYpkdKW4jy3FSq+I0dsCnX+luXd
-ILfApGDtwhhVwFniVq/KsRFkCnlFF/vU70WqUtF5ufpBfOgjcPsSK0PRdNYFojym
-vX+AZf5Gjc7nHysBGTkK3JRQNRTSYkvQY+ZjsWyMs5ATdgxbq5g/QkkS5iOL7ML3
-Vv2AVbFCmcDX1Arx96nxntaaWI0nDixcRWd8QTgtbYdv5r0Bl4nevr+aRmCgGLST
-+XbKSLF4oT+eHAlOwUFNeUWZmhv97zTK3K5PIX6mk4vx8ETdvKQz8tn4d+vvKxJj
-6qy3FiJc6w79ZIx5/zsx4jHMd9joKg39cgLxMhUVR5G6A8Canow=
-=Pua0
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUSIDsACgkQnowa+77/
+2zJZwQ/+Mi/8ek7u2IBmjzaeESnu7cf2CCIeZ5vs3doj7URG0Q4LsLNoKQwN10bl
+I2uUkYC9/8Bbtc+JedvOcdk8FGgTMwfeyfNul66ff2PMwgJmNAdc6rFbHBnVkSLw
+GN3ENrsnIjPaQlXgN1ip7zHhWQI+t28KJFKnBPBRsbWROGI01lqB36V7yxk3ig1R
+TGf1+Ua4DENeTrJvTbMGllFKERLur3sMxvPo4OhFJ8jfAUNxkFDwngJsBF1brF7R
+QfK/x4tguZBsGATgkrDUKT9s9OWM9snRxJPBkiEyYKQUft5VHBAUgvDxOZr1G4dB
+Js8DJbD2l8vZwQCYDKh1GY25FSh6aXuYTasklY3gX5cx3MyQNOwYfXWBJUcMbH24
+G8t8vkF1LRFqNJmKlqs0w7fHAJWSrumR9rREPGGdA3pjrrv6GG3dumhlycpblnqM
+du1XjiMYANzTiYrKVw00/rkH02Nimeg04/WpDCpRvn3Dyc+ccHdWb0o8D7mboH0b
+MFql7+RddMhdKT0yXDzUyAGQw/ejjsQKIx6h6VqcpTcqdn8aBKU0QhkBnpd3EfiG
+Ny/n/w8FwUPRz0n9PbglXi9VKT/IhXUlMTCGYpYWwsDDJHdntKsezbT5ouwrUvxS
+ReKLrGEqpqJUJqzHuJijc2+Ty3fYoQC99yzaxdjoqyDCgte9HWw=
+=jp4e
 -----END PGP SIGNATURE-----
 
---sywgjbkq4kcpxg35--
+--rgent7pmyvpkcfts--
