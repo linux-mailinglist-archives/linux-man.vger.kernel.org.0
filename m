@@ -2,61 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E6CF7AFDE7
-	for <lists+linux-man@lfdr.de>; Wed, 27 Sep 2023 10:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D09827AFEE3
+	for <lists+linux-man@lfdr.de>; Wed, 27 Sep 2023 10:47:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230401AbjI0INK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 27 Sep 2023 04:13:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38612 "EHLO
+        id S230286AbjI0IrT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 27 Sep 2023 04:47:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40650 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230420AbjI0IME (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Sep 2023 04:12:04 -0400
-Received: from mail.commercesolutions.pl (unknown [162.19.155.126])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3DFA31A6
-        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 01:11:27 -0700 (PDT)
-Received: by mail.commercesolutions.pl (Postfix, from userid 1002)
-        id 1506223B95; Wed, 27 Sep 2023 08:11:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=commercesolutions.pl;
-        s=mail; t=1695802261;
-        bh=PcMncQpBfIZCnTOfZJY5G1G+gaLn4c9QPfFvoXrE4rA=;
-        h=Date:From:To:Subject:From;
-        b=Ou+Gatruw8P6ymNYvIQCfD7AKihIEIHDWoCezIzNLmNfndzEjqpgvVSwXwls59lwD
-         +mze3tRyvzgbeQ7D8hSnUvoXVX0J5FzyXwSswpVPFwM9AicQOlC9oO6NWT9qffkrPj
-         WoZf1r1tOf8jYnQVT0cwSs48je0yJV2TEMapO06R6/8VHDyxwter+URL19Ca+oqehO
-         5jwCxwlGnsJqpPsExkQ/tOdmeWEKBzShk58cHxFq3mizNd+DGDf/QvlmGx2muJ//OZ
-         Kp+XB+SoYOC2wh/EEa83wKn2XK2/jACbVogfsQAEXPQ48fTq/qLw85gf/OAq04hmJm
-         WHO3nlAGiM5vQ==
-Received: by mail.commercesolutions.pl for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 08:11:00 GMT
-Message-ID: <20230927064500-0.1.8x.1pwtt.0.1efjhay1ke@commercesolutions.pl>
-Date:   Wed, 27 Sep 2023 08:11:00 GMT
-From:   "Kamil Tralewski" <kamil.tralewski@commercesolutions.pl>
-To:     <linux-man@vger.kernel.org>
-Subject: =?UTF-8?Q?S=C5=82owa_kluczowe_do_wypozycjonowania?=
-X-Mailer: mail.commercesolutions.pl
+        with ESMTP id S230300AbjI0IrQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Sep 2023 04:47:16 -0400
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C855CC
+        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 01:47:12 -0700 (PDT)
+Received: by mail-ej1-x62e.google.com with SMTP id a640c23a62f3a-9ae75ece209so1163866166b.3
+        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 01:47:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1695804430; x=1696409230; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q7R44+izV15PlpetL04YRf6tEqOd3u3v63DX/FqhKvw=;
+        b=BSixiHM40Hz7zXgVBsquclElSHBWJPjKLKm4PSVZlZUu56huUr+ubBK32UzVHMflA4
+         fc6RvqojFeDS2hQvqi9tOEfyiDDM5r7HbjJrDYkcudBPVRZAoJ6V6ZmYNExtkRcUqtIP
+         qX8ugJMer4WEzg8E9W2U2A7dT+we3Z20U3wAU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695804430; x=1696409230;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Q7R44+izV15PlpetL04YRf6tEqOd3u3v63DX/FqhKvw=;
+        b=XYrlPeiBflMX/y5goVbMWBGdpVzHP5NaUMysBzR2MxjrG4m8ZJc/EVvFYOKXmiz+SA
+         kScTwlOTzel/frXRjO5t7VjvcCOC0PjwXaYL2OSOvg+ufWH+gamMqUWLKl34ADRjFAg8
+         TwMah1ejYY0VvxXuv1EVRiFWqJtVcucXJ3A0zpSH9Z2Rc4apsERSyFiw6T9TksSIZrBl
+         mLyCQp0PRL9miY/iuOzMvcQIfTUgTzVGLI7ObUCEaIFvr8kLKQrJcQTHBGMny6Letths
+         N7KvkSqNnO8Hmxq3INkf+80ZckdJD9/5lR5DJNeOUC7eAtUnL4Oc+mr/tZgQQ+w2zonf
+         wGUQ==
+X-Gm-Message-State: AOJu0Yx22MAIIGCOX+nZ8SNwzz4vlNBAuQowyJriRlNnPfPcU6xntZyp
+        QEnzSoAg+Z58da0wvs/Mn3DqWh9QNxETfW4sSvQDGg==
+X-Google-Smtp-Source: AGHT+IHakFZR3B3G8zMwyXaAUpbmlxEnten3LWsWQmOVVXf706DBV8ir31XKJVFq7fysuifFgh/a2olHdT2hG4uPu94=
+X-Received: by 2002:a17:907:7e91:b0:9a6:426f:7dfd with SMTP id
+ qb17-20020a1709077e9100b009a6426f7dfdmr1366881ejc.66.1695804430509; Wed, 27
+ Sep 2023 01:47:10 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-3-mszeredi@redhat.com>
+ <44631c05-6b8a-42dc-b37e-df6776baa5d4@app.fastmail.com> <20230925-total-debatten-2a1f839fde5a@brauner>
+ <CAJfpegvUCoKebYS=_3eZtCH49nObotuWc=_khFcHshKjRG8h6Q@mail.gmail.com>
+ <20230925-wahlrecht-zuber-3cdc5a83d345@brauner> <CAJfpegvAVJUhgKZH2Dqo1s1xyT3nSopUg6J+8pEFYOnFDssH8g@mail.gmail.com>
+In-Reply-To: <CAJfpegvAVJUhgKZH2Dqo1s1xyT3nSopUg6J+8pEFYOnFDssH8g@mail.gmail.com>
+From:   Miklos Szeredi <miklos@szeredi.hu>
+Date:   Wed, 27 Sep 2023 10:46:58 +0200
+Message-ID: <CAJfpegu3BKXE+b51cj3=QwAsxe3QyKOEG_10muEsAsGD=_vkAA@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
+To:     Christian Brauner <brauner@kernel.org>
+Cc:     Arnd Bergmann <arnd@arndb.de>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-        DKIM_SIGNED,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=no
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dzie=C5=84 dobry,
+On Mon, 25 Sept 2023 at 15:20, Miklos Szeredi <miklos@szeredi.hu> wrote:
+>
+> On Mon, 25 Sept 2023 at 15:19, Christian Brauner <brauner@kernel.org> wrote:
+> >
+> > > How about passing u64 *?
+> >
+> > struct statmnt_req {
+> >         __u64 mnt_id;
+> >         __u64 mask;
+> > };
+> >
+> > ?
+>
+> I'm fine with that as well.
 
-zapozna=C5=82em si=C4=99 z Pa=C5=84stwa ofert=C4=85 i z przyjemno=C5=9Bci=
-=C4=85 przyznaj=C4=99, =C5=BCe przyci=C4=85ga uwag=C4=99 i zach=C4=99ca d=
-o dalszych rozm=C3=B3w.=20
+So after a bit more thinking: this is okay to make life easier for
+32bit archs, but only on the kernel ABI.
 
-Pomy=C5=9Bla=C5=82em, =C5=BCe mo=C5=BCe m=C3=B3g=C5=82bym mie=C4=87 sw=C3=
-=B3j wk=C5=82ad w Pa=C5=84stwa rozw=C3=B3j i pom=C3=B3c dotrze=C4=87 z t=C4=
-=85 ofert=C4=85 do wi=C4=99kszego grona odbiorc=C3=B3w. Pozycjonuj=C4=99 =
-strony www, dzi=C4=99ki czemu generuj=C4=85 =C5=9Bwietny ruch w sieci.
+On the library API the args should *not* be multiplexed, as it's just
+a pointless complication.  This is just an internal implementation
+detail for the sake of legacy architectures, instead of being good API
+design.
 
-Mo=C5=BCemy porozmawia=C4=87 w najbli=C5=BCszym czasie?
+And because it's an internal thingy, my feeling is that this struct
+could be reused for passing mnt_id to listmount(2) as well, despite
+the fact that the mask would be unused.   But I'm ready to be
+convinced otherwise...
 
-Pozdrawiam
-Kamil Tralewski
+Thanks,
+Miklos
