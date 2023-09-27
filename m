@@ -2,105 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D09827AFEE3
-	for <lists+linux-man@lfdr.de>; Wed, 27 Sep 2023 10:47:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 646497B02CF
+	for <lists+linux-man@lfdr.de>; Wed, 27 Sep 2023 13:26:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230286AbjI0IrT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 27 Sep 2023 04:47:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40650 "EHLO
+        id S231528AbjI0L0E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 27 Sep 2023 07:26:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230300AbjI0IrQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Sep 2023 04:47:16 -0400
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C855CC
-        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 01:47:12 -0700 (PDT)
-Received: by mail-ej1-x62e.google.com with SMTP id a640c23a62f3a-9ae75ece209so1163866166b.3
-        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 01:47:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1695804430; x=1696409230; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q7R44+izV15PlpetL04YRf6tEqOd3u3v63DX/FqhKvw=;
-        b=BSixiHM40Hz7zXgVBsquclElSHBWJPjKLKm4PSVZlZUu56huUr+ubBK32UzVHMflA4
-         fc6RvqojFeDS2hQvqi9tOEfyiDDM5r7HbjJrDYkcudBPVRZAoJ6V6ZmYNExtkRcUqtIP
-         qX8ugJMer4WEzg8E9W2U2A7dT+we3Z20U3wAU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695804430; x=1696409230;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Q7R44+izV15PlpetL04YRf6tEqOd3u3v63DX/FqhKvw=;
-        b=XYrlPeiBflMX/y5goVbMWBGdpVzHP5NaUMysBzR2MxjrG4m8ZJc/EVvFYOKXmiz+SA
-         kScTwlOTzel/frXRjO5t7VjvcCOC0PjwXaYL2OSOvg+ufWH+gamMqUWLKl34ADRjFAg8
-         TwMah1ejYY0VvxXuv1EVRiFWqJtVcucXJ3A0zpSH9Z2Rc4apsERSyFiw6T9TksSIZrBl
-         mLyCQp0PRL9miY/iuOzMvcQIfTUgTzVGLI7ObUCEaIFvr8kLKQrJcQTHBGMny6Letths
-         N7KvkSqNnO8Hmxq3INkf+80ZckdJD9/5lR5DJNeOUC7eAtUnL4Oc+mr/tZgQQ+w2zonf
-         wGUQ==
-X-Gm-Message-State: AOJu0Yx22MAIIGCOX+nZ8SNwzz4vlNBAuQowyJriRlNnPfPcU6xntZyp
-        QEnzSoAg+Z58da0wvs/Mn3DqWh9QNxETfW4sSvQDGg==
-X-Google-Smtp-Source: AGHT+IHakFZR3B3G8zMwyXaAUpbmlxEnten3LWsWQmOVVXf706DBV8ir31XKJVFq7fysuifFgh/a2olHdT2hG4uPu94=
-X-Received: by 2002:a17:907:7e91:b0:9a6:426f:7dfd with SMTP id
- qb17-20020a1709077e9100b009a6426f7dfdmr1366881ejc.66.1695804430509; Wed, 27
- Sep 2023 01:47:10 -0700 (PDT)
+        with ESMTP id S231485AbjI0LZv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Sep 2023 07:25:51 -0400
+X-Greylist: delayed 394 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 27 Sep 2023 04:25:46 PDT
+Received: from mail.aegee.org (mail.aegee.org [144.76.142.78])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42F701BF
+        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 04:25:45 -0700 (PDT)
+Received: from webmail.aegee.org (localhost [127.0.0.1])
+        by mail.aegee.org (8.17.2/8.17.2) with ESMTP id 38RBJBfv1209551
+        for <linux-man@vger.kernel.org>; Wed, 27 Sep 2023 11:19:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aegee.org; s=k4096;
+        t=1695813551; i=dkim+sm-localhost@aegee.org;
+        bh=TlDPtvkmsDVWMe+ACFM0C+9jZDCvLN6Ee1F9D19tKk0=;
+        h=Date:From:To:Subject;
+        b=Wh17ZFa+IZbxwx0mwkoxoD+JwmRHMXX+NynNsZ+mUlUcic/B48LV/ZOobYHd3SguE
+         3MZvSMBDzKgvUOI1CYE/Aldv7JIa/266UlcjwQrAPghqnLEYPu0Dwfto+UDl8zyBO0
+         +2oRWlCtINFEbVL+EVehrx4s++oWlDULY7PK76Rtu85XZWResTqMH0MH4rsb8oiKRp
+         NFk9ci+gGBbwLTMk8ufqlAJH9Sl62R8qoMuxoOn58BGEDTVMLPMEG/fSWGZAFgIQTD
+         JinT0oS62yyAoep8lr4/ciVGp95Viicsth8zkAOU8yH0ThFvPljNxc/sqF/3YQmsOy
+         ny6MDysVADBlDcwWQ8sbbnhHYszapuFz6lGkaGFPnG5H6hVVM2dmDbe7JhJrzDlCWk
+         cuA7XOPEgc65D2pdGmHND2PbikRwYKRyTjnOU7EHUcFnHluVghkODTf2UWJLKwZse4
+         T5jUaWKoWnVzRNFi15+EkyUyq4Zjsh97Tsa8vW7dmR9oOyPmKmxT+9iIcPsroEAoAA
+         zDVU8DX+Be1nbcu4twMW0O8EZrkwMYWs7sPaqyYLfoLqflh+ndInhHGH8VCI7jE0XY
+         aerwUnvN9zCLGhkmpAzdX8vquCAY2NGGATkSAtWaRJ1HaXkuCYkpVdj8wUYasw89fm
+         ufqQz1Pt5F9aZr27C78rRScA=
+Authentication-Results: mail.aegee.org/38RBJBfv1209551; dkim=none
 MIME-Version: 1.0
-References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-3-mszeredi@redhat.com>
- <44631c05-6b8a-42dc-b37e-df6776baa5d4@app.fastmail.com> <20230925-total-debatten-2a1f839fde5a@brauner>
- <CAJfpegvUCoKebYS=_3eZtCH49nObotuWc=_khFcHshKjRG8h6Q@mail.gmail.com>
- <20230925-wahlrecht-zuber-3cdc5a83d345@brauner> <CAJfpegvAVJUhgKZH2Dqo1s1xyT3nSopUg6J+8pEFYOnFDssH8g@mail.gmail.com>
-In-Reply-To: <CAJfpegvAVJUhgKZH2Dqo1s1xyT3nSopUg6J+8pEFYOnFDssH8g@mail.gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Wed, 27 Sep 2023 10:46:58 +0200
-Message-ID: <CAJfpegu3BKXE+b51cj3=QwAsxe3QyKOEG_10muEsAsGD=_vkAA@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/3] add statmnt(2) syscall
-To:     Christian Brauner <brauner@kernel.org>
-Cc:     Arnd Bergmann <arnd@arndb.de>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-        Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Date:   Wed, 27 Sep 2023 13:19:11 +0200
+From:   =?UTF-8?Q?=D0=94=D0=B8=D0=BB=D1=8F=D0=BD_=D0=9F=D0=B0=D0=BB=D0=B0?=
+         =?UTF-8?Q?=D1=83=D0=B7=D0=BE=D0=B2?= <dilyan.palauzov@aegee.org>
+To:     linux-man@vger.kernel.org
+Subject: No NOTES section in snprintf(3)
+Message-ID: <4407b14d09ba3237517b18f2c0fa8ce1@aegee.org>
+X-Sender: dilyan.palauzov@aegee.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_40,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_NONE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 25 Sept 2023 at 15:20, Miklos Szeredi <miklos@szeredi.hu> wrote:
->
-> On Mon, 25 Sept 2023 at 15:19, Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > > How about passing u64 *?
-> >
-> > struct statmnt_req {
-> >         __u64 mnt_id;
-> >         __u64 mask;
-> > };
-> >
-> > ?
->
-> I'm fine with that as well.
+Hello,
 
-So after a bit more thinking: this is okay to make life easier for
-32bit archs, but only on the kernel ABI.
+the manual page of snprintf() — 
+https://man7.org/linux/man-pages/man3/snprintf.3.html contains:
 
-On the library API the args should *not* be multiplexed, as it's just
-a pointless complication.  This is just an internal implementation
-detail for the sake of legacy architectures, instead of being good API
-design.
+DESCRIPTION …  See NOTES.
+RETURN VALUE … (See also below under NOTES.)
 
-And because it's an internal thingy, my feeling is that this struct
-could be reused for passing mnt_id to listmount(2) as well, despite
-the fact that the mask would be unused.   But I'm ready to be
-convinced otherwise...
+There are no “NOTES” in that manual page.
 
-Thanks,
-Miklos
+The manual page likely means CAVEATS instead of NOTES (or vice versa), 
+as there is a CAVEATS section.
+
+
+Moreover https://man7.org/mtk/contact.html contains “NOTE: to make a 
+man-pages bug report, email linux-man@vger.kernel.org.”  where 
+“man-pages bug report” is a hyperlink to 
+https://www.kernel.org/doc/man-pages/reporting_bugs.html .
+
+That page https://www.kernel.org/doc/man-pages/reporting_bugs.html does 
+not exist.
+
+Kind regards
+   Dilyan
