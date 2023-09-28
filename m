@@ -2,95 +2,415 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2382C7B180E
-	for <lists+linux-man@lfdr.de>; Thu, 28 Sep 2023 12:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 209237B1D49
+	for <lists+linux-man@lfdr.de>; Thu, 28 Sep 2023 15:04:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230514AbjI1KHg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 Sep 2023 06:07:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45364 "EHLO
+        id S232643AbjI1NEU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 Sep 2023 09:04:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42028 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230466AbjI1KHe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Sep 2023 06:07:34 -0400
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com [IPv6:2a00:1450:4864:20::630])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27B86180
-        for <linux-man@vger.kernel.org>; Thu, 28 Sep 2023 03:07:30 -0700 (PDT)
-Received: by mail-ej1-x630.google.com with SMTP id a640c23a62f3a-99bdeae1d0aso1643471466b.1
-        for <linux-man@vger.kernel.org>; Thu, 28 Sep 2023 03:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1695895648; x=1696500448; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=DtI3kB3DRHPB9DqqP0XY+HAtUyMDubLkneuHlzD3860=;
-        b=gYiPrQmN1jhYL+x8C0LEoXUdQcqshHo58gF2gKveAmY9rYqXs3JSyK6HSznIH6b1i8
-         iRV/Or2UlbUuiqfPM4vmn3DQyXSjSbZTph6iyrIYNSHjMThz1dVLZzjbULl05eZl8fp3
-         crc2xqIaMfNBcq1E1iWQx3ucLokdBXwTU7fJ8=
+        with ESMTP id S232649AbjI1NEP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Sep 2023 09:04:15 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C6A61B6
+        for <linux-man@vger.kernel.org>; Thu, 28 Sep 2023 06:02:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1695906124;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=SAsGsjUp2akFOXe3NzL6P0KjpNsT5cDYxfpTwl+LFa4=;
+        b=YB5st8WhygKDpuAKC9qXfxFtlnsvZqiqc3SX7Kl1TBzHOy0hH7448p34dRXxKOlLF8OAMc
+        8Vs0BbcStyPu3iXLi3MPKYNLs3tVWSw8NCFT8YTCW5Ci0IwBbp+yihszRfrfBsGfYp2qwp
+        HwliTy4vndHci1xWvvycQFIsQap+ApY=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-38-JB5TexN8OH2mnE2X2q37EA-1; Thu, 28 Sep 2023 09:01:55 -0400
+X-MC-Unique: JB5TexN8OH2mnE2X2q37EA-1
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-99388334de6so1126274666b.0
+        for <linux-man@vger.kernel.org>; Thu, 28 Sep 2023 06:01:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695895648; x=1696500448;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1695906111; x=1696510911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=DtI3kB3DRHPB9DqqP0XY+HAtUyMDubLkneuHlzD3860=;
-        b=Pbglf6h4LlaIg2xyzVmaVk5sSrV9ThR9i9GvjfDy1RjHvS9S0GZC/C+u+eLy2oZoxX
-         G0YXSac6Fx8Siyy4zlBsERwuELBgrtkmUwgB4KZXiuvaWKVQml3elUyFt8tK4Iy217fQ
-         KRpgDq099zVlm7ufV/21PZi15ihzNnvcG18D7Wk2E3blYtoPbfO/b2gBLbbT0NSRNq1e
-         OVZQkdr4ZgDOiS6iAeG4M7vKB/BunnfvJLhvNWAvqaOkcGY2u67cQv/KLWkpgTeYEqBd
-         UhjcjXFN4UomhT/Ymhl8ax+WXnBoSHZvvx3hKgyOdtqYCvDrrsSp+F/k2sVB9rDHZ6J0
-         vKbw==
-X-Gm-Message-State: AOJu0YwQkbWAGY8MTWlcE7zejJEhJ5GQCFNx+htvKAPd+JurGgcxqWbc
-        ax/xoji4nW3+cMdxN0HF0H5YWY9jOOkYw5o50x2+bA==
-X-Google-Smtp-Source: AGHT+IEDypM3eCKriTL3toxyQv8Q1keb6DT2jEmjFo0FJ1MxFnDwMp3fk9njVXSZqz8oyH0A9Xgaw9Xxa1l5dOcoVH0=
-X-Received: by 2002:a17:907:7609:b0:9a5:cf23:de5b with SMTP id
- jx9-20020a170907760900b009a5cf23de5bmr846668ejc.38.1695895648586; Thu, 28 Sep
- 2023 03:07:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-4-mszeredi@redhat.com>
- <20230917005419.397938-1-mattlloydhouse@gmail.com> <CAOssrKcECS_CvifP1vMM8YOyMW7dkGXTDTKY2CRr-fPrJk76ZA@mail.gmail.com>
- <20230918-einblick-klaut-0a010e0abc70@brauner> <CAHC9VhQsChQO9aaY+NTtmvJgXBodvXO6rUN3d7ZyHGqitLBABw@mail.gmail.com>
-In-Reply-To: <CAHC9VhQsChQO9aaY+NTtmvJgXBodvXO6rUN3d7ZyHGqitLBABw@mail.gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Thu, 28 Sep 2023 12:07:17 +0200
-Message-ID: <CAJfpegtJwcS9=7dCAVCEoBwD_U2MX44a6B62iDsc78AZt6nM7Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 3/3] add listmnt(2) syscall
-To:     Paul Moore <paul@paul-moore.com>
-Cc:     Christian Brauner <brauner@kernel.org>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-        Ian Kent <raven@themaw.net>,
+        bh=SAsGsjUp2akFOXe3NzL6P0KjpNsT5cDYxfpTwl+LFa4=;
+        b=izUKnyD+QUiVDcQpsjcaEKvF+8cNI09smnlpyYrUSg4JMm9BJo2gAAN11aq10/mmwU
+         NpMu/M41tCN1oxHU2rW5/G0M+zhMmDp5Gr7+LXHOfRumvZBB6WDFlS1LrcyjX0kLPx/c
+         PdLm4gOko8O1LnKr/4Zxvv7hHce1OMmQHTowz3ZQuRXxuPOzALtJ2RnKxsUTk83qPBtP
+         XECTgmLseElhs2iijheMBtf3KtFEWp0EfDByk7X0ce6PwuTNNJ5mqWSgzdoI9jSc7d2j
+         UFEYrDFRfwnPgT12QEAqB1DVXJDgV6PhHV1kRcuWO+DYLry9WdDFrdlkPYRBMS9O3f+F
+         N22g==
+X-Gm-Message-State: AOJu0YyDnQx0/oI0zBrVW27ISCkaGN7ktAAL0GhxT2hZ20Fm1JxiXSYr
+        sC+O1JakOhRlixtabpOXrNMKFItuPRqm8EJiX//PU/xb5oBwJu2XP4GHDCrHWwvjWF0x2vJambk
+        IOIJJHRpjWNrM5PYmK9Iz
+X-Received: by 2002:a17:906:4d2:b0:9a2:1e03:1572 with SMTP id g18-20020a17090604d200b009a21e031572mr1101945eja.19.1695906110756;
+        Thu, 28 Sep 2023 06:01:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFbkaqxJ9P/J0/LxrJDvMMLHi+yyUi9xLnBaJSvjWu4NDQEasTuE+Qb7BbbAr66wxOa1CBnPA==
+X-Received: by 2002:a17:906:4d2:b0:9a2:1e03:1572 with SMTP id g18-20020a17090604d200b009a21e031572mr1101898eja.19.1695906110228;
+        Thu, 28 Sep 2023 06:01:50 -0700 (PDT)
+Received: from maszat.piliscsaba.szeredi.hu (94-21-53-31.pool.digikabel.hu. [94.21.53.31])
+        by smtp.gmail.com with ESMTPSA id v6-20020a170906380600b0099c53c4407dsm10784863ejc.78.2023.09.28.06.01.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 Sep 2023 06:01:49 -0700 (PDT)
+From:   Miklos Szeredi <mszeredi@redhat.com>
+To:     linux-fsdevel@vger.kernel.org
+Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>,
         David Howells <dhowells@redhat.com>,
         Linus Torvalds <torvalds@linux-foundation.org>,
         Al Viro <viro@zeniv.linux.org.uk>,
         Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+        Amir Goldstein <amir73il@gmail.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH v3 0/4] querying mount attributes
+Date:   Thu, 28 Sep 2023 15:01:42 +0200
+Message-ID: <20230928130147.564503-1-mszeredi@redhat.com>
+X-Mailer: git-send-email 2.41.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, 19 Sept 2023 at 18:48, Paul Moore <paul@paul-moore.com> wrote:
+Implement mount querying syscalls agreed on at LSF/MM 2023.
 
-> > Ideally we avoid multiple capable(CAP_SYS_ADMIN) calls by only doing it
-> > once and saving the return value. capable() call's aren't that cheap.
->
-> Agreed.  The capability check doesn't do any subject/object
-> comparisons so calling it for each mount is overkill.  However, I
-> would think we would want the LSM hook called from inside the loop as
-> that could involve a subject (@current) and object (individual mount
-> point) comparison.
+Features:
 
-The security_sb_statfs() one?
+ - statx-like want/got mask
 
-Should a single failure result in a complete failure?
+ - allows returning ascii strings (fs type, root, mount point)
 
-Why is it not enough to check permission on the parent?
+ - returned buffer is relocatable (no pointers)
 
-Thanks,
-Miklos
+
+Still missing:
+
+ - man pages
+
+ - kselftest
+
+ - syscalls on non-x86 archs
+
+
+Please find the test utility at the end of this mail.
+
+  Usage: statmnt [-l] (mnt_id|path)
+
+
+Git tree:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs.git#statmount-v3
+
+
+Changes v1..v3:
+
+ - rename statmnt(2) -> statmount(2)
+
+ - rename listmnt(2) -> listmount(2)
+
+ - make ABI 32bit compatible by passing 64bit args in a struct (tested on
+   i386 and x32)
+
+ - only accept new 64bit mount IDs
+
+ - fix compile on !CONFIG_PROC_FS
+
+ - call security_sb_statfs() in both syscalls
+
+ - make lookup_mnt_in_ns() static
+
+ - add LISTMOUNT_UNREACHABLE flag to listmnt() to explicitly ask for
+   listing unreachable mounts
+
+ - remove .sb_opts
+
+ - remove subtype from .fs_type
+
+ - return the number of bytes used (including strings) in .size
+
+ - rename .mountpoint -> .mnt_point
+
+ - point strings by an offset against char[] VLA at the end of the struct.
+   E.g. printf("fs_type: %s\n", st->str + st->fs_type);
+
+ - don't save string lengths
+
+ - extend spare space in struct statmnt (complete size is now 512 bytes)
+
+
+---
+Miklos Szeredi (4):
+  add unique mount ID
+  namespace: extract show_path() helper
+  add statmount(2) syscall
+  add listmount(2) syscall
+
+ arch/x86/entry/syscalls/syscall_32.tbl |   2 +
+ arch/x86/entry/syscalls/syscall_64.tbl |   2 +
+ fs/internal.h                          |   2 +
+ fs/mount.h                             |   3 +-
+ fs/namespace.c                         | 365 +++++++++++++++++++++++++
+ fs/proc_namespace.c                    |  10 +-
+ fs/stat.c                              |   9 +-
+ fs/statfs.c                            |   1 +
+ include/linux/syscalls.h               |   8 +
+ include/uapi/asm-generic/unistd.h      |   8 +-
+ include/uapi/linux/mount.h             |  59 ++++
+ include/uapi/linux/stat.h              |   1 +
+ 12 files changed, 459 insertions(+), 11 deletions(-)
+
+-- 
+2.41.0
+
+=== statmnt.c ===
+#define _GNU_SOURCE
+#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/mount.h>
+#include <sys/stat.h>
+#include <sys/param.h>
+#include <err.h>
+
+/*
+ * Structure for getting mount/superblock/filesystem info with statmount(2).
+ *
+ * The interface is similar to statx(2): individual fields or groups can be
+ * selected with the @mask argument of statmount().  Kernel will set the @mask
+ * field according to the supported fields.
+ *
+ * If string fields are selected, then the caller needs to pass a buffer that
+ * has space after the fixed part of the structure.  Nul terminated strings are
+ * copied there and offsets relative to @str are stored in the relevant fields.
+ * If the buffer is too small, then EOVERFLOW is returned.  The actually used
+ * size is returned in @size.
+ */
+struct statmnt {
+	__u32 size;		/* Total size, including strings */
+	__u32 __spare1;
+	__u64 mask;		/* What results were written */
+	__u32 sb_dev_major;	/* Device ID */
+	__u32 sb_dev_minor;
+	__u64 sb_magic;		/* ..._SUPER_MAGIC */
+	__u32 sb_flags;		/* MS_{RDONLY,SYNCHRONOUS,DIRSYNC,LAZYTIME} */
+	__u32 fs_type;		/* [str] Filesystem type */
+	__u64 mnt_id;		/* Unique ID of mount */
+	__u64 mnt_parent_id;	/* Unique ID of parent (for root == mnt_id) */
+	__u32 mnt_id_old;	/* Reused IDs used in proc/.../mountinfo */
+	__u32 mnt_parent_id_old;
+	__u64 mnt_attr;		/* MOUNT_ATTR_... */
+	__u64 mnt_propagation;	/* MS_{SHARED,SLAVE,PRIVATE,UNBINDABLE} */
+	__u64 mnt_peer_group;	/* ID of shared peer group */
+	__u64 mnt_master;	/* Mount receives propagation from this ID */
+	__u64 propagate_from;	/* Propagation from in current namespace */
+	__u32 mnt_root;		/* [str] Root of mount relative to root of fs */
+	__u32 mnt_point;	/* [str] Mountpoint relative to current root */
+	__u64 __spare2[50];
+	char str[];		/* Variable size part containing strings */
+};
+
+/*
+ * To be used on the kernel ABI only for passing 64bit arguments to statmount(2)
+ */
+struct __mount_arg {
+	__u64 mnt_id;
+	__u64 request_mask;
+};
+
+/*
+ * @mask bits for statmount(2)
+ */
+#define STMT_SB_BASIC		0x00000001U     /* Want/got sb_... */
+#define STMT_MNT_BASIC		0x00000002U	/* Want/got mnt_... */
+#define STMT_PROPAGATE_FROM	0x00000004U	/* Want/got propagate_from */
+#define STMT_MNT_ROOT		0x00000008U	/* Want/got mnt_root  */
+#define STMT_MNT_POINT		0x00000010U	/* Want/got mnt_point */
+#define STMT_FS_TYPE		0x00000020U	/* Want/got fs_type */
+
+/* listmount(2) flags */
+#define LISTMOUNT_UNREACHABLE	0x01	/* List unreachable mounts too */
+
+#define __NR_statmount   454
+#define __NR_listmount   455
+
+#define STATX_MNT_ID_UNIQUE	0x00004000U	/* Want/got extended stx_mount_id */
+
+
+static void free_if_neq(void *p, const void *q)
+{
+	if (p != q)
+		free(p);
+}
+
+static struct statmnt *statmount(uint64_t mnt_id, uint64_t mask, unsigned int flags)
+{
+	struct __mount_arg arg = {
+		.mnt_id = mnt_id,
+		.request_mask = mask,
+	};
+	union {
+		struct statmnt m;
+		char s[4096];
+	} buf;
+	struct statmnt *ret, *mm = &buf.m;
+	size_t bufsize = sizeof(buf);
+
+	while (syscall(__NR_statmount, &arg, mm, bufsize, flags) == -1) {
+		free_if_neq(mm, &buf.m);
+		if (errno != EOVERFLOW)
+			return NULL;
+		bufsize = MAX(1 << 15, bufsize << 1);
+		mm = malloc(bufsize);
+		if (!mm)
+			return NULL;
+	}
+	ret = malloc(mm->size);
+	if (ret)
+		memcpy(ret, mm, mm->size);
+	free_if_neq(mm, &buf.m);
+
+	return ret;
+}
+
+static int listmount(uint64_t mnt_id, uint64_t **listp, unsigned int flags)
+{
+	struct __mount_arg arg = {
+		.mnt_id = mnt_id,
+	};
+	uint64_t buf[512];
+	size_t bufsize = sizeof(buf);
+	uint64_t *ret, *ll = buf;
+	long len;
+
+	while ((len = syscall(__NR_listmount, &arg, ll, bufsize / sizeof(buf[0]), flags)) == -1) {
+		free_if_neq(ll, buf);
+		if (errno != EOVERFLOW)
+			return -1;
+		bufsize = MAX(1 << 15, bufsize << 1);
+		ll = malloc(bufsize);
+		if (!ll)
+			return -1;
+	}
+	bufsize = len * sizeof(buf[0]);
+	ret = malloc(bufsize);
+	if (!ret)
+		return -1;
+
+	*listp = ret;
+	memcpy(ret, ll, bufsize);
+	free_if_neq(ll, buf);
+
+	return len;
+}
+
+
+int main(int argc, char *argv[])
+{
+	struct statmnt *st;
+	char *end;
+	const char *arg = argv[1];
+	int res;
+	int list = 0;
+	uint64_t mask = STMT_SB_BASIC | STMT_MNT_BASIC | STMT_PROPAGATE_FROM | STMT_MNT_ROOT | STMT_MNT_POINT | STMT_FS_TYPE;
+	uint64_t mnt_id;
+
+	if (arg && strcmp(arg, "-l") == 0) {
+		list = 1;
+		arg = argv[2];
+	}
+	if (argc != list + 2)
+		errx(1, "usage: %s [-l] (mnt_id|path)", argv[0]);
+
+	mnt_id = strtoll(arg, &end, 0);
+	if (!mnt_id || *end != '\0') {
+		struct statx sx;
+
+		res = statx(AT_FDCWD, arg, 0, STATX_MNT_ID_UNIQUE, &sx);
+		if (res == -1)
+			err(1, "%s", arg);
+
+		if (!(sx.stx_mask & (STATX_MNT_ID | STATX_MNT_ID_UNIQUE)))
+			errx(1, "Sorry, no mount ID");
+
+		mnt_id = sx.stx_mnt_id;
+	}
+
+	if (list) {
+		uint64_t *list;
+		int num, i;
+
+		res = listmount(mnt_id, &list, LISTMOUNT_UNREACHABLE);
+		if (res == -1)
+			err(1, "listmnt(%llu)", mnt_id);
+
+		num = res;
+		for (i = 0; i < num; i++) {
+			printf("0x%llx", list[i]);
+
+			st = statmount(list[i], STMT_MNT_POINT, 0);
+			if (!st) {
+				printf("\t[%s]\n", strerror(errno));
+			} else {
+				printf("\t%s\n", (st->mask & STMT_MNT_POINT) ? st->str + st->mnt_point : "???");
+			}
+			free(st);
+		}
+		free(list);
+
+		return 0;
+	}
+
+	st = statmount(mnt_id, mask, 0);
+	if (!st)
+		err(1, "statmnt(%llu)", mnt_id);
+
+	printf("size: %u\n", st->size);
+	printf("mask: 0x%llx\n", st->mask);
+	if (st->mask & STMT_SB_BASIC) {
+		printf("sb_dev_major: %u\n", st->sb_dev_major);
+		printf("sb_dev_minor: %u\n", st->sb_dev_minor);
+		printf("sb_magic: 0x%llx\n", st->sb_magic);
+		printf("sb_flags: 0x%08x\n", st->sb_flags);
+	}
+	if (st->mask & STMT_MNT_BASIC) {
+		printf("mnt_id: 0x%llx\n", st->mnt_id);
+		printf("mnt_parent_id: 0x%llx\n", st->mnt_parent_id);
+		printf("mnt_id_old: %u\n", st->mnt_id_old);
+		printf("mnt_parent_id_old: %u\n", st->mnt_parent_id_old);
+		printf("mnt_attr: 0x%08llx\n", st->mnt_attr);
+		printf("mnt_propagation: %s%s%s%s\n",
+		       st->mnt_propagation & MS_SHARED ? "shared," : "",
+		       st->mnt_propagation & MS_SLAVE ? "slave," : "",
+		       st->mnt_propagation & MS_UNBINDABLE ? "unbindable," : "",
+		       st->mnt_propagation & MS_PRIVATE ? "private" : "");
+		printf("mnt_peer_group: %llu\n", st->mnt_peer_group);
+		printf("mnt_master: %llu\n", st->mnt_master);
+	}
+	if (st->mask & STMT_PROPAGATE_FROM)
+		printf("propagate_from: %llu\n", st->propagate_from);
+	if (st->mask & STMT_MNT_ROOT)
+		printf("mnt_root: %u <%s>\n", st->mnt_root, st->str + st->mnt_root);
+	if (st->mask & STMT_MNT_POINT)
+		printf("mnt_point: %u <%s>\n", st->mnt_point, st->str + st->mnt_point);
+	if (st->mask & STMT_FS_TYPE)
+		printf("fs_type: %u <%s>\n", st->fs_type, st->str + st->fs_type);
+	free(st);
+
+	return 0;
+}
+
