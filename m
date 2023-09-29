@@ -2,43 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 104DB7B3CE6
-	for <lists+linux-man@lfdr.de>; Sat, 30 Sep 2023 01:10:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DF9D77B3CEC
+	for <lists+linux-man@lfdr.de>; Sat, 30 Sep 2023 01:16:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231684AbjI2XKk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 29 Sep 2023 19:10:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56220 "EHLO
+        id S229824AbjI2XQZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 29 Sep 2023 19:16:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42736 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230165AbjI2XKk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Sep 2023 19:10:40 -0400
+        with ESMTP id S229508AbjI2XQY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Sep 2023 19:16:24 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB0BDE5
-        for <linux-man@vger.kernel.org>; Fri, 29 Sep 2023 16:10:38 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B87C433C7;
-        Fri, 29 Sep 2023 23:10:37 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41488E5
+        for <linux-man@vger.kernel.org>; Fri, 29 Sep 2023 16:16:22 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D68C433C8;
+        Fri, 29 Sep 2023 23:16:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1696029038;
-        bh=QUK00RDD7pKEdU5nbnKjH0cl4S39jzbeXLXhVGShzu8=;
+        s=k20201202; t=1696029381;
+        bh=caolxdnpzrWScc+ymLOA51oRUSihV2HoJf1OVU1/50M=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=DOu8X0cyvrsp2k363CHsvtMOTt+K3+V3rJdjg57kmEy9bcOPPwvuN9gXzdxRIerjT
-         rMjpc60RVALAuvnHUGhixmP9QnIWN/mfRnis3q5rFvucmQnbtGlUmW7eBfP2gszmOo
-         TFTUHhiNPdtW8Fggku1CXyzyjsiRUVVifr3/mpKFbxsyTYmajHpHhWTUMP1uieRqIN
-         /GNrI7iTv0iyYxMiYHoKCzzs3JtAkCRt1BuladEYGeG47ki5cfFJfgAC50/4swlix4
-         5orfKaeT7fX6giLzfmsZ7A5UYuiOWHGg+lvvVAfppcUIqMMIIqU/6/39Vc3DmkqLuv
-         RD7D/BjEY5Jqw==
-Date:   Sat, 30 Sep 2023 01:10:35 +0200
+        b=Wt4eik+4ggEICKwEdJlsxCG6/1K2drWYZmm079wb8c++QEhC4dccIIblrRj2lvqV2
+         RFiF4zIC99ab7JQPz+ZlEI8mFof2rRAOwgEqH1KoBGfIV5H+qkGNbKwxvQzB1AKe4n
+         Wata0cmJcNoHZ1b17a8s7bhJFhoZWlUoHj2ERNBiUmJm7suREkmZHjEk9V0hAUmh9P
+         RBozOycu8RbfaCqiAlzIH2BS854hjkqwTgZc8lS8JibXuFXzdhknG/jz75tbvFZHdX
+         H1zWFmWqfBtePZuGK8y59Nhks1MQdmiVW+z1oXZmvfUR/pWKqQIlecOlWZuyTmGqNe
+         UVTiFHdbcP4fQ==
+Date:   Sat, 30 Sep 2023 01:16:18 +0200
 From:   Alejandro Colomar <alx@kernel.org>
 To:     Don Brace <don.brace@microchip.com>
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 06/10] smartpqi: update host attribute descriptions
-Message-ID: <ss7k5ooeoi7y56j6otvdpwhgd5yltzk6nt5l6ujiiupxzpmrdx@zrcvhw364ejx>
+Subject: Re: [PATCH v3 07/10] smartpqi: update device attribute descriptions
+Message-ID: <rmqvlzfx5nwkwkgcno6d6qr7itzpmnmjte3ok765mh3vtvzase@n2e5b2l6jyjl>
 References: <20230926191206.627678-1-don.brace@microchip.com>
- <20230926191206.627678-7-don.brace@microchip.com>
+ <20230926191206.627678-8-don.brace@microchip.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="3syjr4c56ltpfwbx"
+        protocol="application/pgp-signature"; boundary="yxt2njv5gzdctitv"
 Content-Disposition: inline
-In-Reply-To: <20230926191206.627678-7-don.brace@microchip.com>
+In-Reply-To: <20230926191206.627678-8-don.brace@microchip.com>
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
@@ -49,136 +49,75 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---3syjr4c56ltpfwbx
+--yxt2njv5gzdctitv
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 06/10] smartpqi: update host attribute descriptions
+Subject: Re: [PATCH v3 07/10] smartpqi: update device attribute descriptions
 MIME-Version: 1.0
 
-On Tue, Sep 26, 2023 at 02:12:01PM -0500, Don Brace wrote:
-> Minor description changes for host attributes.
->=20
-> Just some small changes to the host attribute descriptions.
+On Tue, Sep 26, 2023 at 02:12:02PM -0500, Don Brace wrote:
+> Small updates to device attribute descriptions.
 >=20
 > Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
 > Reviewed-by: Scott Teel <scott.teel@microchip.com>
 > Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
 > Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
 > Signed-off-by: Don Brace <don.brace@microchip.com>
-> ---
->  man4/smartpqi.4 | 31 +++++++------------------------
->  1 file changed, 7 insertions(+), 24 deletions(-)
->=20
-> diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-> index 87f6990f2455..165eee6848c3 100644
-> --- a/man4/smartpqi.4
-> +++ b/man4/smartpqi.4
-> @@ -135,29 +135,12 @@ The host
->  attribute is a write-only attribute.
->  Writing to this attribute will cause the driver to scan for new,
->  changed, or removed devices (e.g., hot-plugged tape drives, or newly
-> -configured or deleted logical drives) and notify the SCSI mid-layer of
-> +configured or deleted logical volumes) and notify the SCSI mid-layer of
->  any changes detected.
->  Usually this action is triggered automatically by configuration
->  changes, so the user should not normally have to write to this file.
->  Doing so may be useful when hot-plugging devices such as tape drives or
-> -entire storage boxes containing pre-configured logical drives.
-> -.TP
-> -.IR /sys/class/scsi_host/host * /version
-> -The host
-> -.I version
-> -attribute is a read-only attribute.
-> -This attribute contains the driver version and the controller firmware
-> -version.
-> -.IP
-> -For example:
-> -.IP
-> -.in +4n
-> -.EX
-> -$ \c
-> -.B cat /sys/class/scsi_host/host1/version
-> -driver: 1.1.2\-126
-> -firmware: 1.29\-112
-> -.EE
-> +entire storage boxes containing pre-configured logical volumes.
->  .in
->  .TP
->  .IR /sys/class/scsi_host/host * /lockup_action
-> @@ -173,7 +156,7 @@ for an explanation of the
->  .I lockup_action
->  values.
->  .TP
-> -.I /sys/class/scsi_host/host*/driver_version
-> +.IR /sys/class/scsi_host/host*/driver_version
 
-This is wrong.  Why would you want this change?
+Patch applied.
 
 Thanks,
 Alex
 
+> ---
+>  man4/smartpqi.4 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
+> index 165eee6848c3..635b3fa185ab 100644
+> --- a/man4/smartpqi.4
+> +++ b/man4/smartpqi.4
+> @@ -250,7 +250,7 @@ is the logical unit number (LUN).
 >  The
->  .I driver_version
+>  .I raid_level
 >  attribute is read-only.
-> @@ -189,7 +172,7 @@ $ \c
->  .EE
->  .in
->  .TP
-> -.I /sys/class/scsi_host/host*/firmware_version
-> +.IR /sys/class/scsi_host/host*/firmware_version
+> -This attribute contains the RAID level of each logical drive.
+> +This attribute contains the RAID level of the logical volume.
+>  .IP
+>  For example:
+>  .IP
+> @@ -266,7 +266,7 @@ RAID 0
 >  The
->  .I firmware_version
+>  .I sas_address
 >  attribute is read-only.
-> @@ -205,7 +188,7 @@ $ \c
->  .EE
->  .in
->  .TP
-> -.I /sys/class/scsi_host/host*/model
-> +.IR /sys/class/scsi_host/host*/model
->  The
->  .I model
->  attribute is read-only.
-> @@ -221,7 +204,7 @@ $ \c
->  .EE
->  .in
->  .TP
-> -.I /sys/class/scsi_host/host*/serial_number
-> +.IR /sys/class/scsi_host/host*/serial_number
->  The
->  .I serial_number
->  attribute is read-only.
-> @@ -237,7 +220,7 @@ $ \c
->  .EE
->  .in
->  .TP
-> -.I /sys/class/scsi_host/host*/vendor
-> +.IR /sys/class/scsi_host/host*/vendor
->  The
->  .I vendor
->  attribute is read-only.
+> -This attribute contains the unique identifier of the disk.
+> +This attribute contains the SAS address of the device.
+>  .IP
+>  For example:
+>  .IP
 > --=20
 > 2.42.0.158.g94e83dcf5b
 >=20
 
---3syjr4c56ltpfwbx
+--yxt2njv5gzdctitv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUXWWsACgkQnowa+77/
-2zK41xAAlowmFBVhtNe0HSjzEeG2VDSWTcwF1OF1UTxfHetloLK/ldgvi9zFs/Nn
-ts24CkJoMlTKaHUBrMEn1Y1WpAoAh4BAmDijzjZ2R0rnzMgrou87N4Rl7wCns5fx
-Oxul25J4SG3np+FIdTqsyO7cug8VGPw9ep78aqftV0H5kEZajUHl8PFzIUQUFfOO
-yPYyQ/zAELmDAIOGRZTuFWFS0Tl5uHD38uJv25LZsES/aMsfgeVQqhQyp9Tb/CjC
-/mMHwSHs477L2soZQik5TTbMa3gFlcsRquXaHuYwqgc60FVxVYEQyD17e0jG1SWq
-Boz2+IDRYaE/7kqUXIVarn9I0nKXceUbFp0uSZ7HhfWRDzJ20Qfb92Thg6bAVu8F
-s7k2S2356h5ZBvfNCCuNqQO7lAhOUQ8Tyias+d/zA6G9MDnszS0UIUOq83MvzUum
-ALS/uOE7I9Maun5KJBu/2PIfcShJTnk7pJfH1TVzgG7+NuQ766IwRV6z9KsE1UyW
-6NcxAa4V//6jaWlmq2OFTaoX5PZg0W+uXgUdT8iDUkJehhRCXor0xTWP1h3YEs6e
-63YiSa4X5Tz6qVJ4H7KAwvZ1WkfH2AuuuFIEVAiwnEBHesHGMx84WRbSbDwx//1y
-ewEgvKRYla4tyRaSCnvilaKIbYJlo52XGMuXmm4ZZrPzJL93xMo=
-=O0nk
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUXWsIACgkQnowa+77/
+2zLcPBAAhaX7XXwPKVCH2oSrN5DXL3QNfazv99+OJzx+MNjhzMfkYlsZbHaxXrmp
+oWziHKjU2WN0iTHzR4b3JlJSK3UF3e3eOFRAA5ucDa8nN13vDpbwmnXecSI8Qiav
+D75EKWLp8ErvIhT/Q/trpK/qNAoRksAKkT/MRDcEP05sWw5kdzwM+yY0/K4BxYTs
+7X9vxZyu4mJ7599xOfJLre5q5BPEfKZ5JqOWAkjhdjUQHbOYlVSk0cbcx/vZ5VS1
+E0utmB5EHHYjHrhbF6e5MazbDzU9AOi+JRSWv6XbqaI1owgMIAQ6MIhZjpikqw1+
+W7Nu1LxEYwq0LPtLUec8hf7Jo59ddJENFNwsHVkVyfad1Xb6pwIDGM7+ELNuvGn+
+1DHdws+gr+AsPT3rEILTNdhTHkZUT0qWlO0floRza78nDdIbyrxhC2LLNWEOzROl
+LbFSsJNI1qhj87+jCSR4ePd3FipUh4o0RkCdTnkehWfIPqiQynCQmAYBlIYgCIU3
+S+1hrybIChQjCrxgBT8hIVSMR9dz+rWLBILEi7OVw1NpjMwcOCG6ChNysHEEGjaM
+esf802rkTXwOqPmYhF6zEiWrkUBWnKX2oKquxXL5FOs5QMP0P74Fguey0+p6Bl3k
+PfNavB//zVuQCE1CZcorKZ5MGcDFk/+CwxA5lWreLmwOhcqnYCI=
+=2UhZ
 -----END PGP SIGNATURE-----
 
---3syjr4c56ltpfwbx--
+--yxt2njv5gzdctitv--
