@@ -2,48 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E2D17B4745
-	for <lists+linux-man@lfdr.de>; Sun,  1 Oct 2023 14:02:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D2FCE7B47AF
+	for <lists+linux-man@lfdr.de>; Sun,  1 Oct 2023 15:45:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234873AbjJAMCs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Oct 2023 08:02:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47780 "EHLO
+        id S235058AbjJANpW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Oct 2023 09:45:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48036 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232837AbjJAMCs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Oct 2023 08:02:48 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A1DDD3
-        for <linux-man@vger.kernel.org>; Sun,  1 Oct 2023 05:02:46 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64CFEC433C7;
-        Sun,  1 Oct 2023 12:02:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1696161765;
-        bh=/M1TlGU9S9SVjJ+Gns7j7/qEwSwnt9BA/9VTaxbEOoY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=KSCmmERLVs214Do9cF5gNL74HpF8f3nAa8txFE7WmLln4Vb5BlJh1fEOE5WO/9miM
-         Xt3eN9WaKGTJMkZEsF9gH0m125NM0+Idgi2AXQesj7pJOK9SvNW9i0xkTgA9qm8i/d
-         Ti6jopDXOv86b4ecSpmq13q1DHUFWEhwAMjLMt6CVN56Qpo2+stSepHJywXfP2KnSS
-         1LBFjIcCDyNsA8xccPo4m6WKsuutTJxDuT9c5XCKxlAxaFwWYKlPo+iGAoWumLIzIu
-         Yu6cFl/jQdhY0GxDmyFjA6yzllc50Efeei6ZPPueumH0O/dXimjsKy96/8BjCZvX2b
-         xHOjpOf8HcZuA==
-Date:   Sun, 1 Oct 2023 14:02:42 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Deri <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org,
-        Brian.Inglis@shaw.ca, groff@gnu.org
-Subject: Re: groff features for hyperlinked man pages (was: No 6.05/.01 pdf
- book available)
-Message-ID: <v7xmrwk3mfapkskuaci5hg3kbftmyvvhjsel2dnajgornznzdn@6baw6cedi6yv>
-References: <20230815005022.47vpqsjoczn4vyii@illithid>
- <64e14441-c527-8fbe-c9d0-023dda5bde38@kernel.org>
- <20230819043732.6y5c5bazjskdia7m@illithid>
+        with ESMTP id S235043AbjJANpV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Oct 2023 09:45:21 -0400
+X-Greylist: delayed 404 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 01 Oct 2023 06:45:15 PDT
+Received: from nabal.armitage.org.uk (nabal.armitage.org.uk [IPv6:2001:470:69dd:35::188])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EDDC5E8
+        for <linux-man@vger.kernel.org>; Sun,  1 Oct 2023 06:45:15 -0700 (PDT)
+Received: from localhost (nabal.armitage.org.uk [127.0.0.1])
+        by nabal.armitage.org.uk (Postfix) with ESMTP id 967162E4C45;
+        Sun,  1 Oct 2023 14:38:26 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=armitage.org.uk;
+         h=content-transfer-encoding:mime-version:user-agent
+        :content-type:content-type:date:date:from:from:subject:subject
+        :message-id:received; s=20200110; t=1696167206; x=1697031207;
+         bh=iWe+o0VhWNBRSK37mRoPxbEH46+axZksDS1C+vpoaAw=; b=P7sUaw5hzjcy
+        qIfRFFevEkw+QEpbPWZj5yrAkfaL4334g9Y2ABMes3SxVxjj4HLcUVtyUOm/Ja8z
+        TisjCB2Rh0IqH/sLDAtTr6CgPVrWe/rUeWVKcV2jNEGolYOMVoH/SXOBcnyMgS4v
+        5+EIMGhZz9ZS9B4oV9w4oYgC5zlxz+k=
+X-Virus-Scanned: amavisd-new at armitage.org.uk
+Received: from samson.armitage.org.uk (samson.armitage.org.uk [IPv6:2001:470:69dd:35::210])
+        by nabal.armitage.org.uk (Postfix) with ESMTPSA id 06DD52E4BAA;
+        Sun,  1 Oct 2023 14:33:25 +0100 (BST)
+Message-ID: <41b5afb50bec1ab2d78f7a70b43e804ab5994c7b.camel@armitage.org.uk>
+Subject: [patch] truncate.2: EINVAL is returned for non regular files except
+ directories
+From:   Quentin Armitage <quentin@armitage.org.uk>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Date:   Sun, 01 Oct 2023 14:33:25 +0100
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4 (3.40.4-5.fc34) 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="sexg22ccqfr3mtcb"
-Content-Disposition: inline
-In-Reply-To: <20230819043732.6y5c5bazjskdia7m@illithid>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -51,53 +50,103 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+truncate(2) returns EINVAL if the file argument is a socket, a FIFO or a character or block
+device. The current man page indicates that ftruncate() returns EINVAL for an fd that does
+not reference regular file, but for truncate() the only reason given for returning EINVAL is
+that the length is invalid.
 
---sexg22ccqfr3mtcb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: groff features for hyperlinked man pages (was: No 6.05/.01 pdf
- book available)
-MIME-Version: 1.0
+The following test program demonstrates the errors returned by truncate():
+=====================================================
+#define _GNU_SOURCE
 
-Hi Branden,
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/sysmacros.h>
+#include <string.h>
 
-Sorry for the delay.  I've been learning neomutt(1) and mbsync(1)
-recently, which took a lot of time from me.  Now it all stabilized.
-Finally, I'm able to grep(1) my mail.  :)
+struct {
+  const char *fname;
+  mode_t mode;
+  unsigned dev_maj;
+  unsigned dev_min;
+} nodes[] = {
+  { "/tmp/trunc_file", S_IFREG | 0666 },
+  { "/tmp/trunc_fifo", S_IFIFO | 0666 },
+  { "/tmp/trunc_socket", S_IFSOCK | 0666 },
+  { "/tmp/trunc_char_dev", S_IFCHR | 0666, 10, 7},  // Second Amiga mouse, /dev/amigamouse1
+  { "/tmp/trunc_blk_dev", S_IFBLK | 0666, 13, 3 },  // Was XT disk /dev/xd3
+  { "/tmp/trunc_dir", 0666 },
+};
 
-On Fri, Aug 18, 2023 at 11:37:32PM -0500, G. Branden Robinson wrote:
-> > I'd expect that the hyperlinking ability should be modifyable with
-> > groff(1) --I don't care at what level of the pipeline--, similar to
-> > how it was modifiable with man2html(1).  But the source code shouldn't
-> > know about it.
->=20
-> Please point me to which man2html(1) implementation you mean.[3]  I can
-> have a look and evaluate.
+int main(int C, char **V)
+{
+  int n;
+  int ret;
 
-The only one I've used is Debian's, which probably was aeb's.
+  for (n = 0; n < sizeof(nodes) / sizeof(nodes[0]); n++) {
+    /* Create the nodes */
+    if (!(nodes[n].mode & S_IFMT))
+      ret = mkdir(nodes[n].fname, nodes[n].mode);
+    else
+      ret = mknod(nodes[n].fname, nodes[n].mode,
+                  makedev(nodes[n].dev_maj, nodes[n].dev_min));
 
-Cheers,
-Alex
+    if (ret) {
+      fprintf(stderr, "mknod(%s) errno %d - %m\n", nodes[n].fname, errno);
+      continue;
+    }
 
---sexg22ccqfr3mtcb
-Content-Type: application/pgp-signature; name="signature.asc"
+    /* Returns EINVAL for IFSOCK, IFIFO, S_IFBLK, S_IFCHR, EISDIR for a directory */
+    ret = truncate(nodes[n].fname, 0);
 
------BEGIN PGP SIGNATURE-----
+    if (ret)
+      printf("truncate(\"%s\") failed with errno %s - %m\n", nodes[n].fname,
+             strerrorname_np(errno));
+    else
+      printf("truncate(\"%s\") succeeded\n", nodes[n].fname);
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUZX9sACgkQnowa+77/
-2zIvghAAhxgdY3/czEMcPTM774882LYwYuBWCz4yCPy3ojitVfvhi0Vk2H1kfGvs
-gD3M8M+D4UO3WC3mXF8jmy2XiVK+yGY6PA7DZ5EzvIy880dg3CSODv+p5x/nS3z9
-TD9FArYBq2tLm6bJmhNBmlFKNtjhgRavWdLd1eq6qms6BQWA1eJHYAXuU3shD2tT
-yEugIbaDLvVVSFCVOS4tCE0048mgOm5WJuThfdq7zypBgmnJfhZwQxPAnnHLa5Wa
-NKQ1sWNYYMN/Xny7F+Wzwv9b8KG1CkCBGapOvmtwVmBWlcDCiRlrkDinOTeOHvWL
-PSMwePwLtEbzVYkY2EW0CvqVlTiAMBaMaOof9hpxmUUmclyzf/G2E41N6/Q0a0mC
-gbNVlxbKVZWIq4feMcTDkx+aS2uet7eyEHFvPrfT2VHGbcVu1arEB8j+rEkpXppj
-TfzIBhIlNn2MwfhqzAPJ0mTslSjgaynVo1ql9XoKofcR/+LND/DqSRXSK5FCwwa/
-nJ6IDXJ24BUyvujyvI9WpIbFkhP3qCVmMdTRmDT72szEs/sRcoiOO+KVluN35xz5
-sNKB3OVvQJo9iTUMgfjacglLmupW5g6Pa+YKP1VYN6BC5vFhzSsB/NpgC7eh5F0p
-Uhr1vuthNsp6ABu2myfzNW0l1FC5dmh3y9P8XrqdwO3QYw2j5m4=
-=CHHM
------END PGP SIGNATURE-----
+    /* Remove the nodes */
+    if (!(nodes[n].mode & S_IFMT))
+      ret = rmdir(nodes[n].fname);
+    else
+      ret = unlink(nodes[n].fname);
+    if (ret)
+      fprintf(stderr, "unlink(%s) errno %d - %m\n", nodes[n].fname, errno);
+  }
+}
+=====================================================
 
---sexg22ccqfr3mtcb--
+Compile the program and run it as user root.
+
+output should be:
+truncate("/tmp/trunc_file") succeeded
+truncate("/tmp/trunc_fifo") failed with errno EINVAL - Invalid argument
+truncate("/tmp/trunc_socket") failed with errno EINVAL - Invalid argument
+truncate("/tmp/trunc_char_dev") failed with errno EINVAL - Invalid argument
+truncate("/tmp/trunc_blk_dev") failed with errno EINVAL - Invalid argument
+truncate("/tmp/trunc_dir") failed with errno EISDIR - Is a directory
+
+Signed-off-by: Quentin Armitage <quentin@armitage.org.uk>
+
+diff --git a/man2/truncate.2 b/man2/truncate.2
+index 703f598b3..9fc14ce5b 100644
+--- a/man2/truncate.2
++++ b/man2/truncate.2
+@@ -112,7 +112,9 @@ and
+ .B EINVAL
+ The argument
+ .I length
+-is negative or larger than the maximum file size.
++is negative or larger than the maximum file size, or
++the named file is a socket, a FIFO or a block or
++character device.
+ .TP
+ .B EIO
+ An I/O error occurred updating the inode.
+
+
