@@ -2,110 +2,158 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 880747B5930
-	for <lists+linux-man@lfdr.de>; Mon,  2 Oct 2023 19:42:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0136D7B5B91
+	for <lists+linux-man@lfdr.de>; Mon,  2 Oct 2023 21:51:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231334AbjJBR2k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Oct 2023 13:28:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58020 "EHLO
+        id S229499AbjJBTvh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Oct 2023 15:51:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46236 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229576AbjJBR2j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Oct 2023 13:28:39 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0CDAEB3
-        for <linux-man@vger.kernel.org>; Mon,  2 Oct 2023 10:28:36 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB70FC433C7;
-        Mon,  2 Oct 2023 17:28:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1696267715;
-        bh=1dXXEyhI2H5vD5FP9ZU4/bhcp9jqDtBqsZg2/wBOLHM=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=nFyXlyBf6qnUdc3Ul6D0WzOuP9Bx35Sj0wh6v4hlvJpzZOBLpcFTzhdRkzwXpK3d5
-         KZ7r0sc6X+7/+J1bMnW5AXb+LtUM3afP/yvbQVaN5vUQMA0oVV/xt/2aHIg4gK9xY+
-         7HSc41//DFBsErfYqucLfvx3gjamgnTn7kD4myewJnBWRC5i+cj+zfUVDlJ1Fku2lP
-         JqlPf8EGCYM9adgm+99z/C23uh4+Z+NmgLGf90LAcnvCoAtZqt1kgkf9lrS94GT8Hb
-         4u777l3pkCWDM/pxznY44dRjMFe9ITELTAFnwGNHI8ybM58ScCNBDlZiILaz8C+0R4
-         TQsbqUJYoqzuQ==
-Date:   Mon, 2 Oct 2023 19:28:32 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Don.Brace@microchip.com
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 06/10] smartpqi: update host attribute descriptions
-Message-ID: <ZRr9wBEb3AxicvbR@debian>
-References: <20230926191206.627678-1-don.brace@microchip.com>
- <20230926191206.627678-7-don.brace@microchip.com>
- <ss7k5ooeoi7y56j6otvdpwhgd5yltzk6nt5l6ujiiupxzpmrdx@zrcvhw364ejx>
- <SJ2PR11MB8369B169CE2E17E9AC65F847E1C5A@SJ2PR11MB8369.namprd11.prod.outlook.com>
+        with ESMTP id S229497AbjJBTvh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Oct 2023 15:51:37 -0400
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F94C91
+        for <linux-man@vger.kernel.org>; Mon,  2 Oct 2023 12:51:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1696276294; x=1727812294;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Kqz3f/GWaJd1cTMX10r8SIlkPYuoquCMt6a9kYZBChw=;
+  b=UOTgzvBm39xUib91AtEEQmVlrKp3AbEwDuj6xVV4ijvusnuaz9xzEXuy
+   Zj6owcXSU7Y06lgykTi34DZyZi7UfMdUYXoy1XGpCJPeftuYZQyUII+rS
+   OYLS+AZyI+b/z0yxWun6DowGSAPiIJRstT/oY2+w3379mpvK9pW7EqFN7
+   ImX4g15jjiZ+OitrMD97ObbHKdqPJT1ePulkzKN6rtihxeLXM8COfPJhC
+   19HTkAr3xREgZ2gjuUH0FWKTN9BPMa2s1HDeGyQr4QoRBfEraVVPRYFTz
+   z7PYu76Txnl8z/9jD42cpQk1hddsVeDK+dIrxIWNyrC3bmtnk3leVgWA9
+   A==;
+X-CSE-ConnectionGUID: 08Jzd6qFSxGjVLEywQdRMw==
+X-CSE-MsgGUID: 8Mz69L8OQzW5yfIP1t8oOw==
+X-ThreatScanner-Verdict: Negative
+X-IronPort-AV: E=Sophos;i="6.03,194,1694761200"; 
+   d="scan'208";a="7726003"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 02 Oct 2023 12:51:33 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Mon, 2 Oct 2023 12:51:13 -0700
+Received: from brunhilda.pdev.net (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
+ Transport; Mon, 2 Oct 2023 12:51:13 -0700
+From:   Don Brace <don.brace@microchip.com>
+To:     <alx@kernel.org>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH v4 0/5] smartpqi man page updates
+Date:   Mon, 2 Oct 2023 14:53:59 -0500
+Message-ID: <20231002195404.153182-1-don.brace@microchip.com>
+X-Mailer: git-send-email 2.42.0.296.g493f462273
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="GF9qTMp+vMR7vxJ+"
-Content-Disposition: inline
-In-Reply-To: <SJ2PR11MB8369B169CE2E17E9AC65F847E1C5A@SJ2PR11MB8369.namprd11.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_PASS,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+These patches are based the man page content found in
+git://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
 
---GF9qTMp+vMR7vxJ+
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 2 Oct 2023 19:28:32 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Don.Brace@microchip.com
-Cc: mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 06/10] smartpqi: update host attribute descriptions
+The Linux man page smartpqi.4 is out-of-date with the man page provided
+by our out-of-box driver. This patch series brings the Linux man page up
+to date.
 
-On Mon, Oct 02, 2023 at 04:32:38PM +0000, Don.Brace@microchip.com wrote:
-> > -.I /sys/class/scsi_host/host*/driver_version
->=20
-> > +.IR /sys/class/scsi_host/host*/driver_version
->=20
->=20
->=20
-> This is wrong.=C2=A0 Why would you want this change?
->=20
->=20
-> Thanks,
->=20
-> Alex
-> --------
->=20
-> Could you clarify? Do you mean the last HUNK about driver_version?
-> Of the content above?
+The changes are:
+smarpqi-update-copyright-and-email-addresses
+    The copyright, email, and URLs have changed to Microchip.
+smartpqi-update-module-parameter-descriptions
+    We changed some descriptions of some of our module parameters.
+    Clarifies what their default values are.
+smartpqi-add-module-parameter_disable_managed_interrupts
+    We added a new module parameter to allow users to disable how
+    interrupts are managed allowing them to change affinity.
+smartpqi-add-module-parameter_ctrl_ready_timeout
+    We added a new module parameter to allow users to change how
+    long the driver waits for the controller becomes ready. The
+    default is 180 seconds and can be changed from 30-1800 seconds.
+    The longer wait times are useful for large configurations.
+smartpqi-update_FILES_section
+    Minor change to the FILES section. The word "Logical" was changed to
+    "Disk" since HBA disks are also supported.
+smartpqi-update-host-attribute-descriptions
+    Updated the descriptions of existing host attributes accessed through
+    sysfs.
+smartpqi-update-device-attribute-descriptions
+    Updated the descriptions of existing device attributes accessed through
+    sysfs.
+smartpqi-add-host-attributes
+    We added some new host attributes:
+       enable_stream_detection: For RAID5/6 sequential write operations, this
+             can help increase IOPS. Reduces Read/Modify/Write operations.
+             This is for AIO capable devices. (Volumes consisting of non-rotating
+             media).
+       enable_r5_writes: Send down RAID 5 write operations down the AIO path.
+       enable_r6_writes: Send down RAID 6 write operations down the AIO path.
+smartpqi-add-device-attributes
+    We added some new device attributes:
+       lunid - SCSI LUN ID
+       unique_id - 16-byte ID that uniquely identifies the device within the controller.
+       path_info - Host:Bus:Target:Lun (h:b:t:l), device type, Active/Inactive
+       raid_bypass_cnt - Count of the number of request sent down the AIO path.
+       sas_ncq_prio_enable - Enables SATA NCQ priority support.
+smartpqi-add-sg-entry-to-see_also
+    Simple addition of the sg(4) driver to the SEE ALSO section.
 
-I mean the two lines right above my line (so what's quoted in this email).
+Changes since V3:
+    Updated content for the following pages due to reviews by:
+    Alejandro Colomar <alx@kernel.org>
 
->=20
-> Also, I have rebased and applied your review input to the other patches.
+      smartpqi: add module parameter ctrl_ready_timeout
+      Link: https://lore.kernel.org/linux-man/axwssorupkp6fv3b7zqgjyd243exvhlw7rle2ftyy43jxhm4yf@woxzbz4hm766/
 
-Thanks,
-Alex
+      smartpqi: update FILES section
+      Link: https://lore.kernel.org/linux-man/fwpvmbussvf2zzug5bsqhrd7mvwcvdllvna6a4ngke3hw6w5am@b4icgpgirck4/
 
---GF9qTMp+vMR7vxJ+
-Content-Type: application/pgp-signature; name="signature.asc"
+      smartpqi: update host attribute descriptions
+      Link: https://lore.kernel.org/linux-man/ss7k5ooeoi7y56j6otvdpwhgd5yltzk6nt5l6ujiiupxzpmrdx@zrcvhw364ejx/
 
------BEGIN PGP SIGNATURE-----
+      smartpqi: add host attributes
+      Link: https://lore.kernel.org/linux-man/nbt3jt7busx6akj7ykaxs7df6vlbbxtvcdy4ckvlp7saol3djl@rb6ckz3lzzot/
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUa/cAACgkQnowa+77/
-2zKaAg/9EGggkSkFvwzuNgULZKDdr3MoOlH0mlDN+FWhu5tNEzYdUcQtQXTg9if5
-1CXgUSwbbglp/+ozfMVLIzNoxfp7CF04CLqM016uZOIPDZd81mTpJVi7wZ0IYAqW
-+cNDZyO0hOyR2YtusxPJdiR1pUfOAyv20fXld87n8WVJUY+zMiFhX8uT1D78t34/
-uqdD4GI8gAsqi0/1BpDMOFbwoqahKQuZH6Fu9eAsv7/A9p1vgOR8rd6Bwkoc+F1R
-vfgoF7lHXMO4ODTXbaBZx6oPSHloWJzcLm8rnoY9GxxoHH8M94H9r1zTvaRT3zM7
-4Exd1784EDkPUj6pDk5ROffhDmxp6wLUgCYTrFiPSq0iX7qqGMb1lSTG9ChWFh5b
-3Zk9npr5CbvH8oK7Ea8viIXyNZE6Ury8boy1cY8A2zkf+YJqdq1d98vV7JrfxZHT
-PXHP136lpS96nXHCOWdtd6JNc8rV7EiHxUzA7SX2Wm9ji+1CFmS8yjneKjqzVY7J
-2WA7Z0bE5kpPAk6hGuAtsFF4Q5COA8C2iVzDK6VDWcPBTpH33xSAhxyCTlwx1ort
-PS0gdSQtYNQqyf9q8KHK4kFI+2X9i4RTASLB/hRMca8Yo6RZQPRcTCtQ0cfk7mtN
-mwL7qZV7tiIEnWiE1MTYRR0A6pRSzV7/w90m9DTNncG8lIFnqsc=
-=n94H
------END PGP SIGNATURE-----
+      smartpqi: add device attributes
+      Link: https://lore.kernel.org/linux-man/ytcsqleu53iwpn5gsjmmuoqz2cy5oegvvafwlwxn422bcn3a5e@ne3khvixxzuq/
 
---GF9qTMp+vMR7vxJ+--
+    The other patches have already been applied and were removed from the
+    remaining patch set after a rebase.
+
+    Thanks for your attention and reviews for these patches.
+
+Changes since V2:
+    Resending due to bad e-mail address for maintainer.
+
+Changes since V1:
+    Broke up the large patch into multiple smaller patches due to review by:
+    Alejandro Colomar <alx@kernel.org>
+    Link: https://lore.kernel.org/all/096ed4d5-945f-5ac9-eba3-c9be5d32cfe8@kernel.org/
+
+---
+
+Don Brace (5):
+  smartpqi: add module parameter ctrl_ready_timeout
+  smartpqi: update FILES section
+  smartpqi: update host attribute descriptions
+  smartpqi: add host attributes
+  smartpqi: add device attributes
+
+ man4/smartpqi.4 | 182 ++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 162 insertions(+), 20 deletions(-)
+
+-- 
+2.42.0.296.g493f462273
+
