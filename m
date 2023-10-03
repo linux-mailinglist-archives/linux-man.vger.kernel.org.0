@@ -2,46 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 35B937B696A
-	for <lists+linux-man@lfdr.de>; Tue,  3 Oct 2023 14:49:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 45D957B6CA9
+	for <lists+linux-man@lfdr.de>; Tue,  3 Oct 2023 17:10:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231232AbjJCMt4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 3 Oct 2023 08:49:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54140 "EHLO
+        id S240170AbjJCPKJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 3 Oct 2023 11:10:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51168 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230283AbjJCMtz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Oct 2023 08:49:55 -0400
-Received: from nabal.armitage.org.uk (nabal.armitage.org.uk [IPv6:2001:470:69dd:35::188])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23F9F91
-        for <linux-man@vger.kernel.org>; Tue,  3 Oct 2023 05:49:49 -0700 (PDT)
-Received: from localhost (nabal.armitage.org.uk [127.0.0.1])
-        by nabal.armitage.org.uk (Postfix) with ESMTP id 024972E4BE9;
-        Tue,  3 Oct 2023 13:49:36 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=armitage.org.uk;
-         h=content-transfer-encoding:mime-version:user-agent
-        :content-type:content-type:date:date:from:from:subject:subject
-        :message-id:received; s=20200110; t=1696337076; x=1697201077;
-         bh=ZniaCylqI3wocL4WnlJQ5yNlTZ4qsqnnDH6oWp0vCcQ=; b=A5ULnZgs0hNN
-        0GoxKa8A0DigMrSMQXF8ApKj4HMx46SPJbn4szbLU4ivW+dDR6w46kzFZIbgdPnD
-        1IZ7F5xdZDjC+v54zWnZA5FRWVI5ggTTU3fz+Pl2tsWY/7ECe12l7sc/vegWSMWm
-        AbgwTqDDNHl4cdxRwWIwM2aojWRTvzo=
-X-Virus-Scanned: amavisd-new at armitage.org.uk
-Received: from samson.armitage.org.uk (samson.armitage.org.uk [IPv6:2001:470:69dd:35::210])
-        by nabal.armitage.org.uk (Postfix) with ESMTPSA id 632452E4C9F;
-        Tue,  3 Oct 2023 13:44:36 +0100 (BST)
-Message-ID: <8bf3407d4d0ba216dd81976b760291325d77f3ea.camel@armitage.org.uk>
-Subject: [patch v3] truncate.2: EINVAL is returned for non regular files
- except directories
-From:   Quentin Armitage <quentin@armitage.org.uk>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Date:   Tue, 03 Oct 2023 13:44:35 +0100
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.40.4 (3.40.4-5.fc34) 
+        with ESMTP id S230511AbjJCPKJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Oct 2023 11:10:09 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A2DEA1
+        for <linux-man@vger.kernel.org>; Tue,  3 Oct 2023 08:10:04 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F789C433C7;
+        Tue,  3 Oct 2023 15:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1696345804;
+        bh=c+tlT0TxLZnRSIZ3ydq5kvYbrMlevMTBX3jKUsYw72U=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=nDE83SG32UjVezo17QS1CNdHYRIZynG5pT9O1CT0IZX+mAL4UAkhfqU+bAn5+tEgf
+         7xBeldihxrF4hH/dLVBetd6HQDilqoecRIH8GdztaT2Q0g6wpw7DSLUEth2mfcsQbf
+         D/QXzzOWnoK2028sa6NC2HhrcuqQFIS3zf4+XZnXFF5jHT1A3HrC/zznW6mM1eMMiR
+         8/rDdU2B/GBpLtLWR5ihwoxMOdGFAo+WMI1AoCpGl9MqFAS5yC5xdKDbdpQzMjOism
+         +GXyV9ak7dkCP/8ZaxjB7PkHnpIQP7ohe7RIRdm+rO5ayB8rHuHsQWqJzEZGJoSYCC
+         IFZlPvcZ2A0iw==
+Date:   Tue, 3 Oct 2023 17:10:00 +0200
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Xavier Leroy <Xavier.Leroy@inria.fr>,
+        Arnav Rawat <rawat.arnav@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        GNU Libc Maintainers <debian-glibc@lists.debian.org>,
+        lnx-man <linux-man@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>,
+        Carlos O'Donell <carlos@redhat.com>
+Subject: Re: Manual pages from glibc-doc
+Message-ID: <ZRwuyJ47NnNHCspo@debian>
+References: <703ec07e-dd2b-bbc6-f1bc-f495e53b764f@gmail.com>
+ <CAH=h3gFakgz3xcH63h-5nO0L9LuSy2Xr5b2riwpJ1o4L3DzuRg@mail.gmail.com>
+ <93aba0c9-ad1d-d488-1471-be30b7a8bb0c@gmail.com>
+ <CAH=h3gF3F-tOq6-zYKf63_JhR3tRZ9NFMiTpX2YEjhhjDGr7Hw@mail.gmail.com>
+ <ZRv9b2Ht-sRok6BH@debian>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="JKe2vBY5oGqks9LR"
+Content-Disposition: inline
+In-Reply-To: <ZRv9b2Ht-sRok6BH@debian>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -49,167 +56,70 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-truncate(2) returns EINVAL if the file argument is a socket, a FIFO or
-a character or block device. The current man page indicates that
-ftruncate() returns EINVAL for an fd that does not reference a regular
-file, but for truncate() the only reason given for returning EINVAL is
-that the length is invalid.
 
-In the Linux source code in fs/open.c, vfs_truncate(), called from do_sys_truncate() starts
-with the following checks:
-        /* For directories it's -EISDIR, for other non-regulars - -EINVAL */
-        if (S_ISDIR(inode->i_mode))
-                return -EISDIR;
-        if (!S_ISREG(inode->i_mode))
-                return -EINVAL;
+--JKe2vBY5oGqks9LR
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 3 Oct 2023 17:10:00 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Xavier Leroy <Xavier.Leroy@inria.fr>,
+	Arnav Rawat <rawat.arnav@gmail.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>,
+	GNU Libc Maintainers <debian-glibc@lists.debian.org>,
+	lnx-man <linux-man@vger.kernel.org>,
+	glibc <libc-alpha@sourceware.org>,
+	Carlos O'Donell <carlos@redhat.com>
+Subject: Re: Manual pages from glibc-doc
 
-and do_sys_truncate() contains:
-        error = -EINVAL;
-        if (!S_ISREG(inode->i_mode) || !(f.file->f_mode & FMODE_WRITE))
-                goto out_putf;
-with no check for S_IS_DIR(inode-i_mode).
+On Tue, Oct 03, 2023 at 01:39:21PM +0200, Alejandro Colomar wrote:
+> Hi Arnav, Xavier,
+>=20
+> On Sun, May 21, 2023 at 07:29:19PM +0200, Xavier Leroy wrote:
+> > On Sun, May 21, 2023 at 12:25=E2=80=AFPM Alejandro Colomar <alx.manpage=
+s@gmail.com>
+> > wrote:
 
-truncate() therefore returns EISDIR for a directory, and EINVAL for any other non-regular
-file, whereas ftruncate() returns EINVAL for any non-regular file.
+[...]
 
-The following test program demonstrates the errors returned by truncate() and ftruncate():
-=====================================================
- #define _GNU_SOURCE
+> > > Thanks for the history.  I've investigated a bit after your email.
+> > >
+> >=20
+> > Thanks for the historian's work !
 
- #include <err.h>
- #include <errno.h>
- #include <fcntl.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
- #include <sys/stat.h>
- #include <sys/sysmacros.h>
- #include <sys/types.h>
- #include <unistd.h>
+I've imported the glibc git history into the Linux man-pages, to keep
+that history as untouched as possible.  :)
 
-struct {
-    const char *fname;
-    mode_t mode;
-    unsigned dev_maj;
-    unsigned dev_min;
-} nodes[] = {
-    {"/tmp/trunc_file", S_IFREG | 0666, 0, 0},
-    {"/tmp/trunc_fifo", S_IFIFO | 0666, 0, 0},
-    {"/tmp/trunc_socket", S_IFSOCK | 0666, 0, 0},
-    {"/tmp/trunc_char_dev", S_IFCHR | 0666, 10, 7},  // Second Amiga mouse, /dev/amigamouse1
-    {"/tmp/trunc_blk_dev", S_IFBLK | 0666, 13, 3},  // Was XT disk /dev/xd3
-    {"/tmp/trunc_dir", 0666, 0, 0},
-};
+Please find the import here:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log=
+/?id=3D6571dea2f1b71f4bc2ca8c3b9850acccd7226659>
 
-int
-main(void)
-{
-    int  ret;
-    int  fd;
-    const char *fname;
+I wonder if there are more pages in other paths within glibc that we
+should also import.
 
-    for (size_t n = 0; n < sizeof(nodes) / sizeof(nodes[0]); n++) {
-        fname = nodes[n].fname;
+I'll push these changes to <kernel.org> to-morrow.
 
-        /* Create the node */
-        if (!(nodes[n].mode & S_IFMT))
-            ret = mkdir(fname, nodes[n].mode);
-        else
-            ret = mknod(fname, nodes[n].mode,
-                        makedev(nodes[n].dev_maj, nodes[n].dev_min));
+Cheers,
+Alex
 
-        if (ret == -1) {
-            warn("mknod(\"%s\") %#m", fname);
-            continue;
-        }
+--JKe2vBY5oGqks9LR
+Content-Type: application/pgp-signature; name="signature.asc"
 
-        /* Returns EINVAL for IFSOCK, IFIFO, S_IFBLK, S_IFCHR, EISDIR for a directory */
-        errno = 0;
-        ret = truncate(fname, 0);
-        warn("truncate(\"%s\"): %#m", fname);
+-----BEGIN PGP SIGNATURE-----
 
-	/* We cannot open device nodes when they are not real,
-	 * so replace character device with /dev/null.
-	 * We don't want to mess with real block devices! */
-	if ((nodes[n].mode & S_IFMT) == S_IFCHR)
-	    fname = "/dev/null";
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUcLsgACgkQnowa+77/
+2zJ+pQ/+JPlTrczIkBfpl8G6J98YZO+FpzddyvH4d2KcDcC5r9OH9e4fDgUS46z/
+TB4NUzPBDBqe3jmC+l8MVsssWQYVd+Wd1g2ZxgeL1Hw0LTqBwd8UAAl+fjVbZlYo
+a004UAyXIGPAXepTNNyNiaRyZNpwgnRIv9D+d6EMs7hX7enHS07CWvke1daK0fvP
+wtEY3kU+nrBwELqhN3woEWWiouKvlHsiuFZwHy5i1H/H9D7TpitFcoYsEa9JZbhA
+MvuPxE1tdwJS7ZiofknYh2FsYts9B1zZgaEJLyWzQ9ynLjor9b+IIy99x3aXqInY
+SreWWPhMLxY8J2hJWTSkxA6WdezjuTRwl3MXeTrVEGsBuAlaeCPG4q2Ktr07ki4T
+8pq/DM3B3/lIl8Kii/iErcV7dRrRXWKWtyywaGK7u8TdS24MNITXd5Qb6srYc4r7
+ekb26ZX9GA5fgC3eGtJ6vpvwCRqX1oIc2R1uqMUGj1PkXQ3wba9LfgiXpKFrK6RV
+bRcnDZpO3W9wyCW5UiWtZZpvXgC8yOejLXBvvh6dEkoUcm4ptKc68inogpU+kMzW
+lyoSHtFu1FOK1p1DFzPLDsnmDmw9VY1PBfPCBIPT2J32wEXpjLf/cQ+TQ0y8d+de
+GiKi9sBVtfjHjLaMsNTX7T/Xco+9Lv3RAlfBxFpGZW2r6mhwI68=
+=aOio
+-----END PGP SIGNATURE-----
 
-	/* We cannot open a directory for writing. The ftruncate() call will
-	 * therefore return EINVAL since the fd is not open for writing. */
-        fd = open(fname, !(nodes[n].mode & S_IFMT) ? O_RDONLY : O_RDWR);
-        if (fd == -1)
-            warn("open(\"%s\"): %#m", fname);
-        else {
-            errno = 0;
-            ftruncate(fd, 0);
-            warn("ftruncate(\"%s\"): %#m", fname);
-
-            if (close(fd) == -1)
-                warn("close(\"%s\"): %#m", fname);
-        }
-
-        /* Remove the nodes */
-        ret = (nodes[n].mode & S_IFMT) ? unlink(nodes[n].fname)
-                                       : rmdir(nodes[n].fname);
-        if (ret == -1)
-            warn("unlink(\"%s\"): %#m", nodes[n].fname);
-
-	fprintf(stderr, "\n");
-    }
-}
-=====================================================
-Compile the program and run it as user root.
-
-The output (if program name is trunc) should be:
-
-trunc: truncate("/tmp/trunc_file"): 0: Success
-trunc: ftruncate("/tmp/trunc_file"): 0: Success
-
-trunc: truncate("/tmp/trunc_fifo"): EINVAL: Invalid argument
-trunc: ftruncate("/tmp/trunc_fifo"): EINVAL: Invalid argument
-
-trunc: truncate("/tmp/trunc_socket"): EINVAL: Invalid argument
-trunc: open("/tmp/trunc_socket"): ENXIO: No such device or address
-
-trunc: truncate("/tmp/trunc_char_dev"): EINVAL: Invalid argument
-trunc: ftruncate("/dev/null"): EINVAL: Invalid argument
-
-trunc: truncate("/tmp/trunc_blk_dev"): EINVAL: Invalid argument
-trunc: open("/tmp/trunc_blk_dev"): EACCES: Permission denied
-
-trunc: truncate("/tmp/trunc_dir"): EISDIR: Is a directory
-trunc: ftruncate("/tmp/trunc_dir"): EINVAL: Invalid argument
-
-The patch below has different wording for EINVAL for truncate() and ftruncate() because they
-return different errors for directories. It also removes the first description for EBADF or
-EINVAL for ftruncate() since a more complete description is given two entries later.
-
-Signed-off-by: Quentin Armitage <quentin@armitage.org.uk>
-
-diff --git a/man2/truncate.2 b/man2/truncate.2
-index 703f598b3..2eb4557cc 100644
---- a/man2/truncate.2
-+++ b/man2/truncate.2
-@@ -112,7 +112,9 @@ and
- .B EINVAL
- The argument
- .I length
--is negative or larger than the maximum file size.
-+is negative or larger than the maximum file size,
-+or the named file is a socket, a FIFO,
-+or a block or character device.
- .TP
- .B EIO
- An I/O error occurred updating the inode.
-@@ -160,10 +162,6 @@ we now have things that can be wrong with the file descriptor,
- .I fd
- is not a valid file descriptor.
- .TP
--.BR EBADF " or " EINVAL
--.I fd
--is not open for writing.
--.TP
- .B EINVAL
- .I fd
- does not reference a regular file or a POSIX shared memory object.
-
+--JKe2vBY5oGqks9LR--
