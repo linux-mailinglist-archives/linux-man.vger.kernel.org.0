@@ -2,94 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B592B7B6D90
-	for <lists+linux-man@lfdr.de>; Tue,  3 Oct 2023 17:57:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4EB8C7B71F6
+	for <lists+linux-man@lfdr.de>; Tue,  3 Oct 2023 21:45:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231922AbjJCP57 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 3 Oct 2023 11:57:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45294 "EHLO
+        id S230390AbjJCTp6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 3 Oct 2023 15:45:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38940 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237235AbjJCP56 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Oct 2023 11:57:58 -0400
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 26528AF
-        for <linux-man@vger.kernel.org>; Tue,  3 Oct 2023 08:57:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1696348676; x=1727884676;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Q71QnSLqZWwfrHeexAwpd4WcjwsxU1QOBjLqi64h04g=;
-  b=mf7+Yj59OBgGD/5tQOLn0aEiTPuVtCBy4Ew6ru25zu8p4q42TOEDrOJt
-   rcJTU9hBTTIcewf8BbJ0l4giLXgrj4CXX/ZBONqlr6+ihpz/nxJymRd3E
-   UO9h4IamWzRbUQwk/xV1IGMdSIXhc6qO+QtP4SYqFOiqiVNSYQvbgYYfv
-   h5lEPB+7CbobCm3/9hJLAFi/+A/aNGmXuxrl2hbbIRj/zJI1p6+jYkR4T
-   2u29JVLdnUQ8d6TizWo/v4FL25AGiaZ70xSta/dUV1lVouRmX+RF2UEFW
-   T51Dm9guvfXAm9wlrDQWzOtGM2aCkhTYtr3snRhYg/QxmOtdArYKMCIrn
-   g==;
-X-CSE-ConnectionGUID: z1jAWWweQMqREDbH4gjiHw==
-X-CSE-MsgGUID: ap2N20LVTeW+CUqqehOnJw==
-X-ThreatScanner-Verdict: Negative
-X-IronPort-AV: E=Sophos;i="6.03,197,1694761200"; 
-   d="scan'208";a="238453658"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 03 Oct 2023 08:57:55 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Tue, 3 Oct 2023 08:57:35 -0700
-Received: from brunhilda.pdev.net (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
- Transport; Tue, 3 Oct 2023 08:57:35 -0700
-From:   Don Brace <don.brace@microchip.com>
-To:     <alx@kernel.org>
-CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH v5 6/6] smartpqi: add HISTORY section
-Date:   Tue, 3 Oct 2023 11:00:24 -0500
-Message-ID: <20231003160024.231729-7-don.brace@microchip.com>
-X-Mailer: git-send-email 2.42.0.296.g493f462273
-In-Reply-To: <20231003160024.231729-1-don.brace@microchip.com>
-References: <20231003160024.231729-1-don.brace@microchip.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_PASS,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+        with ESMTP id S231567AbjJCTp6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Oct 2023 15:45:58 -0400
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com [IPv6:2607:f8b0:4864:20::b4a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02B7EAB
+        for <linux-man@vger.kernel.org>; Tue,  3 Oct 2023 12:45:55 -0700 (PDT)
+Received: by mail-yb1-xb4a.google.com with SMTP id 3f1490d57ef6-d81a47e12b5so1962095276.0
+        for <linux-man@vger.kernel.org>; Tue, 03 Oct 2023 12:45:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1696362354; x=1696967154; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=viodXw7fUNfO/LRa8b1+fBrUho8mNoQloTZPtSZSDRw=;
+        b=3iw7OeSMlok5fWAsQ3kzXk8gjk93xJV/CYmLAXoVpXCpl6Nr0CJPYZl3n74zJFa69I
+         4WfG4atV7WTdsAOpuzpKucANzacVek9OBJmRVsYf26ynV47+qf3KzcHkJqinzIiIQj4z
+         KaILlLwxqf4eDiuW3/rfAC0fw+1dBvhkkyShs3u56z7P0Ow4bhn/iB+WRbXkfucn8M5Y
+         IM0pK8tKn9qX1REtLsHwaT1KNinPNrwJqiJhsmuJltnCAQgosFVxZg/ftxQRAJq/mmuD
+         l1L8EkNOnn9TZ8Y/5InYgByLZNJGTr1cCP/yFyk+7Gza19XG0jqvqReUNKUZIesgGPlf
+         07wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696362354; x=1696967154;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=viodXw7fUNfO/LRa8b1+fBrUho8mNoQloTZPtSZSDRw=;
+        b=IqnwccZCgy3rsz//AfOAkmb/yQsdpbyFZKNKT6fx737m4JfUrTo+62lxiNBRVTgGkL
+         aC16rAcs0jTwpRW8/taHiRouV3CywRJhHtzDGWr5vY2krNwOo+ezvaGvcq+dL2NtxaSe
+         BcrIxTrQnxR9J62yVSdXzr7D5AOdUiipUCi5Ej3jZ83YUU4v7+PyLnZI0rGuQdSY9HDM
+         +VCiGati5yxNy8ppGGz+ewMa+hQKRVLgpSUQxcVFuw2Qmkr7mB9mkXzFquxJv01y8I8f
+         wSUlTL0YFaDdSoPxXT1CGJqgIeqIeWtAYxuV57/PsPPr2LTey+5Jl/das7hrcEyOvSJJ
+         81Jw==
+X-Gm-Message-State: AOJu0YwJnZN8LsapIHU4SOhsjdKscrIl0+PK4mTMzFb7Xu/b9MDLuf+c
+        /0trrd5p7lHtcNmN4lDMmdFyCgQklc6PN8YnoZJc
+X-Google-Smtp-Source: AGHT+IE1qDM9+kU7Ss8mySYaAf902Q/5KzDumW0lXdocj5baqcxCFc8Tn3xnpSAJmfEEpIjlChC5Hmp+tjwfE2JiWuwX
+X-Received: from axel.svl.corp.google.com ([2620:15c:2a3:200:6577:b8c1:dd2d:1c93])
+ (user=axelrasmussen job=sendgmr) by 2002:a25:c785:0:b0:d85:b46f:4375 with
+ SMTP id w127-20020a25c785000000b00d85b46f4375mr3284ybe.6.1696362354244; Tue,
+ 03 Oct 2023 12:45:54 -0700 (PDT)
+Date:   Tue,  3 Oct 2023 12:45:42 -0700
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.42.0.609.gbb76f46606-goog
+Message-ID: <20231003194547.2237424-1-axelrasmussen@google.com>
+Subject: [PATCH v2 0/5] userfaultfd man page updates
+From:   Axel Rasmussen <axelrasmussen@google.com>
+To:     Alejandro Colomar <alx@kernel.org>, Peter Xu <peterx@redhat.com>
+Cc:     linux-man@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org,
+        Axel Rasmussen <axelrasmussen@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Enumerate old sysfs entries replaced by newer entries.
+This series includes only the remaining patches not applied from v1, with
+review comments addressed. This series is based on the "contrib" branch.
 
-Suggested-by: Alejandro Colomar <alx@kernel.org>
-Signed-off-by: Don Brace <don.brace@microchip.com>
----
- man4/smartpqi.4 | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changelog:
 
-diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-index 464ef89919a9..a66e785a0464 100644
---- a/man4/smartpqi.4
-+++ b/man4/smartpqi.4
-@@ -468,6 +468,13 @@ refer to the User Guide for the controller,
- which can be found by searching for the specific controller at
- .UR https://www.microchip.com/design-centers/storage
- .UE .
-+.SH HISTORY
-+.I /sys/class/scsi_host/host*/version
-+was replaced by two sysfs entries:
-+.IP
-+.I /sys/class/scsi_host/host*/driver_version
-+.IP
-+.I /sys/class/scsi_host/host*/firmware_version
- .SH SEE ALSO
- .BR cciss (4),
- .BR hpsa (4),
--- 
-2.42.0.296.g493f462273
+v1->v2:
+ - In patch 1 (patch 5 in v1), change "after" to "since" for consistency and to
+   be clear that we mean 4.11+ (inclusive).
+ - In patch 2 (patch 7 in v1), reorder error codes alphabetically (EINVAL then
+   EPERM).
+ - In patch 3 (patch 8 in v1), resolve conflicts with earlier review comments.
+
+Original cover letter:
+
+Various updates for userfaultfd man pages. To summarize the changes:
+
+- Correctly / fully describe the two-step feature support handshake process.
+- Describe new UFFDIO_POISON ioctl.
+- Other small improvements (missing ioctls, error codes, etc).
+
+Axel Rasmussen (5):
+  ioctl_userfaultfd.2: describe two-step feature handshake
+  ioctl_userfaultfd.2: correct and update UFFDIO_API ioctl error codes
+  ioctl_userfaultfd.2: clarify the state of the uffdio_api structure on
+    error
+  ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER error code list
+  ioctl_userfaultfd.2: document new UFFDIO_POISON ioctl
+
+ man2/ioctl_userfaultfd.2 | 226 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 181 insertions(+), 45 deletions(-)
+
+--
+2.42.0.609.gbb76f46606-goog
 
