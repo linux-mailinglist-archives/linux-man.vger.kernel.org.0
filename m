@@ -2,41 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BA9A7B7900
-	for <lists+linux-man@lfdr.de>; Wed,  4 Oct 2023 09:48:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CEC8B7B8D6C
+	for <lists+linux-man@lfdr.de>; Wed,  4 Oct 2023 21:28:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241569AbjJDHsz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Oct 2023 03:48:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53802 "EHLO
+        id S233505AbjJDTXN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Oct 2023 15:23:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241559AbjJDHsy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Oct 2023 03:48:54 -0400
-X-Greylist: delayed 449 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 04 Oct 2023 00:48:51 PDT
-Received: from mail.citycodes.pl (mail.citycodes.pl [158.255.215.195])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F99AA7
-        for <linux-man@vger.kernel.org>; Wed,  4 Oct 2023 00:48:51 -0700 (PDT)
-Received: by mail.citycodes.pl (Postfix, from userid 1001)
-        id E107A1F452; Wed,  4 Oct 2023 09:40:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=citycodes.pl; s=mail;
-        t=1696405280; bh=mMhfBvhM53FtUQl1P3lyeSY5aDBQYiR8qQBy6YFQHi0=;
-        h=Date:From:To:Subject:From;
-        b=UV6BnmorXWmeOEwrR/i5q0jLlEgIb8EHdBnWb6MqpSquZqdmEyjiNzCaRKR3pVhIZ
-         mkFP0DnewENpCPmaigptxczC2aDzYeLXSAH3UYyvK55b4E4DKbpi36DQAMGX7ygbgf
-         I3iaCHPAUPFY/+J3CtZFDwCgp0Urqv7YO1xbdZNonTTYqWILbu20JeJmLW5xL8WuRR
-         NHleHU3JpAQG4ujrEzJymzu7d2uZa0hylmmVoOJYajHa3HKsIpVIHg9PiucJGbz7/C
-         HNT3c4xOCEHVRFYItRqf3r50/sXPFpm6+DJAJWXEO0OaUtdhOm4LFzYgQ33rosF/AK
-         Ldz89lmuyd0/A==
-Received: by mail.citycodes.pl for <linux-man@vger.kernel.org>; Wed,  4 Oct 2023 07:40:44 GMT
-Message-ID: <20231004084500-0.1.7v.j0nc.0.rbo02zr8zq@citycodes.pl>
-Date:   Wed,  4 Oct 2023 07:40:44 GMT
-From:   "Kamil Lasek" <kamil.lasek@citycodes.pl>
-To:     <linux-man@vger.kernel.org>
-Subject: =?UTF-8?Q?Rozszerzenie_Programu_M=C3=B3j_Pr=C4=85d_5.0?=
-X-Mailer: mail.citycodes.pl
+        with ESMTP id S233717AbjJDTXL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Oct 2023 15:23:11 -0400
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com [IPv6:2607:f8b0:4864:20::b2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17B18C6
+        for <linux-man@vger.kernel.org>; Wed,  4 Oct 2023 12:23:06 -0700 (PDT)
+Received: by mail-yb1-xb2b.google.com with SMTP id 3f1490d57ef6-d81f35511e6so237380276.0
+        for <linux-man@vger.kernel.org>; Wed, 04 Oct 2023 12:23:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1696447385; x=1697052185; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Y/ns+6ihjkXsP/aV2Eqg7/uCCGKWdL+RZzqUracZZqM=;
+        b=CBv93kLy16UJwkedMnfsXcxSCWst2FZsyzIpbWICB9Z8jLO2Kqktnl1kpB39xk7A9E
+         1csNO4SqtVjPkHx0qYFS9L7qRI972DO0fMfXNULCeLZWfUi8PphJOjdPu2FCHLflgbK8
+         6vjEwdSjpNPL8DPCECLZxLcbwqm8CQ84BPcfrvMLkpjr3eBAUQDXTGE6t8LaKUSj2PXv
+         tRS5bvfjOpPynjD33bbpTlJB1L9+qswqiyAcLDBTNa/IIb4sR2V820HDVG9d919xYP9X
+         fSy/8ZnpOME5ODFnEycpqLN3R30VGiNgIY8TvTZWba1nU5S0hDYxggNhDA8B2hXXtcUi
+         G+cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696447385; x=1697052185;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Y/ns+6ihjkXsP/aV2Eqg7/uCCGKWdL+RZzqUracZZqM=;
+        b=EiboVZ78gdExCxDhaMALajxL5qeCwLy9CHNJNC7UDsuH2eFq+Bu6fFUc3WQtGoSwfH
+         QUjFIQdcV729UdPFb/ppLU8psrJV6vdmst3TatTDs6Fxtt/V0oYQj6PPIsKHXoanm9Z4
+         iDyxc3a5naVWaIqPgaGrzW404kCMUpt+QhWIM+BCUKiF+OOdAQdgcRLFMPsDVyIsXeX1
+         S6gbNcAeZ5TTLm7oqmn4uKG0jb8zNr16VXm9twP5rV6hi7Q42gOrh9Va/ZwWWHEh4UWb
+         uAJkfne2W4CL4hlIW3ZIFkrksPe/xMCdjXTnYKL/2lW0DClvbDPcEf7rw1YVgYqmBXGu
+         /GLA==
+X-Gm-Message-State: AOJu0YxMfBZHE9FD3UXPq7aCWnDOIErIr/8pprlL7Ve3O5REM/t2T3Xl
+        CYMmp4/sDoCNs7rJWdg3q+4bek1jI9Tu8ddvvxHZ
+X-Google-Smtp-Source: AGHT+IEBtB1p2lsaO9xIDleJL0myphgAgvBS4Mq+KPupw6UrSl5kJOTBLtJcCni2AbLDyLbU8+wZxZHvnw7Ebc9NcjU=
+X-Received: by 2002:a25:d381:0:b0:d81:89d4:ffd9 with SMTP id
+ e123-20020a25d381000000b00d8189d4ffd9mr493720ybf.31.1696447385121; Wed, 04
+ Oct 2023 12:23:05 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230913152238.905247-1-mszeredi@redhat.com> <20230913152238.905247-4-mszeredi@redhat.com>
+ <20230917005419.397938-1-mattlloydhouse@gmail.com> <CAOssrKcECS_CvifP1vMM8YOyMW7dkGXTDTKY2CRr-fPrJk76ZA@mail.gmail.com>
+ <20230918-einblick-klaut-0a010e0abc70@brauner> <CAHC9VhQsChQO9aaY+NTtmvJgXBodvXO6rUN3d7ZyHGqitLBABw@mail.gmail.com>
+ <CAJfpegtJwcS9=7dCAVCEoBwD_U2MX44a6B62iDsc78AZt6nM7Q@mail.gmail.com>
+In-Reply-To: <CAJfpegtJwcS9=7dCAVCEoBwD_U2MX44a6B62iDsc78AZt6nM7Q@mail.gmail.com>
+From:   Paul Moore <paul@paul-moore.com>
+Date:   Wed, 4 Oct 2023 15:22:54 -0400
+Message-ID: <CAHC9VhQvpGUVzv=6M9f4NNn_qi+kjHPMVoppmSitHs6HVgZDOg@mail.gmail.com>
+Subject: Re: [RFC PATCH 3/3] add listmnt(2) syscall
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     Christian Brauner <brauner@kernel.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_05,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
         SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
         autolearn_force=no version=3.4.6
@@ -46,19 +81,47 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Szanowni Pa=C5=84stwo!
+On Thu, Sep 28, 2023 at 6:07=E2=80=AFAM Miklos Szeredi <miklos@szeredi.hu> =
+wrote:
+> On Tue, 19 Sept 2023 at 18:48, Paul Moore <paul@paul-moore.com> wrote:
+>
+> > > Ideally we avoid multiple capable(CAP_SYS_ADMIN) calls by only doing =
+it
+> > > once and saving the return value. capable() call's aren't that cheap.
+> >
+> > Agreed.  The capability check doesn't do any subject/object
+> > comparisons so calling it for each mount is overkill.  However, I
+> > would think we would want the LSM hook called from inside the loop as
+> > that could involve a subject (@current) and object (individual mount
+> > point) comparison.
 
-W ramach nowej edycji programu M=C3=B3j Pr=C4=85d mog=C4=85 otrzyma=C4=87=
- Pa=C5=84stwo dofinansowanie na zakup i monta=C5=BC fotowoltaiki i/lub ma=
-gazynu energii. Maksymalna kwota dofinansowania wynosi 58 tys. z=C5=82.=20
+My apologies, I was traveling and while I was quickly checking my
+email each day this message was lost.  I'm very sorry for the delay in
+responding.
 
-Jako firma wyspecjalizowana w tym zakresie zajmiemy si=C4=99 Pa=C5=84stwa=
- wnioskiem o dofinansowanie oraz instalacj=C4=85 i serwisem dopasowanych =
-do Pa=C5=84stwa budynku paneli s=C5=82onecznych.
+> The security_sb_statfs() one?
 
-B=C4=99d=C4=99 wdzi=C4=99czny za informacj=C4=99 czy s=C4=85 Pa=C5=84stwo=
- zainteresowani.
+Yes.
 
+> Should a single failure result in a complete failure?
 
-Pozdrawiam,
-Kamil Lasek
+My opinion is that it should only result in the failure of that
+listing/stat'ing that particular mount; if other mounts are allowed to
+be queried than the operation should be allowed to continue.
+
+> Why is it not enough to check permission on the parent?
+
+Each mount has the potential to have a unique security identify in the
+context of the LSM, and since the LSM access controls are generally
+intended to support a subject-verb-object access control policy we
+need to examine the subject and object together (the subject here is
+@current, the object is the individual mount, and the verb is the
+stat/list operation).
+
+Does that make sense?
+
+I'm looking at the v3 patchset right now, I've got some small nits,
+but I'll add those to that thread.
+
+--=20
+paul-moore.com
