@@ -2,107 +2,168 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0167B7B9E42
-	for <lists+linux-man@lfdr.de>; Thu,  5 Oct 2023 16:03:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 823C97BA53E
+	for <lists+linux-man@lfdr.de>; Thu,  5 Oct 2023 18:15:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229574AbjJEODp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Oct 2023 10:03:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40876 "EHLO
+        id S240854AbjJEQPe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Oct 2023 12:15:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229887AbjJEODQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Oct 2023 10:03:16 -0400
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com [IPv6:2a00:1450:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 821E159E6
-        for <linux-man@vger.kernel.org>; Wed,  4 Oct 2023 22:48:59 -0700 (PDT)
-Received: by mail-ed1-x535.google.com with SMTP id 4fb4d7f45d1cf-5363227cc80so840420a12.3
-        for <linux-man@vger.kernel.org>; Wed, 04 Oct 2023 22:48:59 -0700 (PDT)
+        with ESMTP id S240934AbjJEQNm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Oct 2023 12:13:42 -0400
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 493562105
+        for <linux-man@vger.kernel.org>; Wed,  4 Oct 2023 21:02:08 -0700 (PDT)
+Received: by mail-ej1-x62e.google.com with SMTP id a640c23a62f3a-9ad8a822508so101519666b.0
+        for <linux-man@vger.kernel.org>; Wed, 04 Oct 2023 21:02:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696484938; x=1697089738; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oDVdWICwavrWQ8UAVYhe8ynFXsBBW1vVQ7W08zgiq24=;
-        b=MYfiLuYwDBOCedc9q8/Xo4M5ib4aKIm9EukXNk9FaNClvdg7W8kDOQwb0Oj8yKkLBh
-         bhuL4piG0IYLbgAyKJF+Om2+yiu3D6ZJOtkmI6AzY305gc75Puq61UnAoUaWd4E0d4wi
-         Vvh+Jd7CGe1QxzqXmzVmAD0+WPVMs4eP8oi+gC+AxTvznNrGDmnBPFBtxbee4o6xWemz
-         97ryxVCJDBi8tTizwSzb6Pro3GEWUciPpiTvJ5zwkLhbRTwmEd8Q+xTZfljR/EWXGyOj
-         FHRCtAugM9x45iUECGhtAlr18dnWfRPIaOmX9nyESk+Dxss9XSnlcK7HoVPM9yf5DjSa
-         7u6g==
+        d=szeredi.hu; s=google; t=1696478526; x=1697083326; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YKeghe/h+8V01N3C5F/CD+J6nuH9c3jaxycLuVcqFqY=;
+        b=czzNcLA+d+be0YPPWCPcNRUQoH1t4/dkWhRiG9G2yNOnf29Kl9fM5DQ2C9x87AFSTa
+         0LTFH4kmOAto8XZpPNnnHygxbhNwcaEXXewyJ7ZGx9eRsEizdjIYoYqPX4daYrM56kmO
+         qK05bYILCCpxLlHkHgqIjFT84HCTO30ZkV5OI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696484938; x=1697089738;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oDVdWICwavrWQ8UAVYhe8ynFXsBBW1vVQ7W08zgiq24=;
-        b=jtBWrNqFccL5ymLtrt7gya1YF1I4owneYp7V2RxhB2ch/79DqRaW3tYygVkqfu45f7
-         mNPhCRLypd/FwH7zvk0ABxFV/jKbsribrDXGM7Q1eGxBwHiRVybVk6RBWycOe2byACjR
-         JJLOqb917RLYZUYbPWGMT/C2FVY3gRD49Xue7c3PT8j5o2F3rjEcpNekRvMkS59Dzx0n
-         QWBv4GjZxCIooYXWzOkegEdZzGxp4Wxx2cjDS1MEhUwP1UuVr2fjNI73WsyIGCMDgjPs
-         gohHcTmqBIgyfr+uZZ8mjWfLrAeyn8Hs8ODNW1ZR7pnTGfSrXda4trmH/weBeO1m+Juq
-         9dYw==
-X-Gm-Message-State: AOJu0YyCEceSsA0b8K3Mf+f7ah/5wVjfsFtnswjeq7C4xGQZ0tG63ClU
-        dIwc1yQ/02TM64JeVJQccYUIExtH8kFl+R/xQQE=
-X-Google-Smtp-Source: AGHT+IE1ovbrfw7QXlMKBlSimDskXMUW5hbr025vXML3QV5pFjNLblytgUilJ4lKP5J+hGCZnreodCzyUtYQuS7E7p4=
-X-Received: by 2002:aa7:db45:0:b0:533:520:a5a8 with SMTP id
- n5-20020aa7db45000000b005330520a5a8mr3798027edt.29.1696484937599; Wed, 04 Oct
- 2023 22:48:57 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696478526; x=1697083326;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YKeghe/h+8V01N3C5F/CD+J6nuH9c3jaxycLuVcqFqY=;
+        b=hLLIwoyaNIuV4nku8zrdaBAlpukJMXeJ6GD1CW8y/pENNomgIiAISuHEegC7ZNK1Fm
+         GxIBt5cG6aVfhWWFOtY12MYpoUfC7EuGonzMF7Z7T+pAV1om+1nEriTZk2gei7f93GDp
+         ZbECTVxYo6ICUhw/GrJKU4vFLaSUbBRY+AGCKiHpRhazheizE4M2D1FGcFdwSUdHgE4E
+         LMFR49tb5l/HkoO8qbF1CiZwsq2QIYMDYVHTrURq6yTCJw6OR3WJmMrrNhcGXWhahwZi
+         79nZ/QieifXSnHouGk5xp7bWrrJnj+UHKpv8EMQNclcP3opxGCzTS98i+D3s3blTC4zv
+         EFBA==
+X-Gm-Message-State: AOJu0YwCRttYrVpCFIG0Zg7+Zu6Wy7QBUnRit9NBsOn4TWYAdH3ZLiM4
+        DPreQYFvGYtb2VC6tL/IVbG4pWlBwT9qwpuFHj9HTw==
+X-Google-Smtp-Source: AGHT+IFnG1g9sQjyctXSbGWbEKu4RwQsoZ0vWyIrU9Kgouq51lY/wQ2CPqAb/STCI8uDOSFPVONtcHqKEGrGTo4XbAc=
+X-Received: by 2002:a17:906:ce:b0:9a6:426f:7dfd with SMTP id
+ 14-20020a17090600ce00b009a6426f7dfdmr3358227eji.66.1696478525910; Wed, 04 Oct
+ 2023 21:02:05 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a54:2e12:0:b0:22f:305d:661b with HTTP; Wed, 4 Oct 2023
- 22:48:57 -0700 (PDT)
-Reply-To: ninacoulibaly03@hotmail.com
-From:   nina coulibaly <coulibalynina09@gmail.com>
-Date:   Thu, 5 Oct 2023 05:48:57 +0000
-Message-ID: <CABeZed48QdeV72Uq2hyDpFJhxG0psfBzDg=a9ddazGSi1m3tLg@mail.gmail.com>
-Subject: from nina coulibaly
-To:     undisclosed-recipients:;
+References: <20230928130147.564503-1-mszeredi@redhat.com> <20230928130147.564503-5-mszeredi@redhat.com>
+ <CAHC9VhQD9r+Qf5Vz1XmxUdJJJO7HNTKdo8Ux=n+xkxr=JGFMrw@mail.gmail.com>
+In-Reply-To: <CAHC9VhQD9r+Qf5Vz1XmxUdJJJO7HNTKdo8Ux=n+xkxr=JGFMrw@mail.gmail.com>
+From:   Miklos Szeredi <miklos@szeredi.hu>
+Date:   Thu, 5 Oct 2023 06:01:53 +0200
+Message-ID: <CAJfpegsPbDgaz46x4Rr9ZgCpF9rohVHsvuWtQ5LNAdiYU_D4Ww@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] add listmount(2) syscall
+To:     Paul Moore <paul@paul-moore.com>
+Cc:     Miklos Szeredi <mszeredi@redhat.com>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=7.2 required=5.0 tests=BAYES_50,DEAR_NOBODY,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-        SPF_PASS,UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: *  0.0 RCVD_IN_DNSWL_BLOCKED RBL: ADMINISTRATOR NOTICE: The query to
-        *      DNSWL was blocked.  See
-        *      http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
-        *      for more information.
-        *      [2a00:1450:4864:20:0:0:0:535 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5105]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [coulibalynina09[at]gmail.com]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [coulibalynina09[at]gmail.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
-        *      digit
-        *      [ninacoulibaly03[at]hotmail.com]
-        *  2.3 DEAR_NOBODY RAW: Message contains Dear but with no name
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  2.8 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *******
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dear,
+On Wed, 4 Oct 2023 at 21:38, Paul Moore <paul@paul-moore.com> wrote:
+>
+> On Thu, Sep 28, 2023 at 9:04=E2=80=AFAM Miklos Szeredi <mszeredi@redhat.c=
+om> wrote:
+> >
+> > Add way to query the children of a particular mount.  This is a more
+> > flexible way to iterate the mount tree than having to parse the complet=
+e
+> > /proc/self/mountinfo.
+> >
+> > Lookup the mount by the new 64bit mount ID.  If a mount needs to be que=
+ried
+> > based on path, then statx(2) can be used to first query the mount ID
+> > belonging to the path.
+> >
+> > Return an array of new (64bit) mount ID's.  Without privileges only mou=
+nts
+> > are listed which are reachable from the task's root.
+> >
+> > Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+> > ---
+> >  arch/x86/entry/syscalls/syscall_32.tbl |  1 +
+> >  arch/x86/entry/syscalls/syscall_64.tbl |  1 +
+> >  fs/namespace.c                         | 69 ++++++++++++++++++++++++++
+> >  include/linux/syscalls.h               |  3 ++
+> >  include/uapi/asm-generic/unistd.h      |  5 +-
+> >  include/uapi/linux/mount.h             |  3 ++
+> >  6 files changed, 81 insertions(+), 1 deletion(-)
+>
+> ...
+>
+> > diff --git a/fs/namespace.c b/fs/namespace.c
+> > index 3326ba2b2810..050e2d2af110 100644
+> > --- a/fs/namespace.c
+> > +++ b/fs/namespace.c
+> > @@ -4970,6 +4970,75 @@ SYSCALL_DEFINE4(statmount, const struct __mount_=
+arg __user *, req,
+> >         return ret;
+> >  }
+> >
+> > +static long do_listmount(struct vfsmount *mnt, u64 __user *buf, size_t=
+ bufsize,
+> > +                        const struct path *root, unsigned int flags)
+> > +{
+> > +       struct mount *r, *m =3D real_mount(mnt);
+> > +       struct path rootmnt =3D {
+> > +               .mnt =3D root->mnt,
+> > +               .dentry =3D root->mnt->mnt_root
+> > +       };
+> > +       long ctr =3D 0;
+> > +       bool reachable_only =3D true;
+> > +       int err;
+> > +
+> > +       err =3D security_sb_statfs(mnt->mnt_root);
+> > +       if (err)
+> > +               return err;
+> > +
+> > +       if (flags & LISTMOUNT_UNREACHABLE) {
+> > +               if (!capable(CAP_SYS_ADMIN))
+> > +                       return -EPERM;
+> > +               reachable_only =3D false;
+> > +       }
+> > +
+> > +       if (reachable_only && !is_path_reachable(m, mnt->mnt_root, &roo=
+tmnt))
+> > +               return capable(CAP_SYS_ADMIN) ? 0 : -EPERM;
+> > +
+> > +       list_for_each_entry(r, &m->mnt_mounts, mnt_child) {
+> > +               if (reachable_only &&
+> > +                   !is_path_reachable(r, r->mnt.mnt_root, root))
+> > +                       continue;
+>
+> I believe we would want to move the security_sb_statfs() call from
+> above to down here; something like this I think ...
+>
+>   err =3D security_sb_statfs(r->mnt.mnt_root);
+>   if (err)
+>     /* if we can't access the mount, pretend it doesn't exist */
+>     continue;
 
-I am interested to invest with you in your country with total trust
-and i hope you will give me total support, sincerity and commitment.
-Please get back to me as soon as possible so that i can give you my
-proposed details of funding and others.
+Hmm.  Why is this specific to listing mounts (i.e. why doesn't readdir
+have a similar filter)?
 
-Best Regards.
+Also why hasn't this come up with regards to the proc interfaces that
+list mounts?
 
-Mrs Nina Coulibaly
+I just want to understand the big picture here.
+
+Thanks,
+Miklos
