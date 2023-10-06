@@ -2,134 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C800D7BB064
-	for <lists+linux-man@lfdr.de>; Fri,  6 Oct 2023 04:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2C8F07BB1A7
+	for <lists+linux-man@lfdr.de>; Fri,  6 Oct 2023 08:43:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229819AbjJFC4W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Oct 2023 22:56:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53132 "EHLO
+        id S230205AbjJFGnC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Oct 2023 02:43:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33424 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229821AbjJFC4V (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Oct 2023 22:56:21 -0400
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com [IPv6:2607:f8b0:4864:20::b2c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F85FDE
-        for <linux-man@vger.kernel.org>; Thu,  5 Oct 2023 19:56:20 -0700 (PDT)
-Received: by mail-yb1-xb2c.google.com with SMTP id 3f1490d57ef6-d89491dab33so1886513276.0
-        for <linux-man@vger.kernel.org>; Thu, 05 Oct 2023 19:56:20 -0700 (PDT)
+        with ESMTP id S230224AbjJFGnA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Oct 2023 02:43:00 -0400
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com [IPv6:2001:4860:4864:20::2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2934101
+        for <linux-man@vger.kernel.org>; Thu,  5 Oct 2023 23:42:58 -0700 (PDT)
+Received: by mail-oa1-x2b.google.com with SMTP id 586e51a60fabf-1dcfb2a3282so1166485fac.2
+        for <linux-man@vger.kernel.org>; Thu, 05 Oct 2023 23:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1696560979; x=1697165779; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PHArqxu2qvv+0QWfp9YXmo0v1ys/eNAvTHWEBAqut18=;
-        b=ajSKYXOro6poGXXUa2xNDgWiay9AME4I17RTXh6yZTxpQS+CWtFw35WTy01NS+Nc4s
-         7qn9Lq87Eyx6Sh7QUByM2XZag6WbGko6TTgAgYv3dfV1SnO9UxA0yp5sBeI7lFfI8fr6
-         xZolX9+dexXjLMRrihXCsHUuqb3Nfcw8KxAy2tAEOYYkEunCkd/4jbttmLjJRHF4o6yZ
-         a62vh4n/+NtmixCzs8k4yFjDztO7FCI1zqNBK2lMso+Ztg2TawGLsQQUEC48n1Qg17vH
-         ceMB7Uc/ruF+vTS4S/AbfojCHeFMnKZ/khLOdQ+2x9hoBt7rcXotjk79ikqVAe1+Cjt5
-         D7bw==
+        d=gmail.com; s=20230601; t=1696574578; x=1697179378; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yFPJXkFG67eq49LbjH5k0DstGpwupS+vb90xGv5jk6I=;
+        b=GTS5ifU3OnbK3jfzFEYQF1j19vUoVYRX/xe/ok3QhKKybg5pWiZHLGZT/Sdr6VS/pJ
+         xVy8fH1JPdvRf/iwfE03MfHpS7Gdt7IlhUKO4p6lEnT8PtInRVQ6OS2fmutu3VrmttR3
+         H/oLw9C2WJ4o9qRLvdxgu5W9WwdymuZstzy35u7I007/Q/tOwkKMdECD/rbxk6X9wo4Y
+         J/VXvCoLMbH29jIsLmt01zkDLwd84stkyApGpe3Z0kQaMED4Zoi9W/O/0Ju/WE91jQxD
+         2onnjnYOH9LrjSUkZ7Fw4UJrCyrZioLPabdDN4K4YpFutVM9ksR0JrD2nNptL64tz5Mj
+         7t6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696560979; x=1697165779;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PHArqxu2qvv+0QWfp9YXmo0v1ys/eNAvTHWEBAqut18=;
-        b=qdgnjXQA0e56YyZyYa4r/XEhrswIPAR71zjLxdxZJ1zab6juFwpFhBrdU/8Vlqs2wd
-         o8v7Q8peEXNiYlbkxvOKE9SN6vJTMIBHjiqRoMXEO9wt9333hs/VKxDgHMdSCefbeWhr
-         SOt5++0OluBP4G+z0cHwf/gpahO/KUXaFLIjqLr9+GK3tlFEDnULb7bzt6j6LWA9zTBh
-         euTulCSrcO5E2Uoy4le4yo0jvjXeShqpZrIg5vkTQ4Ckp/77UzjRbQPmovldVNBiuEQk
-         a47Y08opEDO4xyWszSXBirzfVu/i5Q9yENZNFvtUJqBhJdx5+t75lT/Oog8d2bhiL2OT
-         tIEw==
-X-Gm-Message-State: AOJu0Yz+siZAincsrADq1hndcxgZ1t/6dQjlQpB1eS0zXz2+mNKDwxZd
-        NqQEl/NjXLkDKWi3OcCIjpImQu9HLJXdW49uTc7Y
-X-Google-Smtp-Source: AGHT+IHre+a34KZNGIs0z++veEpRz77t1WlEFWTAbeLlkjBKLMPcIoQncO3aQ0/CHJ2xAP9H60aKr56+aFyEAFaH3e8=
-X-Received: by 2002:a25:556:0:b0:d0f:6f1d:89ec with SMTP id
- 83-20020a250556000000b00d0f6f1d89ecmr6477803ybf.35.1696560979263; Thu, 05 Oct
- 2023 19:56:19 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696574578; x=1697179378;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yFPJXkFG67eq49LbjH5k0DstGpwupS+vb90xGv5jk6I=;
+        b=S13yCaZHXut6dN6356OJoEUaXP6DtYcANf5pvTnkfxH5b4OA6VpY/087m9lImInV0S
+         H0jjWL+Xo8mI+ACFlN8AjHfUV9NO86A+zeu24b5Cz+V1ywUEmrRP37TlEttwu1wmyD/v
+         kYOHuOTdxLM85h3u3WxVse7hkZx217uapdmxqPeFtTOvFTX6054awVsDnpdoXnfDUjkt
+         dzFw9FZTRRwU8rNph9bQry+kBodLw7HhBy7UGVkrAmSzYviqT0z062O6iA/8kaZUJm/B
+         B+nP3Ej+wCuqq0zkeweBrQ7azq4BX6UEAhAJeT+KpzBfPuUZniJ77wGLuBf+pWZ6KStR
+         GkyQ==
+X-Gm-Message-State: AOJu0YyM9HyDAvBm34fDduK9uEP3ZO1FdpYKPiLLewSRpKSmDUIz/yIQ
+        WmP156RiNgjp444cnMsEZ/nO9auM7Dc=
+X-Google-Smtp-Source: AGHT+IFCpTdK/LqmkiR94ymD6kcsJC12KGLbH2piRiilZFNsypNmUdhH4SueI04NiOYkn40gE0xdEg==
+X-Received: by 2002:a05:6870:2b0f:b0:1e1:fe79:6831 with SMTP id ld15-20020a0568702b0f00b001e1fe796831mr6807655oab.57.1696574578042;
+        Thu, 05 Oct 2023 23:42:58 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id s10-20020a056870628a00b001e12f685592sm642152oan.13.2023.10.05.23.42.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Oct 2023 23:42:57 -0700 (PDT)
+Date:   Fri, 6 Oct 2023 01:42:54 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] man2/userfaultfd.2: ffix
+Message-ID: <20231006064254.bsladknplzq5rurq@illithid>
 MIME-Version: 1.0
-References: <20230928130147.564503-1-mszeredi@redhat.com> <20230928130147.564503-5-mszeredi@redhat.com>
- <CAHC9VhQD9r+Qf5Vz1XmxUdJJJO7HNTKdo8Ux=n+xkxr=JGFMrw@mail.gmail.com>
- <CAJfpegsPbDgaz46x4Rr9ZgCpF9rohVHsvuWtQ5LNAdiYU_D4Ww@mail.gmail.com>
- <a25f2736-1837-f4ca-b401-85db24f46452@themaw.net> <CAJfpegv78njkWdaShTskKXoGOpKAndvYYJwq7CLibiu+xmLCvg@mail.gmail.com>
-In-Reply-To: <CAJfpegv78njkWdaShTskKXoGOpKAndvYYJwq7CLibiu+xmLCvg@mail.gmail.com>
-From:   Paul Moore <paul@paul-moore.com>
-Date:   Thu, 5 Oct 2023 22:56:08 -0400
-Message-ID: <CAHC9VhTwnjhfmkT5Rzt+SBf-8hyw4PYkbuPYnm6XLoyY7VAUiw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] add listmount(2) syscall
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     Ian Kent <raven@themaw.net>, Miklos Szeredi <mszeredi@redhat.com>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="26s3dugmnondnmwu"
+Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 5, 2023 at 11:47=E2=80=AFAM Miklos Szeredi <miklos@szeredi.hu> =
-wrote:
-> On Thu, 5 Oct 2023 at 06:23, Ian Kent <raven@themaw.net> wrote:
-> > The proc interfaces essentially use <mount namespace>->list to provide
-> >
-> > the mounts that can be seen so it's filtered by mount namespace of the
-> >
-> > task that's doing the open().
-> >
-> >
-> > See fs/namespace.c:mnt_list_next() and just below the m_start(), m_next=
-(),
->
-> /proc/$PID/mountinfo will list the mount namespace of $PID.  Whether
-> current task has permission to do so is decided at open time.
->
-> listmount() will list the children of the given mount ID.  The mount
-> ID is looked up in the task's mount namespace, so this cannot be used
-> to list mounts of other namespaces.  It's a more limited interface.
->
-> I sort of understand the reasoning behind calling into a security hook
-> on entry to statmount() and listmount().  And BTW I also think that if
-> statmount() and listmount() is limited in this way, then the same
-> limitation should be applied to the proc interfaces.  But that needs
-> to be done real carefully because it might cause regressions.  OTOH if
-> it's only done on the new interfaces, then what is the point, since
-> the old interfaces will be available indefinitely?
 
-LSMs that are designed to enforce access controls on procfs interfaces
-typically leverage the fact that the procfs interfaces are file based
-and the normal file I/O access controls can be used.  In some cases,
-e.g. /proc/self/attr, there may also be additional access controls
-implemented via a dedicated set of LSM hooks.
+--26s3dugmnondnmwu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Also I cannot see the point in hiding some mount ID's from the list.
-> It seems to me that the list is just an array of numbers that in
-> itself doesn't carry any information.
+---
+ man2/userfaultfd.2 | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-I think it really comes down to the significance of the mount ID, and
-I can't say I know enough of the details here to be entirely
-comfortable taking a hard stance on this.  Can you help me understand
-the mount ID concept a bit better?
-
-While I'm reasonably confident that we want a security_sb_statfs()
-control point in statmount(), it may turn out that we don't want/need
-a call in the listmount() case.  Perhaps your original patch was
-correct in the sense that we only want a single security_sb_statfs()
-call for the root (implying that the child mount IDs are attributes of
-the root/parent mount)?  Maybe it's something else entirely?
-
+diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
+index b2b79f61d..97f13cce9 100644
+--- a/man2/userfaultfd.2
++++ b/man2/userfaultfd.2
+@@ -222,12 +222,11 @@ .SS Userfaultfd operation
+ a page fault occurring in the requested memory range, and satisfying
+ the mode defined at the registration time, will be forwarded by the kernel=
+ to
+ the user-space application.
+-The application can then use various (e.g.
+-.B UFFDIO_COPY ,
+-.B UFFDIO_ZEROPAGE ,
++The application can then use various (e.g.,
++.BR UFFDIO_COPY ,
++.BR UFFDIO_ZEROPAGE ,
+ or
+-.B UFFDIO_CONTINUE
+-)
++.BR UFFDIO_CONTINUE )
+ .BR ioctl (2)
+ operations to resolve the page fault.
+ .PP
 --=20
-paul-moore.com
+2.30.2
+
+--26s3dugmnondnmwu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmUfrGcACgkQ0Z6cfXEm
+bc6H+w/8CQRiFbF6IpttTPd+IRY2XI05UEGoP8qHOJTRRIZUpKeZN4/Ra9T8aZ3O
+llSq10uKaZPQDCMqMK2SP8HLNI66z9LKi78PInm4wA7/JG7YSiMsqo1XVFUWDS6h
+4d4swSyxvA65N4Xv63HIjjMe2UJ3zk1pYH8RbfAhutK9pRnbi9+NP66dvOnWx3Rh
+MFdYGe770Kw48cbbLc83IWl9tYKvJ5Pls42tgvemplz48seArnbD+7EcliaUB/2R
+4hyEk/WiFcHY06pHtatWS2VQyZxSs4me+cVYVxwere2B6U6l/fQDfgIwPutwEl6E
+EwhSm9QEDOS75vuR9EdkTPwiEb+d20GVIF2tFVxKAebovPHSSAGQFU7L6Zesj2v2
+NbccfutKo4rg1nypNed/wKIuj3YM1Vz1buRtk0XGPTq4P5zMcsOOBs4SHGilR6dD
+qPfzi0H/63IDDGrUMUSFsOKctl8T5F2QNzDOuxwo9g8y8Nega1yxHG4pXk/+DNTm
+BZCTcwHUaFSPQhcSz6n0jssmW6SXdzLZzjLh+BkH7uq8sdieK+AvuQxAhcLOqL5d
+EOhgjz4eb2VCeHs1wwD/IpEyAhkNXrwHf9EnG5lMzrVwky8VziMakEuMK8xkjuli
+DkJ3nt44vVcGmo4l4DhVKe7eXvHFmBx0SQLRZ+iM9g/MplB7Yug=
+=6xn3
+-----END PGP SIGNATURE-----
+
+--26s3dugmnondnmwu--
