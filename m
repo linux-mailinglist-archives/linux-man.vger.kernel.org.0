@@ -2,45 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 925727BD10C
-	for <lists+linux-man@lfdr.de>; Mon,  9 Oct 2023 00:52:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 316047BD10F
+	for <lists+linux-man@lfdr.de>; Mon,  9 Oct 2023 00:55:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344708AbjJHWwj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Oct 2023 18:52:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45420 "EHLO
+        id S231652AbjJHWzI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Oct 2023 18:55:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54382 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344437AbjJHWwi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Oct 2023 18:52:38 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20DCAA3
-        for <linux-man@vger.kernel.org>; Sun,  8 Oct 2023 15:52:37 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8FCC433C7;
-        Sun,  8 Oct 2023 22:52:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1696805556;
-        bh=eKS1i915uOytgVyPyZfVPV7EGaZhyzS4h+fgE36YdyY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=UBZJ513Gz2UKSE91FymXKbDk+0Zp2QA67Y7muqdCmn7I8gdrZcqT1N6IHZzeQmzvS
-         /lcIVKC7o3YR2207TPwELu4AzgjDr3vFkeU7f61e2STtXiYFvA1nUcGIg3g7OAuYkM
-         K5+OabDsr8d/78g2gw0lS8oXAwKA+iGyQnE0ztL1+sy6ZUwGp70MduSR+y5UFzfjXF
-         pD7S9bya6v2R37VS9fN8YrMT0V9WmXAE+9ZVobjS1BiKl/Lq6VQ+hnq7ZuscDP4MMv
-         pVyHplqKTvLK/uVww7rKcYRpPhHkeeQEgAzL+SLw9AGDuHX47ATtVbTvDu1Wz7CTK5
-         JtIKAAN2yjmFQ==
-Date:   Mon, 9 Oct 2023 00:52:33 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Yannik Sembritzki <yannik@sembritzki.org>
-Cc:     linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] Correct list of flags returned by SIOCGIFFLAGS in
- netdevice.7
-Message-ID: <ZSMysfPBxTs8QCKD@debian>
-References: <78adf50c-e8f9-d1ce-e933-418a850b6a44@sembritzki.org>
+        with ESMTP id S231329AbjJHWzI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Oct 2023 18:55:08 -0400
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com [IPv6:2607:f8b0:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E0827A3
+        for <linux-man@vger.kernel.org>; Sun,  8 Oct 2023 15:55:05 -0700 (PDT)
+Received: by mail-ot1-x332.google.com with SMTP id 46e09a7af769-6c4bf619b57so2754582a34.1
+        for <linux-man@vger.kernel.org>; Sun, 08 Oct 2023 15:55:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1696805705; x=1697410505; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=pStCKI4+bPDiKwV5HJZl7lC0A+3uxB6soZ6xV/WQNZc=;
+        b=Mae8TXcZNANeZRCX6O+nN50z4Foo9ShnXN/pWozNFAZxX6OXq49r3Sgjym5YxCQku6
+         39afG8y5lICd2uuR6BiNoGS7azT+mpLlyleFTFAR87u/nYRLZAtoLZxJCKuBTHEZ4G6g
+         hcKxdrPkFrZbKuc9m/dgGrPtfmfQUD02cM0FOqeNhPGZMpS9r9gZ513c9thYJvXDTo3S
+         wW3U8yq0iEBAT+cTOumjma/i3+LbLrtOxfvV2iE9scNmmCGg16nSHFpV1pcmsNuqOuys
+         ly5F/poiIkttTOxJ9e+8Y8VKrsoioAqiMACcWjkpeL3KrpxbEjMRxjykUWMb7u0Y0zgq
+         IkDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696805705; x=1697410505;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pStCKI4+bPDiKwV5HJZl7lC0A+3uxB6soZ6xV/WQNZc=;
+        b=YMI0h5ThKp8bicbfmGbt2bMR9YNaq9HaBIp/7Mm840h4DfGfhsjs5jcJTmF8OjWGKN
+         wC1QJ1tKNuwH7h2E6dwU9taaALO+YfFFSPS61MVGCCkYC7xBkOXj2wRkm2cW1XrkUgVW
+         XLFIP7aB8SZ6dyliioEbqtE+EDGYt5BRMMC6UA6NfObosIFr/vygnvoyX769xUIkjXeR
+         F79DP2zl+xxVoEboyClqNB6+UgyA0rwhtSm1mC6ROJ6HqeclBTodFVq0k+SwGmm5y1nj
+         j6t/RRMWnTJgW41kxbB4TluAKBWSrKH6lsbhUpEcjGEuOnL4Y3tjipSosVFJmmIKG0/G
+         WuLQ==
+X-Gm-Message-State: AOJu0Yx4PhB+ENRkyRWR8wfa1Dv9YpelmMfjarwj0pFFy2YzXpS+HlB+
+        trUAyib5BfiIlAj8Fp09NQHvclf8oKo=
+X-Google-Smtp-Source: AGHT+IGXpFNmKlncODguut36sVhu6kevPq+Jtsg4szWZN0/m4nHtnasQFA/kBsQa1mCaMCt9sI/B6Q==
+X-Received: by 2002:a05:6830:1db9:b0:6b8:6785:ed0b with SMTP id z25-20020a0568301db900b006b86785ed0bmr15186348oti.30.1696805705013;
+        Sun, 08 Oct 2023 15:55:05 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id p124-20020a4a4882000000b0057de3e449c8sm1352449ooa.8.2023.10.08.15.55.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Oct 2023 15:55:04 -0700 (PDT)
+Date:   Sun, 8 Oct 2023 17:55:02 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] man2/userfaultfd.2: ffix
+Message-ID: <20231008225502.fjj7dnkwdtd6m6px@illithid>
+References: <20231006064254.bsladknplzq5rurq@illithid>
+ <ZSMxEqGwjmk1jDEz@debian>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="qVaTCG8zGF7ndl3e"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="vbyt3mzieiwnusrg"
 Content-Disposition: inline
-In-Reply-To: <78adf50c-e8f9-d1ce-e933-418a850b6a44@sembritzki.org>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+In-Reply-To: <ZSMxEqGwjmk1jDEz@debian>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -50,93 +72,39 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---qVaTCG8zGF7ndl3e
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--vbyt3mzieiwnusrg
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 9 Oct 2023 00:52:33 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Yannik Sembritzki <yannik@sembritzki.org>
-Cc: linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] Correct list of flags returned by SIOCGIFFLAGS in
- netdevice.7
 
-Hello Yannik,
+Hi Alex,
 
-On Sat, Oct 07, 2023 at 06:30:52PM +0200, Yannik Sembritzki wrote:
-> As per https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git=
-/commit/?id=3D746e6ad23cd6fec2edce056e014a0eabeffa838c
-> and https://lkml.org/lkml/2009/5/28/224
->=20
-> Signed-off-by: Yannik Sembritzki <yannik@sembritzki.org>
+At 2023-10-09T00:45:37+0200, Alejandro Colomar wrote:
+> Patch applied.  Should I amend with
+> `Signed-off-by: "G. Branden Robinson" <branden@debian.org>`?
 
-I couldn't apply the patch:
+Sure.  I forgot (again).  :-O
 
-warning: Patch sent with format=3Dflowed; space at the end of lines might b=
-e lost.
-Applying: Correct list of flags returned by SIOCGIFFLAGS in netdevice.7
-error: corrupt patch at line 10
-Patch failed at 0001 Correct list of flags returned by SIOCGIFFLAGS in netd=
-evice.7
-hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+Regards,
+Branden
 
-Can you please check?
-
-Also, please CC
-"Fredrik Arnerup" <fredrik.arnerup@edgeware.tv>
-John Dykstra <john.dykstra1@gmail.com>
-David S. Miller <davem@davemloft.net>
-
-Thanks,
-Alex
-
-> ---
-> =C2=A0man7/netdevice.7 | 3 ---
-> =C2=A01 file changed, 3 deletions(-)
->=20
-> diff --git a/man7/netdevice.7 b/man7/netdevice.7
-> index 0087a8115..01356476d 100644
-> --- a/man7/netdevice.7
-> +++ b/man7/netdevice.7
-> @@ -127,9 +127,6 @@ IFF_AUTOMEDIA:Auto media selection active.
-> =C2=A0IFF_DYNAMIC:T{
-> =C2=A0The addresses are lost when the interface goes down.
-> =C2=A0T}
-> -IFF_LOWER_UP:Driver signals L1 up (since Linux 2.6.17)
-> -IFF_DORMANT:Driver signals dormant (since Linux 2.6.17)
-> -IFF_ECHO:Echo sent packets (since Linux 2.6.25)
-> =C2=A0.TE
-> =C2=A0.ad
-> =C2=A0.PP
-> --=20
-> 2.41.0
->=20
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---qVaTCG8zGF7ndl3e
+--vbyt3mzieiwnusrg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUjMrEACgkQnowa+77/
-2zLIWg//R7m8v6IBWNyWEURmDBymQ4AvD0XCQPJV4zsPcePkvXYtk4EsKmUf1x3T
-D7tKxBc1/cqoPDAYIxkmiC1FMEXEc/5ArBvkFr4u8nU4YsNM6RPJlW6oJbkhhmVc
-QhJFRZfO0SaHdzigkJ8G09V61PHsynpkEHyOpcYGkOMIZw7EpMDFkTvWwX33pmN/
-3eLcj9soNvZnAj1yaAE9hTemMCc1UDXQxcoRo8WJdRS5jYxSV0Gwt5KBDRiO2JLK
-DsFB4gaqgUjZMc6D5Q+H9g1YLVXrhwKg/QZeamITpifkqxGvoTJNWnG8PaI9FTs0
-RfsvKB/uOP8QSmKTYWL0gkTyhgKnruN/5r6y8fKmiGoMHXL80Y5CadsWGmw8Gf0d
-oMW71ykhdmAPlSZetBddbGEAqqMziWZ+d0XzBFEaccpigzBwno+OoqQzobLbVjK3
-PsVXBgKkO08v0JW+YU9tlLT4tDXBtSg/2O/WY7eBEjwdWBnFd0CS8NJ9IXHJca+2
-82oKvCGhlAVOMRytoUqvQZwP+GgIsF1TvL+RCdtoYOK0JWx3pZQSsW1Ca+LvXj6o
-twZhoux9POryS+LoRd/dL8DXZwsBp5GfqsQ48K4MBzPc5qA5jvCKYp5mynxVjJO3
-J/Lv97oAUfq+D1j/iaom2G8d+ovE+IZWVpMnyhRVFGuXshizutg=
-=relc
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmUjMz0ACgkQ0Z6cfXEm
+bc6lTg/5Aa1dzSG4VBsQH+470+iQjHnVsWvSbcjl348HRCp2fTBQIUmtGvzgud89
+OubKGFTnZgc030eN3tNJgK5iV9WuKyjbtX92bs+5//CQ4nFFHxf0vyFLhZP9jrYu
+qLChnIqQACwjliH3Y1FQ/mdo3JPAmCpzCUfJwYxTtF6sd3BqKoQw1YTvkbj828sM
+3b/iZ3l7MdonVXBfNrk4vcwLgpbizTlkRb8NndiG2JJLMfywSfU9xfGKB6tnORvu
+ZhNUUZflUy4+RuKxZ+9N6VtV7cI5I/k8yS8NHOhaOfy7Se5kVm1C0H70ROucke7A
+w4bTjS+b4R5XIsESHUQex9isA/4eLajU1Bxo7yJf/Q14J5BHPGrtpRaq1yY/c2uh
+Bl70/BGPOmBnqLCVtAfwkv60qcSywSN+hY02zvreBv+acTkz3XSeqAUJnodh6rYy
+ytxGFap1Gz2Okqxr4wNmnUGjPknWTkF6mbYI+h7JVoHYB4w0gB1WeXcneLESDiEv
+eYRk1+uIfocxNfDALB90OYuliXy63BvapTKDFFvpT6wRz62D6LAsQGj7KdyW0t47
+n8sE1xB7ObkxXxhC6zvpxeaV4TMfMTnQpfM1/LQCM4MAL3oKGotRxQUB/cH6Lkq+
+vQAfjM6ta5bavn1ux9kHffEZ5+oJo95Uw5Ky7FdUxjdcVuCYN5Y=
+=U4TC
 -----END PGP SIGNATURE-----
 
---qVaTCG8zGF7ndl3e--
+--vbyt3mzieiwnusrg--
