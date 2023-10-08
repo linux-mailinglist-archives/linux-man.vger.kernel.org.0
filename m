@@ -2,43 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B29A87BD0E7
-	for <lists+linux-man@lfdr.de>; Mon,  9 Oct 2023 00:27:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2EC117BD0EE
+	for <lists+linux-man@lfdr.de>; Mon,  9 Oct 2023 00:32:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344437AbjJHW1b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Oct 2023 18:27:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42372 "EHLO
+        id S1344863AbjJHWci (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Oct 2023 18:32:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344751AbjJHW1a (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Oct 2023 18:27:30 -0400
+        with ESMTP id S1344751AbjJHWci (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Oct 2023 18:32:38 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AAA9BA6;
-        Sun,  8 Oct 2023 15:27:29 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A396C433C7;
-        Sun,  8 Oct 2023 22:27:28 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BDB9DA6
+        for <linux-man@vger.kernel.org>; Sun,  8 Oct 2023 15:32:36 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE61C433C8;
+        Sun,  8 Oct 2023 22:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1696804049;
-        bh=6Je5z4NUgFJLlC2dnfzAag0bpe/ujMnd3+8Y8OOL7oY=;
+        s=k20201202; t=1696804356;
+        bh=AnetmVkoIxzInqcJtbx6bLOBU9/jpHuUWuj1oKOEy1Y=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Ec/IQW7yYoCYtixg/meIXXPBqT7co8S+Prxpi/TTfJzTa/B+mhGCKgLazaoyppDL3
-         oREJIigq4hRy4zle2BCieRL4ENRLTGdOEliz1pgm8okIB4v4/Gk7h6UMKZA6FE+ele
-         E633vrmSfaPGdj40TKSv7gKUonSi5Ygoay9BWn/CSoWtJ509sxv5RD54A6DkXSvaC3
-         LJEI5TGsT7kZOIgzbrHVYbgIswqhhUyRcrn9vkZu7MWf9PXqNsTqnUNjJzhM+WtaQ9
-         vM5kVTum5s5baXS+5Xn/jpRMpfu4uCTl61GJ9FZVfmFyunR1T3uc1nkfLcn1tvZdTb
-         r/CHaKx2mgMNw==
-Date:   Mon, 9 Oct 2023 00:27:25 +0200
+        b=Nq3XyjEcdXe/BLDbnOnLXeGuRbBJwiXprhA2hTlcYl6CN8ShYo13eN/AmXxm6Y5pD
+         s1c40hO1p8c72gGS7RzYb7B2CzORAeH0+8Dv4lWD2Y64kIUAig7kPdB9QwG/tTgz7q
+         ihn+TIUF8Jq87FM/6PqqjoSJShOgtNMI68RYOjclsPyKlDny9ihffrh1Ph4+EU+M2c
+         DbsjePMsAB0tW6RZj7hBJXBU8Ktr3lF1w5VOGRQxwaCn+Uj6RI7AzrP4QFL4YBiRgL
+         tTm3IzCquDDLwdVmMCHzDMWNGi24Qo26ew+N5uVx5V4s6CYMRgoFlTWJfbYRC/pxyb
+         NwR8mL0p0l1zA==
+Date:   Mon, 9 Oct 2023 00:32:33 +0200
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Axel Rasmussen <axelrasmussen@google.com>
-Cc:     Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] userfaultfd man page updates
-Message-ID: <ZSMszf3ASoQ8n6Hd@debian>
-References: <20231003194547.2237424-1-axelrasmussen@google.com>
+To:     Don Brace <don.brace@microchip.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH v6 1/6] smartpqi: add module parameter ctrl_ready_timeout
+Message-ID: <ZSMuAX0MXvVC6kN1@debian>
+References: <20231003195439.253129-1-don.brace@microchip.com>
+ <20231003195439.253129-2-don.brace@microchip.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="i48LFuNyXurCh9kb"
+        protocol="application/pgp-signature"; boundary="SPVbxrZJ6/2EfmR5"
 Content-Disposition: inline
-In-Reply-To: <20231003194547.2237424-1-axelrasmussen@google.com>
+In-Reply-To: <20231003195439.253129-2-don.brace@microchip.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -50,90 +50,115 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---i48LFuNyXurCh9kb
+--SPVbxrZJ6/2EfmR5
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 9 Oct 2023 00:27:25 +0200
+Date: Mon, 9 Oct 2023 00:32:33 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] userfaultfd man page updates
+To: Don Brace <don.brace@microchip.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v6 1/6] smartpqi: add module parameter ctrl_ready_timeout
 
-Hi Axel,
+On Tue, Oct 03, 2023 at 02:54:34PM -0500, Don Brace wrote:
+> Allow user to change the length of time that the driver
+> will wait for the controller to become ready.
+>=20
+> Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
+> Reviewed-by: Scott Teel <scott.teel@microchip.com>
+> Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
+> Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
+> Signed-off-by: Don Brace <don.brace@microchip.com>
 
-On Tue, Oct 03, 2023 at 12:45:42PM -0700, Axel Rasmussen wrote:
-> This series includes only the remaining patches not applied from v1, with
-> review comments addressed. This series is based on the "contrib" branch.
-
-Thanks.  For the next revision, I've moved the contrib branch to my
-personal repo, since it's more of a personal branch.  You can find it
-here:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log=
-/?h=3Dcontrib>
+Thanks.  Patch applied.  I applied the following minor formatting fix to
+your patch.
 
 Cheers,
 Alex
 
+
+diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
+index e12d82296..a213b3b70 100644
+--- a/man4/smartpqi.4
++++ b/man4/smartpqi.4
+@@ -17,7 +17,7 @@ .SH SYNOPSIS
+ .RB [ expose_ld_first=3D { 0 | 1 }]
+ .RB [ hide_vsep=3D { 0 | 1 }]
+ .RB [ disable_managed_interrupts=3D { 0 | 1 }]
+-.RB [ ctrl_ready_timeout=3D { 0 | [30, 1800] }]
++.RB [ ctrl_ready_timeout=3D { 0 |[ 30 , 1800 ]}]
+ .YS
+ .SH DESCRIPTION
+ .B smartpqi
+@@ -112,7 +112,9 @@ .SS Boot options
+ .BR ctrl_ready_timeout=3D { 0 | [30, 1800] }
+ This option specifies the timeout in seconds for the driver to wait
+ for the controller to be ready.
+-The valid range is 0 or [30, 1800]. The default value is 0,
++The valid range is 0 or
++.RB [ 30 ", " 1800 ].
++The default value is 0,
+ which causes the driver to use a timeout of 180 seconds.
+ .SH FILES
+ .SS Device nodes
+
+
+
+> ---
+>  man4/smartpqi.4 | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >=20
-> Changelog:
->=20
-> v1->v2:
->  - In patch 1 (patch 5 in v1), change "after" to "since" for consistency =
-and to
->    be clear that we mean 4.11+ (inclusive).
->  - In patch 2 (patch 7 in v1), reorder error codes alphabetically (EINVAL=
- then
->    EPERM).
->  - In patch 3 (patch 8 in v1), resolve conflicts with earlier review comm=
-ents.
->=20
-> Original cover letter:
->=20
-> Various updates for userfaultfd man pages. To summarize the changes:
->=20
-> - Correctly / fully describe the two-step feature support handshake proce=
-ss.
-> - Describe new UFFDIO_POISON ioctl.
-> - Other small improvements (missing ioctls, error codes, etc).
->=20
-> Axel Rasmussen (5):
->   ioctl_userfaultfd.2: describe two-step feature handshake
->   ioctl_userfaultfd.2: correct and update UFFDIO_API ioctl error codes
->   ioctl_userfaultfd.2: clarify the state of the uffdio_api structure on
->     error
->   ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER error code list
->   ioctl_userfaultfd.2: document new UFFDIO_POISON ioctl
->=20
->  man2/ioctl_userfaultfd.2 | 226 +++++++++++++++++++++++++++++++--------
->  1 file changed, 181 insertions(+), 45 deletions(-)
->=20
-> --
-> 2.42.0.609.gbb76f46606-goog
+> diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
+> index 32f9240e37f2..e12d82296108 100644
+> --- a/man4/smartpqi.4
+> +++ b/man4/smartpqi.4
+> @@ -17,6 +17,7 @@ smartpqi \- Microchip Smart Storage SCSI driver
+>  .RB [ expose_ld_first=3D { 0 | 1 }]
+>  .RB [ hide_vsep=3D { 0 | 1 }]
+>  .RB [ disable_managed_interrupts=3D { 0 | 1 }]
+> +.RB [ ctrl_ready_timeout=3D { 0 | [30, 1800] }]
+>  .YS
+>  .SH DESCRIPTION
+>  .B smartpqi
+> @@ -107,6 +108,12 @@ Disables driver utilization of Linux kernel managed =
+interrupts for controllers.
+>  The managed interrupts feature automatically distributes interrupts
+>  to all available CPUs and assigns SMP affinity.
+>  The default value is 0 (managed interrupts enabled).
+> +.TP
+> +.BR ctrl_ready_timeout=3D { 0 | [30, 1800] }
+> +This option specifies the timeout in seconds for the driver to wait
+> +for the controller to be ready.
+> +The valid range is 0 or [30, 1800]. The default value is 0,
+> +which causes the driver to use a timeout of 180 seconds.
+>  .SH FILES
+>  .SS Device nodes
+>  Logical drives are accessed via the SCSI disk driver
+> --=20
+> 2.42.0.296.g493f462273
 >=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---i48LFuNyXurCh9kb
+--SPVbxrZJ6/2EfmR5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUjLM0ACgkQnowa+77/
-2zItDw/9Es2KVshvygrnHn4aMBSfNmTRkokEGrJGuWuqYrCMiZWhZDqrvXPYvCum
-udW07W7J4JMBUOJsPRE++BLDRn+coaiQrdMjsgKRJD4uWKjqTZkNCUbVbmU2fNZ0
-o4f9ct0cF/Rz6frAV8Wqh3kvigf2+95HjXmp3Xzr6YGnbF9kjMueSLxtj3sI/5J9
-yhBEFB3O4v7l4u0yeRPEeyt2uTJEYENrZXSLVK9hH6gcQYw8knDAZvPLaknKPRxv
-JPvgq7/eWq09uIuKHpWbMSI9ztMDJ5xFYOaBVz/6fuRXmg27J9sUt8FNg5TQAMEk
-2+IvzQyc0Ne4cC1ifVl8C7MWqnK9G2eNg4ZpLD5pRGQ+EaOmoZyDWo5juzf6nT7D
-rC4jy/T+olZIvaR9K9BbdmRR8b4dLvjq97l/S7DrN+Ofxd1EDXW5JXHEJmAdP6GU
-Fm3kxeZqdUy/ByZvQ7BR0SaxxyLAnKRfyXQtlVzT1PKyxTiNpii5OBHukyBjbyah
-KHCZ1+BVU85920pxnmc8cepWvDMk4j3DHAoDUMb8PNVdvUcnKVF9ra+MzgaioUB1
-OS67+UznAc29CvaDo075V55cTNgkW502cO8X87B4tgy7F1Q5evZBQHEgp2K/kArc
-IAY3FIV0TmlJNgs+nNAMEozNZEDaIDVsUIGNRPvGYaHEQVZ7a7A=
-=+UFg
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUjLgEACgkQnowa+77/
+2zL5cRAApfGE3cagFrpBDTtE8QpPyyLtqVPJ98hIJbJ5dnrG0p1feLFYVHLzPpJo
+Z7wMTxuIrfqNnrBBpQWi+dxJjKg0LctviR5oq/kVtjgt0C696OvL9bEurXIMkqnK
++Gt+eUYPsyq954D1VRX4CU6tE4tvysI1u6tzrfwbQoGu3h2oNR68lJZGUaU8Zt/n
+QRgYN9WxzzebciETO8gVC6lTMldX+y/awTTIFiqAd7Wf0Zc4fV7UH6BwJD13cKFK
+FjGKSCGG54JIIUELQnun97vrBtNAeGrs8aqYzz0mN6QFY3OmjoLl8ET9eoDLiHtl
+gF8Es3RlfBtcbJgM8YZfMmSVk/DeDzIMYeTDfB5Eqrmpvd6C1AA5+AZPUnOSjvQT
+akxYPmPdlwLmtlY6x1FAjRIMfCsTvUS2zgCqZ6ysbJcJnzGiFsQxHqXVP+8RH0Xj
+vEuZrA8a7J3SIV4i4HTeIN/uEhcOyh9Yy22G8eSbneGhSkRbw1faD1h0M/X6m+cn
+DuIWUnqS4M8hMvBmLNinEJmGvR9phi+QrcqW6qx7d5KjAFWKu7M0JBdYOHTxOZb9
+3j+ZK1OzyJHLPUuY6pkT517cl6Z+qGURk1KDG79amKglF0gvPGJdRyCz6I8Z+HiL
+CNOSM5F2V/S+prC73T2VjNwYSxbGonvEXeqmSlQ37QFI/g94j38=
+=M9wt
 -----END PGP SIGNATURE-----
 
---i48LFuNyXurCh9kb--
+--SPVbxrZJ6/2EfmR5--
