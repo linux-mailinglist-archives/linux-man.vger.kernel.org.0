@@ -2,78 +2,156 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D12A47BE677
-	for <lists+linux-man@lfdr.de>; Mon,  9 Oct 2023 18:34:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 44D497BFECA
+	for <lists+linux-man@lfdr.de>; Tue, 10 Oct 2023 16:09:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1376996AbjJIQej (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 Oct 2023 12:34:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49464 "EHLO
+        id S232646AbjJJOJM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Oct 2023 10:09:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1376275AbjJIQei (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Oct 2023 12:34:38 -0400
+        with ESMTP id S232706AbjJJOJL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Oct 2023 10:09:11 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D2099E
-        for <linux-man@vger.kernel.org>; Mon,  9 Oct 2023 09:34:37 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4E5C433C8;
-        Mon,  9 Oct 2023 16:34:35 +0000 (UTC)
-Date:   Mon, 9 Oct 2023 17:34:32 +0100
-From:   Catalin Marinas <catalin.marinas@arm.com>
-To:     Florent Revest <revest@chromium.org>
-Cc:     alx@kernel.org, linux-man@vger.kernel.org, joey.gouly@arm.com,
-        akpm@linux-foundation.org, keescook@chromium.org
-Subject: Re: [PATCH] prctl.2: Document PR_SET_MDWE and PR_GET_MDWE
-Message-ID: <ZSQrmNWtNEiIj7bl@arm.com>
-References: <20231003155010.3651349-1-revest@chromium.org>
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC0BB91
+        for <linux-man@vger.kernel.org>; Tue, 10 Oct 2023 07:09:08 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8C9C433C9;
+        Tue, 10 Oct 2023 14:09:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1696946948;
+        bh=Fb5x8dCzK3p+vaF3mJ50b8chI5BSHMuNEl02P27Ppsk=;
+        h=Date:From:To:Cc:Subject:From;
+        b=ss4PU4xNVbgOVFbYD5H/RvVTzjJ1+kiukQcgwT0TVsGP8ocAD8AVQxhnJJFye6CJP
+         iMwCJw8D4iDu3NXvHrNBsErifpmse32gFahb5YYrZCMvFZrSkppELdpHraoJDtLqPl
+         Uwn4QRhgo1F0hMNssCzziJqQlY5hFvE2tuH+1HwgptQUZ5ftqGSl6PUKSS6MGDNgz0
+         z0LrVASjhH/ofrFWSbWp2rxFS2oQ4Hbuz7kXzRNZZs1CZFa0zhVSdrEvrML58n6DUN
+         bYx1EttXHKzKQ3JRFuoXDdMq0Cq8Gi2j8v2EzUbCqDScyNAC97RzdiiSYvqDEKpwrC
+         pZxXlElUnC12g==
+Date:   Tue, 10 Oct 2023 16:09:05 +0200
+From:   Alejandro Colomar <alx@kernel.org>
+To:     serge@hallyn.com
+Cc:     linux-man@vger.kernel.org
+Subject: string_copying.7: Clarifying ustr and zustr
+Message-ID: <ZSVbASi04xwzNFyr@debian>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="aU3MZOU73kYt4gcJ"
 Content-Disposition: inline
-In-Reply-To: <20231003155010.3651349-1-revest@chromium.org>
-X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,
-        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Oct 03, 2023 at 05:50:10PM +0200, Florent Revest wrote:
-> Memory-Deny-Write-Execute is a W^X process control originally introduced
-> by Joey Gouly. I'm the author of the PR_MDWE_NO_INHERIT flag.
-> 
-> Signed-off-by: Florent Revest <revest@chromium.org>
-> ---
->  man2/prctl.2 | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index d845b0905..67e6e2ff0 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -2041,6 +2041,33 @@ the copy will be truncated.
->  Return (as the function result)
->  the full length of the auxiliary vector.
->  \fIarg4\fP and \fIarg5\fP must be 0.
-> +.TP
-> +.BR PR_SET_MDWE " (since Linux 6.3)"
-> +.\" commit b507808ebce23561d4ff8c2aa1fb949fe402bc61
-> +Set the process' Memory-Deny-Write-Execute protection mask.
-> +.IR arg2
-> +must be a bitmask of:
-> +.RS
-> +.\"
-> +.TP
-> +.B PR_MDWE_REFUSE_EXEC_GAIN
-> +New memory mapping protections can't be writable and executable. Non-executable
-> +mappings can't become executable.
-> +.TP
-> +.B PR_MDWE_NO_INHERIT " (since Linux 6.6)"
-> +.\" commit 2a87e5520554034e8c423479740f95bea4a086a0
-> +Do not propagate MDWE protection to child processes on
 
-Should this mention that PR_MDWE_NO_INHERIT requires
-PR_MDWE_REFUSE_EXEC_GAIN (unless I forgot how this was supposed to
-work).
+--aU3MZOU73kYt4gcJ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Oct 2023 16:09:05 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: serge@hallyn.com
+Cc: linux-man@vger.kernel.org
+Subject: string_copying.7: Clarifying ustr and zustr
 
--- 
-Catalin
+Hi Serge,
+
+I'm clarifying zustr after your suggestion.  Please check this text.
+
+DESCRIPTION
+   Terms (and abbreviations)
+       string (str)
+              is  a  sequence of zero or more non=E2=80=90null characters f=
+ol=E2=80=90
+              lowed by a null byte.
+
+       character sequence
+              is a sequence of zero or more  non=E2=80=90null  characters. =
+  A
+              program  should  never  use a character sequence where a
+              string is required.  However, with appropriate  care,  a
+              string can be used in the place of a character sequence.
+
+              null=E2=80=90padded character sequence (zustr)
+                     Character  sequences  can  be contained in fixed=E2=80=
+=90
+                     width buffers, which contain padding  null  bytes
+                     after the character sequence, to fill the rest of
+                     the  buffer  without  affecting the character se=E2=80=
+=90
+                     quence; however, those padding null bytes are not
+                     part of the character sequence.  zustr stands for
+                     Zero=E2=80=90padded Unterminated STRing.   Don=E2=80=
+=99t  confuse
+                     zero=E2=80=90padded   with  null=E2=80=90terminated:  =
+zero=E2=80=90padded
+                     means 0 or more padding zeros (null  characters),
+                     while null=E2=80=90terminated means exactly 1 terminat=
+ing
+                     null character.
+
+              measured character sequence (ustr)
+                     Character  sequence  delimited by its length.  It
+                     may be a slice of a larger character sequence, or
+                     even of a string.  ustr stands  for  Unterminated
+                     STRing.
+
+The patch is:
+
+diff --git a/man7/string_copying.7 b/man7/string_copying.7
+index e03c2dda6..c5f374025 100644
+--- a/man7/string_copying.7
++++ b/man7/string_copying.7
+@@ -102,12 +102,19 @@ .SS Terms (and abbreviations)
+ to fill the rest of the buffer
+ without affecting the character sequence;
+ however, those padding null bytes are not part of the character sequence.
++.I zustr
++stands for Zero-padded Unterminated STRing.
++Don't confuse zero-padded with null-terminated:
++zero-padded means 0 or more padding zeros (null characters),
++while null-terminated means exactly 1 terminating null character.
+ .\" ----- DESCRIPTION :: Terms (and abbreviations) :: measured character s=
+equence
+ .TP
+ .IR "measured character sequence " ( ustr )
+ Character sequence delimited by its length.
+ It may be a slice of a larger character sequence,
+ or even of a string.
++.I ustr
++stands for Unterminated STRing.
+ .RE
+ .\" ----- DESCRIPTION :: Terms (and abbreviations) :: length (len) ----/
+ .TP
+
+
+Thanks,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--aU3MZOU73kYt4gcJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUlWwEACgkQnowa+77/
+2zIGQA/9EfoyDEVrQEkY8YOSlnmj2EdrSs/yvNGvc6PWa8FzR34LRHk/oFjxmPdc
+EFoa0QlwoGuL8E5iEsCVfXiRFeEcOWcsxWVp8kmnbvrk1d2z/borarjC9cPPBaMR
+M5S045kiIZDyyDxpeyH9H9VB0Qs1RpNKzNVdGRWzFaDOc/iDKNrdLc3C6aPKPjtJ
+9FR5LmiIdaV07ZEn+ntcUuY30QNOd0I180LsxxBCKTfKhmzru/mGCXSkADmUrb9k
+p3Fo5YUIY0dRcewTMpEXtEc8pnAvKVBgOHZabeg0g0Qrrcd6zMFD/UUJ/CjhEhtg
+1FXElJZave13aXUXWAq1VCDLnl4SdADKXw4Vd+oazMAOAPOq+3R4NBueH9okLVbd
+2L4QpbJMp5HfDgkSofRRYsQCOWmTWLryJymHoQMrorMcK1tl3k08BgSv8zxcbKU6
+vMmuZwTVvAKHr+JVXj0IOe3rtHhL9OnBZtOMSDvmZOhBS54n73EoT2BtDBD/Hnsb
+hzocPFAx1z1+DAqujorjhz/HMQKADpJpQWBHy3F31zvIJawiWn6PCVfO+r1KrBnb
+RL7HJJu8cWhoM5fsWm6T6PeCFYFTTQbJsCMC/ctDIgcFH3h6CNDQPdkwVxC0KzWt
+xTl3YmvSR4Vu5o3YVLUVHc3cMlvdrHYTdTBhnu8jjaePQPr6Oe4=
+=vEsi
+-----END PGP SIGNATURE-----
+
+--aU3MZOU73kYt4gcJ--
