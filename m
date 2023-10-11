@@ -2,68 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C4AA57C55E8
-	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 15:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9219F7C5672
+	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 16:11:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231879AbjJKNwm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Oct 2023 09:52:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46084 "EHLO
+        id S232381AbjJKOL6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Oct 2023 10:11:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53034 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231642AbjJKNwl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 09:52:41 -0400
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com [IPv6:2607:f8b0:4864:20::1132])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 339BA90;
-        Wed, 11 Oct 2023 06:52:39 -0700 (PDT)
-Received: by mail-yw1-x1132.google.com with SMTP id 00721157ae682-5a7af52ee31so31913107b3.2;
-        Wed, 11 Oct 2023 06:52:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697032358; x=1697637158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lRfBMqrxE6o0aXiKIJD1B2cej8T8E1hA6przV4Far5I=;
-        b=LYrS7L3IfBjViW3Z9RZ+tABYnZ1HGSbII08w5j02XIs4FOeuQfu/iEWd5L0nzews/p
-         vZ0cb/eUYXb8n2G038I4rkSa9QRCoM6GZt5l6wcKKkCVITuut0mrbttWpP2uzEZeled+
-         cNrI59BE/eYgHGBTGn92eqxC23mZASayBDiNckEIkCiCriBUF8y1VErTeRsZLF8yVjCm
-         Z/46OHmx/6BnNCLQN7AuyDQJjhmKSpSF9THwV5R3ndW4fjCkoE8B/SqqPseW026gmB7v
-         RCLTElz2MDy8yQ3BG16FmkR0OB2kXqfyRezXL27F7Fp2cgoHTsA0mmeHpEH11B0wrKFp
-         tA9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697032358; x=1697637158;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lRfBMqrxE6o0aXiKIJD1B2cej8T8E1hA6przV4Far5I=;
-        b=jZ9nkfuLiHnqveevfzYiw8D8GrS1AJLKCsSnG9OVS4tZ5lAh5awOX/DD7xJCZ98mG8
-         GCMvrGCcTUFaZD5TGrfnwbFIOPOcnb9yLejGb8Va9GafDhpwqYzoi4CUZrC1JXn5Dusb
-         7qHc5kYdFqG7Y4b34DQubct2GC8/xV1iTxSHGyq5yH6NzFqpvHIMgmgMNHR2iIUI8rJ3
-         LOqelKYhOPL24QUmJKT/0Bs0NL9Q7l/Zuv8SLtN9eZzMKFekHoljTUHUYyd75aJUqzzH
-         eqLBEZHFK8leD/4OpDeoT1MB9wz/kwALLs/FMmHplFvN0rxtCwkOTk4wQz/Q+tR8cFGx
-         /gzA==
-X-Gm-Message-State: AOJu0YyAK8xqly2VYcY688O7HTDtt8KiEi6CA69GrioWzjEbl7LecB7p
-        vMx2CYZqzF3x77EW9GjP/I1X3m0dh2Zd+Q==
-X-Google-Smtp-Source: AGHT+IERKRBak2W9H8IrXRlSg33P8TDVttF65Q7jSVpAgPiHlg2eiHW2M/H10MzTI3w+fHsZSnvLWQ==
-X-Received: by 2002:a0d:c646:0:b0:5a4:db86:4ea8 with SMTP id i67-20020a0dc646000000b005a4db864ea8mr21453719ywd.31.1697032358276;
-        Wed, 11 Oct 2023 06:52:38 -0700 (PDT)
-Received: from firmament.. ([89.187.171.244])
-        by smtp.gmail.com with ESMTPSA id j131-20020a816e89000000b005956b451fb8sm5132397ywc.100.2023.10.11.06.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Oct 2023 06:52:38 -0700 (PDT)
-From:   Matthew House <mattlloydhouse@gmail.com>
-To:     Rik van Riel <riel@surriel.com>
-Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
-        LKML <linux-kernel@vger.kernel.org>, kernel-team@meta.com,
-        Eric Biederman <ebiederm@xmission.com>
-Subject: Re: [PATCH] execve.2: execve also returns E2BIG if a string is too long
-Date:   Wed, 11 Oct 2023 09:52:22 -0400
-Message-ID: <20231011135230.750728-1-mattlloydhouse@gmail.com>
-In-Reply-To: <20231010234153.021826b1@imladris.surriel.com>
-References: <20231010234153.021826b1@imladris.surriel.com>
+        with ESMTP id S232125AbjJKOL5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 10:11:57 -0400
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F2F294;
+        Wed, 11 Oct 2023 07:11:55 -0700 (PDT)
+Received: from [2601:18c:9101:a8b6:6e0b:84ff:fee2:98bb] (helo=imladris.surriel.com)
+        by shelob.surriel.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        (Exim 4.96.1)
+        (envelope-from <riel@shelob.surriel.com>)
+        id 1qqZw2-0003Dg-2T;
+        Wed, 11 Oct 2023 10:11:38 -0400
+Date:   Wed, 11 Oct 2023 10:11:34 -0400
+From:   Rik van Riel <riel@surriel.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, kernel-team@meta.com,
+        LKML <linux-kernel@vger.kernel.org>,
+        Eric Biederman <ebiederm@xmission.com>,
+        Matthew House <mattlloydhouse@gmail.com>
+Subject: [PATCH v2] execve.2: execve also returns E2BIG if a string is too
+ long
+Message-ID: <20231011101134.709b8089@imladris.surriel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Sender: riel@surriel.com
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -71,15 +44,38 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Oct 10, 2023 at 11:51 PM Rik van Riel <riel@surriel.com> wrote:
-> Document that if a command line or environment string is too long (> MAX_=
-ARG_STRLEN), execve will also return E2BIG.
->
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+The execve syscall returns -E2BIG in 3 cases:
+- The total length of the command line arguments and environment is too large.
+- An argument or environment string is longer than MAX_ARG_STRLEN.
+- The full path to the executable exceeds MAX_ARG_STRLEN.
 
-It might be worth mentioning that strlen(pathname) must also be strictly
-less than MAX_ARG_STRLEN, it being subject to the same restrictions as
-each of the argv/envp strings.
+Spell out all 3 cases in the -E2BIG section.
 
-Thank you,
-Matthew House
+Discovered by moving a too large commandline parameter to an environment
+variable, and finding that things still did not work. Examined the code
+in fs/exec.c to get the details.
+
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Suggested-by: Matthew House <mattlloydhouse@gmail.com>
+---
+ man2/execve.2 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/man2/execve.2 b/man2/execve.2
+index 0d9582492ad1..85c6ec15df3c 100644
+--- a/man2/execve.2
++++ b/man2/execve.2
+@@ -449,7 +449,8 @@ The total number of bytes in the environment
+ .RI ( envp )
+ and argument list
+ .RI ( argv )
+-is too large.
++is too large, an argument or environment string is too long, or
++the full path name to the executable is too long.
+ .TP
+ .B EACCES
+ Search permission is denied on a component of the path prefix of
+-- 
+2.41.0
+
+
