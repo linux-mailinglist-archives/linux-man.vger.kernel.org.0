@@ -2,111 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 616C17C5E88
-	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 22:39:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A9C07C5EBD
+	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 22:53:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233360AbjJKUjY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Oct 2023 16:39:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59880 "EHLO
+        id S233369AbjJKUxl convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Wed, 11 Oct 2023 16:53:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40296 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233318AbjJKUjY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 16:39:24 -0400
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DA4A9E
-        for <linux-man@vger.kernel.org>; Wed, 11 Oct 2023 13:39:21 -0700 (PDT)
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-        id A441C299; Wed, 11 Oct 2023 15:39:19 -0500 (CDT)
-Date:   Wed, 11 Oct 2023 15:39:19 -0500
-From:   "Serge E. Hallyn" <serge@hallyn.com>
+        with ESMTP id S233487AbjJKUxl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 16:53:41 -0400
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2948A9;
+        Wed, 11 Oct 2023 13:53:39 -0700 (PDT)
+Received: from imladris.home.surriel.com ([10.0.13.28] helo=imladris.surriel.com)
+        by shelob.surriel.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        (Exim 4.96.1)
+        (envelope-from <riel@shelob.surriel.com>)
+        id 1qqgCn-0006PR-08;
+        Wed, 11 Oct 2023 16:53:21 -0400
+Message-ID: <b99cd99fb6758ceb4cf3152c038fda761d597bb6.camel@surriel.com>
+Subject: Re: [PATCH v4] execve.2: execve also returns E2BIG if a string is
+ too long
+From:   Rik van Riel <riel@surriel.com>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     serge@hallyn.com, linux-man@vger.kernel.org
-Subject: Re: string_copying.7: Clarifying ustr and zustr
-Message-ID: <20231011203919.GA52245@mail.hallyn.com>
-References: <ZSVbASi04xwzNFyr@debian>
+Cc:     linux-man@vger.kernel.org, kernel-team@meta.com,
+        linux-kernel@vger.kernel.org,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Eric Biederman <ebiederm@xmission.com>
+Date:   Wed, 11 Oct 2023 16:53:20 -0400
+In-Reply-To: <ZScCP2RqArDeixLz@debian>
+References: <20231011124301.4d93ea72@imladris.surriel.com>
+         <20231011125330.13dfe148@imladris.surriel.com> <ZScCP2RqArDeixLz@debian>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZSVbASi04xwzNFyr@debian>
+Sender: riel@surriel.com
 X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Oct 10, 2023 at 04:09:05PM +0200, Alejandro Colomar wrote:
-> Hi Serge,
+On Wed, 2023-10-11 at 22:14 +0200, Alejandro Colomar wrote:
+> Hi Rik,
 > 
-> I'm clarifying zustr after your suggestion.  Please check this text.
+> On Wed, Oct 11, 2023 at 12:53:30PM -0400, Rik van Riel wrote:
+> > Sigh, once again I did a git commit --amend without the latest file
+> > change being
+> > included. The change below should be good. Working with both git
+> > and hg gets me sometimes :/
+> > ---8<---
+> > 
+> > The execve syscall returns -E2BIG in 3 cases:
+> > - The total length of the command line arguments and environment is
+> > too large.
+> > - An argument or environment string is longer than MAX_ARG_STRLEN.
+> 
+> I'm still concerned by the wording of this sentence (and the next
+> one).
+> When I (and any user-space programmer, I think) read "string is
+> longer
+> than FOO", I read `strlen(string) > FOO`.  Since it's rather
+> `strlen(string) >= FOO`, I think you should clarify.  How about this?
+> 
+> -  An argument or environment string is longer (including the null
+> byte)
+>    than MAX_ARG_STRLEN.
 
-Thanks, this looks good.
+That works. Would you like me to re-send a v5, or do you
+want to massage the changelog when you apply the patch?
 
-> DESCRIPTION
->    Terms (and abbreviations)
->        string (str)
->               is  a  sequence of zero or more non‐null characters fol‐
->               lowed by a null byte.
-> 
->        character sequence
->               is a sequence of zero or more  non‐null  characters.   A
->               program  should  never  use a character sequence where a
->               string is required.  However, with appropriate  care,  a
->               string can be used in the place of a character sequence.
-> 
->               null‐padded character sequence (zustr)
->                      Character  sequences  can  be contained in fixed‐
->                      width buffers, which contain padding  null  bytes
->                      after the character sequence, to fill the rest of
->                      the  buffer  without  affecting the character se‐
->                      quence; however, those padding null bytes are not
->                      part of the character sequence.  zustr stands for
->                      Zero‐padded Unterminated STRing.   Don’t  confuse
->                      zero‐padded   with  null‐terminated:  zero‐padded
->                      means 0 or more padding zeros (null  characters),
->                      while null‐terminated means exactly 1 terminating
->                      null character.
-> 
->               measured character sequence (ustr)
->                      Character  sequence  delimited by its length.  It
->                      may be a slice of a larger character sequence, or
->                      even of a string.  ustr stands  for  Unterminated
->                      STRing.
-> 
-> The patch is:
-> 
-> diff --git a/man7/string_copying.7 b/man7/string_copying.7
-> index e03c2dda6..c5f374025 100644
-> --- a/man7/string_copying.7
-> +++ b/man7/string_copying.7
-> @@ -102,12 +102,19 @@ .SS Terms (and abbreviations)
->  to fill the rest of the buffer
->  without affecting the character sequence;
->  however, those padding null bytes are not part of the character sequence.
-> +.I zustr
-> +stands for Zero-padded Unterminated STRing.
-> +Don't confuse zero-padded with null-terminated:
-> +zero-padded means 0 or more padding zeros (null characters),
-> +while null-terminated means exactly 1 terminating null character.
->  .\" ----- DESCRIPTION :: Terms (and abbreviations) :: measured character sequence
->  .TP
->  .IR "measured character sequence " ( ustr )
->  Character sequence delimited by its length.
->  It may be a slice of a larger character sequence,
->  or even of a string.
-> +.I ustr
-> +stands for Unterminated STRing.
->  .RE
->  .\" ----- DESCRIPTION :: Terms (and abbreviations) :: length (len) ----/
->  .TP
-> 
-> 
-> Thanks,
-> Alex
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
+I must admit I paid more attention to the wording in the
+man page than the wording in the changelog :)
 
-
+-- 
+All Rights Reversed.
