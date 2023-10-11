@@ -2,45 +2,45 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 789B67C5E0F
-	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 22:11:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 042C67C5E1E
+	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 22:15:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231226AbjJKUL1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Oct 2023 16:11:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47982 "EHLO
+        id S233360AbjJKUPJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Oct 2023 16:15:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46764 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231163AbjJKUL1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 16:11:27 -0400
+        with ESMTP id S233338AbjJKUPI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 16:15:08 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B857A9;
-        Wed, 11 Oct 2023 13:11:24 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE663C433C8;
-        Wed, 11 Oct 2023 20:11:19 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 89EC1A9;
+        Wed, 11 Oct 2023 13:15:06 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26478C433C8;
+        Wed, 11 Oct 2023 20:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1697055084;
-        bh=KHTyZA3X1hgICZ8NOSbKVMUAXQr6TswOUhQ/avm9adI=;
+        s=k20201202; t=1697055306;
+        bh=7rI5K23nHUYB8QrWcVJMkRhk6dpeW9+5+hV2Br9vIXg=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=S2mXSrhkdeQ8KY2B2dPrz+xxlmj9cWvgArZpKDkcxyrl+Q+37w2rZLVdxo/EX3YkP
-         Jm0+JXxyFkO/SYEwa5MzmaeePo3oYDF9Nveoih5xE5WrK0K4HXIFcIbPQKRQ3YZhz8
-         UwBOn1qIWRHs/5A8khiLbVTCdwQiGuk5xUeWyfwZB5yjP+sGsGQc0iqdmaj0jbEcjU
-         q+cpwooBfS/PXTmwjHhJhCYGL4ATkVNxQD9g4yOu/8nzDq2DnqYTpwy576WloKphEL
-         T4KsYVDEx8CYLfJG84/uGTmOE9Mp/A/UA40J4W8bGAVsaG1Sp3Tzo7l0uwUqTbjSX3
-         0r9pxN7w6jEXA==
-Date:   Wed, 11 Oct 2023 22:11:09 +0200
+        b=M0Mb35yahXR8BIcciRBkftV86dHySP8qtE25zU41q3wm8HagsHJ3AXU8aMURfP3AS
+         BMuzEeXqGGOxIieozq1BTvP6ei5rQyYKv50B0J2COL8HVxc3R59jCvWBEf7TbSB9hY
+         X4ZI3P+qlDErU/raCu6OL4LFISwVeHynRTi1SOe8Nj2uiBkNOi2jgBf1WZmzxcJGYh
+         gppTeVz1N9AGLL+1J/JXCN5rKjE6w2BaqQbxhDbnd4c82T5IIOnk80Xd0H/EiHhfpZ
+         i06DfbsmHyVnzMm0RNPHVm7qUH26NtQrn6RTouuELtt3oFUtAgR9wPOctuXHlkQiw0
+         WZ1z1G+4fSBCA==
+Date:   Wed, 11 Oct 2023 22:14:55 +0200
 From:   Alejandro Colomar <alx@kernel.org>
 To:     Rik van Riel <riel@surriel.com>
 Cc:     linux-man@vger.kernel.org, kernel-team@meta.com,
         linux-kernel@vger.kernel.org,
         Matthew House <mattlloydhouse@gmail.com>,
         Eric Biederman <ebiederm@xmission.com>
-Subject: Using hg and git (Was: [PATCH v4] execve.2: execve also returns
- E2BIG if a string is too long)
-Message-ID: <ZScBY7pn5x0xW2_h@debian>
+Subject: Re: [PATCH v4] execve.2: execve also returns E2BIG if a string is
+ too long
+Message-ID: <ZScCP2RqArDeixLz@debian>
 References: <20231011124301.4d93ea72@imladris.surriel.com>
  <20231011125330.13dfe148@imladris.surriel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="IitvAL6L1y6x2fRn"
+        protocol="application/pgp-signature"; boundary="kIbR5WHOxHuCy4ke"
 Content-Disposition: inline
 In-Reply-To: <20231011125330.13dfe148@imladris.surriel.com>
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -54,19 +54,19 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---IitvAL6L1y6x2fRn
+--kIbR5WHOxHuCy4ke
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Oct 2023 22:11:09 +0200
+Date: Wed, 11 Oct 2023 22:14:55 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Rik van Riel <riel@surriel.com>
 Cc: linux-man@vger.kernel.org, kernel-team@meta.com,
 	linux-kernel@vger.kernel.org,
 	Matthew House <mattlloydhouse@gmail.com>,
 	Eric Biederman <ebiederm@xmission.com>
-Subject: Using hg and git (Was: [PATCH v4] execve.2: execve also returns
- E2BIG if a string is too long)
+Subject: Re: [PATCH v4] execve.2: execve also returns E2BIG if a string is
+ too long
 
 Hi Rik,
 
@@ -75,39 +75,102 @@ On Wed, Oct 11, 2023 at 12:53:30PM -0400, Rik van Riel wrote:
 e being
 > included. The change below should be good. Working with both git and hg g=
 ets me sometimes :/
+> ---8<---
+>=20
+> The execve syscall returns -E2BIG in 3 cases:
+> - The total length of the command line arguments and environment is too l=
+arge.
+> - An argument or environment string is longer than MAX_ARG_STRLEN.
 
-Been there.  Hate that.  I hope I don't touch hg(1) anymore.  :D
+I'm still concerned by the wording of this sentence (and the next one).
+When I (and any user-space programmer, I think) read "string is longer
+than FOO", I read `strlen(string) > FOO`.  Since it's rather
+`strlen(string) >=3D FOO`, I think you should clarify.  How about this?
 
-Did you know about git-remote-hg(1)?  It lets you work with hg remotes
-without running hg(1) at all.  It had some glitches from time to time
---TBH, I'm not sure if the glitches were from git-remote-hg(1), or just
-that hg(1) is crap, or that the maintainers of the hg remote weren't so
-good at it--, but nothing too irritating or destructive.
+-  An argument or environment string is longer (including the null byte)
+   than MAX_ARG_STRLEN.
 
-Cheers,
+Thanks,
 Alex
+
+> - The full path to the executable exceeds MAX_ARG_STRLEN.
+>=20
+> Spell out all 3 cases in the -E2BIG section.
+>=20
+> Discovered by moving a too large commandline parameter to an environment
+> variable, and finding that things still did not work. Examined the code
+> in fs/exec.c to get the details.
+>=20
+> This simple shell script starts failing at 2^17 on a system with 4kB
+> page size:
+> ./exec2big.sh: line 10: /bin/true: Argument list too long
+> fork failed at loop 17
+>=20
+> STRING=3D"a"
+>=20
+> for loop in `seq 20`; do
+> 	STRING=3D"$STRING$STRING"
+> 	export STRING
+> 	if /bin/true ; then
+> 		: # still under the limit
+> 	else
+> 		echo "fork failed at loop $loop"
+> 	fi
+> done
+
+Thank you very much!
+
+>=20
+> Signed-off-by: Rik van Riel <riel@surriel.com>
+> Suggested-by: Matthew House <mattlloydhouse@gmail.com>
+> ---
+>  man2/execve.2 | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/man2/execve.2 b/man2/execve.2
+> index 0d9582492ad1..b689101771e5 100644
+> --- a/man2/execve.2
+> +++ b/man2/execve.2
+> @@ -449,7 +449,12 @@ The total number of bytes in the environment
+>  .RI ( envp )
+>  and argument list
+>  .RI ( argv )
+> -is too large.
+> +is too large,
+> +an argument or environment string is too long,
+> +or the full
+> +.I pathname
+> +of the executable is too long.
+> +The terminating NUL is counted as part of the string length.
+>  .TP
+>  .B EACCES
+>  Search permission is denied on a component of the path prefix of
+> --=20
+> 2.41.0
+>=20
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---IitvAL6L1y6x2fRn
+--kIbR5WHOxHuCy4ke
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUnAV0ACgkQnowa+77/
-2zKnVg/9GIFb8v6OOae8qhU0v5H00oSti2zk4HXBAV/Ky+z3m+c0wAp7ueQsjbVB
-pLlHIXqX15B4dtSPgJ3uspXG2lFJkCzcZXAyckP9NYlwXL/gn3C+ReKmjOoVW8Q+
-K5PLtcZ+mSWbdRj0f+URFC4KJULiRHq+2cl46nivb0tLyu17KDusUtKSOmFfHP54
-x0EPFXMBXH+Wid2WqIeIFHF8FS/ELW/cxVVx58am4GO1I0tBFcu+AKWouQwf+Er2
-sraBQ00Dbw2T6UBm2hZVa2oCR1CiRHiQzLpcCLbI+Cvvw+/UJL4kWAniR/qm5Vmq
-CAwmyWdJW46JDubhVBtL0/14m0kvTRTrGdaFgGaitzOEIw4n+Bc4Uow+3t1a3eEt
-4j6auUa+MR3BM9/8vpmixX3OXuHmD99Nh1L2G0x41WbmyuazplTHFT9UuCJz/bUF
-8SgPMrBbtLg0VCIRN6KL8+VfLZyeFP5a1OFsBk2O+Jt/dlLS7d4Rj3WmenCtx+tP
-E/Ui6DYbKqv3/J/+CQWO93PPs3QC06TrufNzcPrgrIkn+tpxOQaEyX+TUzXNWbmS
-t15L/lDlIAKJRrvkg/33zohMsvL1NYxbGS+cDvpcvqjmsQ3Rq6WoMe1pmWQRhijS
-PDZ9jRHqSIjrPpETyxEt++eEpRlJ/tsaZImXE7+uAuwqy6w8GNU=
-=9AHO
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUnAj8ACgkQnowa+77/
+2zJZAA/+IZ5SqRkxDnu/FCav0QtXCHltjqi/VsTI+CJ7fmCtii3akFQ9TWNYeZBO
+xyc0jiSbCaFfhF+frMJIglcwvPlFNEnwoToYbUllkhWQy8wfHrj965jgchUTP1FL
+DJYlIvn4p2RUmnFi1HiwfqdObCMKKlTQJ61Nnj+piztaPZ33RvQuLRdpRcou6ehL
+vgf6kKPuYwPMG43Kii6rcfSXkSnPJu++Shr95anNzKbUG6rNNsXtY7ugPjBs6iop
+MjQdT/PjDs3S1zTvAsQfJEc0N1B16kW1tRriRKE3HH310/u7Q4qG9xGRrfl5W+8G
+4lZK7jqLWZN0PcFM7x8yNOYMaQo2BHKqHnjYlxpAfabcZmGUfm5b01zcxOsqx0IH
+RFM6NOEkaA0YTJAM7puOOx4bR/806iK69eTxaavz+25W1YbfglYb1kB8bBLILLTa
+Lx+Gynd6QMdx0Juyj8mH4gUdjprjOTx4NO5TkM0lSBgqXilUE5kYpJqDvfmjE12e
+fXS2w/fLH5j0hixziUk/zxYbyLa/FbDdnG1NU7z5ZOAQ8FR+CeqE1p9rOAf3nBbb
+hjIGT+oc1qEZ/fTtE1IkJFQVOCJhHmVFGNICoBJxppZPTthMfnMegcR/BWcBGVtQ
+xaS7mGOPK8l4d4Jo+S7dFHsHvksbAmPxnF8VXHR2wAQMRUduo10=
+=tFhL
 -----END PGP SIGNATURE-----
 
---IitvAL6L1y6x2fRn--
+--kIbR5WHOxHuCy4ke--
