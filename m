@@ -2,46 +2,48 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 756C87C572C
-	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 16:42:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4E8B27C5738
+	for <lists+linux-man@lfdr.de>; Wed, 11 Oct 2023 16:44:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232323AbjJKOmw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Oct 2023 10:42:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54558 "EHLO
+        id S232246AbjJKOoV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Oct 2023 10:44:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39072 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232262AbjJKOmv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 10:42:51 -0400
+        with ESMTP id S235050AbjJKOoU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 10:44:20 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9931792;
-        Wed, 11 Oct 2023 07:42:50 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1233DC433C8;
-        Wed, 11 Oct 2023 14:42:48 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C0B39D;
+        Wed, 11 Oct 2023 07:44:19 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DFCEC433C8;
+        Wed, 11 Oct 2023 14:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1697035370;
-        bh=+yor+QJevRkMNm3azh0UEdgKbf5j81wLK/um8WHiX2g=;
+        s=k20201202; t=1697035458;
+        bh=+yR23TOJN+Xmz9Lb4zxvgkbSPWcLWaKrsKLjuBEPNzc=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=UIyRfRTpHYPlXkGh0wzxIUy6L6TQZfDHHUaP2t+5yqF4PnuRgw86VUoZpndfOKQ4F
-         8Xf7PwElmK9s7VRHoDIPr2uHlcT3dXOIYK5B8L45bvCVUr25KXCfVoQX3U0Vys93s9
-         f1Q4tXEVLisShQZSbDoTr13bPxH7dGCepMcJC+MwEJwwLmQpjzca1Py0L9JX3avoAW
-         8zQKCovOM4o0ivIlXOEf9A0HGFf8COX1ji9+YF0q8FKmJtPmZHDkxDKuGTMbYXzwdV
-         R5MW0w+k/i1cGz06Cb5A8/Z5s5dhNcXw+EFd83hqUI0NZob6MIwKeyWAh8Yolz8ukV
-         d2IZXVu8LzhkQ==
-Date:   Wed, 11 Oct 2023 16:42:46 +0200
+        b=mX7iLpEAk08MdoBBF+GxGElmoNo1IzYjHSOr3HjcdmOkdQdpZ0YUWGCpHVLlSBrwN
+         gUpkhOXDWfaUBnJfBEWaUqIJ0CbNEdhPDTlSqYHh9KfYWQRj28Zbq2pA66bEtlDjOc
+         jwa6ACSID0JMi7CzCyAZbdsuSrG9Z9So5TUYe6WlCJkCXncdykvYTL4HTHQHk7sESG
+         VI0MrlvkHormwraSdBvdtUZZCLc0vcsFycICZFqrTG2u6qKdkTaPschD4NphQ2tb11
+         kaF1jCRXY2uT6TJKU2sq5Wj5q2j8J+PE9VpU1qK2f2PYB5mMLMDY0+e+E7sfLb8aFV
+         mmGRg+kn5BwAQ==
+Date:   Wed, 11 Oct 2023 16:44:14 +0200
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Rik van Riel <riel@surriel.com>
-Cc:     linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-        kernel-team@meta.com, Eric Biederman <ebiederm@xmission.com>
+To:     Matthew House <mattlloydhouse@gmail.com>
+Cc:     Rik van Riel <riel@surriel.com>, linux-man@vger.kernel.org,
+        LKML <linux-kernel@vger.kernel.org>, kernel-team@meta.com,
+        Eric Biederman <ebiederm@xmission.com>
 Subject: Re: [PATCH] execve.2: execve also returns E2BIG if a string is too
  long
-Message-ID: <ZSa0ZotvTRCe88OQ@debian>
+Message-ID: <ZSa0v3zThnespb3c@debian>
 References: <20231010234153.021826b1@imladris.surriel.com>
  <ZSZ7yXwYAg-xPC7P@debian>
  <60b4d916663ea31ae05a958b6dea8aa5bf740d0a.camel@surriel.com>
+ <20231011134437.750422-1-mattlloydhouse@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="Z5NGJvTGoO5ndKl9"
+        protocol="application/pgp-signature"; boundary="w7jaJI5jMx6pA59R"
 Content-Disposition: inline
-In-Reply-To: <60b4d916663ea31ae05a958b6dea8aa5bf740d0a.camel@surriel.com>
+In-Reply-To: <20231011134437.750422-1-mattlloydhouse@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
@@ -53,131 +55,85 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---Z5NGJvTGoO5ndKl9
+--w7jaJI5jMx6pA59R
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Oct 2023 16:42:46 +0200
+Date: Wed, 11 Oct 2023 16:44:14 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	kernel-team@meta.com, Eric Biederman <ebiederm@xmission.com>
+To: Matthew House <mattlloydhouse@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>, linux-man@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>, kernel-team@meta.com,
+	Eric Biederman <ebiederm@xmission.com>
 Subject: Re: [PATCH] execve.2: execve also returns E2BIG if a string is too
  long
 
-Hi Rik,
+Hi Matthew,
 
-On Wed, Oct 11, 2023 at 09:21:28AM -0400, Rik van Riel wrote:
-> On Wed, 2023-10-11 at 12:41 +0200, Alejandro Colomar wrote:
-> > Hi Rik,
-> >=20
-> > On Tue, Oct 10, 2023 at 11:41:53PM -0400, Rik van Riel wrote:
-> > > Document that if a command line or environment string is too long
-> > > (> MAX_ARG_STRLEN), execve will also return E2BIG.
-> >=20
-> > That's already implied by the current text:
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 E2BIG=C2=A0 The total number of by=
-tes in the environment (envp) and
-> > argument
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 list (argv) is too large.
-> >=20
-> > That means that
-> >=20
-> > size_t=C2=A0 bytes;
-> >=20
-> > bytes =3D 0;
-> > for (char *e =3D envp; e !=3D NULL; e++)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bytes +=3D strlen(e) + =
-1;=C2=A0 // I have doubts about the +1
-> > for (char *a =3D argv; a !=3D NULL; a++)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bytes +=3D strlen(a) + =
-1;=C2=A0 // Same doubts
-> >=20
-> > if (bytes > MAX_ARG_STRLEN)=C2=A0 // Maybe >=3D ?
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return -E2BIG;
+On Wed, Oct 11, 2023 at 09:44:29AM -0400, Matthew House wrote:
 >=20
-> The code in fs/exec.c enforces MAX_ARG_STRLEN against
-> each individual string, not against the total.
+> To expand on this, there are basically two separate byte limits in
+> fs/exec.c, one for each individual argv/envp string, and another for all
+> strings and all pointers to them as a whole. To put the whole thing in
+> pseudocode, the checks work effectively like this, assuming I haven't made
+> any errors:
 >=20
-> If any string, either argument or environment, is larger
-> than 32 * PAGE_SIZE, the kernel will return -E2BIG.
+> int argc, envc;
+> unsigned long bytes, limit;
 >=20
-> do_execveat_common() has this code, which uses copy_strings
-> to copy both the strings from the environment, and from
-> the command line arguments:
->=20
->         retval =3D copy_strings(bprm->envc, envp, bprm);
->         if (retval < 0)
->                 goto out_free;
->=20
->         retval =3D copy_strings(bprm->argc, argv, bprm);
->         if (retval < 0)
->                 goto out_free;
->=20
-> Inside copy_strings() we have this code:
->=20
->=20
->         while (argc-- > 0) {
-> ...
->                 len =3D strnlen_user(str, MAX_ARG_STRLEN);
->                 if (!len)
->                         goto out;
->=20
->                 ret =3D -E2BIG;
->                 if (!valid_arg_len(bprm, len))
->                         goto out;
->=20
-> The valid_arg_len() function does not need explanation:
->=20
-> static bool valid_arg_len(struct linux_binprm *bprm, long len)
-> {
->         return len <=3D MAX_ARG_STRLEN;
+> /* assume that argv has already been adjusted to add an empty argv[0] */
+> argc =3D 0, envc =3D 0, bytes =3D 0;
+> for (char **a =3D argv; *a !=3D NULL; a++, argc++) {
+>     if (strlen(*a) >=3D MAX_ARG_STRLEN)
+>         return -E2BIG;
+>     bytes +=3D strlen(*a) + 1;
+> }
+> for (char **e =3D envp; *e !=3D NULL; e++, envc++) {
+>     if (strlen(*e) >=3D MAX_ARG_STRLEN)
+>         return -E2BIG;
+>     bytes +=3D strlen(*e) + 1;
 > }
 >=20
+> if (argc > MAX_ARG_STRINGS || envc > MAX_ARG_STRINGS)
+>     return -E2BIG;
+> bytes +=3D (argc + envc) * sizeof(void *);
 >=20
-> The current man page wording is very clear about the total
-> length being enforced, but IMHO not as clear about the limit
-> that gets enforced on each individual string.
+> limit =3D max(min(_STK_LIM / 4 * 3, rlim_stack.rlim_cur / 4), ARG_MAX);
+> if (bytes > limit)
+>     return -E2BIG;
 >=20
-> The total length limit of environment & commandline arguments
-> is enforced by bprm_stack_limits(), and is checked against
-> either 1/4 of the maximum stack size, or 3/4 of _STK_LIM, whichever
-> is smaller. The MAX_ARG_STRLEN value does not come into play when
-> enforcing the total.
+> Thank you,
+> Matthew House
 
-Ahh, so the limit for each string is different than the limit for the
-total.  That makes sense.  Sorry for the noise.
+Thanks!
+
+This thing would be useful in the commit message.  An example program
+demonstrating it would be even better.
 
 Cheers,
 Alex
 
->=20
-> --=20
-> All Rights Reversed.
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---Z5NGJvTGoO5ndKl9
+--w7jaJI5jMx6pA59R
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUmtGYACgkQnowa+77/
-2zJpGg//U4u7Sgy2OYVFdn5egq3wW7UwGoFwj4X+PKezVKAJYMHf6HhfycWLIpUI
-lcq72qibpT3Snl8XuWWUdACRXTOHt4pU/oLBQYVQn/5ScMEny6dpBpyCcUhseOUs
-YWnMLpKEhEeSWY+LJ3qxmtl+aACPsZ4d8ANSpXz6ktlkJpfL5M2YGDutOfcVzMgq
-ISePl9aNCm+JpdjE6L2ud8Z5sT0r6x5Foklq9CzxFrnCY3t0jCv9X5/ARt4otQJ/
-kYMfQlI1Q20kdhcyjZD1j+9KloRE5TxC+dZL9r61v4Esdwseo0hGBiznLaSxBhy2
-GcIJF6QJCex6bUZZS3F1i7vujLT145W4+I9lCfv9JPlN+D1LK7V4Uk03p/CfEPPF
-9dieB74znFDhzYfldWsl6uf0627vOT5LCLCZbfkot6aV+vgAIrdL8fEpNRimqUqO
-5bNCZugbOExnrQErgcTwvgam78GeApKvU/+CF6k0i7u+2eODOn03fexB5JlR73Ot
-jo/dhnh3pWXSWmyFHfXz+Ltj7bSB8O93+AaWv1B/sdYefR/PbyuEOxIFUKasCBKI
-Dn73DdxqiyBxlVowZOHlNpPM1mS63R8GpXHN8FIv5UNvYyl5Wa76M6JNgUZKQOzU
-WzDrfD58vITfHaUiRBKew70B2az19y03hTxwx7JKuere0u8KrOc=
-=0/Uk
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUmtL4ACgkQnowa+77/
+2zJjZxAAqrH8dlVZ8bDdOzaxordiMlVbUvj6UcexmDlle29byjFVQcjgJfmvHh18
+6o+bIav3sizGh7ht1vhj7+x0673z6K5d8/QlhrBkqB5Qunx4YgpiaXrpOPOYt3gf
+trS4lkbxrI9WU0ifT0A7HeVz3KQlNXmtyUlue4N4kH6b92KZnpdDtStnnHSWwuco
+Uf+R66ir8+lWjhXNI5IpplYiQz3SFAo/9ztjwxHXesVSbpnqwCVD6oP6dL+dc0W1
+B7PreIcJmn+HykjX1hk8Y4+FIqWdP0tJZ4Tv7JSeR653grEFsQhc9bzenNg2+kvd
+ymz8gDoGwpgbEfLIH6G/MLXShU+7PGmcYEYjev1WBGEeZg1BY1DqUUi4VnZAWL4Y
+0dno5do4fd0stjNL3vM7JBU6iCZ2reaoV6yMBbs4Wi4vsix19A+o0ds/aIMGF2iA
++z/ti1HEsm8lXs6D7U5nusj/F6ZeNMyQWpXV7K1CUX+vzZCMuEXx80vf1FeWNMEI
+V/bOCYPd6AjQaQ/Ox4HBzi5gnATNvPhiLCkQnkKwZTi501sQhIIBU3IbnvT7z8dW
+F7phHREEszDVQSAckPHsatmQ/LdLNtBpJA9JVlj1YavTlIORlTDmmOIQJtZNlgL6
+F4XLvPvDMMFozKjIhBsAcoGI5sWXlhDKW5m1I2jdv+A31pUFDCg=
+=zFqm
 -----END PGP SIGNATURE-----
 
---Z5NGJvTGoO5ndKl9--
+--w7jaJI5jMx6pA59R--
