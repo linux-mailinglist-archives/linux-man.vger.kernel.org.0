@@ -2,53 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 01FE27C6138
-	for <lists+linux-man@lfdr.de>; Thu, 12 Oct 2023 01:45:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A63357C61DB
+	for <lists+linux-man@lfdr.de>; Thu, 12 Oct 2023 02:34:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233859AbjJKXpX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Oct 2023 19:45:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51284 "EHLO
+        id S233886AbjJLAeH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Oct 2023 20:34:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51232 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233277AbjJKXpW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 19:45:22 -0400
+        with ESMTP id S235254AbjJLAeG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Oct 2023 20:34:06 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 51EC39E;
-        Wed, 11 Oct 2023 16:45:20 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E73EC433C7;
-        Wed, 11 Oct 2023 23:45:18 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB044CF
+        for <linux-man@vger.kernel.org>; Wed, 11 Oct 2023 17:34:03 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3DEAC433C8;
+        Thu, 12 Oct 2023 00:34:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1697067919;
-        bh=/HC7U5pVDv/9ep0iiqYi0TrXgK7iwfrCccR7NN9N6TA=;
+        s=k20201202; t=1697070843;
+        bh=9m0sSGh2FF7jD6f0wo5T9GAYehtuFqxMNs2adi38wMU=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Yj2F59qgm/RoY6Qg2GZyMHwtebockxxv+Qjm8WPRSDXl8YpYJFz0TDndU8FByrsim
-         CyvhlpWoDT2htk/mBZXT8CYAPnH1+5UzXIFanaRwGWRg+2Iwmu/Z8h95moxUILZ53Z
-         oLrQ8N3HYhRuugUdHVGmLJy6qx0NFEz4SAimoyS3w3KkBpEtdaNS4bNl6R1RO8zM5G
-         D+ygriwctjw6Gq7CMMAlcTXUO9JrtSSZkCM0sLMIQpKHSoTLdqjg1d9QCVm+AB0VxQ
-         yVqldd7/mvOZyqjxElkpMi92Ejb3QmfKGc6E4Mr19BkoETClNWfTFnbKDaycr4p3tA
-         4Agfo7cvSTZgQ==
-Date:   Thu, 12 Oct 2023 01:45:15 +0200
+        b=VHsjgwE0BmGg7pcHFTlXqyl8mLyUHeLfRC5iIdf8rDKRy6EOIAwc23T5uCyTNGMsK
+         gQdUxbM1Etcc+HeZqqtJeqFpy6rsiGHrbnQ3oUC8jLTQge2OqvkpH3COD0Cooandiq
+         ok4OdDj13isBuw5vnoVXAfIQuJFrliTys8yvfcZw12bsaTDX/JBuZFu8BUud6F0lL4
+         Vlcf92DFcdfb6rLuUKZZGFl87X3AIeX3929B9yNbZV2JqOFtFkq5EuND+zuFsp3MOT
+         jjzhPSM74+rGE3DaEBCXyP+TlHiBprzUks9+Vt8Bb2FdeYs1QpaurNFaS511SU+mKX
+         +VyL3oS+Ly2dw==
+Date:   Thu, 12 Oct 2023 02:34:00 +0200
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Rik van Riel <riel@surriel.com>
-Cc:     linux-man@vger.kernel.org, kernel-team@meta.com,
-        linux-kernel@vger.kernel.org,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Eric Biederman <ebiederm@xmission.com>
-Subject: Re: [PATCH v4] execve.2: execve also returns E2BIG if a string is
- too long
-Message-ID: <ZSczi_PJ2TX8RjZs@debian>
-References: <20231011124301.4d93ea72@imladris.surriel.com>
- <20231011125330.13dfe148@imladris.surriel.com>
- <ZScCP2RqArDeixLz@debian>
- <b99cd99fb6758ceb4cf3152c038fda761d597bb6.camel@surriel.com>
+To:     "Serge E. Hallyn" <serge@hallyn.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: string_copying.7: Clarifying ustr and zustr
+Message-ID: <ZSc--EH7AcFb1WJK@debian>
+References: <ZSVbASi04xwzNFyr@debian>
+ <20231011203919.GA52245@mail.hallyn.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="RS8szfeyc21P55+2"
+        protocol="application/pgp-signature"; boundary="q5bZVCMRBmrv+MkR"
 Content-Disposition: inline
-In-Reply-To: <b99cd99fb6758ceb4cf3152c038fda761d597bb6.camel@surriel.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <20231011203919.GA52245@mail.hallyn.com>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -56,88 +49,52 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---RS8szfeyc21P55+2
+--q5bZVCMRBmrv+MkR
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Oct 2023 01:45:15 +0200
+Date: Thu, 12 Oct 2023 02:34:00 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-man@vger.kernel.org, kernel-team@meta.com,
-	linux-kernel@vger.kernel.org,
-	Matthew House <mattlloydhouse@gmail.com>,
-	Eric Biederman <ebiederm@xmission.com>
-Subject: Re: [PATCH v4] execve.2: execve also returns E2BIG if a string is
- too long
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: string_copying.7: Clarifying ustr and zustr
 
-On Wed, Oct 11, 2023 at 04:53:20PM -0400, Rik van Riel wrote:
-> On Wed, 2023-10-11 at 22:14 +0200, Alejandro Colomar wrote:
-> > Hi Rik,
+On Wed, Oct 11, 2023 at 03:39:19PM -0500, Serge E. Hallyn wrote:
+> On Tue, Oct 10, 2023 at 04:09:05PM +0200, Alejandro Colomar wrote:
+> > Hi Serge,
 > >=20
-> > On Wed, Oct 11, 2023 at 12:53:30PM -0400, Rik van Riel wrote:
-> > > Sigh, once again I did a git commit --amend without the latest file
-> > > change being
-> > > included. The change below should be good. Working with both git
-> > > and hg gets me sometimes :/
-> > > ---8<---
-> > >=20
-> > > The execve syscall returns -E2BIG in 3 cases:
-> > > - The total length of the command line arguments and environment is
-> > > too large.
-> > > - An argument or environment string is longer than MAX_ARG_STRLEN.
-> >=20
-> > I'm still concerned by the wording of this sentence (and the next
-> > one).
-> > When I (and any user-space programmer, I think) read "string is
-> > longer
-> > than FOO", I read `strlen(string) > FOO`.=C2=A0 Since it's rather
-> > `strlen(string) >=3D FOO`, I think you should clarify.=C2=A0 How about =
-this?
-> >=20
-> > -=C2=A0 An argument or environment string is longer (including the null
-> > byte)
-> > =C2=A0=C2=A0 than MAX_ARG_STRLEN.
+> > I'm clarifying zustr after your suggestion.  Please check this text.
 >=20
-> That works. Would you like me to re-send a v5, or do you
-> want to massage the changelog when you apply the patch?
->=20
-> I must admit I paid more attention to the wording in the
-> man page than the wording in the changelog :)
+> Thanks, this looks good.
 
-I wouldn't mind doing it myself, but I'll ask you to resend, if you
-don't mind.  I usually find that doing so helps catch other accidents
-that I didn't catch.  :)
+Thank you.  Patch applied:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Db31fe84c31989bc6d3a2884bec5c538e06498423>
 
 Cheers,
 Alex
 
->=20
-> --=20
-> All Rights Reversed.
-
-:)
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---RS8szfeyc21P55+2
+--q5bZVCMRBmrv+MkR
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUnM4sACgkQnowa+77/
-2zJFMw/9Ey8pzmgHsCgpWvgq2zMsRSsb6jNUZERcdNJ5f7KsnXCIfXoSHN0LlF6S
-fHtqMLL+zchtkDeWsro9LGIo+IRUnBVhiUIhsHV6hiT85PWchF0gEXEvE0rrJhun
-5CMYbU0MpIGSseENN8MU6D+IXLUSorV3/BZ9dY1FNKAmsmx/Hk6tj3eNjvKlKuqt
-k7FSccKkprFXR7qSZNLd1SGoGHLu6AuOeuNtBGvJ5/0JB4GhbSdneA862hEC3D+h
-T1SQUBT55EzDbrLDGDuHizvSB891Vt4lRFnjlFZHmXcOM2nQn1bO97ThvjmCjZlg
-1y1zcwN6VMx7UxALWFfnbCvkUcD9IGPQ21tMX5TYD0zigKepDZsWBFdrTq+NteaT
-9gUCyOQV9DmYiv2ptAfB+i18rlyXxgQJg8DxFl4XxfCvMwnHzzkDH0b5LU3vGp7G
-GzIYqR7MNPwHVFRcgaEKJ97k+Ke5uzvVQ/kC9APYRZheXtiRF2iSlKlF9u0qNP8l
-BPR/gnKvwEWS9WqFQl92tNma0gib4gQ78Gbrh67jYPnnpYVUssVW8Ujrcbwwszxr
-V2/emDY4qHtwOJsPRuzcVQWCicwCWG3hLKekWak9qWjuQ2YCz5WD6wp0NT6GyFEK
-lxjMsZ23cT++ZouNAFpUplBiK/4h84dyy3CnAUPy2FTVNIqJgO4=
-=RJf0
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUnPvgACgkQnowa+77/
+2zJFAg/+J92G0E62dcyeOf81Hl2uDd1XbAxmflmrGYKZA5NQqGGBjoa7F1YCpOH7
+dgOhRXoOflVTFnGcFxLMTms2RwZeXq1VeZ3f1vyZTt0G/u/12VSl98iBEtUPk9c3
+tQV8eHm/5ePkX/e2+V+C2noVNb7YatcyTKEhNag/hB3+NnzzIAl+30FjnwdXLXEy
+XH27LJoV258J0t2ggH2UZdJqLDtRODpdS6aYU1CkqZvMK3IFlZzvSlQHdfhYAaNZ
+ZWTrHcl7x2XMbNCGo2w7EILVIBQICIdDWs5EKi+4jD+xH+eGiXhuoVjCXfhuqTVG
+Iz2T1qgp4wshIU5k6JARnYrCK2nxn/q85PacLJ01wKvwhsureNDeD07UPFuUX1te
+3UMgJDbfqsYYAagoT2UoUOG+FpnXOi9htiIDmd4cqcAr8YPoRCdVebTLhW866taK
+yRHNu8C/YEb4X4B0QX9prM7rPqQPg6z5lv148HDfW9KNIKooAjejrapZMlAvf4vQ
+cgMLziNMgZf0ZG6ySVGKewpeiYoM8J1MDmcNvNobDNuvepaJGDJ1EAyAWXRA5ek0
+NYZaMZMWx1/WbgtCy7Q98f/qErXaj2inAlLIS31T3/DZtk11qPyfd3JLH2q6Tz7g
+xHQ2d3oVuwsajnmFrEWBIoNZNDjzYWO1Eokym+KGILV3W9bYuTo=
+=L1tH
 -----END PGP SIGNATURE-----
 
---RS8szfeyc21P55+2--
+--q5bZVCMRBmrv+MkR--
