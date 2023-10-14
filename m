@@ -2,43 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 111AE7C9725
-	for <lists+linux-man@lfdr.de>; Sun, 15 Oct 2023 00:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7F9037C9740
+	for <lists+linux-man@lfdr.de>; Sun, 15 Oct 2023 01:20:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229555AbjJNW4V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 14 Oct 2023 18:56:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44448 "EHLO
+        id S229867AbjJNXUt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 14 Oct 2023 19:20:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229733AbjJNW4U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 14 Oct 2023 18:56:20 -0400
+        with ESMTP id S229733AbjJNXUs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 14 Oct 2023 19:20:48 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34E54CE
-        for <linux-man@vger.kernel.org>; Sat, 14 Oct 2023 15:56:19 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E6BC433C7;
-        Sat, 14 Oct 2023 22:56:17 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F12C3A9;
+        Sat, 14 Oct 2023 16:20:46 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FFDDC433C8;
+        Sat, 14 Oct 2023 23:20:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1697324178;
-        bh=8oRWtbXNiD1rusFOsmu661QtWzbjLbstIwDJaWXtsac=;
+        s=k20201202; t=1697325646;
+        bh=pZByRqicRE3aNH8i7QtO2qzFZjBI0dEQxI30C4vTcFM=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=FB7BJnT2VKWhIKw5RntqzHV9l/EMYaa3m95J5CQQsyqo1k/2w8I1ocR/51Wf8NZGb
-         ubh0vCiJZykVPGgEP/rdgCBBPigxYAmsR2OiNw07RaB2SqFgcN9G7ixSNDE1rBxRdk
-         o5mP2pz5aHRdwSu37aFjON2GTC0+/LMsW6ucAeIZTfFc9M0jFpsmZn9Ef8i1O5oJJV
-         bQaltcD5sUWAUf2eA/kEYBOcsOekZB9l5qkZe2hE9GiLRBLX0CHHIUAp38wsMKPWkh
-         83/IeL0e+2udK7nlt2yC1bRLxNaK8vnk9j1Shzm9NJJ+xzPm76v3ypmN5vVmZM4r6A
-         kRYQsPVAFb1OQ==
-Date:   Sun, 15 Oct 2023 00:56:15 +0200
+        b=JsO3biSddsSf/3of9SNqflvn9NwMYaIVb1GWLx8DyxtCghQnqIQRp9oFJvz8jsn2C
+         qXPQdapZoCvEHn+RzeltXOBRvdK0WhgFTaxCE22N/oCBRjiVGhMmTmEtZxFmTaQnym
+         5hBZgjrjjf8ZWY78xHwQIj+bB5x8f681olw5pmoFAxMhBm5eXltn3Ti8hYhiBbm5uk
+         S3fMNdpect2CNOtkiXy3oxoTL12BU98kjPt/R5RlK8fahNTF9FYy3SlBRfZPcMCEJ6
+         b6Ouf6gBvNqX8HtRdwE7A9ChjvnVwGQKuJHHdP7jZzOQmLb+4Dd5+rrnW8QiKmozuB
+         G8lVJsgUF0qcw==
+Date:   Sun, 15 Oct 2023 01:20:42 +0200
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Don Brace <don.brace@microchip.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] smartpqi: add device attributes
-Message-ID: <ZSscjxrLocKKt5z6@debian>
-References: <20231011190024.42728-1-don.brace@microchip.com>
- <20231011190024.42728-5-don.brace@microchip.com>
+To:     Guo Ren <guoren@kernel.org>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        linux-csky@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: set_thread_area.2: csky architecture undocumented
+Message-ID: <ZSsiSlJC5sHAyUk-@debian>
+References: <014e670b-2a11-3deb-4e7e-bfe9defd8597@gmail.com>
+ <c669c780-f6e8-bd2a-e6ec-0a5960b7d7d8@gmail.com>
+ <CAJF2gTQPai9k6XqqStbvk0waF+tmMQm9PMMZe3T8m6ioAjdTFA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="BsDeLBB2LHTxgHWJ"
+        protocol="application/pgp-signature"; boundary="+7sKm7wLEzKNfm8V"
 Content-Disposition: inline
-In-Reply-To: <20231011190024.42728-5-don.brace@microchip.com>
+In-Reply-To: <CAJF2gTQPai9k6XqqStbvk0waF+tmMQm9PMMZe3T8m6ioAjdTFA@mail.gmail.com>
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
@@ -49,189 +52,185 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---BsDeLBB2LHTxgHWJ
+--+7sKm7wLEzKNfm8V
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Oct 2023 00:56:15 +0200
+Date: Sun, 15 Oct 2023 01:20:42 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Don Brace <don.brace@microchip.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] smartpqi: add device attributes
+To: Guo Ren <guoren@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	linux-csky@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: set_thread_area.2: csky architecture undocumented
 
-Hi Don,
+Hi Guo,
 
-On Wed, Oct 11, 2023 at 02:00:24PM -0500, Don Brace wrote:
-> Add in some device level sysfs entry descriptions:
-> lunid
-> unique_id
-> path_info
-> raid_bypass_cnt
-> sas_ncq_prio_enable
+On Tue, Nov 24, 2020 at 08:07:07PM +0800, Guo Ren wrote:
+
+Huh, 3 years already!  I've had this in my head for all this time; just
+didn't find the energy to act on it.
+
+> Thx Michael & Alejandro,
 >=20
-> These have already been provided by the driver.
+> Yes, the man page has no csky's.
+
+I've applied a patch to add initial documentation for it:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Da63979eb24aaf73f4be5799cc9579f84a3874b7d>
+
 >=20
-> Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
-> Reviewed-by: Scott Teel <scott.teel@microchip.com>
-> Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
-> Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
-> Signed-off-by: Don Brace <don.brace@microchip.com>
-> ---
->  man4/smartpqi.4 | 95 +++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 95 insertions(+)
+> C-SKY have abiv1 and abiv2
+> For abiv1: There is no register for tls saving, We use trap 3 to got
+> tls and use set_thread_area to init ti->tp_value.
+> For abiv2: The r31 is the tls register. We could directly read r31 to
+> got r31 and use set_thread_area to init reg->tls value.
 >=20
-> diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-> index a32eac206904..00524bb32850 100644
-> --- a/man4/smartpqi.4
-> +++ b/man4/smartpqi.4
-> @@ -363,6 +363,101 @@ $ \c
->  0
->  .EE
->  .in
-> +.TP
-> +.I /sys/class/scsi_disk/c : b : t : l/device/lunid
+> In glibc:
+> # ifdef __CSKYABIV2__
+> /* Define r31 as thread pointer register.  */
+> #  define READ_THREAD_POINTER() \
+>         mov r0, r31;
+> # else
+> #  define READ_THREAD_POINTER() \
+>         trap 3;
+> # endif
+>=20
+> /* Code to initially initialize the thread pointer.  This might need
+>    special attention since 'errno' is not yet available and if the
+>    operation can cause a failure 'errno' must not be touched.  */
+> # define TLS_INIT_TP(tcbp) \
+>   ({ INTERNAL_SYSCALL_DECL (err);                                       \
+>      long result_var;                                                   \
+>      result_var =3D INTERNAL_SYSCALL (set_thread_area, err, 1,           =
+ \
+>                     (char *) (tcbp) + TLS_TCB_OFFSET);                  \
+>      INTERNAL_SYSCALL_ERROR_P (result_var, err)                         \
+>        ? "unknown error" : NULL; })
+>=20
+> In kernel:
+> SYSCALL_DEFINE1(set_thread_area, unsigned long, addr)
+> {
+>         struct thread_info *ti =3D task_thread_info(current);
+>         struct pt_regs *reg =3D current_pt_regs();
+>=20
+>         reg->tls =3D addr;
+>         ti->tp_value =3D addr;
+>=20
+>         return 0;
+> }
+>=20
+> Any comments are welcome :)
 
-I think this should rather be something like
+I'm sorry, but I have little understanding of this syscall, and that
+shounds like gibberish to me :)
 
-=2EIR /sys/class/scsi_disk/ c : b : t : l /device/lunid
+Feel free to send a patch to improve the documentation for csky.
 
-These rules from groff_man_style(7) apply:
-
-              Use  italics  for  file  and path names, ...
-                                      ...  An exception involves vari=E2=80=
-=90
-              ant  text  in a context already typeset in italics, such
-              as file or path names with  replaceable  components;  in
-              such cases, follow the convention of mathematical typog=E2=80=
-=90
-              raphy: set the file or path name in italics as usual but
-              use  roman for the variant part (see .IR and .RI below),
-              ...
-
-Thanks,
+Cheers,
 Alex
 
-> +The
-> +.I lunid
-> +attribute is read-only.
-> +This attribute contains the SCSI LUN ID for the device.
-> +.IP
-> +For example:
-> +.IP
-> +.in +4n
-> +.EX
-> +$ \c
-> +.B cat /sys/class/scsi_disk/13:1:0:3/device/lunid
-> +0x0300004000000000
-> +.EE
-> +.in
-> +.TP
-> +.I /sys/class/scsi_disk/c : b : t : l/device/unique_id
-> +The
-> +.I unique_id
-> +attribute is read-only.
-> +This attribute contains a 16-byte ID that uniquely identifies the device
-> +within the controller.
-> +.IP
-> +For example:
-> +.IP
-> +.in +4n
-> +.EX
-> +$ \c
-> +.B cat /sys/class/scsi_disk/13:1:0:3/device/unique_id
-> +600508B1001C6D4723A8E98D704FDB94
-> +.EE
-> +.in
-> +.TP
-> +.I /sys/class/scsi_disk/c : b : t : l/device/path_info
-> +The
-> +.I path_info
-> +attribute is read-only.
-> +This attribute contains the c:b:t:l of the device along with the device
-> +type and whether the device is Active or Inactive.
-> +If the device is an HBA device,
-> +.I path_info
-> +will also display the PORT, BOX, and BAY the device is plugged into.
-> +.IP
-> +For example:
-> +.IP
-> +.in +4n
-> +.EX
-> +$ \c
-> +.B cat /sys/class/scsi_disk/13:1:0:3/device/path_info
-> +[13:1:0:3]    Direct-Access     Active
-> +
-> +$ \c
-> +.B cat /sys/class/scsi_disk/12:0:9:0/device/path_info
-> +[12:0:9:0]  Direct-Access   PORT: C1 BOX: 1 BAY: 14 Inactive
-> +[12:0:9:0]  Direct-Access   PORT: C0 BOX: 1 BAY: 14 Active
-> +.EE
-> +.in
-> +.TP
-> +.I /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
-> +The
-> +.I raid_bypass_cnt
-> +attribute is read-only.
-> +This attribute contains the number of I/O requests that have gone
-> +through the ioaccel path for ioaccel-enabled volumes.
-> +See the
-> +.BI ssd_smart_path_enabled
-> +disk attribute section for details on ioaccel-enabled volumes.
-> +.IP
-> +For example:
-> +.IP
-> +.in +4n
-> +.EX
-> +$ \c
-> +.B cat /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
-> +0x300
-> +.EE
-> +.in
-> +.TP
-> +.I /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
-> +The
-> +.I sas_ncq_prio_enable
-> +attribute is read/write.
-> +This attribute enables SATA NCQ priority support.
-> +This attribute works only when device has NCQ support and
-> +controller firmware can handle IO with NCQ priority attribute.
-> +.IP
-> +For example:
-> +.IP
-> +.in +4n
-> +.EX
-> +$ \c
-> +.B echo 1 > /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
-> +.EE
-> +.in
->  .SH VERSIONS
->  The
->  .B smartpqi
-> --=20
-> 2.42.0.345.gaab89be2eb
 >=20
+>=20
+> On Tue, Nov 24, 2020 at 5:51 PM Michael Kerrisk (man-pages)
+> <mtk.manpages@gmail.com> wrote:
+> >
+> > Hi Alex,
+> >
+> > On 11/23/20 10:31 PM, Alejandro Colomar (man-pages) wrote:
+> > > Hi Michael,
+> > >
+> > > SYNOPSIS
+> > >        #include <linux/unistd.h>
+> > >
+> > >        #if defined __i386__ || defined __x86_64__
+> > >        # include <asm/ldt.h>
+> > >
+> > >        int get_thread_area(struct user_desc *u_info);
+> > >        int set_thread_area(struct user_desc *u_info);
+> > >
+> > >        #elif defined __m68k__
+> > >
+> > >        int get_thread_area(void);
+> > >        int set_thread_area(unsigned long tp);
+> > >
+> > >        #elif defined __mips__
+> > >
+> > >        int set_thread_area(unsigned long addr);
+> > >
+> > >        #endif
+> > >
+> > >        Note: There are no glibc wrappers for these system  calls;  see
+> > >        NOTES.
+> > >
+> > >
+> > > $ grep -rn 'SYSCALL_DEFINE.*et_thread_area'
+> > > arch/csky/kernel/syscall.c:6:
+> > > SYSCALL_DEFINE1(set_thread_area, unsigned long, addr)
+> > > arch/mips/kernel/syscall.c:86:
+> > > SYSCALL_DEFINE1(set_thread_area, unsigned long, addr)
+> > > arch/x86/kernel/tls.c:191:
+> > > SYSCALL_DEFINE1(set_thread_area, struct user_desc __user *, u_info)
+> > > arch/x86/kernel/tls.c:243:
+> > > SYSCALL_DEFINE1(get_thread_area, struct user_desc __user *, u_info)
+> > > arch/x86/um/tls_32.c:277:
+> > > SYSCALL_DEFINE1(set_thread_area, struct user_desc __user *, user_desc)
+> > > arch/x86/um/tls_32.c:325:
+> > > SYSCALL_DEFINE1(get_thread_area, struct user_desc __user *, user_desc)
+> > >
+> > >
+> > > See kernel commit 4859bfca11c7d63d55175bcd85a75d6cee4b7184
+> > >
+> > >
+> > > I'd change
+> > > -      #elif defined __mips__
+> > > +      #elif defined(__mips__ || __csky__)
+> > >
+> > > and then change the rest of the text to add csky when appropriate.
+> > > Am I correct?
+> >
+> > AFAICT, you are correct. I think the reason that csky is missing is
+> > that the architecture was added after this manual pages was added.
+> >
+> > Thanks,
+> >
+> > Michael
+> >
+> >
+> > --
+> > Michael Kerrisk
+> > Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> > Linux/UNIX System Programming Training: http://man7.org/training/
+>=20
+>=20
+>=20
+> --
+> Best Regards
+>  Guo Ren
+>=20
+> ML: https://lore.kernel.org/linux-csky/
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---BsDeLBB2LHTxgHWJ
+--+7sKm7wLEzKNfm8V
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUrHI8ACgkQnowa+77/
-2zLzaw//eqemsRVYtMBOWG47T9FTNoBc6UQsEfb13PoF7nYgphNuTJtrGTRD72dg
-fL9KJbE/o1dftUSxn7FsJy6IaMkzsDRxpUMG/cyWrMzfhMq+YBiA0vO7qjFuhYXB
-KYVOpepiwcjhm0rT42r+Vy1V514+mnB0Xclqy0lRZcp/PYqDURwrOJeHLB2TvxZm
-XXtn6mu8GQPUAtcLj76U2xTUU9u3bJBoi9jH7/Q2NTM9KOGAGL3HPCRFG9FobKY+
-SMQGcVzQxGZBsw7gQb25UeoJOrCHWV1p9QMTNvvyhNv/NxGkOZaanxo6B1XViBRJ
-4RjzjVgQAdMq4xMqkvVIh5B1LpfZ5+V8lU1vLg/wK4Rc+kTAr4vLteE4HuWOG+VI
-EBsQ40hNYYQzlcYf3saR+TWjUH/fP2PgXbplmD0M8wvFy0BpXIuHlINVrqxV+O5t
-/Si5dm0YfqTCIsJNVJ01JWE9q0G0fNLkeSyb6Air2D3n1jYT/qH4kVdcfIVbS+Rn
-yZtGw/Wgl7rv0IxNcBUzJQoWiG83bDIaiOpt2PGPbq+OPQdvw+OS4MZ9EE3t6Rmd
-EU2EqKhaWX9qaN1ZToz77ZbMjK4yHkJGlqUwItOAdCuzdo/t2bvC8V8z1KRK9e8c
-PvxO+2IlfAAGqJeBLssIxtdDbtz33QICUicyai2WjEcjAexy7aY=
-=m7C+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUrIkoACgkQnowa+77/
+2zJBLQ//XczzypNTi/1rlE2DDav7YKOaYkSEV4zNIYOD7QRlFeu5bZloPNIpMm2i
+dvwoKgQv+Jkex+diXoab4qDLD7oj8H+Ykrg4yEshEOP0f4BULBG6sV2/FieDIuoj
+fWauz5kls3qTCUNa3omyFAa7IbbQ01Lrn89JzMBxw8mo7MSMYv/WObWsc/BsPEAU
+gVPdVjCNwKJHajBIPAkSSnMBl83fqfGEsahdC1BrGe6NiDgAnCptcIOnGv8Qkgsn
+ElV1vwLGN3OESajN3fJz5iWhBB6xkgoCI1E9iYCYfj44AZDzpfnFD9M9yQHuEOsg
+TkEWkY5HdsJ/PhIcWn9Renwl/0rFvpV+2VYOY4Zm0P967uTP3Tbi+6fOy2g+VHgE
+6Cn7IxBoQ4gdH/NuLHfgbNPu5ZfS7vAKWTB7HRAu7tmLHWIUy50nZ6Q7zRCvgy9T
+4SCkFgPJsUB0IVhxCrgqgzlVB+ihk/Cr434z6GIZjZUE0bxTzHYtbMgTs44N2HpQ
+0l0lpaA8RDEwUIDXLZhzk62EjnYZcBGNeziOY4gYahru2uTOMg3K6qYBfKMzdYva
+79KWKO0VeVXIQN2zuVwi6mQa5biUQGDjxk3io/lgsIU64PN1FczV9EYoxSWQnoM4
++44LIov8C3BiswxLN+XVJE1ZWPq7Nk6CBnoNy1ofMdPdr9jbHSg=
+=QgYa
 -----END PGP SIGNATURE-----
 
---BsDeLBB2LHTxgHWJ--
+--+7sKm7wLEzKNfm8V--
