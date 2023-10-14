@@ -2,199 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8AEB47C7BAA
-	for <lists+linux-man@lfdr.de>; Fri, 13 Oct 2023 04:40:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9E9937C9709
+	for <lists+linux-man@lfdr.de>; Sun, 15 Oct 2023 00:31:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229469AbjJMCkG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Oct 2023 22:40:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60490 "EHLO
+        id S229735AbjJNWbK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 14 Oct 2023 18:31:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32848 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229499AbjJMCkF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Oct 2023 22:40:05 -0400
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com [66.111.4.25])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7C4DDE;
-        Thu, 12 Oct 2023 19:40:03 -0700 (PDT)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.48])
-        by mailout.nyi.internal (Postfix) with ESMTP id 646F45C0380;
-        Thu, 12 Oct 2023 22:40:01 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute7.internal (MEProxy); Thu, 12 Oct 2023 22:40:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-        :cc:content-transfer-encoding:content-type:content-type:date
-        :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-        :references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-        1697164801; x=1697251201; bh=v/NfjpcqgjT4cCUGFXPV+Rh0Ny4ORRueTJG
-        R6kwHMb8=; b=h98MYJKTyJxh5BlvDbqEbS/QDtKUAxWwg2gGTDuH6bPyNZVeWqr
-        wx7264K7BBz32R/co1ATerAhNOMz75YLvm0fgTpgMMNQu55w/LVhZfVZ8OAJaCJq
-        7nb9dXr37pUg3xsw+b7il6/ccYQEcPhPb1vK4CCQEDrzy95IV5o4SoOHlrLXJpUS
-        Eb6yPF/vCqUumwQwHr6SUOmSXmec1KGdbHy/VnWCwJ1VS7MFAVN4kRWjtDai5r4e
-        6Iyb5UfYgyfG6nkNOqOd32AZHM4b4h2XiUHG2i77ha6HhTxsKzAs97rGYCPcA6Jm
-        X5Z16cCuPlMvm2fDFuvmbQ+0wtUWZGtKmxA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:cc:content-transfer-encoding
-        :content-type:content-type:date:date:feedback-id:feedback-id
-        :from:from:in-reply-to:in-reply-to:message-id:mime-version
-        :references:reply-to:sender:subject:subject:to:to:x-me-proxy
-        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-        1697164801; x=1697251201; bh=v/NfjpcqgjT4cCUGFXPV+Rh0Ny4ORRueTJG
-        R6kwHMb8=; b=Jt+wF3cEaxzWcr3/XY+Wti7uxW1slOr+Hh/k2JZeVBiHjcLII+Z
-        nY0JUMQAUmDbFKRWkpDfuKIptHIvAR4kGoNSizhDviET/VuKiZVCLSJwzXlYZuVd
-        CpnkeoHXGKe3B0+EamZEayG0kSpjwW7ne9v4AUmksO5OEuGQtcIFvB9B8Tp7Kdlb
-        8KnNMyLprmaqX8wELioBDQZV7M5B73HYVbhOMQu/7XxjsD97mBwdVhOEsAQdEYiM
-        4Zs6ZIclabu89A++eIi9tF47Z7p4t5528a4i5yVVr0vyQgwSV2oj8Dm/R1FxOYyU
-        hjjXgGv4TTuQcjNkFh96NNn3NsYXWo/LI0g==
-X-ME-Sender: <xms:AK4oZfYmg8hEeYfVAyN9-NVArxIb9pHAIGMu3LtUcRruvGFiFXYofA>
-    <xme:AK4oZea2lrufPdbPIb_b2cpZxrufVNi-KdhmDGxE6gD8ljT5zvF1TCt_XZjTxXcnY
-    ctZD-IlCEos>
-X-ME-Received: <xmr:AK4oZR_c5k74EqiyFt1B-u0NuLBMh1OUK8IicBC-0xnMyiMUjlVPKb21xDJnQHX7pAYonr_C7pXIwMswwGu5E6yaqAnpZ1_E9drmkcuN1Xom8hNHEleP_4lU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedriedugdeitdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefkffggfgfhvfevfhfujggtgfesthekredttdefjeenucfhrhhomhepkfgrnhcu
-    mfgvnhhtuceorhgrvhgvnhesthhhvghmrgifrdhnvghtqeenucggtffrrghtthgvrhhnpe
-    ekueffkefhffetjeeikeevtdfhgefhgeetfedvgeevveejgeffleelffekveejtdenucev
-    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehrrghvvghnse
-    hthhgvmhgrfidrnhgvth
-X-ME-Proxy: <xmx:AK4oZVr_hhUjuDK8v1CelxtwSzRQiPkQJ28QaIhT5GG36oeAhMe8dA>
-    <xmx:AK4oZapZISNp-1EU-J-rAeME2Ys8rS-j8-lysqiKkCn9cG15lAW-6g>
-    <xmx:AK4oZbSFYIFmjcllZIBS8h0RkMXumwjif1oWQKDJk2WMEEF9D0_4Rw>
-    <xmx:Aa4oZVB9SQ5uAQPRwuokl4D2K98Gt4SH7aFjq0x66MdNJYh_gIZC1A>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Oct 2023 22:39:53 -0400 (EDT)
-Message-ID: <c45fc3e5-05ca-14ab-0536-4f670973b927@themaw.net>
-Date:   Fri, 13 Oct 2023 10:39:49 +0800
+        with ESMTP id S229555AbjJNWbJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 14 Oct 2023 18:31:09 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08DB6C9
+        for <linux-man@vger.kernel.org>; Sat, 14 Oct 2023 15:31:07 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230ECC433C8;
+        Sat, 14 Oct 2023 22:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1697322666;
+        bh=WXVU9IagxGay88KBkk1C4v+Xyucvc+4c70GdUoclMLE=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=bHvt+xgy5gnt/Ar9mnNHZCDfiGOZK6SFqND5GUx9VO32xpXlUV5VQ9psARfcppnf0
+         pUmrsiqiWbHaUAYrRNSho1LL5Pdulrgacrpq9W+jmgQ7IciGckuqkQl3/SQXk1hBLP
+         6AglPZpK5Bg8+qPL1FteTqx4qtHks091TmauSOQBXu+3MX3Wn3hMZkuon+2JhDXyZT
+         qmO9xD9kgIoxNYIplXYBhAGiM/t/yp68xHNK38LZRUSfI8CCUhgamolGuLSI1N+oav
+         CUN+9KMypPTRs+/UT8pP69Ni+20nXD9lXF+pLqknCV6PxspgDC8mDbH3ZZvMoNfNWF
+         zI1x46NMP4AIQ==
+Date:   Sun, 15 Oct 2023 00:31:02 +0200
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Catalin Marinas <catalin.marinas@arm.com>
+Cc:     Florent Revest <revest@chromium.org>, linux-man@vger.kernel.org,
+        joey.gouly@arm.com, akpm@linux-foundation.org,
+        keescook@chromium.org
+Subject: Re: [PATCH v2] prctl.2: Document PR_SET_MDWE and PR_GET_MDWE
+Message-ID: <ZSsWpvf04IB0yn54@debian>
+References: <20231011114744.2563619-1-revest@chromium.org>
+ <ZSa7hO2B5oQS6a_-@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-From:   Ian Kent <raven@themaw.net>
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     Paul Moore <paul@paul-moore.com>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>
-References: <20230928130147.564503-1-mszeredi@redhat.com>
- <20230928130147.564503-5-mszeredi@redhat.com>
- <CAHC9VhQD9r+Qf5Vz1XmxUdJJJO7HNTKdo8Ux=n+xkxr=JGFMrw@mail.gmail.com>
- <CAJfpegsPbDgaz46x4Rr9ZgCpF9rohVHsvuWtQ5LNAdiYU_D4Ww@mail.gmail.com>
- <a25f2736-1837-f4ca-b401-85db24f46452@themaw.net>
- <CAJfpegv78njkWdaShTskKXoGOpKAndvYYJwq7CLibiu+xmLCvg@mail.gmail.com>
- <7fe3c01f-c225-394c-fac5-cabfc70f3606@themaw.net>
-Content-Language: en-US
-Subject: Re: [PATCH v3 4/4] add listmount(2) syscall
-In-Reply-To: <7fe3c01f-c225-394c-fac5-cabfc70f3606@themaw.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-6.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
-        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="uX0H4Nfk6cWEEmze"
+Content-Disposition: inline
+In-Reply-To: <ZSa7hO2B5oQS6a_-@arm.com>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 6/10/23 08:27, Ian Kent wrote:
-> On 5/10/23 23:47, Miklos Szeredi wrote:
->> On Thu, 5 Oct 2023 at 06:23, Ian Kent <raven@themaw.net> wrote:
->>
->>> The proc interfaces essentially use <mount namespace>->list to provide
->>>
->>> the mounts that can be seen so it's filtered by mount namespace of the
->>>
->>> task that's doing the open().
->>>
->>>
->>> See fs/namespace.c:mnt_list_next() and just below the m_start(), 
->>> m_next(),
->> /proc/$PID/mountinfo will list the mount namespace of $PID. Whether
->> current task has permission to do so is decided at open time.
->>
->> listmount() will list the children of the given mount ID.  The mount
->> ID is looked up in the task's mount namespace, so this cannot be used
->> to list mounts of other namespaces.  It's a more limited interface.
->
-> Yep. But isn't the ability to see these based on task privilege?
->
->
-> Is the proc style restriction actually what we need here (or some 
-> variation
->
-> of that implementation)?
->
->
-> An privileged task typically has the init namespace as its mount 
-> namespace
->
-> and mounts should propagate from there so it should be able to see all 
-> mounts.
->
->
-> If the file handle has been opened in a task that is using some other 
-> mount
->
-> namespace then presumably that's what the program author wants the 
-> task to see.
->
-> So I'm not sure I see a problem obeying the namespace of a given task.
 
-I've had a look through the code we had in the old fsinfo() proposal
+--uX0H4Nfk6cWEEmze
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 15 Oct 2023 00:31:02 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Florent Revest <revest@chromium.org>, linux-man@vger.kernel.org,
+	joey.gouly@arm.com, akpm@linux-foundation.org,
+	keescook@chromium.org
+Subject: Re: [PATCH v2] prctl.2: Document PR_SET_MDWE and PR_GET_MDWE
 
-because I think we need to consider the use cases that are needed.
+On Wed, Oct 11, 2023 at 04:13:08PM +0100, Catalin Marinas wrote:
+> On Wed, Oct 11, 2023 at 01:47:44PM +0200, Florent Revest wrote:
+> > Memory-Deny-Write-Execute is a W^X process control originally introduced
+> > by Joey Gouly. I'm the author of the PR_MDWE_NO_INHERIT flag.
+> >=20
+> > Signed-off-by: Florent Revest <revest@chromium.org>
+>=20
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 
+Thanks for the review!
 
-IIRC initially we had a flag FSINFO_ATTR_MOUNT_CHILDREN that essentially
+--=20
+<https://www.alejandro-colomar.es/>
 
-enumerated the children of the given mount in much the same way as is
+--uX0H4Nfk6cWEEmze
+Content-Type: application/pgp-signature; name="signature.asc"
 
-done now in this system call.
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUrFqYACgkQnowa+77/
+2zI4jw//TUX8zi/6YtDy1120QPr9TiKmL8WMvm+a+QdBykf6MdbOqY9n0XSC/iMj
+VEa4rKaTTIukr5Ebbn5nwcdrcl4ydQ3Aazk2tLJyGIZxxM/Iz1zGNzIhu8MET5iU
+yjlzhQ/ERCxUISMIkOcYI+6loEaXtcGWNVIjtwSLUrdADMg0AH4309OkNVMwxK4X
+PkoO3Gol03cWMVGrCBlUzWu/QUtpkRm5ozxKRMR0crJzlQjzgIAj0c+4KZTIQ7oo
+PF0k/AbZWnCAnbJO2TqM18RObnBIDuIjX8HWGoOxT8jM1r6unUeXRYirTIMpHj7Q
+DG57jhlH3ZO5yrfQWH4hZtiVW6wuEn2rHk9L9nZOpjtt7uOA1UsD1fNIrMwL4+0Z
+Xn5ZpRv47oZqAr1j1322H5+QbgqttEWbbEudJPZpn6xx6lH/pE+CZs4HRUUdkdVu
+G0zI5z/Yku89WXDlhTIvgNVxTX91Dmr0oNe7U/iFrONUblXIJVkSgHEmIfwl7SmJ
+aXVXnv1DeRd4uE0wkiEUhRAVA4UFuivoWSOSrk6ClEx7oclRA0Z+eRBe0NzbdoTv
+uHs95yYa/Fv14tJ7nI1l8Q6q8MIacB4h7XGNPkj9YBtCzymB+UKuTzmlC2T/lsrq
+biyGXGu4HvOhjmk5x/Vh8ZD9mN8deob3rJ5zLzvU+sjIKcdBcUY=
+=5vm2
+-----END PGP SIGNATURE-----
 
-But because we needed to enumerate mounts in the same way as the proc file
-
-system mount tables a flag FSINFO_ATTR_MOUNT_ALL was added that essentially
-
-used the mount namespace mounts list in a similar way to the proc file
-
-system so that a list of mounts for a mount namespace could be retrieved.
-
-
-This later use case is what is used by processes that monitor mounts and
-
-is what's needed more so than enumerating the children as we do now.
-
-
-I'm still looking at the mount id lookup.
-
-
-Ian
-
->
->
-> Ian
->
->>
->> I sort of understand the reasoning behind calling into a security hook
->> on entry to statmount() and listmount().  And BTW I also think that if
->> statmount() and listmount() is limited in this way, then the same
->> limitation should be applied to the proc interfaces.  But that needs
->> to be done real carefully because it might cause regressions. OTOH if
->> it's only done on the new interfaces, then what is the point, since
->> the old interfaces will be available indefinitely?
->>
->> Also I cannot see the point in hiding some mount ID's from the list.
->> It seems to me that the list is just an array of numbers that in
->> itself doesn't carry any information.
->>
->> Thanks,
->> Miklos
+--uX0H4Nfk6cWEEmze--
