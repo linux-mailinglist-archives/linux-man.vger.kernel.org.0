@@ -2,46 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2D4AA7CA6A0
-	for <lists+linux-man@lfdr.de>; Mon, 16 Oct 2023 13:22:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6AA6E7CA952
+	for <lists+linux-man@lfdr.de>; Mon, 16 Oct 2023 15:28:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230090AbjJPLWU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Oct 2023 07:22:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52538 "EHLO
+        id S231508AbjJPN2o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Oct 2023 09:28:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57794 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230017AbjJPLWU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Oct 2023 07:22:20 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35279B4
-        for <linux-man@vger.kernel.org>; Mon, 16 Oct 2023 04:22:19 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD36BC433CA;
-        Mon, 16 Oct 2023 11:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1697455338;
-        bh=P+Dd/75nNMPgH3fkvOIQxMflF/bILGTYAdBh8RKtVv0=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=NiviL8MghWsciHaVtO7GpfGmSK1m9as5Qi7PnI8J9t4Lg9xxv51p/KX3UMNxCKDAb
-         m1EuWaiqTPVRWFMM4l4W/yun1hUuPTKvxKVw0/SEWMlE1Go61IQmHlAOtulG62HWU5
-         Q0jcIXdBs+RjDv3Oj2WurV9sBM+yi2YPT30EgT4Z+MrxJBj7gYDk+7tJPQEOMARikj
-         Gn8rza1bkTmlq9Vig7wVookPQ0zOxdjW7khgtmSQ3/kj/Ku79hTIzl8I6ZxYj8LWrs
-         OKZIeuvkfsvqWTL4p1/WCiidh9tb8ciLEubciTaAV1g+0hqlsPYRF21/VH0tJ2iJIp
-         01Y1v+JctkbEg==
-Date:   Mon, 16 Oct 2023 13:22:15 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Mike Frysinger <vapier@gentoo.org>
-Cc:     Siddhesh Poyarekar <siddhesh@gotplt.org>,
-        linux-man@vger.kernel.org, alx.manpages@gmail.com
-Subject: Re: [PATCH] ldd: Do not recommend binutils as the safer option
-Message-ID: <ZS0c5zyYbRLvBe4G@debian>
-References: <20231016061923.105814-1-siddhesh@gotplt.org>
- <ZS0UpvcYc/0RgdkG@vapier>
+        with ESMTP id S229459AbjJPN2n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Oct 2023 09:28:43 -0400
+Received: from bird.elm.relay.mailchannels.net (bird.elm.relay.mailchannels.net [23.83.212.17])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1164DE3
+        for <linux-man@vger.kernel.org>; Mon, 16 Oct 2023 06:28:41 -0700 (PDT)
+X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+        by relay.mailchannels.net (Postfix) with ESMTP id 43600541A86;
+        Mon, 16 Oct 2023 13:28:41 +0000 (UTC)
+Received: from pdx1-sub0-mail-a202.dreamhost.com (unknown [127.0.0.6])
+        (Authenticated sender: dreamhost)
+        by relay.mailchannels.net (Postfix) with ESMTPA id BE7595412FE;
+        Mon, 16 Oct 2023 13:28:40 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1697462920; a=rsa-sha256;
+        cv=none;
+        b=YNAabEJCDCtjKyEENF2UdpwPmiB4ik6oVkrbvScni/809U+H0W4ffKKLF19qZd3inSQDGY
+        iZGvOM5A3trQWg+9rRuXapoziEExRpfZuj61GcBMqX+HNWuY6V0eDTW+gGNtmC8z7sa8/j
+        aBOUCoF9XSfTtKBtGzTrUW9aplqBr9ghXIesU2BlSozz24k7obenL+XqkFci8a4HMKecxG
+        KC8m1cl4wlnRlienzBQfKzqksJtudAuMpQSuLlamb+lBW8yhHO9e65BAnFPnqlIYNtMLrK
+        ExKZvhf+d1WTHzX/B1lnGmzBcSwE2VBCVF6p0kbvs8J5Y1r2lap/XGDvSM8kkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+        s=arc-2022; t=1697462920;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references:dkim-signature;
+        bh=O8HS5sCgwv2LPx7Xj9H+YDgKNaFKBk/zBt7qiwyymeA=;
+        b=j/KZEhpa/0WOTBGDlpl5ALraAt5rL2hoHED4b0KJJvoDU0oFJhDwTlUAUu78XECBcSTpp8
+        q/otJIphHeu4O66bBOLQUnpnu0/bTdOekQWY+syZ8T1b/8ITTyogXOrdYaCUhYGVFCvS3y
+        pK1COB5pWjoyDmc1zkRqEL2e+xZAJxoj81Bf7i2x7wPM3+l9Cnj0KhX37e9vCG5nnFQygM
+        tXFQwHVHM1brIk+0p3y9QteW/QcdV/SFdhRv7mSldUKnyDmaP5bRxxIeSS6jet1xu+YitL
+        Esfcqm19v2+KhrLys63uIxlR8gBZsa31zv8Yt8G4uMcmJr2LNVoHx3O2/yD11A==
+ARC-Authentication-Results: i=1;
+        rspamd-549cb46585-srlx9;
+        auth=pass smtp.auth=dreamhost smtp.mailfrom=siddhesh@gotplt.org
+X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|siddhesh@gotplt.org
+X-MailChannels-Auth-Id: dreamhost
+X-Befitting-Shelf: 04114e5239fe954e_1697462921053_3460731086
+X-MC-Loop-Signature: 1697462921053:20374717
+X-MC-Ingress-Time: 1697462921052
+Received: from pdx1-sub0-mail-a202.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+        by 100.113.180.174 (trex/6.9.2);
+        Mon, 16 Oct 2023 13:28:41 +0000
+Received: from [192.168.2.12] (bras-vprn-toroon4834w-lp130-02-142-113-138-136.dsl.bell.ca [142.113.138.136])
+        (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        (Authenticated sender: siddhesh@gotplt.org)
+        by pdx1-sub0-mail-a202.dreamhost.com (Postfix) with ESMTPSA id 4S8Hxh2BJSz4w;
+        Mon, 16 Oct 2023 06:28:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gotplt.org;
+        s=dreamhost; t=1697462920;
+        bh=O8HS5sCgwv2LPx7Xj9H+YDgKNaFKBk/zBt7qiwyymeA=;
+        h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+        b=ih6GzanGrIKWaF8fRNdGsjcplyD/WtjGgPQWM0md+pA/9CL1sQlocIq95rwcn8enF
+         gpnyYzilqEoA8Y1BOFD9uk3qLeoe6567Y/5PQfI7AY0fCimZzGIdlzL6C50bZmoiDJ
+         1r5sqeAx0us7qHK6ThR+EEdGnTcu2cyw40vhhH38RXOqYPLBGX2dM+V2+46TeKob29
+         C0F99+ryzyHYikaKw01qxHVhgi/BcKN2+JueCFmzO3f8sAGJsMBWe+54uzmnB36q7w
+         IS5uN8ugv8SDNYDdHzkCOGdg9nk1d7a8Q5tbn1Ns6gJjJTdwdDs873iptIXSuorsvj
+         lk2t+O5UJZOOA==
+Message-ID: <9af68795-52c0-f376-220c-d13d7adf622a@gotplt.org>
+Date:   Mon, 16 Oct 2023 09:28:39 -0400
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="EP3nk5796AyzWpVv"
-Content-Disposition: inline
-In-Reply-To: <ZS0UpvcYc/0RgdkG@vapier>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] ldd: Do not recommend binutils as the safer option
+Content-Language: en-US
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, alx.manpages@gmail.com
+References: <20231016061923.105814-1-siddhesh@gotplt.org>
+ <ZS0LipiiOBsntjmb@debian>
+From:   Siddhesh Poyarekar <siddhesh@gotplt.org>
+In-Reply-To: <ZS0LipiiOBsntjmb@debian>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-5.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -49,79 +99,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On 2023-10-16 06:08, Alejandro Colomar wrote:
+> Hi Siddhesh,
+> 
+> On Mon, Oct 16, 2023 at 02:19:23AM -0400, Siddhesh Poyarekar wrote:
+>> The binutils security policy[1] states that diagnostic tools should not
+>> be expected to be safe without sandboxing, so it doesn't make sense to
+>> recommend it as the alternative to ldd, especially since it is not a
+>> drop-in replacement.  Recommend sandboxing instead, since that is in
+>> fact the safest known way at the moment to deal with untrusted binaries.
+>>
+>> [1] https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=binutils/SECURITY.txt
+>>
+>> Signed-off-by: Siddhesh Poyarekar <siddhesh@gotplt.org>
+>> ---
+>>   man1/ldd.1 | 14 +-------------
+>>   1 file changed, 1 insertion(+), 13 deletions(-)
+>>
+>> diff --git a/man1/ldd.1 b/man1/ldd.1
+>> index cca96ec4d..f86798566 100644
+>> --- a/man1/ldd.1
+>> +++ b/man1/ldd.1
+>> @@ -94,20 +94,8 @@ Thus, you should
+>>   .I never
+>>   employ
+>>   .B ldd
+>> -on an untrusted executable,
+>> +on an untrusted executable without appropriate sandboxing,
+>>   since this may result in the execution of arbitrary code.
+>> -A safer alternative when dealing with untrusted executables is:
+>> -.PP
+>> -.in +4n
+>> -.EX
+>> -$ \fBobjdump \-p /path/to/program | grep NEEDED\fP
+> 
+> Should we maybe keep this example, and suggest using it with sandboxing?
+> Or is it not useful anymore?
 
---EP3nk5796AyzWpVv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Oct 2023 13:22:15 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Mike Frysinger <vapier@gentoo.org>
-Cc: Siddhesh Poyarekar <siddhesh@gotplt.org>, linux-man@vger.kernel.org,
-	alx.manpages@gmail.com
-Subject: Re: [PATCH] ldd: Do not recommend binutils as the safer option
+I don't see the point TBH.  I wouldn't mind if that example was replaced 
+with lddtree as the alternative since it is functionally equivalent. 
+However it would be a safer recommendation to put that too inside a 
+sandbox because IMO you'd generally never want to run or even analyze 
+arbitrary executables without proper sandboxing.
 
-On Mon, Oct 16, 2023 at 04:32:02PM +0545, Mike Frysinger wrote:
-> On 16 Oct 2023 02:19, Siddhesh Poyarekar wrote:
-> > The binutils security policy[1] states that diagnostic tools should not
-> > be expected to be safe without sandboxing, so it doesn't make sense to
-> > recommend it as the alternative to ldd, especially since it is not a
-> > drop-in replacement.  Recommend sandboxing instead, since that is in
-> > fact the safest known way at the moment to deal with untrusted binaries.
->=20
-> fwiw, this is one reason why i wrote `lddtree` (although the primary reas=
-on
-> was cross-compiling and separate-root dirs).  it's part of the pax-utils
-> project that's available in most distros now.
-> -mike
-
-Hi Mike,
-
-Is there a manual page for lddtree(1)?
-
-alx@debian:~$ man lddtree
-No manual entry for lddtree
-alx@debian:~$ apt-file show pax-utils
-pax-utils: /usr/bin/dumpelf              =20
-pax-utils: /usr/bin/lddtree
-pax-utils: /usr/bin/pspax
-pax-utils: /usr/bin/scanelf
-pax-utils: /usr/bin/scanmacho
-pax-utils: /usr/bin/symtree
-pax-utils: /usr/share/doc/pax-utils/changelog.Debian.gz
-pax-utils: /usr/share/doc/pax-utils/copyright
-pax-utils: /usr/share/man/man1/dumpelf.1.gz
-pax-utils: /usr/share/man/man1/pspax.1.gz
-pax-utils: /usr/share/man/man1/scanelf.1.gz
-pax-utils: /usr/share/man/man1/scanmacho.1.gz
-
-Would you mind pointing to some documentation for it?  Or write a page
-if you feel like. :)
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---EP3nk5796AyzWpVv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUtHOcACgkQnowa+77/
-2zLjyg//UFkIDcg+uaqa7Xhr1dbM77+e3YzWp3oE6FoHkwZQsyyLBuQwc/vg5qc4
-Q8Z2MUiS4lMyMoG1dJRaEsRUoao1ZsQuPJRfXe+MSbAlqX1/Ws52BVHWq9suiv8D
-4LRywBSeJFNLNXeHoHWTg06HKhrmPuR/Imd9UrfEIMCeGgJc3jP47xNdX040R64U
-juZebJK8oDPPekbvqLP4CnVqHF38byo8Xsey0RveodcvcQGOfoxN4gXqLwu8kG1g
-nYXHfeJg1nxVAq14QKrP7z7eyxxNHpNjguAyUEBaP7QCkWvMOXJbBiENgNdwU89c
-tlZN6AyzDk8sqoCAH9zcOoZvGuVRFY8wAskquDTVG3slcnd3nMTiYdjfsOS/tZ4T
-luOgnTEI/2Yc9+3EK+iXOx/mWXU0/HMSbVUl0JYYjcHT/R/+KtDc714ktMRhjr5p
-Q7yUqo13vqv7N/M4gGT0d4ZC9Jj1tAjfUA5mCH9XofDyTEIBIZscS2SHGACVMjvX
-MMh9gr7g8m6dM3BMusP1ZUdQd6jKxK7xT7gifVhYNYOaF6Bjusjd8Q0m98KqOqIu
-+nrTBcrh2FYrz22bAewKDzmUBF9b5puoNBe7YA2BBFB59IAfjB4kv0h8DLQ1NCZc
-/6JW0LGTOpdlHPrELWMOxHiw/XWwATuMXS5LlkL7pmUqhg7ldes=
-=FhNZ
------END PGP SIGNATURE-----
-
---EP3nk5796AyzWpVv--
+Thanks,
+Sid
