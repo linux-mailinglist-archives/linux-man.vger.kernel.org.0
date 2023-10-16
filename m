@@ -2,52 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A0E447CAE71
-	for <lists+linux-man@lfdr.de>; Mon, 16 Oct 2023 18:04:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 641407CAE72
+	for <lists+linux-man@lfdr.de>; Mon, 16 Oct 2023 18:04:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232516AbjJPQEa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Oct 2023 12:04:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39082 "EHLO
+        id S232816AbjJPQEb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Oct 2023 12:04:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39106 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232310AbjJPQE3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Oct 2023 12:04:29 -0400
+        with ESMTP id S232778AbjJPQEa (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Oct 2023 12:04:30 -0400
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A2A1B4
-        for <linux-man@vger.kernel.org>; Mon, 16 Oct 2023 09:04:28 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 496F2AD
+        for <linux-man@vger.kernel.org>; Mon, 16 Oct 2023 09:04:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1697472268; x=1729008268;
+  t=1697472269; x=1729008269;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=AQUg7AL5CZBAXEWSx7ZDlvtpnw2TZY5klIoKRPn774g=;
-  b=xuMlkKAWMCkgkkRDHsum/NC+YBLvHaCwCDLi37moKWh+3hDRK2nSOBf3
-   FLohGc8Rq2GxGpsfEB5yunWm3QyrxWApHqMowW3PHuV1CTfoAeXIh2/qL
-   VmOeuc1h+B0LhARXPfQKtgLkI8j7yl7GLNgzhlBeLRLdmdjxDRijqWNiq
-   kdrDZSW2uvMzzvvoRNRsQIKhoS6PskeJYp/RPEShcszRux+9k0wEonS7V
-   9D8IKxqSMUsm92bH2IYbVB71gUUQ1wq9HCW01nX8sK8PAk368dKf+1j3Z
-   6JMQ0pr/GMV5ZfN0V4pgla7kzhBWTp5iUhLeLW61OHxULC9NFbLO2IMO+
-   g==;
+  bh=j0DQp1M5IHiQdypXf98IGJiIZ0PXPnoXa351LK4kNlk=;
+  b=j+pfpWXeQxc+GPHf1/xsZS0xFnC6V2FR7mDEUHvo7f4gXnzpyPKq3ejy
+   f6cgew3RVR/hKlky3zArF2zU3gVwuSSTByPicY1Z37m4XvAoR4ln2G29y
+   AbzvdfkGnkzEZlElB5HtiAJGOIiA0ozBA1f4e34Aac/1k36SGivrVCj9R
+   yOt8+qhIr/Y7vZJAY4PmmjS5mnFe8WweR29BPZlm4n8FosjEqcZjoOK+P
+   e7p0v25GrgIxzYgSnEKc6m4KNDqYgmb0DTtKDbUykT407+rV4RKYG7+2y
+   RhKrixB9j3TBaRw5vFE97eggMavj3+lSmzKuDX4uf2w2L5zUj2gtVvu4s
+   A==;
 X-CSE-ConnectionGUID: 3SAhPc6OTZKARWpI/vFOfg==
-X-CSE-MsgGUID: 6fL4YUSCQMOnjOc9dd5x1w==
+X-CSE-MsgGUID: we46R5wrShGEPkvdOzoABg==
 X-ThreatScanner-Verdict: Negative
 X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; 
-   d="scan'208";a="240814778"
+   d="scan'208";a="240814779"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Oct 2023 09:04:27 -0700
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Oct 2023 09:04:28 -0700
 Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
  chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Mon, 16 Oct 2023 09:04:04 -0700
+ 15.1.2507.21; Mon, 16 Oct 2023 09:04:05 -0700
 Received: from brunhilda.pdev.net (10.10.85.11) by chn-vm-ex03.mchp-main.com
  (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
  Transport; Mon, 16 Oct 2023 09:04:04 -0700
 From:   Don Brace <don.brace@microchip.com>
 To:     <alx@kernel.org>
 CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH v8 2/3] smartpqi: remove sysfs entry for version
-Date:   Mon, 16 Oct 2023 11:04:02 -0500
-Message-ID: <20231016160403.636655-3-don.brace@microchip.com>
+Subject: [PATCH v8 3/3] smartpqi: add device attributes
+Date:   Mon, 16 Oct 2023 11:04:03 -0500
+Message-ID: <20231016160403.636655-4-don.brace@microchip.com>
 X-Mailer: git-send-email 2.42.0.357.g59167d7d09
 In-Reply-To: <20231016160403.636655-1-don.brace@microchip.com>
 References: <20231016160403.636655-1-don.brace@microchip.com>
@@ -64,62 +64,130 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Remove the "version" sysfs entry. This entry was changed into
-two sysfs entries: driver_version and firmware_version.
+Add in some device level sysfs entry descriptions:
+lunid
+unique_id
+path_info
+raid_bypass_cnt
+sas_ncq_prio_enable
 
-Add HISTORY section.
-Enumerate old sysfs entries replaced by newer entries.
+These have already been provided by the driver.
 
-Signed-off-by: Don Brace <don.brace@microchip.com>
-Suggested-by: Alejandro Colomar <alx@kernel.org>
+Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
+Reviewed-by: Scott Teel <scott.teel@microchip.com>
+Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
+Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
 Signed-off-by: Don Brace <don.brace@microchip.com>
 ---
- man4/smartpqi.4 | 25 +++++++------------------
- 1 file changed, 7 insertions(+), 18 deletions(-)
+ man4/smartpqi.4 | 95 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 95 insertions(+)
 
 diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-index 1e5b6d76f548..89387c0498fd 100644
+index 89387c0498fd..00a8146eba6b 100644
 --- a/man4/smartpqi.4
 +++ b/man4/smartpqi.4
-@@ -145,24 +145,6 @@ changes, so the user should not normally have to write to this file.
- Doing so may be useful when hot-plugging devices such as tape drives or
- entire storage boxes containing pre-configured logical volumes.
- .TP
--.IR /sys/class/scsi_host/host * /version
--The host
--.I version
--attribute is a read-only attribute.
--This attribute contains the driver version and the controller firmware
--version.
--.IP
--For example:
--.IP
--.in +4n
--.EX
--$ \c
--.B cat /sys/class/scsi_host/host1/version
--driver: 1.1.2\-126
--firmware: 1.29\-112
--.EE
--.in
--.TP
- .IR /sys/class/scsi_host/host * /lockup_action
- The host
- .I lockup_action
-@@ -330,6 +312,13 @@ refer to the User Guide for the controller,
- which can be found by searching for the specific controller at
- .UR https://www.microchip.com/design-centers/storage
- .UE .
-+.SH HISTORY
-+.I /sys/class/scsi_host/host*/version
-+was replaced by two sysfs entries:
+@@ -301,6 +301,101 @@ $ \c
+ 0
+ .EE
+ .in
++.TP
++.IR /sys/class/scsi_disk/c : b : t : l/device/lunid
++The
++.I lunid
++attribute is read-only.
++This attribute contains the SCSI LUN ID for the device.
 +.IP
-+.I /sys/class/scsi_host/host*/driver_version
++For example:
 +.IP
-+.I /sys/class/scsi_host/host*/firmware_version
- .SH SEE ALSO
- .BR cciss (4),
- .BR hpsa (4),
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/lunid
++0x0300004000000000
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/c : b : t : l/device/unique_id
++The
++.I unique_id
++attribute is read-only.
++This attribute contains a 16-byte ID that uniquely identifies the device
++within the controller.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/unique_id
++600508B1001C6D4723A8E98D704FDB94
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/c : b : t : l/device/path_info
++The
++.I path_info
++attribute is read-only.
++This attribute contains the c:b:t:l of the device along with the device
++type and whether the device is Active or Inactive.
++If the device is an HBA device,
++.I path_info
++will also display the PORT, BOX, and BAY the device is plugged into.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/path_info
++[13:1:0:3]    Direct-Access     Active
++
++$ \c
++.B cat /sys/class/scsi_disk/12:0:9:0/device/path_info
++[12:0:9:0]  Direct-Access   PORT: C1 BOX: 1 BAY: 14 Inactive
++[12:0:9:0]  Direct-Access   PORT: C0 BOX: 1 BAY: 14 Active
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
++The
++.I raid_bypass_cnt
++attribute is read-only.
++This attribute contains the number of I/O requests that have gone
++through the ioaccel path for ioaccel-enabled volumes.
++See the
++.BI ssd_smart_path_enabled
++disk attribute section for details on ioaccel-enabled volumes.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
++0x300
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
++The
++.I sas_ncq_prio_enable
++attribute is read/write.
++This attribute enables SATA NCQ priority support.
++This attribute works only when device has NCQ support and
++controller firmware can handle IO with NCQ priority attribute.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B echo 1 > /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
++.EE
++.in
+ .SH VERSIONS
+ The
+ .B smartpqi
 -- 
 2.42.0.357.g59167d7d09
 
