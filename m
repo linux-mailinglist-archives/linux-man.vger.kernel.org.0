@@ -2,111 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 258407CCA88
-	for <lists+linux-man@lfdr.de>; Tue, 17 Oct 2023 20:19:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D16847CCF4F
+	for <lists+linux-man@lfdr.de>; Tue, 17 Oct 2023 23:31:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234922AbjJQST6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Oct 2023 14:19:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40414 "EHLO
+        id S229883AbjJQVbQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Oct 2023 17:31:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52482 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232208AbjJQST5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Oct 2023 14:19:57 -0400
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com [IPv6:2607:f8b0:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47A1690
-        for <linux-man@vger.kernel.org>; Tue, 17 Oct 2023 11:19:55 -0700 (PDT)
-Received: by mail-pf1-x42d.google.com with SMTP id d2e1a72fcca58-6bce254ba56so2335796b3a.1
-        for <linux-man@vger.kernel.org>; Tue, 17 Oct 2023 11:19:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697566795; x=1698171595; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/nxcWtJEps8ubO9U6e0J36K+hqCpTDeOJfnIF0G0uJY=;
-        b=GVBTvev9YMGy8vy/obX9ToGfvouZnRYEvnxSme+lbqWWHwQnSSJ1Yv0WxsjqyTYenI
-         0r+9ui26LWCbITxYj1yoWlG/QymR7QqTVzQIUYRhPU/iKWfEFAO6NujrENTN9AuVBgJZ
-         jfgMTrZ81T41iSYfISscKPCWzfYZsPdauGaSJtZ9HXL7Pg2oOJhQHs8srR8D/lKVebaL
-         TqA6QxJgC9ISw5ZzUakSSeg5fRa31/CZ7TVk1yDNstgvgaQNkvXflLwmEWh+orz9sjBo
-         gulNf+C39zT85kEYR//gBiHtl0CBAropFrN/BQ4FZA/619v3uDLNworUkK4ZN4W4Vpg/
-         J65Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697566795; x=1698171595;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/nxcWtJEps8ubO9U6e0J36K+hqCpTDeOJfnIF0G0uJY=;
-        b=mWlZvKYumnrYfuFwhrppFdcZHB7QSuO5BRniUYfHYCPE17lRSZrbwN/SUlMGdTtj9B
-         bNm3f76486JKmUWWK0w4M3Ya/Z/qCJhGkDBtuDyQ1YxUmRlULN+JKxTW3/SBOWR7j9TJ
-         Wyz9qDlGJZ4yKDwI2GIRb4tO5Zs52D3uEKydnwj8V9QHuzgFEwMPlqsUr6srUT3k59bG
-         gWnFbE4tkpfv9W2mA0FA/8T84Of3K4UKNFSy5dukaYe7F6F4QzIrNarvDXvQxYpb5q2z
-         PNyZG+qq4VZFoUxV/jMet9FEI/ZrxHz2hU02GGVARgX3s1F/OcVoZ0IZDGvao8tnXpBi
-         SzDg==
-X-Gm-Message-State: AOJu0Yz+ir6NZP5X/XT9DkZ4cYo6hVp1RikYy8SS4UThdtqi4w9K6x40
-        Udb/oN0ST87ffqHw9u2zvigIVA==
-X-Google-Smtp-Source: AGHT+IFWLGai7AaS8VKgvbeYc0zKzz10DAFFQuqdrg6E6R8R5tFOEKaBkjjD42WKl+dlf1f9vR6FxA==
-X-Received: by 2002:a05:6a00:15d3:b0:6bd:b7c5:f777 with SMTP id o19-20020a056a0015d300b006bdb7c5f777mr3105275pfu.16.1697566794623;
-        Tue, 17 Oct 2023 11:19:54 -0700 (PDT)
-Received: from ?IPV6:2804:1b3:a7c3:7f2e:f074:9ef:b31a:5495? ([2804:1b3:a7c3:7f2e:f074:9ef:b31a:5495])
-        by smtp.gmail.com with ESMTPSA id p15-20020aa7860f000000b00690cd981652sm1768160pfn.61.2023.10.17.11.19.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Oct 2023 11:19:54 -0700 (PDT)
-Message-ID: <4569065f-fa68-4ca6-b09c-47333ca21ac1@linaro.org>
-Date:   Tue, 17 Oct 2023 15:19:51 -0300
+        with ESMTP id S229848AbjJQVbQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Oct 2023 17:31:16 -0400
+X-Greylist: delayed 481 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 17 Oct 2023 14:31:14 PDT
+Received: from pulsar.hadrons.org (2.152.192.238.dyn.user.ono.com [2.152.192.238])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B852FA;
+        Tue, 17 Oct 2023 14:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hadrons.org;
+        s=201908; t=1697577790;
+        bh=rCrmn9y03CfqjCPi53Ca1ph8YHiUpD5hgaahZbYtSmY=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To;
+        b=pmjaTy459tR1za0fQB1dwq0sKNqW94wrmvEt950rPRUSLFFE3pLumuJJM6CAQD6RX
+         XqwyVOjoz420fxDL3PcUIsf03hoqRmRBnbgzLwr2erreFbJlrUENXHdh6hMSAtPElC
+         AYIWSWKrcrUTvi+fetC7Y4gHWV+fqkrdCiVX/VvUE0TUXjx+BoRPv7xPGstEierJTA
+         CEWJdsu/RXYseQ+wdBODvmad5SFvuBotI/7nWhzRV3PdzfENr+L382NQWYkMWR5FvW
+         wW6yqU53bv7z/GakDepw095XbWw5mfWL0b1Ydxw+6YRitigoyW4oYnr3Pr2Luk0C9J
+         uuYFrrjIEGU1g==
+Received: by pulsar.hadrons.org (Postfix, from userid 1000)
+        id 77FAC122CA9; Tue, 17 Oct 2023 23:23:10 +0200 (CEST)
+Date:   Tue, 17 Oct 2023 23:23:10 +0200
+From:   Guillem Jover <guillem@hadrons.org>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Axel Rasmussen <axelrasmussen@google.com>,
+        Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Mike Rapoport <rppt@kernel.org>
+Subject: Re: [PATCH v2 4/5] ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER
+ error code list
+Message-ID: <ZS77PhZA9q6zQw7_@thunder.hadrons.org>
+Mail-Followup-To: Guillem Jover <guillem@hadrons.org>,
+        Alejandro Colomar <alx@kernel.org>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Mike Rapoport <rppt@kernel.org>
+References: <20231003194547.2237424-1-axelrasmussen@google.com>
+ <20231003194547.2237424-5-axelrasmussen@google.com>
+ <ZSMn-H_BUmJMi9La@debian>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ldd: Do not recommend binutils as the safer option
-Content-Language: en-US
-To:     Siddhesh Poyarekar <siddhesh@gotplt.org>,
-        Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Mike Frysinger <vapier@gentoo.org>
-References: <20231016061923.105814-1-siddhesh@gotplt.org>
- <ZS0LipiiOBsntjmb@debian> <9af68795-52c0-f376-220c-d13d7adf622a@gotplt.org>
- <ZS07lyyLzTRXO7Ta@debian> <52ea4781-2c94-d9c6-1968-07da6d11184c@gotplt.org>
-From:   Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
-Organization: Linaro
-In-Reply-To: <52ea4781-2c94-d9c6-1968-07da6d11184c@gotplt.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <ZSMn-H_BUmJMi9La@debian>
+X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_05,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        RCVD_IN_SORBS_DUL,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi!
 
-
-On 16/10/23 10:46, Siddhesh Poyarekar wrote:
-> On 2023-10-16 09:33, Alejandro Colomar wrote:
->> Hi Siddhesh,
->>
->> On Mon, Oct 16, 2023 at 09:28:39AM -0400, Siddhesh Poyarekar wrote:
->>>> Should we maybe keep this example, and suggest using it with sandboxing?
->>>> Or is it not useful anymore?
->>>
->>> I don't see the point TBH.
->>
->> The point was to add another layer of security, in case the sanboxing is
->> not perfect.
->>
->>> I wouldn't mind if that example was replaced
->>> with lddtree as the alternative since it is functionally equivalent. However
->>> it would be a safer recommendation to put that too inside a sandbox because
->>> IMO you'd generally never want to run or even analyze arbitrary executables
->>> without proper sandboxing.
->>
->> Sure, I didn't know about lddtree.  Feel free to use it.
+On Mon, 2023-10-09 at 00:06:48 +0200, Alejandro Colomar wrote:
+> This produces some unwanted space.  Please apply the following fix to
+> your patch.
 > 
-> Mike, could you please post a patch replacing the objdump example with lddtree and recommending sandboxing?
+> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
+> index 6e954e98c..795014794 100644
+> --- a/man2/ioctl_userfaultfd.2
+> +++ b/man2/ioctl_userfaultfd.2
+> @@ -432,11 +432,11 @@ .SS UFFDIO_REGISTER
+>  no mapping exists in the given range,
+>  or the mapping that exists there is invalid
+>  (e.g. unsupported type of memory),
+> -or the range values (
+> -.I range.start
+> +or the range values
+> +.IR ( range.start
 
-Sometime ago I created a tool that tried to mimic glibc loader algorithm [1]
-as close as possible, including support to read ld.so.cache directly 
-(including its multiple versions and hwcap support), support for ld.preaload 
-file, $PLATFORM support, and hwcap support.
+I think you meant «.RI» here?
 
-I think the only missing support and the kernel addresses and vdso, which 
-is not possible without actually loading the binary.
+>  or
+> -.I range.len
+> -) are not multiples of the relevant page size,
+> +.IR range.len )
+> +are not multiples of the relevant page size,
+>  or
+>  .I range.len
+>  is zero.
+> 
 
-[1] https://github.com/zatrazz/rldd
+Regards,
+Guillem
