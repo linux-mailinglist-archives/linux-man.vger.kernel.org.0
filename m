@@ -2,67 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6BC307CD002
-	for <lists+linux-man@lfdr.de>; Wed, 18 Oct 2023 00:26:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 628D87CD024
+	for <lists+linux-man@lfdr.de>; Wed, 18 Oct 2023 01:01:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232763AbjJQW0S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Oct 2023 18:26:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33254 "EHLO
+        id S234627AbjJQXBU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Oct 2023 19:01:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49580 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230056AbjJQW0R (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Oct 2023 18:26:17 -0400
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com [IPv6:2a00:1450:4864:20::634])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1ABF4BA
-        for <linux-man@vger.kernel.org>; Tue, 17 Oct 2023 15:26:14 -0700 (PDT)
-Received: by mail-ej1-x634.google.com with SMTP id a640c23a62f3a-99c3c8adb27so974355166b.1
-        for <linux-man@vger.kernel.org>; Tue, 17 Oct 2023 15:26:14 -0700 (PDT)
+        with ESMTP id S230056AbjJQXBS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Oct 2023 19:01:18 -0400
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com [IPv6:2607:f8b0:4864:20::114a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A55FA4
+        for <linux-man@vger.kernel.org>; Tue, 17 Oct 2023 16:01:17 -0700 (PDT)
+Received: by mail-yw1-x114a.google.com with SMTP id 00721157ae682-5a7aa816c5bso97513597b3.1
+        for <linux-man@vger.kernel.org>; Tue, 17 Oct 2023 16:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1697581572; x=1698186372; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Cp96MNyT4CvGx8BgoCKI8MBtXKv0iatQDCMkj4fahr4=;
-        b=Hx7eH/HTwLgAJivKXA57u91p39mydnyegPlYukAdYqAb03sKMsfVXFodV9eiTTXaD8
-         QV6d+A7rSluZXb/2pFiWe1e1uek96yNfSNvGSV0uLxZwfr82jT7mE9C1nt988lMXw9bz
-         7PAIUFBkZi7a+H9zl9kC3sB7RXa0H3hiHZ/SWcLP/6S27G6Zv15fRDLE4adZzIaJMJXa
-         8Lf+4tL0IQGrTtztBj9hhQviPZEgdbos55dZyRyS4uNuMsum5UG9sCaQ3DVnm96FY3U+
-         3lpfP7NSKQLy5r1xL7WI6WdiY+YKL/LKDH0g2Ss+O/SiFwunEUY6MkfkFNo2JmkwBU4h
-         fZWg==
+        d=google.com; s=20230601; t=1697583676; x=1698188476; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=4SDhb6UAPkxAoM2wRCL8OdhbgRXprRWmehTmuNxYxAM=;
+        b=eJLG246aJvZie2G0eDm8IHpEpxjgSDeu+rmjIzUWx3CMqtQORVPqE435BRk7G8Dnlf
+         ljoGx28OyVwALb1mFU4IrOLCgT3H15LI6rX+t6dCfzNB0ko/gIgpl5h5bS6xYixj9uY9
+         d+8tIHzoZVLv6rvVCXHcS2G2m2TIBDZ08t+/vLVc1D7ChS06jryHoJD/XIXtX/rHqxKR
+         Xc0SoUNaY/0sxklb3IAibBa2+hDXqKXWWtV28C3vJWsq4mUhM20+i6jz1DiZagRmpRMY
+         1Xg1lD1wS60fINBb4l2Pi1MwdrLq0ITy5b8RmQLP9rcd0RtRg/O3r1OZix5epVzKSpL+
+         gEKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697581572; x=1698186372;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Cp96MNyT4CvGx8BgoCKI8MBtXKv0iatQDCMkj4fahr4=;
-        b=gC8w8dUQxY8d38wXnK3joKAKqagtaqlStV5paKzZ7jmrtgDpkS6BeLtQgYXowCGXX1
-         +6drzIeQ7LlLIL1dYQdGAlbrFf9Kc61cUdkkVoOgjzefx5iwiKrg/00In0aIwlA0JyCb
-         YYzZCXAvql+Xur/QaCy4AeX4KSV1qOcvE1eNEkcG9I34nPx4TrKYJFl/W3EZJjuqrz+x
-         4nyOu60BpKB3duPaM6MyoRTQKqaCgX84I8n6T8pmynoMf4h0rskDS0q0Zui5Q4Ge/8ZC
-         C+nHazYvHB3r7yYsE8e2OnrZEc9W+VaUOf0prZhxEKy53ZNyiOQ9vhUC/EvUah3YRwq+
-         mw3w==
-X-Gm-Message-State: AOJu0Yyp1CxNcEdTvWECTEp3uN0vg5LcsXP/M21Uk75K44azkzMiBxde
-        ME1G4CgsZfklPixcgIrLjvn16JzhSJ73eMjRjXtnww==
-X-Google-Smtp-Source: AGHT+IHxsN+TQx6uE7iRVzZOAHEvWw5QYqXOgJqCk9dwzbCPQxD5DPQ90BNQqJihFCe+pa/1nlHu4axwP3EZDYkr+4w=
-X-Received: by 2002:a17:907:84b:b0:9ad:ef31:6efc with SMTP id
- ww11-20020a170907084b00b009adef316efcmr2650933ejb.21.1697581572248; Tue, 17
- Oct 2023 15:26:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <20231003194547.2237424-1-axelrasmussen@google.com>
- <20231003194547.2237424-6-axelrasmussen@google.com> <ZSMr2P031R6hbYCE@debian>
-In-Reply-To: <ZSMr2P031R6hbYCE@debian>
+        d=1e100.net; s=20230601; t=1697583676; x=1698188476;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4SDhb6UAPkxAoM2wRCL8OdhbgRXprRWmehTmuNxYxAM=;
+        b=EH/lnSLGbb0JOPOKHnJK6RqpXFZjKPL+wp+PbGJ4QI1GwSsfqRC6hzO9wCE2wGcPMF
+         5IcJ7gDspI7NC8y4utiVjV9wAsAeyoABvzFkaJFodrWxHXZi5nm+fPIHFfy33moLrEiI
+         Q7S0e1bm5D0GYtFz/2VV1XXkX54IT/Go0UzXvyNHeHlqg2v6ibE12q9NS5PgWpMJFHg2
+         subKp3zqJBBNLP+YyvlizyG45cwwPk9qsmxE/kHsW2NboDZULC9Y7sttDX6/2G21b/v9
+         EqacczKjYu8E2h8OP1PbsUDhyz1XZ3GpCZAyIVclIXPOSFe4xBQUVuqS7wiHBxkAsfZ9
+         N6LA==
+X-Gm-Message-State: AOJu0YzCjM7n0pdJn1OQ5D0XsUmYYafUbJMWLRZYuo94uJWLfU0Xz1Ru
+        uL+IsLZeJeuM4G+I37eWwVunp26xa1AnNZYpsNtn
+X-Google-Smtp-Source: AGHT+IElOQnXJ8mAPfK/Uft/QZDFbxpj4waEhQQCD8PjRlSuHnU6ChFz05siV7yB+6AvAe9n/NYUaIe3MGJeZK0G635R
+X-Received: from axel.svl.corp.google.com ([2620:15c:2a3:200:cd04:35d6:a586:5c86])
+ (user=axelrasmussen job=sendgmr) by 2002:a0d:ea43:0:b0:5a8:3f07:ddd6 with
+ SMTP id t64-20020a0dea43000000b005a83f07ddd6mr81182ywe.6.1697583676211; Tue,
+ 17 Oct 2023 16:01:16 -0700 (PDT)
+Date:   Tue, 17 Oct 2023 16:01:07 -0700
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.42.0.655.g421f12c284-goog
+Message-ID: <20231017230110.3170850-1-axelrasmussen@google.com>
+Subject: [PATCH v3 0/3] userfaultfd man page updates
 From:   Axel Rasmussen <axelrasmussen@google.com>
-Date:   Tue, 17 Oct 2023 15:25:36 -0700
-Message-ID: <CAJHvVci_cj15C_8VqraO5f_LkZ6QuMf-2wohmzmH4QYtY2MSyA@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] ioctl_userfaultfd.2: document new UFFDIO_POISON ioctl
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org
+To:     Alejandro Colomar <alx@kernel.org>,
+        Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>
+Cc:     linux-man@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org,
+        Axel Rasmussen <axelrasmussen@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -70,169 +67,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Oct 8, 2023 at 3:23=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
-rote:
->
-> Hi Axel,
->
-> On Tue, Oct 03, 2023 at 12:45:47PM -0700, Axel Rasmussen wrote:
-> > This is a new feature recently added to the kernel. So, document the ne=
-w
-> > ioctl the same way we do other UFFDIO_* ioctls.
-> >
-> > Also note the corresponding new ioctl flag we can return in reponse to =
-a
-> > UFFDIO_REGISTER call.
-> >
-> > Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
-> > ---
-> >  man2/ioctl_userfaultfd.2 | 112 +++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 112 insertions(+)
-> >
-> > diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-> > index 95d69f773..6b6980d4a 100644
-> > --- a/man2/ioctl_userfaultfd.2
-> > +++ b/man2/ioctl_userfaultfd.2
-> > @@ -380,6 +380,11 @@ operation is supported.
-> >  The
-> >  .B UFFDIO_CONTINUE
-> >  operation is supported.
-> > +.TP
-> > +.B 1 << _UFFDIO_POISON
-> > +The
-> > +.B UFFDIO_POISON
-> > +operation is supported.
-> >  .PP
-> >  This
-> >  .BR ioctl (2)
-> > @@ -890,6 +895,113 @@ The faulting process has exited at the time of a
-> >  .B UFFDIO_CONTINUE
-> >  operation.
-> >  .\"
-> > +.SS UFFDIO_POISON
-> > +(Since Linux 6.6.)
-> > +Mark an address range as "poisoned".
-> > +Future accesses to these addresses will raise a
-> > +.B SIGBUS
-> > +signal.
-> > +Unlike
-> > +.B MADV_HWPOISON
-> > +this works by installing page table entries,
-> > +rather than "really" poisoning the underlying physical pages.
-> > +This means it only affects this particular address space.
-> > +.PP
-> > +The
-> > +.I argp
-> > +argument is a pointer to a
-> > +.I uffdio_continue
-> > +structure as shown below:
-> > +.PP
-> > +.in +4n
-> > +.EX
-> > +struct uffdio_poison {
-> > +     struct uffdio_range range;
-> > +                     /* Range to install poison PTE markers in */
-> > +     __u64 mode;     /* Flags controlling the behavior of poison */
-> > +     __s64 updated;  /* Number of bytes poisoned, or negated error */
-> > +};
-> > +.EE
-> > +.in
-> > +.PP
-> > +The following value may be bitwise ORed in
-> > +.I mode
-> > +to change the behavior of the
-> > +.B UFFDIO_POISON
-> > +operation:
-> > +.TP
-> > +.B UFFDIO_POISON_MODE_DONTWAKE
-> > +Do not wake up the thread that waits for page-fault resolution.
-> > +.PP
-> > +The
-> > +.I updated
-> > +field is used by the kernel
-> > +to return the number of bytes that were actually poisoned,
-> > +or an error in the same manner as
-> > +.BR UFFDIO_COPY .
-> > +If the value returned in the
-> > +.I updated
-> > +field doesn't match the value that was specified in
-> > +.IR range.len ,
-> > +the operation fails with the error
-> > +.BR EAGAIN .
-> > +The
-> > +.I updated
-> > +field is output-only;
-> > +it is not read by the
-> > +.B UFFDIO_POISON
-> > +operation.
-> > +.PP
-> > +This
-> > +.BR ioctl (2)
-> > +operation returns 0 on success.
-> > +In this case,
-> > +the entire area was poisoned.
-> > +On error, \-1 is returned and
-> > +.I errno
-> > +is set to indicate the error.
-> > +Possible errors include:
-> > +.TP
-> > +.B EAGAIN
-> > +The number of bytes mapped
-> > +(i.e., the value returned in the
-> > +.I updated
-> > +field)
-> > +does not equal the value that was specified in the
-> > +.I range.len
-> > +field.
-> > +.TP
-> > +.B EINVAL
-> > +Either
-> > +.I range.start
-> > +or
-> > +.I range.len
-> > +was not a multiple of the system page size; or
-> > +.I range.len
-> > +was zero; or the range specified was invalid.
-> > +.TP
-> > +.B EINVAL
-> > +An invalid bit was specified in the
-> > +.I mode
-> > +field.
-> > +.TP
-> > +.B EEXIST
->
-> Any reasons for this order, or should we use alphabetic order?
+This series includes only the remaining patches not applied from v1/v2,
+with review comments addressed. This series is based on the "contrib"
+branch [1].
 
-This is the order the conditions are checked in code, but I agree
-alphabetic order is better. :) I'll send a v3.
+Changelog:
 
->
-> Thanks,
-> Alex
->
-> > +One or more pages were already mapped in the given range.
-> > +.TP
-> > +.B ENOENT
-> > +The faulting process has changed its virtual memory layout simultaneou=
-sly with
-> > +an outstanding
-> > +.B UFFDIO_POISON
-> > +operation.
-> > +.TP
-> > +.B ENOMEM
-> > +Allocating memory for page table entries failed.
-> > +.TP
-> > +.B ESRCH
-> > +The faulting process has exited at the time of a
-> > +.B UFFDIO_POISON
-> > +operation.
-> > +.\"
-> >  .SH RETURN VALUE
-> >  See descriptions of the individual operations, above.
-> >  .SH ERRORS
-> > --
-> > 2.42.0.609.gbb76f46606-goog
-> >
->
-> --
-> <https://www.alejandro-colomar.es/>
+v2->v3:
+ - Rebased onto updated contrib branch.
+ - In patch 2 (patch 4 in v2), reordered error codes in alphabetical order,
+   and fixed extra spacing in the EINVAL error description.
+ - In patch 3, fix mistakenly copy-pasted "struct uffdio_continue" (should
+   have been "struct uffdio_poison"), and alphabetically order
+   UFFDIO_CONTINUE error codes.
+
+v1->v2:
+ - In patch 1 (patch 5 in v1), change "after" to "since" for consistency
+   and to be clear that we mean 4.11+ (inclusive).
+ - In patch 2 (patch 7 in v1), reorder error codes alphabetically (EINVAL
+   then EPERM).
+ - In patch 3 (patch 8 in v1), resolve conflicts with earlier review
+   comments.
+
+Original cover letter:
+
+Various updates for userfaultfd man pages. To summarize the changes:
+
+- Correctly / fully describe the two-step feature support handshake
+  process.
+- Describe new UFFDIO_POISON ioctl.
+- Other small improvements (missing ioctls, error codes, etc).
+
+[1]: https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log/?h=contrib
+
+Axel Rasmussen (3):
+  ioctl_userfaultfd.2: clarify the state of the uffdio_api structure on
+    error
+  ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER error code list
+  ioctl_userfaultfd.2: document new UFFDIO_POISON ioctl
+
+ man2/ioctl_userfaultfd.2 | 173 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 145 insertions(+), 28 deletions(-)
+
+--
+2.42.0.655.g421f12c284-goog
+
