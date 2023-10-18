@@ -2,48 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 915727CD0AF
-	for <lists+linux-man@lfdr.de>; Wed, 18 Oct 2023 01:24:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 300387CE480
+	for <lists+linux-man@lfdr.de>; Wed, 18 Oct 2023 19:29:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235092AbjJQXYm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Oct 2023 19:24:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58300 "EHLO
+        id S231822AbjJRR31 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 Oct 2023 13:29:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38004 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235099AbjJQXYY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Oct 2023 19:24:24 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2859E10C4;
-        Tue, 17 Oct 2023 16:23:51 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE3BC433C8;
-        Tue, 17 Oct 2023 23:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1697585030;
-        bh=qN2ECKk/Cxny8jJMFG/9Fq46QS+Q6UKOKWNC96Q0tdY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=STwpUSkGknWcmTQ0Ye9D79+LBBNd2KWCDK8vBqmq+OOe0v3ZFC/+SyBt6WE5BoC3G
-         kn1a1/JvL6PQdMzqIX8HMZcFCX7a7eBDnQ3zwYWoVMBKVDrjrZhcngcjFynYSGfcXS
-         77k9vlQQDoQDTnP1tvlrZG5lv6E9xt0BIBIFdLMZ/pxOYscDedtBJ04QYzWvH236p/
-         qCl+GHIQGbZijukhcObO2QXP0tfLSrGCiengsytaGlZUoUHaiRvH7SAJSmlnJcjIkn
-         nwKaH4j/lutkv4UlHuOf6a/9i+4UqkIAIdP0E0M73jnakugD/zSFQ+QGWCa1MutCgK
-         2k0d76TTPtDzw==
-Date:   Wed, 18 Oct 2023 01:23:46 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Axel Rasmussen <axelrasmussen@google.com>
-Cc:     Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-        linux-man@vger.kernel.org, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER
- error code list
-Message-ID: <ZS8XglFnkdMdILaw@debian>
-References: <20231017230110.3170850-1-axelrasmussen@google.com>
- <20231017230110.3170850-3-axelrasmussen@google.com>
+        with ESMTP id S231618AbjJRR3D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Oct 2023 13:29:03 -0400
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com [IPv6:2607:f8b0:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 269A83A9E
+        for <linux-man@vger.kernel.org>; Wed, 18 Oct 2023 10:21:11 -0700 (PDT)
+Received: by mail-pf1-x42e.google.com with SMTP id d2e1a72fcca58-6b6f4c118b7so4161102b3a.0
+        for <linux-man@vger.kernel.org>; Wed, 18 Oct 2023 10:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1697649670; x=1698254470; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VRmYCDVIJv0BNHQlmEGFjJHbebMAWIQal8I4hvukVYQ=;
+        b=W8dwliWTQhALeGHirvXkqo/VlGN4vm8e62xbdtmk5pyWo2WANvfIjC1nhTIC3Ppshm
+         kwgDHDm4CedNUKEW/GKIPY8X8dW98tlA45z/ya4KBRasy0ROhYnpSDYWK8ITXJfDeTqL
+         B0E6Ih9vBXOztskfaTLsKRuH2BoEknLaZIXaKZmf+HfL2wPF+Wqw9i0u+o29jjqMYBTP
+         TM/YjcMrBuGwFK5f+QCOcEmtKDAuTqvCXfwXIX311d3sz963kK2ljrNnFQxDliCZxiSa
+         iEN/UvdocTZZXokArPtebsPsEQLarrb+9o1uilznNfdG1KCu8wWEkT3MIx55KYd1J3St
+         YEEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697649670; x=1698254470;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VRmYCDVIJv0BNHQlmEGFjJHbebMAWIQal8I4hvukVYQ=;
+        b=YqKs8tUMSwt0Ok/KP7Cp3HLywyh8EH97vgqccqa+qhOIzdiRVHiI8Vsb7VJDummGTd
+         rm57Qf4rq7B92g7BnnSwZ+YEspJtSz4ABir6RC2o3Z9kaM9Wnf7qZX+c+nqy5s3hzThG
+         xV7cZU+hFYhMjZPlUI4DhB5tobADey3Q2NPi5x3LWOj4GmoUMQLIsoAbrZS8Z0IVGVpB
+         mtbiloWHZ1PTjsz0YuZawVJRypKgs07zE7PWVOuJNB+0AyWjxD0yrllrQsrDiV/FN2ma
+         Z2rDbYEaQyWITXR8R2Q/dfX1dK5s3Z/om+glrqNMtGl81IHuAZD2xaINWxsyt2tCmWiJ
+         7jQQ==
+X-Gm-Message-State: AOJu0YxliuF1UozkOhgan4spYW6x39bMi+FAVymxEV0B+8e2J+Frs0wZ
+        KbzKvzY3rwtqqiT8sQSdAH18oJs7swDNYmJF+IP5ZA==
+X-Google-Smtp-Source: AGHT+IFpUmm4d9/jOwv0aXU8YYsnGptluelspcqJy5TiTvlL6bXq474KDryy+tI9BjRzj+8FQqAyQw==
+X-Received: by 2002:a05:6a00:c95:b0:6bc:b13c:35d5 with SMTP id a21-20020a056a000c9500b006bcb13c35d5mr5830490pfv.13.1697649670050;
+        Wed, 18 Oct 2023 10:21:10 -0700 (PDT)
+Received: from mandiga.. ([2804:1b3:a7c3:a647:e0e3:84ab:f290:d748])
+        by smtp.gmail.com with ESMTPSA id fa36-20020a056a002d2400b006b2e07a6235sm3574777pfb.136.2023.10.18.10.21.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Oct 2023 10:21:08 -0700 (PDT)
+From:   Adhemerval Zanella <adhemerval.zanella@linaro.org>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com
+Subject: [PATCH 0/5] Some ld.so updates
+Date:   Wed, 18 Oct 2023 14:20:59 -0300
+Message-Id: <20231018172104.1196993-1-adhemerval.zanella@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="1zR/LIJPaF8GvZmk"
-Content-Disposition: inline
-In-Reply-To: <20231017230110.3170850-3-axelrasmussen@google.com>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -51,132 +66,28 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+The patchset updates some environment variables that have been removed
+on recent glibc versions, clarify the LD_PROFILE on secure-execution
+mode, update the filtered ot environment variables, add missing loader
+options, and add the recent glibc hardware capability that replaced the
+legacy one.
 
---1zR/LIJPaF8GvZmk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Oct 2023 01:23:46 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-	linux-man@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] ioctl_userfaultfd.2: fix / update UFFDIO_REGISTER
- error code list
+I will probably sent more updates once my environment variable handling
+handling set is installed [1]
 
-Hi Axel, Mike,
+[1] https://patchwork.sourceware.org/project/glibc/list/?series=25781
 
-On Tue, Oct 17, 2023 at 04:01:09PM -0700, Axel Rasmussen wrote:
-> The list of error codes in the man page was out of date with respect to
-> the current state of the kernel. Some errors were partially /
-> incorrectly described.
->=20
-> Update the error code listing, so it matches the current state of the
-> kernel, and correctly describes all the errors.
->=20
-> Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
+Adhemerval Zanella (5):
+  ld.so.8: Update environment variables from recent glibc versions
+  ld.so.8: Clarify LD_PROFILE in secure-execution mode
+  ld.so.8: Add add filtered out environemnt variable in secure-execution
+    mode
+  ld.so.8: Describe glibc Hardware capabilities
+  ld.so.8: Describe the --list-diagnostics loader option
 
-I'll wait a bit before applying this one, in case Mike (or Peter) want
-to review it.
+ man8/ld.so.8 | 91 +++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 76 insertions(+), 15 deletions(-)
 
-The other two, you can find them here, as usual:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D9ae03d21383151794b118ac8dd98b4d6e26c9689>
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D5f1acc81e55540d1276977e66d64649c6ca7b58b>
+-- 
+2.34.1
 
-And BTW, while running `make lint build check`, I caught some accidents
-=66rom a previous patch from yours:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dbf8647d1d82205934776b474fe89e5f30e03ad25>
-
-Cheers,
-Alex
-
-> ---
->  man2/ioctl_userfaultfd.2 | 33 +++++++++++++++++++--------------
->  1 file changed, 19 insertions(+), 14 deletions(-)
->=20
-> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-> index 82aee667c..40528001e 100644
-> --- a/man2/ioctl_userfaultfd.2
-> +++ b/man2/ioctl_userfaultfd.2
-> @@ -413,8 +413,6 @@ On error, \-1 is returned and
->  .I errno
->  is set to indicate the error.
->  Possible errors include:
-> -.\" FIXME Is the following error list correct?
-> -.\"
->  .TP
->  .B EBUSY
->  A mapping in the specified range is registered with another
-> @@ -433,21 +431,28 @@ field; or the
->  field was zero.
->  .TP
->  .B EINVAL
-> -There is no mapping in the specified address range.
-> -.TP
-> -.B EINVAL
-> -.I range.start
-> +The specified address range was invalid.
-> +More specifically,
-> +no mapping exists in the given range,
-> +or the mapping that exists there is invalid
-> +(e.g. unsupported type of memory),
-> +or the range values
-> +.RI ( range.start
-> +or
-> +.IR range.len )
-> +are not multiples of the relevant page size,
->  or
->  .I range.len
-> -is not a multiple of the system page size; or,
-> -.I range.len
-> -is zero; or these fields are otherwise invalid.
-> +is zero.
->  .TP
-> -.B EINVAL
-> -There as an incompatible mapping in the specified address range.
-> -.\" Mike Rapoport:
-> -.\" ENOMEM if the process is exiting and the
-> -.\" mm_struct has gone by the time userfault grabs it.
-> +.B ENOMEM
-> +The process is exiting,
-> +and its address space has already been torn down
-> +when userfaultfd attempts to reference it.
-> +.TP
-> +.B EPERM
-> +The userfaultfd would allow writing to a file backing the mapping,
-> +but the calling process lacks such write permissions.
->  .SS UFFDIO_UNREGISTER
->  (Since Linux 4.3.)
->  Unregister a memory address range from userfaultfd.
-> --=20
-> 2.42.0.655.g421f12c284-goog
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---1zR/LIJPaF8GvZmk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUvF4IACgkQnowa+77/
-2zIhGA/+MK4uCVY4B5Pzdede4hVOluo1X1mpyfxn13Sn2XIsl5HK7Ofu/Z6tlZIQ
-NmSG9z0BdvmwzhfWP5dkE9s/bRayn8mIr0i1F0GmqH7jBzgLSkPDSg12+lJ5Vikw
-30bT5APaUTG/SWQtsgNkqksJfBB6r+x4Mp9FllryxvbKsNxDJn6tXyuARSrlLhlt
-tPPzjSm6S9ZPytyZPHkQKpzKIUNqalx20VWiLhXiuw2zL3ags3DNyyg3tvnOG7yS
-4sVpxI/pm9ch+I+PPJCnXIwVO+20kG7NZqOso1Uuny2gQ1/Nk5XmhgXos9KmrIhM
-GUcZ2ZJ/4JlOX5ISOF3uGMxknRyqCqM6MrH6rFH46Hmvct1ZPoyLCsqkhctxvc1b
-Rb/YWk9y+1cnVPJCsVLz3VwWAOrtCKwr+xUO+Upjy+KDX7k50MkdRpUNsHmtAH7n
-Bpkj57JWfsUUsZTxy+2KwPRNdp+KuG5W3/iUestIw/6wXEVA3DKHfF0+or9lQwkf
-tIiaNbqH3+i9vJ1pyyuXZTrKYFzzdharCJTs8ZbIvva9i0HQSy0kfYnc1laPabGg
-vlgMMJaLG+ZkafWe8LYTmUJmrawaegkwA2rxhdgyNZ09NPCMrcLCW7yEKnQXA3+s
-F2rTVrizUtVYWyQa4gvfntyuW4VQL2RyKwQcvSFmfUp7le3FdQQ=
-=irXp
------END PGP SIGNATURE-----
-
---1zR/LIJPaF8GvZmk--
