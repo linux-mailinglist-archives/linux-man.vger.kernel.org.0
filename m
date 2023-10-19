@@ -2,66 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BD8777CF92C
-	for <lists+linux-man@lfdr.de>; Thu, 19 Oct 2023 14:40:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E4B8E7CF960
+	for <lists+linux-man@lfdr.de>; Thu, 19 Oct 2023 14:51:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235371AbjJSMkz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 19 Oct 2023 08:40:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34004 "EHLO
+        id S235319AbjJSMvL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Oct 2023 08:51:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42550 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235376AbjJSMky (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Oct 2023 08:40:54 -0400
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 026F7197
-        for <linux-man@vger.kernel.org>; Thu, 19 Oct 2023 05:31:53 -0700 (PDT)
-Received: by mail-pf1-x42a.google.com with SMTP id d2e1a72fcca58-6b1e46ca282so6282948b3a.2
-        for <linux-man@vger.kernel.org>; Thu, 19 Oct 2023 05:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697718712; x=1698323512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/m33mkx0HN5aTezIvehoeL8GbGe+SHRnM7utEV+9oOQ=;
-        b=uDUMB8Nolb+LEn2l/ve3YxV2eQNDtGBEWRzgvCXcEPsOGvIKj1XWI0hqfXKxQTPSzE
-         Ua9uyU1v01Zcsy/hf48GgJpqFJmIyAgz44LxQS1GeSxxYvEiH5MK9l51gSjlM7J3jXJ8
-         ILoQp3Ly9TTYUQHvUM8q75TPq3a6z0qey/tcsxeqHz9qsKyO6GUXG75SXBmL0vppey91
-         9NhKfcug/nUXvCGzjjK+1MiK4BckQIq8c6fE8VF4yLRUJ1jXi/+mTqUnTZSPO6wPnjF5
-         M/scmP0sDKn4oMSvya+C3LdcdL+1n243UEln1j+xaoXt3Asbb6ek/0Yv9hU6tk2G+Lq+
-         /HyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697718712; x=1698323512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/m33mkx0HN5aTezIvehoeL8GbGe+SHRnM7utEV+9oOQ=;
-        b=CxGIM07cz7mL6tffb2q0Aik1QnUdrcvbJiIQGQYV/9zc1W5maP0XrN3gphYnBrisNF
-         phCbL7ysnKRaid4hpBd792d6nZWCbz7oopnce+q/OrnNEl9DaWJSGoQl2daTFHwfFZZk
-         F+XTagZQ6u62x5HiiiczqdoBoupsyLVFiFVSpsdiISwUifBuZPLlKtMqNMwrPrjRUu0b
-         fvWDjCbz+fSekOiQT/gmunhij5mMbes0B+vpRklNkhifVp3KK6rjDAw9+GShmIMOn0s3
-         8WCS0gtx9ntPGCkHutDb8Uy74/rA2KU5L/zjM+L+8vnDvsPnmznedLqn+Zrj2+9RkbLb
-         Y4og==
-X-Gm-Message-State: AOJu0YzZeiGG2XY5v96rokS22F99UEb0053wGGn6qMekvc6ImcpI1N5P
-        9zPSA4Rx4dHLOXkMFvj+fXnuFoXcWywn6U8NIWbknA==
-X-Google-Smtp-Source: AGHT+IH0mTMtdfUgMgar3E2KZ76WY9jQad5i1TUIkHxzv8xMEp5++emPBSHL0MQuUSymUvl2IHUZvA==
-X-Received: by 2002:a05:6a20:7da0:b0:17b:3fe8:b4e1 with SMTP id v32-20020a056a207da000b0017b3fe8b4e1mr2115758pzj.50.1697718712314;
-        Thu, 19 Oct 2023 05:31:52 -0700 (PDT)
-Received: from mandiga.. ([2804:1b3:a7c3:a647:8435:c932:f94b:575b])
-        by smtp.gmail.com with ESMTPSA id h2-20020a170902f7c200b001bbd1562e75sm1845297plw.55.2023.10.19.05.31.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Oct 2023 05:31:50 -0700 (PDT)
-From:   Adhemerval Zanella <adhemerval.zanella@linaro.org>
-To:     linux-man@vger.kernel.org
-Cc:     alx@kernel.org
-Subject: [PATCH v2 2/2] ld.so.8: Describe glibc Hardware capabilities
-Date:   Thu, 19 Oct 2023 09:31:39 -0300
-Message-Id: <20231019123139.1808532-3-adhemerval.zanella@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231019123139.1808532-1-adhemerval.zanella@linaro.org>
-References: <20231019123139.1808532-1-adhemerval.zanella@linaro.org>
+        with ESMTP id S235364AbjJSMvK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Oct 2023 08:51:10 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E29FAF7
+        for <linux-man@vger.kernel.org>; Thu, 19 Oct 2023 05:51:07 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1DBEC433C8;
+        Thu, 19 Oct 2023 12:51:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1697719867;
+        bh=ISG25fAQsirPMTdVc5798EW81AyJADrvSxe2djp78Pc=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=jeWMU+WcjdpKfT95XoKJHgjzaXLp45x8SfFPeW2JP2B5IWeqKUZaGKTP0JGpHbkFy
+         cBSQjDHVN2x5wCZkhDGhTqy4KoZrcUlCmjX7HEmnHSqtb5+JaFRltpS4xkgpnqCIp+
+         i9qQtHpSnnb5LarQkGzInHOqogILt+lq+sgQW2pf//qfpRcvifEVNfVwfZBZwgyTTe
+         k8oJaMwY3LqVaNNMmH1yu7KNXKLnuGvoCrlS+UTyzjVprLWGo7o3++vsaQM06CGiz6
+         34vDMWGhEXzL2kUhzoCt8zc5hKkbsNrU7W4bxWLICeRkkAsI8VWBASx7u70Es7PAtR
+         +CVRsSgMRuhMg==
+Date:   Thu, 19 Oct 2023 14:51:04 +0200
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Muhammad Usama Anjum <usama.anjum@collabora.com>
+Cc:     kernel@collabora.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] ioctl_pagemap_scan: add page for pagemap_scan IOCTL
+Message-ID: <ZTEmONWZRiqCVRyx@debian>
+References: <20231017150138.3406580-1-usama.anjum@collabora.com>
+ <20231017150138.3406580-2-usama.anjum@collabora.com>
+ <ZS7Ah-DnCOzxc1Yx@debian>
+ <aae0ba48-7919-4656-8fe0-731ccd79ff95@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="CP6PHeVbIlZ17i9u"
+Content-Disposition: inline
+In-Reply-To: <aae0ba48-7919-4656-8fe0-731ccd79ff95@collabora.com>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
         version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -70,89 +51,82 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-It was added on glibc 2.33 as a way to improve path search, since
-legacy hardware capabilities combination scheme do not scale
-properly with new hardware support.  The legacy support was removed
-on glibc 2.37, so it is the only scheme currently supported.
 
-Signed-off-by: Adhemerval Zanella <adhemerval.zanella@linaro.org>
----
- man8/ld.so.8 | 48 +++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 47 insertions(+), 1 deletion(-)
+--CP6PHeVbIlZ17i9u
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Oct 2023 14:51:04 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Muhammad Usama Anjum <usama.anjum@collabora.com>
+Cc: kernel@collabora.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] ioctl_pagemap_scan: add page for pagemap_scan IOCTL
 
-diff --git a/man8/ld.so.8 b/man8/ld.so.8
-index cf03cb85e..3025da861 100644
---- a/man8/ld.so.8
-+++ b/man8/ld.so.8
-@@ -208,6 +208,14 @@ The objects in
- .I list
- are delimited by colons.
- .TP
-+.BI \-\-glibc-hwcaps-mask " list"
-+only search built-in subdirectories if in
-+.IR list .
-+.TP
-+.BI \-\-glibc-hwcaps-prepend " list"
-+Search glibc-hwcaps subdirectories in
-+.IR list .
-+.TP
- .B \-\-inhibit\-cache
- Do not use
- .IR /etc/ld.so.cache .
-@@ -808,7 +816,7 @@ as a temporary workaround to a library misconfiguration issue.)
- .I lib*.so*
- shared objects
- .SH NOTES
--.SS Hardware capabilities
-+.SS Legacy Hardware capabilities (from glibc 2.5 to glibc 2.37)
- Some shared objects are compiled using hardware-specific instructions which do
- not exist on every CPU.
- Such objects should be installed in directories whose names define the
-@@ -843,6 +851,44 @@ z900, z990, z9-109, z10, zarch
- .B x86 (32-bit only)
- acpi, apic, clflush, cmov, cx8, dts, fxsr, ht, i386, i486, i586, i686, mca, mmx,
- mtrr, pat, pbe, pge, pn, pse36, sep, ss, sse, sse2, tm
-+.SS glibc Hardware capabilities (from glibc 2.33)
-+The legacy hardware capabilities combinations has the drawback where each
-+feature name incur in cascading extra paths added on the search path list,
-+adding a lot of overhead on
-+.B ld.so
-+during library resolution.
-+For instance, on x86 32-bit, if the hardware
-+supports
-+.B i686
-+and
-+.B sse2
-+, the resulting search path will be
-+.B
-+i686/sse2:i686:sse2:. .
-+A new capability
-+.B newcap
-+will set the search path to
-+.B
-+newcap/i686/sse2:newcap/i686:newcap/sse2:newcap:i686/sse2:i686:sse2: .
-+
-+glibc 2.33 added a new hardware capability scheme, where each ABI can define
-+a set of paths based on expected hardware support.
-+Each path is added depending of the hardware of the machine, and they are not
-+combined together.
-+They also have priority over the legacy hardware capabilities. The following
-+paths are currently supported.
-+.TP
-+.B PowerPC (64-bit little-endian only)
-+power9, power10
-+.TP
-+.B s390 (64-bit only)
-+z13, z14, z15, z16
-+.TP
-+.B x86 (64-bit only)
-+x86-64-v2, x86-64-v3, x86-64-v4
-+.PP
-+The glibc 2.37 removed support for the legacy hardware capabilities.
-+.
- .SH SEE ALSO
- .BR ld (1),
- .BR ldd (1),
--- 
-2.34.1
+Hi Muhammad,
 
+On Thu, Oct 19, 2023 at 05:31:32PM +0500, Muhammad Usama Anjum wrote:
+> Hi Alex,
+>=20
+> Thank you for taking time to review. I'll fix everything and run lint
+> before sending next revision.
+
+Thanks.
+
+[...]
+
+> >> +.SH DESCRIPTION
+> >> +This
+> >> +.BR ioctl (2)
+> >> +is used to get and optionally clear some specific flags from page tab=
+le entries.
+> >> +
+> >=20
+> > Please use an empty roff(7) request instead of a empty input line.  That
+> > is, use a line with just a '.', that is, s/^$/./
+
+Another thing you can use is a comment:
+
+=2E\"
+
+This is more commonly found in other pages in this repository.
+
+Cheers,
+Alex
+
+> >=20
+> > 	$ make lint build check --debug=3Dprint
+> > 	TROFF	.tmp/man/man2/ioctl_pagemap_scan.2.cat.set
+> > 	! (troff -wbreak  -man  -Tutf8 -rLL=3D78n -rCHECKSTYLE=3D3 -ww  <.tmp/=
+man/man2/ioctl_pagemap_scan.2.cat.troff 2>&1 >.tmp/man/man2/ioctl_pagemap_s=
+can.2.cat.set \
+> > 	   | grep -v -f './share/lint/groff/man.ignore.grep' \
+> > 	   ||:; \
+> > 	) \
+> > 	| grep ^ >&2
+> > 	an.tmac:man2/ioctl_pagemap_scan.2:25: style: blank line in input
+> > 	...
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--CP6PHeVbIlZ17i9u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmUxJjgACgkQnowa+77/
+2zK6Qg/8D4mcfKgnrVt0lpubyFOVwCbIgucL/VTpmNcT3KRKT18DXMArpPZE0lqN
+s22gsFrKUvSsy0Kcdfvb8oGJSa0niyqvL/BQqSVr6hdOX+k8tzJtbndSCtLJUGgi
+5lSxTSJ8Ux4c+kNcqvfYFArU0rzgheoDosuDu0ss8WlsAGxwMAkDGETfLo1JP7zO
+7PkwNL5fRSPQ2zTtQJH53n/Lv32ouvHByrNXgBkq6ZtFqmTguXCoswOYimuJDbh2
+8rLqLfxHmCUIaGxv3RmmgmWUDfGWfm2XqCWMea6k+a2Q7qd3x08S4I2VXrBF2r34
+sWyhPuegcO4+QXp/toph0qkTqqQVjQg4bebPvs5VF3Dni9vDE351YANkmTfk3UQE
+PdBY+Vv8EG+7nDuuqIj+VlwzA7qUHNySpaOX7PeKb6pzQztAuHfBheEOIxKcoe4R
+j5ksXwi5VHmSTp2q19+m+S91WUNPiB2/d8sVuw4ultJNRij5vTaqUZhILON3mjPF
+Zu0QFJR8miBHOEoq7Od+LbpqDLxgnXLrFILfAGKA6CDz/5/BSJfK1FU6E8kPgOHe
+u74xfJXodBhTVcCb30Nn/Crq396jgytUQGxokAS0eAzyuobEkwI8IH36hKCYW1+m
+gVWk78MIYXzrUIdAv0nJlApb4Nl097Ropu1DrBgcFvSeQcvOIg0=
+=Kiha
+-----END PGP SIGNATURE-----
+
+--CP6PHeVbIlZ17i9u--
