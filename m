@@ -2,72 +2,48 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B6147D1522
-	for <lists+linux-man@lfdr.de>; Fri, 20 Oct 2023 19:49:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3419A7D41F2
+	for <lists+linux-man@lfdr.de>; Mon, 23 Oct 2023 23:52:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1377955AbjJTRto (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Oct 2023 13:49:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56422 "EHLO
+        id S230356AbjJWVwl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Oct 2023 17:52:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41030 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1377950AbjJTRtn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Oct 2023 13:49:43 -0400
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com [IPv6:2607:f8b0:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0C20D67
-        for <linux-man@vger.kernel.org>; Fri, 20 Oct 2023 10:49:40 -0700 (PDT)
-Received: by mail-pf1-x433.google.com with SMTP id d2e1a72fcca58-6bb4abb8100so1014250b3a.2
-        for <linux-man@vger.kernel.org>; Fri, 20 Oct 2023 10:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697824180; x=1698428980; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=05vtnZJq/RCQerOHtwXiMb3UnwQbMSR+E3xJpys/rHg=;
-        b=xKr5w5mdnpU3USCsedShG/HtmNnnnGR3qitB1K6NuN5+HdjdOpu7+0amjIvhGYK9hm
-         SJAh4azuYc+rZNPyJXfJrq/wwvEJVoO233R3KW8JbKiMgvg+gLCFW0V8E1ocnDavjBca
-         rQNMccjUnAxUNMqvJIjmTNRfHWcfK7MuQwmF+Jx1xhyzJG7/vsLRvQnMr6jwZmCLzeiM
-         m83Pdmr8Vem+akzq2qx4GVGQ7ZLT7TBLzVo8u5KA1vDZSjctEfvdYQYvTvFfRc/IAzY6
-         3EvcoTJ6eIA0QePeSZkaYnW865DvORWN6fMPmhRR5Y54olNNebygMypPp1Lyv8GTjpB7
-         Xfmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697824180; x=1698428980;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=05vtnZJq/RCQerOHtwXiMb3UnwQbMSR+E3xJpys/rHg=;
-        b=tEkRYtiaJchdTs89TWlTcEWXWwJrhWqELuKMcJeuvYcLh3FlYbC50fgMdqwDJ92B4G
-         9aKP8EfgQdi3AfVO0oPgZW0ZS0P6SLfuSLah9moZ/QX2mNu39xQR+XF4/X7jGWmAGt89
-         z+UlK0Bm0QOh74zHfeBRnIulM2ZEK238BrCzOLXt3mA0/eDq16ZsfMbRoC9DAWAM7UTh
-         /xlJXLn/Yhkhm5QF8UnLkg/a0zmRKjC9d52jqIVRNqWnp7+Tszb8HoIx02K+y4rRDLFC
-         5Bp0W3ksyPKuBRZbuBk5Bp6Wd0reYZ3tSM+/Cj/yBx5t7JhW/Rl8OYa4O4RYtXOjGDuM
-         zGHQ==
-X-Gm-Message-State: AOJu0Yw7qepx56NY6InPU8MU1W2/n8NCaL2P8TOI8EIdrhDt7hG0Irqs
-        8Q9wgDH5FCwIGf1EMdERFl7mipo16KLozShtR1n75A==
-X-Google-Smtp-Source: AGHT+IF1m6akiYpx1oSP8+SqmV0MTWQyy2+/3wdpXU4fioDTGew/rPmY3QjYXS5uUpvd7uL27DwbyA==
-X-Received: by 2002:a05:6a00:2d9a:b0:693:3963:847a with SMTP id fb26-20020a056a002d9a00b006933963847amr2608199pfb.30.1697824180110;
-        Fri, 20 Oct 2023 10:49:40 -0700 (PDT)
-Received: from ?IPV6:2804:1b3:a7c3:a647:b489:1074:73d4:b147? ([2804:1b3:a7c3:a647:b489:1074:73d4:b147])
-        by smtp.gmail.com with ESMTPSA id q15-20020aa7842f000000b006b4ca26f3c9sm1807587pfn.74.2023.10.20.10.49.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Oct 2023 10:49:39 -0700 (PDT)
-Message-ID: <d66f16b9-c65f-4fe5-9b86-05373a52561d@linaro.org>
-Date:   Fri, 20 Oct 2023 14:49:37 -0300
+        with ESMTP id S229845AbjJWVwk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Oct 2023 17:52:40 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 87E9CBD
+        for <linux-man@vger.kernel.org>; Mon, 23 Oct 2023 14:52:38 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF74C433C8;
+        Mon, 23 Oct 2023 21:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1698097958;
+        bh=EAuMP0R0YcwRZ3JFfVAGPor53Udn/yHcIgV98Nkd5ps=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=EoewMWAog3/yYB28NF3F/tspwpdDuvCqvi5l2o4ZnSygEyBXiFggwoWy7Fs5CuqGk
+         hvqWVPPXtCQ36Ov8SNmeoRXmQqpmkdO8Sxx20H3J/ke/arjcNvheksVkrWddiyq8yO
+         rc9LaxDCygILiPX3bGLY/ArZYhMP29ix7nWIKda766n7rskQh3kW3MtrTiaUuPKNLK
+         U+HN8iqxpbzMuNKEFdhUU8f5Gh8eJry/9jhtg0TexGzzpCiI5cpjfFxMQwr/CMdlR/
+         FHio1+pnk9+FW8mMsGGDt8Rt/Bh3Ai36C/DhJYnzVr36i1iRLNIRScdub7wcJtuVpf
+         U6ix2xn9SSI+A==
+Date:   Mon, 23 Oct 2023 23:52:28 +0200
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Muhammad Usama Anjum <usama.anjum@collabora.com>
+Cc:     kernel@collabora.com, linux-man@vger.kernel.org,
+        "G. Branden Robinson" <branden@debian.org>
+Subject: Re: [PATCH 2/2] ioctl_pagemap_scan: add page for pagemap_scan IOCTL
+Message-ID: <ZTbrIskF1mt0zTM_@debian>
+References: <20231019131252.2368728-1-usama.anjum@collabora.com>
+ <20231019131252.2368728-2-usama.anjum@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ld.so.8: Describe glibc Hardware capabilities
-Content-Language: en-US
-To:     Stefan Puiu <stefan.puiu@gmail.com>
-Cc:     linux-man@vger.kernel.org, alx@kernel.org
-References: <20231019172315.208972-1-adhemerval.zanella@linaro.org>
- <CACKs7VBtQNA-j=HapaBcM47gRE72jaBBU+c59G4Xx3WimPRFsg@mail.gmail.com>
-From:   Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
-Organization: Linaro
-In-Reply-To: <CACKs7VBtQNA-j=HapaBcM47gRE72jaBBU+c59G4Xx3WimPRFsg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="ifnZJsGIXCtDL8e4"
+Content-Disposition: inline
+In-Reply-To: <20231019131252.2368728-2-usama.anjum@collabora.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -75,229 +51,401 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
+--ifnZJsGIXCtDL8e4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Oct 2023 23:52:28 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Muhammad Usama Anjum <usama.anjum@collabora.com>
+Cc: kernel@collabora.com, linux-man@vger.kernel.org,
+	"G. Branden Robinson" <branden@debian.org>
+Subject: Re: [PATCH 2/2] ioctl_pagemap_scan: add page for pagemap_scan IOCTL
 
-On 19/10/23 16:10, Stefan Puiu wrote:
-> Hi and sorry to jump in so late in the discussion,
+Hi Muhammad,
 
-Thanks for the review!
+[CC +=3D Branden]
 
-> 
-> On Thu, Oct 19, 2023 at 8:23 PM Adhemerval Zanella
-> <adhemerval.zanella@linaro.org> wrote:
->>
->> It was added on glibc 2.33 as a way to improve path search, since
->> legacy hardware capabilities combination scheme do not scale
->> properly with new hardware support.  The legacy support was removed
->> on glibc 2.37, so it is the only scheme currently supported.
-> 
-> I would suggest (caveat: non-native English speaker here):
-> 
-> s/It was added on glibc/The feature was added in glibc/
-> s/improve path search/improve the path search/
-> s/since legacy/since the legacy/
-> s/hardware capabilities combination scheme do not/hardware
-> capabilities scheme does not/
-> s/was removed on glibc/was removed in glibc/
+On Thu, Oct 19, 2023 at 06:12:45PM +0500, Muhammad Usama Anjum wrote:
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
+> ---
+> The feature has been added to mm-stable:
+> https://lore.kernel.org/all/20231018213453.BF1ACC43395@smtp.kernel.org
+>=20
+> Changes since v1:
+> - Several formatting updates
+> - Added some additional sentences
 
-Ack.
+Wow, the formatting is very well done.  Great job!  Patch applied.
+See a few small comments below.
 
-> 
->>
->> Signed-off-by: Adhemerval Zanella <adhemerval.zanella@linaro.org>
->> ---
->>  man8/ld.so.8 | 48 +++++++++++++++++++++++++++++++++++++++++++++++-
->>  1 file changed, 47 insertions(+), 1 deletion(-)
->>
->> diff --git a/man8/ld.so.8 b/man8/ld.so.8
->> index cf03cb85e..5b02ae88f 100644
->> --- a/man8/ld.so.8
->> +++ b/man8/ld.so.8
->> @@ -208,6 +208,14 @@ The objects in
->>  .I list
->>  are delimited by colons.
->>  .TP
->> +.BI \-\-glibc-hwcaps-mask " list"
->> +only search built-in subdirectories if in
->> +.IR list .
->> +.TP
->> +.BI \-\-glibc-hwcaps-prepend " list"
->> +Search glibc-hwcaps subdirectories in
->> +.IR list .
->> +.TP
->>  .B \-\-inhibit\-cache
->>  Do not use
->>  .IR /etc/ld.so.cache .
->> @@ -808,7 +816,7 @@ as a temporary workaround to a library misconfiguration issue.)
->>  .I lib*.so*
->>  shared objects
->>  .SH NOTES
->> -.SS Hardware capabilities
->> +.SS Legacy Hardware capabilities (from glibc 2.5 to glibc 2.37)
->>  Some shared objects are compiled using hardware-specific instructions which do
->>  not exist on every CPU.
->>  Such objects should be installed in directories whose names define the
->> @@ -843,6 +851,44 @@ z900, z990, z9-109, z10, zarch
->>  .B x86 (32-bit only)
->>  acpi, apic, clflush, cmov, cx8, dts, fxsr, ht, i386, i486, i586, i686, mca, mmx,
->>  mtrr, pat, pbe, pge, pn, pse36, sep, ss, sse, sse2, tm
->> +.SS glibc Hardware capabilities (from glibc 2.33)
->> +The legacy hardware capabilities combinations has the drawback where
->> +each feature name incur in
->> +cascading extra paths added on the search path list,
-> 
-> IMO, this part could use some rephrasing. How about:
-> The legacy hardware capabilities support has the drawback that each
-> feature grows the number of paths added to the search list.
+> ---
+>  man2/ioctl_pagemap_scan.2 | 203 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 203 insertions(+)
+>  create mode 100644 man2/ioctl_pagemap_scan.2
+>=20
+> diff --git a/man2/ioctl_pagemap_scan.2 b/man2/ioctl_pagemap_scan.2
+> new file mode 100644
+> index 000000000..c257072d7
+> --- /dev/null
+> +++ b/man2/ioctl_pagemap_scan.2
+> @@ -0,0 +1,203 @@
+> +.\" This manpage is Copyright (C) 2023 Collabora;
+> +.\" Written by Muhammad Usama Anjum <usama.anjum@collabora.com>
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.TH ioctl_pagemap_scan 2 2023-10-17 "Linux man-pages (unreleased)"
+> +.SH NAME
+> +ioctl_pagemap_scan \- get and/or clear page flags
+> +.SH LIBRARY
+> +Standard C library
+> +.RI ( libc ", " \-lc )
+> +.SH SYNOPSIS
+> +.nf
+> +.BR "#include <linux/fs.h>" "  /* Definition of " struct " " pm_scan_arg=
+ ", "
+> +.BR "                          struct page_region "and " PAGE_IS_* "cons=
+tants " */"
 
-The main problem was it did not only grows, but it did quadratically since
-the new capability is combined with the others.  It was minimized because
-the actually used capabilities was filtered out by the processor/kernel
-advertise features. So maybe:
+That space is not necessary after a closing '"' is something I don't
+know why exists.  I changed that slightly.
 
-  The legacy hardware capabilities support has the drawback 
-  it requires multiple search paths due the combined supported capabilities,
-  and each new feature grows the number of paths added to the search list
-  in quadratic manner. 
+Also, we use the Oxford comma (a comma right before 'and' and 'or'.
 
-> 
-> Also, maybe this would better fit under the legacy capabilities section?
+-.BR "#include <linux/fs.h>" "  /* Definition of " struct " " pm_scan_arg "=
+, "
+-.BR "                          struct page_region "and " PAGE_IS_* "consta=
+nts " */"
++.BR "#include <linux/fs.h>" "  /* Definition of " "struct pm_scan_arg" ,
++.BR "                          struct page_region" ", and " PAGE_IS_* " co=
+nstants */"
 
-Indeed, I will move to there.
+> +.B #include <sys/ioctl.h>
+> +.PP
+> +.BI "int ioctl(int " pagemap_fd ", PAGEMAP_SCAN, struct pm_scan_arg *" a=
+rg );
+> +.fi
+> +.SH DESCRIPTION
+> +This
+> +.BR ioctl (2)
+> +is used to get and optionally clear some specific flags from page table =
+entries.
+> +The information is returned with
+> +.B PAGE_SIZE
+> +granularity.
+> +.PP
+> +To start tracking the written state (flag) of a page or range of memory,
+> +the
+> +.B UFFD_FEATURE_WP_ASYNC
+> +must be enabled by
+> +.B UFFDIO_API
+> +.BR ioctl (2)
+> +on
+> +.B userfaultfd
+> +and memory range must be registered with
+> +.B UFFDIO_REGISTER
+> +.BR ioctl (2)
+> +in
+> +.B UFFDIO_REGISTER_MODE_WP
+> +mode.
+> +.SS Supported page flags
+> +The following page table entry flags are supported:
+> +.TP
+> +.B PAGE_IS_WPALLOWED
+> +The page has asynchronous write-protection enabled.
+> +.TP
+> +.B PAGE_IS_WRITTEN
+> +The page has been written to from the time it was write protected.
+> +.TP
+> +.B PAGE_IS_FILE
+> +The page is file backed.
+> +.TP
+> +.B PAGE_IS_PRESENT
+> +The page is present in the memory.
+> +.TP
+> +.B PAGE_IS_SWAPPED
+> +The page is swapped.
+> +.TP
+> +.B PAGE_IS_PFNZERO
+> +The page has zero PFN.
+> +.TP
+> +.B PAGE_IS_HUGE
+> +The page is THP or Hugetlb backed.
+> +.SS Supported operations
+> +The get operation is always performed
+> +if the output buffer is specified.
+> +The other operations are as following:
+> +.TP
+> +.B PM_SCAN_WP_MATCHING
+> +Write protect the matched pages.
+> +.TP
+> +.B PM_SCAN_CHECK_WPASYNC
+> +Abort the scan
+> +when a page is found
+> +which doesn't have the Userfaultfd Asynchronous Write protection enabled.
+> +.SS The \f[I]struct pm_scan_arg\f[] argument
+> +.EX
+> +struct pm_scan_arg {
+> +    __u64 size;
+> +    __u64 flags;
+> +    __u64 start;
+> +    __u64 end;
+> +    __u64 walk_end;
+> +    __u64 vec;
+> +    __u64 vec_len;
+> +    __u64 max_pages
+> +    __u64 category_inverted;
+> +    __u64 category_mask;
+> +    __u64 category_anyof_mask
+> +    __u64 return_mask;
 
-> 
->> +adding a lot of overhead on
-> I think "adding a lot of overhead to" sounds better here. "Adding to"
-> instead of "adding on".
-> 
->> +.B ld.so
->> +during library resolution.
->> +For instance, on x86 32-bit, if the hardware
->> +supports
->> +.B i686
->> +and
->> +.BR sse2
->> +, the resulting search path will be
->> +.BR i686/sse2:i686:sse2:. .
->> +A new capability
->> +.B newcap
->> +will set the search path to
->> +.BR newcap/i686/sse2:newcap/i686:newcap/sse2:newcap:i686/sse2:i686:sse2: .
->> +.PP
->> +glibc 2.33 added a new hardware capability scheme,
->> +where each ABI can define
-> 
-> Maybe s/each ABI/each ABI version/? I'm not familiar with the feature,
-> just guessing from the examples below; they were very helpful, IMO.
+I prefer two spaces between the type and the name.  I got that habit
+=66rom nginx.
+<https://nginx.org/en/docs/dev/development_guide.html#code_style>
 
-I think it would be better to use 'architecture' here.
+ struct pm_scan_arg {
+-    __u64 size;
+-    __u64 flags;
+-    __u64 start;
+-    __u64 end;
+-    __u64 walk_end;
+-    __u64 vec;
+-    __u64 vec_len;
+-    __u64 max_pages
+-    __u64 category_inverted;
+-    __u64 category_mask;
+-    __u64 category_anyof_mask
+-    __u64 return_mask;
++    __u64  size;
++    __u64  flags;
++    __u64  start;
++    __u64  end;
++    __u64  walk_end;
++    __u64  vec;
++    __u64  vec_len;
++    __u64  max_pages
++    __u64  category_inverted;
++    __u64  category_mask;
++    __u64  category_anyof_mask
++    __u64  return_mask;
+ };
 
 
-> 
->> +a set of paths based on expected hardware support.
-> 
-> a set of paths where to find the expected hardware support?
-> 
-> This is based on how I (mis)understood the feature, though, if that's
-> wrong, then the above might also be wrong. I guess the x86-64 glibc
-> would install the x86-64-v2, -v3 and -v4 directories on disk; when
-> running a program, glibc can then check what the current CPU supports
-> - say if it supports x86-64-v3, it loads the contents of that folder?
+> +};
+> +.EE
+> +.TP
+> +.B size
+> +This field should be set to the size of the structure in bytes,
+> +as in
+> +.IR "sizeof(struct pm_scan_arg)" .
 
-They are search paths, so glibc itself does not install them.  The
-glibc Hardware capabilities search paths are constructed based on
-pre-defined list (where only a handful architecture actually define
-them) that are matched against the supported one by the hardware.
-The initial patchset that actually implemented this feature has
-more details [1].
+We try to use \~ for a fillable space; it has the nice effect of
+removing the quotes.
 
-It has the advantage that each glibc-hwcap path are not combined
-with each other, so there is no quadratic increase when a new
-patch is added.
+-.IR "sizeof(struct pm_scan_arg)" .
++.IR sizeof(struct\~pm_scan_arg) .
 
-So, let's say you have a x86_64-v3 chip (Haswell or Excavator) [2].
-The result search patch will be 
+> +.TP
+> +.B flags
+> +The operations to be performed are specified in it.
+> +.TP
+> +.B start
+> +The starting address of the scan is specified in it.
+> +.TP
+> +.B end
+> +The ending address of the scan is specified in it.
+> +.TP
+> +.B walk_end
+> +The kernel returns the scan's ending address in it.
+> +The
+> +.I walk_end
+> +equal to
+> +.I end
+> +means that scan has completed on the entire range.
+> +.TP
+> +.B vec
+> +The address of
+> +.I page_region
+> +array for output.
+> +.PP
+> +.in +8n
 
-  glibc-hwcaps/x86-64-v3:glibc-hwcaps/x86-64-v2:
+Ahh, this is great, because I needed to explain to groff(1) maintainers
+what is the problem with TP that I was complaining about in another
+thread.
 
-It is also supported by ldconfig, so it will also check on all paths
-defined on ld.so.conf along with combined one with glibc-hwcap.  So
-let's say you have "/lib/x86_64-linux-gnu" on ld.so.conf, ldconfig will
-check all possible subpaths based on the glibc-hwcap list:
+Branden, here's what I mean.  If you're new to man(7), it is rather
+unintuitive what to do here.
 
-  /lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v4
-  /lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3
-  /lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2
-  /lib/x86_64-linux-gnu/
+Muhammad, in this project, we usually use IP to continuate a TP.  PP
+would break the indentation back to before the TP, which is why you
+needed so much in 'in'.
 
-And only adds a possible candidate iff the file exists.  For instance
-if you have:
+Another solution, which we're discussing is wrapping everything is RS/RE.
 
-  /lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v4/libsomething.so
-  /lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2/libsomething.so
-  /lib/x86_64-linux-gnu/libsomething.so
+I applied this:
 
-The ldconfig will setup a ld.so.cache with all the entries, but
-ld.so will only select the x86-64-v4/libsomething.so if the CPU supports
-the x86-64-v4 (Skylake, Zen4); otherwise it will fallback to
-x86-64-v2/libsomething.so if the cpu support x86_64-v2 (Nehalem, Jaguar),
-or libsomething.so as the x86_64 baseline.
+-.PP
+-.in +8n
++.IP
++.in +4n
 
-So maybe a better description would be
 
-  glibc 2.33 added a new hardware capability scheme,
-  where each architecture might define
-  a set of paths based on expected hardware support.
-  Each path is added on the search path list
-  depending of the hardware of the machine.
-  Each path is independent and not combined together,
-  so it does have the drawbacks of legacy scheme.
-  .PP
-  For instance, on x86 64-bit, if the hardware supports
-  .B x86_64-v3
-  (for instance Intel Haswell or AMD Excavator)
-  , the resulting search path will be
-  .BR glibc-hwcaps/x86-64-v3:glibc-hwcaps/x86-64-v2:.
-  The following paths are currently supported, in priority order.
-  .TP
-  .B PowerPC (64-bit little-endian only)
-  power10, power9
-  .TP
-  .B s390 (64-bit only)
-  z16, z15, z14, z13
-  .TP
-  .B x86 (64-bit only)
-  x86-64-v4, x86-64-v3, x86-64-v2
-  .PP
-  glibc 2.37 removed support for the legacy hardware capabilities.
+> +.EX
+> +struct page_region {
+> +    __u64 start;
+> +    __u64 end;
+> +    __u64 categories;
+> +};
+> +.EE
+> +.in
+> +.TP
+> +.B vec_len
+> +The length of the
+> +.I page_region
+> +struct array.
+> +.TP
+> +.B max_pages
+> +It is the optional limit for the number of output pages required.
+> +.TP
+> +.B category_inverted
+> +.BI PAGE_IS_ *
+> +categories which values match if 0 instead of 1.
+> +.TP
+> +.B category_mask
+> +Skip pages for which any
+> +.BI PAGE_IS_ *
+> +category doesn't match.
+> +.TP
+> +.B category_anyof_mask
+> +Skip pages for which no
+> +.BI PAGE_IS_ *
+> +category matches.
+> +.TP
+> +.B return_mask
+> +.BI PAGE_IS_ *
+> +categories that are to be reported in
+> +.IR page_region .
+> +.SH RETURN VALUE
+> +On error, \-1 is returned, and
+> +.I errno
+> +is set to indicate the error.
+> +.SH ERRORS
+> +Error codes can be one of, but are not limited to, the following:
+> +.TP
+> +.B EINVAL
+> +Invalid arguments i.e., invalid
+> +.I size
+> +of the argument, invalid
+> +.IR flags ,
+> +invalid
+> +.IR categories ,
+> +the
+> +.I start
+> +address isn't aligned with
+> +.B PAGE_SIZE
+> +or
+> +.I vec_len
+> +is specified when
+> +.I vec
+> +is
+> +.BR NULL .
+> +.TP
+> +.B EFAULT
+> +Invalid
+> +.I arg
+> +pointer, invalid
+> +.I vec
+> +pointer or invalid address range specified by
+> +.I start
+> +and
+> +.IR end .
+> +.TP
+> +.B ENOMEM
+> +No memory is available.
+> +.TP
+> +.B EINTR
+> +Fetal signal is pending.
 
-> 
->> +Each path is added depending of the hardware of the machine,
->> +and they are not combined together.
->> +They also have priority over the legacy hardware capabilities.
->> +The following paths are currently supported.
->> +.TP
->> +.B PowerPC (64-bit little-endian only)
->> +power9, power10
->> +.TP
->> +.B s390 (64-bit only)
->> +z13, z14, z15, z16
->> +.TP
->> +.B x86 (64-bit only)
->> +x86-64-v2, x86-64-v3, x86-64-v4
->> +.PP
->> +The glibc 2.37 removed support for the legacy hardware capabilities.
-> s/The glibc/glibc
-> 
-> Regards,
-> Stefan.
-> 
->> +.
->>  .SH SEE ALSO
->>  .BR ld (1),
->>  .BR ldd (1),
->> --
->> 2.34.1
->>
+And a bit more of semantic newlines:
 
-[1] https://sourceware.org/pipermail/libc-alpha/2020-June/115250.html
-[2] https://lists.llvm.org/pipermail/llvm-dev/2020-July/143289.html
+@@ -163,29 +163,32 @@ .SH ERRORS
+ Error codes can be one of, but are not limited to, the following:
+ .TP
+ .B EINVAL
+-Invalid arguments i.e., invalid
++Invalid arguments i.e.,
++invalid
+ .I size
+-of the argument, invalid
++of the argument,
++invalid
+ .IR flags ,
+ invalid
+ .IR categories ,
+ the
+ .I start
+ address isn't aligned with
+-.B PAGE_SIZE
++.BR PAGE_SIZE ,
+ or
+ .I vec_len
+ is specified when
+ .I vec
+-is
+-.BR NULL .
++is NULL.
+ .TP
+ .B EFAULT
+ Invalid
+ .I arg
+-pointer, invalid
++pointer,
++invalid
+ .I vec
+-pointer or invalid address range specified by
++pointer,
++or invalid address range specified by
+ .I start
+ and
+ .IR end .
+
+
+Cheers,
+Alex
+
+> +.SH STANDARDS
+> +Linux.
+> +.SH HISTORY
+> +Linux 6.7.
+> +.SH SEE ALSO
+> +.BR ioctl (2)
+> --=20
+> 2.42.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--ifnZJsGIXCtDL8e4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmU26xwACgkQnowa+77/
+2zLj4g//cM3sN6uHCVjRrG+gQsWGCxrEj3KJQPrZqHfFE/BqdlsQNrDILB8uTx/a
+Drp2g9AMvd6DTT4tP88kw5WweeBqSIFsHXzPGAs0JcHBioL1jqT9asufIqTgAGOR
+7yBIw+PW65rGtx/TNkIdkf+t58A09TLtx4sxU7Per2Q7nQ4i6BQJYy/5Scf9B53a
+PDietHALon6WTAqouJfv+uSc7OmEMt/QXATllVg7x/vNOjhHmXKVIALAOLIS8h0Z
+fIg4Adby8F7/3jOpbBfRRfq1C3c+p2uZr1PL36SYeDefCw1NwKh72irGr8X7L9tC
+FMoxUwZZu2lxZZUwfFZjm80s3J1WJHo2cyP0fR+yHnxB1ffGbjxnMsIAMPMMLXeC
+Uuv9UQot5uJGeB5Os3KExJZQZtzu/4DNHRfkaLzbJoIF08hPS4qO3Bq4MqYzx7Ia
+D94sODHDzew4GWVmrv/97teC4aFNlIO+Gu2uNua9LG81JqFpXsEzKzt0hcJu7nnO
+RN5AR+YGzS4wryn/lMWragyclP2EAXSkHvWzxU6+FVabdyRR31gB1ALp3tq2EuBB
+9S9veRFUwNW5YsHF+gbQ2Hjf/zUiWtvuQHo+Qpup6xDaiOUOYYLnnzz/3tyTfLkx
+49Dti4F1Kh2SN+mpN3Z1tz+99TvDFkd/by44tgjHGXNIZ3O6fE4=
+=pEAN
+-----END PGP SIGNATURE-----
+
+--ifnZJsGIXCtDL8e4--
