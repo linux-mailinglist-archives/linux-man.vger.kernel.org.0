@@ -2,94 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B2B3E7D539A
-	for <lists+linux-man@lfdr.de>; Tue, 24 Oct 2023 16:05:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A89597D5430
+	for <lists+linux-man@lfdr.de>; Tue, 24 Oct 2023 16:39:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343608AbjJXOFA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Oct 2023 10:05:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56564 "EHLO
+        id S234482AbjJXOjx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Oct 2023 10:39:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49964 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234889AbjJXOEw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Oct 2023 10:04:52 -0400
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9680C271D
-        for <linux-man@vger.kernel.org>; Tue, 24 Oct 2023 06:57:58 -0700 (PDT)
-Received: by mail-ej1-x62e.google.com with SMTP id a640c23a62f3a-9adb9fa7200so940675366b.0
-        for <linux-man@vger.kernel.org>; Tue, 24 Oct 2023 06:57:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1698155877; x=1698760677; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=CFq2Fg3zVAnOrmEfLn53FQxN7jmqeIO+YSPDEZIOjqc=;
-        b=dBGQjqFyfkxCERh0ht6T4zHtOMCIAEEElWD0aSCE56alg9Tf21JyvwveX0xPtdPfJM
-         2lNl7cJUacZQZfQsx6uluR+8JzJ/pMrkSihbCje0m4cS3jM8oLrrlfpDYCiy6VeP+X72
-         nsEYRXs8dvXwPwr3u5i/31goOMOKzmLc8zBag=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698155877; x=1698760677;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=CFq2Fg3zVAnOrmEfLn53FQxN7jmqeIO+YSPDEZIOjqc=;
-        b=nIRA520dniYpfztLnvxYV5k+w26t8EOsEyhokyd7HI/HShdvvgRVv4fjHvisrIa9TA
-         u6c/O/kk+j2YkgxvykAD0lxBMMeyvuCdnf7oUv2Y0k/abKfr0q9D1jIGELco+EZm2oto
-         W9FXaDOh5dgCbnJvY4uKBb7af6DJaJ4Yt8CzSNJ3ImZdLV1/Pt8cJvkWQO2zGIRCfgKq
-         awbWVqedchxRY5WuaFg7n+aL/Hi1PzWvaTacL1VeTJI6NqpGmkxbznMUVfkoxvYYgTGR
-         3R4SwzKrI/AuedXMpjuX/7Kv1eYpnyAw2/ULE4dKNl2eHaXjXq7ABiYQ2nyX8JZY8IcC
-         gvxQ==
-X-Gm-Message-State: AOJu0YxACXbpevep65zyLL4+TMTT9AjGp8hkLCZS0j7w0i5yKbegWRTs
-        hR1IBwCa/ow/8dOa21/2PGvCPsRmUHpq/YaN0hu+9vB6/4FAXb+l
-X-Google-Smtp-Source: AGHT+IEV11aVuDatR+GsbiTzkdam4eLmDzs7DndyyWqozB2d9zhCaHb3NdyEF13kC/pQx/zoObUqvAUWAIwVd1XT2cQ=
-X-Received: by 2002:a17:907:94cd:b0:9ae:614e:4560 with SMTP id
- dn13-20020a17090794cd00b009ae614e4560mr9998911ejc.29.1698155877064; Tue, 24
- Oct 2023 06:57:57 -0700 (PDT)
+        with ESMTP id S234479AbjJXOjw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Oct 2023 10:39:52 -0400
+X-Greylist: delayed 430 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 24 Oct 2023 07:39:47 PDT
+Received: from cventin.lip.ens-lyon.fr (cventin.lip.ens-lyon.fr [140.77.13.17])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0CA8C4
+        for <linux-man@vger.kernel.org>; Tue, 24 Oct 2023 07:39:47 -0700 (PDT)
+Received: from vlefevre by cventin.lip.ens-lyon.fr with local (Exim 4.97-RC3)
+        (envelope-from <vlefevre@cventin.lip.ens-lyon.fr>)
+        id 1qvISR-00000000JuC-113P;
+        Tue, 24 Oct 2023 16:32:35 +0200
+From:   Vincent Lefevre <vincent@vinc17.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Cc:     Vincent Lefevre <vincent@vinc17.net>
+Subject: [PATCH] mcheck.3, mtrace.3: update examples for glibc 2.34
+Date:   Tue, 24 Oct 2023 16:31:17 +0200
+Message-ID: <20231024143144.76490-1-vincent@vinc17.net>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20230928130147.564503-1-mszeredi@redhat.com> <20230928130147.564503-5-mszeredi@redhat.com>
- <CAHC9VhQD9r+Qf5Vz1XmxUdJJJO7HNTKdo8Ux=n+xkxr=JGFMrw@mail.gmail.com>
- <CAJfpegsPbDgaz46x4Rr9ZgCpF9rohVHsvuWtQ5LNAdiYU_D4Ww@mail.gmail.com>
- <a25f2736-1837-f4ca-b401-85db24f46452@themaw.net> <CAJfpegv78njkWdaShTskKXoGOpKAndvYYJwq7CLibiu+xmLCvg@mail.gmail.com>
- <7fe3c01f-c225-394c-fac5-cabfc70f3606@themaw.net> <c45fc3e5-05ca-14ab-0536-4f670973b927@themaw.net>
-In-Reply-To: <c45fc3e5-05ca-14ab-0536-4f670973b927@themaw.net>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Tue, 24 Oct 2023 15:57:45 +0200
-Message-ID: <CAJfpegvTFFzCN9nssL0B6g97qW5xbm6KsrFPRqtSp5B1jaYbLg@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] add listmount(2) syscall
-To:     Ian Kent <raven@themaw.net>
-Cc:     Paul Moore <paul@paul-moore.com>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_40,
+        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
+        SPF_NONE autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 13 Oct 2023 at 04:40, Ian Kent <raven@themaw.net> wrote:
+The glibc 2.34 NEWS file says that mtrace() and mcheck() have now been
+disabled in the main C library, and preloading libc_malloc_debug.so is
+needed to get this functionality back.
 
-> But because we needed to enumerate mounts in the same way as the proc file
->
-> system mount tables a flag FSINFO_ATTR_MOUNT_ALL was added that essentially
->
-> used the mount namespace mounts list in a similar way to the proc file
->
-> system so that a list of mounts for a mount namespace could be retrieved.
+So the examples now need a "LD_PRELOAD=libc_malloc_debug.so".
 
-Makes sense.
+Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
+---
+ man3/mcheck.3 | 2 +-
+ man3/mtrace.3 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Added a LISTMOUNT_RECURSIVE flag.
+diff --git a/man3/mcheck.3 b/man3/mcheck.3
+index 285ea946c..e17650a4c 100644
+--- a/man3/mcheck.3
++++ b/man3/mcheck.3
+@@ -169,7 +169,7 @@ when running the program:
+ .PP
+ .in +4n
+ .EX
+-.RB "$" " ./a.out"
++.RB "$ " "LD_PRELOAD=libc_malloc_debug.so ./a.out"
+ About to free
+ \&
+ About to free a second time
+diff --git a/man3/mtrace.3 b/man3/mtrace.3
+index f30511cd0..d0cde42c9 100644
+--- a/man3/mtrace.3
++++ b/man3/mtrace.3
+@@ -153,7 +153,7 @@ diagnosed memory leaks at two different locations in the program:
+ .EX
+ .RB "$ " "cc \-g t_mtrace.c \-o t_mtrace"
+ .RB "$ " "export MALLOC_TRACE=/tmp/t"
+-.RB "$ " "./t_mtrace"
++.RB "$ " "LD_PRELOAD=libc_malloc_debug.so ./t_mtrace"
+ .RB "$ " "mtrace ./t_mtrace $MALLOC_TRACE"
+ Memory not freed:
+ -\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+-- 
+2.42.0
 
-Thanks,
-Miklos
