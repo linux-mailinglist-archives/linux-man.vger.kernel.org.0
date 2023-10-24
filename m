@@ -2,48 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3419A7D41F2
-	for <lists+linux-man@lfdr.de>; Mon, 23 Oct 2023 23:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 230E47D45B1
+	for <lists+linux-man@lfdr.de>; Tue, 24 Oct 2023 04:48:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230356AbjJWVwl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Oct 2023 17:52:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41030 "EHLO
+        id S232373AbjJXCsP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Oct 2023 22:48:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40942 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229845AbjJWVwk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Oct 2023 17:52:40 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 87E9CBD
-        for <linux-man@vger.kernel.org>; Mon, 23 Oct 2023 14:52:38 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF74C433C8;
-        Mon, 23 Oct 2023 21:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698097958;
-        bh=EAuMP0R0YcwRZ3JFfVAGPor53Udn/yHcIgV98Nkd5ps=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=EoewMWAog3/yYB28NF3F/tspwpdDuvCqvi5l2o4ZnSygEyBXiFggwoWy7Fs5CuqGk
-         hvqWVPPXtCQ36Ov8SNmeoRXmQqpmkdO8Sxx20H3J/ke/arjcNvheksVkrWddiyq8yO
-         rc9LaxDCygILiPX3bGLY/ArZYhMP29ix7nWIKda766n7rskQh3kW3MtrTiaUuPKNLK
-         U+HN8iqxpbzMuNKEFdhUU8f5Gh8eJry/9jhtg0TexGzzpCiI5cpjfFxMQwr/CMdlR/
-         FHio1+pnk9+FW8mMsGGDt8Rt/Bh3Ai36C/DhJYnzVr36i1iRLNIRScdub7wcJtuVpf
-         U6ix2xn9SSI+A==
-Date:   Mon, 23 Oct 2023 23:52:28 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc:     kernel@collabora.com, linux-man@vger.kernel.org,
-        "G. Branden Robinson" <branden@debian.org>
+        with ESMTP id S231459AbjJXCsO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Oct 2023 22:48:14 -0400
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com [IPv6:2607:f8b0:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57F5A10CE
+        for <linux-man@vger.kernel.org>; Mon, 23 Oct 2023 19:48:07 -0700 (PDT)
+Received: by mail-ot1-x32c.google.com with SMTP id 46e09a7af769-6ce327458a6so2068868a34.1
+        for <linux-man@vger.kernel.org>; Mon, 23 Oct 2023 19:48:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698115686; x=1698720486; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fwcJlAXRcgK6p6NHQRzfPhp0/t3Wv9Hv7BFnIx9tngM=;
+        b=d8LaGo+EaW3lGEqnc+cR+Exm7JeGIN7CU9DR58xelwO8s8n8GZqfGSnxbDUEZ88pJ5
+         Ww4zuMS8xKpfbm86XJLzYbvPSvepOwx3ux11sWJXBp3mWrC8mAx14klrb0XRit1ZuexD
+         Nslrsd4eg/oVVFJJhNadVXlPvg1X0BIFTbR9APSt+yloPl5ZIKaHDv8n+yfWrHoPlEGZ
+         sXle934YKYKuoJiFDeMNDEXRpdzNnB3vTU5FJfAobPCsH2NsBBXNS5r7pAgSiH80xyAZ
+         N8xH3pWTqoe11ujroF8Yxh7lYVwtWLVtuDw8cYT/vU9QIYZFBw32aFUyrk+UiXbFnMH4
+         jX+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698115686; x=1698720486;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fwcJlAXRcgK6p6NHQRzfPhp0/t3Wv9Hv7BFnIx9tngM=;
+        b=SS4UdPTRWMgxgR2jxRaMLPAI7k6gAC80dRTjbKVYRE4n63xkMbdjb7Sd2xrUeKAe1s
+         zJVnIynGwzqmAOxBC949KpLbqk8CRQvJJsJTqmMwMhHOx1kPBrCkSHnYA5CFDpjob9gO
+         uJ8yxdiXLbgMGN6HNZvu7e8mUVXIjDl9O1G08VmHvYaXruY4OI3rQd2NL6+kEMsA126C
+         5tGHairdxf6bfwKTstYlRspqXigEb9pn0VJZQIV7c/RAdg1aXInkspnXbLzdu+lonO64
+         Nt1UzKJXteqE0pXjTHEdlHs984v1VIO+ooarYPwwzjJw4l4cKdcGituWz1yMf3qj+A41
+         giLg==
+X-Gm-Message-State: AOJu0YzDnHkfLvTf1F2xewSU6KWlGxReC2cujWeslywsXWamYOOflKZT
+        GY8WjZwA6gHfJAog8+QBe+4=
+X-Google-Smtp-Source: AGHT+IHwn+1y5t+VVvptfCtgoqqTJZ6Hh5JOC1O63MxoFQ/07uep+RYFruMQszuoPna//z+lMWgafA==
+X-Received: by 2002:a05:6830:cc:b0:6c7:d3d6:c3b7 with SMTP id x12-20020a05683000cc00b006c7d3d6c3b7mr7689733oto.19.1698115686488;
+        Mon, 23 Oct 2023 19:48:06 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id l18-20020a056830269200b006b8e8884f2fsm1681689otu.51.2023.10.23.19.48.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Oct 2023 19:48:04 -0700 (PDT)
+Date:   Mon, 23 Oct 2023 21:48:02 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Muhammad Usama Anjum <usama.anjum@collabora.com>,
+        kernel@collabora.com, linux-man@vger.kernel.org
 Subject: Re: [PATCH 2/2] ioctl_pagemap_scan: add page for pagemap_scan IOCTL
-Message-ID: <ZTbrIskF1mt0zTM_@debian>
+Message-ID: <20231024024802.e6hfjvfumzc2rbil@illithid>
 References: <20231019131252.2368728-1-usama.anjum@collabora.com>
  <20231019131252.2368728-2-usama.anjum@collabora.com>
+ <ZTbrIskF1mt0zTM_@debian>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ifnZJsGIXCtDL8e4"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="ipd2umre3os6g5ob"
 Content-Disposition: inline
-In-Reply-To: <20231019131252.2368728-2-usama.anjum@collabora.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+In-Reply-To: <ZTbrIskF1mt0zTM_@debian>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,
+        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -51,401 +73,141 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---ifnZJsGIXCtDL8e4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--ipd2umre3os6g5ob
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Oct 2023 23:52:28 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: kernel@collabora.com, linux-man@vger.kernel.org,
-	"G. Branden Robinson" <branden@debian.org>
-Subject: Re: [PATCH 2/2] ioctl_pagemap_scan: add page for pagemap_scan IOCTL
 
-Hi Muhammad,
+Hi Alex,
 
-[CC +=3D Branden]
-
-On Thu, Oct 19, 2023 at 06:12:45PM +0500, Muhammad Usama Anjum wrote:
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> ---
-> The feature has been added to mm-stable:
-> https://lore.kernel.org/all/20231018213453.BF1ACC43395@smtp.kernel.org
+At 2023-10-23T23:52:28+0200, Alejandro Colomar wrote:
+> [CC +=3D Branden]
+> > +.SH SYNOPSIS
+> > +.nf
+> > +.BR "#include <linux/fs.h>" "  /* Definition of " struct " " pm_scan_a=
+rg ", "
+> > +.BR "                          struct page_region "and " PAGE_IS_* "co=
+nstants " */"
 >=20
-> Changes since v1:
-> - Several formatting updates
-> - Added some additional sentences
+> That space is not necessary after a closing '"' is something I don't
+> know why exists.
 
-Wow, the formatting is very well done.  Great job!  Patch applied.
-See a few small comments below.
+Right; since filling is off, and the line will be broken after
+"pm_scan_arg," (with typeface changes) anyway, this attempts to put a
+space at the end of the line.  But that would be invisible, and an
+according-to-Hoyle *roff formatter would get rid of such spaces at the
+end of the line before sending them to the output device anyway.
 
-> ---
->  man2/ioctl_pagemap_scan.2 | 203 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 203 insertions(+)
->  create mode 100644 man2/ioctl_pagemap_scan.2
+$ printf '.TH foo 1 date package\n.B "pm_scan_arg, "\n' \
+  | groff -Tutf8 -man -Z | sed -n '/pm_scan_arg/,/package/p'
+tpm_scan_arg,
+n40 0
+f1
+V200
+H0
+tpackage
+
+If one has learned device-independent troff's output language (see
+groff_out(5)), one can see that the space after the comma is simply
+discarded.
+
+> I changed that slightly.
+[...]
+> We try to use \~ for a fillable space; it has the nice effect of
+> removing the quotes.
 >=20
-> diff --git a/man2/ioctl_pagemap_scan.2 b/man2/ioctl_pagemap_scan.2
-> new file mode 100644
-> index 000000000..c257072d7
-> --- /dev/null
-> +++ b/man2/ioctl_pagemap_scan.2
-> @@ -0,0 +1,203 @@
-> +.\" This manpage is Copyright (C) 2023 Collabora;
-> +.\" Written by Muhammad Usama Anjum <usama.anjum@collabora.com>
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.\"
-> +.TH ioctl_pagemap_scan 2 2023-10-17 "Linux man-pages (unreleased)"
-> +.SH NAME
-> +ioctl_pagemap_scan \- get and/or clear page flags
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ", " \-lc )
-> +.SH SYNOPSIS
-> +.nf
-> +.BR "#include <linux/fs.h>" "  /* Definition of " struct " " pm_scan_arg=
- ", "
-> +.BR "                          struct page_region "and " PAGE_IS_* "cons=
-tants " */"
+> -.IR "sizeof(struct pm_scan_arg)" .
+> +.IR sizeof(struct\~pm_scan_arg) .
 
-That space is not necessary after a closing '"' is something I don't
-know why exists.  I changed that slightly.
+Yes.  This is portable _almost_ everywhere (certainly anyplace where
+_Linux_ man pages are available), and it can prevent a lot of ugliness.
 
-Also, we use the Oxford comma (a comma right before 'and' and 'or'.
+groff_man_style(7):
 
--.BR "#include <linux/fs.h>" "  /* Definition of " struct " " pm_scan_arg "=
-, "
--.BR "                          struct page_region "and " PAGE_IS_* "consta=
-nts " */"
-+.BR "#include <linux/fs.h>" "  /* Definition of " "struct pm_scan_arg" ,
-+.BR "                          struct page_region" ", and " PAGE_IS_* " co=
-nstants */"
+       \~        Adjustable non=E2=80=90breaking space.  Use this escape
+                 sequence to prevent a break inside a short phrase or
+                 between a numerical quantity and its corresponding
+                 unit(s).
 
-> +.B #include <sys/ioctl.h>
-> +.PP
-> +.BI "int ioctl(int " pagemap_fd ", PAGEMAP_SCAN, struct pm_scan_arg *" a=
-rg );
-> +.fi
-> +.SH DESCRIPTION
-> +This
-> +.BR ioctl (2)
-> +is used to get and optionally clear some specific flags from page table =
-entries.
-> +The information is returned with
-> +.B PAGE_SIZE
-> +granularity.
-> +.PP
-> +To start tracking the written state (flag) of a page or range of memory,
-> +the
-> +.B UFFD_FEATURE_WP_ASYNC
-> +must be enabled by
-> +.B UFFDIO_API
-> +.BR ioctl (2)
-> +on
-> +.B userfaultfd
-> +and memory range must be registered with
-> +.B UFFDIO_REGISTER
-> +.BR ioctl (2)
-> +in
-> +.B UFFDIO_REGISTER_MODE_WP
-> +mode.
-> +.SS Supported page flags
-> +The following page table entry flags are supported:
-> +.TP
-> +.B PAGE_IS_WPALLOWED
-> +The page has asynchronous write-protection enabled.
-> +.TP
-> +.B PAGE_IS_WRITTEN
-> +The page has been written to from the time it was write protected.
-> +.TP
-> +.B PAGE_IS_FILE
-> +The page is file backed.
-> +.TP
-> +.B PAGE_IS_PRESENT
-> +The page is present in the memory.
-> +.TP
-> +.B PAGE_IS_SWAPPED
-> +The page is swapped.
-> +.TP
-> +.B PAGE_IS_PFNZERO
-> +The page has zero PFN.
-> +.TP
-> +.B PAGE_IS_HUGE
-> +The page is THP or Hugetlb backed.
-> +.SS Supported operations
-> +The get operation is always performed
-> +if the output buffer is specified.
-> +The other operations are as following:
-> +.TP
-> +.B PM_SCAN_WP_MATCHING
-> +Write protect the matched pages.
-> +.TP
-> +.B PM_SCAN_CHECK_WPASYNC
-> +Abort the scan
-> +when a page is found
-> +which doesn't have the Userfaultfd Asynchronous Write protection enabled.
-> +.SS The \f[I]struct pm_scan_arg\f[] argument
-> +.EX
-> +struct pm_scan_arg {
-> +    __u64 size;
-> +    __u64 flags;
-> +    __u64 start;
-> +    __u64 end;
-> +    __u64 walk_end;
-> +    __u64 vec;
-> +    __u64 vec_len;
-> +    __u64 max_pages
-> +    __u64 category_inverted;
-> +    __u64 category_mask;
-> +    __u64 category_anyof_mask
-> +    __u64 return_mask;
+                        Before starting the motor,
+                        set the output speed to\~1.
+                        There are 1,024\~bytes in 1\~KiB.
+                        CSTR\~#8 documents the B\~language.
 
-I prefer two spaces between the type and the name.  I got that habit
-=66rom nginx.
-<https://nginx.org/en/docs/dev/development_guide.html#code_style>
+                 \~ is a GNU extension also supported by Heirloom
+                 Doctools troff 050915 (September 2005), mandoc 1.9.14
+                 (2009=E2=80=9011=E2=80=9016), neatroff (commit 1c6ab0f6e, =
+2016=E2=80=9009=E2=80=9013),
+                 and Plan 9 from User Space troff (commit 93f8143600,
+                 2022=E2=80=9008=E2=80=9012), but not by Solaris or Documen=
+ter=E2=80=99s
+                 Workbench troffs.
 
- struct pm_scan_arg {
--    __u64 size;
--    __u64 flags;
--    __u64 start;
--    __u64 end;
--    __u64 walk_end;
--    __u64 vec;
--    __u64 vec_len;
--    __u64 max_pages
--    __u64 category_inverted;
--    __u64 category_mask;
--    __u64 category_anyof_mask
--    __u64 return_mask;
-+    __u64  size;
-+    __u64  flags;
-+    __u64  start;
-+    __u64  end;
-+    __u64  walk_end;
-+    __u64  vec;
-+    __u64  vec_len;
-+    __u64  max_pages
-+    __u64  category_inverted;
-+    __u64  category_mask;
-+    __u64  category_anyof_mask
-+    __u64  return_mask;
- };
-
-
-> +};
-> +.EE
-> +.TP
-> +.B size
-> +This field should be set to the size of the structure in bytes,
-> +as in
-> +.IR "sizeof(struct pm_scan_arg)" .
-
-We try to use \~ for a fillable space; it has the nice effect of
-removing the quotes.
-
--.IR "sizeof(struct pm_scan_arg)" .
-+.IR sizeof(struct\~pm_scan_arg) .
-
-> +.TP
-> +.B flags
-> +The operations to be performed are specified in it.
-> +.TP
-> +.B start
-> +The starting address of the scan is specified in it.
-> +.TP
-> +.B end
-> +The ending address of the scan is specified in it.
-> +.TP
-> +.B walk_end
-> +The kernel returns the scan's ending address in it.
-> +The
-> +.I walk_end
-> +equal to
-> +.I end
-> +means that scan has completed on the entire range.
-> +.TP
-> +.B vec
-> +The address of
-> +.I page_region
-> +array for output.
-> +.PP
-> +.in +8n
-
-Ahh, this is great, because I needed to explain to groff(1) maintainers
-what is the problem with TP that I was complaining about in another
-thread.
-
-Branden, here's what I mean.  If you're new to man(7), it is rather
-unintuitive what to do here.
-
-Muhammad, in this project, we usually use IP to continuate a TP.  PP
-would break the indentation back to before the TP, which is why you
-needed so much in 'in'.
-
-Another solution, which we're discussing is wrapping everything is RS/RE.
-
-I applied this:
-
--.PP
--.in +8n
-+.IP
-+.in +4n
-
-
-> +.EX
-> +struct page_region {
-> +    __u64 start;
-> +    __u64 end;
-> +    __u64 categories;
-> +};
-> +.EE
-> +.in
-> +.TP
-> +.B vec_len
-> +The length of the
-> +.I page_region
-> +struct array.
-> +.TP
-> +.B max_pages
-> +It is the optional limit for the number of output pages required.
-> +.TP
-> +.B category_inverted
-> +.BI PAGE_IS_ *
-> +categories which values match if 0 instead of 1.
-> +.TP
-> +.B category_mask
-> +Skip pages for which any
-> +.BI PAGE_IS_ *
-> +category doesn't match.
-> +.TP
-> +.B category_anyof_mask
-> +Skip pages for which no
-> +.BI PAGE_IS_ *
-> +category matches.
-> +.TP
-> +.B return_mask
-> +.BI PAGE_IS_ *
-> +categories that are to be reported in
-> +.IR page_region .
-> +.SH RETURN VALUE
-> +On error, \-1 is returned, and
-> +.I errno
-> +is set to indicate the error.
-> +.SH ERRORS
-> +Error codes can be one of, but are not limited to, the following:
-> +.TP
-> +.B EINVAL
-> +Invalid arguments i.e., invalid
-> +.I size
-> +of the argument, invalid
-> +.IR flags ,
-> +invalid
-> +.IR categories ,
-> +the
-> +.I start
-> +address isn't aligned with
-> +.B PAGE_SIZE
-> +or
-> +.I vec_len
-> +is specified when
-> +.I vec
-> +is
-> +.BR NULL .
-> +.TP
-> +.B EFAULT
-> +Invalid
-> +.I arg
-> +pointer, invalid
-> +.I vec
-> +pointer or invalid address range specified by
-> +.I start
-> +and
-> +.IR end .
-> +.TP
-> +.B ENOMEM
-> +No memory is available.
-> +.TP
-> +.B EINTR
-> +Fetal signal is pending.
-
-And a bit more of semantic newlines:
-
-@@ -163,29 +163,32 @@ .SH ERRORS
- Error codes can be one of, but are not limited to, the following:
- .TP
- .B EINVAL
--Invalid arguments i.e., invalid
-+Invalid arguments i.e.,
-+invalid
- .I size
--of the argument, invalid
-+of the argument,
-+invalid
- .IR flags ,
- invalid
- .IR categories ,
- the
- .I start
- address isn't aligned with
--.B PAGE_SIZE
-+.BR PAGE_SIZE ,
- or
- .I vec_len
- is specified when
- .I vec
--is
--.BR NULL .
-+is NULL.
- .TP
- .B EFAULT
- Invalid
- .I arg
--pointer, invalid
-+pointer,
-+invalid
- .I vec
--pointer or invalid address range specified by
-+pointer,
-+or invalid address range specified by
- .I start
- and
- .IR end .
-
-
-Cheers,
-Alex
-
-> +.SH STANDARDS
-> +Linux.
-> +.SH HISTORY
-> +Linux 6.7.
-> +.SH SEE ALSO
-> +.BR ioctl (2)
-> --=20
-> 2.42.0
+> > +.TP
+> > +.B vec
+> > +The address of
+> > +.I page_region
+> > +array for output.
+> > +.PP
+> > +.in +8n
 >=20
+> Ahh, this is great, because I needed to explain to groff(1)
+> maintainers what is the problem with TP that I was complaining about
+> in another thread.
+>=20
+> Branden, here's what I mean.
 
---=20
-<https://www.alejandro-colomar.es/>
+Good, yes.  I see what you're talking about.  We can now use
+ioctl_pagemap_scan(2) as a site for our horrific medical experiments.
+3:-)
 
---ifnZJsGIXCtDL8e4
+I think this is an instance of the tricky little constraint problem
+Michael Kerrisk and I discussed almost 3 years ago.
+
+https://lore.kernel.org/linux-man/a79fc055-c7ab-1793-04eb-eb4f678e5035@gmai=
+l.com/
+
+In all that time, no flash of brilliance has yet illuminated a solution
+(that wouldn't involve extending the man(7) language, like recognizing
+an additional argument to TP or other paragraphing macros).
+
+> If you're new to man(7), it is rather unintuitive what to do here.
+
+Yes.  groff_man_style(7) attempts to offer advice here, in subsections
+"Horizontal and vertical spacing" and as one of the FAQs in "Notes"
+(".RS doesn't indent relative to my indented paragraph.").
+
+That's more material than I care to quote to this list, so I will just
+advise anyone who doesn't already have groff 1.23.0 installed to check
+out pages 261 and 269 of
+<https://www.gnu.org/software/groff/manual/groff-man-pages.pdf>.
+
+> Muhammad, in this project, we usually use IP to continuate a TP.
+
+More projects than this one use it for that purpose; when `IP` itself is
+given no tag argument, it is idiomatic usage going back to 1979.
+
+Regards,
+Branden
+
+--ipd2umre3os6g5ob
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmU26xwACgkQnowa+77/
-2zLj4g//cM3sN6uHCVjRrG+gQsWGCxrEj3KJQPrZqHfFE/BqdlsQNrDILB8uTx/a
-Drp2g9AMvd6DTT4tP88kw5WweeBqSIFsHXzPGAs0JcHBioL1jqT9asufIqTgAGOR
-7yBIw+PW65rGtx/TNkIdkf+t58A09TLtx4sxU7Per2Q7nQ4i6BQJYy/5Scf9B53a
-PDietHALon6WTAqouJfv+uSc7OmEMt/QXATllVg7x/vNOjhHmXKVIALAOLIS8h0Z
-fIg4Adby8F7/3jOpbBfRRfq1C3c+p2uZr1PL36SYeDefCw1NwKh72irGr8X7L9tC
-FMoxUwZZu2lxZZUwfFZjm80s3J1WJHo2cyP0fR+yHnxB1ffGbjxnMsIAMPMMLXeC
-Uuv9UQot5uJGeB5Os3KExJZQZtzu/4DNHRfkaLzbJoIF08hPS4qO3Bq4MqYzx7Ia
-D94sODHDzew4GWVmrv/97teC4aFNlIO+Gu2uNua9LG81JqFpXsEzKzt0hcJu7nnO
-RN5AR+YGzS4wryn/lMWragyclP2EAXSkHvWzxU6+FVabdyRR31gB1ALp3tq2EuBB
-9S9veRFUwNW5YsHF+gbQ2Hjf/zUiWtvuQHo+Qpup6xDaiOUOYYLnnzz/3tyTfLkx
-49Dti4F1Kh2SN+mpN3Z1tz+99TvDFkd/by44tgjHGXNIZ3O6fE4=
-=pEAN
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmU3MFsACgkQ0Z6cfXEm
+bc6MUg/+O/5/uVnc5xoY1o7L6pU53hsxvxyWPxVc2X6fDtIhXZgt6JzYdkKXoUH1
+MAYlluAuxklFS7QdsSgTl99FB2aoZtGdjnK6aitxffN1rxW9Yv6Dpv//9s09SJSf
+UFvH+m1wiotwu5El3BVe7nf/nWZkgHtONNVSk/MNYTBi7kf/Y4e4rTW6ohKP1XAF
+cN4qkegdhZOEjaXhu9yjd5HOnHRq17jStvVpPomdjwdwb1beiXYi36E2gc4cqlMC
+iN9tXMoWFwOTdpSltylulZcqMh19eg3ViNynnxh94jCW4igDS6w8JIEwCZf5kHOW
+RxdTqj26LAknxc6LZ8Zi0dAeDGdgG8/Kf9lhIZqx1Gj77NewUbs+85PkFAR57F9F
+n+wt8NApmlXbVI31R9inGlrcnZ3SOFULwNsxDLNPbIjZFh66mTFiNUMpphF2U/Ax
+DtzzllCL5EUUN1jq3BkSL8jM/1wtEGaY2uwE+r+LzMGJhctntBL11b2ZbrOrXKDM
+sggmS8DkMGmmHmSQu4cpVoRmU33FlZ47YlsbYmWTWpfwR0aP6UjS9/PRXsaPRb8w
+8Cs9WHQGW3u3rDvMBuYbR6fP9KFdg/FlOa+XpEKbdxX2+bechdR7PVTira8wYkhc
+KfJY0TiESYyvvHw7cdLWWG7PlgM7Cow7TDc8PK9LUQyZheXgaAo=
+=DZvo
 -----END PGP SIGNATURE-----
 
---ifnZJsGIXCtDL8e4--
+--ipd2umre3os6g5ob--
