@@ -2,166 +2,232 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D6BE7D6F72
-	for <lists+linux-man@lfdr.de>; Wed, 25 Oct 2023 16:43:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 80B567D6F4B
+	for <lists+linux-man@lfdr.de>; Wed, 25 Oct 2023 16:43:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344805AbjJYOLO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Oct 2023 10:11:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42240 "EHLO
+        id S1344624AbjJYOXU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Oct 2023 10:23:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60402 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344887AbjJYOLN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Oct 2023 10:11:13 -0400
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com [IPv6:2607:f8b0:4864:20::c2b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BE24182
-        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:11:07 -0700 (PDT)
-Received: by mail-oo1-xc2b.google.com with SMTP id 006d021491bc7-581fb6f53fcso3342806eaf.2
-        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:11:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698243066; x=1698847866; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5KlID6NmCZS+zbh+FWNZ6KxJnh5q58z/5fPVtdSV930=;
-        b=PsOgA1TEivJ5xh/5Nt8JjJUgNdldntF2zg//9Cjsn/na43BEGoMr4zkAiVGalGM/v6
-         suDpNbD2ZPY6tCr0z2969Hll8JyzcZ4GA9I0SxNqK7ChNUB8OffO0tbRTxYoZGq03VqM
-         dfmHrCUA7WPBeaIb3zrMEJ7AbyJO1ssyd+3RxxMMVeSIUCEQLAUVA97fhNDncncAqU6F
-         xjP2w4Txradv+aX0Dl5OGDQGSfL2XsxNO91YsqMiQl2EHJOT0Gp22h6CqUkt4/moa9h7
-         31fnRWoQVKwaGKYxXVjZfz/D2lll+Y9EU2Ne8Oy5H0TYpVlLNDDaKON3uI0foTPKHSyB
-         6Xuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698243066; x=1698847866;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5KlID6NmCZS+zbh+FWNZ6KxJnh5q58z/5fPVtdSV930=;
-        b=C6qC5KeCIY0GK1HFqjL2SXqEjIE0QqSm71Iew++Qh9u5qzByqFOzzmQ1F7yry4C8Yq
-         ZVJpBvYdCABFivWG0hzthzW2Cav5PS3MvjhOAoNg8aypv2RPfsPaDT5j4VXsCb/RQlOp
-         L3xONni6Or7MBikIIlsAvlNfxM5JUHNLlMOYSqI9S1AWZ/aBWxGSa7Ynh9+i3tDFxp5t
-         OCgxnFeZYQLJGKT9VI9AJnWGJxKDCM8vw4M1dNTe/2MCzP6AvOPwdvpGq2pvEaCVyJCN
-         ltV9gc5lAUHeBpj0tNaTzLruB5wJXMElGIgRKZEk9deKzir1kFqgC8bJmdaqn2Qx23ir
-         fUrg==
-X-Gm-Message-State: AOJu0YyR5f1gdhNvQemwWmqOzy89hKhVCE2qFT/87tfIWXclqZ2NJ3SZ
-        Oi6WeJQ50TDUFqXxp2s2Ztp1LNtUH64=
-X-Google-Smtp-Source: AGHT+IH3UJ9L+tBvBwdfjO7Kv+qBfU/qyaFIsZFqJ2sqsQ7l5Z7jFRwablk7mCKcXyI1Do0qIr+sSQ==
-X-Received: by 2002:a4a:e9e2:0:b0:581:e819:cac5 with SMTP id w2-20020a4ae9e2000000b00581e819cac5mr13419661ooc.9.1698243066195;
-        Wed, 25 Oct 2023 07:11:06 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id d17-20020a056830045100b006c4f7ced5d2sm2277699otc.70.2023.10.25.07.11.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Oct 2023 07:11:05 -0700 (PDT)
-Date:   Wed, 25 Oct 2023 09:11:03 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: using the TQ macro
-Message-ID: <20231025141103.savwphtepufpget4@illithid>
+        with ESMTP id S1344569AbjJYOXT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Oct 2023 10:23:19 -0400
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE89313A
+        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1698243796; x=1729779796;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=v8NBH6MyBt11UmIoIJyrYNpDSuIjm2cOFZ+Y7uYcdSI=;
+  b=jJXQQa4sA8aT24C+CCA6SlpUxo0V87LMxwKOT3EzS32BFy58SvbsV+bh
+   QhlkIeUE1j+gEl/Om05lSr17Hpj9cWdt5VXj1cZCXP0itxVY8Gt9yXzZP
+   FFonlPcXVY1pJy13tEfvcrbSSW0fFr+pnEzdEVkJrsPAdiK6AVvdCg/Uf
+   YnrS6RRo/fEtoKCcy7bhhcGh8iPzrKpYjc6O96oPCEMmXk3U4b6cJrHxL
+   fGLwxalshUv3BsJsnUhwzTSagF64wFlXtVrBrkVkRm8915JhbV1lXVy4P
+   tRB2PvvZMQAFuxtTro+sXDSfnhchVBuqQPwe+AG3d6GI01ootPk012/aQ
+   g==;
+X-CSE-ConnectionGUID: ELCJ/QNNRhGvmYN8opEaLQ==
+X-CSE-MsgGUID: l+8kADPASym9bsh9mI3IeA==
+X-ThreatScanner-Verdict: Negative
+X-IronPort-AV: E=Sophos;i="6.03,250,1694761200"; 
+   d="scan'208";a="11156966"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 25 Oct 2023 07:23:16 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Wed, 25 Oct 2023 07:22:36 -0700
+Received: from brunhilda.pdev.net (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
+ Transport; Wed, 25 Oct 2023 07:22:35 -0700
+From:   Don Brace <don.brace@microchip.com>
+To:     <alx@kernel.org>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH v10 0/1] smartpqi man page updates
+Date:   Wed, 25 Oct 2023 09:22:34 -0500
+Message-ID: <20231025142235.82218-1-don.brace@microchip.com>
+X-Mailer: git-send-email 2.42.0.482.g2e8e77cbac
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="355rpjdhczwtblxe"
-Content-Disposition: inline
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_PASS,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+These patches are based the man page content found in
+git://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
 
---355rpjdhczwtblxe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The Linux man page smartpqi.4 is out-of-date with the man page provided
+by our out-of-box driver. This patch series brings the Linux man page up
+to date.
 
-Hi Alex,
+The changes are:
+smarpqi-update-copyright-and-email-addresses
+    The copyright, email, and URLs have changed to Microchip.
+smartpqi-update-module-parameter-descriptions
+    We changed some descriptions of some of our module parameters.
+    Clarifies what their default values are.
+smartpqi-add-module-parameter_disable_managed_interrupts
+    We added a new module parameter to allow users to disable how
+    interrupts are managed allowing them to change affinity.
+smartpqi-add-module-parameter_ctrl_ready_timeout
+    We added a new module parameter to allow users to change how
+    long the driver waits for the controller becomes ready. The
+    default is 180 seconds and can be changed from 30-1800 seconds.
+    The longer wait times are useful for large configurations.
+smartpqi-update_FILES_section
+    Minor change to the FILES section. The word "Logical" was changed to
+    "Disk" since HBA disks are also supported.
+smartpqi-update-host-attribute-descriptions
+    Updated the descriptions of existing host attributes accessed through
+    sysfs.
+smartpqi-update-device-attribute-descriptions
+    Updated the descriptions of existing device attributes accessed through
+    sysfs.
+smartpqi-add-host-attributes
+    We added some new host attributes:
+       enable_stream_detection: For RAID5/6 sequential write operations, this
+             can help increase IOPS. Reduces Read/Modify/Write operations.
+             This is for AIO capable devices. (Volumes consisting of non-rotating
+             media).
+       enable_r5_writes: Send down RAID 5 write operations down the AIO path.
+       enable_r6_writes: Send down RAID 6 write operations down the AIO path.
+smartpqi-add-device-attributes
+    We added some new device attributes:
+       lunid - SCSI LUN ID
+       unique_id - 16-byte ID that uniquely identifies the device within the controller.
+       path_info - Host:Bus:Target:Lun (h:b:t:l), device type, Active/Inactive
+       raid_bypass_cnt - Count of the number of request sent down the AIO path.
+       sas_ncq_prio_enable - Enables SATA NCQ priority support.
+smartpqi-add-sg-entry-to-see_also
+    Simple addition of the sg(4) driver to the SEE ALSO section.
 
-I pulled man-pages Git and saw this.
+Changes since V9:
 
-commit 6fdb1c03075b31364968bcccf472a4d4a86952a6 (origin/master, origin/HEAD)
-Author: Alejandro Colomar <alx@kernel.org>
-Date:   Sun Oct 22 14:57:46 2023 +0200
+    Only 1 patch remaining.
 
-    man*/: ffix (Use '.TQ' where appropriate)
+    smartpqi-remove-sysfs-entry-for-version
+      Added the kernel patch that changed the sysfs entry for "version"
+      into two entries "driver_version" and "firmware_version" and the
+      date this patch went into Linus's tree.
 
-    When there are multiple tags for a paragraph, using a single TP and
-    separating the tags with commas makes the man(7) source more complex.
-    It also has a disadvantage: when searching through a manual page,
-    heuristics such as "   --option" don't work so well.
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://lore.kernel.org/linux-man/ZThOy783p2lCDQcF@debian/
 
-    By using GNU's TQ, we simplify the source of the pages, and improve the
-    ability to search them.
+      Thanks Alejandro for your work in getting these patches applied.
 
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+Changes since V8:
+    smartpqi-update-host-attribute-descriptions
+      I added an explanation for changing "logical drives" to "logical volumes".
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://lore.kernel.org/linux-man/ZS3IKF9XHOuQaMMt@debian/
 
-I wanted to offer my support for it, in part since Ingo was so critical
-over on the groff list.[1]
+    smartpqi-add-device-attributes
+      Changed the sysfs entry from a specific Host:Bus:Target:Lun to generic
+      c : b : t : l
+      Shortened some lines.
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://lore.kernel.org/linux-man/ZS3MwU7MNF3p7yes@debian/
 
-Your use of `TQ` seems entirely idiomatic here.  You're right that it
-makes the man(7) source less complex, but it also emphasizes even to the
-casual reader the parallel syntax of `TP` and `TQ`, which inexpert man
-page authors will surely appreciate.
+Changes since V7:
 
-Another advantage is that if people get carried away with the former
-approach, creating a lengthy paragraph tag, they might overrun the line
-length, which would be really ugly.
+    smartpqi-update-host-attribute-descriptions
+      I had removed some patch context, but did not update the patch
+      description to reflect the updated patch.
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://marc.info/?l=linux-man&m=169732291731554&w=2
+    smartpqi: add device attributes
+      Changed the sysfs path entry for each device attribute from ".I" to ".IR".
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://marc.info/?l=linux-man&m=169732400031940&w=2
 
-I don't share Ingo's concern that this style of stacking paragraphing
-tags is inherently wasteful of screen real estate.  Man pages are, and
-have always been--going back to the 1971 First Edition Unix
-manual--pretty sparse in their use of text on the page.[2]  In part,
-this helps the eye of the reader to navigate the content.
+    Thanks Alejandro for your review and suggestions.
 
-Ingo would have more of a point if someone had a dozen tags stacked up
-for one paragraph, but doing so would suggest other problems; either
-your interface doesn't need that many ways to say the same thing and you
-should retire and de-document some forms of expression; something should
-be parameterized (i.e., turned into a hyphenated noun phrase in
-italics); or you're packing too many different things into one item's
-presentation.  Not everything can be solved with markup: sometimes we
-have to do the dirty work of writing clearly in natural language.
+Changes since V6:
+    patch "(smartpqi-add-module-parameter_ctrl_ready_timeout)" was
+    applied.
+    patch "(smartpqi-update_FILES_section)" was applied.
+    Some minor updates requested by Alejandro Colomar <alx@kernel.org>
+    Thanks Alejandro for your review and suggestions.
 
-But I don't see any problem like that in the Linux man-pages, so I think
-his criticism was not entirely apropos.  Also, as I noted on the groff
-list, he seems to have forgotten that `TQ` takes no arguments, so a
-formatter that doesn't support it won't throw any text away.
+    The V7 updates include the following patches:
 
-I also like your suggestion that if we really want to economize on
-space, we could present a command's long option form before its short,
-old-style Unix synonym, which will work well when the short option (plus
-its argument, if any) fits within the space for the paragraph tag.  This
-might be a good idea for another reason; in GNU user space, the long
-option is the much more self-documenting form, and the single-character
-option name a kind of "expert mode" alternative.  As a general rule,
-when presenting technical material, one should not lead with "expert
-mode".
+    smartpqi-update-host-attribute-descriptions
+      Moved the sysfs entry removal description for "version"
+    smartpqi-remove-sysfs-entry-for-version
+      New patch for removal of sysfs entry for "version".
+      Added HISTORY section.
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://marc.info/?l=linux-man&m=169680471921234&w=2
 
-Another benefit of this commit was that it made my "prepare for MR"
-commit simpler.  So I reckon this is a good time to re-submit that (and
-the big sed-driven MR migration humdinger; you can look for that soon.
+Changes since V5:
+    smartpqi: add module parameter ctrl_ready_timeout
+      Forgot to change the range of values for ctrl_ready_timeout.
+      Changed 0 or 30,1800 to 0 or [30,1800]
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://lore.kernel.org/linux-man/ZRtfS8DIxlqNN-XH@debian/
+      Sorry about that. Thanks for your review.
 
-Regards,
-Branden
+Changes since V4:
+    Added patch smartpqi-add-HISTORY-section
+      Added HISTORY section to explain that the sysfs entry for 'version'
+      was replaced by two new sysfs entries: driver_version, and firmware_version.
+      Suggested-by: Alejandro Colomar <alx@kernel.org>
+      Link: https://lore.kernel.org/linux-man/ZRtgG396-1Cj4gn2@debian/
 
-[1] https://lists.gnu.org/archive/html/groff/2023-10/msg00024.html
-[2] https://www.bell-labs.com/usr/dmr/www/1stEdman.html
+    smartpqi: add module parameter ctrl_ready_timeout
+      Minor update to parameter description due to suggestion by:
+      Alejandro Colomar <alx@kernel.org>
+      Link: https://lore.kernel.org/linux-man/ZRtfS8DIxlqNN-XH@debian/
 
---355rpjdhczwtblxe
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes since V3:
+    Updated content for the following pages due to reviews by:
+    Alejandro Colomar <alx@kernel.org>
 
------BEGIN PGP SIGNATURE-----
+      smartpqi: add module parameter ctrl_ready_timeout
+      Link: https://lore.kernel.org/linux-man/axwssorupkp6fv3b7zqgjyd243exvhlw7rle2ftyy43jxhm4yf@woxzbz4hm766/
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmU5IfAACgkQ0Z6cfXEm
-bc5jbg//TrOqdypazlXNJCrEdpXAdwHWdMdybPyAWbI6HzVG/D7TjTRJbCI+arm6
-EhtrP4MvbLRRsLfy1k23eKlaO9QGw0LHQj9Gy6ZWSOyaPJcf//jmjq6F4O1RPFzZ
-Xo2IU/nb2OUwc8EBCZnq1dHeJ/ppp3/rbZlHTXdXaE7oxPwY2/Yf+rPqC2o+5plQ
-hEpcTtwJxOPeRoJXv+eHZsyv0bX118TYSqb2JAUlixWpZkQfRTJ1Q6aq3wa0YdKD
-/7Q13en0OYBRyAb2ZdlYuboOCNeue7T9OxIQ6KwBZRB0bY9iJ6OVXe0bCDVVP/Ta
-oVP8DtTIg5JQXzzFSHEFAPBjH1vhSjnsjecYiDWqCnwVpQ7falbTU5CptSCTndHG
-0PH8QxkHcNkSiQ3OzB/ocfph3ZVUIM8qZyIoe788TQ6j6Pch36NQeZZ2+ZSNXMmq
-OBZWhKSvAvNenZGywbpZvPzP08i7Bf0/vsCRrz2CA8h78UEqoHenWd+shzijbOHS
-leVCEcoMp+kx367YGN18QAtXS/gNbXdIMNvEskDExzD+bizFwE6iv/7zItP1AJnk
-OoB1m7Ee/Rb/9LMZyQYVMXwRyV60jYcD5ixKMs+CFRNoZhJSLZqCW5iW48sKZINk
-ur/hTpNXBtIK7fz6R2VNXg3FQfl4w01R1ZFiCH1cxksHjM+egHU=
-=kidz
------END PGP SIGNATURE-----
+      smartpqi: update FILES section
+      Link: https://lore.kernel.org/linux-man/fwpvmbussvf2zzug5bsqhrd7mvwcvdllvna6a4ngke3hw6w5am@b4icgpgirck4/
 
---355rpjdhczwtblxe--
+      smartpqi: update host attribute descriptions
+      Link: https://lore.kernel.org/linux-man/ss7k5ooeoi7y56j6otvdpwhgd5yltzk6nt5l6ujiiupxzpmrdx@zrcvhw364ejx/
+
+      smartpqi: add host attributes
+      Link: https://lore.kernel.org/linux-man/nbt3jt7busx6akj7ykaxs7df6vlbbxtvcdy4ckvlp7saol3djl@rb6ckz3lzzot/
+
+      smartpqi: add device attributes
+      Link: https://lore.kernel.org/linux-man/ytcsqleu53iwpn5gsjmmuoqz2cy5oegvvafwlwxn422bcn3a5e@ne3khvixxzuq/
+
+    The other patches have already been applied and were removed from the
+    remaining patch set after a rebase.
+
+    Thanks for your attention and reviews for these patches.
+
+Changes since V2:
+    Resending due to bad e-mail address for maintainer.
+
+Changes since V1:
+    Broke up the large patch into multiple smaller patches due to review by:
+    Alejandro Colomar <alx@kernel.org>
+    Link: https://lore.kernel.org/all/096ed4d5-945f-5ac9-eba3-c9be5d32cfe8@kernel.org/
+
+---
+
+Don Brace (1):
+  smartpqi: remove sysfs entry for version
+
+ man4/smartpqi.4 | 25 +++++++------------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
+
+-- 
+2.42.0.482.g2e8e77cbac
+
