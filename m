@@ -2,269 +2,449 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 74D857D5EA0
-	for <lists+linux-man@lfdr.de>; Wed, 25 Oct 2023 01:23:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F32D27D6E23
+	for <lists+linux-man@lfdr.de>; Wed, 25 Oct 2023 16:04:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344509AbjJXXXI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Oct 2023 19:23:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43760 "EHLO
+        id S235016AbjJYODD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Oct 2023 10:03:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32896 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344484AbjJXXXH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Oct 2023 19:23:07 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F133D7A
-        for <linux-man@vger.kernel.org>; Tue, 24 Oct 2023 16:23:05 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86303C433C7;
-        Tue, 24 Oct 2023 23:23:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698189785;
-        bh=10QK8zeM90vgE0PjgClS3gIhTGmQDO5HTkDiE0JE1vo=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=V/cPr0kb+i52ZIATcpIS9JjL11gU/om2dQ1Hqaqk9TBe+2Ifs2xNLZ5jOSXTz/TU9
-         YUn8Hg+omMDrFgKsYxSE+KB8j0rbvpql2VdwfePyRSmEWcbnTMABZE5T/DfZWtqkUL
-         ezDVtnqJEs9k22lj/sWebDWnfEpNO0gbuFX5ajGrtKsbyDbBeVeqiLhP513/QWjiK3
-         1RRqpetL8WN0fBPXjut+mIKkWOYTU07tIlWtvERhm2J3H5UxW+LG3TcidBxE81luPd
-         vj0mbGcODlRWOqJzKwxCKieKenz3NHd1QNUsRbcSTJ7tEyHYW0odSUsp8Rseh2l9bq
-         dh46O3HWFxg7A==
-Date:   Wed, 25 Oct 2023 01:23:01 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Don Brace <don.brace@microchip.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v9 3/3] smartpqi: add device attributes
-Message-ID: <ZThR1pFCih1Zummn@debian>
-References: <20231024220153.36748-1-don.brace@microchip.com>
- <20231024220153.36748-4-don.brace@microchip.com>
- <ZThQrK3fMju8xRIP@debian>
+        with ESMTP id S234782AbjJYODC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Oct 2023 10:03:02 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04F7213A
+        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:02:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1698242531;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=x1DYN7Za1uyLzcDLrfQjEDekO6UImwLBhsScIzlPerc=;
+        b=ida6CPj06NiVQ4YlzG1C6SpEje8t/0LYfNy5xNVXOPIWgpxDXMZhteX3CD/Tp4EowHZoU+
+        L9nylfAoPFJseMx+ixJ/k/uNhwat+7OM2g8HodeganaIj8aQGCsivHU60btdQAogN+q1+4
+        hOXh7lwvBmTNHYpEPB0xfgu3A3SbckU=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-548-AsqfJeCMO52Alu1w-EIEWg-1; Wed, 25 Oct 2023 10:02:09 -0400
+X-MC-Unique: AsqfJeCMO52Alu1w-EIEWg-1
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-9b2cf504e3aso374346166b.2
+        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:02:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698242528; x=1698847328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=x1DYN7Za1uyLzcDLrfQjEDekO6UImwLBhsScIzlPerc=;
+        b=B/XpSSvaC8ZY7872tkPCE0mmXcittWyJyV4y0ZJcQEMCKj41//oWZ/D3bh7F/Btatu
+         1VFIcuqUeY8EJEtf6rm/Rv0/JQ+4JeMVJ2E/QSRVSClw6NKiuJ03ZoNi2M3naUBz5pgT
+         3nIYjaLKjyjpayTLUYUhKNFJ/ihi3R2peJpx9QWFAyfRNcUE8UYe443TsVMv5KHpkG8G
+         tCxGEHDZ55h7F+tT19ux4qod5zNhZHc8zfIdbnWKi1Ka4WEHZixhkuMWQZSerxjS6+qb
+         T03BbweB5IIxE+cZgdfH54cT4KNLrOHnpezuPj3aL0QcpqIXG9pPCB2o5m6u1lRM/voV
+         wRBA==
+X-Gm-Message-State: AOJu0YxA+mXruypYBs3vUqJd2ffvLIJRk4PTKJOb+PYMv7HonUTtP/WH
+        zerAkD6wrIKjzi0WjmwrXYI4WIuohpz1FFurTab0MpJGqRgzYlaG2ibw4fGhtBCMSUPZ9NT1GXT
+        CsGGIdzls/Y7xr3dIHw9c
+X-Received: by 2002:a17:906:c115:b0:9be:839a:3372 with SMTP id do21-20020a170906c11500b009be839a3372mr11884359ejc.59.1698242527889;
+        Wed, 25 Oct 2023 07:02:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEWrkTOkCAZfzN3xYcXcvz5ivnltGcFS7nQ3UQVnKVXqNdwubssOqdk3o6zzAPGNGJ5035rSA==
+X-Received: by 2002:a17:906:c115:b0:9be:839a:3372 with SMTP id do21-20020a170906c11500b009be839a3372mr11884320ejc.59.1698242527362;
+        Wed, 25 Oct 2023 07:02:07 -0700 (PDT)
+Received: from maszat.piliscsaba.szeredi.hu (92-249-235-200.pool.digikabel.hu. [92.249.235.200])
+        by smtp.gmail.com with ESMTPSA id vl9-20020a170907b60900b00989828a42e8sm9857073ejc.154.2023.10.25.07.02.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Oct 2023 07:02:06 -0700 (PDT)
+From:   Miklos Szeredi <mszeredi@redhat.com>
+To:     linux-fsdevel@vger.kernel.org
+Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH v4 0/6] querying mount attributes
+Date:   Wed, 25 Oct 2023 16:01:58 +0200
+Message-ID: <20231025140205.3586473-1-mszeredi@redhat.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="DCDHaoZtuuANtGt8"
-Content-Disposition: inline
-In-Reply-To: <ZThQrK3fMju8xRIP@debian>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Implement mount querying syscalls agreed on at LSF/MM 2023.
 
---DCDHaoZtuuANtGt8
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Oct 2023 01:23:01 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Don Brace <don.brace@microchip.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v9 3/3] smartpqi: add device attributes
+Features:
 
-On Wed, Oct 25, 2023 at 01:18:04AM +0200, Alejandro Colomar wrote:
-> Hi Don,
->=20
-> > Subject: Re: [PATCH v9 3/3] smartpqi: add device attributes
->=20
-> Subject modified to "smartpqi.4: Add device attributes".
->=20
-> On Tue, Oct 24, 2023 at 05:01:53PM -0500, Don Brace wrote:
-> > Add in some device level sysfs entry descriptions:
-> > lunid
-> > unique_id
-> > path_info
-> > raid_bypass_cnt
-> > sas_ncq_prio_enable
-> >=20
-> > These have already been provided by the driver.
-> >=20
-> > Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
-> > Reviewed-by: Scott Teel <scott.teel@microchip.com>
-> > Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
-> > Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
-> > Signed-off-by: Don Brace <don.brace@microchip.com>
->=20
-> Patch applied (with a minor tweak; see a comment below).
->=20
-> Cheers,
-> Alex
->=20
-> > ---
-> >  man4/smartpqi.4 | 99 +++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 99 insertions(+)
-> >=20
-> > diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-> > index 0cb018d01fc5..d06f34d55d10 100644
-> > --- a/man4/smartpqi.4
-> > +++ b/man4/smartpqi.4
-> > @@ -364,6 +364,105 @@ $ \c
-> >  0
-> >  .EE
-> >  .in
-> > +.TP
-> > +.IR /sys/class/scsi_disk/ c : b : t : l /device/lunid
-> > +The
-> > +.I lunid
-> > +attribute is read-only.
-> > +This attribute contains the SCSI LUN ID for the device.
-> > +.IP
-> > +For example:
-> > +.IP
-> > +.in +4n
-> > +.EX
-> > +$ \c
-> > +.B cat /sys/class/scsi_disk/13:1:0:3/device/lunid
-> > +0x0300004000000000
-> > +.EE
-> > +.in
-> > +.TP
-> > +.IR /sys/class/scsi_disk/ c : b : t : l /device/unique_id
-> > +The
-> > +.I unique_id
-> > +attribute is read-only.
-> > +This attribute contains a 16-byte ID
-> > +that uniquely identifies the device within the controller.
-> > +.IP
-> > +For example:
-> > +.IP
-> > +.in +4n
-> > +.EX
-> > +$ \c
-> > +.B cat /sys/class/scsi_disk/13:1:0:3/device/unique_id
-> > +600508B1001C6D4723A8E98D704FDB94
-> > +.EE
-> > +.in
-> > +.TP
-> > +.IR /sys/class/scsi_disk/ c : b : t : l /device/path_info
-> > +The
-> > +.I path_info
-> > +attribute is read-only.
-> > +This attribute contains the
-> > +.IR c : b : t : l
-> > +of the device
-> > +along with the device type
-> > +and whether the device is Active or Inactive.
-> > +If the device is an HBA device,
-> > +.I path_info
-> > +will also display the PORT, BOX, and BAY the device is plugged into.
-> > +.IP
-> > +For example:
-> > +.IP
-> > +.in +4n
-> > +.EX
-> > +$ \c
-> > +.B cat /sys/class/scsi_disk/13:1:0:3/device/path_info
-> > +[13:1:0:3]    Direct-Access     Active
-> > +
->=20
-> Blank lines in man(7) source produce warnings, as they are usually a
-> mistake.  In this case it's fine, but to silence the warning, we use a
-> dummy character, which produces no output, but makes it so that the
-> input line is not empty.
->=20
-> @@ -440,7 +440,7 @@ .SS SmartPQI-specific disk attribute files in \f[BI]/=
-sys\fP
->  $ \c
->  .B cat /sys/class/scsi_disk/13:1:0:3/device/path_info
->  [13:1:0:3]    Direct-Access     Active
-> -
-> +\&
->  $ \c
->  .B cat /sys/class/scsi_disk/12:0:9:0/device/path_info
->  [12:0:9:0]  Direct-Access   PORT: C1 BOX: 1 BAY: 14 Inactive
->=20
-> > +$ \c
-> > +.B cat /sys/class/scsi_disk/12:0:9:0/device/path_info
-> > +[12:0:9:0]  Direct-Access   PORT: C1 BOX: 1 BAY: 14 Inactive
-> > +[12:0:9:0]  Direct-Access   PORT: C0 BOX: 1 BAY: 14 Active
-> > +.EE
-> > +.in
-> > +.TP
-> > +.IR /sys/class/scsi_disk/ c : b : t : l /device/raid_bypass_cnt
-> > +The
-> > +.I raid_bypass_cnt
-> > +attribute is read-only.
-> > +This attribute contains the number of I/O requests
-> > +that have gone through the ioaccel path
-> > +for ioaccel-enabled volumes.
-> > +See the
-> > +.BI ssd_smart_path_enabled
+ - statx-like want/got mask
+ - allows returning ascii strings (fs type, root, mount point)
+ - returned buffer is relocatable (no pointers)
 
-Oh, and this triggered a warning.  I've amended it to use B instead of
-BI.  See:
+Still missing:
+ - man pages
+ - kselftest
 
-$ make lint build check -j24 -k
-TROFF	.tmp/man/man4/smartpqi.4.cat.set
-an.tmac:man4/smartpqi.4:459: style: .BI expects at least 2 arguments, got 1
-make: *** [share/mk/build/catman.mk:54: .tmp/man/man4/smartpqi.4.cat.set] E=
-rror 1
-make: *** Deleting file '.tmp/man/man4/smartpqi.4.cat.set'
-make: Target 'build' not remade because of errors.
-make: Target 'check' not remade because of errors.
+Please find the test utility at the end of this mail.
 
-Cheers,
-Alex
+  Usage: statmnt [-l|-r] [-u] (mnt_id|path)
 
-> > +disk attribute section for details on ioaccel-enabled volumes.
-> > +.IP
-> > +For example:
-> > +.IP
-> > +.in +4n
-> > +.EX
-> > +$ \c
-> > +.B cat /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
-> > +0x300
-> > +.EE
-> > +.in
-> > +.TP
-> > +.IR /sys/class/scsi_disk/ c : b : t : l /device/sas_ncq_prio_enable
-> > +The
-> > +.I sas_ncq_prio_enable
-> > +attribute is read/write.
-> > +This attribute enables SATA NCQ priority support.
-> > +This attribute works only when device has NCQ support
-> > +and controller firmware can handle IO with NCQ priority attribute.
-> > +.IP
-> > +For example:
-> > +.IP
-> > +.in +4n
-> > +.EX
-> > +$ \c
-> > +.B echo 1 > /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
-> > +.EE
-> > +.in
-> >  .SH VERSIONS
-> >  The
-> >  .B smartpqi
-> > --=20
-> > 2.42.0.482.g2e8e77cbac
-> >=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
+Git tree:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs.git#statmount-v4
 
 
+Changes v3..v4:
 
---=20
-<https://www.alejandro-colomar.es/>
+ - incorporate patch moving list of mounts to an rbtree
+ - wire up syscalls for all archs
+ - add LISTMOUNT_RECURSIVE (depth first iteration of mount tree)
+ - add LSMT_ROOT (list root instead of a specific mount ID)
+ - list_for_each_entry_del() moved to a separate patchset
 
---DCDHaoZtuuANtGt8
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes v1..v3:
 
------BEGIN PGP SIGNATURE-----
+ - rename statmnt(2) -> statmount(2)
+ - rename listmnt(2) -> listmount(2)
+ - make ABI 32bit compatible by passing 64bit args in a struct (tested on
+   i386 and x32)
+ - only accept new 64bit mount IDs
+ - fix compile on !CONFIG_PROC_FS
+ - call security_sb_statfs() in both syscalls
+ - make lookup_mnt_in_ns() static
+ - add LISTMOUNT_UNREACHABLE flag to listmnt() to explicitly ask for
+   listing unreachable mounts
+ - remove .sb_opts
+ - remove subtype from .fs_type
+ - return the number of bytes used (including strings) in .size
+ - rename .mountpoint -> .mnt_point
+ - point strings by an offset against char[] VLA at the end of the struct.
+   E.g. printf("fs_type: %s\n", st->str + st->fs_type);
+ - don't save string lengths
+ - extend spare space in struct statmnt (complete size is now 512 bytes)
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmU4UdYACgkQnowa+77/
-2zJL4w//TknJ4HBfAPkHwqnIWslaH+WRugjOg7rS1E6B0PCqy4c9LGxwWzo943VA
-ShMrOdG64PuOC5pHLQ0PFleE79DzRjKbAsXUm909olJPKOhJeMmvryiZH5mqFQGL
-JRIhKL1uI1rP+o6ZCjh5F7fhnuksAwONs1eJtmdevqcgQjEGG1xc7rYMfBqF4wtr
-vRCscMvtfdpbQlN2n7o6+rqR2FMVd4vIHJqbnHW6srRVEEtPIRZc6HqnBz9uBRK3
-WAS8jEB4j3zZj7tL35xjBDEkjVQd9WlhV7qHHQWLomjxySaA6NIf14KJonG9pFDu
-chq3r7LpmufVDV5p6wcD80elVC/6GK5dQycoK/SdVZmEw8Ph0zjSILc/zJo2I50i
-inNhGrtiee/m0mMyvCEF3PxMHJoojUqnzhLuhzVGMWOnFKNNOP3Y1ebbRTObzPcp
-wnpriJBhdjzSdwR3qgDkzg2MamQkmKWcbNd0CdG34cFac5kWS4wWxWPUwwEVzGfe
-RVeNfMyhiAYWG0Mj5HAJs6uIUKwqTCuce9bPgABC4Gxr8V5KlO/zL2tXzZA/xZTI
-j0qmfI3bl18auuF35ZaObhezLGMQWXVoEvCfo+i4USZ3O1CV1OkKC7cNLcxAM571
-URfKXldgdPGQEiHhw6eePOUD65UE6VT1U/zFgcDIACjn7tkfLbM=
-=A43R
------END PGP SIGNATURE-----
 
---DCDHaoZtuuANtGt8--
+Miklos Szeredi (6):
+  add unique mount ID
+  mounts: keep list of mounts in an rbtree
+  namespace: extract show_path() helper
+  add statmount(2) syscall
+  add listmount(2) syscall
+  wire up syscalls for statmount/listmount
+
+ arch/alpha/kernel/syscalls/syscall.tbl      |   3 +
+ arch/arm/tools/syscall.tbl                  |   3 +
+ arch/arm64/include/asm/unistd32.h           |   4 +
+ arch/ia64/kernel/syscalls/syscall.tbl       |   3 +
+ arch/m68k/kernel/syscalls/syscall.tbl       |   3 +
+ arch/microblaze/kernel/syscalls/syscall.tbl |   3 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl   |   3 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl   |   3 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl   |   3 +
+ arch/parisc/kernel/syscalls/syscall.tbl     |   3 +
+ arch/powerpc/kernel/syscalls/syscall.tbl    |   3 +
+ arch/s390/kernel/syscalls/syscall.tbl       |   3 +
+ arch/sh/kernel/syscalls/syscall.tbl         |   3 +
+ arch/sparc/kernel/syscalls/syscall.tbl      |   3 +
+ arch/x86/entry/syscalls/syscall_32.tbl      |   3 +
+ arch/x86/entry/syscalls/syscall_64.tbl      |   2 +
+ arch/xtensa/kernel/syscalls/syscall.tbl     |   3 +
+ fs/internal.h                               |   2 +
+ fs/mount.h                                  |  27 +-
+ fs/namespace.c                              | 573 ++++++++++++++++----
+ fs/pnode.c                                  |   2 +-
+ fs/proc_namespace.c                         |  13 +-
+ fs/stat.c                                   |   9 +-
+ include/linux/mount.h                       |   5 +-
+ include/linux/syscalls.h                    |   8 +
+ include/uapi/asm-generic/unistd.h           |   8 +-
+ include/uapi/linux/mount.h                  |  65 +++
+ include/uapi/linux/stat.h                   |   1 +
+ 28 files changed, 635 insertions(+), 129 deletions(-)
+
+-- 
+2.41.0
+
+=== statmnt.c ===
+#define _GNU_SOURCE
+#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/mount.h>
+#include <sys/stat.h>
+#include <sys/param.h>
+#include <err.h>
+
+/*
+ * Structure for getting mount/superblock/filesystem info with statmount(2).
+ *
+ * The interface is similar to statx(2): individual fields or groups can be
+ * selected with the @mask argument of statmount().  Kernel will set the @mask
+ * field according to the supported fields.
+ *
+ * If string fields are selected, then the caller needs to pass a buffer that
+ * has space after the fixed part of the structure.  Nul terminated strings are
+ * copied there and offsets relative to @str are stored in the relevant fields.
+ * If the buffer is too small, then EOVERFLOW is returned.  The actually used
+ * size is returned in @size.
+ */
+struct statmnt {
+	__u32 size;		/* Total size, including strings */
+	__u32 __spare1;
+	__u64 mask;		/* What results were written */
+	__u32 sb_dev_major;	/* Device ID */
+	__u32 sb_dev_minor;
+	__u64 sb_magic;		/* ..._SUPER_MAGIC */
+	__u32 sb_flags;		/* MS_{RDONLY,SYNCHRONOUS,DIRSYNC,LAZYTIME} */
+	__u32 fs_type;		/* [str] Filesystem type */
+	__u64 mnt_id;		/* Unique ID of mount */
+	__u64 mnt_parent_id;	/* Unique ID of parent (for root == mnt_id) */
+	__u32 mnt_id_old;	/* Reused IDs used in proc/.../mountinfo */
+	__u32 mnt_parent_id_old;
+	__u64 mnt_attr;		/* MOUNT_ATTR_... */
+	__u64 mnt_propagation;	/* MS_{SHARED,SLAVE,PRIVATE,UNBINDABLE} */
+	__u64 mnt_peer_group;	/* ID of shared peer group */
+	__u64 mnt_master;	/* Mount receives propagation from this ID */
+	__u64 propagate_from;	/* Propagation from in current namespace */
+	__u32 mnt_root;		/* [str] Root of mount relative to root of fs */
+	__u32 mnt_point;	/* [str] Mountpoint relative to current root */
+	__u64 __spare2[50];
+	char str[];		/* Variable size part containing strings */
+};
+
+/*
+ * To be used on the kernel ABI only for passing 64bit arguments to statmount(2)
+ */
+struct __mount_arg {
+	__u64 mnt_id;
+	__u64 request_mask;
+};
+
+/*
+ * @mask bits for statmount(2)
+ */
+#define STMT_SB_BASIC		0x00000001U     /* Want/got sb_... */
+#define STMT_MNT_BASIC		0x00000002U	/* Want/got mnt_... */
+#define STMT_PROPAGATE_FROM	0x00000004U	/* Want/got propagate_from */
+#define STMT_MNT_ROOT		0x00000008U	/* Want/got mnt_root  */
+#define STMT_MNT_POINT		0x00000010U	/* Want/got mnt_point */
+#define STMT_FS_TYPE		0x00000020U	/* Want/got fs_type */
+
+/* listmount(2) flags */
+#define LISTMOUNT_UNREACHABLE	0x01	/* List unreachable mounts too */
+#define LISTMOUNT_RECURSIVE	0x02	/* List a mount tree */
+
+/*
+ * Special @mnt_id values that can be passed to listmount
+ */
+#define LSMT_ROOT		0xffffffffffffffff	/* root mount */
+
+#ifdef __alpha__
+#define __NR_statmount   564
+#define __NR_listmount   565
+#else
+#define __NR_statmount   454
+#define __NR_listmount   455
+#endif
+
+#define STATX_MNT_ID_UNIQUE	0x00004000U	/* Want/got extended stx_mount_id */
+
+
+static void free_if_neq(void *p, const void *q)
+{
+	if (p != q)
+		free(p);
+}
+
+static struct statmnt *statmount(uint64_t mnt_id, uint64_t mask, unsigned int flags)
+{
+	struct __mount_arg arg = {
+		.mnt_id = mnt_id,
+		.request_mask = mask,
+	};
+	union {
+		struct statmnt m;
+		char s[4096];
+	} buf;
+	struct statmnt *ret, *mm = &buf.m;
+	size_t bufsize = sizeof(buf);
+
+	while (syscall(__NR_statmount, &arg, mm, bufsize, flags) == -1) {
+		free_if_neq(mm, &buf.m);
+		if (errno != EOVERFLOW)
+			return NULL;
+		bufsize = MAX(1 << 15, bufsize << 1);
+		mm = malloc(bufsize);
+		if (!mm)
+			return NULL;
+	}
+	ret = malloc(mm->size);
+	if (ret)
+		memcpy(ret, mm, mm->size);
+	free_if_neq(mm, &buf.m);
+
+	return ret;
+}
+
+static int listmount(uint64_t mnt_id, uint64_t **listp, unsigned int flags)
+{
+	struct __mount_arg arg = {
+		.mnt_id = mnt_id,
+	};
+	uint64_t buf[512];
+	size_t bufsize = sizeof(buf);
+	uint64_t *ret, *ll = buf;
+	long len;
+
+	while ((len = syscall(__NR_listmount, &arg, ll, bufsize / sizeof(buf[0]), flags)) == -1) {
+		free_if_neq(ll, buf);
+		if (errno != EOVERFLOW)
+			return -1;
+		bufsize = MAX(1 << 15, bufsize << 1);
+		ll = malloc(bufsize);
+		if (!ll)
+			return -1;
+	}
+	bufsize = len * sizeof(buf[0]);
+	ret = malloc(bufsize);
+	if (!ret)
+		return -1;
+
+	*listp = ret;
+	memcpy(ret, ll, bufsize);
+	free_if_neq(ll, buf);
+
+	return len;
+}
+
+
+int main(int argc, char *argv[])
+{
+	struct statmnt *st;
+	char *end;
+	int res;
+	int list = 0;
+	int flags = 0;
+	uint64_t mask = STMT_SB_BASIC | STMT_MNT_BASIC | STMT_PROPAGATE_FROM | STMT_MNT_ROOT | STMT_MNT_POINT | STMT_FS_TYPE;
+	uint64_t mnt_id;
+	int opt;
+
+	for (;;) {
+		opt = getopt(argc, argv, "lru");
+		if (opt == -1)
+			break;
+		switch (opt) {
+		case 'r':
+			flags |= LISTMOUNT_RECURSIVE;
+			/* fallthrough */
+		case 'l':
+			list = 1;
+			break;
+		case 'u':
+			flags |= LISTMOUNT_UNREACHABLE;
+			break;
+		default:
+			errx(1, "usage: %s [-l|-r] [-u] (mnt_id|path)", argv[0]);
+		}
+	}
+	if (optind >= argc) {
+		if (!list)
+			errx(1, "missing mnt_id or path");
+		else
+			mnt_id = -1LL;
+	} else {
+		const char *arg = argv[optind];
+
+		mnt_id = strtoll(arg, &end, 0);
+		if (!mnt_id || *end != '\0') {
+			struct statx sx;
+
+			res = statx(AT_FDCWD, arg, 0, STATX_MNT_ID_UNIQUE, &sx);
+			if (res == -1)
+				err(1, "%s", arg);
+
+			if (!(sx.stx_mask & (STATX_MNT_ID | STATX_MNT_ID_UNIQUE)))
+				errx(1, "Sorry, no mount ID");
+
+			mnt_id = sx.stx_mnt_id;
+		}
+	}
+
+	if (list) {
+		uint64_t *list;
+		int num, i;
+
+		res = listmount(mnt_id, &list, flags);
+		if (res == -1)
+			err(1, "listmnt(0x%llx)", (unsigned long long) mnt_id);
+
+		num = res;
+		for (i = 0; i < num; i++) {
+			printf("0x%llx", (unsigned long long) list[i]);
+
+			st = statmount(list[i], STMT_MNT_POINT, 0);
+			if (!st) {
+				printf("\t[%s]\n", strerror(errno));
+			} else {
+				printf("\t%s\n", (st->mask & STMT_MNT_POINT) ? st->str + st->mnt_point : "???");
+			}
+			free(st);
+		}
+		free(list);
+
+		return 0;
+	}
+
+	st = statmount(mnt_id, mask, 0);
+	if (!st)
+		err(1, "statmnt(0x%llx)", (unsigned long long) mnt_id);
+
+	printf("size: %u\n", st->size);
+	printf("mask: 0x%llx\n", st->mask);
+	if (st->mask & STMT_SB_BASIC) {
+		printf("sb_dev_major: %u\n", st->sb_dev_major);
+		printf("sb_dev_minor: %u\n", st->sb_dev_minor);
+		printf("sb_magic: 0x%llx\n", st->sb_magic);
+		printf("sb_flags: 0x%08x\n", st->sb_flags);
+	}
+	if (st->mask & STMT_MNT_BASIC) {
+		printf("mnt_id: 0x%llx\n", st->mnt_id);
+		printf("mnt_parent_id: 0x%llx\n", st->mnt_parent_id);
+		printf("mnt_id_old: %u\n", st->mnt_id_old);
+		printf("mnt_parent_id_old: %u\n", st->mnt_parent_id_old);
+		printf("mnt_attr: 0x%08llx\n", st->mnt_attr);
+		printf("mnt_propagation: %s%s%s%s\n",
+		       st->mnt_propagation & MS_SHARED ? "shared," : "",
+		       st->mnt_propagation & MS_SLAVE ? "slave," : "",
+		       st->mnt_propagation & MS_UNBINDABLE ? "unbindable," : "",
+		       st->mnt_propagation & MS_PRIVATE ? "private" : "");
+		printf("mnt_peer_group: %llu\n", st->mnt_peer_group);
+		printf("mnt_master: %llu\n", st->mnt_master);
+	}
+	if (st->mask & STMT_PROPAGATE_FROM)
+		printf("propagate_from: %llu\n", st->propagate_from);
+	if (st->mask & STMT_MNT_ROOT)
+		printf("mnt_root: %u <%s>\n", st->mnt_root, st->str + st->mnt_root);
+	if (st->mask & STMT_MNT_POINT)
+		printf("mnt_point: %u <%s>\n", st->mnt_point, st->str + st->mnt_point);
+	if (st->mask & STMT_FS_TYPE)
+		printf("fs_type: %u <%s>\n", st->fs_type, st->str + st->fs_type);
+	free(st);
+
+	return 0;
+}
+
