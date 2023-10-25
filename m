@@ -2,327 +2,166 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C7857D6E51
-	for <lists+linux-man@lfdr.de>; Wed, 25 Oct 2023 16:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7D6BE7D6F72
+	for <lists+linux-man@lfdr.de>; Wed, 25 Oct 2023 16:43:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344522AbjJYODv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Oct 2023 10:03:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44134 "EHLO
+        id S1344805AbjJYOLO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Oct 2023 10:11:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42240 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235064AbjJYODt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Oct 2023 10:03:49 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1E35199
-        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1698242540;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=EC7RFMR3rA+1DRsmRuXrj1V+WaMGVpdP+bUvoE8xfhg=;
-        b=HDECItOP9L2+uAH1MssFAO4S6q2z19xgzFF9BHpp9eSqTAO8hGMwTA7WU94CvfvF8SL7Cb
-        lHjKer3/ZNKr7F+pOqpSlue2mNdXDVuPAhIKhVU2qOLvo5s+DUKgdEz/blT7IOzTR9VpMq
-        lNt4GBx9vhwGWQctkU1x/m4GFSCUkVA=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-673-l33uAAIzPUyQP43l4tIVsA-1; Wed, 25 Oct 2023 10:02:18 -0400
-X-MC-Unique: l33uAAIzPUyQP43l4tIVsA-1
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-9c75b999aaaso360990766b.2
-        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:02:18 -0700 (PDT)
+        with ESMTP id S1344887AbjJYOLN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Oct 2023 10:11:13 -0400
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com [IPv6:2607:f8b0:4864:20::c2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BE24182
+        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:11:07 -0700 (PDT)
+Received: by mail-oo1-xc2b.google.com with SMTP id 006d021491bc7-581fb6f53fcso3342806eaf.2
+        for <linux-man@vger.kernel.org>; Wed, 25 Oct 2023 07:11:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698243066; x=1698847866; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5KlID6NmCZS+zbh+FWNZ6KxJnh5q58z/5fPVtdSV930=;
+        b=PsOgA1TEivJ5xh/5Nt8JjJUgNdldntF2zg//9Cjsn/na43BEGoMr4zkAiVGalGM/v6
+         suDpNbD2ZPY6tCr0z2969Hll8JyzcZ4GA9I0SxNqK7ChNUB8OffO0tbRTxYoZGq03VqM
+         dfmHrCUA7WPBeaIb3zrMEJ7AbyJO1ssyd+3RxxMMVeSIUCEQLAUVA97fhNDncncAqU6F
+         xjP2w4Txradv+aX0Dl5OGDQGSfL2XsxNO91YsqMiQl2EHJOT0Gp22h6CqUkt4/moa9h7
+         31fnRWoQVKwaGKYxXVjZfz/D2lll+Y9EU2Ne8Oy5H0TYpVlLNDDaKON3uI0foTPKHSyB
+         6Xuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698242537; x=1698847337;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=EC7RFMR3rA+1DRsmRuXrj1V+WaMGVpdP+bUvoE8xfhg=;
-        b=fzIirHkIAsKD35rewK684YuMPIW00pps2e3iaWs4kqRNXBIXrQ+s4j8rD5RbsM0pa0
-         vC5XFNbvI6JoRyFnKSetfvQ9H0lngx3vRi7HaYH2Vudmd5aJx0qssA15uwpgMJPvB9du
-         HQG4B0yErYjBc4X4nHLudEjETzvTzbPj9gq7VsG+WwfapEiiAPFArgx+856hjgwzdLmo
-         H0JgwKM3qPs5gq40TcXpNtmuiCIvyaTjICkIHize0a7Ln/U7vycCCdoxFlnxpS+J5m/T
-         WeMYjFC848Sk6A1EZpzZHpGrjJ/sSdmy8Xp7Ll0eQFodO6/ZT4hrPRPNM8evQ3ShrWDX
-         yZ1g==
-X-Gm-Message-State: AOJu0Yw8NfyS3EcLcuk1Is1g6AhMTgfEulP7yW7EjJ7gG6skyg8ZqxAp
-        d2/K3j18Q3k5M1EmPO/WGQo5v5vqa4oDmo/kT8rr+5mFT9NWUp5TC5i3IHeSdWNRoBD4Gvlz0SK
-        t8BGAJCGj62YZXEru1oaP
-X-Received: by 2002:a17:907:6093:b0:9ba:2f20:3d7b with SMTP id ht19-20020a170907609300b009ba2f203d7bmr13334966ejc.71.1698242537078;
-        Wed, 25 Oct 2023 07:02:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEjMjmoMNoYOpgsb76Zi6H4tYS6A+eLzcgNpATF2jXSDinHL2btMGhhvP35HJjX0s8ljGUJzA==
-X-Received: by 2002:a17:907:6093:b0:9ba:2f20:3d7b with SMTP id ht19-20020a170907609300b009ba2f203d7bmr13334928ejc.71.1698242536775;
-        Wed, 25 Oct 2023 07:02:16 -0700 (PDT)
-Received: from maszat.piliscsaba.szeredi.hu (92-249-235-200.pool.digikabel.hu. [92.249.235.200])
-        by smtp.gmail.com with ESMTPSA id vl9-20020a170907b60900b00989828a42e8sm9857073ejc.154.2023.10.25.07.02.15
+        d=1e100.net; s=20230601; t=1698243066; x=1698847866;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5KlID6NmCZS+zbh+FWNZ6KxJnh5q58z/5fPVtdSV930=;
+        b=C6qC5KeCIY0GK1HFqjL2SXqEjIE0QqSm71Iew++Qh9u5qzByqFOzzmQ1F7yry4C8Yq
+         ZVJpBvYdCABFivWG0hzthzW2Cav5PS3MvjhOAoNg8aypv2RPfsPaDT5j4VXsCb/RQlOp
+         L3xONni6Or7MBikIIlsAvlNfxM5JUHNLlMOYSqI9S1AWZ/aBWxGSa7Ynh9+i3tDFxp5t
+         OCgxnFeZYQLJGKT9VI9AJnWGJxKDCM8vw4M1dNTe/2MCzP6AvOPwdvpGq2pvEaCVyJCN
+         ltV9gc5lAUHeBpj0tNaTzLruB5wJXMElGIgRKZEk9deKzir1kFqgC8bJmdaqn2Qx23ir
+         fUrg==
+X-Gm-Message-State: AOJu0YyR5f1gdhNvQemwWmqOzy89hKhVCE2qFT/87tfIWXclqZ2NJ3SZ
+        Oi6WeJQ50TDUFqXxp2s2Ztp1LNtUH64=
+X-Google-Smtp-Source: AGHT+IH3UJ9L+tBvBwdfjO7Kv+qBfU/qyaFIsZFqJ2sqsQ7l5Z7jFRwablk7mCKcXyI1Do0qIr+sSQ==
+X-Received: by 2002:a4a:e9e2:0:b0:581:e819:cac5 with SMTP id w2-20020a4ae9e2000000b00581e819cac5mr13419661ooc.9.1698243066195;
+        Wed, 25 Oct 2023 07:11:06 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id d17-20020a056830045100b006c4f7ced5d2sm2277699otc.70.2023.10.25.07.11.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Oct 2023 07:02:15 -0700 (PDT)
-From:   Miklos Szeredi <mszeredi@redhat.com>
-To:     linux-fsdevel@vger.kernel.org
-Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
-        Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH v4 6/6] wire up syscalls for statmount/listmount
-Date:   Wed, 25 Oct 2023 16:02:04 +0200
-Message-ID: <20231025140205.3586473-7-mszeredi@redhat.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231025140205.3586473-1-mszeredi@redhat.com>
-References: <20231025140205.3586473-1-mszeredi@redhat.com>
+        Wed, 25 Oct 2023 07:11:05 -0700 (PDT)
+Date:   Wed, 25 Oct 2023 09:11:03 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: using the TQ macro
+Message-ID: <20231025141103.savwphtepufpget4@illithid>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="355rpjdhczwtblxe"
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Wire up all archs.
 
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
----
- arch/alpha/kernel/syscalls/syscall.tbl      | 3 +++
- arch/arm/tools/syscall.tbl                  | 3 +++
- arch/arm64/include/asm/unistd32.h           | 4 ++++
- arch/ia64/kernel/syscalls/syscall.tbl       | 3 +++
- arch/m68k/kernel/syscalls/syscall.tbl       | 3 +++
- arch/microblaze/kernel/syscalls/syscall.tbl | 3 +++
- arch/mips/kernel/syscalls/syscall_n32.tbl   | 3 +++
- arch/mips/kernel/syscalls/syscall_n64.tbl   | 3 +++
- arch/mips/kernel/syscalls/syscall_o32.tbl   | 3 +++
- arch/parisc/kernel/syscalls/syscall.tbl     | 3 +++
- arch/powerpc/kernel/syscalls/syscall.tbl    | 3 +++
- arch/s390/kernel/syscalls/syscall.tbl       | 3 +++
- arch/sh/kernel/syscalls/syscall.tbl         | 3 +++
- arch/sparc/kernel/syscalls/syscall.tbl      | 3 +++
- arch/x86/entry/syscalls/syscall_32.tbl      | 3 +++
- arch/x86/entry/syscalls/syscall_64.tbl      | 2 ++
- arch/xtensa/kernel/syscalls/syscall.tbl     | 3 +++
- include/uapi/asm-generic/unistd.h           | 8 +++++++-
- 18 files changed, 58 insertions(+), 1 deletion(-)
+--355rpjdhczwtblxe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/arch/alpha/kernel/syscalls/syscall.tbl b/arch/alpha/kernel/syscalls/syscall.tbl
-index ad37569d0507..6c23bf68eff0 100644
---- a/arch/alpha/kernel/syscalls/syscall.tbl
-+++ b/arch/alpha/kernel/syscalls/syscall.tbl
-@@ -492,3 +492,6 @@
- 560	common	set_mempolicy_home_node		sys_ni_syscall
- 561	common	cachestat			sys_cachestat
- 562	common	fchmodat2			sys_fchmodat2
-+# 563 reserved for map_shadow_stack
-+564	common	statmount			sys_statmount
-+565	common	listmount			sys_listmount
-diff --git a/arch/arm/tools/syscall.tbl b/arch/arm/tools/syscall.tbl
-index c572d6c3dee0..d110a832899b 100644
---- a/arch/arm/tools/syscall.tbl
-+++ b/arch/arm/tools/syscall.tbl
-@@ -466,3 +466,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/arm64/include/asm/unistd32.h b/arch/arm64/include/asm/unistd32.h
-index 78b68311ec81..b0a994c9ff3c 100644
---- a/arch/arm64/include/asm/unistd32.h
-+++ b/arch/arm64/include/asm/unistd32.h
-@@ -911,6 +911,10 @@ __SYSCALL(__NR_set_mempolicy_home_node, sys_set_mempolicy_home_node)
- __SYSCALL(__NR_cachestat, sys_cachestat)
- #define __NR_fchmodat2 452
- __SYSCALL(__NR_fchmodat2, sys_fchmodat2)
-+#define __NR_statmount 454
-+__SYSCALL(__NR_statmount, sys_statmount)
-+#define __NR_listmount 455
-+__SYSCALL(__NR_listmount, sys_listmount)
- 
- /*
-  * Please add new compat syscalls above this comment and update
-diff --git a/arch/ia64/kernel/syscalls/syscall.tbl b/arch/ia64/kernel/syscalls/syscall.tbl
-index 83d8609aec03..c5f45a8fc834 100644
---- a/arch/ia64/kernel/syscalls/syscall.tbl
-+++ b/arch/ia64/kernel/syscalls/syscall.tbl
-@@ -373,3 +373,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/m68k/kernel/syscalls/syscall.tbl b/arch/m68k/kernel/syscalls/syscall.tbl
-index 259ceb125367..b9cabb746487 100644
---- a/arch/m68k/kernel/syscalls/syscall.tbl
-+++ b/arch/m68k/kernel/syscalls/syscall.tbl
-@@ -452,3 +452,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/microblaze/kernel/syscalls/syscall.tbl b/arch/microblaze/kernel/syscalls/syscall.tbl
-index a3798c2637fd..89c4ed548ce8 100644
---- a/arch/microblaze/kernel/syscalls/syscall.tbl
-+++ b/arch/microblaze/kernel/syscalls/syscall.tbl
-@@ -458,3 +458,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/mips/kernel/syscalls/syscall_n32.tbl b/arch/mips/kernel/syscalls/syscall_n32.tbl
-index 152034b8e0a0..a9d561698fe2 100644
---- a/arch/mips/kernel/syscalls/syscall_n32.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_n32.tbl
-@@ -391,3 +391,6 @@
- 450	n32	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	n32	cachestat			sys_cachestat
- 452	n32	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	n32	statmount			sys_statmount
-+455	n32	listmount			sys_listmount
-diff --git a/arch/mips/kernel/syscalls/syscall_n64.tbl b/arch/mips/kernel/syscalls/syscall_n64.tbl
-index cb5e757f6621..80a056866da7 100644
---- a/arch/mips/kernel/syscalls/syscall_n64.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_n64.tbl
-@@ -367,3 +367,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	n64	cachestat			sys_cachestat
- 452	n64	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	n64	statmount			sys_statmount
-+455	n64	listmount			sys_listmount
-diff --git a/arch/mips/kernel/syscalls/syscall_o32.tbl b/arch/mips/kernel/syscalls/syscall_o32.tbl
-index 1a646813afdc..139ddc691176 100644
---- a/arch/mips/kernel/syscalls/syscall_o32.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_o32.tbl
-@@ -440,3 +440,6 @@
- 450	o32	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	o32	cachestat			sys_cachestat
- 452	o32	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	o32	statmount			sys_statmount
-+455	o32	listmount			sys_listmount
-diff --git a/arch/parisc/kernel/syscalls/syscall.tbl b/arch/parisc/kernel/syscalls/syscall.tbl
-index e97c175b56f9..46fa753f0d64 100644
---- a/arch/parisc/kernel/syscalls/syscall.tbl
-+++ b/arch/parisc/kernel/syscalls/syscall.tbl
-@@ -451,3 +451,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/powerpc/kernel/syscalls/syscall.tbl b/arch/powerpc/kernel/syscalls/syscall.tbl
-index 20e50586e8a2..106937744525 100644
---- a/arch/powerpc/kernel/syscalls/syscall.tbl
-+++ b/arch/powerpc/kernel/syscalls/syscall.tbl
-@@ -539,3 +539,6 @@
- 450 	nospu	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/s390/kernel/syscalls/syscall.tbl b/arch/s390/kernel/syscalls/syscall.tbl
-index 0122cc156952..57dd9202f8d7 100644
---- a/arch/s390/kernel/syscalls/syscall.tbl
-+++ b/arch/s390/kernel/syscalls/syscall.tbl
-@@ -455,3 +455,6 @@
- 450  common	set_mempolicy_home_node	sys_set_mempolicy_home_node	sys_set_mempolicy_home_node
- 451  common	cachestat		sys_cachestat			sys_cachestat
- 452  common	fchmodat2		sys_fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454  common	statmount		sys_statmount			sys_statmount
-+455  common	listmount		sys_listmount			sys_listmount
-diff --git a/arch/sh/kernel/syscalls/syscall.tbl b/arch/sh/kernel/syscalls/syscall.tbl
-index e90d585c4d3e..0c7407a0e32c 100644
---- a/arch/sh/kernel/syscalls/syscall.tbl
-+++ b/arch/sh/kernel/syscalls/syscall.tbl
-@@ -455,3 +455,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/sparc/kernel/syscalls/syscall.tbl b/arch/sparc/kernel/syscalls/syscall.tbl
-index 4ed06c71c43f..a0fd36469478 100644
---- a/arch/sparc/kernel/syscalls/syscall.tbl
-+++ b/arch/sparc/kernel/syscalls/syscall.tbl
-@@ -498,3 +498,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/arch/x86/entry/syscalls/syscall_32.tbl b/arch/x86/entry/syscalls/syscall_32.tbl
-index 2d0b1bd866ea..4f41977bd4c1 100644
---- a/arch/x86/entry/syscalls/syscall_32.tbl
-+++ b/arch/x86/entry/syscalls/syscall_32.tbl
-@@ -457,3 +457,6 @@
- 450	i386	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	i386	cachestat		sys_cachestat
- 452	i386	fchmodat2		sys_fchmodat2
-+# 563 reserved for map_shadow_stack
-+454	i386	statmount		sys_statmount
-+455	i386	listmount		sys_listmount
-diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
-index 1d6eee30eceb..a1b3ce7d22cc 100644
---- a/arch/x86/entry/syscalls/syscall_64.tbl
-+++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -375,6 +375,8 @@
- 451	common	cachestat		sys_cachestat
- 452	common	fchmodat2		sys_fchmodat2
- 453	64	map_shadow_stack	sys_map_shadow_stack
-+454	common	statmount		sys_statmount
-+455	common	listmount		sys_listmount
- 
- #
- # Due to a historical design error, certain syscalls are numbered differently
-diff --git a/arch/xtensa/kernel/syscalls/syscall.tbl b/arch/xtensa/kernel/syscalls/syscall.tbl
-index fc1a4f3c81d9..73378984702b 100644
---- a/arch/xtensa/kernel/syscalls/syscall.tbl
-+++ b/arch/xtensa/kernel/syscalls/syscall.tbl
-@@ -423,3 +423,6 @@
- 450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
- 451	common	cachestat			sys_cachestat
- 452	common	fchmodat2			sys_fchmodat2
-+# 453 reserved for map_shadow_stack
-+454	common	statmount			sys_statmount
-+455	common	listmount			sys_listmount
-diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
-index abe087c53b4b..8df6a747e21a 100644
---- a/include/uapi/asm-generic/unistd.h
-+++ b/include/uapi/asm-generic/unistd.h
-@@ -823,8 +823,14 @@ __SYSCALL(__NR_cachestat, sys_cachestat)
- #define __NR_fchmodat2 452
- __SYSCALL(__NR_fchmodat2, sys_fchmodat2)
- 
-+#define __NR_statmount   454
-+__SYSCALL(__NR_statmount, sys_statmount)
-+
-+#define __NR_listmount   455
-+__SYSCALL(__NR_listmount, sys_listmount)
-+
- #undef __NR_syscalls
--#define __NR_syscalls 453
-+#define __NR_syscalls 456
- 
- /*
-  * 32 bit systems traditionally used different
--- 
-2.41.0
+Hi Alex,
 
+I pulled man-pages Git and saw this.
+
+commit 6fdb1c03075b31364968bcccf472a4d4a86952a6 (origin/master, origin/HEAD)
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Sun Oct 22 14:57:46 2023 +0200
+
+    man*/: ffix (Use '.TQ' where appropriate)
+
+    When there are multiple tags for a paragraph, using a single TP and
+    separating the tags with commas makes the man(7) source more complex.
+    It also has a disadvantage: when searching through a manual page,
+    heuristics such as "   --option" don't work so well.
+
+    By using GNU's TQ, we simplify the source of the pages, and improve the
+    ability to search them.
+
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+I wanted to offer my support for it, in part since Ingo was so critical
+over on the groff list.[1]
+
+Your use of `TQ` seems entirely idiomatic here.  You're right that it
+makes the man(7) source less complex, but it also emphasizes even to the
+casual reader the parallel syntax of `TP` and `TQ`, which inexpert man
+page authors will surely appreciate.
+
+Another advantage is that if people get carried away with the former
+approach, creating a lengthy paragraph tag, they might overrun the line
+length, which would be really ugly.
+
+I don't share Ingo's concern that this style of stacking paragraphing
+tags is inherently wasteful of screen real estate.  Man pages are, and
+have always been--going back to the 1971 First Edition Unix
+manual--pretty sparse in their use of text on the page.[2]  In part,
+this helps the eye of the reader to navigate the content.
+
+Ingo would have more of a point if someone had a dozen tags stacked up
+for one paragraph, but doing so would suggest other problems; either
+your interface doesn't need that many ways to say the same thing and you
+should retire and de-document some forms of expression; something should
+be parameterized (i.e., turned into a hyphenated noun phrase in
+italics); or you're packing too many different things into one item's
+presentation.  Not everything can be solved with markup: sometimes we
+have to do the dirty work of writing clearly in natural language.
+
+But I don't see any problem like that in the Linux man-pages, so I think
+his criticism was not entirely apropos.  Also, as I noted on the groff
+list, he seems to have forgotten that `TQ` takes no arguments, so a
+formatter that doesn't support it won't throw any text away.
+
+I also like your suggestion that if we really want to economize on
+space, we could present a command's long option form before its short,
+old-style Unix synonym, which will work well when the short option (plus
+its argument, if any) fits within the space for the paragraph tag.  This
+might be a good idea for another reason; in GNU user space, the long
+option is the much more self-documenting form, and the single-character
+option name a kind of "expert mode" alternative.  As a general rule,
+when presenting technical material, one should not lead with "expert
+mode".
+
+Another benefit of this commit was that it made my "prepare for MR"
+commit simpler.  So I reckon this is a good time to re-submit that (and
+the big sed-driven MR migration humdinger; you can look for that soon.
+
+Regards,
+Branden
+
+[1] https://lists.gnu.org/archive/html/groff/2023-10/msg00024.html
+[2] https://www.bell-labs.com/usr/dmr/www/1stEdman.html
+
+--355rpjdhczwtblxe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmU5IfAACgkQ0Z6cfXEm
+bc5jbg//TrOqdypazlXNJCrEdpXAdwHWdMdybPyAWbI6HzVG/D7TjTRJbCI+arm6
+EhtrP4MvbLRRsLfy1k23eKlaO9QGw0LHQj9Gy6ZWSOyaPJcf//jmjq6F4O1RPFzZ
+Xo2IU/nb2OUwc8EBCZnq1dHeJ/ppp3/rbZlHTXdXaE7oxPwY2/Yf+rPqC2o+5plQ
+hEpcTtwJxOPeRoJXv+eHZsyv0bX118TYSqb2JAUlixWpZkQfRTJ1Q6aq3wa0YdKD
+/7Q13en0OYBRyAb2ZdlYuboOCNeue7T9OxIQ6KwBZRB0bY9iJ6OVXe0bCDVVP/Ta
+oVP8DtTIg5JQXzzFSHEFAPBjH1vhSjnsjecYiDWqCnwVpQ7falbTU5CptSCTndHG
+0PH8QxkHcNkSiQ3OzB/ocfph3ZVUIM8qZyIoe788TQ6j6Pch36NQeZZ2+ZSNXMmq
+OBZWhKSvAvNenZGywbpZvPzP08i7Bf0/vsCRrz2CA8h78UEqoHenWd+shzijbOHS
+leVCEcoMp+kx367YGN18QAtXS/gNbXdIMNvEskDExzD+bizFwE6iv/7zItP1AJnk
+OoB1m7Ee/Rb/9LMZyQYVMXwRyV60jYcD5ixKMs+CFRNoZhJSLZqCW5iW48sKZINk
+ur/hTpNXBtIK7fz6R2VNXg3FQfl4w01R1ZFiCH1cxksHjM+egHU=
+=kidz
+-----END PGP SIGNATURE-----
+
+--355rpjdhczwtblxe--
