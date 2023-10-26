@@ -2,72 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F4637D8677
-	for <lists+linux-man@lfdr.de>; Thu, 26 Oct 2023 18:09:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA35C7D8816
+	for <lists+linux-man@lfdr.de>; Thu, 26 Oct 2023 20:15:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230078AbjJZQJc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Oct 2023 12:09:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60490 "EHLO
+        id S230143AbjJZSPW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Oct 2023 14:15:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59936 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230340AbjJZQJb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Oct 2023 12:09:31 -0400
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com [IPv6:2001:4860:4864:20::2b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 747211AE
-        for <linux-man@vger.kernel.org>; Thu, 26 Oct 2023 09:09:27 -0700 (PDT)
-Received: by mail-oa1-x2b.google.com with SMTP id 586e51a60fabf-1ea4a3d0a44so639912fac.1
-        for <linux-man@vger.kernel.org>; Thu, 26 Oct 2023 09:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698336566; x=1698941366; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=8RHUgPAvacMlKB4ul6PFpX0o5u3wx3DJuck/UNWwLWQ=;
-        b=JC205GZ0ZKcs9iTcsvUDIx8U2NJ/yRiazDGppi+D1hzVpgjSIE8CRPirs3nveQg7WN
-         Lb/vCxMVHP5oC2/65SWOndjWKu/KU5pwAi4A8BKLk7se299yYtINx9qfp6xwVCEaUG7H
-         hl2PDBveiwVZ2pCj964RSCtP7oBe8qTCiYYpW6n5EsUOmLz94qlDAJKjePyhWQYgQ19+
-         GytpeM8mKClEdUvncTzi+3YqAX0jCbCj221lLjqMmtHXBXd+dM08Ti750Bxh30OGzr+p
-         ySWDC6uypxxtqUpdfD3jnepuAaxEibqLJ+7UoPXJb00aC9j0SpYl8/rY413znaSoECID
-         3tLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698336566; x=1698941366;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8RHUgPAvacMlKB4ul6PFpX0o5u3wx3DJuck/UNWwLWQ=;
-        b=nnBz8iHAC3CLRZb1HndSNK+vWonsZmym3Nk+0AUOqo2cMpIHq3Ts1CLYfQPBQBCXvn
-         6p7Xf7okY9Ef8oVHzQgZ8o1sk0/qZtzjwVjL4e5DEI6Oerh2kuLoI74exULlGgvDZRi9
-         QdccXby5Aly7m96Xyded1ldL82YTRRDqmVhyIz2tA+IMbYjaHURi8fyu+FmrHBT5dE3I
-         cvpX2lohYhW6JYKuKo9LHfeRDbY4eKEA9dqHrq5sxJVzB14d+wtGPwqjTwu389cw0Ecq
-         mNg+praXsUUr4thKHbpGUHOEDCrxNrmEOLInI3ewq4F91Iqq15xt9cnvcN5COqonGw/q
-         eQKQ==
-X-Gm-Message-State: AOJu0YyQymzOmch0wo0OdAtZUAtrffhDYTS+tTqBvBKRk55gqM/5kZ8/
-        iJbwTqJooGJHyR+Xuje0wci0W6pOhYE=
-X-Google-Smtp-Source: AGHT+IGb2XrsvBESoKwBPwc6qgiPwH9wuFOqWwvhCcWLL9Lqs0w3yVLGZKpx3hfGX4pOd2TbPcrXxA==
-X-Received: by 2002:a05:6870:1004:b0:1e9:edd1:2176 with SMTP id 4-20020a056870100400b001e9edd12176mr18314545oai.33.1698336566451;
-        Thu, 26 Oct 2023 09:09:26 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id x6-20020a056870740600b001ea4324364csm3100603oam.12.2023.10.26.09.09.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Oct 2023 09:09:25 -0700 (PDT)
-Date:   Thu, 26 Oct 2023 11:09:23 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, groff@gnu.org
+        with ESMTP id S229649AbjJZSPV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Oct 2023 14:15:21 -0400
+X-Greylist: delayed 1378 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 26 Oct 2023 11:15:14 PDT
+Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 930AE192
+        for <linux-man@vger.kernel.org>; Thu, 26 Oct 2023 11:15:14 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1qw4Wk-001LRx-27;
+        Thu, 26 Oct 2023 19:52:15 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1qw4Wk-000iNN-B3; Thu, 26 Oct 2023 19:52:13 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1qw4Wj-001dEL-Ku; Thu, 26 Oct 2023 19:52:13 +0200
+Date:   Thu, 26 Oct 2023 19:52:13 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     g.branden.robinson@gmail.com
+Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+        groff@gnu.org
 Subject: Re: Why does man(7) have 3 paragraph macros for the same thing?
- (was: `\c`, mdoc(7), and man(7) extension macros)
-Message-ID: <20231026160923.dmqjhapak3zuz3k7@illithid>
+Message-ID: <ZTqnTZPYkiPmtenf@asta-kit.de>
 References: <20231025185424.txreg7q47zigo24j@illithid>
  <ZTlu2r8N3nrCnMpa@debian>
  <20231026125835.phpfjhz6xbsde33d@illithid>
  <ZTpz3A0yijoxDvip@debian>
  <20231026145140.qyl4lsfhp3644hmh@illithid>
+ <ZTp-hZTj7cmKMlXb@debian>
+ <20231026152813.6jziefb3umfmshb4@illithid>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="egvfeaaxwcafslce"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20231026145140.qyl4lsfhp3644hmh@illithid>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231026152813.6jziefb3umfmshb4@illithid>
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -75,47 +55,104 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Branden and Alejandro,
 
---egvfeaaxwcafslce
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+G. Branden Robinson wrote on Thu, Oct 26, 2023 at 10:28:13AM -0500:
+> At 2023-10-26T16:58:13+0200, Alejandro Colomar wrote:
+>> On Thu, Oct 26, 2023 at 09:51:40AM -0500, G. Branden Robinson wrote:
+>>> At 2023-10-26T16:12:36+0200, Alejandro Colomar wrote:
 
-[self-correcting follow-up]
+>>>> Regarding PP, LP, and P, what's the history of them?  Why do we
+>>>> have the 3?  I'm willing to reduce them to just one.
 
-At 2023-10-26T09:51:42-0500, G. Branden Robinson wrote:
-> In ms(7), `LP` sets a paragraph that is left-aligned, and `PP` sets
-> one with a first-line indentation.
->=20
-> In man(7), all (ordinary) paragraphs behave analogously to ms(7)'s
-> `PP`.  A first-line indentation is never used.
+>>> Doug's original man(7) (1979) didn't have `P`.  But Unix System III
+>>> added it in 1980, and 4.3BSD followed suit in 1986.  This
+>>> information is in groff_man(7).
 
-Sorry, brain fart here.
+>> Was the original PP?
 
-In man(7), all (ordinary) paragraphs behave analogously to ms(7)'s `LP`.
-A first-line indentation is never used.
+> It had both `PP` and `LP`.
 
-Regards,
-Branden
+>> Still, compatibility with ms(7) would make it slightly easier to
+>> trasnfer learning from man(7) to ms(7), would one learn it.  I know
+>> many other macros are incompatible in bad ways, but the less the
+>> better, no?
 
---egvfeaaxwcafslce
-Content-Type: application/pgp-signature; name="signature.asc"
+> That's true, but these days the knowledge transfer is, I submit, vastly
+> more likely to go the other way; that is, people will be exposed to
+> man(7) as their first roff macro language, and might decide to pick up
+> ms(7).
+> 
+> At that point, they'd have to learn that `LP` and `PP` do _different_
+> things.  I think it's actually better if they _don't_ have to unlearn
+> the "fact" (applicable only to man(7)) that they are exactly the same.
+> 
+> Better, I believe, to promote only `P` in man(7).  Anyone wanting to
+> pick up mm(7) will still enjoy some knowledge transfer.  Without
+> arguments, `P` in mm(7) "does what you mean".
 
------BEGIN PGP SIGNATURE-----
+I consider this a bikeshed discussion.
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmU6jywACgkQ0Z6cfXEm
-bc7yVg/+K2SQqNbj/PiWaUv5HZJRvrtlQGESmDmvza+YNAf+3n+LA75x108NoNzz
-tgsh5GvoQrZNajyfpH878cn4jdq82VaQYlbRjnAsV83UCXo93Bu4GZmgZfFCmgs0
-08IrqNlyLz8AaGYwh5HhcW2Qxocky1F/kx+7PczXC0i/EPpFq5aZvbL7U0wGOQ7l
-YXQBxZumRyskd1maIh6a6WUXogms/oSYqakpu+zXl0S5eh0qyzDQvJjIOdqVqiLP
-wHEOIPhd8lBZT+EeBmc6ANH1Nl8J5qoQE7wN9x7Eztd6GEwNlVYKdt599rlK/GCs
-SaiYJbNnLdD1do0MpqR9fhNfUfjCnvVIoApwZn25l8ghiJRPFD7eFx9hkBdImxkW
-14VvLXlKCcxC4t5ooVE6LXQ66Z62Wxm9wcyI4UwqzohO7YKT4HRFhPOn0G5F/Cae
-MLs90zc9ICF/9o0lBXwNcR3WQbGKE0paVDQhCQvuBNr3z2WtobZdilcc7fWHpjfu
-zDs/tuajS3LSXsn1DNPQQPWjbMqVRAdTkFpLp8KLUweopDvuyGrB+Q2+5H5tyOoh
-bCSD3XGqcjUSsU0gYdPidR68mkU1rgSK6T5nhj6iDeOWaUzPw0if2IigXNgcdi+V
-o5WBAWIs7BvW18b6Yp1B2SqNydUeVaCKi72PEjw8My3oD4P07vY=
-=SFLG
------END PGP SIGNATURE-----
+Given that Branden apparently wants to
+ * promote .P and deprecate .PP
+ * i don't want mandoc_man(7) to gratuitiously spread any more bad
+   man(7) style advice than is unavoidable by the fundamental decision
+   of declaring the whole man(7) language as obsolete,
+i briefly considered changing mandoc_man(7).
 
---egvfeaaxwcafslce--
+Currently it says:
+
+  PP  Begin an undecorated paragraph.  The scope of a paragraph is closed
+      by a subsequent paragraph, sub-section, section, or end of file.
+      The saved paragraph left-margin width is reset to the default.
+
+  LP  A synonym for PP.
+
+  P   This synonym for PP is an AT&T System III UNIX extension later
+      adopted by 4.3BSD.
+
+and it declares LP and P deprecated by including only PP in the
+MACRO OVERVIEW.
+
+All the arguments feel weak in either direction:
+
+ * In theory, .PP is more portable than .P, but that is extremely
+   unlikely to ever matter in practice.
+ * As seen above, the similarities and subtle differences
+   when comparing to ms(7) can be employed as arguments in either
+   direction.
+ * The arguably more important similarity that HTML defines a <p>
+   but not a <pp> element can be regarded as a learning aid,
+   but it's still a weak argument because HTML and roff(7) are
+   very different domains and not similar in most other respects.
+ * The similarity of .P and <P> can also be turned around to be
+   levied as an argument for .PP:  .P and <P> are *very different*
+   in so far as <P> is a block element, whereas .P is an in-line
+   macro that cannot participate in block nesting.  In particular,
+   it can neither nest inside a list item, nor can anything be
+   contained inside a .P syntax tree node.  In contrast to <p>,
+   .P does not represent a *paragraph*, but only a paragraph *break*.
+ * .PP is more similar to mdoc(7) .Pp.  Again, a weak argument because
+   macro naming is totally different in both languages even in most
+   of the few cases where functionality matches, with the exception
+   of only .SH and .SS.
+
+Consequently, i tend to leave mandoc_man(7) just as it is and not
+repaint the bikeshed.  That way, the original .PP macro - with which
+nothing is really wrong, except for the fundamental design mistake
+of not being a block macro, a mistake it shares with mdoc(7) .Pp -
+gets the full description, while the slighly younger .P gets the
+compat info, even though that now is only of historical but not
+of practical interest.  Maybe still nice to keep both apart - gee,
+yet another weak argument.
+
+If, for some reason, you feel strongly about it and think it is
+important which one to promote, it might be possible to convince me to
+deprecate .PP and list .P as the non-deprecated form even though it
+is theoretically less portable.  I must admit i don't particularly
+like the idea, though.  It feels like taking a gratuitious risk,
+which does not feel ideal even if both the magnitude of the risk
+and the benefit reaped are almost exactly zero.
+
+Yours,
+  Ingo
