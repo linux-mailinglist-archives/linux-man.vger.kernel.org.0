@@ -2,113 +2,155 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 574337D9603
-	for <lists+linux-man@lfdr.de>; Fri, 27 Oct 2023 13:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 351397DA4AA
+	for <lists+linux-man@lfdr.de>; Sat, 28 Oct 2023 03:36:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231302AbjJ0LJO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 27 Oct 2023 07:09:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53708 "EHLO
+        id S232949AbjJ1Bgk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 27 Oct 2023 21:36:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49738 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229633AbjJ0LJO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Oct 2023 07:09:14 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35E779C
-        for <linux-man@vger.kernel.org>; Fri, 27 Oct 2023 04:09:12 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09571C433C7;
-        Fri, 27 Oct 2023 11:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698404951;
-        bh=jxrxdDoTWYnpIsh/ASt4NhdncHxYAUqU1slBtJ9W3kI=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=XOySn87+VVgqsJDlyNW5XQfk9XCCFpJbP8+2UZIXT/U9iR6RKwJA7T7ra80D+JDg3
-         W3Pp7lgFobclcJBJ4it49RekKKDYXYjDDzsNgpa7soVbHBfvzKWJgA5aVEYzgjuRVe
-         Gw1pRj4kA+AEXnwR9C8+AgiVmK94+c1Q8/UEwWJ6T6NsAfddLY0oBeiTOUWniURZt1
-         BUkumeOexuZtOYHjL1qxvAl25qgneuicVs+YK749LcExc/4XprUgd/lnS0M3LJpFL+
-         E6AroLeNRcryUSb8cqUL4AYxf/3JojnOhB9ZRRHUg0oED85vmWNBrkPQYbz86/uuHI
-         Ol+EoK+/BNH7g==
-Date:   Fri, 27 Oct 2023 13:09:08 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Stefan Puiu <stefan.puiu@gmail.com>
-Cc:     Adhemerval Zanella <adhemerval.zanella@linaro.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v4] ld.so.8: Describe glibc Hardware capabilities
-Message-ID: <ZTuaVJySWJq5GPIv@debian>
-References: <20231026182802.2194109-1-adhemerval.zanella@linaro.org>
- <CACKs7VAV4aamaYe3b-6XDdxwUrbp8xTrJYCQB4bj+QET7MK0tA@mail.gmail.com>
- <ZTuGVYV0qMGL9PqJ@debian>
- <CACKs7VC=9WbMMZLv7Ou+7hfOaTihXCX_RSjBMLBGa+UBXy_iGQ@mail.gmail.com>
+        with ESMTP id S229471AbjJ1Bgj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Oct 2023 21:36:39 -0400
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 69DD91A6;
+        Fri, 27 Oct 2023 18:36:36 -0700 (PDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+        by mailout.nyi.internal (Postfix) with ESMTP id 066505C0100;
+        Fri, 27 Oct 2023 21:36:34 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Fri, 27 Oct 2023 21:36:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+        :cc:content-transfer-encoding:content-type:content-type:date
+        :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+        :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+        1698456994; x=1698543394; bh=KsUaa2dQRxZCNliH8E4IgB96uElIa6AZYOi
+        IzXKoc/g=; b=fZYSL1Hh4egXuicxkMFg+jLgSXE3ZgD8AFpH+th6BJTlZigkseO
+        mtkr17z5D5GSLqS3VGFVp3OeFx9U78fXmtLa9W0N/XHvBo5ajUNKShNtUDs7/sKd
+        ZV4tr0uGpIz8uPI45OdgM/w5KYporhOEOR24znvm/rirYuDF3x6YBc+zxbDplwcj
+        7eBteMNTZrNWsvL9HHyHvp/BuuTW1dNXe++6VfFOS27Qnk8Z+nS9kmlR+bgDjVzf
+        gzUPt1jW0vMwPsIsCCc5Gobwv8H4jeIM+R7sWGfp/qmKEDAGzJQ7Vn3acMbKXa6M
+        jPYyerd5HZZrgWis7rMj8zYIuHGTycY1cyQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-transfer-encoding
+        :content-type:content-type:date:date:feedback-id:feedback-id
+        :from:from:in-reply-to:in-reply-to:message-id:mime-version
+        :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+        1698456994; x=1698543394; bh=KsUaa2dQRxZCNliH8E4IgB96uElIa6AZYOi
+        IzXKoc/g=; b=F3HFKyzmmg9oxz/ntz+T5+XmYWDdcKhDALX/MCh6lte6GAO0rwY
+        RBcb9BjyHp8jfuTcYbT2DGUA7udnstUUZIewC+T0DtyeWdgMhJ1CexKem91iZYy6
+        UGw2pgxXP/vDrtoAus18DfE8shNHIcPiyWKBOSmk2oal3LptEcqVlRX5oMXDlu+F
+        AF3WjmY+PFO3tr/zpnWzGTezgZo9zPILxeYMg5+G5Z3PliD3q1tUvm7YPhNsNzVD
+        HoedNHyyAhNO8zmJjwOqJoRSuLUhPzLCExH6mpE/QFi0Bg+8usyrjuGQNliseQTW
+        6ABGQ2psafUCNfRw0eRgJHREBL0cIJ+Q2tA==
+X-ME-Sender: <xms:oWU8ZeXAoF6deDOgUPP8C37DgzNB5zqFhXIx_UUlwRxfnidgTS8Z2g>
+    <xme:oWU8Zan70Wjt7XusI4EdTk3INHaBCZEJTNlCgkgZlPjZw0Z6YaGz4P_VlXKBWXG_o
+    5b2IrLD46uq>
+X-ME-Received: <xmr:oWU8ZSZVrs7Ok5a2SVYQddVtyrDFBGeXIx6fztF1Qj5veEm0bWwUb_g9XUSv6pumVvon4v7pGkdUm-az3drwVgg2PHpCw3QRedu6TbUw3NTX1OazR_mEExRB>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrleehgdegjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefkffggfgfuvfevfhfhjggtgfesthekredttdefjeenucfhrhhomhepkfgrnhcu
+    mfgvnhhtuceorhgrvhgvnhesthhhvghmrgifrdhnvghtqeenucggtffrrghtthgvrhhnpe
+    egvdetvedvfeeivdeuueejgeetvdehlefhheethfekgfejueffgeeugfekudfhjeenucev
+    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehrrghvvghnse
+    hthhgvmhgrfidrnhgvth
+X-ME-Proxy: <xmx:oWU8ZVXRpVhBFGvyoK3JORYTRAnTL3oJArZ07m9g1A_Y-w8QOstB-Q>
+    <xmx:oWU8ZYlDTKU5SN-q5rutlx_Ge-tniBq1-2UQr9mEKu7oWWOVtiafRQ>
+    <xmx:oWU8ZadzWHfaQcb9lqILEARfOFF8xBUCqVR_7FZPHZC2aNr_ddzUkA>
+    <xmx:omU8ZT-ELN39i8ylB1sZIrKCuC2WhY8InDf7as0RWilH3weOxiBTDQ>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Oct 2023 21:36:27 -0400 (EDT)
+Message-ID: <c938a7d9-aa9e-a3ad-a001-fb9022d21475@themaw.net>
+Date:   Sat, 28 Oct 2023 09:36:23 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="L2/IrHZabLUacwXq"
-Content-Disposition: inline
-In-Reply-To: <CACKs7VC=9WbMMZLv7Ou+7hfOaTihXCX_RSjBMLBGa+UBXy_iGQ@mail.gmail.com>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v4 2/6] mounts: keep list of mounts in an rbtree
+To:     Miklos Szeredi <mszeredi@redhat.com>
+Cc:     linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>
+References: <20231025140205.3586473-1-mszeredi@redhat.com>
+ <20231025140205.3586473-3-mszeredi@redhat.com>
+ <b69c1c17-35f9-351e-79a9-ef3ef5481974@themaw.net>
+ <CAOssrKe76uZ5t714=Ta7GMLnZdS4QGm-fOfT9q5hNFe1fsDMVg@mail.gmail.com>
+Content-Language: en-US
+From:   Ian Kent <raven@themaw.net>
+In-Reply-To: <CAOssrKe76uZ5t714=Ta7GMLnZdS4QGm-fOfT9q5hNFe1fsDMVg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-6.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_PASS,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On 27/10/23 16:17, Miklos Szeredi wrote:
+> On Fri, Oct 27, 2023 at 5:12 AM Ian Kent <raven@themaw.net> wrote:
+>> On 25/10/23 22:02, Miklos Szeredi wrote:
+>>> The mnt.mnt_list is still used to set up the mount tree and for
+>>> propagation, but not after the mount has been added to a namespace.  Hence
+>>> mnt_list can live in union with rb_node.  Use MNT_ONRB mount flag to
+>>> validate that the mount is on the correct list.
+>> Is that accurate, propagation occurs at mount and also at umount.
+> When propagating a mount, the new mount's mnt_list is used as a head
+> for the new propagated mounts.  These are then moved to the rb tree by
+> commit_tree().
+>
+> When umounting there's a "to umount" list called tmp_list in
+> umount_tree(), this list is used to collect direct umounts and then
+> propagated umounts.  The direct umounts are added in umount_tree(),
+> the propagated ones umount_one().
+>
+> Note: umount_tree() can be called on a not yet finished mount, in that
+> case the mounts are still on mnt_list, so umount_tree() needs to deal
+> with both.
+>
+>> IDG how the change to umount_one() works, it looks like umount_list()
+>>
+>> uses mnt_list. It looks like propagate_umount() is also using mnt_list.
+>>
+>>
+>> Am I missing something obvious?
+> So when a mount is part of a namespace (either anonymous or not) it is
+> on the rb tree, when not then it can temporarily be on mnt_list.
+> MNT_ONRB flag is used to validate that the mount is on the list that
+> we expect it to be on, but also to detect the case of the mount setup
+> being aborted.
+>
+> We could handle the second case differently, since we should be able
+> to tell when we are removing the mount from a namespace and when we
+> are aborting a mount, but this was the least invasive way to do this.
 
---L2/IrHZabLUacwXq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Oct 2023 13:09:08 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: Adhemerval Zanella <adhemerval.zanella@linaro.org>,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v4] ld.so.8: Describe glibc Hardware capabilities
+Thanks for the explanation, what you've said is essentially what I
 
-Hi Stefan,
+understood reading the series.
 
-On Fri, Oct 27, 2023 at 01:37:42PM +0300, Stefan Puiu wrote:
-> Hi again Alex,
->=20
-> (hopefully this time without HTML)
 
-Yup; there's no HTML this time.
+But I still haven't quite got this so I'll need to spend more time
 
->=20
-> On Fri, Oct 27, 2023 at 12:43=E2=80=AFPM Alejandro Colomar <alx@kernel.or=
-g> wrote:
-> >
-> > Hi Stefan,
-> >
-> > On Fri, Oct 27, 2023 at 11:57:51AM +0300, Stefan Puiu wrote:
-> > > LGTM, thanks!
-> >
-> > Should I count that as an acked-by?
-> Yes. Didn't know the procedure for saying that with tags.
+on this part of the patch series.
 
-Thanks!
-Alex
 
---=20
-<https://www.alejandro-colomar.es/>
+That's not a problem, ;).
 
---L2/IrHZabLUacwXq
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Ian
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmU7mlQACgkQnowa+77/
-2zK6fxAAgQ5u1iBOqR9jLuzqlWA0ByMd3C0oK8lSr979jbdYqNWxGmojibCRbbts
-Hlnw3mkZltXee9ARwC/KBDRLYUKc9TPDXW+O08kYP/295MDeWeD60cZtixNkvmTN
-+7PGd/yyrfLncJn2bJsC2LjRq3ksLyH0Mfw32h7EEP9sKkzESfUsdquGh1mc4b7Y
-R/XDX9Y/rj1vBlDTrwd8sNMYrvpfjVX0JPQDSc52+yh7/pzFLx5RCCrUaKOemU2Y
-xkmqj15syiOUT0DmhUW2xaY51ZUH8AG7lvhw5/6CbO/fbW5pOFKFsd3G4qV6oKOZ
-A3WzvzQJrFahK7y/Gmp4t/dxudVY//iwfBoatxJXDbW5G+utC9A6Uhk7Au4tUux9
-slKh1LKVLAyELIye0Mu+x/VNftQ2u5gyhvJGrdJe+Ge6heZ+WZvcnZZ/4DDKqSxy
-m2pXMIoFXGVvZOFozbXjSpL9Jie3uhR6ZqVD/kfKde1ylrlEEzOPj1SE1bkV2F9j
-bRb5ALwYddWoOHTJjh9Aw1EJr82s9wt0y6Ovglm+zDiYAKvbQGNPO9BYaMNhEQOT
-yN8EoLCVeVVtaz13P++/WFxQkfkfojOxBjc7HwcX3RnvMcLDw62LHkAaZhpI4gAg
-GC0SxP+Nmvo4wogasanUcb4LbRQo/9eE1AfJDn/xsGXWqNh1RRc=
-=oAEu
------END PGP SIGNATURE-----
-
---L2/IrHZabLUacwXq--
+>
+> Thanks,
+> Miklos
+>
