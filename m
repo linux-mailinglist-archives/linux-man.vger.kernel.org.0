@@ -2,178 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EA4CC7DAA49
-	for <lists+linux-man@lfdr.de>; Sun, 29 Oct 2023 02:42:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E3C527DAE5A
+	for <lists+linux-man@lfdr.de>; Sun, 29 Oct 2023 21:58:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229749AbjJ2Amo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 28 Oct 2023 20:42:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51184 "EHLO
+        id S229533AbjJ2U6E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 Oct 2023 16:58:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34936 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229446AbjJ2Amn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 28 Oct 2023 20:42:43 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1340CD3
-        for <linux-man@vger.kernel.org>; Sat, 28 Oct 2023 17:42:41 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC23BC433C8;
-        Sun, 29 Oct 2023 00:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698540160;
-        bh=RrQ6m4MwAHo4zJjmRPDFjN96kdqBHoKbAcbXOCp/HDQ=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=BPl5LJlXP1S16mc4IIy9R25NLA786uwiRx/uWtVIklo6MnPVmdWVXIOV6XrBRbnqm
-         SmYWoj2CSVElzCk6CQxQtPlHV3Eh81OSCUtICl7WiaTRJI87cernox+fSDfE2hLvNI
-         5wLGZLYpfMRa7sbXM7xE0pI8ghldhU88OgnH+B2UF5KjVX4DWSopWAkuLNh+ktLGCs
-         fNCYr48jHW0iiBSfdWor45hFBgVnueEv+oTcU8yCRfNhPGc/+HWiwre7DJk+sHObGb
-         Qg+M3pwXHBB+WJJjBQSrTOTLSg5BGT4dFUVjVN02K4Jnlo7SEtzkPSFctHlHmjALAZ
-         ONlFx8bFTJPCQ==
-Date:   Sun, 29 Oct 2023 02:42:31 +0200
-From:   Alejandro Colomar <alx@kernel.org>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: managing tagged paragraphs (was: [PATCH 2/2] ioctl_pagemap_scan:
- add page for pagemap_scan IOCTL)
-Message-ID: <ZT2qfeegOCgUTKOH@debian>
-References: <20231019131252.2368728-1-usama.anjum@collabora.com>
- <20231019131252.2368728-2-usama.anjum@collabora.com>
- <ZTbrIskF1mt0zTM_@debian>
- <20231024024802.e6hfjvfumzc2rbil@illithid>
- <ZTefONm-aap2x1nF@debian>
- <20231028130714.inrfj5nzbqt25ms3@illithid>
- <ZT01aL6v25b5z_Eo@debian>
- <20231028180703.e4kqfnueaxp5dx7q@illithid>
+        with ESMTP id S229512AbjJ2U6E (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Oct 2023 16:58:04 -0400
+X-Greylist: delayed 182 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 29 Oct 2023 13:58:01 PDT
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.24])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DABD9B6
+        for <linux-man@vger.kernel.org>; Sun, 29 Oct 2023 13:58:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1698612716; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=g8bnijU+ZFFAupQR46acnfdkbTdJ7TlI6rtOylEc5vFqajh4y5n5E7Ol5MJMwVNKDm
+    QyFe2FfKqJjnWacQtVP8szCL6t2OEx8n6a2FJNXj7hqos25TIi3EP4vqtxDHv4igQMBc
+    qAHOggr+d1bOaeliZjEoUjXml8Pl+MaY2Mw/HiloOAtgjZym1a8JoVZd1MZWUPFsx23J
+    uTKvftAlpEeRBwr0zmL/7ilu/Zwfl8rjDDPAXUqCL7lMZ596OElS3OgX3sPYhK0TIjdf
+    KmKLpvDSzxoj11yulDcKXzWaDogzSL3blkKYfJZHgetysfFc45dmU9FCoSsEvtFoi1DW
+    7XYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1698612716;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=suiLAyKhOMli0y/CpRscx+Ded5OO8FpPkmJA108r7W0=;
+    b=kxEz1AfeiW9gVe+isX0YfX23HfhaJ8t/NVTvVqKxq71pSnr8I1dXxd1Is1QAmPzrcb
+    ukcu7n7Cqqgxfy9EmCQ6iQ2vun0GQG6jlLgwU8MWjkp4CpaDUc7WKpCRgbgpz6IItIw9
+    9AKJKN37JdifWlOy+ic3ULhtZZS1ooUGDcbPjJ08t92veA0K5wHjUXJrB/PElHuUfakR
+    OE5OBPQqtckFMB4LlSFEcRA9r5iJK1wth80mxgbWd50s/ieYse6F5B1JW4i6fal0qbU3
+    LbCR3A9KmBv3ezA5G52bnFiJAbb8qNDndpbsO+v7B0Ja3Oqnhx4U8O2qUj8doTMjnMtS
+    CLCQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1698612716;
+    s=strato-dkim-0002; d=clisp.org;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=suiLAyKhOMli0y/CpRscx+Ded5OO8FpPkmJA108r7W0=;
+    b=QVJiZp31w1PFhbw+luBZSpSC/zx12dRaqZsrgfVPJ3vetEBUusqZim4TfNqVe5CgKx
+    KiW0F10aJKDc0AhjXHLGbIV+EyCZ3x4mhG3LSbI6Dp8m/ARnNSUoJo8J1JfySueHgk6E
+    ixKyL+vWIF5LNZYhirFa2Xmfwr9yD0KwjIpeiSOv/iuWlhdOGUE1r/tSzAx1aMJZefIc
+    58nDOP/GkvrcXoxj8IXLi083UYhvsa/blOVtE24zz0WCjhKQPGxy5vAVrbGqYjabEH6E
+    F4ALk0AuoUWmEAXvSzE93TH1ojUz7j99NGHLLd4GvDddbk9dLL0gYFbHpJXY+NCLxhpr
+    vHhQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1698612716;
+    s=strato-dkim-0003; d=clisp.org;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=suiLAyKhOMli0y/CpRscx+Ded5OO8FpPkmJA108r7W0=;
+    b=w/uBVjZXlkPjxhB5VjC1bj0dzVumAv78H67n2O7pw11SpP2Gc0IbpIUcNPu0oy9QEI
+    OBcZxCxTG0hGOEZOFMDA==
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH0WWb0LN8XZoH94zq68+3cfpPC2vL5Du0M9wTVIv3bTqH8i6Ye9w=="
+Received: from nimes.localnet
+    by smtp.strato.de (RZmta 49.9.1 AUTH)
+    with ESMTPSA id ecf079z9TKpuIDc
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+        (Client did not present a certificate);
+    Sun, 29 Oct 2023 21:51:56 +0100 (CET)
+From:   Bruno Haible <bruno@clisp.org>
+To:     linux-man@vger.kernel.org, alx.manpages@gmail.com
+Subject: [PATCH] prctl.2: Fix typo
+Date:   Sun, 29 Oct 2023 21:51:55 +0100
+Message-ID: <4678853.9Mp67QZiUf@nimes>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="92dYXiArjgk9P+o4"
-Content-Disposition: inline
-In-Reply-To: <20231028180703.e4kqfnueaxp5dx7q@illithid>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: multipart/mixed; boundary="nextPart12752715.aFP6jjVeTY"
+Content-Transfer-Encoding: 7Bit
+X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is a multi-part message in MIME format.
 
---92dYXiArjgk9P+o4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 29 Oct 2023 02:42:31 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: managing tagged paragraphs (was: [PATCH 2/2] ioctl_pagemap_scan:
- add page for pagemap_scan IOCTL)
+--nextPart12752715.aFP6jjVeTY
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Branden,
+The synopsis of the prctl.2 page has:
 
-On Sat, Oct 28, 2023 at 01:07:03PM -0500, G. Branden Robinson wrote:
-> At 2023-10-28T18:22:52+0200, Alejandro Colomar wrote:
-> > I meant to ask if modifying RS's behavior to not break after TP was
-> > something you'd consider viable.
->=20
-> Ahh.  Hmm.  Can you show me an exhibit of desired output?
+       int prctl(int option, ...
 
-I'd like both sections to be identical in the following page (with the
-behavior of the first one).
+This makes no sense, because
+  - the first argument is not optional; it is mandatory.
+  - the title of the page is "operations on a process or thread".
+
+It is thus clear that the first argument indicates the operation to perform.
+
+Find attached the correction.
 
 
-$ cat RS.man=20
-=2ETH RS 7 to-morrow Alex
-=2ESH Continuing TP with IP
-=2ETP
-tag
-First paragraph.
-=2EIP
-Second paragraph.
-=2ESH Continuing TP with RS
-=2ETP
-tag
-=2ERS
-First paragraph.
-=2EPP
-Second paragraph.
-=2ERE
+--nextPart12752715.aFP6jjVeTY
+Content-Disposition: attachment; filename="0001-prctl.2-Fix-typo.patch"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/x-patch; charset="UTF-8"; name="0001-prctl.2-Fix-typo.patch"
+
+From a373bed1d7cd571cffc5ea1a8c6377efbe8fa51c Mon Sep 17 00:00:00 2001
+From: Bruno Haible <bruno@clisp.org>
+Date: Sun, 29 Oct 2023 21:46:49 +0100
+Subject: [PATCH] prctl.2: Fix typo
+
+---
+ man2/prctl.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man2/prctl.2 b/man2/prctl.2
+index f72aeb700..b5be0def6 100644
+--- a/man2/prctl.2
++++ b/man2/prctl.2
+@@ -46,7 +46,7 @@ Standard C library
+ .nf
+ .B #include <sys/prctl.h>
+ .PP
+-.BI "int prctl(int " option ", ..."
++.BI "int prctl(int " operation ", ..."
+ .BI "          \fR/*\fP unsigned long " arg2 ", unsigned long " arg3 ,
+ .BI "          unsigned long " arg4 ", unsigned long " arg5 " \fR*/\fP );"
+ .fi
+-- 
+2.34.1
 
 
-$ MANWIDTH=3D72 man ./RS.man | cat
-RS(7)              Miscellaneous Information Manual              RS(7)
-
-Continuing TP with IP
-     tag    First paragraph.
-
-            Second paragraph.
-
-Continuing TP with RS
-     tag
-            First paragraph.
-
-            Second paragraph.
-
-Alex                           to=E2=80=90morrow                         RS=
-(7)
-
->=20
-> > $ MANWIDTH=3D82 man groff_man_style | wc
-> >    1442   10152   81154
-> > $ MANWIDTH=3D83 man groff_man_style | wc
-> >    1435   10156   80990
->=20
-> Only thing I can guess here is that man-db man(1) runs sandboxed and so
-> might not be running a groff from $HOME.
-
-Heh, I've managed to reproduce it!  It seems I run that thing just
-before installing groff from git in this computer:
-
-$ /usr/bin/groff --version | head -n1
-GNU groff version 1.23.0
-$ /usr/local/bin/groff --version | head -n1
-GNU groff version 1.23.0.497-e982
-$ MANROFFOPT=3D--version man man | head -n1
-GNU nroff (groff) version 1.23.0.497-e982
-$ PATH=3D/usr/bin
-$ MANROFFOPT=3D--version man man | head -n1
-GNU nroff (groff) version 1.23.0
-$ MANWIDTH=3D80 man groff_man_style | wc
-   1439    9943   81331
+--nextPart12752715.aFP6jjVeTY--
 
 
->=20
-> > Me too.  I remember my promise to review it; I'm just very slow; even
-> > slower than sloppy recuriters.
->=20
-> I had no idea such a low speed was possible.
 
-I've taken an entire year to read the Picture of Dorian Gray, if that
-gives you an idea.  :D
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---92dYXiArjgk9P+o4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmU9qncACgkQnowa+77/
-2zKrNRAAgTfE5IrJLiFgb6MUdk5zVX9qI5uyJx3FxqoOcQ4N/iffZUhiVg0rZqVH
-CwXx/1TmWnYYTeb23Pb0UZVzZKMWC1Zn2WAdr/nu6L4Vqvk4DRh3Yl8E51kLknpl
-DI6Ta9NDLqSkKOQUCv2d6VvDMeEdZ/M2PnB6AKjVPeIl7GPS3pKCtHpjOzQpcz2n
-9LRw7ceHOxdyB5PGkIG2YE/nNvwppj+bTE/zpi1CG/ACvkKZB2hT/01vyhHTrsEB
-kAsHGFPMPPqbQQGLF39hPffpG3Q3IEpAC0MYTaqf0ArfIqlUdshmcaT8hLPD7Q48
-WIQnxN89FCReeZnP7jzFfznIdDMN1E6PPq9Epzq8u2EGJPxBWKLhFVykDf2+qicF
-Zmvj271La6gzay9AELQzTLQXoePEaPgYNmBu3ryg0dhys8h16hCLZl1U9rPxQMpO
-ZMWaj6KVadwje8P8c3dhedWYnnwkWCNHeDkJW/1b+FuPrjSbdEeSqs1/pSWk5a/V
-cs2T5T6IVAiUgLIkMg52s9ZWtzox0eg7S6jg9f/QtezB/gEn3MRv8qHBeC2AzzfR
-VdnraELP379LTuCWIOnDRzDCILomJyTSHAFtRoBHgKgxIVhQ+hj290ZJkj1QNhrQ
-DxglpjZCdEQRDa/vuYuPbZORNZMbkLyovb+GFrSNnExV5HoKblk=
-=jka7
------END PGP SIGNATURE-----
-
---92dYXiArjgk9P+o4--
