@@ -2,130 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F98D7DBDAE
-	for <lists+linux-man@lfdr.de>; Mon, 30 Oct 2023 17:21:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A59A77DBDCE
+	for <lists+linux-man@lfdr.de>; Mon, 30 Oct 2023 17:27:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233852AbjJ3QV4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Oct 2023 12:21:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60920 "EHLO
+        id S233858AbjJ3Q1p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Oct 2023 12:27:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56412 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233857AbjJ3QVz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Oct 2023 12:21:55 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 597F5DA
-        for <linux-man@vger.kernel.org>; Mon, 30 Oct 2023 09:21:53 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58066C433CC;
-        Mon, 30 Oct 2023 16:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698682913;
-        bh=4knUV3aFb/an5c36QKXxWLT0r/TAgFgkfz5r1cJnvaE=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=IDvuKaIBjpRyHqqZ+9c0IeBf079XIJQA4JYojSNZdE5h3H6MvnObeqNMiwue6Zahl
-         gcEmos/agckRzD4UUNthfFx9Zs3c6hQdF0m6ftyOGu55WskCv8nY4BvQQeMV2YYf/5
-         xpW8Pg/h/BLomANOEXzvp6Ws2mwDhsv+QRcOnLfm2ASHPqPnIeSyyS4CaD2/3ITOSY
-         YJLUdr4QvaMgSukae1qLaJzXs9wewTBDNBZX262RbtPWPZX95SgLc7y/TxUG25j+hJ
-         3ndy/kdbXNVnvubhXEd8tgCVkmCvKtAxb1HLV6BlMNf/A6p9c40AVE7gHlxZEbKkJz
-         FBX+6wIyx8+Jw==
-Date:   Mon, 30 Oct 2023 17:21:49 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Max Kellermann <max.kellermann@ionos.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH] man2/clone.2: clarify that CLONE_CLEAR_SIGHAND does not
- affect SIG_IGN
-Message-ID: <ZT_YHozq7Pu_t9Nq@debian>
-References: <20231030125835.568711-1-max.kellermann@ionos.com>
- <ZT-0Aip9lh1ZoywW@debian>
- <CAKPOu+_XsNNYLvM=0KvEF1vUW4hANCey7YjZkKdhxtxJME7YeQ@mail.gmail.com>
+        with ESMTP id S233811AbjJ3Q1m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Oct 2023 12:27:42 -0400
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DFD329E
+        for <linux-man@vger.kernel.org>; Mon, 30 Oct 2023 09:27:39 -0700 (PDT)
+Received: by mail-ej1-x631.google.com with SMTP id a640c23a62f3a-9c773ac9b15so701894566b.2
+        for <linux-man@vger.kernel.org>; Mon, 30 Oct 2023 09:27:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1698683258; x=1699288058; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wMYhcbNUPZrqFa238Nlej/IQqydwvOKfVbUZUGYH/Jk=;
+        b=UARTn0dLFn6Jo7q2Troh4yj/3mKLzoUZTN0pp7jeW+ZpSWtmjnW4mv2xudds58p1vC
+         inG2t0maTPryhrie8a1fJZSje3+McYoWaDDNlacsvqcX7uTOe7zPf3003fHQEEcrc6hw
+         y9Lp8naD1sOlFBUMj65BNCIPZq+2mOjR3/+N//rSQQHe9I+gtoSrkqicfGnJzdkTgqxl
+         tWsTBCftTQosM7ZUbSZKi9BG3eNM0FRlk3mqpEOWUZLjwUVszXP1I3P+94Q1cjp4UKSu
+         dIK7OwHVCMigLdoBKsTxYr4yRs9r7IOxVwvGF77Mrggn1vCpeoOBLNNyqzxVoxYp9+jD
+         +f0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698683258; x=1699288058;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wMYhcbNUPZrqFa238Nlej/IQqydwvOKfVbUZUGYH/Jk=;
+        b=XXB07vY3TEiMs4UU8boYhaEnBGvYOQEKvj/nyDf2SdryhEjXPsztodBVEGSmztSYt6
+         m2lOwl113NLefxm/6femFBZPoF1TBN/Yz++Kxc02tG2TwiK5xgzdGAuRplKoinzf1lf8
+         kLp7rNBlO93RyJCrUv7RQpocZLmwPAT2Kv+InZv+857RqiicwIaMb7EIkQMMMDeMxHmg
+         JADzrQHH2ibQje58dIUIfOuM6eEej/OKnyoL5bd4uc0vL9Wiy9gLoCt46qMQXiUZGXu+
+         JJy1DoQhP3vedVjgaNK9XTYP9zhjrRJfu7OC1+OHq27fStP82PnA4m1YJ+uSa9g33c6l
+         2K5Q==
+X-Gm-Message-State: AOJu0Yzms5ahw5/dlhAXDC/hZc/5BwOs1UL7flAmkRjcb6yAugCryZN7
+        d5kIq0CJ6rTDqd0J4ZvtBYJVxHMRasb45bizBEo=
+X-Google-Smtp-Source: AGHT+IGtxbolg74ousuF46UjK3myketTCNWlRVHqNg/rsS6GZNGNjHMuk8rvW4rXNcyKbjJruVTxag==
+X-Received: by 2002:a17:907:25c6:b0:9be:71ab:fb5e with SMTP id ae6-20020a17090725c600b009be71abfb5emr8366429ejc.22.1698683258249;
+        Mon, 30 Oct 2023 09:27:38 -0700 (PDT)
+Received: from heron.intern.cm-ag (p200300dc6f0b6500529a4cfffe3dd983.dip0.t-ipconnect.de. [2003:dc:6f0b:6500:529a:4cff:fe3d:d983])
+        by smtp.gmail.com with ESMTPSA id kg20-20020a17090776f400b009b97aa5a3aesm6234211ejc.34.2023.10.30.09.27.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Oct 2023 09:27:37 -0700 (PDT)
+From:   Max Kellermann <max.kellermann@ionos.com>
+To:     alx@kernel.org
+Cc:     linux-man@vger.kernel.org,
+        Max Kellermann <max.kellermann@ionos.com>
+Subject: [PATCH v2] man2/clone.2: clarify that CLONE_CLEAR_SIGHAND does not affect SIG_IGN
+Date:   Mon, 30 Oct 2023 17:27:33 +0100
+Message-Id: <20231030162733.598572-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <ZT_YHozq7Pu_t9Nq@debian>
+References: <ZT_YHozq7Pu_t9Nq@debian>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="PsmJyfJ7jh/RpPkv"
-Content-Disposition: inline
-In-Reply-To: <CAKPOu+_XsNNYLvM=0KvEF1vUW4hANCey7YjZkKdhxtxJME7YeQ@mail.gmail.com>
-X-Spam-Status: No, score=-4.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+The old wording was ambiguous, but it is important to know that
+signals that were set to SIG_IGN will not be restored to SIG_DFL.
 
---PsmJyfJ7jh/RpPkv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 30 Oct 2023 17:21:49 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man2/clone.2: clarify that CLONE_CLEAR_SIGHAND does not
- affect SIG_IGN
+This behavior was documented in the kernel commit that introduced the
+feature:
 
-Hi Max,
+ https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b612e5df4587c934bd056bf05f4a1deca4de4f75
 
-On Mon, Oct 30, 2023 at 02:52:48PM +0100, Max Kellermann wrote:
-> On Mon, Oct 30, 2023 at 2:47=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
-> wrote:
-> > Would you mind sending an example program that proves this?
->=20
-> If you need proof, all you need to do is look at the commit adding the
-> feature (or the code comments it added which are still there):
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3Db612e5df4587c934bd056bf05f4a1deca4de4f75
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+---
+v1 -> v2: added link to kernel commit
+---
+ man2/clone.2 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thanks, that also works.  That commit message is very explicit in this
-regard.  When reviewing a patch, it helps if that kind of information is
-included in the commit message (and it also helps review old patches in
-the future, not just when applying it).  It's covered in ./CONTRIBUTING:
+diff --git a/man2/clone.2 b/man2/clone.2
+index 4a75b557b..deb4bdb5b 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -455,7 +455,8 @@ flag is also employed.)
+ By default, signal dispositions in the child thread are the same as
+ in the parent.
+ If this flag is specified,
+-then all signals that are handled in the parent
++then all signals that are handled in the parent (and not set to
++.BR SIG_IGN )
+ are reset to their default dispositions
+ .RB ( SIG_DFL )
+ in the child.
+-- 
+2.39.2
 
-       -  Describe how you obtained the information in your patch.  For
-          example, was it:
-
-          -  by reading (or writing) the relevant kernel or (g)libc
-             source code?  Please provide a pointer to the following
-             code.
-
-          -  from a commit message in the kernel or (g)libc source code
-             repository?  Please provide a commit ID.
-
-          -  by writing a test program?  Send it with the patch, but
-             please make sure it's as simple as possible, and provide
-             instructions on how to use it and/or a demo run.
-
-          -  from a standards document?  Please name the standard, and
-             quote the relevant text.
-
-          -  from other documentation?  Please provide a pointer to that
-             documentation.
-
-          -  from a mailing list or online forum?  Please provide a URL
-             if possible.
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---PsmJyfJ7jh/RpPkv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmU/2B0ACgkQnowa+77/
-2zJ9BBAAkNI32H/luxEhzuwcV45yu+mXtMzo2b3FWO2JgYaXFTnXpLcOxwprGdCo
-5AYGvHT0c6w4kkYCFe83eU7pvZaxYnOssUXJPMKMehYnl1mwVRR0fHftH48NPsgI
-cnRywfroZKikyiGtHChbJ0et7wLCWt1oKvPuYqr/iDK0myqUmmK8/H3uFvNqczlG
-guy1PMMvrmc8SMY0rn9ALLDq8PukX1U9Nm35Zn+U8yqCvASCJDfL1V2GA6n0VYD+
-ui5se9OMyFU61GnLSZnCiZUPrr8jkt60Sh+FNSJz3mAkclEVTI1nBNFwMjrBZcAj
-MfdBMu4HEjMPG+uiJOD+VDFFFDcZ/GIDLEO6aQKgUy2oe+qhB4x5UfGszxg5H0WG
-2qWKlU+J0xwGulOG123rRoI6caw1/i3PfbV4FunqcF+9UbVe5kk7KgEMs+ipXXdl
-JU3ex2YtET3QX/hXCWiITrmREKJLwRnmTnvXlaEr9WfC3R+IutktYdsFzQY0fxFv
-tYDhhspz/xJLImQ/4IANfctt01BHh1Del+4qwhfOdl8GLObZGA+OeG0G4GZ5kx17
-aOnUZ4xUbRs4imr/MkNoLPIVoyYwWds7/92lNXODYrOUOuYwv5MMP7/Bmp3a38EU
-Pt1FTx8FOVbtOUxYle5406nS5x2z3cZJbxY0K28Zu/05ePlF598=
-=6Do/
------END PGP SIGNATURE-----
-
---PsmJyfJ7jh/RpPkv--
