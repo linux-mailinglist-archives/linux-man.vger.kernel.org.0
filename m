@@ -2,133 +2,172 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E3C527DAE5A
-	for <lists+linux-man@lfdr.de>; Sun, 29 Oct 2023 21:58:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 88AE27DB2DC
+	for <lists+linux-man@lfdr.de>; Mon, 30 Oct 2023 06:37:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229533AbjJ2U6E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 29 Oct 2023 16:58:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34936 "EHLO
+        id S231207AbjJ3Fhj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Oct 2023 01:37:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48676 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229512AbjJ2U6E (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Oct 2023 16:58:04 -0400
-X-Greylist: delayed 182 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 29 Oct 2023 13:58:01 PDT
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.24])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DABD9B6
-        for <linux-man@vger.kernel.org>; Sun, 29 Oct 2023 13:58:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1698612716; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=g8bnijU+ZFFAupQR46acnfdkbTdJ7TlI6rtOylEc5vFqajh4y5n5E7Ol5MJMwVNKDm
-    QyFe2FfKqJjnWacQtVP8szCL6t2OEx8n6a2FJNXj7hqos25TIi3EP4vqtxDHv4igQMBc
-    qAHOggr+d1bOaeliZjEoUjXml8Pl+MaY2Mw/HiloOAtgjZym1a8JoVZd1MZWUPFsx23J
-    uTKvftAlpEeRBwr0zmL/7ilu/Zwfl8rjDDPAXUqCL7lMZ596OElS3OgX3sPYhK0TIjdf
-    KmKLpvDSzxoj11yulDcKXzWaDogzSL3blkKYfJZHgetysfFc45dmU9FCoSsEvtFoi1DW
-    7XYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1698612716;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
-    bh=suiLAyKhOMli0y/CpRscx+Ded5OO8FpPkmJA108r7W0=;
-    b=kxEz1AfeiW9gVe+isX0YfX23HfhaJ8t/NVTvVqKxq71pSnr8I1dXxd1Is1QAmPzrcb
-    ukcu7n7Cqqgxfy9EmCQ6iQ2vun0GQG6jlLgwU8MWjkp4CpaDUc7WKpCRgbgpz6IItIw9
-    9AKJKN37JdifWlOy+ic3ULhtZZS1ooUGDcbPjJ08t92veA0K5wHjUXJrB/PElHuUfakR
-    OE5OBPQqtckFMB4LlSFEcRA9r5iJK1wth80mxgbWd50s/ieYse6F5B1JW4i6fal0qbU3
-    LbCR3A9KmBv3ezA5G52bnFiJAbb8qNDndpbsO+v7B0Ja3Oqnhx4U8O2qUj8doTMjnMtS
-    CLCQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1698612716;
-    s=strato-dkim-0002; d=clisp.org;
-    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
-    bh=suiLAyKhOMli0y/CpRscx+Ded5OO8FpPkmJA108r7W0=;
-    b=QVJiZp31w1PFhbw+luBZSpSC/zx12dRaqZsrgfVPJ3vetEBUusqZim4TfNqVe5CgKx
-    KiW0F10aJKDc0AhjXHLGbIV+EyCZ3x4mhG3LSbI6Dp8m/ARnNSUoJo8J1JfySueHgk6E
-    ixKyL+vWIF5LNZYhirFa2Xmfwr9yD0KwjIpeiSOv/iuWlhdOGUE1r/tSzAx1aMJZefIc
-    58nDOP/GkvrcXoxj8IXLi083UYhvsa/blOVtE24zz0WCjhKQPGxy5vAVrbGqYjabEH6E
-    F4ALk0AuoUWmEAXvSzE93TH1ojUz7j99NGHLLd4GvDddbk9dLL0gYFbHpJXY+NCLxhpr
-    vHhQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1698612716;
-    s=strato-dkim-0003; d=clisp.org;
-    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
-    bh=suiLAyKhOMli0y/CpRscx+Ded5OO8FpPkmJA108r7W0=;
-    b=w/uBVjZXlkPjxhB5VjC1bj0dzVumAv78H67n2O7pw11SpP2Gc0IbpIUcNPu0oy9QEI
-    OBcZxCxTG0hGOEZOFMDA==
-X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH0WWb0LN8XZoH94zq68+3cfpPC2vL5Du0M9wTVIv3bTqH8i6Ye9w=="
-Received: from nimes.localnet
-    by smtp.strato.de (RZmta 49.9.1 AUTH)
-    with ESMTPSA id ecf079z9TKpuIDc
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-        (Client did not present a certificate);
-    Sun, 29 Oct 2023 21:51:56 +0100 (CET)
-From:   Bruno Haible <bruno@clisp.org>
-To:     linux-man@vger.kernel.org, alx.manpages@gmail.com
-Subject: [PATCH] prctl.2: Fix typo
-Date:   Sun, 29 Oct 2023 21:51:55 +0100
-Message-ID: <4678853.9Mp67QZiUf@nimes>
+        with ESMTP id S231189AbjJ3Fhi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Oct 2023 01:37:38 -0400
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com [64.147.123.21])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9ABABBC;
+        Sun, 29 Oct 2023 22:37:34 -0700 (PDT)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+        by mailout.west.internal (Postfix) with ESMTP id 1235D3200937;
+        Mon, 30 Oct 2023 01:37:30 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute6.internal (MEProxy); Mon, 30 Oct 2023 01:37:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+        :cc:content-transfer-encoding:content-type:content-type:date
+        :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+        :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+        1698644250; x=1698730650; bh=KlwqU26/TGhYg5i9/XVkf+zLh3xMVm+1VcQ
+        XYi/nzIU=; b=bxjFLz7GBjkmMmXRmQYLNY5j/3HDKh5dSWNuahcG7NeEqMKTEwv
+        9/qDvl+AgqwxTQQKbd93b/Ba91Z3NpKX6eW0IF1IaYlshR0AYQHBCJDkBtuI0Jsd
+        pzKeVCPk8/DuotQIC5pxP5EpDpRtaQ7f0m2Qt6YAfAsaeWgaMBZt6FxB8SsLJRAK
+        c3t69pQuxSFJtt2giTn3oDV+LRxkQuqUhwDCYhbCz18hY+93bPEbG/0F3sQflRSg
+        0x/E/bfOsl6dpkgaqMRmvwRzGHgwCGqpaeckRLBa/Emk6im0A8U1GWNqVZziMnZc
+        DcYMbEGBAN95jY71+zNKfr25zUpU1VwtZOw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-transfer-encoding
+        :content-type:content-type:date:date:feedback-id:feedback-id
+        :from:from:in-reply-to:in-reply-to:message-id:mime-version
+        :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+        1698644250; x=1698730650; bh=KlwqU26/TGhYg5i9/XVkf+zLh3xMVm+1VcQ
+        XYi/nzIU=; b=LSDQuzyZ852n5SdjaR0R0vJHVrHJkmUAG1EOBZazSTv5+J2RjI6
+        G24gBrLLpWpfRb+hbrVt9qgTzoCzQSTYd/567ySL53FXzsjamMS9Mqi5DAWNwvW2
+        j1HA2grZ3ecdAy+511jmhJzBw6iIa/jbFb7VN8kL0WELUFL+bd7LVkRllo/5tLqG
+        0XnSotZZ3rFRUGHKYb8A/Ix9nqsJ+rimXsnkuZwsUb1sG4qE3OBn+/o/SEgwmtJn
+        B21V+cFVsf7wwh5Lx818MriK4apSEpjxFZpRBo4ghyl7KOrjgoqp4eHt48wnhVkC
+        BQsazS/T+49+JHlcJhmv4n0ZFIX/BhE9HNQ==
+X-ME-Sender: <xms:GUE_ZVP0TWY92X1mUJs17BYd3bpq6iNcnlONyiTus16yLm91HicCPw>
+    <xme:GUE_ZX-1LRc-pBMS7B9wV_3zTjdF_d8rM5QXSaqf64ZjUrFLT8JhPFxKqZSFEj39v
+    QnQwEluiZkj>
+X-ME-Received: <xmr:GUE_ZUS5-lnTzT63ChMIS0aWSvbJr2bwK8f4TIdA-b_5C1skVxmZyt9eDcQNSBtw9uD93H6S4niTqAgY-g1kmKIfqoiJ4dQgaF4hUhMj8QxUVUAUcoCX7fcV>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrleelgdekjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefkffggfgfuhffvvehfjggtgfesthekredttdefjeenucfhrhhomhepkfgrnhcu
+    mfgvnhhtuceorhgrvhgvnhesthhhvghmrgifrdhnvghtqeenucggtffrrghtthgvrhhnpe
+    eiveelkefgtdegudefudeftdelteejtedvheeuleevvdeluefhuddtieegveelkeenucev
+    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehrrghvvghnse
+    hthhgvmhgrfidrnhgvth
+X-ME-Proxy: <xmx:GUE_ZRtmx5n2Pt8GUxOwfcskEpb8rIhqA3f7NpkOR0M2G1Wh5T2lPg>
+    <xmx:GUE_Zdd_ymZLR_JgM40DbvS-kVQywf3xCuqk8a3vBahdpVM8MQv3ug>
+    <xmx:GUE_Zd00LoCgk4mlqBY4XBfLimcgMlzTozWvmZsbmdby04rM2sNfsw>
+    <xmx:GkE_Zb1HqFhb2XhpLKpKMcZtSVj3Y4gcEv6x5vbGNL-ekOOuuMWJjQ>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 30 Oct 2023 01:37:24 -0400 (EDT)
+Message-ID: <dfb5f3d5-8db8-34af-d605-14112e8cc485@themaw.net>
+Date:   Mon, 30 Oct 2023 13:37:18 +0800
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="nextPart12752715.aFP6jjVeTY"
-Content-Transfer-Encoding: 7Bit
-X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE
-        autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v4 2/6] mounts: keep list of mounts in an rbtree
+From:   Ian Kent <raven@themaw.net>
+To:     Miklos Szeredi <mszeredi@redhat.com>
+Cc:     linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>
+References: <20231025140205.3586473-1-mszeredi@redhat.com>
+ <20231025140205.3586473-3-mszeredi@redhat.com>
+ <b69c1c17-35f9-351e-79a9-ef3ef5481974@themaw.net>
+ <CAOssrKe76uZ5t714=Ta7GMLnZdS4QGm-fOfT9q5hNFe1fsDMVg@mail.gmail.com>
+ <c938a7d9-aa9e-a3ad-a001-fb9022d21475@themaw.net>
+Content-Language: en-US
+In-Reply-To: <c938a7d9-aa9e-a3ad-a001-fb9022d21475@themaw.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-5.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_PASS,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a multi-part message in MIME format.
+On 28/10/23 09:36, Ian Kent wrote:
+> On 27/10/23 16:17, Miklos Szeredi wrote:
+>> On Fri, Oct 27, 2023 at 5:12 AM Ian Kent <raven@themaw.net> wrote:
+>>> On 25/10/23 22:02, Miklos Szeredi wrote:
+>>>> The mnt.mnt_list is still used to set up the mount tree and for
+>>>> propagation, but not after the mount has been added to a 
+>>>> namespace.  Hence
+>>>> mnt_list can live in union with rb_node.  Use MNT_ONRB mount flag to
+>>>> validate that the mount is on the correct list.
+>>> Is that accurate, propagation occurs at mount and also at umount.
+>> When propagating a mount, the new mount's mnt_list is used as a head
+>> for the new propagated mounts.  These are then moved to the rb tree by
+>> commit_tree().
+>>
+>> When umounting there's a "to umount" list called tmp_list in
+>> umount_tree(), this list is used to collect direct umounts and then
+>> propagated umounts.  The direct umounts are added in umount_tree(),
+>> the propagated ones umount_one().
+>>
+>> Note: umount_tree() can be called on a not yet finished mount, in that
+>> case the mounts are still on mnt_list, so umount_tree() needs to deal
+>> with both.
+>>
+>>> IDG how the change to umount_one() works, it looks like umount_list()
+>>>
+>>> uses mnt_list. It looks like propagate_umount() is also using mnt_list.
+>>>
+>>>
+>>> Am I missing something obvious?
+>> So when a mount is part of a namespace (either anonymous or not) it is
+>> on the rb tree, when not then it can temporarily be on mnt_list.
+>> MNT_ONRB flag is used to validate that the mount is on the list that
+>> we expect it to be on, but also to detect the case of the mount setup
+>> being aborted.
+>>
+>> We could handle the second case differently, since we should be able
+>> to tell when we are removing the mount from a namespace and when we
+>> are aborting a mount, but this was the least invasive way to do this.
+>
+> Thanks for the explanation, what you've said is essentially what I
+>
+> understood reading the series.
+>
+>
+> But I still haven't quite got this so I'll need to spend more time
+>
+> on this part of the patch series.
+>
+>
+> That's not a problem, ;).
 
---nextPart12752715.aFP6jjVeTY
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+After cloning your git tree and looking in there I don't see what
 
-The synopsis of the prctl.2 page has:
+I was concerned about so I think I was confused by obscurity by
 
-       int prctl(int option, ...
-
-This makes no sense, because
-  - the first argument is not optional; it is mandatory.
-  - the title of the page is "operations on a process or thread".
-
-It is thus clear that the first argument indicates the operation to perform.
-
-Find attached the correction.
+diff rather than seeing a real problem, ;)
 
 
---nextPart12752715.aFP6jjVeTY
-Content-Disposition: attachment; filename="0001-prctl.2-Fix-typo.patch"
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/x-patch; charset="UTF-8"; name="0001-prctl.2-Fix-typo.patch"
+Still that union worries me a little bit so I'll keep looking at
 
-From a373bed1d7cd571cffc5ea1a8c6377efbe8fa51c Mon Sep 17 00:00:00 2001
-From: Bruno Haible <bruno@clisp.org>
-Date: Sun, 29 Oct 2023 21:46:49 +0100
-Subject: [PATCH] prctl.2: Fix typo
-
----
- man2/prctl.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/prctl.2 b/man2/prctl.2
-index f72aeb700..b5be0def6 100644
---- a/man2/prctl.2
-+++ b/man2/prctl.2
-@@ -46,7 +46,7 @@ Standard C library
- .nf
- .B #include <sys/prctl.h>
- .PP
--.BI "int prctl(int " option ", ..."
-+.BI "int prctl(int " operation ", ..."
- .BI "          \fR/*\fP unsigned long " arg2 ", unsigned long " arg3 ,
- .BI "          unsigned long " arg4 ", unsigned long " arg5 " \fR*/\fP );"
- .fi
--- 
-2.34.1
+the code for a while.
 
 
---nextPart12752715.aFP6jjVeTY--
-
-
-
+>
+>
+> Ian
+>
+>>
+>> Thanks,
+>> Miklos
+>>
+>
