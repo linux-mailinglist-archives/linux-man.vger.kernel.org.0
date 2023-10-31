@@ -2,46 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DE6D37DCCBA
-	for <lists+linux-man@lfdr.de>; Tue, 31 Oct 2023 13:14:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5110F7DCD0C
+	for <lists+linux-man@lfdr.de>; Tue, 31 Oct 2023 13:37:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230434AbjJaMN0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Oct 2023 08:13:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58542 "EHLO
+        id S1344263AbjJaMej (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Oct 2023 08:34:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35330 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230497AbjJaMN0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Oct 2023 08:13:26 -0400
+        with ESMTP id S1344260AbjJaMej (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Oct 2023 08:34:39 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9365A2
-        for <linux-man@vger.kernel.org>; Tue, 31 Oct 2023 05:13:21 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90456C433C8;
-        Tue, 31 Oct 2023 12:13:20 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 802A2A1
+        for <linux-man@vger.kernel.org>; Tue, 31 Oct 2023 05:34:36 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4619AC433C8;
+        Tue, 31 Oct 2023 12:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698754401;
-        bh=5Eiy6nREqzi+2i8mDlE3A3nOrPbCBUReYViW7jcpByA=;
+        s=k20201202; t=1698755676;
+        bh=ZZEVSuJoeZx6QURvWYVam6ItAIkk3zF5AaIyvVhBcs4=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=MKgwh7KpStwJ1PqdAYYdB+ldW9PmZ3vDpb/gLsH7oY58ljyZQ2Erdx8aIIEeudT2q
-         bzUPvDg2qkZIkH5C7DIdXTjrly754/FBuFoZsZwyNmCQZ1RvUtbXg25hNif6E8sbUx
-         /1t/giLsT/grlEmsDxGG+9YD7lAK4+W2/2uHNWXm+S3/wFEoVXwQ+3gJhCSkmba3TU
-         p5Sg+H6Alil4CEtYF4t/Gm+OwnyZ2nuM8pRAvCn5WIDbdonQRwfqCXW/EPBGgYZrsS
-         shd8DPLT0AwMd8kb6MJvlXBu1DAzBC/NozvXt6Ec+bzBdzkjGbg2tiOH1gYZcUuBSE
-         9TGvOwxvZILoA==
-Date:   Tue, 31 Oct 2023 13:13:12 +0100
+        b=Sip+0jIJFkOLNo7IsoC7Prw9X9tgLxHmF2S9N6rOQ6Ewtym0JTa7uAWCuY9GUH1hO
+         dlmL8KhIefDWT+Ee990xttS8J30mVXWnSfGsVw6CO0INnOponwIOkAMYbtAI/6nk6Z
+         lXM+6q9dVgypd7xTrBUx5dZ+qxVuSX5MzPZJxxYO0oa35bqCy+ATiFM1/v3TsjNYkv
+         0DBE4ljkDIjVCTKBs0Eh5936u7BpXZxvgoth0YyzF4v1Kyc01AHM2eEekyRVCClUWA
+         cWvcqjDNKFp646/TwKS7SsraUSuk2JbSqm/YLhsE+GzTBICy71K03mxgdbhNLn2AwN
+         b6GedrrcHJr2Q==
+Date:   Tue, 31 Oct 2023 13:34:32 +0100
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Sam James <sam@gentoo.org>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: groff 1.23.0 stability (was: using the TQ macro)
-Message-ID: <ZUDvXuA3MVZVSOF7@debian>
-References: <20231025141103.savwphtepufpget4@illithid>
- <ZTkvY8egIrf9pcxF@debian>
- <20231028131325.vloorrwewruhy4lq@illithid>
- <87edhbz9jh.fsf@gentoo.org>
+To:     Adhemerval Zanella <adhemerval.zanella@linaro.org>,
+        Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH v4] ld.so.8: Describe glibc Hardware capabilities
+Message-ID: <ZUD0WFR4Rearx6_V@debian>
+References: <20231026182802.2194109-1-adhemerval.zanella@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ddNmf8XD0Egt4mPz"
+        protocol="application/pgp-signature"; boundary="fbVEefpLFz420Gox"
 Content-Disposition: inline
-In-Reply-To: <87edhbz9jh.fsf@gentoo.org>
+In-Reply-To: <20231026182802.2194109-1-adhemerval.zanella@linaro.org>
 X-Spam-Status: No, score=-4.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
@@ -53,126 +50,255 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---ddNmf8XD0Egt4mPz
+--fbVEefpLFz420Gox
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 31 Oct 2023 13:13:12 +0100
+Date: Tue, 31 Oct 2023 13:34:32 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Sam James <sam@gentoo.org>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org
-Subject: Re: groff 1.23.0 stability (was: using the TQ macro)
+To: Adhemerval Zanella <adhemerval.zanella@linaro.org>,
+	Stefan Puiu <stefan.puiu@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v4] ld.so.8: Describe glibc Hardware capabilities
 
-Hi Sam!
+Hi Adhemerval, Stefan,
 
-On Tue, Oct 31, 2023 at 04:38:13AM +0000, Sam James wrote:
-> "G. Branden Robinson" <g.branden.robinson@gmail.com> writes:
-> > At 2023-10-25T17:08:19+0200, Alejandro Colomar wrote:
-> >> BTW, I just checked and Gentoo still doesn't consider 1.23.0 stable
-> >> enough <https://packages.gentoo.org/packages/sys-apps/groff>.  :|
-> >
+On Thu, Oct 26, 2023 at 03:28:02PM -0300, Adhemerval Zanella wrote:
+> The feature was added on glibc 2.33 as a way to improve the path
+> search, since the legacy hardware capabilities combination scheme
+> does not scale properly with new hardware support.  The legacy support
+> was removed non glibc 2.37, so it is the only scheme currently
+> supported.
 >=20
-> Alex, this is based on a misunderstanding of how our process works -- ple=
-ase
-> CC me if you have questions or if something looks off in future, so I
-> can explain/help if required.
->=20
-> > I don't understand that claim.  1.23.x is as stable as it can be; there
-> > have been no point releases.  Its behavior is not changing based on the
-> > calendar.
->=20
-> The standard rule in Gentoo is 30 days after something has been released
-> before it's considered for "stabilisation". We wait longer for critical
-> packages like groff to give more time for any reported bugs in "~arch"
-> (our testing area, which a lot of users participate in). It is generally
-> not a comment on upstream stability at all.
+> Signed-off-by: Adhemerval Zanella <adhemerval.zanella@linaro.org>
 
-Yep, I understand it's just about your use in combination with other
-packages in your distribution.  What I'm not sure is if by default
-Gentoo installs the stable packages or the testing ones.  If you install
-by default the stable one, I wouldn't want to force a dependency on a
-package that you don't yet install by default.
-
->=20
-> > I have to assume that there are either changes since 1.22.4
-> > documented in NEWS (and if not, that's probably a bug) that they're
-> > concerned about, or they're worried the broader community hasn't gotten
-> > enough exposure to it yet.  repology.org has been sitting at 64
-> > instances of groff 1.23.0 for weeks now; I think pretty much everyone
-> > who's going to adopt it has done so by now.
-> >
->=20
-> ... in this case, the only blockers were really:
-> * me having https://github.com/Perl/perl5/issues/21239
->   in the back of my head (wasn't paying full attention, just knew I had
->   to go back and read any developments/further comments)=20
->=20
-> * needing to look into a reported failure
->   (https://bugs.gentoo.org/910226) - which looks like it should be fixed
->   when we update our version of openvswitch (or we backport the patch,
->   or both)
-
-So, if the Linux man-pages forces a dependency of groff-1.23.0, would it
-be problematic for Gentoo before you declare it stable, or would it be
-fine?
-
->=20
-> > CCing Sam James (the only Gentoo developer I know by name, because he's
-> > been active some of the same places I have been) in case he can throw
-> > some light on this.
->=20
-> Happily! Please feel free to loop me in if you reckon I can give input
-> on things.
->=20
-> So, all in all, none of this is a reflection on upstream, just a mix
-> of: how we do things normally (waiting a bit post-release unless there's
-> some serious regression in our stable version), waiting a bit longer
-> because it's a critical package (sometimes 60 days, sometimes a bit
-> longer), and not getting around to looking at that openvswitch bug yet.
-
-Yeah, the quality of groff-1.23.0 is way better than 1.22.4.  I'm just
-worried that forcing distros to use it too early might be detrimental.
+Patch applied.  Thanks!  I amended the patch with some small tweaks (see
+diff below).
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Deb82265f495a2c55e76c213c7b877b8eafc2d2a4>
 
 Cheers,
 Alex
 
+---
+
+diff --git a/man8/ld.so.8 b/man8/ld.so.8
+index 3526bcd6e..eb6c2c8ff 100644
+--- a/man8/ld.so.8
++++ b/man8/ld.so.8
+@@ -851,44 +851,50 @@ .SS Legacy Hardware capabilities (from glibc 2.5 to g=
+libc 2.37)
+ .B x86 (32-bit only)
+ acpi, apic, clflush, cmov, cx8, dts, fxsr, ht, i386, i486, i586, i686, mca=
+, mmx,
+ mtrr, pat, pbe, pge, pn, pse36, sep, ss, sse, sse2, tm
+-.PP
+-The legacy hardware capabilities support has the drawback that each
+-new feature added grows the search path exponentially, because it has
+-to be added to every combination of the other existing features.
+-.PP
+-For instance, on x86 32-bit, if the hardware
+-supports
++.P
++The legacy hardware capabilities support has the drawback that
++each new feature added grows the search path exponentially,
++because it has to be added to
++every combination of the other existing features.
++.P
++For instance, on x86 32-bit,
++if the hardware supports
+ .B i686
+ and
+-.BR sse2
+-, the resulting search path will be
++.BR sse2 ,
++the resulting search path will be
+ .BR i686/sse2:i686:sse2:. .
+ A new capability
+ .B newcap
+ will set the search path to
+ .BR newcap/i686/sse2:newcap/i686:newcap/sse2:newcap:i686/sse2:i686:sse2: .
++.\"
+ .SS glibc Hardware capabilities (from glibc 2.33)
+ .TP
+ .\" The initial discussion on various pitfalls of the old scheme is
+-.\" https://sourceware.org/pipermail/libc-alpha/2020-May/113757.html
++.\" <https://sourceware.org/pipermail/libc-alpha/2020-May/113757.html>
+ .\" and the patchset that proposes the glibc-hwcap support is
+-.\" https://sourceware.org/pipermail/libc-alpha/2020-June/115250.html
+-glibc 2.33 added a new hardware capability scheme, where under each
+-CPU architecture, certain levels can be defined, grouping support for
+-certain features or special instructions. Each architecture level has
++.\" <https://sourceware.org/pipermail/libc-alpha/2020-June/115250.html>
++glibc 2.33 added a new hardware capability scheme,
++where under each CPU architecture,
++certain levels can be defined,
++grouping support for certain features or special instructions.
++Each architecture level has
+ a fixed set of paths that it adds to the dynamic linker search list,
+-depending on the hardware of the machine. Since each new architecture
+-level is not combined with previously existing ones, the new scheme
+-does not have the drawback of growing the dynamic linker search list
+-uncontrollably.
+-.PP
+-For instance, on x86 64-bit, if the hardware supports
++depending on the hardware of the machine.
++Since each new architecture level is
++not combined with previously existing ones,
++the new scheme does not have the drawback of
++growing the dynamic linker search list uncontrollably.
++.P
++For instance, on x86 64-bit,
++if the hardware supports
+ .B x86_64-v3
+-(for instance Intel Haswell or AMD Excavator)
+-, the resulting search path will be
++(for instance Intel Haswell or AMD Excavator),
++the resulting search path will be
+ .BR glibc-hwcaps/x86-64-v3:glibc-hwcaps/x86-64-v2:.
+ .\" The x86_64 architectures levels are defined the official ABI:
+-.\" https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/low-=
+level-sys-info.tex
++.\" <https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/low=
+-level-sys-info.tex>
+ .\" The PowerPC and s390x are glibc defined ones based on chip
+ .\" support (which maps to ISA levels).
+ The following paths are currently supported, in priority order.
+@@ -901,9 +907,9 @@ .SS glibc Hardware capabilities (from glibc 2.33)
+ .TP
+ .B x86 (64-bit only)
+ x86-64-v4, x86-64-v3, x86-64-v2
+-.PP
++.P
+ glibc 2.37 removed support for the legacy hardware capabilities.
+-.
++.\"
+ .SH SEE ALSO
+ .BR ld (1),
+ .BR ldd (1),
+
+> ---
+>  man8/ld.so.8 | 63 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 62 insertions(+), 1 deletion(-)
 >=20
-> I promise I would report any problems if I determined they were in any
-> way an upstream issue :)
->=20
-> Thanks for reaching out.
->=20
-> >
-> > Regards,
-> > Branden
-> >
->=20
-> best,
-> sam
+> diff --git a/man8/ld.so.8 b/man8/ld.so.8
+> index cf03cb85e..ed27744cb 100644
+> --- a/man8/ld.so.8
+> +++ b/man8/ld.so.8
+> @@ -208,6 +208,14 @@ The objects in
+>  .I list
+>  are delimited by colons.
+>  .TP
+> +.BI \-\-glibc-hwcaps-mask " list"
+> +only search built-in subdirectories if in
+> +.IR list .
+> +.TP
+> +.BI \-\-glibc-hwcaps-prepend " list"
+> +Search glibc-hwcaps subdirectories in
+> +.IR list .
+> +.TP
+>  .B \-\-inhibit\-cache
+>  Do not use
+>  .IR /etc/ld.so.cache .
+> @@ -808,7 +816,7 @@ as a temporary workaround to a library misconfigurati=
+on issue.)
+>  .I lib*.so*
+>  shared objects
+>  .SH NOTES
+> -.SS Hardware capabilities
+> +.SS Legacy Hardware capabilities (from glibc 2.5 to glibc 2.37)
+>  Some shared objects are compiled using hardware-specific instructions wh=
+ich do
+>  not exist on every CPU.
+>  Such objects should be installed in directories whose names define the
+> @@ -843,6 +851,59 @@ z900, z990, z9-109, z10, zarch
+>  .B x86 (32-bit only)
+>  acpi, apic, clflush, cmov, cx8, dts, fxsr, ht, i386, i486, i586, i686, m=
+ca, mmx,
+>  mtrr, pat, pbe, pge, pn, pse36, sep, ss, sse, sse2, tm
+> +.PP
+> +The legacy hardware capabilities support has the drawback that each
+> +new feature added grows the search path exponentially, because it has
+> +to be added to every combination of the other existing features.
+> +.PP
+> +For instance, on x86 32-bit, if the hardware
+> +supports
+> +.B i686
+> +and
+> +.BR sse2
+> +, the resulting search path will be
+> +.BR i686/sse2:i686:sse2:. .
+> +A new capability
+> +.B newcap
+> +will set the search path to
+> +.BR newcap/i686/sse2:newcap/i686:newcap/sse2:newcap:i686/sse2:i686:sse2:=
+ .
+> +.SS glibc Hardware capabilities (from glibc 2.33)
+> +.TP
+> +.\" The initial discussion on various pitfalls of the old scheme is
+> +.\" https://sourceware.org/pipermail/libc-alpha/2020-May/113757.html
+> +.\" and the patchset that proposes the glibc-hwcap support is
+> +.\" https://sourceware.org/pipermail/libc-alpha/2020-June/115250.html
+> +glibc 2.33 added a new hardware capability scheme, where under each
+> +CPU architecture, certain levels can be defined, grouping support for
+> +certain features or special instructions. Each architecture level has
+> +a fixed set of paths that it adds to the dynamic linker search list,
+> +depending on the hardware of the machine. Since each new architecture
+> +level is not combined with previously existing ones, the new scheme
+> +does not have the drawback of growing the dynamic linker search list
+> +uncontrollably.
+> +.PP
+> +For instance, on x86 64-bit, if the hardware supports
+> +.B x86_64-v3
+> +(for instance Intel Haswell or AMD Excavator)
+> +, the resulting search path will be
+> +.BR glibc-hwcaps/x86-64-v3:glibc-hwcaps/x86-64-v2:.
+> +.\" The x86_64 architectures levels are defined the official ABI:
+> +.\" https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/lo=
+w-level-sys-info.tex
+> +.\" The PowerPC and s390x are glibc defined ones based on chip
+> +.\" support (which maps to ISA levels).
+> +The following paths are currently supported, in priority order.
+> +.TP
+> +.B PowerPC (64-bit little-endian only)
+> +power10, power9
+> +.TP
+> +.B s390 (64-bit only)
+> +z16, z15, z14, z13
+> +.TP
+> +.B x86 (64-bit only)
+> +x86-64-v4, x86-64-v3, x86-64-v2
+> +.PP
+> +glibc 2.37 removed support for the legacy hardware capabilities.
+> +.
+>  .SH SEE ALSO
+>  .BR ld (1),
+>  .BR ldd (1),
+> --=20
+> 2.34.1
 >=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---ddNmf8XD0Egt4mPz
+--fbVEefpLFz420Gox
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVA71gACgkQnowa+77/
-2zK5nw//b6Y41JGG7Dm9Q9uAkkjGqpcCCvHSNrPCfkYHGLql+SWUSLCKJT0LzIpW
-7yUs3NXHFa8Oip9Dq32abzL9qlfpPoLumVQe1LV4hGw/6cJJ25oOr6QsECJFMlCy
-bFlklYn3byR6EVIVsoBPJMCi9uAlXYhTcDBppaGebR93KzSqa2HhQPt1IC5kC7Bg
-p41ZgxtXyoNeevpSNSJu7c+m6/VTfYeCrrjZdxP775wGon3NyTZ/fX6kk1EANnvY
-d8EsgaaByIVAXMsH4Tq93+eYjG3ZpBXX+iWpmnQNHKz7ajdUsF81qz9JqyJUVkbR
-CicQcSWKyaNZyK0pBWLvx+serqPg7NNHxOj+iBg9Vn+C5rckEJ+GXluprfTEKnDj
-BtGhIw0cknOxOfvVsJncxOx2UZEqK9CobQZuLSUAx3KgUCuDSya2dKK/DlhHjs2r
-qh4nUd0kwatD+1Bby91azqlGSmDjUTx7Ltz2PGn7VfWXKvaHcepIfrGagOJ8kuYE
-NLR2CK39+cj5VG1fyl5ww1z+biBL9ADap0nQkeons6kpX/6VB+gEdLaFcWvlJxdc
-1jlvvw4KcJloylLStvDNF1InUGfAAKiCyoJQGfI611Z/YovTRa97Gewm9ctRH/N6
-2eCFA1XSwcNOtJIQCKKghN83HkEwgiL7jeu4YjS+wRRzXcihhfw=
-=Xn14
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVA9FgACgkQnowa+77/
+2zKiBw/+MzRCZ72O9CdtVioCs6W86xjis+NFQb2engvWcvZu4sRiVoIzSsS8Thd0
+Cs/VeNiHnrZeG0E7UXXQD74J3gL+/+o1EpOG5RBriYZLVPF3ssG51wVtVrWcVN18
+XopC1SbpqcfnIWWPGPQzyGuXFKEvKEoe+8RLlJ1+Gt7JAkDe9yFp1s9b9Ez83GvD
+PT9OdGU/FjyFIKbD0xpj0AIg1ebV2iR/K3ZBscwmZuZAvKoe+KcdzTMEEH5A8ipl
+MRwn0jkU1XM02hC2eQ2YS4MyFb9qYcjyHr+yN32Aq8FO6RUsOQhm9aSPkKjnIcnC
+VpGGft/m7gTWmHSmaTPTtY1T7u3rWbGt0I7AWdg+Apvg21+VAQcfo549SPvqMQwS
+4Xde5plMasJOXIF50YsGtcyOsAzCvHZFd6jTFEwsgORlBn/bs4L7jwJVyFs6DMse
+AIwYEzEVWbBVDnBKhS+rcNHk7Bxo/HvKTwClgZF6gLT2uFcHb5k+D5moZjxtM4w3
+VCyVnS2+iAtp6EaiHeVan1v97WJwI5UDkXOdMeKq9R1GoVmKOgw/SB5iBR9XKr1M
+IhkVPtc/N1piXhdm5Xz3K6Nw2XY06cQJmW3BP2WmfoSgCa+dHk3gLcyZLivaO7OI
+CTrJA28+51CYEJb7xERPLlG+4P9I8M6w5haphL1xNWogpa+dPMY=
+=/52u
 -----END PGP SIGNATURE-----
 
---ddNmf8XD0Egt4mPz--
+--fbVEefpLFz420Gox--
