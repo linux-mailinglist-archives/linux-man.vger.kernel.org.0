@@ -2,42 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 185237DCEBC
-	for <lists+linux-man@lfdr.de>; Tue, 31 Oct 2023 15:06:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F4B57DCD21
+	for <lists+linux-man@lfdr.de>; Tue, 31 Oct 2023 13:45:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233002AbjJaOF6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Oct 2023 10:05:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52780 "EHLO
+        id S1344275AbjJaMpI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Oct 2023 08:45:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40126 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344308AbjJaMlG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Oct 2023 08:41:06 -0400
+        with ESMTP id S1344246AbjJaMpH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Oct 2023 08:45:07 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9CAF797
-        for <linux-man@vger.kernel.org>; Tue, 31 Oct 2023 05:41:02 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53E7EC433C7;
-        Tue, 31 Oct 2023 12:41:01 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4EA3BBD
+        for <linux-man@vger.kernel.org>; Tue, 31 Oct 2023 05:45:05 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8E5C433C8;
+        Tue, 31 Oct 2023 12:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698756062;
-        bh=JXTFK2uEV1Wx5leC/02pLKP5YIpI2eCyRihNuqb/bZQ=;
+        s=k20201202; t=1698756304;
+        bh=jqLaYLalq4PnFN12T4Q4bWi8CiDuG/1izzeKW5WzAqc=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=IDvCFKaDTvw3Zn+CmPPAw6i3HDZGS1p7BC/eW6tfKRNSU+aKjKQvcjrcfgK2+TTJw
-         cbmLwl9KRR1U+/a8A4GsoPOVOIP80kPEoRXt8RCxm0iVUDj8Heq8cEsYI1PrRJhQVn
-         KNjO8eQhZ7bUewR+WksSagDNGQOTC1qxqrZzRZMZuyktA1QOcgQOy6FPyAcY8hC6Wc
-         aEXzVwK/vGI+agIuebkvsCs26IRxr2UDg2WVcsBaAYik92xD4Bx2xZ3Npl3P+o3qVF
-         IoWlfheL5bmu9eqXKFM6zOTgXaYfWXHV3inQLLJxoRCDlWnjTjN6r5zxCfuEHK1fzW
-         7Ow42fuW4pBOQ==
-Date:   Tue, 31 Oct 2023 13:40:58 +0100
+        b=YGzXR8rgV92fvGsZxxge+7267OxAJgsnGtfjDkkA9hEQ6vE7vpZM6IoqPl4FWIBLX
+         Ndko1NtZwwJgXvPOEvY9T9yHMr5xka8N8Rcs7OSlHX0qboJFSBIflXiG8t8Z2TiRV7
+         vmlQXsMJsSgg6S8vw8S8/uYLPX1CVYS0PFcpAabxqZwA0unbMeqXH8y8okyxaF4TWE
+         /T/TZldC59X8QzENVseFKgMJhyNkWmzTl+poqKJcJhJ2RI8VWocPeBuyVoExMe9ua6
+         3+Lkb/XDtXgUqA1CcR1WqXAcVPQz5suPSySJ8TvZv/N9U9mHNVrHB8jd6WQRJkdf3+
+         WQJeDlXriRc+A==
+Date:   Tue, 31 Oct 2023 13:45:01 +0100
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Bruno Haible <bruno@clisp.org>
-Cc:     linux-man@vger.kernel.org, alx.manpages@gmail.com
-Subject: Re: [PATCH] prctl.2: Fix typo
-Message-ID: <ZUD12kxqzd0PsT_E@debian>
-References: <4678853.9Mp67QZiUf@nimes>
+To:     Max Kellermann <max.kellermann@ionos.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man2/clone.2: clarify that CLONE_CLEAR_SIGHAND does
+ not affect SIG_IGN
+Message-ID: <ZUD2zazng_Z_p1pf@debian>
+References: <ZT_YHozq7Pu_t9Nq@debian>
+ <20231030162733.598572-1-max.kellermann@ionos.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ImsisF+M0VBUYjNz"
+        protocol="application/pgp-signature"; boundary="UoqufOAnF1P+gVhs"
 Content-Disposition: inline
-In-Reply-To: <4678853.9Mp67QZiUf@nimes>
+In-Reply-To: <20231030162733.598572-1-max.kellermann@ionos.com>
 X-Spam-Status: No, score=-4.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
@@ -49,92 +51,83 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---ImsisF+M0VBUYjNz
+--UoqufOAnF1P+gVhs
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 31 Oct 2023 13:40:58 +0100
+Date: Tue, 31 Oct 2023 13:45:01 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Bruno Haible <bruno@clisp.org>
-Cc: linux-man@vger.kernel.org, alx.manpages@gmail.com
-Subject: Re: [PATCH] prctl.2: Fix typo
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man2/clone.2: clarify that CLONE_CLEAR_SIGHAND does
+ not affect SIG_IGN
 
-Hi Bruno,
+Hi Max,
 
-On Sun, Oct 29, 2023 at 09:51:55PM +0100, Bruno Haible wrote:
-> The synopsis of the prctl.2 page has:
+On Mon, Oct 30, 2023 at 05:27:33PM +0100, Max Kellermann wrote:
+> The old wording was ambiguous, but it is important to know that
+> signals that were set to SIG_IGN will not be restored to SIG_DFL.
 >=20
->        int prctl(int option, ...
+> This behavior was documented in the kernel commit that introduced the
+> feature:
 >=20
-> This makes no sense, because
->   - the first argument is not optional; it is mandatory.
->   - the title of the page is "operations on a process or thread".
+>  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/?id=3Db612e5df4587c934bd056bf05f4a1deca4de4f75
 >=20
-> It is thus clear that the first argument indicates the operation to perfo=
-rm.
->=20
-> Find attached the correction.
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 
-Agree.  I've seen there are other similarly incorrect uses of the word
-"option" where "operation" should have been used in the same page (but
-there are some that are correctly used).  Would you mind checking the
-entire page for those other replacements?
+Patch applied slightly amended).  Thanks!
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D05e46589ceb7e3ca5925c874adb489e0dde40596>
 
-> From a373bed1d7cd571cffc5ea1a8c6377efbe8fa51c Mon Sep 17 00:00:00 2001
-> From: Bruno Haible <bruno@clisp.org>
-> Date: Sun, 29 Oct 2023 21:46:49 +0100
-> Subject: [PATCH] prctl.2: Fix typo
->=20
-> ---
-
-Please include the explanation from above in the commit message.
-
-Thanks,
+Cheers,
 Alex
 
->  man2/prctl.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> ---
+> v1 -> v2: added link to kernel commit
+> ---
+>  man2/clone.2 | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index f72aeb700..b5be0def6 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -46,7 +46,7 @@ Standard C library
->  .nf
->  .B #include <sys/prctl.h>
->  .PP
-> -.BI "int prctl(int " option ", ..."
-> +.BI "int prctl(int " operation ", ..."
->  .BI "          \fR/*\fP unsigned long " arg2 ", unsigned long " arg3 ,
->  .BI "          unsigned long " arg4 ", unsigned long " arg5 " \fR*/\fP )=
-;"
->  .fi
+> diff --git a/man2/clone.2 b/man2/clone.2
+> index 4a75b557b..deb4bdb5b 100644
+> --- a/man2/clone.2
+> +++ b/man2/clone.2
+> @@ -455,7 +455,8 @@ flag is also employed.)
+>  By default, signal dispositions in the child thread are the same as
+>  in the parent.
+>  If this flag is specified,
+> -then all signals that are handled in the parent
+> +then all signals that are handled in the parent (and not set to
+> +.BR SIG_IGN )
+>  are reset to their default dispositions
+>  .RB ( SIG_DFL )
+>  in the child.
 > --=20
-> 2.34.1
+> 2.39.2
 >=20
-
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---ImsisF+M0VBUYjNz
+--UoqufOAnF1P+gVhs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVA9doACgkQnowa+77/
-2zJKZg//d/aQ8tBxupTMq9fV5j6/5qv0JO0YdENlYDjeWcHO91Mw0m7QdMWSVbLK
-58NGfJpy0WOfMYa/WD8yJ22+RrE6TvpPfDBQz+deL0LZz6emalN93dVf55HnP/Z4
-WsXKMk25z8hDAf1zzTnnPeEOu6P95C5yVZRAX5P06Iebz3c40SwRjJcBjrvFCSQq
-X60Y8JsBpk/0rg/kGanmydXrF4OWCkuT5MAmbBZ+cmtSVzkxbDfDS26ItBQO69aN
-LmTi+8vgJTSOL9EutvCISSTQB667GXmxeWFXyKYcJW+6+Fb+8Vjm/YTJBaJ4VAD4
-ub/GrAA8tV1tQ9zFNOZcHmqHlxvE7oLtpNV/nIvkWiaTCmaZ0m3wdaTpSkG9nSlt
-gyo4IzDOdL59benT2l68aoy+JqB0QLQFzPTaP3MvZTNN9hdOcZH49RCfz+dlS3U0
-C9M+bpW2Dmd20WfaNEk6pEcNkgne8XtnuVMjIER6tVmOAX0P0NPdSjjo3pMUT0t4
-OQN52KGGrJ14J+zMJyLBvZmkWrBx3743caJLSu4GZRQEymCaAELq8qzUSADVvRv/
-/jgdHhjmNmkSwIecIOGrlKytjaNko27n3T5pclg8DMpzzG5YOlNJPodANBt8X8tH
-FAlnrS9t6tXjWxFOfwdAlDvmoxVn5qN/2hp2fhF1OQoo5Vqbj74=
-=OJF6
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVA9s0ACgkQnowa+77/
+2zKN9g//RyJRTt+WieMzzl+OaqynIB9YusiZgOW+vci91+nawU8cK3ag1miK7WWS
+Sfw96zeU02a3h9AWIRM37jI5rSKFFOyc35LLCCOv372bm+mzwcaAfk8eWWIVk8nl
+oa7MOjOo8ocYUWTY25J7rH+7DacDSgzsJfEGB9TiH4nRxLotARrf7BIzH8ImN1bi
+PKBzqPQFHYiRIgSbU9L8Cr6icfdCEwnVh3fYcTBO1BAdeA5s2m6jVM8DHFLozHVb
+KUdmYoO0y96fnqFCjwg/rHh/2xdYQXwp7J67osW/Chlfx07pmwBjnkhP86Iu07Ey
+q8OyPNeYlID1yOs7EBjFCg0Dz7iIOznNQVRFyROQ4lSKT4O2LQ8BG3uL44N8WaQs
+jw4H59jkUU0yIvzPz93HT5K4JQkTJ98IubaOCsuRkWNPBwQ16iwPyrulaKi7yZxQ
+dJNQpk0BF2auzFjyyuaOJfUVitu3oZ+rZZDyv47mmYWA0yUUgsbeggdmSZ/RdjI4
+IOzRAJwk8AMojcfQrNGsYXE60ADRHZSSbUSeZiQt6OQYFQ3X7lbXa8+DEfuDD5cG
+e1dMeUsxwxkknVlgbGkgqSvfnDXM0yXj71SLnyvCFRfNvJduMmnk+nzVAloLIt96
+zJtP5CJVNCFgFiJPrviJ5K3CEdMcNYPw2mXKVODYpxNTBCSpoCM=
+=Fotk
 -----END PGP SIGNATURE-----
 
---ImsisF+M0VBUYjNz--
+--UoqufOAnF1P+gVhs--
