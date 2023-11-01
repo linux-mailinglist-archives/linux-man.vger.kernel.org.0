@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9CD147DE214
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D42437DE1FA
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344266AbjKAOHX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 10:07:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35942 "EHLO
+        id S235509AbjKAOHc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 10:07:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41214 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1343779AbjKAOHU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:20 -0400
+        with ESMTP id S1344324AbjKAOHb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:31 -0400
 Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A034F10C
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:18 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AAE18118
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:28 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 000000000002149D.0000000065425A64.000FAD0E; Wed, 01 Nov 2023 14:02:12 +0000
+  id 0000000000021538.0000000065425A64.000FADE7; Wed, 01 Nov 2023 14:02:12 +0000
 Date:   Wed, 1 Nov 2023 14:02:12 +0000
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page posixoptions.7
-Message-ID: <ZUJaZBQfotPYIEly@meinfjell.helgefjelltest.de>
+Subject: Issue in man page catan.3
+Message-ID: <ZUJaZKJAbhWGdLrn@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -41,9 +41,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    functions → functions:
+Issue:    y → of I<y>
 
-"If this option is in effect (as it always is under POSIX.1-2001), then only "
-"root may change the owner of a file, and nonroot can set the group of a file "
-"only to one of the groups it belongs to.  This affects the following "
-"functions"
+"These functions calculate the complex arc tangent of I<z>.  If "
+"I<y\\~=\\~catan(z)>, then I<z\\~=\\~ctan(y)>.  The real part of y is chosen "
+"in the interval [-pi/2,pi/2]."
