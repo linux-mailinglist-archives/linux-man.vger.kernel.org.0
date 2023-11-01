@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 31E0E7DE20E
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9CD147DE214
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343920AbjKAOHZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 10:07:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35980 "EHLO
+        id S1344266AbjKAOHX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 10:07:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35942 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344082AbjKAOHW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:22 -0400
+        with ESMTP id S1343779AbjKAOHU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:20 -0400
 Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ACF9D83
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:19 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A034F10C
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:18 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000021509.0000000065425A64.000FAD57; Wed, 01 Nov 2023 14:02:12 +0000
+  id 000000000002149D.0000000065425A64.000FAD0E; Wed, 01 Nov 2023 14:02:12 +0000
 Date:   Wed, 1 Nov 2023 14:02:12 +0000
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page regex.7
-Message-ID: <ZUJaZKpi3x1c29CQ@meinfjell.helgefjelltest.de>
+Subject: Issue in man page posixoptions.7
+Message-ID: <ZUJaZBQfotPYIEly@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -41,12 +41,9 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    I<egrep> → B<egrep>(1)
+Issue:    functions → functions:
 
-"Regular expressions (\"RE\"s), as defined in POSIX.2, come in two forms: "
-"modern REs (roughly those of I<egrep>; POSIX.2 calls these \"extended\" "
-"REs)  and obsolete REs (roughly those of B<ed>(1); POSIX.2 \"basic\" REs).  "
-"Obsolete REs mostly exist for backward compatibility in some old programs; "
-"they will be discussed at the end.  POSIX.2 leaves some aspects of RE syntax "
-"and semantics open; \"\\*(dg\" marks decisions on these aspects that may not "
-"be fully portable to other POSIX.2 implementations."
+"If this option is in effect (as it always is under POSIX.1-2001), then only "
+"root may change the owner of a file, and nonroot can set the group of a file "
+"only to one of the groups it belongs to.  This affects the following "
+"functions"
