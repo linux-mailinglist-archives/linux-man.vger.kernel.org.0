@@ -2,94 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 725AF7DE430
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 16:52:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F81C7DE435
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 16:53:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230074AbjKAPwp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 11:52:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48548 "EHLO
+        id S231995AbjKAPxd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 11:53:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229498AbjKAPwn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 11:52:43 -0400
-Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BD02A6
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 08:52:37 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 0000000000020152.0000000065427443.000FBF62; Wed, 01 Nov 2023 15:52:35 +0000
-Date:   Wed, 1 Nov 2023 15:52:35 +0000
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx@kernel.org>
+        with ESMTP id S229498AbjKAPxd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 11:53:33 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A895DA6
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 08:53:27 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71939C433CD;
+        Wed,  1 Nov 2023 15:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1698854007;
+        bh=QMiK0klp3vyoAlKnRkSxnlYGfZqCvqYus/QWounHtic=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=SBKk/ur8v+rYLEpkLDV9j4YLtNr0gBlLH5oL1udx3Vh2pQT8kPXJ13OJDytCByu/y
+         C0zho8keRpkGzzTBpDgAr0sbfmMViNMAagel5egAjqsZe70uJrXJriEDsbTzPN6X1A
+         q8o7M+4sUhoaD2nt8mAYkji21/7dSO2nI4CIXt7pL92b6p0MH/+QsSG0iGy/iZo4W9
+         vrY62kfz6d5t+J/NmLW9ZE1R7sKVCwNYBfSDab5FYrp7i682aKh7Dt3O33A80rsAxJ
+         xfdzcdSRFxpP5G6KF9bk96fDptbdyfOiKZyZuYXW086YGr6YxwDYlbvW3gfLW7P71X
+         L5KMYTdovZJNA==
+Date:   Wed, 1 Nov 2023 16:53:23 +0100
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page open.2
-Message-ID: <ZUJ0Qztab8idtR2W@meinfjell.helgefjelltest.de>
-References: <ZUJaYzdZ28TxB6nY@meinfjell.helgefjelltest.de>
- <ZUJzWLU74kFIIThX@debian>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1032034-1698853955-0001-2"
+Subject: Re: Issue in man page malloc_get_state.3
+Message-ID: <ZUJ0dOPeFzd2DXU5@debian>
+References: <ZUJaY0IROgXRcdv1@meinfjell.helgefjelltest.de>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="j9Z1bsLSi39+Oq0x"
 Content-Disposition: inline
-In-Reply-To: <ZUJzWLU74kFIIThX@debian>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <ZUJaY0IROgXRcdv1@meinfjell.helgefjelltest.de>
+X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
 
---=_meinfjell-1032034-1698853955-0001-2
-Content-Type: text/plain; charset=utf-8
+--j9Z1bsLSi39+Oq0x
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 1 Nov 2023 16:53:23 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page malloc_get_state.3
 
-Hello Alejandro,
-Am Wed, Nov 01, 2023 at 04:48:40PM +0100 schrieb Alejandro Colomar:
-> On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    Linux. =E2=86=92 is Linux specific.
-> >=20
-> > "B<openat2>(2)  Linux."
+Hi Helge,=20
+
+On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
+> Without further ado, the following was found:
 >=20
-> Just 'Linux' is simpler, I think.
+> Issue:    function =E2=86=92 functions
 
-It just sound strange to me; however, I'm not a native speaker.
+Thanks for the report!  Fixed:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Daa606765cd8444e07d95faad60dbbeabc088ed68>
 
-Greetings
+Cheers,
+Alex
 
-          Helge
+>=20
+> "I<Note>: these function are removed in glibc 2.25."
+
 --=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
+<https://www.alejandro-colomar.es/>
 
---=_meinfjell-1032034-1698853955-0001-2
+--j9Z1bsLSi39+Oq0x
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmVCdEMACgkQQbqlJmgq
-5nAdwQ//VHrJLb2F+1E3o1WF7QPstYapHWPHHgc7/ASQlVZHW7wecJmBwz+AzJjj
-hUfHCaq8uOiBn5BgPqnpDhuAJK7Q9zjK4YXHQcIYJZ0WjIGDgPndUt50bztbVWS3
-GvI7ulz4SgmvAneahApWw1f2k01USwnoFx4Dk9S67aMz+jykB26TW2Z44FQv5EO2
-o35pxLtnSFAm8+CbMjO8EOgv7avAP4GPcAjQGM128Cx5VHUdqV1PQ2F6I0uofxn+
-7tJQE7tcLhjjxNjy8BYBY2auQedO6r4GcBoUXhaDCW+YJAd1WS/+yAeVu+uTyvGK
-sw6fSq8YMal/3zZrOzAkOtAIo3UIEKFJ9cKs0sdr3XzJHu6HDdM42u54haNz1iBe
-Rpp8ZJNp3B3R9HInMtlYbFrTmClzYJd40542Rbv+ZqkmmEga4vFOZikvF9UxIVWt
-zLOj/NXbKBRe2zQynunI/ghd2I3l2XPxNqoFkMOpH1kSWsVO2/89zVx9EuIsp34P
-eUc4tBHeq5lzy0y8to2tITqaRuKccGnc5yhUUo8MlK+K3vlT/2caEyh4fNWQ/zxt
-5BwuPiq5BaC8q0JNT2tJorgvK0y8YzCrKlC9n41Kjv6S5nRfRCjsV6pZ7RSDHlYA
-wGK//UboSY/CIlxYrG5IJ4tPNKaoVW/2K3Ja+NFH+4iKXbJbMOE=
-=lC44
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCdHQACgkQnowa+77/
+2zIbxA//eZu1ri365zAHxjawZKUOK9h52fqdg7YXBxPwclLKXfJuHvJXnqKgIEkJ
+mLUarSwwwsa7L3ZSxFoSQv1MMcuOLjKy9cQNBNxHyeA64VptnPmIRQ1zjTBd3QEJ
+Xs9xp1twlEZx3G29LV/CrfuhnU4Jl9cB6J0JqPRJYHg5p8ADxzshLKJsxRg7xCf1
+F89SWsKU3XybmCaMmdT0J+W4yL4xWR08DSy3qnh033PYSKHmoGA6h1i+YIbbE1EP
+/+RsfJ1KMO4BRNffHC5XK+Hlhzt5NYIFMIo8fUkeU40HgrIOHkoT41vebVhkhQlq
+vXSRJ/c5bnVosqAnk8YWFSD3vJyxtETAR9b01bgu035gEc2gZDQ6d3AA93Xu3r6v
+9pnYBpgxA3L60inbWaXwkVHmI79yY8/9bBWsrP1bRXYGDSOA//79tw/LMKSn2i1W
+5sQnBwuJVDg8RXoNZiVwBzqbAgz6tIQysDhqktJZeub9VB08ioH3HSkQ2+YzA+nM
+DZcZtDVaXDDWqv4HCIfh3bSp22JbB71x8F6iwY7Tqi8z1hzI5AmP85+nkChDjmKW
+QMKPHXIFYf3rXIBKD1xUM8pckud6Z7MbZ1wagCMhN3e71LMhUCRwhNTXowp5TAgK
+FbNVmdhHfLRjK4a/YY8XMfMX+8q/DgKJ3NzsikZg+u+jB/DWjDE=
+=B81E
 -----END PGP SIGNATURE-----
 
---=_meinfjell-1032034-1698853955-0001-2--
+--j9Z1bsLSi39+Oq0x--
