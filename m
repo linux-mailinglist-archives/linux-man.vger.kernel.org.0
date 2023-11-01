@@ -2,42 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5911E7DE4D2
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 17:46:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 880187DE4D5
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 17:49:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232538AbjKAQqd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 12:46:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44428 "EHLO
+        id S232244AbjKAQt6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 12:49:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57990 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231233AbjKAQqc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 12:46:32 -0400
+        with ESMTP id S231233AbjKAQt6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 12:49:58 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18827119
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 09:46:25 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB06AC433C8;
-        Wed,  1 Nov 2023 16:46:23 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 354FA10C
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 09:49:50 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04BF6C433C8;
+        Wed,  1 Nov 2023 16:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698857184;
-        bh=uxdXL/YOSbjjublaK+V5VOzGUNt7guFXtY6TIK17cIY=;
+        s=k20201202; t=1698857389;
+        bh=k2JdxZzQKjINY8OmqBWCaRXBAoPZdKswrC/dontNZ/E=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Ybu8hJSqXH26YjziGfivtn7ud2csGphHywuqywEY0gBfppmrMkqg0MPsyCQLjgspc
-         5wlpRKWBQGYlZdeJclapSJRY8YYHpwc94eGCrAsP5iIc45MQTDnlIlHrM8JBC8s337
-         k0N66f0hXsdTqR0pWZzb4sB1PaKgve/tCULjHHcyVqU7RXRFA5Foj1jwa76T5N4vKU
-         iagFBEJT2R2XLUBoYS3PqQAd9KIeMY1qYSVtTAZ1iRAZBw/30iLNPk3GgebLOnS5T/
-         z2RxS+wRzxOTHGaSjtU/eGBxVoY3KNpCjpZmo1sZPh0HmJBP/pT5ZrNaFaNn0ojYY9
-         nZAtyyxDELkUQ==
-Date:   Wed, 1 Nov 2023 17:46:21 +0100
+        b=Alv85CYbwV8pF3fQlTzAi/tjXA0b7s3R+sTe/y8GSkEGAOIfRmRN4n+V/0iboBys7
+         tBpbs8ubZcEdr3Z+e7/X85T96R4U7mG9tf3Ob/1w9lRHjOB1KzIhoxnMEGCLLANg3C
+         07YJ7tvSGO5JRd0wVbPE9UjoGbsT3kzfNPM7gVWNszAnNiXCZe6C1/hvQxdVzDGuFf
+         uyZsTY59IfLz5IeKNC1FtaOFZjMdr4n1C6aWaH4xlgye0Xhpy2xHcFpWthlC67qCf3
+         MWMOG9NswBskCblsTMl806/PSYtdbP+X/4NFOpt4E5vHq99dKqD8t43opLEDIriBzL
+         PZrhY9qvh1lvg==
+Date:   Wed, 1 Nov 2023 17:49:46 +0100
 From:   Alejandro Colomar <alx@kernel.org>
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page regex.7
-Message-ID: <ZUKA3XWzystXKgmh@debian>
-References: <ZUJaZLJyT5jFlHmX@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page setlogmask.3
+Message-ID: <ZUKBqvbZwTw3MLXL@debian>
+References: <ZUJaZBaIF2PjXlQa@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="1p26W+/O/zxIwAdd"
+        protocol="application/pgp-signature"; boundary="B/G9/dKVvza39KOn"
 Content-Disposition: inline
-In-Reply-To: <ZUJaZLJyT5jFlHmX@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZUJaZBaIF2PjXlQa@meinfjell.helgefjelltest.de>
 X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
@@ -49,65 +49,56 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---1p26W+/O/zxIwAdd
+--B/G9/dKVvza39KOn
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 1 Nov 2023 17:46:21 +0100
+Date: Wed, 1 Nov 2023 17:49:46 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page regex.7
-
-Hi Helge,
+Subject: Re: Issue in man page setlogmask.3
 
 On Wed, Nov 01, 2023 at 02:02:12PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue 1:  alphabetic?
-> Issue 2:  multiple cases =E2=86=92 both cases?
+> Issue:    mask =E2=86=92 I<mask>
 
-Depending on the locale, more than 2 are possible, AFAIK, so multiple
-would be more accurate in that context, I think.
+Fixed:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3De10fd26189985dfd2f3f8f9d8513d891119edbda>
 
-Cheers,
+Thanks,
 Alex
 
 >=20
-> "If case-independent matching is specified, the effect is much as if all =
-case "
-> "distinctions had vanished from the alphabet.  When an alphabetic that ex=
-ists "
-> "in multiple cases appears as an ordinary character outside a bracket "
-> "expression, it is effectively transformed into a bracket expression "
-> "containing both cases, for example, \\[aq]x\\[aq] becomes \"I<[xX]>\".  =
-When "
-> "it appears inside a bracket expression, all case counterparts of it are "
-> "added to the bracket expression, so that, for example, \"I<[x]>\" become=
-s "
-> "\"I<[xX]>\" and \"I<[\\[ha]x]>\" becomes \"I<[\\[ha]xX]>\"."
+> "The B<setlogmask>()  function sets this logmask for the calling process,=
+ and "
+> "returns the previous mask.  If the mask argument is 0, the current logma=
+sk "
+> "is not modified."
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---1p26W+/O/zxIwAdd
+--B/G9/dKVvza39KOn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCgN0ACgkQnowa+77/
-2zIgdBAAjBj2CAdkJ9iww9btO8mWRNVu3LBn7aBbdnAZo6rWDSi6n4RRnAnkTRmf
-doBKTy/TvV06WJ5mi8o0OPbKDzuWHsSKUHO7S0LJ+mXKPLiJCE2N/JTkJfEDsDyj
-gB5A4WdFEhBdTTAHlJEKeL9ks3gaUstB99UUpavhwBOkc4/fbnwqNhOd2o4SEcGU
-EKVNSLJcP/dlFVDj7oCOle1OTQclXBaWmIj3rhGEkHGfcMxd80c+jwHK2YcHHhMY
-ZWhVK353qVQXetmd5bdkM2DKADrGWNf6epezYgLB4RLWWkuWQ3k6dYKYwBcwdhoA
-+hZ1QHDs400a1mq9BkQNcGmm++oA5uF47baambV0OmtCMdtRd2bQo9Qw+kSimStf
-4Thsvy3NTvPgM5mhf7468hXgROKlVsQWvXyGVTXTk8/Bx5FAZ9avfOEEEHQe7uSG
-KQeCHQjcv1j3omekeGLwGfuKCOFrmY4VU60MAqtPyTCYqLILB/JqCvJSWb/0IgrZ
-c1ahxA+Bs0eWU9V37ebF5d2+4hiTCAPktUJXyH8rPXMz8qJ2sW9yEaVic/nYhjA9
-tRf/tB2UgdKDusDY3WGKaQzkRiMB2tnSbKuKv2YlFcLuf/9z85to65NAmgRiyygv
-65rcZenegWiv4QZlXyKEJZl/9fkOHz4viurgeFOGhjIbmL2M+nA=
-=oOnz
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCgaoACgkQnowa+77/
+2zKJYBAAgQR8ZqdrexcvlIB3F5BkKBN4Za49p8kRfTkZlsehrzA/JgOiPXibpHav
+brd2VG63CJxNFnfTsIC7R9J2NUBP5/2L/jtchx2jOw3Yia45sqm+ggbBuVxpny2z
+yv0D1N1exSCMe686gK0+AkKO85jPeFN//r7GlFUsCQ1cTGGKdOPVS5h0CrLrvU07
+8Idcs0292VtcScots0dfgK8UIE0OKKWUmxI8ylytJ+5TmX+bc2fWiAC0/AA6gZa3
+yhRLw8gPhkwF8UBWwZzWS4UyT06Rj5LrECjtE+WxSxElRBGyjYwkMfGNCQ96IW8Y
+itX8vPdfj31pJFPFXDF6wpEwAk19+kUZlsyuf8bxw2sE0uGSNBKdmES+VchmBvY5
+QQkq8rg4W4fLQe46nlu0lMLvKs54naEYSyU5pyny1qFvOJMCjhE6QUZJTnuGOdAR
+NK0dfnCWaRRq2fG6fxOdJq69PuKH8Kxz7lmsRQsyJAleK7evrxcxX8Not1R0lU2g
+5VkKFDerxxzXLi6VapQUkMBTolaqNU5a0ZrRyo1dmhSW4jnb7ahT8F7bKsbfO7SM
+sSRr2Spi23ma6icv8IqRa3yHXSs9C1Da9U70HgLqaTz7kK2O7zm3wz4Rq8WRkcDn
+bEciULklJP9Vy8IF5hZx6ozUd/tuiTI5AQ4vA+FvRUp74xn8Mq0=
+=Fzps
 -----END PGP SIGNATURE-----
 
---1p26W+/O/zxIwAdd--
+--B/G9/dKVvza39KOn--
