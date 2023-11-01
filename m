@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1BE037DE1FE
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 012AC7DE236
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344165AbjKAOH0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 10:07:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36006 "EHLO
+        id S1343846AbjKAOH1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 10:07:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36036 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344200AbjKAOHW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:22 -0400
+        with ESMTP id S1344313AbjKAOH0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:26 -0400
 Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E85F710D
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:19 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CD5C10C
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:23 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000214F1.0000000065425A64.000FAD3F; Wed, 01 Nov 2023 14:02:12 +0000
+  id 0000000000021522.0000000065425A64.000FAD87; Wed, 01 Nov 2023 14:02:12 +0000
 Date:   Wed, 1 Nov 2023 14:02:12 +0000
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page adjtime.3
-Message-ID: <ZUJaZJzhUkuDV_Fs@meinfjell.helgefjelltest.de>
+Subject: Issue in man page setlogmask.3
+Message-ID: <ZUJaZBaIF2PjXlQa@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -41,10 +41,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    that can → that could
+Issue:    mask → I<mask>
 
-"The adjustment that B<adjtime>()  makes to the clock is carried out in such "
-"a manner that the clock is always monotonically increasing.  Using "
-"B<adjtime>()  to adjust the time prevents the problems that can be caused "
-"for certain applications (e.g., B<make>(1))  by abrupt positive or negative "
-"jumps in the system time."
+"The B<setlogmask>()  function sets this logmask for the calling process, and "
+"returns the previous mask.  If the mask argument is 0, the current logmask "
+"is not modified."
