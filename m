@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E051B7DE209
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9BF1B7DE224
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235514AbjKAOHR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S235187AbjKAOHR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Wed, 1 Nov 2023 10:07:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57620 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57624 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235301AbjKAOHQ (ORCPT
+        with ESMTP id S235372AbjKAOHQ (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:16 -0400
 Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E61810F
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1ECF6118
         for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:13 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000207AA.0000000065425A62.000FABCE; Wed, 01 Nov 2023 14:02:10 +0000
+  id 00000000000209A0.0000000065425A62.000FAC00; Wed, 01 Nov 2023 14:02:10 +0000
 Date:   Wed, 1 Nov 2023 14:02:10 +0000
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page getent.1
-Message-ID: <ZUJaYgd8DCnFdm1V@meinfjell.helgefjelltest.de>
+Subject: Issue in man page getgrent.3
+Message-ID: <ZUJaYkEfZ2HQMbgG@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -41,10 +41,13 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    B<hosts> → B<hosts>(5)
+Issue:    NULL-terminated →  NUL-terminated
 
-"When no I<key> is provided, use B<sethostent>(3), B<gethostent>(3), and "
-"B<endhostent>(3)  to enumerate the hosts database.  This is identical to "
-"using B<hosts>.  When one or more I<key> arguments are provided, pass each "
-"I<key> in succession to B<getaddrinfo>(3)  with the address family "
-"B<AF_UNSPEC>, enumerating each socket address structure returned."
+msgid ""
+"struct group {\n"
+"    char   *gr_name;        /* group name */\n"
+"    char   *gr_passwd;      /* group password */\n"
+"    gid_t   gr_gid;         /* group ID */\n"
+"    char  **gr_mem;         /* NULL-terminated array of pointers\n"
+"                               to names of group members */\n"
+"};\n"
