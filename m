@@ -2,108 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3E69D7DE54C
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 18:25:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E254B7DE4FF
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 18:06:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232292AbjKARZx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 13:25:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59842 "EHLO
+        id S231233AbjKARGl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 13:06:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54658 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344537AbjKARFg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 13:05:36 -0400
-Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0BE5DFD
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 10:05:30 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 000000000002006F.0000000065428557.000FD0CF; Wed, 01 Nov 2023 17:05:27 +0000
-Date:   Wed, 1 Nov 2023 17:05:27 +0000
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page hostname.7
-Message-ID: <ZUKFV1p3pffJEHzz@meinfjell.helgefjelltest.de>
-References: <ZUJaY9YthI-EXLzi@meinfjell.helgefjelltest.de>
- <ZUJxn0JHxBasvKGf@debian>
- <ZUJy3qmi9tRg0x-4@meinfjell.helgefjelltest.de>
- <ZUKEB7bFCE-btgFZ@debian>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1036495-1698858327-0001-2"
+        with ESMTP id S233707AbjKARGl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 13:06:41 -0400
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4B0F6111
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 10:06:35 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E33C433C7;
+        Wed,  1 Nov 2023 17:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1698858394;
+        bh=+8FkbHZfJQKOS5K9SeYsMMeOifDsI+QwqYQh5/uz7kY=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=tZE0CwAeExxS1cixX5fqe9xTDXSg5YChl5fEj0mGfwcZuZRtPyqLOOf4vRFJb0M1t
+         aZP21LxI7M4CLeP0o035i1U31Cf2SIETnA/CXiZvbX2bPz8yIbd7S4EJ+GKXyzDXLV
+         Q3vL0eSPkhj7qiz4GhKdDl9MedT7iFPMP8bcEz+Lv+SMjO00wzUDeu4bKOcavComny
+         uuMAuAZyhcYw43MTuVB1Z1B9j0AhDHhLbRa1XrO7LGz+J6yvpC1V4d46pVwUcjSfUI
+         e7+uRQGk7jZhobVmhvSZvHTvcwVF55aklJnOHZ4Jve47YMLJpb/uiwgfsCps7PP6JP
+         fkIgDgXMMA7ig==
+Date:   Wed, 1 Nov 2023 18:06:31 +0100
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Helge Kreutzmann <debian@helgefjell.de>,
+        Mario =?utf-8?Q?Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: Issue in man page mount_namespaces.7
+Message-ID: <ZUKFl6ylEBOv_uNQ@debian>
+References: <ZUJaY1wRIqZXKjpA@meinfjell.helgefjelltest.de>
+ <ZUJ1VK9_7tBuMBBg@debian>
+ <20231101162310.u4b46gii47yjhsgt@jwilk.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="sbsveafBztRgTl+c"
 Content-Disposition: inline
-In-Reply-To: <ZUKEB7bFCE-btgFZ@debian>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <20231101162310.u4b46gii47yjhsgt@jwilk.net>
+X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
 
---=_meinfjell-1036495-1698858327-0001-2
-Content-Type: text/plain; charset=utf-8
+--sbsveafBztRgTl+c
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 1 Nov 2023 18:06:31 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jakub Wilk <jwilk@jwilk.net>
+Cc: Helge Kreutzmann <debian@helgefjell.de>,
+	Mario =?utf-8?Q?Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: Re: Issue in man page mount_namespaces.7
 
-Hello Alejandro,
-Am Wed, Nov 01, 2023 at 05:59:51PM +0100 schrieb Alejandro Colomar:
-> On Wed, Nov 01, 2023 at 03:46:38PM +0000, Helge Kreutzmann wrote:
-> > Hello Alejandro,
-> > Am Wed, Nov 01, 2023 at 04:41:19PM +0100 schrieb Alejandro Colomar:
-> > > On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
-> > > > Without further ado, the following was found:
-> > > >=20
-> > > > Issue:    B<nsswitch.conf> =E2=86=92 I<nsswitch.conf>
+On Wed, Nov 01, 2023 at 05:23:10PM +0100, Jakub Wilk wrote:
+> * Alejandro Colomar <alx@kernel.org>, 2023-11-01 16:57:
+> > On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
+> > > Without further ado, the following was found:
 > > >=20
-> > > Please explain why.
+> > > Issue:    mount point =E2=86=92 mount ?
 > >=20
-> > Filenames are usually in italics, not bold.
+> > I'm not sure that improves significantly.  Is there any difference
+> > between a 'mount' and a 'mount point'?
 >=20
-> If it's a filename, I think the full path would be better.  It could
-> also be a manual page reference, in which case, it's lacking the section.
+> We discussed it last year:
+> https://lore.kernel.org/linux-man/20221205123809.5p66jmpalhd4bhoq@jwilk.n=
+et/
+
+Hi Jakub!
+
+Thanks for reminding of that exact message.  I don't feel qualified to
+edit that paragraph.  If anyone else want to review the change, feel
+invited.
+
+Thanks,
+Alex
+
 >=20
-> I think the manual page reference would be better, but I'm not sure.
-> What do you think?
-
-Yes.
-
-I'd prefer the latter, i.e. with section.
-
-Greetings
-
-        Helge
+> --=20
+> Jakub Wilk
 
 --=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
+<https://www.alejandro-colomar.es/>
 
---=_meinfjell-1036495-1698858327-0001-2
+--sbsveafBztRgTl+c
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmVChVEACgkQQbqlJmgq
-5nDGPA/8DVysN5ULmFQBl23MSLxNzXKlAhMGhPKugywgDTbE5EtFXiiKQS/sqkrm
-GdrxmZjMqkKrm7VUWN8u8s4bEtxibxpPCloczfB8Q2P6sVkEi3cftqvpAnZGoPOv
-Bzibi6w5NbSWeK3aG2k/2hK8Bee7oD41QS7L6YqIQloDJmey5kLP3A62VRdeTB+i
-ZKthMskyt4SO8fkbHwrE9DMi113Bin4dll+GrZKnfIbDHLCCXF1b+ZpBU6B3q76q
-R9Eh8qK/wsZG7tHpd3AWtWoqKLzPMs90x6UMkPUoIdxWfcFyJ1FzkGMBww+ik3OK
-6VG4da0KU6kME7xPbnATHLCBfgFYOD/aNOknKP2n2gmKoPXBdRNht/kd2h/eE45+
-vFZ7xxlOJlipTbQhpiPSrm3OPEjnHtfQrrYLmKt/h3QVTkXleNujrQOzOm0mdsTw
-d44XW3Taj3XnpgzlxlraqauFW/myrTA/6Rcp9gfXPZy9MLmwEG8YdXLEnQQ+b3j2
-qJ+y9DBBbBB4T9HZSWcn8QLUBoF2iYA88eW/djWd9zCluXLwqq/nVQ4JsxFupGng
-OWcJ/WXye1/BOcge7q65NLCOwjczpk5dihm+GrJxd5xtvrvg1RMs0Lo1xFDkHqIZ
-J/peDqCi8nBIlxpHOS1aZJJJUFVzuQaZc91OC5IPJ9ItoKFNRLE=
-=93oV
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVChZcACgkQnowa+77/
+2zKzjw//alD80bj6ioukTEKweFUTDHOK8KErrtx8zovG6zbbwPwLxbb/ml5tvJgC
+JuUbbX1bothOKUIdGaBsO0hlpW578i1OBXMuMimJ504m35GoPiX2lk9DeTDlwLCl
+Gwj5PFNUP6Dl0F8ui1r7fQvbemvBBjue+sLbGItbmUqeYXjIJVYNgcFUtIXkGdOt
+i2TPnp8cSsSXO1y+UMD56nkKd/iVRMirpNfeTptIFV07jXl3Dfooljcd9iLffYWh
+SciKth5Mg56bq+xHoeZumdnuZ9ZSQANqNo6f5RYT+3ztXQphHF+wv8Ni89Oj6r0w
+zLHSq0YT9cNAcbWVpGVH9pxjkXpcCC+zU6oDzMl8xx0Cnoo4kPXeuC4XqzNlICGs
+KgLmF1HTZppqGMCThQGJg7ttixkuhPExqz/Ki2cJHwdrUvDlo83TiFke5slOPynM
+CWYMouO45xCRg5XY2ihIz1SzYWdAQPth1scqrh1xVlRusfrQi3V3UcNBoCYsPx6D
+f1bfOjO8f9sBZeca1bxjNw2j1DLQkvyVEFC7DouKgOb2dh8mLZcJv5L/OcG9TiFM
+mPrggGywDsBu+5o7cDWiuaCa4mA1EBhvsMeXf5CwjHzBA5u39zBqkGEoTKWT4WcA
+Br5lP3XYtoIIRPNFcxnf/aUU0SUzLGk4BuO7x4R/IMpeDJMrwtY=
+=R7We
 -----END PGP SIGNATURE-----
 
---=_meinfjell-1036495-1698858327-0001-2--
+--sbsveafBztRgTl+c--
