@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 95EB57DE20C
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1BE037DE1FE
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 15:14:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344311AbjKAOH2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 10:07:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41130 "EHLO
+        id S1344165AbjKAOH0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 10:07:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36006 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344267AbjKAOH2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:28 -0400
+        with ESMTP id S1344200AbjKAOHW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 10:07:22 -0400
 Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5315110F
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:24 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E85F710D
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 07:07:19 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000021524.0000000065425A64.000FAD9F; Wed, 01 Nov 2023 14:02:12 +0000
+  id 00000000000214F1.0000000065425A64.000FAD3F; Wed, 01 Nov 2023 14:02:12 +0000
 Date:   Wed, 1 Nov 2023 14:02:12 +0000
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page syscalls.2
-Message-ID: <ZUJaZK1LFGI9RA47@meinfjell.helgefjelltest.de>
+Subject: Issue in man page adjtime.3
+Message-ID: <ZUJaZJzhUkuDV_Fs@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -41,10 +41,10 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    kernel Linux → Linux
+Issue:    that can → that could
 
-"Where a system call is marked \"2.2\" this means the system call probably "
-"appeared in a Linux 2.1.x kernel version, and first appeared in a stable "
-"kernel with Linux 2.2.0.  (Development of the Linux 2.2 kernel was initiated "
-"from a branch of kernel Linux 2.0.21 via the Linux 2.1.x unstable kernel "
-"series.)"
+"The adjustment that B<adjtime>()  makes to the clock is carried out in such "
+"a manner that the clock is always monotonically increasing.  Using "
+"B<adjtime>()  to adjust the time prevents the problems that can be caused "
+"for certain applications (e.g., B<make>(1))  by abrupt positive or negative "
+"jumps in the system time."
