@@ -2,84 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D6477DE43A
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 16:54:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 248327DE44C
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 16:57:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230074AbjKAPyj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 11:54:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47010 "EHLO
+        id S233074AbjKAP5U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 11:57:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54280 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229498AbjKAPyi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 11:54:38 -0400
+        with ESMTP id S232720AbjKAP5T (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 11:57:19 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9909510F;
-        Wed,  1 Nov 2023 08:54:35 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAAB8C433C7;
-        Wed,  1 Nov 2023 15:54:31 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C045129
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 08:57:12 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6CCC433C9;
+        Wed,  1 Nov 2023 15:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698854075;
-        bh=JYx6SExCh08Bm1b+89icz86zNSgiBleVA/ww9551uSU=;
+        s=k20201202; t=1698854232;
+        bh=jkfn7ye8ApdCmvjvYdNwWNiyrF/ycSZyYOZsub7gCnc=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=R5/9KVOyL+tS6/J+l1xb4bnAOleAUHFaYO7WWxKUDKDPTItJ2PT/M64zm7r0kk2/K
-         D+NIr5tHLMSiaXg2b9rWGqTrDPZbB/odbUgIIVM03JlJxI55/oOsoO7KwbEos36BlV
-         zS9noXoXSTGycP82UgC86v0MklCkIB1u4YUdlvH5ww4ezLxEBI/4LkVuZOVCF5Dcqn
-         yGAxyMySIiRUuo9+EapXJZY6Mjpqi4B7K8oszmRmBEZ0Fi9H70WhHpPWMY8WWtEo0Y
-         TlHxkqRirMdd0dO1LE6yLPHzRoqXv5cxthC3m4EjyCT1hBxFHKwZdOUDVMZ/iGMrAX
-         OZvHOTNmhfo+g==
-Date:   Wed, 1 Nov 2023 16:54:28 +0100
-From:   Christian Brauner <brauner@kernel.org>
-To:     Miklos Szeredi <mszeredi@redhat.com>
-Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
-        Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] querying mount attributes
-Message-ID: <20231101-nickel-syntaktisch-7123fc5b6c91@brauner>
-References: <20231025140205.3586473-1-mszeredi@redhat.com>
- <20231101-urenkel-banal-b232d7a3cbe8@brauner>
- <CAOssrKcf5NQ8pGFWKq2hG9BmFZN-0rhhO+MuYCe7fVfmFO4DAA@mail.gmail.com>
+        b=bPZaZka2IHcxn91qtv39OccMh1Awj13FurjqBANbdp8bnd/7zu24saDk+Vva31QNR
+         LSipMHRITTRQekd5TJxM4Z2m/LSjrIQ3Grj/H7blzjrOuhT6gbDTtFYNlvXCcjfe9O
+         C+j/mT+c3kSz0n+kxV+Z0cDLrkQ+4qO/no0oWsqVexL5qxr9n+8fwjTOqZIgob6KUX
+         zVcsHiNljL82YRq5SV3bQLdAzTIMiVS0HlbipWwYOGj1+PhSotO/Zh+UpzNBiiF8Vb
+         zvSCdDSQwpFxlHoHypgWomqG0s9OKTJH56XMCiza1dd3VCPIGfy7mL7AZrIa5GMf07
+         na2Uhl4OozLWA==
+Date:   Wed, 1 Nov 2023 16:57:08 +0100
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Helge Kreutzmann <debian@helgefjell.de>
+Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page mount_namespaces.7
+Message-ID: <ZUJ1VK9_7tBuMBBg@debian>
+References: <ZUJaY1wRIqZXKjpA@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="BqE34L13sxYcfJLc"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOssrKcf5NQ8pGFWKq2hG9BmFZN-0rhhO+MuYCe7fVfmFO4DAA@mail.gmail.com>
+In-Reply-To: <ZUJaY1wRIqZXKjpA@meinfjell.helgefjelltest.de>
 X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Nov 01, 2023 at 02:18:30PM +0100, Miklos Szeredi wrote:
-> On Wed, Nov 1, 2023 at 12:13 PM Christian Brauner <brauner@kernel.org> wrote:
-> 
-> > I've renamed struct statmnt to struct statmount to align with statx()
-> > and struct statx. I also renamed struct stmt_state to struct kstatmount
-> > as that's how we usually do this. And I renamed struct __mount_arg to
-> > struct mnt_id_req and dropped the comment. Libraries can expose this in
-> > whatever form they want but we'll also have direct consumers. I'd rather
-> > have this struct be underscore free and officially sanctioned.
-> 
-> Thanks.
-> 
-> arch/arm64/include/asm/unistd.h needs this fixup:
-> 
-> -#define __NR_compat_syscalls 457
-> +#define __NR_compat_syscalls 459
 
-Everytime with that file. It's like a tradition that I forget to update
-it at least once.
+--BqE34L13sxYcfJLc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 1 Nov 2023 16:57:08 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page mount_namespaces.7
 
-> 
-> Can you fix inline, or should I send a proper patch?
+On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
+> Without further ado, the following was found:
+>=20
+> Issue:    mount point =E2=86=92 mount ?
 
-No need to send. I'll just fix it it here.
+I'm not sure that improves significantly.  Is there any difference
+between a 'mount' and a 'mount point'?
+
+Thanks,
+Alex
+
+>=20
+> "The propagation type assigned to a new mount depends on the propagation =
+type "
+> "of the parent mount.  If the mount has a parent (i.e., it is a non-root "
+> "mount point) and the propagation type of the parent is B<MS_SHARED>, the=
+n "
+> "the propagation type of the new mount is also B<MS_SHARED>.  Otherwise, =
+the "
+> "propagation type of the new mount is B<MS_PRIVATE>."
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--BqE34L13sxYcfJLc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCdVQACgkQnowa+77/
+2zIDqA//RN6J9C2ajWqujztvno6xmZB9+llUl2+k8Tk/WKNWA1X3gB3EbpbIzFVR
+WCkpl8jWrOyotBWWFJumHUgbcOO1ewuVVw9+qSKTODDSI6KK0iCl0EZS7+SK7S16
+jpqgXsWfDcSb02PqXoCvFiBxUhPBzbiteffNw5AGlVESU0XiNKtb46XDIf4c89zp
+VRKJLy6cMNPU3p+gXN7OBxHj5oRXCycLhMrM5e/G+Z7VW7pM8KKQnREKgC/W1lqm
+vCUBSaHNLG4h3rZiKB/U9kFztm4cjajw1lGx/Z6RFjwg7hnMouoHmRKqHXAPk55+
+MY652HdyhtBKb3xkyUHQnIlAJL7K4hfS1k2pm2yWz/88vOzRnXYW29WlLgjiDIqz
+TJFuH8jV66IsJv1ecFbJv1M6u6XiJLNdPdlf9fIaWglwbvsuOof81Gblg2hsnSmY
+xzVrwS4igWALwaVRwi77QZJR2IeqwAA7BvdZ3kPUfDN06h2qulbtTKN4JQ8QHqq1
+MvHV8ctdfehB9/WB+glBfh1+6Zaxw/JTR+N+9u8sUIp+vJ7xGC7jZJqpo9l48G6T
+K+iVmh7bkMHq3XcGPVIfTsnL3Y6nir2M/N1Qsyk0/sPib+rWqmVCRVkMEznaSDIk
+f9KzQZ2OiSZS7lZ757Jka201K4Mzgqn8FDWoGB3VDi95jIr5GCo=
+=NkMU
+-----END PGP SIGNATURE-----
+
+--BqE34L13sxYcfJLc--
