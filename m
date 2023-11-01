@@ -2,104 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E74C17DE482
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 17:22:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5707D7DE483
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 17:22:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231233AbjKAQWg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 12:22:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56474 "EHLO
+        id S233492AbjKAQWp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 12:22:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34246 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233492AbjKAQWf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 12:22:35 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E34F11B
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 09:22:29 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE83C433C8;
-        Wed,  1 Nov 2023 16:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698855749;
-        bh=m3X67+9q2OETqf3u9/5N4ZVqteSRBpUlCPy8+hbePHw=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=AxQa0nDD2f97N75hcv2qg996j6sksN67Fi0tR5o4xMOXZ/IxYsyBc7PjyVDRxajEE
-         emWjRu55SJgWA46g6mhCSQ5YgnDle3H+Ec3u/987iUG8YI1BoOY8epd5nksC/AfL4m
-         SWYBHA0uhAwGVvbkSOEgeC5IalragRm4PY3KW2y0EUDPiwi3JgLl106ccQrufrG+3/
-         U48paRd3dY9l97N7JvFH/6lSRe3X1jruqQk7aZiQKd8dJfwNMs8oo5uY7puQ2Cel6d
-         lgxuBQSJVaOLnQC33PXLPOLs4eB58IzqXppG1Kce1oompEPNHDXSXiMDhuixwRpswg
-         btiLudcK99Ouw==
-Date:   Wed, 1 Nov 2023 17:22:25 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Helge Kreutzmann <debian@helgefjell.de>
+        with ESMTP id S232538AbjKAQWp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 12:22:45 -0400
+Received: from mail.helgefjell.de (unknown [IPv6:2a01:4f8:261:4d55::2])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2608EFD
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 09:22:38 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 0000000000020147.0000000065427B4D.000FC696; Wed, 01 Nov 2023 16:22:37 +0000
+Date:   Wed, 1 Nov 2023 16:22:37 +0000
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     Alejandro Colomar <alx@kernel.org>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page posixoptions.7
-Message-ID: <ZUJ7QsTOECMkbxX7@debian>
-References: <ZUJaZBQfotPYIEly@meinfjell.helgefjelltest.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="vmzbBU6mMNdKljF4"
+Subject: Re: Issue in man page mount_namespaces.7
+Message-ID: <ZUJ7TcmUWb9vWTod@meinfjell.helgefjelltest.de>
+References: <ZUJaY1wRIqZXKjpA@meinfjell.helgefjelltest.de>
+ <ZUJ1VK9_7tBuMBBg@debian>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1033878-1698855757-0001-2"
 Content-Disposition: inline
-In-Reply-To: <ZUJaZBQfotPYIEly@meinfjell.helgefjelltest.de>
-X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <ZUJ1VK9_7tBuMBBg@debian>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
---vmzbBU6mMNdKljF4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--=_meinfjell-1033878-1698855757-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 1 Nov 2023 17:22:25 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page posixoptions.7
 
-On Wed, Nov 01, 2023 at 02:02:12PM +0000, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
+Hello Alejandro
+Am Wed, Nov 01, 2023 at 04:57:08PM +0100 schrieb Alejandro Colomar:
+> On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
+> >=20
+> > Issue:    mount point =E2=86=92 mount ?
 >=20
-> Issue:    functions =E2=86=92 functions:
+> I'm not sure that improves significantly.  Is there any difference
+> between a 'mount' and a 'mount point'?
 
-Thanks; fixed:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3De2dd8de49aa8b13967b6127cef6d1b51af7fd784>
+Some time ago many man pages changed from mount point =E2=86=92 mount, and I
+thought this was a left over.
 
-Cheers,
-Alex
+If, technically speaking, mount point is correct here, then do not
+change, of course.
 
->=20
-> "If this option is in effect (as it always is under POSIX.1-2001), then o=
-nly "
-> "root may change the owner of a file, and nonroot can set the group of a =
-file "
-> "only to one of the groups it belongs to.  This affects the following "
-> "functions"
+Greetings
+
+         Helge
 
 --=20
-<https://www.alejandro-colomar.es/>
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
 
---vmzbBU6mMNdKljF4
+--=_meinfjell-1033878-1698855757-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCe0EACgkQnowa+77/
-2zJ2Mg/8CdW9wnFZcRn7mUqDF0B7Cy37wuJLhw+ztdxOkHweG60Su/0ndVJwXAJp
-A7HsKpsoPUXyol4emM1fTQLqK5da5eYhjwpgrMyngodfsAAs9KRHrwlHeSkP/PcF
-J03V3LhoneY+nukW/2U9xtpg3NVw4FzJa9EfQG6EFG2fy0MJTY+aRhRN+VYVlo3O
-cG9NClIxZm9jvIKWW51SQE6CtjzVmZPOuerAz1fJtIxabDfebLjwm2bIKc6Jf21r
-kwrp5ygdOkWsNjcCgtTVcue9dWjBZSBjqbEWfB9l8GhmFss6Jn+c5j4ENEeMMn1b
-XASlpRFy8F+DM9ToB13r61ssFCVQsIqGYrSESvzgZ02hUcVoS+2/mEdF+Ep5NmBK
-mwOnUVt/ptnA0hEFGqlUvqAUBCiSiyOBiqrOoWRR3RXOuLqm/dTJHvTubVDijcsn
-WQPF9y7k2rM2CYfN0YGvYk0o7A7tceL0/4metLDVc851N0fw+D5YO7ywJP2g/hMq
-ETZLNdOFRxivuXZKhQUNIkbYWi0mQk/nD1ddUbpu1k+R1VbnGkVN84Q5Kw77T3Sw
-nFWyPkrt8cBMdbo8vkHNBaoaWS50h0gBKvO1e3YDEon88rBNwUf9C+bkCfZ5Ywtw
-soTqTHmFHicg33KxPCRAydFI0yWX0QMWqpXt9AoeZDbSA+ynwm4=
-=qDmD
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmVCe00ACgkQQbqlJmgq
+5nABKg/8Dm/iE3lIGUNVFSDqMUTURiN1IZm0Lhk3m7ixdc07TYxYsQnM6IgsnsS5
+tO9PVbKWFLiwFH8kWCLtaQnVUbd8vzI9H6oNZpqGxwQTo1zq5lI4NWnOm/qtCkqj
+pEXvJXaYKZGoMcG9NuERTo1htj3THBAWUdFoAuX6Y5BPqRdA0t2itja+F5ZF7Xgx
+BAbgid2Izcqymfy9cLYPqMuzSv8fGTt/FPfNXuzLPtRb0CdJZCMDl7Y/6JUHd9Jz
+SC17CgAgD8X26gGZqY3KV5nKnNYkaR53U9Ga4Rr/jmvPWDcb7j3LsNbR5VMf23Ea
+AfBB7Xz1QvP35EcBgBIrvwJVHYE9+VvCQK33XF/GW3huEWmUG3Rqc6T6V5Iu9EKd
+CziGWQ1scWhC6kyrdtr6JOA80btNk6Pxc+4pEJ92hPT2qIF9/rp9r1AyhyfasTV9
+4qL/2g+lcd639RPSi0GW4v6glD9sStZN1vThai8V1mVUUOPc7vZB+LBTwvwIdlqz
+MewFLp61gADQGHy/m6dM3GiHqS9vX2h6ySOteAlb0SLgrYi0p7gE1phXBslzHYUE
+Fc0NNbNrxhuxIPVPPW5A38D7YatZu7ClfQ4I6sgp3OEoSU4/RYeIZvWHS0TP/KQz
+2lVYdbA3ykEsqTRnIZd4mpn5DXN91MgZr9M8sCxupK3bi140NFg=
+=z4wO
 -----END PGP SIGNATURE-----
 
---vmzbBU6mMNdKljF4--
+--=_meinfjell-1033878-1698855757-0001-2--
