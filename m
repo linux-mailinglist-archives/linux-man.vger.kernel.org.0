@@ -2,42 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 841247DE406
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 16:47:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 37F147DE408
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 16:47:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233074AbjKAPl3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 11:41:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35740 "EHLO
+        id S233968AbjKAPm0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 11:42:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36976 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232759AbjKAPl2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 11:41:28 -0400
+        with ESMTP id S232759AbjKAPm0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 11:42:26 -0400
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04DC5A6
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 08:41:23 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DECC433C8;
-        Wed,  1 Nov 2023 15:41:21 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A9948DA
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 08:42:20 -0700 (PDT)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84249C433C7;
+        Wed,  1 Nov 2023 15:42:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698853282;
-        bh=LdXVQwtBPu8ttfd/TPvn1DnIUsq0iu+YQPXR4I0Ic4k=;
+        s=k20201202; t=1698853340;
+        bh=78RUuZoBiWoHHHtN/qpu40/llWnUBDukUMHoA2+dvOk=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=MkHvtE+sDiBm7vWNBmK+CJOqLHdRzBd0es8b3EHdvvWo0PAUOnKBUHDNSBRmoFqyW
-         nAI87MP0/PAgQfUkOTB51uDw2i0IPGhIHgi8fd/PEFBNU75FZyAyc3QpZcHL3Kju30
-         Y/o2x6S+mQZ75mZVHs4YN/YS6xLoV3eMMEmJUGjGo9k7CDNNwJDk6WyJvhScUkuKiJ
-         wtAeQlfGzTpRuBd/xM813udI0gcMtcr+RHqdACLgiLPMNiMnsoYRaTPanly+KY6I1L
-         ggmdssupCI94+pU/vyERtFFVaKGjUPcqBvvfHnauOiLSVCYFT6+BzYfYrKZaPU3t/h
-         flssR4woEXRZQ==
-Date:   Wed, 1 Nov 2023 16:41:19 +0100
+        b=MwOIwJ60NPVLgubOj+Y9HSM1cHl0ulRC9N9LbU/yHe2p6MkilU5/qAXl7p1FJ/Sv4
+         siqCI7dZi8CJvMXtn1aqaqTfeKO5hDlyz+Fn/kGTsYZMZkjC+rk9VRSvD4DDxB2XGK
+         +3oIv53FPH8ZnupzlBSLO+SHQMVibdHl5p5khOiM+Yb1+oFr6Z7bjrxwUDTl4jF3AC
+         aLG5d7/cn5bxUM9FfQ4Ew04NZdJPzP1nBM4CEpsSDS5yChFd7rJxUnqJ07eMuPbTqV
+         VdIEkNQgqQTLs6FJa3mCOfqOMzO/qWmfTbas2lPv4dddiSykoXS92P9pxMMyryxpsy
+         Bk+Horhva/9ig==
+Date:   Wed, 1 Nov 2023 16:42:17 +0100
 From:   Alejandro Colomar <alx@kernel.org>
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page hostname.7
-Message-ID: <ZUJxn0JHxBasvKGf@debian>
-References: <ZUJaY9YthI-EXLzi@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page INFINITY.3
+Message-ID: <ZUJx2ZHQbJmICoEM@debian>
+References: <ZUJaYy3uGROYLsVs@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="UXwSZImtiQnDfMjc"
+        protocol="application/pgp-signature"; boundary="Q9Tmmpil8MYWasmk"
 Content-Disposition: inline
-In-Reply-To: <ZUJaY9YthI-EXLzi@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZUJaYy3uGROYLsVs@meinfjell.helgefjelltest.de>
 X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
@@ -49,53 +49,52 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---UXwSZImtiQnDfMjc
+--Q9Tmmpil8MYWasmk
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 1 Nov 2023 16:41:19 +0100
+Date: Wed, 1 Nov 2023 16:42:17 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page hostname.7
+Subject: Re: Issue in man page INFINITY.3
+
+Hi Helge,
 
 On Wed, Nov 01, 2023 at 02:02:11PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    B<nsswitch.conf> =E2=86=92 I<nsswitch.conf>
-
-Please explain why.
-
-Thanks,
-Alex
-
+> Issue:    (I<libm>) =E2=86=92 (I<libm>, I<-lm>)
 >=20
-> "Hostnames are resolved by the NSS framework in glibc according to the "
-> "B<hosts> configuration in B<nsswitch.conf>.  The DNS-based name resolver=
- (in "
-> "the B<dns> NSS service module) resolves them in the following fashion."
+> "Math library (I<libm>)"
+
+No, you don't need to link anything in order to get INFINITY, since it's
+a compile-time-only macro.
+
+Cheers,
+Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---UXwSZImtiQnDfMjc
+--Q9Tmmpil8MYWasmk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCcZ8ACgkQnowa+77/
-2zKtgw//UFRhBsZ2BuewnpFX6KQNv8j2kqnbyyTUlgZOxO4uFBUgPgi77abMkvtT
-FEO6TKabsS2JNf6ZY2isVtvgKW6Mk9EYDZUw8/TqD9uOcmqC7HL83BQw8qroxRi5
-yiUGOrNSs9XaaDEWRRri9B8Cq3xXVFgLOd6KqPloAM7HNYNu/MPgAS8qz3bw/mbJ
-WhEleznPYuu7Yrbrle7EY9k5nb2SPuNlZpAr+UW6nbDjDt4FJL7OfWPZvsTneSXw
-xJFJD8l4PahmTeZmOaPQ73OK32llxgHRWOFwWoiqaQZyFW8jc492lfAJ0Y4abnut
-pXz8Bn3Acr7uM9p1i6zV/qr+zpYW+SXSeUyQ4xhKzfp7FnYrc03fM9AJJBctqCyt
-w+dZ+AQJdz+Y9I0cisdlBmUoNgBsBKVaxorU+eKzjiHUcBmFzSb8sdFRiy8u/dZR
-z5C34XXFysExOQY2dVgos+w9plw6kfvNVjdKWKFY9giU/RNINGCQuGWTO5dWzmKd
-NmQhnAaZODVSBX7SbjlBhbFLizaZJ7bsaoaGBE9ZoWywzO08ezSpMBhcUi3KCGZm
-X4JZ43PJKnbLvitFoJliMkN9FjLqgQzPXPBg1mSUTZb6rsZXS21j6rbx+Csg7i2l
-RKaozJSThdMXLMyY4yvrHJxYjhYY0kDWyPmqkZ98quUjhdPBX/g=
-=eEJi
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCcdkACgkQnowa+77/
+2zJRRhAAg74dfnabF4+yRVdtT678HavcKWi9Q9qeJZ8klkIZfcOrp7Y67OUc1qKK
+c0/Xc/TJCWPwohzAoVIWVNe3Rihl87uvZOjqn97Nwzpsiu/bClbcEH4eJdq+/KSR
+UZiyDubSJhCcebv025LDvctEgu23y4qmbMruZaH0ldCjsMPuYUy7XLVmws1/CXLS
+2zqEh3HmhVJj7/txGbZMhDeamPeXDOjsN+F75AhgjJUeNkvVcPar8XFN45lcCnBl
+k/I6ZO+E6jKgy/192RP/X/2YTd0T4Z3QDlsmPNnYILHJbKeX8PNKy1gKyW/yfRw7
+DKX1kiAICMqpsXy3kmhcRyhalkFYbSaTXDIqprxbshVyhtZnaTvI+OJKtf15s9Va
+vW4Bl2DYiXk/oTHhKIFhL5uma2VSdzPr2hrTB1+KzrGnODlDh+hdT9/6iYJEW0bh
+hP5hHqn1ahYKMzQcSCa8UUYckhXkgZEwok1FpchenoyLV9bRHbWojqKNtSn946Zi
+KkAKIA9Z1/jDNU3Y2qBQTDAMwBJDJjRICN/FjhMGeA078AAMi5LcPMg+VoFnkpCM
+CdJ6J9UM7pNm/hINU7jAwb/xidqKhET4Y3JOODAZP8V6tCrDxSKtClYee47PeHjN
+jvpVdrgj01SJWQlzKXlxxRM22m0mXezjj1RXaKEhDRqXvLz6l0o=
+=10ui
 -----END PGP SIGNATURE-----
 
---UXwSZImtiQnDfMjc--
+--Q9Tmmpil8MYWasmk--
