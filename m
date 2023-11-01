@@ -2,108 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2263E7DE46D
-	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 17:15:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 204B57DE484
+	for <lists+linux-man@lfdr.de>; Wed,  1 Nov 2023 17:23:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230520AbjKAQPB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Nov 2023 12:15:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39512 "EHLO
+        id S233394AbjKAQXh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Nov 2023 12:23:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42816 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229498AbjKAQPB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 12:15:01 -0400
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C356AF7
-        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 09:14:55 -0700 (PDT)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C557C433C7;
-        Wed,  1 Nov 2023 16:14:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1698855295;
-        bh=NC/RPREoASDRLgxNREmcdn6Y+8cCFZrbZM66LjSx6VU=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=lJGi7Lrl08kb6ZDr9tCfu0OpAxk1kAmZZ19Lwn70bdQaAQvyabmNjqQ3sxr4rghfB
-         XPgWgDJPyh922Ox1c1MmA/mbKwg4gy6rv0Q474DzYx18+iPWLxF79/aQXjVVnXXbEc
-         uhG2i+TTnFhG7fLp555S4bkw3A5S/EevXGtHJ31UoyMCKTDyb8udw/Z1cOL0PrdSO8
-         /sm/kNbPxpKIFfvDBDGFQTdK/NCeRwTbT1jF+XU/w0b+4C8kNbi4tughL4l0d6pVsi
-         Q+g8X+cc9EkC3ZhCennUN/A/B2YmLURx9s30RQWyFvH4OlG4O0QFQyv9X/0W8882+m
-         tPeD5VMlTZfRQ==
-Date:   Wed, 1 Nov 2023 17:14:51 +0100
-From:   Alejandro Colomar <alx@kernel.org>
+        with ESMTP id S232538AbjKAQXh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Nov 2023 12:23:37 -0400
+Received: from 1.mo552.mail-out.ovh.net (1.mo552.mail-out.ovh.net [178.32.96.117])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 392F5FD
+        for <linux-man@vger.kernel.org>; Wed,  1 Nov 2023 09:23:34 -0700 (PDT)
+Received: from mxplan6.mail.ovh.net (unknown [10.108.20.2])
+        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 9C0EB2D830;
+        Wed,  1 Nov 2023 16:15:03 +0000 (UTC)
+Received: from jwilk.net (37.59.142.95) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 1 Nov
+ 2023 17:15:02 +0100
+Authentication-Results: garm.ovh; auth=pass (GARM-95G001b4b19a32-e33a-49b2-a984-a5017a42316f,
+                    C3C47EF67A37C87AE86152C9AD52F034635D95B4) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.239
+Date:   Wed, 1 Nov 2023 17:15:00 +0100
+From:   Jakub Wilk <jwilk@jwilk.net>
 To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page syscalls.2
-Message-ID: <ZUJ5e8hPLsBG0Vax@debian>
-References: <ZUJaZL4eHezC6C-F@meinfjell.helgefjelltest.de>
+CC:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Mario =?utf-8?Q?Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>,
+        <linux-man@vger.kernel.org>
+Subject: Re: Issue in man page clog.3
+Message-ID: <20231101161500.ko2nejsen2o3i4pj@jwilk.net>
+References: <ZUJaYtPeCL1kXYwl@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ASmGqv0ajbqG/9HQ"
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Disposition: inline
-In-Reply-To: <ZUJaZL4eHezC6C-F@meinfjell.helgefjelltest.de>
-X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZUJaYtPeCL1kXYwl@meinfjell.helgefjelltest.de>
+X-Originating-IP: [37.59.142.95]
+X-ClientProxiedBy: DAG8EX1.mxp6.local (172.16.2.71) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: 2fd713af-09d1-4f83-bcb8-425a7cffb320
+X-Ovh-Tracer-Id: 8756968004356069344
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedruddtgedgkeeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvvefukfhfgggtugfgjghisehtkeertddttdejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeetgedvgfduueegffeftdffueeftedvgfdtteekieevhffhuefgheeuieevgfeijeenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddrleehpdehrddujedvrddvheehrddvfeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhifihhlkhesjhifihhlkhdrnhgvtheqpdhnsggprhgtphhtthhopedupdhrtghpthhtohepuggvsghirghnsehhvghlghgvfhhjvghllhdruggvpdgrlhigrdhmrghnphgrghgvshesghhmrghilhdrtghomhdpmhgrrhhiohdrsghlrggvthhtvghrmhgrnhhnsehgmhgrihhlrdgtohhmpdhlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehhedvpdhmohguvgepshhmthhpohhuth
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+* Helge Kreutzmann <debian@helgefjell.de>, 2023-11-01 14:02:
+>Issue:    [-pi,pi] means both -pi and pi are included, this does not make sense, either one must be out of the interval?
 
---ASmGqv0ajbqG/9HQ
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 1 Nov 2023 17:14:51 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page syscalls.2
+The man page is consistent with the C standard, which says the return 
+value is "in the interval [−iπ, +iπ] along the imaginary axis".
 
-On Wed, Nov 01, 2023 at 02:02:12PM +0000, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
->=20
-> Issue:    And the Linux 6.x series?
+I think they mean π rounded to the nearest representable value.
+And indeed, the imaginary part of clog(-1 - DBL_EPSILON * I) is -M_PI, 
+and the imaginary part of clog(-1 + DBL_EPSILON * I) is +M_PI.
 
-Thanks!  Updated:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D1b65d56c511ebdbe2ad44d6057408ae1e26c8fe2>
-
-Cheers,
-Alex
-
->=20
-> "Starting with Linux 2.6.0, the development model changed, and new system=
- "
-> "calls may appear in each Linux 2.6.x release.  In this case, the exact "
-> "version number where the system call appeared is shown.  This convention=
- "
-> "continues with the Linux 3.x kernel series, which followed on from Linux=
- "
-> "2.6.39; and the Linux 4.x kernel series, which followed on from Linux 3.=
-19; "
-> "and the Linux 5.x kernel series, which followed on from Linux 4.20."
-
---=20
-<https://www.alejandro-colomar.es/>
-
---ASmGqv0ajbqG/9HQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVCeXsACgkQnowa+77/
-2zLwkg/+KEde1BfVH3AUifXSOLdSchsj6/s3tfqDvJps7Of0WZDdm8ER0ZXqlgzt
-xm/ucBMMl3gx1DAFHCwhxqUcoUsnR1OiomrEF0NzM8H6wQD9yYqDFCuc0Z1z4FW8
-ICxIkKfqqjXmS/YjvaGzd2JzYdJfS2OwZ48J6V1BprBLfMdt7dJs3OIke4hB3Ob3
-vEUqdrRaUXGvkrFcO6odauChZONT1WILlM5Bmu41+VdXmpzt+mUNJ4NrdUiNLJV/
-MsTrG34DtMfE79qjJhpMV+OWXu0hRIWDcAet1j7CQB743m6SZubbDXryQxgh3ymT
-w5yFbKREaLM3SAgXmWYAq/kxiIZ26nMyDA6tYrh1WCza/ZdTikQJ0mDhgHrgzpk/
-O0+h+gFs1I4J88XQG4LZ/V2EnG6lY0SFj2Nj180KaVjsXSutoK4py16YYsiAjaF4
-zstsI/6lP8/w5tA7aR0IRVb471rq5XbfNxhnQc+ZlOiYGA+dMJELv7GY6le0FgAf
-EQufj18QLC2zN5FjkdfGts0+NgI8P3dqN/U+GMismNbqiUirtfDlNyrXLAhTadnq
-8ZEt0l16arhsELjoUpmfpZPn06icUWfhgmpbphFi6/3dtjKC160ikChSP/441THl
-cU0SOpRZQFAf7ZRJlnJhwQ6k82+dBYonSpctC1WFC6I7LSj62H0=
-=bAh0
------END PGP SIGNATURE-----
-
---ASmGqv0ajbqG/9HQ--
+-- 
+Jakub Wilk
