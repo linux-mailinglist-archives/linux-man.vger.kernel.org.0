@@ -2,72 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9D55A7E16C7
-	for <lists+linux-man@lfdr.de>; Sun,  5 Nov 2023 22:16:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2DB3A7E17E4
+	for <lists+linux-man@lfdr.de>; Mon,  6 Nov 2023 00:31:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229448AbjKEVQc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Nov 2023 16:16:32 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52798 "EHLO
+        id S229852AbjKEXbn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Nov 2023 18:31:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49204 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229447AbjKEVQb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Nov 2023 16:16:31 -0500
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25FAFC0
-        for <linux-man@vger.kernel.org>; Sun,  5 Nov 2023 13:16:28 -0800 (PST)
-Received: by mail-wr1-x42e.google.com with SMTP id ffacd0b85a97d-32faea0fa1fso1991392f8f.1
-        for <linux-man@vger.kernel.org>; Sun, 05 Nov 2023 13:16:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1699218986; x=1699823786; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wFMu9pYiHbEk9/lw5O7iJnW733z23hnRYcMoOGIF91M=;
-        b=jtyV1O35eoUBuFHN8gxcTZ35TaoJOquiEy+Ed2Qurkqel97TnvDnUFptmHhjnQSVqL
-         0AlKOZi8eVagJjC1xcqNuTctFEXDhZjftvPtrfQXHz7Btoz3MfITNlozQ2l3F8GUhyXe
-         UuIYmZSltZwz9JPzraWD56nv4rvzes2wQa79CoHphDVhXjz4HxIU27gtsL+h/QKXHZCn
-         0P7gzP6N3zHq92alagZV+aBLksaewsaybsUxLzYboMLCemprRGqofw3Reewk3CfPGlEq
-         3/nsh+9FZIEjKPMhOohbjmSKxEGl5rFDhUPeP14bHVuP6VKku4UuN6+/KD6XVT1rXHm0
-         qnhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699218986; x=1699823786;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wFMu9pYiHbEk9/lw5O7iJnW733z23hnRYcMoOGIF91M=;
-        b=iQaDoF1zJm2jCvYg2peh2gTgV8DFK5zTlI7ON4W84lnUaSEzF5gWAz94OyQi15i4hZ
-         jqff3ReihiQJHa2Nt32SoRd13vK5Yc8gW88EmXfVXoPMFpCfMeX0vtAFD8DYKL4LUt4u
-         FhggfbkbchNDr5fTOtOUT1Mhzj+mRlxGHzGU7W6RojZl/aYD/Sj5mnIIyA//QNRKBS2k
-         cPV8zT2Evlmvpma+mlLE+XTASvmB+vKcQjfEA49clFn6YvSAJwzR8abfIoJBr2ysuaM9
-         gF1zTz2morSRAzBjJ3qxiguhtbkBdwK3lczuKfNyCUgZF1IipOQ41xMU/4UKfIKvpLJP
-         qkHw==
-X-Gm-Message-State: AOJu0Yw4Elp03qkyF5/dzzQVVZ589BHCPF8G006Vzh+znZtGyVhuBQDn
-        0t0cVHX4W+yUdR3S8XpxceFjnQ==
-X-Google-Smtp-Source: AGHT+IEK3NrELiun742Jaf4K2efDCyBvPQmCmdpR90xysJIaExnAq4YYOPpUfwluJWneQtcXH5VVkA==
-X-Received: by 2002:a05:6000:400e:b0:32d:d4c5:272b with SMTP id cp14-20020a056000400e00b0032dd4c5272bmr13079399wrb.26.1699218986563;
-        Sun, 05 Nov 2023 13:16:26 -0800 (PST)
-Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id m12-20020a5d56cc000000b003232f167df5sm7585602wrw.108.2023.11.05.13.16.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Nov 2023 13:16:26 -0800 (PST)
-Message-ID: <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
-Date:   Sun, 5 Nov 2023 21:16:25 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+        with ESMTP id S229485AbjKEXbm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Nov 2023 18:31:42 -0500
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2408BE
+        for <linux-man@vger.kernel.org>; Sun,  5 Nov 2023 15:31:39 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E402C433C7;
+        Sun,  5 Nov 2023 23:31:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1699227099;
+        bh=Cu34/C35PYd54hzh7QgJpGJu/iwFFQcWeWYCkCSIO+s=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=OeviOalBKAkZM1WjXAcjatJVeHtL6Lg0PnPZb0yEmlYYu0o+ZUIQuDKFv4a8RFDaV
+         ps1oKVsqjSwThOZXyRWvVENfiJLXPg2fkAVV3cbGsG4Ld1ptyqueNcp6seyEmknEEh
+         2u0dtVuc3K8DKKCCReb2eVx9WUKG1QPktWCMnzxZ0bbN8zGPRVt+S5jjQtMprMeNTZ
+         I8x1+NYivJtghjgXuzpoZOV5OOholbT/o9SznTOqi8wm6HHSSyRut99YQL4Lqk0jpL
+         tASxxYkFkOPiO0mEvDUcbjAGV3LC0gN6akFjK7zWFh/ujXZPW+T0OmkQRc9AorMm8E
+         t0giHQAiH41SQ==
+Date:   Mon, 6 Nov 2023 00:31:25 +0100
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Jonny Grant <jg@jguk.org>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
 Subject: Re: strncpy clarify result may not be null terminated
-Content-Language: en-GB
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Alejandro Colomar <alx@kernel.org>
+Message-ID: <ZUgl2HPJvUge7XYN@debian>
 References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
  <ZUacobMq0l_O8gjg@debian>
-From:   Jonny Grant <jg@jguk.org>
-In-Reply-To: <ZUacobMq0l_O8gjg@debian>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+ <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="oIMH+lTm09Ysg0F+"
+Content-Disposition: inline
+In-Reply-To: <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -75,76 +52,109 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
+--oIMH+lTm09Ysg0F+
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 6 Nov 2023 00:31:25 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jonny Grant <jg@jguk.org>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>,
+	linux-man <linux-man@vger.kernel.org>
+Subject: Re: strncpy clarify result may not be null terminated
 
-On 04/11/2023 19:33, Alejandro Colomar wrote:
-> Hi Jonny,
-> 
-> On Sat, Nov 04, 2023 at 11:27:44AM +0000, Jonny Grant wrote:
->> Hello
->> I have a suggestion for strncpy.
->>
->> C23 draft states this caveat for strncpy. 
->>
->> "373) Thus, if there is no null character in the first n characters of the array pointed to by s2, the result will not be null-
->> terminated."
->>
->>
->> https://man7.org/linux/man-pages/man3/strncpy.3.html
->>
->> "If the destination buffer, limited by its size, isn't large
->> enough to hold the copy, the resulting character sequence is
->> truncated. "
-> 
-> The use of the term "character sequence" instead of "string" isn't
-> casual.  A "string" is a sequence of zero or more non-zero characters,
-> followed by exactly one NUL.  A "character sequence" is a sequence of
-> zero or more non-zero characters, period.
-> 
-> To be clearer in that regard, the CAVEATS section of the same page says
-> this:
-> 
-> CAVEATS
->      The name of these functions is confusing.  These  functions  pro‐
->      duce   a  null‐padded  character  sequence,  not  a  string  (see
->      string_copying(7)).
-> 
-> Saying that these functions don't produce a string should warn anyone
-> thinking it would.  The page string_copying(7) goes into more detail.
-> 
->>
->> How about clarifying this as:
->>
->>
->> "If the destination buffer, limited by its size, isn't large
->> enough to hold the copy, the resulting character sequence is
->> truncated; where there is no null terminating byte in the first n
->> characters the result will not be null terminated. "
-> 
-> strncpy(3) should !*NEVER*! be used to produce a string.
-> I don't think that should be conditional.  Your suggested change could
-> induce to the mistake of thinking that strncpy(3) is useful if the size
-> of the buffer is enough.  Do not ever use that function for producing
-> strings.  Use something else, like strlcpy(3), strcpy(3), or stpecpy(3).
-> 
-> Cheers,
-> Alex
-> 
->>
->> Kind regards, Jonny
+Hi Jonny,
+
+On Sun, Nov 05, 2023 at 09:16:25PM +0000, Jonny Grant wrote:
+> Michael, what do you think about this documentation suggestion I have mad=
+e. Interested to hear your opinion.
+>=20
+> Should the man page follow the C spec description of the strncpy function=
+ and how when it copies the arrays, it may leave the resulting array of cha=
+racters not terminated, and warn about this pitfall.
+>=20
+> C99 had this, and it is still there in latest C23 draft - worth clarifyin=
+g on strncpy(3)?
+>=20
+> "7.21.2.4 The strncpy function"
+>=20
+> "269) Thus, if there is no null character in the first n characters of th=
+e array pointed to by s2, the result will
+> not be null-terminated."
+
+What ISO C has said and continues to say about strncpy(3) is the actual
+harmful stuff, which has led many programmers to believe strncpy(3) was
+useful at all for producing strings.
+
+The problem I see with what ISO C says about strncpy(3) is that it
+treats it as a string-copying function.  If you treat strncpy(3) as a
+string-copying function, then it is really broken and should be removed
+=66rom libc.
+
+However, its functionality is still useful for those cases where you
+don't want a string, which is the only reason I didn't mark the function
+as [[deprecated]].
+
+>=20
+> Note, I'm not using strncpy myself, it's a documentation clarification pr=
+oposal.
+
+I think it could be useful to add a note that one should first read the
+CAVEATS section and string_copying(7) and only then read this page.
 
 
-Michael, what do you think about this documentation suggestion I have made. Interested to hear your opinion.
+diff --git a/man3/stpncpy.3 b/man3/stpncpy.3
+index 239a2eb7e..c7bb79028 100644
+--- a/man3/stpncpy.3
++++ b/man3/stpncpy.3
+@@ -37,6 +37,12 @@ .SH SYNOPSIS
+         _GNU_SOURCE
+ .fi
+ .SH DESCRIPTION
++.IR Note :
++These functions are probably not what you want.
++Read CAVEATS below,
++and
++.BR string_copying (7).
++.PP
+ These functions copy the string pointed to by
+ .I src
+ into a null-padded character sequence at the fixed-width buffer pointed to=
+ by
 
-Should the man page follow the C spec description of the strncpy function and how when it copies the arrays, it may leave the resulting array of characters not terminated, and warn about this pitfall.
 
-C99 had this, and it is still there in latest C23 draft - worth clarifying on strncpy(3)?
+Is this scary enough?  Do you think this would tell readers to never use
+this function unless they know what they're doing (and even when they
+think they do, they probably don't)?
 
-"7.21.2.4 The strncpy function"
+Cheers,
+Alex
 
-"269) Thus, if there is no null character in the first n characters of the array pointed to by s2, the result will
-not be null-terminated."
+>=20
+> Kind regards
+> Jonny
 
-Note, I'm not using strncpy myself, it's a documentation clarification proposal.
+--=20
+<https://www.alejandro-colomar.es/>
 
-Kind regards
-Jonny
+--oIMH+lTm09Ysg0F+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVIJc0ACgkQnowa+77/
+2zJPMA/6Az6PaPnx5jfMMGCsQ5kt/Mqq8TC+tReeXiLptiZHpgpB/LYSelj0t56D
+y2xFijBwnV300aE12GZrd8crvt2iVVId58J9iLvP38Ytadrg7brd75PfO8xnf5ok
+RrrXNZSxt7gonbIbVZL9//DCRARup9wCgOOD+iJlHKFBRKs7YQc/61st5z2dFFDI
+Jg8tofRQGrpQk4CFfxR4B0n9hPRiOtji2AoSPvl2d06SBYyjcKaI2BAF5WeJut25
+XCWLkfI95JQHFuFLtw/Pjmc1ubduIcJzgAgXvXxmjzeeg5zJGSqh07UTckCpHCj9
+IMW6rlQ5AAKq801AmANH8XnyCy6E+O3bUXWuHzWuZd02dFtHHCgDgVL78RLOkP4a
+GmCmj0ylzyR2BapetbhVlkadHKVgc8HYuLqnWDg0JDk++IkCCk5lsl993HuwM4+h
+Zzi/KlargV3cXS0vUdyd+YHogp71NHYr3B2cDrn5EcY0KM7tSgy6HjcOB70oMRJR
+NQ/LBSjAKbh0uUWvDS71aKNNfodvmF0Ez0nJu3aaSYmch5VVLrWm74krlmAXJY8y
+A5gjS5JNu/5vzZnqFXYYfNs6kRBGkhdPfjGbYsINutmYdWA0n/tHzAzAY8KNVnZo
+iAeh6N+SCAATlDFanUUj9l+71KRZfrvCy7s3VXVZEwS9LogDGn4=
+=RBY8
+-----END PGP SIGNATURE-----
+
+--oIMH+lTm09Ysg0F+--
