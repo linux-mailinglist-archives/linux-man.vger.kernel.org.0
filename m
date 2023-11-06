@@ -2,45 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 63EB57E2A8F
-	for <lists+linux-man@lfdr.de>; Mon,  6 Nov 2023 18:01:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DBF457E2E8E
+	for <lists+linux-man@lfdr.de>; Mon,  6 Nov 2023 22:03:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232927AbjKFRBA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Nov 2023 12:01:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46604 "EHLO
+        id S231364AbjKFVDZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Nov 2023 16:03:25 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51834 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232920AbjKFRA4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Nov 2023 12:00:56 -0500
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D61F5D77
-        for <linux-man@vger.kernel.org>; Mon,  6 Nov 2023 09:00:53 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF64FC433C8;
-        Mon,  6 Nov 2023 17:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699290053;
-        bh=VSL5sK7LEDd3GjnaMhl/l1T19G3vjnlYGD2NUz9inQk=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=gzzXwNIkwdPS88n5orAqnwFya5DYelNUG+lmeTbM+6odyF+Hn5u+rv1h6pkwEl430
-         WIVghYuzQ3ABS8CClm7XS32bdxyk7s+HhAAGfYjNIxFH13Jq3TMKnj3SfPaVm3HzGN
-         fZxF1C2u6SMs1u1bQ6aCWHglpN9PkjLIyVDZBZBLCqJVcU0sLmvHIwK4ncFGY2s0x5
-         rsEmuJH4DjbhJQOWAk57F+PDvaIBex9LUg2KFoR4tw9YGp+ExVuwfA6tPCIDRdiTj4
-         U2MhfpQ5z5twyAl5QdMRIvFnjhGbjScq6nW6qvvuAgbGasedVBtN9bdds4Lc3Tl7va
-         n0fgc7wW9UWAg==
-Date:   Mon, 6 Nov 2023 18:00:44 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: PSA: migrating linux-man to new vger infrastructure
-Message-ID: <ZUkbwnCT8jgozq4f@debian>
-References: <20231106-rampant-shaggy-mongoose-39eefb@nitro>
+        with ESMTP id S229755AbjKFVDZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Nov 2023 16:03:25 -0500
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82E0F103
+        for <linux-man@vger.kernel.org>; Mon,  6 Nov 2023 13:02:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1699304554;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=5XNhKnQs3l4ZHY3GJE/V3ZzjXSn6athX9qYEJTSjuqQ=;
+        b=X60QmVMP+NGa8jKl3CRstdsOO/90xxkar+2zCuGkWOWkv/p8kWPed2s9qXO8F6RnJI1ysk
+        gKxGc9DjbCRAkeEbn5s7y/kfuRekOS8juRon1Xt6JAbHEeR2Qxe44uYEstiDUnlakPEMh3
+        bWimOFR577dS0fFvRMWZxdmTRQO+ACE=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-35-rBqR4FCtMeeDLLz0yZL-jA-1; Mon, 06 Nov 2023 16:02:32 -0500
+X-MC-Unique: rBqR4FCtMeeDLLz0yZL-jA-1
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-5b1ff96d5b9so68173017b3.1
+        for <linux-man@vger.kernel.org>; Mon, 06 Nov 2023 13:02:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699304552; x=1699909352;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5XNhKnQs3l4ZHY3GJE/V3ZzjXSn6athX9qYEJTSjuqQ=;
+        b=ZgMSkI5NVWE+z2QIhzztrcr7DXwsCwSDxAFZZmEKesjqWr9n/5HBpTCo+z9rC7T5gd
+         Yz+KTNT8kmu5+7uZwRxzI0dviJgK0A7CVDBqMpFY8hA4sTGse4tZiUXizPofnKvzcscV
+         x8kwqCH9tDB7mdKOhjQ8PTnLlbVPehaP+6Q3gZlRwKY+P/rkhWE0ObzCa7KWDpIjxZpJ
+         MdDdKbDV52udxRC8byH4ngaUN9VL/ZQEqdMNESM80LNml4h5OPdXfPsnO6SpgK3qtC8I
+         rgPUo+jQc2ovfiGsRpW2ZHTuGW0u8rVgr6/Gy90k9z+51rJrljztCVHpJVzhrhzLFkI5
+         2EeQ==
+X-Gm-Message-State: AOJu0YxDegPtZQ1G/A5BUKNHPtdG5QVNPnZEmtjcxbkpwwAAo9oGTg1m
+        hLeDN/S54rT+eAIds6JeYXLH63Sp9q3x3jLKLSGXVSksWu+eTiSqB9Aqj13WT+NufJq5Tkp+U+C
+        pDmF/l7DBgzxqIYPouIypG16W1uh6p9ngPIPF
+X-Received: by 2002:a81:6ec4:0:b0:599:8bd:5bdf with SMTP id j187-20020a816ec4000000b0059908bd5bdfmr12939145ywc.50.1699304551914;
+        Mon, 06 Nov 2023 13:02:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGwu8sPii0mHvN82gfhq3El1gSX8d327M87x2vx64H9lWif+3Q9VbzTEqfhbPwC2eFLGTv9b7dQGpaZMGNVaOY=
+X-Received: by 2002:a81:6ec4:0:b0:599:8bd:5bdf with SMTP id
+ j187-20020a816ec4000000b0059908bd5bdfmr12939136ywc.50.1699304551754; Mon, 06
+ Nov 2023 13:02:31 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="+SeJh+SQZz9VKNpN"
-Content-Disposition: inline
-In-Reply-To: <20231106-rampant-shaggy-mongoose-39eefb@nitro>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+From:   Jonathan Wakely <jwakely@redhat.com>
+Date:   Mon, 6 Nov 2023 21:02:20 +0000
+Message-ID: <CACb0b4mpEWz6D-4SjYmLJsOfdYoSJ1Y2Bri+aFKcgKstXQt33g@mail.gmail.com>
+Subject: Two STANDARDS sections in strncpy(3)
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -48,67 +68,8 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+The strncpy(3) page has two STANDARDS sections, which disagree. I
+think maybe the second one is supposed to be HISTORY.
 
---+SeJh+SQZz9VKNpN
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 6 Nov 2023 18:00:44 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: PSA: migrating linux-man to new vger infrastructure
+https://man7.org/linux/man-pages/man3/strncpy.3.html
 
-Good day!
-
-On Mon, Nov 06, 2023 at 09:20:38AM -0500, Konstantin Ryabitsev wrote:
-> Good day!
->=20
-> I plan to migrate the linux-man@vger.kernel.org list to the new infrastru=
-cture
-> this week. We're still doing it list-by-list to make sure that we don't r=
-un
-> into scaling issues with the new infra.
->=20
-> The migration will be performed live and should not require any downtime.
-> There will be no changes to how anyone interacts with the list after
-> migration is completed, so no action is required on anyone's part.
-
-Same mail (vger) and same archive (lore), I understand, right?
-
->=20
-> Please let me know if you have any concerns.
-
-LGTM, thanks!
-
->=20
-> Best wishes,
-> -K
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---+SeJh+SQZz9VKNpN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVJG7wACgkQnowa+77/
-2zJ9yg//Y4pRce1WOp5jLcmx7smmscxyXlZZSZEy+QYbyGDC7HmjU85tY5YvaZJa
-rcpQ8ZI9cHZW5lG30zBM9KbxqGheQwdVk5U1R1xVDB4gwi3JCHEMM8S5OFvBqUsY
-Uq+cOrmdYaAwj3rv+yXq5Gf+6izr/viX6AlbfvU9PlEytzzzkXvYrUdjdE8BN43K
-cZiMqFDMUrgBTF3Z3p+JT4mUXt6Z/T01gZAsBYuIR6SSogNlBwiYSV5L1djoWOpJ
-Ktk3Wtrj6xnQuhSivOyf21kVL0wpao1R8Le0y2J9XwkS3Wun2lCLtvkzm7c12BI4
-pGJoOOg4XxAf/nVMrpjGmZ7NQo3P20L5sLYWoAQjLDKoQuq/TvH+Rfk44pllWHl5
-Z3dhuS7iUkyd0GGUNUwPY1UFoS1OPHX+CJgUKRWVX73rGH3318VJoCXaj4S27p56
-qW5dhQkm0MUoaVINLjbSB+bh7lmQDoY0N6G/+03CiB6f6rEJrpjDZ+97n3rHSmR9
-eRKVDt4A5aYaArKnZpSUyBqLvacyrHV6Sgd1AEUGWXcfNDdWw1EJ8rzNXCREhaPc
-84U8xoEQFSpaWQWFsRRP3uOxVshWRd4E4Gy7Qq6MHZ64V39Ejtx/jijOc2AC01c+
-DyMGA3PnSyIY/auWNe9G8dBd/HrsyuHZTj3I28sGzYrzjZsbJ6s=
-=lkFI
------END PGP SIGNATURE-----
-
---+SeJh+SQZz9VKNpN--
