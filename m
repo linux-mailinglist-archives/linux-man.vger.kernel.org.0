@@ -2,97 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C5687E325C
-	for <lists+linux-man@lfdr.de>; Tue,  7 Nov 2023 01:47:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 61EB97E3B58
+	for <lists+linux-man@lfdr.de>; Tue,  7 Nov 2023 12:52:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231975AbjKGArm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Nov 2023 19:47:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36822 "EHLO
+        id S234218AbjKGLww (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Nov 2023 06:52:52 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36572 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232821AbjKGArl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Nov 2023 19:47:41 -0500
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E533AD73;
-        Mon,  6 Nov 2023 16:47:38 -0800 (PST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-        by mailout.nyi.internal (Postfix) with ESMTP id 5A7395C01D7;
-        Mon,  6 Nov 2023 19:47:38 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Mon, 06 Nov 2023 19:47:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-        :cc:content-transfer-encoding:content-type:content-type:date
-        :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-        :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-        1699318058; x=1699404458; bh=Gw31p/x43vdxiXCzPMnjFbRQKL2XYHOsIr+
-        oWsxF2fE=; b=v9rKkBwnmH7u2D6mnOMCHaBPLBJuhu9S05QWFAghJ//bAemz5mX
-        u+Sgb0+89MKBk88i1MvG6ljOtiSO9x1laCK255CqLbTulXp5XZ6FRjjYqxItQO1d
-        5XwS5X/PUpqavceoga483BlhWEYYjpT82LS1DgErRTDP7OiCewsbhlFzE1hGZJ1+
-        bzGqHwMIJtYudPo3ZKCW0nWPKbwgIAsKdXArlTNKISMJHxMFFmzus1BvagsW9e/8
-        VBTvYXAyPeDCBEQd+2tasxzFcKENGcTgsrjOy4x2F0ONprB6UcZiQ0JWS08jgkoO
-        xIY1VeGPD8ROAfWOZYNIMiVYjnGhyZuba7g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:cc:content-transfer-encoding
-        :content-type:content-type:date:date:feedback-id:feedback-id
-        :from:from:in-reply-to:in-reply-to:message-id:mime-version
-        :references:reply-to:sender:subject:subject:to:to:x-me-proxy
-        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-        1699318058; x=1699404458; bh=Gw31p/x43vdxiXCzPMnjFbRQKL2XYHOsIr+
-        oWsxF2fE=; b=jmup3Y5HBcICiD1KQbIbvzVxrdjy9eaXo+HcZ84ibyxib+YguY7
-        ULBSRIKZW6U7/Gv8FUFkNllD56PosjlJtlmGFzVmn0d7y9FXAgomrdhW4RJHy/+o
-        8USkFc6msw5HHv98/GEwTZXdjGFibLV1eYar0eQo3jpZ9+rVnDyBvBh0iGRYMW1n
-        1Gi22//9pVSh5XIOFcGYKjH+Zr7xaDtmDuANVp4Cxif0dKllzUpu7TeEPuqDngFO
-        3y/DSNOVYswZey1uzVsBRIXlZpPWeJLa3NFrYnT+9NEpVROD5Pf+sBMQhczGyvxu
-        iNtF2+6iejteUkdCAzRVXLcNb5TBHxe9DsA==
-X-ME-Sender: <xms:KYlJZSn2GMl7lZoOytKsohSBpZd4CoU_j7Kiij0BrS9fvMwADn7FpA>
-    <xme:KYlJZZ3Bi9BBC8BMQG9xsK6DO0M6a-GUv58JRVqXAPqNggfW0sPUNa3GEb0hwlFHP
-    ZAV0JIj1m7N>
-X-ME-Received: <xmr:KYlJZQrWkPVg9-zRZh4JD1CMQjof8rM54mLpdo_Cu83ts6h0plR0e4H5kxxeakytFC6EPhAqEEXCtG4DbKmlhxQ77AxamF1XcuZVNLWVkI4vKVoNbn_aUU-a>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudduhedgvdehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepkfffgggfvfevfhfhufgjtgfgsehtkeertddtfeejnecuhfhrohhmpefkrghn
-    ucfmvghnthcuoehrrghvvghnsehthhgvmhgrfidrnhgvtheqnecuggftrfgrthhtvghrnh
-    epteeghedvkeejveejuedvtdekuedtueehtdegjeeugefhleetjeevkedutdeifeefnecu
-    ffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurf
-    grrhgrmhepmhgrihhlfhhrohhmpehrrghvvghnsehthhgvmhgrfidrnhgvth
-X-ME-Proxy: <xmx:KYlJZWmKE_EgFpNkaecPme3J6_woVt_PJFByzbx7sXNvNbp9CV0IPA>
-    <xmx:KYlJZQ0JvBbpYyNyqIbkeP3KL7uZTglrrYglujg2brgeocWoziNIZA>
-    <xmx:KYlJZdskFL3TGnhj3uPwOOHB2b0kMfKCb4g68ft9_eN12wzP0662BQ>
-    <xmx:KolJZWPArFE97B2nyzH5ql1dCANx0HEKVzghE75YW9--K5O8wUX_qg>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 6 Nov 2023 19:47:32 -0500 (EST)
-Message-ID: <8f14da98-f2f5-b9ba-8d24-1b22eaa3c0d6@themaw.net>
-Date:   Tue, 7 Nov 2023 08:47:29 +0800
+        with ESMTP id S232147AbjKGLwv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Nov 2023 06:52:51 -0500
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AB9DA10A
+        for <linux-man@vger.kernel.org>; Tue,  7 Nov 2023 03:52:47 -0800 (PST)
+Received: by mail-wm1-x32b.google.com with SMTP id 5b1f17b1804b1-40842752c6eso42669835e9.1
+        for <linux-man@vger.kernel.org>; Tue, 07 Nov 2023 03:52:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google; t=1699357966; x=1699962766; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WYNXgu4aRIDlAkdVizIHU8Qcq8icvRzLVhjKGtP02aI=;
+        b=M0Q76GRTv6z2kHBqBDl1rYEorDD6LP/oP6F0HFCYtlGPnPP0aWk1wp0DtHd05UsX4I
+         3DGhbV+bm029W2YWzbjc7Xvea0J5DVaz72v+xLTabe/w6RrTWzsQK22oSGDuvJKA718S
+         KMXmUnwKeSw/CYBwJ3XjOjMK0TNbH0N9M3uoiDWuUtx+q6a+06gU+A7/RMHIJSaccoss
+         cfFwdU8XZO1VQcnIZi+Gq1WiPNvO0vuRwIhHLfQbWrjrJj+VGh9FagDKv/lNTWQ7aHQC
+         j6xUNEYR8V5zgbFpboF7YrGq6RH1vz7S1Kt9RpQ7zg+957dV1XYTOUw/IBhXLMklV/BR
+         zXLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699357966; x=1699962766;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WYNXgu4aRIDlAkdVizIHU8Qcq8icvRzLVhjKGtP02aI=;
+        b=odw5+aiky8+ni8MoQv+FTzeU/usjN7pkgzjumBXDLdMzzGf++xdzyjfqhB43D3KdnW
+         VXK7O8zSnzGv/Q0cri57TZpmmzcwcr8RoylfGvzWaAuzGhHaE6PW7wk/d1aXpss8zugf
+         DZwVzNBTz1iA//gteIqBXNNMHnlmwsk4tW6ZEprkUxPtnLE2i4cJjPg54mG5VTeQZH1N
+         bakb+r8+/tQeUYBDFb8m5wlyfqcqwT7Z8GwM1BdkzdwVMTRAcif1x7SfKRWG2e53LqwA
+         R4ITLh5BFw7kF/O8ftoDmyAEoLnJpYVnPO01Mivi4aghV1OaKrta+TZ6f7x2sGAzzvO3
+         r6yQ==
+X-Gm-Message-State: AOJu0YyjVuOYxbycShsalEYSefocfCT27FZyv4l4ojGz39Uqk+7g5vrr
+        sVqf5TkCezOBI+oD74CbRSQBOw==
+X-Google-Smtp-Source: AGHT+IF6rJuLk2VbgTbRjYvCpAGEDQYel5Etb+6EVnwiZT5AySsMgKfIa2qIkFpb1JF3fWsetc2j8A==
+X-Received: by 2002:a05:600c:524f:b0:404:6ed9:98d1 with SMTP id fc15-20020a05600c524f00b004046ed998d1mr2640801wmb.41.1699357966085;
+        Tue, 07 Nov 2023 03:52:46 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id l3-20020a05600c4f0300b003fc0505be19sm15551066wmq.37.2023.11.07.03.52.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Nov 2023 03:52:45 -0800 (PST)
+Message-ID: <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+Date:   Tue, 7 Nov 2023 11:52:44 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To:     Amir Goldstein <amir73il@gmail.com>, Karel Zak <kzak@redhat.com>
-Cc:     Miklos Szeredi <mszeredi@redhat.com>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-security-module@vger.kernel.org,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>
-References: <20231025140205.3586473-1-mszeredi@redhat.com>
- <374433e3-ab72-64a3-0fa0-ab455268e5e0@themaw.net>
- <20231106121053.egamth3hr7zcfzji@ws.net.home>
- <CAOQ4uxgn--PshKxMDmM4YoDQ8x3+a0NwCv+Bppjq-3w9V+Sxpg@mail.gmail.com>
-From:   Ian Kent <raven@themaw.net>
-Subject: Re: [PATCH v4 0/6] querying mount attributes
-In-Reply-To: <CAOQ4uxgn--PshKxMDmM4YoDQ8x3+a0NwCv+Bppjq-3w9V+Sxpg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+User-Agent: Mozilla Thunderbird
+From:   Jonny Grant <jg@jguk.org>
+Subject: Re: strncpy clarify result may not be null terminated
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian>
+Content-Language: en-GB
+In-Reply-To: <ZUgl2HPJvUge7XYN@debian>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -100,114 +75,76 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 6/11/23 21:33, Amir Goldstein wrote:
-> On Mon, Nov 6, 2023 at 2:11 PM Karel Zak <kzak@redhat.com> wrote:
->> On Wed, Nov 01, 2023 at 07:52:45PM +0800, Ian Kent wrote:
->>> On 25/10/23 22:01, Miklos Szeredi wrote:
->>> Looks ok to me,covers the primary cases I needed when I worked
->>> on using fsinfo() in systemd.
->> Our work on systemd was about two areas: get mount info (stat/listmount()
->> now) from the kernel, and get the mount ID from notification.
+
+
+On 05/11/2023 23:31, Alejandro Colomar wrote:
+> Hi Jonny,
+> 
+> On Sun, Nov 05, 2023 at 09:16:25PM +0000, Jonny Grant wrote:
+>> Michael, what do you think about this documentation suggestion I have made. Interested to hear your opinion.
 >>
->> There was watch_queue.h with WATCH_TYPE_MOUNT_NOTIFY and struct
->> mount_notification->auxiliary_mount (aka mount ID) and event subtype
->> to get the change status (new mount, umount, etc.)
+>> Should the man page follow the C spec description of the strncpy function and how when it copies the arrays, it may leave the resulting array of characters not terminated, and warn about this pitfall.
 >>
->> For example David's:
->>   https://patchwork.kernel.org/project/linux-security-module/patch/155991711016.15579.4449417925184028666.stgit@warthog.procyon.org.uk/
+>> C99 had this, and it is still there in latest C23 draft - worth clarifying on strncpy(3)?
 >>
->> Do we have any replacement for this?
+>> "7.21.2.4 The strncpy function"
 >>
-> The plan is to extend fanotify for mount namespace change notifications.
->
-> Here is a simple POC for FAN_UNMOUNT notification:
->
-> https://lore.kernel.org/linux-fsdevel/20230414182903.1852019-1-amir73il@gmail.com/
->
-> I was waiting for Miklos' patches to land, so that we can report
-> mnt_id_unique (of mount and its parent mount) in the events.
->
-> The plan is to start with setting a mark on a vfsmount to get
-> FAN_MOUNT/FAN_UNMOUNT notifications for changes to direct
-> children of that mount.
+>> "269) Thus, if there is no null character in the first n characters of the array pointed to by s2, the result will
+>> not be null-terminated."
+> 
+> What ISO C has said and continues to say about strncpy(3) is the actual
+> harmful stuff, which has led many programmers to believe strncpy(3) was
+> useful at all for producing strings.
+> 
+> The problem I see with what ISO C says about strncpy(3) is that it
+> treats it as a string-copying function.  If you treat strncpy(3) as a
+> string-copying function, then it is really broken and should be removed
+> from libc.
+> 
+> However, its functionality is still useful for those cases where you
+> don't want a string, which is the only reason I didn't mark the function
+> as [[deprecated]].
+> 
+>>
+>> Note, I'm not using strncpy myself, it's a documentation clarification proposal.
+> 
+> I think it could be useful to add a note that one should first read the
+> CAVEATS section and string_copying(7) and only then read this page.
+> 
+> 
+> diff --git a/man3/stpncpy.3 b/man3/stpncpy.3
+> index 239a2eb7e..c7bb79028 100644
+> --- a/man3/stpncpy.3
+> +++ b/man3/stpncpy.3
+> @@ -37,6 +37,12 @@ .SH SYNOPSIS
+>          _GNU_SOURCE
+>  .fi
+>  .SH DESCRIPTION
+> +.IR Note :
+> +These functions are probably not what you want.
+> +Read CAVEATS below,
+> +and
+> +.BR string_copying (7).
+> +.PP
+>  These functions copy the string pointed to by
+>  .I src
+>  into a null-padded character sequence at the fixed-width buffer pointed to by
+> 
+> 
+> Is this scary enough?  Do you think this would tell readers to never use
+> this function unless they know what they're doing (and even when they
+> think they do, they probably don't)?
+> 
+> Cheers,
+> Alex
+> 
+>>
+>> Kind regards
+>> Jonny
+> 
 
-I'll have a look at what I needed when I was working to implement
+Alejandro,
 
-this in systemd. Without looking at the code I can say I was
+We see things differently, I'm on the C standard side on this one. Would any information change your mind?
 
-handling mount, umount and I think remount events so that's probably
-
-a minimum.
-
-
-As I mentioned earlier I found I also need event rate management
-
-which was a new requirement at the time.
-
-
->
-> This part, I was planning to do myself. I cannot say for sure when
-> I will be able to get to it, but it should be a rather simple patch.
->
-> If anybody else would like to volunteer for the task, I will be
-> happy to assist.
-
-I would like to help with this but I'm not familiar with fanotify
-
-so I'll need to spend a bit of time on that. I am just about in
-
-a position to do that now.
-
-
-I'll also be looking at the watch queue framework that did get merged
-
-back then, I'm not sure how that will turn out.
-
-
->
-> Not sure if we are going to need special notifications for mount
-> move and mount beneath?
-
-Yes that will be an interesting question, I have noticed Christians'
-
-work on mount beneath.
-
-
-We need to provide the ability to monitor mount tables as is done by
-
-using the proc mount lists to start with and I'm pretty sure that
-
-includes at least mount, umount and moves perhaps more but I'll check
-
-what I was using.
-
-
->
-> Not sure if we are going to need notifications on mount attribute
-> changes?
-
-Also an interesting question, we will see in time I guess.
-
-
-You would think that the mount/umount/move events would get what's
-
-needed because (assuming mount move maps to remount) mount, umount
-
-and remount should cover cases were mounted mount attributes change.
-
-
->
-> We may later also implement a mark on a mount namespace
-> to get events on all mount namespace changes.
-
-Monitoring the proc mount tables essentially provides lists of mounts
-
-that are present in a mount namespace (as seen by the given process)
-
-so this is going to be needed sooner rather than later if we hope to
-
-realize improvements from our new system calls.
-
-
-Ian
-
+With kind regards, Jonny
