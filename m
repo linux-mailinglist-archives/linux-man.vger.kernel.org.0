@@ -2,48 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 104287E3FEC
-	for <lists+linux-man@lfdr.de>; Tue,  7 Nov 2023 14:21:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3FE5D7E41B3
+	for <lists+linux-man@lfdr.de>; Tue,  7 Nov 2023 15:20:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229693AbjKGNVA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Nov 2023 08:21:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43918 "EHLO
+        id S234051AbjKGOUD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Nov 2023 09:20:03 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56388 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233854AbjKGNU6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Nov 2023 08:20:58 -0500
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0EF499E
-        for <linux-man@vger.kernel.org>; Tue,  7 Nov 2023 05:20:56 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151DEC433C7;
-        Tue,  7 Nov 2023 13:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699363255;
-        bh=T8KEbb0nn0nBAzcVEAmQK8Y4RIomoZBzTC17webmpPs=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=fLe+3mGr9NWGpDC/YSIRTp2SNa9q+U+P2PsFQ6sljo4NcvEApbxhQnDBi963yPheZ
-         xWilV8eiAA1LaNALWmJareZB2jXR48dCbdoVdmfZEOHAO37cS7uhwbtKh3E3IGZ8Mc
-         CE3rUPy8+IVgrM+DVwpxmOIj2TB/dIWHnwsNhdqX0OMYOnWeLuzD6C1wRIqG1z4jeY
-         GnCb9ymkViYsl3qrzmrhemIFHHIN9kV74YVF8YvAZtI7t3T2D3MHsh+58m9hyBUDf2
-         6CuJovYPNjVEahfn2jh/hqiqr5LKBs8W7qcSdFzvb7eQw3xfJIxwCWxdvXuXScIVvb
-         QlBsKp6pEL0ug==
-Date:   Tue, 7 Nov 2023 14:23:58 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Jonny Grant <jg@jguk.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZUo6btEFD_z_3NcF@devuan>
-References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
- <ZUacobMq0l_O8gjg@debian>
- <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
- <ZUgl2HPJvUge7XYN@debian>
- <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+        with ESMTP id S229643AbjKGOUC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Nov 2023 09:20:02 -0500
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2AA6B4
+        for <linux-man@vger.kernel.org>; Tue,  7 Nov 2023 06:19:59 -0800 (PST)
+Received: by mail-wm1-x333.google.com with SMTP id 5b1f17b1804b1-4083ac51d8aso43668855e9.2
+        for <linux-man@vger.kernel.org>; Tue, 07 Nov 2023 06:19:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google; t=1699366798; x=1699971598; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=agrcW5f3d5+NMEVghFmOdDV4klPUHk3wCfuEy273giA=;
+        b=R4izAJA6eg+bKA8GvuCY9La/Y/w8gxf2CeIa6TzUFvbYAzia4iVgclX27foUpiyrT9
+         9Guf5C9l72fZSwF1MqUZLlrMCQtE/rp3T79BTbHSuY+BweucdnVpRr1PfbOa8q2BiHJj
+         DYWm45eATAyME/QuAdh85AxTUydIa4nwOFeTlGA+rMAYxPqvCcBfhr+hgr0OwDBaFMgi
+         zCVEhtzUroNTqEBQLIqE+vEXLyqbu0DLiJi4Oswu7aporstTrilAXAJBRc2CxDoNn5bJ
+         Aw763DQTppqoaMRzokGTiKdEPOGHu/8JCD97uWBfN6jRfqwmt7t/+bW0g0dddlZzPK7z
+         dX5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699366798; x=1699971598;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=agrcW5f3d5+NMEVghFmOdDV4klPUHk3wCfuEy273giA=;
+        b=HGw5tCKHkHXLk0POMK/g8kFhpn2p/5TYK5yFZXPJ32d9GIXz7s+yXwiB/H5NmyBzxT
+         XUZn5iF+gimXk/NU6OkxO89j0v8Uqy/kiq246Bnm11o2AfSjdDghqxaHDhfRBo7TqHdV
+         /W5FFjxuqs/nScX0GDevMiFj8mwRgjCxTf717bu2JS4mOI9rKHI92BhiWAuO0QDpl3eV
+         89AEP39pRgOFWcsv7aSkGzTW4zGeNWKJ5kckOLR9A3CnELt3kGjFg49Y0zzgcXvygC+3
+         hE5iGsa7vKL35B8ShWSjbqP1X2388fGX6cRDvGXXx4EdE0PgeuOPCV22eX9aQngAx35b
+         oOWA==
+X-Gm-Message-State: AOJu0YzoFFzVwGOqFdvgjn4dhvCzUgxDJbGFdoZl/rt0v2F0zo8St2Lj
+        3blDTzpglTTW9MFhAbzCaEQ25A==
+X-Google-Smtp-Source: AGHT+IFaBUDjGFRYsEXXu1z0IZnTjSEOIqRuRcjRcriG6TcgcqHBFfctAgA0zFwL4d+7Zsnr+dXNQw==
+X-Received: by 2002:a05:600c:4754:b0:409:7d0:d20b with SMTP id w20-20020a05600c475400b0040907d0d20bmr2285631wmo.24.1699366797949;
+        Tue, 07 Nov 2023 06:19:57 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id o13-20020a05600c4fcd00b0040588d85b3asm15856478wmq.15.2023.11.07.06.19.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Nov 2023 06:19:57 -0800 (PST)
+Message-ID: <929865e3-17b4-49c4-8fa9-8383885e9904@jguk.org>
+Date:   Tue, 7 Nov 2023 14:19:56 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="74IL1omE+cSos6bj"
-Content-Disposition: inline
-In-Reply-To: <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+User-Agent: Mozilla Thunderbird
+Subject: Re: strncpy clarify result may not be null terminated
+Content-Language: en-GB
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan>
+From:   Jonny Grant <jg@jguk.org>
+In-Reply-To: <ZUo6btEFD_z_3NcF@devuan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -53,48 +76,19 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---74IL1omE+cSos6bj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 7 Nov 2023 14:23:58 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Jonny Grant <jg@jguk.org>
-Cc: linux-man <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
 
-On Tue, Nov 07, 2023 at 11:52:44AM +0000, Jonny Grant wrote:
-> We see things differently, I'm on the C standard side on this one. Would =
-any information change your mind?
+On 07/11/2023 13:23, Alejandro Colomar wrote:
+> On Tue, Nov 07, 2023 at 11:52:44AM +0000, Jonny Grant wrote:
+>> We see things differently, I'm on the C standard side on this one. Would any information change your mind?
+> 
+> It's difficult to say, but I doubt it.  But let me ask you something:
+> In what cases would you find strncpy(3) appropriate to use, and why?
+> Maybe if I understand that it helps.
+> 
+> Kind regards,
+> Alex
 
-It's difficult to say, but I doubt it.  But let me ask you something:
-In what cases would you find strncpy(3) appropriate to use, and why?
-Maybe if I understand that it helps.
+I don't find strncpy appropriate - that's why I proposed a change to clarify the known defect in the man page of strncpy that C99 describes. Worth reading my first email if you're unclear.
 
-Kind regards,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---74IL1omE+cSos6bj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVKOm4ACgkQnowa+77/
-2zKhoA//QBfOKdN1L26podBAdwIk9VEHl8y4sICUH8FRbtf8Cq/kEuO81/RldBvk
-wmJyZg6ci66cJ1uSVjvqRxXzAsOutATJhqd+M36WwuY2bjDLoaqMaQbhgDq9hwRa
-2J1QQRF+Pd77l2VVV2HhIbBc1F8n8SnU4sdvEO41/Z65dk7sj2rP4ft+Q1RtzQcU
-6fgVciqcUcCAXkhqizoEkLhzWIsfsPVvlpG1yvEBlgLNqKEiVMgFW2+yarKGKgIb
-ubn2+6HvnHISlfVVXzpyteYGnDJULa8UmL/6vofOkdzyENDfP6FiJqqr90V+f/Pg
-H4fKd5r3C6cQOzIbWUpYlHo3o8t6Q6fHF32aTyC68qTbIvWV1dyeiFvh5VmRcGnA
-bqsZUU6P4MYw+AnFbL0a13xftx3WcVXP2Ke2ZBwRq8mYlLZPuAdPkGgrKCtPr6wF
-Xp3DgELcD9i2r17RM0M8Bg0go+/qctLUmXijrnY6XIitsaybo+smaeIr/p+B0CZ5
-+hCsX8qjJZgAXbyqOqBZ4JiT0a39J8J3G4GtyAjqSk6eUqMW0oww+iQi7evoFu5+
-us9hxSSMu2YBlMDKnjQ6fsk4cFwOpL1Mir4y/n+tLNoopcZwr/UAmEbccU9lf7cR
-0KY+dVMOkztNzr8Bw1ksz4fgTHElZQL79/SaxIYxeHmlbjBlFkc=
-=Jmf8
------END PGP SIGNATURE-----
-
---74IL1omE+cSos6bj--
+If you doubt the esteemed C standards, I won't add anything further.
+Kind regards Jonny
