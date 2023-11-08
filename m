@@ -2,111 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A42BD7E5A4C
-	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 16:44:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A88257E5B03
+	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 17:20:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229742AbjKHPoG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 10:44:06 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56090 "EHLO
+        id S229579AbjKHQUd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 11:20:33 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48526 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234149AbjKHPoF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 10:44:05 -0500
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06F261FD8
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 07:44:02 -0800 (PST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
-        by smtp-out2.suse.de (Postfix) with ESMTP id A973F1F8AA;
-        Wed,  8 Nov 2023 15:44:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-        t=1699458240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=goWxjLqEoCd5IkE4oC3hPxAb/2BMfavf/PLonyEsdXs=;
-        b=JpRPeZ/Xobag0VYPy0QWw7hbcBbt3UBNC9BibyHPiAIUTXkb3y52cWYo3SBrQ8fL8aXc7c
-        kT3JqmCMass1/zCoSPhMk4qur0KkpJJe0C/3q1AVf8LYg9BX6VMCgfl517SfJ3w+OCsPqt
-        zSibwqPJsuNjRXM7QUp0LjRh5STU20I=
-Received: from wotan.suse.de (wotan.suse.de [10.160.0.1])
+        with ESMTP id S229559AbjKHQUc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 11:20:32 -0500
+Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 157401733;
+        Wed,  8 Nov 2023 08:20:30 -0800 (PST)
+Received: from localhost (unknown [IPv6:2601:281:8300:73::646])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by relay2.suse.de (Postfix) with ESMTPS id 769D42D397;
-        Wed,  8 Nov 2023 15:44:00 +0000 (UTC)
-Received: by wotan.suse.de (Postfix, from userid 358)
-        id 936206687; Wed,  8 Nov 2023 15:44:00 +0000 (UTC)
-Date:   Wed, 8 Nov 2023 15:44:00 +0000
-From:   Thorsten Kukuk <kukuk@suse.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        Jonny Grant <jg@jguk.org>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <20231108154400.GA27312@suse.com>
-References: <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
- <ZUgl2HPJvUge7XYN@debian>
- <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
- <ZUo6btEFD_z_3NcF@devuan>
- <929865e3-17b4-49c4-8fa9-8383885e9904@jguk.org>
- <ZUpjI1AHNOMOjdFk@devuan>
- <ZUsoIbhrJar6ojux@dj3ntoo>
- <ZUtaH35V3koxTSL0@debian>
- <20231108095910.GA9216@suse.com>
- <6bcad2492ab843019aa63895beaea2ce@DB6PR04MB3255.eurprd04.prod.outlook.com>
+        by ms.lwn.net (Postfix) with ESMTPSA id A1C5F77D;
+        Wed,  8 Nov 2023 16:20:29 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A1C5F77D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+        t=1699460429; bh=3f9l14K9JHEdMbDYWDeilx1EKMCnJqGRBRwQlTmIpNw=;
+        h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+        b=gQ0T66yNdHz05Edc/4B+Ya8rn5WqGpFTkzO/X3C4RgDHFPqVNIBkym1WpOAZlgGeS
+         kZuwF9qHQs/Uj43LDTPNBUM4VlNYTS+58+IfjrAs071vDa0c47raiDnNN2LeFSb0s4
+         BIMueMfLGKMYzyZfySJ1SwNCxAhZ5IGkoItllmbrWLZZnq9RGZalUcF+AyKqhXVn6C
+         dEEcPtaoj0W4RMJwjtu+NRND0QoqzGsT8J8xERWFMSeM2CQK38DtjThfJaCLsDm5Ag
+         DX2ntsf9K6d6oWe4g63hcHwDT6uSJkjJbjbTPLwiZKPN6A+OQU1ZpLsfr3NL23B8X6
+         oDG0xl+nE+fzg==
+From:   Jonathan Corbet <corbet@lwn.net>
+To:     Christian Brauner <brauner@kernel.org>
+Cc:     Miklos Szeredi <mszeredi@redhat.com>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH v4 5/6] add listmount(2) syscall
+In-Reply-To: <20231108-redakteur-zuschauen-a9aeafaf4fad@brauner>
+References: <20231025140205.3586473-1-mszeredi@redhat.com>
+ <20231025140205.3586473-6-mszeredi@redhat.com>
+ <87il6d1cmu.fsf@meer.lwn.net>
+ <20231108-redakteur-zuschauen-a9aeafaf4fad@brauner>
+Date:   Wed, 08 Nov 2023 09:20:28 -0700
+Message-ID: <87o7g4xlmb.fsf@meer.lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6bcad2492ab843019aa63895beaea2ce@DB6PR04MB3255.eurprd04.prod.outlook.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Nov 08, Alejandro Colomar wrote:
+Christian Brauner <brauner@kernel.org> writes:
 
-> On Wed, Nov 08, 2023 at 09:59:11AM +0000, Thorsten Kukuk wrote:
-> > On Wed, Nov 08, Alejandro Colomar wrote:
-> > 
-> > > strncpy(3) is useful to write to fixed-width buffers like `struct utmp`
-> > > and `struct utmpx`.  Is there any other libc API that needs strncpy(3)?
-> > > Of those two APIs (utmp and utmpx) and any other that need strncpy(3),
-> > > are those deprecated, or is any such API still good for new code?
-> > 
-> 
-> Hi Thorsten!
-> 
-> > Everything around utmp/utmpx/wtmp/lastlog is deprecated.
-> 
-> Is this a Linux-specific thing?  Do you know if the BSDs also deprecated
-> utmpx?
+>> Why use struct __mount_arg (or struct mnt_id_req :) here rather than
+>> just passing in the mount ID directly?  You don't use the request_mask
+>
+> Please see Arnd's detailed summary here:
+> https://lore.kernel.org/lkml/44631c05-6b8a-42dc-b37e-df6776baa5d4@app.fastmail.com
 
-Beside the design issues of the interface, which are generic, the Y2038
-issue is more or less glibc specific and a result of supporting 32bit
-and 64bit userland at the same time.
-For most other implementations I'm aware of there is no Y2038 problem,
-either because they don't support utmp/utmpx/... like musl libc, or they
-were able to switch to a 64bit time variable or used that already.
-So no need to change anything.
-For BSD I don't really know the situation, but as far as I know, they
-don't have the problem and thus no need to change anything.
+Ah, makes sense, I'd missed that.
 
-  Thorsten
+Given this, though, it seems like maybe sys_listmount() should enforce
+that req->request_mask==0 ?
 
-> Thanks,
-> Alex
-> 
-> > 
-> > openSUSE Tumbleweed and MicroOS are no longer using nor supporting them
-> > and fresh installations don't have that files anymore.
-> > So new code should not use utmp/utmp/wtmp/lastlog anymore. Alternatives
-> > are e.g. systemd-logind/wtmpdb/lastlog2.
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
+Thanks,
 
-
-
--- 
-Thorsten Kukuk, Distinguished Engineer, Senior Architect, Future Technologies
-SUSE Software Solutions Germany GmbH, Frankenstraße 146, 90461 Nuernberg, Germany
-Managing Director: Ivo Totev, Andrew McDonald, Werner Knoblich
-(HRB 36809, AG Nürnberg)
+jon
