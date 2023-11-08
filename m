@@ -2,167 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CDE237E5F06
-	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 21:13:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B9D0B7E5FA6
+	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 22:08:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229473AbjKHUN4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 15:13:56 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35440 "EHLO
+        id S231958AbjKHVIC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 16:08:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58466 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230204AbjKHUNy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 15:13:54 -0500
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E185211F
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 12:13:52 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6FEC433C7;
-        Wed,  8 Nov 2023 20:13:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699474432;
-        bh=AMytr/oYqm761DkJIoP0Z/kFcMQrlDL74qevnnLhldE=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=N52vMbpTAMCCKssnoSwjS7t9Ul/bRW8aB/3LK3u4guxv+NZRHO0wGH9FQAhgFVSxG
-         8wfoS4Z6lfGAjpcVUcffAAAfCO/b/fXuN1GS6y3LDOaS+Kc1q6vsBOk5UHEBTt/10g
-         QPVmcX7W1RG4e1xERdmrDeuvSzEogGynAUCfhAZqHq6+pOdiNIFW98i97HW+hF1m3O
-         E3A1zLR/4aje6eJf9yewRATPAhOZd/MZY7Uh8ToukD/EOuEswPQMHguFQzClj+dtlj
-         c36/1wto68UnlRsNwJpBMF96l2U6eZkSNfyHXO7gEBfmYFMh7qiszKJXFZkAD4ij82
-         1daOBP+TqkXjg==
-Date:   Wed, 8 Nov 2023 21:13:42 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     DJ Delorie <dj@redhat.com>
+        with ESMTP id S231935AbjKHVIA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 16:08:00 -0500
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC8EB2580
+        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 13:07:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1699477630;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to; bh=3+k7yYFL2544AaBUr1PygVaI/9k5MVokX125YELCkng=;
+        b=KK6qDTVU8ClEnuZwyFjwLfY+sbYPEh9jvF92BwFb/diA7hs/0u6EJdNeszTuCKlOpFfdKc
+        ER2++UYUM0L0j8K/WxruJUV7QVyyw+EWUVAmv68oSJ8PYWtnjCuP/GTbOK73jyFXVaVdL/
+        x1Qub9EovPOfYGoZOvyr2gqdiR+nctw=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-119-aDr-Z82qPOG5qF9re-sDeA-1; Wed,
+ 08 Nov 2023 16:07:08 -0500
+X-MC-Unique: aDr-Z82qPOG5qF9re-sDeA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22A503810D20;
+        Wed,  8 Nov 2023 21:07:08 +0000 (UTC)
+Received: from greed.delorie.com (unknown [10.22.9.226])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 01EE71121306;
+        Wed,  8 Nov 2023 21:07:07 +0000 (UTC)
+Received: from greed.delorie.com.redhat.com (localhost [127.0.0.1])
+        by greed.delorie.com (8.15.2/8.15.2) with ESMTP id 3A8L77kI230726;
+        Wed, 8 Nov 2023 16:07:07 -0500
+From:   DJ Delorie <dj@redhat.com>
+To:     Alejandro Colomar <alx@kernel.org>
 Cc:     libc-alpha@sourceware.org, jg@jguk.org, linux-man@vger.kernel.org
 Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZUvr_FPICn5VkP4q@debian>
-References: <ZUvkIZpGduZ0FMVK@debian>
- <xnleb8qaov.fsf@greed.delorie.com>
+In-Reply-To: <ZUvr_FPICn5VkP4q@debian>
+Date:   Wed, 08 Nov 2023 16:07:07 -0500
+Message-ID: <xnil6cq7ic.fsf@greed.delorie.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="7O+3LQbzjFCS3Siv"
-Content-Disposition: inline
-In-Reply-To: <xnleb8qaov.fsf@greed.delorie.com>
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Alejandro Colomar <alx@kernel.org> writes:
+> Would you mind reading the latest versions of strcpy(3), strncpy(3), and
+> string_copying(7), as in the git repository, and comment your thoughts?
 
---7O+3LQbzjFCS3Siv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 8 Nov 2023 21:13:42 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: DJ Delorie <dj@redhat.com>
-Cc: libc-alpha@sourceware.org, jg@jguk.org, linux-man@vger.kernel.org
-Subject: Re: strncpy clarify result may not be null terminated
+I think my examples would work well after the first CAVEATS paragaph:
 
-Hi DJ,
+       The name of these functions is confusing.  These functions
+       produce a null-padded character sequence, not a string (see
+       string_copying(7)), like this:
 
-On Wed, Nov 08, 2023 at 02:58:24PM -0500, DJ Delorie wrote:
->=20
-> Perhaps an example that shows the problem?
+     strncpy (buf, "1", 5) -> { '1', 0, 0, 0, 0 }
+     strncpy (buf, "1234", 5) -> { '1', '2', '3', '4', 0 }
+     strncpy (buf, "12345", 5) -> { '1', '2', '3', '4', '5' }
+     strncpy (buf, "123456", 5) -> { '1', '2', '3', '4', '5' }
 
-Maybe.
+>       These functions copy the string pointed to by src  into  a  null-padded
+>       character sequence at the fixed-width buffer pointed to by dst.  If the
+>       destination buffer, limited by its size, isn't large enough to hold the
+>       copy,  the  resulting character sequence is truncated.
 
->=20
-> EXAMPLES
->=20
->     strncpy (buf, "1", 5);
->     { '1', 0, 0, 0, 0 }
->=20
->     strncpy (buf, "1234", 5);
->     { '1', '2', '3', '4', 0 }
->=20
->     strncpy (buf, "12345", 5);
->     { '1', '2', '3', '4', '5' }
->=20
->     strncpy (buf, "123456", 5);
->     { '1', '2', '3', '4', '5' }
+hmmm... perhaps
 
-Would you mind reading the latest versions of strcpy(3), strncpy(3), and
-string_copying(7), as in the git repository, and comment your thoughts?
+  These functions copy at most SZ bytes from SRC into a fixed-length
+  buffer DST, padding any unwritten bytes in DST with NUL bytes.
+  Specifically, if SRC has a NUL byte in the first SZ bytes, copying
+  stops there and any remaining bytes in DST are filled with NUL bytes.
+  If there are no NUL bytes in the first SZ bytes of SRC, SZ bytes are
+  copied to DST.
 
-You don't even need to install the pages from git.  You can read them
-with this:
+This avoids the term "string" completely and emphasises the not-string
+nature of the destination.
 
-$ git clone https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/
-$ cd man-pages/
-$ man ./man3/strcpy.3
-$ man ./man3/strncpy.3
-$ man ./man7/string_copying.7
+ stpncpy,  strncpy  - zero a fixed-width buffer and copy a string into a
+       character sequence with truncation and zero the rest of it
 
-Also check the examples and suggest if anything could be clearer.
+Or "fill a fixed-width zero-padded buffer with bytes from a string"
 
-Thanks!
+That avoids saying "copy a string"
 
->=20
-> Maybe strcpy and strncpy shouldn't even share man pages, since they're
-> not as related as we once thought?
+string_copying.7:
 
-They don't (anymore):
+> For historic reasons, some standard APIs, such as utmpx(5),
 
-	$ pwd
-	/home/alx/src/linux/man-pages/man-pages/master
-	$ git log --oneline -1
-	b8584be14 (HEAD -> master, korg/master, alx/main, main) bcmp.3: wfix
+Perhaps "some standard APIs and file formats,, such as utmpx(5) or
+tar(1)," ?
 
-	$ grep -e '\.TH ' -e '\.so ' man3/strcpy.3=20
-	.TH strcpy 3 (date) "Linux man-pages (unreleased)"
-	$ grep -e '\.TH ' -e '\.so ' man3/stpcpy.3=20
-	.so man3/strcpy.3
+> however, those padding null bytes are not part of the character
+> sequence.
 
-	$ grep -e '\.TH ' -e '\.so ' man3/strncpy.3=20
-	.so man3/stpncpy.3
-	$ grep -e '\.TH ' -e '\.so ' man3/stpncpy.3=20
-	.TH stpncpy 3 (date) "Linux man-pages (unreleased)"
+add ", and may not be present if not needed." ?
 
-The only shared page is string_copying(7), which attempts to clarify all
-of this.  It was only in old versions of the Linux man-pages where they
-shared page.
-
-	$ pwd
-	/home/alx/src/linux/man-pages/man-pages/5/5.13
-	$ git log --oneline -1
-	091fbf1fe (HEAD, tag: man-pages-5.13) Ready for 5.13
-
-	$ grep -e '\.TH ' -e '\.so ' man3/strcpy.3=20
-	.TH STRCPY 3  2021-03-22 "GNU" "Linux Programmer's Manual"
-	$ grep -e '\.TH ' -e '\.so ' man3/stpcpy.3=20
-	.TH STPCPY 3  2021-03-22 "GNU" "Linux Programmer's Manual"
-
-	$ grep -e '\.TH ' -e '\.so ' man3/strncpy.3=20
-	.so man3/strcpy.3
-	$ grep -e '\.TH ' -e '\.so ' man3/stpncpy.3=20
-	.TH STPNCPY 3  2021-03-22 "GNU" "Linux Programmer's Manual"
-
-I've spent the last year working on shadow-utils' string handling code,
-while at the same time wrote string_copying(7) as a complete guide to
-*cpy() functions, detailing what they do and what they don't, and also
-rewrote all the pages for these functions with shorter reference guides
-that refer to string_copying(7) for more details.
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---7O+3LQbzjFCS3Siv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVL6/YACgkQnowa+77/
-2zIVYQ/+LUcZV558qj5vEz6yG4X7ihlYeZqo1XzQoGoIl3Xp5xDaTVZHnbvKJAul
-5qVlU2XF2ISQIqWK3vtzi98YQ8I5ljVj45x8/HbaFKi+HyGyzmytOFeKdT11d/H2
-TQ42xFTi+xqGYTl33+h9/A16hHZvVayAN1aChGvfNKTRQyTHRXv+a1S9xT/vUaVA
-QK8zfh1BnxaBC0ovr7EMqfJiXohWhiInTkkwB6VqjxE1e2yMum5kMEyUDNDb0BfS
-JbYiTzBYEwZCnL0Y14p4GDKti9k2lVdbeJ5KYICQYoOFzg5T6jRhHoDCt41jb1/O
-A4PEaSPlux+FObthe1eufD1DdXXiReGN4sxzIaSyMiIbbO5gCPZkxguyWNgYn42F
-I/RihqUaKon0P1ylkm9QE2N9sC5doyErt0bY///bXBri/2Shr9lCpHauaz/+eLXU
-2gf1q7BY6mvFaMpz9qemRFAgFqwlZ3AII9SNI0GQTdC4tyMXfSZL0tGTiVVsNW3Z
-ICGirYswc8CJQ3e9+sg4qmZuT6q9HGAbwzJS3eZpqbsQA0dnye6BOjKgdGjX+iIX
-OA433Jq+f27151wXNHGbzlq6WdhsaiAtAFgzIVGLpC7lb11DF6/ltFDkDPAASYWP
-Q7aUyjLrT1/J/oLZUK0FukXKYLsDRu3ZiZsEhKU2Cul7/qhqvDk=
-=+p/t
------END PGP SIGNATURE-----
-
---7O+3LQbzjFCS3Siv--
