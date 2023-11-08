@@ -2,229 +2,193 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3529A7E5FD3
-	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 22:15:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5F4517E5FE7
+	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 22:21:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231961AbjKHVPo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 16:15:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51908 "EHLO
+        id S229659AbjKHVVd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 16:21:33 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50046 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229566AbjKHVPo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 16:15:44 -0500
-X-Greylist: delayed 328 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 08 Nov 2023 13:15:41 PST
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 979F82102
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 13:15:41 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.cs.ucla.edu (Postfix) with ESMTP id ECCA73C011BD9;
-        Wed,  8 Nov 2023 13:10:12 -0800 (PST)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
-        by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id d9xqr03OelJJ; Wed,  8 Nov 2023 13:10:12 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.cs.ucla.edu (Postfix) with ESMTP id 596183C011BDA;
-        Wed,  8 Nov 2023 13:10:12 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 596183C011BDA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-        s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699477812;
-        bh=fwYK3dHV+eQMdQ90VZzVV/RmdVN7UxaTaVPkapw/wJg=;
-        h=Message-ID:Date:MIME-Version:To:From;
-        b=mR15+VgGVWaG3e8QfoelrqUCxkFyouYBrrW45dSR84+VREFoaCeTeyJpfCkqSMZ5D
-         C0/x98LVsfygLqOnAPsxMLmktyCWZLj5GLA777qCA7OJCzEz9R6UgzlgVtXG7QtBqU
-         nsD/7OyUe6+P1sO9vUqgA3IYHuKHRUlIB1A8H88CJ+8ea0fbZBfMIw+5zY83m/mIxw
-         D57Gp/3dUnRjpI04ZJXFxMoxr3XFKFZKtZNgKNgVNXnzJlj8ekqYamXirmEfDLPpIL
-         UM2QmWzSnW0se0SsOPmYyUWwbvoEMcyXf5CHsbKmtXrFXXC4580jGKIn9wX1srpgGq
-         a40GwGOInxOgw==
-X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
-        by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id 9yUnu8ozDKhN; Wed,  8 Nov 2023 13:10:12 -0800 (PST)
-Received: from [131.179.50.221] (wifi-131-179-50-221.host.ucla.edu [131.179.50.221])
-        by mail.cs.ucla.edu (Postfix) with ESMTPSA id 37F963C011BD9;
-        Wed,  8 Nov 2023 13:10:12 -0800 (PST)
-Content-Type: multipart/mixed; boundary="------------XUgQvZz0rHsv7V3dCLjL6G3V"
-Message-ID: <b30bf830-2392-4c3d-a52e-18ee2264e82c@cs.ucla.edu>
-Date:   Wed, 8 Nov 2023 13:10:12 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+        with ESMTP id S229566AbjKHVVc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 16:21:32 -0500
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 28A82211D
+        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 13:21:30 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB69C433C8;
+        Wed,  8 Nov 2023 21:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1699478489;
+        bh=QhmJoRErlKZpdTJCy/+mrbmADygi3gDYbVFrUMhndbk=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=W6fCOFop9X9s+4pZy3CEqVf9jFw0rHHo/K1yLwdh6MfbXqzJBTJJ3insXI5bi8G09
+         YbRoBOwRMtyNjRpp83BWxvKBBuH3opAExxLWCwyRINQritH9oAbQukNXdYVnKY7udb
+         eAK2NXfdAcboAdmGXVM0usSKLEn302S3Vi7e2EOE9QrVMIVWamhAXkDHiqXpm6BWtg
+         CXUqF0/vCu33bia142C1u2/P6a5F5ur+20QeYGySLXhZqHuY4pIcX1hDeSqyXY4ILR
+         8dQ0Pn9R3garvmYqIYY6D/MHEgRaKYtO7RlWIVenF0UXcwd1FYvXRFVIWe7jhhvqOD
+         Zn1Z8h8nxK6BA==
+Date:   Wed, 8 Nov 2023 22:21:20 +0100
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     enh <enh@google.com>, linux-man <linux-man@vger.kernel.org>
 Subject: Re: [PATCH] difftime.3: be more explict about "difference".
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     enh <enh@google.com>, linux-man <linux-man@vger.kernel.org>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <ZUv71orkW4r9qE0o@debian>
 References: <CAJgzZoqty5f=ivODLB6pvZpm4bZWAt83ET5jpMwrEb9oVqS6MQ@mail.gmail.com>
  <fa623e75-e5bf-b32d-8ce8-27ed59ae03d7@cs.ucla.edu>
  <CAJgzZorrrPLSJ-EWrsGcXg9y-ipVsX9FjHtdeh1x15yY7c-eHw@mail.gmail.com>
  <e06035f7-145a-13cd-554c-ca65a3d8f98a@cs.ucla.edu>
  <xy2hn5d4d3mgofo2aj6makhkhqv6aoeofmuhtebi6v6cwoub3n@t3ybtntqtvgq>
-Content-Language: en-US
-From:   Paul Eggert <eggert@cs.ucla.edu>
-In-Reply-To: <xy2hn5d4d3mgofo2aj6makhkhqv6aoeofmuhtebi6v6cwoub3n@t3ybtntqtvgq>
+ <b30bf830-2392-4c3d-a52e-18ee2264e82c@cs.ucla.edu>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="/pUP8BjoHZC6TcG9"
+Content-Disposition: inline
+In-Reply-To: <b30bf830-2392-4c3d-a52e-18ee2264e82c@cs.ucla.edu>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a multi-part message in MIME format.
---------------XUgQvZz0rHsv7V3dCLjL6G3V
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/25/23 17:18, Alejandro Colomar wrote:
-> Please use semantic newlines.
-Sure, revised patch attached. (A bit delayed since this fell off the end 
-of my queue....)
---------------XUgQvZz0rHsv7V3dCLjL6G3V
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-Improve-timestamp-documentation.patch"
-Content-Disposition: attachment;
- filename="0001-Improve-timestamp-documentation.patch"
-Content-Transfer-Encoding: base64
+--/pUP8BjoHZC6TcG9
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 8 Nov 2023 22:21:20 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: enh <enh@google.com>, linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] difftime.3: be more explict about "difference".
 
-RnJvbSAwNzg2NmIyMGNiYWNiMzkxNDZkNTEzZjg1ZDQzYzRjN2Y5N2Q1NmUxIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBXZWQsIDggTm92IDIwMjMgMTM6MDU6NTcgLTA4MDAKU3ViamVjdDogW1BBVENI
-XSBJbXByb3ZlIHRpbWVzdGFtcCBkb2N1bWVudGF0aW9uCgpJbXByb3ZlIGRpc2N1c3Npb24g
-b2YgbGVhcCBzZWNvbmRzLCB5ZWFyLTIwMzggZXRjLgotLS0KIG1hbjIvY2xvY2tfZ2V0cmVz
-LjIgICAgfCAzNyArKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tCiBtYW4y
-L2Nsb2NrX25hbm9zbGVlcC4yIHwgIDIgKy0KIG1hbjIvdGltZS4yICAgICAgICAgICAgfCAz
-NyArKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tCiBtYW4yL3RpbWVyX2Ny
-ZWF0ZS4yICAgIHwgIDIgKy0KIG1hbjMvZGlmZnRpbWUuMyAgICAgICAgfCAyMyArKysrKysr
-LS0tLS0tLS0tLS0tLS0tLQogbWFuM3R5cGUvdGltZV90LjN0eXBlICB8ICAyICsrCiA2IGZp
-bGVzIGNoYW5nZWQsIDU0IGluc2VydGlvbnMoKyksIDQ5IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL21hbjIvY2xvY2tfZ2V0cmVzLjIgYi9tYW4yL2Nsb2NrX2dldHJlcy4yCmluZGV4
-IDNlYzYzMzhjYi4uODQ1N2Y2MTQ4IDEwMDY0NAotLS0gYS9tYW4yL2Nsb2NrX2dldHJlcy4y
-CisrKyBiL21hbjIvY2xvY2tfZ2V0cmVzLjIKQEAgLTEwMSw5ICsxMDEsMTcgQEAgQSBzZXR0
-YWJsZSBzeXN0ZW0td2lkZSBjbG9jayB0aGF0IG1lYXN1cmVzIHJlYWwgKGkuZS4sIHdhbGwt
-Y2xvY2spIHRpbWUuCiBTZXR0aW5nIHRoaXMgY2xvY2sgcmVxdWlyZXMgYXBwcm9wcmlhdGUg
-cHJpdmlsZWdlcy4KIFRoaXMgY2xvY2sgaXMgYWZmZWN0ZWQgYnkgZGlzY29udGludW91cyBq
-dW1wcyBpbiB0aGUgc3lzdGVtIHRpbWUKIChlLmcuLCBpZiB0aGUgc3lzdGVtIGFkbWluaXN0
-cmF0b3IgbWFudWFsbHkgY2hhbmdlcyB0aGUgY2xvY2spLAotYW5kIGJ5IHRoZSBpbmNyZW1l
-bnRhbCBhZGp1c3RtZW50cyBwZXJmb3JtZWQgYnkKLS5CUiBhZGp0aW1lICgzKQotYW5kIE5U
-UC4KK2FuZCBieSBmcmVxdWVuY3kgYWRqdXN0bWVudHMgcGVyZm9ybWVkIGJ5IE5UUCBhbmQg
-c2ltaWxhciBhcHBsaWNhdGlvbnMgdmlhCisuQlIgYWRqdGltZSAoMyksCisuQlIgYWRqdGlt
-ZXggKDIpLAorLkJSIGNsb2NrX2FkanRpbWUgKDIpLAorYW5kCisuQlIgbnRwX2FkanRpbWUg
-KDMpLgorVGhpcyBjbG9jayBub3JtYWxseSBjb3VudHMgdGhlIG51bWJlciBvZiBzZWNvbmRz
-IHNpbmNlCisxOTcwLTAxLTAxIDAwOjAwOjAwIENvb3JkaW5hdGVkIFVuaXZlcnNhbCBUaW1l
-IChVVEMpCitleGNlcHQgdGhhdCBpdCBpZ25vcmVzIGxlYXAgc2Vjb25kczsKK25lYXIgYSBs
-ZWFwIHNlY29uZCBpdCBpcyB0eXBpY2FsbHkgYWRqdXN0ZWQgYnkgTlRQCit0byBzdGF5IHJv
-dWdobHkgaW4gc3luYyB3aXRoIFVUQy4KIC5UUAogLkJSIENMT0NLX1JFQUxUSU1FX0FMQVJN
-ICIgKHNpbmNlIExpbnV4IDMuMDsgTGludXgtc3BlY2lmaWMpIgogTGlrZQpAQCAtMTI2LDkg
-KzEzNCw5IEBAIGFuZCBwcm9iYWJseSBhbHNvIGFyY2hpdGVjdHVyZSBzdXBwb3J0IGZvciB0
-aGlzIGZsYWcgaW4gdGhlCiAuQlIgQ0xPQ0tfVEFJICIgKHNpbmNlIExpbnV4IDMuMTA7IExp
-bnV4LXNwZWNpZmljKSIKIC5cIiBjb21taXQgMWZmM2M5Njc3YmZmN2U0NjhlMGM0ODdkMGZm
-ZWZlNGU5MDFkMzNmNAogQSBub25zZXR0YWJsZSBzeXN0ZW0td2lkZSBjbG9jayBkZXJpdmVk
-IGZyb20gd2FsbC1jbG9jayB0aW1lCi1idXQgaWdub3JpbmcgbGVhcCBzZWNvbmRzLgorYnV0
-IGNvdW50aW5nIGxlYXAgc2Vjb25kcy4KIFRoaXMgY2xvY2sgZG9lcwotbm90IGV4cGVyaWVu
-Y2UgZGlzY29udGludWl0aWVzIGFuZCBiYWNrd2FyZHMganVtcHMgY2F1c2VkIGJ5IE5UUAor
-bm90IGV4cGVyaWVuY2UgZGlzY29udGludWl0aWVzIG9yIGZyZXF1ZW5jeSBhZGp1c3RtZW50
-cyBjYXVzZWQgYnkKIGluc2VydGluZyBsZWFwIHNlY29uZHMgYXMKIC5CIENMT0NLX1JFQUxU
-SU1FCiBkb2VzLgpAQCAtMTQ2LDkgKzE1NCw3IEBAIFRoZQogLkIgQ0xPQ0tfTU9OT1RPTklD
-CiBjbG9jayBpcyBub3QgYWZmZWN0ZWQgYnkgZGlzY29udGludW91cyBqdW1wcyBpbiB0aGUg
-c3lzdGVtIHRpbWUKIChlLmcuLCBpZiB0aGUgc3lzdGVtIGFkbWluaXN0cmF0b3IgbWFudWFs
-bHkgY2hhbmdlcyB0aGUgY2xvY2spLAotYnV0IGlzIGFmZmVjdGVkIGJ5IHRoZSBpbmNyZW1l
-bnRhbCBhZGp1c3RtZW50cyBwZXJmb3JtZWQgYnkKLS5CUiBhZGp0aW1lICgzKQotYW5kIE5U
-UC4KK2J1dCBpcyBhZmZlY3RlZCBieSBmcmVxdWVuY3kgYWRqdXN0bWVudHMuCiBUaGlzIGNs
-b2NrIGRvZXMgbm90IGNvdW50IHRpbWUgdGhhdCB0aGUgc3lzdGVtIGlzIHN1c3BlbmRlZC4K
-IEFsbAogLkIgQ0xPQ0tfTU9OT1RPTklDCkBAIC0xNzAsOSArMTc2LDcgQEAgYW5kIHByb2Jh
-Ymx5IGFsc28gYXJjaGl0ZWN0dXJlIHN1cHBvcnQgZm9yIHRoaXMgZmxhZyBpbiB0aGUKIFNp
-bWlsYXIgdG8KIC5CUiBDTE9DS19NT05PVE9OSUMgLAogYnV0IHByb3ZpZGVzIGFjY2VzcyB0
-byBhIHJhdyBoYXJkd2FyZS1iYXNlZCB0aW1lCi10aGF0IGlzIG5vdCBzdWJqZWN0IHRvIE5U
-UCBhZGp1c3RtZW50cyBvcgotdGhlIGluY3JlbWVudGFsIGFkanVzdG1lbnRzIHBlcmZvcm1l
-ZCBieQotLkJSIGFkanRpbWUgKDMpLgordGhhdCBpcyBub3Qgc3ViamVjdCB0byBmcmVxdWVu
-Y3kgYWRqdXN0bWVudHMuCiBUaGlzIGNsb2NrIGRvZXMgbm90IGNvdW50IHRpbWUgdGhhdCB0
-aGUgc3lzdGVtIGlzIHN1c3BlbmRlZC4KIC5UUAogLkJSIENMT0NLX0JPT1RUSU1FICIgKHNp
-bmNlIExpbnV4IDIuNi4zOTsgTGludXgtc3BlY2lmaWMpIgpAQCAtMzA0LDYgKzMwOCwxNyBA
-QCBoYXMgZGlzYXBwZWFyZWQgYWZ0ZXIgaXRzIGNoYXJhY3RlciBkZXZpY2Ugd2FzIG9wZW5l
-ZC4KIFRoZSBvcGVyYXRpb24gaXMgbm90IHN1cHBvcnRlZCBieSB0aGUgZHluYW1pYyBQT1NJ
-WCBjbG9jayBkZXZpY2UKIHNwZWNpZmllZC4KIC5UUAorLkIgRU9WRVJGTE9XCitUaGUgdGlt
-ZXN0YW1wIHdvdWxkIG5vdCBmaXQgaW4KKy5JIHRpbWVfdAorcmFuZ2UuCitUaGlzIGNhbiBo
-YXBwZW4gaWYgYW4gZXhlY3V0YWJsZSB3aXRoIDMyLWJpdAorLkkgdGltZV90CitpcyBydW4g
-b24gYSA2NC1iaXQga2VybmVsIHdoZW4gdGhlIHRpbWUgaXMgMjAzOC0wMS0xOSAwMzoxNDow
-OCBVVEMgb3IgbGF0ZXIuCitIb3dldmVyLCB3aGVuIHRoZSBzeXN0ZW0gdGltZSBpcyBvdXQg
-b2YKKy5JIHRpbWVfdAorcmFuZ2UgaW4gb3RoZXIgc2l0dWF0aW9ucywgdGhlIGJlaGF2aW9y
-IGlzIHVuZGVmaW5lZC4KKy5UUAogLkIgRVBFUk0KIC5CUiBjbG9ja19zZXR0aW1lICgpCiBk
-b2VzIG5vdCBoYXZlIHBlcm1pc3Npb24gdG8gc2V0IHRoZSBjbG9jayBpbmRpY2F0ZWQuCmRp
-ZmYgLS1naXQgYS9tYW4yL2Nsb2NrX25hbm9zbGVlcC4yIGIvbWFuMi9jbG9ja19uYW5vc2xl
-ZXAuMgppbmRleCA4YzRlY2MwMTAuLjViZGE1MGUxOCAxMDA2NDQKLS0tIGEvbWFuMi9jbG9j
-a19uYW5vc2xlZXAuMgorKysgYi9tYW4yL2Nsb2NrX25hbm9zbGVlcC4yCkBAIC01OSw3ICs1
-OSw3IEBAIFRoaXMgYXJndW1lbnQgY2FuIGhhdmUgb25lIG9mIHRoZSBmb2xsb3dpbmcgdmFs
-dWVzOgogQSBzZXR0YWJsZSBzeXN0ZW0td2lkZSByZWFsLXRpbWUgY2xvY2suCiAuVFAKIC5C
-UiBDTE9DS19UQUkgIiAoc2luY2UgTGludXggMy4xMCkiCi1BIHN5c3RlbS13aWRlIGNsb2Nr
-IGRlcml2ZWQgZnJvbSB3YWxsLWNsb2NrIHRpbWUgYnV0IGlnbm9yaW5nIGxlYXAgc2Vjb25k
-cy4KK0Egc3lzdGVtLXdpZGUgY2xvY2sgZGVyaXZlZCBmcm9tIHdhbGwtY2xvY2sgdGltZSBi
-dXQgY291bnRpbmcgbGVhcCBzZWNvbmRzLgogLlRQCiAuQiBDTE9DS19NT05PVE9OSUMKIEEg
-bm9uc2V0dGFibGUsIG1vbm90b25pY2FsbHkgaW5jcmVhc2luZyBjbG9jayB0aGF0IG1lYXN1
-cmVzIHRpbWUKZGlmZiAtLWdpdCBhL21hbjIvdGltZS4yIGIvbWFuMi90aW1lLjIKaW5kZXgg
-OWM2N2U2NTZjLi5lODUwMjlkYjAgMTAwNjQ0Ci0tLSBhL21hbjIvdGltZS4yCisrKyBiL21h
-bjIvdGltZS4yCkBAIC0zNSw2ICszNSwxNyBAQCBPbiBlcnJvciwgXGZJKCh0aW1lX3QpXCBc
-LTEpXGZQIGlzIHJldHVybmVkLCBhbmQKIGlzIHNldCB0byBpbmRpY2F0ZSB0aGUgZXJyb3Iu
-CiAuU0ggRVJST1JTCiAuVFAKKy5CIEVPVkVSRkxPVworVGhlIHRpbWUgY2Fubm90IGJlIHJl
-cHJlc2VudGVkIGFzIGEKKy5JIHRpbWVfdAordmFsdWUuCitUaGlzIGNhbiBoYXBwZW4gaWYg
-YW4gZXhlY3V0YWJsZSB3aXRoIDMyLWJpdAorLkkgdGltZV90CitpcyBydW4gb24gYSA2NC1i
-aXQga2VybmVsIHdoZW4gdGhlIHRpbWUgaXMgMjAzOC0wMS0xOSAwMzoxNDowOCBVVEMgb3Ig
-bGF0ZXIuCitIb3dldmVyLCB3aGVuIHRoZSBzeXN0ZW0gdGltZSBpcyBvdXQgb2YKKy5JIHRp
-bWVfdAorcmFuZ2UgaW4gb3RoZXIgc2l0dWF0aW9ucywgdGhlIGJlaGF2aW9yIGlzIHVuZGVm
-aW5lZC4KKy5UUAogLkIgRUZBVUxUCiAuSSB0bG9jCiBwb2ludHMgb3V0c2lkZSB5b3VyIGFj
-Y2Vzc2libGUgYWRkcmVzcyBzcGFjZSAoYnV0IHNlZSBCVUdTKS4KQEAgLTYwLDI5ICs3MSwx
-NSBAQCBpbiB3aGljaCBjYXNlIHRoZXkgYXJlIGxlYXAgeWVhcnMuCiBUaGlzIHZhbHVlIGlz
-IG5vdCB0aGUgc2FtZSBhcyB0aGUgYWN0dWFsIG51bWJlciBvZiBzZWNvbmRzIGJldHdlZW4g
-dGhlIHRpbWUKIGFuZCB0aGUgRXBvY2gsIGJlY2F1c2Ugb2YgbGVhcCBzZWNvbmRzIGFuZCBi
-ZWNhdXNlIHN5c3RlbSBjbG9ja3MgYXJlIG5vdAogcmVxdWlyZWQgdG8gYmUgc3luY2hyb25p
-emVkIHRvIGEgc3RhbmRhcmQgcmVmZXJlbmNlLgotVGhlIGludGVudGlvbiBpcyB0aGF0IHRo
-ZSBpbnRlcnByZXRhdGlvbiBvZiBzZWNvbmRzIHNpbmNlIHRoZSBFcG9jaCB2YWx1ZXMgYmUK
-LWNvbnNpc3RlbnQ7IHNlZSBQT1NJWC4xLTIwMDggUmF0aW9uYWxlIEEuNC4xNSBmb3IgZnVy
-dGhlciByYXRpb25hbGUuCitMaW51eCBzeXN0ZW1zIG5vcm1hbGx5IGZvbGxvdyB0aGUgUE9T
-SVggcmVxdWlyZW1lbnQKK3RoYXQgdGhpcyB2YWx1ZSBpZ25vcmUgbGVhcCBzZWNvbmRzLAor
-c28gdGhhdCBjb25mb3JtaW5nIHN5c3RlbXMgaW50ZXJwcmV0IGl0IGNvbnNpc3RlbnRseTsK
-K3NlZSBQT1NJWC4xLTIwMTggUmF0aW9uYWxlIEEuNC4xNi4KIC5QCi1PbiBMaW51eCwgYSBj
-YWxsIHRvCi0uQlIgdGltZSAoKQotd2l0aAotLkkgdGxvYwotc3BlY2lmaWVkIGFzIE5VTEwg
-Y2Fubm90IGZhaWwgd2l0aCB0aGUgZXJyb3IKLS5CUiBFT1ZFUkZMT1cgLAotZXZlbiBvbiBB
-QklzIHdoZXJlCi0uSSB0aW1lX3QKLWlzIGEgc2lnbmVkIDMyLWJpdCBpbnRlZ2VyIGFuZCB0
-aGUgY2xvY2sgcmVhY2hlcyBvciBleGNlZWRzIDIqKjMxIHNlY29uZHMKLSgyMDM4LTAxLTE5
-IDAzOjE0OjA4IFVUQywgaWdub3JpbmcgbGVhcCBzZWNvbmRzKS4KLShQT1NJWC4xIHBlcm1p
-dHMsIGJ1dCBkb2VzIG5vdCByZXF1aXJlLCB0aGUKLS5CIEVPVkVSRkxPVwotZXJyb3IgaW4g
-dGhlIGNhc2Ugd2hlcmUgdGhlIHNlY29uZHMgc2luY2UgdGhlIEVwb2NoIHdpbGwgbm90IGZp
-dCBpbgotLklSIHRpbWVfdCAuKQotSW5zdGVhZCwgdGhlIGJlaGF2aW9yIG9uIExpbnV4IGlz
-IHVuZGVmaW5lZCB3aGVuIHRoZSBzeXN0ZW0gdGltZSBpcyBvdXQgb2YgdGhlCi0uSSB0aW1l
-X3QKLXJhbmdlLgogQXBwbGljYXRpb25zIGludGVuZGVkIHRvIHJ1biBhZnRlciAyMDM4IHNo
-b3VsZCB1c2UgQUJJcyB3aXRoCiAuSSB0aW1lX3QKLXdpZGVyIHRoYW4gMzIgYml0cy4KK3dp
-ZGVyIHRoYW4gMzIgYml0czsgc2VlCisuQlIgdGltZV90ICgzdHlwZSkuCiAuU1MgQyBsaWJy
-YXJ5L2tlcm5lbCBkaWZmZXJlbmNlcwogT24gc29tZSBhcmNoaXRlY3R1cmVzLCBhbiBpbXBs
-ZW1lbnRhdGlvbiBvZgogLkJSIHRpbWUgKCkKZGlmZiAtLWdpdCBhL21hbjIvdGltZXJfY3Jl
-YXRlLjIgYi9tYW4yL3RpbWVyX2NyZWF0ZS4yCmluZGV4IDM0NWNmZDcwYy4uMTEwOTg1OGI4
-IDEwMDY0NAotLS0gYS9tYW4yL3RpbWVyX2NyZWF0ZS4yCisrKyBiL21hbjIvdGltZXJfY3Jl
-YXRlLjIKQEAgLTk2LDcgKzk2LDcgQEAgVGhlIGNhbGxlciBtdXN0IGhhdmUgdGhlCiBjYXBh
-YmlsaXR5IGluIG9yZGVyIHRvIHNldCBhIHRpbWVyIGFnYWluc3QgdGhpcyBjbG9jay4KIC5U
-UAogLkJSIENMT0NLX1RBSSAiIChzaW5jZSBMaW51eCAzLjEwKSIKLUEgc3lzdGVtLXdpZGUg
-Y2xvY2sgZGVyaXZlZCBmcm9tIHdhbGwtY2xvY2sgdGltZSBidXQgaWdub3JpbmcgbGVhcCBz
-ZWNvbmRzLgorQSBzeXN0ZW0td2lkZSBjbG9jayBkZXJpdmVkIGZyb20gd2FsbC1jbG9jayB0
-aW1lIGJ1dCBjb3VudGluZyBsZWFwIHNlY29uZHMuCiAuUAogU2VlCiAuQlIgY2xvY2tfZ2V0
-cmVzICgyKQpkaWZmIC0tZ2l0IGEvbWFuMy9kaWZmdGltZS4zIGIvbWFuMy9kaWZmdGltZS4z
-CmluZGV4IDU1MDRlYThmZi4uN2YxMjlkMzBkIDEwMDY0NAotLS0gYS9tYW4zL2RpZmZ0aW1l
-LjMKKysrIGIvbWFuMy9kaWZmdGltZS4zCkBAIC0yNiw5ICsyNiwxMyBAQCBUaGUKIGZ1bmN0
-aW9uIHJldHVybnMgdGhlIG51bWJlciBvZiBzZWNvbmRzIGVsYXBzZWQKIGJldHdlZW4gdGlt
-ZSBcZkl0aW1lMVxmUCBhbmQgdGltZSBcZkl0aW1lMFxmUCwgcmVwcmVzZW50ZWQgYXMgYQog
-LklSIGRvdWJsZSAuCi1FYWNoIG9mIHRoZSB0aW1lcyBpcyBzcGVjaWZpZWQgaW4gY2FsZW5k
-YXIgdGltZSwgd2hpY2ggbWVhbnMgaXRzCi12YWx1ZSBpcyBhIG1lYXN1cmVtZW50IChpbiBz
-ZWNvbmRzKSByZWxhdGl2ZSB0byB0aGUKLUVwb2NoLCAxOTcwLTAxLTAxIDAwOjAwOjAwICsw
-MDAwIChVVEMpLgorRWFjaCB0aW1lIGlzIGEgY291bnQgb2Ygc2Vjb25kcy4KKy5QCisuQkkg
-ImRpZmZ0aW1lKCB0aW1lMSAiLCAiIHRpbWUwICkKK2FjdHMgbGlrZQorLkJJICggdGltZTEg
-XC0gdGltZTIgKQorZXhjZXB0IHRoYXQgdGhlIHJlc3VsdCBkb2VzIG5vdCBvdmVyZmxvdyBh
-bmQgaXMgcm91bmRlZCB0bworLkJSIGRvdWJsZSAuCiAuU0ggQVRUUklCVVRFUwogRm9yIGFu
-IGV4cGxhbmF0aW9uIG9mIHRoZSB0ZXJtcyB1c2VkIGluIHRoaXMgc2VjdGlvbiwgc2VlCiAu
-QlIgYXR0cmlidXRlcyAoNykuCkBAIC00NywxOSArNTEsNiBAQCBUfQlUaHJlYWQgc2FmZXR5
-CU1ULVNhZmUKIEMxMSwgUE9TSVguMS0yMDA4LgogLlNIIEhJU1RPUlkKIFBPU0lYLjEtMjAw
-MSwgQzg5LCBTVnI0LCA0LjNCU0QuCi0uU0ggTk9URVMKLU9uIGEgUE9TSVggc3lzdGVtLAot
-LkkgdGltZV90Ci1pcyBhbiBhcml0aG1ldGljIHR5cGUsIGFuZCBvbmUgY291bGQganVzdAot
-ZGVmaW5lCi0uUAotLmluICs0bgotLkVYCi0jZGVmaW5lIG15X2RpZmZ0aW1lKHQxLHQwKSAo
-ZG91YmxlKSh0MSBcLSB0MCkKLS5FRQotLmluCi0uUAotd2hlbiB0aGUgcG9zc2libGUgb3Zl
-cmZsb3cgaW4gdGhlIHN1YnRyYWN0aW9uIGlzIG5vdCBhIGNvbmNlcm4uCiAuU0ggU0VFIEFM
-U08KIC5CUiBkYXRlICgxKSwKIC5CUiBnZXR0aW1lb2ZkYXkgKDIpLApkaWZmIC0tZ2l0IGEv
-bWFuM3R5cGUvdGltZV90LjN0eXBlIGIvbWFuM3R5cGUvdGltZV90LjN0eXBlCmluZGV4IGZi
-Nzg4YjgyMy4uMGRiYTRhZmIwIDEwMDY0NAotLS0gYS9tYW4zdHlwZS90aW1lX3QuM3R5cGUK
-KysrIGIvbWFuM3R5cGUvdGltZV90LjN0eXBlCkBAIC04MSw2ICs4MSw4IEBAIHRoZSB3aWR0
-aCBvZgogLkkgdGltZV90CiBjYW4gYmUgY29udHJvbGxlZCB3aXRoIHRoZSBmZWF0dXJlIHRl
-c3QgbWFjcm8KIC5CUiBfVElNRV9CSVRTIC4KK1NlZQorLkJSIGZlYXR1cmVfdGVzdF9tYWNy
-b3MgKDcpLgogLlAKIFRoZSBmb2xsb3dpbmcgaGVhZGVycyBhbHNvIHByb3ZpZGUKIC5JUiB0
-aW1lX3QgOgotLSAKMi40MS4wCgo=
+Hi Paul!
 
---------------XUgQvZz0rHsv7V3dCLjL6G3V--
+On Wed, Nov 08, 2023 at 01:10:12PM -0800, Paul Eggert wrote:
+> On 9/25/23 17:18, Alejandro Colomar wrote:
+> > Please use semantic newlines.
+> Sure, revised patch attached. (A bit delayed since this fell off the end =
+of
+> my queue....)
+
+Heh, no problem!
+
+Some small formatting comments below.
+
+> From 07866b20cbacb39146d513f85d43c4c7f97d56e1 Mon Sep 17 00:00:00 2001
+> From: Paul Eggert <eggert@cs.ucla.edu>
+> Date: Wed, 8 Nov 2023 13:05:57 -0800
+> Subject: [PATCH] Improve timestamp documentation
+>=20
+> Improve discussion of leap seconds, year-2038 etc.
+> ---
+>  man2/clock_getres.2    | 37 ++++++++++++++++++++++++++-----------
+>  man2/clock_nanosleep.2 |  2 +-
+>  man2/time.2            | 37 +++++++++++++++++--------------------
+>  man2/timer_create.2    |  2 +-
+>  man3/difftime.3        | 23 +++++++----------------
+>  man3type/time_t.3type  |  2 ++
+>  6 files changed, 54 insertions(+), 49 deletions(-)
+>=20
+
+[...]
+
+> diff --git a/man3/difftime.3 b/man3/difftime.3
+> index 5504ea8ff..7f129d30d 100644
+> --- a/man3/difftime.3
+> +++ b/man3/difftime.3
+> @@ -26,9 +26,13 @@ The
+>  function returns the number of seconds elapsed
+>  between time \fItime1\fP and time \fItime0\fP, represented as a
+>  .IR double .
+> -Each of the times is specified in calendar time, which means its
+> -value is a measurement (in seconds) relative to the
+> -Epoch, 1970-01-01 00:00:00 +0000 (UTC).
+> +Each time is a count of seconds.
+> +.P
+> +.BI "difftime( time1 ", " time0 )
+
+We use all italics for inline code samples.  See man-pages(7):
+
+     If the command is short, then it can be included  inline  in  the
+     text,  in  italic  format, for example, man 7 man=E2=80=90pages.  In t=
+his
+     case, it may be worth using nonbreaking spaces (\[ti])  at  suit=E2=80=
+=90
+     able places in the command.  Command options should be written in
+     italics (e.g., -l).
+
+     Expressions,  if  not written on a separate indented line, should
+     be specified in italics.  Again, the use  of  nonbreaking  spaces
+     may be appropriate if the expression is inlined with normal text.
+
+The rest of the patch looks good to me.  Thanks!
+
+Cheers,
+Alex
+
+> +acts like
+> +.BI ( time1 \- time2 )
+> +except that the result does not overflow and is rounded to
+> +.BR double .
+>  .SH ATTRIBUTES
+>  For an explanation of the terms used in this section, see
+>  .BR attributes (7).
+> @@ -47,19 +51,6 @@ T}	Thread safety	MT-Safe
+>  C11, POSIX.1-2008.
+>  .SH HISTORY
+>  POSIX.1-2001, C89, SVr4, 4.3BSD.
+> -.SH NOTES
+> -On a POSIX system,
+> -.I time_t
+> -is an arithmetic type, and one could just
+> -define
+> -.P
+> -.in +4n
+> -.EX
+> -#define my_difftime(t1,t0) (double)(t1 \- t0)
+> -.EE
+> -.in
+> -.P
+> -when the possible overflow in the subtraction is not a concern.
+>  .SH SEE ALSO
+>  .BR date (1),
+>  .BR gettimeofday (2),
+> diff --git a/man3type/time_t.3type b/man3type/time_t.3type
+> index fb788b823..0dba4afb0 100644
+> --- a/man3type/time_t.3type
+> +++ b/man3type/time_t.3type
+> @@ -81,6 +81,8 @@ the width of
+>  .I time_t
+>  can be controlled with the feature test macro
+>  .BR _TIME_BITS .
+> +See
+> +.BR feature_test_macros (7).
+>  .P
+>  The following headers also provide
+>  .IR time_t :
+> --=20
+> 2.41.0
+>=20
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--/pUP8BjoHZC6TcG9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVL+9AACgkQnowa+77/
+2zL4lw//SIk5HVYhr7E0SmpjMgAMDTKcTvhXNFsCBqnxGW6A9H3hqgUABDLTnr0F
+yfbQQWBawAIQTPZ5E6C9hvuQUM1mo+UWKzmm5Ozn+LWJxA3z2yPJOeyxoP4H8NgP
+yj66zWavY/9GjpxHbmNVOaJMj5DyG8dZb8N2MMudsiesxjK8UotjRY9YycHx0F78
+ElulCuwftRD3ahTYk0pc0kT3GwnqlEOO46b6xsG0VD5Mu8yt9qVYHaHm1St1FQTr
+agV7Z5JnBhh5I2Vd1M05CTHwcjsZe716oUCGmffRoBu5KI0Y7j9O8S53CIV4k/MT
+vVGLiJUvMeJ54Yj794VO1RBR5icTukqm1ciIA2bzbBhqdyCqmIqk2lOH7i1MYUPa
+f8xz6RTXuWhyaRTniP+7AZN0Qa1+Qojtt72ndqlf9EwVbz+84FFtKy+o73ySJRFH
+KzOcuaIqY6SXDjtKPXncvcX44RNU9+f0X7Deo319FXC+SOtqrxDtx9ykFgHHwVPT
+O99Dbl8CK8JrF3cerytgd8ONn//cPXgi82vEO6s3yQNTlP6Y/XlWonpXoZJl9kXe
+rrefj6kaVlcwlJF054bck/Dle0cBEvHuudDHFqbWp8zjBEjiR7mmMIj1PNqlTBeF
+Ghj590UOt9drxeXL1exPqmpv3kIvknJ7FxeRZvpuk4hezLogxlc=
+=/+ST
+-----END PGP SIGNATURE-----
+
+--/pUP8BjoHZC6TcG9--
