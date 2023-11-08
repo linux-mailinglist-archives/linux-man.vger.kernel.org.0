@@ -2,105 +2,229 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B9D0B7E5FA6
-	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 22:08:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3529A7E5FD3
+	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 22:15:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231958AbjKHVIC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 16:08:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58466 "EHLO
+        id S231961AbjKHVPo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 16:15:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51908 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231935AbjKHVIA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 16:08:00 -0500
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC8EB2580
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 13:07:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1699477630;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to; bh=3+k7yYFL2544AaBUr1PygVaI/9k5MVokX125YELCkng=;
-        b=KK6qDTVU8ClEnuZwyFjwLfY+sbYPEh9jvF92BwFb/diA7hs/0u6EJdNeszTuCKlOpFfdKc
-        ER2++UYUM0L0j8K/WxruJUV7QVyyw+EWUVAmv68oSJ8PYWtnjCuP/GTbOK73jyFXVaVdL/
-        x1Qub9EovPOfYGoZOvyr2gqdiR+nctw=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-119-aDr-Z82qPOG5qF9re-sDeA-1; Wed,
- 08 Nov 2023 16:07:08 -0500
-X-MC-Unique: aDr-Z82qPOG5qF9re-sDeA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22A503810D20;
-        Wed,  8 Nov 2023 21:07:08 +0000 (UTC)
-Received: from greed.delorie.com (unknown [10.22.9.226])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 01EE71121306;
-        Wed,  8 Nov 2023 21:07:07 +0000 (UTC)
-Received: from greed.delorie.com.redhat.com (localhost [127.0.0.1])
-        by greed.delorie.com (8.15.2/8.15.2) with ESMTP id 3A8L77kI230726;
-        Wed, 8 Nov 2023 16:07:07 -0500
-From:   DJ Delorie <dj@redhat.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     libc-alpha@sourceware.org, jg@jguk.org, linux-man@vger.kernel.org
-Subject: Re: strncpy clarify result may not be null terminated
-In-Reply-To: <ZUvr_FPICn5VkP4q@debian>
-Date:   Wed, 08 Nov 2023 16:07:07 -0500
-Message-ID: <xnil6cq7ic.fsf@greed.delorie.com>
+        with ESMTP id S229566AbjKHVPo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 16:15:44 -0500
+X-Greylist: delayed 328 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 08 Nov 2023 13:15:41 PST
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 979F82102
+        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 13:15:41 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.cs.ucla.edu (Postfix) with ESMTP id ECCA73C011BD9;
+        Wed,  8 Nov 2023 13:10:12 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+        by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id d9xqr03OelJJ; Wed,  8 Nov 2023 13:10:12 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.cs.ucla.edu (Postfix) with ESMTP id 596183C011BDA;
+        Wed,  8 Nov 2023 13:10:12 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 596183C011BDA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+        s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699477812;
+        bh=fwYK3dHV+eQMdQ90VZzVV/RmdVN7UxaTaVPkapw/wJg=;
+        h=Message-ID:Date:MIME-Version:To:From;
+        b=mR15+VgGVWaG3e8QfoelrqUCxkFyouYBrrW45dSR84+VREFoaCeTeyJpfCkqSMZ5D
+         C0/x98LVsfygLqOnAPsxMLmktyCWZLj5GLA777qCA7OJCzEz9R6UgzlgVtXG7QtBqU
+         nsD/7OyUe6+P1sO9vUqgA3IYHuKHRUlIB1A8H88CJ+8ea0fbZBfMIw+5zY83m/mIxw
+         D57Gp/3dUnRjpI04ZJXFxMoxr3XFKFZKtZNgKNgVNXnzJlj8ekqYamXirmEfDLPpIL
+         UM2QmWzSnW0se0SsOPmYyUWwbvoEMcyXf5CHsbKmtXrFXXC4580jGKIn9wX1srpgGq
+         a40GwGOInxOgw==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+        by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id 9yUnu8ozDKhN; Wed,  8 Nov 2023 13:10:12 -0800 (PST)
+Received: from [131.179.50.221] (wifi-131-179-50-221.host.ucla.edu [131.179.50.221])
+        by mail.cs.ucla.edu (Postfix) with ESMTPSA id 37F963C011BD9;
+        Wed,  8 Nov 2023 13:10:12 -0800 (PST)
+Content-Type: multipart/mixed; boundary="------------XUgQvZz0rHsv7V3dCLjL6G3V"
+Message-ID: <b30bf830-2392-4c3d-a52e-18ee2264e82c@cs.ucla.edu>
+Date:   Wed, 8 Nov 2023 13:10:12 -0800
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] difftime.3: be more explict about "difference".
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     enh <enh@google.com>, linux-man <linux-man@vger.kernel.org>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <CAJgzZoqty5f=ivODLB6pvZpm4bZWAt83ET5jpMwrEb9oVqS6MQ@mail.gmail.com>
+ <fa623e75-e5bf-b32d-8ce8-27ed59ae03d7@cs.ucla.edu>
+ <CAJgzZorrrPLSJ-EWrsGcXg9y-ipVsX9FjHtdeh1x15yY7c-eHw@mail.gmail.com>
+ <e06035f7-145a-13cd-554c-ca65a3d8f98a@cs.ucla.edu>
+ <xy2hn5d4d3mgofo2aj6makhkhqv6aoeofmuhtebi6v6cwoub3n@t3ybtntqtvgq>
+Content-Language: en-US
+From:   Paul Eggert <eggert@cs.ucla.edu>
+In-Reply-To: <xy2hn5d4d3mgofo2aj6makhkhqv6aoeofmuhtebi6v6cwoub3n@t3ybtntqtvgq>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alejandro Colomar <alx@kernel.org> writes:
-> Would you mind reading the latest versions of strcpy(3), strncpy(3), and
-> string_copying(7), as in the git repository, and comment your thoughts?
+This is a multi-part message in MIME format.
+--------------XUgQvZz0rHsv7V3dCLjL6G3V
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I think my examples would work well after the first CAVEATS paragaph:
+On 9/25/23 17:18, Alejandro Colomar wrote:
+> Please use semantic newlines.
+Sure, revised patch attached. (A bit delayed since this fell off the end 
+of my queue....)
+--------------XUgQvZz0rHsv7V3dCLjL6G3V
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-Improve-timestamp-documentation.patch"
+Content-Disposition: attachment;
+ filename="0001-Improve-timestamp-documentation.patch"
+Content-Transfer-Encoding: base64
 
-       The name of these functions is confusing.  These functions
-       produce a null-padded character sequence, not a string (see
-       string_copying(7)), like this:
+RnJvbSAwNzg2NmIyMGNiYWNiMzkxNDZkNTEzZjg1ZDQzYzRjN2Y5N2Q1NmUxIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBXZWQsIDggTm92IDIwMjMgMTM6MDU6NTcgLTA4MDAKU3ViamVjdDogW1BBVENI
+XSBJbXByb3ZlIHRpbWVzdGFtcCBkb2N1bWVudGF0aW9uCgpJbXByb3ZlIGRpc2N1c3Npb24g
+b2YgbGVhcCBzZWNvbmRzLCB5ZWFyLTIwMzggZXRjLgotLS0KIG1hbjIvY2xvY2tfZ2V0cmVz
+LjIgICAgfCAzNyArKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tCiBtYW4y
+L2Nsb2NrX25hbm9zbGVlcC4yIHwgIDIgKy0KIG1hbjIvdGltZS4yICAgICAgICAgICAgfCAz
+NyArKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tCiBtYW4yL3RpbWVyX2Ny
+ZWF0ZS4yICAgIHwgIDIgKy0KIG1hbjMvZGlmZnRpbWUuMyAgICAgICAgfCAyMyArKysrKysr
+LS0tLS0tLS0tLS0tLS0tLQogbWFuM3R5cGUvdGltZV90LjN0eXBlICB8ICAyICsrCiA2IGZp
+bGVzIGNoYW5nZWQsIDU0IGluc2VydGlvbnMoKyksIDQ5IGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL21hbjIvY2xvY2tfZ2V0cmVzLjIgYi9tYW4yL2Nsb2NrX2dldHJlcy4yCmluZGV4
+IDNlYzYzMzhjYi4uODQ1N2Y2MTQ4IDEwMDY0NAotLS0gYS9tYW4yL2Nsb2NrX2dldHJlcy4y
+CisrKyBiL21hbjIvY2xvY2tfZ2V0cmVzLjIKQEAgLTEwMSw5ICsxMDEsMTcgQEAgQSBzZXR0
+YWJsZSBzeXN0ZW0td2lkZSBjbG9jayB0aGF0IG1lYXN1cmVzIHJlYWwgKGkuZS4sIHdhbGwt
+Y2xvY2spIHRpbWUuCiBTZXR0aW5nIHRoaXMgY2xvY2sgcmVxdWlyZXMgYXBwcm9wcmlhdGUg
+cHJpdmlsZWdlcy4KIFRoaXMgY2xvY2sgaXMgYWZmZWN0ZWQgYnkgZGlzY29udGludW91cyBq
+dW1wcyBpbiB0aGUgc3lzdGVtIHRpbWUKIChlLmcuLCBpZiB0aGUgc3lzdGVtIGFkbWluaXN0
+cmF0b3IgbWFudWFsbHkgY2hhbmdlcyB0aGUgY2xvY2spLAotYW5kIGJ5IHRoZSBpbmNyZW1l
+bnRhbCBhZGp1c3RtZW50cyBwZXJmb3JtZWQgYnkKLS5CUiBhZGp0aW1lICgzKQotYW5kIE5U
+UC4KK2FuZCBieSBmcmVxdWVuY3kgYWRqdXN0bWVudHMgcGVyZm9ybWVkIGJ5IE5UUCBhbmQg
+c2ltaWxhciBhcHBsaWNhdGlvbnMgdmlhCisuQlIgYWRqdGltZSAoMyksCisuQlIgYWRqdGlt
+ZXggKDIpLAorLkJSIGNsb2NrX2FkanRpbWUgKDIpLAorYW5kCisuQlIgbnRwX2FkanRpbWUg
+KDMpLgorVGhpcyBjbG9jayBub3JtYWxseSBjb3VudHMgdGhlIG51bWJlciBvZiBzZWNvbmRz
+IHNpbmNlCisxOTcwLTAxLTAxIDAwOjAwOjAwIENvb3JkaW5hdGVkIFVuaXZlcnNhbCBUaW1l
+IChVVEMpCitleGNlcHQgdGhhdCBpdCBpZ25vcmVzIGxlYXAgc2Vjb25kczsKK25lYXIgYSBs
+ZWFwIHNlY29uZCBpdCBpcyB0eXBpY2FsbHkgYWRqdXN0ZWQgYnkgTlRQCit0byBzdGF5IHJv
+dWdobHkgaW4gc3luYyB3aXRoIFVUQy4KIC5UUAogLkJSIENMT0NLX1JFQUxUSU1FX0FMQVJN
+ICIgKHNpbmNlIExpbnV4IDMuMDsgTGludXgtc3BlY2lmaWMpIgogTGlrZQpAQCAtMTI2LDkg
+KzEzNCw5IEBAIGFuZCBwcm9iYWJseSBhbHNvIGFyY2hpdGVjdHVyZSBzdXBwb3J0IGZvciB0
+aGlzIGZsYWcgaW4gdGhlCiAuQlIgQ0xPQ0tfVEFJICIgKHNpbmNlIExpbnV4IDMuMTA7IExp
+bnV4LXNwZWNpZmljKSIKIC5cIiBjb21taXQgMWZmM2M5Njc3YmZmN2U0NjhlMGM0ODdkMGZm
+ZWZlNGU5MDFkMzNmNAogQSBub25zZXR0YWJsZSBzeXN0ZW0td2lkZSBjbG9jayBkZXJpdmVk
+IGZyb20gd2FsbC1jbG9jayB0aW1lCi1idXQgaWdub3JpbmcgbGVhcCBzZWNvbmRzLgorYnV0
+IGNvdW50aW5nIGxlYXAgc2Vjb25kcy4KIFRoaXMgY2xvY2sgZG9lcwotbm90IGV4cGVyaWVu
+Y2UgZGlzY29udGludWl0aWVzIGFuZCBiYWNrd2FyZHMganVtcHMgY2F1c2VkIGJ5IE5UUAor
+bm90IGV4cGVyaWVuY2UgZGlzY29udGludWl0aWVzIG9yIGZyZXF1ZW5jeSBhZGp1c3RtZW50
+cyBjYXVzZWQgYnkKIGluc2VydGluZyBsZWFwIHNlY29uZHMgYXMKIC5CIENMT0NLX1JFQUxU
+SU1FCiBkb2VzLgpAQCAtMTQ2LDkgKzE1NCw3IEBAIFRoZQogLkIgQ0xPQ0tfTU9OT1RPTklD
+CiBjbG9jayBpcyBub3QgYWZmZWN0ZWQgYnkgZGlzY29udGludW91cyBqdW1wcyBpbiB0aGUg
+c3lzdGVtIHRpbWUKIChlLmcuLCBpZiB0aGUgc3lzdGVtIGFkbWluaXN0cmF0b3IgbWFudWFs
+bHkgY2hhbmdlcyB0aGUgY2xvY2spLAotYnV0IGlzIGFmZmVjdGVkIGJ5IHRoZSBpbmNyZW1l
+bnRhbCBhZGp1c3RtZW50cyBwZXJmb3JtZWQgYnkKLS5CUiBhZGp0aW1lICgzKQotYW5kIE5U
+UC4KK2J1dCBpcyBhZmZlY3RlZCBieSBmcmVxdWVuY3kgYWRqdXN0bWVudHMuCiBUaGlzIGNs
+b2NrIGRvZXMgbm90IGNvdW50IHRpbWUgdGhhdCB0aGUgc3lzdGVtIGlzIHN1c3BlbmRlZC4K
+IEFsbAogLkIgQ0xPQ0tfTU9OT1RPTklDCkBAIC0xNzAsOSArMTc2LDcgQEAgYW5kIHByb2Jh
+Ymx5IGFsc28gYXJjaGl0ZWN0dXJlIHN1cHBvcnQgZm9yIHRoaXMgZmxhZyBpbiB0aGUKIFNp
+bWlsYXIgdG8KIC5CUiBDTE9DS19NT05PVE9OSUMgLAogYnV0IHByb3ZpZGVzIGFjY2VzcyB0
+byBhIHJhdyBoYXJkd2FyZS1iYXNlZCB0aW1lCi10aGF0IGlzIG5vdCBzdWJqZWN0IHRvIE5U
+UCBhZGp1c3RtZW50cyBvcgotdGhlIGluY3JlbWVudGFsIGFkanVzdG1lbnRzIHBlcmZvcm1l
+ZCBieQotLkJSIGFkanRpbWUgKDMpLgordGhhdCBpcyBub3Qgc3ViamVjdCB0byBmcmVxdWVu
+Y3kgYWRqdXN0bWVudHMuCiBUaGlzIGNsb2NrIGRvZXMgbm90IGNvdW50IHRpbWUgdGhhdCB0
+aGUgc3lzdGVtIGlzIHN1c3BlbmRlZC4KIC5UUAogLkJSIENMT0NLX0JPT1RUSU1FICIgKHNp
+bmNlIExpbnV4IDIuNi4zOTsgTGludXgtc3BlY2lmaWMpIgpAQCAtMzA0LDYgKzMwOCwxNyBA
+QCBoYXMgZGlzYXBwZWFyZWQgYWZ0ZXIgaXRzIGNoYXJhY3RlciBkZXZpY2Ugd2FzIG9wZW5l
+ZC4KIFRoZSBvcGVyYXRpb24gaXMgbm90IHN1cHBvcnRlZCBieSB0aGUgZHluYW1pYyBQT1NJ
+WCBjbG9jayBkZXZpY2UKIHNwZWNpZmllZC4KIC5UUAorLkIgRU9WRVJGTE9XCitUaGUgdGlt
+ZXN0YW1wIHdvdWxkIG5vdCBmaXQgaW4KKy5JIHRpbWVfdAorcmFuZ2UuCitUaGlzIGNhbiBo
+YXBwZW4gaWYgYW4gZXhlY3V0YWJsZSB3aXRoIDMyLWJpdAorLkkgdGltZV90CitpcyBydW4g
+b24gYSA2NC1iaXQga2VybmVsIHdoZW4gdGhlIHRpbWUgaXMgMjAzOC0wMS0xOSAwMzoxNDow
+OCBVVEMgb3IgbGF0ZXIuCitIb3dldmVyLCB3aGVuIHRoZSBzeXN0ZW0gdGltZSBpcyBvdXQg
+b2YKKy5JIHRpbWVfdAorcmFuZ2UgaW4gb3RoZXIgc2l0dWF0aW9ucywgdGhlIGJlaGF2aW9y
+IGlzIHVuZGVmaW5lZC4KKy5UUAogLkIgRVBFUk0KIC5CUiBjbG9ja19zZXR0aW1lICgpCiBk
+b2VzIG5vdCBoYXZlIHBlcm1pc3Npb24gdG8gc2V0IHRoZSBjbG9jayBpbmRpY2F0ZWQuCmRp
+ZmYgLS1naXQgYS9tYW4yL2Nsb2NrX25hbm9zbGVlcC4yIGIvbWFuMi9jbG9ja19uYW5vc2xl
+ZXAuMgppbmRleCA4YzRlY2MwMTAuLjViZGE1MGUxOCAxMDA2NDQKLS0tIGEvbWFuMi9jbG9j
+a19uYW5vc2xlZXAuMgorKysgYi9tYW4yL2Nsb2NrX25hbm9zbGVlcC4yCkBAIC01OSw3ICs1
+OSw3IEBAIFRoaXMgYXJndW1lbnQgY2FuIGhhdmUgb25lIG9mIHRoZSBmb2xsb3dpbmcgdmFs
+dWVzOgogQSBzZXR0YWJsZSBzeXN0ZW0td2lkZSByZWFsLXRpbWUgY2xvY2suCiAuVFAKIC5C
+UiBDTE9DS19UQUkgIiAoc2luY2UgTGludXggMy4xMCkiCi1BIHN5c3RlbS13aWRlIGNsb2Nr
+IGRlcml2ZWQgZnJvbSB3YWxsLWNsb2NrIHRpbWUgYnV0IGlnbm9yaW5nIGxlYXAgc2Vjb25k
+cy4KK0Egc3lzdGVtLXdpZGUgY2xvY2sgZGVyaXZlZCBmcm9tIHdhbGwtY2xvY2sgdGltZSBi
+dXQgY291bnRpbmcgbGVhcCBzZWNvbmRzLgogLlRQCiAuQiBDTE9DS19NT05PVE9OSUMKIEEg
+bm9uc2V0dGFibGUsIG1vbm90b25pY2FsbHkgaW5jcmVhc2luZyBjbG9jayB0aGF0IG1lYXN1
+cmVzIHRpbWUKZGlmZiAtLWdpdCBhL21hbjIvdGltZS4yIGIvbWFuMi90aW1lLjIKaW5kZXgg
+OWM2N2U2NTZjLi5lODUwMjlkYjAgMTAwNjQ0Ci0tLSBhL21hbjIvdGltZS4yCisrKyBiL21h
+bjIvdGltZS4yCkBAIC0zNSw2ICszNSwxNyBAQCBPbiBlcnJvciwgXGZJKCh0aW1lX3QpXCBc
+LTEpXGZQIGlzIHJldHVybmVkLCBhbmQKIGlzIHNldCB0byBpbmRpY2F0ZSB0aGUgZXJyb3Iu
+CiAuU0ggRVJST1JTCiAuVFAKKy5CIEVPVkVSRkxPVworVGhlIHRpbWUgY2Fubm90IGJlIHJl
+cHJlc2VudGVkIGFzIGEKKy5JIHRpbWVfdAordmFsdWUuCitUaGlzIGNhbiBoYXBwZW4gaWYg
+YW4gZXhlY3V0YWJsZSB3aXRoIDMyLWJpdAorLkkgdGltZV90CitpcyBydW4gb24gYSA2NC1i
+aXQga2VybmVsIHdoZW4gdGhlIHRpbWUgaXMgMjAzOC0wMS0xOSAwMzoxNDowOCBVVEMgb3Ig
+bGF0ZXIuCitIb3dldmVyLCB3aGVuIHRoZSBzeXN0ZW0gdGltZSBpcyBvdXQgb2YKKy5JIHRp
+bWVfdAorcmFuZ2UgaW4gb3RoZXIgc2l0dWF0aW9ucywgdGhlIGJlaGF2aW9yIGlzIHVuZGVm
+aW5lZC4KKy5UUAogLkIgRUZBVUxUCiAuSSB0bG9jCiBwb2ludHMgb3V0c2lkZSB5b3VyIGFj
+Y2Vzc2libGUgYWRkcmVzcyBzcGFjZSAoYnV0IHNlZSBCVUdTKS4KQEAgLTYwLDI5ICs3MSwx
+NSBAQCBpbiB3aGljaCBjYXNlIHRoZXkgYXJlIGxlYXAgeWVhcnMuCiBUaGlzIHZhbHVlIGlz
+IG5vdCB0aGUgc2FtZSBhcyB0aGUgYWN0dWFsIG51bWJlciBvZiBzZWNvbmRzIGJldHdlZW4g
+dGhlIHRpbWUKIGFuZCB0aGUgRXBvY2gsIGJlY2F1c2Ugb2YgbGVhcCBzZWNvbmRzIGFuZCBi
+ZWNhdXNlIHN5c3RlbSBjbG9ja3MgYXJlIG5vdAogcmVxdWlyZWQgdG8gYmUgc3luY2hyb25p
+emVkIHRvIGEgc3RhbmRhcmQgcmVmZXJlbmNlLgotVGhlIGludGVudGlvbiBpcyB0aGF0IHRo
+ZSBpbnRlcnByZXRhdGlvbiBvZiBzZWNvbmRzIHNpbmNlIHRoZSBFcG9jaCB2YWx1ZXMgYmUK
+LWNvbnNpc3RlbnQ7IHNlZSBQT1NJWC4xLTIwMDggUmF0aW9uYWxlIEEuNC4xNSBmb3IgZnVy
+dGhlciByYXRpb25hbGUuCitMaW51eCBzeXN0ZW1zIG5vcm1hbGx5IGZvbGxvdyB0aGUgUE9T
+SVggcmVxdWlyZW1lbnQKK3RoYXQgdGhpcyB2YWx1ZSBpZ25vcmUgbGVhcCBzZWNvbmRzLAor
+c28gdGhhdCBjb25mb3JtaW5nIHN5c3RlbXMgaW50ZXJwcmV0IGl0IGNvbnNpc3RlbnRseTsK
+K3NlZSBQT1NJWC4xLTIwMTggUmF0aW9uYWxlIEEuNC4xNi4KIC5QCi1PbiBMaW51eCwgYSBj
+YWxsIHRvCi0uQlIgdGltZSAoKQotd2l0aAotLkkgdGxvYwotc3BlY2lmaWVkIGFzIE5VTEwg
+Y2Fubm90IGZhaWwgd2l0aCB0aGUgZXJyb3IKLS5CUiBFT1ZFUkZMT1cgLAotZXZlbiBvbiBB
+QklzIHdoZXJlCi0uSSB0aW1lX3QKLWlzIGEgc2lnbmVkIDMyLWJpdCBpbnRlZ2VyIGFuZCB0
+aGUgY2xvY2sgcmVhY2hlcyBvciBleGNlZWRzIDIqKjMxIHNlY29uZHMKLSgyMDM4LTAxLTE5
+IDAzOjE0OjA4IFVUQywgaWdub3JpbmcgbGVhcCBzZWNvbmRzKS4KLShQT1NJWC4xIHBlcm1p
+dHMsIGJ1dCBkb2VzIG5vdCByZXF1aXJlLCB0aGUKLS5CIEVPVkVSRkxPVwotZXJyb3IgaW4g
+dGhlIGNhc2Ugd2hlcmUgdGhlIHNlY29uZHMgc2luY2UgdGhlIEVwb2NoIHdpbGwgbm90IGZp
+dCBpbgotLklSIHRpbWVfdCAuKQotSW5zdGVhZCwgdGhlIGJlaGF2aW9yIG9uIExpbnV4IGlz
+IHVuZGVmaW5lZCB3aGVuIHRoZSBzeXN0ZW0gdGltZSBpcyBvdXQgb2YgdGhlCi0uSSB0aW1l
+X3QKLXJhbmdlLgogQXBwbGljYXRpb25zIGludGVuZGVkIHRvIHJ1biBhZnRlciAyMDM4IHNo
+b3VsZCB1c2UgQUJJcyB3aXRoCiAuSSB0aW1lX3QKLXdpZGVyIHRoYW4gMzIgYml0cy4KK3dp
+ZGVyIHRoYW4gMzIgYml0czsgc2VlCisuQlIgdGltZV90ICgzdHlwZSkuCiAuU1MgQyBsaWJy
+YXJ5L2tlcm5lbCBkaWZmZXJlbmNlcwogT24gc29tZSBhcmNoaXRlY3R1cmVzLCBhbiBpbXBs
+ZW1lbnRhdGlvbiBvZgogLkJSIHRpbWUgKCkKZGlmZiAtLWdpdCBhL21hbjIvdGltZXJfY3Jl
+YXRlLjIgYi9tYW4yL3RpbWVyX2NyZWF0ZS4yCmluZGV4IDM0NWNmZDcwYy4uMTEwOTg1OGI4
+IDEwMDY0NAotLS0gYS9tYW4yL3RpbWVyX2NyZWF0ZS4yCisrKyBiL21hbjIvdGltZXJfY3Jl
+YXRlLjIKQEAgLTk2LDcgKzk2LDcgQEAgVGhlIGNhbGxlciBtdXN0IGhhdmUgdGhlCiBjYXBh
+YmlsaXR5IGluIG9yZGVyIHRvIHNldCBhIHRpbWVyIGFnYWluc3QgdGhpcyBjbG9jay4KIC5U
+UAogLkJSIENMT0NLX1RBSSAiIChzaW5jZSBMaW51eCAzLjEwKSIKLUEgc3lzdGVtLXdpZGUg
+Y2xvY2sgZGVyaXZlZCBmcm9tIHdhbGwtY2xvY2sgdGltZSBidXQgaWdub3JpbmcgbGVhcCBz
+ZWNvbmRzLgorQSBzeXN0ZW0td2lkZSBjbG9jayBkZXJpdmVkIGZyb20gd2FsbC1jbG9jayB0
+aW1lIGJ1dCBjb3VudGluZyBsZWFwIHNlY29uZHMuCiAuUAogU2VlCiAuQlIgY2xvY2tfZ2V0
+cmVzICgyKQpkaWZmIC0tZ2l0IGEvbWFuMy9kaWZmdGltZS4zIGIvbWFuMy9kaWZmdGltZS4z
+CmluZGV4IDU1MDRlYThmZi4uN2YxMjlkMzBkIDEwMDY0NAotLS0gYS9tYW4zL2RpZmZ0aW1l
+LjMKKysrIGIvbWFuMy9kaWZmdGltZS4zCkBAIC0yNiw5ICsyNiwxMyBAQCBUaGUKIGZ1bmN0
+aW9uIHJldHVybnMgdGhlIG51bWJlciBvZiBzZWNvbmRzIGVsYXBzZWQKIGJldHdlZW4gdGlt
+ZSBcZkl0aW1lMVxmUCBhbmQgdGltZSBcZkl0aW1lMFxmUCwgcmVwcmVzZW50ZWQgYXMgYQog
+LklSIGRvdWJsZSAuCi1FYWNoIG9mIHRoZSB0aW1lcyBpcyBzcGVjaWZpZWQgaW4gY2FsZW5k
+YXIgdGltZSwgd2hpY2ggbWVhbnMgaXRzCi12YWx1ZSBpcyBhIG1lYXN1cmVtZW50IChpbiBz
+ZWNvbmRzKSByZWxhdGl2ZSB0byB0aGUKLUVwb2NoLCAxOTcwLTAxLTAxIDAwOjAwOjAwICsw
+MDAwIChVVEMpLgorRWFjaCB0aW1lIGlzIGEgY291bnQgb2Ygc2Vjb25kcy4KKy5QCisuQkkg
+ImRpZmZ0aW1lKCB0aW1lMSAiLCAiIHRpbWUwICkKK2FjdHMgbGlrZQorLkJJICggdGltZTEg
+XC0gdGltZTIgKQorZXhjZXB0IHRoYXQgdGhlIHJlc3VsdCBkb2VzIG5vdCBvdmVyZmxvdyBh
+bmQgaXMgcm91bmRlZCB0bworLkJSIGRvdWJsZSAuCiAuU0ggQVRUUklCVVRFUwogRm9yIGFu
+IGV4cGxhbmF0aW9uIG9mIHRoZSB0ZXJtcyB1c2VkIGluIHRoaXMgc2VjdGlvbiwgc2VlCiAu
+QlIgYXR0cmlidXRlcyAoNykuCkBAIC00NywxOSArNTEsNiBAQCBUfQlUaHJlYWQgc2FmZXR5
+CU1ULVNhZmUKIEMxMSwgUE9TSVguMS0yMDA4LgogLlNIIEhJU1RPUlkKIFBPU0lYLjEtMjAw
+MSwgQzg5LCBTVnI0LCA0LjNCU0QuCi0uU0ggTk9URVMKLU9uIGEgUE9TSVggc3lzdGVtLAot
+LkkgdGltZV90Ci1pcyBhbiBhcml0aG1ldGljIHR5cGUsIGFuZCBvbmUgY291bGQganVzdAot
+ZGVmaW5lCi0uUAotLmluICs0bgotLkVYCi0jZGVmaW5lIG15X2RpZmZ0aW1lKHQxLHQwKSAo
+ZG91YmxlKSh0MSBcLSB0MCkKLS5FRQotLmluCi0uUAotd2hlbiB0aGUgcG9zc2libGUgb3Zl
+cmZsb3cgaW4gdGhlIHN1YnRyYWN0aW9uIGlzIG5vdCBhIGNvbmNlcm4uCiAuU0ggU0VFIEFM
+U08KIC5CUiBkYXRlICgxKSwKIC5CUiBnZXR0aW1lb2ZkYXkgKDIpLApkaWZmIC0tZ2l0IGEv
+bWFuM3R5cGUvdGltZV90LjN0eXBlIGIvbWFuM3R5cGUvdGltZV90LjN0eXBlCmluZGV4IGZi
+Nzg4YjgyMy4uMGRiYTRhZmIwIDEwMDY0NAotLS0gYS9tYW4zdHlwZS90aW1lX3QuM3R5cGUK
+KysrIGIvbWFuM3R5cGUvdGltZV90LjN0eXBlCkBAIC04MSw2ICs4MSw4IEBAIHRoZSB3aWR0
+aCBvZgogLkkgdGltZV90CiBjYW4gYmUgY29udHJvbGxlZCB3aXRoIHRoZSBmZWF0dXJlIHRl
+c3QgbWFjcm8KIC5CUiBfVElNRV9CSVRTIC4KK1NlZQorLkJSIGZlYXR1cmVfdGVzdF9tYWNy
+b3MgKDcpLgogLlAKIFRoZSBmb2xsb3dpbmcgaGVhZGVycyBhbHNvIHByb3ZpZGUKIC5JUiB0
+aW1lX3QgOgotLSAKMi40MS4wCgo=
 
-     strncpy (buf, "1", 5) -> { '1', 0, 0, 0, 0 }
-     strncpy (buf, "1234", 5) -> { '1', '2', '3', '4', 0 }
-     strncpy (buf, "12345", 5) -> { '1', '2', '3', '4', '5' }
-     strncpy (buf, "123456", 5) -> { '1', '2', '3', '4', '5' }
-
->       These functions copy the string pointed to by src  into  a  null-padded
->       character sequence at the fixed-width buffer pointed to by dst.  If the
->       destination buffer, limited by its size, isn't large enough to hold the
->       copy,  the  resulting character sequence is truncated.
-
-hmmm... perhaps
-
-  These functions copy at most SZ bytes from SRC into a fixed-length
-  buffer DST, padding any unwritten bytes in DST with NUL bytes.
-  Specifically, if SRC has a NUL byte in the first SZ bytes, copying
-  stops there and any remaining bytes in DST are filled with NUL bytes.
-  If there are no NUL bytes in the first SZ bytes of SRC, SZ bytes are
-  copied to DST.
-
-This avoids the term "string" completely and emphasises the not-string
-nature of the destination.
-
- stpncpy,  strncpy  - zero a fixed-width buffer and copy a string into a
-       character sequence with truncation and zero the rest of it
-
-Or "fill a fixed-width zero-padded buffer with bytes from a string"
-
-That avoids saying "copy a string"
-
-string_copying.7:
-
-> For historic reasons, some standard APIs, such as utmpx(5),
-
-Perhaps "some standard APIs and file formats,, such as utmpx(5) or
-tar(1)," ?
-
-> however, those padding null bytes are not part of the character
-> sequence.
-
-add ", and may not be present if not needed." ?
-
+--------------XUgQvZz0rHsv7V3dCLjL6G3V--
