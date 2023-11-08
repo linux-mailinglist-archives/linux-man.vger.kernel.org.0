@@ -2,121 +2,210 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BEF407E605A
-	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 23:12:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B973F7E6062
+	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 23:17:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229565AbjKHWMF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 17:12:05 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51294 "EHLO
+        id S229885AbjKHWRQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 17:17:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43214 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229460AbjKHWMF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 17:12:05 -0500
+        with ESMTP id S229506AbjKHWRP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 17:17:15 -0500
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 326B7258A
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 14:12:03 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C733C433C8;
-        Wed,  8 Nov 2023 22:12:01 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 736E61990
+        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 14:17:13 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0EDC433C8;
+        Wed,  8 Nov 2023 22:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699481522;
-        bh=a7pPW9JjY3KZGUjO0KYFtw0XuFqPCUb0VKr+ZHN6YxE=;
+        s=k20201202; t=1699481833;
+        bh=2S5sXH+2py0eaUILdptTbOb7kphjdcau/5OLWaDG+WM=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=ODcBMqVTRGFboR0flz5W6j4uVO/uTgXrfbMgrD0tvB6SQEsJpBzXKFMRN1mTBTVTj
-         aj0NK9e0CDg0HNFE4tl9cq7StAodq9CID62RPE2ZyKlZ+cpgb0OG3Z1qYDWJ9tywNu
-         lvuSU22NbGE8TheW2Z7Egc5mXdHQGzfaZGm3coxgalZQ1H2POxWO1f3DFxIjRYjhTM
-         7SwEyswh5LZoOMeHNpO80goy0el2aN/B+GgxZsYFzkFOkRlB9i+PwPFTGR6WKlcWxJ
-         795jqJmVle+RhPADmfTR4Oe4FHi3w1ip+u3XstmI7KflsIugrRwVBPfbFSh6KPbtSC
-         bFh8NveVmLJ3w==
-Date:   Wed, 8 Nov 2023 23:11:59 +0100
+        b=M0YRAFobUmkhiQPo8+9zicBoNgtMGWnFoCXuyzNpyrsX6EwUIzC97ECPz0Zp9t6zz
+         lMCZxUY87W46xmYv7tuOj92NSaH7pgmG9M8EZwaM8913nNKzgeLQHqxmN/ZEwqridv
+         l5CP9fne7veYipIRqq88/S0GTYiInu/vocvVs7menb3KmMrzLilnt502+ry1vcTxlc
+         V83no/6lrljSa+2o6mzoYLtV0CY56LMcg6wGhw/UZY1mtFOtcomR+flhiNjPdwEyKk
+         gH7bZeyJCCx0qJbI7JGuk90L4dbRmE81MuiiKcWEkxyKt7NgJl3+jhUqp+ukz2rvYA
+         mw84jO27frQQQ==
+Date:   Wed, 8 Nov 2023 23:17:07 +0100
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Carlos O'Donell <carlos@redhat.com>
-Cc:     Zack Weinberg <zack@owlfolio.org>,
-        GNU libc development <libc-alpha@sourceware.org>,
-        Jonny Grant <jg@jguk.org>,
-        'linux-man' <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZUwHr2-l1WADR57b@debian>
-References: <ZUgl2HPJvUge7XYN@debian>
- <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
- <ZUo6btEFD_z_3NcF@devuan>
- <929865e3-17b4-49c4-8fa9-8383885e9904@jguk.org>
- <ZUpjI1AHNOMOjdFk@devuan>
- <ZUsoIbhrJar6ojux@dj3ntoo>
- <ZUtaH35V3koxTSL0@debian>
- <16cc15a4-cfc0-49f4-9ebf-ecf0901700ce@app.fastmail.com>
- <ZUukRqsFNr7v_2q7@debian>
- <d213e504-9b2a-1526-ded8-2d283a226b4d@redhat.com>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org,
+        DJ Delorie <dj@redhat.com>, Jonny Grant <jg@jguk.org>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+        Thorsten Kukuk <kukuk@suse.com>,
+        Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+        Zack Weinberg <zack@owlfolio.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Carlos O'Donell <carlos@redhat.com>
+Subject: [PATCH] stpncpy.3, string_copying.7: Clarify that st[rp]ncpy() do
+ NOT produce a string
+Message-ID: <20231108221638.37101-2-alx@kernel.org>
+References: <ZUwCwxyPfur-hfea@debian>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="pdD3to4i+y698yKj"
+        protocol="application/pgp-signature"; boundary="e704l3jUFslF9iLB"
 Content-Disposition: inline
-In-Reply-To: <d213e504-9b2a-1526-ded8-2d283a226b4d@redhat.com>
+In-Reply-To: <ZUwCwxyPfur-hfea@debian>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---pdD3to4i+y698yKj
+--e704l3jUFslF9iLB
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 8 Nov 2023 23:11:59 +0100
+Date: Wed, 8 Nov 2023 23:17:07 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Zack Weinberg <zack@owlfolio.org>,
-	GNU libc development <libc-alpha@sourceware.org>,
-	Jonny Grant <jg@jguk.org>, 'linux-man' <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org,
+	DJ Delorie <dj@redhat.com>, Jonny Grant <jg@jguk.org>,
+	Matthew House <mattlloydhouse@gmail.com>,
+	Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+	Thorsten Kukuk <kukuk@suse.com>,
+	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+	Zack Weinberg <zack@owlfolio.org>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	Carlos O'Donell <carlos@redhat.com>
+Subject: [PATCH] stpncpy.3, string_copying.7: Clarify that st[rp]ncpy() do
+ NOT produce a string
 
-On Wed, Nov 08, 2023 at 04:35:12PM -0500, Carlos O'Donell wrote:
-> On 11/8/23 10:07, Alejandro Colomar wrote:
-> > So we had it in ISO C in C89 and C99, and only in C11 they realized it
-> > had to be removed.  POSIX hasn't even removed it yet!  I won't hesitate
-> > to kill a function just because of bureaucracy.
->=20
-> Attempting to get consensus at an international level, across cultural bo=
-undaries,
-> use cases, workloads, and developer workflows is difficult and not intend=
-ed to be
-> bureaucracy for the sake of bureaucracy.
+These copy *from* a string.  But the destination is a simple character
+sequence within an array; not a string.
 
-Hi Carlos!
+Suggested-by: DJ Delorie <dj@redhat.com>
+Cc: Jonny Grant <jg@jguk.org>
+Cc: Matthew House <mattlloydhouse@gmail.com>
+Cc: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+Cc: Thorsten Kukuk <kukuk@suse.com>
+Cc: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Cc: Zack Weinberg <zack@owlfolio.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Carlos O'Donell <carlos@redhat.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-I understand that, and respect ISO's work.  I just don't think we need,
-as GNU or Linux projects, to be restricted to the decisions of ISO.  We
-can realize that certain functions are bad, and mark them as deprecated
-in our scope.  If others want to imitate (ISO might even take it as
-"prior art"), then great.
+Resending, including the mailing lists, which I forgot.
 
-Cheers,
-Alex
+ man3/stpncpy.3        | 17 +++++++++++++----
+ man7/string_copying.7 | 20 ++++++++++----------
+ 2 files changed, 23 insertions(+), 14 deletions(-)
 
->=20
-> --=20
-> Cheers,
-> Carlos.
->=20
-
+diff --git a/man3/stpncpy.3 b/man3/stpncpy.3
+index b6bbfd0a3..f86ff8c29 100644
+--- a/man3/stpncpy.3
++++ b/man3/stpncpy.3
+@@ -6,9 +6,8 @@
+ .TH stpncpy 3 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+ stpncpy, strncpy
+-\- zero a fixed-width buffer and
+-copy a string into a character sequence with truncation
+-and zero the rest of it
++\-
++fill a fixed-width null-padded buffer with bytes from a string
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ", " \-lc )
+@@ -37,7 +36,7 @@ .SH SYNOPSIS
+         _GNU_SOURCE
+ .fi
+ .SH DESCRIPTION
+-These functions copy the string pointed to by
++These functions copy bytes from the string pointed to by
+ .I src
+ into a null-padded character sequence at the fixed-width buffer pointed to=
+ by
+ .IR dst .
+@@ -110,6 +109,16 @@ .SH CAVEATS
+ These functions produce a null-padded character sequence,
+ not a string (see
+ .BR string_copying (7)).
++For example:
++.P
++.in +4n
++.EX
++strncpy(buf, "1", 5);       // { \[aq]1\[aq],   0,   0,   0,   0 }
++strncpy(buf, "1234", 5);    // { \[aq]1\[aq], \[aq]2\[aq], \[aq]3\[aq], \[=
+aq]4\[aq],   0 }
++strncpy(buf, "12345", 5);   // { \[aq]1\[aq], \[aq]2\[aq], \[aq]3\[aq], \[=
+aq]4\[aq], \[aq]5\[aq] }
++strncpy(buf, "123456", 5);  // { \[aq]1\[aq], \[aq]2\[aq], \[aq]3\[aq], \[=
+aq]4\[aq], \[aq]5\[aq] }
++.EE
++.in
+ .P
+ It's impossible to distinguish truncation by the result of the call,
+ from a character sequence that just fits the destination buffer;
+diff --git a/man7/string_copying.7 b/man7/string_copying.7
+index cadf1c539..0e179ba34 100644
+--- a/man7/string_copying.7
++++ b/man7/string_copying.7
+@@ -41,15 +41,11 @@ .SS Strings
+ .\" ----- SYNOPSIS :: Null-padded character sequences --------/
+ .SS Null-padded character sequences
+ .nf
+-// Zero a fixed-width buffer, and
+-// copy a string into a character sequence with truncation.
+-.BI "char *stpncpy(char " dst "[restrict ." sz "], \
++// Fill a fixed-width null-padded buffer with bytes from a string.
++.BI "char *strncpy(char " dst "[restrict ." sz "], \
+ const char *restrict " src ,
+ .BI "               size_t " sz );
+-.P
+-// Zero a fixed-width buffer, and
+-// copy a string into a character sequence with truncation.
+-.BI "char *strncpy(char " dst "[restrict ." sz "], \
++.BI "char *stpncpy(char " dst "[restrict ." sz "], \
+ const char *restrict " src ,
+ .BI "               size_t " sz );
+ .P
+@@ -240,14 +236,18 @@ .SS Truncate or not?
+ .\" ----- DESCRIPTION :: Null-padded character sequences --------------/
+ .SS Null-padded character sequences
+ For historic reasons,
+-some standard APIs,
++some standard APIs and file formats,
+ such as
+-.BR utmpx (5),
++.BR utmpx (5)
++and
++.BR tar (1),
+ use null-padded character sequences in fixed-width buffers.
+ To interface with them,
+ specialized functions need to be used.
+ .P
+-To copy strings into them, use
++To copy bytes from strings into these buffers, use
++.BR strncpy (3)
++or
+ .BR stpncpy (3).
+ .P
+ To copy from an unterminated string within a fixed-width buffer into a str=
+ing,
 --=20
-<https://www.alejandro-colomar.es/>
+2.42.0
 
---pdD3to4i+y698yKj
+--e704l3jUFslF9iLB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVMB68ACgkQnowa+77/
-2zKO5w//XxBdgF/pdJGBZiCDZSQDqRMVTB9lQMe2ADTTn8cpi/QLxcsCZ6O4L4Na
-6yY8NHHe8UZ1X2Op1GseBRoOTWls7g0O3TPAuXS05Tcxy2brq0P9GOD656debNF5
-6bSXAGV0M7QYeBQxdGpcanvCpd8/m99edzGrzXeLJhrEJd/IQcI4XhHtniolkPf+
-EL41Fb0lFyKJ/l73j+KP8MAz989mvIbPoM5Yd89YnCtDEsVrzZyj3NvB/kRf5gzQ
-xUZ+YrFYqgsTm7y2GBZN9IS7tlvaY0YcJEG3F9MZGmIZPuStIN2//awnpth1aBoe
-ZAFvJ1tTcB2k4crqbNbql5iiEd5VFncqirMCQ7vIjJhDkhz/vzhDCZDtsxVIMGya
-2a89APMB1T+RmmiXnVENPH1RvkLjpoB1Bv9wSp8wX9X04G+hDA2RAceJMltRdkJW
-3JBuytYxOK7u6Y9sZBQ84VSyqYCl/4Xey/TPepT//lV1Pu6/zV/Wif2lK0KGlbsw
-GZ7ArZxz9fQn/vEZkYJfm8SfbrSoL5Pm2l9UuH2pu1vURTbsoG1GUZJMTKzKz4Pt
-B+G8t0yV0+lXB1asHuiS1hXI+TsjDhHJXoJdswMh7Jgjt0LqSs5J9B7tYG/ET1jF
-JF1+rlyVLKl1sq3EZoa/cBoO9V6gpntUGGjyct/yjpDJKWn9YRM=
-=Orry
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVMCOMACgkQnowa+77/
+2zKGTBAAo4thAp+0LNdiqiMLAg6E+ATNfE+hzEqLi97g8XuCH++Nn9QJqligeKvx
+I/LGlpavg4K+zVpxh+kLXtDFBRLhVEMlJXnGtE9d2w9oB+81MKSGodspvK99SlTh
+fAzWLtf8fRmxHMVng0TxWYHCbUdJjNaQFIr++cF5zQl6aCQkhkEqtqwknB5w0YwO
+rhgpufo6HLlNSWhKvfMpL3goL8hbxU3hO4AvdcIwsttvKV34AF1twfeJMbc16Ciy
+kesM79H32I3xvhfoVm0FQgxRcZlXTL3aEGNNOtWU9qoXE/6bld3GfoShNlvtXR6C
+2kyb2giFbBiO0OjR0QAh/HVziwhoNC46aJB9c5RjIO2BPPXcfu8J5PDHY2TcBRZV
+a3Z6YtEOrcdoLoTnwdpG8pEQsl+JMR1MzYpAC1MoMUZoLGaXXxiqNTTOtFt6z66z
+tq9jHeM7+B7gXMPSAJw27M/QWOaT2jlwNmAAT3p8vlzh5VfPkwU0AtzDbzNcbnGe
+Lg8whU4qp3kDrRnzj2UPulfjWomFrjOtnZ2rTwnCFDIj9ggcSpiSsYVLloxlERO/
++sOVUcmhbWwJNVP4KEqLdhFO3GZf3hVboLAeO6CIknwnMWhxXdlVUfUGVNjd/MRW
+5ZXJP9m5fRDtElU3mCplAczZ6JBGqf2fFh3BNRi9m1dtZFt5334=
+=Y1v2
 -----END PGP SIGNATURE-----
 
---pdD3to4i+y698yKj--
+--e704l3jUFslF9iLB--
