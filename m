@@ -2,65 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F10B7E6106
-	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 00:29:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C9A617E610B
+	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 00:31:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229611AbjKHX3M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 18:29:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34782 "EHLO
+        id S229611AbjKHXbl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 18:31:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40820 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229566AbjKHX3L (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 18:29:11 -0500
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F6BB25B1
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 15:28:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1699486102;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to; bh=u3m97rJVsLqOYz+UgNXwSicFC4GeR1DjVQk1J9LINM8=;
-        b=LdSo1xJdyt5Gm1eAEjHou5sbKDi6lJrSHZkLoIjsSD7PUHVKaGZV+bwiNdB4op9Ad7OCxH
-        MWmQ8glLnJ1zmyi9MOtBwlksPs+3ZERih9FdTC/EUUEiBJ8nlbGsl0iQgOTfriJ2LZ4FUo
-        g9AtDmO2y6oJsu2hlzkedIs7JKB5v1E=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-455-XE7RoVVTOi6jFGWS73VlMQ-1; Wed, 08 Nov 2023 18:28:18 -0500
-X-MC-Unique: XE7RoVVTOi6jFGWS73VlMQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A3FAF101A590;
-        Wed,  8 Nov 2023 23:28:17 +0000 (UTC)
-Received: from greed.delorie.com (unknown [10.22.9.226])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 65BED2166B26;
-        Wed,  8 Nov 2023 23:28:17 +0000 (UTC)
-Received: from greed.delorie.com.redhat.com (localhost [127.0.0.1])
-        by greed.delorie.com (8.15.2/8.15.2) with ESMTP id 3A8NSGh1233870;
-        Wed, 8 Nov 2023 18:28:16 -0500
-From:   DJ Delorie <dj@redhat.com>
-To:     Paul Eggert <eggert@cs.ucla.edu>
-Cc:     alx@kernel.org, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org, jg@jguk.org, mattlloydhouse@gmail.com,
-        xxc3ncoredxx@gmail.com, kukuk@suse.com,
-        adhemerval.zanella@linaro.org, zack@owlfolio.org,
-        g.branden.robinson@gmail.com, carlos@redhat.com
-Subject: Re: [PATCH] stpncpy.3, string_copying.7: Clarify that st[rp]ncpy() do
- NOT produce a string
-In-Reply-To: <290c7650-bc39-4315-a9dd-7b9b7ec55333@cs.ucla.edu>
-Date:   Wed, 08 Nov 2023 18:28:16 -0500
-Message-ID: <xnfs1frfjj.fsf@greed.delorie.com>
+        with ESMTP id S230393AbjKHXbl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 18:31:41 -0500
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E2EC25B5
+        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 15:31:38 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.cs.ucla.edu (Postfix) with ESMTP id B1FD63C011BD9;
+        Wed,  8 Nov 2023 15:31:38 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+        by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id OpyAcjheBqYO; Wed,  8 Nov 2023 15:31:38 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.cs.ucla.edu (Postfix) with ESMTP id 6E8563C011BDA;
+        Wed,  8 Nov 2023 15:31:38 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 6E8563C011BDA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+        s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699486298;
+        bh=OwGyyMT/HrVcjTsc0JKQ3U1aOodaRFGUbhWs29s2bcY=;
+        h=Message-ID:Date:MIME-Version:To:From;
+        b=N56lkiXgFeHOKnlXSKB8QPAAcidm36ui9bCD60asdGdKNJGwT2HRPEpZZqEZ/osUa
+         n5bYDYwGFrcKNk6sG2Z3zNzkwRdlQRhefC6I5c9jyhgI4ls7JB6hyoviY2pPt7weC3
+         C3eg0Bn/Qyv5NlAYrFQPJvP8bTsiKkIE0ZzvF3QDxEN9ADsGmROBl8HSOEg5awwBou
+         I5Ik6/b1amIyWdr+DUghqh/G9PTT8HogXI0re4MKYzxgCRQuYjxGAYIDOmqObuFp8G
+         4d14NChoknr3Z2e2cv4GF1GAPMCObSm+c95DCRR132WV+YLW4xyTwTaKFWvbG1Gdax
+         vnm8glm8ZnVKw==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+        by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id h0lqW7Dmpv23; Wed,  8 Nov 2023 15:31:38 -0800 (PST)
+Received: from [131.179.50.221] (wifi-131-179-50-221.host.ucla.edu [131.179.50.221])
+        by mail.cs.ucla.edu (Postfix) with ESMTPSA id 45E0B3C011BD9;
+        Wed,  8 Nov 2023 15:31:38 -0800 (PST)
+Message-ID: <8ebee0fc-1e77-41d9-8feb-8c1083a30a93@cs.ucla.edu>
+Date:   Wed, 8 Nov 2023 15:31:38 -0800
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+User-Agent: Mozilla Thunderbird
+Subject: Re: strncpy clarify result may not be null terminated
+Content-Language: en-US
+To:     Alejandro Colomar <alx@kernel.org>,
+        Carlos O'Donell <carlos@redhat.com>
+Cc:     Zack Weinberg <zack@owlfolio.org>,
+        GNU libc development <libc-alpha@sourceware.org>,
+        Jonny Grant <jg@jguk.org>,
+        'linux-man' <linux-man@vger.kernel.org>
+References: <ZUgl2HPJvUge7XYN@debian>
+ <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org> <ZUo6btEFD_z_3NcF@devuan>
+ <929865e3-17b4-49c4-8fa9-8383885e9904@jguk.org> <ZUpjI1AHNOMOjdFk@devuan>
+ <ZUsoIbhrJar6ojux@dj3ntoo> <ZUtaH35V3koxTSL0@debian>
+ <16cc15a4-cfc0-49f4-9ebf-ecf0901700ce@app.fastmail.com>
+ <ZUukRqsFNr7v_2q7@debian> <d213e504-9b2a-1526-ded8-2d283a226b4d@redhat.com>
+ <ZUwHr2-l1WADR57b@debian>
+From:   Paul Eggert <eggert@cs.ucla.edu>
+In-Reply-To: <ZUwHr2-l1WADR57b@debian>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Paul Eggert <eggert@cs.ucla.edu> writes:
-> Not necessarily. For example, in strncpy (DST, SRC, N), SRC need not be 
-> a string.
+On 11/8/23 14:11, Alejandro Colomar wrote:
+> I just don't think we need,
+> as GNU or Linux projects, to be restricted to the decisions of ISO.  We
+> can realize that certain functions are bad, and mark them as deprecated
+> in our scope.
 
-But it will be treated as one, for the purposes of this function.
+There's enough use of strncpy for the intended use (smallish fixed size 
+character arrays that are null padded, not null terminated) that saying 
+it's deprecated would likely cause more trouble than it's worth. It's 
+not just utmp and tar; it's also socket programming (sun_path) and I'm 
+sure other stuff.
 
+Were we designing the C library from scratch I'd agree with you: in that 
+context, strncpy would clearly be more trouble than it's worth. But now 
+that we're stuck with strncpy we have better things to do than try to 
+deprecate it.
+
+Instead of saying "deprecate" I suggest we say something like "This 
+function is generally a poor choice for processing strings" and point to 
+the longer man page about strings in general. That's what the glibc 
+manual does and it works reasonably well.
