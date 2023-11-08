@@ -2,36 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 487887E52E1
-	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 10:51:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ED5937E52F3
+	for <lists+linux-man@lfdr.de>; Wed,  8 Nov 2023 10:59:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235450AbjKHJve (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Nov 2023 04:51:34 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36118 "EHLO
+        id S235509AbjKHJ7R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Nov 2023 04:59:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59054 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235406AbjKHJvc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 04:51:32 -0500
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD8141B3
-        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 01:51:30 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F190C433C8;
-        Wed,  8 Nov 2023 09:51:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699437090;
-        bh=ROVapZD+UR5aIwgS7ZsFaSdWGmRTyHXP8BxTuMU2Emk=;
-        h=Date:From:To:Subject:References:In-Reply-To:From;
-        b=YNwSxs383L4Hcz7jxuX72u0NlsHnqoCuaY6+8QTixksfzHuuTlXEnlCN6c9jMnGnd
-         yeN3VSZdsHEqHZctwla69eUf1iFx+z6CrNp7/7yXR4OAvLyz2G1WQHg/fMkFIeUItz
-         A21qbvx1iVJXBIw43BkwlljRnWcN63eRx/E04yILGmDF2HcptTQ489+KdA4WTCYGBQ
-         uCpUB4/OClqTe6AXcxw4FDjQCuNkRi9e8r+jhd6ty4NnipvJVAEyoCqhHy6Ni6Qq/9
-         CaPeHuo1xrJQ4YnM5F4SiR7a6tPWhPO0d0S+sJ1AsHytlPAqIPYOAcD26rOIo4V9IX
-         /tjfWyy7sYFnQ==
-Date:   Wed, 8 Nov 2023 10:51:21 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     libc-alpha@sourceware.org, Jonny Grant <jg@jguk.org>,
+        with ESMTP id S229924AbjKHJ7P (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Nov 2023 04:59:15 -0500
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 941B61BB
+        for <linux-man@vger.kernel.org>; Wed,  8 Nov 2023 01:59:13 -0800 (PST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+        by smtp-out2.suse.de (Postfix) with ESMTP id 1F2A41F8AA;
+        Wed,  8 Nov 2023 09:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+        t=1699437551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=xzBIjLzjKxdF78chHzvu9lGsy/QBlbCtYE6EmkyulYo=;
+        b=tgmhR327hhXFxuesjqWiwCtpNdOWZ5MFAJrTZA+x1z+4upfBUzhyM26OSD1+p4GqUi8UIq
+        Gw/S4q2TXjvUXMK7GnJLJrDB8zcp0cFZUuxR6o4j6qdt62UA3954W4FO9u4aFlS+XDlffS
+        0JWHgv6NWyjSkvgnUUvsvvlLQpw5yI4=
+Received: from wotan.suse.de (wotan.suse.de [10.160.0.1])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by relay2.suse.de (Postfix) with ESMTPS id E089D2D374;
+        Wed,  8 Nov 2023 09:59:10 +0000 (UTC)
+Received: by wotan.suse.de (Postfix, from userid 358)
+        id 0B44C66CE; Wed,  8 Nov 2023 09:59:11 +0000 (UTC)
+Date:   Wed, 8 Nov 2023 09:59:11 +0000
+From:   Thorsten Kukuk <kukuk@suse.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     libc-alpha@sourceware.org, Jonny Grant <jg@jguk.org>,
         linux-man <linux-man@vger.kernel.org>
 Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZUtaH35V3koxTSL0@debian>
+Message-ID: <20231108095910.GA9216@suse.com>
 References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
  <ZUacobMq0l_O8gjg@debian>
  <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
@@ -41,93 +49,35 @@ References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
  <929865e3-17b4-49c4-8fa9-8383885e9904@jguk.org>
  <ZUpjI1AHNOMOjdFk@devuan>
  <ZUsoIbhrJar6ojux@dj3ntoo>
+ <ZUtaH35V3koxTSL0@debian>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="2g7aQaZPeLWPOG8T"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <ZUsoIbhrJar6ojux@dj3ntoo>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZUtaH35V3koxTSL0@debian>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Wed, Nov 08, Alejandro Colomar wrote:
 
---2g7aQaZPeLWPOG8T
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 8 Nov 2023 10:51:21 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: libc-alpha@sourceware.org, Jonny Grant <jg@jguk.org>,
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
+> strncpy(3) is useful to write to fixed-width buffers like `struct utmp`
+> and `struct utmpx`.  Is there any other libc API that needs strncpy(3)?
+> Of those two APIs (utmp and utmpx) and any other that need strncpy(3),
+> are those deprecated, or is any such API still good for new code?
 
-On Wed, Nov 08, 2023 at 12:18:09AM -0600, Oskari Pirhonen wrote:
-> On Tue, Nov 07, 2023 at 17:17:29 +0100, Alejandro Colomar wrote:
-> >=20
-> > I would love to find this API useless, and in that case, I'd go further
-> > and add [[deprecated]] in the synopsis, and write a heavy statement in a
-> > BUGS section.  But I can't do that while it's still a good function in
-> > some cases (even if those cases are bad design, such as utmp(5)).
-> >=20
-> > On the other hand, utmp(5) has other issues, like Y2038, and AFAIR it's
-> > being deprecated, so maybe we could consider deprecating strncpy(3).
-> >=20
-> > If I see enough proof that all APIs that require this function are
-> > deprecated, I'll happily declare the function deprecated as well.
-> > (in fact I already did some time ago, but then found this use with
-> > utmp(5), which is why I removed the deprecation; see
-> > <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/man=
-3/strncpy.3?id=3D30d458d1a6261221bad15e58f1862e0dda24f4a0>).
-> >=20
->=20
-> If you ask me, I'd not mark libc functions as deprecated without some
-> kind of consesnsus from the libc maintainers too. They may not go so far
-> as to add the `deprecated` attribute in their own headers, at least not
-> yet at that point in time, but some kind of written "Yes, please don't
-> use this function" would be nice to have before marking them in the man
-> pages.
+Everything around utmp/utmpx/wtmp/lastlog is deprecated.
 
-Okay, let's ask them.
+openSUSE Tumbleweed and MicroOS are no longer using nor supporting them
+and fresh installations don't have that files anymore.
+So new code should not use utmp/utmp/wtmp/lastlog anymore. Alternatives
+are e.g. systemd-logind/wtmpdb/lastlog2.
 
-Hi glibc developers,
+  Thorsten
 
-strncpy(3) is useful to write to fixed-width buffers like `struct utmp`
-and `struct utmpx`.  Is there any other libc API that needs strncpy(3)?
-Of those two APIs (utmp and utmpx) and any other that need strncpy(3),
-are those deprecated, or is any such API still good for new code?
-
-If all APIs that need strncpy(3) are deprecated, I propose recommending
-against its use in new code.
-
-Thanks,
-Alex
-
->=20
-> - Oskari
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---2g7aQaZPeLWPOG8T
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVLWhkACgkQnowa+77/
-2zJl+w//SBaYK7BvEsksDWCKQyCXT9A+NoIkHp6iCj1HGTlIUKvM9g+lKiHhwADj
-Gzq8bcihxlU0chm6WMqESBshPBXvhNyKu6UgUJJLcOgfAniAhWLABoDROnb0pDgt
-wAeiCmSv4qUz6dUAKouQqmLj/7Gq3iaw8XSkpsYx4z8AW67RE+VMV69tPcu3xtpp
-4na4NXgZSqFLdya7kxNUGmGobVc60YlHBfJqkPScAlwBv7XKbLbwfBolTGokfchu
-0R/TKp+K+lpRbL+LVLmXbc2ic48yP/TpKNLOIwvFb/DpImAyLfURSkgnOSBil0hF
-p79jqbZoSuDdJft1Lg9dVG5Uotd4w3Z+bjQtypRL4PFDW0CJEztZq2JrW3cVIasw
-HyIo8oJanjMl2dOX5FqKv/lyWB1xQxqE7Q7NLvo4n6K+Dlckup2RwyUQ+MUVWhlU
-WEAgYNUoTd+Ktjw4u/66418rQxWHT9wqUwENzL3hmq0G8U0wMv3eZC3XMUr9cMOe
-C72luBxUYOml2m22whrvy8/Ve6gykDaV+MJ1koZV6LNP1hYJ+O5/y2HSAIrUIZLJ
-9VGasERBUnSa19cUNBpCOL/tryvGrzAkdqsy86x2K0YEb0QOX7cJNIt79Cs9uA3X
-+5uqjNGHYIPp2nDyIC/xDYgC7J5/LHrFe3GOUer5AUyJbUsRk5k=
-=Ipfs
------END PGP SIGNATURE-----
-
---2g7aQaZPeLWPOG8T--
+-- 
+Thorsten Kukuk, Distinguished Engineer, Senior Architect, Future Technologies
+SUSE Software Solutions Germany GmbH, Frankenstraße 146, 90461 Nuernberg, Germany
+Managing Director: Ivo Totev, Andrew McDonald, Werner Knoblich
+(HRB 36809, AG Nürnberg)
