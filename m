@@ -2,126 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 468AF7E6958
-	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 12:13:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 505AB7E69D0
+	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 12:38:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231877AbjKILNc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Nov 2023 06:13:32 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37084 "EHLO
+        id S231901AbjKILit (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Nov 2023 06:38:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59612 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231703AbjKILNb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 06:13:31 -0500
+        with ESMTP id S231878AbjKILit (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 06:38:49 -0500
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30E512D5E
-        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 03:13:29 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AB6C433C8;
-        Thu,  9 Nov 2023 11:13:27 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EBD00269A
+        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 03:38:46 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC99C433C7;
+        Thu,  9 Nov 2023 11:38:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699528408;
-        bh=VhPsk523O/FXTiXrS4qyAmzx/RDDLYccGE1W0IkrBt0=;
+        s=k20201202; t=1699529926;
+        bh=AI9tC7zzTYDfHaNF/f20oxA4HmRbJMBSwCLxgYmnqLk=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=MN+aQa9V6mFjhHQPJkde/M1zb4Weh4ELYsCbbu7ogBXnV6XrJKjISZ7I3WuprTxuo
-         jMirGZMDhb+HLpJuJYBi7+X5AolYjWc+NYiTrt1m/4HF41KXX2l3I4S9CwZ4wrjhR9
-         3dzlh2T4gYR9jG8KSAej8bLrGBXYfzSKx75PbD+Vx9pJTjn5LhsQD1/Mcnio5v7GQ+
-         GQkiqPqquyqNPDcHePSVmjZqeE0D/ViQSKajb9R6kMGAsbX+oUxraR5pTSAYTmTIkS
-         TGnX/IO0uGhp2ueHDNddTQPx8vcTDeQzUIvl59/1hYT51AHuEhHY9M9vDF2aTHqCCX
-         SL0SHvJiiip4Q==
-Date:   Thu, 9 Nov 2023 12:13:24 +0100
+        b=Wt2Q9A9uSMFpuGJruroTcvcFfmW65wNr9UNi0OH6mr+cEYgInRJyigmVjwTmXfkAZ
+         eXyWPcTcNZO3ZjjaENkkrfhOu3G71pBNV6Lzf5bDoD9d5mfkO38XyveJRcK2IwkrUD
+         kAr2u8C9MJsnkwy9E2JL4MNZ2nTF7ZkU9kwDEYAucYngqRD9HaSy/wJGNIpIGLEvvB
+         VQvZ5qu+Na3NoUXeXfGJ+/GuMncDEFgThu7N/A/FoH5CuTtbYVpMZUyqfp663HvMtd
+         zqSFP1Mfc30tpYst1yLHYOOwWfbwM+GJfCJxYuAat0SMLwQOmUAyDxXWIbZQca+LzH
+         JQa1Ke+8d9wxg==
+Date:   Thu, 9 Nov 2023 12:38:37 +0100
 From:   Alejandro Colomar <alx@kernel.org>
 To:     Jonny Grant <jg@jguk.org>
-Cc:     Paul Eggert <eggert@cs.ucla.edu>,
-        Carlos O'Donell <carlos@redhat.com>,
-        Zack Weinberg <zack@owlfolio.org>,
-        GNU libc development <libc-alpha@sourceware.org>,
-        'linux-man' <linux-man@vger.kernel.org>
+Cc:     Matthew House <mattlloydhouse@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>
 Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZUy-1XlYyQ7MAI6f@debian>
-References: <ZUpjI1AHNOMOjdFk@devuan>
- <ZUsoIbhrJar6ojux@dj3ntoo>
- <ZUtaH35V3koxTSL0@debian>
- <16cc15a4-cfc0-49f4-9ebf-ecf0901700ce@app.fastmail.com>
- <ZUukRqsFNr7v_2q7@debian>
- <d213e504-9b2a-1526-ded8-2d283a226b4d@redhat.com>
- <ZUwHr2-l1WADR57b@debian>
- <8ebee0fc-1e77-41d9-8feb-8c1083a30a93@cs.ucla.edu>
- <ZUwn82bp6wHceMS1@debian>
- <bc621e0c-2e00-4cda-b888-637fd48ec32b@jguk.org>
+Message-ID: <ZUzEw2j6gHF5WtsO@debian>
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <ZUacobMq0l_O8gjg@debian>
+ <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian>
+ <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan>
+ <20231108021240.176996-1-mattlloydhouse@gmail.com>
+ <ZUvilH5kuQfTuZjy@debian>
+ <20231109031345.245703-1-mattlloydhouse@gmail.com>
+ <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="fRTz2dCEhfdQXhS0"
+        protocol="application/pgp-signature"; boundary="2k4+IF0JIE/YlFLp"
 Content-Disposition: inline
-In-Reply-To: <bc621e0c-2e00-4cda-b888-637fd48ec32b@jguk.org>
+In-Reply-To: <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---fRTz2dCEhfdQXhS0
+--2k4+IF0JIE/YlFLp
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 9 Nov 2023 12:13:24 +0100
+Date: Thu, 9 Nov 2023 12:38:37 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Jonny Grant <jg@jguk.org>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, Carlos O'Donell <carlos@redhat.com>,
-	Zack Weinberg <zack@owlfolio.org>,
-	GNU libc development <libc-alpha@sourceware.org>,
-	'linux-man' <linux-man@vger.kernel.org>
+Cc: Matthew House <mattlloydhouse@gmail.com>,
+	linux-man <linux-man@vger.kernel.org>,
+	GNU C Library <libc-alpha@sourceware.org>
 Subject: Re: strncpy clarify result may not be null terminated
 
 Hi Jonny,
 
-On Thu, Nov 09, 2023 at 10:13:24AM +0000, Jonny Grant wrote:
-> On 09/11/2023 00:29, Alejandro Colomar wrote:
-> How about following the style of the other man pages that put the notes a=
-bout each function below them? (rather than above)
-> https://man7.org/linux/man-pages/man3/string.3.html
+On Thu, Nov 09, 2023 at 10:31:49AM +0000, Jonny Grant wrote:
+> > Probably the only way to solve the cleverness issue for good is to have=
+ an
+> > immediately-available, foolproof, performant set of string functions th=
+at
+> > are extremely straightforward to understand and use, flexible enough for
+> > any use case, and generally agreed to be the first choice for string
+> > manipulation.
 >=20
-> size_t strlen(const char *s);
-> Return the length of the string s.
->=20
->=20
-> At the moment on string_copying there are // comments on the line above e=
-ach function. So the presentation of the information is different:
->=20
-> // Copy/catenate a string.
-> char *strcpy(char *restrict dst, const char *restrict src);
-> char *strcat(char *restrict dst, const char *restrict src);
+> What's the best standardized function for C string copying in your
 
-The reason for this presentation is that I want to first look at what
-they do, and only then look at the function you need to do that.
+strlcpy(3) will soon be standard.  POSIX.1-202x (Issue 8) will add it,
+which is why it's been added recently to glibc.  Hopefully, ISO C3x will
+follow (yeah, it's not like tomorrow).
 
-So, if you want to copy from a character sequence into a string, you
-search for that, and it will tell you what functions you can use for
-that (strncat(3) is the only standard one).
+> opinion?  They all seem to have drawbacks, strlcpy truncates (I'd
+> rather it rejected if it didn't have enough buffer - could cause
+> issues if the meaning of the string changed due to truncation, eg if
+> it was a file path). Other alternative functions aren't widely in use.
 
-If you want to search for a specific function, you can always search
-with '/strncpy'.
+If you are consistent in checking the return value of strlcpy(3) and
+reporting an error, it's the best standard alternative nowadays.
+snprintf(3), except for using int instead of size_t, has an equivalent
+API, and is in C99, in case that means something.
+
+If you would want to write something based on Michael Kerrisk's article,
+you could do this:
+
+	ssize_t
+	strxcpy(char *restrict dst, char *restrict src, size_t dsize)
+	{
+		if (strlen(src) < dsize)
+			return -1;
+
+		strcpy(dst, src);
+	}
+
+You may also want to calculate 'dsize' automagically, to avoid human
+error, in case it's an array, so you could write a macro on top of it:
+
+	#define STRXCPY(dst, src)  strxcpy(dst, src, ARRAY_SIZE(dst))
+
+These are just small wrappers over standard functions, so you shouldn't
+have problems adding them to your project.
+
+This is my long term plan for shadow-utils, indeed.  I'm first
+transforming strncpy(3) calls into strlcpy(3) to remove the superfluous
+padding, and later will use this strxcpy() to remove the truncated
+strings to avoid misinterpretation.
 
 Cheers,
 Alex
 
+>=20
+> Kind regards, Jonny
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---fRTz2dCEhfdQXhS0
+--2k4+IF0JIE/YlFLp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVMvtQACgkQnowa+77/
-2zIElg//SVObc+FoZnlhHtKojtEWOK8zqhRtiCsZ3cy63ZKpnkEBInb6EMU0Ui7Q
-BecSQ1GW/m7HIb6+UhDiE1SfSerQQCBJ7kcsIFoJGFlZKCQRq+Ic/8+fx/EZ1b0G
-kzBIi7QCM6M64s2O7I4S6/rA53ScBme0DS1rZwSDDXbq5+AtMuFnfWZxwTsvflxK
-sHSF4daHD+9KJQMExq1LBGeqJFbwm90Mp7PSSCMCnC17hgsJCwmf7DXzLcIj0dlh
-NtK3v5f+I+niDEQqm1ITsR9FcAlUuQIjdXXIisi8Y5R17hGouNspcu1c9j7IJIg0
-VDAn7ZQwZg30v8cQy7E0dLUlftAypMsY3YmOfkbTqFjj2qRCXh5iPXvlpf8xJP65
-v5rEZPsyTg6BeMELbwYXPQ0kNFJkIp3+uLVewbj4x6LcrY2pE4VgkbOrjDJnvc66
-dSjxL46dqQFVKl/ra+mh5kyV19cPr2lhCtxMAfXUx/45HIa2PVZ83xD51F8EwgDI
-oWOamHhBVEXJLfBG9T70hXp51IzY5uln6SU3vdZEefw3BiE0a9yTuqsSzB6D+i2V
-c3mLgSlblw8lszWi3MBaTK152Qh0Vdea3CHIZrtYggc6jNVijBZurWu+AEFjy+6I
-2Hkg3jsn9ozj+XHxBb9rtUw/tsUp3bZBN3uAj4Ab9TMznE/jjNo=
-=53Va
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVMxL0ACgkQnowa+77/
+2zJzpQ/+LW1SyyQU04ztOxEhJl7kcrAlRrh60oqnHXeS+E3UmT68D21o0S9HVr/n
+KCiCC4N86d7YIWEi3jfcDIDGvXLd14rokoeQFkpa5C67fXriuVUv3SP5SeEu3Yhp
+VqpQzw2EdTPqF5nRjqPo922Mgv0tFBV/C+pZ8dE65Q2ZFGiQ7zHJvaHCLojdndN3
+grO/h2zuPKQzSBmSYWAOnhi+uPPzGElQCaSlOgTDes1862Wgm4gZSKg+euxfvPgl
+LDaHiTx+mYt2B53VD4gIC5eyr5FAI8p6BbOtCzki2u2fKt5Bdk813my4+YUpB/b5
+VJc/9Mm1xn3thSozncXpftcQjKT4HofXzZDQRYzrAK+MQ0tWGMrjo878ilf0BL+m
+myjwjn9LLmRBIOcYVc53M5IdSPceUgbYobqY6VfKMki31aaJep51DwKa/wfuwX7b
+1BegfABpIG7Np+V/9AADBe1N3S21iFhBaGtUvxx9TLLrr1rRnFHo4t5miV+7F9HD
+6spGecu7DWFaoNsUp2+nfth704fmLPDlhBuquvJOo413qU9EBmtYUVW2YQ8xKYXI
+JcB/pjSTDHDYaGN/Fw1F4Kv8eGg4P9VsnGcA9DQNui8f9QUwA6u1WK+XqYK5Nocc
+SGHhtWTZSpqh6J4kiJLYgzI04iwFT0ypS+EasVjeH2FHNnNqZII=
+=QXOb
 -----END PGP SIGNATURE-----
 
---fRTz2dCEhfdQXhS0--
+--2k4+IF0JIE/YlFLp--
