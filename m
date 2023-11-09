@@ -2,86 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C2047E726E
-	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 20:42:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1B3597E7549
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 00:49:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230135AbjKITmp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Nov 2023 14:42:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58740 "EHLO
+        id S230339AbjKIXtT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Nov 2023 18:49:19 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39290 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229560AbjKITmp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 14:42:45 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 88BBA3C05
-        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 11:42:42 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id 5b1f17b1804b1-4083740f92dso9051515e9.3
-        for <linux-man@vger.kernel.org>; Thu, 09 Nov 2023 11:42:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1699558961; x=1700163761; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2jIOe04njzKVATfmx1iKWc1LkXNRBv2kKKv4gTPinQ8=;
-        b=BNycF2tWLJgLVOiW5lE2pZcLwkywhlmSZ2NFPDVUnfeeuMm+DMgMapaJ4IbWk5BOWT
-         AR7/1EZ6+olYy7NhSBiCPNhLw0d594+bf304zDl52t98mAr52hmsXDYkSI3svgieHkTo
-         K7rqU2VD2JO1GmSC4JAWSJ65TkhVcxOtG4VIqqaKtFdq+2CfKbXBOAZz2gKwU2/H/kQC
-         fiEhuRlpYAVoE42m5ov/dl0fqx1soWwqEaRX5HBd/7dRK2bIwLVb/uG3HtCPVi0fhmiv
-         ntlYG2862qqQMnPrIBiVtuc3re1Gu1ddasgk5WbVRP/tCX6NzmYTTYdxnam0T12sEIgQ
-         Zo8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699558961; x=1700163761;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2jIOe04njzKVATfmx1iKWc1LkXNRBv2kKKv4gTPinQ8=;
-        b=bR+qV1CyqkYgK+eh9m7CYGjf0FcGRhwrvev7+MpdQ3s1mc0II7ADwpzH9Ng7yvZG1v
-         aIH4riDkP5smx+iciLRfleS2fmUAh7tt+h+IFWFet34FUh6YcSg1tooYGElGdzMS+XkS
-         Fv+E+Lutn1G/qIZg94bN/R0tl/OxpQedcOy/q2ROPHBTT6KDc92CSEgQRPMGqLQGDUNa
-         7al8J15v3T9tay3i0IY3RhvGpAZSIB8KSoF6sRj2bkU7fy7wqG7w/pdqg5RmYD9960CO
-         0Ci1tp5d3SIekC8Omb4TaeRSk759TuJFPsxDc5rFhOZJNECo8iRpCsqXTC0JPRCvlBNe
-         q+lA==
-X-Gm-Message-State: AOJu0Yx/an5poSASSNc3CygbQkbxd2/CrTTbVmL6wKJjNvKVHoFdykoi
-        YMhV5CiGYqk9a7CiDV7SUfOKEQ==
-X-Google-Smtp-Source: AGHT+IHuIQ/dJ0IgrueiHY+prdNvNCPB/YQjxfReWqA+XVV/5xDgZ9FI9OLpwU5MUNdaJ6GqxrpLFg==
-X-Received: by 2002:a05:600c:1c9c:b0:401:73b2:f039 with SMTP id k28-20020a05600c1c9c00b0040173b2f039mr5196978wms.7.1699558960722;
-        Thu, 09 Nov 2023 11:42:40 -0800 (PST)
-Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id o16-20020a05600c511000b00407752f5ab6sm3051270wms.6.2023.11.09.11.42.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Nov 2023 11:42:40 -0800 (PST)
-Message-ID: <55a76088-1f1d-418c-960e-f9ab691a5d58@jguk.org>
-Date:   Thu, 9 Nov 2023 19:42:39 +0000
+        with ESMTP id S229629AbjKIXtS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 18:49:18 -0500
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A28443868
+        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 15:49:16 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A583C433C7;
+        Thu,  9 Nov 2023 23:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1699573756;
+        bh=rjJQXejh5zSeUJ6Am5uVr4SBvGQMLDVatVfAsr21szA=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=FW+PIkK1Y7dv9qxzC9B9QA13aRF0Tdkagq90oerY/s0BJo/h4/FrvbkJK7iNC+XNz
+         /+6qZ+mpQJwyf5Tt8WWKrgUpj+6dH1uexVsKB5j2CsZcCws6/UNww7TM98izJ/2Q1K
+         yoCe6yn8Lb48Gxw2fFR9NpMD7Wp8UFcfsoePWUrssvT7G4Nb5aGhCwXXacibdNV/Ap
+         JYjyt3j80moVq5NtoOMur7SEeyZoJPeFq2mKjggJy6rMXSig0nA7/Xv9jhJV88ihvo
+         uIqHo0jyKG6yn8l7p0crHH5mVd2BtBZl1i94Gu9NQfEaKtAxxPgB/shj4n6CDBczej
+         DFcu6kKOENz7A==
+Date:   Fri, 10 Nov 2023 00:48:59 +0100
+From:   Alejandro Colomar <alx@kernel.org>
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     Jonny Grant <jg@jguk.org>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>
+Subject: Re: strncpy clarify result may not be null terminated
+Message-ID: <ZU1v-JKBP9iWXOOT@debian>
+References: <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian>
+ <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan>
+ <20231108021240.176996-1-mattlloydhouse@gmail.com>
+ <ZUvilH5kuQfTuZjy@debian>
+ <20231109031345.245703-1-mattlloydhouse@gmail.com>
+ <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
+ <ZUzEw2j6gHF5WtsO@debian>
+ <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From:   Jonny Grant <jg@jguk.org>
-Subject: Re: [PATCH] stpncpy.3, string_copying.7: Clarify that st[rp]ncpy() do
- NOT produce a string
-To:     DJ Delorie <dj@redhat.com>, Alejandro Colomar <alx@kernel.org>
-Cc:     eggert@cs.ucla.edu, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org, mattlloydhouse@gmail.com,
-        xxc3ncoredxx@gmail.com, kukuk@suse.com,
-        adhemerval.zanella@linaro.org, zack@owlfolio.org,
-        g.branden.robinson@gmail.com, carlos@redhat.com
-References: <xncywirg0m.fsf@greed.delorie.com>
-Content-Language: en-GB
-In-Reply-To: <xncywirg0m.fsf@greed.delorie.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="6gqvagsP27Ll+QAt"
+Content-Disposition: inline
+In-Reply-To: <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
+--6gqvagsP27Ll+QAt
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Nov 2023 00:48:59 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
+	linux-man <linux-man@vger.kernel.org>,
+	GNU C Library <libc-alpha@sourceware.org>
+Subject: Re: strncpy clarify result may not be null terminated
 
-On 09/11/2023 17:30, DJ Delorie wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
->> "Fill a fixed-width buffer with characters from a string and pad with
->> null bytes."
-> 
-> The pedant in me says it should be NUL bytes (or NUL's), not null bytes.
-> nul/NUL is a character, null/NULL is a pointer.
-> 
+On Thu, Nov 09, 2023 at 10:11:10AM -0800, Paul Eggert wrote:
+> On 2023-11-09 03:38, Alejandro Colomar wrote:
+> > If you are consistent in checking the return value of strlcpy(3) and
+> > reporting an error, it's the best standard alternative nowadays.
+>=20
+> Not necessarily. strlcpy is subject to denial-of-service attacks if the
+> attacker has control of the source string and can attack by using long
+> source strings. strncpy, as bad as it is, does not have this problem.
 
-NUL would be a big improvement.
+Interesting thing.  I'd then just use strlen(3)+strcpy(3), avoiding
+strncpy(3).
 
-Kind regards, Jonny
+>=20
+> Instead of this:
+>=20
+>    if (strlcpy (dst, src, dstsize) =3D=3D dstsize)
+>      return failure;
+>=20
+> applications that want want to copy a string into a small nonempty
+> fixed-size buffer, failing if the string doesn't fit, should do something
+> like this:
+>=20
+>    if (strncpy (dst, src, dstsize)[dstsize - 1])
+>      return failure;
+>=20
+> This avoids the denial-of-service attack and is portable all the way back=
+ to
+> K&R C.
+>=20
+> It's unfortunate that strlcpy was misdesigned but here we are.
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--6gqvagsP27Ll+QAt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVNb+sACgkQnowa+77/
+2zLgYw//aA8lNcghjEHsVozBCfZUw42F1SMLCotCrZJ3rgobyFo9egcdTB59zrRl
+ma2BMMbdFlza/bQRVClZlLsPZKeMcsTZaSPgIIqm/yejJMRr1UMCu6+uNcwna0mT
+1QxBkiBD1nThLmjnmPv13QIcY6VFwB+JSCGfr7lcxaYCW9b7TggayBB4V0ZTh4HD
+ncHfPZpXffZSIt+3nuc67zHzxqDCOtmLa5UggKDauaHgIw0mPy8m7Y0/IfoF1Ukx
+Jr9kDKT3gmW75Kbc2bJqorwcY1soQrPhhWUP0K4cDyZYMU12T17SNx//iJLu1aWA
+zS5FmF/6A7qvnkm9zcJDXALG1mJwJPyOLkXM/bC3adxLhFTY1o0aHdWhFHyXRZwU
+nho+jGDVGzsDAkUG1RtY8iUhPzXs2tEmDHxwNxoQVnAPTF/uMYyKg/HbDlQP2Hk2
+SjEz08lkXDuXCQ3FcrNJxjTy+2WkOmoqO14wQ+5BIwz3eBhx0sc+DLFdZgqL4tuX
+VMjp/Ov4BFktnfiNcaZKnco4gq9A4c7CK1ppI4/C+d253SYM7wuyn3IltLsMwrby
+I7Iqwkmwg2TV7/0b7zr8w9euSrhW4+XGbcGnXif73Y0VpOhZgmuMEp4ngQFWVrCd
+z4uZn4Pwd4wUPEBuhRRIHDR6pMOgwF2kPDQnezD756t2GJmZlxY=
+=XSlO
+-----END PGP SIGNATURE-----
+
+--6gqvagsP27Ll+QAt--
