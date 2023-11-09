@@ -2,133 +2,170 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BDA97E6CD7
-	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 16:05:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 567F17E6D36
+	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 16:20:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232193AbjKIPFD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Nov 2023 10:05:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33280 "EHLO
+        id S231624AbjKIPUm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Nov 2023 10:20:42 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40142 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231835AbjKIPFC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 10:05:02 -0500
+        with ESMTP id S231586AbjKIPUl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 10:20:41 -0500
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6AB8A35A4
-        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 07:05:00 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8806C433C9;
-        Thu,  9 Nov 2023 15:04:58 +0000 (UTC)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C3C230DC
+        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 07:20:39 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FEE9C433C7;
+        Thu,  9 Nov 2023 15:20:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699542300;
-        bh=sVpHmNCranm08PNkr1ru8p3JxohMN0wKaL7XXAlxmAY=;
+        s=k20201202; t=1699543239;
+        bh=Cz5yLL/KZDRFwBI7XXp+cRnzHEn71BxpFjPK1oN8QY4=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Q1NFPernSr4XjpmBdJwp6d3DpOtmqSO2HNA+k3GZkxesvYj8ToSWwOxN/8HL+U6+U
-         BB6VuBqsgyjjAak/e2l6suQIrMUYH5zGiJB9d4QQAboackcfbLbPjIvWqR3UdP5X2J
-         5ADmZPFoIV9xY/mOPFwFXknZkWpfsoSIyCvCKYcpt1ZlGfq2dFIwzc4GvM78CbTanz
-         xIy9qtNxJHDrlOCVFx5hATKkc2YH7FVYisO3Kw9/OXUM5u3bKtjTjyjBgM/BwRF0Xq
-         lx0IP8Vo1o421aIJul5qldH7NmfOTvpFUsmat0faRc3MOKmXgYS33UuxRxqIpEiinJ
-         rih917FmvIl7A==
-Date:   Thu, 9 Nov 2023 16:04:56 +0100
+        b=O8YnmXeGCul3rJkEKRMsS43QRukXys47vbDoP7IFe6e7uQx/10rWd46603a8s2GtG
+         8D47M5N8hHzV4R33zuMdx82T7Ed9/84JDbjHaVhNBEfebyRxAe2ZPLWmzTzsp5b7mG
+         iSiB9dMXSf7NaHKwWhsMADUUoq3/u3RCe7fYq71oUnzCB+sai8DByF1Mrcl9nkaGeK
+         +mjo130DdHh1Yar2PYGIfpamotN2nVisKmJmaPlZzO+07WcfsiZIruGTRyqzJi/6qC
+         X/YBGIrIst7A1OzUh8Ob4BFhI7Q5dBbr988htn4/thF4B4ynUU5fbRuB3LBKy07mU3
+         nzi/a7HoM4K2A==
+Date:   Thu, 9 Nov 2023 16:20:34 +0100
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Jonny Grant <jg@jguk.org>
-Cc:     Paul Eggert <eggert@cs.ucla.edu>,
-        Carlos O'Donell <carlos@redhat.com>,
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org,
+        DJ Delorie <dj@redhat.com>,
+        Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+        Jonny Grant <jg@jguk.org>,
+        Matthew House <mattlloydhouse@gmail.com>,
+        Thorsten Kukuk <kukuk@suse.com>,
+        Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
         Zack Weinberg <zack@owlfolio.org>,
-        GNU libc development <libc-alpha@sourceware.org>,
-        'linux-man' <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZUz1GBxHvOVu4aT5@debian>
-References: <ZUtaH35V3koxTSL0@debian>
- <16cc15a4-cfc0-49f4-9ebf-ecf0901700ce@app.fastmail.com>
- <ZUukRqsFNr7v_2q7@debian>
- <d213e504-9b2a-1526-ded8-2d283a226b4d@redhat.com>
- <ZUwHr2-l1WADR57b@debian>
- <8ebee0fc-1e77-41d9-8feb-8c1083a30a93@cs.ucla.edu>
- <ZUwn82bp6wHceMS1@debian>
- <bc621e0c-2e00-4cda-b888-637fd48ec32b@jguk.org>
- <ZUy-1XlYyQ7MAI6f@debian>
- <66d80e73-221b-4510-ab4f-2e0b896be4e8@jguk.org>
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Carlos O'Donell <carlos@redhat.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH v2 1/2] stpncpy.3, string_copying.7: Clarify that
+ st[rp]ncpy() do NOT produce a string
+Message-ID: <20231109151947.11174-2-alx@kernel.org>
+References: <20231108221638.37101-2-alx@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="cKYzhjyRYW3th5mB"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <66d80e73-221b-4510-ab4f-2e0b896be4e8@jguk.org>
+In-Reply-To: <20231108221638.37101-2-alx@kernel.org>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+These copy *from* a string.  But the destination is a simple character
+sequence within an array; not a string.
 
---cKYzhjyRYW3th5mB
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 9 Nov 2023 16:04:56 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Jonny Grant <jg@jguk.org>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, Carlos O'Donell <carlos@redhat.com>,
-	Zack Weinberg <zack@owlfolio.org>,
-	GNU libc development <libc-alpha@sourceware.org>,
-	'linux-man' <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
+Suggested-by: DJ Delorie <dj@redhat.com>
+Acked-by: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+Cc: Jonny Grant <jg@jguk.org>
+Cc: Matthew House <mattlloydhouse@gmail.com>
+Cc: Thorsten Kukuk <kukuk@suse.com>
+Cc: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Cc: Zack Weinberg <zack@owlfolio.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Carlos O'Donell <carlos@redhat.com>
+Cc: Paul Eggert <eggert@cs.ucla.edu>
+Cc: Xi Ruoyao <xry111@xry111.site>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-On Thu, Nov 09, 2023 at 02:05:38PM +0000, Jonny Grant wrote:
->=20
->=20
-> On 09/11/2023 11:13, Alejandro Colomar wrote:
-> > Hi Jonny,
-> >=20
-> > On Thu, Nov 09, 2023 at 10:13:24AM +0000, Jonny Grant wrote:
-> >> On 09/11/2023 00:29, Alejandro Colomar wrote:
-> >> How about following the style of the other man pages that put the note=
-s about each function below them? (rather than above)
-> >> https://man7.org/linux/man-pages/man3/string.3.html
-> >>
-> >> size_t strlen(const char *s);
-> >> Return the length of the string s.
-> >>
-> >>
-> >> At the moment on string_copying there are // comments on the line abov=
-e each function. So the presentation of the information is different:
-> >>
-> >> // Copy/catenate a string.
-> >> char *strcpy(char *restrict dst, const char *restrict src);
-> >> char *strcat(char *restrict dst, const char *restrict src);
-> >=20
-> > The reason for this presentation is that I want to first look at what
-> > they do, and only then look at the function you need to do that.
->=20
-> That appears different to the man page convention. It looks odd especiall=
-y with the extra // that I don't recall other pages having in the descripti=
-on, usually that would be for examples. Consistency is best, but I'll leave=
- it with you.
+Patch 1/2 is just a resend, with more CCs.
+Patch 2/2 is a new one further clarifying the wording, after Jonny's
+suggestions.
 
-The difference is that you're comparing to man3 pages, which document
-specific functions.  string_copying(7) instead documents how to copy
-functions, and specific functions are only means to that end.  I'll keep
-it this way.
+ man3/stpncpy.3        | 17 +++++++++++++----
+ man7/string_copying.7 | 20 ++++++++++----------
+ 2 files changed, 23 insertions(+), 14 deletions(-)
 
-Thanks,
-Alex
+diff --git a/man3/stpncpy.3 b/man3/stpncpy.3
+index b6bbfd0a3..f86ff8c29 100644
+--- a/man3/stpncpy.3
++++ b/man3/stpncpy.3
+@@ -6,9 +6,8 @@
+ .TH stpncpy 3 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+ stpncpy, strncpy
+-\- zero a fixed-width buffer and
+-copy a string into a character sequence with truncation
+-and zero the rest of it
++\-
++fill a fixed-width null-padded buffer with bytes from a string
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ", " \-lc )
+@@ -37,7 +36,7 @@ .SH SYNOPSIS
+         _GNU_SOURCE
+ .fi
+ .SH DESCRIPTION
+-These functions copy the string pointed to by
++These functions copy bytes from the string pointed to by
+ .I src
+ into a null-padded character sequence at the fixed-width buffer pointed to by
+ .IR dst .
+@@ -110,6 +109,16 @@ .SH CAVEATS
+ These functions produce a null-padded character sequence,
+ not a string (see
+ .BR string_copying (7)).
++For example:
++.P
++.in +4n
++.EX
++strncpy(buf, "1", 5);       // { \[aq]1\[aq],   0,   0,   0,   0 }
++strncpy(buf, "1234", 5);    // { \[aq]1\[aq], \[aq]2\[aq], \[aq]3\[aq], \[aq]4\[aq],   0 }
++strncpy(buf, "12345", 5);   // { \[aq]1\[aq], \[aq]2\[aq], \[aq]3\[aq], \[aq]4\[aq], \[aq]5\[aq] }
++strncpy(buf, "123456", 5);  // { \[aq]1\[aq], \[aq]2\[aq], \[aq]3\[aq], \[aq]4\[aq], \[aq]5\[aq] }
++.EE
++.in
+ .P
+ It's impossible to distinguish truncation by the result of the call,
+ from a character sequence that just fits the destination buffer;
+diff --git a/man7/string_copying.7 b/man7/string_copying.7
+index cadf1c539..0e179ba34 100644
+--- a/man7/string_copying.7
++++ b/man7/string_copying.7
+@@ -41,15 +41,11 @@ .SS Strings
+ .\" ----- SYNOPSIS :: Null-padded character sequences --------/
+ .SS Null-padded character sequences
+ .nf
+-// Zero a fixed-width buffer, and
+-// copy a string into a character sequence with truncation.
+-.BI "char *stpncpy(char " dst "[restrict ." sz "], \
++// Fill a fixed-width null-padded buffer with bytes from a string.
++.BI "char *strncpy(char " dst "[restrict ." sz "], \
+ const char *restrict " src ,
+ .BI "               size_t " sz );
+-.P
+-// Zero a fixed-width buffer, and
+-// copy a string into a character sequence with truncation.
+-.BI "char *strncpy(char " dst "[restrict ." sz "], \
++.BI "char *stpncpy(char " dst "[restrict ." sz "], \
+ const char *restrict " src ,
+ .BI "               size_t " sz );
+ .P
+@@ -240,14 +236,18 @@ .SS Truncate or not?
+ .\" ----- DESCRIPTION :: Null-padded character sequences --------------/
+ .SS Null-padded character sequences
+ For historic reasons,
+-some standard APIs,
++some standard APIs and file formats,
+ such as
+-.BR utmpx (5),
++.BR utmpx (5)
++and
++.BR tar (1),
+ use null-padded character sequences in fixed-width buffers.
+ To interface with them,
+ specialized functions need to be used.
+ .P
+-To copy strings into them, use
++To copy bytes from strings into these buffers, use
++.BR strncpy (3)
++or
+ .BR stpncpy (3).
+ .P
+ To copy from an unterminated string within a fixed-width buffer into a string,
+-- 
+2.42.0
 
---=20
-<https://www.alejandro-colomar.es/>
-
---cKYzhjyRYW3th5mB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVM9RgACgkQnowa+77/
-2zKqUBAAjTRwFA+ZmwBUWR1ekCJO6A52rdGhHId5NsrAYCLxjRbzHuRyDDIdOQu5
-Mz+En2uTso/0hxjYeQnwRT9TAfCJaIKESnwuECw1hA0czPeDuzA6EyezIvDS37r7
-s7afhCug9LpKnD7vNUg/DiiktuipZYFj/a89FJ1LR3Dqe2mbRiP5kM2Q27c9l/PF
-jMZwZOacJIc8aRuRBTnGCj3I31ayra5tqu2Hice58pSz9UytU7ow0pYo7zpj9Vny
-saLK03IroL5NaCozzTDJg64VVpuVGQ6r8xrEk/+5TjkVq5Qu0xpDqFBVYsD01Pkl
-wyG2JSq/k8ZUVClQEtt1rBFZPPSmECldKgjjx0+whIAhSdy+4h2kLZWXSP5d0Q96
-ksfcedmsW3kXHRFMQQW663sQeUEh8NmqOEXyni3UNhzJIJv9By7fih4reoCm/koc
-FWA3ewjxxREaDmRFL+gEDz9RatfJfO/QOoHKIfaLeKuxLaERHbjnqpFA2By+oVwz
-lV8seF1e4v99P0ZEPFQI3rVohvJV/bjWBPGi1sE1/V7lxWVBMdo3mdbiOLN6oYq6
-OgdcYpflzJLBWG/9m36VCYj1lw3vkc0QdBbKNZDlzqevWt52F7LIPAu4Fc2ybnAG
-u+tAnIzqcCzNPJxGvLTIshWdZjikA42oUWuiDGnX8jECHKO5R7c=
-=sRMQ
------END PGP SIGNATURE-----
-
---cKYzhjyRYW3th5mB--
