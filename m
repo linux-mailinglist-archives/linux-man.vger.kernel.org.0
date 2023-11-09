@@ -2,67 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 65CE97E67EF
-	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 11:26:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 869547E6825
+	for <lists+linux-man@lfdr.de>; Thu,  9 Nov 2023 11:31:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234209AbjKIK0u (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Nov 2023 05:26:50 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55600 "EHLO
+        id S231270AbjKIKbz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Nov 2023 05:31:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42440 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234217AbjKIK0f (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 05:26:35 -0500
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0185B384B
-        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 02:26:19 -0800 (PST)
-Received: by mail-lf1-x132.google.com with SMTP id 2adb3069b0e04-50970c2115eso831007e87.1
-        for <linux-man@vger.kernel.org>; Thu, 09 Nov 2023 02:26:18 -0800 (PST)
+        with ESMTP id S231732AbjKIKbz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 05:31:55 -0500
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 873991BFD
+        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 02:31:52 -0800 (PST)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-4083f61312eso4612255e9.3
+        for <linux-man@vger.kernel.org>; Thu, 09 Nov 2023 02:31:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1699525577; x=1700130377; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=mwtnb2fKZ5MuJ98XSoHtg56chbpnKyurt5Qgwivm2Ho=;
-        b=UGrcStVfWEvrOr4+4l6PQmV9M4Dxjpq4OMrSwuQnjbmyGAJyWCbCVOnl/9wNZT48hi
-         hRl4YihtgeSY79q5TiNbZ75FO1kIvAX4kaLcQfv5xVQIglTCR4W/Hyxd9+Lney25cyCl
-         UiYAYiMUBv/mojUPM2sR/wBPYdN3fgkbB5wB+ZAhoF+u91hJjwR7dZ90//gEOgmK7+IV
-         gqFf1f+Vu9eAghbSSHsUDKEWreMDnObELdJxYN7VlLib0b5IsP1h4pmgS9jk5sptKRaG
-         18uB2YYr1rtylD4vTOr9wzfevEQFuYsOY9pEUJCUrNH3qSt5PIfOPOmD5CJA3Tuv79pd
-         o7+g==
+        d=jguk.org; s=google; t=1699525911; x=1700130711; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=I352w6ELysTaLy/YQ4gYuREznreSjxPDQ3J2XtV4T+c=;
+        b=C1FxOJp5C7mwCn01RwprabYYEUxqx3SJAEmHWFMSeN6SXcrzBLckGeCy0eRfWzlrts
+         d7qVH+A5ApGhPWbzfNhROMVFCxCfaW/6CBg77f/Bj2SV1qHBsov9f0Dlf15ZbegN2BXG
+         JwZy2GGJQIZJAgirq9+/7FzZfMB5PAQ3zb62KHE76t7KzbAWVMKGLLQEPG/qKE5MR4uQ
+         W2mRgtdORvN4MBg5siAX0tiXhjR2crc3Z/ZrqkXMsbns9ZLLHbWQ+udMHJsGTGq1cNVV
+         Xb1KpRgH0G2puOkg6h9MnnCEsQ8CLvK+20JPXnadStjbxo8VRZ3BENHc27yNtuql/+D3
+         +GsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699525577; x=1700130377;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mwtnb2fKZ5MuJ98XSoHtg56chbpnKyurt5Qgwivm2Ho=;
-        b=s8c04TtMC1dq+ETRN7pb74Gk/wMJbC/ut2Lyg0q5X5o7n5WspP2nWpo/+TMk3Mrvct
-         LTFJHOXtOuCHvICW0Y62R50l4l1Ne+ZX+FIIcXZn1C9rcxBZse8tMNQOQCPmi5d1nXQ/
-         MEyHBhWl8Pan6rBTKu/7Yx9lBGVmuH6kS1rtYvLaMvNz1er+H7IBzWrRDtvw4E5i2svi
-         W/joPHejlSyDAi8uLgpUzqnB30eyOQw9B5U9qlVVI0zc3wIbqX0SAGJs1kUXrZpwEcDc
-         8KVJGYhpSbLcU3TFdOpzZQQK8+EQHLxGNlMlznTkGbiAa4m4Lz3mvZIedslk235C7eJt
-         fHlg==
-X-Gm-Message-State: AOJu0Yxx6KQDnOcDYQIdpU3IvAHma98L13lrMkZ6f3hllLRQheOYOKbN
-        1ZJytW2MmIZ6YONyNuE65eAGBt/EgGBsiQS4qKk1DA==
-X-Google-Smtp-Source: AGHT+IE/DEOMrgtB+iblPh4YefCIqUi6ZgndNR8XmrIbUGUa5C5bA5XEVV97dH2Py4WVjA8acdZF1OwNRjK3ImR6478=
-X-Received: by 2002:a19:6514:0:b0:500:a378:db71 with SMTP id
- z20-20020a196514000000b00500a378db71mr915701lfb.57.1699525577019; Thu, 09 Nov
- 2023 02:26:17 -0800 (PST)
+        d=1e100.net; s=20230601; t=1699525911; x=1700130711;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=I352w6ELysTaLy/YQ4gYuREznreSjxPDQ3J2XtV4T+c=;
+        b=GAPVZ/tmz9aw/n2BG5XVEajAkQkdAqzrdeOS0FUFAuwy7ykEFURKmBMjbQ4mafUWy6
+         sXrHOVrdSzB7q1EnMYmgpy4bltHMKoRt1H4AwSPiSjsTj4maDounDKNV1evYeTu04TfY
+         qLql/YP/QKSAMXk7dUj2bvrs9oaBvaW5gpiTrsNR9sBDR2iamrOfHyGxnCubrecNynJX
+         OQw3fwqeek1J8jvqnt1g/77aC+tltzWs8QbfrOSGUsNqWHB0SUtiRRwhva8+Fows8gWl
+         cW5GSRruLNQbm9yfjcm/ThdoaGRDu1CUG8O05CGqEUPYAf267rYC98JMhA1ek8fVRIZf
+         kraA==
+X-Gm-Message-State: AOJu0YwqkiwXnZlntP3Qapl0Veb/UPLLzLY0H/+xrEPChol1WZLDV/pk
+        q33cFbatOhHNqjZ3r1pPBHGIwfrnVI1DNjKgIio=
+X-Google-Smtp-Source: AGHT+IEr/2XjOYwehMJj1XXxOcMkQ8sxpgZ2rb9H2Clf+COmhcuCWiWvZg8J8/VT2AJ0oy+n2ybWwQ==
+X-Received: by 2002:a05:6000:78d:b0:32d:9016:5bf1 with SMTP id bu13-20020a056000078d00b0032d90165bf1mr5101513wrb.66.1699525910813;
+        Thu, 09 Nov 2023 02:31:50 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id f18-20020a5d58f2000000b0032f983f7306sm7081616wrd.78.2023.11.09.02.31.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Nov 2023 02:31:50 -0800 (PST)
+Message-ID: <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
+Date:   Thu, 9 Nov 2023 10:31:49 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From:   Jonny Grant <jg@jguk.org>
+Subject: Re: strncpy clarify result may not be null terminated
+To:     Matthew House <mattlloydhouse@gmail.com>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>
 References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
  <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
  <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
  <ZUo6btEFD_z_3NcF@devuan> <20231108021240.176996-1-mattlloydhouse@gmail.com>
  <ZUvilH5kuQfTuZjy@debian> <20231109031345.245703-1-mattlloydhouse@gmail.com>
+Content-Language: en-GB
 In-Reply-To: <20231109031345.245703-1-mattlloydhouse@gmail.com>
-From:   Jonny Grant <jg@jguk.org>
-Date:   Thu, 9 Nov 2023 10:26:05 +0000
-Message-ID: <CAGNDjJug3o-MFykJ1nhxXD3U2GyO_PEm2gfXQucXmDm0o6zd9g@mail.gmail.com>
-Subject: Re: strncpy clarify result may not be null terminated
-To:     Matthew House <mattlloydhouse@gmail.com>
-Cc:     Alejandro Colomar <alx@kernel.org>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
+
+With glibc added
 
 On Thu, 9 Nov 2023 at 03:13, Matthew House <mattlloydhouse@gmail.com> wrote:
 >
