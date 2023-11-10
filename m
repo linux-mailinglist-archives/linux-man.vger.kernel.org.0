@@ -1,131 +1,155 @@
-Return-Path: <linux-man+bounces-2-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48DE17E7EA4
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:46:53 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 828527E7EBD
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:47:17 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8160A1C20919
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:46:52 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 387DF281553
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:47:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7172138DDB;
-	Fri, 10 Nov 2023 17:46:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6E2233A295;
+	Fri, 10 Nov 2023 17:46:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z50KRf/H"
+	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="NkEWtMKm"
 X-Original-To: linux-man@vger.kernel.org
 Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885BC225D9
-	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:46:28 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B8212E5FF
-	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:20:50 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBFB0C433C7;
-	Fri, 10 Nov 2023 11:20:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699615249;
-	bh=Vjz4BZq1Zd3yDi+/O9UDM5I/BoUawRDqXQSS7hu2SPw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z50KRf/HX5UX8/qzQdq7EHGO+nHZDrvkfoRZRxtzjQ6yWKDaKK3fyGSjoZUGDg6P8
-	 eu/oCj6KXSbW5/uNmawjXUMciUeXmJ2oa/mHrEnU17cxCsT4SXHEYyNXg+kA/5K7ht
-	 4E0OoRfYSfqz5Nkz0WXSRO2LYN5uvngZ5ZHyUwVx6tovkMJ5JZHBhfRXe0EE8z5R2p
-	 L3OUGbn0PXyeTxVbmdQBYjYM6j0P9gNwNVUFlTLM6EMSs1p59+e+Za/tvszr1LQrDZ
-	 CTC1WLMxNT0d4o1DNFigEduC+TWWnbZwYpjXcMbfyRqCMBqEgj2vKlyRJ2ERwDUNIs
-	 48q7MYSRkFfNw==
-Date: Fri, 10 Nov 2023 12:20:46 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: Matthew House <mattlloydhouse@gmail.com>, Jonny Grant <jg@jguk.org>,
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZU4SDh-Se5gjPny5@debian>
-References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
- <ZUacobMq0l_O8gjg@debian>
- <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
- <ZUgl2HPJvUge7XYN@debian>
- <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
- <ZUo6btEFD_z_3NcF@devuan>
- <20231108021240.176996-1-mattlloydhouse@gmail.com>
- <ZUvilH5kuQfTuZjy@debian>
- <CACKs7VDsTdSNwbC6+2LtQ67J_eJiD814xkw2_5XM1Q=iMjLXJA@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B8138F9B
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:46:33 +0000 (UTC)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com [IPv6:2a00:1450:4864:20::12c])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 362AB2F363
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:23:31 -0800 (PST)
+Received: by mail-lf1-x12c.google.com with SMTP id 2adb3069b0e04-50930f126b1so2430170e87.3
+        for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:23:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google; t=1699615409; x=1700220209; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=jSDSWKR4bBJWztXD5HYnU+cgHiy2SZodKyOWp7zvZx8=;
+        b=NkEWtMKmcBezIeMs3i+MF3J8/xbvSScjVhoH9p5rOI1QVGAzzVd2obBDVzVbJ4JUo1
+         mFa4+9mMfC7vkpt4QeM4xVjbQUUk/uBwYpgFaIh1Q/SNUaW2mBeSS/6Kmcd1affW/Khd
+         +B6KQDwelwGBdKNLWdowFn+AlhA75dtuAP888j8gmGA52MEkTfNFXA+uCs5VGbJkoVBi
+         PB1dtu5xfl5LIwwQjjOWgeN+fcEz/kLEIZdJfZ0MpwhJ2YM/DPSsGC54RRpZ6l3BKxoD
+         Knlc9dNZLH/OHypyqjjlzxYYWYVoqhKzQIBj6TBb885nklRBnaOmSFsz6Qtvc3pQLc2O
+         cYwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699615409; x=1700220209;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jSDSWKR4bBJWztXD5HYnU+cgHiy2SZodKyOWp7zvZx8=;
+        b=VbZoaaXaXAU+I62gv2u6J0DcLeXaNpEipIaZeQlFnci/svxMJW8cglOmHEcLQ24IhI
+         YvgiM41OsAI0VcnsgPOrV4Jj9vfqf4rnIto4+qFFox+AiThrR814E25mF+ZfFMwL7b10
+         XTCDT7pFyZM9N0l8J78ggf3b6IbehDb3nAJqZwXZ0PsygncXIY0S1HHZOQyRSBz0b3XK
+         o9oAWasWufBq5TAN9qd4dMrallhAsX4FH3WgFhGddU2QPoX4ONwCz/zY5LpZWMGyGnmT
+         IC56/qRkhS8bJ8bUP5JYu+3UceKFJrvjRhD1gDw4al0KAVaL85UuJ27dWlC7wFJ+ZMjp
+         Tbpw==
+X-Gm-Message-State: AOJu0Yx0sxhX9GApXOtdrA04wTVmLE/bVX8WaZCsr4UjNcEPCmFJBt8S
+	AToLebsU1VGnBGE1CpL9DKv8RKC83UDBarEFDP8=
+X-Google-Smtp-Source: AGHT+IEOhJ4gNlR9QiBj6JLwU76Esa2hXaav/FXaOfLPCjf/FjkWWiy4xDHqLvt4NKcCWWnbzhKyKQ==
+X-Received: by 2002:a19:740d:0:b0:503:2561:adbc with SMTP id v13-20020a19740d000000b005032561adbcmr3446776lfe.64.1699615409276;
+        Fri, 10 Nov 2023 03:23:29 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id p15-20020a05600c1d8f00b004053a6b8c41sm4926832wms.12.2023.11.10.03.23.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Nov 2023 03:23:28 -0800 (PST)
+Message-ID: <f6c4fb62-a028-4208-b5a8-258fdcd4f55e@jguk.org>
+Date: Fri, 10 Nov 2023 11:23:28 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="N3MLKvX3XDwnCN76"
-Content-Disposition: inline
-In-Reply-To: <CACKs7VDsTdSNwbC6+2LtQ67J_eJiD814xkw2_5XM1Q=iMjLXJA@mail.gmail.com>
-
-
---N3MLKvX3XDwnCN76
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Nov 2023 12:20:46 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: Matthew House <mattlloydhouse@gmail.com>, Jonny Grant <jg@jguk.org>,
-	linux-man <linux-man@vger.kernel.org>
+User-Agent: Mozilla Thunderbird
+From: Jonny Grant <jg@jguk.org>
 Subject: Re: strncpy clarify result may not be null terminated
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Matthew House <mattlloydhouse@gmail.com>,
+ linux-man <linux-man@vger.kernel.org>,
+ GNU C Library <libc-alpha@sourceware.org>
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan> <20231108021240.176996-1-mattlloydhouse@gmail.com>
+ <ZUvilH5kuQfTuZjy@debian> <20231109031345.245703-1-mattlloydhouse@gmail.com>
+ <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org> <ZUzEw2j6gHF5WtsO@debian>
+Content-Language: en-GB
+In-Reply-To: <ZUzEw2j6gHF5WtsO@debian>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Stefan,
 
-On Fri, Nov 10, 2023 at 12:40:48PM +0200, Stefan Puiu wrote:
-> Hi Alex,
->=20
-> On Wed, Nov 8, 2023 at 9:33=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
-> [.....]
-> > strncpy(3):
-> > CAVEATS
-> >      The  name  of  these  functions  is confusing.  These functions pr=
-oduce a
-> >      null=E2=80=90padded character sequence, not a string (see string_c=
-opying(7)).
->=20
-> I'm a bit confused by this distinction. Isn't a null-padded sequence
-> technically also null-terminated? If there's a '0' at the end, then
-> it's a string, in my understanding. Or was the intention to say "a
-> character sequence that may be null-padded", where the case in which
-> there's no padding at all being the reason for the distinction?
 
-The latter.  I'll check the wording.
+On 09/11/2023 11:38, Alejandro Colomar wrote:
+> Hi Jonny,
+> 
+> On Thu, Nov 09, 2023 at 10:31:49AM +0000, Jonny Grant wrote:
+>>> Probably the only way to solve the cleverness issue for good is to have an
+>>> immediately-available, foolproof, performant set of string functions that
+>>> are extremely straightforward to understand and use, flexible enough for
+>>> any use case, and generally agreed to be the first choice for string
+>>> manipulation.
+>>
+>> What's the best standardized function for C string copying in your
+> 
+> strlcpy(3) will soon be standard.  POSIX.1-202x (Issue 8) will add it,
+> which is why it's been added recently to glibc.  Hopefully, ISO C3x will
+> follow (yeah, it's not like tomorrow).
+> 
+>> opinion?  They all seem to have drawbacks, strlcpy truncates (I'd
+>> rather it rejected if it didn't have enough buffer - could cause
+>> issues if the meaning of the string changed due to truncation, eg if
+>> it was a file path). Other alternative functions aren't widely in use.
+> 
+> If you are consistent in checking the return value of strlcpy(3) and
+> reporting an error, it's the best standard alternative nowadays.
+> snprintf(3), except for using int instead of size_t, has an equivalent
+> API, and is in C99, in case that means something.
+> 
+> If you would want to write something based on Michael Kerrisk's article,
+> you could do this:
+> 
+> 	ssize_t
+> 	strxcpy(char *restrict dst, char *restrict src, size_t dsize)
+> 	{
+> 		if (strlen(src) < dsize)
+> 			return -1;
+> 
+> 		strcpy(dst, src);
+> 	}
+> 
+> You may also want to calculate 'dsize' automagically, to avoid human
+> error, in case it's an array, so you could write a macro on top of it:
+> 
+> 	#define STRXCPY(dst, src)  strxcpy(dst, src, ARRAY_SIZE(dst))
+> 
+> These are just small wrappers over standard functions, so you shouldn't
+> have problems adding them to your project.
+> 
+> This is my long term plan for shadow-utils, indeed.  I'm first
+> transforming strncpy(3) calls into strlcpy(3) to remove the superfluous
+> padding, and later will use this strxcpy() to remove the truncated
+> strings to avoid misinterpretation.
+> 
+> Cheers,
+> Alex
+> 
+>>
+>> Kind regards, Jonny
+> 
 
-Thanks!
-Alex
+Yes, I like to look for a libc library function before writing my own wrapper, but I would consider something like strxcpy.
 
->=20
-> Thanks,
-> Stefan.
+snprintf will truncate if not enough space, but will then return the number of bytes that would have been written had there not been truncation. So one could use snprintf on an array buffer on the stack, and then if truncation, discard the buffer and return an error, otherwise carry on using the string (that wasn't truncated).
 
---=20
-<https://www.alejandro-colomar.es/>
+Re strlcpy I see BSD man page gives some examples how to check for truncation by strlcpy. Perhaps examples could be added to linux kernel man page.
+https://man.freebsd.org/cgi/man.cgi?query=strlcat&sektion=3
 
---N3MLKvX3XDwnCN76
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVOEg4ACgkQnowa+77/
-2zI8FhAAn9xpbu8LLfeC+fku2n5iTQ7X+vHTV9/QQ6mUes34r1ZvHK8LXqtX5D00
-aA7bGaQP4iJcoSUX2Hhd3btHZkAYgJm1Kh6F5nVmMcKAG+1jYkji7Shz5QnvYUj+
-2bpEnomklyHZDmsfc14+4UsExXtdT8FOlXLxXQis2X9GFC/TWiO8Dxr7bkhSkdlB
-pAopn+EfeZQLu6+IdrIsxFshEvqXhI76GBlDTlbuYbkHOAPMXzkOJaT83WL/T4ky
-0gs3RJObN64pZ0l0zNW64CDjk+XZj+sb2X+1/ZOn3L8Sj+gyubfnUJfl8ZNoJiuu
-Uo2N+dfCKUTKahVBbgUtQXuTG9cl3IO4VGDHsoynOwi+7diP+U8x2SkTGP1ZpAXb
-4MHwEICJ+1YwpxNZLl+fSZ6KyFKOi3IcnzgbQ0jmnWnLak3g0u9wYtkOpS9FBxXY
-onTr0F8VpJintVGGBtc0o9zZkVDgH+p1aFJgwRhccgc6KhvGS6eRNMdRBdEK9jHa
-S1wziuDo1/+sgMiqfuMST6cW6oAVCqvF5IhWl4yFGOgbtiLPkgy8zKSmZDIIjEQW
-taYxFWSfT1LjqsRll9gCK+Y71NC4nyQzvclhton4jdYbbOgAd/PMqy0wI49fIFY1
-ZVYQGONzflrSADkSOrgDj/CK/8L1uvb3Q+lM/HNdHn2cuVSSPLo=
-=2hiR
------END PGP SIGNATURE-----
-
---N3MLKvX3XDwnCN76--
+Kind regards, Jonny
 
