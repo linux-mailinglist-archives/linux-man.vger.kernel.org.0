@@ -1,125 +1,94 @@
-Return-Path: <linux-man-owner@vger.kernel.org>
+Return-Path: <linux-man+bounces-9-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B3597E7549
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 00:49:18 +0100 (CET)
-Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230339AbjKIXtT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Nov 2023 18:49:19 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39290 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229629AbjKIXtS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Nov 2023 18:49:18 -0500
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A28443868
-        for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 15:49:16 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A583C433C7;
-        Thu,  9 Nov 2023 23:49:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1699573756;
-        bh=rjJQXejh5zSeUJ6Am5uVr4SBvGQMLDVatVfAsr21szA=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=FW+PIkK1Y7dv9qxzC9B9QA13aRF0Tdkagq90oerY/s0BJo/h4/FrvbkJK7iNC+XNz
-         /+6qZ+mpQJwyf5Tt8WWKrgUpj+6dH1uexVsKB5j2CsZcCws6/UNww7TM98izJ/2Q1K
-         yoCe6yn8Lb48Gxw2fFR9NpMD7Wp8UFcfsoePWUrssvT7G4Nb5aGhCwXXacibdNV/Ap
-         JYjyt3j80moVq5NtoOMur7SEeyZoJPeFq2mKjggJy6rMXSig0nA7/Xv9jhJV88ihvo
-         uIqHo0jyKG6yn8l7p0crHH5mVd2BtBZl1i94Gu9NQfEaKtAxxPgB/shj4n6CDBczej
-         DFcu6kKOENz7A==
-Date:   Fri, 10 Nov 2023 00:48:59 +0100
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Paul Eggert <eggert@cs.ucla.edu>
-Cc:     Jonny Grant <jg@jguk.org>,
-        Matthew House <mattlloydhouse@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZU1v-JKBP9iWXOOT@debian>
-References: <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
- <ZUgl2HPJvUge7XYN@debian>
- <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
- <ZUo6btEFD_z_3NcF@devuan>
- <20231108021240.176996-1-mattlloydhouse@gmail.com>
- <ZUvilH5kuQfTuZjy@debian>
- <20231109031345.245703-1-mattlloydhouse@gmail.com>
- <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
- <ZUzEw2j6gHF5WtsO@debian>
- <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="6gqvagsP27Ll+QAt"
-Content-Disposition: inline
-In-Reply-To: <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F82D7E7F0B
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:49:27 +0100 (CET)
+Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id E2BCBB22171
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:49:24 +0000 (UTC)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D10083D388;
+	Fri, 10 Nov 2023 17:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="oF2+5SEk"
+X-Original-To: linux-man@vger.kernel.org
+Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF4A3C09F
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:46:54 +0000 (UTC)
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 984E759D3
+	for <linux-man@vger.kernel.org>; Thu,  9 Nov 2023 22:15:41 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 821423C011BDE;
+	Thu,  9 Nov 2023 21:36:44 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id lGvPFZaas7tI; Thu,  9 Nov 2023 21:36:44 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 4499C3C011BDF;
+	Thu,  9 Nov 2023 21:36:44 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 4499C3C011BDF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699594604;
+	bh=RLJ82Ex7eI8zb4+vCLFqA4LBb7ihr2VnJCC6mLxObbM=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=oF2+5SEkzjSE6rlxwgeOyig9TiAGCzazICP/JGoD4GXEzxfzg0q6SO/UzifbBF50G
+	 HqNgsuFlrukT32Xbl+2nt+wIYa7ijztddUNPQqyW31Ct0oAazMc7RsyDzyeeBzN2Og
+	 duRIJ2mXk0gD0IT0utZDcFBY1Pqj8ZKIyJauwRqXvILeF5Z92XO5EmpNq4nEmWWsfu
+	 Cj+RZjCVp8GSnPWeJiwGhVRW4ZFIELpet/bKSSVfbe0TSRg11HmkUFyFO/7ArYmRIk
+	 40pf6KzBEaJTkSHXOH1HkrhQhm9fhntlGBWLCTGwbEJ+GFhLLUkguLDwHTEpdqdfDj
+	 uR7DjzCa3f1MA==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id TZXO-Usaoemr; Thu,  9 Nov 2023 21:36:44 -0800 (PST)
+Received: from [192.168.254.12] (unknown [47.148.192.211])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 0F9453C011BDE;
+	Thu,  9 Nov 2023 21:36:44 -0800 (PST)
+Message-ID: <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu>
+Date: Thu, 9 Nov 2023 21:36:43 -0800
 Precedence: bulk
-List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
-
-
---6gqvagsP27Ll+QAt
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Nov 2023 00:48:59 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
-	linux-man <linux-man@vger.kernel.org>,
-	GNU C Library <libc-alpha@sourceware.org>
+List-Id: <linux-man.vger.kernel.org>
+List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
+List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: strncpy clarify result may not be null terminated
+Content-Language: en-US
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
+ linux-man <linux-man@vger.kernel.org>,
+ GNU C Library <libc-alpha@sourceware.org>
+References: <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan> <20231108021240.176996-1-mattlloydhouse@gmail.com>
+ <ZUvilH5kuQfTuZjy@debian> <20231109031345.245703-1-mattlloydhouse@gmail.com>
+ <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org> <ZUzEw2j6gHF5WtsO@debian>
+ <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu> <ZU1v-JKBP9iWXOOT@debian>
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <ZU1v-JKBP9iWXOOT@debian>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 09, 2023 at 10:11:10AM -0800, Paul Eggert wrote:
-> On 2023-11-09 03:38, Alejandro Colomar wrote:
-> > If you are consistent in checking the return value of strlcpy(3) and
-> > reporting an error, it's the best standard alternative nowadays.
->=20
-> Not necessarily. strlcpy is subject to denial-of-service attacks if the
-> attacker has control of the source string and can attack by using long
-> source strings. strncpy, as bad as it is, does not have this problem.
+On 2023-11-09 15:48, Alejandro Colomar wrote:
+> I'd then just use strlen(3)+strcpy(3), avoiding
+> strncpy(3).
 
-Interesting thing.  I'd then just use strlen(3)+strcpy(3), avoiding
-strncpy(3).
+But that is vulnerable to the same denial-of-service attack that strlcpy 
+is vulnerable to. You'd need strnlen+strcpy instead.
 
->=20
-> Instead of this:
->=20
->    if (strlcpy (dst, src, dstsize) =3D=3D dstsize)
->      return failure;
->=20
-> applications that want want to copy a string into a small nonempty
-> fixed-size buffer, failing if the string doesn't fit, should do something
-> like this:
->=20
->    if (strncpy (dst, src, dstsize)[dstsize - 1])
->      return failure;
->=20
-> This avoids the denial-of-service attack and is portable all the way back=
- to
-> K&R C.
->=20
-> It's unfortunate that strlcpy was misdesigned but here we are.
->=20
+The strncpy approach I suggested is simpler, and (though this doesn't 
+matter much in practice) is typically significantly faster than 
+strnlen+strcpy in the typical case where the destination is a small 
+fixed-size buffer.
 
---=20
-<https://www.alejandro-colomar.es/>
+Although strncpy is not a good design, it's often simpler or faster or 
+safer than later "improvements".
 
---6gqvagsP27Ll+QAt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVNb+sACgkQnowa+77/
-2zLgYw//aA8lNcghjEHsVozBCfZUw42F1SMLCotCrZJ3rgobyFo9egcdTB59zrRl
-ma2BMMbdFlza/bQRVClZlLsPZKeMcsTZaSPgIIqm/yejJMRr1UMCu6+uNcwna0mT
-1QxBkiBD1nThLmjnmPv13QIcY6VFwB+JSCGfr7lcxaYCW9b7TggayBB4V0ZTh4HD
-ncHfPZpXffZSIt+3nuc67zHzxqDCOtmLa5UggKDauaHgIw0mPy8m7Y0/IfoF1Ukx
-Jr9kDKT3gmW75Kbc2bJqorwcY1soQrPhhWUP0K4cDyZYMU12T17SNx//iJLu1aWA
-zS5FmF/6A7qvnkm9zcJDXALG1mJwJPyOLkXM/bC3adxLhFTY1o0aHdWhFHyXRZwU
-nho+jGDVGzsDAkUG1RtY8iUhPzXs2tEmDHxwNxoQVnAPTF/uMYyKg/HbDlQP2Hk2
-SjEz08lkXDuXCQ3FcrNJxjTy+2WkOmoqO14wQ+5BIwz3eBhx0sc+DLFdZgqL4tuX
-VMjp/Ov4BFktnfiNcaZKnco4gq9A4c7CK1ppI4/C+d253SYM7wuyn3IltLsMwrby
-I7Iqwkmwg2TV7/0b7zr8w9euSrhW4+XGbcGnXif73Y0VpOhZgmuMEp4ngQFWVrCd
-z4uZn4Pwd4wUPEBuhRRIHDR6pMOgwF2kPDQnezD756t2GJmZlxY=
-=XSlO
------END PGP SIGNATURE-----
-
---6gqvagsP27Ll+QAt--
