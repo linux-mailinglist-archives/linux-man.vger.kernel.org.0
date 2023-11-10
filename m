@@ -1,48 +1,49 @@
-Return-Path: <linux-man+bounces-10-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-7-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924AD7E7F23
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:50:04 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F377E7EF3
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:48:47 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C3D391C20BCF
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:50:03 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6E72E1C20D9B
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:48:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D43933D98A;
-	Fri, 10 Nov 2023 17:47:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97FC83B297;
+	Fri, 10 Nov 2023 17:46:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcT0U7gC"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYBvVnp6"
 X-Original-To: linux-man@vger.kernel.org
 Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A77E3D3B1
-	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42053B2AC
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:46:45 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDC79311B0
-	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:47:14 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02673C433C9;
-	Fri, 10 Nov 2023 11:47:12 +0000 (UTC)
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6ED08371E4
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 05:15:25 -0800 (PST)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890D2C433C7;
+	Fri, 10 Nov 2023 13:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699616834;
-	bh=ojSL7KtASLXtKuu1U2chdIzJY2uJovzIuVRZ2h9j5YQ=;
+	s=k20201202; t=1699622124;
+	bh=AA2012iI/0lE0yCIWCnMOAnN2/WqIEsofzaCc5QGLCY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WcT0U7gCsLMU8auqBhyZq9v8KVwfgp9hmHueZq8G1Nd5pO7wAuapm7xHsWYhH89v6
-	 6tX9LsVQehPykgLq5+2Dd2ixhf1J6M0ihi3AiH0re+U1r9Qi2em6MzzDSjnzXbfO4d
-	 CCJEsudFw+aqwy+/vGOOAeBG0lL95uNxhbNnjw/0HxGR600TbARU3gkVjXycnmumq+
-	 ChwsbiyqUtSWwfVZQn0fxpgSf0j95E4WLUFGC/bqOi0QpNLXpepwN0QDwwn8l2YrvO
-	 agXX4y/Hmby1Qq66aRmeOoXrEvElT5OScCLCwQmQ8O2vdqhtBOxMGE+Akq58MWbTfp
-	 +qHD0RZ+VsbUw==
-Date: Fri, 10 Nov 2023 12:47:10 +0100
+	b=hYBvVnp6eWu6ECm+BS2vgSsFlt8DSSfEUjymQ54e1jJ+5d3K7wBeFL4a1EwjL9bLe
+	 riLO9jRCmQYwf64HF13Dv4oypSLFhWY4Z9M0/ITT9WhizwUD0U+aVT3GatpmtOMmea
+	 NfVVW7Zw0autQkI1tkENauw4+wd7O++u5LXs84RAwpzfZBk1oc3U1h5DzuMWBw+mm8
+	 8sAlaKMXF1D/z2pNvXrfW7+UxE1q5ju7m/XNihdB7qAfIZYj3iSsJ7oMyz0pNQKAtZ
+	 zLzMhGyqHKvHdyRAeaVANYi8WxFt3YvlP75nuH1c1yZibPFL1p7DGKKDLgPvNnrKWU
+	 MC5FPxNbDJ5dg==
+Date: Fri, 10 Nov 2023 14:15:14 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
+To: Jonny Grant <jg@jguk.org>
+Cc: Paul Eggert <eggert@cs.ucla.edu>,
+	Matthew House <mattlloydhouse@gmail.com>,
 	linux-man <linux-man@vger.kernel.org>,
 	GNU C Library <libc-alpha@sourceware.org>
 Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZU4YPnKxzYnlDlTI@debian>
+Message-ID: <ZU4s6Vm-jBjFCcJ2@debian>
 References: <ZUo6btEFD_z_3NcF@devuan>
  <20231108021240.176996-1-mattlloydhouse@gmail.com>
  <ZUvilH5kuQfTuZjy@debian>
@@ -52,7 +53,7 @@ References: <ZUo6btEFD_z_3NcF@devuan>
  <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
  <ZU1v-JKBP9iWXOOT@debian>
  <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu>
- <ZU4OgiVSyM98EHVN@debian>
+ <ebccf5c0-f125-4eb9-8820-e71e77f4f7ed@jguk.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,107 +61,133 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4GP2t+HV7BOtNDkN"
+	protocol="application/pgp-signature"; boundary="uGjoq4E5xIQDLuZu"
 Content-Disposition: inline
-In-Reply-To: <ZU4OgiVSyM98EHVN@debian>
+In-Reply-To: <ebccf5c0-f125-4eb9-8820-e71e77f4f7ed@jguk.org>
 
 
---4GP2t+HV7BOtNDkN
+--uGjoq4E5xIQDLuZu
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Nov 2023 12:47:10 +0100
+Date: Fri, 10 Nov 2023 14:15:14 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
+To: Jonny Grant <jg@jguk.org>
+Cc: Paul Eggert <eggert@cs.ucla.edu>,
+	Matthew House <mattlloydhouse@gmail.com>,
 	linux-man <linux-man@vger.kernel.org>,
 	GNU C Library <libc-alpha@sourceware.org>
 Subject: Re: strncpy clarify result may not be null terminated
 
-On Fri, Nov 10, 2023 at 12:05:31PM +0100, Alejandro Colomar wrote:
-> Hi Paul,
+Hi Jonny,
+
+On Fri, Nov 10, 2023 at 11:36:20AM +0000, Jonny Grant wrote:
 >=20
-> On Thu, Nov 09, 2023 at 09:36:43PM -0800, Paul Eggert wrote:
+>=20
+> On 10/11/2023 05:36, Paul Eggert wrote:
 > > On 2023-11-09 15:48, Alejandro Colomar wrote:
-> > > I'd then just use strlen(3)+strcpy(3), avoiding
-> > > strncpy(3).
->=20
-> Heh, brain fart on my side.
->=20
+> >> I'd then just use strlen(3)+strcpy(3), avoiding
+> >> strncpy(3).
 > >=20
 > > But that is vulnerable to the same denial-of-service attack that strlcp=
-y is
-> > vulnerable to. You'd need strnlen+strcpy instead.
+y is vulnerable to. You'd need strnlen+strcpy instead.
 > >=20
 > > The strncpy approach I suggested is simpler, and (though this doesn't m=
-atter
->=20
-> Yeah, although you can always wrap strnlen(3)+memcpy(3) in a strxcpy()
-> inline function and have it even simpler.
->=20
-> Rewriting the strxcpy() wrapper I wrote the other day to not be
-> vulnerable to DoS, and hoping I get it right today.
->=20
-> [[nodiscard]]
-> inline ssize_t
-> strxcpy(char *restrict dst, const char *restrict src, size_t dsize)
-> {
-> 	size_t  slen;
->=20
-> 	slen =3D strnlen(src, dsize);
-> 	if (slen >=3D dsize)
-
-Oops:  s/>=3D/=3D=3D/
-
-> 		return -1;
->=20
-> 	memcpy(dst, src, slen + 1);
->=20
-> 	return slen;
-> }
->=20
-> Hopefully, it won't be so bad in terms of performance.  And it is still
-> protected by fortification of memcpy(3).  And thanks to [[nodiscard]],
-> it should be hard to misuse.
->=20
-> > much in practice) is typically significantly faster than strnlen+strcpy=
- in
-> > the typical case where the destination is a small fixed-size buffer.
+atter much in practice) is typically significantly faster than strnlen+strc=
+py in the typical case where the destination is a small fixed-size buffer.
 > >=20
 > > Although strncpy is not a good design, it's often simpler or faster or =
-safer
-> > than later "improvements".
+safer than later "improvements".
 >=20
-> Cheers,
-> Alex
+> As you say, it is a known API. I recall looking for a standardized bounde=
+d string copy a few years ago that avoids pitfalls:
 >=20
-> --=20
-> <https://www.alejandro-colomar.es/>
+> 1) cost of any initial strnlen() reading memory to determine input src si=
+ze
+> 2) accepts a src_max_size to actually try to copy from src
+> 3) does not truncate by writing anything to the buffer if there isn't eno=
+ugh space in the dest_max_size to fit src_max_size
+> 4) check for NULL pointers
+> 5) probably other thing I've overlooked
+>=20
+> Something like this API:
+> int my_str_copy(char *dest, const char *src, size_t dest_max_size, size_t=
+ src_max_size, size_t * dest_written);
+> These sizes are including any NUL terminating byte.
+>=20
+> 0 on success, or an an error code like EINVAL, or ERANGE if would truncate
+
+-  Linux kernel's strscpy() returns -E2BIG if it would truncate.  You
+   may want to follow suit if you want such an errno(3) code.
+
+   However, I think it's simpler to return the "standard" user-space
+   error return value: -1
+
+   If you'd need to distinguish error reasons, you could distinguish
+   error codes, but for a string-copying function I think it's not so
+   useful.
+
+-  Why specify the src buffer size?  If you're copying strings, then you
+   know it'll be null-terminated, so strnlen(3) will not overrun.  If
+   you're not copying strings, then you'll need a different function
+   that reads from a non-string.  The only standard such function is
+   strncat(3), which reads from a fixed-width null-padded buffer, and
+   writes to a string.  You may want to write a function similar to
+   strncat(3) that doesn't catenate, if you want to just copy; I call
+   that function zustr2stp(), and you can find an implementation in
+   string_copying(7).
+
+-  You can reuse the return value for the dest_written value with
+   ssize_t.  Just return -1 on error and the string length on success.
+   That's how most libc functions behave.
+
+-  Regarding NULL checks, it depends on how you program.  I wouldn't add
+   them, but if you want to avoid crashes at all costs, it may be
+   necessary for you.  You could do a wrapper over strxcpy():
 
 
+	inline ssize_t
+	strxcpy0(char *restrict dst, const char *restrict src, size_t dsize)
+	{
+		if (dst =3D=3D NULL || src =3D=3D NULL)
+			return -1;
+
+		return strxcpy(dst, src, dsize);
+	}
+
+   I used 0 in the name to mark that this function checks for null
+   pointers.
+
+Cheers,
+Alex
+
+>=20
+> All comments welcome.
+>=20
+> Kind regards, Jonny
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---4GP2t+HV7BOtNDkN
+--uGjoq4E5xIQDLuZu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVOGD4ACgkQnowa+77/
-2zITzA//RB694LXBS3PP23zl6Mp3WBoWK0KcE8Nx3CUfglvsmjMwcJON4qIHb/Jc
-C2UNOLnvLCtpXNOBqt9VoxupxZmaG/dlXwuNj66dxIDd0/hmBP+7StqIgzwK2msr
-wXMREO5PCuaKywZA9rxxm7jGIA2yCqwDtxbcB1y7p6/CkoL89rjGUVFkdu3brC6i
-Ht9vyuIiSyAK/FtRxmXD2MAaGe7PI19br6AM31XV4CA5QQsaA9e4/uHv7Nq3wEQe
-LDfBPTLpZqWjc2wfKMnMSwADyzXjnPQgQ2sRfI7L4dNEkFyNst/9Aqwsf3xs8XIw
-F+/lAlaChjDND0JI1snB1yBmC/xoT/ns5AcJ24v5sjmZEuYwLeTZFcapicEl/9bB
-13b5OhUQxqJtSmwDlPxMj4jgYDbBfOj9d/VOVbjPXM6ZwgmhFKyeYQOtFl7TW7nk
-qPsng4+YvkZhi+PnI+yhZHp+WI6Pz2e+ZGQAoTCWVPAJrLWdktOXRsCjTrp8viJW
-zL/ojCbdv3+sUPc1mwQK/5E3yi4jls3qZ8WnMhfQ2sr2W1+IpBTjCrLPv+t5HxgZ
-TUvhYcvjj6iZZ/NHYtuzStlMrJntZsHttH/nvj/9+PSKP59F25ev/OG0DOZ6W5Hj
-/kOj2y+UDt6VNbmQmb9SqRk9Xoy745TVPuPXdtoQHpB6/rvFg+w=
-=FoG8
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVOLOIACgkQnowa+77/
+2zI47g/+LU5fYdUKbQPGhdQCVEEQCxE5LvhykU9bvSOcQPFj6OhPP/V68XwhQ8FB
+oatJPzNo+jka4XFbmb57XxsL5ylJqZlk8+br5Nm6zrcEsutIqRmG2oB03ghMr3gY
+HLcMHCnSTZ8CnqyoHeUKlIdiKMt3Z6mE95JNoqS7rIDMyxO4WauZi2i/WWKPlMWV
+r+9a7Ku4+G6Ql747nAflmPmZewPLKCozMPZXHGOi8zVwky01UAux1xLMyqoUfbfN
+NlU5cDO7Oigyfz8jv3uAbEJA6QpNOuoFkNNrDRsADnkNFe4PSE3kjnazob8Wl5c8
+rgmC44OSxc92rk/VnI1sHOsrJdE/KfkzDMcyQT60aramQaEYHEVa5vgnqRiJYXna
+Euk1xHiT2zzfbkZCbSucvaMmpsgPlx3HBtUJdkbl1X/CFHd38iHW+je8aa/6CUBA
+0Hj/piCweET4reqw5yqCwtzpyZYVTd3OkU82irhv8IGlZ6uBqoikJd5JvAdtNqrG
+I98ylmZjMEGw9HEOM0jx72YCm8f/j8Cej7ZLCK3dmUS037nXTOYdkj/lNwh23GKq
+JbO1bfslwe78ff0VjETuZWBBRSIjv4PNA/rw19MIiZEGK9GRrI8wccFrur8PMnhf
+TUqbItq8442Ko8saLTtuM8at/flbiYtM0vavX6Wl6e3rhyWiGkY=
+=y7zR
 -----END PGP SIGNATURE-----
 
---4GP2t+HV7BOtNDkN--
+--uGjoq4E5xIQDLuZu--
 
