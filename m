@@ -1,156 +1,117 @@
-Return-Path: <linux-man+bounces-11-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-8-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4335C7E7F25
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:50:08 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93DF57E7EF9
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 18:48:57 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F086E281A83
-	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:50:06 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 46BEE281A07
+	for <lists+linux-man@lfdr.de>; Fri, 10 Nov 2023 17:48:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A1FF3D991;
-	Fri, 10 Nov 2023 17:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 296D121A1F;
+	Fri, 10 Nov 2023 17:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKP1J1+p"
+	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="AyCQIjLm"
 X-Original-To: linux-man@vger.kernel.org
 Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD543D3B3
-	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:47:03 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC80B2B78E
-	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:05:42 -0800 (PST)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390B8C433C7;
-	Fri, 10 Nov 2023 11:05:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699614342;
-	bh=93pgmRVJc07oxll/QrE+FIJFHMoJdtUJ2+hKs4uUn54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MKP1J1+paU/vAEc77I+J0es5mMZun11DM1hDMYcnfglyaYvllDTS0Li/3ec+gVzs/
-	 HiXjdiDQZ9H7PrTJaaUQPSxCE2X6uelGbx4v8CxR+MGtFLrwk/5yILH2ux0AFxxxiH
-	 HZFeByvxIDEu6MPWf3wmutz3p6qe2g39peSiZugufQtg9omyr7vJB/Mm4KmNeUREo2
-	 oZTZNneX9sAkjnua5eUfrNpAGV/cPe+Yxxomm4jVlN1FsmN54dJj6VIv7F2jxTUeBP
-	 83Ev7Q130XO7vfVxjO8D9ANIgRBkaWKMbbu4CQeqiUwJGkJGxARhJ/wne8ADsuaEpW
-	 aTAOw5lIQ9c0g==
-Date: Fri, 10 Nov 2023 12:05:31 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
-	linux-man <linux-man@vger.kernel.org>,
-	GNU C Library <libc-alpha@sourceware.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZU4OgiVSyM98EHVN@debian>
-References: <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
- <ZUo6btEFD_z_3NcF@devuan>
- <20231108021240.176996-1-mattlloydhouse@gmail.com>
- <ZUvilH5kuQfTuZjy@debian>
- <20231109031345.245703-1-mattlloydhouse@gmail.com>
- <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
- <ZUzEw2j6gHF5WtsO@debian>
- <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
- <ZU1v-JKBP9iWXOOT@debian>
- <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913303B29F
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 17:46:50 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C644A5E9
+	for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:06:48 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id 5b1f17b1804b1-40859c466efso13711335e9.3
+        for <linux-man@vger.kernel.org>; Fri, 10 Nov 2023 03:06:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google; t=1699614407; x=1700219207; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=D5fxKb0h6GfVCcvhlT/egQ3j3WAvxElS/dene/XITCQ=;
+        b=AyCQIjLmvdof5hlKsZwDRLF+oAkFa5lDuRjoVZncNoSBbZ/FMrrIGzk5pPIm99cZEx
+         dudqFzd7veXiHH1OkZcL0J/ZuRFrhYW89uVG+wD1AyCp3jOIjXy+jy7QEfmix+f9p+B4
+         IL6KduEqIWDxW6YOCI3l1SSBkjhSMOP9m6JacS7VBBAcwBJ2in6F+9WI2869ONGpoUax
+         gIpINnMOW8Tevn77xljAQs7Up/R/bIiYJ7mCt2+eOOnWbgUY40Rl9jt0dHoZ5Me6LFeC
+         1wLH0BAyH+FHdkc9n/WlgCSO6t2Hs2ByicHK73UN199ohMwXpfUkmxkHIlkxDgWJcVRE
+         TwZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699614407; x=1700219207;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=D5fxKb0h6GfVCcvhlT/egQ3j3WAvxElS/dene/XITCQ=;
+        b=e9W7665D+X7iAPvogUTiRiA3v5xcH91K1Pr9ANnu8QJ5dCnd5w9dK/masiE5hLZ8BN
+         Q1S2lz5P15HIByKzJqBC9j+/s5C+2DIS8AYc51VPqycntJD2yXGGpEQfTra/K2VBJ9Q5
+         6YFBI38XmRuL+X2BZacKiHLLe+T3ZDuz/c15L9eMOo2ty0R5r0n7/3OABGbd4Q0mj/7H
+         NPNrclINEhf4fO2MNAKMAfbDiKUoK3wa015/1u2HN7RGx8DGVNYI+xYe7xAf6NL06cD5
+         DpQqPeQmffqZRuQElLcpeFqcpn1bWaMNIKSo4ZOAPbs7hOUdFy0c60rADwOdfCqxrko/
+         SwVA==
+X-Gm-Message-State: AOJu0Yxgr8Ap7B8VcW6nJtXtFuUej9FjOqrWbssXc+6TSXZ5Fbu2L4Xt
+	OMZE17dSlxsfaHLKrO25EKiPdPZaj70o9/AHafQ=
+X-Google-Smtp-Source: AGHT+IHMfnaJKbRPnYfaf2oWVZ1i+lySMn6mA6mw+NYzqyC5sHGvmFpfQIFn5DsoxT5oAyxB51AAhQ==
+X-Received: by 2002:adf:f84d:0:b0:32d:a4c9:8ab4 with SMTP id d13-20020adff84d000000b0032da4c98ab4mr5349834wrq.65.1699614406827;
+        Fri, 10 Nov 2023 03:06:46 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id h8-20020adffa88000000b0032d9337e7d1sm1682034wrr.11.2023.11.10.03.06.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Nov 2023 03:06:46 -0800 (PST)
+Message-ID: <766ffee7-bd3d-4463-9b68-0c4e0814419f@jguk.org>
+Date: Fri, 10 Nov 2023 11:06:45 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RoZIyWImXD3bVNqn"
-Content-Disposition: inline
-In-Reply-To: <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu>
-
-
---RoZIyWImXD3bVNqn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Nov 2023 12:05:31 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
-	linux-man <linux-man@vger.kernel.org>,
-	GNU C Library <libc-alpha@sourceware.org>
+User-Agent: Mozilla Thunderbird
 Subject: Re: strncpy clarify result may not be null terminated
+Content-Language: en-GB
+To: Stefan Puiu <stefan.puiu@gmail.com>, Alejandro Colomar <alx@kernel.org>
+Cc: Matthew House <mattlloydhouse@gmail.com>,
+ linux-man <linux-man@vger.kernel.org>,
+ GNU C Library <libc-alpha@sourceware.org>
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan> <20231108021240.176996-1-mattlloydhouse@gmail.com>
+ <ZUvilH5kuQfTuZjy@debian>
+ <CACKs7VDsTdSNwbC6+2LtQ67J_eJiD814xkw2_5XM1Q=iMjLXJA@mail.gmail.com>
+From: Jonny Grant <jg@jguk.org>
+In-Reply-To: <CACKs7VDsTdSNwbC6+2LtQ67J_eJiD814xkw2_5XM1Q=iMjLXJA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
 
-On Thu, Nov 09, 2023 at 09:36:43PM -0800, Paul Eggert wrote:
-> On 2023-11-09 15:48, Alejandro Colomar wrote:
-> > I'd then just use strlen(3)+strcpy(3), avoiding
-> > strncpy(3).
 
-Heh, brain fart on my side.
+On 10/11/2023 10:40, Stefan Puiu wrote:
+> Hi Alex,
+> 
+> On Wed, Nov 8, 2023 at 9:33 PM Alejandro Colomar <alx@kernel.org> wrote:
+> [.....]
+>> strncpy(3):
+>> CAVEATS
+>>      The  name  of  these  functions  is confusing.  These functions produce a
+>>      null‐padded character sequence, not a string (see string_copying(7)).
+> 
+> I'm a bit confused by this distinction. Isn't a null-padded sequence
+> technically also null-terminated? If there's a '0' at the end, then
+> it's a string, in my understanding. Or was the intention to say "a
+> character sequence that may be null-padded", where the case in which
+> there's no padding at all being the reason for the distinction?
 
->=20
-> But that is vulnerable to the same denial-of-service attack that strlcpy =
-is
-> vulnerable to. You'd need strnlen+strcpy instead.
->=20
-> The strncpy approach I suggested is simpler, and (though this doesn't mat=
-ter
+This is a null padded sequence of characters in an array:
 
-Yeah, although you can always wrap strnlen(3)+memcpy(3) in a strxcpy()
-inline function and have it even simpler.
+char buf[4] = {'a', '\0', '\0', '\0'};
 
-Rewriting the strxcpy() wrapper I wrote the other day to not be
-vulnerable to DoS, and hoping I get it right today.
+I'm sure we are all well aware from this long email thread, strncpy is designed to fill fixed sized arrays, and pad with NUL bytes '\0' if any space left. Otherwise, the array buffer is left not padded.. there in lies the trouble, a possibly not terminated sequence of characters. Someone thought saving the extra byte was a good idea. It would have been better if that programmer had crafted their own local function rather than put out the strncpy function which is similarly named to strcpy(), they could have called it copy_to_array_nul_pad().
 
-[[nodiscard]]
-inline ssize_t
-strxcpy(char *restrict dst, const char *restrict src, size_t dsize)
-{
-	size_t  slen;
+// a not terminated array - using printf, or strlen will carry on reading off down the memory until it finds a NUL byte '\0', perhaps reading out side the addressable space of the process, causing a SEGV.
+char buf[4] = {'a', 'b', 'c', 'd'};
 
-	slen =3D strnlen(src, dsize);
-	if (slen >=3D dsize)
-		return -1;
+Hope that helps.
 
-	memcpy(dst, src, slen + 1);
-
-	return slen;
-}
-
-Hopefully, it won't be so bad in terms of performance.  And it is still
-protected by fortification of memcpy(3).  And thanks to [[nodiscard]],
-it should be hard to misuse.
-
-> much in practice) is typically significantly faster than strnlen+strcpy in
-> the typical case where the destination is a small fixed-size buffer.
->=20
-> Although strncpy is not a good design, it's often simpler or faster or sa=
-fer
-> than later "improvements".
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---RoZIyWImXD3bVNqn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVODnsACgkQnowa+77/
-2zKdBA//Slh4XFwUaBhhONl1FjH7QbYtC/Wso5sV5One/taLu2JqcJWtI/uODqPI
-ZyZtwANYX+ptJOp2qCb0Fb3sfX+0pJ5l7tM5GfPl1dg1kqvdzlFt4iwSkpXPM2jQ
-veNEUbBjerF90F2RqiKlu2nMEiP5tq2aDTTZoEgxfjpd6Cv7TeBlOFYOmD9N2+aC
-qFE440Osn3qVIgTwoPJBJeRbR9TVjpBDPrbbAK0eTdihF1E3TLttS6dLpk+/A92I
-7FGCsUodW7UMGTLjlBMxcoh15UZ5zHhLDyRuVPS9U6vBfCe4DKUBPFNHtXTVoAKK
-GKvA3fg2vaPaggbiG2YJyFeenSvJ+5TlJGgREXeEj1//58HkOcAuC/VbjMNgKHCE
-E3Y+b2LwoZNW1kb/Xj0ulKD5+VzOglFVTz/j27QT8kwr4CIHwZKOz81+PQoRC6sZ
-FDqKMKcRlPaEn38lc1BX6FzOSKXAXv6Srr9lZliBtq5E6OqjE/hHnWeoxgSpL8E4
-HCo+uekM6LHsKZjMg5ixPr46DpYMsMe2px/u8tqGicx+nJ1NZg5COTkC4HBpCC61
-eYY8clvNMmzaNfaeQJnfhEeU4S908FfpM4tHGTYTmyMdSgoMKyLC9oL/PpDYAS4z
-ATy/ZotNKAoSwfUbT2Ivc52uWOdpqITp65kkfkctL2YI79MMSeQ=
-=s83K
------END PGP SIGNATURE-----
-
---RoZIyWImXD3bVNqn--
+Kind regards, Jonny
 
