@@ -1,439 +1,141 @@
-Return-Path: <linux-man+bounces-36-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-37-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3EF7E8CCD
-	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 22:13:58 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 386027E8CCE
+	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 22:15:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 222491C203DF
-	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 21:13:57 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EEDB7280DFE
+	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 21:15:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCA021DA23;
-	Sat, 11 Nov 2023 21:13:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC56D1DA23;
+	Sat, 11 Nov 2023 21:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWX2M4+4"
+	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="CEY0ulLo"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1D51DA22
-	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 21:13:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A26C433C7;
-	Sat, 11 Nov 2023 21:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699737230;
-	bh=iuccGdIyxsiYDhnuydqe/QOT6GrWtBjJu8gbkTAfhFw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OWX2M4+4dp7ZHgAUSh0NcwS/n9+sFXvThb7y70QW0S/gdkioN/uZHW75+f1GcvqwM
-	 VeWOg65U5whVzwnhSSVtoiV9hd2uKe7cBRhjSsdTQxDK9zOUgfxOQ5tTJPf8CTDHI2
-	 sB2f+tVt/IVz/UhdhVxyvhMNCiCa5ag0b1rcy7KmV1j1G2+5omSs16EJxNZR6WmqSF
-	 OKqr/mRcqPsgJEyp4Xpn96wZV6EoK7Glpy5KJSYnvNmGtkBrm+htg/lNA4OyZ2143r
-	 3k7auuOEcgc1h22a7dteBom85Z72VcmtBvpRK8h9ulaYo0YvkLxSkYdrN8Cgb8P1LA
-	 TxOqOO6vRfqxA==
-Date: Sat, 11 Nov 2023 22:13:40 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
-	linux-man <linux-man@vger.kernel.org>,
-	GNU C Library <libc-alpha@sourceware.org>
-Subject: Re: strncpy clarify result may not be null terminated
-Message-ID: <ZU_ui2gbSBrTKXnX@debian>
-References: <20231109031345.245703-1-mattlloydhouse@gmail.com>
- <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org>
- <ZUzEw2j6gHF5WtsO@debian>
- <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu>
- <ZU1v-JKBP9iWXOOT@debian>
- <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu>
- <ZU4OgiVSyM98EHVN@debian>
- <a64f4aa6-bca2-4dc0-8dc2-ac3de95b55ee@cs.ucla.edu>
- <ZU6KCkN1-dgszJJy@debian>
- <49daa0a7-291a-44f3-a2dd-cf5fb26c6df2@cs.ucla.edu>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D5F1DA22
+	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 21:15:17 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5C3E430D1
+	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 13:15:15 -0800 (PST)
+Received: by mail-wm1-x332.google.com with SMTP id 5b1f17b1804b1-40806e4106dso18468735e9.1
+        for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 13:15:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google; t=1699737314; x=1700342114; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to:from
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zGlS4U6h68p8BPjOaFkfLXAtaDhgpIYwkeeAlt6Y8Pw=;
+        b=CEY0ulLo6OhQjEaWvVTnmTMN8cXOQVlkAhGEiUfmUssVXqAgg7RujSsNoVqH5+SB4P
+         lMvAX7547OafgCLzJbPmm4eC/hiAtAebJw6gkmCOAt5PLmDELT+CnOQPl/O56vhp/gVP
+         9bSN6hvvgKx0tjK1Jt6ncIydZaxQxgNhv1r+0LVOzRTYMPt4LNuGHMX8x2fg4lUVexOJ
+         j3gM9iwRsF3vinK0wG9QYhQilPzPP7H3sC7gU53mSmsQJch/65WNAt2Jf6n0sBYrlAGA
+         gMceczVjEeaDSrPpZnzVJpo1BVCPwv6pSIHBRUOpzfPfCmaNiC7nmEaKNdRLv47Wxqst
+         VVKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699737314; x=1700342114;
+        h=content-transfer-encoding:in-reply-to:references:cc:to:from
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zGlS4U6h68p8BPjOaFkfLXAtaDhgpIYwkeeAlt6Y8Pw=;
+        b=j+jqvDq/d0BwhN6+WkBH4haAg7/Kkf8irRv+G/EwnXRLNRFOdVhC8K238IDHi767N1
+         2IA2yEhTAzoec+wnuJC69kGVk0DQJvO1Sm0VtinqVTIkUy6OOSFdhRw8gj4jSkCwOARm
+         cKIaHa6/KR/Vmd+Py5lfxcIyrMr/gbjGtkDSd2ZigK1tSDk+W+6q5wmRnlEfJn6QoXw2
+         NLL2RnoJXsf4SUxLzUWZ5KtdwAtz2zncKTIWRXl1Bc7vWOE+FP89nUVikWaJ6T86J2ES
+         T9TgvWeB5hHFn7vNaVO1OFHEUgxGzLhK3EwThVMDzVDfXvD3pOaqZv4SyGLG+TFY02D3
+         w3fQ==
+X-Gm-Message-State: AOJu0YzLU9deQQ7Amn/3lsV5VeV0oHAXSGywIr4ZD2tUmti3KVwbKh3t
+	K2ANgEjOkvBUKagHOMqzU1u5UQ==
+X-Google-Smtp-Source: AGHT+IEo+OfpRsFnDauQJ1DeD8dZoL/lpbmEKv/2NdGRGLHF1vomWgU3keVi6gP82jEuoyLKevwgbA==
+X-Received: by 2002:a1c:740d:0:b0:405:29ba:9b5c with SMTP id p13-20020a1c740d000000b0040529ba9b5cmr6059580wmc.16.1699737313610;
+        Sat, 11 Nov 2023 13:15:13 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id p11-20020a05600c1d8b00b003fe15ac0934sm6636606wms.1.2023.11.11.13.15.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Nov 2023 13:15:13 -0800 (PST)
+Message-ID: <bb41a959-eb58-4376-b2b7-6b6ad7a7dd5a@jguk.org>
+Date: Sat, 11 Nov 2023 21:15:12 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sHKW1nyPt+KqsHWU"
-Content-Disposition: inline
-In-Reply-To: <49daa0a7-291a-44f3-a2dd-cf5fb26c6df2@cs.ucla.edu>
-
-
---sHKW1nyPt+KqsHWU
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Nov 2023 22:13:40 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
-	linux-man <linux-man@vger.kernel.org>,
-	GNU C Library <libc-alpha@sourceware.org>
+User-Agent: Mozilla Thunderbird
 Subject: Re: strncpy clarify result may not be null terminated
+Content-Language: en-GB
+From: Jonny Grant <jg@jguk.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
+ <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
+ <ZUo6btEFD_z_3NcF@devuan> <20231108021240.176996-1-mattlloydhouse@gmail.com>
+ <ZUvilH5kuQfTuZjy@debian> <20231109031345.245703-1-mattlloydhouse@gmail.com>
+ <ZUzPNydLkFPEvvsa@debian> <20231110160602.352085-1-mattlloydhouse@gmail.com>
+ <fb0e2940-3446-4d44-95d7-f7be1f26096f@jguk.org>
+In-Reply-To: <fb0e2940-3446-4d44-95d7-f7be1f26096f@jguk.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Paul,
-
-On Fri, Nov 10, 2023 at 02:14:13PM -0800, Paul Eggert wrote:
-> On 2023-11-10 11:52, Alejandro Colomar wrote:
->=20
-> > Do you have any numbers?
->=20
-> It depends on size of course. With programs like 'tar' (one of the few
-> programs that actually needs something like strncpy) the destination buff=
-er
-> is usually fairly small (32 bytes or less) though some of them are 100
-> bytes. I used 16 bytes in the following shell transcript:
->=20
-> $ for i in strnlen+strcpy strnlen+memcpy strncpy stpncpy strlcpy; do echo;
-> echo $i:; time ./a.out 16 100000000 abcdefghijk $i; done
->=20
-> strnlen+strcpy:
->=20
-> real	0m0.411s
-> user	0m0.411s
-> sys	0m0.000s
->=20
-> strnlen+memcpy:
->=20
-> real	0m0.392s
-> user	0m0.388s
-> sys	0m0.004s
->=20
-> strncpy:
->=20
-> real	0m0.300s
-> user	0m0.300s
-> sys	0m0.000s
->=20
-> stpncpy:
->=20
-> real	0m0.326s
-> user	0m0.326s
-> sys	0m0.000s
->=20
-> strlcpy:
->=20
-> real	0m0.623s
-> user	0m0.623s
-> sys	0m0.000s
->=20
->=20
-> ... where a.out was generated by compiling the attached program with gcc =
--O2
-> on Ubuntu 23.10 64-bit on a Xeon W-1350.
->=20
-> I wouldn't take these numbers all that seriously, as microbenchmarks like
-> these are not that informative these days. Still, for a typical case one
-> should not assume strncpy must be slower merely because it has more work =
-to
-> do; quite the contrary.
-
-Thanks for the benchmarck!  Yeah, I won't take it as the last word, but
-it shows the growth order (and its cause) of the different alternatives.
-
-I'd like to point out some curious things about it:
-
--  strnlen+strcpy is slower than strnlen+memcpy.
-
-   The compiler has all the information necessary here, so I don't see
-   why it's not optimizing out the strcpy(3) into a simple memcpy(3).
-   AFAICS, it's a missed optimization.  Even with -O3, it misses the
-   optimization.
-
--  strncpy is slower than stpncpy in my computer.
-
-   stpncpy is in fact the fastest call in my computer.
-
-   Was strncpy(3) optimized in a recent version of glibc that you have?
-   I'm using Debian Sid on an underclocked i9-13900T.  Or is it maybe
-   just luck?  I'm curious.
-
-	$ for i in strnlen+strcpy strnlen+memcpy strncpy stpncpy memccpy strlcpy; =
-do
-		echo; echo $i:;
-		time ./a.out 16 100000000 abcdefghijk $i;
-	  done;
-
-	strnlen+strcpy:
-
-	real	0m0.188s
-	user	0m0.184s
-	sys	0m0.004s
-
-	strnlen+memcpy:
-
-	real	0m0.148s
-	user	0m0.148s
-	sys	0m0.000s
-
-	strncpy:
-
-	real	0m0.157s
-	user	0m0.157s
-	sys	0m0.000s
+Alejandro
 
-	stpncpy:
+I was reading again
+https://man7.org/linux/man-pages/man7/string_copying.7.html
 
-	real	0m0.135s
-	user	0m0.135s
-	sys	0m0.000s
+Sharing some comments, I realise not latest man page, if you have a new one online I could read that. I was reading man-pages 6.04, perhaps some already updated.
 
-	memccpy:
 
-	real	0m0.208s
-	user	0m0.208s
-	sys	0m0.000s
+A) Could simplify and remove the "This function" and "These functions" that start each function description.
 
-	strlcpy:
+B) "RETURN VALUE" has the text before each function, rather than after as would be the convention from "DESCRIPTION", I suggest to move the return value text after each function name.
 
-	real	0m0.322s
-	user	0m0.322s
-	sys	0m0.000s
+Could make it like https://man7.org/linux/man-pages/man3/string.3.html
 
--  strlcpy(3) is very heavy.  Much more than I expected.  See some tests
-   with larger strings.  The main growth of strlcpy(3) comes from slen.
+C) In the examples, it's good stpecpy() checks for NULL pointers, the other's don't yet though.
 
-	$ for i in strnlen+strcpy strnlen+memcpy strncpy stpncpy memccpy strlcpy; =
-do
-		echo; echo $i:;
-		time ./a.out 64 100000000 aaaabbbbaaaaccccaaaabbbbaaaadddd $i;
-	  done;
+D) strlcpy says
+"These functions force a SIGSEGV if the src pointer is not a string."
+How does it determine the pointer isn't a string?
 
-	strnlen+strcpy:
+E) Are these functions mentioned like ustpcpy() standardized by POSIX? or in use in a libc?
 
-	real	0m0.242s
-	user	0m0.242s
-	sys	0m0.000s
+F) 
+char *stpncpy(char dst[restrict .sz], const char *restrict src,
+                      size_t sz);
+I know the 'restrict' keyword, but haven't seen this way it attempts to specify the size of the 'dst' array by using the parameter 'sz' is this in wide use in APIs? I remember C11 let us specify  char ptr[static 1] to say the pointer must be at least 1 element in this example
 
-	strnlen+memcpy:
+Saw a few pages started to write out functions like
+size_t strnlen(const char s[.maxlen], size_t maxlen);
 
-	real	0m0.190s
-	user	0m0.186s
-	sys	0m0.004s
+Is this just for documentation? usually it would be: const char s[static maxlen]
 
-	strncpy:
+G) "Because these functions ask for the length, and a string is by
+nature composed of a character sequence of the same length plus a
+terminating null byte, a string is also accepted as input."
 
-	real	0m0.174s
-	user	0m0.173s
-	sys	0m0.000s
+I suggest to adjust the order so it doesn't start with a fragment:
 
-	stpncpy:
+"A string is also accepted as input, because these functions ask
+for the length, and a string is by nature composed of a character
+sequence of the same length plus a terminating null byte."
 
-	real	0m0.170s
-	user	0m0.166s
-	sys	0m0.004s
+Could simplify and remove "by nature".
 
-	memccpy:
+Unrelated man page strncpy, noticed this.
 
-	real	0m0.253s
-	user	0m0.249s
-	sys	0m0.004s
+SEE ALSO
+Could this refer to strcpy(3) and string(3) at the bottom?
+https://man7.org/linux/man-pages/man3/strncpy.3.html
 
-	strlcpy:
+With kind regards
+Jonny
 
-	real	0m1.385s
-	user	0m1.385s
-	sys	0m0.000s
 
--  strncpy(3) also gets heavy compared to strnlen+memcpy.
-   Considering how small the difference with memcpy is for small
-   strings, I wouldn't recommend it instead of memcpy, except for
-   micro-optimizations.  The main growth of strncpy(3) comes from dsize.
 
-	$ for i in strnlen+strcpy strnlen+memcpy strncpy stpncpy memccpy strlcpy; =
-do
-		echo; echo $i:;
-		time ./a.out 256 100000000 aaaabbbbaaaaccccaaaabbbbaaaadddd $i;
-	  done;
-
-	strnlen+strcpy:
-
-	real	0m0.234s
-	user	0m0.233s
-	sys	0m0.001s
-
-	strnlen+memcpy:
-
-	real	0m0.192s
-	user	0m0.192s
-	sys	0m0.000s
-
-	strncpy:
-
-	real	0m0.268s
-	user	0m0.268s
-	sys	0m0.000s
-
-	stpncpy:
-
-	real	0m0.267s
-	user	0m0.267s
-	sys	0m0.000s
-
-	memccpy:
-
-	real	0m0.257s
-	user	0m0.256s
-	sys	0m0.001s
-
-	strlcpy:
-
-	real	0m1.574s
-	user	0m1.574s
-	sys	0m0.000s
-
-	$ for i in strnlen+strcpy strnlen+memcpy strncpy stpncpy memccpy strlcpy; =
-do
-		echo; echo $i:;
-		time ./a.out 4096 100000000 aaaabbbbaaaaccccaaaabbbbaaaadddd $i;
-	  done;
-
-	strnlen+strcpy:
-
-	real	0m0.227s
-	user	0m0.227s
-	sys	0m0.000s
-
-	strnlen+memcpy:
-
-	real	0m0.190s
-	user	0m0.190s
-	sys	0m0.000s
-
-	strncpy:
-
-	real	0m1.400s
-	user	0m1.399s
-	sys	0m0.000s
-
-	stpncpy:
-
-	real	0m1.398s
-	user	0m1.398s
-	sys	0m0.000s
-
-	memccpy:
-
-	real	0m0.256s
-	user	0m0.256s
-	sys	0m0.000s
-
-	strlcpy:
-
-	real	0m1.184s
-	user	0m1.184s
-	sys	0m0.000s
-
-
--  strnlen(3)+memcpy(3) becomes the fastest when dsize grows a bit over
-   a few hundred bytes, and is only a few 10%'s slower than the fastest
-   for smaller buffers.
-
-   It is also the most semantically correct (together with
-   strnlen+strcpy), avoiding unnecessary dead code (padding).  This
-   should get the main backing from the manual pages.
-
-   However, it can be useful to document typical alternatives to prevent
-   mistakes from users.  Especially, since some micro-optimizations may
-   favor uses of strncpy(3).
-
-Cheers,
-Alex  =20
-
-> #include <stdlib.h>
-> #include <string.h>
->=20
->=20
-> int
-> main (int argc, char **argv)
-> {
->   if (argc !=3D 5)
->     return 2;
->   long bufsize =3D atol (argv[1]);
->   char *buf =3D malloc (bufsize);
->   long n =3D atol (argv[2]);
->   char const *a =3D argv[3];
->   if (strcmp (argv[4], "strnlen+strcpy") =3D=3D 0)
->     {
->       for (long i =3D 0; i < n; i++)
-> 	{
-> 	  if (strnlen (a, bufsize) =3D=3D bufsize)
-> 	    return 1;
-> 	  strcpy (buf, a);
-> 	}
->     }
->   else if (strcmp (argv[4], "strnlen+memcpy") =3D=3D 0)
->     {
->       for (long i =3D 0; i < n; i++)
-> 	{
-> 	  size_t alen =3D strnlen (a, bufsize);
-> 	  if (alen =3D=3D bufsize)
-> 	    return 1;
-> 	  memcpy (buf, a, alen + 1);
-> 	}
->     }
->   else if (strcmp (argv[4], "strncpy") =3D=3D 0)
->     {
->       for (long i =3D 0; i < n; i++)
-> 	if (strncpy (buf, a, bufsize)[bufsize - 1])
-> 	  return 1;
->     }
->   else if (strcmp (argv[4], "stpncpy") =3D=3D 0)
->     {
->       for (long i =3D 0; i < n; i++)
-> 	if (stpncpy (buf, a, bufsize) =3D=3D buf + bufsize)
-> 	  return 1;
->     }
-
-I've added the following one for completeness.  Especially now that
-it'll be in C2x.
-
-  else if (strcmp (argv[4], "memccpy") =3D=3D 0)
-    {
-      for (long i =3D 0; i < n; i++)
-	if (memccpy (buf, a, 0, bufsize) =3D=3D NULL)
-	  return 1;
-    }
-
->   else if (strcmp (argv[4], "strlcpy") =3D=3D 0)
->     {
->       for (long i =3D 0; i < n; i++)
-> 	if (strlcpy (buf, a, bufsize) =3D=3D bufsize)
-
-This should have been >=3D bufsize, right?
-
-> 	  return 1;
->     }
->   else
->     return 2;
-> }
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---sHKW1nyPt+KqsHWU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVP7oQACgkQnowa+77/
-2zK/WBAAjgMGK/eYw2XVKJPc9ZnnWpREmNwHteMznPWxlw5r8uUe/MeHtiujaZ01
-s4BuBnJQTrro8PQN8B6yK2oLcHO4VwfUIfsj4I6GSNJzAVrzs9N0EFfYV7ZoXkNk
-BbJggAAfWX7MfKux2tmx9B8MwnUE3Lxfk8B1SzYct2FK3HeurmuXAb1n36sGyjjH
-D2Cl2WA/norQZTjE62Sba2F9Ij7hMJwEbvQVrYy22hrUP29pohX7ZayoYtl57x1b
-3lg3/ebGoTo2yMBPdyAGB32CskBgPa00C1e/Bt00xrzNqQ/LfeaFJ3DUqtLUg7i2
-GONoJ7yqrQuNkVc6cpPhWGJvroWjm41di02TpUk5hsOeTLu6qRkncp0gr2Fhe19E
-/lBm98hyLAc1VJk2hi475rE4zPX/TteOlIzweSvBqfengYs2VNmQzazpk9MRyfqN
-Blei3//877ejzsPtWYrxs6oaAFp17BQCs70EG3FbU4zvflb1Z8/HUB00xUPnQDja
-y+zV4cCOn8F+XxVpgI78ZGYsaiug65oGRQ3d5Kz1LF/x/6GRbQSQ+nlyKzMhFg2+
-n4TJjxqj7f0t0niSIk9idB7FbWe5mRu68uzVNPDxZ9j7FapvtMe1P8VNhmZm4CM5
-Es2NQ7g7Y0Gu9otQ5xn4reUpKVKNH+2lGOi6rym0+ZEhT/4aZFg=
-=m3ub
------END PGP SIGNATURE-----
-
---sHKW1nyPt+KqsHWU--
 
