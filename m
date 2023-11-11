@@ -1,65 +1,57 @@
-Return-Path: <linux-man+bounces-37-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-38-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 386027E8CCE
-	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 22:15:23 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA16F7E8D19
+	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 23:20:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EEDB7280DFE
-	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 21:15:21 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 78F751F20F8B
+	for <lists+linux-man@lfdr.de>; Sat, 11 Nov 2023 22:20:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC56D1DA23;
-	Sat, 11 Nov 2023 21:15:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D28361DA33;
+	Sat, 11 Nov 2023 22:20:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="CEY0ulLo"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="RGMGbIGC"
 X-Original-To: linux-man@vger.kernel.org
 Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D5F1DA22
-	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 21:15:17 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5C3E430D1
-	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 13:15:15 -0800 (PST)
-Received: by mail-wm1-x332.google.com with SMTP id 5b1f17b1804b1-40806e4106dso18468735e9.1
-        for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 13:15:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1699737314; x=1700342114; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zGlS4U6h68p8BPjOaFkfLXAtaDhgpIYwkeeAlt6Y8Pw=;
-        b=CEY0ulLo6OhQjEaWvVTnmTMN8cXOQVlkAhGEiUfmUssVXqAgg7RujSsNoVqH5+SB4P
-         lMvAX7547OafgCLzJbPmm4eC/hiAtAebJw6gkmCOAt5PLmDELT+CnOQPl/O56vhp/gVP
-         9bSN6hvvgKx0tjK1Jt6ncIydZaxQxgNhv1r+0LVOzRTYMPt4LNuGHMX8x2fg4lUVexOJ
-         j3gM9iwRsF3vinK0wG9QYhQilPzPP7H3sC7gU53mSmsQJch/65WNAt2Jf6n0sBYrlAGA
-         gMceczVjEeaDSrPpZnzVJpo1BVCPwv6pSIHBRUOpzfPfCmaNiC7nmEaKNdRLv47Wxqst
-         VVKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699737314; x=1700342114;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zGlS4U6h68p8BPjOaFkfLXAtaDhgpIYwkeeAlt6Y8Pw=;
-        b=j+jqvDq/d0BwhN6+WkBH4haAg7/Kkf8irRv+G/EwnXRLNRFOdVhC8K238IDHi767N1
-         2IA2yEhTAzoec+wnuJC69kGVk0DQJvO1Sm0VtinqVTIkUy6OOSFdhRw8gj4jSkCwOARm
-         cKIaHa6/KR/Vmd+Py5lfxcIyrMr/gbjGtkDSd2ZigK1tSDk+W+6q5wmRnlEfJn6QoXw2
-         NLL2RnoJXsf4SUxLzUWZ5KtdwAtz2zncKTIWRXl1Bc7vWOE+FP89nUVikWaJ6T86J2ES
-         T9TgvWeB5hHFn7vNaVO1OFHEUgxGzLhK3EwThVMDzVDfXvD3pOaqZv4SyGLG+TFY02D3
-         w3fQ==
-X-Gm-Message-State: AOJu0YzLU9deQQ7Amn/3lsV5VeV0oHAXSGywIr4ZD2tUmti3KVwbKh3t
-	K2ANgEjOkvBUKagHOMqzU1u5UQ==
-X-Google-Smtp-Source: AGHT+IEo+OfpRsFnDauQJ1DeD8dZoL/lpbmEKv/2NdGRGLHF1vomWgU3keVi6gP82jEuoyLKevwgbA==
-X-Received: by 2002:a1c:740d:0:b0:405:29ba:9b5c with SMTP id p13-20020a1c740d000000b0040529ba9b5cmr6059580wmc.16.1699737313610;
-        Sat, 11 Nov 2023 13:15:13 -0800 (PST)
-Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id p11-20020a05600c1d8b00b003fe15ac0934sm6636606wms.1.2023.11.11.13.15.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Nov 2023 13:15:13 -0800 (PST)
-Message-ID: <bb41a959-eb58-4376-b2b7-6b6ad7a7dd5a@jguk.org>
-Date: Sat, 11 Nov 2023 21:15:12 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197221DFC6
+	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 22:20:35 +0000 (UTC)
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8384530D6
+	for <linux-man@vger.kernel.org>; Sat, 11 Nov 2023 14:20:34 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 367333C011BE4;
+	Sat, 11 Nov 2023 14:20:34 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id qqshw9v08ptS; Sat, 11 Nov 2023 14:20:33 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id AF9A13C011BE5;
+	Sat, 11 Nov 2023 14:20:33 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu AF9A13C011BE5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699741233;
+	bh=ZrewXse9Dqgzenz3h2mQYShSiSuga+u7w19QkcdjEYE=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=RGMGbIGCCV+vKIUtM6RhbEK9hw2dzx4/8YbHy+zyROCwOScjby9zdhoFBK6MvBps5
+	 GrPk5AfaT+F9XWoCVEYm851YTXagH2mCDsRVq2EtRCbJ521QIG1gaNpDFu6/VwndTt
+	 yFhkyMfD3W9XEFmeJGz5xLrpA/SHL+2+j4AwFmuwO5kWYAUeoNHWZ/mkUIrUKzuCui
+	 NJA/KaNGt0A8BGslhOTOTXDmWCg010ejMulYrpfuS6mITPnqANBsZY0cWmza8mU9/G
+	 MZUH7ypFl2nYwAsTKNmhHJaXLDtR5UM02LuIAsYbjwNGhlnKEQllv1DFdvmfo5JFDV
+	 4HWhpYd56PKGQ==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 2lZtOKpAo3Ci; Sat, 11 Nov 2023 14:20:33 -0800 (PST)
+Received: from [192.168.254.12] (unknown [47.148.192.211])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 8C6AC3C011BE4;
+	Sat, 11 Nov 2023 14:20:33 -0800 (PST)
+Message-ID: <69e6298a-9ddf-4a8e-ba8b-84da9410510c@cs.ucla.edu>
+Date: Sat, 11 Nov 2023 14:20:33 -0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,74 +60,29 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: strncpy clarify result may not be null terminated
-Content-Language: en-GB
-From: Jonny Grant <jg@jguk.org>
+Content-Language: en-US
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man <linux-man@vger.kernel.org>
-References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
- <ZUacobMq0l_O8gjg@debian> <aeb55af5-1017-4ffd-9824-30b43d5748e3@jguk.org>
- <ZUgl2HPJvUge7XYN@debian> <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org>
- <ZUo6btEFD_z_3NcF@devuan> <20231108021240.176996-1-mattlloydhouse@gmail.com>
- <ZUvilH5kuQfTuZjy@debian> <20231109031345.245703-1-mattlloydhouse@gmail.com>
- <ZUzPNydLkFPEvvsa@debian> <20231110160602.352085-1-mattlloydhouse@gmail.com>
- <fb0e2940-3446-4d44-95d7-f7be1f26096f@jguk.org>
-In-Reply-To: <fb0e2940-3446-4d44-95d7-f7be1f26096f@jguk.org>
-Content-Type: text/plain; charset=UTF-8
+Cc: Jonny Grant <jg@jguk.org>, Matthew House <mattlloydhouse@gmail.com>,
+ linux-man <linux-man@vger.kernel.org>,
+ GNU C Library <libc-alpha@sourceware.org>
+References: <20231109031345.245703-1-mattlloydhouse@gmail.com>
+ <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org> <ZUzEw2j6gHF5WtsO@debian>
+ <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu> <ZU1v-JKBP9iWXOOT@debian>
+ <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu> <ZU4OgiVSyM98EHVN@debian>
+ <a64f4aa6-bca2-4dc0-8dc2-ac3de95b55ee@cs.ucla.edu> <ZU6KCkN1-dgszJJy@debian>
+ <49daa0a7-291a-44f3-a2dd-cf5fb26c6df2@cs.ucla.edu> <ZU_ui2gbSBrTKXnX@debian>
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <ZU_ui2gbSBrTKXnX@debian>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Alejandro
+On 2023-11-11 13:13, Alejandro Colomar wrote:
+>     Was strncpy(3) optimized in a recent version of glibc that you have?
 
-I was reading again
-https://man7.org/linux/man-pages/man7/string_copying.7.html
+Ubuntu 23.10 currently uses glibc 2.38-1ubuntu6. Fortification is on by 
+default, so __builtin___strncpy_chk is involved.
 
-Sharing some comments, I realise not latest man page, if you have a new one online I could read that. I was reading man-pages 6.04, perhaps some already updated.
-
-
-A) Could simplify and remove the "This function" and "These functions" that start each function description.
-
-B) "RETURN VALUE" has the text before each function, rather than after as would be the convention from "DESCRIPTION", I suggest to move the return value text after each function name.
-
-Could make it like https://man7.org/linux/man-pages/man3/string.3.html
-
-C) In the examples, it's good stpecpy() checks for NULL pointers, the other's don't yet though.
-
-D) strlcpy says
-"These functions force a SIGSEGV if the src pointer is not a string."
-How does it determine the pointer isn't a string?
-
-E) Are these functions mentioned like ustpcpy() standardized by POSIX? or in use in a libc?
-
-F) 
-char *stpncpy(char dst[restrict .sz], const char *restrict src,
-                      size_t sz);
-I know the 'restrict' keyword, but haven't seen this way it attempts to specify the size of the 'dst' array by using the parameter 'sz' is this in wide use in APIs? I remember C11 let us specify  char ptr[static 1] to say the pointer must be at least 1 element in this example
-
-Saw a few pages started to write out functions like
-size_t strnlen(const char s[.maxlen], size_t maxlen);
-
-Is this just for documentation? usually it would be: const char s[static maxlen]
-
-G) "Because these functions ask for the length, and a string is by
-nature composed of a character sequence of the same length plus a
-terminating null byte, a string is also accepted as input."
-
-I suggest to adjust the order so it doesn't start with a fragment:
-
-"A string is also accepted as input, because these functions ask
-for the length, and a string is by nature composed of a character
-sequence of the same length plus a terminating null byte."
-
-Could simplify and remove "by nature".
-
-Unrelated man page strncpy, noticed this.
-
-SEE ALSO
-Could this refer to strcpy(3) and string(3) at the bottom?
-https://man7.org/linux/man-pages/man3/strncpy.3.html
-
-With kind regards
-Jonny
-
-
-
+Again, I wouldn't take these numbers too seriously. It's just a 
+microbenchmark.
 
