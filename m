@@ -1,43 +1,55 @@
-Return-Path: <linux-man+bounces-41-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-42-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA8D47E8F4A
-	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 10:18:05 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B90DE7E8F4B
+	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 10:18:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 63A2E1F20F76
-	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 09:18:05 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A605E280CD3
+	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 09:18:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D432D5228;
-	Sun, 12 Nov 2023 09:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2664524C;
+	Sun, 12 Nov 2023 09:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c8tDXVJ2"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7U32jJf"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4917461
-	for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 09:18:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37040C433C8;
-	Sun, 12 Nov 2023 09:17:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13775235
+	for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 09:18:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA06C433C8;
+	Sun, 12 Nov 2023 09:18:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699780680;
-	bh=K9ZUGCWhB2IFIS3rkqm33yaClfpMPJLJH6tsdrf26Zo=;
+	s=k20201202; t=1699780685;
+	bh=4OZ5pjlZcOR5C1mMy/ZMLW5UGIj/eQsxRwe+fNCiBwQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c8tDXVJ26qmaUUNuxZSQBe7kldTOj/nJaMf0KtTpnPihh3M3Owu8XAu5GV3lhoQhS
-	 /1tiCPOwQ4W5tnEGOgg7F+KHyx3qhCbR/IyvQT58nS07njN3EYRChVbKBss4IipSvF
-	 zNpJxMms2P+V1uGqKdgh39Lk1aZEkaxPpB2BsHm6pLRDx2FlySqfsg3IWq2+hIor39
-	 YYHhWoQp3DjJpv9q2pX0ATnzBQkBNvUAd3SN5ztPdK2yNxmnqbO+0SeEOZ8EbPUHjX
-	 oP7wP1eG9qiMghPTqcZYFNmmOD6kqm82ZFg2Rq8pMp1urypAkYoCvlKtSLajdMpMyg
-	 5SBShJOI+oBkw==
-Date: Sun, 12 Nov 2023 10:17:57 +0100
+	b=K7U32jJf3Ol59lo24w9UxsPoZbVkqZLuCB2kHDLSXt6uTUhFGY+FlipEmmKNzVgO2
+	 vviuui4yAkODSHm7yeaupebbs3/ThSjJMsDJO7TvGhaDvK9Rc1qoPCY0vW8sKz51Gx
+	 A1p3ad6EOaKsCInNWcvPxn9qEZmsPgvuoBTgZgnynDLJFh0I8iohptXlW0Hc8gR6oI
+	 qlUyaHxf7gg9SrNwU8uS5tojo1ueumRMaEyNAypLKOGh+yqT4DxWi7G/52/sNXNMvj
+	 hRWQz+IsAYqUlHIoO+fnkIWhswcGThq2q53pki2e3EkeyW1SfqvJQ26YWvv0AaJzPt
+	 8nHrUD7i1IL+Q==
+Date: Sun, 12 Nov 2023 10:18:00 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org
-Subject: [PATCH 0/2] Expand BUGS section of string_copying(7).
-Message-ID: <20231112091748.6906-2-alx@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org,
+	Paul Eggert <eggert@cs.ucla.edu>, Jonny Grant <jg@jguk.org>,
+	DJ Delorie <dj@redhat.com>,
+	Matthew House <mattlloydhouse@gmail.com>,
+	Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+	Thorsten Kukuk <kukuk@suse.com>,
+	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+	Zack Weinberg <zack@owlfolio.org>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	Carlos O'Donell <carlos@redhat.com>, Xi Ruoyao <xry111@xry111.site>,
+	Stefan Puiu <stefan.puiu@gmail.com>,
+	Andreas Schwab <schwab@linux-m68k.org>
+Subject: [PATCH 1/2] string_copying.7: BUGS: *cat(3) functions aren't always
+ bad
+Message-ID: <20231112091748.6906-3-alx@kernel.org>
 References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -46,61 +58,99 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="so54BGJ2/fhFsa3F"
+	protocol="application/pgp-signature"; boundary="DfMLUrktnfbmmkbw"
 Content-Disposition: inline
 In-Reply-To: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
 X-Mailer: git-send-email 2.42.0
 
 
---so54BGJ2/fhFsa3F
+--DfMLUrktnfbmmkbw
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Nov 2023 10:17:57 +0100
+Date: Sun, 12 Nov 2023 10:18:00 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org
-Subject: [PATCH 0/2] Expand BUGS section of string_copying(7).
+Cc: Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org,
+	Paul Eggert <eggert@cs.ucla.edu>, Jonny Grant <jg@jguk.org>,
+	DJ Delorie <dj@redhat.com>,
+	Matthew House <mattlloydhouse@gmail.com>,
+	Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+	Thorsten Kukuk <kukuk@suse.com>,
+	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+	Zack Weinberg <zack@owlfolio.org>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	Carlos O'Donell <carlos@redhat.com>, Xi Ruoyao <xry111@xry111.site>,
+	Stefan Puiu <stefan.puiu@gmail.com>,
+	Andreas Schwab <schwab@linux-m68k.org>
+Subject: [PATCH 1/2] string_copying.7: BUGS: *cat(3) functions aren't always
+ bad
 
-Hi,
+The compiler will sometimes optimize them to normal *cpy(3) functions,
+since the length of dst is usually known, if the previous *cpy(3) is
+visible to the compiler.  And they provide for cleaner code.  If you
+know that they'll get optimized, you could use them.
 
-After Paul showing important problems of strlcpy(3) (and strlcat(3)),
-I've written something in string_copying(7)'s BUGS to warn against them.
+Cc: Paul Eggert <eggert@cs.ucla.edu>
+Cc: Jonny Grant <jg@jguk.org>
+Cc: DJ Delorie <dj@redhat.com>
+Cc: Matthew House <mattlloydhouse@gmail.com>
+Cc: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+Cc: Thorsten Kukuk <kukuk@suse.com>
+Cc: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Cc: Zack Weinberg <zack@owlfolio.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Carlos O'Donell <carlos@redhat.com>
+Cc: Xi Ruoyao <xry111@xry111.site>
+Cc: Stefan Puiu <stefan.puiu@gmail.com>
+Cc: Andreas Schwab <schwab@linux-m68k.org>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man7/string_copying.7 | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Cheers,
-Alex
-
-Alejandro Colomar (2):
-  string_copying.7: BUGS: *cat(3) functions aren't always bad
-  string_copying.7: BUGS: Document strl{cpy,cat}(3)'s performance
-    problems
-
- man7/string_copying.7 | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
-
+diff --git a/man7/string_copying.7 b/man7/string_copying.7
+index 1637ebc91..0254fbba6 100644
+--- a/man7/string_copying.7
++++ b/man7/string_copying.7
+@@ -592,8 +592,14 @@ .SH BUGS
+ All catenation functions share the same performance problem:
+ .UR https://www.joelonsoftware.com/\:2001/12/11/\:back\-to\-basics/
+ Shlemiel the painter
+ .UE .
++As a mitigation,
++compilers are able to transform some calls to catenation functions
++into normal copy functions,
++since
++.I strlen(dst)
++is usually a byproduct of the previous copy.
+ .\" ----- EXAMPLES :: -------------------------------------------------/
+ .SH EXAMPLES
+ The following are examples of correct use of each of these functions.
+ .\" ----- EXAMPLES :: stpcpy(3) ---------------------------------------/
 --=20
 2.42.0
 
 
---so54BGJ2/fhFsa3F
+--DfMLUrktnfbmmkbw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVQmEUACgkQnowa+77/
-2zJ3LA//QlBjp2gyZxkTiJuY61W31Aq5Jyu+ABvIE+8eTOA1rzmqReij9QHxKiIJ
-JqldDvXEuNFc+A0jYsc1MffBqzLm8mOm1bu1n4u/v9tgcx/QPSoLRtsRiGOsUKrU
-Yp3jWR50G4F9ZPhFgjLuUWVnP/eWFVsf5iTUriTr5+04pMjQhbBYlbvN/i1it0/1
-F4hRjyrvjmhzqxyVKmBJcfvO6nFeqindt0D7OIKN/4tOQvwvFTYmAuPK/iVjzMPK
-5A/UuuGDOPdDkk41C4wR6aY3Fzy21VFoknMYkz+2PrCcTA+o7VxSBmqMxVqRI9EZ
-DGInlp1tK4Q9mixivaya5FbDDbVmz5dX9HG0KP0X+4/oGG5IvF/f9lpt1uZalPl1
-C7zMPMq3d8OeNF/GWOYPUKNIGXt3hc/5Rwn2sXSXFlmGI9CmT8C+u98MEhHw/vXW
-9V/nCqjRTqftKCAB071iOGYL9MjLGskYGPYA05+qSB10oolnRGE68vpUIYOOMgUQ
-GLldfx+q7WhE9p3/HxxtHDqhyRwwmKJ2Orp0YCfUqpmW5Dn5g0843ENR3+64p6ek
-YVWs/toZdG3xZNIPg3rCscimWEgomm5m07EXdFkqUuRV4EGpXw1hmHkGSKEMMNJm
-mV9UKW9Mp+dvx/9mRijI/kxj4iMcaSGTkknhbSk3UUO860G98eE=
-=sxTr
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVQmEgACgkQnowa+77/
+2zJN6g/9FN3se87VRWESy6dfZGg/AgsFLmgLT/Dnd2P1OJj46zhQy7tE8lldC7Tm
+EaZzOo9ZUVMMmvNLJyUlBoD9IoijnvzG7mC5plHkF8uA2/xmtqcU3qUcI3hV7DPL
+RYD8itDJRm27oBrcmSYhdxb6h2i5NBuGLGtqiGlVWAkmaoFDUu3d+0581LAQrXkc
+nrd35nzxk6U9q24wYFXcYeJgCbtjojUjONo6OXqAV62b3tK2C/SxXjXru+C4wj3J
+i06Ip3i8VN+vEYmati5LroUACEcpvQaU7bWDP3ncoTHo5i/UThaSwihmBr6VYoTw
+U7egtAh1US76SMI06Eo2oE5erffjcifPOBzTq+LSHCzgIYXyAK6Tg1zsMWhigNpu
+fJEFUZn3T3GxmAthtTl8Xbmb5mn1JZwWwzjgMMg6Ka3R8wUZNDOKabR94XJaOQod
+Iz2bp20dOATElMsRzSd6AqFvtuz+g8lRsyHTL+eNhKrQlL0owiYKSoAIgqzAiWse
+nOlJTCmYp4BiK3d3Hz4MwgAB4YntVItlzAdYYzwckle1sQo6MxNEkX+iyLvZBB3s
+qx4Ub9WXOLjiT8+r4hqu89WMFoXdw9agW0uSIo8acLYNfah2b7teOuOH73b2zha9
+303JRIbmS4SE+7Ss1hrnF+5KbsrfNmw9u5j0QFH4g/oo2OG2Y+s=
+=dooF
 -----END PGP SIGNATURE-----
 
---so54BGJ2/fhFsa3F--
+--DfMLUrktnfbmmkbw--
 
