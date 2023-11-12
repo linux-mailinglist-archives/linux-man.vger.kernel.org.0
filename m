@@ -1,141 +1,132 @@
-Return-Path: <linux-man+bounces-52-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-53-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77DF17E9294
-	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 21:29:40 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id C021A7E92C7
+	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 21:49:55 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2C446280C7A
-	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 20:29:39 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4CD7F1F20FBC
+	for <lists+linux-man@lfdr.de>; Sun, 12 Nov 2023 20:49:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 979EA182BD;
-	Sun, 12 Nov 2023 20:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A93D19465;
+	Sun, 12 Nov 2023 20:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="EbahUf9u"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="miymh3Qk"
 X-Original-To: linux-man@vger.kernel.org
 Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68B4182C7
-	for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 20:29:29 +0000 (UTC)
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED8B6258D
-	for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 12:29:25 -0800 (PST)
-Received: by mail-yb1-xb32.google.com with SMTP id 3f1490d57ef6-da041ffef81so4131845276.0
-        for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 12:29:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1699820965; x=1700425765; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3LEiFRccVX8KiAqr8aLrNuitddMncMWdvOArUdgwYFA=;
-        b=EbahUf9u52SAJyhlGTA6PhYxsSBdC5ivLbdab9QagM7D7xxDQhIfR4lPt06NwpUA69
-         +i1X+9NFuw3pli+gN48bLsDQbsl8YTF7ghcUQrpsb79jZnMcwmeJMIaFP9ZOX6jb7GEw
-         yO593/1b+5NSBLPMTFwX91PPOEAjVekAXWSW/u9HIUuqSrOb8XLP7t1zXJFD5PZ6Grvb
-         oAQBMMu2/ThkLnxJFrBJ6vT5dmnYPmzFrdaFMcI3lDyHeH7+psGnxZAI36wyjVtyqMVz
-         wsd+S97EYB5QLGU411A/MEm+AHrLZoqD2ifQD8yCVCclZucWe6gUob8eX16OfSLO3KCL
-         zfbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699820965; x=1700425765;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3LEiFRccVX8KiAqr8aLrNuitddMncMWdvOArUdgwYFA=;
-        b=ITC2TXOUAM178Db3ueiApa5uXTplEZfWw4zrmaIVxp+8mMCUOWp40TObkreEcTBRUU
-         eQvm+GmyrjKjxUTay2ESsn7pBFBfhTYwZkeea7D+AWrYjl45w/+6N8LEivbBP9uBRDDi
-         +JOGx/ilP1PVQxtX9gOgTQaAXjY0BrEAVB2wKdYJzLd8d5Jnmi0QhwSuCaVjFdV5nLxs
-         p5BHg6YaiViO0hPvM0KZ7zJCEJOFK5QBt0hTgIYpV3UhwXICIYRUyon94UJlce6XK5fF
-         b3TRc1zbS2Vl2ee8klAcJdX341QRwnql4Uc6fyrh6Pr1/rnQCXdJrmDZ+kvcurBQrq/5
-         G+Ug==
-X-Gm-Message-State: AOJu0YzC7MXcyhB6ehc9vCws3CGU6TFU7h8LE+Tx7/iHCBDBDTjHwzAU
-	VSBhClwhJiBdtYS6y4RCKNjGlY7+1a1fgYnNjwgG
-X-Google-Smtp-Source: AGHT+IHaPPV9MIlPUjLJpHPXhDxxIxEWB2lJUF4iF2LdqVMFQe8W4EmWqUG+SJbhoKCVuZ2gV/1GlgKZCNnUWcv98GE=
-X-Received: by 2002:a25:cc8:0:b0:dae:b67e:7cd4 with SMTP id
- 191-20020a250cc8000000b00daeb67e7cd4mr4193804ybm.46.1699820965122; Sun, 12
- Nov 2023 12:29:25 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3013216435
+	for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 20:49:48 +0000 (UTC)
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD74FD1
+	for <linux-man@vger.kernel.org>; Sun, 12 Nov 2023 12:49:45 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 623B03C011BE9;
+	Sun, 12 Nov 2023 12:49:45 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id FZSiwK08Eyb2; Sun, 12 Nov 2023 12:49:45 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 097263C011BEA;
+	Sun, 12 Nov 2023 12:49:45 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 097263C011BEA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699822185;
+	bh=tBfRFu5Z4xObv2VpkjcmgNOaeTeFmPnnCbzKXUueeQ8=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=miymh3Qklbc0iHcS4t82Ylo4fvIPmAcsibykpQEftHhUf577kyJdF9etsuYpoZZAu
+	 HKtav+q+Phnev8Rh7V6pjZ2IZYW0va2Za+hGd8aKzl3LjIaJJHjOby6JrXkm3QVrf/
+	 3t503ksfN185KG0gAYGJ1cpD5km/0Spv06kEWL06ZwE6L/I1q2kfaQFLkAOh4eLrdb
+	 JnsRNavkqlWO40I0B8vOnaEK3ZHQEMbfpGUf8vkOrhC8e5AaAgx25gks6DHM2VDbLB
+	 kC5JvLbL42Cvgnv5CM6oOwXO7iqyiT7Taj0subAGiYfO7K3eD5SggBUL71g+UiTwGn
+	 LDuN5zf0G5R0w==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Jn5k61WHPs9N; Sun, 12 Nov 2023 12:49:44 -0800 (PST)
+Received: from [192.168.254.12] (unknown [47.148.192.211])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id DB0BE3C011BE9;
+	Sun, 12 Nov 2023 12:49:44 -0800 (PST)
+Message-ID: <497f3940-b533-4018-8212-ffe931e514fa@cs.ucla.edu>
+Date: Sun, 12 Nov 2023 12:49:44 -0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20231025140205.3586473-5-mszeredi@redhat.com> <4ab327f80c4f98dffa5736a1acba3e0d.paul@paul-moore.com>
- <20231108-zwerge-unheil-b3f48a84038d@brauner> <CAHC9VhSLGyFRSbeZXE7z61Y2aDJi_1Dedjw0ioFOckRCs0CRaA@mail.gmail.com>
- <CAHC9VhRvYua4noiHbMqcAqz=Rkz=pxSgp5fVxXX+uhz61jYFag@mail.gmail.com> <20231112-gemessen-lauschangriff-3352c19e676a@brauner>
-In-Reply-To: <20231112-gemessen-lauschangriff-3352c19e676a@brauner>
-From: Paul Moore <paul@paul-moore.com>
-Date: Sun, 12 Nov 2023 15:29:14 -0500
-Message-ID: <CAHC9VhRYtjJ9q4B_wLe89d5RBxWqpWzsKqAeAiDo5NhAYccVaQ@mail.gmail.com>
-Subject: Re: [PATCH v4 4/6] add statmount(2) syscall
-To: Christian Brauner <brauner@kernel.org>
-Cc: Miklos Szeredi <mszeredi@redhat.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-man@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <christian@brauner.io>, Amir Goldstein <amir73il@gmail.com>, 
-	Matthew House <mattlloydhouse@gmail.com>, Florian Weimer <fweimer@redhat.com>, 
-	Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: strncpy clarify result may not be null terminated
+Content-Language: en-US
+To: Alejandro Colomar <alx@kernel.org>, Jonny Grant <jg@jguk.org>
+Cc: Matthew House <mattlloydhouse@gmail.com>,
+ linux-man <linux-man@vger.kernel.org>
+References: <ZUzEw2j6gHF5WtsO@debian>
+ <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu> <ZU1v-JKBP9iWXOOT@debian>
+ <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu> <ZU4OgiVSyM98EHVN@debian>
+ <a64f4aa6-bca2-4dc0-8dc2-ac3de95b55ee@cs.ucla.edu> <ZU6KCkN1-dgszJJy@debian>
+ <49daa0a7-291a-44f3-a2dd-cf5fb26c6df2@cs.ucla.edu> <ZU_ui2gbSBrTKXnX@debian>
+ <f5ad0785-8f5f-4ed6-a043-c0e2c303c90e@jguk.org> <ZVCwKBJyCsP8Aam9@debian>
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <ZVCwKBJyCsP8Aam9@debian>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 12, 2023 at 8:06=E2=80=AFAM Christian Brauner <brauner@kernel.o=
-rg> wrote:
-> On Fri, Nov 10, 2023 at 12:00:22PM -0500, Paul Moore wrote:
-> > On Wed, Nov 8, 2023 at 3:10=E2=80=AFPM Paul Moore <paul@paul-moore.com>=
- wrote:
-> > > On Wed, Nov 8, 2023 at 2:58=E2=80=AFAM Christian Brauner <brauner@ker=
-nel.org> wrote:
-> > > > > > +static int do_statmount(struct stmt_state *s)
-> > > > > > +{
-> > > > > > +   struct statmnt *sm =3D &s->sm;
-> > > > > > +   struct mount *m =3D real_mount(s->mnt);
-> > > > > > +   size_t copysize =3D min_t(size_t, s->bufsize, sizeof(*sm));
-> > > > > > +   int err;
-> > > > > > +
-> > > > > > +   err =3D security_sb_statfs(s->mnt->mnt_root);
-> > > > > > +   if (err)
-> > > > > > +           return err;
-> > > > > > +
-> > > > > > +   if (!capable(CAP_SYS_ADMIN) &&
-> > > > > > +       !is_path_reachable(m, m->mnt.mnt_root, &s->root))
-> > > > > > +           return -EPERM;
-> > > > >
-> > > > > In order to be consistent with our typical access control orderin=
-g,
-> > > > > please move the security_sb_statfs() call down to here, after the
-> > > > > capability checks.
-> > > >
-> > > > I've moved the security_sb_statfs() calls accordingly.
-> > >
-> > > Okay, good.  Did I miss a comment or a patch where that happened?  I
-> > > looked over the patchset and comments yesterday and didn't recall
-> > > seeing anything about shuffling the access control checks.
-> >
-> > Gentle ping on this.  I'm asking because I know there have been issues
-> > lately with the lists and some mail providers and I want to make sure
-> > I'm not missing anything, I double checked lore again and didn't see
-> > anything there either, but I might be missing it.
->
-> Sorry, I'm traveling so I just didn't see this. Please see:
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/commit/?h=3Dv=
-fs.mount&id=3Ddc14fa93943918bee898d75d7ae72fc3623ce9ce
-> https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/commit/?h=3Dv=
-fs.mount&id=3Dde17643cbf9b0282990bb9cf0e0bf01710c9ec03
->
-> I've folded the fixup into these patches. I probably just accidently
-> dropped the diff from my reply.
+[dropping libc-alpha since this is only about the man pages]
 
-Okay, no worries, like I said I was mostly worried about mail/list
-problems eating the response.
+On 2023-11-12 02:59, Alejandro Colomar wrote:
 
-Thanks for fixing the access control ordering, but FWIW I was a little
-surprised not to see a note, e.g. "[CB: changed access control
-ordering]" or similar, in the metadata.
+> I think the man-pages should go
+> ahead and write wrapper functions such as strtcpy() and stpecpy()
+> aound libc functions; these wrappers should provide a fast and safe
+> starting point for most programs.
 
---=20
-paul-moore.com
+It's OK for man pages to give these in EXAMPLES sections. However, the 
+man pages currently go too far in this direction. Currently, if I type 
+"man stpecpy", I get a man page with a synopsis and it looks to me like 
+glibc supports stpecpy(3) just like it supports stpcpy(3). But glibc 
+doesn't do that, as stpecpy is merely a man-pages invention: although 
+the source code for stpecpy is in the EXAMPLES section of 
+string_copying(7), you can't use stpecpy in an app without 
+copy-and-pasting the man page's source into your code.
+
+It's not just stepecpy. For example, there is no ustr2stp function in 
+glibc, but "man ustr2stp" acts as if there is one.
+
+The man pages should describe the library that exists, not the library 
+that some of us would rather have.
+
+
+> It's true that memcpy(3) is the fastest function one can use, but it
+> requires the programmer to be rather careful with the lengths of the
+> strings.  I don't think keeping track of all those little details is
+> what the common programmer should do.
+
+Unfortunately, C is not designed for string use that's that convenient. 
+If you want safe and efficient use of possibly-long C strings, keeping 
+track of lengths is generally the best way to do it.
+
+
+>> glibc/strlcpy.c __strlcpy() is there a reason when truncating it overwrites the last byte, twice?
+>>
+>> memcpy (dest, src, size);
+>> dest[size - 1] = '\0';
+> 
+> -1's in the source code make up for off-by-one bugs.
+
+The "dest[size - 1] = '\0';" is there because strlcpy(dst, src, sz) is 
+defined to null-terminate the result if sz!=0, so that particular "-1" 
+isn't a bug. (Perhaps you meant that the strlcpy spec itself is buggy? 
+It wasn't clear to me.)
+
+That "last byte, twice" question is: why is the last argument to memcpy 
+"size" and not "size - 1" which would be equally correct? The answer is 
+performance: memcpy often works faster when copying a number of bytes 
+that is a multiple of a smallish power of two, and "size" is more likely 
+than "size - 1" to be such a multiple.
+
 
