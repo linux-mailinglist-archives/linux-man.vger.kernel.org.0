@@ -1,130 +1,116 @@
-Return-Path: <linux-man+bounces-67-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-68-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 254C67EA138
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 17:23:38 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id A732C7EA60F
+	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 23:28:02 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id AE548B20925
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 16:23:35 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CF7E31C20957
+	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 22:28:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B10472230A;
-	Mon, 13 Nov 2023 16:23:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C7A33B282;
+	Mon, 13 Nov 2023 22:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlH3SCdf"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="ccjEZAbu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7003821362
-	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 16:23:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395E1C433C7;
-	Mon, 13 Nov 2023 16:23:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699892609;
-	bh=NbvXLuxgYV8Jvi/1tq3Ns4ElU5BpLlyQv1nzw7zRAac=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AlH3SCdfpX2f2w5GJjzT8XAUuGQhXB+JQZNYZLxWf7bICVpvIivjjx8KFAn4CYNVp
-	 YPQhpRfuM6LJdaKlHHgKoPsFlMtkedgfarTS/xzVGwFzJOOVY0bu8/km/yAkAbaWNA
-	 u140Smk3EKoEvp39m2ZRWdySc5hVQaPQYhM6QPSVSvWnZ1ZpXnDQJZLIJldSq4XqDb
-	 EmzTZpk4s/kJUTMXXS5db/1EF8IVecpjxKYzc/edDIIasxlfelFKURx2qyqzTPv0HO
-	 c/qy9aLjU4Hed18I1RzDdG9MLICI0VJ1wlGGE+aYKtMFWFkgYRPS18ZlM+M0A+s9uB
-	 pJGxX7/YDbxrQ==
-Date: Mon, 13 Nov 2023 17:23:26 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] strncat.3 fixes
-Message-ID: <ZVJNfpBUc-zitROZ@debian>
-References: <20231112235218.80195-1-eggert@cs.ucla.edu>
- <20231112235218.80195-4-eggert@cs.ucla.edu>
- <ZVF4tHfkfrwFQawd@debian>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0BC22EF6
+	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 22:27:56 +0000 (UTC)
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B553A10C
+	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 14:27:55 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 6A3D93C011BD7;
+	Mon, 13 Nov 2023 14:27:55 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id KA23D-cafjWB; Mon, 13 Nov 2023 14:27:55 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 21AEA3C011BD8;
+	Mon, 13 Nov 2023 14:27:55 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 21AEA3C011BD8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699914475;
+	bh=u7LA6XL+6+LWNhV/rUepU90+HlELM0e0V6bqi32+t8w=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=ccjEZAbud4SzhcGuBsgRnqZUZS/lLDjVzuK2BM/JsScCSn10QKcQ+8cq8F0ohqJYH
+	 pOchEf2vMP79+OTYvzBQN+bqlZGa1kJjKIB4qRzTQCSe/o8rgD4Nf8273zIPA3bvdf
+	 LqOfepYP+uWMEz7Op0A0xRzA+u+rjMiMa72aIti/T3BQnqzu6MBWrOISxOH+ebSZnX
+	 6A3cfVTbpvz125qNHcIB4ug8zYouXPUEhKSFy9Kj435R5k4pcmiR2LNkR9aiLX1LVL
+	 571o7CjvbCNv7Pa8Ua7CtO6r7uFYjcNL6TzYrmzmOG/YxVFEdwLF1tQmIeITx1FSR/
+	 34whi4LW98Aaw==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id uBshZZySnlZR; Mon, 13 Nov 2023 14:27:55 -0800 (PST)
+Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 07EA33C011BD7;
+	Mon, 13 Nov 2023 14:27:55 -0800 (PST)
+Content-Type: multipart/mixed; boundary="------------dRnKgclA0fmNbEHPQplGtto3"
+Message-ID: <9292717d-1a77-40af-bef8-49a05e93c9b9@cs.ucla.edu>
+Date: Mon, 13 Nov 2023 14:27:51 -0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Lr1Dor3DOF6GVekF"
-Content-Disposition: inline
-In-Reply-To: <ZVF4tHfkfrwFQawd@debian>
-
-
---Lr1Dor3DOF6GVekF
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Nov 2023 17:23:26 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] string.3 fixes
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] strncat.3 fixes
+References: <20231112235218.80195-1-eggert@cs.ucla.edu>
+ <20231112235218.80195-3-eggert@cs.ucla.edu> <ZVFzcACjZYkjDOAZ@debian>
+Content-Language: en-US
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <ZVFzcACjZYkjDOAZ@debian>
 
-On Mon, Nov 13, 2023 at 02:15:20AM +0100, Alejandro Colomar wrote:
-> > and by removing an unnecessary call to 'exit'.
->=20
-> This was practice from Michael Kerrisk, which I like: always terminate
-> the program with exit(1); don't rely on just ending the scope of main().
+This is a multi-part message in MIME format.
+--------------dRnKgclA0fmNbEHPQplGtto3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-D'oh!  I meant exit(3).  Since I need to write this email, I'll take the
-opportunity to quote man-pages(7):
+On 11/12/23 16:53, Alejandro Colomar wrote:
+> I'm not convinced by the array wording, as it could be understood as
+> doing this:
+> 
+> 	char d[3], s[3] = {'a', '\0', 'b'};
+> 
+> 	strncpy(d, s, 3);  // "a\0b"?  Or maybe "ab\0"?
+> 
+> Did it copy the non-null byte 'b'?
 
-STYLE GUIDE
-     ...
+OK, let's fix that confusion by saying it copies "leading non-null 
+bytes", not merely "non-null bytes". Please see attached.
+--------------dRnKgclA0fmNbEHPQplGtto3
+Content-Type: text/x-patch; charset=UTF-8; name="0001-string.3-fixes.patch"
+Content-Disposition: attachment; filename="0001-string.3-fixes.patch"
+Content-Transfer-Encoding: base64
 
-   Example programs and shell sessions
-     Manual  pages  may  include example programs demonstrating how to
-     use a system call or library function.  However, note the follow=E2=80=
-=90
-     ing:
+RnJvbSBhYzEwNDczOGI4YjEzMTU5MjcxYzQwYTg2MzQxZjg3MWZhMjYwZTMzIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEzIE5vdiAyMDIzIDE0OjI2OjQyIC0wODAwClN1YmplY3Q6IFtQQVRD
+SF0gc3RyaW5nLjMgZml4ZXMKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0
+L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQK
+ClNheSAic2l6ZSIgbm90ICJ3aWR0aCIgZm9yIGJ5dGUgY291bnRzOyAid2lkdGgiIGlzIGZv
+ciB0aGUgbnVtYmVyCm9mIGJpdHMgaW4gYSB3b3JkLiAgU2F5ICJsZWFkaW5nIiB0byBtYWtl
+IGl0IGNsZWFyIHdlIGRvbuKAmXQgY2FyZQphYm91dCB3aGF0IHRoZSBzb3VyY2UgY29udGFp
+bnMsIGFmdGVyIGl0cyBmaXJzdCBudWxsIGJ5dGUuCi0tLQogbWFuMy9zdHJpbmcuMyB8IDIg
+Ky0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlm
+ZiAtLWdpdCBhL21hbjMvc3RyaW5nLjMgYi9tYW4zL3N0cmluZy4zCmluZGV4IDRjMzc0YTdk
+Zi4uMDhiMDUwYjE3IDEwMDY0NAotLS0gYS9tYW4zL3N0cmluZy4zCisrKyBiL21hbjMvc3Ry
+aW5nLjMKQEAgLTE4NSw3ICsxODUsNyBAQCBieXRlcyB0bwogY29uc3QgY2hhciAiIHNyYyAi
+W3Jlc3RyaWN0IC4iIG4gXSwKIC5CSSAiICAgICAgIHNpemVfdCAiIG4gKTsKIC5maQotRmls
+bCBhIGZpeGVkLXdpZHRoIGJ1ZmZlciB3aXRoIG5vbi1udWxsIGJ5dGVzIGZyb20gYSBzb3Vy
+Y2Ugc3RyaW5nLAorRmlsbCBhIGZpeGVkLXNpemUgYnVmZmVyIHdpdGggbGVhZGluZyBub24t
+bnVsbCBieXRlcyBmcm9tIGEgc291cmNlIGFycmF5LAogcGFkZGluZyB3aXRoIG51bGwgYnl0
+ZXMgYXMgbmVlZGVkLgogLlNIIERFU0NSSVBUSU9OCiBUaGUgc3RyaW5nIGZ1bmN0aW9ucyBw
+ZXJmb3JtIG9wZXJhdGlvbnMgb24gbnVsbC10ZXJtaW5hdGVkCi0tIAoyLjQxLjAKCg==
 
-     ...
-
-     =E2=80=A2  For consistency, all example programs should  terminate  us=
-ing
-        either of:
-
-            exit(EXIT_SUCCESS);
-            exit(EXIT_FAILURE);
-
-        Avoid using the following forms to terminate a program:
-
-            exit(0);
-            exit(1);
-            return n;
-
-
-Cheers,
-Alex
-
-> That way, it's more visual.
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---Lr1Dor3DOF6GVekF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVSTX4ACgkQnowa+77/
-2zJSABAAlL9TB5nF8MzK+62MJutvdJg75ACguWVC5m/RyvnXz5YDd8xObnnacuhY
-1xbympwwOYmbCc8WrzxEsLelvmE+x+0wEfDs0Mv/N4UsqCLwmcVMQyV1rMAj6uNF
-NtUU295AfCa1v1t/GfwKASNSvyFIZODlxqr53bNoJz8s/Ju18bxaL5OScC03hGgn
-KKJGQX2VY9PqAWO1GnVEYCv5jA7PZe03/BkrrGKVWc2GQkQJhwv16xeNnCbR6Y3t
-cqFqpSLsYO7CcdYvE9hCSwZqjVY/3MRIX95sJ35+dCDNUrqMhMSwbkKXDxWS/8/q
-IkzEyfCDC0qtzbRd4pcRH2R3Id1KbOr4GA/NnaqUvsAJ1XDG4z9cuAeNXDUgKG/Q
-u8DjOrpGYE6Ub3VN4vrxQCORTZVXS/IVND83GQWirTgWvmLMATnU3IXP5fjavcY6
-6opW8Tr1QSIR2Cs1O1m5edwrtBJT3YKCDD3lZwyeHk7/qJbI7dOu7ZYlOvuHKkCe
-qBuLbph90QmzfyuJ9khOws6WOBzYLDHVqzhFnKNKlUG0cfr9k7UVwBbR/6hUH0Cb
-/+skVhE+zmuy/8C9WBBGIMyeyM+z98DVAuBVdyAfc8xAxzJwzfgpYtclJcjlq/rs
-8A82LdmMhAwtRmgvnzapmz5DrDdn/F/RxvkY6dcFnhUY2ERDT9w=
-=TK9+
------END PGP SIGNATURE-----
-
---Lr1Dor3DOF6GVekF--
+--------------dRnKgclA0fmNbEHPQplGtto3--
 
