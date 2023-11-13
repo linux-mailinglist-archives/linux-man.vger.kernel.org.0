@@ -1,116 +1,147 @@
-Return-Path: <linux-man+bounces-68-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-69-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id A732C7EA60F
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 23:28:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25B057EA6F2
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 00:25:13 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CF7E31C20957
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 22:28:01 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4C2DF1C209A3
+	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 23:25:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C7A33B282;
-	Mon, 13 Nov 2023 22:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 548B23B282;
+	Mon, 13 Nov 2023 23:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="ccjEZAbu"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTu+BV7b"
 X-Original-To: linux-man@vger.kernel.org
-Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0BC22EF6
-	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 22:27:56 +0000 (UTC)
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B553A10C
-	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 14:27:55 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id 6A3D93C011BD7;
-	Mon, 13 Nov 2023 14:27:55 -0800 (PST)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
-	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-	with ESMTP id KA23D-cafjWB; Mon, 13 Nov 2023 14:27:55 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id 21AEA3C011BD8;
-	Mon, 13 Nov 2023 14:27:55 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 21AEA3C011BD8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1699914475;
-	bh=u7LA6XL+6+LWNhV/rUepU90+HlELM0e0V6bqi32+t8w=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=ccjEZAbud4SzhcGuBsgRnqZUZS/lLDjVzuK2BM/JsScCSn10QKcQ+8cq8F0ohqJYH
-	 pOchEf2vMP79+OTYvzBQN+bqlZGa1kJjKIB4qRzTQCSe/o8rgD4Nf8273zIPA3bvdf
-	 LqOfepYP+uWMEz7Op0A0xRzA+u+rjMiMa72aIti/T3BQnqzu6MBWrOISxOH+ebSZnX
-	 6A3cfVTbpvz125qNHcIB4ug8zYouXPUEhKSFy9Kj435R5k4pcmiR2LNkR9aiLX1LVL
-	 571o7CjvbCNv7Pa8Ua7CtO6r7uFYjcNL6TzYrmzmOG/YxVFEdwLF1tQmIeITx1FSR/
-	 34whi4LW98Aaw==
-X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
-	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id uBshZZySnlZR; Mon, 13 Nov 2023 14:27:55 -0800 (PST)
-Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
-	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 07EA33C011BD7;
-	Mon, 13 Nov 2023 14:27:55 -0800 (PST)
-Content-Type: multipart/mixed; boundary="------------dRnKgclA0fmNbEHPQplGtto3"
-Message-ID: <9292717d-1a77-40af-bef8-49a05e93c9b9@cs.ucla.edu>
-Date: Mon, 13 Nov 2023 14:27:51 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142C53D975
+	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 23:25:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE46C433C7;
+	Mon, 13 Nov 2023 23:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1699917908;
+	bh=8A3GUTMojryVlAE55RKqTg2n9MQZvdGhJ9OS6P0+tK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oTu+BV7b+En2zuJE/Bhi9zj7q/nx6Y3mZ4Qy47EUlmHi3n1LLB/ywsqyVd9C4qyhw
+	 4Wg5jWOZim6nxDgtJEp3rj/OFTZ7NkPcWv33CCdKcNbWltA2APRgjzr4+0s8BclLah
+	 XYmSUDokRSlu3yS6sVmCekzJXpjFt2FMsES0Fsuo9YKa2pIYIKaN+ZgV22axow2wJ2
+	 61PW1Qc3XbVVyWI19wFJxKSNmJctS+H6n5aQ0v7wNQeI442QZudR6fMNxuXXX4OgGq
+	 Diiu/5uhs6XLLeUF2JaRVrvYW1yEzI6SjH2/2y+SdFHTnoFtJQR+uCLWuZi5QIJ6b6
+	 bpF1KZWOCZrvQ==
+Date: Tue, 14 Nov 2023 00:25:05 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/4] string.3 fixes
+Message-ID: <ZVKwUU1li8zOSqE8@debian>
+References: <20231112235218.80195-1-eggert@cs.ucla.edu>
+ <20231112235218.80195-3-eggert@cs.ucla.edu>
+ <ZVFzcACjZYkjDOAZ@debian>
+ <9292717d-1a77-40af-bef8-49a05e93c9b9@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] string.3 fixes
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nl+2QaaHJtzzAcg0"
+Content-Disposition: inline
+In-Reply-To: <9292717d-1a77-40af-bef8-49a05e93c9b9@cs.ucla.edu>
+
+
+--nl+2QaaHJtzzAcg0
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Nov 2023 00:25:05 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-References: <20231112235218.80195-1-eggert@cs.ucla.edu>
- <20231112235218.80195-3-eggert@cs.ucla.edu> <ZVFzcACjZYkjDOAZ@debian>
-Content-Language: en-US
-From: Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-In-Reply-To: <ZVFzcACjZYkjDOAZ@debian>
+Subject: Re: [PATCH 2/4] string.3 fixes
 
-This is a multi-part message in MIME format.
---------------dRnKgclA0fmNbEHPQplGtto3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Hi Paul,
 
-On 11/12/23 16:53, Alejandro Colomar wrote:
-> I'm not convinced by the array wording, as it could be understood as
-> doing this:
-> 
-> 	char d[3], s[3] = {'a', '\0', 'b'};
-> 
-> 	strncpy(d, s, 3);  // "a\0b"?  Or maybe "ab\0"?
-> 
-> Did it copy the non-null byte 'b'?
+On Mon, Nov 13, 2023 at 02:27:51PM -0800, Paul Eggert wrote:
+> On 11/12/23 16:53, Alejandro Colomar wrote:
+> > I'm not convinced by the array wording, as it could be understood as
+> > doing this:
+> >=20
+> > 	char d[3], s[3] =3D {'a', '\0', 'b'};
+> >=20
+> > 	strncpy(d, s, 3);  // "a\0b"?  Or maybe "ab\0"?
+> >=20
+> > Did it copy the non-null byte 'b'?
+>=20
+> OK, let's fix that confusion by saying it copies "leading non-null bytes",
+> not merely "non-null bytes". Please see attached.
 
-OK, let's fix that confusion by saying it copies "leading non-null 
-bytes", not merely "non-null bytes". Please see attached.
---------------dRnKgclA0fmNbEHPQplGtto3
-Content-Type: text/x-patch; charset=UTF-8; name="0001-string.3-fixes.patch"
-Content-Disposition: attachment; filename="0001-string.3-fixes.patch"
-Content-Transfer-Encoding: base64
+LGTM.  Patch applied.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D0726f57d8362553b697fa19c405f7fc77f2e42dd>
 
-RnJvbSBhYzEwNDczOGI4YjEzMTU5MjcxYzQwYTg2MzQxZjg3MWZhMjYwZTMzIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEzIE5vdiAyMDIzIDE0OjI2OjQyIC0wODAwClN1YmplY3Q6IFtQQVRD
-SF0gc3RyaW5nLjMgZml4ZXMKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0
-L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQK
-ClNheSAic2l6ZSIgbm90ICJ3aWR0aCIgZm9yIGJ5dGUgY291bnRzOyAid2lkdGgiIGlzIGZv
-ciB0aGUgbnVtYmVyCm9mIGJpdHMgaW4gYSB3b3JkLiAgU2F5ICJsZWFkaW5nIiB0byBtYWtl
-IGl0IGNsZWFyIHdlIGRvbuKAmXQgY2FyZQphYm91dCB3aGF0IHRoZSBzb3VyY2UgY29udGFp
-bnMsIGFmdGVyIGl0cyBmaXJzdCBudWxsIGJ5dGUuCi0tLQogbWFuMy9zdHJpbmcuMyB8IDIg
-Ky0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlm
-ZiAtLWdpdCBhL21hbjMvc3RyaW5nLjMgYi9tYW4zL3N0cmluZy4zCmluZGV4IDRjMzc0YTdk
-Zi4uMDhiMDUwYjE3IDEwMDY0NAotLS0gYS9tYW4zL3N0cmluZy4zCisrKyBiL21hbjMvc3Ry
-aW5nLjMKQEAgLTE4NSw3ICsxODUsNyBAQCBieXRlcyB0bwogY29uc3QgY2hhciAiIHNyYyAi
-W3Jlc3RyaWN0IC4iIG4gXSwKIC5CSSAiICAgICAgIHNpemVfdCAiIG4gKTsKIC5maQotRmls
-bCBhIGZpeGVkLXdpZHRoIGJ1ZmZlciB3aXRoIG5vbi1udWxsIGJ5dGVzIGZyb20gYSBzb3Vy
-Y2Ugc3RyaW5nLAorRmlsbCBhIGZpeGVkLXNpemUgYnVmZmVyIHdpdGggbGVhZGluZyBub24t
-bnVsbCBieXRlcyBmcm9tIGEgc291cmNlIGFycmF5LAogcGFkZGluZyB3aXRoIG51bGwgYnl0
-ZXMgYXMgbmVlZGVkLgogLlNIIERFU0NSSVBUSU9OCiBUaGUgc3RyaW5nIGZ1bmN0aW9ucyBw
-ZXJmb3JtIG9wZXJhdGlvbnMgb24gbnVsbC10ZXJtaW5hdGVkCi0tIAoyLjQxLjAKCg==
+Cheers,
+Alex
 
---------------dRnKgclA0fmNbEHPQplGtto3--
+> From ac104738b8b13159271c40a86341f871fa260e33 Mon Sep 17 00:00:00 2001
+> From: Paul Eggert <eggert@cs.ucla.edu>
+> Date: Mon, 13 Nov 2023 14:26:42 -0800
+> Subject: [PATCH] string.3 fixes
+> MIME-Version: 1.0
+> Content-Type: text/plain; charset=3DUTF-8
+> Content-Transfer-Encoding: 8bit
+>=20
+> Say "size" not "width" for byte counts; "width" is for the number
+> of bits in a word.  Say "leading" to make it clear we don=E2=80=99t care
+> about what the source contains, after its first null byte.
+> ---
+>  man3/string.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man3/string.3 b/man3/string.3
+> index 4c374a7df..08b050b17 100644
+> --- a/man3/string.3
+> +++ b/man3/string.3
+> @@ -185,7 +185,7 @@ bytes to
+>  const char " src "[restrict ." n ],
+>  .BI "       size_t " n );
+>  .fi
+> -Fill a fixed-width buffer with non-null bytes from a source string,
+> +Fill a fixed-size buffer with leading non-null bytes from a source array,
+>  padding with null bytes as needed.
+>  .SH DESCRIPTION
+>  The string functions perform operations on null-terminated
+> --=20
+> 2.41.0
+>=20
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--nl+2QaaHJtzzAcg0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVSsFEACgkQnowa+77/
+2zIBag/8CJ2dF900aMl6JY/NiX7tVbVTjUvUOXA1D0NI4BhAAo5Caw318sv4t7Rz
+RhpxUERo5jUxRDPIRF+BR1uXl/UI3JFpqIBN0GpDk7RDhTiL7tli0+pfChOzBCXZ
+HNfBti7BZwWniH9NE3yW8CsKzYfWGzij0obUy6cY21w+l0MfrJl+Bv7l+guRQOzn
+rcbaMCs7GhY/1nwaBr7mDT6l7QI+WB8Eea3sCJ/mb4RljewLv+iuCOe52T/d9FG+
+q80JOuiQPLK8psXw2h81Z7xw3TpGfSwreVsYGVXWopWOw9rb/w09jNr3q22C01iL
+3MvYZA3Ey2mIAvVl5eaqQsqqfmFBYAc7IFMdvnKEScNK8NZqU64KA0Eib+RjakTA
++vF9QPdUFUxjHDR/LhPophAY0kv+qcCjzOI/O74C6QVu4gEVYpEqCLuaVFYXb77s
+mFGJr6vi7hPuKYEn14KOtYv1FHqtyRGhyQBED/Bo4+SC0burTJ0hFfKA+TOSpZ9R
+Q96oP+KRvNxBn2wQoaijJHqI5ZfdDKKTRaz1euYDOBPaj4ur9ZSY5rafY79tOS5x
+TdaYmJZ/e0TUaRBgVl23Fbm41GQW0xA5MNro+E5SvY0l7cNgxhYL1TiddSirfpSV
+/+ueTqaAILLF0riikLBgMnBRf1AWf8/M9Hs2z376YoXpxDu41ww=
+=4GhU
+-----END PGP SIGNATURE-----
+
+--nl+2QaaHJtzzAcg0--
 
