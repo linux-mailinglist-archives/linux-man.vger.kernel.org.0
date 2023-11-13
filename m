@@ -1,45 +1,45 @@
-Return-Path: <linux-man+bounces-63-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-64-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3BEB7E93F4
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 02:15:42 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB867E9411
+	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 02:29:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6BB55280A91
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 01:15:41 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E17411C2037A
+	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 01:29:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9C7C4426;
-	Mon, 13 Nov 2023 01:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7203017F3;
+	Mon, 13 Nov 2023 01:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pwlsnIAD"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZCJ2/vM"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648504409
-	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 01:15:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30CB6C433C8;
-	Mon, 13 Nov 2023 01:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31281469D
+	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 01:29:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1584BC433C7;
+	Mon, 13 Nov 2023 01:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699838135;
-	bh=wLHll1f4SEVZlkK24M6QZM6HI3MgdvwLDkzRNXkk+N4=;
+	s=k20201202; t=1699838986;
+	bh=jFHv1xzTKx220nNsGe40EpW6lql7/kUjJ0fH6faxRvc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pwlsnIADeVb71Yfc7o55Mf3iHp7PVd0I6wvvtsGJQ/h2xpyKmMriVpwNVOYJS9Ire
-	 j6mICPF3FTqRxuwuS7pbwp+nwjUYHrJx3pBoTo1gCOYxP8IZkPWUcGMbrcRqT32CHy
-	 8Us6bzTED+AQHpYLO10CvG+lOkp2cx7YIXInTRDres11IC2sI9kFA/qBHoB98SlLZB
-	 l5h/BaghJp94SlMZD/sCaLE+iOlwFytTuSgXCuela9XTAFmTtNKOgvxgECxbWgcZml
-	 7+rBJOu4eXFVA30z1vQvMXmBq2R5SIncRuV7izIXzRHj/Ssbo9XbGrAP4C/05We1RR
-	 cYgGJgmWAkd1w==
-Date: Mon, 13 Nov 2023 02:15:20 +0100
+	b=bZCJ2/vMllHwHpCTv9g50xL8Y3b6zbKUGsuBVQI43t75psExzsZpeTuvZnE7sMG4h
+	 nVgJvvuKQhxjbgCQQkhYlypyZF8Z7ZhrYJc/BVb5qQb/6j0vYm3lpq2lh5EID6mHZP
+	 DZfUhVxhbSUbunknq21YuDOGWJhy2vJLaHwUKjEqtqnwLQHNFQBtZR+Adcf3g0/9kh
+	 bNZeUuZAe3vAyGy9onmL6lBvx1A5chOAsq7+IhPcZ6Aey+5QHe4kPSCXvJ3wXxYous
+	 MSd+6Rk8EFPg7zJox9S0u5hsA7Q92ZNMjPf8FQLDC0t/NGazQDD9nX6BWuQ8RtG5tk
+	 XTl7SqO1drRhw==
+Date: Mon, 13 Nov 2023 02:29:38 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] strncat.3 fixes
-Message-ID: <ZVF4tHfkfrwFQawd@debian>
+Subject: Re: [PATCH 4/4] stpncpy(3) fixes
+Message-ID: <ZVF8B-guyK2Zby4P@debian>
 References: <20231112235218.80195-1-eggert@cs.ucla.edu>
- <20231112235218.80195-4-eggert@cs.ucla.edu>
+ <20231112235218.80195-5-eggert@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -47,225 +47,251 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tCXRgbE8Wthi84rL"
+	protocol="application/pgp-signature"; boundary="7K5rfNh2JvlSolrj"
 Content-Disposition: inline
-In-Reply-To: <20231112235218.80195-4-eggert@cs.ucla.edu>
+In-Reply-To: <20231112235218.80195-5-eggert@cs.ucla.edu>
 
 
---tCXRgbE8Wthi84rL
+--7K5rfNh2JvlSolrj
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Nov 2023 02:15:20 +0100
+Date: Mon, 13 Nov 2023 02:29:38 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] strncat.3 fixes
+Subject: Re: [PATCH 4/4] stpncpy(3) fixes
 
 Hi Paul,
 
-On Sun, Nov 12, 2023 at 03:52:07PM -0800, Paul Eggert wrote:
-
-> Don't say "concatenate".
-
+On Sun, Nov 12, 2023 at 03:52:08PM -0800, Paul Eggert wrote:
+> Don't say "width" when "size" was meant.
 Ok
 
-> Use "byte" instead of "character",
-
+> Prefer "byte" to the confusing word "character".
 Ok
 
-> and use standalone terminology rather than relying on the
-> reader already having read string_copying(7).
+> Don't say that the source is a string; it need not be a string.
+As said in string.3, I'm not convinced by the new wording either.
 
-I need to check again in a standalone commit.
+> Don't imply the result always has some null padding.
+Ok
 
-> Don't say "width" when "size" was intended.
-
+> Prefer standalone terminology.
 Ok
 
 > Fix indenting of prototype.
-
 Ok
 
-> Simplify possible implementation, fixing a bug when the
-> source string length and sz exceed INT_MAX.
+> Improve sample implementation by using memset rather than
+> the less-standard bzero,
 
-Heh!  Good.
+While bzero(3) is non-standard, it is simpler, so I prefer it.
 
-> Say that strncat is rarely useful.
-
-Do we need to say that, or is it already implied by
-"append non-null bytes from a source array to a string,
- and null-terminate the result"?
-Not many programs need to do that operation.  I'm fine with saying it's
-rarely useful; I'm just wondering if it's worth it.
-
-> Say that behavior is undefined if the destination is not a string.
-
+> and by not overwriting part of
+> the destination more than once which is confusing.
 Ok
 
-> Simplify example by using plain sizeof rather than an nitems macro,
+> Simplify example without losing its lessons.
+See some comments inline.
 
-If you want sizeof(), please use sizeof(), not sizeof.
+> Use fwrite instead of printf to avoid assuming buffer length fits in int;
+Thanks!  And even without the int issue, it's more consistent with
+handling non-terminated bytes.
 
-I use nitems() with these functions because if you switch to wide
-strings, you can keep the nitems() part, while you'd have to change it
-if you had sizeof().  Also, nitems() makes it safe against sizeof(ptr).
-What do you think of this?
-
-> by removing a confusingly-named 'maxsize' local,
-
-Ok
-
-> and by removing an unnecessary call to 'exit'.
-
-This was practice from Michael Kerrisk, which I like: always terminate
-the program with exit(1); don't rely on just ending the scope of main().
-That way, it's more visual.
-
-Please split all these things into separate patches, if you don't mind,
-and sign the patch.
+> although obviously this buffer length does fit, it's better if the sample
+> code is general.
+Yep.
 
 > ---
->  man3/strncat.3 | 54 +++++++++++++++++++++-----------------------------
->  1 file changed, 23 insertions(+), 31 deletions(-)
+>  man3/stpncpy.3 | 82 ++++++++++++++++++++++++--------------------------
+>  1 file changed, 40 insertions(+), 42 deletions(-)
 >=20
-> diff --git a/man3/strncat.3 b/man3/strncat.3
-> index d0f777d36..9a7df474a 100644
-> --- a/man3/strncat.3
-> +++ b/man3/strncat.3
-> @@ -5,7 +5,8 @@
->  .\"
->  .TH strncat 3 (date) "Linux man-pages (unreleased)"
+> diff --git a/man3/stpncpy.3 b/man3/stpncpy.3
+> index 3cf4eb371..afe230307 100644
+> --- a/man3/stpncpy.3
+> +++ b/man3/stpncpy.3
+> @@ -7,8 +7,8 @@
 >  .SH NAME
-> -strncat \- concatenate a null-padded character sequence into a string
-> +strncat \- append non-null bytes from a source array to a string,
-> +and null-terminate the result
+>  stpncpy, strncpy
+>  \-
+> -fill a fixed-width buffer with characters from a string
+> -and pad with null bytes
+> +fill a fixed-size buffer with non-null bytes from a source array,
+> +padding with null bytes as needed
 >  .SH LIBRARY
 >  Standard C library
 >  .RI ( libc ", " \-lc )
-> @@ -14,15 +15,18 @@ Standard C library
->  .B #include <string.h>
+> @@ -18,10 +18,10 @@ Standard C library
 >  .P
->  .BI "char *strncat(char *restrict " dst ", const char " src "[restrict .=
-" sz ],
+>  .BI "char *strncpy(char " dst "[restrict ." sz "], \
+>  const char *restrict " src ,
+> -.BI "               size_t " sz );
+> +.BI "              size_t " sz );
+>  .BI "char *stpncpy(char " dst "[restrict ." sz "], \
+>  const char *restrict " src ,
 > -.BI "               size_t " sz );
 > +.BI "              size_t " sz );
 >  .fi
+>  .P
+>  .RS -4
+> @@ -37,15 +37,18 @@ Feature Test Macro Requirements for glibc (see
+>          _GNU_SOURCE
+>  .fi
 >  .SH DESCRIPTION
-> -This function catenates the input character sequence
-> -contained in a null-padded fixed-width buffer,
-> -into a string at the buffer pointed to by
-> +This function appends at most
-> +.I sz
-> +non-null bytes from the array pointed to by
-> +.I src
-> +to the end of the string pointed to by
->  .IR dst .
-> -The programmer is responsible for allocating a destination buffer large =
-enough,
-> -that is,
+> -These functions copy characters from the string pointed to by
+> +These functions copy non-null bytes from the array pointed to by
+>  .I src
+> -into a character sequence at the fixed-width buffer pointed to by
+> -.IR dst ,
+> -and pad with null bytes.
+> -If the destination buffer,
+> -limited by its size,
+> -isn't large enough to hold the copy,
+> -the resulting character sequence is truncated.
+> +into the array that is pointed to by
 > +.I dst
-> +must point to a string contained in a buffer that is large enough,
-> +that is, the buffer size must be at least
->  .IR "strlen(dst) + strnlen(src, sz) + 1" .
+> +and that contains
+> +.I sz
+> +bytes.
+> +If the source has too few non-null bytes to fill the destination,
+> +the functions pad the destination with trailing null bytes;
+> +if it has too many non-null bytes, the functions copy only the first
+> +.I sz
+> +bytes and do not append any null by5tes.
+>  For the difference between the two functions, see RETURN VALUE.
 >  .P
->  An implementation of this function might be:
-> @@ -32,12 +36,7 @@ An implementation of this function might be:
+>  An implementation of these functions might be:
+> @@ -62,8 +65,8 @@ strncpy(char *restrict dst, const char *restrict src, s=
+ize_t sz)
 >  char *
->  strncat(char *restrict dst, const char *restrict src, size_t sz)
+>  stpncpy(char *restrict dst, const char *restrict src, size_t sz)
 >  {
-> -    int   len;
+> -    bzero(dst, sz);
+> -    return mempcpy(dst, src, strnlen(src, sz));
+> +    size_t n =3D strnlen(src, sz);
+> +    return memset(mempcpy(dst, src, n), 0, sz - n);
 
-Oops!  :)
+Hmm, I hadn't thought of this chaining.  Nice!
 
-> -    char  *p;
-> -\&
-> -    len =3D strnlen(src, sz);
-> -    p =3D dst + strlen(dst);
-> -    p =3D mempcpy(p, src, len);
-> +    char *p =3D mempcpy(dst + strlen(dst), src, strnlen(src, sz));
-
-Please use a C89 declaration for p (top of the function).
-
->      *p =3D \[aq]\e0\[aq];
->  \&
->      return dst;
-> @@ -67,11 +66,12 @@ C11, POSIX.1-2008.
->  .SH HISTORY
->  POSIX.1-2001, C89, SVr4, 4.3BSD.
+>  }
+>  .EE
+>  .in
+> @@ -75,7 +78,7 @@ returns
+>  .TP
+>  .BR stpncpy ()
+>  returns a pointer to
+> -one after the last character in the destination character sequence.
+> +one after the last byte in the destination byte sequence.
+>  .SH ATTRIBUTES
+>  For an explanation of the terms used in this section, see
+>  .BR attributes (7).
+> @@ -107,9 +110,10 @@ C89, POSIX.1-2001, SVr4, 4.3BSD.
+>  glibc 1.07.
+>  POSIX.1-2008.
 >  .SH CAVEATS
-> -The name of this function is confusing.
-> -This function has no relation to
-> +The name of this function is confusing, as it has no relation to
->  .BR strncpy (3).
-
-I didn't connect both sentences because I think it is confusing at
-several levels.  Not only it has no relation to strncpy(), but it is
-neither to writing 'n' bytes.  But yeah, having no relation to strncpy()
-is the main one, so we could simplify.  What do you think?
-
-Thanks!
-Alex
-
-> +This function is rarely useful in practice.
+> -The name of these functions is confusing.
+> -These functions produce a null-padded character sequence,
+> -not a string (see
+> +The names of these functions are confusing.
+> +Because these functions append null bytes only if the source is a
+> +string with length less than the destination size,
+> +they might not create a string in their destination (see
+>  .BR string_copying (7)).
+>  For example:
 >  .P
-> -If the destination buffer is not large enough,
-> +If the destination buffer does not already contain a string,
-> +or is not large enough,
->  the behavior is undefined.
->  See
->  .B _FORTIFY_SOURCE
-> @@ -91,40 +91,32 @@ Shlemiel the painter
->  #include <stdlib.h>
+> @@ -122,14 +126,12 @@ strncpy(buf, "123456", 5);  // { \[aq]1\[aq], \[aq]=
+2\[aq], \[aq]3\[aq], \[aq]4\[
+>  .EE
+>  .in
+>  .P
+> -It's impossible to distinguish truncation by the result of the call,
+> -from a character sequence that just fits the destination buffer;
+> -truncation should be detected by
+> -comparing the length of the input string
+> -with the size of the destination buffer.
+> +Although these functions can be used with strings,
+> +it is the caller's responsibility to detect whether they produce a strin=
+g,
+> +e.g., by checking whether the result buffer ends in a null byte.
+>  .P
+> -If you're going to use this function in chained calls,
+> -it would be useful to develop a similar function that accepts
+> +To use these functions in chained calls,
+> +it might be useful to develop wrapper functions that accept
+>  a pointer to the end (one after the last element) of the destination buf=
+fer
+>  instead of its size.
+>  .SH EXAMPLES
+> @@ -141,30 +143,26 @@ instead of its size.
 >  #include <string.h>
 >  \&
-> -#define nitems(arr)  (sizeof((arr)) / sizeof((arr)[0]))
-> -\&
 >  int
->  main(void)
+> -main(void)
+> +main(int argc, char **argv)
 >  {
-> -    size_t  maxsize;
+> -    char    *p;
+> -    char    buf1[20];
+> -    char    buf2[20];
+> -    size_t  len;
+> +    char buf[20];
+>  \&
+> -    if (sizeof(buf2) < strlen("Hello world!"))
+> -        warnx("strncpy: truncating character sequence");
+> -    strncpy(buf2, "Hello world!", sizeof(buf2));
+> -    len =3D strnlen(buf2, sizeof(buf2));
+> +    if (strncpy(buf, argv[0], sizeof buf)[sizeof buf - 1])
+> +        warnx("strncpy: destination buffer is not a string");
+
+The previous warning was slightly different.  It was warning because
+data was lost.  Now you warn when it's not a string, even if all the
+data is there.  Since we're later using the data with fwrite(3), I think
+it makes more sense to warn iff data has been truncated, ignoring the
+fact that it's not a string (the whole page is saying this doesn't
+produce a string).
+
+So, I think this change is a bug.
+
+I understand you may want to show how these functions can be used to
+produce a string.  Maybe having another example (not necessarily a whole
+program) would be useful.  If so, please put that one below this one, to
+give the intention that it's only a secondary use of this function, and
+not intended for everyone.
+
+> +    size_t len =3D strnlen(buf, sizeof buf);
+
+C89 declarations, please.
+
+>  \&
+>      printf("[len =3D %zu]: ", len);
+> -    printf("%.*s\en", (int) len, buf2);  // "Hello world!"
+> +    fwrite(buf, 1, len, stdout);
+
+I like fwrite() better.  Good!  I wasn't happy with this weird printf().
+
+Cheers,
+Alex
+
+> +    putchar(\[aq]\en\[aq]);
+>  \&
+> -    if (sizeof(buf1) < strlen("Hello world!"))
+> -        warnx("stpncpy: truncating character sequence");
+> -    p =3D stpncpy(buf1, "Hello world!", sizeof(buf1));
+> -    len =3D p \- buf1;
+> +    char *p =3D stpncpy(buf, argv[0], sizeof buf);
+> +    if (p =3D=3D buf + sizeof buf)
+> +        warnx("stpncpy: destination buffer is not a string");
+> +    len =3D p \- buf;
+>  \&
+>      printf("[len =3D %zu]: ", len);
+> -    printf("%.*s\en", (int) len, buf1);  // "Hello world!"
 > -\&
-> -    // Null-padded fixed-width character sequences
-> +    // Null-padded fixed-size character sequences
->      char    pre[4] =3D "pre.";
->      char    new_post[50] =3D ".foo.bar";
->  \&
->      // Strings
->      char    post[] =3D ".post";
->      char    src[] =3D "some_long_body.post";
-> -    char    *dest;
-> -\&
-> -    maxsize =3D nitems(pre) + strlen(src) \- strlen(post) +
-> -              nitems(new_post) + 1;
-> -    dest =3D malloc(sizeof(*dest) * maxsize);
-> +    char *dest =3D malloc(sizeof pre + strlen(src) \- strlen(post)
-> +                        + sizeof new_post + 1);
->      if (dest =3D=3D NULL)
->          err(EXIT_FAILURE, "malloc()");
->  \&
-> -    dest[0] =3D \[aq]\e0\[aq];  // There's no 'cpy' function to this 'ca=
-t'.
-> -    strncat(dest, pre, nitems(pre));
-> +    dest[0] =3D \[aq]\e0\[aq];  // There's no `cpy' function to this `ca=
-t'.
-> +    strncat(dest, pre, sizeof pre);
->      strncat(dest, src, strlen(src) \- strlen(post));
-> -    strncat(dest, new_post, nitems(new_post));
-> +    strncat(dest, new_post, sizeof new_post);
->  \&
->      puts(dest);  // "pre.some_long_body.foo.bar"
->      free(dest);
 > -    exit(EXIT_SUCCESS);
+> +    fwrite(buf, 1, len, stdout);
+> +    putchar(\[aq]\en\[aq]);
 >  }
 >  .EE
 >  .\" SRC END
->  .in
->  .SH SEE ALSO
->  .BR string (3),
-> -.BR string_copying (3)
-> +.BR string_copying (7)
 > --=20
 > 2.41.0
 >=20
@@ -274,25 +300,25 @@ t'.
 --=20
 <https://www.alejandro-colomar.es/>
 
---tCXRgbE8Wthi84rL
+--7K5rfNh2JvlSolrj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVReKgACgkQnowa+77/
-2zI4ww/8DqhQYSl03LQ/JjrWg/+NfQi+6glqbVEOEqP8hgMTKnCJyvzNnfsv9DwE
-zcy5TdqTo7/pfkMj5Gu1v5pF8D66lIBVEQ+rZBNBScyp2rw9LtYYhS0eiE22Ry98
-upkqWo4I9HR9AOzwzhJKhqnFCED7oYltJQ9wfXDugNqfuuach2xgIFYWfU0uk0wi
-Hr8QCb4IL8OnRD6TVweNmbr2ETqyUhjkMfCBybBzU/rdW5rfVfFiwwmyc19PTe5c
-W91hwn0Tc+8bzXfwgL7+BVcoU9RNXmmcx/czrq0a9hlnin/9G2PqvpmSCXpTr1Gq
-1ooUdrKr/taCxQaMStmY9PmEKkRZD+9m6Z9oLK5JDNMmtH1NkJKmQE9CipGgNRWi
-FdGEo/JptgyRm4gYkfu36+iQ4W5Ly82uZeXBv48pUABrKSn3yq2GT29cQjSVg65m
-l6H8VpaCFPAla1bfkzBeAwXcUiH7z2v1BQrnlFzy6bod+cUvnzz0bL2PvYA9Lf/8
-fyK2Dkk7c60hbJwXx1hGjp0WyttgJ6uoUjL0Euw9+QQWrIllmaS2HmfT1HgHGvOK
-DAYplafsUi3Py7L0k4hvUKSvErRQNsdknyHNroItvl8SCGx6Y8zk4CcPuQ4pZP22
-zCnS9tAAbcPuTcSFzIeGxtXdz1okR9fkQlIr3NwpPQ/V5SRUfA0=
-=+ogp
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVRfAIACgkQnowa+77/
+2zIF8xAAhroTNECI+Abuzao59sHrIeVO/8ukwjMXEszi2f1zfabaMa3BYllcfR9O
+Na10NaRaLJ5eCNEdi26m4n3J/eSbrMhwlkCmwFHdrsAwvL4SXv0NqV2LARWesAwv
+keqASZZAkE03esZ9U6zP3JiTd9ESZ7OD4dKAPoG6SpVRE4PV/1an/rrNGSG+9H/x
+BD+WfNMokw54u+mOyD4FKz6PH7Z/g5DSerUZMM3s/SZ9UjGOenNDrpOvTBb/YZ++
+uFTV05E62Fr13ub04Ps29X0sWIqy2UCswiVH1MHRvq1PjBhuPxL7EHyUTNpyqqD7
+FvN7+5/vJObY6naDQtuBXxhrIscEWzB01qcziJAKlMLD1Q4C7zxOLqidFuEofV87
+uldpCsyWnph3nj7l/Lnl6celri3M3+scLX649i7CzJmz9DrTEZdaim9jj1tpMGhH
+vSg+FtEyOtBPMTVJ2Rb/a1cDQp46wFAobrwJEpVfH2j4hqTKh6Vz8ITsyvJhMZSX
+jHOHY/GifNelYcUOTUA9vqkD327y0UTrGzCP7Znef3cIZM1KfzIRscq1wQPslTx3
+NB7MTzba6OpcgQ5azDVYfubrYVYysnV3BlOLw+b5SoS50j0Z8QJrI9VPgG3YCOpb
+HnEwYQgUeKZlCu9xq+W+VSViEn7il/ImYibJuY0zyvlB4AQV+vg=
+=4ZEp
 -----END PGP SIGNATURE-----
 
---tCXRgbE8Wthi84rL--
+--7K5rfNh2JvlSolrj--
 
