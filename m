@@ -1,113 +1,141 @@
-Return-Path: <linux-man+bounces-76-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-77-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7DBE7EAD42
-	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 10:47:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D89877EAD8C
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 11:04:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 62615281010
-	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 09:47:47 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 920752810E7
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 10:04:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B73B7168C6;
-	Tue, 14 Nov 2023 09:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE8CF182C0;
+	Tue, 14 Nov 2023 10:04:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="MOG8YEkn";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cI4s6M/l"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwWn0y5V"
 X-Original-To: linux-man@vger.kernel.org
-Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7B1168C3
-	for <linux-man@vger.kernel.org>; Tue, 14 Nov 2023 09:47:42 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 46088115
-	for <linux-man@vger.kernel.org>; Tue, 14 Nov 2023 01:47:41 -0800 (PST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id D37495C0286;
-	Tue, 14 Nov 2023 04:47:38 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute1.internal (MEProxy); Tue, 14 Nov 2023 04:47:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm1; t=1699955258; x=1700041658; bh=JU
-	RycgJPjKGalocKdRaFJ/tUfw2F7fJxYG1WQpR7en8=; b=MOG8YEknIXeVNGJAhg
-	B4TpzWRXjDAuJ4zpOHhw1wjKppM4xx8r+gEgSJjiqaHwNGLTOlnS19WFss8Z3AKg
-	I5VsamaqvjzNi5OdOyLaoZ3KLDqfVwNQ11ZaxJRCkjH6mc+obujVspBRurmdhvy5
-	sVUrM1Rrtwy76WcH8c4mw8XgW/zzpl40nhKIqSIA+Yy7O6Jfq5/c1qaSE4wd8QAn
-	PApkNjExJV23GQoq3k6kFMeZuUvFP2LLWwmyQAQhrrp9mnW1zcMZcXFG3cqzh7pk
-	PLSfi6YnbLG8TWXG4YVNqhow0jNiJSz4GiDiCtfX4LKUf9+TofhQJn+yWvAWd8fb
-	fKaw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1699955258; x=1700041658; bh=JURycgJPjKGal
-	ocKdRaFJ/tUfw2F7fJxYG1WQpR7en8=; b=cI4s6M/lD8PdD8wJOBaafcmEWkpBi
-	c+QhpGLmLH6cM7EdNwVxV+YDps4QPIgiajRHtFtxVzSnYGK+pMHcdoVu766uSlYN
-	TYXdL7KB2cmy1pMhIctDzdtOaReCAHVa2uzwWLOH5PXhiVDZuS3vemfn5tqvpvCl
-	JgmpE0FlF+ElytSRdsRSPcXawFqPpEUP4vFgUIr5D6AAtWMRjIpv6Q3sCMtu5gU5
-	u3niNPPCdRGqUOw+ZKoLjcPK/l/6u6W5NYK8gt7Lfs09vyCXHdw3RnHs2z2Mnw44
-	4H1/YSctDSmoL3uBpwPlaCZB/nB1Q109YemL4KZKcIcNYe96ibFyw64tQ==
-X-ME-Sender: <xms:OkJTZclABhYIKH_SDjAv6y4dqVNODzF_XcA9FEDbEHHAttbzpEgA9g>
-    <xme:OkJTZb1HIE7afxcN5fk3j1lbFdNjkbk_Nmvln3xorTkBk_g6KAsNIJE6B0I_veXAi
-    FDYrDv7gQiI03VoMQ>
-X-ME-Received: <xmr:OkJTZaqxzkM_GHvMudlZS_bW7bphM1_r1fhob99saKIP9Kwc-IsN_Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudefvddgtdejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtuggjsehttd
-    ertddttddvnecuhfhrohhmpeetnhgurhhihicufghtkhhinhcuoegrnhgurhhihigpuhht
-    khhinhesfhgrshhtmhgrihhlrdgtohhmqeenucggtffrrghtthgvrhhnpeeihfefteehge
-    dtheeutdeivdeivefhtedutefgheeiveefffdtiefhgfehueegheenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhhihigpuhhtkhhinh
-    esfhgrshhtmhgrihhlrdgtohhm
-X-ME-Proxy: <xmx:OkJTZYnNOwyHQLyNQydjpFcc599ecvrrc1oj3Gegq4eUT-BLKrUq0g>
-    <xmx:OkJTZa1dr3QixrEyaDKPTJTalJ_GR0j5-DnrfGhN5tJVPHkk22OxeQ>
-    <xmx:OkJTZfvsNh-u8I-4AObNBFrGG2mHaOrC6DRh3t_M2T1_jDCvSQtWnQ>
-    <xmx:OkJTZf-Z3Inl6x16C-kYozzPGwVTTy2r3ZkfuhryOdGyS6M5-lu-yw>
-Feedback-ID: if391498a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Nov 2023 04:47:38 -0500 (EST)
-Date: Tue, 14 Nov 2023 09:47:36 +0000
-From: Andriy Utkin <andriy_utkin@fastmail.com>
-To: Alejandro Colomar <alx@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674E51803E
+	for <linux-man@vger.kernel.org>; Tue, 14 Nov 2023 10:04:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27ACAC433C9;
+	Tue, 14 Nov 2023 10:04:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1699956289;
+	bh=qs5ff4lnmFgZiLSZfUW59+ZMhxDNKd1IjLAN9yRFHl4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lwWn0y5Vg8MkAmCzLM5fhLT2DN0D17FmbnD9azRngMfqS195iMOaQxAWq5mRiK4CQ
+	 LW7XZam+LyVT+x1J2ANNvW3hlhl/7X0JHBxcf+wzG510DIDQrRqZDIGE4iGgew0vdW
+	 jhv6LX5wr1GDKPOATdVM8q6MpVH9vlnsd/MnRz5m8Sape+lf41t+jdLz0NtiPwHzfU
+	 LrZA9AZ86IGz12Xga9omsIAreyzPkO0hHiA+QHyc5tzJwGEuXhGQ0saxHAYYUa+576
+	 v991y6Gj8yZX9PHVQIAHZsbPbpEqLOf+dBxRTttj9lWavBh9LfpEnvdyRpCOiaQIjy
+	 KAhBrki1tHjWg==
+Date: Tue, 14 Nov 2023 11:04:46 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Andriy Utkin <andriy_utkin@fastmail.com>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] mbsrtowcs.3: add a note for conversion completion
-Message-ID: <ZVNCOHFFdSGn593o@dell>
+Message-ID: <ZVNGPmVfB5EOgXdA@debian>
 References: <20231113134857.1639387-1-andriy_utkin@fastmail.com>
  <ZVM8Hzfw9CCRHWwR@debian>
+ <ZVNCOHFFdSGn593o@dell>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HjRiiJR0cTXib4Od"
 Content-Disposition: inline
-In-Reply-To: <ZVM8Hzfw9CCRHWwR@debian>
+In-Reply-To: <ZVNCOHFFdSGn593o@dell>
 
-On Tue, Nov 14, 2023 at 10:21:27AM +0100, Alejandro Colomar wrote:
-> mbstowcs(3) has the following:
-> 
->      In  order  to  avoid the case 2 above, the programmer should make
->      sure n is greater than or equal to mbstowcs(NULL,src,0)+1.
-> 
-> We could add that.
 
-That might have enlightened me! I like the wording, and indeed, having
-it phrased the same way for these similar functions would be helpful.
+--HjRiiJR0cTXib4Od
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Nov 2023 11:04:46 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Andriy Utkin <andriy_utkin@fastmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] mbsrtowcs.3: add a note for conversion completion
 
-> BTW, maybe you want to use mbstowcs(3), which is simpler.
+Hi Andriy,
 
-Indeed I should have chosen that.
+On Tue, Nov 14, 2023 at 09:47:36AM +0000, Andriy Utkin wrote:
+> On Tue, Nov 14, 2023 at 10:21:27AM +0100, Alejandro Colomar wrote:
+> > mbstowcs(3) has the following:
+> >=20
+> >      In  order  to  avoid the case 2 above, the programmer should make
+> >      sure n is greater than or equal to mbstowcs(NULL,src,0)+1.
+> >=20
+> > We could add that.
+>=20
+> That might have enlightened me! I like the wording, and indeed, having
+> it phrased the same way for these similar functions would be helpful.
 
-> I think we could add something saying that mbsrtowcs(3) is a
-> restartable version of mbstowcs(3).
+I've applied a few patches to these pages:
 
-It might have helped me, and probably will help others.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D06783b90b57459437eb4a91b127523cc61fb1173>
 
-Thanks Alejandro!
+>=20
+> > BTW, maybe you want to use mbstowcs(3), which is simpler.
+>=20
+> Indeed I should have chosen that.
+>=20
+> > I think we could add something saying that mbsrtowcs(3) is a
+> > restartable version of mbstowcs(3).
+>=20
+> It might have helped me, and probably will help others.
+
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Db94a9c18d89c5c3a7a649c83e16de8034509c04e>
+
+And a few more to be able to diff the pages with
+
+	$ diff -u <(man mbstowcs) <(man mbsrtowcs)
+
+Which I had to use to understand the differences.
+
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D6f9e8feeb8d0c391b0e5eb3a2b4dc2d7eab4d098>
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Df77ff4a87d2ca676b81f6919676634ab126a18b2>
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dfcfa4c254f0454d34a9370e2051c84069183a46b>
+
+Cheers,
+Alex
+
+>=20
+> Thanks Alejandro!
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--HjRiiJR0cTXib4Od
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVTRj4ACgkQnowa+77/
+2zLXxA/+IQO7VStDAv/vIWtMD9DHpHvF9mfhFt18IMYd3VPecVfL5mGYKunLoqEx
+Un7TmpKMZCLxM2vdCfr3Jpoj2nin85e2ial4zfBO48zNGg1bkXx6KCDUgEW8N0GY
+VChE8JOKec2M65OklnD9CoBI+r2FUH2WGxma8WuYcC1GQPbc6aL3S2EKyYSYKjOq
+11X6HDAx0f23OiPvONKj1PNgtpn1FB6cgx3Yl8l3tARrho7xAcjC0hUJ0enFx2GW
+Srca2HiBjW8XGbevzke1deb+z1liIf0BkdDvEOM5lywh4t9/ZyaorBQj4JRuH0Dw
+MPakaShvOHZmrBFuwDv8EmGo/7HmN+M/xS1/2X+ixZYUtRuoggd4vxTUoTrOE3qC
+DyKlcFKwudH7mxhX4BRJT5zqH7gmGwvE5Gcv2jc9nijQJNNqi5SiVDnM2OIkPtrT
+0lnWy0/u3P3Pj9TSVlYnqF9f6cIZotHk//LqVVOOHTBUYmAPVWHBGPn6M/RSKZZl
+wEQhClVKhb8MSmqOtsMOk49VeTlx2/ogtyvlP1ttTHUV3u1JqbKWOwX+QnA7MquE
+5l5oTa3AIp1BLrhJ6Z5oKAt//agFBHrHrNkBLfBhahvMgtBkGGNQwZH8njrwJbd3
+YHe8DwpohIyrl2ZC6osFNPcuqy9Aa2Hy0H1qz3OeJgkMXIpe34E=
+=g9GU
+-----END PGP SIGNATURE-----
+
+--HjRiiJR0cTXib4Od--
 
