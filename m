@@ -1,46 +1,45 @@
-Return-Path: <linux-man+bounces-77-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-78-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89877EAD8C
-	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 11:04:54 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F88F7EADE1
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 11:20:25 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 920752810E7
-	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 10:04:53 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B0D111C20506
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 10:20:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE8CF182C0;
-	Tue, 14 Nov 2023 10:04:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13FBA18C39;
+	Tue, 14 Nov 2023 10:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwWn0y5V"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axQOt7fp"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674E51803E
-	for <linux-man@vger.kernel.org>; Tue, 14 Nov 2023 10:04:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27ACAC433C9;
-	Tue, 14 Nov 2023 10:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C424A16412
+	for <linux-man@vger.kernel.org>; Tue, 14 Nov 2023 10:20:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B410C433C8;
+	Tue, 14 Nov 2023 10:20:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699956289;
-	bh=qs5ff4lnmFgZiLSZfUW59+ZMhxDNKd1IjLAN9yRFHl4=;
+	s=k20201202; t=1699957221;
+	bh=EBUiBzHtoLgNqHMzwWv5wHwBd91sYu9Ho1bd03ITOAo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lwWn0y5Vg8MkAmCzLM5fhLT2DN0D17FmbnD9azRngMfqS195iMOaQxAWq5mRiK4CQ
-	 LW7XZam+LyVT+x1J2ANNvW3hlhl/7X0JHBxcf+wzG510DIDQrRqZDIGE4iGgew0vdW
-	 jhv6LX5wr1GDKPOATdVM8q6MpVH9vlnsd/MnRz5m8Sape+lf41t+jdLz0NtiPwHzfU
-	 LrZA9AZ86IGz12Xga9omsIAreyzPkO0hHiA+QHyc5tzJwGEuXhGQ0saxHAYYUa+576
-	 v991y6Gj8yZX9PHVQIAHZsbPbpEqLOf+dBxRTttj9lWavBh9LfpEnvdyRpCOiaQIjy
-	 KAhBrki1tHjWg==
-Date: Tue, 14 Nov 2023 11:04:46 +0100
+	b=axQOt7fpX9stUBAuG0rxwkNPEZXorrhyNRnXtfMwg5mSIjQil0B5BlJjIhW+bruCR
+	 y8ux5wWFUOwybdszQDRkLAwaQZQT/p+Fx9mzAf6KlAJxZjbkVOphEc0yT1d3haj3m2
+	 6GOWPMomfKnbbjdGIhminp7qg4gxIu7Zfv9+0ZQMC/btDO1RkF0fHCkrDNVt1dr4F3
+	 P8pkAIPs9cKY2w7qBVtN+6qPqvo8uplagpnn3yuoLy64sKZMcv9kIE7jqHLFxZr6aV
+	 RB6Inm8i52xJff00+XyS9T97gW0qgb7a8/CSPPHpXyFQfYaIAyU1qKNIpBvh3nYR6R
+	 qktZCi81ZGtyg==
+Date: Tue, 14 Nov 2023 11:20:17 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Andriy Utkin <andriy_utkin@fastmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] mbsrtowcs.3: add a note for conversion completion
-Message-ID: <ZVNGPmVfB5EOgXdA@debian>
-References: <20231113134857.1639387-1-andriy_utkin@fastmail.com>
- <ZVM8Hzfw9CCRHWwR@debian>
- <ZVNCOHFFdSGn593o@dell>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>,
+	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Re: [PATCH] ffs.3: all these functions live in <strings.h>.
+Message-ID: <ZVNJ4qs6k5rMCB4I@debian>
+References: <CAJgzZorddCz168wpwWTkq61eBxrU6C7iU2cUcWooUS7E8N8DWQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -48,94 +47,157 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HjRiiJR0cTXib4Od"
+	protocol="application/pgp-signature"; boundary="U8ViMe2Gwm16BgQc"
 Content-Disposition: inline
-In-Reply-To: <ZVNCOHFFdSGn593o@dell>
+In-Reply-To: <CAJgzZorddCz168wpwWTkq61eBxrU6C7iU2cUcWooUS7E8N8DWQ@mail.gmail.com>
 
 
---HjRiiJR0cTXib4Od
+--U8ViMe2Gwm16BgQc
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Nov 2023 11:04:46 +0100
+Date: Tue, 14 Nov 2023 11:20:17 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Andriy Utkin <andriy_utkin@fastmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] mbsrtowcs.3: add a note for conversion completion
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>,
+	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Re: [PATCH] ffs.3: all these functions live in <strings.h>.
 
-Hi Andriy,
+Hi Elliott,
 
-On Tue, Nov 14, 2023 at 09:47:36AM +0000, Andriy Utkin wrote:
-> On Tue, Nov 14, 2023 at 10:21:27AM +0100, Alejandro Colomar wrote:
-> > mbstowcs(3) has the following:
-> >=20
-> >      In  order  to  avoid the case 2 above, the programmer should make
-> >      sure n is greater than or equal to mbstowcs(NULL,src,0)+1.
-> >=20
-> > We could add that.
+On Mon, Nov 13, 2023 at 04:51:00PM -0800, enh wrote:
+> In most cases you'll get them transitively through <string.h>, but it's
+> misleading for the man page to claim that they're _in_ <string.h>, and
+> especially weird to claim they're in _different_ headers from each
+> other!
+
+Indeed.
+
+$ grepc -l ffs /usr/include/
+/usr/include/strings.h
+$ grepc -l ffsl /usr/include/
+/usr/include/strings.h
+$ grepc -l ffsll /usr/include/
+/usr/include/strings.h
+
 >=20
-> That might have enlightened me! I like the wording, and indeed, having
-> it phrased the same way for these similar functions would be helpful.
+> This is also true of Apple's headers, and FreeBSD (the other BSDs only
+> have ffs(), not its siblings).
 
-I've applied a few patches to these pages:
+$ pwd
+/home/alx/src/bsd/freebsd/main
+$ find . -type f | grep '/include/.*\.h$' | xargs grep -l ffs | xargs grepc=
+ -l ffs
+=2E/include/strings.h
+$ find . -type f | grep '/include/.*\.h$' | xargs grep -l ffs | xargs grepc=
+ -l ffsl
+=2E/include/strings.h
+$ find . -type f | grep '/include/.*\.h$' | xargs grep -l ffs | xargs grepc=
+ -l ffsll
+=2E/include/strings.h
 
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D06783b90b57459437eb4a91b127523cc61fb1173>
+
+$ pwd
+/home/alx/src/bsd/openbsd/master
+$ find . -type f | grep '/include/.*\.h$' | xargs grep -l ffs | xargs grepc=
+ -l ffs
+=2E/gnu/gcc/include/libiberty.h
+=2E/gnu/lib/libiberty/include/libiberty.h
+=2E/gnu/usr.bin/binutils-2.17/include/libiberty.h
+=2E/include/strings.h
+$ find . -type f | grep '/include/.*\.h$' | xargs grep -l ffs | xargs grepc=
+ -l ffsl
+$ find . -type f | grep '/include/.*\.h$' | xargs grep -l ffs | xargs grepc=
+ -l ffsll
+$
+
+
+Maybe it was different in the old BSDs; I don't know.  If anyone cares,
+they could send a patch for a HISTORY section.
 
 >=20
-> > BTW, maybe you want to use mbstowcs(3), which is simpler.
+> Signed-off-by: Elliott Hughes <enh@google.com>
+> ---
+>  man3/ffs.3 | 6 ------
+>  1 file changed, 6 deletions(-)
+
+> From 2862b4c94c01fda639fc1dd1fb94479eee1712b9 Mon Sep 17 00:00:00 2001
+> From: Elliott Hughes <enh@google.com>
+> Date: Mon, 13 Nov 2023 16:46:43 -0800
+> Subject: [PATCH] ffs.3: all these functions live in <strings.h>.
 >=20
-> Indeed I should have chosen that.
+> In most cases you'll get them transitively through <string.h>, but it's
+> misleading for the man page to claim that they're _in_ <string.h>, and
+> especially weird to claim they're in _different_ headers from each
+> other!
 >=20
-> > I think we could add something saying that mbsrtowcs(3) is a
-> > restartable version of mbstowcs(3).
+> This is also true of Apple's headers, and FreeBSD (the other BSDs only
+> have ffs(), not its siblings).
 >=20
-> It might have helped me, and probably will help others.
+> Signed-off-by: Elliott Hughes <enh@google.com>
 
+Patch applied.  Thanks!
 <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Db94a9c18d89c5c3a7a649c83e16de8034509c04e>
-
-And a few more to be able to diff the pages with
-
-	$ diff -u <(man mbstowcs) <(man mbsrtowcs)
-
-Which I had to use to understand the differences.
-
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D6f9e8feeb8d0c391b0e5eb3a2b4dc2d7eab4d098>
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Df77ff4a87d2ca676b81f6919676634ab126a18b2>
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dfcfa4c254f0454d34a9370e2051c84069183a46b>
+mit/?h=3Dcontrib&id=3D69b9ba5aa108dfdbe7df56b16152e6c90110c6ab>
 
 Cheers,
 Alex
 
+> ---
+>  man3/ffs.3 | 6 ------
+>  1 file changed, 6 deletions(-)
 >=20
-> Thanks Alejandro!
+> diff --git a/man3/ffs.3 b/man3/ffs.3
+> index 5a5e1c21c..aab5f1099 100644
+> --- a/man3/ffs.3
+> +++ b/man3/ffs.3
+> @@ -22,9 +22,6 @@ Standard C library
+>  .B #include <strings.h>
+>  .P
+>  .BI "int ffs(int " i );
+> -.P
+> -.B #include <string.h>
+> -.P
+>  .BI "int ffsl(long " i );
+>  .BI "int ffsll(long long " i );
+>  .fi
+> @@ -87,9 +84,6 @@ T{
+>  .BR ffsll ()
+>  T}	Thread safety	MT-Safe
+>  .TE
+> -.SH VERSIONS
+> -BSD systems have a prototype in
+> -.IR <string.h> .
+>  .SH STANDARDS
+>  .TP
+>  .BR ffs ()
+> --=20
+> 2.42.0.869.gea05f2083d-goog
+>=20
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---HjRiiJR0cTXib4Od
+--U8ViMe2Gwm16BgQc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVTRj4ACgkQnowa+77/
-2zLXxA/+IQO7VStDAv/vIWtMD9DHpHvF9mfhFt18IMYd3VPecVfL5mGYKunLoqEx
-Un7TmpKMZCLxM2vdCfr3Jpoj2nin85e2ial4zfBO48zNGg1bkXx6KCDUgEW8N0GY
-VChE8JOKec2M65OklnD9CoBI+r2FUH2WGxma8WuYcC1GQPbc6aL3S2EKyYSYKjOq
-11X6HDAx0f23OiPvONKj1PNgtpn1FB6cgx3Yl8l3tARrho7xAcjC0hUJ0enFx2GW
-Srca2HiBjW8XGbevzke1deb+z1liIf0BkdDvEOM5lywh4t9/ZyaorBQj4JRuH0Dw
-MPakaShvOHZmrBFuwDv8EmGo/7HmN+M/xS1/2X+ixZYUtRuoggd4vxTUoTrOE3qC
-DyKlcFKwudH7mxhX4BRJT5zqH7gmGwvE5Gcv2jc9nijQJNNqi5SiVDnM2OIkPtrT
-0lnWy0/u3P3Pj9TSVlYnqF9f6cIZotHk//LqVVOOHTBUYmAPVWHBGPn6M/RSKZZl
-wEQhClVKhb8MSmqOtsMOk49VeTlx2/ogtyvlP1ttTHUV3u1JqbKWOwX+QnA7MquE
-5l5oTa3AIp1BLrhJ6Z5oKAt//agFBHrHrNkBLfBhahvMgtBkGGNQwZH8njrwJbd3
-YHe8DwpohIyrl2ZC6osFNPcuqy9Aa2Hy0H1qz3OeJgkMXIpe34E=
-=g9GU
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVTSeEACgkQnowa+77/
+2zLY3hAApbveQ70o4tPnE7Hf/5x3gp9fOEFrVf50aB4WjPpdlh/RGE0X+E+8hBr2
+e/I6HssSwTpKBTjTpbNjlSjGiReKJY3PcZfdx4AphmBvmx47hp+2HYqpOxmqp2oz
+pJ7kLaoxM8DPn7syp5yl8cWHDGzZf7UEGH6PmVHqaO7COFyxzYaMyi079jVIcLcx
+56Z5t+/JGPJ/a+E6G50RqQvAApc7xKlF/VX5gGwK7WqC7ZSFhlKQHIpkTCA+GIt1
+pKXzjkcyxtMTxcN7tiZYfz0Fhd0tOxwFeuSDNnvLVph8AyGrFfYGcEk23bvPE8ge
+OUbZ6vwz50X7V4TCLZEFOurslgQRyHdpZ7aqFc+hCVLRroFxofrx0yAqJXt7ESUC
+1BHc9hi8+Myeo1MLqfv1RyD2GTxWg+JM1cYx6aYhVAtXWtYAlLYuOKgoXtAht4Pr
+VTtvlbyylsmfc4fV/mK9BdRwWiS7v6E3bBhJWCa/vr5/TypRUU3mAY5kDbv7Nt6j
+fC/pU/cvuyYINqm27Y54gM1NsWLrFL0Rry54LAUXXRE750JHuPvTA9izAC79F8d9
+yyZr/R0+rq2fR7iLOG1K2HutGNxOneNp5LAFECEJBczrKunobArvDN/h/Kefuk3d
+j4Nt8Sj6R5D08S60xPPGHPhhdH8lKH8ikLn2OoW/WwVEaRCBxBs=
+=qMKx
 -----END PGP SIGNATURE-----
 
---HjRiiJR0cTXib4Od--
+--U8ViMe2Gwm16BgQc--
 
