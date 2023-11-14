@@ -1,150 +1,118 @@
-Return-Path: <linux-man+bounces-72-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-73-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A9F7EA72E
-	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 00:49:39 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 157767EA775
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 01:25:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 127451F23553
-	for <lists+linux-man@lfdr.de>; Mon, 13 Nov 2023 23:49:39 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F00CC1C20918
+	for <lists+linux-man@lfdr.de>; Tue, 14 Nov 2023 00:25:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A6793D988;
-	Mon, 13 Nov 2023 23:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dkim=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44451EBE;
+	Tue, 14 Nov 2023 00:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tej3JN8G"
 X-Original-To: linux-man@vger.kernel.org
-Received: from lindbergh.monkeyblade.net (lindbergh.monkeyblade.net [23.128.96.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCA63E469
-	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 23:49:32 +0000 (UTC)
-Received: from smtp.gentoo.org (woodpecker.gentoo.org [140.211.166.183])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 508A68F
-	for <linux-man@vger.kernel.org>; Mon, 13 Nov 2023 15:49:29 -0800 (PST)
-References: <20231025141103.savwphtepufpget4@illithid>
- <ZTkvY8egIrf9pcxF@debian> <20231028131325.vloorrwewruhy4lq@illithid>
- <87edhbz9jh.fsf@gentoo.org> <ZUDvXuA3MVZVSOF7@debian>
-User-agent: mu4e 1.10.8; emacs 30.0.50
-From: Sam James <sam@gentoo.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Sam James <sam@gentoo.org>, "G. Branden Robinson"
- <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D5717D8
+	for <linux-man@vger.kernel.org>; Tue, 14 Nov 2023 00:25:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C88C433C8;
+	Tue, 14 Nov 2023 00:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1699921519;
+	bh=NPsVTVvoDRFwAwCj+v71VNY7gsBSTE2yhQnK7TV91Ag=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tej3JN8GELX/J/3k36ucr90t5NbgKPI2/opw+lBDDb3nJPQw0nMJ3YwDh1+WOG2Uh
+	 BRdlZDT0zEtOUoj1JlA9jFwvVdR7kn2151TgtWnWrhbbdimPM68aN2yuap2hrg1gRO
+	 PUuLBh1LJtrBKX91q7xZuV3asG2CiB9hZE6WbIOBpjoCvUel9b6kWTWP2/uIr3vm5v
+	 1s5lpfLt24BlbYnUkrlrHKo7LiQUjGpy51L9/iKuD5j2HCpAjeO499IWyq5CXiaDxU
+	 /esU40jE7kn4Q7SSIFd9D5IufpRlJ+nLlEJR7Q331G/sYoZTd6yZL4U2D+JZ1eeVa+
+	 y2TImIad+nUfA==
+Date: Tue, 14 Nov 2023 01:25:09 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Sam James <sam@gentoo.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	linux-man@vger.kernel.org
 Subject: Re: groff 1.23.0 stability (was: using the TQ macro)
-Date: Mon, 13 Nov 2023 23:48:29 +0000
-Organization: Gentoo
-In-reply-to: <ZUDvXuA3MVZVSOF7@debian>
-Message-ID: <87wmulnri2.fsf@gentoo.org>
+Message-ID: <ZVK-bD5lt6RuyBUm@debian>
+References: <20231025141103.savwphtepufpget4@illithid>
+ <ZTkvY8egIrf9pcxF@debian>
+ <20231028131325.vloorrwewruhy4lq@illithid>
+ <87edhbz9jh.fsf@gentoo.org>
+ <ZUDvXuA3MVZVSOF7@debian>
+ <87wmulnri2.fsf@gentoo.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c8UHermiIjFLDD3B"
+Content-Disposition: inline
+In-Reply-To: <87wmulnri2.fsf@gentoo.org>
 
 
-Alejandro Colomar <alx@kernel.org> writes:
+--c8UHermiIjFLDD3B
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Nov 2023 01:25:09 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Sam James <sam@gentoo.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: Re: groff 1.23.0 stability (was: using the TQ macro)
 
-> [[PGP Signed Part:Undecided]]
-> Hi Sam!
->
-> On Tue, Oct 31, 2023 at 04:38:13AM +0000, Sam James wrote:
->> "G. Branden Robinson" <g.branden.robinson@gmail.com> writes:
->> > At 2023-10-25T17:08:19+0200, Alejandro Colomar wrote:
->> >> BTW, I just checked and Gentoo still doesn't consider 1.23.0 stable
->> >> enough <https://packages.gentoo.org/packages/sys-apps/groff>.  :|
->> >
->> 
->> Alex, this is based on a misunderstanding of how our process works -- please
->> CC me if you have questions or if something looks off in future, so I
->> can explain/help if required.
->> 
->> > I don't understand that claim.  1.23.x is as stable as it can be; there
->> > have been no point releases.  Its behavior is not changing based on the
->> > calendar.
->> 
->> The standard rule in Gentoo is 30 days after something has been released
->> before it's considered for "stabilisation". We wait longer for critical
->> packages like groff to give more time for any reported bugs in "~arch"
->> (our testing area, which a lot of users participate in). It is generally
->> not a comment on upstream stability at all.
->
-> Yep, I understand it's just about your use in combination with other
-> packages in your distribution.  What I'm not sure is if by default
-> Gentoo installs the stable packages or the testing ones.  If you install
-> by default the stable one, I wouldn't want to force a dependency on a
-> package that you don't yet install by default.
+Hi Sam, Branden,
 
-That's no problem - we regularly have things which require a new
-dependency to become stable and it's a nudge if it hasn't happened anyway.
+On Mon, Nov 13, 2023 at 11:48:29PM +0000, Sam James wrote:
+=2E..
 
-(See below).
+> That's no problem - we regularly have things which require a new
+> dependency to become stable and it's a nudge if it hasn't happened anyway.
+>=20
+> (See below).
 
->
->> 
->> > I have to assume that there are either changes since 1.22.4
->> > documented in NEWS (and if not, that's probably a bug) that they're
->> > concerned about, or they're worried the broader community hasn't gotten
->> > enough exposure to it yet.  repology.org has been sitting at 64
->> > instances of groff 1.23.0 for weeks now; I think pretty much everyone
->> > who's going to adopt it has done so by now.
->> >
->> 
->> ... in this case, the only blockers were really:
->> * me having https://github.com/Perl/perl5/issues/21239
->>   in the back of my head (wasn't paying full attention, just knew I had
->>   to go back and read any developments/further comments) 
->> 
->> * needing to look into a reported failure
->>   (https://bugs.gentoo.org/910226) - which looks like it should be fixed
->>   when we update our version of openvswitch (or we backport the patch,
->>   or both)
->
-> So, if the Linux man-pages forces a dependency of groff-1.23.0, would it
-> be problematic for Gentoo before you declare it stable, or would it be
-> fine?
+=2E..
 
-Yeah, this is fine - go ahead. The only issue would really be if
-groff-1.23.0 was causing many issues which would prevent us from
-unleashing newer man-pages any time soon, but that is not the case.
+> Yeah, this is fine - go ahead. The only issue would really be if
+> groff-1.23.0 was causing many issues which would prevent us from
+> unleashing newer man-pages any time soon, but that is not the case.
 
->
->> 
->> > CCing Sam James (the only Gentoo developer I know by name, because he's
->> > been active some of the same places I have been) in case he can throw
->> > some light on this.
->> 
->> Happily! Please feel free to loop me in if you reckon I can give input
->> on things.
->> 
->> So, all in all, none of this is a reflection on upstream, just a mix
->> of: how we do things normally (waiting a bit post-release unless there's
->> some serious regression in our stable version), waiting a bit longer
->> because it's a critical package (sometimes 60 days, sometimes a bit
->> longer), and not getting around to looking at that openvswitch bug yet.
->
-> Yeah, the quality of groff-1.23.0 is way better than 1.22.4.  I'm just
-> worried that forcing distros to use it too early might be detrimental.
->
-> Cheers,
-> Alex
->
->> 
->> I promise I would report any problems if I determined they were in any
->> way an upstream issue :)
->> 
->> Thanks for reaching out.
->> 
->> >
->> > Regards,
->> > Branden
->> >
->> 
->> best,
->> sam
->> 
+Thanks!
 
-thanks,
-sam
+Branden: wind calm, visibility 10, sky clear.  ;)
+
+Cheers,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--c8UHermiIjFLDD3B
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVSvmYACgkQnowa+77/
+2zLwTQ//RP6dLynzf/upVdIBBwY46F+yxPcvHRK+ZkFqrW1BCQKL5AmE/sdE/0Yf
+j6QWoNFG+65fyf/eftPxY9i9JFny0VmPULDx5znJ8om8w3kTsRgN+MZkOkDKY+lY
+pwyLd8xmx9HmAdJrVrVx/QpCsMfzGmz7NXZ7cZCkWM8E/swFsKlDs435/JDLQlFY
+Grx4NzG6wEs+cl5uqxwFTRynM9y+p/B/+apiI6AeMXF/9YAvF+rUiGClkQiK/C3X
+XAphmDtcTWJ+2hcI8o35d6/h3WiE+NTTowKAeyi7cU+cCLYrQKnB9mpjQKcWrH0K
+F/KXHK2b3VvY3+bdzKn++SemT1J+ft6Ho09j/lkyS+ukwP5eq/auStugMHxVfeyE
+t2Sm4UMHXb7g+eT+zpgjbPVXvbuK7uRyHTAivggGvhUavOnzld2asF8hqenE/naW
+dVrMdMcOf+jWzpmpBeST6DKlxYYlT/iOVxGkHDXYfJGXQssAbzS7Q3/S/u4wclMU
+DA5oz7cK8kk7rRx0yQv6hd5Q0HBxRr/Exa8nPxXsx7A8QDw2kZqw0JrWru9W1mxy
+hd5q5O4Hq+MP+nz7guxN3othkVuGGEVjx8TXmo6OwJjCffrGnZhbLoe89v6p6eXV
+3YcjYzPQdZ6Fwm/olffpJf1SxWiob3DEBC59lTxm1pqCSBdZmHs=
+=ijG9
+-----END PGP SIGNATURE-----
+
+--c8UHermiIjFLDD3B--
 
