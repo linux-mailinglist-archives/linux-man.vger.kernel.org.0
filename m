@@ -1,121 +1,113 @@
-Return-Path: <linux-man+bounces-80-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-81-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE8A7ED831
-	for <lists+linux-man@lfdr.de>; Thu, 16 Nov 2023 00:29:01 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C403E7ED842
+	for <lists+linux-man@lfdr.de>; Thu, 16 Nov 2023 00:35:57 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 28F6D281047
-	for <lists+linux-man@lfdr.de>; Wed, 15 Nov 2023 23:29:00 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D17521C20915
+	for <lists+linux-man@lfdr.de>; Wed, 15 Nov 2023 23:35:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E3C24317D;
-	Wed, 15 Nov 2023 23:28:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 695D53A8FE;
+	Wed, 15 Nov 2023 23:35:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WvmHtxgs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="od78WApT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ua1-x92b.google.com (mail-ua1-x92b.google.com [IPv6:2607:f8b0:4864:20::92b])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEE11199
-	for <linux-man@vger.kernel.org>; Wed, 15 Nov 2023 15:28:53 -0800 (PST)
-Received: by mail-ua1-x92b.google.com with SMTP id a1e0cc1a2514c-7ba12f0856aso871246241.0
-        for <linux-man@vger.kernel.org>; Wed, 15 Nov 2023 15:28:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700090933; x=1700695733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/SoE+lhB/HMER0jw8wR+DEg+thB9IFlQjRlF9A0tFP4=;
-        b=WvmHtxgsGN+d9QdjZfacWU4rkBpDHcsX5iR82XKmmEA8MN41ZgH4HjZGen9F02DCNC
-         7tsjeYQ4xJASNBK4Qs2pEilPAjDY05abVkbGwXzpVguu6n2dPSUjqGEsC312r9T3FEu8
-         zu3uvtTzIzdR7t+O/yHVAeYWu2gMRq4+fe7fJjim1KX1zKDz9WtswZhuAPoaSgudUkgi
-         vNQeqUEf56LT95gFV/Ujwi/PgiCyGZp/oWHzW5KPNQE5g3qDKj0/PBNualiFw4ehQPkG
-         QXZqpA841KdhLHIbFoAVzqQiJdq8x985p27Fyhvn4RSlWRUKxO9N4bxjA6a2XCzbRzNS
-         Tqtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700090933; x=1700695733;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/SoE+lhB/HMER0jw8wR+DEg+thB9IFlQjRlF9A0tFP4=;
-        b=YU1kWIxMnL286dUNmvgmcmftRWA8MZcFmCBcGi5OseGk9ZbHUkpBSrqsrrhfwWiGwN
-         q9JYxGAPTotrAuUNJXq8Kz4en/tAQpXJ5WnLHLHNsEeVMk7P6LHR5DZuUbLi+x3vauLg
-         OcHbuWqe4iyqgiokyCsyVpZpkLBPSV7Ah11jsKRTgYK5dyjWD/h1XLF0KVQfvm3fXgSb
-         QeKymqcNL3MWjPPEOd0rxI0GRR7UzLihgG2hNfzib4Irf41W6IuhdOdAXEGlVLWD1vmD
-         c4Y1oE6AMSw1QitCUn6ZvtWku456CIO8kBrbFq0ZXqEbpYeo5ND3sYjTivqr9Gv0EEdl
-         pPGg==
-X-Gm-Message-State: AOJu0YwP+46vBs5W82tcQBoieqo3bribSYlIDVQ6oOOaAnkjZl+SnHin
-	KqPoNFo0kjlo4Nri1QeSqtqqFjl0uSw=
-X-Google-Smtp-Source: AGHT+IGWR4WuAgts8UuietOL7qI6bYfdev+NHtASiFgh5CvoCOwGmhY+rbwrs5+g9fcD7yfCbePVUw==
-X-Received: by 2002:a05:6102:819:b0:45f:6572:5ed8 with SMTP id g25-20020a056102081900b0045f65725ed8mr2408vsb.14.1700090932738;
-        Wed, 15 Nov 2023 15:28:52 -0800 (PST)
-Received: from firmament.. ([45.87.214.195])
-        by smtp.gmail.com with ESMTPSA id m15-20020ab0138f000000b007bac8e4ed52sm447388uae.26.2023.11.15.15.28.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Nov 2023 15:28:52 -0800 (PST)
-From: Matthew House <mattlloydhouse@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAA343153
+	for <linux-man@vger.kernel.org>; Wed, 15 Nov 2023 23:35:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E96C433C8;
+	Wed, 15 Nov 2023 23:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700091352;
+	bh=nQWFRdTRCl35ugF4vZvg0FzQUeRFb+vBLEoFx3sKhd0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=od78WApTaNpacJFI4AcaXURxHkPu8c4Vjws3Xl8z3cXIDKk8+qhAx5JtawsG7MR9x
+	 mR35sGNExgHlb1ekf07AcjC7+zvBKcjTXZVD1yv+xsFXRcYJ6gYPiKEpyu5iCLedJe
+	 XH4GEjrwA/6ZrDnfvHKk73r+71F9Ld/BXbyE+0yRcUXsuH0KNzn/wOg0Tpwnkufull
+	 0cKqGrXCiJ68AbpJPqlhSIRfF4NNlBAlUaktBU4uB3icun2AHPvSv3x9D5zxT3qFrg
+	 sX6bbupvDIg4d6Zyl6oip+0tnVvw6CjzlpnewHxumC+fv17d3kResXxaoVusYWDDfp
+	 p6uhOagSzGG0g==
+Date: Thu, 16 Nov 2023 00:39:07 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Matthew House <mattlloydhouse@gmail.com>
 Cc: linux-man@vger.kernel.org
 Subject: Re: Signing all patches and email to this list
-Date: Wed, 15 Nov 2023 18:28:42 -0500
-Message-ID: <20231115232848.693843-1-mattlloydhouse@gmail.com>
-In-Reply-To: <20231115212015.6446-1-alx@kernel.org>
+Message-ID: <ZVVWmz1Lfh3wplBE@devuan>
 References: <20231115212015.6446-1-alx@kernel.org>
+ <20231115232848.693843-1-mattlloydhouse@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p5OkM+QYj0kVpHQs"
+Content-Disposition: inline
+In-Reply-To: <20231115232848.693843-1-mattlloydhouse@gmail.com>
+
+
+--p5OkM+QYj0kVpHQs
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Nov 2023 00:39:07 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Matthew House <mattlloydhouse@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Signing all patches and email to this list
 
-On Mon, Nov 13, 2023 at 6:46 PM Alejandro Colomar <alx@kernel.org> wrote:
-> Hi,
->
-> I'd like to ask contributors to sign their emails to this list with a
-> PGP key; especially for mails that include patches, but ideally all of
-> them.  Of course, it's a suggestion, and there wouldn't be any
-> enforcement other than asking.  What do you think of that?
->
-> I've prepared some text for ./CONTRIBUTING; please review.  It also
-> depends on mutt(1) maintainers, if they want to patch mutt(1) to allow
-> crypto operations in batch and mailx modes.
->
-> Thanks,
-> Alex
->
-> ---
->
-> commit f7ba049d975a4b323c8086b2fc859687e4fc1d4e (HEAD -> sign)
-> Author: Alejandro Colomar <alx@kernel.org>
-> Date:   Fri Nov 10 01:10:00 2023 +0100
->
->     CONTRIBUTING: Please sign your emails with PGP
->
->     Signed-off-by: Alejandro Colomar <alx@kernel.org>
->
-> diff --git a/CONTRIBUTING b/CONTRIBUTING
-> index 475244c13..204e04fb3 100644
-> --- a/CONTRIBUTING
-> +++ b/CONTRIBUTING
-> @@ -56,6 +56,29 @@ Description
->
->                   help
->
-> +       Sign your emails with PGP
-> +             Please sign all of your emails sent to the mailing list,
-> +             including your emails containing patches, with your PGP
-> +             key.  This helps establish trust between you and other
-> +             contributors of this project, and prevent others
-> +             impersonating you.
+Hi Matthew,
 
-If this is meant to be a suggestion rather than an obligation, then I'd
-prefer if it had an explicit statement to the effect that it is (strongly?)
-encouraged but not mandatory. If I were reading CONTRIBUTING for the first
-time, I'd be inclined to read the bare imperative "Please sign all of your
-emails" as a hard requirement, and be scared off on account of not even
-having a PGP key.
+On Wed, Nov 15, 2023 at 06:28:42PM -0500, Matthew House wrote:
+> > +       Sign your emails with PGP
+> > +             Please sign all of your emails sent to the mailing list,
+> > +             including your emails containing patches, with your PGP
+> > +             key.  This helps establish trust between you and other
+> > +             contributors of this project, and prevent others
+> > +             impersonating you.
+>=20
+> If this is meant to be a suggestion rather than an obligation, then I'd
+> prefer if it had an explicit statement to the effect that it is (strongly=
+?)
+> encouraged but not mandatory. If I were reading CONTRIBUTING for the first
+> time, I'd be inclined to read the bare imperative "Please sign all of your
+> emails" as a hard requirement, and be scared off on account of not even
+> having a PGP key.
 
-Thank you,
-Matthew House
+Yep, I was worried I would scare off those who don't even have one.
+Thanks for the suggestion; will update accordingly.
+
+Cheers,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--p5OkM+QYj0kVpHQs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVVVpsACgkQnowa+77/
+2zJzaxAApLXfS+W920E0A+NXwtnTzZWpN6aSyiCWxvfhMKNwb4dfaSh6BsPQqjbm
+MYUaypBxmU2dLeCHSxxpRKnosGPX3RMNdvKg+02TSW6MqQ2ZsNQKmww3ahVm87Yr
+q+s3WhrdJgyS1mxVV3rb5r6iFRVJOo/08HQUJrcQQADQmcR772q5JGdE5AAO6H11
+l47/oWNlsoDna1A/7/SbdoaT1mC1Ujm1BCVQTmQbr68GeLqz7aBNND+xkw+ZzoCs
+s1YCatDOeAV423Ol6PUST4WG6XZqGZjYEJyDz/vag2nW1hoEzxkuL9aDhw1UsQYN
+3jb+K2HMKIDdJfGN0TFYXUzlZZofYWW1IsGcQqDQQX6Irax9T6GHFjgEDnFybSX6
+hjrkHatj4OI2Gg6PqlRKIy6+IRjUQto6mnqLMOVrNUlx6sPzs7T/nR3ZsCb9JFms
+KwbRBnExMm4kG0H60RoedU0W62/78wql8HpJnaX6xxMDtVaRCKKfySeLIwpswX20
+4ESriRRdroQ61gHUGwfm0dAyMVRyVOyuzA1MC0VKnRC8FC6qFRbiZHhevkdpMq7O
+ndj98XBLqltS2msuouD6x1/9hmNzBdjHVbt7lb2GgqdfzrAj3nUfVMSY8a3fk/2n
+j+oaLTzExtIJGjrHtijoL8n0PNC9yHgfmdD5zVfMBa+JHgR9PEI=
+=wueK
+-----END PGP SIGNATURE-----
+
+--p5OkM+QYj0kVpHQs--
 
