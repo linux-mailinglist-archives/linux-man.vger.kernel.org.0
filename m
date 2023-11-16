@@ -1,113 +1,125 @@
-Return-Path: <linux-man+bounces-81-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-82-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C403E7ED842
-	for <lists+linux-man@lfdr.de>; Thu, 16 Nov 2023 00:35:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40FCB7EE827
+	for <lists+linux-man@lfdr.de>; Thu, 16 Nov 2023 21:12:32 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D17521C20915
-	for <lists+linux-man@lfdr.de>; Wed, 15 Nov 2023 23:35:56 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 719401C20A00
+	for <lists+linux-man@lfdr.de>; Thu, 16 Nov 2023 20:12:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 695D53A8FE;
-	Wed, 15 Nov 2023 23:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB89A4645E;
+	Thu, 16 Nov 2023 20:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="od78WApT"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FMF9PAQy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAA343153
-	for <linux-man@vger.kernel.org>; Wed, 15 Nov 2023 23:35:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E96C433C8;
-	Wed, 15 Nov 2023 23:35:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700091352;
-	bh=nQWFRdTRCl35ugF4vZvg0FzQUeRFb+vBLEoFx3sKhd0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=od78WApTaNpacJFI4AcaXURxHkPu8c4Vjws3Xl8z3cXIDKk8+qhAx5JtawsG7MR9x
-	 mR35sGNExgHlb1ekf07AcjC7+zvBKcjTXZVD1yv+xsFXRcYJ6gYPiKEpyu5iCLedJe
-	 XH4GEjrwA/6ZrDnfvHKk73r+71F9Ld/BXbyE+0yRcUXsuH0KNzn/wOg0Tpwnkufull
-	 0cKqGrXCiJ68AbpJPqlhSIRfF4NNlBAlUaktBU4uB3icun2AHPvSv3x9D5zxT3qFrg
-	 sX6bbupvDIg4d6Zyl6oip+0tnVvw6CjzlpnewHxumC+fv17d3kResXxaoVusYWDDfp
-	 p6uhOagSzGG0g==
-Date: Thu, 16 Nov 2023 00:39:07 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthew House <mattlloydhouse@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Signing all patches and email to this list
-Message-ID: <ZVVWmz1Lfh3wplBE@devuan>
-References: <20231115212015.6446-1-alx@kernel.org>
- <20231115232848.693843-1-mattlloydhouse@gmail.com>
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com [IPv6:2607:f8b0:4864:20::1030])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49F54D56
+	for <linux-man@vger.kernel.org>; Thu, 16 Nov 2023 12:12:20 -0800 (PST)
+Received: by mail-pj1-x1030.google.com with SMTP id 98e67ed59e1d1-28014fed9efso1014551a91.0
+        for <linux-man@vger.kernel.org>; Thu, 16 Nov 2023 12:12:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1700165539; x=1700770339; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QgNHea2v2D3O8dTZ/sAPUHfYW1P6pznus4pS0an/UkI=;
+        b=FMF9PAQy+KMNZyywHS3QaMw3KW8iD81ulTzSwGbjpqRp8iAw3Xypg72VqW2SOqEug8
+         bAGDeFOaG5eOaSQfujzTpEZ7ABEfEPR99qRCuEkzb1g8qK4ty/SSGh/OWCLHMDKqlKQM
+         vHbF7e58xXFbFtovJnodBSinozC+g3kXK74oGiDuypF+xiEp9e4ZZrfU0g8HiPg1BBD0
+         JZ7ef6SbeSxoZnMxfEBENhqsx+HIeMdNYkiUvDdZ/AX3uZUZNZ6ZDEyff8CmhO2nD4Dj
+         8Kr9x6MepXu4JLi8kSshGAFq1vU/Zh9FmLEnT6iGOOFnc9QzPEvg4Hvvwq5MvJbtgon5
+         ydkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700165539; x=1700770339;
+        h=content-transfer-encoding:in-reply-to:organization:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QgNHea2v2D3O8dTZ/sAPUHfYW1P6pznus4pS0an/UkI=;
+        b=AZXwEu0X2rMoTeyyyH27OxF1mLg95aZ00btXRnmYZSYUgEHWuEmVwIuc5sJ3+tl/6J
+         kRUM6/Lu0O4kv0GslnHZMnyyndl0MwjG88aUoYpoJK3muRK+N6EAbDOkrh5faCeS/wfo
+         ND8j/Ms34Pr+4v/ljGD3XocFF0tCzlAVXDvmpExXpfKuvzEZzqse6xWIUHvi/uHC+kQE
+         mbbHZrnfj8cXfSxe6cuZw+mbMQVkvLyqkbP0VAeJwtZHzYjVyFH5LlmPIimZ1t+0nGJo
+         d3pdEXeo4TNWRN4qKbzxMZCJ47RZJh8e1o8vSefDOAeJh6m0y+dUfAWjDU49m4l3Rn7M
+         P4+A==
+X-Gm-Message-State: AOJu0YxigwFwVjg44bkqsAO3jpiB2fBEkCSHmeGJ5XBPEqVeLTVdu7QW
+	7sBUP47ig63LGEAlfELIAjqUEQ==
+X-Google-Smtp-Source: AGHT+IGlTO9JcHdCtKOhihATNGgTtRYC9vKdjkaqj9QXzXbsWQRaGgZTBC22Xdz+4dy/RIkiK9RklA==
+X-Received: by 2002:a17:90b:390a:b0:280:48d4:1eb3 with SMTP id ob10-20020a17090b390a00b0028048d41eb3mr15760995pjb.8.1700165539109;
+        Thu, 16 Nov 2023 12:12:19 -0800 (PST)
+Received: from ?IPV6:2804:1b3:a7c1:4617:716b:3ad5:e6b:26a9? ([2804:1b3:a7c1:4617:716b:3ad5:e6b:26a9])
+        by smtp.gmail.com with ESMTPSA id az2-20020a17090b028200b002800b26dbc1sm1940133pjb.32.2023.11.16.12.12.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Nov 2023 12:12:18 -0800 (PST)
+Message-ID: <938766c0-4cee-4363-a089-d5a6b10698d0@linaro.org>
+Date: Thu, 16 Nov 2023 17:12:13 -0300
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p5OkM+QYj0kVpHQs"
-Content-Disposition: inline
-In-Reply-To: <20231115232848.693843-1-mattlloydhouse@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: proposed libc interface and man page for statmount(2)
+Content-Language: en-US
+To: Miklos Szeredi <miklos@szeredi.hu>, libc-alpha@sourceware.org,
+ linux-man <linux-man@vger.kernel.org>, Rich Felker <dalias@libc.org>
+Cc: Alejandro Colomar <alx@kernel.org>, Linux API
+ <linux-api@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
+ Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>,
+ David Howells <dhowells@redhat.com>, Christian Brauner
+ <christian@brauner.io>, Amir Goldstein <amir73il@gmail.com>,
+ Florian Weimer <fweimer@redhat.com>, Arnd Bergmann <arnd@arndb.de>
+References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
+From: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Organization: Linaro
+In-Reply-To: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---p5OkM+QYj0kVpHQs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Nov 2023 00:39:07 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthew House <mattlloydhouse@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Signing all patches and email to this list
 
-Hi Matthew,
+On 15/11/23 12:08, Miklos Szeredi wrote:
+> Hi,
+> 
+> Attaching the proposed man page for the new statmount() syscall.
+> 
+> It describes a libc interface that is slightly different from the raw
+> kernel API.   The differences from the two API's are also described in
+> the man page.
+> 
+> Raw:
+> 
+>        long syscall(SYS_statmount, const struct mnt_id_req *req,
+>                     struct statmount *buf, size_t bufsize, unsigned int flags);
+> 
+> Libc:
+> 
+>        struct statmount *statmount(uint64_t mnt_id, uint64_t request_mask,
+>                                    struct statmount *buf, size_t bufsize,
+>                                    unsigned int flags);
+> 
+> I propose the libc one to allow automatically allocating the buffer if
+> the buf argument is NULL, similar to getcwd(3).
 
-On Wed, Nov 15, 2023 at 06:28:42PM -0500, Matthew House wrote:
-> > +       Sign your emails with PGP
-> > +             Please sign all of your emails sent to the mailing list,
-> > +             including your emails containing patches, with your PGP
-> > +             key.  This helps establish trust between you and other
-> > +             contributors of this project, and prevent others
-> > +             impersonating you.
->=20
-> If this is meant to be a suggestion rather than an obligation, then I'd
-> prefer if it had an explicit statement to the effect that it is (strongly=
-?)
-> encouraged but not mandatory. If I were reading CONTRIBUTING for the first
-> time, I'd be inclined to read the bare imperative "Please sign all of your
-> emails" as a hard requirement, and be scared off on account of not even
-> having a PGP key.
+The glibc getcwd implementation allocates a buffer with maximum size
+of max(PATH_MAX, getpagesize()) and iff getpwd syscall fails it will 
+fallback to a generic implementation that keep calling openat and realloc 
+the buf if required.  So for the generic case, it would require malloc
+plus realloc (to free some unused memory).
 
-Yep, I was worried I would scare off those who don't even have one.
-Thanks for the suggestion; will update accordingly.
+Making statmount similar to getcwd would require something alike, where 
+the libc will loop to reallocate the buffer if syscall returns EOVERFLOW.
+I am not sure this would be the best interface, come up the initial buffer
+size and the increment might be tricky and not ideal for all usage cases.
 
-Cheers,
-Alex
+Maybe setting the initial size depending of request_mask bits, by assuming
+a reasonable size for STMT_FS_TYPE and PATH_MAX for STMT_MNT_ROOT/STMT_MNT_POINT
+would be a reasonable initial size. 
 
---=20
-<https://www.alejandro-colomar.es/>
-
---p5OkM+QYj0kVpHQs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVVVpsACgkQnowa+77/
-2zJzaxAApLXfS+W920E0A+NXwtnTzZWpN6aSyiCWxvfhMKNwb4dfaSh6BsPQqjbm
-MYUaypBxmU2dLeCHSxxpRKnosGPX3RMNdvKg+02TSW6MqQ2ZsNQKmww3ahVm87Yr
-q+s3WhrdJgyS1mxVV3rb5r6iFRVJOo/08HQUJrcQQADQmcR772q5JGdE5AAO6H11
-l47/oWNlsoDna1A/7/SbdoaT1mC1Ujm1BCVQTmQbr68GeLqz7aBNND+xkw+ZzoCs
-s1YCatDOeAV423Ol6PUST4WG6XZqGZjYEJyDz/vag2nW1hoEzxkuL9aDhw1UsQYN
-3jb+K2HMKIDdJfGN0TFYXUzlZZofYWW1IsGcQqDQQX6Irax9T6GHFjgEDnFybSX6
-hjrkHatj4OI2Gg6PqlRKIy6+IRjUQto6mnqLMOVrNUlx6sPzs7T/nR3ZsCb9JFms
-KwbRBnExMm4kG0H60RoedU0W62/78wql8HpJnaX6xxMDtVaRCKKfySeLIwpswX20
-4ESriRRdroQ61gHUGwfm0dAyMVRyVOyuzA1MC0VKnRC8FC6qFRbiZHhevkdpMq7O
-ndj98XBLqltS2msuouD6x1/9hmNzBdjHVbt7lb2GgqdfzrAj3nUfVMSY8a3fk/2n
-j+oaLTzExtIJGjrHtijoL8n0PNC9yHgfmdD5zVfMBa+JHgR9PEI=
-=wueK
------END PGP SIGNATURE-----
-
---p5OkM+QYj0kVpHQs--
+It also always pull malloc, which is not ideal for the static linking case
+since the interface not always return the strings.
 
