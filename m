@@ -1,60 +1,60 @@
-Return-Path: <linux-man+bounces-90-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-91-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCFED7EFB03
-	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 22:47:03 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 140367EFB1B
+	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 22:57:55 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 4379FB20A15
-	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 21:47:01 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 42DD91C208DE
+	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 21:57:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E9764F89E;
-	Fri, 17 Nov 2023 21:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4111B30656;
+	Fri, 17 Nov 2023 21:57:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="DN388+Q+"
+	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="RP9vUn8t"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E58D5D5D
-	for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 13:46:49 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id ffacd0b85a97d-32f7bd27c2aso1772619f8f.2
-        for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 13:46:49 -0800 (PST)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 88ADED4B
+	for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 13:57:46 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id ffacd0b85a97d-3316ad2bee5so623040f8f.1
+        for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 13:57:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1700257608; x=1700862408; darn=vger.kernel.org;
+        d=jguk.org; s=google; t=1700258265; x=1700863065; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:content-language:references
          :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=U7jqia4bTQIgkNES5+riBxrKJ8hJUXoSfQDvftoV/jU=;
-        b=DN388+Q+LZjQ0Dp0dlon5k/RJLJ4WAS6gQYSc8jWH4GbVjNff2zqi9Ow9kVhaC01B+
-         7q+gBwmFo9z1dqLVNxFsaHOogoi1PN4+iABSdbUKgLagiv2iOYey4qbfnzmhDMhP9rJJ
-         DfOV6ciBkOjTlgXnl+9eDYVW8Qb4kTk9LmkU+PzDL9q7Jhksk9oZ81eXB/tQkHnxEA7K
-         ztrBwNeU+CDBY9W2jvIEybcPV0juuf92Det+2EeyiFwcngH4oLX7PGFHQY1yFI34f9sK
-         upZL9cY/CANJOlgzYF0cHH4DO3FXGgNDTSH53jK1HhOC9TVd362U+YNt9R3sAABNY9FG
-         KArA==
+        bh=QYrvJ3DwLp60UrlT/SIAkFfx+cjF8QKsdfijKZdhmAc=;
+        b=RP9vUn8tW8GDQnKGHq0yo+wYvcAROh1J1uRyOprUVKljRBd00yIUg2gqS/Fv+dbCy7
+         ePiSPkZQUdwBnsLkIL/rGQPThWrP/9RsD9UgjOlYwJpJJRL6KJD/oJT2ZtEv0dO514+O
+         SHOVdoReAnBtBvoTw19lQL/9hWpm0/rg+nWNNGYdcqKWhjEQsOFS5F37IWp2X4GXh8ln
+         6ARRs8XSab3nThL2Qg/6wScp5kmoao+KFHEisQxLOLMew0F3jfCbk/KNMiSClpIsoijt
+         yKIZnrtQGPV2b5j5NYrbg7XvdTBnQwi04E6i9XuorckupyH0H5fgNwaZv8JUDHqPHfki
+         bxeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700257608; x=1700862408;
+        d=1e100.net; s=20230601; t=1700258265; x=1700863065;
         h=content-transfer-encoding:in-reply-to:content-language:references
          :cc:to:subject:from:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=U7jqia4bTQIgkNES5+riBxrKJ8hJUXoSfQDvftoV/jU=;
-        b=RTYCw2pHQnb60lJT4SnhRCQFPXGk4PF3HruXwYfXkesUBqK1j363VvWApm6Vlwrfxz
-         bqGaeG/NSUhm2IKPTpS9pwZIqBRLiDg7wJ2ELUtLhtd13kOXVW+Zf45lo990+RxtTmMA
-         ze8JPc3psuv6vHlaPEKxK4l+p1ZIioYvA9sr2MPa5/0M7AVZNfaM9WvVrAAs7FULXFV/
-         FN/41MUUaGZrAuqbaGaYRHl8PzG9Uz+fFStxPxeK1X+xXNYCNMLBfeywh0Z129aQOPiS
-         zmweQ9qsb2VPzLdRcfdpu8ocFuSebxAumI+h5zdkUWxZrThwPv/I21+atKij995OPaop
-         2eeQ==
-X-Gm-Message-State: AOJu0Yw+MfRPmCc3fmHLQ3uoRjeSHW8Sw0tswH7ymAhlQyl+wO20MW7y
-	8aiN6sKJZ9UWdfRBHXJRqAp/VA==
-X-Google-Smtp-Source: AGHT+IHL0bV8IMZhGsDg+riy9grqflnMVNzZj5jjFkr3/hAlLt9wNH13hHCM1gq/a7DWnwiAEYFfhA==
-X-Received: by 2002:a5d:4352:0:b0:331:6e10:e51d with SMTP id u18-20020a5d4352000000b003316e10e51dmr212219wrr.31.1700257608131;
-        Fri, 17 Nov 2023 13:46:48 -0800 (PST)
+        bh=QYrvJ3DwLp60UrlT/SIAkFfx+cjF8QKsdfijKZdhmAc=;
+        b=MgAWm6TWXg0Ubtr6OYKus4jZhuHrfub3FGBplpJs0ZK5UJIhrVuH/Yl+UiWOhCCN1p
+         Xg/NUhgozsQjYr+5Gsv3orKdX9I1lOXqpZLvn3QrmwcS9khLAJbbhdPs9cajNzxN9NQr
+         lJhLPNtgKnFGx6+KWS7kSuxTe6FtxKINuzvFq4Oslngenfh5pvRiuBnqhR6VpUgXNxD/
+         Wa6PQMgR9xPvTCdBbFlwGHBkYkypyR6/dk/5+RFMeqylx1/HZlPmUFA5jHeo/cL46Da7
+         pTMi9LXkDx9263WEfi/UlTOljEyXzVa5j8K0II+qmUOARhkOrTp82/do+3YK4GEnWEvy
+         oHRA==
+X-Gm-Message-State: AOJu0YzkVWK/IR4wv6wyNEMmyuN8hvggt9Aaas+3EIRyPFesDbFu0ERr
+	YgTv6jIa5YsvGmCprYOFfu6/n7KufyBwRboqvJo=
+X-Google-Smtp-Source: AGHT+IFqDipikU3GsNbPJRoHwEzxXEKyEkQyTrmPCgUQLG5PILBcK0fxJwnWowOE2Av7WbHFjPbxpg==
+X-Received: by 2002:a5d:54d1:0:b0:32f:b407:5b77 with SMTP id x17-20020a5d54d1000000b0032fb4075b77mr167891wrv.64.1700258260934;
+        Fri, 17 Nov 2023 13:57:40 -0800 (PST)
 Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id x5-20020adfffc5000000b0032fb17c65desm3432608wrs.19.2023.11.17.13.46.47
+        by smtp.gmail.com with ESMTPSA id d16-20020adfe2d0000000b003316a2aedadsm3053108wrj.36.2023.11.17.13.57.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Nov 2023 13:46:47 -0800 (PST)
-Message-ID: <17ca7ec2-b542-4043-a311-bc0c2a7ddf78@jguk.org>
-Date: Fri, 17 Nov 2023 21:46:47 +0000
+        Fri, 17 Nov 2023 13:57:40 -0800 (PST)
+Message-ID: <b5182629-8028-4842-bbfc-ea106e251b92@jguk.org>
+Date: Fri, 17 Nov 2023 21:57:39 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,295 +65,157 @@ User-Agent: Mozilla Thunderbird
 From: Jonny Grant <jg@jguk.org>
 Subject: Re: strncpy clarify result may not be null terminated
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man <linux-man@vger.kernel.org>
-References: <ZUgl2HPJvUge7XYN@debian>
- <d40fffcb-524d-44b6-a252-b55a8ddc9fee@jguk.org> <ZUo6btEFD_z_3NcF@devuan>
- <20231108021240.176996-1-mattlloydhouse@gmail.com> <ZUvilH5kuQfTuZjy@debian>
- <20231109031345.245703-1-mattlloydhouse@gmail.com> <ZUzPNydLkFPEvvsa@debian>
- <20231110160602.352085-1-mattlloydhouse@gmail.com>
- <fb0e2940-3446-4d44-95d7-f7be1f26096f@jguk.org>
- <bb41a959-eb58-4376-b2b7-6b6ad7a7dd5a@jguk.org> <ZVAB2S-IxKLABk_w@debian>
+Cc: Paul Eggert <eggert@cs.ucla.edu>, Matthew House
+ <mattlloydhouse@gmail.com>, linux-man <linux-man@vger.kernel.org>
+References: <ZUzEw2j6gHF5WtsO@debian>
+ <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu> <ZU1v-JKBP9iWXOOT@debian>
+ <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu> <ZU4OgiVSyM98EHVN@debian>
+ <a64f4aa6-bca2-4dc0-8dc2-ac3de95b55ee@cs.ucla.edu> <ZU6KCkN1-dgszJJy@debian>
+ <49daa0a7-291a-44f3-a2dd-cf5fb26c6df2@cs.ucla.edu> <ZU_ui2gbSBrTKXnX@debian>
+ <f5ad0785-8f5f-4ed6-a043-c0e2c303c90e@jguk.org> <ZVCwKBJyCsP8Aam9@debian>
 Content-Language: en-GB
-In-Reply-To: <ZVAB2S-IxKLABk_w@debian>
+In-Reply-To: <ZVCwKBJyCsP8Aam9@debian>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Thank you for your swift replies Alejandro and incorporating changes.
 
-On 11/11/2023 22:36, Alejandro Colomar wrote:
+
+On 12/11/2023 10:59, Alejandro Colomar wrote:
 > Hi Jonny,
 > 
-> On Sat, Nov 11, 2023 at 09:15:12PM +0000, Jonny Grant wrote:
->> Alejandro
->>
->> I was reading again
->> https://man7.org/linux/man-pages/man7/string_copying.7.html
->>
->> Sharing some comments, I realise not latest man page, if you have a new one online I could read that. I was reading man-pages 6.04, perhaps some already updated.
-> 
-> You can check this one:
-> 
-> <https://www.alejandro-colomar.es/share/dist/man-pages/6/6.05/6.05.01/man-pages-6.05.01.pdf#string_copying_7>
-> also available here:
-> <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/man-pages-6.05.01.pdf#string_copying_7>
-> 
-> And of course, you can install them from source, or read them from the
-> repository itself.
-
-That's good if you have your online PDF version of unreleased versions I could read through.
- 
->> A) Could simplify and remove the "This function" and "These functions" that start each function description.
-> 
-> Fixed; thanks.
-> 
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=53ea8765ed7f9733abf96e86df89619dc3d203ef>
+> On Sun, Nov 12, 2023 at 09:52:20AM +0000, Jonny Grant wrote:
+> [... some micro-benchmarks...]
 > 
 >>
->> B) "RETURN VALUE" has the text before each function, rather than after as would be the convention from "DESCRIPTION", I suggest to move the return value text after each function name.
+>> Maybe we're gonna need a bigger benchmark.
 > 
-> Fixed; thanks.
-> 
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=76316bd6f98c58d70c2330f7d2a945aac7c76dd8>
+> Not really.
 > 
 >>
->> Could make it like https://man7.org/linux/man-pages/man3/string.3.html
->>
->> C) In the examples, it's good stpecpy() checks for NULL pointers, the other's don't yet though.
+>> Probably there existing studies. Or could patch something like SQLite
+>> Benchmark to utilise each string function just for measurements.
+>> Hopefully it moves around at least 2GB of strings to give some
+>> meaningful comparison timings.
 > 
-> The reason is interesting.  I also designed a similar function based on
-> snprintf(3), which can be chained with this one.  Since that one can
-> return NULL, and to reduce the number of times one needs to check for
-> errors, I added the NULL check.
+> I wasn't so interested in the small differences between functions.
+> What this micro-benchmark showed clearly, without needing much more info
+> to be conclusive, is the first order of growth of each of the functions:
+> 
+> -  strlcpy(3)'s first order growth corresponds to strlen(src).  That's
+>    due to returning strlen(src), which proves to be a poor API.
+> 
+> -  strncpy(3)'s first order growth corresponds to sizeof(dst).  That's
+>    of course due to the zeroing.  If sizeof(dst) is kept very small, you
+>    could live with it.  When the size grows to more or less 4 KiB, this
+>    drag becomes meaningful.
+> 
+> -  strnlen(3)+*cpy() first order growth corresponds to
+>    strnlen(src, sizeof(dst)), which is the fastest order of growth
+>    you can get from a truncating string-copying function (except if you
+>    keep track of your slen manually and call directly memcpy(3)).
 
-That's good, any API that allocates memory could in theory return NULL, like strdup() too.
-
-> alx@debian:~/src/shadow/shadow/master$ grepc -tfd stpeprintf .
-> ./lib/stpeprintf.h:inline char *
-> stpeprintf(char *dst, char *end, const char *restrict fmt, ...)
-> {
-> 	char     *p;
-> 	va_list  ap;
-> 
-> 	va_start(ap, fmt);
-> 	p = vstpeprintf(dst, end, fmt, ap);
-> 	va_end(ap);
-> 
-> 	return p;
-> }
-> alx@debian:~/src/shadow/shadow/master$ grepc -tfd vstpeprintf .
-> ./lib/stpeprintf.h:inline char *
-> vstpeprintf(char *dst, char *end, const char *restrict fmt, va_list ap)
-> {
-> 	int        len;
-> 	ptrdiff_t  size;
-> 
-> 	if (dst == end)
-> 		return end;
-> 	if (dst == NULL)
-> 		return NULL;
-> 
-> 	size = end - dst;
-> 	len = vsnprintf(dst, size, fmt, ap);
-> 
-> 	if (len == -1)
-> 		return NULL;
-> 	if (len >= size)
-> 		return end;
-> 
-> 	return dst + len;
-> }
-> alx@debian:~/src/shadow/shadow/master$ grepc -tfd stpecpy .
-> ./lib/stpecpy.h:inline char *
-> stpecpy(char *dst, char *end, const char *restrict src)
-> {
-> 	bool    trunc;
-> 	char    *p;
-> 	size_t  dsize, dlen, slen;
-> 
-> 	if (dst == end)
-> 		return end;
-> 	if (dst == NULL)
-> 		return NULL;
-> 
-> 	dsize = end - dst;
-> 	slen = strnlen(src, dsize);
-> 	trunc = (slen == dsize);
-> 	dlen = slen - trunc;
-> 
-> 	p = mempcpy(dst, src, dlen);
-> 	*p = '\0';
-> 
-> 	return p + trunc;
-> }
-> 
-> 
-> Then you can use them like this:
-> 
-> 
-> 	    end = buf + sizeof(buf);
->             p = buf;
->             p = stpecpy(p, end, "Hello ");
->             p = stpeprintf(p, end, "%d realms", 9);
->             p = stpecpy(p, end, "!");
->             if (p == end) {
->                 p--;
->                 goto toolong;
->             }
->             len = p - buf;
->             puts(buf);
-> 
-> 
-> Regarding other string-copying functions, NULL is not inherent to them,
-> so I'm not sure if they should have explicit NULL checks.  Why would
-> these functions receive a null pointer?  The main possibility is that
-> the programmer forgot to check some malloc(3) call, which should receive
-> a different treatment from a failed copy, normally.
-
-Perhaps it's just my point of view. In safety critical software I always do my best to ensure no code calls an API with the null pointer constant - when it's expecting a valid pointer. Given that the null pointer constant is defined in the C standard, even if APIs have undefined behaviour if they require a pointer but are passed a NULL. So the converse is I make APIs check for NULL (if they require a valid pointer) and reject with an error. Covers all bases (there can be corrupt data files occurring that we can't anticipate), so issues can be logged, and no core dump. I'd rather display a "USB device error 51" message on a UI than suffer a core dump which turns off a piece of safety critical equipment or sends it into a restart death loop.
-
-I recall you mentioned [[gnu::nonnull]] aka __attribute__((nonnull)) which is an optimizer hint the API will always be called with a valid pointer. There is also returns_nonnull.
-
-The difficulty is the optimizer will remove any NULL pointer constant checks within those APIs (if there were any). The side effect is a useful compiler warning, if the compiler figures out someone is passing NULL.
-
-So in a safety critical system we must wrap all such APIs, to put back in the null pointer constant checks.
+That's a really good point, keeping track of the length (and buffer size) and then just using memcpy.
+The copy time should be closer to the number of bytes read and written.
 
 > 
->> D) strlcpy says
->> "These functions force a SIGSEGV if the src pointer is not a string."
->> How does it determine the pointer isn't a string?
-> 
-> By calling strlen(src).  If it isn't a string, it'll continue reading,
-> and likely crash due to an unbound read.  However, the SIGSEGV isn't
-> guaranteed, since it may find a 0 well before crashing, so I removed
-> that text.  It is a feature and a bug of these functions: they can find
-> programming errors where one passes a character sequence where a string
-> is expected, and crash the program to nosily report the programmer
-> error.  But that also makes it very slow, as Paul said.
-
-Ok I see what you mean. It's good you took out that line, I recall there was even a raise(SIGSEGV) in the implementation in a previous version of the man page.
-
-I wish programmers would keep track of the length of their strings if they need performance, with the pointer to avoid all these strlen(). So then we'd only need to use strnlen() to sanity check buffers given by external libraries.
-
-There are so may variations on this idea to avoid C-string with NUL terminator.
-
-Using a 'struct sbuf' to contain the string buffer
-https://man.freebsd.org/cgi/man.cgi?query=sbuf&apropos=0&sektion=0&manpath=FreeBSD+8.2-RELEASE&format=html
-
-C++ has all it's STL containers like std::string.
-
-Other APIs prefer start_ptr, end_ptr (the one after the last character), probably they should also keep the current allocated buffer size, or always do a realloc() when appending.
-
-Others may think differently, that's fine, not all uses of C are the same target.
-
->>
->> E) Are these functions mentioned like ustpcpy() standardized by POSIX? or in use in a libc?
-> 
-> No.  They are my inventions, like stpecpy().  It seems I forgot to add a
-> "This function is not provided by any library" in some of them.
-> 
-> Fixed; thanks.
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=9848ac50ceb6cc4d786b3899ee4626959e5f1d81>
+> Of course, first order of growth ignores second order of growth and so
+> on, which for small inputs can be important.  That is, O(x^3) is bigger
+> than O(x^2), but x3 + x2 can be smaller than 5*x2 for small x.
 > 
 >>
->> F) 
->> char *stpncpy(char dst[restrict .sz], const char *restrict src,
->>                       size_t sz);
->> I know the 'restrict' keyword, but haven't seen this way it attempts to specify the size of the 'dst' array by using the parameter 'sz' is this in wide use in APIs? I remember C11 let us specify  char ptr[static 1] to say the pointer must be at least 1 element in this example
+>> As Paul mentioned, strlcpy is a poor choice for processing strings.\
+>> Could rely on their guidance as they already measured.
+>> https://www.gnu.org/software/libc/manual/html_node/Truncating-Strings.html
 > 
-> It continues meaning the same thing.  If you use array notation, the
-> restrict must be placed inside the brackets.  The following two snippets
-> are equivalent C code:
-> 
-> 	void foo(int *p, int *restrict x);
-> 	void foo(int *p, int x[restrict 7]);
-> 
-> Since I didn't use 'static', to ISO C the array notation is ignored.
-> GCC, however, will be reasonable and understand it.  To GCC, there's not
-> much difference between the following:
-> 
-> 	[[gnu::nonnull]]
-> 	void bar(int x[7]);
-> 	void bar(int x[static 7]);
-> 
-> And of course, you can combine static and restrict:
-> 
-> 	void baz(int *p, int x[static restrict 7]);
-> 
->>
->> Saw a few pages started to write out functions like
->> size_t strnlen(const char s[.maxlen], size_t maxlen);
->>
->> Is this just for documentation? usually it would be: const char s[static maxlen]
-> 
-> I don't like static for array parameters.  Specifying a size for a
-> parameter should similarly signify to the compiler that it should expect
-> no less than N elements.  This is how GCC behaves.
-> 
-> And static has another implication: nonnull.  IMO, nonnull is tangential
-> to array size, and should be specified separately with its own attribute
-> or qualifier.  I'd like to be able to specify the following different
-> cases:
-> 
-> 	void f1(int [10]);  //  NULL, or array of size >= 10
-> 	void f2(int [_Nonnull 10]);  // Array of size >=10
-> 
-> With static, I can only do the second.  Quite unreasonable.
-> 
-> 
-> Regarding the '.', consider the following two snippets:
-> 
-> 	int size;  // This is the size of s[size].
-> 	void g1(char s[size], size_t size);
-> 
-> You could be tricked to think that the size of s[] is the second
-> parameter to the function, but it's the global variable size.
-> 
-> 	void g2(char s[size], size_t size);
-> 
-> Here's, since there's no global size, the code won't even compile.
-> There's no way to use a parameter that comes later as a size, conforming
-> to ISO C.  We were discussing this [.identifier] syntax in linux-man@
-> and gcc@, as a possible extension.  We haven't yet decided on it, but
-> I'm previewing it as a documentation extension for now.  The rationale
-> for the syntax comes from similarity with designated initializers for
-> structures.
+> Indeed.  I've added important notices in BUGS about it, and recommended
+> against
 
-That would be good if it got in ISO C.
+Saw glibc have (11) functions listed as a poor choice for string processing
 
->> G) "Because these functions ask for the length, and a string is by
->> nature composed of a character sequence of the same length plus a
->> terminating null byte, a string is also accepted as input."
->>
->> I suggest to adjust the order so it doesn't start with a fragment:
->>
->> "A string is also accepted as input, because these functions ask
->> for the length, and a string is by nature composed of a character
->> sequence of the same length plus a terminating null byte."
->>
->> Could simplify and remove "by nature".
-> 
-> Yep; thanks.
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=78b2ff8c6f25654648f0fa06c310b87a7e49128e>
 > 
 >>
->> Unrelated man page strncpy, noticed this.
+>> Maybe the strlcpy API is easier, safer for programmers; but the
+>> compiler can't figure out that the programmer already knew src string
+>> length.  So the strlcpy does a strlen() and wastes time reading over
+>> memory.  If the src length is known, can just memcpy.
+> 
+> I've written strtcpy(3) as an alternative to strlcpy(3) that doesn't
+> suffer its problems.  It should be even safer and easier to use, and its
+> first order of growth is better.  I'll send a patch for review in a
+> moment.
+
+I did take a look at strtcpy but it calls strnlen(), reading over memory.
+
+> 
+>> When I've benchmarked things, reducing the memory accesses for read,
+>> write boosted performance, also looked at the cycles taken, of course
+>> cache and alignment all play a part too.
+> 
+> If one wants to micro-optimize for their use case, its none of my
+> business.  I provide a function that should be safe and relatively fast
+> for all use cases, which libc doesn't.
+> 
+>> Maybe could suggest in your man page programmers should keep track of
+>> the src size ? - to save the cost of the strlen().
+> 
+> No.  Optimizations are not my business.  Writing good APIs should make
+> these optimizations low value so that they aren't done, except for the
+> most performance-critical programs.
+> 
+> The problem comes when libc doesn't provide anything usable, and the
+> user has no guidance on where to start.  Then, programmers start being
+> clever, usually too clever.  That's why I think the man-pages should go
+> ahead and write wrapper functions such as strtcpy() and stpecpy()
+> aound libc functions; these wrappers should provide a fast and safe
+> starting point for most programs.
+> 
+> It's true that memcpy(3) is the fastest function one can use, but it
+> requires the programmer to be rather careful with the lengths of the
+> strings.  I don't think keeping track of all those little details is
+> what the common programmer should do.
+
+That's true, high-performance users probably create their own bespoke solutions.
+strtcpy probably takes the src size?
+
+> 
 >>
->> SEE ALSO
->> Could this refer to strcpy(3) and string(3) at the bottom?
->> https://man7.org/linux/man-pages/man3/strncpy.3.html
+>> At least the strlen functions are optimized:
+>> glibc/strnlen.c calls memchr() searching for '\0' memchr searches 4 bytes at a time.
+>> glibc/strlen.c searches 4 bytes at a time.
+>>
+>> glibc/strlcpy.c __strlcpy() is there a reason when truncating it overwrites the last byte, twice?
+>>
+>> memcpy (dest, src, size);
+>> dest[size - 1] = '\0';
 > 
-> I removed it on purpose, because I intended to put some distance between
-> strncpy(3), and strings and string-copying functions like strcpy(3).
+> -1's in the source code make up for off-by-one bugs.  APIs should be
+> written so that common use doesn't involve manually writing -1 if
+> possible.
+
+What way do you feel they should be doing it?
+
 > 
-> That's why I point to string_copying(7), where readers should be
-> educated of all of the differences.  Then, string_copying(7) has a more
-> complete SEE ALSO, because it has already detailed all the different
-> functions, and the reader is ready to read the individual pages.
+> I acknowledge the performance benefits of this construction, and have
+> used it myself in NGINX code, but I also find it very dangerous, which
+> is why I recommend using a wrapper over it:
 > 
-> Kind regards,
+> 	char *
+> 	ustr2stp(char *restrict dst, const char *restrict src, size_t len)
+> 	{
+> 		char  *p;
+> 
+> 		p = mempcpy(dst, src, len);
+> 		*p = '\0';
+> 
+> 		return p;
+> 	}
+> 
+> Cheers,
 > Alex
-
-Fair enough. We've all shared a lot going over strnlen and other points! Man pages are all better as a result of all your efforts.
+> 
+>>
+>> Kind regards, Jonny
+> 
 
 Kind regards, Jonny
 
