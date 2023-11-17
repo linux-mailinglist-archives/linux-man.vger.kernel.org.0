@@ -1,84 +1,91 @@
-Return-Path: <linux-man+bounces-88-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-89-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C10B7EF5AF
-	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 16:51:10 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC887EFB00
+	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 22:43:57 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5C71B1C2029D
-	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 15:51:09 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id DFFD41F26BEE
+	for <lists+linux-man@lfdr.de>; Fri, 17 Nov 2023 21:43:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 08483374C6;
-	Fri, 17 Nov 2023 15:51:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A92623C495;
+	Fri, 17 Nov 2023 21:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="Al1KvqZw"
+	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="k9X2bcoG"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CD8F11727
-	for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 07:50:38 -0800 (PST)
-Received: by mail-ej1-x62c.google.com with SMTP id a640c23a62f3a-991c786369cso309425666b.1
-        for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 07:50:38 -0800 (PST)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8826BC
+	for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 13:43:48 -0800 (PST)
+Received: by mail-wm1-x32a.google.com with SMTP id 5b1f17b1804b1-40a46ea95f0so20238725e9.2
+        for <linux-man@vger.kernel.org>; Fri, 17 Nov 2023 13:43:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1700236237; x=1700841037; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ggYsKAq3PetgT1da3he/7rcZ0DZHQBHjy+YREp5P8Zk=;
-        b=Al1KvqZwpsVrDaAy/eijoMrXk4czKbYq3Qo93dXUvUWLH8ld0XByY9lvbLY4O1ZWgz
-         D3aYhu1vcTkWdSJksTkQRMnTuuoh348JInX2wY2GLfjiKHTITLcMOv0l5jUMU3COkk0e
-         wfY03A0tJP0vLeqW3QhUmVKxRLulpQ/eKDgNQ=
+        d=jguk.org; s=google; t=1700257427; x=1700862227; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=m09Cyvpsq81Ta7GhKPv8PMs4gQ0xo/G87qQaA0ddfRs=;
+        b=k9X2bcoGvalu/9+gKQf5dOjy6IDY13/1OIQWfxlK8ASAGMaR8ycXEreaL2o5Wlhszh
+         zmNOmz2Rfpl6BhRqk932Ky3jDnnFI5vYWjmNAQ5xJANroNPcBhSmFXK+FMlzG2+3nqno
+         Q5WrEWtiXTHrjB0vcai5xSDRFYSg65YjbOIA5q6PmSSBup7Q0S6IkxxrKf99xd0SBpNy
+         XQECdpXaF2qwYyfOB8pNlzlIvTzBVmD3L/tEHnXZqJVpBWe9LeOLB59mzAzZH5boWhwE
+         4+WWbO5WUucLI6shAOnErBe1nxSsMYrMDYcCkIfKHPd95xC2oR28/aQq7Nvfc2cYBkok
+         5bng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700236237; x=1700841037;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ggYsKAq3PetgT1da3he/7rcZ0DZHQBHjy+YREp5P8Zk=;
-        b=JVt5gckl3u9JNSiC+WLnL/NkOB3SLPOMAC9Dg+4UeIK48tacfEIMPBSFntaC7LIF22
-         im5L4yIkwOMfQQQ1jseiTh7Q/nR7R/xaI1/AnlImH8xoA3skyaS25nELNZxpf3IEafxH
-         OOYbviKTGXGW3Ouki8P0rGkFH8I0F49CXgU2/RBEqii+j+D10c1QPF314q8G3sI3HJWu
-         FAUTdAg/k8s68yAT8fG8U6IKbhhedzEuBonNqon78UZSmkOsIu7o3BdsrmjrqJBzeTLa
-         pPWvdgnqbqWhZSxrHDBkgg8K70f1SIwESoFgIJ9EdeZyXIolDkA3G/mkvC1ciPDRD6iz
-         amQQ==
-X-Gm-Message-State: AOJu0YzWqNtnjrY/4sHfRgW1AX6RztWByEemh+SEyD4cTsLJ6hHUre7M
-	6S2sfRQQyR0PHU/HMU71rm21EMJy4bVhR2gEIQTtiA==
-X-Google-Smtp-Source: AGHT+IGfcN3i/lp7UWRuRD8e2MAeBb9T/5Yu6czOiR/qYpzLwiorOwKTCdzfyabx6KCwmR23G+CYxpI6ZuVC/T4SkmA=
-X-Received: by 2002:a17:906:4c47:b0:9e5:ceb5:ada6 with SMTP id
- d7-20020a1709064c4700b009e5ceb5ada6mr5022163ejw.75.1700236237244; Fri, 17 Nov
- 2023 07:50:37 -0800 (PST)
+        d=1e100.net; s=20230601; t=1700257427; x=1700862227;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=m09Cyvpsq81Ta7GhKPv8PMs4gQ0xo/G87qQaA0ddfRs=;
+        b=HmjoZwKmOec8E3z9aa3a1e2SV9WD3oHP6L6h67Cyo7iTuDLLLx/tVWVMu1h/80rxW0
+         r3RLSCXX+ct9gdIDmdb4yxf4k/NerCpjT1wmrjTPCk7jhTwdq3zRnulmABAqpYUxj27C
+         h9XLFRq9YOjnB6oE2BefiDjDeDtAFulWs4hhrhj/8tlE1C+2aQru31IwQUoD0B/OmhVC
+         GEM03Ptop0xmqfzILOFHup0SaGvzost6vkGC5n6CZZGaFNbSkJf5/83mCBTEVT82H09W
+         yg8bhHGupNYKNBQlXJ1xsKLJANQ3gKWu6jalOGnhWE4CFoYIEv9EAN4/Hl0DZF/rC70b
+         A34Q==
+X-Gm-Message-State: AOJu0YxXEu5Y8OgWUjU/w1SDTzgdk0e6CDK1xTzCN97LM22qEIDvT9Fj
+	YNmgDYobivc1OlCbP0eNY+XbCg==
+X-Google-Smtp-Source: AGHT+IE1XznxgcKWnYRz1iecbVpwsfiJ9+MwFdrndmcg+Y/j/VPesKa/zj7bvBlrkCKnIbFT1VONJw==
+X-Received: by 2002:a5d:45d1:0:b0:317:6513:da7e with SMTP id b17-20020a5d45d1000000b003176513da7emr172145wrs.36.1700257427027;
+        Fri, 17 Nov 2023 13:43:47 -0800 (PST)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id c15-20020adfe70f000000b0032da8fb0d05sm3418383wrm.110.2023.11.17.13.43.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Nov 2023 13:43:46 -0800 (PST)
+Message-ID: <751d2e89-809d-488c-8685-7c665beba78b@jguk.org>
+Date: Fri, 17 Nov 2023 21:43:45 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
- <87fs15qvu4.fsf@oldenburg.str.redhat.com> <CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
- <87leawphcj.fsf@oldenburg.str.redhat.com> <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
-In-Reply-To: <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Fri, 17 Nov 2023 16:50:25 +0100
-Message-ID: <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
-Subject: Re: proposed libc interface and man page for statmount(2)
-To: Florian Weimer <fweimer@redhat.com>
-Cc: libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, Linux API <linux-api@vger.kernel.org>, 
-	linux-fsdevel@vger.kernel.org, Karel Zak <kzak@redhat.com>, 
-	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>, 
-	Christian Brauner <christian@brauner.io>, Amir Goldstein <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Jonny Grant <jg@jguk.org>
+Subject: Re: [PATCH v2 1/3] string_copying.7: BUGS: *cat(3) functions aren't
+ always bad
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org
+References: <cfbd8674-fe6a-4430-95f1-ec8bde7da32e@jguk.org>
+ <20231112112629.13827-3-alx@kernel.org>
+Content-Language: en-GB
+In-Reply-To: <20231112112629.13827-3-alx@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 17 Nov 2023 at 16:13, Miklos Szeredi <miklos@szeredi.hu> wrote:
 
-> open/list/.../close style of interface in libc?  We could do that in
-> the kernel as well, but I'm not sure it's worth it at this point.
+On 12/11/2023 11:26, Alejandro Colomar wrote:
+> The compiler will sometimes optimize them to normal *cpy(3) functions,
+> since the length of dst is usually known, if the previous *cpy(3) is
+> visible to the compiler.  And they provide for cleaner code.  If you
+> know that they'll get optimized, you could use them.
 
-I wonder... Is there a reason this shouldn't be done statelessly by
-adding an "continue after this ID" argument to listmount(2)?  The
-caller will just need to pass the last mount ID received in the array
-to the next listmount(2) call and iterate until a short count is
-returned.
+May I ask, is there an example or document that shows this optimization by the compiler? Perhaps a godbolt link?
 
-Thanks,
-Miklos
+So it's a strcat() optimized to a strcpy()?
+
+I know gcc might unroll and just include the values of the string bytes.
+
+Kind regards, Jonny
 
