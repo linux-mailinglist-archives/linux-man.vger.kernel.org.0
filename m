@@ -1,45 +1,43 @@
-Return-Path: <linux-man+bounces-94-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-95-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F89A7EFEC4
-	for <lists+linux-man@lfdr.de>; Sat, 18 Nov 2023 10:34:16 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 917C77EFEC6
+	for <lists+linux-man@lfdr.de>; Sat, 18 Nov 2023 10:42:10 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 1A1B5B209E1
-	for <lists+linux-man@lfdr.de>; Sat, 18 Nov 2023 09:34:14 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BEA131C2082B
+	for <lists+linux-man@lfdr.de>; Sat, 18 Nov 2023 09:42:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09586D311;
-	Sat, 18 Nov 2023 09:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73EAF4F8B3;
+	Sat, 18 Nov 2023 09:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZS0aMyG"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKITu7bm"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8278101FE
-	for <linux-man@vger.kernel.org>; Sat, 18 Nov 2023 09:34:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8002BC433C9;
-	Sat, 18 Nov 2023 09:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED0C10944
+	for <linux-man@vger.kernel.org>; Sat, 18 Nov 2023 09:42:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46515C433C8;
+	Sat, 18 Nov 2023 09:41:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700300048;
-	bh=aYtXjD6l/TyTtY1eq4y5oQj7JS6JT4HXqQsK5uJzrkI=;
+	s=k20201202; t=1700300524;
+	bh=9QHvkwcjEa8yXysRU/9sK6zlLJqSqHHO8AlEpMdXtNE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dZS0aMyGQZxe0g3pJcmAUtoIMZw+HNF+NBEI2dnGbM/WCA4nMUFh7mHy6KGdwNRhy
-	 YRimMKwC7Mk+9EjawL6xOMmSMzNbEzp3+ZYKk+nbJy4qs8Uv9koMc15mGRLbCArNVZ
-	 4XXSX9DVN+3y5o+WVlZ3YE9lxOwJj876ESVBvK/hp6z5mzgm5nE9YsOCQR6CQ8+lmN
-	 ErXi7W2uMHM3JCZJKC+7853ZuDB+q7IeXCFwpV1C+dXFjvYsHMIHtY1JJ4itU9nKdP
-	 +E/Fp/QZlhpXec3b+lWTC8Nv9KDsoSnJl5YZrfnV6ueQIrG5Yz6fAaPkXEL+eSrAwF
-	 l9I0Wr7h3NI3A==
-Date: Sat, 18 Nov 2023 10:37:17 +0100
+	b=GKITu7bmtHw+qC854AxFqiBw6Ekq9XnbulNR8mc9svlYLEBWLx/aZJJunfH3+TMfh
+	 Ok25hPw6QtpLnPb5YKRuKqlCrlg3HyiHjGa2pllx00N9hgsrXKY6zyXN6zEmdELCD0
+	 mtejngvSxiErd1Jh4/uSuaHyp56JQ7b2AiS5VEn+v8SQoX0uNKQK7OUGQvWlwb0fst
+	 Q9vUCPnpmfe/RCBuqxyOxSXWNfOT8uOmBiqN46cpwJ3XNf4xa3PDJdENZ4U6cGJ4xg
+	 AHf2InrhUK+flo5ePCtRwkkgCAKY8Mmq3MYEwJhSGZ6tQHg6ewiQ8RoP+NuVPktaSI
+	 AsVPAWf/nGL8Q==
+Date: Sat, 18 Nov 2023 10:44:59 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Jonny Grant <jg@jguk.org>
-Cc: linux-man <linux-man@vger.kernel.org>,
-	Deri James <deri@chuzzlewit.myzen.co.uk>
-Subject: PDF book of unreleased pages (was: strncpy clarify result may not be
- null terminated)
-Message-ID: <ZViF1JsZdhobXaWV@devuan>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: NULL safety (was: strncpy clarify result may not be null terminated)
+Message-ID: <ZViHm8HyxefeJ_SW@devuan>
 References: <ZUo6btEFD_z_3NcF@devuan>
  <20231108021240.176996-1-mattlloydhouse@gmail.com>
  <ZUvilH5kuQfTuZjy@debian>
@@ -57,99 +55,86 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="42gvlq/vq2qKrFUG"
+	protocol="application/pgp-signature"; boundary="mXMSMco+Oms9zCJg"
 Content-Disposition: inline
 In-Reply-To: <17ca7ec2-b542-4043-a311-bc0c2a7ddf78@jguk.org>
 
 
---42gvlq/vq2qKrFUG
+--mXMSMco+Oms9zCJg
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Nov 2023 10:37:17 +0100
+Date: Sat, 18 Nov 2023 10:44:59 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Jonny Grant <jg@jguk.org>
-Cc: linux-man <linux-man@vger.kernel.org>,
-	Deri James <deri@chuzzlewit.myzen.co.uk>
-Subject: PDF book of unreleased pages (was: strncpy clarify result may not be
- null terminated)
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: NULL safety (was: strncpy clarify result may not be null terminated)
+
+Hi Jonny,
 
 On Fri, Nov 17, 2023 at 09:46:47PM +0000, Jonny Grant wrote:
-> Thank you for your swift replies Alejandro and incorporating changes.
-
-:-)
-
-> >> I was reading again
-> >> https://man7.org/linux/man-pages/man7/string_copying.7.html
-> >>
-> >> Sharing some comments, I realise not latest man page, if you have a ne=
-w one online I could read that. I was reading man-pages 6.04, perhaps some =
-already updated.
-> >=20
-> > You can check this one:
-> >=20
-> > <https://www.alejandro-colomar.es/share/dist/man-pages/6/6.05/6.05.01/m=
-an-pages-6.05.01.pdf#string_copying_7>
-> > also available here:
-> > <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/man-page=
-s-6.05.01.pdf#string_copying_7>
-> >=20
-> > And of course, you can install them from source, or read them from the
-> > repository itself.
+> > Regarding other string-copying functions, NULL is not inherent to them,
+> > so I'm not sure if they should have explicit NULL checks.  Why would
+> > these functions receive a null pointer?  The main possibility is that
+> > the programmer forgot to check some malloc(3) call, which should receive
+> > a different treatment from a failed copy, normally.
 >=20
-> That's good if you have your online PDF version of unreleased versions I =
-could read through.
+> Perhaps it's just my point of view. In safety critical software I always =
+do my best to ensure no code calls an API with the null pointer constant - =
+when it's expecting a valid pointer. Given that the null pointer constant i=
+s defined in the C standard, even if APIs have undefined behaviour if they =
+require a pointer but are passed a NULL. So the converse is I make APIs che=
+ck for NULL (if they require a valid pointer) and reject with an error. Cov=
+ers all bases (there can be corrupt data files occurring that we can't anti=
+cipate), so issues can be logged, and no core dump. I'd rather display a "U=
+SB device error 51" message on a UI than suffer a core dump which turns off=
+ a piece of safety critical equipment or sends it into a restart death loop.
+>=20
+> I recall you mentioned [[gnu::nonnull]] aka __attribute__((nonnull)) whic=
+h is an optimizer hint the API will always be called with a valid pointer. =
+There is also returns_nonnull.
+>=20
+> The difficulty is the optimizer will remove any NULL pointer constant che=
+cks within those APIs (if there were any). The side effect is a useful comp=
+iler warning, if the compiler figures out someone is passing NULL.
+>=20
+> So in a safety critical system we must wrap all such APIs, to put back in=
+ the null pointer constant checks.
 
-I have that as a goal, but need some help.  The thing is: we have
-<./scripts/LinuxManBook/>, which contains a Perl script and some helper
-stuff for it.  It was contributed by gropdf(1)'s maintainer Deri James.
-
-Currently, that script does a lot of magic which produces the book from
-all of the pages.
-
-I'd like to be able to split the script into several smaller scripts
-that can be run on each page, and then another script that merges all of
-them into the single PDF file.  That would be something I can merge into
-the Makefiles so that we can run a `make build-pdf` and if I touch a
-single page, it would only update the relevant part, reusing as much as
-possible from previous runs.
-
-Since I don't understand Perl, and don't know much of gropdf(1) either,
-I need help.
-
-Maybe Deri or Branden can help with that.  If anyone else understands it
-and can also help, that's very welcome too!
-
-Then I could install a hook in my server that runs
-
-	$ make build-pdf docdir=3D/srv/www/...
+There's Clang's qualifier _Nonnull, which is not a hint to the
+optimizer.  It is an attempt to have null correctness similar to how we
+have const correctness.  It still has little support, even from Clang
+itself.  It has some important problem: it applies to the pointer, not
+to the pointee, but pointer qualifiers are discarded easily.  A better
+design would make it a pointee qualifier.  Hopefully, this will some day
+be there to end all NULL discussions.  Until then, yeah, NULL is a
+dangerous part of the language.
 
 Cheers,
 Alex
 
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---42gvlq/vq2qKrFUG
+--mXMSMco+Oms9zCJg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVYhc0ACgkQnowa+77/
-2zLwqBAAjYxWueWb84OhfwkS44jgF+0Lppv4qz5Won7YK6F8cGcIO54t5apiprwW
-+GKgpPScpUXG75KtMiS1BHidIp4ImbaJBUkuoSiVhXz30c18s8swYdGOSGq0+7yc
-uWSt0OKdEOc/HWlrSnadafV1ZPT2JYTjuDUwhOz6ZdR6wc/SZa30ibNeT2cjHkQH
-eSp9q44Fr/r7eVu0HrBsHKcvDVOPtXqFHCgPPf1Dw4CrrcVtNC9DWDTNZdja6F1p
-sZo1XlZt04rRKiQ/ARQSAqSvl9QTVbxia52En/NxRmjV5dNRHDgLuicTsiB32+0B
-75LeyI35HF+IfUVZz4x3iwu7DZsYJ4weTi2IVvtRj03si+iI5Whd1MW/xNWM1zJc
-g+9NCV1orZlcHmtQHnjWi7m1nlym5bnyDNAOcYySlRv78H8vc5zN2xSKW1GHQYpo
-r1WLb3hOgqx2auX4/ejP9gLhopOt/ck2M2wxiBHTedqyLqj5F3wLRGYJx+yKJgHI
-ryudpXTfz3vIFwaQuiiLm3mEjX6YUmqNkqGqfo1NVAustBBcDA3afMMZy2q/MMYt
-weENAq1/fvB+95pCxOJMqVG6DSMMAPXdn6WrLZRXYkbMKVN18GuabWjeOQQ4yPUp
-LTb7MNFIFuMGbVz6TgYIitvtwm+/NyICw87lrXS9QvkB+x5ssog=
-=Gr2T
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVYh5sACgkQnowa+77/
+2zJNgw/8C22XYIJbAp7mqAssvAcubaXdp6s3nt+162ZxGmElQB6BAmle7koCzH+P
+efGlN79+2q5bLjrkbvGDce6IZn78BSZ+R+vwgdHWgYtnHiXr1jHhKxrM+atAU1fH
+HlZABACRgRRE915tM0450Sd0+GRY3THRhMDnSCfsOsnNq8shvkIWRaZO00eslMIU
+1/TMruyP+2ublP/Ai/GQxxG3Ba6AFHO0UNJqLN0V+8rPqpBsXzIPunm1xNEJ8fNq
+N07+Mm0eyFYck6TykpN7NhpzHlj2nYEMkJzrdBxJcHR5b4+2Lr/Ouj4+OG3+hCEm
+r9c6bMmk0SDY1pGfCTtqxb+k8/7Uk1GjFNy6l/zcBJ06dd9e8DYdv0f6Z6VoasQ1
+Lbkhp2YG1Wk55dGDZKUJjyLjTpm4Igl/g3JGyVXnzDvCHt6KC9M/A3joJVc/a5xn
+aH+bMNWqPnWnfOagLQqNsE8lB4+3xy3JHyCpi/S61bY/+FYS845EjJxLc1Dc8whE
+/658AOQdQs5awiWHVE1nlvTisrwy1HSrndl7mnIabBAv3VVZdpZijyvyBHVy4YQz
+fB5Mv+LxomkADJFUGVxcAOM70W+rqmQSafg80c0ylY8ctrfAv56BjjDHkhC2p+Hk
+/irSdXZLmS4lr+reCnfqWbA2Vi0slliPHauGuJpzRSNLhYV2cRY=
+=6Uen
 -----END PGP SIGNATURE-----
 
---42gvlq/vq2qKrFUG--
+--mXMSMco+Oms9zCJg--
 
