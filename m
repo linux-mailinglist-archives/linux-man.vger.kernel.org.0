@@ -1,201 +1,237 @@
-Return-Path: <linux-man+bounces-107-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-108-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A557F0F3D
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 10:40:45 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 197937F1287
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 12:55:42 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4F7D91F2309F
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 09:40:45 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 91B611F23BDF
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 11:55:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E08BE1171D;
-	Mon, 20 Nov 2023 09:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FDEC18E07;
+	Mon, 20 Nov 2023 11:55:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CrY9Tk3m"
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="pLANkITR"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BD411C91
-	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 09:40:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1977AC433C8;
-	Mon, 20 Nov 2023 09:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700473239;
-	bh=/ioPf1bk9m60VfW4BvRVKHWyotHnW2Fop+XGCaJK/p4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CrY9Tk3mM1QRcNEWs70/8+tygjGEt0DVkHhCLMENmCZDqIHWBNUUC27FpiIKeVy4F
-	 4dQxAQmwfwme0qOB8mY+fWyqGeyckvvnR/+KSYdDqEaFYj3fX2/+SnZXqbO0MfUOgi
-	 Pia2F/p3COuc/YzL/TYYONYPCjRfia3cDXCNnZEomCvoEHfHecubDN7Ciq5/DQUm+8
-	 Ga1uQw0WF/awp9kY70M9Lru4X65JYCfUQjETVzUNWNwnLWA6TTyteV2+aZNOowPJXo
-	 j22jjbLnuDwKozR/S7kXoE0pd6NBbmXKszMAyFqZ/zWSG5ObFitb3AOuTMigOeE9hW
-	 +92ptojcx6DXA==
-Date: Mon, 20 Nov 2023 10:43:53 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Deri <deri@chuzzlewit.myzen.co.uk>, Jonny Grant <jg@jguk.org>,
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: PDF book of unreleased pages (was: strncpy clarify result may
- not be null terminated)
-Message-ID: <ZVsqX_suG6VJe0BG@devuan>
-References: <ZUo6btEFD_z_3NcF@devuan>
- <4567510.7DdL66CAHx@pip>
- <ZVlitX4dWaC2m-2S@devuan>
- <12344046.3XHVMEB1Be@pip>
- <ZVp24b1vXfoS8ABi@devuan>
- <20231120004525.acgivh3htslijygr@illithid>
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com [IPv6:2a00:1450:4864:20::534])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDBA7AA
+	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 03:55:26 -0800 (PST)
+Received: by mail-ed1-x534.google.com with SMTP id 4fb4d7f45d1cf-548d1f8b38bso816752a12.3
+        for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 03:55:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1700481325; x=1701086125; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=z3vsvlrcGrEGBTtA0AP5aKKnvlKyJhXO+Stjh5B7q6E=;
+        b=pLANkITRLfmcC2J2YJuCVAa1pwMrD93Mc4zVHF9sidJYmleg6uvCC0cn11PBpLeTzU
+         wnWGW66IJSF5DTsBOm+IoH6vcKqPv4EewI0zatcHhSaHN1imDCyf5VuhD6x/ycD7DpNM
+         S2OFwCooxjQic/D8w4m//o32R0QqvTEw4jh90=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700481325; x=1701086125;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z3vsvlrcGrEGBTtA0AP5aKKnvlKyJhXO+Stjh5B7q6E=;
+        b=YdtY1WIFxeQOstX/1osYkSGt7eCv9QMJpGBevNROcKmwMnMy7OZFsrDAHly/1cSHGS
+         z5UVl4v6yhYPvs2shcRrrhZ71PkkhVHZSUcqqcKia5F9nL+wsvDugUXFj11aGfxPbSn0
+         /ZTXahUkefnHWcQJEtxfYRV/kJLrImDoySauNhwrmNTvOte15FfI3aUdCOFx+k1XfAfh
+         RwVDSPwe3JOn0U44kiRYtT3GHZjNZD5PrX+LjUPx3Gq2g1RLKGdhsYxUOagPoe34o9DE
+         0/g7EBBmP88ALt8rldtMTFw0Wcln0uX2RxSg21+rW+RnGmhTt+xG23KynDiJr5vcUz5F
+         1gOQ==
+X-Gm-Message-State: AOJu0YxCY1kDQwCr+UuCS0m2w2zewk8eQFUAJ4vxLr+s99RI29DJWigC
+	trUYdL00kXYv4jj88eHwRRY2PQ==
+X-Google-Smtp-Source: AGHT+IHRK6NFPlWpLc2M9qeLs7fvIv/FO+aj2+Cw07fK4WT3xRJbJ7ajVhN90FoD6icsE0y5IMV/Fw==
+X-Received: by 2002:a17:906:4a50:b0:9c2:a072:78bf with SMTP id a16-20020a1709064a5000b009c2a07278bfmr5239895ejv.26.1700481325269;
+        Mon, 20 Nov 2023 03:55:25 -0800 (PST)
+Received: from maszat.piliscsaba.szeredi.hu (91-82-181-165.pool.digikabel.hu. [91.82.181.165])
+        by smtp.gmail.com with ESMTPSA id dk26-20020a170906f0da00b009fc0c42098csm1963955ejb.173.2023.11.20.03.55.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Nov 2023 03:55:24 -0800 (PST)
+Date: Mon, 20 Nov 2023 12:55:17 +0100
+From: Miklos Szeredi <miklos@szeredi.hu>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>,
+	Alejandro Colomar <alx@kernel.org>,
+	Linux API <linux-api@vger.kernel.org>,
+	linux-fsdevel@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>,
+	Christian Brauner <christian@brauner.io>,
+	Amir Goldstein <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: proposed libc interface and man page for statmount(2)
+Message-ID: <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
+References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
+ <87fs15qvu4.fsf@oldenburg.str.redhat.com>
+ <CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
+ <87leawphcj.fsf@oldenburg.str.redhat.com>
+ <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
+ <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i7tdFf1Z6rRYk1MT"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231120004525.acgivh3htslijygr@illithid>
+In-Reply-To: <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
+
+On Fri, Nov 17, 2023 at 04:50:25PM +0100, Miklos Szeredi wrote:
+> I wonder... Is there a reason this shouldn't be done statelessly by
+> adding an "continue after this ID" argument to listmount(2)?  The
+> caller will just need to pass the last mount ID received in the array
+> to the next listmount(2) call and iterate until a short count is
+> returned.
+
+No comments so far... maybe more explanation is needed.
+
+New signature of listmount() would be:
+
+ssize_t listmount(uint64_t mnt_id, uint64_t last_mnt_id,
+		  uint64_t *buf, size_t bufsize, unsigned int flags);
+
+And the usage would be:
+
+	for (last = 0; nres == bufsize; last = buf[bufsize-1]) {
+		nres = listmount(parent, last, buf, bufsize, flags);
+		for (i = 0; i < nres; i++) {
+			/* process buf[i] */
+		}
+	}
 
 
---i7tdFf1Z6rRYk1MT
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Nov 2023 10:43:53 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Deri <deri@chuzzlewit.myzen.co.uk>, Jonny Grant <jg@jguk.org>,
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: PDF book of unreleased pages (was: strncpy clarify result may
- not be null terminated)
+Here's a kernel patch against the version in Christian's tree.  The syscall
+signature doesn't need changing, since we have a spare u64 in the mnt_id_req for
+listmount.
 
-Hi Branden,
+The major difference is in the order that the mount ID's are listed, which is
+now strictly increasing.  Doing the recursive listing in DFS order is nicer, but
+I don't think it's important enough.
 
-On Sun, Nov 19, 2023 at 06:46:29PM -0600, G. Branden Robinson wrote:
-> Hi Alex and Deri,
->=20
-> I'm going to address just a few small parts of this message...
->=20
-> At 2023-11-19T21:58:03+0100, Alejandro Colomar wrote:
-> > You can always `find ... | xargs cat | troff /dev/stdin`
->=20
-> ...not if you need to preprocess any of the input.  With tbl(1), for
-> instance.
+Comments?
 
-What I mean is that I can preprocess individually:
+Thanks,
+Miklos
 
-find ... | while read f; do eqn $f > $f.troff; done
+---
+ fs/namespace.c             |   41 +++++++++++++++++++++++++----------------
+ include/uapi/linux/mount.h |    5 ++++-
+ 2 files changed, 29 insertions(+), 17 deletions(-)
 
-And only process together in a single invocation what _needs_ to be done
-in a single invocation:
-
-find ... | xargs cat | gropdf /dev/stdin
-
-I guess that preprocessors can be run per-file.
-I know that gropdf(1) must be run with the entire book as input.
-But I don't know if `troff -Tpdf` needs to see the entire book at once,
-or if it can process each file separately.
-
-In my laptop, the pipeline for building the Linux Man Book takes 23.3 s.
-I've split the processing of the book so that I produce every
-intermediary file in the pipeline (except pic(1), which I think we don't
-need).  From that, I've seen the times it takes for each program to do
-its job (and importantly, the overall time wasn't slower; it took again
-23.3 s): preconv(1) takes 0.04 s; tbl(1) takes 0.06 s; eqn(1) takes
-0.05 s; troff(1) takes 2.8 s; and gropdf(1) takes 17.6 s.
-
-The time taken by gropdf(1) is mandatory, since it can't process the
-individual files separately.  But if we can reduce the time taken by all
-other programs close to 0, it would be good.  It depends on which
-programs need to see the entire book, and which can process each file
-separately.
-
-Nevertheless, I think it's interesting to process the book per-file, as
-much as possible, even if the overall time won't change significantly.
-It is a good documentation of what needs to be processed together and
-what not, when building a PDF document with groff.
-
-> > My problem is probably that I don't know what's done by `gropdf`, and
-> > what's done by `troff -Tpdf`.  I was hoping that `troff -Tpdf` still
-> > didn't need to know about the entire book, and that only gropdf(1)
-> > would need that.
->=20
-> This stuff is documented in groff's Texinfo manual, and in the groff(1)
-> and roff(7) man pages.
->=20
-> Here's an excerpt of the last.
->=20
-> Using roff
->        When you read a man page, often a roff is the program rendering
->        it.  Some roff implementations provide wrapper programs that make
->        it easy to use the roff system from the shell=E2=80=99s command li=
-ne.
->        These can be specific to a macro package, like mmroff(1), or more
->        general.  groff(1) provides command=E2=80=90line options sparing t=
-he user
->        from constructing the long, order=E2=80=90dependent pipelines fami=
-liar to
->        AT&T troff users.  Further, a heuristic program, grog(1), is
->        available to infer from a document=E2=80=99s contents which groff
->        arguments should be used to process it.
->=20
->    The roff pipeline
->        A typical roff document is prepared by running one or more
->        processors in series, followed by a a formatter program and then
->        an output driver (or =E2=80=9Cdevice postprocessor=E2=80=9D).  Com=
-monly, these
->        programs are structured into a pipeline; that is, each is run in
->        sequence such that the output of one is taken as the input to the
->        next, without passing through secondary storage.  (On non=E2=80=90=
-Unix
->        systems, pipelines may have to be simulated with temporary
->        files.)
->=20
->         $ preproc1 < input=E2=80=90file | preproc2 | ... | troff [option]=
- ... \
->             | output=E2=80=90driver
->=20
->        Once all preprocessors have run, they deliver pure roff language
->        input to the formatter, which in turn generates a document in a
->        page description language that is then interpreted by a
->        postprocessor for viewing, printing, or further processing.
->=20
-> gropdf(1) is the output driver for the PDF "device".  So "groff -T pdf
-> input.tr" and "troff -T pdf input.tr | gropdf" are equivalent.
->=20
-> (Yes, you still need the `-T pdf` arguments, even to troff proper.
-
-This doesn't answer my doubt.  For generating a book, does troff(1) need
-to see the entire book, or it enough if gropdf(1) does?  My guess is
-that troff(1) also needs to see the entire book, but I don't know for
-sure.
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---i7tdFf1Z6rRYk1MT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVbKlkACgkQnowa+77/
-2zJ6bA/6A0lb/lgMOwYx5gKUPK17ngaSEqtuWOKuRKmNFC/jv520bXOkYkOoe8w1
-7pX46krgahg6rAQxfqjiJaJNOF6veYAE1xe2L9v4bQpPnFwE0uKWm/oFPGBo11Y2
-J2F1ABOu2A5LAAktSG/Y+kXInEWo/cUu6r82rKEjFlPRg8edNCJdD7sfZOmiae8/
-qpJz+qIr630lSOXN1Hnxj60TMq0IuPf0QCoItwCDNup0OeBxkZVUg9pucw6ztJjJ
-F5iSK3+KKukqSLRnUgrNnATDTPAYjpHsVDWaCSMNcYJ/nYqpDQ8t1l/glphybXle
-btsmTIKlj9BthP6PAzJueM+HApvDzQh19QexVXFx9lkylaP+Ogsu11Mdu3U64vwF
-VeXRVAmXCWFwipdpEF2NBl7hir7qWrcrBWiLcfv0V8hHKWVCNbsbPkorukeoXP79
-EfzUiYOMAqRj+I/FN0NRCGWsJpVrP92mVAQ5G77ZTbuPNwoY3lTh4DiYb0G0uwQ5
-lwx/8iEuDWon9zMBLvtJ+AkFrm3kDaAdFRYLm7xYN4LlvxZJrWuKFTl3Gu/n+hkY
-gzsOU0vtud9EDluyTqKUi9acC+aSFMX3JNT4N44gTM1JpvLoktyNMeWJtt34N73x
-9Cvjk8TJKe2+7ybZaNMsupRsP9wVqLabS8348w1dgYhkfvFbHMk=
-=POwr
------END PGP SIGNATURE-----
-
---i7tdFf1Z6rRYk1MT--
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1009,7 +1009,7 @@ void mnt_change_mountpoint(struct mount
+ 
+ static inline struct mount *node_to_mount(struct rb_node *node)
+ {
+-	return rb_entry(node, struct mount, mnt_node);
++	return node ? rb_entry(node, struct mount, mnt_node) : NULL;
+ }
+ 
+ static void mnt_add_to_ns(struct mnt_namespace *ns, struct mount *mnt)
+@@ -4960,21 +4960,22 @@ SYSCALL_DEFINE4(statmount, const struct
+ 	return ret;
+ }
+ 
+-static struct mount *listmnt_first(struct mount *root)
++static struct mount *listmnt_next(struct mount *curr)
+ {
+-	return list_first_entry_or_null(&root->mnt_mounts, struct mount, mnt_child);
++	return node_to_mount(rb_next(&curr->mnt_node));
+ }
+ 
+-static struct mount *listmnt_next(struct mount *curr, struct mount *root, bool recurse)
++static bool is_submount(struct mount *sub, struct mount *mnt)
+ {
+-	if (recurse)
+-		return next_mnt(curr, root);
+-	if (!list_is_head(curr->mnt_child.next, &root->mnt_mounts))
+-		return list_next_entry(curr, mnt_child);
+-	return NULL;
++	for (; sub != mnt; sub = sub->mnt_parent) {
++		if (sub->mnt_parent == sub)
++			return false;
++	}
++	return true;
+ }
+ 
+-static long do_listmount(struct vfsmount *mnt, u64 __user *buf, size_t bufsize,
++static long do_listmount(struct vfsmount *mnt, struct mount *last,
++			 u64 __user *buf, size_t bufsize,
+ 			 const struct path *root, unsigned int flags)
+ {
+ 	struct mount *r, *m = real_mount(mnt);
+@@ -5000,13 +5001,16 @@ static long do_listmount(struct vfsmount
+ 	if (err)
+ 		return err;
+ 
+-	for (r = listmnt_first(m); r; r = listmnt_next(r, m, recurse)) {
++	for (r = last; (r = listmnt_next(r)) != NULL && ctr < bufsize;) {
++		if (recurse && !is_submount(r, m))
++			continue;
++		if (!recurse && r->mnt_parent != m)
++			continue;
++
+ 		if (reachable_only &&
+ 		    !is_path_reachable(r, r->mnt.mnt_root, root))
+ 			continue;
+ 
+-		if (ctr >= bufsize)
+-			return -EOVERFLOW;
+ 		if (put_user(r->mnt_id_unique, buf + ctr))
+ 			return -EFAULT;
+ 		ctr++;
+@@ -5021,6 +5025,7 @@ SYSCALL_DEFINE4(listmount, const struct
+ {
+ 	struct mnt_id_req kreq;
+ 	struct vfsmount *mnt;
++	struct mount *last;
+ 	struct path root;
+ 	u64 mnt_id;
+ 	long err;
+@@ -5030,8 +5035,6 @@ SYSCALL_DEFINE4(listmount, const struct
+ 
+ 	if (copy_from_user(&kreq, req, sizeof(kreq)))
+ 		return -EFAULT;
+-	if (kreq.request_mask != 0)
+-		return -EINVAL;
+ 	mnt_id = kreq.mnt_id;
+ 
+ 	down_read(&namespace_sem);
+@@ -5040,13 +5043,19 @@ SYSCALL_DEFINE4(listmount, const struct
+ 	else
+ 		mnt = lookup_mnt_in_ns(mnt_id, current->nsproxy->mnt_ns);
+ 
++	if (!kreq.last_mnt_id) {
++		last = real_mount(mnt);
++	} else {
++		last = mnt_find_id_at(current->nsproxy->mnt_ns, kreq.last_mnt_id);
++	}
++
+ 	err = -ENOENT;
+ 	if (mnt) {
+ 		get_fs_root(current->fs, &root);
+ 		/* Skip unreachable for LSMT_ROOT */
+ 		if (mnt_id == LSMT_ROOT && !(flags & LISTMOUNT_UNREACHABLE))
+ 			mnt = root.mnt;
+-		err = do_listmount(mnt, buf, bufsize, &root, flags);
++		err = do_listmount(mnt, last, buf, bufsize, &root, flags);
+ 		path_put(&root);
+ 	}
+ 	up_read(&namespace_sem);
+--- a/include/uapi/linux/mount.h
++++ b/include/uapi/linux/mount.h
+@@ -178,7 +178,10 @@ struct statmount {
+ 
+ struct mnt_id_req {
+ 	__u64 mnt_id;
+-	__u64 request_mask;
++	union {
++		__u64 request_mask;
++		__u64 last_mnt_id;
++	};
+ };
+ 
+ /*
 
