@@ -1,130 +1,76 @@
-Return-Path: <linux-man+bounces-114-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-115-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3D8F7F1777
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 16:38:16 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 623667F20C0
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 23:56:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8E5AB1F24FD3
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 15:38:16 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 93A831C20DFD
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 22:56:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25DD01D6BD;
-	Mon, 20 Nov 2023 15:38:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D5033A285;
+	Mon, 20 Nov 2023 22:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XggcxYpd"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ftep8R3Q"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5901D546;
-	Mon, 20 Nov 2023 15:38:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDA8C433C8;
-	Mon, 20 Nov 2023 15:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700494691;
-	bh=V/gEbXHf7msuIYmekR4+CzwjOqMIaKw26uDtvj0+qFM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XggcxYpdOUX2bbB8XTJAwJYcatmv0J9n0vYM4cR4w7viqBhtBRsz7CTZ9T+cqbUIL
-	 44Aj/5aqonkcHTjvUrEjR9s7FRvivyFau/DZyMdBS/23foob8BJ18/ODKMotPsNt90
-	 ka20WHes20fBe0hfg9bWBTKJgBGDgfLFduMUGGkUN0JjrhUp6BnEsqMYOdWsB7tTmQ
-	 zq8iL6dA/lgOiTSC/pL35W7gUFWVkWnIy23mqKPPHpuFnE8aati9dM7xDgw8TDXBqS
-	 DEGdC6qmJZW4mq8vl5J0WeOmqNuAzsCtqvbD6Fak09QFFxc95clvVGo4nC4Xa+cBRL
-	 +yow5ssMmjaNw==
-Date: Mon, 20 Nov 2023 16:38:05 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Florian Weimer <fweimer@redhat.com>, libc-alpha@sourceware.org,
-	linux-man <linux-man@vger.kernel.org>,
-	Alejandro Colomar <alx@kernel.org>,
-	Linux API <linux-api@vger.kernel.org>,
-	linux-fsdevel@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>,
-	Christian Brauner <christian@brauner.io>,
-	Amir Goldstein <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
-Subject: Re: proposed libc interface and man page for statmount(2)
-Message-ID: <20231120-wachhalten-darfst-ed3244509881@brauner>
-References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
- <87fs15qvu4.fsf@oldenburg.str.redhat.com>
- <CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
- <87leawphcj.fsf@oldenburg.str.redhat.com>
- <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
- <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
- <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 587A1C1
+	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 14:55:57 -0800 (PST)
+Received: by mail-lf1-x132.google.com with SMTP id 2adb3069b0e04-507a0907896so6992207e87.2
+        for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 14:55:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700520955; x=1701125755; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=0rxgwC9xu96+Rq2NcUPetJp0vOSqmxWW011/2tR4fyE=;
+        b=ftep8R3QvBDAQjLHjVv5LHnLpyNLDYP2v8I7RgKnjXj0Yx3m9NtdvoHJNHp1sCC7Ei
+         iDbCEpKufoJaPSBe5iRWcYxdKA0PEfG5Kg0E22f3WmwtvkMSGIDdX+Y8VIPUv8jCwJh+
+         0WVv7sZU16JUGu3+YyflT09Upi4mp3mkYh6qM51Ad6kSOesmx2SKOJNJxLWgJrabXDKh
+         cdmzRugm7XAElbMx35rtTrenEUHbHSWwhjZRiCJKUwrC+otLfM+61hjmH1qhIRkY6Hz5
+         dLakMCM91Vzo6KTk5IurluIgBvLpA10p8AsOn4roTe/e6En6boenI3l2Cu4AYFtbfwsL
+         taag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700520955; x=1701125755;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0rxgwC9xu96+Rq2NcUPetJp0vOSqmxWW011/2tR4fyE=;
+        b=CxvM6pmA7sQgaTlCoIVIzP+3kPZGFY+DkGwwle/8bpKBKFoVp1gcPt/clNxdBbdCch
+         Batg4GPSyuwolYenWh8conzcL/wmshewYm9CcffqicGSObU9gtBpQlgsTsmVb1duIXWW
+         vygvGdib7AVM1gsydOuYnunKDbXB1f5OC0O6+4WOWvfThU3E97wjrrybBcdmseXS1onN
+         tWRnLV6y8v4dzHsOis4NZDASCEXaH/XMHQynHXBUBMupeXdfXrTSY8Gdl8kJUqjw1p2C
+         SlRljNcW5MrnoebSM6cSrETXaCNYGBoqt0dEVFm+vvNKqIr32MrKaT4sE0jbyawm16l5
+         cx1g==
+X-Gm-Message-State: AOJu0YxvGK2wOqgrFvORnTSHAZzcPafYwCi68He/IWiZLenaVDS+d/9v
+	l2J9rg+gC95FyQsa2oQwP5TXuyO4Zt/KgymN8LbzuzM52Ds=
+X-Google-Smtp-Source: AGHT+IHj9xqzoZBvFKSHbr9hdmAz87i/6QMaHkgACjK9UbFaiyNMgOLTsa8fsgUWdVQpQCCJhM7LpZUNzFbsMbhZy5I=
+X-Received: by 2002:a05:6512:530:b0:50a:a150:b719 with SMTP id
+ o16-20020a056512053000b0050aa150b719mr5349839lfc.57.1700520955146; Mon, 20
+ Nov 2023 14:55:55 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
+From: Seamus de Mora <seamusdemora@gmail.com>
+Date: Mon, 20 Nov 2023 16:55:18 -0600
+Message-ID: <CAJ8C1XPdyVKuq=cL4CqOi2+ag-=tEbaC=0a3Zro9ZZU5Xw1cjw@mail.gmail.com>
+Subject: Add sub-topic on 'exFAT' in man mount
+To: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 20, 2023 at 12:55:17PM +0100, Miklos Szeredi wrote:
-> On Fri, Nov 17, 2023 at 04:50:25PM +0100, Miklos Szeredi wrote:
-> > I wonder... Is there a reason this shouldn't be done statelessly by
-> > adding an "continue after this ID" argument to listmount(2)?  The
-> > caller will just need to pass the last mount ID received in the array
-> > to the next listmount(2) call and iterate until a short count is
-> > returned.
-> 
-> No comments so far... maybe more explanation is needed.
-> 
-> New signature of listmount() would be:
-> 
-> ssize_t listmount(uint64_t mnt_id, uint64_t last_mnt_id,
-> 		  uint64_t *buf, size_t bufsize, unsigned int flags);
-> 
-> And the usage would be:
-> 
-> 	for (last = 0; nres == bufsize; last = buf[bufsize-1]) {
-> 		nres = listmount(parent, last, buf, bufsize, flags);
-> 		for (i = 0; i < nres; i++) {
-> 			/* process buf[i] */
-> 		}
-> 	}
-> 
-> 
-> Here's a kernel patch against the version in Christian's tree.  The syscall
-> signature doesn't need changing, since we have a spare u64 in the mnt_id_req for
-> listmount.
-> 
-> The major difference is in the order that the mount ID's are listed, which is
-> now strictly increasing.  Doing the recursive listing in DFS order is nicer, but
-> I don't think it's important enough.
-> 
-> Comments?
+I'd like to volunteer to add some information to the mount manual.
 
-Sure. We can also add a size argument to struct mnt_id_req then you can
-version it by size and extend it easily later (see sched_{g,s}etattr()
-that do similar things):
+I'm told that exFAT was added to the kernel about 4 years ago, but
+last I checked, there was nothing about it in man mount.  I feel this
+could be addressed best by adding a sub-topic on exFAT under the topic
+`FILESYSTEM-SPECIFIC MOUNT OPTIONS`.
 
-struct mnt_id_req {
-	__u32 size;
-	__u64 mnt_id;
-	__u64 request_mask;
-	union {
-		__u64 request_mask;
-		__u64 last_mnt_id;
-	};
-};
+If my application is of interest, please let me know what steps I need
+to take - or how to approach this task.
 
-foo(struct mnt_id_req __user *ureq)
-{
-	u32 size;
-	struct mnt_id_req kreq;
-
-	ret = get_user(size, &ureq->size);
-	if (ret)
-		return ret;
-
-        if (size < MNT_ID_REQ_SIZE_VER0 || size > PAGE_SIZE)
-		return -EINVAL;
-
-	ret = copy_struct_from_user(&kreq, sizeof(kreq), ureq, size);
-	if (ret)
-		return ret;
-}
+Best Rgds,
+~S
 
