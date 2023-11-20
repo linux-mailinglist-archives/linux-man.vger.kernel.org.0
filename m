@@ -1,90 +1,111 @@
-Return-Path: <linux-man+bounces-109-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-110-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839317F1289
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 12:56:54 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id E34387F12FD
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 13:16:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 234E6B21739
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 11:56:52 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2106A1C21647
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 12:16:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D72118638;
-	Mon, 20 Nov 2023 11:56:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 375681946B;
+	Mon, 20 Nov 2023 12:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="L25e3xrH"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Mrk22jJi"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CA49F9F
-	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 03:56:43 -0800 (PST)
-Received: by mail-wm1-x32c.google.com with SMTP id 5b1f17b1804b1-4084b0223ccso15168495e9.2
-        for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 03:56:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1700481402; x=1701086202; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=wcVgtuyXJ4rW+QgxPnbZZiZ8HxqtsNDA/4ZCWxBlYR8=;
-        b=L25e3xrHlCqGLehDq862YF5BfRgQ31eWkWzRlgGkI2ykT3C9tzRpVFB255KCgxUDku
-         SdCik6HsAetdhnV4H00Y5jDgCNPiVbzzS6VxkVNcXGYMBwDu808U7t+1nkmOgvTAZAXG
-         wia4p8ObM5gm/3cJHYoOnPYWCDRBWd6hssIzXUtPmmN6IAiLK0mEuNQAFXo1Ojk89RpH
-         YDyTpBeioUncqbw9PCqnuxyPB76PbCe6eF8fgRND9Uqks92NAr+HlJ607AhfEx3ulmis
-         RA+0DD2vdIKygxg6H1E43/vTTQ5z42hkV8gdwzZO1EKL1Qk52RG3dHHxUVZzCr8Yf9ig
-         vyFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700481402; x=1701086202;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wcVgtuyXJ4rW+QgxPnbZZiZ8HxqtsNDA/4ZCWxBlYR8=;
-        b=hobVcBhd9pXGuazDqvN2PGu3td63pMO5fWZdwpeQK8yk0FbRzAM6vIMQ3qVd1Hvphz
-         jjIUmrolFOhAIvSKLA95Txgcvdou0nqtjXwiNlRaM3xeZITcG6UKgYifZxSsAMR8mV18
-         GwDM6XBaEl+/uEbPZWHVX+v/Kr4XBJYzkePrBupAt3YKrVrC026ivw/ZBS83OTRWtGvu
-         GjKG89JywXAUHhh/QN4QhX5JFqY27uhgoZeuowamBT0SdUeaUhhMzY5BBeoUIrzWZmKb
-         BhIOc7YBRirhEgoX4nqOXj+GeLUIrXgoJu8gH/I+3ofkrQbs4bE6GYBgysD0l91YAzEc
-         LXDg==
-X-Gm-Message-State: AOJu0Yy0Re+tq2NWPgqUjC9xiEXOquvYKN1ZvSnBfwdeV0l4I8QLCRBI
-	TS5zMgJUCuNRFbM+BoyVG4OyXQ==
-X-Google-Smtp-Source: AGHT+IFHHLNNBXxoqtVVYNoUo2xRfcJNmwBXggxY70+g01t0VSisPSQY2+9qzf4esSxym1vAcXAVUQ==
-X-Received: by 2002:a05:600c:1caa:b0:401:b2c7:34a8 with SMTP id k42-20020a05600c1caa00b00401b2c734a8mr6440835wms.7.1700481402137;
-        Mon, 20 Nov 2023 03:56:42 -0800 (PST)
-Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id l39-20020a05600c1d2700b003fe23b10fdfsm17987462wms.36.2023.11.20.03.56.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Nov 2023 03:56:41 -0800 (PST)
-Message-ID: <317576b1-a2cd-4f23-84d7-830c242d7e86@jguk.org>
-Date: Mon, 20 Nov 2023 11:56:40 +0000
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1848B8
+	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 04:16:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1700482592;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M8mngAluptPIi0IQFYw/fpJsKECf3xAvyMpz30vd2z4=;
+	b=Mrk22jJio1/t044SoxcG/kj3CksQCRuw731Y7PYV4DH+lorh2wkna09vwyNYc9kSARcCCt
+	w4oNGoBeJoJQ2ebzSSS6rGH2MX9EOFnjNKDfD7rlnj6CVZJWPdEFVCc7HjOeM7uNH7NZ4C
+	mbytmXA5VPPkPmzY2Zj1tNQS7VwgxPU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-541-FqkTTnGcOMihL_JnqPOX8A-1; Mon, 20 Nov 2023 07:16:28 -0500
+X-MC-Unique: FqkTTnGcOMihL_JnqPOX8A-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4EA90811E7D;
+	Mon, 20 Nov 2023 12:16:28 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.2.16.29])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E704492BE0;
+	Mon, 20 Nov 2023 12:16:25 +0000 (UTC)
+From: Florian Weimer <fweimer@redhat.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: libc-alpha@sourceware.org,  linux-man <linux-man@vger.kernel.org>,
+  Alejandro Colomar <alx@kernel.org>,  Linux API
+ <linux-api@vger.kernel.org>,  linux-fsdevel@vger.kernel.org,  Karel Zak
+ <kzak@redhat.com>,  Ian Kent <raven@themaw.net>,  David Howells
+ <dhowells@redhat.com>,  Christian Brauner <christian@brauner.io>,  Amir
+ Goldstein <amir73il@gmail.com>,  Arnd Bergmann <arnd@arndb.de>
+Subject: Re: proposed libc interface and man page for statmount(2)
+References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
+	<87fs15qvu4.fsf@oldenburg.str.redhat.com>
+	<CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
+	<87leawphcj.fsf@oldenburg.str.redhat.com>
+	<CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
+	<CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
+	<ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
+Date: Mon, 20 Nov 2023 13:16:24 +0100
+In-Reply-To: <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu> (Miklos Szeredi's
+	message of "Mon, 20 Nov 2023 12:55:17 +0100")
+Message-ID: <878r6soc13.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.3 (gnu/linux)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: strncpy clarify result may not be null terminated
-From: Jonny Grant <jg@jguk.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, Matthew House
- <mattlloydhouse@gmail.com>, linux-man <linux-man@vger.kernel.org>
-References: <ZUo6btEFD_z_3NcF@devuan>
- <20231108021240.176996-1-mattlloydhouse@gmail.com> <ZUvilH5kuQfTuZjy@debian>
- <20231109031345.245703-1-mattlloydhouse@gmail.com>
- <250e0401-2eaa-461f-ae20-a7f44d0bc5ad@jguk.org> <ZUzEw2j6gHF5WtsO@debian>
- <f10a21e1-570c-4166-b060-afb2de93aede@cs.ucla.edu> <ZU1v-JKBP9iWXOOT@debian>
- <eb353572-ae84-426f-85aa-0c4471ce8739@cs.ucla.edu>
- <ebccf5c0-f125-4eb9-8820-e71e77f4f7ed@jguk.org> <ZU4s6Vm-jBjFCcJ2@debian>
- <66296bd3-9918-4dd1-8570-bccfbfd85239@jguk.org>
-Content-Language: en-GB
-In-Reply-To: <66296bd3-9918-4dd1-8570-bccfbfd85239@jguk.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
 
-BTW, GCC has a useful warning for truncation that may help code bases that use strncpy, you've probably seen this and the article, just sharing for completeness.
+* Miklos Szeredi:
 
-warning: ‘__builtin_strncpy’ output truncated before terminating nul copying XYZ bytes from a string of the same length [-Wstringop-truncation]
+> On Fri, Nov 17, 2023 at 04:50:25PM +0100, Miklos Szeredi wrote:
+>> I wonder... Is there a reason this shouldn't be done statelessly by
+>> adding an "continue after this ID" argument to listmount(2)?  The
+>> caller will just need to pass the last mount ID received in the array
+>> to the next listmount(2) call and iterate until a short count is
+>> returned.
+>
+> No comments so far... maybe more explanation is needed.
+>
+> New signature of listmount() would be:
+>
+> ssize_t listmount(uint64_t mnt_id, uint64_t last_mnt_id,
+> 		  uint64_t *buf, size_t bufsize, unsigned int flags);
+>
+> And the usage would be:
+>
+> 	for (last = 0; nres == bufsize; last = buf[bufsize-1]) {
+> 		nres = listmount(parent, last, buf, bufsize, flags);
+> 		for (i = 0; i < nres; i++) {
+> 			/* process buf[i] */
+> 		}
+> 	}
 
+Is the ID something specific to the VFS layer itself, or does it come
+from file systems?
 
-Martin's article from 2019
-https://developers.redhat.com/blog/2018/05/24/detecting-string-truncation-with-gcc-8#forming_truncated_strings_with_snprintf
+POSIX has a seekdir/telldir interface like that, I don't think file
+system authors like it.  Some have added dedicated data structures for
+it to implement somewhat predictable behavior in the face of concurrent
+directory modification.  Would this interface suffer from similar
+issues?
+
+Thanks,
+Florian
+
 
