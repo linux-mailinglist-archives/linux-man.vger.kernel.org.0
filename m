@@ -1,105 +1,142 @@
-Return-Path: <linux-man+bounces-119-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-120-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3BC27F219C
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 00:45:50 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 632F97F21CC
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 00:57:18 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E48571C21588
-	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 23:45:49 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 1D4792826EA
+	for <lists+linux-man@lfdr.de>; Mon, 20 Nov 2023 23:57:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C4903B2BF;
-	Mon, 20 Nov 2023 23:45:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C0EB3B7AD;
+	Mon, 20 Nov 2023 23:57:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eaXk6sh7"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VkBhQsQv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com [IPv6:2a00:1450:4864:20::131])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50B8EC3
-	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 15:45:19 -0800 (PST)
-Received: by mail-lf1-x131.google.com with SMTP id 2adb3069b0e04-507a98517f3so6496810e87.0
-        for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 15:45:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700523917; x=1701128717; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ah9E1ISrB4rQalvpnu9K57/OPj1AG1Ue2r/UR64LkyM=;
-        b=eaXk6sh7mlQNvhYSPYcSlkvHBDyMSGAOozjdi54SPsGXaD7dkUgDOz6/Hqcrw260WJ
-         Zkx8oevab2u9BmEq2HE+uZhTTQDo1I4ob5cIGMas8ess4hltFzmFZrzUPZIowLwsKeba
-         6RjfDm6oNGTPruiS2FXlQ3NwSZfXHBEDIGMTDE/dcZaaIZ5F/ivgGOO3E65EqJbjcR9X
-         wy9sNrQ6d3bAxhJXC9Swua0ZBUhJUXji3loxlIQwSEdHh7LzgQNYxLSfuywO/59g+Dnh
-         RBj6yF7oZ2IHUHY9uYtt87CXV3bX9xY7Bqt8j4W/3eZDjeVc3EIC4Bgid+SiEgFMGak7
-         ZhKQ==
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 243D2C9
+	for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 15:57:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1700524628;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=znhhgLdmAWpUPn9GHqUr/8E6KWdCC2feKOkD+ky/o8U=;
+	b=VkBhQsQvEOrf4BB15oA3oSwupWqB2Kllp81F/bs8O871BFsDGjcrBbePZN3ZtguUFtPMiu
+	SX3e43W95dAp6T+7/X/qSg0fe+ZsWGinjShqNTVhlGyjh2S4bNBOprc8XlIlAhBgHOFw2a
+	H5kiYMxhCUY7H3RuZrrhtYMw5s9Zrns=
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-204-glsNoJ9WOyGtDmxTLb8hgQ-1; Mon, 20 Nov 2023 18:57:06 -0500
+X-MC-Unique: glsNoJ9WOyGtDmxTLb8hgQ-1
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-1f9454a9f05so2485867fac.0
+        for <linux-man@vger.kernel.org>; Mon, 20 Nov 2023 15:57:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700523917; x=1701128717;
-        h=content-transfer-encoding:cc:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Ah9E1ISrB4rQalvpnu9K57/OPj1AG1Ue2r/UR64LkyM=;
-        b=SHQOem2NE4WglTXQFuXc0N7hnELWK9mQ+KoPanHe7Ji5IgJ6zTz2mpR45JEfbr0UPO
-         a0pDrhCjfOqfxwYqaiJlpTHSO/3DYfeaKDHiz2eSR+D9s4gdQQv+vRrTTO5k/fF3LzVp
-         Z77fG0At+vPzuCsUgl/PibfrXUl0AKqpkUTTyoy1CIIl+H2exZ040D7HJyB/hIh+HMVH
-         Jvx7o45eeoREiLLzN78Uck5RFCfhuyxfWUn7QOUI6h1+X5w48WIvLALzQ1/A6fUAxUpB
-         WefofHLMWayyLwjS9muBcVla6Kazifq5sAWjSOjmNTbu5PB+mhNX9op6ss8bnwZwu8l6
-         29lA==
-X-Gm-Message-State: AOJu0Yz+L66a3Qyfz02q51UZCbfF+s3hZRklY1soabGNZ0A1jEtZGLMN
-	TnoJsousetqrQmWCbPycaDBc4UqtIkU+MFSFIuAzi2TEg0I=
-X-Google-Smtp-Source: AGHT+IGfr8eaLnC+MBv9p+O6tdL72dFJ3Cj9+QwoOshvySGwi5FEgQstkz0OKdVM6eZdqV7+taS3FqtCjJNa0kZiKfg=
-X-Received: by 2002:ac2:54a4:0:b0:507:9a49:2d3d with SMTP id
- w4-20020ac254a4000000b005079a492d3dmr6241893lfk.31.1700523917101; Mon, 20 Nov
- 2023 15:45:17 -0800 (PST)
+        d=1e100.net; s=20230601; t=1700524625; x=1701129425;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=znhhgLdmAWpUPn9GHqUr/8E6KWdCC2feKOkD+ky/o8U=;
+        b=mAzO4qVU8aFOIwjLQ3gKz+7DrDkW3yUWjWWn2Vfqn0yqNnxtRqPc95qS9FKV/ATDPS
+         TE/mz4VUKwvtSNTE8BtZow2eWvLYzAryhgqkbrqAMLLTgG2x9I+qL5TNyAP82VkZz6V6
+         cWAsQD+nm2CeJVfPP/ShnYWSEOLWi44wlhzqSSfow9h9G1Zr8JFz6l6VJOJP3hTBfNUX
+         AEmu5f/zZYyVLwZ3Ix5YVoD5qpMpPem3aVtEtUTlPM0Bp34vqD6+hH58DlKO8uQdL7at
+         lS2TxT98DQUMa5nlvc5TFjQ4jl0R34j+5IBJErBM6PWLxCKWU0S3oB4CmJCvGS3wX5aa
+         9Ttg==
+X-Gm-Message-State: AOJu0YwwN89A5WG+eYr/EhkGIt7JTWg4KZzLNvhtUP56qbFU3YKI8s6k
+	CL7iFesdh+rubUJNHHo/Au9X+rcFKitLCUaYuhkIgQuhTlm/BBPb7Y+p424HUhcrqhIeuiqtQi7
+	Pkg6nnOSvJS4qnHIDwVVk
+X-Received: by 2002:a05:6870:b4a6:b0:1d6:b7aa:c6ed with SMTP id y38-20020a056870b4a600b001d6b7aac6edmr10935786oap.56.1700524625743;
+        Mon, 20 Nov 2023 15:57:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE3kvlgcQckGHpb2R5jSIU328bNbYbFOFTRp64CPF5uDJXJxeJoHQaM1YVmEmBSMMZcmeugfA==
+X-Received: by 2002:a05:6870:b4a6:b0:1d6:b7aa:c6ed with SMTP id y38-20020a056870b4a600b001d6b7aac6edmr10935776oap.56.1700524625486;
+        Mon, 20 Nov 2023 15:57:05 -0800 (PST)
+Received: from ?IPV6:2403:580f:7fe0::101a? (2403-580f-7fe0--101a.ip6.aussiebb.net. [2403:580f:7fe0::101a])
+        by smtp.gmail.com with ESMTPSA id x19-20020a62fb13000000b006870ed427b2sm6758263pfm.94.2023.11.20.15.56.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Nov 2023 15:57:04 -0800 (PST)
+Message-ID: <15b01137-6ed4-0cd8-4f61-4ee870236639@redhat.com>
+Date: Tue, 21 Nov 2023 07:56:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAJ8C1XPdyVKuq=cL4CqOi2+ag-=tEbaC=0a3Zro9ZZU5Xw1cjw@mail.gmail.com>
- <ZVvs3fgkANj9BSYh@devuan>
-In-Reply-To: <ZVvs3fgkANj9BSYh@devuan>
-From: Seamus de Mora <seamusdemora@gmail.com>
-Date: Mon, 20 Nov 2023 17:44:40 -0600
-Message-ID: <CAJ8C1XOZqA=T0z5eHTSdXvpMzBZKUmYs-9=bBUfy_Ok5wSUN5Q@mail.gmail.com>
-Subject: Re: Add sub-topic on 'exFAT' in man mount
-Cc: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Level: **
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: proposed libc interface and man page for statmount(2)
+To: Miklos Szeredi <miklos@szeredi.hu>, Florian Weimer <fweimer@redhat.com>
+Cc: libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>,
+ Alejandro Colomar <alx@kernel.org>, Linux API <linux-api@vger.kernel.org>,
+ linux-fsdevel@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+ Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>,
+ Christian Brauner <christian@brauner.io>, Amir Goldstein
+ <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
+References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
+ <87fs15qvu4.fsf@oldenburg.str.redhat.com>
+ <CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
+ <87leawphcj.fsf@oldenburg.str.redhat.com>
+ <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
+ <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
+ <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
+ <878r6soc13.fsf@oldenburg.str.redhat.com>
+ <ZVtScPlr-bkXeHPz@maszat.piliscsaba.szeredi.hu>
+Content-Language: en-US
+From: Ian Kent <ikent@redhat.com>
+In-Reply-To: <ZVtScPlr-bkXeHPz@maszat.piliscsaba.szeredi.hu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Uh, OK... stupid question first: Where is ./CONTRIBUTING?
+On 20/11/23 20:34, Miklos Szeredi wrote:
+> On Mon, Nov 20, 2023 at 01:16:24PM +0100, Florian Weimer wrote:
+>> Is the ID something specific to the VFS layer itself, or does it come
+>> from file systems?
+> It comes from the VFS.
+>
+>
+>> POSIX has a seekdir/telldir interface like that, I don't think file
+>> system authors like it.  Some have added dedicated data structures for
+>> it to implement somewhat predictable behavior in the face of concurrent
+>> directory modification.  Would this interface suffer from similar
+>> issues?
+> The same issue was solved for /proc/$$/mountinfo using cursors.
 
-On Mon, Nov 20, 2023 at 5:30=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
-wrote:
+The mounts are now using an rb-tree, I think the the cursor solution can
+
+only work for a linear list, the case is very different.
+
+
 >
-> Hello Seamus,
->
-> On Mon, Nov 20, 2023 at 04:55:18PM -0600, Seamus de Mora wrote:
-> > I'd like to volunteer to add some information to the mount manual.
-> >
-> > I'm told that exFAT was added to the kernel about 4 years ago, but
-> > last I checked, there was nothing about it in man mount.  I feel this
-> > could be addressed best by adding a sub-topic on exFAT under the topic
-> > `FILESYSTEM-SPECIFIC MOUNT OPTIONS`.
-> >
-> > If my application is of interest, please let me know what steps I need
-> > to take - or how to approach this task.
->
-> It is of interest.  Thanks!  :)
->
-> You could start by reading the ./CONTRIBUTING file.  If you have any
-> doubts, feel free to ask more specific questions.  You could also add
-> something to filesystems(5) about exFAT, BTW.
->
-> Cheers,
-> Alex
->
-> >
-> > Best Rgds,
-> > ~S
-> >
->
-> --
-> <https://www.alejandro-colomar.es/>
+> This patchset removes the need for cursors, since the new unique mount ID can be
+> used to locate the current position without having to worry about deleted and
+> added mounts.
+
+IIRC the problem with proc mounts traversals was because the lock was taken
+
+and dropped between reads so that mount entries could be deleted (not sure
+
+adding had quite the same problem) from the list in between reads.
+
+
+Sounds like I'll need to look at the code but first though but an rb-tree
+
+can have mounts removed and new mounts inserted if the locks are dropped
+
+if the retrieval is slit between multiple calls.
+
+
+So I'm struggling to see why this isn't the same problem and I don't think
+
+introducing cursors in this case would work (thankfully, lets do this again
+
+please).
+
+
+Ian
+
 
