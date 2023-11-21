@@ -1,122 +1,75 @@
-Return-Path: <linux-man+bounces-135-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-136-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01C777F37AB
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 21:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654277F3802
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 22:19:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3011C1C20DE0
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 20:43:16 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 971001C20C45
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 21:19:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1F3D33D972;
-	Tue, 21 Nov 2023 20:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D04854667;
+	Tue, 21 Nov 2023 21:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=owlfolio.org header.i=@owlfolio.org header.b="bAwn9NJ3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RHig11LW"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="MYwnjQJG"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DA839188;
-	Tue, 21 Nov 2023 12:43:05 -0800 (PST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id A89DD5C0742;
-	Tue, 21 Nov 2023 15:43:02 -0500 (EST)
-Received: from imap45 ([10.202.2.95])
-  by compute5.internal (MEProxy); Tue, 21 Nov 2023 15:43:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=owlfolio.org; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm3; t=1700599382; x=1700685782; bh=cP
-	+4Qdty6Ljkpn+y6fboIIavjZKfR1zjbDxx2nbUIFU=; b=bAwn9NJ3+05S40b+eO
-	kl/0W6aIkS95XzxogpgShnf7tDnsrqgKA2kJeaUDtWHI+bVRCYzUkK1fvYa68/oz
-	FaGopVcbHWkDXADUovAv8J+8FLn1ib8RsrIBOV6ImNQvp+qfn5uT+ILmycqSaI0H
-	vhWPZH4TiMU8DSqfO9zPT1uIVZavoQLzr7G8Xdquz0upH03+9aRqmzno0GFxmyMD
-	qn30BazpYWnJatJrTkbf+U/K3J7R+MmV0LBZqYhREib/o7rlesyq4hAPsfQvRar6
-	vwWZWF/LX2bzyJXgXtZtNHML5ca9H5njKD6ZBMFnIgWZaQ1ouXagNGGb/LwjHx+t
-	Bn/Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1700599382; x=1700685782; bh=cP+4Qdty6Ljkp
-	n+y6fboIIavjZKfR1zjbDxx2nbUIFU=; b=RHig11LWilXrXEkwF6b4y6XMfX+E/
-	dz0xkIJVYHtmexR1EFQpb1vJYvQSZtKLqyvWL7bMWHfn2Ni+EXEmZA7R/iJpbEQI
-	vz8RK5To8NLvZz5XMjg4fx2DZ2tLqDwensBWFtbuHwQVotWclyYJlm3pB7x+N5kO
-	Pw3IMD4oG9GFRYVqW3Pa2wKPpC+ht9IKXsFDEcNAyM4OE2+tkhUj0OfrnLXhSnJW
-	jGYLO68UwFnv8cgyv597+dhlEfrsVqdzp6y9eDn8CtY9QB1/mcuwIPDqiUXqKkX7
-	66BhjLk4RgJDWLdeMxdlgfH6pyZ9bedwJTvdoxuUgg6M1XFZdpunL7TxQ==
-X-ME-Sender: <xms:VRZdZSSrahJN9hlxrV-5hE7qEMwyIbZ4ATvZFUQP9LTER36m7I-7OQ>
-    <xme:VRZdZXxSU_KMvlQGmqccaPVBSek-wy91AFimCNFx5Fpetyzrtv51MaI3OD276PZRj
-    nfvtlD7OluIqg-qfvA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudegledgudefvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdgk
-    rggtkhcuhggvihhnsggvrhhgfdcuoeiirggtkhesohiflhhfohhlihhordhorhhgqeenuc
-    ggtffrrghtthgvrhhnpefhleefheduhfelgeehgeejveehueeihedvgfeuueetteelieei
-    teehfefhleduieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
-    hrohhmpeiirggtkhesohiflhhfohhlihhordhorhhg
-X-ME-Proxy: <xmx:VRZdZf3eRZMU6GUBrFb4HV4lWpNxZs2H8GioLjST2bSGWSaRqMLqiA>
-    <xmx:VRZdZeCrNrcRbo3jfcKAoVMMJqsRNNtYw9oWDQ8S7CGLhOPJgH5Obw>
-    <xmx:VRZdZbgydg_il2MZV7y_pTSaSe0O9mQzbwh5HcIuKGCtvX983jSvbA>
-    <xmx:VhZdZeoV9OZIL5gwZCVfI7UnFreGewzGo-dXiYLH_nTKRHBUj0GEEw>
-Feedback-ID: i876146a2:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id A37C5272007C; Tue, 21 Nov 2023 15:43:01 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-1178-geeaf0069a7-fm-20231114.001-geeaf0069
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6F514D5C
+	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 13:18:58 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id DF1C23C011BE6;
+	Tue, 21 Nov 2023 13:18:57 -0800 (PST)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id lxSWzXHEYb_A; Tue, 21 Nov 2023 13:18:57 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id A68313C011BE1;
+	Tue, 21 Nov 2023 13:18:57 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu A68313C011BE1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1700601537;
+	bh=boiF1iEFc/kotjGbh3pvexILvIbZPSl5m4vTwhKVO9A=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=MYwnjQJGA77qUcJvL2HtrjwPMJMpRAHZBqvgjsq9m0N9IpiwL+gkmObPY8XgsTB3y
+	 2ZvEh1cR2Io8yIpp3ileGPfiW3piJzf3sk90rPR0FClGFYdxuxAFsxA8xzt2pOr2m1
+	 gNAjwCfGXLvg+Tv/PlskuKLnr68HQt16iJZypCn4+CBzt9vR24Wq4TtnrIwLvXCbH3
+	 4SV14l8yM8m40wHJhalEvI4JH80zfOZFugi8ahpKrPg6SBy+x+HfxXCE8xJBYFe/Z1
+	 wwSX6SupLJwh12//9qIK3xKkvxWGNumzRiN5SrTTwpyamFtB4llnR+YhiG55wLWd29
+	 8MZZ7FtIiFHTQ==
+X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id WrsLaF0_uQ4P; Tue, 21 Nov 2023 13:18:57 -0800 (PST)
+Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 8F07C3C011BE6;
+	Tue, 21 Nov 2023 13:18:57 -0800 (PST)
+Message-ID: <1f070716-51d5-4439-bca2-1df2351d318a@cs.ucla.edu>
+Date: Tue, 21 Nov 2023 13:18:54 -0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <c1a2c685-6985-4010-933e-a633be647b49@app.fastmail.com>
-In-Reply-To: 
- <CAJfpegt-rNHdH1OdZHoNu86W6m-OHjWn8yT6LezFzPNxymWLzw@mail.gmail.com>
-References: 
- <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
- <87fs15qvu4.fsf@oldenburg.str.redhat.com>
- <CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
- <87leawphcj.fsf@oldenburg.str.redhat.com>
- <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
- <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
- <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
- <878r6soc13.fsf@oldenburg.str.redhat.com>
- <ZVtScPlr-bkXeHPz@maszat.piliscsaba.szeredi.hu>
- <15b01137-6ed4-0cd8-4f61-4ee870236639@redhat.com>
- <6aa721ad-6d62-d1e8-0e65-5ddde61ce281@themaw.net>
- <c3209598-c8bc-5cc9-cec5-441f87c2042b@themaw.net>
- <bcbc0c84-0937-c47a-982c-446ab52160a2@themaw.net>
- <CAJfpegt-rNHdH1OdZHoNu86W6m-OHjWn8yT6LezFzPNxymWLzw@mail.gmail.com>
-Date: Tue, 21 Nov 2023 15:42:41 -0500
-From: "Zack Weinberg" <zack@owlfolio.org>
-To: "Miklos Szeredi" <miklos@szeredi.hu>, "Ian Kent" <raven@themaw.net>
-Cc: "Ian Kent" <ikent@redhat.com>, "Florian Weimer" <fweimer@redhat.com>,
- "GNU libc development" <libc-alpha@sourceware.org>,
- 'linux-man' <linux-man@vger.kernel.org>,
- "Alejandro Colomar" <alx@kernel.org>,
- "Linux API" <linux-api@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
- "Karel Zak" <kzak@redhat.com>, "David Howells" <dhowells@redhat.com>,
- "Christian Brauner" <christian@brauner.io>,
- "Amir Goldstein" <amir73il@gmail.com>, "Arnd Bergmann" <arnd@arndb.de>
-Subject: Re: proposed libc interface and man page for statmount(2)
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] stpncpy(3) fixes
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <20231112235218.80195-1-eggert@cs.ucla.edu>
+ <20231112235218.80195-5-eggert@cs.ucla.edu> <ZVF8B-guyK2Zby4P@debian>
+ <ZVz37_06mbiMBMVc@devuan>
+Content-Language: en-US
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <ZVz37_06mbiMBMVc@devuan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 21, 2023, at 2:42 PM, Miklos Szeredi wrote:
->
-> handle = listmount_open(mnt_id, flags);
-> for (;;) {
->     child_id = listmount_next(handle);
->     if (child_id == 0)
->         break;
->     /* do something with child_id */
-> }
-> listmount_close(handle)
+On 11/21/23 10:33, Alejandro Colomar wrote:
+> I've applied some of the changes in separate commits:
 
-Why can't these be plain old open, read, and close? Starting from a pathname in /proc or /sys. Doesn't allow lseek.
-
-zw
+Thanks for doing all that. Although I haven't had time to check the 
+results, I'm sure they're an improvement.
 
