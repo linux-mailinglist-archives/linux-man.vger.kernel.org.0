@@ -1,66 +1,66 @@
-Return-Path: <linux-man+bounces-137-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-138-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B04B7F3A09
-	for <lists+linux-man@lfdr.de>; Wed, 22 Nov 2023 00:07:30 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 904A97F3A40
+	for <lists+linux-man@lfdr.de>; Wed, 22 Nov 2023 00:28:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 91A031C20B4C
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 23:07:29 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 20970B216DF
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 23:28:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB86C54BFC;
-	Tue, 21 Nov 2023 23:07:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EBE256750;
+	Tue, 21 Nov 2023 23:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dR5qkQHe"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CpqJaRVg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18CBF185
-	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 15:07:23 -0800 (PST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D02F191
+	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 15:28:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1700608041;
+	s=mimecast20190719; t=1700609300;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bBz1iDSdeBIOABYMZoLGdPZUbBHJQYVOoK894fIZ+qE=;
-	b=dR5qkQHeAShdJ0ZhXK3xoeK+HvDEs3S3snkGOeGm/pOvbl4G9OpBhF5BD/jJhqkhQA8tLp
-	EtZ+y6YZbU4K2rapAxvT4R3mOfF3cqqqezFZtQzYgSs2L1FSm5Az7FnnW9Ul+gwBtwZdFT
-	aYj16WiLyeU5Pu3m6JB7gPmPl3hz8rM=
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=MDZVRxZweSenkNDTSFX30b9waUaWsjQX3051oVBc2uo=;
+	b=CpqJaRVgBpiNEbl5JTPbfpPLoyQu83M/BLDWQK+fU6+Redf4bp+WEdaj1lI3YwkZFMp9Wg
+	lYd952b1DtUhwG9DOl163UclKcNI+zLW25f01H6Rw48rfQpJca2JEocWEhc5zx89fXGZt5
+	Uo5MCkIvhPCRuSj5XWwMyhyKzqqGei0=
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-272-BRG1Yl1ZPJ6d1To4FBk3FA-1; Tue, 21 Nov 2023 18:07:20 -0500
-X-MC-Unique: BRG1Yl1ZPJ6d1To4FBk3FA-1
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-5be09b7d01fso6718548a12.1
-        for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 15:07:20 -0800 (PST)
+ us-mta-671-nwmsBbxZMMCKW7nipcYY1A-1; Tue, 21 Nov 2023 18:28:19 -0500
+X-MC-Unique: nwmsBbxZMMCKW7nipcYY1A-1
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-5c1c48d7226so9165724a12.0
+        for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 15:28:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700608039; x=1701212839;
+        d=1e100.net; s=20230601; t=1700609298; x=1701214098;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bBz1iDSdeBIOABYMZoLGdPZUbBHJQYVOoK894fIZ+qE=;
-        b=HVgxwG/yQ6c0RQn0j44O0xV6ddkXh/c1prOMnZy+qsGO4V2R/FQFpIIofHOunfgLZ8
-         5MGC0n5ZuSLIjmoTSSlweTAcwQKa9tyNu6wokzc6RSlHMh/GrvXIuaXvJtXOwgtUUp/w
-         txg82IxxZR8u18yJveSDK3Cs5BkS7NXczVIV5gzHvIIKbB5ygWH6zxkdnzLXr8bRfNl4
-         X/413nOjqhEMx4SaEm69LnYkFrCDi9xJVzgUAgPYZtj6DHgRVuLf+jM5jR6fmDPYIxQ/
-         UkEdJQUTVIjQfdA5r+RocGoAFMljZ5fwLJCcY891D+VaB4Eq1RJUA9tLzzqpBrsOT7Pi
-         1AtA==
-X-Gm-Message-State: AOJu0Yw0tSt0gPA3zTjeFrB1zskNW6WKKrYAkaR/iAWd61um+FagAVjB
-	93Crl/ZTJelr94qGab3n2rjyzrNKVSyaP9cTnrWqqJlDm2q+XNCB3WDDtK5Pc5IxszfTlOruIHb
-	pZb/kzngWSDSJfknJ6tSE
-X-Received: by 2002:a05:6a21:2c83:b0:180:ebec:da1e with SMTP id ua3-20020a056a212c8300b00180ebecda1emr510297pzb.21.1700608039463;
-        Tue, 21 Nov 2023 15:07:19 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG6uAOM2/zKQtCc+Qz7VkUK2CtcONrBAeLluLvJBKDL/i2/v6bsvOsBaIhkiiK/xuDzy/e2Pw==
-X-Received: by 2002:a05:6a21:2c83:b0:180:ebec:da1e with SMTP id ua3-20020a056a212c8300b00180ebecda1emr510272pzb.21.1700608039175;
-        Tue, 21 Nov 2023 15:07:19 -0800 (PST)
+        bh=MDZVRxZweSenkNDTSFX30b9waUaWsjQX3051oVBc2uo=;
+        b=PSokOjsQk09MsG9i35FKwirh5s+o/n7E4aHKnRcKYAJ8ZPxlht2wKzqVdtk17WUexV
+         qap8Oa1QXkF2SQ4tl9qbtim+ur5qreQSEYnVr18yl6hNfywtw/1SJuc7cD9yk+tLAQMF
+         7pjan1Lr8hAkJpYm3l6S+rvbqCUbYz+5usS1Iqcq2Kh81B5uPny7wQDDBIknx6kpxz4J
+         NW8WrkoFQzNiW/EhYtNB5pA2/JvuE38QZwFOF1rr4+ccWOeGwBZoug/B804VeFxJun/E
+         PFJTwxxj2oxUIRqeJm1sGB30EmfeFRvOd+mcPeub/EZSQXKrTz96V1tiKWfy9egKxld0
+         sZVA==
+X-Gm-Message-State: AOJu0YwB65DnT5lrAdUCX0SXdX93lFxeQYM/LfULSyhubgeBi/pvZYVO
+	Yd3syacGXsbifhr6ptLcT2RicG1OIN3LIfYSx693/MUy73DP9mcEKwlG2mVf0XN/QMzAJso406O
+	cK+wo1bgyKt5OaQEBfzVO
+X-Received: by 2002:a17:902:ed4c:b0:1c7:5f03:8562 with SMTP id y12-20020a170902ed4c00b001c75f038562mr772731plb.30.1700609297976;
+        Tue, 21 Nov 2023 15:28:17 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGlcPQdJ0chVTcdGisrcasHHa3D8gXU0roVA5jhM3ymaKkbeuu8fPoC51DguC+Q5hOBu4pCqg==
+X-Received: by 2002:a17:902:ed4c:b0:1c7:5f03:8562 with SMTP id y12-20020a170902ed4c00b001c75f038562mr772714plb.30.1700609297670;
+        Tue, 21 Nov 2023 15:28:17 -0800 (PST)
 Received: from ?IPV6:2403:580f:7fe0::101a? (2403-580f-7fe0--101a.ip6.aussiebb.net. [2403:580f:7fe0::101a])
-        by smtp.gmail.com with ESMTPSA id b4-20020a17090a800400b00283967b948csm55243pjn.31.2023.11.21.15.07.14
+        by smtp.gmail.com with ESMTPSA id p7-20020a170902a40700b001ca4cc783b6sm8414750plq.36.2023.11.21.15.28.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Nov 2023 15:07:18 -0800 (PST)
-Message-ID: <6ec62d57-3336-64f8-5921-152600eee3ce@redhat.com>
-Date: Wed, 22 Nov 2023 07:07:11 +0800
+        Tue, 21 Nov 2023 15:28:17 -0800 (PST)
+Message-ID: <698dd63e-9cd8-2d22-c4ca-d8138ed97606@redhat.com>
+Date: Wed, 22 Nov 2023 07:28:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -71,9 +71,11 @@ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
 Subject: Re: proposed libc interface and man page for statmount(2)
 Content-Language: en-US
-To: Miklos Szeredi <miklos@szeredi.hu>, Ian Kent <raven@themaw.net>
-Cc: Florian Weimer <fweimer@redhat.com>, libc-alpha@sourceware.org,
- linux-man <linux-man@vger.kernel.org>, Alejandro Colomar <alx@kernel.org>,
+To: Zack Weinberg <zack@owlfolio.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Ian Kent <raven@themaw.net>
+Cc: Florian Weimer <fweimer@redhat.com>,
+ GNU libc development <libc-alpha@sourceware.org>,
+ 'linux-man' <linux-man@vger.kernel.org>, Alejandro Colomar <alx@kernel.org>,
  Linux API <linux-api@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
  Karel Zak <kzak@redhat.com>, David Howells <dhowells@redhat.com>,
  Christian Brauner <christian@brauner.io>, Amir Goldstein
@@ -92,51 +94,55 @@ References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
  <c3209598-c8bc-5cc9-cec5-441f87c2042b@themaw.net>
  <bcbc0c84-0937-c47a-982c-446ab52160a2@themaw.net>
  <CAJfpegt-rNHdH1OdZHoNu86W6m-OHjWn8yT6LezFzPNxymWLzw@mail.gmail.com>
+ <c1a2c685-6985-4010-933e-a633be647b49@app.fastmail.com>
 From: Ian Kent <ikent@redhat.com>
-In-Reply-To: <CAJfpegt-rNHdH1OdZHoNu86W6m-OHjWn8yT6LezFzPNxymWLzw@mail.gmail.com>
+In-Reply-To: <c1a2c685-6985-4010-933e-a633be647b49@app.fastmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 22/11/23 03:42, Miklos Szeredi wrote:
-> On Tue, 21 Nov 2023 at 02:33, Ian Kent <raven@themaw.net> wrote:
->
->> I've completely lost what we are talking about.
-> I started thinking about a good userspace API, and I'm skeptical about
-> the proposed kernel API being good for userspace as well.
->
-> Maybe something like this would be the simplest and least likely to be
-> misused (and also very similar to opendir/readdir/closedir):
->
-> handle = listmount_open(mnt_id, flags);
-> for (;;) {
->      child_id = listmount_next(handle);
->      if (child_id == 0)
->          break;
->      /* do something with child_id */
-> }
-> listmount_close(handle)
+On 22/11/23 04:42, Zack Weinberg wrote:
+> On Tue, Nov 21, 2023, at 2:42 PM, Miklos Szeredi wrote:
+>> handle = listmount_open(mnt_id, flags);
+>> for (;;) {
+>>      child_id = listmount_next(handle);
+>>      if (child_id == 0)
+>>          break;
+>>      /* do something with child_id */
+>> }
+>> listmount_close(handle)
+> Why can't these be plain old open, read, and close? Starting from a pathname in /proc or /sys. Doesn't allow lseek.
 
-Ahh ... yes that seems like something that would work.
+I'm not sure how this would work, there aren't a series of paths in proc
+
+that represent mounts?
 
 
-Of course we will still end up working with an out of date list
+There are a couple of reasons for not creating a tree of directories
 
-but that's unavoidable, at least the list would be consistent at
-
-the time it was fetched and if it was really needed to have a
-
-consistent list then the above could be used.
+to represent mounts in the proc file system.
 
 
-Are there potential problems with holding locks over the
+One is that open() is a fairly high overhead system call and it so it
 
-open/next/close procedure such as the close not called or the
+won't cope well with traversing a large volume of mounts. Other times
 
-process crashing?
+I have introduced open/process/close for individual actions, rather
+
+than keep the object open until it's no longer used, has proven to
+
+impact performance in an unacceptable way.
+
+
+Second is that, because the mount table lives in a file (actually more
+
+than one with slightly different formats) it needs to be traversed every
+
+time one is looking for a mount which has been shown to be high overhead,
+
+especially if there are many change notifications from the kernel.
 
 
 Ian
-
 
 
