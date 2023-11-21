@@ -1,75 +1,142 @@
-Return-Path: <linux-man+bounces-136-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-137-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 654277F3802
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 22:19:05 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B04B7F3A09
+	for <lists+linux-man@lfdr.de>; Wed, 22 Nov 2023 00:07:30 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 971001C20C45
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 21:19:04 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 91A031C20B4C
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 23:07:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D04854667;
-	Tue, 21 Nov 2023 21:19:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB86C54BFC;
+	Tue, 21 Nov 2023 23:07:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="MYwnjQJG"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dR5qkQHe"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6F514D5C
-	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 13:18:58 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id DF1C23C011BE6;
-	Tue, 21 Nov 2023 13:18:57 -0800 (PST)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
-	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-	with ESMTP id lxSWzXHEYb_A; Tue, 21 Nov 2023 13:18:57 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id A68313C011BE1;
-	Tue, 21 Nov 2023 13:18:57 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu A68313C011BE1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1700601537;
-	bh=boiF1iEFc/kotjGbh3pvexILvIbZPSl5m4vTwhKVO9A=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=MYwnjQJGA77qUcJvL2HtrjwPMJMpRAHZBqvgjsq9m0N9IpiwL+gkmObPY8XgsTB3y
-	 2ZvEh1cR2Io8yIpp3ileGPfiW3piJzf3sk90rPR0FClGFYdxuxAFsxA8xzt2pOr2m1
-	 gNAjwCfGXLvg+Tv/PlskuKLnr68HQt16iJZypCn4+CBzt9vR24Wq4TtnrIwLvXCbH3
-	 4SV14l8yM8m40wHJhalEvI4JH80zfOZFugi8ahpKrPg6SBy+x+HfxXCE8xJBYFe/Z1
-	 wwSX6SupLJwh12//9qIK3xKkvxWGNumzRiN5SrTTwpyamFtB4llnR+YhiG55wLWd29
-	 8MZZ7FtIiFHTQ==
-X-Virus-Scanned: amavisd-new at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
-	by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id WrsLaF0_uQ4P; Tue, 21 Nov 2023 13:18:57 -0800 (PST)
-Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
-	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 8F07C3C011BE6;
-	Tue, 21 Nov 2023 13:18:57 -0800 (PST)
-Message-ID: <1f070716-51d5-4439-bca2-1df2351d318a@cs.ucla.edu>
-Date: Tue, 21 Nov 2023 13:18:54 -0800
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18CBF185
+	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 15:07:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1700608041;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bBz1iDSdeBIOABYMZoLGdPZUbBHJQYVOoK894fIZ+qE=;
+	b=dR5qkQHeAShdJ0ZhXK3xoeK+HvDEs3S3snkGOeGm/pOvbl4G9OpBhF5BD/jJhqkhQA8tLp
+	EtZ+y6YZbU4K2rapAxvT4R3mOfF3cqqqezFZtQzYgSs2L1FSm5Az7FnnW9Ul+gwBtwZdFT
+	aYj16WiLyeU5Pu3m6JB7gPmPl3hz8rM=
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-272-BRG1Yl1ZPJ6d1To4FBk3FA-1; Tue, 21 Nov 2023 18:07:20 -0500
+X-MC-Unique: BRG1Yl1ZPJ6d1To4FBk3FA-1
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-5be09b7d01fso6718548a12.1
+        for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 15:07:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700608039; x=1701212839;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bBz1iDSdeBIOABYMZoLGdPZUbBHJQYVOoK894fIZ+qE=;
+        b=HVgxwG/yQ6c0RQn0j44O0xV6ddkXh/c1prOMnZy+qsGO4V2R/FQFpIIofHOunfgLZ8
+         5MGC0n5ZuSLIjmoTSSlweTAcwQKa9tyNu6wokzc6RSlHMh/GrvXIuaXvJtXOwgtUUp/w
+         txg82IxxZR8u18yJveSDK3Cs5BkS7NXczVIV5gzHvIIKbB5ygWH6zxkdnzLXr8bRfNl4
+         X/413nOjqhEMx4SaEm69LnYkFrCDi9xJVzgUAgPYZtj6DHgRVuLf+jM5jR6fmDPYIxQ/
+         UkEdJQUTVIjQfdA5r+RocGoAFMljZ5fwLJCcY891D+VaB4Eq1RJUA9tLzzqpBrsOT7Pi
+         1AtA==
+X-Gm-Message-State: AOJu0Yw0tSt0gPA3zTjeFrB1zskNW6WKKrYAkaR/iAWd61um+FagAVjB
+	93Crl/ZTJelr94qGab3n2rjyzrNKVSyaP9cTnrWqqJlDm2q+XNCB3WDDtK5Pc5IxszfTlOruIHb
+	pZb/kzngWSDSJfknJ6tSE
+X-Received: by 2002:a05:6a21:2c83:b0:180:ebec:da1e with SMTP id ua3-20020a056a212c8300b00180ebecda1emr510297pzb.21.1700608039463;
+        Tue, 21 Nov 2023 15:07:19 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG6uAOM2/zKQtCc+Qz7VkUK2CtcONrBAeLluLvJBKDL/i2/v6bsvOsBaIhkiiK/xuDzy/e2Pw==
+X-Received: by 2002:a05:6a21:2c83:b0:180:ebec:da1e with SMTP id ua3-20020a056a212c8300b00180ebecda1emr510272pzb.21.1700608039175;
+        Tue, 21 Nov 2023 15:07:19 -0800 (PST)
+Received: from ?IPV6:2403:580f:7fe0::101a? (2403-580f-7fe0--101a.ip6.aussiebb.net. [2403:580f:7fe0::101a])
+        by smtp.gmail.com with ESMTPSA id b4-20020a17090a800400b00283967b948csm55243pjn.31.2023.11.21.15.07.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Nov 2023 15:07:18 -0800 (PST)
+Message-ID: <6ec62d57-3336-64f8-5921-152600eee3ce@redhat.com>
+Date: Wed, 22 Nov 2023 07:07:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] stpncpy(3) fixes
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-References: <20231112235218.80195-1-eggert@cs.ucla.edu>
- <20231112235218.80195-5-eggert@cs.ucla.edu> <ZVF8B-guyK2Zby4P@debian>
- <ZVz37_06mbiMBMVc@devuan>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: proposed libc interface and man page for statmount(2)
 Content-Language: en-US
-From: Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-In-Reply-To: <ZVz37_06mbiMBMVc@devuan>
+To: Miklos Szeredi <miklos@szeredi.hu>, Ian Kent <raven@themaw.net>
+Cc: Florian Weimer <fweimer@redhat.com>, libc-alpha@sourceware.org,
+ linux-man <linux-man@vger.kernel.org>, Alejandro Colomar <alx@kernel.org>,
+ Linux API <linux-api@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
+ Karel Zak <kzak@redhat.com>, David Howells <dhowells@redhat.com>,
+ Christian Brauner <christian@brauner.io>, Amir Goldstein
+ <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
+References: <CAJfpegsMahRZBk2d2vRLgO8ao9QUP28BwtfV1HXp5hoTOH6Rvw@mail.gmail.com>
+ <87fs15qvu4.fsf@oldenburg.str.redhat.com>
+ <CAJfpegvqBtePer8HRuShe3PAHLbCg9YNUpOWzPg-+=gGwQJWpw@mail.gmail.com>
+ <87leawphcj.fsf@oldenburg.str.redhat.com>
+ <CAJfpegsCfuPuhtD+wfM3mUphqk9AxWrBZDa9-NxcdnsdAEizaw@mail.gmail.com>
+ <CAJfpegsBqbx5+VMHVHbYx2CdxxhtKHYD4V-nN5J3YCtXTdv=TQ@mail.gmail.com>
+ <ZVtEkeTuqAGG8Yxy@maszat.piliscsaba.szeredi.hu>
+ <878r6soc13.fsf@oldenburg.str.redhat.com>
+ <ZVtScPlr-bkXeHPz@maszat.piliscsaba.szeredi.hu>
+ <15b01137-6ed4-0cd8-4f61-4ee870236639@redhat.com>
+ <6aa721ad-6d62-d1e8-0e65-5ddde61ce281@themaw.net>
+ <c3209598-c8bc-5cc9-cec5-441f87c2042b@themaw.net>
+ <bcbc0c84-0937-c47a-982c-446ab52160a2@themaw.net>
+ <CAJfpegt-rNHdH1OdZHoNu86W6m-OHjWn8yT6LezFzPNxymWLzw@mail.gmail.com>
+From: Ian Kent <ikent@redhat.com>
+In-Reply-To: <CAJfpegt-rNHdH1OdZHoNu86W6m-OHjWn8yT6LezFzPNxymWLzw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/21/23 10:33, Alejandro Colomar wrote:
-> I've applied some of the changes in separate commits:
 
-Thanks for doing all that. Although I haven't had time to check the 
-results, I'm sure they're an improvement.
+On 22/11/23 03:42, Miklos Szeredi wrote:
+> On Tue, 21 Nov 2023 at 02:33, Ian Kent <raven@themaw.net> wrote:
+>
+>> I've completely lost what we are talking about.
+> I started thinking about a good userspace API, and I'm skeptical about
+> the proposed kernel API being good for userspace as well.
+>
+> Maybe something like this would be the simplest and least likely to be
+> misused (and also very similar to opendir/readdir/closedir):
+>
+> handle = listmount_open(mnt_id, flags);
+> for (;;) {
+>      child_id = listmount_next(handle);
+>      if (child_id == 0)
+>          break;
+>      /* do something with child_id */
+> }
+> listmount_close(handle)
+
+Ahh ... yes that seems like something that would work.
+
+
+Of course we will still end up working with an out of date list
+
+but that's unavoidable, at least the list would be consistent at
+
+the time it was fetched and if it was really needed to have a
+
+consistent list then the above could be used.
+
+
+Are there potential problems with holding locks over the
+
+open/next/close procedure such as the close not called or the
+
+process crashing?
+
+
+Ian
+
+
 
