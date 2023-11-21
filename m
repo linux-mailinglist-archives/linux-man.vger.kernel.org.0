@@ -1,73 +1,46 @@
-Return-Path: <linux-man+bounces-130-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-131-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A31B7F2FF6
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 14:57:24 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18C827F3300
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 17:00:37 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7BED71C21A15
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 13:57:23 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C7CCB2817E3
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 16:00:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26915482F7;
-	Tue, 21 Nov 2023 13:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D5A559141;
+	Tue, 21 Nov 2023 16:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmtpVk0Q"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oz/mN5UE"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5DE949B
-	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 05:57:17 -0800 (PST)
-Received: by mail-pl1-x630.google.com with SMTP id d9443c01a7336-1cf6bdf8274so7386715ad.1
-        for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 05:57:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700575037; x=1701179837; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=U1ybgs75vr4bIrSDGJR6m2sAvKoZm+Vg/TlZtkk0fDM=;
-        b=dmtpVk0QhrEqjNYXGkcPz6ySlm3vs1HqtNYhnwkLPfpHeoAJ9jeaqck6tsmtrJm5t0
-         jhhAuf7zDjx5+cHFIj3gSVY46/1CIaugAkbKOwESrAodE8tMrC5N6QJuurVD/IK5OuEd
-         gj/rTHsNTBX3fbRkV/AbUsrcOnXhP2w5SqYcznQtQdnUkdKK+c39NlHHwFTeOKvK8aJa
-         B9ZnD4Xsbpq3uV+ji7pqn2Oiw1ihkBhjmfWimJIbHWw/1400y45iObjxwl54vJWWV4D9
-         /+xBTUASMQUP0faMeVUwKVQgJvYRuenvsq77jiHY+e074zPg+M7EWAmghDsnvF10/fYS
-         PzvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700575037; x=1701179837;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U1ybgs75vr4bIrSDGJR6m2sAvKoZm+Vg/TlZtkk0fDM=;
-        b=NvoFPhVVsvr+0PPMEZqo0UFHNz4I8BfvTc1EknLdX5ta6Ntb5T5isG8wHx67BV01Ym
-         q1U2D7mz8kvl1USwsn9Tb9WKEF+zfVrk8nRaYrCCy536TcdZrs3Jg7ERkcMVNS9If0X3
-         gSLqk+eykPEnm14swu+w+aTa097DZBvQFSQe68+vxW2Hogj7yX0AgVWLv6OEAsmxtzkJ
-         XT9fY+c/e9YOxDyThQ9zE93CSvlmZmp6qmm+mcAcCAUCUZGnRI9yfjoAI37BhYjampb9
-         mil2uc/qF3tPXdQuI6kPfRIWABLTPeMlKHwS2mXXgNO/JTdSaVkrxb4DdlTY+wynGzVf
-         lTpQ==
-X-Gm-Message-State: AOJu0Yw/3Cfn/Va2CrAKBqB4i2fnsxS4zlKohAIxDtm+eDuDuuBZOvSl
-	SncQydHxU9yg/j4ft9O/S8s=
-X-Google-Smtp-Source: AGHT+IFVeOGBV//IjROPwQ/GEK0PcDQU7NwS5aIT17aqaKJEUQgrhg2l3Ops4o9Ewe4DlpMmkG4zUg==
-X-Received: by 2002:a17:902:b7c6:b0:1cf:689e:583f with SMTP id v6-20020a170902b7c600b001cf689e583fmr3407965plz.27.1700575036678;
-        Tue, 21 Nov 2023 05:57:16 -0800 (PST)
-Received: from archie.me ([103.131.18.64])
-        by smtp.gmail.com with ESMTPSA id b15-20020a170902d50f00b001ca4c20003dsm2517426plg.69.2023.11.21.05.57.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Nov 2023 05:57:16 -0800 (PST)
-Received: by archie.me (Postfix, from userid 1000)
-	id ACFCA10207143; Tue, 21 Nov 2023 20:57:12 +0700 (WIB)
-Date: Tue, 21 Nov 2023 20:57:12 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Seamus de Mora <seamusdemora@gmail.com>,
-	Linux Manual Pages <linux-man@vger.kernel.org>
-Subject: Re: Add sub-topic on 'exFAT' in man mount
-Message-ID: <ZVy3OB9dNW-gX972@archie.me>
-References: <CAJ8C1XPdyVKuq=cL4CqOi2+ag-=tEbaC=0a3Zro9ZZU5Xw1cjw@mail.gmail.com>
- <ZVvs3fgkANj9BSYh@devuan>
- <CAJ8C1XOZqA=T0z5eHTSdXvpMzBZKUmYs-9=bBUfy_Ok5wSUN5Q@mail.gmail.com>
- <ZVxSrmdVkalf3FL9@archie.me>
- <ZVyBmFI_TvmJkaN1@devuan>
- <ZVyXdZ0MYBFyr1xG@archie.me>
- <ZVyn1bGkfq5SjAQ0@devuan>
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB6A53818
+	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 16:00:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B3CC433CA;
+	Tue, 21 Nov 2023 16:00:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700582432;
+	bh=a5eLdhKmdVqfkM16xedN+2h4aDQ643BnXbOmCl/YxlE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oz/mN5UEb46uVWBwXRinn3DD/ANZBsfW8bRHkJcN6Nl9OzrEbylgBL7EQjGU0ewF7
+	 a8V2nf19kXaHq3vZIFC0npL9epVqLOmssGCV20VLdlpXZzNQ5+Go5xG6IYGaa9GROK
+	 2cwDtJNDcV/XIXuoRgFwHRxj8rQ43VT7thv1mntTcBeZdX3ELLdeHrKrGP61jr+dcm
+	 NOqCLtdusj4evi4aFlggIQuXg84GnuAn/UwtqRk00XVCRMKABt1XPADRGlwBcMbe0h
+	 YBljWyWnkepntyQtEgT2xyGZvpaoJxfgjfoJGYog+Z7e/Zo9mn3AQTj8fFs73bAOlA
+	 9s6KMzUaP8WUw==
+Date: Tue, 21 Nov 2023 17:03:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 3/4] strncat.3 fixes
+Message-ID: <ZVzU6WHGCQqV4TRn@devuan>
+References: <20231112235218.80195-1-eggert@cs.ucla.edu>
+ <20231112235218.80195-4-eggert@cs.ucla.edu>
+ <ZVF4tHfkfrwFQawd@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -75,57 +48,130 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1iVQ2g1oKnVIk7IW"
+	protocol="application/pgp-signature"; boundary="2+KowHj7tS/5DlMq"
 Content-Disposition: inline
-In-Reply-To: <ZVyn1bGkfq5SjAQ0@devuan>
+In-Reply-To: <ZVF4tHfkfrwFQawd@debian>
 
 
---1iVQ2g1oKnVIk7IW
-Content-Type: text/plain; charset=utf-8
+--2+KowHj7tS/5DlMq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Nov 2023 17:03:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 3/4] strncat.3 fixes
 
-On Tue, Nov 21, 2023 at 01:51:25PM +0100, Alejandro Colomar wrote:
-> Hi Bagas,
->=20
-> On Tue, Nov 21, 2023 at 06:41:41PM +0700, Bagas Sanjaya wrote:
-> > > > On Mon, Nov 20, 2023 at 05:44:40PM -0600, Seamus de Mora wrote:
-> > > > > Uh, OK... stupid question first: Where is ./CONTRIBUTING?
-> > > >=20
-> > > > It is in man-pages.git tree [1].
-> > > >=20
-> > > > Thanks.
-> > > >=20
-> > > > [1]: https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tr=
-ee/CONTRIBUTING
-> > >=20
-> > > Yes, it is in the root of the source code repository.  Since you sent
-> > > the mail to the correct addresses (alx@ and linux-man@), I assumed you
-> > > had read at least the head(1) of that file, since it's the only place=
- I
-> > > know that documents that.  I'm now curious: how did you know the
-> > > addresses to write to?
-> >=20
-> > Observing the mailing list [2] AND read that file in man-page.git tree.
-> > For the kernel proper, I always look in MAINTAINERS.
->=20
-> Ah, no, I was asking that to Seamus.  :)
+Hi Paul,
 
-Oops, I thought you were addressing to me. Thanks anyway.
+On Mon, Nov 13, 2023 at 02:15:20AM +0100, Alejandro Colomar wrote:
+> Hi Paul,
+>=20
+> On Sun, Nov 12, 2023 at 03:52:07PM -0800, Paul Eggert wrote:
+>=20
+> > Don't say "concatenate".
+>=20
+> Ok
+>=20
+> > Use "byte" instead of "character",
+>=20
+> Ok
+>=20
+> > and use standalone terminology rather than relying on the
+> > reader already having read string_copying(7).
+>=20
+> I need to check again in a standalone commit.
+>=20
+> > Don't say "width" when "size" was intended.
+>=20
+> Ok
+>=20
+> > Fix indenting of prototype.
+>=20
+> Ok
+>=20
+> > Simplify possible implementation, fixing a bug when the
+> > source string length and sz exceed INT_MAX.
+>=20
+> Heh!  Good.
+>=20
+> > Say that strncat is rarely useful.
+>=20
+> Do we need to say that, or is it already implied by
+> "append non-null bytes from a source array to a string,
+>  and null-terminate the result"?
+> Not many programs need to do that operation.  I'm fine with saying it's
+> rarely useful; I'm just wondering if it's worth it.
+>=20
+> > Say that behavior is undefined if the destination is not a string.
+>=20
+> Ok
+>=20
+> > Simplify example by using plain sizeof rather than an nitems macro,
+>=20
+> If you want sizeof(), please use sizeof(), not sizeof.
+>=20
+> I use nitems() with these functions because if you switch to wide
+> strings, you can keep the nitems() part, while you'd have to change it
+> if you had sizeof().  Also, nitems() makes it safe against sizeof(ptr).
+> What do you think of this?
+>=20
+> > by removing a confusingly-named 'maxsize' local,
+>=20
+> Ok
+>=20
+> > and by removing an unnecessary call to 'exit'.
+>=20
+> This was practice from Michael Kerrisk, which I like: always terminate
+> the program with exit(1); don't rely on just ending the scope of main().
+> That way, it's more visual.
+>=20
+> Please split all these things into separate patches, if you don't mind,
+> and sign the patch.
+
+I've applied a set of patches myself:
+
+d7cdccd84 (HEAD -> contrib, alx/contrib) strncat.3: CAVEATS: Say that strnc=
+at() is rarely useful
+dc2c99ffe strncat.3: CAVEATS: wfix
+39209460f strncat.3: Reword description
+556a2d03e strncat.3: Say that if dst isn't a string, the behavior is undefi=
+ned
+ec37b6ac5 strncat.3: SEE ALSO: tfix
+f8de0ec01 strncat.3: EXAMPLES: Fix name of variable
+1c1c9f93c strncat.3: Simplify possible implementation of strncat()
+09b80aed1 strncat.3: Rename third parameter to ssize
+f5429cefe strncat.3: Fix bug in possible implementation of strncat(3)
+2fe3076fe strncat.3: SYNOPSIS: ffix
+696152d30 strncat.3: Don't say 'width' when 'size' is intended
+6fe104a7d strncat.3: Say append instead of (con)catenate
+
+Cheers,
+Alex
 
 --=20
-An old man doll... just what I always wanted! - Clara
+<https://www.alejandro-colomar.es/>
 
---1iVQ2g1oKnVIk7IW
+--2+KowHj7tS/5DlMq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZVy3NQAKCRD2uYlJVVFO
-o4cMAP9S06zx7uI8hZslC+9hdrwIfIJHUtpgTTSj8N2KAu6GUAD+JgEloAFPiio/
-xxYbJanKA2jKqOHuWDH3y0EVBwvmXAM=
-=zH2h
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVc1OkACgkQnowa+77/
+2zIkZA/7BtByf6qWiFFLm7wKrfL810/VQ+D4cGxjSl3sxO0IcS5w7D/TKRHRWwXJ
+6sBNGN2mqWjFe45hPFU26L8FTcNcZ8A+ld9lhM35V+2ZDTpT+eF0dbYfwv3JLRzj
+qjD1h1xLnzLf62br6VSJEJDDAs4YFo5EKwIM94dm8+PIW553HgrDEhlSpCfVzH84
+OVo0aPPw3C8ComMqwACnGV16ngKTqxoDZV6ZTF3jt/N9w+kevSUwuvQIo8+IwrZu
+i2wQglzibhr8Cb5ooJEGvns/+x1CTAaLW1jdPSxo6w7s3YD+yHhrYZr7Y1hwV7IS
+7TwJXU4AVQhTy5TClgn138U0aSJ4hV/Nrecm2oK2axtQonyKQoCfpOX7Ja3DNdb1
+QSOlNorE0C8weQ4YrpoYu/+I5KKm5JvsZpVQYuboyuV0l5Qb69jwDAhpWsOYeyoq
+zFK/DmyXjxQaP2FdJZ5o7JM+6dtF+DOJE/wB0jlACuiUUiKPCkId39pbepcs33zq
+fxRTZa50ZvQv84c+tXs7SW3AHa/1fu7PfL9JiNoAm3UWg+QBBHSN2TigGylFsVKN
+nsu3jDDt1FOKbhWlvr1l6lNtH6smXXZIt2u+2MV94Eo2LMbmIifhKLYKikOVAi/Q
+NDJPcQPP8QRlSH9WTiT7HilDgQ2CxMORoohvsOjITSsZem0QWAk=
+=+ezw
 -----END PGP SIGNATURE-----
 
---1iVQ2g1oKnVIk7IW--
+--2+KowHj7tS/5DlMq--
 
