@@ -1,69 +1,48 @@
-Return-Path: <linux-man+bounces-125-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-126-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9037B7F2601
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 07:55:37 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A0257F29BE
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 11:05:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 48339282352
-	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 06:55:36 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 241AC281C59
+	for <lists+linux-man@lfdr.de>; Tue, 21 Nov 2023 10:05:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B9151CFBE;
-	Tue, 21 Nov 2023 06:55:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 528413C6A2;
+	Tue, 21 Nov 2023 10:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K3wrmadD"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBgTMhP6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com [IPv6:2607:f8b0:4864:20::533])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEB2690;
-	Mon, 20 Nov 2023 22:55:28 -0800 (PST)
-Received: by mail-pg1-x533.google.com with SMTP id 41be03b00d2f7-5c230c79c0bso1352971a12.1;
-        Mon, 20 Nov 2023 22:55:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700549728; x=1701154528; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YgARtT8lNAoPn7nEoA2naRGozC+cHDkv0phYpbjI7dk=;
-        b=K3wrmadDrESUjEL72AIxwPFay7ohfunJyVU9H8/GxMm8AxEWdq4zSASiayqk96Ty3R
-         SM1HXGsj0i2l9vcfYQI99MmS2btXG9aiRdXpMs7h717fK/khjptMFbgO8F+drjGo+IxN
-         GjprcAWTfdc8wkj/yYUFIPm/bQqKVdLDTcBLMP7cTAnB7kHwpFm64sKaygl6luiYV3jW
-         t1hkJoNtLi2rJJ+zyL0x80to7PUkyrwQ6wvxxWBDrzhi89w18ko0kFykK+tZIHPiXL9E
-         vJqlLWObMQ2pnf7GdXVUxQyy7eIt8Zn4fny0M8deP/9uHuUbvMxHzfQMS6p7roTjHWNF
-         4XTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700549728; x=1701154528;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YgARtT8lNAoPn7nEoA2naRGozC+cHDkv0phYpbjI7dk=;
-        b=kWh5lLwPdDcpUnI99YpXdt3cPmtl1nicPkF5MbfPaARp7MBn1PpB1zBrfrbsbhI+pu
-         qRyq6kTLXriVZfyaz9zA3s2ZImTShyS82All2BHsnNXdtir8cuo/oYfNBeOlSDVxowKm
-         WifAsJhtS8akKWsb3vP+vL9DlR8Az4UnjUkm1F6iuuSH+KPXB0JL+6oM016PWn62a9Re
-         XpNYznBXE23pUPERPkJ+ATljNLp92kRo5/M2j0mOccFhP/GvP7Iz9D4vNUCUE32TBSwU
-         vIQN3gFGJRuTOwYdsZtETHEbFdfavH24YzCEffMbSa0NNnIcyPcssyWKdJGGNutvRGAy
-         DKRA==
-X-Gm-Message-State: AOJu0Yw1fTdwZVi560Rf7HpR+dU5owN5DiIuIESU5PFesl73ygBOqoGo
-	6igLlkQibNhYuYlfPsKxdGk=
-X-Google-Smtp-Source: AGHT+IEH3k/yggRAldVGxs67UPOWbNqA5WdQpP7N2G1ra0HlwSqAaCK4vh6k1IuSM5349Z0JqnECgw==
-X-Received: by 2002:a17:903:4282:b0:1cb:dc81:379a with SMTP id ju2-20020a170903428200b001cbdc81379amr7383382plb.53.1700549728031;
-        Mon, 20 Nov 2023 22:55:28 -0800 (PST)
-Received: from archie.me ([103.131.18.64])
-        by smtp.gmail.com with ESMTPSA id h15-20020a170902ac8f00b001ce5b6e97b3sm7167437plr.24.2023.11.20.22.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Nov 2023 22:55:27 -0800 (PST)
-Received: by archie.me (Postfix, from userid 1000)
-	id C0BB6102106C6; Tue, 21 Nov 2023 13:55:25 +0700 (WIB)
-Date: Tue, 21 Nov 2023 13:55:25 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Seamus de Mora <seamusdemora@gmail.com>,
-	Linux Manual Pages <linux-man@vger.kernel.org>,
-	Linux Filesystems Development <linux-fsdevel@vger.kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2483C6A0
+	for <linux-man@vger.kernel.org>; Tue, 21 Nov 2023 10:05:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09EB8C433C7;
+	Tue, 21 Nov 2023 10:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700561103;
+	bh=y5ye91vCaEEJOuvt8BL1hGBVeZ7c2ctxaacVB0jQt9w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OBgTMhP6Pu4pL70miCFkSk5bLa4u49CeZuZU2jltCrKDlkt2cTlHPRcsasWnRr49D
+	 j2d0/2W+3yDr5Ku9PuGH/NKUO/9Fu4kRChuLDr9DrR80am75VLAScVt1K5OgJ3/TPz
+	 bGN8dE2SF6Ucxf9lR+Zh/AmVdm5Qie/S7+QQMGGpgmYVSzXUKDYBwCxNvVE587UOpP
+	 RBoKi23LtNE7elPVTfrDo3js4DVuprdK98+oAvF7uGBD58m20WcQM8azOdDhpSuloq
+	 P3d9uni5BUyombi4z4eWE/3/ORrNsZLLZzLRNOMEQDh2oGCVXdpyUWyNvUmFc0E5T9
+	 SiEtKy1aJ2/VQ==
+Date: Tue, 21 Nov 2023 11:08:17 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Cc: Seamus de Mora <seamusdemora@gmail.com>,
+	Linux Manual Pages <linux-man@vger.kernel.org>
 Subject: Re: Add sub-topic on 'exFAT' in man mount
-Message-ID: <ZVxUXZrlIaRJKghT@archie.me>
+Message-ID: <ZVyBmFI_TvmJkaN1@devuan>
 References: <CAJ8C1XPdyVKuq=cL4CqOi2+ag-=tEbaC=0a3Zro9ZZU5Xw1cjw@mail.gmail.com>
+ <ZVvs3fgkANj9BSYh@devuan>
+ <CAJ8C1XOZqA=T0z5eHTSdXvpMzBZKUmYs-9=bBUfy_Ok5wSUN5Q@mail.gmail.com>
+ <ZVxSrmdVkalf3FL9@archie.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -71,55 +50,80 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="h56e6Ou9UZ6sE5+z"
+	protocol="application/pgp-signature"; boundary="1GEG9olfRo3afz5C"
 Content-Disposition: inline
-In-Reply-To: <CAJ8C1XPdyVKuq=cL4CqOi2+ag-=tEbaC=0a3Zro9ZZU5Xw1cjw@mail.gmail.com>
+In-Reply-To: <ZVxSrmdVkalf3FL9@archie.me>
 
 
---h56e6Ou9UZ6sE5+z
-Content-Type: text/plain; charset=utf-8
+--1GEG9olfRo3afz5C
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Nov 2023 11:08:17 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Cc: Seamus de Mora <seamusdemora@gmail.com>,
+	Linux Manual Pages <linux-man@vger.kernel.org>
+Subject: Re: Add sub-topic on 'exFAT' in man mount
 
-On Mon, Nov 20, 2023 at 04:55:18PM -0600, Seamus de Mora wrote:
-> I'd like to volunteer to add some information to the mount manual.
+Hi Seamus, Bagas,
+
+[I'm reordering to better reply.]
+
+On Tue, Nov 21, 2023 at 01:48:14PM +0700, Bagas Sanjaya wrote:
+> Please don't top-post, reply inline with appropriate context instead.
+
+And the mandatory example.  :)
+
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+A: Top-posting.
+Q: What is the most annoying thing in e-mail?
+
+> On Mon, Nov 20, 2023 at 05:44:40PM -0600, Seamus de Mora wrote:
+> > Uh, OK... stupid question first: Where is ./CONTRIBUTING?
 >=20
-> I'm told that exFAT was added to the kernel about 4 years ago, but
-> last I checked, there was nothing about it in man mount.  I feel this
-> could be addressed best by adding a sub-topic on exFAT under the topic
-> `FILESYSTEM-SPECIFIC MOUNT OPTIONS`.
+> It is in man-pages.git tree [1].
 >=20
-> If my application is of interest, please let me know what steps I need
-> to take - or how to approach this task.
+> Thanks.
 >=20
+> [1]: https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CON=
+TRIBUTING
 
-I'm adding from Alejandro's reply.
+Yes, it is in the root of the source code repository.  Since you sent
+the mail to the correct addresses (alx@ and linux-man@), I assumed you
+had read at least the head(1) of that file, since it's the only place I
+know that documents that.  I'm now curious: how did you know the
+addresses to write to?
 
-You can start reading the source in fs/exfat in linux.git tree [1].
-Then you can write the documentation for exfat in Documentation/exfat.rst
-(currently doesn't exist yet), at the same time of your manpage contributio=
-n.
+Cheers,
+Alex
 
-Cc'ing exfat maintainers for better treatment.
-
-Thanks.
-
-[1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tre=
-e/fs/exfat
+P.S.: Thanks, Bagas, for suggesting documenting in the Linux repo too
+      and CCing the relevant list.
 
 --=20
-An old man doll... just what I always wanted! - Clara
+<https://www.alejandro-colomar.es/>
 
---h56e6Ou9UZ6sE5+z
+--1GEG9olfRo3afz5C
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZVxUXQAKCRD2uYlJVVFO
-o0/lAP9XsbFit9r8IxumOGcnF3HJ8wG8/ivOqPbeik0Ne3+l6AEA+bNMdJefkURV
-5jii6xlG0O6U2G1V3CN5nSYry37ZBws=
-=eMLP
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVcgZEACgkQnowa+77/
+2zLcYg/8DOhY0GHdbW0QPjCoxOAfrpzbjpa/+hdh2ZzDsQfOpfeg+ReKT3/q7np/
+Lw2q7nNqRpaCq1DOV+89VSyaqS0RzMfkjJmA6lCT5aqykQQXi3SbtQz3IUsMdKQj
+wY0msUUJAL6uFELPzhtqRCmuSSqUgmOZAInyPKWoFhK1u1rOeTWr5ZAb22CtCECp
+kmEzEM9XOZfy8KLImt9vyutOi4+06HJzhedw7sAvG3BfTPxT5ft70Kkgp1hKllVX
+sl3N+9j+5dkkh43wgL3QykxrH9L6+JwvH3dD5Wk3I+iPxmYbB3pILOxUTdCI3C/9
+DuY3OsqAiz5iZ//AzihqZf/vdHJvPvbe2VyfqC4FykkcbPshOqDS4pKiouCVsYsD
+Z+TJFnWbznjTyGM6FWjbok+j7HXcZB2U3Y6lnFTCfLAKEjCiYjvj5pT658gnK28K
+0Kzj6Vaon0ttarcUoM+f8E6DK/NpYf9wqs2idAG+jlbUjDDR7bGz/cdFIUDqzSXL
+ov0eQOKgMEZzGXHrx/R9av80ltOmaKQ/BGtJaABE/+X+xNHXAj0dWAKgEPZgj+OV
+GfJiaKSQGQ1LxSat/kNYs8bXxTiiOQYw/O2HVr73kTYlqoStdUiF5sbpvFMLJSsg
+QXeWsECAns6p3lMopCZoUAde43DjB9mhD38t6n7n1jIeT/F7BC4=
+=ycRj
 -----END PGP SIGNATURE-----
 
---h56e6Ou9UZ6sE5+z--
+--1GEG9olfRo3afz5C--
 
