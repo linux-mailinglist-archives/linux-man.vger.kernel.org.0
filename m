@@ -1,46 +1,44 @@
-Return-Path: <linux-man+bounces-158-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-159-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA117F7302
-	for <lists+linux-man@lfdr.de>; Fri, 24 Nov 2023 12:46:47 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DE917F7A19
+	for <lists+linux-man@lfdr.de>; Fri, 24 Nov 2023 18:11:50 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 7E8E6B212A3
-	for <lists+linux-man@lfdr.de>; Fri, 24 Nov 2023 11:46:44 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C528F28183E
+	for <lists+linux-man@lfdr.de>; Fri, 24 Nov 2023 17:11:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71EBE1EB42;
-	Fri, 24 Nov 2023 11:46:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E437733CCB;
+	Fri, 24 Nov 2023 17:11:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvGqVPtJ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3I8oZO+"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2071D692
-	for <linux-man@vger.kernel.org>; Fri, 24 Nov 2023 11:46:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AADC433C8;
-	Fri, 24 Nov 2023 11:46:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CB82D61F
+	for <linux-man@vger.kernel.org>; Fri, 24 Nov 2023 17:11:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08D6C433C7;
+	Fri, 24 Nov 2023 17:11:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700826399;
-	bh=k56DB346aYH+oj2PGPiHqQM68oLQXchybnNOhGk4qfY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JvGqVPtJRg+knyIQhZoX1b8Kqi9aT3SMGfycJ+2nKQu3HdHHAqAxQrhdrqlIjNiiW
-	 UOXAU8PbBLqNMv/YdnyY3kcQzOIZvSjMCm53h9rZ9HT4K6E1/j4mhASr89ysQMrM2v
-	 8r7kSR0DBx4tkgtKHaSKdepYw1PtEicVXWNSnks3Vd9Xzk7MEpflSxEN4dviBFRk7g
-	 MT0POYtjI8WSkUvMRgFW3BLBHrdjdEI2MvZyXisPSXvhNG6A47+xvxuJLW4oSkksJY
-	 LOUrmLCy1ofgrcQ3+FmOGxfa4C7qCvEO8/rlL+1H6SAySuqbcfSRuYQztPgWm7fTti
-	 gNw8uklcDD3kw==
-Date: Fri, 24 Nov 2023 12:46:30 +0100
+	s=k20201202; t=1700845905;
+	bh=6gMeY8UlmneCybH2y7QhOQv7I9W9e8NfKSFGN+P/0ZI=;
+	h=Date:From:To:Cc:Subject:From;
+	b=m3I8oZO+WXMwXh0snHiU3NOMK/jLiV2CvIMvM/0JND4N4+WFDo1BtHw5LhvJq5A+7
+	 hn2hD52fVdvOxCWCEluuB6EVdDZS5LLwNTDhX0JPbCeQ6SGgI66nKIkYN+yOb9H16n
+	 aa95we00MQU0/gjhbbt58SYQU2LoHdilwunVjn/3G7Nst/RrjVYrAwtxIqoz/a2bb4
+	 yuorJuZk8fzVWdJ96vjrwt3i4qWT19LTPIqWJFHycNOj/JQon3h333m8JKIiXWo+qI
+	 xmGxTWkMDI55lowgciyM6ncxAJ/1BApVjvRh9g9rR71vRBqDan/94qzdxW5xgZ09u1
+	 Lfzj8FPvC13qA==
+Date: Fri, 24 Nov 2023 18:11:35 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: Optimize script for generating LinuxManBook.pdf
-Message-ID: <ZWCNHM9qQnK96ksZ@debian>
-References: <ZV4XNnNlv8OK1B1m@debian>
- <2818350.Jt13fLt2Sg@pip>
- <ZV_OXhw7V6Vk1HBR@debian>
+To: linux-man@vger.kernel.org
+Cc: Jonny Grant <jg@jguk.org>, Elliott Hughes <enh@google.com>,
+	Deri James <deri@chuzzlewit.myzen.co.uk>
+Subject: Online PDF of the Linux man-pages @ git HEAD
+Message-ID: <ZWDZTY-jjJg9wkCw@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -48,69 +46,74 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rpC0zE3KjpObGkiF"
+	protocol="application/pgp-signature"; boundary="bdITLoXuaqXiRICl"
 Content-Disposition: inline
-In-Reply-To: <ZV_OXhw7V6Vk1HBR@debian>
 
 
---rpC0zE3KjpObGkiF
+--bdITLoXuaqXiRICl
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Nov 2023 12:46:30 +0100
+Date: Fri, 24 Nov 2023 18:11:35 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: Optimize script for generating LinuxManBook.pdf
+To: linux-man@vger.kernel.org
+Cc: Jonny Grant <jg@jguk.org>, Elliott Hughes <enh@google.com>,
+	Deri James <deri@chuzzlewit.myzen.co.uk>
+Subject: Online PDF of the Linux man-pages @ git HEAD
 
-On Thu, Nov 23, 2023 at 11:12:45PM +0100, Alejandro Colomar wrote:
-> > It looks fine, although you have to run the code in=20
-> > "prepare_linux_man_book.pl" twice (to avoid using a temporary file).
->=20
-> Yep.  I was wondering if we could change something in the design of
-> prepare_linux_man_book.pl so that it could be run once without needing
-> a temporary file.  Maybe if it could insert something in the pages that
-> the latter troff(1) would process in one take, without having to put all
-> the bookmarks at the start of the file.  That would be an important
-> simplification of the scripts, and probably also an optimization.
+Hi,
 
-Hi Deri,
+I've set up a githooks(5) to generate a PDF book, running the script
+contributed by gropdf(1)'s Deri James from within the hook, every time I
+`git push` the main branch to my server.
 
-I have another optimization: split the sort.  It reduces around 0.3 s.
+You can find the book here:
 
-diff --git a/scripts/LinuxManBook/prepare_linux_man_book.pl b/scripts/Linux=
-ManBook/prepare_linux_man_book.pl
-index 0a79df4e5..5a4aad429 100755
---- a/scripts/LinuxManBook/prepare_linux_man_book.pl
-+++ b/scripts/LinuxManBook/prepare_linux_man_book.pl
-@@ -88,7 +88,16 @@ sub BuildBook
- {
-        print ".pdfpagenumbering D . 1\n";
-=20
--       foreach my $fn (sort sortman glob("$dir/man*/*")) {
-+       foreach my $fn (sort glob("$dir/man*")) {
-+               BuildSec($fn);
-+       }
-+}
-+
-+sub BuildSec
-+{
-+       my $manSdir=3Dshift;
-+
-+       foreach my $fn (sort sortman glob("$manSdir/*")) {
-                BuildPage($fn);
-        }
- }
+<https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-H=
+EAD.pdf>
 
+The pages there don't have a "last modified" date, nor a version.  They
+are pristine from git HEAD, so they contain the "(date)" and
+"Linux man-pages (unreleased)" placeholders.  The file is suffixed -HEAD
+to indicate that it is the state of git HEAD (or was, when downloaded;
+if you don't remove it soon without renaming, then you're on your own).
 
-I didn't think of this as an optimization, but rather to move code from
-BuildPage() into BuildSec().  However, since it doesn't block until all
-of the pages are sorted, it reduces the latency of the script (that's my
-guess).
+I'm not sure if I should fill the placeholders with the date and
+version, by running `make dist`, and then generating the book from the
+generated tarball.  Since that's more work for the server, I didn't do
+it, but it probably shouldn't be much work, since `make dist` reuses
+files (which would have the effect that each page would show a different
+version, at the last commit that modified the page).  For a HEAD PDF, I
+don't think that's problematic.  If anyone would be interested in that,
+feel free to ask for it.
 
-I think moving stuff from BuildPage() to BuildSec() would both simplify
-and optimize, so please check it when you can.  (I'm also checking it,
-but while I'm learning Perl with this, I'm still very limited.)
+The name of the file is -HEAD, and not -<version>, to have a more stable
+URI.  I don't think we should be changing the URI for every commit.  Any
+opinions?
+
+In case anyone is curious, here's how:
+
+	$ cat hooks/post-update
+	#!/bin/sh
+
+	test "$1" =3D "refs/heads/main" || exit 0;
+
+	cd /srv/src/alx/linux/man-pages/man-pages/;
+
+	unset $(git rev-parse --local-env-vars);
+	git fetch srv			>/dev/null;
+	git reset srv/main --hard	>/dev/null;
+
+	sh <<__EOF__ &
+		</dev/null \
+		scripts/LinuxManBook/build.sh 2>/dev/null \
+		| sponge /srv/www/share/dist/man-pages/git/HEAD/man-pages-HEAD.pdf \
+		>/dev/null 2>&1
+	__EOF__
+
+BTW, I'm having trouble making git(1) not wait for it to finish, so if
+you have any ideas, they're welcome!
+
 
 Cheers,
 Alex
@@ -118,25 +121,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---rpC0zE3KjpObGkiF
+--bdITLoXuaqXiRICl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVgjRYACgkQnowa+77/
-2zJuFRAAjqw1AFv2gvR0zB1efMv3ZokzgxzdetBHGoIdsN2uqBC4M5YkUL+ve0x3
-resLVYy1Jul/tDaXumrC/Sh/XNyYKC2ZZUhZg9lOq9o0u/1d4Ntes03e8J4+ihGP
-u5A0TXHLMVDkN1wXjJbbVRRb3H7lsjHu2gLwL+B/A8TTrZLSBMe2juZHPI4kHX4X
-Kcd2BzADGXkpIuyioauXsajUD8fYWt4FKueh/KA9hGSgjlQ6DRjmo4Lrl8vvJ4zS
-gYSVqGPaWufGZ0VaVUnjHfAesNPIGGmA09AFN1AQrN+SdHBc9j6uQKncoUmsFSV/
-va/Z64hsanGdtfRJlRe4YAWIHPH0mkAXRGezaxMViE9QfS06g4S1KNxEyWxwapwx
-7L0CEPg3Un49wRLfyGFiPvR8BY1+E3Mu4wPBhzlBUnKRbVB372aoEJVC/2dq1s6O
-ffjfvABuPiGW6o6WpTagqRngs6JEPKpKy2e/QYEjqZCsBB0m1L3YeTC2RekuBJZ7
-fGENn/Z5BIE20Eh7K3s7NPaSAmJzkxNef1M8To/WsYApfh6ESzFDXYM95Iv7M/HV
-I2OSzAe+5maUGzuv4D29oi0OppjG9L2XW4inZ6IGT5Ki+GgpCDioHipeG5RC3Y5U
-U+A25LoBV5ccfkV0B0PBTadx/ifZi71R+8nn5YmZfhxpPP7sFgY=
-=lTeF
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVg2UcACgkQnowa+77/
+2zJBTRAAp0VsKTAI0j4+OLElKHchx0c2YuKK7UBPL+F9kHaxykxptMKQFR1a8NMI
+9Mxe5NpQG80YjtrWNEl7blTMd01k99Dxtacxr6pwrhIBwuDLsqa8hDTkCP9llcv1
+qlk6pNGHis6je/Tu5vbfVqEhgn/eS4ogRNa6um61B6ooFlxOJ8tMIoJHZ8629Uwm
+zuY9qzYmdpSqRfCy+vLDDA5M72XDzJ3nCRUOhdEwRXkw05vNuWQjGuTyX8ft8Gop
+WB0BxxHwpLdOwmloG3lmN4wvR+k0GXn1B1PCanLlHLDpCEOJsFS7p7ZCcEdSX4XU
+baYniONLoGMH5pe6ZmiA4tjL1i3cTyIJvFZ7VIaEXvsTmVkHteJZ8/AblmkFvFd0
+jOEyuf+FqBNNkefe5Y8gRc/IfGeheyEqpYztNWf4SwvEl0YKtu07Ra0/asnaQAnw
+RQC13RR93e1WerHS3dm6yzJy6HHt9ZGXB4pLfEmfmo2bj+/X8Mw19yqsqr6QyGw0
+aT7z8uO2+ZBhLHJSqSaD/h7p3yvcv46bY6tKraAkbIQHeUkDSPskOVnw0EmBQNFB
+7dFDhkALh7udqvS7hNS3T5n735Rpo+FBRkEQTPHxoX0ovUc9f9V6ubqe7wKTFlmc
+B7zQ/O6JdlEzKmt+rjgVRXNHs99sGDms6NaxM3CBbsQh0wLy6vQ=
+=7Uk9
 -----END PGP SIGNATURE-----
 
---rpC0zE3KjpObGkiF--
+--bdITLoXuaqXiRICl--
 
