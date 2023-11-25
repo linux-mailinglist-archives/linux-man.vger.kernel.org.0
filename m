@@ -1,60 +1,60 @@
-Return-Path: <linux-man+bounces-162-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-163-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7FD27F875E
-	for <lists+linux-man@lfdr.de>; Sat, 25 Nov 2023 01:48:04 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EF8E7F8763
+	for <lists+linux-man@lfdr.de>; Sat, 25 Nov 2023 01:57:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 73552B21344
-	for <lists+linux-man@lfdr.de>; Sat, 25 Nov 2023 00:48:02 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 38BBFB2140F
+	for <lists+linux-man@lfdr.de>; Sat, 25 Nov 2023 00:57:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9137630;
-	Sat, 25 Nov 2023 00:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15A84642;
+	Sat, 25 Nov 2023 00:57:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="pzxwY5Q+"
+	dkim=pass (2048-bit key) header.d=jguk.org header.i=@jguk.org header.b="W6oreLAc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91B2019B0
-	for <linux-man@vger.kernel.org>; Fri, 24 Nov 2023 16:47:54 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id 5b1f17b1804b1-40b3d4d6a64so6683795e9.2
-        for <linux-man@vger.kernel.org>; Fri, 24 Nov 2023 16:47:54 -0800 (PST)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D05B199A
+	for <linux-man@vger.kernel.org>; Fri, 24 Nov 2023 16:57:43 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-40b2fa4ec5eso17170075e9.2
+        for <linux-man@vger.kernel.org>; Fri, 24 Nov 2023 16:57:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google; t=1700873273; x=1701478073; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=jguk.org; s=google; t=1700873862; x=1701478662; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=g7zu7+/LXra6K0KovHJBDnO3gcEXyL/+hD37+L6+lv4=;
-        b=pzxwY5Q+d825uL/PSs0ZVp2skQ1I38asRX1lu7O9XRsm+yDc4hzLWiWof5JWLz7AEs
-         OWsMAFxf8rvdP0tH1LYNRmbEACNn08znJ4wyBad3BjdF+LqCOiAy03qpFi5ggc2sSaq8
-         SNuaG9Lw8Hj13qcJTCo1WHfI3SQujCP18xuiMRToLruVK0tx/UIrvBHJk+KWqYfpxnNb
-         /LYMOMPBW3tyiQo3k8jMEpfYYkhPNGO8MZAdhCsKWLO3VwXJjWBSns0yTxKO+BLRo2X2
-         i/Fpdj/Hh8zkFa639rD1cEEFwNRKUyFuTvyJzcmzq22uK8mIG6T0Rwq0eOlT0tHyMzjE
-         KuHw==
+        bh=SFRqXVxoogNYNWa1wsZossHMuC/N+ffp9Qf0A7xEe88=;
+        b=W6oreLAcD19+tCIIfxWfzYIQ6sp5C+f0rgHb470F/D8EppyezZ+yWyKRTysPnxrIEN
+         SssWFllWLY9JZyAbo7+HBdkbwpGpim8wLbliM4Dblx4whJIf4AsFFvIXToVeW7UOxplM
+         yfB9n5wfumoEUPdh7VznpX9ShDIm68YHFivuDO4V7kUZNDnIeSPfM+4w93v78+Iv+6oI
+         QdavwFb4ISfdKS5Yfu74+gD7P3IcsBBaBklsymAwWVMkJ8YzZfEcwHrL7sQoSDSLkzLn
+         zmbletYMaIAcP3bUroNSiReQsvH6tAWHwlDcuyhKmpZk4tlrDdc3bzoqORtEaioTAdQf
+         JyOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700873273; x=1701478073;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1700873862; x=1701478662;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g7zu7+/LXra6K0KovHJBDnO3gcEXyL/+hD37+L6+lv4=;
-        b=jU1qWz3RICUxQgPtGag009I27vmxz3LkNaKpwNa+Ws7a3KgQZs/ps9r5qpCdK0/X6+
-         L7g/UGGGLBYbwv/fJRscgGrc01KC5iiCzqDMMdSkfwMRMQ/hx3kSU2XfEc1Ga6tqcSLD
-         ZwTMNdxxYmDk9Gv0WU9IXe89TWne1SJpZmVE4bbdx0LZYKLwuB0j/AyxF2danaLyykrt
-         cdiCNa6jfUwUK8zWV2qrRzCQPtWNYGDwx37U0jUbDGN6SIDyqWzeRuf76dfXs4TCahTu
-         cjQQDMzjf7KAke/L1sIeo4mXHb4l4xiD3rFjT6tJT1zmQd6UPB4A9YFNLWPfQ9gW5Z99
-         xMsw==
-X-Gm-Message-State: AOJu0YxmZITRpZtJLlWplqSw6ZnfhZaNIMbxGj9qr83ifFCqPrjjWUnB
-	Qy6aJkxYx6FMlOub83RZyNrwQgUmxtCcmB0ek2U=
-X-Google-Smtp-Source: AGHT+IE6MTBt1omEb6/dKsYtdUwza6iVfbG736+nG0DtLK1C81MAIo7Pr/9A0eBst4PX9yIOUa7S5g==
-X-Received: by 2002:adf:e946:0:b0:332:c3fc:47e5 with SMTP id m6-20020adfe946000000b00332c3fc47e5mr3612583wrn.14.1700873272751;
-        Fri, 24 Nov 2023 16:47:52 -0800 (PST)
+        bh=SFRqXVxoogNYNWa1wsZossHMuC/N+ffp9Qf0A7xEe88=;
+        b=blPJ2HH7hq67kJRfrSz7RoqSLc2pkYaCDRi563h/SVXmI5xYiwzaQqpV2pk2jY2eao
+         qgLARB4LvG6HTE01ZZAwJSp6+ZyS19UyODkT0zZYA+OMKBV7hJS6BMQ7DffxxnI1IRcO
+         QvbSLMkueB1lwqyb4yZ2mAp7WyNByXNEPUSG3AGSasPlgmGRDkcZUeLYRubfzwI6rmTD
+         m6C/seDDMZQIK1PbCqwZeWlAMzefS+WBh2CVkvprhSnAZXrspiJHOjfKDRnzvcyaGH4Q
+         BOUMHOOGEE89/DyOPq+XcDhFUBdzmfwQAOl8a8UjmjLOdff/I/oPn6w6VpyeZEccB3+2
+         0+oQ==
+X-Gm-Message-State: AOJu0YwX/MLh4CnrWsebnSJtldrBnihdKMF5dgbBjqpnacYN4D7ra2iQ
+	tkMXsFblVUL541qb3nZj6RHw5g==
+X-Google-Smtp-Source: AGHT+IGnrG7nCIQYvv863+6JECzWiwcIVaa9LYRX/GvxZtJQ3mn1f/J3xiJmunDa4vkkXYpp2sFnlw==
+X-Received: by 2002:a05:600c:458d:b0:40b:3fc7:c88a with SMTP id r13-20020a05600c458d00b0040b3fc7c88amr134429wmo.39.1700873861284;
+        Fri, 24 Nov 2023 16:57:41 -0800 (PST)
 Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id s15-20020adf978f000000b00332d41f0798sm5502386wrb.29.2023.11.24.16.47.52
+        by smtp.gmail.com with ESMTPSA id v17-20020a05600c445100b0040b3d33ab55sm2245167wmn.47.2023.11.24.16.57.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Nov 2023 16:47:52 -0800 (PST)
-Message-ID: <dc2fd7ae-d702-417a-a1b4-b81c63e53152@jguk.org>
-Date: Sat, 25 Nov 2023 00:47:51 +0000
+        Fri, 24 Nov 2023 16:57:40 -0800 (PST)
+Message-ID: <45de3881-9824-4d1f-9f79-a3a04d06d9a3@jguk.org>
+Date: Sat, 25 Nov 2023 00:57:40 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,32 +62,51 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Online PDF of the Linux man-pages @ git HEAD
-To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Cc: Elliott Hughes <enh@google.com>, Deri James <deri@chuzzlewit.myzen.co.uk>
-References: <ZWDZTY-jjJg9wkCw@debian>
+Subject: Re: NULL safety
 Content-Language: en-GB
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+References: <ZUvilH5kuQfTuZjy@debian>
+ <20231109031345.245703-1-mattlloydhouse@gmail.com> <ZUzPNydLkFPEvvsa@debian>
+ <20231110160602.352085-1-mattlloydhouse@gmail.com>
+ <fb0e2940-3446-4d44-95d7-f7be1f26096f@jguk.org>
+ <bb41a959-eb58-4376-b2b7-6b6ad7a7dd5a@jguk.org> <ZVAB2S-IxKLABk_w@debian>
+ <17ca7ec2-b542-4043-a311-bc0c2a7ddf78@jguk.org> <ZViHm8HyxefeJ_SW@devuan>
+ <e35720d5-3a52-4092-a134-6edb4297e783@jguk.org> <ZWEix_Ua5QDWzv4C@debian>
 From: Jonny Grant <jg@jguk.org>
-In-Reply-To: <ZWDZTY-jjJg9wkCw@debian>
+In-Reply-To: <ZWEix_Ua5QDWzv4C@debian>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 
 
-On 24/11/2023 17:11, Alejandro Colomar wrote:
-> Hi,
+On 24/11/2023 22:25, Alejandro Colomar wrote:
+> Hi Jonny,
 > 
-> I've set up a githooks(5) to generate a PDF book, running the script
-> contributed by gropdf(1)'s Deri James from within the hook, every time I
-> `git push` the main branch to my server.
+> On Sat, Nov 18, 2023 at 11:21:00PM +0000, Jonny Grant wrote:
+>> I saw Christopher Bazley was talking about this. As I understand it, _Nonnull is milder than attribute nonnull. _Nonnull probably helps with static analysis, but doesn't optimize out any code checking if(ptr == NULL) return -1;
+>>
+>> Saw this, did you get traction with your proposal?
+>>
+>> https://discourse.llvm.org/t/iso-c3x-proposal-nonnull-qualifier/59269?page=2
 > 
-> You can find the book here:
+> I didn't follow up with that.  I'd first like to be able to try Clang's
+> static analyzer with _Nullable, to be able to play with it.  An
+> _Optional qualifier would only be usable by something like -fanalyzer,
+> or Clang's analyzer, since it needs to avoid false positives that are
+> quite complex.  It's not a warning that you'd want in -Wall.
 > 
-> <https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-HEAD.pdf>
+> And since Clang's analyzer isn't easy to use, I'm not working on that
+> until they make it easier.
 
-That's great, will be very handy to have that to see the git version presented as a PDF.
+Ok I see. GCC's -fanalyzer is useful I find, I've not tried Clang.
 
-Chrome said the connection is not secure, probably "Let's Encrypt" would give a free SSL certificate for your server.
+I made my own compile_assert() that may/may not be of use for the things you are working on, it works in GCC, its just like regular code. I use to check for things like NULL pointers, or overflows at compile time, rather than runtime like assert().
 
-With kind regards, Jonny
+https://github.com/jonnygrant/compile_assert
+
+There will be some false positives on complex areas of code. It's quite simple, and is just using the tooling we have with GCC to catch things at compile time, that static_assert() can't. Anyway, interested to hear any feedback if you do try it.
+
+Cheers, Jonny
+
 
