@@ -1,38 +1,38 @@
-Return-Path: <linux-man+bounces-166-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-167-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 378CA7F9389
-	for <lists+linux-man@lfdr.de>; Sun, 26 Nov 2023 16:47:58 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1C0D7F9390
+	for <lists+linux-man@lfdr.de>; Sun, 26 Nov 2023 16:49:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E5E47281209
-	for <lists+linux-man@lfdr.de>; Sun, 26 Nov 2023 15:47:56 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D38FF1C20A8A
+	for <lists+linux-man@lfdr.de>; Sun, 26 Nov 2023 15:49:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E13FD313;
-	Sun, 26 Nov 2023 15:47:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B761D50E;
+	Sun, 26 Nov 2023 15:49:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrGhyqXc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sic4EjJC"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA17D270
-	for <linux-man@vger.kernel.org>; Sun, 26 Nov 2023 15:47:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0D2C433C9;
-	Sun, 26 Nov 2023 15:47:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA41D270
+	for <linux-man@vger.kernel.org>; Sun, 26 Nov 2023 15:49:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D5FC433C8;
+	Sun, 26 Nov 2023 15:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701013673;
-	bh=0q0X5aq1MArg6n6H4JjyMJ9Xqd/joqSNY8K1Y5UELZM=;
+	s=k20201202; t=1701013763;
+	bh=mjpo2b8y2Z3ccciN8paSKkmRCV/YHZURxYuus2rEV7Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WrGhyqXcVvkU45UqlQsC52vS2ChYQ6Rwr3L96oarvhDAFcD9ztulSBonnlFA5G+Ki
-	 wQWdbMfoqjHdpSuo0AtdmgFcsOYTujKymV/GqT1UCDirsdUn8x6PcSp6SbRNnvPg7v
-	 6HXkOiadruqFIKdaReo/10uraWzQdTJACXRQJ5zmhkqzI+QCVIvBetCq9ZJpw/GAaz
-	 J9kTyKFsYSpkIVNrEm0BLtr07shRMiCI31AL80Vv/NA2AHVzPykORJfWx4kSsI6pTL
-	 oXNrTlT01H78k2ldIA3HDm4zL0SyqhhHrimsI4GnIwtAig7dQpKoVS31ZZEiuSuurn
-	 SRESEfZh/p/PA==
-Date: Sun, 26 Nov 2023 16:47:49 +0100
+	b=Sic4EjJCzcXZhFSu4tMkxGo5CyZiXofzuiRJmotg5cHXriSNFjpdirQcXYbhHNfve
+	 ep4roKc/4y8uavXNSJ1veQ9NUNWSM1kx+Swcxp4l5oXzpWrlDuKVosuD0Lpz4FLvZn
+	 Cf+FOjBaff+D5YjVE887bkKchF1A3bg51ROu5KWip+DGW1eqsAbXNCgbaGkgHvTX7e
+	 5AWMjTdaU14YZOUlvxHsBW/NxSIGTngPltFQ8FP02REWlSHUDP4fZo0teUB097jEWm
+	 qCJ+oX2s3c47HqCvHxt5UVIGXWhLPBGoyIANuW6EXIhKbjeNOIwsGgGEeqYhSu32ML
+	 TYZJAR1hC9eDg==
+Date: Sun, 26 Nov 2023 16:49:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Brian Kernighan <bwk@cs.princeton.edu>
 Cc: "Brian W. Kernighan" <bwk@princeton.edu>,
@@ -41,12 +41,13 @@ Cc: "Brian W. Kernighan" <bwk@princeton.edu>,
 	Matthew House <mattlloydhouse@gmail.com>
 Subject: Re: Errata in K&R C v2, page 97 (was: [PATCH v2] CONTRIBUTING:
  Please sign your emails with PGP)
-Message-ID: <ZWNopRsUQAuh9qmh@debian>
+Message-ID: <ZWNo_xYMkqDiI_JG@debian>
 References: <20231122134716.73658-2-alx@kernel.org>
  <20231122162557.mdd3z6hmt3pz43bo@illithid>
  <ZV4506eXcQhZj91V@debian>
  <41b65637907f43ecafadd58565a7b483@DM6PR04MB4443.namprd04.prod.outlook.com>
  <0596dd5a-3efd-7d89-6280-f6e032941c58@cs.princeton.edu>
+ <ZWNopRsUQAuh9qmh@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,16 +55,16 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p9GdlFdPK14Ka+kW"
+	protocol="application/pgp-signature"; boundary="VHUBWg4LHNJiU/Qp"
 Content-Disposition: inline
-In-Reply-To: <0596dd5a-3efd-7d89-6280-f6e032941c58@cs.princeton.edu>
+In-Reply-To: <ZWNopRsUQAuh9qmh@debian>
 
 
---p9GdlFdPK14Ka+kW
+--VHUBWg4LHNJiU/Qp
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Nov 2023 16:47:49 +0100
+Date: Sun, 26 Nov 2023 16:49:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Brian Kernighan <bwk@cs.princeton.edu>
 Cc: "Brian W. Kernighan" <bwk@princeton.edu>,
@@ -73,45 +74,56 @@ Cc: "Brian W. Kernighan" <bwk@princeton.edu>,
 Subject: Re: Errata in K&R C v2, page 97 (was: [PATCH v2] CONTRIBUTING:
  Please sign your emails with PGP)
 
-Hello Brian,
-
-On Sun, Nov 26, 2023 at 09:57:32AM -0500, Brian Kernighan wrote:
-> In the printed version of the C book, section 5.5 begins on page 104.
-> pmessage is indeed the one with two boxes and an arrow.
+On Sun, Nov 26, 2023 at 04:47:49PM +0100, Alejandro Colomar wrote:
+> Hello Brian,
 >=20
-> Are you looking at the real book or some mutated copy from the web?
-> I have had error reports in the past on imperfectly pirated copies.
+> On Sun, Nov 26, 2023 at 09:57:32AM -0500, Brian Kernighan wrote:
+> > In the printed version of the C book, section 5.5 begins on page 104.
+> > pmessage is indeed the one with two boxes and an arrow.
+> >=20
+> > Are you looking at the real book or some mutated copy from the web?
+> > I have had error reports in the past on imperfectly pirated copies.
+>=20
+> My real copy of the book is in Norway with my brother, very far from me.
+> Indeed, I read some online copy for the report.  It was something
+> converted to an ebook or something like that.  I'll try to find the
+> link.
 
-My real copy of the book is in Norway with my brother, very far from me.
-Indeed, I read some online copy for the report.  It was something
-converted to an ebook or something like that.  I'll try to find the
-link.
+Here it is:
+<https://venkivasamsetti.github.io/ebookworm.github.io/Books/cse/C%20Progra=
+mming%20Language%20(2nd%20Edition).pdf>
 
-Cheers,
-Alex
+>=20
+> Cheers,
+> Alex
+>=20
+> --=20
+> <https://www.alejandro-colomar.es/>
+
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---p9GdlFdPK14Ka+kW
+--VHUBWg4LHNJiU/Qp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVjaKUACgkQnowa+77/
-2zKGNQ//aXwLQBMMy0xcR8/Fl+MCu7XHmtUMhKLpFVyErhO17FxZg6+zIg1ipuSH
-0OzYkgoSfpCSwb8k72q/pYY0cPbiZ1ssRarAlTRcjEOWiBMzxgS+CcSNQvAf7Q14
-r6VMQLtUMgH8W9BAW/Bu02LPPJewWVUxtJ0wjWrfDLDKvmplvPguPGMSzmXDZLzI
-hlPoy7OWAIM7ILbd6eFuq3N14WMLtFylWRNqEKGTv8FCrI2mROiVsroN4ZkNGh7N
-5nPIPxn89gg5iKoa6xTg1sGVsgGFZp/lWYfbsdsgqyJfNj8K1EI1cQAy59Vzjc4e
-2C9qZSGd4T6+4VcAjmOUpe8CXfTuNaGxLsSUV9GlDlPSqD7sTKWzhbQDqOif0ha4
-iwLSxWf4rr4S8zhT1O//HzVIyJOHg5VgZ48UNVHDZF43zJHCv05BrvzS4icfK2/6
-/gxwwHdvRxs5k9RwSzBtHR9uWLqIpwc9M3lE/+lN4zlJNhbKikR/1f8UCqDR1AAs
-wB1e4JM14try+LASzwll8qfMhHxK6EgqZ4g0mR4LUjr7uN6lJW3uL96xvDbCzxB5
-gZ+uwnUbSjGqLTmI99UGDPusGisqLBx3GJhBRDDkaQIW0WCUMcPFcOLhIT95Jvr+
-rPjRu9O0VBzt5EUH+SxAAdmBxQIn9TZMQLFySx14vkQeaGvrfrk=
-=HE7O
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVjaP8ACgkQnowa+77/
+2zJUEA//eOvC6BrOfYUDP/o4kcuBZ+jcmcp3AE4dFB/sQLo77uzinOOS2wxBQiij
+ynq/zJfwwMx0U6wXvUC0cg/1kcHQl6faaiYF4L99vfOhKCTHofQCw9DK6JF+EGod
+mMS63Jyppy448jhp86D71V0fuVwekRFs00zdTbgLqsyXVRaKwDStvaV4FtyPkrwr
+IW2+WdS2UTHhtP0kPgGCyFCiO73x38kLmJHHdRSgaHt2PgObp3XyV3SipGFiRpU8
+M6YzR22SLbuXr69Z4kA2BlYESHgz1BxlBEyGL37lwGd2XDblkLFPR4fOFn2KdpiQ
+nkTWtDpF6qbCVCY0+fiTF5tkJ3c5QLbAocJw7cNvfwRQznZemsf1NQercH1n9sGl
+MbkXSvi1pV0uRTW1JyPfc/A3wqf3ySsfmPCVQ9qHfcvWBDyJc11rrPrfpTdSTBzQ
+9LrNRGRNHqP6oJ6kRLzUU0uI5pCIJG9XIYDvg105QQIWs2+drE8wKuhyn5czCFTE
+WV5c8b2Yz7Hnng35/rP3DG7Xtr5WhbtdUJBUKhyeAPSG+yPrrsZ3Ak+BqVbJoUWP
+L5StL4mwhnsE5Vn5zgfktJafU3m0s3BA1m5nkemhCK4CdDh3Fegduvgnxmw46X7M
+OZ9YHJhu/lCb0HEgH/shtp7Vvvp6/vyOQMS01BFHhFnomk1iFLk=
+=Cfa3
 -----END PGP SIGNATURE-----
 
---p9GdlFdPK14Ka+kW--
+--VHUBWg4LHNJiU/Qp--
 
