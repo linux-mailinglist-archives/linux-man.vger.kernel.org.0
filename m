@@ -1,63 +1,64 @@
-Return-Path: <linux-man+bounces-177-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-178-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63DF67FBED5
-	for <lists+linux-man@lfdr.de>; Tue, 28 Nov 2023 17:03:54 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D3A337FBED7
+	for <lists+linux-man@lfdr.de>; Tue, 28 Nov 2023 17:03:59 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 1FA3C28262F
-	for <lists+linux-man@lfdr.de>; Tue, 28 Nov 2023 16:03:53 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 31250B20CE8
+	for <lists+linux-man@lfdr.de>; Tue, 28 Nov 2023 16:03:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C49451E4BB;
-	Tue, 28 Nov 2023 16:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53E5F4F8BF;
+	Tue, 28 Nov 2023 16:03:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Jz/CCjpm"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WP1hlcyP"
 X-Original-To: linux-man@vger.kernel.org
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02789D4B
-	for <linux-man@vger.kernel.org>; Tue, 28 Nov 2023 08:03:46 -0800 (PST)
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 538C612A
+	for <linux-man@vger.kernel.org>; Tue, 28 Nov 2023 08:03:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701187426;
+	s=mimecast20190719; t=1701187427;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dP5KrxTVSniSY5EKn+1whInNpNpKvz47uFsYRNbSIfU=;
-	b=Jz/CCjpmfIUXFUbhaAsAyMLB7Eubb+ynVjPFBJ1LxnBP4p1bGvxW2QoBg9cavFUmjRL1vS
-	6Fys5bzCstn7tGzZwXUQ9OZiOX4bFKr6fsRtyQPOLwBLIYq7ryfVcQOOVrSYoTCt5EDLFx
-	qw92DNkVQjzzITRtQHQ6mdDAM2H361U=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y0zwWzL4LnouvSC6RVe208OxiX7Lwfh27TloREnRbLc=;
+	b=WP1hlcyP2EonH8zWsECQ5W22Hhp8bpwOTFDIRi8rFGRd0uXQ2/3do1vnoRO1FbFHPxcc7U
+	hgOAmgx9TJdx36sdr1ZKHmMPCeuzAWWWUnfFRuZ7Pbl1iWFYXG5W6lyTjDL+PsKhHYgmyO
+	u9EH8IAGmqXQ1ZUad627UaAAZFxwZAQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-494-owDSrbSuOJCflnRSZcpKAg-1; Tue, 28 Nov 2023 11:03:43 -0500
-X-MC-Unique: owDSrbSuOJCflnRSZcpKAg-1
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-332e06036b5so4150253f8f.0
-        for <linux-man@vger.kernel.org>; Tue, 28 Nov 2023 08:03:43 -0800 (PST)
+ us-mta-18-c4hKnlhbP-miiki3Qu3zBA-1; Tue, 28 Nov 2023 11:03:46 -0500
+X-MC-Unique: c4hKnlhbP-miiki3Qu3zBA-1
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-33174d082b7so3851581f8f.0
+        for <linux-man@vger.kernel.org>; Tue, 28 Nov 2023 08:03:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701187422; x=1701792222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dP5KrxTVSniSY5EKn+1whInNpNpKvz47uFsYRNbSIfU=;
-        b=VQphjjtM3/1C7UmbSd2ZJkq8IqMeO9eHmpHKrBnydgQcnwoe5u5QiQJUIkXCLYjhL8
-         IlBKK81oQq80TzuJTtaA/n1Ge9EzXf6ElGnoZSS6GAVKqpa+/tvEJvj1uH4blF7Jcu5E
-         1Btzn7A9sW+h+LVtc/fbrML2/s0GD0gTPDo/BMOe+qbFOkIVkVi7MMsGTQqtDGxwcExW
-         7kNVFbBxQ87RjblM4FJkO3E9IecLZTqIcLMDDDNDLrW80tV8758jgClbOQMkxXU2GRTA
-         wZHOybyM/FoklF/4NTdQl6dAVyGrn9t5BJoK/tJE/JHHJYesI6bWgMoAOwIgLcLi2GhE
-         Nw3Q==
-X-Gm-Message-State: AOJu0YwEh2kg8xYNxgzPXiysP4trbT0B2mqSJaImlW16mFEuCZcgfmyt
-	hLss3k1tngCeCWXFNXB6VL5iRJeulh/nH6QERXeup264TLAC8p91zv7ofeWhWaeiGZhDh2dPOdy
-	HZryCW31j+wn2RmFB41u1
-X-Received: by 2002:adf:fdd2:0:b0:333:f42:da7c with SMTP id i18-20020adffdd2000000b003330f42da7cmr1411015wrs.12.1701187422426;
-        Tue, 28 Nov 2023 08:03:42 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFF0/vjcHQJgRjLn+YMRrmRzcBT/v6nI4n+3fYoa/+cVZ0kQZ66HeAXSc5ies1QQ/IS6vrEMA==
-X-Received: by 2002:adf:fdd2:0:b0:333:f42:da7c with SMTP id i18-20020adffdd2000000b003330f42da7cmr1410984wrs.12.1701187422121;
-        Tue, 28 Nov 2023 08:03:42 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701187425; x=1701792225;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=y0zwWzL4LnouvSC6RVe208OxiX7Lwfh27TloREnRbLc=;
+        b=E3P+miVCFAbUrO4DgEdqmpnzZsKdJZvW3/aZRZrgYnk24VtNCyo8Wde64Yzu3fAKwf
+         0DmKQp0Wn58dyf8kCP/Dk0qUwhWsbnfOcxeAxIzEhSfQhUC3i6pPzFud2NEwNsufVQCw
+         dNrid7EwfAmobNXSUWEYpLrJfq/gikLXbx7nC3OgYI5tZZq4LMK8BHRJpe4v1rUxmyBZ
+         svKC1+FYWQ0O/uusZqnpZ7Z9rKEOz9l5JKbKmaCBPeJA4odrpSjs9dpDgTys7QaesagF
+         SCCy1je4KT96KbMsodIRv+ZkknsLth1b3Fzb1GNUsleV6AHShP0HWhz+RYShDkPOhcCI
+         L6pw==
+X-Gm-Message-State: AOJu0YzoTvUMbdLuc/XPkHJroP3byryPs2XY0mWe/g8HpNQrFrGxiBXK
+	3sdXaov9zKw8cQ+yqehU4Z6w7jEwRSK37717jafUH60/mwjBuyuA1sevw4ZTqmUNP8vZbUptKg/
+	jIgKp5H0PCh9EtIJitQiF
+X-Received: by 2002:a5d:6da7:0:b0:333:13ce:dc8c with SMTP id u7-20020a5d6da7000000b0033313cedc8cmr399079wrs.13.1701187424799;
+        Tue, 28 Nov 2023 08:03:44 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEiOfaV75sGNSINsDpeEEds9KGbjsyagDyEpffjIbzoesRBATKMzILUEn1SQPtaalN7o6I1qQ==
+X-Received: by 2002:a5d:6da7:0:b0:333:13ce:dc8c with SMTP id u7-20020a5d6da7000000b0033313cedc8cmr399051wrs.13.1701187424562;
+        Tue, 28 Nov 2023 08:03:44 -0800 (PST)
 Received: from maszat.piliscsaba.szeredi.hu (89-148-117-163.pool.digikabel.hu. [89.148.117.163])
-        by smtp.gmail.com with ESMTPSA id w27-20020adf8bdb000000b00332e5624a31sm14745352wra.84.2023.11.28.08.03.38
+        by smtp.gmail.com with ESMTPSA id w27-20020adf8bdb000000b00332e5624a31sm14745352wra.84.2023.11.28.08.03.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Nov 2023 08:03:40 -0800 (PST)
+        Tue, 28 Nov 2023 08:03:43 -0800 (PST)
 From: Miklos Szeredi <mszeredi@redhat.com>
 To: Christian Brauner <christian@brauner.io>
 Cc: linux-api@vger.kernel.org,
@@ -68,10 +69,12 @@ Cc: linux-api@vger.kernel.org,
 	Ian Kent <raven@themaw.net>,
 	David Howells <dhowells@redhat.com>,
 	Al Viro <viro@zeniv.linux.org.uk>
-Subject: [PATCH 0/4] listmount changes
-Date: Tue, 28 Nov 2023 17:03:31 +0100
-Message-ID: <20231128160337.29094-1-mszeredi@redhat.com>
+Subject: [PATCH 1/4] listmount: rip out flags
+Date: Tue, 28 Nov 2023 17:03:32 +0100
+Message-ID: <20231128160337.29094-2-mszeredi@redhat.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20231128160337.29094-1-mszeredi@redhat.com>
+References: <20231128160337.29094-1-mszeredi@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -80,24 +83,127 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This came out from me thinking about the best libc API.  It contains a few
-changes that simplify and (I think) improve the interface. 
+LISTMOUNT_UNREACHABLE will be achieved differently in a following patch.
 
-Tree:
+LISTMOUNT_RECURSIVE becomes the default.  If non-recursive listing turns
+out to be needed, it can be added later.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git#vfs.mount
-  commit 229dc17d71b0 ("listmount: guard against speculation")
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+---
+ fs/namespace.c             | 49 +++++++++++++-------------------------
+ include/uapi/linux/mount.h |  4 ----
+ 2 files changed, 16 insertions(+), 37 deletions(-)
 
-Miklos Szeredi (4):
-  listmount: rip out flags
-  listmount: list mounts in ID order
-  listmount: small changes in semantics
-  listmount: allow continuing
-
- fs/namespace.c             | 93 +++++++++++++++-----------------------
- include/uapi/linux/mount.h | 13 ++++--
- 2 files changed, 45 insertions(+), 61 deletions(-)
-
+diff --git a/fs/namespace.c b/fs/namespace.c
+index cb338ab18db9..9b4cb25c25ed 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -5004,18 +5004,13 @@ static struct mount *listmnt_first(struct mount *root)
+ 	return list_first_entry_or_null(&root->mnt_mounts, struct mount, mnt_child);
+ }
+ 
+-static struct mount *listmnt_next(struct mount *curr, struct mount *root, bool recurse)
++static struct mount *listmnt_next(struct mount *curr, struct mount *root)
+ {
+-	if (recurse)
+-		return next_mnt(curr, root);
+-	if (!list_is_head(curr->mnt_child.next, &root->mnt_mounts))
+-		return list_next_entry(curr, mnt_child);
+-	return NULL;
++	return next_mnt(curr, root);
+ }
+ 
+ static ssize_t do_listmount(struct vfsmount *mnt, u64 __user *buf,
+-			    size_t bufsize, const struct path *root,
+-			    unsigned int flags)
++			    size_t bufsize, const struct path *root)
+ {
+ 	struct mount *r, *m = real_mount(mnt);
+ 	struct path rootmnt = {
+@@ -5023,26 +5018,17 @@ static ssize_t do_listmount(struct vfsmount *mnt, u64 __user *buf,
+ 		.dentry = root->mnt->mnt_root
+ 	};
+ 	ssize_t ctr;
+-	bool reachable_only = true;
+-	bool recurse = flags & LISTMOUNT_RECURSIVE;
+ 	int err;
+ 
+-	if (flags & LISTMOUNT_UNREACHABLE) {
+-		if (!capable(CAP_SYS_ADMIN))
+-			return -EPERM;
+-		reachable_only = false;
+-	}
+-
+-	if (reachable_only && !is_path_reachable(m, mnt->mnt_root, &rootmnt))
++	if (!is_path_reachable(m, mnt->mnt_root, &rootmnt))
+ 		return capable(CAP_SYS_ADMIN) ? 0 : -EPERM;
+ 
+ 	err = security_sb_statfs(mnt->mnt_root);
+ 	if (err)
+ 		return err;
+ 
+-	for (ctr = 0, r = listmnt_first(m); r; r = listmnt_next(r, m, recurse)) {
+-		if (reachable_only &&
+-		    !is_path_reachable(r, r->mnt.mnt_root, root))
++	for (ctr = 0, r = listmnt_first(m); r; r = listmnt_next(r, m)) {
++		if (!is_path_reachable(r, r->mnt.mnt_root, root))
+ 			continue;
+ 
+ 		if (ctr >= bufsize)
+@@ -5065,7 +5051,7 @@ SYSCALL_DEFINE4(listmount, const struct mnt_id_req __user *, req,
+ 	u64 mnt_id;
+ 	ssize_t ret;
+ 
+-	if (flags & ~(LISTMOUNT_UNREACHABLE | LISTMOUNT_RECURSIVE))
++	if (flags)
+ 		return -EINVAL;
+ 
+ 	if (copy_from_user(&kreq, req, sizeof(kreq)))
+@@ -5075,20 +5061,17 @@ SYSCALL_DEFINE4(listmount, const struct mnt_id_req __user *, req,
+ 	mnt_id = kreq.mnt_id;
+ 
+ 	down_read(&namespace_sem);
+-	if (mnt_id == LSMT_ROOT)
+-		mnt = &current->nsproxy->mnt_ns->root->mnt;
+-	else
+-		mnt = lookup_mnt_in_ns(mnt_id, current->nsproxy->mnt_ns);
+-	if (!mnt) {
+-		up_read(&namespace_sem);
+-		return -ENOENT;
+-	}
+-
+ 	get_fs_root(current->fs, &root);
+-	/* Skip unreachable for LSMT_ROOT */
+-	if (mnt_id == LSMT_ROOT && !(flags & LISTMOUNT_UNREACHABLE))
++	if (mnt_id == LSMT_ROOT) {
+ 		mnt = root.mnt;
+-	ret = do_listmount(mnt, buf, bufsize, &root, flags);
++	} else {
++		ret = -ENOENT;
++		mnt = lookup_mnt_in_ns(mnt_id, current->nsproxy->mnt_ns);
++		if (!mnt)
++			goto err;
++	}
++	ret = do_listmount(mnt, buf, bufsize, &root);
++err:
+ 	path_put(&root);
+ 	up_read(&namespace_sem);
+ 	return ret;
+diff --git a/include/uapi/linux/mount.h b/include/uapi/linux/mount.h
+index 7a5bd0b24a62..f6b35a15b7dd 100644
+--- a/include/uapi/linux/mount.h
++++ b/include/uapi/linux/mount.h
+@@ -191,10 +191,6 @@ struct mnt_id_req {
+ #define STATMOUNT_MNT_POINT		0x00000010U	/* Want/got mnt_point */
+ #define STATMOUNT_FS_TYPE		0x00000020U	/* Want/got fs_type */
+ 
+-/* listmount(2) flags */
+-#define LISTMOUNT_UNREACHABLE	0x01U	/* List unreachable mounts too */
+-#define LISTMOUNT_RECURSIVE	0x02U	/* List a mount tree */
+-
+ /*
+  * Special @mnt_id values that can be passed to listmount
+  */
 -- 
 2.41.0
 
