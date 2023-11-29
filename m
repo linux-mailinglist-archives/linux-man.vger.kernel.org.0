@@ -1,98 +1,87 @@
-Return-Path: <linux-man+bounces-184-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-185-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109517FD476
-	for <lists+linux-man@lfdr.de>; Wed, 29 Nov 2023 11:40:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01E5A7FD7CD
+	for <lists+linux-man@lfdr.de>; Wed, 29 Nov 2023 14:20:11 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C197A283497
-	for <lists+linux-man@lfdr.de>; Wed, 29 Nov 2023 10:40:21 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B12592825DC
+	for <lists+linux-man@lfdr.de>; Wed, 29 Nov 2023 13:20:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D09E81B280;
-	Wed, 29 Nov 2023 10:40:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59BD5200A7;
+	Wed, 29 Nov 2023 13:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sZzELFqm"
+	dkim=pass (2048-bit key) header.d=fi.muni.cz header.i=@fi.muni.cz header.b="VT2NoAHr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3CB1B28F;
-	Wed, 29 Nov 2023 10:40:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94271C433C7;
-	Wed, 29 Nov 2023 10:40:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701254419;
-	bh=iKieYKjmhXyoDHJ49WSunuW7X7vUfEU0PZW1oROsCk8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sZzELFqmBUyah57j1ZKM1zr8FlGi50GrzanaKJ9RqKuPMAslwPYxTuZqWx6H2E7OY
-	 NQ91r0USX+7RhQMjaEr2AmjxLWKAA5XZVEYWX7WE+7FrX+oH+4geTCaKJEzkhmXydL
-	 MixnLSukFRhxPThH9gMnegrLbwY+iHUz16xhWpvIVFSbT8puKBwdyF0jK56SG40zbh
-	 TUwcfFqmgt8p1Z0sprEjTke1eBDAKSzKSeZIEh77LdAs48mUFeOPqGvDq98mUkMDhs
-	 pIHHTqfXewywrI1mRRaYkMGY+5gV+StfJWR+Xl2w5K0A7Cu6xPBNDROLHD5JqtflV6
-	 NUyxGmFRAaERQ==
-Date: Wed, 29 Nov 2023 11:40:13 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Miklos Szeredi <mszeredi@redhat.com>, linux-api@vger.kernel.org,
-	linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
-	Karel Zak <kzak@redhat.com>, linux-fsdevel@vger.kernel.org,
-	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>,
-	Al Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [PATCH 0/4] listmount changes
-Message-ID: <20231129-bilden-rappen-892ca237abf9@brauner>
-References: <20231128160337.29094-1-mszeredi@redhat.com>
- <20231129-rinnen-gekapert-c3875be7c9da@brauner>
- <CAJfpegsTGq0TW0oFDnYiTeM+z66M73k1jXXjFE6GwebPQYSgGA@mail.gmail.com>
+X-Greylist: delayed 360 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 29 Nov 2023 05:20:03 PST
+Received: from anxur.fi.muni.cz (anxur.ip6.fi.muni.cz [IPv6:2001:718:801:230::3])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0D1483
+	for <linux-man@vger.kernel.org>; Wed, 29 Nov 2023 05:20:03 -0800 (PST)
+Received: by anxur.fi.muni.cz (Postfix, from userid 11561)
+	id D7C5260AE4; Wed, 29 Nov 2023 14:13:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fi.muni.cz;
+	s=20230215; t=1701263639;
+	bh=BZUqA/v8xsV3kvzRCfJ+yL9RUa5Smpk8nOsN5hfJj7A=;
+	h=Date:From:To:Cc:Subject:From;
+	b=VT2NoAHrXbj3JEB3DPNwGbFaP9oH8C0OHd2hpbdSZ/fF5xaY0JHG3hou+jp21+fkF
+	 /ZEb59F1VfjrrmQuCF/JN/Ej5krYjlRXE19FBWmXJ5QIwejh0zVxPddPPIbvCf2aNn
+	 Dj4ZVs7DthAAlqpyxNWgL8eq9Wwb7kvp5k+xZ9XLIEWjMLEqpnokiaYIWDMxDNAU4k
+	 q+dOpgLzBR+vYkecj6dvtt7bSg+s1mEMhxYwHYJ2MhErhVBGj7p83h1EdwFHJkLA3f
+	 9aLSHUcxXyNLsHHeXQt8lXfTbSuKDHr3ei9bOnqr4Jqei+zTp7ANDFFi0QGR98ex3r
+	 d1iSHEHt0Vgpw==
+Date: Wed, 29 Nov 2023 14:13:59 +0100
+From: Jan Kasprzak <kas@fi.muni.cz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] wfix: sigaltstack(2) example: function pointer
+Message-ID: <20231129131359.GH18109@fi.muni.cz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJfpegsTGq0TW0oFDnYiTeM+z66M73k1jXXjFE6GwebPQYSgGA@mail.gmail.com>
+X-Clacks-Overhead: GNU Terry Pratchett
+User-Agent: Mutt/1.5.21 (2010-09-15)
 
-On Wed, Nov 29, 2023 at 11:22:03AM +0100, Miklos Szeredi wrote:
-> On Wed, 29 Nov 2023 at 10:53, Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > On Tue, 28 Nov 2023 17:03:31 +0100, Miklos Szeredi wrote:
-> > > This came out from me thinking about the best libc API.  It contains a few
-> > > changes that simplify and (I think) improve the interface.
-> > >
-> > > Tree:
-> > >
-> > >   git://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git#vfs.mount
-> > >
-> > > [...]
-> >
-> > Afaict, all changes as discussed. Thanks. I folded the fixes into the
-> > main commit. Links to the patches that were folded are in the commit
-> > message and explained in there as well. The final commit is now rather
-> > small and easy to read.
-> 
-> Looks good, thanks for folding the patches.
-> 
-> >    * Remove explicit LISTMOUNT_UNREACHABLE flag (cf. [1]). That
-> >      functionality can simply be made available by checking for required
-> >      privileges. If the caller is sufficiently privileged then list mounts
-> >      that can't be reached from the current root. If the caller isn't skip
-> >      mounts that can't be reached from the current root. This also makes
-> >      permission checking consistent with statmount() (cf. [3]).
-> 
-> Skipping mounts based on privileges was what the initial version did.
-> That inconsistency was the reason for introducing
-> LISTMOUNT_UNREACHABLE.  The final version doesn't skip mounts based on
-> privileges, either all submounts are listed or the request is rejected
-> with -EPERM.
+In the following example code:
 
-Yeah, I phrased that badly. What I meant to convey is that mounts not
-reachable from the current root are not reported as in skipped in the
-loop. I've simplified this down to:
+    sa.sa_handler = handler();      /* Address of a signal handler */
 
-* Remove explicit LISTMOUNT_UNREACHABLE flag (cf. [1]) and fail if mount
-  is unreachable from current root. This also makes permission checking
-  consistent with statmount() (cf. [3]).
+we expect to use a function pointer instead of actually calling a function
+named handler(). So the parentheses in the above are superfluous.
+(Unless there is a function named "handler" returning a pointer to some
+_other_ function, of course).
+
+Signed-off-by: Jan "Yenya" Kasprzak <kas@fi.muni.cz>
+---
+ man2/sigaltstack.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
+index bd5e6ab..d88d490 100644
+--- a/man2/sigaltstack.2
++++ b/man2/sigaltstack.2
+@@ -345,7 +345,7 @@ if (sigaltstack(&ss, NULL) == \-1) {
+ }
+ \&
+ sa.sa_flags = SA_ONSTACK;
+-sa.sa_handler = handler();      /* Address of a signal handler */
++sa.sa_handler = handler;      /* Address of a signal handler */
+ sigemptyset(&sa.sa_mask);
+ if (sigaction(SIGSEGV, &sa, NULL) == \-1) {
+     perror("sigaction");
+-- 
+1.8.3.1
+
+
+-- 
+| Jan "Yenya" Kasprzak <kas at {fi.muni.cz - work | yenya.net - private}> |
+| https://www.fi.muni.cz/~kas/                        GPG: 4096R/A45477D5 |
+    We all agree on the necessity of compromise. We just can't agree on
+    when it's necessary to compromise.                     --Larry Wall
 
