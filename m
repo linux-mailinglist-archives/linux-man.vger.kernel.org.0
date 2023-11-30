@@ -1,47 +1,50 @@
-Return-Path: <linux-man+bounces-193-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-194-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id A09977FFE8E
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 23:38:36 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B27977FFEAF
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 23:45:15 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 29ED2B20DAB
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 22:38:34 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E3D021C20AFD
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 22:45:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C98ED22070;
-	Thu, 30 Nov 2023 22:38:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E760059174;
+	Thu, 30 Nov 2023 22:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAtyccHD"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gw8GiCmY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B045FF1E
-	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 22:38:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65551C433C7;
-	Thu, 30 Nov 2023 22:38:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32A15FEE3
+	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 22:45:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A1DC433C8;
+	Thu, 30 Nov 2023 22:45:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701383909;
-	bh=cbHDKr+vBrMtxBJfdPOKsSfzG0zaWIyBDsjNjhlYd3A=;
+	s=k20201202; t=1701384310;
+	bh=Upu7m53J/EGjnNawkISAFvg5LlSwEqmn5tMoFmriI7o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TAtyccHDOU48qxIdbnMWftFndj3YH0N4WONvNIILMuQpzgA0YpxR6zCeT2mR2+UwQ
-	 U64OBGYziR82CcIUurW5hnyssfLcNAKd0/2awYgGp+RIfcxO4KFMOjZOhlyvLAZNnG
-	 CweN1UWHUfCAddgK5Gddd7bPRi5WO1YKBoeYCdJvdj9YzPDQSDr+28xJOTuMzgBLh0
-	 B62m2mZA42xrlONlHDnCCAfk/6z8/ZQ5uy711AgDyw/Z5FojGDI7JSdojhs9F5u073
-	 nQ0F5JXgLrMS5mY/bDUjpI7C2pob3HrD9tqtKACJxw86L5Mw/Vh4/U7fevLfS33fAa
-	 GvdcGTsm73Iyw==
-Date: Thu, 30 Nov 2023 23:38:18 +0100
+	b=gw8GiCmYF9MF38yNaQ/hDUmdZDXtHKWicVte5dtusjQfTuZZWqYj1CeoQ8F2V3j7Z
+	 Y4UjTrPrkqSSJDuSFro8NZKTNnj5OJjLIhTXrv2AP0OhyB0YFhI1HEWpLSoPcGomMR
+	 dTWG1zL+DyPLKRPUDZ7IREVwL7w/Gv6QViOg4ADBCM1EqXSlNoZ4YvbYygjRJDcnEj
+	 a3TsT/UERztnv3iGgtxzJIcuT4F1BCYJIPY99CRZCEpCvM57PN8qNLP3Uv3/VYL+x+
+	 x15dm07JxI5ChbNPuiI3tpcFPbo5EKHzKCzHRa/iy+BxLdhQNgkY9rmNpkE5dGWGCc
+	 KvL5KRmNbUeow==
+Date: Thu, 30 Nov 2023 23:45:06 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Optimize script for generating LinuxManBook.pdf
-Message-ID: <ZWkO4qPC4BxkwBNm@debian>
-References: <ZV4XNnNlv8OK1B1m@debian>
- <ZV_OXhw7V6Vk1HBR@debian>
- <ZWCNHM9qQnK96ksZ@debian>
- <17198161.Vt6cx1TxTY@pip>
+To: Jakub Wilk <jwilk@jwilk.net>
+Cc: Florian Weimer <fweimer@redhat.com>, libc-help@sourceware.org,
+	linux-man@vger.kernel.org, Iker Pedrosa <ipedrosa@redhat.com>,
+	~hallyn/shadow@lists.sr.ht,
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: strtol(3) setting of errno
+Message-ID: <ZWkQcuFmRe0eSDaR@debian>
+References: <ZWhUR9AqoSLKeT46@debian>
+ <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
+ <ZWiCsBkRpOLEc1Y3@debian>
+ <20231130221301.nteiaukktf6om6un@jwilk.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -49,82 +52,62 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mu7jWMvDTsd1dFIG"
+	protocol="application/pgp-signature"; boundary="dluxFMjOAqhe4yav"
 Content-Disposition: inline
-In-Reply-To: <17198161.Vt6cx1TxTY@pip>
+In-Reply-To: <20231130221301.nteiaukktf6om6un@jwilk.net>
 
 
---mu7jWMvDTsd1dFIG
+--dluxFMjOAqhe4yav
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Nov 2023 23:38:18 +0100
+Date: Thu, 30 Nov 2023 23:45:06 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Optimize script for generating LinuxManBook.pdf
+To: Jakub Wilk <jwilk@jwilk.net>
+Cc: Florian Weimer <fweimer@redhat.com>, libc-help@sourceware.org,
+	linux-man@vger.kernel.org, Iker Pedrosa <ipedrosa@redhat.com>,
+	~hallyn/shadow@lists.sr.ht,
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: strtol(3) setting of errno
 
-Hi Deri,
+Hi Jakub,
 
-On Thu, Nov 30, 2023 at 04:56:38PM +0000, Deri wrote:
-> Hi Alex,
+On Thu, Nov 30, 2023 at 11:13:01PM +0100, Jakub Wilk wrote:
+> * Alejandro Colomar <alx@kernel.org>, 2023-11-30 13:40:
+> > Since POSIX doesn't specify, I assume it allows setting errno on
+> > success, as with any other libc function.  That includes setting errno
+> > on a successful call that returns 0.
 >=20
-> I have attached the latest iteration of my work, managed to knock two sec=
-onds=20
-> off the current code in your git.
+> No? "These functions shall not change the setting of errno if successful."
 
-Nice!
+Ahhh, I missed that text.  Thanks!  It means that a simple errno!=3D0 is
+enough (plus the endptr check), then, and the current page is correct.
 
-> It no longer uses temporary files,
-
-It is creating a temporary dj.Z file.  Is that a leftover?
-
-> outputs=20
-> the pdf to stdout, can be run from any directory and runs groff once.
-
-Great.
-
-> It replaces the complete LinuxManBook directory and the executable is now=
-=20
-> called BuildLinuxMan2.pl.
-
-I'd prefer if the huge groff code would go in a separate file.  Would
-that make sense?
-
-Thanks,
+Cheers,
 Alex
-
->=20
-> Cheers=20
->=20
-> Deri
->=20
->=20
-
-
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---mu7jWMvDTsd1dFIG
+--dluxFMjOAqhe4yav
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVpDtoACgkQnowa+77/
-2zIkRg//WUczcSOk9POjDJUP7aWunDS0WbHtppIJ2CqNMVxSNRWr2juhWGWJRt0S
-FloiSVyIBx3nrSr1xBAOqx/pv6H0+uDxflwTnnaVqYI0RB836noYQaq0u381Eh6/
-qpTcWopVaSPEru+V0ZW/MsrObrHuh59Gkffe96z70ZVS2e0QYcNpD5wI5y30FYVr
-jVJpMv1J4iezXVMcQfhPT24dJyQjZs+I2WZeyTMGaZu9MfSviPdCNeagCUcSFEIK
-vl1OANZaqipcY2HP8vndFTRyz7pSuaCAFUROnglM+m3NM39fo2DolmkXYKVMwvoD
-HO2HXY1XDNnoVFkk/Vh3V52OUKYn7M7UrkZtERBloMGWw6kZhrAhugF6obGiSBNY
-0EyIzoaVRMq70vQgNwxA3CIkrBfPuh3hlklRFtNh7cZ8MfYsO50o107TJ163pu7O
-pVCqg3hdfO87iGfndXc/mH9COdfdlZGRbyemgHz69oZ24rLnIAjAxkJDEdUWjz9m
-DZXoZKyvLnDf8206P00nqEQg3tkgH5IEcMYApQhavUXzOEKclp80LV/aexOgUJn2
-Q0wXfYSbVvw1vRKQQqPpoxx1VJU0OsrAN1EoJ7QvkIDHv7MkFPj7EgPUxu3hM2TY
-f8ecnMeGrPVCm/JyfXrdCWHGVVHlni1NOkyOxaosOgDabG7RbZg=
-=Mqvo
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVpEHIACgkQnowa+77/
+2zJktA/9Fb+FZoVgFHzxEPs7O2E+TwwjO79ef8SbQlbIzjNG4gtiA/5qKNtV0Vr/
+LFEV/RywpqGIizBG9U9YQK97cYadvHkw4xplR0MEZv6UckpvHOtsu1XcMKxWav/i
+nt0uPT9RVCaC/HCywxzSUDkva/XxKmpY1A7oSl5F2ZxlpsKs+Cn9SjKdjjG/ia1+
++PDgv/El+FgCHF0p0w5ZSKnIOrns9ONB92lNbl6wtKfksp0kBTWljgejptIUlnl1
+PoKcApA+mlEfBML15ftnIk49JLqaXWwSrB847in/g+GNlHF/btuqdkBkNznTIxgu
+oId3O2S3l06R0D6T4aHRoPytDkM49WTUe4l6aDfcOwIM+C3fACi6wLIcMJhlVH22
+ULlCjkMKPLHiASI2Xv9UMlMMlE/iVtgeIE4YBhrXtrGfEwk06ror8urO3b23STsx
+dZ6EuUrLDEx8+uzg5uGBPt82txhiQo/fWi+nFESpYLe+gWvOjgEY01wXYR7BsVZb
+gIPEaNtpNZpShxhvp3dszvUcns+SVdoN5B5PHpKXqqB7HyT9bIn7rgupk4W1yj9G
+JVOFu3UjEAkrUx81hF6usiaaYusBmXQcLaW/BiKePOxoXtmZPRCc0MY8B4S+Cu+C
+CP+NrrbT5t/Hke10kuG5AwxJ+c58JF6VT7R/VmViCI9ZCC2WDtQ=
+=NAYI
 -----END PGP SIGNATURE-----
 
---mu7jWMvDTsd1dFIG--
+--dluxFMjOAqhe4yav--
 
