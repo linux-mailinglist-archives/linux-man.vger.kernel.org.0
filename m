@@ -1,49 +1,47 @@
-Return-Path: <linux-man+bounces-189-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-190-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE12D7FEF48
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 13:40:25 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3B37FF396
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 16:29:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id CA48BB20DD6
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 12:40:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 65E982819FE
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 15:29:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D4FB3AC20;
-	Thu, 30 Nov 2023 12:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A6EE524B7;
+	Thu, 30 Nov 2023 15:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1qgjSoE"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJ4lnqmD"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114E4778D
-	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 12:40:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211F9C433C8;
-	Thu, 30 Nov 2023 12:40:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7D3524B2
+	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 15:29:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086F1C433C7;
+	Thu, 30 Nov 2023 15:29:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701348020;
-	bh=vjAxLHE4Qpr3Pcd3/ne9WLGhR6GUlJgmrfQ4e4sF1r8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O1qgjSoEUosxGtpAYigTuSMNzz5NYc/Pjn8fTTC6IiD54md+prxPH+d9UWXg7OWz+
-	 E3pAr5MSRa5/07194PS9tjQRIUPIE0ppJthTrSlTp2ShygWyEtKSk4ibsAp+gFRH6y
-	 FzSbZcJiE5wHkb2d4CgP177As4fcKUhXttv787OVu+EPtbZZNSkhrc0TZmchH6ToD+
-	 GPHFLB0DeFiCeuByX959CDcKH3erR/mDLiDi+ivEKNkm+bnE6SbH25x1YKsolFracr
-	 kmgN888D6URqMbLrCGX2liM6rXs5Xyb7S4NXF3/WUaFQXKpCISwVZ6g+9rBHjZ/350
-	 i/CKXxlHgMOSA==
-Date: Thu, 30 Nov 2023 13:40:16 +0100
+	s=k20201202; t=1701358174;
+	bh=qKAgk+S2EB9OtOZzXhMvgL76tfmi+5ZSqaVDKGjyRMY=;
+	h=Date:From:To:Cc:Subject:From;
+	b=BJ4lnqmDRvyS8y53C9jkbNFCwmka/WeP/bxoI5DMHEInjFgNyyTotTgrPIQl2/hHW
+	 bcJ1Xv2e+QPeFdwL6C65n16wjMupP1UH0Kz3V4qtMpcwLCF4TQSqAQNjC5qv1jM3Qm
+	 lbGkch3qxKxGrcBqJ+F9oW/HeB/lHRSVqV3aolqk6xwIj0v/x9EF7x4JZTRsgwvhXd
+	 JpgkB6PBkV3B5cpimPdrnQP1VR0WdPQxVjdkgAdrbNxQJgKhzaYTmDuAhecnh7OUWp
+	 xQkj5/bcFUNyBpCRB2+fI07ZvcnpfEBSO2yZqWb8hv0UCfPnowbb+5iv0diYYQ6RLD
+	 zmiK4pfKx/oiA==
+Date: Thu, 30 Nov 2023 16:29:31 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: GNU C Library <libc-help@sourceware.org>,
-	Linux man-pages <linux-man@vger.kernel.org>,
-	Iker Pedrosa <ipedrosa@redhat.com>,
-	shadow <~hallyn/shadow@lists.sr.ht>,
-	Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: strtol(3) setting of errno
-Message-ID: <ZWiCsBkRpOLEc1Y3@debian>
-References: <ZWhUR9AqoSLKeT46@debian>
- <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, libc-help@sourceware.org,
+	~hallyn/shadow@lists.sr.ht,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	Florian Weimer <fweimer@redhat.com>,
+	Iker Pedrosa <ipedrosa@redhat.com>
+Subject: [PATCH 1/2] Revert "strtol.3: EXAMPLES: Simplify errno checking"
+Message-ID: <20231130152910.322395-2-alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -51,74 +49,81 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hAMQJ/rSOKFu9kb5"
+	protocol="application/pgp-signature"; boundary="1+UYQSmk4rN0iLCS"
 Content-Disposition: inline
-In-Reply-To: <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
+X-Mailer: git-send-email 2.42.0
 
 
---hAMQJ/rSOKFu9kb5
+--1+UYQSmk4rN0iLCS
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Nov 2023 13:40:16 +0100
+Date: Thu, 30 Nov 2023 16:29:31 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: GNU C Library <libc-help@sourceware.org>,
-	Linux man-pages <linux-man@vger.kernel.org>,
-	Iker Pedrosa <ipedrosa@redhat.com>,
-	shadow <~hallyn/shadow@lists.sr.ht>,
-	Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: strtol(3) setting of errno
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, libc-help@sourceware.org,
+	~hallyn/shadow@lists.sr.ht,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	Florian Weimer <fweimer@redhat.com>,
+	Iker Pedrosa <ipedrosa@redhat.com>
+Subject: [PATCH 1/2] Revert "strtol.3: EXAMPLES: Simplify errno checking"
 
-Hi Florian,
+This reverts commit 93f369892aeab4d56b92962224e318f739ee2455.
 
-On Thu, Nov 30, 2023 at 01:00:30PM +0100, Florian Weimer wrote:
-> * Alejandro Colomar:
->=20
-> > Now I realize that commit was probably wrong, and one needs to check
-> > both errno and the return value to determine that the call failed.  Can
-> > you please confirm what the correct specification of strtol(3) is?
->=20
-> The most detailed specification we have is the one that is in POSIX.
+That commit was wrong.  It is necessary to check both the return value
+_and_ errno to determine that strtol(3) failed.  In fact, the checks
+are still slightly incorrect, since strtol(3) could succeed and
+return 0, but still set errno, to something other than EINVAL.
 
-Since POSIX doesn't specify, I assume it allows setting errno on
-success, as with any other libc function.  That includes setting errno
-on a successful call that returns 0.  Which means that the errno check
-must check for the specific errno values that actually mean an error of
-this function.
+Link: <https://lore.kernel.org/linux-man/ZWiCsBkRpOLEc1Y3@debian/T/#t>
+Cc: Florian Weimer <fweimer@redhat.com>
+Cc: Iker Pedrosa <ipedrosa@redhat.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man3/strtol.3 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-I'll update the page.
-
-Thanks,
-Alex
-
->=20
-> Thanks,
-> Florian
->=20
-
+diff --git a/man3/strtol.3 b/man3/strtol.3
+index 01c658025..a5082a761 100644
+--- a/man3/strtol.3
++++ b/man3/strtol.3
+@@ -261,9 +261,10 @@ .SS Program source
+     errno =3D 0;    /* To distinguish success/failure after call */
+     val =3D strtol(str, &endptr, base);
+ \&
+-    /* Check for various possible errors. */
++    /* Check for various possible errors */
+ \&
+-    if (errno !=3D 0) {
++    if ((errno =3D=3D ERANGE && (val =3D=3D LONG_MAX || val =3D=3D LONG_MI=
+N))
++            || (errno !=3D 0 && val =3D=3D 0)) {
+         perror("strtol");
+         exit(EXIT_FAILURE);
+     }
 --=20
-<https://www.alejandro-colomar.es/>
+2.42.0
 
---hAMQJ/rSOKFu9kb5
+
+--1+UYQSmk4rN0iLCS
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVogrAACgkQnowa+77/
-2zKjug//ar8MJ1cKKKUMV3ByHSHaafrmJln6ieGBmWn+M16VV41mvy+rQkQa+pXI
-gboxsH+E5Br/mARFPdMLIJZSY7Ised2GfVXr6rTcRAv541e2PV3rjTVpfXBoCpME
-TLy+ZGyvBemVxJALFPNfWtZRl9JQ7GL6kjY3RhxoAAOl01cRGhwMUaysSrDPcjTL
-Gu2OLA7WbDu6EiWzLkkG4aKRCfIehRX2aJfvdLG99Y2bTIWvqtqd+rjNzafJH63T
-hF/TgsAwuNQVH4a9Hy1RQ/g6hJYBoPelw0v7sEFTHV6IwUnVnGRb5N+w/WCFcjdl
-KyaASSo3ZLWxHQVICU78yguhLbaOJGDc+Gh5d4CNqaPLyyMurpKFZ5jxsk6PIjak
-xjnmCe69UZqvkdg43lM7Asqodsubdp6iHbJcoYtwRV8BsUJqqvRDXXP2Uk0YXNgB
-I6KUzTS/gmqSi4KmGdj7EAEWSOlYHlBCPVG+dwECuf7bEl8fjRNSCjSuEwGeEFXZ
-1l/CrRQ0ynIP8cstq8AAUbffA3UTdDFe1haTSgYvN1HBjQBI2ICFQjah2MaQakq7
-YRC6TEaAHTIJ8OMoHijKMNAJvYushKYGFD3OEt1YDjQup8ZBwExgKwvIbl/p5pbd
-F0WGI9TvC0Z8SgAN+BquL3+0PQ06MZgRm5sXeAwNmuR67bKfr48=
-=WC8n
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVoqlsACgkQnowa+77/
+2zKegA//Wozs4uNlTrlHISnMEIOlQspUf9GHgOo8iBbBDk48WiAEouBuz/AQzT80
+vieOD4A/qJ6Ih8nw+KCLOHuUMCJ1AEMjEl9/UaxnF0vtVpcFVbR9HpMs8PBP29rs
+hcsPxlZD6KeQolqmsE83m1NQ5vdnhVgjnedWN1nqvpEEhOonBPiM2ssalWDiIbFt
+8G+qJUYy+2kYBR6Xg0sXQCaWorGY5xqmoAT0ceZFPUGfkktSmK/bGyw8Gd8482ZJ
+IOir1h4+EN/LBRoGNwJv0D2nyinG6SCOz4wDP3+Jfbx+W7im1tODrPboMci/BUPJ
+pv06kO0xcMByqTBpVcZVUf+JelAMz1xd3gaFisLZxsod738F1zytLAS9fSI8SEnN
+RpKhi/3RAuNww1cBAEnIyWxz7h4f81uL8wAk0i8w/Sb2QtkM16rNu527RpjMP/Pd
+ZbVSS9NfN+KufHwEmmQqEXyFL2SBfree3SFrxkzOthCcmFtJVCVcmkSsvM022dwO
+EYojYScdft74Jklya8faQiT8rR2bde4XpvHBbWILeJQfCb2sShg3nRbHLsjSsjEI
+K/MsZ1itY1lgDGkODUEdYj4VqcNtocLtaT2asHMs4mK2giVZQmyNZWDTNqxc1p3p
+kumdM3t0VVj147Xss7QcnkU4uWs9Lwv9YKw5/hUQG0t+WjeQ+es=
+=ibiP
 -----END PGP SIGNATURE-----
 
---hAMQJ/rSOKFu9kb5--
+--1+UYQSmk4rN0iLCS--
 
