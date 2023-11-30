@@ -1,44 +1,45 @@
-Return-Path: <linux-man+bounces-186-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-187-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4A247FD825
-	for <lists+linux-man@lfdr.de>; Wed, 29 Nov 2023 14:32:24 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC03F7FEBC5
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 10:22:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6F7D12825DC
-	for <lists+linux-man@lfdr.de>; Wed, 29 Nov 2023 13:32:23 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 681F6282080
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 09:22:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DD7020328;
-	Wed, 29 Nov 2023 13:32:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 683FA374C1;
+	Thu, 30 Nov 2023 09:22:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mG73FSP0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0iXoEHs"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426251774A
-	for <linux-man@vger.kernel.org>; Wed, 29 Nov 2023 13:32:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126FEC433C8;
-	Wed, 29 Nov 2023 13:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296D830FBA
+	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 09:22:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50FB7C433C8;
+	Thu, 30 Nov 2023 09:22:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701264738;
-	bh=yR0nkUVxkWSgG7UG6W7R65N654/i0Fnf7KLDxeptAYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mG73FSP00Z5enFuSFHTxr6XZUTimPfZ+4BF3Pe63EcqV/iWsyXH4SSvo05WAoIkOe
-	 eKKDrHIV3/2OPZ/CXejHqN/Cv8CHyRdRertxt5fgMCO9D6mmJOibyghRUYgdnu+m7U
-	 u6vUQsYKEtGxKETFTCFuNAxsGkBbz/O6rAn65LCgkcqKxu8Rh1fyEVbvmQdHi7rrfO
-	 92HysP0+2IzDi1fYiN2DqqrI2C2ZB4YnSlhwY0Nl49bHe6Z6URPyzsinqqTynWS+Ud
-	 +c5UcY5KC1e+U2BNbvMOTJYzfhwPBNo4p3U4pS16KjFTWa3vmsXLq94e/x43obIfo8
-	 YbFJJcAHjCYZg==
-Date: Wed, 29 Nov 2023 14:32:15 +0100
+	s=k20201202; t=1701336139;
+	bh=MtbJmua5fwoTzeyEWANPNdQD8ynVdsM7MBcJEgJsGTI=;
+	h=Date:From:To:Cc:Subject:From;
+	b=c0iXoEHsfmqPJg8/hQHz9KTMbNJahCCLpmGdbVUjxwwElFxKhceEn218aU7mkNMre
+	 anh9UZuOAxbXKx5tArJcTpzQ8exOJkNlaiW19gNj7h4ZX203Kc+lRT9/vuI8V6rdrN
+	 Xk+JLW6t6phlWFPgugUSclfEW4gkGIJTuUgybiZOkz+0HO8WlsCXuZivXYtlXLkIEd
+	 Py7MsRddbxlE7oJWmaq/F9ubbkRCtOvyvGo1Ffn3dsSTpaFH6VBLMeESzShybFgObL
+	 WFtdvEjvLVXetMKdxb8QVM6UzquHjQrjcde1Odh0PMR2qElGRakSGo/8jKnxHn0VeT
+	 vk7I0LizWVwRA==
+Date: Thu, 30 Nov 2023 10:22:09 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kasprzak <kas@fi.muni.cz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] wfix: sigaltstack(2) example: function pointer
-Message-ID: <ZWc9X9lLr728N26x@debian>
-References: <20231129131359.GH18109@fi.muni.cz>
+To: GNU C Library <libc-help@sourceware.org>,
+	Linux man-pages <linux-man@vger.kernel.org>
+Cc: Iker Pedrosa <ipedrosa@redhat.com>, shadow <~hallyn/shadow@lists.sr.ht>,
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: strtol(3) setting of errno
+Message-ID: <ZWhUR9AqoSLKeT46@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -46,92 +47,143 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W5v6+jv/MeAFqjgT"
+	protocol="application/pgp-signature"; boundary="2i9yBkDHvCQtnsXl"
 Content-Disposition: inline
-In-Reply-To: <20231129131359.GH18109@fi.muni.cz>
 
 
---W5v6+jv/MeAFqjgT
+--2i9yBkDHvCQtnsXl
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Nov 2023 14:32:15 +0100
+Date: Thu, 30 Nov 2023 10:22:09 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kasprzak <kas@fi.muni.cz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] wfix: sigaltstack(2) example: function pointer
+To: GNU C Library <libc-help@sourceware.org>,
+	Linux man-pages <linux-man@vger.kernel.org>
+Cc: Iker Pedrosa <ipedrosa@redhat.com>, shadow <~hallyn/shadow@lists.sr.ht>,
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: strtol(3) setting of errno
 
-Hi Jan,
+Hi,
 
-On Wed, Nov 29, 2023 at 02:13:59PM +0100, Jan Kasprzak wrote:
-> In the following example code:
->=20
->     sa.sa_handler =3D handler();      /* Address of a signal handler */
->=20
-> we expect to use a function pointer instead of actually calling a function
-> named handler(). So the parentheses in the above are superfluous.
+We were discussing a use of strtol(3) in shadow-utils, and after reading
+strtol(3) several times, I'm not sure about the exact interface of the
+function.
 
-s/superfluous/wrong/
+Normally, libc functions are allowed to set errno on success, and a
+caller should not inspect errno, even if it was set to 0 prior to the
+call, unless the function reported an error via the return value.
 
-> (Unless there is a function named "handler" returning a pointer to some
-> _other_ function, of course).
->=20
-> Signed-off-by: Jan "Yenya" Kasprzak <kas@fi.muni.cz>
+However, strtol(3) is a bit special, in that it's one of the few libc
+functions that report an error with a return value that is also in the
+range of valid return values of the function.
+
+So, here's how I understand the function works:
+
+-  If the base is unsupported, return 0, and set errno to EINVAL.  Let's
+   ignore this error for the rest of the question, since usually you set
+   the base to something common, likely 0 or 10.
+
+-  If no digits were found (no conversion is performed), return 0, set
+   *endptr =3D=3D str, and possibly set errno to EINVAL (setting errno is
+   allowed but not required).
+
+-  If the conversion would have overflowed, return LONG_MAX, and set
+   errno to ERANGE.
+-  If the conversion would have underflowed, return LONG_MIN, and set
+   errno to ERANGE.
+
+-  If the conversion succeeded, return the value, which may or may not
+   be 0, LONG_MIN, or LONG_MAX.  And the question here is: is there any
+   guarantee that strtol(3) won't set errno in this case?
+
+I ask because the manual page says:
+
+NOTES
+     Since  strtol()  can legitimately return 0, LONG_MAX, or LONG_MIN
+     (LLONG_MAX or LLONG_MIN for strtoll()) on both success and  fail=E2=80=
+=90
+     ure,  the  calling program should set errno to 0 before the call,
+     and then determine if an error occurred by checking whether errno
+     has a nonzero value after the call.
+
+And then in EXAMPLES:
+
+         val =3D strtol(str, &endptr, base);
+
+         /* Check for various possible errors. */
+
+         if (errno !=3D 0) {
+             perror("strtol");
+             exit(EXIT_FAILURE);
+         }
+
+         if (endptr =3D=3D str) {
+             fprintf(stderr, "No digits were found\n");
+             exit(EXIT_FAILURE);
+         }
+
+         /* If we got here, strtol() successfully parsed a number. */
+
+Which is consistent with a possible interpretation of what NOTES says,
+but I think that may be because it is a bit ambiguous.  The example
+program is my fault, because I changed that code:
+
+	commit 93f369892aeab4d56b92962224e318f739ee2455
+	Author: Alejandro Colomar <colomar.6.4.3@gmail.com>
+	Date:   Wed Oct 28 10:33:08 2020 +0100
+
+	    strtol.3: EXAMPLES: Simplify errno checking
+	   =20
+	    (No expected change in behavior,)
+	   =20
+	    Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+	    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
+
+	diff --git a/man3/strtol.3 b/man3/strtol.3
+	index a436bcac4..3889ef6b5 100644
+	--- a/man3/strtol.3
+	+++ b/man3/strtol.3
+	@@ -276,8 +276,7 @@ .SS Program source
+	=20
+	     /* Check for various possible errors */
+	=20
+	-    if ((errno =3D=3D ERANGE && (val =3D=3D LONG_MAX || val =3D=3D LONG_M=
+IN))
+	-            || (errno !=3D 0 && val =3D=3D 0)) {
+	+    if (errno !=3D 0) {
+		 perror("strtol");
+		 exit(EXIT_FAILURE);
+	     }
+
+Now I realize that commit was probably wrong, and one needs to check
+both errno and the return value to determine that the call failed.  Can
+you please confirm what the correct specification of strtol(3) is?
 
 Thanks,
 Alex
 
-> ---
->  man2/sigaltstack.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
-> index bd5e6ab..d88d490 100644
-> --- a/man2/sigaltstack.2
-> +++ b/man2/sigaltstack.2
-> @@ -345,7 +345,7 @@ if (sigaltstack(&ss, NULL) =3D=3D \-1) {
->  }
->  \&
->  sa.sa_flags =3D SA_ONSTACK;
-> -sa.sa_handler =3D handler();      /* Address of a signal handler */
-> +sa.sa_handler =3D handler;      /* Address of a signal handler */
->  sigemptyset(&sa.sa_mask);
->  if (sigaction(SIGSEGV, &sa, NULL) =3D=3D \-1) {
->      perror("sigaction");
-> --=20
-> 1.8.3.1
->=20
->=20
-> --=20
-> | Jan "Yenya" Kasprzak <kas at {fi.muni.cz - work | yenya.net - private}>=
- |
-> | https://www.fi.muni.cz/~kas/                        GPG: 4096R/A45477D5=
- |
->     We all agree on the necessity of compromise. We just can't agree on
->     when it's necessary to compromise.                     --Larry Wall
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---W5v6+jv/MeAFqjgT
+--2i9yBkDHvCQtnsXl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVnPV8ACgkQnowa+77/
-2zIkhBAAh6G7aDwwzaBS2wg7InD2bZouNrkZ5Rv7KzPaDXZBNf1GpOxKlEWUPTH2
-0On2GixQrmW53aUJd8s0AisNYXcHAEUTqrLPdo8Z+zjQH7e8z1aACx4jSE4KsZ9O
-rUPlQxbxCzGSb1m0sVQjd2bZD9TXhlajFYEMU0FTJ8cNf9dGODeCik6s2Jrnm7Lo
-t8Dh/6/DS1DTdFpZLAjT2dYwMQGG59iiOC/wykbGSpisRwWEuO+EEUR8TeGjtvdL
-jwLMJnGX9lz9dop3Vi97JRnvkCQuyzYo+HDpWjFqvoiSEy/z2olRmufqB3c4VfUH
-bSkknjMlkpImtk6tv+y1YxMeHJBfkKorRUU8GvyTXJJRafnef/+AtvdhxyuGpXhR
-sdSKM2Xqvz1WzOucvUyyzVfGXSZNSh6LorkTIj15ZV6EFHeDncSh52/7vzrXTeMV
-z0vNargIqGcda7gCg6s13W8wvevBpUhG2nz67pj9nikUIk0lGxTwWXKjAurX8zCm
-zaleDH/uMD6F4vMxk1wmz4q9EmvYa2xuKhni5ZLID781s09OmNeoZJ/kBG6gDeBi
-tMXROpcyLjzzCkylXB4F9MLe+/rt0CETH0b0LSfJ1bBy4oyE3+kZDdiK/0cxJDLi
-yEP1TYpYv0qBVo6TdOamTjh89gkAbJUjfFd+hEfUHdiHLXWj46Q=
-=pY4D
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVoVEEACgkQnowa+77/
+2zLcaA/7BPS+zOhpPU7ghPgYLIcJeq59FtmmRqGnqE3cuBiNRKs2isNQIyea1228
+//afzbKhJBcTMoiMsK/DwzQIgvMd8NgMTnKtR1/aCuFQO7GnNIeg0Pnxzd+9eydu
+GT+kwVKSyrIyeErP5dv46QCAfxS0ULQMbhCSZ/wHwdQEd3jdnC4C1VyCNK0jPxIs
+lMcLZVxsDd+tco1M0Bjm7utPw4IJ1Of3MqTISkjeo310mhyHxw70GVmFBjyrzXCO
+4JpjZM3PeOnMSFBOZWAP/lkhI4tj1B6uNgrNdCR89gPxaCYZhKyQNaaxE6ftmTMV
+tBSfz+e+N7Y2ws5UjJQD9oyDOYjTk8yKqZl5eeKPM40WMBF+dxy1Q6YYOUMGi4DB
+7V0FoEKV4iGMK7BjuHCSxr5FrkAZ04M/tlIcFbot4S9fdj1LyYMvhCS4eIy2l10O
+S/V1DTMlwnPZaVjnl5b2Tz3+dqcX/CLoNtyZNHmxkktPOzsdj14dJScjbZbSX6In
+047P6lBdQjd7jbmX2j3tlbPnz+57WowvniX+5JEBUoTODINg0DfaH6fS+Sz6ndnR
+538T89qIDsiQ96TZVb6uNjQOcK2999UW8hcndKxhPiCUxMWwwXN5lyrw0k5MqC9J
+w3pRknqsiWy1nFgo0bsWo8Vdzto/GEakJetsRLCbI+GFfQZMOzs=
+=pxP2
 -----END PGP SIGNATURE-----
 
---W5v6+jv/MeAFqjgT--
+--2i9yBkDHvCQtnsXl--
 
