@@ -1,69 +1,130 @@
-Return-Path: <linux-man+bounces-195-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-193-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB747FFEBD
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 23:50:56 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id A09977FFE8E
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 23:38:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 255C9281677
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 22:50:55 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 29ED2B20DAB
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 22:38:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0938736AE5;
-	Thu, 30 Nov 2023 22:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C98ED22070;
+	Thu, 30 Nov 2023 22:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAtyccHD"
 X-Original-To: linux-man@vger.kernel.org
-X-Greylist: delayed 1203 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 30 Nov 2023 14:50:46 PST
-Received: from 9.mo548.mail-out.ovh.net (9.mo548.mail-out.ovh.net [46.105.48.137])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBF7F194
-	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 14:50:46 -0800 (PST)
-Received: from mxplan6.mail.ovh.net (unknown [10.108.1.250])
-	by mo548.mail-out.ovh.net (Postfix) with ESMTPS id 4501F20584;
-	Thu, 30 Nov 2023 22:13:03 +0000 (UTC)
-Received: from jwilk.net (37.59.142.109) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 30 Nov
- 2023 23:13:02 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-109S003044215fd-2458-48b6-b939-86979da7b74b,
-                    37D3812BCA6D87C94946FD64308F71709B7C725B) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 31.175.208.160
-Date: Thu, 30 Nov 2023 23:13:01 +0100
-From: Jakub Wilk <jwilk@jwilk.net>
-To: Alejandro Colomar <alx@kernel.org>
-CC: Florian Weimer <fweimer@redhat.com>, <libc-help@sourceware.org>,
-	<linux-man@vger.kernel.org>, Iker Pedrosa <ipedrosa@redhat.com>,
-	<~hallyn/shadow@lists.sr.ht>, Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: strtol(3) setting of errno
-Message-ID: <20231130221301.nteiaukktf6om6un@jwilk.net>
-References: <ZWhUR9AqoSLKeT46@debian>
- <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
- <ZWiCsBkRpOLEc1Y3@debian>
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B045FF1E
+	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 22:38:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65551C433C7;
+	Thu, 30 Nov 2023 22:38:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701383909;
+	bh=cbHDKr+vBrMtxBJfdPOKsSfzG0zaWIyBDsjNjhlYd3A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TAtyccHDOU48qxIdbnMWftFndj3YH0N4WONvNIILMuQpzgA0YpxR6zCeT2mR2+UwQ
+	 U64OBGYziR82CcIUurW5hnyssfLcNAKd0/2awYgGp+RIfcxO4KFMOjZOhlyvLAZNnG
+	 CweN1UWHUfCAddgK5Gddd7bPRi5WO1YKBoeYCdJvdj9YzPDQSDr+28xJOTuMzgBLh0
+	 B62m2mZA42xrlONlHDnCCAfk/6z8/ZQ5uy711AgDyw/Z5FojGDI7JSdojhs9F5u073
+	 nQ0F5JXgLrMS5mY/bDUjpI7C2pob3HrD9tqtKACJxw86L5Mw/Vh4/U7fevLfS33fAa
+	 GvdcGTsm73Iyw==
+Date: Thu, 30 Nov 2023 23:38:18 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Deri <deri@chuzzlewit.myzen.co.uk>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Optimize script for generating LinuxManBook.pdf
+Message-ID: <ZWkO4qPC4BxkwBNm@debian>
+References: <ZV4XNnNlv8OK1B1m@debian>
+ <ZV_OXhw7V6Vk1HBR@debian>
+ <ZWCNHM9qQnK96ksZ@debian>
+ <17198161.Vt6cx1TxTY@pip>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mu7jWMvDTsd1dFIG"
 Content-Disposition: inline
-In-Reply-To: <ZWiCsBkRpOLEc1Y3@debian>
-X-ClientProxiedBy: DAG5EX2.mxp6.local (172.16.2.42) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: d05c00b4-96a0-466f-bbc0-1d5b63209747
-X-Ovh-Tracer-Id: 643733272058713961
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeijedgudehjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjihesthdtredttddtvdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepuedttdetlefhffduvdehgfefudejledtkeehudevkeekleefudeuvdegjedufffgnecukfhppeduvdejrddtrddtrddupdefjedrheelrddugedvrddutdelpdefuddrudejhedrvddtkedrudeitdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjfihilhhksehjfihilhhkrdhnvghtqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrlhigsehkvghrnhgvlhdrohhrghdpfhifvghimhgvrhesrhgvughhrghtrdgtohhmpdhlihgstgdqhhgvlhhpsehsohhurhgtvgifrghrvgdrohhrghdplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdpihhpvggurhhoshgrsehrvgguhhgrthdrtghomhdpmihhrghllhihnhdsshhhrgguohifsehlihhsthhsrdhsrhdrhhhtpdhmthhkrdhmrghnphgrghgvshesghhmrghilhdrtghomhdpoffvtefjohhsthepmhhohe
- egkedpmhhouggvpehsmhhtphhouhht
+In-Reply-To: <17198161.Vt6cx1TxTY@pip>
 
-* Alejandro Colomar <alx@kernel.org>, 2023-11-30 13:40:
->Since POSIX doesn't specify, I assume it allows setting errno on 
->success, as with any other libc function.  That includes setting errno 
->on a successful call that returns 0.
 
-No? "These functions shall not change the setting of errno if 
-successful."
+--mu7jWMvDTsd1dFIG
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Nov 2023 23:38:18 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Deri <deri@chuzzlewit.myzen.co.uk>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Optimize script for generating LinuxManBook.pdf
 
--- 
-Jakub Wilk
+Hi Deri,
+
+On Thu, Nov 30, 2023 at 04:56:38PM +0000, Deri wrote:
+> Hi Alex,
+>=20
+> I have attached the latest iteration of my work, managed to knock two sec=
+onds=20
+> off the current code in your git.
+
+Nice!
+
+> It no longer uses temporary files,
+
+It is creating a temporary dj.Z file.  Is that a leftover?
+
+> outputs=20
+> the pdf to stdout, can be run from any directory and runs groff once.
+
+Great.
+
+> It replaces the complete LinuxManBook directory and the executable is now=
+=20
+> called BuildLinuxMan2.pl.
+
+I'd prefer if the huge groff code would go in a separate file.  Would
+that make sense?
+
+Thanks,
+Alex
+
+>=20
+> Cheers=20
+>=20
+> Deri
+>=20
+>=20
+
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--mu7jWMvDTsd1dFIG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVpDtoACgkQnowa+77/
+2zIkRg//WUczcSOk9POjDJUP7aWunDS0WbHtppIJ2CqNMVxSNRWr2juhWGWJRt0S
+FloiSVyIBx3nrSr1xBAOqx/pv6H0+uDxflwTnnaVqYI0RB836noYQaq0u381Eh6/
+qpTcWopVaSPEru+V0ZW/MsrObrHuh59Gkffe96z70ZVS2e0QYcNpD5wI5y30FYVr
+jVJpMv1J4iezXVMcQfhPT24dJyQjZs+I2WZeyTMGaZu9MfSviPdCNeagCUcSFEIK
+vl1OANZaqipcY2HP8vndFTRyz7pSuaCAFUROnglM+m3NM39fo2DolmkXYKVMwvoD
+HO2HXY1XDNnoVFkk/Vh3V52OUKYn7M7UrkZtERBloMGWw6kZhrAhugF6obGiSBNY
+0EyIzoaVRMq70vQgNwxA3CIkrBfPuh3hlklRFtNh7cZ8MfYsO50o107TJ163pu7O
+pVCqg3hdfO87iGfndXc/mH9COdfdlZGRbyemgHz69oZ24rLnIAjAxkJDEdUWjz9m
+DZXoZKyvLnDf8206P00nqEQg3tkgH5IEcMYApQhavUXzOEKclp80LV/aexOgUJn2
+Q0wXfYSbVvw1vRKQQqPpoxx1VJU0OsrAN1EoJ7QvkIDHv7MkFPj7EgPUxu3hM2TY
+f8ecnMeGrPVCm/JyfXrdCWHGVVHlni1NOkyOxaosOgDabG7RbZg=
+=Mqvo
+-----END PGP SIGNATURE-----
+
+--mu7jWMvDTsd1dFIG--
 
