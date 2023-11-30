@@ -1,76 +1,124 @@
-Return-Path: <linux-man+bounces-188-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-189-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F787FEE73
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 13:00:45 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE12D7FEF48
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 13:40:25 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2A8FE281B08
-	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 12:00:44 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id CA48BB20DD6
+	for <lists+linux-man@lfdr.de>; Thu, 30 Nov 2023 12:40:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B5E03DB9C;
-	Thu, 30 Nov 2023 12:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D4FB3AC20;
+	Thu, 30 Nov 2023 12:40:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q2HB59A3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1qgjSoE"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7524D1704
-	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 04:00:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701345637;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5zDyNQnTe/a1a+K5frhqHKl1OV9alFTyrp2wttcHkEw=;
-	b=Q2HB59A38Z6kMo9vi+MAWFb+HIA0+H+S6zDlfTYLZvSVf5Ua60Dw/ZmzYVKIZaFYOAzmeE
-	gGnuEZOjEmOUsf5hjZeM7ssC7FnapyQiYsmecMlsKOMEAq8ppnSrbjZdQxlySDOyPaG2bs
-	mSNiGCRI0qPZG3NSg1vFQrE6IYAlPwk=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-606-2RUQTxZFMoCA8i6Y4hWb_Q-1; Thu,
- 30 Nov 2023 07:00:34 -0500
-X-MC-Unique: 2RUQTxZFMoCA8i6Y4hWb_Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96B7B28040B1;
-	Thu, 30 Nov 2023 12:00:33 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (unknown [10.2.16.45])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58B172166B27;
-	Thu, 30 Nov 2023 12:00:32 +0000 (UTC)
-From: Florian Weimer <fweimer@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: GNU C Library <libc-help@sourceware.org>,  Linux man-pages
- <linux-man@vger.kernel.org>,  Iker Pedrosa <ipedrosa@redhat.com>,  shadow
- <~hallyn/shadow@lists.sr.ht>,  Michael Kerrisk <mtk.manpages@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114E4778D
+	for <linux-man@vger.kernel.org>; Thu, 30 Nov 2023 12:40:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211F9C433C8;
+	Thu, 30 Nov 2023 12:40:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701348020;
+	bh=vjAxLHE4Qpr3Pcd3/ne9WLGhR6GUlJgmrfQ4e4sF1r8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=O1qgjSoEUosxGtpAYigTuSMNzz5NYc/Pjn8fTTC6IiD54md+prxPH+d9UWXg7OWz+
+	 E3pAr5MSRa5/07194PS9tjQRIUPIE0ppJthTrSlTp2ShygWyEtKSk4ibsAp+gFRH6y
+	 FzSbZcJiE5wHkb2d4CgP177As4fcKUhXttv787OVu+EPtbZZNSkhrc0TZmchH6ToD+
+	 GPHFLB0DeFiCeuByX959CDcKH3erR/mDLiDi+ivEKNkm+bnE6SbH25x1YKsolFracr
+	 kmgN888D6URqMbLrCGX2liM6rXs5Xyb7S4NXF3/WUaFQXKpCISwVZ6g+9rBHjZ/350
+	 i/CKXxlHgMOSA==
+Date: Thu, 30 Nov 2023 13:40:16 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: GNU C Library <libc-help@sourceware.org>,
+	Linux man-pages <linux-man@vger.kernel.org>,
+	Iker Pedrosa <ipedrosa@redhat.com>,
+	shadow <~hallyn/shadow@lists.sr.ht>,
+	Michael Kerrisk <mtk.manpages@gmail.com>
 Subject: Re: strtol(3) setting of errno
+Message-ID: <ZWiCsBkRpOLEc1Y3@debian>
 References: <ZWhUR9AqoSLKeT46@debian>
-Date: Thu, 30 Nov 2023 13:00:30 +0100
-In-Reply-To: <ZWhUR9AqoSLKeT46@debian> (Alejandro Colomar's message of "Thu,
-	30 Nov 2023 10:22:09 +0100")
-Message-ID: <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.3 (gnu/linux)
+ <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hAMQJ/rSOKFu9kb5"
+Content-Disposition: inline
+In-Reply-To: <87cyvrv4bl.fsf@oldenburg.str.redhat.com>
 
-* Alejandro Colomar:
 
-> Now I realize that commit was probably wrong, and one needs to check
-> both errno and the return value to determine that the call failed.  Can
-> you please confirm what the correct specification of strtol(3) is?
+--hAMQJ/rSOKFu9kb5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Nov 2023 13:40:16 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: GNU C Library <libc-help@sourceware.org>,
+	Linux man-pages <linux-man@vger.kernel.org>,
+	Iker Pedrosa <ipedrosa@redhat.com>,
+	shadow <~hallyn/shadow@lists.sr.ht>,
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: strtol(3) setting of errno
 
-The most detailed specification we have is the one that is in POSIX.
+Hi Florian,
+
+On Thu, Nov 30, 2023 at 01:00:30PM +0100, Florian Weimer wrote:
+> * Alejandro Colomar:
+>=20
+> > Now I realize that commit was probably wrong, and one needs to check
+> > both errno and the return value to determine that the call failed.  Can
+> > you please confirm what the correct specification of strtol(3) is?
+>=20
+> The most detailed specification we have is the one that is in POSIX.
+
+Since POSIX doesn't specify, I assume it allows setting errno on
+success, as with any other libc function.  That includes setting errno
+on a successful call that returns 0.  Which means that the errno check
+must check for the specific errno values that actually mean an error of
+this function.
+
+I'll update the page.
 
 Thanks,
-Florian
+Alex
 
+>=20
+> Thanks,
+> Florian
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--hAMQJ/rSOKFu9kb5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVogrAACgkQnowa+77/
+2zKjug//ar8MJ1cKKKUMV3ByHSHaafrmJln6ieGBmWn+M16VV41mvy+rQkQa+pXI
+gboxsH+E5Br/mARFPdMLIJZSY7Ised2GfVXr6rTcRAv541e2PV3rjTVpfXBoCpME
+TLy+ZGyvBemVxJALFPNfWtZRl9JQ7GL6kjY3RhxoAAOl01cRGhwMUaysSrDPcjTL
+Gu2OLA7WbDu6EiWzLkkG4aKRCfIehRX2aJfvdLG99Y2bTIWvqtqd+rjNzafJH63T
+hF/TgsAwuNQVH4a9Hy1RQ/g6hJYBoPelw0v7sEFTHV6IwUnVnGRb5N+w/WCFcjdl
+KyaASSo3ZLWxHQVICU78yguhLbaOJGDc+Gh5d4CNqaPLyyMurpKFZ5jxsk6PIjak
+xjnmCe69UZqvkdg43lM7Asqodsubdp6iHbJcoYtwRV8BsUJqqvRDXXP2Uk0YXNgB
+I6KUzTS/gmqSi4KmGdj7EAEWSOlYHlBCPVG+dwECuf7bEl8fjRNSCjSuEwGeEFXZ
+1l/CrRQ0ynIP8cstq8AAUbffA3UTdDFe1haTSgYvN1HBjQBI2ICFQjah2MaQakq7
+YRC6TEaAHTIJ8OMoHijKMNAJvYushKYGFD3OEt1YDjQup8ZBwExgKwvIbl/p5pbd
+F0WGI9TvC0Z8SgAN+BquL3+0PQ06MZgRm5sXeAwNmuR67bKfr48=
+=WC8n
+-----END PGP SIGNATURE-----
+
+--hAMQJ/rSOKFu9kb5--
 
