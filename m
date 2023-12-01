@@ -1,124 +1,101 @@
-Return-Path: <linux-man+bounces-198-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-199-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0859A800057
-	for <lists+linux-man@lfdr.de>; Fri,  1 Dec 2023 01:37:58 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ED3A800AA0
+	for <lists+linux-man@lfdr.de>; Fri,  1 Dec 2023 13:16:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 16DE51C20E62
-	for <lists+linux-man@lfdr.de>; Fri,  1 Dec 2023 00:37:57 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 0CB2FB21126
+	for <lists+linux-man@lfdr.de>; Fri,  1 Dec 2023 12:16:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F5C617CD;
-	Fri,  1 Dec 2023 00:37:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E79524B35;
+	Fri,  1 Dec 2023 12:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pf7eFPKh"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cq93vFvD"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AC67FF
-	for <linux-man@vger.kernel.org>; Fri,  1 Dec 2023 00:37:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5B9C433C8;
-	Fri,  1 Dec 2023 00:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701391075;
-	bh=w3gn9Y8zZb46NawUTP/HlTsF/yzjcXx4DKTWybqzqWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Pf7eFPKheaJymljxhURjYwYLnQweef97UML4UydvxAt7MalSKAFfelE7ZOmEue2qw
-	 tD+kJNI/3WcZGH72tVDlQ6BL2evNcpAKpt7/iGPB5gFqUQEz7KWO/+bUC7KWvSzdIo
-	 SLGI9+jQIjHONTk9D/QzpZ+iqmsrgPxTh51rSPcKJU7tCHSKsaq5V2WqjHP2qDVsD8
-	 3m9nIdfyTj5Lp54T5AHyGsDt43lt8nX32HAf5Zrb63KBAgVhuiGS5ilMhhc/SqVuCr
-	 qzNb85obYSXYB5CP1biYMnyh6dcpBEA2J/SYjnEyNQ3QXqiYwxyJufQFb/2NPz2msZ
-	 HB8vQ+uwfsT6A==
-Date: Fri, 1 Dec 2023 01:37:52 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Optimize script for generating LinuxManBook.pdf
-Message-ID: <ZWkq4AMhPgMcezPn@debian>
-References: <ZV4XNnNlv8OK1B1m@debian>
- <ZV_OXhw7V6Vk1HBR@debian>
- <ZWCNHM9qQnK96ksZ@debian>
- <17198161.Vt6cx1TxTY@pip>
- <ZWkO4qPC4BxkwBNm@debian>
- <ZWklguznkCz6pdr8@debian>
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3EA3170E
+	for <linux-man@vger.kernel.org>; Fri,  1 Dec 2023 04:16:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1701433001;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=z6oyHf6F6gXhmHd198MeYmDWj4Dvk3yjqDPb5/NY6f8=;
+	b=Cq93vFvDX4sah+MR3uUohzG4XSBPuh22H+ZO0vmDbCi4opF7UX/U/X6HCgvo224JQUnz2k
+	RjCActEM+rBL9POrSKnoKXThJFVA+I2DRzJ7SS+XaEn4yeSZnOGTXbP7XFaLJssouWwmqN
+	OuB2korlU8BIUnCY/PWEn/Zdb2ChlxI=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-549-iL8aZSj0OFW4ZY-ExFHm6Q-1; Fri, 01 Dec 2023 07:16:40 -0500
+X-MC-Unique: iL8aZSj0OFW4ZY-ExFHm6Q-1
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-54c6bdefc9cso67215a12.1
+        for <linux-man@vger.kernel.org>; Fri, 01 Dec 2023 04:16:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701432999; x=1702037799;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=z6oyHf6F6gXhmHd198MeYmDWj4Dvk3yjqDPb5/NY6f8=;
+        b=PChzU3T/cPqgBq/1+8pgCbxhoNXVKPmkFWv0XF8yLcSU1R6d+cxnYfrR4IyzSG8GB7
+         Jg8wuWNWHldjlhVo+Z6dv8veZVKq558ZdEZ2S0+YBtzwXRpKKpi8y83D3SiKD2CSHM+P
+         ff4vEYeuUPRY5MNFJQQ8bCCDiTT2Azx5uzRB8XVUZhcSUdubn4B6PK6qGL4g/B1+OdFP
+         XWNzQ8q9S14h3gsrx2TdYWfxewxSFfjYzLS+aFA+Y/bVOjG2llWCRUp8IUzUGH/ACDoG
+         1Tzaf/VF8xsvRY4yLcIKvsledmzfc8nJFafL8OOLSm/K86wtLsyPtSGsIPA2ombCLASz
+         Ad+Q==
+X-Gm-Message-State: AOJu0YxXTvAvkVGsmfgrXAwT8NtKWzRJ1rSWjjfqLIXBZcYa36u+huSb
+	VGqEk5FefLgv2vytU9+xQYqoaV2D2N49Et6hcMkU9e6iYDfgMwo4YBmmzRehlzUTgYGdtgigYRo
+	GVYMe0J3K8VLaSDLOJWvOUZo9/ywqtvV06Rg9rpcSqm9fdtA=
+X-Received: by 2002:a50:951d:0:b0:54c:4837:9fdc with SMTP id u29-20020a50951d000000b0054c48379fdcmr491799eda.51.1701432999016;
+        Fri, 01 Dec 2023 04:16:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHvdI9TQZOnhc/wFUemuWNqCZ+FbgRBynjffFHTR/gHsMB6qpLodvFDryPusAT9MQQkzW0gxbzGIJZ9Jb8m1v4=
+X-Received: by 2002:a50:951d:0:b0:54c:4837:9fdc with SMTP id
+ u29-20020a50951d000000b0054c48379fdcmr491794eda.51.1701432998720; Fri, 01 Dec
+ 2023 04:16:38 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n+44GDa4pnvzaiXC"
-Content-Disposition: inline
-In-Reply-To: <ZWklguznkCz6pdr8@debian>
+From: Alexey Tikhonov <atikhono@redhat.com>
+Date: Fri, 1 Dec 2023 13:16:27 +0100
+Message-ID: <CABPeg3a9L0142gmdZZ+0hoD+Q3Vgv0BQ21g8Z+gf2kznWouErA@mail.gmail.com>
+Subject: UNIX(7)
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hello.
 
---n+44GDa4pnvzaiXC
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 1 Dec 2023 01:37:52 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Optimize script for generating LinuxManBook.pdf
+There is a discrepancy between the man page description of
+'SO_PEERCRED' and real behavior.
 
-On Fri, Dec 01, 2023 at 01:14:58AM +0100, Alejandro Colomar wrote:
-> Hi Deri,
->=20
-> On Thu, Nov 30, 2023 at 11:38:18PM +0100, Alejandro Colomar wrote:
-> > > It replaces the complete LinuxManBook directory and the executable is=
- now=20
-> > > called BuildLinuxMan2.pl.
-> >=20
-> > I'd prefer if the huge groff code would go in a separate file.  Would
-> > that make sense?
->=20
-> I've applied a few tweaks to the script you sent before committing it.
-> The performance is similar, and it's less of a change to the current
-> code.
->=20
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
-ommit/?h=3Dcontrib&id=3D0e64299d4dd0df90ea52b3fe6777e5ebfb2484da>
->=20
-> I think we should be able to cut half a second or so if we add a
-> BuildSec() function so that we don't block the first page until the
-> entire sort is done.  And it would be also more readable.  Please check.
+`man 7 unix` states:
+```
+       SO_PEERCRED
+              This read-only socket option returns the credentials of
+              the peer process connected to this socket.  The returned
+              credentials are those that were in effect at the time of
+              the call to connect(2) or socketpair(2).
+```
 
-I amended a bit more, to keep the old LMBfront and an.tmac files with
-minimal changes.
+This doesn't match real behavior in following situation (just an example):
+ - process starts with uid=0, gid=0
+ - process creates UNIX socket, binds it, listens on it
+ - process changes to uid=uid1, git=gid1 (using `setresuid()`, `setresgid()`)
+ - another process connects to the listening socket and requests
+peer's credentials using `getsockopt(... SOL_SOCKET, SO_PEERCRED ...)`
 
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D1adc2425f771bdd4089b06646d21c9eecf73c69c>
+According to the man page: SO_PEERCRED should report (uid1, gid1),
+because peer process was running under (uid1, gid1) "at the time of
+the call to connect(2)"
+In reality SO_PEERCRED reports (0, 0)
+Reproducing code is available in
+https://bugzilla.redhat.com/show_bug.cgi?id=2247682
 
-Cheers,
-Alex
+I'm not entirely sure if this is a real bug or rather a  poor
+description in the man page, but I tend to think that it's the latter.
 
---=20
-<https://www.alejandro-colomar.es/>
-
---n+44GDa4pnvzaiXC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVpKuAACgkQnowa+77/
-2zLa2hAAnVgA2HBZ4N1sGHKUl1GH1Mu0wRFW/TD50d7laenOELiK+H2PYWHAzRTe
-eWpy8kiAzL8Py583PRIRsnqYE8lTkIpnjE5TEJbtwS+9JfPMftUBGEExVctzYVxy
-cFI+ngr1Lqt/skjK7jdjYwbuBMQaudg4eATaHdmVZ9Xjh8RqI2KHkyY8nkn17G5y
-G7h1TWJaVp1HKRYHsXUWNNwuu7q/IJLbhLFB0aooCjgIyTVcKZzEtK0Z/a+8zbkC
-gKv3If/eWEEq8aPkq+hDVuscFMn+YGUXH6LevbZvFCMtHWY5JIqGhHtsA572gd5T
-kyPaiBwCD2CrlSPTxzRmmF0lOoRqKk5D+501l/2km9se3Db7Q9tdqmNRlrIrDR13
-0RxLuUN1Plv7i+UvJ4Djj1W1dKOZwdGVIYGs9D2ZuubG6L0ViAegp5uJWckpYB0l
-yEMA0KvhL7P2X3qIrSjExqfLlislNrnoq8YjfNF7DspYpf0pcmqVMet2kAemqOpc
-81BnWJgXPANifxICVXqD8F3+UI1SBzNNhjnl6iNirP4Q1mS2z+CnYNMX5m1N/l9/
-AXUSqLjszjDZKFyQQSXAXpBqXA6K7TRHamnhhRZ4bXBYJpSnq09gNT1x/6y+u2jh
-JvpcTkqwyRxhD6h/ADCGcnHXXNOHR/iYYX4duHrx0L2dF3FaXBA=
-=v29P
------END PGP SIGNATURE-----
-
---n+44GDa4pnvzaiXC--
 
