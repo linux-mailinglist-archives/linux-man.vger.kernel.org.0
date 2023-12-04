@@ -1,111 +1,146 @@
-Return-Path: <linux-man+bounces-206-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-207-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 335C280194B
-	for <lists+linux-man@lfdr.de>; Sat,  2 Dec 2023 02:08:14 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFD2D802FC6
+	for <lists+linux-man@lfdr.de>; Mon,  4 Dec 2023 11:12:15 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id D9C361F210FA
-	for <lists+linux-man@lfdr.de>; Sat,  2 Dec 2023 01:08:13 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 5AB311F20CC9
+	for <lists+linux-man@lfdr.de>; Mon,  4 Dec 2023 10:12:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDFE21385;
-	Sat,  2 Dec 2023 01:08:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F7C91F958;
+	Mon,  4 Dec 2023 10:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HR12Jy2L"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D/NhjtgV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915137E2
-	for <linux-man@vger.kernel.org>; Sat,  2 Dec 2023 01:08:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA926C433C7;
-	Sat,  2 Dec 2023 01:08:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701479289;
-	bh=HOa4ZoWYMeJignVlj9hfWoJm87rJTTO7mhv69pXSNyo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HR12Jy2LrJXssh+nqUCtW2gLUj8Zk4j20ut6P7bIOOjb+VBMXsr75iVZW+kmUB9r2
-	 M/JuwmqbmklBcLqLbililtfqXkq5IvXIxa60sSwdMMnj9+rkuWRlr6/rpwju9aBXaU
-	 Y9FEDfj8F8qsPYIjoC6EdZnE4zCIIZPiWviETU8/wBF572/bBBk2mV2kt6yO0Pn2Rn
-	 BJAgk6YjMUkmZvslGGVXLAVFrYwrbKONbz4kWiIWAwgiUOzhCNIfh1rMFJSyUzuo1C
-	 GVQoHdOht4s5qbfIqpzDtcPcP2su+Il4pWoUbTh6bxgmwFB6vlg8EKK4HzqanQw5TP
-	 8l0tYlxYEeULw==
-Date: Sat, 2 Dec 2023 02:08:05 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>,
-	Alejandro Colomar <alx.manpages@gmail.com>,
-	linux-man@vger.kernel.org,
-	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH] ioctl_console: Document new CAP_SYS_ADMIN restrictions
- (since Linux 6.7)
-Message-ID: <ZWqDdeoRK2jGme5S@debian>
-References: <20231201122645.3237941-1-gnoack@google.com>
- <ZWnYCcuJql0Pm4Yr@debian>
- <2023120253-handed-protector-fc81@gregkh>
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04377D5
+	for <linux-man@vger.kernel.org>; Mon,  4 Dec 2023 02:12:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1701684729;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cdTeCVbBKNIz3exfVUizApI93s0ffcM8icuOOUOmJ3U=;
+	b=D/NhjtgVEDMBli+bT3IoWR21gJwq2xTEyutyvICLyI/6RPPH3XQvhZdGxcwjXhanWrFFNY
+	ta1vqJqZhlkRW4hQMeoVu6xml57NdjnVUD5YkGl9kBx9Ay+FlxKW/fbwOxzs0FBsnww/+A
+	XHtL6LzDLOBEk8qxX4oUns4rlj5nqGs=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-464-oghA0c7dP9Kc7_wJ_qrlHQ-1; Mon, 04 Dec 2023 05:12:07 -0500
+X-MC-Unique: oghA0c7dP9Kc7_wJ_qrlHQ-1
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-54ca588b6d6so660585a12.1
+        for <linux-man@vger.kernel.org>; Mon, 04 Dec 2023 02:12:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701684726; x=1702289526;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cdTeCVbBKNIz3exfVUizApI93s0ffcM8icuOOUOmJ3U=;
+        b=hns4rxEdDF/sdZ23Zc/lY9vguUjHvSuqTkMHp1OJ1hTL0hFCLdKAqH1qcNeubQVObu
+         UTmrDreLSJsycEQaPKHhr2gXljQfex3E1w63Sot1wL3aLK0SnN598RmV5c1GfGCIM6XI
+         kXx0AaCLWOIU5EQ4dXB5pXhqU+GXT7O00g3xDedQX19dEf3E3AW7u6UdcNu0wtkr9GsG
+         LQ33B349PIUYGhKxlmIFyk0P21VMGGoMadVMJcdvjsGHD4hiFTJ1hNZVhMVo8uaw+7tp
+         wFCQ3MqHpcZ+aUAC68u1sRdeA2sq9H6hjsMAxZpRa/j9+CPZq6OjituLOWYUO1j468Lx
+         D3zQ==
+X-Gm-Message-State: AOJu0Yw0l+PF0I5FS93V2MVNCv4Om4yTcAqrxGBrp79oMQ9JEnPVYL9S
+	ruYvHzLu2st0sPDq068RnI0GLFinbFKFs2dXgEJM4Yy9GMB3aVzEn89HRsUmjMlFrnxSOj2DMbi
+	9dVEhJouTHX5lDKT0TMMBJkYW6Ev8xZc8qSMR
+X-Received: by 2002:aa7:d952:0:b0:54c:7833:c111 with SMTP id l18-20020aa7d952000000b0054c7833c111mr1771262eds.36.1701684726561;
+        Mon, 04 Dec 2023 02:12:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE6KO+0DEtzpvHP7tJMyeJVf99YpOjaGGQXV6bz2Km4+w5+B60WueRbh3qCS4/3XJ2MkbutBg9ybAgTn+GT5kw=
+X-Received: by 2002:aa7:d952:0:b0:54c:7833:c111 with SMTP id
+ l18-20020aa7d952000000b0054c7833c111mr1771251eds.36.1701684726322; Mon, 04
+ Dec 2023 02:12:06 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pirkJeZT6tQS9oBN"
-Content-Disposition: inline
-In-Reply-To: <2023120253-handed-protector-fc81@gregkh>
-
-
---pirkJeZT6tQS9oBN
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <ZWnXlcsVJfPO1Qsb@debian> <20231201220743.32491-1-kuniyu@amazon.com>
+In-Reply-To: <20231201220743.32491-1-kuniyu@amazon.com>
+From: Alexey Tikhonov <atikhono@redhat.com>
+Date: Mon, 4 Dec 2023 11:11:55 +0100
+Message-ID: <CABPeg3ZZCDkRaVy2towZ-amU9v-rQSXZ_M_KnfY1SfWhhT-AZw@mail.gmail.com>
+Subject: Re: UNIX(7)
+To: Kuniyuki Iwashima <kuniyu@amazon.com>, alx@kernel.org, linux-man@vger.kernel.org
+Cc: libc-alpha@sourceware.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 2 Dec 2023 02:08:05 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>,
-	Alejandro Colomar <alx.manpages@gmail.com>,
-	linux-man@vger.kernel.org,
-	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH] ioctl_console: Document new CAP_SYS_ADMIN restrictions
- (since Linux 6.7)
 
-Hi Greg,
+On Fri, Dec 1, 2023 at 11:08=E2=80=AFPM Kuniyuki Iwashima <kuniyu@amazon.co=
+m> wrote:
+>
+> From: Alejandro Colomar <alx@kernel.org>
+> Date: Fri, 1 Dec 2023 13:54:39 +0100
+> > Hello Alexey,
+> >
+> > On Fri, Dec 01, 2023 at 01:16:27PM +0100, Alexey Tikhonov wrote:
+> > > Hello.
+> > >
+> > > There is a discrepancy between the man page description of
+> > > 'SO_PEERCRED' and real behavior.
+> > >
+> > > `man 7 unix` states:
+> > > ```
+> > >        SO_PEERCRED
+> > >               This read-only socket option returns the credentials of
+> > >               the peer process connected to this socket.  The returne=
+d
+> > >               credentials are those that were in effect at the time o=
+f
+> > >               the call to connect(2) or socketpair(2).
+> > > ```
+> > >
+> > > This doesn't match real behavior in following situation (just an exam=
+ple):
+> > >  - process starts with uid=3D0, gid=3D0
+> > >  - process creates UNIX socket, binds it, listens on it
+> > >  - process changes to uid=3Duid1, git=3Dgid1 (using `setresuid()`, `s=
+etresgid()`)
+> > >  - another process connects to the listening socket and requests
+> > > peer's credentials using `getsockopt(... SOL_SOCKET, SO_PEERCRED ...)=
+`
+> > >
+> > > According to the man page: SO_PEERCRED should report (uid1, gid1),
+> > > because peer process was running under (uid1, gid1) "at the time of
+> > > the call to connect(2)"
+> > > In reality SO_PEERCRED reports (0, 0)
+> > > Reproducing code is available in
+> > > https://bugzilla.redhat.com/show_bug.cgi?id=3D2247682
+> > >
+> > > I'm not entirely sure if this is a real bug or rather a  poor
+> > > description in the man page, but I tend to think that it's the latter=
+.
+>
+> When calling getsockopt(), we cannot know dynamically who the peer's
+> owner is.  So, we just initialise the cred when we know the owner,
+> and it's the caller of listen(), connect(), and socketpair().
+>
+> In your case, the listener's cred is initialised with the caller's
+> cred during the first liten().
+>
+>   listener's peer_cred =3D get_cred(rcu_dereference_protected(current->cr=
+ed, 1))
 
-On Sat, Dec 02, 2023 at 12:14:06AM +0100, Greg Kroah-Hartman wrote:
-> > Are these requirements expected to be backported to stable kernels?
->=20
-> I don't think so, do you think they should be?
+Thank you for the explanation.
+So this is an omission in the man page.
 
-I was asking just out of curiosity.  Unless someone else speaks up,
-probably not.
+>
+> And connect() will initialise two creds as follows:
+>
+>   connect()er's peer_cred =3D listener's peer_cred
+>   new socket's peer_cred =3D get_cred(rcu_dereference_protected(current->=
+cred, 1))
+>
+> If you call listen() again after setresuid() and before connect(),
+> you can update the listener's cred and get the new IDs at the final
+> getsockopt().
+>
 
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---pirkJeZT6tQS9oBN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVqg3UACgkQnowa+77/
-2zKTGg//eoSC+adSC6p4VBgB0TN60td7gwsl1orGqeFrzjesUt2E/basag9dbJVU
-VmCl5aGRQmhAFgUQrJoUkhK4E+FmtE+/OPrXtf2h/qnEcj+gLBZl7836OjBfFtWm
-98q8PZoXzABMTmhfWWU7q4J0e7SbGt1/RXkz2pR/Md/5GJJ/M65868no50S9aowT
-Zc3IGwrzES1YIX6ivoGspOIdUt4Bs1dE3tbyPReLbExn4pCXhFtgi2sr+5ecVId0
-8QpspywPBQmm0iMj1YuxqR1YnMWe70XxXNv2Ig19deBgTYD1kAkMck+js1jJXQRm
-FdCKXF8waQ1R+rikZ4hr+LRY/q0Gh2GXBK+6zuyq9hg2fQhUkw9URCIGn4zRJleh
-8VS+kA0TSw0my1j6HTJwZLB4cWd+GkiYPbyhyODenmuON6udForNgz8lAl/ix/12
-EbcXc9x0ztPzYF74eLcCEhqa7D1PVriS5Ivp40hdQzzPXZ2W4Kg05IQj3Y19489H
-g7VbWSxZAtNPYm9P6rsaaJy6nPcLLBhZrvFBueO19SwJ4Ja4FL+f742A8bPYw5Bc
-jV9mIQkPxSDrBdxbx8I0So30ZRNw+ZIOw7fUmvJdfprs/nX9WaYqrQ02kD1kmax5
-qP2VJWFCwIu5BN9rWWZeTfSSFCxus/osmjc4snPhq+zxX70J9DY=
-=sssB
------END PGP SIGNATURE-----
-
---pirkJeZT6tQS9oBN--
 
