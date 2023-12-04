@@ -1,146 +1,94 @@
-Return-Path: <linux-man+bounces-207-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-208-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFD2D802FC6
-	for <lists+linux-man@lfdr.de>; Mon,  4 Dec 2023 11:12:15 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 91D4D803283
+	for <lists+linux-man@lfdr.de>; Mon,  4 Dec 2023 13:24:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 5AB311F20CC9
-	for <lists+linux-man@lfdr.de>; Mon,  4 Dec 2023 10:12:15 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 474721F20FAD
+	for <lists+linux-man@lfdr.de>; Mon,  4 Dec 2023 12:24:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F7C91F958;
-	Mon,  4 Dec 2023 10:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D/NhjtgV"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3362E23776;
+	Mon,  4 Dec 2023 12:24:47 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04377D5
-	for <linux-man@vger.kernel.org>; Mon,  4 Dec 2023 02:12:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701684729;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cdTeCVbBKNIz3exfVUizApI93s0ffcM8icuOOUOmJ3U=;
-	b=D/NhjtgVEDMBli+bT3IoWR21gJwq2xTEyutyvICLyI/6RPPH3XQvhZdGxcwjXhanWrFFNY
-	ta1vqJqZhlkRW4hQMeoVu6xml57NdjnVUD5YkGl9kBx9Ay+FlxKW/fbwOxzs0FBsnww/+A
-	XHtL6LzDLOBEk8qxX4oUns4rlj5nqGs=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-464-oghA0c7dP9Kc7_wJ_qrlHQ-1; Mon, 04 Dec 2023 05:12:07 -0500
-X-MC-Unique: oghA0c7dP9Kc7_wJ_qrlHQ-1
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-54ca588b6d6so660585a12.1
-        for <linux-man@vger.kernel.org>; Mon, 04 Dec 2023 02:12:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701684726; x=1702289526;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cdTeCVbBKNIz3exfVUizApI93s0ffcM8icuOOUOmJ3U=;
-        b=hns4rxEdDF/sdZ23Zc/lY9vguUjHvSuqTkMHp1OJ1hTL0hFCLdKAqH1qcNeubQVObu
-         UTmrDreLSJsycEQaPKHhr2gXljQfex3E1w63Sot1wL3aLK0SnN598RmV5c1GfGCIM6XI
-         kXx0AaCLWOIU5EQ4dXB5pXhqU+GXT7O00g3xDedQX19dEf3E3AW7u6UdcNu0wtkr9GsG
-         LQ33B349PIUYGhKxlmIFyk0P21VMGGoMadVMJcdvjsGHD4hiFTJ1hNZVhMVo8uaw+7tp
-         wFCQ3MqHpcZ+aUAC68u1sRdeA2sq9H6hjsMAxZpRa/j9+CPZq6OjituLOWYUO1j468Lx
-         D3zQ==
-X-Gm-Message-State: AOJu0Yw0l+PF0I5FS93V2MVNCv4Om4yTcAqrxGBrp79oMQ9JEnPVYL9S
-	ruYvHzLu2st0sPDq068RnI0GLFinbFKFs2dXgEJM4Yy9GMB3aVzEn89HRsUmjMlFrnxSOj2DMbi
-	9dVEhJouTHX5lDKT0TMMBJkYW6Ev8xZc8qSMR
-X-Received: by 2002:aa7:d952:0:b0:54c:7833:c111 with SMTP id l18-20020aa7d952000000b0054c7833c111mr1771262eds.36.1701684726561;
-        Mon, 04 Dec 2023 02:12:06 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE6KO+0DEtzpvHP7tJMyeJVf99YpOjaGGQXV6bz2Km4+w5+B60WueRbh3qCS4/3XJ2MkbutBg9ybAgTn+GT5kw=
-X-Received: by 2002:aa7:d952:0:b0:54c:7833:c111 with SMTP id
- l18-20020aa7d952000000b0054c7833c111mr1771251eds.36.1701684726322; Mon, 04
- Dec 2023 02:12:06 -0800 (PST)
+Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0FA2BC0
+	for <linux-man@vger.kernel.org>; Mon,  4 Dec 2023 04:24:42 -0800 (PST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10913"; a="121296097"
+X-IronPort-AV: E=Sophos;i="6.04,249,1695654000"; 
+   d="scan'208";a="121296097"
+Received: from unknown (HELO yto-r2.gw.nic.fujitsu.com) ([218.44.52.218])
+  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Dec 2023 21:24:40 +0900
+Received: from yto-m1.gw.nic.fujitsu.com (yto-nat-yto-m1.gw.nic.fujitsu.com [192.168.83.64])
+	by yto-r2.gw.nic.fujitsu.com (Postfix) with ESMTP id A456BD6188
+	for <linux-man@vger.kernel.org>; Mon,  4 Dec 2023 21:24:38 +0900 (JST)
+Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com [192.51.206.22])
+	by yto-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id D7B95CFAC8
+	for <linux-man@vger.kernel.org>; Mon,  4 Dec 2023 21:24:37 +0900 (JST)
+Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
+	by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id 6404F217360
+	for <linux-man@vger.kernel.org>; Mon,  4 Dec 2023 21:24:37 +0900 (JST)
+Received: from rhel93GA.g08.fujitsu.local (unknown [10.167.221.71])
+	by edo.cn.fujitsu.com (Postfix) with ESMTP id 1E2E61A006F;
+	Mon,  4 Dec 2023 20:24:37 +0800 (CST)
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: linux-man@vger.kernel.org
+Cc: Yang Xu <xuyang2018.jy@fujitsu.com>
+Subject: [PATCH 1/2] swapon.2: Adjust decreased value under CONFIG_MIGRATION
+Date: Mon,  4 Dec 2023 07:24:30 -0500
+Message-Id: <20231204122431.68106-1-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <ZWnXlcsVJfPO1Qsb@debian> <20231201220743.32491-1-kuniyu@amazon.com>
-In-Reply-To: <20231201220743.32491-1-kuniyu@amazon.com>
-From: Alexey Tikhonov <atikhono@redhat.com>
-Date: Mon, 4 Dec 2023 11:11:55 +0100
-Message-ID: <CABPeg3ZZCDkRaVy2towZ-amU9v-rQSXZ_M_KnfY1SfWhhT-AZw@mail.gmail.com>
-Subject: Re: UNIX(7)
-To: Kuniyuki Iwashima <kuniyu@amazon.com>, alx@kernel.org, linux-man@vger.kernel.org
-Cc: libc-alpha@sourceware.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28036.007
+X-TM-AS-User-Approved-Sender: Yes
+X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28036.007
+X-TMASE-Result: 10--5.089400-10.000000
+X-TMASE-MatchedRID: FMY5IFaWNFCPnoiNOctH6cYv//yaWh0DwTlc9CcHMZerwqxtE531VCzy
+	bVqWyY2NLY0Km6kFDTJCvtb/aH4jvR8TzIzimOwP0C1sQRfQzEHEQdG7H66TyH4gKq42LRYkxqq
+	xNTXiq6mD2UbYWXKO+8VJ4gMYSHkd+KYbdkAzGoR+3BndfXUhXQ==
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
 
-On Fri, Dec 1, 2023 at 11:08=E2=80=AFPM Kuniyuki Iwashima <kuniyu@amazon.co=
-m> wrote:
->
-> From: Alejandro Colomar <alx@kernel.org>
-> Date: Fri, 1 Dec 2023 13:54:39 +0100
-> > Hello Alexey,
-> >
-> > On Fri, Dec 01, 2023 at 01:16:27PM +0100, Alexey Tikhonov wrote:
-> > > Hello.
-> > >
-> > > There is a discrepancy between the man page description of
-> > > 'SO_PEERCRED' and real behavior.
-> > >
-> > > `man 7 unix` states:
-> > > ```
-> > >        SO_PEERCRED
-> > >               This read-only socket option returns the credentials of
-> > >               the peer process connected to this socket.  The returne=
-d
-> > >               credentials are those that were in effect at the time o=
-f
-> > >               the call to connect(2) or socketpair(2).
-> > > ```
-> > >
-> > > This doesn't match real behavior in following situation (just an exam=
-ple):
-> > >  - process starts with uid=3D0, gid=3D0
-> > >  - process creates UNIX socket, binds it, listens on it
-> > >  - process changes to uid=3Duid1, git=3Dgid1 (using `setresuid()`, `s=
-etresgid()`)
-> > >  - another process connects to the listening socket and requests
-> > > peer's credentials using `getsockopt(... SOL_SOCKET, SO_PEERCRED ...)=
-`
-> > >
-> > > According to the man page: SO_PEERCRED should report (uid1, gid1),
-> > > because peer process was running under (uid1, gid1) "at the time of
-> > > the call to connect(2)"
-> > > In reality SO_PEERCRED reports (0, 0)
-> > > Reproducing code is available in
-> > > https://bugzilla.redhat.com/show_bug.cgi?id=3D2247682
-> > >
-> > > I'm not entirely sure if this is a real bug or rather a  poor
-> > > description in the man page, but I tend to think that it's the latter=
-.
->
-> When calling getsockopt(), we cannot know dynamically who the peer's
-> owner is.  So, we just initialise the cred when we know the owner,
-> and it's the caller of listen(), connect(), and socketpair().
->
-> In your case, the listener's cred is initialised with the caller's
-> cred during the first liten().
->
->   listener's peer_cred =3D get_cred(rcu_dereference_protected(current->cr=
-ed, 1))
+After kernel 5.19[1], the limit is decreased by 3.
 
-Thank you for the explanation.
-So this is an omission in the man page.
+[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/include/linux/swap.h?id=6c287605f
 
->
-> And connect() will initialise two creds as follows:
->
->   connect()er's peer_cred =3D listener's peer_cred
->   new socket's peer_cred =3D get_cred(rcu_dereference_protected(current->=
-cred, 1))
->
-> If you call listen() again after setresuid() and before connect(),
-> you can update the listener's cred and get the new IDs at the final
-> getsockopt().
->
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ man2/swapon.2 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/man2/swapon.2 b/man2/swapon.2
+index c0e61cbc6..ee270cea1 100644
+--- a/man2/swapon.2
++++ b/man2/swapon.2
+@@ -164,7 +164,8 @@ Before Linux 2.4.10,
+ .B MAX_SWAPFILES
+ has the value 8;
+ since Linux 2.4.10, it has the value 32.
+-Since Linux 2.6.18, the limit is decreased by 2 (thus: 30)
++Since Linux 2.6.18, the limit is decreased by 2 (Since Linux 5.19.0,
++the limit is decreased by 3)
+ if the kernel is built with the
+ .B CONFIG_MIGRATION
+ option
+@@ -172,6 +173,7 @@ option
+ .BR mbind (2)
+ and
+ .BR migrate_pages (2)).
++
+ Since Linux 2.6.32, the limit is further decreased by 1
+ if the kernel is built with the
+ .B CONFIG_MEMORY_FAILURE
+-- 
+2.27.0
 
 
