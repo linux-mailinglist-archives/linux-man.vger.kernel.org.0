@@ -1,44 +1,44 @@
-Return-Path: <linux-man+bounces-224-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-225-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAABB80730D
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 15:52:44 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3F5807526
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 17:36:37 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 6D312B20D84
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 14:52:42 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3C4511C20E22
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 16:36:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C1EA3DBB2;
-	Wed,  6 Dec 2023 14:52:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95F5C3DBB7;
+	Wed,  6 Dec 2023 16:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyielA/M"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IihRU8sY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA516381DD
-	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 14:52:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4621DC433C9;
-	Wed,  6 Dec 2023 14:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B4B46442
+	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 16:36:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9DEC433C8;
+	Wed,  6 Dec 2023 16:36:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701874357;
-	bh=g2gUG/OLsfRXuUHAJjDmBndBwBx5tE0POG8/WZdSnIY=;
-	h=Date:From:To:Cc:Subject:From;
-	b=KyielA/Mn3m1u0l1XBKDuBVSKuBwmrfMJ1IczrNxiTFhX+cRP3HofqfnjBQbT5DrR
-	 gY6ZCBKdV/TCw2L3BsigcNECTqeryZYpYga1KA4TpfST7kjmkaYfsnS7xTZkBv9W1u
-	 3XZ6DBa/BGHl43C16NBKYgPHmUuhwPR6WkB72G15U0/oKytLjFi/XCt7Zwh8r9LG1O
-	 ww+CZ2jVbD2f6GSDctA65Q1ZBejvQABEJfax+gzOxRDkqdWboaAX1aODf90VhPuiRW
-	 Ewc7OFHrxNHl4c/XMAKHrS7EQvvYgNQgxgrVWNVsoUTcYU6yB5NCeM08nyxMYv/ak3
-	 GcIW2Pngm3BAg==
-Date: Wed, 6 Dec 2023 15:52:34 +0100
+	s=k20201202; t=1701880594;
+	bh=YAJl+c4YwiQxG4cww2tItR/wj0VyyOfU6I2FNbgLeI8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IihRU8sYtJlhu8hPR06X9LQPg8VP/QFZBharkpgM0btKVbxPaewvHBz5zQIb2dUJu
+	 US1iq3hEvlLBociYcYZl+zkIhgePowAAlPQrKbWiygOKj/JQ3GG3041vi17nD7Lu4o
+	 tzGrP5FhtrY4E3azIP7LO3C3axcZ58e5kEe3gviKrXurptB9MGWN4md6hAKMLMr0Kk
+	 Vf4HJWcCn/Z3K0zfwISFs/U3E4JrBZtprtFXVdjFplqKqP75yg6/7bXMdKkjyzkPnv
+	 2ZSe9UvJOhepRVs2NeT/oAUuK9ORHVV5pOTnNTYBd/P2X119VTQFw2UrRCKQ0lChg2
+	 QRr+ARN1Bn/fw==
+Date: Wed, 6 Dec 2023 17:36:24 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, Lee Griffiths <poddster@gmail.com>,
-	Zack Weinberg <zack@owlfolio.org>
-Subject: [PATCH] sscanf.3: Remove term 'deprecated', and expand BUGS
-Message-ID: <20231206145132.5538-2-alx@kernel.org>
+To: linux-man@vger.kernel.org, Zack Weinberg <zack@owlfolio.org>
+Cc: Lee Griffiths <poddster@gmail.com>
+Subject: Re: [PATCH] sscanf.3: Remove term 'deprecated', and expand BUGS
+Message-ID: <ZXCjD5dP-jaUpeER@debian>
+References: <20231206145132.5538-2-alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -46,161 +46,156 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A4BWm8doOhafW94I"
+	protocol="application/pgp-signature"; boundary="TiuZfb+SlsZ6MPL9"
 Content-Disposition: inline
-X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231206145132.5538-2-alx@kernel.org>
 
 
---A4BWm8doOhafW94I
+--TiuZfb+SlsZ6MPL9
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 6 Dec 2023 15:52:34 +0100
+Date: Wed, 6 Dec 2023 17:36:24 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, Lee Griffiths <poddster@gmail.com>,
-	Zack Weinberg <zack@owlfolio.org>
-Subject: [PATCH] sscanf.3: Remove term 'deprecated', and expand BUGS
-
-Several programmers have been confused about this use of 'deprecated'.
-
-Also, maximum field width can be used with these fields to mitigate the
-problem.  Still, it's only a mitigation, since it limits the number of
-characters read, but that means an input of LONG_MAX+1 --which takes up
-the same number of characters than LONG_MAX-- would still cause UB; or
-one can limit that to well below the limit of UB, but then you
-artificially invalidate valid input.  No good way to avoid UB with
-sscanf(3), but it's not necessarily bad with trusted input (and
-strtol(3) isn't the panacea either; strtoi(3) is good, though, but not
-standard).
-
-Try to be more convincing in BUGS instead.
-
-Link: <https://stackoverflow.com/questions/77601832/man-sscanf-d-is-depreca=
-ted-in-c-or-glibc/>
+To: linux-man@vger.kernel.org, Zack Weinberg <zack@owlfolio.org>
 Cc: Lee Griffiths <poddster@gmail.com>
-Cc: Zack Weinberg <zack@owlfolio.org>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
+Subject: Re: [PATCH] sscanf.3: Remove term 'deprecated', and expand BUGS
 
-Hi Lee!
+Hi Zack,
 
-Thanks for the report.  After seeing how much frustration it has caused,
-I propose this change.  Does it look good to you?
+On Wed, Dec 06, 2023 at 03:52:34PM +0100, Alejandro Colomar wrote:
+> Several programmers have been confused about this use of 'deprecated'.
+>=20
+> Also, maximum field width can be used with these fields to mitigate the
+> problem.  Still, it's only a mitigation, since it limits the number of
+> characters read, but that means an input of LONG_MAX+1 --which takes up
+> the same number of characters than LONG_MAX-- would still cause UB; or
+> one can limit that to well below the limit of UB, but then you
+> artificially invalidate valid input.  No good way to avoid UB with
+> sscanf(3), but it's not necessarily bad with trusted input (and
+> strtol(3) isn't the panacea either; strtoi(3) is good, though, but not
+> standard).
+>=20
+> Try to be more convincing in BUGS instead.
+>=20
+> Link: <https://stackoverflow.com/questions/77601832/man-sscanf-d-is-depre=
+cated-in-c-or-glibc/>
+> Cc: Lee Griffiths <poddster@gmail.com>
+> Cc: Zack Weinberg <zack@owlfolio.org>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>=20
+> Hi Lee!
+>=20
+> Thanks for the report.  After seeing how much frustration it has caused,
+> I propose this change.  Does it look good to you?
+>=20
+> Thanks,
+> Alex
+
+Formatted page:
+
+BUGS
+   Numeric conversion specifiers
+     Use of the numeric conversion specifiers produces  Undefined  Be=E2=80=
+=90
+     havior for invalid input.  See C11 7.21.6.2/10.  This is a bug in
+     the  ISO  C  standard,  and not an inherent design issue with the
+     API.  However, current implementations are  not  safe  from  that
+     bug,  so  it  is  not recommended to use them.  Instead, programs
+     should use functions such as strtol(3) to  parse  numeric  input.
+     This  manual page deprecates use of the numeric conversion speci=E2=80=
+=90
+     fiers until they are fixed by ISO C.
+
+I think it would be good if glibc would make promises about sscanf(3)
+on untrusted input.  How about guaranteeing a value of -1 and ERANGE if
+the integer would overflow?
+
+The current implementation, AFAIK, uses strtol(3), so it has the
+following behavior:
+
+-  For %d, if the value is >INT_MAX but <=3DLONG_MAX, the wrap-around
+   value is stored, and errno is not set.
+
+-  For %d, if the value is >LONG_MAX, -1 is stored, and errno is set.
+
+	$ cat sscanf.c=20
+	#define _GNU_SOURCE
+	#include <errno.h>
+	#include <stdio.h>
+	#include <string.h>
+
+	#define wrap(s)  do                                                       =
+    \
+	{                                                                         =
+    \
+		int  i, ret;                                                          \
+										      \
+		errno =3D 0;                                                            \
+		ret =3D sscanf(s, "%d", &i);                                            \
+		printf("%s: ret=3D %d, val=3D %d, errno=3D %s\n", #s , ret, i, strerrorna=
+me_np(errno)); \
+	} while (0)
+
+	int
+	main(void)
+	{
+		char  str_a[] =3D "9223372036854775828";   // 2^63 + 20
+		char  str_s[] =3D "8589934599";  // 2^33 + 7
+		char  str_d[] =3D "4294967290";  // 2^32 - 6
+		char  str_f[] =3D "2147483678";  // 2^31 + 30
+		char  str_g[] =3D "2147483638";  // 2^31 - 10
+
+		wrap(str_a);
+		wrap(str_s);
+		wrap(str_d);
+		wrap(str_f);
+		wrap(str_g);
+	}
+	$ cc -Wall -Wextra sscanf.c=20
+	$ ./a.out=20
+	str_a: ret=3D 1, val=3D -1, errno=3D ERANGE
+	str_s: ret=3D 1, val=3D 7, errno=3D 0
+	str_d: ret=3D 1, val=3D -6, errno=3D 0
+	str_f: ret=3D 1, val=3D -2147483618, errno=3D 0
+	str_g: ret=3D 1, val=3D 2147483638, errno=3D 0
+
+The suggested change would be to act as if
+
+	strtoi(str, NULL, 0, INT_MIN, INT_MAX, &err);
+
+would have been called.  Does that make sense to you?
+
+Also, I was going to ask for strtoi(3bsd) in glibc, since strtol(3)
+isn't easy to use portably (since POSIX allows EINVAL on no conversion,
+how to differentiate strtoi(3bsd)'s ECANCELED from EINVAL in strtol(3)?).
 
 Thanks,
 Alex
 
- man3/sscanf.3 | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
-
-diff --git a/man3/sscanf.3 b/man3/sscanf.3
-index 2211cab7d..4c0bdc318 100644
---- a/man3/sscanf.3
-+++ b/man3/sscanf.3
-@@ -359,7 +359,6 @@ .SS Conversions
- and assignment does not occur.
- .TP
- .B d
--.IR Deprecated .
- Matches an optionally signed decimal integer;
- the next pointer must be a pointer to
- .IR int .
-@@ -374,7 +373,6 @@ .SS Conversions
- .\" is silently ignored, causing old programs to fail mysteriously.)
- .TP
- .B i
--.IR Deprecated .
- Matches an optionally signed integer; the next pointer must be a pointer to
- .IR int .
- The integer is read in base 16 if it begins with
-@@ -387,18 +385,15 @@ .SS Conversions
- Only characters that correspond to the base are used.
- .TP
- .B o
--.IR Deprecated .
- Matches an unsigned octal integer; the next pointer must be a pointer to
- .IR "unsigned int" .
- .TP
- .B u
--.IR Deprecated .
- Matches an unsigned decimal integer; the next pointer must be a
- pointer to
- .IR "unsigned int" .
- .TP
- .B x
--.IR Deprecated .
- Matches an unsigned hexadecimal integer
- (that may optionally begin with a prefix of
- .I 0x
-@@ -409,33 +404,27 @@ .SS Conversions
- .IR "unsigned int" .
- .TP
- .B X
--.IR Deprecated .
- Equivalent to
- .BR x .
- .TP
- .B f
--.IR Deprecated .
- Matches an optionally signed floating-point number; the next pointer must
- be a pointer to
- .IR float .
- .TP
- .B e
--.IR Deprecated .
- Equivalent to
- .BR f .
- .TP
- .B g
--.IR Deprecated .
- Equivalent to
- .BR f .
- .TP
- .B E
--.IR Deprecated .
- Equivalent to
- .BR f .
- .TP
- .B a
--.IR Deprecated .
- (C99) Equivalent to
- .BR f .
- .TP
-@@ -661,8 +650,8 @@ .SS Numeric conversion specifiers
- programs should use functions such as
- .BR strtol (3)
- to parse numeric input.
--This manual page deprecates use of the numeric conversion specifiers
--until they are fixed by ISO C.
-+Alternatively,
-+mitigate it by specifying a maximum field width.
- .SS Nonstandard modifiers
- These functions are fully C99 conformant, but provide the
- additional modifiers
 --=20
-2.42.0
+<https://www.alejandro-colomar.es/>
 
-
---A4BWm8doOhafW94I
+--TiuZfb+SlsZ6MPL9
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVwirIACgkQnowa+77/
-2zLe6A/+OGk3Nv3/iVD4L2+xFjzuyTj2a8CilaB8kzk/Gm9cDFewQMOjPNqa5f7y
-Y8T5Dd7aPBigh1OtZ59kRT4xphQH6By2WrOurUjgNsMiICMX0RVMnIokzXlfasci
-tJAjxFYw2/k0U6mGBaCTx/rUMVnqQRMAdBraeLqoBtTRr9Z4TLJXsjsl3W/zCyZc
-OWUbV8VF5HfP3aR7lfPd1+8l/QdFK0JDOVuRP2IXn0VCMDEPs7w3weF7yRdDQTHl
-fLq5ke9T4jakv6Qs4b1u48S33i3WcYkih2Fo0PZs9Xj/mUdwDNa9UHlcSfH4BmVH
-og46Kz+vi93+E85NezaxhouOJk8CUxlBQTPbUFg96Z++5ol4b753324yvsoJdxKv
-YfLEquqJdZ061kw5Pp1XYSaYZTfB6PqksfvlB5j67FygDwQkm7InuL2WFzzgBFqB
-/dl+H74m1WdE+2suoxXgsokgQx9sjmufE+i0F7i0lCeMq9TWzyt9DJtib9tcUM3D
-jrsR3FHOCPDvni4AxJBNe/X3sV1NXHVNGWV/LSMPJZ5zBQbYoO6zscB8zzMCUdM0
-weTWsrnq1S97PzRjtOlArTeEi2SIoF/H6DojInEumd9w8+Qz+iASjPQ28qHZDFC/
-GsPzvoa19r3HCXOfKqjNWxihMwkavSVzSTgxBpeT/wZ/yFf9EEw=
-=wAsI
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmVwowgACgkQnowa+77/
+2zKIJg//T/pZqHBdUYFMXIJo8K2zLAsIdgEjBb8Mhk+qSLA0DTEXY7vDNi6i1vLD
+rw9r107UJyiEip5yTUNBCUdwKHlyFstkQsuzuVj8qN6Tl0fjwGYf2QrmOHFg90uM
+sE5Lx0gA8hOHXgn+zJ2tcS14P92R27k9+mzU7eoOAE6Cd88S2szB2klS4yldwATR
+W7xkywDCntqfORyUFSCbJYND/9asgdmQYa1OwqUxtwVD9ybFP6yGSMMs5SmTsPfx
+QGM3e4GZ+y8oBQDf19jyPjB5tdJwHtuGHp07LL29aeVX9y0BSyHQho/UweOzhJcx
+KxHdzQpa1qCPRZHCKedACHZuTY7YDogCayFYgoZcARunwDWwQiVUpSv4i2IjNoRw
+ZCMHMH7lPl24msGzltDWR8oMWj7jVP/2Lk7+cGXPZmwSvHUZ93+ZB5ap4SxrAh4Y
+/W/ELMvmy/3P71TYmj9t3hBGwEQvObeP0hphttKzGHoIX3EbOCVjWuYX5Ywg9avC
+Q8MZTEOICidFIw951HyjkOowoDoJxzTT9XjSl13S2zRO8nT3FydgjBRoVwdstsk0
+ept9UFKXIKtM8bddp8fa4fxut2PxbJae0zu8D9MNpFP6vzJ3OQ117Zjy77JQmmvu
+qLJ+3B6XLlV8rqKPI7N5maf9tj29ZiJAr0vXulfsU1V9+KUXEek=
+=zYHi
 -----END PGP SIGNATURE-----
 
---A4BWm8doOhafW94I--
+--TiuZfb+SlsZ6MPL9--
 
