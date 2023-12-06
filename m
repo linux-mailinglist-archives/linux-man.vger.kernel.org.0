@@ -1,100 +1,98 @@
-Return-Path: <linux-man+bounces-221-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-223-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AEB2806AE9
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 10:41:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2964D806D8B
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 12:13:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 04271B20CBB
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 09:41:10 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9B0C2B20CEE
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 11:12:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B69E1A734;
-	Wed,  6 Dec 2023 09:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF85C31599;
+	Wed,  6 Dec 2023 11:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="iGq/vxTd"
+	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b="loVuFeTH"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E414D44
-	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 01:40:59 -0800 (PST)
-Received: by mail-ej1-x636.google.com with SMTP id a640c23a62f3a-a1b75f59a12so77479966b.3
-        for <linux-man@vger.kernel.org>; Wed, 06 Dec 2023 01:40:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1701855657; x=1702460457; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=NdsXEprLd6HHm6fn4LOj1PkScl+mGSgUDIFGPbATAlo=;
-        b=iGq/vxTdjezu281ZT1I6ZZiZHUBt9u3Znww51YBIR+MefU6EyT3H1VTUI5Stf6jV4h
-         /Ggp1mm1lV5ZLMxnaJQfAybasFUUtpliC+md6nA+m8ZGiJFslWFYJpzKanW/iHFtJJ0V
-         1C39fKEeE+WYiqagNcRd/Bj4CYvRF5pVq4ngE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701855657; x=1702460457;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NdsXEprLd6HHm6fn4LOj1PkScl+mGSgUDIFGPbATAlo=;
-        b=E0aETRZhdBb0OHx8KRmryiW5G3QKss9izQI/7miZa8PJa87NAkbTF18w9KuC3PTpVS
-         XisJ9R6QM5/Q9hKiLCoGoaOfWdcKt+loiKBO7tZpxuZ17u/34pxQZU/Z2kXzhKfk3+Ro
-         KjAQU/Kbndk7BFi2wXQgbwH9o2ppN3AZn7T2R6fN4AQ2Ci/ckxX9fbHZJHxpzY4tPhaW
-         1zZhqflhKtgPAsEadSotUzkyyafB5Im+GLI6ZR7jTplClPEFeWAzv4TfoXK1T1Sdvu1n
-         ao0r5I7cJsr24S/nT5PBU+U81tML/O0QdOiUrA3N5a7qluxr+iaIkoscF47aS7HLqvPZ
-         J4wQ==
-X-Gm-Message-State: AOJu0Yx/5gqPvhzkJmPvn2CxrssxWwjrHnIegtvLkY2NoY8ZTa0MmPqg
-	5LxR1+RnaDYCkU7xhjgHp/xn5vHDg3zN0SqNnCRolQ==
-X-Google-Smtp-Source: AGHT+IGiyiuky8gen+Lzcnom3IM1I854rjHl5xZVAp0PjEd3Lm828jNZa172WoDAsNxUJddzDdXafiVboFAQHKaioyM=
-X-Received: by 2002:a17:906:1c3:b0:a1c:e6aa:4c47 with SMTP id
- 3-20020a17090601c300b00a1ce6aa4c47mr215992ejj.36.1701855657496; Wed, 06 Dec
- 2023 01:40:57 -0800 (PST)
+X-Greylist: delayed 508 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 06 Dec 2023 03:12:46 PST
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [IPv6:2001:760:2e00:f0a1::32])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTP id 7B371D3
+	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 03:12:46 -0800 (PST)
+Received: from cs.unibo.it (94-33-52-139.static.clienti.tiscali.it [94.33.52.139])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPSA id 2482C1C013D;
+	Wed,  6 Dec 2023 12:04:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1701860650;
+	bh=I9IQziwuBFMsfn8ZmySympeS5LOmBZzNdAeDanzW0jY=;
+	h=Date:From:To:Cc:Subject:From;
+	b=loVuFeTHqa2yiP8QGTn1sJBDy5AJ1vc6RZouxOg3n9vyYHfudnt3f2ANdCYsQ/pcA
+	 GY/lGSBhvpz3gZ3QTVuQFw52GspzcDIwByr9p9nTbVT1vm+qV5eqVwLOUd2gBAaWwI
+	 efGflxoyjJwbCgWiK6YMVHX+fofyjcXory7rLbY8=
+Date: Wed, 6 Dec 2023 12:04:07 +0100
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: utimensat(2) and faccessat(2): man pages do not mention
+ AT_EMPTY_PATH flag
+Message-ID: <ZXBVJ5phq4tK1fWq@cs.unibo.it>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAJfpeguMViqawKfJtM7_M9=m+6WsTcPfa_18t_rM9iuMG096RA@mail.gmail.com>
- <20231205182629.qk5s6f7m7sas4anh@ws.net.home>
-In-Reply-To: <20231205182629.qk5s6f7m7sas4anh@ws.net.home>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 6 Dec 2023 10:40:46 +0100
-Message-ID: <CAJfpegtv0A8b2Ex7O0AUwZCFsB_OfXvD_ehYR0a6jMr0F_Okdw@mail.gmail.com>
-Subject: Re: [RFC] proposed libc interface and man page for listmount
-To: Karel Zak <kzak@redhat.com>
-Cc: libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, Linux API <linux-api@vger.kernel.org>, 
-	Florian Weimer <fweimer@redhat.com>, linux-fsdevel@vger.kernel.org, 
-	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>, 
-	Christian Brauner <christian@brauner.io>, Amir Goldstein <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UCAfqyGerksMrX9u"
+Content-Disposition: inline
 
-On Tue, 5 Dec 2023 at 19:26, Karel Zak <kzak@redhat.com> wrote:
->
-> On Tue, Dec 05, 2023 at 05:27:58PM +0100, Miklos Szeredi wrote:
-> > Attaching the proposed man page for listing mounts (based on the new
-> > listmount() syscall).
-> >
-> > The raw interface is:
-> >
-> >        syscall(__NR_listmount, const struct mnt_id_req __user *, req,
-> >                   u64 __user *, buf, size_t, bufsize, unsigned int, flags);
-> >
-> > The proposed libc API is.
-> >
-> >        struct listmount *listmount_start(uint64_t mnt_id, unsigned int flags);
-> >        uint64_t listmount_next(struct listmount *lm);
-> >        void listmount_end(struct listmount *lm);
->
-> What about:
->
->     getmountlist()
->     nextmountlist()
->     freemountlist()
->
-> For me, _start and _end() sounds strange. For example, We already use
-> get+free for getaddrinfo().
 
-Fine by me.  Just wanted to get the general scheme out for comment.
+--UCAfqyGerksMrX9u
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Miklos
+Dear Alejandro,
+
+utimensat and faccessat support the flag AT_EMPTY_PATH since Linux 5.8 but
+this option is still missing in the man pages.
+
+(actually Linux 5.8 added faccessat2: glibc wrapper for faccessat
+ uses faccessat2, and faccessat2 does support AT_EMPTY_PATH).
+
+I think the standard text used in many other -at man page could fit
+for these system calls, too.
+
+AT_EMPTY_PATH (since Linux 5.8)
+	If  pathname is an empty string, operate on the file referred to
+	by dirfd (which may have been obtained using the open(2)  O_PATH
+	flag).   In  this case, dirfd can refer to any type of file, not
+	just a directory.  If dirfd is AT_FDCWD, the  call  operates  on
+	the current working directory.  This flag is Linux-specific;
+	define _GNU_SOURCE to obtain its definition.
+
+All the best,
+
+	renzo
+
+--UCAfqyGerksMrX9u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEuvF7L/gvPxFN/uEULGX3ntMo5hsFAmVwVSAACgkQLGX3ntMo
+5hvQAQ//egpnuLZsW9gIP3Ln95HuExBayFsebAkxIrZvidaRqmxC7Ih+CGLzvaWi
+II86wfkCKz1Vb3R42oCJ2uijBeNPv7c01PbG/xCWt7Ftdm8wuFdXncgpNYw0FGdy
+IrVYmkn0sMt7QTTm4BcrG5mOudF1S9JLfCp04c+bThMZI22SyTiemMNlQOXNiTU0
+NYJPli+QzwmV29R1YuXEgkeX+tynFC75RGnPdkTfFtfjTfvSNhsljUxuzs1FeF+B
+8fEeqKzJuoCIp2B9AvmoO8jiL4tQi0nVRXK8zcnQTxUxpyWJS3DSWEJMNOw9OmDo
+JNaBvYhi7P77FmO2ZI4gfP3TlrxzyeYQ+Jk1gDdLTl0rE+EHI/32u9/vhtgqSFnC
+fLBl2ER1ZIMH1LD+/8u0CBg6PHt5zPKbClaLDDxpHNstzaVxTWHFlNCiMmBokoX1
+ryKh83TWpDKgWYVQSCFqHa6Z0P3EgEV0a1ywTGkzZFOHf5I+B7RdbwQfYJdY61QV
+mLzZofDspIGURN3sJt+aUzO8Jzdz0sbO5hoG1FBOBmgynmHtnz97IjLa8woeN+pK
+GvXo86Q+MX+35YjkdPvSJpWkeI5/g2BCjq9u+TyLOKTt8n86+lVuLLR2RQtI+c6g
+YVLAV39lYMtiXVBKLo+ooaSCdCBC8WjdI+0CKL+1hKCf++WEQMA=
+=Orn6
+-----END PGP SIGNATURE-----
+
+--UCAfqyGerksMrX9u--
 
