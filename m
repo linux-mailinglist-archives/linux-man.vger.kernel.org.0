@@ -1,77 +1,68 @@
-Return-Path: <linux-man+bounces-226-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-227-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 016898075D4
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 17:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55C4980779F
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 19:34:12 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 32C2D1C20EDB
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 16:53:38 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A1D9E1C20F48
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 18:34:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9BFE495E5;
-	Wed,  6 Dec 2023 16:53:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 070304184C;
+	Wed,  6 Dec 2023 18:34:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k5o5AKQv"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHtoq2/K"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA9B1B2;
-	Wed,  6 Dec 2023 08:53:29 -0800 (PST)
-Received: by mail-yb1-xb32.google.com with SMTP id 3f1490d57ef6-db632fef2dcso5351019276.1;
-        Wed, 06 Dec 2023 08:53:29 -0800 (PST)
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20813D40
+	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 10:34:06 -0800 (PST)
+Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-5d3d5b10197so390787b3.2
+        for <linux-man@vger.kernel.org>; Wed, 06 Dec 2023 10:34:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701881609; x=1702486409; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1701887645; x=1702492445; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EIbDoWDGZzPGryjjQbO4uNmk+Z9wCOK+KNEROFMvLaQ=;
-        b=k5o5AKQvuFgLpmD58q0yrITbCvHIuj8DFoZ2nsvgi05kC/4hiKWBQGrCS9356zGmxo
-         f0+rvpjNsLNBE6wG+qS+NM/pm0Gx18UqVH9tn9acyKPwWb4da1U5Ixqp2aYyHP6KpcEF
-         2d1w+aW5g9Xf2pT8iWSa42SczQMfrindrpODAY6hL46Gye00zQJ6ND4fpWx/B8DTzYOn
-         8hdAQap/h6mcFTCcqQCEv1fhFHz5HfaKXQQMxrCduRNtUU2J0jmiRzQ2Yf22l36Z9T56
-         6oZe3SoWUKBw/5lUdfh5hRV6Ze7/0ACsIgMh0KqdINXyHA9qAN8vi7iPZeeKHUmWcs+R
-         6cXg==
+        bh=CM47imxklPmlQMEH5p5ka4UHZADGHrX7og2DsdWV8BE=;
+        b=bHtoq2/KVc6V+LaFNHvUYb1HWVcvV0xIXaPXVLAx/dMJcC8wDjdwCSUq/J7pL1S2SQ
+         MW/M2Hv6jjlb4nmylNuiUuvx6Bjdp/SQFxOJxwf9Y5WKX4zyM3oalf85dBsejD/HWCmB
+         Pvr1A1tJzH3LbpEUb9jqouolYvAGS2Pu/ytnwo2cOM4+y1Od6renmB8T9odv9wocwKUB
+         h18JBSTdSu4nkeA5tumNLT9R5V8VtOMJxw8QQqu7FhStjzaxj4xr76oVnv+UdnIKMoJU
+         +BQbzMzo+JqkHK+IuyH4pjLoY7rse0qIQanUkM/LOQsGmvvwgtkkQ7FLQAnxYcKSMsvo
+         ZEvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701881609; x=1702486409;
+        d=1e100.net; s=20230601; t=1701887645; x=1702492445;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EIbDoWDGZzPGryjjQbO4uNmk+Z9wCOK+KNEROFMvLaQ=;
-        b=jh963ONmvNgAU30PUjyxVfvONV9mrCxkEpTNzAwdErglh/mRg5F1AOBAfWdwOJehSu
-         AnV/utpkngO0j/Vhp+xijFp4UZ2+ribTRXV5E4giEM9knjQdVrqhvCEKv3KC2+cZ3J1e
-         QubYFRn18WF+ql9B2UUC+VHjtIH0Ri6MiLGmNdSstPvAk7tEM125P6jFE6d9QWDrV2Ig
-         95oMhtBPyQ4b7HzYdROnUwnBCpbrfh/ul82GYOVGxHyzSbaDyZWQOQvd0LBndpn4GF3V
-         2+fTlAEMOncOiFGl4NTt/3o7o43JPUvrseY8iXx/UDPT084/WQDwYODyBKNbI5Itwi0W
-         XjkA==
-X-Gm-Message-State: AOJu0YwdhJj1cODfa7Be8fmVOYsNo0yN9PX63Rg2izu7s/1vrs76q/x/
-	BaGLF4E4S7lSNH4q1AURxQU=
-X-Google-Smtp-Source: AGHT+IHVHPSD+r3xJXIqpcARoAiwf4jvi2eJ/slaF1zVRei8FMbIBeOClVa5Rx6hCg4mEYcj/vkPwg==
-X-Received: by 2002:a25:f402:0:b0:da0:cea9:2b3b with SMTP id q2-20020a25f402000000b00da0cea92b3bmr928071ybd.62.1701881608809;
-        Wed, 06 Dec 2023 08:53:28 -0800 (PST)
+        bh=CM47imxklPmlQMEH5p5ka4UHZADGHrX7og2DsdWV8BE=;
+        b=mMuAQIn3oIgV5N7bYR8LCrcklFqv7e1COWzCTbcRyIZFWq6sATO7iEHwe409fdHtFw
+         6s5by5TYuuwedDQors9fzQImLftOAkL0Wl7IM2OrLJPntWtx8pcazvXx4xfQ3t11r3EN
+         PHidjyngWq/nQYoYUvCLqtXNKkC8S56WJ8HHW5fp/Fn/EyphTc9cGb1V6DOt7fFKy9lb
+         X69Nc8izyi9a51od+0meCEsVXlvcg2haxyO4cdI7BO7zsqb/Hk+FXU+mY9JAmvw0KsXy
+         XcFWMkfY/m+w4Pxx45RlS8uV27brpNfkhMMSb5W3jt/wPM7PLSvPAOvY9G9DAZGLgAUs
+         omiw==
+X-Gm-Message-State: AOJu0YwZvq7DuZNSdJJrWAHNVDbRU3KlJl6EwI2R1FxmqZnw28HCzmuN
+	RReIKlSuX7QnqtIIOL8EOlfAY9ZzuwL7ag==
+X-Google-Smtp-Source: AGHT+IEcFu8172McNXPewg2VzmS8RoU4IUbsHtFhaJHLe3wBMruaqzSaJO8z82fVL/CLbBPYCabq6Q==
+X-Received: by 2002:a81:b648:0:b0:5ca:d2ec:7ee7 with SMTP id h8-20020a81b648000000b005cad2ec7ee7mr1163630ywk.32.1701887645264;
+        Wed, 06 Dec 2023 10:34:05 -0800 (PST)
 Received: from firmament.. (h198-137-20-4.xnet.uga.edu. [198.137.20.4])
-        by smtp.gmail.com with ESMTPSA id k18-20020a258c12000000b00d9a4aad7f40sm3859181ybl.24.2023.12.06.08.53.28
+        by smtp.gmail.com with ESMTPSA id c186-20020a0dc1c3000000b005d80a7711dasm130888ywd.138.2023.12.06.10.34.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Dec 2023 08:53:28 -0800 (PST)
+        Wed, 06 Dec 2023 10:34:05 -0800 (PST)
 From: Matthew House <mattlloydhouse@gmail.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: libc-alpha@sourceware.org,
-	linux-man <linux-man@vger.kernel.org>,
-	Alejandro Colomar <alx@kernel.org>,
-	Linux API <linux-api@vger.kernel.org>,
-	Florian Weimer <fweimer@redhat.com>,
-	linux-fsdevel@vger.kernel.org,
-	Karel Zak <kzak@redhat.com>,
-	Ian Kent <raven@themaw.net>,
-	David Howells <dhowells@redhat.com>,
-	Christian Brauner <christian@brauner.io>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [RFC] proposed libc interface and man page for listmount
-Date: Wed,  6 Dec 2023 11:53:14 -0500
-Message-ID: <20231206165316.744646-1-mattlloydhouse@gmail.com>
-In-Reply-To: <CAJfpegvUWH9uncnxWj50o7p9WGWgV3BL2=EnqKY28S=4J4ywHw@mail.gmail.com>
-References: <CAJfpeguMViqawKfJtM7_M9=m+6WsTcPfa_18t_rM9iuMG096RA@mail.gmail.com> <20231205175117.686780-1-mattlloydhouse@gmail.com> <CAJfpegvUWH9uncnxWj50o7p9WGWgV3BL2=EnqKY28S=4J4ywHw@mail.gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>,
+	Zack Weinberg <zack@owlfolio.org>,
+	Lee Griffiths <poddster@gmail.com>
+Subject: Re: [PATCH] sscanf.3: Remove term 'deprecated', and expand BUGS
+Date: Wed,  6 Dec 2023 13:33:50 -0500
+Message-ID: <20231206183351.749567-1-mattlloydhouse@gmail.com>
+In-Reply-To: <ZXCjD5dP-jaUpeER@debian>
+References: <20231206145132.5538-2-alx@kernel.org> <ZXCjD5dP-jaUpeER@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -80,35 +71,39 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 6, 2023 at 4:38 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
-> On Tue, 5 Dec 2023 at 18:51, Matthew House <mattlloydhouse@gmail.com> wro=
-te:
-> > One use case I've been thinking of involves inspecting the mount list
-> > between syscall(__NR_clone3) and _exit(), so it has to be async-signal-
-> > safe. It would be nice if there were a libc wrapper that accepted a use=
-r-
-> > provided buffer and was async-signal-safe, so that I wouldn't have to a=
-dd
-> > yet another syscall wrapper and redefine the kernel types just for this
-> > use case. (I can't trust the libc not to make its own funny versions of=
- the
-> > types' layouts for its own ends.)
->
-> You can just #include <linux/mount.h> directly.
+On Wed, Dec 6, 2023 at 11:36 AM Alejandro Colomar <alx@kernel.org> wrote:
+> Also, I was going to ask for strtoi(3bsd) in glibc, since strtol(3)
+> isn't easy to use portably (since POSIX allows EINVAL on no conversion,
+> how to differentiate strtoi(3bsd)'s ECANCELED from EINVAL in strtol(3)?).
 
-The problem with including the <linux/*> headers is that they conflict with
-the regular libc headers. So for instance, if I try to include both
-<linux/mount.h> (for the listmount(2) kernel types) and <sys/mount.h> (for
-the mount(2) and umount2(2) wrappers) on glibc, then I'll get a conflicting
-definition for every single MS_* macro.
+I feel like this is rather overstating the difficulty. In practice, the
+no-conversion condition is very commonly detected by checking whether
+*endptr =3D=3D nptr after the call. The usual idiom I see is something like:
 
-I suppose I could try to put all the listmount(2) stuff in a separate file,
-but that would still require manual redefinitions of the listmount(2)
-flags, unless I trusted libc to have its own identical redefinitions in
-<sys/mount.h> or whatever header the wrapper would end up in, instead of
-shuffling stuff around and translating it. Also, my current style in C is
-to put all related code into a single file as possible, which this would
-interfere with. At that point, I might as well redefine the whole thing.
+    char *end;
+    errno =3D 0;
+    value =3D strtol(ptr, &end, 10);
+    if (end =3D=3D ptr || *end !=3D '\0' || errno =3D=3D ERANGE)
+        goto err;
+
+Of course, the *end !=3D '\0' condition can be omitted or adapted as
+necessary. Alternatively, one can avoid checking errno at all, by just
+checking whether the value is in the permitted range, since the saturating
+behavior will make such a check reject on overflow. And even without an
+explicit permitted range, one can just reject on  on value =3D=3D LONG_MIN =
+||
+value =3D=3D LONG_MAX, or just on value =3D=3D ULONG_MAX for strtoul(3); re=
+jecting
+a value that's almost an overflow isn't going to harm anything, except for
+the rare scenarios where a printed integer can actually reach the minimum
+or maximum, but needs to be round-tripped unconditionally.
+
+In general, I don't think most programmers are in the habit of carefully
+distinguishing errno values for <string.h> functions. They'd rather check
+for self-explanatory conditions, such as *endptr =3D=3D nptr, that readers
+don't have to refer to the man page to decipher. There's a reason that most
+high-level language bindings return errno values for file I/O but not for
+anything else.
 
 Thank you,
 Matthew House
