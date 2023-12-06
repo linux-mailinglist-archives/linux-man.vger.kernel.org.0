@@ -1,68 +1,104 @@
-Return-Path: <linux-man+bounces-219-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-220-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72167806A01
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 09:45:55 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 317D3806AE2
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 10:39:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 968B6281BAE
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 08:45:53 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6310D1C208D1
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 09:39:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30DE61798A;
-	Wed,  6 Dec 2023 08:45:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1DC41A720;
+	Wed,  6 Dec 2023 09:39:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=venturelinkbiz.com header.i=@venturelinkbiz.com header.b="PusurSxj"
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="Q3Sz3vWx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.venturelinkbiz.com (mail.venturelinkbiz.com [51.195.119.142])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BEA82C3
-	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 00:45:48 -0800 (PST)
-Received: by mail.venturelinkbiz.com (Postfix, from userid 1002)
-	id 6FD22471BE; Wed,  6 Dec 2023 08:45:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=venturelinkbiz.com;
-	s=mail; t=1701852347;
-	bh=Mjfq+hZZ0+rPTC06HjjASvlnsTMgj1yAndWxi/OAu2M=;
-	h=Date:From:To:Subject:From;
-	b=PusurSxjU1VEqknJJTM6USpYr0jJ/kpUvSsv0N/t6rUU5zS3CkaivsvyEHYsC0Jc+
-	 3NArIsUaz+0HBM6vxmnL0G9Ek2jDZ8Cp1+gzNC3iGnuHIsIfpVSly+KSHQPqGtQekf
-	 gZCh7E8jhcBV8dpunZXTUEbnYnYiG92nTbBzMzzU0hJ1ytDF9cx0ogmOpTGpm+yJkl
-	 mny/z51dV1wQbkYsas1bWy3EC8KlG1cG+MDmB+L/+JqskLMhk+W1Mq+GkrT6Ua0YG3
-	 TV1TeKX2HGkSKXb1MLo8bUYwwJSIpi38aVoTx+XNUTdHVhORa+V02H7KDK8P9PwWe9
-	 bkb16Gv1R/0Xw==
-Received: by mail.venturelinkbiz.com for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 08:45:23 GMT
-Message-ID: <20231206074500-0.1.40.bv43.0.5543mxkqcp@venturelinkbiz.com>
-Date: Wed,  6 Dec 2023 08:45:23 GMT
-From: "Michal Rmoutil" <michal.rmoutil@venturelinkbiz.com>
-To: <linux-man@vger.kernel.org>
-Subject: =?UTF-8?Q?Bezplatn=C3=A1_60denn=C3=AD_zku=C5=A1ebn=C3=AD_verze:_Vylep=C5=A1ete_sv=C3=A9_v=C3=BDrobn=C3=AD_procesy?=
-X-Mailer: mail.venturelinkbiz.com
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A867818D
+	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 01:38:54 -0800 (PST)
+Received: by mail-ej1-x62a.google.com with SMTP id a640c23a62f3a-a1d6f4a0958so116001366b.1
+        for <linux-man@vger.kernel.org>; Wed, 06 Dec 2023 01:38:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1701855533; x=1702460333; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=TYZysdNMtlf+ieWkrppbfc337y9v9xlVK3DBQvAcSIY=;
+        b=Q3Sz3vWxRtTPbCXEb3T5h81vaPvZEy+ClAmdKfjwfnDAHqlmVkHn+FVsntVZ7+rmct
+         5nSthRg6IDt9G5BP/1oELrLxe4JldnSqZYnd91yTGPX2Zm6MBCN0h2x3aBQRzmSxYwH2
+         qAK69faJEc7NuZxmzII91KCag+JsRhl9CiVR4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701855533; x=1702460333;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TYZysdNMtlf+ieWkrppbfc337y9v9xlVK3DBQvAcSIY=;
+        b=tjy9+TFZgb+d2lhabJKvTF/JW1fk2hP0g/cvtA8ppk9pLTMv/H4UFO4X5gp49KFNTe
+         eKBuN2IdCn8Us1/jTyywRTfo92lW3EUeV0uCLIktzUPZMRUURo6m2fakxX5IE3kr1JTx
+         dtvo8qZb7iCFtdYzarqGfyWVS/j03mBE9C8fr8odxq+3sjy7zXlH75NhiarWybXPQ2LP
+         EtwGwoJU0LLuxQnNMpogsx4CEIx0ShfiEFK0dnwm4zRgEDLizGUupDQrd57zcEil0Fre
+         kchZJaIC+Cg55Tqdq3jUTgIrAjgoFDFp2zs+fmlyQkVTjra8usbUZJ3fDFr2Y9R9YPdQ
+         XCUQ==
+X-Gm-Message-State: AOJu0YwZX3Od1SCy8WED6ZavaTNG0smB0rTHh99XdC2vMAQA2wVuO7AW
+	3uINYeL7vwZLFq5PLiqLyMfqMMiwLmMqtVJ1oM9KxA==
+X-Google-Smtp-Source: AGHT+IHSxvjRmB4cOovZ8zqailwQcKq2WgClq7BAg4fC+QzkCYf4/VTwy9T7yn0SG0TpBYhxxOFAyiQTPtWxdweaBbE=
+X-Received: by 2002:a17:906:bc95:b0:a19:a409:37ed with SMTP id
+ lv21-20020a170906bc9500b00a19a40937edmr2458398ejb.70.1701855533199; Wed, 06
+ Dec 2023 01:38:53 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <CAJfpeguMViqawKfJtM7_M9=m+6WsTcPfa_18t_rM9iuMG096RA@mail.gmail.com>
+ <20231205175117.686780-1-mattlloydhouse@gmail.com>
+In-Reply-To: <20231205175117.686780-1-mattlloydhouse@gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Wed, 6 Dec 2023 10:38:41 +0100
+Message-ID: <CAJfpegvUWH9uncnxWj50o7p9WGWgV3BL2=EnqKY28S=4J4ywHw@mail.gmail.com>
+Subject: Re: [RFC] proposed libc interface and man page for listmount
+To: Matthew House <mattlloydhouse@gmail.com>
+Cc: libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>, 
+	Alejandro Colomar <alx@kernel.org>, Linux API <linux-api@vger.kernel.org>, 
+	Florian Weimer <fweimer@redhat.com>, linux-fsdevel@vger.kernel.org, 
+	Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <christian@brauner.io>, Amir Goldstein <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Dobr=C3=A9 r=C3=A1no
+On Tue, 5 Dec 2023 at 18:51, Matthew House <mattlloydhouse@gmail.com> wrote:
+>
+> On Tue, Dec 5, 2023 at 11:28 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
+> > Attaching the proposed man page for listing mounts (based on the new
+> > listmount() syscall).
+> >
+> > The raw interface is:
+> >
+> >        syscall(__NR_listmount, const struct mnt_id_req __user *, req,
+> >                   u64 __user *, buf, size_t, bufsize, unsigned int, flags);
+> >
+> > The proposed libc API is.
+> >
+> >        struct listmount *listmount_start(uint64_t mnt_id, unsigned int flags);
+> >        uint64_t listmount_next(struct listmount *lm);
+> >        void listmount_end(struct listmount *lm);
+> >
+> > I'm on the opinion that no wrapper is needed for the raw syscall, just
+> > like there isn't one for getdents(2).
+> >
+> > Comments?
+>
+> One use case I've been thinking of involves inspecting the mount list
+> between syscall(__NR_clone3) and _exit(), so it has to be async-signal-
+> safe. It would be nice if there were a libc wrapper that accepted a user-
+> provided buffer and was async-signal-safe, so that I wouldn't have to add
+> yet another syscall wrapper and redefine the kernel types just for this
+> use case. (I can't trust the libc not to make its own funny versions of the
+> types' layouts for its own ends.)
 
-Zn=C3=A1te syst=C3=A9m, kter=C3=BD nejen hl=C3=ADd=C3=A1, ale i optimaliz=
-uje v=C3=BDrobu a p=C5=99in=C3=A1=C5=A1=C3=AD st=C3=A1l=C3=BD p=C5=99=C3=AD=
-jem?
+You can just #include <linux/mount.h> directly.
 
-D=C3=ADky nejnov=C4=9Bj=C5=A1=C3=ADm technologi=C3=ADm a anal=C3=BDze dat=
- na=C5=A1e =C5=99e=C5=A1en=C3=AD identifikuje oblasti optimalizace, zv=C3=
-=BD=C5=A1en=C3=AD efektivity a sn=C3=AD=C5=BEen=C3=AD n=C3=A1klad=C5=AF. =
-Na=C5=A1i klienti zaznamenali n=C3=A1r=C5=AFst p=C5=99=C3=ADjm=C5=AF v pr=
-=C5=AFm=C4=9Bru o 20 % a dnes si to m=C5=AF=C5=BEete vyzkou=C5=A1et na 60=
- dn=C3=AD zdarma.
-
-Pokud chcete dal=C5=A1=C3=AD podrobnosti, odpov=C4=9Bzte pros=C3=ADm na k=
-ontaktn=C3=AD =C4=8D=C3=ADslo.
-
-
-Pozdravy
-Michal Rmoutil
+Thanks,
+Miklos
 
