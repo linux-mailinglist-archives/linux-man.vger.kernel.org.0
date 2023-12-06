@@ -1,51 +1,51 @@
-Return-Path: <linux-man+bounces-220-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-221-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 317D3806AE2
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 10:39:06 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AEB2806AE9
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 10:41:12 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6310D1C208D1
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 09:39:05 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 04271B20CBB
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 09:41:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1DC41A720;
-	Wed,  6 Dec 2023 09:39:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B69E1A734;
+	Wed,  6 Dec 2023 09:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="Q3Sz3vWx"
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="iGq/vxTd"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A867818D
-	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 01:38:54 -0800 (PST)
-Received: by mail-ej1-x62a.google.com with SMTP id a640c23a62f3a-a1d6f4a0958so116001366b.1
-        for <linux-man@vger.kernel.org>; Wed, 06 Dec 2023 01:38:54 -0800 (PST)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E414D44
+	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 01:40:59 -0800 (PST)
+Received: by mail-ej1-x636.google.com with SMTP id a640c23a62f3a-a1b75f59a12so77479966b.3
+        for <linux-man@vger.kernel.org>; Wed, 06 Dec 2023 01:40:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1701855533; x=1702460333; darn=vger.kernel.org;
+        d=szeredi.hu; s=google; t=1701855657; x=1702460457; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=TYZysdNMtlf+ieWkrppbfc337y9v9xlVK3DBQvAcSIY=;
-        b=Q3Sz3vWxRtTPbCXEb3T5h81vaPvZEy+ClAmdKfjwfnDAHqlmVkHn+FVsntVZ7+rmct
-         5nSthRg6IDt9G5BP/1oELrLxe4JldnSqZYnd91yTGPX2Zm6MBCN0h2x3aBQRzmSxYwH2
-         qAK69faJEc7NuZxmzII91KCag+JsRhl9CiVR4=
+        bh=NdsXEprLd6HHm6fn4LOj1PkScl+mGSgUDIFGPbATAlo=;
+        b=iGq/vxTdjezu281ZT1I6ZZiZHUBt9u3Znww51YBIR+MefU6EyT3H1VTUI5Stf6jV4h
+         /Ggp1mm1lV5ZLMxnaJQfAybasFUUtpliC+md6nA+m8ZGiJFslWFYJpzKanW/iHFtJJ0V
+         1C39fKEeE+WYiqagNcRd/Bj4CYvRF5pVq4ngE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701855533; x=1702460333;
+        d=1e100.net; s=20230601; t=1701855657; x=1702460457;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TYZysdNMtlf+ieWkrppbfc337y9v9xlVK3DBQvAcSIY=;
-        b=tjy9+TFZgb+d2lhabJKvTF/JW1fk2hP0g/cvtA8ppk9pLTMv/H4UFO4X5gp49KFNTe
-         eKBuN2IdCn8Us1/jTyywRTfo92lW3EUeV0uCLIktzUPZMRUURo6m2fakxX5IE3kr1JTx
-         dtvo8qZb7iCFtdYzarqGfyWVS/j03mBE9C8fr8odxq+3sjy7zXlH75NhiarWybXPQ2LP
-         EtwGwoJU0LLuxQnNMpogsx4CEIx0ShfiEFK0dnwm4zRgEDLizGUupDQrd57zcEil0Fre
-         kchZJaIC+Cg55Tqdq3jUTgIrAjgoFDFp2zs+fmlyQkVTjra8usbUZJ3fDFr2Y9R9YPdQ
-         XCUQ==
-X-Gm-Message-State: AOJu0YwZX3Od1SCy8WED6ZavaTNG0smB0rTHh99XdC2vMAQA2wVuO7AW
-	3uINYeL7vwZLFq5PLiqLyMfqMMiwLmMqtVJ1oM9KxA==
-X-Google-Smtp-Source: AGHT+IHSxvjRmB4cOovZ8zqailwQcKq2WgClq7BAg4fC+QzkCYf4/VTwy9T7yn0SG0TpBYhxxOFAyiQTPtWxdweaBbE=
-X-Received: by 2002:a17:906:bc95:b0:a19:a409:37ed with SMTP id
- lv21-20020a170906bc9500b00a19a40937edmr2458398ejb.70.1701855533199; Wed, 06
- Dec 2023 01:38:53 -0800 (PST)
+        bh=NdsXEprLd6HHm6fn4LOj1PkScl+mGSgUDIFGPbATAlo=;
+        b=E0aETRZhdBb0OHx8KRmryiW5G3QKss9izQI/7miZa8PJa87NAkbTF18w9KuC3PTpVS
+         XisJ9R6QM5/Q9hKiLCoGoaOfWdcKt+loiKBO7tZpxuZ17u/34pxQZU/Z2kXzhKfk3+Ro
+         KjAQU/Kbndk7BFi2wXQgbwH9o2ppN3AZn7T2R6fN4AQ2Ci/ckxX9fbHZJHxpzY4tPhaW
+         1zZhqflhKtgPAsEadSotUzkyyafB5Im+GLI6ZR7jTplClPEFeWAzv4TfoXK1T1Sdvu1n
+         ao0r5I7cJsr24S/nT5PBU+U81tML/O0QdOiUrA3N5a7qluxr+iaIkoscF47aS7HLqvPZ
+         J4wQ==
+X-Gm-Message-State: AOJu0Yx/5gqPvhzkJmPvn2CxrssxWwjrHnIegtvLkY2NoY8ZTa0MmPqg
+	5LxR1+RnaDYCkU7xhjgHp/xn5vHDg3zN0SqNnCRolQ==
+X-Google-Smtp-Source: AGHT+IGiyiuky8gen+Lzcnom3IM1I854rjHl5xZVAp0PjEd3Lm828jNZa172WoDAsNxUJddzDdXafiVboFAQHKaioyM=
+X-Received: by 2002:a17:906:1c3:b0:a1c:e6aa:4c47 with SMTP id
+ 3-20020a17090601c300b00a1ce6aa4c47mr215992ejj.36.1701855657496; Wed, 06 Dec
+ 2023 01:40:57 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,23 +53,23 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <CAJfpeguMViqawKfJtM7_M9=m+6WsTcPfa_18t_rM9iuMG096RA@mail.gmail.com>
- <20231205175117.686780-1-mattlloydhouse@gmail.com>
-In-Reply-To: <20231205175117.686780-1-mattlloydhouse@gmail.com>
+ <20231205182629.qk5s6f7m7sas4anh@ws.net.home>
+In-Reply-To: <20231205182629.qk5s6f7m7sas4anh@ws.net.home>
 From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Wed, 6 Dec 2023 10:38:41 +0100
-Message-ID: <CAJfpegvUWH9uncnxWj50o7p9WGWgV3BL2=EnqKY28S=4J4ywHw@mail.gmail.com>
+Date: Wed, 6 Dec 2023 10:40:46 +0100
+Message-ID: <CAJfpegtv0A8b2Ex7O0AUwZCFsB_OfXvD_ehYR0a6jMr0F_Okdw@mail.gmail.com>
 Subject: Re: [RFC] proposed libc interface and man page for listmount
-To: Matthew House <mattlloydhouse@gmail.com>
+To: Karel Zak <kzak@redhat.com>
 Cc: libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>, 
 	Alejandro Colomar <alx@kernel.org>, Linux API <linux-api@vger.kernel.org>, 
 	Florian Weimer <fweimer@redhat.com>, linux-fsdevel@vger.kernel.org, 
-	Karel Zak <kzak@redhat.com>, Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>, 
+	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>, 
 	Christian Brauner <christian@brauner.io>, Amir Goldstein <amir73il@gmail.com>, Arnd Bergmann <arnd@arndb.de>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 5 Dec 2023 at 18:51, Matthew House <mattlloydhouse@gmail.com> wrote:
+On Tue, 5 Dec 2023 at 19:26, Karel Zak <kzak@redhat.com> wrote:
 >
-> On Tue, Dec 5, 2023 at 11:28 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
+> On Tue, Dec 05, 2023 at 05:27:58PM +0100, Miklos Szeredi wrote:
 > > Attaching the proposed man page for listing mounts (based on the new
 > > listmount() syscall).
 > >
@@ -83,21 +83,17 @@ On Tue, 5 Dec 2023 at 18:51, Matthew House <mattlloydhouse@gmail.com> wrote:
 > >        struct listmount *listmount_start(uint64_t mnt_id, unsigned int flags);
 > >        uint64_t listmount_next(struct listmount *lm);
 > >        void listmount_end(struct listmount *lm);
-> >
-> > I'm on the opinion that no wrapper is needed for the raw syscall, just
-> > like there isn't one for getdents(2).
-> >
-> > Comments?
 >
-> One use case I've been thinking of involves inspecting the mount list
-> between syscall(__NR_clone3) and _exit(), so it has to be async-signal-
-> safe. It would be nice if there were a libc wrapper that accepted a user-
-> provided buffer and was async-signal-safe, so that I wouldn't have to add
-> yet another syscall wrapper and redefine the kernel types just for this
-> use case. (I can't trust the libc not to make its own funny versions of the
-> types' layouts for its own ends.)
+> What about:
+>
+>     getmountlist()
+>     nextmountlist()
+>     freemountlist()
+>
+> For me, _start and _end() sounds strange. For example, We already use
+> get+free for getaddrinfo().
 
-You can just #include <linux/mount.h> directly.
+Fine by me.  Just wanted to get the general scheme out for comment.
 
 Thanks,
 Miklos
