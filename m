@@ -1,110 +1,150 @@
-Return-Path: <linux-man+bounces-227-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-228-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C4980779F
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 19:34:12 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 703E480790C
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 20:58:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A1D9E1C20F48
-	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 18:34:09 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2C03028159A
+	for <lists+linux-man@lfdr.de>; Wed,  6 Dec 2023 19:58:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 070304184C;
-	Wed,  6 Dec 2023 18:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHtoq2/K"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0AD3D6DCFE;
+	Wed,  6 Dec 2023 19:58:16 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20813D40
-	for <linux-man@vger.kernel.org>; Wed,  6 Dec 2023 10:34:06 -0800 (PST)
-Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-5d3d5b10197so390787b3.2
-        for <linux-man@vger.kernel.org>; Wed, 06 Dec 2023 10:34:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701887645; x=1702492445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CM47imxklPmlQMEH5p5ka4UHZADGHrX7og2DsdWV8BE=;
-        b=bHtoq2/KVc6V+LaFNHvUYb1HWVcvV0xIXaPXVLAx/dMJcC8wDjdwCSUq/J7pL1S2SQ
-         MW/M2Hv6jjlb4nmylNuiUuvx6Bjdp/SQFxOJxwf9Y5WKX4zyM3oalf85dBsejD/HWCmB
-         Pvr1A1tJzH3LbpEUb9jqouolYvAGS2Pu/ytnwo2cOM4+y1Od6renmB8T9odv9wocwKUB
-         h18JBSTdSu4nkeA5tumNLT9R5V8VtOMJxw8QQqu7FhStjzaxj4xr76oVnv+UdnIKMoJU
-         +BQbzMzo+JqkHK+IuyH4pjLoY7rse0qIQanUkM/LOQsGmvvwgtkkQ7FLQAnxYcKSMsvo
-         ZEvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701887645; x=1702492445;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CM47imxklPmlQMEH5p5ka4UHZADGHrX7og2DsdWV8BE=;
-        b=mMuAQIn3oIgV5N7bYR8LCrcklFqv7e1COWzCTbcRyIZFWq6sATO7iEHwe409fdHtFw
-         6s5by5TYuuwedDQors9fzQImLftOAkL0Wl7IM2OrLJPntWtx8pcazvXx4xfQ3t11r3EN
-         PHidjyngWq/nQYoYUvCLqtXNKkC8S56WJ8HHW5fp/Fn/EyphTc9cGb1V6DOt7fFKy9lb
-         X69Nc8izyi9a51od+0meCEsVXlvcg2haxyO4cdI7BO7zsqb/Hk+FXU+mY9JAmvw0KsXy
-         XcFWMkfY/m+w4Pxx45RlS8uV27brpNfkhMMSb5W3jt/wPM7PLSvPAOvY9G9DAZGLgAUs
-         omiw==
-X-Gm-Message-State: AOJu0YwZvq7DuZNSdJJrWAHNVDbRU3KlJl6EwI2R1FxmqZnw28HCzmuN
-	RReIKlSuX7QnqtIIOL8EOlfAY9ZzuwL7ag==
-X-Google-Smtp-Source: AGHT+IEcFu8172McNXPewg2VzmS8RoU4IUbsHtFhaJHLe3wBMruaqzSaJO8z82fVL/CLbBPYCabq6Q==
-X-Received: by 2002:a81:b648:0:b0:5ca:d2ec:7ee7 with SMTP id h8-20020a81b648000000b005cad2ec7ee7mr1163630ywk.32.1701887645264;
-        Wed, 06 Dec 2023 10:34:05 -0800 (PST)
-Received: from firmament.. (h198-137-20-4.xnet.uga.edu. [198.137.20.4])
-        by smtp.gmail.com with ESMTPSA id c186-20020a0dc1c3000000b005d80a7711dasm130888ywd.138.2023.12.06.10.34.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Dec 2023 10:34:05 -0800 (PST)
-From: Matthew House <mattlloydhouse@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man <linux-man@vger.kernel.org>,
-	Zack Weinberg <zack@owlfolio.org>,
-	Lee Griffiths <poddster@gmail.com>
-Subject: Re: [PATCH] sscanf.3: Remove term 'deprecated', and expand BUGS
-Date: Wed,  6 Dec 2023 13:33:50 -0500
-Message-ID: <20231206183351.749567-1-mattlloydhouse@gmail.com>
-In-Reply-To: <ZXCjD5dP-jaUpeER@debian>
-References: <20231206145132.5538-2-alx@kernel.org> <ZXCjD5dP-jaUpeER@debian>
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E78ABA;
+	Wed,  6 Dec 2023 11:58:09 -0800 (PST)
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id 18BDD801; Wed,  6 Dec 2023 13:58:07 -0600 (CST)
+Date: Wed, 6 Dec 2023 13:58:07 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Miklos Szeredi <mszeredi@redhat.com>
+Cc: Christian Brauner <christian@brauner.io>, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+	Karel Zak <kzak@redhat.com>, linux-fsdevel@vger.kernel.org,
+	Ian Kent <raven@themaw.net>, David Howells <dhowells@redhat.com>,
+	Al Viro <viro@zeniv.linux.org.uk>
+Subject: Re: [PATCH 3/4] listmount: small changes in semantics
+Message-ID: <20231206195807.GA209606@mail.hallyn.com>
+References: <20231128160337.29094-1-mszeredi@redhat.com>
+ <20231128160337.29094-4-mszeredi@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231128160337.29094-4-mszeredi@redhat.com>
 
-On Wed, Dec 6, 2023 at 11:36 AM Alejandro Colomar <alx@kernel.org> wrote:
-> Also, I was going to ask for strtoi(3bsd) in glibc, since strtol(3)
-> isn't easy to use portably (since POSIX allows EINVAL on no conversion,
-> how to differentiate strtoi(3bsd)'s ECANCELED from EINVAL in strtol(3)?).
+On Tue, Nov 28, 2023 at 05:03:34PM +0100, Miklos Szeredi wrote:
+> 1) Make permission checking consistent with statmount(2): fail if mount is
+> unreachable from current root.  Previously it failed if mount was
+> unreachable from root->mnt->mnt_root.
+> 
+> 2) List all submounts, even if unreachable from current root.  This is
+> safe, since 1) will prevent listing unreachable mounts for unprivileged
+> users.
+> 
+> 3) LSMT_ROOT is unchaged, it lists mounts under current root.
+> 
+> Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+> ---
+>  fs/namespace.c | 39 ++++++++++++++-------------------------
+>  1 file changed, 14 insertions(+), 25 deletions(-)
+> 
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index ad62cf7ee334..10cd651175b5 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -5004,37 +5004,26 @@ static struct mount *listmnt_next(struct mount *curr)
+>  	return node_to_mount(rb_next(&curr->mnt_node));
+>  }
+>  
+> -static ssize_t do_listmount(struct mount *first, struct vfsmount *mnt,
+> +static ssize_t do_listmount(struct mount *first, struct path *orig, u64 mnt_id,
+>  			    u64 __user *buf, size_t bufsize,
+>  			    const struct path *root)
+>  {
+> -	struct mount *r, *m = real_mount(mnt);
+> -	struct path rootmnt = {
+> -		.mnt = root->mnt,
+> -		.dentry = root->mnt->mnt_root
+> -	};
+> -	struct path orig;
+> +	struct mount *r;
+>  	ssize_t ctr;
+>  	int err;
+>  
+> -	if (!is_path_reachable(m, mnt->mnt_root, &rootmnt))
+> -		return capable(CAP_SYS_ADMIN) ? 0 : -EPERM;
+> +	if (!capable(CAP_SYS_ADMIN) &&
 
-I feel like this is rather overstating the difficulty. In practice, the
-no-conversion condition is very commonly detected by checking whether
-*endptr =3D=3D nptr after the call. The usual idiom I see is something like:
+Was there a reason to do the capable check first?  In general,
+checking capable() when not needed is frowned upon, as it will
+set the PF_SUPERPRIV flag.
 
-    char *end;
-    errno =3D 0;
-    value =3D strtol(ptr, &end, 10);
-    if (end =3D=3D ptr || *end !=3D '\0' || errno =3D=3D ERANGE)
-        goto err;
-
-Of course, the *end !=3D '\0' condition can be omitted or adapted as
-necessary. Alternatively, one can avoid checking errno at all, by just
-checking whether the value is in the permitted range, since the saturating
-behavior will make such a check reject on overflow. And even without an
-explicit permitted range, one can just reject on  on value =3D=3D LONG_MIN =
-||
-value =3D=3D LONG_MAX, or just on value =3D=3D ULONG_MAX for strtoul(3); re=
-jecting
-a value that's almost an overflow isn't going to harm anything, except for
-the rare scenarios where a printed integer can actually reach the minimum
-or maximum, but needs to be round-tripped unconditionally.
-
-In general, I don't think most programmers are in the habit of carefully
-distinguishing errno values for <string.h> functions. They'd rather check
-for self-explanatory conditions, such as *endptr =3D=3D nptr, that readers
-don't have to refer to the man page to decipher. There's a reason that most
-high-level language bindings return errno values for file I/O but not for
-anything else.
-
-Thank you,
-Matthew House
+> +	    !is_path_reachable(real_mount(orig->mnt), orig->dentry, root))
+> +		return -EPERM;
+>  
+> -	err = security_sb_statfs(mnt->mnt_root);
+> +	err = security_sb_statfs(orig->dentry);
+>  	if (err)
+>  		return err;
+>  
+> -	if (root->mnt == mnt) {
+> -		orig = *root;
+> -	} else {
+> -		orig.mnt = mnt;
+> -		orig.dentry = mnt->mnt_root;
+> -	}
+> -
+>  	for (ctr = 0, r = first; r; r = listmnt_next(r)) {
+> -		if (r == m)
+> +		if (r->mnt_id_unique == mnt_id)
+>  			continue;
+> -		if (!is_path_reachable(r, r->mnt.mnt_root, &orig))
+> +		if (!is_path_reachable(r, r->mnt.mnt_root, orig))
+>  			continue;
+>  
+>  		if (ctr >= bufsize)
+> @@ -5053,9 +5042,8 @@ SYSCALL_DEFINE4(listmount, const struct mnt_id_req __user *, req,
+>  {
+>  	struct mnt_namespace *ns = current->nsproxy->mnt_ns;
+>  	struct mnt_id_req kreq;
+> -	struct vfsmount *mnt;
+>  	struct mount *first;
+> -	struct path root;
+> +	struct path root, orig;
+>  	u64 mnt_id;
+>  	ssize_t ret;
+>  
+> @@ -5071,16 +5059,17 @@ SYSCALL_DEFINE4(listmount, const struct mnt_id_req __user *, req,
+>  	down_read(&namespace_sem);
+>  	get_fs_root(current->fs, &root);
+>  	if (mnt_id == LSMT_ROOT) {
+> -		mnt = root.mnt;
+> +		orig = root;
+>  	} else {
+>  		ret = -ENOENT;
+> -		mnt  = lookup_mnt_in_ns(mnt_id, ns);
+> -		if (!mnt)
+> +		orig.mnt  = lookup_mnt_in_ns(mnt_id, ns);
+> +		if (!orig.mnt)
+>  			goto err;
+> +		orig.dentry = orig.mnt->mnt_root;
+>  	}
+>  	first = node_to_mount(rb_first(&ns->mounts));
+>  
+> -	ret = do_listmount(first, mnt, buf, bufsize, &root);
+> +	ret = do_listmount(first, &orig, mnt_id, buf, bufsize, &root);
+>  err:
+>  	path_put(&root);
+>  	up_read(&namespace_sem);
+> -- 
+> 2.41.0
+> 
 
