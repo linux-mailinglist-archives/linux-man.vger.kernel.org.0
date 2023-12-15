@@ -1,148 +1,111 @@
-Return-Path: <linux-man+bounces-264-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-265-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E2F8146DF
-	for <lists+linux-man@lfdr.de>; Fri, 15 Dec 2023 12:27:53 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE9E9814702
+	for <lists+linux-man@lfdr.de>; Fri, 15 Dec 2023 12:34:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2DBBD283D83
-	for <lists+linux-man@lfdr.de>; Fri, 15 Dec 2023 11:27:52 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2CD6C1C22AB3
+	for <lists+linux-man@lfdr.de>; Fri, 15 Dec 2023 11:34:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DB36250E2;
-	Fri, 15 Dec 2023 11:27:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A9051F18C;
+	Fri, 15 Dec 2023 11:34:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6IzuUqG"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TP03eMWR"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266F32511F
-	for <linux-man@vger.kernel.org>; Fri, 15 Dec 2023 11:27:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4BBC433CB;
-	Fri, 15 Dec 2023 11:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C9924B4A
+	for <linux-man@vger.kernel.org>; Fri, 15 Dec 2023 11:34:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B66ABC433CA
+	for <linux-man@vger.kernel.org>; Fri, 15 Dec 2023 11:34:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702639653;
-	bh=eUMUdJojK04q+FHw8vOGQJQCBbrJBOKifi3MLdZjjnA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E6IzuUqGGI9N55blKSXpW2LjZZThAybYDF3av7pdTY/wmC6r5s/B5R1uMdbRIqmEp
-	 5Q6eqfTAlQQBBFU6SdymO9ISzakT9d5NQtXqOViRB6Pkwa6oRQzahx00jRoBJN9Aab
-	 OJjIzSH4pU9S2K8jFKFTDdG/ze2aP5vnkEjIw0L54gYZNkaoBLEsxl70seYy7WnW3T
-	 0k6RS3+Z6EfAAJi3kRpZ3fApVTGpLWXL7IYQyDPzxu7iUcW4yuir5N6FOVRyqeIUen
-	 G7WvT/kU3W1yDVKN0mZggR0FMgiDGaFVKJlRjO+XIuJ1MZTOKxe2n/djPcxSXdR0Tc
-	 UtHSwIX65lBLw==
-Date: Fri, 15 Dec 2023 12:27:30 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] swapon.2: Adjust decreased value under
- CONFIG_MIGRATION
-Message-ID: <ZXw4IuWiejiDqknd@debian>
-References: <20231205063017.68690-1-xuyang2018.jy@fujitsu.com>
- <ZXw02jr6CaN3gBfa@debian>
+	s=k20201202; t=1702640046;
+	bh=gcfmR4kcrDQwtg8pKyhLiQzSD+dKAz6SPjocbNgDFR0=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=TP03eMWRZTQD0bSZEHgeQE6/u3hxLVLCX5jyC6+CkORW8zFtvOWm+vSPDSNZw2qN8
+	 o1rPf+yGLKfi1YT1JF8UHZMkX6UbJNsSu3ti4hKWHwzCt+lwV489En10XpQCiOBdRf
+	 ACyylg8DmMB2NAfVEmNSr4CtQf4YzuQt20KAcCk+ExnXCfVx1lrcExXDjE8aVH6Lek
+	 /+8GVoTCUiUnl0XeE01zF4SnEPRDZKUrwXPPlCC2jkUaKX4Bpv9Xb4aLXxmRjcHA+H
+	 3csMfOvEzLDIi9x0yRAXnMyKtJvynZYbe/geZc+42gg/Rg2s7lSSzYx0tBDnW6EoTe
+	 cKZSo01OYya+A==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id A32BEC53BCD; Fri, 15 Dec 2023 11:34:06 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 218266] Need article about Linux shutdown process
+Date: Fri, 15 Dec 2023 11:34:06 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-218266-11311-dqcPm2kKyI@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-218266-11311@https.bugzilla.kernel.org/>
+References: <bug-218266-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UpFKvQHkTZADXq3o"
-Content-Disposition: inline
-In-Reply-To: <ZXw02jr6CaN3gBfa@debian>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D218266
 
---UpFKvQHkTZADXq3o
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 Dec 2023 12:27:30 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] swapon.2: Adjust decreased value under
- CONFIG_MIGRATION
+--- Comment #3 from Alejandro Colomar (alx@kernel.org) ---
+On Fri, Dec 15, 2023 at 11:24:41AM +0000, bugzilla-daemon@kernel.org wrote:
+> No, this is too complex a topic and the current manpages content is clear=
+ly
+> not
+> enough. This is not about using the shutdown command, but about the
+> information
+> necessary to build an rtl programming language. Perhaps some explanatory
+> graphical files are also needed.
 
-On Fri, Dec 15, 2023 at 12:13:30PM +0100, Alejandro Colomar wrote:
-> Hi Yang,
->=20
-> On Tue, Dec 05, 2023 at 01:30:16AM -0500, Yang Xu wrote:
-> > After kernel 5.19[1], the limit is decreased by 3.
-> >=20
-> > [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
-ommit/include/linux/swap.h?id=3D6c287605f
-> >=20
-> > Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
->=20
-> I've applied the patch, with some modifications:
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
-ommit/?h=3Dcontrib&id=3D5da8280ed6eefb3d70f86281579c4afae89230b1>
+I meant in section 7, because that's the Miscellaneous Information
+Manual.
 
-Oops, my modification was wrong.  I've amended that.  Here are the two
-patches now:
+The page for the command is shutdown(1).
 
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D90ba8cf3ab2536bdc138986c4581c62a3c0b60d4>
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D9e160cf3fd27181a72ec2fb628f64e971510f9f3>
+In section 7 there are some pages that have that style of articles
+explaining how to do something.  See for example the most recent
+addition: string_copying(7).
 
 >=20
-> Cheers,
-> Alex
->=20
-> > ---
-> >  man2/swapon.2 | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/man2/swapon.2 b/man2/swapon.2
-> > index c0e61cbc6..2bc477d18 100644
-> > --- a/man2/swapon.2
-> > +++ b/man2/swapon.2
-> > @@ -164,7 +164,8 @@ Before Linux 2.4.10,
-> >  .B MAX_SWAPFILES
-> >  has the value 8;
-> >  since Linux 2.4.10, it has the value 32.
-> > -Since Linux 2.6.18, the limit is decreased by 2 (thus: 30)
-> > +Since Linux 2.6.18, the limit is decreased by 2 (Since Linux 5.19.0,
-> > +the limit is decreased by 3)
-> >  if the kernel is built with the
-> >  .B CONFIG_MIGRATION
-> >  option
-> > --=20
-> > 2.27.0
-> >=20
-> >=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
-> Looking for a remote C programming job at the moment.
+> It is possible, of course, to dramatically simplify the task by making yo=
+ur
+> own
+> patch for the kernel and describing it, but I think it would be better to
+> describe how it works now on the part of the kernel developers. I have
+> nothing
+> to write about now - there is not enough information about the topic.
 
+Ok.
 
+Have a lovely day,
+Alex
 
 --=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+You may reply to this email to add a comment.
 
---UpFKvQHkTZADXq3o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmV8OCIACgkQnowa+77/
-2zLDQQ/9EpEVacpAOZ1yFU1pks6pXKHlIcZXTZFwNXia/OrepQpM6TtE4hM6T7Gc
-JMDyyceRZV0tC1WMYsx5+ffiJAi9kxMcKCOr2f4ueQG92ATYuW12jWlJYo7Ok/+f
-pVdeqSRDNqM9zVhS6WDfUnKVCU2q8hSHCfYoGYF9ywJ8cFZ0arW6p36lm7cnoh5X
-yUadtPV1zAMGjhHAQrK689mgSzreYya2BeiQyFzpIqKwRC/KNlkR9vRUkkrTuSoT
-cl4Bi9qd6jKBt+LGgpc1g3s9w6ZmzIw7ID6JKW8mlghs1gOq9PSa6Ajthoj0OLmR
-/XZTLlVocrrtJOn3KHmSj6zzSfw6X5ow5n5YXZbJkQAhdyK8Lqb67PC2uHRO5xOb
-PNwM7zr5ARAgfCgVZ2e7cDiKThqxoew0xg00aMWTamqPTc3dcSP2qQtRcv3aDQk0
-mXLuahPkrNCjM55f0HMQgoNNrH0dLa+uQp62fgy1hgnUsFqBO6zIphwoaJ1iZYG1
-xLLMZA4tASB1F8s8xisxXweDqbxVJg1Ocjr3Ac17X1Q0UgBXjwtBgt9WuMPEPZP+
-nP+UgQG/gghnnwflNAPHqjrz8qYbQJQW3b855uRFyolwgzNRLruk6xWqCPaOY4PT
-nepOunUIDCvRm3xmLdc9P0u4cR2aI5VIOXR1nTNmLIf9guDbqUc=
-=JXQM
------END PGP SIGNATURE-----
-
---UpFKvQHkTZADXq3o--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
