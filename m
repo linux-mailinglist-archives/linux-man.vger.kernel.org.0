@@ -1,126 +1,117 @@
-Return-Path: <linux-man+bounces-268-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-269-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FD4E81AC4F
-	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 02:47:52 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A8B81AC52
+	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 02:49:37 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 75CCA1C22AD4
-	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 01:47:51 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1B3B11F2468E
+	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 01:49:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B656415B7;
-	Thu, 21 Dec 2023 01:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF48B15CC;
+	Thu, 21 Dec 2023 01:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="OUsBYBnw"
+	dkim=pass (1024-bit key) header.d=amazon.com header.i=@amazon.com header.b="ZpQxh141"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp-fw-52003.amazon.com (smtp-fw-52003.amazon.com [52.119.213.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D9A15AE
-	for <linux-man@vger.kernel.org>; Thu, 21 Dec 2023 01:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202305; t=1703122296;
-	bh=YhHLt8B8cdpn2mW90TuElhHWkvm8tbYwba94I1xofDQ=;
-	h=Date:From:To:Cc:Subject:From;
-	b=OUsBYBnwgVOOZVIb4Qo9vPkPGUrBjjllCvg3un8YldiEj/ooVtOfx54Y/clQPiABI
-	 AkVnvVzjN0iAkW4DqxBP862U8W/ML8kdM54PiQTiCgETYofS+e85CLvnhoGWUivVD6
-	 Slrl4kFXcAEH7FTbglYV2+dDLE//Hx04IW4DzugABGdUo2iAOURBJJg2Hl3tSdX/JO
-	 BM2haVL2EauWb1l+SN94zrKUPd6mFkOUQHevHaVuPYuHQm+djUgdWbrg5gejJluQU5
-	 rfqFornOtrm5sJEdzKZe4ghO7T0CTi3Fe24J+zaCJKu/O4Squ4xlN1rOlAUYEMof79
-	 8CsQ6fUbLXySg==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 0914313A6A;
-	Thu, 21 Dec 2023 02:31:36 +0100 (CET)
-Date: Thu, 21 Dec 2023 02:31:35 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH] sendfile.2: pull in_fd type requirements up to 6.7
-Message-ID: <tovce255glwqzbrwuwk3ijzzrww3si4q3jdoh4sdw5zgah7ki7@tarta.nabijaczleweli.xyz>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DE71843;
+	Thu, 21 Dec 2023 01:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.jp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1703123369; x=1734659369;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=rCL33iD9VHLmj2113xvxmnVgCiJ8bLLkMHBSdPz3nxc=;
+  b=ZpQxh141rSYjvMRZtOQolGfYc7ylUsJa/k1PolbS0A6CTYDal/E8KMol
+   ri6BGHLf7GwVktUPnpCOJiwKCWnQjN7FttTyjlp/h0cX5g4bnd5mV+14e
+   wDQr5f2AmMuZ863J30u16kWVhvL8t531ffIsOsodD1yA9H36Y9qCr/nsN
+   I=;
+X-IronPort-AV: E=Sophos;i="6.04,292,1695686400"; 
+   d="scan'208";a="626864022"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-pdx-2a-m6i4x-d47337e0.us-west-2.amazon.com) ([10.43.8.6])
+  by smtp-border-fw-52003.iad7.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Dec 2023 01:49:27 +0000
+Received: from smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev (pdx2-ws-svc-p26-lb5-vlan3.pdx.amazon.com [10.39.38.70])
+	by email-inbound-relay-pdx-2a-m6i4x-d47337e0.us-west-2.amazon.com (Postfix) with ESMTPS id 8B31960AF0;
+	Thu, 21 Dec 2023 01:49:26 +0000 (UTC)
+Received: from EX19MTAUWC002.ant.amazon.com [10.0.21.151:23105]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.56.23:2525] with esmtp (Farcaster)
+ id 1d767abf-b576-4d75-85f6-d51b9e4f64c3; Thu, 21 Dec 2023 01:49:26 +0000 (UTC)
+X-Farcaster-Flow-ID: 1d767abf-b576-4d75-85f6-d51b9e4f64c3
+Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 21 Dec 2023 01:49:25 +0000
+Received: from 88665a182662.ant.amazon.com (10.119.15.211) by
+ EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 21 Dec 2023 01:49:22 +0000
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
+To: <atikhono@redhat.com>
+CC: <alx@kernel.org>, <kuniyu@amazon.com>, <libc-alpha@sourceware.org>,
+	<linux-man@vger.kernel.org>, <netdev@vger.kernel.org>
+Subject: Re: [PATCH] unix.7: SO_PEERCRED: Mention listen(2)
+Date: Thu, 21 Dec 2023 10:49:11 +0900
+Message-ID: <20231221014911.39497-1-kuniyu@amazon.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <CABPeg3Z5p2yapwEwPdHqDZiDL-W_gVgMc39A0Kdd95LNd+OwHA@mail.gmail.com>
+References: <CABPeg3Z5p2yapwEwPdHqDZiDL-W_gVgMc39A0Kdd95LNd+OwHA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wfd7udqbeyhs23iv"
-Content-Disposition: inline
-User-Agent: NeoMutt/20231103-116-3b855e-dirty
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
+ EX19D004ANA001.ant.amazon.com (10.37.240.138)
+Precedence: Bulk
+
+From: Alexey Tikhonov <atikhono@redhat.com>
+Date: Wed, 20 Dec 2023 18:28:34 +0100
+> In case of connected AF_UNIX stream sockets, server-side
+> credentials are set at the time of a call to listen(2),
+> not when client-side calls connect(2).
+> 
+> This is important if server side process changes UID/GID
+> after listen(2) and before connect(2).
+> 
+> Reproducer is available in https://bugzilla.redhat.com/show_bug.cgi?id=2247682
+> 
+> Behavior was confirmed in the email thread
+> https://lore.kernel.org/linux-man/CABPeg3a9L0142gmdZZ+0hoD+Q3Vgv0BQ21g8Z+gf2kznWouErA@mail.gmail.com/
+> 
+> Signed-off-by: Alexey Tikhonov <atikhono@redhat.com>
+
+Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+
+Thanks!
 
 
---wfd7udqbeyhs23iv
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-But this does mean that since 5.12 supports
-(5.12 has ISREG|ISBLK, this actually matches 6.0 semantics):
-  any      -> pipe  via splice
-  seekable -> any
-
-Also, there are many seekable files which aren't regular,
-and the offset is updated regardless.
-This is obvious, but the wording is clumsy.
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man2/sendfile.2 | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/man2/sendfile.2 b/man2/sendfile.2
-index 24de71072..a385949c1 100644
---- a/man2/sendfile.2
-+++ b/man2/sendfile.2
-@@ -91,12 +91,21 @@ .SH DESCRIPTION
- .BR mmap (2)-like
- operations
- (i.e., it cannot be a socket).
-+Except since Linux 5.12
-+.\" commit b964bf53e540262f2d12672b3cca10842c0172e7
-+and if
-+.I out_fd
-+is a pipe, in which case
-+.BR sendfile ()
-+desugars to a
-+.BR splice (2)
-+and its restrictions apply.
- .P
- Before Linux 2.6.33,
- .I out_fd
- must refer to a socket.
- Since Linux 2.6.33 it can be any file.
--If it is a regular file, then
-+If it's seekable, then
- .BR sendfile ()
- changes the file offset appropriately.
- .SH RETURN VALUE
---=20
-2.39.2
-
---wfd7udqbeyhs23iv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmWDlXcACgkQvP0LAY0m
-WPGRkhAAhnognBZjtsm0N/O4i7I6MrIqvqIWgPSrrBi0Q2q3ZK06Qewy3gi+ZrcY
-iLEsrTs1eYgX2AbTL+pCXmesFHHt06eOZQNSgvUuFDYwPMgz6F7LouZLDvGzOaVe
-cTZYYtih77xBaxzeRf8PiDUV1rRrPk99dJW0xQhNO6maIdRxHoWg/4iPgK9LwDDa
-cZyXtYb5O/fXJ7EjDwbHkEMKYQwVHi+VXr4Op8zTbyGRpu+sPPLbzEfOp+yyNv9x
-uiPaT1DgzAO3DSOgaTtXR4Srw2L00T1uCvn0/eMZLGKfLF0SQhEJkunTpbV+gzpg
-KSC5rJGjBdQFOOe3MZlRh2qIJLVhqNfS0OZv/O5WPTtN+U0f5yWuxlEJNWDGrWwC
-oFnAxlWUAH9xl1EHYFlYR0kpFK+jtGgLrwRKKIB8kqBTMhwGdcOSXnEnxTfCaqFl
-fPTpR6FcY9Q79XasIWbIUSL5cQQkHZUpYBIgVkXH7SeKZrCVeuP1krO+XLNJE7HW
-hCN1TqSXeUO8stLC5P5nQfZkMMHmyY0ay4j+zAkeM3gBzbAlScUUI0Ue6Fvx0OlE
-R3ZeqI269JM5hjjYy9wOJ3uakYlee7FhVWvLEatI4CEPtNLqfY2kO1e6JcgbiKoV
-BtyxUCMKFe7ZbB1BnXhMLjKjk7zSpo3YVm6H4DOe8qh5yhcB6sM=
-=Y9bJ
------END PGP SIGNATURE-----
-
---wfd7udqbeyhs23iv--
+> ---
+>  man7/unix.7 | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man7/unix.7 b/man7/unix.7
+> index e9edad467..71cdfc758 100644
+> --- a/man7/unix.7
+> +++ b/man7/unix.7
+> @@ -331,7 +331,8 @@ This read-only socket option returns the
+>  credentials of the peer process connected to this socket.
+>  The returned credentials are those that were in effect at the time
+>  of the call to
+> -.BR connect (2)
+> +.BR connect (2),
+> +.BR listen (2),
+>  or
+>  .BR socketpair (2).
+>  .IP
+> -- 
+> 2.41.0
 
