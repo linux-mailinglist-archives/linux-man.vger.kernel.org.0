@@ -1,62 +1,49 @@
-Return-Path: <linux-man+bounces-270-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-271-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6498281ACE2
-	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 04:08:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6EE381AD05
+	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 04:12:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 83AD91C2307D
-	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 03:08:56 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E90E21C22AE9
+	for <lists+linux-man@lfdr.de>; Thu, 21 Dec 2023 03:12:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED07D4696;
-	Thu, 21 Dec 2023 03:08:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D9669461;
+	Thu, 21 Dec 2023 03:09:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="DXdlXzR/"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="F7gAnsMy"
 X-Original-To: linux-man@vger.kernel.org
 Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EB24416;
-	Thu, 21 Dec 2023 03:08:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED18722324;
+	Thu, 21 Dec 2023 03:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202305; t=1703128121;
-	bh=5pox7i0LMU5pswbZv4sORhQwC0BFgjzW/OuspbzrSpE=;
-	h=Date:From:Cc:Subject:From;
-	b=DXdlXzR/L5iIRsDgYOWlaiLPjOc+fnFTfX+ltbyhDtkXM/SxONn7FPJLXGLuLOrzK
-	 Pg5fkjgCgX0VbDEwsDvDTxmshnruk1Kbey43wgtPpmbXlJd66IFzC/KdRcacVGXUyX
-	 Ae/HVgQw0TjmPmwlMwr6yAdUkMN8fCxx1VrMUDmoHUF2/GMMJ514kIJ8x5/ZkskMNm
-	 rgc/iDLOax+DC5ZJbYklMCTj4K7tdaGWmdK4UcgLDm/Up0UiM/Pb9oqyPyslXr+3xk
-	 gnLgzMVzEUw/qRsfiM8F300FP7jlbvCCnmQ4YVZ/wPjuslpgG9hyT7a10bgUm9G7sp
-	 qSkA2UsVKz2Kw==
+	s=202305; t=1703128166;
+	bh=QL0lddTMwRPoSZ6aTDIQu4Srn7Q11jih7quYd1vg0Vo=;
+	h=Date:From:Cc:Subject:References:In-Reply-To:From;
+	b=F7gAnsMyVXO678N+0p+QbMrYBWgojnKNsTIWjttkyfbMZ1MBMUxaIBde0RDt12APh
+	 i3Jko7SRzsL1OmiSoIJ4SZ4H6msWH7exQvARD+Jv8HX13w0KORDjAXdTH+Idhj0+X5
+	 GGYH8ke4EI8fIy5O5jg0HH1Ju4a0MSDgVguNsJ0i6Tb//n+Jmvrz0YvkwBlwT5erA4
+	 T/7Md7StzD6FraWo9cmrWWYZTQ6bKz9PpM306NILw6tAxiF9D45Uuhdw8yF4l2ZYH0
+	 QGqBAu0FjQjTd/sqTkj5dUCM0n4fpM1f3dJP7jwVqjPcZAhfI9T4K1xhtdIbPBL48N
+	 PQAUUz7vlAFAA==
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id AB3F313C4C;
-	Thu, 21 Dec 2023 04:08:41 +0100 (CET)
-Date: Thu, 21 Dec 2023 04:08:41 +0100
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 5CB8213DB6;
+	Thu, 21 Dec 2023 04:09:26 +0100 (CET)
+Date: Thu, 21 Dec 2023 04:09:26 +0100
 From: 
 	Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
 	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Vivek Goyal <vgoyal@redhat.com>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, Eric Dumazet <edumazet@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Wenjia Zhang <wenjia@linux.ibm.com>, Jan Karcher <jaka@linux.ibm.com>, 
-	"D. Wythe" <alibuda@linux.alibaba.com>, Tony Lu <tonylu@linux.alibaba.com>, 
-	Wen Gu <guwen@linux.alibaba.com>, Boris Pismenny <borisp@nvidia.com>, 
-	John Fastabend <john.fastabend@gmail.com>, David Howells <dhowells@redhat.com>, 
-	Shigeru Yoshida <syoshida@redhat.com>, Peilin Ye <peilin.ye@bytedance.com>, 
-	Kuniyuki Iwashima <kuniyu@amazon.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	Daan De Meyer <daan.j.demeyer@gmail.com>, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-s390@vger.kernel.org, 
-	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: [PATCH v2 00/11] Avoid unprivileged splice(file->)/(->socket) pipe
- exclusion
-Message-ID: <cover.1703126594.git.nabijaczleweli@nabijaczleweli.xyz>
+	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 12/11 man-pages] splice.2: document 6.8 blocking behaviour
+Message-ID: <ii3qfagelsu6j2zddtzl6cruy6bpd5wimx35dabhktymjxrwli@tarta.nabijaczleweli.xyz>
+References: <cover.1703126594.git.nabijaczleweli@nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -64,147 +51,112 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wvvwnibat3ajd753"
+	protocol="application/pgp-signature"; boundary="tzluzsf63urqlqnv"
 Content-Disposition: inline
+In-Reply-To: <cover.1703126594.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20231103-116-3b855e-dirty
 
 
---wvvwnibat3ajd753
+--tzluzsf63urqlqnv
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi!
+Hypothetical text that matches v2.
 
-As it stands, splice(file -> pipe):
-1. locks the pipe,
-2. does a read from the file,
-3. unlocks the pipe.
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man2/splice.2 | 47 +++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 43 insertions(+), 4 deletions(-)
 
-When the file resides on a normal filesystem, this isn't an issue
-because the filesystem has been defined as trusted by root having
-mounted it.
-
-But when the file is actually IPC (FUSE) or is just IPC (sockets)
-or is a tty, this means that the pipe lock will be held for an
-attacker-controlled length of time, and during that time every
-process trying to read from, write to, open, or close the pipe
-enters an uninterruptible sleep, and will only exit it if the
-splicing process is killed.
-
-This trivially denies service to:
-* any hypothetical pipe-based log collexion system
-* all nullmailer installations
-* me, personally, when I'm pasting stuff into qemu -serial chardev:pipe
-
-A symmetric situation happens for splicing(pipe -> socket):
-the pipe is locked for as long as the socket is full.
-
-This follows:
-1. https://lore.kernel.org/linux-fsdevel/qk6hjuam54khlaikf2ssom6custxf5is2e=
-kkaequf4hvode3ls@zgf7j5j4ubvw/t/#u
-2. a security@ thread rooted in
-   <irrrblivicfc7o3lfq7yjm2lrxq35iyya4gyozlohw24gdzyg7@azmluufpdfvu>
-3. https://nabijaczleweli.xyz/content/blogn_t/011-linux-splice-exclusion.ht=
-ml
-4. https://lore.kernel.org/lkml/cover.1697486714.git.nabijaczleweli@nabijac=
-zleweli.xyz/t/#u  (v1)
-   https://lore.kernel.org/lkml/1cover.1697486714.git.nabijaczleweli@nabija=
-czleweli.xyz/t/#u (resend)
-   https://lore.kernel.org/lkml/2cover.1697486714.git.nabijaczleweli@nabija=
-czleweli.xyz/t/#u (reresend)
-5. https://lore.kernel.org/lkml/dtexwpw6zcdx7dkx3xj5gyjp5syxmyretdcbcdtvrnu=
-kd4vvuh@tarta.nabijaczleweli.xyz/t/#u
-   (relay_file_splice_read removal)
-
-1-7/11 request MSG_DONTWAIT (sockets)/IOCB_NOWAIT (generic) on the read
-
-  8/11 removes splice_read from tty completely
-
-  9/11 removes splice_read from FUSE filesystems
-       (except virtiofs which has normal mounting security semantics,
-        but is handled via FUSE code)
-
- 10/11 allows splice_read from FUSE filesystems mounted by real root
-       (this matches the blessing received by non-FUSE network filesystems)
-
- 11/11 requests MSG_DONTWAIT for splice(pipe -> socket).
-
- 12/11 has the man-pages patch with draft wording.
-
-All but 5/11 (AF_SMC) have been tested and embed shell programs to
-repro them. AIUI I'd need an s390 machine for it? It's trivial.
-
-6/11 (AF_KCM) also fixes kcm_splice_read() passing SPLICE_F_*-style
-flags to skb_recv_datagram(), which takes MSG_*-style flags. I don't
-think they did anything anyway? But.
-
-There are two implementations that definitely sleep all the time
-and I didn't touch them:
-  tracing_splice_read_pipe
-  tracing_buffers_splice_read (dropped in v2, v1 4/11)
-the semantics are lost on me, but they're in debugfs/tracefs, so
-it doesn't matter if they block so long as they work, and presumably
-they do right now.
-
-There is also relay_file_splice_read (dropped in v2, v1 5/11),
-which isn't an implementation at all because it's dead code, broken,
-and removed in -mm.
-
-The diffs in 1-7,11/11 are unchanged, save for a rebase in 7/11.
-8/11 replaces the file type test in v1 10/11.
-9/11 and 10/11 are new in v2.
-
-Ahelenia Ziemia=C5=84ska (11):
-  splice: copy_splice_read: do the I/O with IOCB_NOWAIT
-  af_unix: unix_stream_splice_read: always request MSG_DONTWAIT
-  fuse: fuse_dev_splice_read: use nonblocking I/O
-  net/smc: smc_splice_read: always request MSG_DONTWAIT
-  kcm: kcm_splice_read: always request MSG_DONTWAIT
-  tls/sw: tls_sw_splice_read: always request non-blocking I/O
-  net/tcp: tcp_splice_read: always do non-blocking reads
-  tty: splice_read: disable
-  fuse: file: limit splice_read to virtiofs
-  fuse: allow splicing from filesystems mounted by real root
-  splice: splice_to_socket: always request MSG_DONTWAIT
-
- drivers/tty/tty_io.c |  2 --
- fs/fuse/dev.c        | 10 ++++++----
- fs/fuse/file.c       | 17 ++++++++++++++++-
- fs/fuse/fuse_i.h     |  4 ++++
- fs/fuse/inode.c      |  2 ++
- fs/fuse/virtio_fs.c  |  1 +
- fs/splice.c          |  5 ++---
- net/ipv4/tcp.c       | 32 +++-----------------------------
- net/kcm/kcmsock.c    |  2 +-
- net/smc/af_smc.c     |  6 +-----
- net/tls/tls_sw.c     |  5 ++---
- net/unix/af_unix.c   |  5 +----
- 12 files changed, 39 insertions(+), 52 deletions(-)
-
-base-commit: 2cf4f94d8e8646803f8fb0facf134b0cd7fb691a
---
+diff --git a/man2/splice.2 b/man2/splice.2
+index e5d05a05c..d2c7ac8d5 100644
+--- a/man2/splice.2
++++ b/man2/splice.2
+@@ -139,10 +139,11 @@ .SH ERRORS
+ .B EAGAIN
+ .B SPLICE_F_NONBLOCK
+ was specified in
+-.I flags
+-or one of the file descriptors had been marked as nonblocking
+-.RB ( O_NONBLOCK ) ,
+-and the operation would block.
++.IR flags ,
++one of the file descriptors had been marked as nonblocking
++.RB ( O_NONBLOCK )
++and the operation would block,
++or splicing from an untrusted IPC mechanism and no data was available (see=
+ HISTORY below).
+ .TP
+ .B EBADF
+ One or both file descriptors are not valid,
+@@ -192,6 +193,44 @@ .SH HISTORY
+ Since Linux 2.6.31,
+ .\" commit 7c77f0b3f9208c339a4b40737bb2cb0f0319bb8d
+ both arguments may refer to pipes.
++.P
++Between Linux 4.9 and 6.7,
++.\" commit 8924feff66f35fe22ce77aafe3f21eb8e5cff881
++splicing from a non-pipe to a pipe without
++.B SPLICE_F_NONBLOCK
++would hold the pipe lock and wait for data on the non-pipe.
++This isn't an issue for files, but if the non-pipe is a tty,
++or an IPC mechanism like a socket or a
++.BR fuse (4)
++filesystem, this means that a thread attempting any operation (like
++.BR open (2)/ read (2)/ write (2)/ close (2))
++on the pipe would enter uninterruptible sleep until data appeared,
++which may never happen.
++The same applies to splicing from a pipe to a full socket.
++.P
++Since Linux 6.8,
++.\" commit TBD
++splicing from ttys is disabled
++.RB ( EINVAL ),
++reads done when splicing from sockets happen in non-blocking mode
++(as-if
++.BR MSG_DONTWAIT ,
++returning
++.B EAGAIN
++if no data is available),
++and splicing from
++.BR fuse (4)
++filesystems is only allowed if they were mounted by
++root in the initial user namespace
++(this matches security semantics for normal filesystems).
++If a splice implementation is devised that doesn't need to lock the pipe
++while waiting for data, this may be reversed in a future version.
++Writes when splicing to sockets are also done non-blockingly
++(as-if
++.BR MSG_DONTWAIT ,
++returning
++.B EAGAIN
++if the socket is full).
+ .SH NOTES
+ The three system calls
+ .BR splice (),
+--=20
 2.39.2
 
---wvvwnibat3ajd753
+--tzluzsf63urqlqnv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmWDrDQACgkQvP0LAY0m
-WPEekg/9F4adsL71PkFdGw11nhaSsR5MlS4f0o0RB/vJ8ovxAphdBOm3/tw+nNZF
-s8aO5IMhGs2S/CNTrib2VxnptiRy4Z9zYEaZ84QIvk5W4ZjymxfwFo4gCFpY2A2v
-x8B2/eyaI3mMfkfR7XLcZEoVJzoqk3mQg+Izp3eJ6LEzqqrn+CSIGnb/x8WgItv/
-bHX4swZp5YSfFOf3nDtcFV7SNCQDj+2pUqHxiJ/Lg0sgsp9OuEroQTXg31sL/haO
-nyKBCqz7X/vqteRxk1XeVjXKKl0J9s32/ZXc8TliW0NAIweTK6IRMNQgiNMMPj3M
-oO0PmLO0DJklimGE/zIpnhZ2n33FkmU2AjBm8C4v+AJIsmFGcOO9/76tDwxr1qiu
-zXp8mZKclgMeEIlPm6i3NONyZ6iB1sS5+FTh5nRuWGocU5FNq7fD3pij6sK7fYnt
-NiyM+78LHOO3mYHkOy369j7YU4F4TA8B1kLxAYJcSgK8Sd0DzrS3E20GgxATBVbA
-RX8LHM8mbhI/yqc6EfBrhTnaZwzjR+lZcXCwu23rnVvy7t9Qjndrp+d+bVuXF14f
-9urOe+GfktjuCQEtsEe3BihoXwir6Mu89xJPldUwrTzrPbOiskDJY3jfqjNAkb8D
-t0OMbEFJyrwqeV8rbzGl04F9wg5ETnAeIfkj56H//PnU0VzbKaI=
-=zGSt
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmWDrGUACgkQvP0LAY0m
+WPGGsw//RHDHC3nWcXcS0wI+Jj9gq66xabAnvTGMEWaFyDdD8DhVE4XR//kvgtQi
+64sdrcurB2Akl1h+ixBFWcKukWTc4xRdHd0K7WBeI+59IyfKRl/kjC9kdYyAXsnQ
+I9Hx8U7PKvL5JsTU4Had0PzxlYnRlGiRwjolJ7Hx3rpxuKQZMF4B1daxMLAOyT/1
+m5bTcBN/gtU0rVDYtD9cSGNO3lvCbldvWMldOzwgbrjAylbQAAKLunIRyV9sOHMo
+Di3AoIhen1eU755zej0C/CjVgmKUYa1GG3Qm7M9bwtdaJFOnSFcLqlEd3adgnog4
+gKwuLFqoyxkAg42VD7sALbQdfX9rpqm565tVRFqF/TLGMSb8i9tZ+UxEAu76LEmp
+DKk3XNO0oq6TPNEDtTCT7kJGuaTv4gK2DXD2KIPOBqHgWGQ25eB9rA5CDIz+8160
+UIMSRY9/8j37Gej0tW46INCM1j/ww7nwaJnlIu1FdS2ZIb2ghz6uMoRO8p0714qQ
+a65z+Dc+mdTDGHGeb7vFjPJ0KdsHm/fLZL6c7JxRNkPk0/BAbrCyybo3mUfz8Jts
+OyJCZ59ETtjeDfWn9+NAgE4V17B9chQCVyx5Fkq+geRfau21Af1TwbBtbpOM+VP9
+8QibeIR9csBfcHSyB6ZL0Y3XNkHyYc4IqGisOZ4F3yG+0OuyKsM=
+=hZAa
 -----END PGP SIGNATURE-----
 
---wvvwnibat3ajd753--
+--tzluzsf63urqlqnv--
 
