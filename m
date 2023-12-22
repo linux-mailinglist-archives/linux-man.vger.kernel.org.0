@@ -1,49 +1,45 @@
-Return-Path: <linux-man+bounces-289-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-290-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C38B81CD3D
-	for <lists+linux-man@lfdr.de>; Fri, 22 Dec 2023 17:47:51 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E00581CD8D
+	for <lists+linux-man@lfdr.de>; Fri, 22 Dec 2023 18:27:10 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 8AFA3B21D7B
-	for <lists+linux-man@lfdr.de>; Fri, 22 Dec 2023 16:47:48 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 1A5C7B236C3
+	for <lists+linux-man@lfdr.de>; Fri, 22 Dec 2023 17:27:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4CFB24B2B;
-	Fri, 22 Dec 2023 16:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8674E28DC5;
+	Fri, 22 Dec 2023 17:26:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YA17zKuK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOP91+vq"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B5F24B3D
-	for <linux-man@vger.kernel.org>; Fri, 22 Dec 2023 16:47:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D92DC433C8;
-	Fri, 22 Dec 2023 16:47:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5233A28DBE
+	for <linux-man@vger.kernel.org>; Fri, 22 Dec 2023 17:26:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89D5C433C7;
+	Fri, 22 Dec 2023 17:26:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703263663;
-	bh=UVe1TA1IvibTsXDjckvGFz9TTJwCFaeHnD+QqiTwadc=;
+	s=k20201202; t=1703266018;
+	bh=Iw/AhZaXyJdKFviCFpdaxBym8Zby/FL9Flw/qMhP5g0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YA17zKuKC5BwfqzP8BX0WC0XNelfH+kNM0WfW0RdD+9mwh/rwo76bdD77PpN1ZvdU
-	 j6sbLRNmcfefwFLR0blQBwMjjBVfri8N3o6KtliBivyLFK5h/V+zdWM4DVUBFGjzGa
-	 ztmHv1r87N4w8iRT91FKQZldxX7IJXVJTSsHi9urRxF2qqRS6AtiKSJk9OLsDzrrkc
-	 8R3i6kL81FHs2tX0wzHezg6iMa+DmmJmot7chWRj/X5T5BtHFuScHmNCXMjK3f115L
-	 IfMe6UfxxYLlH210uRVqLJjxENNfq7troUwiRLV+pVXFiqaorIWLaxAKz644x/evcP
-	 /6wkaXdESbnSA==
-Date: Fri, 22 Dec 2023 17:47:39 +0100
+	b=IOP91+vqtrkkzFmRtl8T35MvSb5ouXA0XFPrlG4JtLB20vDUCdQu02oOOL04Boazi
+	 g4TJjagTluaz2EEl7nXIbMnJ7wjRSO1PEw2xr1et63cnWc4wVMrCmlc+eSuegftIcR
+	 QD1e0C5aN59BcJ9mq5HU177xC2AnjrefQJ+CVLe6zNxzRdchB4tFArC6Nxjt+2ERsf
+	 SIvmWSFFci69ZzeyYWbLqbGKUlQNyCBv3ils+PFQv25RUge6ZzXFC3+2FsRFdEoqgC
+	 FlzoCm0DPDLew+M/seiCRIGE7TUH5GDhEPxuIop586QBql+aC6BfP8LYLNNkQ5FjGe
+	 d7JfffKDU3Ccw==
+Date: Fri, 22 Dec 2023 18:26:55 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: rajesh <r.pandian@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Contributing to documentation
-Message-ID: <ZYW9qyPUjfc9n6qJ@debian>
-References: <CAKkEDkWv_wksbcAkUEaFdAQhkhZH1xr+pLidXAvKvV-ka7gE1Q@mail.gmail.com>
- <CAKkEDkU28SRY-dZOVdnGORV2f8ovOak1b=Pr8+bEFDb-B2vx+A@mail.gmail.com>
- <ZYVpRMcZk2MSg9Yc@debian>
- <CAKkEDkX_kw=5rwn5qcbt45RjWMtSuVNAzYDc2MEkaTr0FwQe3w@mail.gmail.com>
- <ZYWbJXjbQDm-2V8H@debian>
- <CAKkEDkXFZCmtx3MO807OH2YZ7tMB18okx8L54-giREdfcjqdpw@mail.gmail.com>
+To: "Priedhorsky, Reid" <reidpr@lanl.gov>,
+	"Eric W. Biederman" <ebiederm@xmission.com>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Re: mount(2) missing EOVERFLOW
+Message-ID: <ZYXG34n78pvXXyG0@debian>
+References: <A1B87125-51E7-498B-B362-502616EBED08@lanl.gov>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -51,64 +47,65 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rP5KJ48U7HTEqNPI"
+	protocol="application/pgp-signature"; boundary="vdQ9ujCqcl1FQzBm"
 Content-Disposition: inline
-In-Reply-To: <CAKkEDkXFZCmtx3MO807OH2YZ7tMB18okx8L54-giREdfcjqdpw@mail.gmail.com>
+In-Reply-To: <A1B87125-51E7-498B-B362-502616EBED08@lanl.gov>
 
 
---rP5KJ48U7HTEqNPI
+--vdQ9ujCqcl1FQzBm
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 Dec 2023 17:47:39 +0100
+Date: Fri, 22 Dec 2023 18:26:55 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: rajesh <r.pandian@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Contributing to documentation
+To: "Priedhorsky, Reid" <reidpr@lanl.gov>,
+	"Eric W. Biederman" <ebiederm@xmission.com>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Re: mount(2) missing EOVERFLOW
 
-On Fri, Dec 22, 2023 at 08:38:43PM +0530, rajesh wrote:
-> That code is useful for debugging with something short, but normally you
-> shouldn't call printf(3) from a signal handler.
+Hello Reid, Eric,
+
+On Fri, Dec 01, 2023 at 05:52:05PM +0000, Priedhorsky, Reid wrote:
+> Looks like mount(2) can fail with EOVERFLOW [1], but this is not document=
+ed in the mount(2) man page [2,3].
 >=20
-> Yes, it makes sense. I agree about no printfs in signal handler. But
-> this is a demo to prove that SIGTERM is called and put an entry to
-> prove the point.
->=20
-> Also so we leave this as a comment and no need to update shutdown man
-> pages then?
+> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=3D183461
 
-For now I think there's nothing to update, right.
+=46rom this link, I see the original report was for mkdir(2).  So it's not
+just mount(2).
 
-> Sorry to bug just trying to understand the process more : )
+Eric, which pages need to document EOVERFLOW?
 
-No problem.
-
-Cheers,
+Have a lovely day,
 Alex
+
+> [2]: https://www.man7.org/linux/man-pages/man2/mount.2.html
+> [3]: https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man=
+2/mount.2
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---rP5KJ48U7HTEqNPI
+--vdQ9ujCqcl1FQzBm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWFvasACgkQnowa+77/
-2zIJ/A//dn5LtiFgIdEo+KG4zc05M8NFg35BJ1iKLBFCiz2WQ4XejC0cneurU3qC
-GLcpEd2T8t5plF0YH8yohO4TSP/tkiCvwJg7DIpS+gQvYAxo47g7e8xIOzhfgHyM
-gW7DCSD5xg2+RSZH6ScVYXGeG9Zx1VEtsEWQB7rZQMEZGZ5cShHVXjSp9E3oO0Xl
-furfuL0Hix3zm8wZFJ6dhxTjWpgYI5z0hiEqKBVuGBHAnJXhbMIVGoSAIDgQ+3mu
-KUiLIqA7mODrL7bx9a7L7N8RrflKSbV8edswmbQekrj1tyTzR/ticW7jg9KjEVoh
-PbOS40PGKMvFSBYOSr+MpXBFv859tATJyj39tdUNbRrKnGZ4pOEBtl5wxaloQu9Q
-UjW189nRIUUiwNDutdxqyP/QlcuFVtW2SsMFBw9IuOKhmSJ+VWXsDSwtWwHg9FO/
-+3dGKfXVWUqKEe1o1lz8GpAZbhnVGup+JzUrjmXAXbKCWjmK67Q8VzLt4T5OLYmE
-us56aev/kIv0bBgWef4BUeeiFK9H18XkFSJsQwaLKR27wU0KQXwCX91wbSW4LGvW
-DQz4KKuJdLEMFeK7gcJQ32icytCNypG9FkY6A3YHC1mLyFCcQUOnfCWNRtZZadiz
-HJ1GDrUWENWrQQl5LKBVy7OCbzS1YeH+ZXvFWM5L5vEInLiLc9E=
-=WZJY
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWFxt8ACgkQnowa+77/
+2zJZtBAAiwCBSyM9tv6THIHKlwDGEUBE8k0SwNaeuWd7d6kuGNLcEIjXyuA7282b
+c8u7HqnLqx/h9VvMGjoslDfaY1U88OgQpI3KijgldsqALvN0KUTPt7r0hkwZB8Nf
+J/yps2ieXsR/0gjpOqVTuy10+ma5BZwBuh7ibhdoRfscv2XP668MbQmCeX63MGH5
+f9YadKu9JtcW5PpZ2SAgnfHApIYAHMPPT2tUkBLWa9BkG/C+rIwunDXJIp+OWm2E
+56RcwZWOjeAJ/rNKTNjeRi+aFrv9bW+ZxsIFxUmx1qfBNAqeIXYQRscEwoNJ2lJE
+O/KVmM1TJTXXIdew4y3P48gjyywyeuTquxrL8H648/yfG3sJXSt3ROvw1EjYgwNi
+q0uRdZuaNumEABkX9IaS+81AKiAWjDjBcX1emMCxy3pl3MThv3kPPUj8t11U5u7y
+RC4EFZglmEgSRyy6MddqY8opOGMkwpM9Mw3CxGOnFWVmoZO62IJuuWojna2ZRKMC
+M7Z6RUnxsxUTSA4+nkXKCyuB2V0WgvSBFA44dp9z08ACQdKM+BAZehu0/xThBaXn
+op6SBR672JcyG7V2eVsyVQmop+mL68jWFNasVsv+eQSbBMqA7kJuc+lrPyg8hM6S
+J/BA7pK46osSUq2DQ83d3rJ8Bu190QOOXFfeOO8iwR/pWX19izY=
+=5G7n
 -----END PGP SIGNATURE-----
 
---rP5KJ48U7HTEqNPI--
+--vdQ9ujCqcl1FQzBm--
 
