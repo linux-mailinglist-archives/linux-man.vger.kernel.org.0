@@ -1,175 +1,94 @@
-Return-Path: <linux-man+bounces-292-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-293-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 927BE81DFAC
-	for <lists+linux-man@lfdr.de>; Mon, 25 Dec 2023 11:19:38 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0D6E81E277
+	for <lists+linux-man@lfdr.de>; Mon, 25 Dec 2023 22:35:44 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9E01CB20FB3
-	for <lists+linux-man@lfdr.de>; Mon, 25 Dec 2023 10:19:35 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 38F6B1F21ECF
+	for <lists+linux-man@lfdr.de>; Mon, 25 Dec 2023 21:35:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E757B1EB34;
-	Mon, 25 Dec 2023 10:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 945D353E20;
+	Mon, 25 Dec 2023 21:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLy5G0RO"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lqqXi0IA"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0655364A4
-	for <linux-man@vger.kernel.org>; Mon, 25 Dec 2023 10:19:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3454BC433C8
-	for <linux-man@vger.kernel.org>; Mon, 25 Dec 2023 10:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703499569;
-	bh=4IxRCzH08SCuH/mnIBGL8pWqDghW8Bs6uigXV/XZ3Fw=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=RLy5G0ROCvkN2tI4K5RK/Hx88b0gNxgzUt4oq3RFisUxCZvNRmBrpxue1NG9Z95tv
-	 Yld15oeI6HEMeeS2BrJZACl5C+6YwKlGTklxaL8Ny1glpWPi7YNkPwoUqNfuTBw9t4
-	 1uprn0B2QrOhcy8XZdZUzwXlMsBu6WzWHw9/whwNn4ypdO8tUJMQzeY9g/A4WOZFeo
-	 085VnnBCkatcqcBCe5erL1tzysY61Z5BkLdWnJZDAJc1y6+7EyTwqPMAcOq87UbTuB
-	 la4VA2JcMDi3MNIaZaIEoPo+ZCCmGtU9RAHte5L4NabJ4lvOq8bQ+7o1u2R9TvrTNm
-	 1i5U52wNajiYA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 1F3A6C53BC6; Mon, 25 Dec 2023 10:19:29 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 218266] Need article about Linux shutdown process
-Date: Mon, 25 Dec 2023 10:19:28 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: r.pandian@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-218266-11311-BPIAt6Olg4@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-218266-11311@https.bugzilla.kernel.org/>
-References: <bug-218266-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D6E524C7;
+	Mon, 25 Dec 2023 21:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-6dbd87b706aso601249a34.0;
+        Mon, 25 Dec 2023 13:35:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1703540133; x=1704144933; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Vk3BrCUhkF8HNi8hqkxjkr1dZsGMp84ddJ6VAzsBSHI=;
+        b=lqqXi0IAgJ51KJw9d8Qsu7KCmXGSyP6cJ4y2ttk9IdKa97NR2pHY2CYdYoR7bWskFg
+         MchvYxhCubWB3uTYJAyxw71QWzRQ108EDae/7Pve3DVY/3CorOJyWJWWNJD5j1NJL2ov
+         GOtDMkj6LRw5wgIdQN/GqIi8Zxa8XbQCAAZk4LXhFhy7d9K+SkXuFZAgRo325v95B2y0
+         VAzP81D85ttRdo7/EQWtp+6tbKUOseFYd/DG37mlanTAlzV35RBzHvqx5RKkvnYUnvB/
+         b8P8CBcnWS+AvxGJ+fsfk5y5oibNGjMxJ8/LOOpgNGM77+C6tZHalcq1sczuVCsUO2JJ
+         83fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703540133; x=1704144933;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Vk3BrCUhkF8HNi8hqkxjkr1dZsGMp84ddJ6VAzsBSHI=;
+        b=IBezbnbn1or/Ivft3+ebjtnEIsB0JqwoRXa07Pn9IY9LZAiiTR4LZSpEkqsmUQkydT
+         udGbcc9mfiB0IfL6L19F9Hz92QRVGosdf+ddYHDQfa0LDdhguzokFb+yvR8hpDHi8Ka3
+         Z8IJuFDZtACHxkjjNe4c6TuDP01xCoFkO4uaqrZhpAMCP1eg1WmoQA5ubOvM2oap78Ac
+         7lmIyoJDQWZ8Rq6SSIkjRPrO82a9e8HyPpDc0BF3LN99o88uCy8icvmk3f0X2MaviLuZ
+         bniR1bgr2cfvHEqKbOIWLzwkJHVPlDyywMuIc6L+hzc6J5tBUwGa+s37VuWmXob0uKU0
+         44cw==
+X-Gm-Message-State: AOJu0YyNkbAfbxRoDDiu7s11ThzUfH0fVEqneOlZMA130mVY4t1cyIDf
+	TkIz/TMvlq8aeVLiTZxBQ+yMLk/X1dO0uiqtq6Y=
+X-Google-Smtp-Source: AGHT+IF1ALMcZKnA4llsyBw7rVtGfnYUrZqqpeQaYHATEY6RAt9XEi5JjGL9mAun1x7rCUMA0cgxJM1hWmcGDvIbtRo=
+X-Received: by 2002:a05:6359:c1c:b0:174:ed0f:672e with SMTP id
+ gn28-20020a0563590c1c00b00174ed0f672emr2919571rwb.1.1703540132944; Mon, 25
+ Dec 2023 13:35:32 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+From: Askar Safin <safinaskar@gmail.com>
+Date: Tue, 26 Dec 2023 00:34:44 +0300
+Message-ID: <CAPnZJGCdr7pw80Pq38UacmxsbQAowmasPtFxQVCP+tm6Cj9pUg@mail.gmail.com>
+Subject: Re: Avoid unprivileged splice(file->)/(->socket) pipe exclusion
+To: =?UTF-8?Q?Ahelenia_Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-man <linux-man@vger.kernel.org>, linux-s390@vger.kernel.org, 
+	linux-serial@vger.kernel.org, netdev@vger.kernel.org, 
+	virtualization@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D218266
+Hi, Ahelenia Ziemia=C5=84ska! Thanks a lot for all this splice-related hard=
+ work!
 
---- Comment #6 from Rajesh (r.pandian@gmail.com) ---
-H(In reply to Alexander from comment #5)
-> Thanks for the code, I tested it. On my machine it does not respond to
-> system reboots. That is, the SIGTERM signal does not reach the program. In
-> the log there is only "ok..". If I send a signal explicitly (killall -sTE=
-RM
-> a.out) =E2=80=9CReceived signal is: 15=E2=80=9D appears in the log. I tes=
-ted it on different
-> kernels: both distribution and self-assembled ones. Both with user rights
-> for the program and with superuser rights by setting set uid root. Maybe
-> it's a distribution feature (I'm using Debian sid) that the signal reaches
-> systemd, but not other programs?
+In https://lore.kernel.org/lkml/CAHk-=3DwgG_2cmHgZwKjydi7=3DiimyHyN8aessnbM=
+9XQ9ufbaUz9g@mail.gmail.com/
+Linus said:
+> I have grown to pretty much hate
+> splice() over the years, just because it's been a constant source of
+> sorrow in so many ways.
 
-Hi Alexander,
+> It's just that it was never as lovely and as useful as it promised to
+> be. So I'd actually be more than happy to just say "let's decommission
+> splice entirely, just keeping the interfaces alive for backwards
+> compatibility"
 
-Merry xmas and I come bearing gifts!=20
-
-So signal is not a posix standard and hence it's not working across differe=
-nt
-flavours.
-
-Sigaction is the posix standard. There is a lot to sigaction and hence I wo=
-n't
-be going down that road. Instead let me give a a dummy code which works and
-also a hint.
-
-Your process below needs to rely on systemd. If I run as a standalone proce=
-ss
-it sometimes misses the signal. So the realiable way is to configure the be=
-low
-as a systemd. I have given below the systemd config too for my below code t=
-hat
-runs as service "dummy.service". Refer to systemd docs on how to configure.=
-=20
-
-Note: Tested the below in Ubuntu 22.04.4, deian trixie sid (test)
-
-
- /* Code for handling sigaction=20
- * Create those directories that we are removing e.g rmdir("session");
- */
-
-#include <signal.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-volatile sig_atomic_t FLAG;=20
-volatile sig_atomic_t fd;
-
-void signalHandler(int signal) {
-   FLAG=3D0;
-   write(fd,"Shutdown\n",9);
-   rmdir("delete-this");
-   rmdir("session");
-   fsync(fd);
-   _exit(0);
-}
-
-int main() {
-   FLAG =3D 1;
-   struct sigaction act;
-   act.sa_handler =3D &signalHandler;
-   sigaction(SIGTERM,&act,NULL); //calling sigaction to follow posix std
-   fd =3D fopen("/home/duke/output.log",O_WRONLY|O_CREAT|O_TRUNC,0644);
-   while (FLAG) {
-      write(fd,"Write\n",6);
-      sleep(1);
-   }
-}
-
-
-/* Systemd config
-
-Note that you this is just a sample and should never be used as is in a
-prodcution as I didn't give much thought about running this in production as
-this is a demo */
-
-
-[Unit]
-Description=3D"test"
-
-[Service]
-Type=3Dsimple
-User=3Droot
-WorkingDirectory=3D/home/duke
-ExecStart=3D/home/rajesh/rebooter
-Restart=3D always
-RestartSec=3D3
-
-[Install]
-WantedBy=3Dreboot.target
-
-
-Now you run systemctl start dummy.service and reboot and your directories
-should go away and an entry in the output.log
+So probably we should do this as Linus suggested? I. e. fully remove
+splice by replacing it with trivial read-write?
 
 --=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Askar Safin
 
