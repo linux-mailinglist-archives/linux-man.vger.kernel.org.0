@@ -1,95 +1,113 @@
-Return-Path: <linux-man+bounces-297-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-298-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E03E81E765
-	for <lists+linux-man@lfdr.de>; Tue, 26 Dec 2023 13:25:15 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 823E181E811
+	for <lists+linux-man@lfdr.de>; Tue, 26 Dec 2023 16:32:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id C25CCB21A26
-	for <lists+linux-man@lfdr.de>; Tue, 26 Dec 2023 12:25:12 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B41571C20A8C
+	for <lists+linux-man@lfdr.de>; Tue, 26 Dec 2023 15:32:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ECC274E61A;
-	Tue, 26 Dec 2023 12:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88E654EB5E;
+	Tue, 26 Dec 2023 15:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dpQSDXWk"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="VHTt/9t+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860B14E603
-	for <linux-man@vger.kernel.org>; Tue, 26 Dec 2023 12:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-20400d5b54eso3150152fac.1
-        for <linux-man@vger.kernel.org>; Tue, 26 Dec 2023 04:25:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703593504; x=1704198304; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=G7y+vT4aDp1TNxKPlWzWO98fOowPTQPI89bzUsy0OAM=;
-        b=dpQSDXWkef9ezqjwdb2ghY0IX7DcARHGQQSNrOvPvsknPtNo5WxS0q60JcOCm0SvCA
-         gPzv02gCccPreVXtIow6il0mEhAe/ychcgeNq1IF1WN6/xtTMiDpWm7JO22pyXoLAw1T
-         IEgG8QKrQghv14qmkCSGKFdbkP830oIuGYcI5H3eXWpARYyoNYqDCEuyo70X7CaBgtO+
-         ra8IdKPskdqa0D5KhA4ZH0vraamq53GIEYdhikpi9CuJyy9Hzw4qNyZD9AJeA3g21Jkc
-         xmnxV65KnPPqu9GNXc45XtoG6MWSvNAhl9t/V7QYhMlz98OZzQHc4oocAL1U7RQVj+pB
-         dj6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703593504; x=1704198304;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=G7y+vT4aDp1TNxKPlWzWO98fOowPTQPI89bzUsy0OAM=;
-        b=f7ESVt+kVH9Wep9e6Xv6DRK05rgMDEVnYLD2aFnUTHJelAQy5mry1OZS96yek94cDJ
-         nF+3GfK1fIq/kSvG0ClhXw5FxmOTjKMp/3A0iNiMPe/FtWhkdycv6b291JvDE3JcoZ+7
-         quXo0Urz3HwTubSkDKnGI4n0EDzhM8WHN3baBDU/aYKa2Zasg4eF6dcnE5p49wTuTOTC
-         SwlxcaiM6JZQVlYVhoKe+dTNB+w4BtxuUmPwjEnuIPt3ZZmR+b7z/ZfCq6JPdXAILUDM
-         OjyzlDqf2cAcSRVkeJYlRFNJcrgOEUePG8AgRBZ1GVXhPtcxi5auoMXA8KZWVV7A6rmb
-         tD7A==
-X-Gm-Message-State: AOJu0YzLUBe4JWHltrw+CyUkR67lcF06zeM8TJ8y6RwqTutKkyvk4uRz
-	Jk7ff53y2RI3iW2skBFwTxdrxSCW2hMmjvk=
-X-Google-Smtp-Source: AGHT+IGULCxtzwn1KGBG0cqkE/YaxEYnLLgjUI7v17XDauH/LpUGslpNyDOK2AjmjTnDig2fShHnQw==
-X-Received: by 2002:a05:6870:f61f:b0:204:28bc:b324 with SMTP id ek31-20020a056870f61f00b0020428bcb324mr7942050oab.15.1703593504429;
-        Tue, 26 Dec 2023 04:25:04 -0800 (PST)
-Received: from localhost.localdomain ([122.174.192.11])
-        by smtp.gmail.com with ESMTPSA id go18-20020a17090b03d200b0028c1807cbf0sm7477293pjb.54.2023.12.26.04.25.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Dec 2023 04:25:03 -0800 (PST)
-From: Rajesh Pandian <r.pandian@gmail.com>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	Rajesh Pandian <r.pandian@gmail.com>
-Subject: [PATCH] bugzilla_217709
-Date: Tue, 26 Dec 2023 17:53:41 +0530
-Message-Id: <20231226122341.14444-1-r.pandian@gmail.com>
-X-Mailer: git-send-email 2.39.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1804F5E1
+	for <linux-man@vger.kernel.org>; Tue, 26 Dec 2023 15:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202305; t=1703604713;
+	bh=bjg1CSbk0urA1+Xz8FcOIvKt7nCK1/2/yc6gXkFvRa0=;
+	h=Date:From:To:Cc:Subject:From;
+	b=VHTt/9t+7D2FBQ+Y+6D9BetI6X+nFOow0yhxGtgj3IDwLkLhKdkWNuJgt9HevKCbX
+	 QEX7hEIEh2o1vtfs5YfquKukGxGSlNJpNHCgvAfXSKMqyILg8iJEvXGXpF4sM4z5Jn
+	 sNeM/EAb6HX9hMRUK3eVscv/dSDIdo7HC7IlCBdO8qOWXmkjKIW4g03qHCggGMFFp5
+	 u05vNmd6qLqjQF3SwbKWstmOw5/E1kjQrthm53FYIo6Z2R20g8yCLeT3y4VScwKmTM
+	 AEbiBnKsqmrd497nTSXp9/muX9TtnefQUGSyyoAa753v+u/ZuRlxQqWeSyNrd1a8dL
+	 2CC6G4qd49aUg==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id E6F8414792;
+	Tue, 26 Dec 2023 16:31:53 +0100 (CET)
+Date: Tue, 26 Dec 2023 16:31:53 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] stdio.3: note down fmemopen(3) and fopencookie(3)
+Message-ID: <pwyv65idwrl2lbir2g7k3x3iqrpfew2np666zxiqspwr7oikcj@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="by7nesmxthhahk6l"
+Content-Disposition: inline
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
+
+--by7nesmxthhahk6l
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+I was looking for fmemopen and it was much more difficult than it
+ought to've been.
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man7/mount_namespaces.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/stdio.3 | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/man7/mount_namespaces.7 b/man7/mount_namespaces.7
-index 1f0a1b41f..736dd91bd 100644
---- a/man7/mount_namespaces.7
-+++ b/man7/mount_namespaces.7
-@@ -1127,7 +1127,7 @@ in the following step:
- .EX
- # \fBunshare \-\-user \-\-map\-root\-user \-\-mount \e\fP
-                \fBstrace \-o /tmp/log \e\fP
--               \fBumount /mnt/dir\fP
-+               \fBumount /etc/shadow\fP
- umount: /etc/shadow: not mounted.
- # \fBgrep \[aq]\[ha]umount\[aq] /tmp/log\fP
- umount2("/etc/shadow", 0)     = \-1 EINVAL (Invalid argument)
--- 
+diff --git a/man3/stdio.3 b/man3/stdio.3
+index 833230402..d340d3334 100644
+--- a/man3/stdio.3
++++ b/man3/stdio.3
+@@ -192,9 +192,15 @@ .SS List of functions
+ \fBfileno\fP(3)	T{
+ return the integer descriptor of the argument stream
+ T}
++\fBfmemopen\fP(3)	T{
++open memory as stream
++T}
+ \fBfopen\fP(3)	T{
+ stream open functions
+ T}
++\fBfopencookie\fP(3)	T{
++opening a custom stream
++T}
+ \fBfprintf\fP(3)	T{
+ formatted output conversion
+ T}
+--=20
 2.39.2
 
+--by7nesmxthhahk6l
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmWK8ekACgkQvP0LAY0m
+WPFwYBAAtp51czoZIm354t7y9A4lps01W0h5WFeRuB9PigmAIkKbMDMnXQyRpp+Q
+tL6rLtb4JlbZa1L4hsJavJFrjCkVcjt137hFpEp0qYOOkw3DAoqr6C0X/GR+GLmI
+vUdMrxTd1S7kKAXnpMml1gvKxVAnIP4Hz2IQjd27FOLNIiyhbszDbY3vKC18hjGr
+qCquRd182gV/qIuIxP53aQh8BJu4tAW3QEsj3RCIkLfqvja+iTLEGq8DytvuyTI7
+xDjIQjpf9+wDaYwWbfkjztys8AYCUdmuAtgQeXSrvYbKUELA+zM81tD+LmkaTJS8
+1ENgbBQeaqoQUusY0lLkU4MVbsixiG/v92029QQGwWXUyQ6DErtHRSERB5ALLGQ/
+k+YKAwXTXHQ1L1gdBqhQCWp0AaXqUzBz7t/0TOWYAoT8oYdkjXorBi8KRFC4JPV7
+1deB+pjfgBnc153O1PnOjhP4g70wSuoNEqifSasM7hH28NfbkVVYrbkRsJ9Ajfx6
+cwAYco6aujhJZzlLojHbZOBj3ccZJAm6rYn43hOWolRhrpHmre0fRF2ExU2ix+Et
+Ncrb/bbWEGdzRT8ODyhgqFvGpLvw3DRUlTcW1qOkANzSpqC6DER4SvrtTgynPwhu
+Z3GYYOOwGMCof1OCoIJM/NJIQHD9kcSZSNNNAuupYnTEuvqqaKY=
+=42lt
+-----END PGP SIGNATURE-----
+
+--by7nesmxthhahk6l--
 
