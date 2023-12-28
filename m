@@ -1,44 +1,50 @@
-Return-Path: <linux-man+bounces-310-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-311-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BEC681FA95
-	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 20:08:16 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B373081FAC4
+	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 20:28:42 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 3DF59B2398C
-	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 19:08:13 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 694861F25031
+	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 19:28:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33AC9101C1;
-	Thu, 28 Dec 2023 19:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA490101EC;
+	Thu, 28 Dec 2023 19:28:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiwv2iR5"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="Cq9k4/48"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B77107A7
-	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 19:07:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5593C433C7;
-	Thu, 28 Dec 2023 19:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703790471;
-	bh=Fgt8tJk05Fp5UF21g3HpNnuJ6VcjvA03uuGWhyDipYo=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A44101D9
+	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 19:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202305; t=1703791702;
+	bh=MeBBAKWmlITtsPZBcHSsWokH8oXJHpSQe/jNJSKua10=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aiwv2iR5Z7CApB5BS8DxUYKkKKx5/E9pCJdKxRlv5fTzNgBYi2J0V+EQqAaa3/sq8
-	 mpcyi8Z44F/wYbrt2F7cXPkHa0PbVKzDtFacQljoV3ISe1yJxNruHC8DUBhztfULkd
-	 nj9KGbl4wH994na4fgi3qBglBcJdvRcjQ8d274XmuEHMRk6f6d/DUtC42frpPtPXYY
-	 ohkUIY/616uk0+YGxA7MVjoVJ6/ZwNLk/osBm5b15HWa4tazQ+aXfLR09I04Cg6yTO
-	 JRE5kKn6RjwlAggod3ND25/bhg63hgoDnr25D24aMmuJrG0svnPGwvdCw7Hh/TGNmU
-	 VBZq8wI98JNNQ==
-Date: Thu, 28 Dec 2023 20:07:48 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	b=Cq9k4/48bTLa4Sm5iJIHMAddyocMLCH73MOznI15GyzruXYgbm8eZQY5YALZ8knH5
+	 Qmgln/g9pU1RXPSfpss1K/bov8dkQWBLhlcouL2NUffmKt1nZ9QR+DOSor1GRthLp+
+	 VjZOcYLWM9x8W3irqWWEtIxzr/a6vxaJFfrfaRLP03/lR5uzhwpAmcQ9l5bcav3ggR
+	 6mifNiKOWVAktifRkRvkYjThRXuj6z84Ay+LLnEuLP6tYFpdfw9EGz/sIYYOUYwt9x
+	 yTz3Rf2fYXRvS9uT6cZEoWi7KNsFXbYFoKZQluO0hVYXb6uYC3JOBzfP/kIx7/ylhU
+	 ZlvWYUz5F3UBg==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id D07E31441E;
+	Thu, 28 Dec 2023 20:28:22 +0100 (CET)
+Date: Thu, 28 Dec 2023 20:28:22 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] open_memstream.3: ffix
-Message-ID: <ZY3HhExAF3Fau26Z@debian>
-References: <ge2wv33km2k5xaigbfprs7ndq45fpymqiqr6it5kyq3zmy3bak@tarta.nabijaczleweli.xyz>
+Subject: Re: [PATCH v3] stdio.3: note down fmemopen(3), fopencookie(3), and
+ open_[w]memstream(3)
+Message-ID: <sbwbc5fmppc77kqnzjmvxl57ke76lqoagn4c3o7chezt5b4rzd@tarta.nabijaczleweli.xyz>
+References: <owwpm3vgvq3sme3ev4poriwqcokscunppxu4rj2t5lmxzrc7vn@tarta.nabijaczleweli.xyz>
+ <nn6xod4zdcimrh2pbhng4n7ff4x6g3pfjyb6u24swkno7thzx4@tarta.nabijaczleweli.xyz>
+ <ZY3HJ6w-rfG4MpgJ@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -46,75 +52,79 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cdJj62+mMUW56Ijz"
+	protocol="application/pgp-signature"; boundary="werdknmk7hbkwp54"
 Content-Disposition: inline
-In-Reply-To: <ge2wv33km2k5xaigbfprs7ndq45fpymqiqr6it5kyq3zmy3bak@tarta.nabijaczleweli.xyz>
+In-Reply-To: <ZY3HJ6w-rfG4MpgJ@debian>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---cdJj62+mMUW56Ijz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--werdknmk7hbkwp54
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 Dec 2023 20:07:48 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] open_memstream.3: ffix
 
-On Tue, Dec 26, 2023 at 05:04:14PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
-z>
+On Thu, Dec 28, 2023 at 08:06:14PM +0100, Alejandro Colomar wrote:
+> On Tue, Dec 26, 2023 at 05:03:37PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
+> > @@ -243,6 +249,12 @@ .SS List of functions
+> >  \fBmktemp\fP(3)	T{
+> >  make temporary filename (unique)
+> >  T}
+> > +\fBopen_memstream\fP(3)	T{
+> > +open a dynamic memory buffer stream
+> > +T}
+> > +\fBopen_wmemstream\fP(3)	T{
+> > +open a dynamic memory buffer stream
+> > +T}
+> >  \fBperror\fP(3)	T{
+> >  system error messages
+> >  T}
+> > @@ -192,9 +192,15 @@ .SS List of functions
+> >  \fBfileno\fP(3)	T{
+> >  return the integer descriptor of the argument stream
+> >  T}
+> > +\fBfmemopen\fP(3)	T{
+> > +open memory as stream
+> > +T}
+> >  \fBfopen\fP(3)	T{
+> >  stream open functions
+> >  T}
+> > +\fBfopencookie\fP(3)	T{
+> > +opening a custom stream
+> Why use opening here, but open everywhere else?
+These are the NAMEs verbatim, like the fopen entry:
+  $ grep -A1 NAME man3/{fopen,fopencookie,fmemopen,open_memstream}.3
+  man3/fopen.3:.SH NAME
+  man3/fopen.3-fopen, fdopen, freopen \- stream open functions
+  --
+  man3/fopencookie.3:.SH NAME
+  man3/fopencookie.3-fopencookie \- opening a custom stream
+  --
+  man3/fmemopen.3:.SH NAME
+  man3/fmemopen.3-fmemopen \-  open memory as stream
+  --
+  man3/open_memstream.3:.SH NAME
+  man3/open_memstream.3-open_memstream, open_wmemstream \- open a dynamic m=
+emory buffer stream
 
-Patch applied.  Thanks!
-
-Have a lovely day,
-Alex
-
-> ---
->  man3/open_memstream.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man3/open_memstream.3 b/man3/open_memstream.3
-> index 2f657e0a8..63a1ea9be 100644
-> --- a/man3/open_memstream.3
-> +++ b/man3/open_memstream.3
-> @@ -7,7 +7,7 @@
->  .\"
->  .TH open_memstream 3 (date) "Linux man-pages (unreleased)"
->  .SH NAME
-> -open_memstream, open_wmemstream \-  open a dynamic memory buffer stream
-> +open_memstream, open_wmemstream \- open a dynamic memory buffer stream
->  .SH LIBRARY
->  Standard C library
->  .RI ( libc ", " \-lc )
-> --=20
-> 2.39.2
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---cdJj62+mMUW56Ijz
+--werdknmk7hbkwp54
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWNx4QACgkQnowa+77/
-2zJ8wA//avH9hgLp/GFAanEU9n0eowggcQZOYttnmtVft6lxktpryNTVcIs9dYDy
-PVhyeb0y8YsJgteEfziTdTX+RmHgPC9MD+8/8/6FNhWtDrnMhmlvpywqMeglDo6O
-ByO509myzB/fahXBIcTiS/bXMwNAZ3cWIMcfhw4AMCnTnMb07xqInTDFWAYQaN3N
-+qKA4usRMhw9Dx7m2p4ZGcCM6lds4roSuNKv0VNdFRx3peq4lRbHK1W07TbpqpnV
-LFNySb2I6xIguYaZkL77qEmvFioLAjuGztR80KcX18bmEZwe4iYsP5wmwc4v1L3t
-pI63nrr2/IVjlN6/KLqLYLH/wOHydIxNPs5OvHvgwU/BjkzlJR8MWCvgf+OJvq7Y
-3zuMx3E/lttdQk0n5uXmF0CuZCTExynccIRM7QYzEAyNbmvDwGJUO1dlcWmEaTiM
-7l7YMQQ+5WxRnBcwLpmfA1Ld3b2pX7dsAXKTnOvOM5wGGE71M2Btz4C0tRSquDmg
-MD9lC5izOU2ld96wCuVb0jKSWXOrsUTaYMdrqpREYbkSYQtcu3MS8cPM6MrZUwUt
-2xoDaNXAgu6V2Rmsb0nETcczQoUG+vdPEI/Sw+vxCE/J9hjhIF4CG6DQNUVfhmwv
-+1HnduXYLyox3GmoESK/pv8EhQGj9OAGZ/+hd07LjawdqR3kL/E=
-=Oiv+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmWNzFQACgkQvP0LAY0m
+WPHAHRAAg6JzeSeV7pSdGuWM+7GiL4MXmeYJJNKfjD9FKsF7Xjp+FBJ8fDb+uelA
+5NtE5OyS+uelVXycs6BOpJlIjEDRMGD5RgNGd+vDK65rtL67S25ksGjCotLfvBAn
+1EYZ382YLO3pTyyTeBH4pQI36w2kDjzrQlYdy5yX8Vq6MtWnsDfxE80IFyfkwoXW
+vEYrKWYVoO/MpU+XVFPCZ4tXqCNPc2a9rT+MoemDwsBHTPVR7z4ToPNIJlh9U2q0
+HtmX5leLRLOFHGlcXscDoWgACZmlOv1Ov3tM4aCokYJ9BJnQulxjKItYRJOe/nXz
+yz4ly5J85mXN0zs0fuLZjj7nGa+0vhcWgU/3J1K8TbHVb6R2HtO7eTDqBCcQMHLz
+gBEMBm9dsCFWxZDg6aCUKJ74u/nKcLEbL0ktkip1Axo5yGBDdLeDvoVN6uQj5YJx
+lk1ynrV+W2lhbbx1NWDnWVBwV1xOoDg9k/e7qBBDvxq5SxSJocCMGDiEmKMbk6yl
+tic1B5Cn7YZTH+oyTEgLVxy1TSpJqFQLJ9JqKGk0AJs0rn2egcf/WYb8VhYmM/g/
+qLg+sptLDf8cSgkdVqzfKrgElQEIMeFYcFZ6oTdlH5Y0tnu38WnpYnylmTjfjItm
+D6pv9PgJRb+BB1Ln4AOOFzIUVzrJ8cudF+PID1ZrfZ2Md6M7l3k=
+=biW+
 -----END PGP SIGNATURE-----
 
---cdJj62+mMUW56Ijz--
+--werdknmk7hbkwp54--
 
