@@ -1,85 +1,151 @@
-Return-Path: <linux-man+bounces-308-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-309-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF1081F9D1
-	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 17:02:30 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B72881FA90
+	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 20:06:25 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1FB9D1C2095E
-	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 16:02:29 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 04EA91F21D9E
+	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 19:06:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 306AEF4FA;
-	Thu, 28 Dec 2023 16:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3564F9E9;
+	Thu, 28 Dec 2023 19:06:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GypqNOf5"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkyGnvHa"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0647F4E1
-	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 16:02:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7931AC433C9
-	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 16:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C89101C1
+	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 19:06:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94FEFC433C8;
+	Thu, 28 Dec 2023 19:06:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703779344;
-	bh=iSOHAchNyAkPzknkvwe0AqmxvUf+h6Bw3jFYobePVWA=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=GypqNOf5FiuC/P6xrIiBuN7I7ZXptx4K+HNueTVb/iOmFW5/M3sxdIdBTlvHDFvww
-	 RNG17/pyXDjlWIv7Vn87kKWnMN/hLkmwwRfLXOUYWKjjr9rcJd9Ev7FgZqwKkk/mGm
-	 uNGJZlNhJKNljjtVL6CqJRS4huD+SBiNbopau5XxL3/K3CLPIfzDyIGV5+gqRsMkn4
-	 h92EKu9kNX+t7gctgFiILFGKPB2CxItX1IuwV2vjKNq5L2gU3QH36CuNAwt5jE54b9
-	 h+Sqrc3f+NgRVderdvwInOKTuNwqryVh7defoDGvfpVpomw6Z74q44MaxfpK/tRpvZ
-	 yUco9klFjKBAw==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 67A8BC53BC6; Thu, 28 Dec 2023 16:02:24 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 217709] Mistake in example in mount_namespaces(7)
-Date: Thu, 28 Dec 2023 16:02:24 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: low
-X-Bugzilla-Who: r.pandian@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-217709-11311-quEg4JBH8V@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-217709-11311@https.bugzilla.kernel.org/>
-References: <bug-217709-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=k20201202; t=1703790378;
+	bh=SVeGm/37FOcX8GCzaGsmxNOgcqLSssc75bGjEps6Vj4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OkyGnvHaVpMGTaW+aw0HoYPCMTKkw6EJLEeSJzbOLpKYH4Kr6UUySIk31MP2qXA1P
+	 UW3XeQqZkIZBZZ/2g1m2wBMx3xuoa+XHQ9qTiXcMadBxtD8dI+/NL+WAyB9eKD/jPx
+	 kQBTPR3FoqcCPiRQAFDUwF+BUjk6J3IGBBgKX+sueg+C++pR2JHlEwUfcVoA71c1Xy
+	 dxnx9JXs6xzb6vXP27HzJMUgAfF47WcXJ/41h4QIKtNmzkHECqtJIG6bVcOF4Kf0Dh
+	 +MK/HD/q5UGfYzuRdQnU1jPjZtDMG3vcts7pov8VZTTd12wMIdqekpul/dtEuAv7eO
+	 dETBXRxIGzasA==
+Date: Thu, 28 Dec 2023 20:06:14 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3] stdio.3: note down fmemopen(3), fopencookie(3), and
+ open_[w]memstream(3)
+Message-ID: <ZY3HJ6w-rfG4MpgJ@debian>
+References: <owwpm3vgvq3sme3ev4poriwqcokscunppxu4rj2t5lmxzrc7vn@tarta.nabijaczleweli.xyz>
+ <nn6xod4zdcimrh2pbhng4n7ff4x6g3pfjyb6u24swkno7thzx4@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XjDVMtClwDszxBje"
+Content-Disposition: inline
+In-Reply-To: <nn6xod4zdcimrh2pbhng4n7ff4x6g3pfjyb6u24swkno7thzx4@tarta.nabijaczleweli.xyz>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217709
 
---- Comment #2 from Rajesh (r.pandian@gmail.com) ---
-Hi  G=C3=B6ran,
+--XjDVMtClwDszxBje
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 Dec 2023 20:06:14 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3] stdio.3: note down fmemopen(3), fopencookie(3), and
+ open_[w]memstream(3)
 
-Patch has been submitted. Once it's merged it will show up.
+Hey,
 
-Rajesh
+On Tue, Dec 26, 2023 at 05:03:37PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
+> I was looking for fmemopen to remember I was actually looking for
+> open_memstream, and it was much more difficult than it ought to've been.
+>=20
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
+z>
+> ---
+> Sorry for the v3 for some reason I didn't amend the commit
+> (blame it on the holiday cheer).
+>=20
+>  man3/stdio.3 | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>=20
+> diff --git a/man3/stdio.3 b/man3/stdio.3
+> index 833230402..0809b4536 100644
+> --- a/man3/stdio.3
+> +++ b/man3/stdio.3
+> @@ -192,9 +192,15 @@ .SS List of functions
+>  \fBfileno\fP(3)	T{
+>  return the integer descriptor of the argument stream
+>  T}
+> +\fBfmemopen\fP(3)	T{
+> +open memory as stream
+> +T}
+>  \fBfopen\fP(3)	T{
+>  stream open functions
+>  T}
+> +\fBfopencookie\fP(3)	T{
+> +opening a custom stream
+
+Why use opening here, but open everywhere else?
+
+Have a lovely Christmas!
+Alex
+
+> +T}
+>  \fBfprintf\fP(3)	T{
+>  formatted output conversion
+>  T}
+> @@ -243,6 +249,12 @@ .SS List of functions
+>  \fBmktemp\fP(3)	T{
+>  make temporary filename (unique)
+>  T}
+> +\fBopen_memstream\fP(3)	T{
+> +open a dynamic memory buffer stream
+> +T}
+> +\fBopen_wmemstream\fP(3)	T{
+> +open a dynamic memory buffer stream
+> +T}
+>  \fBperror\fP(3)	T{
+>  system error messages
+>  T}
+> --=20
+> 2.39.2
+
+
 
 --=20
-You may reply to this email to add a comment.
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+--XjDVMtClwDszxBje
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWNxycACgkQnowa+77/
+2zKGyA//XLArAejPfENVM1JParbExjC3sVTvKEvFEQ5Z1fCw5Luto4h66MC4JcCD
+PSHP0560Fpa5YTJOeMKZu5ABDbzgZF4QqPTZRRxcR/7kJn5p8V6MxEY/Uvp9XNFv
+P0aTz03qaDFj8Pv2nffWro59ha4GRAvwL6CDw1ShFL9zeGzwkTIPjM5HG/qC7s7v
+cB94m892cIMyfODKHeQF2NmWVUHGfGxEF8iru/eviBt2gFvxeOJs9J7fQdUQJ2qA
+WUAlm5p45saL+0wnX1NScILdY3gK4zrDrNb8Y7COmCrwIB52Hqiht6eTf8Jz854d
+W6lkgjsG+jA1Hy7FTKw6ytnr6AFZL9jHn1LmnvGEc7UvU1a1OsNcwV4owKxXKIDJ
+fpIgkxx7Nv+wi+9NcsWYxg8qgU97/xWZXzlKiYxlDr/wMbYR5ELUSy305c8ZHc46
+uWwNh6xxoTDTeZah2ziSZXFF+NT+U9SXdD7zAaqk2NKHa+7hlYh9TFkZs67BOuBG
+8cFWn0tnch2BNCXe5y5wVm29StZfUCHuCKLeqsmFX7C5ew4C9hvBnZ5Vn9XAXet1
+Mxmdthr30bRgb/FDSPBdOf4KkeLr/Gn2It9tEa7DJs7NWGFqb+LkSDo+yjMm8urp
+LfdHzkOwxtZz9T9m6H7LqRk+aKnkmfTC34959fqFMJSML1A3Lag=
+=Fkn7
+-----END PGP SIGNATURE-----
+
+--XjDVMtClwDszxBje--
 
