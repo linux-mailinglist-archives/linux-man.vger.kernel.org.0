@@ -1,43 +1,43 @@
-Return-Path: <linux-man+bounces-321-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-322-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id B852C82018A
-	for <lists+linux-man@lfdr.de>; Fri, 29 Dec 2023 22:09:31 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B51508201AF
+	for <lists+linux-man@lfdr.de>; Fri, 29 Dec 2023 22:28:13 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 586201F21B49
-	for <lists+linux-man@lfdr.de>; Fri, 29 Dec 2023 21:09:31 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 70E9B2823C9
+	for <lists+linux-man@lfdr.de>; Fri, 29 Dec 2023 21:28:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D4281428E;
-	Fri, 29 Dec 2023 21:09:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1325114291;
+	Fri, 29 Dec 2023 21:28:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUU3GDoW"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZH1+A1tJ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E347014AA0
-	for <linux-man@vger.kernel.org>; Fri, 29 Dec 2023 21:09:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6084AC433C7
-	for <linux-man@vger.kernel.org>; Fri, 29 Dec 2023 21:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59FE14A83
+	for <linux-man@vger.kernel.org>; Fri, 29 Dec 2023 21:28:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 496B2C433C9
+	for <linux-man@vger.kernel.org>; Fri, 29 Dec 2023 21:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703884158;
-	bh=A4EaAw+rj6AsOy454JLyas/XD+bFOmVpss8QYmBn5vc=;
+	s=k20201202; t=1703885288;
+	bh=U0t43aprcNLATeY6I3WOh3XNKl1xAmWVfSGCtsib1mM=;
 	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=ZUU3GDoWaR5+AaDDSEGTLxGubfhIwpVfvGcVgpr+xW2EY7hvpz75ICjm8+AJ9u0sX
-	 AepXdGeTTqJl7soEGeZDXg6ug7bt0SDbif7yBd84vlSy8yi+WZKCQJebtRpb9DbCqU
-	 bUvro/A2u4Nm/SnsuLLVo05YZqTngfxqHJJurIyWef6vkGK0r58y2Mz2AQjOtZkjG/
-	 OfnqQ0/Jcpwp6lCjINFyYfR8TEUBh+DbQyoKaAO4U3nicx/Ja3Ii/wTyFH5kP8wlO1
-	 em14VseLPrbIXIl7jsqBIWd7V61UODI7c48QCuIY0y7UpkXId7OxLjj0q4QUc0oVJb
-	 krpW4kS7tOH8g==
+	b=ZH1+A1tJcgPIMJiPQOoPWBJISgPPVPDTQczI0QmRCMZ28c4Nh/9lU1GX4Z67MGyEY
+	 c9Pc7lk9HUZmGwdjFP7LvF99HYRLcHnjJ+iAX1KGCoOC+XolWcMKnHhr7LUhF0smn3
+	 /Gxp9cPqqTE9udYulPPvyWArxM/V6XQTRYTr+1qwPqZZa+3fGhyHNWnaz1L7oGkQcB
+	 q4Bft5KyEoRnMf6QVbm1y31fRCjpC0TJtzDZeb3F7ggu7IrS1suJlpzHLo0yEXVVzm
+	 KvMO0f/OW96rBgF1VfNeo7pRBeuvex8CXt0gdGRydnPnhasJmzMX0k9DhguezZBg7I
+	 y6juySwIFDjDw==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 479E1C53BC6; Fri, 29 Dec 2023 21:09:18 +0000 (UTC)
+	id 2E11EC53BC6; Fri, 29 Dec 2023 21:28:08 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
-Subject: [Bug 217838] Systemd nowadays mounts Cgroups v2
-Date: Fri, 29 Dec 2023 21:09:18 +0000
+Subject: [Bug 217709] Mistake in example in mount_namespaces(7)
+Date: Fri, 29 Dec 2023 21:28:07 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -46,7 +46,7 @@ X-Bugzilla-Product: Documentation
 X-Bugzilla-Component: man-pages
 X-Bugzilla-Version: unspecified
 X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
+X-Bugzilla-Severity: low
 X-Bugzilla-Who: goeran@uddeborg.se
 X-Bugzilla-Status: NEW
 X-Bugzilla-Resolution: 
@@ -54,9 +54,9 @@ X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-217838-11311-8aGwlM9N8u@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-217838-11311@https.bugzilla.kernel.org/>
-References: <bug-217838-11311@https.bugzilla.kernel.org/>
+Message-ID: <bug-217709-11311-csZzMxbuqH@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-217709-11311@https.bugzilla.kernel.org/>
+References: <bug-217709-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -68,26 +68,10 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217838
+https://bugzilla.kernel.org/show_bug.cgi?id=3D217709
 
 --- Comment #3 from G=C3=B6ran Uddeborg (goeran@uddeborg.se) ---
-You are correct that the text is often amended by saying systemd mounts the=
- v2
-hierarchy on modern systems. But there is one section saying
-
-       Note that on many systems, the v1 controllers are automatically
-       mounted under /sys/fs/cgroup; in particular, systemd(1)
-       automatically creates such mounts.
-
-In that place there is no mention that the comment only applies to older
-systems.
-
-(FYI: When I wrote the bug I was running Fedora 38, and have since upgraded=
- to
-Fedora 39. But you can see the problem also at
-https://www.man7.org/linux/man-pages/man7/cgroups.7.html I discovered the i=
-ssue
-when translating the manual page to Swedish.)
+Great!
 
 --=20
 You may reply to this email to add a comment.
