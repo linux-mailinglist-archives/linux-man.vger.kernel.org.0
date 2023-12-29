@@ -1,95 +1,98 @@
-Return-Path: <linux-man+bounces-314-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-315-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5BCA81FBA0
-	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 23:44:10 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98D3981FCB9
+	for <lists+linux-man@lfdr.de>; Fri, 29 Dec 2023 04:19:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 361371F22E5B
-	for <lists+linux-man@lfdr.de>; Thu, 28 Dec 2023 22:44:10 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 800911C21252
+	for <lists+linux-man@lfdr.de>; Fri, 29 Dec 2023 03:19:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC98510794;
-	Thu, 28 Dec 2023 22:44:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 662C317D1;
+	Fri, 29 Dec 2023 03:19:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="S6ANK6Vv"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fqhLnW5o"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CBF10A01
-	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 22:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id AFFC5240103
-	for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 23:43:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
-	t=1703803433; bh=2qnk5XFq4gz4mra+Bj/yEA5CheONLeraJWmFxKkdsUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:
-	 Content-Disposition:From;
-	b=S6ANK6VvXuB0tmqXhsKnTcUVygor/kE/NsbbvNfMaKc2MosPk7wlUnEPNaVRE7Ypo
-	 LuTTe58mTopaEok/9D1vVntvQxWl+q2X0P0/6WvHM3zO6RugFSSLc5iM4dx4TYPrIV
-	 PwFyucK79/+BalMHjirOFkGBieaF/7qZDJ+IVTW3+EpyOg93wFmNgd2USFkSmd96eC
-	 GVXiKt2WhVUA2jZL3aIUKtsH0JWexFzL7O0Xn1R74R1ozhizCUGCnypgYhGzOJswV8
-	 sNVtPBw/3JA61xHwjsyqmGZeWX0J7Tg9Fb5s0RZ7s7w9+4H2Qp5kNlkMyGEr2CSY9W
-	 KFQf4hTtgPohQ==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4T1Npd1C4Jz9rxB;
-	Thu, 28 Dec 2023 23:43:53 +0100 (CET)
-Date: Thu, 28 Dec 2023 22:43:10 +0000
-From: Tom Schwindl <schwindl@posteo.de>
-To: Rajesh Pandian <r.pandian@gmail.com>
-Cc: alx@kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] bugzilla_218018
-Message-ID: <ZY35_ukf-q9--X-7@posteo.de>
-References: <20231228155601.16558-1-r.pandian@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DC31FAF
+	for <linux-man@vger.kernel.org>; Fri, 29 Dec 2023 03:19:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-6dbcc5d78eeso3485952a34.3
+        for <linux-man@vger.kernel.org>; Thu, 28 Dec 2023 19:19:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1703819976; x=1704424776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Tp4Dm0KpFktwY2oc7IuxYfK9q1e6yt07HeILo2dyOEs=;
+        b=fqhLnW5oiS7MUFTQI7QJVedmQJ233tvOFj1qj3759IkWDLjivgLZ0hwSlRpXMZV4cp
+         CibRo6iomFVemUXrBvt9JvjqKb4wiVtqnCi8+tZxFmpdHJWLCyS+JugKW+aEyForieKK
+         1BGZvfZpGrUz2I1ZPP0OQju3KuDerQABqVjPM03a2/Lm88SdGdkjN2Qlxfiw5bqCURx8
+         HHuXyik2PCGSSpixRCU8HJNiNts9rD+4x3UxCmauuDJ2wNto9mbw2XeK7XqYdcLUlEw1
+         dpE1cw12GIZN4VBhG76rid4BMQsDlDx86hvA3zj8oYWyml6x39T1yEvWnnzt6MouJf8n
+         EnSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703819976; x=1704424776;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Tp4Dm0KpFktwY2oc7IuxYfK9q1e6yt07HeILo2dyOEs=;
+        b=oyu/iVj8G9kxbI6Nt6e1kP30YlumVDQn6WLCVmt5dMSTbHJIGTODMRsuaQpEzT2ipr
+         ZU81fAI79J4SAnP3pRuJMfVvuNqVSddYFg2ZT2rlwrF3+XhJGB4O907G6eXuAQ+wxU63
+         FnbTebppvUCZKx/HnfWghoqRjHKPwT56ceGOdbqyuR18lCwIfP7w7iAaMl9UxejII2GZ
+         FWijRBepFPg61vs18dySzZLhcfUM/s6z+DQStHHdBvJcDLQ1oBglJWOH0XrN3WEIfro3
+         lwKt2MPKGCxog2stF+TuHcqbELDv54iivdq4JetqOFhpU0shWlqyD/ToaeLM1uULdjID
+         82zQ==
+X-Gm-Message-State: AOJu0Yx7/YSXA0TIXsXfSh4Dwyv/w075X4rsT1uMEE5YF3Pg7wgCPBZu
+	zl1rvODaa/Xwx4W61OTpXA==
+X-Google-Smtp-Source: AGHT+IFDcVB/53olgFv4Wwcj0HeZ0Gc8wf/6OX/mVCVxJ4BVgRxn9TU7toQmsV9Mkx6CSfLeTzFDzw==
+X-Received: by 2002:a05:6808:3c4f:b0:3bb:bdf0:a73c with SMTP id gl15-20020a0568083c4f00b003bbbdf0a73cmr7172228oib.114.1703819975952;
+        Thu, 28 Dec 2023 19:19:35 -0800 (PST)
+Received: from localhost.localdomain ([122.174.192.11])
+        by smtp.gmail.com with ESMTPSA id c3-20020aa78803000000b006d9bd15fd5csm7793159pfo.17.2023.12.28.19.19.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 Dec 2023 19:19:35 -0800 (PST)
+From: Rajesh Pandian <r.pandian@gmail.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	schwindl@posteo.de,
+	Rajesh Pandian <r.pandian@gmail.com>
+Subject: [PATCH] bugzilla_218018_v1
+Date: Fri, 29 Dec 2023 08:48:16 +0530
+Message-Id: <20231229031816.3345-1-r.pandian@gmail.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231228155601.16558-1-r.pandian@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+---
+ man3/dl_iterate_phdr.3 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-On Thu, Dec 28, 2023 at 09:26:01PM +0530, Rajesh Pandian wrote:
-> ---
->  man3/dl_iterate_phdr.3 | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/man3/dl_iterate_phdr.3 b/man3/dl_iterate_phdr.3
-> index 0a8beb3ae..f47fdd502 100644
-> --- a/man3/dl_iterate_phdr.3
-> +++ b/man3/dl_iterate_phdr.3
-> @@ -129,7 +129,9 @@ The
->  .I dlpi_phnum
->  field indicates the size of this array.
->  .P
-> -These program headers are structures of the following form:
-> +The ELF program header is described by the type Elf32_Phdr 
-> +or Elf64_Phdr depending on the architecture.
-> +Following is an example of 32 bit architecture:
-
-I'd slightly change the last sentence to
-
-  The following is an example of the 32-bit architecture
-
-since that sounds a bit nicer IMO.
-
->  .P
->  .in +4n
->  .EX
-> -- 
-> 2.39.2
-> 
-> 
-
+diff --git a/man3/dl_iterate_phdr.3 b/man3/dl_iterate_phdr.3
+index 0a8beb3ae..1355c5bcc 100644
+--- a/man3/dl_iterate_phdr.3
++++ b/man3/dl_iterate_phdr.3
+@@ -129,7 +129,9 @@ The
+ .I dlpi_phnum
+ field indicates the size of this array.
+ .P
+-These program headers are structures of the following form:
++The ELF program header is described by the type Elf32_Phdr 
++or Elf64_Phdr depending on the architecture.
++The following is an example of the 32-bit architecture:
+ .P
+ .in +4n
+ .EX
 -- 
-Kind Regards,
-Tom Schwindl
+2.39.2
+
 
