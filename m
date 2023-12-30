@@ -1,43 +1,43 @@
-Return-Path: <linux-man+bounces-324-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-325-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C52F8203BB
-	for <lists+linux-man@lfdr.de>; Sat, 30 Dec 2023 06:43:42 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 762CC82043A
+	for <lists+linux-man@lfdr.de>; Sat, 30 Dec 2023 11:01:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 72DF81C20AFE
-	for <lists+linux-man@lfdr.de>; Sat, 30 Dec 2023 05:43:41 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1B5601F2163B
+	for <lists+linux-man@lfdr.de>; Sat, 30 Dec 2023 10:01:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D47615BF;
-	Sat, 30 Dec 2023 05:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C21F51864;
+	Sat, 30 Dec 2023 10:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kq329KRd"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pIhjdNIl"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF051FAF
-	for <linux-man@vger.kernel.org>; Sat, 30 Dec 2023 05:43:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 946F9C433C9
-	for <linux-man@vger.kernel.org>; Sat, 30 Dec 2023 05:43:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABA523AE
+	for <linux-man@vger.kernel.org>; Sat, 30 Dec 2023 10:01:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F2989C433C9
+	for <linux-man@vger.kernel.org>; Sat, 30 Dec 2023 10:01:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703915017;
-	bh=QdQTVhRhAo6b49MUA35UV/ANvXkMknUpk6Y3MqeBdYs=;
+	s=k20201202; t=1703930493;
+	bh=RTiWP7sv/2Ljcv6GvaVTJKK6Mbv7CZuFgP7IK68AtZw=;
 	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=Kq329KRdzrPHhZjxcq2Ua9oKzjzu5IVtPUWviH4uQX5FMT53RJpvR7TjBPLimGvYg
-	 WbvhWyhFQQpeuuNOoh39mvy91PF1+xSeeNJmBg7Z4hu3/TWOMEleFetMGK1f0DWEqh
-	 4TEntqiB6O2ippCrNOX/we6lJeuzZcZrGRsb830+pmljN9kIiZMODyLvMhLLNy8ewp
-	 U7FSxtQVm77cM9jnSGFguGR0pNXOKBq0X5KUgWhNiSaSK4r7VlHA61I+cJKOIehZly
-	 /J66DfKybG0lxP2KBQtecW6/qrpAQGZImlDsuD975PLf/rUZgqkb3Aw4Ku6DLpCezE
-	 njP1zfEWCn65g==
+	b=pIhjdNIlCjPcIeZ9cK8VwUMpnyhw8oGpsLDXkdOaMNJJlOMpAnRi/0iYdxWNG6eP0
+	 7DxAkESZpTCubthdsSU4pj86vE6T7kdARIcGbEMugWaj5J3lrxZ1D14XG58x0X5NkF
+	 HwP51E9NqCtkRizLfLZvtdhtUT5da7QwLWj4egK/XaYDv6ZQTg0i7z1yPUOBSpH9tY
+	 ij2a5hucc6cURGOpq593v+Sl+mOFKpVSqlWohBnQKmkjFKSJLs8ssy6bTQgZ8t+viy
+	 qCwIJAd/B6AakcnEy6m2An56YxvEey+WHhZk8yoKrkX3HVLk0GXEQyrjKx2BZjK9Jm
+	 36/y2kR6HpVLA==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 7C5BCC53BD0; Sat, 30 Dec 2023 05:43:37 +0000 (UTC)
+	id D824DC53BCD; Sat, 30 Dec 2023 10:01:32 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
 Subject: [Bug 217838] Systemd nowadays mounts Cgroups v2
-Date: Sat, 30 Dec 2023 05:43:37 +0000
+Date: Sat, 30 Dec 2023 10:01:32 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -47,14 +47,14 @@ X-Bugzilla-Component: man-pages
 X-Bugzilla-Version: unspecified
 X-Bugzilla-Keywords: 
 X-Bugzilla-Severity: normal
-X-Bugzilla-Who: r.pandian@gmail.com
+X-Bugzilla-Who: goeran@uddeborg.se
 X-Bugzilla-Status: NEW
 X-Bugzilla-Resolution: 
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-217838-11311-TarulCSKpK@https.bugzilla.kernel.org/>
+Message-ID: <bug-217838-11311-TwQWcnmWTh@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-217838-11311@https.bugzilla.kernel.org/>
 References: <bug-217838-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -70,36 +70,8 @@ MIME-Version: 1.0
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D217838
 
---- Comment #4 from Rajesh (r.pandian@gmail.com) ---
-(In reply to G=C3=B6ran Uddeborg from comment #3)
-> You are correct that the text is often amended by saying systemd mounts t=
-he
-> v2 hierarchy on modern systems. But there is one section saying
->=20
->        Note that on many systems, the v1 controllers are automatically
->        mounted under /sys/fs/cgroup; in particular, systemd(1)
->        automatically creates such mounts.
->=20
-> In that place there is no mention that the comment only applies to older
-> systems.
->=20
-> (FYI: When I wrote the bug I was running Fedora 38, and have since upgrad=
-ed
-> to Fedora 39. But you can see the problem also at
-> https://www.man7.org/linux/man-pages/man7/cgroups.7.html I discovered the
-> issue when translating the manual page to Swedish.)
-
-Got you. I also see the following mentioned under the section
-
-"Cgroups v2 unified hierarchy"
-
-"Note that on many modern systems, systemd(1) automatically mounts the cgro=
-up2
-filesystem at /sys/fs/cgroup/unified during the boot process."
-
-May be reuse that and replace the one you have noted with the above? Does t=
-hat
-work?
+--- Comment #5 from G=C3=B6ran Uddeborg (goeran@uddeborg.se) ---
+Yes, that sounds like a good solution.
 
 --=20
 You may reply to this email to add a comment.
