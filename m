@@ -1,44 +1,44 @@
-Return-Path: <linux-man+bounces-333-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-334-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id E210F8213A9
-	for <lists+linux-man@lfdr.de>; Mon,  1 Jan 2024 13:04:23 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F85A8213B1
+	for <lists+linux-man@lfdr.de>; Mon,  1 Jan 2024 13:11:20 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DDF0A1C20BFB
-	for <lists+linux-man@lfdr.de>; Mon,  1 Jan 2024 12:04:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D5005281FAE
+	for <lists+linux-man@lfdr.de>; Mon,  1 Jan 2024 12:11:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B20CA20FD;
-	Mon,  1 Jan 2024 12:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58CCC2112;
+	Mon,  1 Jan 2024 12:11:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jEW5575o"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSDX5e+7"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744CF20E8
-	for <linux-man@vger.kernel.org>; Mon,  1 Jan 2024 12:04:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6273C433C7;
-	Mon,  1 Jan 2024 12:04:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D5620E8
+	for <linux-man@vger.kernel.org>; Mon,  1 Jan 2024 12:11:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA24FC433C7;
+	Mon,  1 Jan 2024 12:11:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1704110658;
-	bh=GL92p1TMaKFIGjjVAca6CVkKe0uaU0GAQDb6M7U8cgE=;
+	s=k20201202; t=1704111074;
+	bh=rCRvG3wQCtB9IaGfKQi8KyVTTddXdM3FPKWCOBvJJRA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jEW5575oPuz3EqMdB/oIUW3JFnwc68nmzDHcyKa4L2qCHqtcX70HRAMFQDHbzYWoI
-	 FXKmOwnn7oCVI/yICemChLAUZKMzQTm7mDvwP6yjfhNk5hENIcAo5wbqcO+lULo95B
-	 QE6C516xXfMIGw/EqyG/HuLnRIVKGJqsE+KYASylkj8B7DslNQjM0OHxuGNkhGTDV9
-	 GuACiwWHbbRlDjwoN+AUah8SGZjlC+2d1+1CKW4lLriz4BQfF+/TNPRFMqoIY1pOz5
-	 i3CRC0nS0BwzsMGzAlByt4qfI7XuMxlcy1aF7WBRr81bLJ/hCtbrbFvW/nJSQpOhr+
-	 WwcYsT72He0og==
-Date: Mon, 1 Jan 2024 13:04:15 +0100
+	b=GSDX5e+75FRQIZnuCeau1tXNPAUvr1wrly5GEVkljFDo1vm6RuRPfMKzEyUneonxx
+	 ONnhEzucppUaNbzIqYOBAfH/IoZYbK7GyJRCpKKHfCuuHdiMYBtALJGIT9KVYN1b9g
+	 0tZ65wmC2QUTCCPnbSxRDLmq4uUpevQYnwzAuIUmtLiGo7f0l/ROsx+RNHSZArqZ8t
+	 X++tO3n5NTSzb72GvRIo6J3BpEt73PXcoJg+yatEKGCNYF0FsE/PiQhCt0JDZ4OvBc
+	 ZUJ5uy4CBq+OcElZHHAsgMjCDTpR6KSt1w0uZTGBbHcAqESTt+qh73X/aYJBGiJ3mA
+	 ZnFMnpA6fjHOQ==
+Date: Mon, 1 Jan 2024 13:11:11 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Rajesh Pandian <r.pandian@gmail.com>
-Cc: linux-man@vger.kernel.org, schwindl@posteo.de, stefan.puiu@gmail.com
-Subject: Re: [PATCH] bugzilla_218018_v2
-Message-ID: <ZZKqP6JnPSlEJoOH@debian>
-References: <20231230050339.4599-1-r.pandian@gmail.com>
+To: Shahab Ouraie <shahabouraie@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Man-page example code correction: sched_getcpu(3)
+Message-ID: <ZZKr37Qu6U2340x8@debian>
+References: <CAKcKaNR1yGZrkHbdxr=iATzXftPe=eVm4W2cz2ROmEj3=izTiA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -46,77 +46,68 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="laOdjoDe3f7qUmY3"
+	protocol="application/pgp-signature"; boundary="+zrDjMV5l/rcpeJZ"
 Content-Disposition: inline
-In-Reply-To: <20231230050339.4599-1-r.pandian@gmail.com>
+In-Reply-To: <CAKcKaNR1yGZrkHbdxr=iATzXftPe=eVm4W2cz2ROmEj3=izTiA@mail.gmail.com>
 
 
---laOdjoDe3f7qUmY3
+--+zrDjMV5l/rcpeJZ
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 1 Jan 2024 13:04:15 +0100
+Date: Mon, 1 Jan 2024 13:11:11 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Rajesh Pandian <r.pandian@gmail.com>
-Cc: linux-man@vger.kernel.org, schwindl@posteo.de, stefan.puiu@gmail.com
-Subject: Re: [PATCH] bugzilla_218018_v2
+To: Shahab Ouraie <shahabouraie@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Man-page example code correction: sched_getcpu(3)
 
-On Sat, Dec 30, 2023 at 10:33:39AM +0530, Rajesh Pandian wrote:
-> ---
+Hi Shahab,
 
-Hi Rajesh,
+On Sun, Dec 31, 2023 at 06:41:43PM +0330, Shahab Ouraie wrote:
+> This example code here
+> <https://man7.org/linux/man-pages/man3/sched_getcpu.3.html#NOTES> (under
+> *sched_getcpu(3)* man-page) used *getcpu(2)* with extra param:
+> >
+> > getcpu(&c, NULL, NULL);
+> >
+> > man-page for getcpu(2)
+> <https://man7.org/linux/man-pages/man2/getcpu.2.html#SYNOPSIS> defines on=
+ly
+> 2 args and gcc throws error on gcc (Ubuntu 13.2.0-4ubuntu3) 13.2.0 build.
+> Thanks for your time and effort <3
 
-This is missing a commit message.
+Thanks for your report!
 
-Thanks,
+Fixed:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Df9816831010228c5306584df6880533f33547ecd>
+
+Have a lovely year,
 Alex
-
->  man3/dl_iterate_phdr.3 | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man3/dl_iterate_phdr.3 b/man3/dl_iterate_phdr.3
-> index 0a8beb3ae..263178e3f 100644
-> --- a/man3/dl_iterate_phdr.3
-> +++ b/man3/dl_iterate_phdr.3
-> @@ -129,7 +129,9 @@ The
->  .I dlpi_phnum
->  field indicates the size of this array.
->  .P
-> -These program headers are structures of the following form:
-> +The ELF program header is described by the Elf32_Phdr or Elf64_Phdr type,
-> +depending on the architecture.
-> +For example, the following layout applies to 32-bit architectures:
->  .P
->  .in +4n
->  .EX
-> --=20
-> 2.39.2
->=20
->=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---laOdjoDe3f7qUmY3
+--+zrDjMV5l/rcpeJZ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWSqj8ACgkQnowa+77/
-2zIOMRAAj2MXuBqUWA3my0m7MWK4cindx5GqevFlLPSYGTSeVNflRxzCyq/hbira
-7nDvN0fhXmmjNXYfPLqXTCTEuJ77Q8oIyC3IC2iYz0MHYJrPzcUmF2WZ7Cz5TcQR
-1rIVqxDf/Ey13oiu1cm3kbKWXxi5Q1fLAbc3kONqsdha+a7tml05yWibQPUDWrNI
-aTyaW5GH+ygeLeSKibaGe678tBpy0ZJlqsyjvnYjpifRvFJ3icA9y+Y6v9r5KpB/
-NIzaYMVkcCH9iqFtzwFjKBvjn4npP69REU/88rGUJ4UI73c6CLVxt9lMDOwD1WDD
-BZGK4jYHkHJtWir8eOqjGDQMYolQ3DpTYDtmPX56+ciAfHDK0vOkrTWrXO/FoYmO
-FaoQsjdRDaMZKDZHw1riBDXaXqzlUVDyqrhFGmjrcukdOTpVRGktRSwC5wMBX8sH
-qRnH18FDWqbgUEsislvgSF3IPyv34BY/AuAJQV1fai9lr3YnrCHkyA/QrilzcwVr
-LVuKJaMRu8svR65Td86LVUL2tFmGv6DKPwjuiziyzNSDBh+1C45J8EmAXM03uPX+
-WXSvsZpiRVlSpw9+F8quvd7b1Lt7UYz4wueN3jx8AHssNu3kd01IfbNHi/u3cp36
-TdaSriru7A1wedjuJawNcZvxJtKMVvFrF2zJygTnRbJxwfO4NFc=
-=6C7x
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWSq98ACgkQnowa+77/
+2zLcEw//aJhxJOGvDEbo7LfHE8HJPi2UG0ZeWSC6sc8GFVcm9/XR2ls5AY5Qjsh2
+M9TwgXAHvR0gbM5CXzADGKJ2RLZ6izRxnMmNLmokPw0p352I2Q5Ziya6ubgW2AMP
+Fyo6p6HK/IbLHxD/c4ov4SwlRLGs9FA41OxuW9pxMRRL7FoMXU39YOuJ9hHftOlu
+ARAPlaFSXWMJeTlp+kes2P7DiFf5N1pSBUUdwhTBpzbH8QNW0EgOYO3SeeXDkAfl
+NpwhwYnDnd93tceA7IHDA+0xaCFZSGUlV3TOIH8MC4LOktcLCVNXNY5xAHoOxSP4
+RUq3J9007ZHX+nzjs9Ie2GkCcfsIwvPVzxYykmovTJM45TCq8yQOx4RVwB0zUYz8
+Mbm7HPcpi3oH2YKsupiNPyr5zgeP9qdsDhkmaVWouCDZSm7k2DTHaHJ8KUljjjWd
+fYn4ROo3Exmbr4Bx1ibTX4X2npaHgR23SLnlmebGR0fVsBxTnI/dojRGPaYI+s+r
+G3JkmUYXH3TU/bBmbY85cuBKXBw3YvHLtQG/5s8mUTHw0HVtONzy5qfYCjlWXnFD
+2Fe+/l1JVxlx5+Z1kXzSSJ8h1OZpGlga+DsITwj6RU9yxVL9Vjwkk117IiM/lMkv
+p1zmwBLxuoB/vcAb/STy7CG2anArpjiJaGczaxq/rrO01GvLQew=
+=QkTp
 -----END PGP SIGNATURE-----
 
---laOdjoDe3f7qUmY3--
+--+zrDjMV5l/rcpeJZ--
 
