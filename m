@@ -1,46 +1,46 @@
-Return-Path: <linux-man+bounces-340-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-341-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C19F823097
-	for <lists+linux-man@lfdr.de>; Wed,  3 Jan 2024 16:32:11 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E9F8230FA
+	for <lists+linux-man@lfdr.de>; Wed,  3 Jan 2024 17:04:12 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5B99D1C236C2
-	for <lists+linux-man@lfdr.de>; Wed,  3 Jan 2024 15:32:10 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 02F661C23A3F
+	for <lists+linux-man@lfdr.de>; Wed,  3 Jan 2024 16:04:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F2901A72E;
-	Wed,  3 Jan 2024 15:32:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20E091B283;
+	Wed,  3 Jan 2024 16:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqUYq59+"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fUidSfCZ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B41D1B268
-	for <linux-man@vger.kernel.org>; Wed,  3 Jan 2024 15:32:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 98547C433C9
-	for <linux-man@vger.kernel.org>; Wed,  3 Jan 2024 15:32:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F891B281
+	for <linux-man@vger.kernel.org>; Wed,  3 Jan 2024 16:04:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6032DC433CA
+	for <linux-man@vger.kernel.org>; Wed,  3 Jan 2024 16:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1704295925;
-	bh=eAx0lGO/jAszx7nKC1GY/wsrdGNcX2HZ+On8IPGXiy4=;
-	h=From:To:Subject:Date:From;
-	b=PqUYq59+5YauzJju3NA/Ll6dEyppQs0YinAeXcwP8DWCWYin7hzamKQ6x7mEWBdzP
-	 FVD2eGQLpjCIhPO6Ry8FpDPWp6RFjGK/Yb0/4biYqKTSIa3QOD1H6b323CAcSDzdx2
-	 8R/6h10Jtv34UHlEitbptXdQKhnUp1HY62PsGkUbBnFVQGNogUI3J7RMH2LMZe8HZZ
-	 kHli1OgohVJMqv6n5U9ENhFIphhGsj7R3oEJlErfl6V8+Fgi5l73Sn87+qHx0LLyAT
-	 td9pMDYz4S8zL3/4FQ3E471pF8psWoUhHlpFBxBJrP9uTtdhm4MZ21p1x31ykNiBiv
-	 e0QdSQziPQgrw==
+	s=k20201202; t=1704297849;
+	bh=3807an9T3yaGYzYIaNT3pWUZEH97NFIZmWLnB8YmhLg=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=fUidSfCZ66xT/iENEPacmgEnTIfpYP2ivYoIwlF8W6GRQjaGMk5SCtMANPEUoRFOm
+	 2/MRN7MFeP5zuwimMsS+oU+yNz6M8PcYO3p29WbbEJdpz2v7DN3ZgsOlIVEltVQjQd
+	 eVJi6oTOW5sIETlxXv9TBzaHcMiTnrJvycenGrbu+hmu55uHeAjixFYpUs+bmAlElT
+	 TVd2r7hWXsqOtfSjNs2rrNwi5EL9YRJ/EXzMDupwN66evDdiMP4XjIq2JgAZfwlDtw
+	 21Lb34gmJVIPfnj9F1qHTLEcKfeUi4hWR7Nq2v7O3tcKcPHOWxaBnvrtFM43My4I2B
+	 FBYlS9wC/F5DA==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 832E1C53BD3; Wed,  3 Jan 2024 15:32:05 +0000 (UTC)
+	id 49D92C53BD3; Wed,  3 Jan 2024 16:04:09 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
-Subject: [Bug 218336] New: mount(2) doesn't document ENOSPC when
+Subject: [Bug 218336] mount(2) doesn't document ENOSPC when
  /proc/sys/fs/mount-max is exceeded
-Date: Wed, 03 Jan 2024 15:32:05 +0000
+Date: Wed, 03 Jan 2024 16:04:08 +0000
 X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
+X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
  documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Product: Documentation
@@ -54,10 +54,10 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-218336-11311@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-218336-11311-gnNgggM5qa@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-218336-11311@https.bugzilla.kernel.org/>
+References: <bug-218336-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -71,53 +71,29 @@ MIME-Version: 1.0
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D218336
 
-            Bug ID: 218336
-           Summary: mount(2) doesn't document ENOSPC when
-                    /proc/sys/fs/mount-max is exceeded
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: smcv@collabora.com
-        Regression: No
+--- Comment #1 from Simon McVittie (smcv@collabora.com) ---
+The bubblewrap PR is https://github.com/containers/bubblewrap/pull/615.
 
-When setting up mount points in a new mount namespace, if
-/proc/sys/fs/mount-max is exceeded, mount(2) will fail with ENOSPC. This is=
-n't
-documented in mount(2) as a possible error result.
+The text I would hope to see in the man page could perhaps be something lik=
+e:
 
-In this situation, the error message "No space left on device" from strerro=
-r()
-is misleading: usually all of the user's filesystem devices will have plent=
-y of
-space. The actual problem is that an essentially arbitrary
-anti-denial-of-service limit, orthogonal to how much space exists on any
-particular device, has been exceeded.
+**ENOSPC**
+    The mount operation would cause the current mount namespace to
+    have more mount points than allowed by _/proc/sys/fs/mount-max_.
 
-For example, this could easily happen when running Flatpak, which creates n=
-ew
-user and mount namespaces using the bubblewrap tool:
+...
 
-$ echo 50 | sudo tee /proc/sys/fs/mount-max
-$ flatpak run org.gnome.Platform//45=20=20=20=20=20=20=20
-bwrap: Failed to mount tmpfs: No space left on device
-error: ldconfig failed, exit status 256
+**SEE ALSO**
+    ...,
+https://www.kernel.org/doc/html/latest/admin-guide/sysctl/fs.html#mount-max
 
-I'm going to send a PR to bubblewrap to make it special-case ENOSPC and dis=
-play
-a clearer error message in this case. It would be helpful if mount(2) indic=
-ated
-ENOSPC as a possible error here, so that maintainers of projects like
-bubblewrap could make sure to allow for it.
+Or if the man-pages maintainers would prefer to have text that anticipates
+potential future kernel changes, perhaps more generally:
 
-https://github.com/ValveSoftware/steam-runtime/issues/637 is a real-world
-report of this happening in Steam's Steam Linux Runtime container framework,
-which is very similar to Flatpak.
+**ENOSPC**
+    The mount operation would cause a resource limit to be exceeded,
+    for example more mount points than allowed by _/proc/sys/fs/mount-max_
+    in the current mount namespace.
 
 --=20
 You may reply to this email to add a comment.
