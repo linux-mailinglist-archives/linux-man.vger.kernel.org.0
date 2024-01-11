@@ -1,208 +1,124 @@
-Return-Path: <linux-man+bounces-354-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-355-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05EB682B7CD
-	for <lists+linux-man@lfdr.de>; Fri, 12 Jan 2024 00:02:10 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A723E82B7D0
+	for <lists+linux-man@lfdr.de>; Fri, 12 Jan 2024 00:02:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 65F6BB21813
-	for <lists+linux-man@lfdr.de>; Thu, 11 Jan 2024 23:02:07 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3D6C228A26C
+	for <lists+linux-man@lfdr.de>; Thu, 11 Jan 2024 23:02:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 138355811C;
-	Thu, 11 Jan 2024 23:02:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E29356748;
+	Thu, 11 Jan 2024 23:02:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="n374fa5J";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="8EJR+e51"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ab21pfdx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C870524A8;
-	Thu, 11 Jan 2024 23:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id 41FDE5C0076;
-	Thu, 11 Jan 2024 18:01:56 -0500 (EST)
-Received: from imap51 ([10.202.2.101])
-  by compute5.internal (MEProxy); Thu, 11 Jan 2024 18:01:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1705014116; x=1705100516; bh=oZXd44/iUL
-	eucMaGv4BNeFUvP0p+w9PCsZxuaMhOtuw=; b=n374fa5Jz+FUk0jiydMTizDaxY
-	J0CC8/Jbq6MivHZ0qO4T3tpcvjmiB4Q1xUj/a9PRtDyjR4OivQLKvtw6fFxVMAoQ
-	g4lUD0nhNqZyHIsq8Z2RQWCjk9wVJhz73DCcSUV8r/sUjTIQdBw2n7F/RkyR5B8s
-	ENCpiCZCld8UB1VjUJxBRfor17fd5XdYCi1+SxPMbdWGv271AS6kIeqzvZcKa7X+
-	wKMKkzfGbbkZqYTQYNxjroAQlJXMnQeZtdkV10G+oBR/dE2KUMHfSxJ3KuJ9Ynit
-	kZFHX2FJN24/ZlMHiL61mV+VQycTOlmmo8AHVhMuhMwnKayNh6RmM+dICSLQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1705014116; x=1705100516; bh=oZXd44/iULeucMaGv4BNeFUvP0p+
-	w9PCsZxuaMhOtuw=; b=8EJR+e51ZxTxDdqmsp+ACMDiaKQVQZgHR7ioChuEDwqH
-	lVcAp0w0Knhv4mGwJIFjEC1SOOqJEx0nJ5yTHoqsGX3aWTrkh6/sahg9ixI5S5R8
-	an/sxt6yE89GHZtmT7Oaj78AU3L/wAY7Eu4pXDxLDDn8u9lDUsTbZMFRONPD4c96
-	X6jPJ65aBVv1yDJ1oTwxeGzxkXcxKPZmhyjTVhthYe8iLJFS+sC+cHvc6okUc25K
-	O62sI4dsIfc2qG4gByxS3d04mScLFze3n6fgCoTlGyGwteq7aTGJX2lIhfwI5Md9
-	yvJFtkGKq+EDdwiyEb0hYkAbsnRKA7W7yP9/r4GslQ==
-X-ME-Sender: <xms:Y3OgZdsrrmddnp0x2ftuxACmpMcdSCuDfG1iJb9-3DHAAmGcOv50rQ>
-    <xme:Y3OgZWeKaUDNPOmBPqQfJqnuQSJwyxu3R13mmA4deuOyVf6J-1VF4xzTqA3ujep_i
-    2w28o6farPDur3XkIE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdeigedgtdeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
-    nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
-    htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
-    teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
-    hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:Y3OgZQzQnB9weu89BwnifSdJ_5CdXW93usF8KqV508Pk4dsOw53YWQ>
-    <xmx:Y3OgZUPJotBC7wRKYObKXjSx4zrVUq2zSIhoXotyyOgdoPpBdSNG1g>
-    <xmx:Y3OgZd-nKfYUnsHCZsejz5O2Dxr-yBTZ7B3bsCZgM8249h2GNqjD9Q>
-    <xmx:ZHOgZVOc_SV3r1f-YYNS0JO3tAbguG6PBOkuIApIoY8gAkB0mPWd7Q>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id 75097B6008F; Thu, 11 Jan 2024 18:01:55 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-1374-gc37f3abe3d-fm-20240102.001-gc37f3abe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8C35810E
+	for <linux-man@vger.kernel.org>; Thu, 11 Jan 2024 23:02:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C2EC433F1;
+	Thu, 11 Jan 2024 23:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705014169;
+	bh=9bxy6eDIhpFfx4lU0qnLLHFimr2c0uPFl45H+hdKWLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ab21pfdxjrRM0P+cw3QjSnGrUqICMNk3b9orBCiTpaclgQR2dL0vxMH2f0tiWA6lp
+	 pk7vr0XRYWdD+GOodjQkwt825A6fqvmYyI0NOyh14dlOjeadJIMHli7x8YXcEk6Sgm
+	 ICzohcdAbJ1cLZk0AJrSy4sKvi/nuPH7trwKrpTgwp7QpOec0hkZOjOJcU8Qm7DmDn
+	 G/UJJXKnfjTpln61805Jg9WdXWMAGCyDUvmz5a/6QmlI3Rr2JOfPzKasEkjIBZ0tBV
+	 f8hxg8Wflt4w8zJ90b+SbFE2BV32Ch+U/tUGOlcVe1gyY3QcbupKak9e5LXdAeAw8K
+	 iA9WUsiRvrH8Q==
+Date: Fri, 12 Jan 2024 00:02:45 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page adjtime.3
+Message-ID: <ZaBzlVVjMx0DvATK@debian>
+References: <ZUJaZJzhUkuDV_Fs@meinfjell.helgefjelltest.de>
+ <ZUJ6JnryG7BnDf5P@debian>
+ <ZaAiIziggN9w2Y_Q@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <07d8877b-d933-46f4-8ca4-c10ed602f37e@app.fastmail.com>
-In-Reply-To: 
- <CAHk-=wjh6Cypo8WC-McXgSzCaou3UXccxB+7PVeSuGR8AjCphg@mail.gmail.com>
-References: <20231025140205.3586473-1-mszeredi@redhat.com>
- <20231025140205.3586473-6-mszeredi@redhat.com>
- <75b87a85-7d2c-4078-91e3-024ea36cfb42@roeck-us.net>
- <CAHk-=wjdW-4s6Kpa4izJ2D=yPdCje6Ta=eQxxQG6e2SkP42vnw@mail.gmail.com>
- <2f595f28-7fcd-4196-a0b1-6598781530b9@roeck-us.net>
- <CAHk-=wjh6Cypo8WC-McXgSzCaou3UXccxB+7PVeSuGR8AjCphg@mail.gmail.com>
-Date: Fri, 12 Jan 2024 00:01:34 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Guenter Roeck" <linux@roeck-us.net>,
- "Yoshinori Sato" <ysato@users.sourceforge.jp>,
- "Rich Felker" <dalias@libc.org>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>
-Cc: "Miklos Szeredi" <mszeredi@redhat.com>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
- linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
- "Karel Zak" <kzak@redhat.com>, "Ian Kent" <raven@themaw.net>,
- "David Howells" <dhowells@redhat.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <christian@brauner.io>,
- "Amir Goldstein" <amir73il@gmail.com>,
- "Matthew House" <mattlloydhouse@gmail.com>,
- "Florian Weimer" <fweimer@redhat.com>
-Subject: Re: [PATCH v4 5/6] add listmount(2) syscall
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r+HTHU6VashGVhE0"
+Content-Disposition: inline
+In-Reply-To: <ZaAiIziggN9w2Y_Q@meinfjell.helgefjelltest.de>
 
-On Thu, Jan 11, 2024, at 21:14, Linus Torvalds wrote:
 
-> The SH put_user64() needs to be looked at too, but in the meantime,
-> maybe something like this fixes the problems with listmount?
+--r+HTHU6VashGVhE0
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jan 2024 00:02:45 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page adjtime.3
 
-I tried changing it to use the generic memcpy() based uaccess
-that m68k-nommu and riscv-nommu use, which also avoids the
-build failure. I still run into other unrelated build issues
-on arch/sh, so I'm not sure if this is a sufficient fix.
+Hi Helge,
 
-     Arnd
+On Thu, Jan 11, 2024 at 05:15:15PM +0000, Helge Kreutzmann wrote:
+> Hello Alejandro,
+> Am Wed, Nov 01, 2023 at 05:17:42PM +0100 schrieb Alejandro Colomar:
+> > On Wed, Nov 01, 2023 at 02:02:12PM +0000, Helge Kreutzmann wrote:
+> > > Without further ado, the following was found:
+> > >=20
+> > > Issue:    that can =E2=86=92 that could
+> >=20
+> > I'm not native, so I'll leave this one in case someone reading the list
+> > wants to say something.
+> >=20
+> > Thanks,
+> > Alex
+> >=20
+> > >=20
+> > > "The adjustment that B<adjtime>()  makes to the clock is carried out =
+in such "
+> > > "a manner that the clock is always monotonically increasing.  Using "
+> > > "B<adjtime>()  to adjust the time prevents the problems that can be c=
+aused "
+> > > "for certain applications (e.g., B<make>(1))  by abrupt positive or n=
+egative "
+> > > "jumps in the system time."
+>=20
+> Ok, then I mark this "WONTFIX" for now, so I don't report this again.
 
-diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-index 7500521b2b98..2cc3a541e231 100644
---- a/arch/sh/Kconfig
-+++ b/arch/sh/Kconfig
-@@ -73,6 +73,7 @@ config SUPERH
-        select PERF_USE_VMALLOC
-        select RTC_LIB
-        select SPARSE_IRQ
-+       select UACCESS_MEMCPY if !MMU
-        select TRACE_IRQFLAGS_SUPPORT
-        help
-          The SuperH is a RISC processor targeted for use in embedded systems
-diff --git a/arch/sh/include/asm/uaccess.h b/arch/sh/include/asm/uaccess.h
-index a79609eb14be..b42764d55901 100644
---- a/arch/sh/include/asm/uaccess.h
-+++ b/arch/sh/include/asm/uaccess.h
-@@ -2,6 +2,7 @@
- #ifndef __ASM_SH_UACCESS_H
- #define __ASM_SH_UACCESS_H
- 
-+#ifdef CONFIG_MMU
- #include <asm/extable.h>
- #include <asm-generic/access_ok.h>
- 
-@@ -130,4 +131,8 @@ struct mem_access {
- int handle_unaligned_access(insn_size_t instruction, struct pt_regs *regs,
-                            struct mem_access *ma, int, unsigned long address);
- 
-+#else
-+#include <asm-generic/uaccess.h>
-+#endif
-+
- #endif /* __ASM_SH_UACCESS_H */
-diff --git a/arch/sh/include/asm/uaccess_32.h b/arch/sh/include/asm/uaccess_32.h
-index 5d7ddc092afd..e053f2fd245c 100644
---- a/arch/sh/include/asm/uaccess_32.h
-+++ b/arch/sh/include/asm/uaccess_32.h
-@@ -35,7 +35,6 @@ do {                                                          \
-        }                                                       \
- } while (0)
- 
--#ifdef CONFIG_MMU
- #define __get_user_asm(x, addr, err, insn) \
- ({ \
- __asm__ __volatile__( \
-@@ -56,16 +55,6 @@ __asm__ __volatile__( \
-        ".previous" \
-        :"=&r" (err), "=&r" (x) \
-        :"m" (__m(addr)), "i" (-EFAULT), "0" (err)); })
--#else
--#define __get_user_asm(x, addr, err, insn)             \
--do {                                                   \
--       __asm__ __volatile__ (                          \
--               "mov." insn "   %1, %0\n\t"             \
--               : "=&r" (x)                             \
--               : "m" (__m(addr))                       \
--       );                                              \
--} while (0)
--#endif /* CONFIG_MMU */
- 
- extern void __get_user_unknown(void);
- 
-@@ -140,7 +129,6 @@ do {                                                        \
-        }                                               \
- } while (0)
- 
--#ifdef CONFIG_MMU
- #define __put_user_asm(x, addr, err, insn)                     \
- do {                                                           \
-        __asm__ __volatile__ (                                  \
-@@ -164,17 +152,6 @@ do {                                                               \
-                : "memory"                                      \
-        );                                                      \
- } while (0)
--#else
--#define __put_user_asm(x, addr, err, insn)             \
--do {                                                   \
--       __asm__ __volatile__ (                          \
--               "mov." insn "   %0, %1\n\t"             \
--               : /* no outputs */                      \
--               : "r" (x), "m" (__m(addr))              \
--               : "memory"                              \
--       );                                              \
--} while (0)
--#endif /* CONFIG_MMU */
- 
- #if defined(CONFIG_CPU_LITTLE_ENDIAN)
- #define __put_user_u64(val,addr,retval) \
+Re-reading it now, I think your report makes sense.  I'll fix it.
+
+Have a lovely night,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
+
+--r+HTHU6VashGVhE0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWgc5UACgkQnowa+77/
+2zI7fg//XWm3SEhw9fC8yYyU4fmaI+3sU7NrsElZ3w5PuIcpvXO6EqzQg1fCxO+I
+uZKY7JLlYFJW84t/Tbqvg2cbA9FvHIXQX6In+IucWUeS/4Jpt3Eix9DC6EUM/f+A
+7YhQZiyJhvsazT7IoHtI/K8+C1kmFXPIzkZ1peGF+MAibv2gNbKIHDwNeh7Le+f8
+vcXauLsiUBgEQrRBzUTd+snNtu4r+CvvryNSP4tsYwLBiXQE4wSqNJ+055E9l/2l
+rCFvAcGD7W4jLadQP9YgIMhNinBG/1kxuy8Hcj3PFGnzzpKQeDj0geYy0JVKR633
+bhv/uZY5NijlRsDogKaDdszPOGZuiFnVXELEzfQDjVj2QCvuyM0WP/Bo/rUaHYIu
+d+47hukssxJEnEfQy84DKzbyQowuaHjcxE3m5ybv5cvAgvbDXeSl9+Cku+6AqsBk
+mPS+fMglABjfo19Bh8rHjfnUJCxFLz7JCsHwJ4Z3V62xwSdYqrF/ux3saY+1hquS
+vKk3jkJSe5tv5k7/B7ESWtu6wueabzuGNv4RZUq71xz+Q2mLDbCQCgCW1LeyJwKM
+KeyQZ+b/GWVGzVIEtRFTlT4lBffqKzo0XZGvNagt58MYL8PuuMYoYQ96faqom/lF
+bstQDEPTVbiRiC4XtMpUDHfd105FgH935plSLaDLDtxdNCl9H8g=
+=4IGV
+-----END PGP SIGNATURE-----
+
+--r+HTHU6VashGVhE0--
 
