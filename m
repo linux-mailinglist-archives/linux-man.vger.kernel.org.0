@@ -1,143 +1,144 @@
-Return-Path: <linux-man+bounces-367-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-368-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCCEE82D8F0
-	for <lists+linux-man@lfdr.de>; Mon, 15 Jan 2024 13:37:46 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEFDF82ED58
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 12:04:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4F7D91F20FF7
-	for <lists+linux-man@lfdr.de>; Mon, 15 Jan 2024 12:37:46 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 872B82856FD
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 11:04:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5D7C28F4;
-	Mon, 15 Jan 2024 12:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F13D1A592;
+	Tue, 16 Jan 2024 11:04:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jF32++Oy"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jh8KHJD2";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="GA4WR0CZ";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jh8KHJD2";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="GA4WR0CZ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0007168A4
-	for <linux-man@vger.kernel.org>; Mon, 15 Jan 2024 12:37:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BF7DC433C7;
-	Mon, 15 Jan 2024 12:37:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705322261;
-	bh=8JaX0lOBOxxDwyVl5fOsbSHxyG1In61qIcF0wgrLr+o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jF32++OyUuBuFDtszHuURm9JOVKZNsAwFDxut8FhBNXjBj+XyNu0zEmfEcgJTC5yF
-	 v4AptFTA/ci1XiYIO4cSe09oV7QXLhJhL037c2dFvb08dzsrwg22Nhdne3N6sGT4Sp
-	 /Grcwj3c0d6y+mBtolbbvhpbed16Ub/KE7bW/RSvQRIKZoXK1cZmNwIusbZ8g7H7Xt
-	 P78pVdoLlO70EIXcM7ufaK3e1mrS3rWMEXixvfanCawMk/9XKqVjDi+uZPgj2ZYYYI
-	 lsv9zwi4iL326wZpFmopXE4IUjnvvHx5ie4OppVnU8F0uG7+eHpjrkbLQcrnRMZe0W
-	 ILKrufmoI5tkg==
-Date: Mon, 15 Jan 2024 13:37:37 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
-	Ingo Schwarze <schwarze@usta.de>
-Subject: Re: [RECIPE] Pull the trigger on Mister Sed? (MR macro migration)
-Message-ID: <ZaUnEaza41FA_Uew@debian>
-References: <20240114154225.5tyuiqrgwyltqmj3@illithid>
- <ZaQmd0aP1XlFiAKA@debian>
- <ZaR4BqahP7QNVxMe@debian>
- <20240115120520.igveghma4xb47gpl@illithid>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B851A581;
+	Tue, 16 Jan 2024 11:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 98A4D1FB95;
+	Tue, 16 Jan 2024 11:04:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1705403066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=TsvTliU/AduXv8+lyjjkHnFNXCRZ5gTEvS/YJHnYT4c=;
+	b=jh8KHJD2XI9MNvwOKBGUV3u89KpaECwx+WHsbVQXnR+JIfp+stGXAiY4Ae3T/PehyN4fdt
+	if0vMud4Wh4bU/5SDKD+Cb4UfyGDTc5kl4ps3YJEQqzPJSBvMfJsi+xuoPwGlLg8t/L5wK
+	t7l1L0Cs2e0JX9sXf6pTOw0ozeSIH+o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1705403066;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=TsvTliU/AduXv8+lyjjkHnFNXCRZ5gTEvS/YJHnYT4c=;
+	b=GA4WR0CZZi+rJybJiMLoiP8UmdYjQ0ruP6PzcjWiLiql8N4mBmgQnyqll+JWMmeXxuCzoT
+	wiqtKQPK62AIiHDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1705403066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=TsvTliU/AduXv8+lyjjkHnFNXCRZ5gTEvS/YJHnYT4c=;
+	b=jh8KHJD2XI9MNvwOKBGUV3u89KpaECwx+WHsbVQXnR+JIfp+stGXAiY4Ae3T/PehyN4fdt
+	if0vMud4Wh4bU/5SDKD+Cb4UfyGDTc5kl4ps3YJEQqzPJSBvMfJsi+xuoPwGlLg8t/L5wK
+	t7l1L0Cs2e0JX9sXf6pTOw0ozeSIH+o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1705403066;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=TsvTliU/AduXv8+lyjjkHnFNXCRZ5gTEvS/YJHnYT4c=;
+	b=GA4WR0CZZi+rJybJiMLoiP8UmdYjQ0ruP6PzcjWiLiql8N4mBmgQnyqll+JWMmeXxuCzoT
+	wiqtKQPK62AIiHDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 274D4132FA;
+	Tue, 16 Jan 2024 11:04:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id cYYzCLpipmUwMgAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Tue, 16 Jan 2024 11:04:26 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: linux-man@vger.kernel.org
+Cc: Petr Vorel <pvorel@suse.cz>,
+	=?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>,
+	Alejandro Colomar <alx@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	Matthias Gerstner <matthias.gerstner@suse.com>,
+	Avinesh Kumar <akumar@suse.de>
+Subject: [PATCH 1/1] socket.7: Mention CAP_NET_RAW on SO_MARK
+Date: Tue, 16 Jan 2024 12:04:18 +0100
+Message-ID: <20240116110418.2577798-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zYMRJVRU5vSP/gNx"
-Content-Disposition: inline
-In-Reply-To: <20240115120520.igveghma4xb47gpl@illithid>
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: ***
+X-Spam-Score: 3.54
+X-Spamd-Result: default: False [3.54 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 R_MISSING_CHARSET(2.50)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 NEURAL_HAM_LONG(-1.00)[-0.999];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.16)[69.49%]
+X-Spam-Flag: NO
 
+Added in 079925cce1d0 ("net: allow SO_MARK with CAP_NET_RAW") in v5.17.
 
---zYMRJVRU5vSP/gNx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jan 2024 13:37:37 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
-	Ingo Schwarze <schwarze@usta.de>
-Subject: Re: [RECIPE] Pull the trigger on Mister Sed? (MR macro migration)
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ man7/socket.7 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Hi Branden,
+diff --git a/man7/socket.7 b/man7/socket.7
+index 3ff8fe51b..3ebfc770b 100644
+--- a/man7/socket.7
++++ b/man7/socket.7
+@@ -614,7 +614,9 @@ Changing the mark can be used for mark-based
+ routing without netfilter or for packet filtering.
+ Setting this option requires the
+ .B CAP_NET_ADMIN
+-capability.
++or
++.B CAP_NET_RAW
++(since Linux 5.17) capability.
+ .TP
+ .B SO_OOBINLINE
+ If this option is enabled,
+-- 
+2.43.0
 
-On Mon, Jan 15, 2024 at 06:05:20AM -0600, G. Branden Robinson wrote:
-> Hi Alex,
->=20
-> At 2024-01-15T01:10:45+0100, Alejandro Colomar wrote:
-> > I was checking the book script from Deri (Deri, could you simplify the
-> > script now that we use MR?  So dropping support for old BR?), and
-> > noticed about syscalls.2, which has man-page references inside a tbl.
-> >=20
-> > That hasn't been migrated by the script.  I guess you'd want to also
-> > migrate those, right, Branden?
->=20
-> Yes.  This can be done by setting the cross references inside text
-> blocks "T{"/"T}", where they can call macros.  I'll test this, of
-> course--calling macros from within a text block can be a chancy thing.
-> I don't _expect_ problems here, since `MR` does not mess with the format
-> of the output line--it does not alter line length, indentation, or
-> vertical spacing.  I trust but will verify.
->=20
-> I also see several references that didn't get converted ca. line 850
-> because my sed script cowardly refused to rewrite lines with *roff
-> comments in them.  So I'll search for more stragglers like this.
->=20
-> I will therefore be back with a "RECIPE v2".  I do not promise that the
-> updated sed script will be any easier to look at.  :P
-
-Maybe some preparation patch can help with this?
-
->=20
-> > BTW, I've amended now the author, which I forgot.
-> > <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git=
-/commit/?h=3Dcontrib>
->=20
-> Thanks!  Better if I take the heat for this 15,000+-line change.  As
-> Ferris Bueller said to Cameron Frye, "you don't want this much heat."
-> ;-)
-
-:-)
-
-Cheers,
-Alex
-
->=20
-> Regards,
-> Branden
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---zYMRJVRU5vSP/gNx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWlJxEACgkQnowa+77/
-2zJwjRAAhk4da52QTQJ8KzLHQWhoQy3CMWMTzoP5VR9DQSHuznrJ2aGuhSybTsGz
-CtKg1eWEShb1LpdZy460eyZuh/NdUcsn7fwaZ/nKFWIwCa8G2FJ0ojaKvhAuF9xl
-pCmsVEU2YCZ/sZ58IfYVKMyBZ0mePhNwK7uZYqD/GlrSvqQdnt+IpLiBB+3lg8cT
-OKR8oGbQKVFoS0Un1I4TECDrJJCFFtQmYei1Eu0m3T0LO+I/EZkygFMyjkMObx2p
-X4aSalqsjPoOXzPFFj7MktyKU1Wzl2yOgtLtjWpKh75W+nd12k3tNxs1Yv9/aciT
-afqSNlfo9A1A9jwI3A1nh35rf+P+TDp1TCfAzk5zkcsntskV3meuVHqC9oKT1Xod
-PESQJdJ9AmIeo3sVVyAPOAoIO+aawwXcwnrjyGMAoR1r2YvAdAAVmA9aMAvl9Lgz
-7mWmMqRC4ver4L4ktDEd7yWfzRShdlI4nHDtmVRpfmiwlzVOkXJIb8Bbr1GzFIHP
-JHx1spYlZ2GFeLa9g3NbKXLfjpQOVkoIUofw+5jdkX4I1xTdp8tv3HUOAV3nj2UV
-HLPxis5/TiMvzpduA18ILZ46kwVnYsDFNNeQwns9kTcL6JP9q5agiHNhmlaCNNej
-s/RB/pyJiJpi8ncHcL6Ki4KNogPI8yrbCa+99PLrRHF/WuR1QNw=
-=mupe
------END PGP SIGNATURE-----
-
---zYMRJVRU5vSP/gNx--
 
