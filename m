@@ -1,177 +1,130 @@
-Return-Path: <linux-man+bounces-375-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-376-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3CF882F15E
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 16:22:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B09AC82F1A2
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 16:34:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9BEB2285F33
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 15:22:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 469B7285222
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 15:34:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A03CE1C29E;
-	Tue, 16 Jan 2024 15:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8EB651C296;
+	Tue, 16 Jan 2024 15:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgiV72Gg"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eebuQDbb"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA531C298
-	for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 15:22:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3458CC433F1;
-	Tue, 16 Jan 2024 15:22:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705418521;
-	bh=kHwpsBQQ+r4B6AqB711GTBdNUhaHn5DLUQy+AIm/bHY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GgiV72Gg2qhOJLPjrLJZZLIr+/qz4atvbAe81LYqVgCAuS4RGINFnzfTRoZ9wEBme
-	 o6yS7A5yh2zLDWl9zlnnQ+ngP1W6YaaBmWs7KBim+nGd5Fcg68C/E0chEtMWSkO9j0
-	 Me81VK+DcxeHINYlsv0uuj2yjXacggqMpJLgnfp7o6WYMTLtIXnxi92tyaH3VpEgRw
-	 FlGBLIbN8/HusmMlF4BSq2yJRM2T2XFCyNRRVy0YtD8NRCzwhv/9z+BBT+mTEcZXxn
-	 Ge9My5i1b8vayCIG2OFBmP8RjZqIPIRMBnvgmcO2o22zZkFbhklP01tw+pZnw40dV5
-	 ZubrjLWnv2++A==
-Date: Tue, 16 Jan 2024 16:21:58 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256F11C287
+	for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 15:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-6dde173384aso5094637a34.1
+        for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 07:33:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1705419238; x=1706024038; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qEMiobE2LFsYjJRsx2A690BcSwrA+BbPTPJtHgP1hfQ=;
+        b=eebuQDbbxeDx//bUi+wrE27bPFr2CaGAstDeVWZfsy4eGDUb6cW3IRZ4S0FaTl6A6Q
+         WOghvdIr3A0QkZ381W1PKGE1W5kZnmVOponxPHl5gQmjPNRxjnY1sL84VnhGYuL8G2Wb
+         GUBowFgI041URJ2laPDI9U9NCRMfL0y9GCg7otw5ys4/EUHbl6TQt06hswUtdeXJvMxv
+         uJ0WfpmgSDAvtKHDbtUi5SMXU2obUVlQCy5kejNQmzB0UMRHtWWIFgB5nMXmUFicZmnH
+         xSUYB5J/Z7dAqRWBrvOso3klTWURA9oNwQdHUAMpN6guzaZV64y75/BSWJgAoQ+ifjUu
+         RNZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705419238; x=1706024038;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qEMiobE2LFsYjJRsx2A690BcSwrA+BbPTPJtHgP1hfQ=;
+        b=bS6IYG76YQukwu1K71WzvDDvi0yVsZurnKIiWyLklyiJyrTYWU0BX59xyzdT6aXnUl
+         im4YflBH4j4WfrdvCVGJ0oMg4oVmiRcn5RD7uZl9SpK1w0sMFzX83RMLgAsBxe8dDCrF
+         fDGKC9+Z+jwQsjv4ew9o061Xzkocy+WQ7hSA/H6NcdNRf43aIAg9C2L63ofEW7lyTf+r
+         2G2wvBqrG5SFr+uOxwzRzHoMjQbHV6vk15sXk4pnHZ7k9NH3tTK00qeRYhKUlhxUmpw6
+         ViLcgAcm7PjE/6w77PM1sYmKqggSPia/xx5dK5BTnMkpEo4aqGbEvu9IcpJR/nJHM69K
+         +jkw==
+X-Gm-Message-State: AOJu0YxwmJ14cFG7bzO52xII/yJ3/U0F4JUyo2oOWSLzyory2IRPezMb
+	ax1WwpuZHOFVzDIdq6yNrdY=
+X-Google-Smtp-Source: AGHT+IGgMatQ9q0JJpjcqG+0sIWJ9hSRtT7sFRl74qNnNN8cDAjPX3gp13v22SB4nC86jueFKCKhEg==
+X-Received: by 2002:a05:6830:cf:b0:6db:d8a9:4205 with SMTP id x15-20020a05683000cf00b006dbd8a94205mr8274329oto.32.1705419238087;
+        Tue, 16 Jan 2024 07:33:58 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id j10-20020a056830014a00b006dbfdb1c9b2sm1944545otp.43.2024.01.16.07.33.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jan 2024 07:33:57 -0800 (PST)
+Date: Tue, 16 Jan 2024 09:33:55 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/4] fts.3, div_t.3type: ffix
-Message-ID: <ZaafFkmn2sJUmUZb@debian>
-References: <20240116133940.jsgccc7ifzvlu2ol@illithid>
+Subject: [PATCH v2] man2/open.2: ffix
+Message-ID: <20240116153355.g5rspmbm3dqty5f4@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6s/JGKaJ1sbz1mcN"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4u2vh5yvbme4l2wf"
 Content-Disposition: inline
-In-Reply-To: <20240116133940.jsgccc7ifzvlu2ol@illithid>
 
 
---6s/JGKaJ1sbz1mcN
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--4u2vh5yvbme4l2wf
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jan 2024 16:21:58 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/4] fts.3, div_t.3type: ffix
 
-Hi Branden,
+Migrate man page cross reference in non-filled context to font
+alternation macro.  This is to prepare it for `MR` migration.
 
-On Tue, Jan 16, 2024 at 07:39:40AM -0600, G. Branden Robinson wrote:
-> Break lines containing a parametric prefix to a man page name into two
-> lines, using distinct font alternation macros and the `\c` escape
-> sequence to "connect" the output.  This prepares for adoption of the
-> `MR` man(7) macro in groff 1.23.0.
->=20
-> The style seen here assumes that the typeface used for man page names is
-> bold, which is ahistorical and which the `MR` feature makes
-> configurable.  It might be better to recast this shorthand into English.
->=20
-> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+---
+v2: Fix thinko omitting "(2)".
 
-I've applied patches 1, 2, and 4 from this set.
+ man2/open.2 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Have a lovely day,
-Alex
-
-> ---
->  man3/fts.3           | 12 ++++++++----
->  man3type/div_t.3type |  3 ++-
->  2 files changed, 10 insertions(+), 5 deletions(-)
->=20
-> diff --git a/man3/fts.3 b/man3/fts.3
-> index ae2fdfcbc..d2c520450 100644
-> --- a/man3/fts.3
-> +++ b/man3/fts.3
-> @@ -187,7 +187,8 @@ .SH DESCRIPTION
->  .TP
->  .B FTS_NS
->  A file for which no
-> -.RB [ l ] stat (2)
-> +.RB [ l ]\c
-> +.BR stat (2)
->  information was available.
->  The contents of the
->  .I fts_statp
-> @@ -198,7 +199,8 @@ .SH DESCRIPTION
->  .TP
->  .B FTS_NSOK
->  A file for which no
-> -.RB [ l ] stat (2)
-> +.RB [ l ]\c
-> +.BR stat (2)
->  information was requested.
->  The contents of the
->  .I fts_statp
-> @@ -329,7 +331,8 @@ .SH DESCRIPTION
->  .TP
->  .I fts_statp
->  A pointer to
-> -.RB [ l ] stat (2)
-> +.RB [ l ]\c
-> +.BR stat (2)
->  information for the file.
->  .\" .El
->  .P
-> @@ -754,7 +757,8 @@ .SH ERRORS
->  .BR opendir (3),
->  .BR readdir (3),
->  and
-> -.RB [ l ] stat (2).
-> +.RB [ l ]\c
-> +.BR stat (2).
->  .P
->  In addition,
->  .BR fts_children (),
-> diff --git a/man3type/div_t.3type b/man3type/div_t.3type
-> index 857dae17e..7abbb7616 100644
-> --- a/man3type/div_t.3type
-> +++ b/man3type/div_t.3type
-> @@ -40,7 +40,8 @@ .SH SYNOPSIS
->  .SH DESCRIPTION
->  .RI [[ l ] l ] div_t
->  is the type of the value returned by the
-> -.RB [[ l ] l ] div (3)
-> +.RB [[ l ] l ]\c
-> +.BR div (3)
->  function.
->  .P
->  .I imaxdiv_t
-> --=20
-> 2.30.2
->=20
-
-
-
+diff --git a/man2/open.2 b/man2/open.2
+index f37ddbed0..8c791fa47 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -46,7 +46,9 @@ .SH SYNOPSIS
+ .BI "int openat(int " dirfd ", const char *" pathname ", int " flags ", ..=
+=2E"
+ .BI "           \fR/*\fP mode_t " mode " \fR*/\fP );"
+ .P
+-/* Documented separately, in \fBopenat2\fP(2): */
++/* Documented separately, in \c
++.BR openat2 (2):\c
++\& */
+ .BI "int openat2(int " dirfd ", const char *" pathname ,
+ .BI "           const struct open_how *" how ", size_t " size );
+ .fi
 --=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+2.30.2
 
---6s/JGKaJ1sbz1mcN
+--4u2vh5yvbme4l2wf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWmnxYACgkQnowa+77/
-2zIOQRAAjZjTiGoemKByA8CEjbLTEDBbnyBhnU4E761vVAdkUp8+YqM4JOBwkuM+
-9TB+j06pNdDXnoYyPfKzjg1cNo/9wWZbjkjFW6Qq/RyWvCm9l86y2S6sanJoLZQA
-b4lNzwtOBBkzXJYXXfHAjkXcAWRT3Lj8YNejKSFz3XPxa/oKB7LwhV8FKskd7iS+
-Ek8xrJzBhJ+dMiNajsN9gaCyHTFJeMvhusTyI2KQoR/A2urqyD39ZzEUhbfBOpP1
-Rh6b/0T+TvH/ubwv6Z1c8vXtEU63w6LEU0jbUUlFzH61NTpfVwyaRD+Y3fYHlat2
-w7TdM38EYRM1ZaI9joG+TzhLJhMvnmVIKnZ4KULeXyUeZk9Jd7Y3LiU3hekEd+U5
-DLy2QZiAOtMamY52H9ZflYFMUSqG5wW3k0SbDT+IDfpJC8fCBlInTmoyzxrJYajJ
-ZdvDvA6seqKOKf9vsML3TyHDPLFGWJyajwYRrT31A9WOh0H1bPkijoLbsgx7GaYY
-YbklP34bjX5Zek4okrDOp+YjPfiV1+0TPLvG1AMhN+RvyYCPo6pcKJSnu3aK0y7M
-9Ap+j1N6SrZ8J5jsPfM+sNEMbLw2OLY7U9DxpAqeSWGnyv3rkJFp5iHwTta0IcpF
-NmA1zIlA16lsR3Ta287XNr38K5kIrPoyxZhsd/P6/psiXcm3kVo=
-=XsqL
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmWmodsACgkQ0Z6cfXEm
+bc6nKQ//ZdwvTv/5BhZ0yDwi0t4XR9XiGjUSFPPnHleJtkJRNNrWY/cG/es+TD69
+tGgJ99g/TFUcaJITJ8Jt18iCxwRKsmxSh0sN0oP9Im6qgEr3l72CVEc5D0iAMWAR
+bWdWheqKx0jm0ikZqPMNsrNCr7IwQOPfOR290Gfon1dW3KfSZ1XctFHySNPzdugs
+8+NH0hGiUxmhQsgSWxj6elo0MMbVyptlvmm56KfFCeYRkXjdW5q2pH4nxrPQgvkF
+AHoH+dgsTq5d1F0mFA6E/nZOqRE1jmlzD/ORumaCeAwits1HiZBtQ/HF0ocSMW6k
+RjKaBYls3lqfnEu7nOSA7iRo09ySQ5sDNdWLx4My+tws+SirPKZ9zygp8XSICcNe
+dUonck+ODKZKZzBmuVIkdZ62Eh4CsLOPxRmuAxHuqcXbWo7oY+MEQuxqcShPX/fC
+73XsWle/iSI1FjWlesXo7GszudBuCfYi3iJN4Ks4H8Bss7F7x5DXvurCx+sFZHDt
+BX3Lsw8mpSV8cMw4EKW7ZvsdI8AeaCeTTvz4lvCfqRQk8vUQ/V7DteCxfmgBliBJ
+9BQMInZbwd48JZlCFAbNdvNOeigroQivnUf6stdKkpghlXUUl0NIVwjjU97eTfTM
+n2V0wGZkvMGAECnogEW9vYHfXMddwQOvMtw+Mdha5urik3CLcyI=
+=X5h0
 -----END PGP SIGNATURE-----
 
---6s/JGKaJ1sbz1mcN--
+--4u2vh5yvbme4l2wf--
 
