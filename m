@@ -1,44 +1,44 @@
-Return-Path: <linux-man+bounces-374-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-375-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id E69B582F140
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 16:18:36 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CF882F15E
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 16:22:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 79B8BB22397
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 15:18:34 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9BEB2285F33
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 15:22:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76F6A1BF49;
-	Tue, 16 Jan 2024 15:18:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A03CE1C29E;
+	Tue, 16 Jan 2024 15:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tnH8Pd7M"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgiV72Gg"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427071BF3E
-	for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 15:18:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCA3C433F1;
-	Tue, 16 Jan 2024 15:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA531C298
+	for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 15:22:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3458CC433F1;
+	Tue, 16 Jan 2024 15:22:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705418309;
-	bh=5AXWffjdGGkyKmA7C4aa4qpR0qIzrJoQMYpS7Co++qQ=;
+	s=k20201202; t=1705418521;
+	bh=kHwpsBQQ+r4B6AqB711GTBdNUhaHn5DLUQy+AIm/bHY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tnH8Pd7MuZXvP30ibAH0iafDxpo6VRfYV+yOPmIsSWPd+/IyUtgO7+8AQuywpQkd5
-	 Iv4f7wjrjX/PCGsE9Yieqsv8qxUNE0px4scCdScXwlS6/z0oYUiXOgoK48Hoy4FrJh
-	 dEWmxoHAWZFXtRbK3mxtoM2tY7lCZcLecz+JG6/pk/8q2JWbOL7INaluCvL1aosE0w
-	 jvoT7V9qew67iN+0tZ+X+sLdiWa9oal8bJ0P0GdCZcRmB7a8y1tbQyHGjdF8ignfd+
-	 QOnVfltbNeaWrkbG1zbG0/tyhpffkghrq94haywie6J7IY/PQSV5+l2deceDGQF9QZ
-	 0kWvmzVTADtnA==
-Date: Tue, 16 Jan 2024 16:18:26 +0100
+	b=GgiV72Gg2qhOJLPjrLJZZLIr+/qz4atvbAe81LYqVgCAuS4RGINFnzfTRoZ9wEBme
+	 o6yS7A5yh2zLDWl9zlnnQ+ngP1W6YaaBmWs7KBim+nGd5Fcg68C/E0chEtMWSkO9j0
+	 Me81VK+DcxeHINYlsv0uuj2yjXacggqMpJLgnfp7o6WYMTLtIXnxi92tyaH3VpEgRw
+	 FlGBLIbN8/HusmMlF4BSq2yJRM2T2XFCyNRRVy0YtD8NRCzwhv/9z+BBT+mTEcZXxn
+	 Ge9My5i1b8vayCIG2OFBmP8RjZqIPIRMBnvgmcO2o22zZkFbhklP01tw+pZnw40dV5
+	 ZubrjLWnv2++A==
+Date: Tue, 16 Jan 2024 16:21:58 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] man2/open.2: ffix
-Message-ID: <ZaaeQubgNxAQYCvH@debian>
-References: <20240116134009.3hufaahoy3kk4os6@illithid>
+Subject: Re: [PATCH 1/4] fts.3, div_t.3type: ffix
+Message-ID: <ZaafFkmn2sJUmUZb@debian>
+References: <20240116133940.jsgccc7ifzvlu2ol@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -46,49 +46,103 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AMPmtY3rBCaY4vUt"
+	protocol="application/pgp-signature"; boundary="6s/JGKaJ1sbz1mcN"
 Content-Disposition: inline
-In-Reply-To: <20240116134009.3hufaahoy3kk4os6@illithid>
+In-Reply-To: <20240116133940.jsgccc7ifzvlu2ol@illithid>
 
 
---AMPmtY3rBCaY4vUt
+--6s/JGKaJ1sbz1mcN
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jan 2024 16:18:26 +0100
+Date: Tue, 16 Jan 2024 16:21:58 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] man2/open.2: ffix
+Subject: Re: [PATCH 1/4] fts.3, div_t.3type: ffix
 
-On Tue, Jan 16, 2024 at 07:40:09AM -0600, G. Branden Robinson wrote:
-> Migrate man page cross reference in non-filled context to font
-> alternation macro.  This is to prepare it for `MR` migration.
+Hi Branden,
+
+On Tue, Jan 16, 2024 at 07:39:40AM -0600, G. Branden Robinson wrote:
+> Break lines containing a parametric prefix to a man page name into two
+> lines, using distinct font alternation macros and the `\c` escape
+> sequence to "connect" the output.  This prepares for adoption of the
+> `MR` man(7) macro in groff 1.23.0.
+>=20
+> The style seen here assumes that the typeface used for man page names is
+> bold, which is ahistorical and which the `MR` feature makes
+> configurable.  It might be better to recast this shorthand into English.
 >=20
 > Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+
+I've applied patches 1, 2, and 4 from this set.
+
+Have a lovely day,
+Alex
+
 > ---
->  man2/open.2 | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  man3/fts.3           | 12 ++++++++----
+>  man3type/div_t.3type |  3 ++-
+>  2 files changed, 10 insertions(+), 5 deletions(-)
 >=20
-> diff --git a/man2/open.2 b/man2/open.2
-> index f37ddbed0..42716ed8e 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -46,7 +46,9 @@ .SH SYNOPSIS
->  .BI "int openat(int " dirfd ", const char *" pathname ", int " flags ", =
-=2E.."
->  .BI "           \fR/*\fP mode_t " mode " \fR*/\fP );"
+> diff --git a/man3/fts.3 b/man3/fts.3
+> index ae2fdfcbc..d2c520450 100644
+> --- a/man3/fts.3
+> +++ b/man3/fts.3
+> @@ -187,7 +187,8 @@ .SH DESCRIPTION
+>  .TP
+>  .B FTS_NS
+>  A file for which no
+> -.RB [ l ] stat (2)
+> +.RB [ l ]\c
+> +.BR stat (2)
+>  information was available.
+>  The contents of the
+>  .I fts_statp
+> @@ -198,7 +199,8 @@ .SH DESCRIPTION
+>  .TP
+>  .B FTS_NSOK
+>  A file for which no
+> -.RB [ l ] stat (2)
+> +.RB [ l ]\c
+> +.BR stat (2)
+>  information was requested.
+>  The contents of the
+>  .I fts_statp
+> @@ -329,7 +331,8 @@ .SH DESCRIPTION
+>  .TP
+>  .I fts_statp
+>  A pointer to
+> -.RB [ l ] stat (2)
+> +.RB [ l ]\c
+> +.BR stat (2)
+>  information for the file.
+>  .\" .El
 >  .P
-> -/* Documented separately, in \fBopenat2\fP(2): */
-> +/* Documented separately, in \c
-> +.BR openat2 :\c
-
-Did you forget the (2)?
-
-> +\& */
->  .BI "int openat2(int " dirfd ", const char *" pathname ,
->  .BI "           const struct open_how *" how ", size_t " size );
->  .fi
+> @@ -754,7 +757,8 @@ .SH ERRORS
+>  .BR opendir (3),
+>  .BR readdir (3),
+>  and
+> -.RB [ l ] stat (2).
+> +.RB [ l ]\c
+> +.BR stat (2).
+>  .P
+>  In addition,
+>  .BR fts_children (),
+> diff --git a/man3type/div_t.3type b/man3type/div_t.3type
+> index 857dae17e..7abbb7616 100644
+> --- a/man3type/div_t.3type
+> +++ b/man3type/div_t.3type
+> @@ -40,7 +40,8 @@ .SH SYNOPSIS
+>  .SH DESCRIPTION
+>  .RI [[ l ] l ] div_t
+>  is the type of the value returned by the
+> -.RB [[ l ] l ] div (3)
+> +.RB [[ l ] l ]\c
+> +.BR div (3)
+>  function.
+>  .P
+>  .I imaxdiv_t
 > --=20
 > 2.30.2
 >=20
@@ -99,25 +153,25 @@ Did you forget the (2)?
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---AMPmtY3rBCaY4vUt
+--6s/JGKaJ1sbz1mcN
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWmnkIACgkQnowa+77/
-2zJf1xAAogNLKuHmqOPOyRFdp/AKHJOYNJHTjSaVHdZHi7Ct+z4qSPS9caqI4BkZ
-MLtaU66pnLR+g/CLqHNMIez5QeX80zao413UYzER9enKzJPA2rxMQyJByUWR6/wm
-MJ1nI2x+Axl0z7VRHI8F9NuPWcfQAyw1HxLNrZNDhFHrcjD7dCu+XUZRtFNixyOO
-EIouP3M2oz0finPWP1hYMLqle4Sz0xfGHGuwHFBrXEYxjvAsRAb1+TNnkQdReaX1
-ZwFP3bzfH4Qd8qLGc3ihIIoIJAT4BQ+19JH64LMUHiB6YaNT5FrYprRICtPAS2Qm
-9yhgv8NI48IWjZwkpuq60vqZB0qIRO0tAVUtpQw3kQUvN1jhyIkRv0ABvo0H7Hfq
-jYUvjSId40byU5XKTRZTBMKQNQtebqutSYGZ0dUoLyACXPvzL9f5uBUpDxSiTlMN
-JSLfaPmc40jyqoqjvFpjUX4ZlovddLqGKo7cYiciOBqBxOIwnxMh0G6OuUw2rQSA
-bCDi6fcGQgdIIlQElARSRXVv+BNsVsG6/N/5xfMKbjn4IFKTj1CQudEHg2Trts8v
-D+CEik1raX6zduAwdXtiIADcIhwLMEe9cQuHvtRf25O2ejof15CUOJR5Vw675QZG
-O94aEGwYTI3YTK1h42ICxTO8KzTSqBdlOXbXUaU7qIacAlzF34g=
-=6d8+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWmnxYACgkQnowa+77/
+2zIOQRAAjZjTiGoemKByA8CEjbLTEDBbnyBhnU4E761vVAdkUp8+YqM4JOBwkuM+
+9TB+j06pNdDXnoYyPfKzjg1cNo/9wWZbjkjFW6Qq/RyWvCm9l86y2S6sanJoLZQA
+b4lNzwtOBBkzXJYXXfHAjkXcAWRT3Lj8YNejKSFz3XPxa/oKB7LwhV8FKskd7iS+
+Ek8xrJzBhJ+dMiNajsN9gaCyHTFJeMvhusTyI2KQoR/A2urqyD39ZzEUhbfBOpP1
+Rh6b/0T+TvH/ubwv6Z1c8vXtEU63w6LEU0jbUUlFzH61NTpfVwyaRD+Y3fYHlat2
+w7TdM38EYRM1ZaI9joG+TzhLJhMvnmVIKnZ4KULeXyUeZk9Jd7Y3LiU3hekEd+U5
+DLy2QZiAOtMamY52H9ZflYFMUSqG5wW3k0SbDT+IDfpJC8fCBlInTmoyzxrJYajJ
+ZdvDvA6seqKOKf9vsML3TyHDPLFGWJyajwYRrT31A9WOh0H1bPkijoLbsgx7GaYY
+YbklP34bjX5Zek4okrDOp+YjPfiV1+0TPLvG1AMhN+RvyYCPo6pcKJSnu3aK0y7M
+9Ap+j1N6SrZ8J5jsPfM+sNEMbLw2OLY7U9DxpAqeSWGnyv3rkJFp5iHwTta0IcpF
+NmA1zIlA16lsR3Ta287XNr38K5kIrPoyxZhsd/P6/psiXcm3kVo=
+=XsqL
 -----END PGP SIGNATURE-----
 
---AMPmtY3rBCaY4vUt--
+--6s/JGKaJ1sbz1mcN--
 
