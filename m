@@ -1,66 +1,66 @@
-Return-Path: <linux-man+bounces-369-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-370-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C07E82EFD5
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 14:40:25 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F48782EFD3
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 14:40:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 58542B23776
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 13:40:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B3359285CED
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jan 2024 13:40:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CCDD41BC5A;
-	Tue, 16 Jan 2024 13:39:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28D3B1BC5F;
+	Tue, 16 Jan 2024 13:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3Wm8ch/"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVzk/NKI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562281BF45
-	for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 13:39:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62DF1BC5C
+	for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 13:40:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-204fdd685fdso8470501fac.2
-        for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 05:39:44 -0800 (PST)
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-595ac2b6c59so5740496eaf.2
+        for <linux-man@vger.kernel.org>; Tue, 16 Jan 2024 05:40:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705412383; x=1706017183; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1705412399; x=1706017199; darn=vger.kernel.org;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=91LY2QGdxoSZVtoRTLsxWPsmZ769GP/X4lLT3JccQP4=;
-        b=X3Wm8ch/Sbs+hQ/kDTfqvKPTYcD4uEIFXgsWkHXet9zcB0qEI0qlg+N+ynvAO2wFaP
-         DZ/PJMgjgrkfs/uGHjb/1txmURzkua0RzThG/RoJNq5I5vZAZMlKg1/yHSrj4icnRl2M
-         uHEaM5nsd72ZptV6C3Q8CAzd6sBZ/3qwktYZ6UX/yTJmuU2k7f4uWB/HdV1ZilfXoGfc
-         yP17I27he2tP5+HL8qxKvVZKPGDmzCzC/zvh7zBuvC1pd3v2vJ7/kXtQs1e2DWLNWftR
-         dS+rgNGxANgc54NsJQJhYYLw1hemMA0fJmjBx3elMT0TIOPRHFE9DNK1OsBtuxG7NLJc
-         O29w==
+        bh=aaAC1OHlOQl12ILX2Z3e0O9bJ+SszcmGPeXJIEVTGp8=;
+        b=OVzk/NKI4cKHFqtaC7PM1bKbqmM9otWBDaoQ0qidFhiOsaoTz95JBBN4b3FkOxpHp3
+         N/0xF3nENA9rS46+3pR1HoNPHxQeiUuXDm8mzDRhJ4jClS1oefdGPG/FQF0u3qU0tkvz
+         Vwcfci45L2MFtrXpKdR5WmFfhFvgEJZw6uFpIR+MLhpTZQ9WS6XoR9si+2IRDyxGXtGu
+         tCBNWzHqH2aErHTnDpzstzggUuye4JU7dfOWfQVxnpdSQGNPveH1TOUVqEvglG87ZSNd
+         Z0PHNj/eWSJtPmL/0yvEhQGJXznADTa/4sh8qBUDf6vwlAcaDoz6ZmvHhICRJkO0hXxX
+         ADaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705412383; x=1706017183;
+        d=1e100.net; s=20230601; t=1705412399; x=1706017199;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=91LY2QGdxoSZVtoRTLsxWPsmZ769GP/X4lLT3JccQP4=;
-        b=HxKzDxeEAcdU6GJ/z2vvfcdK0dv7XNYI3xCuZCP6X3DAjUzxJnSGkdl5qgRrB0vB0H
-         IJZFImoAKFVGLZglII1XgOeWLwcWQPY6MPqLwtONO1KD9/yq1y73E4DZcyvQ6w7k8cZr
-         TLnl1wktdu02fGf3kmjFIkjvWeCSZsBmrIQGO1ifpBCDrX11Evmv6Kj6zVlElG08Fs2U
-         cubhKafENjvpKtHXXg/uRh1FKd1VTibu6JyktgzyzGw5+DBXh1O7t2PHkBG7ozkWgOxS
-         6pOdhReE02TyAPK1x5iduospv2nFQGnKw0hMPU1yM6evkPbr+4iEejyw0rDjipT8frlP
-         C5TA==
-X-Gm-Message-State: AOJu0Yyvip65ABgdJtk/VZPmMbcH/3rEnarmH7AZK3HxTJUC9fIijzWQ
-	EuxZVq/kggdTQwMgF3tHDRjLnCv7ORY=
-X-Google-Smtp-Source: AGHT+IG/OGjq+gmOgYswxLVEMN/ulm/j3gVvTEVceAuSVtJIgA0Papma2krjqV4YUknOZ2ZWGDICcw==
-X-Received: by 2002:a05:6871:5b0f:b0:204:3b53:ddcb with SMTP id op15-20020a0568715b0f00b002043b53ddcbmr12035607oac.107.1705412383412;
-        Tue, 16 Jan 2024 05:39:43 -0800 (PST)
+        bh=aaAC1OHlOQl12ILX2Z3e0O9bJ+SszcmGPeXJIEVTGp8=;
+        b=dhDeq6UkJDdtABf15ZK8lpjB9H90zWOtgS1JSuz6l5DCG1erc0iTjuunCl3KrjEcwz
+         Hl/MXX4aiFzqoVGUMvus+DRLx8a0GoVePJ3kKUqZovrMNhzmEEkcy15uLhpq5BB2PNZL
+         OWSzye0RKoV5v7dkl0+lfO35uCHtPS0K4AZFkcGhCOY2cSuAa+QAdzNeuJ96ACBJOFoq
+         E7QthJKG0R2dxhJ/pHUUGFBdpRf2lBezP7U4BMpD6w6cS34aQjquNoo+Hd3H7j7u/UtL
+         w/KjcaZ+Xkrllj8Et1Fod6RGyu8XWI6cD1HvrSv+sNeXP6/AFgdue327A7E6KgcGCezH
+         v5RQ==
+X-Gm-Message-State: AOJu0Yw2gy/EW1kpqTDURrol4IQV6NeBVQSpaUgdTfIh19dD8uYR8iWj
+	caW2lWHr1+6GBlFJOyTpArr/Uip4BKc=
+X-Google-Smtp-Source: AGHT+IGt/VcXChifa8T6JiCzSqNWiIi3+Mue70cuOUM8Y0ojWZMp9R3GZFPi/jw3pxPCw6C0x1ZM8g==
+X-Received: by 2002:a4a:5594:0:b0:596:248b:a77 with SMTP id e142-20020a4a5594000000b00596248b0a77mr4053517oob.2.1705412399686;
+        Tue, 16 Jan 2024 05:39:59 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id qr1-20020a056870ef8100b0020650e8e782sm3023951oab.57.2024.01.16.05.39.42
+        by smtp.gmail.com with ESMTPSA id g66-20020a4a5b45000000b005985806a01esm2142666oob.25.2024.01.16.05.39.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jan 2024 05:39:42 -0800 (PST)
-Date: Tue, 16 Jan 2024 07:39:40 -0600
+        Tue, 16 Jan 2024 05:39:59 -0800 (PST)
+Date: Tue, 16 Jan 2024 07:39:57 -0600
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH 1/4] fts.3, div_t.3type: ffix
-Message-ID: <20240116133940.jsgccc7ifzvlu2ol@illithid>
+Subject: [PATCH 2/4] man2/mremap.2: wfix
+Message-ID: <20240116133957.pwcuebfc2bt4zvcs@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,111 +68,79 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7zopzmzxbkpzbqyi"
+	protocol="application/pgp-signature"; boundary="ijv2q2q5way3hr5z"
 Content-Disposition: inline
 
 
---7zopzmzxbkpzbqyi
+--ijv2q2q5way3hr5z
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Break lines containing a parametric prefix to a man page name into two
-lines, using distinct font alternation macros and the `\c` escape
-sequence to "connect" the output.  This prepares for adoption of the
-`MR` man(7) macro in groff 1.23.0.
-
-The style seen here assumes that the typeface used for man page names is
-bold, which is ahistorical and which the `MR` feature makes
-configurable.  It might be better to recast this shorthand into English.
+Recast to use language paralleling that of the MREMAP_DONTUNMAP
+discussion elsewhere in the page.  Spotted these (excessively?)
+abbreviated cross references while preparing for the `MR` man(7) macro
+migration.
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man3/fts.3           | 12 ++++++++----
- man3type/div_t.3type |  3 ++-
- 2 files changed, 10 insertions(+), 5 deletions(-)
+ man2/mremap.2 | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/man3/fts.3 b/man3/fts.3
-index ae2fdfcbc..d2c520450 100644
---- a/man3/fts.3
-+++ b/man3/fts.3
-@@ -187,7 +187,8 @@ .SH DESCRIPTION
- .TP
- .B FTS_NS
- A file for which no
--.RB [ l ] stat (2)
-+.RB [ l ]\c
-+.BR stat (2)
- information was available.
- The contents of the
- .I fts_statp
-@@ -198,7 +199,8 @@ .SH DESCRIPTION
- .TP
- .B FTS_NSOK
- A file for which no
--.RB [ l ] stat (2)
-+.RB [ l ]\c
-+.BR stat (2)
- information was requested.
- The contents of the
- .I fts_statp
-@@ -329,7 +331,8 @@ .SH DESCRIPTION
- .TP
- .I fts_statp
- A pointer to
--.RB [ l ] stat (2)
-+.RB [ l ]\c
-+.BR stat (2)
- information for the file.
- .\" .El
+diff --git a/man2/mremap.2 b/man2/mremap.2
+index e4dd9d0ce..336aae676 100644
+--- a/man2/mremap.2
++++ b/man2/mremap.2
+@@ -43,9 +43,11 @@ .SH DESCRIPTION
+ below.
  .P
-@@ -754,7 +757,8 @@ .SH ERRORS
- .BR opendir (3),
- .BR readdir (3),
- and
--.RB [ l ] stat (2).
-+.RB [ l ]\c
-+.BR stat (2).
- .P
- In addition,
- .BR fts_children (),
-diff --git a/man3type/div_t.3type b/man3type/div_t.3type
-index 857dae17e..7abbb7616 100644
---- a/man3type/div_t.3type
-+++ b/man3type/div_t.3type
-@@ -40,7 +40,8 @@ .SH SYNOPSIS
- .SH DESCRIPTION
- .RI [[ l ] l ] div_t
- is the type of the value returned by the
--.RB [[ l ] l ] div (3)
-+.RB [[ l ] l ]\c
-+.BR div (3)
- function.
- .P
- .I imaxdiv_t
+ If the value of \fIold_size\fP is zero, and \fIold_address\fP refers to
+-a shareable mapping (see
+-.BR mmap (2)
+-.BR MAP_SHARED ),
++a shareable mapping
++(see the description of
++.B MAP_SHARED
++in
++.BR mmap (2)),
+ then
+ .BR mremap ()
+ will create a new mapping of the same pages.
+@@ -321,7 +323,10 @@ .SH BUGS
+ was zero and the mapping referred to by
+ .I old_address
+ was a private mapping
+-.RB ( mmap "(2) " MAP_PRIVATE ),
++(see the description of
++.B MAP_PRIVATE
++in
++.BR mmap (2)),
+ .BR mremap ()
+ created a new private mapping unrelated to the original mapping.
+ This behavior was unintended
 --=20
 2.30.2
 
 
---7zopzmzxbkpzbqyi
+--ijv2q2q5way3hr5z
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmWmhxQACgkQ0Z6cfXEm
-bc7sIQ//cN2zUz5JrNBZ2+NIWaGi0AGMm3ulUisIabrebUm/FMK8eyBUNC91KcbA
-AWp1PRZgoqwbTbQYOIqLEI8pkH5bf2Y7JqCHvzW/7oiljKE6EzfSBlM7Z2iBPnuf
-lBnKU8pFSYr68cobFI5IdCqBqF23QUMk38osU27oBMg9Vwd/pwQs+vn8Oe3BS96C
-dE0rVp5Z3xzfCWBJepCKGiFS/j9BP9dDf//n4bwTK62qE/obaaWGI4JM6cMnANFH
-TvPM1IbCe+XXEd0aGN/Vtk+lrylTQB07j6MNHe4ucfbE7dVI2IF+JaEOnYaTeKOT
-QjEy9zinjqijs3ghkye+zVdSKNcAj5HO6Ylyfi54smzvQf0PJdP7as7tJKdx1MRk
-nIRhUW+c57k7dE6eZDdxW4RHhZI5zKu8WlMUoRjcLpWy0SNOO7Kx9Qhg+rsqL+nK
-WbUgMNMRQswqqUZ2Jy9AnfnTxKfzVoXMg2FnQ+E0AcUNx5hRFis/bJX8PoOK4o7G
-I/4M/HwXNdlqDrMOD0yAL7za1iFm9d6zOCA7Fg2GmUlse8xrHKBaY2n6eQJrgNXZ
-V+6/L8MY/fy+cGk7SipCDFf+smcsBBgIm3XRiCeBbsYBjHUE29YcJ+1hAIGmmquq
-lfwiyolzr3ep1WysxC7GpRNBcutpyIp9cfSHwhS0/cvpCU2hX00=
-=cJo3
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmWmhy0ACgkQ0Z6cfXEm
+bc5ZxhAAhUw6TQHd+O9R27PV3UGRt3KO6+fP3/dNilmEY88ugxzE2s9FaqfnKUy7
+/LpirfbCPxDfk7sys52jJmCHGQbGxgPtXXistmqZQ1MYaVmmxE2JsRYNsHSl+0zF
+c5VKDhpeqhSw+vydFzF2VPvvKM4ZbARq8jTjgB8K2FFkUE+dqa6HnHxglEokS0dn
+nRxy0IUYwmW6tcGFoP8vp8R0Xsj6FK2cFgMdw7qQZgaZdrFV6JViB3XuHC97eNnk
+sqQYWPcHmM2GWh5Jxzn9dOPTX20HaoCc5NgcIFYQIriaHKPfeXlFkNEkxV/rfJqT
+6IUw+cli0c8cJSSrgLS/3croOHh+Rj5OcMyep1IE/txfiPtPRsOgyfadTDa5CDPr
+8t2CS/GMfUBcUFL2YpH46Hd3EhL3s3PaBVPajQl6D2TqrbeMxk/yLqxbQCUSvnpe
+Z1P+t9NxR0eIWGRhWHQbzyt9LAzBu5QoFp954BOuB8HxS/r9cSXGgS/BF/IjaYu+
+IyMo5yHla4H0Q9jfYW4SHHfIQru+ngxm+exygE8qLSo1Klb58eD5ywuaJyKSfTaC
+PQNYd8/o7AhFvbT+cerFp61Is7bpCrQF03qVILP5DdFMzu4aqFvoI1ay/4Jm9wtR
+/hVJQQHp3I/PfyVgyyCgwG76skwOmKVNYtBWOc9US/NgPmGUiyQ=
+=l9cN
 -----END PGP SIGNATURE-----
 
---7zopzmzxbkpzbqyi--
+--ijv2q2q5way3hr5z--
 
