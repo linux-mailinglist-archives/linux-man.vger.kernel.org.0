@@ -1,126 +1,191 @@
-Return-Path: <linux-man+bounces-382-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-383-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E6F8304E5
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 13:06:54 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CBB8304EE
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 13:08:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8401D1F24C43
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 12:06:54 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8EF291C21640
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 12:08:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99EDA1DFCF;
-	Wed, 17 Jan 2024 12:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6074E1DFDB;
+	Wed, 17 Jan 2024 12:08:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dA326Eej"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="p3WTc8h0";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="2Zzq4BwP";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="p3WTc8h0";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="2Zzq4BwP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550C81D553;
-	Wed, 17 Jan 2024 12:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB541DFC7;
+	Wed, 17 Jan 2024 12:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1705493208; cv=none; b=blckT7YJ6f9cGLpoFA+vTNMy8ElDbhtDEOpeXqdgxZZV3UZmYRjqCh5KxtPN72N6l1dP2iQ6fG1vc+gNrcPEZJsBTqcLBkhsiHLYrftDtKbrUbUPiInLAQE0/fyqe3EWKHURfq13lENwbWlW3iNhim/Cxrc23SxKS+/6aHfq72E=
+	t=1705493307; cv=none; b=O8FLmgQHOqK+CHFsTpXJg7H3ZO9qTqsIcpgUSVQgQkGjr4QEFnp102/0zdmGgu0Y4u8RrBxZsHnnRVvvTTgUMQmpTwo6hWHFjmhfGwdJ8wWT4kVRuTkRd/817rXhES5/Nmg8ubLPuCBVk6MEv3hOWZJLf2i04CvWQoxZWnp/jLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1705493208; c=relaxed/simple;
-	bh=8nVizYFCDcIj21SkCq635Xj1qvW5+ER+HVXd1fP27Wk=;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To; b=q7nPVxpH1foFPf4/gtMEWB2Hke57GhxYF/z87l4vWgzOOTQ/dWl4lX9QGSHrTvPy5SXhsdUuQdgiqlflZUQJwxrcef3G0F03JENWXg60ryiO9C2Rs1MBvUgtczREQqraHIz8X+9Lj9JHeVKgb4mNr7Os/Bo4fzKWyg3NWy65TcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dA326Eej; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E46C43390;
-	Wed, 17 Jan 2024 12:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705493207;
-	bh=8nVizYFCDcIj21SkCq635Xj1qvW5+ER+HVXd1fP27Wk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dA326EejhCeX3hHoFrzFQ15ZfF5409IQau/qLb+kT8L7yjsOEDPwEQsCOkIC/eJfr
-	 sunY9cLOXP3yr9axVsRaebb4BJHO2DiVdD6YjyCmG1vTovCUDE+TLtWeolSTQoKcAf
-	 sfsiIQZIpuHKMX2WIQYoN6X8Qez7e8KewfW4xjAgQBz2Zug8jNsXghNUqbENmTitXU
-	 be4GDwMBPGvwgXILOC5olLRFpRTw+b9AdcL4VF1xQn3nqxWsHOqmwmlwbNWXumg73E
-	 y7DCJINE6gMxqLT6YYewyMdlTtF+rqHisho/pu5zKB4uDlP/tsA3pq0bjDyEFG0de7
-	 N9NUQ1ndgtp6Q==
-Date: Wed, 17 Jan 2024 13:06:44 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] MAINTAINERS: Add man-pages git tree
-Message-ID: <ZafC1MkKDAK2s6n1@debian>
-References: <20240117091903.2668916-1-pvorel@suse.cz>
+	s=arc-20240116; t=1705493307; c=relaxed/simple;
+	bh=q4FKtlbQxuWFWzmo9yaIfVN2KvTlMKcHXxpzku4plKg=;
+	h=Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Spam-Level:X-Spam-Score:
+	 X-Spamd-Result:X-Spam-Flag; b=a6IHwJtAo4JtLRF4FvHJmHUgBwFsN+nWnPO4Jux55eKnJTGxz0AhN7rG0yvWV1X4iYkIsSCYiHoLFCKJ/0zRCGsrNKvIyn/VyjpHLolUzEyumQd8s9N5QkY0VrObMdpT1EvxL6uFtpR19TQIDXEDPNSbGVOAbsSsWA2ztDXGv58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=p3WTc8h0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=2Zzq4BwP; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=p3WTc8h0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=2Zzq4BwP; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 39C9121FD1;
+	Wed, 17 Jan 2024 12:08:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1705493303;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oTFWylkF/behWgunuXA11B8WAzc3sBR9mDzkTqI7sNc=;
+	b=p3WTc8h0gXYOKAVJBGKxIMT+FjuK7T4yqXsBIdq8SI4v2ibXgI9A4xGSffQ0gANtJUqM8m
+	kYAE89evCOsrsLBl7Ih7L6axGXoUQ6tJmQgobu/5fa/DWeqYMcGfQQLsR5MpX1j/ht1DOY
+	EokMK1fNBC7TNVuiT+YQ/eAOCmlXTYE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1705493303;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oTFWylkF/behWgunuXA11B8WAzc3sBR9mDzkTqI7sNc=;
+	b=2Zzq4BwP+r98g+TuFI4ZZsJCj6P1tNrcEDtija3MhBcAlZNa2wDhxrall9hebT8RUu840h
+	5mIHhYq01u6y7bBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1705493303;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oTFWylkF/behWgunuXA11B8WAzc3sBR9mDzkTqI7sNc=;
+	b=p3WTc8h0gXYOKAVJBGKxIMT+FjuK7T4yqXsBIdq8SI4v2ibXgI9A4xGSffQ0gANtJUqM8m
+	kYAE89evCOsrsLBl7Ih7L6axGXoUQ6tJmQgobu/5fa/DWeqYMcGfQQLsR5MpX1j/ht1DOY
+	EokMK1fNBC7TNVuiT+YQ/eAOCmlXTYE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1705493303;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oTFWylkF/behWgunuXA11B8WAzc3sBR9mDzkTqI7sNc=;
+	b=2Zzq4BwP+r98g+TuFI4ZZsJCj6P1tNrcEDtija3MhBcAlZNa2wDhxrall9hebT8RUu840h
+	5mIHhYq01u6y7bBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C4C7213751;
+	Wed, 17 Jan 2024 12:08:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id i2CnLTbDp2XTUgAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Wed, 17 Jan 2024 12:08:22 +0000
+Date: Wed, 17 Jan 2024 13:08:21 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Maciej =?iso-8859-2?Q?=AFenczykowski?= <maze@google.com>,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	Matthias Gerstner <matthias.gerstner@suse.com>,
+	Avinesh Kumar <akumar@suse.de>
+Subject: Re: [PATCH 1/1] socket.7: Mention CAP_NET_RAW on SO_MARK
+Message-ID: <20240117120821.GA2705119@pevik>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+References: <20240116110418.2577798-1-pvorel@suse.cz>
+ <ZaadPmLFCI4rsGy_@debian>
+ <20240117091452.GB2665992@pevik>
+ <ZafBxnhOSWxBRWko@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A5ukflp3KcPRO+YT"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240117091903.2668916-1-pvorel@suse.cz>
+In-Reply-To: <ZafBxnhOSWxBRWko@debian>
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -1.59
+X-Spamd-Result: default: False [-1.59 / 50.00];
+	 ARC_NA(0.00)[];
+	 HAS_REPLYTO(0.30)[pvorel@suse.cz];
+	 REPLYTO_EQ_FROM(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-1.09)[88.14%]
+X-Spam-Flag: NO
 
+> Hi Petr,
 
---A5ukflp3KcPRO+YT
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jan 2024 13:06:44 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] MAINTAINERS: Add man-pages git tree
+> On Wed, Jan 17, 2024 at 10:14:52AM +0100, Petr Vorel wrote:
+> > Hi Alex,
 
-Hi Petr,
+> > > Hi Petr,
 
-On Wed, Jan 17, 2024 at 10:19:03AM +0100, Petr Vorel wrote:
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 391bbb855cbe..571749fe9e38 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -12833,6 +12833,7 @@ M:	Alejandro Colomar <alx@kernel.org>
->  L:	linux-man@vger.kernel.org
->  S:	Maintained
->  W:	http://www.kernel.org/doc/man-pages
-> +T:	git git://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
+> > > On Tue, Jan 16, 2024 at 12:04:18PM +0100, Petr Vorel wrote:
+> > > > Added in 079925cce1d0 ("net: allow SO_MARK with CAP_NET_RAW") in v5.17.
 
-And there's a secondary tree, at
-<git://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git>
+> > > > Signed-off-by: Petr Vorel <pvorel@suse.cz>
 
+> > > Patch applied.  Thanks!
 
-Have a lovely day,
-Alex
+> > Thank you! BTW I don't see this patch in git tree [1], maybe you just haven't
+> > push yet.
 
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+> That's it.  I'm first pushing them to a 'contrib' branch (similar to
+> Linux 'next') in my own server[1], and after one day or so I push to
+> master.  That buffering allows me to catch some mistakes.
 
---A5ukflp3KcPRO+YT
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks a lot for info!
 
------BEGIN PGP SIGNATURE-----
+> [1]:  <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log/?h=contrib>
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWnwtQACgkQnowa+77/
-2zL2WRAAlSk5btdnZKR8yyJNwl99TmlhFVT2IY/B16uGisykpOExbVZs9MvLsrJy
-nNNCtbHVY22UNTjGSFfe1+nZ7Fif2Mnh1qzWhMDIfdablbXcgQC7tgUNZNy/M9/g
-iMNMH6ftzQBQgBxkOES8mNzkPRttQJs8JZxtcrifi6ItIH/e2T3fnDfU0aQF1eVz
-Q9OWOPMEFjQMfSpwsJzwLs9yVlGiDdaDyq32lJ4wwwCusGN0lptNVZBuitBFDcue
-vA0LqeHmYszk6X3Q8d2r2MKHp+9ZmskhNpLotulNZia2fXGseOBPpJmS5sMu0/1s
-LcJpqOI028f6FFXpRUwI5AiA+s9HC7O+U9oTYG8Iz5rfpAFKzVq+jttMcHQafaTj
-bKO2FZZh+AGshz8ctbmEJTTMuu9v+6smhKHY4iS49MOwtJx0G398BimAKuoQAYcp
-2E+za6sy3hddCHRmaMrDz6EMfzOOcTj4m9zrFis1bpvnzp8DXpqNUaRgaKjv6qps
-QmbNbBbd8TF5gmRM/cC7M/jdjeY0bKnTGQTojhjRBR7pLsqZA5Wnxtl7fzHs40Ut
-X4XDVn58L7XIhqPZR1chRMVXqG112F1ELg334Eb2xnkviLST9kTZdl66DziQbaIP
-vWFXTvShYjA1bRjIHGJbrcpxjTdtqRjKXCq+P2TOIDASuIARXDE=
-=lSz2
------END PGP SIGNATURE-----
+Ah, maybe my patch to MAINTAINERS was wrong, please push the correct tree
+https://lore.kernel.org/linux-man/20240117091903.2668916-1-pvorel@suse.cz/
 
---A5ukflp3KcPRO+YT--
+> 	$ git log --all --graph --oneline -10
+> 	* 0c118822f (alx/contrib, contrib) open.2: srcfix
+> 	* 24347d22a syscalls.2: ffix
+> 	* 9e04cb40f mremap.2: wfix
+> 	* 3a271d5b8 fts.3, div_t.3type: ffix
+> 	* 527f31b9f socket.7: Mention CAP_NET_RAW on SO_MARK
+> 	| * 71c25f15d (alx/MR, MR) man*/: ffix (MR.sed)
+> 	|/  
+> 	* d82ce270c (HEAD -> master, korg/master, alx/main, main) locale.5: tfix
+> 	* f65154cba cpuid.4: Note which CPUs don't support CPUID and what happens
+> 	* f98168310 sched_getcpu.3: tfix
+> 	* 26cdb3ebb faccessat(2), utimensat(2): Document AT_EMPTY_PATH flag
+
+> I'll push in a moment to master.
+
+Thanks!
+
+Kind regards,
+Petr
+
+> Have a lovely day,
+> Alex
 
