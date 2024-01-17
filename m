@@ -1,60 +1,55 @@
-Return-Path: <linux-man+bounces-381-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-382-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF838304DA
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 13:02:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E6F8304E5
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 13:06:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C3AD11F25083
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 12:02:24 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8401D1F24C43
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jan 2024 12:06:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D750B1DFD7;
-	Wed, 17 Jan 2024 12:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99EDA1DFCF;
+	Wed, 17 Jan 2024 12:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="liCjFMvr"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dA326Eej"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E79BC8DE;
-	Wed, 17 Jan 2024 12:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550C81D553;
+	Wed, 17 Jan 2024 12:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1705492938; cv=none; b=lN3FqYwYIV+6Qj4TpBbGmmfqT7Q1WhO7IepWvFx0wDwbchoNYO6PDXzp1ZO1FPCwZjqeXBmMJ0z/nN3VTHN9ZjdBs2dT/3EzuvKYgNoPhlytczqk6LTtK8wb+hLK+ZcD31ge50QFYNTTAb/7ncuHITA367Hz7/gNEgCN9nLxAMo=
+	t=1705493208; cv=none; b=blckT7YJ6f9cGLpoFA+vTNMy8ElDbhtDEOpeXqdgxZZV3UZmYRjqCh5KxtPN72N6l1dP2iQ6fG1vc+gNrcPEZJsBTqcLBkhsiHLYrftDtKbrUbUPiInLAQE0/fyqe3EWKHURfq13lENwbWlW3iNhim/Cxrc23SxKS+/6aHfq72E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1705492938; c=relaxed/simple;
-	bh=z3K+aPsqDlPIXzmxaifhGH8Bam7+3IJLclsYzycqlUQ=;
+	s=arc-20240116; t=1705493208; c=relaxed/simple;
+	bh=8nVizYFCDcIj21SkCq635Xj1qvW5+ER+HVXd1fP27Wk=;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To; b=FuGi3sa8ddemQS4LPGI8PyMU1eKuIFVBhxZ/utwjABHhuCzb3/W0bXjim83lRJFHprbbujYMrDTsNuOwfzX1a5otP6VQpCJcZW2c3D4vhLc2MMvGskdDWCbLG/HUiUxhu34uxnd5N/aMJzw1PIC9kyeHnKaM4zyawT3F/ClCCs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=liCjFMvr; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76289C433F1;
-	Wed, 17 Jan 2024 12:02:16 +0000 (UTC)
+	 In-Reply-To; b=q7nPVxpH1foFPf4/gtMEWB2Hke57GhxYF/z87l4vWgzOOTQ/dWl4lX9QGSHrTvPy5SXhsdUuQdgiqlflZUQJwxrcef3G0F03JENWXg60ryiO9C2Rs1MBvUgtczREQqraHIz8X+9Lj9JHeVKgb4mNr7Os/Bo4fzKWyg3NWy65TcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dA326Eej; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E46C43390;
+	Wed, 17 Jan 2024 12:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705492938;
-	bh=z3K+aPsqDlPIXzmxaifhGH8Bam7+3IJLclsYzycqlUQ=;
+	s=k20201202; t=1705493207;
+	bh=8nVizYFCDcIj21SkCq635Xj1qvW5+ER+HVXd1fP27Wk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=liCjFMvrBg6LhTHHiMFBu/+VOw2WgrfjSN6iGbdwc/Y2VKCcmqLUmOsui2kwibl3I
-	 v5DHNMigfBLrHQuJOFxK3rnUtIRJm7cux8lkf1PNgBklv8YkmBoU2BIVWWeMGtDyqi
-	 P99kdvcuiK0juDLDc9eL+x3BZgoAwpM10zzUX8rPoWgiPjM+dzNVWu7E5wwGAByhQ9
-	 FUAEW3ZF+daN2ibDEwuprafiIkBp7IWpvO3PU0m2V0AK2uyTacKGkY7xnztyg2nSkg
-	 sNLqPSMeclMB7YAZJg+gSLXMV6KjeYzUHs4Eig4I8fjPiUvlUYfmyyvBpUXivO8PMR
-	 wWN+7FHltptig==
-Date: Wed, 17 Jan 2024 13:02:13 +0100
+	b=dA326EejhCeX3hHoFrzFQ15ZfF5409IQau/qLb+kT8L7yjsOEDPwEQsCOkIC/eJfr
+	 sunY9cLOXP3yr9axVsRaebb4BJHO2DiVdD6YjyCmG1vTovCUDE+TLtWeolSTQoKcAf
+	 sfsiIQZIpuHKMX2WIQYoN6X8Qez7e8KewfW4xjAgQBz2Zug8jNsXghNUqbENmTitXU
+	 be4GDwMBPGvwgXILOC5olLRFpRTw+b9AdcL4VF1xQn3nqxWsHOqmwmlwbNWXumg73E
+	 y7DCJINE6gMxqLT6YYewyMdlTtF+rqHisho/pu5zKB4uDlP/tsA3pq0bjDyEFG0de7
+	 N9NUQ1ndgtp6Q==
+Date: Wed, 17 Jan 2024 13:06:44 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-man@vger.kernel.org,
-	Maciej =?utf-8?Q?=C5=BBenczykowski?= <maze@google.com>,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	Matthias Gerstner <matthias.gerstner@suse.com>,
-	Avinesh Kumar <akumar@suse.de>
-Subject: Re: [PATCH 1/1] socket.7: Mention CAP_NET_RAW on SO_MARK
-Message-ID: <ZafBxnhOSWxBRWko@debian>
-References: <20240116110418.2577798-1-pvorel@suse.cz>
- <ZaadPmLFCI4rsGy_@debian>
- <20240117091452.GB2665992@pevik>
+Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] MAINTAINERS: Add man-pages git tree
+Message-ID: <ZafC1MkKDAK2s6n1@debian>
+References: <20240117091903.2668916-1-pvorel@suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,65 +57,43 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+iv5ECICgVpVqnS+"
+	protocol="application/pgp-signature"; boundary="A5ukflp3KcPRO+YT"
 Content-Disposition: inline
-In-Reply-To: <20240117091452.GB2665992@pevik>
+In-Reply-To: <20240117091903.2668916-1-pvorel@suse.cz>
 
 
---+iv5ECICgVpVqnS+
+--A5ukflp3KcPRO+YT
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jan 2024 13:02:13 +0100
+Date: Wed, 17 Jan 2024 13:06:44 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-man@vger.kernel.org,
-	Maciej =?utf-8?Q?=C5=BBenczykowski?= <maze@google.com>,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	Matthias Gerstner <matthias.gerstner@suse.com>,
-	Avinesh Kumar <akumar@suse.de>
-Subject: Re: [PATCH 1/1] socket.7: Mention CAP_NET_RAW on SO_MARK
+Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] MAINTAINERS: Add man-pages git tree
 
 Hi Petr,
 
-On Wed, Jan 17, 2024 at 10:14:52AM +0100, Petr Vorel wrote:
-> Hi Alex,
+On Wed, Jan 17, 2024 at 10:19:03AM +0100, Petr Vorel wrote:
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
 >=20
-> > Hi Petr,
->=20
-> > On Tue, Jan 16, 2024 at 12:04:18PM +0100, Petr Vorel wrote:
-> > > Added in 079925cce1d0 ("net: allow SO_MARK with CAP_NET_RAW") in v5.1=
-7.
->=20
-> > > Signed-off-by: Petr Vorel <pvorel@suse.cz>
->=20
-> > Patch applied.  Thanks!
->=20
-> Thank you! BTW I don't see this patch in git tree [1], maybe you just hav=
-en't
-> push yet.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 391bbb855cbe..571749fe9e38 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -12833,6 +12833,7 @@ M:	Alejandro Colomar <alx@kernel.org>
+>  L:	linux-man@vger.kernel.org
+>  S:	Maintained
+>  W:	http://www.kernel.org/doc/man-pages
+> +T:	git git://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
 
-That's it.  I'm first pushing them to a 'contrib' branch (similar to
-Linux 'next') in my own server[1], and after one day or so I push to
-master.  That buffering allows me to catch some mistakes.
+And there's a secondary tree, at
+<git://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git>
 
-[1]:  <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.g=
-it/log/?h=3Dcontrib>
-
-	$ git log --all --graph --oneline -10
-	* 0c118822f (alx/contrib, contrib) open.2: srcfix
-	* 24347d22a syscalls.2: ffix
-	* 9e04cb40f mremap.2: wfix
-	* 3a271d5b8 fts.3, div_t.3type: ffix
-	* 527f31b9f socket.7: Mention CAP_NET_RAW on SO_MARK
-	| * 71c25f15d (alx/MR, MR) man*/: ffix (MR.sed)
-	|/ =20
-	* d82ce270c (HEAD -> master, korg/master, alx/main, main) locale.5: tfix
-	* f65154cba cpuid.4: Note which CPUs don't support CPUID and what happens
-	* f98168310 sched_getcpu.3: tfix
-	* 26cdb3ebb faccessat(2), utimensat(2): Document AT_EMPTY_PATH flag
-
-I'll push in a moment to master.
 
 Have a lovely day,
 Alex
@@ -129,25 +102,25 @@ Alex
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---+iv5ECICgVpVqnS+
+--A5ukflp3KcPRO+YT
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWnwcUACgkQnowa+77/
-2zIEzA/+JDGOhlEOZ0M407lzWr8dMPLdNVcbA6QdYVbMJMdstVVwNK6W3zPvs+cp
-OIOa/KTcx/mp3QvSSM6eXxzTND6CU5m6p+PxGeC3A7ZStjWeBHRW53GHXHngbEir
-hTi1Rl7BtzFqDyPJXIYGvOfAU3Hd13drmt/0TDXdwD+E6S5yrTA1hdmozuWDvQjY
-PkISXsptUEjubpsUD6r2ZA8g2NTnO+tusMgHk5QVHM0nD1MKOrJQAmxLhsMt3xMP
-gu3r00kW+/hPgltiM/HpdCVmkZWZpPvUe5DbjswJrVVHdlK0+Q1rhARU3ACTRAg+
-IjJt6goupoUQVZqmhMEKwcU/SxCvLrrYvw/wqMVEQJD5Qi+F5bDGgcrFj3Z2JzgF
-WFjumNyDH3Yr0P8slwckvSZkWWknS0cLQRIbvNvLQzOQodmBfOJtmDzWyVsvLZL0
-J6lkL+wWWL0Hg3eFManIA1r5uzeSozYHPHU0i/LTHNlTJ6XYsQCtpJ6dmLUjQjD7
-8qb2dzrMrovS/bg4Mj/yO6EmYZbERok5sFyY78wnDKZ5TQaUq0JXXcWKRKotLDct
-Xzuu4hQ72xqkoaFdxrSIcCv0DepdaHiOt1WTDShzphUIGC36koE73HO64sOPBRZB
-th21Pod8pGaKvyvJoTK+6SldoCSNg/nuwhRFigNkRfg1R+BE4SI=
-=7ftI
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWnwtQACgkQnowa+77/
+2zL2WRAAlSk5btdnZKR8yyJNwl99TmlhFVT2IY/B16uGisykpOExbVZs9MvLsrJy
+nNNCtbHVY22UNTjGSFfe1+nZ7Fif2Mnh1qzWhMDIfdablbXcgQC7tgUNZNy/M9/g
+iMNMH6ftzQBQgBxkOES8mNzkPRttQJs8JZxtcrifi6ItIH/e2T3fnDfU0aQF1eVz
+Q9OWOPMEFjQMfSpwsJzwLs9yVlGiDdaDyq32lJ4wwwCusGN0lptNVZBuitBFDcue
+vA0LqeHmYszk6X3Q8d2r2MKHp+9ZmskhNpLotulNZia2fXGseOBPpJmS5sMu0/1s
+LcJpqOI028f6FFXpRUwI5AiA+s9HC7O+U9oTYG8Iz5rfpAFKzVq+jttMcHQafaTj
+bKO2FZZh+AGshz8ctbmEJTTMuu9v+6smhKHY4iS49MOwtJx0G398BimAKuoQAYcp
+2E+za6sy3hddCHRmaMrDz6EMfzOOcTj4m9zrFis1bpvnzp8DXpqNUaRgaKjv6qps
+QmbNbBbd8TF5gmRM/cC7M/jdjeY0bKnTGQTojhjRBR7pLsqZA5Wnxtl7fzHs40Ut
+X4XDVn58L7XIhqPZR1chRMVXqG112F1ELg334Eb2xnkviLST9kTZdl66DziQbaIP
+vWFXTvShYjA1bRjIHGJbrcpxjTdtqRjKXCq+P2TOIDASuIARXDE=
+=lSz2
 -----END PGP SIGNATURE-----
 
---+iv5ECICgVpVqnS+--
+--A5ukflp3KcPRO+YT--
 
