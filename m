@@ -1,56 +1,52 @@
-Return-Path: <linux-man+bounces-393-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-394-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62A53831632
-	for <lists+linux-man@lfdr.de>; Thu, 18 Jan 2024 10:51:55 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D17B6833073
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jan 2024 22:50:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id E32BCB22054
-	for <lists+linux-man@lfdr.de>; Thu, 18 Jan 2024 09:51:52 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0C9871C21DBE
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jan 2024 21:50:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D9DC1B978;
-	Thu, 18 Jan 2024 09:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7915D57888;
+	Fri, 19 Jan 2024 21:50:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dxg2NQvP"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZCHf6HV"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E352E208B1
-	for <linux-man@vger.kernel.org>; Thu, 18 Jan 2024 09:51:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E9A5821A
+	for <linux-man@vger.kernel.org>; Fri, 19 Jan 2024 21:50:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1705571508; cv=none; b=SwWD1MspoE28OkrieCmhP4L70dBsF5goLCf4LJaVYjayjD9owxOuLaN3dkP/4BLoO9DqK2/UD06r6O8VJKH/iwDo3qlcW5tmIbTgUIWPPZXTg5t9lAu/lVOgqp/IvLNAJ3r5+Nf120Z/11CNJiP//0r5ESNAL+9E1cMZXQKKzms=
+	t=1705701029; cv=none; b=AlCr12AhkSHzVt6+GX95Baf/8ekPLFa1OeQNKqHub/Omf9VxG9HBFB5Rcs8aYcxoucl1XPcONoDfGtV1f0GpQlkUsr0tPlRK0Jid46bsHFE69TynUC9Hl1RwNB32uvQswgpy3M1ZittIUBgbYHLBmlZDSikp94SlKE+ldGGdFlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1705571508; c=relaxed/simple;
-	bh=N04tI2TFVv3n54WrtgRCZzDgF+/eXUV7GS31iFWcPVo=;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To; b=A3yiB6GT4IJ46QH96WHAiZlFbkYba0UqkjE5MFH0Uc3MazN42aS0Wh4meToso/WDuQdIbqLLhqODckdQ7+arXSw322JrKEYBNY8rLKMKGCTTA8NG2kSnCPBxETKw7/LC76ntiloVDAqDRBTA7PtIOVUwI6AVxAJEqG83k8L7h5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dxg2NQvP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85C20C433F1;
-	Thu, 18 Jan 2024 09:51:46 +0000 (UTC)
+	s=arc-20240116; t=1705701029; c=relaxed/simple;
+	bh=oiLeIfmjqB6N6eymrL0cceHL9QXkpND7pXMNrknF3XI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=ZQvQa0LWMtEytzd+5X/tmJHmdZD3xBUsaAtz9eA4F8f8rKq2Cs3DAu1C3u5ll10krmgjcpm+N9sr7VIycQHApZBrTxHTtvfa7gpc/Pq77aZEq+ujwWjkIYF2qt67/gcm0piQ5hymBbUj+XDitTtoIBTZhKRi9JEx6BUdyZOCUfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZCHf6HV; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19520C433F1;
+	Fri, 19 Jan 2024 21:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705571507;
-	bh=N04tI2TFVv3n54WrtgRCZzDgF+/eXUV7GS31iFWcPVo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Dxg2NQvPh988VPI0cSEafDBseVQgbbibhA0rSlHPr4zgm29PHddt4dEK5aQ+sf8hy
-	 LY/kNj78GVPqZnvJhPTyNaOxbQAztCDLVjS2UdrsXBqkcbGPqRLhXjMu721BgTX6vg
-	 t/LT7AmijS2TMMwVXQiQRu2ZEO6Gv0ONKClHQjf6bG11Cri3UzeKX9rcG8xa+FgGcs
-	 ob/JaZo3vPlRiFGmRF3ux/WdDt+mv2ETTSAJwW9XRA8MMNRarlLVEWGYAJW9WZayc1
-	 rjpKfcnFQq3HHrAXfqaeSFIVh8mHsIL2f+Ruhlx9MXBMwzU+HEi3O1mnJ5BRU9ThNe
-	 DHNomfV92JuCQ==
-Date: Thu, 18 Jan 2024 10:51:43 +0100
+	s=k20201202; t=1705701028;
+	bh=oiLeIfmjqB6N6eymrL0cceHL9QXkpND7pXMNrknF3XI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=WZCHf6HVZoLHL1igrS59K8qIybE/yizVtsinV2Oy902gL069uDku5EmNDlb7yVB69
+	 Avpwl6awxcAOcrGrgPiGVx1+EBnRoiBzugytdajqVZqLSi3MkSsLG67AzFR7N9NQee
+	 ZRYimvpA9YVwzYR7Uo2X1yilaArWosCoxdditiHZQLtvAxPfAOs37dVa9M4Jg5k/OA
+	 7f26qRxKraGwcCIF5BEnn5jM6D6Hg/FlBOB0LaXPFVqpkE5OdgtX/PNLKLyEMkfL3H
+	 CrYn+RTwxk6uY1Eop+431QhfZusRUXNU2ksXx5s1UnSuK8j7JVAr5tAfiRTWvB1Gs8
+	 l4KkqURziXVug==
+Date: Fri, 19 Jan 2024 22:50:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/4] man2/syscalls.2: ffix
-Message-ID: <Zaj0sFlEedVXR42G@debian>
-References: <20240116134020.wvyiel53ydi4gey6@illithid>
- <CACKs7VCLtDTYYyF6xNXNqvjz0ZGhTsOPsc3xS7JTRG=dvTSP-g@mail.gmail.com>
+To: linux-man@vger.kernel.org
+Cc: lijh8 <lijh8@qq.com>
+Subject: FWD: lijh8@qq.com: about operator(7) precedence
+Message-ID: <ZaruodlIbZHnErOK@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,85 +54,175 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IgLFQLAHZcrpwoeY"
+	protocol="application/pgp-signature"; boundary="crehIasbPZY+R1HM"
 Content-Disposition: inline
-In-Reply-To: <CACKs7VCLtDTYYyF6xNXNqvjz0ZGhTsOPsc3xS7JTRG=dvTSP-g@mail.gmail.com>
+In-Reply-To: <tencent_98F329827330C28C2727E9F2106379868609@qq.com>
 
 
---IgLFQLAHZcrpwoeY
+--crehIasbPZY+R1HM
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jan 2024 10:51:43 +0100
+Date: Fri, 19 Jan 2024 22:50:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/4] man2/syscalls.2: ffix
+To: linux-man@vger.kernel.org
+Cc: lijh8 <lijh8@qq.com>
+Subject: FWD: lijh8@qq.com: about operator(7) precedence
 
-Hi Stefan,
+Hi,
 
-On Thu, Jan 18, 2024 at 10:24:08AM +0200, Stefan Puiu wrote:
-> Hi Branden,
->=20
-> On Tue, Jan 16, 2024 at 3:40=E2=80=AFPM G. Branden Robinson
-> <g.branden.robinson@gmail.com> wrote:
-> >
-> > Refactor table format specification: use column modifiers to set heading
-> > rows in bold instead of populating every entry in them with font
-> > selection escape sequences.  Use a single '_' to indicate a horizontal
-> > rule spanning the table.  Put vertical space before the table
-> > (making it resemble a typographical "display") rather than after the
-> > after the column heading.
->=20
-> Duplicate 'after the'?
+Forwarding to the mailing list as plain text.
 
-Indeed.  Too late, though.  Thanks, anyway!  :D
+I'll reply to this mail in a moment.  For now, let me ask what
+</usr/share/misc/operator> contains in macOS; I'm curious.
 
-Cheers,
+Have a lovely day,
 Alex
 
-commit 24347d22a3b8a06c28816e7d2a2de2669485c2d9
-Author:     G. Branden Robinson <g.branden.robinson@gmail.com>
-AuthorDate: Tue Jan 16 07:40:20 2024 -0600
-Commit:     Alejandro Colomar <alx@kernel.org>
-CommitDate: Tue Jan 16 16:19:06 2024 +0100
+----- Forwarded message from lijh8 <lijh8@qq.com> -----
 
-    syscalls.2: ffix
-   =20
-    Refactor table format specification: use column modifiers to set heading
-    rows in bold instead of populating every entry in them with font
-    selection escape sequences.  Use a single '_' to indicate a horizontal
-    rule spanning the table.  Put vertical space before the table
-    (making it resemble a typographical "display") rather than after the
-    after the column heading.
-   =20
-    Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+Date: Sat, 20 Jan 2024 05:20:40 +0800
+=46rom: lijh8 <lijh8@qq.com>
+To: alx <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: about operator(7) precedence
+Message-ID: <tencent_98F329827330C28C2727E9F2106379868609@qq.com>
+X-Mailer: QQMail 2.x
+
+Hi, on macOS (and maybe freeBSD), postfix and prefix ++ -- are the same=20
+precedence and can be distinguished by associativities.
+
+
+Why on linux, postfix and prefix are divided into two different=20
+precedences? What's the reason, is the C language changed?
+
+
+---
+
+
+```
+
+
+OPERATOR(7)             Miscellaneous Information Manual            OPERATO=
+R(7)
+
+
+NAME
+     operator =E2=80=93 C operator precedence and order of evaluation
+
+
+DESCRIPTION
+           Operator                        Associativity
+           --------                        -------------
+           () [] -> .                      left to right
+           ! ~ ++ -- - (type) * & sizeof   right to left
+           * / %                           left to right
+           + -                             left to right
+           << >>                           left to right
+           < <=3D > >=3D                       left to right
+           =3D=3D !=3D                           left to right
+           &                               left to right
+           ^                               left to right
+           |                               left to right
+           &&                              left to right
+           ||                              left to right
+           ?:                              right to left
+           =3D +=3D -=3D etc.                    right to left
+           ,                               left to right
+
+
+FILES
+     /usr/share/misc/operator
+
+
+macOS 12.7                        June 9, 1993                       macOS =
+12.7
+
+
+```
+
+
+---
+
+
+```
+
+
+operator(7)            Miscellaneous Information Manual           operator(=
+7)
+
+
+NAME
+       operator - C operator precedence and order of evaluation
+
+
+DESCRIPTION
+       This manual page lists C operators and their precedence in evaluatio=
+n.
+
+
+       Operator                            Associativity   Notes
+       [] () . -> ++ --                    left to right   [1]
+       ++ -- & * + - ~ ! sizeof            right to left   [2]
+       (type)                              right to left
+       * / %                               left to right
+       + -                                 left to right
+       << >>                               left to right
+       < > <=3D >=3D                           left to right
+       =3D=3D !=3D                               left to right
+       &                                   left to right
+       ^                                   left to right
+       |                                   left to right
+       &&                                  left to right
+       ||                                  left to right
+       ?:                                  right to left
+       =3D *=3D /=3D %=3D +=3D -=3D <<=3D >>=3D &=3D ^=3D |=3D   right to l=
+eft
+       ,                                   left to right
+
+
+       The following notes provide further information to the above table:
+
+
+       [1] The  ++  and -- operators at this precedence level are the postf=
+ix
+           flavors of the operators.
+       [2] The ++ and -- operators at this precedence level  are  the  pref=
+ix
+           flavors of the operators.
+
+
+Linux man-pages 6.03              2023-02-05                      operator(=
+7)
+
+
+```
+
+----- End forwarded message -----
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---IgLFQLAHZcrpwoeY
+--crehIasbPZY+R1HM
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWo9LAACgkQnowa+77/
-2zIJGQ/5AbI3riln55LyNQBBOrzT3wwlAKpxrjgMtmYwv+2ObgVV4ks7JucEU7yZ
-0Yxiyi1+ZA8kkbjQdZtYRDSXkgI/6rrrvR7nxSCjkVUDsOimu9LxrxxNs1BEIE7s
-MWma7BB5mqRWBqxB15qJuoNtTQ9Bl6YeXMn2B0q6ddW+6Lq7BDAxO5wK3dg4JEiA
-4wJnmjgd7CadubF//UM/eLTmkCVoGPfAcpTvVfv3h/AgBunieEBKbrWSocLkHgJK
-ImTvOTer5yNoM7iszLUE346G3aGsdJ04UVXCldvrBzOYZzOotv81d8fou0Fd1Wvt
-qwoHm7i+a6ueXK1+ahGavDxrSE5P9Dom83chl7Rav2wUStJPGViuFj4jEJ/Q2bqY
-VKu6JVhdK7bYGDa9317AO4odxhoDTY5HhYiws4O2g+m5sa2rYjeuwt00si9Quk2j
-VVnzE+XRXXiVnYvmORXRwy9cEZ7wDrSmhT7/nnrGB/EvCbBkuhcEZdVDs7lZDiln
-7EVPJ/At8Ms49tkAsdebYi2HDq7p6HvS501rwBT4x0xkF0CbPkGH2ls3RGd3b2L/
-XiLUBNYB16mY/2y+B+Io9mVQr+fwpAq4URM1SEvsnRjF0UFGqzQL5JCgdkYmDYLA
-GyCcLDgkLVd0YrC53IjnUPOZsb/iDBNgiDmtyFwCNVEKfWL9YvY=
-=nBFS
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWq7psACgkQnowa+77/
+2zLK4Q/8CFYEm48dSNUsrlPfgtJJ0NrDRW17VOgXxMW8Oap1oF44p5MNwo3DHjdx
+reYbbselIjZ/6nRnXENHyT5fmcrTEA9sfSp/FX76oeRrVO3OQGdabErCKYTfIW6d
+5mwwR+l62e0/O/5iwhUZEz5EMOt4g2qHkYxrWrSks78DiS6gQdpXY37w4msirw3z
+DPdHvZouvO7MLHguzAr+f9UzHVWnWZPX0+w10jDCx4ID6wiqJZFAkR4Xgb+29eJN
+S0a/fyGO2uKrkGw/XJs6O9xYfGQqcGlCq5YHiERuVbxsMVlZG+d133OLm7bCSCC1
+LCPZ0Kya7c7KmMGRt/E/lmPdCIOPktx1/dMQDTwx+ZOvSmAYYaRC4q/jxxiR8DRu
+paFs0d8MTMiLlN70pDfEkrERrpl0S0VicwAlgU3xd93Nn1h4ajIfIXb/2Uad0wjq
+nLdRipJFwBmDqMbNY92xWHLOr92rp1QgF/my4A2mD6zpfPqylI65hZYLpxOCNMNa
+KMfMgCZnMkOmTdC23u/00EfZE3nF8utTMLwwk/IwBWZ61PzPugDeGL742MtrSpdE
+p3ED5UP6kfTkHJwoLAaVXwR7TA835RHEDHO7ZCv9/vFEp4oTOYiF0/n1LZxmYwGp
+aUMHeoDR4G79HR6TB/l5Gnb0QUv1OBDVSJLcnc5N9re5q+Bz/X8=
+=b5m8
 -----END PGP SIGNATURE-----
 
---IgLFQLAHZcrpwoeY--
+--crehIasbPZY+R1HM--
 
