@@ -1,270 +1,172 @@
-Return-Path: <linux-man+bounces-395-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-396-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1453C833107
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jan 2024 23:58:41 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EB2283568D
+	for <lists+linux-man@lfdr.de>; Sun, 21 Jan 2024 16:59:00 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9765D1F22787
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jan 2024 22:58:40 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0A300281F17
+	for <lists+linux-man@lfdr.de>; Sun, 21 Jan 2024 15:58:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF4EB58AA3;
-	Fri, 19 Jan 2024 22:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CD2836B0D;
+	Sun, 21 Jan 2024 15:58:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3XAHsmy"
+	dkim=pass (2048-bit key) header.d=colorfullife-com.20230601.gappssmtp.com header.i=@colorfullife-com.20230601.gappssmtp.com header.b="VyGAo2bU"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9118256B7B
-	for <linux-man@vger.kernel.org>; Fri, 19 Jan 2024 22:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15A3376F6
+	for <linux-man@vger.kernel.org>; Sun, 21 Jan 2024 15:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1705705114; cv=none; b=G/wW7A3VT7bfrJLr1Mln0L5wf3FTvSSW1WgogK6X9LnN6MNKY+dikSHmq/xK6KBlagbT9V7080yXMHRKS0vJEh+bWQuhbEWhIjC3JpkIxRbEKMyCgwnQFxY/zJWBEVbHZI2UQOzUO6AsWrmzGmob2QMCuoXe86IV9BjW4hL+B24=
+	t=1705852738; cv=none; b=uKaU7KYeBBMw6mJKwGGj2jRUCoC9qykD7Tv8oB/zhdFdUNFZbw8lGF7e9kkZQfSCYU10x5XJ1zKD1i53gyvm5ONtGNWQZ8i9hCghQhfa0eJXVeWJCyvjHD5BWZAkAIPQMLESrHXR4Y2YbYJDnDk3f6m+AC/n1PW54mG0j3JzZ0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1705705114; c=relaxed/simple;
-	bh=Pa5QacaErqPI0K2z9LDOaw2GPDnOho51Lm0Lz3qJu4I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O/rWVzNxIGWH1AT+IspJQVMUQjr8wEnYO/hhkRDYxuInZ42WralogAE94lGPdsBxv1xtQex3m2o6TqVZDNZtkf82spCWFQT/zY8ewnaB9x164ImZqvRolrr/ipc3epSjf5BVdZl15a/X2DCvwslhxoT1eXhCpEmXhJ7L/W+3pz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3XAHsmy; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66121C433C7;
-	Fri, 19 Jan 2024 22:58:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705705114;
-	bh=Pa5QacaErqPI0K2z9LDOaw2GPDnOho51Lm0Lz3qJu4I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=P3XAHsmytuqBOBxwdzF1KRIp8JG4+oCoatmxbQG1LUzj60jtMOgCqPtxXfc88yO/W
-	 IDYiJfedi8BEVDKyhxtd125rrOJzs+7YiLc1cnz4kSrY7GyDg1QIekNq9v4WAFIIn9
-	 KVd3xMVRblbWCJyOseAh576Rx8moRNO6FfcwIHbMbTYNuzIFzNvARM9KbRygMgLVhu
-	 zCxE/2C7+IFSHUl8ouNuVwklvIPbXxHVoRDyNhJTNWdM8Ewdvp4LbcJ4sByRAsn1Kv
-	 AI9WLvXEH0fPMYC4/BnsjUtNtJ/w5rNMFP/WOT9JSBLR/pAQ2hiXVVK27QcJzS27AH
-	 ZCMfZRPYvCGWQ==
-Date: Fri, 19 Jan 2024 23:58:24 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: lijh8 <lijh8@qq.com>
-Subject: Re: FWD: lijh8@qq.com: about operator(7) precedence
-Message-ID: <Zar-liK0Ev692sTQ@debian>
-References: <tencent_98F329827330C28C2727E9F2106379868609@qq.com>
- <ZaruodlIbZHnErOK@debian>
+	s=arc-20240116; t=1705852738; c=relaxed/simple;
+	bh=whTFV6rClOs8bxqF1ty/cxBZEaK5vPHlLwIwLiq5LOA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=VhYLIO8Z2ktnvRsODSg7HECMz+u+rrpzlxp1sHWaqujTSch9eO9PnqS19xcsKXDogra/uS4nmLm34yG+t2T8YpBzwZfonv2vs7XiPb6KJsYj5XVw2iQnKayZY9YtwOwTHiNNLA2+fwtjnpYr5ye5fo5JCXpL/MCZGkF+/LuhrnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=colorfullife.com; spf=pass smtp.mailfrom=colorfullife.com; dkim=pass (2048-bit key) header.d=colorfullife-com.20230601.gappssmtp.com header.i=@colorfullife-com.20230601.gappssmtp.com header.b=VyGAo2bU; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=colorfullife.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=colorfullife.com
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-40eadf705f2so650055e9.1
+        for <linux-man@vger.kernel.org>; Sun, 21 Jan 2024 07:58:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=colorfullife-com.20230601.gappssmtp.com; s=20230601; t=1705852734; x=1706457534; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7qQkgM5m6OWdmtTdFapT6wKhE9CoiehliAPMlIoX5QE=;
+        b=VyGAo2bURIILxX/k868kXUXQnMNczFwp91cDC8r5Ys3zby9rYcaladMG5qX7B6ovlN
+         URStdF/ZlQ2f+LcWrfM1LsRMt8BnqrOw4Ehin1pNjFQXwXNkgcCJvMpO6LB1Vtxi3ugz
+         JudFAD5ahXB8KeMBt0PCNficvMeAOpeI/wWZlTUXolVg1rNgvzcv/mwg2jFJf4NOBcuH
+         2WNdUp8Z+fLlIB0P/lqbsx51YdB/DT5J/82ic7AFAZ6n3nB7H9F/Tu365M2jyBxlCqdc
+         KFAuawbsPXNmy71buUd60yYSXZCFs8LLjFUPL996BZAZpH4gGMU3o4be/B/e1PIt4KHo
+         8q0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705852734; x=1706457534;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7qQkgM5m6OWdmtTdFapT6wKhE9CoiehliAPMlIoX5QE=;
+        b=VZOfXHrITk2Ce2K3Y83bQSWfpUqToNxojAnHI0A4+rsjTjz5X1otzxlgK2VvTt86E4
+         97C47/Q6GZKYT9xqLWpAZJHxN6FWLdpEYS63Vo8gjPOX/TRZeovwO3WoWfIcVd3qxzyL
+         NMRYhnwrLbiHYDPxjgMi1WRhiF0WX+SDWlFxkbWaXlOFDBrW2i4rAU6X19KFMafxKLqL
+         DwAKJFS9wk8OnzNjZGVuMLTMmO5beP8rvvnCrVohc8M6jQint6hE40d+yhb8fDMrSs7V
+         96Hio1fM8NwzdDfAqxX1z0wIyFOa9XULIwug1x6WwWi/3QT+Ri7YlMHZ+rI5QnaMp+uB
+         XkoQ==
+X-Gm-Message-State: AOJu0Yzi25KCRs+cYbaG8xiHcWDugUdiTLHHPKdjn8Ep1IqJQOtqmcYt
+	ND8I+FLZOdNNIY1hKdJob0gglv5CXggv5hFiqB+mBvhbyksDmcTg2tmoAur+4isJLI7BI0cxA2I
+	=
+X-Google-Smtp-Source: AGHT+IF2Xaax26quA3ftKtb5KgcUz4dB3AeDI1QIeNjQKWQzDQjmITX2yCnGdcF4A6EiXAeyReLhUQ==
+X-Received: by 2002:a05:600c:213:b0:40e:5d36:8bb2 with SMTP id 19-20020a05600c021300b0040e5d368bb2mr1549783wmi.70.1705852734009;
+        Sun, 21 Jan 2024 07:58:54 -0800 (PST)
+Received: from ?IPV6:2003:d9:971d:e500:6c24:cb20:5db:57? (p200300d9971de5006c24cb2005db0057.dip0.t-ipconnect.de. [2003:d9:971d:e500:6c24:cb20:5db:57])
+        by smtp.googlemail.com with ESMTPSA id a16-20020a056000101000b00337cd6b1890sm9110400wrx.80.2024.01.21.07.58.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 21 Jan 2024 07:58:53 -0800 (PST)
+Message-ID: <e18a3f68-3fe0-49ee-8a2c-3bae2604476f@colorfullife.com>
+Date: Sun, 21 Jan 2024 16:58:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lM1nsHbaJaA5DEYL"
-Content-Disposition: inline
-In-Reply-To: <ZaruodlIbZHnErOK@debian>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND PATCH v3 2/3] docs: Add information about ipc sysctls
+ limitations
+Content-Language: en-US
+To: Alexey Gladkov <legion@kernel.org>, linux-doc <linux-man@vger.kernel.org>
+References: <09e99911071766958af488beb4e8a728a4f12135.1705333426.git.legion@kernel.org>
+From: Manfred Spraul <manfred@colorfullife.com>
+In-Reply-To: <09e99911071766958af488beb4e8a728a4f12135.1705333426.git.legion@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Alexey,
 
 
---lM1nsHbaJaA5DEYL
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jan 2024 23:58:24 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: lijh8 <lijh8@qq.com>
-Subject: Re: FWD: lijh8@qq.com: about operator(7) precedence
-
-On Fri, Jan 19, 2024 at 10:50:19PM +0100, Alejandro Colomar wrote:
-> ----- Forwarded message from lijh8 <lijh8@qq.com> -----
->=20
-> Date: Sat, 20 Jan 2024 05:20:40 +0800
-> From: lijh8 <lijh8@qq.com>
-> To: alx <alx@kernel.org>
-> Cc: linux-man <linux-man@vger.kernel.org>
-> Subject: about operator(7) precedence
-> Message-ID: <tencent_98F329827330C28C2727E9F2106379868609@qq.com>
-> X-Mailer: QQMail 2.x
->=20
-
-I'll reorder your mail, for a better reply.
-
-> What's the reason, is the C language changed?
-
-The C language specifies operators in 6.5 (Expressions).
-<http://port70.net/~nsz/c/c11/n1570.html#6.5>
-
-There, there's a note, 85, that says that
-
-	The syntax specifies the precedence of operators in the
-	evaluation of an expression, which is the same as the order of
-	the major subclauses of this subclause, highest precedence first.
-	...
-<http://port70.net/~nsz/c/c11/n1570.html#note85>
-
-Postfix ++ and -- are described in 6.5.2.4, that is, in the second group
-of operators, sorted by precedence (the first is _Generic(), which isn't
-documented in the manual pages).
-<http://port70.net/~nsz/c/c11/n1570.html#6.5.2.4>
-
-Prefix ++ and -- are described in 6.5.3.1, that is, in the third group
-of operators, sorted by precedence.
-<http://port70.net/~nsz/c/c11/n1570.html#6.5.3.1>
-
-> Why on linux, postfix and prefix are divided into two different=20
-> precedences?
-
-The Linux manual page is correct, closely following what ISO C says (I
-showed C11, but I'm sure that all other versions of ISO C have the same
-precedence rules).
-
-> Hi, on macOS (and maybe freeBSD), postfix and prefix ++ -- are the same=
-=20
-> precedence and can be distinguished by associativities.
-
-Since x--++ is not legal, because x-- is not an lvalue, there's probably
-no real difference in the two different models of the same reality.
-
-However, pedantically, the macOS manual page is lying.  I've checked,
-and the FreeBSD and OpenBSD manual pages also lie about this.
-
-<https://man.openbsd.org/operator.7>
-<https://man.freebsd.org/cgi/man.cgi?query=3Doperator&manpath=3DFreeBSD+14.=
-0-RELEASE+and+Ports>
-
-Have a lovely day,
-Alex
-
->=20
->=20
+On 1/15/24 16:46, Alexey Gladkov wrote:
+> After 25b21cb2f6d6 ("[PATCH] IPC namespace core") and 4e9823111bdc
+> ("[PATCH] IPC namespace - shm") the shared memory page count stopped
+> being global and started counting per ipc namespace. The documentation
+> and shmget(2) still says that shmall is a global option.
+>
+> shmget(2):
+>
+> SHMALL System-wide limit on the total amount of shared memory, measured
+> in units of the system page size. On Linux, this limit can be read and
+> modified via /proc/sys/kernel/shmall.
+>
+> I think the changes made in 2006 should be documented.
+>
+> Signed-off-by: Alexey Gladkov <legion@kernel.org>
+> Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+> Link: https://lkml.kernel.org/r/ede20ddf7be48b93e8084c3be2e920841ee1a641.1663756794.git.legion@kernel.org
+> Signed-off-by: Eric W. Biederman <ebiederm@xmission.com>
 > ---
->=20
->=20
-> ```
->=20
->=20
-> OPERATOR(7)             Miscellaneous Information Manual            OPERA=
-TOR(7)
->=20
->=20
-> NAME
->      operator =E2=80=93 C operator precedence and order of evaluation
->=20
->=20
-> DESCRIPTION
->            Operator                        Associativity
->            --------                        -------------
->            () [] -> .                      left to right
->            ! ~ ++ -- - (type) * & sizeof   right to left
->            * / %                           left to right
->            + -                             left to right
->            << >>                           left to right
->            < <=3D > >=3D                       left to right
->            =3D=3D !=3D                           left to right
->            &                               left to right
->            ^                               left to right
->            |                               left to right
->            &&                              left to right
->            ||                              left to right
->            ?:                              right to left
->            =3D +=3D -=3D etc.                    right to left
->            ,                               left to right
->=20
->=20
-> FILES
->      /usr/share/misc/operator
->=20
->=20
-> macOS 12.7                        June 9, 1993                       macO=
-S 12.7
->=20
->=20
-> ```
->=20
->=20
-> ---
->=20
->=20
-> ```
->=20
->=20
-> operator(7)            Miscellaneous Information Manual           operato=
-r(7)
->=20
->=20
-> NAME
->        operator - C operator precedence and order of evaluation
->=20
->=20
-> DESCRIPTION
->        This manual page lists C operators and their precedence in evaluat=
-ion.
->=20
->=20
->        Operator                            Associativity   Notes
->        [] () . -> ++ --                    left to right   [1]
->        ++ -- & * + - ~ ! sizeof            right to left   [2]
->        (type)                              right to left
->        * / %                               left to right
->        + -                                 left to right
->        << >>                               left to right
->        < > <=3D >=3D                           left to right
->        =3D=3D !=3D                               left to right
->        &                                   left to right
->        ^                                   left to right
->        |                                   left to right
->        &&                                  left to right
->        ||                                  left to right
->        ?:                                  right to left
->        =3D *=3D /=3D %=3D +=3D -=3D <<=3D >>=3D &=3D ^=3D |=3D   right to=
- left
->        ,                                   left to right
->=20
->=20
->        The following notes provide further information to the above table:
->=20
->=20
->        [1] The  ++  and -- operators at this precedence level are the pos=
-tfix
->            flavors of the operators.
->        [2] The ++ and -- operators at this precedence level  are  the  pr=
-efix
->            flavors of the operators.
->=20
->=20
-> Linux man-pages 6.03              2023-02-05                      operato=
-r(7)
->=20
->=20
-> ```
->=20
-> ----- End forwarded message -----
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
-> Looking for a remote C programming job at the moment.
+>   Documentation/admin-guide/sysctl/kernel.rst | 14 +++++++++++---
+>   1 file changed, 11 insertions(+), 3 deletions(-)
+>
+> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+> index 6584a1f9bfe3..bc578663619d 100644
+> --- a/Documentation/admin-guide/sysctl/kernel.rst
+> +++ b/Documentation/admin-guide/sysctl/kernel.rst
+> @@ -594,6 +594,9 @@ default (``MSGMNB``).
+>   ``msgmni`` is the maximum number of IPC queues. 32000 by default
+>   (``MSGMNI``).
+>   
+> +All of these parameters are set per ipc namespace. The maximum number of bytes
+> +in POSIX message queues is limited by ``RLIMIT_MSGQUEUE``. This limit is
+> +respected hierarchically in the each user namespace.
+
+This block is about mqueue, not about SHM.
+
+Could you mention the change also in the change description.
+
+And: It is not fully clear to me what you mean with "respected 
+hierarchically"
+
+>   
+>   msg_next_id, sem_next_id, and shm_next_id (System V IPC)
+>   ========================================================
+> @@ -1274,15 +1277,20 @@ are doing anyway :)
+>   shmall
+>   ======
+>   
+> -This parameter sets the total amount of shared memory pages that
+> -can be used system wide. Hence, ``shmall`` should always be at least
+> -``ceil(shmmax/PAGE_SIZE)``.
+> +This parameter sets the total amount of shared memory pages that can be used
+> +inside ipc namespace. The shared memory pages counting occurs for each ipc
+> +namespace separately and is not inherited. Hence, ``shmall`` should always be at
+> +least ``ceil(shmmax/PAGE_SIZE)``.
+>   
+>   If you are not sure what the default ``PAGE_SIZE`` is on your Linux
+>   system, you can run the following command::
+>   
+>   	# getconf PAGE_SIZE
+>   
+> +To reduce or disable the ability to allocate shared memory, you must create a
+> +new ipc namespace, set this parameter to the required value and prohibit the
+> +creation of a new ipc namespace in the current user namespace or cgroups can
+> +be used.
+
+cgroups are an alternative to which part of the sentence?
+
+"prohibit the creation of a new ipc namespace"? or to the whole sentence?
+
++To reduce or disable the ability to allocate shared memory, you must
++ * create a new ipc namespace, set this parameter to the required value and
++   prohibit the creation of a new ipc namespace in the current user namespace
++ * use cgroups
 
 
+--
 
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+     Manfred
 
---lM1nsHbaJaA5DEYL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmWq/pAACgkQnowa+77/
-2zIovw/6AtX4IKRGPuBprSTxBFQOwSHL0P64GU9uQEXTbEra/IEmJgyqPXu2Tc9m
-ipn60GOvR/qLew8//u/ZtinD4SgWuXxIZdu5e0lUDkEHPgVjXyISFuexW0eN86+O
-ZjLXVuahAzdUTT9VUv1dKRSHs8+tBoHV4iYKE/9hp5QIqOukp25G73M3mfWaZCPt
-0BCNDZs5sbpR1Qgrd8psRfD34+hT06joQwNmsrdtcvFvoXqBVldPWpPmtOSDMHTD
-IEekrMHt704aUJ1c88mkz82NAg9WPCTrQtMUrJJBNgDbIAt+ZB6i+H2YbEWGcq1X
-KuqCBWl0buhMeeaxTvq8pGITA/HhCbPDhW3+v2xuXG5nOd3bQEkMBrnCUqHDLGpR
-WlcxiB9BrcG43G9i5BSURlJiL9hGVdYLi4FQyyCuKF7ClwOVU9aISLzioYTDe0c2
-GXGjdOKD1detcUyAF+t1K1QN56Jslp/OvGkh4zkhHfyvN0KsCs6cFVoCY7wJUO0R
-JObfmHwE6BvfrfHjWci4XCvRQHFkaC67hPp34D3jX/D1UTysZJ+pclhQa4bvci+O
-7UscbNUUkT9t7dKTrVP9EibpNNB3vEKgGMdEDroc5SPkwp91k+G04JUduzI2lVim
-RQ0FCGDwW3FgguSR13vtAAaTXrN+GhMch8zA+xg0w7+1/dvuqIA=
-=mI4W
------END PGP SIGNATURE-----
-
---lM1nsHbaJaA5DEYL--
 
