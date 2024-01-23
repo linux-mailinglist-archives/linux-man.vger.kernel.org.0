@@ -1,90 +1,75 @@
-Return-Path: <linux-man+bounces-397-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-398-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58926838CE8
-	for <lists+linux-man@lfdr.de>; Tue, 23 Jan 2024 12:06:45 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97DD4839112
+	for <lists+linux-man@lfdr.de>; Tue, 23 Jan 2024 15:16:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DBBEEB26AE3
-	for <lists+linux-man@lfdr.de>; Tue, 23 Jan 2024 11:06:42 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3947F1F24D4F
+	for <lists+linux-man@lfdr.de>; Tue, 23 Jan 2024 14:16:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DED095EE6E;
-	Tue, 23 Jan 2024 11:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="USgscW41";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nAzM78jn";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="USgscW41";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nAzM78jn"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 784575FB92;
+	Tue, 23 Jan 2024 14:14:35 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D2D5EE65
-	for <linux-man@vger.kernel.org>; Tue, 23 Jan 2024 11:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9680D605C9;
+	Tue, 23 Jan 2024 14:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1706007882; cv=none; b=CznuTy/DlFSTyIG/ET1HtJGJ3dI2O3g8RJq56BwX+El8Zc2XijIHDm9fe/tSCmTZhHbquW/UaAu1KeQYOItZba+gsu+zDGfqy+65ccfWguBunqirMGSu3nUezV3EEGuKmZGf9UfVbZBRV7NEAn/YRWln78/VeCL87DxieomzBXs=
+	t=1706019275; cv=none; b=UKerg12Ywsb3ZQAW/TyL/tJlfGFmR1G2K+Rw60keDc6lbyIEhORNxwiI9yMtYxkikP7yDAbrgGVby5vKI4GVpz2LfJRxO0x+YH7g9ycIOlXTN5i+Dms12o5mzNWTwZJMdrCfqYClZbOZyox0ieNWKOKQQDYIY0kDEJrJJgHUpzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1706007882; c=relaxed/simple;
-	bh=T7kYMVDzr4AuqffYmDqdPZtkxi6gMq6gt9Uqxq1MP98=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QQ3sNpIW9DcvS1V97BxQMMJVZthArhv1J5wGE8qh4uP2NzS+edzxyyyA0x9uGEe1iWDd2TH6b7jGkvhyfJOWRxOZz0BgCtaVnvmOB2N/OTph1pK7n9Lz3SQmfT6pa4SURlaQd911MueaGgW3nTgZkFMSCcmj2xr+HQ1QwlqgCyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=USgscW41; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=nAzM78jn; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=USgscW41; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=nAzM78jn; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 485331FD4E;
-	Tue, 23 Jan 2024 11:04:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1706007876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=pKcpVqG5FBq/jTG8UAFVfI7hmGZPD52EPFvou2iDPHE=;
-	b=USgscW41CV1X/AVSdNa+I0Tmsf77Gi3QIK1UFVt6rseiGKdEfkbOv99yelID9JI1+hD8du
-	F62+bd+D/7GQOOxKdLGTE6wPQWVyPccPSCxzonE279Kl58bM3I5Rc3VwffTKXuYfl9M0CN
-	t6xKosJeqjskSU+tKL4zx3NUif4utKo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1706007876;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=pKcpVqG5FBq/jTG8UAFVfI7hmGZPD52EPFvou2iDPHE=;
-	b=nAzM78jnYx5zqNS+j3slvgi3QSTlnLpQifLNdC1HQHfoUbn65mRx9A0z7HMoQGTJrOvHen
-	KP4d/ELW5OK/QLCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1706007876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=pKcpVqG5FBq/jTG8UAFVfI7hmGZPD52EPFvou2iDPHE=;
-	b=USgscW41CV1X/AVSdNa+I0Tmsf77Gi3QIK1UFVt6rseiGKdEfkbOv99yelID9JI1+hD8du
-	F62+bd+D/7GQOOxKdLGTE6wPQWVyPccPSCxzonE279Kl58bM3I5Rc3VwffTKXuYfl9M0CN
-	t6xKosJeqjskSU+tKL4zx3NUif4utKo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1706007876;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=pKcpVqG5FBq/jTG8UAFVfI7hmGZPD52EPFvou2iDPHE=;
-	b=nAzM78jnYx5zqNS+j3slvgi3QSTlnLpQifLNdC1HQHfoUbn65mRx9A0z7HMoQGTJrOvHen
-	KP4d/ELW5OK/QLCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12061136A4;
-	Tue, 23 Jan 2024 11:04:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Wts9AUSdr2U9JQAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Tue, 23 Jan 2024 11:04:36 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: linux-man@vger.kernel.org
-Cc: Petr Vorel <pvorel@suse.cz>,
-	Alejandro Colomar <alx@kernel.org>
-Subject: [PATCH 1/1] README: Use kernel.org URL
-Date: Tue, 23 Jan 2024 12:04:24 +0100
-Message-ID: <20240123110424.169915-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1706019275; c=relaxed/simple;
+	bh=aLNrXaxt98R5cd0HEJoYciC+5vGvHwIt2upVpsfT5Tg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hmXU6sfb4LbGJW6NEVH+Y4khsCQtovcuVrjnoKsWvqFweD/00R8NYD2hhDLeixoT9pOqP0Rj4ChT4JO9+YUKYV5K5IfZrAsqKVFmmlna896jpO042/rZl/DWhm2buj3PYOywZzUY8rJ1KvlJhWwhrgZrQSC8p003+Sj387Moqn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.95)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1rSHXV-0006I0-Hz; Tue, 23 Jan 2024 15:14:09 +0100
+Received: from p5dc556fd.dip0.t-ipconnect.de ([93.197.86.253] helo=z6.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.95)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1rSHXV-0046LF-9X; Tue, 23 Jan 2024 15:14:09 +0100
+Received: from glaubitz by z6.fritz.box with local (Exim 4.96)
+	(envelope-from <glaubitz@physik.fu-berlin.de>)
+	id 1rSHXU-00Fl8i-2t;
+	Tue, 23 Jan 2024 15:14:08 +0100
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: linux@roeck-us.net
+Cc: amir73il@gmail.com,
+	arnd@arndb.de,
+	christian@brauner.io,
+	dhowells@redhat.com,
+	fweimer@redhat.com,
+	kzak@redhat.com,
+	linux-api@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	mattlloydhouse@gmail.com,
+	mszeredi@redhat.com,
+	raven@themaw.net,
+	torvalds@linux-foundation.org,
+	viro@zeniv.linux.org.uk,
+	inux-sh@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] add listmount(2) syscall
+Date: Tue, 23 Jan 2024 15:14:08 +0100
+Message-Id: <20240123141408.3756120-1-glaubitz@physik.fu-berlin.de>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <75b87a85-7d2c-4078-91e3-024ea36cfb42@roeck-us.net>
+References: <75b87a85-7d2c-4078-91e3-024ea36cfb42@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -92,71 +77,35 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: ***
-X-Spamd-Bar: +++
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=USgscW41;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nAzM78jn
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [3.49 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 R_MISSING_CHARSET(2.50)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 BROKEN_CONTENT_TYPE(1.50)[];
-	 TO_DN_SOME(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.cz:+];
-	 MX_GOOD(-0.01)[];
-	 MID_CONTAINS_FROM(1.00)[];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: 3.49
-X-Rspamd-Queue-Id: 485331FD4E
-X-Spam-Flag: NO
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-https://kernel.org/pub/ is redirected to
-https://mirrors.edge.kernel.org/pub/, but it's better not rely on that
-and use the primary URL.
+Hi Guenter,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- README | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> with this patch in the tree, all sh4 builds fail with ICE.
+> 
+> during RTL pass: final
+> In file included from fs/namespace.c:11:
+> fs/namespace.c: In function '__se_sys_listmount':
+> include/linux/syscalls.h:258:9: internal compiler error: in change_address_1, at emit-rtl.c:2275
+> 
+> I tested with gcc 8.2, 11.3, 11.4, and 12.3. The compiler version
+> does not make a difference. Has anyone else seen the same problem ?
+> If so, any idea what to do about it ?
 
-diff --git a/README b/README
-index 115e9f53a..974bd7564 100644
---- a/README
-+++ b/README
-@@ -60,7 +60,7 @@ Files
- 
- Versions
-    Distribution
--       <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/>
-+       <https://kernel.org/pub/linux/docs/man-pages/>
-        <https://www.alejandro-colomar.es/share/dist/man-pages/>
- 
-    Git
-@@ -69,7 +69,7 @@ Versions
- 
-    Online man-pages
-        PDF
--             <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/>
-+             <https://kernel.org/pub/linux/docs/man-pages/book/>
-              <https://www.alejandro-colomar.es/share/dist/man-pages/>
-        HTML
-              <https://man7.org/linux/man-pages/index.html>
--- 
-2.43.0
+I'm not seeing any problems building the SH kernel except some -Werror=missing-prototypes warnings.
 
+I'm using gcc 11.1 from here [1].
+
+Adrian
+
+PS: Please always CC linux-sh and the SH maintainers when reporting issues.
+
+> [1] https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/11.1.0/
+
+--
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
 
