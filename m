@@ -1,176 +1,187 @@
-Return-Path: <linux-man+bounces-400-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-401-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F0348392BD
-	for <lists+linux-man@lfdr.de>; Tue, 23 Jan 2024 16:31:53 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FEBC83B778
+	for <lists+linux-man@lfdr.de>; Thu, 25 Jan 2024 04:01:18 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E029C28F481
-	for <lists+linux-man@lfdr.de>; Tue, 23 Jan 2024 15:31:51 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D3EF1281372
+	for <lists+linux-man@lfdr.de>; Thu, 25 Jan 2024 03:01:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B42F5FEEA;
-	Tue, 23 Jan 2024 15:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EA2D1FBF;
+	Thu, 25 Jan 2024 03:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DIczFLLD"
+	dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="rNxeHR97"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8803A5FDCC;
-	Tue, 23 Jan 2024 15:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B68C67C5D
+	for <linux-man@vger.kernel.org>; Thu, 25 Jan 2024 03:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1706023905; cv=none; b=uMGTkS/rmnceTwxKTZYSvWBwcQWTm7IQrK8vizQQ2KioddCOS8nP9Gyv61tahPoZgMRyg0ifPxUEVzT+mo+QYFTqI253RopITErcfmFGNKtuKvsdDVvLwexrlf0fI4Ta/a5hY7qb8Id3JNY0cF3Nk6BqgrmOYwBDcWsskMy96jk=
+	t=1706151672; cv=none; b=qjA3TawdjPmzaWX54UWwK0oQuLcg/orUQ+eLpGM/k1W2JKHAfoGAMZIxhvRIfacoLm/KMCC+eHevg0fsm8iAmxGk5m44ijBp84BCzxqJeeq89Ez33rnLe98l1vHGH04td0pZawAG/uZYIyUIwSpFpHoTmKXi/ztwU2MGXGHDgdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1706023905; c=relaxed/simple;
-	bh=KDaoRV0eKV7wZbluaMRluVN/vPekXj0tkeALmiOmmgA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BbISaTwYHPZpR6IrdjG/nmge0nGaN29euQm5D2xn5w5bHju37QO9d1O22OX/ne7EdBk0CcGSuJPUzXnXtdU/0ytO8hZ0J50EPEeSujjfBJmkmta4oibY+QprbwQSmvzhFHMVoZDIioQtBfTsH3gVD8Gn1KpXSdZNIas0mrrG0VM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DIczFLLD; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-1d7354ba334so24482615ad.1;
-        Tue, 23 Jan 2024 07:31:43 -0800 (PST)
+	s=arc-20240116; t=1706151672; c=relaxed/simple;
+	bh=YKJqSNHg0lQqKBdCnkjK7wni1MBj16O0YdqLK8wa7Bo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sJOowdAlWNtBd0xJxDmb9xnGpvL+Ae/kEagqifE0JQKxaWlnlZCqTym23n+rJA8wUw0I+SS5bCYqyZ07RQHxMmmavGf8Bmjjol4jZZ3cMfXnBPjhVlgZQ3s5dTTq1HGjWEALIhc4JpHYyEsTaWS/AyQE44Eyc6aKqZZMMwJflzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com; spf=pass smtp.mailfrom=rivosinc.com; dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b=rNxeHR97; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rivosinc.com
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-6dc6f47302bso2909524b3a.1
+        for <linux-man@vger.kernel.org>; Wed, 24 Jan 2024 19:01:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706023903; x=1706628703; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=gVQYuY1wAsb0lZkdDLo7ZZwqO8C1mBLFz+bqzd2EPWU=;
-        b=DIczFLLDT5lCISHZZM81NRkJch1CDPVDBu6qfgZ7m0i4sq99FRvipnbxYlOVRxl56k
-         IvOf9CUpMb79uy6oXRD23+BNhmzEeEJIuup5+T8PxPjGUOZY6q8J6CT4khxL6DZ5cZ3X
-         umw4Gi2GGjkiIS9/HIpkHJ3L7HW8X7+q0hl7tfu2OGEiTyaLp87DgzkEAQG0dDXwjM9t
-         TLhoy2MUG8j/C1IehGYssLpt0I3y0764v1vl2wxSg+JFBYMhyxVab8JJNPdPCMkjsOwe
-         l6DJb+h2Fj+jRqHDrbX4RcQihOI5Hl37xtll9np/F+YuhYrjBdOC98xr2tac0e+Ow/zm
-         2HxQ==
+        d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1706151670; x=1706756470; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=USFK4k1MNuOFXgUKs/YA5fmXMxC0XeqCOn9kV2MrpbM=;
+        b=rNxeHR97qn5P8+RdVjMwQx1+GzoeFw7lQmRe0FGECZhzIgR4ZVB0i0WxMuEzrrTEIf
+         MUBl08yQxG+8UMP+niGUyv/3GXi/AYhsL3rmUFvKz1B0TFQ+j5ixwlcRI7hVpWHifXzC
+         Utg5hnkzsLwsmxFLmuW4LYhPYRZe1rVzJInv5P1NfhSNagScWsUidujsYVErvEml+G1l
+         g1i6m2/l8ye3RAMQLy2wov1NJoI/1W9NA0L5do/K+kLGROrNMnzLuFve3b9EQ4YAVOWN
+         rw3LcC+IeNsM5o1l3ypZPtcTE/UNFbTesS66PSIwq2x3MRKsp4s+ZQ5AFYuzlrk8aIhr
+         FSkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706023903; x=1706628703;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1706151670; x=1706756470;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gVQYuY1wAsb0lZkdDLo7ZZwqO8C1mBLFz+bqzd2EPWU=;
-        b=GQ0INk00tdjozFjvSIYxf5mASIh9hRaofC1Tv/AaKBW5Owv9ysoUCp51xAmRHYaOsh
-         4chzpTJWzLB7QZ8KKIaOZH/Vqx5YGKp7JfMSsj5sfpH6iOfwY5Ml3Y+OWET9tVocHXM5
-         9Ne+PI5a/ATgvi+ORYXYflvvjef43EjC8Jdxc5sf3nUP1pW0mxKvdkiYsBjAQbdp3CAm
-         6N7aTaad2yUcTGamgwp7iRShe+ABMytP2wcXzFWs48SdyuGD5RRWWg6o/i2nNs2iA/Au
-         KVqiYmwyOr5HFafmJ8PhAx3ZPuOYfsYmiyMnLod2F4qM4j3F72UZfjCVL9iVqkDn2ETO
-         kGww==
-X-Gm-Message-State: AOJu0YwBSyAB9vKhf40cPGPjJLVOwvWFIdum8bIPaQnxVG5tGiu3PQk6
-	icDkmXi14qhLyxy1GKGa8UwvIpPu70m2dCw75n7z4BnbKR8T/e1e
-X-Google-Smtp-Source: AGHT+IH4M3Di3WKbSkQ3C933j91CVk8PGOYnHYhEF3dzeKYP+s23xUhxWCkK2+1PnBqw/qwl4u3cUA==
-X-Received: by 2002:a17:903:248:b0:1d4:e0e:fa1b with SMTP id j8-20020a170903024800b001d40e0efa1bmr8050423plh.57.1706023902809;
-        Tue, 23 Jan 2024 07:31:42 -0800 (PST)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c? ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
-        by smtp.gmail.com with ESMTPSA id jz8-20020a170903430800b001d70ea12485sm8420465plb.209.2024.01.23.07.31.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jan 2024 07:31:41 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <a8989437-f862-44e0-834f-8eded025ef5d@roeck-us.net>
-Date: Tue, 23 Jan 2024 07:31:39 -0800
+        bh=USFK4k1MNuOFXgUKs/YA5fmXMxC0XeqCOn9kV2MrpbM=;
+        b=Ljegr2EHIuCDVeJVLn4ULSlOWqcDvK5RVtxqKRyyqTtiatkleAfOD4tjVca8Ea1yRa
+         Pj5PbAqGL6y0HGzDCYI4L0YAIVx5Uo9kyAxPg8/sVjZQGJmQnY1xAJUiYQduz93LyXb7
+         EzwPNzb1LfbqSyyE+fbC8BQGXdSv7lITnOK+EB/X4wPla7uZhRMT8LCK3SqTs9Aygeli
+         tHbFlwqVRnpTuBRD8IMD3T3glGFWaO67/Js6uRaKBMzB6FMf79Gr2pdCmbInxMAWz+kU
+         g7/rZWvm/66EZPJrOn0YC7OTfMEXzKWqICv7iweBufC0IqeYrJJODywd6wN0W1bttA40
+         D3Lg==
+X-Gm-Message-State: AOJu0YxZn39SEPEMwINnvrPTsclO1LfTn3YZ7k2AiQb0KdvYyQtpSnDM
+	KcskoMoS2P9ci4OEd37iXqcfrNwnp2U6eNXGNZZ5Nh2+wkxKuObTZNc2VvyQNPwEZAU1HTYDjDZ
+	hCK0=
+X-Google-Smtp-Source: AGHT+IH3yX9p96PkRUjm3ksyKSSqJ5IAdycBW0xkDuIgO8lVcRugMbXFEIe0QFmwlV74FyhX1fu3rw==
+X-Received: by 2002:a05:6a20:728e:b0:19a:e211:112d with SMTP id o14-20020a056a20728e00b0019ae211112dmr530079pzk.22.1706151670509;
+        Wed, 24 Jan 2024 19:01:10 -0800 (PST)
+Received: from [127.0.1.1] ([2601:647:5700:6860:c623:c231:5ff6:8a4d])
+        by smtp.gmail.com with ESMTPSA id i18-20020aa79092000000b006d9a7a48bbesm14470021pfa.116.2024.01.24.19.01.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jan 2024 19:01:09 -0800 (PST)
+From: Charlie Jenkins <charlie@rivosinc.com>
+Date: Wed, 24 Jan 2024 18:59:04 -0800
+Subject: [PATCH] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/6] add listmount(2) syscall
-Content-Language: en-US
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: amir73il@gmail.com, arnd@arndb.de, christian@brauner.io,
- dhowells@redhat.com, fweimer@redhat.com, kzak@redhat.com,
- linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
- linux-security-module@vger.kernel.org, mattlloydhouse@gmail.com,
- mszeredi@redhat.com, raven@themaw.net, torvalds@linux-foundation.org,
- viro@zeniv.linux.org.uk, inux-sh@vger.kernel.org
-References: <75b87a85-7d2c-4078-91e3-024ea36cfb42@roeck-us.net>
- <20240123141408.3756120-1-glaubitz@physik.fu-berlin.de>
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
-In-Reply-To: <20240123141408.3756120-1-glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20240124-fencei_prctl-v1-1-0bddafcef331@rivosinc.com>
+X-B4-Tracking: v=1; b=H4sIAHfOsWUC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDQyMT3bTUvOTUzPiCouSSHN1kI5OURCMzE2Njc0sloJaCotS0zAqwcdG
+ xtbUAiD1oJF4AAAA=
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org, 
+ Charlie Jenkins <charlie@rivosinc.com>
+X-Mailer: b4 0.12.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1706151669; l=3320;
+ i=charlie@rivosinc.com; s=20240124; h=from:subject:message-id;
+ bh=YKJqSNHg0lQqKBdCnkjK7wni1MBj16O0YdqLK8wa7Bo=;
+ b=R1Zpw92BgwtTmwpgug6vszHmffLay9H1KXqe2+oHgFMw0YtRpqX7zVd7cRANIzUfRzXNPNbeZ
+ 2YGzwtr5S5rA/jCB0lgZxowoCB2ToU93IGY7Omwbl8gksWQgBNNmtH1
+X-Developer-Key: i=charlie@rivosinc.com; a=ed25519;
+ pk=eVndo3OHViAjwuqHqbJB4ZtzJzzvk/r6fUf84tZ3rw4=
 
-On 1/23/24 06:14, John Paul Adrian Glaubitz wrote:
-> Hi Guenter,
-> 
->> with this patch in the tree, all sh4 builds fail with ICE.
->>
->> during RTL pass: final
->> In file included from fs/namespace.c:11:
->> fs/namespace.c: In function '__se_sys_listmount':
->> include/linux/syscalls.h:258:9: internal compiler error: in change_address_1, at emit-rtl.c:2275
->>
->> I tested with gcc 8.2, 11.3, 11.4, and 12.3. The compiler version
->> does not make a difference. Has anyone else seen the same problem ?
->> If so, any idea what to do about it ?
-> 
-> I'm not seeing any problems building the SH kernel except some -Werror=missing-prototypes warnings.
-> 
+I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX flag
+for prctl(2) to LKML. It has been reviewed and is expected to land
+during the Linux version 6.9 merge window. This adds the relevant
+documentation from that patch.
 
-The problem has been fixed thanks to some guidance from Linus. I did disable
-CONFIG_WERROR for sh (and a few other architectures) because it now always
-results in pointless build failures on test builds due to commit 0fcb70851fbf
-("Makefile.extrawarn: turn on missing-prototypes globally").
+Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
+---
+I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX
+flag for prctl(2) to LKML. It has been reviewed and is expected to land
+during the Linux version 6.9 merge window.
+---
+ man2/prctl.2 | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-> I'm using gcc 11.1 from here [1].
-> 
-> Adrian
-> 
-> PS: Please always CC linux-sh and the SH maintainers when reporting issues.
-> 
+diff --git a/man2/prctl.2 b/man2/prctl.2
+index f1604a7cb..2889a7195 100644
+--- a/man2/prctl.2
++++ b/man2/prctl.2
+@@ -1147,6 +1147,64 @@ For further information, see the kernel source file
+ (or
+ .I Documentation/security/Yama.txt
+ before Linux 4.13).
++.\" prctl PR_RISCV_SET_ICACHE_FLUSH_CTX
++.TP
++.BR PR_RISCV_SET_ICACHE_FLUSH_CTX " (since Linux 6.9, RISC-V only)"
++Enable/disable icache flushing instructions in userspace. The ctx and the
++scope can be provided using
++.IR arg2
++and
++.IR arg3
++respectively. When scope is set to
++.B PR_RISCV_SCOPE_PER_PROCESS ,
++all threads in the process are permitted to emit icache flushing
++instructions. Whenever any thread in the process is migrated, the
++corresponding hart's icache will be guaranteed to be consistent with
++instruction storage. Note this does not enforce any guarantees outside of
++migration. If a thread modifies an instruction that another thread may
++attempt to execute, the other thread must still emit an icache flushing
++instruction before attempting to execute the potentially modified
++instruction. This must be performed by the userspace program.
++.IP
++In per-thread context (eg. scope is set to
++.B PR_RISCV_SCOPE_PER_THREAD )
++, only the thread calling this function is permitted to emit icache
++flushing instructions. When the thread is migrated, the corresponding
++hart's icache will be guaranteed to be consistent with instruction storage.
++.IP
++On kernels configured without SMP, this function is a nop as migrations
++across harts will not occur.
++.IP
++The following values for
++.IR arg2
++can be specified:
++.RS
++.TP
++.BR PR_RISCV_CTX_SW_FENCEI_ON " (since Linux 6.9)"
++Allow fence.i in userspace.
++.TP
++.BR PR_RISCV_CTX_SW_FENCEI_OFF " (since Linux 6.9)"
++Disallow fence.i in userspace. All threads in a process will be affected
++when scope is set to
++.B PR_RISCV_SCOPE_PER_PROCESS .
++Therefore, caution must be taken -- only use this flag when you can
++guarantee that no thread in the process will emit fence.i from this point
++onward.
++.RE
++.IP
++The following values for
++.IR arg3
++can be specified:
++.RS
++.TP
++.BR PR_RISCV_SCOPE_PER_PROCESS " (since Linux 6.9)"
++Ensure the icache of any thread in this process is coherent with
++instruction storage upon migration.
++.TP
++.BR PR_RISCV_SCOPE_PER_THREAD " (since Linux 6.9)"
++Ensure the icache of the current thread is coherent with instruction
++storage upon migration.
++.RE
+ .\" prctl PR_SET_SECCOMP
+ .TP
+ .BR PR_SET_SECCOMP " (since Linux 2.6.23)"
 
-When reporting anything in the linux kernel, it is always a tight rope between
-copying too few or too many people or mailing lists. I have been scolded for both.
-Replying to the original patch historically results in the fewest complaints,
-so I think I'll stick to that.
+---
+base-commit: a81e893f2b9316869e6098c3a079c30a48158092
+change-id: 20240124-fencei_prctl-c24da2643379
 
-Guenter
+Best regards,
+-- 
+Charlie Jenkins <charlie@rivosinc.com>
 
 
