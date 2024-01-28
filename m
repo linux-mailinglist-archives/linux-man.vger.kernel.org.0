@@ -1,118 +1,102 @@
-Return-Path: <linux-man+bounces-404-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-405-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B78083F9DE
-	for <lists+linux-man@lfdr.de>; Sun, 28 Jan 2024 21:27:53 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD36983F9E1
+	for <lists+linux-man@lfdr.de>; Sun, 28 Jan 2024 21:37:44 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5909E1C213BC
-	for <lists+linux-man@lfdr.de>; Sun, 28 Jan 2024 20:27:52 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 766F01F21A61
+	for <lists+linux-man@lfdr.de>; Sun, 28 Jan 2024 20:37:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EA0133CE7;
-	Sun, 28 Jan 2024 20:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PfYsM2PU"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AD6518E07;
+	Sun, 28 Jan 2024 20:37:40 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D286D3BB5E
-	for <linux-man@vger.kernel.org>; Sun, 28 Jan 2024 20:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0AF2D05C
+	for <linux-man@vger.kernel.org>; Sun, 28 Jan 2024 20:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1706473667; cv=none; b=tfTFd1XRmB6shywqDiWtLbF67amM8C6TDmFCRqGoR5evur6vFTvWR5fektYbuJ1b6vuknjq2HYbC5rjJI2jxLIawS+VDK5y6xAXjIpkPPg8RVJD0vxbQPbBMdR7NyK14EicK9zKhjqEy8C1YjLTKmoCTbWfGs4wRuqKiqTH5klc=
+	t=1706474260; cv=none; b=Q1zsDroF/awf0v43lAjWW1FVSi0OhEiCkYeX0U1Wy8cPlMPizfMDvH8WAdVlQzJI9D+Yapf/O+W9xptsK0vBkbzvKmozTgCpY1M6UF5xui6cqgIXyFJyTDVIarTEvsSXkoSAmaXnsLpY8ZLxJfScCCyPLdxjRWoDcbAmJqSSXZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1706473667; c=relaxed/simple;
-	bh=EO+xUEob8/STLoX1eH24UawVvp+9mcUlPZJBOGQn/LA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=daD2F0COziDfz2SqSTZDKQK3sIO8DLRpB2fJg923ISng6QndARijtYkyZFn/VZrhkV2148FbhnzKdjut+qAO758u1rePAzXOA1vVutNCFjjl2ebDeDef6hR4lqggnWZHWBVuModvQbOwqts1OeR+M47m0DBbe1p5MOwwxLpDPnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PfYsM2PU; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52D36C433F1;
-	Sun, 28 Jan 2024 20:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706473667;
-	bh=EO+xUEob8/STLoX1eH24UawVvp+9mcUlPZJBOGQn/LA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PfYsM2PUMQf7jFc+dsWUtFk8INnO1ST3YLQmWZEAv95FTys6SncyO860hA9V1PMij
-	 eA7tCa77y0udsY0ISXs//cLxXgbfl0htO5EDc3vwLqQy5k9rB3PRNsbdl9YKWn7rmc
-	 RZeVJb3lWhz0f0Jwm3JGGGCQ0l1uDUvYde06TrqooouvxskRm92JUJ3HR4/nCN5JEW
-	 MVENe6Vpef+MdzFqfIWYo0MZpb669pttsagyj/XtY90kRvPr1pzpNFYTx3gba/Ppnx
-	 FMVKbiUatv9p1kW0wLKEipDAYkUlkzriCmSGevj9J6QBnXG01q5/SEQIuCu8DJrtFX
-	 dTJff6tKxQQ+g==
-Date: Sun, 28 Jan 2024 21:27:43 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page adjtime.3
-Message-ID: <Zba4wP-oe-7gF-9o@debian>
-References: <ZUJaZJzhUkuDV_Fs@meinfjell.helgefjelltest.de>
- <ZUJ6JnryG7BnDf5P@debian>
- <ZaAiIziggN9w2Y_Q@meinfjell.helgefjelltest.de>
- <ZaBzlVVjMx0DvATK@debian>
+	s=arc-20240116; t=1706474260; c=relaxed/simple;
+	bh=pj4kX27q56AgP3Ji2iGj7u4R5ShAm6pdZWhOsSx/DL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dZOG32pqUHm7Lywk3O6Gf51K45Nemu3d5O770R9r8xIwAMcf3Rw5w3b4AbCkN+9W7b7tbOdu8sKARklvlMnksOqDlKDRDn5ZopJt0Dpp/k/E6/ie3DdoNcJ2AlvOfEOHjnWp2v4nYsrYPhX3hltiLXGCE9mtwFQJwiON2nmwc7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; arc=none smtp.client-ip=142.132.201.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 0000000000020126.0000000065B6B9DB.0017F6AD; Sun, 28 Jan 2024 20:32:27 +0000
+Date: Sun, 28 Jan 2024 20:32:27 +0000
+From: Helge Kreutzmann <debian@helgefjell.de>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: alx.manpages@gmail.com, mario.blaettermann@gmail.com,
+  linux-man@vger.kernel.org
+Subject: Re: Issue in man page charsets.7
+Message-ID: <Zba5242LqrOMhIMU@meinfjell.helgefjelltest.de>
+References: <ZUJaZXoT9HQxRY1r@meinfjell.helgefjelltest.de>
+ <ZU_YU1RKZa1SR6Qo@debian>
+ <ZU_ZvgyEddvKasYd@meinfjell.helgefjelltest.de>
+ <Zba3ngoZKI494iXB@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="viEd3HGO+2PIYWNw"
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-1570477-1706473947-0001-2"
 Content-Disposition: inline
-In-Reply-To: <ZaBzlVVjMx0DvATK@debian>
+In-Reply-To: <Zba3ngoZKI494iXB@debian>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
 
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
---viEd3HGO+2PIYWNw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--=_meinfjell-1570477-1706473947-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jan 2024 21:27:43 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page adjtime.3
 
-Hi Helge,
+Hello Alex,
+thanks for keeping on track. And no, in German we say "good things
+need a while". So I'm happy that you still have/had them on the list.
 
-On Fri, Jan 12, 2024 at 12:02:45AM +0100, Alejandro Colomar wrote:
-> > Ok, then I mark this "WONTFIX" for now, so I don't report this again.
->=20
-> Re-reading it now, I think your report makes sense.  I'll fix it.
+Greetings
 
-Fixed:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D5f971ca8d6d9974d5c5e4c369841027f7edd47ca>
-
-Thanks for the report!
-
-Have a lovely night,
-Alex
-
-
+           Helge
 --=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
 
---viEd3HGO+2PIYWNw
+--=_meinfjell-1570477-1706473947-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmW2uL8ACgkQnowa+77/
-2zLFig//csAISY0oHO/2TPotKEAiqTmtO5EQVwyrBIJneq+Ljz5C1G5QJJCwx6QG
-dB/KgPAhRWpuBUacJcHj41QXIGVxicGneBRIzscl8IKvFU28MfTPS5RiLMPrxJQH
-jn78EEja6e/2GLEKsQihyPCc8H55JE8bEeqb1wX77eI+EDU/qhndvy7cLCKCu0m+
-xV/IaoqppoMLJtvKZWLOAypLkeefTCEDclXHnvZhA1htRyG95flIp3gRVQ8vYNP0
-DtgbIlKpUC12PIJJeIfdEti99pkc0Y9QKgocd0+R/k9rUKy6+a6WdMaKlLuY6puj
-r6Tej8YPzGvm/z//mOxhY9vYXKHVvAm7LuWNg6bve9QeiOTW8ZHd/aewj8E8Y6qF
-RGN7MM+1YwJOwihmA/Wf4VhAVGDqb8Ue4NYJ61fAI144AnAjrx3Gevn13x81p8yd
-taJziA22hl2YnNVhOG4t6JN2Nb+us60opf6PRkumVEUg8RjIPgyYIOlf6zDnSyqe
-e53+8TOC0lMz2bwnqPGzIAkzywUpgZ1FhcqVqm3wgLmhsg7rGSvP0fJaT3uBwzh6
-PHVvtGdWtAmvNk2cyBRNLRrygg9/xG17nFaaPyEDJT5FBkmDGLqFFD2ByrhEnDIZ
-dB10KNRa5TF9l49jYPEg0dxP4IKAC3WhtMtCy60/jTip27mfC+Q=
-=imTJ
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmW2udQACgkQQbqlJmgq
+5nAg+g/+M/vYq5HxI6k8hsDGYcBYnins9/fgQ5bnRgpe+D9YXtprCLt79Hf0y7Q0
+ccP/6yo7JFJ73960UBzLSCF3x/AJ14jqu6ay2SiFo+tI1/lGfNUaV+82HUhlO6ti
+3YNlDdQo0rFyrb+q8wimbf1emjA8fYv2p1oVuk/3suj1/87HpnqRSjli/haGeY/4
+hmFETDjzdAdShFUnOGKi07mB9YSon6alHnKtGXra6sY/g67Tk+f6sik66KKdnPbM
+luANhr/ifoCCBGhfufhuYIapTsMQ1HydpIRP1ey5NMenqmCjrl68BqJ/IkfGYNq+
+nu5um8hIeETMjVJjjL9jChEz3xvDqzn/UCisq3v2O0M7bxPFbyJSanajjtxfBJlB
+kLN2c4tTuW6CC02lWOlthG77xEcrne3/s97ReOvtOqDKsfyBqhbuW0PXSFblyf+F
+qV+WDqmd5O31AVy+2ot+P0ABoVKtjycJ/3/UW3EHzNpcoBnzW9VW9Abk1IIFV9ue
+OjNGxC4EGjEDcvhHLGldz8/XzAgy0m7ovpQ3OiRkrPdesbSVhgfyUpOJBDp3VwHj
+52KfVwOhvzBjKeALp+S3eph0TzZGEGbSVq5QCl+jM/7RBEu89kJkLMg348v3DV+O
+akuGbp/XE+o8SUwjy7QZ/RS/0BfoLdvdWQD2Dh9fs/x0bbYKo9I=
+=czZO
 -----END PGP SIGNATURE-----
 
---viEd3HGO+2PIYWNw--
+--=_meinfjell-1570477-1706473947-0001-2--
 
