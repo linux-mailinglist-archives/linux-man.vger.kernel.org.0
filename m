@@ -1,115 +1,135 @@
-Return-Path: <linux-man+bounces-406-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-407-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D66A840504
-	for <lists+linux-man@lfdr.de>; Mon, 29 Jan 2024 13:29:10 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FEA284799E
+	for <lists+linux-man@lfdr.de>; Fri,  2 Feb 2024 20:27:55 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3473F1F22922
-	for <lists+linux-man@lfdr.de>; Mon, 29 Jan 2024 12:29:10 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B79222868FD
+	for <lists+linux-man@lfdr.de>; Fri,  2 Feb 2024 19:27:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9392E605A4;
-	Mon, 29 Jan 2024 12:29:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06D7215E5C6;
+	Fri,  2 Feb 2024 19:27:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he8/KpuO"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dp+45JPM"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5228860864
-	for <linux-man@vger.kernel.org>; Mon, 29 Jan 2024 12:29:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93E315E5C4
+	for <linux-man@vger.kernel.org>; Fri,  2 Feb 2024 19:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1706531345; cv=none; b=cdhmV13nxtc4Af3E+ITklbLyVrWb6bGi3vpk1alS82onv4+smYKxNSpduDz03LKj5KEqalH54OA7Cyykou7rFLhHqbzqPZbR3PXpm57/4kASTli/MffqCHNWnp5KjL/R5JvItdsflRe4sEbcZU4qhbeEz+CIf4DLRx/qAtVBH+M=
+	t=1706902069; cv=none; b=j66ENDNt10BvHO6WxVQk4mPyAvrU/1EtuSaIR+SgKmgDvTq1xyv7u4zweshWF1H/gCvhaq7+Sc2i5Z7A6d4Mb7B5bitlu/9S0tJFy3D2PwBustsgpm1iqWMt9boK/6/sElNMAjPhrcxJXk5SzmRm+HCXOliUNkkGcQpkqNiJy+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1706531345; c=relaxed/simple;
-	bh=ajZh90lH8QevyOICr4GL+JvCp+231nrFlOEGuWO0bSg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kLyJR1cy6Skk1bH42a4Ccshy26TMRS5bCYMbdd1fpC9Dds5S7/njloveOWsb92jfuSfzYN157p7ws7458sYbcEemxC9srTyjjsKW1HbUxoBeP2D4UUzSsEALiBxNpfphebOnzzBrhUo6EKbj70kdnECDXCY8jAW1Ny8W+5Amn2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he8/KpuO; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10BF1C433F1;
-	Mon, 29 Jan 2024 12:29:03 +0000 (UTC)
+	s=arc-20240116; t=1706902069; c=relaxed/simple;
+	bh=WziukWOBvUTqTxJojcSZnuC9blPu3IcovlM1BMs2zgc=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fr9C8OMFOmojgagwBRhsX5f8nBcoxvk5ZPoz6y8DHDLs8tfQVNQJwF+EH3Siz2/0J7Tn5T5xvnLh+O5hGqvUIYkxQQAOv3NLPh99Z2ZPnD/geohZrnqdeBHYq1F7VIOollXq8aADeHZ+g4ybxH6DIlt5+jyIKIdPBvK673lc6RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dp+45JPM; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 34234C433F1
+	for <linux-man@vger.kernel.org>; Fri,  2 Feb 2024 19:27:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706531344;
-	bh=ajZh90lH8QevyOICr4GL+JvCp+231nrFlOEGuWO0bSg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=he8/KpuOc38gMEbWCaWD7MEwZRLWe5d2rul8Aqagq6fCKCc/H400k9VEQG4dC8fqO
-	 QaCdOulxOAKvFrvE0bPLigjv36cXmvG09YFXjHsrc/owllpmTlNcM2zq9wWr3bRA9J
-	 Su9qUx9ZJxBmvUylkiZOyyLtSabILAPcgVL5NoCeUIBGIC9AiK0U80Hs7Q1c/NSjfM
-	 LrKu5F27XWMJtMXqiJPIT6vqrtk3Obx9sN3heLe0R1tFl0Ok8ijz8JwivIHsmnpkvi
-	 ljFvFlkmow5yWNm913RZkgkwqEVNXoe/Vdh6+zmvEz2FnhldBuoAtYge14RSHXZOY6
-	 6SZ9/JblDFqRg==
-Date: Mon, 29 Jan 2024 13:29:01 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthew House <mattlloydhouse@gmail.com>
-Cc: Morten Welinder <mwelinder@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: frexp man page: FLT_RADIX vs. 2
-Message-ID: <ZbeaDXji8UYuxHiW@debian>
-References: <CANv4PNkqQBPn_oyfdYZfOck-7gGwzP6YPPA9hDaiaJPUj+c3xw@mail.gmail.com>
- <ZZS9LDDna5lnjA_K@debian>
- <20240103035053.212096-1-mattlloydhouse@gmail.com>
- <ZZTbQ7X8HDkRhSaV@debian>
+	s=k20201202; t=1706902069;
+	bh=WziukWOBvUTqTxJojcSZnuC9blPu3IcovlM1BMs2zgc=;
+	h=From:To:Subject:Date:From;
+	b=Dp+45JPMa2eNryFYDOh7AcwMQPqvasYhSLU2/MPnLwVH0+U25EB4JMHCl3pzc0FdV
+	 nud1z2wYLKhwCeAR8cArKztrkp7OWQ2Gw2D5baLklUjAQZqhsQJYAO1bC5Oz+YsMos
+	 fnrL73R31CpmS68tKTvAZAq7R+Y/ih6KBkhs8AhBDuDxj94uVwMP235aU3dzFmf3DK
+	 kwXu5u1y1EMHM9lon3V13ZK0oCZhGjtBzCSOEBhdfuB+v/Tnm33v8txVDxraMcBAdw
+	 zYOTF0sMzrpx7wHtcNwmLVBappf5YikvqcGgQOKBB4zm+6Mu5wLGGyFgBPQyov9/dc
+	 juquO6FmNpbIg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 2216FC53BD3; Fri,  2 Feb 2024 19:27:49 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 218452] New: small clarification clock_getres HISTORY section
+Date: Fri, 02 Feb 2024 19:27:48 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: cquike@arcor.de
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-218452-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KCkJ0mumDLY2+Ok8"
-Content-Disposition: inline
-In-Reply-To: <ZZTbQ7X8HDkRhSaV@debian>
+
+https://bugzilla.kernel.org/show_bug.cgi?id=3D218452
+
+            Bug ID: 218452
+           Summary: small clarification clock_getres HISTORY section
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: low
+          Priority: P3
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: cquike@arcor.de
+        Regression: No
+
+In version 6.04 of the man pages, under the HISTORY section of clock_getres=
+(2)
+it is mentioned the following:
+
+"       On  POSIX  systems  on  which  these  functions  are  available, the
+symbol _POSIX_TIMERS is defined in <unistd.h> to a value greater than 0.  T=
+he
+symbols _POSIX_MONOTONIC_CLOCK,
+       _POSIX_CPUTIME, _POSIX_THREAD_CPUTIME indicate that CLOCK_MONOTONIC,
+CLOCK_PROCESS_CPUTIME_ID, CLOCK_THREAD_CPUTIME_ID are available.  (See also
+sysconf(3).)  POSIX.1-2008  makes
+       these APIs mandatory.
+"
+
+At first read I got the impression that _POSIX_MONOTONIC_CLOCK,=20=20=20=20=
+=20=20
+_POSIX_CPUTIME, _POSIX_THREAD_CPUTIME are also mandatory. However only
+_POSIX_TIMERS is mandatory, while the others are still optional according to
+the the POSIX online documentation of the last standard ([1], under 2.1.3 P=
+OSIX
+Conformance).
+
+I would suggest to change it slightly to make clear that only _POSIX_TIMERS=
+ is
+mandatory in POSIX.1-2008 but _POSIX_MONOTONIC_CLOCK,       _POSIX_CPUTIME,
+_POSIX_THREAD_CPUTIME are not and therefore portable applications cannot re=
+ly
+on those clocks to be available without checking for the corresponding symb=
+ols
+first.
 
 
---KCkJ0mumDLY2+Ok8
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jan 2024 13:29:01 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthew House <mattlloydhouse@gmail.com>
-Cc: Morten Welinder <mwelinder@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: frexp man page: FLT_RADIX vs. 2
-
-Hi Morten, Matthew,
-
-On Wed, Jan 03, 2024 at 04:57:55AM +0100, Alejandro Colomar wrote:
-> Hmm, then it's a bug in the manual page.  The function is curiously
-> defined in terms of 2 regardless of what FLT_RADIX is.  I'll fix it
-> tomorrow, unless anyone wants to send a patch for it before that.
-
-Finally fixed:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D2=
-b0b48b0acb2a18a640123117f330f5cae8ccba0>
-
-Have a lovely day,
-Alex
+[1] The Open Group Base Specifications Issue 7, 2018 edition
+https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap02.html
 
 --=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+You may reply to this email to add a comment.
 
---KCkJ0mumDLY2+Ok8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmW3mg0ACgkQnowa+77/
-2zLNWxAAmdrAg+M9bhxNdfMx4n6/xCqRyH3vRMLne4O1arrLPVVFS0GvfUiEqOnR
-uOigsbH6P4NlxOZfBdcETIENat4Yl7U2kkzCRtP0kjganf85aIT9cX+auPLV1NfH
-9m5+J6MrZ0FZCBbr0uYnUBeo0tqnRcxejZaJP/aKLJiGNYUTLH5YDpikkjGdsiV+
-e15C2hByT4m6TQwlHr6cQ2+ILGhfphfMaZ4c3QlVpp7VQvTIDoHEMj+qheFV7Uce
-/Oxqnb1vBja32EvWRa+Sv/fDcEfjElOpqrcKvwKTyBJKnHY+lBJTHhz0N1A5kPKV
-6QF4FksXOZchN5MczgQ0yT0tmBroB6LWPi/+uzasGOiyW0v8dhBEj0nvSHv0NcBl
-iKLR3LeKUkgV2oRl1BcDKSqj9vBpb2xykocIipoG3EkoPHiXZDqSheryiavwpJ3d
-VdI6DhJcVVoeLjaDaPZ6u+ZS6vrlbktTng3dfj+GyF8sHL82TfhtZMuTuyofQ8G7
-wc+72IPfrLxcnIBe2TRU818Enhl23Pwjf0OZVzH+0wS+3gd/GQw5U0WTETv3yuOo
-np9f7/cURC4Xw/0CY0W1nrq4rDpFNvJqm75xUtMkho+2QUq1RAkCoo0LKYnwAQFs
-8B6cRTQ7v0LIsbP4VZW9g5epaRaY3ctcxfjxypBwg7wlwtfrbqM=
-=p1AI
------END PGP SIGNATURE-----
-
---KCkJ0mumDLY2+Ok8--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
