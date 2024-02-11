@@ -1,56 +1,54 @@
-Return-Path: <linux-man+bounces-417-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-418-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74CB84E9CA
-	for <lists+linux-man@lfdr.de>; Thu,  8 Feb 2024 21:43:41 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D03B850ACE
+	for <lists+linux-man@lfdr.de>; Sun, 11 Feb 2024 19:23:35 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 054561C2336E
-	for <lists+linux-man@lfdr.de>; Thu,  8 Feb 2024 20:43:41 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 1AD16282D79
+	for <lists+linux-man@lfdr.de>; Sun, 11 Feb 2024 18:23:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A53CE44C73;
-	Thu,  8 Feb 2024 20:43:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB2CB5D492;
+	Sun, 11 Feb 2024 18:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="i76whFIa"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anYKuiIc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B764BAB5
-	for <linux-man@vger.kernel.org>; Thu,  8 Feb 2024 20:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B33B5D480
+	for <linux-man@vger.kernel.org>; Sun, 11 Feb 2024 18:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1707425017; cv=none; b=XMUcUw+BrDJLg5GFHUJVRjnrkfwIMq14dXkyTPC3hbcnOPGZs4PbyJMcfK741eVrc0PHKiPjjZmvp8r2jHcORT843Rp/K09txvLqmaseQU/uPgndrEDHjuOKdysb+Xpi8jKJCp8uNMscVlW+8DX+99eYeCI3JzM1UqRgFPMBVGo=
+	t=1707675806; cv=none; b=l4vzb9c5KJ4tyLIoqzMNLq8vCVgXCB2SekqnFjEsTtWCKuGJKquJlk0UZMhvChad8jrjqmL1hDkFeLo1t7oJ8yElAg+6AQ6AcGNeij91kuxQUqJl5DvyiKD60IDuu32uA3EsKFYV5MjLb7cyFYOI8knnp5EHXmttUgWgZUDa+oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1707425017; c=relaxed/simple;
-	bh=L52+68LWwwTOH1dgPKd7M74booiurCNkMtGk00rSzto=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Ym1VxHsmAg6fF+Q2LLSJQRmnld+pW0ugZMUw5nzEnIxDIB6GAsCREGh1GJlZt831DFa/T6XC+BIYEmaH7VXyisL1DzA+Ezv7pOHwlnW643C9z2BKxU7S0FB8aOknAnF9PmAwjhB36sxaO5EOX1ya5Z20owp21ZkFTjcubeDvKqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=i76whFIa; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202305; t=1707425001;
-	bh=L52+68LWwwTOH1dgPKd7M74booiurCNkMtGk00rSzto=;
-	h=Date:From:To:Cc:Subject:From;
-	b=i76whFIaTw4CWYHsrM5B5vJvqwTkiXlmyRj8MXbVEeU/EcdfqNHaZLORr/KWw89vR
-	 YPzQkxZs+KBBzUe9Flh/HIZzKa6oQ+Nmqj+SLsWLGOYojFv0CtmH4A/NnFRJmeeBVG
-	 uziCKJzQlPrNGIGEY/ksmUKtOAx1nYanzJhNYXWNPF9S+Hp9J8I7dIxSjyV0+w3XUa
-	 yHekjzwiQSY1N9hPlqA3LQatporwV9sGy1ds57nacsTGYdjHxN1L7mUow6GFdmr3zO
-	 Se1dU3IXjC3gAak2S/I6LJGpeBpTuZ4YsKM0IHwbspIH5+kAXEwkqs059Ej+g9/yi/
-	 oTJD/BBX/4PAQ==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6F32312EC;
-	Thu,  8 Feb 2024 21:43:21 +0100 (CET)
-Date: Thu, 8 Feb 2024 21:43:21 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH] pthread_create.3: re-do the architecture/default stack size
- mapping
-Message-ID: <4wwe76cvuczjn57bzw7wd4derfaufcgrxr5skvlu25wvwecmmh@tarta.nabijaczleweli.xyz>
+	s=arc-20240116; t=1707675806; c=relaxed/simple;
+	bh=3iy8NCZ/ak8pPME2fjSlAjgLy+Ww7FirkPoS1TfCGQA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l/7/ysis6vmcGv9Il8LWkkZfZYAXPcAfV/YjhEx9a4CLMfrSpSLlRKWlLTwgC7/iY3x1iZzpROdXS8Zlv0sJ4/atNKWwrbleVoKs2awRL4Mhl3+rfbhKQo12CEUWr9YT3mJ6/xpMWoamRCyPUsnGou8ckbzG7qdpwpyLWPT8AdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anYKuiIc; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3573CC433F1;
+	Sun, 11 Feb 2024 18:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707675806;
+	bh=3iy8NCZ/ak8pPME2fjSlAjgLy+Ww7FirkPoS1TfCGQA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=anYKuiIczSxRWm/4C0ZQmsno1d3wPg8sMA7yY1+EKV1V0/J18RsZA9EvpyYRSkCRv
+	 tSAHvC4D97VIWE1A8YZYOvS6dGLoW+jKEHyQq8bDK7dirucoH7e0rvfO3aWWuRo/Ol
+	 2clucPMlHaFyt/r/wsrj/4euZ/aC5o5X9feXAi4GOglBGNjYjW2ttH89vHRHpp1nsz
+	 PiSmgcy5JqmaCgXAb5g9QetsEfezgXROj2HTHCiiwwmTjGRu6lERUMowqr6Jh844z2
+	 DGqJTE/1ST+v5TjNQdJa2nk/LuJlKuS4lyuMR5zp8EnZdl6xrz6z+GupjmJJP4GqZJ
+	 VVB4Yymev39Tg==
+Date: Sun, 11 Feb 2024 19:23:22 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?5a2f5pWs5ae/?= <mengjingzi@iie.ac.cn>
+Cc: linux-man@vger.kernel.org, alx.manpages@gmail.com
+Subject: Re: Recommendation for Adjusting Command Categorization in Manual
+ Pages
+Message-ID: <ZckQmoQvBn3GXX3i@debian>
+References: <4199785d.2f13.18cf3132e26.Coremail.mengjingzi@iie.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,107 +56,100 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="53jtziau5cmp3wtm"
+	protocol="application/pgp-signature"; boundary="QAbQWLEBKCVY1XRE"
 Content-Disposition: inline
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
+In-Reply-To: <4199785d.2f13.18cf3132e26.Coremail.mengjingzi@iie.ac.cn>
 
 
---53jtziau5cmp3wtm
-Content-Type: text/plain; charset=utf-8
+--QAbQWLEBKCVY1XRE
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Sun, 11 Feb 2024 19:23:22 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?5a2f5pWs5ae/?= <mengjingzi@iie.ac.cn>
+Cc: linux-man@vger.kernel.org, alx.manpages@gmail.com
+Subject: Re: Recommendation for Adjusting Command Categorization in Manual
+ Pages
 
-Currently, the page lists 2 of the 3 x86 architectures, no ARM(!),
-old PowerPC only, and most egregiously itanium,
-which linux doesn't target.
+Hi Jingzi!
 
-Per glibc 2.38:
-  $ git grep ARCH_STACK_DEFAULT_SIZE
-  aarch64     #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  arc         #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  arm         #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  csky        #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  loongarch   #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  m68k        #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  microblaze  #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  mips        #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  nios2       #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  or1k        #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  riscv       #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  s390        #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  sh          #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  sparc32     #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
-  x86         #define ARCH_STACK_DEFAULT_SIZE  (2 * 1024 * 1024)
+On Wed, Jan 10, 2024 at 07:12:49PM +0800, =E5=AD=9F=E6=95=AC=E5=A7=BF wrote:
+> Hi! I hope this message finds you well.
+>=20
+> We have identified an issue in the categorization=20
+> of certain commands in the man-pages and would like=20
+> to bring it to your attention.
+>=20
+> Upon testing on Debian 11, we observed discrepancies=20
+> between the stated privilege requirements in the manual=20
+> pages and the actual behavior of some commands.=20
+>=20
+> According to the introduction pages, commands in section=20
+> 8 require superuser privileges to run, but we found some=20
+> commands that do not necessitate superuser privileges for=20
+> execution:
+> lnstat, findfs, blkid, lsblk, lsmod, lspci, modinfo,=20
+> isosize, lastlog, tzselect, zdump, getcap, getpcaps,=20
+> mklost_found, tracepath.
+>=20
+> These commands predominantly query system information and=20
+> do not involve sensitive resources.
+> For example, lnstat print Linux network statistics, the=20
+> statics comes from /proc/net/stat which could be read by=20
+> anyone. Lastlog reports the most recent login users, the=20
+> similar commands like last, printky and users are all in=20
+> section 1. And it is clearly stated in tracepath(8) that=20
+> the command does not require superuser privileges.
+>=20
+> The introduction of section 1 claims that those commands=20
+> to be user commands, but some commands require superuser=20
+> privileges to run:=20
+> dumpkeys, fgconsole, kbdindo, kbd_mode, showkey,=20
+> deallocvt, tcpdump, chage, gpasswd, mesg, mkfifo.
+>=20
+> These commands manipulate special resources like keyboards,=20
+> virtual terminals and pipes. Notably, tcpdump exists in both=20
+> Section 1 and Section 8, but it can only be used with privileges.
+>=20
+> To enhance clarity and align with the intended privilege=20
+> requirements, we recommend adjusting the categorization of these
+> commands. This adjustment will ensure that users referring to=20
+> the manual pages can accurately configure command permissions=20
+> without unnecessary use of privileges and contribute to a more=20
+> intuitive and accurate manual page structure.
+>=20
+> Best regards,
+> Jingzi
 
-  alpha       #define ARCH_STACK_DEFAULT_SIZE  (4 * 1024 * 1024)
-  powerpc     #define ARCH_STACK_DEFAULT_SIZE  (4 * 1024 * 1024)
-  sparc64     #define ARCH_STACK_DEFAULT_SIZE  (4 * 1024 * 1024)
+Could you please suggest a specific patch to the manual pages?
 
-  hppa        #define ARCH_STACK_DEFAULT_SIZE  (8 * 1024 * 1024)
+Have a lovely day,
+Alex
 
-  ia64        #define ARCH_STACK_DEFAULT_SIZE (32 * 1024 * 1024)
-
-I cut PA-RISC and the Alpha. They have 10 and 6 popcon entries,
-respectively, and AFAICT they haven't seen a processor released
-in over a decade =E2=80=92 they aren't relevant to any modern reader.
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man3/pthread_create.3 | 19 ++-----------------
- 1 file changed, 2 insertions(+), 17 deletions(-)
-
-diff --git a/man3/pthread_create.3 b/man3/pthread_create.3
-index 66c67a6ff..fd6253bf4 100644
---- a/man3/pthread_create.3
-+++ b/man3/pthread_create.3
-@@ -200,23 +200,8 @@ .SH NOTES
- If the
- .B RLIMIT_STACK
- resource limit is set to "unlimited",
--a per-architecture value is used for the stack size.
--Here is the value for a few architectures:
--.RS
--.TS
--allbox;
--lb lb
--l r.
--Architecture	Default stack size
--i386	2 MB
--IA-64	32 MB
--PowerPC	4 MB
--S/390	2 MB
--Sparc-32	2 MB
--Sparc-64	4 MB
--x86_64	2 MB
--.TE
--.RE
-+a per-architecture value is used for the stack size:
-+2 MB on most architectures; 4 MB on POWER and Sparc-64.
- .SH BUGS
- In the obsolete LinuxThreads implementation,
- each of the threads in a process has a different process ID.
 --=20
-2.39.2
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
 
---53jtziau5cmp3wtm
+--QAbQWLEBKCVY1XRE
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmXFPOkACgkQvP0LAY0m
-WPGdkQ/7Bx6EUHlZs9yzCE2iOQaFWpJ68sqSkbNKrZhNOjVkN90CNekjcATGYYj/
-YX1LOmElxtUBjwxw8JAvP5NeVa+SZ7GoSiYvjbPRwiDyn6ci6aTee+38zaANwS+c
-/k2qfY53IuqlXBaKKmzxkYu1WxgKfWBCpudLTe4Jk4+9FM8hJO1NiwIjkU5OzPcO
-2uYDNSdKXR8KmHPvaThiNHcXTVVkTylrkGLuy4Lctt3ixI/i/hX9M94EMWpgxrOI
-lDtIrUsef1mYlYBipGey38qh8nEaFOrmM5Hziyov7NZhBu3Ry8MXRRRJw4rg63pq
-VBt5YGCam1/3QU5sXMdTO1DhMs5Nb2Zgpkc8yr52s3IvEbI0FO7Lcsx4iVq++V09
-0u+J2G7mO6CjIFY1Ev4geC91u4D6w4qgub86zWxxeL5+NGxzX7KWU02vlMk1qPMp
-e5yChue2+49sHp3AjOr+gYiUqfntQVwkNwGCbeKiU1ywLGHSclaaA9jfvHDhQAIu
-3GdaSR4Xdp2dyFP8xooBC3MKT6fHswAKoVE/6ZKDIHxrOdKRaT4m4NYScWaFzQ7a
-W6BJvQzoHminxHjmRUy1fzAZt9g8RW/kn9umGdMh8MiopzD2oK9Z6JA4wp8jfXRM
-G/3Bwcq1w3XVUmtJBJ8f7fiIx2RsoF3SQaufwOw7Ak7VPgSwCt4=
-=fK/E
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXJEJoACgkQnowa+77/
+2zJKvg//VbosTnLmkI7Pen3oYIW3EeaDYWxWMnV+kr/tSOt7D0LS+mC0j9VuXPPZ
+Y38BmiYP9esuu8up79aBOFHr4ymLoeHxvsAFtRQyNX4wozmfcApod8rwlQK7oRsu
+PhlgyWx2/mmm/rtlEbCDnqy43S4MzLFcB4wjgSiBR5aQExakHlZ1QJA2x8Q9iruI
+xruDssdbQrIhP/4RUCHfZy53RfZko2n7NSihZ3GnP/DQDtnW0Fa02d4fDjkiGAqm
+7R7McFWWXnYqrpAsC9NcPRam3fMUkSmD/LSEV4tS1mvdTBOe/47kQmBKxLqQcFB9
+UW7SmiuxG+pX7i/PKd9nQ0ISa0VMi8wE/hKHtOGTYqbwUNr54JtGcbmmZ1muyfg1
+5AWMFG+ZlnGmPd1D963zlVKnj9hHQHIp9eH847ZYNjTJB5+qAsQwtlcm2gQC+L+r
+DOtktU9vvcOJmy2YNTU7Q9IhoLtJC2DhPcokDo797EzJJ2hp8YIIJ4P1mW8gOQkU
+Aa5AMJOv4V2XJNVagjJpXX7GosFm+vJdwlJIUnLdU+9JMDz9J7nB4i+EK/RdUaHO
+JmeeKVY0EiFQXh46sBLNZwc+XRZsdw6rtvyRMbBfykb3SFrnbYD2NfJwGSr9anrW
+Wo/yI0/lEH0QEgbNe5AsBCbWoaE4hqUPHyZqVJWfNzWvAATbZgs=
+=jKdc
 -----END PGP SIGNATURE-----
 
---53jtziau5cmp3wtm--
+--QAbQWLEBKCVY1XRE--
 
