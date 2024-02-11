@@ -1,53 +1,54 @@
-Return-Path: <linux-man+bounces-420-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-421-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1028850AD7
-	for <lists+linux-man@lfdr.de>; Sun, 11 Feb 2024 19:38:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCFD3850ADE
+	for <lists+linux-man@lfdr.de>; Sun, 11 Feb 2024 19:50:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AEF052822EC
-	for <lists+linux-man@lfdr.de>; Sun, 11 Feb 2024 18:38:53 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 88CE62829B2
+	for <lists+linux-man@lfdr.de>; Sun, 11 Feb 2024 18:50:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C4A61E4B8;
-	Sun, 11 Feb 2024 18:38:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7387741AAB;
+	Sun, 11 Feb 2024 18:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="daAVu5Oy"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rXGzIBLQ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D682BFC19
-	for <linux-man@vger.kernel.org>; Sun, 11 Feb 2024 18:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B15BFC19
+	for <linux-man@vger.kernel.org>; Sun, 11 Feb 2024 18:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1707676728; cv=none; b=I6Ao8hB7Q8kEHM7b3kPOKXMLcGFooa8s71KK29lXRr8o1BmAgYjPdBnfs8VV7A9k8peT8jYnzuW512e/riN+vUjB/IqQfW1PEbcWe930ZyfdYolzto86GE7z8pFfVXitfiwrVI3JUbsW/ZVyuNOCX28y2ZtuCa0uJM7k0Wo+KVQ=
+	t=1707677404; cv=none; b=MHqeMTwBBH+ZvO1WOhE3+rFBvAwWeeDFpDnHe+04FUP81NBaVVyZzAoKnqm554dAhfsfxv7D77e70nCjg+kJocxc49/CuwiI11DLRSLXPMKUzafNefp37EE3+VN+KlhJlt7G39yhLhDkFeDpMVluHYVJviVJPVe9N3Mg+iKsMZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1707676728; c=relaxed/simple;
-	bh=qOJfcESHQL1d441ra7I9O0Z6TNamEBKhdhJbYcYaFV4=;
+	s=arc-20240116; t=1707677404; c=relaxed/simple;
+	bh=73VHoLUSyrI5oWQZN4dZSxDRXSCxo+SbyXFOtjDh9tc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=idS6pxE99qsSQctkD2n1RIEsAibFZmtzBsvniza133XmGbC2RiMTAUqYeDisguehGAC7Xj2rt8V1A1+SVh6Gzok5uGmJNxW0F/pXeL09fCzrTpoOZ2wCyAnIVxWeuofWyKYdX2tJpDjd3kAeAcCPVMWyRyI7CDS1uWp0gZNMgjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=daAVu5Oy; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D92C433C7;
-	Sun, 11 Feb 2024 18:38:47 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fg/Zh5qjqHhMsjINJkGBank7kovyZqKqGjTjTJ6IzK7ygnO/L10igILtYPjSgvSQPgKiJpV9ilYMJCFyol7iT1yk6d9MJt/6/VKwRS1RPsxHB9WJsysFGudNIznHL5eDwtFJESPlTjXzL1b9QK4bt/pSz3OfwWsJB35Ken+SgMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rXGzIBLQ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA198C433F1;
+	Sun, 11 Feb 2024 18:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707676728;
-	bh=qOJfcESHQL1d441ra7I9O0Z6TNamEBKhdhJbYcYaFV4=;
+	s=k20201202; t=1707677403;
+	bh=73VHoLUSyrI5oWQZN4dZSxDRXSCxo+SbyXFOtjDh9tc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=daAVu5OyFqYbgjLHIYpShkRgexgvqMr8DtsLiPD3RYTD+hemnR9B+WKY57z7hudu6
-	 XLmTYkJxvhmXhCOLe/21zOniSWBIoFlExRyoV1Vt+7lIxuRniWe54UDnStw/mEWJTn
-	 58LW3vWUYu+E75tTBjBrAzckqI1CiMFHDY9acFJ5cYHWsHzETRi2JK4eNKM2BzvcPd
-	 3iJbtoAooqqhiOqwei2HemBDJbcGMV5+9oY/2ww21n6+dv1Cg8PXIicDRoKCifYcUT
-	 47piHiPH8MLbb+lUfutsAvaTu3oKcp2JTFZh1fXFXO2Xo4xc+4Sk9efCjT62ba9lCQ
-	 /dUuAiXzuSYcQ==
-Date: Sun, 11 Feb 2024 19:38:39 +0100
+	b=rXGzIBLQ1uqnAP+KXUU9KPoSkzBBGmgBmBXNgJMGuhEz0J/oonBJ84gVbtPuud1kL
+	 P1bKxlJsl2meMXN4AkjhKKpIGBz5iamffuUsdVWwTLX/Sfkw0Qb59g60rigQXV4Dd4
+	 eu1cbLtVzU8HYNlXlqE7M5j+EpI3ZQK1WwUT5fb1ewp1Og43C/iKDf0IO6vkCrMeMe
+	 Ekao/F4tmbKzG/sWF7vWQpvwqvpYX0L5oXK+h+seiOudpHrymcS53yDkMmD8yddsUp
+	 N/ehUtBxng+1Jz3X1p/XyRCRev+DnGQRkHz+/WNMatg3BST4y5eO2UcPrssQz7YcJv
+	 zffSnbZlCj26Q==
+Date: Sun, 11 Feb 2024 19:49:53 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Charlie Jenkins <charlie@rivosinc.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
-Message-ID: <ZckUNXHtp2xkqr02@debian>
-References: <20240124-fencei_prctl-v1-1-0bddafcef331@rivosinc.com>
+To: Mark Wielaard <mark@klomp.org>
+Cc: linux-man@vger.kernel.org,
+	Alexandra =?utf-8?B?SMOhamtvdsOh?= <ahajkova@redhat.com>
+Subject: Re: [PATCH] close_range.2: Add _GNU_SOURCE and unistd.h to SYNOPSIS
+Message-ID: <ZckW2Kpxove_AcyG@debian>
+References: <20240207101706.224655-1-mark@klomp.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,210 +56,138 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FugM/HqXxhxKQG6c"
+	protocol="application/pgp-signature"; boundary="MF3LwJAMUUhKY6kq"
 Content-Disposition: inline
-In-Reply-To: <20240124-fencei_prctl-v1-1-0bddafcef331@rivosinc.com>
+In-Reply-To: <20240207101706.224655-1-mark@klomp.org>
 
 
---FugM/HqXxhxKQG6c
+--MF3LwJAMUUhKY6kq
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Feb 2024 19:38:39 +0100
+Date: Sun, 11 Feb 2024 19:49:53 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Charlie Jenkins <charlie@rivosinc.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
+To: Mark Wielaard <mark@klomp.org>
+Cc: linux-man@vger.kernel.org,
+	Alexandra =?utf-8?B?SMOhamtvdsOh?= <ahajkova@redhat.com>
+Subject: Re: [PATCH] close_range.2: Add _GNU_SOURCE and unistd.h to SYNOPSIS
 
-Hi Charlie,
+Hi Mark,
 
-On Wed, Jan 24, 2024 at 06:59:04PM -0800, Charlie Jenkins wrote:
-> I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX flag
-> for prctl(2) to LKML. It has been reviewed and is expected to land
-> during the Linux version 6.9 merge window. This adds the relevant
-> documentation from that patch.
+On Wed, Feb 07, 2024 at 11:17:06AM +0100, Mark Wielaard wrote:
+> close_range is defined in unistd.h when _GNU_SOURCE is defined.
+> The linux/close_range.h include file only defines the (linux specific)
+> flags constants.
 >=20
-> Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
-
-This patch triggers a few warnings:
-
-	$ make lint check -k
-	TROFF	.tmp/man/man2/prctl.2.cat.set
-	an.tmac:man2/prctl.2:1155: style: .IR expects at least 2 arguments, got 1
-	an.tmac:man2/prctl.2:1157: style: .IR expects at least 2 arguments, got 1
-	an.tmac:man2/prctl.2:1179: style: .IR expects at least 2 arguments, got 1
-	an.tmac:man2/prctl.2:1196: style: .IR expects at least 2 arguments, got 1
-	make: *** [share/mk/build/catman.mk:54: .tmp/man/man2/prctl.2.cat.set] Err=
-or 1
-	make: *** Deleting file '.tmp/man/man2/prctl.2.cat.set'
-	make: Target 'check' not remade because of errors.
-
-See <CONTRIBUTING.d/lint> for that.
-
+> Reported-by: Alexandra H=C3=A1jkov=C3=A1 <ahajkova@redhat.com>
+> Signed-off-by: Mark Wielaard <mark@klomp.org>
 > ---
-> I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX
-> flag for prctl(2) to LKML. It has been reviewed and is expected to land
-> during the Linux version 6.9 merge window.
-> ---
->  man2/prctl.2 | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++
->  1 file changed, 58 insertions(+)
+>  man2/close_range.2 | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index f1604a7cb..2889a7195 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -1147,6 +1147,64 @@ For further information, see the kernel source file
->  (or
->  .I Documentation/security/Yama.txt
->  before Linux 4.13).
-> +.\" prctl PR_RISCV_SET_ICACHE_FLUSH_CTX
-> +.TP
-> +.BR PR_RISCV_SET_ICACHE_FLUSH_CTX " (since Linux 6.9, RISC-V only)"
-> +Enable/disable icache flushing instructions in userspace. The ctx and the
+> diff --git a/man2/close_range.2 b/man2/close_range.2
+> index 380a47365..fd13ba645 100644
+> --- a/man2/close_range.2
+> +++ b/man2/close_range.2
+> @@ -11,7 +11,10 @@ Standard C library
+>  .RI ( libc ", " \-lc )
+>  .SH SYNOPSIS
+>  .nf
+> -.B #include <linux/close_range.h>
+> +.BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
+> +.B #include <unistd.h>
+> +.P
+> +.BR "#include <linux/close_range.h>" "  /* For the flags constants */"
 
-'ctx' isn't a common word.  The first time you mention it you should
-probably say what it means.  For example:  "The context (ctx) and
-the ..." and later just use ctx.
+It seems this page was written when there was still no wrapper in libc.
 
-> +scope can be provided using
-> +.IR arg2
+But I see that Michael and I did mention there's now a wrapper in glibc:
 
-This should be I, not IR.
+	commit 71a62d6c3c56b2cec56858f19b8b419c1355db17
+	Author: Alejandro Colomar <alx.manpages@gmail.com>
+	Date:   Sun Aug 8 10:41:33 2021 +0200
 
-> +and
-> +.IR arg3
-> +respectively. When scope is set to
+	    close_range.2: Glibc added a wrapper recently
+	   =20
+	    Fixes: c2356ba085ed4f748b81c0ceeba1811b4a549e1c
+	    Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+	    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
 
-Please use semantic newlines.  See man-pages(7):
+	 man2/close_range.2 | 5 -----
+	 1 file changed, 5 deletions(-)
 
-   Use semantic newlines
-     In  the  source of a manual page, new sentences should be started
-     on new lines, long sentences should be split into lines at clause
-     breaks (commas, semicolons, colons, and so on), and long  clauses
-     should be split at phrase boundaries.  This convention, sometimes
-     known  as  "semantic newlines", makes it easier to see the effect
-     of patches, which often operate at the level of  individual  sen=E2=80=
-=90
-     tences, clauses, or phrases.
+	commit c2356ba085ed4f748b81c0ceeba1811b4a549e1c
+	Author: Michael Kerrisk <mtk.manpages@gmail.com>
+	Date:   Mon Jul 12 03:23:46 2021 +0200
 
-> +.B PR_RISCV_SCOPE_PER_PROCESS ,
+	    close_range.2: Glibc 2.34 has added a close_range() wrapper
+	   =20
+	    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
 
-This should be BR, not B.  See groff_man(7).
+	 man2/close_range.2 | 1 +
+	 1 file changed, 1 insertion(+)
 
-> +all threads in the process are permitted to emit icache flushing
-> +instructions. Whenever any thread in the process is migrated, the
-> +corresponding hart's icache will be guaranteed to be consistent with
-> +instruction storage. Note this does not enforce any guarantees outside of
+Both of those commits forgot to update the SYNOPSIS.  So, please add the
+following tags to your commit message:
 
-'Note' is superfluous.  You can just remove that word.  "This does not
-enforce ...".
+Fixes: 71a62d6c3c56 ("close_range.2: Glibc added a wrapper recently")
+Fixes: c2356ba085ed ("close_range.2: Glibc 2.34 has added a close_range() w=
+rapper")
 
-> +migration. If a thread modifies an instruction that another thread may
-> +attempt to execute, the other thread must still emit an icache flushing
-> +instruction before attempting to execute the potentially modified
-> +instruction. This must be performed by the userspace program.
+>  .P
+>  .BI "int close_range(unsigned int " first ", unsigned int " last ,
+>  .BI "                unsigned int " flags );
 
-We say "user space"; two words (see man-pages(7)).  In this case, since
-it's an adjective, it would be "user-space", with a hyphen.
+And I notice the glibc wrapper is slightly different from the Linux
+kernel system call:
 
-> +.IP
-> +In per-thread context (eg. scope is set to
-> +.B PR_RISCV_SCOPE_PER_THREAD )
+	$ grepc close_range /usr/include/
+	/usr/include/unistd.h:extern int close_range (unsigned int __fd, unsigned =
+int __max_fd,
+				int __flags) __THROW;
 
-The comma should go with the parenthesis.  Otherwise, you'll see a
-spurious space in between.
 
-> +, only the thread calling this function is permitted to emit icache
-> +flushing instructions. When the thread is migrated, the corresponding
-> +hart's icache will be guaranteed to be consistent with instruction stora=
-ge.
-> +.IP
-> +On kernels configured without SMP, this function is a nop as migrations
-> +across harts will not occur.
-> +.IP
-> +The following values for
-> +.IR arg2
-> +can be specified:
-> +.RS
-> +.TP
-> +.BR PR_RISCV_CTX_SW_FENCEI_ON " (since Linux 6.9)"
-> +Allow fence.i in userspace.
+	$ grepc -tfl close_range ~/src/linux/linux/master/
+	/home/alx/src/linux/linux/master/include/linux/syscalls.h:asmlinkage long =
+sys_close_range(unsigned int fd, unsigned int max_fd,
+					unsigned int flags);
+	/home/alx/src/linux/linux/master/fs/open.c:SYSCALL_DEFINE3(close_range, un=
+signed int, fd, unsigned int, max_fd,
+			unsigned int, flags)
+	{
+		return __close_range(fd, max_fd, flags);
+	}
 
-"user space".
+The third parameter is an 'int' in glibc.  Please also update that.
 
-> +.TP
-> +.BR PR_RISCV_CTX_SW_FENCEI_OFF " (since Linux 6.9)"
-> +Disallow fence.i in userspace. All threads in a process will be affected
+Thanks for the patch.
 
-=2E
-
-> +when scope is set to
-> +.B PR_RISCV_SCOPE_PER_PROCESS .
-> +Therefore, caution must be taken -- only use this flag when you can
-
-Use \[em] for an em dash.  Although in this case I think ':' or ';'
-would be more appropriate.
-
-Also, I think 'only' would go better right before "when".
-
-> +guarantee that no thread in the process will emit fence.i from this point
-> +onward.
-> +.RE
-> +.IP
-> +The following values for
-> +.IR arg3
-> +can be specified:
-> +.RS
-> +.TP
-> +.BR PR_RISCV_SCOPE_PER_PROCESS " (since Linux 6.9)"
-> +Ensure the icache of any thread in this process is coherent with
-> +instruction storage upon migration.
-> +.TP
-> +.BR PR_RISCV_SCOPE_PER_THREAD " (since Linux 6.9)"
-> +Ensure the icache of the current thread is coherent with instruction
-> +storage upon migration.
-> +.RE
->  .\" prctl PR_SET_SECCOMP
->  .TP
->  .BR PR_SET_SECCOMP " (since Linux 2.6.23)"
->=20
-> ---
-> base-commit: a81e893f2b9316869e6098c3a079c30a48158092
-> change-id: 20240124-fencei_prctl-c24da2643379
->=20
-> Best regards,
-> --=20
-> Charlie Jenkins <charlie@rivosinc.com>
-
-Thanks for the patch!
-
-Have a lovely day,
+Have a lovely day!
 Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---FugM/HqXxhxKQG6c
+--MF3LwJAMUUhKY6kq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXJFC8ACgkQnowa+77/
-2zJcqQ//Syahg8aKDe0fOU/WLgvE1ajgCzTvtHaY4WDmA6q4TIOj9U8psyobslHN
-td0io8WSe1XI7kTpy56SyPRXK2cZqKed2aVbk8YPC4z6X3ltICY/2ewZO5WZfoIr
-MfiKOg5QUGSRcZKheMXj1KLySV0OMgRADZNU25Ak3+BS4+0ylrk2XgJ2EVdaY0DB
-Ar1uldCRl5FdpIACnM8mGphnz9WV6rL+9MTNQjxKH+MLVYddHTxIg1LEo4P1H+8u
-0Ia4kDW0BIssXmJxo2zRyfe+nn+v1zVb/wMSvGaUlJrJyLhwvwkNzgZ6iIyYXU21
-NQZ23XU2Oyp4jJZCFxX/ozGEfTa7hGMZeGxY/U+gsVrSxfy3pr5acWvw2B88nRXz
-BC5NnosBCT6A5whMIatSlsCpwabp3aM3EWIOKOERFLoNORtd8qLZ8K9r/i+6Vq1P
-wPC1z0RDloe8FP+44TYvKA2IG1N0S32KkCLlvZqhrljbD3bFEEkW48yC30126mUs
-LF79fFLwFwbp6wqWDtMQzPBDxdVRVUkbVJOcjvlfYcOPMyOwDTFud1KDCs2ZeVpS
-Cd6apYS5wnPTctQuuApSogwcxTBGnQyHlMZebf7AiHfqoOMsgsY4ZqmUEQyRJgG8
-9rlHgggwEPuo++2pB5o0TSAtFKdRbbrJd9NGdJUV+6rhADFFS1w=
-=NNxq
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXJFtIACgkQnowa+77/
+2zKl2xAAomBBwnKrrLSBFUhszciainVf/6nPdalo+ZVMX1IZeIS7+UHxRNC2nZec
+ETOvYUmSBBVtGLG2qBTt9CkQPPcL23gaxTNkC292vyhRt/HXZII3JS0Z/Z9amWKW
+K7/9/19m7XmvMwMJD+G7uj1Nruqv+6RA2AmjrhpARnaNhRrRocF/yvzwutCZ/pbc
+MbEd10KZmLcV3xLm0l+S8ert4ARdhVo/WVQ+s4s/17JqQM4UeqxZcIUHmMEoPKJ/
+mTyEtd7XP3TXcqQS5cZrs+kBbT6SFsHzXErVi0FR/SYOJtKyvc5uKx6Cdynn91u6
+R/l5TV/XZHfQZ3qYG/MN48ZPE2PiesAyPUEaCPVCxxrzYo0Chx5uSYt/rqpoESUQ
+jQau2ZV7hFFiasBK8zwVS0uvwv+CshwVBeqfo0W/HErXpz1ZmY8pCkYiipsoW1wt
+pQ/ne8W1hIYeVKa4/7rleSzjHrBnjfyvbACGA39amGM/dQcjttWL0i/zztHT1JXc
+mAY6glX/g2hON+hRCOGTaZvyTHcFrPJIAoPHtokn0S8GPXE8u2F4blE7ZJ2iUNrM
+kesDcBZUghPJf5h7C48WoJZB7ArpNkqxdzurWeuCDZhDE3BkFv/LhPc2BbdzhHnW
+xWG17O/U2K3jICrKuR7CogaxIkHjh+pFiKOMzF3i2ZloMQAlnxk=
+=ka7w
 -----END PGP SIGNATURE-----
 
---FugM/HqXxhxKQG6c--
+--MF3LwJAMUUhKY6kq--
 
