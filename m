@@ -1,52 +1,57 @@
-Return-Path: <linux-man+bounces-432-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-433-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C341C850CBE
-	for <lists+linux-man@lfdr.de>; Mon, 12 Feb 2024 02:44:30 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04948850CC0
+	for <lists+linux-man@lfdr.de>; Mon, 12 Feb 2024 02:49:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E031A1C22D6E
-	for <lists+linux-man@lfdr.de>; Mon, 12 Feb 2024 01:44:29 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id E69BAB20A1E
+	for <lists+linux-man@lfdr.de>; Mon, 12 Feb 2024 01:49:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1ACC117D2;
-	Mon, 12 Feb 2024 01:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 040BD17D2;
+	Mon, 12 Feb 2024 01:49:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ka5S80rF"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akWJJOKN"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C537417C2;
-	Mon, 12 Feb 2024 01:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FFB17CF
+	for <linux-man@vger.kernel.org>; Mon, 12 Feb 2024 01:49:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1707702265; cv=none; b=AJa88l8mMtA8ctUbnfSHxIbmfG9UvT2Pmxbta/nUlqcyLme/MkZiE+e0xvId0bquRHEwh+qJ0lzCcw9MH9BGZgA162OjBgX7lUT1mMB+SRif2lDRvh6vXpVCGxlSSg564DsHzurAgnjbDhDn5SVsMbQcZE7WE0TGOQ3LOd56iYk=
+	t=1707702559; cv=none; b=bASA9eOWpP2ldOqUyEzLU1LvU5BIQfOJL+TsVPkqbU6SIs+3/rYOF8MuaQL0qwygFAgbXIA3Or2C3TWFjgmU0/fYqq82QBVVo1/B/eTX+pRxE+bQmpmvZKXXrACcr6sGXczyKUGSn3Ns99NCLoq60/H9o3hQVgAOtq8wGDCsSz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1707702265; c=relaxed/simple;
-	bh=4IMhTCm+4ebD9jlmrgZx3WxxAqePhM3QRPvgoRvuh3U=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=LQ9UYQDYaEHoAj/8W0UShvgz9DzOTJxEXRvLgB/cEezOh74q3VYoyx2v8+hn5cN5FTTQO2P68mgps6bKuJr6QYht4sXuC2VjObfKM80DYX5Iuc6ES98CJLSFRu+eLqAY4/+inquDAJJAYxj2s4KJDAjlrVwHaC5G6HuhqMWAX+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ka5S80rF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63DA9C433F1;
-	Mon, 12 Feb 2024 01:44:24 +0000 (UTC)
+	s=arc-20240116; t=1707702559; c=relaxed/simple;
+	bh=uwmRVT5d36/P33qOR5ZJfU2lV3qNV6hvmr4PaI3R6Hg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kbG+dh0Dvo439m7STsZx72tw8WksrUDeqLr0krRQU5XgWu6zsRP0DXrNP96qUyyd+dxzJrQtC2MWdbLGGEfDKIoBNdlCAqOQCMyM2cHvKCU8UHE6dxstMZ4DCcqCFiS5ABCeEq0OHFIF09Nv4b/cycpmKrfYKDLL+iXVBceK+0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akWJJOKN; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8617C433C7;
+	Mon, 12 Feb 2024 01:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707702265;
-	bh=4IMhTCm+4ebD9jlmrgZx3WxxAqePhM3QRPvgoRvuh3U=;
-	h=Date:From:To:Subject:From;
-	b=ka5S80rFMoog1UPHMr7XapjFqxZvQKqUqh/AFohMKz1UcNfoqPnAF7SyIyBfKBp2y
-	 79T9u3U+51zvwv7ElOhsqw0Hl72icwRs1s+ZkPADIPe3fkS8I4USBeUPmuyuJIOWoI
-	 TLVT080d9QWOuUwiXmAd26ZB2A2f7DPW6xeaxppnoaxbcJziTPQM+8uOwwSlKU/Jx2
-	 C/7RJqlPOiFrmFoiyMSxXSdI6epUUI4oST/DLfe84a9LiGAsNPQjnp2TgKTULyzROw
-	 Nw1MGBt5qULuZj74nzC6nCijIMQOvfUSiGo2qLGmcLKX9S862rYJ+tzopS9oCzuY31
-	 Ur2NdJxsX19dQ==
-Date: Mon, 12 Feb 2024 02:44:21 +0100
+	s=k20201202; t=1707702559;
+	bh=uwmRVT5d36/P33qOR5ZJfU2lV3qNV6hvmr4PaI3R6Hg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=akWJJOKNkwjMpKwqBAGkj3BFFqzL4sGYBD+l1EfLyIx/Orq0MSaOIJu80CPvnHfO9
+	 TDzFWLy7MQb5Y+4bBiZpra0eeK/M5akVyy4RZB0bYPCDb9ssFQzX5xiINWb79FY3mj
+	 9h+t/STvHUKz6u797cUQVuinteUqI7Z4CUjGKWFSHZdCwxzfmMgi+WJA6ePqk5LucM
+	 qSFrTviLqw+6fu0lb+B8C/a5diOjh9IKYY/HfIT6ERSXABQas96Pq0e+omA8BKFZDv
+	 1FrI+br6iEehF8kuQxpo46IpCvj5aFxnPfzhk3xDtUpiBGBlKoDUFX7wrLG5sNOakf
+	 3xobuiRwAUWYQ==
+Date: Mon, 12 Feb 2024 02:49:16 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
-	libc-alpha@sourceware.org
-Subject: man-pages-6.06 released
-Message-ID: <Zcl39haVgvrKcCwx@debian>
+To: Mark Wielaard <mark@klomp.org>
+Cc: linux-man@vger.kernel.org,
+	Alexandra =?utf-8?B?SMOhamtvdsOh?= <ahajkova@redhat.com>
+Subject: Re: [PATCH v2] close_range.2: Add _GNU_SOURCE and unistd.h to
+ SYNOPSIS
+Message-ID: <Zcl5HJ7XS6gPvhzg@debian>
+References: <20240211232903.1622396-1-mark@klomp.org>
+ <ZcldDOM_i6u742Pf@debian>
+ <20240212000531.GG21691@gnu.wildebeest.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,564 +59,86 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QjVJJ2c65v2uQWSq"
+	protocol="application/pgp-signature"; boundary="OxG1GPzix4VL5rEV"
 Content-Disposition: inline
+In-Reply-To: <20240212000531.GG21691@gnu.wildebeest.org>
 
 
---QjVJJ2c65v2uQWSq
+--OxG1GPzix4VL5rEV
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Feb 2024 02:44:21 +0100
+Date: Mon, 12 Feb 2024 02:49:16 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
-	libc-alpha@sourceware.org
-Subject: man-pages-6.06 released
+To: Mark Wielaard <mark@klomp.org>
+Cc: linux-man@vger.kernel.org,
+	Alexandra =?utf-8?B?SMOhamtvdsOh?= <ahajkova@redhat.com>
+Subject: Re: [PATCH v2] close_range.2: Add _GNU_SOURCE and unistd.h to
+ SYNOPSIS
 
-Gidday!
+Hi Mark,
 
-I'm proud to announce:
+On Mon, Feb 12, 2024 at 01:05:31AM +0100, Mark Wielaard wrote:
+> > >  .SH SYNOPSIS
+> > >  .nf
+> > > -.B #include <linux/close_range.h>
+> > > +.BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
+> > > +.B #include <unistd.h>
+> > > +.P
+> > > +.BR "#include <linux/close_range.h>" "  /* For the flags constants *=
+/"
+> >=20
+> > Could you please format the comment like other pages that do the same
+> > thing?  See for example membarrier(2).
+>=20
+> Sorry, you have to be more explicit what exactly you believe is not
+> the same thing that other pages do. membarrier.2 doesn't need a
+> _GNU_SOURCE define and I believe I used the comment as other pages
+> that do.
 
-tag man-pages-6.06
-Tagger: Alejandro Colomar <alx@kernel.org>
-Date:   Mon Feb 12 02:19:45 2024 +0100
+Sure; no problem!
 
-man-pages-6.06 - manual pages for GNU/Linux
+When we include a header not for a function but for constants, we
+specify which are those constants.  For example, membarrier(2) has
 
-The following `make check` errors are known, and can be safely ignored
-by touching all those files:
+     #include <linux/membarrier.h> /* Definition of MEMBARRIER_* constants =
+*/
+     #include <sys/syscall.h>      /* Definition of SYS_* constants */
 
-	$ make check -kj >/dev/null 2>&1;
-	$ make check -i 2>/dev/null;
-	GREP    .tmp/man/man1/memusage.1.check-catman.touch
-	GREP    .tmp/man/man3/mallopt.3.check-catman.touch
-	TROFF   .tmp/man/man3/unlocked_stdio.3.cat.set
-	GROTTY  .tmp/man/man3/unlocked_stdio.3.cat
-	COL     .tmp/man/man3/unlocked_stdio.3.cat.grep
-	GREP    .tmp/man/man3/unlocked_stdio.3.check-catman.touch
-	TROFF   .tmp/man/man4/console_codes.4.cat.set
-	GROTTY  .tmp/man/man4/console_codes.4.cat
-	COL     .tmp/man/man4/console_codes.4.cat.grep
-	GREP    .tmp/man/man4/console_codes.4.check-catman.touch
-	TROFF   .tmp/man/man4/lirc.4.cat.set
-	GROTTY  .tmp/man/man4/lirc.4.cat
-	COL     .tmp/man/man4/lirc.4.cat.grep
-	GREP    .tmp/man/man4/lirc.4.check-catman.touch
-	GREP    .tmp/man/man4/smartpqi.4.check-catman.touch
-	GREP    .tmp/man/man4/veth.4.check-catman.touch
-	GREP    .tmp/man/man5/proc_buddyinfo.5.check-catman.touch
-	GREP    .tmp/man/man5/proc_pid_fdinfo.5.check-catman.touch
-	GREP    .tmp/man/man5/proc_pid_maps.5.check-catman.touch
-	GREP    .tmp/man/man5/proc_pid_mountinfo.5.check-catman.touch
-	GREP    .tmp/man/man5/proc_pid_net.5.check-catman.touch
-	TROFF   .tmp/man/man5/proc_pid_smaps.5.cat.set
-	GROTTY  .tmp/man/man5/proc_pid_smaps.5.cat
-	COL     .tmp/man/man5/proc_pid_smaps.5.cat.grep
-	GREP    .tmp/man/man5/proc_pid_smaps.5.check-catman.touch
-	GREP    .tmp/man/man5/proc_timer_stats.5.check-catman.touch
-	GREP    .tmp/man/man5/proc_version.5.check-catman.touch
-	GREP    .tmp/man/man5/slabinfo.5.check-catman.touch
-	TROFF   .tmp/man/man5/tzfile.5.cat.set
-	GROTTY  .tmp/man/man5/tzfile.5.cat
-	COL     .tmp/man/man5/tzfile.5.cat.grep
-	GREP    .tmp/man/man5/tzfile.5.check-catman.touch
-	TROFF   .tmp/man/man7/ascii.7.cat.set
-	GROTTY  .tmp/man/man7/ascii.7.cat
-	COL     .tmp/man/man7/ascii.7.cat.grep
-	GREP    .tmp/man/man7/ascii.7.check-catman.touch
-	TROFF   .tmp/man/man7/bpf-helpers.7.cat.set
-	GROTTY  .tmp/man/man7/bpf-helpers.7.cat
-	COL     .tmp/man/man7/bpf-helpers.7.cat.grep
-	GREP    .tmp/man/man7/bpf-helpers.7.check-catman.touch
-	TROFF   .tmp/man/man7/charsets.7.cat.set
-	GROTTY  .tmp/man/man7/charsets.7.cat
-	COL     .tmp/man/man7/charsets.7.cat.grep
-	GREP    .tmp/man/man7/charsets.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-1.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-1.7.cat
-	COL     .tmp/man/man7/iso_8859-1.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-1.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-10.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-10.7.cat
-	COL     .tmp/man/man7/iso_8859-10.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-10.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-11.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-11.7.cat
-	COL     .tmp/man/man7/iso_8859-11.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-11.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-13.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-13.7.cat
-	COL     .tmp/man/man7/iso_8859-13.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-13.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-14.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-14.7.cat
-	COL     .tmp/man/man7/iso_8859-14.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-14.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-15.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-15.7.cat
-	COL     .tmp/man/man7/iso_8859-15.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-15.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-16.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-16.7.cat
-	COL     .tmp/man/man7/iso_8859-16.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-16.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-2.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-2.7.cat
-	COL     .tmp/man/man7/iso_8859-2.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-2.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-3.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-3.7.cat
-	COL     .tmp/man/man7/iso_8859-3.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-3.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-4.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-4.7.cat
-	COL     .tmp/man/man7/iso_8859-4.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-4.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-5.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-5.7.cat
-	COL     .tmp/man/man7/iso_8859-5.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-5.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-6.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-6.7.cat
-	COL     .tmp/man/man7/iso_8859-6.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-6.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-7.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-7.7.cat
-	COL     .tmp/man/man7/iso_8859-7.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-7.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-8.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-8.7.cat
-	COL     .tmp/man/man7/iso_8859-8.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-8.7.check-catman.touch
-	TROFF   .tmp/man/man7/iso_8859-9.7.cat.set
-	GROTTY  .tmp/man/man7/iso_8859-9.7.cat
-	COL     .tmp/man/man7/iso_8859-9.7.cat.grep
-	GREP    .tmp/man/man7/iso_8859-9.7.check-catman.touch
-	GREP    .tmp/man/man7/keyrings.7.check-catman.touch
-	GREP    .tmp/man/man7/uri.7.check-catman.touch
-	TROFF   .tmp/man/man8/tzselect.8.cat.set
-	GROTTY  .tmp/man/man8/tzselect.8.cat
-	COL     .tmp/man/man8/tzselect.8.cat.grep
-	GREP    .tmp/man/man8/tzselect.8.check-catman.touch
-	TROFF   .tmp/man/man8/zdump.8.cat.set
-	GROTTY  .tmp/man/man8/zdump.8.cat
-	COL     .tmp/man/man8/zdump.8.cat.grep
-	GREP    .tmp/man/man8/zdump.8.check-catman.touch
-	TROFF   .tmp/man/man8/zic.8.cat.set
-	GROTTY  .tmp/man/man8/zic.8.cat
-	COL     .tmp/man/man8/zic.8.cat.grep
-	GREP    .tmp/man/man8/zic.8.check-catman.touch
+Here, I'd use
+     #include <linux/close_range.h> /* Definition of CLOSE_RANGE_* constant=
+s */
 
-
-Tarball download:
-     <https://kernel.org/pub/linux/docs/man-pages/>
-Git repository:
-     <https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
-Online PDF book:
-     <https://kernel.org/pub/linux/docs/man-pages/book/>
-
-Thank you all for contributing!
+BTW, I notice that it's near the 80-column limit.  We try to limit
+ourselves to 79 columns, for an obscure reason.  For that, we'll need to
+use only 1 space before the comment (otherwise, I'd agree to use 2).
 
 Have a lovely night!
 Alex
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Changes in man=
--pages-6.06 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Released: 2024-02-12, Aldaya
-
-
-Contributors
-------------
-
-The following people contributed patches/fixes, reports, notes,
-ideas, and discussions that have been incorporated in changes in
-this release:
-
-"G. Branden Robinson" <branden@debian.org>
-"G. Branden Robinson" <g.branden.robinson@gmail.com>
-"Huang, Ying" <ying.huang@intel.com>
-"Serge E. Hallyn" <serge@hallyn.com>
-Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
-Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
-Alejandro Colomar <alx@kernel.org>
-Alexander Kozhevnikov <mentalisttraceur@gmail.com>
-Alexey Tikhonov <atikhono@redhat.com>
-Amir Goldstein <amir73il@gmail.com>
-Andreas Schwab <schwab@issan.informatik.uni-dortmund.de>
-Andreas Schwab <schwab@linux-m68k.org>
-Andreas Schwab <schwab@suse.de>
-Andriy Utkin <andriy_utkin@fastmail.com>
-Arnav Rawat <rawat.arnav@gmail.com>
-Arnd Bergmann <arnd@arndb.de>
-Aurelien Jarno <aurel32@debian.org>
-Avinesh Kumar <akumar@suse.de>
-Axel Rasmussen <axelrasmussen@google.com>
-Brian Inglis <Brian.Inglis@Shaw.ca>
-Bruno Haible <bruno@clisp.org>
-Carlos O'Donell <carlos@redhat.com>
-Catalin Marinas <catalin.marinas@arm.com>
-Christian Brauner <brauner@kernel.org>
-Christopher Lameter <cl@os.amperecomputing.com>
-Colin Watson <cjwatson@debian.org>
-DJ Delorie <dj@redhat.com>
-David Mosberger <davidm@hpl.hp.com>
-Deri James <deri@chuzzlewit.myzen.co.uk>
-Don Brace <don.brace@microchip.com>
-Elliott Hughes <enh@google.com>
-Florent Revest <revest@chromium.org>
-Florian Lehner <dev@der-flo.net>
-Florian Weimer <fweimer@redhat.com>
-G. Branden Robinson <g.branden.robinson@gmail.com>
-Geoff Keating <geoffk@ozemail.com.au>
-Gobinda Das <godas@redhat.com>
-Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Guillem Jover <guillem@hadrons.org>
-Guo Ren <guoren@kernel.org>
-Guo Ren <guoren@linux.alibaba.com>
-G=C3=BCnther Noack <gnoack@google.com>
-Hanno B=C3=B6ck <hanno@hboeck.de>
-Helge Kreutzmann <debian@helgefjell.de>
-Iker Pedrosa <ipedrosa@redhat.com>
-Ingo Schwarze <schwarze@openbsd.org>
-Ingo Schwarze <schwarze@usta.de>
-Jakub Jelinek <jakub@redhat.com>
-Jakub Wilk <jwilk@jwilk.net>
-Jan Engelhardt <jengelh@inai.de>
-Jan Kara <jack@suse.cz>
-John Watts <contact@jookia.org>
-Jonathan Wakely <jwakely@redhat.com>
-Jonny Grant <jg@jguk.org>
-Kees Cook <keescook@chromium.org>
-Kevin Barnett <kevin.barnett@microchip.com>
-Kuniyuki Iwashima <kuniyu@amazon.com>
-Lee Griffiths <poddster@gmail.com>
-Luis Chamberlain <mcgrof@kernel.org>
-Maciej =C5=BBenczykowski <maze@google.com>
-Mario Blaettermann <mario.blaettermann@gmail.com>
-Matthew House <mattlloydhouse@gmail.com>
-Matthias Gerstner <matthias.gerstner@suse.com>
-Max Kellermann <max.kellermann@ionos.com>
-Michael Kerrisk <mtk.manpages@gmail.com>
-Miguel de Icaza <miguel@nuclecu.unam.mx>
-Mike McGowen <mike.mcgowen@microchip.com>
-Mike Rapoport (IBM) <rppt@kernel.org>
-Morten Welinder <mwelinder@gmail.com>
-Muhammad Usama Anjum <usama.anjum@collabora.com>
-Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-Patch by Xavier Leroy <Xavier.Leroy@inria.fr>.
-Paul Eggert <eggert@cs.ucla.edu>
-Paul Smith <psmith@gnu.org>
-Peter Xu <peterx@redhat.com>
-Petr Vorel <pvorel@suse.cz>
-Philip Blundell <pb@nexus.co.uk>
-Renzo Davoli <renzo@cs.unibo.it>
-Reported by Ralf Corsepius <corsepiu@faw.uni-ulm.de>.
-Reported by Sam Roberts <sroberts@uniserve.com>.
-Richard Henderson <richard@gnu.ai.mit.edu>
-Richard Henderson <rth@cygnus.com>
-Richard Henderson <rth@tamu.edu>
-Rik van Riel <riel@surriel.com>
-Roland McGrath <roland@gnu.org>
-Sam James <sam@gentoo.org>
-Sambit Nayak <sambitnayak@gmail.com>
-Samuel Thibault <samuel.thibault@ens-lyon.org>
-Sargun Dhillon <sargun@sargun.me>
-Sascha Grunert <saschagrunert@gmail.com>
-Sascha Grunert <sgrunert@redhat.com>
-Scott Benesh <scott.benesh@microchip.com>
-Scott Teel <scott.teel@microchip.com>
-Serge Hallyn <serge@hallyn.com>
-Sergei Gromeniuk <sgromeni@redhat.com>
-Shahab Ouraie <shahabouraie@gmail.com>
-Shani Leviim <sleviim@redhat.com>
-Stefan Puiu <stefan.puiu@gmail.com>
-Thorsten Kukuk <kukuk@suse.com>
-Tom Schwindl <schwindl@posteo.de>
-Tom=C3=A1=C5=A1 Golembiovsk=C3=BD <tgolembi@redhat.com>
-Ulrich Drepper <drepper@cygnus.com>
-Ulrich Drepper <drepper@redhat.com>
-Wolfram Gloger <wg@wolfram.dent.med.uni-muenchen.de>
-Wolfram Gloger <wmglo@dent.med.uni-muenchen.de>
-Xavier Leroy <Xavier.Leroy@inria.fr>
-Xi Ruoyao <xry111@xry111.site>
-Yafang Shao <laoar.shao@gmail.com>
-Yang Xu <xuyang2018.jy@fujitsu.com>
-Zack Weinberg <zack@owlfolio.org>
-=C5=A0t=C4=9Bp=C3=A1n N=C4=9Bmec <stepnem@smrk.net>
-=D0=94=D0=B8=D0=BB=D1=8F=D0=BD =D0=9F=D0=B0=D0=BB=D0=B0=D1=83=D0=B7=D0=BE=
-=D0=B2 <dilyan.palauzov@aegee.org>
-=D0=BD=D0=B0=D0=B1 <nabijaczleweli@nabijaczleweli.xyz>
-
-Apologies if I missed anyone!
-
-
-New and rewritten pages
------------------------
-
-man2/
-	ioctl_pagemap_scan.2
-
-man3/					(taken from glibc's linuxthreads)
-	pthread_cond_init.3
-	pthread_condattr_init.3
-	pthread_key_create.3
-	pthread_mutex_init.3
-	pthread_mutexattr_setkind_np.3
-	pthread_once.3
-
-man5/
-	proc.5				(split into many small pages)
-	proc_apm.5
-	proc_buddyinfo.5
-	proc_bus.5
-	proc_cgroups.5
-	proc_cmdline.5
-	proc_config.gz.5
-	proc_cpuinfo.5
-	proc_crypto.5
-	proc_devices.5
-	proc_diskstats.5
-	proc_dma.5
-	proc_driver.5
-	proc_execdomains.5
-	proc_fb.5
-	proc_filesystems.5
-	proc_fs.5
-	proc_ide.5
-	proc_interrupts.5
-	proc_iomem.5
-	proc_ioports.5
-	proc_kallsyms.5
-	proc_kcore.5
-	proc_key-users.5
-	proc_keys.5
-	proc_kmsg.5
-	proc_kpagecgroup.5
-	proc_kpagecount.5
-	proc_kpageflags.5
-	proc_ksyms.5
-	proc_loadavg.5
-	proc_locks.5
-	proc_malloc.5
-	proc_meminfo.5
-	proc_modules.5
-	proc_mtrr.5
-	proc_partitions.5
-	proc_pci.5
-	proc_pid.5
-	proc_pid_attr.5
-	proc_pid_autogroup.5
-	proc_pid_auxv.5
-	proc_pid_cgroup.5
-	proc_pid_clear_refs.5
-	proc_pid_cmdline.5
-	proc_pid_comm.5
-	proc_pid_coredump_filter.5
-	proc_pid_cpuset.5
-	proc_pid_cwd.5
-	proc_pid_environ.5
-	proc_pid_exe.5
-	proc_pid_fd.5
-	proc_pid_fdinfo.5
-	proc_pid_io.5
-	proc_pid_limits.5
-	proc_pid_map_files.5
-	proc_pid_maps.5
-	proc_pid_mem.5
-	proc_pid_mountinfo.5
-	proc_pid_mounts.5
-	proc_pid_mountstats.5
-	proc_pid_net.5
-	proc_pid_ns.5
-	proc_pid_numa_maps.5
-	proc_pid_oom_score.5
-	proc_pid_oom_score_adj.5
-	proc_pid_pagemap.5
-	proc_pid_personality.5
-	proc_pid_projid_map.5
-	proc_pid_root.5
-	proc_pid_seccomp.5
-	proc_pid_setgroups.5
-	proc_pid_smaps.5
-	proc_pid_stack.5
-	proc_pid_stat.5
-	proc_pid_statm.5
-	proc_pid_status.5
-	proc_pid_syscall.5
-	proc_pid_task.5
-	proc_pid_timers.5
-	proc_pid_timerslack_ns.5
-	proc_pid_uid_map.5
-	proc_pid_wchan.5
-	proc_profile.5
-	proc_scsi.5
-	proc_slabinfo.5
-	proc_stat.5
-	proc_swaps.5
-	proc_sys.5
-	proc_sys_abi.5
-	proc_sys_debug.5
-	proc_sys_dev.5
-	proc_sys_fs.5
-	proc_sys_kernel.5
-	proc_sys_net.5
-	proc_sys_proc.5
-	proc_sys_sunrpc.5
-	proc_sys_user.5
-	proc_sys_vm.5
-	proc_sysrq-trigger.5
-	proc_sysvipc.5
-	proc_tid_children.5
-	proc_timer_list.5
-	proc_timer_stats.5
-	proc_tty.5
-	proc_uptime.5
-	proc_version.5
-	proc_vmstat.5
-	proc_zoneinfo.5
-
-
-Newly documented interfaces in existing pages
----------------------------------------------
-
-man2/
-	access.2
-		AT_EMPTY_PATH
-
-	execve.2
-		E2BIG
-
-	ioctl_userfaultfd.2
-		UFFDIO_API handshake
-		UFFDIO_POISON
-		UFFD_FEATURE_WP_ASYNC
-
-	mbind.2
-		MPOL_F_NUMA_BALANCING
-
-	prctl.2
-		PR_SET_MDWE
-		PR_GET_MDWE
-
-	set_thread_area.2
-		C-SKY
-
-	utimensat.2
-		AT_EMPTY_PATH
-
-man3/
-	stdio.3
-		fmemopen(3)
-		fopencookie(3)
-		open_memstream(3)
-		open_wmemstream(3)
-
-man4/
-	smartpqi.4
-		ctrl_ready_timeout
-		enable_stream_detection
-		ssd_smart_path_enabled
-		enable_r5_writes
-		enable_r6_writes
-		lunid
-		unique_id
-		path_info
-		raid_bypass_cnt
-		sas_ncq_prio_enable
-
-man5/
-	proc_pid_status.5		(previously, proc.5)
-		Seccomp_filters
-
-	tmpfs.5
-		size/blocks=3D0
-		nr_inodes=3D0
-
-man8/
-	ld.so.8
-		--list-diagnostics
-		--glibc-hwcaps-mask
-		--glibc-hwcaps-prepend
-
-
-New and changed links
----------------------
-
-man5/
-	proc_mounts.5			(proc_pid_mounts(5))
-	proc_net.5			(proc_pid_net(5))
-	proc_pid_gid_map.5		(proc_pid_uid_map(5))
-	proc_pid_oom_adj.5		(proc_pid_oom_score_adj(5))
-	proc_self.5			(proc_pid(5))
-	proc_thread-self.5		(proc_pid_task(5))
-	proc_tid.5			(proc_pid_task(5))
-
-
-Removed links
--------------
-
-man3/
-	stpecpy.3
-	stpecpyx.3
-	ustpcpy.3
-	ustr2stp.3
-	zustr2stp.3
-	zustr2ustp.3
-
-
-Global changes
---------------
-
--  Build system
-   -  Update PDF book for groff-1.23.0.
-   -  Add targets to [un]install intro(*) pages separately.
-   -  Support manual pages in other projects, so that our build system
-      can be used to for example lint them.
-   -  Reject non-GNU make(1).
-   -  Add target to build the PDF book.
-
--  man*/
-   -  Add some consistency in the use of man(7).
-   -  Split proc(5) into many small pages.
-   -  Import pages from old linuxthreads (glibc), with their git
-      history (from both glibc and Debian).
-   -  Rewrite a large part of the documentation for string-copying
-      functions.
-   -  Say ISO/IEC instead of ISO where appropriate, and be consistent in
-      the fomatting of names of ISO or ISO/IEC standards.
-
-
-Changes to individual pages
----------------------------
-
-The manual pages (and other files in the repository) have been improved
-beyond what this changelog covers.  To learn more about changes applied
-to individual pages, use git(1).
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---QjVJJ2c65v2uQWSq
+--OxG1GPzix4VL5rEV
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXJd/UACgkQnowa+77/
-2zK9bBAAq3xVj+KSlmI3y75mpVD5AW1AasP/+GK0wXcQ0k67TJSvGksczNKAmFAN
-cwxkO0LocBUcaNWl+vF+x3VkEgISn2HyrM8O/ZAFIvDjsAKvoEaqldXzCiR0ZqrS
-7PUUbJHO4kYY0UsAKcvy5y1rgqrOFH8jLpz9X+/tDtoeRH5eC35zZlI2gry5nKax
-BtWzmjRjwQpfy8m+vSZo8BYMZPwmD6C1UqD7XWO3CjVRXt1GGp8sx8Tiz/VPRUbi
-92zK2LhuXFcPNyOCmq4KBwbGnOENGR4+6YKL601ypl3hb3EoCsiuo7dItogUMGQD
-N04bAWUoas0cyMshlBW2XUCpqCHIGOGudmJA6BZ2pT0u378FqChrS3XkuuYj0gtP
-1bR8hGr1SO6x9PW/X5hy9GX6h65lTDe6LCldIijCPKDkTtb/g5WcFoefbs0d+cs2
-9u5LknB3SHBH20TobOMO6/yA8wq1w+G5n/LWguY8Pv2X99xSFUuaBBh2JhyA2l5l
-+rtBg/DEqaPdeddajz8srYzYDUvpS10TIIdj8/ugmAF8SsUBhhQefgLiOGvKh7Rn
-zYhE5A6HouMNQ/s4KJ22pQpG9IPudpbsUzXF+uWTeOaLNSVGQ87nS36qyD6aC0sp
-hf7oONTK0y4QNh4/TOjiBcRA9CvCLz3weMXnJ7vpGvzwBHc4k/M=
-=tAar
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXJeRwACgkQnowa+77/
+2zIrwg/7Bf7PreSV0SbMQNEzr/Ku+zrZb05klvHViTOSZmOZ+D48pbel+lqldKu/
+tRTUgupjK3ARi8LCuJTa7K+bze/OwyX7KL+NFAyNb8cEWowgnBBm8UaFsmrjRP8E
+onOa2dO6l5lRqinPiAGiKghWp8d21gbZX5aCimk1S1RDNxAUgfEKKKg5PDTNa220
+v4CsYpNLdfCIHNtwGM2jwooMGAFvE5LwfcXzNWrw5hfzU/X1XZ9Ca+dlgHRvV52J
+boC10E3bM78e0Dmzb0Lmc0TfP/RpbdJlPoVkzN/erLudw0JLClD4erzDwqpvvpe3
+ydjpjOIQSnHwvq06+mSiAJ6ySMXaE5BGOPu7H/RaVoPro8duzWwQs6uUPFim3Ono
+pCliwFyKexT+5zBvqch8KK8LuM08IC7jB19OB2UHHSiBgK8XtEWQdHM55amIMk3v
+xhd/rNIkjZ0V+su/nKESMjZq22I1OAorj/q04IDHGPLw94zhX2GcU1tP4flu0pub
+VQbHoyrbtBAtJxKeTEolJqTCSzUV2W2VQ06zYcdfmmDtAHddx8OC7IzeCj4Ia+8p
+scrUnX8Yp484uLnQy1QJCFjYRwvGRpDXoFtatzt9i9UHl6N0HjNeX8FJybhMg1PS
+GmPOsAK9s6h/aTkWGQZw+mkY9iNhPlSFs27glc9tj6zHvIJFy2s=
+=iZNb
 -----END PGP SIGNATURE-----
 
---QjVJJ2c65v2uQWSq--
+--OxG1GPzix4VL5rEV--
 
