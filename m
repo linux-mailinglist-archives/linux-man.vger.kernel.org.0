@@ -1,203 +1,160 @@
-Return-Path: <linux-man+bounces-445-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-446-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id F36A2854472
-	for <lists+linux-man@lfdr.de>; Wed, 14 Feb 2024 09:57:16 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 12B29854A79
+	for <lists+linux-man@lfdr.de>; Wed, 14 Feb 2024 14:27:30 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2431F1C2106B
-	for <lists+linux-man@lfdr.de>; Wed, 14 Feb 2024 08:57:16 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A7F4C281594
+	for <lists+linux-man@lfdr.de>; Wed, 14 Feb 2024 13:27:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 992547499;
-	Wed, 14 Feb 2024 08:57:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0AB87524D1;
+	Wed, 14 Feb 2024 13:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUySoBEH"
 X-Original-To: linux-man@vger.kernel.org
-Received: from cilium.nesselzelle.de (cilium.nesselzelle.de [138.201.35.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0216125A2
-	for <linux-man@vger.kernel.org>; Wed, 14 Feb 2024 08:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=138.201.35.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300E429437
+	for <linux-man@vger.kernel.org>; Wed, 14 Feb 2024 13:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1707901032; cv=none; b=Qqg22eVYA4VesNapmzHOAv7YP5UNDmDwV1cSWeRf5EMvDWPw+wTIYxsTpjopyB7Aasa1bouNOPrbZh528FXUMCzM/ctmT77aaGz41D5BQt/usmcWaTTXZjgQPwh1yqgH/266Gv1cUP7iTGqx9HSlUXsKyjoxu0Csxou4kpIejOk=
+	t=1707917238; cv=none; b=KwnjeU13B+ChidcngDHk+dC1bV9YGbz++jsJtRd7mgS2ftWGkt6FGR8PCfYHoHxfb4bGGFVFXhweqr3B0HHvcBrbhPFbgm+C8U3AzB8EawYiVw5lQBvsZM4USfJugL0c+4pmS8CUS0XtaKOwiRmOssnhEMDpcwdqgMd8PCU89uA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1707901032; c=relaxed/simple;
-	bh=AJfrw+OoBegcPep4ort7pJg0vrZoKug08mQj5wOUgU8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=f9a/y1mR+5CqJYFI3qlCSo5N4dA7YbQ4/PZouXMQoX2fYuS5CsSVkKk9yrBCGN5JgGp0MfwZsU/UY65KmkXbrYdz3twqr2mA99FhVDiID6I4yf8b82f+8QNDGSiCjL/6rd4j99qqrtBET+8TsfbhUucCtxRFX4drgSfzFzL15YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=orgis.org; spf=pass smtp.mailfrom=orgis.org; arc=none smtp.client-ip=138.201.35.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=orgis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=orgis.org
-X-Bogosity: Ham, spamicity=0.000000
-Received: from localhost (zentriol.nesselzelle.de [144.76.80.99])
-	by cilium.nesselzelle.de (Postfix) with ESMTPSA id D56DB4007E;
-	Wed, 14 Feb 2024 08:57:08 +0000 (UTC)
-Date: Wed, 14 Feb 2024 09:57:07 +0100
-From: Thomas Orgis <thomas@orgis.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: <linux-man@vger.kernel.org>
-Subject: SA_RESTART and friends as XSI extensions to POSIX.1-2001 < 
- XOPEN_SOURCE >= 600
-Message-ID: <20240214095707.1824c25c@plasteblaster>
-X-Mailer: Claws Mail (x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1707917238; c=relaxed/simple;
+	bh=8lr8w2/DR28ympeNwC59TLVPx5cAlvdINeEEPMikCaY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=kOhTTzVcmTy3lHAgXogfBwg067ByrHi+qA0cnsADBve+0mIwrG3N6o8hTXMjfm62pWbmGXK4nymfuQoF8RlN6zxTrf5H/wYixXzw/PU1Akz1oP4MoUNqleqnUk0VR8Rma+nyrAb2kvb13qn89mD/56kLdqrYL1/z3X3244QImhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUySoBEH; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-411f439fbdbso2998515e9.2
+        for <linux-man@vger.kernel.org>; Wed, 14 Feb 2024 05:27:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1707917235; x=1708522035; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=EqIKMGImbVYNEr2eZkHJ/bJ+2Hey17vceh1OV48doDk=;
+        b=HUySoBEHWWgauSZIdB6RfA41xPPJsCHFWiXRjBh5pnQa6mA9wJRh+TSsQMOG5wuJ/Y
+         iB+peFA2OeRuktFjh3Fn80yrCZZmDwXLNGHM1lvsk3zGI3LbSKTDAxrziravPExm6rVf
+         IJQr04gKB5bYYhN4F/WCEG3OPMB/UFhfMM2DdT+3hZDKbf/JpsMoD4q2OoBUzNVleIRD
+         fmnMgjtuHT0SYJe8UVRdfIz6P2hanVBFAjQW53tYTeETh+OV0O/pleXIacfNh3IyB7/h
+         9z8I9+3dkTRy3xgWFVS6RSFjxV5wS+GmR25QU3GsWKMm7K/T4ZVfkMRs7X+0RZI90Cw3
+         wWhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707917235; x=1708522035;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EqIKMGImbVYNEr2eZkHJ/bJ+2Hey17vceh1OV48doDk=;
+        b=fcVuh3Y4K/hmJMmZ3jQj7s/oHdL8b2I+BS94hHX6KnQzKF2r5il7uuDbeBVnJPQW2s
+         ySzVMgpZUzRPN45HUYpkpHOPRUx6GZQ9aUgl7HZFdt3Jk3xcdBFC0DxyN5gat4zmgSFi
+         EbPbyZ/qBP3WM/3AHN22QvUYQ8qJcRsmCtHDP3qfXqdP0f5TcbpO4wQM2jaaz1IRnQTE
+         aNHiSoS2BLQv8rwcWuLTNKK3N+4pCbHLsrlpntfZtSW8NetKhg5CFBf/bfGSGgRVXwpy
+         Bueskyh/KV7UoBsJCRR65o4PIJKLaz3GU1ApQn+wTGfBx/VumtWhByGYrmD4a5BMUEHA
+         jZJw==
+X-Gm-Message-State: AOJu0Ywzjwr/cCuu4i2VNxVnEzT5BzjpPA+gySvSGWzcN6F2xKrnZ8yN
+	HFuiU7AjNwrYdEd+YQlJLbtkpuppU4aKkdBim+h3tTqnR/CA/UZltbHStoXGRiyJgT6oXRPSE5q
+	CwZ36xlv6MeGyQy0eErB2UbdiY0oJBlYwC9Q=
+X-Google-Smtp-Source: AGHT+IEzuqaVBYNnySbFEqpFoLs/Uvqg6IApPViXaCy7X9LRkhNpzcw6I25MvQm4+XcKfCh/96zX7q0AbhJ+tFI4x+8=
+X-Received: by 2002:a05:600c:4f48:b0:411:c3d3:94dd with SMTP id
+ m8-20020a05600c4f4800b00411c3d394ddmr1905937wmq.28.1707917235161; Wed, 14 Feb
+ 2024 05:27:15 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/57h+EDqfL/d5bEzJ0XvBJH3";
- protocol="application/pgp-signature"; micalg=pgp-sha512
-
---Sig_/57h+EDqfL/d5bEzJ0XvBJH3
-Content-Type: text/plain; charset=US-ASCII
+From: Ronald Monthero <debug.penguin32@gmail.com>
+Date: Wed, 14 Feb 2024 23:26:39 +1000
+Message-ID: <CALk6Uxoss7s-rxsKW=dcGWd9rmj3xnLksQvLn7Cyb7EvdSA2Ag@mail.gmail.com>
+Subject: Documentation: Architecture/ABI calling convention table - syscall( )
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hello,
+Below is in relation to architecture calling standards table for man
+syscall, for the indicated at [1] , [2]  and [3]   need to be changed
+perhaps.  ( arg4 of x86-64 architecture needs to be rcx instead of r10
+and the x32 arch table values needs replacement with exx register
+naming respectively. And also the return value register table for x32
+needs to be eax and edx for return val and return val2 respectively )
+------------
 
-I had trouble compiling code with -std=3Dc99 and needed some time to
-figure out why the use of SA_RESTART did not work with
-
-#define _POSIX_C_SOURCE 200112L
-
-despite the man page of sigaction suggesting that this would be the
-correct feature test macro. Searching around the net reveals that this
-is a known discrepancy between man pages and glibc since at least 11
-years. People stumble over this, learn, forget. Please let's document
-it this time;-)
-
-sigaction(2) claims this:
-
-POSIX.1-2001 added
-.BR SA_NOCLDSTOP ,
-.BR SA_NOCLDWAIT ,
-.BR SA_NODEFER ,
-.BR SA_ONSTACK ,
-.BR SA_RESETHAND ,
-.BR SA_RESTART ,
-and
-.BR SA_SIGINFO .
-
-All of these are extensions (XSI) to POSIX and need _XOPEN_SOURCE 600.
-
-Quoting https://pubs.opengroup.org/onlinepubs/009695399/basedefs/signal.h.h=
-tml
-(thanks to https://unix.stackexchange.com/questions/613139/sigaction-sa-fla=
-gs-and-posix-1-2001-base-spec):
-
-The following shall be declared as constants:
-
-SA_NOCLDSTOP
-    [CX] [Option Start] Do not generate SIGCHLD when children stop [Option =
-End]
-    [XSI] [Option Start] or stopped children continue. [Option End]
-[...]
-SA_ONSTACK
-    [XSI] [Option Start] Causes signal delivery to occur on an alternate st=
-ack. [Option End]
-SA_RESETHAND
-    [XSI] [Option Start] Causes signal dispositions to be set to SIG_DFL on=
- entry to signal handlers. [Option End]
-SA_RESTART
-    [XSI] [Option Start] Causes certain functions to become restartable. [O=
-ption End]
-SA_SIGINFO
-    [XSI] [Option Start] Causes extra information to be passed to signal ha=
-ndlers at the time of receipt of a signal. [Option End]
-SA_NOCLDWAIT
-    [XSI] [Option Start] Causes implementations not to create zombie proces=
-ses on child death. [Option End]
-SA_NODEFER
-    [XSI] [Option Start] Causes signal not to be automatically blocked on e=
-ntry to signal handler. [Option End]
-
-[and not mentioned in the man page, not relevant?]
-
-SS_ONSTACK
-    [XSI] [Option Start] Process is executing on an alternate signal stack.=
- [Option End]
-SS_DISABLE
-    [XSI] [Option Start] Alternate signal stack is disabled. [Option End]
-MINSIGSTKSZ
-    [XSI] [Option Start] Minimum stack size for a signal handler. [Option E=
-nd]
-SIGSTKSZ
-    [XSI] [Option Start] Default size in bytes for the alternate signal sta=
-ck. [Option End]=20
+       Arch/ABI      arg1  arg2  arg3  arg4  arg5  arg6  arg7  Notes
+       =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+       alpha            a0    a1    a2    a3    a4    a5    -
+       arc                r0    r1    r2    r3    r4    r5    -
+       arm/OABI     r0    r1    r2    r3    r4    r5    r6
+       arm/EABI      r0    r1    r2    r3    r4    r5    r6
+       arm64          x0    x1    x2    x3    x4    x5    -
+       blackfin       R0    R1    R2    R3    R4    R5    -
+       i386            ebx   ecx   edx   esi   edi   ebp   -
+       ia64            out0  out1  out2  out3  out4  out5  -
+       m68k          d1    d2    d3    d4    d5    a0    -
+       microblaze    r5    r6    r7    r8    r9    r10   -
+       mips/o32      a0    a1    a2    a3    -     -     -     1
+       mips/n32,64   a0    a1    a2    a3    a4    a5    -
+       nios2          r4    r5    r6    r7    r8    r9    -
+       parisc        r26   r25   r24   r23   r22   r21   -
+       powerpc       r3    r4    r5    r6    r7    r8    r9
+       powerpc64     r3    r4    r5    r6    r7    r8    -
+       riscv         a0    a1    a2    a3    a4    a5    -
+       s390          r2    r3    r4    r5    r6    r7    -
+       s390x         r2    r3    r4    r5    r6    r7    -
+       superh        r4    r5    r6    r7    r0    r1    r2
+       sparc/32      o0    o1    o2    o3    o4    o5    -
+       sparc/64      o0    o1    o2    o3    o4    o5    -
+       tile          R00   R01   R02   R03   R04   R05   -
+       x86-64        rdi   rsi   rdx   r10   r8    r9    -
+                                                 ^^-----   =3D=3D> need to
+be rcx ?          <<   [1]
+       x32           rdi   rsi   rdx   r10   r8    r9    - =3D=3D>  to be
+exx regs   << [2]
 
 
-As a related bit, I noticed that feature_test_macros(7) is a bit
-misleading here:
+       =3D>  For x86-64 architecture the function calling standards
+         the arg4 register should be rcx
 
-.IP \[bu]
-Defining
-.B _XOPEN_SOURCE
-with a value of 600 or greater produces the same effects as defining
-.B _POSIX_C_SOURCE
-with a value of 200112L or greater.
-
-As written later on the same page, X_OPEN_SOURCE 600 triggers a superset
-of POSIX, not the same effects.
+       =3D> And for x32 it needs to be replaced with x86 32 bit register va=
+riants
+         as arg1 =3D edi , arg2 =3D esi , arg3 =3D edx, arg4 =3D ecx
 
 
-I hope these rather small changes can be made by a committer without
-lengthy discussion of patches. I suggest  something along this, without
-formatting details that I'd get wrong:
+    2)  Also noticed the return value register table needs similar
+change for x86-32 bit
+     it needs to be eax instead of rax and edx instead of rdx.
 
-sigaction(2):
+       Arch/ABI    Instruction      System  Ret  Ret  Error    Notes
+                                                 call #    val   val2
+       =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
 
-POSIX.1-2001 added
-.BR SA_NOCLDSTOP ,
-.BR SA_NOCLDWAIT ,
-.BR SA_NODEFER ,
-.BR SA_ONSTACK ,
-.BR SA_RESETHAND ,
-.BR SA_RESTART ,
-and
-.BR SA_SIGINFO ,
-as XSI extensions (define _XOPEN_SOURCE to at least 600 to use).
+      < snipped >
 
-feature_test_macros(7):
+       sparc/32    t 0x10                 g1      o0   o1   psr/csr  1, 6
+       sparc/64    t 0x6d                 g1      o0   o1   psr/csr  1, 6
+       tile             swint1                R10     R00  -    R01      1
+       x86-64      syscall                rax     rax  rdx  -        5
+       x32            syscall               rax     rax  rdx  -        5
 
-.IP \[bu]
-Defining
-.B _XOPEN_SOURCE
-with a value of 600 or greater includes the effects of defining
-.B _POSIX_C_SOURCE
-with a value of 200112L or greater, adding the X/Open System Interfaces Ext=
-ension (XSI).
+^^^-----^^^--^^^------------------->            <<  [3]
+
+         =3D>      for x32 return register has to be changed as
+                   rax =3D> eax  and rdx =3D> edx
 
 
-
-Alrighty then,
-
-Thomas
-
---=20
-GPG public key 60D5CAFE: https://thomas.orgis.org/public_key
-Fingerprint: D021 FF8E CF4B E097 19D6  1A27 231C 4CBC 60D5 CAFE
-And despite all of you, I'm still doing it. Yes, I do write Perl code.
-
---Sig_/57h+EDqfL/d5bEzJ0XvBJH3
-Content-Type: application/pgp-signature
-Content-Description: Firma digital OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIyBAEBCgAdFiEE0CH/js9L4JcZ1honIxxMvGDVyv4FAmXMgGMACgkQIxxMvGDV
-yv4JEA/4vduhrCVkbTmGqfas9D0JHduIFcQZ7y4kyFK2/1ZUYDm8p1sx2COaFvO6
-RImjCAtDrw7M35X5+DH96XsVkPHpsrrHO3TRXpC+QuvygxfVJPh5eTqw+kVXiaRJ
-gEdG1MBkPCAQriBl7e7OTJ6WzFYAwdX2Zx019wznOv8GtxTSFXUL8rI7c4Y3APEO
-Q+RaaZaPkEaSJmDvt/ESRPA67t+GQ9CH5C+Et7hypk+h8HCbaKN4KVykGlIr0133
-PnL61VCEwJvDCT4XJh1wLkwQLxoZG7/eRnbrDgjJlU/ZIZIcdkWZdhyohJNjCivG
-1RxGN7Kdmdy2ZWswkaFH5EWt5ck8TrXzvhfaiqicMO8hyJbJKFsDliszh0Q4jVz8
-SGDQGdLI1NThwFwWeT/8emHnGBNznqd/S9Qq4440D4PKNND0Y/2c7rPTCw+TYOh6
-bAcOG7WauvaOBARsecMtxa9pXgWbuZSfnP9G+ISKXEjb1MVkOZbJOoLCUurieA+8
-QlHPc2W41SGuGVowapPnF5YV4c8p2dxvaGUrmzLC6ohT6Ieu7CISsTmmWfCCgTMT
-B02kT5j1B4Ourp7c+pFG9JkDNUWbbyZxZh/vwVxkY8kVdqHZn8ul9cylzo11eo6u
-l4oYKxpef0ziX1Yu3iaK3PnbbbGqcDy5xhsovVLuL56Lff2gAQ==
-=HudH
------END PGP SIGNATURE-----
-
---Sig_/57h+EDqfL/d5bEzJ0XvBJH3--
+BR,
+ronald
 
