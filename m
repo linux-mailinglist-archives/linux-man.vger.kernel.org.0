@@ -1,171 +1,135 @@
-Return-Path: <linux-man+bounces-461-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-462-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3AE585B737
-	for <lists+linux-man@lfdr.de>; Tue, 20 Feb 2024 10:23:05 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1C885BD0A
+	for <lists+linux-man@lfdr.de>; Tue, 20 Feb 2024 14:20:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 31C491C2445E
-	for <lists+linux-man@lfdr.de>; Tue, 20 Feb 2024 09:23:05 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 2931DB217C2
+	for <lists+linux-man@lfdr.de>; Tue, 20 Feb 2024 13:20:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61B9C5F480;
-	Tue, 20 Feb 2024 09:23:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9D7F6A337;
+	Tue, 20 Feb 2024 13:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0Jdm+TO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from air.basealt.ru (air.basealt.ru [194.107.17.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804C5FB84
-	for <linux-man@vger.kernel.org>; Tue, 20 Feb 2024 09:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.107.17.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9E66A03F
+	for <linux-man@vger.kernel.org>; Tue, 20 Feb 2024 13:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1708420981; cv=none; b=iaPXGZHcIs5PdUKIud0awg1k2s915ilKCAYZ2muVQYZW/YbudScbhpl5LV28QyOC1OcZsJ8hn2FzQlC+xMD/sJ3vzgLOb9t3T+Ty0agrLm+CcVQM1UazLf6Dozpj4rALMRh3Ez0xqd0SDZaklmp3Wi5JasZAJ97yDCDladt0UIQ=
+	t=1708435220; cv=none; b=A+Ug7G6nBFPD04p/LD4XZtqkoKVFYvpRWVhT0JSFgXMHtjTwy6J09SX9UQrOpjnWbsRl2EUYz0rYd1UTTFzpgseyricqdI9emB4IcWDT6zNZM8ijB81EXPbyTW4BPjSrLaY181wSfbykMjePIxUKUaK82VhgLNRGJwxnF4RuPks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1708420981; c=relaxed/simple;
-	bh=Y+a6hkhpvd3/nOY2pIz1DLrjoo4oomct3sdlSHrk960=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Wg6nS1KZmtadsMP4hfHLL69FjEoXj40PiFdKg1nDky0qfntVg/eAZG7elZfNaf2W5hvxJA9tc6LefSovJYNaUaVhDCdQZd0z0W9IkhTKJVsPmIXjqMGp/Y1R7pGITtVi99C2Eh4CHa6e57xRQxJJzFwcCh7u/rAuQg+UpO/J8kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=194.107.17.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
-Received: by air.basealt.ru (Postfix, from userid 490)
-	id A98252F20271; Tue, 20 Feb 2024 09:22:48 +0000 (UTC)
-X-Spam-Level: 
-Received: from taut9powder.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
-	by air.basealt.ru (Postfix) with ESMTPSA id 071AB2F20280;
-	Tue, 20 Feb 2024 09:22:36 +0000 (UTC)
-From: Alexander Ofitserov <oficerovas@altlinux.org>
-To: oficerovas@altlinux.org,
-	Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	dutyrok@altlinux.org,
-	kovalev@altlinux.org
-Subject: [PATCH] delete_module.2: Update man to actual syscall behaviour
-Date: Tue, 20 Feb 2024 12:21:44 +0300
-Message-Id: <20240220092144.140251-1-oficerovas@altlinux.org>
-X-Mailer: git-send-email 2.33.8
+	s=arc-20240116; t=1708435220; c=relaxed/simple;
+	bh=L48z9adXGTy5xQzSYfSFHR2Ehc9EAFYSu6PlbyOQWoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+cZY5MWb/R8iwnCF8SOym8rRH5cmC2371rcIJis4SzSk10aFlTYaPC5kppkYzVJel3fwBSrAIJHIJ+f3x49hNFtc7pK4+Dir+8s4PMnDgfrsKjiZorbrNCN7oYHvM13+WyIxAiO/ZpP2ecWVDL54OuXPyIEEPuKg+nkHPXL2PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0Jdm+TO; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-6e44a309b6fso940517a34.1
+        for <linux-man@vger.kernel.org>; Tue, 20 Feb 2024 05:20:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708435218; x=1709040018; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=tF6Z0BARn4IWRFVJJI1+T/x4DjT9di+nDIsZn+iG1VE=;
+        b=f0Jdm+TOHRmJl70QSGHDcwq7778o5Pmt/x9WtSOSzmKytNj/jIbkcBcoAff6l+9QbV
+         YB6/i5C2DWN9aMgcdkujcFK2OPOky+tpZJwovyPbznpvr/yFdOHjUF8wrv2y0BwiBYZE
+         1p2LsTOXqjexKhdWCl6Az+FEWUkc72waYlPzt3CusPghimSVloqfXNgzTdOowuWLB6Si
+         xI2uMjmCn69CzrgdJcbA+cpaXAwdWMp/kP3KtpXGwvU0+6g1g0IkU/TcG64W4LZZNtub
+         P5eaSfP7ES+1jifDlirecnufoILg4ep948sesTPzyXeJ/dHG0Aa0IUeowAdEcVg3Hi49
+         PRrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708435218; x=1709040018;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tF6Z0BARn4IWRFVJJI1+T/x4DjT9di+nDIsZn+iG1VE=;
+        b=SiXrb4bHjD1SdpocnhI+MkmliXX3xEdpk4UGbJXFSwczZHQ/qQYS83S35dq6ktm6Lc
+         EhniWV0GgvUOg06zLGsEJmwOr1P5WBhFoEEA8BRPCOxVf941FHoyj48ZcFO7hwj7oQln
+         DL0Tln9Okyvtfnf4n2o0QL7knHBMRl25F5IeweMNmEzK9W2RFw8Cy3guADPpfBbU0ZiV
+         UH/b9hA++6p7L0sUAnpKfFiLA2j60YGPjPQDVQSmVddBEV7Gx9oYLM3wWZWdjMpcCeQV
+         KdN/BD70OUH8Inl8k0Gd57Ty9MfFDmPHYbWealBjZ4N4RYHJp6qdvFeRcITgQM7+2weg
+         pePw==
+X-Forwarded-Encrypted: i=1; AJvYcCWGXUWH5K0tktpkSzgpIx6+Tb2txeGGIS31ibz0wK58CXniLGgB0WNNmMQq5eJa/AUjF50S2Drh+MO9fA1kIw1P9OWhbxQcrDKq
+X-Gm-Message-State: AOJu0YzGNuSeEURjuZt1j6tc73eigiFniM8C3D9uM6u4FWpdBifPLn+e
+	mV+K1450uDiwowh4QJqYC1bj4TMXTTrCWfg0aiOWkmLK0D49tllJ
+X-Google-Smtp-Source: AGHT+IE7td2J108/jtCCTqigyHW3lh6niGGhS1yPWuf4OYR0+jr2GaGtBLZv0z5j+RrdNOFTWops2w==
+X-Received: by 2002:a9d:67d7:0:b0:6e2:f01b:2090 with SMTP id c23-20020a9d67d7000000b006e2f01b2090mr14711040otn.9.1708435218028;
+        Tue, 20 Feb 2024 05:20:18 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id m20-20020a0568301e7400b006e4409df640sm1163084otr.37.2024.02.20.05.20.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Feb 2024 05:20:17 -0800 (PST)
+Date: Tue, 20 Feb 2024 07:20:15 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alexander Ofitserov <oficerovas@altlinux.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+	dutyrok@altlinux.org, kovalev@altlinux.org
+Subject: Re: [PATCH] delete_module.2: Update man to actual syscall behaviour
+Message-ID: <20240220132015.pjqlf66odcgqdtqv@illithid>
+References: <20240220092144.140251-1-oficerovas@altlinux.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="nfrxiqjscjfyup5m"
+Content-Disposition: inline
+In-Reply-To: <20240220092144.140251-1-oficerovas@altlinux.org>
 
-Parameter O_NONBLOCK described in man doesn't exist anymore
-in kernel versions 3.13+, which is quite old,
-only O_TRUNC parameter present for actual kernel version,
-O_NONBLOCK does nothing.
 
-Signed-off-by: Alexander Ofitserov <oficerovas@altlinux.org>
----
- man2/delete_module.2 | 57 +++++++++++++-------------------------------
- 1 file changed, 17 insertions(+), 40 deletions(-)
+--nfrxiqjscjfyup5m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/man2/delete_module.2 b/man2/delete_module.2
-index e9c432e84..bc07d0ce3 100644
---- a/man2/delete_module.2
-+++ b/man2/delete_module.2
-@@ -50,42 +50,20 @@ is zero, then the module is immediately unloaded.
- If a module has a nonzero reference count,
- then the behavior depends on the bits set in
- .IR flags .
--In normal usage (see NOTES), the
--.B O_NONBLOCK
--flag is always specified, and the
-+The
- .B O_TRUNC
- flag may additionally be specified.
- .\"  	O_TRUNC == KMOD_REMOVE_FORCE in kmod library
--.\"  	O_NONBLOCK == KMOD_REMOVE_NOWAIT in kmod library
- .IP
- The various combinations for
- .I flags
- have the following effect:
- .RS
- .TP
--.B flags == O_NONBLOCK
--The call returns immediately, with an error.
--.TP
--.B flags == (O_NONBLOCK | O_TRUNC)
-+.B flags == O_TRUNC
- The module is unloaded immediately,
- regardless of whether it has a nonzero reference count.
--.TP
--.B (flags & O_NONBLOCK) == 0
--If
--.I flags
--does not specify
--.BR O_NONBLOCK ,
--the following steps occur:
- .RS
--.IP \[bu] 3
--The module is marked so that no new references are permitted.
--.IP \[bu]
--If the module's reference count is nonzero,
--the caller is placed in an uninterruptible sleep state
--.RB ( TASK_UNINTERRUPTIBLE )
--until the reference count is zero, at which point the call unblocks.
--.IP \[bu]
--The module is unloaded in the usual way.
- .RE
- .RE
- .P
-@@ -151,11 +129,7 @@ in
- .TP
- .B EWOULDBLOCK
- Other modules depend on this module;
--or,
--.B O_NONBLOCK
--was specified in
--.IR flags ,
--but the reference count of this module is nonzero and
-+or, the reference count of this module is nonzero and
- .B O_TRUNC
- was not specified in
- .IR flags .
-@@ -172,6 +146,19 @@ it is (before glibc 2.23) sufficient to
- manually declare the interface in your code;
- alternatively, you can invoke the system call using
- .BR syscall (2).
-+.SS Linux 3.12 and earlier
-+In Linux 3.12 and earlier, the system call took two arguments:
-+.P
-+.BI "   int delete_module(const char *" name ", unsigned int " flags );
-+.P
-+Parameter
-+.I flags
-+also can contain 
-+.B O_NONBLOCK
-+flag in addition to 
-+.B O_TRUNC
-+flag.
-+
- .SS Linux 2.4 and earlier
- In Linux 2.4 and earlier, the system call took only one argument:
- .P
-@@ -183,19 +170,9 @@ is NULL, all unused modules marked auto-clean are removed.
- .P
- Some further details of differences in the behavior of
- .BR delete_module ()
--in Linux 2.4 and earlier are
-+in Linux 3.12 and earlier are
- .I not
- currently explained in this manual page.
--.SH NOTES
--The uninterruptible sleep that may occur if
--.B O_NONBLOCK
--is omitted from
--.I flags
--is considered undesirable, because the sleeping process is left
--in an unkillable state.
--As at Linux 3.7, specifying
--.B O_NONBLOCK
--is optional, but in future kernels it is likely to become mandatory.
- .SH SEE ALSO
- .BR create_module (2),
- .BR init_module (2),
--- 
-2.33.8
+At 2024-02-20T12:21:44+0300, Alexander Ofitserov wrote:
+> Parameter O_NONBLOCK described in man doesn't exist anymore in kernel
+> versions 3.13+, which is quite old, only O_TRUNC parameter present for
+> actual kernel version, O_NONBLOCK does nothing.
 
+Please be aware that "actual" and "aktuell" are false friends in German
+and English.  I suspect that you mean "current" here.
+
+https://speakspokehavespoken.com/2020/04/16/15-english-german-false-friends/
+
+Some English speakers will be aware of this usage error, others won't,
+and "es kann mach dem irritieren".[1]  ;-)
+
+It can be especially confusing in contexts where something "actual" has
+a "virtual" counterpart.
+
+Regards,
+Branden
+
+[1] This is bad German.  Do not imitate except for humorous purposes. :P
+
+--nfrxiqjscjfyup5m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmXUpwcACgkQ0Z6cfXEm
+bc75ahAApP5gTF+ToFgMa7JjeMilqg0Snm1F4hfHrG6LLMvzO6z5FRp7srYS22kW
+pWnCBujYDjdzNtp13acRJbqjhZCYvUuAeKVCgXQ04LpOcN5oGTe/ebo0WLwd2PSP
+J5VhhGKWmkk6ldgafDsAQAoSSQPH8RQxL7x0o8k0AFC+OSS4pqFphHU6/+l8v2P6
+8x9KA6d33k815XDrmcJLjQsSmEwyUr5SCY6Y8cwz/DUN26Asf033m7fY3sbkBNdl
+WgWD3lCMMxPzFMBzCgQGraLKJl6j6aeeDRwJpQ7GEnMMa0HHJyqOhtXZjH+yFpdx
+e42AGnuGMLEmwggjXi59FUbMAHMJVxebiDqoq29BEbjbgi7Ivoo8WM26leUiDHLF
+cnBsfdoAEorFFxvHfcWfEgqLNzQ+cFR8aqGazwP1aLDxQ1ogdivfRoPttbI56YRp
+bpyAFt2aGxH84TEcQ6lSnX7OBOCGyLyko2WCl3qIH2F9p3XAu8jtRp1UdoJBnEwH
+IqxOMN56CRtj9tC8xQeWSSnykN3KkBEx/uoYwL8DxQQKHUFUuT5f4fcjR6dgOU44
+gj7Ay3uki5bUzOjyyhFECa1gBkQ75Jh73HTN9738kWSumjIOMVsiGgP/MFsyo4lL
+vnp4zhKM2bslA87eqwamBa6gGKalW3Faz0QawkN3q1WD02LySAo=
+=GUUH
+-----END PGP SIGNATURE-----
+
+--nfrxiqjscjfyup5m--
 
