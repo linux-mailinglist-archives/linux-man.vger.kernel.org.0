@@ -1,55 +1,53 @@
-Return-Path: <linux-man+bounces-477-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-478-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id D69CC862A51
-	for <lists+linux-man@lfdr.de>; Sun, 25 Feb 2024 13:23:41 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3BF2862A54
+	for <lists+linux-man@lfdr.de>; Sun, 25 Feb 2024 13:35:42 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 143D81C20A5E
-	for <lists+linux-man@lfdr.de>; Sun, 25 Feb 2024 12:23:41 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C53F9281490
+	for <lists+linux-man@lfdr.de>; Sun, 25 Feb 2024 12:35:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC6BF10A0C;
-	Sun, 25 Feb 2024 12:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28843C2D0;
+	Sun, 25 Feb 2024 12:35:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpL7Opmy"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DroUnoZ5"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE314C96
-	for <linux-man@vger.kernel.org>; Sun, 25 Feb 2024 12:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2AC2F52
+	for <linux-man@vger.kernel.org>; Sun, 25 Feb 2024 12:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1708863817; cv=none; b=FnZbvQ483OTqZHS0ECmPa3uBSX1DnJ+eDMLi6wqLXRCLcodkB8y79F9azIZqxx0NvAnD+6yjmxsttBujez3y3WxDECX6eyWsjrYnbnccfXBfG1IybFqypGsT2im+pYGbrZR0rkyXqXe0ek+lU5+Hk/Uice+3Rqp9WedVAypFNVQ=
+	t=1708864535; cv=none; b=IBo59Wz1ZwMhkCBvL/bX+8y5ZYjlAfqT9t8y6x6OW2kbaBieOIp/MNa8f2xC8JLSiv1JZR9fxDpfESkBv7x/HPncyZGx2bdY7Ebl9diy9v32n7bu5mnENne9wGlSjHFK1lazpkwsZMxHnGSGro297AgPD7XL1YEl7WSToNJmf3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1708863817; c=relaxed/simple;
-	bh=yZDqkex5c8udMlpQ4QiI41RjYAgs34Rg6KGOGte9ti0=;
+	s=arc-20240116; t=1708864535; c=relaxed/simple;
+	bh=Do7BQbJpG2Lw4uQuPTDFKIQrt+YtMoW7zOeYy3z5KCA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jxFLJxvqJ6hCXreF1y5KAFruC8COaU406FrGea6NzcCjLBg2ViCmeMvJkKBihN6Mj+lYDpWR/K98OULqB4fLufcOYiR2dCea86+uDSK2/T3pHuktDDCrV/KsBV9zw3zLfHGuQ7a1pr8PcJgVSnj1dE5kIxgZpDFHbdhMlIM16zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpL7Opmy; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9891C433C7;
-	Sun, 25 Feb 2024 12:23:35 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=SkEZ2gAsHEAUeFbd0gFG04wKOJJ/2tOlKFZNs6p6Vg6q092YLUwiGk3ChRIc/PZY7bPi3qNlplIEEYqmaEb/N9Nnxg1JTCDEXOJeNZYSpz4LcCRgJwUfympsf8vP6SZ59M2m19HypTsZGwdZAyMABa93lsLETKP4eKO3lOixvc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DroUnoZ5; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015EAC433C7;
+	Sun, 25 Feb 2024 12:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708863817;
-	bh=yZDqkex5c8udMlpQ4QiI41RjYAgs34Rg6KGOGte9ti0=;
+	s=k20201202; t=1708864535;
+	bh=Do7BQbJpG2Lw4uQuPTDFKIQrt+YtMoW7zOeYy3z5KCA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mpL7OpmyNUJMpgy//nFQmDbk75BZBf9K6iTAjKnHS4WfKXGl4nWx2ZBeqLbKEm2j3
-	 DWthC25RLN36UF466Y7TIQna3W5Ml3KE3P5g3ni4kdFVnapxJY3sC4W0mprzkCzFRN
-	 DZWGoOAhKQrRta3vcxL3Y5/+2OyaGVAktK3GkDtIj2UgFD4PGGAJRjAMuOi5Efk4vg
-	 2oZLoPJt8KvGoa4yaGG+Zv3jnwS/0TiZP9SCg9UogAvMW8asWxw7HGDOxxdR7GH/sv
-	 SJPkblMLlzoTjlnK67ad+77ySxDNRl1Q1w3XKeArZ0UnDEbLoR+Ofv/7smu3LZAE4L
-	 xmJ19zyi/S6Bw==
-Date: Sun, 25 Feb 2024 13:23:34 +0100
+	b=DroUnoZ5ixgB1pv0lnckOoNGy4cbE/EdzzETYCrrLm17qIbjTywKUVN6WVdZhmnRb
+	 zKnn90R/7RGtF2Ru8hBmbOAlcCYxKrep8R7XrZJ4ra40cyvi5qKKmnYuNt1nzaLNfw
+	 icvjz2snRnFH/6CqzZlzA2UbjlOrsSFGpliFH7iel5ck4SiZShRf1vtImLfyRS7rMt
+	 hKza9hCTBgyA8EVAov9+qRI/qwGksS4Qqa+amf6WMRev/BTXRbyP5/Dn3kew/iVsVu
+	 suieTXRBKM9Q4ODy3cUOneK0xTQ5J9G4E6SySbmQ+A77jJZbgt2BxUFAptCismudVQ
+	 3a/CNFn/ofmxQ==
+Date: Sun, 25 Feb 2024 13:35:32 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Florian Weimer <fweimer@redhat.com>, Carlos O'Donell <carlos@redhat.com>
-Subject: [PATCH 2/2] process_madvise.2: Rename parameter, and use array syntax
-Message-ID: <20240225122250.441157-4-alx@kernel.org>
-X-Mailer: git-send-email 2.43.0
-References: <20240225122250.441157-2-alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] vsock.7: ffix
+Message-ID: <Zds0FKkoYN5HTc2q@debian>
+References: <m4ycah66kndxoyd6yajhpe6xogiyg3p6pghwoquhegaqewcjuu@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,104 +55,76 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lrsx4stbf5lkmvnb"
+	protocol="application/pgp-signature"; boundary="t+991F980/OrU9i9"
 Content-Disposition: inline
-In-Reply-To: <20240225122250.441157-2-alx@kernel.org>
+In-Reply-To: <m4ycah66kndxoyd6yajhpe6xogiyg3p6pghwoquhegaqewcjuu@tarta.nabijaczleweli.xyz>
 
 
---lrsx4stbf5lkmvnb
+--t+991F980/OrU9i9
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH 2/2] process_madvise.2: Rename parameter, and use array syntax
-MIME-Version: 1.0
+Date: Sun, 25 Feb 2024 13:35:32 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] vsock.7: ffix
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man2/process_madvise.2 | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Hi =D0=BD=D0=B0=D0=B1!
 
-diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
-index ed8739663..2d91924ca 100644
---- a/man2/process_madvise.2
-+++ b/man2/process_madvise.2
-@@ -15,8 +15,8 @@ .SH SYNOPSIS
- .nf
- .B #include <sys/mman.h>
- .P
--.BI "ssize_t process_madvise(int " pidfd ", const struct iovec *" iovec ,
--.BI "                        size_t " vlen ", int " advice \
-+.BI "ssize_t process_madvise(int " pidfd ", const struct iovec " iovec [. =
-n ],
-+.BI "                        size_t " n ", int " advice \
- ", unsigned int " flags );
- .fi
- .SH DESCRIPTION
-@@ -27,7 +27,7 @@ .SH DESCRIPTION
- It provides the advice for the address ranges described by
- .I iovec
- and
--.IR vlen .
-+.IR n .
- The goal of such advice is to improve system or application performance.
- .P
- The
-@@ -43,7 +43,7 @@ .SH DESCRIPTION
- structures, described in
- .BR iovec (3type).
- .P
--.I vlen
-+.I n
- specifies the number of elements in the array of
- .I iovec
- structures.
-@@ -80,12 +80,12 @@ .SH DESCRIPTION
- specified as 0.
- .P
- The
--.I vlen
-+.I n
- and
- .I iovec
- arguments are checked before applying any advice.
- If
--.I vlen
-+.I n
- is too big, or
- .I iovec
- is invalid,
-@@ -152,7 +152,7 @@ .SH ERRORS
- value.
- .TP
- .B EINVAL
--.I vlen
-+.I n
- is too large.
- .TP
- .B ENOMEM
+On Tue, Feb 20, 2024 at 07:11:25PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
+z>
+> ---
+
+Patch applied.  Thanks!  And sorry for the delay, I was busy lately with
+many things (might write to you soon, regarding some, if all works out).
+
+Have a lovely day!
+Alex
+
+>  man7/vsock.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man7/vsock.7 b/man7/vsock.7
+> index 0add12a..fb30781 100644
+> --- a/man7/vsock.7
+> +++ b/man7/vsock.7
+> @@ -156,7 +156,7 @@ .SS Local communication
+>  The local CID obtained with
+>  .B IOCTL_VM_SOCKETS_GET_LOCAL_CID
+>  can be used for the same purpose, but it is preferable to use
+> -.B VMADDR_CID_LOCAL .
+> +.BR VMADDR_CID_LOCAL .
+>  .SH ERRORS
+>  .TP
+>  .B EACCES
+> --=20
+> 2.39.2
+
 --=20
-2.43.0
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
 
-
---lrsx4stbf5lkmvnb
+--t+991F980/OrU9i9
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXbMUUACgkQnowa+77/
-2zKzEw//VvTMDqOQWeJ5qEPVZqxsi0qaTosgsXUJi+VFO9JylPmqkhx9YalemFWd
-ap4YOfhhpTZEGmmVX4HCcc/Y/a2cPPJpZdtJRnXZCfSqtYgGpdbZoy+/bKXCTtaL
-fbmPHySyGwwiaA7IbztlAg0Ky32BKYPIN0DHmMDiJZffdEXSnaYNqEvXH8mp+jkC
-oIYBDd0aJ0cwP4GTcxbp5KQovBtGK33yJuCnmg5wpXTtE95qVNiMmmEmsCskLSeX
-m0aQM5T534DnzNdb7iGLc7BQREArM4qdUG1T/vfacLMTXEXwKAM1MkG1wLRvoLQY
-2tQ+xTyBSvfr9PPwSLY0Y6b1sK/HMnIbl94HC7Wbk0AYrNHPYnA3ibYoa78l2Jo6
-KE8UNSMjNFl/ako9W+KPLDLJsue6fPn4Q/zlQlT9g0IOX+y12B8qp5WvYz3fomfO
-Uqi13f9Rf/EogHRV7mTEbB1cR0Onz69whZ+JadL8JMC0Edh+Rr+EFoRo8P8OSyjd
-/BJFi4DrxJYkxHv7fespVMTnHW2oS/2/J003OgyyNJJwton0AMg/Bj80530G1OTw
-VTbDyc9dnv/Xnp+P4EecWwHfJqcqxIq3V+nbF2JdxhgazKgYz9bWyFoc9b8Ri4jI
-PXyxUHsr+n2eruhmishOEFKp7mlSd1MNXyeTAKAJYyakslNFSP4=
-=4Yi1
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXbNBQACgkQnowa+77/
+2zLxExAAm0JFefI6weeIPj14gjIxBs+P+b6Gimal7pdPLirXdDl6PQeVd9Re4p+0
+k6g6iQN11PqI0f9GEzOJyo6GpqMlWpfY0J+wCLtLiYdrGZiJaVtuF8Ul0dL1HW8m
+ziif/v84s4Vm5chahzulRm6MKIID1iNEPitJ7KGriHDHxyIQ6jRmrEyqo9u4gjfQ
+zlu2Rk5JOPI7bi82w+SEXB6MYwqaHwzuFxboHTN/1mXrKzrHsY+tl1IyRCRBf1pZ
+gu13yFZs5Aui6e4wSS6Dkljc+ecQqQ1lQ+oU3TFsAu7ZSrqdPG78pkIoqwIO+EVZ
+MsZCWYZvPl2mdXQS6kAi3+Q7xmiQ2HHEEkHfrHj41gr4VX9mDidaqhMEBApfmYfL
+/HkUMTuOCfr/qcevu4ayCwfFqVgKaU6Y0Dj446mSRCGMVAQItFJim7G8s/48pZjh
+XJRqzn+mlzyF+GkZxWEg5m8qry0iQIDGyFvKYeD5gEH85qAcQaQsA1Y/Lm3tnOV1
+qWKM0xSmVs3XfiuWGaQAXsy5yeJ8HV7D2lJFctbeOhwm/b6k/o7YTGCmTLOw/7Oy
+7vRRQER5Xx9ec4ltV5are5nHBuk5BE57HW7ma/7BCNF82AQT/q0DTpi+w2fsFwTg
+7pywwJuDiHSBFfV7sKkJO8N78SO4zQlNMH7lDbo4AL0Qag+VnL8=
+=WuCN
 -----END PGP SIGNATURE-----
 
---lrsx4stbf5lkmvnb--
+--t+991F980/OrU9i9--
 
