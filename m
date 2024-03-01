@@ -1,108 +1,142 @@
-Return-Path: <linux-man+bounces-492-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-493-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DDFB86D852
-	for <lists+linux-man@lfdr.de>; Fri,  1 Mar 2024 01:28:39 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 664BD86D87B
+	for <lists+linux-man@lfdr.de>; Fri,  1 Mar 2024 01:54:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E53061F2352D
-	for <lists+linux-man@lfdr.de>; Fri,  1 Mar 2024 00:28:38 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 797AA1C20F17
+	for <lists+linux-man@lfdr.de>; Fri,  1 Mar 2024 00:54:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36586368;
-	Fri,  1 Mar 2024 00:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30B09C13F;
+	Fri,  1 Mar 2024 00:54:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b55wFwiU"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EwBLxray"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B53EC5
-	for <linux-man@vger.kernel.org>; Fri,  1 Mar 2024 00:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD55FEEC5
+	for <linux-man@vger.kernel.org>; Fri,  1 Mar 2024 00:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709252905; cv=none; b=jT2IK7C6C7YbvMN1xLE2Xf0RvYeJ3NEKg+brps407K0+1EvxmOmP2Ce+lTbjn222lcSvFie3Z1m0Vs+8YiLMcXMNlXxh/PvgHN80S4XOX6fR7w6IPwRXyU5gQrB5CVgaKqIcgTFgEN3wJtsZ40ih3IwQDoVvQ9xPsTgDDMCIPd0=
+	t=1709254440; cv=none; b=XXKbZfGIsBZ+gqHbjbUm0HN3kL54uqN24xJZt/sMrGPs85U0bBM5yRVYC5fb/mX8COpTcBKLJeoSeYyjQMVQDAEUHUIcuHQ4x/ZJnU0eSku68xKlQl9fmzc8ZvDb5yP+PUyPQ+39HaKtSZi5GJVYoFQ1m7cAkX0zFJTS+LOC9XQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709252905; c=relaxed/simple;
-	bh=DNNARZq+WfRzuEReupni1qj0/L7WWlrxPTkIluzRF2U=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=CcKwgBaiiIxEO/r9G68ZWGGBtYhV3tx1D2WTiMjBtSYoEHyiB5QiEX9iMIXKSRpEDxm9fV6QVMTZcY5oU2dDzokyr3R3aaKhrD9H0p/LYt3VB7a9xy+rDka7tCJ8omSxMr9ToVy0zJfEQ9ex7lbNF/snC2UqInGmaCJXbyAsVOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b55wFwiU; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-a28a6cef709so240929166b.1
-        for <linux-man@vger.kernel.org>; Thu, 29 Feb 2024 16:28:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709252902; x=1709857702; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=BeeBp4e8EM03KRGp4pT73frilJ3gL+mr5bQpxMDjIKw=;
-        b=b55wFwiUgdLPb6Yg1zqw+u1Z4INTka841ilEjGaFiZR1iLvilLMUYf3z5Y17g9wh83
-         zlWBdd96vTjwDALtIADxDD102Egt4lmw8MVVliExLk/oxELOHFpxJgmX6Hcos6m31fsV
-         sulx2T0qm2YBwh2n5RJmTlEknmuX4a6RDX1vO7NIf/UXg2U3gHBREyJ6JdCWIjJe1Xuo
-         ef/5/MN2ZHdjGQf75JQg9orGs/k7hiqtXkpL//IqfPq3+Nv98AUbaXyFBKjZiNkq/Kgg
-         YdDKY4zgPUD8nP+ji3hS5mBYGhyIiNSS5GTovj4Rt3U5CE+ZBg9eSc2OnioNEQB5XXI6
-         WQhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709252902; x=1709857702;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BeeBp4e8EM03KRGp4pT73frilJ3gL+mr5bQpxMDjIKw=;
-        b=hKVCPEazGPPB4SOCqm1N7urfYz9ErJINVhRDYmuJBV2z3twDD3NbYJom3aKSHKcz3/
-         1JL6jMyVKqvqpAUOo/lUHEfhuVvrBGXWEl8BRe5EXhSs9PZT/Qqg0p3RPuvkJzrQRotl
-         Y2ac97v5K8B/vTMOLXRyuPuEUjNhobvgKFsIMkP/BtosIvOTD/bDflOsWMn4jnmHUcV9
-         tS/J158+CykZhiEuHkbDipNJuIxprmJo4sk0he1zvpIZz3e2taPGTSgCYcPhSUBId0VQ
-         OYRZzlwkCfpTSwU5qfmf6dUbxf77gaTSSWW3VIHJKga0duuH0SQ4e6sPOZpjMoFTTcVr
-         nGdQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWW7KUFUZZsjm4mkGd096qctHztQ11E3b11T8NvdgECbs4f9w6tJ8fZlrGyYjsjPAwzrKYzVDiII5dtUKktwNBPblsQgiYIPZsZ
-X-Gm-Message-State: AOJu0YxihW7RpfcFo0zbIYG6lRXmiTzrC+Qjl9/ajWZ/CCxCKLL131sQ
-	uj9Xenys5gkV6MFmyDqzToEkcG8duM6h13HNdteYfpgwYx75i5UK/0gqNE8bG+vGjpiQYUznMU7
-	sMOIjr1DIVaIguGls/aw2n7wbD0eiPm52utY=
-X-Google-Smtp-Source: AGHT+IErkKPwLujoTaMUfuuL6D93J+xJd+H/nSUKODPlrg0t4Wdc6Zxhdw6I2GaD0cxGBOpLh0PNkcu9U7FwCdsi+RM=
-X-Received: by 2002:a17:906:2b15:b0:a44:56cf:b58e with SMTP id
- a21-20020a1709062b1500b00a4456cfb58emr164053ejg.18.1709252901611; Thu, 29 Feb
- 2024 16:28:21 -0800 (PST)
+	s=arc-20240116; t=1709254440; c=relaxed/simple;
+	bh=0c5hKpJqUEcOC9wCT5Akof5mnCy6YZCvkDmF54JZK3o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g7RrqlrhqmIAYnKYWa/r9pVkK0k6c9wyJsD4o8mTfM+n8o8CFoTmhZ5tqfqB6opHMQIUAPdVMc5OT3XIWpF27ARHi5TYOIkZs/FkbkBgPhYtAxH51cBaj4b5n+ib/82PuA2wLURO23ND4eXa4e0pZkutw3A/JdfsKnuyxSPVZTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EwBLxray; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963C2C433F1;
+	Fri,  1 Mar 2024 00:53:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709254439;
+	bh=0c5hKpJqUEcOC9wCT5Akof5mnCy6YZCvkDmF54JZK3o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EwBLxrayhsbUuAC9Vx5kSEDO5AYNGB4uQyR0yKujKfU7mdI7zuTpF+aypetd2Em7c
+	 dbIShlRGUsDDBuCAif6W2a+wTX9jitENYZCK5ESa2M/qyBPo8PHoiQfz2HJYYRVCuQ
+	 T6MhziMb2xZOShuFw261Nfr5FvsGIYBAqXXgnWPGFLSX3D9UIopPlQgsLGQ98fn62h
+	 tUAjN3HdRwapQwHEjRwIpOjkvGF8CUO/DWPiqsdcnqt6dhOVU2b3Sy5zZoPmxmKCb7
+	 zdpqtCy0qv7zWsRKbVa+HS3g7J8fOipmWT11UbxOHl2JThJtn+bkRiGMiRWp+si+F3
+	 YZZqJIj4avj/g==
+Date: Fri, 1 Mar 2024 01:53:49 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Morten Welinder <mwelinder@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
+Message-ID: <ZeEnJB96mMC5bfBz@debian>
+References: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Morten Welinder <mwelinder@gmail.com>
-Date: Thu, 29 Feb 2024 19:28:10 -0500
-Message-ID: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
-Subject: Man page issues: logb, significand, cbrt, log2, log10, exp10
-To: alx@kernel.org, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-I came across some minor issues in some math man pages.
-
-M.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jVyI3CS3foJOwN6W"
+Content-Disposition: inline
+In-Reply-To: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
 
 
+--jVyI3CS3foJOwN6W
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 1 Mar 2024 01:53:49 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Morten Welinder <mwelinder@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
 
-logb:
-The formula "floor(log2(x))" should be "floor(log2(fabs(x)))".  (Or
-...abs(...) if it's meant to be math and not C.)
+Hi Morten,
 
-significand:
-The range [1,2) should be [1,FLT_RADIX)
+On Thu, Feb 29, 2024 at 07:28:10PM -0500, Morten Welinder wrote:
+> I came across some minor issues in some math man pages.
+>=20
+> M.
 
-cbrt:
-The phrase "every representable real value has a representable real
-cube root" is wrong.  In fact, a representable cube root is quite
-rare.  This should be something like "every representable real value
-has a real cube root and rounding it to a representable value never
-causes overflow or underflow."
+I'll reply to the others separately.
 
-log2, log10:
-These use, e.g., "base 2 logarithm".  Compare that to exp2's "base-2
-exponential" (with a hyphen).  I am leaning towards the hyphenated
-version being correct, but I am not a native English speaker.
+[...]
 
-exp10:
-The man page probably should come with a warning not to use the
-function for the time being.  The implementation is pretty bad.  For
-example, results for integer arguments 3, 4, 7, 8, 9, and 17 are
-needlessly inaccurate.  pow(10,x) is much better, but not perfect.
+> exp10:
+> The man page probably should come with a warning not to use the
+> function for the time being.  The implementation is pretty bad.  For
+> example, results for integer arguments 3, 4, 7, 8, 9, and 17 are
+> needlessly inaccurate.
+
+
+I can't reproduce that.
+
+	alx@debian:~/tmp$ cat exp10.c=20
+	#define _GNU_SOURCE
+	#include <math.h>
+	#include <stdio.h>
+
+	int
+	main(void)
+	{
+		printf("exp10(17): %lf\n", exp10(17));
+		printf("pow(10, 17): %lf\n", pow(10, 17));
+	}
+	alx@debian:~/tmp$ gcc -Wall -Wextra exp10.c -lm
+	alx@debian:~/tmp$ ./a.out=20
+	exp10(17): 100000000000000000.000000
+	pow(10, 17): 100000000000000000.000000
+
+I'm running libc6 2.37-15.
+
+> pow(10,x) is much better, but not perfect.
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
+
+--jVyI3CS3foJOwN6W
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXhJx0ACgkQnowa+77/
+2zLVMRAAhafSqTpm9NtxxEOKUHSBUeqyOwgyO9pNlaoQ2KPanI24nMKVUCivjYRO
+SpYh2eplWyifBzaYnmm+uUOMe7gnbTDrkR20YcpY0u+1j9mv8JsJtlNRlhWiYzIX
+L+DZ1GoU/WXLk28EKBTUkQdeKguSR4IjI8O7EHVVrfyx4ZYTHpEAttjtDWCHSXNA
+p5xyWrXCB3kJiirsQiieTt2MpbXFC/kSUQnwzFxOGSzYkbRilJAzNnsDudn4GpbB
+K7YtrEY5CFKzDOXDY+ziFSRvxag3vbh+bzpbpzAPFSZvSVqEJHNtPyqx99+wceCp
+IfhFkC4HuuEh55VvLkHYDd483kLDAg7xbPRgHj4il65oUpBslvhBye9gpaY9oxwD
+RBWTfDgGOcVAPduCL9upMLU3ECoCqJI3QSx2WSKPhmhoK6/HPhnYFuYmOI3Tpuzo
+gOgrDuzXjAmL32TEfgv1meKk/SmkCGttYOmhP18gUkW14KwqwJEYRqyHTKOJNw+M
++IYInzkueBWDOa7ET3d55xtCbD5cyJtCAkio1ow3ZwlyEFII1gVSClZp8xJ/3k3R
+dvdusYE5iRZ9tk1zYarrd5Fp6m8EqoTemjQIBGCFUvt0oZ3eD+OSzpWcQWKDlzJf
+KlzRgQ+mykO+FiQoHfz/3N1WttfQLfscUR0kc8ayCLZwPnCqLUQ=
+=Bx2k
+-----END PGP SIGNATURE-----
+
+--jVyI3CS3foJOwN6W--
 
