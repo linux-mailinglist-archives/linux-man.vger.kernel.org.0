@@ -1,173 +1,134 @@
-Return-Path: <linux-man+bounces-495-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-496-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B2286F29E
-	for <lists+linux-man@lfdr.de>; Sat,  2 Mar 2024 22:54:34 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 091CD86F31A
+	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 00:19:55 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 254E11C211DE
-	for <lists+linux-man@lfdr.de>; Sat,  2 Mar 2024 21:54:34 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CE6F51C2110F
+	for <lists+linux-man@lfdr.de>; Sat,  2 Mar 2024 23:19:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 804A742057;
-	Sat,  2 Mar 2024 21:54:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D401353E20;
+	Sat,  2 Mar 2024 23:19:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQarCAoQ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J8WsILe/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AEB4122C
-	for <linux-man@vger.kernel.org>; Sat,  2 Mar 2024 21:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E981EB3F;
+	Sat,  2 Mar 2024 23:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709416472; cv=none; b=i9ydnjZzw76Ks4lSRGJkp5w1bZGSciCutpS1R6vF9ZyjhietvbcCzSmckXy4Z06ilUk+ibP8ojr3JPcFAlYyjK0s43mh1Egi7FRALXevxVzUbvntEDdaOjoV9V0jzUUUfjHPLh59hJUL03Gf3WYIeLSHC4/ddexpWmQLtsPnLgs=
+	t=1709421588; cv=none; b=AzFRuI2MVDY/WYVv50KfZJuDI/YVfKSP3izAaKA1jIsCnweDiUlo6nntlIImqv6zLfkHPtRsCqRnQgCAmPoX0m8lwrYuYllQ0PhsUlodaYf/DVElPI9hZsCIlzg+Q+zTr435/joFZT3eJqu1P5UGNAo1yFdpvZSspfMoAeKPyLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709416472; c=relaxed/simple;
-	bh=uMv6oiXeNOjWjqSPq+swo5A7BCWrnItuHgdLUODFrf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oe8X4NaTQZKl1Kp9GpA/jIMzYUjdIHtZHc8sSqco1tj0FzxJg8ICfI0Y9E8LRtT6k9uKrHwZy7/K34OYAj21ObSNL+uRPLMN0yj3Xs45E2jac9w5wpBcvJCfh5q+l0keWJu2G3IB50C2sr7RGMkaC4FmsrYF6VVQ+/0W7gRFixE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQarCAoQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C721DC43390;
-	Sat,  2 Mar 2024 21:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709416472;
-	bh=uMv6oiXeNOjWjqSPq+swo5A7BCWrnItuHgdLUODFrf0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AQarCAoQcStfY9j5qzSdp9CVuxsWNuu+aPpIjLrvkyXuHH8K0nmL0jqIeCN7peZB9
-	 A8VOZ7Z3dFIAwSzSQ8xJo/QymNWGgN22CPCcihifNnRE4KTmjiUCOutHJgsimV7oe4
-	 MJrfWoX8OO5WnU0OCsZxCS9+VeRk+SNIbD7iaV+4PMWRKyNXcAx3D3re7Zb8/a0coR
-	 yCc9lqt9XH2KpW60EZ/ovOq2CwPUAGsFP1q4vCZ3P0SIAjHoio8muysVpQ/fvDpfnN
-	 RjTGmoIUqgIYCauhRia3RzpO7EYkNEg6EX0oC4UF5O8y6suNzBRDf2lr9qHR6VI+Kl
-	 0q/sp05iEOH9A==
-Date: Sat, 2 Mar 2024 22:54:16 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Morten Welinder <mwelinder@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-	jsm-csl@polyomino.org.uk, newbie-02@gmx.de
-Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
-Message-ID: <ZeOgFPCtzqY90kIR@debian>
-References: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
- <ZeEnJB96mMC5bfBz@debian>
- <CANv4PNmMpiwfv5acr7U6VEVe7PE_AMTzkkpNoNN9jrtVzk_93Q@mail.gmail.com>
+	s=arc-20240116; t=1709421588; c=relaxed/simple;
+	bh=vPP3p9GGRRGZegKNSobm2wNf5DV/YCF3ypsLBCmSIdw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=oD3U0fWO6G1+sYnaKxQUxROftZk7qo1jCsVgCQS9vzmiUlMwK+1w0VCuu3Mc/gsdn5wAtF0bLr3PcVPcMtoje3opjt2hCttQ94zUQMwm2XBajVS005p5uDms4Ol1pbuepRtkcQ49WG4kvQDbsxF/Z/tYQDqG2VTZ8jI2rkYGm8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J8WsILe/; arc=none smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-42e78c39ff0so39808111cf.0;
+        Sat, 02 Mar 2024 15:19:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709421586; x=1710026386; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yl9YhJ9Pat9I4841GAOwQcUbovZDN591i7vJgihLH04=;
+        b=J8WsILe/c0lxtcCKQQ/0R2OH3stc/HlsnH+PpbuTa3bzXSbYECsURyZ9OYW12x193e
+         f0uR1c0q4NgkE0SrCDCWa9kKZLTvsiHVmkQ+n611oGCbAH0aQ3LRV/zVP0AzugW93MsE
+         ybDVfU0BNnB2XZJUrzQhnZgWI5PmOmXMM3qy5w8OEPYFPIpZKt/wgssVnsUBi79mTi8r
+         MZo0SiwfIu7C9HdwrQlV5LJRr8abFTPQnKabX3CwZC2bGoZpCozPzWahQLmirNGDtUkD
+         97u2n6cqunBELdpH8ZaIgXuGI0h8wWxcxN2orgxPfu2CoDtZiLj9Lm6f8RPQ/hgz0Sas
+         GNFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709421586; x=1710026386;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yl9YhJ9Pat9I4841GAOwQcUbovZDN591i7vJgihLH04=;
+        b=j6I6xnSKVPZNL29TptI0XvNw2fTmKReDia9KZLcO7xIXpNuWdcdQL1QimqiVicreWf
+         MVC81wgHR1OBuofdmKMeHAZXqts7yJrhQ5WjT2mZkkm+H4dknm0YEnU12sTx9eL37ZgX
+         DZJSbD4zPai9CdcfwftAKG6RzVdwSxTObZAf2/2uLtQRw+XpMKEVu1A9S8hFgQRXiQTY
+         JTW3bCpph4I4DwysjPipOm53c/YNzdMK/ERfSHNMUdzMZlwpMyvPDtfChOBoxwKYSlim
+         iMha+KEDtPCFy8Q+4YsCT8W8nHT8bMH8/KrR2F0felmzZVkMEGX5NBpJkW7Aryx28AE5
+         UD2A==
+X-Forwarded-Encrypted: i=1; AJvYcCX4rvRFQ2It8hC7Y4NzpLyGG7Gy9hvC+VK3O8pEX+yieGQ7tonRZI14MsxkNVx76Qdt/bLhVJuzZ+CyeT7Uu8FxzjEUHF9RxFAdd3wBh2Hdmto2YoRQUWMl7sCNZsqNBFfu
+X-Gm-Message-State: AOJu0YwkOdO9kqhP1a9R8hRiQLrHMHhmNjePFLGjAFJVfoyT7UrT+KdC
+	KNjtzYla7hI94F9+HDVHoE4jLQV3hxrJfMGHj8LK2JFNw3auySN9wmOYPAT7
+X-Google-Smtp-Source: AGHT+IF2R0RJsIJvVpl1bvm8wghq1conzqkpFu40cOsz9Pou4iTg2Ord2Jc4YemBxx9LHR+Lm28KYA==
+X-Received: by 2002:ac8:5a41:0:b0:42e:ca55:e89a with SMTP id o1-20020ac85a41000000b0042eca55e89amr8281122qta.34.1709421585966;
+        Sat, 02 Mar 2024 15:19:45 -0800 (PST)
+Received: from localhost ([2601:8c:502:14f0:acdd:1182:de4a:7f88])
+        by smtp.gmail.com with ESMTPSA id nw5-20020a0562143a0500b0068f2d2f64d1sm3422697qvb.32.2024.03.02.15.19.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 02 Mar 2024 15:19:45 -0800 (PST)
+Date: Sat, 2 Mar 2024 13:19:42 -0500
+From: Oliver Crumrine <ozlinuxc@gmail.com>
+To: alx@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	netdev@vger.kernel.org
+Subject: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
+Message-ID: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GpN2BNHO/z4HmDsp"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CANv4PNmMpiwfv5acr7U6VEVe7PE_AMTzkkpNoNN9jrtVzk_93Q@mail.gmail.com>
 
+It was not made clear in several socket options that they were not
+supported by SOCK_STREAM; this patch fixes that.
 
---GpN2BNHO/z4HmDsp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 2 Mar 2024 22:54:16 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Morten Welinder <mwelinder@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-	jsm-csl@polyomino.org.uk, newbie-02@gmx.de
-Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
+Socket options not supported by SOCK_STREAM are handled in the
+ip_cmsg_recv_offset function in net/ipv4/ip_sockglue.c. The function is
+called for udp sockets, and indirectly by ping and raw sockets, but not
+for TCP sockets, as they don't support these options.
 
-[CC +=3D glibc, and those involved in the glibc bug report]
+Signed-off-by: Oliver Crumrine <ozlinuxc@gmail.com>
+---
+ man7/ip.7 | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Hi Morten,
+diff --git a/man7/ip.7 b/man7/ip.7
+index 2b4b06324..104e65feb 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -828,6 +828,9 @@ is not zero, the primary local address of the interface specified by the
+ index overwrites
+ .I ipi_spec_dst
+ for the routing table lookup.
++Not supported for
++.B SOCK_STREAM
++sockets.
+ .TP
+ .BR IP_RECVERR " (since Linux 2.2)"
+ .\" Precisely: since Linux 2.1.15
+@@ -989,6 +992,9 @@ in which the kernel returns the original destination address
+ of the datagram being received.
+ The ancillary message contains a
+ .IR "struct sockaddr_in" .
++Not supported for
++.B SOCK_STREAM
++sockets.
+ .TP
+ .BR IP_RECVTOS " (since Linux 2.2)"
+ .\" Precisely: since Linux 2.1.68
+@@ -998,6 +1004,9 @@ ancillary message is passed with incoming packets.
+ It contains a byte which specifies the Type of Service/Precedence
+ field of the packet header.
+ Expects a boolean integer flag.
++Not supported for
++.B SOCK_STREAM
++sockets.
+ .TP
+ .BR IP_RECVTTL " (since Linux 2.2)"
+ .\" Precisely: since Linux 2.1.68
+-- 
+2.44.0
 
-On Sat, Mar 02, 2024 at 04:17:36PM -0500, Morten Welinder wrote:
-> I think what happens is that the compiler (not glibc) computes that
-> exp10 for you and that the compiler happens to be more accurate.
-> Here's what I get for the loop:
->=20
->   for (int i =3D 1; i < 20; i++) {
->     printf ("%.20g\n", exp10 (i));
->   }
->=20
-> welinder@CarbonX1:~$ ./a.out
-> 10
-> 100
-> 1000.0000000000001137
-> 10000.000000000001819
-> 100000
-> 1000000
-> 9999999.9999999981374
-> 99999999.999999985099
-> 999999999.99999988079
-> 10000000000
-> 100000000000
-> 1000000000000
-> 10000000000000
-> 100000000000000
-> 1000000000000000
-> 10000000000000000
-> 99999999999999984
-> 1000000000000000000
-> 10000000000000000000
->=20
-> Here's the bug report to go with this:
-> https://sourceware.org/bugzilla/show_bug.cgi?id=3D28472
-> Note comment 6.  It is clearly not a high-priority item for glibc.
-
-Thanks for that link.
-
-I agree with glibc that the standard specifies that these functions need
-not be precise.  That lost precission probably results in better
-performance.  Most programs won't care that these functions are
-inaccurate.
-
-If you need a correctly-rounded version of these functions, which is
-perfectly reasonable, the right thing to ask is that libc implements
-the cr_ version of these functions.
-
-I also understand that adding functions to glibc isn't straightforward,
-so glibc maintainers have reasons to not do it at the moment.  In fact,
-lately I've been leaning towards thinking that libc is a huge monster to
-which nothing more should be added, at all.
-
-How about writing a new library --maybe call it libm-cr, maybe
-libm-cr-pow, maybe libm-cr-exp10, depending on how extensive you want
-it-- and add cr_exp10(3) to that library?  You could do that, and just
-support the systems you need to support.  The effort would be certainly
-smaller than adding the function to glibc.
-
-Regarding the manual pages, I don't remember from the top of my head if
-there's any page documenting that libm functions are imprecise.  I would
-prefer documenting it in one place, rather than adding caveats to every
-libm page.
-
->=20
-> M.
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---GpN2BNHO/z4HmDsp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXjoAgACgkQnowa+77/
-2zINfg/7BYEdmNvs/knAaMblJwwcDI9spGHjIYc7AaMsr0W1jo1soKNZ21bpO+ub
-hBun8Ldv/6+99Zqe3K4Gn6Of3obQhoKj96wltZGYKI9gf5W1Lo4xCrJir2LgmCuj
-moKiXv1K1udEfvt88jtEulQd4mksSiVATjDyfZN32UfSGSvM6nvZTCzzhJXD/qGj
-1MFOWIVu5d9vJ3oLG5uVSlrDkWWmHi/hdILZJTSuwfDyCQXiWyR5ven/KXyDRvj4
-bCNQDvqS9iN7oayvM8uPLUpEnMfZyiCmfnpNB7G43MV2NOnT5LHhhjvVTUZ9x5uN
-rjJtJ6c3eNXAblHsmhJKxmsiUuyd14ETv0ilAjnERQEpmgDExvHq+7vDppUw2cbi
-FDcIf/58zvtF3EukENYT1O4tc+yxA2vJ9wkqXb3Nyg/G0M111C/Nrkm/awKmtqNY
-sbHoyrrMW/4HanwZru3eYyMiG1B1jMjOzu7NYmN0sezoo9NJtKqgB2xrQHxwcAp3
-M1m5ivQV0bZQ9gR62R2Zda7IzBFGEt0sF6dUDmtdzSG6f4KXlU44sOLg0Xmg1LtW
-gc3vWi0Z+oOPo3Y0hCuHniSR0EXG55OfAkh2flkgj1qWVXkUk7kO/rkfZZo398dz
-FebyFGCo5KsCALUeNnAhXqF3DC+PZiChk2CjurXPGIpAn4Xlerw=
-=J6yH
------END PGP SIGNATURE-----
-
---GpN2BNHO/z4HmDsp--
 
