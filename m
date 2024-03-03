@@ -1,114 +1,168 @@
-Return-Path: <linux-man+bounces-499-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-500-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36AFE86F4A1
-	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 12:48:31 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E57986F4BF
+	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 13:15:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id C3F37B21D38
-	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 11:48:28 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7E8B41C2090D
+	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 12:15:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F05DBA39;
-	Sun,  3 Mar 2024 11:48:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B7B8BE6D;
+	Sun,  3 Mar 2024 12:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOw0mxvr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA2BB67F
-	for <linux-man@vger.kernel.org>; Sun,  3 Mar 2024 11:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06794BE68;
+	Sun,  3 Mar 2024 12:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709466503; cv=none; b=nmgEiwWZ75HS+K3xYf57HnYEJ/XwUDgjD8DPj+pjp7yfXlPbk9pJLx9sLIomAhGrbJ2f1RfgW7xldfTNxmMLzloeEm5Grz9xoMl8DaIf9xCrRU4alOdCC9Ecteow/LzW0YIqFRAKoV/+aTIb42W79vWrhFF3ZIS9YgpYihRdktY=
+	t=1709468109; cv=none; b=Dp1llV4bYGAedaTz+Jq+aSraEjF4mSaNQBoMm0mFFAwaMX1rtjV9agiLqFj5ZIwAFKlgRZcRODzA3ETWmpl3d1jetjssQQDIs8T6kQqv/3fI3AyBDcwT5Bhj0zZ4D64Vi9c0g/EAQckU96QMi32Vl1OaRkwTodyOB0Q9ptipSOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709466503; c=relaxed/simple;
-	bh=u6GBSZAgBBZZ58AK5+Sw2GZacN7yhj3Xr+84aASzbAs=;
+	s=arc-20240116; t=1709468109; c=relaxed/simple;
+	bh=qREyyhvgSeHvXyhWgxFSWmj8iefZsN67LoZLcBk5n0Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uFJbWqEHJVhXDa350oi8YpjDD78HSjhJewjOcJovg0I4rAQDWxS+bKDDKBA+TI3cR+aOTIj4VVlSgeCcyoGaiVbD85n8BsQC9gfHhDg+07GlMpuxIY5zhD7RB29Jj984/xvtqK7r5GoFdQ9kituQy1ehctFK00ooihRU9dVDwys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
-Received: from smtp-qaa.vinc17.net (135.197.67.86.rev.sfr.net [86.67.197.135])
-	by joooj.vinc17.net (Postfix) with ESMTPSA id B47574F4;
-	Sun,  3 Mar 2024 12:46:00 +0100 (CET)
-Received: by qaa.vinc17.org (Postfix, from userid 1000)
-	id 5B4D8CA00B2; Sun,  3 Mar 2024 12:46:00 +0100 (CET)
-Date: Sun, 3 Mar 2024 12:46:00 +0100
-From: Vincent Lefevre <vincent@vinc17.net>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Morten Welinder <mwelinder@gmail.com>, linux-man@vger.kernel.org,
-	libc-alpha@sourceware.org, jsm-csl@polyomino.org.uk,
-	newbie-02@gmx.de
-Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
-Message-ID: <20240303114600.GA3653@qaa.vinc17.org>
-Mail-Followup-To: Vincent Lefevre <vincent@vinc17.net>,
-	Alejandro Colomar <alx@kernel.org>,
-	Morten Welinder <mwelinder@gmail.com>, linux-man@vger.kernel.org,
-	libc-alpha@sourceware.org, jsm-csl@polyomino.org.uk,
-	newbie-02@gmx.de
-References: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
- <ZeEnJB96mMC5bfBz@debian>
- <CANv4PNmMpiwfv5acr7U6VEVe7PE_AMTzkkpNoNN9jrtVzk_93Q@mail.gmail.com>
- <ZeOgFPCtzqY90kIR@debian>
- <CANv4PNm0xvB-GVb+z1yXPRVfeZYHU9533+VRTQfysjaycSbHBw@mail.gmail.com>
- <ZePerBa3QAvoFVSR@debian>
+	 Content-Type:Content-Disposition:In-Reply-To; b=FF8yDmDCAF4LzvZxmGoFxdmz14NolLJ9A13PQLCRNwo8zNwQPciQ7PaMIszZw8aj4pk3nc/hWO6xroP7kRpdxs4P+kix+ZznT93KRmeQxeFN5FLK3oLn8re87oYNagcskAdCnKJPPs+kG5eV5gWF1+iHLhGPHiLVzwIoeHuEkRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOw0mxvr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0810EC433F1;
+	Sun,  3 Mar 2024 12:15:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709468108;
+	bh=qREyyhvgSeHvXyhWgxFSWmj8iefZsN67LoZLcBk5n0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nOw0mxvrUyYIyzSanOwyNGEDZQHgPSZwnZL6rdMKfmt0REdJxbJsVw4jxqF6BTOLE
+	 JWO2sLGSP28/9mXQL5//XPl1gH/+hIdwmJqVnhoX2nHtR8/PtNAk9VcBKD6lNTBLAB
+	 k6M1wGkBy06uYXRAbYmpuCahGbKzwQuI3r9YG8oRGQRdNVq30Ucy+0RnEznmY1OCCI
+	 gUvCbm85ChK/tQtIdYZKZFV0g6oTwAmtsqQJO8qeKrGIZHuJBeECU+dHErOwo3w4Az
+	 yLyhBzv5256Nf7/RxMnmN4TihHjvxR1yJSP7PzDj3JjccHF56ylSYbUOoO3wni9aBR
+	 jAFnS7HePUrBQ==
+Date: Sun, 3 Mar 2024 13:15:05 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Elliott Hughes <enh@google.com>, Stefan Puiu <stefan.puiu@gmail.com>, 
+	Bruno Haible <bruno@clisp.org>, linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	GNU C Library <libc-alpha@sourceware.org>, linux-api@vger.kernel.org
+Subject: [PATCH 0/2] Use terms consistently in function parameter names.
+Message-ID: <20240303121454.16994-1-alx@kernel.org>
+X-Mailer: git-send-email 2.43.0
+References: <ZUIlirG-ypudgpbK@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wfsmp4pwh5henpd6"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZePerBa3QAvoFVSR@debian>
-X-Mailer-Info: https://www.vinc17.net/mutt/
-User-Agent: Mutt/2.2.12+69 (354c5b11) vl-149028 (2023-12-10)
+In-Reply-To: <ZUIlirG-ypudgpbK@debian>
 
-On 2024-03-03 03:21:26 +0100, Alejandro Colomar wrote:
-> Hi Morten,
-> 
-> On Sat, Mar 02, 2024 at 09:02:24PM -0500, Morten Welinder wrote:
-> > Thanks.
-> > 
-> > There is (was?) already crlibm out there.
-> > https://core-math.gitlabpages.inria.fr/  No particular need for wheel
-> > reinvention here.
-> 
-> crlibm doesn't seem to exist anymore.
 
-The sources are still available at more non-official mirror, but
-it is no longer maintained.
+--wfsmp4pwh5henpd6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH 0/2] Use terms consistently in function parameter names.
+MIME-Version: 1.0
 
-> Maybe just add some headers to core-math, and package it as a
-> standalone library.
+Hi!
 
-The issue is that it is not portable yet.
+I finally wrote this patch.  I had it in my todo for too long.
 
-> > FWIW, it appears that the author of the glibc exp10 implementation
-> > agrees with me that the implementation is sub-standard:
-> > 
-> > https://codebrowser.dev/glibc/glibc/math/e_exp10.c.html
-> > 
-> > /* This is a very stupid and inprecise implementation. It'll get
-> > replaced sometime (soon?). */
-> > return __ieee754_exp (M_LN10 * arg);
-> 
-> Hmmm.  Still, it's simple.  If pow(10, x) is strictly better, maybe one
-> can prove it and send a patch.  Or for something better, it'll take more
-> work.
+In <time.h> functions, use duration, instead of request, as suggested by
+Elliott.
 
-If by "strictly better", you mean that for each input, it returns a
-result that is at least as accurate as the one returned by the above
-expression, then, probably no. The reason is that the rounding errors
-in the above expression may partly compensate on a random basis. So,
-for some proportion of inputs, you'll actually get an accurate result.
-And unless pow is designed to be almost correctly rounded, it will
-probably be sometimes worse.
+In ctl functions and similar, there was a lot of variation:
 
--- 
-Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
-100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
-Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
+-  command
+-  cmd
+-  request
+-  req
+-  option
+-  operation
+-  op
+
+And they all meant the same thing.  We have similar problems in the
+names of the constants, which have similar variability.
+
+In the case of the function parameters, we can easily rename them.  I
+chose 'op', as it seems a reasonable (and short) name, and most of the
+documentation already used the term 'operation' to refer to the
+parameter, even in cases where the parameter was names differently.
+
+I would like to ask to kernel maintainers and libc implementations to
+add some consistency here too, and rename the parameters accordingly,
+for consistency, or at least use your own consistency, if you don't like
+this one, but stick to some rules.
+
+In the case of constants, we can't rename them.  Too bad.  But I'd like
+to ask programmers to have this in mind for when new constants are
+added, so that some consistency is followed.  (This was something that
+made me doubt about using 'op', because most constants seem to use
+'_CMD_' in their names.  If you prefer 'cmd' for the parameter names for
+that reason, let's discuss it.)
+
+Have a lovely day!
+Alex
+
+
+Alejandro Colomar (2):
+  man*/: epoll_*(), fcntl(), flock(), ioctl(), msgctl(), *prctl(),
+    ptrace(), quotactl(), reboot(), semctl(), shmctl(), lockf():
+    Consistently use 'op' and 'operation'
+  clock_nanosleep.2, nanosleep.2: Use 'duration' rather than 'request'
+
+ man2/arch_prctl.2          | 12 +++---
+ man2/clock_nanosleep.2     | 20 ++++-----
+ man2/epoll_wait.2          |  4 +-
+ man2/fcntl.2               | 70 +++++++++++++++----------------
+ man2/flock.2               |  6 +--
+ man2/ioctl.2               | 30 +++++++-------
+ man2/ioctl_console.2       |  8 ++--
+ man2/ioctl_fideduperange.2 |  2 +-
+ man2/ioctl_getfsmap.2      |  6 +--
+ man2/ioctl_ns.2            |  2 +-
+ man2/ioctl_tty.2           | 10 ++---
+ man2/ioctl_userfaultfd.2   | 10 ++---
+ man2/msgctl.2              | 16 ++++----
+ man2/nanosleep.2           | 12 +++---
+ man2/prctl.2               | 84 +++++++++++++++++++-------------------
+ man2/ptrace.2              | 60 +++++++++++++--------------
+ man2/quotactl.2            | 34 +++++++--------
+ man2/reboot.2              | 19 +++++----
+ man2/semctl.2              | 22 +++++-----
+ man2/shmctl.2              | 20 +++++----
+ man3/lockf.3               | 11 ++---
+ 21 files changed, 233 insertions(+), 225 deletions(-)
+
+--=20
+2.43.0
+
+
+--wfsmp4pwh5henpd6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXkackACgkQnowa+77/
+2zLx6A/+JurxBBdZMKFu/0xWH0u/ByoKTj86x8rQFsh0MB6NLid4Mhm9u/t8t5vF
+X2MpVSLA6N2PEQbSdAOpoExE+RnJmyOOYvlnjba6WHjaMRPOWyi7SXZggctUreV5
+Pjq7VBKdTmLUmMqvV8ydsRPFqNawA8FQcnMQN7C5XGK3sdyC4mY+qpRBSvGym/zS
+0thYAtfzmPPmHqi8zRd5nvZDIwCgh2sN2x2JlbgTgw/FYL5xmRpjwR3+S7jDXbcp
+DkLd+B/w3aDa1JkQMCK2j5fk8AsNfbNzF9yn5ol+Gf7b/Lfdfdgn6UQ/L6L8tNUc
+4szK/7g8WW1mHJpJo2ely8WrRuH/hx58n1sFBcA4gOziEBUC66lWut7sy5Wbi08K
+IVxD1x0PcvBrKm3e2TKHwHkw8nR2HaHupyPg3KaahlBQ8A68eCyCK4oXcVbMgeqn
+oP18NtiuuMcPINBdG31V7TkO/tvVYNhYqVhOA0n1Ui+VUj3n4NFJItR33G5caXYR
+AnPrJoEBHHYJ6ELM0t2VvWGz/tWvFKBlWHfBm7Wlx6sYpqLgTlV3zGCVb+ljtj3I
++m/w8p3/+B7d3IOiy6GDKM0kFDY4yPS7Qrcx+2wkORe/GjB/yKZSULhGMSPp2C1y
+HGuqk53trRwEl3+F5vFRzS502srTZXK/7DrNuUbWEPVUt5vM/9M=
+=ZcOj
+-----END PGP SIGNATURE-----
+
+--wfsmp4pwh5henpd6--
 
