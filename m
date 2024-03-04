@@ -1,216 +1,133 @@
-Return-Path: <linux-man+bounces-508-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-509-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA66186F769
-	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 23:27:05 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25DC08700BF
+	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 12:50:12 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8946C2813D1
-	for <lists+linux-man@lfdr.de>; Sun,  3 Mar 2024 22:27:04 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 880EE1F21E21
+	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 11:50:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5441C7A70E;
-	Sun,  3 Mar 2024 22:27:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 089273A8FF;
+	Mon,  4 Mar 2024 11:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mCb/F0BA"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oILNWMFb"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7504E43AB5
-	for <linux-man@vger.kernel.org>; Sun,  3 Mar 2024 22:26:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B990139AE1
+	for <linux-man@vger.kernel.org>; Mon,  4 Mar 2024 11:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709504821; cv=none; b=pCzUHYvBFdFGp6EUAuPAaZi6JfzVKRK+At6ofBrgN+ukqZiqDcoNSEjLdUSivaUdQmzdNc/8Uf56CUKU+XAAfWDesVsY/eKhs+bomLMy2IIAk/ncnh6J2jTorrSLyFY7os1td4CoLA58+SS/5IyXfnOGP27ragfNyknGZmoyjdk=
+	t=1709553005; cv=none; b=KZsXKtUVf4aX2Hv1WtDhDQCblXoDEsHjczPQ7XCmCqpZ9ZsL5S1yT7zYQA60H/IKSFwBMm6XIg6RMN0xrRl9uN4wjvGN5bNy/posthHgj39ahKXLFqKx68PcI7djIXvb3n6vMi8knbVh1aFQwa///V4czv8So4vpif/r6EqNQ64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709504821; c=relaxed/simple;
-	bh=QpCX7q+AjOnuzD3cwZahjtEQOxXnAl3NhSkK3N35KKg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G4wviuJUWdmD/nQznoCaWG0W7Hwv4xm5EEKXStQDsVwV/l3qNkHuucNfXgJ95ZF7HmUk351DHFIFlz9qeUKCnyOTh5uMiid1bFv5D5FR2s5lx5nCiaOR8fVFmSnyA99yormfKVG/OZSi+RedzEMnc9KfaHtq34wqXJ6vEcGxE0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mCb/F0BA; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-a446b5a08f0so453810366b.1
-        for <linux-man@vger.kernel.org>; Sun, 03 Mar 2024 14:26:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709504818; x=1710109618; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=so6y7GAzsoSyxm60TDD8SLV6hJW3fhd5XLKWVmFvvso=;
-        b=mCb/F0BAFD/Q1si8ybX0pP89o//YJiYnhsUvKSNHzZN4rw9lbTMu9P2W+cjFri5rkh
-         x3iztzKZm3kThktoSLczT1bwE040xk3+wnu4nr8lY9XJbqAo6UCOzZ4QU0IeIt2h4Q3U
-         /r0VAhboFJhO18nK9jK+a2kDYbL9iIMez8+fmi2AcEPweyUEd9xPIi4H4ycttzSefhAU
-         dLgK9tDd1kw5iPxKcrJftHy7Eh9Nrnc1342FU2Ct7+CsCJ5WrqQ+0VVkbR6fiphtaju4
-         w1JU3f5CgtoLCfmEiFPoFvrkhzb16Gwv+0FGDz8dHlUc8Nnjfar1nX+PQsHHiaLwlfN0
-         uxRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709504818; x=1710109618;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=so6y7GAzsoSyxm60TDD8SLV6hJW3fhd5XLKWVmFvvso=;
-        b=h6MvFehOFOsFv0o5LyqXKAWWOgJcCqElWW9ZWBLxTdfNz4ZHgxMQe4ZSXrVjV+kZdv
-         3Az2kwL+zw+sNjJJMK0V0O9uTV15Xcz7EothhhGZBLPkCZBg0Dq5xFQn/WRYZk+TBI7q
-         niarCAA3mQiBl4oL1mgsBXLryeVCfqVYMUFsdLecPt6Qc6Ukft5Eoz2lYzv2eCsxo1s3
-         w5xSns2XJar5V7bUyxMYJ1H7kO9683Hpui19BkHZYg0AStZQ50yKBxAGg1jx6zBDaDhQ
-         ROwMgOVFncO3V8X2v0wo87NfbD/gOu2MKxxJzn7pwHr9XRbhqtHaCyRIMG0pKcyZX7wN
-         BDow==
-X-Forwarded-Encrypted: i=1; AJvYcCWBGx4bQ03ekMqa720A+6gzEHE0Y0urThEl90e/E8DfqCH8hngetCQya506YUrNXnsmmNQBR8nhKa/BXiMrKZlR0XS4LVmpCTza
-X-Gm-Message-State: AOJu0YzcHPIQO4OE/TNdz/njYNPkNJmyp2HB+NiwVpnHl5O9G6XZzxlG
-	YOAjUnR5qMbHqx1TgjLFsDZqo5i4jUKMMUTCsbpEtDuxEPXnbcGnKdq4gGGjfpQJ6yu7bE6lhhO
-	UlEYKzB3iCctllV9u5RR1q9BlBI/r+vjOsFikeg==
-X-Google-Smtp-Source: AGHT+IEKbyrkvZU00E/o0ri1KObEIqW01lhkGKOqHzcDZmMhniIqiG+B/MT46/Ibt0qZBvatUyxqWNrpOpc7XYcuxs4=
-X-Received: by 2002:a17:906:dfd8:b0:a45:53ca:307 with SMTP id
- jt24-20020a170906dfd800b00a4553ca0307mr594248ejc.8.1709504817563; Sun, 03 Mar
- 2024 14:26:57 -0800 (PST)
+	s=arc-20240116; t=1709553005; c=relaxed/simple;
+	bh=DMseLKrJ8lpVBtcIgjf/b30y5nb/ZfC7jR/F3aeIgCo=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=s3bccydZOZe/ooLrmVMC+EdID2hRzpazbdDpGvReepMmGxXqRTGlwb8dDbGx/vYc1T9jEqbpzAayrtccmaRhCURBQiBfdba1tcjCQv4iwuxLVkRaeaalCc2KqzuEaXTCQCVNWAY+Ig5nN1x4QAz58aDlK56jLD+ejWiFqTPcf0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oILNWMFb; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B7C7C43394
+	for <linux-man@vger.kernel.org>; Mon,  4 Mar 2024 11:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709553005;
+	bh=DMseLKrJ8lpVBtcIgjf/b30y5nb/ZfC7jR/F3aeIgCo=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=oILNWMFbqPK3o94DvS9Anor+ZE635XJio0eA7brmB4DqDQRrQsZt3znZ1cD+yn6Hd
+	 4OXZjb2iuboc5590ZIxmZ/6IN7NC2FdS4T9UaHlya/3YoQ2TJTVw5HEHktyoeFqljt
+	 bMEFXVQY9HgHOhhlZ15VeqBcOBXgXaAGOySzCa/aK7gpuoMa2fjdlqaGgeo6logQPV
+	 dCu6N4aGPpQLbxWY0ak6X2/rkOfhYus8l3hkiDU35lYryBjeUfCti9R0DsXZ7lwjyW
+	 QmlRY7qF8V4R76x1vlCljbimxLQiE4j8Iy06A3wXzM/fnUDHzJY2j/yDlow4csUJ3Y
+	 y7WdrIwly85SA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 33BCBC53BCD; Mon,  4 Mar 2024 11:50:05 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 218105] Incorrect path name in description of creating a
+ threaded cgroups tree
+Date: Mon, 04 Mar 2024 11:50:04 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-218105-11311-eACiVrw2RQ@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-218105-11311@https.bugzilla.kernel.org/>
+References: <bug-218105-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
- <ZeEnJB96mMC5bfBz@debian> <CANv4PNmMpiwfv5acr7U6VEVe7PE_AMTzkkpNoNN9jrtVzk_93Q@mail.gmail.com>
- <ZeOgFPCtzqY90kIR@debian> <CANv4PNm0xvB-GVb+z1yXPRVfeZYHU9533+VRTQfysjaycSbHBw@mail.gmail.com>
- <ZePerBa3QAvoFVSR@debian> <20240303114600.GA3653@qaa.vinc17.org> <ZeRrRgEvvxjvHi-K@debian>
-In-Reply-To: <ZeRrRgEvvxjvHi-K@debian>
-From: Morten Welinder <mwelinder@gmail.com>
-Date: Sun, 3 Mar 2024 17:26:46 -0500
-Message-ID: <CANv4PN=D-99oF86THKYFndZ5TQJ4oWga5n4DST4mhsLmq1Zr4A@mail.gmail.com>
-Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Vincent Lefevre <vincent@vinc17.net>, linux-man@vger.kernel.org, 
-	libc-alpha@sourceware.org, jsm-csl@polyomino.org.uk, newbie-02@gmx.de
-Content-Type: text/plain; charset="UTF-8"
 
-Sorry to be a bit of a pain.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D218105
 
-Some testing says that the average error from exp10 is 300-500 times
-bigger than the average error from pow(10,.). This is consistent
-across a large range of arguments.
+Alejandro Colomar (alx@kernel.org) changed:
 
-The maximum error from pow(10,.) in the samples is 1ulp (relative to a
-reference rounded value, so the true error is likely less). The
-maximum error from exp10 in the samples is 2ulp.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+         Resolution|---                         |CODE_FIX
 
-This is not surprising given that exp10 starts out by introducing a
-rounding error due to the multiplication before the call to exp.
-
-I didn't bother looking, but it is almost certainly true that there
-are arguments for which exp10 is better than pow(10,.).  However, the
-numbers below imply that such arguments are very rare compared to the
-other way around.
+--- Comment #3 from Alejandro Colomar (alx@kernel.org) ---
+I'll push the following commit tomorrow.  Thanks for the report!
 
 
--------------------------- average ----- max
-Binade -7      exp10: 0.3378           1
-Binade -7  pow(10,.): 0.0007           1
-Binade -6      exp10: 0.3429           2
-Binade -6  pow(10,.): 0.0007           1
-Binade -5      exp10: 0.3532           2
-Binade -5  pow(10,.): 0.0008           1
-Binade -4      exp10: 0.3774           2
-Binade -4  pow(10,.): 0.0008           1
-Binade -3      exp10: 0.4402           2
-Binade -3  pow(10,.): 0.0010           1
-Binade -2      exp10: 0.4118           2
-Binade -2  pow(10,.): 0.0009           1
-Binade -1      exp10: 0.4228           2
-Binade -1  pow(10,.): 0.0009           1
-Binade  0      exp10: 0.4204           2
-Binade  0  pow(10,.): 0.0009           1
-Binade  1      exp10: 0.4221           2
-Binade  1  pow(10,.): 0.0009           1
-Binade  2      exp10: 0.4204           2
-Binade  2  pow(10,.): 0.0009           1
-Binade  3      exp10: 0.4222           2
-Binade  3  pow(10,.): 0.0009           1
-Binade  4      exp10: 0.4209           2
-Binade  4  pow(10,.): 0.0009           1
-Binade  5      exp10: 0.4200           2
-Binade  5  pow(10,.): 0.0009           1
-Binade  6      exp10: 0.4210           2
-Binade  6  pow(10,.): 0.0009           1
-Binade  7      exp10: 0.4210           2
-Binade  7  pow(10,.): 0.0009           1
+commit 09ed04875f27741e4ad111d7bcc5e93a5397903f (HEAD -> contrib, alx/contr=
+ib)
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Mon Mar 4 12:45:24 2024 +0100
 
-Notes:
-1. Only positive arguments tested.
-2. powl (long double version of pow) is used as a reference.  I
-double-checked with a double-double version of pow (good to about
-100ish bits) that this does not matter.
+    cgroups.7: tfix
 
+    Closes: <https://bugzilla.kernel.org/show_bug.cgi?id=3D218105>
+    Reported-by: G=C3=B6ran Uddeborg <goeran@uddeborg.se>
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
+diff --git a/man7/cgroups.7 b/man7/cgroups.7
+index ca10cf859..877aae03f 100644
+--- a/man7/cgroups.7
++++ b/man7/cgroups.7
+@@ -1441,7 +1441,7 @@ .SS Creating a threaded subtree
+ .IR "domain threaded" .
+ .IP \[bu]
+ All of the descendant cgroups of
+-.I x
++.I z
+ that were not already of type
+ .I threaded
+ are converted to type
+@@ -1453,7 +1453,7 @@ .SS Creating a threaded subtree
+ to each of the
+ .I domain invalid
+ cgroups under
+-.IR y ,
++.IR z ,
+ in order to convert them to the type
+ .IR threaded .
+ .P
 
+--=20
+You may reply to this email to add a comment.
 
-#define _GNU_SOURCE   1
-#include <stdio.h>
-#include <math.h>
-#include <stdint.h>
-
-
-static uint64_t
-murmur64 (uint64_t h)
-{
-  h ^= h >> 33;
-  h *= 0xff51afd7ed558ccdll;
-  h ^= h >> 33;
-  h *= 0xc4ceb9fe1a85ec53ll;
-  h ^= h >> 33;
-  return h;
-}
-
-static double
-exp10ref (double x)
-{
-  volatile double y = (double)(powl (10.0l, x));
-  return y;
-}
-
-static double
-exp10viapow (double x)
-{
-  return pow (10, x);
-}
-
-
-static void
-test_binade (int b, double (*f) (double), const char *funcname)
-{
-  uint64_t h = 0x0123456701234567ll;
-
-  double ulps = 0;
-  double mulp = 0;
-  int N = 1000000;
-
-  for (int i = 0; i < N; i++) {
-    h = murmur64 (h);
-
-    double x = ldexp ((h & 0xfffffffffffffll) | 0x10000000000000ll, b - 52);
-
-    double y = f (x);
-    double yref = exp10ref (x);
-    double dy = fabs (y - yref);
-
-    double ulp = dy / (nextafter (yref, INFINITY) - yref);
-    ulps += ulp;
-    if (ulp > mulp) mulp = ulp;
-  }
-
-  printf ("Binade %2d %10s: %6.4f  %10.0f\n",
-      b, funcname, ulps / N, mulp);
-}
-
-
-int
-main ()
-{
-  for (int b = -7; b <= 7; b++) {
-    test_binade (b, exp10, "exp10");
-    test_binade (b, exp10viapow, "pow(10,.)");
-  }
-
-  return 0;
-}
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
