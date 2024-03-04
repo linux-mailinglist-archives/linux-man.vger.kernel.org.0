@@ -1,55 +1,54 @@
-Return-Path: <linux-man+bounces-512-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-513-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29ECB87012D
-	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 13:23:48 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B5FB3870356
+	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 14:53:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DF020282625
-	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 12:23:46 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3C6A5289C74
+	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 13:53:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F28B3C48C;
-	Mon,  4 Mar 2024 12:23:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B23C3FE2A;
+	Mon,  4 Mar 2024 13:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUhbItAS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DOKZ+5YY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9D43C47A
-	for <linux-man@vger.kernel.org>; Mon,  4 Mar 2024 12:23:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471F43FB22;
+	Mon,  4 Mar 2024 13:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709555026; cv=none; b=KBSZEEFXsJNEjwaobfauV2zzzx1j+FwC2nC6MZv0oywRZwoNeiviq4A4Gbem60ESeaTnkpWr/EPM9HTy7dW+MEBOUFTL5Q3d+yWxEIHZO7us8k15EmTVkfWlLnP7T7mSBS/ahyGQb4f6MDT+sb3SnPxGmwSzNCE4DeXkA4XchnQ=
+	t=1709560377; cv=none; b=HES/QCSBMgNlW8IelfKCzviJ4xNo3VsBKZnFW3pFeUDk36Sv8RqQ6G9VdHPYCuwNQsgtgIMhUxqKx6FsG3DRMueDirvj4SVtNRjn3/ZqmA3W6LaWsle8BRdQDgUoQSCb8R8bF+fCnpOeUUAXWxP5GvSULG6YiZ1zUfvoidw78WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709555026; c=relaxed/simple;
-	bh=NMdfUF5rJV0bRB7G1AbVu1jzqzVE01zBTlso0Ku39pg=;
+	s=arc-20240116; t=1709560377; c=relaxed/simple;
+	bh=OoFrPQTcL04921q4XEMUZnUgL72Ub60qBvej+i6/2IM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sjXypALp/lNiDhGRmvEF9x01xwbeGSEnse3RS/W9YxyLAfOy8XSuR6MbbhunqrvAqsmkfUFqI8bzmpiCBqUPkAmY8D0tPD19AbnupWXMeQ6gj43q0aSEOnFaQJf5Jnjlyusc7+NDaM4WUFmlTLEhEh87fCnPRgopg8LHtTfDGhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUhbItAS; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E872C43390;
-	Mon,  4 Mar 2024 12:23:45 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=YlnOdV++StbcIuTKmXkXu5DIr1HDU5JBNzbsBgpVltQunqruTVb9QCO01ipztrj3DOmjgL0sREJO8DzLF4PP8e59yDbQyHv5Z1jZ60eGQ3YsB/rG+F59cva0R4ioZuuyxNaY+HbIVsjgw2DP9fW+hOuCtVGX3D0surGVX9VuSjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DOKZ+5YY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA1D4C433F1;
+	Mon,  4 Mar 2024 13:52:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709555026;
-	bh=NMdfUF5rJV0bRB7G1AbVu1jzqzVE01zBTlso0Ku39pg=;
+	s=k20201202; t=1709560376;
+	bh=OoFrPQTcL04921q4XEMUZnUgL72Ub60qBvej+i6/2IM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EUhbItASe+Y9PMdbRFvyZc2mfM4Wp82PehUGgmF8RsFPxADYYZ2yggvHkfbGQWsZI
-	 foK2y8zaz4RzeNHp1AGt28sbQbmYp/jEDx0H4Uwf9J0QdduluYxhqBhY0S9bTKqs1Z
-	 YJTKEu/rNhEhAZJgDVEC6KiCJXvDIoVR9lAhVNK6Y5yLg4B6gyf/B0DxAxLlN6sd4A
-	 dCcxYzF99YW8dcWhXcoERlc+Ms38AkVpkuverys/NwXuT+9tlDzFIpWLXcH/0hqE8V
-	 mHX+BVapsxLO3wTcK3jdaaQXi01DkcmLrSnCGBW6KgIRyGFIld+m5cG8/6gz8+bjla
-	 jXwpWBaycRHGg==
-Date: Mon, 4 Mar 2024 13:23:33 +0100
+	b=DOKZ+5YYiUi/CU6nl3knVZ+qnV0JosBBHPhNxQ9TdVggSpAklESndkADtadLpzH61
+	 GpgzO/e2a05C3L5Q8clwkYueg6BD1mXcAx8pGQnwIotzmLEeWHbQVIZ345MhY53V4M
+	 hcgi/3BztcafKYIS+nNTNXcsGGTmeKkyD927NRGF1bHfx+/BfNazrSiK7hgE7NnTT8
+	 RaGMzNwExRqC8SSjE7xsOZWrT4+DlvSORvUH4N26VcyADJ9NRomK1JjZL+WC6XmUeW
+	 DkhJHI+tILkhba/yVk2gDQpvHktyE/mN6dfmx0LtSgW+ce8uwdRuXKcBGPKn6UuLeE
+	 K8O2PyTlFfg9w==
+Date: Mon, 4 Mar 2024 14:52:46 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Cesar Enrique Garcia Dabo <cquike@arcor.de>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] Re: [Bug 218453] Update posixoptions to POSIX.1-2018
-Message-ID: <ZeW9S9jF5vx9uJO2@debian>
-References: <bug-218453-200555@https.bugzilla.kernel.org/>
- <bug-218453-200555-T9WUlcyTpD@https.bugzilla.kernel.org/>
- <21bbdbb3-4693-47f3-a140-534bb4877e2c@arcor.de>
+To: Jan Engelhardt <jengelh@inai.de>
+Cc: linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>
+Subject: Re: sendfile(2) erroneously yields EINVAL on too large counts
+Message-ID: <ZeXSNSxs68FrkLXu@debian>
+References: <38nr2286-1o9q-0004-2323-799587773o15@vanv.qr>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,590 +56,420 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1rouo62fbGhgGNed"
+	protocol="application/pgp-signature"; boundary="EKq123TC/P2K2t3q"
 Content-Disposition: inline
-In-Reply-To: <21bbdbb3-4693-47f3-a140-534bb4877e2c@arcor.de>
+In-Reply-To: <38nr2286-1o9q-0004-2323-799587773o15@vanv.qr>
 
 
---1rouo62fbGhgGNed
+--EKq123TC/P2K2t3q
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 4 Mar 2024 13:23:33 +0100
+Date: Mon, 4 Mar 2024 14:52:46 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Cesar Enrique Garcia Dabo <cquike@arcor.de>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] Re: [Bug 218453] Update posixoptions to POSIX.1-2018
+To: Jan Engelhardt <jengelh@inai.de>
+Cc: linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>
+Subject: Re: sendfile(2) erroneously yields EINVAL on too large counts
 
-Hi Cesar,
+Hi Jan!
 
-On Sat, Feb 03, 2024 at 04:48:27PM +0100, Cesar Enrique Garcia Dabo wrote:
-> =C2=A0Sure!
+On Thu, Feb 15, 2024 at 02:49:05PM +0100, Jan Engelhardt wrote:
 >=20
-> I hope this is the right mailing list :)
-
-Yup, it is.
-
+> Observed:
+> The following program below leads to sendfile returning -1 and setting=20
+> errno=3DEINVAL.
 >=20
-> Patch is attached.
+> Expected:
+> Return 0.
+
+I disagree.  The program has some problems, and should report an error.
+
+> System: Linux 6.7.4 amd64 glibc-2.39
 >=20
-> Best regards,
-> Enrique
-> > https://bugzilla.kernel.org/show_bug.cgi?id=3D218453
-> >=20
-> > --- Comment #5 from Alejandro Colomar (alx@kernel.org) ---
-> > Hi Enrique,
-> >=20
-> > On Fri, Feb 02, 2024 at 08:55:07PM +0000, bugzilla-daemon@kernel.org wr=
-ote:
-> > > https://bugzilla.kernel.org/show_bug.cgi?id=3D218453
-> > >=20
-> > > --- Comment #4 from Enrique Garcia (cquike@arcor.de) ---
-> > > I have created a patch that potentially implements the changes above.
-> > Would you mind sending the patch(es) to the mailing list?
-> >=20
-> > Thanks,
-> > Alex
-> >=20
-
-> From 161c3b77f278271c38f839064b3d8ac13e3f9279 Mon Sep 17 00:00:00 2001
-> From: =3D?UTF-8?q?C=3DC3=3DA9sar=3D20Enrique=3D20Garc=3DC3=3DADa=3D20Dab=
-=3DC3=3DB3?=3D
->  <cquike@arcor.de>
-> Date: Fri, 2 Feb 2024 21:45:03 +0100
-> Subject: [PATCH] Update posixoptions to POSIX.1-2018 version
-
-You probably mean POSIX.1-2008.  (There's POSIX.1-2017, but it's just a
-bugfix.)
-
-See
-
-$ MANWIDTH=3D72 man standards | grep '^ \{1,7\}POSIX.1.20'
-     POSIX.1=E2=80=902001
-     POSIX.1=E2=80=902008
-     POSIX.1=E2=80=902017
-
+> Rationale:
 >=20
-> ---
+> As per man-pages 6.60's sendfile.2 page:
+>=20
+>        EINVAL Descriptor is not valid or locked, or an mmap(2)-like=20
+>               operation is not available for in_fd, or count is=20
+>               negative.
+>=20
+> (Invalid descriptors should yield EBADF instead, I think.)
+> mmap is probably functional, since the testcase works if write() calls=20
+> are removed.
+> count is not negative.
 
-Please add some more text.  Why are some things moved and described as
-being optional in the past, and other just removed?
+count + file offset *is* negative.  You forgot to lseek(2).
 
-Thanks for the patch, and sorry for the delay!
+> It appears that there may be a
+> `src offset + count > SSIZE_MAX || dst offset + count > SSIZE_MAX`
+> check in the kernel somewhere,
+
+There are several.  See at the bottom.
+
+> which sounds an awful lot like the documented EOVERFLOW behavior:
+>=20
+>        EOVERFLOW
+>               count is too large, the operation would result in
+>               exceeding the maximum size of either the input file or
+>               the output file.
+>=20
+> but the reported error is EINVAL rather than EOVERFLOW.  Moreover, the
+> (actual) result from this testcase does not go above a few bytes
+> anyhow, so should not signal an overflow anyway.
+
+The kernel detects that offset+count would overflow, and aborts early.
+That's actually a good thing.  Otherwise, we wouldn't have noticed that
+the program is missing an lseek(2) call until much later.  Also, given
+addition of count+offset would cause overflow, that is, undefined
+behavior, it's better to not even start.  Otherwise, it gets tricky to
+write code that doesn't invoke UB.
+
+(By inspecting the kernel code I'm not sure if it avoids UB; I think it
+might be triggering UB; let me debug that and come with an update.)
+
+> #define _GNU_SOURCE 1
+> #include <errno.h>
+> #include <fcntl.h>
+> #include <limits.h>
+> #include <stdio.h>
+> #include <string.h>
+> #include <unistd.h>
+> #include <sys/sendfile.h>
+> int main(int argc, char **argv)
+> {
+>         int src =3D open(".", O_RDWR | O_TMPFILE, 0666);
+>         write(src, "1234", 4);
+>         int dst =3D open(".", O_RDWR | O_TMPFILE, 0666);
+>         write(src, "1234", 4);
+>         ssize_t ret =3D sendfile(dst, src, NULL, SSIZE_MAX);
+
+Even if you pass SSIZE_MAX - 8, which will be accepted by the kernel,
+this call will always copy exactly 0 bytes.  Rationale: the file
+descriptor is positioned at the end of the source file.
+
+>         printf("%ld\n", (long)ret);
+>         if (ret < 0)
+>                 printf("%s\n", strerror(errno));
+>         return 0;
+> }
+>=20
+> As it stands, a sendfile() user just wanting to shovel src to dst
+> cannot just "fire-and-forget" but has to compute a suitable count=20
+> beforehand.
+
+You can.  But you need to put the file descriptor at the begining of the
+file (or if you really want to start reading mid-file, you'll need to
+pass SSIZE_MAX-offset).
+
+> Is this really what we want?
+
+I'm not entirely sure if the kernel should report EINVAL or EOVERFLOW,
+nor what should the manual page specify.
+
+But regarding the fire-and-offset question, it's possible to do it:
+
+
+alx@debian:~/tmp$ cat sf.c=20
+#define _GNU_SOURCE
+#include <err.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/sendfile.h>
+
+
+int
+main(void)
+{
+	int      src, dst;
+	ssize_t  ret;
+	char     buf[BUFSIZ];
+
+	src =3D open(".", O_RDWR | O_TMPFILE, 0666);
+	if (src =3D=3D -1)
+		err(EXIT_FAILURE, "open");
+	dst =3D open(".", O_RDWR | O_TMPFILE, 0666);
+	if (dst =3D=3D -1)
+		err(EXIT_FAILURE, "open");
+
+	ret =3D write(src, "1234", 4);
+	if (ret !=3D 4)
+		err(EXIT_FAILURE, "write: %zd", ret);
+	write(src, "asd\n", 4);
+	if (ret !=3D 4)
+		err(EXIT_FAILURE, "write: %zd", ret);
+
+	if (lseek(src, 0, SEEK_SET) =3D=3D -1)
+		err(EXIT_FAILURE, "lseek");
+	ret =3D sendfile(dst, src, NULL, SSIZE_MAX);
+	if (ret !=3D 8)
+		err(EXIT_FAILURE, "sendfile: %zd", ret);
+
+	if (lseek(dst, 0, SEEK_SET) =3D=3D -1)
+		err(EXIT_FAILURE, "lseek");
+	ret =3D read(dst, buf, BUFSIZ);
+	if (ret !=3D 8)
+		err(EXIT_FAILURE, "read: %zd", ret);
+
+	ret =3D write(STDOUT_FILENO, buf, ret);
+	if (ret !=3D 8)
+		err(EXIT_FAILURE, "write: %zd", ret);
+	return 0;
+}
+alx@debian:~/tmp$ cc -Wall -Wextra sf.c=20
+alx@debian:~/tmp$ ./a.out=20
+1234asd
+alx@debian:~/tmp$
+
+Or the same thing without error handling, to make it more readable:
+
+alx@debian:~/tmp$ cat sf2.c=20
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <limits.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/sendfile.h>
+
+
+int
+main(void)
+{
+	int      src, dst;
+	ssize_t  ret;
+	char     buf[BUFSIZ];
+
+	src =3D open(".", O_RDWR | O_TMPFILE, 0666);
+	dst =3D open(".", O_RDWR | O_TMPFILE, 0666);
+
+	ret =3D write(src, "1234", 4);
+	write(src, "asd\n", 4);
+
+	lseek(src, 0, SEEK_SET);
+	sendfile(dst, src, NULL, SSIZE_MAX);
+
+	lseek(dst, 0, SEEK_SET);
+	ret =3D read(dst, buf, BUFSIZ);
+	write(STDOUT_FILENO, buf, ret);
+	return 0;
+}
+alx@debian:~/tmp$ cc -Wall -Wextra sf2.c=20
+alx@debian:~/tmp$ ./a.out=20
+1234asd
+alx@debian:~/tmp$
+
+
+TL;DR:
+
+I'm not sure if this should EINVAL or EOVERFLOW, but other than that, I
+think we're good.  Feel free to suggest that the page or the kernel is
+wrong regarding errno.
 
 Have a lovely day!
 Alex
 
->  man7/posixoptions.7 | 367 +++-----------------------------------------
->  1 file changed, 23 insertions(+), 344 deletions(-)
->=20
-> diff --git a/man7/posixoptions.7 b/man7/posixoptions.7
-> index 8ca4df0ea..80284de2a 100644
-> --- a/man7/posixoptions.7
-> +++ b/man7/posixoptions.7
-> @@ -26,6 +26,29 @@ parameter used to inquire about the option, and possib=
-ly
->  a very short description.
->  Much more precise detail can be found in the POSIX standard itself,
->  versions of which can nowadays be accessed freely on the web.
-> +.P
 
-I prefer if we add a HISTORY section, and move there the historically-
-optional parts.
+----
 
-That way, the DESCRIPTION is simple: if you see an option there, it's
-optional.  No need to parse the text.
+See where the kernel reports EINVAL or EOVERFLOW:
 
-> +The followiing options were optional in previous versions of
-> +the standard but are now mandatory under POSIX.1-2018 and are always
-> +available:
-> +.B _POSIX_CHOWN_RESTRICTED,
-> +.B _POSIX_JOB_CONTROL,
-> +.B _POSIX_NO_TRUNC,
-> +.B _POSIX_REGEXP,
-> +.B _POSIX_SAVED_IDS,
-> +.B _POSIX_SHELL,
-> +.B _POSIX_ASYNCHRONOUS_IO,
-> +.B _POSIX_BARRIERS,
-> +.B _POSIX_CLOCK_SELECTION,
-> +.B _POSIX_MAPPED_FILES,
-> +.B _POSIX_MEMORY_PROTECTION,
-> +.B _POSIX_READER_WRITER_LOCKS,
-> +.B _POSIX_REALTIME_SIGNALS,
-> +.B _POSIX_SEMAPHORES,
-> +.B _POSIX_SPIN_LOCKS,
-> +.B _POSIX_THREAD_SAFE_FUNCTIONS,
-> +.B _POSIX_THREADS,
-> +.B _POSIX_TIMEOUTS,
-> +.B _POSIX_TIMERS.
->  .SS ADV - _POSIX_ADVISORY_INFO - _SC_ADVISORY_INFO
->  The following advisory functions are present:
->  .P
-> @@ -37,77 +60,6 @@ The following advisory functions are present:
->  .IR posix_madvise ()
->  .in
->  .fi
-> -.SS AIO - _POSIX_ASYNCHRONOUS_IO - _SC_ASYNCHRONOUS_IO
-> -The header
-> -.I <aio.h>
-> -is present.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR aio_cancel ()
-> -.IR aio_error ()
-> -.IR aio_fsync ()
-> -.IR aio_read ()
-> -.IR aio_return ()
-> -.IR aio_suspend ()
-> -.IR aio_write ()
-> -.IR lio_listio ()
-> -.in
-> -.fi
-> -.SS BAR - _POSIX_BARRIERS - _SC_BARRIERS
-> -This option implies the
-> -.B _POSIX_THREADS
-> -and
-> -.B _POSIX_THREAD_SAFE_FUNCTIONS
-> -options.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR pthread_barrier_destroy ()
-> -.IR pthread_barrier_init ()
-> -.IR pthread_barrier_wait ()
-> -.IR pthread_barrierattr_destroy ()
-> -.IR pthread_barrierattr_init ()
-> -.in
-> -.fi
-> -.\" .SS BE
-> -.\" Batch environment.
-> -.\" .SS CD
-> -.\" C development.
-> -.SS --- - POSIX_CHOWN_RESTRICTED
-> -If this option is in effect (as it always is under POSIX.1-2001),
-> -then only root may change the owner of a file, and nonroot can
-> -set the group of a file only to one of the groups it belongs to.
-> -This affects the following functions:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR chown ()
-> -.IR fchown ()
-> -.in
-> -.fi
-> -.\" What about lchown() ?
-> -.SS CS - _POSIX_CLOCK_SELECTION - _SC_CLOCK_SELECTION
-> -This option implies the
-> -.B _POSIX_TIMERS
-> -option.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR pthread_condattr_getclock ()
-> -.IR pthread_condattr_setclock ()
-> -.IR clock_nanosleep ()
-> -.in
-> -.fi
-> -.P
-> -If
-> -.B CLOCK_REALTIME
-> -is changed by the function
-> -.IR clock_settime (),
-> -then this affects all timers set for an absolute time.
->  .SS CPT - _POSIX_CPUTIME - _SC_CPUTIME
->  The
->  .B CLOCK_PROCESS_CPUTIME_ID
-> @@ -123,45 +75,12 @@ is present.
->  .\" Fortran development
->  .\" .SS FR
->  .\" Fortran runtime
-> -.SS --- - _POSIX_FILE_LOCKING - _SC_FILE_LOCKING
-> -This option has been deleted.
-> -Not in final XPG6.
->  .SS FSC - _POSIX_FSYNC - _SC_FSYNC
->  The function
->  .IR fsync ()
->  is present.
->  .SS IP6 - _POSIX_IPV6 - _SC_IPV6
->  Internet Protocol Version 6 is supported.
-> -.SS --- - _POSIX_JOB_CONTROL - _SC_JOB_CONTROL
-> -If this option is in effect (as it always is under POSIX.1-2001),
-> -then the system implements POSIX-style job control,
-> -and the following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR setpgid ()
-> -.IR tcdrain ()
-> -.IR tcflush ()
-> -.IR tcgetpgrp ()
-> -.IR tcsendbreak ()
-> -.IR tcsetattr ()
-> -.IR tcsetpgrp ()
-> -.in
-> -.fi
-> -.SS MF - _POSIX_MAPPED_FILES - _SC_MAPPED_FILES
-> -Shared memory is supported.
-> -The include file
-> -.I <sys/mman.h>
-> -is present.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR mmap ()
-> -.IR msync ()
-> -.IR munmap ()
-> -.in
-> -.fi
->  .SS ML - _POSIX_MEMLOCK - _SC_MEMLOCK
->  Shared memory can be locked into core.
->  The following functions are present:
-> @@ -182,10 +101,6 @@ The following functions are present:
->  .IR munlock ()
->  .in
->  .fi
-> -.SS MPR - _POSIX_MEMORY_PROTECTION - _SC_MEMORY_PROTECTION
-> -The function
-> -.IR mprotect ()
-> -is present.
->  .SS MSG - _POSIX_MESSAGE_PASSING - _SC_MESSAGE_PASSING
->  The include file
->  .I <mqueue.h>
-> @@ -221,18 +136,8 @@ The following functions are affected:
->  .IR timer_create ()
->  .in
->  .fi
-> -.SS --- - _POSIX_MULTI_PROCESS - _SC_MULTI_PROCESS
-> -This option has been deleted.
-> -Not in final XPG6.
->  .\" .SS MX
->  .\" IEC 60559 Floating-Point Option.
-> -.SS --- - _POSIX_NO_TRUNC
-> -If this option is in effect (as it always is under POSIX.1-2001),
-> -then pathname components longer than
-> -.B NAME_MAX
-> -are not truncated,
-> -but give an error.
-> -This property may be dependent on the path prefix of the component.
->  .SS PIO - _POSIX_PRIORITIZED_IO - _SC_PRIORITIZED_IO
->  This option says that one can specify priorities for asynchronous I/O.
->  This affects the functions
-> @@ -284,90 +189,8 @@ The following functions are affected:
->  .IR setsockopt ()
->  .in
->  .fi
-> -.SS --- - _POSIX_READER_WRITER_LOCKS - _SC_READER_WRITER_LOCKS
-> -This option implies the
-> -.B _POSIX_THREADS
-> -option.
-> -Conversely,
-> -under POSIX.1-2001 the
-> -.B _POSIX_THREADS
-> -option implies this option.
-> -.P
-> -The following functions are present:
-> -.P
-> -.in +4n
-> -.nf
-> -.IR pthread_rwlock_destroy ()
-> -.IR pthread_rwlock_init ()
-> -.IR pthread_rwlock_rdlock ()
-> -.IR pthread_rwlock_tryrdlock ()
-> -.IR pthread_rwlock_trywrlock ()
-> -.IR pthread_rwlock_unlock ()
-> -.IR pthread_rwlock_wrlock ()
-> -.IR pthread_rwlockattr_destroy ()
-> -.IR pthread_rwlockattr_init ()
-> -.in
-> -.fi
-> -.SS RTS - _POSIX_REALTIME_SIGNALS - _SC_REALTIME_SIGNALS
-> -Realtime signals are supported.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR sigqueue ()
-> -.IR sigtimedwait ()
-> -.IR sigwaitinfo ()
-> -.in
-> -.fi
-> -.SS --- - _POSIX_REGEXP - _SC_REGEXP
-> -If this option is in effect (as it always is under POSIX.1-2001),
-> -then POSIX regular expressions are supported
-> -and the following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR regcomp ()
-> -.IR regerror ()
-> -.IR regexec ()
-> -.IR regfree ()
-> -.in
-> -.fi
-> -.SS --- - _POSIX_SAVED_IDS - _SC_SAVED_IDS
-> -If this option is in effect (as it always is under POSIX.1-2001),
-> -then a process has a saved set-user-ID and a saved set-group-ID.
-> -The following functions are affected:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR exec ()
-> -.IR kill ()
-> -.IR seteuid ()
-> -.IR setegid ()
-> -.IR setgid ()
-> -.IR setuid ()
-> -.in
-> -.fi
->  .\" .SS SD
->  .\" Software development
-> -.SS SEM - _POSIX_SEMAPHORES - _SC_SEMAPHORES
-> -The include file
-> -.I <semaphore.h>
-> -is present.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR sem_close ()
-> -.IR sem_destroy ()
-> -.IR sem_getvalue ()
-> -.IR sem_init ()
-> -.IR sem_open ()
-> -.IR sem_post ()
-> -.IR sem_trywait ()
-> -.IR sem_unlink ()
-> -.IR sem_wait ()
-> -.in
-> -.fi
->  .SS SHM - _POSIX_SHARED_MEMORY_OBJECTS - _SC_SHARED_MEMORY_OBJECTS
->  The following functions are present:
->  .P
-> @@ -379,11 +202,6 @@ The following functions are present:
->  .IR shm_unlink ()
->  .in
->  .fi
-> -.SS --- - _POSIX_SHELL - _SC_SHELL
-> -If this option is in effect (as it always is under POSIX.1-2001),
-> -the function
-> -.IR system ()
-> -is present.
->  .SS SPN - _POSIX_SPAWN - _SC_SPAWN
->  This option describes support for process creation in a context where
->  it is difficult or impossible to use
-> @@ -431,23 +249,6 @@ the following functions are present:
->  .IR posix_spawnattr_setschedpolicy ()
->  .in
->  .fi
-> -.SS SPI - _POSIX_SPIN_LOCKS - _SC_SPIN_LOCKS
-> -This option implies the
-> -.B _POSIX_THREADS
-> -and
-> -.B _POSIX_THREAD_SAFE_FUNCTIONS
-> -options.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR pthread_spin_destroy ()
-> -.IR pthread_spin_init ()
-> -.IR pthread_spin_lock ()
-> -.IR pthread_spin_trylock ()
-> -.IR pthread_spin_unlock ()
-> -.in -4n
-> -.fi
->  .SS SS - _POSIX_SPORADIC_SERVER - _SC_SPORADIC_SERVER
->  The scheduling policy
->  .B SCHED_SPORADIC
-> @@ -567,32 +368,6 @@ The following functions are affected:
->  .IR pthread_rwlockattr_setpshared ()
->  .in
->  .fi
-> -.SS TSF - _POSIX_THREAD_SAFE_FUNCTIONS - _SC_THREAD_SAFE_FUNCTIONS
-> -The following functions are affected:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR readdir_r ()
-> -.IR getgrgid_r ()
-> -.IR getgrnam_r ()
-> -.IR getpwnam_r ()
-> -.IR getpwuid_r ()
-> -.IR flockfile ()
-> -.IR ftrylockfile ()
-> -.IR funlockfile ()
-> -.IR getc_unlocked ()
-> -.IR getchar_unlocked ()
-> -.IR putc_unlocked ()
-> -.IR putchar_unlocked ()
-> -.IR rand_r ()
-> -.IR strerror_r ()
-> -.IR strtok_r ()
-> -.IR asctime_r ()
-> -.IR ctime_r ()
-> -.IR gmtime_r ()
-> -.IR localtime_r ()
-> -.in
-> -.fi
->  .SS TSP - _POSIX_THREAD_SPORADIC_SERVER - _SC_THREAD_SPORADIC_SERVER
->  This option implies the
->  .B _POSIX_THREAD_PRIORITY_SCHEDULING
-> @@ -606,92 +381,6 @@ The following functions are affected:
->  .IR sched_setscheduler ()
->  .in
->  .fi
-> -.SS THR - _POSIX_THREADS - _SC_THREADS
-> -Basic support for POSIX threads is available.
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR pthread_atfork ()
-> -.IR pthread_attr_destroy ()
-> -.IR pthread_attr_getdetachstate ()
-> -.IR pthread_attr_getschedparam ()
-> -.IR pthread_attr_init ()
-> -.IR pthread_attr_setdetachstate ()
-> -.IR pthread_attr_setschedparam ()
-> -.IR pthread_cancel ()
-> -.IR pthread_cleanup_push ()
-> -.IR pthread_cleanup_pop ()
-> -.IR pthread_cond_broadcast ()
-> -.IR pthread_cond_destroy ()
-> -.IR pthread_cond_init ()
-> -.IR pthread_cond_signal ()
-> -.IR pthread_cond_timedwait ()
-> -.IR pthread_cond_wait ()
-> -.IR pthread_condattr_destroy ()
-> -.IR pthread_condattr_init ()
-> -.IR pthread_create ()
-> -.IR pthread_detach ()
-> -.IR pthread_equal ()
-> -.IR pthread_exit ()
-> -.IR pthread_getspecific ()
-> -.IR pthread_join ()
-> -.IR pthread_key_create ()
-> -.IR pthread_key_delete ()
-> -.IR pthread_mutex_destroy ()
-> -.IR pthread_mutex_init ()
-> -.IR pthread_mutex_lock ()
-> -.IR pthread_mutex_trylock ()
-> -.IR pthread_mutex_unlock ()
-> -.IR pthread_mutexattr_destroy ()
-> -.IR pthread_mutexattr_init ()
-> -.IR pthread_once ()
-> -.IR pthread_rwlock_destroy ()
-> -.IR pthread_rwlock_init ()
-> -.IR pthread_rwlock_rdlock ()
-> -.IR pthread_rwlock_tryrdlock ()
-> -.IR pthread_rwlock_trywrlock ()
-> -.IR pthread_rwlock_unlock ()
-> -.IR pthread_rwlock_wrlock ()
-> -.IR pthread_rwlockattr_destroy ()
-> -.IR pthread_rwlockattr_init ()
-> -.IR pthread_self ()
-> -.IR pthread_setcancelstate ()
-> -.IR pthread_setcanceltype ()
-> -.IR pthread_setspecific ()
-> -.IR pthread_testcancel ()
-> -.in
-> -.fi
-> -.SS TMO - _POSIX_TIMEOUTS - _SC_TIMEOUTS
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR mq_timedreceive ()
-> -.IR mq_timedsend ()
-> -.IR pthread_mutex_timedlock ()
-> -.IR pthread_rwlock_timedrdlock ()
-> -.IR pthread_rwlock_timedwrlock ()
-> -.IR sem_timedwait ()
-> -.IR posix_trace_timedgetnext_event ()
-> -.in
-> -.fi
-> -.SS TMR - _POSIX_TIMERS - _SC_TIMERS
-> -The following functions are present:
-> -.P
-> -.nf
-> -.in +4n
-> -.IR clock_getres ()
-> -.IR clock_gettime ()
-> -.IR clock_settime ()
-> -.IR nanosleep ()
-> -.IR timer_create ()
-> -.IR timer_delete ()
-> -.IR timer_gettime ()
-> -.IR timer_getoverrun ()
-> -.IR timer_settime ()
-> -.in
-> -.fi
->  .SS TRC - _POSIX_TRACE - _SC_TRACE
->  POSIX tracing is available.
->  The following functions are present:
-> @@ -974,19 +663,11 @@ This option implies the following options:
->  .TP
->  .B _POSIX_FSYNC
->  .TP
-> -.B _POSIX_MAPPED_FILES
-> -.TP
-> -.B _POSIX_MEMORY_PROTECTION
-> -.TP
->  .B _POSIX_THREAD_ATTR_STACKADDR
->  .TP
->  .B _POSIX_THREAD_ATTR_STACKSIZE
->  .TP
->  .B _POSIX_THREAD_PROCESS_SHARED
-> -.TP
-> -.B _POSIX_THREAD_SAFE_FUNCTIONS
-> -.TP
-> -.B _POSIX_THREADS
->  .PD
->  .P
->  This option may imply the following options from the XSI option groups:
-> @@ -1006,8 +687,6 @@ This option may imply the following options from the=
- XSI option groups:
->  .RB "Tracing (" TRACING )
->  .TP
->  .RB "XSI Streams (" STREAMS )
-> -.TP
-> -.RB "Legacy (" _XOPEN_LEGACY )
->  .PD
->  .SH SEE ALSO
->  .BR sysconf (3),
-> --=20
-> 2.43.0
->=20
+
+alx@debian:~/src/linux/linux/master$ find . -type f \
+				| grep '\.c$' \
+				| xargs grepc -tfld -m1 sendfile;
+=2E/fs/read_write.c:SYSCALL_DEFINE4(sendfile, int, out_fd, int, in_fd, off_=
+t __user *, offset, size_t, count)
+{
+	loff_t pos;
+	off_t off;
+	ssize_t ret;
+
+	if (offset) {
+		if (unlikely(get_user(off, offset)))
+			return -EFAULT;
+		pos =3D off;
+		ret =3D do_sendfile(out_fd, in_fd, &pos, count, MAX_NON_LFS);
+		if (unlikely(put_user(pos, offset)))
+			return -EFAULT;
+		return ret;
+	}
+
+	return do_sendfile(out_fd, in_fd, NULL, count, 0);
+}
+alx@debian:~/src/linux/linux/master$ find fs/ -type f \
+				| grep '\.c$' \
+				| xargs grepc -tfd do_sendfile;
+fs/read_write.c:static ssize_t do_sendfile(int out_fd, int in_fd, loff_t *p=
+pos,
+			   size_t count, loff_t max)
+{
+	struct fd in, out;
+	struct inode *in_inode, *out_inode;
+	struct pipe_inode_info *opipe;
+	loff_t pos;
+	loff_t out_pos;
+	ssize_t retval;
+	int fl;
+
+	/*
+	 * Get input file, and verify that it is ok..
+	 */
+	retval =3D -EBADF;
+	in =3D fdget(in_fd);
+	if (!in.file)
+		goto out;
+	if (!(in.file->f_mode & FMODE_READ))
+		goto fput_in;
+	retval =3D -ESPIPE;
+	if (!ppos) {
+		pos =3D in.file->f_pos;
+	} else {
+		pos =3D *ppos;
+		if (!(in.file->f_mode & FMODE_PREAD))
+			goto fput_in;
+	}
+	retval =3D rw_verify_area(READ, in.file, &pos, count);
+	if (retval < 0)
+		goto fput_in;
+	if (count > MAX_RW_COUNT)
+		count =3D  MAX_RW_COUNT;
+
+	/*
+	 * Get output file, and verify that it is ok..
+	 */
+	retval =3D -EBADF;
+	out =3D fdget(out_fd);
+	if (!out.file)
+		goto fput_in;
+	if (!(out.file->f_mode & FMODE_WRITE))
+		goto fput_out;
+	in_inode =3D file_inode(in.file);
+	out_inode =3D file_inode(out.file);
+	out_pos =3D out.file->f_pos;
+
+	if (!max)
+		max =3D min(in_inode->i_sb->s_maxbytes, out_inode->i_sb->s_maxbytes);
+
+	if (unlikely(pos + count > max)) {
+		retval =3D -EOVERFLOW;
+		if (pos >=3D max)
+			goto fput_out;
+		count =3D max - pos;
+	}
+
+	fl =3D 0;
+#if 0
+	/*
+	 * We need to debate whether we can enable this or not. The
+	 * man page documents EAGAIN return for the output at least,
+	 * and the application is arguably buggy if it doesn't expect
+	 * EAGAIN on a non-blocking file descriptor.
+	 */
+	if (in.file->f_flags & O_NONBLOCK)
+		fl =3D SPLICE_F_NONBLOCK;
+#endif
+	opipe =3D get_pipe_info(out.file, true);
+	if (!opipe) {
+		retval =3D rw_verify_area(WRITE, out.file, &out_pos, count);
+		if (retval < 0)
+			goto fput_out;
+		retval =3D do_splice_direct(in.file, &pos, out.file, &out_pos,
+					  count, fl);
+	} else {
+		if (out.file->f_flags & O_NONBLOCK)
+			fl |=3D SPLICE_F_NONBLOCK;
+
+		retval =3D splice_file_to_pipe(in.file, opipe, &pos, count, fl);
+	}
+
+	if (retval > 0) {
+		add_rchar(current, retval);
+		add_wchar(current, retval);
+		fsnotify_access(in.file);
+		fsnotify_modify(out.file);
+		out.file->f_pos =3D out_pos;
+		if (ppos)
+			*ppos =3D pos;
+		else
+			in.file->f_pos =3D pos;
+	}
+
+	inc_syscr(current);
+	inc_syscw(current);
+	if (pos > max)
+		retval =3D -EOVERFLOW;
+
+fput_out:
+	fdput(out);
+fput_in:
+	fdput(in);
+out:
+	return retval;
+}
+alx@debian:~/src/linux/linux/master$ find fs/ -type f \
+				| grep '\.c$' \
+				| xargs grepc -tfd rw_verify_area;
+fs/read_write.c:int rw_verify_area(int read_write, struct file *file, const=
+ loff_t *ppos, size_t count)
+{
+	int mask =3D read_write =3D=3D READ ? MAY_READ : MAY_WRITE;
+	int ret;
+
+	if (unlikely((ssize_t) count < 0))
+		return -EINVAL;
+
+	if (ppos) {
+		loff_t pos =3D *ppos;
+
+		if (unlikely(pos < 0)) {
+			if (!unsigned_offsets(file))
+				return -EINVAL;
+			if (count >=3D -pos) /* both values are in 0..LLONG_MAX */
+				return -EOVERFLOW;
+		} else if (unlikely((loff_t) (pos + count) < 0)) {
+			if (!unsigned_offsets(file))
+				return -EINVAL;
+		}
+	}
+
+	ret =3D security_file_permission(file, mask);
+	if (ret)
+		return ret;
+
+	return fsnotify_file_area_perm(file, mask, ppos, count);
+}
 
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---1rouo62fbGhgGNed
+--EKq123TC/P2K2t3q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXlvUUACgkQnowa+77/
-2zK07RAApSMUdWCIksxYtL/TVeV2797oi9eAv32dbO+lJT442B3K+AYhxMEfoH8z
-R1x9ukGreelde0FlgWsAo1QrRdloJ68G/tVgcyCRtU6KxHuJM8DrOtM0H0gLuPWm
-2OLzI9jJv++PuflCmyXxzNoQx/Osrug7DcJ9QPv3crvwkeu8wlJvmfLcrmnvnijh
-QJQpm7KXexOnPSb7Ai4PDKqyMWG+sS1FL3J7vNRbVgo9PwD0GBC3eyDqYGSXF4pu
-/vfHjP16B418JoEsLxv7in1g5TNGJB8tUcBrb+PDX9Iv82Ofa1pZT4KkqocBlBn/
-oqptM9bBRdmakP5PcaSdmePtBAc3IxYBFdxoM0o1fGHlLhenCfMexiavUq+DrdWL
-R3uJcSy7SqMBou8LVSgbHcjeDfM5Agelq2jQENXjje3VGLD/MmiyNXQl7UGUryav
-QQbG8qnVfqIXuvA9SCmgv0n+TpCapaf1oMDkhqfuG6cHf89fZClGnwbKHsfgPoax
-Ezni/DJ+ZnLXYFHdbOQpJD5//F51j1abQFhKPMHyfmJyBbRFAmdf6mFulg2IwMvF
-jMlmkU+w1w+vFGs+pas4FRX95dfgKHd1CqF05dfip/OiW+nt+ax7XCc/oQUh2Zvn
-EKuSkgMnHxwNYKdvJLTGvoEYVhZgaGGMUp2z59QcOqLD/+HkGo0=
-=10zT
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXl0i4ACgkQnowa+77/
+2zJCJQ//XwBTwKW0OKRG9JNg2WUldDIpnoumA/+TPsvMGbh2XNCX8/6Y2r0ybt7x
+YeEf8ZbCltSqHLEUDzpKDpR/0adxxlkS7LEWpsRQRfpSgID/8sHOpqNhbmpLyCmH
+Ouyx5Efwl0iSuunbDfdbzpd7LpvFEjgHu1KVEPXlM/9T5dEarv38GHTi/wehiS02
+BBsH6J0JoaWXplHLq+wgCD30jQJQ6OtGHQzqv1qww4Jjp2J2g5DrqfRe+LXIFRz6
+YUWUiui2cwaYp1YSk1RONq1NpR0gaZdl3/SjFMhGyD/pHilknmiaoMXCl7I7yq0a
+qv8nYxhoY0hj5lklKr6wI19sPOGyV5u3GLJxGhNH2AOFXEy6zGR5biVuShzewNjL
+Y/9+knegdYF4syzdJNlCDB4fEyQzB4SlPQyIFYIRC65Iyqmu0zSC9K/Xr+BZEt4v
+DImnlkZH/763uGoBOgLQMBLe6YxWA11QEdLaa9Onb5QbKCezasaTUxy7Fdo++kKP
+iusolODvyiqKKNjbr+bWxQ4G1KogutoCjO051MaVMTv/jGOVJAUSczSrVO+12ial
+8BLiARV8YHbXuG8NZAM6sHkGTmT+OkycW7UKpsHp2bGjYOjlgO9JD1y/UBf6kosN
+xk5Gbu9h7xYmKC0Ab0q7kE6Yp47RNbuURUs6PKK45TEB99woyck=
+=9p6i
 -----END PGP SIGNATURE-----
 
---1rouo62fbGhgGNed--
+--EKq123TC/P2K2t3q--
 
