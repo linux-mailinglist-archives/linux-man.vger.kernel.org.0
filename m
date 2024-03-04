@@ -1,58 +1,58 @@
-Return-Path: <linux-man+bounces-516-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-517-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4396287058C
-	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 16:33:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFD6887069E
+	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 17:09:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F29372817EB
-	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 15:33:43 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9A34F28C46F
+	for <lists+linux-man@lfdr.de>; Mon,  4 Mar 2024 16:09:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F534481A5;
-	Mon,  4 Mar 2024 15:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41984482FF;
+	Mon,  4 Mar 2024 16:09:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOjLdqG3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIBHJRxY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA0B4087C;
-	Mon,  4 Mar 2024 15:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3960482EB
+	for <linux-man@vger.kernel.org>; Mon,  4 Mar 2024 16:09:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709566269; cv=none; b=M5Eme6dfeSZJLvcpauhJLqrGT9njTozRm8/4gH/lMy8QTPEXZWb82e9maa2TxvqRZj4DP0LJzMWNCBwD6H5JLoURybu25ouSJHXQbXyMCwV5kP9xx8N52NSwG4Mk8ZuI1FsuA0lgsS5EBAJb/C+PY0nlPKJaomhce2JPnif3TjA=
+	t=1709568592; cv=none; b=Ga0VKfYpYxCZ1bSRSu+iKE43G9sG1pSsAtIFfInGUE/VxpkzDR0vlYt6pcy58b4+sGQdfAzsevMGvrOv8a8QNXFI2EvLvVmJjWU9/8esjF/rBmUTvEGOvGJPsCHQb4+PSsm1fVHVzIfp11i0J2lTgq3JAPJm+Zt3wl5/uNtZEBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709566269; c=relaxed/simple;
-	bh=VOOhxEaaXiEGSszUCm95YGoWnfW/fhFSY5fjW7bYi+A=;
+	s=arc-20240116; t=1709568592; c=relaxed/simple;
+	bh=RtgNIbWJBePiRODIhVuGXz+8a8CknxuKZkSoovK8/QQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fss7k8GAFAFuCfSK1xstJEQ0KAk67H/cxz91dIyM9ZIRb9juBwargZ+DCeqsBVhESFmd5fYqiSYzzbIeSTXmgHRJVgMYZeEJtLW384GUjhXWn82LfDeKQy0JPI83CD0OISOFpBJgb4YaYPkaPEETD7QE4cMkEOtCQXPPaO7RVLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOjLdqG3; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B660DC433F1;
-	Mon,  4 Mar 2024 15:31:07 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=DKyjNLZ4J/GI96XS+H6/j+bUdAzH3+cWjoe3lQeXMxBNpbpc24Zjlgy1EGRb211PPD2I0NJV7EufAXx9By3kAD0z74azv2KokDps70WyuN5WjtOHwdWUV6WOD4XwgnzLINLMY1EPQEwN45/C7uLmptt2gquFdIboeS1L9T1L7lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIBHJRxY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC82EC43390;
+	Mon,  4 Mar 2024 16:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709566268;
-	bh=VOOhxEaaXiEGSszUCm95YGoWnfW/fhFSY5fjW7bYi+A=;
+	s=k20201202; t=1709568591;
+	bh=RtgNIbWJBePiRODIhVuGXz+8a8CknxuKZkSoovK8/QQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LOjLdqG3Rp7fTa3zNdfRowBP6NHDroBPtrzWrE5kJFfZg4fcUSYf4QOOVWjEsIO2t
-	 8z/FBm6Vn1EHvCvglimG8CLg1SK8ry1eYIuBxEKMlv8TiPWU2Fd/Zs/F/7agqWupyz
-	 pf5COdWoV2UOufqQcZvRtmduo1DDeF+g+oSiTrDeLGOTAApEHxwhMlVeDl8/zLtFs6
-	 ePdPedSaGghv89x7+5xf0ZXzsaEvByeomnmBmsvrL1Nt4SdlbhGmC6rH3rt1dnGywq
-	 O9StsISEHrjz0BBeNgwTCXYe3C7scTsQnbNMzcXRV2Pfk83BocRL+VmKjpEfqW2Z2b
-	 /mo1lVv3euGXA==
-Date: Mon, 4 Mar 2024 16:31:05 +0100
+	b=RIBHJRxYRKfILGc0lfqgzA7dmmE8Jd6IsUizp5rhawC00FArJ70eItegWvpV3VtiQ
+	 /ZpBwK6Fx2aHDnioPWmNePuKlDchJOg22Biz727eTS0wvGvfIFHBVhIYTGuHufpLOP
+	 Oilpxsx31pWrAUEbI93QcFWR3pxd5pbTOY4ooP1amOC9M/O7M1ow9/c29x0kWqx13t
+	 XkYrrjyb7qpYcUUtmlHuhNxNt8wU5Xv55cA0kvTkmIzgv9o1wYYMQHvlMvnzzoUhPJ
+	 NN438uENuYq/ygoEwmvqSLJuFs/C2UHTGB1+Mty6CHPf0KqL8EJj2nApYKpks1voHs
+	 SRNZY+l359OZQ==
+Date: Mon, 4 Mar 2024 17:09:47 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
-	Jan Engelhardt <jengelh@inai.de>, linux-man@vger.kernel.org
-Subject: Re: Undefined Behavior in rw_verify_area() (was: sendfile(2)
- erroneously yields EINVAL on too large counts)
-Message-ID: <ZeXpOVxPFIcVGapD@debian>
-References: <38nr2286-1o9q-0004-2323-799587773o15@vanv.qr>
- <ZeXSNSxs68FrkLXu@debian>
- <ZeXkLYExJHj98oaS@debian>
- <ZeXnMO0DcZH63B_d@casper.infradead.org>
+To: "Dmitry V. Levin" <ldv@altlinux.org>
+Cc: Alexander Ofitserov <oficerovas@altlinux.org>,
+	linux-man@vger.kernel.org, dutyrok@altlinux.org,
+	kovalev@altlinux.org, "G. Branden Robinson" <branden@debian.org>,
+	Stefan Puiu <stefan.puiu@gmail.com>
+Subject: Re: [PATCH v3] delete_module.2: Update man to current syscall
+ behaviour
+Message-ID: <ZeXyS_yVEnVzCVdo@debian>
+References: <20240226120856.21493-1-oficerovas@altlinux.org>
+ <20240226185554.GA19542@altlinux.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,70 +60,76 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rUdXQCFvGALZDADc"
+	protocol="application/pgp-signature"; boundary="kfJzxcLj070IiCdy"
 Content-Disposition: inline
-In-Reply-To: <ZeXnMO0DcZH63B_d@casper.infradead.org>
+In-Reply-To: <20240226185554.GA19542@altlinux.org>
 
 
---rUdXQCFvGALZDADc
+--kfJzxcLj070IiCdy
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 4 Mar 2024 16:31:05 +0100
+Date: Mon, 4 Mar 2024 17:09:47 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
-	Jan Engelhardt <jengelh@inai.de>, linux-man@vger.kernel.org
-Subject: Re: Undefined Behavior in rw_verify_area() (was: sendfile(2)
- erroneously yields EINVAL on too large counts)
+To: "Dmitry V. Levin" <ldv@altlinux.org>
+Cc: Alexander Ofitserov <oficerovas@altlinux.org>,
+	linux-man@vger.kernel.org, dutyrok@altlinux.org,
+	kovalev@altlinux.org, "G. Branden Robinson" <branden@debian.org>,
+	Stefan Puiu <stefan.puiu@gmail.com>
+Subject: Re: [PATCH v3] delete_module.2: Update man to current syscall
+ behaviour
 
-Hi Matthew!
+Hi Alexander,
 
-On Mon, Mar 04, 2024 at 03:22:24PM +0000, Matthew Wilcox wrote:
-> On Mon, Mar 04, 2024 at 04:09:26PM +0100, Alejandro Colomar wrote:
-> > Depending on the width of those types, the sum may be performed as
-> > 'loff_t' if `sizeof(loff_t) > sizeof(size_t)`, or as 'size_t' if
-> > `sizeof(loff_t) <=3D sizeof(size_t)`.  Since 'loff_t' is a 64-bit type,
-> > but 'size_t' can be either 32-bit or 64-bit, the former is possible.
+On Mon, Feb 26, 2024 at 08:55:54PM +0200, Dmitry V. Levin wrote:
+> On Mon, Feb 26, 2024 at 03:08:56PM +0300, Alexander Ofitserov wrote:
+> > Parameter O_NONBLOCK described in man doesn't exist anymore
+> > in kernel versions 3.13+, which is quite old,
+> > only O_TRUNC parameter present for current kernel version,
+> > O_NONBLOCK does nothing.
 > >=20
-> > In those platforms in which loff_t is wider, the addends are promoted to
-> > 'loff_t' before the sum.  And a sum of positive signed values can never
-> > be negative.  If the sum overflows (and the program above triggers
-> > such an overflow), the behavior is undefined.
+> > v2 -> v3:
+> > subsection Linux 3.12 and earlier renamed to O_NONBLOCK
+> > removed info about arguments for kernels 3.12 and earlier
+> > added semantic newlines
+> >=20
+> > v1 -> v2:
+> > added behaviour of syscall for kernel 3.12 and earlier
+> > in history section
+> > added commit hash to commit message
 >=20
-> Linux is compiled with -fwrapv so it is defined.
+> Looks like the change of the commit message introduced in v2
+> has been reverted.
 
-Hmmm; thanks!  Still, I'm guessing that's used as a caution to avoid
-opening Hell's doors, rather than a declaration that the kernel doesn't
-care about signed-integer overflow bugs.  Otherwise, all the macros in
-<linux/kernel/overflow.h> wouldn't make much sense, right?
+As Dmitry said, the commit message doesn't show the Linux hash anymore.
+Could you check that?
 
-Have a lovely day!
+Have lovely day!
 Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---rUdXQCFvGALZDADc
+--kfJzxcLj070IiCdy
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXl6TkACgkQnowa+77/
-2zIYqw/+Ntqsehf1/gSP9J0aRmo3StAhiQ/qGdMulfdXXyXe84QxZNgTEfIZjllX
-Nzh85Nyb696yq4ccIFsV42M5rFSASCkhYlsjlXXgeqe1/qtrZzqxpSzr4ox6hSNH
-A0LrDLyc7DE0EgqDbgKgQ05u4Iuy/1L1eHjvkICIzBoMcLgPPCdLNMDAgGSogiu9
-YwfU1OBndtSxkAqtmq27HLhhFUozqLWzd4wlCRcEAn6P2Icctov1fpiEIZRHoTez
-QuNDsV5Ox0u3rD8+VSyILNfjTL33DIXuDh4gHPEk09YO7atVqLJ3cMf52Km81vD8
-tODvOC9VH/LFE+TtvYkcqAA7VSE+w7pt0hcJzxD0+9/iXc/2oRf/nwItEm2J7sl8
-QOhFSHtOOxT5UZ6zv7rm/ritMD5Y7/wdCz1JD6YT0K+ChO34fvTcXlVL9dcxWBrs
-g8p4415JSwyn2hbYcyNKLcE6TlGhaTcJiRNXRpC4wT87yx2osvYwPjAIOFwd1WUT
-74D7p51m1Vo6ldI5flF9gclkRrnQp7V2SJcKcoqsCnSFARHDBMVOgmuoZzHTmD97
-CzEx5XhnAYuY+3UMl+Q1IWbKFzOBHFN3zCHZ/+rXmSqHMiB894SXp4eT886XJnrs
-9KEJgkyTPo8W8aZQdXjaRUO2KnOlFIvhhyeuntI6yeE1Q6NsYRM=
-=3s/h
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXl8ksACgkQnowa+77/
+2zKE/g//ewnTixJRzYek7THTNs4xEO0EV9eZ7MduzoYbIVVRBCs54XqVXAP8U2kc
+AHSSUlqYFr1wf7P1c6Yw7/8l/tdksH0pn5sxy7WGuSejXuF3ei3qgHZ/lCe7mU0p
+2+iuWd0b8UYamgu23o6MJvy7rySAUeNQ7EV4QCMH+26U/3yo79Nx0kh9KShXDuKo
+shu6AStr8LsualUwvCJmkCGNeIVRmCT/Nb3Vg8uDgJHKRiMFHIyjs74AY45yoYLI
+rxAtx8hH0IvzSlu4O9KyH3mM5gnt9R9UX65Qel+MHejBWBh0hIeFIgc1nuz0PPBS
+umdJ/BsAxeHaiaNwfFjhZc4i4wEnAlXy+i2ePYSk0dD+ShP/PSw4DZ0RsKeXzkjj
+0PqkmaUMeBlZPEVEineGODAP4/N7C/QHs661Ebg10Gwlw6Q4ZlliaG410Mwk0PSP
++WNEjtBGZe6asI9pdnm0hj4PEakoQVgsLDtYSOmx61YbxwiozSI0qlaWiCtldLQ6
+sTQz6cnk0ctzNN980w67cqF+aOh08TdZrBgi5CYXJiiNdr+By1oQfTkMDx4D59C8
+0f/UmsWEJdqUhJdgDKRwPlbVS2RuD9GCv89z7Gq3i5eupHU45sWWAjD4sPrwOieR
+Df2iP/tO/ScEr8nti2OjHDnWkbBSJAKEIUTj7qVRaswB74J231k=
+=7/6z
 -----END PGP SIGNATURE-----
 
---rUdXQCFvGALZDADc--
+--kfJzxcLj070IiCdy--
 
