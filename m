@@ -1,387 +1,326 @@
-Return-Path: <linux-man+bounces-541-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-538-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EDD6872BCB
-	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 01:31:59 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72D2B8727ED
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 20:49:16 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1D2A41F23386
-	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 00:31:59 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 928741C263A1
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 19:49:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B577E1870;
-	Wed,  6 Mar 2024 00:31:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD40E84FC1;
+	Tue,  5 Mar 2024 19:49:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gwi2a6x5"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YWeT7wC3"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BBA17FE;
-	Wed,  6 Mar 2024 00:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC345C5FD
+	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 19:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709685114; cv=none; b=V4hPQRWSOtMU3MMcNFPKCNy5zE5mz0MuQWHzYIINvMenY/QXkFcJdsMFL+TZ0jBwIQDTDSZlvDq7NKJxNcwTD6vpqOgqEI/JC7NZxE3fdt9F1BmqjMJsVY5N0p5Uo5bQTJZg2/PK6+vt/HI7hNk/LnOCeMh087MEXpd1nb2dS6Q=
+	t=1709668152; cv=none; b=Zws7GNkw/WlfvYoahYLHNjXfo0P0mdAFVZdc6VjStUtg8EUZoc+vB968X2/V2VnJxggxOjurW56GNwnqUpean9LD6fuf8YwQB//fZ0h3xiZlXVYjaQOuEPEWj5/5rO1erFDiY4CHEp8CPG/4OwB0EthEVi9CgUuRM5+7qwg9yyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709685114; c=relaxed/simple;
-	bh=24USGJX+5HF6cawBeR9czfYQyxzFeE3QhwPNVojCdDI=;
+	s=arc-20240116; t=1709668152; c=relaxed/simple;
+	bh=8locZqk/CZTSm838TOaQXVBbZjaILdD7kY0j4daIlCI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iauv+uFSaDCzUc8Sdj0n2ynONT+tZlBcSEZvEpM2H9QjSq5f4C3K2f8oKEmAj5f3UgYZaN3KPpAS9/JoTFVeFgy/SMdfkBoaNWHA6j22iNup0qDgwJqZ9nK7JOjIf9/TF9WXuTgVpMSwLCcO9+GFWKqkFjTP1cASHrVebiLCrjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gwi2a6x5; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-6900f479e3cso12185086d6.0;
-        Tue, 05 Mar 2024 16:31:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709685111; x=1710289911; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=OOWW1k3nbZI9PWQkTL2cUnlaYitkHwiDsbTXRc6mNMA=;
-        b=Gwi2a6x5FJrCCM5y+zq75Lpx/eRAOSMpyi0fBhWEAw0YJ/bvqV7L9sil2elhstuNk7
-         3L8QomOkc58E7sQJLaIQMs29nxBjSHwmV0Aj0YexrCr3vwXa/vj21jcnC1CA5qBKCZ/h
-         v7T24Cd6u/xtX4pruISptODwyX5LhjIXoONaz6KWvhs1WB131hyaNl106k+Rqu7oAinB
-         vCtoRgL1+Olt/Kcg0e3BFd/l47oryfC+EaNJHMP8G8BOpSRaHTK7ps+lvV4EeRJX+3UN
-         3WKPqgNmPU4EAUA4mIot84YJ04lkQ3avCOR4PxYBBCFAo0N8MGlqyDwqRNCewVh8a0D/
-         vZJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709685111; x=1710289911;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OOWW1k3nbZI9PWQkTL2cUnlaYitkHwiDsbTXRc6mNMA=;
-        b=b4bjpJoptAQvXGzia9XgcRd58n/Rn/DkrOVBsikxsrRmCwPHm3VlD0tUu5GwZ02zSG
-         Z56JERoW+dAdATFEwkAyQ/vfvdAHByISjkNReGxhCj0cluw+h0qWDmO9kaxfXH/90uBn
-         34cA3UH/jF2xNV2ZBn7a82knMeGdGTWv61w55cX+GLqNYFqXRiVfIGtz6RVvQEOrOx+k
-         3m+F9AX2XOnqLR/EvjxVJ+9aCXs3xmKhabJJTD0wPBa2pSLBKnnhdXwyHwHSoztcsW3g
-         Rtn6kI6R2p5JRQW0jkk9gFdbMlZaDY/jVOFX93J+/OtywGg90bIU/rv4HxLD7cyR20xb
-         HaSw==
-X-Forwarded-Encrypted: i=1; AJvYcCWQdiC4kQDAq39SLx/aDeyKW9HewMzsIJ+wJvLnWvdVElv/F5cZAATr21SY/Hgy98PlAAUjHEOMU7x7lganlbIRIa9w8Dz6Y5CJcllP
-X-Gm-Message-State: AOJu0YwIEhu5mTAzcSjF6YdTKKa4WUEVwVonN/hJ/lHLLycQFFw6h7Hv
-	5gjk3LLv3F0tPxDYJfwYIbVKDPjbBgq7DXWIDBq34aXmW+jFRp3YUdbXle02
-X-Google-Smtp-Source: AGHT+IFJm+E4vhBGmtmnCUYA6zBfSR6TCcGNW1Sd/rWZJf6cUH0dF8ONpDxaDdYsCVLqwMJ/+//iEQ==
-X-Received: by 2002:a0c:fa4d:0:b0:690:644c:ed8b with SMTP id k13-20020a0cfa4d000000b00690644ced8bmr3773197qvo.37.1709685111564;
-        Tue, 05 Mar 2024 16:31:51 -0800 (PST)
-Received: from localhost ([2601:8c:502:14f0:acdd:1182:de4a:7f88])
-        by smtp.gmail.com with ESMTPSA id on7-20020a056214448700b0068f9b20fb0bsm6737364qvb.100.2024.03.05.16.31.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 Mar 2024 16:31:51 -0800 (PST)
-Date: Tue, 5 Mar 2024 14:31:48 -0500
-From: Oliver Crumrine <ozlinuxc@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
-Message-ID: <7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
-References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
- <ZeXzuWVmC9AnsECt@debian>
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJygllRbnw/hmr6we7fCJJ91KKrhuP0TTJsDUcz7fYBOsb9kGgA33X1e6AjmbjUcB6Gxp6p0IbN5urk/1LvuhYSPcpaamd6PxncOXwP3cbwgZ6mUHdg1Z8zwKppnOoMouSjN+RAdCqDWMZ7DDt0o5VleTLApX3A9PIVXqRW+AHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YWeT7wC3; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D8FC433F1;
+	Tue,  5 Mar 2024 19:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709668152;
+	bh=8locZqk/CZTSm838TOaQXVBbZjaILdD7kY0j4daIlCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YWeT7wC31q2Qg/qtjBRRjZVPcV6S8zWqtVWeWL/3TpXbVMMhP3ReXj4M/0Ei/ONMp
+	 jYyDRRTd3vuD8KYJRwyHsAV7po8/3oepf9ovrxJ5MFBjhFf1cXsB/7DRIsEa4RtZSp
+	 +WWdG1nUMnIs9jgfSBWMt5dfIFltnJgQLD0LICxoDrpW5gtoG/wyC5r6+u99gl3aw1
+	 6DF+KOkQnKlykBieQ8pnFT8sXp5taU8HtDeP7IX664sEZHfyykQJ4BPdZlgvha8Vui
+	 0PnfhGFzlYQ35R8QJk8XFlqpWrcIQs83UwhIPUMB7Q5f0pEIS3lrh0+EAjep1yFf0R
+	 yzx//aytKq6dg==
+Date: Tue, 5 Mar 2024 20:48:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Alexander Ofitserov <oficerovas@altlinux.org>
+Cc: linux-man@vger.kernel.org, dutyrok@altlinux.org, kovalev@altlinux.org,
+	"Dmitry V. Levin" <ldv@altlinux.org>,
+	"G. Branden Robinson" <branden@debian.org>,
+	Stefan Puiu <stefan.puiu@gmail.com>
+Subject: Re: [PATCH v4] delete_module.2: Update man to current syscall
+ behaviour
+Message-ID: <Zed3MrLGIMzjK9pS@debian>
+References: <20240305073957.108599-1-oficerovas@altlinux.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="lrh4g4xyeypto3ql"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NTg07M9vVmQCUomH"
 Content-Disposition: inline
-In-Reply-To: <ZeXzuWVmC9AnsECt@debian>
+In-Reply-To: <20240305073957.108599-1-oficerovas@altlinux.org>
 
 
---lrh4g4xyeypto3ql
-Content-Type: text/plain; charset=us-ascii
+--NTg07M9vVmQCUomH
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 5 Mar 2024 20:48:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Alexander Ofitserov <oficerovas@altlinux.org>
+Cc: linux-man@vger.kernel.org, dutyrok@altlinux.org, kovalev@altlinux.org,
+	"Dmitry V. Levin" <ldv@altlinux.org>,
+	"G. Branden Robinson" <branden@debian.org>,
+	Stefan Puiu <stefan.puiu@gmail.com>
+Subject: Re: [PATCH v4] delete_module.2: Update man to current syscall
+ behaviour
 
-On Mon, Mar 04, 2024 at 05:15:52PM +0100, Alejandro Colomar wrote:
-> Hi Oliver,
-> 
-> On Sat, Mar 02, 2024 at 01:19:42PM -0500, Oliver Crumrine wrote:
-> > It was not made clear in several socket options that they were not
-> > supported by SOCK_STREAM; this patch fixes that.
-> > 
-> > Socket options not supported by SOCK_STREAM are handled in the
-> > ip_cmsg_recv_offset function in net/ipv4/ip_sockglue.c. The function is
-> > called for udp sockets, and indirectly by ping and raw sockets, but not
-> > for TCP sockets, as they don't support these options.
-> > 
-> > Signed-off-by: Oliver Crumrine <ozlinuxc@gmail.com>
-> 
-> Could you write some small example programs demonstrating that these are
-> not supported?  I'd like to check it with a small program, if possible.
-> 
-> Have a lovely say!
-> Alex
-> 
-Hi Alex,
-I have attached two programs in the form of C source code below. No
-special compilation options required. To change between the three
-different socket options outlined in my patch, there are two options on
-line 16 and 18 with a comment above them explaining how to use the
-fields.
+Hi Alexander,
 
-Here's how to use the programs:
-0. Make sure you have netcat installed.
-1. Compile the dgram one.
-2. Run it.
-3. Run nc localhost 8888 -u (in a seperate terminal window or tab)
-4. Type whatever into netcat and press enter
-5. Observe that there is a control message recieved, and there is a byte
-printed, which is the first byte of the data in the control message.
-6. You may repeat this for the three different socket options.
-7. Repeat for the stream one, but use nc localhost 8888 (without the -u)
-for #5.
-8. Observe that there are no control messages recieved with the stream one,
-and byte is 00, which is the initial value of the variable, before it has
-a value assigned when the control messages (of which there are none) are read.
+On Tue, Mar 05, 2024 at 10:39:57AM +0300, Alexander Ofitserov wrote:
+> Parameter O_NONBLOCK described in man doesn't exist anymore
+> in kernel versions 3.13+ (particularly in commit
+> 3f2b9c9cdf389e303b2273679af08aab5f153517 aka v3.13-rc1~83^2~5),
+> which is quite old, only O_TRUNC parameter present for current kernel ver=
+sion,
+> O_NONBLOCK does nothing.
+>=20
+> O_NONBLOCK used in "try_stop_module" function, which is invoked by syscall
+> delete_module, here is the code of this function for kernel version 3.12.=
+74:
+> https://elixir.bootlin.com/linux/v3.12.74/source/kernel/module.c#L775
+>=20
+> However, in later kernels, this parameter disappeared.
+> Also, here is the code for 3.13:
+> https://elixir.bootlin.com/linux/v3.13/source/kernel/module.c#L767
+>=20
+> In recent kernels, 6.7.5 for example, this parameter also absent:
+> https://elixir.bootlin.com/linux/v6.7.5/source/kernel/module/main.c#L637
+>=20
+> v3 -> v4:
+> added more information with links to code to commit message
+>=20
+> v2 -> v3:
+> subsection Linux 3.12 and earlier renamed to O_NONBLOCK
+> removed info about arguments for kernels 3.12 and earlier
+> added semantic newlines
+>=20
+> v1 -> v2:
+> added behaviour of syscall for kernel 3.12 and earlier
+> in history section
+> added commit hash to commit message
+> changed word 'actual' to 'current' due to ambigious
+> meaning
+>=20
+> Signed-off-by: Alexander Ofitserov <oficerovas@altlinux.org>
+> ---
+>  man2/delete_module.2 | 92 +++++++++++++++++++++++++-------------------
+>  1 file changed, 52 insertions(+), 40 deletions(-)
+>=20
+> diff --git a/man2/delete_module.2 b/man2/delete_module.2
+> index e9c432e84..e4b107702 100644
+> --- a/man2/delete_module.2
+> +++ b/man2/delete_module.2
+> @@ -50,42 +50,20 @@ is zero, then the module is immediately unloaded.
+>  If a module has a nonzero reference count,
+>  then the behavior depends on the bits set in
+>  .IR flags .
+> -In normal usage (see NOTES), the
+> -.B O_NONBLOCK
+> -flag is always specified, and the
+> +The
+>  .B O_TRUNC
+>  flag may additionally be specified.
+>  .\"  	O_TRUNC =3D=3D KMOD_REMOVE_FORCE in kmod library
+> -.\"  	O_NONBLOCK =3D=3D KMOD_REMOVE_NOWAIT in kmod library
+>  .IP
+>  The various combinations for
 
-Thanks,
-Oliver
-> > ---
-> >  man7/ip.7 | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/man7/ip.7 b/man7/ip.7
-> > index 2b4b06324..104e65feb 100644
-> > --- a/man7/ip.7
-> > +++ b/man7/ip.7
-> > @@ -828,6 +828,9 @@ is not zero, the primary local address of the interface specified by the
-> >  index overwrites
-> >  .I ipi_spec_dst
-> >  for the routing table lookup.
-> > +Not supported for
-> > +.B SOCK_STREAM
-> > +sockets.
-> >  .TP
-> >  .BR IP_RECVERR " (since Linux 2.2)"
-> >  .\" Precisely: since Linux 2.1.15
-> > @@ -989,6 +992,9 @@ in which the kernel returns the original destination address
-> >  of the datagram being received.
-> >  The ancillary message contains a
-> >  .IR "struct sockaddr_in" .
-> > +Not supported for
-> > +.B SOCK_STREAM
-> > +sockets.
-> >  .TP
-> >  .BR IP_RECVTOS " (since Linux 2.2)"
-> >  .\" Precisely: since Linux 2.1.68
-> > @@ -998,6 +1004,9 @@ ancillary message is passed with incoming packets.
-> >  It contains a byte which specifies the Type of Service/Precedence
-> >  field of the packet header.
-> >  Expects a boolean integer flag.
-> > +Not supported for
-> > +.B SOCK_STREAM
-> > +sockets.
-> >  .TP
-> >  .BR IP_RECVTTL " (since Linux 2.2)"
-> >  .\" Precisely: since Linux 2.1.68
-> > -- 
-> > 2.44.0
-> > 
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
-> Looking for a remote C programming job at the moment.
+"various combinations" is rather confusing, now that there's only one
+flag bit, right?
 
+>  .I flags
+>  have the following effect:
+>  .RS
+>  .TP
+> -.B flags =3D=3D O_NONBLOCK
+> -The call returns immediately, with an error.
+> -.TP
+> -.B flags =3D=3D (O_NONBLOCK | O_TRUNC)
+> +.B flags =3D=3D O_TRUNC
+>  The module is unloaded immediately,
+>  regardless of whether it has a nonzero reference count.
+> -.TP
+> -.B (flags & O_NONBLOCK) =3D=3D 0
 
+Is flags =3D=3D 0 a possibility?  The rest of the page seems to say so, but
+this list of "various combinations" doesn't include it.
 
---lrh4g4xyeypto3ql
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="testDgramSocketServer.c"
+> -If
+> -.I flags
+> -does not specify
+> -.BR O_NONBLOCK ,
+> -the following steps occur:
+>  .RS
+> -.IP \[bu] 3
+> -The module is marked so that no new references are permitted.
+> -.IP \[bu]
+> -If the module's reference count is nonzero,
+> -the caller is placed in an uninterruptible sleep state
+> -.RB ( TASK_UNINTERRUPTIBLE )
+> -until the reference count is zero, at which point the call unblocks.
+> -.IP \[bu]
+> -The module is unloaded in the usual way.
+>  .RE
+>  .RE
+>  .P
+> @@ -151,11 +129,7 @@ in
+>  .TP
+>  .B EWOULDBLOCK
+>  Other modules depend on this module;
+> -or,
 
-#include<stdio.h>	//printf
-#include<string.h> //memset
-#include<stdlib.h> //exit(0);
-#include<arpa/inet.h>
-#include<sys/socket.h>
-#include<unistd.h>
+Please keep 'or,' in a separate line.  It reduces the diff, and it
+doesn't hurt much.
 
-#define BUFLEN 1500	//Max length of buffer
-#define PORT 8888	//The port on which to listen for incoming data
+> -.B O_NONBLOCK
+> -was specified in
+> -.IR flags ,
+> -but the reference count of this module is nonzero and
+> +or, the reference count of this module is nonzero and
+>  .B O_TRUNC
+>  was not specified in
+>  .IR flags .
+> @@ -172,6 +146,54 @@ it is (before glibc 2.23) sufficient to
+>  manually declare the interface in your code;
+>  alternatively, you can invoke the system call using
+>  .BR syscall (2).
+> +.SS O_NONBLOCK
+> +In Linux 3.12 and earlier, parameter:
 
+I would  s/ parameter://
 
-//Hi Alex,
-//These are the two lines that allow you to switch between the three socket options outlined in my patch
-//The socket options tell the kernel to add a control message (cmsg), allowing the program
-//to recieve the data it is requesting. The three options are: IP_RECVTOS for the type of service byte,
-//IP_RECVORIGDSTADDR for the orignial dst address, and IP_PKTINFO for some random packet info.
-#define SOCKOPT IP_RECVORIGDSTADDR
-//This field is synonymous with the above one. Valid options are: IP_TOS, IP_ORIGDSTADDR, and IP_PKTINFO
-#define RECIVEOPTION IP_ORIGDSTADDR
+> +.I flags
+> +also can contain=20
 
-void die(char *s)
-{
-	perror(s);
-	exit(1);
-}
+There's trailing white-space in some lines.  Don't worry too much about
+it; I can remove it while applying.  Just wanted to let you know it's
+there.
 
-int main(void)
-{
-	struct sockaddr_in si_me, si_other;
-	
-	int s, i, slen = sizeof(si_other) , recv_len;
-	char buf[BUFLEN];
-	
-	if ((s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
-	{
-		die("socket");
-	}
-	
-	memset((char *) &si_me, 0, sizeof(si_me));
-	
-	si_me.sin_family = AF_INET;
-	si_me.sin_port = htons(PORT);
-	si_me.sin_addr.s_addr = htonl(INADDR_ANY);
-	
-	if( bind(s , (struct sockaddr*)&si_me, sizeof(si_me) ) == -1)
-	{
-		die("bind");
-	}
-	int yes = 1;
-	if(setsockopt(s, IPPROTO_IP, SOCKOPT, &yes, sizeof(yes)) != 0){
-		die("setsockopt");
-	}
-	while(1)
-	{
-		struct msghdr mhdr;
-		struct iovec iov[1];
-		struct cmsghdr *cmhdr;
-		char control[1000];
-		char databuf[1500];
-		unsigned char tos = 0;
-		
-		mhdr.msg_name = &si_me;
-		mhdr.msg_namelen = sizeof(si_me);
-		mhdr.msg_iov = iov;
-		mhdr.msg_iovlen = 1;
-		mhdr.msg_control = &control;
-		mhdr.msg_controllen = sizeof(control);
-		iov[0].iov_base = databuf;
-		iov[0].iov_len = sizeof(databuf);
-		memset(databuf, 0, sizeof(databuf));	
-		fflush(stdout);
-		
-		//this is blocking
-		if ((recv_len = recvmsg(s, &mhdr, 0)) == -1)
-		{
-			die("recvfrom()");
-		}
-		cmhdr = CMSG_FIRSTHDR(&mhdr);
-		while (cmhdr) {
-			printf("cmsg recieved\n");
-    		    if (cmhdr->cmsg_level == IPPROTO_IP && cmhdr->cmsg_type == RECIVEOPTION) {
-    		        //read the byte recieved
-			    tos = ((unsigned char *)CMSG_DATA(cmhdr))[0];
-    		    }
-    		    cmhdr = CMSG_NXTHDR(&mhdr, cmhdr);
-    		}
-		//print out the data recieved as a hex byte
-    		printf("data read: %sbyte = %02X\n", databuf, tos); 	
-		
-	}
+> +.B O_NONBLOCK
+> +flag in addition to=20
+> +.B O_TRUNC
+> +flag.
+> +Behavior depends on the bits set in
+> +.IR flags .
+> +In normal usage (see NOTES), the
 
-	close(s);
-	return 0;
-}
+You removed NOTES in this commit.  :)
 
---lrh4g4xyeypto3ql
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="testStreamSocketServer.c"
+> +.B O_NONBLOCK
+> +flag is always specified, and the
+> +.B O_TRUNC
+> +flag may additionally be specified.
+> +.\"  	O_TRUNC =3D=3D KMOD_REMOVE_FORCE in kmod library
+> +.\"  	O_NONBLOCK =3D=3D KMOD_REMOVE_NOWAIT in kmod library
+> +.IP
 
-#include<stdio.h>	//printf
-#include<string.h> //memset
-#include<stdlib.h> //exit(0);
-#include<arpa/inet.h>
-#include<sys/socket.h>
-#include<unistd.h>
+This should be .P not .IP
 
-#define BUFLEN 1500	//Max length of buffer
-#define PORT 8888	//The port on which to listen for incoming data
+It was IP where it was before, because it was a continuation of the
+'(3)' bulletted (_i_ndented) paragraph.
 
-//Hi Alex,
-//These are the two lines that allow you to switch between the three socket options outlined in my patch
-//The socket options tell the kernel to add a control message (cmsg), allowing the program
-//to recieve the data it is requesting. The three options are: IP_RECVTOS for the type of service byte,
-//IP_RECVORIGDSTADDR for the orignial dst address, and IP_PKTINFO for some random packet info.
-#define SOCKOPT IP_RECVORIGDSTADDR
-//This field is synonymous with the above one. Valid options are: IP_TOS, IP_ORIGDSTADDR, and IP_PKTINFO
-#define RECIVEOPTION IP_ORIGDSTADDR
+> +The various combinations for
+> +.I flags
+> +have the following effect:
+> +.RS
 
-void die(char *s)
-{
-	perror(s);
-	exit(1);
-}
+And this .RS/.RE pair should also go away.
 
-int main(void)
-{
-	struct sockaddr_in si_me, si_other;
-	
-	int s, i, slen = sizeof(si_other) , recv_len;
-	char buf[BUFLEN];
-	
-	if ((s=socket(AF_INET, SOCK_STREAM, 0)) == -1)
-	{
-		die("socket");
-	}
-	
-	memset((char *) &si_me, 0, sizeof(si_me));
-	
-	si_me.sin_family = AF_INET;
-	si_me.sin_port = htons(PORT);
-	si_me.sin_addr.s_addr = htonl(INADDR_ANY);
-	
-	if( bind(s , (struct sockaddr*)&si_me, sizeof(si_me) ) == -1)
-	{
-		die("bind");
-	}
-	listen(s, 10);
-	while(1)
-	{
-		int connectedfd = accept(s, (struct sockaddr*)NULL, NULL);
-		int yes = 1;                                                     	
-		if(setsockopt(connectedfd, IPPROTO_IP, SOCKOPT, &yes, sizeof(yes)) != 0){
-			die("setsockopt");
-		}
+Have a lovely day!
+Alex
 
-		
-		
-		struct msghdr mhdr;
-		struct iovec iov[1];
-		struct cmsghdr *cmhdr;
-		char control[1000];
-		char databuf[1500];
-		unsigned char tos = 0;
-		
-		mhdr.msg_name = &si_me;
-		mhdr.msg_namelen = sizeof(si_me);
-		mhdr.msg_iov = iov;
-		mhdr.msg_iovlen = 1;
-		mhdr.msg_control = &control;
-		mhdr.msg_controllen = sizeof(control);
-		iov[0].iov_base = databuf;
-		iov[0].iov_len = sizeof(databuf);
-		memset(databuf, 0, sizeof(databuf));	
-		fflush(stdout);
-		
-		//this is blocking
-		if ((recv_len = recvmsg(connectedfd, &mhdr, 0)) == -1)
-		{
-			die("recvfrom()");
-		}
-		cmhdr = CMSG_FIRSTHDR(&mhdr);
-		while (cmhdr) {
-			printf("cmsg recieved \n");
-    		    if (cmhdr->cmsg_level == IPPROTO_IP && cmhdr->cmsg_type == RECIVEOPTION) {
-    		        //read the byte recieved
-			    tos = ((unsigned char *)CMSG_DATA(cmhdr))[0];
-    		    }
-    		    cmhdr = CMSG_NXTHDR(&mhdr, cmhdr);
-    		}
-		//print out the data recieved as a hex byte
-    		printf("data read: %sbyte = %02X\n", databuf, tos); 	
-		close(connectedfd);	
-	}
+> +.TP
+> +.B flags =3D=3D O_NONBLOCK
+> +The call returns immediately, with an error.
+> +.TP
+> +.B flags =3D=3D (O_NONBLOCK | O_TRUNC)
+> +The module is unloaded immediately,
+> +regardless of whether it has a nonzero reference count.
+> +.TP
+> +.B (flags & O_NONBLOCK) =3D=3D 0
+> +If
+> +.I flags
+> +does not specify
+> +.BR O_NONBLOCK ,
+> +the following steps occur:
+> +.RS
+> +.IP \[bu] 3
+> +The module is marked so that no new references are permitted.
+> +.IP \[bu]
+> +If the module's reference count is nonzero,
+> +the caller is placed in an uninterruptible sleep state
+> +.RB ( TASK_UNINTERRUPTIBLE )
+> +until the reference count is zero, at which point the call unblocks.
+> +.IP \[bu]
+> +The module is unloaded in the usual way.
+> +.RE
+> +.RE
+>  .SS Linux 2.4 and earlier
+>  In Linux 2.4 and earlier, the system call took only one argument:
+>  .P
+> @@ -183,19 +205,9 @@ is NULL, all unused modules marked auto-clean are re=
+moved.
+>  .P
+>  Some further details of differences in the behavior of
+>  .BR delete_module ()
+> -in Linux 2.4 and earlier are
+> +in Linux 3.12 and earlier are
+>  .I not
+>  currently explained in this manual page.
+> -.SH NOTES
+> -The uninterruptible sleep that may occur if
+> -.B O_NONBLOCK
+> -is omitted from
+> -.I flags
+> -is considered undesirable, because the sleeping process is left
+> -in an unkillable state.
+> -As at Linux 3.7, specifying
+> -.B O_NONBLOCK
+> -is optional, but in future kernels it is likely to become mandatory.
+>  .SH SEE ALSO
+>  .BR create_module (2),
+>  .BR init_module (2),
+> --=20
+> 2.33.8
+>=20
 
-	close(s);
-	return 0;
-}
+--=20
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
 
---lrh4g4xyeypto3ql--
+--NTg07M9vVmQCUomH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXndyUACgkQnowa+77/
+2zJV9g/8C9wLWGlIs3aPy5iJdwNFSjidl3wvJI+K+4UJ6YOLYFHFe6gAGSWJJPy1
+08bz2efP0NqFyXvLCB7mfGdvXeyy3REcn0aNstk8GDloTyB4Sn0l9sqjm2pOh2ZA
+3hebMn60+A3HMsNoi1BuPNWvX2gnkabFfzrDPimpkH+/cuXD85kuy9t39AGFQpGg
+ez2iKWbCTvyGICTlc903PtaK0v+HEshtE29YUkrobBCrOC/P117U29NajrLQppP8
++oeENdFQh0aPs2PbL8rz5up3qT1Qk5Vp4KLlC2cweI2oWis0w6qi4+WdLaGgTmEW
+2L/vgxW+17A7eCqGFl53XA7vqQe1kUhUVlqyHy0fVL6W0q33mi16ictbEqRdnsnW
+o6Ay83QzlDoHywmTSNE5GRLIzPKlUp+NTSmPOmzkdl/x0gW+llL8Nwxuvtc3no4t
+pyUyndZpjZGsg/KSR5lHLsAEfrxyZSyx+8PEWjGzI5fukzHfutltyeJU8kvYgIxh
+sEfaLz29zO3eDu1/6SVsQ0c43PvXLzoc0eFnPi/4WAv2gPjD56Wlc9gJrQTJPcIQ
+KwppClwwYjqvrVj5pK5u+NkTqZFuWhuxSyLxIYvqYuLxEO9OcNG/738++MLB7gMW
+HitF2f1GvtODYsHjGwy3rU18smQ6wlvE4GeKHwgiWyWWLLWsvKQ=
+=Wv/Z
+-----END PGP SIGNATURE-----
+
+--NTg07M9vVmQCUomH--
 
