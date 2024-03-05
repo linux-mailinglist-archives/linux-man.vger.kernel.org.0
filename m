@@ -1,236 +1,156 @@
-Return-Path: <linux-man+bounces-535-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-536-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85A887171D
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 08:40:48 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0438872656
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 19:12:55 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 491DA284EC7
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 07:40:47 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7114A1F27B5C
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 18:12:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3984E7E10B;
-	Tue,  5 Mar 2024 07:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFEAA18038;
+	Tue,  5 Mar 2024 18:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vDhnP0uT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from air.basealt.ru (air.basealt.ru [194.107.17.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2FE7EEE1
-	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 07:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.107.17.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6F717BCF;
+	Tue,  5 Mar 2024 18:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709624444; cv=none; b=ufJE3ZkyVf682WiWaZURE/cHpjhIuBGYOYSA6PsWoWRB5PfH14oDukaUhlFxRoG3SYXUhXRoaMHCWhVlm9H75XK1A0QCuXwH8V1lYimLA2ppfMMk/cjtYiXSM3/ln2GCy0m5CJ+9+PO2WxMlTaKdVkLhL7SiezUWH01tQUZLIKc=
+	t=1709662369; cv=none; b=PizNi2EOgI+L0j0h577WJKfBYXDvv9+mg0+IFyblBWJA6//2o7n09qcfcxbA3KdvyCGJQDdp6u6CsHOsk8jm2yYJbvJM6TmynNAVwnoqF0Pf9s3Vu36QkTuT/1WdJ1m5/Blw7AAb3mLt3yN804WNtPQMYhOZjPYG+9YHdAqmG2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709624444; c=relaxed/simple;
-	bh=iVO4SihzRdVr8TyTdev6Qu+q7IgWaoePYYvQzx3G7eM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hR8L6gTuFo/bdxkgEZ+zzvRBrLIrV2MzuUXj1Fyctzq2o0yx8C65HUAaD8XvqGNladJMBtXtdJ8qLeHbS2XAfOWML08yBmqg3ZUMiJu2BdsSrNVi4MTLVAd5ugRwJf1i/9l4ysY4m0JiM0ypJ+AG2nGdF1+Xg7qJ9k7aMik8Du8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=194.107.17.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
-Received: by air.basealt.ru (Postfix, from userid 490)
-	id BAC932F20260; Tue,  5 Mar 2024 07:40:32 +0000 (UTC)
-X-Spam-Level: 
-Received: from taut9powder.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
-	by air.basealt.ru (Postfix) with ESMTPSA id 851652F20263;
-	Tue,  5 Mar 2024 07:40:21 +0000 (UTC)
-From: Alexander Ofitserov <oficerovas@altlinux.org>
-To: oficerovas@altlinux.org,
-	Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	dutyrok@altlinux.org,
-	kovalev@altlinux.org,
-	"Dmitry V. Levin" <ldv@altlinux.org>,
-	"G. Branden Robinson" <branden@debian.org>,
-	Stefan Puiu <stefan.puiu@gmail.com>
-Subject: [PATCH v4] delete_module.2: Update man to current syscall behaviour
-Date: Tue,  5 Mar 2024 10:39:57 +0300
-Message-Id: <20240305073957.108599-1-oficerovas@altlinux.org>
-X-Mailer: git-send-email 2.33.8
+	s=arc-20240116; t=1709662369; c=relaxed/simple;
+	bh=UDGYgts7G64cZvfQjYM3Jk3nyX9GDSLqS5lteBHTrZ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V1mdNOfmB/zRUc38x/QcFCl1hFLb5IbIMf6Zk7JyxnGDnHT2jEIIMRVQctCGrvAX/1HXgLJ7X62Tq3okEBs8+76TZUB29tyEOT38SXhaweMbZ0ohAMa5hoiFPa0uqhhVbMeoPHWScTlIgJ0dbtOQiaysE319OZ3coDwZcVzR67E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vDhnP0uT; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93972C433C7;
+	Tue,  5 Mar 2024 18:12:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709662369;
+	bh=UDGYgts7G64cZvfQjYM3Jk3nyX9GDSLqS5lteBHTrZ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vDhnP0uTgbAiOwVXqwAvD95HvcdFxYutyKXo4xM+6ouX92cfv/H4AUl+xDmcmaBDd
+	 ZjWPPzm09ZcCj+Z+86enisfUg9fwbv4mZIW32eDPb2CeN3XBbyGP9A+6GiwEWuD/Aa
+	 ENL/wncGnVJP3DANMceAq6Y6LPEdBROPqIlS7KsxB/NL50xQu6lfHZTJ2eb5R69RNO
+	 ukCf4Up3Y+48GI+6+WpvZXR3i+ilADv6BgrvNCigV7rFNmMzdKxHVtlFRt9zQPf8kq
+	 ogWtXR06hDwy6l37M8RMrBpHRW022iJ0sEvTSG4fzNAsj6qbhmUSExW7dsNBnf3fdg
+	 dl7QDvGMv2A3Q==
+Date: Tue, 5 Mar 2024 19:12:44 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Elliott Hughes <enh@google.com>, Stefan Puiu <stefan.puiu@gmail.com>,
+	Bruno Haible <bruno@clisp.org>, linux-man@vger.kernel.org
+Cc: GNU C Library <libc-alpha@sourceware.org>, linux-api@vger.kernel.org
+Subject: Re: [PATCH 1/2] man*/: epoll_*(), fcntl(), flock(), ioctl(),
+ msgctl(), *prctl(), ptrace(), quotactl(), reboot(), semctl(), shmctl(),
+ lockf(): Consistently use 'op' and 'operation'
+Message-ID: <ZedgnagXMV5aTcsM@debian>
+References: <ZUIlirG-ypudgpbK@debian>
+ <20240303121454.16994-2-alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1yYLU1zDvj6ZA0kg"
+Content-Disposition: inline
+In-Reply-To: <20240303121454.16994-2-alx@kernel.org>
 
-Parameter O_NONBLOCK described in man doesn't exist anymore
-in kernel versions 3.13+ (particularly in commit
-3f2b9c9cdf389e303b2273679af08aab5f153517 aka v3.13-rc1~83^2~5),
-which is quite old, only O_TRUNC parameter present for current kernel version,
-O_NONBLOCK does nothing.
 
-O_NONBLOCK used in "try_stop_module" function, which is invoked by syscall
-delete_module, here is the code of this function for kernel version 3.12.74:
-https://elixir.bootlin.com/linux/v3.12.74/source/kernel/module.c#L775
+--1yYLU1zDvj6ZA0kg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 5 Mar 2024 19:12:44 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Elliott Hughes <enh@google.com>, Stefan Puiu <stefan.puiu@gmail.com>,
+	Bruno Haible <bruno@clisp.org>, linux-man@vger.kernel.org
+Cc: GNU C Library <libc-alpha@sourceware.org>, linux-api@vger.kernel.org
+Subject: Re: [PATCH 1/2] man*/: epoll_*(), fcntl(), flock(), ioctl(),
+ msgctl(), *prctl(), ptrace(), quotactl(), reboot(), semctl(), shmctl(),
+ lockf(): Consistently use 'op' and 'operation'
 
-However, in later kernels, this parameter disappeared.
-Also, here is the code for 3.13:
-https://elixir.bootlin.com/linux/v3.13/source/kernel/module.c#L767
+On Sun, Mar 03, 2024 at 01:15:09PM +0100, Alejandro Colomar wrote:
+> Reported-by: Bruno Haible <bruno@clisp.org>
+> Cc: Elliott Hughes <enh@google.com>
+> Cc: Stefan Puiu <stefan.puiu@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>  man2/arch_prctl.2          | 12 +++---
+>  man2/epoll_wait.2          |  4 +-
+>  man2/fcntl.2               | 70 +++++++++++++++----------------
+>  man2/flock.2               |  6 +--
+>  man2/ioctl.2               | 30 +++++++-------
+>  man2/ioctl_console.2       |  8 ++--
+>  man2/ioctl_fideduperange.2 |  2 +-
+>  man2/ioctl_getfsmap.2      |  6 +--
+>  man2/ioctl_ns.2            |  2 +-
+>  man2/ioctl_tty.2           | 10 ++---
+>  man2/ioctl_userfaultfd.2   | 10 ++---
+>  man2/msgctl.2              | 16 ++++----
+>  man2/prctl.2               | 84 +++++++++++++++++++-------------------
+>  man2/ptrace.2              | 60 +++++++++++++--------------
+>  man2/quotactl.2            | 34 +++++++--------
+>  man2/reboot.2              | 19 +++++----
+>  man2/semctl.2              | 22 +++++-----
+>  man2/shmctl.2              | 20 +++++----
+>  man3/lockf.3               | 11 ++---
+>  19 files changed, 217 insertions(+), 209 deletions(-)
+>=20
+> diff --git a/man2/arch_prctl.2 b/man2/arch_prctl.2
+> index bbb85866c..680d36395 100644
+> --- a/man2/arch_prctl.2
+> +++ b/man2/arch_prctl.2
+> @@ -14,8 +14,8 @@ .SH SYNOPSIS
+>  .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constan=
+ts */"
+>  .B #include <unistd.h>
+>  .P
+> -.BI "int syscall(SYS_arch_prctl, int " code ", unsigned long " addr );
+> -.BI "int syscall(SYS_arch_prctl, int " code ", unsigned long *" addr );
+> +.BI "int syscall(SYS_arch_prctl, int " op ", unsigned long " addr );
+> +.BI "int syscall(SYS_arch_prctl, int " op ", unsigned long *" addr );
 
-In recent kernels, 6.7.5 for example, this parameter also absent:
-https://elixir.bootlin.com/linux/v6.7.5/source/kernel/module/main.c#L637
+[...]
 
-v3 -> v4:
-added more information with links to code to commit message
+Hi Elliott!
 
-v2 -> v3:
-subsection Linux 3.12 and earlier renamed to O_NONBLOCK
-removed info about arguments for kernels 3.12 and earlier
-added semantic newlines
+This is already in master.  Feel free to do a similar thing in bionic.
+;)
 
-v1 -> v2:
-added behaviour of syscall for kernel 3.12 and earlier
-in history section
-added commit hash to commit message
-changed word 'actual' to 'current' due to ambigious
-meaning
+Have a lovely day!
+Alex
 
-Signed-off-by: Alexander Ofitserov <oficerovas@altlinux.org>
----
- man2/delete_module.2 | 92 +++++++++++++++++++++++++-------------------
- 1 file changed, 52 insertions(+), 40 deletions(-)
+--=20
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
 
-diff --git a/man2/delete_module.2 b/man2/delete_module.2
-index e9c432e84..e4b107702 100644
---- a/man2/delete_module.2
-+++ b/man2/delete_module.2
-@@ -50,42 +50,20 @@ is zero, then the module is immediately unloaded.
- If a module has a nonzero reference count,
- then the behavior depends on the bits set in
- .IR flags .
--In normal usage (see NOTES), the
--.B O_NONBLOCK
--flag is always specified, and the
-+The
- .B O_TRUNC
- flag may additionally be specified.
- .\"  	O_TRUNC == KMOD_REMOVE_FORCE in kmod library
--.\"  	O_NONBLOCK == KMOD_REMOVE_NOWAIT in kmod library
- .IP
- The various combinations for
- .I flags
- have the following effect:
- .RS
- .TP
--.B flags == O_NONBLOCK
--The call returns immediately, with an error.
--.TP
--.B flags == (O_NONBLOCK | O_TRUNC)
-+.B flags == O_TRUNC
- The module is unloaded immediately,
- regardless of whether it has a nonzero reference count.
--.TP
--.B (flags & O_NONBLOCK) == 0
--If
--.I flags
--does not specify
--.BR O_NONBLOCK ,
--the following steps occur:
- .RS
--.IP \[bu] 3
--The module is marked so that no new references are permitted.
--.IP \[bu]
--If the module's reference count is nonzero,
--the caller is placed in an uninterruptible sleep state
--.RB ( TASK_UNINTERRUPTIBLE )
--until the reference count is zero, at which point the call unblocks.
--.IP \[bu]
--The module is unloaded in the usual way.
- .RE
- .RE
- .P
-@@ -151,11 +129,7 @@ in
- .TP
- .B EWOULDBLOCK
- Other modules depend on this module;
--or,
--.B O_NONBLOCK
--was specified in
--.IR flags ,
--but the reference count of this module is nonzero and
-+or, the reference count of this module is nonzero and
- .B O_TRUNC
- was not specified in
- .IR flags .
-@@ -172,6 +146,54 @@ it is (before glibc 2.23) sufficient to
- manually declare the interface in your code;
- alternatively, you can invoke the system call using
- .BR syscall (2).
-+.SS O_NONBLOCK
-+In Linux 3.12 and earlier, parameter:
-+.I flags
-+also can contain 
-+.B O_NONBLOCK
-+flag in addition to 
-+.B O_TRUNC
-+flag.
-+Behavior depends on the bits set in
-+.IR flags .
-+In normal usage (see NOTES), the
-+.B O_NONBLOCK
-+flag is always specified, and the
-+.B O_TRUNC
-+flag may additionally be specified.
-+.\"  	O_TRUNC == KMOD_REMOVE_FORCE in kmod library
-+.\"  	O_NONBLOCK == KMOD_REMOVE_NOWAIT in kmod library
-+.IP
-+The various combinations for
-+.I flags
-+have the following effect:
-+.RS
-+.TP
-+.B flags == O_NONBLOCK
-+The call returns immediately, with an error.
-+.TP
-+.B flags == (O_NONBLOCK | O_TRUNC)
-+The module is unloaded immediately,
-+regardless of whether it has a nonzero reference count.
-+.TP
-+.B (flags & O_NONBLOCK) == 0
-+If
-+.I flags
-+does not specify
-+.BR O_NONBLOCK ,
-+the following steps occur:
-+.RS
-+.IP \[bu] 3
-+The module is marked so that no new references are permitted.
-+.IP \[bu]
-+If the module's reference count is nonzero,
-+the caller is placed in an uninterruptible sleep state
-+.RB ( TASK_UNINTERRUPTIBLE )
-+until the reference count is zero, at which point the call unblocks.
-+.IP \[bu]
-+The module is unloaded in the usual way.
-+.RE
-+.RE
- .SS Linux 2.4 and earlier
- In Linux 2.4 and earlier, the system call took only one argument:
- .P
-@@ -183,19 +205,9 @@ is NULL, all unused modules marked auto-clean are removed.
- .P
- Some further details of differences in the behavior of
- .BR delete_module ()
--in Linux 2.4 and earlier are
-+in Linux 3.12 and earlier are
- .I not
- currently explained in this manual page.
--.SH NOTES
--The uninterruptible sleep that may occur if
--.B O_NONBLOCK
--is omitted from
--.I flags
--is considered undesirable, because the sleeping process is left
--in an unkillable state.
--As at Linux 3.7, specifying
--.B O_NONBLOCK
--is optional, but in future kernels it is likely to become mandatory.
- .SH SEE ALSO
- .BR create_module (2),
- .BR init_module (2),
--- 
-2.33.8
+--1yYLU1zDvj6ZA0kg
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXnYJwACgkQnowa+77/
+2zJuQA//aSMde/Q28K1nEjLa86RS6oF8Y9lcT5y/6Dn5N/gc7YshFTUWhEJUifJM
+2C+zT3txM1NVSeSw0lZaMh5XSEEAvaIxLIaiZ82f2AVytaD5SDmV3ljPb78C8LsJ
+ehpj6c5y7A0J+fgatWOfHQWb29NeEw1zSHQ2YeSnN5cPho1M7NBmRv1/MCNGbYP9
+mxwWgvegvC7NNFet52O0zWs+fCZPnJsi28yfQ/EYqWBBeHr2n88a9YnqlC7yvS8/
+VPbOj/zi5nI3xZB/RAMmXdC0CTG9/oDC8MpBHgtqnaAaUp9kT5mHTURTQTlHPeqr
+HTFAwQt7NI4PVTPvler5zwGjILCv//fqGe73J+gBzE7ZILmRhrARhyaBAUI4r4Cn
+R11kIqdXZB91rkpA0bk7C/cWgqjcb3mmKcom70EknYemkMABnrEDhi4dYDluPzqk
+UMkEZVT2dfyT4fabKFSeaRZzwNB+q5DrZaRSOU+lqi7s+8+gr2xeu6Xst4zDaGPN
+2072/XIn2SLE2ZSbx3nPprjgszrTRUnlXDb2eLIp5a0uQIx2e7zrOU3TgvKB+G+Y
+44AxeOxPH2WErNbk8w6J8F6RmRqyekxmnfZrpZc+PhJD7ADrK9A0+hNDgw0gdHyG
+wzDK/ubVX6L+XNt3nrhpc/fYRvKu4GWwGSFEiUkiVKTGPNrQQvc=
+=nHc/
+-----END PGP SIGNATURE-----
+
+--1yYLU1zDvj6ZA0kg--
 
