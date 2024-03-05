@@ -1,134 +1,156 @@
-Return-Path: <linux-man+bounces-529-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-530-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E7387122B
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 01:56:31 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC6C871232
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 02:06:02 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9C18A1C22730
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 00:56:30 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6B073280EFA
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 01:06:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76268E559;
-	Tue,  5 Mar 2024 00:56:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FB2710979;
+	Tue,  5 Mar 2024 01:05:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mJ+AzAOA"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDALzOqi"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C569DDF6B
-	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 00:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30205FBE9
+	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 01:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709600187; cv=none; b=pxZYgwKanSTOdRHmNgn8W4u2kJBqJ97n7xuHasb+PeolOYWSxaN/Gxf0rkrWHojsqTdxV8gHk5e7cbtGE50mticBxbff+BqXT0QoX79oyipl/g224cf8jZaHFjRafgW+AZPzlZzvJD0NRnD3MK7KwV7/HPKEO6ekGPyNAZ7p1mk=
+	t=1709600758; cv=none; b=FU6V29LnnGL/7fzTsHhkDZmalMNMAv7lVtLGNEqtmcfx/Hbr5DW34fWHFBeSzccseQF7iJSLJpWKCe/RmVu3YkxZeKCIGqGANDewkWd22mhlAlLxLXttfr6H1bduJfg4q1e3FO7trjsopAyKP7C4rVuRjT36MCWIq58JFNC6Xss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709600187; c=relaxed/simple;
-	bh=ylFbF96zeiE9MF3oNTTqi8RMPQ+c93clIuQ+EOBRCLw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EAIu3CD5VI9Cyd7Nz3+PDdUyE3o6HUIlp/AtegowynC0o/xvENmOSCHOFKVyQow/HjsmjCikAhd+IKR70pgp9i0yskxzPX/39RRU/6v3cnXRxS1d0FnJa1YdSlJC0JHNC63MsS34CtFUsxmyz3qwDfX46la8B1cLJ6cwmZ5TWI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mJ+AzAOA; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-42f0078906fso429521cf.1
-        for <linux-man@vger.kernel.org>; Mon, 04 Mar 2024 16:56:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1709600185; x=1710204985; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RNnTGp94QR+qk9tYRNXAsfesB+HdWK+VCMK9wenPUaE=;
-        b=mJ+AzAOADydRH2YoMD/go2xZN7qkzr+/aspVATD+/wpBSXpEEGaZ922qwcRTX+nPN3
-         OEIyCsBFhwrV5zV+JMIb1qDtlJFh+TeAXn6mtjbn75jgxf3AZDD2Jeh+PxAYZOyjgeCh
-         6IAlmiQLvvrXhBcOGyEINPO4h0C3jeIoYiUMwwBw8nBZHkwh0BcWTy/1GidpJfLyasXo
-         /XMoG/YqAj/8nXhmdJiOjyCsL7RzYnvoDf4eOkDHW2SpViMbypKkEscEpZj5SqfziJ24
-         SPxjoH1JtXiAK0bO6hDPxVLjeNGdzsZmKgS9gxffiFCd7uI1x2jJRPYrKRCWyNjL4h3k
-         VCTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709600185; x=1710204985;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RNnTGp94QR+qk9tYRNXAsfesB+HdWK+VCMK9wenPUaE=;
-        b=J3WJSuDQL4wXl9/xFc6OYTZuLTSOzWn0L0buQo5YXIxSlMT726/tR77Gx10wTrg/Ph
-         DBwc9W9s0bPMCx92/FNylrrT0OecdrU9NWL8IhegaKl9jOQuZxcjtiCrnOYKg3O72AAc
-         GdVBE56NKpl8SIMHtQnAyARSxX05fYncdqBRZbp0GGjRkYHlJAsPyZfLG3apDos67OCp
-         E1uDpSxbRXfi9hpZ0HE9ZEz+jh+OkKMSKAl4b3HnSnBrT9IJwdDezlbk+hadvKRsF9sn
-         zpc9xz6GTBG06plUwhtZ3cF2UriVrfcFlNfkFSkEHgKjewKZ4RmmBuD5hOFNVMfhwxmH
-         AqAg==
-X-Forwarded-Encrypted: i=1; AJvYcCVhKcJ08xZ9V0DsOyS2FAajAxAkC+pZLQxbg5ROAVJTzzi/cFb1pA7hWt5aRc1aC6ajvfkY0V+lgI7CLT/8/ThKsdW71UNuMXub
-X-Gm-Message-State: AOJu0YyOP6nZnKInrKGozpvt4FEoGYOAKy0rSYAbZ7CzmYEPoPpNDUE1
-	DOsod8Ji05FLlyKcAKffgHwX2VOLOIeZZI+v8KpuvqKkqCHa+ztRFJN1vTMQ3eAbSb/rpIDxfdJ
-	SEJUjVc8FUlWynPRrSTe+UgJFcex7zai2D/Xw
-X-Google-Smtp-Source: AGHT+IHcjwfDkL1HEvaUhhZkWgvTqm3F5QwUambkU8G/rGv9S7NB9INbD6UErDycnwQiTEsjy13CZ4aLlFiyLXQBoA0=
-X-Received: by 2002:ac8:7dc5:0:b0:42e:74bc:2177 with SMTP id
- c5-20020ac87dc5000000b0042e74bc2177mr571924qte.61.1709600184635; Mon, 04 Mar
- 2024 16:56:24 -0800 (PST)
+	s=arc-20240116; t=1709600758; c=relaxed/simple;
+	bh=V3AwvqLCdbb+XKq+wo4BIlNuc87HYkEoPCchUKGyQyo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oECoeEhHhZdYBN/c8QHCbVavYCr27k8YoYb9Q1eF3xYwXxb74D6m3slew5XUmxSqI6g1J8ndRoRKGPDNqdyFjUrtEpx1Ms1C7Hu3NSCWJEJiiGIkAiX8zkl7ijKcluj5My5TkPYgUa4XNNRf2hD7RAUA6j7haKX4myJolA3FmvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDALzOqi; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD136C433F1;
+	Tue,  5 Mar 2024 01:05:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709600757;
+	bh=V3AwvqLCdbb+XKq+wo4BIlNuc87HYkEoPCchUKGyQyo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JDALzOqiZ9BDh5jnA0Ujdp9cHZYAz9RG8naTFqTnCpOJk4fhHBi2d7sGeJNpKYcdY
+	 cstUlJypkiTmZRSewUofw6GO9Gah7n1PASrLZLCT4nEP+j0qKqxlDgyqzCtbiQCgZL
+	 dkQAVfzaQQWWOsujMEcOI3wHBNOhoAhL9JJUyjUQJ53HY/3JdH223lkgHPXYpeKzct
+	 pkeE86Fx37Pqd9B3UjolQ4CTZX2o/nCtorlBksAqNjVOhp2p2Ez/VzJ6T6WqJvfAUT
+	 r8IKmWzAaURF4sSmisPo5SUjn+RLFd76xvdoLZn0p3A2c/3hpQS2NxJp4V84c5jAoS
+	 HmrF4uzt56MwA==
+Date: Tue, 5 Mar 2024 02:05:54 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Morten Welinder <mwelinder@gmail.com>
+Cc: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+	linux-man@vger.kernel.org
+Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
+Message-ID: <ZeZv8gYTX9oExwMx@debian>
+References: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <ZUIlirG-ypudgpbK@debian> <20240303121454.16994-3-alx@kernel.org>
- <5882437.otsE0voPBg@nimes> <ZeRzS6mENO8kOh1W@debian> <CAJgzZor8TTSysM=TiTXQdVtHMZPQWu5YOhPmb8PAevdVd-c31Q@mail.gmail.com>
- <ZeZohz1sLcIN6kxA@debian>
-In-Reply-To: <ZeZohz1sLcIN6kxA@debian>
-From: enh <enh@google.com>
-Date: Mon, 4 Mar 2024 16:56:13 -0800
-Message-ID: <CAJgzZoog1qS4BOYaKDnLsA3RzL-61r=33tP-XK2xvOwa008jJw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] clock_nanosleep.2, nanosleep.2: Use 'duration' rather
- than 'request'
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Bruno Haible <bruno@clisp.org>, Stefan Puiu <stefan.puiu@gmail.com>, linux-man@vger.kernel.org, 
-	GNU C Library <libc-alpha@sourceware.org>, linux-api@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dZkdYetWpTdYadiX"
+Content-Disposition: inline
+In-Reply-To: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
+
+
+--dZkdYetWpTdYadiX
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 5 Mar 2024 02:05:54 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Morten Welinder <mwelinder@gmail.com>
+Cc: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+	linux-man@vger.kernel.org
+Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
 
-On Mon, Mar 4, 2024 at 4:34=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
-rote:
->
-> Hi Elliott,
->
-> On Mon, Mar 04, 2024 at 04:18:28PM -0800, enh wrote:
-> > thanks! https://android-review.googlesource.com/c/platform/bionic/+/298=
-7070
-> > changes to
-> >
-> > /**
-> >  * [clock_nanosleep(2)](http://man7.org/linux/man-pages/man2/clock_nano=
-sleep.2.html)
-> >  * sleeps for the given time (or until the given time if the TIMER_ABST=
-IME flag
-> >  * is used), as measured by the given clock.
-> >  *
-> >  * Returns 0 on success, and returns -1 and returns an error number on =
-failure.
-> >  * If the sleep was interrupted by a signal, the return value will be `=
-EINTR`
-> >  * and `remainder` will be the amount of time remaining.
-> >  */
-> > int clock_nanosleep(clockid_t __clock, int __flags, const struct
-> > timespec* _Nonnull __time, struct timespec* _Nullable __remainder);
->
-> Hmmmm, that's the best name, meaningfully, I think.  But I've been
-> trying to avoid it.  I don't like using names of standard functions in
-> identifiers; it might confuse.  As an alternative, I thought of 't'.
-> What do you think?
+Hi Morten,
 
-as you can see, i've taken the "the leading `__` means we get to
-trample whatever we like" approach :-)
+On Thu, Feb 29, 2024 at 07:28:10PM -0500, Morten Welinder wrote:
+> cbrt:
+> The phrase "every representable real value has a representable real
+> cube root" is wrong.  In fact, a representable cube root is quite
+> rare.  This should be something like "every representable real value
+> has a real cube root and rounding it to a representable value never
+> causes overflow or underflow."
 
-(we build bionic with hidden visibility and an explicit list of
-symbols for the linker to export, so we'd have to be trying quite hard
-to trip over ourselves.)
+Thanks for the report!  I've fixed it with the following commit (your
+wording, except for a 'nor' instead of 'or').
 
-> Have a lovely night!
->
-> Alex
->
-> --
-> <https://www.alejandro-colomar.es/>
-> Looking for a remote C programming job at the moment.
+This one is also present in the glibc manual, so I'll also send a fix
+for it, Adhemerval.
+
+Have a lovely night!
+Alex
+
+---
+commit da7bb7434ce8b20deaed58cac9e942c3531a5db3 (HEAD -> contrib)
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Tue Mar 5 02:01:34 2024 +0100
+
+    cbrt.3: wfix
+   =20
+    On Thu, Feb 29, 2024 at 07:28:10PM -0500, Morten Welinder wrote:
+    > The phrase "every representable real value has a representable real
+    > cube root" is wrong.  In fact, a representable cube root is quite
+    > rare.
+   =20
+    Reported-by: Morten Welinder <mwelinder@gmail.com>
+    Cowritten-by: Morten Welinder <mwelinder@gmail.com>
+    Cc: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+diff --git a/man3/cbrt.3 b/man3/cbrt.3
+index cf9c41771..64fc3c072 100644
+--- a/man3/cbrt.3
++++ b/man3/cbrt.3
+@@ -47,8 +47,11 @@ .SH SYNOPSIS
+ .SH DESCRIPTION
+ These functions return the (real) cube root of
+ .IR x .
+-This function cannot fail; every representable real value has a
+-representable real cube root.
++This function cannot fail;
++every representable real value
++has a real cube root,
++and rounding it to a representable value
++never causes overflow nor underflow.
+ .SH RETURN VALUE
+ These functions return the cube root of
+ .IR x .
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
+
+--dZkdYetWpTdYadiX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXmb/IACgkQnowa+77/
+2zKsCA//XEzvnrRODTosMN7Rd0M9o+ThEdH1XWUPpScBi9/LQX81iOd89i7N4krC
++aHf9BoTCSjMbfcMBwsBITXQ0h3amfXoqnXBBdUBGmJsTKyXDaP+B+3SPY8m6X/Z
+n9NlxILISwWUoHTaPf+GmOs0S5gmpu8eqpqyje9OAO9binNfV7Lu22pBuEmzzNak
+Pn3/Sd3XZdiJK2J43P/5vyh8ov9rTrMz9zZ+RX3Orzb88WrUVmTDtqaOCZjMU/0x
+GRxorublA1LPjl0iYO9AR45hyFgSbMUkHwaLKMpH9z2LdUhSWRIxHpJoVIah/9V/
+NPAxeA0VmX9i6VixtWmoBxWmPFR7z8vtB72R2r/LIYgEh9lZa0Fdu6I3ZF6Nk4Mb
+w2pi4S7h6UKUZGLzunqAxu/uX3YK9ermCCEaCp/S3Y6jjrOPAZf1P749Zqz5KegZ
+BAVXTYajC8Ws81Fyy9RnM6sVed/tPnpkvLHt/s+s8QIhRlDSvrr4y4JwkHCmHyGU
+VkVvTPjRyUBPagfugxSpUY73WnIMTR4DOIRbXds9OpU046qE2pIeoz/+MZkXRsUs
+6Mkp4xBiN7uXQw4Y2mRAP/giNY9gLmY5Xsrr3wHuL7xAX0uVsU2GnojspikstuPD
+5uKe5qCUKnUYquDwYlvXuwHZ6mg3M35UvwRbf+r9wvYR2302Big=
+=oGmy
+-----END PGP SIGNATURE-----
+
+--dZkdYetWpTdYadiX--
 
