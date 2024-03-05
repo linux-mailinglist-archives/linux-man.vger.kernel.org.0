@@ -1,148 +1,121 @@
-Return-Path: <linux-man+bounces-539-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-540-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6E98728F1
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 21:52:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D28F1872A24
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 23:23:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5317A1C2353D
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 20:52:08 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0F9BE1C218C2
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 22:23:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2728A12BEBE;
-	Tue,  5 Mar 2024 20:51:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C92DF5A796;
+	Tue,  5 Mar 2024 22:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCa1Dc+C"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sB1T2/pm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E0312B16B
-	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 20:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E80812D1F8
+	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 22:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709671916; cv=none; b=bleOVLDfyiHGtGnuXeutm7KMIYIJdXNReDt32/vrH/sfraR6MlPDU3s2tmjJ79xELfL4WQ4Ac/9rU3ziQew1Rn60M3cc0we67C4PVVUmbWbC2a7JvQsKSVzLNrl19b9/fWD0GgUe1lLcEDa9rWiz02Q7DfhnE+c7AaOOSPJchSY=
+	t=1709677354; cv=none; b=DOL9yS7Xme/Ph6XbPZI2sUmqCjRDDLC3VnGn/8TBYZHbvWXAQUp3GHILtpsVFGQAyE3aaGQo4aG24h1s6TWVHamwaVvlQ9zCuvgSP39a78xjoDT5fd27wW/HAxnth/MMJg66hrU/5EYN5cOtEOUcOcv/I8lmSGHEOquh8Omyk14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709671916; c=relaxed/simple;
-	bh=cfvKtmwKuMLARVNR8u5zV0bH6gcVyxZMg9vByJF94mw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G7kg8metMRhmdJzwHnOFDTGHYjyGLZthGJ7Sw+6SnoHm3eBP03X2ltq9jDcmOzqabWo5I0TF8qCXIsKk+SPMviI9DUyBytfRB1LpV/u+mF5izoFanbvgCfZYbp5vUT0e8HV78tCOhTyQxL4nzlviyZ3enFUUFoFdZbfGwMMrkGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCa1Dc+C; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2CDC43394;
-	Tue,  5 Mar 2024 20:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709671916;
-	bh=cfvKtmwKuMLARVNR8u5zV0bH6gcVyxZMg9vByJF94mw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iCa1Dc+CB/cQkV6actlft3bEtOMYRcCj+9/VaO7k2XDaOV3IGDElEcXMCwVcmi+l+
-	 KNwYE79JWJprrNMSXD5JPQ1Dv+gl3vAjp9P35hSC9aboyWrvYA9Jn0Z9FlbuSpLHqW
-	 BHqm6fqMyh09L+uXntAG4s4jInvTfv0K4P9Nz3BIJKt0muzuvBkWVQW4PzDIJryTCF
-	 0BKBZj4DjlKJlQ02VVcxVH7JoolJ0+yNvjMSVAKz4t+nrZ8dM5nkBlrCUEuiYKVwFA
-	 rgE98Q+0Gl7XoEPTRzrxJXHTWzfqmF8fDDjdS7kIPOwvMsNN0DVpno+5esgtusaSSB
-	 8Gfp3xpALwrUg==
-Date: Tue, 5 Mar 2024 21:51:52 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Hugo Gabriel Eyherabide <hugogabriel.eyherabide@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [patch] man2/read.2: tfix
-Message-ID: <ZeeF6TSOhTkYxax7@debian>
-References: <CAK7k5HHf9jpAv7hc58GathsOdyDEmPjaMs9LCD=2PtxY+aNDLw@mail.gmail.com>
+	s=arc-20240116; t=1709677354; c=relaxed/simple;
+	bh=Emvxl3JaeBEA6fYlQxKLyhCiR/NwJv573H4jjTs207U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r82rTHp4f5Ur5XchsqrjnepUX9j1zDOU9KrtRcA4ct89AjRvQ0TzZEMV2999teiZweEPUAMja2y1nx0xduJ+a2BhYTBUOvZ7opYzfmBCKuploVapdQLdlpMgE+TGnVX/RlAt684/unkhilot/GZWi4kzFDl57u2P5iIIJiMJXd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sB1T2/pm; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-78833eb8fe5so23881685a.0
+        for <linux-man@vger.kernel.org>; Tue, 05 Mar 2024 14:22:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1709677352; x=1710282152; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=f4yaOCyORqK7Y6K5fYLxtn4q3HQqcLmWrnXZYR8L2IA=;
+        b=sB1T2/pmBEPE7FVPZI41DdC+J8zVPxCrJWUXq0V7NFgb14U4RTG2xhxWr1ZX5WgNhJ
+         Ie/JTeDTKpNxu08HDk58HlvBtJwWEZhkACUWQ/Z6zjyfFQI8EZdp1VFfvt/OIvyvZNwm
+         2+du1UZPfF9h+EflZDX7IyDxatgcuWUBtZh57y+JY6SnPathV6jLzeUYmgVY85HdeTy7
+         gqP1WOUlRPh6LctcNljraS+3ckzVKNY29yCNTgRIeok3/ny5t17U+0sy6IclvwK6Satb
+         WrqLxvML5vUlDULhV7TkjChRR/eTDW7URw0Iy01opXviioWBeOP33eB/5ho/RNsvmMUj
+         kAgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709677352; x=1710282152;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=f4yaOCyORqK7Y6K5fYLxtn4q3HQqcLmWrnXZYR8L2IA=;
+        b=jtAG21P1ikf7VmnE7o6xKeq0J3E/jM8/UmwzEKmSlDw6AE66z0Qy8jQ7popLv2BdFP
+         RGQdGQhaSNosDtV65YVLXkQmptoqQiaZBIIyZp0ptwe6zHXr6i6YL8vARb+z8SLV4NVU
+         M2qhAUD2riaHxEMXflLGQj7ykiRkCL0H66t3MlZTYopIxT7f2B4IXME5hH/9zIsEIz6+
+         URwJVtAp2pxoqe/PODiixkPtjR1B6YwRHopHY62UONyZoZ/DcC7/ABclFD7ZwckGYSeO
+         4wriH3LppD3QcQMCW42XkXh4nUUFe5fQ8hg1FDQoOki6ta7nSEEhHIFIrZwhF8T1W27j
+         Mzhw==
+X-Forwarded-Encrypted: i=1; AJvYcCV9cR+GhL6ul/dvPLsACVart5fR/wRW5M6cer9/5HWIo8BQJnxYr8fD9Cf7Z5fYejONeeWnM1SVyhXq5lCf/ivQzNgCYnHO3aqp
+X-Gm-Message-State: AOJu0YzPoucX/wmUYc46qUxA9aSAdJfT96q4xVXqinVz1/67nE1vrnzu
+	KUqZxLg6Gm5ztCGGW3j7jDS48TU1ElMMLfjEA0TvZ65nOl4ZnhDmXoOtGOetDexPmmHMMkhTkeL
+	6aYAEe/3EfIQjlirRIpEb2YlOo0WSvN5iZq9i110Qav7OKArzGxhU
+X-Google-Smtp-Source: AGHT+IEXsP4T2G6jGTP+d7kkEuiOFndfFglwLO/54VRu/s6qVyb4XmHsU+ChPOKu5pt1ZGfntquz6f6Y2H3XwDSmX3Q=
+X-Received: by 2002:ad4:4eef:0:b0:690:2139:b50e with SMTP id
+ dv15-20020ad44eef000000b006902139b50emr5804567qvb.18.1709677351705; Tue, 05
+ Mar 2024 14:22:31 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DVkJN372IG8gC0vD"
-Content-Disposition: inline
-In-Reply-To: <CAK7k5HHf9jpAv7hc58GathsOdyDEmPjaMs9LCD=2PtxY+aNDLw@mail.gmail.com>
-
-
---DVkJN372IG8gC0vD
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <ZUIlirG-ypudgpbK@debian> <20240303121454.16994-3-alx@kernel.org>
+ <5882437.otsE0voPBg@nimes> <ZeRzS6mENO8kOh1W@debian> <CAJgzZor8TTSysM=TiTXQdVtHMZPQWu5YOhPmb8PAevdVd-c31Q@mail.gmail.com>
+ <ZeZohz1sLcIN6kxA@debian> <CAJgzZoog1qS4BOYaKDnLsA3RzL-61r=33tP-XK2xvOwa008jJw@mail.gmail.com>
+ <ZeZxSydsfskaQ5Vw@debian>
+In-Reply-To: <ZeZxSydsfskaQ5Vw@debian>
+From: enh <enh@google.com>
+Date: Tue, 5 Mar 2024 14:22:20 -0800
+Message-ID: <CAJgzZopTu=mQWcDGGHKnTRE3i+ksoLd37NwWg2fTaaGUkv9aFw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] clock_nanosleep.2, nanosleep.2: Use 'duration' rather
+ than 'request'
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Bruno Haible <bruno@clisp.org>, Stefan Puiu <stefan.puiu@gmail.com>, linux-man@vger.kernel.org, 
+	GNU C Library <libc-alpha@sourceware.org>, linux-api@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 5 Mar 2024 21:51:52 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Hugo Gabriel Eyherabide <hugogabriel.eyherabide@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [patch] man2/read.2: tfix
 
-Hi Hugo,
+On Mon, Mar 4, 2024 at 5:11=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
+rote:
+>
+> On Mon, Mar 04, 2024 at 04:56:13PM -0800, enh wrote:
+> > > > int clock_nanosleep(clockid_t __clock, int __flags, const struct
+> > > > timespec* _Nonnull __time, struct timespec* _Nullable __remainder);
+> > >
+> > > Hmmmm, that's the best name, meaningfully, I think.  But I've been
+> > > trying to avoid it.  I don't like using names of standard functions i=
+n
+> > > identifiers; it might confuse.  As an alternative, I thought of 't'.
+> > > What do you think?
+> >
+> > as you can see, i've taken the "the leading `__` means we get to
+> > trample whatever we like" approach :-)
+> >
+> > (we build bionic with hidden visibility and an explicit list of
+> > symbols for the linker to export, so we'd have to be trying quite hard
+> > to trip over ourselves.)
+>
+> Yeah, I was worried about the manual page  :)
 
-On Tue, Mar 05, 2024 at 07:23:37AM +0200, Hugo Gabriel Eyherabide wrote:
-> Hi,
->=20
-> The enclosed patch fixes a typo in read.2. It turns "with respect updatin=
-g"
-> into "with respect to updating" (that is, it adds "to" between "respect'
-> and "updating".
->=20
-> Best regards.
->=20
-> Hugo
->=20
-> Signed-off-by: Hugo Gabriel Eyherabide (hugogabiel.eyherabide@gmail.com)
+yeah, i think "t + extra text" makes sense there. i just try to be as
+brief as possible in the doc comments on the assumption that most
+readers will be seeing them in IDE pop-ups, and anyone who wants lots
+of text will click through to the man page anyway. and at that point
+they're your problem :-)
 
-(this should be in the patch :)
-
-Patch applied; thanks.
-
-Have a lovely night!
-Alex
-
-> From 14a9159e96b060ea56ecd9ab8db70a10ae524656 Mon Sep 17 00:00:00 2001
-> From: Hugo Gabriel Eyherabide <hugogabriel.eyherabide@gmail.com>
-> Date: Tue, 5 Mar 2024 07:14:06 +0200
-> Subject: [PATCH] [patch] read.2: tfix
->=20
-> ---
->  man2/read.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man2/read.2 b/man2/read.2
-> index 2b92597c8..c74f62a0b 100644
-> --- a/man2/read.2
-> +++ b/man2/read.2
-> @@ -216,7 +216,7 @@ perform a
->  (or
->  .BR readv (2))
->  at the same time, then the I/O operations were not atomic
-> -with respect updating the file offset,
-> +with respect to updating the file offset,
->  with the result that the reads in the two processes
->  might (incorrectly) overlap in the blocks of data that they obtained.
->  This problem was fixed in Linux 3.14.
-> --=20
-> 2.41.0
->=20
-
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---DVkJN372IG8gC0vD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXnhegACgkQnowa+77/
-2zJXgRAAoSQpnmiIaw5eGU/cU0O9GbRGF9zv7kkTKX9eddVN7Z6K2HpSWi/EFVie
-HBNVbSvFYVqE0JBKzu4NM1Xk5Zq10rTyZfkMowOUrF3S1El72gOaxFCuyDGLhDLb
-O4rtsx9MrSalK22OeK3TvkXTMywCVjhOjUQWC3HO6nx+u5lA/habVwpZTfVcmv76
-2QmB6bEQ2k6nHnprZddO+9yIat/Kn9MvrSazn/vXJKuU0Vu3wyVu1oU8M9oFU/hd
-rNgAyv9mF4aEaHmOCsQ5ta4IuI6ctPmfzbP8NANMGLckjJAyAePQrcsvfnKeUJT+
-6Db5/3+N3XBEIWUTlBTmUDZPLNlxVHdloUD5G6QWiBTKB0TydwwtHEFjC2H6OEYP
-0JqSwO7zznZ+byVQK1CP9QgVx74TSHm2ZN14d1xZin/rfB4EUuZ9sJdi0j8GTx5D
-mH4tLBt7zsb3/9sO+lMi4euBqSSn+YKFK/r0CTrzy9N+NtGObh8CfSjEm8bblcSW
-q1WH4LL1hOEvTJzaTiwjYSL1Fvt/Qp14Wd8eMU5f0hVbsybc7wrNs/EPCd/v1Wkt
-oAWkc75wlgzNVkcH8I9tE1COQKT9uVay2BQ0MD5LVzh/C2c7IyVSqcjFfQFXTEH3
-ghMbDrPxXpxi5teIz2t2L3TfQNXT+HhkurXFxsdax+7vGuymors=
-=wHvC
------END PGP SIGNATURE-----
-
---DVkJN372IG8gC0vD--
+> --
+> <https://www.alejandro-colomar.es/>
+> Looking for a remote C programming job at the moment.
 
