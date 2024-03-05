@@ -1,61 +1,53 @@
-Return-Path: <linux-man+bounces-527-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-528-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 502658711BE
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 01:34:26 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id A47AA8711EE
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 01:46:10 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0BEEE284EA4
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 00:34:25 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 5BA011F216EB
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 00:46:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6BA683211;
-	Tue,  5 Mar 2024 00:34:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37B0C5664;
+	Tue,  5 Mar 2024 00:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8ocmm/C"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idjfC2o0"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DDD7F;
-	Tue,  5 Mar 2024 00:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDFB3210
+	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 00:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709598860; cv=none; b=jsL92FQj+qpNSNpPQCDOhT/WpW9bD3SYtJVorja2ZFX4IUsSfMl0F4ptLfgZ9vrWfB0FXIyptrsslhEZ6Zil5WWQOrwJybYaxcfIZXtn9VPgZsFjt8bG6PniAckuhavlFqgbLwYpiU9IHNnp/Hm2SfxQO05UaUGTVIoQMc5WkT4=
+	t=1709599566; cv=none; b=HaVcCBE88J+OwqanedlCi7sD9D3zrHdo+O7iuemIa8etWBTzdU/o1pOkDNFPGbK3iVXxFAaxW7Klxxv9hxYoJw9k3nCcVlE2TfCyYMEqBovfXC/TYKYif5jzZqJ1xMA55FdVjBUpkhwOKefth9nPBxdoyeR+pM8nbNYCtBvMQss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709598860; c=relaxed/simple;
-	bh=Y7xIjAkHwqx73u3Wv9gdknrkSHg9jkJ0h1PMwhNRtlU=;
+	s=arc-20240116; t=1709599566; c=relaxed/simple;
+	bh=E85EYs1xXJDLIEwYa/BON0/OrA4/E8pdDWsm+RyofKQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PwTvmJTVrBBxDpE2sqZmN7fz6PK4B0ACSxD7BOPWBG9ngacVvcP95uLgBnXhXp9X7cVg+pOrG6fQ2Nbqd7/klLGgqYySWIJZ04vRZJDwNnK+Tbg+ZLelcXi6po7lo2V30S8d9gQMqYpANi4V2AF10hn3HzlCtP6QM17eRtVvv8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8ocmm/C; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57875C433C7;
-	Tue,  5 Mar 2024 00:34:18 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=WpSRyTN5ylgpB5HXKgeu3LhcMgjXX/4qbNQE0kX9wB3jFb0bEw8bOkQQ1prJW5gujfJPoBeZGkQCxAGlbv/nKYPfGCt52wieXAqwZ4H8SZMpgIQxC+m6u/DQhraNZugjyxZo7+6HI2t+nWuXUJmlOp2HO40Fb1pc+pD7fOmQFEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idjfC2o0; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9F5EC43390;
+	Tue,  5 Mar 2024 00:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709598859;
-	bh=Y7xIjAkHwqx73u3Wv9gdknrkSHg9jkJ0h1PMwhNRtlU=;
+	s=k20201202; t=1709599565;
+	bh=E85EYs1xXJDLIEwYa/BON0/OrA4/E8pdDWsm+RyofKQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=W8ocmm/CcfiYXZfs0zm50fEc0kIumiPohWpHOvSJnmXqA/XKFxkwW6C6EEonrcW7W
-	 g2ihFCAUYJyfAqj3NS8QVkq74mabkrd7h4Jh5pJqTaEe389X0k7a1r8nWhndqW4Zmm
-	 dWsiBEhJ6jVIPJDmCFnh491NHBlMEfDnVOcIcSd8Q6plvwZJoLO/afrsXofHImDP12
-	 TuISVQhtFZK1K4lJ4zN46P+CwgpaPnMcHxfsQfir2Uu13GU8XKlqNnE5IxIUJ9/ji3
-	 KHwfZO9se35YMkznozpbRJFFK0i4sNMvzS+ZWQALq3C7kQ49sl5UPBkcTAZ3cWbSAM
-	 A/w7WE9f1CY6g==
-Date: Tue, 5 Mar 2024 01:34:09 +0100
+	b=idjfC2o0mHqWHhjxosX1UZ2fx+AeYzEt5KnG7k+wLX0VhzwOXeY569m0qzQp7eWg0
+	 G1uZs+UkPC8T7l1n8umXl/tNy6qzMHraNmOSaANT/3zgxcsQszr1/Vz+nWszComKQc
+	 Os7KHdBSn6QwEFvV55exSiEXz9Ji6Cf5rsKVDDUuRJvStG1PrS74R20UfWEv2jV+ji
+	 GaozNNcNUnMSj9n9OiBAKm0sRyH8PwqtpfDi4XWIr8Ga49b2r447PkgS5fcKTnmCXC
+	 XBtD/lTnyxPvVrI0cA9AiIxrBBR9rifBiuejKhI0b256QFuuxrjr5j4WlZM7yNohrr
+	 tEgxgs9Wb4Z1w==
+Date: Tue, 5 Mar 2024 01:46:02 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: Bruno Haible <bruno@clisp.org>, Stefan Puiu <stefan.puiu@gmail.com>,
-	linux-man@vger.kernel.org,
-	GNU C Library <libc-alpha@sourceware.org>,
-	linux-api@vger.kernel.org
-Subject: Re: [PATCH 2/2] clock_nanosleep.2, nanosleep.2: Use 'duration'
- rather than 'request'
-Message-ID: <ZeZohz1sLcIN6kxA@debian>
-References: <ZUIlirG-ypudgpbK@debian>
- <20240303121454.16994-3-alx@kernel.org>
- <5882437.otsE0voPBg@nimes>
- <ZeRzS6mENO8kOh1W@debian>
- <CAJgzZor8TTSysM=TiTXQdVtHMZPQWu5YOhPmb8PAevdVd-c31Q@mail.gmail.com>
+To: Morten Welinder <mwelinder@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
+Message-ID: <ZeZrSl0RgM4KfrdB@debian>
+References: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -63,80 +55,83 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jHmzEy/ZZyJFCVCp"
+	protocol="application/pgp-signature"; boundary="6U7CQu4VZKm8oplL"
 Content-Disposition: inline
-In-Reply-To: <CAJgzZor8TTSysM=TiTXQdVtHMZPQWu5YOhPmb8PAevdVd-c31Q@mail.gmail.com>
+In-Reply-To: <CANv4PNkVv_0eLgiSP3L_KfC-eZJaVLZ5AP1AGfD0GNrR5M4Hrg@mail.gmail.com>
 
 
---jHmzEy/ZZyJFCVCp
+--6U7CQu4VZKm8oplL
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 5 Mar 2024 01:34:09 +0100
+Date: Tue, 5 Mar 2024 01:46:02 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: Bruno Haible <bruno@clisp.org>, Stefan Puiu <stefan.puiu@gmail.com>,
-	linux-man@vger.kernel.org,
-	GNU C Library <libc-alpha@sourceware.org>,
-	linux-api@vger.kernel.org
-Subject: Re: [PATCH 2/2] clock_nanosleep.2, nanosleep.2: Use 'duration'
- rather than 'request'
+To: Morten Welinder <mwelinder@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Man page issues: logb, significand, cbrt, log2, log10, exp10
 
-Hi Elliott,
+On Thu, Feb 29, 2024 at 07:28:10PM -0500, Morten Welinder wrote:
+> significand:
+> The range [1,2) should be [1,FLT_RADIX)
 
-On Mon, Mar 04, 2024 at 04:18:28PM -0800, enh wrote:
-> thanks! https://android-review.googlesource.com/c/platform/bionic/+/29870=
-70
-> changes to
->=20
-> /**
->  * [clock_nanosleep(2)](http://man7.org/linux/man-pages/man2/clock_nanosl=
-eep.2.html)
->  * sleeps for the given time (or until the given time if the TIMER_ABSTIM=
-E flag
->  * is used), as measured by the given clock.
->  *
->  * Returns 0 on success, and returns -1 and returns an error number on fa=
-ilure.
->  * If the sleep was interrupted by a signal, the return value will be `EI=
-NTR`
->  * and `remainder` will be the amount of time remaining.
->  */
-> int clock_nanosleep(clockid_t __clock, int __flags, const struct
-> timespec* _Nonnull __time, struct timespec* _Nullable __remainder);
+Hi Morten,
 
-Hmmmm, that's the best name, meaningfully, I think.  But I've been
-trying to avoid it.  I don't like using names of standard functions in
-identifiers; it might confuse.  As an alternative, I thought of 't'.
-What do you think?
+I've fixed this with the following commit.  Thanks for the report!
 
 Have a lovely night!
-
 Alex
+
+---
+commit 6003cc006de65d8798a3324605c8b9d5abeef231 (HEAD -> contrib)
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Tue Mar 5 01:44:44 2024 +0100
+
+    significand.3: significand uses FLT_RADIX, not 2
+   =20
+    It's implemented using scalb(), which uses FLT_RADIX.
+   =20
+    Reported-by: Morten Welinder <mwelinder@gmail.com>
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+diff --git a/man3/significand.3 b/man3/significand.3
+index e991a822a..f835f5511 100644
+--- a/man3/significand.3
++++ b/man3/significand.3
+@@ -36,7 +36,8 @@ .SH SYNOPSIS
+ .SH DESCRIPTION
+ These functions return the mantissa of
+ .I x
+-scaled to the range [1,2).
++scaled to the range
++.RB [ 1 ,\~ FLT_RADIX ).
+ They are equivalent to
+ .P
+ .in +4n
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---jHmzEy/ZZyJFCVCp
+--6U7CQu4VZKm8oplL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXmaIEACgkQnowa+77/
-2zLRFQ/9H4o2zyHRYlCxmNZo9/g++mxVJc1W16zvuYjlCBvHwV/J7NMfFHtlv/B8
-FpV3CxgDcg6kwjqDjyDQ6yP15jCrOJxyGIGJzX0+t5IgbowBwsmv0W208yEADWE6
-EAySaxF/cW1UebNfgUHR/OIUMWtmyF02EZbnyvVd+2ioW/AG/tVaulgKnF+O/DzZ
-DQPL/uIqECojCvBxgl1ujqmLv8DmLVMD4yksZ74UDW1Kv3ZBVa3D3qyMvqppFOdc
-0JZ/cPSAllntncs6aSShCalw0/rAQDLYfRj5u4X0vYsEA5pEuSkS9fBR7uWFyecg
-jMkdBZOe0fAyDjbmXVtj/czvqc8sHIk7XuO2kZ3j4wghY7ah680kTVD7ROvoyznD
-bQvANHkl8R9I3GEjBlqzgf690IgcpB/T2LSdENqx1QG6T/bHLjb0uNK/O18Sf7Z/
-IGCkZlapdvq6b0di4j/WbFCkmxyMVaaJNLIRHlZ3t4LPDxzWkf+v2xUQAiFqyiOq
-w4mBcDT3+2T6p20X/t9oD1TSiVl639Qt+792Dk7wik0DKEX3SOFO7IXyCgR/2f4W
-dAra0SJlyXXHczbD4Qv1jfZwFByofDR5aziaqPNyzVJNFoBYVLD2aad1SPClOopV
-KC3Szl6RWOXGM9NJxZrEEcTDVz6I/pNZ73yek49g4G5JMLS/AHo=
-=yMfe
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXma0oACgkQnowa+77/
+2zIN4Q//Tz2Xc2VA68AJCctsSk6bZRuh9Yda6hHg/zwJQhw4POLCpgk/OTDtbRqY
+2wQKL4lBhPziEj/7xzPZx7yKjFUQNI4pmnwvOIE6VoiHsUOIFpGOnvAF9KXxQ9gJ
+b6cT1/bxy9OPb5WyAGw1tmvBeuvS+u/VPg1IowutM4cCTq7mUxFF6nNh2es8D2WX
+zWxFgC+5oxb9OEgOWqOudfaBpp932nov50DTxzJfgYoVF5McaW9uYRryi11SdzP2
+vfrXSHCRmkqyP8kX/lfXMyPNwm/RExDd635tkifFOgzd4ww/H1wU6yZB3qOSSwlp
+lIMaNGiFZ/vnhTC0VRT4D9qlTra3H0Alx1d3u6DJc0apQujoqNPAxC2Jo9wkR/dm
+DQsbhJuTrc5MC/TUFe9d6Z51hoLyuhmTHTfN3jlaMPL3nyCccCcR9/7NzA2H6YHm
+TDXyq7UolpFr692KnpAFswhqkYt9FTXDLG/OzUmrhJbBYGGE+IhlYk+4htw3+Mw/
+KsgYM8vw+XSzPlH7S6oQN8EqD4MB62VvtzQu9zDMfFkK8r40NqlGVk3kPI7u8I8W
+CGQc89wEsYcO37a9f/CS7s2+YnASucu/nFmdlI7IZJu4tY3G0t6tD+XsE6aGb1O/
+JnSWmiWZ+CHEzhauju60gVhYUeXMTXH3ScbiJEPpEt8bo7JmzdM=
+=1j3C
 -----END PGP SIGNATURE-----
 
---jHmzEy/ZZyJFCVCp--
+--6U7CQu4VZKm8oplL--
 
