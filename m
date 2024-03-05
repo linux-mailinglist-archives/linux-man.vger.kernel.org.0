@@ -1,131 +1,236 @@
-Return-Path: <linux-man+bounces-534-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-535-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50EE6871534
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 06:23:59 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B85A887171D
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 08:40:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 2060DB236FA
-	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 05:23:56 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 491DA284EC7
+	for <lists+linux-man@lfdr.de>; Tue,  5 Mar 2024 07:40:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5EA5545979;
-	Tue,  5 Mar 2024 05:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jPA7vbAb"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3984E7E10B;
+	Tue,  5 Mar 2024 07:40:44 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com [209.85.219.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from air.basealt.ru (air.basealt.ru [194.107.17.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A049A10A1B
-	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 05:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2FE7EEE1
+	for <linux-man@vger.kernel.org>; Tue,  5 Mar 2024 07:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.107.17.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709616231; cv=none; b=tojsfoRa4w6R7+ZuyY0zVjSdPAP7XnuyNNywWqiqmKE/Y4BfmEgpRtnKSw7Ptu5Ewhky3lsuQ0v64//j4kQ6K4G2O3qEwh1C2XgAZM+dDs7H/hIthnecmxwc8mMGcvyJOW6Q+wGulf1T2PHx9y2lL3fvuyuQ33GNAOrr3ITZ2tw=
+	t=1709624444; cv=none; b=ufJE3ZkyVf682WiWaZURE/cHpjhIuBGYOYSA6PsWoWRB5PfH14oDukaUhlFxRoG3SYXUhXRoaMHCWhVlm9H75XK1A0QCuXwH8V1lYimLA2ppfMMk/cjtYiXSM3/ln2GCy0m5CJ+9+PO2WxMlTaKdVkLhL7SiezUWH01tQUZLIKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709616231; c=relaxed/simple;
-	bh=i+ksYKySqCFco+oOYINfOtIll/wki6SzF8AKeJ4KYmQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=GpLNP/BAB0BhUE2dB5RsFuasW7tVaP641coCpUsAubmw6SdCEYTBlZ8aCAA8bCYGu85fp5qdEuNnZa77GoUm8bCkZqp0bJMc7ywWm8xB+ZRJEhlol1ObuEfgWdLeJyE1wRAlhuXLGgiimyBikeRnOjDgajI+xEJNH5BD/oLMOZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jPA7vbAb; arc=none smtp.client-ip=209.85.219.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yb1-f177.google.com with SMTP id 3f1490d57ef6-dcbcea9c261so5539301276.3
-        for <linux-man@vger.kernel.org>; Mon, 04 Mar 2024 21:23:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709616228; x=1710221028; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=i+ksYKySqCFco+oOYINfOtIll/wki6SzF8AKeJ4KYmQ=;
-        b=jPA7vbAbuWekX6DG77D5MaQnidrG/QwKmtxH0qzX20pJd1YwQ1GtHG1rG2K0+hNbUY
-         DXeqOHE0y9bzZDR8QpeXuYjQtfJleVkgmokHWpVypQezDBoXNHD47/p+KFd3XlA9sdbr
-         UhDk3zM6QOfGXLGeqpqjxPovy3O4OErWBIj36g6eVzc5ldwPM8+hMnObjmW1dCiOLI7N
-         V1/zQUkPTXSRQQybOZhmJkjmgaq0OM5oycWDeQP6UA13zp65hhawN9rihBQ3hu99bz/I
-         a3l5YZYeuaW5q3MwhK3TzKciDebuqzs14Mh3Ta08yZ0Wg/Phyi4Bpc975Hd0rOaG5cgs
-         ODVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709616228; x=1710221028;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=i+ksYKySqCFco+oOYINfOtIll/wki6SzF8AKeJ4KYmQ=;
-        b=jtHf2DmY3/hfLEZTut8/FMMTK8h8zfr8NvPdb2mSVz6E+LdO0iQ/KiDaStYloz0sZj
-         kH34BFau7pKASEgTi1CUf3aragx6qG3jVvPE2Z5cxF2JeDBvmZ2/3qgRHTOB6mLmIdz2
-         y0NKZbq6kXx/OKlUbgqUSSNHzW3R/Z9NwZ0e7ZNIqDlMewM1C8wWVrJ+AXadyyE87gr8
-         XBHnQ95SCTWMRuYgHByXwfIlYJm5sbX0p804N+P+fU/5yGpjcedP/Er5ucJ0yKFQ3WU6
-         ER1UWeL+44R0xyNdtGDh/1JRK474DHVyLjlJ/W8Rrtza2yNRVTHH2IjNVfXtA1gR/Pcu
-         IaZQ==
-X-Gm-Message-State: AOJu0Ywmz2xY2PYVGgOl+2TFK8BGTGTxOpeIJX9AMnwgzr9mE4FOyszH
-	Iq3p8vH9tMSqwHt7Qj3R2zzeaAsEZOoTjvOdFN9lagliQjHG5snKCEvlg1noHNBb9jGPHfbafAd
-	3KagfywtsdSU3UYPkUYItxvNUgJtOkt+qoME=
-X-Google-Smtp-Source: AGHT+IFuPCVmdXvVVZ5Tz/6E3i8z9/1uOQu6eOnVfULcDjLw1b3Bqya9D2i5CofS4F3bHGBkXoPjvITDjn/sRHIXZE8=
-X-Received: by 2002:a25:dc42:0:b0:dd0:412f:e01f with SMTP id
- y63-20020a25dc42000000b00dd0412fe01fmr4020390ybe.43.1709616228578; Mon, 04
- Mar 2024 21:23:48 -0800 (PST)
+	s=arc-20240116; t=1709624444; c=relaxed/simple;
+	bh=iVO4SihzRdVr8TyTdev6Qu+q7IgWaoePYYvQzx3G7eM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hR8L6gTuFo/bdxkgEZ+zzvRBrLIrV2MzuUXj1Fyctzq2o0yx8C65HUAaD8XvqGNladJMBtXtdJ8qLeHbS2XAfOWML08yBmqg3ZUMiJu2BdsSrNVi4MTLVAd5ugRwJf1i/9l4ysY4m0JiM0ypJ+AG2nGdF1+Xg7qJ9k7aMik8Du8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=194.107.17.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
+Received: by air.basealt.ru (Postfix, from userid 490)
+	id BAC932F20260; Tue,  5 Mar 2024 07:40:32 +0000 (UTC)
+X-Spam-Level: 
+Received: from taut9powder.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
+	by air.basealt.ru (Postfix) with ESMTPSA id 851652F20263;
+	Tue,  5 Mar 2024 07:40:21 +0000 (UTC)
+From: Alexander Ofitserov <oficerovas@altlinux.org>
+To: oficerovas@altlinux.org,
+	Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	dutyrok@altlinux.org,
+	kovalev@altlinux.org,
+	"Dmitry V. Levin" <ldv@altlinux.org>,
+	"G. Branden Robinson" <branden@debian.org>,
+	Stefan Puiu <stefan.puiu@gmail.com>
+Subject: [PATCH v4] delete_module.2: Update man to current syscall behaviour
+Date: Tue,  5 Mar 2024 10:39:57 +0300
+Message-Id: <20240305073957.108599-1-oficerovas@altlinux.org>
+X-Mailer: git-send-email 2.33.8
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Hugo Gabriel Eyherabide <hugogabriel.eyherabide@gmail.com>
-Date: Tue, 5 Mar 2024 07:23:37 +0200
-Message-ID: <CAK7k5HHf9jpAv7hc58GathsOdyDEmPjaMs9LCD=2PtxY+aNDLw@mail.gmail.com>
-Subject: [patch] man2/read.2: tfix
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000020c0c0612e30c8f"
+Content-Transfer-Encoding: 8bit
 
---000000000000020c0c0612e30c8f
-Content-Type: multipart/alternative; boundary="000000000000020c0a0612e30c8d"
+Parameter O_NONBLOCK described in man doesn't exist anymore
+in kernel versions 3.13+ (particularly in commit
+3f2b9c9cdf389e303b2273679af08aab5f153517 aka v3.13-rc1~83^2~5),
+which is quite old, only O_TRUNC parameter present for current kernel version,
+O_NONBLOCK does nothing.
 
---000000000000020c0a0612e30c8d
-Content-Type: text/plain; charset="UTF-8"
+O_NONBLOCK used in "try_stop_module" function, which is invoked by syscall
+delete_module, here is the code of this function for kernel version 3.12.74:
+https://elixir.bootlin.com/linux/v3.12.74/source/kernel/module.c#L775
 
-Hi,
+However, in later kernels, this parameter disappeared.
+Also, here is the code for 3.13:
+https://elixir.bootlin.com/linux/v3.13/source/kernel/module.c#L767
 
-The enclosed patch fixes a typo in read.2. It turns "with respect updating"
-into "with respect to updating" (that is, it adds "to" between "respect'
-and "updating".
+In recent kernels, 6.7.5 for example, this parameter also absent:
+https://elixir.bootlin.com/linux/v6.7.5/source/kernel/module/main.c#L637
 
-Best regards.
+v3 -> v4:
+added more information with links to code to commit message
 
-Hugo
+v2 -> v3:
+subsection Linux 3.12 and earlier renamed to O_NONBLOCK
+removed info about arguments for kernels 3.12 and earlier
+added semantic newlines
 
-Signed-off-by: Hugo Gabriel Eyherabide (hugogabiel.eyherabide@gmail.com)
+v1 -> v2:
+added behaviour of syscall for kernel 3.12 and earlier
+in history section
+added commit hash to commit message
+changed word 'actual' to 'current' due to ambigious
+meaning
 
---000000000000020c0a0612e30c8d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Alexander Ofitserov <oficerovas@altlinux.org>
+---
+ man2/delete_module.2 | 92 +++++++++++++++++++++++++-------------------
+ 1 file changed, 52 insertions(+), 40 deletions(-)
 
-<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>The enclosed patch fixes=
- a typo in read.2. It turns &quot;with respect updating&quot; into &quot;wi=
-th respect to updating&quot; (that is, it adds &quot;to&quot; between &quot=
-;respect&#39; and &quot;updating&quot;.<br><br></div><div>Best regards.<br>=
-<br></div><div>Hugo<br><br></div><div>Signed-off-by: Hugo Gabriel Eyherabid=
-e (<a href=3D"mailto:hugogabiel.eyherabide@gmail.com">hugogabiel.eyherabide=
-@gmail.com</a>)<br></div></div>
+diff --git a/man2/delete_module.2 b/man2/delete_module.2
+index e9c432e84..e4b107702 100644
+--- a/man2/delete_module.2
++++ b/man2/delete_module.2
+@@ -50,42 +50,20 @@ is zero, then the module is immediately unloaded.
+ If a module has a nonzero reference count,
+ then the behavior depends on the bits set in
+ .IR flags .
+-In normal usage (see NOTES), the
+-.B O_NONBLOCK
+-flag is always specified, and the
++The
+ .B O_TRUNC
+ flag may additionally be specified.
+ .\"  	O_TRUNC == KMOD_REMOVE_FORCE in kmod library
+-.\"  	O_NONBLOCK == KMOD_REMOVE_NOWAIT in kmod library
+ .IP
+ The various combinations for
+ .I flags
+ have the following effect:
+ .RS
+ .TP
+-.B flags == O_NONBLOCK
+-The call returns immediately, with an error.
+-.TP
+-.B flags == (O_NONBLOCK | O_TRUNC)
++.B flags == O_TRUNC
+ The module is unloaded immediately,
+ regardless of whether it has a nonzero reference count.
+-.TP
+-.B (flags & O_NONBLOCK) == 0
+-If
+-.I flags
+-does not specify
+-.BR O_NONBLOCK ,
+-the following steps occur:
+ .RS
+-.IP \[bu] 3
+-The module is marked so that no new references are permitted.
+-.IP \[bu]
+-If the module's reference count is nonzero,
+-the caller is placed in an uninterruptible sleep state
+-.RB ( TASK_UNINTERRUPTIBLE )
+-until the reference count is zero, at which point the call unblocks.
+-.IP \[bu]
+-The module is unloaded in the usual way.
+ .RE
+ .RE
+ .P
+@@ -151,11 +129,7 @@ in
+ .TP
+ .B EWOULDBLOCK
+ Other modules depend on this module;
+-or,
+-.B O_NONBLOCK
+-was specified in
+-.IR flags ,
+-but the reference count of this module is nonzero and
++or, the reference count of this module is nonzero and
+ .B O_TRUNC
+ was not specified in
+ .IR flags .
+@@ -172,6 +146,54 @@ it is (before glibc 2.23) sufficient to
+ manually declare the interface in your code;
+ alternatively, you can invoke the system call using
+ .BR syscall (2).
++.SS O_NONBLOCK
++In Linux 3.12 and earlier, parameter:
++.I flags
++also can contain 
++.B O_NONBLOCK
++flag in addition to 
++.B O_TRUNC
++flag.
++Behavior depends on the bits set in
++.IR flags .
++In normal usage (see NOTES), the
++.B O_NONBLOCK
++flag is always specified, and the
++.B O_TRUNC
++flag may additionally be specified.
++.\"  	O_TRUNC == KMOD_REMOVE_FORCE in kmod library
++.\"  	O_NONBLOCK == KMOD_REMOVE_NOWAIT in kmod library
++.IP
++The various combinations for
++.I flags
++have the following effect:
++.RS
++.TP
++.B flags == O_NONBLOCK
++The call returns immediately, with an error.
++.TP
++.B flags == (O_NONBLOCK | O_TRUNC)
++The module is unloaded immediately,
++regardless of whether it has a nonzero reference count.
++.TP
++.B (flags & O_NONBLOCK) == 0
++If
++.I flags
++does not specify
++.BR O_NONBLOCK ,
++the following steps occur:
++.RS
++.IP \[bu] 3
++The module is marked so that no new references are permitted.
++.IP \[bu]
++If the module's reference count is nonzero,
++the caller is placed in an uninterruptible sleep state
++.RB ( TASK_UNINTERRUPTIBLE )
++until the reference count is zero, at which point the call unblocks.
++.IP \[bu]
++The module is unloaded in the usual way.
++.RE
++.RE
+ .SS Linux 2.4 and earlier
+ In Linux 2.4 and earlier, the system call took only one argument:
+ .P
+@@ -183,19 +205,9 @@ is NULL, all unused modules marked auto-clean are removed.
+ .P
+ Some further details of differences in the behavior of
+ .BR delete_module ()
+-in Linux 2.4 and earlier are
++in Linux 3.12 and earlier are
+ .I not
+ currently explained in this manual page.
+-.SH NOTES
+-The uninterruptible sleep that may occur if
+-.B O_NONBLOCK
+-is omitted from
+-.I flags
+-is considered undesirable, because the sleeping process is left
+-in an unkillable state.
+-As at Linux 3.7, specifying
+-.B O_NONBLOCK
+-is optional, but in future kernels it is likely to become mandatory.
+ .SH SEE ALSO
+ .BR create_module (2),
+ .BR init_module (2),
+-- 
+2.33.8
 
---000000000000020c0a0612e30c8d--
---000000000000020c0c0612e30c8f
-Content-Type: text/x-patch; charset="US-ASCII"; name="0001-patch-read.2-tfix.patch"
-Content-Disposition: attachment; filename="0001-patch-read.2-tfix.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_ltdxcjl00>
-X-Attachment-Id: f_ltdxcjl00
-
-RnJvbSAxNGE5MTU5ZTk2YjA2MGVhNTZlY2Q5YWI4ZGI3MGExMGFlNTI0NjU2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBIdWdvIEdhYnJpZWwgRXloZXJhYmlkZSA8aHVnb2dhYnJpZWwu
-ZXloZXJhYmlkZUBnbWFpbC5jb20+CkRhdGU6IFR1ZSwgNSBNYXIgMjAyNCAwNzoxNDowNiArMDIw
-MApTdWJqZWN0OiBbUEFUQ0hdIFtwYXRjaF0gcmVhZC4yOiB0Zml4CgotLS0KIG1hbjIvcmVhZC4y
-IHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvbWFuMi9yZWFkLjIgYi9tYW4yL3JlYWQuMgppbmRleCAyYjkyNTk3YzguLmM3
-NGY2MmEwYiAxMDA2NDQKLS0tIGEvbWFuMi9yZWFkLjIKKysrIGIvbWFuMi9yZWFkLjIKQEAgLTIx
-Niw3ICsyMTYsNyBAQCBwZXJmb3JtIGEKIChvcgogLkJSIHJlYWR2ICgyKSkKIGF0IHRoZSBzYW1l
-IHRpbWUsIHRoZW4gdGhlIEkvTyBvcGVyYXRpb25zIHdlcmUgbm90IGF0b21pYwotd2l0aCByZXNw
-ZWN0IHVwZGF0aW5nIHRoZSBmaWxlIG9mZnNldCwKK3dpdGggcmVzcGVjdCB0byB1cGRhdGluZyB0
-aGUgZmlsZSBvZmZzZXQsCiB3aXRoIHRoZSByZXN1bHQgdGhhdCB0aGUgcmVhZHMgaW4gdGhlIHR3
-byBwcm9jZXNzZXMKIG1pZ2h0IChpbmNvcnJlY3RseSkgb3ZlcmxhcCBpbiB0aGUgYmxvY2tzIG9m
-IGRhdGEgdGhhdCB0aGV5IG9idGFpbmVkLgogVGhpcyBwcm9ibGVtIHdhcyBmaXhlZCBpbiBMaW51
-eCAzLjE0LgotLSAKMi40MS4wCgo=
---000000000000020c0c0612e30c8f--
 
