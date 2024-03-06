@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-543-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-544-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id A00DB873532
-	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 11:59:34 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id A916B873629
+	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 13:19:47 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 5C20328B9CF
-	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 10:59:33 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 196F7B20340
+	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 12:19:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A18C608ED;
-	Wed,  6 Mar 2024 10:58:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BB107FBDB;
+	Wed,  6 Mar 2024 12:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXbW1vYN"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r/Li8XhG"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94263A262;
-	Wed,  6 Mar 2024 10:58:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F7A7827F
+	for <linux-man@vger.kernel.org>; Wed,  6 Mar 2024 12:19:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709722716; cv=none; b=tbbDuuhJ/UhUkQLyvj9Cz0UaKfrOPbCMsASY+lR8iF0yZN84mvwcU3fFIgo0DHfv2jPp9Dki7JxiRaoPgtpNsYzDCktvtPjJmQPDJrdFOkEvGFHxy+T67SIro0lFf3+L/QZ8nvowtEnCZKT8PvDTYKooBrigyuarvCnwSigd49E=
+	t=1709727581; cv=none; b=TuTduWplxRrSVQUun9Y9buNje2xNvFRZJDMkGJS75Ex6o0maM4FSo/zPfNGJHj/1rMzqjPrLswV5nLe9YzFD1hKr/1cy+PBqhOu7lspBnnTliR7Hqw5RBxoUp2j2tFk1iN3SnJmy1Dv7kiR5kmDPjlsuD4bTDc7GR38RpKY5zPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709722716; c=relaxed/simple;
-	bh=54s2DjrDdCI7US7oHXkWWWhCfQrI4Vrohb9IHY8B5/w=;
+	s=arc-20240116; t=1709727581; c=relaxed/simple;
+	bh=bo6B+c7HJu5jkv0FshNdd3U6E0AA9sNt5ZFFDa3rND8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l/pkYrdhzSnnSETdbv1aI3i8pxDtfB0ha0vVKXVA3g/JLoLt9+zwAcI6x6l4QjupUB6U4BkscnT9efg/vajp3VGOwPoQPj4EYZ2fvVI2O7yunmrk1TDWxoeI4IHhHhCn6sFoFzr96k8clOsR1YK/8S6w8Qws6xVK2p6//8frqXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXbW1vYN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8820CC433C7;
-	Wed,  6 Mar 2024 10:58:35 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=c7CvgVXYm3yFcN5HxpvJ50YaQqK2h8HyEbUf9JWtVsQa9gMxwllMwJ2m9fbSNrhV7XHR3Er9nCOw91C4KE/AGWcU0TgcbIpxCG11Oq1ZbzscUhworX9pke7bdOiqBM1kN/yC0yys1SWKYFdqRwusHOELwJf+s5js6rJQTLuUaSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r/Li8XhG; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD9BC433C7;
+	Wed,  6 Mar 2024 12:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709722716;
-	bh=54s2DjrDdCI7US7oHXkWWWhCfQrI4Vrohb9IHY8B5/w=;
+	s=k20201202; t=1709727580;
+	bh=bo6B+c7HJu5jkv0FshNdd3U6E0AA9sNt5ZFFDa3rND8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lXbW1vYNG9Z12VkEy7Xav1MM+Gp+xVRLoLqVJOK6HfmlnDcACeD3KLR/1TPKMyaKb
-	 pXmOVhOyY2GfTfpwvsYtl+8pdGCoIbO7j0d5k7ieVDtkhwQjkyUc5Blg+C2fC+PO68
-	 zYEttzgUL/PteFCoalotN3BFLOK58A2gz+Kb61BzUKuqYGUOUCGVwAvj9JqWaH2O92
-	 B/8eHqYRyqHqohvMIKMZpZxYSdDrNs/Wz8hIJJPwZIceJIZkha7vQsTzjdLlOQ8na5
-	 PNx/JMf8RXeEb1gVJf1ZRyIh49KW9bNFBu67iqZDMlC2ojO+SQ7wjl93mX/PDq1tkv
-	 +k8pvTa+yJpAw==
-Date: Wed, 6 Mar 2024 11:58:32 +0100
+	b=r/Li8XhGC9qB8glQoj8Wf0RG4tN4DCEzOlivka5X8fKZHeHfXiYpjfzwj9DIWBaYK
+	 94FaDdzaJOtepu5GuNaczKlB7Oet0jJuGKdlspwU9tTYRRWDyMqHGYNTnutsCNg2x3
+	 7gmJJthHf/dZV2mZWFbYozkvstb/8sepc7edaDtTXU5sUxPNnNwxsQSIPTAp1dzn4m
+	 MbCPWUM24w3b4CHN3yrfunrz0dBTgYbYKokON13/SL4Kdahdc32g5Hco/CPYUF4AIG
+	 ddyiMh2/hDYLbwSgzPHr4EUobFG9COfh6FaFVlp9O9Z7zAD9fhadAmAZsxsv0yAGZm
+	 fg85ACKuaOrUQ==
+Date: Wed, 6 Mar 2024 13:19:37 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
-Message-ID: <ZehMWQ0LkemsTHAC@debian>
-References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
- <ZeXzuWVmC9AnsECt@debian>
- <7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
+To: Lili =?utf-8?B?UMO8c3DDtms=?= <poordirtylili@gmail.com>
+Cc: linux-man@vger.kernel.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: patch - fixing sample program in unix.7
+Message-ID: <ZehfWUkNWucW0pW4@debian>
+References: <CALPhBBbmrAMR70WT-JfKoSQVLhfxKv5B68Gyo_4zZRY-7SS0-g@mail.gmail.com>
+ <ZeX1JTt2Sxot-JFU@debian>
+ <CALPhBBYSEAh2LBSZ0CAs-dwX=i+OBhMAbDxfFJ=T=1rAvnuJvQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,88 +57,217 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2l9L6u35RRDmYlsD"
+	protocol="application/pgp-signature"; boundary="/mHK1R9wF8Gkmdo7"
 Content-Disposition: inline
-In-Reply-To: <7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
+In-Reply-To: <CALPhBBYSEAh2LBSZ0CAs-dwX=i+OBhMAbDxfFJ=T=1rAvnuJvQ@mail.gmail.com>
 
 
---2l9L6u35RRDmYlsD
+--/mHK1R9wF8Gkmdo7
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 6 Mar 2024 11:58:32 +0100
+Date: Wed, 6 Mar 2024 13:19:37 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
+To: Lili =?utf-8?B?UMO8c3DDtms=?= <poordirtylili@gmail.com>
+Cc: linux-man@vger.kernel.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: patch - fixing sample program in unix.7
 
-Hi Oliver,
+[CC +=3D Heinrich]
 
-On Tue, Mar 05, 2024 at 02:31:48PM -0500, Oliver Crumrine wrote:
-> Hi Alex,
-> I have attached two programs in the form of C source code below. No
-> special compilation options required. To change between the three
-> different socket options outlined in my patch, there are two options on
-> line 16 and 18 with a comment above them explaining how to use the
-> fields.
+Hi Lili,
+
+On Mon, Mar 04, 2024 at 05:41:17PM +0100, Lili P=C3=BCsp=C3=B6k wrote:
+> Hi Alejandro,
+> Thanks for replying.
 >=20
-> Here's how to use the programs:
-> 0. Make sure you have netcat installed.
-> 1. Compile the dgram one.
-> 2. Run it.
-> 3. Run nc localhost 8888 -u (in a seperate terminal window or tab)
-> 4. Type whatever into netcat and press enter
-> 5. Observe that there is a control message recieved, and there is a byte
-> printed, which is the first byte of the data in the control message.
+> The client, after connecting, processes the argv items and sends all
+> of them, then issues the sending of a final END which, on the server
+> side, is not expected after DOWN which would halt the reading (In that
+> case, too, the processing of argv + the END should happen).
+> After the change,  DOWN does not break the reading, the closing END is
+> processed and there is no broken connection when client tries to send
+> END while the server closes after sending the result, which is not
+> received by the client.
 
-Can't reproduce this.  The terminal running nc(1) isn't printing
-anything.
+Hmmm, now I understand.
 
-alx@debian:~$ which nc
-/usr/bin/nc
-alx@debian:~$ which nc | xargs realpath
-/usr/bin/nc.openbsd
-alx@debian:~$ dpkg -S /bin/nc.openbsd
-netcat-openbsd: /bin/nc.openbsd
-
-> 6. You may repeat this for the three different socket options.
-> 7. Repeat for the stream one, but use nc localhost 8888 (without the -u)
-> for #5.
-> 8. Observe that there are no control messages recieved with the stream on=
-e,
-> and byte is 00, which is the initial value of the variable, before it has
-> a value assigned when the control messages (of which there are none) are =
-read.
 >=20
-> Thanks,
-> Oliver
+> --- without DOWN ----
+> client         server
+> argv1..N + END --->
+> <----- result
+> <---- connection closed
+>=20
+> -----------problem-----------
+> argv1...N + DOWN ->
+> <---- result
+> END -> ?????
+> <---- connection closed
+>=20
+> ------- solution:---------
+> argv1...N + DOWN + END ->
+> <---- result
+> <---- connection closed
+
+Yep, I can reproduce this problem all the way back to the original
+implementation of the example programs.  I extracted the original
+programs with:
+
+	$ git show 15545eb6d7:man7/unix.7 | man /dev/stdin | cat
+
+And then cut and paste to the C files.
+
+	$ cc -Wall -o server server.c=20
+	$ cc -Wall -o client client.c=20
+	$ ./server &
+	[1] 94644
+	$ ./client 3 4
+	Result =3D 7
+	$ ./client 11 -5
+	Result =3D 6
+	$ ./client DOWN
+	recv: Connection reset by peer
+	[1]+  Done                    ./server
+	$=20
+
+This behavior conflicts with the behavior shown in the manual page,
+which shows (for the last command):
+
+	$ ./client DOWN
+	Result =3D 0
+	[1]+  Done                    ./server
+
+So it seems like a bug.  Maybe the server program was slow enough when
+it was implemented in 2016, that the server hadn't closed the socket
+when the client sent "END", so the client didn't fail to read the
+result??
+
+Anyway, we need to fix it.  Agree.
+
+Please add
+
+	Fixes: 15545eb6d7ae ("unix.7: Add example")
+	Cc: Heinrich Schuchardt <xypron.glpk@gmx.de>
+
+to the commit message, as well as a small description of the problem.
+
+> I hope I did not overlook something.
+
+However, I'm not convinced by your patch.  It seems to allow
+
+	$ ./client DOWN 4 3
+
+which I don't think we want to support.  I think we have two options:
+
+-  The client avoids sending "END" after "DOWN" (so DOWN implies END).
+-  The server only accepts "END" after "DOWN".
+
+Does it make sense to you?
 
 Have a lovely day!
 Alex
+
+> OK, maybe with a unique message containing only the DOWN from client,
+> the issue is not visible, because there is no result to return to
+> client and we don't care it the connection is just broken....
+>=20
+> Cheers
+> PuLi
+>=20
+> Alejandro Colomar <alx@kernel.org> ezt =C3=ADrta (id=C5=91pont: 2024. m=
+=C3=A1rc. 4., H, 17:22):
+> >
+> > Hi Lili,
+> >
+> > > Subject: Re: patch - fixing sample program in unix.7
+> >
+> > On Sun, Mar 03, 2024 at 08:27:17PM +0100, Lili P=C3=BCsp=C3=B6k wrote:
+> > > diff --git a/man7/unix.7 b/man7/unix.7
+> >
+> > Please add some commit message.  I don't understand what this patch
+> > does.  How is it broken, and how does it fix it?
+> >
+> > > index cb1dcae45..7fb41af99 100644
+> > > --- a/man7/unix.7
+> > > +++ b/man7/unix.7
+> > > @@ -1057,7 +1057,7 @@ main(int argc, char *argv[])
+> > > \&
+> > >             if (!strncmp(buffer, "DOWN", sizeof(buffer))) {
+> > >                 down_flag =3D 1;
+> > > -                break;
+> > > +                continue;
+> >
+> > DOWN is used to stop the server.  How would 'continue' help?
+> >
+> >
+> >         $ MANWIDTH=3D66 man unix | grep -C2 DOWN
+> >              tegers.  The client prints the sum and exits.   The  server
+> >              waits  for the next client to connect.  To stop the server,
+> >              the client is called with the command=E2=80=90line argumen=
+t "DOWN".
+> >
+> >              The following output was recorded while running the  server
+> >              in the background and repeatedly executing the client.  Ex=
+=E2=80=90
+> >              ecution  of  the  server  program ends when it receives the
+> >              "DOWN" command.
+> >
+> >            Example output
+> >         --
+> >                  $ ./client 11 -5
+> >                  Result =3D 6
+> >                  $ ./client DOWN
+> >                  Result =3D 0
+> >                  [1]+  Done                    ./server
+> >         --
+> >                          /* Handle commands. */
+> >
+> >                          if (!strncmp(buffer, "DOWN", sizeof(buffer))) {
+> >                              down_flag =3D 1;
+> >                              break;
+> >         --
+> >                      close(data_socket);
+> >
+> >                      /* Quit on DOWN command. */
+> >
+> >                      if (down_flag) {
+> >
+> > Have a lovely day,
+> > Alex
+> >
+> >
+> > >             }
+> > > \&
+> > >             if (!strncmp(buffer, "END", sizeof(buffer))) {
+> > >
+> >
+> > --
+> > <https://www.alejandro-colomar.es/>
+> > Looking for a remote C programming job at the moment.
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---2l9L6u35RRDmYlsD
+--/mHK1R9wF8Gkmdo7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXoTFgACgkQnowa+77/
-2zLA3w//Wb7uRoWE1TV+WmMQ2qhh3r9jVVsJ3OEZ3N1P6bRXT15V5Zeew7CoN08d
-nckxUcFwGwDXDsw/pAwwCjDWjgT91m9VWaheWRAQvT50Gv5AIZc2B9anMMuHNieD
-e/kBXzqIVaoUyT+cuXhn0ad0MPdKStp9MvNPSE69rLyFVKlmS5/t7opFEKqSWbnQ
-HZTA3RjNrl90STwT02h9GTtQtAb2Ni3KTEL4TN5fy5OSgYeqDAgzIazAn4jYhRLy
-9q6GcP744iKPbqU2Rastds6epO2vlq4s6D8uSP+BBnJ3TTEd/+A973iOZVoRQis7
-IX2A24AGYH4tq1mZ65/RVcd4eI1wcLU/J5fewwzQViMZFufF1y3Hc2oPyy8H4Ojj
-MZySW7uPIJMd0hKQT1gFj+U97V9PLkyI+zfIetbBh0bGbEb+GogGEC5nsnMyzkbG
-1aE+l5C2rj1D7MrksNpZyIsSY965i/TQy04lVyB6W+t5mqyeBp9FsfiloL0vMXJu
-IqsmOaoVAWMO+PpxThg2m/8PiidKRojT9GlHxP8Shn3FPlUpG2CkwFLZFvPulwvG
-90KUrr7fxeDa30RPdVMm8B+BNfdoXYSFHc3VLigD3arCrjUrasyhgPMHb4mHVsUd
-1hpXdeGxHlQiF8bwvvDpxKLEv2v0lWVRTomWK93NEYVLtKk218w=
-=UkIi
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXoX1kACgkQnowa+77/
+2zIWVhAAhLJ6aaGjWpUduGLzrC3h4Z26yFytVb/+sy8m/uWpHTusHpq6K8XAh/Uv
+bLD4Bxv5Ncvb9fmr95reOAScH4gSdIa7tDA+qeDLBzMtrNdR9SdKqJjhWzPipK6n
+DqNwkGoPlcPefeSV6cIKbAzHFhcCEYzmppfGP9QjGDDuYd6mVhaqeo2xeJxAyjBJ
+HH9wuRVqXPiS8CfDNwYW/CLgnKSyprW53LAswv3fYIhmS7CKKx19/RVEr2xdjrbf
+lFpPPf0AHq6n53v54hz+OndDl1Y0/1jfbgqjsvNdjgLYz7kY0v62bYqVk6Wo5DDX
+MOkOza+NbsEKi/oTvaJjtgtxxjAMnD5KAgWu6mRv/RBzWTDNGQ9BfajlnPVyLGtr
+NP4XwFpAcHklOeDMaEwDSOqA5CZkRtXto9InPfXJon5FGLqul9CXrhiTJygeqlYO
+NEm8DpeGQG3HmdcH3ujJZkYnXGYKEuyw8YRAHis6buXWAa+Jo6kL6kI7QOybHtsO
+PfPCfprULzhUAYD4jGAfPYUzrRX7QvTOcnScHMH4FqZeKenAa7u0E1bsomg5r6Kc
+gjYmVkPoa6WTX/7uXKY3jiEFA6Vfgx5AUR6j9JG9Hlfr1vfCYFX4yMiPQZq3J5YC
+/QWped4MhmQvSdG4ePrk/d2NQyujvfid+QsDxLlUpIgpUkxebTU=
+=oKhU
 -----END PGP SIGNATURE-----
 
---2l9L6u35RRDmYlsD--
+--/mHK1R9wF8Gkmdo7--
 
