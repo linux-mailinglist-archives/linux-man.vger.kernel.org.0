@@ -1,131 +1,105 @@
-Return-Path: <linux-man+bounces-546-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-547-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F4F587377C
-	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 14:13:38 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4B4873BCB
+	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 17:13:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id DA1411F210CC
-	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 13:13:37 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1C2881C23092
+	for <lists+linux-man@lfdr.de>; Wed,  6 Mar 2024 16:13:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9CDD5130E5A;
-	Wed,  6 Mar 2024 13:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B4BE131749;
+	Wed,  6 Mar 2024 16:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sVMvs5C1"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VT9d4Q0I"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B82612C52C;
-	Wed,  6 Mar 2024 13:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFBA134733
+	for <linux-man@vger.kernel.org>; Wed,  6 Mar 2024 16:13:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709730747; cv=none; b=Qnv3Hm6HKtMkxcNi//Ta9b/aI9jVefffGXGDmG3DCvyOTSwQnNGA4STZq2322IUyJ/UH0wGSVcm0Jh4C1IFJ227BC0aPpINpFHt0dycKBHYi8eeR7i9HYo7+gjBEpCVsVxUQWwLiz1EjuRqhq1GbRONvBMa0LnMsWsMnrhYcm98=
+	t=1709741624; cv=none; b=sqw0iC+jjjXfXwg4nX9E0zULikpljJVhiR0wIAwOTSXSh3J6dRyk5JAChF9LgsMPRT6EWqj67UJH/oGocDdAwu0mylmTNyOAidSXj0OB4fjjwQpzpZ6R7FSp90m/grA812768VCJTRQAnDGmjnTTK/fWbUVrYkw3VdBL+dgg2FM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709730747; c=relaxed/simple;
-	bh=znAyfDfvPiSviTV5pIub082WYjH2lOSzE/FbF134A/E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ea0/44K6fXLSdmKa3B1CtuEo7ePicgwkC2qE5RFVW+tboTmSrbUJ1RaUKZZUyOV0vfcajIcEf3D5f/gl//V46Jtr54AZmvlYxO5NKwBA3yz6Q2iWzTn2Bs7VPqkUw+BB0KuEKDrdtGf/Ns6c9b3YES/84q/bTF+W7wdaKNgZSJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sVMvs5C1; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0959AC433C7;
-	Wed,  6 Mar 2024 13:12:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709730746;
-	bh=znAyfDfvPiSviTV5pIub082WYjH2lOSzE/FbF134A/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sVMvs5C1r6AHhJG0OMp/scMB7a3gfIlKXUGEzYyQSL0onk3LqodbHIAoliGJAI12U
-	 yA5WDwHxgOX9v3wMlpNK37wfr01qfw0ymE9WvUVzjKlI4GdXX76gebXupkrs1nYslU
-	 wTgLCcUYOLZIDP3sIDpjNTL6Q+NcHKOVjb8BJpa0aJqvOs42IBrrw0HdysE0kpEH/K
-	 7UKNl0NdDTm6W6euovVNrxXyInMY2NFx7FOQylFsX0XQVzDWS/HSTgLME93VnZyxrT
-	 Jc5vTAX645NO/I8e0qIzAXXlO6hVo5YFFo7AwVoxbGMhdsft36pIYZlvYYCK4DstQ1
-	 +4YI2cXXMrbYg==
-Date: Wed, 6 Mar 2024 14:12:23 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
-Message-ID: <ZehrtwSDQV-X7BXV@debian>
-References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
- <ZeXzuWVmC9AnsECt@debian>
- <7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
- <ZehMWQ0LkemsTHAC@debian>
- <CAK1VsR0XZMgUW8qMQMcDPohD8-+OZsgW68sZegLbVy6cdoWucQ@mail.gmail.com>
+	s=arc-20240116; t=1709741624; c=relaxed/simple;
+	bh=eVLhuoHoiF5FYhRRPOK9YOhhtnToGs4v2FoksKed/GQ=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=cQFnecbTPNVLO8RowVVNLnaB1r9i0k9FCVzTijqnNAcYlCQwCR8smCvMPor83EQWtzgm5r1FkPgDM/BPWvACaEbri6a8ViC//bG6djfWTD4sYq3pdGT3+8JPoVVUCGjFcfF2QnivYgokzjspWcrG00HwVIoe6PJ+pdwFP1ofvAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VT9d4Q0I; arc=none smtp.client-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-21fb368b468so670967fac.0
+        for <linux-man@vger.kernel.org>; Wed, 06 Mar 2024 08:13:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709741621; x=1710346421; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=a3/Xml8KL1UeO/WbuKA32RL1G1V6wSSHnRtvUKOo3BE=;
+        b=VT9d4Q0IOR9yG+rYV0/KuO1D/TbFe57c5Bdt326yG2UAp3T5K7F+lwDvuxZOuiVbpv
+         Lx8BM/ggsFtFWsb2vvNi2h/Ck6XQrktOS7dZ7IqgUgR31hTKXSDdCpntz5OrPLIfMpV9
+         3A8QeICQlCWjEmpt95wl9FJFoiPzQihz0Qc414oQZclhFFt6C5C56NeYx1Bw3gLpRToi
+         d2jVTU60RRCF99cCEyv06eQ2/POXgEv5GnjAvSsgi2ekIMYAQ0J9iXRFKuKV/dzt/QIw
+         OfXqG/YQC8zuD0w7Fbpw7Y6M0hJIGaZnkFTD2kP5M0NdcVaK0AmfW81kR9qqsjyf41S4
+         MWRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709741621; x=1710346421;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=a3/Xml8KL1UeO/WbuKA32RL1G1V6wSSHnRtvUKOo3BE=;
+        b=DV8+oPmLL5Ma+CHGZo2SMi123McvFtAmJqTm7ajvXbWoMxxfgem1ZWGYlJj6rrmQ7S
+         ss2iHh6jS4Hv5xamfm2/rRBjrmgaaRnrtpmG/lD64tQ9C5U/iZOHBRPDCA3/MC73ASGq
+         T/sN6Q9Mzb22QfkRjHx0Pk58YSv8HgxJvZr2kceFqRgsUHiwWhaaDSdMqt4JhB9Ob3vE
+         EVLLWsaIaBpQHWVS36z7tbQ4EnycJfm3N+tC5UlYPadxAoJMrlU81XipEiN/tq2dCrNm
+         wopjxJaJUti9CiZ/fQ2vEEBcleUDRuxoFCVjx2fLV1AMGAQitd0uRf1pzcfsX52g8tBf
+         mi7w==
+X-Gm-Message-State: AOJu0YyUPFIadku8rBfIPJvJYBxm7DtXePyRcAym4ihj0zxpZ3cPKl2g
+	gV7K1OLSNKaYRRzcquK8+VAh74QngjmbSVmhfVDnhwq0PJOwrQBKrbDi9VYzdOjLOor8iZM28ti
+	jwVSahrn3fjXv/p54bBjVYf3QJtq6Hub05qw=
+X-Google-Smtp-Source: AGHT+IG/m3lu57rBKlcmV0TXXPfHrlIylKufgO8s/5WbnsQFPYVZ6XQjABRlWZnn01ENwWE7aBwu8elqPbzKJAoU2Kc=
+X-Received: by 2002:a05:6870:b010:b0:21f:dfb9:c150 with SMTP id
+ y16-20020a056870b01000b0021fdfb9c150mr5616311oae.54.1709741621721; Wed, 06
+ Mar 2024 08:13:41 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="naiMyB7E1A9ldgjP"
-Content-Disposition: inline
-In-Reply-To: <CAK1VsR0XZMgUW8qMQMcDPohD8-+OZsgW68sZegLbVy6cdoWucQ@mail.gmail.com>
+From: Fedor Lapshin <fe.lap.prog@gmail.com>
+Date: Wed, 6 Mar 2024 19:13:31 +0300
+Message-ID: <CAJ_gjBp=_zdy3p3HdWSDD9XHexfNznhwSSCkASe-c71FHA99wg@mail.gmail.com>
+Subject: [patch] getgrouplist.3: tfix in example
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+In example of getgrouplist, if getpwnam returns NULL, the program
+exits. The exit code EXIT_SUCCESS looks like a mistake, since the
+program also calls perror right before.
 
---naiMyB7E1A9ldgjP
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 6 Mar 2024 14:12:23 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
+This patch changes the exit code to EXIT_FAILURE.
 
-On Wed, Mar 06, 2024 at 08:02:10AM -0500, Oliver Crumrine wrote:
-> Hi Alex,
+Best regards, Fedor.
 
-Hi Oliver,
+---
+ man3/getgrouplist.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Type into netcat, not the program I sent.
-> My program is the server and prints out whatever it recieves,
-> along with some other stuff that lets you know which options
-> are supported.
-
-Nothing either.
-
-$ date; nc localhost 8888 -u | ts
-Wed Mar  6 14:09:38 CET 2024
-foo
-$ echo $?
-0
-
-
-$ cc testDgramSocketServer.c=20
-$ date; ./a.out | ts
-Wed Mar  6 14:09:05 CET 2024
-^C
-$
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---naiMyB7E1A9ldgjP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXoa7cACgkQnowa+77/
-2zKoXg/7BBATtPrwKlIT8X1yCNo4xxJpc2tN3XxJkGWpvuA3dtJzYNn4oJjZ+zZ4
-KnxkZbcAgxGiHxHF32viqu//xbSur+7+ECnhn55mrmGnAzg72SYsjlHe7FxDrisp
-GcxncrYURVIeZJsnuJYeTXW7qdrAoiudbllSsMClT+Xrf2nHoERD7lhgWGl7u29k
-TtzemTrmHGB5A/5S1E8Lr7dNpHnBMLDQ2kJFB6b61P14d195miflYx2jeQ72FRoq
-flfqGJRkQnFJHxQg8APti0ui/NznzyqHlYVVtIlycaT1MqrZYBz3Vd17BwRciQLb
-B+jiksHuSEdVAHMnv12dzGVf/mDg7raZ6u1V72Zo3ReoNCB6n5y+eg7kzcLwKwkq
-L/vaF8M6maXCCNxGkSOIcgZANkA0x4tLYWdIRa1sErE8xWEzcyRk3Bln/k6D2zzO
-RBcIvaxqeAmj0y+0FNqDDIDJ9aM4JVjlDZmAFx1aMdD4sJTWJ8JHWFapzKENbAs4
-sNiCUqnN0aAZdF1lN3Epxb+YMOshxreJp9h+aaxuJ6bMckh1sy5vvG3vK28D8Q4H
-Q8xDeohjHhgi0SgChrPFNjdIUWBjZTCpS+QG3zvXd5phLGtIkRanHqHm4GoAwRqe
-4JqO60btSrRIySoND/99INv2BfhjS1PMYIQysiTHb0Aa2UVimbc=
-=PSrm
------END PGP SIGNATURE-----
-
---naiMyB7E1A9ldgjP--
+diff --git a/man3/getgrouplist.3 b/man3/getgrouplist.3
+index 41389b6c3..239913ce6 100644
+--- a/man3/getgrouplist.3
++++ b/man3/getgrouplist.3
+@@ -165,7 +165,7 @@ main(int argc, char *argv[])
+     pw = getpwnam(argv[1]);
+     if (pw == NULL) {
+         perror("getpwnam");
+-        exit(EXIT_SUCCESS);
++        exit(EXIT_FAILURE);
+     }
+ \&
+     /* Retrieve group list. */
+-- 
+2.34.1
 
