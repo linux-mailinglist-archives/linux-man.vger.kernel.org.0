@@ -1,154 +1,154 @@
-Return-Path: <linux-man+bounces-554-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-555-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B82BF874615
-	for <lists+linux-man@lfdr.de>; Thu,  7 Mar 2024 03:25:09 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id F295E874710
+	for <lists+linux-man@lfdr.de>; Thu,  7 Mar 2024 05:06:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 58F122832DF
-	for <lists+linux-man@lfdr.de>; Thu,  7 Mar 2024 02:25:08 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A7F851F2368F
+	for <lists+linux-man@lfdr.de>; Thu,  7 Mar 2024 04:06:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF93829B0;
-	Thu,  7 Mar 2024 02:25:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88C5CDDD3;
+	Thu,  7 Mar 2024 04:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwiE4kDm"
+	dkim=pass (2048-bit key) header.d=hadrons.org header.i=@hadrons.org header.b="u0Ef/TGT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from pulsar.hadrons.org (2.152.202.106.dyn.user.ono.com [2.152.202.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7105672
-	for <linux-man@vger.kernel.org>; Thu,  7 Mar 2024 02:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0414E11CAF
+	for <linux-man@vger.kernel.org>; Thu,  7 Mar 2024 04:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=2.152.202.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709778304; cv=none; b=UVlIwg0850dYt52Z15oQCBb7CB9z5exqUEfWUK8rtu7XUJVVTTRdQISxbud9K9V54cwh5fxwGx2gmaKKtMf4FIqruMUvD0Q+Y18Gtl4ggI15essPXPF1vtanWv7PYgXjG2B4oTpgkj6rdh+e0XkTMj8Fp5mlCEKiJhHi9WmwvIA=
+	t=1709784395; cv=none; b=TF+hfQjfAJt95PxeV0+y4WdZypEbdaZSn1cJDC4hZTFAhIltA3BZIIslfLZe90oOG/M9Tx/YJqPxJHVzP0Ue3N6Ji2Q/HU7ZMWxb6jXqecQ+eJBIDw906vl/uANYKyYoapQsWO7mYNiw/A7J1ivkZzJZYPxXWVtZyxZxx69BHgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709778304; c=relaxed/simple;
-	bh=yzWF0UhcbJv3ZKtgJIICq8wSG/VZZphqH/p7uyqidLc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=LWfwqoFHDEcf822qiv3ahGsq7dAkcbgIfu/9mWbpbNcoiBXToGt9VkEY/7xV55zukyfnFxlA9Krv5lB5q1qbAJeYxfAYqjTegdxOPmy3ZtGDKZSb6qG7knnmkW3EJ/mBZs/S8CqeKDU/+CCm9HfZFoQvxJZGhn/IMV9UhA0jwCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwiE4kDm; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E73C433C7;
-	Thu,  7 Mar 2024 02:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709778303;
-	bh=yzWF0UhcbJv3ZKtgJIICq8wSG/VZZphqH/p7uyqidLc=;
-	h=Date:From:To:Cc:Subject:From;
-	b=ZwiE4kDmFqezIw7QC8wdIa915WJh2BVoCrYYN0U7XRolNU5pBtT40OjFnsYr+0h+N
-	 g4pQU4Nf3DuuQg9TPmjE8wqFbxL+K3FVqbN896UTYCo/HPTxwspQUYfrcIuPjM1kug
-	 H1FrcEQd2g8i5ykXx9hmtuesasT12O3kO46lGB42Wz0W4Wea1yhZfR6W8w2iCvASrJ
-	 x8qRG9U3wJezbrzEfLm7gvaj5HGY8fsJ+pebE/ot0/srSaC5TbwqNvVljQwAzhLmyf
-	 ln4EtxQlWXbBwcL/5wcwJWiGSD78DayCqfj+a+P7Zmhe3I2ad7QwQeCKaixGEOPeO1
-	 Gf9pBbPfdC7MQ==
-Date: Thu, 7 Mar 2024 03:25:01 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Guillem Jover <guillem@hadrons.org>, Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-Subject: [PATCH] TIMESPEC_TO_TIMEVAL.3, TIMEVAL_TO_TIMESPEC.3: Document these
- macros
-Message-ID: <20240307022451.91077-1-alx@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1709784395; c=relaxed/simple;
+	bh=Uhzb0TqL4hLxp9pRuAEKiCBinWAxbvD2e2juWi6s63E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bSaRnB2LmCpqu48AX/cG907CYhvtAWnbkEEerCFkgXXEXxKACJsAEqj8pVmjlmujuwZGaNAVxMgsX3PeA32Igs7vspV2fx2DtBMDO/nlsmvFqYty2ffAztVh4tENvnEbyKJwSROAouzeg4M+RfYEoQ9LhneFImUY7OGAuEdE2d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hadrons.org; spf=pass smtp.mailfrom=pulsar.hadrons.org; dkim=pass (2048-bit key) header.d=hadrons.org header.i=@hadrons.org header.b=u0Ef/TGT; arc=none smtp.client-ip=2.152.202.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hadrons.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pulsar.hadrons.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hadrons.org;
+	s=201908; t=1709784390;
+	bh=1AW9pmLcumhvGe8os2GXsjE2+mtIJYlUuf0zfvptHgQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=u0Ef/TGTIM/GnoMKRaN0NFqczxQr0+jmUXULiJHON/mUE9p1oV4lKZkwNkN41aQFk
+	 kymoA/dEecqtTG+ZfyYA04b1laMBIqvnSAEk8q5n8BUhuA8tIguEWRxe3JpoG7tWMI
+	 IJRK+C7s4L1AM51A+nLSBrcTZ7N2/I6BlQB3XT0xUCJ1Mm23DywVPcp/wFu9gUGm/e
+	 FIikU5AWr1riDCtejbZSviXc6wACR1Fq3XkjFCjoXoTkyNRzEUA3r0hi3jG0rlhB5K
+	 SSjaun+l5r/T3wqMpkIUonmaoLeZn/pPLwFpAL8i5zRZAiJwkJJsCYzzBr9eHdFoBi
+	 jBd5Za1c121ow==
+Received: by pulsar.hadrons.org (Postfix, from userid 1000)
+	id 1D67B122F1E; Thu,  7 Mar 2024 05:06:30 +0100 (CET)
+Date: Thu, 7 Mar 2024 05:06:29 +0100
+From: Guillem Jover <guillem@hadrons.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Order priority issues for special 3type sub-section
+Message-ID: <Zek9RRW28ZinfkxB@thunder.hadrons.org>
+Mail-Followup-To: Guillem Jover <guillem@hadrons.org>,
+	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+References: <Zej60rSb9Ve5rRPy@thunder.hadrons.org>
+ <ZekNZuR3nRczAIqX@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n3kcox4o5ldhxeix"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <ZekNZuR3nRczAIqX@debian>
 
+Hi!
 
---n3kcox4o5ldhxeix
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH] TIMESPEC_TO_TIMEVAL.3, TIMEVAL_TO_TIMESPEC.3: Document these
- macros
-MIME-Version: 1.0
+On Thu, 2024-03-07 at 01:42:14 +0100, Alejandro Colomar wrote:
+> On Thu, Mar 07, 2024 at 12:22:58AM +0100, Guillem Jover wrote:
+> > These pages have been provided by libbsd in the
+> > 3bsd sub-section for some time, and that sorts earlier than 3type.
+> > This has not been a problem for the section 3 pages, as then those
+> > will always be preferred if present over the 3bsd ones. This also
+> > means I might be reluctant to add new 3bsd manual pages related to
+> > types, to avoid future occlusions.
+> 
+> If you want to add a page for a type that glibc doesn't provide, feel
+> free to do so.  I even encourage you to use 3type, although that might
+> be inconsistent with the rest of libbsd, so you may prefer to keep 3bsd.
 
-Reported-by: Guillem Jover <guillem@hadrons.org>
-Cc: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man3/TIMESPEC_TO_TIMEVAL.3 |  1 +
- man3/TIMEVAL_TO_TIMESPEC.3 | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
- create mode 100644 man3/TIMESPEC_TO_TIMEVAL.3
- create mode 100644 man3/TIMEVAL_TO_TIMESPEC.3
+I'd rather not stomp on any of the system section-space, also the
+inconsistency and the behavior on other non-GNU or non-Linux systems.
+But thanks for the offer. :)
 
-diff --git a/man3/TIMESPEC_TO_TIMEVAL.3 b/man3/TIMESPEC_TO_TIMEVAL.3
-new file mode 100644
-index 000000000..30ab755d2
---- /dev/null
-+++ b/man3/TIMESPEC_TO_TIMEVAL.3
-@@ -0,0 +1 @@
-+.so man3/TIMEVAL_TO_TIMESPEC.3
-diff --git a/man3/TIMEVAL_TO_TIMESPEC.3 b/man3/TIMEVAL_TO_TIMESPEC.3
-new file mode 100644
-index 000000000..6cdd72e3e
---- /dev/null
-+++ b/man3/TIMEVAL_TO_TIMESPEC.3
-@@ -0,0 +1,32 @@
-+.\" Copyright (C) 2024 Alejandro Colomar <alx@kernel.org>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH TIMEVAL_TO_TIMESPEC 3 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+TIMEVAL_TO_TIMESPEC,
-+TIMESPEC_TO_TIMEVAL
-+\-
-+convert between time structures
-+.SH SYNOPSIS
-+.nf
-+.B #define _GNU_SOURCE
-+.B #include <sys/time.h>
-+.P
-+.BI "void TIMEVAL_TO_TIMESPEC(const struct timeval *" tv ", struct timespe=
-c *" ts );
-+.BI "void TIMESPEC_TO_TIMEVAL(struct timeval *" tv ", const struct timespe=
-c *" ts );
-+.fi
-+.SH DESCRIPTION
-+These macros convert from a
-+.BR timeval (3type)
-+to a
-+.BR timespec (3type)
-+structure,
-+and vice versa,
-+respectively.
-+.P
-+This is especially useful for writing interfaces that receive a type,
-+but are implemented with calls to functions that receive the other one.
-+.SH STANDARDS
-+GNU,
-+BSD.
---=20
-2.43.0
+> If you want to add a page for a type that is provided by glibc, just let
+> me know, and I can provide the page instead.  (Although it would be rare
+> that you provide a page for a type that glibc provides.)
 
+Yeah, libbsd should not be providing man pages for system types.
 
---n3kcox4o5ldhxeix
-Content-Type: application/pgp-signature; name="signature.asc"
+> > But I'm not
+> > sure how best this would be solved though. :/ Hmm perhaps thinking
+> > about it, I could rewrite these manual pages and only provide them
+> > for the TIMEVAL_TO_TIMESPEC and TIMESPEC_TO_TIMEVAL macros.
+> 
+> Actually, glibc provides these macros, so I should probably write pages
+> for those too.  Maybe I can write something and then just drop the
+> libbsd pages.  BTW, why do you provide those macros if glibc also
+> provides them?  Maybe they are recent additions to glibc?
+> 
+> 
+> alx@debian:~/src/gnu/glibc/master$ grepc TIMEVAL_TO_TIMESPEC .
+> ./time/sys/time.h:# define TIMEVAL_TO_TIMESPEC(tv, ts) {                                   \
+> 	(ts)->tv_sec = (tv)->tv_sec;                                    \
+> 	(ts)->tv_nsec = (tv)->tv_usec * 1000;                           \
+> }
+> alx@debian:~/src/gnu/glibc/master$ grepc TIMESPEC_TO_TIMEVAL .
+> ./time/sys/time.h:# define TIMESPEC_TO_TIMEVAL(tv, ts) {                                   \
+> 	(tv)->tv_sec = (ts)->tv_sec;                                    \
+> 	(tv)->tv_usec = (ts)->tv_nsec / 1000;                           \
+> }
 
------BEGIN PGP SIGNATURE-----
+Ah, thanks, didn't check, and assumed these were not present. Digging
+a bit now it seems these came included as part of the fix for:
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXpJXwACgkQnowa+77/
-2zJBkQ/+N9bLQTrqUaDZI+NeExe+xKqvR+lOOP/py5SwbvbvUykJQkc+FT0yDLQh
-gafbVDKXpe1rOzl92sslPmnEoiojfKJpRE6GEPJ8+IgwysbygeN9k3cIeKzA0hsu
-EZB58+0UDVYQ7mMuPPMYeiGgAJ3UekH7YFMkw6kVrmhtive1nXBskmHfGv+XcO4a
-JZbbktBdX+yE1LJbi00L7eBVBvZqPpTkqPMm8sHSvSGwNrzgQ0NukWmhLfLePMWL
-Vqft5TXDpnoRoBwnt83T2pKrW3r/k2N2GnG34Mjb4PZViPeZMs1zv/vYkWTK5kqk
-qb3CIi/JNip0r3EojDcKsR9HXeHnLZ6YbejloUAf0u7PhSP0dcNQz/Xu1Uh2qIZT
-sxIvUocaVcmVV34SFR6ZgzBXHaU/27SzuxdQf8baHHg6yrA0gW9Cd9waoQuayMbe
-7YNFIW8fk+uQz1sdvO9/fDsWTVBOK6uZTKQXcu1saGMus7pAIsMi0TYtft3PRzEh
-UjGOVlM0DPbsQHZ/ATor02G7HdL73pW0aSVNMVJWk5oUKydmSQ8giOUQx6cHWAYZ
-cOBU13r3Gp3qPgedvzZTsR2Gc4AgfqInAlAUzL+b+3FcJcqhUgm10ikmZLFWMfoy
-1Uj0lTtMvlIah5uy0h7kQORqNNkcF5ZA/vvmhUDxw69a6FuhsSo=
-=+nP9
------END PGP SIGNATURE-----
+  https://bugs.freedesktop.org/show_bug.cgi?id=94320
 
---n3kcox4o5ldhxeix--
+which was for non-glibc systems! And I guess I included the man page
+for completeness and there was no support for selection per system
+yet.
+
+> > problem is still that unlisted sub-sections get folded into their
+> > parent section, so perhaps some of these need to be proposed for
+> > addition there. Not sure about other man pagers though.
+> 
+> I think projects shouldn't use their own subsection.  They should
+> instead use the same sections, in this case 3type, and use LIBRARY to
+> document the library needed to get the thing.
+
+I don't think this works as a general rule, because different projects
+might want to document things that live in different namespaces. For
+things that are going to be "enforced" to share the same namespace
+such as programs, or header files, then that's fine. But for function
+interfaces or language features, for example which might be the same
+on different implementations using sub-section makes sense to me. For
+example it seems it would be rather inappropriate to document perl's
+if(3perl) as if(3). :)
+
+> And in cases wher various projects offer the same page exact page, maybe
+> /etc/alternatives should decide.
+
+alternatives are supposed to be used for the same interface, not for
+conflicting and unrelated ones, in this case if these document stuff
+that is completely different then that would not seem appropriate.
+
+In this particular case, what I'll be doing is to remove the
+timeval(3bsd), timespec(3bsd) links everywhere, and stop installing
+the TIMEVAL_TO_TIMESPEC(3bsd) and TIMESPEC_TO_TIMEVAL(3bsd) on glibc
+based systems, and check on what others these are already provided,
+and install those there conditionally.
+
+Thanks,
+Guillem
 
