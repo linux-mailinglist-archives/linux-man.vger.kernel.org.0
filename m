@@ -1,118 +1,113 @@
-Return-Path: <linux-man+bounces-559-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-560-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A440A875D87
-	for <lists+linux-man@lfdr.de>; Fri,  8 Mar 2024 06:23:33 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D71876778
+	for <lists+linux-man@lfdr.de>; Fri,  8 Mar 2024 16:39:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2A291282EAA
-	for <lists+linux-man@lfdr.de>; Fri,  8 Mar 2024 05:23:32 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 8EC24B2204F
+	for <lists+linux-man@lfdr.de>; Fri,  8 Mar 2024 15:39:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8DE92E647;
-	Fri,  8 Mar 2024 05:23:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32ADE1EB36;
+	Fri,  8 Mar 2024 15:38:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GUd5mzxS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s4Qls9Ov"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8982C1A0
-	for <linux-man@vger.kernel.org>; Fri,  8 Mar 2024 05:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77E21865
+	for <linux-man@vger.kernel.org>; Fri,  8 Mar 2024 15:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709875408; cv=none; b=F8fyhMeV2UDNfH5FYjyOR2poND1krWu5ETMZ52EgdLvxQ8HrAcnrnH+5HayyKvDdXvixhhwXEJQbGrbpb79wwZDN2jWVo5GLsILj5vheVQc8q8QZ9TO2KHvhoQe3mvWAU/CuyoFN/W8mPZf1P63mgAY62ZJzWU53eTpqRtQQ26s=
+	t=1709912337; cv=none; b=V/QzQbSesscHBKBzFIWq2Uqw8kFwX3bZgwFE5LFNT7OvJyRrhXoe2Vp2uaJunJQyQCR3STzWbjpL+f1snnXamroz0/jef2FapPLdXgf3at0xizNiYoEjY41iP6hezbbswrPTDGCQx8g2coiKmTeG2OEfzApo3XqrBFrQ8dnH0v0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709875408; c=relaxed/simple;
-	bh=j60RqTTxwiEcLgzuDkCUlWgIRp+xEly2AF6IDnr0uj4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=glcBpkYk3W51NIiFkHTCrIN+fyc1sXdfNnH2sGnthrkODlJtQESOuNTfsTFRjm5oMIWyrhDk4g+/ZyEEd9+9VHFPiHlSq+hsL7PQyVIhAyDVi6h6WBczLhBQHXv02LaAZkw/37svjNea5bO+iNg49mNnUm0463R8bjvLejdAIBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GUd5mzxS; arc=none smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-513382f40e9so2053625e87.2
-        for <linux-man@vger.kernel.org>; Thu, 07 Mar 2024 21:23:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709875405; x=1710480205; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=j60RqTTxwiEcLgzuDkCUlWgIRp+xEly2AF6IDnr0uj4=;
-        b=GUd5mzxSvAGlwJIR3YhFTDG3/B1h0F+xIImmElJM6jlRMm92XyvYQjBsE4z2XaUmrP
-         sv3jIYkAqyysW3rQIsjVcauxrqqSLCJZ0KG6n8up/Cf3Z9hMBspc1e/eNGoGVt/aWAG1
-         8bujIrRcabQXmsgZLFVzbihohLFMpmY10pycxBFyiFgKJl+Ezcrvy4zIKujjrrfkLxY1
-         1UoTYkRhpEKgRwomexAZ8QJiWmD3uPQJHg7Isfu/fQ3+2aEsQHQIVhgspMezIW4Nopiy
-         iZSDnvAdBKz1v60tQDacq/e4vg7LYslxtHVxK+Zq6v32EqrXF4ulSb+5JuSOoZa0J56w
-         PVow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709875405; x=1710480205;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j60RqTTxwiEcLgzuDkCUlWgIRp+xEly2AF6IDnr0uj4=;
-        b=o1vRqlWEdtvDzkVLBiZGeH94wLcj0RA4CJZAPFk/R0wCUuqDIQLwyW8HTs/5VW42EF
-         /CCzU21ny0QoXyVoQIufxzy2RLCrma3mOzCfokrmCJH0c454ANMPu01V0c7IquqKFl6v
-         iL27GijSknVHKC8VvFTHN4/P0HXPWahRzSMuJEewrY+ZRTCfoAzr0QaMnHK+gZAXgiID
-         RJAg5jkbGwxCx/DCXZ3KDFjJx5ELhNV+gniotAvSUdW3AvGNUGT2cH936GYidkThaTat
-         z/ijhaIHktv2axP/KzThi18ZZNxY486fVOX6ncHz2BzGYuknrd/6kOhNlzP16OQmLZo1
-         IS7A==
-X-Gm-Message-State: AOJu0YztcvzmM2eDzQWWkaRdvBA6KQzqRMpe08tMPqAjkHpsPJ8YksEi
-	5ynydKHFFCq3WQetndTZeRG7yDgNKmPsxzlHZgBrYMUpgd1rdJDOac8JmxUa
-X-Google-Smtp-Source: AGHT+IHf3FvLig33K4uExLx/tyvejebjbhHtfqnBPmQB9mZ9ok5SLwksbUTIz8vImFr4yS679VSPSA==
-X-Received: by 2002:a05:6512:4892:b0:513:5c68:9891 with SMTP id eq18-20020a056512489200b005135c689891mr2538098lfb.44.1709875404588;
-        Thu, 07 Mar 2024 21:23:24 -0800 (PST)
-Received: from dj3ntoo (30.sub-97-147-14.myvzw.com. [97.147.14.30])
-        by smtp.gmail.com with ESMTPSA id o4-20020a17090611c400b00a458d85f9d9sm4148939eja.142.2024.03.07.21.23.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Mar 2024 21:23:23 -0800 (PST)
-Date: Thu, 7 Mar 2024 23:23:18 -0600
-From: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Guillem Jover <guillem@hadrons.org>
+	s=arc-20240116; t=1709912337; c=relaxed/simple;
+	bh=m8ekRSMTNSCWfaSjx0MBgNaElJNzvVoJJn9rvNX3II4=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SXeB9bJ/Cbc2VAIydLLVBgAG8eHU9KAMUu2pHjcFPnYt2bEO5tIsfal4M20FM86iiW0ENB2XRJMFxC4x4wSAY0xy+MB08lv505ZozWMX8sFKtwCv+3JRx4/pN7hgNygwt2yDS+DlKcrRfwxm/vna/ctYIhhLNANKqYMVIzatDLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s4Qls9Ov; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4A9C433F1;
+	Fri,  8 Mar 2024 15:38:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709912336;
+	bh=m8ekRSMTNSCWfaSjx0MBgNaElJNzvVoJJn9rvNX3II4=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=s4Qls9OvHZG9RamxWYECHgUillk8jyQp1PYXjjvct98c7DwPUIJZnCyX3mmaKPbw/
+	 cKC6wJABerqq+VwSi/AnCdL2elO46RZq5E/bhZfeUDZPZMmBv3E/cb27PPx/1MFzDH
+	 jKA2iblUolZOArdndANna42j9bc15vrYHGf78qEhc+u3rV0yqp79MLmvogNYY/G8j5
+	 ol+hYoxnQwZDF/VPDurUS+6FOnHDRnKkP78ijj7VftKd9oEFNeRDT9cnJiwqIhyWHX
+	 eGLNV7N5c/+gjmyLIF7s4jf44E0xzuBgahmqGr/+fFrNrseFrIa3XiLXcCnoKT0Auz
+	 VvEe3J44xXhRg==
+Date: Fri, 8 Mar 2024 16:38:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org, Guillem Jover <guillem@hadrons.org>
 Subject: Re: [PATCH] TIMESPEC_TO_TIMEVAL.3, TIMEVAL_TO_TIMESPEC.3: Document
  these macros
-Message-ID: <ZeqgxrRvbjOTL_dF@dj3ntoo>
-Mail-Followup-To: Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org, Guillem Jover <guillem@hadrons.org>
+Message-ID: <ZesxDVwME_6E7zno@debian>
 References: <20240307022451.91077-1-alx@kernel.org>
+ <ZeqgxrRvbjOTL_dF@dj3ntoo>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kUJfYDMWz/7Vt+Xa"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JfU02JYTWw09akex"
 Content-Disposition: inline
-In-Reply-To: <20240307022451.91077-1-alx@kernel.org>
+In-Reply-To: <ZeqgxrRvbjOTL_dF@dj3ntoo>
 
 
---kUJfYDMWz/7Vt+Xa
-Content-Type: text/plain; charset=us-ascii
+--JfU02JYTWw09akex
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 8 Mar 2024 16:38:53 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org, Guillem Jover <guillem@hadrons.org>
+Subject: Re: [PATCH] TIMESPEC_TO_TIMEVAL.3, TIMEVAL_TO_TIMESPEC.3: Document
+ these macros
 
-On Thu, Mar 07, 2024 at 03:25:01 +0100, Alejandro Colomar wrote:
-> Reported-by: Guillem Jover <guillem@hadrons.org>
-> Cc: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+On Thu, Mar 07, 2024 at 11:23:18PM -0600, Oskari Pirhonen wrote:
+> On Thu, Mar 07, 2024 at 03:25:01 +0100, Alejandro Colomar wrote:
+> > Reported-by: Guillem Jover <guillem@hadrons.org>
+> > Cc: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+>=20
+> Looks OK to me.
+>=20
+> Reviewed-by: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
 
-Looks OK to me.
+Thanks!
 
-Reviewed-by: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+Have a lovely day!
+Alex
 
-- Oskari
+--=20
+<https://www.alejandro-colomar.es/>
 
---kUJfYDMWz/7Vt+Xa
+--JfU02JYTWw09akex
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQQfOU+JeXjo4uxN6vCp8he9GGIfEQUCZeqgwgAKCRCp8he9GGIf
-EZw8AQCdWYdmt0zDOie+5tVM9CX+Mee0oRNPtOHYh2K4UlE+YgD+JqQlp6yHvFnz
-saZhyPCmJczBw1iJLx9GA/lZ1n2xEQM=
-=KAz8
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXrMQ0ACgkQnowa+77/
+2zJKVQ//cmkz9MXIZz3V7XdJ8shKXlJYnpri9OUdvKtcMad6fNC3ocqZ/cipSuPl
+FSPviUCSLHmU2oLVjH9jkIrXFC4VrXcCqYRJE7YPhCxI7MABr1TNTowcJFE8MTKp
+U2GcXK5hzOIPtv5e9jw2IT6IvmOg6W7Ci0T2Jw1kYX5GqmsYREg8tyXJD7jJFsjP
+U4yu/1q/HAFxqVOvTlqFHoN4L19Vx2hoGStOaYzU3YXLVbwvHxEiAjqxflJp2O56
+6ep4xLCGpFf0Zn/dkRrU7T7KbkkU+8Kc68U/qxX5IKTbw+hriM6G1RDfF76KgYYt
+xzl35O/ZZbWQYyGtWUigjKCvcRDxJmhVRO/i85b9Zx63OAsoLxaGGulE2LmijNrk
+pZpweNupaCm3+7d7vt00xkwjubQZUzKkTRoWHJAEk0xo9M1D9eC6uHXo7m2leeXa
+9tIGKuV3fim/6K6fnW5b/w+wjf7EP8N54Hrgd+ApyDTtPtB838v0gqgytVLb3FXL
+6cb7UDYpOdiLQ9hdN2vRFg4OkSXdwPJlABIXLa5zV3di0eq2baOt8hBBAEcCvBx6
+/GYDEi9pp67ytIh6x/3M9EA0dz2Vru7fU+ZvVwTUi/+JUwHN+Uim6YXmyGoAdcZH
+3sZl06+jQH2t8nc7tC8rsKcyOJCGT/9S6r4cwW02azLiNAo4N5o=
+=CamT
 -----END PGP SIGNATURE-----
 
---kUJfYDMWz/7Vt+Xa--
+--JfU02JYTWw09akex--
 
