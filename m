@@ -1,126 +1,111 @@
-Return-Path: <linux-man+bounces-563-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-564-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0B39877816
-	for <lists+linux-man@lfdr.de>; Sun, 10 Mar 2024 19:53:19 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 351DD878980
+	for <lists+linux-man@lfdr.de>; Mon, 11 Mar 2024 21:32:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 51B82B20CCC
-	for <lists+linux-man@lfdr.de>; Sun, 10 Mar 2024 18:53:17 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 635CC1C20C18
+	for <lists+linux-man@lfdr.de>; Mon, 11 Mar 2024 20:32:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3EF439AFF;
-	Sun, 10 Mar 2024 18:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FC071DDFA;
+	Mon, 11 Mar 2024 20:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qWW9dl7P"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wUkd7RJv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E7239846;
-	Sun, 10 Mar 2024 18:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C39EAE7
+	for <linux-man@vger.kernel.org>; Mon, 11 Mar 2024 20:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710096791; cv=none; b=PUXapImSvuy4gAUcTfUAAI02wAjSzbfEZFy/ZZv6orW+5NlZrOMJS14Fy8W/6xCvQTTRMf+S7PMOOzwYpQnTg9TK8GCW14c01aTFU+yz/vrQkYVYXxe1OCSbKb1riE2JrVlpP8cO6tTLnE9tZgOaKL0889srsG3rMqx2lSVuHt8=
+	t=1710189153; cv=none; b=dvUBttB5Tc7z16VeUaAouE2qwPGJVWDJ2cEqbuCWL6jH4/ZUYEb4penxWhcuWjdF19RSG2FXgEh2rMNcWWf364kV28NMbGmrjH83JM6SuFSmhjGf4AKAQGK67YJH7V1PriYChA30t2GUnnDGpEwgWCLhvvpapbfiH+Ow5Ta1nW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710096791; c=relaxed/simple;
-	bh=dJi0hqvL077FzYhAZHu2BQ7B4h/rFhXXT9umWSrAdQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W5CTfy3HKoTgGUkPsh+5t9I/4dpL13l+5Uio3ZHwC5mFNIzqdLJXURkt6MXDjJUcZgrdJ6Ck5Vlp3CoXXsG0nuCMR9JbTydjsB/zKFj9WwJ9IDaruIAKus3Qk5MhP4On5hZiqgaBH1/fEwiTXqmDjxhPSFmgnwQpJYKmlwMMaeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qWW9dl7P; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DCB5C433F1;
-	Sun, 10 Mar 2024 18:53:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710096791;
-	bh=dJi0hqvL077FzYhAZHu2BQ7B4h/rFhXXT9umWSrAdQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qWW9dl7PAkaVFCRjyse6Q/BAq4MgGC+/M+QS7VDW1+eus+u4FrqRBDaCwLNq9n4Gn
-	 dWSBpwhtBbjvQlclE/+iP2ZhDVZ3dfiJc5GjmtexT4SrF6zPOSTY1RB6rfNnUxKKH0
-	 iZTy3H+2+Y9Io42UOdPhD0zaUTWZzOfEFoz8LxRtuPaJZ8zyW1lvmgQ1G/pbjPIPhz
-	 HED7JlF+cISfbevs1PvwFv1LPMabsV2cDJaThVKdZphp72jeZIRy0Lr3JTnCAgTfUQ
-	 4xL4FW485+y6y2uSOYHWolkaihs9H8YggGA5ANhADs9QQH9rJyTpVxT2f1y5MQrffh
-	 D9S5D75D4cQ2w==
-Date: Sun, 10 Mar 2024 19:53:07 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Jan Engelhardt <jengelh@inai.de>
-Cc: linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
-	Al Viro <viro@zeniv.linux.org.uk>
-Subject: Re: sendfile(2) erroneously yields EINVAL on too large counts
-Message-ID: <Ze4Bk6UJHVgraFct@debian>
-References: <38nr2286-1o9q-0004-2323-799587773o15@vanv.qr>
- <ZeXSNSxs68FrkLXu@debian>
- <q17r66qo-87p4-n210-35n8-142rqn3s04r7@vanv.qr>
+	s=arc-20240116; t=1710189153; c=relaxed/simple;
+	bh=JSoTYUAuP34+knTgGqTWdlAaFvpqjYTdSvrz0mHZI70=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qbGuMxClv7CMOPTth3kURRXqeybsh0XYYIvdMLKShw9dLnLYrOjxPaumiwsZvw405G1FqgXCvKkqP7wgOB9McC66s+cGOrpB9gkGJ6xBXSznwSsaWt4yEITYcftICm2Nyn7A9t59MI6UV4hv8otPHlRDDvZlWzQNaeeI8OOVUkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wUkd7RJv; arc=none smtp.client-ip=95.215.58.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1710189149;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=93PVRPm3jExltgroLUWMmGHJV0Ed3xhPRujyitTeW7o=;
+	b=wUkd7RJv+CSIcNZiKvrTHiaqO7pC4z0c/1friYgRqb8jsYyynnxUnoIMP5mwg1ilvzAz5H
+	gbV87lM0vT+NgY3Re6JftVmvRulee/rscUucWI3DfPkCg2513hK/dAZTcqobccF0mg4ycW
+	L1wqFutkfCz6n1udYqJBw+l8BmQvLmg=
+From: Kent Overstreet <kent.overstreet@linux.dev>
+To: 
+Cc: Kent Overstreet <kent.overstreet@linux.dev>,
+	Alejandro Colomar <alx@kernel.org>,
+	linux-man@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH] statx.2: Document STATX_SUBVOL
+Date: Mon, 11 Mar 2024 16:31:36 -0400
+Message-ID: <20240311203221.2118219-1-kent.overstreet@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lPqOrE5JVX6RNPzZ"
-Content-Disposition: inline
-In-Reply-To: <q17r66qo-87p4-n210-35n8-142rqn3s04r7@vanv.qr>
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
+Document the new statxt.stx_subvol field.
 
---lPqOrE5JVX6RNPzZ
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 10 Mar 2024 19:53:07 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Jan Engelhardt <jengelh@inai.de>
-Cc: linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
-	Al Viro <viro@zeniv.linux.org.uk>
-Subject: Re: sendfile(2) erroneously yields EINVAL on too large counts
+This would be clearer if we had a proper API for walking subvolumes that
+we could refer to, but that's still coming.
 
-On Sun, Mar 10, 2024 at 07:35:09PM +0100, Jan Engelhardt wrote:
-> >The kernel detects that offset+count would overflow, and aborts early.
-> >That's actually a good thing.  Otherwise, we wouldn't have noticed that
-> >the program is missing an lseek(2) call until much later.
-> >addition of count+offset would cause overflow, that is, undefined
-> >behavior, it's better to not even start.  Otherwise, it gets tricky to
-> >write code that doesn't invoke UB.
->=20
-> While offset+count would overflow arithmetically, if the file is not larg=
-er
-> than SSIZE_MAX, that should be just fine, because sendfile() stops at EOF
-> like read() and does not read beyond EOF or produce extraneous NULs
-> to the point that a huge file position would come about.
+Link: https://lore.kernel.org/linux-fsdevel/20240308022914.196982-1-kent.overstreet@linux.dev/
+Signed-off-by: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org
+---
+ man2/statx.2 | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-But you need a loop limit somewhere, as in
+diff --git a/man2/statx.2 b/man2/statx.2
+index 0dcf7e20bb1f..480e69b46a89 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -68,6 +68,7 @@ struct statx {
+     /* Direct I/O alignment restrictions */
+     __u32 stx_dio_mem_align;
+     __u32 stx_dio_offset_align;
++    __u64 stx_subvol;      /* Subvolume identifier */
+ };
+ .EE
+ .in
+@@ -255,6 +256,8 @@ STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+ STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
+ STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
+ 	(since Linux 6.1; support varies by filesystem)
++STATX_SUBVOL	Wants stx_subvol
++	(since Linux 6.9; support varies by filesystem)
+ .TE
+ .in
+ .P
+@@ -439,6 +442,11 @@ or 0 if direct I/O is not supported on this file.
+ This will only be nonzero if
+ .I stx_dio_mem_align
+ is nonzero, and vice versa.
++.TP
++.I stx_subvolume
++Subvolume number of the current file.
++
++Subvolumes are fancy directories, i.e. they form a tree structure that may be walked recursively.
+ .P
+ For further information on the above fields, see
+ .BR inode (7).
+-- 
+2.43.0
 
-	for (i =3D 0; i < offset+count && i < actual_size; i++)
-
-And that could be problematic in some cases.  It can make sense to be
-paranoic and abort early.  And it's easy to fix at call site, just by
-subtracting offset to SSIZE_MAX.
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---lPqOrE5JVX6RNPzZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXuAZMACgkQnowa+77/
-2zIi3w//V7SrEYu9Qf83unCkS+kDC0aLbDSTGhZs9tyrRhA9A4/GfvNIl1FJq9a2
-ck2KOvxvi7MwLCbBmHGNX8j4/ii9xfHYEkWkKtOD0w5Yrvrh9C2KLAqfpSFqeuwE
-62FgEl9sT/G2gVqogI3QpkkCtxiIudqEz7/knQp8zjej898MH+Bv/EFJUccMyCVf
-r6s8sl6XwIhK2nIzcYCaiPrHQ4tGg7pHCh9oVy1aQZ7CB9jN1Kz0YpuzSWUgzdE8
-ozyP+atJlhmh495bmQvqR0ACb6cfFO0EpCvxMj2zAqqKzGBXEqH3nmvms5nwlcKE
-vBM241r+WGHQJYUizPH5TFo9aJNyOcKMu3XS5OZkePpn57hae8ThaQyjQlwaFr9f
-1AT9yaztnJLAzhFPzUpa1R4KVzHNlCD2zIqSqTNydgDeTe2j7vH/xKchsFLNAgaV
-3vQRYeEWM8JSZJrYXUYYv6fEbj0/fscckfoC4dYEUsRLmkXE2f5PkbxhtRc2v/eI
-+LnJEZFNm77YB9tBB7z0I+7eHJwJngw4DH0z4OU6w70q1km0eOUe2GsNRT22LyND
-vVQeCNKwZCHHLxVmWcyMp4srNiKBoLv2CujpD+OEL9OFPOpOgqGzdEkYZECw4XA2
-IKhJgHjmn/1ZnL59rQnOgWdruvc8+SVMRHBJtNp296BZjvy7ou8=
-=5y3p
------END PGP SIGNATURE-----
-
---lPqOrE5JVX6RNPzZ--
 
