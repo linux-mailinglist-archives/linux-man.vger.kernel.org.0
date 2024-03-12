@@ -1,129 +1,121 @@
-Return-Path: <linux-man+bounces-572-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-573-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32A3A8798CA
-	for <lists+linux-man@lfdr.de>; Tue, 12 Mar 2024 17:20:15 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E66C4879BD4
+	for <lists+linux-man@lfdr.de>; Tue, 12 Mar 2024 19:45:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 59E8E1C215B6
-	for <lists+linux-man@lfdr.de>; Tue, 12 Mar 2024 16:20:14 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9FC69284006
+	for <lists+linux-man@lfdr.de>; Tue, 12 Mar 2024 18:45:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6F0F7D409;
-	Tue, 12 Mar 2024 16:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2tnzueG"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 835F91386A2;
+	Tue, 12 Mar 2024 18:45:33 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from queue02c.mail.zen.net.uk (queue02c.mail.zen.net.uk [212.23.3.242])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1F77D3F9
-	for <linux-man@vger.kernel.org>; Tue, 12 Mar 2024 16:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1768E141995
+	for <linux-man@vger.kernel.org>; Tue, 12 Mar 2024 18:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.23.3.242
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710260410; cv=none; b=q7HN5wfvMkXVCNGHSVCoanBpGD9aD9NkcDb3xyG3cx/4kAatfF6NHCMQmCQubQlJSlLydXvx6N/SvHZRtfweMd/SAYTFcqBFXV7cqMhpVnO7sF3ubeUV5aXbl+OTTk1/FWUTq7OiYuEu+8jn5u8aAJVuFut2S1VyngagWJCxeZs=
+	t=1710269133; cv=none; b=WFB20fWsrVS4GxRthW2Ix3IAHr/nBbk/cky8CwlwXVHd61gcf/bhFh3sRSqzvIs/V0OChMAfFyuKCwAizI+xT/g+vnpbL5kyCM6ni7JOGs9YGkUqTKYDfDxt8GI/YinWEFhdwVQpLltzaJ6Tkc4cTzU9mL695dD5FMuR/D+jr3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710260410; c=relaxed/simple;
-	bh=8XV19QnJdDVv/DwdxfLLHFY+iVuZViiJp8CjR2HIE7c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TeAR/mWigJqfaOHuIW/imL7KkMSRM9A/s1xZOlNgrwKdE/pjwm2UrnTNflK0MbDzuFVVfruRHHOyqmLW1QgdJRWStbpQvO+SEj/FtNGIzE+ra+tK1mJkl8ciO6CeD0KLfUa4JQQWfzzPUZYqDwolEbYD4zfj4xBLJDQtIBIDm6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2tnzueG; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E467C433F1;
-	Tue, 12 Mar 2024 16:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710260410;
-	bh=8XV19QnJdDVv/DwdxfLLHFY+iVuZViiJp8CjR2HIE7c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D2tnzueGh89L9d/GShBsOBcUDMgQDeg8kM8Et81wCrgNbPBGGstPKmUie1EwXcbP8
-	 829YC4YVAgbscXoBKuPgEhpOHqtTGNnTUdeMPb3iAx3nzGs7ZnTrycn91xNquKaJKL
-	 lAD69ZOFvvxG/5fLNOIk6uFqOnBk0Yg/sTzYbYPxRQfgFh4ZwTldO4I4/O4Z5Lty3d
-	 PcwDlknwzWEr2sUkhYWXIegsQbNwaiLA5hwYlX4cKcIgUiN8YQr1wxYaa6tp9xDV+h
-	 XpPe5HWeQ0LWI8OI71GsBw/CsQIcpGY8AaG0WzsUQ+bH65yOrHxAYyXeMc+b+B2RL/
-	 JKxSri/NpdTTQ==
-Date: Tue, 12 Mar 2024 17:20:06 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org, branden@debian.org
+	s=arc-20240116; t=1710269133; c=relaxed/simple;
+	bh=jMxX+qja3qAju+4bHEuJWs9835Uskpxjy6XkCVqPAko=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T9R7cePvppCb7ToD4PqriUVCfAqsb9QICPDYKX2lFdPXyTQlSSLjJjrsnjXFRFuRFYim3VVDUO9ijR6sAjfUUFYISldUG8nQ7Aa4q682UQgkEjCZvNf/hJ+eLWV4Mk2JKBH5mpd0tORuKmTRYaggzqbpbJiks45U5lkH57bP8oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chuzzlewit.myzen.co.uk; spf=pass smtp.mailfrom=chuzzlewit.myzen.co.uk; arc=none smtp.client-ip=212.23.3.242
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chuzzlewit.myzen.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chuzzlewit.myzen.co.uk
+Received: from [212.23.1.21] (helo=smarthost01b.ixn.mail.zen.net.uk)
+	by queue02c.mail.zen.net.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <deri@chuzzlewit.myzen.co.uk>)
+	id 1rk6ov-00EQvp-B4
+	for linux-man@vger.kernel.org;
+	Tue, 12 Mar 2024 18:25:49 +0000
+Received: from [82.71.22.80] (helo=pip.localnet)
+	by smarthost01b.ixn.mail.zen.net.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <deri@chuzzlewit.myzen.co.uk>)
+	id 1rk6od-002hR7-Iv;
+	Tue, 12 Mar 2024 18:25:36 +0000
+From: Deri <deri@chuzzlewit.myzen.co.uk>
+To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
 Subject: Re: Bogus index in man-pages book from other projects
-Message-ID: <ZfCAtl5Q-F2uPJM4@debian>
-References: <ZeyMlGwA7MNDZIfj@debian>
- <2306955.zFelfHtBYS@pip>
- <ZfBi5PSZXPDpygXB@debian>
- <1873292.UaS1mDKzQr@pip>
- <ZfB52IQowBB9zVU7@debian>
+Date: Tue, 12 Mar 2024 18:25:36 +0000
+Message-ID: <10631018.ZHfXn36Ih2@pip>
+In-Reply-To: <20240312151518.evusk3qi3cfhkxv5@illithid>
+References:
+ <ZeyMlGwA7MNDZIfj@debian> <ZfBi5PSZXPDpygXB@debian>
+ <20240312151518.evusk3qi3cfhkxv5@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9yRqDoPOZFoHcNeW"
-Content-Disposition: inline
-In-Reply-To: <ZfB52IQowBB9zVU7@debian>
-
-
---9yRqDoPOZFoHcNeW
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 Mar 2024 17:20:06 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org, branden@debian.org
-Subject: Re: Bogus index in man-pages book from other projects
+Content-Type: text/plain; charset="iso-8859-1"
+X-Originating-smarthost01b-IP: [82.71.22.80]
+Feedback-ID: 82.71.22.80
 
-On Tue, Mar 12, 2024 at 04:50:47PM +0100, Alejandro Colomar wrote:
-> 	alx@debian:~/src/shadow/shadow/build/man/ru$ tail man1/gpasswd.1
-> 	=D1=81=D0=BE=D0=B4=D0=B5=D1=80=D0=B6=D0=B8=D1=82 =D0=B7=D0=B0=D1=89=D0=
-=B8=D1=89=D0=B0=D0=B5=D0=BC=D1=83=D1=8E =D0=B8=D0=BD=D1=84=D0=BE=D1=80=D0=
-=BC=D0=B0=D1=86=D0=B8=D1=8E =D0=BE =D0=B3=D1=80=D1=83=D0=BF=D0=BF=D0=B0=D1=
-=85
-> 	.RE
-> 	.SH "=D0=A1=D0=9C=D0=9E=D0=A2=D0=A0=D0=98=D0=A2=D0=95 =D0=A2=D0=90=D0=9A=
-=D0=96=D0=95"
-> 	.PP
-> 	\fBnewgrp\fR(1),
-> 	\fBgroupadd\fR(8),
-> 	\fBgroupdel\fR(8),
-> 	\fBgroupmod\fR(8),
-> 	\fBgrpck\fR(8),
-> 	\fBgroup\fR(5), \fBgshadow\fR(5)\&.
+On Tuesday, 12 March 2024 15:15:18 GMT G. Branden Robinson wrote:
+> [looping in groff list]
 >=20
-> So it might be due to having two references in the same line.  I suspect
-> maybe the updated regex has some issues?
+> Hi Alex,
+>=20
+>     I'm attaching another couple of examples to illustrate this.
+>=20
 
-Ahh, I tought there was a group(5) page in shadow, but there isn't.  And
-since you only parse that pattern at the begining of a line, it didn't
-try the second one.  Let's ignore these small and rare glitches, I guess.
+Unfortunately, these are not examples of best practice for creating referen=
+ce=20
+bookmarks. The problem is the bookmarks are just numbered and if you have a=
+=20
+large document it is easier to give the bookmark a mnemonic instead.
 
-Cheers,
-Alex
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+=2E\" groff -Kutf8 -Tpdf
+=2Ede NmSection
+=2E  sp 1i
+=2E  ft B
+=2E  ds pdfsecnm \\$1
+=2E  shift
+=2E  pdfbookmark -T \\*[pdfsecnm] 1 "\\$*"
+=2E  nop \\$*
+=2E  ft
+=2E  sp
+=2E.
+=2ENmSection Intro "\%A na=EFve attempt at bookmarking"
+Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab
+illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
+explicabo.  Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur
+aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione
+voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum,
+quia dolor sit amet consectetur adipiscivelit, sed quia non-numquam eius
+modi tempora incidunt, ut labore et dolore magnam aliquam quaerat
+voluptatem.
+=2Ebp
+=2ENmSection Another "Another section"
+Return to
+=2Epdfhref L -D Intro -- the first section
+or
+=2Epdfhref L -A . -D Another -- the last one
 
---9yRqDoPOZFoHcNeW
-Content-Type: application/pgp-signature; name="signature.asc"
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
------BEGIN PGP SIGNATURE-----
+Cheers
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXwgLYACgkQnowa+77/
-2zKp0A//XSZ2btREmLVZbZ8p8PyaW0An4iiQ55QzNgFQZXc43mt+g3/CbDyvL10H
-rSUvyYAbK4Ge/jk8eFa3WEq/jb6X/oC5UGcrr+RLtsIdWfL/p8UkOqSZ5qxZRHm0
-Ranznqdt6NDvd/+scCsNC9/vWBPNsbS7JL58FP1hiT7Gp1MTarVLqHfnPLTv/+L+
-cZCp23vdZP6fA0Bgkcoe7x3h8jHmR84PVLz9tMrvw/0ovwYrtjLQhR+Dx3HAOLH9
-UEdvOT1UnKnMa5WdBkIdaWp05gE5sm9j4FzpAV1JLgGuug48TjBKB/7WlaFo66C7
-4pj+0+SKhXSP9mVd7G1MoA6mHgQH6RsOERYDggyOxmoo+Gfk3Ra0anEFP6JB85Xs
-fU/+zeMF53W0+BU0WCct0o/GyzMqUByUI8qdudfWzUwF2E9HsZuekx99qtrt/ssa
-F/b3loRKmbISQan/6vR5dC7i1DcoNhbxj0dLWnCRN1rCMw5RXP1L7lnLNbQk8u6x
-w0rgVoaAGuQI1/2uJcyjnheZAXWgtYGlDJI+V4Mt4SWct/W0GkWYKHBYrIoTJfYh
-rAmls0sPQHm9kIy0g47aStYkuPu9DJzla9GE6cQKM/VPMhJjopagfCVZGvGNXilh
-Qe5zzeQJUtEmRrJZPHLEu/Qjki1u88tDTFt9Sk1/eLBuQWTcQf0=
-=3vMe
------END PGP SIGNATURE-----
+Deri
 
---9yRqDoPOZFoHcNeW--
+
+
 
