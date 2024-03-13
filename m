@@ -1,53 +1,55 @@
-Return-Path: <linux-man+bounces-578-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-582-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C9187A84B
-	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 14:27:22 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 851D887A98E
+	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 15:35:41 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id EEE3C1F2363D
-	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 13:27:21 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 07A30B21E00
+	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 14:35:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DE6A40860;
-	Wed, 13 Mar 2024 13:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8BFBA41;
+	Wed, 13 Mar 2024 14:35:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/DDdzex"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="hWyzpY+1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4CB41757
-	for <linux-man@vger.kernel.org>; Wed, 13 Mar 2024 13:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C533826AFA
+	for <linux-man@vger.kernel.org>; Wed, 13 Mar 2024 14:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710336436; cv=none; b=P59RYjxhKmDblyFK+cmqi/B6gNoGwdejWGbfXpzlWhtJXjhNSuQ9OZufXC5iMIk5mAHiXGxjXxTJE/Cr1q+mesSRyzUvvr4Gj1+KbuSxkBNAzh7C+PhdUvsukZ0EJ/vtVkQ1yaEfDzDeP8UXg7Noir0Pf5oTUGr4ZfpmoFWcswE=
+	t=1710340523; cv=none; b=QK3b8YBqpPP9QGtZy2F3o/uq0KACUp2vd70VrhuDL2VFR4PupqRIAqYO05Ezu0qR0DBxi2iYw006eK5IYoGkbBQxcLZhrLeZ638jMUdPnUQUIAgN1dKI16JSoAxKlZ/MKyZw6v5zSI0Usa6S2fBWMQ1mLVaJx7Hnm/KaBkCsZnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710336436; c=relaxed/simple;
-	bh=NL+uDcTbq4iAmEROdwf0gC3hDtRUT3uqmrg56VrTLpI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qRiie9/7s3Umf4rawHrenAdR+OvBpXxl+VIxOwZ/M1SAUMsa62E9Zi8Ta9yvN5pDq0rzduHiiQ1MsMzwOyWg5biDbY5xybsUWNrbVpQ57ZabY/pQalin80OCehg3f4G01wyh+M0MzeEeFvJRgPJbclvujIt2nCiel/Prws9bscY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/DDdzex; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8559C433F1;
-	Wed, 13 Mar 2024 13:27:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710336435;
-	bh=NL+uDcTbq4iAmEROdwf0gC3hDtRUT3uqmrg56VrTLpI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q/DDdzexSLfhdO7dF+4SSf1NdLAG6ai4flWJk9GlVPFg0gAQK336HZQUx8VevAU0G
-	 agFGCMGHxcNikk2MBEHYsNaAs8dIake0XHKoeMq+LnpU1jcdmuP2huJli842R4Dipk
-	 ZeDvGIrFvmr+IUZz2uL+bj6UzohC9S4FJi0Ob62321+dGuBfdyZ+75z0G0Mpji9Xmi
-	 YfAq0aFwosw/2pNypD9XKT+1cvqM45dq1k6qc6CRsKca96hrO1Jlre/eSzCsxhrPBM
-	 GY+Ri+0L/P7VebynrGA8/HE+oeo0oxaSE93CHrFq47jjQxG6g9AMjWlkRdkC7qWwzc
-	 iewjf3QFzul6w==
-Date: Wed, 13 Mar 2024 14:27:12 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: Unable to generate glyphs for chinese letters
-Message-ID: <ZfGpsMZNbNfR6TIH@debian>
-References: <ZfGpZTxUo4EelRlK@debian>
+	s=arc-20240116; t=1710340523; c=relaxed/simple;
+	bh=SdadPwWiaiNla3IRNQKcrZRshpwnr+5og0kFYUWh8O8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=PcVBatmpnd3lZf4swYbXJqPt1CQEd73gRVdYgYlV763Mmde8m+3mGvGNmE5RsarjKYTPGppgmwp+YSVmkOj8ZCMd8oCkVpWVwq5YH4WuHXNlh3xeYtUwU4+AOmtnnF1WpOynxn4bYFofD6tcci5gI9G//W8knqaJRTLSq/yKpnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=hWyzpY+1; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202305; t=1710340005;
+	bh=SdadPwWiaiNla3IRNQKcrZRshpwnr+5og0kFYUWh8O8=;
+	h=Date:From:To:Cc:Subject:From;
+	b=hWyzpY+1s5amb5u5rQwQySZZeuk0cWD5XPOP+ATmmVCF1RzhwNqRtkZPNhjG8+eLV
+	 IIfrZdFwJZU0zxeU3ZZ52mcl5ANKfhA6w0ZD8n0zD+8X/qsdIynsu38HrMx6EpAi4i
+	 X2qAm8S2Yk55ZZnws+8jC1I4EgIamtMGbuBiucBvgvyzv+jKzrOoOv5JzN/55REqPb
+	 vIROkrJXM1sFd3t8Y0piBxrOm9JBZghsjohqq5L3bP+qcs2tJqh+wYrfkgp8INx75l
+	 uK/y3O/VF1P0GuAmgtZan30GKkEypu/KoTj0AmXxcrUctP2gfwPy+fKskZcA8OJjLe
+	 ZKrJzwxi7MpfQ==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id F3B41E4A;
+	Wed, 13 Mar 2024 15:26:44 +0100 (CET)
+Date: Wed, 13 Mar 2024 15:26:44 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH 1/6] proc_pid_io.5: stats include children
+Message-ID: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,54 +57,198 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xDV19CHIRTgPAvaq"
+	protocol="application/pgp-signature"; boundary="lva3czyjkgrwnboh"
 Content-Disposition: inline
-In-Reply-To: <ZfGpZTxUo4EelRlK@debian>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---xDV19CHIRTgPAvaq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--lva3czyjkgrwnboh
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 Mar 2024 14:27:12 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: Unable to generate glyphs for chinese letters
 
-On Wed, Mar 13, 2024 at 02:25:51PM +0100, Alejandro Colomar wrote:
-> Hi Deri,
->=20
-> I've noticed another similar issue, this time with Chinese.
+This file is like getrusage(2) RUSAGE_SELF + RUSAGE_CHILDREN,
+the current wording implies it's like just RUSAGE_SELF.
 
-You can find the PDF here:
-<https://www.alejandro-colomar.es/share/dist/shadow/git/HEAD/man/shadow-HEA=
-D_zh_CN.pdf>
+Compare:
+  #include <fcntl.h>
+  #include <signal.h>
+  #include <string.h>
+  #include <sys/wait.h>
+  #include <unistd.h>
 
+  void copy() {
+    char buf[1024];
+    int fd =3D open("/proc/self/io", 0);
+    write(1, buf, read(fd, buf, sizeof(buf)));
+    close(fd);
+  }
 
+  int main() {
+    copy();
+    copy();
+    if (!fork()) {
+    zero:;
+      int fd =3D open("/dev/zero", 0);
+      char buf[64 * 1024] =3D {};
+      write(1, buf, 10000);
+      for (int i =3D 0; i < 1000; ++i)
+        read(fd, buf, sizeof(buf));
+      _exit(0);
+    }
+    sleep(1);
+    copy();
+    wait(NULL);
+    copy();
+    signal(SIGCHLD, SIG_IGN);
+    if (!fork())
+      goto zero;
+    sleep(1);
+    copy();
+    wait(NULL);
+    copy();
+  }
+yielding
+  rchar: 3980
+  wchar: 0
+  syscr: 9
+  syscw: 0
+  read_bytes: 2968
+  write_bytes: 0
+  cancelled_write_bytes: 0
+
+  rchar: 4076
+  wchar: 96
+  syscr: 10
+  syscw: 1
+  read_bytes: 2968
+  write_bytes: 96
+  cancelled_write_bytes: 0
+
+  rchar: 4175
+  wchar: 195
+  syscr: 11
+  syscw: 2
+  read_bytes: 2968
+  write_bytes: 195
+  cancelled_write_bytes: 0
+
+  rchar: 65540276
+  wchar: 10296
+  syscr: 1012
+  syscw: 4
+  read_bytes: 2968
+  write_bytes: 10296
+  cancelled_write_bytes: 0
+
+  rchar: 65540387
+  wchar: 10407
+  syscr: 1013
+  syscw: 5
+  read_bytes: 2968
+  write_bytes: 10407
+  cancelled_write_bytes: 0
+
+  rchar: 65540498
+  wchar: 10518
+  syscr: 1014
+  syscw: 6
+  read_bytes: 2968
+  write_bytes: 10518
+  cancelled_write_bytes: 0
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man5/proc_pid_io.5 | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/man5/proc_pid_io.5 b/man5/proc_pid_io.5
+index 124252319..81cfdd249 100644
+--- a/man5/proc_pid_io.5
++++ b/man5/proc_pid_io.5
+@@ -11,7 +11,7 @@ .SH DESCRIPTION
+ .TP
+ .IR /proc/ pid /io " (since Linux 2.6.20)"
+ .\" commit 7c3ab7381e79dfc7db14a67c6f4f3285664e1ec2
+-This file contains I/O statistics for the process, for example:
++This file contains I/O statistics for the process and its waited-for child=
+ren, for example:
+ .IP
+ .in +4n
+ .EX
+@@ -30,7 +30,7 @@ .SH DESCRIPTION
+ .RS
+ .TP
+ .IR rchar ": characters read"
+-The number of bytes which this task has caused to be read from storage.
++The number of bytes which this task and its waited-for children have cause=
+d to be read from storage.
+ This is simply the sum of bytes which this process passed to
+ .BR read (2)
+ and similar system calls.
+@@ -40,7 +40,7 @@ .SH DESCRIPTION
+ pagecache).
+ .TP
+ .IR wchar ": characters written"
+-The number of bytes which this task has caused, or shall cause to be writt=
+en
++The number of bytes which this task and its waited-for children has caused=
+, or shall cause to be written
+ to disk.
+ Similar caveats apply here as with
+ .IR rchar .
+@@ -60,12 +60,12 @@ .SH DESCRIPTION
+ .BR pwrite (2).
+ .TP
+ .IR read_bytes ": bytes read"
+-Attempt to count the number of bytes which this process really did cause to
++Attempt to count the number of bytes which this process and its waited-for=
+ children really did cause to
+ be fetched from the storage layer.
+ This is accurate for block-backed filesystems.
+ .TP
+ .IR write_bytes ": bytes written"
+-Attempt to count the number of bytes which this process caused to be sent =
+to
++Attempt to count the number of bytes which this process and its waited-for=
+ children caused to be sent to
+ the storage layer.
+ .TP
+ .IR cancelled_write_bytes :
+@@ -73,7 +73,7 @@ .SH DESCRIPTION
+ If a process writes 1 MB to a file and then deletes the file,
+ it will in fact perform no writeout.
+ But it will have been accounted as having caused 1 MB of write.
+-In other words: this field represents the number of bytes which this proce=
+ss
++In other words: this field represents the number of bytes which this proce=
+ss and its waited-for children
+ caused to not happen, by truncating pagecache.
+ A task can cause "negative" I/O too.
+ If this task truncates some dirty pagecache,
 --=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+2.39.2
 
---xDV19CHIRTgPAvaq
+
+--lva3czyjkgrwnboh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXxqbAACgkQnowa+77/
-2zKdaw/+KGOyX72QX8W+1zDm5ZTSab57yLEppa1TNxsGR2CQSjtGN6ykgjyfhePF
-mEMovIf2dvjf2D9el023zEGg8pqL+xCxQA6+F0JxMtyvqAeIrqbcA/vLU+ys7m5E
-+hQ9RXdAI/kSr6GdV7+xGySkHK81pnICAzO4dtY5UYNdYOYM+oQ8h4yhSD1FtktV
-KbjxNB+6Hn7qzNBHo2LQ09qJwgyeo7+RRw52NqZoraC1wtnJwRQ6p1iYJ1gBgKuO
-+NKmfsJTZGYLXyIi/oj/5KZMLaYlKcv1Y9/o5raN9g9QiqoQSPx113v+EuqVQovF
-igA0xV1hf/lX7AzFY3QpZC23n3hSAKYOHqFQC7+c3wNmspBf9+FRSQHJBTLXtol/
-kWuGIGqCFZGNitrBzEWcZ/iLef3xN6yJZcWI2pVZcDNC36zoJWT6os+ya/dNHrds
-OiCUr/MOhWZ5iofavS3wRaqJdgTOLsAzGhiIIdtxTXXU70CUpOOSI+f7J46re8xh
-r/p2aVyMYLzo8L8kK4qOP0u/lPicBQKV+ERE5I3rqMLtb7eqIzd33pYHeJLq+oPL
-14sLbiQvGQDZ1Wap5TuV6/LiJss6wJ6Ww0LfTxLXDxW8K3cG5I47rx8l9gxyTgW+
-HXxlB4mSaYBpZXC2E//BHzURe/bsbCBt5rKQELO0tTLHXSzwfdU=
-=qC8Z
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmXxt6QACgkQvP0LAY0m
+WPFryw/+NgFTXy9GK8fKBQPpfep58ZkrngU+IGgoB3n27fkctFpNW7S2z9dYJKSp
+cwIqms2DV1+fbRy8YUvMIq55dn3QM7bPp5o4bWAwG5nK2PAXyxWnHRn3kp6rMnVR
+OAfSpcBMpj4h40jIvoinsaNY0dgJAl7H/+wWrKoRg64+vodRi+nyymWsRDeFuugd
+BvZR/fsx4OyzQuuyL3ijzkmLtsRaWe1YDBDosseJXOhzxadcHcunorBjT3BJ3MnO
+xq4vXa1pjKDWbYoPAUXOCNZmuoM4dvq0QcjU0JkVMyPSpZAHLrfdMfZNBd33JmS4
+fN8AqIxuYi5fJY1B7mkX7y/M7Xac9SZsHeW5kg6c8BsFFx12+DT1sLqSxfyGT79U
+hzVNuj7rgskpFsdJxRrVVxNI70ldNKxduRvutwQdxx42SLI/NfCNrjm5s7Vmwly1
+Cjzvgfjh5FEBHI1GOtg1oUypExezBz61dwz9xLTGCGkWeowDWc5T4M7gchxs20vN
+3M4t6Ik5NMkHsPjWwhaTBLmBX0Z6TikJGHiWrMdexf/Vos7adVCOFhKJ2Tz8Q44w
+1Af+0OZqzOKNrBNOl5WhngY/HySUJgVJnqvecknd5b7O1ooeeFvrgfZq5pmruywi
+WsQHysxd557kf3YY6hAR+N65dJAIbHTloNcr9Bm/RTMAsHBb+Eo=
+=fT/j
 -----END PGP SIGNATURE-----
 
---xDV19CHIRTgPAvaq--
+--lva3czyjkgrwnboh--
 
