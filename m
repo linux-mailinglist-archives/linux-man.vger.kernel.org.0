@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-579-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-580-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADCBB87A968
-	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 15:27:02 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 103A087A969
+	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 15:27:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 113552819FE
-	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 14:27:01 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 41C671C20E5C
+	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 14:27:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30FB14645B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD0D946447;
 	Wed, 13 Mar 2024 14:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="mKvdKvEr"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="FauAzi29"
 X-Original-To: linux-man@vger.kernel.org
 Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8C241A80
-	for <linux-man@vger.kernel.org>; Wed, 13 Mar 2024 14:26:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F6544369
+	for <linux-man@vger.kernel.org>; Wed, 13 Mar 2024 14:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710340018; cv=none; b=fh9ZGp3sTBqnPScn3C8UITpgtbKqBC3zvPRs/ngdEA2AE0H0pRkdfqrVPC7ErVY4jYW4CGwif4d5J9jEid9pzQI60y2OLB6gb5UfLQPaAMhRXhnZVoUMGnkhwgBuu3Ve82RBioHqna1p6enZq8GMZzGACLlqAYTFplAo1bK2wVg=
+	t=1710340018; cv=none; b=u/cKL40paGWqQO/UQjdJeGJs8MX0isY2UqAaCaAO2g9Yqo2l5Kl2AnINuO30slzOlO96ALmYFoZvVwam37I6m2UkLnK5FiEJdl0449r2pT7iusUEY5JwCzCry2Kka0ItEtuJh9T9p2DK76qDZHw8Pzr9XX4ZWMKH+I7yRHi8Wh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1710340018; c=relaxed/simple;
-	bh=O4ALsMQjbxaI8WwtwiAmbFMUl/lzfFouIGn+xeyZ8Kk=;
+	bh=kbtC6vIPG/ADNkucl0Rezmwu2GQNEGcP7k0zoAidT2o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fNkqjudt7AW0f8sdaNL8zROLIHmmqcndoILDxXWo3pYfRcqgW+2YD+TapkMk0pncbOCrPsJrAmIRTaswCc8FMGb4zBUyo2zGRfz3e/Jx4/S45PU4d0V0EX4Zf4gb9OVybbEok+Hy0GR82gSuN9tEcaqAi7eh1nnk8QIruyJhaEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=mKvdKvEr; arc=none smtp.client-ip=139.28.40.42
+	 Content-Type:Content-Disposition:In-Reply-To; b=nj08HAdPxx1s5z1wTGs1nSvhsK8KXHIvlosMjcpMgQUpTnqaLqyveBpBQtKcW1DjsmtYMXAqfecQCmQcNSYnqWdIruNle8o/7akhzFxsQ+bC974I2csGzO/0K/kA+143NC0e+iiWdMNU6AMYUIZCQAdFSsEFOQ9haFkGIvDvlMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=FauAzi29; arc=none smtp.client-ip=139.28.40.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202305; t=1710340012;
-	bh=O4ALsMQjbxaI8WwtwiAmbFMUl/lzfFouIGn+xeyZ8Kk=;
+	s=202305; t=1710340014;
+	bh=kbtC6vIPG/ADNkucl0Rezmwu2GQNEGcP7k0zoAidT2o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mKvdKvErGwBaK6MycjDaRIJZPp6LiHHSFNcnpCtv4KLVFRhs/9XP4iXinVSlHQu1q
-	 7t+Dtn71WHHSi98tFl6vUwHbmDr7lUIsWn2srrj9QzdtDPTU04jUvYSOq6PNwYDp0a
-	 lAXnpUEKJ0E94QcdeVGbMDHEuzp880WwczTB+G8YV83eMmxwvSuSzZHa3MW3rd9eds
-	 SQU72FFijc44Q2lm6kM4MzvRU8w6eXHA3LOV8kyZLGysimRbjdB2zz1dnTiWXb4hQP
-	 KWbgR7ulFwAbgJtNqvHdRLcXKAw043InlzPDCLb8Taxm3qFWK0oUIGPUjzN8vbiaaa
-	 +TiKnQxSeKtVQ==
+	b=FauAzi29dcwrWfh1idoyOJp+D8xG5InmlfteVrkvphXnmAsVIVV8K2XJoUdmRrX2L
+	 13YpGgDZtfRQGgMQFu4un2Q2wLWGKCO+Rncm+LBsIr78kLzYmOZtDQQNyfGHIkd6zj
+	 EUVLUzbT2I1qoO5E4NlQsxgRI1McVN2ehUdtYTE8kbe7/Wga2RNczi5InrHJePSYNU
+	 X8a+AtvvcwXK8x8/zJJJon3+XEmJgPP1SeIUInHW8A9x2q1mG+7wV7k1lYSKqU+Lin
+	 BDAyt9m3dOb580zHfy3BULdIKvfBO+y7pAWeucY1kiivqzXBuvRhWB50SPO85UfD3S
+	 QHCRrxB9StEnQ==
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id A94171014;
-	Wed, 13 Mar 2024 15:26:52 +0100 (CET)
-Date: Wed, 13 Mar 2024 15:26:52 +0100
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 8F9C11016;
+	Wed, 13 Mar 2024 15:26:54 +0100 (CET)
+Date: Wed, 13 Mar 2024 15:26:54 +0100
 From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH 5/6] getrusage.2: proc(5) /proc/pid/stat -> proc_pid_stat(5)
-Message-ID: <e48a7ec4150f9b2930c4b8bbc53f66f55da77b75.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH 6/6] getrusage.2, proc_pid_io.5: crosslink
+Message-ID: <9a382ec3d10bc896e818bd1a932ea9c95756d048.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -58,67 +58,68 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bq3xgweutbh3scqf"
+	protocol="application/pgp-signature"; boundary="rf7yxebtzxr2235e"
 Content-Disposition: inline
 In-Reply-To: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---bq3xgweutbh3scqf
+--rf7yxebtzxr2235e
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
+These serve the same purpose from different perspectives
+
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man2/getrusage.2 | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ man2/getrusage.2   | 3 ++-
+ man5/proc_pid_io.5 | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/man2/getrusage.2 b/man2/getrusage.2
-index 8323bef35..8baff09c4 100644
+index 8baff09c4..2ae9dafa4 100644
 --- a/man2/getrusage.2
 +++ b/man2/getrusage.2
-@@ -239,15 +239,11 @@ .SH HISTORY
- .SH NOTES
- Resource usage metrics are preserved across an
- .BR execve (2).
--.P
--See also the description of
--.IR /proc/ pid /stat
--in
--.BR proc (5).
- .SH SEE ALSO
- .BR clock_gettime (2),
- .BR getrlimit (2),
- .BR times (2),
+@@ -246,4 +246,5 @@ .SH SEE ALSO
  .BR wait (2),
  .BR wait4 (2),
--.BR clock (3)
-+.BR clock (3),
-+.BR proc_pid_stat (5)
+ .BR clock (3),
+-.BR proc_pid_stat (5)
++.BR proc_pid_stat (5),
++.BR proc_pid_io (5)
+diff --git a/man5/proc_pid_io.5 b/man5/proc_pid_io.5
+index 181717192..d0116ba13 100644
+--- a/man5/proc_pid_io.5
++++ b/man5/proc_pid_io.5
+@@ -92,4 +92,5 @@ .SH DESCRIPTION
+ access mode
+ .BR PTRACE_MODE_READ_FSCREDS .
+ .SH SEE ALSO
++.BR getrusage (2),
+ .BR proc (5)
 --=20
 2.39.2
 
-
---bq3xgweutbh3scqf
+--rf7yxebtzxr2235e
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmXxt6wACgkQvP0LAY0m
-WPG16Q//ahl55Tew+iHD1EVbfcyQJvpP95P/Zhlnas7lI72ss+hU0LYDB/etp5ok
-nExXVTP5oCE4ui6eDYho1mdVCjcGCLMYMguponVRLVZpDhEtdpcyhKXc/P6M0E/S
-QeH58PoXP6eNXkne8OvSgJXvMpljH2kBAVidAm0b1o6LpVqdlg61x+8QI8/m9J8r
-JsUK+cwgUL9EOXKBK/8ASp8lLZNHDGL6R0gsx6qqkF/7UFNafRxzqQNN3sMNrLIJ
-UY0nNG8NO3eYKM9OC5Nv1e8fxdjf/k62X39gdHOsy7ir4HczZhkZM/NO8E+k3wg9
-Y9daZ+xNB8kF6n70FxKZGkpzz+wwFnWCJPIt3R1P3rmUg81Zh/ZiCrfd08AdVy1C
-NpXil0WIJexWPmKjHTVoQsSRes4MX6fvG/TESAdjyB2hbLYk7CunNiWJ0gBUd8eH
-KrXsND9uAz/I2fbJVBnyhl/2Gib5joZ5O5FbX3J6gM4PXVWHKETD8Y6QAkYw025J
-Ys+oYxKR7eiPXioJKvncstfRGOxbtfBHZm12okbpDHBOGQ9N90RlQgbtP0pNzqZ/
-hrLgFOlNcB7KgDgM777B9ICXHMNF0nubpZyrl5Q1PWfXXhciUY7XvRx0tEeWtrgh
-OkKOF7D2jWF6Vi9IjfNTTvX2PI8dOXqVtQfUlCd17L+DEAz4ak4=
-=OA8G
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmXxt64ACgkQvP0LAY0m
+WPF92A//Vi1xB14OvEdmXOgFafgAOxIay0GsukQwojItTntGxQ3P5v8OHsClln4V
+fiDa8TIDBuWcOttkq+QJjTX74DsUZc57ydyQtepAE+J0ct+c7SeRHvJyh5bZn5TL
+PFIYevfXaQ5jCx3DCMT3DyE4QxrvJ5e1oc+Kid8D/goNcBgkJ6Az17O2a4zHL2zv
+Zgqvu7FZagfseghxfrhZ5aNdTyCRMTqtK6evvCqQL5u1ee+unZjbrW9VyKkjwrwJ
+Jdfv8UrRjPY1dUiRx4B2WkD3k3zfMN9rMmJMDwnMy17ROC6Kz2N2YYHaZxfRUBWW
+0EWfBWV3GlYa5TGi1cgr/CjV3kl9+lRfCNsojqxl34H3z2MWiPZVE/XA7saZ3DN3
+eIeanhxcdaoc3CFRb5BeJK+RO2PNNr4GdPzsYCMSHfGMRrkJzbWrdYgZFSx6MyVY
+qLxG2EHKlIq/V+a6crxgWLs8GZJhyVeHSsrOf6Jbbk9yMBxb0Y9eeGb9mU5gvR5/
+XjQSMTvTlkfzXLWuuW9rALVEg9jb7R3rAivpTnk8VimfdG1jlOd9M+LdxdLUeSPq
+uhI2EgEokpFQyxWaMpwAB2IohvQ+bVfdb6anBD8bRdS/qEplkj9jGkLuNrhIg1te
+DRso58Ca+SEGmhlXPPmCs5kxcNx4o/kSk7e3m414Qak2SJx8e2g=
+=x6Je
 -----END PGP SIGNATURE-----
 
---bq3xgweutbh3scqf--
+--rf7yxebtzxr2235e--
 
