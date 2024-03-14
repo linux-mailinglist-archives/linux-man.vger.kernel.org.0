@@ -1,54 +1,53 @@
-Return-Path: <linux-man+bounces-598-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-599-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C1DB87C14D
-	for <lists+linux-man@lfdr.de>; Thu, 14 Mar 2024 17:33:19 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id F24D687C168
+	for <lists+linux-man@lfdr.de>; Thu, 14 Mar 2024 17:38:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id CB0541F21FBE
-	for <lists+linux-man@lfdr.de>; Thu, 14 Mar 2024 16:33:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AD4032839CE
+	for <lists+linux-man@lfdr.de>; Thu, 14 Mar 2024 16:38:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D0D854F8D;
-	Thu, 14 Mar 2024 16:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFCAA73533;
+	Thu, 14 Mar 2024 16:38:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqoSyo4R"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuZKNzoE"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9F31A38D0
-	for <linux-man@vger.kernel.org>; Thu, 14 Mar 2024 16:33:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F4473526
+	for <linux-man@vger.kernel.org>; Thu, 14 Mar 2024 16:38:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710433995; cv=none; b=blIxzCxNY7MDzIwot3mzUJD+mcVDMO2Ze48897a9zOxXRn4c+lFnhAmqOcgCITvrVmxUO4/VFheBH2iU4hIcLSYVDyEMqNMis6+QSnHUgpvNmYEo3GFVYrbGJFnKufrpmWNr3WsttkwCALdKZhe4v4Va/cwuD3esu4tyNpflGR8=
+	t=1710434298; cv=none; b=Ah7gmdQjX1Ur/P+nMr816CQMRFDK1QiJlPULv7pIUarpRA6fb0D3TM5tRWkXS+M/nj2hK6dH/dAIyhxoGyx2EW5+18JIbfrtvH80cBI74KbbmK1t8onztl37DGFslglONHnJGZRUHPTolt0fzZw4t0euTxy97cSyg+mpZqWsh/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710433995; c=relaxed/simple;
-	bh=ci5CR5lf6A2fLBobOm1RKNVF0fetscqpNxjcJzI6sFQ=;
+	s=arc-20240116; t=1710434298; c=relaxed/simple;
+	bh=QDX87gKJpKozVFDbaWT0J65SC46vGmb0e/nXtuA9GWk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b5qRx75g6Q23Ah4ubXQw3VD6+11ZSRZJzsStjRTG/IAdFq15yw36QDd+FcvcmViPH1mX6R/acu+f6m4FOFbCshQSa2LO/77xEH17RwO3uepzjYZHQwpqHtBGtJttq8rMM1MY0bF58n8rIg62/mZYpFFQhvs8mxYGSZfolYMNWJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqoSyo4R; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2819C433F1;
-	Thu, 14 Mar 2024 16:33:13 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=CK4NkVafF2tacJt6twT7b8biW0bs4nUhBgU0kLULrdw2QUfPqMWivlKB+HoNRpP4wtJ9oMJmSIOjqJtegs37NmjYukzE+03PaB9H0Z+6Y8R/7Xlj5sx6iPFMODUuUALvCTfK635mfRO8FDFzYi9cHPEAfG1ZbzkK31wB2GVZ+IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuZKNzoE; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2C3C433C7;
+	Thu, 14 Mar 2024 16:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710433994;
-	bh=ci5CR5lf6A2fLBobOm1RKNVF0fetscqpNxjcJzI6sFQ=;
+	s=k20201202; t=1710434298;
+	bh=QDX87gKJpKozVFDbaWT0J65SC46vGmb0e/nXtuA9GWk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nqoSyo4RnbQQk3aT2eHpe3cuGx1xIQfowbGshXraP7r7wdKtjA7E7fd/RJL9zXvlP
-	 LKDVx6ArPUTWsHFS9xnYHtCv4ZtZ6s4DmHc33ZG8N3aoRzN1WJ/XpvRfTf8M6W/+bY
-	 3gySdJxaJtBV2HWUVNwLUu5ud1RgAuXlS5wH3Mit1eBDjiVrzK9xhNkWrMTVCB7YDj
-	 pKHGQN2eXkUFD2rKhwQjjb0/I2bql/altO005gAqk7ykt5u8FYQSfrL1mPDdinNyco
-	 GW0IYN4WoaALcyeNNlK+/nct90ZF2+1/GqclKJFa7aIIu7D56cuvsbHf/zAxtq/+vA
-	 dX+bs4rHCx8Iw==
-Date: Thu, 14 Mar 2024 17:33:11 +0100
+	b=BuZKNzoEK9/3ZONKO0Ne2vHCG+jDQfNzPwJFsCIF/q15x1ovk1c+cE1uKRzoC8dR/
+	 YQx0Y6csXJ1NMYsZT4cVcJbPiQzvpBW8Tzv5ilyp1jucrSQwovXJH5tJv8K+38UTVL
+	 WPJGUHG1xrAw/emRgPUuRy+oDphbq62gqZsVoW+fP77u1nyGTNx4N0JgiK+ZxR073W
+	 o125PeKnpc5MupDLrD9BZK9FWiTJJDQbIMxOiSuxhZ1/trI7PLgPIfdpnGKTL7DcAY
+	 8Q2ubYV1FPozkXK5Ad/KhsP/Kgkzogw8PLnjzy+U91wclA2tnBDmFY5P6xghTcdCZ5
+	 7GrwvrR4McHQw==
+Date: Thu, 14 Mar 2024 17:38:15 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Samanta Navarro <ferivoz@riseup.net>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 6/6] getrusage.2, proc_pid_io.5: crosslink
-Message-ID: <ZfMmx4sAVf3ZGFkV@debian>
-References: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
- <9a382ec3d10bc896e818bd1a932ea9c95756d048.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: Re: [patch] printf.h.3head: tfix
+Message-ID: <ZfMn93HnrrtYGoLt@debian>
+References: <lor74cubqig2xpdblvkxgyh6chwveyrdepgydtxfrpo6psmgrg@hqlvktvd7yqa>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,85 +55,66 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a0XjuHYOFRoCKhgF"
+	protocol="application/pgp-signature"; boundary="6Hl90wyjkeBbBFhu"
 Content-Disposition: inline
-In-Reply-To: <9a382ec3d10bc896e818bd1a932ea9c95756d048.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <lor74cubqig2xpdblvkxgyh6chwveyrdepgydtxfrpo6psmgrg@hqlvktvd7yqa>
 
 
---a0XjuHYOFRoCKhgF
+--6Hl90wyjkeBbBFhu
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 Mar 2024 17:33:11 +0100
+Date: Thu, 14 Mar 2024 17:38:15 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Samanta Navarro <ferivoz@riseup.net>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 6/6] getrusage.2, proc_pid_io.5: crosslink
+Subject: Re: [patch] printf.h.3head: tfix
 
-On Wed, Mar 13, 2024 at 03:26:54PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
-> These serve the same purpose from different perspectives
->=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
-z>
+Hi Samanta,
 
-Thanks!  Patch applied.
+On Thu, Mar 14, 2024 at 12:21:50PM +0000, Samanta Navarro wrote:
+> diff --git a/man3head/printf.h.3head b/man3head/printf.h.3head
+> index a5c7d1c..8f647af 100644
+> --- a/man3head/printf.h.3head
+> +++ b/man3head/printf.h.3head
+> @@ -231,7 +231,7 @@ and is now deprecated.
+>  That function can't handle user-defined types.
+>  .P
+>  .BR \%register_printf_specifier ()
+> -superseeds
+> +supersedes
 
-Have a lovely day!
+Patch applied.  I gotta eat less magic beans.  :)
+
+Cheers,
 Alex
 
-> ---
->  man2/getrusage.2   | 3 ++-
->  man5/proc_pid_io.5 | 1 +
->  2 files changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man2/getrusage.2 b/man2/getrusage.2
-> index 8baff09c4..2ae9dafa4 100644
-> --- a/man2/getrusage.2
-> +++ b/man2/getrusage.2
-> @@ -246,4 +246,5 @@ .SH SEE ALSO
->  .BR wait (2),
->  .BR wait4 (2),
->  .BR clock (3),
-> -.BR proc_pid_stat (5)
-> +.BR proc_pid_stat (5),
-> +.BR proc_pid_io (5)
-> diff --git a/man5/proc_pid_io.5 b/man5/proc_pid_io.5
-> index 181717192..d0116ba13 100644
-> --- a/man5/proc_pid_io.5
-> +++ b/man5/proc_pid_io.5
-> @@ -92,4 +92,5 @@ .SH DESCRIPTION
->  access mode
->  .BR PTRACE_MODE_READ_FSCREDS .
->  .SH SEE ALSO
-> +.BR getrusage (2),
->  .BR proc (5)
-> --=20
-> 2.39.2
-
-
+>  .BR \%register_printf_function (3).
+>  .SH EXAMPLES
+>  The following example program registers the 'b' and 'B' specifiers
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---a0XjuHYOFRoCKhgF
+--6Hl90wyjkeBbBFhu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXzJscACgkQnowa+77/
-2zKX/g//b5ve7NmJNa3UE1VvXhi8CIZV2aE6NrtekLkJ/z3YSqB+X7NN0hZDzYCX
-bqNJfgYSi1QMfVG+LcdwFoGhzXUNirUx7V3K+uFEM2qEDFPzpP8UoaQzhtZpDchs
-aUoWlaVzzmcirNvnBFkqnm6dsNFCgwMF6xjqKT0DSC1OcgdWm2mS585yTc1/altt
-yYewhb+txOyI8o9jd7p2/lCbjVSV6YCl6n3jgRKk3HuP88fZ7F+sCO5FX5dGY1M3
-lw99gnbWfizBuN4uHtVbeAMwRYV+/RG/KA2YNPvk12zAk8PGXr+rlB/TLCaxooW4
-yEKbuA8JV7e5LUMTTgWvfdZ/DxJUBuaukhhXfqzUk9zLoAU5OQk8IqRhmg1W+fDr
-7PERBp+XgNYxzvRYt0XYLCdPym1PjokPYhbTWSHjPNXt4ASqAdZOeNtrEC74qWuR
-IQuWb+dcSPguc0/AZRhjBQ2tZI+YuFF8n2OjhwzRm7b2lXDJCRXQ0T4IUkbgzh/G
-gF/mVXNLhSosfueEAv3iGkjnfVgVUF3kiXr0yGeh+nahWECHh18ca91HiOrN4yGZ
-eKyFE+kcO77qno+wpC53nRpKdqBp0xAZWjr28DH8fgRt9r8PA0vMSJdDhK9d7iTp
-KxIm0jkKH3eXRHS8JzS0Omi9K643nQAz8seIgdsJVJS/e0oheV0=
-=wacr
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXzJ/cACgkQnowa+77/
+2zJ3mw//YLccCHr8RVjxSMzGWhQkBdKYNjV6NDECLi74YdzYi+7y/o8AbbGIEqHH
+bVrBqSpScFhfBSsoujq09n9o3yXxCLu1QiXs0huCGTebNyDsy7RPWi0ti/yjySME
+GxemN3co6TmfxsFNScokSnkD1whlUd79QLJsKoank63P35FOrmKv2CjZmsLEPZF3
+9VxRaJgveVq8mX8XzC9QIhbc4pC9frvmmgLdJdMUm5yO5DQdBvdOrQxSr1cA3Cvc
+pcCMxrrAt/3eztrhZg6W5Ywks8upOy0jL4jTkgcnlyxNzanIxi4eYCrchE1YVkvl
+/gob9nYbPGGenPANTHS2kQK0sqofeYCk1Oxfxnv1ozIjirenc+AVN1sicwlzRpqN
+7jTfaUvP7chbHEkeusH76UldcPElS5ATeIzMWVObyGFRmOMh6mL2wwDvzQZvfwjx
+AaiRckhabnX1ZfipsC9r7G4/tTnv/Ww3O1TFA+sH4AnqbD5EIGLJz/dofyqdD5F/
+XqErRrwc1Auuvo18ftEhtN7k16bMz9B3Re2/1PHzlC4RzZRjqkua9cUwKkFVFpRK
+c+93bdzPVL0KH33RTb1OVL+I153zBdAUXMiN5r0xeRZvAmCru4v8dEZAHhfl1wib
+oByUZhwJ4inxOZqwwdbbh9BdFil3eFV8k78ZLQRu0JR+Rdai7NM=
+=+PIq
 -----END PGP SIGNATURE-----
 
---a0XjuHYOFRoCKhgF--
+--6Hl90wyjkeBbBFhu--
 
