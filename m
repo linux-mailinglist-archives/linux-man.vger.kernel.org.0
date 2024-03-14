@@ -1,134 +1,78 @@
-Return-Path: <linux-man+bounces-588-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-590-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2FC87B465
-	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 23:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835FF87BCD8
+	for <lists+linux-man@lfdr.de>; Thu, 14 Mar 2024 13:31:58 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id DF91E1F237F5
-	for <lists+linux-man@lfdr.de>; Wed, 13 Mar 2024 22:35:14 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 37D7D1F24F79
+	for <lists+linux-man@lfdr.de>; Thu, 14 Mar 2024 12:31:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAEAC5916B;
-	Wed, 13 Mar 2024 22:35:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3343E58106;
+	Thu, 14 Mar 2024 12:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+wL/h4W"
+	dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net header.b="SCAepBNF"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CE84C602;
-	Wed, 13 Mar 2024 22:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E54B42045
+	for <linux-man@vger.kernel.org>; Thu, 14 Mar 2024 12:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.252.153.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710369307; cv=none; b=AM/g0natBh64sQexUlPCEJx7EhT1pQTzO+JFM1SMBhLhQ09Vm32mF9gXIcUb5/LpnNPpW2intf8k586hBGO+CZ+rDJY/xAKOoTTeMvn8q5f2jylcXs1a2KeW9R1HjdK7E60xTez06Xtf+iOxSM/uMB/ooeKAXmT206hBB60jtWw=
+	t=1710419445; cv=none; b=oeTAlWxTBgNK9p5u9NYMtJx0ix/575UBL7vNEDiHVcThSZ8m7sq8duLLN7Ok6cnMwZPvxtdxfVvHvkrjsM4uOr8O4JRHAA8NKOM7WnTQGNm6hvA4xwnaU8LcnH3QcOFVy9fIKNpaFROADWXvOkWkjL+0+Fkm5SdqLFS58h1FBbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710369307; c=relaxed/simple;
-	bh=zwcUoM/bxmu5V6pA+K99Z11qzxW5g/6XHdhxZM99p6g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jVzOzGipKa7hfx7QZOgJ2kK7qHl2mgUsbbO7e6Le6RikUsEbRaqAZfS838Bp492wm8gjELjOtpnvCjyhqMFISavI+LrGpU4+6ns8VVEadG6KF6/6JmMhU004QgqrD1eONALs5GBfn2xr/7tK2oTWv96ivdLDh2Lp24tppQnTz00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+wL/h4W; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5591EC433C7;
-	Wed, 13 Mar 2024 22:35:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710369307;
-	bh=zwcUoM/bxmu5V6pA+K99Z11qzxW5g/6XHdhxZM99p6g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=d+wL/h4WGL5z8rc8BbZuwBG8fovddfSSTLwN5qQarza0kyDWfQg/eK2t9CtgWVmY0
-	 qmJZtVsJhx/+EKWgRwgvSGhXOd7VfkIiYW2gohWPAFTUVCcdyVKp5AdLhG4k85pXDR
-	 rxvbMwTAa66skpbgF4+K2pDN1h6mdFgJgw0rOWRStKeGNb7KKDmqG8c5cJX9rwi0O3
-	 houy1R5BzpsZWVHnoWYE1cKT2h3NZVC8bv0/g8he1NAy4ZIWSzv6EEIXtlDTkQB8t+
-	 DDN3XC/FIV3l14j90FIaYi/DmOw1cuhU0wNj/WnEYEMP1r9d0hMWqj+Uvlq3bAffSt
-	 FvnKHjXjBZ6EA==
-Date: Wed, 13 Mar 2024 23:35:03 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
-Message-ID: <ZfIqGP1V69LfYpgV@debian>
-References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
- <ZeXzuWVmC9AnsECt@debian>
- <7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
- <ZehMWQ0LkemsTHAC@debian>
- <CAK1VsR0XZMgUW8qMQMcDPohD8-+OZsgW68sZegLbVy6cdoWucQ@mail.gmail.com>
- <ZehrtwSDQV-X7BXV@debian>
- <CAK1VsR3MsyphK+=rA7XcEigiSd6J_-QsVW+8hH1fU9xmRY3nGQ@mail.gmail.com>
- <CAK1VsR2zaCT3Bs1cwCEfLhAPXjwNk1byzNq5y32C736=hxqjoA@mail.gmail.com>
+	s=arc-20240116; t=1710419445; c=relaxed/simple;
+	bh=4XaYZ4K4kjoWs7wJlu4ARrWxOwpXL9+TY6h/YS6VsRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=HFu3JDG62ckTRyedbXel67cpNc+04nFR5mGSvNrRTcNWq94MPAJFkrLpcO1rbwWXJkxi3EpHFLxheRtZ4f//Agh74WAm7h0uHcmF2Ub2CRGkgEq0U7vMvBtBOWFfDd9izpCgCqTWv4IRwyBm9XqLl0ARUNBwdOVV+bvLLZv7XTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riseup.net; spf=pass smtp.mailfrom=riseup.net; dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net header.b=SCAepBNF; arc=none smtp.client-ip=198.252.153.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riseup.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riseup.net
+Received: from fews02-sea.riseup.net (fews02-sea-pn.riseup.net [10.0.1.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1.riseup.net (Postfix) with ESMTPS id 4TwRMX0tQ6zDqFC;
+	Thu, 14 Mar 2024 12:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+	t=1710418931; bh=4XaYZ4K4kjoWs7wJlu4ARrWxOwpXL9+TY6h/YS6VsRg=;
+	h=Date:From:To:Cc:Subject:From;
+	b=SCAepBNFFhTz7kSQ2pKq53nSDD2j7v5m08FKOQShdgTa6Em65dLA16Q25X7mDrRcz
+	 ThE9M+1BML5kN4pYstOdgfvGMUB/ADcNimLzB/cADIrUST6lCXzjhVAMmSbVYrPI0A
+	 t3OXRb00x9cTl1yy1jE8DaXKJfHIqmACaxf2sVQs=
+X-Riseup-User-ID: 92ECBBC0854A0FA67EE9B2A930F9428AEE38875DF6669B8FFEFEBB3D6B8B7DF6
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	 by fews02-sea.riseup.net (Postfix) with ESMTPSA id 4TwRMT38Z8zFqjg;
+	Thu, 14 Mar 2024 12:21:56 +0000 (UTC)
+Date: Thu, 14 Mar 2024 12:21:50 +0000
+From: Samanta Navarro <ferivoz@riseup.net>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org
+Subject: [patch] printf.h.3head: tfix
+Message-ID: <lor74cubqig2xpdblvkxgyh6chwveyrdepgydtxfrpo6psmgrg@hqlvktvd7yqa>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lnpdUluPzO2RGSIw"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAK1VsR2zaCT3Bs1cwCEfLhAPXjwNk1byzNq5y32C736=hxqjoA@mail.gmail.com>
 
-
---lnpdUluPzO2RGSIw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 Mar 2024 23:35:03 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
-
-Hi Oliver,
-
-On Wed, Mar 13, 2024 at 02:27:17PM -0400, Oliver Crumrine wrote:
-> > Hi Alex,
-> > I apologize for your repeated troubles with my test program.
-> > I have attached a video of myself using it in the method that I
-> > described to you. (I emailed you off-list as to avoid sending a 12
-> > MB video to the whole list)
-> >
-> > If you are using it in the same way that works for me, I don't know
-> > what the problem is. If I could've been clearer in my instructions, let
-> > me know for the future.
-> >
-> > Thanks,
-> > Oliver
->=20
-> Hi Alex,
-> Were you able to make any progress whatsoever with this test program?
-
-Sorry, I needed some rest this week.  I've been only attending easy
-threads.  I hope I can come back to it very soon.  :-)
-
-Have a lovely night!
-Alex
-
-> Thanks,
-> Oliver
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---lnpdUluPzO2RGSIw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmXyKhcACgkQnowa+77/
-2zLBBxAAnyugJdYJoniJjRZBKNzH44ibuFpiMBxecOHrYTqiYERS1Ljq5A80f6/R
-snkjZkoy1cH8xNzhCB397qErSZg4ibwPBBr2XHUQFR1oMxeAqHAyabF3LsK3agfF
-RyqGU7lHdh+WBSCGM6vfjd8lRtAlzE3fn1Zh4tdzORMcGVRZeWA1OGRBXt3Af5CQ
-VXzWWO784Xfoxv/OjgMYfCaILP7bsxfL7u3Bjfoeswv+ujKYtQ4lpz0wP8pUlWIL
-epT4bIAATo573BO8GJVFzFqEpwc1MjQ86Ju0XqJOrOjbtLh5sOxpMOguhkCOAaCU
-S2i3920l02Tc2JF9uZk9BvPOI058FMYNjaqV1qZ4KZ4WjyfQLXvHxkHHIaA9cdse
-7eOg7kbwxTHoy8wSMW2zNgh7asfmEGG//UScv/tW1l7EnvSG+HitFwYUVfnRx34e
-194l15YnC47LmeG41gooif2vdRVbt23zhb0cBRrTKe1ry1sgPKkc6b6pXpziwlfs
-DpwOMPxfEJpZ+0YRRfrB/QJmGgH0+gIeciEkFUuE3i2TSFRgBE4fKMsZlN56+9ib
-/8St+3tBR9FXWcMutjeWhiU+bXef7f1NBT0m1DEOlDRMzyL9HyHJklyrTAW/up60
-jiI8vDe5Pd6hUQ7HkEpocIFk/9hGf2TbxHNi7jT+5KeqMX0KRo8=
-=WFux
------END PGP SIGNATURE-----
-
---lnpdUluPzO2RGSIw--
+diff --git a/man3head/printf.h.3head b/man3head/printf.h.3head
+index a5c7d1c..8f647af 100644
+--- a/man3head/printf.h.3head
++++ b/man3head/printf.h.3head
+@@ -231,7 +231,7 @@ and is now deprecated.
+ That function can't handle user-defined types.
+ .P
+ .BR \%register_printf_specifier ()
+-superseeds
++supersedes
+ .BR \%register_printf_function (3).
+ .SH EXAMPLES
+ The following example program registers the 'b' and 'B' specifiers
 
