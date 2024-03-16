@@ -1,60 +1,57 @@
-Return-Path: <linux-man+bounces-623-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-624-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72F2387DB51
-	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 20:33:50 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F8487DB52
+	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 20:36:45 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 68B04B214A8
-	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 19:33:47 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4EEAA1C2087C
+	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 19:36:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 257601BC4C;
-	Sat, 16 Mar 2024 19:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57CBC1BC43;
+	Sat, 16 Mar 2024 19:36:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXy1ljqs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cx9/6J42"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49F91843;
-	Sat, 16 Mar 2024 19:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194DA1A38E5
+	for <linux-man@vger.kernel.org>; Sat, 16 Mar 2024 19:36:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710617619; cv=none; b=gi1Hu8uWx/aaTbKPxH9cTA8A8kPxAzdAklzo+LnMaAZuTW9e3mwetbs5a2rotHxo/JHZfz7m+6TWwP9SMVOJXzQ7QwwW+ouhpebRaJtTG/8veEb+bCo9zOOHuTHWgmj8HpB5h/J0+hs2YcG8T2tAracSf9VNhKLiwGWSCV0Qz0k=
+	t=1710617800; cv=none; b=u6neTdTWt1G0x8KD/6+UJGGVAXOdDFCzTeRnqHJbQft53xCYAyp5NSS6Ctsj3RmZa8k3Phi9IoPnQNrvVH4JJHNsua9s/gQxufeKQMLwbU9wybgg3Jz9O+q+puw2x6V0NPNKAyNMPQdpSucZjhL741YP+JQkeCwM4vIoSl2wmiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710617619; c=relaxed/simple;
-	bh=+a6ZtiXkLjE2iSQzJIUrXlMm0H0+j0NMZDv9NxvUOIw=;
+	s=arc-20240116; t=1710617800; c=relaxed/simple;
+	bh=gQB/uYgAWnWxH0mF+QWFKZfjJ6zvgszTIgpZ/0fW11I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OrYrIuZfBh3Iz00QIQZl+QC1V7Pl5xN1OReaFGXAx8/oMk23kbdqHuT6RlPFDGdIGhL2owtZsSKe35hCc2secfaR+KsRSXT54oQfs+b4Q5vHj6dnoB2UT2ZXuW4rj6Ug7t/pFDpQ9Ii21XY2fpzeDuVcXPzTvF1V1v+7IKEs0Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXy1ljqs; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E47DC433C7;
-	Sat, 16 Mar 2024 19:33:38 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=mqB+IzfIef+Wdy5JVo1qdqGi7Tdf6i4s6HkD9hXB4vVzqoMpPjpJ/3rbPgK2bjUygyAz8s+wsryH/H5tUUBuD0em+lqtXbAHfYWucv2bZAORlognWSNgSwFF97sRooDctvAxyL99s7QxydnfXtmkwmGll3BK3pWM8S4KKPT2Q7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cx9/6J42; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA83C433C7;
+	Sat, 16 Mar 2024 19:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710617619;
-	bh=+a6ZtiXkLjE2iSQzJIUrXlMm0H0+j0NMZDv9NxvUOIw=;
+	s=k20201202; t=1710617799;
+	bh=gQB/uYgAWnWxH0mF+QWFKZfjJ6zvgszTIgpZ/0fW11I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MXy1ljqs56Ki+WHS2FrQdgSbVY/uvOlP0g88yFlYx4vW/iB/U2vf6ravxAvhTrsum
-	 j1r9nEEL6Ku9hYcPJ+9lau7jo7o9tUBlsYF+fto37itA59+PZQ7gic4Mmg3OVg1pKo
-	 /mQvqHZ4PNz+D0M/LirRdcM1a5QusmBUv2epOXi5NG1jPSxpC77KX2BtCXYz1VMn/o
-	 CDWKehnjNUvPReTtWCl8yHpjYsRxVZl15QAfqug7JagdFwJ6bB7Lu4BFpqJaCwq7RP
-	 x5zx7U5+WAFF1i7050grIl155fTo7BJXc//rsz7dyqgtg4D1g/n6FkA8BCoXtZuwB2
-	 xugDvt+0xaApA==
-Date: Sat, 16 Mar 2024 20:33:36 +0100
+	b=Cx9/6J425Naoa7AP/BpUOTL25yfAOPDDxovmX5WwpLHQqI+ngAbFu0bZDzGn46ST6
+	 tLKsgBQsTZbhBc18L6KQ38qRY/DOL4sKfCewloWkyQohQxbXZHsJ0YOzRyUmo3Xqaa
+	 /rNI2yjEU60kmuITBhXJBKRyZKrfCp1arrZtyvBKoYDWaiFXTA9O80DRQr2WHi1FQO
+	 /tLlJ7P6fdIVOlvJHVQX9xVxZSId6z6SEP9ZudNUTuNG54kC5t/DmXLGcu2GMZAY+J
+	 jIZm/Ec65AnrWc/fOCMswjUXd2H8MkU7gXc3IJTC9uHZwjSzbQkYFVW+NjlrM6iA9m
+	 NBEa50d9K1Oug==
+Date: Sat, 16 Mar 2024 20:36:36 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
-Message-ID: <ZfX0EBsVl4a5FQ_L@debian>
-References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
- <ZeXzuWVmC9AnsECt@debian>
- <7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
- <ZehMWQ0LkemsTHAC@debian>
- <CAK1VsR0XZMgUW8qMQMcDPohD8-+OZsgW68sZegLbVy6cdoWucQ@mail.gmail.com>
- <ZehrtwSDQV-X7BXV@debian>
- <CAK1VsR3MsyphK+=rA7XcEigiSd6J_-QsVW+8hH1fU9xmRY3nGQ@mail.gmail.com>
- <CAK1VsR2zaCT3Bs1cwCEfLhAPXjwNk1byzNq5y32C736=hxqjoA@mail.gmail.com>
+To: Svetly Todorov <svetly.todorov@memverge.com>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+	Gregory Price <gregory.price@memverge.com>,
+	"Huang, Ying" <ying.huang@intel.com>
+Subject: Re: [PATCH v3] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
+Message-ID: <ZfX0xFYgXBnBVGov@debian>
+References: <20240315-weighted_interleave-v3-1-416a1ab01524@memverge.com>
+ <ZfTfUMG-LGPnhqHe@debian>
+ <A5BD70C6-4AC8-4BE1-88D5-A5E4BE5E656E@memverge.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,76 +59,133 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Z0iRHz2zH4EOqck3"
+	protocol="application/pgp-signature"; boundary="hojGjE2cnp7xVAZv"
 Content-Disposition: inline
-In-Reply-To: <CAK1VsR2zaCT3Bs1cwCEfLhAPXjwNk1byzNq5y32C736=hxqjoA@mail.gmail.com>
+In-Reply-To: <A5BD70C6-4AC8-4BE1-88D5-A5E4BE5E656E@memverge.com>
 
 
---Z0iRHz2zH4EOqck3
+--hojGjE2cnp7xVAZv
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 Mar 2024 20:33:36 +0100
+Date: Sat, 16 Mar 2024 20:36:36 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Oliver Crumrine <ozlinuxc@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket options
+To: Svetly Todorov <svetly.todorov@memverge.com>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+	Gregory Price <gregory.price@memverge.com>,
+	"Huang, Ying" <ying.huang@intel.com>
+Subject: Re: [PATCH v3] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
 
-Hi Oliver,
+Hi Svetly,
 
-On Wed, Mar 13, 2024 at 02:27:17PM -0400, Oliver Crumrine wrote:
-> > Hi Alex,
-> > I apologize for your repeated troubles with my test program.
-> > I have attached a video of myself using it in the method that I
-> > described to you. (I emailed you off-list as to avoid sending a 12
-> > MB video to the whole list)
-> >
-> > If you are using it in the same way that works for me, I don't know
-> > what the problem is. If I could've been clearer in my instructions, let
-> > me know for the future.
-> >
-> > Thanks,
-> > Oliver
->=20
+On Sat, Mar 16, 2024 at 07:21:21PM +0000, Svetly Todorov wrote:
 > Hi Alex,
-> Were you able to make any progress whatsoever with this test program?
+>=20
+> Happy Saturday.
 
-I'm sorry, but I haven't been able to reproduce the behavior.  The test
-programs have several problems which I reported in previous mails.
-Maybe there's something that makes it unstable and in your system
-behaves differently?  Please clean up those examples, and try to run
-them in a different system, and maybe then I can reproduce it.
+Have a lovely Saturday!
 
-Have a lovely day!
+> >> diff --git a/man2/get_mempolicy.2 b/man2/get_mempolicy.2
+> >> index 5248f04ba..03550331d 100644
+> >> --- a/man2/get_mempolicy.2
+> >> +++ b/man2/get_mempolicy.2
+> >> @@ -137,7 +137,9 @@ specifies
+> >> but not
+> >> .BR MPOL_F_ADDR ,
+> >> and the thread's current policy is
+> >> -.BR MPOL_INTERLEAVE ,
+> >> +.BR MPOL_INTERLEAVE
+> >=20
+> > This should be B, not BR (BR is for alternating Bold and Roman).
+>=20
+> Can=E2=80=99t believe I missed that!
+>=20
+> > Or,
+> >>=20
+> >> .I flags
+> >> specified
+> >> diff --git a/man2/mbind.2 b/man2/mbind.2
+> >> index b0e961f9c..6f85dec0e 100644
+> >> --- a/man2/mbind.2
+> >> +++ b/man2/mbind.2
+> >> @@ -105,6 +105,7 @@ argument must specify one of
+> >> .BR MPOL_DEFAULT ,
+> >> .BR MPOL_BIND ,
+> >> .BR MPOL_INTERLEAVE ,
+> >> +.BR MPOL_WEIGHTED_INTERLEAVE ,
+> >> .BR MPOL_PREFERRED ,
+> >> or
+> >> .B MPOL_LOCAL
+> >> @@ -243,6 +244,22 @@ at least 1\ MB or bigger with a fairly uniform ac=
+cess pattern.
+> >> Accesses to a single page of the area will still be limited to
+> >> the memory bandwidth of a single node.
+> >> .TP
+> >> +.B MPOL_WEIGHTED_INTERLEAVE
+> >> +This mode interleaves page allocations across the nodes specified in
+> >> +.I nodemask
+> >> +according to the weights in
+> >> +.IR /sys/kernel/mm/mempolicy/weighted_interleave .
+> >> +For example, if bits 0, 2, and 5 are raised in
+> >> +.IR nodemask ,
+> >> +and the contents of
+> >> +.IR /sys/kernel/mm/mempolicy/weighted_interleave/node0 ,
+> >> +.IR /sys/.../node2 ,
+> >=20
+> > Since ... is variable stuff inside an italicised word, according to the
+> > groff_man_style(7) paragraph I quoted, it should be in Roman.  So,
+> >=20
+> > .IR /sys/ ... /node2 ,
+> >=20
+> > Also, for better formatting of the '...', we use \| between the dots,
+> > which on proportional fonts (in PDF, or HTML, for example) will produce
+> > nicer elipses.  So,
+> >=20
+> > .IR /sys/ .\|.\|. /node2 ,
+>=20
+> This I was more unsure about.
+> I saw the quoted portion of groff (7) but since
+> the ellipses are a stand-in 'kernel/mm/mempolicy=E2=80=99, I figured
+> they technically *weren=E2=80=99t* a variable region, so I left them ital=
+icized...
+>=20
+> I dunno. I was pretty fried yesterday. I=E2=80=99ll follow your lead on t=
+his,
+> and thank you for the \| tip.
+
+The rule I follow to not have to think too much about it is:
+if the user can copy it verbatim, then it's not a variable; otherwise,
+it is.  :)
+
+Cheers,
 Alex
 
-
-$ uname -a
-Linux debian 6.8.0-rc7-alx-dirty #3 SMP PREEMPT_DYNAMIC Mon Mar  4 15:24:33=
- CET 2024 x86_64 GNU/Linux
+>=20
+> Svetly
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---Z0iRHz2zH4EOqck3
+--hojGjE2cnp7xVAZv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX19BAACgkQnowa+77/
-2zJsYxAAirFbK0lul+k7Z17yej4u7Wuwk9hdugxBaxS9iesoRQndvaFZxo+HIBZZ
-Ix1hX3zG74ugffHQoQJLCq8kNaiMD8BtWIjmDFDyOT2vZWb/odUzkK6QnYeKZPUq
-JvGrvJQ6D6hVwFAWbHjwXY5FYYRpk2p8yOoguyHm/0RWAP3Gb6Qru9bM5xFvwtX7
-F9joYKptFR1/lIlLqTMo53GjQpvmsbLHZIV6nzyHGjfUTdggzrhvYeA4xAGtz0/q
-1gmklRadCPUQSspPIw+o/1z34GjDRyDZ8veidtEMdN3GSKYe0zx8i6VVP2HTaHjC
-y3VMbWKxY2fN6T59X51uQG4rupLRrD2HKgyrxgOY9aV0mZwJGj2nEkWyCbZLNIz2
-J7KToiutW/rfa8qY7k+0j/wOlKzHTnbAwowJbR5LPeKSpfcqXbwbNNkgRllV7rCe
-LWuNS1aWbJe9b5hXGGV4F0as4agDdVkLntTMomHiUCPbgntgOhbsCmaJhkXeM4UY
-f7TQLQTuqmbeaDMdNkbDzQEVcBl/1VG6qNBIRkQ9sC8C6YjkwkMNQhvgCss+IM4+
-k1BCGNrtnwumNPS/zewo5n13XrwE2ODG+jQ1+aw4njO+6S8mb6vUUtQEmf50+p1W
-kPZFxTRf73MDQc3ZGmrFtSN0U6rKSwBIu9JpCtO9F0Trbmcsong=
-=U/eC
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX19MQACgkQnowa+77/
+2zKzSQ/+NxM/iQ9NwaYkIVAPHh/tybvbGymvoVqcfFiWqxqGdG48jQyeIha2Ocsv
+ZOjDDmeR9NKrmdIlg89BPObXiAE7Jyb70NH5J1n4esK5AHurJe4xRc6Ag8y5+EQT
+SmXJoNmcGx5uvOArDP+2gPIXZw3unXZiWOVc337dN8TSwO2sRJaDd1nWkii7XwTW
+Vz5r7An5NZlhN+Db4vZgIZLI3d8FdzRnJrlTlzQros68E1bPlmwIIsvmQ2Tht38e
+S/clkjlGWtklANjchTQoAPBaNH+ZAZnPPTlhH35UYPSu3Ogfbr4MRVJCAiBrTgJW
+SNCITBSest+ET0zn8ZMZNN55uXv2hVh+OAURBEzlMF8CKewlPUY+CmukQXqe7LOS
+l9H5aTU3PCoh5EmEr8RyDg10+14F4Zi4b45FUULV2zdujvGRCC2Oe2SbcBxtCZE7
+mc5QWslaReSXsJQtr4jqYAAjKkav/tcl6uBKb8u7tsohgofGa8dxxscPsV+oa10v
+mYjivLwyIplYdy3D1TTOjp3AW0/RHCQ+9kdi3fzDc7lu1NImXcwB/RwQTP2X585g
+5dGEoCKBT46WZdEIvvMjDauhRg0+CkIXvE5RWT3gyFaZORuwszZAzbbLHofdBG+P
+eH1uTI5RIBaYAdhVk0PGrXs3mzdBL5rgcQQAI+MW6NtcB3nqnkg=
+=qB68
 -----END PGP SIGNATURE-----
 
---Z0iRHz2zH4EOqck3--
+--hojGjE2cnp7xVAZv--
 
