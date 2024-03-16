@@ -1,54 +1,57 @@
-Return-Path: <linux-man+bounces-619-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-620-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE2487D76F
-	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 00:52:56 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A8D87D785
+	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 01:12:41 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 04D122825F2
-	for <lists+linux-man@lfdr.de>; Fri, 15 Mar 2024 23:52:55 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0A3E11C2125C
+	for <lists+linux-man@lfdr.de>; Sat, 16 Mar 2024 00:12:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 43D7C5A0E7;
-	Fri, 15 Mar 2024 23:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 097FE36C;
+	Sat, 16 Mar 2024 00:12:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/kldJpL"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dm2/PZmY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E9138F91
-	for <linux-man@vger.kernel.org>; Fri, 15 Mar 2024 23:52:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9813FC2
+	for <linux-man@vger.kernel.org>; Sat, 16 Mar 2024 00:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710546772; cv=none; b=E75Jw7qfxpN3xGFeh4X2dRr011x2skbLRGTUgqEF0OUJsbEjPby5Znk5XD+pNc7OLKMKNb4aARXw90lPAkDsssNG6HVjcpVEOR2ewJQEydZCpT+dh9h5AeVkzS2JRUxHM5v8+VTGc4NhB+DFf6o5qmbt+wQU2y6zLy1jmecyXz0=
+	t=1710547956; cv=none; b=I5kb4UuuFD+ax2IogPjJTGtaxCpHlL6h8t02Sk2CE+6WCsUxZ/AKSxd10W6l4lKlXcUYgoDa6sQj+HXH7uIK4LfMkNQxFjqgGxv9fFJo8LDLkSyRRJePElVerXwU7RB7fJRMFjEBA3GE1jnLNwLOhmgB8N4AHlhazpY/IdDHASc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710546772; c=relaxed/simple;
-	bh=BA0usMb4fBDylAI6Uy4uqzfOFR6xfC2ihuYNVDxvOB4=;
+	s=arc-20240116; t=1710547956; c=relaxed/simple;
+	bh=BB+a8ctLU8qN/TMI0sRx6zLPxtqBZpg9i2/iBWnZ0JA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j4gpW3Qi7J7TFxYvFMKCZkElXnYhiuhGyTAhxY+Yqx52HiELPJJ0dUqvuOtziChCIxRGSGHJRVQ5RYDe4eWSslRjhZSsC5oiaIXvoO9cCuWMEWlrIGTXKaaCFpFVqkoMsT2Vg9iWsqqykHK+i9DY5cUZtDPntaFqlGGTUGCObtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/kldJpL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2B7C433C7;
-	Fri, 15 Mar 2024 23:52:50 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=gSPXGIlb+hGGY+1NNyfM3sKsOMLdlNcFme67yu8oKMbKY0SdqONnl6lidCeDS8t7hi9TjKNNFDyAogHVQRzmYgeZroVp93E2FoikZMHYulMBtPUkWuALojZdgYJXl1y9ny19B+IpzaZXjpajb0fUsaBu7nVn+d5VfDfr75aMsMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dm2/PZmY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD095C433F1;
+	Sat, 16 Mar 2024 00:12:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710546771;
-	bh=BA0usMb4fBDylAI6Uy4uqzfOFR6xfC2ihuYNVDxvOB4=;
+	s=k20201202; t=1710547956;
+	bh=BB+a8ctLU8qN/TMI0sRx6zLPxtqBZpg9i2/iBWnZ0JA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U/kldJpLFgMGzsoi3STKGEbp+VBACMo7b4Kk0iqVGFP38zOjYAcduxhNKoC3SiWs1
-	 GVM2zwAVRPZ2mmGy2yHEbthYw8/h408lnqL72+1/1PR4gBCcAkqF28vOwg2hCQyPF8
-	 CK/QIFdC5vOEcwWOVRbQ4BeylR2c7K85RziHzMdvb6K4mgqNyfe54MMBkjhwf7gMKl
-	 Hw62STViRZEW13DbXTme6kXDrJgeV6c3pSecmZ2qpaocJ/SOCYFSDNW7N9OOmUjOiE
-	 PxJL/ko9mL4/0kRO7IkM5A9boX/X/ywBuWkzFxW7/76n4jrtBr5xRO5fK+9GqFVIBI
-	 YbmlajDdyceiA==
-Date: Sat, 16 Mar 2024 00:52:47 +0100
+	b=Dm2/PZmYaRiN1Ayhu5nQD5MAfZL9OHj4AotNbV3eOEIUKPd4SxGTDmFsfipsKQPr+
+	 oU1ITlkYD4w/HIpdEIjP1xpjxTG2l3k9SOCKvMZFhPTGzVh7EF84PJPlTstE2g9UWC
+	 bgBpU1uHk5XOHi7dj95cMSP2rkaUIwhF1S6jpD8qo+DBUXSMIqvLPYxvPOprY6lFcc
+	 HPss75d5B0GN/hqKG/bzdmqiBOlD2bHDO+Cbj4D45HpE26CtDffpS4Wvyg3fNc+oue
+	 p/7zlSRRykAOiHfvuBYEUp5IABxlwKvfXNB5p40jZzxIklwo6CdPm2ECWAj2DB8xUT
+	 mEjZCRdLJlAug==
+Date: Sat, 16 Mar 2024 01:12:33 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Svetly Todorov <svetly.todorov@memverge.com>
-Cc: linux-man@vger.kernel.org, gregory.price@memverge.com,
-	ying.huang@intel.com
-Subject: Re: [PATCH v3] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
-Message-ID: <ZfTfUMG-LGPnhqHe@debian>
-References: <20240315-weighted_interleave-v3-1-416a1ab01524@memverge.com>
+To: Lili =?utf-8?B?UMO8c3DDtms=?= <poordirtylili@gmail.com>
+Cc: linux-man@vger.kernel.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: patch - fixing sample program in unix.7
+Message-ID: <ZfTj8d0bNFhocFI5@debian>
+References: <CALPhBBbmrAMR70WT-JfKoSQVLhfxKv5B68Gyo_4zZRY-7SS0-g@mail.gmail.com>
+ <ZeX1JTt2Sxot-JFU@debian>
+ <CALPhBBYSEAh2LBSZ0CAs-dwX=i+OBhMAbDxfFJ=T=1rAvnuJvQ@mail.gmail.com>
+ <ZehfWUkNWucW0pW4@debian>
+ <CALPhBBa47G3H18HeKasT-X6WndOy-1O2n4yR0D-vZALrLzLeQQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,215 +59,296 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="H/rEJrP4NWw+s0p5"
+	protocol="application/pgp-signature"; boundary="VJ8ekWOahVlyyXGO"
 Content-Disposition: inline
-In-Reply-To: <20240315-weighted_interleave-v3-1-416a1ab01524@memverge.com>
+In-Reply-To: <CALPhBBa47G3H18HeKasT-X6WndOy-1O2n4yR0D-vZALrLzLeQQ@mail.gmail.com>
 
 
---H/rEJrP4NWw+s0p5
+--VJ8ekWOahVlyyXGO
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 16 Mar 2024 00:52:47 +0100
+Date: Sat, 16 Mar 2024 01:12:33 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Svetly Todorov <svetly.todorov@memverge.com>
-Cc: linux-man@vger.kernel.org, gregory.price@memverge.com,
-	ying.huang@intel.com
-Subject: Re: [PATCH v3] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
+To: Lili =?utf-8?B?UMO8c3DDtms=?= <poordirtylili@gmail.com>
+Cc: linux-man@vger.kernel.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: patch - fixing sample program in unix.7
 
-Hi Svetly,
+Hi Lili,
 
-On Fri, Mar 15, 2024 at 04:43:36PM -0700, Svetly Todorov wrote:
->=20
->=20
-> ---
-> Adding documentation for the new MPOL_WEIGHTED_INTERLEAVE mode in the same
-> manpages that mention MPOL_INTERLEAVE; namely, mbind(2), set_mempolicy(2),
-> and get_mempolicy(2).
->=20
-> Descriptions were based on the changes introduced in this patch:=20
-> https://lore.kernel.org/all/20240202170238.90004-4-gregory.price@memverge=
-=2Ecom/
->=20
-> Which was upstreamed to 6.9 here:
-> https://lore.kernel.org/linux-mm/20240313200532.34e4cff216acd3db8def4637@=
-linux-foundation.org/
->=20
-> To: alx@kernel.org
-> Cc: linux-man@vger.kernel.org
-> Cc: gregory.price@memverge.com
-> Cc: ying.huang@intel.com
+On Wed, Mar 06, 2024 at 09:02:47PM +0100, Lili P=C3=BCsp=C3=B6k wrote:
+> Hi Alex, I tried to follow your instructions and applied your concept.
+> I hope it is ok now.
 
-Please add those to the commit message.
+It is.
 
-Content-wise, the patch LGTM.  I have some comments about formatting.
-Please see below.
+> Cheers
+> PuLi
+>=20
+>=20
+> From fca55af92ec1993823e70a4460a08197fa8da01a Mon Sep 17 00:00:00 2001
+> From: =3D?UTF-8?q?P=3DC3=3DBCsp=3DC3=3DB6k=3D20Lili?=3D <poordirtylili@gm=
+ail.com>
+> Date: Wed, 6 Mar 2024 20:51:38 +0100
+> Subject: [PATCH] [patch] sample program in man7/unix.7
+>=20
+> Signed-off-by: PuLi <poordirtylili@gmail.com>
+> Fixes: 15545eb6d7ae ("unix.7: Add example")
+> Cc: Heinrich Schuchardt <xypron.glpk@gmx.de>
+>=20
+> Client wants to send END while server already closed the connection
+> on DOWN, so connection is broken instead of the Result =3D 0 in the
+> sample on sending a single DOWN.
+> Now, the server disconnects only on first END. After DOWN, all further
+> processing of number stops.
+> Patch does not handle cases of double END sending, multiple clients
+> etc.
+
+Patch applied.  Thanks.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D4fe1c74b42f99b3682114e1dab1200f6ced6881f>
 
 Have a lovely night!
 Alex
 
-> Signed-off-by: Svetly Todorov <svetly.todorov@memverge.com>
->=20
-> Changes in v3:
-> - italicize paths
-> - Link to v2: https://lore.kernel.org/r/20240315-weighted_interleave-v2-1=
--b742a48750b0@memverge.com
->=20
-> Changes in v2:
-> - make flag documentation implementation-agnostic
-> - Link to v1: https://lore.kernel.org/r/20240314-weighted_interleave-v1-1=
--ce85d64db0d4@memverge.com
 > ---
->  man2/get_mempolicy.2 |  8 ++++++--
->  man2/mbind.2         | 17 +++++++++++++++++
->  man2/set_mempolicy.2 | 17 +++++++++++++++++
->  3 files changed, 40 insertions(+), 2 deletions(-)
+>  man7/unix.7 | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/man2/get_mempolicy.2 b/man2/get_mempolicy.2
-> index 5248f04ba..03550331d 100644
-> --- a/man2/get_mempolicy.2
-> +++ b/man2/get_mempolicy.2
-> @@ -137,7 +137,9 @@ specifies
->  but not
->  .BR MPOL_F_ADDR ,
->  and the thread's current policy is
-> -.BR MPOL_INTERLEAVE ,
-> +.BR MPOL_INTERLEAVE
-
-This should be B, not BR (BR is for alternating Bold and Roman).
-
-> +or
-> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->  then
->  .BR get_mempolicy ()
->  will return in the location pointed to by a non-NULL
-> @@ -206,7 +208,9 @@ specified
->  but not
->  .B MPOL_F_ADDR
->  and the current thread policy is not
-> -.BR MPOL_INTERLEAVE .
-> +.BR MPOL_INTERLEAVE
-> +or
-> +.BR MPOL_WEIGHTED_INTERLEAVE .
->  Or,
->  .I flags
->  specified
-> diff --git a/man2/mbind.2 b/man2/mbind.2
-> index b0e961f9c..6f85dec0e 100644
-> --- a/man2/mbind.2
-> +++ b/man2/mbind.2
-> @@ -105,6 +105,7 @@ argument must specify one of
->  .BR MPOL_DEFAULT ,
->  .BR MPOL_BIND ,
->  .BR MPOL_INTERLEAVE ,
-> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->  .BR MPOL_PREFERRED ,
->  or
->  .B MPOL_LOCAL
-> @@ -243,6 +244,22 @@ at least 1\ MB or bigger with a fairly uniform acces=
-s pattern.
->  Accesses to a single page of the area will still be limited to
->  the memory bandwidth of a single node.
->  .TP
-> +.B MPOL_WEIGHTED_INTERLEAVE
-> +This mode interleaves page allocations across the nodes specified in
-> +.I nodemask
-> +according to the weights in
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave .
-> +For example, if bits 0, 2, and 5 are raised in
-> +.IR nodemask ,
-> +and the contents of
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave/node0 ,
-> +.IR /sys/.../node2 ,
-
-Since ... is variable stuff inside an italicised word, according to the
-groff_man_style(7) paragraph I quoted, it should be in Roman.  So,
-
-=2EIR /sys/ ... /node2 ,
-
-Also, for better formatting of the '...', we use \| between the dots,
-which on proportional fonts (in PDF, or HTML, for example) will produce
-nicer elipses.  So,
-
-=2EIR /sys/ .\|.\|. /node2 ,
-
-> +and
-> +.I /sys/.../node5
-> +are 4, 7, and 9, respectively,
-> +then pages in this region will be allocated on nodes 0, 2, and 5
-> +in a 4:7:9 ratio.
-> +.TP
->  .B MPOL_PREFERRED
->  This mode sets the preferred node for allocation.
->  The kernel will try to allocate pages from this
-> diff --git a/man2/set_mempolicy.2 b/man2/set_mempolicy.2
-> index fc3ad9df8..6b51cb376 100644
-> --- a/man2/set_mempolicy.2
-> +++ b/man2/set_mempolicy.2
-> @@ -63,6 +63,7 @@ argument must specify one of
->  .BR MPOL_DEFAULT ,
->  .BR MPOL_BIND ,
->  .BR MPOL_INTERLEAVE ,
-> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->  .BR MPOL_PREFERRED ,
->  or
->  .B MPOL_LOCAL
-> @@ -199,6 +200,22 @@ the memory bandwidth of a single node.
->  .\" To be effective the memory area should be fairly large,
->  .\" at least 1 MB or bigger.
->  .TP
-> +.B MPOL_WEIGHTED_INTERLEAVE
-> +This mode interleaves page allocations across the nodes specified in
-> +.I nodemask
-> +according to the weights in
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave .
-> +For example, if bits 0, 2, and 5 are raised in
-> +.IR nodemask ,
-> +and the contents of
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave/node0 ,
-> +.IR /sys/.../node2 ,
-> +and
-> +.I /sys/.../node5
-> +are 4, 7, and 9, respectively,
-> +then pages in this region will be allocated on nodes 0, 2, and 5
-> +in a 4:7:9 ratio.
-> +.TP
->  .B MPOL_PREFERRED
->  This mode sets the preferred node for allocation.
->  The kernel will try to allocate pages from this node first
->=20
-> ---
-> base-commit: a4ea5f76215dcf1d8d017eb65ab12919ccf09f3f
-> change-id: 20240313-weighted_interleave-e8141ed754f9
->=20
-> Best regards,
+> diff --git a/man7/unix.7 b/man7/unix.7
+> index cb1dcae45..2dc4f489e 100644
+> --- a/man7/unix.7
+> +++ b/man7/unix.7
+> @@ -1057,12 +1057,16 @@ main(int argc, char *argv[])
+>  \&
+>              if (!strncmp(buffer, "DOWN", sizeof(buffer))) {
+>                  down_flag =3D 1;
+> -                break;
+> +                continue;
+>              }
+>  \&
+>              if (!strncmp(buffer, "END", sizeof(buffer))) {
+>                  break;
+>              }
+> +\&
+> +            if (down_flag) {
+> +                continue;
+> +            }
+>  \&
+>              /* Add received summand. */
+>  \&
 > --=20
-> Svetly Todorov <svetly.todorov@memverge.com>
+> 2.39.2
 >=20
->=20
+> Alejandro Colomar <alx@kernel.org> ezt =C3=ADrta (id=C5=91pont: 2024. m=
+=C3=A1rc. 6.,
+> Sze, 13:19):
+> >
+> > [CC +=3D Heinrich]
+> >
+> > Hi Lili,
+> >
+> > On Mon, Mar 04, 2024 at 05:41:17PM +0100, Lili P=C3=BCsp=C3=B6k wrote:
+> > > Hi Alejandro,
+> > > Thanks for replying.
+> > >
+> > > The client, after connecting, processes the argv items and sends all
+> > > of them, then issues the sending of a final END which, on the server
+> > > side, is not expected after DOWN which would halt the reading (In that
+> > > case, too, the processing of argv + the END should happen).
+> > > After the change,  DOWN does not break the reading, the closing END is
+> > > processed and there is no broken connection when client tries to send
+> > > END while the server closes after sending the result, which is not
+> > > received by the client.
+> >
+> > Hmmm, now I understand.
+> >
+> > >
+> > > --- without DOWN ----
+> > > client         server
+> > > argv1..N + END --->
+> > > <----- result
+> > > <---- connection closed
+> > >
+> > > -----------problem-----------
+> > > argv1...N + DOWN ->
+> > > <---- result
+> > > END -> ?????
+> > > <---- connection closed
+> > >
+> > > ------- solution:---------
+> > > argv1...N + DOWN + END ->
+> > > <---- result
+> > > <---- connection closed
+> >
+> > Yep, I can reproduce this problem all the way back to the original
+> > implementation of the example programs.  I extracted the original
+> > programs with:
+> >
+> >         $ git show 15545eb6d7:man7/unix.7 | man /dev/stdin | cat
+> >
+> > And then cut and paste to the C files.
+> >
+> >         $ cc -Wall -o server server.c
+> >         $ cc -Wall -o client client.c
+> >         $ ./server &
+> >         [1] 94644
+> >         $ ./client 3 4
+> >         Result =3D 7
+> >         $ ./client 11 -5
+> >         Result =3D 6
+> >         $ ./client DOWN
+> >         recv: Connection reset by peer
+> >         [1]+  Done                    ./server
+> >         $
+> >
+> > This behavior conflicts with the behavior shown in the manual page,
+> > which shows (for the last command):
+> >
+> >         $ ./client DOWN
+> >         Result =3D 0
+> >         [1]+  Done                    ./server
+> >
+> > So it seems like a bug.  Maybe the server program was slow enough when
+> > it was implemented in 2016, that the server hadn't closed the socket
+> > when the client sent "END", so the client didn't fail to read the
+> > result??
+> >
+> > Anyway, we need to fix it.  Agree.
+> >
+> > Please add
+> >
+> >         Fixes: 15545eb6d7ae ("unix.7: Add example")
+> >         Cc: Heinrich Schuchardt <xypron.glpk@gmx.de>
+> >
+> > to the commit message, as well as a small description of the problem.
+> >
+> > > I hope I did not overlook something.
+> >
+> > However, I'm not convinced by your patch.  It seems to allow
+> >
+> >         $ ./client DOWN 4 3
+> >
+> > which I don't think we want to support.  I think we have two options:
+> >
+> > -  The client avoids sending "END" after "DOWN" (so DOWN implies END).
+> > -  The server only accepts "END" after "DOWN".
+> >
+> > Does it make sense to you?
+> >
+> > Have a lovely day!
+> > Alex
+> >
+> > > OK, maybe with a unique message containing only the DOWN from client,
+> > > the issue is not visible, because there is no result to return to
+> > > client and we don't care it the connection is just broken....
+> > >
+> > > Cheers
+> > > PuLi
+> > >
+> > > Alejandro Colomar <alx@kernel.org> ezt =C3=ADrta (id=C5=91pont: 2024.=
+ m=C3=A1rc. 4., H, 17:22):
+> > > >
+> > > > Hi Lili,
+> > > >
+> > > > > Subject: Re: patch - fixing sample program in unix.7
+> > > >
+> > > > On Sun, Mar 03, 2024 at 08:27:17PM +0100, Lili P=C3=BCsp=C3=B6k wro=
+te:
+> > > > > diff --git a/man7/unix.7 b/man7/unix.7
+> > > >
+> > > > Please add some commit message.  I don't understand what this patch
+> > > > does.  How is it broken, and how does it fix it?
+> > > >
+> > > > > index cb1dcae45..7fb41af99 100644
+> > > > > --- a/man7/unix.7
+> > > > > +++ b/man7/unix.7
+> > > > > @@ -1057,7 +1057,7 @@ main(int argc, char *argv[])
+> > > > > \&
+> > > > >             if (!strncmp(buffer, "DOWN", sizeof(buffer))) {
+> > > > >                 down_flag =3D 1;
+> > > > > -                break;
+> > > > > +                continue;
+> > > >
+> > > > DOWN is used to stop the server.  How would 'continue' help?
+> > > >
+> > > >
+> > > >         $ MANWIDTH=3D66 man unix | grep -C2 DOWN
+> > > >              tegers.  The client prints the sum and exits.   The  s=
+erver
+> > > >              waits  for the next client to connect.  To stop the se=
+rver,
+> > > >              the client is called with the command=E2=80=90line arg=
+ument "DOWN".
+> > > >
+> > > >              The following output was recorded while running the  s=
+erver
+> > > >              in the background and repeatedly executing the client.=
+  Ex=E2=80=90
+> > > >              ecution  of  the  server  program ends when it receive=
+s the
+> > > >              "DOWN" command.
+> > > >
+> > > >            Example output
+> > > >         --
+> > > >                  $ ./client 11 -5
+> > > >                  Result =3D 6
+> > > >                  $ ./client DOWN
+> > > >                  Result =3D 0
+> > > >                  [1]+  Done                    ./server
+> > > >         --
+> > > >                          /* Handle commands. */
+> > > >
+> > > >                          if (!strncmp(buffer, "DOWN", sizeof(buffer=
+))) {
+> > > >                              down_flag =3D 1;
+> > > >                              break;
+> > > >         --
+> > > >                      close(data_socket);
+> > > >
+> > > >                      /* Quit on DOWN command. */
+> > > >
+> > > >                      if (down_flag) {
+> > > >
+> > > > Have a lovely day,
+> > > > Alex
+> > > >
+> > > >
+> > > > >             }
+> > > > > \&
+> > > > >             if (!strncmp(buffer, "END", sizeof(buffer))) {
+> > > > >
+> > > >
+> > > > --
+> > > > <https://www.alejandro-colomar.es/>
+> > > > Looking for a remote C programming job at the moment.
+> >
+> > --
+> > <https://www.alejandro-colomar.es/>
+> > Looking for a remote C programming job at the moment.
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---H/rEJrP4NWw+s0p5
+--VJ8ekWOahVlyyXGO
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX031AACgkQnowa+77/
-2zJn7A//Q1Q/YD7L9hrj2gA6fsTk+CGQ9lls4ywCKpCNltJuarZrfAESI0+6rzVn
-oKC5mKEHaLyPaRQ4fq9Wz30ExH79RY22rVYPIU96aGydD5amZXS/nXq+/PjoomW+
-TWR2Hy5V9UzJpIGrlb0hRwEmjfan0/ayahKfwUQKO7fPQkMWxKNTIJapPmD1ZQ6r
-TrwP8aak1KzRRgiiHuNG50MHLu+dFQeiAFiI1HoVMW6QBzjlPqya1Hs7wMGVr0j2
-mNo/ymZXGxWEgIz/aFyNvb5ECzip21KNSWpfK3xrvG+ivSwrVApWNndEnjhnWnAq
-tW6Yht1sq3/DazNndWAWAiOiWfK6j5c0KPRtBpbkA2NydyZvEMEOt2RHgW4gUhi6
-Lj/xFrQ3ypuKjeZGb0GTC4u9Bmnwcw2j3VjfX5K24rLol/c6Br6SKkU1UJDuSLL/
-18WHQThj7dRqzLVkHwdyQPzK72xuDYZLe1MRI7u7k8Sg8CpXL5uNIg6+dMb4p0EZ
-WIBVHvQSxm4q8V2GMYhHrN32L7tjk+rjh/+RVoB2LdledR7IdLdvjvlG5Gzn5nDv
-K4ChGxFA6xyZ45MxiETOMGISzuZL9YHfdQnShUHuHINPsX0FBy5XOF7OEtrLnr4V
-M3qSG+T5C1eCUywdVK0dQnAXokM1Ppub02exRFAzpE1za4394Jw=
-=mkca
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX04/EACgkQnowa+77/
+2zITEw//bA/zY8hElRR2TVobt+bBLCoSIIIpo0aUeYXMc3DYUf1I0H5ZFRq8C7mg
+x+yE21jKNCWlXWTGZAZ/LE5dudm5HtSROJoQduV2Vh6eUZMz8nAaDHUJpBIcXjaD
+JqgtLWuEGEXX7EQV6VvGw+kqjPNcHCT7kNdwTJGx1xFS5C/lN4nOD7bO7XNzOdts
+sGGXb9tYZn4FS473hPvW0WUv+DSxgln/4K6narYz6sHiFVdOGqy78qMf+TStI0ya
+rVMEatMf1EvbEuv6cs2GTLC9184g34NXxAgFLiLLPbhGkLjtMNc/W8UZ0U5lI5N2
+p3PcU19YNsOU9FHJVdcl6I+LNcTerebVqOQZJYeuuGiQZrBzKg/WwTjQfT6+EUOo
+x2chBm+PTkLLzIyf5IPmOn1kNr/ZyP9uhNcVXmLhSAJJGyQE4w9cJTqz8pkNe3U6
+xj9VNaMxCEkmwK9UiCOF85wCaI4oxbNMbEAYjI8NDp68KZascKfyZGzwlvEl3uRz
+BgMSR/yFIkFgH66Le5K+ja14AX6+r4greA633Cc0PdmNQxySSsyVM+e40Jtp+s+o
+FOicIkhYb7K21oZFpm5WY3EK2K6F9ep/Oe7fo8kU+Ab9TgD32R/JSigNkUmX2lFp
+OUsFtMQkJSWbG7nE/IQTa2d8+N8xw03XG3Be0xjV05aqSbrY/mU=
+=+/nS
 -----END PGP SIGNATURE-----
 
---H/rEJrP4NWw+s0p5--
+--VJ8ekWOahVlyyXGO--
 
