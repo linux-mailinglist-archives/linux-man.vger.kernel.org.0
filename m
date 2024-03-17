@@ -1,265 +1,141 @@
-Return-Path: <linux-man+bounces-637-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-638-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BF8787DD0B
-	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 12:02:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF47B87DD0D
+	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 12:32:00 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id CF8571F2128D
-	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 11:02:01 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 53F421F21380
+	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 11:32:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8D3317C6C;
-	Sun, 17 Mar 2024 11:01:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B2F118EB0;
+	Sun, 17 Mar 2024 11:31:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="KwtQfUsU"
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=ps.report@gmx.net header.b="QbQzEpSh"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2114D182BB
-	for <linux-man@vger.kernel.org>; Sun, 17 Mar 2024 11:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B33C17BDC;
+	Sun, 17 Mar 2024 11:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710673315; cv=none; b=X2CQnBu3oyF84WvnqrYfaQMoz6ngTgdjF+a3TH7sfVXE046QW3ipd7x9rACkepRWQi1RHOfKM3RLTLQNm3eSsHnRsDrUmgrbXk3QaDzeTUr7hbTAwUNZZaiW4/bUvE+9yuOEZmmbddt665QOmR+soTl1svaBkZVY1dsky3NI8O8=
+	t=1710675115; cv=none; b=Px1d19VNFWG0nyXZzWRpq9DWEIAAEDy2Z0ldtRfPDTsUDufokpWlFgHmfh3b2dQUWlwZP2XuWDeMRu03sIcZ93tMax1v0nwNxm6EtAVcTVJglbhMUHHUnIGVqD+XM4uOVY8zGhbZWoM4O9/2KRP9kfPzBG4XhHud3y52K8yLmZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710673315; c=relaxed/simple;
-	bh=FFRRA3QaxOUmYz3GKhoaOrgGNam8PNQP4KyVZfJDnrg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dytNTVfP6Fj7XQfL/pbsUg8CZ5odsEWzA24XbGBOB9si0XRDW0shSrlqquTvViXC6BoXVx13QS7jyH62e7N2nPRw/dV2YGoyWZ6zIHzUZpplvEl2nVYlYIjw29OZ4VztnJ5NzpFkg9qbdQKC0DDSC6TcA01bRDiHnX4zyrfDftI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=KwtQfUsU; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202305; t=1710673304;
-	bh=FFRRA3QaxOUmYz3GKhoaOrgGNam8PNQP4KyVZfJDnrg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KwtQfUsUiMJQN39e7eJI+XnWRaenpC1/s3tadxZ8nUROaDFGxZgWOK1uIIG3cldSD
-	 gFleokHjI18qKUvnBrtsK5NsIoB6jOGDDn5nbWdn7XZkwWoXZX79KcIvmJBEr13pLk
-	 tZuLYj3CbZzy4qTUMFvodytSG+OEh3XK+2Au3dtu4CcW1anbmAWSlEo3Jr7InZBdcj
-	 1f4ssA46b9xoVb5tIKOjgSKyvT/nR0Bb/VuyQHNUq2gnc66JxaBlTkWX29gfOWTAmY
-	 H27O7DCL+FyoJ4/g0B21wepUsDMizm5PU8DEfOcgm0Rd+JFnYuWfkdNNSOYPXca0YA
-	 Y90KtyNwoCeoQ==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 055041414;
-	Sun, 17 Mar 2024 12:01:44 +0100 (CET)
-Date: Sun, 17 Mar 2024 12:01:43 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	s=arc-20240116; t=1710675115; c=relaxed/simple;
+	bh=qrgeXJnBze0/NlThCnEWfbKJr4i8ti9uvqhuku1tviU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pXIwUZ45yb7qMdpp7M21bPqh8gUwuTdpEZP7pFBhqXbZCxiHcxD+KSUSbYVIRN6cbW9qKQLXkvjq0488ZvOvt93DsU41NagJtZYZyVi1tow/lZdaR1vJYJNPJnU+I+uq+9f+TvFgX0qjwqIzDZT8xH2d4eISxSPBenVNRIl6ohY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=ps.report@gmx.net header.b=QbQzEpSh; arc=none smtp.client-ip=212.227.17.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1710675107; x=1711279907; i=ps.report@gmx.net;
+	bh=thWe4OMhTAQiJNHJcIhgAzprazHbbDFO6O3nabVbkoQ=;
+	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:In-Reply-To:
+	 References;
+	b=QbQzEpShu9aCF6eGud0wFqH5aBsS1yh2ZS8flEyhZMeElzpmMduWaCR60hC19sTS
+	 hotihDgA9mMhZiZWtvBC+g0OiYtVoeWjM+vfHeMwTXM6dabohZjdC9yau65q4G0Yd
+	 Ec38FDvENE8GCRmVWfVzP/fqDze6Hzc6N0vxZ2IEXPtURKsS9ScGUje+oWu8XniUL
+	 xcaseaKYzvhWg2/8XIeyuY+9Hk67Gb+O/3u9Exmkqree/bL4TVYKfTLDITxwZM3LY
+	 jstwdzLmM3v5XMxufZ043uvnH17YjzNFwfpVM8blGixII/n6VeW9KOfuuQjbcJx4Q
+	 krid3VmkGFe9+AaoYQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from localhost ([212.114.183.180]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MkYbu-1r4Gyr1iX8-00m2bt; Sun, 17
+ Mar 2024 12:31:47 +0100
+Date: Sun, 17 Mar 2024 12:31:35 +0100
+From: Peter Seiderer <ps.report@gmx.net>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH v2 1/2] proc_pid_io.5: stats include children
-Message-ID: <4eb567da5a26a4886478c65ee90fe73d570e291f.1710673156.git.nabijaczleweli@nabijaczleweli.xyz>
-References: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
+Cc: Oliver Crumrine <ozlinuxc@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-man@vger.kernel.org
+Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket
+ options
+Message-ID: <20240317123135.24993051@gmx.net>
+In-Reply-To: <ZehrtwSDQV-X7BXV@debian>
+References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
+	<ZeXzuWVmC9AnsECt@debian>
+	<7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
+	<ZehMWQ0LkemsTHAC@debian>
+	<CAK1VsR0XZMgUW8qMQMcDPohD8-+OZsgW68sZegLbVy6cdoWucQ@mail.gmail.com>
+	<ZehrtwSDQV-X7BXV@debian>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-suse-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="auwltld5rnlz7hcm"
-Content-Disposition: inline
-In-Reply-To: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
-
-
---auwltld5rnlz7hcm
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+EQe8vdWUodhPL4RH0qddhfdT6bV+qEix91lRkyb76oIOo+y33T
+ hz/oYti00sb6w1koT3l74SUCK2sS9Cp0VwFPiuF5kOFcHybETlsRFTcsvHtglMTPbvIj3Mj
+ LGuv9Di7Y+FP8RQ1RjWRLR4yjnai2aTGEih6aPD4fGCwuxL31StB6qMMH08EJwV7Aygg06o
+ Rz8rhiW0JZ5uYwXgfbRuw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:CGV87Kpqmt8=;g84LAudjtX9P2NnR8jYlaozCDhO
+ pT5A71DR3iMRoltgO7Ml7rWeCCuHPbA7+lsBqqBIW10fqazYGGdIuqT1qFtBWdeiAtx9aPWb2
+ hPTBWYeukC4btBjvJBaKFRIKt7FFlGTj7bW3TRzZ9HlRljM14GurwvkBLo8cZGLRTv10rTRX5
+ MvBrWPYBCMZG/KTepMCP5IYs95ePamPFvUCTi6RBSw0o3Avf3or/7vx1HFNGJ01PaNfIk70i5
+ xvs5SJDFQc5VINngecz6nlCztgsJERoVm1vlSu0YHqGx9I27R7ZErpCjnD+9lrBIlEZalTCus
+ ePFGteryWzDjwtuMGjpsrMenU42bE6Lw7AyanBdWkoFHZAVwtL7ndZAIlR0w5biU80a752EDw
+ ubEeaXFKeBislvLD7VEhtuZ2y5cNWatJ6VJVJTmk61NZ3JAz7jAI8bX4F6biZtk1jrGez9bze
+ 5rhfLsVGhDn+xJs50lxR+Bv3x6APdVPgv8EJXkSbPEYIXLKSWsFaHWCTsBCNXWfvuI+2SYC0O
+ OPHHCfftO4j/RxDlQlVeOiKqXQPL4KOp2pBWeGntSSUDEWkR0xCWucT2x1tud4UFIJAJa0Ky3
+ n4TTBwqooQkIeBfUcjPGwn2EHH0jQRYys58jDpUahykIGSMpQhqes4CftvbQchggssmmiVazT
+ 19YwNRaCC/PN4otI/rk+kQRbnfAJpVOCO6jgGOm6n5thiI35E6uSsomokN3KNMY4W9gVSIiJO
+ XGQbiSMUCBtSIm1KoHGfyJ9tLbE0sylBysc39sO2NoXVbj8SRKElmT+hb/E9+pcXIYfdpoo8u
+ nBshFdrcSoxZzeS51cFv51E4nKAO6/fmCSODdmK5ZA/wc=
 
-This file is like getrusage(2) RUSAGE_SELF + RUSAGE_CHILDREN,
-the current wording implies it's like just RUSAGE_SELF.
+On Wed, 6 Mar 2024 14:12:23 +0100, Alejandro Colomar <alx@kernel.org> wrot=
+e:
 
-Compare:
-  #include <fcntl.h>
-  #include <signal.h>
-  #include <string.h>
-  #include <sys/wait.h>
-  #include <unistd.h>
+> On Wed, Mar 06, 2024 at 08:02:10AM -0500, Oliver Crumrine wrote:
+> > Hi Alex,
+>
+> Hi Oliver,
+>
+> > Type into netcat, not the program I sent.
+> > My program is the server and prints out whatever it recieves,
+> > along with some other stuff that lets you know which options
+> > are supported.
+>
+> Nothing either.
+>
+> $ date; nc localhost 8888 -u | ts
+> Wed Mar  6 14:09:38 CET 2024
+> foo
+> $ echo $?
+> 0
 
-  void copy() {
-    char buf[1024];
-    int fd =3D open("/proc/self/io", 0);
-    write(1, buf, read(fd, buf, sizeof(buf)));
-    close(fd);
-  }
+Same here, but with nc forced to IPv4
 
-  int main() {
-    copy();
-    copy();
-    if (!fork()) {
-    zero:;
-      int fd =3D open("/dev/zero", 0);
-      char buf[64 * 1024] =3D {};
-      write(1, buf, 10000);
-      for (int i =3D 0; i < 1000; ++i)
-        read(fd, buf, sizeof(buf));
-      _exit(0);
-    }
-    sleep(1);
-    copy();
-    wait(NULL);
-    copy();
-    signal(SIGCHLD, SIG_IGN);
-    if (!fork())
-      goto zero;
-    sleep(1);
-    copy();
-    wait(NULL);
-    copy();
-  }
-yielding
-  rchar: 3980
-  wchar: 0
-  syscr: 9
-  syscw: 0
-  read_bytes: 2968
-  write_bytes: 0
-  cancelled_write_bytes: 0
+	$ nc localhost 8888  -u -4
+	a
 
-  rchar: 4076
-  wchar: 96
-  syscr: 10
-  syscw: 1
-  read_bytes: 2968
-  write_bytes: 96
-  cancelled_write_bytes: 0
+And in the other window:
 
-  rchar: 4175
-  wchar: 195
-  syscr: 11
-  syscw: 2
-  read_bytes: 2968
-  write_bytes: 195
-  cancelled_write_bytes: 0
+	$ ./a.out
+cmsg recieved
+data read: a
+byte =3D 02
 
-  rchar: 65540276
-  wchar: 10296
-  syscr: 1012
-  syscw: 4
-  read_bytes: 2968
-  write_bytes: 10296
-  cancelled_write_bytes: 0
+Regards,
+Peter
 
-  rchar: 65540387
-  wchar: 10407
-  syscr: 1013
-  syscw: 5
-  read_bytes: 2968
-  write_bytes: 10407
-  cancelled_write_bytes: 0
+>
+>
+> $ cc testDgramSocketServer.c
+> $ date; ./a.out | ts
+> Wed Mar  6 14:09:05 CET 2024
+> ^C
+> $
+>
+>
+> Have a lovely day!
+> Alex
+>
 
-  rchar: 65540498
-  wchar: 10518
-  syscr: 1014
-  syscw: 6
-  read_bytes: 2968
-  write_bytes: 10518
-  cancelled_write_bytes: 0
-
-Just s/process/& and its waited-for children/ but re-broken per review.
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man5/proc_pid_io.5 | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
-
-diff --git a/man5/proc_pid_io.5 b/man5/proc_pid_io.5
-index d6eaebf5d..dc75a91de 100644
---- a/man5/proc_pid_io.5
-+++ b/man5/proc_pid_io.5
-@@ -11,7 +11,9 @@ .SH DESCRIPTION
- .TP
- .IR /proc/ pid /io " (since Linux 2.6.20)"
- .\" commit 7c3ab7381e79dfc7db14a67c6f4f3285664e1ec2
--This file contains I/O statistics for the process, for example:
-+This file contains I/O statistics
-+for the process and its waited-for children,
-+for example:
- .IP
- .in +4n
- .EX
-@@ -30,7 +32,9 @@ .SH DESCRIPTION
- .RS
- .TP
- .IR rchar ": characters read"
--The number of bytes which this task has caused to be read from storage.
-+The number of bytes
-+which this task and its waited-for children
-+have caused to be read from storage.
- This is simply the sum of bytes which this process passed to
- .BR read (2)
- and similar system calls.
-@@ -40,8 +44,9 @@ .SH DESCRIPTION
- pagecache).
- .TP
- .IR wchar ": characters written"
--The number of bytes which this task has caused, or shall cause to be writt=
-en
--to disk.
-+The number of bytes
-+which this task and its waited-for children
-+have caused, or shall cause to be written to disk.
- Similar caveats apply here as with
- .IR rchar .
- .TP
-@@ -60,20 +65,24 @@ .SH DESCRIPTION
- .BR pwrite (2).
- .TP
- .IR read_bytes ": bytes read"
--Attempt to count the number of bytes which this process really did cause to
--be fetched from the storage layer.
-+Attempt to count the number of bytes
-+which this process and its waited-for children
-+really did cause to be fetched from the storage layer.
- This is accurate for block-backed filesystems.
- .TP
- .IR write_bytes ": bytes written"
--Attempt to count the number of bytes which this process caused to be sent =
-to
--the storage layer.
-+Attempt to count the number of bytes
-+which this process and its waited-for children
-+caused to be sent to the storage layer.
- .TP
- .IR cancelled_write_bytes :
- The big inaccuracy here is truncate.
- If a process writes 1 MB to a file and then deletes the file,
- it will in fact perform no writeout.
- But it will have been accounted as having caused 1 MB of write.
--In other words: this field represents the number of bytes which this proce=
-ss
-+In other words:
-+this field represents the number of bytes
-+which this process and its waited-for children
- caused to not happen, by truncating pagecache.
- A task can cause "negative" I/O too.
- If this task truncates some dirty pagecache,
---=20
-2.39.2
-
-
---auwltld5rnlz7hcm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmX2zZcACgkQvP0LAY0m
-WPFgUhAApp1YhK2sr7AjLteOnRUz6J0bnLsBYpeN+tyczK3XGZeMThpRz5904WsN
-QrIFqDAPBpSkDaIEMstoUxXbi7ZaLzHk7fInvyal8++3KXYoWxBI2Z8uh9yZ0U31
-x9qMIYcjBJNBzsbF16K7a0RYJEEWhdoFk3jCmzqyCPBX37STLUubZW9db0ZH1Iwl
-wqBKxpnJKPHUCupp1LCKq57ntSxzfy3bhQPUUL/+o7LUdUVijc1/9P/04YxLLdJX
-PJ5mkrjdyL2/kuo+qhQMXBS+ViJMqaiCaUKDuMbK8N6MVU0R+WvnnBaoCkb7AeVt
-NRGXwx34YRIIVHNF0lnkpfAKizm9kOuWcsYAX5BClTWyiy8coP9nZd+mwtuowkYe
-vYMxwDBFB0LTA9ir8fMaKbxoIzjxc7vp30v6jRAaLeidK+tC7mJ1L6IkYuO53y1h
-vsbpPX8ICUBVlmIWldK9vXiZQ9asxvRB4ANqU4LYlAclAg3FTU31t8JqX/CKw2Ch
-h7duskiQiGypHDgTfSas+rgj5W8cby+miLph5WimOWhSPluWSklEHsnJNULfkrAm
-Xb0IRXS1UNpUTbJEaxZlAMbpzwhKCDmJPplo9DlM5dqfQPDcnrDDVMnqbbJ2lZd0
-njvEZtr5VXYPuBbqVe4SjaNxX4p1niasURM/mWd5REvRDgucpjw=
-=Mdx3
------END PGP SIGNATURE-----
-
---auwltld5rnlz7hcm--
 
