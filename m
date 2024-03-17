@@ -1,54 +1,54 @@
-Return-Path: <linux-man+bounces-646-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-647-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 578BA87DDB2
-	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 16:00:30 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F1E87DDBD
+	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 16:05:38 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8652A1C20915
-	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 15:00:29 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id CDDA31F21281
+	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 15:05:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7751F1BF50;
-	Sun, 17 Mar 2024 15:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D8231C2A3;
+	Sun, 17 Mar 2024 15:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pILYWOP8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqqxoO9M"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395D31BF33
-	for <linux-man@vger.kernel.org>; Sun, 17 Mar 2024 15:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26381C288
+	for <linux-man@vger.kernel.org>; Sun, 17 Mar 2024 15:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710687625; cv=none; b=NCrazJAMsauv9N+7S0Ej9q5pKMiqRIWkOHAoj6SUsgwpFr35ALzdLaSvbZO4VJhY3IRxpOMNvhMocSJUOOakinXfFRDDo0K0hKCzaN3Oh9lPAtYI3v3wmj8Q2hv5ubIPVW86a7RNFnXt5+UCJVJYSDUFqHAu+Y0MKiTjaOE8K7s=
+	t=1710687933; cv=none; b=QfyPjbvp0hlaNgBnsyF0gssjFWPX9hIuS+nxC4gsrObb94v1qVbkG69u/Ek1gTtZUemU4o383fd4pJI6bIbz4m00HyCBQxOScWW4vYDV545+IhxTfE9OoOyJw1bFdswrWMORnOxCw0jEIP8iS/jZFPiKTCfiupfPC0OeGKWt57M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710687625; c=relaxed/simple;
-	bh=gUdgj+uJCnV+4V/NmbaM+w2UlZfcS6bVFrSweshnweo=;
+	s=arc-20240116; t=1710687933; c=relaxed/simple;
+	bh=Af+uMd90vCl/nJKMFQStS9DPhheUtn3d+O6Iepzi7TU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uHYPn5hrGxgg/jRSbg0GdLc/CDMbCPzIrxk3zfcMHviiuZtCG2Io7Hz9HhLJMPZYXcQsYvPlmmaPvlWot+0lLy107OxFXWhsi18jVeAvtHaETWmUaksGmyV+p37id6tO69jdXi7GJrgZY0bQ7UAqtmGKbnc1GD5YF5AlEKvnhUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pILYWOP8; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08DEAC433F1;
-	Sun, 17 Mar 2024 15:00:23 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=smOV0rRN9igMleIRZbhpOq5rjAPEwb4GyyO0TX3ihJnpGiCPcAPXMtHXFqXjj/Rk/W6NG5XiTH4SlmGd7ghZAYAfkSCAEuKokLDQkSjQUF3FVC5Qc58OFgPeXMp3kCB5R5wgqDakFD8mljKgciTb20Z+sHZd08C+nuIfN6o7v84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqqxoO9M; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF1BC433C7;
+	Sun, 17 Mar 2024 15:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710687624;
-	bh=gUdgj+uJCnV+4V/NmbaM+w2UlZfcS6bVFrSweshnweo=;
+	s=k20201202; t=1710687932;
+	bh=Af+uMd90vCl/nJKMFQStS9DPhheUtn3d+O6Iepzi7TU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pILYWOP8KyCxKHfwHQJagHQ4S6d5RWuTVEkCQ8SlKwZvx03MufylCPmO5qZVuetrF
-	 tzkDZW9Fdok2AAcpwqD16CmPa4QUpQCmqTE5keIPKHojIfKkQxBWAa4HUi8F7uInsR
-	 Ne1kMCl79bDpRig7CRWexG5VZwOjLMd2fcVuaXmY/cAISybp308Z+BWnvruubgp0nP
-	 VN2V3ThOFv6cUKSSktV68D7lxWcXsJopo9MmCxiGx9Z8Bg2D7RIkwi4M5tSQOf8Ggh
-	 s5p/p82E0ppoS8QES51TvHuX2W9bcM/Nrd43xW68AzovsQjHZFlN04YxlQxxMvkGVl
-	 8kX4j45rgbERA==
-Date: Sun, 17 Mar 2024 16:00:09 +0100
+	b=dqqxoO9MKBIvmAk2q/C45768YL73bWqLBtcyAfBt7ZVGZL/l3wP8vVtzY+t9sGhT1
+	 GZcVl8mKsGs9FOnM2QpdNpxD0qE35heYq5WFiWU4iw5ljkLUICBhpi/oqU7+mCsTI5
+	 R480aMs4X2qoJskfy0wXt3NZyjjaizHCFu1PiFbALrGrkKlybAGD/FqaIe1nXsGm3+
+	 nM37/9rP/2pe73VWtWH2XCBPsIkVY0Ba4JqUmhkDvpr3EfUOgliIcWQi7if+DKZJjM
+	 Xt8wOn98Dc/pBLIC/ZwXVQ0wNu7VNv5jm6fwZlKKxYggeEVPyxJw3y/skeHwNYQv/S
+	 YLkq+XDKWj2zQ==
+Date: Sun, 17 Mar 2024 16:05:29 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Jeremy Baxter <jtbx@disroot.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] intro.1: Document the meaning of the PS1 variable
-Message-ID: <ZfcFhQIUv6vRGwGd@debian>
+Subject: Re: [PATCH v2 3/6] intro.1: Explain the meaning of a directory
+Message-ID: <ZfcGub2EdBC20dCI@debian>
 References: <20240317080850.28564-3-jtbx@disroot.org>
- <20240317080850.28564-5-jtbx@disroot.org>
+ <20240317080850.28564-6-jtbx@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,47 +56,49 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JlTwWOgFhaGGE9ih"
+	protocol="application/pgp-signature"; boundary="fEc46VFtCOmbd7cB"
 Content-Disposition: inline
-In-Reply-To: <20240317080850.28564-5-jtbx@disroot.org>
+In-Reply-To: <20240317080850.28564-6-jtbx@disroot.org>
 
 
---JlTwWOgFhaGGE9ih
+--fEc46VFtCOmbd7cB
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 17 Mar 2024 16:00:09 +0100
+Date: Sun, 17 Mar 2024 16:05:29 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Jeremy Baxter <jtbx@disroot.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] intro.1: Document the meaning of the PS1 variable
+Subject: Re: [PATCH v2 3/6] intro.1: Explain the meaning of a directory
 
-On Sun, Mar 17, 2024 at 09:08:30PM +1300, Jeremy Baxter wrote:
-> It still doesn't explain what a variable is but I think
-> shell variables are out of scope of this manual.
+On Sun, Mar 17, 2024 at 09:08:31PM +1300, Jeremy Baxter wrote:
 > ---
->  man1/intro.1 | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  man1/intro.1 | 3 +++
+>  1 file changed, 3 insertions(+)
 >=20
 > diff --git a/man1/intro.1 b/man1/intro.1
-> index 96eb3b7fc..090678750 100644
+> index 090678750..f0a8d98e0 100644
 > --- a/man1/intro.1
 > +++ b/man1/intro.1
-> @@ -109,7 +109,10 @@ that it is ready for the next command.
->  The prompt can be customized in lots of ways, and one might include
->  information like the username, machine name, current directory, the time,
->  and so on.
-> -An assignment PS1=3D"What next, master? "
-> +It can be changed by setting the value of the "PS1" (prompt string 1)
-> +variable.
+> @@ -180,6 +180,9 @@ The command
+>  In this example, we use it to find Maja's telephone number.
+>  .SS Pathnames and the current directory
+>  Files live in a large tree, called the file hierarchy.
+> +In this hierarchy, there are many
+> +.IR directories ;
+> +a directory is simply a file that can hold other files as opposed to tex=
+t.
 
-I think this is too long, and the existing text is informative enough.
+This might confuse more than it helps.  What does "hold" mean?  Does the
+directory hold the file data?  As in a .tar archive?  No.
 
-> +An assignment
-> +.B PS1=3D"What next, master?\ "
->  would change the prompt as indicated.
->  .P
->  From this example we can see that there is the command
+In any case, this subsection doesn't seem to treat how directories are
+represented in the filesystem, but rather how they are presented to the
+user in path names.
+
+>  Each file has a
+>  .I "pathname"
+>  describing the location of the file from the root of the tree
 > --=20
 > 2.44.0
 >=20
@@ -105,25 +107,25 @@ I think this is too long, and the existing text is informative enough.
 --=20
 <https://www.alejandro-colomar.es/>
 
---JlTwWOgFhaGGE9ih
+--fEc46VFtCOmbd7cB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX3BXkACgkQnowa+77/
-2zICZA/+KITKzSmXt19+3QGKNUG6E63/1elgAyMWXdcAvFrLlL/BT78jF5/IZj9s
-7ejWLK0zJ25POMcYBDFNXqMV6TOxZAwYwsSXMlKlVS4a1YoinM6vFyiOVDp1pewE
-hmjQ8dI4L2r6oFlzDlstkcdOxXpg4YSNOlpom/NK2eqDHJgUkymqqOVNmydRt7mz
-erqZb90VtnbPv3MxMYHA+U03V4YKRDkOvu7Mg0veQG8/tggTedohb2HAeYWwAG95
-C7vZpoWjnIdBOinQy0K6QDiRgIcJxD4LoC87mOHopQST7PFnd2T8jd2oTEcOijqO
-1EJTzqTVtOcgBHl+qwCZL4L41CdBqBR989RU9P1qO77ZNUBsm1eOzuAyrOK8nAyr
-hfKwd8ST55Z0jkP8raMWb2udIYpO3m+0hscPkI89Xc/Pvi69QFdsfSW6PdvXuoxo
-evfKjoU2rY45Pl4KfDkZAP4LZvfFEQLmrEQp2V8spj2r41OdvENJAPuLviubJMpc
-YoT5hhzjOVSdi4uUXkdnT1AIsN2ACfKezySGzsdypYMYpDwiz38iXxPyD0c7Q7d3
-2UPMERfq5bKt7fD1ijj4m0j3Nj0VgIJPOuUt+1x+NfdBLKDOHrKeAtoZ8e7LunOE
-Wa1F13OOHCxA9YFzfhfM8oSUZ8jxe7B6YaIyU6tfKyozvme3lbA=
-=2ZlA
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX3BrkACgkQnowa+77/
+2zIgEg/+OBJv5fJGBtd6QraEAOcFDhZxdiaSkSXSqOzX20aAsxudqgEQhOZgvPOr
+pJjCTlo54iBrjkuZu0Jy2EkG73tIS7OAioWZIyQpTzCH8zdi2vqru/RjfybXkJVj
+mzgdTOmtigrg5+U2wbp8Y15h7A3eW7vzoqMie1W7lVWcX9eg81DshCuA/5JDt+Mg
+nA7v2T4eksTQpkbCxSM1tU6SqIIykMCl0iM6f9HQJELI34XV4dSosyf/k8+yeZqW
+TWcwyMYtxNAII4qAvtGFNaDRgRsuCzdhZHDANLyItEhLbjZMHvwQ/AoIuM9edjAR
+gZtpJQ/UEmSnUt6IOR7xa84TfTY5fmHseR/PTu2tQIgFg5uXd/JnxXSRP00PPOuq
+ksqMG48BoF+s4/aMoIafKS48gUpmhBQDi9Sy0JtxHAps2NcppNjrXvPlUsJ0AHB8
+d+zIi3eLP2MCexHE7R2hAStWnls+MTrH+elgVpAUvIz9DNdsvFHv8wKGCG0dlGcv
+jcODXDe7bJ8lutDLD89KsWzvWd2+roGbXony5DTWvnpkRDSLWZsEg+YFU7A6Fv6h
+/ZLiSJNDkRc6RO/j9TmxCfOZa2jMon1zXnaDjqoLs12iU3QKhAgsv+o9YW8t852/
+qFGD5qtaq2ZMbIUPa/Vak33UPBkTwlrd5GjKml4QuP54tDfNQ/g=
+=kIBJ
 -----END PGP SIGNATURE-----
 
---JlTwWOgFhaGGE9ih--
+--fEc46VFtCOmbd7cB--
 
