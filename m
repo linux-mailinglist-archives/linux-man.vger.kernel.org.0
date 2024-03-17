@@ -1,141 +1,196 @@
-Return-Path: <linux-man+bounces-638-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-639-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF47B87DD0D
-	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 12:32:00 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4879287DD11
+	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 12:39:29 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 53F421F21380
-	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 11:32:00 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 810B32815D4
+	for <lists+linux-man@lfdr.de>; Sun, 17 Mar 2024 11:39:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B2F118EB0;
-	Sun, 17 Mar 2024 11:31:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0ABBF17BDC;
+	Sun, 17 Mar 2024 11:39:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=ps.report@gmx.net header.b="QbQzEpSh"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C416vuMr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B33C17BDC;
-	Sun, 17 Mar 2024 11:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC59136A
+	for <linux-man@vger.kernel.org>; Sun, 17 Mar 2024 11:39:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710675115; cv=none; b=Px1d19VNFWG0nyXZzWRpq9DWEIAAEDy2Z0ldtRfPDTsUDufokpWlFgHmfh3b2dQUWlwZP2XuWDeMRu03sIcZ93tMax1v0nwNxm6EtAVcTVJglbhMUHHUnIGVqD+XM4uOVY8zGhbZWoM4O9/2KRP9kfPzBG4XhHud3y52K8yLmZA=
+	t=1710675563; cv=none; b=ix01zybomdMnfpsbx5Cn5CyTDJqidGDQEs1xfEOd5Q3wiXvd5V3HhBSRmaa4TouPbkNzphCDvO1UGNCRDeyRHskRLvvyyXHqiCMpq0ctYGYNqa2XZ2B22SphyvLLyHaCeB9+B5qnPNFOx6FWuezGRlrRXCqMzUtZr4bpDmeP7+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710675115; c=relaxed/simple;
-	bh=qrgeXJnBze0/NlThCnEWfbKJr4i8ti9uvqhuku1tviU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pXIwUZ45yb7qMdpp7M21bPqh8gUwuTdpEZP7pFBhqXbZCxiHcxD+KSUSbYVIRN6cbW9qKQLXkvjq0488ZvOvt93DsU41NagJtZYZyVi1tow/lZdaR1vJYJNPJnU+I+uq+9f+TvFgX0qjwqIzDZT8xH2d4eISxSPBenVNRIl6ohY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=ps.report@gmx.net header.b=QbQzEpSh; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1710675107; x=1711279907; i=ps.report@gmx.net;
-	bh=thWe4OMhTAQiJNHJcIhgAzprazHbbDFO6O3nabVbkoQ=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:In-Reply-To:
-	 References;
-	b=QbQzEpShu9aCF6eGud0wFqH5aBsS1yh2ZS8flEyhZMeElzpmMduWaCR60hC19sTS
-	 hotihDgA9mMhZiZWtvBC+g0OiYtVoeWjM+vfHeMwTXM6dabohZjdC9yau65q4G0Yd
-	 Ec38FDvENE8GCRmVWfVzP/fqDze6Hzc6N0vxZ2IEXPtURKsS9ScGUje+oWu8XniUL
-	 xcaseaKYzvhWg2/8XIeyuY+9Hk67Gb+O/3u9Exmkqree/bL4TVYKfTLDITxwZM3LY
-	 jstwdzLmM3v5XMxufZ043uvnH17YjzNFwfpVM8blGixII/n6VeW9KOfuuQjbcJx4Q
-	 krid3VmkGFe9+AaoYQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from localhost ([212.114.183.180]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MkYbu-1r4Gyr1iX8-00m2bt; Sun, 17
- Mar 2024 12:31:47 +0100
-Date: Sun, 17 Mar 2024 12:31:35 +0100
-From: Peter Seiderer <ps.report@gmx.net>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Oliver Crumrine <ozlinuxc@gmail.com>, linux-kernel@vger.kernel.org,
- linux-man@vger.kernel.org
-Subject: Re: [PATCH] ip.7: Add not supported by SOCK_STREAM to socket
- options
-Message-ID: <20240317123135.24993051@gmx.net>
-In-Reply-To: <ZehrtwSDQV-X7BXV@debian>
-References: <hxiq3upwxs3j5mc5arwlx4jriqm7fq5z54wroc4h4kqcq4gq7m@uwnoq2vnkhup>
-	<ZeXzuWVmC9AnsECt@debian>
-	<7ubz52rfdl2i76sotvd3s4thv6jvbfao6zct3sywqus2owlvkx@wpbeqqdvipo4>
-	<ZehMWQ0LkemsTHAC@debian>
-	<CAK1VsR0XZMgUW8qMQMcDPohD8-+OZsgW68sZegLbVy6cdoWucQ@mail.gmail.com>
-	<ZehrtwSDQV-X7BXV@debian>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-suse-linux-gnu)
+	s=arc-20240116; t=1710675563; c=relaxed/simple;
+	bh=Uw3F1ygf9faLkKYtCdLpY2zwCASGoCAYRa41f7IVu74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hk++M2CEE8VmssOFL0PCiX+zzRKDmU9V4xb8c4YhCRMFgCX7TP9CJK3kwDlbDLv7sUSogNYuw6sz0fHUnmxvpCwRwZu6kFg/2Q9xmKuo+c55/L/FmUDwj37tcX0MtV61snyj+S5cIvMIsl1s7v7ZZI+MZro+a8LU4XOzfhhu76E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C416vuMr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5131C433F1;
+	Sun, 17 Mar 2024 11:39:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1710675563;
+	bh=Uw3F1ygf9faLkKYtCdLpY2zwCASGoCAYRa41f7IVu74=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=C416vuMrdAuc25Va4WVj5If3qkCM8a2N7opLl9Yo2Vah0547nhpX1a/u6gr5EcBw2
+	 tA7g4QoMqlRgA6RcqyoHsY8OfBWiTPrzJgijgMXh4KpC8ZjUWAgfiPJbCVeMF5rKS/
+	 0A1ZbSSJs6MECrjPI/1oIiHBdP3haJJ30gej9QN6/R7vwcJ9ua4djEDVw7s/HKN8zc
+	 e1/KpdzgyDGI3eVnma3RQ2bAAbRgckF6fVu2NcOyL/O68Yk+jCv0xNe0g0ZRixUK8M
+	 XS4N91MIICQ76+PFW2DFg712BFWXLUMAxAgxzObUGqtX0EIF7d8tih92zyj8KtO6G2
+	 L0DLS7z+IUVyQ==
+Date: Sun, 17 Mar 2024 12:39:14 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] proc_pid_io.5: stats include children
+Message-ID: <ZfbWaLu0o6towx2W@debian>
+References: <1513ee2073bcf0fae7bb720bcee8a8de847e5cf5.1710339990.git.nabijaczleweli@nabijaczleweli.xyz>
+ <4eb567da5a26a4886478c65ee90fe73d570e291f.1710673156.git.nabijaczleweli@nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6tGeMx3G+NHGBToE"
+Content-Disposition: inline
+In-Reply-To: <4eb567da5a26a4886478c65ee90fe73d570e291f.1710673156.git.nabijaczleweli@nabijaczleweli.xyz>
+
+
+--6tGeMx3G+NHGBToE
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:+EQe8vdWUodhPL4RH0qddhfdT6bV+qEix91lRkyb76oIOo+y33T
- hz/oYti00sb6w1koT3l74SUCK2sS9Cp0VwFPiuF5kOFcHybETlsRFTcsvHtglMTPbvIj3Mj
- LGuv9Di7Y+FP8RQ1RjWRLR4yjnai2aTGEih6aPD4fGCwuxL31StB6qMMH08EJwV7Aygg06o
- Rz8rhiW0JZ5uYwXgfbRuw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:CGV87Kpqmt8=;g84LAudjtX9P2NnR8jYlaozCDhO
- pT5A71DR3iMRoltgO7Ml7rWeCCuHPbA7+lsBqqBIW10fqazYGGdIuqT1qFtBWdeiAtx9aPWb2
- hPTBWYeukC4btBjvJBaKFRIKt7FFlGTj7bW3TRzZ9HlRljM14GurwvkBLo8cZGLRTv10rTRX5
- MvBrWPYBCMZG/KTepMCP5IYs95ePamPFvUCTi6RBSw0o3Avf3or/7vx1HFNGJ01PaNfIk70i5
- xvs5SJDFQc5VINngecz6nlCztgsJERoVm1vlSu0YHqGx9I27R7ZErpCjnD+9lrBIlEZalTCus
- ePFGteryWzDjwtuMGjpsrMenU42bE6Lw7AyanBdWkoFHZAVwtL7ndZAIlR0w5biU80a752EDw
- ubEeaXFKeBislvLD7VEhtuZ2y5cNWatJ6VJVJTmk61NZ3JAz7jAI8bX4F6biZtk1jrGez9bze
- 5rhfLsVGhDn+xJs50lxR+Bv3x6APdVPgv8EJXkSbPEYIXLKSWsFaHWCTsBCNXWfvuI+2SYC0O
- OPHHCfftO4j/RxDlQlVeOiKqXQPL4KOp2pBWeGntSSUDEWkR0xCWucT2x1tud4UFIJAJa0Ky3
- n4TTBwqooQkIeBfUcjPGwn2EHH0jQRYys58jDpUahykIGSMpQhqes4CftvbQchggssmmiVazT
- 19YwNRaCC/PN4otI/rk+kQRbnfAJpVOCO6jgGOm6n5thiI35E6uSsomokN3KNMY4W9gVSIiJO
- XGQbiSMUCBtSIm1KoHGfyJ9tLbE0sylBysc39sO2NoXVbj8SRKElmT+hb/E9+pcXIYfdpoo8u
- nBshFdrcSoxZzeS51cFv51E4nKAO6/fmCSODdmK5ZA/wc=
+Date: Sun, 17 Mar 2024 12:39:14 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] proc_pid_io.5: stats include children
 
-On Wed, 6 Mar 2024 14:12:23 +0100, Alejandro Colomar <alx@kernel.org> wrot=
-e:
+Hi =D0=BD=D0=B0=D0=B1!
 
-> On Wed, Mar 06, 2024 at 08:02:10AM -0500, Oliver Crumrine wrote:
-> > Hi Alex,
->
-> Hi Oliver,
->
-> > Type into netcat, not the program I sent.
-> > My program is the server and prints out whatever it recieves,
-> > along with some other stuff that lets you know which options
-> > are supported.
->
-> Nothing either.
->
-> $ date; nc localhost 8888 -u | ts
-> Wed Mar  6 14:09:38 CET 2024
-> foo
-> $ echo $?
-> 0
+On Sun, Mar 17, 2024 at 12:01:43PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
 
-Same here, but with nc forced to IPv4
+[...]
 
-	$ nc localhost 8888  -u -4
-	a
+> Just s/process/& and its waited-for children/ but re-broken per review.
+>=20
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
+z>
 
-And in the other window:
+Patch applied.  (And /^Just/d )  Thanks!
 
-	$ ./a.out
-cmsg recieved
-data read: a
-byte =3D 02
+Have a lovely day!
+Alex
 
-Regards,
-Peter
+> ---
+>  man5/proc_pid_io.5 | 27 ++++++++++++++++++---------
+>  1 file changed, 18 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/man5/proc_pid_io.5 b/man5/proc_pid_io.5
+> index d6eaebf5d..dc75a91de 100644
+> --- a/man5/proc_pid_io.5
+> +++ b/man5/proc_pid_io.5
+> @@ -11,7 +11,9 @@ .SH DESCRIPTION
+>  .TP
+>  .IR /proc/ pid /io " (since Linux 2.6.20)"
+>  .\" commit 7c3ab7381e79dfc7db14a67c6f4f3285664e1ec2
+> -This file contains I/O statistics for the process, for example:
+> +This file contains I/O statistics
+> +for the process and its waited-for children,
+> +for example:
+>  .IP
+>  .in +4n
+>  .EX
+> @@ -30,7 +32,9 @@ .SH DESCRIPTION
+>  .RS
+>  .TP
+>  .IR rchar ": characters read"
+> -The number of bytes which this task has caused to be read from storage.
+> +The number of bytes
+> +which this task and its waited-for children
+> +have caused to be read from storage.
+>  This is simply the sum of bytes which this process passed to
+>  .BR read (2)
+>  and similar system calls.
+> @@ -40,8 +44,9 @@ .SH DESCRIPTION
+>  pagecache).
+>  .TP
+>  .IR wchar ": characters written"
+> -The number of bytes which this task has caused, or shall cause to be wri=
+tten
+> -to disk.
+> +The number of bytes
+> +which this task and its waited-for children
+> +have caused, or shall cause to be written to disk.
+>  Similar caveats apply here as with
+>  .IR rchar .
+>  .TP
+> @@ -60,20 +65,24 @@ .SH DESCRIPTION
+>  .BR pwrite (2).
+>  .TP
+>  .IR read_bytes ": bytes read"
+> -Attempt to count the number of bytes which this process really did cause=
+ to
+> -be fetched from the storage layer.
+> +Attempt to count the number of bytes
+> +which this process and its waited-for children
+> +really did cause to be fetched from the storage layer.
+>  This is accurate for block-backed filesystems.
+>  .TP
+>  .IR write_bytes ": bytes written"
+> -Attempt to count the number of bytes which this process caused to be sen=
+t to
+> -the storage layer.
+> +Attempt to count the number of bytes
+> +which this process and its waited-for children
+> +caused to be sent to the storage layer.
+>  .TP
+>  .IR cancelled_write_bytes :
+>  The big inaccuracy here is truncate.
+>  If a process writes 1 MB to a file and then deletes the file,
+>  it will in fact perform no writeout.
+>  But it will have been accounted as having caused 1 MB of write.
+> -In other words: this field represents the number of bytes which this pro=
+cess
+> +In other words:
+> +this field represents the number of bytes
+> +which this process and its waited-for children
+>  caused to not happen, by truncating pagecache.
+>  A task can cause "negative" I/O too.
+>  If this task truncates some dirty pagecache,
+> --=20
+> 2.39.2
+>=20
 
->
->
-> $ cc testDgramSocketServer.c
-> $ date; ./a.out | ts
-> Wed Mar  6 14:09:05 CET 2024
-> ^C
-> $
->
->
-> Have a lovely day!
-> Alex
->
 
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--6tGeMx3G+NHGBToE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX21mIACgkQnowa+77/
+2zKPFw/+P6pr88VBgpP6z/4IvNpTtnrm2T0PoFzRYAaREFX7f3JG19WmRbCoJApR
+1aBa4mx1JSREAao9KnIOLGn4+fc8Un8h4uolqXp4oSUwrecguw/e4TR/npJxZOpm
+vTpU0PP81jO5yJ4ukaSvMpJ3KzlTYErP136m3SByDbMRcpwW84VQQHI2M8AV2vF7
+7kgwFBMefFZLwptLE/8cKctHZSLXDrfScAubHCt318+nyDPxEivQFhkTuoySYHt7
+ghMqrVCUH8oJo6XmCLb3/5lnuzXw1d7Hxyq6BDki9elnxVzQbj9oSyxKK632rvFb
+8dYodfSRd4+GEog93OZwoCoAfL4ScsHHS+eUGPUJlYX46ed0gfLPBsgwd3X53QhK
+Zc5snUfnOREd/Z+bF78ZhYitUkZQhHnu2OG+GpAqQwyXvt8/mKv4And6wOodF2tV
+mP/KJV3GTdfbgUqplJbkWS1o5x4axT7ia3eAbTwqyD2VQfC35LCfh80FbyR5jhb5
+olfqoAqwPbb2pOTcTjEMV/dzHCXsa8GZa0eX7tScpG02mBWRDF0IfTfxw6kczHg0
+/dMhBNW2O+igoggEcBiMJXSJCcwKeYbdNZryrgtKeChygARNa2qnIfNJXUrgXBu3
+W2+IewPtwocRTg+Hmg8SafGq2Ub2GgC8I0P4e5dUtOa+V5lQEl8=
+=yf/i
+-----END PGP SIGNATURE-----
+
+--6tGeMx3G+NHGBToE--
 
