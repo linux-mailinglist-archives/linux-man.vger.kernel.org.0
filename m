@@ -1,137 +1,120 @@
-Return-Path: <linux-man+bounces-666-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-667-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16DAF87F0A2
-	for <lists+linux-man@lfdr.de>; Mon, 18 Mar 2024 20:57:06 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF1E587F0A3
+	for <lists+linux-man@lfdr.de>; Mon, 18 Mar 2024 20:57:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B114B1F21F23
-	for <lists+linux-man@lfdr.de>; Mon, 18 Mar 2024 19:57:05 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2B3041C20C73
+	for <lists+linux-man@lfdr.de>; Mon, 18 Mar 2024 19:57:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7BA9956B7F;
-	Mon, 18 Mar 2024 19:57:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E6D456B77;
+	Mon, 18 Mar 2024 19:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cjwWfZE6"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HbjS8e9S"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E846C219F6
-	for <linux-man@vger.kernel.org>; Mon, 18 Mar 2024 19:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CAD219F6
+	for <linux-man@vger.kernel.org>; Mon, 18 Mar 2024 19:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710791821; cv=none; b=j36ZA+bceIU64DNlPexNvthBFliqm6//mtKB7DWgxu7LRKEbZj4uLTT0IWf/z6inM+TfU9eUviKdfxEhX2fu6CGP2Uwl1EU5chM9IUaRS5121DZlSNSWCYjy7eEj8KK0C7OXOsjr32kk3vUlEI4zYgWx1a9oNPExZXKPpMU4hlE=
+	t=1710791841; cv=none; b=AJ2u7cEjPtv74m/bwc7v5kXeZOKtN2v9DJ29fFWCBMNNua7WQFJoatoFHunUnaU4Vumox8NwS/HCvMHn/EGc11fMw0FHDHMXK02aN4fteWvCntlyDDj1QN65NZVrPL80t48szI9Ru+xim80so9JwSCx9wAUV/T1VDs35lkRzG28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710791821; c=relaxed/simple;
-	bh=W5pfRY4z1hUVlW1sJELYnoknQjvQHjbau/ZJn2cq1HE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AoGq0qBs9R28/az8kxD2lHsYJK116AI5wBjS5NbFd6pBats14EmLz0gPZWchjYNP+ZSbeo5sn6a9Yhtcq+9tJ3mBmsfeLClX2KmmPqBFAx0FmxRowGXz7sORNZjh5up38uQbpI1MdRLhVe39ke3YSiasJ2PbTMILEJy7GwBiEJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cjwWfZE6; arc=none smtp.client-ip=209.85.160.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-2222b96e4d2so2924313fac.3
-        for <linux-man@vger.kernel.org>; Mon, 18 Mar 2024 12:56:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1710791819; x=1711396619; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=W5pfRY4z1hUVlW1sJELYnoknQjvQHjbau/ZJn2cq1HE=;
-        b=cjwWfZE6+GPebcLiiG/fIFuUHL1NVb5DwLn9JcOp/lM4SxtbKj9khrVpXeHTV9ccG1
-         qQ0xr34GRstpreHJmFtf053aVmpxwKnDoS29ugZaD6JACbJ/DF2THC7R3rRDFCNk2DD0
-         bLnzLaw2qQXevhvSCu3wCSsz/RxUtlJxbp7ry9CJQm8RrhvjrA1fOGxy415c3jibkOiE
-         FjhC42+avf/tEpXFrDgngZWihKrjdHsYKfQ5JZ1IxlaqS2H5dhvmFw0lEneMfPpyku0B
-         jzoDCS9ozHJNoRVgN1z2mB2yLXDi8ZgM44sc23HRFbv8jupSj82ZDeYS12WAMkSqAQE8
-         2i+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710791819; x=1711396619;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W5pfRY4z1hUVlW1sJELYnoknQjvQHjbau/ZJn2cq1HE=;
-        b=YYwabVraDU0MbCaicWM3LoEbXGj2mXC+btPYhzdCTZoRBsDhuIHOzxvJowsprWSZaJ
-         zsGIae9A9sWvSve343No1v9a0yP4WTXAJVizdPhbBtcfWVYEChT6IXf4c8iaoIHY/OCC
-         D1yESdk42fD0sFTTOWi053MXb/rqYUijrvljFcHdiUrDAOMwnONzen/Gt1bVPs6m5dR8
-         hk4qjZiqJ1yp1ecxFW/ifsTuzhRa/UKiSJMEHTB4ytiN9aIBymjENXy9Qt3O2ap4UGKI
-         uJzEX4h2i1Uji7VzNBCHo1Sh/d5asHyadWDISlGFWfgkh0ma5na41/6zMZokj1lGZdMR
-         6wlA==
-X-Forwarded-Encrypted: i=1; AJvYcCXubHLy5QsJ2QZoJ+VdJGDvYRyoBx4WMHY4NXtWMTJuDi3WhitRrdIyw4aw55EkKEQXtqCNDYbzEzFRjHe6j+befczK14w1RQgF
-X-Gm-Message-State: AOJu0Yyi5j7wTxV3TazqorKpx0HmmGiVTmcXIq2y7xJoNZoZbAm1R4w0
-	vaNgDsxfII39q0ChppDGolouIX/YN4M4R9ZHPCV/fFU64RQ1Kuwi
-X-Google-Smtp-Source: AGHT+IG1WHkffWudIp+g4lePsavbqZmDL6p6WBz3NEO1b9ZY2RefZT7Oua9l0+0E/wVgSfHdRCvGdQ==
-X-Received: by 2002:a05:6870:c689:b0:220:ff07:d01d with SMTP id cv9-20020a056870c68900b00220ff07d01dmr737476oab.37.1710791819079;
-        Mon, 18 Mar 2024 12:56:59 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id gk14-20020a0568703c0e00b002260aa9ec72sm835019oab.26.2024.03.18.12.56.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 Mar 2024 12:56:58 -0700 (PDT)
-Date: Mon, 18 Mar 2024 14:56:57 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Jeremy Baxter <jtbx@disroot.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] intro.1: Revise language
-Message-ID: <20240318195657.bihsax5gk5jx5tyc@illithid>
-References: <20240317080850.28564-3-jtbx@disroot.org>
- <ZfcCl6dcTFX9Zy6p@debian>
- <CZX4Y18EKIWK.1YLSFJIPJG2YA@disroot.org>
+	s=arc-20240116; t=1710791841; c=relaxed/simple;
+	bh=SFAD52rxMnb/8qDTV0rmbsrkYjNOXBFREriZJk7N5gA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=bBaKL3OT54Mg7p5uaBfRl4egBnT2IP5ND3m2Nw2zLdyK7VHArNdjVv23KUFaRRV/5VVkT9m9CWdVcUExgWjxVmSlOnnQnTmjRPautXVy6Q8tvntzxE2a0Ee3zzsJ/JRSxiK/XHrw6H591mQGgXVcOH9QciwTnFb4GtkdQCRdQxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HbjS8e9S; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 0DFE540C58;
+	Mon, 18 Mar 2024 20:57:18 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+	by localhost (disroot.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id u_Py-59ZXa9N; Mon, 18 Mar 2024 20:57:17 +0100 (CET)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="amtnbq34umr4zgcz"
-Content-Disposition: inline
-In-Reply-To: <CZX4Y18EKIWK.1YLSFJIPJG2YA@disroot.org>
-
-
---amtnbq34umr4zgcz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1710791837; bh=SFAD52rxMnb/8qDTV0rmbsrkYjNOXBFREriZJk7N5gA=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=HbjS8e9S47LX8nVUt+FPxXnFCsuuEcX7eUNBtC6JOJol7zA2YMaNIwIcZZmNPH9GP
+	 ThOt88iM/6B9JYCR4nhtro4UbDeLlXyvl3gGy1AzV273HPraWfihsqTydlgpePzjFI
+	 Q+T3h1uQV8WHp3cj+iHzMVrZSwJvfrANKn6MbtnNrQKYkwmCFgrrTvrIJWhcWBRwSg
+	 0YRZ0bsGEA+W+iJwIP/KxwIxEKgRJP62OwT2Jayrn3t79hIl/DT/73Uc7o4d8eV1VS
+	 kaeGx2A4fl+Y8ihxAW2yBCIoHwmsIF0tDL1PxxL3+zMGv5ltk1HnFzyqE/1DFzv7ry
+	 1YpQAF2b54K6Q==
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 19 Mar 2024 08:57:07 +1300
+Message-Id: <CZX537Q8308O.YVDA7PY3E2H2@disroot.org>
+Subject: Re: [PATCH v2 3/6] intro.1: Explain the meaning of a directory
+From: "Jeremy Baxter" <jtbx@disroot.org>
+To: "Alejandro Colomar" <alx@kernel.org>
+Cc: <linux-man@vger.kernel.org>
+References: <20240317080850.28564-3-jtbx@disroot.org>
+ <20240317080850.28564-6-jtbx@disroot.org> <ZfcGub2EdBC20dCI@debian>
+In-Reply-To: <ZfcGub2EdBC20dCI@debian>
 
-At 2024-03-19T08:50:21+1300, Jeremy Baxter wrote:
-> > cat will show
-> > but
-> > cp copies
-> > ?
->=20
-> I think it sounds better to use the "x does this" form rather than the
-> "x will do this" form, similar to what they have in the utilities' own
-> man pages. What do you think? Should I change cat's description to
-> adhere to the rest or just keep all of them as they were?
+On Mon Mar 18, 2024 at 4:05 AM NZDT, Alejandro Colomar wrote:
+> On Sun, Mar 17, 2024 at 09:08:31PM +1300, Jeremy Baxter wrote:
+> > ---
+> >  man1/intro.1 | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >=20
+> > diff --git a/man1/intro.1 b/man1/intro.1
+> > index 090678750..f0a8d98e0 100644
+> > --- a/man1/intro.1
+> > +++ b/man1/intro.1
+> > @@ -180,6 +180,9 @@ The command
+> >  In this example, we use it to find Maja's telephone number.
+> >  .SS Pathnames and the current directory
+> >  Files live in a large tree, called the file hierarchy.
+> > +In this hierarchy, there are many
+> > +.IR directories ;
+> > +a directory is simply a file that can hold other files as opposed to t=
+ext.
+>
+> This might confuse more than it helps.  What does "hold" mean?  Does the
+> directory hold the file data?  As in a .tar archive?  No.
+>
+> In any case, this subsection doesn't seem to treat how directories are
+> represented in the filesystem, but rather how they are presented to the
+> user in path names.
 
-Two rules I've been applying to my man page revisions for a while are:
+What do you think about this?
 
-* Favor active voice over passive.
-* Favor present tense over future.
+  In this hierarchy, there are many
+  .IR directories ;
+  a directory is simple a file that contains other files,
+  rather than text.
+  For example, if we have a file called
+  .I tel
+  in the directory
+  .IR /home/aeb ,
+  we can refer to it by the pathname
+  .IR /home/aeb/tel .
 
-This is "favor", not "always use", but, other things being equal...
+I think this section is still important because previously there was
+no explanation for this, and most people are accustomed to using the
+word "folder".
 
-Regards,
-Branden
+ ~Jeremy
 
---amtnbq34umr4zgcz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmX4nIgACgkQ0Z6cfXEm
-bc6A/A//RawW3grTGXyALI7n1daWYbJM+9ysdqRflBIobx7dh8M811nCPscaaGnj
-z7roOvJGP8ZCMwkBzWjH21ZLPAxacJc6VPGlgatRyoHabZA319r6kkGpe3ddGCtU
-JLTkf3DZIlhTiRfZTrRw9zI63UNogQXbMkPgCitP8akE7d4aI8ao3o9I7ip6aXJ8
-BkwRVh0kEFd7kIUgYzcGTH03F5FlcOXV2ElN0AzKBP6DIYsGKLG67f5xijdd9Ter
-8xFN2dNOH1ywWkK7COsJspAeQNi6aFZFFG2vezDcP5NStpSCOG24fH7JJMPL8vWV
-svGChtSorVRkBDWDhjrEuOydZFfI6irORObJh6iu6YMlJjrhAtSB7xuY9BTnJyPn
-MbnlfRmsRou16dIKcx3PBJSa5FtU6cYsVhodUjrRO4FHCdiZpag+iYX1amyr8RNL
-kJ9G4p4LMMxVqbCUfV07G5RKD0UPIiE2bAyU6Tx6GHxSmXLOYhOZ8o7ZNM7G6Hw4
-bh8K7I4zDu+26h1WI8ffEwN1H6GRVOTVPFZ9cdLUq4PWwUIYqiamtlLGNDFwMZ1s
-u+F20wlAHcJ09WF2ihapwd0Xd13FSNskFPx6LIVdW6NL6g9rk3Q9o80wFunadh8T
-Flh2R8FEW8V1QakxkCZBI7QhAy/6KmBT5gn3rrjOw4L7r2kwIEk=
-=YrLD
------END PGP SIGNATURE-----
-
---amtnbq34umr4zgcz--
+> >  Each file has a
+> >  .I "pathname"
+> >  describing the location of the file from the root of the tree
+> > --=20
+> > 2.44.0
+> >=20
+> >=20
 
