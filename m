@@ -1,224 +1,209 @@
-Return-Path: <linux-man+bounces-680-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-681-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D538881763
-	for <lists+linux-man@lfdr.de>; Wed, 20 Mar 2024 19:40:45 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA1A98871C4
+	for <lists+linux-man@lfdr.de>; Fri, 22 Mar 2024 18:12:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B117F1C20E0B
-	for <lists+linux-man@lfdr.de>; Wed, 20 Mar 2024 18:40:44 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 528E11F228A1
+	for <lists+linux-man@lfdr.de>; Fri, 22 Mar 2024 17:12:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37F5985288;
-	Wed, 20 Mar 2024 18:40:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8783A5D8F0;
+	Fri, 22 Mar 2024 17:12:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=memverge.com header.i=@memverge.com header.b="gYv3pnA1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ot2JLx/F"
 X-Original-To: linux-man@vger.kernel.org
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2100.outbound.protection.outlook.com [40.107.236.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264FC6A8A6
-	for <linux-man@vger.kernel.org>; Wed, 20 Mar 2024 18:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.100
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1710960041; cv=fail; b=UL6oVVwxaVmGO4K/9QLkLEyJbjf7bqZR+7RyUKuoHDnJgSrxPnThS3eMrTVtaSU7yT6lvOAqOYubf2UVXqijgUElPcPfIm73rV86yjbl9eU0mFlR+56gJWPLiLWAd1s4tP0woEsbs1l5DkjFNfU70y8Q4fJCo/E7wQjwRBU3+bE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1710960041; c=relaxed/simple;
-	bh=uJYbW7jq3Z7yGHtQJs8UgTzi7uTzM8FIT5HRGYazmuc=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=sDjG1k9CNDXjtVegnYN0Qa+fXvfrYluzGgeAHFrkklVvBqYyeRxEaLREK5LXM6aJp7P8b24zMPaj8LrxUqSXW9U+w82gbLVZMF7QKZ9+tiSOD8hAKO3kz5P6dsN6iD9SjDrV/oNJZ5dbijfEtjxtrYWCafmQE244jv+y9hEKRRc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=memverge.com; spf=pass smtp.mailfrom=memverge.com; dkim=pass (1024-bit key) header.d=memverge.com header.i=@memverge.com header.b=gYv3pnA1; arc=fail smtp.client-ip=40.107.236.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=memverge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=memverge.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kelhQ4BjhD09zRtGRgkVQIQG2Mbx9SnPIIsv/hYjRiRNhi3zL93b2Wq5//WxgivFBqiI4Loj1y272RPhvMc3zK/L/JNaY0HL39gWDQcGjRNTflZn4m+TaO8hU1Ak+1JrX2sl82O+Asv4xPg55pjmG35E1whkhvK6knJE613YjMU3cXaU/WAq4l/EhUbWEKasa/t3lsrcDSqbXrYY/HUowlBE/ymPRLKV7YGsB0RDj8SK8YyKnwtz3znt3cLDWr4TV/LTbBmd05o9XSCU2N+7+H4EYhz7TT6ZPzcTeC9L/1pjLxtZQQFSkQt/r8pSK3hHA/kw4BR/7AcNrGWXWl4lWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t1BJAab7IErgMYTtXl8EBBwk/5KzIl7vYBa0CAwroVU=;
- b=DSzIbMPB/KI4L5O8Ta8z9qZk1BSuAMuKGmrGnUzThJ+mMiRwdrLEtFAzMb864e4oDxp3KMpB26bTIFcY35L2ejD81gSjmz6ZGXAj22rT63/y9ER83g/xC5lf4zwq24YLbexyXUkhgJqVMrVKRAygkSbMMNukSpWfd8XoQ3IzD5oKubE/3lxgzQpYYcjs7IHesQ1ZZnh2qwtSPv7UNRoW0xqNFQ+HpFP5/g0mmV23gDE0PY6Q3LDOPxxutGsJJImW5KUulCUyaGEYf06o9HfVpWiYjXGI2JqAo3Ryim74WN49d+i8J+2lrqYueoBB0o30f6USsm7NDIdVGyfxsNifPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=memverge.com; dmarc=pass action=none header.from=memverge.com;
- dkim=pass header.d=memverge.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=memverge.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t1BJAab7IErgMYTtXl8EBBwk/5KzIl7vYBa0CAwroVU=;
- b=gYv3pnA1JERV1Ex7uER6cz2IDQ3aMmwjtbA0fk5LYFbKbep7Zh9gOuv72vb3lfLcpi8tDjQtwaFIjT2HGFzjrVb+WSjnKglGkCzin6W8mWGpGpUj3/YGNNisfuUMPhLAs64L3JLpEr4j1sgZ8vmdwta2XQCe7z2QPV0lbD/EkRQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=memverge.com;
-Received: from IA0PR17MB6347.namprd17.prod.outlook.com (2603:10b6:208:435::22)
- by DM6PR17MB4229.namprd17.prod.outlook.com (2603:10b6:5:295::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.31; Wed, 20 Mar
- 2024 18:40:35 +0000
-Received: from IA0PR17MB6347.namprd17.prod.outlook.com
- ([fe80::200e:df84:29a9:8c9a]) by IA0PR17MB6347.namprd17.prod.outlook.com
- ([fe80::200e:df84:29a9:8c9a%6]) with mapi id 15.20.7386.031; Wed, 20 Mar 2024
- 18:40:35 +0000
-Message-ID: <4803b837-73d3-4ac0-b00c-ad272eb092d6@memverge.com>
-Date: Wed, 20 Mar 2024 11:40:31 -0700
-User-Agent: Mozilla Thunderbird
-From: Svetly Todorov <svetly.todorov@memverge.com>
-Subject: Re: [PATCH v5] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, gregory.price@memverge.com,
- ying.huang@intel.com
-References: <20240318-weighted_interleave-v5-1-c821a46d5beb@memverge.com>
- <ZfomvYUh18tiZF3d@debian>
-Content-Language: en-US
-In-Reply-To: <ZfomvYUh18tiZF3d@debian>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH8PR07CA0026.namprd07.prod.outlook.com
- (2603:10b6:510:2cf::21) To IA0PR17MB6347.namprd17.prod.outlook.com
- (2603:10b6:208:435::22)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494215FDB0
+	for <linux-man@vger.kernel.org>; Fri, 22 Mar 2024 17:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1711127528; cv=none; b=EwpHNr7oGg6rlZXwD/PSBtU5GM8Kbx/sAoW6EjyYsasXyGZvdoz82vfIX5+MJLbjOhWFbcFaonDP7RJ99agnXuqpfiACoiTK3PfquxbnXCl/xy/jmu9TaZnXv7lkjMlgtncjBri9JQcl7OtEaKyV+kIwVAkPXpbNsFyv5lVomTg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1711127528; c=relaxed/simple;
+	bh=524k+tGs2DiQGbLp/sEblXvR1BsdCEId4DJOZXeJras=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=K3JtqnDudiOJOdJQ9+FPSCsfKfTJkzFTw1vTVH282HjyTGrjotpPUy0qyCk6MyORxAE/HIAzE8WMRYikToeIEspXOKpcsimOy1ZUWje3UzJwdPHQis8SjlLaIiWi5SIuvAUPKqCGCoW9XL0P1ycBV3eaMoEUVzUQP0yew7gJLP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ot2JLx/F; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB09C433F1;
+	Fri, 22 Mar 2024 17:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711127527;
+	bh=524k+tGs2DiQGbLp/sEblXvR1BsdCEId4DJOZXeJras=;
+	h=Date:From:To:Subject:From;
+	b=Ot2JLx/FsulLOpB08POrBdbP4IWxVQuyWx+FT1U1E6ZUjQlZAQi8QbSYEDIf/Wu2X
+	 6qijME0e5rtA206f2cMwLMDHLOcJpv323FwINtwu33b2HXIrfMi39YaJ2EVf+ptrNU
+	 NyKL4xxXFV0gfTFgAPQZ72vE51AK3RroGjhkEDpbwJkElqB1lUcUsFmi1MKaTTrJ0M
+	 r4/y+gfhSRMARREzS1+SkEDhDYTV+VeiaOyaXeFbdsDQeVzpyDKWbRJ/CrslwKegHI
+	 IhcaN3xy4o3PMytCAjGl4pYkKjgluqEEp3uF56jLfFkzcnnZZal8jWB4ITSvNf4fLF
+	 EnudCA9SJZsUg==
+Date: Fri, 22 Mar 2024 18:12:04 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: branden@debian.org, linux-man@vger.kernel.org,
+	Deri James <deri@chuzzlewit.myzen.co.uk>
+Subject: man-pages PDF book's an.tmac
+Message-ID: <Zf275AdkitaeCq3E@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR17MB6347:EE_|DM6PR17MB4229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9836d6c4-2af3-4c9a-2a07-08dc490d3ad3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	uR/VANWSCDFg7YuQ6wWLgzI32scW7qHkR0TAPB+0QqsA+5+rqI2y/5pFCPCeiEmelLxzm2R6z6J5V4ar2KfrPSQ8fORUYwsrU1uJUamqAz5X7mX03DSRtP+5/htmFxkZlIVAw10pynS3UrJqjWPs38awXjJMae3t282lrSjW/cOaQ295gPyF19E8qcsfHcgIdF3aefEY/eUnjuDjFj3OFDYWECKYru+iync/u8+B7yCrtlrEypzMl4dUP2DSfTb3l1f0KB/fsi8yqdiPIBLYgaLiWcazuqBKD/01/4CyYjJOJWmD8JJped0U8hivr/CAKZUy7RLGsxUqI7xHDXOUSzmWD+gT1cP8Ddtqn9WzhSPtjPSR3VZO16sJT/9i//+xVqa+LaPsrY22eNXZr9PyJPpNivjugg3aelL6xLJelsQefxjUJoPjpZwgpt9Lx04v7D84gKifSfMk1iGNiDVsBWf8cNOzmfW8AGYrwiv+8YkGYKkij7OJicWBzJkVq/8uIGt2P3KR5OlYPkrdScU8vdrhhE00bAov8tQBCdZP807aabbsISz7y9AJa05K633RC94nGCLxxloc6Fpd9+99esWvkXGnN0Ts6wTQG0uXmptia45I8NNyKDofyie544BOPUzITa7usU7LcHEdwn4LIou0VMBoSBiGVnKyB8T7tho=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR17MB6347.namprd17.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(1800799015);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXNoQkZEa0RCOE5TbHloM3VyM3ByZkRuVjVnNUNydjNrR3plQXY0VkVVQkI3?=
- =?utf-8?B?T0UxMnJhdGRvYXFPSGhHSVptck1Kb2RVZnlmOEpsamlMbGdsRHlWWEJVZFo0?=
- =?utf-8?B?bWFYQVM5R1NQbVBWMGRidC9YYStwajB4Z013QmxRNXJjM0Z3NmdNM3d3NzZh?=
- =?utf-8?B?K2RwQUEzeFhEU1NVdkNQVjRDcHZmZlNESUt1RXZ4U0J4aWtacWFqQ2RsbDl0?=
- =?utf-8?B?ZDdkelJlTHI0QTVnVWRBQmtZU3JNZkZpMDRRMFpNR3BSeFVsNmVzUWxCdjRm?=
- =?utf-8?B?SmlBRWxEOVdaV1JIZGNHWDBDanVYanpIdW1TUHFCSVJKMXpNOXNHSExOWXps?=
- =?utf-8?B?VlA1c2p2ZVcvQ2VMdnU3SGlxVVlxQWNNVEdZOHprK1NSVWwwRGx4SFN1c2J4?=
- =?utf-8?B?ZU4xZE5Ld0ZqSm04aTZwbWdUVWxUS1NnTGRuZGdSTzMxS0xEYjYwN09ickVx?=
- =?utf-8?B?SjhiMDBZNjdWK0V0SlMzN0czNWRjQlhFb0tvVWQvR05vQWsvS3Q2R2hRUG5R?=
- =?utf-8?B?RUVabTY0Z09MU2hocXA3TjdrckpmczJ5bzR6T3pkS2h2bHBNd1AzdTdKTGFn?=
- =?utf-8?B?cHpjLzN0YTV4dXh4blgyck8rRDlsN1krM0UvWDBneTJoazBlVzdEUTgvMGFM?=
- =?utf-8?B?aGcrSWVJTlZvMWQxM3RsdnR6M2ljTlBNc01QTUovUlhMRHByVzEwcmtOQnk4?=
- =?utf-8?B?RGV4ZmoyVU1UUDNDODh5Wmw1bU5kUlFXcHNObWlnTFpISUhaVnlkalRoak5W?=
- =?utf-8?B?eWJPdHhZanMzUElhVGE0NllCK0c4c0hDV1FXeWVjb3FqVEJEOFJtKy9Sa0xO?=
- =?utf-8?B?YnVQeGNuVGFIeXNyZndxTzZSNDB3cXNPQ3p3ekp6VDNyWGx1TFJwbWhTU21L?=
- =?utf-8?B?dDRzcDk4eFR4RHpybGtLdldsY2RkeWFlWHRuTkVNamtndlE2anI0YUlDR3hD?=
- =?utf-8?B?Q1RDU1hSdVBYWVY4KzNBWW4rTTJyTFl3Uy8zTjRuc2p2bGpQMEdmanY2VWFy?=
- =?utf-8?B?eEJJS1MzZ3lFWG1WS3JDQmxreFlrNklMZG95RFY3UG1CS3ZaMmtDT05zZ1lY?=
- =?utf-8?B?bnV6RW1aNng0RmtBaFo0bmx4NGZZK3RYek9OYzdncnpCaUpTNko2b0VEc3Zx?=
- =?utf-8?B?WGlESkJXcVFUSkxBbVlOT1ZRaEhjR1crUFA2UUJQQ1RITzBUOU9ORWNMbjdF?=
- =?utf-8?B?WExRa29DMVFRbWZ0eHd3V2hYTTRScWNFWlZHUmlFTktocEk1OTFzNVRMcXhX?=
- =?utf-8?B?NmNvNTYyVVpXZ2h6NlhvQldGck5hQW55SHdRQXJjNHpPNjJzcTBUU0xXZUZL?=
- =?utf-8?B?VS9pWlA1dENSMnlSaUEveGc3L3g4QmxYdU5EYzd6anViNUIrYkM1eGZaVVZ6?=
- =?utf-8?B?SjhTcDZWa1p4Q1Y1NWFLazFoVTRIZDQrcFpVT1BvR3RyN0plZlowRU5nR2Rr?=
- =?utf-8?B?QzkvWG9DSFVBdEUrWDhCdTF3Z25nNFVDaVlNSDJBUHFBVkFOUGRMVXF6a1lr?=
- =?utf-8?B?N1JySzdKcDUxTlhIYktYNVhVTHRiOEV0NGF2bm9hTjlKQmkraEQydDg5MnE0?=
- =?utf-8?B?c055TEh3Yys3R0diUDFxZ1ZsbGlUWXhnVmg1MDdRSkl2Qng4bUI0OUJrekVR?=
- =?utf-8?B?M3FoNStDSFB5Ni9qY2lVSVFhZEYxakRTNUwwY0ZYVjA2bnNIbGhmY0k1SWpz?=
- =?utf-8?B?d2RkZ0JrSVNla1RTdjBuMDQveExNdWt6L2lvMmdHT3JuWHZWNzVVcFJRZkY5?=
- =?utf-8?B?OXZJV2hFUUtHWTNsWmY2U2FmRVVBK2JmUk1CbFlTVTc4VU1jbEVPWmlUT2kv?=
- =?utf-8?B?OGFOWmhlZUhlRWVyc0dOMHFIM2ZtU3VnTFk4RzZqOVFFWDM1VE5BRDNSdmlD?=
- =?utf-8?B?M0VqU0RQYTV3anQvclJOV2Q4UHdieUJXYlYrL1MvemVQQjE1bjVVc0kwVEdX?=
- =?utf-8?B?Wk1la3hKRGt0K0hFaFlURDV6RGEwZEtFQS9pZHZCUW1pUmRzSC9QTUFWcWMy?=
- =?utf-8?B?SzlIcndFb3hrUmt0VHJGeGNMcHBzMzJaTTFWRVNaSTBqQlZ4TDRPYmxLUjl5?=
- =?utf-8?B?am5qc2swRW5xYWVqNWVDTS96WDZSRXQzNklVQnNWSmU0Y2l1b3JUTWczVVYw?=
- =?utf-8?B?bTh3NStwbHpHcFRJekQ3Z0puMG5IcUhtVVhueHVjUDBDczEwRG45a095MEZx?=
- =?utf-8?B?V0tiekhKVkNhREJVUFlPdE8vaHV6WHRQZWpaK09lZXA2QnVnZE1YbG5nT1BB?=
- =?utf-8?B?bHliZ0VQZUoxbFV4cGJDaXdLam93PT0=?=
-X-OriginatorOrg: memverge.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9836d6c4-2af3-4c9a-2a07-08dc490d3ad3
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR17MB6347.namprd17.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 18:40:35.1382
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5c90cb59-37e7-4c81-9c07-00473d5fb682
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: khxnvrRzBXXjV78dOLoejOkh97p9q/U/HLnajoe5NfL4G/OKNG+HX5N7gt6YC8tASkCxqj6TBiC/qdT+LZr8i+A6TIrf9mhsuDLmswoOIvY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR17MB4229
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="si6SFFRjzf6Bg1aJ"
+Content-Disposition: inline
 
 
-Hi Alex,
->> index 5248f04ba..00ce287c9 100644
->> --- a/man2/get_mempolicy.2
->> +++ b/man2/get_mempolicy.2
->> @@ -137,7 +137,11 @@ specifies
->>   but not
->>   .BR MPOL_F_ADDR ,
->>   and the thread's current policy is
->> -.BR MPOL_INTERLEAVE ,
->> +.B MPOL_INTERLEAVE
->> +or
->> +.B MPOL_WEIGHTED_INTERLEAVE
->> +(available since Linux 6.9),
-> For consistency, I try to use the same phrase everywhere:
->
-> 	(since Linux x.y)
->
-> But, in simple mentions, we usually don't specify when a flag was added.
-> That's already documented in the proper documentation of the flag.  So
-> here, I'd just remove that (and the comment below).
-Got it. This was one of those things I was unsure of.
-I think I was referencing
- > If
- > .I flags
- > specifies
- > .B MPOL_F_MEMS_ALLOWED
- > (available since Linux 2.6.24)
-from earlier in the file.
->> +.\" commit fa3bea4e1f8202d787709b7e3654eb0a99aed758
->>   then
->>   .BR get_mempolicy ()
->>   will return in the location pointed to by a non-NULL
->> @@ -206,7 +210,11 @@ specified
->>   but not
->>   .B MPOL_F_ADDR
->>   and the current thread policy is not
->> -.BR MPOL_INTERLEAVE .
->> +.B MPOL_INTERLEAVE
->> +or
-> I prefer "nor".
-Sure, will change to neither/nor.
->> +.B MPOL_WEIGHTED_INTERLEAVE
->> +(added in Linux 6.9).
-> Same here.
-I'll drop this one, too.
->> +.\" commit fa3bea4e1f8202d787709b7e3654eb0a99aed758
->>   Or,
->>   .I flags
->>   specified
->> diff --git a/man2/mbind.2 b/man2/mbind.2
->> index b0e961f9c..6f2449946 100644
->> --- a/man2/mbind.2
->> +++ b/man2/mbind.2
->> @@ -105,6 +105,7 @@ argument must specify one of
->>   .BR MPOL_DEFAULT ,
->>   .BR MPOL_BIND ,
->>   .BR MPOL_INTERLEAVE ,
->> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->>   .BR MPOL_PREFERRED ,
->>   or
->>   .B MPOL_LOCAL
->> @@ -243,6 +244,23 @@ at least 1\ MB or bigger with a fairly uniform access pattern.
->>   Accesses to a single page of the area will still be limited to
->>   the memory bandwidth of a single node.
->>   .TP
->> +.BR MPOL_WEIGHTED_INTERLEAVE " (since Linux 6.9)"
->> +.\" commit fa3bea4e1f8202d787709b7e3654eb0a99aed758
-> Here is where we usually document the kernel versions.  So here (and
-> in set_mempolicy.2) is good, and enough, I think.
->
-> Have a lovely night!
-> Alex
-Sounds good. Yeah, get_mempolicy was getting pretty crowded with the
-extra parentheticals, and the hash comments felt out of place.
-I'm glad we're OK to drop them outright.
+--si6SFFRjzf6Bg1aJ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 Mar 2024 18:12:04 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: branden@debian.org, linux-man@vger.kernel.org,
+	Deri James <deri@chuzzlewit.myzen.co.uk>
+Subject: man-pages PDF book's an.tmac
+
+Hi,
+
+We have a huge an.tmac copy in the Linux man-pages scripts, for
+generating the PDF book.
+
+	$ wc -l scripts/LinuxManBook/an.tmac=20
+	1611 scripts/LinuxManBook/an.tmac
+
+However, it's mostly identical to groff-1.23.0's an.tmac.
+
+	$ diff -u1 -w scripts/LinuxManBook/an.tmac /usr/share/groff/1.23.0/tmac/an=
+=2Etmac
+	--- scripts/LinuxManBook/an.tmac	2023-12-01 01:27:03.344759060 +0100
+	+++ /usr/share/groff/1.23.0/tmac/an.tmac	2024-03-12 07:07:16.000000000 +01=
+00
+	@@ -205,21 +205,5 @@
+	 .
+	-.de an*cln
+	-.  ds \\$1
+	-.  als an*cln:res \\$1
+	-.  shift
+	-.  ds an*cln:res \\$*\"
+	-.  ds an*cln:char \\*[an*cln:res]
+	-.  stringdown an*cln:res
+	-.  substring an*cln:char 0 0
+	-.  if '\\*[an*cln:char]'\%' .substring an*cln:res 1
+	-.  rm an*cln:char
+	-..
+	-.
+	 .\" Write a bookmark/anchor/link target $2 at hierarchical depth $1.
+	 .de an*bookmark
+	-.  if \\n[an*is-output-pdf] \{\
+	-.    if (\\n[.$]>2) .an*cln an*page-ref-nm \\$3\"
+	-.    ie (\\$1=3D1) .pdfbookmark -T "\\*[an*page-ref-nm]" \\$1 \\$2
+	-.    el .pdfbookmark \\$1 \\$2
+	-.  \}
+	+.  if \\n[an*is-output-pdf] .pdfbookmark \\$1 \\$2
+	 ..
+	@@ -311,7 +295,3 @@
+	 .    el \{.ie '\\$2'2' .ds an-extra3 \\*[an*section2]\"
+	-.    el \{.ie '\\$2'2type' .ds an-extra3 \\*[an*section2type]\"
+	 .    el \{.ie '\\$2'3' .ds an-extra3 \\*[an*section3]\"
+	-.    el \{.ie '\\$2'3const' .ds an-extra3 \\*[an*section3const]\"
+	-.    el \{.ie '\\$2'3head' .ds an-extra3 \\*[an*section3head]\"
+	-.    el \{.ie '\\$2'3type' .ds an-extra3 \\*[an*section3type]\"
+	 .    el \{.ie '\\$2'4' .ds an-extra3 \\*[an*section4]\"
+	@@ -323,3 +303,3 @@
+	 .    el                .ds an-extra3 \" empty
+	-.    \}\}\}\}\}\}\}\}\}\}\}\}
+	+.    \}\}\}\}\}\}\}\}
+	 .  \}
+	@@ -442,3 +422,3 @@
+	 .  if !\\n[an*was-TH-bookmark-emitted] \{\
+	-.\" .    an*bookmark 2 \E*[an*page-ref-string]
+	+.    an*bookmark 1 \E*[an*page-ref-string]
+	 .    nr an*was-TH-bookmark-emitted 1
+	@@ -480,4 +460,2 @@
+	 .  ds an-pageref \\*[an*topic-abbv](\\*[an*section])\"
+	-.  an*cln an*page-ref-bm-nm \\*[an*topic]_\\*[an*section]\"
+	-.  stringdown an*page-ref-bm-nm
+	 .  nr an-header-width \\w'\\*[an-pageref]\\*[an-extra3]\\*[an-pageref]'
+	@@ -719,4 +697,4 @@
+	 .    if \\n[CS] .stringup an-section-heading
+	-.    an*bookmark 3 "\\*[an-section-heading]"
+	-\&\\*[an-section-heading]
+	+.    an*bookmark 2 \E*[an-section-heading]
+	+.    nop \&\\*[an-section-heading]
+	 .  \}
+	@@ -745,3 +723,3 @@
+	 .    ds an*subsection-heading \\$*\"
+	-.    an*bookmark 4 "\\*[an*subsection-heading]"
+	+.    an*bookmark 3 \E*[an*subsection-heading]
+	 .    nop \&\\$*
+	@@ -1193,18 +1171,4 @@
+	 .de1 MR
+	-.  if ((\\n[.$] < 2) : (\\n[.$] > 4)) \
+	-.    an-style-warn .\\$0 expects 2 to 4 arguments, got \\n[.$]
+	-.  ie \\n[an*is-output-pdf] \{\
+	-.    nh
+	-.    ds an*title \\\\$4
+	-.    if '\\\\*[an*title]'' .ds an*title \\\\$1
+	-.    ie \\n(.$=3D1 \
+	-.      I \\$1
+	-.    el \{\
+	-.      an*cln an*page-ref-nm \\*[an*title]_\\$2
+	-.      ie d pdf:look(\\*[an*page-ref-nm]) .pdfhref L -D \\*[an*page-ref-n=
+m] -A "\\$3" -- \fI\\$1\fP(\\$2)
+	-.      el .IR \\$1 (\\$2)\\$3
+	-.    \}
+	-.    hy \\n(mJ
+	-.  \}
+	-.  el \{\
+	+.  if ((\\n[.$] < 2) : (\\n[.$] > 3)) \
+	+.    an-style-warn .\\$0 expects 2 or 3 arguments, got \\n[.$]
+	 .    ds an*url man:\\$1(\\$2)\" used everywhere but macOS
+	@@ -1231,3 +1195,2 @@
+	 .    nop \&\\$3
+	-.  \}
+	 .  hy \\n[an*hyphenation-mode]
+	@@ -1333,3 +1296,3 @@
+	 .
+	-.ds an*body-family \n[.fam] \" Times
+	+.ds an*body-family T \" Times
+	 .ds an*example-family C \" Courier
+
+I was wondering if we need to keep it, or if we could remove it, or at
+least trim it to just a few lines.  Maybe some things can be upstreamed,
+or maybe they are already upstream.
+
+Thanks,
+Alex
 
 
-Svetly
+--=20
+<https://www.alejandro-colomar.es/>
+Looking for a remote C programming job at the moment.
+
+--si6SFFRjzf6Bg1aJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmX9u+QACgkQnowa+77/
+2zL/0g//cbK/pBGX3eIGGo1k5Subbl6PZxrV2zcAWiTMW5OQuOTwSxfSa1xeqPuB
+MX4/U2v+dppDdH7AmokpaACB7+QBPlSDMhZ1mnk9/Zgt8/1LxSZfInk1PEKvSO3c
+NO1/DEPS/W31yVZ5waUFc9aTzvYGPLM07qp3cRu1+qB3Kw1pdesr0+BULgiNAxUd
+x2KcCSfJ1e98kKCOczL9hggQ+LsM0c2nt65EVazEzp8yDRhv7BnL5u+wnOg6Nf3e
+SLcp/kKgoz/0oNAw2AVUbibm3BFmE+FmaLqzPPsYBWL1xsX4tM0N9tiXv/7fk4WZ
+bNFc6gHwiAGR3dkLoUUAxdfmOLw3EqIG76JU37hzUIi8o1F4RF31wcA65dt+NbDI
+3aSi3mMX7Biyxw52lMZX/drGd3PmVkgsGrksXxfzNa4TZmmQq2R3vlXIKcPKoFmL
+Kr3O8Fu6ZOzutmu/PeFaSXpzZ1tFfeL6s9vT9tzrQXD2QZmGPjxmW6Ux2o//9Rew
+H0EP3a564BhpSlX9OCqtZYw2e3pr4PMDIrBLBPCRodgwNHDHbPiRF2wnvy3ebFQs
++F8zavu8chABLAcs3PNNpEUHInAazuBapgZ+xgr37wT1/SkeCZE28O7cCvqEfRs+
+kn6d1cfdEdvhJqLO2SFOVcBaT3HSXMe7tbOTk52edN6PMEaUeK0=
+=U263
+-----END PGP SIGNATURE-----
+
+--si6SFFRjzf6Bg1aJ--
 
