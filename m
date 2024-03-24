@@ -1,166 +1,219 @@
-Return-Path: <linux-man+bounces-684-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-685-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B0C887ED7
-	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 21:15:36 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17BAA887EDA
+	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 21:31:28 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5E48DB20AAA
-	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 20:15:34 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8A22F1F21018
+	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 20:31:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5451E8BFB;
-	Sun, 24 Mar 2024 20:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78B42DDD2;
+	Sun, 24 Mar 2024 20:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rfelWekn"
+	dkim=pass (2048-bit key) header.d=m2osw.com header.i=@m2osw.com header.b="akMFStUx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from m2osw.com (m2osw.com [146.190.169.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D237FC02;
-	Sun, 24 Mar 2024 20:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6852533EE
+	for <linux-man@vger.kernel.org>; Sun, 24 Mar 2024 20:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=146.190.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1711311328; cv=none; b=OO8K4YI8VNLn9Zpw4E5q5Ri9KLQ+U8EoQtjWt3fwl8pKSYDgD7n74kBCQLBCLtFrHyWTNLGhk1lmFv89wR0Tu8rab1XjhGXBCpxP2BNbvbzxuuAdotzkYRxpbmuj1PqaMzzyCNsK7WvXBCfQn9YQ2DnLMXKSI9Jzii/1wLiGjWw=
+	t=1711312279; cv=none; b=pJgb1kjLnWqAghyjXm1UWP4PoQpMAucS+7ZTkWRa/1AD30B63oD7eWPM6mExU4C4oaf1KxF6rQSV938E6i9lSIgAUbX+EFGSrylzicBhKo/af+XHmd5LnP079zLnaf7gya1VeUQTcefSHW4nKYXaUWOhVEpD05XYhPreMnH4fKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1711311328; c=relaxed/simple;
-	bh=NksRtom6VH+F0N1jaXNdS79Zvo5Z8laERBCwgx1tIg4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=otyZ65wsmlh/TmeJtqXBzohPyOH1ii1rXLcZNlW8avz/EH1+Q1X7s2QBpVFA4x3YVT4x2iIH6kJTzf0Wbpmpqez+oHKNNFpXve+s6S2jsTqYBgbNeiWBQU7Bpx6BZeCRlqAJWSjwl2kXWJbqxIOIbLneBJfhrnNKBjQoPNDUbBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rfelWekn; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908FDC433F1;
-	Sun, 24 Mar 2024 20:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711311327;
-	bh=NksRtom6VH+F0N1jaXNdS79Zvo5Z8laERBCwgx1tIg4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rfelWeknHYM6UyAikegyjDZdxW7bfvfZudNo//F3/MhVe7GuSonpek002dBLcDlNv
-	 RAJ8bckBWzou0JjUKm7e/sDIZSVb3i0538mFgs02n41j7Xv+pZzypNKA/jsEjc5Ggx
-	 UGlekuQxAyCzXzFxX/HjGeTc5OIOVKWaKZTUhaapXiuTsNA+nydDA7CIZXgYc0WQKh
-	 NcCPsmG4Ue7Jaub/ze4xLm2gUQWR1Rw6v3b2C7qff/A2ndCGXxcIjMxTXbDN3ohfNS
-	 rOKwsqa3aZlSgLXgaoXjvb2SkHWnsf/gfrNi5TG11V4h6hHxZ5jY/M6V949zBZOVRb
-	 seYtw1DQWQgqQ==
-Date: Sun, 24 Mar 2024 21:15:18 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Alexis Wilke <alexis@m2osw.com>
-Cc: linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: re-listen(2) (was: <linux-man@vger.kernel.org>)
-Message-ID: <ZgCJ3HtrAVViosBv@debian>
-References: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
+	s=arc-20240116; t=1711312279; c=relaxed/simple;
+	bh=chwBehAHKtyJb48CbgK4z6B9CQ4hcqzheiFGNlKnmFY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:Cc:
+	 In-Reply-To:Content-Type; b=ncS0DqCV7x12NoiiOz7HQbvwOI5NBwxql0FEC1kkAQyeeelmAkWvPAwuymwIEDQs5PRZJ4efGhDtHwfthEh7/sL0s7EzhVCbymAQBmTt6DxA6iiTuSacDcduwrAihvAsFMeBMoByaGXYIR3uuMH54Yu5KmNqZi/mckynzBbayu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=m2osw.com; spf=pass smtp.mailfrom=m2osw.com; dkim=pass (2048-bit key) header.d=m2osw.com header.i=@m2osw.com header.b=akMFStUx; arc=none smtp.client-ip=146.190.169.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=m2osw.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m2osw.com
+Authentication-Results: mail.m2osw.com; dmarc=fail (p=quarantine dis=none) header.from=m2osw.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=m2osw.com; s=mail;
+	t=1711311804; bh=chwBehAHKtyJb48CbgK4z6B9CQ4hcqzheiFGNlKnmFY=;
+	h=Date:Subject:From:To:References:Cc:In-Reply-To:From;
+	b=akMFStUxSRLVLdJYOS0tGTsf5HsQ5EWtSD4J3hvjt3VfjjW1bBDA33/qLqHGRdoZB
+	 M6fngxgbiCc86GSRiH93yQa5PPlsFZXdbkXGmJDAbWj2Nxb6J0uSZyrR9znSY0UyaT
+	 uh8leCPjgIAGYSjHl64yqFQjs4NEl7O2iSi22f+7rMQ8Gs3A7FaAGTXs4IsnbrE7ql
+	 3uxQXgDQkusLm09HeSrzMUTTzbhsuZXLCkwF1gf/BYcu+JIKjBEzO8kx+pTSVNjOWm
+	 7irSanr9ZJq4jTndgh79avn1aJ0H8WT5F0tcG8eCgdlFIgAF5QYn7ffOLDbpFu36z3
+	 MIwBBQfehc+Gw==
+Received: from [10.1.10.201] (c-71-197-127-190.hsd1.ca.comcast.net [71.197.127.190])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by m2osw.com (Postfix) with ESMTPSA id 2D5C57E54E;
+	Sun, 24 Mar 2024 20:23:24 +0000 (UTC)
+Message-ID: <23f53f11-d49f-4abc-bdc8-085014f509f4@m2osw.com>
+Date: Sun, 24 Mar 2024 13:23:22 -0700
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SDcLcTAJUisZp/9K"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: listen(2) man page enhancement
+Content-Language: en-US
+From: Alexis Wilke <alexis@m2osw.com>
+To: Alejandro Colomar <alx@kernel.org>
+References: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
+Cc: linux-man@vger.kernel.org
+Autocrypt: addr=alexis@m2osw.com; keydata=
+ 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
+In-Reply-To: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------hbspyhFB0VRPpesbGOrLDVRL"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------hbspyhFB0VRPpesbGOrLDVRL
+Content-Type: multipart/mixed; boundary="------------0IVhzplTJEcR3Mrsalpw0CB7";
+ protected-headers="v1"
+From: Alexis Wilke <alexis@m2osw.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Message-ID: <23f53f11-d49f-4abc-bdc8-085014f509f4@m2osw.com>
+Subject: listen(2) man page enhancement
+References: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
 In-Reply-To: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
 
+--------------0IVhzplTJEcR3Mrsalpw0CB7
+Content-Type: multipart/mixed; boundary="------------uweeanJmIAfTiEZwuSBxKc0R"
 
---SDcLcTAJUisZp/9K
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--------------uweeanJmIAfTiEZwuSBxKc0R
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+SGkgQWxlamFuZHJvLA0KDQpJIHdhcyBsb29raW5nIGF0IGNoYW5naW5nIHRoZSAiYmFja2xv
+ZyIgb2YgYSBsaXN0ZW4oMikgY2FsbCBhbmQgY291bGQgDQpub3QgZmluZCBhbnkgZG9jdW1l
+bnRhdGlvbiBvbiBob3cgdG8gZG8gc28uDQoNCkNsZWFybHksIGl0IGlzIHBvc3NpYmxlIHVu
+ZGVyIExpbnV4IHNpbXBseSBieSBjYWxsaW5nIGxpc3RlbigyKSBhZ2Fpbi4gDQpIb3dldmVy
+LCB0aGUgZG9jdW1lbnRhdGlvbiBkb2VzIG5vdCBtZW50aW9uIHRoZSBwb3NzaWJpbGl0eS4N
+Cg0KV2Ugc2VlIG9uIHRoaXMgc3RhY2tvdmVyZmxvdyBwb3N0IHRoYXQgaXQgaXMgaG93IE5n
+aW54IGRvZXMgaXQgKHNlZSANCmFuc3dlcikuDQoNCmh0dHBzOi8vc3RhY2tvdmVyZmxvdy5j
+b20vcXVlc3Rpb25zLzY0MDUwMjgxL2Nhbi1iYWNrbG9nLXZhbHVlLXRoYXQtaXMtcGFzc2Vk
+LXRvLWxpc3Rlbi1jYWxsLWJlLW1vZGlmaWVkLWxhdGVyLW9uLXdpdGhvdXQtYyANCg0KDQpJ
+IHdvdWxkIHByb3Bvc2UgdG8gZWl0aGVyIGFkZCBhIG5ldyBwYXJhZ3JhcGggb3IgYWRkIG9u
+ZSBzZW50ZW5jZSB0byB0aGUgDQpleGlzdGluZyAiYmFja2xvZyIgcGFyYWdyYXBoIHRvIG1l
+bnRpb24gdGhlIGFiaWxpdHkuDQoNCkhlcmUgaXMgdGhlIGV4aXN0aW5nIHBhcmFncmFwaDoN
+Cg0KIMKgwqDCoMKgwqDCoCBUaGUgYmFja2xvZyBhcmd1bWVudCBkZWZpbmVzIHRoZSBtYXhp
+bXVtIGxlbmd0aCB0byB3aGljaCB0aGUNCiDCoCDCoCDCoMKgIHF1ZXVlIG9mIHBlbmRpbmcg
+Y29ubmVjdGlvbnMgZm9yIHNvY2tmZCBtYXkgZ3Jvdy4gSWYgYSBjb25uZWN0aW9uDQogwqDC
+oMKgwqDCoMKgIHJlcXVlc3TCoCBhcnJpdmVzwqAgd2hlbiB0aGUgcXVldWUgaXMgZnVsbCwg
+dGhlIGNsaWVudCBtYXkgcmVjZWl2ZSANCmFuIGVycm9yDQogwqDCoMKgwqDCoMKgIHdpdGgg
+YW4gaW5kaWNhdGlvbiBvZiBFQ09OTlJFRlVTRUQgb3IsIGlmIHRoZSB1bmRlcmx5aW5nDQog
+wqDCoMKgwqDCoMKgIHByb3RvY29sIHN1cHBvcnRzIHJldHJhbnNtaXNzaW9uLCB0aGUgcmVx
+dWVzdCBtYXkgYmUgaWdub3JlZCBzbw0KIMKgwqDCoMKgwqDCoCB0aGF0IGEgbGF0ZXIgcmVh
+dHRlbXB0IGF0IGNvbm5lY3Rpb24gc3VjY2VlZHMuDQoNCldoYXQgSSBwcm9wb3NlIGlzIHRv
+IGFkZCB0aGUgZm9sbG93aW5nIHNlbnRlbmNlIHRvIHRoYXQgcGFyYWdyYXBoOg0KDQogwqDC
+oMKgwqDCoMKgIEl0IGlzIHBvc3NpYmxlIHRvIGNhbGwgbGlzdGVuKCkgYWdhaW4gdG8gY2hh
+bmdlIHRoZSB0aGUgc2l6ZSBvZiB0aGUNCiDCoMKgwqDCoMKgwqAgYmFja2xvZyBxdWV1ZS4N
+Cg0KVGhhbmsgeW91Lg0KQWxleGlzDQoNCg==
+--------------uweeanJmIAfTiEZwuSBxKc0R
+Content-Type: application/pgp-keys; name="OpenPGP_0x3950C41EA102EFFA.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x3950C41EA102EFFA.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 Mar 2024 21:15:18 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Alexis Wilke <alexis@m2osw.com>
-Cc: linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: re-listen(2) (was: <linux-man@vger.kernel.org>)
 
-Hi Alexis,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I've fixed the subject, and CC.  You didn't send the mail to linux-man@.
+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
+=3DHmSb
+-----END PGP PUBLIC KEY BLOCK-----
 
-I've also CCd netdev@, since they probably know better.
+--------------uweeanJmIAfTiEZwuSBxKc0R--
 
-On Sun, Mar 24, 2024 at 10:16:02AM -0700, Alexis Wilke wrote:
-> Hi Alejandro,
->=20
-> I was looking at changing the "backlog" of a listen(2) call and could not
-> find any documentation on how to do so.
->=20
-> Clearly, it is possible under Linux simply by calling listen(2) again.
-> However, the documentation does not mention the possibility.
+--------------0IVhzplTJEcR3Mrsalpw0CB7--
 
-Hmm, I see that POSIX doesn't specify either.
-
-I didn't find it documented in linux.git/Documentation/ either (but I
-only had a quick look; maybe it's there).
-
-> We see on this stackoverflow post that it is how Nginx does it (see answe=
-r).
-
-Nginx is known to abuse implementation details, and one shouldn't
-necessarily trust what it does to be public API.
-
-However, yeah, probably the kernel doesn't want to break Nginx, so maybe
-we need to document it.  I'm not sure if this is a violation of POSIX,
-though.  Maybe someone from netdev@ can confirm?
-
-> https://stackoverflow.com/questions/64050281/can-backlog-value-that-is-pa=
-ssed-to-listen-call-be-modified-later-on-without-c
->=20
-> I would propose to either add a new paragraph or add one sentence to the
-> existing "backlog" paragraph to mention the ability.
->=20
-> Here is the existing paragraph:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The backlog argument defines the max=
-imum length to which the
-> =C2=A0 =C2=A0 =C2=A0=C2=A0 queue of pending connections for sockfd may gr=
-ow. If a connection
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 request=C2=A0 arrives=C2=A0 when the=
- queue is full, the client may receive an
-> error
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 with an indication of ECONNREFUSED o=
-r, if the underlying
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 protocol supports retransmission, th=
-e request may be ignored so
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 that a later reattempt at connection=
- succeeds.
->=20
-> What I propose is to add the following sentence to that paragraph:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 It is possible to call listen() agai=
-n to change the the size of the
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 backlog queue.
-
-Let's see what netdev@ says.
-
-Have a lovely night!
-Alex
-
->=20
-> Thank you.
-> Alexis
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
-
---SDcLcTAJUisZp/9K
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------hbspyhFB0VRPpesbGOrLDVRL
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYAidYACgkQnowa+77/
-2zKASBAAh2gJ9w38FNpRbgksVR0nefRPZKthGzTTQcKV0rDR1H57kHj6NVAQF7nd
-A3rS9f2GZY27tMqwenjHvOV4uWe3PrXvipQy+QGR6uGcATMx7PuE9cgR+7x3uMx5
-wLbK8C0GhiJsHDqR5RlfZIF4FIzosSKi2pYV7BucP8hNlxJ075Mc6P4NJ4Cx7k49
-iQlGV0DSiJkA6cCDgwnkiAEglTTeumB6ipOYcH+KUu6Oh89G4+UmRaSH2cF6lDxq
-43YeCp56sUgob8fH25jOy1pdqbW4b53R/115Uj4FNgJ5lk6wjhlQ5ZQXX4v0dPBw
-L8IaD5hy4L5lvZM4QlEogRXVwQQ6+UEdkEYr7sKEMrP33tV7zMkLDy6s/h/JAqv8
-QAB12+3oSuCebyX1GGJw/xs30pV3sAmENl5T73U5JnQYoU9l9l9sbiSPP7puNNDU
-xMEg28tOTeEAclu75YYtR6lFqgySio5LurdDlSERPSv5E0vVVkXvKSUmepdGwOjR
-CGWdjV+h0oL6oBEqfCXjzGNN5l6CXeux9/bN1uGGQhBIo64soifBRc2ZE3GUh107
-rJbhfaiQpROPhWU4+pZb8AGJ8f1bQjwCdMnsgKTLGGmw+FuARTXvuHx9hjazZmCp
-q5M2y3bvWWEaVgRINQJacyeQ/uEAquvFuTo4fpt0Usp4wWWv8Wk=
-=qUmt
+wsD5BAABCAAjFiEEPO3MFVxCwd4Zu/AwOVDEHqEC7/oFAmYAi7sFAwAAAAAACgkQOVDEHqEC7/q7
+Lgv+P5Gl6aHUoEw9DjaC0ZWj7//nNK/OWDUMcLa5B0fAAVd6Dr2G/iFcvexdVnMnUhElPkpJ+wlQ
+Xve3sNa4TWFuRl0jTODR78MG6g37PLhQrjtLyHW4KtfMsRd6CI//19Xf0gZAJmCQwoEjV/Nzqduw
+w3xnmyXuKxCFcHf1XBy76RPzAjSku0a7sQv1kpcISmSV/uFnlf9WlOn0x1DPjt1GehB4hsw7ZejI
+8cQjrN604YQfPzIt11twYqKpMHWg9cJ4OjgIWFKLkQVJNQA1TKsAkl0/cg/JMJeo0g63hLUA86+k
+bpps3m8y6TuuTs5zFVcsnMSgWTLLcR1PCUm0Wc7YxFeV396LdsUrV5RDn7a/Vdek6kWk/J6clN2E
+Jyo3EIW0vY20VVUu9dbRHAl1XaDDnkaRwYhGhTzmg8I+eXXL/Ra1ZuplX8fzR/Du5omlUaB4X7kk
+JRJwbKGS9Q5jatH8dT8VjiDqP2d4gQ/wID2/Hrtm5YRGkasF7ry7VVM5Q7R8
+=0Ysk
 -----END PGP SIGNATURE-----
 
---SDcLcTAJUisZp/9K--
+--------------hbspyhFB0VRPpesbGOrLDVRL--
 
