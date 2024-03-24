@@ -1,57 +1,53 @@
-Return-Path: <linux-man+bounces-683-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-684-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71D1887D33
-	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 15:25:45 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B0C887ED7
+	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 21:15:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D6B5F1C209E0
-	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 14:25:44 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5E48DB20AAA
+	for <lists+linux-man@lfdr.de>; Sun, 24 Mar 2024 20:15:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C8F717C7F;
-	Sun, 24 Mar 2024 14:25:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5451E8BFB;
+	Sun, 24 Mar 2024 20:15:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSLMiQCs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rfelWekn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0610CA64
-	for <linux-man@vger.kernel.org>; Sun, 24 Mar 2024 14:25:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D237FC02;
+	Sun, 24 Mar 2024 20:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1711290340; cv=none; b=XCkMlFf0LdjhYVya2pWoM3K9MA7lFCTt/ZX/2x5kgJvGYatRfa2RR2zy2pSjXnGEa2znl5T6Uox3Wl/3bl5pgmjdhIGLEMN8ELhYPcn4z/deu8Ig/u4Z0MBR7MM+FSA2EtO9lwDDUxt/qf50sy4x1Iv/jXCM6+qF8CZDShV5nKg=
+	t=1711311328; cv=none; b=OO8K4YI8VNLn9Zpw4E5q5Ri9KLQ+U8EoQtjWt3fwl8pKSYDgD7n74kBCQLBCLtFrHyWTNLGhk1lmFv89wR0Tu8rab1XjhGXBCpxP2BNbvbzxuuAdotzkYRxpbmuj1PqaMzzyCNsK7WvXBCfQn9YQ2DnLMXKSI9Jzii/1wLiGjWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1711290340; c=relaxed/simple;
-	bh=8+GixEpUlVicrkq2GXwnNsgtuMFIiSSlrQLEUI110Kw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=omW5u8FfspN6bOfHnt8HK4V+dpj8r52p3nHLobypX4aYZ32LA6cAW0ZpwcdcqIyRuLFFmMaVAJE/5CRUQtzb6lL+X04DdgNLpunO+mgDzf65tzyXnJQF+LIwLf2XN/+q3LpdvkETOk/0+IKx3OfdHq1bY7c74O36W5onQoFPSU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSLMiQCs; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142D5C433F1;
-	Sun, 24 Mar 2024 14:25:37 +0000 (UTC)
+	s=arc-20240116; t=1711311328; c=relaxed/simple;
+	bh=NksRtom6VH+F0N1jaXNdS79Zvo5Z8laERBCwgx1tIg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=otyZ65wsmlh/TmeJtqXBzohPyOH1ii1rXLcZNlW8avz/EH1+Q1X7s2QBpVFA4x3YVT4x2iIH6kJTzf0Wbpmpqez+oHKNNFpXve+s6S2jsTqYBgbNeiWBQU7Bpx6BZeCRlqAJWSjwl2kXWJbqxIOIbLneBJfhrnNKBjQoPNDUbBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rfelWekn; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908FDC433F1;
+	Sun, 24 Mar 2024 20:15:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711290340;
-	bh=8+GixEpUlVicrkq2GXwnNsgtuMFIiSSlrQLEUI110Kw=;
-	h=Date:From:To:Cc:Subject:From;
-	b=GSLMiQCsdRnUtP9oRfhkJWkdCgfbCZVsdm/vy3+XA6bDrR6KqTlKiAL/fMENl2D/M
-	 LTJgp/IUx8Ydq5wjHwWRZODHQgWiTjRgyeIWdSw1k72q3S7Qa+WNqo8s06soivRzrw
-	 8KWwbuo/tWxqZvYYL6XVjROrJffFoi4s2vYGFzzFvgT/4hoKoAgybGo/dCbg9qsRaP
-	 g4CJd5QmE0yEUCBCenmnkmT++pyC+hXm3Ocvjxi6J4j5vp1BGej4A87l5mOBs7pFgm
-	 T/+xRSRXiGWaJfUYy+awtUfLrH67FLlGQplqTrmUSKbc/woHq3GmET7ih4yBIlRFZN
-	 XMF8Ib5xgQyJg==
-Date: Sun, 24 Mar 2024 15:25:29 +0100
+	s=k20201202; t=1711311327;
+	bh=NksRtom6VH+F0N1jaXNdS79Zvo5Z8laERBCwgx1tIg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rfelWeknHYM6UyAikegyjDZdxW7bfvfZudNo//F3/MhVe7GuSonpek002dBLcDlNv
+	 RAJ8bckBWzou0JjUKm7e/sDIZSVb3i0538mFgs02n41j7Xv+pZzypNKA/jsEjc5Ggx
+	 UGlekuQxAyCzXzFxX/HjGeTc5OIOVKWaKZTUhaapXiuTsNA+nydDA7CIZXgYc0WQKh
+	 NcCPsmG4Ue7Jaub/ze4xLm2gUQWR1Rw6v3b2C7qff/A2ndCGXxcIjMxTXbDN3ohfNS
+	 rOKwsqa3aZlSgLXgaoXjvb2SkHWnsf/gfrNi5TG11V4h6hHxZ5jY/M6V949zBZOVRb
+	 seYtw1DQWQgqQ==
+Date: Sun, 24 Mar 2024 21:15:18 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>,
-	Marcos Fouces <marcos@debian.org>,
-	"Dr. Tobias Quathamer" <toddy@debian.org>, andyrtr@archlinux.org,
-	Luna Jernberg <droidbittin@gmail.com>, Sam James <sam@gentoo.org>,
-	man-pages-maintainers@fedoraproject.org,
-	Lukas Javorsky <ljavorsk@redhat.com>, Petr Gajdos <pgajdos@suse.cz>
-Subject: man-pages HEAD (eventually 6.8) build-system improvements
-Message-ID: <ZgA33_NA8qO2CKqD@debian>
+To: Alexis Wilke <alexis@m2osw.com>
+Cc: linux-man@vger.kernel.org, netdev@vger.kernel.org
+Subject: re-listen(2) (was: <linux-man@vger.kernel.org>)
+Message-ID: <ZgCJ3HtrAVViosBv@debian>
+References: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,265 +55,112 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ojoRfps6IFzJcu8h"
+	protocol="application/pgp-signature"; boundary="SDcLcTAJUisZp/9K"
 Content-Disposition: inline
+In-Reply-To: <59f9ef34-e9d9-41d5-8f97-2c070532a7d0@m2osw.com>
 
 
---ojoRfps6IFzJcu8h
+--SDcLcTAJUisZp/9K
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 Mar 2024 15:25:29 +0100
+Date: Sun, 24 Mar 2024 21:15:18 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>,
-	Marcos Fouces <marcos@debian.org>,
-	"Dr. Tobias Quathamer" <toddy@debian.org>, andyrtr@archlinux.org,
-	Luna Jernberg <droidbittin@gmail.com>, Sam James <sam@gentoo.org>,
-	man-pages-maintainers@fedoraproject.org,
-	Lukas Javorsky <ljavorsk@redhat.com>, Petr Gajdos <pgajdos@suse.cz>
-Subject: man-pages HEAD (eventually 6.8) build-system improvements
+To: Alexis Wilke <alexis@m2osw.com>
+Cc: linux-man@vger.kernel.org, netdev@vger.kernel.org
+Subject: re-listen(2) (was: <linux-man@vger.kernel.org>)
 
-Hi!
+Hi Alexis,
 
-I'm excited to share list of improvements to our build system that I
-think will be meaningful to downstram distributors:
+I've fixed the subject, and CC.  You didn't send the mail to linux-man@.
 
--  I've reorganized the build-system files in a much more intuitive way,
-   and the most direct benefit of this is that the build dependencies
-   are now implicit in the file names; so much, that I've removed the
-   documentation for it (which got obsolete very easily), and replaced
-   the `make help` help with a script that will tell the dependencies:
+I've also CCd netdev@, since they probably know better.
 
-	$ make help
-	To see a list of targets, run:
-		$ make nothing -p \
-		| grep '^\.PHONY:' \
-		| tr ' ' '\n' \
-		| grep -v '^\.PHONY:' \
-		| sort;
+On Sun, Mar 24, 2024 at 10:16:02AM -0700, Alexis Wilke wrote:
+> Hi Alejandro,
+>=20
+> I was looking at changing the "backlog" of a listen(2) call and could not
+> find any documentation on how to do so.
+>=20
+> Clearly, it is possible under Linux simply by calling listen(2) again.
+> However, the documentation does not mention the possibility.
 
-	To see a list of variables, run:
-		$ find GNUmakefile share/mk/configure -type f \
-		| sort \
-		| xargs grep '^[^[:space:]].*=3D' \
-		| sed 's/=3D.*/=3D/' \
-		| grep -v -e ':DEFAULT_.*=3D' -e ':MAKEFILE_.*INCLUDED :=3D';
+Hmm, I see that POSIX doesn't specify either.
 
-	To see a list of dependencies (package/program), run:
-		$ find share/mk/configure/build-depends -type f \
-		| sed 's,share/mk/configure/build-depends/,,' \
-		| sed 's,\.mk,,' \
-		| sort;
+I didn't find it documented in linux.git/Documentation/ either (but I
+only had a quick look; maybe it's there).
 
-   Since I needed to make a choice, the build dependencies are expressed
-   in terms of Debian packages, and the names of the binaries in Debian.
-   You'll need to translate these to your distro.  On Debian, you could
-   script the installation of dependencies:
+> We see on this stackoverflow post that it is how Nginx does it (see answe=
+r).
 
-	$ find share/mk/configure/build-depends -type f \
-	| sed 's,share/mk/configure/build-depends/,,' \
-	| sed 's,\.mk,,' \
-	| sed 's,/.*,,' \
-	| grep -v checkpatch \
-	| xargs apt-get install;
+Nginx is known to abuse implementation details, and one shouldn't
+necessarily trust what it does to be public API.
 
-   (This already proved useful when discussing about an issue with a
-   downstream packager, so I could list some commands to reproduce some
-   behavior in a clean installation of Debian (in a Docker container).)
+However, yeah, probably the kernel doesn't want to break Nginx, so maybe
+we need to document it.  I'm not sure if this is a violation of POSIX,
+though.  Maybe someone from netdev@ can confirm?
 
-   (checkpatch is the script checkpatch.pl from the Linux kernel
-   sources, which I have a package for, but need to polish it for
-   public distribution.)
+> https://stackoverflow.com/questions/64050281/can-backlog-value-that-is-pa=
+ssed-to-listen-call-be-modified-later-on-without-c
+>=20
+> I would propose to either add a new paragraph or add one sentence to the
+> existing "backlog" paragraph to mention the ability.
+>=20
+> Here is the existing paragraph:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The backlog argument defines the max=
+imum length to which the
+> =C2=A0 =C2=A0 =C2=A0=C2=A0 queue of pending connections for sockfd may gr=
+ow. If a connection
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 request=C2=A0 arrives=C2=A0 when the=
+ queue is full, the client may receive an
+> error
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 with an indication of ECONNREFUSED o=
+r, if the underlying
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 protocol supports retransmission, th=
+e request may be ignored so
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 that a later reattempt at connection=
+ succeeds.
+>=20
+> What I propose is to add the following sentence to that paragraph:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 It is possible to call listen() agai=
+n to change the the size of the
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 backlog queue.
 
-   As you can see from that `make help`, variables exposed to users for
-   configuration are also more intuitively placed, within a ./configure/
-   subdirectory of the build system.  Anything not in that subdir is
-   just implementation details, not intended for users to tweak them.
+Let's see what netdev@ says.
 
-   I've also made target names more consistent (for example,
-   'build-book' is now 'build-pdf-book', and is triggered by the parent
-   'build-pdf').  In general, -* subtargets are always triggered by the
-   target named by a prefix of it.  Hopefully, that's also intuitive
-   enough that need not be documented (and of course, you can see it's
-   now another script in `make help`).  This differs from autotools
-   behavior, which is to only build as much as your current system
-   --with its installed dependencies-- can run; I believe that behavior
-   is bogus, as different people running the same make(1) target on
-   different systems, will see different behavior.  IMO, the right thing
-   to do is to behave the same everywhere, and fail hard when something
-   can't be done due to a missing dependency.  With subtargets, we do
-   allow building only partially, if some system doesn't want to run or
-   build some stuff, but users need to explicitly specify so.
-
--  We stamp the date and version in the manual pages at `make install`
-   time.  This means now the (unreleased) and (date) placeholders will
-   be in the repository, but when one installs from source with
-   `make install`, the pages will be marked with the date of the last
-   commit that modified a page, and the version extracted from
-   git-describe(1).
-
-   This should help fix the manual pages at Michael's <man7.org>, which
-   now have the (unreleased) and (date) placeholders.  I'm not 100% if
-   he's running `make install` or if he is just copying the pages from
-   the repository; I hope he is doing the former, in which case they'll
-   get the stamp when 6.8 is released and he gets that version.
-
--  The version is not stamped on the pages distributed in the release
-   tarballs anymore; we now only stamp the page date.  This will allow
-   distributions to stamp their own versions, such as 6.8-1, by using
-   the $EXTRAVERSION variable.  So, distributions will be able to run
-
-	$ make install EXTRAVERSION=3D-1 prefix=3D/usr DESTDIR=3Dtmpdir
-
-   And get their version suffix stamped after the upstream version.
-
--  The PDF book is now stable enough, and I decided to add an install
-   target for it:
-
-	$ make install-pdf-book
-
-   This means distros can start installing the PDF book in their
-   systems if they want, to please those who want to read the manual
-   typeset, without having to download it from the website.
-
-	"The manual was intended to be typeset; some detail is sacrificed
-	on terminals."  (man(1), _Unix Time-Sharing System Programmer's
-	Manual_, Eighth Edition, Volume 1, February 1985)
-
-   The script for producing the book was contributed by Deri James.
-
--  The build system works on other projects (this was already possible,
-   but limited to just some features).  I've been using it to produce
-   PDF books of the manual pages in the shadow project, and also forked
-   it to write a build system for the liba2i library (of recent
-   creation)[1] with minimal changes.  That helped find the assumptions
-   made that depended on our project, and changed them to make them more
-   generic.
-
-   [1]  <https://git.kernel.org/pub/scm/libs/liba2i/liba2i.git/>
-
--  Already in 6.7, but noteworthy.  The build system now has a list of
-   lints and checks known to fail, and doesn't run them by default.
-   This allows downstream packagers run `make lint build check` without
-   having to make exceptions.  Any errors are now regressions, and we
-   should be careful to not introduce them.  With time, I'll try to
-   remove the internal exceptions, although some aren't easily fixable.
-
-   It is also easier on contributors, which now can just
-   `make lint build check` after their patches, and expect it to not
-   give any errors (else, they screwed it).
-
--  Already in 6.7, but noteworthy.  We have a 'distcheck' target, which
-   does the usual stuff described by GNU autotools' 'distcheck', but it
-   is better, as we have a GNUmakefile-based build system, and can
-   express dependencies better.  We run in parallel as much as is
-   possible, and don't need to do any read-only magic stuff, since we
-   always run out-of-tree builds, contained in <.tmp/>.
-
-   It doesn't do 'installcheck' (we don't even have it; what would we
-   actually test?), though, but I don't think that's sensible, since an
-   install check should run mandb(8) to actually have a proper install,
-   but I think that would be too intrusive, because that's
-   system-dependent, and I believe users should decide to run mandb(8)
-   manually after `make install` (if they use man-db at all!), and it's
-   not our business (consider users installing into /opt and not wanting
-   to actually modify their systems).
-
-   It goes a step beyond GNU's 'distcheck': we run `make dist` from
-   within the extracted tarball, just like autotools, but then we make
-   sure that the second tarball is identical byte-per-byte to the first
-   one, by running diffoscope(1) to diff both tarballs.
-
-Please comment any doubts you have about these features.
-
-Have a lovely day!
+Have a lovely night!
 Alex
 
-
-P.S.:  Here's the list of build dependencies, as of $now:
-
-$ find share/mk/configure/build-depends -type f \
-        | sed 's,share/mk/configure/build-depends/,,' \
-        | sed 's,\.mk,,' \
-        | sort;
-binutils/ld
-bsdextrautils/col
-bzip2/bzip2
-checkpatch/checkpatch
-clang-tidy/clang-tidy
-clang/clang
-coreutils/cat
-coreutils/cp
-coreutils/echo
-coreutils/expr
-coreutils/head
-coreutils/install
-coreutils/ln
-coreutils/mkdir
-coreutils/realpath
-coreutils/rm
-coreutils/sort
-coreutils/stat
-coreutils/tac
-coreutils/tail
-coreutils/test
-coreutils/touch
-coreutils/true
-cpp/cpp
-cppcheck/cppcheck
-cpplint/cpplint
-diffoscope/diffoscope
-findutils/find
-findutils/xargs
-gcc/cc
-git/git
-grep/grep
-groff-base/eqn
-groff-base/grops
-groff-base/grotty
-groff-base/nroff
-groff-base/pic
-groff-base/preconv
-groff-base/tbl
-groff-base/troff
-groff/gropdf
-groff/post-grohtml
-gzip/gzip
-iwyu/iwyu
-libc-bin/locale
-lzip/lzip
-man/man
-mandoc/mandoc
-moreutils/sponge
-pkgconf/pkgconf
-sed/sed
-tar/tar
-xz-utils/xz
+>=20
+> Thank you.
+> Alexis
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---ojoRfps6IFzJcu8h
+--SDcLcTAJUisZp/9K
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYAN9kACgkQnowa+77/
-2zLQFw/8DuQv3aJbH9iHavBaUYPiUC5EddWIZ0R5fPO/14oGJ2DlpT9wERAClYiB
-qWNt/naZY2ZLrIxCinbPIn1nw2kDBFtNYeuJM2lUDWGJmY+Q3CzxGqPQDSFvzAok
-41aVhSxSUcRomLuxN94EZ339tFqBJK2zAv4ZvER8TzKuTdYUas2Qp1s4MmKK/hH8
-tZN1R+cgb4Fkw0vLMBSna6QjH+WWUDa3/Vu8ijzrNg0pF5VdjsQNFz9/Hf43AaT+
-t7ckKbnkPFmmpy5xiDzrLOp/7a7h24trabAjPP0TaKe13Mv4DEF8RXH1QDmEjGZZ
-EHoP3QKr7sPJvyHI7gUpvhB1SoHRkETmPOPmRkTHLF61ZvsU0sIONrW5NCHSDzvV
-nSLhVw/b6mWwz2Z0CT4NNL3pjhFCfkBfPi7aUjLw7QSdUGuT7q48dyryRB2REyx1
-3a6XF5hRlN7+b9bn9R28EJvAvbuOW67n/ImlT5sDjasu9H/CgKlN3k9kh143uOQG
-3UlcHQ3sveSwqArjVxBL0Zfk4vGkR5IyVGBTnOjeKyi/iIOqPYCAXGRTa4+fy42S
-RKB4GKnfK1+zlBXg0QOld5guj1Q1yOjIf8hDf+PRNu3B5MP6Kfd1A4Hq+g177fxS
-2CEGPL8i1ExZH6BNVK+vAweu6MmNGlvU/1zyBZQoiRixCh5LJrI=
-=NZ1z
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYAidYACgkQnowa+77/
+2zKASBAAh2gJ9w38FNpRbgksVR0nefRPZKthGzTTQcKV0rDR1H57kHj6NVAQF7nd
+A3rS9f2GZY27tMqwenjHvOV4uWe3PrXvipQy+QGR6uGcATMx7PuE9cgR+7x3uMx5
+wLbK8C0GhiJsHDqR5RlfZIF4FIzosSKi2pYV7BucP8hNlxJ075Mc6P4NJ4Cx7k49
+iQlGV0DSiJkA6cCDgwnkiAEglTTeumB6ipOYcH+KUu6Oh89G4+UmRaSH2cF6lDxq
+43YeCp56sUgob8fH25jOy1pdqbW4b53R/115Uj4FNgJ5lk6wjhlQ5ZQXX4v0dPBw
+L8IaD5hy4L5lvZM4QlEogRXVwQQ6+UEdkEYr7sKEMrP33tV7zMkLDy6s/h/JAqv8
+QAB12+3oSuCebyX1GGJw/xs30pV3sAmENl5T73U5JnQYoU9l9l9sbiSPP7puNNDU
+xMEg28tOTeEAclu75YYtR6lFqgySio5LurdDlSERPSv5E0vVVkXvKSUmepdGwOjR
+CGWdjV+h0oL6oBEqfCXjzGNN5l6CXeux9/bN1uGGQhBIo64soifBRc2ZE3GUh107
+rJbhfaiQpROPhWU4+pZb8AGJ8f1bQjwCdMnsgKTLGGmw+FuARTXvuHx9hjazZmCp
+q5M2y3bvWWEaVgRINQJacyeQ/uEAquvFuTo4fpt0Usp4wWWv8Wk=
+=qUmt
 -----END PGP SIGNATURE-----
 
---ojoRfps6IFzJcu8h--
+--SDcLcTAJUisZp/9K--
 
