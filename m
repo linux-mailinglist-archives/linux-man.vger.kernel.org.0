@@ -1,52 +1,52 @@
-Return-Path: <linux-man+bounces-688-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-689-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19CD488A57C
-	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 15:58:41 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E33088A5A5
+	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 16:02:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C035F30770E
-	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 14:58:39 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4E6AA1C3C319
+	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 15:02:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7194E157A5B;
-	Mon, 25 Mar 2024 12:05:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8281C1494B8;
+	Mon, 25 Mar 2024 12:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tUVwGTud"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ku0hEYIQ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843AD1BB748
-	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 11:48:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EB0142E62
+	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 12:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1711367323; cv=none; b=N08I0clyCnmTxuckQB/4jeTCx06tkmYIQlSaq8Eowrk5zpimgyC9GlCZZp/cR6p2ENA9HUsk+hqUe39Yiz7xoQoiWOXR9y+D78w2Mbe29gjB4pUYfyV6oiGrvhaCMm7BxRBpYlkofsdkbM8b56//rIe8kotcKMc1y0kll7IwGPA=
+	t=1711368462; cv=none; b=T4VN6dZkzkTjtYL1Gv3dJzPjgbJpqi4NErJS3UysY8/aDyof5IOjVX8W0LVFoSU62odGgZUtLexMbY46G3h2KnIg8+jITiYaqlduKfRA4pXAvTqPVmT/czfsRiVyOg1PGbTCgMlisqLwzG3bM3aUFWUTPMikeAdE8BNLlm6yFhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1711367323; c=relaxed/simple;
-	bh=r/uHTTvr74zMjIK4latyGTkk+sUhH2+tPbkhHFan3V4=;
+	s=arc-20240116; t=1711368462; c=relaxed/simple;
+	bh=rEyPunnM/LOgaIMlBpAi99z/qEXokmxjdUybiUFS16U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qn3M4T28f480JjlwWFUV7+4lu1hZfrVfTTQYwxgfNnsD1ka1jcUyMDuqs8XnrKsjtjDwE5gT1KEQaDy6Bsq5SNZ/D0gMkbSTHlyN0Caz22hkfzM/8vvo5KyjEFhBqzhiyA7hKEt3hiykgkxMW9+vRP0UrS6dJPOvhIaE55aEz3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tUVwGTud; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4EBC433F1;
-	Mon, 25 Mar 2024 11:48:42 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=E0pkKEolf9gyn1nZKjQVRagXgGga/31AWvwiLdCfBjoKl60Tkfs4lide6q8Ex4Hx2vq4XcCLI93pDoovAvkRvYho5APrDrWaUJXAcj/JDfeVfOe5HtfehMHFUS3ysCBwXdhIIXC8naU9Se4/oNonlK9/Kr+/xpDRYPmZ7BJdpNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ku0hEYIQ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD57C433F1;
+	Mon, 25 Mar 2024 12:07:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711367323;
-	bh=r/uHTTvr74zMjIK4latyGTkk+sUhH2+tPbkhHFan3V4=;
+	s=k20201202; t=1711368461;
+	bh=rEyPunnM/LOgaIMlBpAi99z/qEXokmxjdUybiUFS16U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tUVwGTudNuEanwkEHhh6zsdC8S0g5J0VfETNM2Xp781B7gh8+I+riAH+nc/is/3Sc
-	 bmcj+G3OlHkkwjCU6CIiBYcTh0BPv1Nr8HC3TvBFVCXk6xNKe9gaHmmsfjPg3O2Rb8
-	 ET04FQpzOaZwqhpZXs2nY59iw5xyyt20ut2qEWY9Zm+EaeV/qMOFv4Pa2/DDBxIsRN
-	 w46+7zJyvBMVMO0ET4kWTcW+UPyUJckXdEpXIX+E/cCId6hjCZKsuS5+B58GOMxnNW
-	 4qh++SVLDbkx9QWsmjhp0mNRZ+vyeDbbMC6CvFFVmH3gpL2YoZM3ENbbFwNJ4IoS8y
-	 ObFC4PKUeNGjA==
-Date: Mon, 25 Mar 2024 12:48:40 +0100
+	b=ku0hEYIQ7gMJs2JIr/j+TujdN3aqYQclSscJRuxCEd5EA1Ates9a1IicQJUgPaxOj
+	 9QY7z2MHbF7D+99xOaCRgbYkFP9kBYdEM9y8C1mAZlIHSune9ETDJa1/A/acyu0T/K
+	 oOgzzdMNQYJlczer293XkFaizrQ89bX6fMQRUixS1EFcFuLnWGYCgYV5j1Q/PBBLFc
+	 fohe196ZgTIESxhADf22lY8jlLOmRlvWfWcvPln4fYfy8hJlT1KAVB4Knz4YQDGH11
+	 xafYGQo15214m/JxobtUlJ2lhb4X33Y/sPjk1bU3RrJ7zyZsiiFzUIRk8oUFrPnf9E
+	 +5/0QcDABDX3g==
+Date: Mon, 25 Mar 2024 13:07:38 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
+Cc: linux-man@vger.kernel.org, Deri James <deri@chuzzlewit.myzen.co.uk>
 Subject: Re: man-pages PDF book: fonts
-Message-ID: <ZgFkmFxMYYPBZqjO@debian>
+Message-ID: <ZgFpCkCcwxMzsOcw@debian>
 References: <Zf3BRmfTFvADOIBG@debian>
  <20240325041954.fofjtgghwhe4znm6@illithid>
  <ZgFioIO94vFupB53@debian>
@@ -57,56 +57,24 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9uQHCoV3Wo8mZEQC"
+	protocol="application/pgp-signature"; boundary="Guun+5XO5z9Ikef6"
 Content-Disposition: inline
 In-Reply-To: <ZgFioIO94vFupB53@debian>
 
 
---9uQHCoV3Wo8mZEQC
+--Guun+5XO5z9Ikef6
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 Mar 2024 12:48:40 +0100
+Date: Mon, 25 Mar 2024 13:07:38 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
+Cc: linux-man@vger.kernel.org, Deri James <deri@chuzzlewit.myzen.co.uk>
 Subject: Re: man-pages PDF book: fonts
 
+Hi Branden,
+
 On Mon, Mar 25, 2024 at 12:40:07PM +0100, Alejandro Colomar wrote:
-> Hi Branden!
->=20
-> On Sun, Mar 24, 2024 at 11:19:54PM -0500, G. Branden Robinson wrote:
-> > Hi Alex,
-> >=20
-> > At 2024-03-22T18:35:02+0100, Alejandro Colomar wrote:
-> > > I see that Debian provides the Tinos font in some package:
-> > >=20
-> > > $ apt-file find -x Tinos.*pf
-> > > texlive-fonts-extra: /usr/share/texlive/texmf-dist/fonts/type1/google=
-/tinos/Tinos-Bold.pfb
-> > > texlive-fonts-extra: /usr/share/texlive/texmf-dist/fonts/type1/google=
-/tinos/Tinos-BoldItalic.pfb
-> > > texlive-fonts-extra: /usr/share/texlive/texmf-dist/fonts/type1/google=
-/tinos/Tinos-Italic.pfb
-> > > texlive-fonts-extra: /usr/share/texlive/texmf-dist/fonts/type1/google=
-/tinos/Tinos.pfb
-> > >=20
-> > > The above is .pfb, not .pfa, which I don't understand and may not be
-> > > usable for our purposes,
-> >=20
-> > PFA and PFB are closely related font file formats.  Reputedly, they
-> > stand for "PostScript" (or "Printer") "Font" "ASCII" or "Binary",
-> > respectively.  PFB was much more widely used on MS-DOS, due either to
-> > the meager disk space there, the 640kB RAM limit, or because it was
-> > thought that the fonts would be "pirated" (or even understood) less
-> > because the nature of their contents was less obvious.  Who knows?
-> >=20
-> > Regardless, groff provides a tool for converting uncouth PFB to
-> > civilized PFA.
-> >=20
-> > $ apropos pfbtops
-> > pfbtops (1)    - translate Printer Font Binary files to PostScript ASCII
-> >=20
 > > The grops(1) and gropdf(1) man pages in groff 1.23.0 discuss using this
 > > tool to prepare fonts so that groff can read them.
 >=20
@@ -125,96 +93,56 @@ On Mon, Mar 25, 2024 at 12:40:07PM +0100, Alejandro Colomar wrote:
 >=20
 > I'll try it.  This should remove a gigantic file from the project
 > repository.  Thanks!  =3D)
->=20
-> > (Why not "pfbtopfa"?  Ghostscript was already using that name.  Why does
-> > groff provide a tool that does the same thing?  Good question.  I don't
-> > know.  It is not a young program--it is old.[1]  Maybe at one time groff
-> > was portable to MS-DOS but Ghostscript was not.)
 
-Oh, and there's also pfb2pfa(1), it seems.
-
-alx@debian:~$ apt-file find bin/pfbtops
-groff: /usr/bin/pfbtops                  =20
-alx@debian:~$ apt-file find bin/pfbtopfa
-ghostscript: /usr/bin/pfbtopfa           =20
-alx@debian:~$ apt-file find bin/pfb2pfa
-texlive-binaries: /usr/bin/pfb2pfa       =20
-
->=20
-> Which one do you recommend?  pfbtopfa(1) seems to have problems:
->=20
-> $ pfbtopfa /usr/share/texlive/texmf-dist/fonts/type1/google/tinos/Tinos.p=
-fb
-> Error: /invalidfileaccess in --file--
-> Operand stack:   in1   (/usr/share/texlive/texmf-dist/fonts/type1/google/=
-tinos/Tinos.pfb)   (r)
-> Execution stack:   %interp_exit   .runexec2   --nostringval--   --nostrin=
-gval--   --nostringval--   2   %stopped_push   --nostringval--   --nostring=
-val--   --nostringval--   false   1   %stopped_push   1949   1   3   %oparr=
-ay_pop   1948   1   3   %oparray_pop   1933   1   3   %oparray_pop   1803  =
- 1   3   %oparray_pop   --nostringval--   %errorexec_pop   .runexec2   --no=
-stringval--   --nostringval--   --nostringval--   2   %stopped_push   --nos=
-tringval--   --nostringval--
-> Dictionary stack:   --dict:746/1123(ro)(G)--   --dict:0/20(G)--   --dict:=
-88/200(L)--
-> Current allocation mode is local
-> Last OS error: Permission deniedCurrent file position is 980
-> GPL Ghostscript 10.03.0: Unrecoverable error, exit code 1
->=20
-> > > Can we similarly get the Unifont for zh_CN PDFs?
-> >=20
-> > As I understand it, GNU Unifont is a low-resolution bitmap font intended
-> > for terminal emulators.[2]  I expect it would look offensively bad when
-> > typeset.
->=20
-> That's the font Deri used in his patch:
-> <https://lore.kernel.org/linux-man/2607548.uBY7QHFjlC@pip/>
->=20
-> I guess that's better than nothing.
->=20
-> Have a lovely day!
-> Alex
->=20
-> >=20
-> > Regards,
-> > Branden
-> >=20
-> > [1] https://git.savannah.gnu.org/cgit/groff.git/tree/NEWS?h=3D1.23.0#n3=
-211
-> >     https://www.youtube.com/watch?v=3DK2tgZCabTzs
-> > [2] https://unifoundry.com/unifont/index.html
->=20
->=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
-> Looking for a remote C programming job at the moment.
+I'm a bit worried that with the font regenerated from the packaged one
+and pfbtops(1) I get a lot more warnings.  The PDF still seems okay at
+first glance, but I'm not sure if there's something wrong with what I'm
+doing:
 
 
+$ pfbtops \
+	/usr/share/texlive/texmf-dist/fonts/type1/google/tinos/Tinos.pfb \
+	>scripts/LinuxManBook/devpdf/Tinos.pfa ;
+$ make build-man -j24 >/dev/null;
+$ make build-pdf-book |& wc -l;
+1349
+$ git stash;
+Saved working directory and index state WIP on contrib: 49e6388bb share/mk/=
+: srcfix
+$ rm .tmp/man-pages-*.pdf;
+$ make build-pdf-book |& wc -l;
+260
+
+
+Maybe I also need to regenerate the TINOR file?  And how do I regenerate
+that one, and what's its source?
+
+Cheers,
+Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 Looking for a remote C programming job at the moment.
 
---9uQHCoV3Wo8mZEQC
+--Guun+5XO5z9Ikef6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYBZJgACgkQnowa+77/
-2zKuRRAAlYLdXGYQ0/wNTq7kgHhgxCgjddIcbDmbTRGR4Wyk/LsvJ7JFAJurV1fh
-BcOqX4VBL7LNQ0lsY/mOC64gKnHVlkqXq9U/sFDDKsJfg8Fp2+DpwsT0Veo3ufKc
-b3tLfdugLtFIzIcAZWUDQemxBXb4ls7UMAqO+Oyixu9sGlf9Bm1gfLBP0dj2fVXr
-mK/K4ghOcgHNRO9CDcbJ9DRKHYutMaWK1kdI2fnrGb8+Js36YPHretH2ryEB+8Oc
-9UvGolCN9SzNg6HLgLkx5OBeIqzkfKxatqBeZ9ECk9wDdZymiWyPxQXxS+bd1noS
-ewDWyoFEDbc1C1f6TKNomvPmGPLTyCb3Xrt5fuTC1yh/Y2ThZM2vqvFm2EsXEt+N
-l5kCrVJhxn9wRI+lyuTFcXxeujaZBBTDk2HyC2uSiuDzpGh5EWa3T6kU4rYH0osm
-U9IkRF+WHgusaWeRQpnLylDpPgwll/FOo4u8Z41FRXVDlDa9xbWbxNb4VUjwd13D
-WI1IGP401PZhs4O1prz52fyGCXJMcUP03yCZHSZ0Mi/8UfdRP+qgQ++HCo4XODQs
-8oxRELlBipN2cgxyUjLWCE3OsXiPQ/mca4GjRU5xQSYAyHbCpnK4+gSIAeS7bRst
-AKNyYvI+mZtvpMWbmTnpoIBkUSRzghNG+uZJlkLWZ+HWH2qS6kA=
-=GdYD
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYBaQoACgkQnowa+77/
+2zJOcRAAnmbkMK88gCo8Vvn3WRjgnTAVJT2zf0AY/b30SnS54qw00vAQKIGXMyiv
+WWtoIeP0h2vBUdrCOE6FiAFd+t6Xt5KGKbI7UqjBQHKzA/+tN3nJUckauqH0oN4I
+qljtlaoTWRKnW2WrJhfD0WfK780i+hcM2ZCUqZWRQtWq/HkIp4KQ470TV4G7EauM
+Ex8+em4k/YwlcR1AdGkyCuyKQf1TVtljFXCZDFYofM9mY2zAKL5ZaDQgBiq3jq22
+5wOP+bqXD0K0cBnAQ1tKK9xO9GGpbrC5mMoa4egZkXPJoAhJ4uJoQFyPSmYfFcVM
+L61EssmLfABNNj9Q15T7q32z3JlIaIlj84ZOpwVpqIQDJNMRXuyeGGZ6tEPmsm+N
+xJMLzm7uKNGV2Ggzms84DBCNwZ2ycf8LNGMa3v2b4ttFbE5O3iNi8odeOP6nBRO6
+bcRJ+J0z7rISQ02IrsCYBO/zxza/+XEoAdd9aDnfOcKQ5T4hRTIPvF618dYOD3YL
+/1iQV9zhptNoh9bf5qNGi65fq0q+/4nWcjQgNDoM3kRh13k+HuxVsPe+U6UJ+gUK
+sgzJ5M0qTZ5W4htQI85B63hO/Dr6Zf57+rRKKSQyrmqacoX4MrY7kX5RWWCJ1pMw
+qHIKqi2E6LtVYTcuquitWFaZrTcN/kL/YAPEb36GQTlYNNRIszw=
+=KvkZ
 -----END PGP SIGNATURE-----
 
---9uQHCoV3Wo8mZEQC--
+--Guun+5XO5z9Ikef6--
 
