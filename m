@@ -1,29 +1,31 @@
-Return-Path: <linux-man+bounces-695-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-694-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01AE888AF0D
-	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 19:54:28 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 243E188B1E7
+	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 21:46:57 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 339191C60E83
-	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 18:54:27 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 82FA4B26900
+	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 18:52:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5CF31BDD5;
-	Mon, 25 Mar 2024 18:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A601F182DF;
+	Mon, 25 Mar 2024 18:43:05 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
 Received: from ore.jhcloos.com (ore.jhcloos.com [192.40.56.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39342179BE
-	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 18:52:53 +0000 (UTC)
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D493DAC1C
+	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 18:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.40.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1711392788; cv=none; b=EFk99HqtF477RcPRIHp7pzTJDtB4Jk03anxk4ItLLMHp/MbzICuR6aMWKvKrcrI06uSntVXYKnpHJb5yb6E+H3lYvXmGHZkiB6GN680Zv3M+T3/g3TVhfajkwWj1VMOxPNpNMQLzcrDluhT5MQDiUnTEcuSf/GH802tQD5Rao1g=
+	t=1711392185; cv=none; b=QPqL4nfd6uip1a9dhY9/AXv9822TFqzhIzkRFf0Zqiy9xDmNDF6mOet16SbufpjO9oUS1g/eXcT3ZgkR5UWVTvKIEtdP9TQJhKo/s0ESRQ6YLyl39ChumsNRKcaNw/kfJxl43Ij9zY7XVa5c7rBw8H7SSmej49JGZEHfj7Gkp2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1711392788; c=relaxed/simple;
+	s=arc-20240116; t=1711392185; c=relaxed/simple;
 	bh=uzNBzLAKB7YugH+6/LKGcSYpRVFON64vLUiD3gt+eXI=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BsYS5y62puHgJYokaG4niMmXh0p+NhOvLut7SnnjxaXpMwxToCzkcX0UyauxSZPfjpBZuhVNdLICzoUXHBauJYh7PbOkWkjj4BhPZlJGty+6mArP1dGrer6lm8ZVCRlqpFtAcaYnbGxHTyK2E6+f/GuES841LBLkWcL5yob7pPU=
+	 MIME-Version:Content-Type; b=Hz9BWph4nLFl5hGMyZpsWeztOqIlNuw/AmUwqA8kXSCbvKWgCEosYJzsh0dmRkzk6C6E5uEn+g2U+UF6WR1X65DJAr1WIQn4LTNIkt7feNCU5HoYK6Ynl6dhhA5CT2H3fKndmUprckY5iifcfSeTf0vF7hAuwMA1SPGP+kWT7ik=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jhcloos.com; spf=pass smtp.mailfrom=jhcloos.com; arc=none smtp.client-ip=192.40.56.151
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jhcloos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jhcloos.com
