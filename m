@@ -1,148 +1,116 @@
-Return-Path: <linux-man+bounces-689-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-690-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E33088A5A5
-	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 16:02:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE5588A64B
+	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 16:22:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4E6AA1C3C319
-	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 15:02:18 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0A92A1C3C98F
+	for <lists+linux-man@lfdr.de>; Mon, 25 Mar 2024 15:22:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8281C1494B8;
-	Mon, 25 Mar 2024 12:11:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21D961BC56;
+	Mon, 25 Mar 2024 12:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ku0hEYIQ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="litA0vIu"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EB0142E62
-	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 12:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A7A1B96B
+	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 12:44:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1711368462; cv=none; b=T4VN6dZkzkTjtYL1Gv3dJzPjgbJpqi4NErJS3UysY8/aDyof5IOjVX8W0LVFoSU62odGgZUtLexMbY46G3h2KnIg8+jITiYaqlduKfRA4pXAvTqPVmT/czfsRiVyOg1PGbTCgMlisqLwzG3bM3aUFWUTPMikeAdE8BNLlm6yFhQ=
+	t=1711370649; cv=none; b=NXIwmcFnuzGe23vOJbTcBPf/zTnk3xXeMZTOX+nJBvnBLTxwC33ohAy3h+gexZwl8Mo5/a/ecjUavsKBoGzS9pKO1Zt4JJPFuDuCZrau9qQPeG/3rJcXPLQDU3bhCKsAJqhu/tNOVL8+H8XsRxqcQa2TBMghkft9R6Q6hwAqFZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1711368462; c=relaxed/simple;
-	bh=rEyPunnM/LOgaIMlBpAi99z/qEXokmxjdUybiUFS16U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E0pkKEolf9gyn1nZKjQVRagXgGga/31AWvwiLdCfBjoKl60Tkfs4lide6q8Ex4Hx2vq4XcCLI93pDoovAvkRvYho5APrDrWaUJXAcj/JDfeVfOe5HtfehMHFUS3ysCBwXdhIIXC8naU9Se4/oNonlK9/Kr+/xpDRYPmZ7BJdpNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ku0hEYIQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD57C433F1;
-	Mon, 25 Mar 2024 12:07:40 +0000 (UTC)
+	s=arc-20240116; t=1711370649; c=relaxed/simple;
+	bh=cIud2QAyCcuG7mYvBc98OYFn8Tyku+fjxyrTVM/WE5M=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ge9/LWN6jMRpL2I74QnIE+Cw6goCBYdZjb4Z0MusPE2JyJue4C2QNXDgP8rEe4cXXsLMU2msbRqbaIRnX2xg/hlruiMeJlfc0F4bnt4QoLalb4vKd+t4GNS+HRgrOTM4AF1Aj1M2BN8swwHAl98iNq2tCKuTDCn2F6Nceqsof/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=litA0vIu; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5A8E8C433C7
+	for <linux-man@vger.kernel.org>; Mon, 25 Mar 2024 12:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711368461;
-	bh=rEyPunnM/LOgaIMlBpAi99z/qEXokmxjdUybiUFS16U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ku0hEYIQ7gMJs2JIr/j+TujdN3aqYQclSscJRuxCEd5EA1Ates9a1IicQJUgPaxOj
-	 9QY7z2MHbF7D+99xOaCRgbYkFP9kBYdEM9y8C1mAZlIHSune9ETDJa1/A/acyu0T/K
-	 oOgzzdMNQYJlczer293XkFaizrQ89bX6fMQRUixS1EFcFuLnWGYCgYV5j1Q/PBBLFc
-	 fohe196ZgTIESxhADf22lY8jlLOmRlvWfWcvPln4fYfy8hJlT1KAVB4Knz4YQDGH11
-	 xafYGQo15214m/JxobtUlJ2lhb4X33Y/sPjk1bU3RrJ7zyZsiiFzUIRk8oUFrPnf9E
-	 +5/0QcDABDX3g==
-Date: Mon, 25 Mar 2024 13:07:38 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Deri James <deri@chuzzlewit.myzen.co.uk>
-Subject: Re: man-pages PDF book: fonts
-Message-ID: <ZgFpCkCcwxMzsOcw@debian>
-References: <Zf3BRmfTFvADOIBG@debian>
- <20240325041954.fofjtgghwhe4znm6@illithid>
- <ZgFioIO94vFupB53@debian>
+	s=k20201202; t=1711370649;
+	bh=cIud2QAyCcuG7mYvBc98OYFn8Tyku+fjxyrTVM/WE5M=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=litA0vIuoeu5sCf53yTeqxq/4EAnsZHhstb1Fh9yRZtXuJRg0HX4MpJJCYGdn4xc5
+	 5xqAG1ZE/OR7rMn2lnv89UwSbvSHAY1X6EtdqaxgOQWt98+5TJzCUdTJmZNq+0iGzN
+	 KLpksdSaNHumj+U+5BWssuwYO0L+Xtag6c4vevJzIaoiKx2KZf879uTkcxBTnO/LR4
+	 mE9sqIYOKwmT8442f5dzC6TnEyyaLsd1AshboR7WwMXcCtoa64qmJKzsnYIqfSdQgk
+	 zhCJFwOg+RyvyLnynQFz4AHkzgtD97EcjT69XkjGSbXLL4X1PoLcof2D7d6qVEWizV
+	 c9NvTmjj3L17g==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 4C777C53BD0; Mon, 25 Mar 2024 12:44:09 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 214885] random.{4,7} [man-pages 5.13] do not reflect changes to
+ /dev/random semantics since kernel 5.6
+Date: Mon, 25 Mar 2024 12:44:08 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: arthur200126@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: attachments.isobsolete attachments.created
+Message-ID: <bug-214885-11311-IDziQSqdG5@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-214885-11311@https.bugzilla.kernel.org/>
+References: <bug-214885-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Guun+5XO5z9Ikef6"
-Content-Disposition: inline
-In-Reply-To: <ZgFioIO94vFupB53@debian>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214885
 
---Guun+5XO5z9Ikef6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 Mar 2024 13:07:38 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Deri James <deri@chuzzlewit.myzen.co.uk>
-Subject: Re: man-pages PDF book: fonts
+Mingye Wang (arthur200126@gmail.com) changed:
 
-Hi Branden,
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+ Attachment #304322|0                           |1
+        is obsolete|                            |
 
-On Mon, Mar 25, 2024 at 12:40:07PM +0100, Alejandro Colomar wrote:
-> > The grops(1) and gropdf(1) man pages in groff 1.23.0 discuss using this
-> > tool to prepare fonts so that groff can read them.
->=20
-> Hmmm, so I could add a Makefile target to produce this .pfa font from
-> the packaged .pfb one, and then get gropdf(1) to use this one.  --Using
-> a Makefile pays for itself.--  The process is fast, it seems.
->=20
-> $ time pfbtops \
-> 	/usr/share/texlive/texmf-dist/fonts/type1/google/tinos/Tinos.pfb \
-> | wc -l
-> 19570
->=20
-> real	0m0.012s
-> user	0m0.015s
-> sys	0m0.001s
->=20
-> I'll try it.  This should remove a gigantic file from the project
-> repository.  Thanks!  =3D)
+--- Comment #3 from Mingye Wang (arthur200126@gmail.com) ---
+Created attachment 306038
+  --> https://bugzilla.kernel.org/attachment.cgi?id=3D306038&action=3Dedit
+Patch set as of 2024-03-25
 
-I'm a bit worried that with the font regenerated from the packaged one
-and pfbtops(1) I get a lot more warnings.  The PDF still seems okay at
-first glance, but I'm not sure if there's something wrong with what I'm
-doing:
+I am not functioning well enough to do man pages right now. The attached
+tarball contains the current progress of my tree. It contains three patches
+suitable for the current HEAD at c6a68aef7334f32ffffb74050702b8b53b064f37:
 
-
-$ pfbtops \
-	/usr/share/texlive/texmf-dist/fonts/type1/google/tinos/Tinos.pfb \
-	>scripts/LinuxManBook/devpdf/Tinos.pfa ;
-$ make build-man -j24 >/dev/null;
-$ make build-pdf-book |& wc -l;
-1349
-$ git stash;
-Saved working directory and index state WIP on contrib: 49e6388bb share/mk/=
-: srcfix
-$ rm .tmp/man-pages-*.pdf;
-$ make build-pdf-book |& wc -l;
-260
-
-
-Maybe I also need to regenerate the TINOR file?  And how do I regenerate
-that one, and what's its source?
-
-Cheers,
-Alex
+* The first is basically #304322, which changes a bunch of things. It's been
+e-mailed, but I honestly don't recall whether I've done the requested chang=
+es.
+* The second is a small change. It has also been emailed, and I also don't =
+know
+if the formatting issues have been fixed.
+* The third is new. It addresses a pool size change and a
+write_wakeup_threshold obsoletion. It could have addressed the obsolete
+"urandom_min_reseed_secs" too, but I don't want to hunt down when it appear=
+ed
+and when it stopped working.
 
 --=20
-<https://www.alejandro-colomar.es/>
-Looking for a remote C programming job at the moment.
+You may reply to this email to add a comment.
 
---Guun+5XO5z9Ikef6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYBaQoACgkQnowa+77/
-2zJOcRAAnmbkMK88gCo8Vvn3WRjgnTAVJT2zf0AY/b30SnS54qw00vAQKIGXMyiv
-WWtoIeP0h2vBUdrCOE6FiAFd+t6Xt5KGKbI7UqjBQHKzA/+tN3nJUckauqH0oN4I
-qljtlaoTWRKnW2WrJhfD0WfK780i+hcM2ZCUqZWRQtWq/HkIp4KQ470TV4G7EauM
-Ex8+em4k/YwlcR1AdGkyCuyKQf1TVtljFXCZDFYofM9mY2zAKL5ZaDQgBiq3jq22
-5wOP+bqXD0K0cBnAQ1tKK9xO9GGpbrC5mMoa4egZkXPJoAhJ4uJoQFyPSmYfFcVM
-L61EssmLfABNNj9Q15T7q32z3JlIaIlj84ZOpwVpqIQDJNMRXuyeGGZ6tEPmsm+N
-xJMLzm7uKNGV2Ggzms84DBCNwZ2ycf8LNGMa3v2b4ttFbE5O3iNi8odeOP6nBRO6
-bcRJ+J0z7rISQ02IrsCYBO/zxza/+XEoAdd9aDnfOcKQ5T4hRTIPvF618dYOD3YL
-/1iQV9zhptNoh9bf5qNGi65fq0q+/4nWcjQgNDoM3kRh13k+HuxVsPe+U6UJ+gUK
-sgzJ5M0qTZ5W4htQI85B63hO/Dr6Zf57+rRKKSQyrmqacoX4MrY7kX5RWWCJ1pMw
-qHIKqi2E6LtVYTcuquitWFaZrTcN/kL/YAPEb36GQTlYNNRIszw=
-=KvkZ
------END PGP SIGNATURE-----
-
---Guun+5XO5z9Ikef6--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
