@@ -1,77 +1,85 @@
-Return-Path: <linux-man+bounces-733-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-734-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E7478A2127
-	for <lists+linux-man@lfdr.de>; Thu, 11 Apr 2024 23:55:22 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB878A2128
+	for <lists+linux-man@lfdr.de>; Thu, 11 Apr 2024 23:55:23 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 535091F21387
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2928B1C2156D
 	for <lists+linux-man@lfdr.de>; Thu, 11 Apr 2024 21:55:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DA6D39AC3;
-	Thu, 11 Apr 2024 21:55:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EEE13A8D8;
+	Thu, 11 Apr 2024 21:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLkTMfjK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gf/Kntcq"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ED4F9DF
-	for <linux-man@vger.kernel.org>; Thu, 11 Apr 2024 21:55:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F175BF9DF
+	for <linux-man@vger.kernel.org>; Thu, 11 Apr 2024 21:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1712872517; cv=none; b=YECjy1B/W3z7EkUj5GKcIrIg4Lf+KGugOvSdrajfSoX/JEK0GWzp14HA8j2t2q+XOH4Ad0ZZ+9qEG7e3mLKyuCMQz4bs1ilYGTwOUOlvJ0UQA3Zj2KElwKi1reQqVkv5NxkJT4R9gwWpbJBOo5MrPso7in0Sxh2FZvoM2j0J4lE=
+	t=1712872519; cv=none; b=b6CNZyvz0M3xAAdnlqv4Nk0rp/niAW4DO9mGkGwl1r4vvwpEJxuSSeJ0UqtbDrAfnVkvwHbsDwDXQf7n9T9Epu4cfaksXptnqx3WPqnYF1mOmSYeudtOyJcqfhzUcwol4rCZvoF9Hr6qvLPbFxmKgAc1VqXzeEjoNWNs287AFcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1712872517; c=relaxed/simple;
-	bh=aXNKQ/oL4aLh5Gmo0l0bwexaQOxNJISJwIf6JHLRmpY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bQqpk9puTaGwE2tbJ1Gvl7ojSTWYpkNr+9EM09ttScjSCY/RJiKnFjzjAlbhgozXwudtk5AaMiOqzyMWs4dgTiWNYLeX4kMb9PdQUDap10ufeNU5zBk9Pwa7NaDxeS/A69PlRD6naEntjciv2kbbASnUfE1YZ96/LNWCaNqltNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLkTMfjK; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3C4C072AA;
-	Thu, 11 Apr 2024 21:55:16 +0000 (UTC)
+	s=arc-20240116; t=1712872519; c=relaxed/simple;
+	bh=2gpO62vvy2TD8NRpSRAFTnEZIR9+3kMjcW9DEbwzzfc=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Chzium9i7DhpB6GyGRSfr/8Etl+ca9k7CKEVeiTAD4S+a3EM3wutaFiLL/PmOe7w/s5E1YnEglE436YT/eFD64bINanQ6wsXMmCUyAuUALafw4w/PmA+T0X1U94Aaj/iaV7hOUWON6yrelwya72qEVXCxEl9PCEUyou86R6DEIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gf/Kntcq; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86F00C2BD11
+	for <linux-man@vger.kernel.org>; Thu, 11 Apr 2024 21:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712872517;
-	bh=aXNKQ/oL4aLh5Gmo0l0bwexaQOxNJISJwIf6JHLRmpY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NLkTMfjKEZCsgdAxwHfkQFbs3q9kZlDv6MAgcohP0sytJUS7ppZ0v4/O8vZjZings
-	 pv23pu+n1jCrRFHSZU86Yvz+OmUgBy8EAO+TRIMgG+yQO6Uyk+JvYX8Hfrn/voBjBl
-	 /sgibyyeE+U3rmuWi2blLqjXN2yYEwlU48YwXKeTTREgKZOSMFXCNRhqRDTlD+nNvo
-	 rJknzV14jg+EuTpBAd7HEkm7ZrvmhZQhATZBS6k0XWqNNUr4101+x/OsNFSx+FoBPu
-	 t9QNxxtG0Eq6qH90OVONRHpzUc5XGeprdPefyXnQzs4Z8Ww5MZZiP3gu7n5bYV+2kN
-	 PRJc6XfY+1qRA==
-Date: Thu, 11 Apr 2024 23:55:05 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: bugzilla-daemon@kernel.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [Bug 218711] New: strftime man page incorrectly claims that TZ
- is used
-Message-ID: <ZhhcQh03Uf6XTaLw@debian>
+	s=k20201202; t=1712872518;
+	bh=2gpO62vvy2TD8NRpSRAFTnEZIR9+3kMjcW9DEbwzzfc=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=gf/Kntcqs2Z5G0Gnsk20U1is3c0lM9G2b4y/HztMtJ+kOjDE5N6W68Dc4vswwmhy0
+	 FgrqQRAajysQAl463O8lMZBxxqnUaJtySO0Ip9AQb19eVUi1FcyeCYbZ/RgQMZpttb
+	 h7yiEQPbN+TGzNPfMgIZ/SSqT9UJIG+ePIz7YFezZpHzNP5TXetCvSXzp2o6XMgguz
+	 nHpJGepUaX742lX6X5WWK0gJKznPFpbzYJ+i+6T1yQDfcViSmZ894rB5TmPPSmmiwQ
+	 eutdfN+GBLQgD7eOoMQsb6Pl5GHOR4L/UbP2bSZGWQVrFu60TVxgYJ5ZaQchz9F/um
+	 92yBBAFJZWPGQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 7BDBAC53B50; Thu, 11 Apr 2024 21:55:18 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 218711] strftime man page incorrectly claims that TZ is used
+Date: Thu, 11 Apr 2024 21:55:18 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-218711-11311-fHhksAZ4VK@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-218711-11311@https.bugzilla.kernel.org/>
 References: <bug-218711-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0EflCXJzSArJ+FMc"
-Content-Disposition: inline
-In-Reply-To: <bug-218711-11311@https.bugzilla.kernel.org/>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D218711
 
---0EflCXJzSArJ+FMc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Apr 2024 23:55:05 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: bugzilla-daemon@kernel.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [Bug 218711] New: strftime man page incorrectly claims that TZ
- is used
-
+--- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
 On Thu, Apr 11, 2024 at 07:44:43PM +0000, bugzilla-daemon@kernel.org wrote:
 > https://bugzilla.kernel.org/show_bug.cgi?id=3D218711
 >=20
@@ -94,11 +102,12 @@ ment
 > variables TZ and LC_TIME are used."
 >=20
 > strftime(), in Linux, does not use the TZ environment variable.  It is pa=
-ssed a
+ssed
+> a
 > pointer to a struct tm, which contains a time stamp that can reflect eith=
 er
-> local time or UTC, and formats a string based on the values in that struc=
-ture.=20
+> local time or UTC, and formats a string based on the values in that
+> structure.=20
 > If the structure reflects local time, there is no need for any conversion=
  of
 > POSIX time to local time, so TZ is not used.  If the structure reflects U=
@@ -108,12 +117,12 @@ TC,
 >=20
 > TZ is *indirectly* used, because, to quote the Single UNIX Specification =
 page
-> for strftime(), "Local timezone information is used as though strftime() =
-called
+> for strftime(), "Local timezone information is used as though strftime()
+> called
 > tzset().", and, to quote the Single UNIX Specification page for tzset(), =
 "The
-> tzset() function shall use the value of the environment variable TZ to se=
-t time
+> tzset() function shall use the value of the environment variable TZ to set
+> time
 > conversion information used by ctime, localtime, mktime, and strftime."
 >=20
 > The reason why strftime is mentioned is that the %Z format specifier is
@@ -124,8 +133,8 @@ zone
 in
 > systems where it does *not* include the tm_zone member, strftime() might,=
  for
-> example, have to fall back on using the tzname[] array and the tm_isdst m=
-ember
+> example, have to fall back on using the tzname[] array and the tm_isdst
+> member
 > to select an element of that array.
 
 Hi Guy,
@@ -146,27 +155,8 @@ Have a lovely day!
 Alex
 
 --=20
-<https://www.alejandro-colomar.es/>
+You may reply to this email to add a comment.
 
---0EflCXJzSArJ+FMc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYYXDkACgkQnowa+77/
-2zLmfw//USy5JeL5kIAwPw1o+NG4gbPSPQPAVqTNDysInLNnF+IqPshsg3LhcPCg
-1QgO9lq84wX+Z4O3PCBvzQyP082H8yunSjsBtvMF9CvbApxMfYW6oaYC2D+RqaK2
-bmaV5fuYJht4KZZnkYiQCwJO0sFUFf9KXhi8RzUdwgPHnELoNmudd0tFEDC8MaSs
-0zkyMbpZ9iMzXRawUD7cYwpFlSinnjyaNqTtskUJ0tp2yq3bz+diQUMXdsxJlyKZ
-U6D+rLNEzQ5Nu2/kLvdU16hITTDewPcatLRVchf5ApAartoPpEEogT/r++QvK2Eb
-8H5MelfM7/7qG0bp4D7Y2RGqHpTukxNyAlc6igXm1a+UsJeoxlwVp2qOJ51KPQsy
-HLRuGknCKNjVo/IKMhf1lyESIc9/DpbVRu3OY7yJbMfmLmbXmhWZaO8dABudMAsP
-9pB/ufc+eqYga4A4b/RuBTU/gYevW0GHsrxLmHXEEHtHm/aDITeqiuuBri8l6wmZ
-5vcWKQ2tHcJ/Mx+FOpH/k/i5pgydn3IA/moXKXzCCgDKJ+w1pgmd+mX4DQvVmyea
-AxU0LvhRSsKAXaDj8PgE7dGalFVQGW+LyWZ97IIgFO6tQw1JEdCf/ATfakLR9lTl
-v4XkoLfuzNvPZ0ZMRPSE/Aqbji4Lfpw15pXohyXb8kd/7wWyAtY=
-=dbsy
------END PGP SIGNATURE-----
-
---0EflCXJzSArJ+FMc--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
