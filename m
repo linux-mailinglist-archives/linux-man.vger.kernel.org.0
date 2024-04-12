@@ -1,104 +1,131 @@
-Return-Path: <linux-man+bounces-736-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-737-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 113808A3499
-	for <lists+linux-man@lfdr.de>; Fri, 12 Apr 2024 19:21:23 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E970B8A351A
+	for <lists+linux-man@lfdr.de>; Fri, 12 Apr 2024 19:47:13 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 42C7F1C22EB0
-	for <lists+linux-man@lfdr.de>; Fri, 12 Apr 2024 17:21:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9F21F287F73
+	for <lists+linux-man@lfdr.de>; Fri, 12 Apr 2024 17:47:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B42B914C582;
-	Fri, 12 Apr 2024 17:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C4E514C596;
+	Fri, 12 Apr 2024 17:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bD9unPL6"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCsFjeOh"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A2D1E53A
-	for <linux-man@vger.kernel.org>; Fri, 12 Apr 2024 17:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F9614D43D
+	for <linux-man@vger.kernel.org>; Fri, 12 Apr 2024 17:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1712942478; cv=none; b=jl6RLWcewhhFOUNMxOBQCA4dVJlkREhHWtpGehRl3CgyK+FN+rGFqdjfVJ2L376Uko+COo6VpD8mlRQvpkU/S0K2qwbtNc4LuE0KKdf9TyybTx6cnTsi7tFp9Htts752AaSLC56qWO2nk2CmzAhRa7O5baF+Km1FwqlmFp/NT/I=
+	t=1712944030; cv=none; b=YQ3cp3WCz7u6kUPXWV+lJGsF8257m5nj5xFCd+GagGddVAiQPZNxRDt84n6Zi60kJenkw1rk6LPMpuyoUxPyPvgJCozB/Xs79phxyXaln4kphd2uZnlnT9X72aIkc85FC4LRD84iAk8aP050kla6oKLCTAGH/jEi9QiZd6Q+TJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1712942478; c=relaxed/simple;
-	bh=b76MK5QGzZc/qydogywMbiYx/ivxksNYMDhoUxz4ycQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=BBz/S/t4AQgg5UeSqc/TEOsrJkY2X8uDG9fchUIK/W2yXz46QsRcOYCds2Zbmqk1hjZHQANXa2/pRCQdYnqZnZjE6ylenQs5TGEjkEjp3TfTHQ0Q3AJAc0I6PxAOmF/QwVmK90XTBuBpOvBTPD53ql53YrDu9nHBGmJnG2ZCKrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bD9unPL6; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-56e69888a36so1459370a12.3
-        for <linux-man@vger.kernel.org>; Fri, 12 Apr 2024 10:21:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712942475; x=1713547275; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=b76MK5QGzZc/qydogywMbiYx/ivxksNYMDhoUxz4ycQ=;
-        b=bD9unPL6PVJLVOJPm2tHmikuPj7EVJzwRpRlMqYw1YpwYxFjKk2FpValuSKsugivnj
-         ppZXWs579NRpzR4OXOpfxwWUZ1S8S0/OswC4L9j4Q9vx8qQ03UwoBbLHqDFbl8vK3hkY
-         Pznc4QjT4RR5au9VkwW4ji5NQP1UUFzPR4/9lMfu5aEeLMyZYxzbQgLnig+lrvuO37wb
-         DD3rPG9KdlZbErWZHBeWGRZyqwzGoMYVZKi7eYuY/TR638llY55r4FyeyBxB8NZGAt8N
-         HqMRi2GYpdU3VWQiBA/PLTnZJuK2nBVmOCCmWilOmxpHo7Im9YU25medMQBFD/K0sD1k
-         ytJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712942475; x=1713547275;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=b76MK5QGzZc/qydogywMbiYx/ivxksNYMDhoUxz4ycQ=;
-        b=r5SP+u3bBKll6xCCL8ZoOeTStMHPmt7tiReeR/vRJ3G2iPxul7TIQG7FbI/v0sZz9a
-         ByxJv9MC85W7V1Uu7TzrLekLAbdNldJ2jg4LU4/qNWUX010Vje06VLBMoQvjiaU5ARE9
-         EqUkJxdPqRZT5Z5o7cpHr5KkceMsvg/+atd0YVfzJ32tdMBC74gn8UhwQFQMyeKPGeVL
-         /WGuHie3AhCWg8MOCbnoU3yFKSsNMH500BhYBm2+Nlt6OoaoK00g4HqcCsbspSdPC2u2
-         96VUA/2yz0ZZzweIlbtKntYghGmPdOalh9J+CXNJ4L0Ueo1Bc+erD3iGxUt09a6nl+GF
-         pv9A==
-X-Gm-Message-State: AOJu0YzdP3keICeLRAfsJoCfqpiKAk6AjMpDLXtQDn5YvTPvqMdEUBxA
-	KDCUEj6XpemvpQCUkxeicTxjA5VM/LanhCglAD0WlCSPlHqbp+RG
-X-Google-Smtp-Source: AGHT+IGp/W5bGlkfJEIDVN52KAWQFzxv94zHFC/kCodD6gCqnSdbHmCTM1/zXF3WejrNKQXCiWotWg==
-X-Received: by 2002:a50:99d8:0:b0:56e:2f2c:e249 with SMTP id n24-20020a5099d8000000b0056e2f2ce249mr2310798edb.7.1712942474619;
-        Fri, 12 Apr 2024 10:21:14 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-242-114.customer.ggaweb.ch. [82.192.242.114])
-        by smtp.gmail.com with ESMTPSA id et4-20020a056402378400b0056e67f9f4c3sm1846764edb.72.2024.04.12.10.21.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Apr 2024 10:21:12 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 91686BE2EE8; Fri, 12 Apr 2024 19:21:11 +0200 (CEST)
-Date: Fri, 12 Apr 2024 19:21:11 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1712944030; c=relaxed/simple;
+	bh=14RCdI5YxVjjAsia8NFzyMM+136DAZjU2v2+5KV/ckM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=klJQkoSjeeN6iCJwWzipLgmlVl50f6z/WSSE0cV9427eQuDphcjJogmY5IP8wl489xqB4eL7vfAlnVU2fm1779cvArZOwBHet6yD0gw2mOCgppApFqGlqGcgdLDSWGdRS1d40qcGdykdUtF91d26sZLso1zfunPc18lUiIWMCFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCsFjeOh; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B82C3277B;
+	Fri, 12 Apr 2024 17:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712944030;
+	bh=14RCdI5YxVjjAsia8NFzyMM+136DAZjU2v2+5KV/ckM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mCsFjeOhNNfD0phPElBhX2Ikb+tMqZEadrl9Ct/n8UgeSMwO/qyY2UJzM6WkSs8Ov
+	 f1f+M8FG60KYm+chXMWL4W3WNGD2OG6b8MvBSJBwyFqq4owS086PqiG1CbmQVY8nlm
+	 gaS6/9fCys8qpEIU23uCWtm0z5kUzBZNuBxhWE/l9OUnCa5YzqQt9iRn0nA7G++L64
+	 okiNXIt2nSRRhtNodartZJ3LAAty+Orwzno8/EE3jCnFuK0Rku5VabPBO9eJV7HtBP
+	 1eFnsUA9C5t9xaeD4grdK6UTyP4d1CQo84ClFYOqtafQD7BCmdMDgvSTVU/BmYNNsB
+	 FUnVgTYjw5Lvw==
+Date: Fri, 12 Apr 2024 19:47:07 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Salvatore Bonaccorso <carnil@debian.org>
 Cc: linux-man@vger.kernel.org
-Subject: proc.5: Still refers to "described in more detail below" for
+Subject: Re: proc.5: Still refers to "described in more detail below" for
  splitted out manpages
-Message-ID: <Zhlth9wCHbxoNkMi@eldamar.lan>
+Message-ID: <ZhlzmymKd3XBq9Yh@debian>
+References: <Zhlth9wCHbxoNkMi@eldamar.lan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QMVs5v8lX6OcCjM5"
 Content-Disposition: inline
+In-Reply-To: <Zhlth9wCHbxoNkMi@eldamar.lan>
 
-Hi Alejandro
 
-Back in August 2023, various parts were split out of proc(5) into
-separate manpage. What seems to have remained from the split is the
-mentioning:
+--QMVs5v8lX6OcCjM5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Apr 2024 19:47:07 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Salvatore Bonaccorso <carnil@debian.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: proc.5: Still refers to "described in more detail below" for
+ splitted out manpages
 
-[...]
-178 .P
-179 All of the above are described in more detail below.
-[...]
+Hi Salvatore,
 
-I'm not sure what you would like to prefer, so I have no explict patch
-here. But maybe this can be reworded to "All of the above are desribed
-in sepate manpages prefixes with proc_"?
+On Fri, Apr 12, 2024 at 07:21:11PM +0200, Salvatore Bonaccorso wrote:
+> Hi Alejandro
+>=20
+> Back in August 2023, various parts were split out of proc(5) into
+> separate manpage. What seems to have remained from the split is the
+> mentioning:
+>=20
+> [...]
+> 178 .P
+> 179 All of the above are described in more detail below.
+> [...]
+>=20
+> I'm not sure what you would like to prefer, so I have no explict patch
+> here. But maybe this can be reworded to "All of the above are desribed
+> in sepate manpages prefixes with proc_"?
 
-Regards,
-Salvatore
+Thanks for catching this.  Yeah, something like that makes sense.
+
+You could add to the commit message:
+
+Fixes: 92cdcec79df0 ("proc.5: Clean up after making sashimi of this page")
+
+Have a lovely day!
+Alex
+
+>=20
+> Regards,
+> Salvatore
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--QMVs5v8lX6OcCjM5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYZc5sACgkQnowa+77/
+2zJtjA//fYuSSjk/AUFeAhL3cunBikdibULGPMSuHTcC+rDT0LCWuMNWLHb/Fmq5
+c+5ewmUHIPvar92Q5bdXC+HeZD3IwjMrqHPXW6QpVSGBORp0ZiNDOIgoOkks5T69
+l0X4TcY9ayO6bnDWhDrtKhJWKrmAfDh0rcIY0oOmPb/0Gi8cKmmXS62271ogmxTj
+A/DS+A3ORmnbPd+raGRPhWx7eKiPYWh++94S5ES9Q0U+dJhmAwqU0vfLzut0t0Vk
+B8lAtalhrGHI5zQ8hLl6T8rmtjZocjnI7h8K8bVEJyyaAR5LeRr/MCvNILGw4iTO
+3oqKd1wXjIHPv5PIhcJEJjgBwMPPFLmrRX0NbH9btOVhLUwqEcbXwhaKgg6lgMcB
+WaxrCeM00fyCFRO4BY/I5zrVbUwsbx0Ek0g1YuSmdXhetB1GK3o0OpBHNpEf8Iso
+k2+ryeUjPnbPd4BoA431wsCTreqN0HxwVrfq4wAa5tGecyysxJIoONYTHMaQ4PuQ
+CCUo9Nasle0l/mOh6oZOh2BXZ0nNUuSsFyri7LkSxrW01e9pJeOTGJVuMJxQXwMG
+w9mY+R/BMWs0YPE0YYG0chBdRZcw4lj5A8c0X7OXiY0PxO850svQg+KKwHxGbm3Y
+lowlY3OsdkCQewmV6ErvZgBYux9z0hRn0DqXQz+rNLeOEv4H3U8=
+=U+Kh
+-----END PGP SIGNATURE-----
+
+--QMVs5v8lX6OcCjM5--
 
