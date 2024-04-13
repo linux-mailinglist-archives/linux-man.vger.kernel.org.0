@@ -1,242 +1,124 @@
-Return-Path: <linux-man+bounces-741-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-742-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DF2A8A3761
-	for <lists+linux-man@lfdr.de>; Fri, 12 Apr 2024 22:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75048A3CB9
+	for <lists+linux-man@lfdr.de>; Sat, 13 Apr 2024 14:45:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 67B301C2387E
-	for <lists+linux-man@lfdr.de>; Fri, 12 Apr 2024 20:57:44 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 038B91C20C52
+	for <lists+linux-man@lfdr.de>; Sat, 13 Apr 2024 12:45:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BDA9445BF1;
-	Fri, 12 Apr 2024 20:57:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 559C62110B;
+	Sat, 13 Apr 2024 12:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SmSShqUR"
+	dkim=pass (2048-bit key) header.d=ntlworld.com header.i=@ntlworld.com header.b="Jq3/XUDv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from dsmtpq2-prd-nl1-vmo.edge.unified.services (dsmtpq2-prd-nl1-vmo.edge.unified.services [84.116.6.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE593D0B8
-	for <linux-man@vger.kernel.org>; Fri, 12 Apr 2024 20:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2770C3C17
+	for <linux-man@vger.kernel.org>; Sat, 13 Apr 2024 12:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.116.6.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1712955459; cv=none; b=fsVYq9fCho+vulP0kbHrtN9o2iWsebjLVko/wSKgJzuftniIAQEpGRvGw8bHKL/SW5leZR2deZyyiUksZM4svxTx915hDjERjIpFi4ir+9iLPc7bCeA/Cu8VID3GGbo/jylN/5TufRgFz2YvRiSFJYrgkLHuf12s/PPFsuumOO8=
+	t=1713012321; cv=none; b=L8EVn977g+ZOXrjTBxJMZdO15Om/Dk1nrz279g/qiRHVkS1URgLJBkNJGNVt5EnNzLr9tgEfFtgBjTbm/Cm9k1oBbhEWioO2/nL3Sd1YomOOtjiHnYGCzxi6xGCkdBgOnId/thPFnceKiHn2EQoBTIFIs/FQFLdRtSFH35doBH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1712955459; c=relaxed/simple;
-	bh=Sf5lcUVba71tb/YgSrCQPg/2weDXf+7cKzRZbFiwqkM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OGTfzUE8h7ChPjyRhuB1xagtHVqL1WquuG/YL0W/rhRV4NrMfc3+QFL6UObTE2QHUBU4xz4mTUcCo0Smq1NM9qiz/iPL+44QGUFUicc7vMpcb8qziBn0lMtXYhx//RifHQzgqiO4Jx+fLHt35jO7B46a2Ojtr9SFsO8vauvuKL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SmSShqUR; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62E2FC113CC;
-	Fri, 12 Apr 2024 20:57:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712955459;
-	bh=Sf5lcUVba71tb/YgSrCQPg/2weDXf+7cKzRZbFiwqkM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SmSShqURlZPftuDsjzsc+BoIn6IXkfoLdmHkIrcuQt1nFpaArlwnbcRY6RMf+HJyF
-	 +xX8vgDtkmL2+U3kaLmkKh/qDinFkJHAfX/UTJKICfZDRSVum5WCG3WT89DJ5c5Ij9
-	 cfwwP3JgZx1xrUInykg+36w0mypkOwMDgccLlt1mN4dX0Bl7MbZj6AYOmrgFlO7W5d
-	 P07jY5+FhC8UTKuqU8qb3AtBHeoJ6CeBPSwoyQH+Iafw5Gz3cWL1OADjTERIiaZQQF
-	 Xyt96/GIseG37aCj7lqG1JU1JO5qLjMtf8iLUhIiVbSbQev3rTcWSoB4BPFkaCQal2
-	 EWEM/z13aFTaQ==
-Date: Fri, 12 Apr 2024 22:57:35 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: proc.5: Still refers to "described in more detail below" for
- splitted out manpages
-Message-ID: <ZhmgQAQlnmkixqsp@debian>
-References: <Zhlth9wCHbxoNkMi@eldamar.lan>
- <ZhlzmymKd3XBq9Yh@debian>
- <Zhl_ZOqOGkJizieb@eldamar.lan>
- <ZhmQ3JCTAKN61h_K@debian>
- <ZhmTy3oql5GbeMmo@eldamar.lan>
+	s=arc-20240116; t=1713012321; c=relaxed/simple;
+	bh=cYKBT5pyYwutFZ4Jzlb/UiPIqQqxTpVBtVZqg1jx/QE=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=BPnKGu4f4rKxOeOZlRb8KVrWUni3v4PTq+ciGlZC8A5RBFHqpU8oaZKxAri5zfgtNm9GyxTA5PD3xnW69A76nB9J9KvdB4KU/p6XQo4s5Xifa5txqHNwEWSUOhmJvwXrGzYvxP2SN4DAfMT+mrFsZsBkmgLfsNdr9HmDgBaaCnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ntlworld.com; spf=pass smtp.mailfrom=ntlworld.com; dkim=pass (2048-bit key) header.d=ntlworld.com header.i=@ntlworld.com header.b=Jq3/XUDv; arc=none smtp.client-ip=84.116.6.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ntlworld.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ntlworld.com
+Received: from csmtpq2-prd-nl1-vmo.edge.unified.services ([84.116.50.37])
+	by dsmtpq2-prd-nl1-vmo.edge.unified.services with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <keith.d.marshall@ntlworld.com>)
+	id 1rvcOa-0081C7-Il
+	for linux-man@vger.kernel.org; Sat, 13 Apr 2024 14:22:12 +0200
+Received: from csmtp3-prd-nl1-vmo.nl1.unified.services ([100.107.82.133] helo=csmtp3-prd-nl1-vmo.edge.unified.services)
+	by csmtpq2-prd-nl1-vmo.edge.unified.services with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <keith.d.marshall@ntlworld.com>)
+	id 1rvcOR-0019Gr-MO
+	for linux-man@vger.kernel.org; Sat, 13 Apr 2024 14:22:03 +0200
+Received: from [192.168.0.20] ([86.17.197.190])
+	by csmtp3-prd-nl1-vmo.edge.unified.services with ESMTPA
+	id vcOPrgr6jjP1dvcORrqKLL; Sat, 13 Apr 2024 14:22:03 +0200
+X-SourceIP: 86.17.197.190
+X-Authenticated-Sender: keith.d.marshall@ntlworld.com
+X-Spam: 0
+X-Authority: v=2.4 cv=fPs/34ae c=1 sm=1 tr=0 ts=661a78eb cx=a_exe
+ a=wScuK7Wnu76PCkOxdTykCQ==:117 a=wScuK7Wnu76PCkOxdTykCQ==:17
+ a=IkcTkHD0fZMA:10 a=raytVjVEu-sA:10 a=MEjK9-KKAAAA:8 a=SzYaiHQyVbneEHJ7N7YA:9
+ a=QEXdDO2ut3YA:10 a=wDCLW6yMUrMVbYbmd6V3:22
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ntlworld.com;
+	s=meg.feb2017; t=1713010923;
+	bh=UC+00oJNDg2g5qadp3cs5iwbAhVKFbS5eSkZqbgdTZw=;
+	h=Date:To:From:Subject;
+	b=Jq3/XUDv7RHdFK6BsTyBtMAopz5yDF6PV10w7fwHDroZw9kzuSt0wcBVTDzRPSAZQ
+	 HOX63zBOaquCPhB2Rht2jzbOuKiNbRSFS8Yv1CB/etLyqWe2T35pIm79FRqknM1Xra
+	 OlY1/4evhQ2iKLf7/tvbKsysuWm9BRbkcM5v7CYdfNwXxpniTZEMrYXIS21wtPhDKt
+	 MIHBgp3EoTUDSNI3aaYyyBcKOKSmCv8l6pyXo/So3gBz5SvoskQSLDG9Xa5mQcKGOf
+	 ehCg656yDHPEeej1gSptx0Simru/KzC1XttdTrH326J6wn8AsvNQ/6IEXWr9/WNf77
+	 GxWkQhOdZlX/w==
+Message-ID: <bcc2e2ec-32af-4254-a2c9-1884f28af407@ntlworld.com>
+Date: Sat, 13 Apr 2024 13:22:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KgqHCfP1AgVNKtLc"
-Content-Disposition: inline
-In-Reply-To: <ZhmTy3oql5GbeMmo@eldamar.lan>
+User-Agent: Mozilla Thunderbird
+To: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>
+Content-Language: en-GB
+From: Keith Marshall <keith.d.marshall@ntlworld.com>
+Subject: man page style conventions
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfC7s6SkM50+rc4jbLOPNrgWmYXOyyUexEx2klFNU+8igwzeWwQ9JbGCWFzX4+el5/9aTxUkz5xkmSev7+ZEXbi+rE3wTOLyG3IEjfHtOXKBUDgG4gQgw
+ 4RYfOtANS8PP01XX1e3MH0XA0GY5hLLzdABxi7y9bojeKNFGNerJYoGWjG51GUjKc3G1FQsQ9cYe51ID8vZ8lB5BHkM5K/VN1OLNJbJUBrW119PZax4ChC7X
 
+Hello,
 
---KgqHCfP1AgVNKtLc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Apr 2024 22:57:35 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: proc.5: Still refers to "described in more detail below" for
- splitted out manpages
+In the man-pages(7) document, as rendered at:
+http://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-HEAD.pdf#man-pages.7
 
-Hi Salvatore,
+under the section heading "FORMATTING AND WORDING CONVENTIONS", and
+subsection "Formatting conventions (general)", close to the bottom of
+page 9, I see:
 
-On Fri, Apr 12, 2024 at 10:04:27PM +0200, Salvatore Bonaccorso wrote:
-> Hi,
->=20
-> On Fri, Apr 12, 2024 at 09:51:56PM +0200, Alejandro Colomar wrote:
-> > Hi Salvatore,
-> >=20
-> > On Fri, Apr 12, 2024 at 08:37:24PM +0200, Salvatore Bonaccorso wrote:
-> > > Thanks for the quick feedback. So please find attached the proposed
-> > > change. Let me know if you want something changed.
-> >=20
-> > You're welcome!
-> >=20
-> > > From 07bf84cbb2e78595b4514fe820ae5574bba8d0ec Mon Sep 17 00:00:00 2001
-> > > From: Salvatore Bonaccorso <carnil@debian.org>
-> > > Date: Fri, 12 Apr 2024 20:29:06 +0200
-> > > Subject: [PATCH] proc.5: Refer to split out manpages for detailed des=
-cription
-> > >=20
-> > > Back in August 2023 various parts of proc(5) were split out int separ=
-ate
-> > > manpages. The final cleanup in 92cdcec79df0 ("proc.5: Clean up after
-> > > making sashimi of this page") missed to as well refer to the split out
-> > > manpages and retained the wording that details are found further below
-> > > in the manpages for the various files.
-> > >=20
-> > > Fixes: 92cdcec79df0 ("proc.5: Clean up after making sashimi of this p=
-age")
-> > > Signed-off-by: Salvatore Bonaccorso <carnil@debian.org>
-> > > ---
-> > >  man5/proc.5 | 5 ++++-
-> > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/man5/proc.5 b/man5/proc.5
-> > > index bdc47456bdce..4c20920e1e3c 100644
-> > > --- a/man5/proc.5
-> > > +++ b/man5/proc.5
-> > > @@ -176,7 +176,10 @@ Various other files and subdirectories under
-> > >  .I /proc
-> > >  expose system-wide information.
-> > >  .P
-> > > -All of the above are described in more detail below.
-> > > +All of the above are described in more detail in separate manpages
-> > > +prefixed with
-> >=20
-> > Maybe I'd reword to say "whose name starts with".
->=20
-> So "whose names start with" as there are multiple manpages?
+> Any reference to another man page should be written with the name in
+> bold, always followed by the section number, formatted in Roman
+> (normal) font, without any separating spaces (e.g., intro(2)). The
+> preferred way to write this in the source file is:
+> 
+>    .BR intro (2)
 
-Sure.
+I have noticed that, as of groff-1.23, both groff_man(7), and the macro
+package which it documents, flagrantly ignore, and indeed violate this
+convention.  I further notice that man-pages(7) document, from which I
+have quoted, above, appears to have been formatted using that very
+version of groff_man(7), perhaps with the intro(2) reference, within the
+quoted paragraph, having been formatted using:
 
-> > > +.BR proc_.
-> >=20
-> > This would need a space before the '.'.
->=20
-> Ah right added.
->=20
-> > > +.TP
-> >=20
-> > Why TP?
->=20
-> Because I stupidly copy-pasted lines and did not properly adjust and
-> rechecked.
+   .MR intro 2
 
-:)
+rather than the recommended:
 
->=20
-> > Have a lovely night!
-> > Alex
-> >=20
-> > >  .\"
-> > >  .\" .SH FILES
-> > >  .\" FIXME Describe /proc/[pid]/sessionid
-> > > --=20
-> > > 2.43.0
->=20
-> Quite imbarassing doing so many errors in one go.
+   .BR intro (2)
 
-Not so many.  And a patch applied in v2 is rather rare here.  ;)
+This leads to a glaring anomaly, within the quoted paragraph; rather
+than the topic name "intro" being set in bold, as the convention
+demands, it is set in (non-bold) italics!
 
-> Attached is the
-> revisited version.
->=20
-> Changes in v2:
-> - Reword as suggested "whose names start with"
-> - Add missing space in hilighted proc_=20
-> - Drop superflous .TP (from a copy paste error)
->=20
-> Regards,
-> Salvatore
+In my personal opinion, FWIW, the use of italics in this context is just
+plain ugly.  Opinion aside, it does not conform to the convention, as it
+is stated in man-pages(7) -- either the convention needs to be changed,
+by common consent, or groff_man(7) needs to be brought to heel.
 
-> From 7753658486c2ee2b1d50df2811dcef6af335378b Mon Sep 17 00:00:00 2001
-> From: Salvatore Bonaccorso <carnil@debian.org>
-> Date: Fri, 12 Apr 2024 20:29:06 +0200
-> Subject: [PATCH] proc.5: Refer to split out manpages for detailed descrip=
-tion
->=20
-> Back in August 2023 various parts of proc(5) were split out int separate
-> manpages. The final cleanup in 92cdcec79df0 ("proc.5: Clean up after
-> making sashimi of this page") missed to as well refer to the split out
-> manpages and retained the wording that details are found further below
-> in the manpages for the various files.
->=20
-> Fixes: 92cdcec79df0 ("proc.5: Clean up after making sashimi of this page")
-> Signed-off-by: Salvatore Bonaccorso <carnil@debian.org>
-
-LGTM.  Patch applied!  Thanks.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D79a0af0c9091cb2e1bd09cd4492480b12be89089>
-
-
-Have a lovely night!
-Alex
-
-> ---
->  man5/proc.5 | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index bdc47456bdce..8022ca49ee68 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -176,7 +176,9 @@ Various other files and subdirectories under
->  .I /proc
->  expose system-wide information.
->  .P
-> -All of the above are described in more detail below.
-> +All of the above are described in more detail in separate manpages
-> +whose names start with
-> +.BR proc_ .
->  .\"
->  .\" .SH FILES
->  .\" FIXME Describe /proc/[pid]/sessionid
-> --=20
-> 2.43.0
->=20
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---KgqHCfP1AgVNKtLc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYZoEAACgkQnowa+77/
-2zIXHg//XSwg58GtuUaDfpW3KaeAdPr8qhoKhb/rNOg4+tMHngD+YCTwcHgF+YnZ
-iYTN+YiRzXKry2f3eBDSNuJrhsLYmTrBqugVW+Qd+BkbazvnKOgj+vaWKizauRhf
-VSg4Hwftphy48nMB6gpkWJ4pOVwRnQdwV6gbbbjc5+VNbI5Sxjw4LSOS7BPOQDsa
-kcI1oiNVpjXcEsHe2GktqbizmILCTFiLqEhvCTIek34Sj18N9EdaoEdjslrK1woP
-j2mhlzt/KdmAnlra4wbK/E/FiLRqxAGHnmA/ScM7kT60CxOkmaj06WMRpfuYTez0
-hI9AvLb9GXnMBvOSPU3y+eoDOkSAK1njG5SBEUzMtFyLQblzpcQrGpC8+lZWfQLA
-Z+lGWaHMw4AJKYgQKmJS7Jlw+Uoob3knpFyxSejj2l/6bU0BeTigIufkAWd/PVgQ
-Ti2c77F8Y2HQDmIfPrhisHGuc5PtBeJLWV3suqxTuwOOShW8OZP63IZhgG52lcZ2
-0IupHYvgysULzqTuMzrACrWAEigoAmSUDj9ePkLgAx/uPBY8bWTTPF8KspfGVzoa
-AxnayDaVyF9XDoxPtq0M1Uwy+9A9KmpGsnIkqVa8/Z6V/LdX8Lo7OyTh0/rsTD/A
-Q2gIr23lDCxkg3Yekt5E65tsU/xp9530SRomtFi/qsN4Wb8oE6g=
-=V9Ih
------END PGP SIGNATURE-----
-
---KgqHCfP1AgVNKtLc--
+-- 
+Regards,
+Keith.
 
