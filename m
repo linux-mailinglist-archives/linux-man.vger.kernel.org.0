@@ -1,181 +1,195 @@
-Return-Path: <linux-man+bounces-751-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-752-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id C74BD8A4252
-	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 14:43:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 789BA8A4257
+	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 14:57:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3A556281594
-	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 12:42:59 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id ED1212816A5
+	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 12:57:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D03CB1E53A;
-	Sun, 14 Apr 2024 12:42:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34CEB1EB31;
+	Sun, 14 Apr 2024 12:56:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSkwJbr3"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D35WM700"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DDA1DFE4
-	for <linux-man@vger.kernel.org>; Sun, 14 Apr 2024 12:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D3014292
+	for <linux-man@vger.kernel.org>; Sun, 14 Apr 2024 12:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713098575; cv=none; b=icCM8bIJuFIA1IPXsdjmnrVvBa5AO9VV5JnPXOQ43jW9qAjCwHFMADqgh0GELEVvxs925km+xZFWdiNpaHBmxTm0zbNWUXXu6eZ/OaSSqCZdR0I591uN+pJOE1KKPGRZ/eHSkhsds5Qv4+7Pm2vYkDJpy8tdewwOmwKh8tQCHIw=
+	t=1713099418; cv=none; b=kkMz53CNfGkk0Xh3YInxRPVlxLMjf+0bVCyjx74yhXQoZ+086kqlY4YAsuVIeROhx2OK/2aNKV8rzFli/dxQKMncGLOUCBCBbab1BIkpJKHpVO67zSc/ETeYbXkbSVMv0mJHFEY2v0mcCfn6Urdfcd02JDTO0TtezU7BVLpbv5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713098575; c=relaxed/simple;
-	bh=Q2B+giiiR+dpF+eQOkEiJxItF+0DG1sYJwcbnOWtcvg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Js0fFEg4sEQGBbwu+Cke+2bigIOqMkgt0iGG/jh2nEy1jnUOgwxcyY4oMohLIXV4F1krwfTt9H00iHRAe7xkAKFlmoVYcqjkovGELgGPbAYWt73pFhvlLR3wZRU6U/k/fx4w8YmSTeFVOPABhCwL/3yFnTdP4D4mggfto53zNOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSkwJbr3; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD4EC072AA;
-	Sun, 14 Apr 2024 12:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713098575;
-	bh=Q2B+giiiR+dpF+eQOkEiJxItF+0DG1sYJwcbnOWtcvg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KSkwJbr3GTwuZN42y5PY+ZdKCF8CMr2BEZYpfPq9v7/NQ4tunHFwfaWqEL8bgayZ+
-	 xuHgxVUFQBk/FB586EcojrHn/gktCJaF4G1/Zi9j545Ch8qGzZvX3+x8kYMK7VPotS
-	 RYNgW3WZVmC3o1nAV9fbSGE04BOI6MZ6OKeaYmmm9L9WKsv+DyLzD+4kmqAJ+sImfS
-	 35IEwdj5nAZ4S95lfy5KghBOikAPHiQPTP6/W+0ux2eCgNPOlkx8cGzvEgOraW7qaa
-	 Dlb1jYinRCBZJi9BEJqn+LeLu8r7dxm+L/LBZ+s4pqkMLv8EU06WMwm0aVBXU/ML/2
-	 4sCYlCa0K2kJg==
-Date: Sun, 14 Apr 2024 14:42:51 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+	s=arc-20240116; t=1713099418; c=relaxed/simple;
+	bh=XjeM+vpj3VbqplUFJ9DEquAMQLm17j2QX+GaYXa/ybs=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=W66gu9gI01QiVfwH8byKhPfmvLNCHfOIshVCtvzUxcVCXQvFDnXyG4+/mHL3258nSJGLzhCb2X4YcMiItHecjk3uXaEJ+XUaigi2SLvqzKs5S0DYfw2iL+CGMgKwAgPuClSbKvwcdWVTiw9a5GuwE/a3JNPvGjVrqsXsnGXswDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D35WM700; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-6ea2436de79so1656517a34.1
+        for <linux-man@vger.kernel.org>; Sun, 14 Apr 2024 05:56:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1713099415; x=1713704215; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YtxqH4KCcqV5UpIplxJVg8jvhmxmo7RkbbnEejTmj/I=;
+        b=D35WM700YdQ9w1fL8ljzlsvnTqc6UnSkGmRQVapnpeAw9XFR3gGnOOHAfTT1ttvQS7
+         7Znj5nR7jMaltfziJP+AYGScMq5MCTgaStUHG6nO+RRnwpztS5DdmIHBhtJrBo9BiD06
+         4TvNdL37bR0uCqEnDUaAY+8OSi4/QJCG6KupzRp0KYweMFNgfVxYeekmTrSa1UOFPvTQ
+         3AWgjprKeinexvPQGr6nUdoYtk8t96jjif2CrtF8Bi/B9IOHtCM4hKWEvb8cCLi7Ll/6
+         5C2Ot/y0UjaGsO7iaiVXaccE8FZHlhtvm6GIDuugnXJbUoVj/Iw1iXieON3RmE0GPuUW
+         9G+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713099415; x=1713704215;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YtxqH4KCcqV5UpIplxJVg8jvhmxmo7RkbbnEejTmj/I=;
+        b=Oz3T0692talvOzYtsUdmAF5O/fHISGMy+CvE43Ef8zAL7Yo+T/Yx7zTdBV4+gNYmIB
+         HXv21n4cW7CKSJkY/mh0TSLH9Q0msFDQ6nvMs3a7F72nLkCHNtZt2g/XeG7WffbFcYZZ
+         gGapYrb6E+nCt5aTPdf8XYmThodkA0Lis95EdxXAub+iBxJJE0PZQ7ZcVw3SazKGIqzl
+         8WymDqZs+xZhTo1LC0AAqMwnxJt6NgnSfwrMpV+LRnVOpsc60w5gN1ZSrWBt62XvECVB
+         jsb9C1dVhZddY8mQw8YDpaisvVGEU6t68oCOYWgLDjiIcoCzaELdMptQwonnJBnyfpnn
+         gzuA==
+X-Forwarded-Encrypted: i=1; AJvYcCVQVr72gU3MRYmYYAp7hRACXDIwFZw4N3ViteoEo3lBAd5mATzbSYQ7ZRB1oczxx4q5zlHDpmlDD8qzq/OQJ2W8SFKSugPG5D4X
+X-Gm-Message-State: AOJu0YwLk9CYEcn8BRgyvwva/E/CvfHcTvMJ0895LohnCDS8w2I/2MEK
+	FqsPZA48oCqKGVNklo1zLAwk9kag8Lf0JBg+6VE+jCKp3MqGJP+5jk6K7w==
+X-Google-Smtp-Source: AGHT+IFLZzdaYd4KKaiFp47P3xkQmRPeMJVHY40UCSUoDrn7uy276r/5LkGhBM3iockdoIAgXQ65EQ==
+X-Received: by 2002:a9d:590a:0:b0:6eb:78e0:5b83 with SMTP id t10-20020a9d590a000000b006eb78e05b83mr1896725oth.20.1713099415459;
+        Sun, 14 Apr 2024 05:56:55 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id j14-20020a056830014e00b006ea18546778sm1441952otp.13.2024.04.14.05.56.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Apr 2024 05:56:54 -0700 (PDT)
+Date: Sun, 14 Apr 2024 07:56:53 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: Deri James <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org
 Subject: Re: Linux man-pages PDF book
-Message-ID: <ZhvPTME5eU13GlBI@debian>
-References: <Zhu_-FE5sl3vSu1w@debian>
- <20240414115743.mzzwr2bd3j7lw46e@illithid>
- <ZhvM2Yy6lWGJLhtg@debian>
+Message-ID: <20240414125653.h7y7y66yt7cgtgwm@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sbk00q871LkraySW"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fd7d5d3ocigfcpmh"
 Content-Disposition: inline
-In-Reply-To: <ZhvM2Yy6lWGJLhtg@debian>
+In-Reply-To: <ZhvLPvqHzpw2Jl3o@debian>
+ <ZhvM2Yy6lWGJLhtg@debian>
 
 
---sbk00q871LkraySW
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--fd7d5d3ocigfcpmh
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Apr 2024 14:42:51 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Deri James <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org
-Subject: Re: Linux man-pages PDF book
 
-On Sun, Apr 14, 2024 at 02:32:25PM +0200, Alejandro Colomar wrote:
-> Hi Branden,
->=20
-> On Sun, Apr 14, 2024 at 06:57:43AM -0500, G. Branden Robinson wrote:
-> > At 2024-04-14T13:37:15+0200, Alejandro Colomar wrote:
-> > > There's also the page issue.  Now it seems to reset the page number f=
-or
-> > > every TH.
+Hi Alex,
+
+At 2024-04-14T14:25:28+0200, Alejandro Colomar wrote:
+> On Sun, Apr 14, 2024 at 07:01:45AM -0500, G. Branden Robinson wrote:
+> > I've since refactored everything that hyperlinked book generation
+> > needed in that respect into groff's "an.tmac" (in Git), leaving the
+> > cover page to do only cover page things.
 > >=20
-> > This might be a simple issue.  Make sure that you're passing groff (or
-> > troff) an option to set the `C` register to a true value.
-> >=20
-> > groff_man(7):
-> >      -rC1     Number output pages consecutively, in strictly increasing
-> >               sequence, rather than resetting the page number to 1 (or
-> >               the value of register P) with each new man document.
+> > https://git.savannah.gnu.org/cgit/groff.git/tree/doc/GMPfront.t.in
 >=20
-> Hmmmm.  Maybe I should follow v7's tradition and restart the page number
-> at each TH.  Let's call it an accidental improvement, and not a
+> Hmmm.  I notice that your cover page has a few things that we have as
+> part of the prepare.pl script:
+> <https://git.savannah.gnu.org/cgit/groff.git/tree/doc/GMPfront.t.in#n7>
+> <https://git.savannah.gnu.org/cgit/groff.git/tree/doc/GMPfront.t.in#n42>
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/share/m=
+k/build/pdf/book/prepare.pl#n86>
+>=20
+> Maybe we could do the same, to reduce the work of prepare.pl?
+
+I didn't look closely at that complicated Perl script, but it seems
+likely.  Essentially, anything that didn't need to be parameterized
+(i.e., lines you write out with Perl but don't need to do any Perl
+variable interpolation in), I would keep in a plain text document.
+
+> Our front page is also clean from an.tmac stuff.  We have the an.tmac
+> fork here:
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/share/m=
+k/build/pdf/book/an.tmac>
+
+Might be worth diffing that with groff Git HEAD.
+
+> And the front page is:
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/share/m=
+k/build/pdf/book/front.roff>
+
+Yup, that's pretty clean and focused.
+
+> However, our an.tmac is not for appending, but for replacing man(7).
+> :( I'd like to get rid of that an.tmac fork.  Does your message mean
+> that if I use groff git HEAD to build our book I can just drop the
+> fork and use man(7), and groff(1) will do the right thing?
+
+I think so, and want to know if it doesn't.  Also, fair warning, Deri
+said he observed a CRAZY bad performance regression when building the
+Linux man-pages book with groff Git HEAD.  If you can reproduce that,
+then I have some work to do.  Let me know.
+
+> Also, what does .t mean (in GMPfront.t.in)?  I changed the file
+> extension to .roff (so, <front.roff>) in the Linux man-pages, as it's
+> just a roff(7) file.
+
+It was Deri's choice.  Some people have historically used the `t` suffix
+to indicate a "troff" file.  I don't employ that practice, personally,
+because it's also popular as a suffix for "test script", and troff
+documents can also be rendered with nroff.
+
+Personally, I use `.roff` for *roff documents I intend to be portable
+between AT&T/DWB troff and GNU troff, and `.groff` for ones that use GNU
+extensions.
+
+At 2024-04-14T14:32:25+0200, Alejandro Colomar wrote:
+> Hmmmm.  Maybe I should follow v7's tradition and restart the page
+> number at each TH.  Let's call it an accidental improvement, and not a
 > regression.  :)
->=20
+
+I think it's a matter of taste.  This issue came up last month on the
+groff list.  As often happens with me, it turned into an episode of Unix
+History Detectives.  :-|
+
+https://lists.gnu.org/archive/html/groff/2024-03/msg00163.html
+
 > Although it would be interesting to learn when/why this changed.
 
-It seems to have been here:
+The default has never changed in groff as far as I know, and I'm certain
+I haven't personally touched it--I'd remember writing the usual 20,000
+word essay with 2 dozen citations that usually accompanies my breaks
+with tradition.
 
-$ git show 6d87a75a6df0 -- scripts/LinuxManBook/build.sh;
-commit 6d87a75a6df0696e780255d865bf65da09f36f01
-Author: Alejandro Colomar <alx@kernel.org>
-Date:   Fri Dec 1 00:55:11 2023 +0100
+Regards,
+Branden
 
-    scripts/LinuxManBook/: Simplify pipeline
-   =20
-    Call the groff(1) pipeline only once.  This optimizes around 2 seconds,
-    while also simplifying the code.
-   =20
-    This change was originally written by Deri, with some parts written by
-    Brian.  I took the script that Deri sent, and split it so that the
-    groff(1) pipeline is called from the shell script, and the Perl script
-    is limited to editing the man(7) pages.  This helps me understand the
-    process, since my understanding of Perl is very limited.  It also makes
-    this change smaller, so that it's less of a big-bang.
-   =20
-    Link: <https://lore.kernel.org/linux-man/ZWkO4qPC4BxkwBNm@debian/T/#m3d=
-453440b02dd189bc12d2e629c4026206025b40>
-    Co-developed-by: Deri James <deri@chuzzlewit.myzen.co.uk>
-    Co-developed-by: Brian Inglis <Brian.Inglis@Shaw.ca>
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-diff --git a/scripts/LinuxManBook/build.sh b/scripts/LinuxManBook/build.sh
-index a6e578f64..8e373c073 100755
---- a/scripts/LinuxManBook/build.sh
-+++ b/scripts/LinuxManBook/build.sh
-@@ -3,25 +3,13 @@
- # SPDX-License-Identifier: GPL-3.0-or-later
-=20
- (
--       "$(dirname "$0")"/prepare.pl "$1" \
--       | preconv \
--       | pic \
--       | tbl \
--       | eqn -Tpdf \
--       | troff -Tpdf -dPDF.EXPORT=3D1 -dLABEL.REFS=3D1 -dpaper=3Da4 \
--               -M"$(dirname "$0")" -mandoc -manmark -rC1 -rCHECKSTYLE=3D3 \
--               2>&1 >/dev/null \
--       | LC_ALL=3DC grep '^\. *ds ';
--
-+       cat "$(dirname "$0")"/LMBfront.roff;
-+       cat "$(dirname "$0")"/an.tmac;
-        "$(dirname "$0")"/prepare.pl "$1";
- ) \
- | preconv \
- | pic \
- | tbl \
- | eqn -Tpdf \
--| (
--       troff -Tpdf -ms <"$(dirname "$0")"/LMBfront.ms;
--       troff -Tpdf -M"$(dirname "$0")" -mandoc -manmark \
--               -F"$(dirname "$0")" -dpaper=3Da4;
--) \
-+| troff -Tpdf -F"$(dirname "$0")" -dpaper=3Da4 \
- | gropdf -F"$(dirname "$0")" -pa4;
-
---=20
-<https://www.alejandro-colomar.es/>
-
---sbk00q871LkraySW
+--fd7d5d3ocigfcpmh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYbz0sACgkQnowa+77/
-2zJUow//d6rPZ5odyYYgjVDZWIkoG7iFAYHuNf08cvjWrMLmBlEfSUZWigk4ZSeN
-VT9jH5vJK8z9M2qG2kbKhT6sgJ0+uLkxWhtmnZbgpLdSoggAEu7YGt1h44Kan4fl
-pSXBj1xHExksQJ5iWgtpifkqIN3NejZgvtu/xMc38NZU1UbvR6Pih6sGftm/4UHa
-w6uQWME9nrPk4RDATir00Q5t2dtW4vP+X4GdRWsl08SJhWOWiraKCfiIbPyzaz3X
-UBSJINJz79G8KoItLORbnTbe7DTJM0Opa5g7Nx3PQH5f8cWm890JfMUwcY5wk7c7
-8IOSCBaEVDYX1RlmwfTz3zvuAXUcS/gEzRrbjsFJlExUUBCVzI9oL/vu6UCe99+S
-VVMHWC9/deJdeI5JZ926JC/9CwbuevPsVGasHLxP/XUbKmjxopPDZEJB/AOdi/bm
-CpfdnEaIhs5/GgGwiOfSn1IEbwXo5VN2vTfY6q2QfIDeg1Tj17wK4vjBZGdOTh5B
-3nZSgWeL6JhNfSkNpuvQEix3E6DyP+Wu/2CyFMCem64dRA3NzNOXWMRXVu11tH9Q
-V3EF2NCQa/ZT+BSF/NFm5DGDQvFZ8qQO6BI25rzdZyarhGuS7IeRRerzJ/Av2zsd
-nC8eAekDqZrBDMwCQPzo1ckki9PNouUYcJNECrQcX3Szr2Se7Iw=
-=W3Th
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmYb0o4ACgkQ0Z6cfXEm
+bc7nQBAAllHCRujNRoVpfwFHCAl1PSTOWNwv+ZhgtkARRG7x1DGG7XSXK+yAhDrR
+WsPiGJ+A5j3WCgz6ceaclKKsUMWBd2L2uLJJn/9wBv8T1yr9DyU5lKywDD13vQZ9
+kOejer0ykBhla/USp5wPiazWEXDPvxh4HQLVDS5j4NpXosD3geh4Vvk9WTyBm3Qd
+PLibTd65Zqu19eWMfgMls96RI52o67pJGk0O/P9vUrp3ruamYIRI+USPrTFLWpwV
+wUkHO4hx4t59dlB1VC3VqZbL/L95tbr/gpETd7tEdJb/vAiTWiyPb+a3UL+R/1rU
+65OWbF+QjEOhQcUrzAbvQ7o4JgWPpeRsa9/GhjkzSv1KxXjsbLMPlMKHAOPTQYu8
+iFqLotw6Z29d2vCgUGKgvSvOhlhSpyuEa/yg+Xy2gZnYLRlZeVEUKH2zFGelmVK/
+fRXTn452ptV8I83QPOywOq4lsksPRNco/qx0M/dyZbMcrrep0O5bYx/wNzLDa0d2
+qR+LA2DvkNmT//kMeOp5H/+4tk7RW4UDzQeJb/LK9jlnVSsS4eZCsC4K/Epf/4aO
+qNtXQqs72MWOh7K7fV/mSo0h19b8huZZtq76a4SmSY8nUp+hXxliom8xeMKJ2iB8
+Q+zPjP54GMj/dCfaFk7qZosC8FCIFf+u7bezN96sJo98ZvlfUSA=
+=urQp
 -----END PGP SIGNATURE-----
 
---sbk00q871LkraySW--
+--fd7d5d3ocigfcpmh--
 
