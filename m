@@ -1,111 +1,126 @@
-Return-Path: <linux-man+bounces-754-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-755-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C855A8A42B2
-	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 15:58:23 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D8F8A4337
+	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 16:50:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7E914281566
-	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 13:58:22 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CD23A1C2097A
+	for <lists+linux-man@lfdr.de>; Sun, 14 Apr 2024 14:50:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 328D24F8BC;
-	Sun, 14 Apr 2024 13:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45F3D134421;
+	Sun, 14 Apr 2024 14:50:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ljabl.com header.i=@ljabl.com header.b="T4oWe/mt"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NoYudz4Q"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.ljabl.com (mail.ljabl.com [88.99.6.227])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1831E898
-	for <linux-man@vger.kernel.org>; Sun, 14 Apr 2024 13:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=88.99.6.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07033364BF
+	for <linux-man@vger.kernel.org>; Sun, 14 Apr 2024 14:50:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713103098; cv=none; b=Vng/SZ3ZzDlR20ntW4W6BPJvEKrJ5i4ufcLi6K8e6tNPwX0bKhT2bM5MAs24RiZpHBtp/0n7imAmtZXG5gcT6KUsLTCviHXRhz90vs/xccKs82uMeXfiseP0pyAoY/J1e4u/JYvW16n5ZgvyL1cJLlJ3LjXQ3mYgWOy1d1gpNrw=
+	t=1713106229; cv=none; b=dH5FVJcB4imYQnpQl+HUBDNjQ0x4tEfsZCWoNsIeqdJQ6tsCgW1SDy8q7WOIBfhxl+rx9+WtXIjgHRy04enaWdJeMoqokMT78RcYQLNBZwPQBZTOx2Tl11LgWXycb5GdW0j57aY8D3CC8EOdumuTp42rQ4l6BGx6Xq3C5x2Gc+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713103098; c=relaxed/simple;
-	bh=0il4a2T6ARJNqAcvH76RENCexW3iq6HXo5xd07yDn7w=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EW7nfvLJ/dYUzgK00adUE+p8p1p/Y0nvPB+K8FhKsuBWTe/BKvSJ25fEPfvxGuyKIHGmoLYPaii3Np2E1gqXrywkGVUTzxghdRQailFJQj6q1TH7Uhd4w3qrHxqMbIKQWykTg1n+03rGQcbVcUUlwPD48fDkhzwLSoFAKs4TdCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ljabl.com; spf=pass smtp.mailfrom=ljabl.com; dkim=pass (1024-bit key) header.d=ljabl.com header.i=@ljabl.com header.b=T4oWe/mt; arc=none smtp.client-ip=88.99.6.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ljabl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ljabl.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljabl.com; s=20220906;
-	t=1713102694;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LxjSUBu+OrVJJhnj3oL5bI23vjMyC9CS0Idz1RlKBH0=;
-	b=T4oWe/mtGfrG7ibw+E5S3MCxOhnd2RUBHyiP88cocpzx6BSCtjjiiQvJfZQu037GMX6Abj
-	VFAm2XNPB0ZrY17dzyMuXpMXhHqSlrRq9QgGIRGqiGjwQnR+WLInoI6PuMhWdmsERu9DIs
-	IUOYXu2oMeGnc7TtzW1bK5I3Ajn+ads=
-Received: 
-	by ljabl.com (OpenSMTPD) with ESMTPSA id 8f8b3f29 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Sun, 14 Apr 2024 13:51:34 +0000 (UTC)
-Received: 
-	by fluorine (OpenSMTPD) with ESMTPA id 0a9b3587;
-	Sun, 14 Apr 2024 15:51:34 +0200 (CEST)
-Date: Sun, 14 Apr 2024 13:51:33 +0000
-From: Lennart Jablonka <humm@ljabl.com>
-To: Keith Marshall <keith.d.marshall@ntlworld.com>,
-	linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>
-Subject: Re: man page style conventions
-Message-ID: <ZhvfZTXkwbun_tkR@fluorine>
-Mail-Followup-To: Keith Marshall <keith.d.marshall@ntlworld.com>,
-	linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>
-References: <bcc2e2ec-32af-4254-a2c9-1884f28af407@ntlworld.com>
+	s=arc-20240116; t=1713106229; c=relaxed/simple;
+	bh=5cO68axqPRFR1buq3Z4vff7xBrzK6boQOLQZnf4t41Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nq+xKvUxXSBHVaZ6rKGcJ5QDlneTEd5GfvBFASQUSxc8MFO1GCivjle/do4VzxO8+YW/PoUVIeMh1ySkjpbMGme73oFJAiKzLECN1HRqn0YLUyOrCE/iEWQ0s6bskwk9vaQdGKNcNiLKfMik9XA8ae4pNZ1FSrArIAN0zeIPsj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NoYudz4Q; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08EBDC072AA;
+	Sun, 14 Apr 2024 14:50:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713106228;
+	bh=5cO68axqPRFR1buq3Z4vff7xBrzK6boQOLQZnf4t41Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NoYudz4QVxsvy/OEcc0u/bS27APtVp456VlBv5aB8tEDdFCQIbUnA12kN9uYLHZPL
+	 t5XWu8cj1f0QQmDu/zz45XCpa0AFSY/bvmNfjwrrU9cQRmrA+bCfxQpx5pzMepR3Bc
+	 KRi1mPiu6mCEBSah9V200x6j90m+aFKIE5C3Scmn3Qo9I5Ivlnp6YB+h/Jfcv/92n/
+	 eRALeQi9IL6b9dlNclOZ9354whWJgZn07BK3KSS7WW0se2IQe6qghKG0RuL7KiV43k
+	 n8FF8uE5hPKMgUVb8yutIcvA8998QYfJGKozUbAgzzYe81x/3QBgVgOkLyKJb2w/w2
+	 WjpAgQDqqHF5A==
+Date: Sun, 14 Apr 2024 16:50:25 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: branden@debian.org
+Cc: Deri James <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org
+Subject: Re: Linux man-pages PDF book
+Message-ID: <ZhvtMb-G1duk_d0K@debian>
+References: <Zhu_-FE5sl3vSu1w@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BKdykOyf/A/3pnxs"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bcc2e2ec-32af-4254-a2c9-1884f28af407@ntlworld.com>
-Content-Language: en-US
-X-Clacks-Overhead: GNU Terry Pratchett
+In-Reply-To: <Zhu_-FE5sl3vSu1w@debian>
 
-Quoth Keith Marshall:
->In my personal opinion, FWIW, the use of italics in this context is just
->plain ugly.  Opinion aside, it does not conform to the convention, as it
->is stated in man-pages(7) -- either the convention needs to be changed,
->by common consent, or groff_man(7) needs to be brought to heel.
 
-In addition to what Alex and Branden said, I will note that 
-man-pages(7) contains this at the very beginning:
+--BKdykOyf/A/3pnxs
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 14 Apr 2024 16:50:25 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: branden@debian.org
+Cc: Deri James <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org
+Subject: Re: Linux man-pages PDF book
 
->This page describes the conventions that should be employed when 
->writing man pages for the Linux man-pages project, which 
->documents the user-space API provided by the Linux kernel and the 
->GNU C library.  The project thus provides most of the pages in 
->Section 2, many of the pages that appear in Sections 3, 4, and 7, 
->and a few of the pages that appear in Sections 1, 5, and 8 of the 
->man pages on a Linux system.  The conventions described on this 
->page may also be useful for authors writing man pages for other 
->projects.
+Hi Branden,
 
-man-pages(7) is pretty much prescriptive for the linux-man-pages 
-project.  It is also something likely to be seen by someone 
-wanting to learn how to write a man page, but it still is 
-independent of what Groff does.  There exist different conventions 
-for how to write man pages.  The <opinion>obviously traditionally 
-correct</opinion> way of referring to other man pages is with 
-explicit italics; the new Groff way is to use .MR; the 
-linux-man-pages way is to embolden the title.
+On Sun, Apr 14, 2024 at 01:37:15PM +0200, Alejandro Colomar wrote:
+> The makefile target was recently renamed from build-book to
+> build-pdf-book (for consistency reasons).
+>=20
+> I also reorganized the files to put them inside the build system.  Here
+> are now the files most relevant for generating the book:
+>=20
+> 	$ find \
+> 		share/mk/configure/build-depends/texlive-fonts-extra/ \
+> 		share/mk/build/fonts/ \
+> 		share/mk/build/pdf/book/ \
+> 		-type f;
+> 	share/mk/configure/build-depends/texlive-fonts-extra/Tinos.pfb.mk
+> 	share/mk/build/fonts/_.mk
+> 	share/mk/build/fonts/TINOR
+> 	share/mk/build/fonts/tinos.mk
+> 	share/mk/build/pdf/book/_.mk
+> 	share/mk/build/pdf/book/prepare.pl
+> 	share/mk/build/pdf/book/front.roff
+> 	share/mk/build/pdf/book/an.tmac
 
-groff_man(7) conforms to the conventions—to /its/ conventions.  
-The discrepancy between man-pages(7) and groff_man(7) does not 
-imply that either has to change.
+Branden, could you list all files in groff.git that are similarly
+responsible for the generation of your book, so I can compare?
 
-But yes, in my opinion, man-pages(7) should change.  I think it 
-should probably go away, or stay inside the linux-man-pages 
-repository, not getting installed.  It is, after all, 
-linux-man-pages-specific and groff_man_style(7) exists.
+Have a lovely day!
+Alex
 
-Or it could be renamed.  linux-man-pages(7).  
-linux-man-pages-man-pages(7).
+--=20
+<https://www.alejandro-colomar.es/>
+
+--BKdykOyf/A/3pnxs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYb7TEACgkQnowa+77/
+2zLKvBAAogBrwxvNfa0k533XvPz8znm5WnweIFG6goe+Ht7uYQBuzSUhKRwwMNmd
+36IH9HSAKWx8jqAg9QRygT/0cGYQaHJD7pqlfxrDy4HHuhA6Yr8nTUIRbqQm+xGU
+wYijzBczqzWAlFQDV+Yq46e/kZwHtA/t9juRxfwZfmvnhdokOaftL88010SsV0ip
+qYX3pnvg4WuE1LNCnvoFp8P6MnLA3snXLmxUki/jb5bTdkMXzbuB45puS3HbFvod
+ZOie9bwBTWvbt0j+rt6JqHUMqIIXilWyo5ecSYi8yAXSYEA0ipmNqkVFIjwdGmRN
+dPprGVayw/Y6Aimgg2MEhMC4Sx+J3r0G8Ngy1f/lIlGnzc40on5qb0ksNEebpTGx
+vkjx7Qnd3R7sv3t9uYDdEJYLsti1IRL+ng8oHLtjK+uS1b9qeuM3eIJRRonmeFBa
+KEY1bpNJr82JlSBr2f9a821/MVKTLrEEi/acTfHS5lgp62hqGlMhtdVoMuHOfBCM
+7D0NJcztBPQZ4TK/j6ZPBIbVOHwv9RFjDegjZi4e1toWDE8hS6sSvzJfI7PUxZXk
+P4/NHhW672SaPWZN2bgHPhYfJqjPCrNweEFuuf89dowUQennrRIHmNWKddDjKk2k
+bNfIPF61dgRB3A5ClwO+U8BYIml/J22MoSwRSr+oRnUuBt9nNP0=
+=nOCN
+-----END PGP SIGNATURE-----
+
+--BKdykOyf/A/3pnxs--
 
