@@ -1,53 +1,52 @@
-Return-Path: <linux-man+bounces-782-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-783-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 498448A9021
-	for <lists+linux-man@lfdr.de>; Thu, 18 Apr 2024 02:45:26 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB788A905C
+	for <lists+linux-man@lfdr.de>; Thu, 18 Apr 2024 03:09:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F4162282AE2
-	for <lists+linux-man@lfdr.de>; Thu, 18 Apr 2024 00:45:24 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 799901F21B33
+	for <lists+linux-man@lfdr.de>; Thu, 18 Apr 2024 01:09:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA8BAECC;
-	Thu, 18 Apr 2024 00:45:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9784E6AD6;
+	Thu, 18 Apr 2024 01:08:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvCNLRYH"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KeRgW5AR"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89657817
-	for <linux-man@vger.kernel.org>; Thu, 18 Apr 2024 00:45:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5838C53AC
+	for <linux-man@vger.kernel.org>; Thu, 18 Apr 2024 01:08:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713401120; cv=none; b=QFB5Iffk++KN6wg8ffD+BZgPSLqCvBtYtiEXlzZub5z3f1CRdRqxPcaIMqbmus1eGj3knrZDX3DWR41K4umrQ7GMWSNyL9ON+nMS6xRq/5CGnTynghXV0WHF21268/Zz1/SaqgM97cf354POv6NF47fc0WxhlHhcofyU/hC3A9k=
+	t=1713402497; cv=none; b=Z75fvnLWe9mt9sucNNZfZ5HDtwA6xfqLPCy54KWGGhRJD0YQmK3l75HOXVlOeDzsQCYEOSkB5dFf74fM0IRCPaV6ZfGCSvtG5xIF1wzO7MPPyJGhds56rD8rP3B+dkbwto6VAFLl29ntf3Zkggg7u3uirUKg086j/MkeKIvlKwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713401120; c=relaxed/simple;
-	bh=KQHEFHB2tbNGNApBD9aBeqX04bheMGDIgk0hMO/J0tg=;
+	s=arc-20240116; t=1713402497; c=relaxed/simple;
+	bh=wfnhxtjRgOkglc9QOTEY9B57aCuvQr8Xpa1vcpbz8IQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sx8xV67J7LOgHwgvW8v3KQqY5T2EYVEPjLPWZTT2HovC02RggyGiv1a/4Qm9huHIZ0+ilvw8j62liGiTTLf+AzzFvJ4BkEtf0Ml3kHKgJP0F1wVNtYwloZCPpbPh54IDaSkJmPcVgB7aVFb3vQ1TMyLfO9oIVv5aeKeRAfx/KXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvCNLRYH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC48C072AA;
-	Thu, 18 Apr 2024 00:45:19 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=PLsD1L8nRGkczywdZlrQZWAc5NyJts2VNcV//PHZ5nk3l1LZZfKL+nejH+luE4+YRKpep67OEa4ClX603TxlxUbTNKzPuyIhyeFlNE466AKc2z3RGWVPWDdvTWBPKo4TFLK5i7svVDhhsSVnLxfJ7NzPdMIfdv9/54lVLvkx1YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KeRgW5AR; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA16C072AA;
+	Thu, 18 Apr 2024 01:08:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713401120;
-	bh=KQHEFHB2tbNGNApBD9aBeqX04bheMGDIgk0hMO/J0tg=;
+	s=k20201202; t=1713402497;
+	bh=wfnhxtjRgOkglc9QOTEY9B57aCuvQr8Xpa1vcpbz8IQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dvCNLRYHjHU+1OdYUWfuTZr4rOr9HOWWhbGJYqlrG0vpo9LCOBTDvNaXEO4meRe6V
-	 9pThiKxAjPpzPPVUj+muSrROFJgY7x2aQse0K5VbjcEpsPz2ovROitEqoUckhXdJEg
-	 UeSkp9od9VHN72/YdBDsO1Yx9TVDdxcrTUMHtOii1JQwZWlgeD5sNbE1VTVJ6Cl8Xz
-	 5Rp0l5sywyoR5SxWz3lhPtBDhtwu25chjFM0mlndbgcVnKMs0OSzf/MdqCxFbyHhQe
-	 7KCYFuew6bygCihmAd0WKQj7jSHlTaV3wgFxXe2DX/y2Q+s5ryjJzi2YXh+91dSPGn
-	 lCAk9G62jys0w==
-Date: Thu, 18 Apr 2024 02:44:59 +0200
+	b=KeRgW5AR0xOTdYBRLXiU2wXuSrw25iYJPHhHw/e94BE+qrFpZcqTsJGKHu/fFg95f
+	 vPW/eTLJ6vPswK64HPjIvJsZpt4z9mE8gK0e6rf1EREPk10JB41ewC9F2M3KdB5aYM
+	 T1OHG85TuwNM36xxa95x6cFLlxdeH1sID1bvzpS6dMzCOeXhutZ8ZEyZv5byw9e3Wa
+	 rsCIpgNzm44KeG8XavdcTqTmdEmI54ont4u/vCmetYVT2CR10/AJ+o6Oam/6Qs8j4H
+	 wgSrMX7Xm0c9JGfwJcYQFez9tZemxmlTAGRcenntVr+EOdtvy8zU3jx+taj1Q7Nt8g
+	 c4kKjiDo0aLUg==
+Date: Thu, 18 Apr 2024 03:08:13 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Deri <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org
 Subject: Re: Linux man-pages PDF book
-Message-ID: <ZiBtHeVlZmlGe0kP@debian>
+Message-ID: <ZiByfbP0XUA0RR7_@debian>
 References: <Zhu_-FE5sl3vSu1w@debian>
  <20240414120145.xa5sryqprufsvhqi@illithid>
  <ZhvLPvqHzpw2Jl3o@debian>
@@ -59,25 +58,86 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DcbEIhTrQLBwPOOD"
+	protocol="application/pgp-signature"; boundary="R7uhYHyjt6uaifhs"
 Content-Disposition: inline
 In-Reply-To: <3935722.768hzMJKAL@pip>
 
 
---DcbEIhTrQLBwPOOD
+--R7uhYHyjt6uaifhs
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Apr 2024 02:44:59 +0200
+Date: Thu, 18 Apr 2024 03:08:13 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Deri <deri@chuzzlewit.myzen.co.uk>, linux-man@vger.kernel.org
 Subject: Re: Linux man-pages PDF book
 
-Hi Deri,
+Hi Branden,
+
+After applying Deri's patches, I can see the turtle.
+
+real	2m20.018s
+user	2m34.825s
+sys	0m0.571s
+
+Before that patch, it's
+
+real	0m14.576s
+user	0m18.171s
+sys	0m0.464s
+
+
+That means groff(1) is being ~9x slower.
+
+Have a lovely night!
+Alex
 
 On Tue, Apr 16, 2024 at 01:14:12AM +0100, Deri wrote:
+> diff --git a/tmac/an.tmac b/tmac/an.tmac
+> index d9e8232f8..46934fd62 100644
+> --- a/tmac/an.tmac
+> +++ b/tmac/an.tmac
+> @@ -212,7 +212,7 @@
+>  .
+>  .\" Customize this at the command line to, for example, group multiple
+>  .\" man pages within a collection or containing document.
+> -.nr an*bookmark-base-level 0
+> +.nr an*bookmark-base-level \n[an*bookmark-base-level]+0
+>  .
+>  .\" Write a bookmark/anchor/link target $2 at hierarchical depth $1.
+>  .de an*bookmark
+> @@ -230,7 +230,8 @@
+>  .ds an*bookmark*utf8 \" empty
+>  .
+>  .de an*bookmark*pdf
+> -.  ie (\\$1 =3D 1) \
+> +.nr an:lev \\n[an*bookmark-base-level]+1
+> +.  ie (\\$1 =3D \\n[an:lev]) \
+>  .    pdfbookmark -T "\\$2" \\$1 \\$2
+>  .  el \
+>  .    pdfbookmark \\$1 \\$2
+
+> diff --git a/share/mk/build/pdf/book/_.mk b/share/mk/build/pdf/book/_.mk
+> index 3395e67e9..9f1cdc520 100644
+> --- a/share/mk/build/pdf/book/_.mk
+> +++ b/share/mk/build/pdf/book/_.mk
+> @@ -33,12 +33,12 @@ _PDF_BOOK :=3D $(_PDFDIR)/$(PDF_BOOK)
+>  $(_PDF_BOOK): $(_MANPAGES) $(_TINOS) $(MKBOOK) $(MK) | $$(@D)/
+>  	$(info	$(INFO_)GROPDF		$@)
+>  	$(MKBOOKDIR)/prepare.pl $(_MANDIR) \
+> -	| $(CAT) $(MKBOOKDIR)/front.roff $(MKBOOKDIR)/an.tmac /dev/stdin \
+> +	| $(CAT) $(MKBOOKDIR)/front.roff /dev/stdin \
+>  	| $(PRECONV) \
+>  	| $(PIC) \
+>  	| $(TBL) \
+>  	| $(EQN) -Tpdf \
+> -	| $(TROFF) -Tpdf -F$(_FONTSDIR) -dpaper=3Da4 $(TROFFFLAGS) \
+> +	| pdfmom --roff -F$(_FONTSDIR) -man -r an*bookmark-base-level=3D1 -dpap=
+er=3Da4 $(TROFFFLAGS) -Z \
+>  	| $(GROPDF) -F$(_FONTSDIR) -pa4 $(GROPDFFLAGS) \
+>  	| $(SPONGE) $@
+> =20
 > diff --git a/share/mk/build/pdf/book/prepare.pl b/share/mk/build/pdf/book=
 /prepare.pl
 > index e23f149c6..bc922bd88 100755
@@ -103,27 +163,6 @@ On Tue, Apr 16, 2024 at 01:14:12AM +0100, Deri wrote:
 >  	#$al=3D~tr[.][_];
 > -	$al=3D~m/^$dir\/man\d[a-z]*\/(.*):\.\s*so\s*man\d[a-z]*\/(.*)/o;
 > +	$al=3D~m/^$dir\/man\d[a-z]*\/(.*):\.\s*so\s*man\d[a-z]*\/(.*?)\.(.*)/o;
-
-Your annotation said:
-
-	-	$al=3D~m/^$dir\/man\d[a-z]*\/(.*):\.\s*so\s*man\d[a-z]*\/(.*)/o;
-	+	$al=3D~m/^$dir\/man\d[a-z]*\/(.*):\.\s*so\s*man\d[a-z]*\/(.*?)\.(.*)/o;
-	Example:-
-	./man2/rt_sigaction.2:.so man2/sigaction.2
-	=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-	=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D
-	$1
-	$2
-	$3
-	Capture the file name extension in $3.
-
-But the regex is wrong, I think.  Consider this part of the regex:
-
-	(.*?)\.(.*)
-
-For a page like gai.conf.5, the section would be 'conf.5'.  The '?' is
-spurious, I think.
-
 > =20
 > -	$aliases{$1}=3D$2;
 > +	$aliases{$1}=3D"$2($3)";
@@ -182,21 +221,6 @@ ${nm}.$sec"}:"${nm}($sec)"];
 +(\w+)\s+(.*)/ or m/^\\fB([-\w\\.]+)\\fR\((.+?)\)(.*)$/) {
 > +			if (m/^\.BR\s+([-\w\\.]+)\s+\(([\d\w]+?)\)(.*)/ or m/^\.MR\s+([-\w\\.=
 ]+)\s+(\w+)\s+(.*)/ or m/^\\fB([-\w\\.]+)\\fR\((.+?)\)(.*)$/) {
-
-This regex might have similar issues (although they aren't being
-introduced now).  And there might be others too.
-
-BTW, your annotation was:
-
-	Not completely sure if this change is necessary, just nervous
-	about (.+?) as a pattern.
-
-Agree; but there are more (.+?) in the same regex.
-
-
-Have a lovely night!
-Alex
-
 >  				my $bkmark=3D"$1";
 >  				my $sec=3D$2;
 >  				my $after=3D$3;
@@ -268,25 +292,25 @@ e name passed
 --=20
 <https://www.alejandro-colomar.es/>
 
---DcbEIhTrQLBwPOOD
+--R7uhYHyjt6uaifhs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYgbQsACgkQnowa+77/
-2zKs8Q//QwiNcT3jr6KY1fiihSZ1jM5yDmNmlYA5bgE/fPz+HTuvbG8FuIpzyHtE
-TEdCXA6HdUISuMTmYzsnrc0HBxNL8Tz7QwsM2EcEeNqnqditi437gn7qWufJBUFd
-c375Tv+Js1sNw8UrOJjpGnvx2/6qnhmDroKEVpb+LfkGHBXm34OJ6etv94mFZ4FO
-zmDFUqCDaWsJ2ZjFhC5DdFO89GDJLvyOjm6d6hp/UHDnx9QPJyQj/+6kd/K6LJ8K
-4WyxLj/cWd4FYIuARG2zEwu3bZ4cTBlO8NflkIBHxUJcJIpK26F79puPUE22BNcV
-zkvdQaKvZUXf2FaiO3Ie4PBJmIYh8cZFXTBfC07qN67F7z2IEJXrwJnzfxoZhURo
-DEXHq6JPVD2LEZ1n61YTmdb2Ohsym+n2bVwG7NyQh2HuD94m0pAaVEC2wDUQ5ZD6
-YrrqWkyYmA81QeR4WFkHUmJuk2mQIYrqVPGtcd7AICS1JGRWXLXptwnamZ97221u
-PVQpaYt3AdCjEnUyp5b2EcUAxbWPFTEAe4On+9dW1NWRJwrPzdmC4hzeN48AdF+Y
-DT4bRA6flV/ylhh/9nNCGzccNdpbggS42sPVLtAzqat2P+0i2dfUM8Xp4jRhTwvI
-2B+PDtXpV12FPEQt3wNylFJ710FidQio0K5jwfbtkT06JyIKKYY=
-=n1A1
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYgcn0ACgkQnowa+77/
+2zKrURAAlKli9RbJ4lCdjnjcLOKPBoR7Aeus05f1zigjrp5M17B0ctOcFA5tc7LN
+JtoJTsU+nreSqgfCHKiOfNn6kc/JqIQVisADWSzbKMZ78YoJa0jfxf54PVA93QRO
+mborVLdILOVvbz6RLGMk4RAZ9Ky3MpTGC3m8quUxGaoxxN/6Xqvq66dv0LvmIp8i
+94yvBKkCG5yCSohmPQ+U2tXO8MIB+h4KSWOvKG9pgNxv2+QvpJeNkk7Yqfuj7uGi
+9qkCw+sS/ufy3J+5Geyxf2WHf0Cz+ZPGk6N++j/CTuH3hUcOlUzDhikhrK0N7dCo
+QJoXwHbUg9EcFRljpFuCE45oi5GTazJryelsuaHblwpWivmMKlnIMyfZXhMSdnT6
+4ABr0FCpTAD+nD913HMTPbR8NL7CX4yM/ieFztD602QqBGp1cwNwyJKFzxrhvNmx
+nQDlSLRSYRS4/5Waba02b3DKQS4YZHOrjMRbxuoZjugZqgk4nRJdKtoZQB3STG3z
+0PdjUJbsqMAFTvYu4ghxCWaC6ENCPP5y8bnz2pLeblDyeNOCG3laSqJdj4rqMwmH
+S3aIygMKIzOq6ZWWwPciyHNXyepN/yBDJL8Qhk190fyn4soSaGwZgy9MxUHTYleB
+oemaX7TVx5AzX3CEqcE1WU35rlffU90NlFtdElc/533+lcS/XTc=
+=4DL4
 -----END PGP SIGNATURE-----
 
---DcbEIhTrQLBwPOOD--
+--R7uhYHyjt6uaifhs--
 
