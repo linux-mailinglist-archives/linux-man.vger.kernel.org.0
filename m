@@ -1,56 +1,58 @@
-Return-Path: <linux-man+bounces-794-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-795-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C27DF8ABD8E
-	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 00:20:17 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A2C28ABD91
+	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 00:33:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id EDDF61C205E1
-	for <lists+linux-man@lfdr.de>; Sat, 20 Apr 2024 22:20:16 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5551CB20BF1
+	for <lists+linux-man@lfdr.de>; Sat, 20 Apr 2024 22:33:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20663481D7;
-	Sat, 20 Apr 2024 22:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C20310788;
+	Sat, 20 Apr 2024 22:33:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmTdt+lT"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q+VsfMVk"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E91481C4
-	for <linux-man@vger.kernel.org>; Sat, 20 Apr 2024 22:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB5740843
+	for <linux-man@vger.kernel.org>; Sat, 20 Apr 2024 22:33:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713651612; cv=none; b=eoi6XEe2S8Tzerdr7dRtry7iM3rl9++/zGNer7UTcZvS2cKhEnHiSCQqBBabD77077HHvWH1lX+zbqnOyEF69qlG6G6fQQ06ksj4WdIl4E71lDFZ9DbKuKXLi3KqEBa74RgxnOXm4Y9cMUIfXJ7x5WV5n/bLy/xJEoS8rRm1XnA=
+	t=1713652384; cv=none; b=V4EIUcu1/LAdAzsodraA7uuVzTC+91aXznkdMyHbhjrxrQxVLSlJa3enSUJdgz4EluaEJneRl5gvp/NGGxGX2f3MmtYC5KPmeLq6IKEd8Sa+bE8eNlSMMygFTUN1bnijmv5/4IyiHYa9B3pQ+vvieEwN4VYlpcnYp0MI8Eh1gC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713651612; c=relaxed/simple;
-	bh=ip2TMcaOR6/X0KA64Jf/hT0OtwZbFkh0OLf4aoQH4Ww=;
+	s=arc-20240116; t=1713652384; c=relaxed/simple;
+	bh=4QlRGRyTNi1a+Rf9DO9AzPpJcNiDuumkdxHqjvyaU8w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZjZvCu8UkZXYctSF1MymIznSS+JOQuEjnSDsPCqsNp74Y2WilQ9M4X2vff5WglzZ33vxkmSNKwhtAqg5tGZk6F41wHCgqn0IE3DxmUInUVTIVMMQH3EzhMSCQqFF9Xn9w2Fum4EasPhXfQnaSqlbnrYIIRnnD6MwuD1vx7Dm4ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmTdt+lT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39215C072AA;
-	Sat, 20 Apr 2024 22:20:11 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=U602Lt9AVI2ZyRSYuNGekmlW9+f3C/vWq5Q65M1JzNAcoNpLnmTMwYehRFmFXRtB8N+6Ec/h2MGc6rxGgCP0o4bcYgFRAcF/xRhp/srtGU3o70bwoL/51hGzmp/5SvJLlqMb6xE2+7zNzz5A/wf7b2YDoJMqBa6z24vqAtFaPOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q+VsfMVk; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C5AC072AA;
+	Sat, 20 Apr 2024 22:33:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713651612;
-	bh=ip2TMcaOR6/X0KA64Jf/hT0OtwZbFkh0OLf4aoQH4Ww=;
+	s=k20201202; t=1713652383;
+	bh=4QlRGRyTNi1a+Rf9DO9AzPpJcNiDuumkdxHqjvyaU8w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kmTdt+lTF3JqQcRRAJUDZMZ2XoYfIlub0QVXJOeabyxBm9Qls1cKehd5ZuffAMA4f
-	 Z55n/AJM5+9+nW0SFuQ3YxfPIRVG/UDZ2btINa1qybj5OT4M1jzqIGwC5j12C2MIYt
-	 Kt1tic6YXtHMR5xBD7CvpMs6APBHY9cN19eUj9B9cV/a2RsnFbFjQw1lhsFkPQ1odV
-	 7PJF9Zpkd0VgN74ZoP21EPUyv+5ZG/W4SN14SJZNo5cR97woOqHVMYZxgWARUrQGth
-	 abRjeIOwGg41QvRfZjxQ39Z/j9Xo5qNBwy0KeZQFsD1RYveH7+SFN6gwIGeI7IqJYX
-	 QMeQQjS1ULqjQ==
-Date: Sun, 21 Apr 2024 00:20:02 +0200
+	b=q+VsfMVkOtXbeNvCeMy6Zp80lo0vW5PG0I98ijNQwHyBxQMUQcmuvtnvooJK18yIp
+	 3gUmLk1GnNHTmTKrvssV46FF5pCsFYnPjjYogzlhsBa+th2EfdrEQYbnTLgzSssuE9
+	 wfWwR3ll0cjNNvo6zRdCHsNu7Vwct+q0ZIgDPJi0PqehmUzfSBp1t/2pBgItRPHQBr
+	 hD7/IxYafm/ov6BYvhuIqepOuIPqEm/uA06EEkl+35SUKuDrcBJXLpODQ4jBSuYTSp
+	 8nTEMGn1w64idp2i5S51eR3VV3OMyQ5HrsXjLb0ufuPPEKGn+Gwzirn3Y3QwQ5fN+t
+	 N15Vin4ZcMJzg==
+Date: Sun, 21 Apr 2024 00:32:59 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, groff@gnu.org,
+To: Brian Inglis <Brian.Inglis@shaw.ca>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	linux-man@vger.kernel.org, groff@gnu.org,
 	"G. Branden Robinson" <branden@debian.org>,
 	Deri James <deri@chuzzlewit.myzen.co.uk>
 Subject: Re: Problems building the unifont PFA and DIT files for the PDF book
-Message-ID: <ZiQ_mTQHPq3ig723@debian>
+Message-ID: <ZiRCm1-6N-41Sjyl@debian>
 References: <ZiO0cHOWPyuiJGQq@debian>
  <20240420155231.hwvoxfyqnefimh3s@illithid>
+ <a55df048-f04c-4faa-aba9-a5be7e81543b@Shaw.ca>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,212 +60,184 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gfdhCMQJ2Q84TDDF"
+	protocol="application/pgp-signature"; boundary="9XecfChFJN+v5ujU"
 Content-Disposition: inline
-In-Reply-To: <20240420155231.hwvoxfyqnefimh3s@illithid>
+In-Reply-To: <a55df048-f04c-4faa-aba9-a5be7e81543b@Shaw.ca>
 
 
---gfdhCMQJ2Q84TDDF
+--9XecfChFJN+v5ujU
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 21 Apr 2024 00:20:02 +0200
+Date: Sun, 21 Apr 2024 00:32:59 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, groff@gnu.org,
+To: Brian Inglis <Brian.Inglis@shaw.ca>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	linux-man@vger.kernel.org, groff@gnu.org,
 	"G. Branden Robinson" <branden@debian.org>,
 	Deri James <deri@chuzzlewit.myzen.co.uk>
 Subject: Re: Problems building the unifont PFA and DIT files for the PDF book
 
-Hi Branden,
+Hi Brian,
 
-On Sat, Apr 20, 2024 at 10:52:31AM -0500, G. Branden Robinson wrote:
-> Since (I believe I saw you say that) you're using GNU Unifont only to
-> patch up missing code point coverage from other fonts, in your
-> application it probably makes sense to specify it as a "special" font.
+On Sat, Apr 20, 2024 at 02:11:55PM -0600, Brian Inglis wrote:
+> On 2024-04-20 09:52, G. Branden Robinson wrote:
+> > At 2024-04-20T14:26:17+0200, Alejandro Colomar wrote:
+> > > First problem:
+> > >=20
+> > > In the Unifont, I don't see a "Regular" font.  I assumed I should take
+> > > the unifont.otf file.
 >=20
-> afmtodit(1):
->      The -s option should be given if the font is =E2=80=9Cspecial=E2=80=
-=9D, meaning
->      that groff should search it whenever a glyph is not found in the
->      current font.  In that case, font=E2=80=90description=E2=80=90file s=
-hould be listed
->      as an argument to the fonts directive in the output device=E2=80=99s=
- DESC
->      file; if it is not special, there is no need to do so, since
->      troff(1) will automatically mount it when it is first used.
-> [...]
->      -s     Add the special directive to the font description file.
+> Hi folks,
 >=20
-> I see that the foregoing advice is incomplete: updating the output
-> device's "DESC" file is only one approach; another is to add a `special`
-> request to the document, and that's the one I suggest you take for your
-> man pages book.
+> That's the BMP ~63.5k characters ~57k glyphs; unifont_upper are the SMP
+> ~57.5k glyphs with specialized scripts and extended graphics like emojis:
+> unlikely to be required for any LGC man pages.
 >=20
-> So you might put
->=20
-> .special Unifont
->=20
-> in your front.groff file or similar.
-
-Thanks!  Yep, I'm using it (thanks to Deri):
-
-$ grep -rh Unifont share/mk/build/pdf/book/
-	print ".pdfpagenumbering D . 1\n.nr PDFOUTLINE.FOLDLEVEL 0\n.defcolor pdf:=
-href.colour rgb 0.00 0.25 0.75\n.pdfinfo /Title \"The Linux man-pages Book\=
-"\n.special TinosR UnifontR S\n";
-
-> > Here's how I've been groff-ifying the Tinos font:
-> > 	AFMTODIT	.tmp/fonts/devpdf/TinosR
-> > 	afmtodit -e /usr/share/groff/current/font/devpdf/enc/text.enc .tmp/fon=
-ts/devpdf/TinosR.afm /usr/share/groff/current/font/devpdf/map/text.map .tmp=
-/fonts/devpdf/TinosR
-> > 	/usr/local/bin/afmtodit: AGL name 'mu' already mapped to groff name 'm=
-c'; ignoring AGL name 'uni00B5'
-
-[...]
-
-> > 	/usr/local/bin/afmtodit: both patah and yodyod_patah map to u05B7 at /=
-usr/local/bin/afmtodit line 6586.
-> >=20
-> > Are any of those warnings something I should take care of?  Or should
-> > I just ignore them?  If they're unimportant, can I ask that low
-> > severity warnings not be printed?  Or should I just 2>/dev/null?
->=20
-> The afmtodit(1) man page, and groff's "PROBLEMS" file (in the source
-> distribution, since these warnings can arise when building groff)
-> address this point.  Whether it's a problem depends on what you wanted.
-
-Thanks.
-
-> afmtodit(1):
->=20
-> Diagnostics
->      AGL name 'x' already mapped to groff name 'y'; ignoring AGL name
->      'uniXXXX'
->             You can disregard these if they=E2=80=99re in the form shown,=
- where
-
-This still leaves undocumented the warnings of the form
-
-	both patah and yodyod_patah map to u05B7 at /usr/local/bin/afmtodit line 6=
-586.
-
-I guess I should ignore them too...
-
-> > Well, apart from those warnings, that works.  Now, I repeat the process
-> > with the Unifont:
-> [...]
-> > 	$ make build-pdf-book
-> > 	GROPDF		.tmp/man-pages-6.7-70-gd80376b08.pdf
-> > 	troff:.tmp/fonts/devpdf/UnifontR: error: font description 'spacewidth'=
- directive missing
-> [...]
-> > Did I do anything wrong with the Unifont?  I suspect of treating it as a
-> > Regular font without any indication that I should.
->=20
-> No, you simply need to tell groff how wide a space should be in that
-> font.  In groff, a space is not a kind of glyph, because it doesn't put
-> any "ink" on the "page"; instead it's a (discardable) horizontal
-> motion.[1]  "Discardable" because if it occurs at the end of an output
-> line, it is discarded.
-
-[...]
-
-> afmtodit(1):
->      -w space=E2=80=90width
->             Use space=E2=80=90width as the width of inter=E2=80=90word sp=
-aces.
-
-Hmmm, why did TinosR not trigger a warning about it?  I didn't specify
-that either.  Do some fonts come with a predetermined space-width and
-others not?
-
->=20
-> You will probably want to know what number to use for a font's space
-> width.  This is a judgment typographers make.  The groff Texinfo manual
-> and groff_diff(7) page share a rule of thumb.
->=20
->      .ss word=E2=80=90space=E2=80=90size [additional=E2=80=90sentence=E2=
-=80=90space=E2=80=90size]
->             A second argument sets the amount of additional space
->             separating sentences on the same output line.  If omitted,
->             this amount is set to word=E2=80=90space=E2=80=90size.  Both =
-arguments are
->             in twelfths of current font=E2=80=99s space width (typically =
-one=E2=80=90
->             fourth to one=E2=80=90third em for Western scripts; see
->             groff_font(5)).  The default for both parameters is 12.
->             Negative values are erroneous.
->=20
-> My approach is to generate the font description file _without_
-> the `-w` option, then read the resulting to file to see how wide the
-> glyphs are.
->=20
-> If I do this for the URW Times roman font:
->=20
-> $ grep '^M' build/font/devpdf/TR
-> M       889,662 2       77      M       --      004D
->=20
-> I can see that the "M" is 889 basic units wide (see groff_font(5) for an
-> explanation of this file format and its terminology).
->=20
-> One third of 889 (rounded to an integer) is 296, so, personally, I'd say
-> "-w 296".  But in principle, any value between 223 and 296 is "sound",
-> and ultimately, the "correct" value is whatever best pleases you as a
-> typographer when considering your document.  It's also worth noting that
-> when adjustment is enabled, as is the case in AT&T and GNU troffs by
-> default, an inter-word space will seldom be _exactly_ this "spacewidth"
-> in any case, except where the document (or a macro package) has
-> explicitly disabled adjustment.
+> 		https://unifoundry.com/unifont/index.html
 
 Thanks!
 
->=20
-> Regards,
-> Branden
->=20
-> [1] I do observe that the URW font descriptions shipped by groff include
->     a special character called "space".  Syntactically, this would be
->     accessed within a groff document via a special character escape
->     sequence: `\[space]`.  I've never seen a document do this.  I admit
->     that I don't have any idea why this is present or what its semantics
->     are: I need a PostScript or PDF expert to tell me.[2]  It does occur
->     to me that we might enhance afmtodit make of use of it as the
->     default "spacewidth".
+> > Since (I believe I saw you say that) you're using GNU Unifont only to
+> > patch up missing code point coverage from other fonts, in your
+> > application it probably makes sense to specify it as a "special" font.
+> >=20
 
-That sounds like a great idea.
+[...]
+
+> OpenType fonts are normally designed with an 1000 units/em, and Truetype =
+may
+> be 1024 or 2048 units/em, so should use 333 or maybe 300 if you prefer a
+> tighter look, close to your suggestion.
+>=20
+> $ ttfdump /usr/share/fonts/urw-base35/NimbusRoman-Regular.otf | awk "/'he=
+ad'/,/^$/"
+>    6. 'head' - checksum =3D 0x0cdb53f2, offset =3D 0x00016f4c, len =3D   =
+     54
+>    7. 'hhea' - checksum =3D 0x06b6057b, offset =3D 0x00016f84, len =3D   =
+     36
+>    8. 'hmtx' - checksum =3D 0x35d9ae6c, offset =3D 0x00016fa8, len =3D   =
+   3420
+>    9. 'maxp' - checksum =3D 0x03575000, offset =3D 0x00017d04, len =3D   =
+      6
+>   10. 'name' - checksum =3D 0x8993f63c, offset =3D 0x00017d0c, len =3D   =
+    620
+>   11. 'post' - checksum =3D 0xffb10032, offset =3D 0x00017f78, len =3D   =
+     32
+>=20
+> 'head' Table - Font Header
+> --------------------------
+>          'head' version:         1.0
+>          fontReversion:          1.0
+>          checkSumAdjustment:     0x69d6e98e
+>          magicNumber:            0x5f0f3cf5
+>          flags:                  0x0003
+>          unitsPerEm:             1000
+>          created:                0x00000000d5420807
+>          modified:               0x00000000d5420807
+>          xMin:                   -168
+>          yMin:                   -281
+>          xMax:                   1000
+>          yMax:                   1053
+>          macStyle bits:          0x0000
+>          lowestRecPPEM:          3
+>          fontDirectionHint:      2
+>          indexToLocFormat:       0
+>          glyphDataFormat:        0
+>=20
+> For comparison Tinos ttf substitute for Times Roman:
+>=20
+> $ ttfdump /usr/share/fonts/tinos/Tinos-Regular.ttf | awk "/'head'/,/^$/"
+>   12. 'head' - checksum =3D 0x0bd978fc, offset =3D 0x0000015c, len =3D   =
+     54
+>   13. 'hhea' - checksum =3D 0x19811ca6, offset =3D 0x00000194, len =3D   =
+     36
+>   14. 'hmtx' - checksum =3D 0xa4bce0e7, offset =3D 0x00000238, len =3D   =
+  13116
+>   15. 'kern' - checksum =3D 0xa39da9f5, offset =3D 0x0008d6f8, len =3D   =
+   5220
+>   16. 'loca' - checksum =3D 0x28e2bf88, offset =3D 0x0001a45c, len =3D   =
+  13120
+>   17. 'maxp' - checksum =3D 0x10d405bc, offset =3D 0x000001b8, len =3D   =
+     32
+>   18. 'name' - checksum =3D 0xc3ff0ad5, offset =3D 0x0008eb5c, len =3D   =
+   2052
+>   19. 'post' - checksum =3D 0xe841b7c5, offset =3D 0x0008f360, len =3D   =
+  34664
+>   20. 'prep' - checksum =3D 0xbd48485c, offset =3D 0x00019b40, len =3D   =
+   1550
+>=20
+> 'head' Table - Font Header
+> --------------------------
+>          'head' version:         1.0
+>          fontReversion:          1.20736
+>          checkSumAdjustment:     0x84b246c2
+>          magicNumber:            0x5f0f3cf5
+>          flags:                  0x001b
+>          unitsPerEm:             2048
+>          created:                0x00000000c844d0ce
+>          modified:               0x00000000d25f0c4c
+>          xMin:                   -1114
+>          yMin:                   -797
+>          xMax:                   5728
+>          yMax:                   2068
+>          macStyle bits:          0x0000
+>          lowestRecPPEM:          9
+>          fontDirectionHint:      2
+>          indexToLocFormat:       1
+>          glyphDataFormat:        0
+>=20
+> > [1] I do observe that the URW font descriptions shipped by groff include
+> >      a special character called "space".  Syntactically, this would be
+> >      accessed within a groff document via a special character escape
+> >      sequence: `\[space]`.  I've never seen a document do this.  I admit
+> >      that I don't have any idea why this is present or what its semanti=
+cs
+> >      are: I need a PostScript or PDF expert to tell me.[2]  It does occ=
+ur
+> >      to me that we might enhance afmtodit make of use of it as the
+> >      default "spacewidth".
+> >=20
+> > [2] Or I can self-help; I have copies of the _PostScript Language
+> >      Reference Manual_ (3rd ed.) and a version of ISO 32000 lying aroun=
+d.
+>=20
+> But Unifont uses 64 units/em, so 20-21?
+
+Thanks!!!
+
+I've tried to build the Chinese man-pages book for shadow, but I still
+don't get Chinese letters, so I wasn't able to test this value, but I'll
+try debugging it in the following days.
+
+Anyway, I've applied this value in a commit that I'll push tomorrow to
+the Linux man-pages' master branch.
 
 Have a lovely night!
 Alex
 
-> [2] Or I can self-help; I have copies of the _PostScript Language
->     Reference Manual_ (3rd ed.) and a version of ISO 32000 lying around.
-
-
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---gfdhCMQJ2Q84TDDF
+--9XecfChFJN+v5ujU
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYkP5IACgkQnowa+77/
-2zJV3A//UlQMm5EMXOATkgdubDXPvEMAFuKlRqkXVAKr9pCsisCPpW3tRP7c/h4g
-7G/ok+6a6Pd9YfNayY7Awgcy/7m8uqhJYWaIWb221ciNnigtxWRrirtSq6P8XYC4
-Wzcg+zohNYmzRm15pZScafmB5FhC6iDH8uryDYgUmHYhadlmO1pfYvvsN9CIeq79
-r6l7nuxUiCZjRRZAiIp2gKib7h5Mc+eCuaQgXl39G9RMu32kZK4C2D3895zK1zF5
-6mD6EA270LEXyEEdzSFZapWi4dQjAzHW2Lr5VcUH15l+KA+nnYneoYQcuXBvI1Bc
-n+9Lq5eLsjcSN1AtXzsq8Qy3GGzIve+phr97oFS6NicfEb3AyV9mjv35GfliRNz7
-BARR9wku2P9UDX+e/XryLhj4AiaRCMsZTTuvRDgq88UVHUlP4G9G75Jyy4Ko+J66
-5A20K2HzyG6ZaOh3YrKoV4xaeIpsF8Qi4Lq0xJMjCSKjCjZ96zNc0gxmPCFRvcYt
-Lc/OaBf2eOGegEAP9vQCFBN6LSrbwd7Mgeuvxz8M1hTFnwt76twbWpoP33mS7vVf
-6yMn2CoAUtXcMQYdMMa5t461UN0I27ZjlYYsg80XtrVM0r+BfYGSFtJrfCmkKCBM
-0p1DNaeLtxuQOM1a+lyztbWtZFL9TPgjSqqUUj4Np+4Zt2reI4Q=
-=4JVf
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYkQpsACgkQnowa+77/
+2zLGaQ/+Lt2yDNrQWoyEDHc4JgOivBRNOfSP3XCERUCEWgholLQlUZ1t5cDS2jDb
+LL1aYeHXVQ6dd9zSe39TLJa+pPtRZsc1oUCLr7IPV2feQsU6nGJIuW+G0lKXSxhR
+dYLLgRauEpP9l20io+nBoWH+qKCia/Cstf3X/Evz++Be6+t1CqpSw0eZettltJgS
+0sseQ6GRxc9ktOmt7T1iGOLRAPZ6XG8AgpQ6okW1r4ysLQDBiBNGUwDOZuYYYdjr
+Jptn8/SCwu58Hkq3cldpOYWQ2uPyWhQfiLKx+6qtNULaKcb7DL5wf5uMogenA2GD
+HdYcaQTHN+z0G7nGAm3759AcSKga18QSoYO8UmbNbf4L/93dJ56DfZ/0hfvO83Py
+jOFq8vdqUm4Qb4fK2VokkSSbAPpcMEmDlFJ1Q53WtvzKSa49jz2si9WiROTFLwfQ
+MkACwBuwA+K1Y7vOksj1myNcMUfFVHvkVfW2HwNtaKWcCbd5fmYVIP3k3R7zwD8V
+3OiH9R7sM5tB6nsm9sYI7a4M1KYwxZtRCupWRV4fTVjmnG+i0waXbLURScgDAJXL
+fcdtgiE7odSu58e+Ag/qXhNX2Ik6c59W7aC5A6ZNdTE4qfAbVATE0b1r/Q0Tuy3A
+rjgSsH4r/N0rgdYb2SbpHtsF3tiK/dV8d5lIDjWt46kWp/zKI+8=
+=RURD
 -----END PGP SIGNATURE-----
 
---gfdhCMQJ2Q84TDDF--
+--9XecfChFJN+v5ujU--
 
