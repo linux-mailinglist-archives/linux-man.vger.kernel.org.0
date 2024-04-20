@@ -1,52 +1,52 @@
-Return-Path: <linux-man+bounces-787-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-788-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id F35D98ABACD
-	for <lists+linux-man@lfdr.de>; Sat, 20 Apr 2024 11:35:50 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCC538ABAED
+	for <lists+linux-man@lfdr.de>; Sat, 20 Apr 2024 12:06:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id ADC8D1F2139D
-	for <lists+linux-man@lfdr.de>; Sat, 20 Apr 2024 09:35:50 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 12A991C20CE1
+	for <lists+linux-man@lfdr.de>; Sat, 20 Apr 2024 10:06:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7F2C17BD8;
-	Sat, 20 Apr 2024 09:35:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EACFB17BB6;
+	Sat, 20 Apr 2024 10:06:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYut7ieF"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YaqqU/71"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7632C17BCC
-	for <linux-man@vger.kernel.org>; Sat, 20 Apr 2024 09:35:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82DBFC1C
+	for <linux-man@vger.kernel.org>; Sat, 20 Apr 2024 10:06:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713605733; cv=none; b=L/1L+wCkEgNtcI2EIUseFO/Rj6uR6baBoaDCgkaCVRYGy4MwqPcAVnBMavJYU5T+02/8flj1467AlYfZAtUgkezVmn3hRTWZgVnbFh8F3VMeSMq7TolZeQIS3rGiQZ+3ESbnE1bTbbha+Phg/BR8uodzWQe4HGwkHj7PDh3Sr7s=
+	t=1713607582; cv=none; b=nsvt7fAiH/mHHA9seSbaf0lxpsnPo6oTKbZXgbHP8gZs1OuTR2lNiBq43HAeTrX68XsfyMHuRl3OzKcS2lQqBgpAet2B45cUvMA2LkYHfh6l+pEYzvFngzFftbtae3H38gpUDw5lbFuumfVg0aWXByJKt0S0fbJ++oUD0JlqX2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713605733; c=relaxed/simple;
-	bh=MREP+werEniU+DJLyvuJ3QCub/Z9q9gPpm/HhmcekKA=;
+	s=arc-20240116; t=1713607582; c=relaxed/simple;
+	bh=9e+S2IfwDc/a8bm55zWvym3U6gb4CNVc6wUZnebtZbA=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=X/zIqMvplY4gLEoPeUFllo1ePxgUQelLYgHT9CVowWDw1jj/iqgaTWK3jsjxzRUeCk/69NGHO7MKAI2dYkrqmhNhmaoIdThOlYVFepwIPm+OCxC3b2S7gdWZbnrTV/MdVSKYDk/7DLRxKgtR0e6QXBcwS/Vtwdm8APkI0Qq0Kec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYut7ieF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 48C82C32783
-	for <linux-man@vger.kernel.org>; Sat, 20 Apr 2024 09:35:33 +0000 (UTC)
+	 Content-Type:MIME-Version; b=MifHtq/3vrJoOGhf0EKUDA5jw7hHOmKTaR5TZliXJUJURj96L8nCfwilWckr/yd8t+elI4iEh/ZTFGfK4eQ6ni5neBDVYqa5QZPz69THCu8CNmFyygg+VQGJ9Ts//c5vPA7P7lh1oDRJn6L+mfhKWmxrL/ffBJ4Q2dX5vDEOiGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YaqqU/71; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FAD9C32781
+	for <linux-man@vger.kernel.org>; Sat, 20 Apr 2024 10:06:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713605733;
-	bh=MREP+werEniU+DJLyvuJ3QCub/Z9q9gPpm/HhmcekKA=;
+	s=k20201202; t=1713607582;
+	bh=9e+S2IfwDc/a8bm55zWvym3U6gb4CNVc6wUZnebtZbA=;
 	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=hYut7ieF/ZEdu4svrLLI/uAWONo9JyGg3WBeF8ume1MLNE8DcB64xSskaKBJs0yWN
-	 xnd7+lGzRINFqnVgosUrQ5266/yALLoupj92PSoaNrHUmbDTqaCuW/jq8yEEX3QgNC
-	 7hfOUmh+N78odJv83ktXHq/xz0ab9m9YAcT0JvKl7KUnylKiGyuumwwWBuGaonT1Aq
-	 9k9GYCdc7uQNwSiAyg4bOqWF9a3gb+g1xvVTwOWY9/R9hcW8Dadw5yOhUi/wutmBRi
-	 IOJjS5Xim/042z3dPCFj1z2icmz0XQXnsON6O79IOObtW4/MaYYpU0JeFLbCfqs/Q8
-	 PVu926CdTEkPg==
+	b=YaqqU/71wgEVjsS2bV3q8sFlM1/ypiNoK/WSAp/z0z7DX/veQ68IXPEnVTfxbfFHc
+	 KycBrgkjTXx7COcfnuaNsmqAEWxuF3ltiUFwSgmfZrEhhugjqEE6O74/BEH9a9lVFk
+	 fd5j19ThXOVY84DSZ0geMaEKlPjHGPuwA0PCOM56AGGBxw4GsXaxvoPncunwaIvtBl
+	 z3WEKJfopRWJkILgE18tX2o9M7FYi0rVF8w+LNk6LrPso1E5XcMnYQnzWI6Zrpp8aR
+	 GOBhWPuY1POJOIDPiZLiSivs2dfCwUHPbtrO+bdp5sPQEJbQUAraFRldEoUqKSaEDh
+	 BT77GfX3nCuFg==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 3B5B8C04222; Sat, 20 Apr 2024 09:35:33 +0000 (UTC)
+	id 262E4C04222; Sat, 20 Apr 2024 10:06:22 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
 Subject: [Bug 218730] [regression, bisected] 'make install' fails on darwin
-Date: Sat, 20 Apr 2024 09:35:33 +0000
+Date: Sat, 20 Apr 2024 10:06:21 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -56,14 +56,14 @@ X-Bugzilla-Component: man-pages
 X-Bugzilla-Version: unspecified
 X-Bugzilla-Keywords: 
 X-Bugzilla-Severity: normal
-X-Bugzilla-Who: slyich@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-218730-11311-UMWrkBNuEk@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: bug_status cc resolution
+Message-ID: <bug-218730-11311-q8kXVH8Mn1@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-218730-11311@https.bugzilla.kernel.org/>
 References: <bug-218730-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -79,10 +79,19 @@ MIME-Version: 1.0
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D218730
 
---- Comment #2 from Sergei Trofimovich (slyich@gmail.com) ---
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D95=
-24f0f63badd896ccf6da7d79511100d86c4721
-fixes it for me.
+Alejandro Colomar (alx@kernel.org) changed:
+
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+                 CC|                            |alx@kernel.org
+         Resolution|---                         |CODE_FIX
+
+--- Comment #3 from Alejandro Colomar (alx@kernel.org) ---
+Thanks for reminding me that I should close this!  :-)
+
+Have a lovely day!
+Alex
 
 --=20
 You may reply to this email to add a comment.
