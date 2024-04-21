@@ -1,159 +1,103 @@
-Return-Path: <linux-man+bounces-796-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-797-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206148AC127
-	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 22:08:23 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id BEDA08AC145
+	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 23:49:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 553B51C203AD
-	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 20:08:22 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F23331C20429
+	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 21:49:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C22041C87;
-	Sun, 21 Apr 2024 20:08:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4DF33D0D5;
+	Sun, 21 Apr 2024 21:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BM0vjh1j"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzxoKoT/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D00A2556F
-	for <linux-man@vger.kernel.org>; Sun, 21 Apr 2024 20:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379D2175AB
+	for <linux-man@vger.kernel.org>; Sun, 21 Apr 2024 21:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713730098; cv=none; b=Q6vowEvvhN5uSAi39NC/vVIeIqbqXtLvfEXLOkKn0ru/0F1BhKmBmJKR8QcgiGgMmI4i+5IJsHzz6ab2cb3zpswG0R8/pIMnGSuvYCfaWpusS6Q9+UU4XjPRfsmbWunKgOKIoknBdJBLGp5u8gqajcjXLPXqG3gpc/KCqntNEvI=
+	t=1713736171; cv=none; b=pEkX1OwuT+3PyVnLYX5LKXS0Bjsr477yuEvA2i7w/oMEkElOA1jX7rPkSaG3NkNgIIBcZ0uivWcJ6kbNIFGoXnZkaXMRbDCDwzz7mDFQIW0JQHAx8SFlNi8dpx3ukStNu9AEaBapt1LS+QcJPhCC5blD+Hw6KVs/EMCmxyjqgKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713730098; c=relaxed/simple;
-	bh=DwwD+0u1BQ+7k+3WctMinzt1maiSqsOFDsWmHrTKUXo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a+DKpeD4qSlj0kjo+erlI4F36koK4eZ2i01OhXsREZgvwqb+/aSZ5QvVfU9A1+IUiY28JmbW9n8zGzo5KWv2D0GYNUmqhuzAnWylbvHrLi10577/AbyRRsKhzEd7VemmJR3hCcAdHeAjbDmzsrmmzlDXEodi2ahcP9rXb21NUPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BM0vjh1j; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13517C113CE;
-	Sun, 21 Apr 2024 20:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713730097;
-	bh=DwwD+0u1BQ+7k+3WctMinzt1maiSqsOFDsWmHrTKUXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BM0vjh1jpH3AVvAaf2YViTq5ORwhGID2eflTFhM6lUOA8w1U6LYHN4aB0yFSODrvJ
-	 uU71VodpbNw8H8dwVddkAreI/0PZCjpwcSS3tyNjvyqROD7KLWGVW+ElgCHsASS0do
-	 HhYIwaQZSMnwMj2i74KwThCC7BYGxQysjEHaClI7EVV45U4H3ZehWleZPXpSIOI3/U
-	 HSACrI5lSyc7oZNzLe7WB3rW5nG7HiYGT7PQcTw4NX1ykh2zj4e6MKURFCF97HfBuN
-	 ZgwkvdF5YkbRnr5P6aMPQqMr3inWUxGozcRSdnDJgReFT7uaunZEpYdhvgbRcUxunf
-	 r4xa2ZyGgWsLg==
-Date: Sun, 21 Apr 2024 22:08:14 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: "G. Branden Robinson" <branden@debian.org>, linux-man@vger.kernel.org
-Subject: Re: Problems building the unifont PFA and DIT files for the PDF book
-Message-ID: <ZiVyLv5LF2uGf1gT@debian>
-References: <ZiO0cHOWPyuiJGQq@debian>
- <2272286.muIFQpQJ8V@pip>
+	s=arc-20240116; t=1713736171; c=relaxed/simple;
+	bh=YeHoTLSm5jc97MYxMMDYqs9OW/VxjvxU9kTMciPDXCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jl9YTfATeyeTXTXGDtH+wZgeSmmGRGFYX0Z1JjUl0mmQBda3lkrx+ZFb9LTjmCx/MyQ1s123Sk5HKP8soZl1D8OVA/UyMyAozCdty3jsthK/0G39ZCJVlusUinpa4T8BDVGUL1pQedGmhCczMks9Bz+TBlR2tf5l0/D4aBUu8jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzxoKoT/; arc=none smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-2db2f6cb312so65724071fa.2
+        for <linux-man@vger.kernel.org>; Sun, 21 Apr 2024 14:49:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1713736168; x=1714340968; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=p+N1jA+VUnQ5sY2Nr7gb5UyQnGJZDwoy5OXfkuCMFUQ=;
+        b=dzxoKoT/6kE3TuVVOqk8hbZyzcLUKJdtFqtg7r7W4MQ95MQ9xit6kEVt+c24F3KPdO
+         k3EbDb9f0bpA0djK/ubZ4KkxuiGwWibj0pX0konoBL4DjBDJ/IYW5LiUL77kHSPI7dM2
+         h/7JJlOccM166U/sdANuX9D7Gl67b2IQgz7/InFUUGXBZ6ImEcXCNLoe4DWRxquPfym/
+         KBTngcbiR8X9G/P277wiZVgqANbmsGg4/c9R5ypxgMhjyLlO8U+aiqCj3KZRs5LSD+EK
+         PkgqHLDzJoAqcJ3qRSjAc9VqTvCXA2RoZAh0bLEjO4STC64br7js4Ho05wGhlVhzDYCY
+         FOYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713736168; x=1714340968;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=p+N1jA+VUnQ5sY2Nr7gb5UyQnGJZDwoy5OXfkuCMFUQ=;
+        b=LqBppIDYvqCpliiGEJVs2wSTXDoI9fozJCGcBiXlzfmKCMk9LC3CH9raK/RF9tBI86
+         fyzf0Es7nxIrymPow76FMJwYt4uN16ktVzD8tOWvkNn2QGGPrHXOmC6ruUkU+5tIQReh
+         3EMLP/0XxqqnsIOhbacDIVd+xb/fNsTLfxMm+16aDlRc+Hkho6qEja4HX+dRxbRgakV0
+         PozLqASJTE+3JHRAiNxTb8oVi2BXgQEaufUVNiVdIo9KPyMRuRbjpe9xK9SOBviC0me3
+         APk4uXg+Bd/cobYg+v4b9ueVMN/OD6pu63l5adQN1kT3D6AlXvrUNPkrjK2mhA/g1WAv
+         EFeQ==
+X-Gm-Message-State: AOJu0YxO9RqkbEpwUmpNf7dvwxt41i+7eTWrnfw6hkf8wNGIqTi+EQig
+	W5xOeCenQ5vIopFFXCcP12wwQIevLqWdJ/z/emwO22Y+9yF5Sc+V
+X-Google-Smtp-Source: AGHT+IGLFsYkc8f+6qChGTnQ47adR5vH/Adv4+gPfMJ6Ax2jjSM+jI3dr5RATvf5gW1RlEj1yeN/8g==
+X-Received: by 2002:a2e:8008:0:b0:2d4:5370:5e8a with SMTP id j8-20020a2e8008000000b002d453705e8amr5882846ljg.22.1713736168070;
+        Sun, 21 Apr 2024 14:49:28 -0700 (PDT)
+Received: from localhost.localdomain (net-2-37-91-160.cust.vodafonedsl.it. [2.37.91.160])
+        by smtp.gmail.com with ESMTPSA id qq22-20020a17090720d600b00a554f6fbb25sm4944501ejb.138.2024.04.21.14.49.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 21 Apr 2024 14:49:27 -0700 (PDT)
+From: Emanuele Torre <torreemanuele6@gmail.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Emanuele Torre <torreemanuele6@gmail.com>
+Subject: [PATCH] open.2: protected_* sysctls are defined in proc_sys_fs(5), not proc(5)
+Date: Sun, 21 Apr 2024 23:48:53 +0200
+Message-ID: <20240421214901.2539179-1-torreemanuele6@gmail.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="V1YQ310a1edWtRCo"
-Content-Disposition: inline
-In-Reply-To: <2272286.muIFQpQJ8V@pip>
+Content-Transfer-Encoding: 8bit
 
+---
+ man2/open.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---V1YQ310a1edWtRCo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 21 Apr 2024 22:08:14 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: "G. Branden Robinson" <branden@debian.org>, linux-man@vger.kernel.org
-Subject: Re: Problems building the unifont PFA and DIT files for the PDF book
+diff --git a/man2/open.2 b/man2/open.2
+index 8c791fa47..1e98a1df4 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -1021,7 +1021,7 @@ For details, see the descriptions of
+ and
+ .I /proc/sys/fs/protected_regular
+ in
+-.BR proc (5).
++.BR proc_sys_fs (5).
+ .TP
+ .B EBADF
+ .RB ( openat ())
+-- 
+2.44.0
 
-Hi Deri,
-
-On Sun, Apr 21, 2024 at 08:58:03PM +0100, Deri wrote:
-> This is one of Branden's changes to groff. Previously a missing spacewidt=
-h parameter was=20
-> ignored and groff would calculate a value. As far as I know noone has eve=
-r complained=20
-> about the typography groff produced when using a font with no spacewidth =
-parameter, it=20
-> is now an error, but it does not stop it computing a value and continuing=
-=2E For pdf and ps,=20
-> using the default DESC files for the devices, the computed value is 333.
->=20
-> However, UnifontM is a bit mapped mono font where all western glyphs have=
- a width of=20
-> 500, so it would make sense edit that value into the UnifontM file by han=
-d. For other=20
-> language glyphs the fixed width is 1000 but they don't normally need a sp=
-ace character=20
-> between glyphs, but you can adjust with .ss if necessary.
->=20
-> I would advise to use:-
->=20
-> .special TINOR UnifontM S
-
-Yep, I used that order, following the patch you sent me a few weeks ago.
-
-BTW, why do you call it TINOR and not TinosR?  Also, why UnifontM and
-not UnifontR?  What's that M mean?
-
-> Since this is the order you would like the fonts searched, typographicall=
-y TINOR is much=20
-> better than UnifontM because the glyphs are drawn not bit mapped, so if a=
- glyph exists in=20
-> both prefer to use TINOR.
-
-Yep.
-
-> If you want to produce man pages in CJK languages, it would be much bette=
-r to install a=20
-> proper CJK font rather than rely on UnifontM, I suggested to use it to fi=
-ll the gaps in the=20
-> iso-8859 pages. Now you want complete pages in other languages for shadow=
-, you=20
-> should consider installing an appropriate font. I have attached two pdfs,=
- one using=20
-> UnifontM and the other a proper CJK font. If you use your pdf viewers zoo=
-m control you=20
-> will soon see the difference in quality.
-
-Yeah, I was looking for a font that's in a common Debian package.  I
-found some, but they were in very obscure packages that I prefer not to
-depend on.  I'll keep searching.
-
-Have a lovely night!
-Alex
-
-> Cheers=20
->=20
-> Deri
-
---=20
-<https://www.alejandro-colomar.es/>
-
---V1YQ310a1edWtRCo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYlci4ACgkQnowa+77/
-2zIfAg/+OlFqBm6PBi/lqqi3TL2Dz7kKw8OyGO84ACw08bnqFOIG1qcuH12ccV/w
-DgzC8ddcNpMGSBEsM110OeDP8d9hd+RRUtYM38xVJxrfXzsChym0dlnCKvJOOnY2
-ZH3qS6fyMdeiOQLkzCAtvLnJScGQ/zHLb2u6xxZdIFQ3YA0FTfFME+c3tqUw3O+x
-Tjfo9WtY+Q33M+cMGHXZCtAVe3Ko5nweN3zi3zWdVMk+XJHp71mZJ/t6GM4GpGgd
-mcpVfpO/Gc6uo2PkL1FXpETrB21Y/oJc14AkNcFHFMarnST7DUAoWUzVLYYdLsp6
-mq5D0n2TaA5cURuS6K/gMB4Br+xUVmqAaGZmvfqeOsR8Hy5e/N8FEWPoa/p3vXC7
-G7NMxEn/9gOsD3DTiIeAO51oZ0w+6Oar4ry9LepZwLXfpy3Q13Whia5Drxrs8sUu
-VViFXKVk95J1oLPXu5zQyXe0ogf6V5N/DDo4UHNxdfCZ63JqxR1B3jtRLSuwxDKE
-VObuNDIPJWMTcklCJz7bEqFi19sjDMnD/QxCAxZ7d/TCjjuCaq+hk2t5L1Uz1PW8
-IEvIWeNY9GwH7f5JnwO61YAruqbcyYYh9B4+HriYODOC1tzv3noLmT+Ikg2ahMm9
-9kQbBSHc3/mDKPqhM24VlxFsTBLXTt+E0/Yk33uV2wiHL2zl95Q=
-=nVEb
------END PGP SIGNATURE-----
-
---V1YQ310a1edWtRCo--
 
