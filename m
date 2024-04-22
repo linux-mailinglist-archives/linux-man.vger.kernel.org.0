@@ -1,103 +1,129 @@
-Return-Path: <linux-man+bounces-797-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-798-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEDA08AC145
-	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 23:49:36 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E25F8AC329
+	for <lists+linux-man@lfdr.de>; Mon, 22 Apr 2024 05:44:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F23331C20429
-	for <lists+linux-man@lfdr.de>; Sun, 21 Apr 2024 21:49:35 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id E72731F210B0
+	for <lists+linux-man@lfdr.de>; Mon, 22 Apr 2024 03:44:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4DF33D0D5;
-	Sun, 21 Apr 2024 21:49:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ABE6FEAEB;
+	Mon, 22 Apr 2024 03:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzxoKoT/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R1HJUavz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379D2175AB
-	for <linux-man@vger.kernel.org>; Sun, 21 Apr 2024 21:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B3FE542
+	for <linux-man@vger.kernel.org>; Mon, 22 Apr 2024 03:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713736171; cv=none; b=pEkX1OwuT+3PyVnLYX5LKXS0Bjsr477yuEvA2i7w/oMEkElOA1jX7rPkSaG3NkNgIIBcZ0uivWcJ6kbNIFGoXnZkaXMRbDCDwzz7mDFQIW0JQHAx8SFlNi8dpx3ukStNu9AEaBapt1LS+QcJPhCC5blD+Hw6KVs/EMCmxyjqgKc=
+	t=1713757474; cv=none; b=i/1A2aM0VAOD2JENLxRWZQvexsuG+vR8e48lfZUwfPxOIYLfPTxh2C7jRUV+wQfR6K2SY7WRNnynh0OYWjym9iKMjyCzGQzrr96a5/qUalf4WFOblZZwEm+DrKICiSo73CGpMeJuowuqQmGpqdvgZojgWV3RJ1X/oLSeIqDQ+3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713736171; c=relaxed/simple;
-	bh=YeHoTLSm5jc97MYxMMDYqs9OW/VxjvxU9kTMciPDXCs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jl9YTfATeyeTXTXGDtH+wZgeSmmGRGFYX0Z1JjUl0mmQBda3lkrx+ZFb9LTjmCx/MyQ1s123Sk5HKP8soZl1D8OVA/UyMyAozCdty3jsthK/0G39ZCJVlusUinpa4T8BDVGUL1pQedGmhCczMks9Bz+TBlR2tf5l0/D4aBUu8jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzxoKoT/; arc=none smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-2db2f6cb312so65724071fa.2
-        for <linux-man@vger.kernel.org>; Sun, 21 Apr 2024 14:49:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713736168; x=1714340968; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=p+N1jA+VUnQ5sY2Nr7gb5UyQnGJZDwoy5OXfkuCMFUQ=;
-        b=dzxoKoT/6kE3TuVVOqk8hbZyzcLUKJdtFqtg7r7W4MQ95MQ9xit6kEVt+c24F3KPdO
-         k3EbDb9f0bpA0djK/ubZ4KkxuiGwWibj0pX0konoBL4DjBDJ/IYW5LiUL77kHSPI7dM2
-         h/7JJlOccM166U/sdANuX9D7Gl67b2IQgz7/InFUUGXBZ6ImEcXCNLoe4DWRxquPfym/
-         KBTngcbiR8X9G/P277wiZVgqANbmsGg4/c9R5ypxgMhjyLlO8U+aiqCj3KZRs5LSD+EK
-         PkgqHLDzJoAqcJ3qRSjAc9VqTvCXA2RoZAh0bLEjO4STC64br7js4Ho05wGhlVhzDYCY
-         FOYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713736168; x=1714340968;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p+N1jA+VUnQ5sY2Nr7gb5UyQnGJZDwoy5OXfkuCMFUQ=;
-        b=LqBppIDYvqCpliiGEJVs2wSTXDoI9fozJCGcBiXlzfmKCMk9LC3CH9raK/RF9tBI86
-         fyzf0Es7nxIrymPow76FMJwYt4uN16ktVzD8tOWvkNn2QGGPrHXOmC6ruUkU+5tIQReh
-         3EMLP/0XxqqnsIOhbacDIVd+xb/fNsTLfxMm+16aDlRc+Hkho6qEja4HX+dRxbRgakV0
-         PozLqASJTE+3JHRAiNxTb8oVi2BXgQEaufUVNiVdIo9KPyMRuRbjpe9xK9SOBviC0me3
-         APk4uXg+Bd/cobYg+v4b9ueVMN/OD6pu63l5adQN1kT3D6AlXvrUNPkrjK2mhA/g1WAv
-         EFeQ==
-X-Gm-Message-State: AOJu0YxO9RqkbEpwUmpNf7dvwxt41i+7eTWrnfw6hkf8wNGIqTi+EQig
-	W5xOeCenQ5vIopFFXCcP12wwQIevLqWdJ/z/emwO22Y+9yF5Sc+V
-X-Google-Smtp-Source: AGHT+IGLFsYkc8f+6qChGTnQ47adR5vH/Adv4+gPfMJ6Ax2jjSM+jI3dr5RATvf5gW1RlEj1yeN/8g==
-X-Received: by 2002:a2e:8008:0:b0:2d4:5370:5e8a with SMTP id j8-20020a2e8008000000b002d453705e8amr5882846ljg.22.1713736168070;
-        Sun, 21 Apr 2024 14:49:28 -0700 (PDT)
-Received: from localhost.localdomain (net-2-37-91-160.cust.vodafonedsl.it. [2.37.91.160])
-        by smtp.gmail.com with ESMTPSA id qq22-20020a17090720d600b00a554f6fbb25sm4944501ejb.138.2024.04.21.14.49.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Apr 2024 14:49:27 -0700 (PDT)
-From: Emanuele Torre <torreemanuele6@gmail.com>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	Emanuele Torre <torreemanuele6@gmail.com>
-Subject: [PATCH] open.2: protected_* sysctls are defined in proc_sys_fs(5), not proc(5)
-Date: Sun, 21 Apr 2024 23:48:53 +0200
-Message-ID: <20240421214901.2539179-1-torreemanuele6@gmail.com>
-X-Mailer: git-send-email 2.44.0
+	s=arc-20240116; t=1713757474; c=relaxed/simple;
+	bh=Hi/RE7NU6hBVLiYkz+MH6oOITRZdSQTD7agnHI6nysk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQEhGMrLDyfZ3RZnmKla//hxKiNk8PuRKgP5sMh5Gb/xgkpIRnGVQ6Grb955vwFP1KIaICx8S24sCY2HS4uvrZby3iEKFGyRhJymvlVurAadFXRY1w3HeKC4K0I0L+Ln2Ft5SMTSUhWruh1D51oS4quarpywDba9r32gy01i/Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R1HJUavz; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559B3C113CE;
+	Mon, 22 Apr 2024 03:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713757474;
+	bh=Hi/RE7NU6hBVLiYkz+MH6oOITRZdSQTD7agnHI6nysk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R1HJUavzJS7F6DDk6eQ6rL+DRZ2qLeX1gaurKJ0y+aResqO8wk7zFO3npRi29iXwB
+	 F0rkWFKiMCtNubIgnjWl/JfAMzrrUV/8ZkzHGSHzsLfkisndh68oH0Q/VWW54nt9HV
+	 kH48UaOBYBHg4FyDyF5VfLdI0x2Oa+zJYXyMOQnpYr8Ju9s2wNrFLXMq8tqOTicqAr
+	 N1fCv3uDGcMq0yT0ULcFq1NY4c8USuPZuZmI9RM3GpzPo3lr7Aed1Tf2HZj7ei7Ms5
+	 /u0nHDtdUhLc2swokuBA4FzapVOGYG2FEg3os9q9WKaleCJ+Dy0+zKwQcMWFk6J4YQ
+	 4FDNdy8eaIN1w==
+Date: Mon, 22 Apr 2024 05:44:30 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Emanuele Torre <torreemanuele6@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] open.2: protected_* sysctls are defined in
+ proc_sys_fs(5), not proc(5)
+Message-ID: <ZiXdHyxcOCcuRAq2@debian>
+References: <20240421214901.2539179-1-torreemanuele6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SsdtnuhRUge69SNi"
+Content-Disposition: inline
+In-Reply-To: <20240421214901.2539179-1-torreemanuele6@gmail.com>
 
----
- man2/open.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/open.2 b/man2/open.2
-index 8c791fa47..1e98a1df4 100644
---- a/man2/open.2
-+++ b/man2/open.2
-@@ -1021,7 +1021,7 @@ For details, see the descriptions of
- and
- .I /proc/sys/fs/protected_regular
- in
--.BR proc (5).
-+.BR proc_sys_fs (5).
- .TP
- .B EBADF
- .RB ( openat ())
--- 
-2.44.0
+--SsdtnuhRUge69SNi
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Apr 2024 05:44:30 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Emanuele Torre <torreemanuele6@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] open.2: protected_* sysctls are defined in
+ proc_sys_fs(5), not proc(5)
 
+On Sun, Apr 21, 2024 at 11:48:53PM +0200, Emanuele Torre wrote:
+> ---
+
+Hi Emanuele,
+
+Patch applied.  Thanks.
+
+Have a lovely night!
+Alex
+
+>  man2/open.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man2/open.2 b/man2/open.2
+> index 8c791fa47..1e98a1df4 100644
+> --- a/man2/open.2
+> +++ b/man2/open.2
+> @@ -1021,7 +1021,7 @@ For details, see the descriptions of
+>  and
+>  .I /proc/sys/fs/protected_regular
+>  in
+> -.BR proc (5).
+> +.BR proc_sys_fs (5).
+>  .TP
+>  .B EBADF
+>  .RB ( openat ())
+> --=20
+> 2.44.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--SsdtnuhRUge69SNi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYl3R4ACgkQnowa+77/
+2zJUQRAAluPzk8eWmCyF3jAg3SfAnAHe02Yo5tTLLOaCJUjxuFN9jMIwVhn8Wr3w
+FqbD8RpEpOuwHeYqczL8r3mz6Bfe5vBxKG0gRp4dDaGDgHuct/xht+u41beApczM
+ctawTv7I1++GEP6R8ozlN/0cpFiI9h9P4ITXqR6/04AKamIh+zKnCHnsumKv5b0L
+aeCf39t0+Dkm/BX3VpCod9XZ6dENqtVWF8qFmnmJT4M4XhIDYMp5lbwo5gWD+xkR
+RumGVwVkAz19FO5Ssg2Z4e+YgJ0ybgwCG6lxfcTASy1uTLheShL6+UdzS78sbTjW
+LFOQzTYyMG7szurTwzXc1N3hsp2GcKoXrbI/jUW/j4a3fma7uIV+WnayJUXDsFWn
+CpIuD4aZkH47u8r8OiUDHTIEa8YmUi0LyN35g5iyahc0Lcnfl/uL1P1zNSTqJGa/
+dxpfyen2tRrMZDElm/SN9YT4gKQHygCHgFzacObpkP7vBDOs5cbiBqbs5CWb168W
+vvlybAyYvD4mgRV4mfCeWvbn4qkhg7KGkFyNmHbESuJsvQQvWWmSCyvKq/eeiLWk
+805g3FNzzmUvWyomjHqozUs6+7D+02aO5A/t0IjLjXB/hql61XsY3iPhUjI5kPEd
+RRgOyiL5456gIeTH+vdo4Luiqy5Tm2WGwQSmlQ2JuYOjMWoVhs8=
+=BAoP
+-----END PGP SIGNATURE-----
+
+--SsdtnuhRUge69SNi--
 
