@@ -1,39 +1,39 @@
-Return-Path: <linux-man+bounces-802-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-803-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4818AD64F
-	for <lists+linux-man@lfdr.de>; Mon, 22 Apr 2024 23:08:42 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2568A8ADE9D
+	for <lists+linux-man@lfdr.de>; Tue, 23 Apr 2024 09:53:17 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5D9561C20E37
-	for <lists+linux-man@lfdr.de>; Mon, 22 Apr 2024 21:08:41 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A42FE1F23432
+	for <lists+linux-man@lfdr.de>; Tue, 23 Apr 2024 07:53:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A000B1C286;
-	Mon, 22 Apr 2024 21:08:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7F00481B7;
+	Tue, 23 Apr 2024 07:53:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fz-juelich.de header.i=@fz-juelich.de header.b="l8Nwr0Ld"
+	dkim=pass (1024-bit key) header.d=fz-juelich.de header.i=@fz-juelich.de header.b="ziYCax2G"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mailgw-k01.its.kfa-juelich.de (mailgw-k01.its.kfa-juelich.de [134.94.4.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335531CD15
-	for <linux-man@vger.kernel.org>; Mon, 22 Apr 2024 21:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1CA47F64
+	for <linux-man@vger.kernel.org>; Tue, 23 Apr 2024 07:53:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.94.4.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713820120; cv=none; b=rMnpUpIhuymzUjmOFRSH2lg4P2BAWlSvgWaW921nOfaUO4x+APBHskfgddRHYA2lgWAZ9B8OwO7wU60P/sUu2jE7/bSQpwz22m5iXuTAdKG5zE0DryGdj+D126YlwfiVMyGh3C47k/784f3DnDVo+v6xznfg2ItJjXhhoe5k1L0=
+	t=1713858792; cv=none; b=Y3ziOvdNKI7rk0axz36yc4HqkkH9C0U+qZPk8b4qwPmDBz6E40n72TlUzeDObWkBpVWqdV6hySwlzcWgfGm7vZL23qcgchVpRWUyIff2Tz9/AZkPT5/zljoX0fxPLTXFNJ0gh9bib+sGEhspBcKkj6XxSvJRrUYW0y2WD5U3NV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713820120; c=relaxed/simple;
-	bh=Oeo4Qq6b9YgyHtgayjSFxpp2Bsxvf8mLu9TW+/YFyOw=;
+	s=arc-20240116; t=1713858792; c=relaxed/simple;
+	bh=B/6As7eQ0VL7PL58yvZazyiqMvfTWyhU/kOa6dHCnZM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=JDR0aINrAd7AGswQs7OHymTdYEWC/dSQmer+urrCfaifvzo74dw73dE7Yg4PegsVl8RNKE8FCeRcvnJ01Qd0BZhjukxDVUL/ixuSr5JRRMcfBrMn7cA2Pxnh1hyPYYfLdyR6qGceDI5d2g+W+7VLDbCTa1O4dO28yw2QQTm4xOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fz-juelich.de; spf=pass smtp.mailfrom=fz-juelich.de; dkim=pass (1024-bit key) header.d=fz-juelich.de header.i=@fz-juelich.de header.b=l8Nwr0Ld; arc=none smtp.client-ip=134.94.4.39
+	 In-Reply-To:Content-Type; b=OgHGGAQv1v/8iIHUooZNC77LmdLMw6jF6E1Jm7srg7P5C//f9Sv4I3ydJFHQU0BN6XBD0OTJF1Li8YTB0jEepYqc/1+WSkBbdsX1jOfwuBSIzf9pfJRYqbNLb4qRI6uBVtMRV+ydq9/l281aFV8Y/wlfWysmlO/MUgYPbmfhU1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fz-juelich.de; spf=pass smtp.mailfrom=fz-juelich.de; dkim=pass (1024-bit key) header.d=fz-juelich.de header.i=@fz-juelich.de header.b=ziYCax2G; arc=none smtp.client-ip=134.94.4.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fz-juelich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fz-juelich.de
 Received: from localhost (localhost [127.0.0.1])
-	by mailgw-k01.its.kfa-juelich.de (Postfix) with ESMTP id 9541B14011F;
-	Mon, 22 Apr 2024 23:08:29 +0200 (CEST)
+	by mailgw-k01.its.kfa-juelich.de (Postfix) with ESMTP id BEC93140565;
+	Tue, 23 Apr 2024 09:53:06 +0200 (CEST)
 Authentication-Results: mailgw-k01.its.kfa-juelich.de (amavisd-new);
 	dkim=pass (1024-bit key) reason="pass (just generated, assumed good)"
 	header.d=fz-juelich.de
@@ -41,23 +41,23 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fz-juelich.de; h=
 	content-type:content-type:in-reply-to:from:from:references
 	:content-language:subject:subject:user-agent:mime-version:date
 	:date:message-id:received:received:received; s=main; t=
-	1713820107; bh=Oeo4Qq6b9YgyHtgayjSFxpp2Bsxvf8mLu9TW+/YFyOw=; b=l
-	8Nwr0LdrWBzYPX6sxjOtyF0+qBQPdapXkhIWxnSV6IFFaMQIpBPLvekxU7UEIGv5
-	Eag9tqWrbLxXLpm0UG64jB4I03p09O9k+HnXE8KljWB43ZwZuswSSbJNrJUn7pgh
-	ZD11Lz8xKb1DpiaXnckdjiCQsJi71Sz0/lDAPgEBOw=
+	1713858784; bh=B/6As7eQ0VL7PL58yvZazyiqMvfTWyhU/kOa6dHCnZM=; b=z
+	iYCax2G6YU/LvYCk6udGkpa722uA9XPOl+hxOCayc3TvyG2AlHEuihQWh0766UrG
+	LIMzC3A9BO2V1bMUKKqkLNCuEsoH5H04S0G2uN4fD0N1OMvtM42qbmMPiC+Ux/sD
+	WOy1Yv3pDlX85WT9X7zd2qpqJj3AYTtnI/F0RvXHPI=
 X-Virus-Scanned: Debian amavisd-new at mailgw-k01.its.kfa-juelich.de
 Received: from mailgw-k01.its.kfa-juelich.de ([127.0.0.1])
 	by localhost (mailgw-k01.its.kfa-juelich.de [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id rPJbWJjze4ty; Mon, 22 Apr 2024 23:08:27 +0200 (CEST)
+	with ESMTP id dh3_Q7BdSBDS; Tue, 23 Apr 2024 09:53:04 +0200 (CEST)
 Received: from exch2019-k.ad.fz-juelich.de (exch2019-k.its.kfa-juelich.de [134.94.4.37])
 	by mailgw-k01.its.kfa-juelich.de (Postfix) with ESMTPS;
-	Mon, 22 Apr 2024 23:08:27 +0200 (CEST)
-Received: from [192.168.178.21] (62.216.210.241) by
- exch2019-k.ad.fz-juelich.de (134.94.4.37) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Mon, 22 Apr 2024 23:08:26 +0200
-Message-ID: <eba65fdb-e70b-4478-bfd7-8a7a31741774@fz-juelich.de>
-Date: Mon, 22 Apr 2024 23:08:22 +0200
+	Tue, 23 Apr 2024 09:53:04 +0200 (CEST)
+Received: from [172.25.80.180] (172.25.80.180) by exch2019-k.ad.fz-juelich.de
+ (134.94.4.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 23 Apr
+ 2024 09:53:03 +0200
+Message-ID: <9674d2f0-6455-4233-8da6-4181d8e57781@fz-juelich.de>
+Date: Tue, 23 Apr 2024 09:53:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,57 +65,79 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: elf(5) and ld.so(8): DT_RPATH deprecated - really?
+Subject: [patch] elf.5 and ld.so.8: undeprecate DT_RPATH; explain DT_RPATH vs
+ DT_RUNPATH
 Content-Language: en-US
-To: Alejandro Colomar <alx@kernel.org>, Joseph Myers <josmyers@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
 CC: <bug-binutils@gnu.org>, <linux-man@vger.kernel.org>, Mike Frysinger
-	<vapier@gentoo.org>
+	<vapier@gentoo.org>, Joseph Myers <josmyers@redhat.com>
 References: <643ad7be-1cf5-491d-bd0c-d87e2b260912@fz-juelich.de>
  <ZiXpBp-vigNCwpHx@debian> <48c28639-f09d-dab2-10bb-9a6813b28062@redhat.com>
  <ZialT7CDXzj28K4Q@debian>
 From: Joachim Wuttke <j.wuttke@fz-juelich.de>
 In-Reply-To: <ZialT7CDXzj28K4Q@debian>
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
-	micalg=sha-512; boundary="------------ms070705060801080208030308"
+	micalg=sha-512; boundary="------------ms010803050206020804040801"
 X-ClientProxiedBy: exch2019-e.ad.fz-juelich.de (134.94.4.35) To
  exch2019-k.ad.fz-juelich.de (134.94.4.37)
 
---------------ms070705060801080208030308
+--------------ms010803050206020804040801
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Alex and all:
+In elf.5 and ld.so.8, remove deprecation of DT_RPATH
+In elf.5, amend the description of DT_RUNPATH and DT_RPATH.
 
- > But it seems people want to remove it "eventually" ...
- > in a couple of centuries ...
+Rationale:
+There is no credible path towards removal of DT_RPATH.
+Lots of software depend on DT_RPATH as is.
+It is used e.g. for testing and in binary installers.
 
-Deprecation, in my understanding, requires a realistic
-roadmap for change, and in particular there must be
-a way to replace any legitimate use of the old facility
-by a functionally equivalent new construct.
+Signed-off-by: Joachim Wuttke <j.wuttke@fz-juelich.de>
+---
+  man5/elf.5   | 4 ++--
+  man8/ld.so.8 | 1 -
+  2 files changed, 2 insertions(+), 3 deletions(-)
 
- > if you have the intention of using it in new software,
- > or keeping it in existing software, maybe you could
- > give your reasons
+diff --git a/man5/elf.5 b/man5/elf.5
+index 9aff88afb..57136159c 100644
+--- a/man5/elf.5
++++ b/man5/elf.5
+@@ -1787,7 +1787,7 @@ Address of the termination function
+  String table offset to name of shared object
+  .TP
+  .B DT_RPATH
+-String table offset to library search path (deprecated)
++String table offset to search path for direct and indirect library dependencies
+  .TP
+  .B DT_SYMBOLIC
+  Alert linker to search this shared object before the executable for symbols
+@@ -1819,7 +1819,7 @@ Instruct dynamic linker to process all relocations before
+  transferring control to the executable
+  .TP
+  .B DT_RUNPATH
+-String table offset to library search path
++String table offset to search path for direct library dependencies
+  .TP
+  .B DT_LOPROC
+  .TQ
+diff --git a/man8/ld.so.8 b/man8/ld.so.8
+index fa75b7820..23cddb9df 100644
+--- a/man8/ld.so.8
++++ b/man8/ld.so.8
+@@ -61,7 +61,6 @@ then it is searched for in the following order:
+  Using the directories specified in the
+  DT_RPATH dynamic section attribute
+  of the binary if present and DT_RUNPATH attribute does not exist.
+-Use of DT_RPATH is deprecated.
+  .IP (2)
+  Using the environment variable
+  .BR LD_LIBRARY_PATH ,
+-- 
+2.43.0
 
-In addition to what Joseph wrote:
 
- > ... useful as it always was for testing purposes ...
-
-We are using RPATH not only in testing, but also in
-deployment, namely in binary installers where we
-bundle our application's binary executable with
-all direct and indirect shared library dependencies,
-except the most basic system libraries.
-
- > would you mind sending a patch, and CC binutils
-
-I'll try tomorrow.
-
-Kind greetings, Joachim
-
-
---------------ms070705060801080208030308
+--------------ms010803050206020804040801
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -210,8 +232,8 @@ ggUnAgEBMIGeMIGNMQswCQYDVQQGEwJERTFFMEMGA1UECgw8VmVyZWluIHp1ciBGb2VyZGVy
 dW5nIGVpbmVzIERldXRzY2hlbiBGb3JzY2h1bmdzbmV0emVzIGUuIFYuMRAwDgYDVQQLDAdE
 Rk4tUEtJMSUwIwYDVQQDDBxERk4tVmVyZWluIEdsb2JhbCBJc3N1aW5nIENBAgwmRW5Pe/5Q
 ogtEUZcwDQYJYIZIAWUDBAIDBQCgggJdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJ
-KoZIhvcNAQkFMQ8XDTI0MDQyMjIxMDgyMlowTwYJKoZIhvcNAQkEMUIEQO7OoKMRABnyhXbu
-Lqdb/07QCJoP6VfYv/kJec0go+bRh85tbl59jl9OmjCwvcl8en1yybsMBhUGNhLsEk1UFFAw
+KoZIhvcNAQkFMQ8XDTI0MDQyMzA3NTMwM1owTwYJKoZIhvcNAQkEMUIEQLWN7mWBbMGkHv9E
+2asfKMHP23XWx7EGM8n9qDV4YZiBSmSkprKc6hTaYGcEECt2Gp8Uu9R1OqJK/gXNe68UZc4w
 bAYJKoZIhvcNAQkPMV8wXTALBglghkgBZQMEASowCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMH
 MA4GCCqGSIb3DQMCAgIAgDANBggqhkiG9w0DAgIBQDAHBgUrDgMCBzANBggqhkiG9w0DAgIB
 KDCBrwYJKwYBBAGCNxAEMYGhMIGeMIGNMQswCQYDVQQGEwJERTFFMEMGA1UECgw8VmVyZWlu
@@ -221,15 +243,15 @@ IENBAgwmRW5Pe/5QogtEUZcwgbEGCyqGSIb3DQEJEAILMYGhoIGeMIGNMQswCQYDVQQGEwJE
 RTFFMEMGA1UECgw8VmVyZWluIHp1ciBGb2VyZGVydW5nIGVpbmVzIERldXRzY2hlbiBGb3Jz
 Y2h1bmdzbmV0emVzIGUuIFYuMRAwDgYDVQQLDAdERk4tUEtJMSUwIwYDVQQDDBxERk4tVmVy
 ZWluIEdsb2JhbCBJc3N1aW5nIENBAgwmRW5Pe/5QogtEUZcwDQYJKoZIhvcNAQEBBQAEggIA
-Nt3Zr7V4wmEhLxr+XtR6T+v7LUphC4iCCaEkuwAODsNFwLjy9VNB8PgwSklSIUu47Jx996NO
-IG9vtmnZdBilNo6FKIbenCIZ4jr1qWR53gaNON8j8sEb//cBqmzgW/ctvDrg7BP2ozAXYymm
-ABYjk86qeSfUitvKHjVxqcbiR8ui/bTq6TVNzBafr97s8lYayx3FMyPFCAo0QY4Z7ogUgQ9y
-Ua7lv3eI5kxklV7UKXPkvJQz2Q/G+UvzTTnPCSIFdNPyOVlBD0AIvnTa/F5Ul1/QUNQBcsOj
-TpAISREJk6607by6Xn63MT1SUMwOtMW53pAplNAR5rStdoLVn1nCuWpD47SNSnzbGCUNTiD8
-O8jD/h3h9v0E+P6wDOYd2BvBFN9G7kjLQEXoDBfTfzvadKTjclZpSwuAeFxY2eRBV2UjrDyo
-Tx/2mFco1HkU15iwPNEsooXZh/TdpkDdV3bjyv5yGhN/QVo21ZR9AnElta5MaG1vLd0wiUee
-1HwKzfxgADwQouTpPkSoXpK/LgtW/oaVkBAOIUKC2fOHrFLdfbs6UGV21NwnI0bXPJJuVRSq
-WUv62Dn0fYBQfqEvlv3/wJ1ahdYSGJJCWXASmLPj0aEGVn4rh1uPCAptQjI/J2tVEiEMnKhn
-ftPo83FgRlnP60FzBlD0vxi0ZJqdzBPcKDIAAAAAAAA=
---------------ms070705060801080208030308--
+OloIVRkIRHkRsn2gTNYJQ0ixBrHDJE2FJ2rkNparpsCe9LSZUxpaFMCGCmpSw5qCGQvg5jbe
+cgPSH3m+khRKjfjaAZfzLWuQUC5MncP40SHXy6TJ7qs7nzJYKLqvk6ah0LDK4BXJZze4VJYx
+fAS5uV1Oo5lHt/9Xztx/wbRglkGDaKgULvzlUuOUjK94uDvum1UKnhCfJgIowpLBn5ehQ1tD
+UbQwzsFTfR4KGW0OQAAg30+zwcHzJ1Be8DA5WkwT42/IzSKrQTZjn8Wjc3Hjc2Jvekw0haUj
+ivsLEE7kWvIfRY1caUA0Viq+GnhFL+NaKikTD56RaCO+nDcNyHoLYoVJJs21u5WBVGy63UE/
+xydX1eXP1dTjjQxOexaT5qMu9mVQUIk2ozS7h6A2Lzueh6LhIsKexdgeUrF9vjd42Sl6hnLo
+DhlaS5oxz70DseoaOAey8wIzGsdaFAlANLRttPVE5NtBQ++5qL3NkQLOrl5FKW4QU1/hUuV/
+mmBJUzaZhU84vv+61Ti3w5Bp2OZq2zKtqbm3ziL/g4MWnXiQ6ytizUPL74VIe3N0uhDkLqt5
+zI99Fx8T8xuLwy+7Tl9nsWzoDPnXP33uZcEUrGBdVufQ51cK0KX1KnXtJhslXJKPQmIN1XOm
+QlBRI0d2Njizv0zdgChsPQCT/ixggKLnieEAAAAAAAA=
+--------------ms010803050206020804040801--
 
