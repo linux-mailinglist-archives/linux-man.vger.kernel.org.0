@@ -1,288 +1,107 @@
-Return-Path: <linux-man+bounces-806-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-807-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95DD08AFCCE
-	for <lists+linux-man@lfdr.de>; Wed, 24 Apr 2024 01:46:39 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FB038AFD2D
+	for <lists+linux-man@lfdr.de>; Wed, 24 Apr 2024 02:10:28 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E55FE1F23415
-	for <lists+linux-man@lfdr.de>; Tue, 23 Apr 2024 23:46:38 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C110A2891C5
+	for <lists+linux-man@lfdr.de>; Wed, 24 Apr 2024 00:10:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D8283D3BD;
-	Tue, 23 Apr 2024 23:46:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D35CC363;
+	Wed, 24 Apr 2024 00:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uuBPoRBF"
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=simon.barth@gmx.de header.b="Jmm9ooNp"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C038F367
-	for <linux-man@vger.kernel.org>; Tue, 23 Apr 2024 23:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533B4360
+	for <linux-man@vger.kernel.org>; Wed, 24 Apr 2024 00:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1713915994; cv=none; b=YKOcNVnQmg1r/LwihjRzHDiezzF7CheLbmEiez8hpSY5hqT+s+hvz86aCtpXUkNuqWkMB7IM2FVltDEfVTcqJ9apHA8tqwQmuC6p3vgS918TOMdiXdh4w939/gkC2nGqfR/j05dntC8xAWss1MG7qAbDwFgw6CvCjaLlh8equXw=
+	t=1713917422; cv=none; b=sPyEL2kuj0Ka+DGYkXbniL4iNCXhV6ZB/Tq8vcPrXNIpKjgCRRntL4vyzpRn0hkIZko4aYIN2YENOfCP4sN/mmZ75UslgxYQtOnLoStnzBIZ7m9mXzF9EYkNj9c47wzKmqKznQNFioUzfShnMD2FvtnJ4v1Dto8hAG4jOWzpzpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1713915994; c=relaxed/simple;
-	bh=r3z0f5VRljAgVa6KEF3iteXDoruMEAW4XCz+p9DzvZg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X/0G47u+IPLxIQrvEDTkmZ+kLPpUa9rgzSeRkJfhr9DuCMcJmcDcdPiDpWze/sKjQPc+fr9dx1av/vthyFF09H8N3F/yIRpjL3S4r97Ju4JBT8fhAwac5nZpVVL04bQPVkuw0gbwwGE5qkH3oneUFcnho9PjU68fWsbvRYPJRzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uuBPoRBF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45EAEC4AF07;
-	Tue, 23 Apr 2024 23:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713915994;
-	bh=r3z0f5VRljAgVa6KEF3iteXDoruMEAW4XCz+p9DzvZg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uuBPoRBFyckElBiLBU9W6rCDesfQbpmRVlXqKGi1RMmOvGgJH2axSZptgQYyPzwM4
-	 AGcBBuhmaqVEoBUSZYOMdc3dqnclV+8vcQpntI3YUB0hktqBz8Q2RbV4yHR6WrgEmq
-	 p1Nr45ixlD4HSeUswGWUTNNAXQ4SHL0EJKFdmhODM6xxINYL9PJfFbTLUKQjc+yNr5
-	 nS4aMozy5HDrFr6QB5j747EZgNPApU7e2df5q2bjf6xwhHvcjwBcwPAqqGtT3rlCUL
-	 YVDpQKlEVay1BvjCttWGFIQSa149U54bptV/IGY+UqIT+jFBWx1HwIybqdppnYJQYq
-	 pDCUodRlLbOlw==
-Date: Wed, 24 Apr 2024 01:46:30 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Svetly Todorov <svetly.todorov@memverge.com>
-Cc: linux-man@vger.kernel.org, gregory.price@memverge.com,
-	ying.huang@intel.com
-Subject: Re: [PATCH v7] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
-Message-ID: <ZihIV3zsiklCzT8m@debian>
-References: <20240423-weighted_interleave-v7-1-0d91158a4eea@memverge.com>
+	s=arc-20240116; t=1713917422; c=relaxed/simple;
+	bh=GHrZzrJWC7y+lDuOau0mzqWWQxcQBhIP3HEWLcmJXXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lxUaoXIrg0qZFlgoPhc7m0hb3drwtu1fLPjyTCkbs/RttCvzVK8t1nn/wAkiRmWvZ61cPaZRHhxO6uScUIqcjS5b442XuPlRu5+RmbUMPd8IdN7qxsLqV31+y6P2zfBFTC45i5U3J0J9wTn53yRZnuaLyBKw7OAEqxh4qXfNfi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=simon.barth@gmx.de header.b=Jmm9ooNp; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1713917414; x=1714522214; i=simon.barth@gmx.de;
+	bh=n+/XaZBcjyuUypd8/RiI9kIjSaRnzEW93aoIWsspHLE=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=Jmm9ooNp5Kj1cV9lbsgu3bmdHW8c4vaCnuq1JKwTlnO96if9z17YL5yEgFmm3lpY
+	 WJYORjZzTztAt3QtPALs3Sd6OyHwyK3iXbIMj5dw6O2LPmyux9kn9/szBtX/dyQMZ
+	 /UX9/z75PFNz/XyioVYYmZz7/sg9EHyrrPwalM9TOnqGiQQqmVf1/+aMqtMFyNb8N
+	 sEKJEXnu/sgfoCJZ/ae/tcJ7tM6VJ0ZS/hK90SCsHTqrGwSX2PG/exaNiJ42hTjr1
+	 BpSw75aP42VrFYcQ1fSdQL2QcGRfFtC0LVHFisl+tsrAe7Ax7QtCHjnq28VMQh9la
+	 aYd6HuvBo+/gX+NcTg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from localhost ([80.146.185.163]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MV63g-1s9pmS0B0w-00QqfJ; Wed, 24
+ Apr 2024 02:10:14 +0200
+From: Simon Barth <simon.barth@gmx.de>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Simon Barth <simon.barth@gmx.de>
+Subject: [PATCH] slist.3: wfix
+Date: Wed, 24 Apr 2024 02:09:50 +0200
+Message-ID: <20240424000949.65424-2-simon.barth@gmx.de>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FluRoNx+P1SWza9W"
-Content-Disposition: inline
-In-Reply-To: <20240423-weighted_interleave-v7-1-0d91158a4eea@memverge.com>
-
-
---FluRoNx+P1SWza9W
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Apr 2024 01:46:30 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Svetly Todorov <svetly.todorov@memverge.com>
-Cc: linux-man@vger.kernel.org, gregory.price@memverge.com,
-	ying.huang@intel.com
-Subject: Re: [PATCH v7] man2: add MPOL_WEIGHTED_INTERLEAVE documentation
+X-Provags-ID: V03:K1:tFLkiHP2Mp3+TQp14DxicNoBIHDvPtS0ddU+JflTTKXAuG+a/3E
+ cDS006MMvicjPSk11/SsXcFpffQo2fnbaS86TIDjG0yGx/09r7g++yOCLEEcc5Jgk99hwgp
+ etQUo1CJvRcS2xK9MLFlCzQT0H/rzmTRUVxb1kkULnFBFuUHg60Bga53Mf15zqGn6FUrFNR
+ MAAZ1wd7Ku9OUNRlUwa4Q==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:UlYZp/+BbMA=;VIUwss6CTKGAsoVWp890CbFkcU1
+ qhms1VdpYaYvPDFimmFlHt/dggMvsQ8marehfQkSiJmXKTv1LDeohxpBBwHXKwEIcWVkK3t2B
+ GhsqOmKb3+MejiWX5DKFI6d5EejM3DAPRTRhC0uIOfBNdFwciYZetX2nsN4hn339pnxRMByYQ
+ G1QuXRp/D8SWzFpPAy8ZbKj223FGcMMLDkD3yE+0JGdZqYAt/c8+d5ZhQZBKXirkxNQ1NiPUL
+ 80wyJ2jvMDIjh40hD3kq/9Ei+5BG/cAUWgNanlixwMxn9ArTs8D0PnCQhQCGO8ouql+5c7DQM
+ VAtMc7nEcsl4WlEtHQNKbLlzv56ggBafNywcDRLuUPkO6l89HDH0RJWDGG38JRuxkm3TuQPmd
+ HXjhEIRVga1n1WRgIRAThzJ8h+qwhGB4GPVDCOXvAB/W05rTys3r3pIzf4nBWP2nTH0DiK8hD
+ SGLr+SdQGhROOgiM56w+pKQEywt/hnyMsGvY6GYqehU5vpqZ3lMNOn/sO1huSvzB7I7WLaPUL
+ GJIhiEJtCYADLVkdkBpS62zBvqD0IBwn56ucnuyfDw/yaeKD2xaHqBhdyCdtduxPDRgf89R76
+ J8Zf4PsJbnoszOWSAAVOuKdEOhmAOOUWWzPG/G0lqK8wLF9ygX5m/P5XKozat+TVo2+3MLMuT
+ 6FF9k6jH1PWnvkgIHqsb3NPvUv49CEIPpDfLgFn2O3HGJ4FQfDDDyHeBW0arTlrbYRd1sfeK4
+ 5MEixFpJNGDxH7W3jWozxkCRK6ne6GU/XFlfJmjp2aAgK5zNi8aNZrVebXKoYiiGuQMbab05e
+ hWNy7lTuhss0AKO9o0M4+p8uB0nUJjK9rw4qL7q+bXsUw=
 
-Hi Svetly,
+This page is about singly linked lists, not doubly linked lists.
 
-On Tue, Apr 23, 2024 at 11:28:31PM +0000, Svetly Todorov wrote:
-> Hi Alex,
->
-> Surprised I missed this message. Better late than never, I hope...
+Signed-off-by: Simon Barth <simon.barth@gmx.de>
+=2D--
+ man3/slist.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-No problem!  :-)
+diff --git a/man3/slist.3 b/man3/slist.3
+index fdb045aee..02745286b 100644
+=2D-- a/man3/slist.3
++++ b/man3/slist.3
+@@ -68,7 +68,7 @@ Standard C library
+ .\" .BI "                        SLIST_ENTRY " NAME );
+ .fi
+ .SH DESCRIPTION
+-These macros define and operate on doubly linked lists.
++These macros define and operate on singly linked lists.
+ .P
+ In the macro definitions,
+ .I TYPE
+=2D-
+2.44.0
 
-On Tue, Apr 23, 2024 at 04:36:56PM -0700, Svetly Todorov wrote:
-> ---
-> Adding documentation for the new MPOL_WEIGHTED_INTERLEAVE mode in the same
-> manpages that mention MPOL_INTERLEAVE; namely, mbind(2), set_mempolicy(2),
-> and get_mempolicy(2).
->=20
-> Descriptions were based on the changes introduced in this patch:=20
-> https://lore.kernel.org/all/20240202170238.90004-4-gregory.price@memverge=
-=2Ecom/
->=20
-> Which was upstreamed to 6.9 here:
-> https://lore.kernel.org/linux-mm/20240313200532.34e4cff216acd3db8def4637@=
-linux-foundation.org/
->=20
-> To: alx@kernel.org
-> Cc: linux-man@vger.kernel.org
-> Cc: gregory.price@memverge.com
-> Cc: ying.huang@intel.com
-> Reviewed-by: "Huang, Ying" <ying.huang@intel.com>
-> Signed-off-by: Svetly Todorov <svetly.todorov@memverge.com>
-
-Minor inconvenience: I'd prefer if the above was inside the commit
-message.  Anyway, I've pasted it in; not a big problem.
-
-Patch applied.
-
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D72134eef4e525dd2d882aee4cbd5b79e2ee347fd>
-
-Have a lovely night!
-Alex
-
-> Changes in v7:
-> - raised -> set
-> - Link to v6: https://lore.kernel.org/r/20240402-weighted_interleave-v6-1=
--4c2891901352@memverge.com
->=20
-> Changes in v6:
-> - either/or -> neither/nor
-> - remove version parentheticals in get_mempolicy.2
-> - Link to v5: https://lore.kernel.org/r/20240318-weighted_interleave-v5-1=
--c821a46d5beb@memverge.com
->=20
-> Changes in v5:
-> - document kernel version where WEIGHTED_INTERLEAVE was added
-> - Link to v4: https://lore.kernel.org/r/20240316-weighted_interleave-v4-1=
--6ab516f12ced@memverge.com
->=20
-> Changes in v4:
-> - BR -> B in get_mempolicy
-> - use roman for ellipses; format using \|
-> - Link to v3: https://lore.kernel.org/r/20240315-weighted_interleave-v3-1=
--416a1ab01524@memverge.com
->=20
-> Changes in v3:
-> - italicize paths
-> - Link to v2: https://lore.kernel.org/r/20240315-weighted_interleave-v2-1=
--b742a48750b0@memverge.com
->=20
-> Changes in v2:
-> - make flag documentation implementation-agnostic
-> - Link to v1: https://lore.kernel.org/r/20240314-weighted_interleave-v1-1=
--ce85d64db0d4@memverge.com
-> ---
->  man2/get_mempolicy.2 | 10 +++++++---
->  man2/mbind.2         | 18 ++++++++++++++++++
->  man2/set_mempolicy.2 | 18 ++++++++++++++++++
->  3 files changed, 43 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man2/get_mempolicy.2 b/man2/get_mempolicy.2
-> index 5248f04ba..f6f80ab3e 100644
-> --- a/man2/get_mempolicy.2
-> +++ b/man2/get_mempolicy.2
-> @@ -137,7 +137,9 @@ specifies
->  but not
->  .BR MPOL_F_ADDR ,
->  and the thread's current policy is
-> -.BR MPOL_INTERLEAVE ,
-> +.B MPOL_INTERLEAVE
-> +or
-> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->  then
->  .BR get_mempolicy ()
->  will return in the location pointed to by a non-NULL
-> @@ -205,8 +207,10 @@ specified
->  .B MPOL_F_NODE
->  but not
->  .B MPOL_F_ADDR
-> -and the current thread policy is not
-> -.BR MPOL_INTERLEAVE .
-> +and the current thread policy is neither
-> +.B MPOL_INTERLEAVE
-> +nor
-> +.BR MPOL_WEIGHTED_INTERLEAVE .
->  Or,
->  .I flags
->  specified
-> diff --git a/man2/mbind.2 b/man2/mbind.2
-> index b0e961f9c..96264ce81 100644
-> --- a/man2/mbind.2
-> +++ b/man2/mbind.2
-> @@ -105,6 +105,7 @@ argument must specify one of
->  .BR MPOL_DEFAULT ,
->  .BR MPOL_BIND ,
->  .BR MPOL_INTERLEAVE ,
-> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->  .BR MPOL_PREFERRED ,
->  or
->  .B MPOL_LOCAL
-> @@ -243,6 +244,23 @@ at least 1\ MB or bigger with a fairly uniform acces=
-s pattern.
->  Accesses to a single page of the area will still be limited to
->  the memory bandwidth of a single node.
->  .TP
-> +.BR MPOL_WEIGHTED_INTERLEAVE " (since Linux 6.9)"
-> +.\" commit fa3bea4e1f8202d787709b7e3654eb0a99aed758
-> +This mode interleaves page allocations across the nodes specified in
-> +.I nodemask
-> +according to the weights in
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave .
-> +For example, if bits 0, 2, and 5 are set in
-> +.IR nodemask ,
-> +and the contents of
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave/node0 ,
-> +.IR /sys/ .\|.\|. /node2 ,
-> +and
-> +.IR /sys/ .\|.\|. /node5
-> +are 4, 7, and 9, respectively,
-> +then pages in this region will be allocated on nodes 0, 2, and 5
-> +in a 4:7:9 ratio.
-> +.TP
->  .B MPOL_PREFERRED
->  This mode sets the preferred node for allocation.
->  The kernel will try to allocate pages from this
-> diff --git a/man2/set_mempolicy.2 b/man2/set_mempolicy.2
-> index fc3ad9df8..f1f225e32 100644
-> --- a/man2/set_mempolicy.2
-> +++ b/man2/set_mempolicy.2
-> @@ -63,6 +63,7 @@ argument must specify one of
->  .BR MPOL_DEFAULT ,
->  .BR MPOL_BIND ,
->  .BR MPOL_INTERLEAVE ,
-> +.BR MPOL_WEIGHTED_INTERLEAVE ,
->  .BR MPOL_PREFERRED ,
->  or
->  .B MPOL_LOCAL
-> @@ -199,6 +200,23 @@ the memory bandwidth of a single node.
->  .\" To be effective the memory area should be fairly large,
->  .\" at least 1 MB or bigger.
->  .TP
-> +.BR MPOL_WEIGHTED_INTERLEAVE " (since Linux 6.9)"
-> +.\" commit fa3bea4e1f8202d787709b7e3654eb0a99aed758
-> +This mode interleaves page allocations across the nodes specified in
-> +.I nodemask
-> +according to the weights in
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave .
-> +For example, if bits 0, 2, and 5 are set in
-> +.IR nodemask ,
-> +and the contents of
-> +.IR /sys/kernel/mm/mempolicy/weighted_interleave/node0 ,
-> +.IR /sys/ .\|.\|. /node2 ,
-> +and
-> +.IR /sys/ .\|.\|. /node5
-> +are 4, 7, and 9, respectively,
-> +then pages in this region will be allocated on nodes 0, 2, and 5
-> +in a 4:7:9 ratio.
-> +.TP
->  .B MPOL_PREFERRED
->  This mode sets the preferred node for allocation.
->  The kernel will try to allocate pages from this node first
->=20
-> ---
-> base-commit: a4ea5f76215dcf1d8d017eb65ab12919ccf09f3f
-> change-id: 20240313-weighted_interleave-e8141ed754f9
->=20
-> Best regards,
-> --=20
-> Svetly Todorov <svetly.todorov@memverge.com>
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---FluRoNx+P1SWza9W
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYoSFYACgkQnowa+77/
-2zJAow//eBzY0nzcGDlEDS0kPSB6a4a6R76ZhbEQIr9/6s7jsSXEel4mk7RjtOao
-NEUfh0WIG2KT4aov5r9bUONbr6PxfcOJSTDsCT+hutHMHYDPDzeJub3Te6wFDpSS
-AVH1P7YbETJvSA5gi8pHVUof4AgU/TVW8HG4dumMJWYWTFSQyP7FrNpmYo1SHxzM
-awTseABKLr+dFoQUWpsz9/ElIJyuRALp3BtraQOR4pAZhRLTMx6G8+Aqf4hYnpGe
-69o8lNOTGiBsm4dbyoOmYUPlhMs0RgnU5yt24nPClIxoujHXNJKeRVxC8Aq/JQYO
-ssSzFlTQTm0EgG6Z5ZCz7A9S1CmI58Ujew+7A+5KWIvvtTb3QbCoqMxuOyN30Emv
-knJUH3NFuWLI4PhLill4lUdeJ2y6iAK7igR+G3j027n/k/uRX1koLvdo7t1eQxP+
-7+MMGsX4i8EsTaN2PanxgY++7lARBQ6YfxCq2P9KRDIaE8KN86q222aDSUx3coo8
-St5+WGmHpQ52QXxhdFp6bAYnoqIUWWabbz7zi8valMb1SjrHs6FZ2PTgyek5mg89
-3In9WwlepR6ulflRRUCg3D8YlM932B+54q/Wu6+7rcqIRe9wUvnwA7oFCMgtg89N
-GWDPq9UdPGw35Ymc64XeVwuaYgZQpDsdDXgqoSkp6xwOTZfH3fM=
-=9YRz
------END PGP SIGNATURE-----
-
---FluRoNx+P1SWza9W--
 
