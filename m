@@ -1,175 +1,213 @@
-Return-Path: <linux-man+bounces-827-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-828-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F7B8B4226
-	for <lists+linux-man@lfdr.de>; Sat, 27 Apr 2024 00:27:40 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA43A8B422E
+	for <lists+linux-man@lfdr.de>; Sat, 27 Apr 2024 00:31:53 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CE48A281796
-	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 22:27:38 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E81061C22556
+	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 22:31:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FA06383B2;
-	Fri, 26 Apr 2024 22:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C31A11EA84;
+	Fri, 26 Apr 2024 22:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tmvyCr8K"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YRMpcOtq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E75C374EA
-	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 22:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290E42F2F
+	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 22:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714170455; cv=none; b=GPVY0nkXrcF2S/N0SaqeBVeo9fswpNYmZl8EdpZeeyiQGfYD8Her4WrRZ/q9lrzyO0XiPN12W+BXHM9DguzYFpg0S5fX8M/K/9DG2+T2+nzhRJ0cJ28zR4VVBG9i1mC6qlElK/7fWh/1cobbE2cVtHrGfWZmTmDq39qiU1ftfbQ=
+	t=1714170708; cv=none; b=Ordx5qZXcC4sH83R+KvPQcjXEvmqnx1MnvJR9mEEgt8a6fofqQ+JavBKNYv5E/UjxvzQ917wHiwgNW7IhneBCtpcGYdyP44/L61OHaiI3/+C9evt0lDSJNxVcG4rHybT9kxaKyBouu04HMgMPPsS5DOWFJxBI3gVLvRg2YE+OQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714170455; c=relaxed/simple;
-	bh=HFATwK1CEsrfYPbcXOumBKVyxNX6saydqmzQ5gxLwbU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GzPtpylbYM5qzdBcHJX9eX0DKzKipSr8EutM6RqLsqLzZWAtOVxMa35wWm6xMLvL6I/ASbuJh0mG6KMHkcYIOWQ3e99bRnGOXaZZmYamG8QA8Hx+5q1OW8UMwTD6v/TlLJMkeE9autjrBgiX2sMZXH/RzdP5s1LsH85RpYWgl0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tmvyCr8K; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B1BC113CD;
-	Fri, 26 Apr 2024 22:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714170454;
-	bh=HFATwK1CEsrfYPbcXOumBKVyxNX6saydqmzQ5gxLwbU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tmvyCr8KInEgt7NAk9ElVNaOGaQoPL4OTS6Dmg7ewPzi1pDeLDUuTR1LCwD+giOAH
-	 4ykZTZjFLC+QeVPL1VLgGc4GyabK78GAk7NH6FcdWuREMnbFPiaoBqdS0o4DSztAQK
-	 hZ3D6EReFutHfytX1oZP2AylQ1RnWyCkmblr694Ro6Nu8V2OaoieOJJ3Xad/57FMaz
-	 AGEMTIvA0NNSBuVostpW+fFV3mSYJ14qKqGYpZFVyM3zHd4rKZZBxcr3ee+aToFsvR
-	 /k2OsWePp3D5Lfy+nQInZW5Q2H8sJY1WDzD3vNbKh7/j+7wLmsmTC/NViGO+SP8wUx
-	 Md0OIbshCCsBw==
-Date: Sat, 27 Apr 2024 00:27:31 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] man2/syscalls.2: srcfix (1/3)
-Message-ID: <ZiwqU06Pg4Szfm3_@debian>
-References: <20240426214403.mvskw552dm2wyaus@illithid>
+	s=arc-20240116; t=1714170708; c=relaxed/simple;
+	bh=SClYfMkS3Riu8HcqIFe7YlXSjeQaAOmQjchuJLd+uIk=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dFhIwCnqxOFywDKS5WU2bSPm3Y9pmwubzuefw1Q+pt4RHx0v1pRVU7dRk1u8yvsNmPxYQSj0tMwjVy0xAlJEoALFVDbfwte6C6wiCkLIWU9u5wvyHdJcI/svtGc3xojAOIZFB+HVZ7i/TFTq1ngAIpzeyZSfPMBsiQdIQ35F8Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YRMpcOtq; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-6eb93ec8804so1541858a34.2
+        for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 15:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1714170706; x=1714775506; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IiZxdXD3l1ANm5Ff7iaarvgqQWIQ8T3+pwYGrNBxVGw=;
+        b=YRMpcOtq6jf6ArmdwZDaI0ROwakWPgi47MTIHjQqzauVm3Ug9CoGoaQE0biqT6ANF/
+         vWMOLcGdErsWT12WCDjPh7aleo8TPIamRe7CZaR5JMxw1uTepGWmfgoHW9qrp0yhL8/A
+         4nQ65i8QJadqUx0lEsAAzsjg5UJG5CWDOLMuqkUXmnu9IWkmHeGNoOxGagmB37kh+y60
+         qLH7tNdFnCHdsRerIVyw2/CLo9rD0zY7mySsOY0l7/Gz/pxk6SNxl2zzc3CAbGx2Mxfw
+         8cfLF0s7DfXa/+rx8eTn66NLsSRhKTPvcTINTuy0Dw7Bzu+ZviRdkcnTu3GfR/eYt0ok
+         eJwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714170706; x=1714775506;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IiZxdXD3l1ANm5Ff7iaarvgqQWIQ8T3+pwYGrNBxVGw=;
+        b=Kf/P+MnxWQYiBaN77isPAuK7cWiz5g3FrpBAeYZUk13+ckGRQRZYBeGWtfgT4EVPmq
+         G0kvfqOWfg5CIiysq3+NAioyr9IgIQ4iOaByFA3FIQBoTa3Emqq3ZVOOsDp3/RpwekyP
+         +NLR/9ufMwHMMJ1Z/UOrXlD4u5SFY3tQT2iaDlsG9/gRvqbhQCk/Iv/nUDrEOva34/qt
+         TIjxfsIOndl5c2ra0tESZl3jYGvjanVII5agKGZXSkcdePWIm9e00/3YlkoO7K9Sq1Oc
+         UnVRd7qAE/KNvTJVYSkdNHnff16DfyjBG5KgTZNzVX1493Ik7nprHqJ19Z8gu0ju1m43
+         kFZw==
+X-Forwarded-Encrypted: i=1; AJvYcCWkyOrS0mgcOF/Ecu+3fmb8LpAEDm8VTNvDABmDp6XgLUtZ2vkEtrNjRvL57MeIACbjnIXI2CCPRwn8Px7Bcl754Va6je0YkehK
+X-Gm-Message-State: AOJu0YymOT2ZEuZsAj3MXLz/7J+IGlk3xbVN8jYsH8/dLYJZac2pLH4z
+	VjlEdsvlQS4EqHmO9a2XuQeHsLPWvM2AcZYD+hE7Fsq3fQIhTooyfjaHyQ==
+X-Google-Smtp-Source: AGHT+IFCAY4nvTdP80ZxzE6YKE28Lggou7B1HrUUgfv8J8iMByOO7ymTJAmjsx5AMUtf0OI3FZqCsg==
+X-Received: by 2002:a05:6870:b683:b0:234:56db:7c8c with SMTP id cy3-20020a056870b68300b0023456db7c8cmr4657316oab.57.1714170697478;
+        Fri, 26 Apr 2024 15:31:37 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id fu16-20020a0568705d9000b00239389f66cesm3437665oab.47.2024.04.26.15.31.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Apr 2024 15:31:37 -0700 (PDT)
+Date: Fri, 26 Apr 2024 17:31:35 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: groff@gnu.org, linux-man@vger.kernel.org, bug-ncurses@gnu.org,
+	alx@kernel.org
+Subject: Undeprecating man(7)'s `HP` macro? (was: Proposed v2: revised man(7)
+ synopsis macros)
+Message-ID: <20240426223135.tr2q5ty7nya7yv6s@illithid>
+References: <20240426055958.3hzal6m4r7mgzhqj@illithid>
+ <ZiwihxockR9UOCxV@fluorine>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WdI67N7PP6oxqJwg"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ztcq5cailgbvlm3l"
 Content-Disposition: inline
-In-Reply-To: <20240426214403.mvskw552dm2wyaus@illithid>
+In-Reply-To: <ZiwihxockR9UOCxV@fluorine>
 
 
---WdI67N7PP6oxqJwg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--ztcq5cailgbvlm3l
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Apr 2024 00:27:31 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] man2/syscalls.2: srcfix (1/3)
 
-Hi Branden,
+Hi Lennart,
 
-On Fri, Apr 26, 2024 at 04:44:03PM -0500, G. Branden Robinson wrote:
-> Migrate table entries from using font selection escape sequences to font
-> alternation macros to set man page cross references.
+At 2024-04-26T21:54:15+0000, Lennart Jablonka wrote:
+> Quoth G. Branden Robinson:
+> > I have been dissatisfied with groff man(7)'s SY and YS macros for a
+> > long time.  My primary grievance is one that has frustrated its
+> > uptake by documenters of libraries: the macros are designed for
+> > synopsizing Unix commands, not C library functions.
+> >=20
+> > After working on the ncurses man pages for a while it became clear
+> > to me how to modestly revise the way groff man(7)'s SY and YS macros
+> > work to serve both sets of authors better.
 >=20
-> This change was automatically driven by the following sed(1) script.
->=20
-> $ cat pre-MR-migrate-cross-references-1.sed
-> /^\.\\"/b
-> /^\\fB[^\\]*\\fP([0-9][^\]*).*T{/s/\\fB\([^\\]*\)\\fP(\([0-9][^\]*\))\(.*=
-\)/T{\
-> .BR \1 (\2)\
-> T}\3/
+> I=E2=80=99m sure this is good and fine, but I do wanna mention this: SYNO=
+PSIS
+> items with lines after the first one aligned, possibly with something
+> on the first line, is like the one usecase for .HP.
 
-Are you sure?  I tried running it, but got a different diff.
+One use case, yes.  `HP` is primarily presentational markup; it's like
+`P` with a stylistic sweetener.
 
->=20
-> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
->=20
-> ---
->  man2/syscalls.2 | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man2/syscalls.2 b/man2/syscalls.2
-> index 7a7d6d730..979dba538 100644
-> --- a/man2/syscalls.2
-> +++ b/man2/syscalls.2
-> @@ -187,7 +187,8 @@ .SS System call list
->  \fBchdir\fP(2)	1.0
->  \fBchmod\fP(2)	1.0
->  \fBchown\fP(2)	2.2	T{
-> -See \fBchown\fP(2) for
-> +See .BR chown (2)
-> +for
->  version details
->  T}
->  \fBchown32\fP(2)	2.4
+> I think it would be good to mention that,
 
-I see the following, after applying this script:
+In the context of `SY` and `YS`?  That, I'm not sure about.  While `HP`
+would save people from the line length management and text alignment
+problems that turning off filling causes, it still wouldn't deliver
+semantic value as `SY` does.
 
-	$ git diff | head -n30
-	diff --git a/man2/syscalls.2 b/man2/syscalls.2
-	index 7a7d6d730..278fa3361 100644
-	--- a/man2/syscalls.2
-	+++ b/man2/syscalls.2
-	@@ -146,7 +146,9 @@ .SS System call list
-	 \fB_llseek\fP(2)	1.2
-	 \fB_newselect\fP(2)	2.0
-	 \fB_sysctl\fP(2)	2.0	Removed in 5.5
-	-\fBaccept\fP(2)	2.0	T{
-	+T{
-	+.BR accept (2)
-	+T}	2.0	T{
-	 See notes on \fBsocketcall\fP(2)
-	 T}
-	 \fBaccept4\fP(2)	2.6.28
-	@@ -162,22 +164,30 @@ .SS System call list
-	 .\" 91e040a79df73d371f70792f30380d4e44805250
-	 \fBarc_usr_cmpxchg\fP(2)	4.9	ARC only
-	 .\" x86: 79170fda313ed5be2394f87aa2a00d597f8ed4a1
-	-\fBarch_prctl\fP(2)	2.6	T{
-	+T{
-	+.BR arch_prctl (2)
-	+T}	2.6	T{
-	 x86_64, x86 since 4.12
-	 T}
-	 .\" 9674cdc74d63f346870943ef966a034f8c71ee57
-	 \fBatomic_barrier\fP(2)	2.6.34	m68k only
-	 \fBatomic_cmpxchg_32\fP(2)	2.6.34	m68k only
-	-\fBbdflush\fP(2)	1.2	T{
-	+T{
+I believe we're pretty darned close to being able to automatically
+tag/index paragraph tags and synopsis keywords.  (The main problem is
+coming up with a convention for representing the hierarchical structure
+of a page in the tag identifier, to avoid ambiguous references.  This
+convention needs to be robust to the crazy characters people might put
+in a section or subsection heading.  But once that's sorted out, we have
+the machinery we need.)
 
-Did you maybe apply the scripts in a different order by accident?
+(Incidentally, this would solve the same problem that perlpod spent
+years spraying thousands upon thousands of `IX` macro calls all over the
+place to address.)
 
-Have a lovely ngiht!
-Alex
+> even if Groff deprecates .HP (because HTML is incapable of expressing
+> that?  I don=E2=80=99t like that reason.  Besides, CSS has `text-indent:
+> $length hanging` now).
 
---=20
-<https://www.alejandro-colomar.es/>
+I had a vague notion that it did; thanks for confirming.
 
---WdI67N7PP6oxqJwg
+I'm actually fine with un-deprecating `HP`; I've felt tempted to do so
+several times.  (I just didn't tell anyone.)  If we do so, it'd be good
+to teach the HTML output we generate about this CSS property.  And I
+think I would retain this admonition to the user:
+
+groff_man(7):
+            ... a hanging paragraph is not distinguishable from an
+            ordinary one if it formats on only one output line, and
+            non=E2=80=90roff=E2=80=90based man page interpreters may treat =
+=2EHP as an
+            ordinary paragraph.  Thus, information or distinctions you
+            mean to express with indentation may be lost.
+
+But if people use `HP` only as they would `P` (`LP`, `PP`) with some
+presentational sugar on top for certain output devices, I don't think it
+does any harm.
+
+In principle, if I ever deliver my "tag class" prototype,[1] we wouldn't
+need `SY` and `YS` anymore; a page author could use `HP` for a synopsis
+and bracket the keyword with `HS` and `HE` (or whatever the tag
+enclosure macros get called) themselves.
+
+Hypothetical example:
+
+=2EHP
+=2EHS synopsis
+=2EHS function
+=2EB wborder\c
+=2EHE
+=2EB (
+=2EBI WINDOW\~* win ,
+=2EBI chtype\~ ls ,
+=2EBI chtype\~ rs ,
+=2EBI chtype\~ ts ,
+=2EBI chtype\~ bs ,
+=2EBI chtype\~ tl ,
+=2EBI chtype\~ tr ,
+=2EBI chtype\~ bl ,
+=2EBI chtype\~ br
+=2EB );
+=2EHE
+
+But `SY` and `YS` have a 15+ year head start, and counting.  I have no
+particular thirst to kill them.  And the foregoing might be too much
+markup for the median man page author to tolerate.
+
+Regards,
+Branden
+
+[1] https://lists.gnu.org/archive/html/groff/2023-10/msg00034.html
+
+--ztcq5cailgbvlm3l
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYsKlMACgkQnowa+77/
-2zJMJg//cScVwIoeUpeEI/Ai7bDbwklzagDduv/DS1kGkDw2rmzvJUxRBdCsExje
-LY93lWPtFfpo3rgvTzpxw7kYvxDY97c67jDSgzSHRAaSok+Rxc/LNQ+9ic6Ztq5y
-+xrOb1lubEuzC6y20rJY8k3E5zN5X0BuhCXhq7eWQsywdL77+y0qvJokSarwj2LB
-4Ahvf1Jx2cppsFDmaaEaWxOBKlfV4S0NtboEtBqpIPXA6fMoudywqOn3nB9dzU8g
-VTlgVvpnlNUN5j2/Pr+a3B8W6ZUdRWSbIR1NksmYkJIrrhwokIfE+akLgKwtaGS+
-agY2yKWquJahx4q080u8VfK6nZKvQRpjCtKUavAWhB46nS4B4WvfvxQatq5e2FXc
-0fxE6XAFg+buETyNixjMqG7T4Hf+Rblsks5KFCgFdZEXyOtE9kjhZxhCWdZ8e9LS
-1fTzKtvnOTNh2CrGLC8B3MgNEPRVe7R82c63OoSQ4Z1sHiicl7wr8jDi1SwBHGJZ
-aB9S7nHW0uTdSf+vei9rsmdJSod1gpcpjubEUHoyWSE5jdMtMjIKCxXHT36kyhf3
-aCYCUrnOdE5pSaSQlGANaFHD82fPcgsls2M+g+JJnadYkTF1ei3M2MHygUDOtTv/
-4RRTDyC2iD/HRBoKEVb7fANkIk22D0g7Ah774Y9bb+LGuSLQCUo=
-=wltI
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmYsKz8ACgkQ0Z6cfXEm
+bc5T0xAAjoArYK2COgykzcFoK99Z2QsipCxfs68HfSVEPz2zBlMUGlad2beWr9VB
+/wiwxWYs4Oku+ZtI4DcbT9WYnO5gZrsKqfnavbkaefueXs6XE5RuLJ4SSYyGw3A4
+x/Z9wt1nT6qkHo25Mb4D9sGwvgWLFm/esp1d1a466ezSYq51hsjPAIThnkKNyClY
+ejn5TnS8b1AxXvdYStwO3BWNmHbClHbfOgaiTO+gKSgSoXQWMogKiumXcnExkrtg
+6JPLVcjHev9zwiGN7IDj2h+VdgENBHU+112W3wkxqROO/KxdyOmZ2hBmGgNYEJCH
+eGhuwqQjZ8/k1IN8h+eZCLrBj4HXD09m7wQxAh6Eh8GCjyj95Z0xMs7zjZ9o3gsf
+i5W09+niifuIKTdreQsCB9NqdO5+rER4h21u+XiTPNjm6bXPVq4+nxeQxcNqWl86
+KJjBoRjjXZhzwTSh0AaFXM5RJasKFJ9TWAgNqcrW9KW9mQ+FDHHUdCKoFp7iazUZ
+zN7CvdA8y97F0vYFNM+Ux29dTj+nWcrLMq1FsLULaOaMjm7ZT+HQ0k0uu78WFVEA
+V7tAMtwk7+U+CWvUM5wXyZdp2vn6cqp/hpWcOzAEec2qADgzQM85waYDSq1Cg0ZG
+CTapAK/HVnD26L7y7+RNysTOz2l1eMPZUxG2eUif5z+1jFa22CQ=
+=u+Ta
 -----END PGP SIGNATURE-----
 
---WdI67N7PP6oxqJwg--
+--ztcq5cailgbvlm3l--
 
