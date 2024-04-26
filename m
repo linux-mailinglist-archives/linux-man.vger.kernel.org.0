@@ -1,75 +1,75 @@
-Return-Path: <linux-man+bounces-821-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-822-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1DB58B4178
-	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 23:43:21 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id D54FB8B4179
+	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 23:44:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0F5EC1C21027
-	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 21:43:21 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 90E8A282CE7
+	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 21:44:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6987C364A0;
-	Fri, 26 Apr 2024 21:43:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4D343613E;
+	Fri, 26 Apr 2024 21:44:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CTMS/H9e"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNzn0QF0"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4442C68A
-	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 21:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BF536B17
+	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 21:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714167798; cv=none; b=Noo1e7q5b4fvWwHXuJtJcvldFHAtn6emEmQ50RdMsaVDBlAwXY3UsrXwF7cxjjXrMQmTp6j/uiycLK7hmVRQQ6Bo/5wMtGhcOZhM22vKhstMxPB+2O8aW+EvJOVtit5OzVvFzrZJtPo3LigrlH7rkuhoeUktaio+2Ye2/RFNmWo=
+	t=1714167847; cv=none; b=bnw54wqnaF1gCGnmK9ewUI2TSCGb7NRBR7FS7XEEvk4IzSnpfD/bJJb4/yyFjjT5POS8HjQBhM1xRd9HnH+HbIrPJbXevOwEaMW5vVROyUaUNxlC+c4ThG9/1c9A49grOB6vLokzLn3TQxAGED0A1YC7c+F8ip2FrtFHe/VNIGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714167798; c=relaxed/simple;
-	bh=YinbgsPsb4hB4eyzeqEdCxOwvvJXEFL5NmDgqA1OwPE=;
+	s=arc-20240116; t=1714167847; c=relaxed/simple;
+	bh=CQpMwmsUveTC1b48I5W1tJQ0L3DADpAaTJVB1ba4lt8=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=RmMFRcS3p9NsLMhq0OUABaGjHUJ8qngXpdlMzk8QhmkFNdUUN6qZt6lYzSCoeqJMOdRNMGVcm4yOO83AyIKb43euxFQmCvGrk9VOT47QR1dbTji3FW0ZxIJU4WyjgcS1va+ef8xQD1UalhBU/pV4srXSF4LOQNWYQUtzmiLB590=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CTMS/H9e; arc=none smtp.client-ip=209.85.210.50
+	 Content-Disposition; b=IOmnb0aki0XQEmbjHTL/TiOEbWr893HfRPkNCnIPOz3+re/V0U5J61pVpdiIOUL8h/mWw9UJ0SorpJGrAHsbyK2R49dsVkeqdUM1Y/lM6pUwbEtRbr/fMeOEh47NAmx+5LEhJ0z+ISgAug2RQ9t3NkN1TidnfBMZIrEBkTlDHEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mNzn0QF0; arc=none smtp.client-ip=209.85.167.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-6ea156bee62so1798077a34.0
-        for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 14:43:16 -0700 (PDT)
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-3c8317d1f25so1682523b6e.3
+        for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 14:44:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714167796; x=1714772596; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1714167845; x=1714772645; darn=vger.kernel.org;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YinbgsPsb4hB4eyzeqEdCxOwvvJXEFL5NmDgqA1OwPE=;
-        b=CTMS/H9e21fvRsuvQTp7ECXJU63g64euN5oWP5sZBizMB6NImWILS/Z2IyEu0De8qk
-         zPcSJGuOnAKJyVekmizTLZfexL4aymNAcUOLwQuzuq1vf2r4uMvlHNJSnmbn03eKrT+N
-         k/aojiCPZyayfD/TW16k9RAb4kcRgfPjIEM37gF92mK1rJ+AvltYal/gEsyCp8t00+sw
-         /kSkB9rILAG7lh3SSHamaeLFHBifGZBAWpvB2tWvdZUwMpah7ZmdDAk38thwqkV7n3DQ
-         19sUeuhVB2y0QZLB/oRnHYASe9zpBw/+2q8T5nJfedqRNi9CJiuVWoBmCCo6z4pJNc6i
-         s3wg==
+        bh=beU63sOyFMND3X3syV6073+SqLaLzUf4HDHBUKLtNEU=;
+        b=mNzn0QF0eNGddVAMoDFSE1AZbYwKavj8P6GQE1LigAs5toEu7o2bnUHUTiMwXgxCMq
+         98LfjFB0OfvguCcxfBZFsxVC7TQcviUCmRTEB0npy/R2gfkXfLuel2Ybbm2FfMW03LtQ
+         P+R+Imm+2q+bD0S8VV6pj8NPM+soxJTsAEhD3K/kZNaePgAY11ZlRB7l/Rjp05DfQ/aj
+         eKxMQFHajjvlmQC9otmkfJFtGFDdSUOx+fQ4fv2EBh6EkyfTJU4UPKSkO/v27nSjnMQK
+         RzRhPTnMMjxXL2Yo5lhJ1o2lsUQCRF9R8XX0cqjYvXVvUtAQA1bNdKQBZoQPOmiQvCRh
+         ehPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714167796; x=1714772596;
+        d=1e100.net; s=20230601; t=1714167845; x=1714772645;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YinbgsPsb4hB4eyzeqEdCxOwvvJXEFL5NmDgqA1OwPE=;
-        b=cMCmGIciSb6qs+PqE2TkxRao4N65zGtLRlSKmkzhqAHKKX5hdYF3cNnbQ9//MfbWm3
-         GRrMH8qLw0+Gb/MwiPHEywvjpeFW0ZzJlSJ7jwiCyYJN7/yhRgwVr7tpODwC4k+y2K71
-         USx7Tn7rARg+P9aQdmO4xqC18WXI4z8si0HhvfVS+t6MlAjp/66eBJ3hV7klCjdKgygs
-         Vp+op6Q2AVD5IJsJ76TlR+ra4/9LiHPW4FW66r7/qPJJMnHZnX6ZTS4xkjBdgAqqru8U
-         CWyAPtjDkgh07ogXIBZ7YlHHFK1S06pseIIq9Eq18rLOdzowSamuT+qb5lp4nTi5+FKk
-         7Wng==
-X-Gm-Message-State: AOJu0YzawDsGjzRG4kdUA2q01gWmNcO6gOk0akpM7UDZZtJ9v+u6Hyr+
-	qRtMDRGFhVOxpY51Xwhro2UbB/H2yaf1HmPPqZGu3AS5AZdt/tsKGoQCZg==
-X-Google-Smtp-Source: AGHT+IEGb2IaOonCXVH4i9vtuD+8b3lPcSs2FSTcaMyeLa72CAzICsTGd44YAWhw6JEQPwzeLfRl/A==
-X-Received: by 2002:a05:6870:a181:b0:238:e41f:dc63 with SMTP id a1-20020a056870a18100b00238e41fdc63mr2025938oaf.6.1714167795850;
-        Fri, 26 Apr 2024 14:43:15 -0700 (PDT)
+        bh=beU63sOyFMND3X3syV6073+SqLaLzUf4HDHBUKLtNEU=;
+        b=GMG5OWnxS8Xky3R9Ari12HurxlcYD6hJUFZr1AWYqIOI3Zh/CHzhd0ItHoTs+iQHzJ
+         5IQSifE0n8A8pNUOGn6mmfGepCaCAYQeVo4sM3NxhGF93sGGg1jSvgOT/kU0sBSDNgN+
+         S+LM0aF8NeIt3Vlu+QMIAyRUdvkWkVxODT8q9G1D1znp+y2do4V7C4XPiQ4I1+gYYz0t
+         hDFcblrb6CAoJ6iEfyXXWvMYOxTieobUIAzEaYEfIkfd9e9WO6qYhkrGMNcknG73oWnx
+         vUtCXGhJ0MvtZd9gm1dpv66/bdOLFuX6LQPOQfFsc+eA9WGNet/nk/qwfLAXIkWb/BYS
+         vY8A==
+X-Gm-Message-State: AOJu0Yw8S3YPwQAPKE6rfQ2QqnBWPYUYTv14hQF3p+ZzaR7uT4tXu+9x
+	onAf4fs4Dn4JVmLO0wLkuTMNuQdlkiOsF4+SEXzRuptBaLls0DO9
+X-Google-Smtp-Source: AGHT+IEyhpppTvW29p9qJBIdmKgbQPsuwEGGOM15BhMroOuy9BNDx6VW6ZjVgSNwj+BmDyYqN6DstA==
+X-Received: by 2002:a05:6870:c18b:b0:22e:9a3a:14c3 with SMTP id h11-20020a056870c18b00b0022e9a3a14c3mr4209183oad.17.1714167845448;
+        Fri, 26 Apr 2024 14:44:05 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id z10-20020a9d65ca000000b006eb7c7db07dsm3103393oth.57.2024.04.26.14.43.14
+        by smtp.gmail.com with ESMTPSA id vz11-20020a056871a40b00b002395a8bf92fsm3246642oab.8.2024.04.26.14.44.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Apr 2024 14:43:15 -0700 (PDT)
-Date: Fri, 26 Apr 2024 16:43:13 -0500
+        Fri, 26 Apr 2024 14:44:04 -0700 (PDT)
+Date: Fri, 26 Apr 2024 16:44:03 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH v2 0/3] man2/syscalls.2: srcfix (1/3)
-Message-ID: <20240426214313.xra24ios4pjbfrpk@illithid>
+Subject: [PATCH 1/3] man2/syscalls.2: srcfix (1/3)
+Message-ID: <20240426214403.mvskw552dm2wyaus@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -77,44 +77,90 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="azc52htp5wgmdzqg"
+	protocol="application/pgp-signature"; boundary="ilrgp4k3zjnz3wve"
 Content-Disposition: inline
 
 
---azc52htp5wgmdzqg
+--ilrgp4k3zjnz3wve
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-
-Hi Alex,
+Content-Transfer-Encoding: quoted-printable
 
 Migrate table entries from using font selection escape sequences to font
 alternation macros to set man page cross references.
 
-This prepares them so that we can apply the `BR` -> `MR` migration sed
-script to them subsequently.
+This change was automatically driven by the following sed(1) script.
 
-Regards,
-Branden
+$ cat pre-MR-migrate-cross-references-1.sed
+/^\.\\"/b
+/^\\fB[^\\]*\\fP([0-9][^\]*).*T{/s/\\fB\([^\\]*\)\\fP(\([0-9][^\]*\))\(.*\)=
+/T{\
+=2EBR \1 (\2)\
+T}\3/
 
---azc52htp5wgmdzqg
+Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+
+---
+ man2/syscalls.2 | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/man2/syscalls.2 b/man2/syscalls.2
+index 7a7d6d730..979dba538 100644
+--- a/man2/syscalls.2
++++ b/man2/syscalls.2
+@@ -187,7 +187,8 @@ .SS System call list
+ \fBchdir\fP(2)	1.0
+ \fBchmod\fP(2)	1.0
+ \fBchown\fP(2)	2.2	T{
+-See \fBchown\fP(2) for
++See .BR chown (2)
++for
+ version details
+ T}
+ \fBchown32\fP(2)	2.4
+@@ -398,7 +399,8 @@ .SS System call list
+ \fBlandlock_create_ruleset\fP(2)	5.13
+ \fBlandlock_restrict_self\fP(2)	5.13
+ \fBlchown\fP(2)	1.0	T{
+-See \fBchown\fP(2) for
++See .BR chown (2)
++for
+ version details
+ T}
+ \fBlchown32\fP(2)	2.4
+@@ -679,7 +681,8 @@ .SS System call list
+ \fBsetns\fP(2)	3.0
+ \fBsetpgid\fP(2)	1.0
+ \fBsetpgrp\fP(2)	2.0	T{
+-Alternative name for \fBsetpgid\fP(2) on Alpha
++Alternative name for .BR setpgid (2)
++on Alpha
+ T}
+ \fBsetpriority\fP(2)	1.0
+ \fBsetregid\fP(2)	1.0
+--=20
+2.30.2
+
+
+--ilrgp4k3zjnz3wve
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmYsH/EACgkQ0Z6cfXEm
-bc730xAAgshW7ID475tsJ3MwUPApWYnIwFthZkOUPEkQn83nKbNncTKu87nbLpl7
-6aIc3IO/wE7mWc9S3xCkEQZAH4QdCnyc9KQoJMAkdWd+4DtbmX2tmhXOTgweMvmu
-qeyaxMgubGO621T+pL9od+2EIFiOS7MXbne4n5l65LKWHX2nIJ3wKBbfcfoB5jMq
-0Gq50M3cRFlZVT4DieTeCsIyL9zgIc201JxpRx1gbRlwhqiDxEuIQ+gWlTRrM1Je
-Cta4tAr6+QivWmrQ0w6wD36CVyGCtLk6VrS3Tf6aSxcd8PJ0WD/DwZfwBacw3pqq
-UtQfOOLHK3+wfpk/xtfWF8Gsc6Yn2ooIsgZ+UvJd+4ASBNRI8jS5mTeBl0pIrk/b
-UrUY3TYPDjJOVQ0dAybHvc/tC/qXM2ZNlAkm+Oms16kMweL9yXC9I8MmzyhDcHce
-09jdGO/XEgC7f6MKqgMULskfNOiKwl0OwtjdAa9yjjJXo6nIzbVceDB+pXpp0EjP
-mkfIg0VDiXX+hjPLbPF4geVX7RGP06+8+MSiqd3ncM8vTt9AbytP5svz3BUywLfu
-XV6g6MXbw9wBBaT9D2PodfMg86BKzjoPtiQLMFQLpRbaeQd4DHjTaIrgXHREzvu5
-aoUKD1qKoBjxg53327oZxQMlarwsmh91lMfStIP86oOaXAjSz1g=
-=V4tM
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmYsICMACgkQ0Z6cfXEm
+bc5lVA/+NtB1wQ1/gzGBTEC9XFpj1PzHlfD6Q9eTDUuZ84pSQ0xjmYjDNjEhI+i4
+hootmhFjndFjH8ArGV2oA8Vx/19+NFaDIAS+r2hFkqYUn9gTnL6UHLzigQWhgi4w
+sKdhBdlqkwrRIyNKkYFeTgO1GDmjDMoaSky5ddChrkkERRLEA7verlSsXJAx2Tbi
+phbT58FSbiVjuehybipqfnZZxs1w0H6UStsSQWlneTpc/Vp/cRpxnpbXcTw59JZF
+7IaIajPZQ0L0gpXXLkXZ2/vkasG972QRNbLmN5MyHEmaucLFAXMZDsp7bM11vXBR
+3AtgVP/z8UN1p98F/F+oQ3efUZgMAktPPeGu+S1KuXB3cbvWiCvBRP1l8NMJx5Iy
+j+08uFtYqf9zuVybkkdKHnFI5RO1+uPvl1GlCRV57qK9boDuIFsIm+QgVPOO0yxw
+hgw9oU4lsDgz61oASueueGF/8li3TZ7oBlh7jTVtIAg9C0jW79chASURILKdwYRa
+vWzN9IwE3LPkJgvvtjwbnad2XRqE3l6uyzFmb8e01DFhZmMRr3335MT16TYa4VWi
+vRsJLFa37LHcDeUqISCE+Qwc3AyeWeXYM5jZSpROh+3/kwDEhfDyR1ZuRHEl/cFG
+YDUC7LjGRkdKIbE38oo3AIiaGwoQGXXbH/jde0lPVJCORWkGvEw=
+=zPrf
 -----END PGP SIGNATURE-----
 
---azc52htp5wgmdzqg--
+--ilrgp4k3zjnz3wve--
 
