@@ -1,59 +1,54 @@
-Return-Path: <linux-man+bounces-816-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-817-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C118B375C
-	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 14:43:11 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CE038B39EF
+	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 16:28:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 288A41F214A0
-	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 12:43:11 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id B2C1BB238DB
+	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 14:28:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 844C5145B0C;
-	Fri, 26 Apr 2024 12:43:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD57B1494B8;
+	Fri, 26 Apr 2024 14:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tLI+CYCn"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r8DTvS3t"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E411E52A
-	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 12:43:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1621494B2
+	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 14:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714135386; cv=none; b=lrlBWsQbqHuM9Bz60EHFzwVQroT7FaWnR4hANDpSZhMWlUw/kHay2QV1ckajPwGWEIzlqqiH46U1WjmkCiF9lYZGZoJ83zoVpEcSsIiKedPKZjow6hxWZrylaCT2TvaascgbOABuPpdkmI13iwEl8MGle9r6PSnoe2JexUMq9TI=
+	t=1714141589; cv=none; b=qSINvJWdioVhs0EdEyVmSMVQZyqFT65hA1jKErLfHo4X9LU/mwQN8vRixu3PNRNrXispG0DxVyJ45x/bIcCJk6q+bB3J+RAHjmlPyS7C9hyX8QjLkee/5M5Hhsvni1ZUeig6fPt+rOkRLx4DfaMy4TNqbCcu4z6vTO/Kteq8/Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714135386; c=relaxed/simple;
-	bh=PVeD1UlXnn18L72LlJ2O/Ynw/SMUwCKWUvl5ikwwTpg=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rA+0n9A6Fx2817rreT/7PzVBo6s7lJS95lbf2AzPF/nwX8r38JrRsyRI1msAiVLFdqcfeiZLdtEPxzWoZWkaVUctMnnF8WFprVrnmNoYigfm95dCNmXLnfoQwllj0yTlt9hhyPa6nOE06JamcNWfW6Y0pRIEEexrXQinpEGq/DE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tLI+CYCn; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF65DC113CD;
-	Fri, 26 Apr 2024 12:43:04 +0000 (UTC)
+	s=arc-20240116; t=1714141589; c=relaxed/simple;
+	bh=El9/MsDkuX2gb7sY7Q6uubcLJPzIGQ2q4LiBALEkuho=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QI23EmwCwXfjJpCORESC+dPKfgpAEB3SXZSOf5+sT8NrZCO22o9kCo23HbAvZ3bssn44lfLpUBa9SNJxvu9su9L5ESiDqXTug3tvf1R1540rlts6dftxPpglAeroPxqVeHh5fqw/3uuw63LXWApr/z97S6iyyWNReUuEALCb150=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r8DTvS3t; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6380AC113CD;
+	Fri, 26 Apr 2024 14:26:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714135385;
-	bh=PVeD1UlXnn18L72LlJ2O/Ynw/SMUwCKWUvl5ikwwTpg=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=tLI+CYCnaASFUe+3mPFHy/oEndn8yMWJwrgyHsA4PxR/pA4dGqgbs/Kt3wNMCA2db
-	 nvf8CX7jRjYm0DpjVkTbJgw+KtUhdhN66n4df/tbPr52yV8BjrbVgeAO+S23uLP2Kl
-	 J3toKunGzOIAPZDgRxICE8le+Y3qD+mMpGZvBHe+JvCBLSoxS2ovi79s1Z7Z+4zZb6
-	 hfcgbORs8mNbzRj8ZcADvWKMcJCRWuMEzhhDYemZo/waiuvHttJ4QSk8crl2WOkodb
-	 u2lwt2kFNCU57uSxRYlvlfFIpuv9F9lHWMAjEuQ+pTKK0jX64hVkJ6pH7Mwd6HahnX
-	 EY3Y+SqInjFDg==
-Date: Fri, 26 Apr 2024 14:43:02 +0200
+	s=k20201202; t=1714141589;
+	bh=El9/MsDkuX2gb7sY7Q6uubcLJPzIGQ2q4LiBALEkuho=;
+	h=Date:From:To:Cc:Subject:From;
+	b=r8DTvS3tsT9u/SL1u7MnJ9BQ1RRwvtKlgAVWtWux4RGqs8kjLu7+cCojYLcAQpxY9
+	 8mQetVelfEE0foN6oZxNQoSC980DPpddV/tFyOPJ8YatdYxGpM2OxyxxgWxWe1zKsa
+	 tx8yytB8MwO9jpfnwaKD0JQ4HGiURQaqNJW3kM6xNt/jl2Qa5UH1W0FvCOfMeB2LJl
+	 bdQsc+3TDclgFLiF9eZr/lAM9/mzOAJ0TMd8T7uhcDBwlEDzc58cPQceDOxF+WYF4C
+	 XPcjKqk3lwyUEqxo3+1nM70VjvCOXY5nSoPixR/ubh050BjZnfzDEsT+27AiLzVn2I
+	 fHR3Y/B/DvuEQ==
+Date: Fri, 26 Apr 2024 16:26:26 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>, Stefan Puiu <stefan.puiu@gmail.com>,
-	Jakub Wilk <jwilk@jwilk.net>, lnx-man <linux-man@vger.kernel.org>
-Subject: Ping: Re: Move man* to man/ (was: Revert 70ac1c478 ("src.mk, All
- pages: Move man* to man/"))
-Message-ID: <ZiuhVmLAnm2r5xaQ@debian>
-References: <YxcV4h+Xn7cd6+q2@pevik>
- <20220907205304.nlqce37l26gezjqi@jwilk.net>
- <7b9c2ab4-6cdc-b4fd-1001-8721083695fa@gmail.com>
- <CACKs7VADwh0Qs8Zo7=biVzpOhSgMt5xD1BSBXdg82sPAcdjYOg@mail.gmail.com>
- <Yxr9WN7f3FEqKVRg@pevik>
- <ZgIk4mN4bXfsiiYy@debian>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, Simon Barth <simon.barth@gmx.de>
+Subject: [PATCH] CONTRIBUTING.d/: Clarify how to send patches with
+ git-send-email(1)
+Message-ID: <20240426142623.24922-1-alx@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,82 +56,115 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RU/RGONZ9TBq25GO"
+	protocol="application/pgp-signature"; boundary="6z7j5vl4u55mwpit"
 Content-Disposition: inline
-In-Reply-To: <ZgIk4mN4bXfsiiYy@debian>
 
 
---RU/RGONZ9TBq25GO
+--6z7j5vl4u55mwpit
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Apr 2024 14:43:02 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>, Stefan Puiu <stefan.puiu@gmail.com>,
-	Jakub Wilk <jwilk@jwilk.net>, lnx-man <linux-man@vger.kernel.org>
-Subject: Ping: Re: Move man* to man/ (was: Revert 70ac1c478 ("src.mk, All
- pages: Move man* to man/"))
+Subject: [PATCH] CONTRIBUTING.d/: Clarify how to send patches with
+ git-send-email(1)
+MIME-Version: 1.0
 
-Hi!
+Cc: Simon Barth <simon.barth@gmx.de>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ CONTRIBUTING.d/mail    |  8 --------
+ CONTRIBUTING.d/patches | 27 ++++++++++++++++++++++++++-
+ 2 files changed, 26 insertions(+), 9 deletions(-)
 
-On Tue, Mar 26, 2024 at 02:28:59AM +0100, Alejandro Colomar wrote:
-> I'm thinking of adding some features to the build system that would need
-> having a clean man/ directory.  The main one is building several books
-> for other projects, one per language, where languages correspond to
-> every directory within man/ that doesn't match man*.  Currently, I'm
-> workarounding this by running the build system several times, for each
-> language dir, but it could be much simpler, I think.
->=20
-> For not having a regression in the number of characters one needs to
-> type to edit the manual pages, I thought of adding symlinks in the root
-> of the repository, so it would look like this:
-
-[...]
-
-> What do you think about it?
-
-Ping.
-
-To be explicit: I want to
-
-$ mkdir man/
-$ mv man* man/
-$ ln -st . man/man*
-
-Should I assume that no-one has reasons against this?  I'll still take
-some time before doing the change, to allow replies to this thread.  But
-please manifest youselves, even if just for saying you don't have an
-opinion.  Thanks!
-
-Have a lovely day!
-Alex
-
->=20
-> Cheers,
-> Alex
-
+diff --git a/CONTRIBUTING.d/mail b/CONTRIBUTING.d/mail
+index 48e5b9a93..fc75b9eee 100644
+--- a/CONTRIBUTING.d/mail
++++ b/CONTRIBUTING.d/mail
+@@ -51,14 +51,6 @@ Description
+         using a PGP key.  See also:
+         <https://www.gnupg.org/faq/gnupg-faq.html#use_pgpmime>
+=20
+-        There are many ways you can sign your patches, and it depends on
+-        your preferred tools.  You can use neomutt(1) (>=3D 20240201) as a
+-        driver for git-send-email(1).  In <~/.gitconfig>, add the
+-        following section:
+-
+-            [sendemail]
+-                sendmailcmd =3D neomutt -C -H - && true
+-
+ See also
+        CONTRIBUTING
+        CONTRIBUTING.d/*
+diff --git a/CONTRIBUTING.d/patches b/CONTRIBUTING.d/patches
+index 96550ce0e..b4de1cf9f 100644
+--- a/CONTRIBUTING.d/patches
++++ b/CONTRIBUTING.d/patches
+@@ -6,7 +6,8 @@ Description
+        <CONTRIBUTING.d/bugs>), then send a patch in an email.
+=20
+        -  Follow the instructions for sending mail to the mailing list
+-          from <CONTRIBUTING.d/mail>.
++          from <CONTRIBUTING.d/mail>.  See also "Send the patches"
++          below.
+=20
+        -  The subject of the email should contain "[patch]" in the
+           subject line.
+@@ -87,8 +88,32 @@ Description
+        -  Make patches against the latest version of the manual page.
+           Use git(1) for getting the latest version.
+=20
++
++   Send the patches
++       We recommend using git-send-email(1) to send the patches to the
++       mailing list.  For instructions on how to configure and use it,
++       see <https://git-send-email.io/>.  It can also be configured to
++       use mutt(1), which only requires the following section in
++       <~/.gitconfig> (assuming mutt(1) is already configured for
++       sending mail):
++
++           [sendemail]
++               sendmailcmd =3D mutt -H - && true
++
++   Sign the patches with PGP
++       See <CONTRIBUTING.d/mail> for more details on signing your mail
++       to the list.  git-send-email(1) can be configured to use a recent
++       version of neomutt(1) (>=3D 20240201) with the -C flag, to sign
++       patches with PGP (assuming neomutt(1) is already configured for
++       sending signed mail):
++
++           [sendemail]
++               sendmailcmd =3D neomutt -C -H - && true
++
+ See also
+        CONTRIBUTING
+        CONTRIBUTING.d/*
+=20
+        <https://www.kernel.org/doc/Documentation/process/submitting-patche=
+s.rst>
++       <https://git-send-email.io/>
++       <https://neomutt.org/feature/cli-crypto>
 --=20
-<https://www.alejandro-colomar.es/>
+2.43.0
 
---RU/RGONZ9TBq25GO
+
+--6z7j5vl4u55mwpit
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYroVYACgkQnowa+77/
-2zKGiQ/+KgtlKChG7me9NAaAB6mxgc9of2/78z4V5T/rwSBuazLsCwhN5PnAIifv
-UCftor/TKq7NKAWteYDMeUhxXZtGkVhv//jmioiytFtfpAH3HdOS73hoTRBuTt6D
-SzIfwwjO3El2hbjQRKUKPk5ohSktJKv8G1GI2KnLEuxpdyR37AJmH/5GLVcXNKzh
-mF51UFKlCsk0r3BpzBFlPGAwui0q2UpbvCYA/XDwQv3bDqLN5Wp4fp8mvVqX5fQu
-6+qjlUWEbEI2+Y52dNaqVtzOVHK4N0J195ZtGm0cUsbbZPkeu6Qg02mlCe5+6NXC
-8jMKgRg1LJzbgB1wUqfsgMu7MMdg6enfBygvOwrbtOy0dtCTgelmJV6Y0bDSFpfL
-CytllDi3HBJQoVGTyPgHy4Sbb4ZDxckfHmJ+u914XcCl+2vyCb5T0JQ1bn8t3DJh
-ypK0VEzhW07uxJ/1AypNdedLuZfrdzMlN2rdLhyIeU/gx0qCmXfQ3zovFgt4mN0O
-2UUVkXGEw8w7TiO+mijrK3QlsjatcnDOBWSJJv0puzwi2qE8vxe4ZGcWO7b2SiBh
-NzmbBCNN9GKKPQCqKjGFh2m0rG2uvYxtrDgmDG6yb57jxUMMP4WUDuIUqC5TAsRq
-mzJ7CgNeUkuedCsCM2Gk2j9UXelEcM28T832ZDJai0CWZvRgtpU=
-=WI0b
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYruZIACgkQnowa+77/
+2zJG6xAApIpoHo49Ygkp02gldcG63kGK7GhmQP8tbbUCOtEv0afZVMTQchqEKkW5
+a6o+poGajm1NabG3lzx0VfmsOhYh5m8ZRe6QCiG1upVH53LNKgtPdT6kHJwvGENc
+FF3G+qflPazS2bDFfjgH2cBHec3LSXUPGps+Q7naYm2JIX1UbTAZ6Ep6khr4EksC
+dENjqf9x+6hbc6IgF5T20//nr2kowQvRmPzjkafm3PfKKzROSyHJv7TX5TRVLfIF
+bQAADQwnazCtgVVmNFoLViGyFgLI2i2IHeKfFIygzjJ2RFrkNSHCYVsyqc0BKkNa
+28FdeShcdRMUohQ3/XkX11T9cuyU53AGxlJDLnS0t208I2eW7nqoxyQ0Rl5QpoB0
+m2AaqH0HMU1o+C3ZMaUuRXEQq7dn3kKzxvWxB/35TKYxzHq2R0OtfEy9QSjOUWCl
+xb5D2V+IDqxdgFk26xcQsy9cQe4KFIiqr170xqH6Q42up6PvOCXVn4SyFtqCt7MB
+awyp6qc2iGUiOmgtwn+qDv3fJccDI2w1Y+cBnd0s7pQs5c17+LRm4nJaeEPGNQoh
+WdE4gCbsvWa8EnUQjqWY6M5hxtq/eose+nrQ3Y8krv58pwmN28PE7qic94rvRjXz
+rFzcpYMHdhdp1jjaWtjXFmw8Qk7oLPBNQp8fKTLPzfa8gFrxXNA=
+=/p2G
 -----END PGP SIGNATURE-----
 
---RU/RGONZ9TBq25GO--
+--6z7j5vl4u55mwpit--
 
