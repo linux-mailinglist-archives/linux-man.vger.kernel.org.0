@@ -1,80 +1,78 @@
-Return-Path: <linux-man+bounces-828-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-829-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA43A8B422E
-	for <lists+linux-man@lfdr.de>; Sat, 27 Apr 2024 00:31:53 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2BB8B4258
+	for <lists+linux-man@lfdr.de>; Sat, 27 Apr 2024 00:49:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E81061C22556
-	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 22:31:52 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BC8551C21EE7
+	for <lists+linux-man@lfdr.de>; Fri, 26 Apr 2024 22:49:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C31A11EA84;
-	Fri, 26 Apr 2024 22:31:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DB0627721;
+	Fri, 26 Apr 2024 22:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YRMpcOtq"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BY9/pmga"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290E42F2F
-	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 22:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBAA3BBC5
+	for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 22:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714170708; cv=none; b=Ordx5qZXcC4sH83R+KvPQcjXEvmqnx1MnvJR9mEEgt8a6fofqQ+JavBKNYv5E/UjxvzQ917wHiwgNW7IhneBCtpcGYdyP44/L61OHaiI3/+C9evt0lDSJNxVcG4rHybT9kxaKyBouu04HMgMPPsS5DOWFJxBI3gVLvRg2YE+OQQ=
+	t=1714171739; cv=none; b=S6rjlLC8BXIgnYvrLRxVN/KHPXILghiOuU4jeoh8zAG+zrFehxYvei6WNn67HC6CUVs4NREPqQKx2geSU2otmY8g0q2gsXkU01Taj/EufvBSDtbEiuqbOJXkQyggZ5/w1/1sBAZWr8IPLrAo/K0GZzmTx2hacwDIniZn1slYXj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714170708; c=relaxed/simple;
-	bh=SClYfMkS3Riu8HcqIFe7YlXSjeQaAOmQjchuJLd+uIk=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dFhIwCnqxOFywDKS5WU2bSPm3Y9pmwubzuefw1Q+pt4RHx0v1pRVU7dRk1u8yvsNmPxYQSj0tMwjVy0xAlJEoALFVDbfwte6C6wiCkLIWU9u5wvyHdJcI/svtGc3xojAOIZFB+HVZ7i/TFTq1ngAIpzeyZSfPMBsiQdIQ35F8Rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YRMpcOtq; arc=none smtp.client-ip=209.85.210.44
+	s=arc-20240116; t=1714171739; c=relaxed/simple;
+	bh=ZxcrI2WaZKdc8VbTltTeQrb7DVp5xsI/pIDOWeibZ8I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AXPAyejrqWZENuIKDz+FwxhS1kNfTu2RCMsSHb9HYESq3omJkwnGfJoSQRZb9O1/dlG6wsQN4quD44CIqkHuv228dm/rErI+YWkOjZw3uFcm2vGVHnxcbTzt1jhbhE7++TqDk0aj2wqT8Gscb10Rb0BDLf/RuzzvYl8SbnJc7z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BY9/pmga; arc=none smtp.client-ip=209.85.160.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-6eb93ec8804so1541858a34.2
-        for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 15:31:46 -0700 (PDT)
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-23be8872854so423569fac.0
+        for <linux-man@vger.kernel.org>; Fri, 26 Apr 2024 15:48:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714170706; x=1714775506; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1714171737; x=1714776537; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IiZxdXD3l1ANm5Ff7iaarvgqQWIQ8T3+pwYGrNBxVGw=;
-        b=YRMpcOtq6jf6ArmdwZDaI0ROwakWPgi47MTIHjQqzauVm3Ug9CoGoaQE0biqT6ANF/
-         vWMOLcGdErsWT12WCDjPh7aleo8TPIamRe7CZaR5JMxw1uTepGWmfgoHW9qrp0yhL8/A
-         4nQ65i8QJadqUx0lEsAAzsjg5UJG5CWDOLMuqkUXmnu9IWkmHeGNoOxGagmB37kh+y60
-         qLH7tNdFnCHdsRerIVyw2/CLo9rD0zY7mySsOY0l7/Gz/pxk6SNxl2zzc3CAbGx2Mxfw
-         8cfLF0s7DfXa/+rx8eTn66NLsSRhKTPvcTINTuy0Dw7Bzu+ZviRdkcnTu3GfR/eYt0ok
-         eJwA==
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=MPKyedz33S4W8q4oP+77S4gnFU2Ti7t7bXi538u3Vwo=;
+        b=BY9/pmga4dq6IpfQTJFOVrRMC+JC+avdqLVKMFQgQgfPmUhh1tGol/K7lEPI/yUPsZ
+         OgEfTBZGfCXaooVh1N1MvUYcFaDYVuC6PF913sm+V7Umg8npobGMBZ11f0rRoZ+YyZfO
+         L6uHBI62PXoOZNfVPu6jXjFnldqu3vm9KE/DbiXk6UEs3DgnPwEN3ssl8jjrHGr9EXqB
+         LcIb6o1wWTh5dqcXcRTiYDhdofPyZTCBZ3cVQzLMY/ZwjnGDKsQ4wCpdqnSzPMlxKMvL
+         MJZAF5fd5Adwsi4+gZl2EhtUUlh5QGUy0l/dlr43t8V5GDR0Hfi7nEnU+kwKvjvklnGm
+         U9wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714170706; x=1714775506;
+        d=1e100.net; s=20230601; t=1714171737; x=1714776537;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IiZxdXD3l1ANm5Ff7iaarvgqQWIQ8T3+pwYGrNBxVGw=;
-        b=Kf/P+MnxWQYiBaN77isPAuK7cWiz5g3FrpBAeYZUk13+ckGRQRZYBeGWtfgT4EVPmq
-         G0kvfqOWfg5CIiysq3+NAioyr9IgIQ4iOaByFA3FIQBoTa3Emqq3ZVOOsDp3/RpwekyP
-         +NLR/9ufMwHMMJ1Z/UOrXlD4u5SFY3tQT2iaDlsG9/gRvqbhQCk/Iv/nUDrEOva34/qt
-         TIjxfsIOndl5c2ra0tESZl3jYGvjanVII5agKGZXSkcdePWIm9e00/3YlkoO7K9Sq1Oc
-         UnVRd7qAE/KNvTJVYSkdNHnff16DfyjBG5KgTZNzVX1493Ik7nprHqJ19Z8gu0ju1m43
-         kFZw==
-X-Forwarded-Encrypted: i=1; AJvYcCWkyOrS0mgcOF/Ecu+3fmb8LpAEDm8VTNvDABmDp6XgLUtZ2vkEtrNjRvL57MeIACbjnIXI2CCPRwn8Px7Bcl754Va6je0YkehK
-X-Gm-Message-State: AOJu0YymOT2ZEuZsAj3MXLz/7J+IGlk3xbVN8jYsH8/dLYJZac2pLH4z
-	VjlEdsvlQS4EqHmO9a2XuQeHsLPWvM2AcZYD+hE7Fsq3fQIhTooyfjaHyQ==
-X-Google-Smtp-Source: AGHT+IFCAY4nvTdP80ZxzE6YKE28Lggou7B1HrUUgfv8J8iMByOO7ymTJAmjsx5AMUtf0OI3FZqCsg==
-X-Received: by 2002:a05:6870:b683:b0:234:56db:7c8c with SMTP id cy3-20020a056870b68300b0023456db7c8cmr4657316oab.57.1714170697478;
-        Fri, 26 Apr 2024 15:31:37 -0700 (PDT)
+        bh=MPKyedz33S4W8q4oP+77S4gnFU2Ti7t7bXi538u3Vwo=;
+        b=fmQ0oGj5NuLNwEL2PiPqWC+IL19jnxzaYzjTZ3Jg6TCnIHFEKmV9K1xymLzbxF0Zrk
+         i3RZVuqCVdOFAurMKYub6Ml54XrqHM7GdTj1+dxiZY6iuTmH7bwdBn+yov0mFEdwdpDd
+         Kz1OCEu8yzUezOHXLLrTeFP2OqdpQzWvTR0WuAbgWJ+zudFxNMqoOXHBEFPJooLYBSUt
+         sZWxJfmTbC0PXQo6LM4RdglGFCc7SzABqCYmkq1jC+hTZ9eHCbg2uYUWcrF57DJdFw+K
+         7CMg9Gls+E8nw/yzowNXywUfgwRYDg/e/ZLAo9TZ0bsCbR5+gdBqPfmiX88ZY1s2RDWA
+         IseA==
+X-Gm-Message-State: AOJu0Yzay4dpMSXr+qJ1iqS2AaTjNrQ+uf0FIs96APzFfTqX7SHrwlP9
+	WkRewZNjbhRsY9b6OWRY+LIwVtGRpMxCKgdsv8e7ajmzzH/a47Etwg4Emw==
+X-Google-Smtp-Source: AGHT+IG2aYQu5F6g05x00Kg3X0yBvEkgrA9V9rbK4+396o72yvS/jvW+1OR+Zt8DgF5HRD0YYKqbWQ==
+X-Received: by 2002:a05:6870:e390:b0:233:b575:4b4a with SMTP id x16-20020a056870e39000b00233b5754b4amr4638584oad.36.1714171736892;
+        Fri, 26 Apr 2024 15:48:56 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id fu16-20020a0568705d9000b00239389f66cesm3437665oab.47.2024.04.26.15.31.36
+        by smtp.gmail.com with ESMTPSA id qw2-20020a0568706f0200b002397a883e7csm3111686oab.12.2024.04.26.15.48.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Apr 2024 15:31:37 -0700 (PDT)
-Date: Fri, 26 Apr 2024 17:31:35 -0500
+        Fri, 26 Apr 2024 15:48:56 -0700 (PDT)
+Date: Fri, 26 Apr 2024 17:48:54 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: groff@gnu.org, linux-man@vger.kernel.org, bug-ncurses@gnu.org,
-	alx@kernel.org
-Subject: Undeprecating man(7)'s `HP` macro? (was: Proposed v2: revised man(7)
- synopsis macros)
-Message-ID: <20240426223135.tr2q5ty7nya7yv6s@illithid>
-References: <20240426055958.3hzal6m4r7mgzhqj@illithid>
- <ZiwihxockR9UOCxV@fluorine>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/3] man2/syscalls.2: srcfix (1/3)
+Message-ID: <20240426224854.tgpkk5tarh4n2jkb@illithid>
+References: <20240426214403.mvskw552dm2wyaus@illithid>
+ <ZiwqU06Pg4Szfm3_@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -82,132 +80,63 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ztcq5cailgbvlm3l"
+	protocol="application/pgp-signature"; boundary="5uvpvs4243alxlpv"
 Content-Disposition: inline
-In-Reply-To: <ZiwihxockR9UOCxV@fluorine>
+In-Reply-To: <ZiwqU06Pg4Szfm3_@debian>
 
 
---ztcq5cailgbvlm3l
-Content-Type: text/plain; charset=utf-8
+--5uvpvs4243alxlpv
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Lennart,
+Hi Alex,
 
-At 2024-04-26T21:54:15+0000, Lennart Jablonka wrote:
-> Quoth G. Branden Robinson:
-> > I have been dissatisfied with groff man(7)'s SY and YS macros for a
-> > long time.  My primary grievance is one that has frustrated its
-> > uptake by documenters of libraries: the macros are designed for
-> > synopsizing Unix commands, not C library functions.
+At 2024-04-27T00:27:31+0200, Alejandro Colomar wrote:
+> On Fri, Apr 26, 2024 at 04:44:03PM -0500, G. Branden Robinson wrote:
+> > Migrate table entries from using font selection escape sequences to
+> > font alternation macros to set man page cross references.
 > >=20
-> > After working on the ncurses man pages for a while it became clear
-> > to me how to modestly revise the way groff man(7)'s SY and YS macros
-> > work to serve both sets of authors better.
+> > This change was automatically driven by the following sed(1) script.
+> >=20
+> > $ cat pre-MR-migrate-cross-references-1.sed
+> > /^\.\\"/b
+> > /^\\fB[^\\]*\\fP([0-9][^\]*).*T{/s/\\fB\([^\\]*\)\\fP(\([0-9][^\]*\))\(=
+=2E*\)/T{\
+> > .BR \1 (\2)\
+> > T}\3/
 >=20
-> I=E2=80=99m sure this is good and fine, but I do wanna mention this: SYNO=
-PSIS
-> items with lines after the first one aligned, possibly with something
-> on the first line, is like the one usecase for .HP.
+> Are you sure?  I tried running it, but got a different diff.
 
-One use case, yes.  `HP` is primarily presentational markup; it's like
-`P` with a stylistic sweetener.
+You're right.  I was switching between two branches in my working copy
+and managed to confuse myself.
 
-> I think it would be good to mention that,
+So that was a failure to launch.  :-/
 
-In the context of `SY` and `YS`?  That, I'm not sure about.  While `HP`
-would save people from the line length management and text alignment
-problems that turning off filling causes, it still wouldn't deliver
-semantic value as `SY` does.
-
-I believe we're pretty darned close to being able to automatically
-tag/index paragraph tags and synopsis keywords.  (The main problem is
-coming up with a convention for representing the hierarchical structure
-of a page in the tag identifier, to avoid ambiguous references.  This
-convention needs to be robust to the crazy characters people might put
-in a section or subsection heading.  But once that's sorted out, we have
-the machinery we need.)
-
-(Incidentally, this would solve the same problem that perlpod spent
-years spraying thousands upon thousands of `IX` macro calls all over the
-place to address.)
-
-> even if Groff deprecates .HP (because HTML is incapable of expressing
-> that?  I don=E2=80=99t like that reason.  Besides, CSS has `text-indent:
-> $length hanging` now).
-
-I had a vague notion that it did; thanks for confirming.
-
-I'm actually fine with un-deprecating `HP`; I've felt tempted to do so
-several times.  (I just didn't tell anyone.)  If we do so, it'd be good
-to teach the HTML output we generate about this CSS property.  And I
-think I would retain this admonition to the user:
-
-groff_man(7):
-            ... a hanging paragraph is not distinguishable from an
-            ordinary one if it formats on only one output line, and
-            non=E2=80=90roff=E2=80=90based man page interpreters may treat =
-=2EHP as an
-            ordinary paragraph.  Thus, information or distinctions you
-            mean to express with indentation may be lost.
-
-But if people use `HP` only as they would `P` (`LP`, `PP`) with some
-presentational sugar on top for certain output devices, I don't think it
-does any harm.
-
-In principle, if I ever deliver my "tag class" prototype,[1] we wouldn't
-need `SY` and `YS` anymore; a page author could use `HP` for a synopsis
-and bracket the keyword with `HS` and `HE` (or whatever the tag
-enclosure macros get called) themselves.
-
-Hypothetical example:
-
-=2EHP
-=2EHS synopsis
-=2EHS function
-=2EB wborder\c
-=2EHE
-=2EB (
-=2EBI WINDOW\~* win ,
-=2EBI chtype\~ ls ,
-=2EBI chtype\~ rs ,
-=2EBI chtype\~ ts ,
-=2EBI chtype\~ bs ,
-=2EBI chtype\~ tl ,
-=2EBI chtype\~ tr ,
-=2EBI chtype\~ bl ,
-=2EBI chtype\~ br
-=2EB );
-=2EHE
-
-But `SY` and `YS` have a 15+ year head start, and counting.  I have no
-particular thirst to kill them.  And the foregoing might be too much
-markup for the median man page author to tolerate.
+Okay, I'll be back with a v3, and will triple-check this time.
 
 Regards,
 Branden
 
-[1] https://lists.gnu.org/archive/html/groff/2023-10/msg00034.html
-
---ztcq5cailgbvlm3l
+--5uvpvs4243alxlpv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmYsKz8ACgkQ0Z6cfXEm
-bc5T0xAAjoArYK2COgykzcFoK99Z2QsipCxfs68HfSVEPz2zBlMUGlad2beWr9VB
-/wiwxWYs4Oku+ZtI4DcbT9WYnO5gZrsKqfnavbkaefueXs6XE5RuLJ4SSYyGw3A4
-x/Z9wt1nT6qkHo25Mb4D9sGwvgWLFm/esp1d1a466ezSYq51hsjPAIThnkKNyClY
-ejn5TnS8b1AxXvdYStwO3BWNmHbClHbfOgaiTO+gKSgSoXQWMogKiumXcnExkrtg
-6JPLVcjHev9zwiGN7IDj2h+VdgENBHU+112W3wkxqROO/KxdyOmZ2hBmGgNYEJCH
-eGhuwqQjZ8/k1IN8h+eZCLrBj4HXD09m7wQxAh6Eh8GCjyj95Z0xMs7zjZ9o3gsf
-i5W09+niifuIKTdreQsCB9NqdO5+rER4h21u+XiTPNjm6bXPVq4+nxeQxcNqWl86
-KJjBoRjjXZhzwTSh0AaFXM5RJasKFJ9TWAgNqcrW9KW9mQ+FDHHUdCKoFp7iazUZ
-zN7CvdA8y97F0vYFNM+Ux29dTj+nWcrLMq1FsLULaOaMjm7ZT+HQ0k0uu78WFVEA
-V7tAMtwk7+U+CWvUM5wXyZdp2vn6cqp/hpWcOzAEec2qADgzQM85waYDSq1Cg0ZG
-CTapAK/HVnD26L7y7+RNysTOz2l1eMPZUxG2eUif5z+1jFa22CQ=
-=u+Ta
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmYsL00ACgkQ0Z6cfXEm
+bc7Lng//QC0UDN1u8jDE2Kb9cpz5CJN8bXBEx8p741uaLihJzl0B8GxRqo+n8pqO
++SUejkoBEuZ/I3l5O8uQ6Nay1PEmBwg5YHGmfM9/WlTPSRq4etc88yIRjqBZ5s47
+zvqmfv9Z4VnnRBXhT2erbHf/IhLmgwAZA2Ztijc8Y29Qgw/wSqOxOGQVjAHWwQ/y
+1POnkELpgjLgI6m+ksQi+kjYq63o+AP8+tCkUz6qQElvHOhCZNJKFvteZWt3Zigt
+xdCQHVyuliEaXgZbXdrsFLBBbt4YW4dXLKnvYQO7sd5JwXrrk31L6oIUgzXO+D9p
+rYwHuU9gbv0X5Qwnr7uWXCM86yjul/vQC6Y4pzrHyutO5ZRUijiveuzaPy8Nc15M
+SbrRHwHOzSX14jTpuBk4LfFJZ/BVdCQLOrNmDgZagJJ+Pf2IV7EIrRDFoAVgJz90
+W2O+rLzmu4fHZ/KaRdwEnK4fcatJbyzANRipFNBUoE5MYIeEmVqHYdYpBQgseOZi
+iaAyPS84NOIKKiYvyktmsBd+TrsJfJEPPqtx1Hyinp8ez//73aqKU23ekONy4mlF
+SGr3ANYHyZ/IeQ075Gvv17+sj7wDIdB1qpDpIwtTOpiQZCTrr6WKm2SXsIrFBFxl
+PQ8saXcyFqstt60aGcXOIYTQI3pWHrCn3KwSd+wuNSzkc9xaMus=
+=hpe2
 -----END PGP SIGNATURE-----
 
---ztcq5cailgbvlm3l--
+--5uvpvs4243alxlpv--
 
