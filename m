@@ -1,53 +1,54 @@
-Return-Path: <linux-man+bounces-836-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-837-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B618B4ABC
-	for <lists+linux-man@lfdr.de>; Sun, 28 Apr 2024 10:37:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE76C8B4D7A
+	for <lists+linux-man@lfdr.de>; Sun, 28 Apr 2024 20:36:43 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4D6611F216C9
-	for <lists+linux-man@lfdr.de>; Sun, 28 Apr 2024 08:37:37 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 521D51F212AB
+	for <lists+linux-man@lfdr.de>; Sun, 28 Apr 2024 18:36:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DF8153E0C;
-	Sun, 28 Apr 2024 08:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 643EF64CC0;
+	Sun, 28 Apr 2024 18:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RagT63nM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tGqZsGBE"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1944EB5C
-	for <linux-man@vger.kernel.org>; Sun, 28 Apr 2024 08:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F5A637;
+	Sun, 28 Apr 2024 18:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714293453; cv=none; b=GO7Os06lofjtioQnJcwD82L9/p16gldsevLII52E8m09H8a0peA619ppqMAx4LNVLTLoZ2/RauL2/kgZZkNKPpiTpykl2xNayk+bsbL5eL4f9TYL9y/9hpoDq9QJjmN/CklJPH0ckcA8JSF2R+NUnB/8gJqIq/tj3TV1Suf/p50=
+	t=1714329398; cv=none; b=rnqlHshLnld/CP4TMRXQx2dUIcaZqU4NvogJeXq6WGaMwCQ0cG+8GUadcW5GQzpSoa8j5l/UCJlapx2MHsIi5k35MP3sXBMgrsrpnthGhHPyH4PjkLenxun8E6byQbensrx2h0UITndyVHTps4LOxN5w+U7gFpqKRQ0WdWmAohg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714293453; c=relaxed/simple;
-	bh=p5vLEDFfesrF37Lz8pKoNcjkO9tb4J/+ooODNWFel3o=;
+	s=arc-20240116; t=1714329398; c=relaxed/simple;
+	bh=p6IdQenkKGj6WpsExDtD92Qqy9PrANP2UcmTdefXe0o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PipYFsjCjMyJ0+hzqgFHZ6WQGvysU8z05kRasS88UgQGlJCyGZK1SdQSz5pkyzVDpWJ1kqvA7WgrMOoMJfuF7C4Hzb2f6/CS5s44Eyyo0FHpmC8XCG8ZpHdhKZDLVNeVzjPCQhUjaKmqdvNXcH2kXef4KlqxIUe8rm894Fem4Yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RagT63nM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042D9C113CC;
-	Sun, 28 Apr 2024 08:37:31 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=qNulWAA6rPCNCzy692pKwfMT0pqfuD56UhNWMl93BAi1Y09ri8R/MHcGNgLLBBHxNo67oFMYOmZVRQ13fqfzGmexAi6BrW6QtLvb7LHr6BT4k3ZwX7ZJ+DL18QSivjzitdEZDhKqb73UkV/Jmeh4Gtn7KSDjxQOdbvu6dOipMvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tGqZsGBE; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A4AC113CC;
+	Sun, 28 Apr 2024 18:36:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714293452;
-	bh=p5vLEDFfesrF37Lz8pKoNcjkO9tb4J/+ooODNWFel3o=;
+	s=k20201202; t=1714329397;
+	bh=p6IdQenkKGj6WpsExDtD92Qqy9PrANP2UcmTdefXe0o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RagT63nM6FhFBtlxo9gBz+w4DhVK0Ch5F27nNSDWqAQCHYxYwa1Oe2YWd8YwN/HeM
-	 TkON2iSOwNjt+qnEYf8y5VWJ1J9q0/YGZ0a3ZX3SFrupt02WoR2dMdpDMD8/9sC4NO
-	 nJpWWn2LpPolv2NAjdhgJIYff5OeyYtO4KtphfUn8StLq2jpK/35rDzPP9gRKnRAoM
-	 cbQArDLaceu5XWpEJ3kEV9zTqRVcvnzSu79yDeyp7OrPUeFaj9ifDu47VbXtxo60gq
-	 0IZ5DP1lUDhgg8eUwwZmht8CT8dHOXL1XifSBSOKWxBKQBm34JvCx1RDpk9wemcs/C
-	 Cz6HWVpQVBvQw==
-Date: Sun, 28 Apr 2024 10:37:23 +0200
+	b=tGqZsGBEzrvtFFD2eh/wv2RtPc9O2B2/k/iHmWzDlyQm03/jDBjhnlX82UFBECV1D
+	 A9wH4LBvOOTSbFPZewBplys5OTHb44MS5yuBLbG5zPfmS8Yun3I1aDScjGD+RzgHVf
+	 7ol0U7goGDhyItg/5iE53nRBVMLHiXJh93FAG1TadewzOdIsYdGZVSbFSnbehsOvDf
+	 xpG1xmQ4At+48ckX99l5q4lbV2I0htOZ8NKHyscmM0cNPH6ZMxgwDqcb5EJvlywTev
+	 Xo3N58JoeOLOWYaizhFltinLF1Y9b1C6puANB6aGnzz6aQwxVHQZ1FeOCNfZt4oEYS
+	 EfqDNUqs9iVxA==
+Date: Sun, 28 Apr 2024 20:36:28 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Sam James <sam@gentoo.org>
-Cc: linux-man <linux-man@vger.kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>, liba2i@lists.linux.dev
 Subject: Re: Please consider reducing build system churn
-Message-ID: <Zi4KyftBnQZtr82G@debian>
+Message-ID: <Zi6XMnu-5fiBg1S2@debian>
 References: <87ttjm8ero.fsf@gentoo.org>
+ <Zi4KyftBnQZtr82G@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,120 +56,111 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9T/w3NgVHgOBvRdO"
+	protocol="application/pgp-signature"; boundary="GdEa+CTp+G/eUwTR"
 Content-Disposition: inline
-In-Reply-To: <87ttjm8ero.fsf@gentoo.org>
+In-Reply-To: <Zi4KyftBnQZtr82G@debian>
 
 
---9T/w3NgVHgOBvRdO
+--GdEa+CTp+G/eUwTR
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Apr 2024 10:37:23 +0200
+Date: Sun, 28 Apr 2024 20:36:28 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Sam James <sam@gentoo.org>
-Cc: linux-man <linux-man@vger.kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>, liba2i@lists.linux.dev
 Subject: Re: Please consider reducing build system churn
 
-Hey Sam!
+Hi Sam,
 
-On Sun, Apr 28, 2024 at 02:19:55AM +0100, Sam James wrote:
-> Hi,
->=20
-> I had a request to bump man-pages in Gentoo [0] and I must admit that
-> I've been fatigued recently, both by other work, but also the large
-> number of build system changes between man-pages releases.
->=20
-> I already try to review all build system changes but Recent Events (TM)
-> means that one must take even more care and not be fatigued by changes.
+On Sun, Apr 28, 2024 at 10:37:23AM +0200, Alejandro Colomar wrote:
+> On Sun, Apr 28, 2024 at 02:19:55AM +0100, Sam James wrote:
+> > With regard to d0d2e2f9a21e623db208b599643e7728d71e7e6f specifically, it
+> > might be worth explaining: a) what liba2i is;
 
-Yup, I had the same feeling.  :-)
+I forgot to explain what liba2i is.  You know, but for the list:
 
-> man-pages in particular is a critical package and if I can't review its
-> changes properly, I can't package updates to it.
->=20
-> There's a lot of churn commits like
-> * d0d2e2f9a21e623db208b599643e7728d71e7e6f,
+I've been contributing to the shadow project for some years, and
+maintaining its stable branches for half a year.  While doing that, I
+found consistent misuses of strto[u]l(3) and its family of functions.
+And in the cases where it was correctly being used, the code was less
+than desirable.
 
-The rationale for that is that I diffed the whole build system of this
-project with liba2i's, to reduce maintainance work.  Any spurious
-difference was removed if it was unnecessary.
+I claim that it's due to the messy interface of those functions; while
+they are useful, they are very difficult to use correctly.
 
-> * 57d0f8b4f1ba43fd4c4bfbe826d1b255c6ef9fd5,
-> * cdb8bd9563dd8a0d32138de40bc64f0c3475790c,
+The first problem I fixed was that strtoul(3) doesn't reject negative
+numbers, and behaves in a way most programmers wouldn't expect (unless
+they know that function really well).
+<https://github.com/shadow-maint/shadow/pull/875>
 
-This one was because man2html(1) crashed on a page from tzdb (which we
-import).  I guess that's a necessary change.
+Then, I tried to do was use the NetBSD APIs strtoi/u(3), which are
+provided by libbsd for GNU/Linux systems.  However, I realized that it
+was still imperfect, since it doesn't provide type safety.  Also, since
+Fedora and some other systems don't want libbsd as a dependency of
+shadow, I had to implement my own strtoi(3) to work when shadow wasn't
+being linked to libbsd.
+<https://github.com/shadow-maint/shadow/pull/890>
 
-> * 6658bc41a8d66afbf348126f8adcffe86227e2e1,
-> * d7b3f23c53d83ff714dd829c929a27f2c05aab23,
-> * 7de1139b82571dfe55224022e05e095a32b1ea89
+When testing my implementation and libbsd's one, I realized that they
+behaved different in a corner case, which results it was a bug in the
+original design of the function.  Luckily, it was an undocumented
+behavior, and we could fix it (and BTW, fixing it, fixed many existing
+calls in both NetBSD and Debian).
+<https://gnats.netbsd.org/cgi-bin/query-pr-single.pl?number=3D57828>
 
-This one was requested by Debian, so that known lint failures don't
-pollute their packaging checks.
+I found an old internal function of the shadow project, getlong(), which
+seemed to have a better API, which provided type safety.  I then came up
+with a design for a set of functions and macros which would be a hybrid
+between shadow's getlong() and NetBSD's strtoi(3).  Those functions have
+already been added to shadow recently.
+<https://github.com/shadow-maint/shadow/pull/891>
 
-> and many others.
+And now I have a huge patch set for modifying the entire code base to
+use calls to those new functions, replacing every call to older APIs.
+<https://github.com/shadow-maint/shadow/pull/893>
 
-Those that I didn't comment, or the many others, were triggered by your
-feedback that the build system was complex and hard to understand.  I've
-been trying to keep it very organized.  But yeah, all that was prior to
-Recent Events (TM), and I want to reduce build system churn
-significantly from now on.
+While changing all uses to use the new APIs that I designed, I found
+several bugs in the process, which are being fixed (most silently, with
+no bug reports).  In some cases, I found code that is pasted from other
+projects (e.g., the reproducible builds project).  That's why I thought
+that writing a small library that would house these APIs would be an
+improvement to many projects, not just this one.  The project is hosted
+in <kernel.org>.  It has a mailing list (CCed in this message).
+<https://git.kernel.org/pub/scm/libs/liba2i/liba2i.git>
 
->=20
-> With regard to d0d2e2f9a21e623db208b599643e7728d71e7e6f specifically, it
-> might be worth explaining: a) what liba2i is; b) what commits were
-> actually pulled in (possibly with 'cherry-picked from ...' or shortlog
-> output or something at least.)
+I wrote a build system for it based on the one in this project, the
+Linux man-pages.  I'm trying to keep both build systems as similar as
+possible, to reduce the job of maintaining both.  For that, I use
+diffoscope(1), to see the differences in every file.
 
-I didn't cherry-pick anything specifically; I run diffoscope(1) between
-both trees, and tried to remove the trivial differences such as white
-space, so that it only shows the important diff.
-
-> Alex already knows my feelings on homebrew complex Makefiles so I won't
-> repeat them here, but I will say that homebrew complex Makefiles
-> combined with a high amount of regular refactoring makes life much
-> harder.
->=20
-> Please consider either getting all the refactoring out of the way if
-> possible or reducing the amount of churn in the build system.
-
-Agree.
-
-Have a lovely Sunday!
+Have a lovely day!
 Alex
-
-> [0] https://bugs.gentoo.org/930798
->=20
-> thanks,
-> sam
-
-
 
 --=20
 <https://www.alejandro-colomar.es/>
 A client is hiring kernel driver, mm, and/or crypto developers;
 contact me if interested.
 
---9T/w3NgVHgOBvRdO
+--GdEa+CTp+G/eUwTR
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYuCsMACgkQnowa+77/
-2zK+rQ/+LcdFY/0Mpt6rrbzI+9rcDKmZUECm/CX1CBP4nTk8WlCOxO0cwKKrGynD
-db1z7iCIBRiw4Abg65KxCkQIm5fl1nPuQf630xbxXADMtaaqloWcQ/vbo7q3xFt5
-3oI90Pm+AAnGHzdikrHQQs5MuYqhRQ+C5J7rhTkGd9cLBXzOUZGH2gvRTa+b1Wvi
-JrOwOFbsPpF3ujwPchYpWSsAcCNEyN3Lb+x1MkZ50K0QGJdUaQ/0Rki4O2lqvjI+
-XifZHrQojtvSv0ER8mmZomtE0zylONIpwRGlxlCbmrmvZUSL87I+oNE0yw3xT5rE
-3LP/VhXTx8OPAU7g2jEWyoLU5hYjC+3UnuKB8C7VQ3jqyihveV3TaieUVmZici+1
-zqbFo3NH3/UDmGZlmfqh7Rpenb4IPTeADOeEC76BDWK7ocY2vWIOA5T81TVgqHjO
-H5rSyCflcRRerwpWUUHs/t80CXd2bG/7UefyMu7xdfqYM5m0iIrn0T41NIe1bZMd
-wEQgycYadYlqkr71y9E+bfKdF4gK9QIXs028UGbEwhJZvG5deqALHRz2y30P69td
-ihXxWjwWZYrMKyE1M3uxEtfNcYOeoz+yRCVAQ38dVNA9KGo1O2aMe7cSrTBe9qce
-/iWknmNn4rj0BvMSEagkeibIZJcRNwFhJFDl2kAK7FgnLX/JurU=
-=n4f8
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmYulywACgkQnowa+77/
+2zLPFQ/+L04eB6bZ4IQwQNeBc4kpHJwavSDBr/vt5bwSO9zQRVgpALciAYnmKmwi
+kAVfhh85bPJgLOMC/C9ktpdLO0l2VwTjGhMdnHWAFAaPFSCHh1ogfEPA9E/BjRd1
+BSOou7h4wE90d/BaAdqh/GVzBFVdh+Xoy2QjEgG0skLH3nlo0wh3jYJtutR0GdjV
+fEkafZCy++nssBTePPv//e3oHvnHmIZNkvRM19xEwcSm4dOS8DR5qpURwRkpaLBL
+EFpjBu3EXxyTKmgsG/ZgGAo+9MVFryhdhiekLOW7InYFP7QV5FKh+WtpC6s8SqwW
+ugXXq/LApyfXceJH9ZPG2wjCmM1lihTpD8Q/Eh5LpogdrHmm3Rfp5UPgeOtku7jT
+m7wcnKpPM+A0TuYzYlAWYl7R6YUYjgPyiFXrSHkEdx9NIeVjAhNa47w3trPE91xL
+CEJpuSELYn6K1xlfCtMTsP1CITHcHwopM/qsledB9sR/xvG8VZ77Z43jEFGPd6vv
+bWe7sEfilVWbpOelw6ZrLNxtejoN4RRcU4xz3rrCcmBjyFXPNRx+xrIgweM2/Whx
+90mjVsgircYJ9Pj8vMFpVhn7FU2wxZgt+WvD22/27CBH50cb8xHRk25bEA8sz7hL
+a90zUI/dVrz4BfkEuqmWaRkpkIn5H/1qo12Ob6ANaPABuJ5S7GY=
+=K+fL
 -----END PGP SIGNATURE-----
 
---9T/w3NgVHgOBvRdO--
+--GdEa+CTp+G/eUwTR--
 
