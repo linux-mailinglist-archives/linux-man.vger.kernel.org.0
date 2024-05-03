@@ -1,210 +1,147 @@
-Return-Path: <linux-man+bounces-865-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-866-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E1398BB4A7
-	for <lists+linux-man@lfdr.de>; Fri,  3 May 2024 22:18:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 550D08BB4DB
+	for <lists+linux-man@lfdr.de>; Fri,  3 May 2024 22:31:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 93659B23A68
-	for <lists+linux-man@lfdr.de>; Fri,  3 May 2024 20:17:57 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9002DB2133E
+	for <lists+linux-man@lfdr.de>; Fri,  3 May 2024 20:31:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 114EF158D99;
-	Fri,  3 May 2024 20:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4ED233FD;
+	Fri,  3 May 2024 20:31:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJNjDVMe"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fHyd+Ldl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B0F155321;
-	Fri,  3 May 2024 20:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0D337E
+	for <linux-man@vger.kernel.org>; Fri,  3 May 2024 20:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714767469; cv=none; b=VhjzIbxvk/VRoig7JvyHTSzWWCXdiVY4FJR5S+J5SfAcPaxo/aMtyRPNNMQf5bEQiRK+sbJrXdDGABXd4I0jSPxuTG/w8ROkiEEGZibZDFt2rt+N0tpSd3Bi7uD7xhZgSOosrw+TDuJkdCJWnKSxeekx1ih7rqDsx8VhkYsKEh8=
+	t=1714768291; cv=none; b=TdpGIkqJOtgo2b7jsyd9dUqaAXynQDovYvQsJdGFc0BudntfUHRvwahk5waW/mmYTBmbg7MaaU5LqHAu/vxOgyoC5jSdxtIsgkCHWcigHwIbAVzinCZ/nUyjHtTGQn+uEcnLAPXdQ9aWAQNkoIVSqBeRqirvXJBFGhXP78bNlzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714767469; c=relaxed/simple;
-	bh=vyZsYiKlF4nOHndUv9Dr2L04M+i797IctslKsozXv7k=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AtEq3v+SrRsAtBj6UEThB9RN/Yje/SgKkI/fFMED3XCt/FpY1zhViR+H6qza2h6bbBO/mR+VB9fCuWL7jDlaF+57YRfwBMmXaDti2It3lSvway9ZVQMTwpJ5dm8402UU5mOZy2Uz/Iys+9iBo/uWRxxgQLI1d4xu0vMqzQGXBo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJNjDVMe; arc=none smtp.client-ip=209.85.208.175
+	s=arc-20240116; t=1714768291; c=relaxed/simple;
+	bh=PvctChTGeDxP5szEZtgsO/iHsVpRGNpxFiNxb0UNXGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ka40RhKYzFjoc6QVK6e9w15tPtqmZlcn9sLnqYzLQkGl70qtlEIgqXEehXrCaxhQjd0+65Knyb8MihE3cwZed49Y+yiLFHy6TfjSK3mqvMHxeXM+tOR7LbrFbNnv+UY79CncfDxAwbFCTKoNZ3HcEmJgC42zgLKtc+O2NQTYRjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fHyd+Ldl; arc=none smtp.client-ip=209.85.161.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-2e271acb015so973791fa.1;
-        Fri, 03 May 2024 13:17:47 -0700 (PDT)
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-5b1e962fde1so69464eaf.1
+        for <linux-man@vger.kernel.org>; Fri, 03 May 2024 13:31:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714767466; x=1715372266; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1714768289; x=1715373089; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+IWQYp5T2Zl1VQkBfkG2UPdbY2+2qD1xC85V4mipGdk=;
-        b=MJNjDVMegfDoDXucydMarwn+L5Qaxfym+HiMV2goQkM+42yVOyRJ8Lbsmp7NsIQCGV
-         /ezJKgDAWE6enduIT6V0GDi7q59by5Ee7k79EPJ6zyZF/7tR/x4iSBu7DT99JsS0FeqB
-         k57b6Rd2Cuac26F4nvAEbUDO3aBvXNOeB0n09/Swi7BJvd8OkcQdLoVU/VsbdHkaSv8m
-         dMKwdSxvRvCu/V6xt615qAEgskld8YZptkPUmYFOBANR0JQAhu4fzoULK/N18AzIgNTx
-         fk4T/Hdwne/5mmxIMaRaTUCoayhlpy4dOC/kGlX1Yn/Aa9zlOBpuSeFHwJulzbOOTh8l
-         coRQ==
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ldsqWoLpGsY9pCc1jNr1Fs48rUV+xQAd5q6dz/IOtrg=;
+        b=fHyd+LdlmKfRd8puXkgfBqZMo8a8BGxx7sb/Dgb83xiPj9AvcpqeTPftHLEX7+4WRZ
+         Q8Uuets02JAH0WcOTXtWU8tijRCnw5U8oGdA6m4aGVkndtScnjXUBa8efYUT3klhJZNb
+         R0bDrXf9W60v3mhTW24LZd3zZ0UJjUdmcL7fzKS615Pd7sbAZWNHuCEVtlrR8q7fVNLR
+         iq8+6VbjdiO6IwtyCWji7ScVO3B8aN72K6Ne7prvV5ikpSQnXccB1QM1v35/S0h00h83
+         fhtAlRFJ3GZLNx8O2guZAVIstiWagdZRVWYPIKVNBctmnI1ZR+nDgfdQL1LJ395NPgDj
+         oQgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714767466; x=1715372266;
+        d=1e100.net; s=20230601; t=1714768289; x=1715373089;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+IWQYp5T2Zl1VQkBfkG2UPdbY2+2qD1xC85V4mipGdk=;
-        b=W1eyWJqeaJuGLujzDceGLVsPNdV/STf8ae3uz1mlZMltwzWmUqkD7L5fbcxSqXa1kR
-         5c2e+eDZ8wBzPko0w/mL2Ba0r9tRncKRP/a0bbP0ExjZV4LT54xvZQghFrzHlHn80doH
-         9MNPRfCS+oudh0TXvHE695RvfUVDoAyuA2ww6up5FtFekTxWIYiolDe0nbY7lWACN1If
-         V0oCCXF1y+iAcUTeNJuHIawNpgvPVfxce0c0lhLXiKma8NU7bsLCIsUK3z+y88m1/r+C
-         twN5BpbQedBseTITTf7dULH7GLo7dco0NnZ6X52Q/6Zdt+0enOniRI6wWf+EEY7EDXPb
-         J3mQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVHEudf77a8s6hdgA0Z5dUr5a4ny2Q2W/QBbqs4escJjk0xy9ghn4XbNcTsjUuSotFWSMLFogTlG31vvnLb8oR0X7mE6ycm0kZ265Wv9LSJ8fh1N0fuEV4XV0mL1KEJNZ5CRE2UrqMbJqjZx62apRzzP1ydDX0tcDB8oKlVkarQJfZoKfzX8fh0FXdhwt0MzeLWxoovCeh4iFQtA3QdjQcz/tkgQzz4/M/XUk9xSNfjr2O+c5TQ7iW/75sX
-X-Gm-Message-State: AOJu0Ywg2+i/MXgvekiked/NN/M8Ex8y2bGxMvthqOCRat8hx1Uarjn9
-	863ZPge1WyqIi3KQoqZPsaEAfw3fRhlKWmQ+VrhS0ktH4TiTh/Wj
-X-Google-Smtp-Source: AGHT+IEtIGM4F5KZzPi9VvGDIN5JQj/cCOTn+HlUGnzm7mBlNIItFfkHkfv9B/ZsX9SzV19oZT9crA==
-X-Received: by 2002:a2e:3618:0:b0:2d8:be29:4ca9 with SMTP id d24-20020a2e3618000000b002d8be294ca9mr2679583lja.39.1714767465925;
-        Fri, 03 May 2024 13:17:45 -0700 (PDT)
-Received: from krava ([83.240.62.36])
-        by smtp.gmail.com with ESMTPSA id q11-20020a056402248b00b005726b83071esm2085459eda.4.2024.05.03.13.17.43
+        bh=ldsqWoLpGsY9pCc1jNr1Fs48rUV+xQAd5q6dz/IOtrg=;
+        b=elhquoIMQByyrjmvCBj5J/s2ks8PJC1WUCB5Vp57otvuHydWfGsmVRsZPFvOVcZvN+
+         Ch+wM2L9F0tAxIBohAxoxlhhl1wEHuEPsBdKTsZ1/Gcxn3DMEkASGbkFle3nQSy5U0Yz
+         RU8OKVFTfVGlThGRBtkivVkqE1TlnCaZSTOWnEQ//yFVCNbCwOq8mY+bJe2bMP6Ey0Bf
+         6Yj7KtSrAU2lsDV/uOOrusoAsVbBh7Uf8XgFeTewPJQ7RomzlyXt63uanCJGK1WIy4Pm
+         Eql00+Nos/KWkIW55V9GOV9pdwF6GyxG4UiDYm+tfQ2tvCt57OGFOr3zRllPgcJUOldq
+         d20g==
+X-Forwarded-Encrypted: i=1; AJvYcCVwqXCH0OgkV8x1pOmR3KpU0h7pXCWH6lirU1+r1I+sjdergMNCRAnSOaWXZCKElDYZMtQzdc1ub+wPJw8XXypeEjEJjdDd5GV3
+X-Gm-Message-State: AOJu0YyAgPP4TowYVX/WcHxqdNsnFqwzaBYoq40HEACElacqLhcUUtbK
+	sewJvtZ8Ef4INJqofWSaIb1QYAvN2t1KnNX5LL+J+yFGw8aAgQaiTWerGg==
+X-Google-Smtp-Source: AGHT+IHW7batCFGdBLtbP+JC8crtu5XZRuwhBokK9iTbaMja/X7fCR6U/7JMJrBmn0k0rroxD8ARXA==
+X-Received: by 2002:a4a:5487:0:b0:5ac:4372:1d6a with SMTP id t129-20020a4a5487000000b005ac43721d6amr4264852ooa.3.1714768289287;
+        Fri, 03 May 2024 13:31:29 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id eo8-20020a0568200f0800b005a586b0906esm789736oob.26.2024.05.03.13.31.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 May 2024 13:17:44 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Fri, 3 May 2024 22:17:41 +0200
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "olsajiri@gmail.com" <olsajiri@gmail.com>,
-	"songliubraving@fb.com" <songliubraving@fb.com>,
-	"luto@kernel.org" <luto@kernel.org>,
-	"mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"andrii@kernel.org" <andrii@kernel.org>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"john.fastabend@gmail.com" <john.fastabend@gmail.com>,
-	"debug@rivosinc.com" <debug@rivosinc.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"ast@kernel.org" <ast@kernel.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>,
-	"yhs@fb.com" <yhs@fb.com>, "oleg@redhat.com" <oleg@redhat.com>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"daniel@iogearbox.net" <daniel@iogearbox.net>,
-	"peterz@infradead.org" <peterz@infradead.org>,
-	"linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
-	"bp@alien8.de" <bp@alien8.de>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"broonie@kernel.org" <broonie@kernel.org>
-Subject: Re: [PATCHv4 bpf-next 2/7] uprobe: Add uretprobe syscall to speed up
- return probe
-Message-ID: <ZjVGZeY-_ySqgfER@krava>
-References: <20240502122313.1579719-1-jolsa@kernel.org>
- <20240502122313.1579719-3-jolsa@kernel.org>
- <20240503113453.GK40213@noisy.programming.kicks-ass.net>
- <ZjTg2cunShA6VbpY@krava>
- <725e2000dc56d55da4097cface4109c17fe5ad1a.camel@intel.com>
- <ZjU4ganRF1Cbiug6@krava>
- <6c143c648e2eff6c4d4b5e4700d1a8fbcc0f8cbc.camel@intel.com>
+        Fri, 03 May 2024 13:31:28 -0700 (PDT)
+Date: Fri, 3 May 2024 15:31:26 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: groff@gnu.org, linux-man@vger.kernel.org, bug-ncurses@gnu.org
+Subject: Re: Proposed v2: revised man(7) synopsis macros
+Message-ID: <20240503203126.uk32l2r3yp5gwltp@illithid>
+References: <20240426055958.3hzal6m4r7mgzhqj@illithid>
+ <Zit0nT-jhNPE9T2v@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="xtey2zsatnea7vxf"
+Content-Disposition: inline
+In-Reply-To: <Zit0nT-jhNPE9T2v@debian>
+
+
+--xtey2zsatnea7vxf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6c143c648e2eff6c4d4b5e4700d1a8fbcc0f8cbc.camel@intel.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 03, 2024 at 07:38:18PM +0000, Edgecombe, Rick P wrote:
-> +Some more shadow stack folks from other archs. We are discussing how uretprobes
-> work with shadow stack.
-> 
-> Context:
-> https://lore.kernel.org/lkml/ZjU4ganRF1Cbiug6@krava/
-> 
-> On Fri, 2024-05-03 at 21:18 +0200, Jiri Olsa wrote:
-> > 
-> > hack below seems to fix it for the current uprobe setup,
-> > we need similar fix for the uretprobe syscall trampoline setup
-> 
-> It seems like a reasonable direction.
-> 
-> Security-wise, applications cannot do this on themselves, or it is an otherwise
-> privileged thing right?
+At 2024-04-26T11:32:06+0200, Alejandro Colomar wrote:
+> > My questions:
+> >=20
+> > A.  Does anyone object to me committing this change to groff's
+> >     master branch?  It will of course require a NEWS item, which I
+> >     will write.
+>=20
+> Acked-by: Alejandro Colomar <alx@kernel.org>
+>=20
+> > B.  Does this look enticing enough to any documenters of C libraries
+> >     for you to adopt it?
+>=20
+> This one at least.  :-)
 
-when uretprobe is created, kernel overwrites the return address on user
-stack to point to user space trampoline, so the setup is in kernel hands
+I've pushed this.
 
-with the hack below on top of this patchset I'm no longer seeing shadow
-stack app crash on uretprobe.. I'll try to polish it and send out next
-week, any suggestions are welcome ;-)
+$ head -n 9 tmac/an-ext.tmac
+=2E\" groff extension macros for man(7) package
+=2E\"
+=2E\" Copyright (C) 2007-2024 Free Software Foundation, Inc.
+=2E\"
+=2E\" Written by Eric S. Raymond <esr@thyrsus.com>
+=2E\"            Werner Lemberg <wl@gnu.org>
+=2E\"            G. Branden Robinson <g.branden.robinson@gmail.com>
+=2E\"
+=2E\" You may freely use, modify and/or distribute this file.
 
-thanks,
-jirka
+Share and enjoy!
 
+Regards,
+Branden
 
----
-diff --git a/arch/x86/include/asm/shstk.h b/arch/x86/include/asm/shstk.h
-index 42fee8959df7..d374305a6851 100644
---- a/arch/x86/include/asm/shstk.h
-+++ b/arch/x86/include/asm/shstk.h
-@@ -21,6 +21,8 @@ unsigned long shstk_alloc_thread_stack(struct task_struct *p, unsigned long clon
- void shstk_free(struct task_struct *p);
- int setup_signal_shadow_stack(struct ksignal *ksig);
- int restore_signal_shadow_stack(void);
-+void uprobe_change_stack(unsigned long addr);
-+void uprobe_push_stack(unsigned long addr);
- #else
- static inline long shstk_prctl(struct task_struct *task, int option,
- 			       unsigned long arg2) { return -EINVAL; }
-diff --git a/arch/x86/kernel/shstk.c b/arch/x86/kernel/shstk.c
-index 59e15dd8d0f8..804c446231d9 100644
---- a/arch/x86/kernel/shstk.c
-+++ b/arch/x86/kernel/shstk.c
-@@ -577,3 +577,24 @@ long shstk_prctl(struct task_struct *task, int option, unsigned long arg2)
- 		return wrss_control(true);
- 	return -EINVAL;
- }
-+
-+void uprobe_change_stack(unsigned long addr)
-+{
-+	unsigned long ssp;
-+
-+	ssp = get_user_shstk_addr();
-+	write_user_shstk_64((u64 __user *)ssp, (u64)addr);
-+}
-+
-+void uprobe_push_stack(unsigned long addr)
-+{
-+	unsigned long ssp;
-+
-+	ssp = get_user_shstk_addr();
-+	ssp -= SS_FRAME_SIZE;
-+	write_user_shstk_64((u64 __user *)ssp, (u64)addr);
-+
-+	fpregs_lock_and_load();
-+	wrmsrl(MSR_IA32_PL3_SSP, ssp);
-+	fpregs_unlock();
-+}
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 81e6ee95784d..259457838020 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -416,6 +416,7 @@ SYSCALL_DEFINE0(uretprobe)
- 	regs->r11 = regs->flags;
- 	regs->cx  = regs->ip;
- 
-+	uprobe_push_stack(r11_cx_ax[2]);
- 	return regs->ax;
- 
- sigill:
-@@ -1191,8 +1192,10 @@ arch_uretprobe_hijack_return_addr(unsigned long trampoline_vaddr, struct pt_regs
- 		return orig_ret_vaddr;
- 
- 	nleft = copy_to_user((void __user *)regs->sp, &trampoline_vaddr, rasize);
--	if (likely(!nleft))
-+	if (likely(!nleft)) {
-+		uprobe_change_stack(trampoline_vaddr);
- 		return orig_ret_vaddr;
-+	}
- 
- 	if (nleft != rasize) {
- 		pr_err("return address clobbered: pid=%d, %%sp=%#lx, %%ip=%#lx\n",
+--xtey2zsatnea7vxf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmY1SZcACgkQ0Z6cfXEm
+bc4Zxg//SwcGzhp0q5OmRqYtKRsbqdJyGZRpVXq+O0rAU2BU7/7KZ6hGdDVV+LWA
+KDO5NuSpti3GvKlWWq+E0uWgK16VOpF47c91M9y0sUM6Sj1veiytz7nIWUva4PdM
+cdnyyYLMOzI4oIAJo6MyIh6tfCZYmF2sLbPmfRlGCUVKOPl21CWCGnAWh5tF1gg+
+rSq4B86abQM3jhLEyYGnkQachVusvQPVmCAzVnqJKLFABkpK808wpwhQlT3lsKeg
+Q/AU6o9dZdz/Hq5X9gqNzMozRqvcEU0VLG+yDqKK25/jrv5nRXxYfCEtETT2Q/KL
+ZNFrcEVoQBrrH/eLWmGDmVo5mxeckpUB97TcBsXcE5Z8nDEfsaKrrk+AW7i6pkfD
+1EtvEld7uKwyJywL2mNAxSEKqqpb/biGq0lRZ0t4S7ccvcT5im7oLBo2fkm8hp55
+CZnBXvwbPkgu33nSVWJ2U/nmECwPvJkMpEZucYtTtUm9SmEvbNGcuDkGfMlmHxWu
+URggwdeCyiqmdrynIRntMickaGHalQ+G0ZkdodXhjQRoIkR7rmH729XkYuXs1pBc
+uO/T+T6KdcPvDiaQEOenMehKDevdSHNwmPsrYfOh1nrXn6uYgmNZQlrka7c2FWaC
+3ESMQeLe55W1hV/w4inLHKt2ugIONLhLbEGgepd/9qSRCScdR1M=
+=sV6e
+-----END PGP SIGNATURE-----
+
+--xtey2zsatnea7vxf--
 
