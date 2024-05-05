@@ -1,146 +1,247 @@
-Return-Path: <linux-man+bounces-869-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-870-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7E548BB7D5
-	for <lists+linux-man@lfdr.de>; Sat,  4 May 2024 01:02:04 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7A698BC066
+	for <lists+linux-man@lfdr.de>; Sun,  5 May 2024 14:41:58 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BFDAB1C22B40
-	for <lists+linux-man@lfdr.de>; Fri,  3 May 2024 23:02:03 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 769DF281F07
+	for <lists+linux-man@lfdr.de>; Sun,  5 May 2024 12:41:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED1C1839F5;
-	Fri,  3 May 2024 23:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA62314293;
+	Sun,  5 May 2024 12:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="zCe+/lF3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nziXbJRP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FF758AB9
-	for <linux-man@vger.kernel.org>; Fri,  3 May 2024 23:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C6C107A6
+	for <linux-man@vger.kernel.org>; Sun,  5 May 2024 12:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714777318; cv=none; b=qGPdmeqXpw1lbrSm5FAgdu7c+0KGtP/MxPDgbqy6gdD7XE6UxdxId1HiwntZUwQA//rlTAJmK8+Wm4bddqbIbkLO5HAyIrATOUFju1s07oIbJS8IzbuFw2z8micO2ZoeqsAlREKMN317Vkz/nKx7+zIZWOIOZgZT5V8ATEmVET4=
+	t=1714912914; cv=none; b=QhCSX9F85aFIFaQNQi1k0q4HfxsbLbcghXCeqF7WoaFXGUpWDI7PplOshawrxtEFbHfHAafkfDdzcO7PQseInPlGAV495fMnXACIEe8uzhIcVlvOuUoVMueb2jMz3fR2IVRIsPRCjNoeBpgXZj8gMgklTqzqSoKho6bH4zDu/po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714777318; c=relaxed/simple;
-	bh=4+92T3dF1pCkzFJyIvWH9pdOMABziRyYEtERHQRUflQ=;
+	s=arc-20240116; t=1714912914; c=relaxed/simple;
+	bh=kIKH0dAs02HoQHbeeoR80kK42awRGmXQI3LpHKyOnvc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SptrdcLP1ianSj5OSeA2qVp9QmW0rU8nd1afDbasbLg2aDXLer0EsomrVzF7a9LyQx26Awgg3zhXFqpN7mEP34wvKmmn2ne0DutrhMyxtlTh7yJ27PrvPnYdYObFAa5oz8ZKhoo3TBtH+kKErQOYE8Fuqz+lIPr+xFumPF8y7GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com; spf=pass smtp.mailfrom=rivosinc.com; dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b=zCe+/lF3; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rivosinc.com
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-1e65a1370b7so1618515ad.3
-        for <linux-man@vger.kernel.org>; Fri, 03 May 2024 16:01:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1714777317; x=1715382117; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4+92T3dF1pCkzFJyIvWH9pdOMABziRyYEtERHQRUflQ=;
-        b=zCe+/lF34YSpkLm2TxtBbKSM5HvQTiKwAV3/44wZGfe5OEzwrVa15OMDxIqPZ6I5Ir
-         fuY3gGUb1FAi2faOv0IGo2pG5+C0IrtWoAvDo27Rm59TDonSdrohlP/jS86LM+nBFEtr
-         GQ3wWvTpg2+gE2rC84ee/b9iJ/8BqenQTpLVlydzmF1Q0OR+SG+iFBTc7vA2g6AR9wul
-         m/yFYwnkqQjsc8A+msgyA4Sd2DrAZoqHoiIs/JMbDHBl0iLiHDMXXc9ty8yA5mVjjUPu
-         NIXwFUvpRU7gKebDzlcSK+ISTKqFUA3d5KvW+ehUNElxgrnfJxbe9q+O7QQnllgNc6za
-         k4nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714777317; x=1715382117;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4+92T3dF1pCkzFJyIvWH9pdOMABziRyYEtERHQRUflQ=;
-        b=gINyeUhS3A9GDhc0py5yJneUa5w8MrcmDTHtKPqRGKOgzgQ299GeDVhFartU07cHPV
-         nr7AZffPGU01+/IC0YILnU+Ha0IkHOp8JC53xUYMaDwAxv/Ij6HC9DCUpPfNglgG8II6
-         540c+tlr8zqZz5+tAWiZE9yiN27enSlQ950RaBl4DBE5aIjdo4WklQilG4khsddA3vTN
-         w7iykQEc+g66SYht48nBmiTTzP1bzitzg7cuOvYQIwU+x1468CcgFVZLCnSu0fri478E
-         C1BKzLFIT8UYB5OO8aWJr00Qq+a18CeNXwLdk5TIlvQmZCrEqYHbQyPTQYD94X9RhaJU
-         c8cQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVo65wOmjr2S+WlhTgdAXta8E2Kx4jHRTUk6FxoagXaCpe5MLhGwMXxzUjju07ix/ceA3g0RPSfFYtLKW/YMo19cXTK0b7J/vSr
-X-Gm-Message-State: AOJu0YxsE2DUZqdcj1ukC0uSJAxREEqtLu62JtEof1+Q0qGis+Nrh5ZY
-	ynHqdjibFodMpeAeiLe2adX82Kd013o1hbcdoztw+Y9HgBhyuG9belFUcLjXR/U=
-X-Google-Smtp-Source: AGHT+IHzq6AzE/NVvcqxm4ol0K1axCLWE5IjNbsp5PyIHu/cbS2sPY/kkICJk49x3bkJcMIgzsAwYg==
-X-Received: by 2002:a17:903:32cf:b0:1e2:ca65:68c2 with SMTP id i15-20020a17090332cf00b001e2ca6568c2mr5565119plr.51.1714777316672;
-        Fri, 03 May 2024 16:01:56 -0700 (PDT)
-Received: from debug.ba.rivosinc.com ([64.71.180.162])
-        by smtp.gmail.com with ESMTPSA id f7-20020a170902684700b001eab1a1a752sm3841345pln.120.2024.05.03.16.01.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 May 2024 16:01:56 -0700 (PDT)
-Date: Fri, 3 May 2024 16:01:53 -0700
-From: Deepak Gupta <debug@rivosinc.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "olsajiri@gmail.com" <olsajiri@gmail.com>,
-	"songliubraving@fb.com" <songliubraving@fb.com>,
-	"luto@kernel.org" <luto@kernel.org>,
-	"mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"andrii@kernel.org" <andrii@kernel.org>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"john.fastabend@gmail.com" <john.fastabend@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"ast@kernel.org" <ast@kernel.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>,
-	"yhs@fb.com" <yhs@fb.com>, "oleg@redhat.com" <oleg@redhat.com>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"daniel@iogearbox.net" <daniel@iogearbox.net>,
-	"peterz@infradead.org" <peterz@infradead.org>,
-	"linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
-	"bp@alien8.de" <bp@alien8.de>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"broonie@kernel.org" <broonie@kernel.org>
-Subject: Re: [PATCHv4 bpf-next 2/7] uprobe: Add uretprobe syscall to speed up
- return probe
-Message-ID: <ZjVs4bxi7CpWhtEQ@debug.ba.rivosinc.com>
-References: <20240502122313.1579719-1-jolsa@kernel.org>
- <20240502122313.1579719-3-jolsa@kernel.org>
- <20240503113453.GK40213@noisy.programming.kicks-ass.net>
- <ZjTg2cunShA6VbpY@krava>
- <725e2000dc56d55da4097cface4109c17fe5ad1a.camel@intel.com>
- <ZjU4ganRF1Cbiug6@krava>
- <6c143c648e2eff6c4d4b5e4700d1a8fbcc0f8cbc.camel@intel.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=P3JQINjvrKfU48nVa6zV+ZQRsBFgL/CGU7mCmeNd9iNh+6M/IAhAYAW+0kRZmbKNFrK36sfnvt25C18sm6qrvGkFDQ7HAY7I42oiS06rM76tCi9C5DLw7ra1IgwCLw8mlFYxFwyaS4UEtn8XFfRo4c2kB8jyw4fl720ce+w2f0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nziXbJRP; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070A8C113CC;
+	Sun,  5 May 2024 12:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714912914;
+	bh=kIKH0dAs02HoQHbeeoR80kK42awRGmXQI3LpHKyOnvc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nziXbJRPwTs1gDLW2ezLqj+NQaCF7ngBzL4vdjxgRidtEFvnb51i6PWi2O6rluqxP
+	 ZE887dPfrFgGLx8KXVPNHSfrq6c4dpfJR3BYsPdG83sHHEEuqEdCLs8Y1vkDCl+urn
+	 KcwCwmHFwcMcSj0DKlvsPZecilaK0VjDP8nFksUs9ek7gl3g/blevmAveAzqhiufOT
+	 MIMdZ+Ul2Ur99gf8/hD8njkhF+7b2b8ExtMsOTNU0a6cCtm+A8mCYaHu1DQECnzsHJ
+	 wsQdnAosBQcnivQB8qfJuJWWj03lgTC8skDadynlC+0STx2Ya6FBpT/7Z+QY4ur/WN
+	 fIPzOqAUdaBfg==
+Date: Sun, 5 May 2024 14:41:44 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: groff@gnu.org, linux-man@vger.kernel.org, bug-ncurses@gnu.org
+Subject: Re: Proposed v2: revised man(7) synopsis macros
+Message-ID: <Zjd-jgQ_VFTidbnT@debian>
+References: <20240426055958.3hzal6m4r7mgzhqj@illithid>
+ <Zit0nT-jhNPE9T2v@debian>
+ <20240503203126.uk32l2r3yp5gwltp@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uuGLxDRd5cujxQmo"
 Content-Disposition: inline
-In-Reply-To: <6c143c648e2eff6c4d4b5e4700d1a8fbcc0f8cbc.camel@intel.com>
+In-Reply-To: <20240503203126.uk32l2r3yp5gwltp@illithid>
 
-On Fri, May 03, 2024 at 07:38:18PM +0000, Edgecombe, Rick P wrote:
->+Some more shadow stack folks from other archs. We are discussing how uretprobes
->work with shadow stack.
->
->Context:
->https://lore.kernel.org/lkml/ZjU4ganRF1Cbiug6@krava/
 
-Thanks Rick.
+--uuGLxDRd5cujxQmo
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 5 May 2024 14:41:44 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: groff@gnu.org, linux-man@vger.kernel.org, bug-ncurses@gnu.org
+Subject: Re: Proposed v2: revised man(7) synopsis macros
 
-Yeah I didn't give enough attention to uprobes either.
-Although now that I think for RISC-V shadow stack, it shouldn't be an issue.
-On RISC-V return addresses don't get pushed as part of call instruction.
-There is a distinct instruction "shadow stack push of return address" in prolog.
-Similarly in epilog there is distinct instruction "shadow stack pop and check with
-link register".
+Hi Branden,
 
-On RISC-V, uretprobe would install a uprobe on function start and when it's hit.
-It'll replace pt_regs->ra = trampoline_handler. As function will resume, trampoline
-addr will get pushed and popped. Although trampoline_handler would have to be enlightened
-to eventually return to original return site.
+On Fri, May 03, 2024 at 03:31:26PM -0500, G. Branden Robinson wrote:
+> At 2024-04-26T11:32:06+0200, Alejandro Colomar wrote:
+> > > My questions:
+> > >=20
+> > > A.  Does anyone object to me committing this change to groff's
+> > >     master branch?  It will of course require a NEWS item, which I
+> > >     will write.
+> >=20
+> > Acked-by: Alejandro Colomar <alx@kernel.org>
+> >=20
+> > > B.  Does this look enticing enough to any documenters of C libraries
+> > >     for you to adopt it?
+> >=20
+> > This one at least.  :-)
+>=20
+> I've pushed this.
+>=20
+> $ head -n 9 tmac/an-ext.tmac
+> .\" groff extension macros for man(7) package
+> .\"
+> .\" Copyright (C) 2007-2024 Free Software Foundation, Inc.
+> .\"
+> .\" Written by Eric S. Raymond <esr@thyrsus.com>
+> .\"            Werner Lemberg <wl@gnu.org>
+> .\"            G. Branden Robinson <g.branden.robinson@gmail.com>
+> .\"
+> .\" You may freely use, modify and/or distribute this file.
+>=20
+> Share and enjoy!
 
->
->On Fri, 2024-05-03 at 21:18 +0200, Jiri Olsa wrote:
->>
->> hack below seems to fix it for the current uprobe setup,
->> we need similar fix for the uretprobe syscall trampoline setup
->
->It seems like a reasonable direction.
->
->Security-wise, applications cannot do this on themselves, or it is an otherwise
->privileged thing right?
->
->
+Thanks!
+
+I'm trying it already in liba2i, since it's a project that I don't
+expect to use until 1.24.0 is out.
+
+Here's some feedback:
+
+-  Hardcoded line widths have an interesting feature: the author decides
+   the breaking point, which is interesting to highlight differences
+   between similar functions.  See for example printf(3):
+
+     int printf(const char *restrict format, ...);
+     int fprintf(FILE *restrict stream,
+                 const char *restrict format, ...);
+     int dprintf(int fd,
+                 const char *restrict format, ...);
+     int sprintf(char *restrict str,
+                 const char *restrict format, ...);
+     int snprintf(char str[restrict .size], size_t size,
+                 const char *restrict format, ...);
+
+   As you can see, the breaking point clearly shows the differences
+   between all of those, and leaves the common part in a separate line.
+
+   Still, this is not the common case, and most pages would benefit of
+   this SY.  I'm just mentioning here to note that old hard-coded BI
+   still has its place in some pages.  I will probably never use SY in
+   printf(3).
+
+-  I found an inconsistent break point:
+
+   Type=E2=80=90generic macros
+     int a2i(TYPE, TYPE *restrict n, const char *s,
+             char **_Nullable restrict endp, int base, TYPE min, TYPE max);
+
+     int a2s(TYPE, TYPE *restrict n, const char *s, char **_Nullable re=E2=
+=80=90
+             strict endp, int base, TYPE min, TYPE max);
+     int a2u(TYPE, TYPE *restrict n, const char *s, char **_Nullable re=E2=
+=80=90
+             strict endp, int base, TYPE min, TYPE max);
+
+   Why is 'restrict' hyphenated in two cases, but not in the first one?!
+   The source is:
+
+alx@debian:~/tmp/groff/SY$ cat restrict.3=20
+=2ETH a s d f
+=2ESH Name
+restrict \- gets broken
+=2ESH Type-generic macros
+=2EB int
+=2ESY a2i (
+=2EB TYPE,
+=2EBI TYPE\~*restrict\~ n ,
+=2EBI const\~char\~* s ,
+=2EBI char\~**_Nullable\~restrict\~ endp ,
+=2EBI int\~ base ,
+=2EBI TYPE\~ min ,
+=2EBI TYPE\~ max );
+=2EYS .
+=2EP
+=2EB int
+=2ESY a2s (
+=2EB TYPE,
+=2EBI TYPE\~*restrict\~ n ,
+=2EBI const\~char\~* s ,
+=2EBI char\~**_Nullable\~restrict\~ endp ,
+=2EBI int\~ base ,
+=2EBI TYPE\~ min ,
+=2EBI TYPE\~ max );
+=2EYS .
+=2EB int
+=2ESY a2u (
+=2EB TYPE,
+=2EBI TYPE\~*restrict\~ n ,
+=2EBI const\~char\~* s ,
+=2EBI char\~**_Nullable\~restrict\~ endp ,
+=2EBI int\~ base ,
+=2EBI TYPE\~ min ,
+=2EBI TYPE\~ max );
+=2EYS
+alx@debian:~/tmp/groff/SY$ man ./restrict.3 | cat
+a(s)                                                                       =
+a(s)
+
+Name
+     restrict - gets broken
+
+Type=E2=80=90generic macros
+     int a2i(TYPE, TYPE *restrict n, const char *s,
+             char **_Nullable restrict endp, int base, TYPE min, TYPE max);
+
+     int a2s(TYPE, TYPE *restrict n, const char *s, char **_Nullable re=E2=
+=80=90
+             strict endp, int base, TYPE min, TYPE max);
+     int a2u(TYPE, TYPE *restrict n, const char *s, char **_Nullable re=E2=
+=80=90
+             strict endp, int base, TYPE min, TYPE max);
+
+f                                      d                                   =
+a(s)
+
+
+I would suggest never breaking anything between SY/YS.  Or do you want
+me to use \% where appropriate?  It's a bit of work that I'd prefer to
+avoid.
+
+Have a lovely day!
+Alex
+
+> Regards,
+> Branden
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+A client is hiring kernel driver, mm, and/or crypto developers;
+contact me if interested.
+
+--uuGLxDRd5cujxQmo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmY3fogACgkQnowa+77/
+2zLtVBAApBDejGb/XlPFX+SQpRtOKSqCBG5xox9ePXcGadfFVCfSRDMeKt9nRwx/
+uOz8hfxgfk0i0K+SAe+dEOoN3TL/ES+OfJrkRoR8ldRNmD6kvEKQmE181UWABNE5
+PkFOQy8WTzF92CwqLzaSBt8fDW5HLUlWAW3TJoIzpxR0AHvISXWLD2p6etegnn+L
+Tdcy8t5OECmqwTk8Cf9KE3UdnHZm9fNAwRIznuck/3MmAXQellflXdvFSXUN24oI
+qV7dD6YCJtWDiNTU56LOlpquPcUE4NTUKhBNhPJxhvMhdAGTwkO+G3+ba45f3u2Q
+DWmO9YgLfiqxzN0Vc3YViMD7KaeEyeW4udXgB4TqaNXIyv7OiGPi8GxzYXk9Ddmy
+VyhQsSBYnyActdNc+vzsov9ITYj/rpm2W0BSQv6pg/grTeMgcYNep96PE2FvkMpn
+H+/81ZsKy+Ia8p4NEUVgaygDFOb+85UBs+48VzO4x2QLwXxqpt9AXuUW4HUuOECX
+54zXWiwXdADoPJdce5bPeQwZVjEkiwZz+4tNv03mwlKBJ563RTe4spxkYglKwEDH
+MtvgxtV5PHJtNyR+EdIlVNzKnvZB4h19G9fE8cs461HJz0UGdKuaWqR7XxuJCfFx
+bIwTKSR1k4URVtMcOITlIF3KldGm8Z9aqicaakgH2BiYylrwaS8=
+=7o8N
+-----END PGP SIGNATURE-----
+
+--uuGLxDRd5cujxQmo--
 
