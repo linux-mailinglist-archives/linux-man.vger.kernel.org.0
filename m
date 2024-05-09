@@ -1,146 +1,74 @@
-Return-Path: <linux-man+bounces-897-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-898-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C3D38C0C94
-	for <lists+linux-man@lfdr.de>; Thu,  9 May 2024 10:30:57 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D2B8C0EE6
+	for <lists+linux-man@lfdr.de>; Thu,  9 May 2024 13:34:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CD3B528205A
-	for <lists+linux-man@lfdr.de>; Thu,  9 May 2024 08:30:55 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D913EB20F32
+	for <lists+linux-man@lfdr.de>; Thu,  9 May 2024 11:34:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CEB614A085;
-	Thu,  9 May 2024 08:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fa3uBfDd"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A952131724;
+	Thu,  9 May 2024 11:34:44 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.des.no (smtp.des.no [95.217.20.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4001612E1C4;
-	Thu,  9 May 2024 08:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940DB12FF8E
+	for <linux-man@vger.kernel.org>; Thu,  9 May 2024 11:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.217.20.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715243449; cv=none; b=TQce8jfLzBSog0dex6JIq1SeYGUZMQT0eSIUIi6fF+LN1S+loXgc2BatQ+fYtrZtz1rRaBVmYHpnv309Ooli1j/goLuiE76nOWAOvARyQ4G4FZOko1Mfrx3mfVZ/Ux55HoFFvE7lS5Y6lCWF9F+UbDp0o/vqfUSnD698KSSHGUA=
+	t=1715254484; cv=none; b=WqMaMvDoVez9gnKoqFMDkSyDwnQfPEg4w4VuUAmpsN3cd5p3CUV8gVo2h95EuHF306iMmVu5hx16dd4VnJFLlVKaWEwzPdzUtOfGbCxQ6kPrHGn+7Ng2g7QEX9GTE/+/++jF4N/daJunH/YkrqMHieg8KwrioVsWH1qpkUvoxng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715243449; c=relaxed/simple;
-	bh=Csbm16spngNqq/F2Dk/fnh8ntFFhKMPLnQkT6Wr+iY0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i8Ky9Ysz/mHpJCsK5UVBzBWZSHMML68GSvogcRtjyTwiUl4/vQDpvUeZQPRXAQZsVwW0vKVffxKXEtRPAavswfVLZggslVRL1jWYLdK6JwLQs0TnuiKJQ5ObBbPRslaWLbyhyLX/cKeIr0IyHANijcBIpOkOUgMjSZwItqrH5zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fa3uBfDd; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-51ab4ee9df8so647434e87.1;
-        Thu, 09 May 2024 01:30:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715243446; x=1715848246; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=X4/7bu7ewnVjt5wRsildefb8Ndmj1/3cq+0GpIKp4Mw=;
-        b=Fa3uBfDdfh+tfI2GFpmawOSV0BnCBAXMVY3bbjlxjgNIycR1H8o8WO7xaztyLlS6Gj
-         gjhPFl8m6AOujoyyK/4rn18m97mU8Epbf3+gyyzn5aFA+bxFHNYe4fMcnPXfTjJwZ5Op
-         XV4FfdMEkP7t+IbwkaYSPNVwTdxymCUzySEGwRveF1GlToqe/0VDYf9YXKnXQXssxXSI
-         yKtT1Zz/jU6/bhYMbCeHcmFJu/xIO7hZb4gXOM2AGgnizpY4dxfnYVfVBq++OKN7LDma
-         11HeH/JENVCMa52SZ4Il/ejMF7icKMjm8+OKhBwz2JfwoUQD2Y6el9nQEVv5dMDiWXEo
-         oeag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715243446; x=1715848246;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=X4/7bu7ewnVjt5wRsildefb8Ndmj1/3cq+0GpIKp4Mw=;
-        b=WnX0dNcLRJaVUhtK+3f/qKz0lNhvKD3PkvaiuN3+ZavmYg86xGQKFWjF/fxuvQfqAc
-         JvPnZedh4g46a4t3bDiAyOiou6Q5dViiUmQmeJ+1oKBzrdTO4zeRpAeiJv6zawrzZIR7
-         AYUkMGEfIegHL38Tq2G8DIg5/0J0Q3eFdZvL2i/He7pWu3JC/DCSKt6aBeYXlL04PjBg
-         0wquzq7mSrgbkUtpXm4X4WJmrYcFmQK18ca+cRRm1kacePRtWIMl3OVwHEVlF8OwpkTn
-         CDf0+4+wyt3bZ0CWxTSxSK4PrwsfcWAr8ua3iXQuMk9VbEULrW+XzqzMicOzhgdmquGU
-         lLvQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUm8s1FY0YcKA+gFuqg4JnGX9+UFaE9QgFlCZPse0FDpvekxQ1vkJPd0nBHiNNS6BrN1UVul87d9aW5TiqpuKd/bPo0+quXifaM4zFMEGR3KbceD4reUkpNQ4vgr6M3GhOtBXVPjAH2FM/RK/fo2RskgB1en+JCJ7RC2IeoMCS+7GgTe5vefKsvoBLS5EjksDUZxXQgFO2eOV7792AGb72UFaTNaA87IPycjiqoiFwnOskJAJ22WcQudqkB
-X-Gm-Message-State: AOJu0Yyvof+yzJmFwnUcLsNz/ptaqKbDL/JkQ/HAJ6gK/qFoc1SZuUfY
-	sMcdfFvq6U+RpFiwDXl8W8Bz76Cz9KH3pgo1kbo1+BxKA94sX50q
-X-Google-Smtp-Source: AGHT+IHsuTbKddeGklF4hAktuyIW+ua8ooMij/wsuat5VKs0CCYQwMQMvNWwhwEnlAQ02kiqZNRaoQ==
-X-Received: by 2002:ac2:4197:0:b0:51d:9f3f:14ad with SMTP id 2adb3069b0e04-5217cc50d48mr3257055e87.47.1715243445809;
-        Thu, 09 May 2024 01:30:45 -0700 (PDT)
-Received: from krava (2001-1ae9-1c2-4c00-726e-c10f-8833-ff22.ip6.tmcz.cz. [2001:1ae9:1c2:4c00:726e:c10f:8833:ff22])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-41f87b26675sm51944065e9.2.2024.05.09.01.30.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 May 2024 01:30:45 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Thu, 9 May 2024 10:30:42 +0200
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"ast@kernel.org" <ast@kernel.org>,
-	"andrii@kernel.org" <andrii@kernel.org>,
-	"oleg@redhat.com" <oleg@redhat.com>,
-	"daniel@iogearbox.net" <daniel@iogearbox.net>,
-	"debug@rivosinc.com" <debug@rivosinc.com>,
-	"luto@kernel.org" <luto@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
-	"yhs@fb.com" <yhs@fb.com>,
-	"songliubraving@fb.com" <songliubraving@fb.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"john.fastabend@gmail.com" <john.fastabend@gmail.com>,
-	"tglx@linutronix.de" <tglx@linutronix.de>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"peterz@infradead.org" <peterz@infradead.org>
-Subject: Re: [PATCHv5 bpf-next 6/8] x86/shstk: Add return uprobe support
-Message-ID: <ZjyJsl_u_FmYHrki@krava>
-References: <20240507105321.71524-1-jolsa@kernel.org>
- <20240507105321.71524-7-jolsa@kernel.org>
- <a08a955c74682e9dc6eb6d49b91c6968c9b62f75.camel@intel.com>
+	s=arc-20240116; t=1715254484; c=relaxed/simple;
+	bh=Y00u5dWbaJy6tJVSOkfv/BQooGniNQfo8b00LWadWMg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ARRfwpdFNIwMQKyUgSUX4LWc9g4vwZMMR2bDAmPxBwn8J8LHtTsQ8LrNkub3XazNGPa+GhgsLeiALcupEiHukgE+iKiX7HIvARwstmwED8IUvIljJmk7liO5YLLSGO/ie2Z21JhiQTekpkYhbxnFs/T4m32m7esNKqOqDB/YRJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=des.no; spf=pass smtp.mailfrom=des.no; arc=none smtp.client-ip=95.217.20.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=des.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=des.no
+Received: from ltc.des.dev (unknown [IPv6:2a02:8428:993:f001:922e:16ff:fef1:acef])
+	by smtp.des.no (Postfix) with ESMTPSA id B2AC93C7B5;
+	Thu,  9 May 2024 11:29:11 +0000 (UTC)
+Received: by ltc.des.dev (Postfix, from userid 1001)
+	id DEBEC105C6; Thu, 09 May 2024 13:29:10 +0200 (CEST)
+From: =?utf-8?Q?Dag-Erling_Sm=C3=B8rgrav?= <des@des.no>
+To: Philip Paeps via tz <tz@iana.org>
+Cc: Paul Eggert <eggert@cs.ucla.edu>,  Philip Paeps <philip@trouble.is>,
+  linux-man@vger.kernel.org,  Alejandro Colomar <alx@kernel.org>
+Subject: Re: [tz] manual pages in tzdb
+In-Reply-To: <43C8257A-38BB-49CC-98C1-E5F59867BAAE@trouble.is> (Philip Paeps
+	via tz's message of "Thu, 09 May 2024 11:36:43 +0800")
+References: <vexmpmalky6xddplkpr6md6b7r664gmyt3fthmmiuxnwwiw3fu@55ga4tnb5zuj>
+	<b0faabc0-6dcb-4540-b392-56c244b53817@cs.ucla.edu>
+	<43C8257A-38BB-49CC-98C1-E5F59867BAAE@trouble.is>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+Date: Thu, 09 May 2024 13:29:10 +0200
+Message-ID: <86seyr1awp.fsf@ltc.des.dev>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a08a955c74682e9dc6eb6d49b91c6968c9b62f75.camel@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 07, 2024 at 05:35:54PM +0000, Edgecombe, Rick P wrote:
-> On Tue, 2024-05-07 at 12:53 +0200, Jiri Olsa wrote:
-> > diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-> > index 81e6ee95784d..ae6c3458a675 100644
-> > --- a/arch/x86/kernel/uprobes.c
-> > +++ b/arch/x86/kernel/uprobes.c
-> > @@ -406,6 +406,11 @@ SYSCALL_DEFINE0(uretprobe)
-> >          * trampoline's ret instruction
-> >          */
-> >         r11_cx_ax[2] = regs->ip;
-> > +
-> > +       /* make the shadow stack follow that */
-> > +       if (shstk_push_frame(regs->ip))
-> > +               goto sigill;
-> > +
-> >         regs->ip = ip;
-> >  
-> 
-> Per the earlier discussion, this cannot be reached unless uretprobes are in use,
-> which cannot happen without something with privileges taking an action. But are
-> uretprobes ever used for monitoring applications where security is important? Or
-> is it strictly a debug-time thing?
+Philip Paeps via tz <tz@iana.org> writes:
+> Paul Eggert via tz <tz@iana.org> writes:
+> > I wouldn't mind renaming the man pages, though I'd get rid of the
+> > "new" prefixes while we're at it. However, I worry that other
+> > downstream users would be adversely affected. Perhaps others could
+> > chime in.
+> I don't mind the idea, but we (FreeBSD) would have to rework some of
+> our tooling.
 
-sorry, I don't have that level of detail, but we do have customers
-that use uprobes in general or want to use it and complain about
-the speed
+Speaking as the FreeBSD developer who would actually be affected by the
+change: it's not an issue.
 
-there are several tools in bcc [1] that use uretprobes in scripts,
-like:
-  memleak, sslsniff, trace, bashreadline, gethostlatency, argdist,
-  funclatency
-
-jirka
-
-
-[1] https://github.com/iovisor/bcc
+DES
+--=20
+Dag-Erling Sm=C3=B8rgrav - des@des.no
 
