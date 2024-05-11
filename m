@@ -1,108 +1,147 @@
-Return-Path: <linux-man+bounces-900-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-901-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1E978C14D4
-	for <lists+linux-man@lfdr.de>; Thu,  9 May 2024 20:38:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C318C33CD
+	for <lists+linux-man@lfdr.de>; Sat, 11 May 2024 23:10:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6C26F2829BA
-	for <lists+linux-man@lfdr.de>; Thu,  9 May 2024 18:38:11 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C2B35281A9D
+	for <lists+linux-man@lfdr.de>; Sat, 11 May 2024 21:10:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D98873535;
-	Thu,  9 May 2024 18:38:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CC1C2233A;
+	Sat, 11 May 2024 21:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EwgJIpsT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E016E1A2C09
-	for <linux-man@vger.kernel.org>; Thu,  9 May 2024 18:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF69F1BC44;
+	Sat, 11 May 2024 21:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715279888; cv=none; b=o1NpIToDBwDANfPBwPXcv8Ppz45dlGJ9ZjYYaf3f8J5IgFmI9xi1MQ+60ZNb/2hzgpSGtx4zxMCXVnF5MjxNWltvEJTw51tfJGvFY2L2/6NBSb8XVgWUUa/TUfNuIja/Pruf9W/XDgfG6cqaO8BtC5Jka7kUIGU3G038NXjjSW0=
+	t=1715461794; cv=none; b=YGbuCIs8JyLj/wEm1kRYCQWqFeQ1V0VHmaMJ/tldh3pcYB2MUdQNRS4lGtcvJIngmU5aoqQONwBoAkXHD2s4sMGvGuUPEw/gpv9e8n27mXX3KfXAFxt1GKGglX+NwaygnvqIeThkez99+CMBg35xHIMNpwp2u0YRk56LQ8C2HYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715279888; c=relaxed/simple;
-	bh=na+6LRh58H4tqvBeuIojNYoWg2+keYwQScnHwUSa4To=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IQqWcxG7BvC5llu6E/KQXR4dhUUwWGJxlbjncIpn3rukQzkgZVmxl4TomREMf1s1I56PpRB6Nv7k9erOFSI4gKOtL/bHxTtCdMhKYxRxRRja+DkOtYtpMbXj3BESUQDLvNr8fIPXZF0Yr4LyAw0fa+01jW7sIIwaH0MV6hvLXb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=systematicsw.ab.ca; spf=pass smtp.mailfrom=systematicsw.ab.ca; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=systematicsw.ab.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=systematicsw.ab.ca
-Received: from omf14.hostedemail.com (a10.router.float.18 [10.200.18.1])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 82622161546;
-	Thu,  9 May 2024 18:37:59 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: Brian.Inglis@SystematicSW.ab.ca) by omf14.hostedemail.com (Postfix) with ESMTPA id 9D25E30;
-	Thu,  9 May 2024 18:37:57 +0000 (UTC)
-Message-ID: <0508b2c5-2523-44f1-9a6f-c906bd4bf62e@systematicsw.ab.ca>
-Date: Thu, 9 May 2024 12:37:56 -0600
+	s=arc-20240116; t=1715461794; c=relaxed/simple;
+	bh=awyMliQSjbUNmHImBj3im/6MAmRLZaXBovw6qI33SIk=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F1Bjh10QIkfp+b1jG7kKHmTh1bTqedkKosxEOdP89vtuxhjAH4NIqKGoWPIiTemLpIR3NFefKZALwHyMspYKWZTB13q4HpkBzxl8+xSKdUvKBM2hqP6WAnPuWKkJm5aIEygqHhK2cGXNzgb5UxZZs3sLcjAN/nRy+HSb2SyN18I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EwgJIpsT; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-1ed835f3c3cso28434355ad.3;
+        Sat, 11 May 2024 14:09:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1715461792; x=1716066592; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fhGglJZ+b8g6GXzg1Ll6IIdz99ZTq4GAj4YEaMs8Mvw=;
+        b=EwgJIpsTzH4OkgLZBVo4ouzRadD8+NqZY4U4PWYqdHpx2X23MXCuQ05TBfBwF6U8gW
+         LQH7Wp0GjXY4Ka28s3/nSyaNd4P8QyQannKor0vPmml+NeXNO0nY0mx60MYqMIi8eA0Z
+         YSCPc2hyI+GIqSPPXSCWOcsIApyjgHw1WHgpegd6rZ1cA6aROkxBKmMTmG3NK3GUP4yh
+         Y+MXxvTTeC+WTREBoi7RdCwZnxTvtjkAdtrmvZP+ZEszJq8OTjUc0AKHdA8tQhlpHa4N
+         dFPTKpwo5sVqBqp4qBZdoOfv/KMyiJ8V1jXrTP20mOm6PpWGFxgYmepgLdq0XU7552+3
+         XQWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715461792; x=1716066592;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fhGglJZ+b8g6GXzg1Ll6IIdz99ZTq4GAj4YEaMs8Mvw=;
+        b=BMFTKLvxEZnVlDb152oocQtcALWqGYBaVp4tluPrK4SOd+MR11S2E/t56t4cqHegA7
+         4MI2c634enpvFwm8mZKJ23T59madS05IHA9RD0n7bCIbIcqpo8Oalq+u4rLEz7gNrn/H
+         0F1oLpVEj/8KZ8hxFiLZOgy6RE3Q3hwYRwM0l1nAWPde8E4pbW+OUyXIVxa2+GcFCXTw
+         L4Av4F1KdGRfx2NwJXkEat/PcgapRxKo+pQ3sC3GbgE3qhw9Q2lETU6A8oSq9kUyvCbx
+         hqQz36bdv6h4jsgE4/9vFveiaHM57s2lOVJsVpAjUfZ857U5iJWp4duWqOanHAgurciq
+         GmIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX7be1Hzc+FAQBcBrQzPngzwbWsPoSIhQlVxYLx6M+WqLqN+hxabNjy1C6G3k2VbfMpYoHG3tzppAaHsFI/DgwYuR0ibUUZRDVZNo5h6IRedwH0+7yW4L4P0W84ArF3qj6rebW2c6PFUOfNQIRMmhAurUsnI1IZcT49jBP4n/tAqjuj02EpKN/+AZByGSKMQygYRgG0jClIocKoHjE9oLjhoeSMVzYScv7mx48lx8nbPulk1nQWszwJ1pRM
+X-Gm-Message-State: AOJu0Yya3bLLR9QbdMt1BaCejySBhYPzNQXjiNKdn+bbDbByek+g3QqY
+	TejS8kRzTLYEHRFL1BaphqgGgSqKYyQwcoJlSf8MhkBIHie88lPU
+X-Google-Smtp-Source: AGHT+IFjDvMTXnhobln5jKNDQ2P6dQWSaGgkS/7twQcL+UsiDkVCy53zVtZ0UlohXhd71LvKm8ZPcA==
+X-Received: by 2002:a17:902:82ca:b0:1e6:116b:b0d3 with SMTP id d9443c01a7336-1ef43d2ec00mr73548335ad.28.1715461791943;
+        Sat, 11 May 2024 14:09:51 -0700 (PDT)
+Received: from krava ([204.113.88.211])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1ef0bf30c7asm52841025ad.171.2024.05.11.14.09.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 May 2024 14:09:51 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Sat, 11 May 2024 15:09:48 -0600
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "olsajiri@gmail.com" <olsajiri@gmail.com>,
+	"songliubraving@fb.com" <songliubraving@fb.com>,
+	"luto@kernel.org" <luto@kernel.org>,
+	"mhiramat@kernel.org" <mhiramat@kernel.org>,
+	"andrii@kernel.org" <andrii@kernel.org>,
+	"debug@rivosinc.com" <debug@rivosinc.com>,
+	"john.fastabend@gmail.com" <john.fastabend@gmail.com>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"rostedt@goodmis.org" <rostedt@goodmis.org>,
+	"ast@kernel.org" <ast@kernel.org>,
+	"tglx@linutronix.de" <tglx@linutronix.de>,
+	"yhs@fb.com" <yhs@fb.com>, "oleg@redhat.com" <oleg@redhat.com>,
+	"peterz@infradead.org" <peterz@infradead.org>,
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+	"daniel@iogearbox.net" <daniel@iogearbox.net>,
+	"linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
+	"bp@alien8.de" <bp@alien8.de>,
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCHv5 bpf-next 6/8] x86/shstk: Add return uprobe support
+Message-ID: <Zj_enIB_J6pGJ6Nu@krava>
+References: <20240507105321.71524-1-jolsa@kernel.org>
+ <20240507105321.71524-7-jolsa@kernel.org>
+ <a08a955c74682e9dc6eb6d49b91c6968c9b62f75.camel@intel.com>
+ <ZjyJsl_u_FmYHrki@krava>
+ <a8b7be15e6dbb1e8f2acaee7dae21fec7775194c.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: brian.inglis@systematicsw.ab.ca
-Reply-To: tz@iana.org
-Subject: Re: [tz] manual pages in tzdb
-Content-Language: en-CA
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man@vger.kernel.org, tz@iana.org, Alejandro Colomar <alx@kernel.org>
-References: <vexmpmalky6xddplkpr6md6b7r664gmyt3fthmmiuxnwwiw3fu@55ga4tnb5zuj>
- <b0faabc0-6dcb-4540-b392-56c244b53817@cs.ucla.edu>
-Autocrypt: addr=brian.inglis@systematicsw.ab.ca; keydata=
- xjMEXopx8xYJKwYBBAHaRw8BAQdAnCK0qv/xwUCCZQoA9BHRYpstERrspfT0NkUWQVuoePbN
- LkJyaWFuIEluZ2xpcyA8QnJpYW4uSW5nbGlzQFN5c3RlbWF0aWNTdy5hYi5jYT7ClgQTFggA
- PhYhBMM5/lbU970GBS2bZB62lxu92I8YBQJeinHzAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQW
- AgMBAh4BAheAAAoJEB62lxu92I8Y0ioBAI8xrggNxziAVmr+Xm6nnyjoujMqWcq3oEhlYGAO
- WacZAQDFtdDx2koSVSoOmfaOyRTbIWSf9/Cjai29060fsmdsDM44BF6KcfMSCisGAQQBl1UB
- BQEBB0Awv8kHI2PaEgViDqzbnoe8B9KMHoBZLS92HdC7ZPh8HQMBCAfCfgQYFggAJhYhBMM5
- /lbU970GBS2bZB62lxu92I8YBQJeinHzAhsMBQkJZgGAAAoJEB62lxu92I8YZwUBAJw/74rF
- IyaSsGI7ewCdCy88Lce/kdwX7zGwid+f8NZ3AQC/ezTFFi5obXnyMxZJN464nPXiggtT9gN5
- RSyTY8X+AQ==
-Organization: Systematic Software
-In-Reply-To: <b0faabc0-6dcb-4540-b392-56c244b53817@cs.ucla.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Stat-Signature: f9a6fkutfoga738xjhxnq6rdwhk4yyhn
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 9D25E30
-X-Session-Marker: 427269616E2E496E676C69734053797374656D6174696353572E61622E6361
-X-Session-ID: U2FsdGVkX18bSx5Otz96g/kZwCTJYEHkb1s5zeE1/bE=
-X-HE-Tag: 1715279877-555611
-X-HE-Meta: U2FsdGVkX1/NQTY1RCSlt0o01m+GW2FaCBGHoJ9m0cAKEXXcls2ea7O4tVMfpgz8q9uRcW6eZaGrZtjgFVzdIW0AxMVWagZTDIlk5BEzCdGl5jkuA/jh3haWf/tNv9jyYOQsH46685OWCo7cTYUOKYYyQZvaJVPw1Vu50hkKIZC6xxNjUau/yxjOsPaf89FHsyPTw63J/jjALpaoztxwmIBq+yjs51JQ/MtPns3jY+CcdJCPdsLR2HtrDvJubf9TcibmNquyM9fuLipCWUWwgih3ZJTP6NtqKdpO0tycpw1uXVq6qLbYMHkwGYvNR4iY7NgP5NlF24S5VApyImcTJfFl1TmInlim4gZYz/MPICq89ToVpUcoO1HQSv9j1tuFYm9fghSuaeoNgsVimeyWJA==
+In-Reply-To: <a8b7be15e6dbb1e8f2acaee7dae21fec7775194c.camel@intel.com>
 
-On 2024-05-08 10:57, Paul Eggert via tz wrote:
-> On 2024-05-08 09:24, Alejandro Colomar wrote:
->> What do you think of moving the pages in the tzdb repository into
->> man/man*/ directories?  I see your repository is perfectly flat, so I
->> don't know if there are strong reasons for that, or if it's just
->> innertia.
+On Thu, May 09, 2024 at 04:24:37PM +0000, Edgecombe, Rick P wrote:
+> On Thu, 2024-05-09 at 10:30 +0200, Jiri Olsa wrote:
+> > > Per the earlier discussion, this cannot be reached unless uretprobes are in
+> > > use,
+> > > which cannot happen without something with privileges taking an action. But
+> > > are
+> > > uretprobes ever used for monitoring applications where security is
+> > > important? Or
+> > > is it strictly a debug-time thing?
+> > 
+> > sorry, I don't have that level of detail, but we do have customers
+> > that use uprobes in general or want to use it and complain about
+> > the speed
+> > 
+> > there are several tools in bcc [1] that use uretprobes in scripts,
+> > like:
+> > � memleak, sslsniff, trace, bashreadline, gethostlatency, argdist,
+> > � funclatency
 > 
-> To be fair, inertia itself is a strong reason....
-> 
-> I wouldn't mind renaming the man pages, though I'd get rid of the "new" prefixes 
-> while we're at it. However, I worry that other downstream users would be 
-> adversely affected. Perhaps others could chime in.
+> Is it possible to have shadow stack only use the non-syscall solution? It seems
+> it exposes a more limited compatibility in that it only allows writing the
+> specific trampoline address. (IIRC) Then shadow stack users could still use
+> uretprobes, but just not the new optimized solution. There are already
+> operations that are slower with shadow stack, like longjmp(), so this could be
+> ok maybe.
 
-Not seeing any obvious man[1358] references in Linux distro RPM specs/builds: 
-presumably rely on man-pages.
+I guess it's doable, we'd need to keep both trampolines around, because
+shadow stack is enabled by app dynamically and use one based on the
+state of shadow stack when uretprobe is installed
 
-Gentoo reported https://bugs.gentoo.org/920035 sys-libs/timezone-data: installs 
-man3 manpages without corresponding libraries.
+so you're worried the optimized syscall path could be somehow exploited
+to add data on shadow stack?
 
-Some BSDs seem to customize utilities and man pages (or use old releases) based 
-on online man pages.
-
-What about updating glibc/manual/time.texi, and are any (non-info) docs or man 
-pages generated from that in any distro or downstream?
-
--- 
-Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
-
-La perfection est atteinte                   Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
-                                 -- Antoine de Saint-Exupéry
+jirka
 
