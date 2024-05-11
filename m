@@ -1,147 +1,139 @@
-Return-Path: <linux-man+bounces-901-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-902-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15C318C33CD
-	for <lists+linux-man@lfdr.de>; Sat, 11 May 2024 23:10:02 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A80D18C3479
+	for <lists+linux-man@lfdr.de>; Sun, 12 May 2024 00:19:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C2B35281A9D
-	for <lists+linux-man@lfdr.de>; Sat, 11 May 2024 21:10:00 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id B229EB20E92
+	for <lists+linux-man@lfdr.de>; Sat, 11 May 2024 22:19:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CC1C2233A;
-	Sat, 11 May 2024 21:09:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E77A249FE;
+	Sat, 11 May 2024 22:19:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EwgJIpsT"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="FCNXucDZ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF69F1BC44;
-	Sat, 11 May 2024 21:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715461794; cv=none; b=YGbuCIs8JyLj/wEm1kRYCQWqFeQ1V0VHmaMJ/tldh3pcYB2MUdQNRS4lGtcvJIngmU5aoqQONwBoAkXHD2s4sMGvGuUPEw/gpv9e8n27mXX3KfXAFxt1GKGglX+NwaygnvqIeThkez99+CMBg35xHIMNpwp2u0YRk56LQ8C2HYM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715461794; c=relaxed/simple;
-	bh=awyMliQSjbUNmHImBj3im/6MAmRLZaXBovw6qI33SIk=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F1Bjh10QIkfp+b1jG7kKHmTh1bTqedkKosxEOdP89vtuxhjAH4NIqKGoWPIiTemLpIR3NFefKZALwHyMspYKWZTB13q4HpkBzxl8+xSKdUvKBM2hqP6WAnPuWKkJm5aIEygqHhK2cGXNzgb5UxZZs3sLcjAN/nRy+HSb2SyN18I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EwgJIpsT; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-1ed835f3c3cso28434355ad.3;
-        Sat, 11 May 2024 14:09:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715461792; x=1716066592; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fhGglJZ+b8g6GXzg1Ll6IIdz99ZTq4GAj4YEaMs8Mvw=;
-        b=EwgJIpsTzH4OkgLZBVo4ouzRadD8+NqZY4U4PWYqdHpx2X23MXCuQ05TBfBwF6U8gW
-         LQH7Wp0GjXY4Ka28s3/nSyaNd4P8QyQannKor0vPmml+NeXNO0nY0mx60MYqMIi8eA0Z
-         YSCPc2hyI+GIqSPPXSCWOcsIApyjgHw1WHgpegd6rZ1cA6aROkxBKmMTmG3NK3GUP4yh
-         Y+MXxvTTeC+WTREBoi7RdCwZnxTvtjkAdtrmvZP+ZEszJq8OTjUc0AKHdA8tQhlpHa4N
-         dFPTKpwo5sVqBqp4qBZdoOfv/KMyiJ8V1jXrTP20mOm6PpWGFxgYmepgLdq0XU7552+3
-         XQWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715461792; x=1716066592;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fhGglJZ+b8g6GXzg1Ll6IIdz99ZTq4GAj4YEaMs8Mvw=;
-        b=BMFTKLvxEZnVlDb152oocQtcALWqGYBaVp4tluPrK4SOd+MR11S2E/t56t4cqHegA7
-         4MI2c634enpvFwm8mZKJ23T59madS05IHA9RD0n7bCIbIcqpo8Oalq+u4rLEz7gNrn/H
-         0F1oLpVEj/8KZ8hxFiLZOgy6RE3Q3hwYRwM0l1nAWPde8E4pbW+OUyXIVxa2+GcFCXTw
-         L4Av4F1KdGRfx2NwJXkEat/PcgapRxKo+pQ3sC3GbgE3qhw9Q2lETU6A8oSq9kUyvCbx
-         hqQz36bdv6h4jsgE4/9vFveiaHM57s2lOVJsVpAjUfZ857U5iJWp4duWqOanHAgurciq
-         GmIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX7be1Hzc+FAQBcBrQzPngzwbWsPoSIhQlVxYLx6M+WqLqN+hxabNjy1C6G3k2VbfMpYoHG3tzppAaHsFI/DgwYuR0ibUUZRDVZNo5h6IRedwH0+7yW4L4P0W84ArF3qj6rebW2c6PFUOfNQIRMmhAurUsnI1IZcT49jBP4n/tAqjuj02EpKN/+AZByGSKMQygYRgG0jClIocKoHjE9oLjhoeSMVzYScv7mx48lx8nbPulk1nQWszwJ1pRM
-X-Gm-Message-State: AOJu0Yya3bLLR9QbdMt1BaCejySBhYPzNQXjiNKdn+bbDbByek+g3QqY
-	TejS8kRzTLYEHRFL1BaphqgGgSqKYyQwcoJlSf8MhkBIHie88lPU
-X-Google-Smtp-Source: AGHT+IFjDvMTXnhobln5jKNDQ2P6dQWSaGgkS/7twQcL+UsiDkVCy53zVtZ0UlohXhd71LvKm8ZPcA==
-X-Received: by 2002:a17:902:82ca:b0:1e6:116b:b0d3 with SMTP id d9443c01a7336-1ef43d2ec00mr73548335ad.28.1715461791943;
-        Sat, 11 May 2024 14:09:51 -0700 (PDT)
-Received: from krava ([204.113.88.211])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1ef0bf30c7asm52841025ad.171.2024.05.11.14.09.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 May 2024 14:09:51 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Sat, 11 May 2024 15:09:48 -0600
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "olsajiri@gmail.com" <olsajiri@gmail.com>,
-	"songliubraving@fb.com" <songliubraving@fb.com>,
-	"luto@kernel.org" <luto@kernel.org>,
-	"mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"andrii@kernel.org" <andrii@kernel.org>,
-	"debug@rivosinc.com" <debug@rivosinc.com>,
-	"john.fastabend@gmail.com" <john.fastabend@gmail.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"ast@kernel.org" <ast@kernel.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>,
-	"yhs@fb.com" <yhs@fb.com>, "oleg@redhat.com" <oleg@redhat.com>,
-	"peterz@infradead.org" <peterz@infradead.org>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"daniel@iogearbox.net" <daniel@iogearbox.net>,
-	"linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
-	"bp@alien8.de" <bp@alien8.de>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCHv5 bpf-next 6/8] x86/shstk: Add return uprobe support
-Message-ID: <Zj_enIB_J6pGJ6Nu@krava>
-References: <20240507105321.71524-1-jolsa@kernel.org>
- <20240507105321.71524-7-jolsa@kernel.org>
- <a08a955c74682e9dc6eb6d49b91c6968c9b62f75.camel@intel.com>
- <ZjyJsl_u_FmYHrki@krava>
- <a8b7be15e6dbb1e8f2acaee7dae21fec7775194c.camel@intel.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A23C1CD0C
+	for <linux-man@vger.kernel.org>; Sat, 11 May 2024 22:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1715465940; cv=pass; b=MzFALSvFcNE6gF/Mx+MMaeDdsaBxbo0BU3cSG4bu+BVAYBlIRUeZToZ902+F0rybbdSTwPJU6IOmQxezr3A9gk193gN1nj/sj38+7wpu6fPXR37pGRuN+ULn/d97FfltJtlgpbGeUSCyPUIO1Uo7Gn1By9xD/gKSOicQNxhrECk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1715465940; c=relaxed/simple;
+	bh=GynrEjMJzT7uIcAtBqjKDjV9NeaU3c696Ouy5z7fJhk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m6n4pWY4qZ20PA+kmBTLe+iD3qfTiKrlWd6XEXCAn1qEFW0QMZZ1AL3ZpOmLMSO25y9mlPFrmbkQWynHs9NOtc9t5Ob27DCA7xxOPnNbdgkH9aadBUy0e9U1rKP4y0li60hm2iChpBlTAJsij41OeCKlvtBudkgfFyUbPMFqR3M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=FCNXucDZ; arc=pass smtp.client-ip=136.143.188.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1715465935; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YTnqLRfxu1sQZs/ZGcgINRvRJPYQTRAzW0iOaC6Py86gVtDxTHIbOs9nNTYhC6qbN6COPPkE+99+aLJUbvk3dcwS9I/pQAXhUJUmiN6ek7yEwxVJdd6CgjrYJrV7A2Cf2/tf4YcEBZqiLLEWgfyLWMmxCBLmk3uXLOsuMbvuziQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1715465935; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hharXHVF1V+M9ei167oDKOldu0C8tc8paqCpILXBdZk=; 
+	b=jHtozzxm2KGIMnEIR4WS3tPKu/Psn3q/d181edj1O+WMJ0vj5WoMRt5SmpQDogtSequZB1XvzknCKA4H+k0VJqXhlCP24++iiFzTwQtjnkr92u+Yqu57G115hA8DKk9/SSVmXRPYKd+eKcP8SpyGnh6iS/mPyTCQDe9awjTPqpM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1715465935;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=hharXHVF1V+M9ei167oDKOldu0C8tc8paqCpILXBdZk=;
+	b=FCNXucDZOjMUD1RsfKwDofq75nOG3Ck1Zw/hE3RmHEq4pkjaBJ4nvmBDyCZh3xe1
+	oHAn6mRo3wrpXBrajLWNkChXXufZb4amOgkiSSKraSs+79GSZqawooUmIg3qtPTAydb
+	u0Jigc03XubIdeAiYH0sdqeZN8mcpJ0Ok77NjJ0w=
+Received: by mx.zohomail.com with SMTPS id 1715465933297687.4647685066224;
+	Sat, 11 May 2024 15:18:53 -0700 (PDT)
+From: Askar Safin <safinaskar@zohomail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] ip(7), ipv6(7): small fixes: network byte order, etc
+Date: Sun, 12 May 2024 01:16:57 +0300
+Message-ID: <20240511221801.27666-1-safinaskar@zohomail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a8b7be15e6dbb1e8f2acaee7dae21fec7775194c.camel@intel.com>
+Feedback-ID: rr080112277a58825a0e7b26bb50b066250000a1b3b6e6ae945facd3f14e7fe46074d0146a58cb2a19a1022a:zu0801122735d9e07559992e935b1d8a0a00007f2d049ca61d6d632d6e0bb72e48c34fc5739a8df5183447a9:rf0801122c897e1337b68cbe6ccfa45bab0000f8ede276498dc2826d032cde72ad31868d3f6353080c4899d22b6f78b3cd:ZohoMail
+X-ZohoMailClient: External
 
-On Thu, May 09, 2024 at 04:24:37PM +0000, Edgecombe, Rick P wrote:
-> On Thu, 2024-05-09 at 10:30 +0200, Jiri Olsa wrote:
-> > > Per the earlier discussion, this cannot be reached unless uretprobes are in
-> > > use,
-> > > which cannot happen without something with privileges taking an action. But
-> > > are
-> > > uretprobes ever used for monitoring applications where security is
-> > > important? Or
-> > > is it strictly a debug-time thing?
-> > 
-> > sorry, I don't have that level of detail, but we do have customers
-> > that use uprobes in general or want to use it and complain about
-> > the speed
-> > 
-> > there are several tools in bcc [1] that use uretprobes in scripts,
-> > like:
-> >   memleak, sslsniff, trace, bashreadline, gethostlatency, argdist,
-> >   funclatency
-> 
-> Is it possible to have shadow stack only use the non-syscall solution? It seems
-> it exposes a more limited compatibility in that it only allows writing the
-> specific trampoline address. (IIRC) Then shadow stack users could still use
-> uretprobes, but just not the new optimized solution. There are already
-> operations that are slower with shadow stack, like longjmp(), so this could be
-> ok maybe.
+Signed-off-by: Askar Safin <safinaskar@zohomail.com>
+---
+ man/man7/ip.7   |  2 +-
+ man/man7/ipv6.7 | 10 +++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-I guess it's doable, we'd need to keep both trampolines around, because
-shadow stack is enabled by app dynamically and use one based on the
-state of shadow stack when uretprobe is installed
+diff --git a/man/man7/ip.7 b/man/man7/ip.7
+index 4fc9bde..8678979 100644
+--- a/man/man7/ip.7
++++ b/man/man7/ip.7
+@@ -198,7 +198,7 @@ The
+ member of
+ .I struct in_addr
+ contains the host interface address in network byte order.
+-.I in_addr
++.I s_addr
+ should be assigned one of the
+ .B INADDR_*
+ values
+diff --git a/man/man7/ipv6.7 b/man/man7/ipv6.7
+index d9241cc..e38658f 100644
+--- a/man/man7/ipv6.7
++++ b/man/man7/ipv6.7
+@@ -105,7 +105,7 @@ Only differences are described in this man page.
+ .P
+ To bind an
+ .B AF_INET6
+-socket to any process, the local address should be copied from the
++socket to any interface, the address should be copied from the
+ .I in6addr_any
+ variable which has
+ .I in6_addr
+@@ -138,14 +138,14 @@ its source address will be mapped to v6.
+ .EX
+ struct sockaddr_in6 {
+     sa_family_t     sin6_family;   /* AF_INET6 */
+-    in_port_t       sin6_port;     /* port number */
++    in_port_t       sin6_port;     /* port number in network byte order */
+     uint32_t        sin6_flowinfo; /* IPv6 flow information */
+     struct in6_addr sin6_addr;     /* IPv6 address */
+     uint32_t        sin6_scope_id; /* Scope ID (new in Linux 2.4) */
+ };
+ \&
+ struct in6_addr {
+-    unsigned char   s6_addr[16];   /* IPv6 address */
++    unsigned char   s6_addr[16];   /* IPv6 address in network byte order */
+ };
+ .EE
+ .in
+@@ -154,14 +154,14 @@ struct in6_addr {
+ is always set to
+ .BR AF_INET6 ;
+ .I sin6_port
+-is the protocol port (see
++is the protocol port in network byte order (see
+ .I sin_port
+ in
+ .BR ip (7));
+ .I sin6_flowinfo
+ is the IPv6 flow identifier;
+ .I sin6_addr
+-is the 128-bit IPv6 address.
++is the 128-bit IPv6 address in network byte order.
+ .I sin6_scope_id
+ is an ID depending on the scope of the address.
+ It is new in Linux 2.4.
+-- 
+2.43.0
 
-so you're worried the optimized syscall path could be somehow exploited
-to add data on shadow stack?
-
-jirka
 
