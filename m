@@ -1,139 +1,137 @@
-Return-Path: <linux-man+bounces-916-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-917-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45BD98C5BDA
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 21:54:50 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 169D48C5C17
+	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 22:15:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id F048A1F225E6
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 19:54:49 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 76717B236D8
+	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 20:15:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05EE5181318;
-	Tue, 14 May 2024 19:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBD8918131E;
+	Tue, 14 May 2024 20:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuJ/zA7w"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kO0xn6Vq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8C12AF09
-	for <linux-man@vger.kernel.org>; Tue, 14 May 2024 19:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647E72AF09
+	for <linux-man@vger.kernel.org>; Tue, 14 May 2024 20:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715716485; cv=none; b=oh6H5yq+UvP3JKcev9Ot7kpF94ySn3aWTrw/q/i/MmEXW/k11YjeYjYwdr2GQpbKShC2495LfiUVdOaWXlaN1OyXW2IO9A3tFRjT44R1z8wovmzSCZMEtRFqKe/I5HNcoIzfr5awJg055pb4iyIheoLFbphN9sLhyMRw6YHuEtk=
+	t=1715717742; cv=none; b=s4tUtY0CXh6ToCWtcbOOmKorPl/3IIv46YKomewRplSi97JrIy+Xzkahk8ca68hmLGF93I8iwsFbGq3mYZnicDTEILupgL1kkilgj451x/HEJjp0pkmc11aXaN0XiloeHM6xWHFh+lduVSNFpAG1Si99HLqG0YGUR0LG0nGjee0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715716485; c=relaxed/simple;
-	bh=K4GGXiNpXCnM/9RowyuWU/bli7eqLgkXDwRSIxWKJW0=;
+	s=arc-20240116; t=1715717742; c=relaxed/simple;
+	bh=SwTUlx72RPj8juqGHmR+N8+joy+Yio83UEcLbE0sQq8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kG5149Sed6lCvqConHN5pwWLADT4CNGOt9hb9PmCR4eEWqRgkRWakIBMfSqjm71+MBXzHLnRa2vUVRQ4qThmd5wO+YEvD0LkN0a+dwZoADGNxvC3EXQS44T9lwHKBxl5cF9f5dosOczVVifC1zr0yLwH/z5Wcl8r0ozV1Ns5shk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuJ/zA7w; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C858C2BD10;
-	Tue, 14 May 2024 19:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715716485;
-	bh=K4GGXiNpXCnM/9RowyuWU/bli7eqLgkXDwRSIxWKJW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EuJ/zA7wEZT6NbbuuOpGk73Kxylh1Wnkphyl/Ns8wvbqNxxOQAc9961hbGm7pQxrz
-	 eEcwl3ZvdomXk3teMX3ndTI8X17n94NGl6B+dnR/1B8x04qqDjmwHrK6NYMttQZ4Ah
-	 1fI2uSb7PG9ot7KejjZwTm+E8iEKSg7o7G3Zbc1yGESIjbkIppdp7rv9IN08msgsEK
-	 50+t+nKvUn5HL4dw/+x0OXZ812SAw5ery9CN9y0JFnu+iBXVmDn7bIpGHcu8N0wEdE
-	 j/zdQ9P20BeIXYs8852DT/Ik1qtZc07B3ph35QYA71RJfN92sEr+vSr4NzbFxtLf4W
-	 CW4fVEMIgNKFg==
-Date: Tue, 14 May 2024 21:54:42 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: technoboy85@gmail.com
-Cc: linux-man@vger.kernel.org, Matteo Croce <teknoraver@meta.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kr+SBLaxnrFCWWSuFcY6EVF/SodxED7UVmYZbWQYMHLyfn5wg6ELogMPSfspOUFqSAF7X6SdwHrks+nfTcNx/EH7V5eLBi5C+cwnbJx7vWUXXLWmaW//er5e+/U4DGsXP/POz923HKKPA9l7GXyrtUyWawiMEuE7S9NUyWBXbiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kO0xn6Vq; arc=none smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-241572c02efso3592641fac.3
+        for <linux-man@vger.kernel.org>; Tue, 14 May 2024 13:15:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1715717740; x=1716322540; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=he4jpf7MWkC7wxVsZJQEEQZBBXgNRQeZoXY3pc+CG9M=;
+        b=kO0xn6VqXyLgpE/S/fVJHLgG/VAdthP0iW/sGKIwvoNex4IECL98dWAsfmP3e/4hKN
+         QNlo4AVgbYS6ryrp1e/YMfD9MNmISqe9W3A6qVygtk2FuNv5I4Splq8X/5n88AkrEB2y
+         eBnNis/uV+QSNYbkMiGLVPKj0+DKBbOghGI4No6eod31uwq9n/APmLI8RU2M3hdUM/+p
+         bWwcX7qpwKbg1l0DO7o61MY6opxGfvAnwfqNzTySwpGsdjuOfIQYchDRJHs7HCpS9ovt
+         TAjYmy8rwvWe/1MG5e5mR2maQOP3+B7DCJ+dx/K7WdVvN+Xe+qktq+lz+SRNMGd2ip6O
+         h4lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715717740; x=1716322540;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=he4jpf7MWkC7wxVsZJQEEQZBBXgNRQeZoXY3pc+CG9M=;
+        b=Tt9AQVUR6U2/n35ZVcOhnXI60I2n3KxBVFDpwYtR70lphLsIbEoCOjVeWsTSMIC3iP
+         Bt6k0MyF/vbBI9uqlgD6M05TY+oLmCsgw/Bs4JmhenzLUlUC6EA5CNHgIeNFYblyr4eH
+         y8CouN2Zu/Hkhi0rDLQwdVbtYn9O/mF1P5lGJgPmJUA3W0cexqEkkl8+qqDAl/Wj6XZj
+         VV4pneoMoxi07wTN4Zn1VpgIC0BgEpUF8tkOt4+vgfnemudj9Ao5oxDTaHAESR4CgDVG
+         OBX4y56utYIGJrfeI+VtLsBmJP7WBX9niEGYRvoia2cB0S27N5du04uCGx2dwzL6rQ6o
+         9PVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVgj7pliZm+J/xvjsZEayA5gCAH3pG9/KbHkygDGcmyZvCTafdbPWTRcjSbI5iyQAwTWGmU/jYcnOfl8Ns+S6+2RiBE72qal2Cx
+X-Gm-Message-State: AOJu0YwSKSbWgaifzzvu82qo0QCRN19EnxHtUWpmvgOS4OLLNVTyPSxG
+	we0WpvefCTk+jqB7DLDzhhrJABsJhdfhh1M76pWgj/LYj4QM3mRxAA48Gw==
+X-Google-Smtp-Source: AGHT+IHjIDTPwP2Xl/tWOIbEMHsarI1KtLkvI5ib9CqX1O+85yopOZoiN1k4vGOFA6EKV+6bApJ3/A==
+X-Received: by 2002:a05:6870:f146:b0:221:1c2f:23ee with SMTP id 586e51a60fabf-24172a88a0emr16421838fac.22.1715717740453;
+        Tue, 14 May 2024 13:15:40 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-6f0f9d37e62sm1143603a34.39.2024.05.14.13.15.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 May 2024 13:15:39 -0700 (PDT)
+Date: Tue, 14 May 2024 15:15:38 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: technoboy85@gmail.com, linux-man@vger.kernel.org,
+	Matteo Croce <teknoraver@meta.com>
 Subject: Re: [PATCH v2] proc.5: document 'subset' mount option.
-Message-ID: <kum6or4dlxvb3t3td5jcssv7pzwnbr3sygsowq4aqm6yrf5crd@os52p4yb24kp>
+Message-ID: <20240514201538.7by4jdrrlhac3kmf@illithid>
 References: <20240514192110.84881-1-technoboy85@gmail.com>
+ <kum6or4dlxvb3t3td5jcssv7pzwnbr3sygsowq4aqm6yrf5crd@os52p4yb24kp>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c6a2ugleeozuwgyr"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="yzv734fovui6thnl"
 Content-Disposition: inline
-In-Reply-To: <20240514192110.84881-1-technoboy85@gmail.com>
+In-Reply-To: <kum6or4dlxvb3t3td5jcssv7pzwnbr3sygsowq4aqm6yrf5crd@os52p4yb24kp>
 
 
---c6a2ugleeozuwgyr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--yzv734fovui6thnl
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: technoboy85@gmail.com
-Cc: linux-man@vger.kernel.org, Matteo Croce <teknoraver@meta.com>
-Subject: Re: [PATCH v2] proc.5: document 'subset' mount option.
-References: <20240514192110.84881-1-technoboy85@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20240514192110.84881-1-technoboy85@gmail.com>
 
-On Tue, May 14, 2024 at 09:21:10PM GMT, technoboy85@gmail.com wrote:
-> From: Matteo Croce <teknoraver@meta.com>
+Hi Alex,
+
+At 2024-05-14T21:54:42+0200, Alejandro Colomar wrote:
+> > +.BR subset "=3D\fBpid\fP (since Linux 5.8)"
 >=20
-> The 'subset=3Dpid' option was added in commit 6814ef2d, document it.
+> This can be simplified as:
 >=20
-> Signed-off-by: Matteo Croce <teknoraver@meta.com>
-> ---
->  man/man5/proc.5 | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man5/proc.5 b/man/man5/proc.5
-> index 8022ca49e..2567387d3 100644
-> --- a/man/man5/proc.5
-> +++ b/man/man5/proc.5
-> @@ -105,7 +105,12 @@ This group should be used instead of approaches such=
- as putting
->  nonroot users into the
->  .BR sudoers (5)
->  file.
-> -.\"
-> +.RE
-> +.TP
-> +.BR subset "=3D\fBpid\fP (since Linux 5.8)"
+> .BR subset =3D pid " (since Linux 5.8)"
 
-This can be simplified as:
+It appears to me that all of the equals signs in mount options in this
+page should be bold.  They are literal, after all...
 
-=2EBR subset =3D pid " (since Linux 5.8)"
+So this would simplify further to:
 
-> +.\" commit 6814ef2d992af09451bbeda4770daa204461329e
-> +Show only the specified subset of procfs hiding all top level files
-> +and directories in the procfs that are not related to tasks.
->  .SS Overview
->  Underneath
->  .IR /proc ,
-> --=20
-> 2.43.0
->=20
+=2EBR subset=3Dpid " (since Linux 5.8)"
 
---=20
-<https://www.alejandro-colomar.es/>
-A client is hiring kernel driver, mm, and/or crypto developers;
-contact me if interested.
+=2E..which might look almost non-mystical to man(7) novices.
 
---c6a2ugleeozuwgyr
+Regards,
+Branden
+
+--yzv734fovui6thnl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZDwYIACgkQnowa+77/
-2zKjew/+KjaaS5SXimCuxU3vPFAd/0NJ8zgfXedNrAtUJnaDB5a+awvv95Kg/mxE
-R3aTXR84BDSNNDvQGK9nZ3jFsr1t8vS+rsR4p6fBkjZWL4V4cxln+1HuoqrEQugv
-aBeYPpnM0RuwwCKo9mBU0EWQoio7/pA9aQHEHhrzuWbIwWbvB4QukRGg/ycuzDxc
-RryX0cqEkwacCNnL7qt3PcXnWSwQdozUfXnklkGv9ozAusswphys/tws7q1DIyW9
-cMAtZRVuOejgqr5r8s0H/XQ1xP7qwCYY7uVG2Gr1lJAmyxY77GWxOHJ4xOF8r+Wd
-Cwn4Yb3n+X7Bp+Ldg96XQEgEhfKMXjn9t6YJk04gTQyb9hnWUeoLuaD6xOq4OOWh
-soHJN+tVPXIIW9Y4Yj1xJC/WDGmq/ebkMKNUwqGm5w6oAgMeE1HPvaCxKMPRWqm7
-0TTYpQ6PWnBbedulLz1gwRozNBf64HgRfJw2tR5QcFekHeJCghr/H4bVN2UcgG4q
-Z0Hbg0EJ+nkzR9In62+QFi3XVl+p1/Tt7NLue/oHTc0SJhstVc8unQUKKRT63Pl/
-vngsXtsoSVYAQ5bGtf7j2Xp6sqS33g/+BqkosNW6hnVXgSWJYfrcr3U5cDnBtUh3
-kcbPmiCmNBZ4twNCwK7WGf7tycJ5GsyIf4IVlhBkrqqylZSAVzA=
-=zLG+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmZDxmIACgkQ0Z6cfXEm
+bc5whw//SoxW12kWdlYawk0DI4kN61dZyNOhHTnnO1e1gFCSeoBpQ6nSKw3KTLkO
+KThRDgR+BDrhZHJUlpftfmZhkhylL/R80TzQZfevqNIYTima478y+wmXYNj2HYkN
+pk6GMWNK3Jx/NxjPos7T2VQS2XuUhQ33z0LfjgxeUPvboYfn24zgOcH2m3muOOvg
+P2qL9ZdhKU4JVqofIwzmkuibplv6wYu8mqVMXo2OdVEqpVY+LfU4KFhJJ1VymORS
+OBgVf/YYCKSrWSM7jmvuPpdJl+hLYWIgw2UCqEqOLyaN+I+l2DxKuEFbUykNumKO
+PDv+ORP1FkDj0aeWh5Pi4v3MlX6DHKD08mgo+JP4VaBRIhDOuMKr8dNg0vwM/NOa
+DFryF+7Ios7uCpE5/L1m3BAjGJe0/RO7d0Lp1J0VL8b3rLM4W5XC73Lr3L3bUlwb
+hMpDl3/2u3FomlE2qzLI1aUU2/CTNuS7UqRa+anwSwkvofLlpBj08l9ZD7KKLhCS
+Bx9/Y3bAt1Nzy0OIjsR246ISQcsRDfgrLPFtADRL5zZLI5VOgrLkem6Tt6Y0keDv
+gJnwJk0jaCKUfmENx/h7AsB/cQedTI/IpttS/h+W4kZyKXa6cE6X5dx9/p/uz6ea
+I9fcVqISaVZ2AUjSBtoDIFgreZpOyxegTN111FtondMA/H6ya6w=
+=OQD3
 -----END PGP SIGNATURE-----
 
---c6a2ugleeozuwgyr--
+--yzv734fovui6thnl--
 
