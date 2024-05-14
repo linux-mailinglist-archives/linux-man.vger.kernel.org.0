@@ -1,110 +1,158 @@
-Return-Path: <linux-man+bounces-911-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-912-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070758C5B4D
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 20:44:40 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B52C18C5B73
+	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 21:07:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AF3522835AE
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 18:44:38 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 41DB61F2239F
+	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 19:07:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0920B180A85;
-	Tue, 14 May 2024 18:44:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F571180A8E;
+	Tue, 14 May 2024 19:06:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fyrggNt+"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvHQ6Ltt"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE09180A7E
-	for <linux-man@vger.kernel.org>; Tue, 14 May 2024 18:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBB21E504
+	for <linux-man@vger.kernel.org>; Tue, 14 May 2024 19:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715712268; cv=none; b=Lb+P4SbyinZ7NYqkVbYYjfu0sDPEF2lu7tXcdURY+Bq8a2ZQfrJOaECUusEgGbxTa5XmmCbirQxTmYGbW61LBJgEy+9d52jjn4Fgko1b2Y6axjOaMkNcjYGDw7QbA0x5InvFaC0wNrO5TAZiWEXhprsGC7BvH6gD71Qgb3VaxrA=
+	t=1715713618; cv=none; b=NdN29JEOG5ZHh6QlcAWwIY7y3Tet3c/Mm7Zp/i+4OEMC3om7/KxQlpK0br4pHhZzghsIEItmwoVFDnQUNrrOltqqykTO1mWudL2st3/UOOYPVhF0h2zaDsvnqjDfSQ1Q1/rp7KWj80ZvokU6FJBjWPkNdV/IqBs+pFMz6+JtV0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715712268; c=relaxed/simple;
-	bh=vnUaFwrYs9FhCQxw89hBVzdQngO0GQzOirSjHgvRkRU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QtM+HmcchWrKTCKtpfbeWd44wEjIIwHVl2zosIVwGbMHr+uLZ8L5b9BwbRNMj3iqXe6HBvHobDcEMJzSs90qzxi5z3m1gLe+D5r6wn2xBpGwb9YEAdzrhsJH5WWl9SswZBiU6nrb2YF5/F/oiWEi7iZEodPg9pwvXYClBt8VCZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fyrggNt+; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-5708d8beec6so621740a12.0
-        for <linux-man@vger.kernel.org>; Tue, 14 May 2024 11:44:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715712266; x=1716317066; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=iG+p3yfByiLtypMcy1nQPO8AFIFp3kdEEj1oEMy4UBA=;
-        b=fyrggNt+3pxZ1GqALgiMEV+5Ng5z0nLHu8mSZ0cxxZR9BaaTGJNtL6235g+Y3EXgHr
-         6PyJtEG0ulsJrWAScNH4Qht7Xi73l95c0Ux5SM5Axl/xW2QSVcdeulVvffWkMynXQ/JC
-         5zCuxetJf5vVRciwCD4Z6rbKgk8gXPWVOzMaPrfu7HSPZCeTRqA7nHbUEQ7qRSWtebuZ
-         6ScXAR4NE9CjHghbD/8Wni2OwJuCXKny3UDidfZajkhMrVhau8B8r746hYMdmyGup9cC
-         s85rkGdu1lvxG0KDiUfFXhsHyi+xPf5/HqJSxuCB4s2xDozowwy81d2O0EE1FNQj3KBk
-         FCmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715712266; x=1716317066;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iG+p3yfByiLtypMcy1nQPO8AFIFp3kdEEj1oEMy4UBA=;
-        b=ip+DivhAq39y8++NK3i1XL2+pG8UbuHcv+xY9nBv2JzXD1jlcNYHG8JkLWicJIJ7BD
-         XEKvElqs0shaosusZ3MUQeYke0IwKRC1jsKR0herr+ueD6U77HZvXlI9F+N1o2SRO+P+
-         3QkBHSkTB0Oo11Izemc5OeAE3UafK1DNAU7clbvrIJkLH/EBlvJSLNYowcz1BStI960m
-         lm/IT1nvNJJUk1Gxjml9ZndE+mx5Y8szH5FbLltbitQ1czIwqTAvOGr5znNugePTjSjH
-         8B1V0bCZ0wEuQnf1X2aUB1vNYmGTjgFJTpx9JhdCv1b2R+ZQkv4egOvB8K7I2f3mcdN2
-         SX5g==
-X-Gm-Message-State: AOJu0YwgTqbXlifdcIEunZVC1ymov3UsgIDaBt4Qa/xIVQHFTqptV4Dh
-	T2a9JEZdRUofnS9wMxwUkY6EyeUDUMUYWjBOs/w5EcjJgVGVvc3O9/BcKiNEP98wM+Mnb+IWrPk
-	rHsuTsFSQL3ZDwiqcZOApI2gB3PQ=
-X-Google-Smtp-Source: AGHT+IH9O27XEbYeUkn/he4+6gSmDVCmCl4thfoRjLabnZA53dPLDfevpd8MfRy05co+dixkdk0SDPkFYkhSIBI1Fbw=
-X-Received: by 2002:a50:9e61:0:b0:56e:23e3:bdc2 with SMTP id
- 4fb4d7f45d1cf-5734d5cf9b4mr13092702a12.13.1715712265559; Tue, 14 May 2024
- 11:44:25 -0700 (PDT)
+	s=arc-20240116; t=1715713618; c=relaxed/simple;
+	bh=1Zx1QHhiegY/ljncmKOVcYj6qgR+yjy6DLvZI1HgYuw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xy/EkhgRaGcGJveuqQEKxqNik6FpQ/H7wQOIqc9gIsR2VPPzWJcqPjBtj08rYmnhBkH69i7kwsq5HRCTIixzzOTKJzyuhKSZgcKt5YvhD0vmb/U03ugTbuh8GLJ59EvHlFJDQQJ4YkAdEDLDKNkUd49BIqj4z+4a+y6K9UxCHKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvHQ6Ltt; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1F8C2BD10;
+	Tue, 14 May 2024 19:06:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715713617;
+	bh=1Zx1QHhiegY/ljncmKOVcYj6qgR+yjy6DLvZI1HgYuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nvHQ6Ltt4wvJCgo/TMg82CgYvMqHLiznC81jWPB8cyRjyIBm27UtCSKgKqcea9Do/
+	 3O4nrZnyYTQ8lvYtzEif1Jz9GfkLSMg5crPdKfuQ992VKcb1SuppGmOjK4KCzlUT8v
+	 MzRwG1M6YAq77WzzrejDBhcaQA5s5Jv0VxcTHecgTrWuL410FAIjzf8onpqM9tfaM3
+	 r4+t4b9zexSbSkRgZvJaBDHsxPMz466wXTo3bnOvIqYiJ16RvTDNlrtylaWIZTHbLY
+	 Z1c98cawq098NZVpLZSbihYBhMWYvNbE8e4WwZHa9WAKFsxIlo2PtBN5UbrBZImtr0
+	 ORQ6s3W6ZdkXQ==
+Date: Tue, 14 May 2024 21:06:54 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Matteo Croce <technoboy85@gmail.com>
+Cc: linux-man@vger.kernel.org, Matteo Croce <teknoraver@meta.com>
+Subject: Re: [PATCH] proc.5: document 'subset' mount option.
+Message-ID: <pvdvga6qc2dov7uo3r73epgs72hzwv5ioiya3jl6eddqxwsbaq@uk7xau6ljj4h>
+References: <20240514175449.68721-1-technoboy85@gmail.com>
+ <jp6oa3ge3qs2kl77kg4p5ns6u6yob5qyomhbdbqcoti55cj3je@tieeceztop3b>
+ <CAFnufp0rx-OyfpYmTDGCXHDmB6XSYE_hbF-1s9WCd3UtLw0nUw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20240514175449.68721-1-technoboy85@gmail.com> <jp6oa3ge3qs2kl77kg4p5ns6u6yob5qyomhbdbqcoti55cj3je@tieeceztop3b>
-In-Reply-To: <jp6oa3ge3qs2kl77kg4p5ns6u6yob5qyomhbdbqcoti55cj3je@tieeceztop3b>
-From: Matteo Croce <technoboy85@gmail.com>
-Date: Tue, 14 May 2024 20:43:49 +0200
-Message-ID: <CAFnufp0rx-OyfpYmTDGCXHDmB6XSYE_hbF-1s9WCd3UtLw0nUw@mail.gmail.com>
-Subject: Re: [PATCH] proc.5: document 'subset' mount option.
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fvi4gdgu4pxb5w3v"
+Content-Disposition: inline
+In-Reply-To: <CAFnufp0rx-OyfpYmTDGCXHDmB6XSYE_hbF-1s9WCd3UtLw0nUw@mail.gmail.com>
+
+
+--fvi4gdgu4pxb5w3v
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Matteo Croce <technoboy85@gmail.com>
 Cc: linux-man@vger.kernel.org, Matteo Croce <teknoraver@meta.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH] proc.5: document 'subset' mount option.
+References: <20240514175449.68721-1-technoboy85@gmail.com>
+ <jp6oa3ge3qs2kl77kg4p5ns6u6yob5qyomhbdbqcoti55cj3je@tieeceztop3b>
+ <CAFnufp0rx-OyfpYmTDGCXHDmB6XSYE_hbF-1s9WCd3UtLw0nUw@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAFnufp0rx-OyfpYmTDGCXHDmB6XSYE_hbF-1s9WCd3UtLw0nUw@mail.gmail.com>
 
-Il giorno mar 14 mag 2024 alle ore 20:08 Alejandro Colomar
-<alx@kernel.org> ha scritto:
->
->
-> What is the accepted format?  A CSV of pid numbers?
->
-> Have a lovely day!
-> Alex
->
+Hi Matteo,
 
-Hi Alejandro,
-It can only accept the literal "pid" string:
+On Tue, May 14, 2024 at 08:43:49PM GMT, Matteo Croce wrote:
+> Il giorno mar 14 mag 2024 alle ore 20:08 Alejandro Colomar
+> <alx@kernel.org> ha scritto:
+> >
+> >
+> > What is the accepted format?  A CSV of pid numbers?
+> >
+> > Have a lovely day!
+> > Alex
+> >
+>=20
+> Hi Alejandro,
+> It can only accept the literal "pid" string:
 
-# mount -t proc proc_pid pid -o subset=pid
-# mount |grep -w proc_pid
-proc_pid on /tmp/proc/pid type proc (rw,relatime,subset=pid)
+Then 'pid' should be in bold (B), not italics (I).
 
-# ll -d pid/{1,$$,cmdline,version}
-ls: cannot access 'pid/cmdline': No such file or directory
-ls: cannot access 'pid/version': No such file or directory
-dr-xr-xr-x. 9 root root 0 May 14 09:43 pid/1
-dr-xr-xr-x. 9 root root 0 May 14 09:43 pid/25146
+> # mount -t proc proc_pid pid -o subset=3Dpid
+> # mount |grep -w proc_pid
+> proc_pid on /tmp/proc/pid type proc (rw,relatime,subset=3Dpid)
+>=20
+> # ll -d pid/{1,$$,cmdline,version}
+> ls: cannot access 'pid/cmdline': No such file or directory
+> ls: cannot access 'pid/version': No such file or directory
+> dr-xr-xr-x. 9 root root 0 May 14 09:43 pid/1
+> dr-xr-xr-x. 9 root root 0 May 14 09:43 pid/25146
 
-Regards,
--- 
-Matteo Croce
+Hmmm, makes sense.
 
-perl -e 'for($t=0;;$t++){print chr($t*($t>>8|$t>>13)&255)}' |aplay
+So, it contains:
+
+/proc/<pid>
+/proc/<tid>
+/proc/self
+/proc/thread-self
+
+And all others are gone, right?
+
+Is anything else included?  Or is anything within those dirs gone?
+
+Have a lovely day!
+Alex
+
+>=20
+> Regards,
+> --=20
+> Matteo Croce
+>=20
+> perl -e 'for($t=3D0;;$t++){print chr($t*($t>>8|$t>>13)&255)}' |aplay
+
+lol!  It keeps funny for a surprising long time.
+
+--=20
+<https://www.alejandro-colomar.es/>
+A client is hiring kernel driver, mm, and/or crypto developers;
+contact me if interested.
+
+--fvi4gdgu4pxb5w3v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZDtkgACgkQnowa+77/
+2zLekA//frQ2ISM/rjfW86vdBAjfjU+BliccAUj/AxD4uRpmDPhU2P/3LO9SDOSk
+h9KBaxOUqVI55/3NCfk4LFi6+jg6bm4wd2ShZwYB4fLmZ2ceMQNl7uBdJv2jAqS8
+wF7DXxCGtAfjW5qvnrAJ1577CHDWwvY9lE/T9TgEvHekXCLmSkBmsh0sXJ4Z9vi0
+9THSEVDV4U3m4WPz8Re0M8/LvKakqXzMKAsscdYmRiEGLJBEpeoB49kU82zOM4O7
+0Xvh+kQUxZLA3ZoeK3DvYMlfC3rgRpDRWIwiJP50sabi4bsmUNtCb1Z1GU7IepOf
+oAKVx1gU8Jvl9vv9BV+gLBuI8PMSAxn7E2TTUDkcWh336ivy9GOUtHgHdbQ9bZ2H
+00HtDocdyRJNAXJ+h3eecuyNOjCxqTDeW+nYVk1+vhOnCwV9Y8OkHjfu79nyRNe5
+IqyflYvuc1TaAY2kJ7bvde4PWUWK0jbM5mpgmLNf1FtHUkG3hnQ4F1XtM+4sBKWA
+1+OK0eCPS7rXIzGzAhCcyayDBiufJcCy+xCkiU5RbuZYJuyTy07EamgbHGnIcVJf
+z4eI/VAyOtLnX/UZ6Zv2LEspogcBS11/9MqkFWdH0DLzUnYHvJY0LJyh5kJUGexg
+ir+4W+X+LX/Y9soSgjZ8K+/vPkOCHVCkqxyzrrilERw8V8WSDnw=
+=SFZq
+-----END PGP SIGNATURE-----
+
+--fvi4gdgu4pxb5w3v--
 
