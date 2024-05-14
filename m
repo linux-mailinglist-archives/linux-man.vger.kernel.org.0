@@ -1,151 +1,113 @@
-Return-Path: <linux-man+bounces-913-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-914-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 714A38C5B89
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 21:13:27 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92A168C5BA8
+	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 21:21:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2D76C282CC0
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 19:13:26 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 399DC1F2210E
+	for <lists+linux-man@lfdr.de>; Tue, 14 May 2024 19:21:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4175B180A9C;
-	Tue, 14 May 2024 19:13:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B413F180A9A;
+	Tue, 14 May 2024 19:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ikQKSAN9"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuNlMiyn"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B3717EBA5
-	for <linux-man@vger.kernel.org>; Tue, 14 May 2024 19:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0263017EBBD
+	for <linux-man@vger.kernel.org>; Tue, 14 May 2024 19:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715714003; cv=none; b=ptI6Gm056aTfcUqGxywK7mI4DIFTOpm2qcpZ+apmkXPci0QsbTGGy1IDdgCyu0hRftjaSEeU//DwX4t6CT6G3JAZ5dgHEGwHyA6AsSIBPpTwVPUK+7O5LLjyxYC+y53/Mn4Lvtao5LPbaICvHpih0GYN+T+WZE4x//VYd70dipc=
+	t=1715714485; cv=none; b=dRqvTm0LT/q1W33n8WbQ7/SzQvAhSFjuqK3L+jGdKPIkBPhDpS7V5KpsYgWonUzye84GBa0HX7tI5SF0nTl3/4Tb6xyLG+wRq1TMhxjOj233Wbq5dhKjEGA1gjHPDQXgDYcCXUPZL08PHHP+yjxdbpGDXBWTp4WTlSkaLtoHXgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715714003; c=relaxed/simple;
-	bh=w5J+abbmAbJdSKKSwHM7vTZuFn+ROId9y5XfOXTlhNw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aN/H591zeHXOcSFXp8hG4Y+K2VihAwcZqvTMaU6wDiDV+LplLjS7NIhXQR+6q8SdHHwPu/ZL8m1H7+Sl9Te/Mnru2Nt27clM201VmmuFYisi72wRSht5rSeVdt+TwylpAFFqYBiGh5kT7u7PlyAoMpKPNyIv/lYB1PG5rOU9+T0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ikQKSAN9; arc=none smtp.client-ip=209.85.208.44
+	s=arc-20240116; t=1715714485; c=relaxed/simple;
+	bh=wMsuZi/nfi4YV+WvuJuEnpwGR5JBeROmc63pDgtg65k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IJFS15Q6/RoqTCcpFM3wA/phQxSce+o+xFEpMJ89eda7ZHXwdVJGukU9uNDk/yb4eBlsFC5qxfF0Mu6mb+5IQA4U4PEhCh2q0dbwilqqz+VlFvraKdG4UJxXnmbEt826PMwAi2Jpox3AdwayFpxIb4lqZWmr9dR3faXmm9+kyoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuNlMiyn; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-56e37503115so476400a12.1
-        for <linux-man@vger.kernel.org>; Tue, 14 May 2024 12:13:21 -0700 (PDT)
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-351ae94323aso2803449f8f.0
+        for <linux-man@vger.kernel.org>; Tue, 14 May 2024 12:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715714000; x=1716318800; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=9PeYKyhir0PE6gydsosIJcIrdnH1c5LU4lJ5uoXbn3U=;
-        b=ikQKSAN93OPcsYWzH6MpQFlaHJhVDp0hehEb22sn+JdhQQHREC/SlqUDACS6gch8bO
-         rjMTFeMYFXx7yFddnBTrrfUjZpSSSMrl2DIGW6Sd1pO/3f2uokDaq4vC93o+FTwzBmOC
-         3ABTPrPz/NXuSjDlxK6rM3CbzSmLzstClf6kHxbwvwicbo7Dz0of2gIrDL8dCaOMSy+M
-         rDCa9w8DbNzdbEqENan6xKgOzuqjPIl1u1nymEiDWUsVKFeh935W7xXhWsLmZpSJpFKl
-         3abiJ9V5N8+rY117r2Zz/qKniYABLbIZZZ6KKh0v4wq75J5BV98Smjv5vnY9ZlRO1iHg
-         sNeg==
+        d=gmail.com; s=20230601; t=1715714482; x=1716319282; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yypcy8C1cwA61MeEaLWC2W6BS6noK11eZDd1E6eycos=;
+        b=KuNlMiynNq3aJDtWEmPyy3RrfyN973FryllHcJIXdn1x4g+0clPINhwLDa+VRDyNd2
+         ZD/p0GZaaihCuytEL0nl47vuhmHlIVtKXE9yfkaceHNc2rPT21sfVWXbLTxQ8gdG+ioc
+         Mrkl6E7lGAAJDp6PdZZ3312c4re7ihe0yHQQ33cBbFIVHq3yU8wS3LsZ8yCRazbiCegz
+         7aYWwDB12JfHCs3pXAgw1E02c7ZxvubvUlsNXNhHwcR5lSg9z8pJgR18QlS+cX6SZbNb
+         O/Tuv0VSqguHxpdhL1iTT0fVaOGeYTmDHCXgcjaHJKK/EwqUyeyBdvEXhGpWADj3FDwS
+         6wdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715714000; x=1716318800;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1715714482; x=1716319282;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=9PeYKyhir0PE6gydsosIJcIrdnH1c5LU4lJ5uoXbn3U=;
-        b=N15MxJKd3pjk/5/5HtT4PMkAloMN/FB1Y/uRdF6pYl0Kh/S+GshfS4S8QtC/k1QeYq
-         VkGxDk1a1ci+/EOnAb97E1gsaDtbQNm8wPnsrw2d0dNIfJXDf/+NZWp/pYvBVdtHGTdK
-         /G38/NqYRcE3YLKNaFujVU3FMt/K8OfhREv9OxwjTw6BCAsZIYVDVKQP7xu4+nWEQwRn
-         4Tfuj3J573guCpnQM/MDzfxdkRoGJyX/uzPbhisSqsKPOFsIElDr1ZCbtWIlNBWL16gD
-         3isYSEqKxd8O8ij7lQH83tAh69HqkzfaeHFmgvue2jLRfe9fHJeOHpyVDo+wJQ1kfO1/
-         dD9Q==
-X-Gm-Message-State: AOJu0Yw4xRdgwMH+uo7uQ8dwUB1aLCD81JL0ep1PO4fS5vqEYJGhk7Uz
-	KiAHVqEQD+5CBUFUp0ZPqV83AoiZSgrzwsBjc9nr/vAm87TstizOzxoDswuNHuge5xSe/QARNm7
-	51eOUYVej8+1FJTESCgBBPS8kHaE=
-X-Google-Smtp-Source: AGHT+IEDgCSJnp8u0OenyNjJ37SKks5IKdk+HAYvBQ95bsr+xSxzPiQS18vlHMwzPnc4XPjv2G4LDzkRNUNQwKYM8so=
-X-Received: by 2002:a50:8d16:0:b0:572:a158:8a7c with SMTP id
- 4fb4d7f45d1cf-5734d6b3cb3mr7915216a12.42.1715713999624; Tue, 14 May 2024
- 12:13:19 -0700 (PDT)
+        bh=yypcy8C1cwA61MeEaLWC2W6BS6noK11eZDd1E6eycos=;
+        b=dYaWm656VJzjLbI0xGTqNLXCuPYjFFbAQKtoGuQ5rhXbqMtPKz7J+rstc+rDTYiUke
+         U4Ug+0oRITSElgEN9YZ2obi7r2ZeO+82JV4EKzYTZAqHD+mQ41HxNonDVswFf3QXUS+z
+         pyZP0PV9o61MDiBZSHNUJ+eyyh1qybcd/d/1jHQzpYBW3ABJm8wwTB6T9DYeOUsQoF27
+         EhRvYXl33fJmwLAvRjiAz3Groi/5GOd5YqCSC11G/aGNd8gYNaCFHHn4WNzb2T3jWkvm
+         ik+8cJxmQ+XUu9s/pGa/uLraVxp4sSYJtys0Hd+mtA9uW1ABUEMr16bWacgAiPTJ6Oaq
+         OKQA==
+X-Gm-Message-State: AOJu0YyoNogKvPQ2qqvpdJ0eemYS9jJwpElEkwf6b7o07hqCLbXRPImN
+	X1xIRUoDwwE9ByNhzLMZj90TQf9cy8iNuRLVebQJm1IaVEwt7JiE
+X-Google-Smtp-Source: AGHT+IG4TC1n/J5gahLO4fQd2t0+pIFZMHuMXhcHJI4PxWEO+4iZ5+eBA0ZnrtKmRYVQinLAOO/GTw==
+X-Received: by 2002:adf:fccf:0:b0:34d:3d05:cf3a with SMTP id ffacd0b85a97d-3504a6311a6mr9746639f8f.22.1715714482164;
+        Tue, 14 May 2024 12:21:22 -0700 (PDT)
+Received: from teknoraver-mbp.teknoraver.net (net-5-94-218-116.cust.vodafonedsl.it. [5.94.218.116])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3502b79bd7asm14279085f8f.17.2024.05.14.12.21.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 14 May 2024 12:21:21 -0700 (PDT)
+From: technoboy85@gmail.com
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Matteo Croce <teknoraver@meta.com>
+Subject: [PATCH v2] proc.5: document 'subset' mount option.
+Date: Tue, 14 May 2024 21:21:10 +0200
+Message-ID: <20240514192110.84881-1-technoboy85@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20240514175449.68721-1-technoboy85@gmail.com> <jp6oa3ge3qs2kl77kg4p5ns6u6yob5qyomhbdbqcoti55cj3je@tieeceztop3b>
- <CAFnufp0rx-OyfpYmTDGCXHDmB6XSYE_hbF-1s9WCd3UtLw0nUw@mail.gmail.com> <pvdvga6qc2dov7uo3r73epgs72hzwv5ioiya3jl6eddqxwsbaq@uk7xau6ljj4h>
-In-Reply-To: <pvdvga6qc2dov7uo3r73epgs72hzwv5ioiya3jl6eddqxwsbaq@uk7xau6ljj4h>
-From: Matteo Croce <technoboy85@gmail.com>
-Date: Tue, 14 May 2024 21:12:43 +0200
-Message-ID: <CAFnufp1XDhzF=+2QqFGg_Ji04nxpb_wh0CYRgee+q00FgcqbDw@mail.gmail.com>
-Subject: Re: [PATCH] proc.5: document 'subset' mount option.
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Matteo Croce <teknoraver@meta.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Il giorno mar 14 mag 2024 alle ore 21:06 Alejandro Colomar
-<alx@kernel.org> ha scritto:
->
-> Hi Matteo,
->
-> On Tue, May 14, 2024 at 08:43:49PM GMT, Matteo Croce wrote:
-> > Il giorno mar 14 mag 2024 alle ore 20:08 Alejandro Colomar
-> > <alx@kernel.org> ha scritto:
-> > >
-> > >
-> > > What is the accepted format?  A CSV of pid numbers?
-> > >
-> > > Have a lovely day!
-> > > Alex
-> > >
-> >
-> > Hi Alejandro,
-> > It can only accept the literal "pid" string:
->
-> Then 'pid' should be in bold (B), not italics (I).
->
+From: Matteo Croce <teknoraver@meta.com>
 
-Ok, I will send a v2
+The 'subset=pid' option was added in commit 6814ef2d, document it.
 
-> > # mount -t proc proc_pid pid -o subset=pid
-> > # mount |grep -w proc_pid
-> > proc_pid on /tmp/proc/pid type proc (rw,relatime,subset=pid)
-> >
-> > # ll -d pid/{1,$$,cmdline,version}
-> > ls: cannot access 'pid/cmdline': No such file or directory
-> > ls: cannot access 'pid/version': No such file or directory
-> > dr-xr-xr-x. 9 root root 0 May 14 09:43 pid/1
-> > dr-xr-xr-x. 9 root root 0 May 14 09:43 pid/25146
->
-> Hmmm, makes sense.
->
-> So, it contains:
->
-> /proc/<pid>
-> /proc/<tid>
-> /proc/self
-> /proc/thread-self
->
-> And all others are gone, right?
->
-> Is anything else included?  Or is anything within those dirs gone?
->
+Signed-off-by: Matteo Croce <teknoraver@meta.com>
+---
+ man/man5/proc.5 | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Exactly, self and thread-self are the only non-numeric entries in that
-mounted procfs.
-
-# ls pid |grep -vx '[[:digit:]]*'
-self
-thread-self
-#
-
-> >
-> > perl -e 'for($t=0;;$t++){print chr($t*($t>>8|$t>>13)&255)}' |aplay
->
-> lol!  It keeps funny for a surprising long time.
->
-
-:)
-
+diff --git a/man/man5/proc.5 b/man/man5/proc.5
+index 8022ca49e..2567387d3 100644
+--- a/man/man5/proc.5
++++ b/man/man5/proc.5
+@@ -105,7 +105,12 @@ This group should be used instead of approaches such as putting
+ nonroot users into the
+ .BR sudoers (5)
+ file.
+-.\"
++.RE
++.TP
++.BR subset "=\fBpid\fP (since Linux 5.8)"
++.\" commit 6814ef2d992af09451bbeda4770daa204461329e
++Show only the specified subset of procfs hiding all top level files
++and directories in the procfs that are not related to tasks.
+ .SS Overview
+ Underneath
+ .IR /proc ,
 -- 
-Matteo Croce
+2.43.0
 
-perl -e 'for($t=0;;$t++){print chr($t*($t>>8|$t>>13)&255)}' |aplay
 
