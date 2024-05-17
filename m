@@ -1,141 +1,234 @@
-Return-Path: <linux-man+bounces-930-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-931-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD3C8C69E7
-	for <lists+linux-man@lfdr.de>; Wed, 15 May 2024 17:44:06 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 370C18C8D94
+	for <lists+linux-man@lfdr.de>; Fri, 17 May 2024 23:15:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8D3ED1C2074E
-	for <lists+linux-man@lfdr.de>; Wed, 15 May 2024 15:44:05 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A5B091F222AB
+	for <lists+linux-man@lfdr.de>; Fri, 17 May 2024 21:15:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C83BE156230;
-	Wed, 15 May 2024 15:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EAED365F;
+	Fri, 17 May 2024 21:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Gc0KRWIc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DfjejsdC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2937E156246
-	for <linux-man@vger.kernel.org>; Wed, 15 May 2024 15:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE741CAA9
+	for <linux-man@vger.kernel.org>; Fri, 17 May 2024 21:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715787834; cv=none; b=RHdDUEVNyD+6OCMlgYqaYwydneImKnU1uRIF/vB42S7eBYbRPFgpqa8DQs0b1s31pFikYh/0wM6Otv8B3laeHyZ/zQVUhCKIc5UwLnCDyHCdhMdrpmPKtNxaC43iVMPd04n8pKt5wdhCTUzPHWCv8qluWN47E+z1sd4/Nt3ySr8=
+	t=1715980531; cv=none; b=QG/Kcav79HYMSha6zKYEx0LpL4omr0mNOzwfiht0S4/TVw3NeUTYpfsHOxY+fait4NaVgrCNnxGnUVjZHoaJR7S2RJkh4kK9jTBZhv//nbNQRTRZuokB46UcDdLlO0r/ImCVN0LoFX9sX9pj4BXdyC5bk9QZIYjLdSwJlEuCXTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715787834; c=relaxed/simple;
-	bh=sVxFSbL3YtTiW/g14Gv6p0q8nZLKnH+spwUtKK9cJ9A=;
+	s=arc-20240116; t=1715980531; c=relaxed/simple;
+	bh=q9fmTUKIyI3xBMZO0CHI/zIMcL1zu3WT10O0+lLTXFE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uaZUDMwVnnzeLTTdY5mZ1fsEonW+m3eHjA9IYacleZwdewPolZKT4rx+PBiwisvL6ZCEJX4pFHExzPC9FSj7s7xjwtCHPhL0KjF93DWaK8hW7EiCJHZuFGP/pTUaztDJbG1jTvRkXYzVrbkeIHH8A1nBGW8m6d4+eVG9FhDMS3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Gc0KRWIc; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1715787832;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sVxFSbL3YtTiW/g14Gv6p0q8nZLKnH+spwUtKK9cJ9A=;
-	b=Gc0KRWIcWatS1GSZGnfXk5dvwIeM2ZymWm7TONa/f1DpiEQEiLYwwzVIWE5UI+yj2m7jOh
-	3c2dmq0ayNIGf/fdYLXP2W2Of9GRT8V58muVfLxD/RlQXweRRCw3+DksHaTYA5PLfl83FD
-	I2j0Dzy7nlk0K0xB8d+2QhyzvHMwcTg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-361-WrPe04tvN8qa89qxw5DYcg-1; Wed, 15 May 2024 11:43:35 -0400
-X-MC-Unique: WrPe04tvN8qa89qxw5DYcg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 867498016E9;
-	Wed, 15 May 2024 15:43:34 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.45.226.39])
-	by smtp.corp.redhat.com (Postfix) with SMTP id C19983C27;
-	Wed, 15 May 2024 15:43:29 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed, 15 May 2024 17:42:08 +0200 (CEST)
-Date: Wed, 15 May 2024 17:42:03 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "olsajiri@gmail.com" <olsajiri@gmail.com>,
-	"songliubraving@fb.com" <songliubraving@fb.com>,
-	"luto@kernel.org" <luto@kernel.org>,
-	"mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"andrii@kernel.org" <andrii@kernel.org>,
-	"debug@rivosinc.com" <debug@rivosinc.com>,
-	"john.fastabend@gmail.com" <john.fastabend@gmail.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"ast@kernel.org" <ast@kernel.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"yhs@fb.com" <yhs@fb.com>,
-	"daniel@iogearbox.net" <daniel@iogearbox.net>,
-	"peterz@infradead.org" <peterz@infradead.org>,
-	"linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
-	"bp@alien8.de" <bp@alien8.de>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCHv5 bpf-next 6/8] x86/shstk: Add return uprobe support
-Message-ID: <20240515154202.GE6821@redhat.com>
-References: <20240507105321.71524-7-jolsa@kernel.org>
- <a08a955c74682e9dc6eb6d49b91c6968c9b62f75.camel@intel.com>
- <ZjyJsl_u_FmYHrki@krava>
- <a8b7be15e6dbb1e8f2acaee7dae21fec7775194c.camel@intel.com>
- <Zj_enIB_J6pGJ6Nu@krava>
- <20240513185040.416d62bc4a71e79367c1cd9c@kernel.org>
- <c56ae75e9cf0878ac46185a14a18f6ff7e8f891a.camel@intel.com>
- <ZkKE3qT1X_Jirb92@krava>
- <20240515113525.GB6821@redhat.com>
- <0fa9634e9ac0d30d513eefe6099f5d8d354d93c1.camel@intel.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=iNwsRDykvlus64oYtc5VbreBNuTv/tynleydcVOJxBOwZuTDCZrYOMCEXuNK+vurTNagnFffzdj15gRvQ6I0UcIzsxz5O/9tzQ1ofhARHWurWeLkf6pHRW1oVpbHCo/3vzmbJ5y0sD4I7eubKMrccOtR1erAms05AI3Eb+XBp8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DfjejsdC; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF182C2BD10;
+	Fri, 17 May 2024 21:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715980530;
+	bh=q9fmTUKIyI3xBMZO0CHI/zIMcL1zu3WT10O0+lLTXFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DfjejsdCiSAmNSPT/rLPwMrrF4+NLL8cBuoWbqOMKdnI3M13bJb5gT4pwUHdN7PNB
+	 KiYlSv4xHR/zEvZ8UqQAKsGWm1PGz6gJPZGFnyGQDfDDh7aE+CxoBFi9rygcA6WygW
+	 uPAwXiRPRM950SSufefzp7hWNjyoIhvlNi6pV6uflx7zBxVdMAu542mxNtM8icoafc
+	 vFYxTjD2xdsNxHmtZpHeFEo3jW5OFJk4se2S6u7oJWn0fM4Gph98++nxwRNuW/C1Iu
+	 rMe5c2T2KqlaXLVqSKRs2Sk9YiH5nXELQB/GZXaW89WcG+TmbF0Vo48PlrdCiB2Tu+
+	 KKAm+7URRl4UA==
+Date: Fri, 17 May 2024 23:15:27 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] ip(7), ipv6(7): small fixes: network byte order, etc
+Message-ID: <7uym5iaxpa6fzn6k3gauz2alld2crapfc2tzdrzhlgyof7wwtz@ll6smzsbzksv>
+References: <20240511221801.27666-1-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ng2kbwxzmo2hs5f5"
 Content-Disposition: inline
-In-Reply-To: <0fa9634e9ac0d30d513eefe6099f5d8d354d93c1.camel@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+In-Reply-To: <20240511221801.27666-1-safinaskar@zohomail.com>
 
-On 05/15, Edgecombe, Rick P wrote:
->
-> On Wed, 2024-05-15 at 13:35 +0200, Oleg Nesterov wrote:
-> >
-> > > I'm ok with not using optimized uretprobe when shadow stack is detected
-> > > as enabled and we go with current uretprobe in that case
-> >
-> > But how can we detect it? Again, suppose userspace does
->
-> the rdssp instruction returns the value of the shadow stack pointer. On non-
-> shadow stack it is a nop. So you could check if the SSP is non-zero to find if
-> shadow stack is enabled.
 
-But again, the ret-probed function can enable it before it returns? And we
-need to check if it is enabled on the function entry if we want to avoid
-sys_uretprobe() in this case. Although I don't understand why we want to
-avoid it.
+--ng2kbwxzmo2hs5f5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] ip(7), ipv6(7): small fixes: network byte order, etc
+References: <20240511221801.27666-1-safinaskar@zohomail.com>
+MIME-Version: 1.0
+In-Reply-To: <20240511221801.27666-1-safinaskar@zohomail.com>
 
-> This would catch most cases, but I guess there is the
-> possibility of it getting enabled in a signal that hit between checking and the
-> rest of operation.
+Hi Askar,
 
-Or from signal handler.
+On Sun, May 12, 2024 at 01:16:57AM GMT, Askar Safin wrote:
+> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
+> ---
+>  man/man7/ip.7   |  2 +-
+>  man/man7/ipv6.7 | 10 +++++-----
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/man/man7/ip.7 b/man/man7/ip.7
+> index 4fc9bde..8678979 100644
+> --- a/man/man7/ip.7
+> +++ b/man/man7/ip.7
+> @@ -198,7 +198,7 @@ The
+>  member of
+>  .I struct in_addr
+>  contains the host interface address in network byte order.
+> -.I in_addr
+> +.I s_addr
+>  should be assigned one of the
+>  .B INADDR_*
+>  values
 
-> Is this uretprobe stuff signal safe in general?
+LGTM.  The type of INADDR_* are in_addr_t, not a structure.
 
-In what sense?
+$ grepc -tm 'INADDR_[_A-Z]*' /usr/include/
+/usr/include/mit-krb5/gssrpc/types.h:#define       INADDR_LOOPBACK         =
+(uint32_t)0x7F000001
+/usr/include/netinet/in.h:#define	INADDR_ANY		((in_addr_t) 0x00000000)
+/usr/include/netinet/in.h:#define	INADDR_BROADCAST	((in_addr_t) 0xffffffff)
+/usr/include/netinet/in.h:#define	INADDR_NONE		((in_addr_t) 0xffffffff)
+/usr/include/netinet/in.h:#define	INADDR_DUMMY		((in_addr_t) 0xc0000008)
+/usr/include/netinet/in.h:# define INADDR_LOOPBACK	((in_addr_t) 0x7f000001)=
+ /* Inet 127.0.0.1.  */
+/usr/include/netinet/in.h:#define INADDR_UNSPEC_GROUP	((in_addr_t) 0xe00000=
+00) /* 224.0.0.0 */
+/usr/include/netinet/in.h:#define INADDR_ALLHOSTS_GROUP	((in_addr_t) 0xe000=
+0001) /* 224.0.0.1 */
+/usr/include/netinet/in.h:#define INADDR_ALLRTRS_GROUP    ((in_addr_t) 0xe0=
+000002) /* 224.0.0.2 */
+/usr/include/netinet/in.h:#define INADDR_ALLSNOOPERS_GROUP ((in_addr_t) 0xe=
+000006a) /* 224.0.0.106 */
+/usr/include/netinet/in.h:#define INADDR_MAX_LOCAL_GROUP  ((in_addr_t) 0xe0=
+0000ff) /* 224.0.0.255 */
+/usr/include/X11/Xtrans/Xtranssock.c:#define INADDR_NONE ((in_addr_t) 0xfff=
+fffff)
+/usr/include/linux/in.h:#define	INADDR_ANY		((unsigned long int) 0x00000000)
+/usr/include/linux/in.h:#define	INADDR_BROADCAST	((unsigned long int) 0xfff=
+fffff)
+/usr/include/linux/in.h:#define	INADDR_NONE		((unsigned long int) 0xfffffff=
+f)
+/usr/include/linux/in.h:#define	INADDR_DUMMY		((unsigned long int) 0xc00000=
+08)
+/usr/include/linux/in.h:#define	INADDR_LOOPBACK		0x7f000001	/* 127.0.0.1   =
+*/
+/usr/include/linux/in.h:#define INADDR_UNSPEC_GROUP		0xe0000000U	/* 224.0.0=
+=2E0   */
+/usr/include/linux/in.h:#define INADDR_ALLHOSTS_GROUP		0xe0000001U	/* 224.0=
+=2E0.1   */
+/usr/include/linux/in.h:#define INADDR_ALLRTRS_GROUP		0xe0000002U	/* 224.0.=
+0.2 */
+/usr/include/linux/in.h:#define INADDR_ALLSNOOPERS_GROUP	0xe000006aU	/* 224=
+=2E0.0.106 */
+/usr/include/linux/in.h:#define INADDR_MAX_LOCAL_GROUP		0xe00000ffU	/* 224.=
+0.0.255 */
 
-I forgot everything about this code but I can't recall any problem with signals.
+> diff --git a/man/man7/ipv6.7 b/man/man7/ipv6.7
+> index d9241cc..e38658f 100644
+> --- a/man/man7/ipv6.7
+> +++ b/man/man7/ipv6.7
+> @@ -105,7 +105,7 @@ Only differences are described in this man page.
+>  .P
+>  To bind an
+>  .B AF_INET6
+> -socket to any process, the local address should be copied from the
+> +socket to any interface, the address should be copied from the
+>  .I in6addr_any
+>  variable which has
+>  .I in6_addr
 
-Except it doesn't support sigaltstack() + siglongjmp().
+Sounds good.
 
-Oleg.
+> @@ -138,14 +138,14 @@ its source address will be mapped to v6.
+>  .EX
+>  struct sockaddr_in6 {
+>      sa_family_t     sin6_family;   /* AF_INET6 */
+> -    in_port_t       sin6_port;     /* port number */
+> +    in_port_t       sin6_port;     /* port number in network byte order =
+*/
 
+You probably want to also check <man/man3type/sockaddr_in6.3type>, where
+you'll want to apply the same fix.
+
+BTW, we should consider removing those definitions from ipv6(7), and
+refer to sockaddr(3type).
+
+>      uint32_t        sin6_flowinfo; /* IPv6 flow information */
+>      struct in6_addr sin6_addr;     /* IPv6 address */
+>      uint32_t        sin6_scope_id; /* Scope ID (new in Linux 2.4) */
+>  };
+>  \&
+>  struct in6_addr {
+> -    unsigned char   s6_addr[16];   /* IPv6 address */
+> +    unsigned char   s6_addr[16];   /* IPv6 address in network byte order=
+ */
+>  };
+>  .EE
+>  .in
+> @@ -154,14 +154,14 @@ struct in6_addr {
+>  is always set to
+>  .BR AF_INET6 ;
+>  .I sin6_port
+> -is the protocol port (see
+> +is the protocol port in network byte order (see
+>  .I sin_port
+>  in
+>  .BR ip (7));
+
+LGTM.
+
+>  .I sin6_flowinfo
+>  is the IPv6 flow identifier;
+>  .I sin6_addr
+> -is the 128-bit IPv6 address.
+> +is the 128-bit IPv6 address in network byte order.
+>  .I sin6_scope_id
+>  is an ID depending on the scope of the address.
+>  It is new in Linux 2.4.
+
+LGTM.
+
+Thanks,
+and have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--ng2kbwxzmo2hs5f5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZHyO8ACgkQnowa+77/
+2zJPiRAAqzmrYq3UtR4HnB7PrhG55M0rvZhVJoS/xRcscKyEO5Rl6wqTGMlfA5wa
+LMXaUjdVvij+CeBXBE8grJHSPr1POIlDkLp83tvGPIO3Y3KA9XWWUGNOVtXd66io
+2vK5YqsYcubABupCzcFca89Vr0/tqsRJUv9FxmLrPvxmswtEJ9mkeqy/p9FuGzoB
+Eb1CXVGms93TGIpuIOa0pwj1dPIrckDAKiMMgkplH57/7xeAuzwl2F+r/McPymtH
+/HKNElSTVcYP6Nwsk+Fw6HCSCGas37t/A6xxVMR9MtwnmUh98ZLvQluBjNVYdMMo
+egbqd4T/YB2FkLhyXDZi3YVk5qIqAmaR3zejKf6q0YZVR6VTGzM0B92yV1YZAeoQ
+Z/V0Y9thKyh+hfSs1HEFYaoM0XEADJGqoRpWeCdMUU3zuAET98H4g6NmHdZ8q1A8
+uUM2C3JdIYLC3EHArD9RAbiXmmhWP5eKrlTNjJ3v2gOgG3ShqrykepV3B/rs0Kmo
+JzmADnvEqtDcXjvpuHvapJ+UXq5jdXamVQkZbyn3mxDPebN1ZSQYYxuKkZ10HjVv
+uSZO24efhijh+UZdu3XVc1WeT+XBXw8GEjpXy8hD1hZrcHWKkZJhphA2zaumrGFp
+bUpi1fuQGI68P6LTlsKk6XcP06iJUKUSFRdLHBG6KXLo+zlBYI8=
+=UNBF
+-----END PGP SIGNATURE-----
+
+--ng2kbwxzmo2hs5f5--
 
