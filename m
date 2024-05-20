@@ -1,53 +1,54 @@
-Return-Path: <linux-man+bounces-936-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-937-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C5278C99D0
-	for <lists+linux-man@lfdr.de>; Mon, 20 May 2024 10:29:20 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 587408C99FB
+	for <lists+linux-man@lfdr.de>; Mon, 20 May 2024 10:53:33 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 160A3281850
-	for <lists+linux-man@lfdr.de>; Mon, 20 May 2024 08:29:19 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0E4142819D8
+	for <lists+linux-man@lfdr.de>; Mon, 20 May 2024 08:53:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFC6C1BC23;
-	Mon, 20 May 2024 08:29:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BF541B974;
+	Mon, 20 May 2024 08:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qaV1C8cJ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQ1oN30B"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDE21CD00
-	for <linux-man@vger.kernel.org>; Mon, 20 May 2024 08:29:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7F1A2D
+	for <linux-man@vger.kernel.org>; Mon, 20 May 2024 08:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716193755; cv=none; b=BVlTTSXfrg7HwfWI5/HVl2QNUrH9RFjnCUoIAoXO9EJFTDMJJvJCRSqKmWXZrn/b3DyGN8C6S3gxO96GvY790imtRr8jfIUsSKhoad2drolaQlKXrnlLs4TJVJACN5XkUyVuTdPtcIn3wEkxkG6OaeY567aUhRQr5J8lgz8T/Sw=
+	t=1716195207; cv=none; b=ujniYhsUdzUtWKHsa1n7pDHhvXGjxxs9PBpcMOf7p1t6NolWjavbc+h4mw3r6uFPIroaIXPaL0co/MuhRsE/viqCfTrM5mqQKRaw7J01Dsl9Q+pbT5dfw9IZqFgzFYp2yhLFEoDBOxYwXIkBa11BQTjuDvJx9Mn41UnBEirWry4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716193755; c=relaxed/simple;
-	bh=Q62p7eVPec6UFRIT2VvWbWyPLUodxziMhlYpsSnj40s=;
+	s=arc-20240116; t=1716195207; c=relaxed/simple;
+	bh=IFEdgkSlq3izUNq7w/o8YIf1b2b0WopmmPwV3QjLyk8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WRbbi5wsJF48tgZqK8ImNYxeim8mSWGPyr198kh9/a7wDOplhXY1pcWlt3r7UejgqWnzoozY2zFWB54URJrcuspYTRXb8xmAIifdACV5AIb2RP+Rjs3RvwVpuPHQALVk1OhYcXNSkrMksoCaM1/6sfXQ8Cf8olRMWKcjaTl8SsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qaV1C8cJ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AA53C2BD10;
-	Mon, 20 May 2024 08:29:14 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=evWFJ9XLUDrjJOzFamyboIB5Zj+Jtm9OKI29IjpziHJ6Yy6KE+6UDZZuRofZLWBppDm4XHO6V2cAp+V19QneKqcL1w3q1c/KRjBGuiSjDA/NhuOBasQK/bPZnNUBhfCY7F3gUfZvBXeQ74BIct3ex/G44YLJaCud6x5o+jHkMZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQ1oN30B; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F383C2BD10;
+	Mon, 20 May 2024 08:53:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716193755;
-	bh=Q62p7eVPec6UFRIT2VvWbWyPLUodxziMhlYpsSnj40s=;
+	s=k20201202; t=1716195206;
+	bh=IFEdgkSlq3izUNq7w/o8YIf1b2b0WopmmPwV3QjLyk8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qaV1C8cJEq2qiVh+q8H3em/Uk5JYr++BXpE8lAiOv+Iccyw3sXTGAc1RjTPR+9EmF
-	 yf487rmC27aeaOqMqAfVNmOzjcfTgaL8J+itk4n0s49Jlk9EXMDAGLm03riQYJembq
-	 2FD9Vvv8jSea/IoiaH4CKgvkqZLOHMpjHWvMtF2A9a7hXSmqi1gMgi0tEsItKxpWlY
-	 HQIbZYiWiZM6mZ26jGnP3VujPeBEIDY6Y6YeBCYhhQOfNg/k4xHuuOIrAMnmFwb1a3
-	 ygvtM/kj94RPls2yNherxqxD+DG5aF0byKm00etUZ2Vg7mkckUz8TYEVsR7AItkWbi
-	 3qPugTAbRC/HQ==
-Date: Mon, 20 May 2024 10:29:12 +0200
+	b=QQ1oN30BXvRPtl5NyE2O6Fz3w851SrSlsigTm1R9HK6tic56JYkzAooK+f7uEsdY8
+	 rT+CUtspEU8V0/GOFrY9H2+Xa0ymSVYCrU7vZzyZoBEKrg+vl2tkvAWnz8AoEzDIf4
+	 j2vjZE7v6jRr4IqfS/kyjTz8k+efigqxH+5nJxmesNbiRXAi6c7cxdlAnmncko7EWD
+	 SkAXehKfIgR1bUUYI3/TokerKGgJ6e91ScSZEYlv/eZezXNKFD5nQjwn2xJA2QxOKb
+	 7LO+qUCnMlfBhoCYMKQ65DbDeDIKYcleoszyd/LN+vjl640uCBD9QLcAb+mTPwuqKE
+	 +mlRfa0sEjGCA==
+Date: Mon, 20 May 2024 10:53:23 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Emanuele Torre <torreemanuele6@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@vger.kernel.org
+Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
 Subject: Re: pidfd_open.2: PIDFD_NONBLOCK is not defined by the listed headers
-Message-ID: <e4avr4d44fpkqtby6i53qthlkvhvum7fxkq63hkmuqtqgougyr@cropbgglzx2a>
+Message-ID: <5j4gyoh75xrmuljl3dlobviroi3huhriufk6gzcwsyeibupov3@lpmy4moyjjhn>
 References: <ZkrZb91EgZoaOybZ@t420>
+ <e4avr4d44fpkqtby6i53qthlkvhvum7fxkq63hkmuqtqgougyr@cropbgglzx2a>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,22 +56,27 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iqkxqeoowptszacl"
+	protocol="application/pgp-signature"; boundary="445vsyse2xdsokpv"
 Content-Disposition: inline
-In-Reply-To: <ZkrZb91EgZoaOybZ@t420>
+In-Reply-To: <e4avr4d44fpkqtby6i53qthlkvhvum7fxkq63hkmuqtqgougyr@cropbgglzx2a>
 
 
---iqkxqeoowptszacl
+--445vsyse2xdsokpv
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Emanuele Torre <torreemanuele6@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@vger.kernel.org
+Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
 Subject: Re: pidfd_open.2: PIDFD_NONBLOCK is not defined by the listed headers
 References: <ZkrZb91EgZoaOybZ@t420>
+ <e4avr4d44fpkqtby6i53qthlkvhvum7fxkq63hkmuqtqgougyr@cropbgglzx2a>
 MIME-Version: 1.0
-In-Reply-To: <ZkrZb91EgZoaOybZ@t420>
+In-Reply-To: <e4avr4d44fpkqtby6i53qthlkvhvum7fxkq63hkmuqtqgougyr@cropbgglzx2a>
+
+Oops, I mistyped the glibc list.  Below is included the original email.
+
+---
 
 On Mon, May 20, 2024 at 07:02:39AM GMT, Emanuele Torre wrote:
 > Hello.
@@ -78,18 +84,18 @@ On Mon, May 20, 2024 at 07:02:39AM GMT, Emanuele Torre wrote:
 Hi Emanuele,
 
 > pidfd_open(2) only lists sys/syscall.h and unistd.h in its SYNOPSYS:
->=20
+>
 >   SYNOPSIS
 >          #include <sys/syscall.h>      /* Definition of SYS_* constants */
 >          #include <unistd.h>
->=20
+>
 >          int syscall(SYS_pidfd_open, pid_t pid, unsigned int flags);
->=20
+>
 >          Note:  glibc provides no wrapper for pidfd_open(), necessitating
 >          the use of syscall(2).
->=20
+>
 > Then it mentions PIDFD_NONBLOCK as one of its flags:
->=20
+>
 >   PIDFD_NONBLOCK (since Linux 5.10)
 >          Return  a nonblocking file descriptor.  If the process referred
 >          to by the file descriptor has not yet terminated, then  an  at=
@@ -97,18 +103,18 @@ Hi Emanuele,
 >          tempt to wait on the file descriptor using waitid(2) will imme=
 =E2=80=90
 >          diately return the error EAGAIN rather than blocking.
->=20
+>
 > But PIDFD_NONBLOCK is not defined in any of the listed headers.
 
 Hmmm.  Thanks!  We need to add its header.
 
 > I have noticed that PIDFD_NONBLOCK is the same value as O_NONBLOCK,
 > so perhaps this flag could be listed as
->=20
+>
 >   O_NONBLOCK or PIDFD_NONBLOCK (since Linux 5.10)
->=20
+>
 > like O_NDELAY and O_NONBLOCK in open.2.
->=20
+>
 > This way the user would know that O_NONBLOCK may be used instead of
 > PIDFD_NONBLOCK if PIDFD_NONBLOCK is not available.
 
@@ -135,7 +141,7 @@ this one, without providing a syscall wrapper, should we include the
 glibc header or the kernel one?  Do you provide all kernel uapi macros,
 or just select ones?
 
->=20
+>
 > So probably the best solution is to just make the pidfd_open(2),
 > pidfd_send_signal(2), and pidfd_getfd(2) man pages tell users to include
 > sys/pidfd.h and call the GNU libc functions instead of including
@@ -157,33 +163,33 @@ Thanks for the detailed report!
 Have a lovely day!
 Alex
 
->=20
->=20
+>
+>
 > o/
 >  emanuele6
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---iqkxqeoowptszacl
+--445vsyse2xdsokpv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZLCdEACgkQnowa+77/
-2zL1Jw//bf4M96pH19R0yVZ+DMwSA+N3cyUhVaRLFCL5djQJ84URl632kY//pKZM
-zatT72Wm+obYTdg/plkd/RcuXixPPxZhZ4W1xOpyj4zO2QSh6G03BYvCY1QumFRs
-0yoxnBM/2qBc49TBzD2u4L2e3kq+pwBKnHeEx45twxuxFxzus6ugHk5FpsB0f3Yq
-pvbDqO4KqwAuc6BFGptbiHUgytbt9gx+zZRwI/QUcNTX3vPwc8UKr7Mw1BMCDCvW
-D1OeDGSnhW8kodoqqr+dDV+u+9wuklJPyry5hezz0yDlL9RkM4KXrfOMwGz5IpTx
-rVa5kVfuv6El2C4RSu1rO8ZPMhHds5l4rg4QqkA3W6IaENjfISad5mVjgaJJYTT3
-N+ntwWpOemUW29HgBvP0gY5UhVATH3+XWFIX1eGuqz7teCVbdcJiHAqxG7JnnbYa
-/1ZBQfgHqxxt+pxGDEUNcp5YMUbHJtxWUCHMwgSQyyXvl/wuqKNjFZOzOu1yZL2M
-R8JzkP7fwZmsB+sOT+58uGCSFsilv4CFv0k9KQzEmmdPEvp1iqI0niL+0BsyLkHt
-wdBX4ogco4sxax1eLRoZMEgw5TYpxdGVnbtysofzIl8OrAKCKYFe/z9T6boyIGpd
-ZrpOFqJL6dnHdFmRWfFbQb6p3Fdae96s9gBffzCP/9Di9LmzBJM=
-=F2S0
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZLD4MACgkQnowa+77/
+2zILTxAAmu0iczLcJVlc8xGEeeLOLLw6PTNMKFCeia9TxWGM3DYY72scQslgH2ZB
+pfba8OHUSbaZZ+5wotXjl0LB3Rb+/xlrqPkDpcY8IEbddHR7TUXLp+7Yhk0UKAqq
+B+bgxsnExb+6GJiJpzbb8ZaNKzS5npUMaDMzoejBa1Al+fqt/CPASHLHQrD+vx7U
+YoXRtoisxjk4+b1om+nCVC61Otwrr3mLLln/sbltglNFMhowF6jwGh0bPMyNVWiQ
+7UY5+p606WQ/A7c/9fhn+3Sh/1oRqPbq9rpiBuaogBZphWQV51euEXY5Wm1vBKkQ
+41TelhWQOxp9bJOJM6Jl/+WYRc3havLDFu4Tdodmhjl9M3aJaGXS7Vg86tZ5Q2/f
+ZzBZkicOfpjHeX4bdqJasZvdfBFBHmQ2vo1iLRLxnX8u0vBk4G6Rju9FeS1AAxTJ
+KtSShMN65mcz1UCttJMaRoHV+RU0kmctllqfYe1asV1B9lVk9dErw0PVFMwgIEX1
+oCJ08oJuXDInru2yr70R1EmB0yW16tyA+JsIhNYyDGAU3kA1HKWt7r1sk8w35UW6
+hxcBpCZEzFvmDh9HG2XWVlpp7Xy8WM29j3zub0OzdweAe+AadzdCzFe5/2QRA/GH
+3tCacA6OmdhhTbpYFBftzA/bO69bQthCPV6gWsuaYMMNo0+9frA=
+=9BuL
 -----END PGP SIGNATURE-----
 
---iqkxqeoowptszacl--
+--445vsyse2xdsokpv--
 
