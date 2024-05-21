@@ -1,151 +1,199 @@
-Return-Path: <linux-man+bounces-951-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-952-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ECA78CAC3E
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 12:31:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89EC88CAC77
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 12:48:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7FCED1C216D9
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 10:31:42 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 04C951F22974
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 10:48:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A166B200C7;
-	Tue, 21 May 2024 10:31:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 581FF6EB5D;
+	Tue, 21 May 2024 10:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b5te2Uz/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVgBONYJ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A5814290
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 10:31:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0250945BE4;
+	Tue, 21 May 2024 10:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716287499; cv=none; b=EVxuVxtRASpI8HeEbI5Z/3blDOtwSNgcOsNSDYMRRY8ihSU+I5GNLpXwGsYi0+tUL99siM2FLUkAeYC3u1TFrAfxM9iLpsqcyuZM8Bt4O+nZ8SyEVwgXHx4d31a5nFYvMTA13FpUDboKkwEPCCuSFxvMEFLwU2IGTd2IbLRhwGA=
+	t=1716288513; cv=none; b=h7xBarV0Ny8JR5mBmSo6GxjsbNFh/QosRJU/Un4XvGuRtQtgUHmNqNvxKykDGMcWsubmcSk40wEgIzvBXf6fqlR7HaUom0HfcWmoLcnol9j5EPAa6k9hjJJj9/E6gc52tQ8TXBEO5FyTZPhzD29G5ARsQvVR/q9rrlkYYRWwz0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716287499; c=relaxed/simple;
-	bh=IFDVd6ZsWipRiO/gB0zQla5mF2Fq2xXg3r3nZ85KPEs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uwlaur7VIfIpBzV4o1S2iM3hhj4GP7ub+Qce3ctQTyjiXrQB6d0iUEFiRLdYHk7ZIobwb7TD2FRyyA/OdtEKSh1gEvWCl6W8Ea+VnDd85Jpo0XZwc/3T1qMcLdNvkAUArjNoy3b2qwwcI8gkNy7iHlqSlZK1PLDKkKCsFTtgtmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b5te2Uz/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDA1C2BD11;
-	Tue, 21 May 2024 10:31:38 +0000 (UTC)
+	s=arc-20240116; t=1716288513; c=relaxed/simple;
+	bh=t6KrsjjS2cDjiQKKZKmCqoWmzszzaptCBic8EsD0Lcs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kemAbKBuGocxl2ZMDI2Luv5OHDHU3ccSjKj6ze8OEwsOoS6Ne40qq6fV89e/6OHE3n8hEdK7aTnMJBx3auYTBhgU+1djtStazv8NaXx+N3ymajvyowlsHdhhQpU5915jack9iXvtWAsMRKNzC47ImHaB/sLXDJws9/iOYzuX4h8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVgBONYJ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6634AC2BD11;
+	Tue, 21 May 2024 10:48:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716287498;
-	bh=IFDVd6ZsWipRiO/gB0zQla5mF2Fq2xXg3r3nZ85KPEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b5te2Uz/AwM6HtSHHK0zsGSbHnRVfU3vQYdrUUpShu+rwH2PUA0Z1JuuGnjWUcha3
-	 x6QJ3R1oZt11iBjfzTfnrCHjFoovvL9DbcU1ryvQZIGKcFoVAuQw0Y0es0IuE4pHeE
-	 CvE6waUnUxYZdhHgnC6OCCdO4SZSd29sxif+fjmCsMoA8c7ysO/g5zNdThiWEOxhz6
-	 wXCBMfLYyG9uyIyks4/s05wQ5Sv3i75QMIPxHV97vEOCeGmuOvt4M293gs7mo988ea
-	 EJa/KT910nCybM1GbV0WlGAagpnwzXJYnz8hrj0+ZAkg6IlgzHlTSQH2Pd8zyusu6v
-	 /HjZOUu2Panxw==
-Date: Tue, 21 May 2024 12:31:36 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Rodrigo Campos <rodrigo@sdfg.com.ar>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
-Message-ID: <yjpaqj7tekvhazxklqnpxknwy5lyg7yp6m5cedbtiwks3ioxsb@ive3dxu6vqoc>
-References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
- <Zh-6YjDhSBUNKmqP@debian>
- <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
- <Zi93EAyeU4byltGB@debian>
- <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
+	s=k20201202; t=1716288512;
+	bh=t6KrsjjS2cDjiQKKZKmCqoWmzszzaptCBic8EsD0Lcs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EVgBONYJQggmaCPfwSOj4nXhhd9yInDgZzkSfx54efX438ljLBKovHogUSb9eQhYQ
+	 9PrvB4Ha1eyFgG03mi9HH7wyYt+liD1Vypyr+z62CiKmxNSoymaExskdmWRxS7Ct/O
+	 kxSgqdYSFpM3ooEKpqdcRj8zwPRjI1Zu851tK8YT0mEk9Q48LqpHEcrYc4Ur5qa9TI
+	 wW+wP2R+9fp2TqWOwL5+8xC5HSq6gZx+xqWnpx4bfG1cw7g2mAcAYzCTcPZ1uJ/VVB
+	 FCMNjdk0b5wwUDCDyu9MbGralMKiTFbrnkDspLaSqf2+iZvWNow4UpGd8PVVl5M539
+	 95G5aXdqmz0IQ==
+From: Jiri Olsa <jolsa@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org,
+	x86@kernel.org,
+	bpf@vger.kernel.org,
+	Song Liu <songliubraving@fb.com>,
+	Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	Deepak Gupta <debug@rivosinc.com>
+Subject: [PATCHv6 bpf-next 0/9] uprobe: uretprobe speed up
+Date: Tue, 21 May 2024 12:48:16 +0200
+Message-ID: <20240521104825.1060966-1-jolsa@kernel.org>
+X-Mailer: git-send-email 2.45.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="42fgdqgetnhfkfhq"
-Content-Disposition: inline
-In-Reply-To: <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
+Content-Transfer-Encoding: 8bit
+
+hi,
+as part of the effort on speeding up the uprobes [0] coming with
+return uprobe optimization by using syscall instead of the trap
+on the uretprobe trampoline.
+
+The speed up depends on instruction type that uprobe is installed
+and depends on specific HW type, please check patch 1 for details.
+
+Patches 1-8 are based on bpf-next/master, but patch 2 and 3 are
+apply-able on linux-trace.git tree probes/for-next branch.
+Patch 9 is based on man-pages master.
+
+v6 changes:
+- separate shadow stack fix for current uretprobe in patch 1
+- skip shadow stack test when uprobe is not compiled int [Masami]
+- fix retprobe with the shadow stack, using iret return when
+  shadow stack is detected
+- I kept the acks on patch 3, because the shadow stack change is
+  minimal and the original code is almost untouched
+- added shadow stack bpf selftest
+- rebased man page
+
+Also available at:
+  https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git
+  uretprobe_syscall
+
+thanks,
+jirka
 
 
---42fgdqgetnhfkfhq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Rodrigo Campos <rodrigo@sdfg.com.ar>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
-References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
- <Zh-6YjDhSBUNKmqP@debian>
- <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
- <Zi93EAyeU4byltGB@debian>
- <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
-MIME-Version: 1.0
-In-Reply-To: <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
+Notes to check list items in Documentation/process/adding-syscalls.rst:
 
-Hi Rodrigo,
+- System Call Alternatives
+  New syscall seems like the best way in here, because we need
+  just to quickly enter kernel with no extra arguments processing,
+  which we'd need to do if we decided to use another syscall.
 
-On Tue, May 21, 2024 at 11:08:58AM GMT, Rodrigo Campos wrote:
-> On 4/29/24 12:31 PM, Alejandro Colomar wrote:
-> > Okay.  I've applied the patch.  Thanks!
-> > <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git=
-/commit/?h=3Dcontrib&id=3D8ea186128f96d6f8912e05c95544734004618827>
->=20
-> Thanks!
+- Designing the API: Planning for Extension
+  The uretprobe syscall is very specific and most likely won't be
+  extended in the future.
 
-:-)
+  At the moment it does not take any arguments and even if it does
+  in future, it's allowed to be called only from trampoline prepared
+  by kernel, so there'll be no broken user.
 
-> There is no online html version of this, right? Not even after the recent
-> 6.8 release?
+- Designing the API: Other Considerations
+  N/A because uretprobe syscall does not return reference to kernel
+  object.
 
-Yes, there is.  We publish a PDF book for each release at:
-<https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/>
-<https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/man-pages-6.=
-8.pdf>
+- Proposing the API
+  Wiring up of the uretprobe system call is in separate change,
+  selftests and man page changes are part of the patchset.
 
-with a copy also available at my own server:
-<https://www.alejandro-colomar.es/share/dist/man-pages/6/6.8/man-pages-6.8.=
-pdf>
+- Generic System Call Implementation
+  There's no CONFIG option for the new functionality because it
+  keeps the same behaviour from the user POV.
 
-And if you want to check an online version of git HEAD (like this case,
-since the patch was applied after the release), it's available in my own
-sever:
-<https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-H=
-EAD.pdf>
+- x86 System Call Implementation
+  It's 64-bit syscall only.
 
-You will find that my SSL cert is self-signed.  It's documented here:
-<https://www.alejandro-colomar.es/ssl>.  You can use HTTP links to avoid
-it, or add my certificate to your browser exceptions.
+- Compatibility System Calls (Generic)
+  N/A uretprobe syscall has no arguments and is not supported
+  for compat processes.
 
-> I'm asking because I would like to link it in Kubernetes documentation.
->=20
->=20
->=20
-> Best
-> Rodrigo
+- Compatibility System Calls (x86)
+  N/A uretprobe syscall is not supported for compat processes.
 
-Have a lovely day!
-Alex
+- System Calls Returning Elsewhere
+  N/A.
 
---=20
-<https://www.alejandro-colomar.es/>
+- Other Details
+  N/A.
 
---42fgdqgetnhfkfhq
-Content-Type: application/pgp-signature; name="signature.asc"
+- Testing
+  Adding new bpf selftests and ran ltp on top of this change.
 
------BEGIN PGP SIGNATURE-----
+- Man Page
+  Attached.
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZMeAcACgkQnowa+77/
-2zLfHA/8D1S0dx+fZtbTDbkkUK1u7AuCEqM+BIWPxYi4Akqfh215w25LjqrsAj4B
-LaB+JC4I89KiyprIoDVy4bTuFn5FMtPU5X37Sr5XXW6iUGRoWTw8CiH0EE+sxswb
-bcl9RpcVQY4J34M+LmdTyPqF16jWcD8TmrtkcHOq5bCGAQVAKnQzTBlLAivBUtAe
-yIOTzFibNPePtSj0R2GJj32QXr4vij8YmIpSFp/UE986etbJ/0Zwk7crBBPkfm7S
-gB4NLNDHRpdVP2uhIHKxcPlyVJprhRVrnRUjORqcN2Rv7qnBRPG2t0+Ug2kARkXy
-9RyM/cQgWVViqmVaeNDAgf0aZ/90f6IYYJvqyTQbDjirFhjNjqJWuerVgHuraIbt
-f+f1ulwSmaUGivvJUiENfJV5nzTO0Wu7Ye8q0llohRpcOAg/qm28IntbaFRtrEEN
-zj+E+/UqP28J7WFBtJR58o8X7tWoBbiWmuYiA2B4oTV0pqtLwNemmH72RVMwv8ms
-7i+pEF6j1rfQBzQttEiWnzlwfqqbWkzZv9PtQzC0/HFEZCe+tB2Cg5hbx3T1lMsn
-7oGU+RvviG0+alAvJz2zzvsvFbIOs4/WuzCEG/Xf2ie8Xa72vnAQxgVmmkH6qflk
-wMYFfd5KPoDgA/0BbG3762qVlngaQZsjDezmyHemUjBRhwyktso=
-=ZArO
------END PGP SIGNATURE-----
+- Do not call System Calls in the Kernel
+  N/A.
 
---42fgdqgetnhfkfhq--
+
+[0] https://lore.kernel.org/bpf/ZeCXHKJ--iYYbmLj@krava/
+---
+Jiri Olsa (8):
+      x86/shstk: Make return uprobe work with shadow stack
+      uprobe: Wire up uretprobe system call
+      uprobe: Add uretprobe syscall to speed up return probe
+      selftests/x86: Add return uprobe shadow stack test
+      selftests/bpf: Add uretprobe syscall test for regs integrity
+      selftests/bpf: Add uretprobe syscall test for regs changes
+      selftests/bpf: Add uretprobe syscall call from user space test
+      selftests/bpf: Add uretprobe shadow stack test
+
+ arch/x86/entry/syscalls/syscall_64.tbl                      |   1 +
+ arch/x86/include/asm/shstk.h                                |   4 +
+ arch/x86/kernel/shstk.c                                     |  16 ++++
+ arch/x86/kernel/uprobes.c                                   | 124 ++++++++++++++++++++++++++++-
+ include/linux/syscalls.h                                    |   2 +
+ include/linux/uprobes.h                                     |   3 +
+ include/uapi/asm-generic/unistd.h                           |   5 +-
+ kernel/events/uprobes.c                                     |  24 ++++--
+ kernel/sys_ni.c                                             |   2 +
+ tools/include/linux/compiler.h                              |   4 +
+ tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c       | 123 ++++++++++++++++++++++++++++-
+ tools/testing/selftests/bpf/prog_tests/uprobe_syscall.c     | 385 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ tools/testing/selftests/bpf/progs/uprobe_syscall.c          |  15 ++++
+ tools/testing/selftests/bpf/progs/uprobe_syscall_executed.c |  17 ++++
+ tools/testing/selftests/x86/test_shadow_stack.c             | 145 ++++++++++++++++++++++++++++++++++
+ 15 files changed, 860 insertions(+), 10 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/uprobe_syscall.c
+ create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscall.c
+ create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscall_executed.c
+
+Jiri Olsa (1):
+      man2: Add uretprobe syscall page
+
+ man/man2/uretprobe.2 | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+ create mode 100644 man/man2/uretprobe.2
 
