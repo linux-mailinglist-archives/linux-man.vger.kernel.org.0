@@ -1,136 +1,73 @@
-Return-Path: <linux-man+bounces-946-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-947-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1CE8CA721
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 05:45:29 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 535B58CAA7F
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 11:09:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 97F6B2823A6
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 03:45:28 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id E8B941F2275A
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 09:09:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E42418040;
-	Tue, 21 May 2024 03:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="HhuOD8RG"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A94B56440;
+	Tue, 21 May 2024 09:09:11 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from alerce.blitiri.com.ar (alerce.blitiri.com.ar [49.12.208.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC221CD3B
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 03:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.37.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A298D56760
+	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 09:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.12.208.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716263126; cv=none; b=A6dsOPwUJdpWpWqmy5edVCzK1ErpVJUqc5l/ci9fx0hHePdmHkkJO67mQN7gxZISfiCLroPhj+ClFs/k19cGKFVpr6tXdomIEiwKb+LdKveg4UXrci6g6wgadRmPdbrsFLCCJtg9lHYXo2SikBIFlfG9bzQgnf3A+MV+ZZGLGM8=
+	t=1716282550; cv=none; b=SBRTww3rZBvn8LFDYSLThXsjJ/KGE1ToChrFoznS6ggeKdrlcDeuuapFT7qpqkYnWCJUwF8VRHtVxXrO+hLaPxeD9fqJ4uIZnw4cZ95MnsWe53HKEJtWLuLL3vP/GKTheqY8P8mw4/vTIAzmY1wTw8T7E7MC9rg/n/64p4eb7rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716263126; c=relaxed/simple;
-	bh=/DfdMCtij3EHCir/424xBx48TDyq4aNTq9+QAXHPFg8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IuWFfYjM2SwR2Qf+O2Tf1P/BUgJDClOJmUloEd4o5H1RWdMxZKL/4/XujuqKPmkGRQcxoh5r++00+68t8tR2xl9MfVqNB9uhYk2M4UDlQtcLiBO5DIbLc6TD3DRw4O7/HRwbDJthoobhBzWP3wobTL6iYqYJ4SFJ8brZ2IFyJdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=HhuOD8RG; arc=none smtp.client-ip=139.138.37.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1716263123; x=1747799123;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=/DfdMCtij3EHCir/424xBx48TDyq4aNTq9+QAXHPFg8=;
-  b=HhuOD8RGvnK5Z+vyFTCyHihJktgRPcJZU/B3c8+lpPkx3f9uG+9qDUVV
-   MQ/nfoiuVCvkJh9GMr3cPDAU9PVhjy/8TNauJrHkBshohW08vHRgzP52d
-   o5su8dZkcHP5WVMDBVdwBWe2lPd78ljeWpZ7yQkbItr0z4e0jH0rRgCYD
-   /FVt0h0AyV4RvuFx8E45kX3DrsFSp4D+0TxnJ/CvmYJU2eww0ihBRHuS2
-   vrXt2xBZtiKsBpTXaZoJmvRXTRGxwRu8txwJ0L0siQImtHEblO849KsbB
-   2ELMA3NidNK6pwMPH0breDnVWCKv/lEZyH7Xkcnem4LavRtUmVpf5ZFG0
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="138187830"
-X-IronPort-AV: E=Sophos;i="6.08,176,1712588400"; 
-   d="scan'208";a="138187830"
-Received: from unknown (HELO yto-r4.gw.nic.fujitsu.com) ([218.44.52.220])
-  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 May 2024 12:44:11 +0900
-Received: from yto-m4.gw.nic.fujitsu.com (yto-nat-yto-m4.gw.nic.fujitsu.com [192.168.83.67])
-	by yto-r4.gw.nic.fujitsu.com (Postfix) with ESMTP id 16E20CD6DC
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 12:44:09 +0900 (JST)
-Received: from kws-ab3.gw.nic.fujitsu.com (kws-ab3.gw.nic.fujitsu.com [192.51.206.21])
-	by yto-m4.gw.nic.fujitsu.com (Postfix) with ESMTP id 4C941D7B69
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 12:44:08 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
-	by kws-ab3.gw.nic.fujitsu.com (Postfix) with ESMTP id D167320094ADC
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 12:44:07 +0900 (JST)
-Received: from G08FNSTD200053.g08.fujitsu.local (unknown [10.167.226.137])
-	by edo.cn.fujitsu.com (Postfix) with ESMTP id 71EC51A000A;
-	Tue, 21 May 2024 11:44:07 +0800 (CST)
-From: maxj.fnst@fujitsu.com
-To: linux-man@vger.kernel.org
-Cc: Ma Xinjian <maxj.fnst@fujitsu.com>
-Subject: [PATCH] prctl: Fix the description of arguments
-Date: Tue, 21 May 2024 11:43:42 +0800
-Message-Id: <20240521034342.1967-1-maxj.fnst@fujitsu.com>
-X-Mailer: git-send-email 2.26.1.windows.1
+	s=arc-20240116; t=1716282550; c=relaxed/simple;
+	bh=lQK7PjS75mWspTWLWtOM+LkAS/GdsdpfwwU0hP/pqwU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HfIfxUH4++fktUlYEWhQGOfYs4H6q4ffq4bPr+qREmtf8oUVjqiMzBKy+jcrUa0UTuKOjPVFCAiW86gKbL7z2ko6OZRXbjObRYLVxk3cIRBFNf6MtekZ0SywCAs0Qp7fuhxfF6CLCo39JLPjQsZYPRghO/mCiKTEgecNjgYF4GM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdfg.com.ar; spf=pass smtp.mailfrom=sdfg.com.ar; arc=none smtp.client-ip=49.12.208.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdfg.com.ar
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sdfg.com.ar
+Received: from [IPV6:2a02:8109:aa26:4b00:1a1e:9a1e:44f7:a3cd]
+	by sdfg.com.ar (chasquid) with ESMTPSA
+	tls TLS_AES_128_GCM_SHA256
+	(over submission+TLS, TLS-1.3, envelope from "rodrigo@sdfg.com.ar")
+	; Tue, 21 May 2024 09:08:59 +0000
+Message-ID: <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
+Date: Tue, 21 May 2024 11:08:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28400.004
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28400.004
-X-TMASE-Result: 10--4.346400-10.000000
-X-TMASE-MatchedRID: AuCKiGuH5B5ASpWtAvpDoNyBRU/cKn69cQnGoQXSQM6jEIt+uIPPOG12
-	Q/J9gkAwRW1/RixPl0ezV4YDcGaV41xxDx5qbkR9FEUknJ/kEl5jFT88f69nG/oLR4+zsDTtjoc
-	zmuoPCq3G8lnTN93YGG7mZFZyAvtckpTF3f6IXSFHPd1ssOIumnJ13as9tpj8SscQT+CR5GTHBe
-	ULJZ/7KKV5YNfk09gUXHunIs4+4lUVwbf5lERMgI/2RRfVn5u4Tcu6aRtCI3BUKpNI+7y1VHsDE
-	gQ63iHZ
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
+ <Zh-6YjDhSBUNKmqP@debian> <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
+ <Zi93EAyeU4byltGB@debian>
+Content-Language: en-US
+From: Rodrigo Campos <rodrigo@sdfg.com.ar>
+In-Reply-To: <Zi93EAyeU4byltGB@debian>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Ma Xinjian <maxj.fnst@fujitsu.com>
+On 4/29/24 12:31 PM, Alejandro Colomar wrote:
+> Okay.  I've applied the patch.  Thanks!
+> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=8ea186128f96d6f8912e05c95544734004618827>
 
-The index of arguments in ERRORS section is not correct.
+Thanks!
 
-Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
----
- man/man2/prctl.2 | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+There is no online html version of this, right? Not even after the 
+recent 6.8 release?
 
-diff --git a/man/man2/prctl.2 b/man/man2/prctl.2
-index fad855832..cc6d3b4a8 100644
---- a/man/man2/prctl.2
-+++ b/man/man2/prctl.2
-@@ -2124,7 +2124,7 @@ above).
- is
- .BR PR_SET_MM ,
- and
--.I arg3
-+.I arg2
- is
- .BR PR_SET_MM_EXE_FILE ,
- the file is not executable.
-@@ -2133,18 +2133,18 @@ the file is not executable.
- .I op
- is
- .BR PR_SET_MM ,
--.I arg3
-+.I arg2
- is
- .BR PR_SET_MM_EXE_FILE ,
- and the file descriptor passed in
--.I arg4
-+.I arg3
- is not valid.
- .TP
- .B EBUSY
- .I op
- is
- .BR PR_SET_MM ,
--.I arg3
-+.I arg2
- is
- .BR PR_SET_MM_EXE_FILE ,
- and this the second attempt to change the
--- 
-2.39.3
+I'm asking because I would like to link it in Kubernetes documentation.
 
+
+
+Best
+Rodrigo
 
