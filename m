@@ -1,171 +1,116 @@
-Return-Path: <linux-man+bounces-968-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-969-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0382F8CAE04
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 14:16:53 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 668678CB05E
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 16:24:55 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id AFDCD1F2389E
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 12:16:52 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 00DC7B26579
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 14:24:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0FB7076049;
-	Tue, 21 May 2024 12:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C98DC130485;
+	Tue, 21 May 2024 14:24:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vAX5aYZE"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZF36BHxs"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37B875817
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 12:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CAA130A61
+	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 14:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716293772; cv=none; b=gpk4jlbxNRr6ziSVNP7xnmRst6b5gJ1/ikpZTAPT8Vya3RjWpPzndjGP3iRmMuDDUMhqHiDoYzUparZilfqD9WZnASDxxoMmTE7mTu70lQrZWPlelAvGLjR0xVucZCuAeFOdF+kkvbugLEJGAn5Rp5XZ1LwZWR8SR5yX3LrWgIw=
+	t=1716301460; cv=none; b=ZX428cpFPrZgvZx4Y2Sy25KF/596iCY0ZCCyXbk6dlqh6fTX3IgRgtLl3XT13O81XPH9Mbd2pitiK3AACTD12wIt7pGKV/O0iKYJ6LUmkMTrZaBIQgytPEElFi7MQbLKY9/NidsUx47c4vmAZm67x4PWI1HTyeO2Nqsb44f57dA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716293772; c=relaxed/simple;
-	bh=Sss+7mOa6/blVNTD4XDErskkVm7fuSO9mc+5a0wFE88=;
+	s=arc-20240116; t=1716301460; c=relaxed/simple;
+	bh=tfhs4G1UxiGQsBmQ8SRV1xtzgUc9WBEgAUO1utJnNF0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GJkBniD8TtBaZzdg2Rubsw2sTcqbhWfzakMHGZ7VlZXy4GaQ191E38FRY3SPbAbAdZMvRe4000fp8TGJy7OjleLXKCgerwDvpyvkIXzch+LiTPzyiMQHm9h9xzW1iYLIvrSCWvR7i9ciZ22Iw7wVBqS/D6K6q7lDdEiLHkGvcS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vAX5aYZE; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8584AC2BD11;
-	Tue, 21 May 2024 12:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716293772;
-	bh=Sss+7mOa6/blVNTD4XDErskkVm7fuSO9mc+5a0wFE88=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vAX5aYZEeEeeZumLLf5zijkO4JMIBOQmsbnf8vyU0tRRvsrH1D3T6VgIST/VmvqaR
-	 UEW06G/kDdzIKs21STAIIdVCZgIOzL1JHjW5mQhJL33AVDIs6OWnf8ICtzAtsrP9KN
-	 QrHeb2fctyDppL95/k9M7Pq3EOEsTK8mvHsNu5tjZRVhrvq4KCwgHhNvagMDtzNgai
-	 D0g5U3aTWMA0x2LbYPpVBhhSawQr5HG2CkDoFcKA1SCXJH0/8CNhtyPmTFFk1LBpkc
-	 T6xfjiJ3dSvREztL1DNUe9hMjWvKQBjVkjjR7ZyTZFl8kxGStQAbhFT6aeC91lb8pg
-	 d89BIyFxdBSpQ==
-Date: Tue, 21 May 2024 14:16:09 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Rodrigo Campos <rodrigo@sdfg.com.ar>
-Cc: linux-man@vger.kernel.org, Elliott Hughes <enh@google.com>
-Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
-Message-ID: <qyn3hupk2sqn2bogy3zdlfc5mqndfu42uwxnfvb6z6l6ueiqcy@al4qxblxfj2o>
-References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
- <Zh-6YjDhSBUNKmqP@debian>
- <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
- <Zi93EAyeU4byltGB@debian>
- <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
- <yjpaqj7tekvhazxklqnpxknwy5lyg7yp6m5cedbtiwks3ioxsb@ive3dxu6vqoc>
- <cb13f9fa-495f-4698-b3fc-f26388598e2f@sdfg.com.ar>
- <yvj2oqis7jzkghfkssgf4lpr65tx72eqwnc4qq7jjyyzznqq4g@r433igknppga>
- <17973283-7d86-41cc-b720-dca87a425f1c@sdfg.com.ar>
+	 Content-Type:Content-Disposition:In-Reply-To; b=n2UqpDZgeSX5CrKLgnWzSgQc0MZGg7nq8+RmaaCTsw8HjBBDAQmzMhIa//c5VltPDnJY2z3Wa6ROcO411kXaOTDgr11V7SVMpjsjLcbvZ3oTzUKzT4jn0F/Rulo7aqG1QPiXC1nPdAZhSN71pu7U63NLeojt+91ejxsEQcSbUFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZF36BHxs; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1716301457;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tfhs4G1UxiGQsBmQ8SRV1xtzgUc9WBEgAUO1utJnNF0=;
+	b=ZF36BHxsXr9O53h2Ysup3TijYa7kldv5apP5guKa663x3+iwL07Qyt+3HhMNF996WXrMgB
+	zJ7EXE0Km8Wgf9WjKcdkEe13R1QwyWJya8nBYMqAwD8936ViUWBw5mappK/MRzyCXoU47f
+	cbZ7QKGzlCDzdLnQxuS6XaPuU5oFt/o=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-554-nhnsxC0UO6SnsoRjeBDPPg-1; Tue,
+ 21 May 2024 10:24:12 -0400
+X-MC-Unique: nhnsxC0UO6SnsoRjeBDPPg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C79A11C03150;
+	Tue, 21 May 2024 14:23:53 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.45.224.64])
+	by smtp.corp.redhat.com (Postfix) with SMTP id CBF361C0948E;
+	Tue, 21 May 2024 14:23:48 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Tue, 21 May 2024 16:22:27 +0200 (CEST)
+Date: Tue, 21 May 2024 16:22:21 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org,
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv6 bpf-next 1/9] x86/shstk: Make return uprobe work with
+ shadow stack
+Message-ID: <20240521142221.GA19434@redhat.com>
+References: <20240521104825.1060966-1-jolsa@kernel.org>
+ <20240521104825.1060966-2-jolsa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xdr6c3xah7zyge2n"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <17973283-7d86-41cc-b720-dca87a425f1c@sdfg.com.ar>
+In-Reply-To: <20240521104825.1060966-2-jolsa@kernel.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+
+On 05/21, Jiri Olsa wrote:
+>
+> Currently the application with enabled shadow stack will crash
+> if it sets up return uprobe. The reason is the uretprobe kernel
+> code changes the user space task's stack, but does not update
+> shadow stack accordingly.
+>
+> Adding new functions to update values on shadow stack and using
+> them in uprobe code to keep shadow stack in sync with uretprobe
+> changes to user stack.
+
+I don't think my ack has any value in this area but looks good to me.
+
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
 
---xdr6c3xah7zyge2n
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Rodrigo Campos <rodrigo@sdfg.com.ar>
-Cc: linux-man@vger.kernel.org, Elliott Hughes <enh@google.com>
-Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
-References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
- <Zh-6YjDhSBUNKmqP@debian>
- <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
- <Zi93EAyeU4byltGB@debian>
- <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
- <yjpaqj7tekvhazxklqnpxknwy5lyg7yp6m5cedbtiwks3ioxsb@ive3dxu6vqoc>
- <cb13f9fa-495f-4698-b3fc-f26388598e2f@sdfg.com.ar>
- <yvj2oqis7jzkghfkssgf4lpr65tx72eqwnc4qq7jjyyzznqq4g@r433igknppga>
- <17973283-7d86-41cc-b720-dca87a425f1c@sdfg.com.ar>
-MIME-Version: 1.0
-In-Reply-To: <17973283-7d86-41cc-b720-dca87a425f1c@sdfg.com.ar>
+> Fixes: 8b1c23543436 ("x86/shstk: Add return uprobe support")
 
-[CC +=3D Elliott]
+Hmm... Was this commit ever applied?
 
-Hi Rodrigo,
+Oleg.
 
-On Tue, May 21, 2024 at 01:49:47PM GMT, Rodrigo Campos wrote:
-> On 5/21/24 1:27 PM, Alejandro Colomar wrote:
-> > Is then HTTP okay for you?  MY website works with HTTP just fine, and
->=20
-> Not really. Lot of browsers switch to https, even if you don't redirect on
-> the server.
-
-Yep.
-
-> > doesn't try to switch to HTTPS (but browsers these days got dumber and
-> > may force HTTPS).  Or do you need something from me?  It wasn't clear to
-> > me from your response.
->=20
-> I prefer an HTML website (a 8mb pdf is not the best experience, specially=
- on
-> mobile), and a fixed link that is kept updated with the latest info is wh=
-at
-> I'd love (doesn't matter if it is latest git or latest release, the fact
-> that is periodically updated is what matter to me).
-
-This has been asked in the past at least by a Google (bionic libc)
-employee.  If any company is willing to put money in it, we could do
-something; here are certainly programmers that could do it (I'm not just
-thinking of setting up a website, but also of improving the tools that
-generate the HTML from manual pages; that is, groff(1)).
-
-> Something like man7.org or man.die.net would be great, if they were updat=
-ed.
-
-It seems man7.org gets updated eventually.  The period for those events
-is unknown to me, though.  Not too often.  linux.die.net/man is frozen
-in the past it seems.
-
-> > I might be able to set up hardlinks in <kernel.org> with kup(1) to have
-> > <.../man-pages-latest.pdf> if HTTP doesn't work for you.  I'd need to
-> > manually update it at every release, though (but I guess it's not that
-> > bad).
->=20
-> Thanks a lot! But I'm not sure linking such a big PDF is nice, I think I'=
-ll
-> just mention to check the manpage.
->=20
-> I'll let you know if I find a use case for the latest PDF, thanks! :)
-
-You're welcome!  :-)
-
-> Best,
-> Rodrigo
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---xdr6c3xah7zyge2n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZMkIkACgkQnowa+77/
-2zIINg/9H028fU4pCb7J1s+zZguaTOw2eTKD6zrm71txLZ+omYJ/vkLBg87GwVU3
-dzhSnQ2R4QQiIkeZkxtiioB3PAE1TeNSndPfPcdLcrUaYjJpNRiT6COLrRNLiiZ5
-66CwrkFO1klwnjt+zpQzjTG4h+lRech2pkHdvF1kTi8xFxnjAYLzuVdn4p37xes7
-kKsrZfEo6k8lK6pQDppVw/IwuyEkPuA5C6BsmVVH7kzxYC7z+uDtqzCi2ObzeweY
-dvjIMNOR1foRTMxfvWCQGDzC5J2sebiFfFJwJ3d6KZrh6oDPp4USIg20UkOY7gHZ
-I5hjDesst7DvNXR8lPh7PmErrfaXcLpwWR4EsnMlyw0p4N8hGepSvV8gBYqD4g8z
-inqybB09f5oKh5ZiodQnhQitmppWflkttVU9knNVhww4iyGW1c2CzyWOYNR4coQf
-TCRO7lxb3kmnoH7WgBvtSDorWl6KRiB6SnWJ+TdcPt1axXILMafd22DRuShWWrTR
-/leok+S82SBHNsRCrFivSuV/qGpMKNbwvKY+c1hxybzLv6laoJPe2mf76e3tmmTr
-JldgfjzjSZar1vxWtGzFVo32JFGs0I5jPYssMPy+Nd6h7zLsZ8+CB3wqTDppGpfk
-vo+NsbTcjXYyc5jvdYy1++g6xQJgL6zwA/ds5J32Qta45tDbP1o=
-=QhnM
------END PGP SIGNATURE-----
-
---xdr6c3xah7zyge2n--
 
