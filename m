@@ -1,59 +1,63 @@
-Return-Path: <linux-man+bounces-963-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-964-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C6E8CAD56
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 13:27:58 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8E88CAD6B
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 13:36:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E71552829C4
-	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 11:27:56 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 81F64283280
+	for <lists+linux-man@lfdr.de>; Tue, 21 May 2024 11:36:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 410A061664;
-	Tue, 21 May 2024 11:27:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D279757EF;
+	Tue, 21 May 2024 11:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uOs+Pjjo"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZRhqxz+l"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0150173173
-	for <linux-man@vger.kernel.org>; Tue, 21 May 2024 11:27:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DF56CDA9;
+	Tue, 21 May 2024 11:36:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716290873; cv=none; b=RH7LQgw2Si805ku8IyZNN0PTYOe6mIzsehYBB8X/x0ruiJCl9ZoXBoDXsgvPgrBhSKzK/1Qte6xaw5b95wGTzkpFgfDeylpUgKYp9wfajrS1zpTAwrLwiHoixCsmrhuVkXmC0W/jMFIwLHVnv1Vbk5KalQsczTMmBNlQt3nDWM8=
+	t=1716291393; cv=none; b=jq6dfWqRZaCm+lmAo7u57D+nDS3Gox6y2EQvTmeWcScrr1FcNaiBx7ySFVAk1YMx/vKETBBw+BG3yoy/6dDT8Vj/1+wkteXZUpWU9IcniCrDPK9/BkNFvOIeMngNpul3TFAM2kC+T+6XwajvTioH7l+pBy55M68upIOtiqIwRgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716290873; c=relaxed/simple;
-	bh=jZvUJ36HNpWeIotUCqnGfjpTcKq+BZ6tz83HWRkJARU=;
+	s=arc-20240116; t=1716291393; c=relaxed/simple;
+	bh=XEPKXW7Vgf5WzTvEfGTZ49CgvombIwhtV4ZTh33ljRs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tnZQw4zFa4w6XRQXwt99ztTB6kr8uhRfaYDOKu/qZiqjHE/N7NtSXFzl/UmNnk9kxOOX+KpZzUH8ddmFidkwRjQhNCiuu1QGNKPb6o/EvlG3/5jSZY4V260Qq+oJO3xx9Ib7jyds9HmhrGW182uW1TzdMluL4PwOi+gKigiJHYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uOs+Pjjo; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D37C2BD11;
-	Tue, 21 May 2024 11:27:51 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4yIzXU3HoZ5Fgr10DLNFDtQk07JaxQHPwXDfnwBbjRaPPwtEmDUqXPfEZEA59Ca482d0rk3KtHf4oMnIRaB6nJXoGqcQtQNHWs/OnCzclK7jgYeW4ukbFQmZphZ+weY8D/K5VE9YsklAzfKCMxCqBTPiM8GfIRUq7mutJsiIqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZRhqxz+l; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2A0C2BD11;
+	Tue, 21 May 2024 11:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716290872;
-	bh=jZvUJ36HNpWeIotUCqnGfjpTcKq+BZ6tz83HWRkJARU=;
+	s=k20201202; t=1716291392;
+	bh=XEPKXW7Vgf5WzTvEfGTZ49CgvombIwhtV4ZTh33ljRs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uOs+PjjoDNmik6GPrO5dIRREUBw8XsQiHkld6hwpqhBnb0gi+/oARr+pLbyO8Uncr
-	 kYSy7cr0i3fGsy3WNu7UcC1lUIqAb72x4QXZAdAMwicBxYc08IZW3DTGbwe6dRoATg
-	 Cdu0y4svbC5HYHTPQyYe1AWcckmcSgwNQNdoXGVVIVNqOj6oF2XgS9eULs1LUF5Btp
-	 zchfGRvlvjD1JFgGD/n3M1Jb1HEXfyXahMcA2h9oCAwdhB2K0ZLTrto4DM8kOhQP9N
-	 fNcNQICyHmRwobsLqDGZaPQcJQ/F1M/b06wVCeKDQkv055DzGMOh8lkE2nvO/jYsEv
-	 +G6DLM+yhjYZg==
-Date: Tue, 21 May 2024 13:27:49 +0200
+	b=ZRhqxz+lpAUotP/bMOLsaC6UdZN3w0VobwkxqHtDDiwiI97eGBLzf0rLGXQwvT06J
+	 ZPOJCUUjW2elog1mc0BbpjCP5OZ/Q3C1XnoQMYiGQ9BIidsNX++xy2y8tQCRTKq1Rw
+	 Zxta5pZUPA0qolzvTjZujbmmQoO/Gs6FcXmoYhF0BcfYTMfhMZtzJUUkWU5leFDcLh
+	 qaPqCpggB2CbjH+6qKCNqPE3i/4Vv/de4eibPX257I2DSJmkUfb6oUISZW1CaZN6/5
+	 o6gvLYTmdqv6/JTXn2O6l11XWvvlnDumgX3w4Qvf1II4un8GqA8i2Mv0T/so/zSuTE
+	 aBuI//N15ulEg==
+Date: Tue, 21 May 2024 13:36:25 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Rodrigo Campos <rodrigo@sdfg.com.ar>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
-Message-ID: <yvj2oqis7jzkghfkssgf4lpr65tx72eqwnc4qq7jjyyzznqq4g@r433igknppga>
-References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
- <Zh-6YjDhSBUNKmqP@debian>
- <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
- <Zi93EAyeU4byltGB@debian>
- <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
- <yjpaqj7tekvhazxklqnpxknwy5lyg7yp6m5cedbtiwks3ioxsb@ive3dxu6vqoc>
- <cb13f9fa-495f-4698-b3fc-f26388598e2f@sdfg.com.ar>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv6 9/9] man2: Add uretprobe syscall page
+Message-ID: <j6qxudmvwccpqnle4evabxbswdygmx35bgqwhemuzsjs5iuydv@fk2iumwucifx>
+References: <20240521104825.1060966-1-jolsa@kernel.org>
+ <20240521104825.1060966-10-jolsa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,115 +65,143 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="47rcyi4zapn4b4cv"
+	protocol="application/pgp-signature"; boundary="sord6gh2s3weogw7"
 Content-Disposition: inline
-In-Reply-To: <cb13f9fa-495f-4698-b3fc-f26388598e2f@sdfg.com.ar>
+In-Reply-To: <20240521104825.1060966-10-jolsa@kernel.org>
 
 
---47rcyi4zapn4b4cv
+--sord6gh2s3weogw7
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Rodrigo Campos <rodrigo@sdfg.com.ar>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] mount_setattr.2: Update supported file-systems
-References: <20240409141046.124979-1-rodrigo@sdfg.com.ar>
- <Zh-6YjDhSBUNKmqP@debian>
- <b52c03a3-bc07-4358-aec4-9728f213d31e@sdfg.com.ar>
- <Zi93EAyeU4byltGB@debian>
- <60e07e4b-3cbf-497b-aecf-bd482bb4974f@sdfg.com.ar>
- <yjpaqj7tekvhazxklqnpxknwy5lyg7yp6m5cedbtiwks3ioxsb@ive3dxu6vqoc>
- <cb13f9fa-495f-4698-b3fc-f26388598e2f@sdfg.com.ar>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv6 9/9] man2: Add uretprobe syscall page
+References: <20240521104825.1060966-1-jolsa@kernel.org>
+ <20240521104825.1060966-10-jolsa@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <cb13f9fa-495f-4698-b3fc-f26388598e2f@sdfg.com.ar>
+In-Reply-To: <20240521104825.1060966-10-jolsa@kernel.org>
 
-Hi Rodrigo,
+Hi Jiri,
 
-On Tue, May 21, 2024 at 12:53:10PM GMT, Rodrigo Campos wrote:
-> On 5/21/24 12:31 PM, Alejandro Colomar wrote:
-> > On Tue, May 21, 2024 at 11:08:58AM GMT, Rodrigo Campos wrote:
-> > > There is no online html version of this, right? Not even after the re=
-cent
-> > > 6.8 release?
-> >=20
-> > Yes, there is.  We publish a PDF book for each release at:
-> > <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/>
-> > <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/man-page=
-s-6.8.pdf>
-> >=20
-> > with a copy also available at my own server:
-> > <https://www.alejandro-colomar.es/share/dist/man-pages/6/6.8/man-pages-=
-6.8.pdf>
-> >=20
-> > And if you want to check an online version of git HEAD (like this case,
-> > since the patch was applied after the release), it's available in my own
-> > sever:
+On Tue, May 21, 2024 at 12:48:25PM GMT, Jiri Olsa wrote:
+> Adding man page for new uretprobe syscall.
 >=20
-> Nah, the patch was included in 6.8 :)
-
-True.  cgit confused me.  :)
-
-> > <https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pag=
-es-HEAD.pdf>
-> >=20
-> > You will find that my SSL cert is self-signed.  It's documented here:
-> > <https://www.alejandro-colomar.es/ssl>.  You can use HTTP links to avoid
-> > it, or add my certificate to your browser exceptions.
+> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+> ---
+>  man2/uretprobe.2 | 50 ++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 50 insertions(+)
+>  create mode 100644 man2/uretprobe.2
 >=20
-> Oh, thanks. Pointing to a specific release is not very useful for
-> documentation, as I want it to point to the latest version so users can s=
-ee
-> which fs support idmap mounts on which kernels, I don't want to update the
-> link every time there is a man-pages release.
->=20
-> Also, in 2024 pointing to a site with self-signed cert is not something I=
-'m
-> not willing to do in the Kubernetes documentation.
+> diff --git a/man2/uretprobe.2 b/man2/uretprobe.2
+> new file mode 100644
+> index 000000000000..690fe3b1a44f
+> --- /dev/null
+> +++ b/man2/uretprobe.2
+> @@ -0,0 +1,50 @@
+> +.\" Copyright (C) 2024, Jiri Olsa <jolsa@kernel.org>
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.TH uretprobe 2 (date) "Linux man-pages (unreleased)"
+> +.SH NAME
+> +uretprobe \- execute pending return uprobes
+> +.SH SYNOPSIS
+> +.nf
+> +.B int uretprobe(void)
+> +.fi
 
-I guess you meant
+What header file provides this system call?
 
-	s/not something I'm not willing/something I'm not willing/
+> +.SH DESCRIPTION
+> +The
+> +.BR uretprobe ()
+> +syscall is an alternative to breakpoint instructions for
+> +triggering return uprobe consumers.
+> +.P
+> +Calls to
+> +.BR uretprobe ()
+> +suscall are only made from the user-space trampoline provided by the ker=
+nel.
 
-Is then HTTP okay for you?  MY website works with HTTP just fine, and
-doesn't try to switch to HTTPS (but browsers these days got dumber and
-may force HTTPS).  Or do you need something from me?  It wasn't clear to
-me from your response.
+s/suscall/system call/
 
-I might be able to set up hardlinks in <kernel.org> with kup(1) to have
-<.../man-pages-latest.pdf> if HTTP doesn't work for you.  I'd need to
-manually update it at every release, though (but I guess it's not that
-bad).
+> +Calls from any other place result in a
+> +.BR SIGILL .
 
-> I understand your issues
-> with CA, but self-signed for this context is definitely not better.
->=20
-> And don't worry, if a CA does indeed impersonate you, no one will realize=
- it
-> as the cert will just be trusted.
+Maybe add an ERRORS section?
 
-I see the 'Connection not secure' logo as a security feature.  :D
-If I see my website as trusted, it's actually the other way around.  Of
-course, only those who remember me using a self-signed cert will notice.
-But that's true of any impersonation.
+> +
 
-Anyway, hopefully nobody will trust my website at all, because there's
-nothing important in it, other than the git(1) repos and the documents,
-all of which are PGP-signed.
+We don't use blank lines; it causes a groff(1) warning, and other
+problems.  Instead, use '.P'.
 
-This is just my grain of sand to take down the CA system.
+> +.SH RETURN VALUE
+> +The
+> +.BR uretprobe ()
+> +syscall return value is architecture-specific.
+> +
 
-> Maybe only users that remember you use
-> self signed might suspect, but maybe they will think you use a signed cert
-> already ;)
+=2EP
 
-Even if I ever switch to a signed cert, I will provide my detached
-signature to it.  If a cert doesn't have a PGP signature from me,
-suspect.  ;)
+> +.SH VERSIONS
+> +This syscall is not specified in POSIX,
 
->=20
-> Thanks a lot anyways!
-> Rodrigo
+Redundant with "STANDARDS: None.".
+
+> +and details of its behavior vary across systems.
+
+Keep this.
+
+> +.SH STANDARDS
+> +None.
+> +.SH HISTORY
+> +TBD
+> +.SH NOTES
+> +The
+> +.BR uretprobe ()
+> +syscall was initially introduced for the x86_64 architecture where it wa=
+s shown
+> +to be faster than breakpoint traps. It might be extended to other archit=
+ectures.
+
+Please use semantic newlines.
+
+$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
+   Use semantic newlines
+     In the source of a manual page, new sentences should be started on
+     new lines, long sentences should be split  into  lines  at  clause
+     breaks  (commas,  semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention,  sometimes
+     known as "semantic newlines", makes it easier to see the effect of
+     patches, which often operate at the level of individual sentences,
+     clauses, or phrases.
+
+> +.P
+> +The
+> +.BR uretprobe ()
+> +syscall exists only to allow the invocation of return uprobe consumers.
+
+s/syscall/system call/
+
+> +It should
+> +.B never
+> +be called directly.
+> +Details of the arguments (if any) passed to
+> +.BR uretprobe ()
+> +and the return value are architecture-specific.
+> --=20
+> 2.44.0
 
 Have a lovely day!
 Alex
@@ -177,25 +209,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---47rcyi4zapn4b4cv
+--sord6gh2s3weogw7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZMhS8ACgkQnowa+77/
-2zLw9Q//RbFYVYRhiiOkrOIS5k7EcmjcpHd8r6s+lcKQTKJnSf05sNM80+f7b1+L
-6BllaBJKtLu653PdbATlhQ34SXEewSBQy4wB91FbBeHFUFd3dJMRWTkDd4B5vOVQ
-+NWLdT2+1Vcoz++U0rJi6EasEdidbwarhPk0k/OHxUWVqg7W+Z2TxITvAt3oT3l7
-AnYHKjmBNgNCzmnmNOzsMUbEuOukJkqmktIs2fgHdDndHWneRybQvWf3H9DBZIKu
-tdFmh0JcVTGoPQEHhYSqRs7oVBqYxiPfDEyVwFK/uKvMh7t8UCX3deBgl0pV8LfA
-1qJafSSi1gfWHhZvUlqJVCvCKQjhE9xgaAW+Zb+Abmidh7k+qy/NaN808MA/zHl9
-4EVnF9468VC/QzB0BdTgRjjqxBQvkjk1YtYb00htb7pbX6g8l6cIes8dhmdT6Cze
-TCXcT8cMz7HI3kEJDI34Fn/mXnCsmu0AQvWN1FyG2TI9jmuqxtIUYTTZAkw+WO3p
-wgqIxiSLAPP30fExV6bSLegyhl+lT3Vbf5WY9p5OfdTU3RiBU7h/sJ5mvgipyTAs
-mbQOk/YpTQpoGtSLSqWYuNnYgAIbXL8D55BvjTEGkVVGN3oeb8/glG0gQOx4iTxo
-eShUy2rO5XYtxRUQuznNbf2RD5rlApRJq+MIKa0YPZjwam6xXOI=
-=vf5Z
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZMhzkACgkQnowa+77/
+2zLxzw/+Nr7TcDedetItg4H5lLs1D0c6PkeDczXCv/HgvC3U929LIyVMR3YxbcRY
+DZEvb2xL2lZuP5tBisHE+uA4f9mnPztAv6siRWgf3BhpBokLZ06TIek17DHo2kwL
+ZL7a1xdI6XxduGBQv3U348TLH7y6ya3KXlAlt3tYaLh2vbmcsyo5WFUZNqfGDO4R
+k05CXBvDmG5aotK5h/KWZSdvYn5auZh7le7Rg2qW1yP6hkK7eDz4Sx7bP0+IVIy7
+lJVOMj0MhuVr8ZyX/CtP9cQBJWUw/9ZVByudEF8SFvkJTgBBK7oxypTGcN1I47Yd
+JKQIMH64nKxvrP6k1Ba3PMwmrEDGdZnS1OB9X8rEdjoHYhOqcQszSo1tM3cyQqzA
+5v8LHWZ1tr+AxMUw0igiK0TCAeqZYS2c0sKRavzEx2nZ/BCOGDwMBSQ1Ax4vjiWl
+/J6H74GM+gz1oRGMwVpAAFHXDQjCarblNEpNSYah+jd83f2TtmkF84unPRAnNDbp
+Pe/z3k1mC5veFjCvKFF13SbhS/vm59wSsxi61Kz0rVAsgZSNdk2q+VJIaablNv8w
+M7fa44YS37NQ29zhZRmKtTHGXOAuMyKYx+3ZdPUh+bvH6Ovip677+OUkDD8BwY9t
+2dU6YQNKk+I3dmmIgnCkfUb+cOrOMTAkRA1Tl6zIR1nDGiJa5Bk=
+=SNMs
 -----END PGP SIGNATURE-----
 
---47rcyi4zapn4b4cv--
+--sord6gh2s3weogw7--
 
