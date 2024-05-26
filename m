@@ -1,128 +1,151 @@
-Return-Path: <linux-man+bounces-999-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1000-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 294248CF413
-	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 13:27:51 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4113C8CF47E
+	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 16:19:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 71E49B20B72
-	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 11:27:48 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3882D1C20849
+	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 14:19:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94B01B669;
-	Sun, 26 May 2024 11:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01EFFE573;
+	Sun, 26 May 2024 14:19:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KnVy8BEY"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CTktD0nz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A8F79DF
-	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 11:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0D2B646
+	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 14:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716722864; cv=none; b=PhmN+7ypz2Z+mq82cniYVMlrgGagCfLo+r2gjGOJHo5ZzCczs5KBCrIRWkISrWgzZfRYkh2WnegoYq2OtkSImhreikoDz3deDzBPQdJkTCT5c5b2qW/eMRm/RBi/4JwZzCfyzKsH91MdGaXsUdIQL/KupHShg0GFqgNXQai/76I=
+	t=1716733176; cv=none; b=bMyWOuYTboWl2i2XJnV6ixV1RAbxNSwvvuN9IdKV7AjxdutfFBdZvDHsD08U/nTHZGNbgfSD39WX5ZfDM/mmWkp9KI1sTMfbHZyN6Ac6JKnlDnv+xcqPMACpPPLe45ayus2IAONL/HV8rNkRioess5HcBReOR2DpLrCpZh/Qjtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716722864; c=relaxed/simple;
-	bh=zz6+sqfLE37fygIYE6q+ngjKzPSkI0i7HpssTY0hcKE=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e6ME2QuNZehJxDBrmbkhB2REPD0IwdssACSFj2v99Cz33OJzglPCyqS1JRRKPt0G6AiILI51aUn9Xqf5MxC09AD4l67Pf6xacq7oYPNFt5piq4Wby1xmisg+xB2iS0C/XTHbLatK9SBy5UM6RNySp3BaOKIfdmrV0d0VjKnUP3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KnVy8BEY; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51EEAC2BD10
-	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 11:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716722863;
-	bh=zz6+sqfLE37fygIYE6q+ngjKzPSkI0i7HpssTY0hcKE=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=KnVy8BEYPrIBluRvhq3PX+i277DafzarvdVdJWmenWM9+OmXRFQpv9lhBtpMhJbzk
-	 1K2MTNz3ZurvfUlDZb0yEIpZJ+BdC4Upmh8SdfjRD1BNinELlYulfTtg/w5tb38/UV
-	 MvU0k0gFGS/LRiJeB8gAaXa93WXnKh6hq2RvXkhsoUC0p9RWu9T2tKIzWf2kzZpU1v
-	 aDgoXS9CEop+8Cx0bZmb8frucpMkPaH/P6vb3P7+jUuvjQpmg1/o4SLd+3uutEVAGB
-	 3PeWIirP6OEXJVdst8ec9WLU4HUmSsvvq9l3vbb5SjVph0ihJW4xFBqyMBY9qWhPcS
-	 unzuGxymtPV4Q==
-Date: Sun, 26 May 2024 13:27:41 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Subject: Re: Sashimi of prctl(2)
-Message-ID: <ddbdyaiptesjalgfmztxideej67e3yaob7ucsmbf6qvriwxiif@dohhxrqgwhrf>
-References: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
+	s=arc-20240116; t=1716733176; c=relaxed/simple;
+	bh=fHIHBH8sXgalDGe5cOL/gDLWuM2dWnVBop8MOhKT/as=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gSGlyzXIxAajj2eXK0Pju5CrNX4rn+b1rT4nuVE8BwmR9BIRTJZzlIN7BFFk5aP3Mz4B4TKuGy9Ls4ySdnqhwThUKASnRApAtedzbc6GrNn3CRyHAKIFDwTcaoBmPUj2r01Xa2IVeYtQlRKVEEzC2OY5HU88MdF/jLpZdJpQmtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CTktD0nz; arc=none smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5295ae273c8so2521011e87.0
+        for <linux-man@vger.kernel.org>; Sun, 26 May 2024 07:19:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1716733173; x=1717337973; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ebkxlXvnRd4JsyyBxerAzF/aNUpAOIq1yBLM/wUE04o=;
+        b=CTktD0nzAPHmPhT/S7c/JoIcplnCRn51k4g4NV6acBI3CyZMTMxMVRIScifqb+Zpnt
+         0bOCMR7FjV8NA5iwDFG/xI4A5+TYGRg0fk31q96oPrakXrzho8n5qM6My+C9lKok1Yq/
+         WudLmiJBgVHMLFe5YDChUD1Do5sNzPkQbEo++LN9TBK896uDsyGhm48jIxEXzRuoX/Ps
+         RiSaaCts7fJusMZF1XId5ywNXANODM1ki1X1ZGGPc1XauKxu4uQvd0sgqKzLhAFkDu07
+         OZsJPYFhuVeQj4mLe7HaN1IgAWGnvbuP41Vbvq+NkoQKsZ2d9Gj0K0UdJx/HII7m8GNs
+         XZUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716733173; x=1717337973;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ebkxlXvnRd4JsyyBxerAzF/aNUpAOIq1yBLM/wUE04o=;
+        b=PTA3Kb8SbnSn2+z3NKK/bn7FzpcDVffMVLChIaOX313EdHRnvoGGz4TZuY0ME4lm/1
+         LwDVA4tALztv5QoLy0ODLMkNe7AMnDzGr1uTydOKXbf8LOq9KHbo5E8JC3xiuUwcS+6H
+         vHy8PearKSxyHM0wT7qW8XphlL+24Lduwrv5Bm45G5ffFlPgLF5140ESRgaitdEH0PKl
+         7eV8Nt7UN2COn2GpZgPTbYvlB9x9DoexrP1RpQCbJI9jGkNPzJSUhR3jURRactHv8Nzb
+         /WYfLg+MAVBQGDp3jX3KIoMl/I3sdBkxzv0mI1aREU9wBg9M1p1iSNKsw1PBkbuCCMHd
+         gdTg==
+X-Gm-Message-State: AOJu0Yzyxe+QC/shoJTIe9Tf/pycFVBEvIO/F95p9C+ttrTPeaYvVLCA
+	iuJmY3FaP6RH8oX0HZNFJ15enSQCbTNohej2kfAxTs6Dgb7O4qkI
+X-Google-Smtp-Source: AGHT+IGCXlSXZQlWkpmtsxkqKw3dqIgUXCjw555zrwQn4JTRQo131vDH4mX1TuagruLpnnqb8Ju1fA==
+X-Received: by 2002:a05:6512:3c82:b0:529:ae9b:e4d2 with SMTP id 2adb3069b0e04-529ae9be567mr1217976e87.24.1716733172904;
+        Sun, 26 May 2024 07:19:32 -0700 (PDT)
+Received: from t420 (net-2-37-91-213.cust.vodafonedsl.it. [2.37.91.213])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a626cc4efb8sm382787766b.100.2024.05.26.07.19.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 May 2024 07:19:32 -0700 (PDT)
+Date: Sun, 26 May 2024 16:19:30 +0200
+From: Emanuele Torre <torreemanuele6@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: Re: [PATCH] grantpt.3: explicitly mention  #define _XOPEN_SOURCE
+ requirement
+Message-ID: <ZlNE8ooomjnaKWXX@t420>
+References: <20240526064227.937757-1-torreemanuele6@gmail.com>
+ <nx4yzt26bte57ak7vnc7tkl7ofs6fmqxkaexhvx2ixx7jst4yb@xui6m6mjxoz6>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vcitrxkpfzt4tc7n"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <nx4yzt26bte57ak7vnc7tkl7ofs6fmqxkaexhvx2ixx7jst4yb@xui6m6mjxoz6>
+User-Agent: Mutt/2.2.13 (00d56288) (2024-03-09)
 
+On Sun, May 26, 2024 at 12:39:07PM +0200, Alejandro Colomar wrote:
+> Hi Emanuele,
+> 
+> On Sun, May 26, 2024 at 08:42:18AM GMT, Emanuele Torre wrote:
+> > Like the unlockpt(3) function, grantpt(3) requires _XOPEN_SOURCE to be
+> > defined before including stdlib.h.
+> > 
+> > unlockpt.3 explicitly shows this requirement in its SYNOPSIS:
+> > 
+> >     SYNOPSIS
+> >            #define _XOPEN_SOURCE
+> >            #include <stdlib.h>
+> > 
+> >            int unlockpt(int fd);
+> > 
+> > But grantpt.3 did not:
+> > 
+> >     SYNOPSIS
+> >            #include <stdlib.h>
+> > 
+> >            int grantpt(int fd);
+> > 
+> > o/
+> >  emanuele6
+> 
+> Patch applied; thanks.
 
---vcitrxkpfzt4tc7n
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Subject: Re: Sashimi of prctl(2)
-References: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
-MIME-Version: 1.0
-In-Reply-To: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
+I've just noticed that ptsname.3 is also missing  #define _XOPEN_SOURCE
+in its synopsis; however  #define _XOPEN_SOURCE  does not seem to work.
 
-On Sun, May 26, 2024 at 01:07:24PM GMT, Alejandro Colomar wrote:
-> Hi!
->=20
-> I'm considering making sashimi of prctl(2), similar to what I did
-> recently to proc(5).  Another precedent is in ioctl(2).
->=20
-> I'm still unsure about the naming scheme.  I've thought of the following
-> (using prctl(PR_CAP_AMBIENT, ...) for the example):
->=20
-> -  prctl_cap_ambient(2)
-> -  prctl_PR_CAP_AMBIENT(2)
-> -  prctl_CAT_AMBIENT(2)
+Even if _XOPEN_SOURCE is defined, #include <stdlib.h> does not include
+the prototype of ptsname(3).  It seems to only be included when
+_GNU_SOURCE is defined.
 
-=46rom these, my favourite is the second one.  Here's another one:
+This may be a glibc bug because ptsname(3) is supposed to be a POSIX XSI
+function like grantpt(3) and unlockpt(3).  Only ptsname_r(3) is an
+extension.
 
--  PR_CAP_AMBIENT(2)
+https://pubs.opengroup.org/onlinepubs/9699919799/functions/ptsname.html
 
->=20
-> The upper-/lower-case mix shouldn't be a problem, since man(1) is case-
-> insensitive (mostly).
->=20
-> Any opinions on this or other aspects of the split?
->=20
+    $ gcc -fsyntax-only -D_XOPEN_SOURCE -includestdlib.h -x c - <<< 'int main(){ptsname(0);}'
+    <stdin>: In function ‘main’:
+    <stdin>:1:12: error: implicit declaration of function ‘ptsname’ [-Wimplicit-function-declaration]
+
+    $ gcc -fsyntax-only -D_GNU_SOURCE -includestdlib.h -x c - <<< 'int main(){ptsname(0);}'
+
+I am using the version of glibc packaged by ArchLinux
+(package version 2.39+r52+gf8e4623421-1).
+
+I added libc-alpha@sourceware.org to CC in case it is actually a bug.
+
+> 
 > Have a lovely day!
+
+You too!  :-)
+
 > Alex
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
 
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---vcitrxkpfzt4tc7n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZTHKwACgkQnowa+77/
-2zJTvw//aMVznoJgxy1qZRop2l2cu/8cE3g+bG5ArF+FdvWPB0Bq798S3YIQI7Tj
-sDW3pExhY+w40wr9N1X81BuRO5i7fOjhhqAosJsRtLHHbK2GFOK6flEyf5jFlzF7
-DlfKuvFZciVX3u5CVVk3HOKh9wSBrN3WGVjxOPtAxRkfu6GzKo2Gjsr/KTLhYl26
-rNDDVaWpXucggUEkXWjojepQeiO8pwlc9bV00mx3anE3tejqMHmcRVXUy0/W9glV
-bxUMjNJdJbMU+znBhoEMTtKuGI7kfNImlZYuU0arUB0kWWfN3n+EOE2ACAoMBFf4
-3zt05Z0QtZ1Uy7l8zebKVyiGZTLcj7I/+eJUrbn+GUb5M+Owjf+CbV1Im0IO00Lc
-kVtSdsAHwgFJ/uuGRvcIasN10vJ+ldr20/eEFeCLTDF3xqA4iJkT2s/wrzznFAk0
-zeF3PjiXMPlxCGIsunH6GbsJAV8tWx2kjOl5ICQnySw46wmq43rmehumb9AwtvHV
-J+1ZQ9RgxtOiNPL706o0MmLQ/cUo4CMMb2zW/XX/YV7fkkHXwfe2uuksIum0uH4n
-DAnHFOP+ft3NrDIrsW3+onxUlxoDLPgc+00dftpwQT8GIoz1HeI4dPG9J/RrsHNo
-9Tm//sK2uGFjchDR7Xl6HSR8PBfyaErjbtdlisQSy1tiQzzn4p0=
-=G9kk
------END PGP SIGNATURE-----
-
---vcitrxkpfzt4tc7n--
+o/
+ emanuele6
 
