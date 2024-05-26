@@ -1,79 +1,77 @@
-Return-Path: <linux-man+bounces-991-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-992-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B72778CEA29
-	for <lists+linux-man@lfdr.de>; Fri, 24 May 2024 21:09:07 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D6A08CF2B0
+	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 08:42:54 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3C0E71F21464
-	for <lists+linux-man@lfdr.de>; Fri, 24 May 2024 19:09:07 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C4DCB2813D5
+	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 06:42:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62E1A39FFE;
-	Fri, 24 May 2024 19:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06F041854;
+	Sun, 26 May 2024 06:42:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="d/hO07wY"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d1VvXjEs"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93552381C6
-	for <linux-man@vger.kernel.org>; Fri, 24 May 2024 19:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7321849
+	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 06:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716577742; cv=none; b=HtN4qU5+1VlRg81sUlhlxH+3a9EITzx/6rFwZc1q3hvV320Nhxlt9g3Wdnhm8W1THKFLixw7FMRvHyYDR1dnpDydkpCKIGFeB0fFTuFfLzqHILQvNfHGz8l5einAMOF/414j2Wj2thTFqzQ6ClHUhmwKD2mkPxTJR7+pKCilRW8=
+	t=1716705768; cv=none; b=j5JA7qUfwxha/53pwxNtM5Kxn7pH6H7wrlWEbit2xjaGVbuNrFnNIQm9p/k/JQMLO0vD1KuS4yt71KJMEf3j0n8ge/z+BIIfNd+5vmiSsKZtzVhTr6vc3q7VcPbT1ZtO/DMgZw4RXM1KxzE2Ij7l2hz5zGOZmC4AS4zTL4SBNho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716577742; c=relaxed/simple;
-	bh=nxYZy5hc8uXn51jpJTgR69IkIPJZh1KjG6my7fBjNuw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iWImr42stXXYWx4BGrFxupuJ1MLI3ekRpzV0DtcYZDtNeMo4mj0DuaQbIxjF+oew7D1wd3iKtYjyL6JU6g6lvQDIGUyRdELXTwXoGB0FnuU77A16VU3QYeHJMffPxyqo/ae9YbfzlToDhWQ1IcJxYaS/j6q0j/Y8KZMD5s8J4co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=d/hO07wY; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-6f8eaa14512so1147208b3a.3
-        for <linux-man@vger.kernel.org>; Fri, 24 May 2024 12:09:00 -0700 (PDT)
+	s=arc-20240116; t=1716705768; c=relaxed/simple;
+	bh=tAym/P/2f9fO/ESu56lXhJhmkZ7DjsCeilFZq7i6ft8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PuCv0VdZFV9fwf29EU1t9vnL/jN14Yy6ipfTpfVWfcMznTiS2p0Y2Uz0WUypGdr57OD8VozJpO8dARI1cGJAkorgVeYpEpJD785KOt8UAi5qZNp5HQGUeqFdKbvVyhkNu3QB9oDWjcKzMcwBrtsUKNi2sw6UjtOGwyc/jVYjx1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d1VvXjEs; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-578517cab9eso2649333a12.2
+        for <linux-man@vger.kernel.org>; Sat, 25 May 2024 23:42:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1716577740; x=1717182540; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1716705765; x=1717310565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=BLegnfhEElhdfAGZhcwBXt7Xr9ERaQVJfXJuTuKN0pw=;
-        b=d/hO07wYukYymqV4Co+0zcjgu0/t8iG5BF/SQpUGODCBHmfGR9p9TD2H/5UMlNSpCi
-         GxZy2QEmQBU8PQfGFkhombxI9ug8CqR5441AOTjbYz0LynP9YHrefKlyIS0JQPHeofMp
-         CFV+h4ntUcFOigFWR+gA6C6YvAkeRRiIEAoW4=
+        bh=qEqiCzjQIIU2kfvqCxI7eitYrH+fQtezUeWrnlY0POQ=;
+        b=d1VvXjEs+XT1wU5F4Ky9NG5U1eg6p2Ej9SMFM3Zj7A2kI4Hd3iEYXiNSc/WpZWXo3K
+         uiNE6bMdbs6TckcdMUifPKlbRdJtLjJ9Yif1BwxjksopQaEyq1Jq3FHvuuyZ9rHAcABn
+         9SrPQbxEcYxLJHP97uWqBzKDM84pcmYft0kZhphDc7gTu+TsIHDP3fM47wdIa6ejhZNp
+         OfuRG1QkCnMp5QI4+OTy3xFWfLBGi3R44NKyochrleV/myfdwn3hwTvQT5O2/B2PE1hq
+         ZT26ommlL+m6J8ndTQkxgO2TuoABhHvsiprbYU28qou1I1+YmOfJBwpMEcRko5SEvcCr
+         YOsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716577740; x=1717182540;
+        d=1e100.net; s=20230601; t=1716705765; x=1717310565;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=BLegnfhEElhdfAGZhcwBXt7Xr9ERaQVJfXJuTuKN0pw=;
-        b=PcymRXZA+2rz8nCnZaZBtqGutuVucNmCyhCiTryyuJLhCttlntvaE5WZGIPzegIPu+
-         bxk+Ize/RooPEmz+HvzHNjwXloz65es5PV+aVew/h7Vl+bxZxAY266hl9aPLWjdR7POY
-         IhzjRlqwa906pF5RmoOkzI9Rf4fTtzvbX7DnjPw4dErThXnaWVsxsK2lWKyKFWy/gZ/J
-         myi1HRoQu+uSFH7rk0pRIbjD45pBT1TvkiOvaGuBsbJYVejXxVXkF5x3tY3nnpsm/BMP
-         XbV/ElmSf7/0yTOaRXM1v22Yz2tGQaE6gb9GFdhGIbQxMvcxSPeLdKVFN+xY7r9kN0b2
-         15Rg==
-X-Forwarded-Encrypted: i=1; AJvYcCVg+398d04j4XCPAObNbSgMzcWG+xYi5+tA2hUnpBcuKjLZLZP/YSsYVfBlCl8vuUd2dhU9sUfHiKbAagAB0X9FMe0KtrAw33XZ
-X-Gm-Message-State: AOJu0YxSmnGt+ni2GLmNkjpKsvV/Of5nCO7KgYC1S2YWW5iR3nJp2u9H
-	cZ4S/UPv/uhCTBAG4xJ/907b8yNVX8G1jcDhcJErwHgVTPgSpBZzOlbCtBIV7in+JQLYgsFjJnG
-	2nA==
-X-Google-Smtp-Source: AGHT+IHFQ07dWkkeDI2KmuT5qJRFC9Da/QqpBzUTBCbVx96Avolxne26QG0TxqzIXPa3HJ+YhDfLMw==
-X-Received: by 2002:a05:6a20:f3b0:b0:1b1:f7a1:dfa6 with SMTP id adf61e73a8af0-1b212dfe653mr3259988637.38.1716577739863;
-        Fri, 24 May 2024 12:08:59 -0700 (PDT)
-Received: from localhost ([2620:15c:9d:2:2400:7e62:5681:ff2d])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-6f8fd4da087sm1422056b3a.204.2024.05.24.12.08.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 May 2024 12:08:59 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
+        bh=qEqiCzjQIIU2kfvqCxI7eitYrH+fQtezUeWrnlY0POQ=;
+        b=jaosHm5gg5L/lx+6ENrPjF9mlQfysgN+8EUDUmZ5kbVN9QdHZdcK1n/Lj0Z6UIgOye
+         iMml/zXhnllk3jMUXBw6/hNTsaRQrjcA+JVWe54UsZMd7fNKkO+iL0r8bmrQdJtWrO8G
+         6F/7/VSaDZwJBtTsIF7rCuwz/k8fJY49WuvtHD7FMFRi+Ptbxc2avyysbZLUFZUVdF4m
+         15JPeTo3N8r04aslHqqZNSCOxSpWo+YuQPnpy/VVdGvgDc6hW2W2S0PU8vM2HIBQgpL/
+         JGvFADc1YiEbydP2lLh1f2ybOVI5xzXegf9tF6b54/DbrdJdAJWDyKqawbac+Ui7UCoX
+         31Fg==
+X-Gm-Message-State: AOJu0YzIpT36wujNst6vuzvNSSsM7xsgoopnJd9BvLrvFgSyIs4CFxAa
+	/69WgMeHInW9pjn2jn3DIWoI34KrN+URRro7wYPLzmp8gpamJd3M
+X-Google-Smtp-Source: AGHT+IEC/YrpYf2POwCXs0Xu0o5gf6rt2+iqWSSxcKhWp6mk98SZZ2xx4iZ4VfDIpAW/vx6q7imzVA==
+X-Received: by 2002:a50:9305:0:b0:56f:e75b:839a with SMTP id 4fb4d7f45d1cf-57851970dedmr4007280a12.1.1716705765268;
+        Sat, 25 May 2024 23:42:45 -0700 (PDT)
+Received: from localhost.localdomain (net-2-37-91-213.cust.vodafonedsl.it. [2.37.91.213])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-57852495debsm4101497a12.69.2024.05.25.23.42.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 May 2024 23:42:44 -0700 (PDT)
+From: Emanuele Torre <torreemanuele6@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Brian Norris <briannorris@chromium.org>,
-	linux-man@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Patrick Bellasi <patrick.bellasi@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH] sched_setattr.2: Document sched_util_{min,max}
-Date: Fri, 24 May 2024 12:08:28 -0700
-Message-ID: <20240524190829.2503648-1-briannorris@chromium.org>
-X-Mailer: git-send-email 2.45.1.288.g0e0cd299f1-goog
+Cc: linux-man@vger.kernel.org,
+	Emanuele Torre <torreemanuele6@gmail.com>
+Subject: [PATCH] grantpt.3: explicitly mention  #define _XOPEN_SOURCE  requirement
+Date: Sun, 26 May 2024 08:42:18 +0200
+Message-ID: <20240526064227.937757-1-torreemanuele6@gmail.com>
+X-Mailer: git-send-email 2.45.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -82,131 +80,43 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Utilization attributes were added in Linux v5.3 via commit a509a7cd7974
-("sched/uclamp: Extend sched_setattr() to support utilization
-clamping"). Borrow some documentation from there, with a bit of
-editorial trimming and augmentation.
+Like the unlockpt(3) function, grantpt(3) requires _XOPEN_SOURCE to be
+defined before including stdlib.h.
 
-The "reset" (-1 / UINT32_MAX) behavior was added in Linux 5.11 via
-commit 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp
-constraint value").
+unlockpt.3 explicitly shows this requirement in its SYNOPSIS:
 
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: Patrick Bellasi <patrick.bellasi@arm.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Brian Norris <briannorris@chromium.org>
+    SYNOPSIS
+           #define _XOPEN_SOURCE
+           #include <stdlib.h>
+
+           int unlockpt(int fd);
+
+But grantpt.3 did not:
+
+    SYNOPSIS
+           #include <stdlib.h>
+
+           int grantpt(int fd);
+
+o/
+ emanuele6
 ---
- man/man2/sched_setattr.2 | 65 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 63 insertions(+), 2 deletions(-)
+ man/man3/grantpt.3 | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
-index 5d7061bd6e3a..4b940d76de53 100644
---- a/man/man2/sched_setattr.2
-+++ b/man/man2/sched_setattr.2
-@@ -94,10 +94,14 @@ .SS sched_setattr()
-                               SCHED_BATCH) */
-     u32 sched_priority;    /* Static priority (SCHED_FIFO,
-                               SCHED_RR) */
--    /* Remaining fields are for SCHED_DEADLINE */
-+    /* For SCHED_DEADLINE */
-     u64 sched_runtime;
-     u64 sched_deadline;
-     u64 sched_period;
-+
-+    /* Utilization hints */
-+    u32 sched_util_min;
-+    u32 sched_util_max;
- };
- .EE
- .in
-@@ -186,6 +190,20 @@ .SS sched_setattr()
- On the other hand, if the process-directed signal is delivered to
- a thread inside the process other than the one that had a run-time overrun,
- the application has no way of knowing which thread overran.
-+.TP
-+.BR SCHED_FLAG_UTIL_CLAMP_MIN ", " SCHED_FLAG_UTIL_CLAMP_MAX " (since Linux 5.3)"
-+These flags indicate that the
-+.I
-+sched_util_min
-+or
-+.I
-+sched_util_max
-+fields, respectively, are present, representing the expected minimum and
-+maximum utilization of the thread.
-+.IP
-+The utilization attributes provide the scheduler with boundaries within which
-+it should schedule the thread, potentially informing its decisions regarding
-+task placement and frequency selection.
- .RE
- .TP
- .I sched_nice
-@@ -228,6 +246,33 @@ .SS sched_setattr()
- .I sched_period
- This field specifies the "Period" parameter for deadline scheduling.
- The value is expressed in nanoseconds.
-+.TP
-+.IR sched_util_min ", " sched_util_max " (since Linux 5.3)"
-+These fields specify the expected minimum and maximum utilization, respectively.
-+They are ignored unless their corresponding
-+.I SCHED_FLAG_UTIL_CLAMP_MIN
-+or
-+.I SCHED_FLAG_UTIL_CLAMP_MAX
-+are set in
-+.IR sched_flags .
-+.IP
-+Utilization is a value in the range [0..1024], representing the percentage of
-+CPU time used by a task when running at the maximum frequency on the highest
-+capacity CPU of the system.
-+This is a fixed point representation, where 1024 corresponds to 100%, and 0
-+corresponds to 0%.
-+For example, a 20% utilization task is a task running for 2ms every 10ms at
-+maximum frequency and is represented by a utilization value of
-+0.2 * 1024 = 205.
-+.IP
-+A task with a minimum utilization value larger than 0 is more likely scheduled
-+on a CPU with a capacity big enough to fit the specified value.
-+A task with a maximum utilization value smaller than 1024 is more likely
-+scheduled on a CPU with no more capacity than the specified value.
-+.IP
-+A task utilization boundary can be reset by setting its field to
-+.I UINT32_MAX
-+(new in Linux 5.11).
+diff --git a/man/man3/grantpt.3 b/man/man3/grantpt.3
+index 94526691b..f2d70ebd6 100644
+--- a/man/man3/grantpt.3
++++ b/man/man3/grantpt.3
+@@ -11,6 +11,7 @@ Standard C library
+ .RI ( libc ", " \-lc )
+ .SH SYNOPSIS
+ .nf
++.B #define _XOPEN_SOURCE
+ .B #include <stdlib.h>
  .P
- The
- .I flags
-@@ -353,7 +398,6 @@ .SH ERRORS
- .I attr.sched_flags
- contains a flag other than
- .BR SCHED_FLAG_RESET_ON_FORK ;
--or
- .I attr.sched_priority
- is invalid; or
- .I attr.sched_policy
-@@ -363,6 +407,23 @@ .SH ERRORS
- .I attr
- are invalid.
- .TP
-+.B EINVAL
-+.I attr.sched_flags
-+contains
-+.B SCHED_FLAG_UTIL_CLAMP_MIN
-+or
-+.BR SCHED_FLAG_UTIL_CLAMP_MAX ,
-+and
-+.I attr.sched_util_min
-+or
-+.I attr.sched_util_max
-+are out of bounds.
-+.TP
-+.B EOPNOTSUPP
-+SCHED_FLAG_UTIL_CLAMP was provided, but the kernel was not built with
-+.BR CONFIG_UCLAMP_TASK
-+support.
-+.TP
- .B EPERM
- The caller does not have appropriate privileges.
- .TP
+ .BI "int grantpt(int " fd ");"
 -- 
-2.45.1.288.g0e0cd299f1-goog
+2.45.1
 
 
