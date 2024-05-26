@@ -1,54 +1,51 @@
-Return-Path: <linux-man+bounces-997-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-998-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECB998CF3F3
-	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 12:39:15 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4EA28CF3FB
+	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 13:07:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 267E21C20916
-	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 10:39:15 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 781481F21C51
+	for <lists+linux-man@lfdr.de>; Sun, 26 May 2024 11:07:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 052619454;
-	Sun, 26 May 2024 10:39:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7752AB664;
+	Sun, 26 May 2024 11:07:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7O/oxzp"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMlc0yMD"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA93F8F4E
-	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 10:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C7E8F6A
+	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 11:07:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716719950; cv=none; b=n5eZbR/0tf9CKSafJY/XntI1TbjBbx52YfVD+3xy9yP7nVItD9++cKLtXIbd6Rdrz8avX7ePbnKMJeGzqLEP7o63z0EqYsrWr+zzFVeGlzCYA4kQzaAiojT7+/8XWyQllrlonUANAGkUCrQqa1C2ialXCFyT5Ui3ti2kDUefXpU=
+	t=1716721645; cv=none; b=P4fKmv7nZEMq6+0ZrD0E2dap2SJ7ToPREQt8vzvlF58JO9FAIRk7/0thth4VceYSb2RDUdRY2IwF42ctIRWqHPlnbZuh6Y4oEz7nlzN4fdg0cIVzcbDTsx3YfV7jNtkYDGWFKmjwhSeENP7d13Pf3jyHtyUhBVDGr++e6Rdph5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716719950; c=relaxed/simple;
-	bh=hv5jtxAzBBD6Ny/nU4wTyiX9YUgHOIEKXo7PgkTEZIw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cjqt+5Ohe7I0u5DdD81g++GL6yAyoi+clrsJlSPYyPQry/ADVTxyVmLCKY8SDArWzvXjDK2bPHHHqy6ejrEH9Q7kdGXevZhR6e4zJ8q7gngXSLZ10XdM3hJFsKXSSKbUxIdtmwsUjZ6eAVDQDyK/lKCr6eRLWg3CLsXQhUPoVUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7O/oxzp; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F7BC2BD10;
-	Sun, 26 May 2024 10:39:09 +0000 (UTC)
+	s=arc-20240116; t=1716721645; c=relaxed/simple;
+	bh=x4qDdzcLE9mTKHXvF4duF/5Bia8UTm7Drlg0Q+4uXaQ=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=M6KR391CU+FkEoaoUybuEhbw9N0yQISVlRnLKQi8f7zSGVRbJOdcPKb1UXDUnC+PZw3ou7QX9PKIm04eyD+PWb1qSnAyHBvi32xxua0Lpwr9och3th0GjvCHGMlnEcBJlgU3f7jJpZys2Ek5soWjm6r+VO4aBo4mIjrSmY/uk00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMlc0yMD; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4516FC2BD10
+	for <linux-man@vger.kernel.org>; Sun, 26 May 2024 11:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716719950;
-	bh=hv5jtxAzBBD6Ny/nU4wTyiX9YUgHOIEKXo7PgkTEZIw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O7O/oxzpbbbeOtCTv/ztZFbQhlLxCAV7+d53lGqc7NfsDk9R6ZP7ZvkzXlUg8Pft3
-	 6MzGEYGI0TEEy+C0Iy95bOShsf7dFfT9rFz5Ejyegyg2KV+zrpsKgABlZmqLJVg/Nm
-	 D985aQdcOdhixCtGAhcwHbAkL6jdgIFlrKiyOYzC6+kaSz5NzcefwxHkKu4jrksTRM
-	 o7TTk3P8mIY1b+r5Rbsg1IqobFPRWAxye/ZhFT+t/S3UFD5oNz7X0iU3k+Mpi4Ip6K
-	 z3lOLqwSOBXO7Clrc4AfzeLWwwxxNgFahPQQfjGPF0LvkcmRAibmlBXCmo4wMO8Y5O
-	 +B6gsGeOTzuAA==
-Date: Sun, 26 May 2024 12:39:07 +0200
+	s=k20201202; t=1716721644;
+	bh=x4qDdzcLE9mTKHXvF4duF/5Bia8UTm7Drlg0Q+4uXaQ=;
+	h=Date:From:To:Subject:From;
+	b=JMlc0yMDexRD24YgkCGU/49OwNlRGcdEqOmKWmJ/S7TAa++ccNlPeSrxYoCscbI/U
+	 zXSmHp3PmJNqqwje6T4fB+C3wllGHogbRxezqfwRt2sxdAQ1O18UZrcd/VpqXYTsG/
+	 EMm1mAhnQ25n+hl2UYQER8gGYz/FJ9dZ+n35zdItu/2h/YjTksxnM5cVAQOWcuMHXh
+	 mf5rOpm2IFwHastaOTVZJo4mQPGg45+0a/hlTJoWc5pzr1d15yflbaRz0WwUJgnLqV
+	 sn3tkVxrZaI3dOamsRahGNDVQYaRsAQeCpniaVO52eD9QNHBFu8NppO/H9TW/TS9RO
+	 tN81BFi5m9NBg==
+Date: Sun, 26 May 2024 13:07:22 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Emanuele Torre <torreemanuele6@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] grantpt.3: explicitly mention  #define _XOPEN_SOURCE
- requirement
-Message-ID: <nx4yzt26bte57ak7vnc7tkl7ofs6fmqxkaexhvx2ixx7jst4yb@xui6m6mjxoz6>
-References: <20240526064227.937757-1-torreemanuele6@gmail.com>
+To: linux-man@vger.kernel.org
+Subject: Sashimi of prctl(2)
+Message-ID: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,95 +53,61 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ce3maxhltbw7ugvd"
+	protocol="application/pgp-signature"; boundary="f2uesffvlprvwrak"
 Content-Disposition: inline
-In-Reply-To: <20240526064227.937757-1-torreemanuele6@gmail.com>
 
 
---ce3maxhltbw7ugvd
+--f2uesffvlprvwrak
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Emanuele Torre <torreemanuele6@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] grantpt.3: explicitly mention  #define _XOPEN_SOURCE
- requirement
-References: <20240526064227.937757-1-torreemanuele6@gmail.com>
+To: linux-man@vger.kernel.org
+Subject: Sashimi of prctl(2)
 MIME-Version: 1.0
-In-Reply-To: <20240526064227.937757-1-torreemanuele6@gmail.com>
 
-Hi Emanuele,
+Hi!
 
-On Sun, May 26, 2024 at 08:42:18AM GMT, Emanuele Torre wrote:
-> Like the unlockpt(3) function, grantpt(3) requires _XOPEN_SOURCE to be
-> defined before including stdlib.h.
->=20
-> unlockpt.3 explicitly shows this requirement in its SYNOPSIS:
->=20
->     SYNOPSIS
->            #define _XOPEN_SOURCE
->            #include <stdlib.h>
->=20
->            int unlockpt(int fd);
->=20
-> But grantpt.3 did not:
->=20
->     SYNOPSIS
->            #include <stdlib.h>
->=20
->            int grantpt(int fd);
->=20
-> o/
->  emanuele6
+I'm considering making sashimi of prctl(2), similar to what I did
+recently to proc(5).  Another precedent is in ioctl(2).
 
-Patch applied; thanks.
+I'm still unsure about the naming scheme.  I've thought of the following
+(using prctl(PR_CAP_AMBIENT, ...) for the example):
+
+-  prctl_cap_ambient(2)
+-  prctl_PR_CAP_AMBIENT(2)
+-  prctl_CAT_AMBIENT(2)
+
+The upper-/lower-case mix shouldn't be a problem, since man(1) is case-
+insensitive (mostly).
+
+Any opinions on this or other aspects of the split?
 
 Have a lovely day!
 Alex
 
-> ---
->  man/man3/grantpt.3 | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/man/man3/grantpt.3 b/man/man3/grantpt.3
-> index 94526691b..f2d70ebd6 100644
-> --- a/man/man3/grantpt.3
-> +++ b/man/man3/grantpt.3
-> @@ -11,6 +11,7 @@ Standard C library
->  .RI ( libc ", " \-lc )
->  .SH SYNOPSIS
->  .nf
-> +.B #define _XOPEN_SOURCE
->  .B #include <stdlib.h>
->  .P
->  .BI "int grantpt(int " fd ");"
-> --=20
-> 2.45.1
->=20
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---ce3maxhltbw7ugvd
+--f2uesffvlprvwrak
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZTEUsACgkQnowa+77/
-2zIsKA/+NBFGA0CF5aG5FD2Z6ZWzkpyPP+EgPuAXIn+eubPDSUyGgExT921o/XIy
-/FDfwORjXqjKAD5wdrn7xlRMVny7Bj8up0GUkS/Ei4ffmxvBtm3Tzbq48jr3dHTz
-ha2Jk9A/jTmMcOuSehJCeDlWQwJ0Qa3mrR3T3SZSiTEZduIEeiZYuFgRgCeW2pxI
-lXrD3YODyVHEJXFPhnDiIZzKsdN/SCs05pP5Hswqaw/Kbk9aTtdwBUKOp8v/tQfg
-dCJHzGBirY0MiZXdxvmXvTJyAI1Td6xklc9oD4b+qoylUxAziXXrHzgSuMVNYZjc
-g//+VnVmr9spl+r43L8DKcZa1ZV8XZXSf659zgEWjUuKvcgIaw4ZupFicLjGKgTZ
-tM9nMU3H55lhIDK3QZ2GEzKkkyjAPeBIpFfdtk/kpzvYUVoJVKxpI9aBmw9RV6lz
-7dO33tQqYVkH5J+gxnMjBUJ0cqoQ6z0MasvAvtc5nb2H1IwmcuT74LH1s4s3x7VW
-hxI7iSFGzUFBzAU/Tt5DrpFIreoAAxiukyUJfH6Ct0dqWHdahNGqpl5pvdjlOqOD
-GmO7dmHx8Ly2BNPAud2Hpy9k3TtA2EkiF+Zak4lWwTEOprDrZB4HSoS2epnWGb8a
-O8qz6wTvTAG2vWvsttzTw+RL5Qd9wB76daqGW1pRGkRVydwr4M8=
-=2I3E
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZTF+kACgkQnowa+77/
+2zLpcQ/+MeTO5x9SjlszjzAQDWeYw+qA57HyRW2wfWDNx3GXvMfAzqreQnc2ZnGk
+huYMKRxeDCt0hkEjakXUz0BncJKZgZnSveVgtjDW8J+KQoxDSmLcA9cpJALZZWEf
+N54qXp5i6y4SAVDVHy3i9hY/KDy7AJ3DNZb6L87HDJne891PDghnHlFqyffNDA5C
+gFKOkCens97mcR/lDP82d15RRePBdFv6NEl/lSwj2Y/03y6iqapCUgnRxgT+RCQS
+9EgwIVgVoJQYvaYlxOEoZUkka4dpFy6PgfE42DS6nDZsVWSbZ8Cb8vHG2A3TCFv8
+xBizR6gU1UaRIpQY2LEYTVTvW3F5LoBIYnTvtFtDVN2UM4RSnRTT5joI1jJ0dyDI
+RgE/I/x/oxs1A1zdjsVldrxgfzwzWay3pf1LaUPBHqsyUVdTRPzTxs8pIP4aHeXi
+AxyrFq1mFAVAwFTyKzpKD5rOFRDRaLItJaK1rWXH6cYkpQoxTeX5DuA0zrr4oZld
+Oq6NclbZcub9z3vYf8ZKXNOHR0c95PcSDx/qPv1Tkc3oVJ8Mf+MTvccrKanxED+o
+ijLoVSjQLkaCs40sSkyJdfbofXDRulxK3DzOxhEZP6TRjp6A4ewFkZ7g9q18QCVA
+ZsnU2Dth4EEHhESfjkT1U7LThmLAn/0kRz6G9ZqfkJn1up0F4dc=
+=P5sM
 -----END PGP SIGNATURE-----
 
---ce3maxhltbw7ugvd--
+--f2uesffvlprvwrak--
 
