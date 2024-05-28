@@ -1,188 +1,171 @@
-Return-Path: <linux-man+bounces-1007-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1008-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C97E8D176C
-	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 11:42:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB7BF8D18D4
+	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 12:44:17 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 99CC31F216A4
-	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 09:42:47 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3DD4B1F24DC4
+	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 10:44:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CA2916A398;
-	Tue, 28 May 2024 09:42:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA77516B743;
+	Tue, 28 May 2024 10:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TuyDgbQ/"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bJYXezN3"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE23B169AC9;
-	Tue, 28 May 2024 09:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D8216B738
+	for <linux-man@vger.kernel.org>; Tue, 28 May 2024 10:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716889361; cv=none; b=QznN6X6rKdilw0g0aEer+Z7arsL5wOUcQkH6kA7WgyhF3Q5TsKkMdMuu4zKn6Go+jtgB2rkxORWQ5ShK3MgqERNAc30lFOXHuRn1vMPoiM4VsseAczd/teEyJRcVfMpBsd3w42x6P8PLYKhA0m8qraZxOykux3fABGXTpOQq+S8=
+	t=1716893051; cv=none; b=bdrBgWuJc0FJfpHzsbZPoKKK+t1r8WnYNzAwCJeRSxpECLXG95ZEUiqQ+YGOCtcV4IRvUQ/y8jhxpDQQp5tf6Wav8HT+GuL44ECPX6nq61zljscKcM93J+tw2mxkp9ccyeeD2pPK+CYJzbMKuYgcyb4rsdjdVt6y6nSa2Fg2zsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716889361; c=relaxed/simple;
-	bh=JA1l9l3ejZxlBcL62S96sR5g2IC/Bf1Ml51oLxgh9O0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4OAd47BhsFT+/vgBs2gKL6yap6Yf0xmPqS2Qdty0Xqr3paK026YiRF/XPsPdjB1PFrQDyvltAtZQPJaRYfcknttREY3wQbv4Hyqz3qfveW5lG0jH5XNNiYNWDyYFbx6iXDLZoS7kKChJ8fWE7E+V8jds4Mo1S6gzvKdY6yPn7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TuyDgbQ/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C030AC3277B;
-	Tue, 28 May 2024 09:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716889361;
-	bh=JA1l9l3ejZxlBcL62S96sR5g2IC/Bf1Ml51oLxgh9O0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TuyDgbQ/NGet43bNq4lHu+R5I0Rk3dXqVaSMfq1G1tMaovjryXVIlTNhFUi+aysy3
-	 d+5g/N2mf2XGiKrdnBHbmBXAERxm6bQCC9+usy40l20tzao/WsygFep6C7EAXR2VnM
-	 OTC70h5wgamlQJpCb5IJ43G0i/PpgD/vmLBf4esarTP2MMMtWQI6kbK+psW4l2z4Lg
-	 L2IcbGHMPy83eiWBZfGyG/lbw49BVppuN6TnysZlrZQprjgqHvDI1xHRkxmbCaMYP9
-	 Nyftx9ZDcVfLv44nI8SEw9WxxqS7cmOkKGH6Axo6Hji+CUf1NV7lnU8gWE/aRDcsAr
-	 Fs//sf1Yzg4Ew==
-Date: Tue, 28 May 2024 11:42:38 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: libc-alpha@sourceware.org, linux-api@vger.kernel.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: Correct way of calling prctl(2) (was: Sashimi of prctl(2))
-Message-ID: <x6r3yc6l34g4k5g3tm6ywecdqux54xlpid7bp2fa7hvm43luc7@6fjgaxgm5uyj>
-References: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
- <ddbdyaiptesjalgfmztxideej67e3yaob7ucsmbf6qvriwxiif@dohhxrqgwhrf>
- <vuuanrtyoq7abctrlmfggqqc7vjw6v64ubbyeijvyngnw7xead@yehc5po76nzf>
+	s=arc-20240116; t=1716893051; c=relaxed/simple;
+	bh=r9YHuHLhHTurol2eCz0ogMKdfsGMOJuGnk/utZ2+Ip4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=JenmjGCtbJa+T6VCu4sgEtpFIiqyoeC++qITxLz4Iz+nuhki3K+PQutLFQ9EB82FNMiwruGRNYNDLc4TAPla1CHkstzV6bfcm85emM3QXQx1pZw1psM2gsLMoOKa+SDglpgftPA5bfwmNonCdUEGwW0kr26atlxbQLwT1Wri04E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bJYXezN3; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1716893047;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=UNpyO3HH1OFqfTLq/8inHG6lU6lLoc41Qv3MtqMPLKc=;
+	b=bJYXezN3c1nx63IXTmUQ0aDrUBxPjZwI0LE6UrPnHDlYkoiseZURIFuqh2eqMcgiceqR+j
+	4elgteFkvpwVTDu/kBtoieUQPjflYO/CZ94z6ZVK4zvbB/LxPkqdYKc70P9rLdPz8Dgw34
+	hO/729L3m1/izhZg+4gIg3GfWrtTCzA=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-439-UISGcfDXNJ2IpBKu_1iuig-1; Tue, 28 May 2024 06:44:03 -0400
+X-MC-Unique: UISGcfDXNJ2IpBKu_1iuig-1
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-2e95abc0d8eso5028891fa.2
+        for <linux-man@vger.kernel.org>; Tue, 28 May 2024 03:44:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716893039; x=1717497839;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UNpyO3HH1OFqfTLq/8inHG6lU6lLoc41Qv3MtqMPLKc=;
+        b=VZWhf1XXDhNLozIe7fd9KO0RSTboibM+uHMmoV43wg7p3Wa7yzdpgNtVgKNGMG1GHG
+         UHOTj8IcjYf1O8hrjIAGoRht83DAcDXpHdT88weDu3AdpSb3neYI4Yin+qJgw3nmQu50
+         r8dLO/MLV1czeCXIj/fQLQO2dOPpz9touEwlnmsXSo1FZPtp8sH9RbZpb1M8xPS+HGc7
+         LeDBGnNoMrIt4+b3wecCek4irhvC83c8OuPCOzEmIOEADKYUDQrY0EgylbxoIGTV7hj8
+         lVIKB9L+esgMQAtWjtcF+a1roldaPUjMIglHgam5D4vFd+nYRfyz6ZjuYiojNa/n/fM0
+         53Ew==
+X-Gm-Message-State: AOJu0Yyd9Jyl/YNWzwCxes35/EjVb4dL5Bm9ictHUsy9dau0LXZmxaym
+	Kt2/2SozrYjvoucXpJ6UbH7gMZuIsgcnZPLjI7rjzpuwIvb1OCkU6cUtmlzqsR/VfirCqurMqAY
+	SCYfVETrOaXT9xqf6popoN6v4EKkMpHi85CMhRrwhbEUCpFt8SOa72DM+5ak0bMBJcsknDyaP7n
+	vttRctuFhWZGbgSGffE89wGWJPlZV3Arrt8Fxi0L1U0PU=
+X-Received: by 2002:a2e:380a:0:b0:2e1:9c57:195a with SMTP id 38308e7fff4ca-2e95b25652cmr103193271fa.32.1716893039202;
+        Tue, 28 May 2024 03:43:59 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGoKn7l0BG52QVgLfqqDczCrpwKotB/RWgXwkgJa9YC/KdXghtTQgJsVmrsLXarFb6JIUp3X+s3wu1a1P4Rqts=
+X-Received: by 2002:a2e:380a:0:b0:2e1:9c57:195a with SMTP id
+ 38308e7fff4ca-2e95b25652cmr103192881fa.32.1716893038449; Tue, 28 May 2024
+ 03:43:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="534pufxyep7x5oau"
-Content-Disposition: inline
-In-Reply-To: <vuuanrtyoq7abctrlmfggqqc7vjw6v64ubbyeijvyngnw7xead@yehc5po76nzf>
+From: Lukas Javorsky <ljavorsk@redhat.com>
+Date: Tue, 28 May 2024 12:43:21 +0200
+Message-ID: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
+Subject: [PATCH] write.2: Fix a typo within the `ssize_t write` function argument
+To: linux-man@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>, 
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: multipart/mixed; boundary="000000000000ad8ab60619814fae"
 
+--000000000000ad8ab60619814fae
+Content-Type: multipart/alternative; boundary="000000000000ad8aaf0619814fac"
 
---534pufxyep7x5oau
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--000000000000ad8aaf0619814fac
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: libc-alpha@sourceware.org, linux-api@vger.kernel.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: Correct way of calling prctl(2) (was: Sashimi of prctl(2))
-References: <eofw4itya3kwaznneoizgt3dspfa4h7ttrw6ehshfrksj3wmst@xwjxpi3iro6d>
- <ddbdyaiptesjalgfmztxideej67e3yaob7ucsmbf6qvriwxiif@dohhxrqgwhrf>
- <vuuanrtyoq7abctrlmfggqqc7vjw6v64ubbyeijvyngnw7xead@yehc5po76nzf>
-MIME-Version: 1.0
-In-Reply-To: <vuuanrtyoq7abctrlmfggqqc7vjw6v64ubbyeijvyngnw7xead@yehc5po76nzf>
 
-[Adding linux-api@]
+Reference: https://pubs.opengroup.org/onlinepubs/7908799/xsh/write.html
 
-On Tue, May 28, 2024 at 11:24:13AM GMT, Alejandro Colomar wrote:
-> [Adding libc-alpha@ for some doubts]
->=20
-> Hi!
->=20
-> On Sun, May 26, 2024 at 01:27:43PM GMT, Alejandro Colomar wrote:
-> > On Sun, May 26, 2024 at 01:07:24PM GMT, Alejandro Colomar wrote:
-> > > I'm considering making sashimi of prctl(2), similar to what I did
-> > > recently to proc(5).  Another precedent is in ioctl(2).
->=20
-> I'll call the pages with names such as PR_CAP_AMBIENT(2const) and
-> PR_CAP_AMBIENT_RAISE(2const).
->=20
-> While doing that, I changed the prototypes in the SYNOPSIS to things
-> like
->=20
->      int prctl(PR_CAP_AMBIENT, unsigned long op, ...);
->=20
-> and
->=20
->      int prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, unsigned long cap, 0=
-, 0);
->=20
-> Which makes me wonder.  glibc implements prctl(2) as a variadic
-> function, so those 0s are actually of type (and more importantly of
-> width) 'int'.  This means a user passing 0 is leaving some parameters
-> uninitialized.
->=20
-> From what I can see, glibc does no magic to set unspecified parameters
-> to 0, so this means passing '0' results in Undefined Behavior.
->=20
-> I guess I should document these as 0L in the SYNOPSIS.
->=20
->      int prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, unsigned long cap, 0=
-L, 0L);
->=20
-> All of the software I've seen out there using prctl(2) either pass 0 (as
-> the manual page had been suggesting), such as in shadow:
-> <https://github.com/shadow-maint/shadow/blob/71e28359d12491727b2e94c71d2e=
-1e1682d45a02/lib/idmapping.c#L161>
->=20
-> 	if (prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0) < 0) {
->=20
-> or don't pass anything at all (coreutils does this):
-> <https://git.savannah.gnu.org/cgit/coreutils.git/tree/src/timeout.c#n449>
->=20
-> 	if (prctl (PR_SET_DUMPABLE, 0) =3D=3D 0)
->=20
-> Am I missing something or are all of those calls buggy?
->=20
-> Some prctl(2) calls report EINVAL when the unused arguments are nonzero,
-> while others simply ignore it, so maybe I can document the ones ignoring
-> the unused arguments as shorter calls:
->=20
->      int prctl(PR_SET_DUMPABLE, unsigned long dumpable);
->=20
-> And document the ones that report errors as using 0L:
->=20
->      int prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, unsigned long cap, 0=
-, 0);
->=20
-> (BTW, util-linux seems to have this one wrong:)
->=20
-> <https://sources.debian.org/src/util-linux/2.40.1-2/lib/caputils.c/?hl=3D=
-123#L123>
->=20
-> 	&& prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, cap, 0, 0) < 0)
-
-And another problem is the definition of PR_CAP_AMBIENT_RAISE (and
-similar macros), which are defined as ints:
-
-$ grepc PR_CAP_AMBIENT_RAISE /usr/include/
-/usr/include/linux/prctl.h:# define PR_CAP_AMBIENT_RAISE		2
-
-but they should be defined as unsigned longs.  (This is a Linux UAPI
-problem.)
-
->=20
-> What do you think about this?
->=20
-> Have a lovely day!
-> Alex
+I'm adding the patch to the attachment as well because my last patch was a
+bit problematic with the email.
+---
+diff --git a/man/man2/write.2 b/man/man2/write.2
+index a24cbdc31..e9b7dd739 100644
+--- a/man/man2/write.2
++++ b/man/man2/write.2
+@@ -26,7 +26,7 @@ Standard C library
+ .nf
+ .B #include <unistd.h>
+ .P
+-.BI "ssize_t write(int " fd ", const void " buf [. count "], size_t "
+count );
++.BI "ssize_t write(int " fd ", const void *" buf [. count "], size_t "
+count );
+ .fi
+ .SH DESCRIPTION
+ .BR write ()
 
 --=20
-<https://www.alejandro-colomar.es/>
+S pozdravom/ Best regards
 
---534pufxyep7x5oau
-Content-Type: application/pgp-signature; name="signature.asc"
+Luk=C3=A1=C5=A1 Javorsk=C3=BD
 
------BEGIN PGP SIGNATURE-----
+Senior Software Engineer, Core service - Databases
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZVpw4ACgkQnowa+77/
-2zI1zw/+PFqF2Ylqvj8iYAOHdTjTc3e/0YC2ICGrtekf5odI+IQburZIUiPp5Z9z
-kb37Oys+6cHbN3bbtlu+rI923OoGDJAEFEFmSzNqjNSmrO/OIhDAph2gs0OAMDBa
-/oJ2LYmQtkB1iEboMRbS96Jd94B1vv4RWlRUZPOm0koENZ36Em/sk9BNM1iWDhvd
-GqbYWycWbDL7a1F5isfy55uO7LNpHmnDTTTgD+7mQ/fNH5SHmsC/Cqb7rknBfefj
-LMVBEyOAzcPI0hhMhZGog2nWsNzra3i+SBeDUSztXkjEeUfzWRwpzBwIvBhXppV6
-fepN+bLv+u5Fnw9on2J7iVY4NJ4os3zpUU45e5lfiFPsR87sh8HCefL9Z77/XLK8
-Z9hbZRv8d4f4iE8JVpDD92rauE3XJ1LhJQ+juaLldkAp6By9tp73OWamS6SQCYwc
-hTITnkxv3Hob3mKOhwL27Hp7i3mABndE8wKX+p168WrCERfuZMlmfksBY93/6xwK
-3bSvFMoSTz/hjeOhXVHK3S708ZqkMQ4MQPmD2P2KM0a+H6x5NqVCGdHT9IS7rnJO
-8JnNUnT6rG8vb3gKJlMeYhJIPE4sLrdsklyb/jMTNjn12sKIhzrbnRFR5PFxGudZ
-fKVSy4LVOyvHz6+WjVzDDuxQYlUcJPErYsvAV9GFJdWHGalGMjw=
-=oFXL
------END PGP SIGNATURE-----
+Red Hat
 
---534pufxyep7x5oau--
+Purky=C5=88ova 115 (TPB-C)
+
+612 00 Brno - Kr=C3=A1lovo Pole
+
+ljavorsk@redhat.com
+
+--000000000000ad8aaf0619814fac
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Reference: <a href=3D"https://pubs.opengroup.org/onlinepub=
+s/7908799/xsh/write.html">https://pubs.opengroup.org/onlinepubs/7908799/xsh=
+/write.html</a><br><br>I&#39;m adding the patch to the attachment as well b=
+ecause my last patch was a bit problematic with the email.<br>---<br>diff -=
+-git a/man/man2/write.2 b/man/man2/write.2<br>index a24cbdc31..e9b7dd739 10=
+0644<br>--- a/man/man2/write.2<br>+++ b/man/man2/write.2<br>@@ -26,7 +26,7 =
+@@ Standard C library<br>=C2=A0.nf<br>=C2=A0.B #include &lt;unistd.h&gt;<br=
+>=C2=A0.P<br>-.BI &quot;ssize_t write(int &quot; fd &quot;, const void &quo=
+t; buf [. count &quot;], size_t &quot; count );<br>+.BI &quot;ssize_t write=
+(int &quot; fd &quot;, const void *&quot; buf [. count &quot;], size_t &quo=
+t; count );<br>=C2=A0.fi<br>=C2=A0.SH DESCRIPTION<br>=C2=A0.BR write ()<br>=
+<br>-- <br>S pozdravom/ Best regards<br><br>Luk=C3=A1=C5=A1 Javorsk=C3=BD<b=
+r><br>Senior Software Engineer, Core service - Databases<br><br>Red Hat<br>=
+<br>Purky=C5=88ova 115 (TPB-C)<br><br>612 00 Brno - Kr=C3=A1lovo Pole<br><b=
+r><a href=3D"mailto:ljavorsk@redhat.com">ljavorsk@redhat.com</a></div>
+
+--000000000000ad8aaf0619814fac--
+--000000000000ad8ab60619814fae
+Content-Type: application/octet-stream; 
+	name="0001-write.2-Fix-a-typo-within-the-function-argument.patch"
+Content-Disposition: attachment; 
+	filename="0001-write.2-Fix-a-typo-within-the-function-argument.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lwq9pgj70>
+X-Attachment-Id: f_lwq9pgj70
+
+RnJvbSA1NzI4ZTY0MzhkZGI0M2NiMzBhZTIxMDA1YjYzMTUyNjFlZWRlOGQxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBMdWthcyBKYXZvcnNreSA8bGphdm9yc2tAcmVkaGF0LmNvbT4K
+RGF0ZTogVHVlLCAyOCBNYXkgMjAyNCAxMDozODoxMCArMDAwMApTdWJqZWN0OiBbUEFUQ0hdIHdy
+aXRlLjI6IEZpeCBhIHR5cG8gd2l0aGluIHRoZSAgZnVuY3Rpb24gYXJndW1lbnQKCi0tLQogbWFu
+L21hbjIvd3JpdGUuMiB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
+ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL21hbi9tYW4yL3dyaXRlLjIgYi9tYW4vbWFuMi93cml0
+ZS4yCmluZGV4IGEyNGNiZGMzMS4uZTliN2RkNzM5IDEwMDY0NAotLS0gYS9tYW4vbWFuMi93cml0
+ZS4yCisrKyBiL21hbi9tYW4yL3dyaXRlLjIKQEAgLTI2LDcgKzI2LDcgQEAgU3RhbmRhcmQgQyBs
+aWJyYXJ5CiAubmYKIC5CICNpbmNsdWRlIDx1bmlzdGQuaD4KIC5QCi0uQkkgInNzaXplX3Qgd3Jp
+dGUoaW50ICIgZmQgIiwgY29uc3Qgdm9pZCAiIGJ1ZiBbLiBjb3VudCAiXSwgc2l6ZV90ICIgY291
+bnQgKTsKKy5CSSAic3NpemVfdCB3cml0ZShpbnQgIiBmZCAiLCBjb25zdCB2b2lkICoiIGJ1ZiBb
+LiBjb3VudCAiXSwgc2l6ZV90ICIgY291bnQgKTsKIC5maQogLlNIIERFU0NSSVBUSU9OCiAuQlIg
+d3JpdGUgKCkKLS0gCjIuNDUuMQoK
+--000000000000ad8ab60619814fae--
+
 
