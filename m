@@ -1,171 +1,164 @@
-Return-Path: <linux-man+bounces-1008-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1009-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB7BF8D18D4
-	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 12:44:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A638D18E6
+	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 12:50:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3DD4B1F24DC4
-	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 10:44:17 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 370A21F2525C
+	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 10:50:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA77516B743;
-	Tue, 28 May 2024 10:44:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 988A316B739;
+	Tue, 28 May 2024 10:50:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bJYXezN3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPU4MN1v"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D8216B738
-	for <linux-man@vger.kernel.org>; Tue, 28 May 2024 10:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B37C4D59B
+	for <linux-man@vger.kernel.org>; Tue, 28 May 2024 10:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716893051; cv=none; b=bdrBgWuJc0FJfpHzsbZPoKKK+t1r8WnYNzAwCJeRSxpECLXG95ZEUiqQ+YGOCtcV4IRvUQ/y8jhxpDQQp5tf6Wav8HT+GuL44ECPX6nq61zljscKcM93J+tw2mxkp9ccyeeD2pPK+CYJzbMKuYgcyb4rsdjdVt6y6nSa2Fg2zsI=
+	t=1716893421; cv=none; b=HzfQSkmLOESUd3cHPavssyfKyK+YycluVUxXm4vDyIgQMHmqLnqxOakWhINEgurGS58YEh7l7+4erS/8ifvhno6Pwa6mCJaELpFh/katXvGBJvwI4MV1Kej5sMZU3T6yd0Z/OKFw1lVFR8r3NHPUDG7KXmq5KlJ6yuUq52CneS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716893051; c=relaxed/simple;
-	bh=r9YHuHLhHTurol2eCz0ogMKdfsGMOJuGnk/utZ2+Ip4=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=JenmjGCtbJa+T6VCu4sgEtpFIiqyoeC++qITxLz4Iz+nuhki3K+PQutLFQ9EB82FNMiwruGRNYNDLc4TAPla1CHkstzV6bfcm85emM3QXQx1pZw1psM2gsLMoOKa+SDglpgftPA5bfwmNonCdUEGwW0kr26atlxbQLwT1Wri04E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bJYXezN3; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1716893047;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=UNpyO3HH1OFqfTLq/8inHG6lU6lLoc41Qv3MtqMPLKc=;
-	b=bJYXezN3c1nx63IXTmUQ0aDrUBxPjZwI0LE6UrPnHDlYkoiseZURIFuqh2eqMcgiceqR+j
-	4elgteFkvpwVTDu/kBtoieUQPjflYO/CZ94z6ZVK4zvbB/LxPkqdYKc70P9rLdPz8Dgw34
-	hO/729L3m1/izhZg+4gIg3GfWrtTCzA=
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
- [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-439-UISGcfDXNJ2IpBKu_1iuig-1; Tue, 28 May 2024 06:44:03 -0400
-X-MC-Unique: UISGcfDXNJ2IpBKu_1iuig-1
-Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-2e95abc0d8eso5028891fa.2
-        for <linux-man@vger.kernel.org>; Tue, 28 May 2024 03:44:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716893039; x=1717497839;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UNpyO3HH1OFqfTLq/8inHG6lU6lLoc41Qv3MtqMPLKc=;
-        b=VZWhf1XXDhNLozIe7fd9KO0RSTboibM+uHMmoV43wg7p3Wa7yzdpgNtVgKNGMG1GHG
-         UHOTj8IcjYf1O8hrjIAGoRht83DAcDXpHdT88weDu3AdpSb3neYI4Yin+qJgw3nmQu50
-         r8dLO/MLV1czeCXIj/fQLQO2dOPpz9touEwlnmsXSo1FZPtp8sH9RbZpb1M8xPS+HGc7
-         LeDBGnNoMrIt4+b3wecCek4irhvC83c8OuPCOzEmIOEADKYUDQrY0EgylbxoIGTV7hj8
-         lVIKB9L+esgMQAtWjtcF+a1roldaPUjMIglHgam5D4vFd+nYRfyz6ZjuYiojNa/n/fM0
-         53Ew==
-X-Gm-Message-State: AOJu0Yyd9Jyl/YNWzwCxes35/EjVb4dL5Bm9ictHUsy9dau0LXZmxaym
-	Kt2/2SozrYjvoucXpJ6UbH7gMZuIsgcnZPLjI7rjzpuwIvb1OCkU6cUtmlzqsR/VfirCqurMqAY
-	SCYfVETrOaXT9xqf6popoN6v4EKkMpHi85CMhRrwhbEUCpFt8SOa72DM+5ak0bMBJcsknDyaP7n
-	vttRctuFhWZGbgSGffE89wGWJPlZV3Arrt8Fxi0L1U0PU=
-X-Received: by 2002:a2e:380a:0:b0:2e1:9c57:195a with SMTP id 38308e7fff4ca-2e95b25652cmr103193271fa.32.1716893039202;
-        Tue, 28 May 2024 03:43:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGoKn7l0BG52QVgLfqqDczCrpwKotB/RWgXwkgJa9YC/KdXghtTQgJsVmrsLXarFb6JIUp3X+s3wu1a1P4Rqts=
-X-Received: by 2002:a2e:380a:0:b0:2e1:9c57:195a with SMTP id
- 38308e7fff4ca-2e95b25652cmr103192881fa.32.1716893038449; Tue, 28 May 2024
- 03:43:58 -0700 (PDT)
+	s=arc-20240116; t=1716893421; c=relaxed/simple;
+	bh=EfL5XoEly9E38rJ3R3I4ITCISiiYGjf3+Q9EeCshVrU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C9olrcNodMuAbogyMTQNY9EPrtt6rehlg5W2V2ybzke5vQyE2m+SHYQsp5YjSIGgOXnPCYFFLuOeMHc9FC8XUbrHFuiI/yQ1Ik0lWKs1TuBNOPnjKJGtHq6CidrB+XLzdHOfMSRyTOMinqyLeIyn9pOr+JooXh5poIVYtFiD0JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPU4MN1v; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D532DC3277B;
+	Tue, 28 May 2024 10:50:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716893420;
+	bh=EfL5XoEly9E38rJ3R3I4ITCISiiYGjf3+Q9EeCshVrU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lPU4MN1vWTVTxWtqVypVf54Pwc/sr+7uuqZk+sIrsoypFG+1E2JH5ZFbBKwXEnI/8
+	 91NODZ1Hyu9A2RR6gqJysNDqdCc1L0g54heWCPD+gpR06mJau9tJGqljE6HEooeA5T
+	 jJ2T8izN7dKwF6ZIqs4TNVmHXv9mvBgKCYvHgV2fCr31CVKRsPH9F8FmAcktEeqhHS
+	 oIYCbbCMAjU2Wj9w134dIluZjLj7iUytwsOPbAM3lz6batXw13YBcwJd4lJpJogotN
+	 YB3ZjQw+0BVX8Xk9NI8u1OyvIro/UY4llZhqrPqJevxW9Gm615s/CXQJzmL8Z/qVy9
+	 GMsEnPqqhTGiQ==
+Date: Tue, 28 May 2024 12:50:17 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Lukas Javorsky <ljavorsk@redhat.com>
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>, 
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH] write.2: Fix a typo within the `ssize_t write` function
+ argument
+Message-ID: <rmoa5iy7ymnouqwnsve66vdzdtnqs7f22ov74w3zoobwc7jjcl@qlgoartjtqjw>
+References: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Lukas Javorsky <ljavorsk@redhat.com>
-Date: Tue, 28 May 2024 12:43:21 +0200
-Message-ID: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
-Subject: [PATCH] write.2: Fix a typo within the `ssize_t write` function argument
-To: linux-man@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>, 
-	Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: multipart/mixed; boundary="000000000000ad8ab60619814fae"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4udpauc7dokjww3k"
+Content-Disposition: inline
+In-Reply-To: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
 
---000000000000ad8ab60619814fae
-Content-Type: multipart/alternative; boundary="000000000000ad8aaf0619814fac"
 
---000000000000ad8aaf0619814fac
-Content-Type: text/plain; charset="UTF-8"
+--4udpauc7dokjww3k
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Lukas Javorsky <ljavorsk@redhat.com>
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>, 
+	Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH] write.2: Fix a typo within the `ssize_t write` function
+ argument
+References: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
 
-Reference: https://pubs.opengroup.org/onlinepubs/7908799/xsh/write.html
+On Tue, May 28, 2024 at 12:43:21PM GMT, Lukas Javorsky wrote:
+> Reference: https://pubs.opengroup.org/onlinepubs/7908799/xsh/write.html
+>=20
+> I'm adding the patch to the attachment as well because my last patch was a
+> bit problematic with the email.
 
-I'm adding the patch to the attachment as well because my last patch was a
-bit problematic with the email.
----
-diff --git a/man/man2/write.2 b/man/man2/write.2
-index a24cbdc31..e9b7dd739 100644
---- a/man/man2/write.2
-+++ b/man/man2/write.2
-@@ -26,7 +26,7 @@ Standard C library
- .nf
- .B #include <unistd.h>
- .P
--.BI "ssize_t write(int " fd ", const void " buf [. count "], size_t "
-count );
-+.BI "ssize_t write(int " fd ", const void *" buf [. count "], size_t "
-count );
- .fi
- .SH DESCRIPTION
- .BR write ()
+Hi Lukas,
+
+> ---
+> diff --git a/man/man2/write.2 b/man/man2/write.2
+> index a24cbdc31..e9b7dd739 100644
+> --- a/man/man2/write.2
+> +++ b/man/man2/write.2
+> @@ -26,7 +26,7 @@ Standard C library
+>  .nf
+>  .B #include <unistd.h>
+>  .P
+> -.BI "ssize_t write(int " fd ", const void " buf [. count "], size_t "
+> count );
+> +.BI "ssize_t write(int " fd ", const void *" buf [. count "], size_t "
+
+No; the current synopsis is intentional:
+
+     ssize_t write(int fd, const void buf[.count], size_t count);
+
+buf is an array of void, that is, a void[].  Of course, that's not legal
+C, but I made it so that it's consistent with other functions such as
+
+     char *strncpy(char dst[restrict .dsize], const char *restrict src,
+                   size_t dsize);
+
+Where dst is an array of char, that is, char[].
+
+Using array notation let's us document the number of elements in the
+array.
+
+Have a lovely day!
+Alex
+
+> count );
+>  .fi
+>  .SH DESCRIPTION
+>  .BR write ()
+>=20
+> --=20
+> S pozdravom/ Best regards
+>=20
+> Luk=C3=A1=C5=A1 Javorsk=C3=BD
+>=20
+> Senior Software Engineer, Core service - Databases
+>=20
+> Red Hat
+>=20
+> Purky=C5=88ova 115 (TPB-C)
+>=20
+> 612 00 Brno - Kr=C3=A1lovo Pole
+>=20
+> ljavorsk@redhat.com
+
+
 
 --=20
-S pozdravom/ Best regards
+<https://www.alejandro-colomar.es/>
 
-Luk=C3=A1=C5=A1 Javorsk=C3=BD
+--4udpauc7dokjww3k
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Senior Software Engineer, Core service - Databases
+-----BEGIN PGP SIGNATURE-----
 
-Red Hat
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZVtukACgkQnowa+77/
+2zJjPQ//SLF0oyt2AwAhoS0+Yq3aO+TS8GEC0fzDAFmCJWGcCiBD8UtTKCZGLBWT
+kL9nldFM+oHi16tptA2eJ4KWGchm+bIeexhBJqxP6XoBbyn2GegnTzrZGzZX+Y5G
+ne1UTT3o40oqtuFZNa7Lgxa3F9NJi6WaR6p1ybaKe7yW1lAn3InMgl2IzAV0RZLy
+Q6Y7yWHFTSXp/VWu5LswXrudpPxEebH34Y5qeFLJm9N2O8Xs34b+ZpkjsjCiRRJy
+qfkLiTARLqTvycOP6fkKYzIeDMAWZAyw7uZOCFuytQq2bbXGJV1W354Rl7oG4hHo
+V70gogmPjj/qEpBHTSeSqgKZb8Y9at4/00KRaNVlVF3qsczquIjqUqR4j8C2nABc
+DOCC7nMTU1L3S+OMFCerdS+4tjgeJ7P3FTJm9LxoZaOghhOQPQs5x8sT/S08ME1N
+zNicy3/z/WMpiyyV+eCKtQCK+CdyNw4jkJ09uuvIXaa1aT79Q7h5CWPO9WCZeoiS
+Ai4IPh4Xg58dKxDMGc8/6HGrjTCLg2PLVIMt4vCrCQ4CT8xpl84NmLxzJHbfiOku
+wqBKZ5VaoSDgydPESDF7MMuykb86xku4c8Z4Fw+zBzgJ5t+MC4MC7c8MIGcGbjdV
+CCMv4Sbg92/d+eDbtTBVyBytMZf3IRBOBAqArTdrEp7GY4rcc0A=
+=0Ni9
+-----END PGP SIGNATURE-----
 
-Purky=C5=88ova 115 (TPB-C)
-
-612 00 Brno - Kr=C3=A1lovo Pole
-
-ljavorsk@redhat.com
-
---000000000000ad8aaf0619814fac
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Reference: <a href=3D"https://pubs.opengroup.org/onlinepub=
-s/7908799/xsh/write.html">https://pubs.opengroup.org/onlinepubs/7908799/xsh=
-/write.html</a><br><br>I&#39;m adding the patch to the attachment as well b=
-ecause my last patch was a bit problematic with the email.<br>---<br>diff -=
--git a/man/man2/write.2 b/man/man2/write.2<br>index a24cbdc31..e9b7dd739 10=
-0644<br>--- a/man/man2/write.2<br>+++ b/man/man2/write.2<br>@@ -26,7 +26,7 =
-@@ Standard C library<br>=C2=A0.nf<br>=C2=A0.B #include &lt;unistd.h&gt;<br=
->=C2=A0.P<br>-.BI &quot;ssize_t write(int &quot; fd &quot;, const void &quo=
-t; buf [. count &quot;], size_t &quot; count );<br>+.BI &quot;ssize_t write=
-(int &quot; fd &quot;, const void *&quot; buf [. count &quot;], size_t &quo=
-t; count );<br>=C2=A0.fi<br>=C2=A0.SH DESCRIPTION<br>=C2=A0.BR write ()<br>=
-<br>-- <br>S pozdravom/ Best regards<br><br>Luk=C3=A1=C5=A1 Javorsk=C3=BD<b=
-r><br>Senior Software Engineer, Core service - Databases<br><br>Red Hat<br>=
-<br>Purky=C5=88ova 115 (TPB-C)<br><br>612 00 Brno - Kr=C3=A1lovo Pole<br><b=
-r><a href=3D"mailto:ljavorsk@redhat.com">ljavorsk@redhat.com</a></div>
-
---000000000000ad8aaf0619814fac--
---000000000000ad8ab60619814fae
-Content-Type: application/octet-stream; 
-	name="0001-write.2-Fix-a-typo-within-the-function-argument.patch"
-Content-Disposition: attachment; 
-	filename="0001-write.2-Fix-a-typo-within-the-function-argument.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lwq9pgj70>
-X-Attachment-Id: f_lwq9pgj70
-
-RnJvbSA1NzI4ZTY0MzhkZGI0M2NiMzBhZTIxMDA1YjYzMTUyNjFlZWRlOGQxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBMdWthcyBKYXZvcnNreSA8bGphdm9yc2tAcmVkaGF0LmNvbT4K
-RGF0ZTogVHVlLCAyOCBNYXkgMjAyNCAxMDozODoxMCArMDAwMApTdWJqZWN0OiBbUEFUQ0hdIHdy
-aXRlLjI6IEZpeCBhIHR5cG8gd2l0aGluIHRoZSAgZnVuY3Rpb24gYXJndW1lbnQKCi0tLQogbWFu
-L21hbjIvd3JpdGUuMiB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
-ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL21hbi9tYW4yL3dyaXRlLjIgYi9tYW4vbWFuMi93cml0
-ZS4yCmluZGV4IGEyNGNiZGMzMS4uZTliN2RkNzM5IDEwMDY0NAotLS0gYS9tYW4vbWFuMi93cml0
-ZS4yCisrKyBiL21hbi9tYW4yL3dyaXRlLjIKQEAgLTI2LDcgKzI2LDcgQEAgU3RhbmRhcmQgQyBs
-aWJyYXJ5CiAubmYKIC5CICNpbmNsdWRlIDx1bmlzdGQuaD4KIC5QCi0uQkkgInNzaXplX3Qgd3Jp
-dGUoaW50ICIgZmQgIiwgY29uc3Qgdm9pZCAiIGJ1ZiBbLiBjb3VudCAiXSwgc2l6ZV90ICIgY291
-bnQgKTsKKy5CSSAic3NpemVfdCB3cml0ZShpbnQgIiBmZCAiLCBjb25zdCB2b2lkICoiIGJ1ZiBb
-LiBjb3VudCAiXSwgc2l6ZV90ICIgY291bnQgKTsKIC5maQogLlNIIERFU0NSSVBUSU9OCiAuQlIg
-d3JpdGUgKCkKLS0gCjIuNDUuMQoK
---000000000000ad8ab60619814fae--
-
+--4udpauc7dokjww3k--
 
