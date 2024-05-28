@@ -1,55 +1,56 @@
-Return-Path: <linux-man+bounces-1009-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1010-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A638D18E6
-	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 12:50:26 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7888D1A2C
+	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 13:48:58 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 370A21F2525C
-	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 10:50:26 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 87754B24743
+	for <lists+linux-man@lfdr.de>; Tue, 28 May 2024 11:48:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 988A316B739;
-	Tue, 28 May 2024 10:50:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F12A816D313;
+	Tue, 28 May 2024 11:48:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPU4MN1v"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eh73VSsR"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B37C4D59B
-	for <linux-man@vger.kernel.org>; Tue, 28 May 2024 10:50:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD07113F431;
+	Tue, 28 May 2024 11:48:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716893421; cv=none; b=HzfQSkmLOESUd3cHPavssyfKyK+YycluVUxXm4vDyIgQMHmqLnqxOakWhINEgurGS58YEh7l7+4erS/8ifvhno6Pwa6mCJaELpFh/katXvGBJvwI4MV1Kej5sMZU3T6yd0Z/OKFw1lVFR8r3NHPUDG7KXmq5KlJ6yuUq52CneS8=
+	t=1716896885; cv=none; b=Ayx2SI3e3QgIOob2BNJWeRs81M39wu6hHeM88+kN3eysQmGTbslgBOz7tlvquBNWB6wbfKrIv2hKnthPu+z3e1EVpSceoqIzUX5cwmBBYPybSkkT7+M2PcFASf8nAnnhh9foaHdLnrSwcwdarfCDw7cShlmkre2nL5486KWB31w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716893421; c=relaxed/simple;
-	bh=EfL5XoEly9E38rJ3R3I4ITCISiiYGjf3+Q9EeCshVrU=;
+	s=arc-20240116; t=1716896885; c=relaxed/simple;
+	bh=GzdgGk9rOCUWEGE9r3V+BUQkxDVfOj5AFZJklbVzbeY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C9olrcNodMuAbogyMTQNY9EPrtt6rehlg5W2V2ybzke5vQyE2m+SHYQsp5YjSIGgOXnPCYFFLuOeMHc9FC8XUbrHFuiI/yQ1Ik0lWKs1TuBNOPnjKJGtHq6CidrB+XLzdHOfMSRyTOMinqyLeIyn9pOr+JooXh5poIVYtFiD0JQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPU4MN1v; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D532DC3277B;
-	Tue, 28 May 2024 10:50:19 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=qnF3LnP+2bNxy27ENMM1Bg+77UvbU7S4Wa82U+Hy/D2TJdG52K34Wnrt/8g9KmY4FYEg2bD1J0Hh3WQqL0LWPHqpQ4U27Wq04drnd1gTOyaCE6Etai98m0U5eSOX15GeVLAKeCAYJdZLlEiXRgIcDAoYGylUah8SvXKggCFJhH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eh73VSsR; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFD8C3277B;
+	Tue, 28 May 2024 11:48:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716893420;
-	bh=EfL5XoEly9E38rJ3R3I4ITCISiiYGjf3+Q9EeCshVrU=;
+	s=k20201202; t=1716896885;
+	bh=GzdgGk9rOCUWEGE9r3V+BUQkxDVfOj5AFZJklbVzbeY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lPU4MN1vWTVTxWtqVypVf54Pwc/sr+7uuqZk+sIrsoypFG+1E2JH5ZFbBKwXEnI/8
-	 91NODZ1Hyu9A2RR6gqJysNDqdCc1L0g54heWCPD+gpR06mJau9tJGqljE6HEooeA5T
-	 jJ2T8izN7dKwF6ZIqs4TNVmHXv9mvBgKCYvHgV2fCr31CVKRsPH9F8FmAcktEeqhHS
-	 oIYCbbCMAjU2Wj9w134dIluZjLj7iUytwsOPbAM3lz6batXw13YBcwJd4lJpJogotN
-	 YB3ZjQw+0BVX8Xk9NI8u1OyvIro/UY4llZhqrPqJevxW9Gm615s/CXQJzmL8Z/qVy9
-	 GMsEnPqqhTGiQ==
-Date: Tue, 28 May 2024 12:50:17 +0200
+	b=Eh73VSsReKg0cyMRe+bYjeonroJf71rAzlupl1FLqN+YPkZ3ptmOoqYaXboCq5prq
+	 FmUbc1io3NlnhOmAU/WnVf/mBWOgGp37oH6UZvIynq6jpUtlfUZD0oZhUQfmc8bj7/
+	 ot+BUUWtqaIum0GZJZlN2YjOj82jSG68mISGGQydmV9lh5EPb5aIjYeSJ/Qgw0eDMo
+	 o+7xBoxEZvR3Y7GQsZ8LPsVcoxE16JC1JLP1DRtGxdmc28VxRIP2IJAQEK22gLcuxS
+	 alaAI8YBNP4TgDCF/WRPtFqsxnMtj3x/agu19192Gx0rZObiSmx5JY7t8du0W03bIN
+	 sOSnvOCwi+r4Q==
+Date: Tue, 28 May 2024 13:48:02 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Lukas Javorsky <ljavorsk@redhat.com>
-Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>, 
-	Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH] write.2: Fix a typo within the `ssize_t write` function
- argument
-Message-ID: <rmoa5iy7ymnouqwnsve66vdzdtnqs7f22ov74w3zoobwc7jjcl@qlgoartjtqjw>
-References: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
+To: linux-api@vger.kernel.org
+Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org, 
+	Alejandro Colomar <alx@kernel.org>
+Subject: [PATCH v1 0/2] uapi/linux/prctl: Use the L and UL integer suffixes
+ for certain constants
+Message-ID: <20240528114750.106187-1-alx@kernel.org>
+X-Mailer: git-send-email 2.45.1
+References: <x6r3yc6l34g4k5g3tm6ywecdqux54xlpid7bp2fa7hvm43luc7@6fjgaxgm5uyj>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,108 +58,63 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4udpauc7dokjww3k"
+	protocol="application/pgp-signature"; boundary="cgyn2bljkc5pggwf"
 Content-Disposition: inline
-In-Reply-To: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
+In-Reply-To: <x6r3yc6l34g4k5g3tm6ywecdqux54xlpid7bp2fa7hvm43luc7@6fjgaxgm5uyj>
 
 
---4udpauc7dokjww3k
+--cgyn2bljkc5pggwf
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Lukas Javorsky <ljavorsk@redhat.com>
-Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>, 
-	Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH] write.2: Fix a typo within the `ssize_t write` function
- argument
-References: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
+To: linux-api@vger.kernel.org
+Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org, 
+	Alejandro Colomar <alx@kernel.org>
+Subject: [PATCH v1 0/2] uapi/linux/prctl: Use the L and UL integer suffixes
+ for certain constants
+References: <x6r3yc6l34g4k5g3tm6ywecdqux54xlpid7bp2fa7hvm43luc7@6fjgaxgm5uyj>
 MIME-Version: 1.0
-In-Reply-To: <CAK719L0Yys229m7_PGzaho+foPA3yPD4WkuPS1K3psKNbybwDg@mail.gmail.com>
-
-On Tue, May 28, 2024 at 12:43:21PM GMT, Lukas Javorsky wrote:
-> Reference: https://pubs.opengroup.org/onlinepubs/7908799/xsh/write.html
->=20
-> I'm adding the patch to the attachment as well because my last patch was a
-> bit problematic with the email.
-
-Hi Lukas,
-
-> ---
-> diff --git a/man/man2/write.2 b/man/man2/write.2
-> index a24cbdc31..e9b7dd739 100644
-> --- a/man/man2/write.2
-> +++ b/man/man2/write.2
-> @@ -26,7 +26,7 @@ Standard C library
->  .nf
->  .B #include <unistd.h>
->  .P
-> -.BI "ssize_t write(int " fd ", const void " buf [. count "], size_t "
-> count );
-> +.BI "ssize_t write(int " fd ", const void *" buf [. count "], size_t "
-
-No; the current synopsis is intentional:
-
-     ssize_t write(int fd, const void buf[.count], size_t count);
-
-buf is an array of void, that is, a void[].  Of course, that's not legal
-C, but I made it so that it's consistent with other functions such as
-
-     char *strncpy(char dst[restrict .dsize], const char *restrict src,
-                   size_t dsize);
-
-Where dst is an array of char, that is, char[].
-
-Using array notation let's us document the number of elements in the
-array.
-
-Have a lovely day!
-Alex
-
-> count );
->  .fi
->  .SH DESCRIPTION
->  .BR write ()
->=20
-> --=20
-> S pozdravom/ Best regards
->=20
-> Luk=C3=A1=C5=A1 Javorsk=C3=BD
->=20
-> Senior Software Engineer, Core service - Databases
->=20
-> Red Hat
->=20
-> Purky=C5=88ova 115 (TPB-C)
->=20
-> 612 00 Brno - Kr=C3=A1lovo Pole
->=20
-> ljavorsk@redhat.com
+In-Reply-To: <x6r3yc6l34g4k5g3tm6ywecdqux54xlpid7bp2fa7hvm43luc7@6fjgaxgm5uyj>
 
 
+Alejandro Colomar (2):
+  uapi/linux/prctl: Use the L integer suffix for enumerations of width
+    long
+  uapi/linux/prctl: Use the UL integer suffix for bit fields of width
+    long
 
+ include/uapi/linux/prctl.h | 186 ++++++++++++++++++-------------------
+ 1 file changed, 93 insertions(+), 93 deletions(-)
+
+Range-diff against v0:
+-:  ------------ > 1:  eb1cdf3e2f33 uapi/linux/prctl: Use the L integer suf=
+fix for enumerations of width long
+-:  ------------ > 2:  16f5bd565191 uapi/linux/prctl: Use the UL integer su=
+ffix for bit fields of width long
 --=20
-<https://www.alejandro-colomar.es/>
+2.45.1
 
---4udpauc7dokjww3k
+
+--cgyn2bljkc5pggwf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZVtukACgkQnowa+77/
-2zJjPQ//SLF0oyt2AwAhoS0+Yq3aO+TS8GEC0fzDAFmCJWGcCiBD8UtTKCZGLBWT
-kL9nldFM+oHi16tptA2eJ4KWGchm+bIeexhBJqxP6XoBbyn2GegnTzrZGzZX+Y5G
-ne1UTT3o40oqtuFZNa7Lgxa3F9NJi6WaR6p1ybaKe7yW1lAn3InMgl2IzAV0RZLy
-Q6Y7yWHFTSXp/VWu5LswXrudpPxEebH34Y5qeFLJm9N2O8Xs34b+ZpkjsjCiRRJy
-qfkLiTARLqTvycOP6fkKYzIeDMAWZAyw7uZOCFuytQq2bbXGJV1W354Rl7oG4hHo
-V70gogmPjj/qEpBHTSeSqgKZb8Y9at4/00KRaNVlVF3qsczquIjqUqR4j8C2nABc
-DOCC7nMTU1L3S+OMFCerdS+4tjgeJ7P3FTJm9LxoZaOghhOQPQs5x8sT/S08ME1N
-zNicy3/z/WMpiyyV+eCKtQCK+CdyNw4jkJ09uuvIXaa1aT79Q7h5CWPO9WCZeoiS
-Ai4IPh4Xg58dKxDMGc8/6HGrjTCLg2PLVIMt4vCrCQ4CT8xpl84NmLxzJHbfiOku
-wqBKZ5VaoSDgydPESDF7MMuykb86xku4c8Z4Fw+zBzgJ5t+MC4MC7c8MIGcGbjdV
-CCMv4Sbg92/d+eDbtTBVyBytMZf3IRBOBAqArTdrEp7GY4rcc0A=
-=0Ni9
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZVxHIACgkQnowa+77/
+2zKgVA//cGJeI6y+z9KTFaVtjiwsh/mQutLnTUl6+syryQRBj1E1BXMovJnfBz1r
++BP8fnZcGsbspAj9NNoNrU43TiT8j7T0i55vn5AIafLRnYrvF6eR+mSrxe5MuJc3
+7FEJCmaxCoGS7g8ui0iLgQT6b2bep4epzplRDokHpqvw/O26Mnluu9PC0jzS8hQH
+0MuwbpkJ1X7nkvEtphHE10QZMi+5KIDrzin52gDaJnx16ODMYl4kJTUkYHPjAQOs
+Uo0JT6yk8RL1e4QsW42d/Ik7U23PkREWN85iMRTrH9lj2ws9nrxiGOebEkyl8r61
+pokwFyYCx3IPEpPYXWh32wJC9grCYNOnhqVWFr/p1+BR/lKDGYChNEMh6jzjo/xU
+8SsC7DfeD71oqtEezgQNygkSpt3WAzZQr4bsVDF7GLME0ajH/YVglcvrk367Oxw6
+rwIkF86Z3oLsB5gW4Nb9rk7voC2QE7daEcjQVYvbb3qDEsKPoim6mwlixTdD/5Ur
+qUzIC2IK4CMN+9vxT9rPRRWdfsFERzPt6KR0NfrPYoI7NEYUSqqPizE6nflplX0N
+vEnUdhs1XvDGQ4aXVCaDGOkVx2AoZmDJI/litXEjItD8v20MkIFWhgJbYeNIs+CN
+YMxscF2J2xEJUk3fmN099h+jLiE4K+toj03KXeVWKjYspHwaZJ8=
+=jubp
 -----END PGP SIGNATURE-----
 
---4udpauc7dokjww3k--
+--cgyn2bljkc5pggwf--
 
