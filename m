@@ -1,54 +1,58 @@
-Return-Path: <linux-man+bounces-1019-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1020-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637398D6925
-	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 20:45:02 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76DD78D6934
+	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 20:50:00 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9065DB236BB
-	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 18:44:59 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 29A8E1F2606E
+	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 18:50:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E4077E0FC;
-	Fri, 31 May 2024 18:44:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 310457E0FB;
+	Fri, 31 May 2024 18:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAUCY1rG"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="bZk5X7RP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D01044C6C
-	for <linux-man@vger.kernel.org>; Fri, 31 May 2024 18:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFF67E774
+	for <linux-man@vger.kernel.org>; Fri, 31 May 2024 18:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717181094; cv=none; b=gziR3BNa6nGaNkkvc3MKsaRBBfzbeLenlPnkQTeRwN2ieknFJetuPlxBcBJo3EGL0CtdhUJtE8APhPzjZ98L3h2l84OEnjS2zqae6vRFhk8iAmysoBpU9+5AzROe2kmI7GH3J0kK+nvqnnG1JnBsNkYOZWeu/vaRIwrUnZBKqEQ=
+	t=1717181395; cv=none; b=FJI/lCYt0mOtdte8PZGLhgc1t/v4qvQOq4TGp8xoPb7SGZHInFbt5Ocq9JXuVRODmNrlYveNwu381Z7u2ydLnNzqpjTawJlLZFSSWwpvijI9Gr3LloZyOkLdrOE3xWwtPpan2cLLeqIkcKQPwWBkZdbogw+FX/2WkC9z4axt9jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717181094; c=relaxed/simple;
-	bh=I5hzIptEw8z/hG9F1bxeXt6w//X4Llss63qrY50u6RM=;
+	s=arc-20240116; t=1717181395; c=relaxed/simple;
+	bh=fFKaLHRK1TgDNreusYD2dYCQUVPDWniSia8USeGwYJI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdS4pFAV0SQKKuni6M0cY7OKVUFwoHv5vyyhltV3Zb+Y7MKyIfy7A2KF7Hx2hYal0iN3CLuRup0xEBCsxi1i7qdI+yT3OZm7RhR7QpujkJgglUhktjv/e3rAwmJ3JtbeBw5wG8RoOKHuSlhLLhKzAkrSEs8tpvscsb1/HmCuCqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAUCY1rG; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54700C116B1;
-	Fri, 31 May 2024 18:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717181094;
-	bh=I5hzIptEw8z/hG9F1bxeXt6w//X4Llss63qrY50u6RM=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=PqKBrhfEZUGFENQZDD00PDwc/WAGmqxR3eJ8is7ykZmjhSujhM42ucOcruq8KUC6/6DozzIYKjlEPoGGxNHVewbLU1wR/rOa9LNM1yFiocjWHmM3G8lVp/SLHZUmpwcPGkN0ztWvl+0UEYvyD0Bu8Sl/W+d2eM9N5EbjSKwR4hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=bZk5X7RP; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202405; t=1717181390;
+	bh=fFKaLHRK1TgDNreusYD2dYCQUVPDWniSia8USeGwYJI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eAUCY1rGSVC7tB8drIX24F0XcR0LjIAx9U2B0OLay47RLHLORbHexbkCXYEuKzFoK
-	 FGaVdYfMdoBg4mGXXxpHsVVP+TMUazDGMfwNvSNaCJbq1vTp4ZRAHBi8i+tPWFXxkE
-	 xbrHkNiQMHRDdHAh7gBNqWRAMVkBs2pWHgY0T+pbUo9fYSf99CTXXGxZBb6RwfqwNG
-	 jWhPb+YjE1F0gPTCCfyCChITQ9xsN175/3UvuQzs+7Yls1YWyshykDnlGmMo53yN/8
-	 Afx6yvQDJ0qahJrPVbUuBkS/o48pugworA5XOsTyBa9mKDfvDSIoT80L4a5LcdvNUg
-	 A7rPSmStMgJew==
-Date: Fri, 31 May 2024 20:44:21 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	b=bZk5X7RP7GEPaMBK6Be68MYVks1EJdtcr/ABderik0k5XibJvDMwuVIM+v4rfFki1
+	 9DIdKiKgb9TwYAPIA47nPO/ku9QgCjB1mIAe4K6gwiObloaxM0FrTnolhAQPROZ2s1
+	 /X1Xz+65MXq6+Xia6lQKVpF6fQOiDsrhTvFovu0vn2m+ixhE0qqd0poIbEF2uqLPMP
+	 vRqtgG+md9pQSMssEQ0SAMQfs0Y9K2ohuwPqOCs5llp1a0BPFrWNDNJun6N8VRle2E
+	 kqpTCuF/dMpgjJp9EIK6ZJttsmILDxtgidtiySvKhJhTGl32Jjo8a1Ft4oUhAMq96H
+	 RrmDjrSDpIgQg==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 4AC43628C;
+	Fri, 31 May 2024 20:49:50 +0200 (CEST)
+Date: Fri, 31 May 2024 20:49:50 +0200
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] ioctl_iflags.2: document FS_APPEND_FL ('a') on
  directories
-Message-ID: <6vlgyxzh5taukldnkp7ubdb2zfla3m7ebx67qayyyoyyx5wi52@gownac2gauj2>
+Message-ID: <mhtwgjppwoqpwcfbebwbt47yzcv62dstqbf2mwncbkutbfjvta@tarta.nabijaczleweli.xyz>
 References: <vzoykfmkokepn2gq3nqb2vvlbim32vky3vnac2x2avmkyzcdez@tarta.nabijaczleweli.xyz>
+ <6vlgyxzh5taukldnkp7ubdb2zfla3m7ebx67qayyyoyyx5wi52@gownac2gauj2>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,83 +60,58 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="msmb36jyb57q5eyl"
+	protocol="application/pgp-signature"; boundary="ma2itxpejk2cbxr2"
 Content-Disposition: inline
-In-Reply-To: <vzoykfmkokepn2gq3nqb2vvlbim32vky3vnac2x2avmkyzcdez@tarta.nabijaczleweli.xyz>
+In-Reply-To: <6vlgyxzh5taukldnkp7ubdb2zfla3m7ebx67qayyyoyyx5wi52@gownac2gauj2>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---msmb36jyb57q5eyl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--ma2itxpejk2cbxr2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] ioctl_iflags.2: document FS_APPEND_FL ('a') on
- directories
-References: <vzoykfmkokepn2gq3nqb2vvlbim32vky3vnac2x2avmkyzcdez@tarta.nabijaczleweli.xyz>
-MIME-Version: 1.0
-In-Reply-To: <vzoykfmkokepn2gq3nqb2vvlbim32vky3vnac2x2avmkyzcdez@tarta.nabijaczleweli.xyz>
 
-Hi =D0=BD=D0=B0=D0=B1!
+Hi!
 
-On Fri, May 31, 2024 at 08:11:17PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
-> For some reason, neither chattr(1) nor this page document it;
-> ext4 supports this (tmpfs and ZFS don't, didn't test more).
+On Fri, May 31, 2024 at 08:44:21PM +0200, Alejandro Colomar wrote:
+> On Fri, May 31, 2024 at 08:11:17PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
+> > For some reason, neither chattr(1) nor this page document it;
+> > ext4 supports this (tmpfs and ZFS don't, didn't test more).
+> By "supports this" do you mean FS_APPEND_FL at all, or its behavior with
+> dirs?
+I meant behaviour with directories specifically,
+but it looks like I tested wrong:
 
-By "supports this" do you mean FS_APPEND_FL at all, or its behavior with
-dirs?
+all of ext4, tmpfs, and ZFS actually /do/ support FS_APPEND_FL
+on both files /and/ directories.
 
-Have a lovely day!
-Alex
+Maybe reword as
+-- >8 --
+For some reason, neither chattr(1) nor this page document it;
+this is supported by all tested filesystems (ext4, tmpfs, ZFS).
+-- >8 --
 
->=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
-z>
-> ---
->  man/man2/ioctl_iflags.2 | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/man/man2/ioctl_iflags.2 b/man/man2/ioctl_iflags.2
-> index 0f4c533bc..fb7036cc4 100644
-> --- a/man/man2/ioctl_iflags.2
-> +++ b/man/man2/ioctl_iflags.2
-> @@ -44,6 +44,8 @@ .SH DESCRIPTION
->  The file can be opened only with the
->  .B O_APPEND
->  flag.
-> +If applied to a directory, forbids removing files from the directory
-> +.RB "(via " unlink "(), " rename "(), and the like)."
->  (This restriction applies even to the superuser.)
->  Only a privileged process
->  .RB ( CAP_LINUX_IMMUTABLE )
-> --=20
-> 2.39.2
+Best,
 
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---msmb36jyb57q5eyl
+--ma2itxpejk2cbxr2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZaGoQACgkQnowa+77/
-2zLv2g//VRn4Yve4/dielB2lXP7ZT0tjC/koQXD1gyGydA/YPXWrsFv1PG69eSYJ
-B9ems4t4Gdhv0nfp7v4UfJ+ysHBM6jEPk1h1oksvHzYgRNLIG2a5U9avHQwOYFiG
-2k4er9NE+PNSze9AToLMdat+dlVbGcB7M5puA2x0X91QboejduHk/9x2Wf1Og/sj
-23OLgbKMr0hh2yyDmy28zdQyWuyKdBs/9t8sHwTYe9i9Kt16qT4raa9AHwVW//UL
-k/Kc8g3UnyvZGEeBaLeEE50bA2FFxfT3oPAF95/mz0WGCU9/zm1/3sogHnUtmg4a
-B35G25pP+VtwFxxhsPLbMHQT3J6buFWcLeUmanqjZ2VD20M2afwzqaWVRHJJJWN1
-FpDsZDDsCU4YdASTmAdq7SpDbWdiGl/Bg6MePS95Pvd8RcNeSpQgziVOSpOLOfpl
-VkHu9msOronmEa0rrRF2PvJGRo6qGp4SURd33qH0PIv411iI66YvpyNk5QDTi4wq
-8iFLqKOnAfTd24AHfu77xu2Lks5d9Ib3pfUDmkMoDyR+RmwANKZBKKzoYIQ2fGS1
-LXbMScpElpOWIe6NnzYfMi9Eoa+wRgIbsHBEOkoDskb3D5bRwZOB7vbSj9ekRr/T
-p+DUOWklsPJkzn5XCDy3LJUoUMIe0v9CZ8aeQYl5S/tL/Q/K5UE=
-=D6H3
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmZaG80ACgkQvP0LAY0m
+WPF+qA/9Gx9tpPyGY9+JA2u4ecaW7SLwTCqv73RlTcHi3VX+vTiY3rslKmQYNI8X
+wHVrZnqf6UKbhDLArzSQ5E2vBoWtF+KZsUNeu+VHqQz7qGp0TpRoDD1/WvgP3Dt/
+qwchGUbl54VoONVxvq9qckMG3x9+flnKViOIShevdJoLjxA+wTChda2O1LTvh5oN
+Ws6J11pXxGTmNsCLnX0NOsUEsiVyYmmx6L/wYuZtjEnFmwrhrwFYZAaFL8K8pVf0
+hbIAeS5vk1ZfbJHz2Q6YmciqsBDS5Vk/mLCtBNkNipWRImw4H6YUBr0L4pArDn0d
+yfCGEsvWJ82+nX+4yMztUCi6i12MbrnZ/G9K9EMXxE0WbzfKqtXpyiknAeNqOsJ0
+dzMHL/KiloXQJyYXLuP5+S6+8wTbcOUHTZgPVDrm8FnKeis9ZdyITOBG/XfhvC1t
+FkWDNhTi+E1P9FR58tIPja9DLLDV40gBWld+lpJy4fGjR1qHqjmA8LA+dXLw1G2N
+OWdW+qhoG4gIfbYZWNxoGSrQX2G76rDryCoGko+7OWmAmaX1D3+cksgQ+Hjw5SoW
+ZYajotRfaXyBcaCsRnIzLYr6BqsnGLEnK4wQGFoTizzSxUem2Ik2duEXOUt0Z38H
+6Ws34BoMvwvFIyDOt2mYnM5PzlVMa86kGAUyRyji9jo0joVMiKQ=
+=Vgga
 -----END PGP SIGNATURE-----
 
---msmb36jyb57q5eyl--
+--ma2itxpejk2cbxr2--
 
