@@ -1,55 +1,54 @@
-Return-Path: <linux-man+bounces-1017-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1018-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3425A8D68F1
-	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 20:21:13 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F06A8D690A
+	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 20:37:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C64EC1F25066
-	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 18:21:12 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D0E3F287706
+	for <lists+linux-man@lfdr.de>; Fri, 31 May 2024 18:37:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6831E17D359;
-	Fri, 31 May 2024 18:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF5BD7D096;
+	Fri, 31 May 2024 18:37:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="BSBkqzl0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WzvTiVgp"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C3217D8B4
-	for <linux-man@vger.kernel.org>; Fri, 31 May 2024 18:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE441E498
+	for <linux-man@vger.kernel.org>; Fri, 31 May 2024 18:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717179650; cv=none; b=bLNgnoYVkMdtKwIb8/98cQtfufGcUWW1+bk0H/kRawkiOU91wOn47l28v9oVCC78Q0KphOZRNT0rFn6vw2VHKptlo3rzkTF5GcXfCdWVot982dWlHItZfmOIv4Be6EC3RdEmztGIHoOKh5meW6LYldR9NnQQHixqWgKZFgm+t00=
+	t=1717180672; cv=none; b=ltC44F61oAPl+dyIc0TLY/Hw6rCjah+qCzxzbOvb+x0Q/Y7vtVbDUS1SRtNJAKQcILTLsZ7PeIvGfLqAO55dP7hUBsm7Xwc9R65he6BN2K2NXrqjNnI5VlsOkW1iQA3zqiZTlYjLgFa/6fb7Vs0zT+Y7ZhPfgCvZparr7RaGX1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717179650; c=relaxed/simple;
-	bh=C1I9Zf7HONW/lZYaAW+ZbT1ik6aa9M6425VV2euPjqs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Ab43SEmoTe0hBHtjpDU11pG9hl0i69ug7AWIjDfJvoAGj1hgBY4F+8WL6gyHMcDCMokNBefli6EMzsioxHJyot/RngB1y0BCAzgI8nFFJ6aGCPzxCXAWT8Tz4joXLaZojXNLU4Yl7gfV5oLx9w++Wzbv2qS5KN8xpoWAndfFKqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=BSBkqzl0; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202405; t=1717179077;
-	bh=C1I9Zf7HONW/lZYaAW+ZbT1ik6aa9M6425VV2euPjqs=;
-	h=Date:From:To:Cc:Subject:From;
-	b=BSBkqzl0qUaS9bLReyEnckfrxYrcOsXCwsXmO4KZl/CCKtIw/JzJW6fzOJlrATgXz
-	 nBCks0Yrjnv5FckGQR5lPh2y/w6MBGNcvu3GrW8NT9b7tiLhqRKuzTTP6SC/ElOx+y
-	 ps8X7u+cmuaDh/6DVNNQtk53525+8Uky+n6A6vnM+1ENPiI43kTde+yUTkE8b/tNS5
-	 DHFKVpRXUoSoJnMDg5gOY9yd6C2lczHoZE3g+gSLiYwzDvNAlwxJOOniYNvJnEXoX1
-	 rcpkvg23/oOp5X9nb0x6fEXpP+MIH8DvIErbvKnW3Fs0Oa2F+m2oSR+fp4OD252+xo
-	 OE3j5VlSaE1Ew==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 556386308;
-	Fri, 31 May 2024 20:11:17 +0200 (CEST)
-Date: Fri, 31 May 2024 20:11:17 +0200
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1717180672; c=relaxed/simple;
+	bh=udaHrnhkzoqmkr2TF4NLK/5WMCCKchTr/vye1jISgKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SGsg5Oc6f3AUskujpcJ0E6v2YW/3ltwEzooAhJfe8V1fCLaqzUhvMaw7+3WGdmTVSrcuuwyT2ghgVw1ytJ/ONZky5yo1QyPfXp/iPAf68Xylq/X3yW89oNlDCpqT7ik2AZBkCyR/dlt6UZE2/0BUhaCOdjohWJ628r7f5+gINyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WzvTiVgp; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 759F2C116B1;
+	Fri, 31 May 2024 18:37:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1717180672;
+	bh=udaHrnhkzoqmkr2TF4NLK/5WMCCKchTr/vye1jISgKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WzvTiVgpYly9mho/YLjI1tuCTlAx26Do4N8oTIn0vnLB+l31miBd2EV15jJC1VxcS
+	 Yd1Wf1UPlT4iRr2mrdVXmdM52o7sGUfZfTQpIxtSiKWTAgee+qqWbExuupm0FdX7bj
+	 n7nCCw/Q3gmJDkQuqwMPJqV5Q5yYFH+Aqvbxx4haqg6Yg1r7Q24pVtdJGZeGVi24jZ
+	 UJJY1yHdXibT7CL+wTdh6Z0vaFNlEyBYB+3y+83cPIIS5YCZ/r22Hsos1YGFhvYSEL
+	 Ln06DILY3H9vCQT/cN/YVgzxY2KK5fMyF0m9/VjqWN0EO8IVEFOLzu5t6X/Rww0tZC
+	 z6OD65u46tAnw==
+Date: Fri, 31 May 2024 20:37:14 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH] ioctl_iflags.2: document FS_APPEND_FL ('a') on directories
-Message-ID: <vzoykfmkokepn2gq3nqb2vvlbim32vky3vnac2x2avmkyzcdez@tarta.nabijaczleweli.xyz>
+Subject: Re: [PATCH] open_by_handle_at.2: correct the name of the FreeBSD
+ equivalent
+Message-ID: <e6crzxjve4e6xsz2hmzwujgnv6ty5rtalc44dmqb5kupkuy3nr@yocrwitryuep>
+References: <20240527113800.1098633-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,59 +56,85 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6t7jtffuigbnzjyw"
+	protocol="application/pgp-signature"; boundary="tlaggiel3lgz4l63"
 Content-Disposition: inline
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
+In-Reply-To: <20240527113800.1098633-1-hch@lst.de>
 
 
---6t7jtffuigbnzjyw
-Content-Type: text/plain; charset=utf-8
+--tlaggiel3lgz4l63
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] open_by_handle_at.2: correct the name of the FreeBSD
+ equivalent
+References: <20240527113800.1098633-1-hch@lst.de>
+MIME-Version: 1.0
+In-Reply-To: <20240527113800.1098633-1-hch@lst.de>
 
-For some reason, neither chattr(1) nor this page document it;
-ext4 supports this (tmpfs and ZFS don't, didn't test more).
+On Mon, May 27, 2024 at 01:38:00PM GMT, Christoph Hellwig wrote:
+> The open_by_handle_at equivalent in FreeBSD is called fhopen, not
+> openfh.
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man/man2/ioctl_iflags.2 | 2 ++
- 1 file changed, 2 insertions(+)
+LGTM.  A simple search of openfh shows that it doesn't exist at all in
+the FreeBSD tree:
 
-diff --git a/man/man2/ioctl_iflags.2 b/man/man2/ioctl_iflags.2
-index 0f4c533bc..fb7036cc4 100644
---- a/man/man2/ioctl_iflags.2
-+++ b/man/man2/ioctl_iflags.2
-@@ -44,6 +44,8 @@ .SH DESCRIPTION
- The file can be opened only with the
- .B O_APPEND
- flag.
-+If applied to a directory, forbids removing files from the directory
-+.RB "(via " unlink "(), " rename "(), and the like)."
- (This restriction applies even to the superuser.)
- Only a privileged process
- .RB ( CAP_LINUX_IMMUTABLE )
+alx@debian:~/src/bsd/freebsd/main$ grep -rn openfh
+alx@debian:~/src/bsd/freebsd/main$=20
+
+>=20
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+
+Patch applied; thanks.
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man2/open_by_handle_at.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/open_by_handle_at.2 b/man/man2/open_by_handle_at.2
+> index 8fa1bf630..ee8a4f72b 100644
+> --- a/man/man2/open_by_handle_at.2
+> +++ b/man/man2/open_by_handle_at.2
+> @@ -402,7 +402,7 @@ flag and the filesystem does not support
+>  FreeBSD has a broadly similar pair of system calls in the form of
+>  .BR getfh ()
+>  and
+> -.BR openfh ().
+> +.BR fhopen ().
+>  .SH STANDARDS
+>  Linux.
+>  .SH HISTORY
+> --=20
+> 2.43.0
+>=20
+
 --=20
-2.39.2
+<https://www.alejandro-colomar.es/>
 
---6t7jtffuigbnzjyw
+--tlaggiel3lgz4l63
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmZaEsQACgkQvP0LAY0m
-WPEYMRAApQHaYINXHiInHv8Tiam2C6CROY3nMkwpLwm9QYQ3IILsQwgmWEB+nTNV
-33dOjdn1JK/fXdxT7js/C0Vd6s2w6q11LXqsjgZ9PWAIAQ72FAiS32YYHAssMpj/
-b/7NtAKbvcQtxARRqOeviWvojJT6LbaGvVuUj8Ke9RIpM6Nry9/9+dVD4JXBd3Wk
-xHHQUtcE4K/ryUunbE5NnNZopOv8yudYYNp1ssRH7tRzbx0xGyFJMiw1GIQbyXzZ
-WICgT9tnZCP3DTDGMSNU8QTuXfXBxGR/IBOZ7w0R9cP14uEgxhvmu3AmoXJ7Qiwp
-f1xt5uBtQMlVoxLVINqNhEg7HbHjXbXYNI7h7bznY5qJiqGB/eC7fJobhXn7HHb+
-R1ABz6x2O6I7iNPxpupjNi+Pf7fwZExw4I/U+M5JY0ULYnMT+uS2+6ia3E/p7CwF
-lSlYkZlMA5nPy56hsULJVWf8rWe1+90ccHy/XVihPD5j5lCYxBZDPNpholNvIh8+
-njICO0fJuutPFN4f2cjrAPBli98mA3bCyUhXpkjusCFKioae2Ro9uQ8v8uxR2YSA
-izoM6hhktImBPiuOUjya1x7rlpXhaUEfeqT3cx8O7gX+ARgv8WYWawQnT3FReGtw
-2cOlbL6bxvUUQPabec+gvQUmG3YTkX/ReycIbS5a6Ayo9tuAUWE=
-=g16R
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZaGNoACgkQnowa+77/
+2zLZ2A/5AQjUp+2gxIIUTBuaYnluNNup9X6SZ1OGMhUSA9vjfkzEUD/L31u69Iv/
+shogJqJrOwaCm/+Cl/WHM1NKca8cbxwkOqSzPrUiqyOyhyI4T7skdUzH3FAsqiGp
+aRrAaF5O4eziGsi+SDE96coeBj2gf2YtuZREE8lo2XlKqypG8NdMWaQpdcOVfihr
+BDv6Ctocc0vKgG6Bfy2OefRniH7Txih5WXglx4jkWfBDsinP/nH9YXq21wbTbpo2
+D1hvnQsOKQSiRW6gVfpGk3mX8c6gJgGGashIhoIbMD7v2pDUCMB83ZbAgqIPxlye
+Om5b6d2963XKKHsS6N58QMcyk4iOWW/2u6ApW8fOvKNxB6QOIY9bSlIJ+uJFpiUY
+m07qUYozM3pXOA1bMyrptvFrFokHXlldTJPIRxU1cBSqxLIrdkY8IjmmvsGI2EDE
+ZClQ1Q2ownjIgxmLvdLSuSe81zcGtbwurJH3vV2sqW3Rs0fFzblD8/ZT+fzeM4tt
+BjS8kPkuSA9NzrCak3kGClyh9uUANnFuPXLq4nRPlnMR7nNQZNd9nUD1A1a3xcnm
+yQDD8Z9SSaqyvaPPexV1SjmpETAgysA9cFISykF1gAdgFzGTuXcB4nq6zHQpYbrD
+vW0IUruhrxNcPeI2T1CphvyOaRdvzYEBpshNGKL0NUZwDzOohtk=
+=znXc
 -----END PGP SIGNATURE-----
 
---6t7jtffuigbnzjyw--
+--tlaggiel3lgz4l63--
 
