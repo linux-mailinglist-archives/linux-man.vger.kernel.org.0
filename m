@@ -1,186 +1,121 @@
-Return-Path: <linux-man+bounces-1025-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1026-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id C10C98D716D
-	for <lists+linux-man@lfdr.de>; Sat,  1 Jun 2024 19:55:00 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id D54788D7177
+	for <lists+linux-man@lfdr.de>; Sat,  1 Jun 2024 20:20:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 68F1A1F21B4B
-	for <lists+linux-man@lfdr.de>; Sat,  1 Jun 2024 17:55:00 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 81CC11F219E6
+	for <lists+linux-man@lfdr.de>; Sat,  1 Jun 2024 18:20:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 853FD152DE4;
-	Sat,  1 Jun 2024 17:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNAQYVty"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76FA127447;
+	Sat,  1 Jun 2024 18:20:22 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468EB1D6AA
-	for <linux-man@vger.kernel.org>; Sat,  1 Jun 2024 17:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3691171D
+	for <linux-man@vger.kernel.org>; Sat,  1 Jun 2024 18:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717264496; cv=none; b=jpOPV0P9eeHU6oy50W4M4r2xfHTqTFzELowggIehF8KheTtjyWvASeeW20Sq/IkGvYFb7bnMjt0K3OXPHkSsY1QndVJiT8XZxw0TZo8Xk5kljJ51gcT+WOPWX+Zq2QuJmijeWz2KTQuVawIoavFLaOhHGsLWsAVKTPBKHkBOaM8=
+	t=1717266022; cv=none; b=G78YCP/1b0rtYVmc8aFnTJAouhI5Vx0YEPZlJJS883ABtjA1YbIsWlBYtF1hJY9gc9PCNLS9nt8EKB5Jzz3UxOd7eUi0YLKDy8lp9y2yOuTjGFU8lThnyq42iJ+zaEHANB3YJIFHvIPEG/rZ8iNxP54LyYPG+Nz5vxcg5/6S99g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717264496; c=relaxed/simple;
-	bh=/+ksAsts9IEvb0DeE4OpGglV03Fa6rhl4ZC5/Mo8kH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=onOP9BQguUxKgr1enLzUMaCULz9N1t1Je0I5y9LDtXkSEutgrPNPnST/kjRxYCubo7ADGeZRvWxCsw+OzZVYSe4QZ6ZVO23hOuMI4vu+5Y3W7XYJFoYJiJPNWMoYC20M4rlxSI0/+ibeqOO2iYZ4hBMHKzvDf5CHCDBtd2Kc4yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNAQYVty; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846EAC116B1;
-	Sat,  1 Jun 2024 17:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717264495;
-	bh=/+ksAsts9IEvb0DeE4OpGglV03Fa6rhl4ZC5/Mo8kH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jNAQYVtyqtc5Tj/kYjlWawAs4peXAN+47pIHwggPr2A8u70adJTYc8ZL6kpHmnBJJ
-	 X1K5lr+FU2Kx5wyRwFUHNZlf2wDXXiD43A7etGkQ+NTVD++XFTc2L6gPD3xYM7kMBN
-	 Mih9fn3o9YPZtmSwXIBRgC28sDqGk7TNIBMPo5gc+hKZHhbG5iMNCZpyBfzVejKMQh
-	 N/PjM1TFZsmda9PAg3jP0I1RRK40zruUz2h8Zu/f3FF/fx91WxyRwpVXopBK/IwwvH
-	 3SE063lcfzLfxOjOzZcr2EXD2DieRD36UQmYQfGcepzs/xEwKoTdxlz2XJjchXtrkf
-	 ZSk/ySrmC207g==
-Date: Sat, 1 Jun 2024 19:54:52 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Andrew Josey <ajosey@opengroup.org>
-Cc: Geoff Clare <gwc@opengroup.org>, linux-man <linux-man@vger.kernel.org>, 
-	Eric Blake <eblake@redhat.com>, Brian Inglis <Brian.Inglis@shaw.ca>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: Re: POSIX manual pages
-Message-ID: <3ct4esw4xculwxyyohfuboecqfleateyz4qib6fn6ehhxyphes@3aimq4vlwxyf>
-References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
- <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
- <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+	s=arc-20240116; t=1717266022; c=relaxed/simple;
+	bh=lE5HLm+sFWxp+0yGq4a8AblBBUxNIyDAHO8L+Noxo/o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
+	 In-Reply-To:Content-Type; b=QEeaHc4kG1MAJyRQwrqI7ph3cZCwXlwWJGDYR8LhVmWe8ANJXrAbfkEV2fD+U41HGM+AlDylAEAkuvTFDq/GW6Kp2FUTQSUjbuWMdz1My4XlQkbw2fl0VRo1Ms4bX4TyWSgv10PywOMKNzRXVSJy+LM23yhYFESp5+aANhmnRjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=SystematicSW.ab.ca; spf=pass smtp.mailfrom=SystematicSW.ab.ca; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=SystematicSW.ab.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=SystematicSW.ab.ca
+Received: from omf17.hostedemail.com (a10.router.float.18 [10.200.18.1])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id ADCEDC09B9;
+	Sat,  1 Jun 2024 15:15:27 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: Brian.Inglis@SystematicSW.ab.ca) by omf17.hostedemail.com (Postfix) with ESMTPA id CA2F11A;
+	Sat,  1 Jun 2024 15:15:24 +0000 (UTC)
+Message-ID: <bf16e9f9-80ec-4f66-b11f-284ddac1952e@SystematicSW.ab.ca>
+Date: Sat, 1 Jun 2024 09:15:23 -0600
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fbgu6cfa5f3jkvr6"
-Content-Disposition: inline
-In-Reply-To: <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+User-Agent: Mozilla Thunderbird
+Reply-To: linux-man@vger.kernel.org
+Subject: Re: POSIX conformance document
+Content-Language: en-CA
+To: Linux Man-Pages <linux-man@vger.kernel.org>
+References: <12722244.etNSJPHsjv@nimes>
+From: Brian Inglis <Brian.Inglis@SystematicSW.ab.ca>
+Organization: Systematic Software
+Cc: Bruno Haible <bruno@clisp.org>, Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <12722244.etNSJPHsjv@nimes>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Stat-Signature: 1rfzxrby9h9oqausp4a59y4pygkhzw81
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: CA2F11A
+X-Session-Marker: 427269616E2E496E676C69734053797374656D6174696353572E61622E6361
+X-Session-ID: U2FsdGVkX1/WRPH5ltaZCC9yaaGljgKMthcTnHPzjiU=
+X-HE-Tag: 1717254924-788712
+X-HE-Meta: U2FsdGVkX19k/eU5J766fkznWdKNDV0sBLfNGdViKHMwwmW7UFkkhB0yCMtzSPN9lsyE06w3kCbltcAD3vIKqBML2mcuh0iSu2fMstmWxdsrKIm2QaNs1NTV55lJkRESRAKZH/6b3gj8gkn44r68pxzMxW0oCESBV1DsPAdYDWaeQ24gyAhsCufYEqScDJ+E0fSun4ZdkbtugMEtjDHI6RYkBasmSwaeyv75G1jtMnXgnQ12agRj+3hEhGcOcxDTRUlAO5pmmb1iPjZw5WlPkZlIDVhm0FRhyAf5dbEfQRqq4Dqbc3GJB+f/cRAkxsKl6DKzJtjAx5ObUtxSleYZz5L1zE01LF/DRelRAhGgebvW7Q82Ow+dhH3XPE5Psv66r7BqFSiC1KPFJWY47MoD/yUjTpI17hfxyBaxY7XOToAyPwLCzYgNvU5dGlmbjp7V/nwstVOtwIhQ9D2Q3iEYXSbSLTQPw358s5tEpuk3oJm9OCtOHjfEqzY8qJ0TxS7RCwMd0Aum6HOHhXPoj8OKfa8LmJEYQvL3TR3UDemNr9p17XhuE/EKPeohuarPi/dlMr9cb4DK5JaekT2pVU4oaP+uCX1qDQz9TtoFPnLUW6xOgBiA7Lcyge+p3ZS40MZa+fiy6iipGZ0mfXozgQJE/8cd4p4N9mEa7PSYhQjmxYY=
 
+On 2024-05-31 15:21, Bruno Haible wrote:
+> POSIX [1] specifies that conforming implementations shall come with a
+> "conformance document" that describes "implementation-defined" characteristics
+> [2]. Two such example conformance documents are [3], [4].
+> 
+> For Linux (or any Linux distro), I cannot find such a document on the web.
+> 
+> Is such a document only considered useful for business/marketing purposes?
+> Isn't there some value in it also for regular users and developers?
+> 
+> Will there be some effort to create such a document for the upcoming
+> POSIX.1-2024 standard, for Linux and the GNU libraries and tools?
+> 
+> I'm asking because I've collected the answers for all *gettext() functions
+> and the msgfmt and xgettext programs (that will be part of this new POSIX),
+> but I don't know where to best document them. Likely in the manual of
+> GNU libc and GNU gettext, right?
+> 
+>           Bruno
+> 
+> [1] https://en.wikipedia.org/wiki/POSIX
+> [2] https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap02.html
+> [3] https://empyreal96.github.io/nt-info-depot/SourceLevel/base/subsys/posix/pcd.doc
+> [4] https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_prog/posix_conformance.html
 
---fbgu6cfa5f3jkvr6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Andrew Josey <ajosey@opengroup.org>
-Cc: Geoff Clare <gwc@opengroup.org>, linux-man <linux-man@vger.kernel.org>, 
-	Eric Blake <eblake@redhat.com>, Brian Inglis <Brian.Inglis@shaw.ca>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: Re: POSIX manual pages
-References: <25806cfb-8845-e4d4-6c18-6b02cb8c92ab@kernel.org>
- <0ABD21B4-4E03-4EE0-9F6D-D04CDDF00260@opengroup.org>
- <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <ab297c03-412d-45df-8d7b-6f5223327694@kernel.org>
+Hi Bruno,
 
-Hi Andrew,
+You might want to sign up to the Open Group to access the Austin Group (POSIX) 
+documents (including latest drafts to update your info and documents), become a 
+member, email your questions, and participate as a documentor and implementor on 
+their list:
 
-Do you have any updates about this?
+	https://www.opengroup.org/austin/
 
-On Wed, Sep 13, 2023 at 06:15:09PM GMT, Alejandro Colomar wrote:
-> Hi Andrew,
->=20
-> [I reordered your answer for my response.]
->=20
-> On 2023-09-05 14:34, Andrew Josey wrote:
-> >=20
-> > hi Alejandro
-> >=20
-> > Apologies for the delay.
->=20
-> NP
->=20
-> >=20
-> > Are you in touch with Michael Kerrisk?
->=20
-> Nope.
->=20
-> > It also appeared in discussions with Michael in 2020, that he had a way=
- to convert the source format to man page format.
->=20
-> Yep, this is probably "the way":
->=20
-> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/tree/p=
-osix.py>
->=20
-> > In the past we have worked with him and made a permissions grant - whic=
-h outlines the terms we are able to grant =E2=80=94 these are limited
-> > by the copyright holders.=20
->=20
-> I understand.  Would it be possible to suggest the copyright holders open=
-ing a
-> little bit more?  The C++ standard seems to be more open (it has a public=
- git
-> repository with the source of the drafts) [1].  Maybe POSIX could do some=
-thing
-> similar?    It would make contributions to the man-pages-posix project ea=
-sier,
-> as contributors would be able to test the script with the original source=
-s;
-> instead of just blindly trying something, and asking the maintainer to tr=
-y it
-> with the secret sources.
+You can also view their discussions and document defect issues on web archive:
 
-Just to remind of what I'm asking:
+	https://www.mail-archive.com/austin-group-l@opengroup.org/
 
--  A publicly accessible git repository containing (at least) the drafts
-   of the POSIX standard roff(7) sources, similar to
-   <https://github.com/cplusplus/draft> (which is not roff(7); I just
-   mean similar in that it's publicly available, and it contains ISO
-   standard draft sources).
+and get updates from an Atom/RSS Feed (e.g. Firefox/Chrome/... bookmark feeds):
 
-I would include that repository as a git submodule of
-man-pages-posix.git, where I would maintain the translation script for
-building the manual pages.
+	https://www.mail-archive.com/austin-group-l@opengroup.org/maillist.xml
 
-Have a lovely day!
-Alex
+without subscribing to their ML.
 
->=20
-> [1]:  <https://github.com/cplusplus/draft>
->=20
->=20
-> Cheers,
->=20
-> Alex
->=20
-> --=20
-> <http://www.alejandro-colomar.es/>
-> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
->=20
+[Alex has contacted them about POSIX man pages, and hopefully may get info about 
+updating POSIX man pages to 2024: latest draft standard has been approved by 
+IEEE and Open Group Board, internal publication of the standard with final front 
+matter is due 2024-06-14, ISO/IEC ballot closes 2024-06-28.]
 
+-- 
+Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
 
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---fbgu6cfa5f3jkvr6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZbYGwACgkQnowa+77/
-2zJ+2A/9GdLEIKv1Itb31LU0wqdH+CBnCqRbk2M4i9W6bU8Z9vBN3TsxxKahLHjP
-MwWlmCGMkGUoFQh7pOn2JrAZycgg9riQcJRMJtItg74Es/dynnRPtxbwYY0VUWUr
-ryMoPm3v4igbrJOjT+2ABjNQbZrur2g5TjaMjqKxzoIc86byBumPAgh2qDkbgiP+
-r4aW5VsN5dVJH4blX32p3KzGsq6ltZ6Li9mOtiiOjnrlh3ZnTO0gPmBW6uHlnNYI
-IcUtXdNtFNT+nX3jRUWgGjHMEy9fP4xfzvMgot4DUp96Z6UhpxddlFY4fMSUfvSM
-sm6GCOsRctN0VJnG1kVdNoVbH7vLo3JvMioJ9ID9RL+FHomxiyXzWdfFZyDCPOup
-ZQCoJ3TB+NpEyWR0VbvnkY5g9P4Hd/cRDDgAkM4GaPSgV8O584mnVJs5E9lZqOaQ
-0VG4l1jbzZCO1GDHy2S50tpiu9PbDxhRi/zgj/b8n8dpv9zOQMOZ//g47C+ZmBdK
-EpavjQ8gys2/fLqBpT8zelMnfKLOe6fthTUOkn25MtB25pOy7S9nBRjvCbuCKXJ2
-ps+XSGIHlF5FfuHht1X/Sjku1jlL6NWgWGc+wL7z0/3H5d9l3gMxemWqaqlWADzn
-b0jf+Wv52rRsgdaXMXkx+pVkeJjpOfnX+e2LaJq6OdPSBW74GZM=
-=YUIC
------END PGP SIGNATURE-----
-
---fbgu6cfa5f3jkvr6--
+La perfection est atteinte                   Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
+                                 -- Antoine de Saint-Exupéry
 
