@@ -1,121 +1,144 @@
-Return-Path: <linux-man+bounces-1026-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1027-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id D54788D7177
-	for <lists+linux-man@lfdr.de>; Sat,  1 Jun 2024 20:20:26 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2C78D75C1
+	for <lists+linux-man@lfdr.de>; Sun,  2 Jun 2024 15:38:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 81CC11F219E6
-	for <lists+linux-man@lfdr.de>; Sat,  1 Jun 2024 18:20:26 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0FB892818D0
+	for <lists+linux-man@lfdr.de>; Sun,  2 Jun 2024 13:38:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76FA127447;
-	Sat,  1 Jun 2024 18:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D640B3A1DC;
+	Sun,  2 Jun 2024 13:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b="jDNlvgml";
+	dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b="Qhtxj0oC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3691171D
-	for <linux-man@vger.kernel.org>; Sat,  1 Jun 2024 18:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717266022; cv=none; b=G78YCP/1b0rtYVmc8aFnTJAouhI5Vx0YEPZlJJS883ABtjA1YbIsWlBYtF1hJY9gc9PCNLS9nt8EKB5Jzz3UxOd7eUi0YLKDy8lp9y2yOuTjGFU8lThnyq42iJ+zaEHANB3YJIFHvIPEG/rZ8iNxP54LyYPG+Nz5vxcg5/6S99g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717266022; c=relaxed/simple;
-	bh=lE5HLm+sFWxp+0yGq4a8AblBBUxNIyDAHO8L+Noxo/o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
-	 In-Reply-To:Content-Type; b=QEeaHc4kG1MAJyRQwrqI7ph3cZCwXlwWJGDYR8LhVmWe8ANJXrAbfkEV2fD+U41HGM+AlDylAEAkuvTFDq/GW6Kp2FUTQSUjbuWMdz1My4XlQkbw2fl0VRo1Ms4bX4TyWSgv10PywOMKNzRXVSJy+LM23yhYFESp5+aANhmnRjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=SystematicSW.ab.ca; spf=pass smtp.mailfrom=SystematicSW.ab.ca; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=SystematicSW.ab.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=SystematicSW.ab.ca
-Received: from omf17.hostedemail.com (a10.router.float.18 [10.200.18.1])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id ADCEDC09B9;
-	Sat,  1 Jun 2024 15:15:27 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: Brian.Inglis@SystematicSW.ab.ca) by omf17.hostedemail.com (Postfix) with ESMTPA id CA2F11A;
-	Sat,  1 Jun 2024 15:15:24 +0000 (UTC)
-Message-ID: <bf16e9f9-80ec-4f66-b11f-284ddac1952e@SystematicSW.ab.ca>
-Date: Sat, 1 Jun 2024 09:15:23 -0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B61540848
+	for <linux-man@vger.kernel.org>; Sun,  2 Jun 2024 13:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1717335478; cv=pass; b=grJ+wA7+K137VQakWFog1029yOi4A9y5YU87L8o9ilH15Y6nLsEtLH91B/PBBMivnSy1TZvBZX1CK6fstRTzctQt1wTnGzJv1Of5zmZL16NMXWp3kFHVO6aIW0a9fnBRmSAKjxi1DBhKpaP3sUu08EJujKW4Q03SbHuEIWotBVg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1717335478; c=relaxed/simple;
+	bh=CU75iDgVUYNU+RhVzFJ5RQuMLeVAUuHTLQc4v6OWoN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h2JFnXhJA/lWOrcBvOgIQSI2ty0JwGsKexWYAc87wKh76VE37nRYFNWKxytwPga577fLWdBcP4Zi+HiKXXr3nbcGOFsW0qaTyGVYpBgHg7698mfYI6LmPozmc0c0wjiyjO484dL6NIAr9CSSI4G7xZa3li5IB1275aDjftW1b6s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=clisp.org; spf=none smtp.mailfrom=clisp.org; dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b=jDNlvgml; dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b=Qhtxj0oC; arc=pass smtp.client-ip=85.215.255.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=clisp.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=clisp.org
+ARC-Seal: i=1; a=rsa-sha256; t=1717335111; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=eBsnXUrUJMLlzlAzarLGJUj5MXCUpOcTDvlUrefD+zw8h5M6m4AzFd1CziAo3Wi9KR
+    8Md1ou+ArsEL/NYHvys45r4r7bBolZqxXTy0xSxrU2PbkJLEtlnO9wljfDrJiclUIp/0
+    39QJUqnB+1IR1alnoXzljeXru3mdjrX6yUg+6YhfwditYMWeYjMCHvlEX0NUkJAfxtLF
+    hPURO6JAz28soUkpZF9Ur9bQASL9fgVa8iiuQtzKSdn/5UwfjhHByO1QYqLuoGhr/CCB
+    Mqd3fkXPe+Zi1bnz6vD+pWkHY6duUJKYcy4kT6Wg0ecYB29y7pWaslpWOpCjhn24sfnW
+    mI2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1717335111;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=FUdmilIhoP203nn1U0vC6hvrmA74mMhbEJaPrFDYWec=;
+    b=qcY5CSp6B2JVcNlMReZ6WCavovSkF9zTLPF+eVw6h2wo3TejfFcshpNI03lZguvziz
+    ZNo2xKD960ZgMkHEZpBNYdFj4uGZzaCrALFm4C176BXrqO4USiKttyAW2QzZsH06Go//
+    5WIqf2Vm2LWl5fNDvpgCOXl647E/5nQCuIio2HjlYxL+BaNxve8o3fEEQB11TgjwZMGa
+    a1eKtDVItheEm1s9fYEQmSC48nDDyqMqZrtHf8e9qT+40YXvC8v1izNYftLr/DbXp0xQ
+    OkAVqwIKXCS9LJugajAr3nmZBhSMaywIOdazvT+eLxRSX6DyDIoU8Fnbqxmx9TadlVCP
+    A0tg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1717335111;
+    s=strato-dkim-0002; d=clisp.org;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=FUdmilIhoP203nn1U0vC6hvrmA74mMhbEJaPrFDYWec=;
+    b=jDNlvgmld+cRlxV2uWwLDOJAmbjTMVusL6/EUHytAdmm2uv4u8Bks0jwdfwWDFFdqN
+    Vg9KEwIBFvUMcbuCpuXR6DayI58sCNPFrDYbp+mdIjKItXXqOlJ095Z4CRQsWZPH0BJ5
+    tGbXNhKrUd+le+BxBB/P2K+1+YhnzcW2gZFq89lGV2t8Cf268YCsI9tuuIOkX/VfgFXB
+    1ixD1dhApDbNGRmjk7ZzWRIOl3Ey642UsVYJQCen3vOuMcsdw2yAKY67Lq2UKgpRqUgG
+    w6+UpfsxyFvbk1ZYCoegk152raP1Ua6fhGs0FQaXyYMiGO5qvpESKr+4XVwQBXFnJKuN
+    aOeg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1717335111;
+    s=strato-dkim-0003; d=clisp.org;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=FUdmilIhoP203nn1U0vC6hvrmA74mMhbEJaPrFDYWec=;
+    b=Qhtxj0oCG0a6S16lxwOgM4RYqxeLslXTlBf3pJcl35ba/Ozsbx1F2WSBbVjEHaMgiP
+    YDnbyuiptUrhaRL9siDQ==
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH0WWb0LN8XZoH94zq68+3cfpPD1acihFmvqn7V2YisZYMQHV5gcw=="
+Received: from nimes.localnet
+    by smtp.strato.de (RZmta 50.5.0 AUTH)
+    with ESMTPSA id Ndd2ca052DVomES
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 2 Jun 2024 15:31:50 +0200 (CEST)
+From: Bruno Haible <bruno@clisp.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: POSIX conformance document
+Date: Sun, 02 Jun 2024 15:31:50 +0200
+Message-ID: <4569695.4PAe9RTHqG@nimes>
+In-Reply-To: <u27ch3r74mkuf4k6e6cxteclayjupwvpjplk7xcltnekhxu2hz@rb3xp7mhnaci>
+References: <12722244.etNSJPHsjv@nimes> <u27ch3r74mkuf4k6e6cxteclayjupwvpjplk7xcltnekhxu2hz@rb3xp7mhnaci>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: linux-man@vger.kernel.org
-Subject: Re: POSIX conformance document
-Content-Language: en-CA
-To: Linux Man-Pages <linux-man@vger.kernel.org>
-References: <12722244.etNSJPHsjv@nimes>
-From: Brian Inglis <Brian.Inglis@SystematicSW.ab.ca>
-Organization: Systematic Software
-Cc: Bruno Haible <bruno@clisp.org>, Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <12722244.etNSJPHsjv@nimes>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Stat-Signature: 1rfzxrby9h9oqausp4a59y4pygkhzw81
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: CA2F11A
-X-Session-Marker: 427269616E2E496E676C69734053797374656D6174696353572E61622E6361
-X-Session-ID: U2FsdGVkX1/WRPH5ltaZCC9yaaGljgKMthcTnHPzjiU=
-X-HE-Tag: 1717254924-788712
-X-HE-Meta: U2FsdGVkX19k/eU5J766fkznWdKNDV0sBLfNGdViKHMwwmW7UFkkhB0yCMtzSPN9lsyE06w3kCbltcAD3vIKqBML2mcuh0iSu2fMstmWxdsrKIm2QaNs1NTV55lJkRESRAKZH/6b3gj8gkn44r68pxzMxW0oCESBV1DsPAdYDWaeQ24gyAhsCufYEqScDJ+E0fSun4ZdkbtugMEtjDHI6RYkBasmSwaeyv75G1jtMnXgnQ12agRj+3hEhGcOcxDTRUlAO5pmmb1iPjZw5WlPkZlIDVhm0FRhyAf5dbEfQRqq4Dqbc3GJB+f/cRAkxsKl6DKzJtjAx5ObUtxSleYZz5L1zE01LF/DRelRAhGgebvW7Q82Ow+dhH3XPE5Psv66r7BqFSiC1KPFJWY47MoD/yUjTpI17hfxyBaxY7XOToAyPwLCzYgNvU5dGlmbjp7V/nwstVOtwIhQ9D2Q3iEYXSbSLTQPw358s5tEpuk3oJm9OCtOHjfEqzY8qJ0TxS7RCwMd0Aum6HOHhXPoj8OKfa8LmJEYQvL3TR3UDemNr9p17XhuE/EKPeohuarPi/dlMr9cb4DK5JaekT2pVU4oaP+uCX1qDQz9TtoFPnLUW6xOgBiA7Lcyge+p3ZS40MZa+fiy6iipGZ0mfXozgQJE/8cd4p4N9mEa7PSYhQjmxYY=
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 2024-05-31 15:21, Bruno Haible wrote:
-> POSIX [1] specifies that conforming implementations shall come with a
-> "conformance document" that describes "implementation-defined" characteristics
-> [2]. Two such example conformance documents are [3], [4].
+Hi Alejandro,
+
+> > Is such a document only considered useful for business/marketing purposes?
 > 
-> For Linux (or any Linux distro), I cannot find such a document on the web.
+> Mostly.
 > 
-> Is such a document only considered useful for business/marketing purposes?
-> Isn't there some value in it also for regular users and developers?
+> > Isn't there some value in it also for regular users and developers?
 > 
-> Will there be some effort to create such a document for the upcoming
-> POSIX.1-2024 standard, for Linux and the GNU libraries and tools?
+> The documentation for each API usually documents the implementation-
+> defined behavior, and differences to other systems.  We don't have it
+> centralized in a single document, but we have something.
 > 
-> I'm asking because I've collected the answers for all *gettext() functions
-> and the msgfmt and xgettext programs (that will be part of this new POSIX),
-> but I don't know where to best document them. Likely in the manual of
-> GNU libc and GNU gettext, right?
+> While I don't see much usefulness for myself as a user in having a
+> centralized document for that, ...
+
+OK, so let's discard the idea of a centralized document, and document it
+where appropriate. Documenting it in individual package documentations
+is also easier for our community.
+
+> > Will there be some effort to create such a document for the upcoming
+> > POSIX.1-2024 standard, for Linux and the GNU libraries and tools?
 > 
->           Bruno
-> 
-> [1] https://en.wikipedia.org/wiki/POSIX
-> [2] https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap02.html
-> [3] https://empyreal96.github.io/nt-info-depot/SourceLevel/base/subsys/posix/pcd.doc
-> [4] https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_prog/posix_conformance.html
+> Heh, I suppose not, unless some company sponsors it, or some individual
+> feels a strong need for it.  But just guessing.
 
-Hi Bruno,
+I agree; there is no reason why anyone should make this effort in 2024
+after it wasn't done in 2018.
 
-You might want to sign up to the Open Group to access the Austin Group (POSIX) 
-documents (including latest drafts to update your info and documents), become a 
-member, email your questions, and participate as a documentor and implementor on 
-their list:
+> In the Linux man-pages project I'm documenting differences with POSIX or
+> the BSDs in the VERSIONS section (see man-pages(7)); sometimes in
+> CAVEATS, if it's a tricky detail; it depends.
 
-	https://www.opengroup.org/austin/
+Thanks for the pointer.
 
-You can also view their discussions and document defect issues on web archive:
+VERSIONS or STANDARDS (previously: CONFORMING TO) appear adequate for
+documenting implementation-defined behaviour.
 
-	https://www.mail-archive.com/austin-group-l@opengroup.org/
+For texinfo documentation, I guess it will be up to the individual package
+maintainer.
 
-and get updates from an Atom/RSS Feed (e.g. Firefox/Chrome/... bookmark feeds):
+Bruno
 
-	https://www.mail-archive.com/austin-group-l@opengroup.org/maillist.xml
 
-without subscribing to their ML.
 
-[Alex has contacted them about POSIX man pages, and hopefully may get info about 
-updating POSIX man pages to 2024: latest draft standard has been approved by 
-IEEE and Open Group Board, internal publication of the standard with final front 
-matter is due 2024-06-14, ISO/IEC ballot closes 2024-06-28.]
-
--- 
-Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
-
-La perfection est atteinte                   Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
-                                 -- Antoine de Saint-Exupéry
 
