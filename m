@@ -1,126 +1,122 @@
-Return-Path: <linux-man+bounces-1028-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1029-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4E888D75C2
-	for <lists+linux-man@lfdr.de>; Sun,  2 Jun 2024 15:40:22 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D8F18FBB6E
+	for <lists+linux-man@lfdr.de>; Tue,  4 Jun 2024 20:19:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 94F0BB213BD
-	for <lists+linux-man@lfdr.de>; Sun,  2 Jun 2024 13:40:19 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2C1731F22826
+	for <lists+linux-man@lfdr.de>; Tue,  4 Jun 2024 18:19:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8AAED3B7AC;
-	Sun,  2 Jun 2024 13:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C46D014A61B;
+	Tue,  4 Jun 2024 18:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b="o+7s86TB";
-	dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b="IURZNcSA"
+	dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b="LdY8Zgcv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0504839FD4
-	for <linux-man@vger.kernel.org>; Sun,  2 Jun 2024 13:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717335615; cv=pass; b=eDURt4rAaXLOMjOSvGnlZ4DK7PF9tpHgO3a/brirUv5vSBpq78W0UFCaiUhUSdlsg6aL75XZ3WpLn19wLcglVfg9TWy8WMm+wEV3jwLDS+VI1rT/DaqFpvbT7YZZtnddqc5QjoKfdnJastWcLepxhmXl7q63fqy5lFrAyEflfOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717335615; c=relaxed/simple;
-	bh=kB6aHioASFX0k+BZ/obrlTX/skrRTtR4/Hgjvhb8thM=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WZx/jQjdou9qsa/oxha2L0UuaXDw6mKkFrlHUr99VymOD/s+HnzN/3dXSazHubMVVva8b5BLfe23WhReBI2kPhxzqv+XpQkG500TTLdb5zMeG+Pi6O215IxtjPlFBMC59XsbMnlSqOmiP3tKZVOwh2BUOBu2nZBQuEG8kzRd+d4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=clisp.org; spf=none smtp.mailfrom=clisp.org; dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b=o+7s86TB; dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b=IURZNcSA; arc=pass smtp.client-ip=85.215.255.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=clisp.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=clisp.org
-ARC-Seal: i=1; a=rsa-sha256; t=1717335429; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=LP0/hHzocAfxXckkpiLikpyBH4dRIvyz+anDSUfGtz0K8c2Kb6Iu+h6dbeK9KUZjWX
-    ytGBXYG63TfZ0AparxNw1Fp0r2Zh4Lawrfsl/3PDDDloiybHccAXya0cTtTozGoPZ70L
-    ZABkVDTIWTxRa+LfdliEIU8t270aPiww/q+X2TnTXYAOpAT2EkKGqpWLa46zDrHK1WaK
-    F1s5hKKzSzJ3eRhHdOuRGN9sF9KoTB16TqKcUo47VSMxnT+o124gMSkdMBLlEz/8W5HM
-    3wpCj03J3Dkn1hYfYaaggUu35/EEDetPHnEX/NaI5r9J4MAbhUBih3lBtFtMgOlEQIh6
-    FIOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1717335429;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:To:From:Cc:Date:From:
-    Subject:Sender;
-    bh=0A3MobV4h1eOtptnw4SVVGoO2KcZWwQYes+U1qRYOuo=;
-    b=Jr0MgclwDOl5p3THRWZNAZfBCmMThv6Tn4Y+FtFtBbqwrl3TRncfzH+GMdVZ68MRBh
-    iwsUoiR6ug5E05FgQRgNdrrLWjYSPJgMEiYtc1Hn8PSCA2HZoUAl73uOhgmLCQc3GTHH
-    xNYP4U5NUmlK78p0K3aDitv4vLio5bWDzBDj3IQlmcPL0WnZc/fI4b/4d+HVTQ67sWRA
-    V+uOfEBy6zqgEqH0DoMtj7EswbezvrQP/E4p5Hek+xjNpmFM52ihmgXWkHXsZv7VAxFM
-    9AXdCU+q/jctaWR0qGtAkKDpbNxIBjZwOlcYkEj8VYQjteLd0XULKfYFON8DRqMSBt0X
-    Od0g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1717335429;
-    s=strato-dkim-0002; d=clisp.org;
-    h=References:In-Reply-To:Message-ID:Date:Subject:To:From:Cc:Date:From:
-    Subject:Sender;
-    bh=0A3MobV4h1eOtptnw4SVVGoO2KcZWwQYes+U1qRYOuo=;
-    b=o+7s86TBS2mvBquP4chkm7jha8Ki7QBmivd00h0/xeLVRtshDpYHhxXdyp5x5f6z6F
-    pZ97iKnuzthkBoRxIvARi/yXoe3CQbUX66GKKT4/zJ0GAkR/R+v1jb1UFzqxpiS+Tfj5
-    MdQ5KRGgrNjpkiqORdS6bJARDO2zL+ARjEKJWyoK0GkDFUQpjPWQVr2Z/GrSXyQbkEF0
-    3u90gjSdd2xwh19lF/sQnf8uZjXjNyI+rNfVT4GUAWFKscbIP9NM4M/rnBUYaEb36kF2
-    dI/VI390Cc2zt6aEXKnooDik5t3cB1cOYYMw6f7tHIStIc2b6KjtGlMGY5fkdGV3xtuk
-    gJvQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1717335429;
-    s=strato-dkim-0003; d=clisp.org;
-    h=References:In-Reply-To:Message-ID:Date:Subject:To:From:Cc:Date:From:
-    Subject:Sender;
-    bh=0A3MobV4h1eOtptnw4SVVGoO2KcZWwQYes+U1qRYOuo=;
-    b=IURZNcSAyXeZZfDX98ifEDiddC1c6SvwwXbM2/24wVZCuPpnyuBiPLnt8yqWeRJHV1
-    X5c8QVrmWQJZyVAjHCDg==
-X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH0WWb0LN8XZoH94zq68+3cfpPD1acihFmvqn7V2YisZYMQHV5gcw=="
-Received: from nimes.localnet
-    by smtp.strato.de (RZmta 50.5.0 AUTH)
-    with ESMTPSA id Ndd2ca052Db9mJq
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 2 Jun 2024 15:37:09 +0200 (CEST)
-From: Bruno Haible <bruno@clisp.org>
-To: Linux Man-Pages <linux-man@vger.kernel.org>, Alejandro Colomar <alx.manpages@gmail.com>
-Subject: Re: POSIX conformance document
-Date: Sun, 02 Jun 2024 15:37:09 +0200
-Message-ID: <2557873.JmPAfv1VhO@nimes>
-In-Reply-To: <bf16e9f9-80ec-4f66-b11f-284ddac1952e@SystematicSW.ab.ca>
-References: <12722244.etNSJPHsjv@nimes> <bf16e9f9-80ec-4f66-b11f-284ddac1952e@SystematicSW.ab.ca>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9D214A611
+	for <linux-man@vger.kernel.org>; Tue,  4 Jun 2024 18:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1717525150; cv=none; b=Gcn+M94FrqbBPd/KgonL/pjBLAy5Usu8fFNOJ+f0r/B4OcnThFqIWI+gbhlxSdO6JjYIJhjJvBUIpbD7YYFCmS0Tffv1ca/qoLGb7szFDFpPp2i5VdXR3TSBUHrJgl0hNOkGUeVuSco88K3YeM0ZBteOtff4YuKCHZUmyVQt4vE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1717525150; c=relaxed/simple;
+	bh=HGZ9suZo8vXdiqj7tabYZ1WD4VJ6H3Li1uAK1piABRk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rXtggyeiwWCaNSdmuWPb3BstjlXjEBTKrtzXq3YxEQiVKsKnAWTspwh1LB3CjKgwl+AlCqIwDTTU65yrfWaFWTztuJZ4Vc6yExc//tj8Emn+P2Bf9YZrEZu2L0EkuZZMZKgIRpRPiSQUCx9/j8eyiVqVy4y3pvgl9e7Lfq0lyrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com; spf=pass smtp.mailfrom=fastly.com; dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b=LdY8Zgcv; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastly.com
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-702342c60dfso1049310b3a.2
+        for <linux-man@vger.kernel.org>; Tue, 04 Jun 2024 11:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fastly.com; s=google; t=1717525148; x=1718129948; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wC3ityLaryFfmcqE5qIfw7y/RSW153dRlcLlRi2VmX4=;
+        b=LdY8ZgcvbAbYf4x1mU4JKBB3Ge1XlMvlgb7yIblpkb66LNVZw/o8A+LBVDqth6HyHY
+         d3yrHEW1i+3t8Zd/tzmyv1uDIn5Vn49fXPKDYzFvwvDODa7D4LaDa6CEg3WgEdk0Km+K
+         9LY+rz6Tjqxr9BPVYbmadpKNNNuao9jcy0k5M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717525148; x=1718129948;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wC3ityLaryFfmcqE5qIfw7y/RSW153dRlcLlRi2VmX4=;
+        b=vkQbKom6idZysUryaAcMu007FEnWCFSQb/ykQ/RhMAFI+QW7tU88pp6a8SHy5EHbyC
+         oEZANG+catvzKu72zESDdpuaMQAvitmRVx2aZx+ytgGr7DdqpI1k65MpRABkKwEJnN8t
+         WH0+4LuQKaEFrlKzZbeWN7vrN8dhCe9JyeyV2ACzMTHRR1z6E3QVTb2xXIHz3AF6K7ZK
+         OSSWXCDGAYshAspHnSYj5Qtcrq7YWwyNzZKV+So2ciO53eix/j7s689n9lGWqm0elhvl
+         cBlmhRnWWkzZKIbrNQvC5xl2IgzdtfVcFn9CwwSy5AKtbvnPrz7Q2igpXdE3Pe8Bk+Kp
+         Wn+Q==
+X-Gm-Message-State: AOJu0YwXUGmYHdZ2SwJO2WyDuvPFMy1daVKwHF0oVpbUG6QITpPp0xVH
+	GS9wYPXsi/wXpeVDv9EP8DLTnGpn2CC/Z9sMYmqtgKSyqpfQ1twfb2e1JCZmbxEE3shAusjbSdL
+	h
+X-Google-Smtp-Source: AGHT+IEipIGAvnIr8Uv/y1kU9xbkQxXxkj4JP5/4PUmHJwhAfl0zwhmad2I8ONJfw7Mwpm1njNNNEg==
+X-Received: by 2002:a05:6a00:2190:b0:702:7d70:9073 with SMTP id d2e1a72fcca58-703e59b0892mr295154b3a.19.1717525148262;
+        Tue, 04 Jun 2024 11:19:08 -0700 (PDT)
+Received: from localhost.localdomain (c-24-6-151-244.hsd1.ca.comcast.net. [24.6.151.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-70242b13550sm7314604b3a.182.2024.06.04.11.19.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Jun 2024 11:19:07 -0700 (PDT)
+From: Joe Damato <jdamato@fastly.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Joe Damato <jdamato@fastly.com>
+Subject: [PATCH 0/1] ioctl_epoll.2: Add epoll ioctl documentation
+Date: Tue,  4 Jun 2024 18:17:39 +0000
+Message-Id: <20240604181740.1741860-1-jdamato@fastly.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 
-Brian Inglis wrote:
-> You might want to sign up to the Open Group to access the Austin Group (POSIX) 
-> documents (including latest drafts to update your info and documents), become a 
-> member, email your questions, and participate as a documentor and implementor on 
-> their list:
-> 
-> 	https://www.opengroup.org/austin/
-> 
-> You can also view their discussions and document defect issues on web archive:
-> 
-> 	https://www.mail-archive.com/austin-group-l@opengroup.org/
-> 
-> and get updates from an Atom/RSS Feed (e.g. Firefox/Chrome/... bookmark feeds):
-> 
-> 	https://www.mail-archive.com/austin-group-l@opengroup.org/maillist.xml
-> 
-> without subscribing to their ML.
+Greetings:
 
-Thanks for the instructions. For simple defects, I occasionally do this.
-For defects with a possibly complex treatment (due to different standards and/or
-different incompatible vendors) I prefer to go through Eric Blake, who has
-more experience in this area than I have.
+This is my first contribution to the man-pages project, so please excuse
+any obvious issues; I am happy to take feedback and send updated patches as
+needed.
 
-Bruno
+This change documents a new ioctl interface for epoll added to Linux kernel
+6.9 [1] and glibc [2] for controlling busy poll on a per-epoll fd basis.
 
+I noted that other ioctls have ioctl_*.2 files, so I followed that
+pattern in this change.
 
+Based on the current status of glibc, I would assume that this change will
+be part of glibc 2.40 (it is listed under 2.40 in the NEWS section), which
+may be released in a few months [3].
+
+Given that, I am not sure if I should wait until glibc 2.40 has been
+released before sending this change to this project or not.
+
+Please let me know.
+
+Thanks,
+Joe
+
+[1]: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/fs/eventpoll.c?h=v6.9&id=18e2bf0edf4dd88d9656ec92395aa47392e85b61
+[2]: https://sourceware.org/git/?p=glibc.git;a=commit;h=92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
+[3]: https://sourceware.org/glibc/wiki/Glibc%20Timeline
+
+Joe Damato (1):
+  ioctl_epoll.2: New page describing ioctl(2) operations for epoll fds
+
+ man/man2/epoll_create.2 |   1 +
+ man/man2/epoll_ctl.2    |   1 +
+ man/man2/ioctl_epoll.2  | 203 ++++++++++++++++++++++++++++++++++++++++
+ man/man7/epoll.7        |   1 +
+ 4 files changed, 206 insertions(+)
+ create mode 100644 man/man2/ioctl_epoll.2
+
+-- 
+2.34.1
 
 
