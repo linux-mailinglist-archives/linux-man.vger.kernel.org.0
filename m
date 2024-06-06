@@ -1,252 +1,440 @@
-Return-Path: <linux-man+bounces-1033-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1034-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB64C8FD312
-	for <lists+linux-man@lfdr.de>; Wed,  5 Jun 2024 18:43:08 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 359C08FF6F8
+	for <lists+linux-man@lfdr.de>; Thu,  6 Jun 2024 23:40:10 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 589DE286B60
-	for <lists+linux-man@lfdr.de>; Wed,  5 Jun 2024 16:43:07 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 7E220B215B8
+	for <lists+linux-man@lfdr.de>; Thu,  6 Jun 2024 21:40:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8877815F33A;
-	Wed,  5 Jun 2024 16:43:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 215C971B3A;
+	Thu,  6 Jun 2024 21:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eK/QLyg6"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W47eIRFf"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DC42837A;
-	Wed,  5 Jun 2024 16:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27A34F5EC
+	for <linux-man@vger.kernel.org>; Thu,  6 Jun 2024 21:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717605781; cv=none; b=TnuCBLdxCuKGLJwiPFp5h29wEPJ9TtTR8TxHD/KF2yWxRncfzb1SFbFE3yENFgMFMm3NdNUMTuv58Z/EoOfaadr3koSiB6MZlwyWA5295ftN3RRdyXMpeO0Ha/pY3LoZE57DEjR8/1zWW1PA7/yd1gvjio8zooGrib5iuRw5ybg=
+	t=1717710001; cv=none; b=OEuNfdM+n2SdsyTtQwoUeesWWzI6hZPvU9l8mETxyzMbVBmUezDP1cHOShhz4UZVaCuMWd5Jv1wlFXymHX0eszkQNY/ZJ0cQgbveg4H2qgY8LZRDZi5bljR7D1+9Pk4Xa53xdV6pMaemH8rW7E25h1xDKpeAKTjsTHf4wvD9+qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717605781; c=relaxed/simple;
-	bh=n3WvltwLnclYvUXilHbYaDwJDs8ZnJvI1qdN4d0TDTw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oFwWFzovHQ9XNCyMmmzjTUPCcLSmKW+SIz/4dlHZpSTUdC/geeDUQ6WhnzsDrg2p4D35vWIPrZfomPyo3J2QZBjMGPVczBmPwuDESJ3ZrgJjt5ZdAR6RLVjbQHJNp6f34QNkgJ1EnYOWMbMjrdFae8Ya+4wCsjbO05vgixaC5Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eK/QLyg6; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-703ed15b273so156444b3a.1;
-        Wed, 05 Jun 2024 09:42:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717605779; x=1718210579; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uf1Le7+qoXUovnxU+G8c1hBksMjj4DWz0B1IPDGyA0c=;
-        b=eK/QLyg6JunRNuj8dRiXMIp5kc1N/0gNWDSF4dudoQFl+gCCIFALZ+uRybrUFmL0Jz
-         9B5Z8EKHwogRYMI6ZljJXD7y/Ts/alArUZLL5BKjxEVBqsCHwgXP5gEJMDgfgkFbwBkV
-         LTG/fftX6ZhgVA95OJ5HmmsgIy6vTMxbIBUpP9PlkcuH8DSJW48okgv8T2YdpcxU3NOJ
-         um06wUfcGLsg+gQqQGzbEq/1Nn3RZH5LqxDYoNkzFMms8VOqJhV4p4aL1x8OgDPEVtBb
-         5aC8Bqnmj7nZrVuk79hqbD+nSlg3XZxDwBnnNTJdYeAqlhvSragTvdjRRRroGdeNcIP5
-         rC5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717605779; x=1718210579;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Uf1Le7+qoXUovnxU+G8c1hBksMjj4DWz0B1IPDGyA0c=;
-        b=qBCLnqqJqJVwN2mRP2ixeKE+JFDPfVqbEuocuJ9OXCa53k+ybWnNqg5g36CLlRg1ik
-         97JE8aRPVyJTPEPh08L7FJ3IpuPNmU6kuen9PoseEnclpjvHH4M+ayScJAO5KFWrPW/R
-         yVU5RlTsoTIQExMWarbvwx9gkQpKGa8vZeYsfXq0irloUGjsP5V7tH9/3Cim13ON+nvj
-         G208wptZARlx4mE/OOlgGHdFUAQYtC1YWBgLLLm2VuZfgip0B87KCE25w/cOqeeS6HoM
-         GGRAqZP6VR3Up3pQ1+j9Lwv0c8AB9Xd/TzOfJkK0lLleSeMEMy6bdRA8Mji6FltBuNeX
-         FSsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVLmGy5Kj4n013beXvMAV+oE2gO8UByr0zCXka3xyIURVWEi9j0jGt8euTOhzj32M3+QOYlRNQREpOwPepkuCG1l448+1nirMnag0sBlTWwEW3PDbBXQmE4ilhmSmX2CwBPOR/V5jbv+jo9/NHjT3IMHnI/EiojZ2M8PVa224v5x51Ajt0A94wHjvRlQ8Ln6cpyGQkfK166fPnmAYB7gq5nRiO8WS6CQ3J4pva82+G3kpIGCRyy0aHAgU+P
-X-Gm-Message-State: AOJu0Yx25Fepi1r6BR/m7YC0WVcynzFmaO+EVPOPi3sZdSd/8hrtnwj9
-	4IWECmNR0b+uHl+9KrdBDSXcpZ2V/UV36PGWrou7kZhhwbIT4Jfbo8dmNxm27oHe1IjrjYOotkS
-	jdtlmV1FyUxpXfgzt7A23al2qjho=
-X-Google-Smtp-Source: AGHT+IG5n0s2oEhfAO6XUF/dV0EPCSSfbE2zPMWSDNTH3B1k6Tte7LW9IdlSFU8scsFdk2MB4v56+E07umaPuXl1qWE=
-X-Received: by 2002:a17:90b:33ca:b0:2bf:ea42:d0c3 with SMTP id
- 98e67ed59e1d1-2c27db1652bmr2817571a91.16.1717605778997; Wed, 05 Jun 2024
- 09:42:58 -0700 (PDT)
+	s=arc-20240116; t=1717710001; c=relaxed/simple;
+	bh=CiIPDGIb4IrBQOX6FLE+yTGjGOVdmSvCrEBmAC9gVH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ERWr45pdfD4dhf3v6vd673bcAYxDg8W8qaCJj/gY8eGg5pViN9A98QCQ8C8BwKuc0FVxDvlK/pkXszYl0YKkSbcF8OISoxUdGa3W+XyWxpyultvfmVvSyQ8N4Xf6aAhth5tDL7sOo4zHgpxl7BGfiubGMRIfUckpjfef/NTfRyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W47eIRFf; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D25C2BD10;
+	Thu,  6 Jun 2024 21:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1717710001;
+	bh=CiIPDGIb4IrBQOX6FLE+yTGjGOVdmSvCrEBmAC9gVH4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=W47eIRFfQo0PGijIgXRH95qklqmfXmrIwsVtZlWuvzlUexvjmelKTZg1+H5kf26er
+	 hIjh80908QwfvGLUTaHlFZHhyCQQgyl6CSzw5QMMRnzXyh9wnFrykhfUQEIY7Vm3wt
+	 xqYi2z2YEs27y+YSGkq5/BCMq7VF+yJJRoA4kQulPfwV4EDvFFAtq31hajahacadci
+	 Xwq7vS0ffYq5nhG4dZatM6oSoRIZAjYfeawlsq/sO0VnEiNceSYOXqaBOVHBi5mYLa
+	 oL27AdX/4d6MGbAkMY+DfweR+Ci15bk2JF8kDP8BZ1pxoI3JbqKeKzmFZeJW5Uo/v5
+	 tfTyK0fdJkJDQ==
+Date: Thu, 6 Jun 2024 23:39:58 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Joe Damato <jdamato@fastly.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
+ operations for epoll fds
+Message-ID: <xofdfsokfmqtvp47d4oqtsplm5jvx6iu4xfompgilvsno3pqlv@vwpqcnpk3g2v>
+References: <20240604181740.1741860-1-jdamato@fastly.com>
+ <20240604181740.1741860-2-jdamato@fastly.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20240523121149.575616-1-jolsa@kernel.org> <CAEf4Bza-+=04GG7Tg4U4pCQ28Oy_2F_5872EPDsX6X3Y=jhEuw@mail.gmail.com>
-In-Reply-To: <CAEf4Bza-+=04GG7Tg4U4pCQ28Oy_2F_5872EPDsX6X3Y=jhEuw@mail.gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Wed, 5 Jun 2024 09:42:45 -0700
-Message-ID: <CAEf4Bzbc99bwGcmtCa3iekXSvSrxMQzfnTViT5Y-dn8qbvJy7A@mail.gmail.com>
-Subject: Re: [PATCHv7 bpf-next 0/9] uprobe: uretprobe speed up
-To: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
-	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo Molnar <mingo@redhat.com>, 
-	Andy Lutomirski <luto@kernel.org>, "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, 
-	Deepak Gupta <debug@rivosinc.com>, Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cx6yjngsvpkxyb3i"
+Content-Disposition: inline
+In-Reply-To: <20240604181740.1741860-2-jdamato@fastly.com>
+
+
+--cx6yjngsvpkxyb3i
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Joe Damato <jdamato@fastly.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
+ operations for epoll fds
+References: <20240604181740.1741860-1-jdamato@fastly.com>
+ <20240604181740.1741860-2-jdamato@fastly.com>
+MIME-Version: 1.0
+In-Reply-To: <20240604181740.1741860-2-jdamato@fastly.com>
 
-On Fri, May 31, 2024 at 10:52=E2=80=AFAM Andrii Nakryiko
-<andrii.nakryiko@gmail.com> wrote:
->
-> On Thu, May 23, 2024 at 5:11=E2=80=AFAM Jiri Olsa <jolsa@kernel.org> wrot=
-e:
-> >
-> > hi,
-> > as part of the effort on speeding up the uprobes [0] coming with
-> > return uprobe optimization by using syscall instead of the trap
-> > on the uretprobe trampoline.
-> >
-> > The speed up depends on instruction type that uprobe is installed
-> > and depends on specific HW type, please check patch 1 for details.
-> >
-> > Patches 1-8 are based on bpf-next/master, but patch 2 and 3 are
-> > apply-able on linux-trace.git tree probes/for-next branch.
-> > Patch 9 is based on man-pages master.
-> >
-> > v7 changes:
-> > - fixes in man page [Alejandro Colomar]
-> > - fixed patch #1 fixes tag [Oleg]
-> >
-> > Also available at:
-> >   https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git
-> >   uretprobe_syscall
-> >
-> > thanks,
-> > jirka
-> >
-> >
-> > Notes to check list items in Documentation/process/adding-syscalls.rst:
-> >
-> > - System Call Alternatives
-> >   New syscall seems like the best way in here, because we need
-> >   just to quickly enter kernel with no extra arguments processing,
-> >   which we'd need to do if we decided to use another syscall.
-> >
-> > - Designing the API: Planning for Extension
-> >   The uretprobe syscall is very specific and most likely won't be
-> >   extended in the future.
-> >
-> >   At the moment it does not take any arguments and even if it does
-> >   in future, it's allowed to be called only from trampoline prepared
-> >   by kernel, so there'll be no broken user.
-> >
-> > - Designing the API: Other Considerations
-> >   N/A because uretprobe syscall does not return reference to kernel
-> >   object.
-> >
-> > - Proposing the API
-> >   Wiring up of the uretprobe system call is in separate change,
-> >   selftests and man page changes are part of the patchset.
-> >
-> > - Generic System Call Implementation
-> >   There's no CONFIG option for the new functionality because it
-> >   keeps the same behaviour from the user POV.
-> >
-> > - x86 System Call Implementation
-> >   It's 64-bit syscall only.
-> >
-> > - Compatibility System Calls (Generic)
-> >   N/A uretprobe syscall has no arguments and is not supported
-> >   for compat processes.
-> >
-> > - Compatibility System Calls (x86)
-> >   N/A uretprobe syscall is not supported for compat processes.
-> >
-> > - System Calls Returning Elsewhere
-> >   N/A.
-> >
-> > - Other Details
-> >   N/A.
-> >
-> > - Testing
-> >   Adding new bpf selftests and ran ltp on top of this change.
-> >
-> > - Man Page
-> >   Attached.
-> >
-> > - Do not call System Calls in the Kernel
-> >   N/A.
-> >
-> >
-> > [0] https://lore.kernel.org/bpf/ZeCXHKJ--iYYbmLj@krava/
-> > ---
-> > Jiri Olsa (8):
-> >       x86/shstk: Make return uprobe work with shadow stack
-> >       uprobe: Wire up uretprobe system call
-> >       uprobe: Add uretprobe syscall to speed up return probe
-> >       selftests/x86: Add return uprobe shadow stack test
-> >       selftests/bpf: Add uretprobe syscall test for regs integrity
-> >       selftests/bpf: Add uretprobe syscall test for regs changes
-> >       selftests/bpf: Add uretprobe syscall call from user space test
-> >       selftests/bpf: Add uretprobe shadow stack test
-> >
->
-> Masami, Steven,
->
-> It seems like the series is ready to go in. Are you planning to take
-> the first 4 patches through your linux-trace tree?
+Hi Joe,
 
-Another ping. It's been two weeks since Jiri posted the last revision
-that got no more feedback to be addressed and everyone seems to be
-happy with it.
+On Tue, Jun 04, 2024 at 06:17:40PM GMT, Joe Damato wrote:
+> Signed-off-by: Joe Damato <jdamato@fastly.com>
 
-This is an important speed up improvement for uprobe infrastructure in
-general and for BPF ecosystem in particular. "Uprobes are slow" is one
-of the top complaints from production BPF users, and sys_uretprobe
-approach is significantly improving the situation for return uprobes
-(aka uretprobes), potentially enabling new use cases that previously
-could have been too expensive to trace in practice and reducing the
-overhead of the existing ones.
+Thanks for the patch!  Please see a few comments below.
 
-I'd appreciate the engagement from linux-trace maintainers on this
-patch set. Given it's important for BPF and that a big part of the
-patch set is BPF-based selftests, we'd also be happy to route all this
-through the bpf-next tree (which would actually make logistics for us
-much easier, but that's not the main concern). But regardless of the
-tree, it would be nice to make a decision and go forward with it.
+Have a lovely night!
+Alex
 
-Thank you!
+> ---
+>  man/man2/epoll_create.2 |   1 +
+>  man/man2/epoll_ctl.2    |   1 +
+>  man/man2/ioctl_epoll.2  | 203 ++++++++++++++++++++++++++++++++++++++++
+>  man/man7/epoll.7        |   1 +
+>  4 files changed, 206 insertions(+)
+>  create mode 100644 man/man2/ioctl_epoll.2
+>=20
+> diff --git a/man/man2/epoll_create.2 b/man/man2/epoll_create.2
+> index f0327e8ba..2aa1745f5 100644
+> --- a/man/man2/epoll_create.2
+> +++ b/man/man2/epoll_create.2
+> @@ -141,4 +141,5 @@ on overrun.
+>  .BR close (2),
+>  .BR epoll_ctl (2),
+>  .BR epoll_wait (2),
+> +.BR ioctl_epoll (2),
+>  .BR epoll (7)
+> diff --git a/man/man2/epoll_ctl.2 b/man/man2/epoll_ctl.2
+> index 6d5bc032e..24bbe7405 100644
+> --- a/man/man2/epoll_ctl.2
+> +++ b/man/man2/epoll_ctl.2
+> @@ -425,5 +425,6 @@ flag.
+>  .SH SEE ALSO
+>  .BR epoll_create (2),
+>  .BR epoll_wait (2),
+> +.BR ioctl_epoll (2),
+>  .BR poll (2),
+>  .BR epoll (7)
+> diff --git a/man/man2/ioctl_epoll.2 b/man/man2/ioctl_epoll.2
+> new file mode 100644
+> index 000000000..1d53f458e
+> --- /dev/null
+> +++ b/man/man2/ioctl_epoll.2
+> @@ -0,0 +1,203 @@
+> +.\" Copyright (c) 2024, Joe Damato
+> +.\" Written by Joe Damato <jdamato@fastly.com>
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.\"
 
->
-> >  arch/x86/entry/syscalls/syscall_64.tbl                      |   1 +
-> >  arch/x86/include/asm/shstk.h                                |   4 +
-> >  arch/x86/kernel/shstk.c                                     |  16 ++++
-> >  arch/x86/kernel/uprobes.c                                   | 124 ++++=
-++++++++++++++++++++++++-
-> >  include/linux/syscalls.h                                    |   2 +
-> >  include/linux/uprobes.h                                     |   3 +
-> >  include/uapi/asm-generic/unistd.h                           |   5 +-
-> >  kernel/events/uprobes.c                                     |  24 ++++=
---
-> >  kernel/sys_ni.c                                             |   2 +
-> >  tools/include/linux/compiler.h                              |   4 +
-> >  tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c       | 123 ++++=
-++++++++++++++++++++++++-
-> >  tools/testing/selftests/bpf/prog_tests/uprobe_syscall.c     | 385 ++++=
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++++++++++
-> >  tools/testing/selftests/bpf/progs/uprobe_syscall.c          |  15 ++++
-> >  tools/testing/selftests/bpf/progs/uprobe_syscall_executed.c |  17 ++++
-> >  tools/testing/selftests/x86/test_shadow_stack.c             | 145 ++++=
-++++++++++++++++++++++++++++++
-> >  15 files changed, 860 insertions(+), 10 deletions(-)
-> >  create mode 100644 tools/testing/selftests/bpf/prog_tests/uprobe_sysca=
-ll.c
-> >  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscall.c
-> >  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscall_ex=
-ecuted.c
-> >
-> > Jiri Olsa (1):
-> >       man2: Add uretprobe syscall page
-> >
-> >  man/man2/uretprobe.2 | 56 ++++++++++++++++++++++++++++++++++++++++++++=
-++++++++++++
-> >  1 file changed, 56 insertions(+)
-> >  create mode 100644 man/man2/uretprobe.2
+Please use only one consecutive .\"
+
+> +.TH ioctl_epoll 2 (date) "Linux man-pages (unreleased)"
+> +.SH NAME
+> +ioctl_epoll \- ioctl() operations for epoll file descriptors
+
+Please add link pages <man2const/EPIOCSPARAMS.2const> and
+<man2const/EPIOCGPARAMS.2const>.
+
+> +.SH LIBRARY
+> +Standard C library
+> +.RI ( libc ", " \-lc )
+> +.SH SYNOPSIS
+> +.nf
+> +.BR "#include <linux/eventpoll.h>" "  /* Definition of " EPIOC* " consta=
+nts and struct epoll_params */"
+> +.B "#include <sys/ioctl.h>"
+> +.P
+> +.BI "int ioctl(int " fd ", int " op ", void " *argp ");"
+
+The '*' should be bold; not italics.
+
+> +.fi
+> +.SH DESCRIPTION
+> +Various
+> +.BR ioctl (2)
+> +operations can be performed on an epoll file descriptor (created by a ca=
+ll
+> +to
+> +.BR epoll_create (2))
+> +(since Linux 6.9 and glibc 2.40) using calls of the form:
+> +.\" commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
+> +.\" glibc commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
+> +.P
+> +.in +4n
+> +.EX
+> +ioctl(fd, op, argp);
+> +.EE
+> +.in
+> +.P
+> +In the above,
+> +.I fd
+> +is a file descriptor referring to an epoll file descriptor obtained with=
+ a
+> +call to
+> +.BR epoll_create (2).
+> +.I op
+> +is one of the operations listed below, and
+> +.I argp
+> +is a pointer to the data structure described below.
+
+If argp is a pointer to a structure, then the prototype should document
+that:
+
+=2EBI "int ioctl(int " fd ", int " op ", struct epoll_params *" argp );
+
+Also, I would document the two operations separately:
+
+=2EBI "int ioctl(int " fd ", EPIOCSPARAMS, const struct epoll_params *" arg=
+p );
+=2EBI "int ioctl(int " fd ", EPIOCGPARAMS, struct epoll_params *" argp );
+
+This allows documenting that the 'S' one doesn't modify the argp
+(AFAICS).
+
+> +.\"
+> +.P
+> +All supported
+> +.I op
+> +values (described below) use an
+> +.I argp
+> +argument which is a pointer to a
+> +.I epoll_params
+> +structure, defined as:
+> +.P
+> +.in +4n
+> +.EX
+> +struct epoll_params {
+> +    uint32_t busy_poll_usecs;   /* Number of usecs to busy poll */
+> +    uint16_t busy_poll_budget;  /* Maximum number of packets to retrieve=
+ per poll */
+> +    uint8_t prefer_busy_poll;   /* Boolean to enable or disable prefer b=
+usy poll  */
+> +
+> +    /* pad the struct to a multiple of 64bits */
+> +    uint8_t __pad;              /* Must be zero */
+> +};
+
+You could add this type definition to the SYNOPSIS, below the function
+prototypes.
+
+> +.EE
+> +.in
+> +.P
+> +The
+> +.I busy_poll_usecs
+> +field denotes the number of microseconds that the network stack will busy
+> +poll. During this time period, the network device will be polled
+> +repeatedly. This value cannot exceed
+> +.B INT_MAX .
+> +.in
+> +.P
+> +The
+> +.I busy_poll_budget
+> +field denotes the maximum number of packets that the network stack will
+> +be retrieved on each poll attempt. This value cannot exceed
+> +.B NAPI_POLL_WEIGHT
+> +which, as of Linux 6.9, is 64, unless the process is run with
+> +.B CAP_NET_ADMIN .
+> +.P
+> +The
+> +.I prefer_busy_poll
+> +field is a boolean field and must be either 0 (disabled) or 1 (enabled).=
+ If
+> +enabled, this indicates to the network stack that busy poll is the
+> +preferred method of processing network data and the network stack should
+> +give the application the opportunity to busy poll. Without this option,
+> +very busy systems may continue to do network processing via the normal
+> +method of IRQs triggering softIRQ and NAPI.
+> +.P
+> +The supported
+> +.I op
+> +values:
+> +.TP
+> +.B EPIOCSPARAMS
+> +This operation allows the caller to specify an
+> +.I epoll_params
+> +structure to configure the operation of epoll. Refer to the structure
+> +description of the structure above to learn what configuration is
+> +supported.
+> +.TP
+> +.B EPIOCGPARAMS
+> +This operation allows the caller to retrieve the current
+> +.I epoll_params
+> +structure. This can be used to determine what the current settings are.
+> +.SH RETURN VALUE
+> +On success, 0 is returned.
+> +On failure, \-1 is returned, and
+> +.I errno
+> +is set to indicate the error.
+> +.SH ERRORS
+> +.TP
+> +.B EOPNOTSUPP
+> +The kernel was not compiled with busy poll support.
+> +.TP
+> +.B ENOIOCTLCMD
+
+Is this a thing?
+
+	$ grep -rn ENOIOCTLCMD /usr/include/
+	$=20
+
+I suspect this is EINVAL in user space?  (Actually, you list the same
+exact error condition for EINVAL below.)
+
+> +The specified
+> +.I op
+> +is invalid.
+> +.TP
+> +.B EINVAL
+> +The
+> +.I fd
+> +specified is not an epoll file descriptor, or the
+> +.I op
+> +specified is invalid, or the
+> +.I __pad
+> +was not initialized to zero, or
+> +.I busy_poll_usecs
+> +exceeds
+> +.B INT_MAX ,
+> +or
+> +.I prefer_busy_poll
+> +is not 0 or 1.
+
+Please separate the different conditions for EINVAL into separate
+entries.  The ones that are related can go in the same one, but the
+unrelated ones are better split.
+
+> +.TP
+> +.B EPERM
+> +The process is being run without
+> +.I CAP_NET_ADMIN
+
+This should be bold.
+
+> +and the specified
+> +.I busy_poll_budget
+
+This should be
+
+=2EI argp.busy_poll_budget
+
+> +exceeds
+> +.I NAPI_POLL_WEIGHT
+
+This should be bold.
+
+> +(which is 64 as of Linux 6.9).
+> +.TP
+> +.B EFAULT
+> +.I argp
+> +does not point to a valid memory address.
+> +.SH EXAMPLES
+> +.EX
+
+Could you write an entire program, with a main()?
+
+If not, it's fine; this is better than nothing.  But we prefer having
+entire programs that users can paste and try.
+
+> +/* Code to set the epoll params to enable busy polling */
+> +\&
+> +int epollfd =3D epoll_create1(0);
+> +struct epoll_params params;
+> +\&
+> +if (epollfd =3D=3D \-1) {
+> +    perror("epoll_create1");
+> +    exit(EXIT_FAILURE);
+> +}
+> +\&
+> +memset(&params, 0, sizeof(struct epoll_params));
+> +\&
+> +params.busy_poll_usecs =3D 25;
+> +params.busy_poll_budget =3D 8;
+> +params.prefer_busy_poll =3D 1;
+> +\&
+> +if (ioctl(epollfd, EPIOCSPARAMS, &params) =3D=3D \-1) {
+> +    perror("ioctl");
+> +    exit(EXIT_FAILURE);
+> +}
+> +\&
+> +/* Code to show how to retrieve the current settings */
+> +\&
+> +memset(&params, 0, sizeof(struct epoll_params));
+> +\&
+> +if (ioctl(epollfd, EPIOCGPARAMS, &params) =3D=3D \-1) {
+> +    perror("ioctl");
+> +    exit(EXIT_FAILURE);
+> +}
+> +\&
+> +/* params struct now contains the current parameters */
+> +\&
+> +fprintf(stderr, "epoll usecs: %lu\\n", params.busy_poll_usecs);
+> +fprintf(stderr, "epoll packet budget: %u\\n", params.busy_poll_budget);
+> +fprintf(stderr, "epoll prefer busy poll: %u\\n", params.prefer_busy_poll=
+);
+> +\&
+> +.SH History
+> +Linux 6.9.
+> +glibc 2.40.
+> +.SH SEE ALSO
+> +.BR ioctl (2),
+> +.BR epoll_create (2),
+> +.BR epoll_create1 (2),
+> +.BR epoll (7)
+> +.P
+> +.I Documentation/networking/napi.rst
+> +.P
+> +and
+> +.P
+> +.I Documentation/admin-guide/sysctl/net.rst
+> +.P
+> +in the Linux kernel source tree
+
+We could document that as
+
+=2EI linux.git/Documentation/...
+
+to not have to say "in the Linux kernel source tree".
+
+> diff --git a/man/man7/epoll.7 b/man/man7/epoll.7
+> index e7892922e..4ad032bdd 100644
+> --- a/man/man7/epoll.7
+> +++ b/man/man7/epoll.7
+> @@ -606,5 +606,6 @@ is present in an epoll instance.
+>  .BR epoll_create1 (2),
+>  .BR epoll_ctl (2),
+>  .BR epoll_wait (2),
+> +.BR ioctl_epoll (2),
+>  .BR poll (2),
+>  .BR select (2)
+> --=20
+> 2.34.1
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--cx6yjngsvpkxyb3i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZiLKYACgkQnowa+77/
+2zL96Q/9FrIA3cqr+3BzN5z4Tg/6IeowiGTgdkRKjWiLJdATkYGMeULHscYKKTzo
+q2Ai737+R6J3B1W/maY9lPqc5vWawqbEAb/7jEFtdwdr9uMXkuIrzguZE6Sg3MhK
+v4AAYVZMLD8MR/TfhuoZQjdv9ruUuNzQDRiqPrD011a2+NIbbQYoLNUPIEQZ6nZr
+VSLxc1XecbgAPzQC0E+liCWk/PxMtizvrCkyhVzCc2rUv9N1zfdwPRAkLbQGST3i
+tJkV+6pOnsAT0HYiv3eC5KiUXdihTG7QxIQbAtz4bQwKfgKWMh4vZM8uNnhs4VLt
+VA3+053ProsL+/8plLA7esDRDAIMB03Sptt9SVtToW1Uy5O8c8DqK+GnG4j+tWId
+T+NbzOcL09jzI5a3rz3sxOO1NWwH7ILKjibxRXvZCwpheUYM2dRtY8f6OpwQrYen
+IMy/0kYq7qavBSy+fNXP+Td5YfEzXG9IJRrdu7JDb69qKdFjXi/aWEmCNh9czggW
+8CkVUDuFWc24m4pQE7LuKb1UUn8Tb79f4GamJMijklh8aVZwcjMWQjnfb4pDuGpB
+kLdC1OETPREtp0jpK4KarBYHb8oC7B3ujD8UB3hKJx61qtD+eElS547UUaC4arij
+FRyReW4E+PR1zoeaJXlNe9Dc9Gq5WJ2RaJTMjBfyPNSsRCdD+WE=
+=zR7Q
+-----END PGP SIGNATURE-----
+
+--cx6yjngsvpkxyb3i--
 
