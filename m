@@ -1,127 +1,78 @@
-Return-Path: <linux-man+bounces-1042-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1043-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E0C90011E
-	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2024 12:45:02 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA28C9003A5
+	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2024 14:32:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 37DDF1C226EB
-	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2024 10:45:01 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 7563EB238DC
+	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2024 12:32:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF5DF15D5C4;
-	Fri,  7 Jun 2024 10:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bibAlDbL"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09A1C194145;
+	Fri,  7 Jun 2024 12:31:40 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20B31C696
-	for <linux-man@vger.kernel.org>; Fri,  7 Jun 2024 10:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FA3915B0F8;
+	Fri,  7 Jun 2024 12:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717757096; cv=none; b=bNyC0xEF3uQCeqd0ZdzA5UxLH2yzIHkVdaYpvJZn0jhIXWNUNWs/DtG8LqzMUIaebTJgrvG3a5QNlXPgH3trkeRhzcqHeJuwAiXdBUKsoAsR1UIsyasR5pRDE7DZVTOkKIm/d8evYwjREvocqR1JDO0qPyrRI5paz0gN8HdDTCA=
+	t=1717763499; cv=none; b=EBzk7UaAUrNGjc2hX1e4Uejx4nb51cJhyxb0borwY7CV3QQdKlBrIaI/T30dFdz3Xqfe+6txyr7KESesjU3Kwsdb9tO4h9h5xMi7baba7IW4w8sojvnPrt7HjjGsVh8acv/aRYUqtsrYd9w7G3q73irDhzJhrnprkTj15CGH1Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717757096; c=relaxed/simple;
-	bh=1MS9uJpOANX8XRflOi+70ERPV1EX20d3AdzvomRZmk0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uld8JNhLJ2g3gzHeckBqHnZeMBDPyMES8vYTfksjfrMz9+lINtdHUWeicIAQMtFg+neUs+sgzfdJfCZ2aLoxnkLVSa9nV2+J6o1D3CUbK+Zm7XVaiQ8fQ+yF0uUOYzdlH8Tuo8bn2zXyZKZLdJqWqsA6movmE3a0whFgdbLE4zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bibAlDbL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E019C2BBFC;
-	Fri,  7 Jun 2024 10:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717757096;
-	bh=1MS9uJpOANX8XRflOi+70ERPV1EX20d3AdzvomRZmk0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bibAlDbLLoBlF5AnsQ0vhNjSmaggwbYe7c8PwJo1jYj1mvQt+EfxB5SnotZd1zvdX
-	 wWPVB49PuGx7i0DiR+GG9nhuqqMvWTyavZBWyQ5s1W4b++Fw8sLRLe+ia28G/KP1Hz
-	 djQTnw8JALrT0OkpYKZDi+lGP5mNZ1GMyYDCMU0BKvVwGH8qGxgLutS6aA0C5HMJ2e
-	 i0wPc69QnmoduxE6oRNtf0/faDswWLJ8DGBXpjzzAzS/iDISvz7OPKW2BajlpL2lnm
-	 KwrSFlrRM0Cx2v+5AuGi9mLW77FHtjviGyilaOtOD71JFkHTImoJ2sh5T+BCboKsAH
-	 8g/bHGGmQJZtA==
-Date: Fri, 7 Jun 2024 12:44:53 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Joe Damato <jdamato@fastly.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 0/1] ioctl_epoll.2: Add epoll ioctl documentation
-Message-ID: <y35l3wyxcjk5tsq4hd5mtqvpor577fmysaufv3gntu5uwsyzrf@wiqk4rbxkm4w>
-References: <20240604181740.1741860-1-jdamato@fastly.com>
- <lu3cm6yc3qjbozu7nxglrnbyjsuolgdtkjmvklduh5rms5een7@wwr5klqqsxwb>
- <ZmI0ydFzb754YD-C@LQ3V64L9R2>
- <jqnuggiy2od5xc4xi67oemdhavh2aqityedevpxchypeqeal43@xp75h2cplbj7>
- <ZmJrhtfUHA6ZVoz5@LQ3V64L9R2>
+	s=arc-20240116; t=1717763499; c=relaxed/simple;
+	bh=y9eYWFzPSMGZO804Oyvb6+Tg49PHRH9fK3hKAvPEQJ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gWq3Gnz0VwZOj8mbA1O40IczWLgICjo5qpcE8N/qlMJp4SAiyeWJ5AzEQYWz5SnOUaM/SFxVnNZBzXiLTsblqqOncvuj8s4zNVbAlrTYZWVmv5vrz53rQkdYuqF0P1NLoxAdPrl603mnF3qTpTyf5iPDSX6p8XzvZOo1DmG5k5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 181FE13D5;
+	Fri,  7 Jun 2024 05:32:02 -0700 (PDT)
+Received: from e116581.blr.arm.com (e116581.arm.com [10.162.42.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CEDF63F64C;
+	Fri,  7 Jun 2024 05:31:33 -0700 (PDT)
+From: Dev Jain <dev.jain@arm.com>
+To: alx@kernel.org,
+	linux-man@vger.kernel.org
+Cc: mingo@kernel.org,
+	tglx@linutronix.de,
+	mark.rutland@arm.com,
+	ryan.roberts@arm.com,
+	broonie@kernel.org,
+	suzuki.poulose@arm.com,
+	Anshuman.Khandual@arm.com,
+	DeepakKumar.Mishra@arm.com,
+	AneeshKumar.KizhakeVeetil@arm.com,
+	linux-kernel@vger.kernel.org,
+	Dev Jain <dev.jain@arm.com>
+Subject: [PATCH 0/2] signal(7) fixes
+Date: Fri,  7 Jun 2024 18:01:17 +0530
+Message-Id: <20240607123119.769044-1-dev.jain@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6qbamp6civy7yuhp"
-Content-Disposition: inline
-In-Reply-To: <ZmJrhtfUHA6ZVoz5@LQ3V64L9R2>
+Content-Transfer-Encoding: 8bit
 
+This is a follow-up to the following:
+https://lore.kernel.org/all/20240607122319.768640-1-dev.jain@arm.com/
 
---6qbamp6civy7yuhp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Joe Damato <jdamato@fastly.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 0/1] ioctl_epoll.2: Add epoll ioctl documentation
-References: <20240604181740.1741860-1-jdamato@fastly.com>
- <lu3cm6yc3qjbozu7nxglrnbyjsuolgdtkjmvklduh5rms5een7@wwr5klqqsxwb>
- <ZmI0ydFzb754YD-C@LQ3V64L9R2>
- <jqnuggiy2od5xc4xi67oemdhavh2aqityedevpxchypeqeal43@xp75h2cplbj7>
- <ZmJrhtfUHA6ZVoz5@LQ3V64L9R2>
-MIME-Version: 1.0
-In-Reply-To: <ZmJrhtfUHA6ZVoz5@LQ3V64L9R2>
+This series brings distinction between the set of blocked signals
+represented in uc_sigmask, and the actual set of blocked signals. Also,
+fix a wrong mention of sigprocmask(), and replace it with sigaction(). 
 
-On Thu, Jun 06, 2024 at 07:08:06PM GMT, Joe Damato wrote:
-> > Yep, that's fine.  If you know who merged your patch, maybe you can CC
-> > him/her?
->=20
-> I had an existing email thread with them on another topic; they
-> mentioned that my change should be included in 2.40 as there has
-> been no announcement of a release freeze yet.
->=20
-> As I mentioned above, if you'd like to be cautious, I'm happy to
-> just get the patch into a pristine state for merging and then
-> waiting to merge until glibc 2.40 is shipped.
+Dev Jain (2):
+  signal.7: Clearly describe ucontext kernel dump to userspace
+  signal.7: Fix wrong mention of sigprocmask
 
-Nah; we're always in time to fix it if they change their minds.
+ man/man7/signal.7 | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
->=20
-> Totally up to you!
+-- 
+2.34.1
 
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---6qbamp6civy7yuhp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZi5J8ACgkQnowa+77/
-2zKO8A/+OVX8vDdP0jRRjEkvsbiK1zU9V+mwrjiody4/LkAZpKWA+3rEyKEKhCSL
-Crs02vpJROooQaY1sRKcB0PlMET2wWa5BdezyLY8NdlfR5QOkJbSYCqn7lu4myKT
-s7VF1+731N3D+kn9iybSLcLT9sD+pUaj1KMKIbOqG+BALqGiQsyYNN4HaxtYr8mA
-jDis7ntZrZ7J8ZBjvqrCVjW+Dqfa6mN0XHdeuuZPllAs9HrmvYBXOsR1zw46cpLl
-sonksI84Rq6ET1W29mqSBYosVjReVk3oyLAYB7EvEsVAQ4YSytqLDxd1u9o+SsBk
-wX2fEt7CVo5+AF/7bOJBlbOpi7uphkWPZDm4lrvacp/lOXdx/upCX1AGucvp4P6D
-+kMqt48Dzwg3uu03K7dbtU10KfVkZGZDMMj/MogQsA3Ynwt7WBQj3GazGuPNwBOS
-k3s2F8mgJPRYFK6vvQyvcrrTVvmHICJCOtyuqBeCn6nMV8IiHAWS3EP2AJWBxJ/Q
-CVYUAtBVETjEDoKgv0VmROOpAOJLdYaAMNRdSgEv2nC5/RDEGFnHRmcfuLaL5VNf
-ui8I+MXZnCmK6ue6jGUBS3gNw1I3SWqX3gg0Qn36LJMSHZ08uRptamOhxIsFmMTc
-bezxtDmuhJhYw+h6M0mG1Yf+Xzlf3NiWDx6UjX/C0oepkWykhwo=
-=fT6B
------END PGP SIGNATURE-----
-
---6qbamp6civy7yuhp--
 
