@@ -1,55 +1,53 @@
-Return-Path: <linux-man+bounces-1053-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1054-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE595901718
-	for <lists+linux-man@lfdr.de>; Sun,  9 Jun 2024 19:08:29 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id AAF3F901724
+	for <lists+linux-man@lfdr.de>; Sun,  9 Jun 2024 19:10:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BFD491C2036D
-	for <lists+linux-man@lfdr.de>; Sun,  9 Jun 2024 17:08:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 353AB281684
+	for <lists+linux-man@lfdr.de>; Sun,  9 Jun 2024 17:10:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D23A241C63;
-	Sun,  9 Jun 2024 17:08:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E44DD42A91;
+	Sun,  9 Jun 2024 17:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hnd54cCb"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4VsIPCr"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9071E2C181
-	for <linux-man@vger.kernel.org>; Sun,  9 Jun 2024 17:08:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41BF3B182
+	for <linux-man@vger.kernel.org>; Sun,  9 Jun 2024 17:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717952905; cv=none; b=Sj+o27IsZcHwIGYAns6sNhqUEjPSHIGaD+a6QzszIQH0YAjgyXziaBvfIFiq9Jb2Bdo4l/SB6dH6V1kFiWMxUDuI+OOmPCwn1Vpou6C9dOmPOSZt+49SMUvPN0zP50oGhvOG31rxLO68LjzAZFxTvwqaEWO2c2zJ+cudisE8r4g=
+	t=1717953025; cv=none; b=g5cn3spLw69QYvxERovbcj+C6HN3fOY/DG9tClgoI3OtkEKasHZqOFsGt3VPdC1aHce3HPwcj3Id2VHWbhGDOkoKfP7RP6JsS/9XGzUXHZoJskJyISTJZqAZ+2dsLg/XosJ/cfWOEC8n9oquyV03l4f8foUgyHDHMNIWtY7Uk6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717952905; c=relaxed/simple;
-	bh=Wz0JxwtfR6bLjqktdRUUdwhCpu8VzVDjEIgbViYfTaI=;
+	s=arc-20240116; t=1717953025; c=relaxed/simple;
+	bh=2/lhWtUX+IYbs1ni4T6wsQ2X4gFNIP5JeCN8yzQlVtw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fubyIhJTaA8zyxs/VM3gOD8eSVekUgIZkbciSseg+i1iwxSpfLwv4kuDCWgtBt6VDQ+20UvMW1eOz6Q1e3pq7WVdG7CkqRtnIoJOkFCAJW7hIZfmAlPGcXyZnPhwZYgWjXe0NzvCKaT2kFtzAJE4HpKNVBf59fvsXh0qUO31y8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hnd54cCb; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40980C2BD10;
-	Sun,  9 Jun 2024 17:08:24 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=d8hj0aFVeLAa4Oro677Rg/ydpaOy5Uy6dDR3BgdA5H2P/YVJOGDSmXaq+97xFDAdMl78XipGDqaQRkZkx7LlZo/SDmvdpqvpigIffNnXfwBv5+TYt2BMhjI+XcR/SkTUEBQYxrLtIVglZtDbNsYkjQ7CmQVdE5aSPZwZbb7/iDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4VsIPCr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EDC9C2BD10;
+	Sun,  9 Jun 2024 17:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717952905;
-	bh=Wz0JxwtfR6bLjqktdRUUdwhCpu8VzVDjEIgbViYfTaI=;
+	s=k20201202; t=1717953025;
+	bh=2/lhWtUX+IYbs1ni4T6wsQ2X4gFNIP5JeCN8yzQlVtw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Hnd54cCbmgxGtdyO9FQLEaHSdSzN6cMP0pXc1vRo7kiG16xpxFJtwNAwZ1f9EUM9g
-	 lEe9II3Iyn6HInBLHfOB1FUKQGyrj7EsuXDAGwEIrNxc5NTD3JvRfOIWw++YH43rJN
-	 fZl2uZcIPQS/I7WVTqXjrlEe1l0Fu3QXJpP86mqNNus0kYWiJpimkhgPGJt7fGjS98
-	 q/uDgH+mLHFsA9GImXsM8Usi6cLaOWz3jSgYSYuagWN30/bagh0H9JB9f7ttldpa8O
-	 sUpeG92mbQ7vQW/4NzYbaVQWNj48fu6tbijnVCArMkLKRbgX/6ZmeGs86EMNBUCllM
-	 /P6jWuGqyED6A==
-Date: Sun, 9 Jun 2024 19:08:22 +0200
+	b=I4VsIPCrI0RW8yf+m7uc+ilKr2VRsVIZfzJvud93w+1KBCdKAA1AnLFGQR9n6nR4n
+	 UV0ETPqeOlHFzocSDRuDy3tvhNCmUjJQpQicDgA+IrOxfEGgi1dWNvQJkQQ+qwXW6s
+	 Gkohkxcz1YVm57krN/Cq/It2fVzieX+btq4x9J8AuykhM/c39WbH3G3D4bQ1qU1uoX
+	 YsO1xXwiQjc25HsOrYy7Cm6D3pOhOrN/VQL77u+G+3cNmS4EVXUN0gcqMVI0CPna1q
+	 KAktrC5X2O/XH1IHP9qnHrCuHbIOA5htAJr0i0DBo71NReCLPz+f5/2FsDFP0/hfn3
+	 /mWucRW2j7wTg==
+Date: Sun, 9 Jun 2024 19:10:22 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: ellie <el@horse64.org>
-Cc: linux-man@vger.kernel.org, Petr Gajdos <pgajdos@suse.cz>
-Subject: Re: Suggestion for clarifications on "man 5 proc" page regarding
- /proc/[pid]/self race conditions
-Message-ID: <wieg7pby53ldfpvisxpyxoe6xkkyl7sdsqd6g4osmb6i4gksdv@phf545blvrue>
-References: <e170ffa6-986a-4e55-9d44-27d7d7520151@horse64.org>
- <26bb3fce-6bed-452b-bf0e-5365f2bc7fa1@horse64.org>
+To: nick black <dankamongmen@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] memchr.3: memchr/memrchr take pointer arguments
+Message-ID: <p5e7wmlqqjfk2r5xjfuw6tjcqgd6bzchoqhrwsafa3guvtcsrb@spu7jkp4hoog>
+References: <20240609091019.GA1990109@schwarzgerat.orthanc>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,87 +55,88 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="szefmgatekcbrd6j"
+	protocol="application/pgp-signature"; boundary="faesnmeaf2j2w4i4"
 Content-Disposition: inline
-In-Reply-To: <26bb3fce-6bed-452b-bf0e-5365f2bc7fa1@horse64.org>
+In-Reply-To: <20240609091019.GA1990109@schwarzgerat.orthanc>
 
 
---szefmgatekcbrd6j
+--faesnmeaf2j2w4i4
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: ellie <el@horse64.org>
-Cc: linux-man@vger.kernel.org, Petr Gajdos <pgajdos@suse.cz>
-Subject: Re: Suggestion for clarifications on "man 5 proc" page regarding
- /proc/[pid]/self race conditions
-References: <e170ffa6-986a-4e55-9d44-27d7d7520151@horse64.org>
- <26bb3fce-6bed-452b-bf0e-5365f2bc7fa1@horse64.org>
+To: nick black <dankamongmen@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] memchr.3: memchr/memrchr take pointer arguments
+References: <20240609091019.GA1990109@schwarzgerat.orthanc>
 MIME-Version: 1.0
-In-Reply-To: <26bb3fce-6bed-452b-bf0e-5365f2bc7fa1@horse64.org>
+In-Reply-To: <20240609091019.GA1990109@schwarzgerat.orthanc>
 
-Hi Ellie,
+Hi Nick,
 
-On Sat, Jun 08, 2024 at 12:23:11AM GMT, ellie wrote:
-> Dear Alejandro Colomar,
+On Sun, Jun 09, 2024 at 05:10:19AM GMT, nick black wrote:
+> memchr: memchr/memrchr first argument is a pointer
 >=20
-> I finally wrote a patch against the latest man pages, see file attached.
-> Hopefully this is in a format that allows you to integrate it well.
+> Signed-off-by: nick black <dankamongmen@gmail.com>
+> ---
+>  man/man3/memchr.3 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >=20
-> Some quick notes:
->=20
-> 1. The "make" process aborted with an error, I couldn't use it to verify.
-> However, pandoc seems to think my formatting is correct.
->=20
->=20
-> Regards,
->=20
-> Ellie
->=20
-> PS: The error that "make" gave me was this one, in case anybody finds this
-> useful: "TROFF .tmp/man/man2/s390_sthyi.2.cat.set
-> troff:.tmp/man/man2/s390_sthyi.2:124: warning [p 2, 1.8i]: cannot adjust
-> line"
+> diff --git a/man/man3/memchr.3 b/man/man3/memchr.3
+> index bb598c7d4..24fbef340 100644
+> --- a/man/man3/memchr.3
+> +++ b/man/man3/memchr.3
+> @@ -20,8 +20,8 @@ .SH SYNOPSIS
+>  .nf
+>  .B #include <string.h>
+>  .P
+> -.BI "void *memchr(const void " s [. n "], int " c ", size_t " n );
+> -.BI "void *memrchr(const void " s [. n "], int " c ", size_t " n );
+> +.BI "void *memchr(const void *" s [. n "], int " c ", size_t " n );
+> +.BI "void *memrchr(const void *" s [. n "], int " c ", size_t " n );
 
-Huh, you're the second one to report that error, both in this weekend.
+But it's not an array of pointers.  :)
 
-Can you please pass --debug=3Dprint to make to see more details?
-
-Also, you can skip that target with
-
-	$ touch .tmp/man/man2/s390_sthyi.2.cat.set
-
-And run make(1) again.
-
+We use array syntax, even if being a bit illegal, to document to which
+argument the size applies.  In these functions it's more obvious, but
+in functions with several arguments, that's more important/useful.
 
 Have a lovely day!
 Alex
 
+>  .P
+>  .BI "[[deprecated]] void *rawmemchr(const void *" s ", int " c );
+>  .fi
+>=20
+> --=20
+> nick black -=3D- https://www.nick-black.com
+> to make an apple pie from scratch,
+> you need first invent a universe.
 
-P.S.:  I'll check the patch later.
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---szefmgatekcbrd6j
+--faesnmeaf2j2w4i4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZl4YUACgkQnowa+77/
-2zKAwg//cZ/qOJZNKbKEMNG/2LgkA0qvvTpw6Sp5KwEkQkzItrcJKZc4Dn6OBzOX
-tNUCcnUcxEVoja42LEQNiTlpUjiHakK+metA0SiY/ngzszU9dpaaQqepf+jRTj3X
-YEoet59ppV9xIxNPUI6Zpgycm1zLgFvm3JRLOwIs63dzLtKAaT0alyq/z68BJb4z
-zgiTovQLjgkFZl2yLxbuE065XrI8WY1RYSSnjXK/svz4wxgDRt6yjgoYqFHlOka7
-wcAWfv0885duCgzZUm0Q/M3Bif4POCgk9KCIKo841uoJktGYijLOmEbZjAuBmH3s
-ubq1Q0BJwX8Vcpe/Q5SMobXbNhj6F3oxzLwy8qWRb3AVaXPKs+RcDIXPIrfe8tOa
-BqUVOODh7GF8qc7EdQ2Ekpp9Dq5zVVLXKBRxFOpIhQrBDXlaTOo5f1sdSCVdPNPZ
-bYhYhzjgixPgcmtaGC5sW5f+783P8XEolZ5i7Xl7N6OtgOT0R/KTeAkFo3ISjrNk
-RQQ9/7y3Do/IK/e67zBRnPclItG0M5Iv2vqewuohOox6qYBRGoz9saYBdPLIEkR1
-9PHASE5dDFp2HKUtsZgEks4MuUzvMsx7GGKnWKz989TZywlYKDwMnUD06xKLWCZo
-GJAK3NydY31odOUZ+MOayOCkHkaIIFSC1dsb+w26Eqlziht0kSA=
-=VdOd
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZl4f4ACgkQnowa+77/
+2zJwFw//cN1cf7rM3VBg/YI8k008nXXmNL33tbaL2bgjNTQ6ejpgkAjai0eidywz
+H9HfI00BycSIlur/ESR5Dz4SouRIIx8uxESXXObSEz3U9ZwqDvjHL6DB/zNTLA8f
+UkNqAWN2kr5+3KapFpLKvm0J7IFoTGESiFqeYFzOJns3wCW5s/uwoOOtGf02L11h
+IwvZ6DyJPzbLTbZD8X9LzVuTAzv4TBQZitMTo6ULNbRBYv8sC2BD9TKMRtDONHFg
+Ijfi/dTHvKdfgNzbeua8FV5cO/tqLI/jlUluTBBQRlhr9Xp5szWIhbRJxD9uzRT0
+erxXMiw89ektkmBgadJgctRaMGNlKUdnN8Ti7iu9eGE0aQmKx23GdOWvQW90+Yb9
+ylk8StWKMEd94/qtz+nv66cbwnEbENBl97c0+QUD0se0btdiaScgDxLSKVZRCrKf
+/pYdVqpYluM8r2XkSDNOEeuiM18IMXZahYYnwoE7baNiI2XmiGWyAU+71jQBTvIr
+4esF6srU4gU9TOS8X9Pm+hdSlNwkbyOXfeWbmE6AMY2Gg23iJq4RASKoLH6IEsQs
+JddDbKHBXFMxJ+sQ9vxLHfibUE1SDUbsBtK6tY68bugy7aw5/GqhwjhOJlig9oY5
+ouovfrG/vaPzS8Db4cj9jRwbuIQMLGoRlu32sU2cwbAZd2znBos=
+=MUjl
 -----END PGP SIGNATURE-----
 
---szefmgatekcbrd6j--
+--faesnmeaf2j2w4i4--
 
