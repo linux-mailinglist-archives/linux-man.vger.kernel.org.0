@@ -1,260 +1,159 @@
-Return-Path: <linux-man+bounces-1065-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1064-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB0B2902B61
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 00:07:40 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F4A8902B53
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 00:05:35 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7648F281CAE
-	for <lists+linux-man@lfdr.de>; Mon, 10 Jun 2024 22:07:39 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id D0D481F238E6
+	for <lists+linux-man@lfdr.de>; Mon, 10 Jun 2024 22:05:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BA5B14E2E2;
-	Mon, 10 Jun 2024 22:07:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A13D814F11E;
+	Mon, 10 Jun 2024 22:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="QjQpj/l6"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2AXnLZX"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA05714B963
-	for <linux-man@vger.kernel.org>; Mon, 10 Jun 2024 22:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4834339FD9;
+	Mon, 10 Jun 2024 22:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718057256; cv=none; b=fzluXOBmuoE5Jc30BAI8iGuQDRWDRuREk4k2eiTcFE3z5xVFZzuRQiru78OkhDNdclpd2pBpA6Ag8WbzmVKYJBf8AoGK7hZrN6l+/no+sDlyV7+aCvMhNvIZvXjRu0oU297aZkkZomXYORd4f7qSXTJy6K2vqFuzSL+tX0FkgwY=
+	t=1718057129; cv=none; b=n2fcAI21fHT3wmGaOR9doK4EdLXBdyqAWsTGFx+er5FDP+VBtC50z/+S+ogUnHSuSpmpC+eOChRAwlwwqmlLSbJTXIBZQ9x4lOowt7kH0l/WiuNn5f/EJjWDjP8wmKp3t/0MpA/hZUC8DCwOeUifPEW+QkHJGg+Gznn+B7nl5Ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718057256; c=relaxed/simple;
-	bh=esKOcQVjNR5+7IFh9AQAKcM6YlS00pyfGRRM1sXZwAM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aBN3eoWaYqBUCsw9aabLNX9Qc2u3HVax/2ddVlat68H/HYy5pMO/csO9JSrRV6a/4VvL+mUn0GwRhqfm/fg69wELuDAIwMVeIMleNZGngpl5KjRSwOyo4KGB4NSy9h2DP84rgUDi1TJom7CegVXOwVfm2Up2Ytop2YTx7at9l60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=QjQpj/l6; arc=none smtp.client-ip=131.179.128.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id D6EBC3C00F4E2;
-	Mon, 10 Jun 2024 15:00:20 -0700 (PDT)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
- id 3A2cMEacyCuZ; Mon, 10 Jun 2024 15:00:20 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id 49C5F3C00FAB8;
-	Mon, 10 Jun 2024 15:00:20 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 49C5F3C00FAB8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1718056820;
-	bh=qDKLvFOAzKo6+wHDINSqsFLJ3yv/As2zaIP/gLFTlk8=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=QjQpj/l60Rj9UMdcJ6WKNIXfQVHLmeTQ38goOP2SxWQ2kqrSFNyAvHyR31ZQIhRs0
-	 DNdM5LSm83fapI2uYwHW+MbGZGa/DHpfqU9CmLF5Nk/9orD/dUU18sWL+XWCnPV/Fc
-	 s3sc1e2l9DH5xf2GCRh0DCBiAzj2FBu9z0Ja0iyaVt3TyjqvxT5OGpeUWkgIVMmWzG
-	 WTxo8SLJDeh08CHxk7k3ypSBCwLmSiB5Dyf0bRfTkH+0v7pE4h61NZN7a2cDMY2rEw
-	 neAFae4lJQA498OH0G4cg/NB0Z5kdclo/EmyRLD7l/b/MtcJq2QeTb7kw36FCND2YK
-	 HOejjH5MOD2eQ==
-X-Virus-Scanned: amavis at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
- id vATdn_oGrVcp; Mon, 10 Jun 2024 15:00:20 -0700 (PDT)
-Received: from wing.home (unknown [47.154.17.165])
-	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 2E7413C00FAB4;
-	Mon, 10 Jun 2024 15:00:20 -0700 (PDT)
-From: Paul Eggert <eggert@cs.ucla.edu>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Paul Eggert <eggert@cs.ucla.edu>
-Subject: [PATCH] tzset: adjust for POSIX, and don't overpromise
-Date: Mon, 10 Jun 2024 15:00:13 -0700
-Message-ID: <20240610220013.2812749-1-eggert@cs.ucla.edu>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1718057129; c=relaxed/simple;
+	bh=Dd+yBPaESTKQx9vEdcOxtFwciiZjEqNGYLDlRuD6KxQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=NQpQ6JWtWUVEBMj+fGtTDNE6Ui3atH2nviZnNdpJogz3VfxxXSE43IltH7M5n0vNsmjmgOaSLI+ZEbgvgdGqd4+p2DGfjMxE9/8h2Dylh5yxtOpo8iIx1Z9mxtQj+U21CVYj5rYL9eYpAsln6MhRIG9qSTOtojDu2AjMTwAZJRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2AXnLZX; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2498C32789;
+	Mon, 10 Jun 2024 22:05:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718057128;
+	bh=Dd+yBPaESTKQx9vEdcOxtFwciiZjEqNGYLDlRuD6KxQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=P2AXnLZXOC5I2okLMJo1JIIFgI5VKbiGE1fFfaYlRtPtwd+nbLx07lh/QU1pruKH0
+	 2SGZyzgTR52o6BOHLZQexSvj+i5B9BETcjYdXRMhR2B6YwRx78aYraqB7WrDe/rUE/
+	 L64gvK3qRsfRzAtRjfLas5eYOJWFAvIYtmZ123lyrIJjwF/CVOwfr4Pkq7vpbLsz36
+	 CZAOkonMoxiEeXvgkqKva38Dqx/ol9yyIj5B6tIiEKopxhGrgw2WRx6m6TqqIFxt3w
+	 EMRG+nv6kpNRavLY6wr+hEtnp9pyhcaEnhEUlFGb9OWiWX926T6rWF7EJoDQ5oYM/9
+	 Nx+yPILj3l3Eg==
+Date: Tue, 11 Jun 2024 07:05:21 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Oleg Nesterov <oleg@redhat.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org, linux-man@vger.kernel.org, x86@kernel.org,
+ bpf@vger.kernel.org, Song Liu <songliubraving@fb.com>, Yonghong Song
+ <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra
+ <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo Molnar <mingo@redhat.com>,
+ Andy Lutomirski <luto@kernel.org>, "Edgecombe, Rick P"
+ <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv7 bpf-next 2/9] uprobe: Wire up uretprobe system call
+Message-Id: <20240611070521.82da62690e8865ff498327f7@kernel.org>
+In-Reply-To: <20240523121149.575616-3-jolsa@kernel.org>
+References: <20240523121149.575616-1-jolsa@kernel.org>
+	<20240523121149.575616-3-jolsa@kernel.org>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-POSIX.1-2024 is now official, and tm_gmtoff and tm_zone
-are now part of POSIX.  Update the man pages accordingly.
+On Thu, 23 May 2024 14:11:42 +0200
+Jiri Olsa <jolsa@kernel.org> wrote:
 
-Don't overpromise the global state that tzset updates.
-Its contents are unspecified if you use a geographical
-time zone.  For more details, see:
+> Wiring up uretprobe system call, which comes in following changes.
+> We need to do the wiring before, because the uretprobe implementation
+> needs the syscall number.
+> 
+> Note at the moment uretprobe syscall is supported only for native
+> 64-bit process.
+> 
 
-https://austingroupbugs.net/view.php?id=3D1816
-https://sourceware.org/bugzilla/show_bug.cgi?id=3D31876
+BTW, this does not cleanly applied to probes/for-next, based on
+6.10-rc1. Which version did you use?
 
-The hours in a TZ string time can now range from -167 to 167.
+Thank you,
 
-Update NZ example to use NZ's current practice.
+> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+> Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> Acked-by: Andrii Nakryiko <andrii@kernel.org>
+> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+> ---
+>  arch/x86/entry/syscalls/syscall_64.tbl | 1 +
+>  include/linux/syscalls.h               | 2 ++
+>  include/uapi/asm-generic/unistd.h      | 5 ++++-
+>  kernel/sys_ni.c                        | 2 ++
+>  4 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+> index cc78226ffc35..47dfea0a827c 100644
+> --- a/arch/x86/entry/syscalls/syscall_64.tbl
+> +++ b/arch/x86/entry/syscalls/syscall_64.tbl
+> @@ -383,6 +383,7 @@
+>  459	common	lsm_get_self_attr	sys_lsm_get_self_attr
+>  460	common	lsm_set_self_attr	sys_lsm_set_self_attr
+>  461	common	lsm_list_modules	sys_lsm_list_modules
+> +462	64	uretprobe		sys_uretprobe
+>  
+>  #
+>  # Due to a historical design error, certain syscalls are numbered differently
+> diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+> index e619ac10cd23..5318e0e76799 100644
+> --- a/include/linux/syscalls.h
+> +++ b/include/linux/syscalls.h
+> @@ -972,6 +972,8 @@ asmlinkage long sys_lsm_list_modules(u64 *ids, u32 *size, u32 flags);
+>  /* x86 */
+>  asmlinkage long sys_ioperm(unsigned long from, unsigned long num, int on);
+>  
+> +asmlinkage long sys_uretprobe(void);
+> +
+>  /* pciconfig: alpha, arm, arm64, ia64, sparc */
+>  asmlinkage long sys_pciconfig_read(unsigned long bus, unsigned long dfn,
+>  				unsigned long off, unsigned long len,
+> diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
+> index 75f00965ab15..8a747cd1d735 100644
+> --- a/include/uapi/asm-generic/unistd.h
+> +++ b/include/uapi/asm-generic/unistd.h
+> @@ -842,8 +842,11 @@ __SYSCALL(__NR_lsm_set_self_attr, sys_lsm_set_self_attr)
+>  #define __NR_lsm_list_modules 461
+>  __SYSCALL(__NR_lsm_list_modules, sys_lsm_list_modules)
+>  
+> +#define __NR_uretprobe 462
+> +__SYSCALL(__NR_uretprobe, sys_uretprobe)
+> +
+>  #undef __NR_syscalls
+> -#define __NR_syscalls 462
+> +#define __NR_syscalls 463
+>  
+>  /*
+>   * 32 bit systems traditionally used different
+> diff --git a/kernel/sys_ni.c b/kernel/sys_ni.c
+> index faad00cce269..be6195e0d078 100644
+> --- a/kernel/sys_ni.c
+> +++ b/kernel/sys_ni.c
+> @@ -391,3 +391,5 @@ COND_SYSCALL(setuid16);
+>  
+>  /* restartable sequence */
+>  COND_SYSCALL(rseq);
+> +
+> +COND_SYSCALL(uretprobe);
+> -- 
+> 2.45.1
+> 
 
-Omit leading ":" from TZ examples as this usage is rare.
----
- man/man3/ctime.3      | 15 +++++----------
- man/man3/tzset.3      | 39 ++++++++++++++++++++++++++++-----------
- man/man3type/tm.3type |  7 ++++---
- 3 files changed, 37 insertions(+), 24 deletions(-)
 
-diff --git a/man/man3/ctime.3 b/man/man3/ctime.3
-index b8543a1cf..94819961d 100644
---- a/man/man3/ctime.3
-+++ b/man/man3/ctime.3
-@@ -102,9 +102,8 @@ The return value points to a statically allocated str=
-ing which
- might be overwritten by subsequent calls to any of the date and time
- functions.
- The function also sets the external
--variables \fItzname\fP, \fItimezone\fP, and \fIdaylight\fP (see
--.BR tzset (3))
--with information about the current timezone.
-+variables \fItzname\fP, \fItimezone\fP, and \fIdaylight\fP as if it call=
-ed
-+.BR tzset (3).
- The reentrant version
- .BR ctime_r ()
- does the same, but stores the
-@@ -131,13 +130,9 @@ The
- function converts the calendar time \fItimep\fP to
- broken-down time representation,
- expressed relative to the user's specified timezone.
--The function acts as if it called
--.BR tzset (3)
--and sets the external variables \fItzname\fP with
--information about the current timezone, \fItimezone\fP with the differen=
-ce
--between Coordinated Universal Time (UTC) and local standard time in
--seconds, and \fIdaylight\fP to a nonzero value if daylight savings
--time rules apply during some part of the year.
-+The function also sets the external variables \fItzname\fP,
-+\fItimezone\fP, and \fIdaylight\fP as if it called
-+.BR tzset (3).
- The return value points to a statically allocated struct which might be
- overwritten by subsequent calls to any of the date and time functions.
- The
-diff --git a/man/man3/tzset.3 b/man/man3/tzset.3
-index 8479b17b0..8623abf09 100644
---- a/man/man3/tzset.3
-+++ b/man/man3/tzset.3
-@@ -63,6 +63,18 @@ In a System-V-like environment, it will also set the v=
-ariables \fItimezone\fP
- have any daylight saving time rules, or to nonzero if there is a time,
- past, present, or future when daylight saving time applies).
- .P
-+The
-+.BR tzset ()
-+function initializes these variables to unspecified values if this
-+timezone is a geographical timezone like "America/New_York" (see below).
-+Because these variables' contents are often unspecified,
-+code should instead obtain time zone offset and abbreviations from the
-+.I tm_gmtoff
-+and
-+.I tm_zone
-+members of the broken-down time structure
-+.BR tm (3type).
-+.P
- If the
- .B TZ
- variable does not appear in the environment, the system timezone is used=
-.
-@@ -79,7 +91,7 @@ variable does appear in the environment, but its value =
-is empty,
- or its value cannot be interpreted using any of the formats specified
- below, then Coordinated Universal Time (UTC) is used.
- .P
--The value of
-+A nonempty value of
- .B TZ
- can be one of two formats.
- The first format is a string of characters that directly represent the
-@@ -141,44 +153,49 @@ Day 0 is a Sunday.
- .P
- The \fItime\fP fields specify when, in the local time currently in effec=
-t,
- the change to the other time occurs.
-+They use the same format as \fIoffset\fP except that the hour can range
-+from \-167 to 167 to represent times before and after the named day.
- If omitted, the default is 02:00:00.
- .P
- Here is an example for New Zealand,
- where the standard time (NZST) is 12 hours ahead of UTC,
- and daylight saving time (NZDT), 13 hours ahead of UTC,
--runs from the first Sunday in October to the third Sunday in March,
--and the changeovers happen at the default time of 02:00:00:
-+runs from September's last Sunday at 02:00:00
-+to April's first Sunday at 03:00:00.
- .P
- .in +4n
- .EX
--TZ=3D"NZST\-12:00:00NZDT\-13:00:00,M10.1.0,M3.3.0"
-+TZ=3D"NZST\-12:00:00NZDT\-13:00:00,M9.5.0,M4.1.0/3"
- .EE
- .in
- .P
--The second format specifies that the timezone information should be read
-+The second, or "geographical",
-+format specifies that the timezone information should be read
- from a file:
- .P
- .in +4n
- .EX
--:[filespec]
-+filespec
- .EE
- .in
- .P
--If the file specification \fIfilespec\fP is omitted, or its value cannot
--be interpreted, then Coordinated Universal Time (UTC) is used.
- If \fIfilespec\fP is given, it specifies another
- .BR tzfile (5)-format
- file to read the timezone information from.
- If \fIfilespec\fP does not begin with a \[aq]/\[aq], the file specificat=
-ion is
- relative to the system timezone directory.
--If the colon is omitted each
--of the above \fBTZ\fP formats will be tried.
-+If the named file cannot be read or interpreted,
-+Coordinated Universal Time (UTC) is used;
-+however, applications should not depend on random \fIfilespec\fP values
-+standing for UTC, as
-+.B TZ
-+formats may be extended in the future.
- .P
- Here's an example, once more for New Zealand:
- .P
- .in +4n
- .EX
--TZ=3D":Pacific/Auckland"
-+TZ=3D"Pacific/Auckland"
- .EE
- .in
- .SH ENVIRONMENT
-diff --git a/man/man3type/tm.3type b/man/man3type/tm.3type
-index 5d5b28658..cbf89a54c 100644
---- a/man/man3type/tm.3type
-+++ b/man/man3type/tm.3type
-@@ -90,9 +90,9 @@ points to static storage and may be overridden on subse=
-quent calls to
- .BR localtime (3)
- and similar functions (however, this never happens under glibc).
- .SH STANDARDS
--C11, POSIX.1-2008.
-+C23, POSIX.1-2024.
- .SH HISTORY
--C89, POSIX.1-2001.
-+C89, C99, POSIX.1-2001, POSIX.1-2008.
- .P
- .I tm_gmtoff
- and
-@@ -100,7 +100,8 @@ and
- originate from 4.3BSD-Tahoe (where
- .I tm_zone
- is a
--.IR "char *" ).
-+.IR "char *" ),
-+and were first standardized in POSIX.1-2024.
- .SH NOTES
- .I tm_sec
- can represent a leap second with the value
---=20
-2.43.0
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
