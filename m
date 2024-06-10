@@ -1,62 +1,53 @@
-Return-Path: <linux-man+bounces-1066-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1067-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31239902B81
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 00:22:09 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27FB9902BB2
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 00:31:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 425E21C21FAA
-	for <lists+linux-man@lfdr.de>; Mon, 10 Jun 2024 22:22:08 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A5F571F21806
+	for <lists+linux-man@lfdr.de>; Mon, 10 Jun 2024 22:31:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6BB4C14E2DE;
-	Mon, 10 Jun 2024 22:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82EE44D8B4;
+	Mon, 10 Jun 2024 22:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMDptXcy"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VydLY/NS"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2809C18E2A
-	for <linux-man@vger.kernel.org>; Mon, 10 Jun 2024 22:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4422A17545
+	for <linux-man@vger.kernel.org>; Mon, 10 Jun 2024 22:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718058122; cv=none; b=OQbtBEl+XdDohcH66iXFffMDo5N6BJtmkeWFtDC6fxrZ1VrH6DTq/fDeOhF+KT4G5Ui2J7Ne7F8X7BKMbbn+T0iBUmJIJmyzxzZnDkaCbysXKexv4eG5yxlRmPH4dA8XaJjTqMKz1+4Bo+1d8URLPe3d/8ES4o9+/MZLre64bXY=
+	t=1718058680; cv=none; b=WKNDli4GL/5tLSbVCcjWDmwsyYRGbRwOgMRLSMFN4Nnc2kx76euWSBMDwaatvp4RS24rPjyKMOTaztATPDeflVO3as4qkC/CSl9caPm6vvyKL2BxVNZ2zx4tDP0bZKhS1iKYBj+XTpeJtEUql0Zvd08PvTYa9M6mp2J36mT4Xm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718058122; c=relaxed/simple;
-	bh=Hz0v0v8Jgzm4eBj46q+gT/dqa378ndmDGVVmRO/K/OE=;
+	s=arc-20240116; t=1718058680; c=relaxed/simple;
+	bh=6eV7qiQ8Q+ecUIbO0joFIEQqbUXCD5gSqJybrlhl3e0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dw/flMe33D2+OP0HqV/l+pG3blsVXTW4BFrZVcd/ZWqIbC5W5Td2/BY/1yQ4QUqug1EtO5J8HyLfdt/cdRvRtWCaSFJtmvN5rk038EBEaS+K2YBRW/vjmLrmcbeBOwFXI09q1+UsycHqrtD1X8abY1GzVqaGmeuwsVbJTRpD19s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMDptXcy; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E56DC2BBFC;
-	Mon, 10 Jun 2024 22:22:00 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gi1jbJxvFENK/IATra9k0aJJxIJf1nLYX7Q9e5Qm9UptR256F2cH3jl+aILF1PKu0kNLs5caYkan6SK8/QvNpuj0pO4HCktPot6rNlvOogxxU9AAgAEJ4HcHZCK4CJx6wk7yQgF5L2gllJmFEl9A3/hWv4ILQkrVoOGrtbQBOwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VydLY/NS; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2458CC2BBFC;
+	Mon, 10 Jun 2024 22:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718058121;
-	bh=Hz0v0v8Jgzm4eBj46q+gT/dqa378ndmDGVVmRO/K/OE=;
+	s=k20201202; t=1718058679;
+	bh=6eV7qiQ8Q+ecUIbO0joFIEQqbUXCD5gSqJybrlhl3e0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QMDptXcyw894wv/e2WVZ+gf00jlR6ckTs09LV3i2wjsUopIoHibZco9SyMcTRfnmJ
-	 q5kL+D1gxT3Yp84lOEXVjGcDs2jNtVfwhA62FiwSldV01q3lfTvDsYtSQZJSoCXmWE
-	 w5w08RnXV5RkF5jEbdoFkoyIB9i3PTbw5NFVgXJi0YV9Sl6qsYGvYgIwCOwLyW76SB
-	 h515ITkTWzHVcZ+sCEDmGrgBj6BP+zuzJ7slZlBYRsOEMEbB6Ji8TdjBrR06tsMOLO
-	 +coUenPqjCXxxRy9jJd7qhmnuiRQbYlRzpWixSlGEyv7fSWHTaJ9Rm6wXC0ovvIeVB
-	 2kQN0Ou3+Cwkg==
-Date: Tue, 11 Jun 2024 00:21:59 +0200
+	b=VydLY/NSzVB1c7UcsmZHagtlHIbQEeDSZA+CWi0m3XuI+HoAb0t1gBgih1jl2KGwO
+	 vNQuPBq3YJJHv834U0WgNQ3fx0goZ82VPO+kAilhleogk7PUY/XN9laWI5tupnPb3K
+	 s8rwbny3y4DUK+7apNGgiyi8xT2B06onnycqQaULYJXly0tK1FFXpB9n023pZGYyu8
+	 244VVL4qr5hHAoxyvZapuWdqo1tfdLXqbOYlXRyAOUANDFP2D0DiAUkS13po2t5FEI
+	 7Atwi24Bog1UWMI3nDuY/0WUStZ/L5WwXTnHkyIre+HR01uX1Gyqa3PvLsotP6TIWP
+	 1oKSCEKP9sINg==
+Date: Tue, 11 Jun 2024 00:31:16 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Joe Damato <jdamato@fastly.com>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
- operations for epoll fds
-Message-ID: <uz4vtiy24yaisc3j5bvb66ezk2og32l3hawsx4rwp3ehgxp4cr@nvzwqlbbkhoz>
-References: <20240604181740.1741860-1-jdamato@fastly.com>
- <20240604181740.1741860-2-jdamato@fastly.com>
- <xofdfsokfmqtvp47d4oqtsplm5jvx6iu4xfompgilvsno3pqlv@vwpqcnpk3g2v>
- <xfnz43tte26qmq74arom6jmx7ihfdhbqkwp7jfcgplvbqaye63@pb5ebrnza3ox>
- <ZmOBT2g55AD53QYS@LQ3V64L9R2>
- <jslixhueinkq3uuoeudezrri6qp4vxoa4sp25juklgryk47ktw@tbiz6lk7mmh4>
- <Zmc4CCQxwY3D6z1e@LQ3V64L9R2>
- <y72guiyuimztw4raiik2ye6m2wynrlh3zthnmpjvrn72wfz7fq@ux4d6wta5vue>
- <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+Message-ID: <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -64,151 +55,252 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="y24whid73pnohock"
+	protocol="application/pgp-signature"; boundary="ecrmq2jc22jchmha"
 Content-Disposition: inline
-In-Reply-To: <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+In-Reply-To: <20240610220013.2812749-1-eggert@cs.ucla.edu>
 
 
---y24whid73pnohock
+--ecrmq2jc22jchmha
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Joe Damato <jdamato@fastly.com>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
- operations for epoll fds
-References: <20240604181740.1741860-1-jdamato@fastly.com>
- <20240604181740.1741860-2-jdamato@fastly.com>
- <xofdfsokfmqtvp47d4oqtsplm5jvx6iu4xfompgilvsno3pqlv@vwpqcnpk3g2v>
- <xfnz43tte26qmq74arom6jmx7ihfdhbqkwp7jfcgplvbqaye63@pb5ebrnza3ox>
- <ZmOBT2g55AD53QYS@LQ3V64L9R2>
- <jslixhueinkq3uuoeudezrri6qp4vxoa4sp25juklgryk47ktw@tbiz6lk7mmh4>
- <Zmc4CCQxwY3D6z1e@LQ3V64L9R2>
- <y72guiyuimztw4raiik2ye6m2wynrlh3zthnmpjvrn72wfz7fq@ux4d6wta5vue>
- <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
 MIME-Version: 1.0
-In-Reply-To: <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+In-Reply-To: <20240610220013.2812749-1-eggert@cs.ucla.edu>
 
-Hi Joe,
+Hi Paul!
 
-On Mon, Jun 10, 2024 at 01:16:15PM GMT, Joe Damato wrote:
-> I am using Ubuntu 22.04.
+On Mon, Jun 10, 2024 at 03:00:13PM GMT, Paul Eggert wrote:
+> POSIX.1-2024 is now official, and tm_gmtoff and tm_zone
+> are now part of POSIX.  Update the man pages accordingly.
 
-Yep, they get the upstream package, I guess.
+Thanks for the patch!  It's nice to see that we finally have
+POSIX.1-2024.  :)
 
-> I did what you suggested got the same output about s390_sthyi,
-> here's what I think is the relevant output:
+> Don't overpromise the global state that tzset updates.
+> Its contents are unspecified if you use a geographical
+> time zone.  For more details, see:
+
+I would prefer that we separate the update to POSIX from the overpromise
+fix in two separate commits.  Would you mind doing that?  (Unless this
+is intrinsic to the POSIX update; is it?)
+
+> https://austingroupbugs.net/view.php?id=3D1816
+> https://sourceware.org/bugzilla/show_bug.cgi?id=3D31876
 >=20
-> SED		.tmp/man/man2/s390_sthyi.2
-> <man/man2/s390_sthyi.2 \
-> sed "/^\.TH/s/(date)/$(git log --format=3D%cs -1 -- man/man2/s390_sthyi.2=
- 2>/dev/null)/" \
-> | sed '/^\.TH/s/(unreleased)/6.8-152-g97abd8f14-dirty/' >.tmp/man/man2/s3=
-90_sthyi.2
-> PRECONV		.tmp/man/man2/s390_sthyi.2.tbl
-> preconv   .tmp/man/man2/s390_sthyi.2 >.tmp/man/man2/s390_sthyi.2.tbl
-> TBL		.tmp/man/man2/s390_sthyi.2.eqn
-> tbl <.tmp/man/man2/s390_sthyi.2.tbl >.tmp/man/man2/s390_sthyi.2.eqn
-> EQN		.tmp/man/man2/s390_sthyi.2.cat.troff
-> ! (eqn -Tutf8   <.tmp/man/man2/s390_sthyi.2.eqn 2>&1 >.tmp/man/man2/s390_=
-sthyi.2.cat.troff) \
-> | grep ^ >&2
-> TROFF		.tmp/man/man2/s390_sthyi.2.cat.set
-> ! (troff -man -wbreak -rS12  -Tutf8 -rLL=3D78n -rCHECKSTYLE=3D3 -ww  <.tm=
-p/man/man2/s390_sthyi.2.cat.troff 2>&1 >.tmp/man/man2/s390_sthyi.2.cat.set \
->    | grep -v -f '/home/jdamato/code/man-pages/share/mk/build/catman/troff=
-=2Eignore.grep' \
->    || true; \
-> ) \
-> | grep ^ >&2
-> troff: .tmp/man/man2/s390_sthyi.2:124: warning [p 2, 2.8i]: cannot adjust=
- line
-> make: *** [/home/jdamato/code/man-pages/share/mk/build/catman/troff.mk:63=
-: .tmp/man/man2/s390_sthyi.2.cat.set] Error 1
-
-Hmmm; can't reproduce it.  My only difference (AFAICS) is I have
-groff-1.23.0, while you'll have groff-1.22.4.  1.22.4 has many many
-bugs, so I guess this is one of them.  You can skip this specific error
-with
-
-	touch .tmp/man/man2/s390_sthyi.2.cat.set;
-
-Thanks!
-
-> > So what we did is trick make(1) to think that it has successfully run
-> > the 'lint-c-checkpatch', by touch(1)ing all the files that would have
-> > been created if that target had been successful.
+> The hours in a TZ string time can now range from -167 to 167.
 >=20
-> Ah, I see -- thanks for the pointer!
-
-:-)
-
-> I've re-run make and it is still failing as above but on an
-> unrelated file.
+> Update NZ example to use NZ's current practice.
 >=20
-> I see in the output that ioctl_epoll seemed to be processed OK:
+> Omit leading ":" from TZ examples as this usage is rare.
+
+This, and other wording fixes that aren't related to POSIX.1-2024, I
+prefer them in a separate commit that only does trivial wording and
+formatting fixes.
+
+> ---
+>  man/man3/ctime.3      | 15 +++++----------
+>  man/man3/tzset.3      | 39 ++++++++++++++++++++++++++++-----------
+>  man/man3type/tm.3type |  7 ++++---
+>  3 files changed, 37 insertions(+), 24 deletions(-)
 >=20
-> SED             .tmp/man/man2/ioctl_epoll.2
-> <man/man2/ioctl_epoll.2 \
-> sed "/^\.TH/s/(date)/$(git log --format=3D%cs -1 -- man/man2/ioctl_epoll.=
-2 2>/dev/null)/" \
-> | sed '/^\.TH/s/(unreleased)/6.8-152-g97abd8f14-dirty/' >.tmp/man/man2/io=
-ctl_epoll.2
-> PRECONV         .tmp/man/man2/ioctl_epoll.2.tbl
-> preconv   .tmp/man/man2/ioctl_epoll.2 >.tmp/man/man2/ioctl_epoll.2.tbl
-> TBL             .tmp/man/man2/ioctl_epoll.2.eqn
-> tbl <.tmp/man/man2/ioctl_epoll.2.tbl >.tmp/man/man2/ioctl_epoll.2.eqn
-> EQN             .tmp/man/man2/ioctl_epoll.2.cat.troff
-> ! (eqn -Tutf8   <.tmp/man/man2/ioctl_epoll.2.eqn 2>&1 >.tmp/man/man2/ioct=
-l_epoll.2.cat.troff) \
-> | grep ^ >&2
-> TROFF           .tmp/man/man2/ioctl_epoll.2.cat.set
-> ! (troff -man -wbreak -rS12  -Tutf8 -rLL=3D78n -rCHECKSTYLE=3D3 -ww  <.tm=
-p/man/man2/ioctl_epoll.2.cat.troff 2>&1 >.tmp/man/man2/ioctl_epoll.2.cat.se=
-t \
->    | grep -v -f '/home/jdamato/code/man-pages/share/mk/build/catman/troff=
-=2Eignore.grep' \
->    || true; \
-> ) \
-> | grep ^ >&2
-> GROTTY          .tmp/man/man2/ioctl_epoll.2.cat
-> grotty -c  <.tmp/man/man2/ioctl_epoll.2.cat.set >.tmp/man/man2/ioctl_epol=
-l.2.cat
+> diff --git a/man/man3/ctime.3 b/man/man3/ctime.3
+> index b8543a1cf..94819961d 100644
+> --- a/man/man3/ctime.3
+> +++ b/man/man3/ctime.3
+> @@ -102,9 +102,8 @@ The return value points to a statically allocated str=
+ing which
+>  might be overwritten by subsequent calls to any of the date and time
+>  functions.
+>  The function also sets the external
+> -variables \fItzname\fP, \fItimezone\fP, and \fIdaylight\fP (see
+> -.BR tzset (3))
+> -with information about the current timezone.
+> +variables \fItzname\fP, \fItimezone\fP, and \fIdaylight\fP as if it call=
+ed
+> +.BR tzset (3).
+>  The reentrant version
+>  .BR ctime_r ()
+>  does the same, but stores the
+> @@ -131,13 +130,9 @@ The
+>  function converts the calendar time \fItimep\fP to
+>  broken-down time representation,
+>  expressed relative to the user's specified timezone.
+> -The function acts as if it called
+> -.BR tzset (3)
+> -and sets the external variables \fItzname\fP with
+> -information about the current timezone, \fItimezone\fP with the differen=
+ce
+> -between Coordinated Universal Time (UTC) and local standard time in
+> -seconds, and \fIdaylight\fP to a nonzero value if daylight savings
+> -time rules apply during some part of the year.
+> +The function also sets the external variables \fItzname\fP,
+> +\fItimezone\fP, and \fIdaylight\fP as if it called
+> +.BR tzset (3).
+>  The return value points to a statically allocated struct which might be
+>  overwritten by subsequent calls to any of the date and time functions.
+>  The
+> diff --git a/man/man3/tzset.3 b/man/man3/tzset.3
+> index 8479b17b0..8623abf09 100644
+> --- a/man/man3/tzset.3
+> +++ b/man/man3/tzset.3
+> @@ -63,6 +63,18 @@ In a System-V-like environment, it will also set the v=
+ariables \fItimezone\fP
+>  have any daylight saving time rules, or to nonzero if there is a time,
+>  past, present, or future when daylight saving time applies).
+>  .P
+> +The
+> +.BR tzset ()
+> +function initializes these variables to unspecified values if this
+> +timezone is a geographical timezone like "America/New_York" (see below).
+> +Because these variables' contents are often unspecified,
+> +code should instead obtain time zone offset and abbreviations from the
+> +.I tm_gmtoff
+> +and
+> +.I tm_zone
+> +members of the broken-down time structure
+> +.BR tm (3type).
+> +.P
+
+This could go to a CAVEATS section.
+
+>  If the
+>  .B TZ
+>  variable does not appear in the environment, the system timezone is used.
+> @@ -79,7 +91,7 @@ variable does appear in the environment, but its value =
+is empty,
+>  or its value cannot be interpreted using any of the formats specified
+>  below, then Coordinated Universal Time (UTC) is used.
+>  .P
+> -The value of
+> +A nonempty value of
+>  .B TZ
+>  can be one of two formats.
+>  The first format is a string of characters that directly represent the
+> @@ -141,44 +153,49 @@ Day 0 is a Sunday.
+>  .P
+>  The \fItime\fP fields specify when, in the local time currently in effec=
+t,
+>  the change to the other time occurs.
+> +They use the same format as \fIoffset\fP except that the hour can range
+> +from \-167 to 167 to represent times before and after the named day.
+>  If omitted, the default is 02:00:00.
+>  .P
+>  Here is an example for New Zealand,
+>  where the standard time (NZST) is 12 hours ahead of UTC,
+>  and daylight saving time (NZDT), 13 hours ahead of UTC,
+> -runs from the first Sunday in October to the third Sunday in March,
+> -and the changeovers happen at the default time of 02:00:00:
+> +runs from September's last Sunday at 02:00:00
+> +to April's first Sunday at 03:00:00.
+>  .P
+>  .in +4n
+>  .EX
+> -TZ=3D"NZST\-12:00:00NZDT\-13:00:00,M10.1.0,M3.3.0"
+> +TZ=3D"NZST\-12:00:00NZDT\-13:00:00,M9.5.0,M4.1.0/3"
+>  .EE
+>  .in
+>  .P
+> -The second format specifies that the timezone information should be read
+> +The second, or "geographical",
+> +format specifies that the timezone information should be read
+>  from a file:
+>  .P
+>  .in +4n
+>  .EX
+> -:[filespec]
+> +filespec
+>  .EE
+>  .in
+>  .P
+> -If the file specification \fIfilespec\fP is omitted, or its value cannot
+> -be interpreted, then Coordinated Universal Time (UTC) is used.
+>  If \fIfilespec\fP is given, it specifies another
+>  .BR tzfile (5)-format
+>  file to read the timezone information from.
+>  If \fIfilespec\fP does not begin with a \[aq]/\[aq], the file specificat=
+ion is
+>  relative to the system timezone directory.
+> -If the colon is omitted each
+> -of the above \fBTZ\fP formats will be tried.
+> +If the named file cannot be read or interpreted,
+> +Coordinated Universal Time (UTC) is used;
+> +however, applications should not depend on random \fIfilespec\fP values
+> +standing for UTC, as
+> +.B TZ
+> +formats may be extended in the future.
+>  .P
+>  Here's an example, once more for New Zealand:
+>  .P
+>  .in +4n
+>  .EX
+> -TZ=3D":Pacific/Auckland"
+> +TZ=3D"Pacific/Auckland"
+>  .EE
+>  .in
+>  .SH ENVIRONMENT
+> diff --git a/man/man3type/tm.3type b/man/man3type/tm.3type
+> index 5d5b28658..cbf89a54c 100644
+> --- a/man/man3type/tm.3type
+> +++ b/man/man3type/tm.3type
+> @@ -90,9 +90,9 @@ points to static storage and may be overridden on subse=
+quent calls to
+>  .BR localtime (3)
+>  and similar functions (however, this never happens under glibc).
+>  .SH STANDARDS
+> -C11, POSIX.1-2008.
+> +C23, POSIX.1-2024.
+>  .SH HISTORY
+> -C89, POSIX.1-2001.
+> +C89, C99, POSIX.1-2001, POSIX.1-2008.
+
+Nah, I only keep here the first one, for simplifying.  If it was added
+in C89, and is present in C23, we can assume that it was present in C99
+and C11 too.
+
+>  .P
+>  .I tm_gmtoff
+>  and
+> @@ -100,7 +100,8 @@ and
+>  originate from 4.3BSD-Tahoe (where
+>  .I tm_zone
+>  is a
+> -.IR "char *" ).
+> +.IR "char *" ),
+> +and were first standardized in POSIX.1-2024.
+>  .SH NOTES
+>  .I tm_sec
+>  can represent a leap second with the value
+> --=20
+> 2.43.0
 >=20
-> Should I send a v2? The s390 thing seems unrelated?
-
-Sure; this seems to be good.  I may notice some warnings that are new in
-groff-1.23.0 and not present in 1.22.4, but I'll let you know if I see
-them.
-
-> What do you think?
-
-Have a lovely night!
-Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---y24whid73pnohock
+--ecrmq2jc22jchmha
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZnfIAACgkQnowa+77/
-2zKGvA/+M94pLA/nVP9wsTIcRj3uUxmQaSJoB5hHe/XktRXVgtZGGEawjAuktX47
-ieNApIxXGnu5O4Tdt6MNnbND1TmL9yHiflGNjfydZNBENqQ02+In2FbNwZbJsbkK
-vzycRMuB+HzjF3c2Zq5Fxn9jXy1hi6YDQTvQUFyGHq+yWyCr1ZJvlISqqsD1y1QF
-5k+lqKCU7OPttlYRQQLnHgbZoLfszCLlWQxJwlHzH1ha7OLMTKKOS41mmfoqxqkB
-fgQXuZTsS8IUCESirBWnTc635t/wjQOPkuYyZZmpCYzpGqaIOk9dOdfpNdVNXQ4q
-ljIcPiSRQDc0BAOu0wfcVwSp+9iyBoIi1HBUAJU8gukNZ5DcDjKC2itvik3uFl+I
-HARJE6xNiL6upulI7uJ9Xondo1b+zr3ON15aCg299bweNgyb8YUUiHzeQr6yq9jQ
-lLVxu65xCQM8I3DDojTWyxgJnFVOZYMiOc4O+nYB4ZWX8RtrJmVpHho8vXlnRcop
-tGCyV8v/oZrrd5CwabAbVkiUgVMakarO1ZSJU2ZSbckJ2MJQh/8yPbh+xr3q3JU2
-E0/1nVe0q96NdIN9zF6nd+6qhQS3dxwLk2dr7Cn+JhH0NGa+nQZ6diP3Io0tRByg
-ODuy7m+NO66OGRCgWa0xkWnhqlxkxxr6H0DwjObw6/i+UQ7VimQ=
-=2EWx
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZnfrQACgkQnowa+77/
+2zLAvhAAlsw7D7gBYsEdIVDXRpthVZctJ6CuGtE9BT0xpCRr181Jj3Vo7e6H6qat
+3fbgNMMF35P/pAgpD/PIE8DDnTMm3/9NtKM7R7TPGwBL7kVXkK45/jCnXL3eEbxB
+rT3vfgCGerkz56s1N/08kyZm6lgjT08apP7RoxHz7j9tdWw3d91LlQ7f/WiXmq1d
+l+GYQQvK1Ze+Y6HkNLXL6LGrpatLstMSz6/JRwkNZ8dC7XkceilMTM9QK4txYiSh
+TlAgYHjq2F7S/Oopx/m+wttDKRoUEi4URMegXhSN6t1JQTL28IUk1ThdE84Nnl7w
+qONIgU1DWwgUaVHEDmbVO3eHM2E5mgNMWpvksxs+lMyFaIhydl+DwkGqRht65xye
+ZSOJMfd4Ar2TcUfLJ1Zo2lWHSUcv+7sGmigtwmLB0VlI1IKfazZBzxb5v3Z8e9SX
+XpcSX8s8GcPpq1ndZ1/wyVOU8yEYR6kETtlRU+HAJkVCik1ShGt1A8QPjgUA/D12
+ogbFHNXlDyc9oPj3VXLd2X5AdyCArSrMChACX/E4uXXXzK2kMCiIy8CZJDXqcs/X
+rbsb1LpFuX2fOxmFmT/4afIe5UbS74c7oqoQ+BO7IDEv9XiUXQ4mySukZznv8ddM
+itr43mxxoa6GKKFc0bXNXIZJs5OGDAbpRxR6xc4ysnkB4zsz2Vw=
+=FI6d
 -----END PGP SIGNATURE-----
 
---y24whid73pnohock--
+--ecrmq2jc22jchmha--
 
