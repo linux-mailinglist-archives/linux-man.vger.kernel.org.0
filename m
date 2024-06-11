@@ -1,54 +1,63 @@
-Return-Path: <linux-man+bounces-1120-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1121-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2F85904171
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 18:35:32 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6198F904183
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 18:43:01 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 611C0B237D6
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:35:30 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 510871C23A26
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:43:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5436C3BB48;
-	Tue, 11 Jun 2024 16:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D28C1CFA9;
+	Tue, 11 Jun 2024 16:42:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mr7h5sqx"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDoh6LhE"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142701CFA9
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 16:35:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1B03F9FB
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 16:42:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718123723; cv=none; b=CRo6C4NiWttytiM909TFiAQL7omQUw8YPBgAddmHKix2zcKQPrBEqIFA2n5jj8oAc3ksUNjaNtI9UdBvY7wtqgEdrf/V4PMxguJQ8m3OTAv64HPG5AgkjfM5qTTKbJXAlS0X0eGZX8t58RcbcI87rUTGRHZbuIN/hgpOcu6RWqc=
+	t=1718124176; cv=none; b=F9NhINgqdxVHBqkR0cQ5jcTvmdunC8C0iTK5MjHMBgaHHOm/UevGqS/ETM5SWXZ+hCTDBdeBNWHJpjgxusn0e54ZEENRE0E057xOI45zKQDJjcEbbcarK/hAvEGP5pRAOAuwbJ5ONoZyFSyMnOCrvdkljY1nsxPjyMOSevp/E8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718123723; c=relaxed/simple;
-	bh=yO8SbS2qIRcSHsb4QQYJKfDX09axf+Ada6bqsKE0gz0=;
+	s=arc-20240116; t=1718124176; c=relaxed/simple;
+	bh=tgImsK3Wc6NHbZjBcDXQPqIkHxVZ8fLJuzYN7E6RGs4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c6pL0p42XAL1bqpFrxZECWQXBwTSTzWuEgRZQku21IqZyvlhETRPEqt/z8U0xlqbJZT4xiiuI1Tp+koytk7z+LNcZdW/X3WF0rq0yy1q6I/MfyLG81jgKwIZOZlWpn1n5LXxdZjYbD3F315hioGmBcWFAPMVqBSUfdV9DGrp6JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mr7h5sqx; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD73C2BD10;
-	Tue, 11 Jun 2024 16:35:21 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=YpThNid+rMnfloZe3bAxmRO7NQOqZirjnptDFSe28sPwAJdLoHOwNbpW8Y/y2TssMQaTMz/UD6SwxPOmgZeylFLxhEGowqJONCEc3zyj0nsedDfwam6eCCokDpQVfzdVEcYs1iJYKjUP4mzpIl7l7Momx3/Qrvh1DBQEs8Naglg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDoh6LhE; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6952C2BD10;
+	Tue, 11 Jun 2024 16:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718123722;
-	bh=yO8SbS2qIRcSHsb4QQYJKfDX09axf+Ada6bqsKE0gz0=;
+	s=k20201202; t=1718124175;
+	bh=tgImsK3Wc6NHbZjBcDXQPqIkHxVZ8fLJuzYN7E6RGs4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mr7h5sqx9Df5WljQmBlo1EleFKoa++za9XRWMWG1O5J1KBRQY2Ryq64IvYUeGHBxG
-	 Vo9NoyUmdxZuk6LYjgV5dUIxqNMw3fwvUj71LnEXJJYkh2fjPPIGL78EW5k/Xv5IWQ
-	 0aZ3mQ5INIkRWpY5yfUAkhKyn34p7Wciq7+aaNpNoH2gD8oMpDRFyBPDMN6e9QDxNz
-	 xEiUk1ZAmE4NHqg6Ct2UGWXCglULt1cW8tnJ7qWd0I7q7BM8bIp7THGPYRmd6tsAUi
-	 3I3WCG3gKhIdwKjAIXQwtvPkZjMzXxhlsIcIqSJJpCyETT9Hzjd7Vpfu0fFPRZbfhV
-	 uQoVVRz6GTPAw==
-Date: Tue, 11 Jun 2024 18:35:19 +0200
+	b=VDoh6LhEX+MmJIvq6/PG3JwSC85+24hHgbguclCmDICaoS90WCu326Q35WzvSo7Ri
+	 Yx7J4iyKJaMtWlfVqxYHVWQKAbRUgqcPct9zdcQAlsfId6ph2UYdG9tJu8aaG+EnWS
+	 jNqrONsWymVq2PQQW98T2IarjDESvq/DEkKbUoUu3UfKwbyylsF66yQ8TgC4+w/b0x
+	 S5VZdc94WPHaUMUZZio8dFeIHGsizlW1QgznQwwz0YeZH4IyKq42Xmyvpc5rgwf8G7
+	 HWjXBIvTZpzaxhJFAf9AlTiqFQ6hmqhNlUC58Ssykc7Tvz1eO5eEjrXUBcuFfAaKEK
+	 ZcUr2k93BIrEA==
+Date: Tue, 11 Jun 2024 18:42:52 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 10/12] tzset: update more POSIX citations and quotes
-Message-ID: <ry4s4siyerytqil55kq5qsbv4kl72uogq33qlors7kikcsinte@nlhgialcfi37>
-References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
- <20240611153005.3066-10-eggert@cs.ucla.edu>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Joe Damato <jdamato@fastly.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
+ operations for epoll fds
+Message-ID: <v4ap5wj4zxlwau4lir3uxpjrh3ngobb3rcncvbith32v4cdm6f@q5ul2pikfapd>
+References: <xfnz43tte26qmq74arom6jmx7ihfdhbqkwp7jfcgplvbqaye63@pb5ebrnza3ox>
+ <ZmOBT2g55AD53QYS@LQ3V64L9R2>
+ <jslixhueinkq3uuoeudezrri6qp4vxoa4sp25juklgryk47ktw@tbiz6lk7mmh4>
+ <Zmc4CCQxwY3D6z1e@LQ3V64L9R2>
+ <y72guiyuimztw4raiik2ye6m2wynrlh3zthnmpjvrn72wfz7fq@ux4d6wta5vue>
+ <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+ <uz4vtiy24yaisc3j5bvb66ezk2og32l3hawsx4rwp3ehgxp4cr@nvzwqlbbkhoz>
+ <20240611123950.qmc6m2rlrlst5cfg@illithid>
+ <6ghtfloubcjb3x43e2kxdmeqgbajgllfzmk2vhwy7bfzs5cbge@vq54kljkn6sp>
+ <20240611160632.q5c7pdo55kvgmt7d@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,179 +65,125 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yhafuopfoehw4gcn"
+	protocol="application/pgp-signature"; boundary="3xtvqn3fur4645ff"
 Content-Disposition: inline
-In-Reply-To: <20240611153005.3066-10-eggert@cs.ucla.edu>
+In-Reply-To: <20240611160632.q5c7pdo55kvgmt7d@illithid>
 
 
---yhafuopfoehw4gcn
+--3xtvqn3fur4645ff
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 10/12] tzset: update more POSIX citations and quotes
-References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
- <20240611153005.3066-10-eggert@cs.ucla.edu>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Joe Damato <jdamato@fastly.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
+ operations for epoll fds
+References: <xfnz43tte26qmq74arom6jmx7ihfdhbqkwp7jfcgplvbqaye63@pb5ebrnza3ox>
+ <ZmOBT2g55AD53QYS@LQ3V64L9R2>
+ <jslixhueinkq3uuoeudezrri6qp4vxoa4sp25juklgryk47ktw@tbiz6lk7mmh4>
+ <Zmc4CCQxwY3D6z1e@LQ3V64L9R2>
+ <y72guiyuimztw4raiik2ye6m2wynrlh3zthnmpjvrn72wfz7fq@ux4d6wta5vue>
+ <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+ <uz4vtiy24yaisc3j5bvb66ezk2og32l3hawsx4rwp3ehgxp4cr@nvzwqlbbkhoz>
+ <20240611123950.qmc6m2rlrlst5cfg@illithid>
+ <6ghtfloubcjb3x43e2kxdmeqgbajgllfzmk2vhwy7bfzs5cbge@vq54kljkn6sp>
+ <20240611160632.q5c7pdo55kvgmt7d@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20240611153005.3066-10-eggert@cs.ucla.edu>
+In-Reply-To: <20240611160632.q5c7pdo55kvgmt7d@illithid>
 
-Hi Paul,
+On Tue, Jun 11, 2024 at 11:06:32AM GMT, G. Branden Robinson wrote:
+> Hi Alex,
 
-On Tue, Jun 11, 2024 at 08:29:13AM GMT, Paul Eggert wrote:
-> ---
->  man/man3/ctime.3 | 29 +++++++++++++----------------
->  man/man3/tzset.3 |  4 ++--
->  2 files changed, 15 insertions(+), 18 deletions(-)
+Hi Branden,
+
+> At 2024-06-11T16:34:54+0200, Alejandro Colomar wrote:
+> > I see:
+> >=20
+> > NOTES
+> >      For details of the STHYI instruction, see the documentation page.
+> >=20
+> > In xfce4-terminal(1), that's an underdotted hyperlink.  In xterm(1), I
+> > see the same, but it's not underdotted, and seems not clickable.
 >=20
-> diff --git a/man/man3/ctime.3 b/man/man3/ctime.3
-> index e863f0572..a0dacfeda 100644
-> --- a/man/man3/ctime.3
-> +++ b/man/man3/ctime.3
-> @@ -320,7 +320,7 @@ In many implementations, including glibc, a 0 in
->  .I tm_mday
->  is interpreted as meaning the last day of the preceding month.
->  .P
-> -According to POSIX.1-2001,
-> +According to POSIX.1-2024,
+> Ahhh, I reckon you have OSC 8 hyperlinks turned on.  This defaulted off
+> in stock groff 1.23.0, but some distributors may have turned it on.
+> (Which is fine--that's what man.local is there for.)
+>=20
+> groff_man(7) (from my working copy):
+>      -rU0     Disable generation of URI hyperlinks in output drivers
+>               capable of them, making the arguments to MT and UR calls
+>               visible as formatted text.  grohtml(1), gropdf(1), and
+>               grotty(1) enable hyperlinks by default (the last only if
+>               not in legacy output mode).
 
-I would remove the version here, and just say POSIX.  That removes a
-place where we need to update the version.  If the version is relevant,
-we can specify that in HISTORY.
-
->  .BR localtime ()
->  is required to behave as though
->  .BR tzset (3)
-> @@ -343,16 +343,12 @@ should be called before
->  .BR localtime ()
->  .TQ
->  .BR mktime ()
-> -C11, POSIX.1-2008.
-> +C23, POSIX.1-2024.
->  .TP
-> -.BR asctime_r ()
-> -.TQ
-> -.BR ctime_r ()
-> -.TQ
-
-We should add an entry for these that says "None.".  Otherwise, it may
-look like we forgot to document the standard for those functions.
-
->  .BR gmtime_r ()
->  .TQ
->  .BR localtime_r ()
-> -POSIX.1-2008.
-> +POSIX.1-2024.
->  .SH HISTORY
->  .TP
->  .BR gmtime ()
-> @@ -360,25 +356,25 @@ POSIX.1-2008.
->  .BR localtime ()
->  .TQ
->  .BR mktime ()
-> -C89, POSIX.1-2001.
-> +C89, POSIX.1-1988.
->  .TP
->  .BR asctime ()
->  .TQ
->  .BR ctime ()
-> -C89, POSIX.1-2001.
-> -Marked obsolete in POSIX.1-2008 (recommending
-> +C89, POSIX.1-1988.
-> +Marked obsolescent in C23 and in POSIX.1-2008 (recommending
->  .BR strftime (3)).
->  .TP
->  .BR gmtime_r ()
->  .TQ
->  .BR localtime_r ()
-> -POSIX.1-2001.
-> +POSIX.1-1996.
->  .TP
->  .BR asctime_r ()
->  .TQ
->  .BR ctime_r ()
-> -POSIX.1-2001.
-> -Marked obsolete in POSIX.1-2008 (recommending
-> +POSIX.1-1996.
-> +Removed in POSIX.1-2024 (recommending
-
-I would keep documenting that POSIX.1-2008 marked them as obsolescent.
-That might be useful to some.
-
->  .BR strftime (3)).
->  .SH NOTES
->  The four functions
-> @@ -396,7 +392,7 @@ and
->  .BR localtime_r (),
->  are specified by SUSv2.
->  .P
-> -POSIX.1-2001 says:
-> +POSIX.1-2024 says:
-
-Same about the version here.  I'd remove it.
-
->  "The
->  .BR asctime (),
->  .BR ctime (),
-> @@ -406,8 +402,9 @@ and
->  functions shall return values in one of two static objects:
->  a broken-down time structure and an array of type
->  .IR char .
-> -Execution of any of the functions may overwrite the information returned
-> -in either of these objects by any of the other functions."
-> +Execution of any of the functions that return a pointer to one of these
-> +object types may overwrite the information in any object of the same type
-> +pointed to by the value returned from any previous call to any of them."
->  This can occur in the glibc implementation.
->  .SH SEE ALSO
->  .BR date (1),
-> diff --git a/man/man3/tzset.3 b/man/man3/tzset.3
-> index 4c7e286fe..7d57dc9a1 100644
-> --- a/man/man3/tzset.3
-> +++ b/man/man3/tzset.3
-> @@ -235,9 +235,9 @@ T{
->  T}	Thread safety	MT-Safe env locale
->  .TE
->  .SH STANDARDS
-> -POSIX.1-2008.
-> +POSIX.1-2024.
->  .SH HISTORY
-> -POSIX.1-2001, SVr4, 4.3BSD.
-> +POSIX.1-1988, SVr4, 4.3BSD.
->  .P
->  4.3BSD had a function
->  .BI "char *timezone(" zone ", " dst )
-> --=20
-> 2.45.2
-
-Thanks for the investigation!
+Hmmm; thanks!  I suspected some of this was probably the fault, but
+didn't know what exactly.  I'll add -rU0 to the build system, since that
+will trigger more warnings.
 
 Have a lovely day!
 Alex
 
+> So, for you, GNU troff is not complaining about being unable to adjust
+> MC 900 Foot URL for formatting...because it's _not trying to format it_.
+>=20
+> > Why am I unable to see the explicit URI?  That seems the reason why
+> > I can't reproduce the warning.
+>=20
+> With register `U` set to a true value, GNU troff assumes your output
+> device is capable of making a hyperlink clickable.  It can't otherwise
+> know.  (Well, it knows that some devices have no such capability.[1])
+>=20
+> > I don't like breaking URIs.  I'll accept the warning and add it as an
+> > XFAIL.  However, I'd like to be able to reproduce it.  :|
+>=20
+> Try running groff with `-rU0` (or `-r U=3D0`).  That should turn it up.
+>=20
+> Regards,
+> Branden
+>=20
+> [1] Two things I'd like to see:
+>=20
+>     A.  ...an extended ("user") capability enabling terminfo
+>     applications to query a terminal (emulator) whether it supports OSC
+>     8 sequences so that it can then do the right thing.  See
+>     user_caps(5).
+>=20
+>     B.  ...xterm(1) support for OSC 8 hyperlinks only as far as marking
+>     them and giving you a menu option to copy the link to the clipboard
+>     (or the primary selection buffer).[2]  Thomas Dickey has been pretty
+>     skeptical of OSC 8, and I don't blame him for not wanting to get
+>     into the URL management business--it presses people's security
+>     buttons.  I am hoping my suggestion is a Solomonic one.
+>=20
+> [2] So you'd probably have to middle-click while hovering over the link
+>     text.  Even if implemented, I'm sure that this would be yet another
+>     feature gated behind an X resource and command-line option.  ;-)
+
+
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---yhafuopfoehw4gcn
+--3xtvqn3fur4645ff
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZofMcACgkQnowa+77/
-2zKUtBAAkAt5fCSKLEQ6nAaFWwhXxXVrpuX022HBOAcCSN8jLu10ZRmW1EiKBiRt
-qeMw2T8N1es5IlGLW5r+rsBwGr2qg0BMmW/Y3lJxgY0dSGZxZdvyuj0JqBuTfmfF
-v8Fdm9kvaVY/qzZuhcp7MJ/46IS7HVDmXyDxaB2YPrIme1xz3Y609w2SS4N+ysAw
-k1ZH720uowvYc/74WBz1j1jGp94KFsh5Y2N2UFMakNPhD3MIWBylCnwcKWwUGa3h
-Dxo0uoNxsWeC/86F7slK3UepCtSmxqYqvQ7E0gQ6vyJAUNQdqX3cE53YGJjh5AW8
-KRTt0yQgMrWpMatKr0ZjvMy0xqqSE4s10sPUc6EUq2v2ObUCcgYDYgQ7e6Ps9F0+
-cH57OFUwbLRdAaI4c7vJxNtTKFELsefCnZbdbkX51edAXsG20+SwXGOb0QRtjHbv
-krXKm1K3iSxEqoYfHiRsB3v4NiOGk+nsPf7SGYfCpu0rF6aMu1C8wwN+2oarFz0M
-9K59KwbEbyj6Pa3pN4Ic0GQu/8Kb+WpNcaiT2zYPOttarTN0I8Y4dVS7vaNS9W77
-EQ9Mn5MgIbY7x5M/dm5j0f/Y5jZ7QjPiECPx5i1+IX8CiKvwV+0BWcRMcqGblydE
-HJsuhrHsmaPyVN6UyeLR8YjX544IHDqOrnmC9egVuHuIEQ76rHM=
-=i2tg
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZofowACgkQnowa+77/
+2zJg7xAAhbGTrVdUaNoOb37fIjNYahyQQFlSFl9pmzuJtlheDA6g92lgufQYOpTj
+i2laCZ5Yn84ByDmPd/gHkZujlVSILjnWoGkS2bKBEhntgFeht/x/fOc990cR0SQN
+XJGBtzunEPAd4TdTnK4dNXWnhJA+VgrRKcYqw+5kyF2UrMRo7W+EdhSmWiqkMolk
+HCZhvmMzasE64B+8LaZSymW0MTnpB+4lUCL+ApxS/Fg3nx3zOxdSCsyPiHQU0M1o
+PKYMGPpvQpMtFveMM8Zzi2vW4h6170mY3D+qURWOVzkk3HnFYMrK6hY0ar5tZpe1
+YVDHma3Xmgx5pkb8wNBQiSbhpG5wwnRn95s4jXhhsgEM0pL/26Iz+1K+AHyErIm6
+7R7H79LPy5+KKuAAw54k8cW8Hsd07gP2G246FMpNSSHYLmazjAffqAqsnmkD6zEt
+vi1b6uT2b67U9dhphm2R4XGozP6oiU5N7vdn0sd26DjKNusa7/bUKqSAu0SAmMqG
+0Jdc4tZoIOVKfQYwDVvKVpqFS/IYfifficTK8XEUCdCeYDDZg6uxIhXnqRdjQQGK
+LkwngdCpXe7MIvAeDWyRX+cX4bqcSj0z3sXDkgXf8BxbxFlOpXYWMMf4013m5Ph1
+NA+AfnFkeaGnfGKFpnoj03aLhpl4/VKAVdRp5WJ4mvJNA5SmUio=
+=tvrK
 -----END PGP SIGNATURE-----
 
---yhafuopfoehw4gcn--
+--3xtvqn3fur4645ff--
 
