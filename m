@@ -1,165 +1,195 @@
-Return-Path: <linux-man+bounces-1095-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1096-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA26903ECE
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:30:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B4A903EEA
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:35:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7F00F2835D7
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 14:30:32 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 528D32887A7
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 14:35:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DA9717DE10;
-	Tue, 11 Jun 2024 14:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89AC917C7D5;
+	Tue, 11 Jun 2024 14:34:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+8SBmXg"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tp5whvbw"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE9617D890;
-	Tue, 11 Jun 2024 14:30:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB2528E37
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 14:34:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718116230; cv=none; b=BT6G/dKxlfziz2zS0QXn6bAcr5AlzKGw1hJS4GiZaEUsuT9m0ZE0LEqgML/nWNN4P3ePNKWDrDsJbabIUmnCL8iqvysWU9R/7nkuw+h6EMWSSYrMlmVwE2n1VLrjLWygsl+Ej7lVg2hg4viyeItVEZWTWpec8KK9O7QopWzPREQ=
+	t=1718116498; cv=none; b=oFcogjzF79lcuvPWFFEPBkHPRqIVoV8/yk1rC7EAmHUc71Ui7d19hHe+N0co/4h7lL9hnWanADCGge20NjBogbunTnzyK2HxrAOFUVjIw6u9KTr/pMkzMFLA8xmeLMhD1R2M3paTh5ecBV3t1A9vPiIBW5l1x8S3pNO+OxSFsA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718116230; c=relaxed/simple;
-	bh=+hg6mwKUT4FXKccgfxs6KTWJDqOAp3AVHYpeZy7+Brs=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Dmk/mMbE2EkzxBWeUKs7b7FPvKoMqztyE6/uJ6r+2UsuEDeGfJpKdstqOsS6BfHtNjFAFxVDL774dJrMHoZ4pEPS2fUmXGIJzVAC5Al8cn5B3AbWi1e+s2hw2pSydDLS1OV1nXn0jX2CIblQLL2/ej/qNvA0p94rNkcNQuArtr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+8SBmXg; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73981C2BD10;
-	Tue, 11 Jun 2024 14:30:24 +0000 (UTC)
+	s=arc-20240116; t=1718116498; c=relaxed/simple;
+	bh=blPdVSe21Le8b1W9kV5YemQ6VUybCSIEpbZeLk7yVeE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bnaOfpNMrnh0rQmyLW7i18d6rQMlsuEfsSGvlx1AwAhlqdyjX6cyStQ04E84UeZeKAzQnFzBK1zW+9bWCQSJg7VKFPQoUdY+AevNWHj5nbjB6VK1gO3oI0yIoU80I0n5WFLTm6FXTvk4fZpZ8CngBMLH91rbmW7fBCFU7keEnnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tp5whvbw; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA40C2BD10;
+	Tue, 11 Jun 2024 14:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718116229;
-	bh=+hg6mwKUT4FXKccgfxs6KTWJDqOAp3AVHYpeZy7+Brs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=E+8SBmXg4kHbc2+kE5VdtOtyIigM64Ao0eLalvYBcyTz7+feUFW4RpyhNl09KCg+u
-	 G8qnxEPn98CKmOUDRIg+qWyUHuPAueaR63ZY7qBzjjSCAEsZ8Z4ncDiVQhOx8jQjP8
-	 WYU5EQIOBHZz85f5YNImLAba2Yh1ieUPH0M4aePuokdD2QdE9Z95LGGpFmHkYdUvty
-	 pV1FJYWQlqxmz3mf96bTtEBIFGnOQ4DlkwWF2Z4L9hXld3wLCKGY9LZVbV+EWUxrh2
-	 JoXDvFEGfN5Ckx9lAVTx7FaZi4DkiQe+PgQl0tEbqXLK/QNJeXmDNl55/x7cPamngA
-	 dzkYxoJ6jjFgA==
-Date: Tue, 11 Jun 2024 23:30:22 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Jiri Olsa <jolsa@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Oleg Nesterov <oleg@redhat.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Alejandro
- Colomar <alx@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org,
- linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, Song Liu
- <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, John Fastabend
- <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, Thomas
- Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo
- Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta
- <debug@rivosinc.com>
-Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
-Message-Id: <20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
-In-Reply-To: <20240611112158.40795-10-jolsa@kernel.org>
-References: <20240611112158.40795-1-jolsa@kernel.org>
-	<20240611112158.40795-10-jolsa@kernel.org>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20201202; t=1718116497;
+	bh=blPdVSe21Le8b1W9kV5YemQ6VUybCSIEpbZeLk7yVeE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tp5whvbwGJ1TK+DeuhYUFGf2Kb7jgLZtrFsWd6RTHt9wfgmm7SqcIcXfolxcWdGg9
+	 9dH2MUYIEH/p/D9DM5pC69YWjvTZnGhb6/O6KFlIhJPwDNn7ngiTAlsgFu449+zO+3
+	 xNdr1yvqB7JARz/DdW51X8m7lMWlFYLu5XagBfVEl2FqXLSOoNdNc/YaxqLj5ionHC
+	 /VJpkRHE8USphjkMJi1p6lvY0FDjUryQX8S2dIwF4VrPA1ibjUpegZM8mLW39Ufgr0
+	 WLNp2qHo7Bm+qz61hjKH8812dWLlrOfaN1chiJKwY0dsINbs0jEBX+Zang8Z/vLl6Q
+	 49nXRoib5/87A==
+Date: Tue, 11 Jun 2024 16:34:54 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Joe Damato <jdamato@fastly.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
+ operations for epoll fds
+Message-ID: <6ghtfloubcjb3x43e2kxdmeqgbajgllfzmk2vhwy7bfzs5cbge@vq54kljkn6sp>
+References: <20240604181740.1741860-2-jdamato@fastly.com>
+ <xofdfsokfmqtvp47d4oqtsplm5jvx6iu4xfompgilvsno3pqlv@vwpqcnpk3g2v>
+ <xfnz43tte26qmq74arom6jmx7ihfdhbqkwp7jfcgplvbqaye63@pb5ebrnza3ox>
+ <ZmOBT2g55AD53QYS@LQ3V64L9R2>
+ <jslixhueinkq3uuoeudezrri6qp4vxoa4sp25juklgryk47ktw@tbiz6lk7mmh4>
+ <Zmc4CCQxwY3D6z1e@LQ3V64L9R2>
+ <y72guiyuimztw4raiik2ye6m2wynrlh3zthnmpjvrn72wfz7fq@ux4d6wta5vue>
+ <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+ <uz4vtiy24yaisc3j5bvb66ezk2og32l3hawsx4rwp3ehgxp4cr@nvzwqlbbkhoz>
+ <20240611123950.qmc6m2rlrlst5cfg@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Tue, 11 Jun 2024 13:21:58 +0200
-Jiri Olsa <jolsa@kernel.org> wrote:
-
-> Adding man page for new uretprobe syscall.
-> 
-> Acked-by: Andrii Nakryiko <andrii@kernel.org>
-> Reviewed-by: Alejandro Colomar <alx@kernel.org>
-> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-
-This looks good to me.
-
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-And this needs to be picked by linux-man@ project.
-
-Thank you,
-
-> ---
->  man/man2/uretprobe.2 | 56 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 56 insertions(+)
->  create mode 100644 man/man2/uretprobe.2
-> 
-> diff --git a/man/man2/uretprobe.2 b/man/man2/uretprobe.2
-> new file mode 100644
-> index 000000000000..cf1c2b0d852e
-> --- /dev/null
-> +++ b/man/man2/uretprobe.2
-> @@ -0,0 +1,56 @@
-> +.\" Copyright (C) 2024, Jiri Olsa <jolsa@kernel.org>
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.\"
-> +.TH uretprobe 2 (date) "Linux man-pages (unreleased)"
-> +.SH NAME
-> +uretprobe \- execute pending return uprobes
-> +.SH SYNOPSIS
-> +.nf
-> +.B int uretprobe(void)
-> +.fi
-> +.SH DESCRIPTION
-> +The
-> +.BR uretprobe ()
-> +system call is an alternative to breakpoint instructions for triggering return
-> +uprobe consumers.
-> +.P
-> +Calls to
-> +.BR uretprobe ()
-> +system call are only made from the user-space trampoline provided by the kernel.
-> +Calls from any other place result in a
-> +.BR SIGILL .
-> +.SH RETURN VALUE
-> +The
-> +.BR uretprobe ()
-> +system call return value is architecture-specific.
-> +.SH ERRORS
-> +.TP
-> +.B SIGILL
-> +The
-> +.BR uretprobe ()
-> +system call was called by a user-space program.
-> +.SH VERSIONS
-> +Details of the
-> +.BR uretprobe ()
-> +system call behavior vary across systems.
-> +.SH STANDARDS
-> +None.
-> +.SH HISTORY
-> +TBD
-> +.SH NOTES
-> +The
-> +.BR uretprobe ()
-> +system call was initially introduced for the x86_64 architecture
-> +where it was shown to be faster than breakpoint traps.
-> +It might be extended to other architectures.
-> +.P
-> +The
-> +.BR uretprobe ()
-> +system call exists only to allow the invocation of return uprobe consumers.
-> +It should
-> +.B never
-> +be called directly.
-> +Details of the arguments (if any) passed to
-> +.BR uretprobe ()
-> +and the return value are architecture-specific.
-> -- 
-> 2.45.1
-> 
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ltm4z3ne4thkzzw6"
+Content-Disposition: inline
+In-Reply-To: <20240611123950.qmc6m2rlrlst5cfg@illithid>
 
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+--ltm4z3ne4thkzzw6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Joe Damato <jdamato@fastly.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] ioctl_epoll.2: New page describing ioctl(2)
+ operations for epoll fds
+References: <20240604181740.1741860-2-jdamato@fastly.com>
+ <xofdfsokfmqtvp47d4oqtsplm5jvx6iu4xfompgilvsno3pqlv@vwpqcnpk3g2v>
+ <xfnz43tte26qmq74arom6jmx7ihfdhbqkwp7jfcgplvbqaye63@pb5ebrnza3ox>
+ <ZmOBT2g55AD53QYS@LQ3V64L9R2>
+ <jslixhueinkq3uuoeudezrri6qp4vxoa4sp25juklgryk47ktw@tbiz6lk7mmh4>
+ <Zmc4CCQxwY3D6z1e@LQ3V64L9R2>
+ <y72guiyuimztw4raiik2ye6m2wynrlh3zthnmpjvrn72wfz7fq@ux4d6wta5vue>
+ <ZmdfD-UUhVkyws1w@LQ3V64L9R2>
+ <uz4vtiy24yaisc3j5bvb66ezk2og32l3hawsx4rwp3ehgxp4cr@nvzwqlbbkhoz>
+ <20240611123950.qmc6m2rlrlst5cfg@illithid>
+MIME-Version: 1.0
+In-Reply-To: <20240611123950.qmc6m2rlrlst5cfg@illithid>
+
+On Tue, Jun 11, 2024 at 07:39:50AM GMT, G. Branden Robinson wrote:
+> Hi Alex,
+
+Hi Branden,
+
+> groff 1.22.4 did have, by my count, over 400 bugs in it that groff
+> 1.23.0 fixed.[1]  However this is not one of them.  groff 1.23.0 still
+> complains.
+
+Hummm.
+
+> Let us recall what "adjustment" is in typography.
+>=20
+> 5.1.5 Adjustment
+> ----------------
+>=20
+> After GNU 'troff' performs an automatic break, it may then "adjust" the
+> line, widening inter-word spaces until the text reaches the right
+> margin.  Extra spaces between words are preserved.  Leading and trailing
+> spaces are handled as noted above.  Text can be aligned to the left or
+> right margin only, or centered; see *note Manipulating Filling and
+> Adjustment::.
+>=20
+> > > troff: .tmp/man/man2/s390_sthyi.2:124: warning [p 2, 2.8i]: cannot ad=
+just line
+>=20
+> What is at line 124 of this document?
+>=20
+> $ cat -n ./man2/s390_sthyi.2 | sed -n '120,125p'
+>    120  .SH NOTES
+>    121  For details of the STHYI instruction, see
+>    122  .UR https://www.ibm.com\:/support\:/knowledgecenter\:/SSB27U_6.3.=
+0\:/com.ibm.zvm.v630.hcpb4\:/hcpb4sth.htm
+>    123  the documentation page
+>    124  .UE .
+>    125  .P
+>=20
+> >> cannot adjust line
+>=20
+> This is a legitimate diagnostic arising from a ridiculously long URL
+> colliding with the formatter's frustrated attempt to adjust the output
+> line.  Here's how that renders.
+>=20
+> NOTES
+>        For  details  of  the  STHYI  instruction,  see  the documentation=
+ page
+>        =E2=9F=A8https://www.ibm.com/support/knowledgecenter/SSB27U_6.3.0
+>        /com.ibm.zvm.v630.hcpb4/hcpb4sth.htm=E2=9F=A9.
+
+I see:
+
+NOTES
+     For details of the STHYI instruction, see the documentation page.
+
+In xfce4-terminal(1), that's an underdotted hyperlink.  In xterm(1), I
+see the same, but it's not underdotted, and seems not clickable.
+
+Why am I unable to see the explicit URI?  That seems the reason why
+I can't reproduce the warning.
+
+> Not much the formatter can do about this monstrosity.  People with
+> crazily wide terminal windows, or with adjustment of man pages disabled
+> (a groff 1.23.0 feature)[2] won't experience the warning.
+>=20
+> You _could_ make it less obnoxious in the source document with input
+> line continuation.
+>=20
+> .UR https://www.ibm.com\:/support\:/knowledgecenter\:/SSB27U_6.3.0\:/\
+> com.ibm.zvm.v630.hcpb4\:/hcpb4sth.htm
+
+I don't like breaking URIs.  I'll accept the warning and add it as an
+XFAIL.  However, I'd like to be able to reproduce it.  :|
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--ltm4z3ne4thkzzw6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZoYIgACgkQnowa+77/
+2zL5hQ//RD6SaCeIM0ymtgAV7685bWQxaI8JwaIK0OoLr3km4JWz+amtc+m1k5EP
+ZJ3A3AsPiJ1pznN+1LhV0ubQow/2Zfxa6m58BBNIPy98wjo2wYLdWsGSKKvXZgWW
+ALXpGl/j6G8CzzEg+qKa7oWEJDVG0WfhTrzO9Cv9h6s+t3lrBJ6vKEbjcRSOpSqf
+dvx4Cjrj7Vjalbg3lMNY4N4J3tUekXeRyMoZEjA1NxkPQ9By05dqlKtHT9BvxdYe
+BrdIZdCfE8w5isIfTgzz+RbUSYgXMMnxzDKbDFZK7q94GG+liAJkSWuR2A37x+cE
+/j0uHbcbncEy8kjnjV8pjfkcrti0w3Ml3d3IM7+KTuicNQ7PyRoRi1X+Hd5HS3/l
+NbaQOiqkgmahtj1LLJmRe4gNXslTi2jRxsFIdH9W+AzMsFFqkqDGNv875FAzDyI6
+9tM7Zfmoe9cS4tMgsjnK4oOThG3VeQ4qpZF5Mm0xwoe622uS4DqaEpJf3y2l3TcK
+BWKmHN8uXme2qGe3f/JsHO5pgF9hhlvlTvmd5J/XesGVMyHzjVGyia5qTnAVL5Ax
+xNTLFUveXv2PgKDeBwIEtx2teYQxKZE9zUxw/xEFZveN8S7mRZvP6MqJ3iz20Q65
+QVF3+aG3VD9zJNFw0B3Ua/9xV1HBoT3SFAAtFeM6PuUn+l+QWCg=
+=vYIh
+-----END PGP SIGNATURE-----
+
+--ltm4z3ne4thkzzw6--
 
