@@ -1,568 +1,464 @@
-Return-Path: <linux-man+bounces-1071-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1072-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79243902DAC
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 02:29:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7820A902E40
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 04:16:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DC718B21043
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 00:29:16 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DAE0BB20CA3
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 02:16:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8836EBE;
-	Tue, 11 Jun 2024 00:29:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88C6C8485;
+	Tue, 11 Jun 2024 02:16:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b="elq2e7uG"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="eBT7QNtd"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4C88BF3
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 00:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D34DB65E
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 02:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718065752; cv=none; b=Kz99kV5sQ1HDVb/JvF8hrN09nP97nlqJj3Q4DFWjPPjT7Kks5vuAsNc83rQg+nM7weh+7AlY/jQ3MAKcSeK+v3Uc/1wGdpuP1/9HL9RDNzQg1qWY0SZBbkWfuYj0Lomia0li6PQCjppU6nWynpOy21/TeDjliVpCTzkPPl0vsLY=
+	t=1718072211; cv=none; b=aOVm1WNJtQuktS7Xq3Mh5Uxsb7ptQXV0ZxNjazS7qlRG8N0LGYV/T2JkhPwEKgPFTjTU5AXcOshMYIPUBESO4oKyqhsL8rVQqo8ILypzZdJLKRTS6YWx0s3p/jO9hxQ6ylDbV+uoV/QFZ/8t7u53GN9L4Q/l4m+LIYvSVnyBNCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718065752; c=relaxed/simple;
-	bh=fvL3ja9bQEoinepc3wn42hVBZ8DIwhbUvn9JM7AKAFQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cY6aU1UPxaPZQ0OogpdAwKW6/fdBs2F39U37q4VOXSEIUv7bRX50hZWjoLQS0jPhPjG6Y+vom9HHeblbi4WVr9LkdaVpFHGgnI3wvwrmvnkNFAtPsdsiTMSBcHPDrVHPzVlPRW0UeC1ZbB6VwAEHmVaAsFPjttI3KA5haxoKdhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com; spf=pass smtp.mailfrom=fastly.com; dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b=elq2e7uG; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastly.com
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-1f65a3abd01so3866875ad.3
-        for <linux-man@vger.kernel.org>; Mon, 10 Jun 2024 17:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fastly.com; s=google; t=1718065750; x=1718670550; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=XLsh3NprccQQb6+Oh0IvVDbZS7rTvNcIOL921q8Esvo=;
-        b=elq2e7uGr6REzPWYYGFq9vRgY0Hc81NoT2GdpMt16SoDvdzBTx4CHi+Eb/2Hx9rLHt
-         vvOllDuahcurycRYC+5h8tri2bkprHnS36YEF3bf6u+HsdkYoCF+k5aOfLNuf+DERoto
-         GkS7Egz1Ehcm6hWE8PqQqulouu5BqnEuFp0Qo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718065750; x=1718670550;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XLsh3NprccQQb6+Oh0IvVDbZS7rTvNcIOL921q8Esvo=;
-        b=f44kN3ExAFP64VqQpy+0ar1wiqWwYUzxxC58ByWNYkDm5hlFi48S6DJ7h/KGxLtz4f
-         JoccecU8Fvkk6i4HBoJjOCj6OEfc6fLMPX9DgxlwTP9UDxdVw+L6iUKhj0JCPRYiCWmb
-         10aEmt52tu/+0xlZ1q3U3LvQ9Ash++3Gr1/Kqhhv9rwKgxifPjELLe6p83UVNjIXie3W
-         eSnPr0e2rNIHEDMGIpEzfI6Cuyk6/tIv94h32mAdiTp7PHDI7qUWu0QfXirSyRg7TJUm
-         lQMo9tZlkW984yBNQPVDWBBj9l8047DCJKIh3f1Uc83ss5xshi/7F1iZnkBW6Xy52dI6
-         y81w==
-X-Gm-Message-State: AOJu0Yz53ddoJLuyDZcIUhNdkARQGpP93fiGREFHEi3cwva7Hl3aqIEW
-	anuwpmYg+Nr+csaw7miZ+4DIGV1jtgbgBM+WrAR3Jzq07QvJYy83T+41vQJpcR4=
-X-Google-Smtp-Source: AGHT+IEviU0173aS24LU7YRkATc0xKKdanPBBZ2FXCbAzT/VqgSHSFDAhE4Www55bTd2t55XhSu2Mw==
-X-Received: by 2002:a17:902:e5c1:b0:1f6:9390:550c with SMTP id d9443c01a7336-1f6d02f418dmr150803005ad.29.1718065749409;
-        Mon, 10 Jun 2024 17:29:09 -0700 (PDT)
-Received: from LQ3V64L9R2 (c-24-6-151-244.hsd1.ca.comcast.net. [24.6.151.244])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f71ac91930sm19660065ad.47.2024.06.10.17.29.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Jun 2024 17:29:09 -0700 (PDT)
-Date: Mon, 10 Jun 2024 17:29:06 -0700
-From: Joe Damato <jdamato@fastly.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] ioctl_epoll.2: New page describing epoll ioctl(2)
-Message-ID: <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
-References: <20240610231206.1788738-1-jdamato@fastly.com>
- <20240610231206.1788738-2-jdamato@fastly.com>
- <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
+	s=arc-20240116; t=1718072211; c=relaxed/simple;
+	bh=FUjeOQ9oTL5skf23xNB2bIHRldWmT6R/kv32BgJE4sk=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=C4gUh36WIk6zTU1HZ4/iiETLmuu6Pj4iHaAe4y+k8aPnhKQbBDYauiBp3Ga1kcGWkx3bY5ppFHC/6YP1o3U7C46OEMgGJbirYZphJKpn6R+TNh9FTZl3i5w2vH5EmQqB7ft9UXky1DP+jcbNZ49BjU7VQ6Z3UmzIzL8BF6hCawQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=eBT7QNtd; arc=none smtp.client-ip=131.179.128.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id B26B53C00F4E2;
+	Mon, 10 Jun 2024 19:16:48 -0700 (PDT)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id Two2JXpMYIO8; Mon, 10 Jun 2024 19:16:48 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id E5B083C00F4E3;
+	Mon, 10 Jun 2024 19:16:47 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu E5B083C00F4E3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1718072207;
+	bh=LbgkfqVBHCBdqgE+MEAU4LoN1vCFgJnE0mJm3nu+MvE=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=eBT7QNtdLtI5h3KpawjkNvI81Lz61Qw0Tx/9LqUC7z4myUVJKQZ/8FxSnzXqbCqp3
+	 EeYean6Tk8ieRNS8TTgtHkVSD5BUIyoOmTnBZbIJ5cpRZtlQCLeh1NuspAku+kDVAx
+	 72qQmawV4Gelsee/ksUueSq/wZ6ff52A1AjcCdIKGCV2YHREnUShbZxo9dCfGyE6Rn
+	 uriLg+z2MvtDkeN6PBRo2zNfR8onD7aePbHpTC1EiPiRN2L6Cq4NzV+9wwTzLWkmJc
+	 SwbH44WI5MxYjDTeean+remMWB5TmwjV8/4UNX92VGeUVoiwRzUpOqWGEHdH76EBTb
+	 83fFczxEbx9iw==
+X-Virus-Scanned: amavis at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id oOah84ilgQcj; Mon, 10 Jun 2024 19:16:47 -0700 (PDT)
+Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id B11A73C00F4E2;
+	Mon, 10 Jun 2024 19:16:47 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="------------EbynPQbH8awUiWhfEASTskR0"
+Message-ID: <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
+Date: Mon, 10 Jun 2024 19:16:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
-
-On Tue, Jun 11, 2024 at 01:45:57AM +0200, Alejandro Colomar wrote:
-> Hi Joe,
-> 
-> On Mon, Jun 10, 2024 at 11:12:06PM GMT, Joe Damato wrote:
-> > A new page is added which describes epoll fd ioctls: EPIOCSPARAMS and
-> > EPIOCGPARAMS which allow the user to control epoll-based busy polling.
-> > 
-> > Also add link pages for EPIOCSPARAMS and EPIOCGPARAMS.
-> > 
-> > Signed-off-by: Joe Damato <jdamato@fastly.com>
-> 
-> Thanks!
-
-Thanks again for your careful review. Sorry this wasn't the winning
-revision :)
-
-I made almost all of the changes you mentioned, with several more questions
-listed below (sorry).
-
-Thanks for your patience on these reviews and all the very helpful
-feedback.
-
-> > ---
-> >  man/man2/epoll_create.2           |   1 +
-> >  man/man2/epoll_ctl.2              |   1 +
-> >  man/man2/ioctl.2                  |   1 +
-> >  man/man2/ioctl_epoll.2            | 171 ++++++++++++++++++++++++++++++
-> 
-> I'm working on a general refactor of all ioctl manual pages, and I'm
-> making the pages have a name consistent with the UAPI header that
-> provides them.  You can see the progress here:
-> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=ioctl>
-> 
-> For consistency, please rename the page as ioctl_eventpoll(2).
-
-OK I've renamed it to
-
-man/man2/ioctl_eventpoll.2
-
-> >  man/man2const/EPIOCGPARAMS.2const |   1 +
-> >  man/man2const/EPIOCSPARAMS.2const |   1 +
-> >  man/man7/epoll.7                  |   1 +
-> >  7 files changed, 177 insertions(+)
-> >  create mode 100644 man/man2/ioctl_epoll.2
-> >  create mode 100644 man/man2const/EPIOCGPARAMS.2const
-> >  create mode 100644 man/man2const/EPIOCSPARAMS.2const
-> > 
-> > diff --git a/man/man2/epoll_create.2 b/man/man2/epoll_create.2
-> > index f0327e8ba..2aa1745f5 100644
-> > --- a/man/man2/epoll_create.2
-> > +++ b/man/man2/epoll_create.2
-> > @@ -141,4 +141,5 @@ on overrun.
-> >  .BR close (2),
-> >  .BR epoll_ctl (2),
-> >  .BR epoll_wait (2),
-> > +.BR ioctl_epoll (2),
-> >  .BR epoll (7)
-> > diff --git a/man/man2/epoll_ctl.2 b/man/man2/epoll_ctl.2
-> > index 6d5bc032e..24bbe7405 100644
-> > --- a/man/man2/epoll_ctl.2
-> > +++ b/man/man2/epoll_ctl.2
-> > @@ -425,5 +425,6 @@ flag.
-> >  .SH SEE ALSO
-> >  .BR epoll_create (2),
-> >  .BR epoll_wait (2),
-> > +.BR ioctl_epoll (2),
-> >  .BR poll (2),
-> >  .BR epoll (7)
-> > diff --git a/man/man2/ioctl.2 b/man/man2/ioctl.2
-> > index 5b8c28a9c..d96777d1f 100644
-> > --- a/man/man2/ioctl.2
-> > +++ b/man/man2/ioctl.2
-> > @@ -225,6 +225,7 @@ for the various architectures.
-> >  .BR ioctl_ns (2),
-> >  .BR ioctl_tty (2),
-> >  .BR ioctl_userfaultfd (2),
-> > +.BR ioctl_epoll (2),
-> >  .BR open (2),
-> >  .\" .BR mt (4),
-> >  .BR sd (4),
-> > diff --git a/man/man2/ioctl_epoll.2 b/man/man2/ioctl_epoll.2
-> > new file mode 100644
-> > index 000000000..458e72e9a
-> > --- /dev/null
-> > +++ b/man/man2/ioctl_epoll.2
-> > @@ -0,0 +1,171 @@
-> > +.\" Copyright (c) 2024, Joe Damato
-> 
-> Please reformat as:
-> 
-> .\" Copyright 2024, Joe Damato <jdamato@fastly.com>
-> 
-> (or another email if you want, but that's the format I'm trying to use
-> consistently.)
-> 
-> > +.\" Written by Joe Damato <jdamato@fastly.com>
-> 
-> You can remove this line.
-
-Fixed both of the above, thanks!
-
-> > +.\"
-> > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> > +.\"
-> > +.TH ioctl_epoll 2 (date) "Linux man-pages (unreleased)"
-> > +.SH NAME
-> > +ioctl_epoll \- ioctl() operations for epoll file descriptors
-> 
-> Please reformat as:
-> 
-> ioctl_eventpoll,
-> EPIOCSPARAMS,
-> EPIOCGPARAMS
-> \-
-> ioctl() operations for epoll file descriptors
-> 
-> (which has '\-' on a line of its own, and has the individual ops
-> listed.)
-
-OK, fixed, thanks!
- 
-> > +.SH LIBRARY
-> > +Standard C library
-> > +.RI ( libc ", " \-lc )
-> > +.SH SYNOPSIS
-> > +.EX
-> > +.BR "#include <linux/eventpoll.h>" "  /* Definition of " EPIOC* " constants and struct epoll_params */"
-> 
-> Remove ' and struct ...' from that comment.  We only have constants in
-> those comments (except in a few pages, where I'm fixing it at the
-> moment).
-
-Fixed, thanks!
-
-> > +.B "#include <sys/ioctl.h>"
-> > +.P
-> > +.BI "int ioctl(int " fd ", EPIOCSPARAMS, const struct epoll_params *" argp );
-> > +.BI "int ioctl(int " fd ", EPIOCGPARAMS, struct epoll_params *" argp );
-> 
-> To document the header that provides this structure, let's add here:
-> 
-> .P
-> .B #include <linux/eventpoll.h>
-
-Hmm, that's the linux sources header file, I think.
-
-Should I be showing the glibc header instead?
-
-https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/sys/epoll.h;h=45e546fa4440a83bb94288c220bfbe9295f02cc9;hb=92c270d32caf3f8d5a02b8e46c7ec5d9d0315158#l91
-
-Which would be:
-
-.B #include <sys/epoll.h>
-
-It's in the same header as epoll_create(2) and
-epoll_create1(2).
-
-Let me know what you think.
-
-> > +.P
-> > +.B struct epoll_params {
-> > +.BR "    uint32_t busy_poll_usecs;" "  /* Number of usecs to busy poll */"
-> > +.BR "    uint16_t busy_poll_budget;" " /* Maximum number of packets to retrieve per poll */"
-> > +.BR "    uint8_t prefer_busy_poll;" "  /* Boolean to enable or disable prefer busy poll  */"
-> > +\&
-> > +.BR " " "   /* pad the struct to a multiple of 64bits */"
-> > +.BR "    uint8_t __pad;"            "  /* Must be zero */"
-> > +.B };
-> > +.EE
-> > +.SH DESCRIPTION
-> > +.TP
-> > +.B EPIOCSPARAMS
-> > +Set the
-> > +.I epoll_params
-> > +structure to configure the operation of epoll. Refer to the structure
-> 
-> Please use semantic newlines.  See man-pages(7):
-> 
-> $ MANWIDTH=72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
->    Use semantic newlines
->      In the source of a manual page, new sentences should be started on
->      new lines, long sentences should be split  into  lines  at  clause
->      breaks  (commas,  semicolons, colons, and so on), and long clauses
->      should be split at phrase boundaries.  This convention,  sometimes
->      known as "semantic newlines", makes it easier to see the effect of
->      patches, which often operate at the level of individual sentences,
->      clauses, or phrases.
-
-OK, I've tried to fix this up just now throughout the file, thanks
-for letting me know. I hope I've gotten them all!
- 
-> > +description below to learn what configuration is
-> > +supported.
-> > +.TP
-> > +.B EPIOCGPARAMS
-> > +Get the current
-> > +.I epoll_params
-> > +configuration settings.
-> > +.TP
-
-I think this .TP should be a .P, not a .TP. It looks better as a .P,
-at least :)
-
-Let me know what you think.
-
-> > +All
-> > +.BR ioctl (2)
-> 
-> We can omit 'ioctl(2)' here, since it's obvious from the context, I
-> think.  How about 'All operations documented ...'?
-
-Sure, fixed!
-
-> > +operations documented above must be performed on an epoll file descriptor,
-> > +which can be created with a call to
-> 
-> s/created/obtained/?
-
-Sure, fixed!
-
-> > +.BR epoll_create (2)
-> > +or
-> > +.BR epoll_create1 (2).
-> > +.\" kernel commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
-> 
-> Let's reformat these:
-> 
-> .\" linux.git 18e2bf0edf4dd88d9656ec92395aa47392e85b61
-> .\" glibc.git 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
-> 
-> (maybe say linux.git commit 1234...?  What do you prefer?)
-
-I've made them:
-
-.\" linux.git commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
-.\" glibc.git commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
-
-> > +.\" glibc commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
-> > +.P
-> 
-> I would use a subsection (.SS) for documenting the structure.
-
-Sure, I can do that.
-
-.SS
-The epoll_params structure
-.I argp.busy_poll_usecs
-
-Is that OK for a heading?
-
-I saw this is how man/man2/stat.2 does the subsection.
-
-Let me know what you think.
-
-> > +.I argp.busy_poll_usecs
-> > +field denotes the number of microseconds that the network stack will busy
-> 
-> s/field //?
-
-Removed, thanks!
-
-> > +poll. During this time period, the network device will be polled
-> > +repeatedly for packets. This value cannot exceed
-> > +.B INT_MAX.
-> > +.in
-> > +.P
-> > +.I argp.busy_poll_budget
-> > +field denotes the maximum number of packets that the network stack will
-> 
-> s/field //?
-
-Removed, thanks!
-
-> > +retrieve on each poll attempt. This value cannot exceed
-> > +.B NAPI_POLL_WEIGHT
-> > +which, as of Linux 6.9, is 64, unless the process is run with
-> > +.B CAP_NET_ADMIN.
-> 
-> This seems a bit ambiguous: 'unless the process is run with
-> CAP_NET_ADMIN' could refer to 'cannot exceed' or 'is 64'.  Using
-> parentheses instead of commas, it would be unambiguous.
-
-Changed this to:
-
-retrieve on each poll attempt. This value cannot exceed
-.B NAPI_POLL_WEIGHT
-(which is 64 as of Linux 6.9), unless the process is run with
-.B CAP_NET_ADMIN.
-
-How is that?
-
-> > +.P
-> > +.I argp.prefer_busy_poll
-> > +field is a boolean field and must be either 0 (disabled) or 1 (enabled). If
-> 
-> s/field is/is/?
-
-Thanks, fixed!
-
-> > +enabled, this indicates to the network stack that busy poll is the
-> > +preferred method of processing network data and the network stack should
-> > +give the application the opportunity to busy poll. Without this option,
-> > +very busy systems may continue to do network processing via the normal
-> > +method of IRQs triggering softIRQ and NAPI.
-> > +.P
-> > +.I argp.__pad
-> > +must be zero.
-> > +.P
-> 
-> .P is redundant right before .SH
-
-Removed, thanks!
-
-> > +.SH RETURN VALUE
-> > +On success, 0 is returned.
-> > +On failure, \-1 is returned, and
-> > +.I errno
-> > +is set to indicate the error.
-> > +.SH ERRORS
-> > +.TP
-> > +.B EOPNOTSUPP
-> > +The kernel was not compiled with busy poll support.
-
-This line here has a weird indentation compared to the rest of the
-errors when rendered.
-
-Maybe I am doing something wrong with this one?
-
-> > +.TP
-> > +.B EINVAL
-> > +.I fd
-> > +is not a valid file descriptor.
-> > +.TP
-> > +.B EINVAL
-> > +.I op
-> > +specified is invalid.
-> 
-> Let's not document this one, since it's already documented in ioctl(2).
-
-OK, removed.
-
-> > +.TP
-> > +.B EINVAL
-> > +.I argp.__pad
-> > +was not zero.
-> > +.TP
-> > +.B EINVAL
-> > +.I argp.busy_poll_usecs
-> > +exceeds
-> 
-> There's a bit of an inconsistency: the previous entry uses the past
-> tense, but this one uses the present.  I prefer to use the present in
-> both.  See also the next one.
-
-Fixed tense to be present tense.
-
-> > +.B INT_MAX .
-> > +.TP
-> > +.B EINVAL
-> > +.I argp.prefer_busy_poll
-> > +is not 0 or 1.
-> > +.TP
-> > +.B EPERM
-> > +The process is being run without
-> > +.I CAP_NET_ADMIN
-> > +and the specified
-> > +.I argp.busy_poll_budget
-> > +exceeds
-> > +.B NAPI_POLL_WEIGHT
-> > +(which is 64 as of Linux 6.9).
-> 
-> I prefer to not repeat the 64 here.
-
-OK removed that line.
-
-> > +.TP
-> > +.B EFAULT
-> > +.I argp
-> > +does not point to a valid memory address.
-> > +.SH EXAMPLES
-> > +.EX
-> > +/* Code to set the epoll params to enable busy polling */
-> > +\&
-> > +int epollfd = epoll_create1(0);
-> > +struct epoll_params params;
-> > +\&
-> > +if (epollfd == \-1) {
-> > +    perror("epoll_create1");
-> > +    exit(EXIT_FAILURE);
-> > +}
-> > +\&
-> > +memset(&params, 0, sizeof(struct epoll_params));
-> > +\&
-> > +params.busy_poll_usecs = 25;
-> > +params.busy_poll_budget = 8;
-> > +params.prefer_busy_poll = 1;
-> > +\&
-> > +if (ioctl(epollfd, EPIOCSPARAMS, &params) == \-1) {
-> > +    perror("ioctl");
-> > +    exit(EXIT_FAILURE);
-> > +}
-> > +\&
-> > +/* Code to show how to retrieve the current settings */
-> > +\&
-> > +memset(&params, 0, sizeof(struct epoll_params));
-> > +\&
-> > +if (ioctl(epollfd, EPIOCGPARAMS, &params) == \-1) {
-> > +    perror("ioctl");
-> > +    exit(EXIT_FAILURE);
-> > +}
-> > +\&
-> > +/* params struct now contains the current parameters */
-> > +\&
-> > +fprintf(stderr, "epoll usecs: %lu\\n", params.busy_poll_usecs);
-> 
-> We use '\e', not '\\'.  (I haven't checked whether it also works, and
-> don't remember.)
-
-Change this to '\e' and tested it. It looks like it works to me :)
-
-> > +fprintf(stderr, "epoll packet budget: %u\\n", params.busy_poll_budget);
-> > +fprintf(stderr, "epoll prefer busy poll: %u\\n", params.prefer_busy_poll);
-> > +\&
-> > +.SH History
-> > +Linux 6.9, glibc 2.40.
-> 
-> Let's reformat this as:
-> 
-> Linux 6.9.
-> glibc 2.40.
-
-Fixed.
- 
-> > +.SH SEE ALSO
-> > +.BR ioctl (2),
-> > +.BR epoll_create (2),
-> > +.BR epoll_create1 (2),
-> > +.BR epoll (7)
-> > +.P
-> > +.I linux.git/Documentation/networking/napi.rst
-> > +.P
-> > +and
-> > +.P
-> 
-> I think we can remove the 'and'.
-
-Removed, thanks!
-
-> > +.I linux.git/Documentation/admin-guide/sysctl/net.rst
-> > diff --git a/man/man2const/EPIOCGPARAMS.2const b/man/man2const/EPIOCGPARAMS.2const
-> > new file mode 100644
-> > index 000000000..6fbc5f0f8
-> > --- /dev/null
-> > +++ b/man/man2const/EPIOCGPARAMS.2const
-> > @@ -0,0 +1 @@
-> > +.so man2/ioctl_epoll.2
-> > diff --git a/man/man2const/EPIOCSPARAMS.2const b/man/man2const/EPIOCSPARAMS.2const
-> > new file mode 100644
-> > index 000000000..6fbc5f0f8
-> > --- /dev/null
-> > +++ b/man/man2const/EPIOCSPARAMS.2const
-> > @@ -0,0 +1 @@
-> > +.so man2/ioctl_epoll.2
-> > diff --git a/man/man7/epoll.7 b/man/man7/epoll.7
-> > index e7892922e..4ad032bdd 100644
-> > --- a/man/man7/epoll.7
-> > +++ b/man/man7/epoll.7
-> > @@ -606,5 +606,6 @@ is present in an epoll instance.
-> >  .BR epoll_create1 (2),
-> >  .BR epoll_ctl (2),
-> >  .BR epoll_wait (2),
-> > +.BR ioctl_epoll (2),
-> >  .BR poll (2),
-> >  .BR select (2)
-> > -- 
-> > 2.34.1
-> 
-> Have a lovely night!
-> Alex
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
-
-
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
+ <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+Content-Language: en-US
+From: Paul Eggert <eggert@cs.ucla.edu>
+Autocrypt: addr=eggert@cs.ucla.edu; keydata=
+ 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
+Organization: UCLA Computer Science Department
+In-Reply-To: <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+
+This is a multi-part message in MIME format.
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 6/10/24 15:31, Alejandro Colomar wrote:
+> Nah, I only keep here the first one, for simplifying.  If it was added
+> in C89, and is present in C23, we can assume that it was present in C99
+> and C11 too.
+
+OK, though I still don't quite follow what those sections are supposed 
+to mean. Most of this stuff was first standardized in POSIX.1-1988 or 
+POSIX.1-1996, for example, but those editions don't seem to be mentioned.
+
+Anyway, I attempted to address that issue and the other issues you 
+mentioned. Revised proposal attached as a series of patches.
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-ctime-simplify-coverage-of-tzname-etc.patch"
+Content-Disposition: attachment;
+ filename="0001-ctime-simplify-coverage-of-tzname-etc.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBiODFjYWRlM2NmZTRhMGU3ZGQ1MzM3MTNiOTc0ODU5MDJlMWEwZTA2IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjE2OjQwIC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwMS8xMF0gY3RpbWU6IHNpbXBsaWZ5IGNvdmVyYWdlIG9mIHR6bmFtZSBldGMuCgoqIG1h
+bi9tYW4zL2N0aW1lLjM6IFNpbXBsaWZ5IGJ5IHJlZmVycmluZyB0byB0enNldCgzKSBmb3Ig
+ZGV0YWlscwphYm91dCBob3cgaXQgc2V0cyB0em5hbWUgZXRjLiAgVGhpcyBzaW1wbGlmaWVz
+IGEgbGF0ZXIgcGF0Y2gsCndoaWNoIGNoYW5nZXMgdHpzZXQoMykncyBkZXNjcmlwdGlvbi4K
+LS0tCiBtYW4vbWFuMy9jdGltZS4zIHwgMjQgKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCiAx
+IGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9tYW4vbWFuMy9jdGltZS4zIGIvbWFuL21hbjMvY3RpbWUuMwppbmRleCBiODU0
+M2ExY2YuLmU4NjNmMDU3MiAxMDA2NDQKLS0tIGEvbWFuL21hbjMvY3RpbWUuMworKysgYi9t
+YW4vbWFuMy9jdGltZS4zCkBAIC0xMDEsMTAgKzEwMSw5IEBAIFRoZSBhYmJyZXZpYXRpb25z
+IGZvciB0aGUgbW9udGhzIGFyZSAiSmFuIiwKIFRoZSByZXR1cm4gdmFsdWUgcG9pbnRzIHRv
+IGEgc3RhdGljYWxseSBhbGxvY2F0ZWQgc3RyaW5nIHdoaWNoCiBtaWdodCBiZSBvdmVyd3Jp
+dHRlbiBieSBzdWJzZXF1ZW50IGNhbGxzIHRvIGFueSBvZiB0aGUgZGF0ZSBhbmQgdGltZQog
+ZnVuY3Rpb25zLgotVGhlIGZ1bmN0aW9uIGFsc28gc2V0cyB0aGUgZXh0ZXJuYWwKLXZhcmlh
+YmxlcyBcZkl0em5hbWVcZlAsIFxmSXRpbWV6b25lXGZQLCBhbmQgXGZJZGF5bGlnaHRcZlAg
+KHNlZQotLkJSIHR6c2V0ICgzKSkKLXdpdGggaW5mb3JtYXRpb24gYWJvdXQgdGhlIGN1cnJl
+bnQgdGltZXpvbmUuCitUaGUgZnVuY3Rpb24gYWxzbyBzZXRzIHRoZSBleHRlcm5hbCB2YXJp
+YWJsZXMgXGZJdHpuYW1lXGZQLAorXGZJdGltZXpvbmVcZlAsIGFuZCBcZklkYXlsaWdodFxm
+UCBhcyBpZiBpdCBjYWxsZWQKKy5CUiB0enNldCAoMykuCiBUaGUgcmVlbnRyYW50IHZlcnNp
+b24KIC5CUiBjdGltZV9yICgpCiBkb2VzIHRoZSBzYW1lLCBidXQgc3RvcmVzIHRoZQpAQCAt
+MTMxLDEzICsxMzAsOSBAQCBUaGUKIGZ1bmN0aW9uIGNvbnZlcnRzIHRoZSBjYWxlbmRhciB0
+aW1lIFxmSXRpbWVwXGZQIHRvCiBicm9rZW4tZG93biB0aW1lIHJlcHJlc2VudGF0aW9uLAog
+ZXhwcmVzc2VkIHJlbGF0aXZlIHRvIHRoZSB1c2VyJ3Mgc3BlY2lmaWVkIHRpbWV6b25lLgot
+VGhlIGZ1bmN0aW9uIGFjdHMgYXMgaWYgaXQgY2FsbGVkCi0uQlIgdHpzZXQgKDMpCi1hbmQg
+c2V0cyB0aGUgZXh0ZXJuYWwgdmFyaWFibGVzIFxmSXR6bmFtZVxmUCB3aXRoCi1pbmZvcm1h
+dGlvbiBhYm91dCB0aGUgY3VycmVudCB0aW1lem9uZSwgXGZJdGltZXpvbmVcZlAgd2l0aCB0
+aGUgZGlmZmVyZW5jZQotYmV0d2VlbiBDb29yZGluYXRlZCBVbml2ZXJzYWwgVGltZSAoVVRD
+KSBhbmQgbG9jYWwgc3RhbmRhcmQgdGltZSBpbgotc2Vjb25kcywgYW5kIFxmSWRheWxpZ2h0
+XGZQIHRvIGEgbm9uemVybyB2YWx1ZSBpZiBkYXlsaWdodCBzYXZpbmdzCi10aW1lIHJ1bGVz
+IGFwcGx5IGR1cmluZyBzb21lIHBhcnQgb2YgdGhlIHllYXIuCitUaGUgZnVuY3Rpb24gYWxz
+byBzZXRzIHRoZSBleHRlcm5hbCB2YXJpYWJsZXMgXGZJdHpuYW1lXGZQLAorXGZJdGltZXpv
+bmVcZlAsIGFuZCBcZklkYXlsaWdodFxmUCBhcyBpZiBpdCBjYWxsZWQKKy5CUiB0enNldCAo
+MykuCiBUaGUgcmV0dXJuIHZhbHVlIHBvaW50cyB0byBhIHN0YXRpY2FsbHkgYWxsb2NhdGVk
+IHN0cnVjdCB3aGljaCBtaWdodCBiZQogb3ZlcndyaXR0ZW4gYnkgc3Vic2VxdWVudCBjYWxs
+cyB0byBhbnkgb2YgdGhlIGRhdGUgYW5kIHRpbWUgZnVuY3Rpb25zLgogVGhlCkBAIC0xOTgs
+MTAgKzE5Myw5IEBAIG5vcm1hbGl6ZWQgKHNvIHRoYXQsIGZvciBleGFtcGxlLCA0MCBPY3Rv
+YmVyIGlzIGNoYW5nZWQgaW50byA5IE5vdmVtYmVyKTsKIGlzIHNldCAocmVnYXJkbGVzcyBv
+ZiBpdHMgaW5pdGlhbCB2YWx1ZSkKIHRvIGEgcG9zaXRpdmUgdmFsdWUgb3IgdG8gMCwgcmVz
+cGVjdGl2ZWx5LAogdG8gaW5kaWNhdGUgd2hldGhlciBEU1QgaXMgb3IgaXMgbm90IGluIGVm
+ZmVjdCBhdCB0aGUgc3BlY2lmaWVkIHRpbWUuCi1DYWxsaW5nCi0uQlIgbWt0aW1lICgpCi1h
+bHNvIHNldHMgdGhlIGV4dGVybmFsIHZhcmlhYmxlIFxmSXR6bmFtZVxmUCB3aXRoCi1pbmZv
+cm1hdGlvbiBhYm91dCB0aGUgY3VycmVudCB0aW1lem9uZS4KK1RoZSBmdW5jdGlvbiBhbHNv
+IHNldHMgdGhlIGV4dGVybmFsIHZhcmlhYmxlcyBcZkl0em5hbWVcZlAsCitcZkl0aW1lem9u
+ZVxmUCwgYW5kIFxmSWRheWxpZ2h0XGZQIGFzIGlmIGl0IGNhbGxlZAorLkJSIHR6c2V0ICgz
+KS4KIC5QCiBJZiB0aGUgc3BlY2lmaWVkIGJyb2tlbi1kb3duCiB0aW1lIGNhbm5vdCBiZSBy
+ZXByZXNlbnRlZCBhcyBjYWxlbmRhciB0aW1lIChzZWNvbmRzIHNpbmNlIHRoZSBFcG9jaCks
+Ci0tIAoyLjQ1LjIKCg==
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0002-tzset-state-vars-unspecified-if-geographical-TZ.patch"
+Content-Disposition: attachment;
+ filename*0="0002-tzset-state-vars-unspecified-if-geographical-TZ.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSAxNDRjMjJmNmZhZTFiODIwOGQyOWQyOTk3N2E2ZWNjN2U3NGJjNWMxIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIwOjEzIC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwMi8xMF0gdHpzZXQ6IHN0YXRlIHZhcnMgdW5zcGVjaWZpZWQgaWYgZ2VvZ3JhcGhpY2Fs
+IFRaCgotLS0KIG1hbi9tYW4zL3R6c2V0LjMgfCA4ICsrKysrKystCiAxIGZpbGUgY2hhbmdl
+ZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21h
+bjMvdHpzZXQuMyBiL21hbi9tYW4zL3R6c2V0LjMKaW5kZXggODQ3OWIxN2IwLi42ZTg5ZGQ1
+MzAgMTAwNjQ0Ci0tLSBhL21hbi9tYW4zL3R6c2V0LjMKKysrIGIvbWFuL21hbjMvdHpzZXQu
+MwpAQCAtNjMsNiArNjMsMTEgQEAgSW4gYSBTeXN0ZW0tVi1saWtlIGVudmlyb25tZW50LCBp
+dCB3aWxsIGFsc28gc2V0IHRoZSB2YXJpYWJsZXMgXGZJdGltZXpvbmVcZlAKIGhhdmUgYW55
+IGRheWxpZ2h0IHNhdmluZyB0aW1lIHJ1bGVzLCBvciB0byBub256ZXJvIGlmIHRoZXJlIGlz
+IGEgdGltZSwKIHBhc3QsIHByZXNlbnQsIG9yIGZ1dHVyZSB3aGVuIGRheWxpZ2h0IHNhdmlu
+ZyB0aW1lIGFwcGxpZXMpLgogLlAKK1RoZQorLkJSIHR6c2V0ICgpCitmdW5jdGlvbiBpbml0
+aWFsaXplcyB0aGVzZSB2YXJpYWJsZXMgdG8gdW5zcGVjaWZpZWQgdmFsdWVzIGlmIHRoaXMK
+K3RpbWV6b25lIGlzIGEgZ2VvZ3JhcGhpY2FsIHRpbWV6b25lIGxpa2UgIkFtZXJpY2EvTmV3
+X1lvcmsiIChzZWUgYmVsb3cpLgorLlAKIElmIHRoZQogLkIgVFoKIHZhcmlhYmxlIGRvZXMg
+bm90IGFwcGVhciBpbiB0aGUgZW52aXJvbm1lbnQsIHRoZSBzeXN0ZW0gdGltZXpvbmUgaXMg
+dXNlZC4KQEAgLTE1NSw3ICsxNjAsOCBAQCBUWj0iTlpTVFwtMTI6MDA6MDBOWkRUXC0xMzow
+MDowMCxNMTAuMS4wLE0zLjMuMCIKIC5FRQogLmluCiAuUAotVGhlIHNlY29uZCBmb3JtYXQg
+c3BlY2lmaWVzIHRoYXQgdGhlIHRpbWV6b25lIGluZm9ybWF0aW9uIHNob3VsZCBiZSByZWFk
+CitUaGUgc2Vjb25kLCBvciAiZ2VvZ3JhcGhpY2FsIiwKK2Zvcm1hdCBzcGVjaWZpZXMgdGhh
+dCB0aGUgdGltZXpvbmUgaW5mb3JtYXRpb24gc2hvdWxkIGJlIHJlYWQKIGZyb20gYSBmaWxl
+OgogLlAKIC5pbiArNG4KLS0gCjIuNDUuMgoK
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0003-tzset-recommend-tm_gmtoff-tm_zone-instead.patch"
+Content-Disposition: attachment;
+ filename="0003-tzset-recommend-tm_gmtoff-tm_zone-instead.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBkNzAxNWFkZTIyYzFiZjA1MjM3Yzc2ZGFlNjFhNzA1MGYyYzc2Zjk2IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIxOjMxIC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwMy8xMF0gdHpzZXQ6IHJlY29tbWVuZCB0bV9nbXRvZmYsIHRtX3pvbmUgaW5zdGVhZAoK
+TmV3IHNlY3Rpb24gQ0FWRUFUUyBmb3Igd2h5IHRpbWUgem9uZSBzdGF0ZSBpcyBkaWNleS4K
+LS0tCiBtYW4vbWFuMy90enNldC4zIHwgMTAgKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQs
+IDEwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIvbWFu
+L21hbjMvdHpzZXQuMwppbmRleCA2ZTg5ZGQ1MzAuLjU1MjQwMWM1OCAxMDA2NDQKLS0tIGEv
+bWFuL21hbjMvdHpzZXQuMworKysgYi9tYW4vbWFuMy90enNldC4zCkBAIC0yNDEsNiArMjQx
+LDE2IEBAIG5hbWUgb2YgdGhlIHRpbWV6b25lIGNvcnJlc3BvbmRpbmcgdG8gaXRzIGZpcnN0
+IGFyZ3VtZW50IChtaW51dGVzCiBXZXN0IG9mIFVUQykuCiBJZiB0aGUgc2Vjb25kIGFyZ3Vt
+ZW50IHdhcyAwLCB0aGUgc3RhbmRhcmQgbmFtZSB3YXMgdXNlZCwKIG90aGVyd2lzZSB0aGUg
+ZGF5bGlnaHQgc2F2aW5nIHRpbWUgdmVyc2lvbi4KKy5TSCBDQVZFQVRTCitCZWNhdXNlIHRo
+ZSB2YWx1ZXMgb2YgXGZJdHpuYW1lXGZQLCBcZkl0aW1lem9uZVxmUCwgYW5kIFxmSWRheWxp
+Z2h0XGZQCithcmUgb2Z0ZW4gdW5zcGVjaWZpZWQsIGFuZCBhY2Nlc3NpbmcgdGhlbSBjYW4g
+bGVhZCB0byB1bmRlZmluZWQKK2JlaGF2aW9yIGluIG11bHRpdGhyZWFkZWQgYXBwbGljYXRp
+b25zLAorY29kZSBzaG91bGQgaW5zdGVhZCBvYnRhaW4gdGltZSB6b25lIG9mZnNldCBhbmQg
+YWJicmV2aWF0aW9ucyBmcm9tIHRoZQorLkkgdG1fZ210b2ZmCithbmQKKy5JIHRtX3pvbmUK
+K21lbWJlcnMgb2YgdGhlIGJyb2tlbi1kb3duIHRpbWUgc3RydWN0dXJlCisuQlIgdG0gKDN0
+eXBlKS4KIC5TSCBTRUUgQUxTTwogLkJSIGRhdGUgKDEpLAogLkJSIGdldHRpbWVvZmRheSAo
+MiksCi0tIAoyLjQ1LjIKCg==
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0004-tzset-TZ-can-also-be-empty.patch"
+Content-Disposition: attachment;
+ filename="0004-tzset-TZ-can-also-be-empty.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA1NjRhNDdlNzliYWJhODM5MDI3MzhlNmU5OGI1NTdiYTdkZDk0NTEwIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIyOjM2IC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwNC8xMF0gdHpzZXQ6IFRaIGNhbiBhbHNvIGJlIGVtcHR5CgotLS0KIG1hbi9tYW4zL3R6
+c2V0LjMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRp
+b24oLSkKCmRpZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIvbWFuL21hbjMvdHpzZXQu
+MwppbmRleCA1NTI0MDFjNTguLjdkZGVhNTJiNyAxMDA2NDQKLS0tIGEvbWFuL21hbjMvdHpz
+ZXQuMworKysgYi9tYW4vbWFuMy90enNldC4zCkBAIC04NCw3ICs4NCw3IEBAIHZhcmlhYmxl
+IGRvZXMgYXBwZWFyIGluIHRoZSBlbnZpcm9ubWVudCwgYnV0IGl0cyB2YWx1ZSBpcyBlbXB0
+eSwKIG9yIGl0cyB2YWx1ZSBjYW5ub3QgYmUgaW50ZXJwcmV0ZWQgdXNpbmcgYW55IG9mIHRo
+ZSBmb3JtYXRzIHNwZWNpZmllZAogYmVsb3csIHRoZW4gQ29vcmRpbmF0ZWQgVW5pdmVyc2Fs
+IFRpbWUgKFVUQykgaXMgdXNlZC4KIC5QCi1UaGUgdmFsdWUgb2YKK0Egbm9uZW1wdHkgdmFs
+dWUgb2YKIC5CIFRaCiBjYW4gYmUgb25lIG9mIHR3byBmb3JtYXRzLgogVGhlIGZpcnN0IGZv
+cm1hdCBpcyBhIHN0cmluZyBvZiBjaGFyYWN0ZXJzIHRoYXQgZGlyZWN0bHkgcmVwcmVzZW50
+IHRoZQotLSAKMi40NS4yCgo=
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0005-tzset-time-hh-range-is-now-167.167.patch"
+Content-Disposition: attachment;
+ filename="0005-tzset-time-hh-range-is-now-167.167.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA0MTlkY2M5NTA4NWJjYWE4NDRmMDk3ZDBkYzkyNzE5YWRlN2Q5OTM3IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIzOjMzIC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwNS8xMF0gdHpzZXQ6IHRpbWUgaGggcmFuZ2UgaXMgbm93IC0xNjcuLjE2NwoKLS0tCiBt
+YW4vbWFuMy90enNldC4zIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
+KQoKZGlmZiAtLWdpdCBhL21hbi9tYW4zL3R6c2V0LjMgYi9tYW4vbWFuMy90enNldC4zCmlu
+ZGV4IDdkZGVhNTJiNy4uNzE3YjFmZWM5IDEwMDY0NAotLS0gYS9tYW4vbWFuMy90enNldC4z
+CisrKyBiL21hbi9tYW4zL3R6c2V0LjMKQEAgLTE0Niw2ICsxNDYsOCBAQCBEYXkgMCBpcyBh
+IFN1bmRheS4KIC5QCiBUaGUgXGZJdGltZVxmUCBmaWVsZHMgc3BlY2lmeSB3aGVuLCBpbiB0
+aGUgbG9jYWwgdGltZSBjdXJyZW50bHkgaW4gZWZmZWN0LAogdGhlIGNoYW5nZSB0byB0aGUg
+b3RoZXIgdGltZSBvY2N1cnMuCitUaGV5IHVzZSB0aGUgc2FtZSBmb3JtYXQgYXMgXGZJb2Zm
+c2V0XGZQIGV4Y2VwdCB0aGF0IHRoZSBob3VyIGNhbiByYW5nZQorZnJvbSBcLTE2NyB0byAx
+NjcgdG8gcmVwcmVzZW50IHRpbWVzIGJlZm9yZSBhbmQgYWZ0ZXIgdGhlIG5hbWVkIGRheS4K
+IElmIG9taXR0ZWQsIHRoZSBkZWZhdWx0IGlzIDAyOjAwOjAwLgogLlAKIEhlcmUgaXMgYW4g
+ZXhhbXBsZSBmb3IgTmV3IFplYWxhbmQsCi0tIAoyLjQ1LjIKCg==
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0006-tzset-use-NZ-s-current-rules-in-example.patch"
+Content-Disposition: attachment;
+ filename="0006-tzset-use-NZ-s-current-rules-in-example.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSAwNzVmYjcwNzFhZmJiYTVhYWJiZmRmNWY2ZGE3MDJiODQzODM1YmQxIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjI2OjAzIC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwNi8xMF0gdHpzZXQ6IHVzZSBOWidzIGN1cnJlbnQgcnVsZXMgaW4gZXhhbXBsZQoKLS0t
+CiBtYW4vbWFuMy90enNldC4zIHwgNiArKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
+dGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMvdHpzZXQu
+MyBiL21hbi9tYW4zL3R6c2V0LjMKaW5kZXggNzE3YjFmZWM5Li4wYjgxM2M1NjggMTAwNjQ0
+Ci0tLSBhL21hbi9tYW4zL3R6c2V0LjMKKysrIGIvbWFuL21hbjMvdHpzZXQuMwpAQCAtMTUz
+LDEyICsxNTMsMTIgQEAgSWYgb21pdHRlZCwgdGhlIGRlZmF1bHQgaXMgMDI6MDA6MDAuCiBI
+ZXJlIGlzIGFuIGV4YW1wbGUgZm9yIE5ldyBaZWFsYW5kLAogd2hlcmUgdGhlIHN0YW5kYXJk
+IHRpbWUgKE5aU1QpIGlzIDEyIGhvdXJzIGFoZWFkIG9mIFVUQywKIGFuZCBkYXlsaWdodCBz
+YXZpbmcgdGltZSAoTlpEVCksIDEzIGhvdXJzIGFoZWFkIG9mIFVUQywKLXJ1bnMgZnJvbSB0
+aGUgZmlyc3QgU3VuZGF5IGluIE9jdG9iZXIgdG8gdGhlIHRoaXJkIFN1bmRheSBpbiBNYXJj
+aCwKLWFuZCB0aGUgY2hhbmdlb3ZlcnMgaGFwcGVuIGF0IHRoZSBkZWZhdWx0IHRpbWUgb2Yg
+MDI6MDA6MDA6CitydW5zIGZyb20gU2VwdGVtYmVyJ3MgbGFzdCBTdW5kYXksIGF0IHRoZSBk
+ZWZhdWx0IHRpbWUgMDI6MDA6MDAsCit0byBBcHJpbCdzIGZpcnN0IFN1bmRheSBhdCAwMzow
+MDowMC4KIC5QCiAuaW4gKzRuCiAuRVgKLVRaPSJOWlNUXC0xMjowMDowME5aRFRcLTEzOjAw
+OjAwLE0xMC4xLjAsTTMuMy4wIgorVFo9Ik5aU1RcLTEyOjAwOjAwTlpEVFwtMTM6MDA6MDAs
+TTkuNS4wLE00LjEuMC8zIgogLkVFCiAuaW4KIC5QCi0tIAoyLjQ1LjIKCg==
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0007-tzset-TZ-EST5-works.patch"
+Content-Disposition: attachment; filename="0007-tzset-TZ-EST5-works.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBlM2JiY2RjZjFlMjIxOTgxMmY5NDY0NGU3NDJmYTEyYjYwNjQyMzBhIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjM0OjM1IC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwNy8xMF0gdHpzZXQ6IFRaPSI6RVNUNSIgd29ya3MKCi0tLQogbWFuL21hbjMvdHpzZXQu
+MyB8IDE3ICsrKysrKysrKystLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9u
+cygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIv
+bWFuL21hbjMvdHpzZXQuMwppbmRleCAwYjgxM2M1NjguLmYzZTZjODc0OCAxMDA2NDQKLS0t
+IGEvbWFuL21hbjMvdHpzZXQuMworKysgYi9tYW4vbWFuMy90enNldC4zCkBAIC04Niw3ICs4
+Niw4IEBAIGJlbG93LCB0aGVuIENvb3JkaW5hdGVkIFVuaXZlcnNhbCBUaW1lIChVVEMpIGlz
+IHVzZWQuCiAuUAogQSBub25lbXB0eSB2YWx1ZSBvZgogLkIgVFoKLWNhbiBiZSBvbmUgb2Yg
+dHdvIGZvcm1hdHMuCitjYW4gYmUgb25lIG9mIHR3byBmb3JtYXRzLAorZWl0aGVyIG9mIHdo
+aWNoIGNhbiBiZSBwcmVjZWRlZCBieSBhIGNvbG9uIHdoaWNoIGlzIGlnbm9yZWQuCiBUaGUg
+Zmlyc3QgZm9ybWF0IGlzIGEgc3RyaW5nIG9mIGNoYXJhY3RlcnMgdGhhdCBkaXJlY3RseSBy
+ZXByZXNlbnQgdGhlCiB0aW1lem9uZSB0byBiZSB1c2VkOgogLlAKQEAgLTE2OCwxOSArMTY5
+LDIxIEBAIGZyb20gYSBmaWxlOgogLlAKIC5pbiArNG4KIC5FWAotOltmaWxlc3BlY10KK2Zp
+bGVzcGVjCiAuRUUKIC5pbgogLlAKLUlmIHRoZSBmaWxlIHNwZWNpZmljYXRpb24gXGZJZmls
+ZXNwZWNcZlAgaXMgb21pdHRlZCwgb3IgaXRzIHZhbHVlIGNhbm5vdAotYmUgaW50ZXJwcmV0
+ZWQsIHRoZW4gQ29vcmRpbmF0ZWQgVW5pdmVyc2FsIFRpbWUgKFVUQykgaXMgdXNlZC4KLUlm
+IFxmSWZpbGVzcGVjXGZQIGlzIGdpdmVuLCBpdCBzcGVjaWZpZXMgYW5vdGhlcgorVGhlIFxm
+SWZpbGVzcGVjXGZQIHNwZWNpZmllcyBhCiAuQlIgdHpmaWxlICg1KS1mb3JtYXQKIGZpbGUg
+dG8gcmVhZCB0aGUgdGltZXpvbmUgaW5mb3JtYXRpb24gZnJvbS4KIElmIFxmSWZpbGVzcGVj
+XGZQIGRvZXMgbm90IGJlZ2luIHdpdGggYSBcW2FxXS9cW2FxXSwgdGhlIGZpbGUgc3BlY2lm
+aWNhdGlvbiBpcwogcmVsYXRpdmUgdG8gdGhlIHN5c3RlbSB0aW1lem9uZSBkaXJlY3Rvcnku
+Ci1JZiB0aGUgY29sb24gaXMgb21pdHRlZCBlYWNoCi1vZiB0aGUgYWJvdmUgXGZCVFpcZlAg
+Zm9ybWF0cyB3aWxsIGJlIHRyaWVkLgorSWYgdGhlIHNwZWNpZmllZCBmaWxlIGNhbm5vdCBi
+ZSByZWFkIG9yIGludGVycHJldGVkLAorQ29vcmRpbmF0ZWQgVW5pdmVyc2FsIFRpbWUgKFVU
+QykgaXMgdXNlZDsKK2hvd2V2ZXIsIGFwcGxpY2F0aW9ucyBzaG91bGQgbm90IGRlcGVuZCBv
+biByYW5kb20gXGZJZmlsZXNwZWNcZlAgdmFsdWVzCitzdGFuZGluZyBmb3IgVVRDLCBhcwor
+LkIgVFoKK2Zvcm1hdHMgbWF5IGJlIGV4dGVuZGVkIGluIHRoZSBmdXR1cmUuCiAuUAogSGVy
+ZSdzIGFuIGV4YW1wbGUsIG9uY2UgbW9yZSBmb3IgTmV3IFplYWxhbmQ6CiAuUAotLSAKMi40
+NS4yCgo=
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0008-tzset-omit-colon-in-example.patch"
+Content-Disposition: attachment;
+ filename="0008-tzset-omit-colon-in-example.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA2ZDU1ZGU2NTFlZTc1N2NlM2QzNTUzMTcxNjQ2M2FhMTAwNGU0NDA0IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjM1OjE0IC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwOC8xMF0gdHpzZXQ6IG9taXQgY29sb24gaW4gZXhhbXBsZQoKLS0tCiBtYW4vbWFuMy90
+enNldC4zIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMvdHpzZXQuMyBiL21hbi9tYW4zL3R6c2V0
+LjMKaW5kZXggZjNlNmM4NzQ4Li40YzdlMjg2ZmUgMTAwNjQ0Ci0tLSBhL21hbi9tYW4zL3R6
+c2V0LjMKKysrIGIvbWFuL21hbjMvdHpzZXQuMwpAQCAtMTg5LDcgKzE4OSw3IEBAIEhlcmUn
+cyBhbiBleGFtcGxlLCBvbmNlIG1vcmUgZm9yIE5ldyBaZWFsYW5kOgogLlAKIC5pbiArNG4K
+IC5FWAotVFo9IjpQYWNpZmljL0F1Y2tsYW5kIgorVFo9IlBhY2lmaWMvQXVja2xhbmQiCiAu
+RUUKIC5pbgogLlNIIEVOVklST05NRU5UCi0tIAoyLjQ1LjIKCg==
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0009-tzset-update-STANDARDS-HISTORY.patch"
+Content-Disposition: attachment;
+ filename="0009-tzset-update-STANDARDS-HISTORY.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBhMDg1MTc3MTlhODU3MzI3NmQ2ZjFkMTZlNTczMGVlZGFiYWU3NzNlIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjM3OjQ3IC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAwOS8xMF0gdHpzZXQ6IHVwZGF0ZSBTVEFOREFSRFMsIEhJU1RPUlkKClRoZSBjdXJyZW50
+IHN0YW5kYXJkcyBhcmUgQzIzIGFuZCBQT1NJWC4xLTIwMjQuClRoaXMgc3R1ZmYgd2FzIGZp
+cnN0IHN0YW5kYXJkaXplZCBpbiBDODkgYW5kIFBPU0lYLjEtMTk4OC4KLS0tCiBtYW4vbWFu
+M3R5cGUvdG0uM3R5cGUgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
+KyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjN0eXBlL3RtLjN0eXBl
+IGIvbWFuL21hbjN0eXBlL3RtLjN0eXBlCmluZGV4IDVkNWIyODY1OC4uMTYyOGUwYzFmIDEw
+MDY0NAotLS0gYS9tYW4vbWFuM3R5cGUvdG0uM3R5cGUKKysrIGIvbWFuL21hbjN0eXBlL3Rt
+LjN0eXBlCkBAIC05MCw5ICs5MCw5IEBAIHBvaW50cyB0byBzdGF0aWMgc3RvcmFnZSBhbmQg
+bWF5IGJlIG92ZXJyaWRkZW4gb24gc3Vic2VxdWVudCBjYWxscyB0bwogLkJSIGxvY2FsdGlt
+ZSAoMykKIGFuZCBzaW1pbGFyIGZ1bmN0aW9ucyAoaG93ZXZlciwgdGhpcyBuZXZlciBoYXBw
+ZW5zIHVuZGVyIGdsaWJjKS4KIC5TSCBTVEFOREFSRFMKLUMxMSwgUE9TSVguMS0yMDA4Lgor
+QzIzLCBQT1NJWC4xLTIwMjQuCiAuU0ggSElTVE9SWQotQzg5LCBQT1NJWC4xLTIwMDEuCitD
+ODksIFBPU0lYLjEtMTk4OC4KIC5QCiAuSSB0bV9nbXRvZmYKIGFuZAotLSAKMi40NS4yCgo=
+
+--------------EbynPQbH8awUiWhfEASTskR0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0010-tzset-update-more-POSIX-citations-and-quotes.patch"
+Content-Disposition: attachment;
+ filename="0010-tzset-update-more-POSIX-citations-and-quotes.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBlNDRiZmVkZWFiN2FmMDg3MTExYzMzYWE2M2M5N2JjZmY2ZGQyYmY1IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
+PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE5OjExOjU5IC0wNzAwClN1YmplY3Q6IFtQQVRD
+SCAxMC8xMF0gdHpzZXQ6IHVwZGF0ZSBtb3JlIFBPU0lYIGNpdGF0aW9ucyBhbmQgcXVvdGVz
+CgotLS0KIG1hbi9tYW4zL2N0aW1lLjMgfCAyOSArKysrKysrKysrKysrLS0tLS0tLS0tLS0t
+LS0tLQogbWFuL21hbjMvdHpzZXQuMyB8ICA0ICsrLS0KIDIgZmlsZXMgY2hhbmdlZCwgMTUg
+aW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMv
+Y3RpbWUuMyBiL21hbi9tYW4zL2N0aW1lLjMKaW5kZXggZTg2M2YwNTcyLi5hMGRhY2ZlZGEg
+MTAwNjQ0Ci0tLSBhL21hbi9tYW4zL2N0aW1lLjMKKysrIGIvbWFuL21hbjMvY3RpbWUuMwpA
+QCAtMzIwLDcgKzMyMCw3IEBAIEluIG1hbnkgaW1wbGVtZW50YXRpb25zLCBpbmNsdWRpbmcg
+Z2xpYmMsIGEgMCBpbgogLkkgdG1fbWRheQogaXMgaW50ZXJwcmV0ZWQgYXMgbWVhbmluZyB0
+aGUgbGFzdCBkYXkgb2YgdGhlIHByZWNlZGluZyBtb250aC4KIC5QCi1BY2NvcmRpbmcgdG8g
+UE9TSVguMS0yMDAxLAorQWNjb3JkaW5nIHRvIFBPU0lYLjEtMjAyNCwKIC5CUiBsb2NhbHRp
+bWUgKCkKIGlzIHJlcXVpcmVkIHRvIGJlaGF2ZSBhcyB0aG91Z2gKIC5CUiB0enNldCAoMykK
+QEAgLTM0MywxNiArMzQzLDEyIEBAIHNob3VsZCBiZSBjYWxsZWQgYmVmb3JlCiAuQlIgbG9j
+YWx0aW1lICgpCiAuVFEKIC5CUiBta3RpbWUgKCkKLUMxMSwgUE9TSVguMS0yMDA4LgorQzIz
+LCBQT1NJWC4xLTIwMjQuCiAuVFAKLS5CUiBhc2N0aW1lX3IgKCkKLS5UUQotLkJSIGN0aW1l
+X3IgKCkKLS5UUQogLkJSIGdtdGltZV9yICgpCiAuVFEKIC5CUiBsb2NhbHRpbWVfciAoKQot
+UE9TSVguMS0yMDA4LgorUE9TSVguMS0yMDI0LgogLlNIIEhJU1RPUlkKIC5UUAogLkJSIGdt
+dGltZSAoKQpAQCAtMzYwLDI1ICszNTYsMjUgQEAgUE9TSVguMS0yMDA4LgogLkJSIGxvY2Fs
+dGltZSAoKQogLlRRCiAuQlIgbWt0aW1lICgpCi1DODksIFBPU0lYLjEtMjAwMS4KK0M4OSwg
+UE9TSVguMS0xOTg4LgogLlRQCiAuQlIgYXNjdGltZSAoKQogLlRRCiAuQlIgY3RpbWUgKCkK
+LUM4OSwgUE9TSVguMS0yMDAxLgotTWFya2VkIG9ic29sZXRlIGluIFBPU0lYLjEtMjAwOCAo
+cmVjb21tZW5kaW5nCitDODksIFBPU0lYLjEtMTk4OC4KK01hcmtlZCBvYnNvbGVzY2VudCBp
+biBDMjMgYW5kIGluIFBPU0lYLjEtMjAwOCAocmVjb21tZW5kaW5nCiAuQlIgc3RyZnRpbWUg
+KDMpKS4KIC5UUAogLkJSIGdtdGltZV9yICgpCiAuVFEKIC5CUiBsb2NhbHRpbWVfciAoKQot
+UE9TSVguMS0yMDAxLgorUE9TSVguMS0xOTk2LgogLlRQCiAuQlIgYXNjdGltZV9yICgpCiAu
+VFEKIC5CUiBjdGltZV9yICgpCi1QT1NJWC4xLTIwMDEuCi1NYXJrZWQgb2Jzb2xldGUgaW4g
+UE9TSVguMS0yMDA4IChyZWNvbW1lbmRpbmcKK1BPU0lYLjEtMTk5Ni4KK1JlbW92ZWQgaW4g
+UE9TSVguMS0yMDI0IChyZWNvbW1lbmRpbmcKIC5CUiBzdHJmdGltZSAoMykpLgogLlNIIE5P
+VEVTCiBUaGUgZm91ciBmdW5jdGlvbnMKQEAgLTM5Niw3ICszOTIsNyBAQCBhbmQKIC5CUiBs
+b2NhbHRpbWVfciAoKSwKIGFyZSBzcGVjaWZpZWQgYnkgU1VTdjIuCiAuUAotUE9TSVguMS0y
+MDAxIHNheXM6CitQT1NJWC4xLTIwMjQgc2F5czoKICJUaGUKIC5CUiBhc2N0aW1lICgpLAog
+LkJSIGN0aW1lICgpLApAQCAtNDA2LDggKzQwMiw5IEBAIGFuZAogZnVuY3Rpb25zIHNoYWxs
+IHJldHVybiB2YWx1ZXMgaW4gb25lIG9mIHR3byBzdGF0aWMgb2JqZWN0czoKIGEgYnJva2Vu
+LWRvd24gdGltZSBzdHJ1Y3R1cmUgYW5kIGFuIGFycmF5IG9mIHR5cGUKIC5JUiBjaGFyIC4K
+LUV4ZWN1dGlvbiBvZiBhbnkgb2YgdGhlIGZ1bmN0aW9ucyBtYXkgb3ZlcndyaXRlIHRoZSBp
+bmZvcm1hdGlvbiByZXR1cm5lZAotaW4gZWl0aGVyIG9mIHRoZXNlIG9iamVjdHMgYnkgYW55
+IG9mIHRoZSBvdGhlciBmdW5jdGlvbnMuIgorRXhlY3V0aW9uIG9mIGFueSBvZiB0aGUgZnVu
+Y3Rpb25zIHRoYXQgcmV0dXJuIGEgcG9pbnRlciB0byBvbmUgb2YgdGhlc2UKK29iamVjdCB0
+eXBlcyBtYXkgb3ZlcndyaXRlIHRoZSBpbmZvcm1hdGlvbiBpbiBhbnkgb2JqZWN0IG9mIHRo
+ZSBzYW1lIHR5cGUKK3BvaW50ZWQgdG8gYnkgdGhlIHZhbHVlIHJldHVybmVkIGZyb20gYW55
+IHByZXZpb3VzIGNhbGwgdG8gYW55IG9mIHRoZW0uIgogVGhpcyBjYW4gb2NjdXIgaW4gdGhl
+IGdsaWJjIGltcGxlbWVudGF0aW9uLgogLlNIIFNFRSBBTFNPCiAuQlIgZGF0ZSAoMSksCmRp
+ZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIvbWFuL21hbjMvdHpzZXQuMwppbmRleCA0
+YzdlMjg2ZmUuLjdkNTdkYzlhMSAxMDA2NDQKLS0tIGEvbWFuL21hbjMvdHpzZXQuMworKysg
+Yi9tYW4vbWFuMy90enNldC4zCkBAIC0yMzUsOSArMjM1LDkgQEAgVHsKIFR9CVRocmVhZCBz
+YWZldHkJTVQtU2FmZSBlbnYgbG9jYWxlCiAuVEUKIC5TSCBTVEFOREFSRFMKLVBPU0lYLjEt
+MjAwOC4KK1BPU0lYLjEtMjAyNC4KIC5TSCBISVNUT1JZCi1QT1NJWC4xLTIwMDEsIFNWcjQs
+IDQuM0JTRC4KK1BPU0lYLjEtMTk4OCwgU1ZyNCwgNC4zQlNELgogLlAKIDQuM0JTRCBoYWQg
+YSBmdW5jdGlvbgogLkJJICJjaGFyICp0aW1lem9uZSgiIHpvbmUgIiwgIiBkc3QgKQotLSAK
+Mi40NS4yCgo=
+
+--------------EbynPQbH8awUiWhfEASTskR0--
 
