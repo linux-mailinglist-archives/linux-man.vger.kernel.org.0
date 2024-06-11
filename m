@@ -1,292 +1,344 @@
-Return-Path: <linux-man+bounces-1074-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1075-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07C18903681
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 10:31:15 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B96A903764
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 11:04:34 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 807F21F21636
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 08:31:14 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id AF7DDB2FF48
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 08:56:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 563EA174EE4;
-	Tue, 11 Jun 2024 08:31:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07210176256;
+	Tue, 11 Jun 2024 08:54:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jmj55ms/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lP5naMWC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A6014D70A;
-	Tue, 11 Jun 2024 08:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC09917556B
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 08:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718094668; cv=none; b=YNJfxlMJDiLv0HzmiszqSXE63s3w7bq61B2HPkL3wdcTzmDREovvAe8MZSqcNCQ/P4/WJ4JszrFEAFX0AquTCpXOVHeg8L1AgUC4RroEPdh9EYhKXLJJrMAa2lq642keoNUdSwKDg+xBCdAiAplr75eSCc2yLyvN0ncFCCzAYkE=
+	t=1718096070; cv=none; b=UZ3tT6aWZ9bFJMhMfCSA3cNAZnWKrx0+/FgeMXwrZy3z4V5aIYhk48ZMlE3hRZ1PneIKbJlIjnNY+zWF99m79u2TFtjlEErxs+zC4yjv6OUgDmabRJD4UKsOB/BtbiFozv6ZavPo1B7+evof52a2+Lbj9jvszVsWEhsQ0oarEfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718094668; c=relaxed/simple;
-	bh=tt71vPxmPIHlkgLbj7cMrF+1QLZVg430BiNP8a4Qypc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LT4tFpqlAOPwb4c3ROlnruufT6Qzpcho5ZT6ebo5q24wn/jymbGnzK57IxPDRqE8TKI3DmWbdbdqh6jD5eVfzpeUPQ7ueQcNGStkQnNd6ZacCuCwppt62PCKna8knaYMWyJLa0cXWRbBXMymPHfFOmOWLTL7huYFvuPkmVBeJDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jmj55ms/; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-2c2eb98a64fso2140757a91.2;
-        Tue, 11 Jun 2024 01:31:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718094666; x=1718699466; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fqXL6oQaRNaVKhta8paErN6ux3IRrcLD+yfLg4MWLtY=;
-        b=Jmj55ms/c82SgV3hHQduzr3B5Fsm1jP/BbxO5YQ8XYB4p4NMKCt6/wAhrbw+pmcsKp
-         eiVBUaSYTdRABg1z9VBveYyAijE/xEInqqLYXy3L8MEi2PPfbP4gbSeH3xkhGnIAj1FV
-         H87AwwXiPecwb8wbEQph2TVNtCPUpJT4ZRnxZwO64lkevlJqLtmh3y/zGc95BtyCbn8u
-         wpsrenFiGFlm3G4PM/hdsiEC1dyr4hM6WkDwRLN6LVzH4LMjrEjEscPJEmKXZVtMGQUy
-         j/oQjgvSfiDJuS4phbkSI4NmqfnfSUFkc+fVNFmb+hNZZtmazM5LO4zjtSLfY/ew4JOw
-         QFJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718094666; x=1718699466;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fqXL6oQaRNaVKhta8paErN6ux3IRrcLD+yfLg4MWLtY=;
-        b=dxQ/IxeyTRsF5m63+e10N8O401yn9Wm+PYRy7sDwNKBNR8CI6UWSQzNjRm8tBe+zAl
-         FZs+N8QvHPxq5vM+FWxCH7hUGcTJvxwO0/ufL0fR5AhWlHebJT3Fam2UVDwJeEU68qCH
-         ffV/OekvBJjRETYlkle2umDhxm54t56yb3v6f5zwmsVCHtsAUT0A7fd0rO5NWTEIQDp2
-         7U6CNFxAngInclszYn6ZEfDz92ltCMX1BBsYqmo/09RLYMnsqek7V8El/WH0yVjraq/p
-         2pIfBB24yiNo9taghANGG+FbnSx8TOgB8yRUu0UUSLwbFgxZAEyITd4eDT1HJ9kRUOW/
-         5A/g==
-X-Forwarded-Encrypted: i=1; AJvYcCU9+OrBUMZ9/fRQxCzsexJT4GgQAw4znktDO59X/HSMMOzQdaLXBEUrmPsJsy185qaHj8hWNxAJ1BWHqS2V4sAkoc4ijbYH8FhTL5FKPkbYycnRlUo7yLwaxXDM4yTgiplEj4cwK4a75/mFIwS3itS12quqEDj2xm7CqVbG4qsWpKvYwUm/FDii63ECq41GCu7mh8Xet2cp28XaJrUUPeV6H3iYFRaASzjO0Ev46hj3098ILlnsNaBV3gET
-X-Gm-Message-State: AOJu0YzoVEnECOJqEyaLyFqGs5uo7h3FuVVVFnVBgDs1r/dvLXbD/6If
-	JhdO/NvPsjd/eaDPrEtD8d8uJUUa+3HW5TmMUaEl5gK8HZZ7pxJD+EqZ1Zatli+5S180iUqz8Gx
-	WCP8YnbwFaMSGm5DElE8FKRA/9iU=
-X-Google-Smtp-Source: AGHT+IE42+xyH4NrIpeXahdIzqcAlL5FxXFQjAZ0eZL1zfwLNaD0SsQrE0K0hILKvssQPbYd96k0zQYDshOdATSrz+s=
-X-Received: by 2002:a17:90b:1049:b0:2c2:cce9:2578 with SMTP id
- 98e67ed59e1d1-2c2cce92bd7mr8884521a91.17.1718094665746; Tue, 11 Jun 2024
- 01:31:05 -0700 (PDT)
+	s=arc-20240116; t=1718096070; c=relaxed/simple;
+	bh=Pq5YpsUaflX9vUn877LPmKLA06OsfdEwB7AXWmD/kJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CsYYtqp7Jb4zFDeqRLrijU6t/c8AviXkTxfwghSqPQLIxr9S004i/ACg4HdDeZG+IZrP0PoyVjL4gplETNr+6qXtKCZWMvxYNx9kynj08aqwJeU3uCOg7OsakXpZoGa4DPVHIcBAKmCPeRHjw+cM6ETHNKbjy3jgVqJpACkVjVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lP5naMWC; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE7DC2BD10;
+	Tue, 11 Jun 2024 08:54:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718096070;
+	bh=Pq5YpsUaflX9vUn877LPmKLA06OsfdEwB7AXWmD/kJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lP5naMWCxmybgOBmdl31iBwXx0D0iThDhr9gOpmXcSjpLV7CtigjJYLOIP2fWqyKX
+	 L4WmNkyhDzB8YbO1fbgUsA2OYOFGAodY82Uh7ZH1m5PPAikR0LjngA9KbFjrXgqzEy
+	 TBzxZy5Pv/2Kx0xRlsGkkA2Z/TOhNEBRAxJd37DlczkZADdnnCAenuKL+iSiaBe2//
+	 KvxLrKPEpwdJamRQJjNma1XfJdlUKMGFRTGePSnHiPKI8otvJTjwrSpH7JInpdP35S
+	 iYInyqYg1i6C/JNyaZyCRcam+TuejTH9ly3dMQQf0DReSFrjVk/yxHK1aS1k2tfgEv
+	 zZQCLUz4h8qoQ==
+Date: Tue, 11 Jun 2024 10:54:27 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Joe Damato <jdamato@fastly.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] ioctl_epoll.2: New page describing epoll ioctl(2)
+Message-ID: <w6l72bmqi6vefojnzedbrpphbbvnofdplvb5ajz3isepvkt2gq@63s5rrseh5te>
+References: <20240610231206.1788738-1-jdamato@fastly.com>
+ <20240610231206.1788738-2-jdamato@fastly.com>
+ <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
+ <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20240523121149.575616-1-jolsa@kernel.org> <CAEf4Bza-+=04GG7Tg4U4pCQ28Oy_2F_5872EPDsX6X3Y=jhEuw@mail.gmail.com>
- <CAEf4Bzbc99bwGcmtCa3iekXSvSrxMQzfnTViT5Y-dn8qbvJy7A@mail.gmail.com> <20240611064641.9021829459211782902e4fb2@kernel.org>
-In-Reply-To: <20240611064641.9021829459211782902e4fb2@kernel.org>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Tue, 11 Jun 2024 09:30:52 +0100
-Message-ID: <CAEf4BzYcwUS=7KFX5fUibS9eLT8yQxYqaWF_+sVM0YZJzBD=Sg@mail.gmail.com>
-Subject: Re: [PATCHv7 bpf-next 0/9] uprobe: uretprobe speed up
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Oleg Nesterov <oleg@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
-	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo Molnar <mingo@redhat.com>, 
-	Andy Lutomirski <luto@kernel.org>, "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, 
-	Deepak Gupta <debug@rivosinc.com>, Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="q3uhm5kuycqhjley"
+Content-Disposition: inline
+In-Reply-To: <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
+
+
+--q3uhm5kuycqhjley
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Joe Damato <jdamato@fastly.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] ioctl_epoll.2: New page describing epoll ioctl(2)
+References: <20240610231206.1788738-1-jdamato@fastly.com>
+ <20240610231206.1788738-2-jdamato@fastly.com>
+ <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
+ <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
+MIME-Version: 1.0
+In-Reply-To: <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
 
-On Mon, Jun 10, 2024 at 10:46=E2=80=AFPM Masami Hiramatsu <mhiramat@kernel.=
-org> wrote:
->
-> On Wed, 5 Jun 2024 09:42:45 -0700
-> Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
->
-> > On Fri, May 31, 2024 at 10:52=E2=80=AFAM Andrii Nakryiko
-> > <andrii.nakryiko@gmail.com> wrote:
-> > >
-> > > On Thu, May 23, 2024 at 5:11=E2=80=AFAM Jiri Olsa <jolsa@kernel.org> =
-wrote:
-> > > >
-> > > > hi,
-> > > > as part of the effort on speeding up the uprobes [0] coming with
-> > > > return uprobe optimization by using syscall instead of the trap
-> > > > on the uretprobe trampoline.
-> > > >
-> > > > The speed up depends on instruction type that uprobe is installed
-> > > > and depends on specific HW type, please check patch 1 for details.
-> > > >
-> > > > Patches 1-8 are based on bpf-next/master, but patch 2 and 3 are
-> > > > apply-able on linux-trace.git tree probes/for-next branch.
-> > > > Patch 9 is based on man-pages master.
-> > > >
-> > > > v7 changes:
-> > > > - fixes in man page [Alejandro Colomar]
-> > > > - fixed patch #1 fixes tag [Oleg]
-> > > >
-> > > > Also available at:
-> > > >   https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git
-> > > >   uretprobe_syscall
-> > > >
-> > > > thanks,
-> > > > jirka
-> > > >
-> > > >
-> > > > Notes to check list items in Documentation/process/adding-syscalls.=
-rst:
-> > > >
-> > > > - System Call Alternatives
-> > > >   New syscall seems like the best way in here, because we need
-> > > >   just to quickly enter kernel with no extra arguments processing,
-> > > >   which we'd need to do if we decided to use another syscall.
-> > > >
-> > > > - Designing the API: Planning for Extension
-> > > >   The uretprobe syscall is very specific and most likely won't be
-> > > >   extended in the future.
-> > > >
-> > > >   At the moment it does not take any arguments and even if it does
-> > > >   in future, it's allowed to be called only from trampoline prepare=
-d
-> > > >   by kernel, so there'll be no broken user.
-> > > >
-> > > > - Designing the API: Other Considerations
-> > > >   N/A because uretprobe syscall does not return reference to kernel
-> > > >   object.
-> > > >
-> > > > - Proposing the API
-> > > >   Wiring up of the uretprobe system call is in separate change,
-> > > >   selftests and man page changes are part of the patchset.
-> > > >
-> > > > - Generic System Call Implementation
-> > > >   There's no CONFIG option for the new functionality because it
-> > > >   keeps the same behaviour from the user POV.
-> > > >
-> > > > - x86 System Call Implementation
-> > > >   It's 64-bit syscall only.
-> > > >
-> > > > - Compatibility System Calls (Generic)
-> > > >   N/A uretprobe syscall has no arguments and is not supported
-> > > >   for compat processes.
-> > > >
-> > > > - Compatibility System Calls (x86)
-> > > >   N/A uretprobe syscall is not supported for compat processes.
-> > > >
-> > > > - System Calls Returning Elsewhere
-> > > >   N/A.
-> > > >
-> > > > - Other Details
-> > > >   N/A.
-> > > >
-> > > > - Testing
-> > > >   Adding new bpf selftests and ran ltp on top of this change.
-> > > >
-> > > > - Man Page
-> > > >   Attached.
-> > > >
-> > > > - Do not call System Calls in the Kernel
-> > > >   N/A.
-> > > >
-> > > >
-> > > > [0] https://lore.kernel.org/bpf/ZeCXHKJ--iYYbmLj@krava/
-> > > > ---
-> > > > Jiri Olsa (8):
-> > > >       x86/shstk: Make return uprobe work with shadow stack
-> > > >       uprobe: Wire up uretprobe system call
-> > > >       uprobe: Add uretprobe syscall to speed up return probe
-> > > >       selftests/x86: Add return uprobe shadow stack test
-> > > >       selftests/bpf: Add uretprobe syscall test for regs integrity
-> > > >       selftests/bpf: Add uretprobe syscall test for regs changes
-> > > >       selftests/bpf: Add uretprobe syscall call from user space tes=
-t
-> > > >       selftests/bpf: Add uretprobe shadow stack test
-> > > >
-> > >
-> > > Masami, Steven,
-> > >
-> > > It seems like the series is ready to go in. Are you planning to take
-> > > the first 4 patches through your linux-trace tree?
-> >
-> > Another ping. It's been two weeks since Jiri posted the last revision
-> > that got no more feedback to be addressed and everyone seems to be
-> > happy with it.
->
-> Sorry about late reply. I agree that this is OK to go, since no other
-> comments. Let me pick this up to probes/for-next branch.
->
-> >
-> > This is an important speed up improvement for uprobe infrastructure in
-> > general and for BPF ecosystem in particular. "Uprobes are slow" is one
-> > of the top complaints from production BPF users, and sys_uretprobe
-> > approach is significantly improving the situation for return uprobes
-> > (aka uretprobes), potentially enabling new use cases that previously
-> > could have been too expensive to trace in practice and reducing the
-> > overhead of the existing ones.
-> >
-> > I'd appreciate the engagement from linux-trace maintainers on this
-> > patch set. Given it's important for BPF and that a big part of the
-> > patch set is BPF-based selftests, we'd also be happy to route all this
-> > through the bpf-next tree (which would actually make logistics for us
-> > much easier, but that's not the main concern). But regardless of the
-> > tree, it would be nice to make a decision and go forward with it.
->
-> I think it would be better to include those patches together in
-> linux-tree. Can you review and ack to the last patch ? ([9/9])
+Hi Joe,
 
-Sure. Jiri, please add my ack for the entire series in the next revision:
+On Mon, Jun 10, 2024 at 05:29:06PM GMT, Joe Damato wrote:
+> On Tue, Jun 11, 2024 at 01:45:57AM +0200, Alejandro Colomar wrote:
+> > Hi Joe,
+> >=20
+> > On Mon, Jun 10, 2024 at 11:12:06PM GMT, Joe Damato wrote:
+> > > A new page is added which describes epoll fd ioctls: EPIOCSPARAMS and
+> > > EPIOCGPARAMS which allow the user to control epoll-based busy polling.
+> > >=20
+> > > Also add link pages for EPIOCSPARAMS and EPIOCGPARAMS.
+> > >=20
+> > > Signed-off-by: Joe Damato <jdamato@fastly.com>
+> >=20
+> > Thanks!
+>=20
+> Thanks again for your careful review. Sorry this wasn't the winning
+> revision :)
 
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
+No problem.  Sorry for being so pedantic.  (Not sorry, actually.)  :-)
+And thanks for your patience on my review.
 
->
-> Thank you,
->
-> >
-> > Thank you!
-> >
-> > >
-> > > >  arch/x86/entry/syscalls/syscall_64.tbl                      |   1 =
-+
-> > > >  arch/x86/include/asm/shstk.h                                |   4 =
-+
-> > > >  arch/x86/kernel/shstk.c                                     |  16 =
-++++
-> > > >  arch/x86/kernel/uprobes.c                                   | 124 =
-++++++++++++++++++++++++++++-
-> > > >  include/linux/syscalls.h                                    |   2 =
-+
-> > > >  include/linux/uprobes.h                                     |   3 =
-+
-> > > >  include/uapi/asm-generic/unistd.h                           |   5 =
-+-
-> > > >  kernel/events/uprobes.c                                     |  24 =
-++++--
-> > > >  kernel/sys_ni.c                                             |   2 =
-+
-> > > >  tools/include/linux/compiler.h                              |   4 =
-+
-> > > >  tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c       | 123 =
-++++++++++++++++++++++++++++-
-> > > >  tools/testing/selftests/bpf/prog_tests/uprobe_syscall.c     | 385 =
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++++++++++++++
-> > > >  tools/testing/selftests/bpf/progs/uprobe_syscall.c          |  15 =
-++++
-> > > >  tools/testing/selftests/bpf/progs/uprobe_syscall_executed.c |  17 =
-++++
-> > > >  tools/testing/selftests/x86/test_shadow_stack.c             | 145 =
-++++++++++++++++++++++++++++++++++
-> > > >  15 files changed, 860 insertions(+), 10 deletions(-)
-> > > >  create mode 100644 tools/testing/selftests/bpf/prog_tests/uprobe_s=
-yscall.c
-> > > >  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscal=
-l.c
-> > > >  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscal=
-l_executed.c
-> > > >
-> > > > Jiri Olsa (1):
-> > > >       man2: Add uretprobe syscall page
-> > > >
-> > > >  man/man2/uretprobe.2 | 56 ++++++++++++++++++++++++++++++++++++++++=
-++++++++++++++++
-> > > >  1 file changed, 56 insertions(+)
-> > > >  create mode 100644 man/man2/uretprobe.2
->
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[...]
+
+> > > +.B "#include <sys/ioctl.h>"
+> > > +.P
+> > > +.BI "int ioctl(int " fd ", EPIOCSPARAMS, const struct epoll_params *=
+" argp );
+> > > +.BI "int ioctl(int " fd ", EPIOCGPARAMS, struct epoll_params *" argp=
+ );
+> >=20
+> > To document the header that provides this structure, let's add here:
+> >=20
+> > .P
+> > .B #include <linux/eventpoll.h>
+>=20
+> Hmm, that's the linux sources header file, I think.
+>=20
+> Should I be showing the glibc header instead?
+>=20
+> https://sourceware.org/git/?p=3Dglibc.git;a=3Dblob;f=3Dsysdeps/unix/sysv/=
+linux/sys/epoll.h;h=3D45e546fa4440a83bb94288c220bfbe9295f02cc9;hb=3D92c270d=
+32caf3f8d5a02b8e46c7ec5d9d0315158#l91
+
+Ahh, sure, and for the constants too.  We prefer glibc headers when
+available.  I had the inertia that most ioctl(2)s do not have glibc
+headers.
+
+> Which would be:
+>=20
+> .B #include <sys/epoll.h>
+>=20
+> It's in the same header as epoll_create(2) and
+> epoll_create1(2).
+>=20
+> Let me know what you think.
+
+Like.
+
+[...]
+
+> > > +description below to learn what configuration is
+> > > +supported.
+> > > +.TP
+> > > +.B EPIOCGPARAMS
+> > > +Get the current
+> > > +.I epoll_params
+> > > +configuration settings.
+> > > +.TP
+>=20
+> I think this .TP should be a .P, not a .TP. It looks better as a .P,
+> at least :)
+>=20
+> Let me know what you think.
+
+Yup.
+
+BTW, here's the mnemonics:
+
+P	paragraph
+TP	tagged paragraph
+IP	indented paragraph
+
+[...]
+
+> > > +.BR epoll_create (2)
+> > > +or
+> > > +.BR epoll_create1 (2).
+> > > +.\" kernel commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
+> >=20
+> > Let's reformat these:
+> >=20
+> > .\" linux.git 18e2bf0edf4dd88d9656ec92395aa47392e85b61
+> > .\" glibc.git 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
+> >=20
+> > (maybe say linux.git commit 1234...?  What do you prefer?)
+>=20
+> I've made them:
+>=20
+> .\" linux.git commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
+> .\" glibc.git commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
+
+Good.  I'll start using that format everywhere.
+
+> > > +.\" glibc commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
+> > > +.P
+> >=20
+> > I would use a subsection (.SS) for documenting the structure.
+>=20
+> Sure, I can do that.
+>=20
+> .SS
+> The epoll_params structure
+> .I argp.busy_poll_usecs
+>=20
+> Is that OK for a heading?
+>=20
+> I saw this is how man/man2/stat.2 does the subsection.
+>=20
+> Let me know what you think.
+
+Yep.  Except that the title goes on the SS line:
+
+$ grep '\.SS' man/man2/stat.2=20
+=2ESS The stat structure
+=2ESS fstatat()
+=2ESS C library/kernel differences
+
+[...]
+
+> > > +retrieve on each poll attempt. This value cannot exceed
+> > > +.B NAPI_POLL_WEIGHT
+> > > +which, as of Linux 6.9, is 64, unless the process is run with
+> > > +.B CAP_NET_ADMIN.
+> >=20
+> > This seems a bit ambiguous: 'unless the process is run with
+> > CAP_NET_ADMIN' could refer to 'cannot exceed' or 'is 64'.  Using
+> > parentheses instead of commas, it would be unambiguous.
+>=20
+> Changed this to:
+>=20
+> retrieve on each poll attempt. This value cannot exceed
+> .B NAPI_POLL_WEIGHT
+> (which is 64 as of Linux 6.9), unless the process is run with
+> .B CAP_NET_ADMIN.
+>=20
+> How is that?
+
+Much better.  (But still needs to use semantic newlines.)
+
+[...]
+
+> > > +.SH RETURN VALUE
+> > > +On success, 0 is returned.
+> > > +On failure, \-1 is returned, and
+> > > +.I errno
+> > > +is set to indicate the error.
+> > > +.SH ERRORS
+> > > +.TP
+> > > +.B EOPNOTSUPP
+> > > +The kernel was not compiled with busy poll support.
+>=20
+> This line here has a weird indentation compared to the rest of the
+> errors when rendered.
+>=20
+> Maybe I am doing something wrong with this one?
+
+Nope; it's all right.  When the tag of the tagged paragraph is larger
+than the indentation, the paragraph is moved to the next line, so that
+it starts with the same indentation.
+
+[...]
+
+> > > +.TP
+> > > +.B EFAULT
+> > > +.I argp
+> > > +does not point to a valid memory address.
+> > > +.SH EXAMPLES
+> > > +.EX
+> > > +/* Code to set the epoll params to enable busy polling */
+> > > +\&
+> > > +int epollfd =3D epoll_create1(0);
+> > > +struct epoll_params params;
+> > > +\&
+> > > +if (epollfd =3D=3D \-1) {
+> > > +    perror("epoll_create1");
+> > > +    exit(EXIT_FAILURE);
+> > > +}
+> > > +\&
+> > > +memset(&params, 0, sizeof(struct epoll_params));
+> > > +\&
+> > > +params.busy_poll_usecs =3D 25;
+> > > +params.busy_poll_budget =3D 8;
+> > > +params.prefer_busy_poll =3D 1;
+> > > +\&
+> > > +if (ioctl(epollfd, EPIOCSPARAMS, &params) =3D=3D \-1) {
+> > > +    perror("ioctl");
+> > > +    exit(EXIT_FAILURE);
+> > > +}
+> > > +\&
+> > > +/* Code to show how to retrieve the current settings */
+> > > +\&
+> > > +memset(&params, 0, sizeof(struct epoll_params));
+> > > +\&
+> > > +if (ioctl(epollfd, EPIOCGPARAMS, &params) =3D=3D \-1) {
+> > > +    perror("ioctl");
+> > > +    exit(EXIT_FAILURE);
+> > > +}
+> > > +\&
+> > > +/* params struct now contains the current parameters */
+> > > +\&
+> > > +fprintf(stderr, "epoll usecs: %lu\\n", params.busy_poll_usecs);
+> >=20
+> > We use '\e', not '\\'.  (I haven't checked whether it also works, and
+> > don't remember.)
+>=20
+> Change this to '\e' and tested it. It looks like it works to me :)
+
+Hmm, yep, both work the same.  I remember there's a small difference in
+meaning, but I don't know why we use \e.  Anyway.
+
+$ cat esc.man=20
+=2ETH a s d f
+=2ESH example
+=2EEX
+a\\b\ec
+=2EEE
+$ groff -man -Tutf8 esc.man -rLL=3D72n
+a(s)                                                                a(s)
+
+example
+     a\b\c
+
+f                                   d                               a(s)
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--q3uhm5kuycqhjley
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZoEL0ACgkQnowa+77/
+2zIPdg//Vo5uMd26axdKcJ+UNZZdbdySh05LQAdq8CGNFrIAE9CmJMkZNFClnmCM
+cga+hlLgPY8MByS1su0Fhe/tPIcBjjCqmO4xFQsUXbJaqjR7R4ecLL2uJrg997uR
+WOO9Y8+oziXDd92vqsRkDw4AbJG0jWItPp3Lgh2yyZuoqDH3cbRevz4TAC2DEQ28
+bfXR4G6yC09RW9eAU4Ro8HjjAsWSUjPSgjM2yxbfdpijbM8opPlICKzjf+4oHVFF
+ZvNwySPXqkbCRTYMpIMkI0PG9u3D1sdcXkX/Gs1B+VV4H6YCpdkEYOOqkM/ZMBaG
+BbMUDf92VkAjU2nnYkG9qU08i7glONdhYVXm7F9I6m+shj6aKlEOhCjkHVIqq6Js
+Z7sbYW0ZGRXiXMQ7RwfunCOzgM3mWw+aQHeqnJk9QroWIBFIb6TrDUWwhui5lguS
+PTf9VbjLvODi+yJXCSTOK8hXHtQHoqOyrIq0Ee/1ve2xykMEbq8y8RLMVMJn/9ez
+QvNjIVGhk5sn4Pz7gbqZ8LrDDRNJCwHITnAhol7tuKBtVQq9BoGDDuRdMk9LGvLt
+M90DB/C22f6mwVMVihXT28RW8ChQBepPUF2jzh9RuUj4nCvRIZxkMVh2COuPgG2z
+eL7J0SvvFoxXNTGcBNjshwhBhHnawzICRNZrPiOJ49EdTXdGOvo=
+=0Lw/
+-----END PGP SIGNATURE-----
+
+--q3uhm5kuycqhjley--
 
