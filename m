@@ -1,464 +1,194 @@
-Return-Path: <linux-man+bounces-1072-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1073-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7820A902E40
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 04:16:59 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D2CB90341B
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 09:45:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DAE0BB20CA3
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 02:16:56 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 18FD51F21DA3
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 07:45:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88C6C8485;
-	Tue, 11 Jun 2024 02:16:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12CD4172793;
+	Tue, 11 Jun 2024 07:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="eBT7QNtd"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZS9uLdIn"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D34DB65E
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 02:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A5A1E52F;
+	Tue, 11 Jun 2024 07:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718072211; cv=none; b=aOVm1WNJtQuktS7Xq3Mh5Uxsb7ptQXV0ZxNjazS7qlRG8N0LGYV/T2JkhPwEKgPFTjTU5AXcOshMYIPUBESO4oKyqhsL8rVQqo8ILypzZdJLKRTS6YWx0s3p/jO9hxQ6ylDbV+uoV/QFZ/8t7u53GN9L4Q/l4m+LIYvSVnyBNCI=
+	t=1718091889; cv=none; b=Fwws9DLq0FPEGQQM8Q3IhYDEp0bSAZmCuMuPx8NOzLx+geMsiRgagiJJiRR0POondbXOD7xlXla9U7ZZQoqvPVdStggn+eLkrJ8f+4to//iOK9ar5BTTjslb3dW09i6VqRWt6Rj3ZSgoewF8U2BeDg0jnR+hgGa6ZqKoIkfbNSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718072211; c=relaxed/simple;
-	bh=FUjeOQ9oTL5skf23xNB2bIHRldWmT6R/kv32BgJE4sk=;
-	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To; b=C4gUh36WIk6zTU1HZ4/iiETLmuu6Pj4iHaAe4y+k8aPnhKQbBDYauiBp3Ga1kcGWkx3bY5ppFHC/6YP1o3U7C46OEMgGJbirYZphJKpn6R+TNh9FTZl3i5w2vH5EmQqB7ft9UXky1DP+jcbNZ49BjU7VQ6Z3UmzIzL8BF6hCawQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=eBT7QNtd; arc=none smtp.client-ip=131.179.128.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id B26B53C00F4E2;
-	Mon, 10 Jun 2024 19:16:48 -0700 (PDT)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
- id Two2JXpMYIO8; Mon, 10 Jun 2024 19:16:48 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id E5B083C00F4E3;
-	Mon, 10 Jun 2024 19:16:47 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu E5B083C00F4E3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1718072207;
-	bh=LbgkfqVBHCBdqgE+MEAU4LoN1vCFgJnE0mJm3nu+MvE=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=eBT7QNtdLtI5h3KpawjkNvI81Lz61Qw0Tx/9LqUC7z4myUVJKQZ/8FxSnzXqbCqp3
-	 EeYean6Tk8ieRNS8TTgtHkVSD5BUIyoOmTnBZbIJ5cpRZtlQCLeh1NuspAku+kDVAx
-	 72qQmawV4Gelsee/ksUueSq/wZ6ff52A1AjcCdIKGCV2YHREnUShbZxo9dCfGyE6Rn
-	 uriLg+z2MvtDkeN6PBRo2zNfR8onD7aePbHpTC1EiPiRN2L6Cq4NzV+9wwTzLWkmJc
-	 SwbH44WI5MxYjDTeean+remMWB5TmwjV8/4UNX92VGeUVoiwRzUpOqWGEHdH76EBTb
-	 83fFczxEbx9iw==
-X-Virus-Scanned: amavis at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
- id oOah84ilgQcj; Mon, 10 Jun 2024 19:16:47 -0700 (PDT)
-Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
-	by mail.cs.ucla.edu (Postfix) with ESMTPSA id B11A73C00F4E2;
-	Mon, 10 Jun 2024 19:16:47 -0700 (PDT)
-Content-Type: multipart/mixed; boundary="------------EbynPQbH8awUiWhfEASTskR0"
-Message-ID: <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
-Date: Mon, 10 Jun 2024 19:16:43 -0700
+	s=arc-20240116; t=1718091889; c=relaxed/simple;
+	bh=SDqAx+l0Jjbh3zwtEx4gpEmG6LW9mMxqD0J4QCprdCk=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XvXaQ+Y5VT+M6PydciBB+z3+ty+Hc20G14CmkR4KTlAn14WPF7jinxCId9FBypJtg/qTEup04Qd82PKN4eTwu0tIqan+9CdiyP3RaPOJGZJtVd+lb+x34fQs12INfDMfzIV1frbJmzvPkIuhVw7Qtz1wV6uvIMZ5mituZV9AS4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZS9uLdIn; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-a6f0c3d0792so81813566b.3;
+        Tue, 11 Jun 2024 00:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718091886; x=1718696686; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hq7VlDHf7pEbFf7v8zZEUyFUewiFD+NWVkc0x5bTvZM=;
+        b=ZS9uLdInbVq4n6as0JN+a6QjMdMMV+ZUKgNDHRWblWBfLXUC9Gjab5edoicc/QqB+g
+         WmPithd7wCU+hHQK9u7sYqg1P60M8bITEgVKJXWIKO5ywemNe3GW6yNuVTUzMSZkpbdf
+         xN6VbCrwQRoC1HxPYekgtO1DkT/xIPzjHIXzME2vFQV+JmcQfkD/PSVaJDFG1dJB0BNQ
+         rKmUwbuzm2b2aVuBKaxX0w8yJMItk+Ks6FmUbaa7s4rXc8u+DbzqLC/QrFiLtDOgF3JY
+         cnFnHm60orjKp5k3ZAYf//IlXpHV3MR6QDE+Nfd7HfrdXRykUa/5vLDB7U+LuJFidj4x
+         bxUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718091886; x=1718696686;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hq7VlDHf7pEbFf7v8zZEUyFUewiFD+NWVkc0x5bTvZM=;
+        b=dAUKwfkDJ1lzO9eH82iVqiUQX/j951/aU53gcLN7ieCevbw9rCwgCOMCaooG1jZkIQ
+         wb9x/qwnNaOG6TON1v0rokR4S2zkMiLZ7Gx2bDCZ7bNOAykJ5YQmcDmvKFrgplSO2wWR
+         Qr4r8ZF/uno9rGWU8TD6KUjSFm98oDxLPgbb2hcaqjksrsfHD3gERhr2KGnrc+wg3mUj
+         wZVsdIOaEcYOv6RfjypEQEG4VxxmRN3ytSOHwp9gYuNd+LCsSBuQ+tcSsjkG9d0JoLXp
+         20s4JQuJPLGBWE54s09y/luO3uT6379DowLfwc86V0fm3bTeAOvdFQxX0apWHktsGYaO
+         Wh3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUIOKAJV9UinP2/pv7F9KWzj5OHuXrmz4ogOSMMXvEwgMoZc+8k95qXtI2wa4KGEYXL2OKtAr7tWyGv4o/FUbEbqaGLY7OuO6R2YoRzqt089ERZoU+GJR3WFIpjxhPz2ZgVvDT+TU0x4ZbkfKG+NJVTrNro7eoXGUsTeT9PCtDD6b1M4MERj2wie9glBgFhAlM2NuXRcaLiiO6D66wbCGeZSKvXs4Wr7MycWZCoowJeizh6q7xHcvafVCOh
+X-Gm-Message-State: AOJu0YyaSeSgsqpDIjhI37eC5pjMGdBodZJ2rQDXGh74rfN43pya3TN9
+	zepOJqG+Wb6N2OzQEQ3yxQ3w8Nh4lSt6+EraifYP6fW7fNEBCgFu
+X-Google-Smtp-Source: AGHT+IHlSFuxcjLt48JBJua/3vo0MpwKdqxWfXLKbeLpZ2nG+r1CWlnSG/xlxAddGeHS3HfvKBYIUQ==
+X-Received: by 2002:a17:906:3c06:b0:a6f:1f5d:4db5 with SMTP id a640c23a62f3a-a6f1f5d4e67mr307274566b.34.1718091886042;
+        Tue, 11 Jun 2024 00:44:46 -0700 (PDT)
+Received: from krava (2001-1ae9-1c2-4c00-726e-c10f-8833-ff22.ip6.tmcz.cz. [2001:1ae9:1c2:4c00:726e:c10f:8833:ff22])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a6f152b0bf9sm316620866b.65.2024.06.11.00.44.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Jun 2024 00:44:45 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Tue, 11 Jun 2024 09:44:43 +0200
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Oleg Nesterov <oleg@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org,
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv7 bpf-next 2/9] uprobe: Wire up uretprobe system call
+Message-ID: <ZmgAawOdLZAZynA_@krava>
+References: <20240523121149.575616-1-jolsa@kernel.org>
+ <20240523121149.575616-3-jolsa@kernel.org>
+ <20240611070521.82da62690e8865ff498327f7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
- <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
-Content-Language: en-US
-From: Paul Eggert <eggert@cs.ucla.edu>
-Autocrypt: addr=eggert@cs.ucla.edu; keydata=
- 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
-Organization: UCLA Computer Science Department
-In-Reply-To: <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240611070521.82da62690e8865ff498327f7@kernel.org>
 
-This is a multi-part message in MIME format.
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Tue, Jun 11, 2024 at 07:05:21AM +0900, Masami Hiramatsu wrote:
+> On Thu, 23 May 2024 14:11:42 +0200
+> Jiri Olsa <jolsa@kernel.org> wrote:
+> 
+> > Wiring up uretprobe system call, which comes in following changes.
+> > We need to do the wiring before, because the uretprobe implementation
+> > needs the syscall number.
+> > 
+> > Note at the moment uretprobe syscall is supported only for native
+> > 64-bit process.
+> > 
+> 
+> BTW, this does not cleanly applied to probes/for-next, based on
+> 6.10-rc1. Which version did you use?
 
-On 6/10/24 15:31, Alejandro Colomar wrote:
-> Nah, I only keep here the first one, for simplifying.  If it was added
-> in C89, and is present in C23, we can assume that it was present in C99
-> and C11 too.
+ah new syscall just got merged, I'll rebase and send new version
 
-OK, though I still don't quite follow what those sections are supposed 
-to mean. Most of this stuff was first standardized in POSIX.1-1988 or 
-POSIX.1-1996, for example, but those editions don't seem to be mentioned.
+jirka
 
-Anyway, I attempted to address that issue and the other issues you 
-mentioned. Revised proposal attached as a series of patches.
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-ctime-simplify-coverage-of-tzname-etc.patch"
-Content-Disposition: attachment;
- filename="0001-ctime-simplify-coverage-of-tzname-etc.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSBiODFjYWRlM2NmZTRhMGU3ZGQ1MzM3MTNiOTc0ODU5MDJlMWEwZTA2IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjE2OjQwIC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwMS8xMF0gY3RpbWU6IHNpbXBsaWZ5IGNvdmVyYWdlIG9mIHR6bmFtZSBldGMuCgoqIG1h
-bi9tYW4zL2N0aW1lLjM6IFNpbXBsaWZ5IGJ5IHJlZmVycmluZyB0byB0enNldCgzKSBmb3Ig
-ZGV0YWlscwphYm91dCBob3cgaXQgc2V0cyB0em5hbWUgZXRjLiAgVGhpcyBzaW1wbGlmaWVz
-IGEgbGF0ZXIgcGF0Y2gsCndoaWNoIGNoYW5nZXMgdHpzZXQoMykncyBkZXNjcmlwdGlvbi4K
-LS0tCiBtYW4vbWFuMy9jdGltZS4zIHwgMjQgKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCiAx
-IGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9tYW4vbWFuMy9jdGltZS4zIGIvbWFuL21hbjMvY3RpbWUuMwppbmRleCBiODU0
-M2ExY2YuLmU4NjNmMDU3MiAxMDA2NDQKLS0tIGEvbWFuL21hbjMvY3RpbWUuMworKysgYi9t
-YW4vbWFuMy9jdGltZS4zCkBAIC0xMDEsMTAgKzEwMSw5IEBAIFRoZSBhYmJyZXZpYXRpb25z
-IGZvciB0aGUgbW9udGhzIGFyZSAiSmFuIiwKIFRoZSByZXR1cm4gdmFsdWUgcG9pbnRzIHRv
-IGEgc3RhdGljYWxseSBhbGxvY2F0ZWQgc3RyaW5nIHdoaWNoCiBtaWdodCBiZSBvdmVyd3Jp
-dHRlbiBieSBzdWJzZXF1ZW50IGNhbGxzIHRvIGFueSBvZiB0aGUgZGF0ZSBhbmQgdGltZQog
-ZnVuY3Rpb25zLgotVGhlIGZ1bmN0aW9uIGFsc28gc2V0cyB0aGUgZXh0ZXJuYWwKLXZhcmlh
-YmxlcyBcZkl0em5hbWVcZlAsIFxmSXRpbWV6b25lXGZQLCBhbmQgXGZJZGF5bGlnaHRcZlAg
-KHNlZQotLkJSIHR6c2V0ICgzKSkKLXdpdGggaW5mb3JtYXRpb24gYWJvdXQgdGhlIGN1cnJl
-bnQgdGltZXpvbmUuCitUaGUgZnVuY3Rpb24gYWxzbyBzZXRzIHRoZSBleHRlcm5hbCB2YXJp
-YWJsZXMgXGZJdHpuYW1lXGZQLAorXGZJdGltZXpvbmVcZlAsIGFuZCBcZklkYXlsaWdodFxm
-UCBhcyBpZiBpdCBjYWxsZWQKKy5CUiB0enNldCAoMykuCiBUaGUgcmVlbnRyYW50IHZlcnNp
-b24KIC5CUiBjdGltZV9yICgpCiBkb2VzIHRoZSBzYW1lLCBidXQgc3RvcmVzIHRoZQpAQCAt
-MTMxLDEzICsxMzAsOSBAQCBUaGUKIGZ1bmN0aW9uIGNvbnZlcnRzIHRoZSBjYWxlbmRhciB0
-aW1lIFxmSXRpbWVwXGZQIHRvCiBicm9rZW4tZG93biB0aW1lIHJlcHJlc2VudGF0aW9uLAog
-ZXhwcmVzc2VkIHJlbGF0aXZlIHRvIHRoZSB1c2VyJ3Mgc3BlY2lmaWVkIHRpbWV6b25lLgot
-VGhlIGZ1bmN0aW9uIGFjdHMgYXMgaWYgaXQgY2FsbGVkCi0uQlIgdHpzZXQgKDMpCi1hbmQg
-c2V0cyB0aGUgZXh0ZXJuYWwgdmFyaWFibGVzIFxmSXR6bmFtZVxmUCB3aXRoCi1pbmZvcm1h
-dGlvbiBhYm91dCB0aGUgY3VycmVudCB0aW1lem9uZSwgXGZJdGltZXpvbmVcZlAgd2l0aCB0
-aGUgZGlmZmVyZW5jZQotYmV0d2VlbiBDb29yZGluYXRlZCBVbml2ZXJzYWwgVGltZSAoVVRD
-KSBhbmQgbG9jYWwgc3RhbmRhcmQgdGltZSBpbgotc2Vjb25kcywgYW5kIFxmSWRheWxpZ2h0
-XGZQIHRvIGEgbm9uemVybyB2YWx1ZSBpZiBkYXlsaWdodCBzYXZpbmdzCi10aW1lIHJ1bGVz
-IGFwcGx5IGR1cmluZyBzb21lIHBhcnQgb2YgdGhlIHllYXIuCitUaGUgZnVuY3Rpb24gYWxz
-byBzZXRzIHRoZSBleHRlcm5hbCB2YXJpYWJsZXMgXGZJdHpuYW1lXGZQLAorXGZJdGltZXpv
-bmVcZlAsIGFuZCBcZklkYXlsaWdodFxmUCBhcyBpZiBpdCBjYWxsZWQKKy5CUiB0enNldCAo
-MykuCiBUaGUgcmV0dXJuIHZhbHVlIHBvaW50cyB0byBhIHN0YXRpY2FsbHkgYWxsb2NhdGVk
-IHN0cnVjdCB3aGljaCBtaWdodCBiZQogb3ZlcndyaXR0ZW4gYnkgc3Vic2VxdWVudCBjYWxs
-cyB0byBhbnkgb2YgdGhlIGRhdGUgYW5kIHRpbWUgZnVuY3Rpb25zLgogVGhlCkBAIC0xOTgs
-MTAgKzE5Myw5IEBAIG5vcm1hbGl6ZWQgKHNvIHRoYXQsIGZvciBleGFtcGxlLCA0MCBPY3Rv
-YmVyIGlzIGNoYW5nZWQgaW50byA5IE5vdmVtYmVyKTsKIGlzIHNldCAocmVnYXJkbGVzcyBv
-ZiBpdHMgaW5pdGlhbCB2YWx1ZSkKIHRvIGEgcG9zaXRpdmUgdmFsdWUgb3IgdG8gMCwgcmVz
-cGVjdGl2ZWx5LAogdG8gaW5kaWNhdGUgd2hldGhlciBEU1QgaXMgb3IgaXMgbm90IGluIGVm
-ZmVjdCBhdCB0aGUgc3BlY2lmaWVkIHRpbWUuCi1DYWxsaW5nCi0uQlIgbWt0aW1lICgpCi1h
-bHNvIHNldHMgdGhlIGV4dGVybmFsIHZhcmlhYmxlIFxmSXR6bmFtZVxmUCB3aXRoCi1pbmZv
-cm1hdGlvbiBhYm91dCB0aGUgY3VycmVudCB0aW1lem9uZS4KK1RoZSBmdW5jdGlvbiBhbHNv
-IHNldHMgdGhlIGV4dGVybmFsIHZhcmlhYmxlcyBcZkl0em5hbWVcZlAsCitcZkl0aW1lem9u
-ZVxmUCwgYW5kIFxmSWRheWxpZ2h0XGZQIGFzIGlmIGl0IGNhbGxlZAorLkJSIHR6c2V0ICgz
-KS4KIC5QCiBJZiB0aGUgc3BlY2lmaWVkIGJyb2tlbi1kb3duCiB0aW1lIGNhbm5vdCBiZSBy
-ZXByZXNlbnRlZCBhcyBjYWxlbmRhciB0aW1lIChzZWNvbmRzIHNpbmNlIHRoZSBFcG9jaCks
-Ci0tIAoyLjQ1LjIKCg==
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0002-tzset-state-vars-unspecified-if-geographical-TZ.patch"
-Content-Disposition: attachment;
- filename*0="0002-tzset-state-vars-unspecified-if-geographical-TZ.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSAxNDRjMjJmNmZhZTFiODIwOGQyOWQyOTk3N2E2ZWNjN2U3NGJjNWMxIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIwOjEzIC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwMi8xMF0gdHpzZXQ6IHN0YXRlIHZhcnMgdW5zcGVjaWZpZWQgaWYgZ2VvZ3JhcGhpY2Fs
-IFRaCgotLS0KIG1hbi9tYW4zL3R6c2V0LjMgfCA4ICsrKysrKystCiAxIGZpbGUgY2hhbmdl
-ZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21h
-bjMvdHpzZXQuMyBiL21hbi9tYW4zL3R6c2V0LjMKaW5kZXggODQ3OWIxN2IwLi42ZTg5ZGQ1
-MzAgMTAwNjQ0Ci0tLSBhL21hbi9tYW4zL3R6c2V0LjMKKysrIGIvbWFuL21hbjMvdHpzZXQu
-MwpAQCAtNjMsNiArNjMsMTEgQEAgSW4gYSBTeXN0ZW0tVi1saWtlIGVudmlyb25tZW50LCBp
-dCB3aWxsIGFsc28gc2V0IHRoZSB2YXJpYWJsZXMgXGZJdGltZXpvbmVcZlAKIGhhdmUgYW55
-IGRheWxpZ2h0IHNhdmluZyB0aW1lIHJ1bGVzLCBvciB0byBub256ZXJvIGlmIHRoZXJlIGlz
-IGEgdGltZSwKIHBhc3QsIHByZXNlbnQsIG9yIGZ1dHVyZSB3aGVuIGRheWxpZ2h0IHNhdmlu
-ZyB0aW1lIGFwcGxpZXMpLgogLlAKK1RoZQorLkJSIHR6c2V0ICgpCitmdW5jdGlvbiBpbml0
-aWFsaXplcyB0aGVzZSB2YXJpYWJsZXMgdG8gdW5zcGVjaWZpZWQgdmFsdWVzIGlmIHRoaXMK
-K3RpbWV6b25lIGlzIGEgZ2VvZ3JhcGhpY2FsIHRpbWV6b25lIGxpa2UgIkFtZXJpY2EvTmV3
-X1lvcmsiIChzZWUgYmVsb3cpLgorLlAKIElmIHRoZQogLkIgVFoKIHZhcmlhYmxlIGRvZXMg
-bm90IGFwcGVhciBpbiB0aGUgZW52aXJvbm1lbnQsIHRoZSBzeXN0ZW0gdGltZXpvbmUgaXMg
-dXNlZC4KQEAgLTE1NSw3ICsxNjAsOCBAQCBUWj0iTlpTVFwtMTI6MDA6MDBOWkRUXC0xMzow
-MDowMCxNMTAuMS4wLE0zLjMuMCIKIC5FRQogLmluCiAuUAotVGhlIHNlY29uZCBmb3JtYXQg
-c3BlY2lmaWVzIHRoYXQgdGhlIHRpbWV6b25lIGluZm9ybWF0aW9uIHNob3VsZCBiZSByZWFk
-CitUaGUgc2Vjb25kLCBvciAiZ2VvZ3JhcGhpY2FsIiwKK2Zvcm1hdCBzcGVjaWZpZXMgdGhh
-dCB0aGUgdGltZXpvbmUgaW5mb3JtYXRpb24gc2hvdWxkIGJlIHJlYWQKIGZyb20gYSBmaWxl
-OgogLlAKIC5pbiArNG4KLS0gCjIuNDUuMgoK
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0003-tzset-recommend-tm_gmtoff-tm_zone-instead.patch"
-Content-Disposition: attachment;
- filename="0003-tzset-recommend-tm_gmtoff-tm_zone-instead.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSBkNzAxNWFkZTIyYzFiZjA1MjM3Yzc2ZGFlNjFhNzA1MGYyYzc2Zjk2IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIxOjMxIC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwMy8xMF0gdHpzZXQ6IHJlY29tbWVuZCB0bV9nbXRvZmYsIHRtX3pvbmUgaW5zdGVhZAoK
-TmV3IHNlY3Rpb24gQ0FWRUFUUyBmb3Igd2h5IHRpbWUgem9uZSBzdGF0ZSBpcyBkaWNleS4K
-LS0tCiBtYW4vbWFuMy90enNldC4zIHwgMTAgKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQs
-IDEwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIvbWFu
-L21hbjMvdHpzZXQuMwppbmRleCA2ZTg5ZGQ1MzAuLjU1MjQwMWM1OCAxMDA2NDQKLS0tIGEv
-bWFuL21hbjMvdHpzZXQuMworKysgYi9tYW4vbWFuMy90enNldC4zCkBAIC0yNDEsNiArMjQx
-LDE2IEBAIG5hbWUgb2YgdGhlIHRpbWV6b25lIGNvcnJlc3BvbmRpbmcgdG8gaXRzIGZpcnN0
-IGFyZ3VtZW50IChtaW51dGVzCiBXZXN0IG9mIFVUQykuCiBJZiB0aGUgc2Vjb25kIGFyZ3Vt
-ZW50IHdhcyAwLCB0aGUgc3RhbmRhcmQgbmFtZSB3YXMgdXNlZCwKIG90aGVyd2lzZSB0aGUg
-ZGF5bGlnaHQgc2F2aW5nIHRpbWUgdmVyc2lvbi4KKy5TSCBDQVZFQVRTCitCZWNhdXNlIHRo
-ZSB2YWx1ZXMgb2YgXGZJdHpuYW1lXGZQLCBcZkl0aW1lem9uZVxmUCwgYW5kIFxmSWRheWxp
-Z2h0XGZQCithcmUgb2Z0ZW4gdW5zcGVjaWZpZWQsIGFuZCBhY2Nlc3NpbmcgdGhlbSBjYW4g
-bGVhZCB0byB1bmRlZmluZWQKK2JlaGF2aW9yIGluIG11bHRpdGhyZWFkZWQgYXBwbGljYXRp
-b25zLAorY29kZSBzaG91bGQgaW5zdGVhZCBvYnRhaW4gdGltZSB6b25lIG9mZnNldCBhbmQg
-YWJicmV2aWF0aW9ucyBmcm9tIHRoZQorLkkgdG1fZ210b2ZmCithbmQKKy5JIHRtX3pvbmUK
-K21lbWJlcnMgb2YgdGhlIGJyb2tlbi1kb3duIHRpbWUgc3RydWN0dXJlCisuQlIgdG0gKDN0
-eXBlKS4KIC5TSCBTRUUgQUxTTwogLkJSIGRhdGUgKDEpLAogLkJSIGdldHRpbWVvZmRheSAo
-MiksCi0tIAoyLjQ1LjIKCg==
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0004-tzset-TZ-can-also-be-empty.patch"
-Content-Disposition: attachment;
- filename="0004-tzset-TZ-can-also-be-empty.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSA1NjRhNDdlNzliYWJhODM5MDI3MzhlNmU5OGI1NTdiYTdkZDk0NTEwIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIyOjM2IC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwNC8xMF0gdHpzZXQ6IFRaIGNhbiBhbHNvIGJlIGVtcHR5CgotLS0KIG1hbi9tYW4zL3R6
-c2V0LjMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRp
-b24oLSkKCmRpZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIvbWFuL21hbjMvdHpzZXQu
-MwppbmRleCA1NTI0MDFjNTguLjdkZGVhNTJiNyAxMDA2NDQKLS0tIGEvbWFuL21hbjMvdHpz
-ZXQuMworKysgYi9tYW4vbWFuMy90enNldC4zCkBAIC04NCw3ICs4NCw3IEBAIHZhcmlhYmxl
-IGRvZXMgYXBwZWFyIGluIHRoZSBlbnZpcm9ubWVudCwgYnV0IGl0cyB2YWx1ZSBpcyBlbXB0
-eSwKIG9yIGl0cyB2YWx1ZSBjYW5ub3QgYmUgaW50ZXJwcmV0ZWQgdXNpbmcgYW55IG9mIHRo
-ZSBmb3JtYXRzIHNwZWNpZmllZAogYmVsb3csIHRoZW4gQ29vcmRpbmF0ZWQgVW5pdmVyc2Fs
-IFRpbWUgKFVUQykgaXMgdXNlZC4KIC5QCi1UaGUgdmFsdWUgb2YKK0Egbm9uZW1wdHkgdmFs
-dWUgb2YKIC5CIFRaCiBjYW4gYmUgb25lIG9mIHR3byBmb3JtYXRzLgogVGhlIGZpcnN0IGZv
-cm1hdCBpcyBhIHN0cmluZyBvZiBjaGFyYWN0ZXJzIHRoYXQgZGlyZWN0bHkgcmVwcmVzZW50
-IHRoZQotLSAKMi40NS4yCgo=
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0005-tzset-time-hh-range-is-now-167.167.patch"
-Content-Disposition: attachment;
- filename="0005-tzset-time-hh-range-is-now-167.167.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSA0MTlkY2M5NTA4NWJjYWE4NDRmMDk3ZDBkYzkyNzE5YWRlN2Q5OTM3IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjIzOjMzIC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwNS8xMF0gdHpzZXQ6IHRpbWUgaGggcmFuZ2UgaXMgbm93IC0xNjcuLjE2NwoKLS0tCiBt
-YW4vbWFuMy90enNldC4zIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KQoKZGlmZiAtLWdpdCBhL21hbi9tYW4zL3R6c2V0LjMgYi9tYW4vbWFuMy90enNldC4zCmlu
-ZGV4IDdkZGVhNTJiNy4uNzE3YjFmZWM5IDEwMDY0NAotLS0gYS9tYW4vbWFuMy90enNldC4z
-CisrKyBiL21hbi9tYW4zL3R6c2V0LjMKQEAgLTE0Niw2ICsxNDYsOCBAQCBEYXkgMCBpcyBh
-IFN1bmRheS4KIC5QCiBUaGUgXGZJdGltZVxmUCBmaWVsZHMgc3BlY2lmeSB3aGVuLCBpbiB0
-aGUgbG9jYWwgdGltZSBjdXJyZW50bHkgaW4gZWZmZWN0LAogdGhlIGNoYW5nZSB0byB0aGUg
-b3RoZXIgdGltZSBvY2N1cnMuCitUaGV5IHVzZSB0aGUgc2FtZSBmb3JtYXQgYXMgXGZJb2Zm
-c2V0XGZQIGV4Y2VwdCB0aGF0IHRoZSBob3VyIGNhbiByYW5nZQorZnJvbSBcLTE2NyB0byAx
-NjcgdG8gcmVwcmVzZW50IHRpbWVzIGJlZm9yZSBhbmQgYWZ0ZXIgdGhlIG5hbWVkIGRheS4K
-IElmIG9taXR0ZWQsIHRoZSBkZWZhdWx0IGlzIDAyOjAwOjAwLgogLlAKIEhlcmUgaXMgYW4g
-ZXhhbXBsZSBmb3IgTmV3IFplYWxhbmQsCi0tIAoyLjQ1LjIKCg==
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0006-tzset-use-NZ-s-current-rules-in-example.patch"
-Content-Disposition: attachment;
- filename="0006-tzset-use-NZ-s-current-rules-in-example.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSAwNzVmYjcwNzFhZmJiYTVhYWJiZmRmNWY2ZGE3MDJiODQzODM1YmQxIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjI2OjAzIC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwNi8xMF0gdHpzZXQ6IHVzZSBOWidzIGN1cnJlbnQgcnVsZXMgaW4gZXhhbXBsZQoKLS0t
-CiBtYW4vbWFuMy90enNldC4zIHwgNiArKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
-dGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMvdHpzZXQu
-MyBiL21hbi9tYW4zL3R6c2V0LjMKaW5kZXggNzE3YjFmZWM5Li4wYjgxM2M1NjggMTAwNjQ0
-Ci0tLSBhL21hbi9tYW4zL3R6c2V0LjMKKysrIGIvbWFuL21hbjMvdHpzZXQuMwpAQCAtMTUz
-LDEyICsxNTMsMTIgQEAgSWYgb21pdHRlZCwgdGhlIGRlZmF1bHQgaXMgMDI6MDA6MDAuCiBI
-ZXJlIGlzIGFuIGV4YW1wbGUgZm9yIE5ldyBaZWFsYW5kLAogd2hlcmUgdGhlIHN0YW5kYXJk
-IHRpbWUgKE5aU1QpIGlzIDEyIGhvdXJzIGFoZWFkIG9mIFVUQywKIGFuZCBkYXlsaWdodCBz
-YXZpbmcgdGltZSAoTlpEVCksIDEzIGhvdXJzIGFoZWFkIG9mIFVUQywKLXJ1bnMgZnJvbSB0
-aGUgZmlyc3QgU3VuZGF5IGluIE9jdG9iZXIgdG8gdGhlIHRoaXJkIFN1bmRheSBpbiBNYXJj
-aCwKLWFuZCB0aGUgY2hhbmdlb3ZlcnMgaGFwcGVuIGF0IHRoZSBkZWZhdWx0IHRpbWUgb2Yg
-MDI6MDA6MDA6CitydW5zIGZyb20gU2VwdGVtYmVyJ3MgbGFzdCBTdW5kYXksIGF0IHRoZSBk
-ZWZhdWx0IHRpbWUgMDI6MDA6MDAsCit0byBBcHJpbCdzIGZpcnN0IFN1bmRheSBhdCAwMzow
-MDowMC4KIC5QCiAuaW4gKzRuCiAuRVgKLVRaPSJOWlNUXC0xMjowMDowME5aRFRcLTEzOjAw
-OjAwLE0xMC4xLjAsTTMuMy4wIgorVFo9Ik5aU1RcLTEyOjAwOjAwTlpEVFwtMTM6MDA6MDAs
-TTkuNS4wLE00LjEuMC8zIgogLkVFCiAuaW4KIC5QCi0tIAoyLjQ1LjIKCg==
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0007-tzset-TZ-EST5-works.patch"
-Content-Disposition: attachment; filename="0007-tzset-TZ-EST5-works.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSBlM2JiY2RjZjFlMjIxOTgxMmY5NDY0NGU3NDJmYTEyYjYwNjQyMzBhIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjM0OjM1IC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwNy8xMF0gdHpzZXQ6IFRaPSI6RVNUNSIgd29ya3MKCi0tLQogbWFuL21hbjMvdHpzZXQu
-MyB8IDE3ICsrKysrKysrKystLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9u
-cygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIv
-bWFuL21hbjMvdHpzZXQuMwppbmRleCAwYjgxM2M1NjguLmYzZTZjODc0OCAxMDA2NDQKLS0t
-IGEvbWFuL21hbjMvdHpzZXQuMworKysgYi9tYW4vbWFuMy90enNldC4zCkBAIC04Niw3ICs4
-Niw4IEBAIGJlbG93LCB0aGVuIENvb3JkaW5hdGVkIFVuaXZlcnNhbCBUaW1lIChVVEMpIGlz
-IHVzZWQuCiAuUAogQSBub25lbXB0eSB2YWx1ZSBvZgogLkIgVFoKLWNhbiBiZSBvbmUgb2Yg
-dHdvIGZvcm1hdHMuCitjYW4gYmUgb25lIG9mIHR3byBmb3JtYXRzLAorZWl0aGVyIG9mIHdo
-aWNoIGNhbiBiZSBwcmVjZWRlZCBieSBhIGNvbG9uIHdoaWNoIGlzIGlnbm9yZWQuCiBUaGUg
-Zmlyc3QgZm9ybWF0IGlzIGEgc3RyaW5nIG9mIGNoYXJhY3RlcnMgdGhhdCBkaXJlY3RseSBy
-ZXByZXNlbnQgdGhlCiB0aW1lem9uZSB0byBiZSB1c2VkOgogLlAKQEAgLTE2OCwxOSArMTY5
-LDIxIEBAIGZyb20gYSBmaWxlOgogLlAKIC5pbiArNG4KIC5FWAotOltmaWxlc3BlY10KK2Zp
-bGVzcGVjCiAuRUUKIC5pbgogLlAKLUlmIHRoZSBmaWxlIHNwZWNpZmljYXRpb24gXGZJZmls
-ZXNwZWNcZlAgaXMgb21pdHRlZCwgb3IgaXRzIHZhbHVlIGNhbm5vdAotYmUgaW50ZXJwcmV0
-ZWQsIHRoZW4gQ29vcmRpbmF0ZWQgVW5pdmVyc2FsIFRpbWUgKFVUQykgaXMgdXNlZC4KLUlm
-IFxmSWZpbGVzcGVjXGZQIGlzIGdpdmVuLCBpdCBzcGVjaWZpZXMgYW5vdGhlcgorVGhlIFxm
-SWZpbGVzcGVjXGZQIHNwZWNpZmllcyBhCiAuQlIgdHpmaWxlICg1KS1mb3JtYXQKIGZpbGUg
-dG8gcmVhZCB0aGUgdGltZXpvbmUgaW5mb3JtYXRpb24gZnJvbS4KIElmIFxmSWZpbGVzcGVj
-XGZQIGRvZXMgbm90IGJlZ2luIHdpdGggYSBcW2FxXS9cW2FxXSwgdGhlIGZpbGUgc3BlY2lm
-aWNhdGlvbiBpcwogcmVsYXRpdmUgdG8gdGhlIHN5c3RlbSB0aW1lem9uZSBkaXJlY3Rvcnku
-Ci1JZiB0aGUgY29sb24gaXMgb21pdHRlZCBlYWNoCi1vZiB0aGUgYWJvdmUgXGZCVFpcZlAg
-Zm9ybWF0cyB3aWxsIGJlIHRyaWVkLgorSWYgdGhlIHNwZWNpZmllZCBmaWxlIGNhbm5vdCBi
-ZSByZWFkIG9yIGludGVycHJldGVkLAorQ29vcmRpbmF0ZWQgVW5pdmVyc2FsIFRpbWUgKFVU
-QykgaXMgdXNlZDsKK2hvd2V2ZXIsIGFwcGxpY2F0aW9ucyBzaG91bGQgbm90IGRlcGVuZCBv
-biByYW5kb20gXGZJZmlsZXNwZWNcZlAgdmFsdWVzCitzdGFuZGluZyBmb3IgVVRDLCBhcwor
-LkIgVFoKK2Zvcm1hdHMgbWF5IGJlIGV4dGVuZGVkIGluIHRoZSBmdXR1cmUuCiAuUAogSGVy
-ZSdzIGFuIGV4YW1wbGUsIG9uY2UgbW9yZSBmb3IgTmV3IFplYWxhbmQ6CiAuUAotLSAKMi40
-NS4yCgo=
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0008-tzset-omit-colon-in-example.patch"
-Content-Disposition: attachment;
- filename="0008-tzset-omit-colon-in-example.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSA2ZDU1ZGU2NTFlZTc1N2NlM2QzNTUzMTcxNjQ2M2FhMTAwNGU0NDA0IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjM1OjE0IC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwOC8xMF0gdHpzZXQ6IG9taXQgY29sb24gaW4gZXhhbXBsZQoKLS0tCiBtYW4vbWFuMy90
-enNldC4zIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
-aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMvdHpzZXQuMyBiL21hbi9tYW4zL3R6c2V0
-LjMKaW5kZXggZjNlNmM4NzQ4Li40YzdlMjg2ZmUgMTAwNjQ0Ci0tLSBhL21hbi9tYW4zL3R6
-c2V0LjMKKysrIGIvbWFuL21hbjMvdHpzZXQuMwpAQCAtMTg5LDcgKzE4OSw3IEBAIEhlcmUn
-cyBhbiBleGFtcGxlLCBvbmNlIG1vcmUgZm9yIE5ldyBaZWFsYW5kOgogLlAKIC5pbiArNG4K
-IC5FWAotVFo9IjpQYWNpZmljL0F1Y2tsYW5kIgorVFo9IlBhY2lmaWMvQXVja2xhbmQiCiAu
-RUUKIC5pbgogLlNIIEVOVklST05NRU5UCi0tIAoyLjQ1LjIKCg==
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0009-tzset-update-STANDARDS-HISTORY.patch"
-Content-Disposition: attachment;
- filename="0009-tzset-update-STANDARDS-HISTORY.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSBhMDg1MTc3MTlhODU3MzI3NmQ2ZjFkMTZlNTczMGVlZGFiYWU3NzNlIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE4OjM3OjQ3IC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAwOS8xMF0gdHpzZXQ6IHVwZGF0ZSBTVEFOREFSRFMsIEhJU1RPUlkKClRoZSBjdXJyZW50
-IHN0YW5kYXJkcyBhcmUgQzIzIGFuZCBQT1NJWC4xLTIwMjQuClRoaXMgc3R1ZmYgd2FzIGZp
-cnN0IHN0YW5kYXJkaXplZCBpbiBDODkgYW5kIFBPU0lYLjEtMTk4OC4KLS0tCiBtYW4vbWFu
-M3R5cGUvdG0uM3R5cGUgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
-KyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjN0eXBlL3RtLjN0eXBl
-IGIvbWFuL21hbjN0eXBlL3RtLjN0eXBlCmluZGV4IDVkNWIyODY1OC4uMTYyOGUwYzFmIDEw
-MDY0NAotLS0gYS9tYW4vbWFuM3R5cGUvdG0uM3R5cGUKKysrIGIvbWFuL21hbjN0eXBlL3Rt
-LjN0eXBlCkBAIC05MCw5ICs5MCw5IEBAIHBvaW50cyB0byBzdGF0aWMgc3RvcmFnZSBhbmQg
-bWF5IGJlIG92ZXJyaWRkZW4gb24gc3Vic2VxdWVudCBjYWxscyB0bwogLkJSIGxvY2FsdGlt
-ZSAoMykKIGFuZCBzaW1pbGFyIGZ1bmN0aW9ucyAoaG93ZXZlciwgdGhpcyBuZXZlciBoYXBw
-ZW5zIHVuZGVyIGdsaWJjKS4KIC5TSCBTVEFOREFSRFMKLUMxMSwgUE9TSVguMS0yMDA4Lgor
-QzIzLCBQT1NJWC4xLTIwMjQuCiAuU0ggSElTVE9SWQotQzg5LCBQT1NJWC4xLTIwMDEuCitD
-ODksIFBPU0lYLjEtMTk4OC4KIC5QCiAuSSB0bV9nbXRvZmYKIGFuZAotLSAKMi40NS4yCgo=
-
---------------EbynPQbH8awUiWhfEASTskR0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0010-tzset-update-more-POSIX-citations-and-quotes.patch"
-Content-Disposition: attachment;
- filename="0010-tzset-update-more-POSIX-citations-and-quotes.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSBlNDRiZmVkZWFiN2FmMDg3MTExYzMzYWE2M2M5N2JjZmY2ZGQyYmY1IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1
-PgpEYXRlOiBNb24sIDEwIEp1biAyMDI0IDE5OjExOjU5IC0wNzAwClN1YmplY3Q6IFtQQVRD
-SCAxMC8xMF0gdHpzZXQ6IHVwZGF0ZSBtb3JlIFBPU0lYIGNpdGF0aW9ucyBhbmQgcXVvdGVz
-CgotLS0KIG1hbi9tYW4zL2N0aW1lLjMgfCAyOSArKysrKysrKysrKysrLS0tLS0tLS0tLS0t
-LS0tLQogbWFuL21hbjMvdHpzZXQuMyB8ICA0ICsrLS0KIDIgZmlsZXMgY2hhbmdlZCwgMTUg
-aW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMv
-Y3RpbWUuMyBiL21hbi9tYW4zL2N0aW1lLjMKaW5kZXggZTg2M2YwNTcyLi5hMGRhY2ZlZGEg
-MTAwNjQ0Ci0tLSBhL21hbi9tYW4zL2N0aW1lLjMKKysrIGIvbWFuL21hbjMvY3RpbWUuMwpA
-QCAtMzIwLDcgKzMyMCw3IEBAIEluIG1hbnkgaW1wbGVtZW50YXRpb25zLCBpbmNsdWRpbmcg
-Z2xpYmMsIGEgMCBpbgogLkkgdG1fbWRheQogaXMgaW50ZXJwcmV0ZWQgYXMgbWVhbmluZyB0
-aGUgbGFzdCBkYXkgb2YgdGhlIHByZWNlZGluZyBtb250aC4KIC5QCi1BY2NvcmRpbmcgdG8g
-UE9TSVguMS0yMDAxLAorQWNjb3JkaW5nIHRvIFBPU0lYLjEtMjAyNCwKIC5CUiBsb2NhbHRp
-bWUgKCkKIGlzIHJlcXVpcmVkIHRvIGJlaGF2ZSBhcyB0aG91Z2gKIC5CUiB0enNldCAoMykK
-QEAgLTM0MywxNiArMzQzLDEyIEBAIHNob3VsZCBiZSBjYWxsZWQgYmVmb3JlCiAuQlIgbG9j
-YWx0aW1lICgpCiAuVFEKIC5CUiBta3RpbWUgKCkKLUMxMSwgUE9TSVguMS0yMDA4LgorQzIz
-LCBQT1NJWC4xLTIwMjQuCiAuVFAKLS5CUiBhc2N0aW1lX3IgKCkKLS5UUQotLkJSIGN0aW1l
-X3IgKCkKLS5UUQogLkJSIGdtdGltZV9yICgpCiAuVFEKIC5CUiBsb2NhbHRpbWVfciAoKQot
-UE9TSVguMS0yMDA4LgorUE9TSVguMS0yMDI0LgogLlNIIEhJU1RPUlkKIC5UUAogLkJSIGdt
-dGltZSAoKQpAQCAtMzYwLDI1ICszNTYsMjUgQEAgUE9TSVguMS0yMDA4LgogLkJSIGxvY2Fs
-dGltZSAoKQogLlRRCiAuQlIgbWt0aW1lICgpCi1DODksIFBPU0lYLjEtMjAwMS4KK0M4OSwg
-UE9TSVguMS0xOTg4LgogLlRQCiAuQlIgYXNjdGltZSAoKQogLlRRCiAuQlIgY3RpbWUgKCkK
-LUM4OSwgUE9TSVguMS0yMDAxLgotTWFya2VkIG9ic29sZXRlIGluIFBPU0lYLjEtMjAwOCAo
-cmVjb21tZW5kaW5nCitDODksIFBPU0lYLjEtMTk4OC4KK01hcmtlZCBvYnNvbGVzY2VudCBp
-biBDMjMgYW5kIGluIFBPU0lYLjEtMjAwOCAocmVjb21tZW5kaW5nCiAuQlIgc3RyZnRpbWUg
-KDMpKS4KIC5UUAogLkJSIGdtdGltZV9yICgpCiAuVFEKIC5CUiBsb2NhbHRpbWVfciAoKQot
-UE9TSVguMS0yMDAxLgorUE9TSVguMS0xOTk2LgogLlRQCiAuQlIgYXNjdGltZV9yICgpCiAu
-VFEKIC5CUiBjdGltZV9yICgpCi1QT1NJWC4xLTIwMDEuCi1NYXJrZWQgb2Jzb2xldGUgaW4g
-UE9TSVguMS0yMDA4IChyZWNvbW1lbmRpbmcKK1BPU0lYLjEtMTk5Ni4KK1JlbW92ZWQgaW4g
-UE9TSVguMS0yMDI0IChyZWNvbW1lbmRpbmcKIC5CUiBzdHJmdGltZSAoMykpLgogLlNIIE5P
-VEVTCiBUaGUgZm91ciBmdW5jdGlvbnMKQEAgLTM5Niw3ICszOTIsNyBAQCBhbmQKIC5CUiBs
-b2NhbHRpbWVfciAoKSwKIGFyZSBzcGVjaWZpZWQgYnkgU1VTdjIuCiAuUAotUE9TSVguMS0y
-MDAxIHNheXM6CitQT1NJWC4xLTIwMjQgc2F5czoKICJUaGUKIC5CUiBhc2N0aW1lICgpLAog
-LkJSIGN0aW1lICgpLApAQCAtNDA2LDggKzQwMiw5IEBAIGFuZAogZnVuY3Rpb25zIHNoYWxs
-IHJldHVybiB2YWx1ZXMgaW4gb25lIG9mIHR3byBzdGF0aWMgb2JqZWN0czoKIGEgYnJva2Vu
-LWRvd24gdGltZSBzdHJ1Y3R1cmUgYW5kIGFuIGFycmF5IG9mIHR5cGUKIC5JUiBjaGFyIC4K
-LUV4ZWN1dGlvbiBvZiBhbnkgb2YgdGhlIGZ1bmN0aW9ucyBtYXkgb3ZlcndyaXRlIHRoZSBp
-bmZvcm1hdGlvbiByZXR1cm5lZAotaW4gZWl0aGVyIG9mIHRoZXNlIG9iamVjdHMgYnkgYW55
-IG9mIHRoZSBvdGhlciBmdW5jdGlvbnMuIgorRXhlY3V0aW9uIG9mIGFueSBvZiB0aGUgZnVu
-Y3Rpb25zIHRoYXQgcmV0dXJuIGEgcG9pbnRlciB0byBvbmUgb2YgdGhlc2UKK29iamVjdCB0
-eXBlcyBtYXkgb3ZlcndyaXRlIHRoZSBpbmZvcm1hdGlvbiBpbiBhbnkgb2JqZWN0IG9mIHRo
-ZSBzYW1lIHR5cGUKK3BvaW50ZWQgdG8gYnkgdGhlIHZhbHVlIHJldHVybmVkIGZyb20gYW55
-IHByZXZpb3VzIGNhbGwgdG8gYW55IG9mIHRoZW0uIgogVGhpcyBjYW4gb2NjdXIgaW4gdGhl
-IGdsaWJjIGltcGxlbWVudGF0aW9uLgogLlNIIFNFRSBBTFNPCiAuQlIgZGF0ZSAoMSksCmRp
-ZmYgLS1naXQgYS9tYW4vbWFuMy90enNldC4zIGIvbWFuL21hbjMvdHpzZXQuMwppbmRleCA0
-YzdlMjg2ZmUuLjdkNTdkYzlhMSAxMDA2NDQKLS0tIGEvbWFuL21hbjMvdHpzZXQuMworKysg
-Yi9tYW4vbWFuMy90enNldC4zCkBAIC0yMzUsOSArMjM1LDkgQEAgVHsKIFR9CVRocmVhZCBz
-YWZldHkJTVQtU2FmZSBlbnYgbG9jYWxlCiAuVEUKIC5TSCBTVEFOREFSRFMKLVBPU0lYLjEt
-MjAwOC4KK1BPU0lYLjEtMjAyNC4KIC5TSCBISVNUT1JZCi1QT1NJWC4xLTIwMDEsIFNWcjQs
-IDQuM0JTRC4KK1BPU0lYLjEtMTk4OCwgU1ZyNCwgNC4zQlNELgogLlAKIDQuM0JTRCBoYWQg
-YSBmdW5jdGlvbgogLkJJICJjaGFyICp0aW1lem9uZSgiIHpvbmUgIiwgIiBkc3QgKQotLSAK
-Mi40NS4yCgo=
-
---------------EbynPQbH8awUiWhfEASTskR0--
+> 
+> Thank you,
+> 
+> > Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+> > Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > Acked-by: Andrii Nakryiko <andrii@kernel.org>
+> > Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+> > ---
+> >  arch/x86/entry/syscalls/syscall_64.tbl | 1 +
+> >  include/linux/syscalls.h               | 2 ++
+> >  include/uapi/asm-generic/unistd.h      | 5 ++++-
+> >  kernel/sys_ni.c                        | 2 ++
+> >  4 files changed, 9 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+> > index cc78226ffc35..47dfea0a827c 100644
+> > --- a/arch/x86/entry/syscalls/syscall_64.tbl
+> > +++ b/arch/x86/entry/syscalls/syscall_64.tbl
+> > @@ -383,6 +383,7 @@
+> >  459	common	lsm_get_self_attr	sys_lsm_get_self_attr
+> >  460	common	lsm_set_self_attr	sys_lsm_set_self_attr
+> >  461	common	lsm_list_modules	sys_lsm_list_modules
+> > +462	64	uretprobe		sys_uretprobe
+> >  
+> >  #
+> >  # Due to a historical design error, certain syscalls are numbered differently
+> > diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+> > index e619ac10cd23..5318e0e76799 100644
+> > --- a/include/linux/syscalls.h
+> > +++ b/include/linux/syscalls.h
+> > @@ -972,6 +972,8 @@ asmlinkage long sys_lsm_list_modules(u64 *ids, u32 *size, u32 flags);
+> >  /* x86 */
+> >  asmlinkage long sys_ioperm(unsigned long from, unsigned long num, int on);
+> >  
+> > +asmlinkage long sys_uretprobe(void);
+> > +
+> >  /* pciconfig: alpha, arm, arm64, ia64, sparc */
+> >  asmlinkage long sys_pciconfig_read(unsigned long bus, unsigned long dfn,
+> >  				unsigned long off, unsigned long len,
+> > diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
+> > index 75f00965ab15..8a747cd1d735 100644
+> > --- a/include/uapi/asm-generic/unistd.h
+> > +++ b/include/uapi/asm-generic/unistd.h
+> > @@ -842,8 +842,11 @@ __SYSCALL(__NR_lsm_set_self_attr, sys_lsm_set_self_attr)
+> >  #define __NR_lsm_list_modules 461
+> >  __SYSCALL(__NR_lsm_list_modules, sys_lsm_list_modules)
+> >  
+> > +#define __NR_uretprobe 462
+> > +__SYSCALL(__NR_uretprobe, sys_uretprobe)
+> > +
+> >  #undef __NR_syscalls
+> > -#define __NR_syscalls 462
+> > +#define __NR_syscalls 463
+> >  
+> >  /*
+> >   * 32 bit systems traditionally used different
+> > diff --git a/kernel/sys_ni.c b/kernel/sys_ni.c
+> > index faad00cce269..be6195e0d078 100644
+> > --- a/kernel/sys_ni.c
+> > +++ b/kernel/sys_ni.c
+> > @@ -391,3 +391,5 @@ COND_SYSCALL(setuid16);
+> >  
+> >  /* restartable sequence */
+> >  COND_SYSCALL(rseq);
+> > +
+> > +COND_SYSCALL(uretprobe);
+> > -- 
+> > 2.45.1
+> > 
+> 
+> 
+> -- 
+> Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
