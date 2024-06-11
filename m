@@ -1,146 +1,153 @@
-Return-Path: <linux-man+bounces-1138-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1139-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C69E9046F1
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 00:31:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D294904711
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 00:36:33 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id D998D1F254E6
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 22:31:28 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id F122B1F23F81
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 22:36:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82621155329;
-	Tue, 11 Jun 2024 22:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8570815533C;
+	Tue, 11 Jun 2024 22:36:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="ipo/Wj4k"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TXIhvQ2c"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FB115531E
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 22:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450A915278E
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 22:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718145064; cv=none; b=PHOQs0NrikF1K6t7b3tIlqS+7yLs4q/gJQ7BQ3Cq4EmOpyATO3WRSM8wjK/MAUyN+gwUjtkojGPurFVzuuGaaHSDS9cJuk3m4i8IdV7Oej1OJVKjCH0b5TpS6OjlAPK4vCMoAOOP8wEtDrq12rxFghy0xQ5JnDsrhrgniXlu63E=
+	t=1718145388; cv=none; b=saZZkWHGTCbjNyrukcYzoXFLldTwXGB5W/DSigTH+PXdv7dZDWLdkr3jEMTueGrZf0feMOnKH+Ta7G926HuEIzRIXdCIi3QnZ4wtaaS9k2VwwQPansfAHIeUDdugIhyav4zZpBzXuYNjClV/ovuraQMel9e1kZ3kreC+yHVogc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718145064; c=relaxed/simple;
-	bh=hjBMB6iIlwmSbqd7De80jaPcrUxct8A2KRtRiZhkqwg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L24QCNOBzsylh7THuqduFN9MqTf2EAuC10mcZrpk27af7nLiq+1RQ5FYabZ6BCY4dGf1Qy+emN/3OKYxrEmhPWTv7qnQ0VHRIgZrsErkqJ/Pfz8HpMLiaYocQbEJls/z8Bp9tlO3V8F5DRXmglRKhauuSck5d9iOTMDiYdSfQ1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=ipo/Wj4k; arc=none smtp.client-ip=131.179.128.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id 5218D3C00E8B0;
-	Tue, 11 Jun 2024 15:30:55 -0700 (PDT)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
- id s2PAanrvVXhS; Tue, 11 Jun 2024 15:30:55 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id 098253C00E400;
-	Tue, 11 Jun 2024 15:30:55 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 098253C00E400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1718145055;
-	bh=8hDvMpGbvK31X3agzidA1caxMbzH1keq7ndCHpvGbg0=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=ipo/Wj4kEqOtCDdxeljJKXYbOF5xVUeSAezYSTQfpNKTzN/rqwdU3/Qg2hhJwdmxi
-	 hNmZ8INs+lpykGJJocxaCcmedFiIud0g2Yy7gQMWTOhAoDAkjT8lbyPUekHTg/2/v1
-	 vRKJnShDaaACpfsDQdiLPAduR2FV6jrkKorNUqWe2zacjoGPAIBXl1o761EruyoiCP
-	 5bB6XBsSO4Wx3zX4VACDHjwYHsW0sh4HTjMWISPZbYCGA2YmyUpkOaflZ1PJ3AY3nZ
-	 yu85X09k6rVZ93OEVdLB8C0LITjJivYITRBPLtCVVDDiBNbU+TuBVRV6MHdN4t5hQk
-	 fbMXp9X7HtyDQ==
-X-Virus-Scanned: amavis at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
- id QzXtUdL4h2Jp; Tue, 11 Jun 2024 15:30:54 -0700 (PDT)
-Received: from [131.179.64.200] (Penguin.CS.UCLA.EDU [131.179.64.200])
-	by mail.cs.ucla.edu (Postfix) with ESMTPSA id E1BF73C00E8B0;
-	Tue, 11 Jun 2024 15:30:54 -0700 (PDT)
-Message-ID: <0cae0f46-3da4-48a8-9cd1-3632f92d3755@cs.ucla.edu>
-Date: Tue, 11 Jun 2024 15:30:54 -0700
+	s=arc-20240116; t=1718145388; c=relaxed/simple;
+	bh=LCVI7ntrMskXq80kSkeYvGquDL7xvdVYUJhTBa47/jE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uBo+SoQKJ7/XTbySiuenVRmfXVvNmMc76ZuQ3HfMk3upZyVXglxsstMDPL7VxzqArD5YwmyM7n9PfK5FmIlRjifBmLb44zHUmbLv0hYw5n2g77ZgsDO+rZqNktNUyhvdh/zozWkdXcUbGAn0xUOf5ZQQ5hTHFme7tna+VzYBCJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TXIhvQ2c; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E65CC3277B;
+	Tue, 11 Jun 2024 22:36:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718145387;
+	bh=LCVI7ntrMskXq80kSkeYvGquDL7xvdVYUJhTBa47/jE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TXIhvQ2cGZMRpc+v6oMHx/07b74ZsdadBfjIH4IM1O9if+NI261Fuu9Q6YG97OMu8
+	 1ecq0YVk8bPwOJd4FkEFjxFzptPOvIlTgU3Rg1MrVIwLWMxuIQVGC0FPRsmHLQpRuL
+	 gnImI5W1Pw8Ax21P0CCUtxnlAFuVT5Ep+geMuczwI6p1FCLNs6IVwbFx9RVfVoU0k2
+	 apco/nuf2A/UzjQlwPjSxNiLSk5RVfS5S+KbBjYFWK+QNf4gipIi6VEMEdMsqj/ObN
+	 E3Vy9nrjbUWLwA3YzU4n5KsxfPds0gpiWxfyu9djjYAUlUPCn9CbK0P2aL2oynf9hk
+	 rEqbC9/0T3Y+A==
+Date: Wed, 12 Jun 2024 00:36:25 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+Message-ID: <a7pxdy72bizcazfgvaavvxvzgjqmue3ja276gpjho63bisbnnm@b7xiiracxk77>
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
+ <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+ <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
+ <7k3zem6o7y25szuxuxe6zmhi7xqioqe4d74s74y32yhceht2cr@lscysoj5eqoq>
+ <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/12] tzset: state vars unspecified if geographical TZ
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qamdiotvd5xqjyge"
+Content-Disposition: inline
+In-Reply-To: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+
+
+--qamdiotvd5xqjyge
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
- <20240611153005.3066-2-eggert@cs.ucla.edu>
- <j5shpmuai76b6lmdlhbhkhmp6elftrqzytkq5cuyujqbvonpfc@rdotn2xryam3>
-Content-Language: en-US
-From: Paul Eggert <eggert@cs.ucla.edu>
-Autocrypt: addr=eggert@cs.ucla.edu; keydata=
- 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
-Organization: UCLA Computer Science Department
-In-Reply-To: <j5shpmuai76b6lmdlhbhkhmp6elftrqzytkq5cuyujqbvonpfc@rdotn2xryam3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
+ <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+ <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
+ <7k3zem6o7y25szuxuxe6zmhi7xqioqe4d74s74y32yhceht2cr@lscysoj5eqoq>
+ <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+MIME-Version: 1.0
+In-Reply-To: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
 
-On 6/11/24 13:53, Alejandro Colomar wrote:
->> +The
->> +.BR tzset ()
->> +function initializes these variables to unspecified values if this
-> Can you confirm that the wording is precise?
+Hi Paul,
 
-Yes, see:
+On Tue, Jun 11, 2024 at 08:25:35AM GMT, Paul Eggert wrote:
+> On 2024-06-11 02:03, Alejandro Colomar wrote:
+>=20
+> > Feel free
+> > to send patches to make those sections more acurate, by documenting the
+> > actual first POSIX standard that documented them.
+>=20
+> I don't have time to do that with all the man pages, but I've done it with
+> ctime.3 and tzset.3.
 
-https://austingroupbugs.net/view.php?id=1816
+I appreciate that.  Thanks!
 
-> If it initializes to unspecified values, I guess it's legal (IIRC) to
-> read them (even if useless).  Am I understanding correctly?
+> > Of course, if a standard or system made significant changes to the
+> > interface, we also document that there.  I suspect some of this 2024
+> > change will have to go in HISTORY?
+>=20
+> I constructed another two patches to try to do that.
+>=20
+>=20
+> > Thanks; I'll have a look.  (Hmmm, I need to make neomutt(1) inline
+> > patches like mutt(1) did.  Or I'll review it with mutt(1) maybe.)
+>=20
+> I had forgotten that attachments are not your style. For convenience I pl=
+an
+> to follow up with all the patches (now 12 of them) in individual emails.
 
-Yes, so long as you've called tzset either directly or indirectly. If 
-you've never called tzset then it is a gray area (are they initialized? 
-it would be strange if not, but the standards aren't clear).
+Thanks!
 
-By the way, a FUTURE DIRECTIONS section of POSIX will plan to remove the 
-variables (see the URL above). Perhaps you could add a FUTURE DIRECTIONS 
-section?
+I've merged them all (some of them with small tweaks).
+
+-  Use .I instead of \fI in new additions.
+-  Use sentence case in commit message subject line.
+-  Specify filenames as commit message prefixes.
+-  The agreed POSIX version changes.
+And maybe some other that I forgot about.
+
+It'll be on the contrib branch here for around a day:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log=
+/?h=3Dcontrib>
+and then I'll push it to <kernel.org>.
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--qamdiotvd5xqjyge
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZo0WgACgkQnowa+77/
+2zJWmQ/7BiPpIUr78b+vc0W4z6Es6Td2cYUrWROGB1yXsqmAY1TdjLDVKYpLSyr1
+6EO3apUAQdx9GIc+LKVQfnWoxUXETM1svJQsda+6jCPsaXu7RSeZnXNAwXJLW1aG
+xcN5vTx/lz0IonDqada5RMEwwbu+6aMh6moclRCZjZ8lWC3QsA2KawLEkx2yPXMB
+78UwmzPIWZJFNWHYt/HIIlVXIHvQQLxUt7rqgSTVzo8Cd+U7CPPrcm0WPgFSC1F1
+zKJXmaSrmXStcczduoxK22xB5S8Mue73FX+Lj0l2yNTRn6gM2bIRC4QxD7PoDofw
+9cY3qpdlN1sMswF/+ONWPiqtz8vmpRy72ZlG9W2nyAbxly1YiKhhB0p+dr69NDy/
+wYGMV1/2+pCoky6kqyWx25O9gTkCIBU/tVy8L4CmpZTDByGHaQ2kMdDtCERH8528
+J6vc/PflxqjcUphWsTIvRrhc+kpc+E6s0WSIkgwmNVRHuns0YKWu3UcUMU6nPukI
+NZ0XZ9XJ/J+u1plbtbaSuHij3+uSymE+MciZdhv9cOUPDps0w3JSAtxjYGcsNqzi
+FWn1PybQJwMRc6GmGL3v1f+Ymu+HzC7CtYiAwiLMXs/Pn+BfUVRvtCVt/jrF5u8c
+VYiqsCM3zPgfzTAf4CbUqgnwkziSkDx+4eozaYfD8AoKSlSpcv8=
+=Kqmk
+-----END PGP SIGNATURE-----
+
+--qamdiotvd5xqjyge--
 
