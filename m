@@ -1,277 +1,234 @@
-Return-Path: <linux-man+bounces-1119-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1120-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id C73F8904169
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 18:34:52 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2F85904171
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 18:35:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7298F281488
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:34:51 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 611C0B237D6
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:35:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7BF0138FA0;
-	Tue, 11 Jun 2024 16:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5436C3BB48;
+	Tue, 11 Jun 2024 16:35:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b="f/AFQlOO"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mr7h5sqx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92317481D1
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 16:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142701CFA9
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 16:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718123674; cv=none; b=kHjGy8uHESbwu9UTv2M1oepXoH6ZsTUTS3ZSvdyKnH7TM6tQyYs4FUDbFliUrnUIQS0aMZx9qadg0nBVAaV1TWWFw3LiFzRei6W5yQKY9xA4T6y2twySeRgL7KvQSKXJCT1K6qocvJz/9wTJLZXHnXpb2t4cDd32Am18IFwDu8s=
+	t=1718123723; cv=none; b=CRo6C4NiWttytiM909TFiAQL7omQUw8YPBgAddmHKix2zcKQPrBEqIFA2n5jj8oAc3ksUNjaNtI9UdBvY7wtqgEdrf/V4PMxguJQ8m3OTAv64HPG5AgkjfM5qTTKbJXAlS0X0eGZX8t58RcbcI87rUTGRHZbuIN/hgpOcu6RWqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718123674; c=relaxed/simple;
-	bh=BZjxFWFihw36LmOVx8znJIEls65Aq4krPEjvtbwLGHg=;
+	s=arc-20240116; t=1718123723; c=relaxed/simple;
+	bh=yO8SbS2qIRcSHsb4QQYJKfDX09axf+Ada6bqsKE0gz0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V6+rL5S9FRdj+AWa700+Kkv0iExWkaXVW87HZYgw8wX6Ke6IHuC4NeicOSfV9guvooxHpFLscXo327KW9j1vC77ynB96FdCwdKfE4y/by8attkitIzLAAr9Y+V6Fz7KbGNnzm4mkpXN7oVzuD7XGqDgsj7IyPBYEbPYEKmWYI68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com; spf=pass smtp.mailfrom=fastly.com; dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b=f/AFQlOO; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastly.com
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-70421e78edcso1244192b3a.3
-        for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 09:34:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fastly.com; s=google; t=1718123672; x=1718728472; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=8ZAZZn88+kp40QNFGIQIeZABBdpGUfxbVTvBl+sWzts=;
-        b=f/AFQlOOLwSBxTBCb7aLrNExwj8p6I7lxs5GYtsFUn54/Tw2i/ZFtvP2//lyyXwdki
-         CjHdY/bFWvbKDnNJ+UnCDoh+P8KtleRkB9wsJxJMoarN4DGIp69G4sQOYJzwK4RthTF6
-         aRaDkJFmM274qeVRV43NFEZNs/Sp4DPqnH/mI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718123672; x=1718728472;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8ZAZZn88+kp40QNFGIQIeZABBdpGUfxbVTvBl+sWzts=;
-        b=rRtImq5iZoz52zkddip/QMAwWtY6SliErjQPUBUMfQDgaW0Vwzb0iMgl2MJ3G0dSmz
-         uqcGierswDBEvOjzi/d6JJuq7tBZpllp820dbtHBwyVkyVDpa9XXApYljnP63Am2LOgA
-         4u7C87jxdfOYigy9UQAxy6n37X3XEhHoLSVXwCpbCSS1coGXBV1AA6hkOY1GNUiDhOzw
-         ywIWZ73VzjEjh1tGOM0IZXhpo8EY1N1nGNJtuiaZtFQEE2L8zM2k8dBSdLBaPFmAllVc
-         aA8NK0cjR64kTf70a0Yeyxuvia88mJihYGKRf6uhq7cUjgCvNe5vmDNo8+z1uHT6sFoq
-         8V3A==
-X-Gm-Message-State: AOJu0YwPYBLTy2Yd964OyVQ60u0asNgUdI+Kh8YeSE25445rm3YJ9wok
-	82faiXA0BZiyqIcfWUJBUgs6mbMXUJ2NRH/UNuLvBBO6d8wX1+66KnwLRK/TgG4=
-X-Google-Smtp-Source: AGHT+IEeKG1Dgue7sP16hTbNTtsHmF40L4suEdiLWsXP7x9idXWFaRn5G1gMEjyw8JJ7ZehMlJPvlA==
-X-Received: by 2002:aa7:888b:0:b0:705:b81b:6ee2 with SMTP id d2e1a72fcca58-705b81bb457mr1003540b3a.19.1718123671752;
-        Tue, 11 Jun 2024 09:34:31 -0700 (PDT)
-Received: from LQ3V64L9R2 (c-24-6-151-244.hsd1.ca.comcast.net. [24.6.151.244])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-705a6d7d084sm2205116b3a.10.2024.06.11.09.34.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Jun 2024 09:34:31 -0700 (PDT)
-Date: Tue, 11 Jun 2024 09:34:29 -0700
-From: Joe Damato <jdamato@fastly.com>
-To: Alejandro Colomar <alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=c6pL0p42XAL1bqpFrxZECWQXBwTSTzWuEgRZQku21IqZyvlhETRPEqt/z8U0xlqbJZT4xiiuI1Tp+koytk7z+LNcZdW/X3WF0rq0yy1q6I/MfyLG81jgKwIZOZlWpn1n5LXxdZjYbD3F315hioGmBcWFAPMVqBSUfdV9DGrp6JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mr7h5sqx; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD73C2BD10;
+	Tue, 11 Jun 2024 16:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718123722;
+	bh=yO8SbS2qIRcSHsb4QQYJKfDX09axf+Ada6bqsKE0gz0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mr7h5sqx9Df5WljQmBlo1EleFKoa++za9XRWMWG1O5J1KBRQY2Ryq64IvYUeGHBxG
+	 Vo9NoyUmdxZuk6LYjgV5dUIxqNMw3fwvUj71LnEXJJYkh2fjPPIGL78EW5k/Xv5IWQ
+	 0aZ3mQ5INIkRWpY5yfUAkhKyn34p7Wciq7+aaNpNoH2gD8oMpDRFyBPDMN6e9QDxNz
+	 xEiUk1ZAmE4NHqg6Ct2UGWXCglULt1cW8tnJ7qWd0I7q7BM8bIp7THGPYRmd6tsAUi
+	 3I3WCG3gKhIdwKjAIXQwtvPkZjMzXxhlsIcIqSJJpCyETT9Hzjd7Vpfu0fFPRZbfhV
+	 uQoVVRz6GTPAw==
+Date: Tue, 11 Jun 2024 18:35:19 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] ioctl_epoll.2: New page describing epoll ioctl(2)
-Message-ID: <Zmh8lQb3kHVbiRvj@LQ3V64L9R2>
-References: <20240610231206.1788738-1-jdamato@fastly.com>
- <20240610231206.1788738-2-jdamato@fastly.com>
- <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
- <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
- <w6l72bmqi6vefojnzedbrpphbbvnofdplvb5ajz3isepvkt2gq@63s5rrseh5te>
+Subject: Re: [PATCH 10/12] tzset: update more POSIX citations and quotes
+Message-ID: <ry4s4siyerytqil55kq5qsbv4kl72uogq33qlors7kikcsinte@nlhgialcfi37>
+References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+ <20240611153005.3066-10-eggert@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yhafuopfoehw4gcn"
 Content-Disposition: inline
-In-Reply-To: <w6l72bmqi6vefojnzedbrpphbbvnofdplvb5ajz3isepvkt2gq@63s5rrseh5te>
+In-Reply-To: <20240611153005.3066-10-eggert@cs.ucla.edu>
 
-On Tue, Jun 11, 2024 at 10:54:27AM +0200, Alejandro Colomar wrote:
-> Hi Joe,
-> 
-> On Mon, Jun 10, 2024 at 05:29:06PM GMT, Joe Damato wrote:
-> > On Tue, Jun 11, 2024 at 01:45:57AM +0200, Alejandro Colomar wrote:
-> > > Hi Joe,
-> > > 
-> > > On Mon, Jun 10, 2024 at 11:12:06PM GMT, Joe Damato wrote:
-> > > > A new page is added which describes epoll fd ioctls: EPIOCSPARAMS and
-> > > > EPIOCGPARAMS which allow the user to control epoll-based busy polling.
-> > > > 
-> > > > Also add link pages for EPIOCSPARAMS and EPIOCGPARAMS.
-> > > > 
-> > > > Signed-off-by: Joe Damato <jdamato@fastly.com>
-> > > 
-> > > Thanks!
-> > 
-> > Thanks again for your careful review. Sorry this wasn't the winning
-> > revision :)
-> 
-> No problem.  Sorry for being so pedantic.  (Not sorry, actually.)  :-)
-> And thanks for your patience on my review.
 
-No problem at all; I really do appreciate your work here keeping the
-man pages consistent and usable. Thanks for giving your time to help
-me get this man page setup properly.
+--yhafuopfoehw4gcn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 10/12] tzset: update more POSIX citations and quotes
+References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+ <20240611153005.3066-10-eggert@cs.ucla.edu>
+MIME-Version: 1.0
+In-Reply-To: <20240611153005.3066-10-eggert@cs.ucla.edu>
 
-> [...]
-> 
-> > > > +.B "#include <sys/ioctl.h>"
-> > > > +.P
-> > > > +.BI "int ioctl(int " fd ", EPIOCSPARAMS, const struct epoll_params *" argp );
-> > > > +.BI "int ioctl(int " fd ", EPIOCGPARAMS, struct epoll_params *" argp );
-> > > 
-> > > To document the header that provides this structure, let's add here:
-> > > 
-> > > .P
-> > > .B #include <linux/eventpoll.h>
-> > 
-> > Hmm, that's the linux sources header file, I think.
-> > 
-> > Should I be showing the glibc header instead?
-> > 
-> > https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/sys/epoll.h;h=45e546fa4440a83bb94288c220bfbe9295f02cc9;hb=92c270d32caf3f8d5a02b8e46c7ec5d9d0315158#l91
-> 
-> Ahh, sure, and for the constants too.  We prefer glibc headers when
-> available.  I had the inertia that most ioctl(2)s do not have glibc
-> headers.
+Hi Paul,
 
-Ah right forgot about the constants, so what I did instead was this, which
-includes the header only once:
+On Tue, Jun 11, 2024 at 08:29:13AM GMT, Paul Eggert wrote:
+> ---
+>  man/man3/ctime.3 | 29 +++++++++++++----------------
+>  man/man3/tzset.3 |  4 ++--
+>  2 files changed, 15 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/man/man3/ctime.3 b/man/man3/ctime.3
+> index e863f0572..a0dacfeda 100644
+> --- a/man/man3/ctime.3
+> +++ b/man/man3/ctime.3
+> @@ -320,7 +320,7 @@ In many implementations, including glibc, a 0 in
+>  .I tm_mday
+>  is interpreted as meaning the last day of the preceding month.
+>  .P
+> -According to POSIX.1-2001,
+> +According to POSIX.1-2024,
 
-.SH SYNOPSIS
-.EX
-.BR "#include <sys/epoll.h>" "  /* Definition of " EPIOC* " constants */"
-.B "#include <sys/ioctl.h>"
-.P
-.BI "int ioctl(int " fd ", EPIOCSPARAMS, const struct epoll_params *" argp );
-.BI "int ioctl(int " fd ", EPIOCGPARAMS, struct epoll_params *" argp );
-.P
-.B struct epoll_params {
-.BR "    uint32_t busy_poll_usecs;" "  /* Number of usecs to busy poll */"
-.BR "    uint16_t busy_poll_budget;" " /* Maximum number of packets to retrieve per poll */"
-.BR "    uint8_t prefer_busy_poll;" "  /* Boolean to enable or disable prefer busy poll  */"
-\&
-.BR " " "   /* pad the struct to a multiple of 64bits */"
-.BR "    uint8_t __pad;"            "  /* Must be zero */"
-.B };
+I would remove the version here, and just say POSIX.  That removes a
+place where we need to update the version.  If the version is relevant,
+we can specify that in HISTORY.
 
-Does that look OK?
+>  .BR localtime ()
+>  is required to behave as though
+>  .BR tzset (3)
+> @@ -343,16 +343,12 @@ should be called before
+>  .BR localtime ()
+>  .TQ
+>  .BR mktime ()
+> -C11, POSIX.1-2008.
+> +C23, POSIX.1-2024.
+>  .TP
+> -.BR asctime_r ()
+> -.TQ
+> -.BR ctime_r ()
+> -.TQ
 
-[...]
+We should add an entry for these that says "None.".  Otherwise, it may
+look like we forgot to document the standard for those functions.
 
-> > Sure, I can do that.
-> > 
-> > .SS
-> > The epoll_params structure
-> > .I argp.busy_poll_usecs
-> > 
-> > Is that OK for a heading?
-> > 
-> > I saw this is how man/man2/stat.2 does the subsection.
-> > 
-> > Let me know what you think.
-> 
-> Yep.  Except that the title goes on the SS line:
-> 
-> $ grep '\.SS' man/man2/stat.2 
-> .SS The stat structure
-> .SS fstatat()
-> .SS C library/kernel differences
+>  .BR gmtime_r ()
+>  .TQ
+>  .BR localtime_r ()
+> -POSIX.1-2008.
+> +POSIX.1-2024.
+>  .SH HISTORY
+>  .TP
+>  .BR gmtime ()
+> @@ -360,25 +356,25 @@ POSIX.1-2008.
+>  .BR localtime ()
+>  .TQ
+>  .BR mktime ()
+> -C89, POSIX.1-2001.
+> +C89, POSIX.1-1988.
+>  .TP
+>  .BR asctime ()
+>  .TQ
+>  .BR ctime ()
+> -C89, POSIX.1-2001.
+> -Marked obsolete in POSIX.1-2008 (recommending
+> +C89, POSIX.1-1988.
+> +Marked obsolescent in C23 and in POSIX.1-2008 (recommending
+>  .BR strftime (3)).
+>  .TP
+>  .BR gmtime_r ()
+>  .TQ
+>  .BR localtime_r ()
+> -POSIX.1-2001.
+> +POSIX.1-1996.
+>  .TP
+>  .BR asctime_r ()
+>  .TQ
+>  .BR ctime_r ()
+> -POSIX.1-2001.
+> -Marked obsolete in POSIX.1-2008 (recommending
+> +POSIX.1-1996.
+> +Removed in POSIX.1-2024 (recommending
 
-OK, fixed!
+I would keep documenting that POSIX.1-2008 marked them as obsolescent.
+That might be useful to some.
 
-> > > > +retrieve on each poll attempt. This value cannot exceed
-> > > > +.B NAPI_POLL_WEIGHT
-> > > > +which, as of Linux 6.9, is 64, unless the process is run with
-> > > > +.B CAP_NET_ADMIN.
-> > > 
-> > > This seems a bit ambiguous: 'unless the process is run with
-> > > CAP_NET_ADMIN' could refer to 'cannot exceed' or 'is 64'.  Using
-> > > parentheses instead of commas, it would be unambiguous.
-> > 
-> > Changed this to:
-> > 
-> > retrieve on each poll attempt. This value cannot exceed
-> > .B NAPI_POLL_WEIGHT
-> > (which is 64 as of Linux 6.9), unless the process is run with
-> > .B CAP_NET_ADMIN.
-> > 
-> > How is that?
-> 
-> Much better.  (But still needs to use semantic newlines.)
+>  .BR strftime (3)).
+>  .SH NOTES
+>  The four functions
+> @@ -396,7 +392,7 @@ and
+>  .BR localtime_r (),
+>  are specified by SUSv2.
+>  .P
+> -POSIX.1-2001 says:
+> +POSIX.1-2024 says:
 
-Hmm, I need to go back and re-read the semantic newline email because I made
-this section look like this:
+Same about the version here.  I'd remove it.
 
-.P
-.I argp.busy_poll_budget
-the maximum number of packets that the network stack will retrieve on each poll attempt.
-This value cannot exceed
-.B NAPI_POLL_WEIGHT
-(which is 64 as of Linux 6.9), unless the process is run with
-.B CAP_NET_ADMIN.
+>  "The
+>  .BR asctime (),
+>  .BR ctime (),
+> @@ -406,8 +402,9 @@ and
+>  functions shall return values in one of two static objects:
+>  a broken-down time structure and an array of type
+>  .IR char .
+> -Execution of any of the functions may overwrite the information returned
+> -in either of these objects by any of the other functions."
+> +Execution of any of the functions that return a pointer to one of these
+> +object types may overwrite the information in any object of the same type
+> +pointed to by the value returned from any previous call to any of them."
+>  This can occur in the glibc implementation.
+>  .SH SEE ALSO
+>  .BR date (1),
+> diff --git a/man/man3/tzset.3 b/man/man3/tzset.3
+> index 4c7e286fe..7d57dc9a1 100644
+> --- a/man/man3/tzset.3
+> +++ b/man/man3/tzset.3
+> @@ -235,9 +235,9 @@ T{
+>  T}	Thread safety	MT-Safe env locale
+>  .TE
+>  .SH STANDARDS
+> -POSIX.1-2008.
+> +POSIX.1-2024.
+>  .SH HISTORY
+> -POSIX.1-2001, SVr4, 4.3BSD.
+> +POSIX.1-1988, SVr4, 4.3BSD.
+>  .P
+>  4.3BSD had a function
+>  .BI "char *timezone(" zone ", " dst )
+> --=20
+> 2.45.2
 
-But I get the feeling this is still incorrect.
+Thanks for the investigation!
 
-> [...]
->
+Have a lovely day!
+Alex
 
-[...]
- 
-> > > > +.TP
-> > > > +.B EFAULT
-> > > > +.I argp
-> > > > +does not point to a valid memory address.
-> > > > +.SH EXAMPLES
-> > > > +.EX
-> > > > +/* Code to set the epoll params to enable busy polling */
-> > > > +\&
-> > > > +int epollfd = epoll_create1(0);
-> > > > +struct epoll_params params;
-> > > > +\&
-> > > > +if (epollfd == \-1) {
-> > > > +    perror("epoll_create1");
-> > > > +    exit(EXIT_FAILURE);
-> > > > +}
-> > > > +\&
-> > > > +memset(&params, 0, sizeof(struct epoll_params));
-> > > > +\&
-> > > > +params.busy_poll_usecs = 25;
-> > > > +params.busy_poll_budget = 8;
-> > > > +params.prefer_busy_poll = 1;
-> > > > +\&
-> > > > +if (ioctl(epollfd, EPIOCSPARAMS, &params) == \-1) {
-> > > > +    perror("ioctl");
-> > > > +    exit(EXIT_FAILURE);
-> > > > +}
-> > > > +\&
-> > > > +/* Code to show how to retrieve the current settings */
-> > > > +\&
-> > > > +memset(&params, 0, sizeof(struct epoll_params));
-> > > > +\&
-> > > > +if (ioctl(epollfd, EPIOCGPARAMS, &params) == \-1) {
-> > > > +    perror("ioctl");
-> > > > +    exit(EXIT_FAILURE);
-> > > > +}
-> > > > +\&
-> > > > +/* params struct now contains the current parameters */
-> > > > +\&
-> > > > +fprintf(stderr, "epoll usecs: %lu\\n", params.busy_poll_usecs);
-> > > 
-> > > We use '\e', not '\\'.  (I haven't checked whether it also works, and
-> > > don't remember.)
-> > 
-> > Change this to '\e' and tested it. It looks like it works to me :)
-> 
-> Hmm, yep, both work the same.  I remember there's a small difference in
-> meaning, but I don't know why we use \e.  Anyway.
+--=20
+<https://www.alejandro-colomar.es/>
 
-I tried to follow the discussion you and Branden had in the following emails. I
-apologize, but I don't think I quite follow what I should be using as a result
-of that conversation?
+--yhafuopfoehw4gcn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-\en 
-\\n
+-----BEGIN PGP SIGNATURE-----
 
-or something else?
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZofMcACgkQnowa+77/
+2zKUtBAAkAt5fCSKLEQ6nAaFWwhXxXVrpuX022HBOAcCSN8jLu10ZRmW1EiKBiRt
+qeMw2T8N1es5IlGLW5r+rsBwGr2qg0BMmW/Y3lJxgY0dSGZxZdvyuj0JqBuTfmfF
+v8Fdm9kvaVY/qzZuhcp7MJ/46IS7HVDmXyDxaB2YPrIme1xz3Y609w2SS4N+ysAw
+k1ZH720uowvYc/74WBz1j1jGp94KFsh5Y2N2UFMakNPhD3MIWBylCnwcKWwUGa3h
+Dxo0uoNxsWeC/86F7slK3UepCtSmxqYqvQ7E0gQ6vyJAUNQdqX3cE53YGJjh5AW8
+KRTt0yQgMrWpMatKr0ZjvMy0xqqSE4s10sPUc6EUq2v2ObUCcgYDYgQ7e6Ps9F0+
+cH57OFUwbLRdAaI4c7vJxNtTKFELsefCnZbdbkX51edAXsG20+SwXGOb0QRtjHbv
+krXKm1K3iSxEqoYfHiRsB3v4NiOGk+nsPf7SGYfCpu0rF6aMu1C8wwN+2oarFz0M
+9K59KwbEbyj6Pa3pN4Ic0GQu/8Kb+WpNcaiT2zYPOttarTN0I8Y4dVS7vaNS9W77
+EQ9Mn5MgIbY7x5M/dm5j0f/Y5jZ7QjPiECPx5i1+IX8CiKvwV+0BWcRMcqGblydE
+HJsuhrHsmaPyVN6UyeLR8YjX544IHDqOrnmC9egVuHuIEQ76rHM=
+=i2tg
+-----END PGP SIGNATURE-----
 
-Thanks,
-Joe
+--yhafuopfoehw4gcn--
 
