@@ -1,200 +1,107 @@
-Return-Path: <linux-man+bounces-1098-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1099-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 736AA903F3D
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 16:52:42 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97C47903FF3
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 17:25:43 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id F2F5A1F22E68
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 14:52:41 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 987341C20B6C
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 15:25:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09CA91173F;
-	Tue, 11 Jun 2024 14:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C14DD224C9;
+	Tue, 11 Jun 2024 15:25:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2qn/9SC"
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="XSzK8Mq7"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD96C8FB;
-	Tue, 11 Jun 2024 14:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CC6219E7
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 15:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718117555; cv=none; b=bcbWtq8HQUHLW3PL9DO0abhISoEkxhbIuzjtvHWgTYyiSqdOqz4WLRNHRFw3NTSd5zddfklDmf0i/HEk5PykDSuu22tOYzGdOLJ7qdT4mJvhaN3YaSjnMhg5MzhJMjZOgSTCyhRNhYVaqgrj9eu5FvpHTwD2JbRgVknAiqILIYg=
+	t=1718119538; cv=none; b=OY8E/TZKA0GUTzR34/leDaSnPewp/Wz5zXMNs5SOiLJAfRV45LHoRtI2EcHJvYPaobI0HTNxuY6BVMboKbpLu9AOZh/nWV/gFY4Ujii13wzx4+7urlaV7/qea0snZbwQsB0yFDcv7CphSduXdSLEphT6QkSFvAWwUm+b7jCCU/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718117555; c=relaxed/simple;
-	bh=eNbDNNAuqp/CblfbjmFVWsYldsOh15uvWduPZlV6ox8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=T1mu/eaWsxM203A6Wq83YlP1ZcTDtMr86Dn6JDYDXfLjWtOiUuJveaqs16qEZqhedWfVFq9Hp6eu35nHv+IvwYPUIxcNrYdqf6R8gDNn9iaY332lDpEK4FwxwFsGcimGOsAZgHAge/9q9wdzgwb+WPLkseiDWFn8V6m39ccdzvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2qn/9SC; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B910AC2BD10;
-	Tue, 11 Jun 2024 14:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718117555;
-	bh=eNbDNNAuqp/CblfbjmFVWsYldsOh15uvWduPZlV6ox8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=l2qn/9SCNKz5QiFJF3cuiRWVAiq7wohguBn/+HKH9qTEJM9mcCyryzZbX1TWn4ueL
-	 JQrONN4x9Y4FJsXo+jBueCQ24Ue+hUAnsvMQ/s0EAreatREGoa+8ULUUC1gwHNlrpR
-	 APlERx/0NXqxllIYB9JHmrqNeyvn20Bm2Tw6ttKEq5wObrqrVPj3i2Cl+ooPDw1nJl
-	 bVnDYobae5KjehxTsG+HHK2eMDl9nnmYze3I9XyBGFZ6VoMt7lMoi1yAWvx68UCmMh
-	 iU/vdfvuT5HPxLeVJfP2qa6XtzapOiNg0Xwar4kZvQMkgXxV3CNowj7YCZy1pbIAnV
-	 h+iyFGMwJx7Mw==
-Date: Tue, 11 Jun 2024 23:52:28 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Jiri Olsa <jolsa@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Oleg Nesterov <oleg@redhat.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, linux-man@vger.kernel.org, x86@kernel.org,
- bpf@vger.kernel.org, Song Liu <songliubraving@fb.com>, Yonghong Song
- <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra
- <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo Molnar <mingo@redhat.com>,
- Andy Lutomirski <luto@kernel.org>, "Edgecombe, Rick P"
- <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
-Subject: Re: [PATCHv8 bpf-next 0/9] uprobe: uretprobe speed up
-Message-Id: <20240611235228.f70de698f8e43a3c177a15b8@kernel.org>
-In-Reply-To: <20240611112158.40795-1-jolsa@kernel.org>
-References: <20240611112158.40795-1-jolsa@kernel.org>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1718119538; c=relaxed/simple;
+	bh=n1GwRxn2f9Z8VqDXDEC82Nfar77EeMVF7DzmN2V1TAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HyJXwNRCeTIT1dCHNRXPUxnEI3x7h80XqIwaI7Tm+paNh+Nrizb45800hk7veBnmNMxnkDKAlkmX49aNReleVz2ztawkL9IW3kpHwujSKQY5pppw56VTodXJGfBGOvy1YocRJlfk6wY/+5FboCIDAfYvZzMLLBf6bzgb/ZI9hPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=XSzK8Mq7; arc=none smtp.client-ip=131.179.128.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 4AC3D3C01409F;
+	Tue, 11 Jun 2024 08:25:36 -0700 (PDT)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id XLmLNp8c7uLc; Tue, 11 Jun 2024 08:25:36 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 00CC83C0140A0;
+	Tue, 11 Jun 2024 08:25:36 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 00CC83C0140A0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1718119536;
+	bh=QiKE05FI0UvMtuyblxyRUjCD+oAXDP53T4tTZk+gPN4=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=XSzK8Mq7gG+870aRg2z4zYyykTDaX5Z3UYsntOku37akh4+emUa+8ZU4cMFj+a34O
+	 a666yERDy6Lxd5u5xLMRGiQTsYQEfT2QrdTLuNSGaCjODot1+MqZT4k+XE2st0KTnF
+	 kvjRJkWBR9P8594DHTNdi6KihM2ItBP8F2WX1RJFQgFTu1IaX3GPLX4K1QOC9mwwwN
+	 EL36lOYwlPbvPEkpAxvt5t7mg3+VbH9Yr3uLNe0rkPAv/Ozf2r5SVc5Bw7pngemxfA
+	 BgGgT12VhyhDRH7fZbRIswSFceb4giYkdyhRQCh/Qkbf1KvW24UI7/G78eoXyZl/jQ
+	 Wwwpqh4+BcuEA==
+X-Virus-Scanned: amavis at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id Xhx84V9vaYHG; Tue, 11 Jun 2024 08:25:35 -0700 (PDT)
+Received: from [192.168.254.12] (unknown [47.154.17.165])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id DA9FF3C01409F;
+	Tue, 11 Jun 2024 08:25:35 -0700 (PDT)
+Message-ID: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+Date: Tue, 11 Jun 2024 08:25:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
+ <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+ <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
+ <7k3zem6o7y25szuxuxe6zmhi7xqioqe4d74s74y32yhceht2cr@lscysoj5eqoq>
+Content-Language: en-US
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <7k3zem6o7y25szuxuxe6zmhi7xqioqe4d74s74y32yhceht2cr@lscysoj5eqoq>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 11 Jun 2024 13:21:49 +0200
-Jiri Olsa <jolsa@kernel.org> wrote:
+On 2024-06-11 02:03, Alejandro Colomar wrote:
 
-> hi,
-> as part of the effort on speeding up the uprobes [0] coming with
-> return uprobe optimization by using syscall instead of the trap
-> on the uretprobe trampoline.
-> 
-> The speed up depends on instruction type that uprobe is installed
-> and depends on specific HW type, please check patch 1 for details.
-> 
-> Patches 1-8 are based on bpf-next/master, but patch 2 and 3 are
-> apply-able on linux-trace.git tree probes/for-next branch.
-> Patch 9 is based on man-pages master.
-> 
-> v8 changes:
-> - rebased (another new syscall got merged)
-> - added acks
-> 
-> Also available at:
->   https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git
->   uretprobe_syscall
+> Feel free
+> to send patches to make those sections more acurate, by documenting the
+> actual first POSIX standard that documented them.
 
-Applied patch [1/9] - [8/9] on probes/for-next in 
- git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-
-Thank you!
-
-> 
-> thanks,
-> jirka
-> 
-> 
-> Notes to check list items in Documentation/process/adding-syscalls.rst:
-> 
-> - System Call Alternatives
->   New syscall seems like the best way in here, because we need
->   just to quickly enter kernel with no extra arguments processing,
->   which we'd need to do if we decided to use another syscall.
-> 
-> - Designing the API: Planning for Extension
->   The uretprobe syscall is very specific and most likely won't be
->   extended in the future.
-> 
->   At the moment it does not take any arguments and even if it does
->   in future, it's allowed to be called only from trampoline prepared
->   by kernel, so there'll be no broken user.
-> 
-> - Designing the API: Other Considerations
->   N/A because uretprobe syscall does not return reference to kernel
->   object.
-> 
-> - Proposing the API
->   Wiring up of the uretprobe system call is in separate change,
->   selftests and man page changes are part of the patchset.
-> 
-> - Generic System Call Implementation
->   There's no CONFIG option for the new functionality because it
->   keeps the same behaviour from the user POV.
-> 
-> - x86 System Call Implementation
->   It's 64-bit syscall only.
-> 
-> - Compatibility System Calls (Generic)
->   N/A uretprobe syscall has no arguments and is not supported
->   for compat processes.
-> 
-> - Compatibility System Calls (x86)
->   N/A uretprobe syscall is not supported for compat processes.
-> 
-> - System Calls Returning Elsewhere
->   N/A.
-> 
-> - Other Details
->   N/A.
-> 
-> - Testing
->   Adding new bpf selftests and ran ltp on top of this change.
-> 
-> - Man Page
->   Attached.
-> 
-> - Do not call System Calls in the Kernel
->   N/A.
-> 
-> 
-> [0] https://lore.kernel.org/bpf/ZeCXHKJ--iYYbmLj@krava/
-> ---
-> Jiri Olsa (8):
->       x86/shstk: Make return uprobe work with shadow stack
->       uprobe: Wire up uretprobe system call
->       uprobe: Add uretprobe syscall to speed up return probe
->       selftests/x86: Add return uprobe shadow stack test
->       selftests/bpf: Add uretprobe syscall test for regs integrity
->       selftests/bpf: Add uretprobe syscall test for regs changes
->       selftests/bpf: Add uretprobe syscall call from user space test
->       selftests/bpf: Add uretprobe shadow stack test
-> 
->  arch/x86/entry/syscalls/syscall_64.tbl                      |   1 +
->  arch/x86/include/asm/shstk.h                                |   4 +
->  arch/x86/kernel/shstk.c                                     |  16 ++++
->  arch/x86/kernel/uprobes.c                                   | 124 ++++++++++++++++++++++++++++-
->  include/linux/syscalls.h                                    |   2 +
->  include/linux/uprobes.h                                     |   3 +
->  include/uapi/asm-generic/unistd.h                           |   5 +-
->  kernel/events/uprobes.c                                     |  24 ++++--
->  kernel/sys_ni.c                                             |   2 +
->  tools/include/linux/compiler.h                              |   4 +
->  tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c       | 123 ++++++++++++++++++++++++++++-
->  tools/testing/selftests/bpf/prog_tests/uprobe_syscall.c     | 385 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  tools/testing/selftests/bpf/progs/uprobe_syscall.c          |  15 ++++
->  tools/testing/selftests/bpf/progs/uprobe_syscall_executed.c |  17 ++++
->  tools/testing/selftests/x86/test_shadow_stack.c             | 145 ++++++++++++++++++++++++++++++++++
->  15 files changed, 860 insertions(+), 10 deletions(-)
->  create mode 100644 tools/testing/selftests/bpf/prog_tests/uprobe_syscall.c
->  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscall.c
->  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_syscall_executed.c
-> 
-> Jiri Olsa (1):
->       man2: Add uretprobe syscall page
-> 
->  man/man2/uretprobe.2 | 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 56 insertions(+)
->  create mode 100644 man/man2/uretprobe.2
+I don't have time to do that with all the man pages, but I've done it 
+with ctime.3 and tzset.3.
 
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> Of course, if a standard or system made significant changes to the
+> interface, we also document that there.  I suspect some of this 2024
+> change will have to go in HISTORY?
+
+I constructed another two patches to try to do that.
+
+
+> Thanks; I'll have a look.  (Hmmm, I need to make neomutt(1) inline
+> patches like mutt(1) did.  Or I'll review it with mutt(1) maybe.)
+
+I had forgotten that attachments are not your style. For convenience I 
+plan to follow up with all the patches (now 12 of them) in individual 
+emails.
 
