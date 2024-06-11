@@ -1,176 +1,150 @@
-Return-Path: <linux-man+bounces-1134-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1135-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E769045F2
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 22:48:07 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 839809045F8
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 22:53:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7A0221F24B74
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 20:48:07 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 203E0B20AEE
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 20:53:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4607B657;
-	Tue, 11 Jun 2024 20:48:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8B233839C;
+	Tue, 11 Jun 2024 20:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b="S5CtTh3H"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEEK5XSY"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39A51CD16
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 20:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703EB657
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 20:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718138882; cv=none; b=iykAc7YkxexB6m2zO7Pk24MLKzwnL84ifCLdgjc1aHjxoT23YoYl8GgTtKftPaAEf1QS07okPL7PQ66Z6kMYR46mOYpPpL3nWO7LOcGIrAofQUdQFkUm+v7rvSpfjBtquOLul9jyNFmtNFsZU8/l74GnA2q/jmCfqEaliiOZSSc=
+	t=1718139185; cv=none; b=b4NO0LcrsUe905dxD38iRPcEqqG87Wh/DeivPIMarYvfj7+PLt+cznu+eDlA3q+o50vYOoTaUQQ7ip/Ts2PO68+Ny8AXMiMQo8i6Y9+FbpV7CGgkbtyWiYnBMXBZa89KyYtAs3vTcTZmuVMxKIJJqbhCaPKqq0pV+A94RF+2uWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718138882; c=relaxed/simple;
-	bh=vDnywkylZ2t/QlmqEUwEDBbfC/HJeZxSsChj0409nRg=;
+	s=arc-20240116; t=1718139185; c=relaxed/simple;
+	bh=feMffGL8yHz0FiPJ9Zqoan//9A9a1+iYCO69gkY6tAs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PVjTkh8gEuGgdCGAHT0gz/yqs5Up1lpTtF52wrS5bhFASR9V4mVvY8eL1Du34x0qpad5GOTz2Ztwr/TxZiflteQ10e74n1S9KRru753MZg+V4xKhNsLkXF3Rww2Kph1rGcKXqf13fKHpzeXuiUCttfqXuarOAoSrMz2QcZcrJbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com; spf=pass smtp.mailfrom=fastly.com; dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b=S5CtTh3H; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastly.com
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-7042ee09f04so3041550b3a.0
-        for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 13:48:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fastly.com; s=google; t=1718138880; x=1718743680; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DIi4mnKhqUGkr3WTAvoFjuVia4jGvOZjBP8SO84tiBY=;
-        b=S5CtTh3Ht0i4P1fPPj4XA0+h8oaJWYwEcjcNtGag/UJxz8tUEpRoprSwT11+xkoi4N
-         80mYW5qKPxFYLOBkBXjSj9m2Myr1Crh1pyXvoKzRCqJGIhZTSn06rWT3L3nrP5voTG85
-         wHOvA9Mjh+mi55cNDtDDPG3ewx2BWP9TyTMPc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718138880; x=1718743680;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DIi4mnKhqUGkr3WTAvoFjuVia4jGvOZjBP8SO84tiBY=;
-        b=exA2Y6FnX8ZifFTxd5fSKUeWUzCzFe+sfY+tmwFLzazti36pTA1h1F2/zqI/BFlClv
-         Nn/7qKi8qd9xIMs+ngG3U4Pbi4wf9N6Vcba/yXoiNrJAYoxrV9TQeQ+o6UOqQTvMKlIq
-         eJ/kMg1Fp1LIhnP137w4VL1VuFSF6pe1SFVAgxIssVVNHXkvzEC+7F7lWAG4LzmpM84P
-         XG1rlFRg5L+6ZVxo1tDuImbZrFRl6ez5j7AE8QbkGybNqYtFggM/HHgqorNNONXDBdO5
-         Ov8APtcR1tOYd2aena0ky30gOatEIczYonK4Vd2RxROTunIVu16OsDbLQMPjb6CJgH3v
-         eF1w==
-X-Gm-Message-State: AOJu0Yx6X1CfsAWbnzrPSb/Qai3ZCjrPXbTorlK+PPtG3eIw8bCqical
-	G3CPU49JwLJC1oZ9n1mzFWZw4zFfZY4eQH9SQsHv9VyyXh1CfZyvN/Zs2wLpU8M=
-X-Google-Smtp-Source: AGHT+IERqzI1i0XC7wgjU3lNpSomT5U2SgteOOLqa/whdTUYNf5l4n/ZLdUtWzEtt5bovY8rWJwBSA==
-X-Received: by 2002:a05:6a20:158b:b0:1b8:54f8:3858 with SMTP id adf61e73a8af0-1b8a9ba7e23mr101317637.14.1718138880009;
-        Tue, 11 Jun 2024 13:48:00 -0700 (PDT)
-Received: from LQ3V64L9R2 (c-24-6-151-244.hsd1.ca.comcast.net. [24.6.151.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2c4a75df0c6sm17319a91.5.2024.06.11.13.47.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Jun 2024 13:47:59 -0700 (PDT)
-Date: Tue, 11 Jun 2024 13:47:57 -0700
-From: Joe Damato <jdamato@fastly.com>
-To: Alejandro Colomar <alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=AhmyFxiNJC7+gMQJnJ5GGq2lI/tnlD0RUd1md6tCGZ4M7axsNzZrkrLB/pEUpOhDIppBVri3EExACXLNbK1wIua3ndm3m/ECWiPtpQcEglCNitgHzu1riYSVKNpkZ3TKqirGL5g+nKkRiYzwGRPJZAbWdc2x9ILZOCQBicsg1Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEEK5XSY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41814C2BD10;
+	Tue, 11 Jun 2024 20:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718139184;
+	bh=feMffGL8yHz0FiPJ9Zqoan//9A9a1+iYCO69gkY6tAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HEEK5XSYfRnXhAoUvB/Q20/SIqkPfEoQum/0pZ3RW032pW7YPbN6tk1hZgOSv17yX
+	 CJ7ERHKM/vmXukIVSIKziqD49Q+CJW+60Bnpm9scNaaa2O8ZgYEkqQ3bfYS+93xOdO
+	 S5JCBw11CKJyZgaM9PLWZhJoJyRpeVhWLQQVTSi3JfrEIr3Q26HDg0NknBJz0anHEB
+	 TgZi1/m6+MhvSSLEI5LzShfoBlRsrXEoZVK+asIBBeThEY++C4q9VVOb8IgKxrQU6U
+	 thszhVyEfZgxwCChNYPArd2PMeehqWvrrj0Q/iEKe0QBDgCFtRiny5N+6sLkSXphOH
+	 5S7lRzTreZbEA==
+Date: Tue, 11 Jun 2024 22:53:02 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/1] ioctl_eventpoll.2: New page describing epoll
- ioctl(2)
-Message-ID: <Zmi3_Svw4j9u4dhL@LQ3V64L9R2>
-References: <20240611191257.1790908-2-jdamato@fastly.com>
- <20240611191257.1790908-1-jdamato@fastly.com>
- <kkxoopzhhdbapv6hh6nmtyan4dqz5czdhercselzinibff3yvq@eouskurlfciv>
- <ZmizvqOQbYkKcwME@LQ3V64L9R2>
- <7fimwlnnzrkmrercgiiwmc5brbzrlgafbzlxij5dhg3rpctva5@hjh5ablva365>
+Subject: Re: [PATCH 02/12] tzset: state vars unspecified if geographical TZ
+Message-ID: <j5shpmuai76b6lmdlhbhkhmp6elftrqzytkq5cuyujqbvonpfc@rdotn2xryam3>
+References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+ <20240611153005.3066-2-eggert@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="an2ffucj477bezs6"
 Content-Disposition: inline
-In-Reply-To: <7fimwlnnzrkmrercgiiwmc5brbzrlgafbzlxij5dhg3rpctva5@hjh5ablva365>
-
-On Tue, Jun 11, 2024 at 10:37:20PM +0200, Alejandro Colomar wrote:
-> Hi Joe,
-> 
-> On Tue, Jun 11, 2024 at 01:29:50PM GMT, Joe Damato wrote:
-> > > > diff --git a/man/man2/ioctl_eventpoll.2 b/man/man2/ioctl_eventpoll.2
-> > > > new file mode 100644
-> > > > index 000000000..0fe03d6d4
-> > > > --- /dev/null
-> > > > +++ b/man/man2/ioctl_eventpoll.2
-> > > > @@ -0,0 +1,173 @@
-> > > > +.\" Copyright (c) 2024, Joe Damato
-> > > 
-> > > 1d
-> > 
-> > My apologies, but I am not sure what you mean by this. What does 1d
-> > mean?
-> 
-> I meant `sed -i 1d`.  This line was redundant with line 2.
-
-Ah, of course. I've removed that line above and left the line below
-instead.
-
-> > > > +.\" Copyright 2024, Joe Damato <jdamato@fastly.com>
-> > > > +.\"
-> > > > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> > > > +.\"
-> 
-> [...]
-> 
-> > > Also, I'd like to align the member names according to
-> > > <https://nginx.org/en/docs/dev/development_guide.html#code_style_variables>.
-> > > That is, 2 spaces of minimum alignment, plus the necessary to make them
-> > > all aligned (so 3 on the last).
-> > > 
-> > > I'd like also 2 spaces minimum before the comments, instead of just 1.
-> > 
-> > OK, based on the link you sent, I've aligned the start of each of
-> > the types and then aligned the start of the field names. Lastly,
-> > I've aligned the start of the comments for the first 3 fields, but
-> > left the comment for the __pad just two spaces after the field name.
-> > 
-> > Did you want the comment for __pad to be aligned to the comments for
-> > the in-use fields above?
-> > 
-> > This is what I have now, but I can insert space to move the pad comment over if
-> > you like.
-> > 
-> > .EX
-> > .B struct epoll_params {
-> > .BR "  uint32_t busy_poll_usecs;" "   /* Number of usecs to busy poll */"
-> > .BR "  uint16_t busy_poll_budget;" "  /* Max packets per poll */"
-> > .BR "  uint8_t  prefer_busy_poll;" "  /* Boolean preference  */"
-> > \&
-> > .BR " " "/* pad the struct to a multiple of 64bits */"
-> > .BR "  uint8_t  __pad;" "  /* Must be zero */"
-> > .B };
-> > .EE
-> 
-> LGTM.
-> 
-> [...]
-> 
-> > > Please also add a STANDARDS section, which just says "Linux."
-> > 
-> > OK added STANDARDS (in the order above) which just says Linux:
-> > 
-> > .SH STANDARDS
-> > .P
-> 
-> .P after .SH is redundant.
-
-Fixed.
-
-Will push a v4 shortly after re-reading this one.
- 
-> > Linux.
-> > .SH HISTORY
-> > 
-> > > Regarding semantic newlines, it looks great.  Thanks!
-> > 
-> > Great!
-> 
-> Have a lovely night!
-> Alex
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
+In-Reply-To: <20240611153005.3066-2-eggert@cs.ucla.edu>
 
 
+--an2ffucj477bezs6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 02/12] tzset: state vars unspecified if geographical TZ
+References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
+ <20240611153005.3066-2-eggert@cs.ucla.edu>
+MIME-Version: 1.0
+In-Reply-To: <20240611153005.3066-2-eggert@cs.ucla.edu>
+
+Hi Paul,
+
+On Tue, Jun 11, 2024 at 08:29:05AM GMT, Paul Eggert wrote:
+> ---
+>  man/man3/tzset.3 | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/man/man3/tzset.3 b/man/man3/tzset.3
+> index 8479b17b0..6e89dd530 100644
+> --- a/man/man3/tzset.3
+> +++ b/man/man3/tzset.3
+> @@ -63,6 +63,11 @@ In a System-V-like environment, it will also set the v=
+ariables \fItimezone\fP
+>  have any daylight saving time rules, or to nonzero if there is a time,
+>  past, present, or future when daylight saving time applies).
+>  .P
+> +The
+> +.BR tzset ()
+> +function initializes these variables to unspecified values if this
+
+Can you confirm that the wording is precise?
+
+If it initializes to unspecified values, I guess it's legal (IIRC) to
+read them (even if useless).  Am I understanding correctly?
+
+Or do you mean that the values of the variables are undefined?
+
+Cheers,
+Alex
+
+> +timezone is a geographical timezone like "America/New_York" (see below).
+> +.P
+>  If the
+>  .B TZ
+>  variable does not appear in the environment, the system timezone is used.
+> @@ -155,7 +160,8 @@ TZ=3D"NZST\-12:00:00NZDT\-13:00:00,M10.1.0,M3.3.0"
+>  .EE
+>  .in
+>  .P
+> -The second format specifies that the timezone information should be read
+> +The second, or "geographical",
+> +format specifies that the timezone information should be read
+>  from a file:
+>  .P
+>  .in +4n
+> --=20
+> 2.45.2
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--an2ffucj477bezs6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZouS0ACgkQnowa+77/
+2zJGOQ//eOo79DUBvAWAV1orW3YUvnOMnA4h9P+juFR71F086oHW4w7NXxSG1mtg
++XBjX20pPVTcrrjFGsuDQc80eea1S+sYtTYLER3CHy+61apN8umhpvOQcWaGM4QG
+IflTtRoOf0s+uAxBd9TgL9t/XDTRIYPuHuspkiQwTF2vVIrs0Yrklq+2OPjbontF
+J+UxGJP62Unp/Vi4sMkxQfNuTWMlJ5JH3szPZnLXt0Qorka49DuRI9b0kLo0f0Ep
+0hc+Jf5bPBv/jyUW0l7fwNSxqQEoca45B+Fsq1tasugL4IRlvyDc7HcrjbmeIFsk
+vJPznGgwMq1KGwFI7YsS80ddk9baz9M9NokVL7uWWNfGn+bTE502sR/kX1Ar8foe
+tnyb0b2jRxW1HlQm620Zmk6kW/TSZpyDPHvuB6b6Joaggpo5g1aCPIhwRDc3ljxw
+jDmkrnDvCceGRfLfYxmAroh50P6djgvrIaxFGp/5ue12XbDIyVLy3LwOHSXW7zX4
+zV6TNrYcapdBdknxPrIZTMESx6nvOK1a+9sJdMkSvcHA5MS0gI8R3BcvhJ30Juwf
+SNqTuNqi3/tEmnQ58gIEGPdfPFmvVmQu1+oZLn7Y1j8wY6rSC9h9SqvOMTQ70xd2
+0g9KNnLT1JJSnBHs2N4zFwRD2QeDsBNRxYT4D9oD1awVUQz++5I=
+=54RE
+-----END PGP SIGNATURE-----
+
+--an2ffucj477bezs6--
 
