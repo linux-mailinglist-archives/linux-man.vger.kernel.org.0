@@ -1,56 +1,55 @@
-Return-Path: <linux-man+bounces-1075-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1076-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B96A903764
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 11:04:34 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B307590375E
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 11:03:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id AF7DDB2FF48
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 08:56:14 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DA22C1C2122D
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 09:03:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07210176256;
-	Tue, 11 Jun 2024 08:54:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEE92176221;
+	Tue, 11 Jun 2024 09:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lP5naMWC"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLwIwwJx"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC09917556B
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 08:54:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A079F79C8
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 09:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718096070; cv=none; b=UZ3tT6aWZ9bFJMhMfCSA3cNAZnWKrx0+/FgeMXwrZy3z4V5aIYhk48ZMlE3hRZ1PneIKbJlIjnNY+zWF99m79u2TFtjlEErxs+zC4yjv6OUgDmabRJD4UKsOB/BtbiFozv6ZavPo1B7+evof52a2+Lbj9jvszVsWEhsQ0oarEfw=
+	t=1718096602; cv=none; b=a24SZor7swf1px/ae12C9N/o70qH/Ut4gegX4nyJxFVQ0vEK8hZ4H6UadbXiB7FWLf89hADYcXR3u+T/90tTnBN4ujghtSHWBr01JBSR+5K9pixJ5p1jhWZMXT9LsUIZTL6Xp6+nuc4R1DZGLglUDOzmCjLTXY1ghBv11SenKGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718096070; c=relaxed/simple;
-	bh=Pq5YpsUaflX9vUn877LPmKLA06OsfdEwB7AXWmD/kJY=;
+	s=arc-20240116; t=1718096602; c=relaxed/simple;
+	bh=T25jcKap4aXWjMI58jSFffDUg+Dm9KaK8oby3C2uY78=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CsYYtqp7Jb4zFDeqRLrijU6t/c8AviXkTxfwghSqPQLIxr9S004i/ACg4HdDeZG+IZrP0PoyVjL4gplETNr+6qXtKCZWMvxYNx9kynj08aqwJeU3uCOg7OsakXpZoGa4DPVHIcBAKmCPeRHjw+cM6ETHNKbjy3jgVqJpACkVjVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lP5naMWC; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE7DC2BD10;
-	Tue, 11 Jun 2024 08:54:29 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=nxQ29lRXnjylKgcR6gfHswKeLFGe0EESX1OSaCSYxmHSeknENVV9A0Qtvz32U/0QHdFWp2QmGm6H3eZyqSCU6jdBi8Pmx58frL1pu5dZIjBpu6Ggs/34B5SqHxM5Mzy0n3yMgvsKZJenlMWXVQpjvnQ8TkqEZ+HWt6IefsR8AFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLwIwwJx; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F719C2BD10;
+	Tue, 11 Jun 2024 09:03:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718096070;
-	bh=Pq5YpsUaflX9vUn877LPmKLA06OsfdEwB7AXWmD/kJY=;
+	s=k20201202; t=1718096602;
+	bh=T25jcKap4aXWjMI58jSFffDUg+Dm9KaK8oby3C2uY78=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lP5naMWCxmybgOBmdl31iBwXx0D0iThDhr9gOpmXcSjpLV7CtigjJYLOIP2fWqyKX
-	 L4WmNkyhDzB8YbO1fbgUsA2OYOFGAodY82Uh7ZH1m5PPAikR0LjngA9KbFjrXgqzEy
-	 TBzxZy5Pv/2Kx0xRlsGkkA2Z/TOhNEBRAxJd37DlczkZADdnnCAenuKL+iSiaBe2//
-	 KvxLrKPEpwdJamRQJjNma1XfJdlUKMGFRTGePSnHiPKI8otvJTjwrSpH7JInpdP35S
-	 iYInyqYg1i6C/JNyaZyCRcam+TuejTH9ly3dMQQf0DReSFrjVk/yxHK1aS1k2tfgEv
-	 zZQCLUz4h8qoQ==
-Date: Tue, 11 Jun 2024 10:54:27 +0200
+	b=NLwIwwJxTOfacZWJLBnClvdCB/HJ0L2+5nLMTGa5V7TQDs9RVSbCQH7h3XZWIY4Ac
+	 tBfkh5BqkJT8fgO/WgovCaam22x7MnFOCiYqEDFiWKJ7UHFhXgLHCTv054nxHSjLwK
+	 pFUkiRD3ykTiNdPFw+n+QSrW0WR5bJ82LNVBqUcbeLfz+OGCm24rsus6jpY1SCbV0R
+	 lnqJTGqCcwWO0DbmnhFd07zBORbr75bcgsHJ6+231TVNAbgi+P3SbLtdHOsLcreYVo
+	 RyXkBCxqRxbwNGDFDGW+FqMWqg0JHg6AGBL3skmlNBlKFfdMQM2ozAF3SEcUNe3iDq
+	 XIyozj/hPvikw==
+Date: Tue, 11 Jun 2024 11:03:15 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Joe Damato <jdamato@fastly.com>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] ioctl_epoll.2: New page describing epoll ioctl(2)
-Message-ID: <w6l72bmqi6vefojnzedbrpphbbvnofdplvb5ajz3isepvkt2gq@63s5rrseh5te>
-References: <20240610231206.1788738-1-jdamato@fastly.com>
- <20240610231206.1788738-2-jdamato@fastly.com>
- <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
- <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+Message-ID: <7k3zem6o7y25szuxuxe6zmhi7xqioqe4d74s74y32yhceht2cr@lscysoj5eqoq>
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
+ <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+ <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,287 +57,91 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q3uhm5kuycqhjley"
+	protocol="application/pgp-signature"; boundary="75vsgczek6q7yia2"
 Content-Disposition: inline
-In-Reply-To: <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
+In-Reply-To: <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
 
 
---q3uhm5kuycqhjley
+--75vsgczek6q7yia2
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Joe Damato <jdamato@fastly.com>
+To: Paul Eggert <eggert@cs.ucla.edu>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] ioctl_epoll.2: New page describing epoll ioctl(2)
-References: <20240610231206.1788738-1-jdamato@fastly.com>
- <20240610231206.1788738-2-jdamato@fastly.com>
- <wc5gyvvlsez7xnmpu564lhcm6ay4xlydtyp7jphib2x346twi7@4naqolg4fvml>
- <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
+Subject: Re: [PATCH] tzset: adjust for POSIX, and don't overpromise
+References: <20240610220013.2812749-1-eggert@cs.ucla.edu>
+ <omukm4r74ityluf3cfvb3mv6z63yb6yiois4x3sddlmmrvhzgr@tp77lujszx5a>
+ <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
 MIME-Version: 1.0
-In-Reply-To: <ZmeaUg_SsLfe_5V-@LQ3V64L9R2>
+In-Reply-To: <775fa930-82e3-41d7-b43e-5b9061525eef@cs.ucla.edu>
 
-Hi Joe,
+Hi Paul,
 
-On Mon, Jun 10, 2024 at 05:29:06PM GMT, Joe Damato wrote:
-> On Tue, Jun 11, 2024 at 01:45:57AM +0200, Alejandro Colomar wrote:
-> > Hi Joe,
-> >=20
-> > On Mon, Jun 10, 2024 at 11:12:06PM GMT, Joe Damato wrote:
-> > > A new page is added which describes epoll fd ioctls: EPIOCSPARAMS and
-> > > EPIOCGPARAMS which allow the user to control epoll-based busy polling.
-> > >=20
-> > > Also add link pages for EPIOCSPARAMS and EPIOCGPARAMS.
-> > >=20
-> > > Signed-off-by: Joe Damato <jdamato@fastly.com>
-> >=20
-> > Thanks!
+On Mon, Jun 10, 2024 at 07:16:43PM GMT, Paul Eggert wrote:
+> On 6/10/24 15:31, Alejandro Colomar wrote:
+> > Nah, I only keep here the first one, for simplifying.  If it was added
+> > in C89, and is present in C23, we can assume that it was present in C99
+> > and C11 too.
 >=20
-> Thanks again for your careful review. Sorry this wasn't the winning
-> revision :)
+> OK, though I still don't quite follow what those sections are supposed to
+> mean. Most of this stuff was first standardized in POSIX.1-1988 or
+> POSIX.1-1996, for example, but those editions don't seem to be mentioned.
 
-No problem.  Sorry for being so pedantic.  (Not sorry, actually.)  :-)
-And thanks for your patience on my review.
+In HISTORY, we try to document the oldest versions of each standard that
+provides them.  However, I don't have those older revisions of POSIX
+available, so when having to pick a POSIX version, I documented the
+oldest one that I know documents them, which is POSIX.1-2001.  Feel free
+to send patches to make those sections more acurate, by documenting the
+actual first POSIX standard that documented them.  If some systems (like
+V7, or SysV) are relevant and also provided an interface, we also
+document those in HISTORY, BTW.
 
-[...]
+Of course, if a standard or system made significant changes to the
+interface, we also document that there.  I suspect some of this 2024
+change will have to go in HISTORY?
 
-> > > +.B "#include <sys/ioctl.h>"
-> > > +.P
-> > > +.BI "int ioctl(int " fd ", EPIOCSPARAMS, const struct epoll_params *=
-" argp );
-> > > +.BI "int ioctl(int " fd ", EPIOCGPARAMS, struct epoll_params *" argp=
- );
-> >=20
-> > To document the header that provides this structure, let's add here:
-> >=20
-> > .P
-> > .B #include <linux/eventpoll.h>
->=20
-> Hmm, that's the linux sources header file, I think.
->=20
-> Should I be showing the glibc header instead?
->=20
-> https://sourceware.org/git/?p=3Dglibc.git;a=3Dblob;f=3Dsysdeps/unix/sysv/=
-linux/sys/epoll.h;h=3D45e546fa4440a83bb94288c220bfbe9295f02cc9;hb=3D92c270d=
-32caf3f8d5a02b8e46c7ec5d9d0315158#l91
+> Anyway, I attempted to address that issue and the other issues you
+> mentioned. Revised proposal attached as a series of patches.
 
-Ahh, sure, and for the constants too.  We prefer glibc headers when
-available.  I had the inertia that most ioctl(2)s do not have glibc
-headers.
-
-> Which would be:
->=20
-> .B #include <sys/epoll.h>
->=20
-> It's in the same header as epoll_create(2) and
-> epoll_create1(2).
->=20
-> Let me know what you think.
-
-Like.
-
-[...]
-
-> > > +description below to learn what configuration is
-> > > +supported.
-> > > +.TP
-> > > +.B EPIOCGPARAMS
-> > > +Get the current
-> > > +.I epoll_params
-> > > +configuration settings.
-> > > +.TP
->=20
-> I think this .TP should be a .P, not a .TP. It looks better as a .P,
-> at least :)
->=20
-> Let me know what you think.
-
-Yup.
-
-BTW, here's the mnemonics:
-
-P	paragraph
-TP	tagged paragraph
-IP	indented paragraph
-
-[...]
-
-> > > +.BR epoll_create (2)
-> > > +or
-> > > +.BR epoll_create1 (2).
-> > > +.\" kernel commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
-> >=20
-> > Let's reformat these:
-> >=20
-> > .\" linux.git 18e2bf0edf4dd88d9656ec92395aa47392e85b61
-> > .\" glibc.git 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
-> >=20
-> > (maybe say linux.git commit 1234...?  What do you prefer?)
->=20
-> I've made them:
->=20
-> .\" linux.git commit 18e2bf0edf4dd88d9656ec92395aa47392e85b61
-> .\" glibc.git commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
-
-Good.  I'll start using that format everywhere.
-
-> > > +.\" glibc commit 92c270d32caf3f8d5a02b8e46c7ec5d9d0315158
-> > > +.P
-> >=20
-> > I would use a subsection (.SS) for documenting the structure.
->=20
-> Sure, I can do that.
->=20
-> .SS
-> The epoll_params structure
-> .I argp.busy_poll_usecs
->=20
-> Is that OK for a heading?
->=20
-> I saw this is how man/man2/stat.2 does the subsection.
->=20
-> Let me know what you think.
-
-Yep.  Except that the title goes on the SS line:
-
-$ grep '\.SS' man/man2/stat.2=20
-=2ESS The stat structure
-=2ESS fstatat()
-=2ESS C library/kernel differences
-
-[...]
-
-> > > +retrieve on each poll attempt. This value cannot exceed
-> > > +.B NAPI_POLL_WEIGHT
-> > > +which, as of Linux 6.9, is 64, unless the process is run with
-> > > +.B CAP_NET_ADMIN.
-> >=20
-> > This seems a bit ambiguous: 'unless the process is run with
-> > CAP_NET_ADMIN' could refer to 'cannot exceed' or 'is 64'.  Using
-> > parentheses instead of commas, it would be unambiguous.
->=20
-> Changed this to:
->=20
-> retrieve on each poll attempt. This value cannot exceed
-> .B NAPI_POLL_WEIGHT
-> (which is 64 as of Linux 6.9), unless the process is run with
-> .B CAP_NET_ADMIN.
->=20
-> How is that?
-
-Much better.  (But still needs to use semantic newlines.)
-
-[...]
-
-> > > +.SH RETURN VALUE
-> > > +On success, 0 is returned.
-> > > +On failure, \-1 is returned, and
-> > > +.I errno
-> > > +is set to indicate the error.
-> > > +.SH ERRORS
-> > > +.TP
-> > > +.B EOPNOTSUPP
-> > > +The kernel was not compiled with busy poll support.
->=20
-> This line here has a weird indentation compared to the rest of the
-> errors when rendered.
->=20
-> Maybe I am doing something wrong with this one?
-
-Nope; it's all right.  When the tag of the tagged paragraph is larger
-than the indentation, the paragraph is moved to the next line, so that
-it starts with the same indentation.
-
-[...]
-
-> > > +.TP
-> > > +.B EFAULT
-> > > +.I argp
-> > > +does not point to a valid memory address.
-> > > +.SH EXAMPLES
-> > > +.EX
-> > > +/* Code to set the epoll params to enable busy polling */
-> > > +\&
-> > > +int epollfd =3D epoll_create1(0);
-> > > +struct epoll_params params;
-> > > +\&
-> > > +if (epollfd =3D=3D \-1) {
-> > > +    perror("epoll_create1");
-> > > +    exit(EXIT_FAILURE);
-> > > +}
-> > > +\&
-> > > +memset(&params, 0, sizeof(struct epoll_params));
-> > > +\&
-> > > +params.busy_poll_usecs =3D 25;
-> > > +params.busy_poll_budget =3D 8;
-> > > +params.prefer_busy_poll =3D 1;
-> > > +\&
-> > > +if (ioctl(epollfd, EPIOCSPARAMS, &params) =3D=3D \-1) {
-> > > +    perror("ioctl");
-> > > +    exit(EXIT_FAILURE);
-> > > +}
-> > > +\&
-> > > +/* Code to show how to retrieve the current settings */
-> > > +\&
-> > > +memset(&params, 0, sizeof(struct epoll_params));
-> > > +\&
-> > > +if (ioctl(epollfd, EPIOCGPARAMS, &params) =3D=3D \-1) {
-> > > +    perror("ioctl");
-> > > +    exit(EXIT_FAILURE);
-> > > +}
-> > > +\&
-> > > +/* params struct now contains the current parameters */
-> > > +\&
-> > > +fprintf(stderr, "epoll usecs: %lu\\n", params.busy_poll_usecs);
-> >=20
-> > We use '\e', not '\\'.  (I haven't checked whether it also works, and
-> > don't remember.)
->=20
-> Change this to '\e' and tested it. It looks like it works to me :)
-
-Hmm, yep, both work the same.  I remember there's a small difference in
-meaning, but I don't know why we use \e.  Anyway.
-
-$ cat esc.man=20
-=2ETH a s d f
-=2ESH example
-=2EEX
-a\\b\ec
-=2EEE
-$ groff -man -Tutf8 esc.man -rLL=3D72n
-a(s)                                                                a(s)
-
-example
-     a\b\c
-
-f                                   d                               a(s)
-
+Thanks; I'll have a look.  (Hmmm, I need to make neomutt(1) inline
+patches like mutt(1) did.  Or I'll review it with mutt(1) maybe.)
 
 Have a lovely day!
 Alex
 
+
+
+
+
+
+
+
+
+
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---q3uhm5kuycqhjley
+--75vsgczek6q7yia2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZoEL0ACgkQnowa+77/
-2zIPdg//Vo5uMd26axdKcJ+UNZZdbdySh05LQAdq8CGNFrIAE9CmJMkZNFClnmCM
-cga+hlLgPY8MByS1su0Fhe/tPIcBjjCqmO4xFQsUXbJaqjR7R4ecLL2uJrg997uR
-WOO9Y8+oziXDd92vqsRkDw4AbJG0jWItPp3Lgh2yyZuoqDH3cbRevz4TAC2DEQ28
-bfXR4G6yC09RW9eAU4Ro8HjjAsWSUjPSgjM2yxbfdpijbM8opPlICKzjf+4oHVFF
-ZvNwySPXqkbCRTYMpIMkI0PG9u3D1sdcXkX/Gs1B+VV4H6YCpdkEYOOqkM/ZMBaG
-BbMUDf92VkAjU2nnYkG9qU08i7glONdhYVXm7F9I6m+shj6aKlEOhCjkHVIqq6Js
-Z7sbYW0ZGRXiXMQ7RwfunCOzgM3mWw+aQHeqnJk9QroWIBFIb6TrDUWwhui5lguS
-PTf9VbjLvODi+yJXCSTOK8hXHtQHoqOyrIq0Ee/1ve2xykMEbq8y8RLMVMJn/9ez
-QvNjIVGhk5sn4Pz7gbqZ8LrDDRNJCwHITnAhol7tuKBtVQq9BoGDDuRdMk9LGvLt
-M90DB/C22f6mwVMVihXT28RW8ChQBepPUF2jzh9RuUj4nCvRIZxkMVh2COuPgG2z
-eL7J0SvvFoxXNTGcBNjshwhBhHnawzICRNZrPiOJ49EdTXdGOvo=
-=0Lw/
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZoEtMACgkQnowa+77/
+2zKrhQ/+M6acnShzu/Q5GZugtaGT9lmyw85LEaYa9XkGFifnj5GIHrOMP1gyeQ8R
+CoJS3KkNBqMhL1UBIpnOqYsGsjckXMQQTqIXSvN4I4yFPdfKHo76KK60thTYAc21
+0Jh6ANkASLqZfFNvy7RNLdaHZS1HXTk8mt6O6Pd1nu1fq+pRerhrjYoBPL7RwxdT
+ZQHoEudSBHsu0xlMq00c9SniBrVw9bkqtL+BammioNxLEogiaIEExyFlAgQ+U3oR
+mMqhdQRJuxh5kazXQFs1NORAyeyM6TuiBPuKr+vWsJKujssTvU9wbHRcE3JgvdKc
+lHfa8uj3GItOhO4R/d5HpdRumP5bjKUPUZZjpyfFaxQg7N92Uo9WhWTDLFxTTdCU
+0fN8xB+ANkicKJCEIb5hABzYJ8D2wGCJPL4MzMY89Aud8fCNhu4ZyX2D1vU87Lvm
+T6649BHpKw54riYbyTVFfjw5fcqeM5bRgbgHxM79yhuh3eQY4PvWFqsCMari0mAM
+/6uUtq8mo0jRt+SyKG6GuKjVL+Qm8aN2LRDvAV/iRS2aO+6CW3hOP3l497MrKqx7
+aKKtvP043uNogCrTcikxI+RiecNfo1phmrxsEfJU3yrGD7nRjPwMiSZ4ddi4qdm5
+j+Q1EIrJJxI8rtFqZJxnm/QkGH5ulvD2niDqXe1sqxaZ754U6xQ=
+=8PWs
 -----END PGP SIGNATURE-----
 
---q3uhm5kuycqhjley--
+--75vsgczek6q7yia2--
 
