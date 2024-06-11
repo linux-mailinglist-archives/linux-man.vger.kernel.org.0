@@ -1,150 +1,142 @@
-Return-Path: <linux-man+bounces-1135-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1136-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839809045F8
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 22:53:11 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69ADF904617
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 23:10:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 203E0B20AEE
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 20:53:09 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7908E1C2336B
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jun 2024 21:10:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8B233839C;
-	Tue, 11 Jun 2024 20:53:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B201215250A;
+	Tue, 11 Jun 2024 21:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEEK5XSY"
+	dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b="xKTzXKwm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703EB657
-	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 20:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A35386
+	for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 21:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718139185; cv=none; b=b4NO0LcrsUe905dxD38iRPcEqqG87Wh/DeivPIMarYvfj7+PLt+cznu+eDlA3q+o50vYOoTaUQQ7ip/Ts2PO68+Ny8AXMiMQo8i6Y9+FbpV7CGgkbtyWiYnBMXBZa89KyYtAs3vTcTZmuVMxKIJJqbhCaPKqq0pV+A94RF+2uWs=
+	t=1718140252; cv=none; b=SyrTiSiB5AexJ4NmO70QAxatKTxNpLQ1w3vXw8i38KB00JNrIMfywDPkFwTA4bjq8qgJWB2Pm+PcpAdhbzrSY0sYsaQhAHCMHpoJVIZeHWx8DOQGi2UsCNOf1grV4rlzX6rYACDPp9FlgfUEuUOLy+atwZriJBujSUSFb2Wj+ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718139185; c=relaxed/simple;
-	bh=feMffGL8yHz0FiPJ9Zqoan//9A9a1+iYCO69gkY6tAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AhmyFxiNJC7+gMQJnJ5GGq2lI/tnlD0RUd1md6tCGZ4M7axsNzZrkrLB/pEUpOhDIppBVri3EExACXLNbK1wIua3ndm3m/ECWiPtpQcEglCNitgHzu1riYSVKNpkZ3TKqirGL5g+nKkRiYzwGRPJZAbWdc2x9ILZOCQBicsg1Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEEK5XSY; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41814C2BD10;
-	Tue, 11 Jun 2024 20:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718139184;
-	bh=feMffGL8yHz0FiPJ9Zqoan//9A9a1+iYCO69gkY6tAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HEEK5XSYfRnXhAoUvB/Q20/SIqkPfEoQum/0pZ3RW032pW7YPbN6tk1hZgOSv17yX
-	 CJ7ERHKM/vmXukIVSIKziqD49Q+CJW+60Bnpm9scNaaa2O8ZgYEkqQ3bfYS+93xOdO
-	 S5JCBw11CKJyZgaM9PLWZhJoJyRpeVhWLQQVTSi3JfrEIr3Q26HDg0NknBJz0anHEB
-	 TgZi1/m6+MhvSSLEI5LzShfoBlRsrXEoZVK+asIBBeThEY++C4q9VVOb8IgKxrQU6U
-	 thszhVyEfZgxwCChNYPArd2PMeehqWvrrj0Q/iEKe0QBDgCFtRiny5N+6sLkSXphOH
-	 5S7lRzTreZbEA==
-Date: Tue, 11 Jun 2024 22:53:02 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 02/12] tzset: state vars unspecified if geographical TZ
-Message-ID: <j5shpmuai76b6lmdlhbhkhmp6elftrqzytkq5cuyujqbvonpfc@rdotn2xryam3>
-References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
- <20240611153005.3066-2-eggert@cs.ucla.edu>
+	s=arc-20240116; t=1718140252; c=relaxed/simple;
+	bh=WBU+rHbK/RXxp44nR9Mw5octYfe2IEU8Gsm2RR+Va34=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fBTTOg+E71kEINq0ZFXukIb7us3jaG4u9ghqHlRbP9LgZUvEQ2lZIvugkFVI7bcLcY2wanv/ePkJ4wXP0ggAnfCzI6WESXfVM5fbVF+b3/uMjvCq4N2HEc1xVxz++Hs028lZkvcVJXz+LSvFdhxTrV9cBcv3DFOS/RMTZA/jIEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com; spf=pass smtp.mailfrom=fastly.com; dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b=xKTzXKwm; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastly.com
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-6c5bcb8e8edso4992793a12.2
+        for <linux-man@vger.kernel.org>; Tue, 11 Jun 2024 14:10:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fastly.com; s=google; t=1718140250; x=1718745050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kUJRvvsiktk2Xu9mwn10PXtXINSjITqGlPQdA3J26Og=;
+        b=xKTzXKwmBhiYh0Wjha5C/xA+JUYU84tGUUe6qLKtjF9kxKsfcEkPtOGcmzIfFZTV76
+         OAy/HElhxhSyKv5aX+O4wwbMrPDa/Bf7LbQTDoVaGWMo+MZYtAwbZjrERM/dE6xdelEs
+         2HP186xNbZnNwlZ4mM3AGpILzvQM8kHcP2S2w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718140250; x=1718745050;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kUJRvvsiktk2Xu9mwn10PXtXINSjITqGlPQdA3J26Og=;
+        b=G6ZSXd7pnnEQ4Qps2Cb9C0bMJlk3VCeTcmpwLhDY0TpnFGvXxlsw3/JYX1s9XT0QjP
+         P/16588AJf5MUedSFWYqYcylnbFP8GJybfbJhmbgxkZoRI1LrFLjCEefWM5vx2AfROQb
+         4iBHOkUotBOXKh7rSqgaKileMVmgKI2lQ9P7DkcZxqR/Xr55XUTfH9ZFvYflKZvCcU4d
+         GBsEswRfRwqUggaEViG97bijkjM/VYOpn5bll1J/9nQHcoESlgAQh4mt/bGZh1xoLcfp
+         hx6VMTQUzJWOmq2jLDW9b34HA2Dq37tnwdL7e6glsrf5q2qjOfhJVtD909ZvK9u65axD
+         4g6Q==
+X-Gm-Message-State: AOJu0Yx01M9f/ZfKm9zCJFWp2Ca1hRHb6fRKWFhL59al+LGzcNl19155
+	n8UToM/rfwBwCzN/4WNb/+ftvG8T2g0OxcMvwpHecZNKCnTHic3vr5D+A3UP5rg=
+X-Google-Smtp-Source: AGHT+IFGfwcBRMXZfte1guoqnBQJUIqc5EXr8rmSHb9FtXaGdV0AaIkF22yUVCECNTjouDeIPCLH4g==
+X-Received: by 2002:a05:6a21:999a:b0:1af:b1c0:c9eb with SMTP id adf61e73a8af0-1b8a9c50facmr153362637.45.1718140250279;
+        Tue, 11 Jun 2024 14:10:50 -0700 (PDT)
+Received: from localhost.localdomain (c-24-6-151-244.hsd1.ca.comcast.net. [24.6.151.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-70427eb9f16sm6108726b3a.163.2024.06.11.14.10.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Jun 2024 14:10:49 -0700 (PDT)
+From: Joe Damato <jdamato@fastly.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Joe Damato <jdamato@fastly.com>
+Subject: [PATCH v4 0/1] ioctl_eventpoll.2: Add eventpoll ioctl documentation
+Date: Tue, 11 Jun 2024 21:09:40 +0000
+Message-Id: <20240611210941.1791446-1-jdamato@fastly.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="an2ffucj477bezs6"
-Content-Disposition: inline
-In-Reply-To: <20240611153005.3066-2-eggert@cs.ucla.edu>
+Content-Transfer-Encoding: 8bit
+
+Greetings:
+
+Welcome to v4.
+
+This revision includes several major changes:
+  1. Remove redundant copyright/author line.
+  2. Fix alignment of struct epoll_params fields
+  3. Add appropriate .nf/.fi and .EX/.EE sections, as suggested.
+  4. Shortened struct field comments
+  5. Moved linux/glibc commit sha comments to HISTORY
+  6. Fixed several B to BR issues
+  7. Rearranged sections according to documentation on section ordering
+  8. Updated commit message for Patch 1/1.
+
+Thanks,
+Joe
+
+v3->v4:
+  - Remove redundant copyright/author line.
+  - Fix alignment of struct epoll_params fields
+  - Add appropriate .nf/.fi and .EX/.EE sections, as suggested.
+  - Shortened struct field comments
+  - Moved linux/glibc commit sha comments to HISTORY
+  - Fixed several B to BR issues
+  - Rearranged sections according to documentation on section ordering
+  - Updated commit message for Patch 1/1.
+ 
+v2->v3:
+  - Rename file from man/man2/ioctl_epoll.2 to man/man2/ioctl_eventpoll.2.
+  - Attempt to use semantic newlines.
+  - Replace includes with sys/epoll.h, since this code is in glibc.
+  - Several style changes suggested by Alejandro.
+  - Replacing \e with \[rs] in the sample code included.
+  - Replacing all instances of ioctl_epoll with ioctl_eventpoll
+
+v1->v2:
+  - Add link pages for EPIOCSPARAMS and EPIOCGPARAMS.
+  - Many edits to the main ioctl_epoll file to better describe the
+    operations and document the interface.
 
 
---an2ffucj477bezs6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 02/12] tzset: state vars unspecified if geographical TZ
-References: <d054fc63-6ea4-425b-94ce-14402d448ccf@cs.ucla.edu>
- <20240611153005.3066-2-eggert@cs.ucla.edu>
-MIME-Version: 1.0
-In-Reply-To: <20240611153005.3066-2-eggert@cs.ucla.edu>
+*** BLURB HERE ***
 
-Hi Paul,
+Joe Damato (1):
+  ioctl_eventpoll.2, EPIOC[GS]PARAMS.2const: New page describing epoll
+    ioctl(2)
 
-On Tue, Jun 11, 2024 at 08:29:05AM GMT, Paul Eggert wrote:
-> ---
->  man/man3/tzset.3 | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man3/tzset.3 b/man/man3/tzset.3
-> index 8479b17b0..6e89dd530 100644
-> --- a/man/man3/tzset.3
-> +++ b/man/man3/tzset.3
-> @@ -63,6 +63,11 @@ In a System-V-like environment, it will also set the v=
-ariables \fItimezone\fP
->  have any daylight saving time rules, or to nonzero if there is a time,
->  past, present, or future when daylight saving time applies).
->  .P
-> +The
-> +.BR tzset ()
-> +function initializes these variables to unspecified values if this
+ man/man2/epoll_create.2           |   1 +
+ man/man2/epoll_ctl.2              |   1 +
+ man/man2/ioctl.2                  |   1 +
+ man/man2/ioctl_eventpoll.2        | 175 ++++++++++++++++++++++++++++++
+ man/man2const/EPIOCGPARAMS.2const |   1 +
+ man/man2const/EPIOCSPARAMS.2const |   1 +
+ man/man7/epoll.7                  |   1 +
+ 7 files changed, 181 insertions(+)
+ create mode 100644 man/man2/ioctl_eventpoll.2
+ create mode 100644 man/man2const/EPIOCGPARAMS.2const
+ create mode 100644 man/man2const/EPIOCSPARAMS.2const
 
-Can you confirm that the wording is precise?
+-- 
+2.34.1
 
-If it initializes to unspecified values, I guess it's legal (IIRC) to
-read them (even if useless).  Am I understanding correctly?
-
-Or do you mean that the values of the variables are undefined?
-
-Cheers,
-Alex
-
-> +timezone is a geographical timezone like "America/New_York" (see below).
-> +.P
->  If the
->  .B TZ
->  variable does not appear in the environment, the system timezone is used.
-> @@ -155,7 +160,8 @@ TZ=3D"NZST\-12:00:00NZDT\-13:00:00,M10.1.0,M3.3.0"
->  .EE
->  .in
->  .P
-> -The second format specifies that the timezone information should be read
-> +The second, or "geographical",
-> +format specifies that the timezone information should be read
->  from a file:
->  .P
->  .in +4n
-> --=20
-> 2.45.2
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---an2ffucj477bezs6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZouS0ACgkQnowa+77/
-2zJGOQ//eOo79DUBvAWAV1orW3YUvnOMnA4h9P+juFR71F086oHW4w7NXxSG1mtg
-+XBjX20pPVTcrrjFGsuDQc80eea1S+sYtTYLER3CHy+61apN8umhpvOQcWaGM4QG
-IflTtRoOf0s+uAxBd9TgL9t/XDTRIYPuHuspkiQwTF2vVIrs0Yrklq+2OPjbontF
-J+UxGJP62Unp/Vi4sMkxQfNuTWMlJ5JH3szPZnLXt0Qorka49DuRI9b0kLo0f0Ep
-0hc+Jf5bPBv/jyUW0l7fwNSxqQEoca45B+Fsq1tasugL4IRlvyDc7HcrjbmeIFsk
-vJPznGgwMq1KGwFI7YsS80ddk9baz9M9NokVL7uWWNfGn+bTE502sR/kX1Ar8foe
-tnyb0b2jRxW1HlQm620Zmk6kW/TSZpyDPHvuB6b6Joaggpo5g1aCPIhwRDc3ljxw
-jDmkrnDvCceGRfLfYxmAroh50P6djgvrIaxFGp/5ue12XbDIyVLy3LwOHSXW7zX4
-zV6TNrYcapdBdknxPrIZTMESx6nvOK1a+9sJdMkSvcHA5MS0gI8R3BcvhJ30Juwf
-SNqTuNqi3/tEmnQ58gIEGPdfPFmvVmQu1+oZLn7Y1j8wY6rSC9h9SqvOMTQ70xd2
-0g9KNnLT1JJSnBHs2N4zFwRD2QeDsBNRxYT4D9oD1awVUQz++5I=
-=54RE
------END PGP SIGNATURE-----
-
---an2ffucj477bezs6--
 
