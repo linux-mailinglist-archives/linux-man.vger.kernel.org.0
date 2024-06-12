@@ -1,143 +1,206 @@
-Return-Path: <linux-man+bounces-1154-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1155-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7D949058CC
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 18:29:01 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1CB90599F
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 19:09:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 502481F21C28
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 16:29:01 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CB3EE284F6F
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 17:09:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 276C2180A69;
-	Wed, 12 Jun 2024 16:28:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AD5A1836DF;
+	Wed, 12 Jun 2024 17:08:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooAJ6IVN"
+	dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b="Q9C/Qmp6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93FD1DFF0;
-	Wed, 12 Jun 2024 16:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C0C1836D1
+	for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 17:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718209734; cv=none; b=tXNvrOToWuq5Ad4zlnUS0A16K2VO4rZ2tbK5dOzAKf5IhE6X4G1OATMnDfBZKK2N3NwJbftGXbLUKgblopXsJRotptU5AUA4XICpDbos02Ax434EVVqU9REpjFvjH0cEzOghjsxXShAV03qu+6TCHmouI1hGfx9o4OVKOmryxh4=
+	t=1718212100; cv=none; b=BBEutIR/gd+RnmJvAMZKd7rWZeuGFi1PP5BCU7haOj0TmADd1JCSxcHKXlDADEHGKmRNt61UhaeNU2tZALFMZCrTp3xQf86UPGwAP0TewjpHlwqtbr8ZTlaVl/Mrqxpl3VM1PYy+D8GL0cRsoW6sT4im4877HKBvx4QKeRFKVXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718209734; c=relaxed/simple;
-	bh=LPae+WJLd4Uh0XyD4sO1ssmu8Chnf3aXYZIxelrrKc8=;
+	s=arc-20240116; t=1718212100; c=relaxed/simple;
+	bh=PcIK853sjEJS1JyYAugZug5UqyF2MR3w+5JT9O7SYO4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=si5wIJsH247/+yli4tLw4hzOZuwZzl7uzTgHO9I5SdjEE/qjPsO863J89u6iqW6HYendwLIYgW5aNdUn8MY4+nV8cBMVk0B7b+HTNSb1hWLInqmFZ1YRyMTP/QV2NkEkmQoNC2oY8ZqgGKy7GpKtrLyz/IcRnOEraredZzJNx5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooAJ6IVN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1622DC116B1;
-	Wed, 12 Jun 2024 16:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718209734;
-	bh=LPae+WJLd4Uh0XyD4sO1ssmu8Chnf3aXYZIxelrrKc8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ooAJ6IVNE7UJOqyjqkWWZXI6OnqFW9dqxjRLj9A8n+8jH/1w0mN0vLPhnMi4i5/01
-	 dnt3LnqwQnsV4INWMHA6ak5C7NMRUen45gwPMaHvs2u1BZCpXr+CJBFNLWB4L+XPud
-	 auU62y83ekkfsuOLrNt+Xeu+H+3zHU7M9wKWUbLsP/DKF56yAyVAc6gVo3yw7/ajH0
-	 Qq9mi2dSQ2iBpkS0HYhS4OhIPDGg5SS3juKm7T7ng6GqVmTvAp1z8tnR8UMxL8Xv1x
-	 +Rj1bWg9HQQvzDKgynG8d6Xrpu2DYaMpBTokQbBN+0hQCCkeL0ah9JITWMhofsT9EH
-	 8ZoA06NJbIfLA==
-Date: Wed, 12 Jun 2024 18:28:50 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, libc-alpha@sourceware.org, 
-	linux-man@vger.kernel.org
-Subject: Re: termios constants should be unsigned
-Message-ID: <mdidkojqnhvf5b22vh3c4b6ajmq5miuyr3ole26kx2qkmnbfh3@woy2ghe5eyve>
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
+	 Content-Type:Content-Disposition:In-Reply-To; b=bQnUyHSRyCvnTJ6catJ3hRtuiPCq3o9YYpEvc9U3Oo6Xraj9d3oP7/3KFF8d7VK4brdwPoRAI9Bm9lhxs/gQ4+OBaGet2gaDB3lzxI9srqbPIQou5M7dHVTnI5wQqOJxPWESS+nmMvCWWdhhaVEUZdIXI8oqkNiuax7lTeTvaJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com; spf=pass smtp.mailfrom=fastly.com; dkim=pass (1024-bit key) header.d=fastly.com header.i=@fastly.com header.b=Q9C/Qmp6; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastly.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastly.com
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-703ed15b273so14018b3a.1
+        for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 10:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fastly.com; s=google; t=1718212097; x=1718816897; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=40Yy4Tp3j4q+u8rX01z1q7G/LWKQdJEL1GUuaeewH/o=;
+        b=Q9C/Qmp6fSO06pKPg7e3MQOTrltFxDSisujVpRujUMJBc2cutvScV4J6EowJkXGGdO
+         p1hDdfY/gaTsMj9QZCqCbq5R3rBiwOLkxcrqL+pASTq/rdAtUQ2u3pDy3TeWwmEqype7
+         eN98HGyw2gvXctX2DNBTnswPqb/Mx1LdB0VBY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718212097; x=1718816897;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=40Yy4Tp3j4q+u8rX01z1q7G/LWKQdJEL1GUuaeewH/o=;
+        b=trqaMOk190FYuCNCfx3RwO/wnvVT4zNaN9VDYAL7gc94vfAR71IWx5Bqx4o2oR95ct
+         9CSpcfBWw/oyo7OrIY09MorTWJjUk5OupaJxrU97BKusj7yp8oN4Sl5DKBBnWdOvCQpj
+         H42MvScCnYXnbFqOyXC5cELzqBoUSNx+3o6SVTujF0dfWUhYUmCBxchpHJlw8/gHcnAF
+         wIJM0OfodpX7EY1DXUS8SuirvUHL1a1vEcUW2e/k92BXiA7ElfEcKxlFJ5PT/fmfZnM5
+         IApkjTLZrRq910m/CF0YojHPyp6ZKsnI32QRVNgh/mC7JqyrRpH7sswY+AtiD+LohI+8
+         h1Fg==
+X-Gm-Message-State: AOJu0YyEdWRG0HK7oEaKDK9aAwyQD1+v/lthov6ftKl3WbeegmQXAB87
+	cK6xQFJ+q9Y6eYlr3OT0SOQ8uce1p60JpixAUDaafLkzZKV++dedzhajCKnT7V8=
+X-Google-Smtp-Source: AGHT+IFocAQzL5pzTOKr2uFBGmW/bl5+McrkueIvT/n66Xt1k4zY6AUDZMOlkUa6hI3ehUztzuDBhg==
+X-Received: by 2002:a05:6a20:2585:b0:1b4:82eb:61c9 with SMTP id adf61e73a8af0-1b8a9b361famr2995275637.6.1718212097487;
+        Wed, 12 Jun 2024 10:08:17 -0700 (PDT)
+Received: from LQ3V64L9R2 (c-24-6-151-244.hsd1.ca.comcast.net. [24.6.151.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-7041ec6f9cesm8305714b3a.78.2024.06.12.10.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Jun 2024 10:08:17 -0700 (PDT)
+Date: Wed, 12 Jun 2024 10:08:14 -0700
+From: Joe Damato <jdamato@fastly.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v4 1/1] ioctl_eventpoll.2, EPIOC[GS]PARAMS.2const: New
+ page describing epoll ioctl(2)
+Message-ID: <ZmnV_qoKYp_xDm7B@LQ3V64L9R2>
+References: <20240611210941.1791446-1-jdamato@fastly.com>
+ <20240611210941.1791446-2-jdamato@fastly.com>
+ <dxbytf2nfionvg2a3mt4ocwrt72qlyqqf24vlun3g3v2qucmrq@6wzdibvvcaao>
+ <ZmjaZm4gfz5lZL3b@LQ3V64L9R2>
+ <h26ptahsj5x2tmlrub24u7krsnxpme4jhrs6zkwp6g72aqeadv@ux2eu3pfzueg>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u5ef5bv676bhegop"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
+In-Reply-To: <h26ptahsj5x2tmlrub24u7krsnxpme4jhrs6zkwp6g72aqeadv@ux2eu3pfzueg>
 
+On Wed, Jun 12, 2024 at 01:38:15AM +0200, Alejandro Colomar wrote:
+> Hi Joe,
+> 
+> On Tue, Jun 11, 2024 at 04:14:46PM GMT, Joe Damato wrote:
+> > On Wed, Jun 12, 2024 at 01:01:11AM +0200, Alejandro Colomar wrote:
+> > > On Tue, Jun 11, 2024 at 09:09:41PM GMT, Joe Damato wrote:
+> > > > A new page is added which describes epoll fd ioctls: EPIOCSPARAMS and
+> > > > EPIOCGPARAMS which allow the user to control epoll-based busy polling.
+> > > > 
+> > > > Also add link pages for EPIOCSPARAMS and EPIOCGPARAMS.
+> > > > 
+> > > > Signed-off-by: Joe Damato <jdamato@fastly.com>
+> > > > ---
+> > > >  man/man2/epoll_create.2           |   1 +
+> > > >  man/man2/epoll_ctl.2              |   1 +
+> > > >  man/man2/ioctl.2                  |   1 +
+> > > >  man/man2/ioctl_eventpoll.2        | 175 ++++++++++++++++++++++++++++++
+> > > >  man/man2const/EPIOCGPARAMS.2const |   1 +
+> > > >  man/man2const/EPIOCSPARAMS.2const |   1 +
+> > > >  man/man7/epoll.7                  |   1 +
+> > > >  7 files changed, 181 insertions(+)
+> > > >  create mode 100644 man/man2/ioctl_eventpoll.2
+> > > >  create mode 100644 man/man2const/EPIOCGPARAMS.2const
+> > > >  create mode 100644 man/man2const/EPIOCSPARAMS.2const
+> 
+> [...]
+> 
+> > > > +.B "#include <sys/epoll.h>"
+> > > > +.P
+> > > > +.EX
+> > > > +.B struct epoll_params {
+> > > > +.BR "  uint32_t busy_poll_usecs;" "   /* Number of usecs to busy poll */"
+> > > > +.BR "  uint16_t busy_poll_budget;" "  /* Max packets per poll */"
+> > > > +.BR "  uint8_t  prefer_busy_poll;" "  /* Boolean preference  */"
+> > > > +\&
+> > > > +.BR " " "/* pad the struct to a multiple of 64bits */"
+> > > > +.BR "  uint8_t  __pad;" "  /* Must be zero */"
+> > > > +.B };
+> 
+> I didn't notice that you had changed the indentation to 2.  There was a
+> misunderstanding.  I've amended it myself with what I meant:
 
---u5ef5bv676bhegop
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, libc-alpha@sourceware.org, 
-	linux-man@vger.kernel.org
-Subject: Re: termios constants should be unsigned
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
-MIME-Version: 1.0
-In-Reply-To: <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
+Ah, OK. Sorry about the misunderstanding on my part.
 
-Hi Paul,
+> diff --git i/man/man2/ioctl_eventpoll.2 w/man/man2/ioctl_eventpoll.2
+> index 64a8770e7..79931eb7e 100644
+> --- i/man/man2/ioctl_eventpoll.2
+> +++ w/man/man2/ioctl_eventpoll.2
+> @@ -24,12 +24,12 @@ .SH SYNOPSIS
+>  .P
+>  .EX
+>  .B struct epoll_params {
+> -.BR "  uint32_t busy_poll_usecs;" "   /* Number of usecs to busy poll */"
+> -.BR "  uint16_t busy_poll_budget;" "  /* Max packets per poll */"
+> -.BR "  uint8_t  prefer_busy_poll;" "  /* Boolean preference  */"
+> +.BR "    uint32_t  busy_poll_usecs;" "   /* Number of usecs to busy poll */"
+> +.BR "    uint16_t  busy_poll_budget;" "  /* Max packets per poll */"
+> +.BR "    uint8_t   prefer_busy_poll;" "  /* Boolean preference  */"
+>  \&
+> -.BR " " "/* pad the struct to a multiple of 64bits */"
+> -.BR "  uint8_t  __pad;" "  /* Must be zero */"
+> +    /* pad the struct to a multiple of 64bits */
+> +.BR "    uint8_t   __pad;" "             /* Must be zero */"
+>  .B };
+>  .EE
+> 
+> Which renders as:
+> 
+>      struct epoll_params {
+>          uint32_t  busy_poll_usecs;   /* Number of usecs to busy poll */
+>          uint16_t  busy_poll_budget;  /* Max packets per poll */
+>          uint8_t   prefer_busy_poll;  /* Boolean preference  */
+> 
+>          /* pad the struct to a multiple of 64bits */
+>          uint8_t   __pad;             /* Must be zero */
+>      };
+> 
+> That is:
+> 
+> -  4-space indentation.
+> -  At a minimum, 2 spaces between member type and name.
 
-On Wed, Jun 12, 2024 at 07:55:14AM GMT, Paul Eggert wrote:
-> On 2024-06-12 05:16, Alejandro Colomar wrote:
-> > tcgets.c:53:24:
-> >   error: implicit conversion changes signedness: 'int' to 'tcflag_t' (a=
-ka
-> >   'unsigned int') [clang-diagnostic-sign-conversion,-warnings-as-errors]
->=20
-> This is a bug in Clang not glibc, and if you're worried about it I suggest
-> sending a bug report to the Clang folks about the false positive.
->=20
-> Even GCC's -Wsign-conversion, which is at least smart enough to not warn
-> about benign conversions like that, is too often so chatty that it's best
-> avoided.
->=20
-> A lot of this stuff is pedanticism that dates back to the bad old days wh=
-en
-> the C standard allowed ones' complement and signed magnitude representati=
-ons
-> of signed integers. Although it can be amusing to worry about that
-> possibility (I know I've done it) it's never been a practical worry, and
-> even the motivation of pedanticism is going away now that C23 requires tw=
-o's
-> complement.
+Understood for next time.
 
-I know; I think I have -Weverything enabled in that run, which is known
-for its pedanticity.  I usually disable it when it triggers a warning,
-since they are usually nonsense.  But in this case, adding U is a net
-improvement, without downsides (or I can't see them).
+> While at it, I tried aligning the comment of __pad, and seemed slightly
+> better, so I did it.
 
-So, while the kernel and glibc are just fine with this implicit
-conversion, they would be equally fine and even better without the
-conversion.  Not a bug, but rather a slight improvement.
+OK thanks!
 
-Have a lovely day!
-Alex
+> Since the commit was not yet on <kernel.org>, I've ammended and force-
+> pushed.  Sorry for the confusion.
 
---=20
-<https://www.alejandro-colomar.es/>
+No problem; apologies for making more work for you.
 
---u5ef5bv676bhegop
-Content-Type: application/pgp-signature; name="signature.asc"
+[...]
 
------BEGIN PGP SIGNATURE-----
+> > > 
+> > > <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=e756cd6c0ae9f8121179e3e94201e729e013f5fb>
+> > > I'll push it tomorrow to <kernel.org>.
+> > 
+> > Cool !!
+> > 
+> > > Thanks for this manual page!  :-)
+> > 
+> > Thanks for your patience on this one and sorry for the numerous
+> > revisions you had to sort through.
+> 
+> You're welcome; and no need to be sorry.  :-)
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZpzLkACgkQnowa+77/
-2zIXGBAAk7UQ8dXCy714MXl59HRDggJWt4qmXRWslhy4AWT+bTYNBZKL/kM+GvUY
-9C5DwOUEP1703W2tY3bZEhUo0JF6eIMgZDX2aQTx1SH+KIw/dM/GRkn7HJ4jNg6V
-v5F1mGJnV0oVEXhzpoP2oFwZG/nqw9RFVY5ZCX0RrMfAUmUFmZOQNaTvsPAYStwj
-Ha8YdJbXVl0fGF3B2nj9CFjj2fH96+vJJGdvqZxJpyGVnZ2uhhhfZ0A+Z5CffcrG
-6++7YQrUHDMiB+likYke7ohUqZO4joAwm7D8cTgmphrX7Xps0alBUpCxjijKf84R
-l8mXmzxrGzF4JGHy7vnoT2txsi+P3tm1PWrz0PRfdjTZh86/7krnu/f4N7a/trLB
-pKpdxxKZCXYQskNFQOIeSPPJWFR/Ec/moo6/AECJ7a5kFAJDbkksWXyssFfXpPDD
-9Z3T4VGlZaQMVoTMvrBSz+cmsTRUYwVc3ppB4+C5KPBw+7njF8ClVT5alLomh9AM
-/yz/SpezE9Kr+QNYLMoQCp24gggcEnZIhCzMu2P5NQG1+kAVOeZyMkpvBx+uAn65
-uaorsGqoJkRpRenjld8PWRVLX6fprLRN6rr1q4UgazBIl9Dia/MkZEqfbtHIygRI
-SyQPwjwwE3i+zEwxK5tZ8VpuFTKqgQhBd1tJrBBXRz3Asi2Yrqs=
-=JDn8
------END PGP SIGNATURE-----
+Thanks again! I was refreshing kernel.org's gitweb to see if the
+commit made it, looks like it is there:
 
---u5ef5bv676bhegop--
+  https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?h=ioctl&id=e450bcf6e35a5c227c5e80cdb4e44bb89516a5ee
+
+Very cool!
+
+Does the ioctl branch get merged into master before you do releases?
+Was mostly just curious because I'll be excited to see the new page
+in an official release in the future ;)
 
