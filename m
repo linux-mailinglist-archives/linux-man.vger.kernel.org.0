@@ -1,184 +1,132 @@
-Return-Path: <linux-man+bounces-1162-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1163-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73339905CD0
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 22:27:16 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5A61905D08
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 22:45:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 85A2B1C23DCF
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 20:27:15 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B960F1C21D64
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 20:45:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7A7984E0B;
-	Wed, 12 Jun 2024 20:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38D9E54BE7;
+	Wed, 12 Jun 2024 20:45:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jhgI9255"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZOHIBcjj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A963284D0F
-	for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 20:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC86043144
+	for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 20:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718223949; cv=none; b=AhNBCZUplx10gXDYbgD2pSNPnVq9C406AM0/bhEyxYuMX1oj4oTQ//9rx5kiF2kKZsiwbC2dvCISRF3rH9ucOgWvcFmZzDrDvSXMaFN1ackpEZsHOmO66DlghOZLVAJpQZjheGLzJSpiDSXU13VwZm/13QLjIdml+XNI/39wAWA=
+	t=1718225138; cv=none; b=mXBDeu5dNL7mpbh6PxCoWS6VCdKgohEJUsCMjRf+BmULUf8GNLD4SfnNgzmsMs1aks+tLpW8MByI1HqhRXNzqxPc1++zUPWv+C0OxrDQNyQM7WoIg571pTFKkZkKlM2Eo2IANiqX1RLWoBuRKsUtb3rwPGVLYBpL3bcbp3EoEiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718223949; c=relaxed/simple;
-	bh=gFylne8SXxt7w6aGhJr/s9yHzYD120DOgiCWDmkV+2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B5DEYpq3/RR1kpnQkU3jK5Vl1yiCCYTVGgbNEeRYLwi808iYhdzGqp/eVAcbdGSX77KNhUCd6xZryv5SfYtBR7JFBBhbWuOtuy/LzojAZ1ptCGQ5TFs+8EzZGVbwLw/hq8nXrifWosqk/RXXrN1WK7K73Q2LyhG7yA+1vHNNDUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jhgI9255; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E812C116B1;
-	Wed, 12 Jun 2024 20:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718223949;
-	bh=gFylne8SXxt7w6aGhJr/s9yHzYD120DOgiCWDmkV+2E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jhgI9255pSjDHwQx/My6ytvDkxz1tes9cLvEJiLItlHjC9WJtg9sOWEsuZZNruPx7
-	 BbmdkelKjNbdacBrjMK7WgYdta0l3kskhVOmNzHL2iCrt2NWt7jqKSW/pQtgxvQAV3
-	 mR8OhynA+sgvBqqkEf8DXoJFnUe/4nJcI2qOfXEC1N4TmTuiUKeNtrnl5k+KTLoE81
-	 Wtsj8sf/qtbEJmXJidMmG/DTL1s/1eOx4Grzi0wirdHRjepeFD/53rGa9EvHtgFZVv
-	 C5v71nDjuJv7j2U42cO2fCHPATe3Q/nRfaQfaveyih6zeRBE/XlberGEpgF083VbXw
-	 3hLWnsSiJiGLw==
-Date: Wed, 12 Jun 2024 22:25:45 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Brian Norris <briannorris@chromium.org>
-Cc: linux-man@vger.kernel.org, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH] sched_setattr.2: Document sched_util_{min,max}
-Message-ID: <6ojlih2pqcm6s4oiooyhwbltwxtcktjwsbcfnzazdecf32adwb@abj4g5lywy7d>
-References: <20240524190829.2503648-1-briannorris@chromium.org>
- <erkmfrnua26323vx26kmzv7ynrt2vpub3pmrotr4wmvlujpfyi@42xwmyjyjt22>
- <ZmoAtQrMEaWKauA6@google.com>
+	s=arc-20240116; t=1718225138; c=relaxed/simple;
+	bh=Ge/19s9cU/ztBv9Bjlq/piDvr/bJ7gkl1eiuaneuMpc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WWbH9hZH7wOuL8QBIDX62/cMiundlJMOwiK1iXXHENlWTE8+kyIh9UP24FTw7cBunanmg4YseB1B4WcBNVLnUKi+ctSfT/tDxHTPTwB3sCt+freOmOv/ScG1QbAFiO/U7VOiy88S8Z2zVviptcJAAx/ipVUiX1Z7eWeTAeADw44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZOHIBcjj; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-1f8507aac31so1697165ad.3
+        for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 13:45:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1718225136; x=1718829936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aVz+cE8lioJb8jRrXp8kXQ50O3PONOzjx0TB5jV346g=;
+        b=ZOHIBcjjqvXvpqR052NBkaAE4+CbE6O9Uyw0Us8oD4Cnilld/Uj9kRyzgmQFu5VX+p
+         RLjr/IxP94+3nwpKdLBtgcYJc94HA12GAswWBpH9e024nVFIEozbZG2KQFml+DXG4DRM
+         ZsmT4+/5YVzFWu+tgeI5C5t8RCcUKNqlXsuzQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718225136; x=1718829936;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=aVz+cE8lioJb8jRrXp8kXQ50O3PONOzjx0TB5jV346g=;
+        b=vesirqTdMS9hV5XiWTi+2Xcq9I3IazTc5E95wgv7aJWZBN0Biify8u2/K6uC9FL2OV
+         cG4lKgYnMGvYveorKEt1zLVMDzLUpje6h6Lk1C+hrtwADyQNRvJcZU10PjB5jlMnJrou
+         df/ryuKFs6ObYqP8aoDIlYdcYtParGY7WpIp3up2nBVEvMqJ8W7NhohD8uiCHSsC15Bp
+         OdTEXuGfL2U7jG3qbw8GoZd/GU4BeqiTb+AdzJHodCgeADyRQkWAaGroVy6zDXItWMru
+         zERtUuF1/6rKO6OYev/hIY2JcHUUQP8WzHvGmgWfuGNmQEJLTEU0qFOhYndZrEGnTGA6
+         7jWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUcoixnS4M9a0/55cdXW50T6BTa4coXi1ve9OnA1NyJPg5Y4c2FOoOOq7rcRBpn/pvZldy72vu9F5hYeLENvhgaxAdmeTnpicjL
+X-Gm-Message-State: AOJu0YzdDG2AAsuQ7oXItJVU+lQb2YCHvg1una31r/nxFUkqc1oDo9Us
+	bZcq2XRGqKsH8OpM2TW73qJLqV4DctBLPRdxVIGuDsMszqCPTNnNBB5wqBZnXYfK/h5ZY8FDgx0
+	=
+X-Google-Smtp-Source: AGHT+IE/r3NN+cnTy0G1ISOfyBjlwvVwEx1oee2jWy2Abgg+6y66/InmABTKzGpxR+LoNl9JgTUxcA==
+X-Received: by 2002:a17:903:2450:b0:1f6:5013:7842 with SMTP id d9443c01a7336-1f83b5f76b1mr39381985ad.27.1718225135915;
+        Wed, 12 Jun 2024 13:45:35 -0700 (PDT)
+Received: from localhost ([2620:15c:9d:2:90ba:9f8:1a32:b765])
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-1f6bd778159sm125911195ad.116.2024.06.12.13.45.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Jun 2024 13:45:35 -0700 (PDT)
+From: Brian Norris <briannorris@chromium.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Patrick Bellasi <patrick.bellasi@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v2 1/2] sched_setattr: Break EINVAL into separate blocks
+Date: Wed, 12 Jun 2024 13:44:52 -0700
+Message-ID: <20240612204504.2651521-1-briannorris@chromium.org>
+X-Mailer: git-send-email 2.45.2.505.gda0bf45e8d-goog
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a32ipuryja4cuod2"
-Content-Disposition: inline
-In-Reply-To: <ZmoAtQrMEaWKauA6@google.com>
+Content-Transfer-Encoding: 8bit
 
+The current EINVAL description has a complex boolean expression, and I'm
+planning to add one more condition to it. Let's separate it into
+different EINVAL descriptions to make it easier to read. Tweak the
+punctuation a bit too while I'm at it.
 
---a32ipuryja4cuod2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Brian Norris <briannorris@chromium.org>
-Cc: linux-man@vger.kernel.org, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH] sched_setattr.2: Document sched_util_{min,max}
-References: <20240524190829.2503648-1-briannorris@chromium.org>
- <erkmfrnua26323vx26kmzv7ynrt2vpub3pmrotr4wmvlujpfyi@42xwmyjyjt22>
- <ZmoAtQrMEaWKauA6@google.com>
-MIME-Version: 1.0
-In-Reply-To: <ZmoAtQrMEaWKauA6@google.com>
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
+v2:
+ * split out from patch 2 and reworked
 
-On Wed, Jun 12, 2024 at 01:10:29PM GMT, Brian Norris wrote:
-> Hi Alejandro,
+ man/man2/sched_setattr.2 | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-Hi Brian,
+diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
+index 5d7061bd6e3a..0c866a786748 100644
+--- a/man/man2/sched_setattr.2
++++ b/man/man2/sched_setattr.2
+@@ -349,16 +349,21 @@ .SH ERRORS
+ .TP
+ .B EINVAL
+ .I attr.sched_policy
+-is not one of the recognized policies;
++is not one of the recognized policies.
++.TP
++.B EINVAL
+ .I attr.sched_flags
+ contains a flag other than
+-.BR SCHED_FLAG_RESET_ON_FORK ;
+-or
++.BR SCHED_FLAG_RESET_ON_FORK .
++.TP
++.B EINVAL
+ .I attr.sched_priority
+-is invalid; or
++is invalid.
++.TP
++.B EINVAL
+ .I attr.sched_policy
+ is
+-.B SCHED_DEADLINE
++.BR SCHED_DEADLINE ,
+ and the deadline scheduling parameters in
+ .I attr
+ are invalid.
+-- 
+2.45.2.505.gda0bf45e8d-goog
 
-> Thanks for the look! A few comments and questions.
-
-:)
-
-> > Please don't use blank lines in the source code.  They trigger a
-> > warning.
->=20
-> Oops, I probably should have gotten further into the documentation to
-> figure out how to run the linters. Indeed I see the warning now, and
-> I'll make sure I don't add more lint in the next version.
-
-No problem.  If you need help, just ask.
-
-> > > +These flags indicate that the
-> > > +.I
-> > > +sched_util_min
-> > > +or
-> > > +.I
-> > > +sched_util_max
-> > > +fields, respectively, are present, representing the expected minimum=
- and
-> > > +maximum utilization of the thread.
-> >=20
-> > Please use semantic newlines.
-> >=20
-> > $ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
->=20
-> I'll give that man page a better read for my next submission. Thanks for
-> the callout.
->=20
-> >    Use semantic newlines
-> >      In the source of a manual page, new sentences should be started on
-> >      new lines, long sentences should be split  into  lines  at  clause
-> >      breaks  (commas,  semicolons, colons, and so on), and long clauses
-> >      should be split at phrase boundaries.  This convention,  sometimes
-> >      known as "semantic newlines", makes it easier to see the effect of
-> >      patches, which often operate at the level of individual sentences,
-> >      clauses, or phrases.
->=20
-> I'll do my best to interpret what the best "phrase boundaries" are. I
-> don't think the writing always has enough punctuation breaks to nicely
-> break into 80-char pieces.
-
-Yup; it's not black and white.  Just find what you think is a decent
-break point, and that should be ok.  Anything is better than random.  :)
-
-> > > @@ -353,7 +398,6 @@ .SH ERRORS
-> > >  .I attr.sched_flags
-> > >  contains a flag other than
-> > >  .BR SCHED_FLAG_RESET_ON_FORK ;
-> > > -or
-> >=20
-> > This change seems to be unrelated to this patch, right?
->=20
-> I suppose it's unrelated. At first I was going to add new EINVAL
-> descriptions to this paragraph, and I found that it had an odd
-> (incorrect?) use of too many "or". But then I simply broke out an
-> additional EINVAL section, which makes this change less related.
->=20
-> Side note: on second thought, it probably makes sense to split this
-> paragraph into multiple anyway, since the pattern
->=20
->   "condition A; or condition B; or condition C [...]"
->=20
-> gets a bit hard to read with sufficient number of different conditions.
->=20
-> If it's preferred (and based on your comment, it probably is?), I'll
-> make corrections in separate patches.
-
-Yup, it is.
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---a32ipuryja4cuod2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZqBEkACgkQnowa+77/
-2zK7HQ//WoOC6lvo3Aif/p1C0Y7wSsTn+z0cn2s0UaBis32Cd8Bj/0Do+yyT9v/B
-pNKArkmPoSwOgnzLVxrTDR/jV9saAJ9zz65MFMJqZqCH4VWMFjVF4hB43BStJOdW
-cvZPqr6bEUvYysWyk56E8J6jB/HFfZnsUFb7XV2rTryBzXM1XvqcKJ744WqWeYD+
-oI7q+usvSyQD4IxipRuaJX0IXhMWdImsyUrg/EpKMS5egI1pWxUOYtdMs/ROta66
-bKpZ+mC9VGQsIMj7F08HGUCpZvGeOcbNdoLpU3E7N3QT2HoLAtyh42qPahEhLx9f
-rv7XywgMeSvDOdu3Oqz8HelivhyoAVyTd+hEWqdD6QYmMhTYHJF23SeN9KpVQlX4
-lnNvWQ4/HM47oSJpiiWanwMgjJIUahOu4t6xiNYal+eF625HxBRg+UPZpGkgEoTP
-kG3d46DMJ5gtsVlZhzw1jGJfBP51URhHmRrPB70HQcCXj6XmJ0vzh77kvPOnzQf6
-JIA6EsiUfE5Mb/83DpungRyVSS3ejenLhmDIS1QBU9eDLd/zzpqEltcJ5s2PnDzj
-QWo1CizgcspknG6pzHdhqwRyat4ljJSGade3jU/e3bfTqgPkOV1wvaGfkmoy3szw
-U4wOv0kBfWzyL5DrMGC7LO/9xeM1tIinHMY4KZ3yzib1LYxHAoo=
-=leGY
------END PGP SIGNATURE-----
-
---a32ipuryja4cuod2--
 
