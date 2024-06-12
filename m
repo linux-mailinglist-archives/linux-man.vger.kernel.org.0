@@ -1,125 +1,165 @@
-Return-Path: <linux-man+bounces-1160-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1161-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C7F7905B9C
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 21:02:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE0BE905C8F
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 22:10:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C4B991C2277E
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 19:02:16 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CCA451C21B78
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 20:10:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E66DA83CC9;
-	Wed, 12 Jun 2024 19:01:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE0D984A4C;
+	Wed, 12 Jun 2024 20:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uo/XUOIQ"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="U4Er/UAg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4629823AF;
-	Wed, 12 Jun 2024 19:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BECC54BD8
+	for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 20:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718218904; cv=none; b=OgF9ItHi6ozHqYeL2dTezkylka/+E0fL6YfpFHc6ba0iE8sCRGZe6xgR7FBd4Kcewr5Lz9ZsZURjJuDEmgqo/26tRmbuPylOI8bFx5wPGmSfUAm8bx1uE1Hu3sGp7zbU4bc7Ki1/3VR07HPQyWuwYkkkV5obG/6gKvN0UDuY8KA=
+	t=1718223033; cv=none; b=fTTck9yW3/VSypqRKUsU4V5Ufb07wVcIlRhBj2GgMrZ440e5eUdeMaDhRKUgPR6JDPbtYEiU6poiI/ztTjwBgatOSdoh133R6ddFMwH8w9AIFoJPpzjQJ58W6GFpZtnZiya/8QS+rpGnLaVfXGR3/Txo82Vby5UHJdcdQ9/L1NY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718218904; c=relaxed/simple;
-	bh=FNP51z8mhec744uH0WqqF+8amWQAFNxf2en/E76LhMM=;
+	s=arc-20240116; t=1718223033; c=relaxed/simple;
+	bh=llb5SFVP5yWjj1HjVFKIvT07ZL/wd68YsRtZD13oQkI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SUnaAeMMseL6mJhq3rFgqX7xiKzsldTNOTYWa9AFDAjwS8Fq7puf17oKpxH27pNWmkn4jBFrkCZQUZhxCevCp8G7eRtN5jlRDKvkUsHgVPjgzSvB5w3cU5ezMKm8WMr0qLBkEWn/U2Lqj8fsWM4FpQo07azeqYP6xurCP4m1/UU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uo/XUOIQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197AAC32786;
-	Wed, 12 Jun 2024 19:01:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718218904;
-	bh=FNP51z8mhec744uH0WqqF+8amWQAFNxf2en/E76LhMM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uo/XUOIQ4tj2b3MRSwdCEizyzDTuTn3BlL4M07+5pRNPnrHKLe2/A5TS069OWr7v2
-	 fFPFXATuTJMzw5HUGfo+OMM+vh9DBpJngGnohSJcHsreBXcqzgurV+FTNsQqUtRLba
-	 TnJXcJb8Pucxitba9/MpkjDdbdbLIoJ2DOGXciTLCSEZ8NaCWUEhY+XfuTlvLfnhA9
-	 hJ6EJAVeOpTmZSYjDnoi+V2ZVDzYT38GPcUuZbgqmYqC21ZgomL95KroLwbsb8zwkS
-	 yP9DP78MnoSemHjPl5mN59HpzB1aM2uvUfw4aGxNLfzuA81dkoT1fBi542qiQD1sCq
-	 10jVfV3y+eVmw==
-Date: Wed, 12 Jun 2024 21:01:41 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, 
-	Andrew Morton <akpm@linux-foundation.org>, Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, 
-	libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: termios constants should be unsigned
-Message-ID: <5rfohnr4rs3tkfs7y3f7rth36c67pvcwv4q52onrjohdjtpo7m@stvcsncq7z4f>
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
- <mdidkojqnhvf5b22vh3c4b6ajmq5miuyr3ole26kx2qkmnbfh3@woy2ghe5eyve>
- <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lhnt1mL/M12hpau72rCERnyS71fjUaJ37x6ahau2J3tSUrWGGFTLHdHCnYs4ZeTE4TKE04TXEAYYUNsooC2+I+BFGXhwetOv8oSgnmd4yOlkzouJh4HRV3+kILCz2HS3mF4wg3pQDTxQvhAEn2S3yiGSefJaEVBr8agqoy9ZTb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=U4Er/UAg; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-1f70c457823so2633515ad.3
+        for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 13:10:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1718223031; x=1718827831; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=9PoxUuwHLnjiUtXnUWXv9Othgam+YGBIvUQVy/bZtMA=;
+        b=U4Er/UAgowJX93aPx6cYh9Mj4uq4vPP+IqGZoEl7AYC+BF4j9ve4YBbxlya5N89Dii
+         cjlfUTyA5DRMOyHnFrPkapC+QS+c+amclayyMPie0AbbsvM2D8dZMAZZ8YhZ4O5pse2s
+         ZjkBAc9v7DLHCcuHzCfkfwX9OAzmbMERhBpSU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718223031; x=1718827831;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9PoxUuwHLnjiUtXnUWXv9Othgam+YGBIvUQVy/bZtMA=;
+        b=JigJf9CfZaopGFfThF1J0+xDbosxZCAiO2gHWy9s4wxIkZxg0tZ4YbDwPg8jXFktA7
+         HQZ8wNe330oX+GVQMY5hY43oUvyUELkydesjVLwVt0WZ/ozzgXinlUWdI2fEjNRC/Kbj
+         kmRa68HzWT+gOcRFYaOr1Ckw6ZAwWAsMHhkx+aoWat4df+vYqTVy/lOG6zp13hcsVFkb
+         ifkBpeRSClgl/z2lJkaFQ7HwwnoaTK65jn1ncdmVBU37FtktNSPVx3OkbpA+QCjTlsRj
+         t8Sq5ps2XBfo5jXm5bZzlbRYKdgQwjel8mkBmsBAHng2/zBVRyn8Kqxs3l2S/vnSfr2b
+         pZ2g==
+X-Gm-Message-State: AOJu0Yx1uxOp3+rK7Dw3Ba+E1jCztK6TMPPBbXRIfP+I+TS6DL3dJ835
+	sUp/qxR0eYwolOZfx8HXM61vjKMTLmkyHgbY33pXNC03ce/SuTiJld/4XBMZDQ==
+X-Google-Smtp-Source: AGHT+IFzHGTvY5SAncu5i9tKveCbASLDQi9MWfXaSGm8gNBKfiUkmq3im42UmLTtcCDJXaxFCqPIvw==
+X-Received: by 2002:a17:902:e543:b0:1f3:2a25:9361 with SMTP id d9443c01a7336-1f83b74fbc2mr36642035ad.64.1718223031294;
+        Wed, 12 Jun 2024 13:10:31 -0700 (PDT)
+Received: from localhost ([2620:15c:9d:2:90ba:9f8:1a32:b765])
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-1f71ad56202sm57230105ad.276.2024.06.12.13.10.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Jun 2024 13:10:30 -0700 (PDT)
+Date: Wed, 12 Jun 2024 13:10:29 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Patrick Bellasi <patrick.bellasi@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH] sched_setattr.2: Document sched_util_{min,max}
+Message-ID: <ZmoAtQrMEaWKauA6@google.com>
+References: <20240524190829.2503648-1-briannorris@chromium.org>
+ <erkmfrnua26323vx26kmzv7ynrt2vpub3pmrotr4wmvlujpfyi@42xwmyjyjt22>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="evs6mkqyhujudyri"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com>
+In-Reply-To: <erkmfrnua26323vx26kmzv7ynrt2vpub3pmrotr4wmvlujpfyi@42xwmyjyjt22>
 
+Hi Alejandro,
 
---evs6mkqyhujudyri
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, 
-	Andrew Morton <akpm@linux-foundation.org>, Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, 
-	libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: termios constants should be unsigned
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
- <mdidkojqnhvf5b22vh3c4b6ajmq5miuyr3ole26kx2qkmnbfh3@woy2ghe5eyve>
- <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com>
+Thanks for the look! A few comments and questions.
 
-On Wed, Jun 12, 2024 at 01:47:03PM GMT, enh wrote:
-> hacked these changes into AOSP, and it did break one bit of existing
-> code that was already working around the sign differences --- this
-> warning was enabled but the code had a cast to make the _other_ side
-> of the comparison signed (rather than make this side of the comparison
-> unsigned).
+On Sun, May 26, 2024 at 12:36:58PM +0200, Alejandro Colomar wrote:
+> Hi Brian,
+> 
+> On Fri, May 24, 2024 at 12:08:28PM GMT, Brian Norris wrote:
+> > --- a/man/man2/sched_setattr.2
+> > +++ b/man/man2/sched_setattr.2
+> >      u64 sched_runtime;
+> >      u64 sched_deadline;
+> >      u64 sched_period;
+> > +
+> 
+> Please don't use blank lines in the source code.  They trigger a
+> warning.
 
-BTW, that seems to be a bogus way to workaround this; the cast should
-have been on the other side.  I'd say whoever maintains that code should
-probably fix that to use unsigned types.  These constants are meant to
-be 'tcflag_t', so a cast should be to that type, or the type of the
-other side of the comparison, but casting to 'int' just for silencing a
-waring seems nuts.
+Oops, I probably should have gotten further into the documentation to
+figure out how to run the linters. Indeed I see the warning now, and
+I'll make sure I don't add more lint in the next version.
 
-This makes me wonder if breaking _those_ users could be a good thing...
+> > +These flags indicate that the
+> > +.I
+> > +sched_util_min
+> > +or
+> > +.I
+> > +sched_util_max
+> > +fields, respectively, are present, representing the expected minimum and
+> > +maximum utilization of the thread.
+> 
+> Please use semantic newlines.
+> 
+> $ MANWIDTH=72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
 
---=20
-<https://www.alejandro-colomar.es/>
+I'll give that man page a better read for my next submission. Thanks for
+the callout.
 
---evs6mkqyhujudyri
-Content-Type: application/pgp-signature; name="signature.asc"
+>    Use semantic newlines
+>      In the source of a manual page, new sentences should be started on
+>      new lines, long sentences should be split  into  lines  at  clause
+>      breaks  (commas,  semicolons, colons, and so on), and long clauses
+>      should be split at phrase boundaries.  This convention,  sometimes
+>      known as "semantic newlines", makes it easier to see the effect of
+>      patches, which often operate at the level of individual sentences,
+>      clauses, or phrases.
 
------BEGIN PGP SIGNATURE-----
+I'll do my best to interpret what the best "phrase boundaries" are. I
+don't think the writing always has enough punctuation breaks to nicely
+break into 80-char pieces.
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZp8JQACgkQnowa+77/
-2zJP6xAAiLFOKN9/qUBkvHBgR5hjD9Mg3m1Mp2/UuQbxRvYUFodp0P3zTOVmCf9V
-0TySz8pVRCGxNaCg/XzXQzQok2q+OvdqGtpuN5DC+WLzQATNNU2P58Gpo9WgVnri
-ExtBYYU8SHhv8noslql630EGR12ZJicqIAJ3H3x3EXrvNX8ZIxvXeN3YeNX/up3m
-AnMGVbj7yYHzfZ5PQwrbaIM3blXNjbUEy+KxapWTUFOZyxjqr5j8cR1kLPuhgXAK
-VImvLkeV5qEpg0CgwCOhAcVn53s3Xpq/EwZv2c4sI8XEr8beVDkT9vNrgw7mTllJ
-BLQnytMsrs8VE5JRaNHY06AqUsvaxkNmJZQWLlqvZ82Lhcytmlthc2rVJGyt76e0
-pxvTOSA0TJzWLtIDGWPUD+N8amZCHaWxR8P2btq2K4eReZCb2F6g5VKsHEv98VBR
-O9sYWJAl/+BBEu6RUEIeSZN55ORAyvF4o8+b0d/B3XLSC8Un090gZgOWZaMQDfk2
-cozK3bxO7WZ3i0IZhxOUJqHh4gZP8G9nVrEMDaBXRtabks9JWuhiLPP5fflFpSnb
-EzL8kVa5h6jMl2Vl5WdCvFwmZuy+y5KzapPAX0tB+hDuk4I8/Y6efXGURy9hkZai
-AuLcezpaE9pSOyzYrLvIL2/lnrT16MTtdVjOSnc3UOKbhvX3CwQ=
-=MJAS
------END PGP SIGNATURE-----
+> > @@ -353,7 +398,6 @@ .SH ERRORS
+> >  .I attr.sched_flags
+> >  contains a flag other than
+> >  .BR SCHED_FLAG_RESET_ON_FORK ;
+> > -or
+> 
+> This change seems to be unrelated to this patch, right?
 
---evs6mkqyhujudyri--
+I suppose it's unrelated. At first I was going to add new EINVAL
+descriptions to this paragraph, and I found that it had an odd
+(incorrect?) use of too many "or". But then I simply broke out an
+additional EINVAL section, which makes this change less related.
+
+Side note: on second thought, it probably makes sense to split this
+paragraph into multiple anyway, since the pattern
+
+  "condition A; or condition B; or condition C [...]"
+
+gets a bit hard to read with sufficient number of different conditions.
+
+If it's preferred (and based on your comment, it probably is?), I'll
+make corrections in separate patches.
+
+> >  .I attr.sched_priority
+> >  is invalid; or
+> >  .I attr.sched_policy
+
+Regards,
+Brian
 
