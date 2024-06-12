@@ -1,137 +1,278 @@
-Return-Path: <linux-man+bounces-1165-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1166-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2808905E0D
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 23:55:10 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50301905E50
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 00:16:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 99D881F22F91
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 21:55:10 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id B46D3B23DE8
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 22:16:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F61C127E18;
-	Wed, 12 Jun 2024 21:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 189734F60D;
+	Wed, 12 Jun 2024 22:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Szo8MSB4"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OeRUdQFC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C9731A67
-	for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 21:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ABD1DFF0
+	for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 22:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718229297; cv=none; b=ljE2DBJy8fOki5wg9ffbNMvDm4yVfuKHS3W4WamSxrDKWxwjMF4oGIEobdAtsIg3ylNskpv4+OIMgcaVrjpDPBsPtkWBngpuPWGARWkOBbak6i2zAUMZ84li0ehejV7dF7RbQ+DFeHbytAromCcdNaSHIKciZRcqyH2+J2ttOgE=
+	t=1718230558; cv=none; b=jp5qqqEV1YY5fld4EfZ4Ol2pC7ePMs9P3Cu6E0ian5iRzbxfe/iuyI4XgIB5QQtLcdpt4pWLL3zzlr/Pnr4ylhTy8soHAQBdQtloPCV/isPWAl/lnrWr6oM+Qn6Rr1SLl0put+pfbtAlyD3atDsaTEya/SH+zX5kXI0WcW+tx5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718229297; c=relaxed/simple;
-	bh=j+5KelaD/4KELpEe6q0DQCGWyXRXbSSnxQxKsvvWrR4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZN9RzVxoL0+hEBCkcu/4XbqqJ7rbMphCHjRAQH5FkOmgyWAKDyJYblsIzVFcQS4ShbLoi5jTOgHZu6gI57ciMm2rnixoWHacXOU9c9vCJra0w+nGj6fzVymVwDVKZJLaBBRTfpvKCpMZ/oe7zXKynXmxPnzTLvL7TvkdZgrzFcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Szo8MSB4; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-6b0652ece5dso1444036d6.2
-        for <linux-man@vger.kernel.org>; Wed, 12 Jun 2024 14:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1718229295; x=1718834095; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0niQXskQ/wT+JZAsg2ie0yp0nVNXepGBuevZDm3X/6I=;
-        b=Szo8MSB4hUUzVEu9I8Dc4FOWuHDxBdIEvFC+FhkZkEC3CiT8XqByurI+pNxtPJl4hS
-         J489K495MuC4DW9aQDS8cU0kEr0pO0YT41ZY/W6hCAJJ2SD/4mkGpmEu1ZFbgvqM/PRq
-         q9lQyzQfsEm2QdnOuRFuAeSsORH8Li3k2Yk48nsjSbhVdXZotbaHkDHYpx0hrmZbAJGb
-         x4W1qELr7Q3yW6rGbv6ye9tm+K+bH/PgNV3oVe6u+QM3QjUKU56anOfhdalil9ZTEjD/
-         32VSXNV5k1d4wC0XtLwtzFsRtYbO624esdXnmcWShNnCQk1Je6IaBizsujGuVyUeA0zE
-         9Vww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718229295; x=1718834095;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0niQXskQ/wT+JZAsg2ie0yp0nVNXepGBuevZDm3X/6I=;
-        b=W2gW1dhppKEzRx5oZh6ZX5Cm5GA3RMdTvxaEYSOKdFVRq35qy7FTcVI3Ms+B5vo6Rs
-         Wfq4zju25gmMF6UnABUJHP43PHhRIBFrpMB8JKUwcCIqdcHGnSZKtwXrFUL+d7e8kysv
-         wbqPhXC1dahYnGdWBGK2ynKmQE5JU6e2Fl2+UcDZybKKujTmDHPzph9ZrTg5lu72VgL7
-         hqtXPHqVoENIwM/d7ZiUAnlMFAlu/lCk5tj34jfP6VRRPRL2fdlWG/H+r6Xmq2o2Ng5o
-         qmuLFgS281V8/zA4Fce4sX7zP3DSqYJzt8yJb8Liz71LhGVgaHuB0gqJm9S6fvkp91PK
-         4L0A==
-X-Forwarded-Encrypted: i=1; AJvYcCWIm0y/2aqVVpBSyere5pOTf+86ZNr0/7/l+5oGegoPbPSrKVVTv0RWpJLJPYxDR/71a80Lps54RBKRVxJCU3D9uT1gEkgo3v7j
-X-Gm-Message-State: AOJu0YycrUmAFC5fOZQHHpSh7e5jO865WOro7JsXT/CYnMcBdNcyQVx0
-	8Hsgt7REzB3JkRj95b2X1Kb85iJ5NGG3I5C1FEI14sr72v49V4phL0OMh0UyY+d3rqIl9eNbfkQ
-	B8+ymyZO3HxF1dmhy1ijNiBji8WcutlB6wtQQ
-X-Google-Smtp-Source: AGHT+IHG2n4kSZQnL7JamAKSLlJC5ZGJuNHEiaj/X9WnydQDgcR0qoCO3uoxx8DVbFaUJpsGgKTe9s6ylUcRYkBQY0A=
-X-Received: by 2002:a05:6214:3202:b0:6b0:65dd:a241 with SMTP id
- 6a1803df08f44-6b19196d8camr37904236d6.18.1718229295140; Wed, 12 Jun 2024
- 14:54:55 -0700 (PDT)
+	s=arc-20240116; t=1718230558; c=relaxed/simple;
+	bh=RflRAhiIzAFxnDZtEscs0ZY75XZso4oa7Qn9UjJ14WY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hq0NyGMe1V3f5K2sXXkwq128PGTuhHBS5hJpSkF+ahZLF/7Wx6v9zK9maxx33krBG1Slwo7Y+EVTuwxLc6TnBBeRumZd2GSoZyPOCPY7aGIS387WDUJ+W/zuKFkkYwtPNdVfpGekFTbHoUzBzYrXG+5ghYgvckgzqzptnPtaYYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OeRUdQFC; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C78C116B1;
+	Wed, 12 Jun 2024 22:15:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718230558;
+	bh=RflRAhiIzAFxnDZtEscs0ZY75XZso4oa7Qn9UjJ14WY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OeRUdQFChV8MNFAlE92oASzlDAhOxoq8ovwSPSNcTHPOELIvrf85/BF7eJkCuzd9E
+	 9D96FyIvoGvkdWgZKTDPhOSYwBUNqle7tllunJTkjREIMqbcmVMD4iYd1x5yOPdH/g
+	 iDsv0bMdofFAPoK6EuU6L1OJlovAMxyHDva1XDC96LtUDIMxgz+6MzxroHOSbiTeyZ
+	 UkWDfR3NPbXNECdl6HTiB1/vU8Xbnb1sHkK2FrYvZknz/B0T2fcIM6DvtBkTNuENjG
+	 63sRUHCZCZ4IW2bQyNOtjTiHtCpK+sofQNqX5C5tNznP69H7hD19ND0UK6M19ddCaV
+	 ScuGJwKG5w/Yw==
+Date: Thu, 13 Jun 2024 00:15:55 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] sched_setattr.2: Document sched_util_{min,max}
+Message-ID: <v4beebxguvvbhjgroqb7erykafxuez3svqf5pavvi6bmfjvuup@xsaim44xgdx6>
+References: <20240612204504.2651521-1-briannorris@chromium.org>
+ <20240612204504.2651521-2-briannorris@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu> <mdidkojqnhvf5b22vh3c4b6ajmq5miuyr3ole26kx2qkmnbfh3@woy2ghe5eyve>
- <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com> <5rfohnr4rs3tkfs7y3f7rth36c67pvcwv4q52onrjohdjtpo7m@stvcsncq7z4f>
-In-Reply-To: <5rfohnr4rs3tkfs7y3f7rth36c67pvcwv4q52onrjohdjtpo7m@stvcsncq7z4f>
-From: enh <enh@google.com>
-Date: Wed, 12 Jun 2024 17:54:43 -0400
-Message-ID: <CAJgzZorzcAP5wNa-UCMyarmjgwVBveg0c0Dj36ByVEacnOHrnw@mail.gmail.com>
-Subject: Re: termios constants should be unsigned
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, Andrew Morton <akpm@linux-foundation.org>, 
-	Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, libc-alpha@sourceware.org, 
-	linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yol3vlpvodhckaon"
+Content-Disposition: inline
+In-Reply-To: <20240612204504.2651521-2-briannorris@chromium.org>
+
+
+--yol3vlpvodhckaon
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] sched_setattr.2: Document sched_util_{min,max}
+References: <20240612204504.2651521-1-briannorris@chromium.org>
+ <20240612204504.2651521-2-briannorris@chromium.org>
+MIME-Version: 1.0
+In-Reply-To: <20240612204504.2651521-2-briannorris@chromium.org>
 
-On Wed, Jun 12, 2024 at 3:01=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
-wrote:
->
-> On Wed, Jun 12, 2024 at 01:47:03PM GMT, enh wrote:
-> > hacked these changes into AOSP, and it did break one bit of existing
-> > code that was already working around the sign differences --- this
-> > warning was enabled but the code had a cast to make the _other_ side
-> > of the comparison signed (rather than make this side of the comparison
-> > unsigned).
->
-> BTW, that seems to be a bogus way to workaround this; the cast should
-> have been on the other side.  I'd say whoever maintains that code should
-> probably fix that to use unsigned types.
+Hi Brian,
 
-indeed. i've already sent out such a change :-)
+On Wed, Jun 12, 2024 at 01:44:53PM GMT, Brian Norris wrote:
+> Utilization attributes were added in Linux v5.3 via commit a509a7cd7974
+> ("sched/uclamp: Extend sched_setattr() to support utilization
+> clamping"). Borrow some documentation from there, with a bit of
+> editorial trimming and augmentation.
+>=20
+> The "reset" (-1 / UINT32_MAX) behavior was added in Linux 5.11 via
+> commit 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp
+> constraint value").
+>=20
+> Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+> Cc: Patrick Bellasi <patrick.bellasi@arm.com>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+> v2:
+>  * address various style, linter review comments
+>=20
+>  man/man2/sched_setattr.2 | 67 +++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 66 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
+> index 0c866a786748..c3b2cc5be6f1 100644
+> --- a/man/man2/sched_setattr.2
+> +++ b/man/man2/sched_setattr.2
+> @@ -94,10 +94,14 @@ .SS sched_setattr()
+>                                SCHED_BATCH) */
+>      u32 sched_priority;    /* Static priority (SCHED_FIFO,
+>                                SCHED_RR) */
+> -    /* Remaining fields are for SCHED_DEADLINE */
+> +    /* For SCHED_DEADLINE */
+>      u64 sched_runtime;
+>      u64 sched_deadline;
+>      u64 sched_period;
+> +\&
+> +    /* Utilization hints */
+> +    u32 sched_util_min;
+> +    u32 sched_util_max;
+>  };
+>  .EE
+>  .in
+> @@ -186,6 +190,23 @@ .SS sched_setattr()
+>  On the other hand, if the process-directed signal is delivered to
+>  a thread inside the process other than the one that had a run-time overr=
+un,
+>  the application has no way of knowing which thread overran.
+> +.TP
+> +.B SCHED_FLAG_UTIL_CLAMP_MIN
+> +.TQ
+> +.BR SCHED_FLAG_UTIL_CLAMP_MAX " (both since Linux 5.3)"
+> +These flags indicate that the
+> +.I
+> +sched_util_min
+> +or
+> +.I
+> +sched_util_max
+> +fields, respectively, are present,
+> +representing the expected minimum and maximum utilization of the thread.
+> +.IP
+> +The utilization attributes provide the scheduler with boundaries
+> +within which it should schedule the thread,
+> +potentially informing its decisions
+> +regarding task placement and frequency selection.
+>  .RE
+>  .TP
+>  .I sched_nice
+> @@ -228,6 +249,33 @@ .SS sched_setattr()
+>  .I sched_period
+>  This field specifies the "Period" parameter for deadline scheduling.
+>  The value is expressed in nanoseconds.
+> +.TP
+> +.IR sched_util_min ", " sched_util_max " (since Linux 5.3)"
 
->  These constants are meant to
-> be 'tcflag_t', so a cast should be to that type, or the type of the
-> other side of the comparison, but casting to 'int' just for silencing a
-> waring seems nuts.
+This should use .TP and .TQ as above.
 
-i suspect the reasoning was one of readability --- keeping the [short]
-constants legible at the cost of making the expression slightly
-longer.
+> +These fields specify the expected minimum and maximum utilization, respe=
+ctively.
+> +They are ignored unless their corresponding
+> +.I SCHED_FLAG_UTIL_CLAMP_MIN
+> +or
+> +.I SCHED_FLAG_UTIL_CLAMP_MAX
+> +are set in
 
-> This makes me wonder if breaking _those_ users could be a good thing...
+With 'or', here corresponds 'is', not 'are'.  For 'are' we'd need 'and',
+to get a plural.
 
-like Paul Eggert said somewhere else today --- only if we're finding
-real bugs. and so far we're not.
+> +.IR sched_flags .
+> +.IP
+> +Utilization is a value in the range [0, 1024], representing the percenta=
+ge of
 
-it's like the warn_unused_result argument. a purist would argue that
-every function should have that annotation, because you should always
-check for errors, and if you're not already doing so, your code is
-already broken. whereas a pragmatist would argue that most people are
-just going to add the "shut up, compiler" cast (or disable the warning
-entirely) if their already-working code suddenly starts spamming
-warnings next time they build it.
+Break after ','.
 
-while my bar for that might not be as high as my bar for ABI breakage,
-my source compatibility bar is still pretty high. it would be almost
-unethical of me to make app developers do random busywork. i have to
-be pretty confident (as with, say, "you just passed an fd > 1024 to an
-fd_set function/macro and thus corrupted memory") that their code is
-_definitely_ wrong. (and even there, that's going to have to be a
-runtime check!)
+> +CPU time used by a task when running at the maximum frequency on the hig=
+hest
+> +capacity CPU of the system.
+> +This is a fixed point representation, where 1024 corresponds to 100%, an=
+d 0
 
-> --
-> <https://www.alejandro-colomar.es/>
+Break after ','.
+
+> +corresponds to 0%.
+> +For example, a 20% utilization task is a task running for 2ms every 10ms=
+ at
+
+Break after ',', and after 'is'.
+
+> +maximum frequency and is represented by a utilization value of
+> +0.2 * 1024 =3D 205.
+
+This should go in italics.
+
+$ MANWIDTH=3D72 man man-pages | sed -n '/Expressions/,/^$/p'
+     Expressions, if not written on a separate indented line, should be
+     specified in italics.  Again, the use of nonbreaking spaces may be
+     appropriate if the expression is inlined with normal text.
+
+
+> +.IP
+> +A task with a minimum utilization value larger than 0 is more likely sch=
+eduled
+> +on a CPU with a capacity big enough to fit the specified value.
+> +A task with a maximum utilization value smaller than 1024 is more likely
+> +scheduled on a CPU with no more capacity than the specified value.
+
+Please break both sentences at consistent points, since they have
+symmetric wording.
+
+> +.IP
+> +A task utilization boundary can be reset by setting its field to
+> +.B UINT32_MAX
+> +(new in Linux 5.11).
+
+s/new in/since/
+
+>  .P
+>  The
+>  .I flags
+> @@ -368,6 +416,23 @@ .SH ERRORS
+>  .I attr
+>  are invalid.
+>  .TP
+> +.B EINVAL
+> +.I attr.sched_flags
+> +contains
+> +.B SCHED_FLAG_UTIL_CLAMP_MIN
+> +or
+> +.BR SCHED_FLAG_UTIL_CLAMP_MAX ,
+> +and
+> +.I attr.sched_util_min
+> +or
+> +.I attr.sched_util_max
+> +are out of bounds.
+> +.TP
+> +.B EOPNOTSUPP
+> +SCHED_FLAG_UTIL_CLAMP was provided, but the kernel was not built with
+
+Missing bold.
+
+Have a lovely day!
+Alex
+
+> +.B CONFIG_UCLAMP_TASK
+> +support.
+> +.TP
+>  .B EPERM
+>  The caller does not have appropriate privileges.
+>  .TP
+> --=20
+> 2.45.2.505.gda0bf45e8d-goog
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--yol3vlpvodhckaon
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZqHhoACgkQnowa+77/
+2zLoWQ/+IfNSU9g1ku04Vti+DkKBH3WaTB6CBpSelEa072aydJqxgkdJiIyDutvx
+wqsH+GmS2NLFFNZy75LyFpvKLQSTVjwzuoFABCDIUusWGCEKbGYclRrG0jznoacv
+qkAb/TtHmjBjAF055u+31sRkWg+s1d96gb+U4UZ37DQf1Js/Q4/aKgSabr5a2mmP
+efoGkhDcCcVVJmzwP+M30GXNwHg+LQLhrqSHOBepa8ni9IaPqHzc9YnxQVC4P7OO
+pSydMGe/+6KwuOVMDu/Jq6rVcQxGKWT+CCX/6ne/54hCkBBATWwhLXB1Xo9TH6nz
+hQnawx6fStK9AQHYYCh3+bpFkhOepqHi5iK5vgZYAiZt+mTThQas3059l8Y22zpZ
+AtlMStiASewwvLovswpU6QU5N2tIT+mcLDEoTkZ/8fpKaB7GkolC5mJ2SfjE8Q0D
+rk56nslNNSNxcrmYaECEdhSJp5OfOyZnIq6BnZhiBTsAYHKRgKQ7P3qQJp+yVcz6
+rPXZ5keMtQLf/Mqlx5xgBrGcoszaXD+WuZh3Q6cRsh3dJRhGAUppUDSpyXD9+6+p
+ocm3bhXvW9OHN/WZziOboeuVtRdLgisCMcznBp3BoXcwOegjb3z0EA2Z0GS+TtGi
+DsWwZ64p7dUYfsebvrqmLJ6OFtp3osyRsbt6pKppQPhpHRuy5KY=
+=WtK1
+-----END PGP SIGNATURE-----
+
+--yol3vlpvodhckaon--
 
