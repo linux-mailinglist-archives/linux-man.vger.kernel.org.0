@@ -1,117 +1,114 @@
-Return-Path: <linux-man+bounces-1171-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1172-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A4B9070F9
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 14:32:57 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id BEDA8907D75
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 22:29:54 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 552C51F21795
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 12:32:57 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 746051F237A1
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 20:29:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0EE41428F5;
-	Thu, 13 Jun 2024 12:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B60E1386DD;
+	Thu, 13 Jun 2024 20:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=owlfolio.org header.i=@owlfolio.org header.b="uOKTDpVs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fpuC6+rc"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="L/gMxcJf"
 X-Original-To: linux-man@vger.kernel.org
-Received: from wfout3-smtp.messagingengine.com (wfout3-smtp.messagingengine.com [64.147.123.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E2B384;
-	Thu, 13 Jun 2024 12:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.147.123.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5560137921
+	for <linux-man@vger.kernel.org>; Thu, 13 Jun 2024 20:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718281947; cv=none; b=aBr/znKIf67X9ZfLScEYLU1z/uZxtk6xA2865HMpOZLFNuMpalMp0sjmS8E7lv53YSk0fZVLgjYZQt1etKakVJsnKI8FuXIBCtzzNr9fAC9TzWqQERmX601vxcPMjSB31IfM8sB6/cJUAnWSEUC8G7WVMtv5yx0QFagfKEAlmZI=
+	t=1718310588; cv=none; b=esY9PcmJUQ47ryEjAzOZwSOTNiGCnqGPeXdbVJ8rKvHzB/zOrldEExf9AXyjtUDB0M0OpGsHyd2u2BN30pgmpJB+wyKC/2CsBXVZ/KES61DgOTMnjB6/Lmh7t3bfY8KwecnzsBGC/H8/oZ/4lTOMgfD1hDLoxNCMGSY7MzhxTz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718281947; c=relaxed/simple;
-	bh=g1W5nsxXD3g2wzkJjdXONv96BUw83J0qUTyM1mdcxJw=;
-	h=MIME-Version:Message-Id:In-Reply-To:References:Date:From:To:
-	 Subject:Content-Type; b=Nbv0FtYhO+VaNc5ThtYLYxPmzFopeCibrzUtMIuzwadkco1ejRvLDIXTYIvXi+hk4uvrkiTlISnQL12LEakLMwj47a0Q2NygdxT81MmB4xkYiV+ElnZSlDIG4IpxtcJB6rkazeMoxQimC07bJzQulz97NBaEOyrkc6ncyd2t+Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=owlfolio.org; spf=pass smtp.mailfrom=owlfolio.org; dkim=pass (2048-bit key) header.d=owlfolio.org header.i=@owlfolio.org header.b=uOKTDpVs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fpuC6+rc; arc=none smtp.client-ip=64.147.123.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=owlfolio.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=owlfolio.org
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailfout.west.internal (Postfix) with ESMTP id 3EF4D1C000E9;
-	Thu, 13 Jun 2024 08:32:23 -0400 (EDT)
-Received: from imap45 ([10.202.2.95])
-  by compute5.internal (MEProxy); Thu, 13 Jun 2024 08:32:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=owlfolio.org; h=
-	cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1718281942; x=1718368342; bh=g1W5nsxXD3
-	g2wzkJjdXONv96BUw83J0qUTyM1mdcxJw=; b=uOKTDpVslHU1Kew2elddU0GmN/
-	3DmWmzc0IDQiiNly6XCB0ScR2j7OXWzvs/7NkDC9X64h3I1nJsmRzqSoWdpA+8uv
-	4gu0gGCMNB2BXUk/cTPdYZqPrq7FsEXO2JLDqatAwQuFlzBUUa60OkLhjYUfis73
-	3X72VL5eUheUcyxX/F99W8AJnK/2GMGAq2o8rEbPD+DIGhvoDFh5+CnfXeWRkmsx
-	E8/IJ5EHcIf5Pzuurg9WAKoj/esqpG3hvpyB4001lFVYYGeJVJVEL+N+mPZIlYR9
-	hNAXXI1Kj6ecmXhBcAJY/MS57tbM2++bymaYVfHf5OEjVbsuaVQx0kwTLqmQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1718281942; x=1718368342; bh=g1W5nsxXD3g2wzkJjdXONv96BUw8
-	3J0qUTyM1mdcxJw=; b=fpuC6+rcxLVKLPIMC9QH5M6nWX6jbBxVKcTCMCZ27X9J
-	Q9REx4fpmb2kqQW6xlnJ/dn/g/kGp6IgqeX0AclBoO6WsPMfaXChIZvFd7MGTS/o
-	2bCmKZoiLKhYPZ8uSS5H2cR0eqX1i+1yoRZXZj+j53nZFaWSzBGjoXvetoeVQtyv
-	W0rpGcFDhwxFOatA1R92IxyGq43wAWLlTIXoIEK22XY+3AQozk/j9r7lkkqvW12d
-	4JlUnFOFPbhTz3FEagRxS2qos4iZQANbQQ60RAH48KcAVE6L9UBoRk5NO8Is2Y1n
-	IBtzjFLyMlNq80++PfWaYTFM60w9mUixiBL+1Ua2kg==
-X-ME-Sender: <xms:1uZqZtSuKwX0sls1a2OQ5akch0P7HdN3Y9a7uQX0MD8iO5twgZWhFg>
-    <xme:1uZqZmwEEr463537jDHFTYDtfTEWuwfMeFQA6UrAfogPA8W1Y6zbNXQvm35ufP1t1
-    eUnKcaHmMny9cdvc-8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedujedgheduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdgkrggt
-    khcuhggvihhnsggvrhhgfdcuoeiirggtkhesohiflhhfohhlihhordhorhhgqeenucggtf
-    frrghtthgvrhhnpefhuefhveeuffetfffgjeetgfekkeehfedtfeelgfehffffveehkeel
-    fefgheffudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
-    hmpeiirggtkhesohiflhhfohhlihhordhorhhg
-X-ME-Proxy: <xmx:1uZqZi1CldBIXzFvXhtwMHHqzvjQOIR22EAhAjuJGOlhM08FBk_Plw>
-    <xmx:1uZqZlAHYTW0wn26BJSmJfF2sffsbQGX-FD_I2y9lKiV17wymebKlw>
-    <xmx:1uZqZmjB5UAqKuxf1YjQ3PFotd1_-7V5pILuMaUsl64x4rG3AQKcaA>
-    <xmx:1uZqZpplXQrF0XxB95i2IqSEE3cj4K0-p-PkGWGXDoMNTaezmSWrGg>
-    <xmx:1uZqZhVx8gqbInQ6Zv5F0HzcBf4U1K24Kt1jFe8WKW1y_KpKCAa5fvsg>
-Feedback-ID: i876146a2:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id 3CF58272007C; Thu, 13 Jun 2024 08:32:22 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.11.0-alpha0-515-g87b2bad5a-fm-20240604.001-g87b2bad5
+	s=arc-20240116; t=1718310588; c=relaxed/simple;
+	bh=nxsLdP0gADG4MMxo2JDSoOrtgMIH2azIAe8D/g0fb80=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XM0RjEq9fRe9V0WC26IlWvWMsKbWNBn9434/OBSPjiqytbhxNO7PQ5ht6zJhNsZA50/HlIxqQ0dSoB9m7oQMZLGJqqa+GKS3THGGG5sGmpbqwtOWlJILLhu43ByJc9C86ZaOKuSG2Ajob23zjtbxP8SP0V3sDPfc4DpLMhCrk+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=L/gMxcJf; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-1f6f031549bso14084845ad.3
+        for <linux-man@vger.kernel.org>; Thu, 13 Jun 2024 13:29:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1718310586; x=1718915386; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3Mvyr8ChkURfSiiblDrkGmncFPR663YqpK/azida3xc=;
+        b=L/gMxcJf/VvvR1sT3D7YiTFZDBtWxW+gklFI4vm6jAdGOzt80zOcCw8BHGPDenHYGN
+         0wiPPf+lqSsPJXKGWnrm8HeqVsi5jw90AATBzuYCiDDohyxPaD1g3GAAGh49R8wcDWWa
+         C5phrXSXIbUEQH8LdhSoO4TIb+bic1CU9TQqc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718310586; x=1718915386;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3Mvyr8ChkURfSiiblDrkGmncFPR663YqpK/azida3xc=;
+        b=w0LzgjVdJxYrFdDXrbsbCyU7CT8PWRFbKuaqdUWUZmsn8HoPieTkF2b95XZO2ytAoN
+         PJOTuhSMqj0bzkgpSSQlUCcnr+0v03nh2BugvJw/YX5EWyzm49iEbkILoPWjd2ZrLJRk
+         QbK7VDBFethV8hzfDrVY+hqQroAG1oB5hYIDaT8W0T+xmYBySbS00+i/yS1zcKmebvlO
+         TtGJfKTTuLTvAveww57NNdr9a61zaR2balFkv7cEwjFy/e5Z9CG8pAwM4tE3DDepbCjX
+         FqBw0lP5u2ZRRC6wtzelq3v3aZEcmuG4/pUd7jZfkn4Nwk5tW6GAIMXW13McY7aQPB43
+         8j6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWmUW0/NB71Wu3e5VPurKwnIiDjq7AEmfvjmvbmkKfhNWsM9X+EaNiqrpAeVa30tLO1NVOhgeCqVJcpH4FJG2oxH7nKWkp+3WTE
+X-Gm-Message-State: AOJu0YxcE+OIz30V3NLaLbdfnBrsE4PzAPCO2Q/6SceumEUtKpK02egB
+	c6e1JbN2dz7YFMumkpp7aiTVThcuxJ5AIa2XHoEKWeigoZx2ze38QCO5ddagla3M65mkKu51bIE
+	=
+X-Google-Smtp-Source: AGHT+IFveqfHgVCVCLlyesAjbxxFSiB37sHJzigIcdIUzF8eaOWNjNinvHHGVnU6aO19Zr1F3yLa+Q==
+X-Received: by 2002:a17:902:c94b:b0:1f6:e8ee:54a6 with SMTP id d9443c01a7336-1f862a0679cmr8249335ad.59.1718310586052;
+        Thu, 13 Jun 2024 13:29:46 -0700 (PDT)
+Received: from localhost ([2620:15c:9d:2:947f:f59:5791:7be1])
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-1f855f046dfsm18246725ad.195.2024.06.13.13.29.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Jun 2024 13:29:45 -0700 (PDT)
+Date: Thu, 13 Jun 2024 13:29:44 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Patrick Bellasi <patrick.bellasi@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] sched_setattr.2: Document sched_util_{min,max}
+Message-ID: <ZmtWuBD51thBxnBK@google.com>
+References: <20240612204504.2651521-1-briannorris@chromium.org>
+ <20240612204504.2651521-2-briannorris@chromium.org>
+ <v4beebxguvvbhjgroqb7erykafxuez3svqf5pavvi6bmfjvuup@xsaim44xgdx6>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <f6ee2bd3-c1b7-4769-a313-b62f42c450ca@app.fastmail.com>
-In-Reply-To: <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
-Date: Thu, 13 Jun 2024 08:32:01 -0400
-From: "Zack Weinberg" <zack@owlfolio.org>
-To: "Paul Eggert" <eggert@cs.ucla.edu>, "Alejandro Colomar" <alx@kernel.org>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Palmer Dabbelt" <palmer@rivosinc.com>, linux-api@vger.kernel.org,
- "GNU libc development" <libc-alpha@sourceware.org>,
- 'linux-man' <linux-man@vger.kernel.org>
-Subject: Re: termios constants should be unsigned
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <v4beebxguvvbhjgroqb7erykafxuez3svqf5pavvi6bmfjvuup@xsaim44xgdx6>
 
-On Wed, Jun 12, 2024, at 10:55 AM, Paul Eggert wrote:
-> A lot of this stuff is pedanticism that dates back to the bad old days
-> when the C standard allowed ones' complement and signed magnitude
-> representations of signed integers. Although it can be amusing to
-> worry about that possibility (I know I've done it) it's never been a
-> practical worry, and even the motivation of pedanticism is going away
-> now that C23 requires two's complement.
+On Thu, Jun 13, 2024 at 12:15:55AM +0200, Alejandro Colomar wrote:
+> On Wed, Jun 12, 2024 at 01:44:53PM GMT, Brian Norris wrote:
+> > +maximum frequency and is represented by a utilization value of
+> > +0.2 * 1024 = 205.
+> 
+> This should go in italics.
+> 
+> $ MANWIDTH=72 man man-pages | sed -n '/Expressions/,/^$/p'
+>      Expressions, if not written on a separate indented line, should be
+>      specified in italics.  Again, the use of nonbreaking spaces may be
+>      appropriate if the expression is inlined with normal text.
 
-Unless C23 eliminated *all* the cases where an operation on unsigned
-integers is well-defined but the same operation on signed integers is
-undefined, and last I checked it had not, there is still a need for
-caution around conversions that change signedness.
+Regarding the nonbreaking spaces part: I'm not too practiced with groff,
+but the wording around the \[ti] character is confusing. AFAICT, I
+actually need to spell my expression like the following?
 
-zw
+0.2\~*\~1024\~=\~205
+
+At least, with trial and error, that's what appears to render correctly,
+whereas \[ti] renders as a literal tilde. Is man-pages.7 [1] incorrect?
+
+Brian
+
+[1] from `man man-pages`:
+      "In this case, it may be worth using nonbreaking spaces (\[ti]) at
+      suitable places in the command."
 
