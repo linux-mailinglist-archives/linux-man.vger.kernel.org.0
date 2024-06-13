@@ -1,60 +1,54 @@
-Return-Path: <linux-man+bounces-1167-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1168-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56D8C905E5C
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 00:22:52 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id D560D905F7F
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 02:03:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 0B5481F21E68
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jun 2024 22:22:52 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7225228326A
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 00:03:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9EC231272A3;
-	Wed, 12 Jun 2024 22:22:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A06E38F;
+	Thu, 13 Jun 2024 00:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oy3kd3ru"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AgH9+vXh"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1C71DFF0;
-	Wed, 12 Jun 2024 22:22:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28417389
+	for <linux-man@vger.kernel.org>; Thu, 13 Jun 2024 00:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718230965; cv=none; b=fH355OV3FY/lRvRWNIaM2jKdh6tRacx5tL3mffhSMG4xK4YVFOdpfDn2muT+Ccnz1M2gNMyFkVvGOO+6d08fhr4aKX7cRMLANcpTA+4Vvwfmjlw9Sle+UOV73IQpVL0Qq+NyDUPI1XnQuOOTzqgAlCymz2EBwS1OxHuGKwzRSLw=
+	t=1718236979; cv=none; b=Iyzv7kTXtxWRxReo0YE3cqF0nA5Fj8sTIEQjcogtZEIzDJFi1BG4r6niYzEQBCEV4TyYsDGpWdHFhTecUkNe86BdjaOEjF0uXHuE71lzLdp3uAt2UJznKbFHf84Kxpf+NSN/nnAAqU5Ry5JwY3D4cSCI2LDhNuwreYnBEd+FwX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718230965; c=relaxed/simple;
-	bh=wora6/GK3AC9I3pp/xG4QqMLwFqaBLUohknys16mO9Y=;
+	s=arc-20240116; t=1718236979; c=relaxed/simple;
+	bh=xrUDwkRFDL46LzvJbRjue2ndbiFv6We8lgg3HaKUXVI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MYiKfQm6jqyKnJKrT0u3LmKr6w8h9+RNb/1iOICmkpPCKijnDeY3xQvn5BSfAK2MYojllD572pRAkzpwRkftDa+FUVt+JAzMVhPak1xIpExU1gUgmOxAolOd7he6IDt/EAG9a/PNDPw4wV+YXTL9WaGFlkSK2+kw0BCj5Hz0xes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oy3kd3ru; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F80FC116B1;
-	Wed, 12 Jun 2024 22:22:43 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=rb9GnKNxkiSTWa+1h0i+xOJMP+p3Pb3BS9nukO208VbIoKYMWmx8o1ZUUvTa8PnzqAMi7FDvcdap/wEA+LhnLiMbvnidRY/PZc8y+LD5cf2YmvmX5l1+7BaxUpx+SWXMT7s2aq2zvr+3ubnOOMt7YUny0L6cN2p9Kq9rRHRH1OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AgH9+vXh; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CAAC116B1;
+	Thu, 13 Jun 2024 00:02:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718230964;
-	bh=wora6/GK3AC9I3pp/xG4QqMLwFqaBLUohknys16mO9Y=;
+	s=k20201202; t=1718236978;
+	bh=xrUDwkRFDL46LzvJbRjue2ndbiFv6We8lgg3HaKUXVI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Oy3kd3ruXyPZpI4hd5nCd7+5EEOcj0J5TxmCsBNMpGAPpCobIKj1BWo6UytR8gj2G
-	 ujNtR8O9STuTHFZgXg5VcoIrTpsqMIUrym486VvnkymvjnPimgDEE0FirGbTVpmAb3
-	 MY0O22vDR7dp600sy9PPw1bQMWQjFlQUaZQcBmbb+lJDig4EgeLAHTrhkPuQNRlpRi
-	 U6j00lHFc7XW6hrnuQMr8fzjcR/0y7I2g3Ynr5OpiDR21hCtJIMXMx1ZDgN74C2ZMF
-	 3ZU23N6NULQd7zR96NtvbX/svO7AxWjNxbs9uYmr+RpG+n2RKOoPuavRuctBVnTsvo
-	 ncyNY2n3B42KA==
-Date: Thu, 13 Jun 2024 00:22:41 +0200
+	b=AgH9+vXhhTFB/I7mWoULlHXow2jCRv+gvLRkC0K/6pFtaXAcTf6qBTlqjjpI3LYOj
+	 QCLPtBaV69MCJmIjAAYimjgzlowsKYkBbBtQD2+I5RVlvYt2/DKihSPLX0fKRRDRPe
+	 ua4pp0QMvZKrmuEohix1NRrH5dXajOWI2QtyK031YLtgO9MY3tQ1as30ynR1xxv2eM
+	 Mg/UNneRVye+DSlYP9swB2Nb9kqbM7/8lQqdxkJYhVvUq0DXBNdaIlvw7V5wf34pxf
+	 osoXu5IlUp7ac5yHGwjUnMuKP0MROc1X1v5OBIffax8PURuYZv8tVqaHHmwno3fJ0t
+	 4aJL9aWNJ7UPw==
+Date: Thu, 13 Jun 2024 02:02:55 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, 
-	Andrew Morton <akpm@linux-foundation.org>, Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, 
-	libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: termios constants should be unsigned
-Message-ID: <bb5dmeeekrlmrah4f3tvuw7qopsmbzq66vvh5k4vr4pamztuv7@dojfexrz545o>
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
- <mdidkojqnhvf5b22vh3c4b6ajmq5miuyr3ole26kx2qkmnbfh3@woy2ghe5eyve>
- <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com>
- <5rfohnr4rs3tkfs7y3f7rth36c67pvcwv4q52onrjohdjtpo7m@stvcsncq7z4f>
- <CAJgzZorzcAP5wNa-UCMyarmjgwVBveg0c0Dj36ByVEacnOHrnw@mail.gmail.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] sched_setattr: Break EINVAL into separate blocks
+Message-ID: <qmtgngtkcjvcnxatokwvpp3u5bvytgaq46slautuudczugrmxs@geogz6dwtqtc>
+References: <20240612204504.2651521-1-briannorris@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,103 +56,103 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gv3msdy22qpr4hpq"
+	protocol="application/pgp-signature"; boundary="isqlync6jdwnkzlr"
 Content-Disposition: inline
-In-Reply-To: <CAJgzZorzcAP5wNa-UCMyarmjgwVBveg0c0Dj36ByVEacnOHrnw@mail.gmail.com>
+In-Reply-To: <20240612204504.2651521-1-briannorris@chromium.org>
 
 
---gv3msdy22qpr4hpq
+--isqlync6jdwnkzlr
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: Paul Eggert <eggert@cs.ucla.edu>, 
-	Andrew Morton <akpm@linux-foundation.org>, Palmer Dabbelt <palmer@rivosinc.com>, linux-api@vger.kernel.org, 
-	libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: termios constants should be unsigned
-References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
- <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
- <mdidkojqnhvf5b22vh3c4b6ajmq5miuyr3ole26kx2qkmnbfh3@woy2ghe5eyve>
- <CAJgzZorNc3gNVbiibz+DibrMLxc2dQoOS5NtL+RQUkSD-GMYaA@mail.gmail.com>
- <5rfohnr4rs3tkfs7y3f7rth36c67pvcwv4q52onrjohdjtpo7m@stvcsncq7z4f>
- <CAJgzZorzcAP5wNa-UCMyarmjgwVBveg0c0Dj36ByVEacnOHrnw@mail.gmail.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] sched_setattr: Break EINVAL into separate blocks
+References: <20240612204504.2651521-1-briannorris@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <CAJgzZorzcAP5wNa-UCMyarmjgwVBveg0c0Dj36ByVEacnOHrnw@mail.gmail.com>
+In-Reply-To: <20240612204504.2651521-1-briannorris@chromium.org>
 
-Hi Elliott,
+Hi Brian,
 
-On Wed, Jun 12, 2024 at 05:54:43PM GMT, enh wrote:
-> > BTW, that seems to be a bogus way to workaround this; the cast should
-> > have been on the other side.  I'd say whoever maintains that code should
-> > probably fix that to use unsigned types.
+On Wed, Jun 12, 2024 at 01:44:52PM GMT, Brian Norris wrote:
+> The current EINVAL description has a complex boolean expression, and I'm
+> planning to add one more condition to it. Let's separate it into
+> different EINVAL descriptions to make it easier to read. Tweak the
+> punctuation a bit too while I'm at it.
 >=20
-> indeed. i've already sent out such a change :-)
->=20
-> >  These constants are meant to
-> > be 'tcflag_t', so a cast should be to that type, or the type of the
-> > other side of the comparison, but casting to 'int' just for silencing a
-> > waring seems nuts.
->=20
-> i suspect the reasoning was one of readability --- keeping the [short]
-> constants legible at the cost of making the expression slightly
-> longer.
->=20
-> > This makes me wonder if breaking _those_ users could be a good thing...
->=20
-> like Paul Eggert said somewhere else today --- only if we're finding
-> real bugs. and so far we're not.
->=20
-> it's like the warn_unused_result argument. a purist would argue that
-> every function should have that annotation, because you should always
-> check for errors, and if you're not already doing so, your code is
-> already broken. whereas a pragmatist would argue that most people are
-> just going to add the "shut up, compiler" cast (or disable the warning
-> entirely) if their already-working code suddenly starts spamming
-> warnings next time they build it.
->=20
-> while my bar for that might not be as high as my bar for ABI breakage,
-> my source compatibility bar is still pretty high. it would be almost
-> unethical of me to make app developers do random busywork. i have to
-> be pretty confident (as with, say, "you just passed an fd > 1024 to an
-> fd_set function/macro and thus corrupted memory") that their code is
-> _definitely_ wrong. (and even there, that's going to have to be a
-> runtime check!)
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
 
-Yeah, I can agree with that.  I'm that kind of pedantic purist for my
-own code, and it's painful that historic accidents like this one don't
-allow me to be so in my own code.  But I agree that fixing the entire
-world when their code is braindamaged but works is asking too much.
-
-I'll just disable that pedantic warning when I use termbits.  :)
-
-Btw, thanks for fixing that brain-damaged cast.  ;-)
+Patch applied.  Thanks!
 
 Have a lovely night!
 Alex
 
+> ---
+> v2:
+>  * split out from patch 2 and reworked
+>=20
+>  man/man2/sched_setattr.2 | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
+> index 5d7061bd6e3a..0c866a786748 100644
+> --- a/man/man2/sched_setattr.2
+> +++ b/man/man2/sched_setattr.2
+> @@ -349,16 +349,21 @@ .SH ERRORS
+>  .TP
+>  .B EINVAL
+>  .I attr.sched_policy
+> -is not one of the recognized policies;
+> +is not one of the recognized policies.
+> +.TP
+> +.B EINVAL
+>  .I attr.sched_flags
+>  contains a flag other than
+> -.BR SCHED_FLAG_RESET_ON_FORK ;
+> -or
+> +.BR SCHED_FLAG_RESET_ON_FORK .
+> +.TP
+> +.B EINVAL
+>  .I attr.sched_priority
+> -is invalid; or
+> +is invalid.
+> +.TP
+> +.B EINVAL
+>  .I attr.sched_policy
+>  is
+> -.B SCHED_DEADLINE
+> +.BR SCHED_DEADLINE ,
+>  and the deadline scheduling parameters in
+>  .I attr
+>  are invalid.
+> --=20
+> 2.45.2.505.gda0bf45e8d-goog
+>=20
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---gv3msdy22qpr4hpq
+--isqlync6jdwnkzlr
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZqH7AACgkQnowa+77/
-2zKZbQ//bnQoFyceZ3KOQPPBeNP+onIPQDyehc/PbqnMveyhtSe+49gozKi+NdPC
-Vs9XW6EayZ1SNTdABXMIX7AySXR4UPtS85Nw97M4vinRTy4iBtICupx465J72Pkx
-QhoGvBoVk9WiuzsDS/eI6zmj/flvwATBjHFF78Kmq2ZP+Q/ij9nb9VGEri0bOX/D
-rdFwhN+fbO9PwUoaC2PakL+PPlatnaXbqrqPu548FZp+gZEJK/t/XHXVMf/kASjp
-S45T+sdhfGKbtbeRcyCfAunn7JwUSNcDUCe8Jj/7Z+TqvDcX/T0+MIB2lckYtnOI
-GcS586u/4VmlSbakez+65hXzVuwfmjrgNLHPwkyk9DjqbfURxoHFQROO0S3XuK5Z
-raX3UAy2d+pxVHSmYpL6vi5skjuzZ8wPWIoXnr8wdB/9SpYD6RaA+Djyj1bnAWVl
-O13EiH5TJDsJ9IrjAaswsyF3g18g4gm1BK4W9UOz3d3ljoBiVCSEmHRP5l6kKbjg
-p3LJp8AJlh2P3ESW3qtkA0Fuq2ot86bN8kYCUktWLc2+D249/DfrdBGTKGHxZNto
-DeRsPvtl5YLnL22sD1GAVgzqI92bNBCalVQRPrjLuASaXpF++kLlyDq5myrEXi3W
-G6liYvJOT3rScsN0wK9BbO5UZCY6OFoiKLc2QwzMeQGbCShAtRw=
-=/0Q+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZqNy8ACgkQnowa+77/
+2zIR5BAAkFvDtMXTYLAbHm1CQoZ5w7CIkR8WBBjAySHz7MdhNYrW/quCtL+njJiG
+0EpK41R2DC9c0WXwh+fjSH9ZyGWU5xFHHDh1RkGy5t7gqAbHWcKJb+lYsDG4ZDVL
+Kxto62jCH2bMj7SYedegET9rm1w+ngp0NGeVwJRRSZQoc7swt2ZPG6j3aoS/73t7
+n7AjyzXuy7iW0jfNsNJG0DKBmhmpMLAaZV7FwFqmyKUeowFlX5UYdIm5cAZGwuj7
+VowBAscoFSVHCnpdg6cUUhayuCyJ8RK3UguaBNiRCSDAD2khDybcvCEB8IK/Ig9v
+bn2b3F0NmVnrWhW64BkPHOAk6zqqU5X1KxlPmNpuliF/oer+DmCzKoCK3zhpspUJ
+7dLIaOLLE+IxEETvoT7LKztmcpPuIKfwhEHC8QWwQrMaITcnOGCC5KCV42n0d6Iu
+u8LmEDX/tv++t4Tv9ktv7PU/iHIvZJyuMHilLIqasM2q0RzgSjs08ztGNF3KHSjV
++GfN8Zj6u95N5ipvT2t2CYxVmi2XY2uVMsSIS7206+GXvMB3tRIBL5GJBRw6g6Cx
+EPPjPab+DwuIrjdqOG51Z/+zYHYQscHG6XAPCrjymyDsdRU4zEFptc06c8zPYEuA
+3YJQlQjkLo5MT+u9XSMgZKcM00UUH48YgA7Wxhxqsunk6hlR8o4=
+=1Sse
 -----END PGP SIGNATURE-----
 
---gv3msdy22qpr4hpq--
+--isqlync6jdwnkzlr--
 
