@@ -1,150 +1,117 @@
-Return-Path: <linux-man+bounces-1170-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1171-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0BA490681F
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 11:07:50 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A4B9070F9
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 14:32:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 632851F216EA
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 09:07:50 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 552C51F21795
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 12:32:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 165C513D276;
-	Thu, 13 Jun 2024 09:07:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0EE41428F5;
+	Thu, 13 Jun 2024 12:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9WghMLl"
+	dkim=pass (2048-bit key) header.d=owlfolio.org header.i=@owlfolio.org header.b="uOKTDpVs";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fpuC6+rc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from wfout3-smtp.messagingengine.com (wfout3-smtp.messagingengine.com [64.147.123.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BF884D39
-	for <linux-man@vger.kernel.org>; Thu, 13 Jun 2024 09:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E2B384;
+	Thu, 13 Jun 2024 12:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.147.123.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718269665; cv=none; b=PnYrDFjA6b4nOqh69F4K2PQZekgiqGygPDScAY4BDPm/OPge/DtUCUJ8G5Yy7GfzBncMbK5lnqcaurRr/srWnCoyKpaIvCWeLzGGryIYgscTwbqyEnsKVDyUGwqKNyp1Xkr0DklIN8tg+YhdHQ9I3izHLd4voGzOhVZicJfgZ8c=
+	t=1718281947; cv=none; b=aBr/znKIf67X9ZfLScEYLU1z/uZxtk6xA2865HMpOZLFNuMpalMp0sjmS8E7lv53YSk0fZVLgjYZQt1etKakVJsnKI8FuXIBCtzzNr9fAC9TzWqQERmX601vxcPMjSB31IfM8sB6/cJUAnWSEUC8G7WVMtv5yx0QFagfKEAlmZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718269665; c=relaxed/simple;
-	bh=qhKeXdwYuG+GhvcCcJBDr7OlR3yfL4VMMDXWXnPpgGc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s+4R2nTNcUcwFJBEw+BJVWveMhaX+gpGixa/h2Wy8q5aOdLvYm6Aye8hszu3ZPy5RXoE2KVSJDudY41TTlHMGeeFH2n0AaRKED6W+iiVOnr/EbaFJbbMrAUgFQ6jUcL+gCEcQs/+SvEPwnfL0au65dx1sSsWVcATW1gw3mucDto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9WghMLl; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99614C2BBFC;
-	Thu, 13 Jun 2024 09:07:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718269665;
-	bh=qhKeXdwYuG+GhvcCcJBDr7OlR3yfL4VMMDXWXnPpgGc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b9WghMLlTeofjfN1wPR1h3GgqHyIeqaCPf9g2Wkvmb30zJRX7jyte8wrl+xh0dlWe
-	 1+bfLr0xXREzVNiZDND1797MKI7WNWC6rHz4N9FRCHrSHOFFMhuXJ8c5OLMTtOQa5A
-	 F3KeTc/fqDJZyZ7KBEjNtNvuvh8O2mdz/K9mDfYp+fw6DBFjWYYSI6y4xt34qmJc5L
-	 uhd38H9sygMH+EkmaDhJLPpuYzUJeFlnyB3L1cCQXbFfsQVC8139ePwBc+o1rHFibJ
-	 Mpfozyr9jd1SyidjBHY8PwX6wGAeqci3f+EZvgOGdhA5zy1mjWdJNesxJC2M8mSmYa
-	 ggr3chZ4fTXug==
-Date: Thu, 13 Jun 2024 11:07:42 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Jumps Are Op <jumpsareop@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: No mention of XSI in unistd.h.0p
-Message-ID: <hrquria7phjbuil2pj4fuwwe6y4a34kxx5dnmxgpp2zap3ewlx@j4n3jhvf5zkm>
-References: <D1YPIU3QWBL7.3VGQ7D2ZI5ADF@gmail.com>
+	s=arc-20240116; t=1718281947; c=relaxed/simple;
+	bh=g1W5nsxXD3g2wzkJjdXONv96BUw83J0qUTyM1mdcxJw=;
+	h=MIME-Version:Message-Id:In-Reply-To:References:Date:From:To:
+	 Subject:Content-Type; b=Nbv0FtYhO+VaNc5ThtYLYxPmzFopeCibrzUtMIuzwadkco1ejRvLDIXTYIvXi+hk4uvrkiTlISnQL12LEakLMwj47a0Q2NygdxT81MmB4xkYiV+ElnZSlDIG4IpxtcJB6rkazeMoxQimC07bJzQulz97NBaEOyrkc6ncyd2t+Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=owlfolio.org; spf=pass smtp.mailfrom=owlfolio.org; dkim=pass (2048-bit key) header.d=owlfolio.org header.i=@owlfolio.org header.b=uOKTDpVs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fpuC6+rc; arc=none smtp.client-ip=64.147.123.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=owlfolio.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=owlfolio.org
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailfout.west.internal (Postfix) with ESMTP id 3EF4D1C000E9;
+	Thu, 13 Jun 2024 08:32:23 -0400 (EDT)
+Received: from imap45 ([10.202.2.95])
+  by compute5.internal (MEProxy); Thu, 13 Jun 2024 08:32:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=owlfolio.org; h=
+	cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1718281942; x=1718368342; bh=g1W5nsxXD3
+	g2wzkJjdXONv96BUw83J0qUTyM1mdcxJw=; b=uOKTDpVslHU1Kew2elddU0GmN/
+	3DmWmzc0IDQiiNly6XCB0ScR2j7OXWzvs/7NkDC9X64h3I1nJsmRzqSoWdpA+8uv
+	4gu0gGCMNB2BXUk/cTPdYZqPrq7FsEXO2JLDqatAwQuFlzBUUa60OkLhjYUfis73
+	3X72VL5eUheUcyxX/F99W8AJnK/2GMGAq2o8rEbPD+DIGhvoDFh5+CnfXeWRkmsx
+	E8/IJ5EHcIf5Pzuurg9WAKoj/esqpG3hvpyB4001lFVYYGeJVJVEL+N+mPZIlYR9
+	hNAXXI1Kj6ecmXhBcAJY/MS57tbM2++bymaYVfHf5OEjVbsuaVQx0kwTLqmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1718281942; x=1718368342; bh=g1W5nsxXD3g2wzkJjdXONv96BUw8
+	3J0qUTyM1mdcxJw=; b=fpuC6+rcxLVKLPIMC9QH5M6nWX6jbBxVKcTCMCZ27X9J
+	Q9REx4fpmb2kqQW6xlnJ/dn/g/kGp6IgqeX0AclBoO6WsPMfaXChIZvFd7MGTS/o
+	2bCmKZoiLKhYPZ8uSS5H2cR0eqX1i+1yoRZXZj+j53nZFaWSzBGjoXvetoeVQtyv
+	W0rpGcFDhwxFOatA1R92IxyGq43wAWLlTIXoIEK22XY+3AQozk/j9r7lkkqvW12d
+	4JlUnFOFPbhTz3FEagRxS2qos4iZQANbQQ60RAH48KcAVE6L9UBoRk5NO8Is2Y1n
+	IBtzjFLyMlNq80++PfWaYTFM60w9mUixiBL+1Ua2kg==
+X-ME-Sender: <xms:1uZqZtSuKwX0sls1a2OQ5akch0P7HdN3Y9a7uQX0MD8iO5twgZWhFg>
+    <xme:1uZqZmwEEr463537jDHFTYDtfTEWuwfMeFQA6UrAfogPA8W1Y6zbNXQvm35ufP1t1
+    eUnKcaHmMny9cdvc-8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedujedgheduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdgkrggt
+    khcuhggvihhnsggvrhhgfdcuoeiirggtkhesohiflhhfohhlihhordhorhhgqeenucggtf
+    frrghtthgvrhhnpefhuefhveeuffetfffgjeetgfekkeehfedtfeelgfehffffveehkeel
+    fefgheffudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpeiirggtkhesohiflhhfohhlihhordhorhhg
+X-ME-Proxy: <xmx:1uZqZi1CldBIXzFvXhtwMHHqzvjQOIR22EAhAjuJGOlhM08FBk_Plw>
+    <xmx:1uZqZlAHYTW0wn26BJSmJfF2sffsbQGX-FD_I2y9lKiV17wymebKlw>
+    <xmx:1uZqZmjB5UAqKuxf1YjQ3PFotd1_-7V5pILuMaUsl64x4rG3AQKcaA>
+    <xmx:1uZqZpplXQrF0XxB95i2IqSEE3cj4K0-p-PkGWGXDoMNTaezmSWrGg>
+    <xmx:1uZqZhVx8gqbInQ6Zv5F0HzcBf4U1K24Kt1jFe8WKW1y_KpKCAa5fvsg>
+Feedback-ID: i876146a2:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+	id 3CF58272007C; Thu, 13 Jun 2024 08:32:22 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.11.0-alpha0-515-g87b2bad5a-fm-20240604.001-g87b2bad5
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yzpsrkrn6lriz6s7"
-Content-Disposition: inline
-In-Reply-To: <D1YPIU3QWBL7.3VGQ7D2ZI5ADF@gmail.com>
+Message-Id: <f6ee2bd3-c1b7-4769-a313-b62f42c450ca@app.fastmail.com>
+In-Reply-To: <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
+References: <a7kfppfptkzvqys6cblwjudlpoghsycjglw57hxe2ywvruzkbd@e6nqpnxgwfnq>
+ <87af5e8f-0dcb-44a0-94de-757cad7d5ded@cs.ucla.edu>
+Date: Thu, 13 Jun 2024 08:32:01 -0400
+From: "Zack Weinberg" <zack@owlfolio.org>
+To: "Paul Eggert" <eggert@cs.ucla.edu>, "Alejandro Colomar" <alx@kernel.org>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Palmer Dabbelt" <palmer@rivosinc.com>, linux-api@vger.kernel.org,
+ "GNU libc development" <libc-alpha@sourceware.org>,
+ 'linux-man' <linux-man@vger.kernel.org>
+Subject: Re: termios constants should be unsigned
+Content-Type: text/plain
 
+On Wed, Jun 12, 2024, at 10:55 AM, Paul Eggert wrote:
+> A lot of this stuff is pedanticism that dates back to the bad old days
+> when the C standard allowed ones' complement and signed magnitude
+> representations of signed integers. Although it can be amusing to
+> worry about that possibility (I know I've done it) it's never been a
+> practical worry, and even the motivation of pedanticism is going away
+> now that C23 requires two's complement.
 
---yzpsrkrn6lriz6s7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Jumps Are Op <jumpsareop@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: No mention of XSI in unistd.h.0p
-References: <D1YPIU3QWBL7.3VGQ7D2ZI5ADF@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <D1YPIU3QWBL7.3VGQ7D2ZI5ADF@gmail.com>
+Unless C23 eliminated *all* the cases where an operation on unsigned
+integers is well-defined but the same operation on signed integers is
+undefined, and last I checked it had not, there is still a need for
+caution around conversions that change signedness.
 
-On Thu, Jun 13, 2024 at 10:22:30AM GMT, Jumps Are Op wrote:
-> Hi everyone.
-
-Hi jumper,
-
-> I noticed that `<unistd.h>` doesn't define `sync`, `crypt`, and some other
-> functions. Looked into the man page `unistd.h.0p` and sees nothing about
-> XSI in the function declarations.
->=20
-> Looked at the website, you can see the clear XSI refrences here^[1].
->=20
-> Needed to define `_XOPEN_SOURCE` to make them work.
->=20
-> This information should be avaliable to the man-page reader.
-> But it was not included by the automatic manual generation.
-
-Agree.  Since the POSIX roff(7) sources from which the script generated
-the output are not public, I can't debug this.
-
-I requested some Open group members if they could convince the owners
-of the code to publish at least a tarball.
-
-While that doesn't happen, you can consider the man-pages-posix project
-to be unmaintained.  I'm not responsible for it, and no one else is.
-While I'd like to maintain it, I'm not interested in doing so if the
-POSIX roff(7) sources are not public.  I'm here for the free software,
-not for the closed one (or if I do closed one, I like to get paid).
-
-Please forward your concerns to the Austin group mailing list.
-
-> The XSI requirement information was in the format (raw HTML):
->=20
-> <sup>[<a href=3D"javascript:open_code('XSI')">XSI</a>]</sup>
-> <img src=3D"../images/opt-start.gif" alt=3D"[Option Start]" border=3D"0">
-> ...functions that needs XSI extenion support goes here...
-> <img src=3D"../images/opt-end.gif" alt=3D"[Option End]" border=3D"0">
->=20
-> Note that this can include more than one function at a time.
->=20
-> The guys at IEEE suck designing anything.
-
-And also at sharing anything.
-
-Have a lovely day!
-Alex
-
->=20
-> - [1] https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/unistd.h.=
-html#tag_13_77_03_06
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---yzpsrkrn6lriz6s7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZqtt4ACgkQnowa+77/
-2zJ73hAAgbBam1jOGF4sUiveLQS52LKGxBKqOkFg0E4RQaxkxy7Gag0XYKcjcwlb
-dOPGH+erDUCf0LELnyk0tL9NHQWNcOYBp1c+jrddpFSJUMmi+4oOscUPE+g+IM37
-By3ege3UHxNZo8fEGq9qR2igsdXhsfS3IMC7ZuQk0idFA0tGWv5y3NlMEzS8kFCH
-tS2+oYuu4T+qP1rMhEPKfReF6p2bZCve1IoDNTs8ZsSrRny1mlsQmZqrvVoTMdv1
-nFVvqCDFmwG7NoH3oZs6UJbyt1/K1YF+nfUxqN8EpgBHOQ2oeoEtQ362QaY4V1rZ
-ioHRLJz2itNrM+Reuc1aNOalxSBnfl+R8uYLEI5UJZMXyvuj+nQf9lMSVQaPKfV4
-tS+9EaLA0iGX//ScUGFpBF9Ubm2kkMM4BkU7sqCxPvVuDuwLGNqmqZcU6GjoYnQv
-6g43HnrimEgZNOuA00KWlztRAUKPkOf6Upu7JzJCWSIJsUjWVYRDeKb/N7mXBgAE
-9GvXUKHPrbTNKZ2W9HxpPd/O8pSIrA2njjCfg3YQrXHssZ/G5aEiniRKzptxcfzp
-vQxowBoZ1RSe9aZ9CuHqq8WjCgIQjiFqcovcbeWZz8hI4MZ3wQ8khZ0K5QqVhHvJ
-2ntYJrbvYF2TyOBRVXHvIqywYu95QifXQYwMK70ZVAhc/YnNjq0=
-=cro8
------END PGP SIGNATURE-----
-
---yzpsrkrn6lriz6s7--
+zw
 
