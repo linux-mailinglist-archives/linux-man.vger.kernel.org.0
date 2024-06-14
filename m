@@ -1,252 +1,185 @@
-Return-Path: <linux-man+bounces-1180-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1181-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7736E907E5A
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 23:51:35 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5CFE909204
+	for <lists+linux-man@lfdr.de>; Fri, 14 Jun 2024 19:51:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3AFB21C21CC6
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2024 21:51:34 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 48202B230C6
+	for <lists+linux-man@lfdr.de>; Fri, 14 Jun 2024 17:48:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E03AE5A4FD;
-	Thu, 13 Jun 2024 21:51:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8181E19DF41;
+	Fri, 14 Jun 2024 17:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYtBxCV8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRzKMURf"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A216214A4E5
-	for <linux-man@vger.kernel.org>; Thu, 13 Jun 2024 21:51:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A08719D8B7;
+	Fri, 14 Jun 2024 17:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718315489; cv=none; b=HqW5ESY+XOaVvi42+sFEKCzea2Y8694e3srTm4S7Ubo+nRKhbc7TxoPe7lcHHwNhWv8MO7wfqx7g6JguHcjXlHNKfbcZKHTTF2Wll6EmweE/nTlnoVkpVF6AdtwtWAltFL3KCOBv2oPn1mufu5dkUtB+6frMZS9MaIOi5Nqm+AQ=
+	t=1718387306; cv=none; b=HwUh4M0pMmjOKJrEZwmUMqE4axqvk1r9ray8eT7UXgHDdTW/niPi9AYteOZKDZtIRh4kF0pt+2YiNZ0OpRDYpHuYgFezDlLjJ/7tECbfriWG0ZHFdzTZk5Na2UkdDNyfN2xMz5UJWbSBxA2Sj/gN133MxPd4AjreT3qcNLjGHqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718315489; c=relaxed/simple;
-	bh=U4HO/mep8kbfknQo6yizUEByRblMQi0YOvPUdt95dqM=;
+	s=arc-20240116; t=1718387306; c=relaxed/simple;
+	bh=kdioDkX1AS0ZacOm577/Bq/Mk3c/jw5avXaWrRVP09I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aLmDxSmu1V0/AOVosJv9YZ/USpk0Esu8wKqvQfTDXtEQHV4vtYkLUcJnZCV5GzV077I55NKrKx+J7ZmyLpeNzsnmTYr1vioDOppzrTeuHAfcHEtuR8EJAe2a69wqF6v+mDxuTj9fkX/ocuTS0SIMzbWmcjQzWhGZOODXUS3S+G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYtBxCV8; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFA5C2BBFC;
-	Thu, 13 Jun 2024 21:51:28 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gkfeyz7tLsZ3AIQT+UdmN91B/PwZxiQirpioFnezjvwKyvZVNBrC73v+OVRtz0A+mL9KjzAR4ZIqmLwlrPHDWCwXo2+E7u93ieKMRKDgVcI48YOfrahYEh66lJsxcvC19682m65+eTnypX7m6w6Cm22LanPTMXM8s9gCG38Qfsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRzKMURf; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C01FC2BD10;
+	Fri, 14 Jun 2024 17:48:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718315489;
-	bh=U4HO/mep8kbfknQo6yizUEByRblMQi0YOvPUdt95dqM=;
+	s=k20201202; t=1718387306;
+	bh=kdioDkX1AS0ZacOm577/Bq/Mk3c/jw5avXaWrRVP09I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mYtBxCV80Q1GY3HaxoHfYVhJF3SMFsKGYWM1wEYzADMmWkUnI6xUmA8p3YCfzuILn
-	 +sg3fg/UK9vq5sDElb1Fs1BtUPQ9xVafqX2TAp4+0KNdJFthUlnr9OjPVo1mUci52U
-	 2jc+Qjkhrh4xmuFS7M3pXhecBdB4G0LeZG1Hj6tfHc+9zkVTlTDlon9+EvOMWpXstI
-	 CXsvd5usmamHwzU/LyMlohxnANpMyBt+KV/xG+BYr+62OfwM75v1sAm4fieh/madvd
-	 Q+jFomogG9E5o5YnXjTjDkH0ZKnBPCc40t2KBKdm4OM4HnM2in8QsoUC35wkaOOp7I
-	 IAHTurJvvgy+A==
-Date: Thu, 13 Jun 2024 23:51:26 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Brian Norris <briannorris@chromium.org>
-Cc: linux-man@vger.kernel.org, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v3] sched_setattr.2: Document sched_util_{min,max}
-Message-ID: <pxlkzl66inphv6dbjwud4gexnqrl67m5gr5t6btwazbyfstfwb@nndrthl2vatw>
-References: <20240613204823.3184609-1-briannorris@chromium.org>
+	b=nRzKMURfx3699Ers/mBC17k9lC7l2PTU25jHIqx/w3EIokujRe01eXxCYnOeDJnsB
+	 yN2QslLeldA8xblLL50UetOwnLisGXVgtBrE54guc/Cj6SYqUafcez4HgHjxmfOCUn
+	 YkNqGwT8H4dd61l1NxGmPDnM73l6AdB1QCas/5D0VtqRESu0MY9kA7fLmrFm52ZPLb
+	 F6lFoUmQfhGtgV4x/xlU9zUz3ZOBcPW9LLGG74qkXF0ddzpbZ6BTcBxF4DHx84fGAp
+	 csYpCcMKe9J8q1DB+7EzjNBUrDgGKLS6eUhZxMwSUVzOYwIpALfl4CV8ca4NlyfexP
+	 qvcVV5z0kGXhQ==
+Date: Fri, 14 Jun 2024 10:48:22 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org,
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	Deepak Gupta <debug@rivosinc.com>,
+	Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev
+Subject: Re: [PATCHv8 bpf-next 3/9] uprobe: Add uretprobe syscall to speed up
+ return probe
+Message-ID: <20240614174822.GA1185149@thelio-3990X>
+References: <20240611112158.40795-1-jolsa@kernel.org>
+ <20240611112158.40795-4-jolsa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jcrgho6kikycuggm"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240613204823.3184609-1-briannorris@chromium.org>
+In-Reply-To: <20240611112158.40795-4-jolsa@kernel.org>
 
+Hi Jiri,
 
---jcrgho6kikycuggm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Brian Norris <briannorris@chromium.org>
-Cc: linux-man@vger.kernel.org, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Patrick Bellasi <patrick.bellasi@arm.com>, Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v3] sched_setattr.2: Document sched_util_{min,max}
-References: <20240613204823.3184609-1-briannorris@chromium.org>
-MIME-Version: 1.0
-In-Reply-To: <20240613204823.3184609-1-briannorris@chromium.org>
+On Tue, Jun 11, 2024 at 01:21:52PM +0200, Jiri Olsa wrote:
+> Adding uretprobe syscall instead of trap to speed up return probe.
+...
+> diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+> index 2c83ba776fc7..2816e65729ac 100644
+> --- a/kernel/events/uprobes.c
+> +++ b/kernel/events/uprobes.c
+> @@ -1474,11 +1474,20 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
+>  	return ret;
+>  }
+>  
+> +void * __weak arch_uprobe_trampoline(unsigned long *psize)
+> +{
+> +	static uprobe_opcode_t insn = UPROBE_SWBP_INSN;
 
-Hi Brian,
+This change as commit ff474a78cef5 ("uprobe: Add uretprobe syscall to
+speed up return probe") in -next causes the following build error for
+ARCH=loongarch allmodconfig:
 
-On Thu, Jun 13, 2024 at 01:46:56PM GMT, Brian Norris wrote:
-> Utilization attributes were added in Linux v5.3 via commit a509a7cd7974
-> ("sched/uclamp: Extend sched_setattr() to support utilization
-> clamping"). Borrow some documentation from there, with a bit of
-> editorial trimming and augmentation.
->=20
-> The "reset" (-1 / UINT32_MAX) behavior was added in Linux 5.11 via
-> commit 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp
-> constraint value").
->=20
-> Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
-> Cc: Patrick Bellasi <patrick.bellasi@arm.com>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> ---
+  In file included from include/linux/uprobes.h:49,
+                   from include/linux/mm_types.h:16,
+                   from include/linux/mmzone.h:22,
+                   from include/linux/gfp.h:7,
+                   from include/linux/xarray.h:16,
+                   from include/linux/list_lru.h:14,
+                   from include/linux/fs.h:13,
+                   from include/linux/highmem.h:5,
+                   from kernel/events/uprobes.c:13:
+  kernel/events/uprobes.c: In function 'arch_uprobe_trampoline':
+  arch/loongarch/include/asm/uprobes.h:12:33: error: initializer element is not constant
+     12 | #define UPROBE_SWBP_INSN        larch_insn_gen_break(BRK_UPROBE_BP)
+        |                                 ^~~~~~~~~~~~~~~~~~~~
+  kernel/events/uprobes.c:1479:39: note: in expansion of macro 'UPROBE_SWBP_INSN'
+   1479 |         static uprobe_opcode_t insn = UPROBE_SWBP_INSN;
+        |                                       ^~~~~~~~~~~~~~~~
 
-Patch applied; thanks!
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3De771005bd2b700362218d4c9f226570adfb047b3>
+> +	*psize = UPROBE_SWBP_INSN_SIZE;
+> +	return &insn;
+> +}
+> +
+>  static struct xol_area *__create_xol_area(unsigned long vaddr)
+>  {
+>  	struct mm_struct *mm = current->mm;
+> -	uprobe_opcode_t insn = UPROBE_SWBP_INSN;
+> +	unsigned long insns_size;
+>  	struct xol_area *area;
+> +	void *insns;
+>  
+>  	area = kmalloc(sizeof(*area), GFP_KERNEL);
+>  	if (unlikely(!area))
+> @@ -1502,7 +1511,8 @@ static struct xol_area *__create_xol_area(unsigned long vaddr)
+>  	/* Reserve the 1st slot for get_trampoline_vaddr() */
+>  	set_bit(0, area->bitmap);
+>  	atomic_set(&area->slot_count, 1);
+> -	arch_uprobe_copy_ixol(area->pages[0], 0, &insn, UPROBE_SWBP_INSN_SIZE);
+> +	insns = arch_uprobe_trampoline(&insns_size);
+> +	arch_uprobe_copy_ixol(area->pages[0], 0, insns, insns_size);
+>  
+>  	if (!xol_add_vma(mm, area))
+>  		return area;
+> @@ -1827,7 +1837,7 @@ void uprobe_copy_process(struct task_struct *t, unsigned long flags)
+>   *
+>   * Returns -1 in case the xol_area is not allocated.
+>   */
+> -static unsigned long get_trampoline_vaddr(void)
+> +unsigned long uprobe_get_trampoline_vaddr(void)
+>  {
+>  	struct xol_area *area;
+>  	unsigned long trampoline_vaddr = -1;
+> @@ -1878,7 +1888,7 @@ static void prepare_uretprobe(struct uprobe *uprobe, struct pt_regs *regs)
+>  	if (!ri)
+>  		return;
+>  
+> -	trampoline_vaddr = get_trampoline_vaddr();
+> +	trampoline_vaddr = uprobe_get_trampoline_vaddr();
+>  	orig_ret_vaddr = arch_uretprobe_hijack_return_addr(trampoline_vaddr, regs);
+>  	if (orig_ret_vaddr == -1)
+>  		goto fail;
+> @@ -2123,7 +2133,7 @@ static struct return_instance *find_next_ret_chain(struct return_instance *ri)
+>  	return ri;
+>  }
+>  
+> -static void handle_trampoline(struct pt_regs *regs)
+> +void uprobe_handle_trampoline(struct pt_regs *regs)
+>  {
+>  	struct uprobe_task *utask;
+>  	struct return_instance *ri, *next;
+> @@ -2187,8 +2197,8 @@ static void handle_swbp(struct pt_regs *regs)
+>  	int is_swbp;
+>  
+>  	bp_vaddr = uprobe_get_swbp_addr(regs);
+> -	if (bp_vaddr == get_trampoline_vaddr())
+> -		return handle_trampoline(regs);
+> +	if (bp_vaddr == uprobe_get_trampoline_vaddr())
+> +		return uprobe_handle_trampoline(regs);
+>  
+>  	uprobe = find_active_uprobe(bp_vaddr, &is_swbp);
+>  	if (!uprobe) {
+> -- 
+> 2.45.1
+> 
 
-Have a lovely night!
-Alex
-
-> v3:
->  * more grammar, formatting fixes
->  * drop patch 1 / semi-unrelated content which was already applied
->=20
-> v2:
->  * address various style, linter review comments
->=20
->  man/man2/sched_setattr.2 | 72 +++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 71 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/sched_setattr.2 b/man/man2/sched_setattr.2
-> index 0c866a786748..aa27dee79dce 100644
-> --- a/man/man2/sched_setattr.2
-> +++ b/man/man2/sched_setattr.2
-> @@ -94,10 +94,14 @@ .SS sched_setattr()
->                                SCHED_BATCH) */
->      u32 sched_priority;    /* Static priority (SCHED_FIFO,
->                                SCHED_RR) */
-> -    /* Remaining fields are for SCHED_DEADLINE */
-> +    /* For SCHED_DEADLINE */
->      u64 sched_runtime;
->      u64 sched_deadline;
->      u64 sched_period;
-> +\&
-> +    /* Utilization hints */
-> +    u32 sched_util_min;
-> +    u32 sched_util_max;
->  };
->  .EE
->  .in
-> @@ -186,6 +190,23 @@ .SS sched_setattr()
->  On the other hand, if the process-directed signal is delivered to
->  a thread inside the process other than the one that had a run-time overr=
-un,
->  the application has no way of knowing which thread overran.
-> +.TP
-> +.B SCHED_FLAG_UTIL_CLAMP_MIN
-> +.TQ
-> +.BR SCHED_FLAG_UTIL_CLAMP_MAX " (both since Linux 5.3)"
-> +These flags indicate that the
-> +.I
-> +sched_util_min
-> +or
-> +.I
-> +sched_util_max
-> +fields, respectively, are present,
-> +representing the expected minimum and maximum utilization of the thread.
-> +.IP
-> +The utilization attributes provide the scheduler with boundaries
-> +within which it should schedule the thread,
-> +potentially informing its decisions
-> +regarding task placement and frequency selection.
->  .RE
->  .TP
->  .I sched_nice
-> @@ -228,6 +249,37 @@ .SS sched_setattr()
->  .I sched_period
->  This field specifies the "Period" parameter for deadline scheduling.
->  The value is expressed in nanoseconds.
-> +.TP
-> +.I sched_util_min
-> +.TQ
-> +.IR sched_util_max " (both since Linux 5.3)"
-> +These fields specify the expected minimum and maximum utilization, respe=
-ctively.
-> +They are ignored unless their corresponding
-> +.B SCHED_FLAG_UTIL_CLAMP_MIN
-> +or
-> +.B SCHED_FLAG_UTIL_CLAMP_MAX
-> +is set in
-> +.IR sched_flags .
-> +.IP
-> +Utilization is a value in the range [0, 1024], representing the percenta=
-ge of
-> +CPU time used by a task when running at the maximum frequency
-> +on the highest capacity CPU of the system.
-> +This is a fixed point representation, where 1024 corresponds to 100%,
-> +and 0 corresponds to 0%.
-> +For example,
-> +a 20% utilization task is
-> +a task running for 2ms every 10ms at maximum frequency and is represente=
-d by a
-> +utilization value of
-> +.IR 0.2\~*\~1024\~=3D\~205 .
-> +.IP
-> +A task with a minimum utilization value larger than 0 is more likely
-> +scheduled on a CPU with a capacity big enough to fit the specified value.
-> +A task with a maximum utilization value smaller than 1024 is more likely
-> +scheduled on a CPU with no more capacity than the specified value.
-> +.IP
-> +A task utilization boundary can be reset by setting its field to
-> +.B UINT32_MAX
-> +(since Linux 5.11).
->  .P
->  The
->  .I flags
-> @@ -368,6 +420,24 @@ .SH ERRORS
->  .I attr
->  are invalid.
->  .TP
-> +.B EINVAL
-> +.I attr.sched_flags
-> +contains
-> +.B SCHED_FLAG_UTIL_CLAMP_MIN
-> +or
-> +.BR SCHED_FLAG_UTIL_CLAMP_MAX ,
-> +and
-> +.I attr.sched_util_min
-> +or
-> +.I attr.sched_util_max
-> +are out of bounds.
-> +.TP
-> +.B EOPNOTSUPP
-> +.B SCHED_FLAG_UTIL_CLAMP
-> +was provided, but the kernel was not built with
-> +.B CONFIG_UCLAMP_TASK
-> +support.
-> +.TP
->  .B EPERM
->  The caller does not have appropriate privileges.
->  .TP
-> --=20
-> 2.45.2.627.g7a2c4fd464-goog
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---jcrgho6kikycuggm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZrad0ACgkQnowa+77/
-2zLtXhAAoz5vejaJcdWs4d3QyxqvCRJ91bW8FAEREiGOn3f2B3oUMOD5cnbAZ1sr
-FcojJKqYtYN+k2l2/Ml2/KQT41/snNnn6T5bsAmnfFsx2y6Ic2i8bbuyhwuSYqpb
-eXM2MmJWhzkQOlD2dsArCZe353tGCzbi/CslBSgFf2CuFzv0Op2x4azGXay0o5/e
-ti4I5pG6kI8Td8oKetvsPg5NCZ8tSIRJVjwr+pkp5O1Vzn0ruuFmeD0NyR+D5vk5
-k2qlo+/u1Mw2wjW8zvN6h+U8RGZqmJjdwKxk3loJqenZ3IHv43ylhU6ZSACwSOLy
-CfVIG60Ea5ZgpJpGVfZIaa77nMqCfgo5Dw815j3JYeBnvw+r4Mf00AQUnSGw0zYq
-LFkZdX5zpnOHxZJgD+G3Q+Z/RPbX1d1O7ACJKP/tweJ5VwzrwKSWOiRUsJuBGufM
-Js5QpOI7UT/uK6DxWEwrI21nDoeNx8Sobx1fKlyXryaAIoG7D8F/NmjpRyZN7pnn
-2X1quwpqfdhz80j4Rorq0eUHpy21idsvtzLRGnu5TJi5OpGYuf6PLnELDHxPenio
-H48ZoF6nbRC0Q5x1NqI6iKbSY3sqMcG8E9iXfgN+bGy0Kb8h2SYhWQUf1M6p2gyQ
-cBRhYnxPEiLYxXsGbPgNEFlQoJ38eUYXQK029MihhZXhPZ5hkFs=
-=ki1e
------END PGP SIGNATURE-----
-
---jcrgho6kikycuggm--
+Cheers,
+Nathan
 
