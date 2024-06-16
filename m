@@ -1,154 +1,139 @@
-Return-Path: <linux-man+bounces-1210-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1211-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD18A909FC2
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 22:43:32 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC82490A085
+	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2024 00:35:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 66A6928221E
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 20:43:31 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A10251C20C3A
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 22:35:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DB6B50285;
-	Sun, 16 Jun 2024 20:43:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE4384596E;
+	Sun, 16 Jun 2024 22:35:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qmKAF6jM"
+	dkim=pass (2048-bit key) header.d=baxters.nz header.i=@baxters.nz header.b="tkZbdfU4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5F312E5B
-	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 20:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997BD14AA0
+	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 22:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718570601; cv=none; b=kMgM0+jTZJ5AT7F7qknr+5tQjjO8SLA592VG5Z4jdrJgGVIXjAPt6QenmKLaZOuIZ5jRLtzCWQhH6USV0TUwoXnoyWegFg2yNt7tuzauGuTx48ZHpS5yo5aTAhW25nr2qtlo8tXruHlA4GF5C2z2mKilBaBmBuw3DRlmHILa1DE=
+	t=1718577306; cv=none; b=Sk+03BjzoDF0aJlIJ931GQ4z+ad9u+vh7D9bP2BjWgj+mePxMznxODVTJdWlb+ACQydAEkxJZ1M906wVpnOK2exPxn+mF6uy01TPvvdqLv0KANi+xaeAGzIL2dOGV0DdEfKSIvRGc1cjWRgJqdlopTWVuQhb3RyJhv+XP49yvYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718570601; c=relaxed/simple;
-	bh=5CKuQhuAVobq389Qx2dvSQP2IUHS5LEmvYSGk0dwWhA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rm6rrXgSwqhHviD2Yh6iEc1UNIavTTZUOPO9DMBQ7VAs1sFQ6rjfbqPLWfSOpNnYrnW+ROqIdvbAS9jy65VHeOA16Nmy01eWi//Jz9jH971856MVGQJXFJlwRFKbpA2Jks10Z9Ipg/OymX3Ixlgzm3ziBSErjROcPkV7fWUE6uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qmKAF6jM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F297BC2BBFC;
-	Sun, 16 Jun 2024 20:43:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718570600;
-	bh=5CKuQhuAVobq389Qx2dvSQP2IUHS5LEmvYSGk0dwWhA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qmKAF6jMNQlfLib/JHSrWQoKh9+bdx/KXdaSjBIXU7RBphbu2OA42/6LiJw2rmJyf
-	 ElHg25J3JqZrKBj4mIYzwwvtJu98nT+Otdl2Lq8+3G77fbhpaOlrX/AgK59Bswd8nB
-	 bju9thh2VmrgO76i0ukGkNO4spqOW4NF/f8mPmNfAXHhJjMBHmr731ZNo3mbDmAkXA
-	 lMX4x5Z6z6Zf4VMFohOeTWRGJ7LFPUucycS5dgJBR0W5zf/YXCf7Xx9dzYaohMVeW/
-	 jYtlaMiNPH82bnexMEpu36C0KiDdzuAYfkTeQUy8QBzL4K18je39KbKOsvM7bUWSj2
-	 YWBtBjX7+Lu8Q==
-Date: Sun, 16 Jun 2024 22:43:17 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 07/11] setjmp.3: fix section references
-Message-ID: <v2djcfdokdqdoot2rjuspng3tdiqbcupxdcclcrjk3a3c7vsbt@xgch4wknhyiu>
-References: <wetdiek6naltbxd35r7suxa4fus3k6qkjovchfyu2bg6fhqjd4@olqlwyxhfc7f>
- <20240616201946.1663626-1-kolyshkin@gmail.com>
+	s=arc-20240116; t=1718577306; c=relaxed/simple;
+	bh=dZIQN1MpG6vnQF2xCHCQC0wUGEdSbSTXiALHiVoZ2oY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jRUBOJFYKLkFt4Fuwd9uHH6AR2/4ReZMNcbEgKpmxQE1Rusv/bJKt8YaA4PK8DUzx758atEYtjxFbfDNFKCJa/W/xXWWtnNjZLnpUJ+L64GxXY7/Ks8KHZrA+xEsL2Ugyn/HZDMQc6ON27ovD95LO7BeWyUd6iTlSEOzHgV+PL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baxters.nz; spf=pass smtp.mailfrom=baxters.nz; dkim=pass (2048-bit key) header.d=baxters.nz header.i=@baxters.nz header.b=tkZbdfU4; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baxters.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baxters.nz
+X-Envelope-To: alx@kernel.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baxters.nz; s=key1;
+	t=1718577298;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=klTX1NfgfZx//TH0jfqHXt1skOh3ylTR6H5nVtMPuQE=;
+	b=tkZbdfU4kXClQXRrTbmjQ87/TJnod9PRy2m/04nEN1AkXSKh+itcjn763ZMXq5759NW8lV
+	Yu1yQiZRxeZONGthRPm81GzpN7UECv2PI2Yle64zZdAusbCpA+p98RqVIUVbWKQW2q5Q/d
+	iVxnxJJao7SyaYn+FxTExXLbpFVSL6SLDELTfg33j8yP4WTDYE9Cr9XuJZEUnLgilGrL9e
+	+Ult3K/b0rhPsTm6jty0cvm/rR+nWuNhwvfyA1pBD0J52w2pvRDWzxf5UrhmAHqDkXuiva
+	B/HrwOhhTQl7yk1uMjCTCSRrAtLeuYL0Bx8VVTGWrWNTKhOuC1/gZ8Q8QDAigA==
+X-Envelope-To: linux-man@vger.kernel.org
+X-Envelope-To: jeremy@baxters.nz
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Jeremy Baxter <jeremy@baxters.nz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Jeremy Baxter <jeremy@baxters.nz>
+Subject: [PATCH] intro.1: Improve wording in initial introduction
+Date: Mon, 17 Jun 2024 10:29:17 +1200
+Message-ID: <20240616223429.46202-1-jeremy@baxters.nz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5cvbnup3kd4cvf43"
-Content-Disposition: inline
-In-Reply-To: <20240616201946.1663626-1-kolyshkin@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
+---
+ man/man1/intro.1 | 31 +++++++++++++++++--------------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
---5cvbnup3kd4cvf43
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 07/11] setjmp.3: fix section references
-References: <wetdiek6naltbxd35r7suxa4fus3k6qkjovchfyu2bg6fhqjd4@olqlwyxhfc7f>
- <20240616201946.1663626-1-kolyshkin@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20240616201946.1663626-1-kolyshkin@gmail.com>
+diff --git a/man/man1/intro.1 b/man/man1/intro.1
+index decaab161..4d9e81c5a 100644
+--- a/man/man1/intro.1
++++ b/man/man1/intro.1
+@@ -10,9 +10,9 @@ Section 1 of the manual describes user commands and tools,
+ for example, file manipulation tools, shells, compilers,
+ web browsers, file and image viewers and editors, and so on.
+ .SH NOTES
+-Linux is a flavor of UNIX, and as a first approximation
+-all user commands under UNIX work precisely the same under
+-Linux (and FreeBSD and lots of other UNIX-like systems).
++Linux is a flavor of UNIX, and user commands under UNIX
++work similarly under Linux (and lots of other UNIX-like systems too,
++like FreeBSD).
+ .P
+ Under Linux, there are GUIs (graphical user interfaces), where you
+ can point and click and drag, and hopefully get work done without
+@@ -20,15 +20,17 @@ first reading lots of documentation.
+ The traditional UNIX environment
+ is a CLI (command line interface), where you type commands to
+ tell the computer what to do.
+-That is faster and more powerful,
+-but requires finding out what the commands are.
+-Below a bare minimum, to get started.
++This is faster and more powerful,
++but requires finding out what the commands are and how to use them.
++Below is a bare minimum guide to get you started.
+ .SS Login
+-In order to start working, you probably first have to open a session by
+-giving your username and password.
++In order to start working,
++you'll probably first have to open a session.
+ The program
+ .BR login (1)
+-now starts a
++will wait for you to type your username and password,
++and after that,
++it will start a
+ .I shell
+ (command interpreter) for you.
+ In case of a graphical login, you get a screen with menus or icons
+@@ -36,12 +38,13 @@ and a mouse click will start a shell in a window.
+ See also
+ .BR xterm (1).
+ .SS The shell
+-One types commands to the
++One types commands into the
+ .IR shell ,
+ the command interpreter.
+-It is not built-in, but is just a program
+-and you can change your shell.
+-Everybody has their own favorite one.
++It is not built-in,
++but is just another program.
++You can change your shell,
++and everybody has their own favorite one.
+ The standard one is called
+ .IR sh .
+ See also
+@@ -53,7 +56,7 @@ See also
+ .BR ksh (1),
+ .BR zsh (1).
+ .P
+-A session might go like:
++A session might look like this:
+ .P
+ .in +4n
+ .EX
+-- 
+2.45.2
 
-Hi Kir,
-
-On Sun, Jun 16, 2024 at 01:19:45PM GMT, Kir Kolyshkin wrote:
-> Commit 4131356cd ("man*/, man-pages.7: VERSIONS, STANDARDS, HISTORY:
-> Reorganize sections") results in a few problems with setjmp(3):
->=20
->  1. "Feature Test Macro Requirements for glibc" refers to NOTES, while
->     those macros are now described in HISTORY.
->=20
->  2. The discussion about saving signal mask is now split between HISTORY
->     and NOTES.
->=20
-> Fix the references accordingly.
->=20
-> Fixes: 4131356cd
-> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
-
-I've applied both v2 06 and 07.  Thanks for the revised patches.
-
-Have a lovely night!
-Alex
-
-> ---
->  man/man3/setjmp.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man/man3/setjmp.3 b/man/man3/setjmp.3
-> index 2319feb47..39511e49d 100644
-> --- a/man/man3/setjmp.3
-> +++ b/man/man3/setjmp.3
-> @@ -26,7 +26,7 @@ .SH SYNOPSIS
->  .RE
->  .P
->  .BR setjmp ():
-> -see NOTES.
-> +see HISTORY.
->  .P
->  .BR sigsetjmp ():
->  .nf
-> @@ -65,7 +65,7 @@ .SH DESCRIPTION
->  was called and to restore ("rewind") the stack to its state at the time =
-of the
->  .BR setjmp ()
->  call.
-> -In addition, and depending on the implementation (see NOTES),
-> +In addition, and depending on the implementation (see NOTES and HISTORY),
->  the values of some other registers and the process signal mask
->  may be restored to their state at the time of the
->  .BR setjmp ()
-> --=20
-> 2.45.2
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---5cvbnup3kd4cvf43
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZvTmUACgkQnowa+77/
-2zLRgw//Se/CFxAkD+wEYkWHGxScWVvJ9wrBEbixJ/cg4+gYYcK/fe0gwT5xXOOD
-YdVMyPPfBOWlVZdT3tsEfSsVfF5SIsv41mObL+OBtiaIXm5e2Q5Qx32I/3dQwHoD
-9biZV4QeYOGL9601ECTJ3aOrB+TiddQh9BrZkvjpU4Qvv3C8AnI6Y6GbWnlwzvDg
-J7Ey/0enznrBmTd6Ocz9sWD14l/xqECfecPxJl+kJDIcdhJrwh3uXPP3wRhLw2fO
-mzsvpOge5cOB4+nQGzZ80AI46QNZr5igX/+N+JmI7ACOtNxzuUPBnC8e+n1oyVx/
-p9mV5DEiZv3ZRla5x5wrOiSbwkFDOyOJ2ZH4iC58dwzmZmNnRk5wb3KLKrS9zmkc
-lKii94m6nAdq8WLJ5Seq7DF85qtRLOY/S01EgVRxbbeYZI13sX4fV5gvSMIMjrPE
-DG6X3zAt+Iy93T7E5QTEJikjewGzQfxRwDmIjX5XXKx5RL84Cgl3occjloV1XfBy
-4COvumVLZRP0faoOF4j5WYWvyQhO5Gh6Va48cwgHBIPElXdfHGSaaDlxzDjyWE0K
-RBBBzsOui72asfNV5dXG8urdg2aurN0+FSW99RKaFIBR4j3mk5ZhXUFtCKnFQj60
-kM3EEGir7Zqh/s9W5N2exTt8LDuyqwMRqSaxj5Y+AulC5XLJGj8=
-=kuWB
------END PGP SIGNATURE-----
-
---5cvbnup3kd4cvf43--
 
