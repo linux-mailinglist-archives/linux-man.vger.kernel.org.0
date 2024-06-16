@@ -1,53 +1,52 @@
-Return-Path: <linux-man+bounces-1206-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1207-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03D2909D1C
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 13:08:59 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF2A909D94
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 14:58:31 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 584151F210EB
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 11:08:59 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 14DC8B2166F
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 12:58:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0378186E20;
-	Sun, 16 Jun 2024 11:08:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72346187554;
+	Sun, 16 Jun 2024 12:58:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmoUkE/a"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHuVCR0R"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC481E867
-	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 11:08:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312AC16C6AF
+	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 12:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718536134; cv=none; b=NCeieQ9EISSPWgRYKUzhng5MRFyI00Ajo3ifb8wQxkIDH+7wx1H1z6boy1a9oa6Dv+tsDZZ+i7sKPM7gHCtS9EzgHslRGH7epMViblx7+A0cbiTUlPA2hq5y0hc0ohzaXIJogTLQojElIkOjetGdbP2wWZjyDxmYZHyUJNWiIvM=
+	t=1718542704; cv=none; b=B+zRGupPHis+gLByxJs065LT8TQMR65c+DF7NNLiiPnCshnD3I4EtMJTT/kNYFbZ2WMYZWMoasr+WGUkRtWifuSrkvnsx3SZ48hOXjkzcqAEullEgFSi6dY6FnQAIPXbrQHLJRO3FHigm/24x8wILYJyJfVVJfq5XaVEGFP1qGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718536134; c=relaxed/simple;
-	bh=0Le7k8OEHR4PPM5CGSwW6WSBrpfltuLZUdP/jSPyfIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rl/ozBgwJnrgqs5Ukb1f8hGRW3YxD1P1/Ez1mCxMrtWLZ+29putZYNIebM1kOL2NEBy8SL2n0mIO+qWcGsSW5bj/KXPfmZkCgz7YZPmJmi/monEyFWMcem0iILqT4vyxS5fwDiPGvELj4WX09KMLM/YhDsE0hqWWZh8GyMO5MkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmoUkE/a; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF26C2BBFC;
-	Sun, 16 Jun 2024 11:08:53 +0000 (UTC)
+	s=arc-20240116; t=1718542704; c=relaxed/simple;
+	bh=GZcVvfLgkF13BKwwK+u6UNdRJDqOhI+OVjZRoeYq/Cs=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=nN84Tc/Lg2Bx/82ISb1qb9U9CkLJbwn8pz5QD8BUDn7tRckAQAXAa8ZcsOKkM7S6IfvmzJT5+pEvIXOO75lg4ywEEvRAOBmF16fnhMbRtGRmuQCgFsS4XAf7lfm8SlrmitI1O72vmSxul9uocvtUxTUFlDfjJNuG25ljvcijn2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHuVCR0R; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61E0C2BBFC;
+	Sun, 16 Jun 2024 12:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718536134;
-	bh=0Le7k8OEHR4PPM5CGSwW6WSBrpfltuLZUdP/jSPyfIs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OmoUkE/a2/wfmXMufXTXqHzlTgR7dxphLjdA/15oKQKf2s2+ErgiUYXv78oN+pKLy
-	 O7vkQKFSGzSCJXbxyyM7SwaCWMQHAZnEuZzrW2gkCYaq2ZBWaeV1oSglcPUGaVJMio
-	 1EzxN4CZi/1HJjH8mn5AMSWdI5qQmEiWbwRGeGN8cAk/QPc+Luqrtg+qSEg1sbjrxc
-	 P2s1OD5cYWkRsfzYIuvaA+tHXXGxPbEMsij2YknM4KtDbubsTlbTlwbnWY/orWdCWe
-	 n79F8nkyQ1rPpJn/liNAhcBLTkZ/GdaeByvPjN5mhBrIzL1oNfPUBNFHXUHXaukXwb
-	 kTaLqeHIaUZ+w==
-Date: Sun, 16 Jun 2024 13:08:51 +0200
+	s=k20201202; t=1718542703;
+	bh=GZcVvfLgkF13BKwwK+u6UNdRJDqOhI+OVjZRoeYq/Cs=;
+	h=Date:From:To:Cc:Subject:From;
+	b=VHuVCR0R1UI+ce8XixlYxPqTAJxLwQx8r7vdh7QgZtmZ2KfS/s8v4Rj5oCgZzD929
+	 eqEaI+Et+i53KX2ILSVOIN79kSYJdnIaSfJ6oWu1B16322EHeVkWnGvBLv+x5lwE6n
+	 8pFb0LOEifxWTTF6AagbA5FO8bR/3eFwSPJsMLvcz+bZfPMa9NH2kv1e3kr9pRWj87
+	 J9eQwzZmxT9wmMpScL/GYci6Uuh1hURAzhnEpRxGhGQWx4KnAbG850rzXoHVFqownY
+	 G6KK3BGkrK0bW6QFMsiaOufBG9t7VeC4J7yWWB5iSe672CvGMvTOipEqZjDuxBq9tX
+	 VtE4GaiHhWrdQ==
+Date: Sun, 16 Jun 2024 14:58:20 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 00/11] man3: fix wrong/non-existent section references
-Message-ID: <trfyirfvsgie7myukk4ekvh6uo35kfi2p2ifumfjj25256z537@xfssokbapn7n>
-References: <20240616011920.1627949-1-kolyshkin@gmail.com>
+To: toddy@debian.org
+Cc: marcos@debian.org, linux-man@vger.kernel.org
+Subject: Debian manpages Build-Depends
+Message-ID: <kt2jczwpcjm7ylszg37vbg5ubjudgxw3fjhuiwbgfrq2f3x73b@rdkpvaie73kg>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,109 +54,254 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nmsnfsp3q52pza5w"
+	protocol="application/pgp-signature"; boundary="2ohnmfucwxgfwg5g"
 Content-Disposition: inline
-In-Reply-To: <20240616011920.1627949-1-kolyshkin@gmail.com>
 
 
---nmsnfsp3q52pza5w
+--2ohnmfucwxgfwg5g
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 00/11] man3: fix wrong/non-existent section references
-References: <20240616011920.1627949-1-kolyshkin@gmail.com>
+To: toddy@debian.org
+Cc: marcos@debian.org, linux-man@vger.kernel.org
+Subject: Debian manpages Build-Depends
 MIME-Version: 1.0
-In-Reply-To: <20240616011920.1627949-1-kolyshkin@gmail.com>
 
-Hi Kir,
+Hi Tobias,
 
-On Sat, Jun 15, 2024 at 06:18:53PM GMT, Kir Kolyshkin wrote:
-> Commit 4131356cd ("man*/, man-pages.7: VERSIONS, STANDARDS, HISTORY:
-> Reorganize sections") results in many wrong section references.
->=20
-> Mostly, this is about references to no-longer-existent section NOTES,
-> but there are some other issues as well, such as references to a wrong
-> section, or a discussion which is now split in between two sections,
-> etc.
->=20
-> This patch series tries to fix some of these issues in man3 section
-> only (I haven't checked other section numbers).
->=20
-> Found accidentally when reading exec(3).
+I've noticed you removed most Build-Depends in
 
-Thanks for the patches!
+commit fc3a690d91ec913950d1e9ea8cfab7f7e5821ce6
+Author: Dr. Tobias Quathamer <toddy@debian.org>
+Date:   Fri Jun 7 23:07:31 2024 +0200
 
-> Kir Kolyshkin (11):
->   exec.3: fix section reference
->   posix_fallocate.3: fix section references
->   floor.3: fix section reference
->   ceil.3,rint.3,round.3: rm NOTES section
->   getdtablesize.3: fix section reference
->   readdir.3: fix section references
->   setjmp.3: fix section references
->   sigpause.3: fix section reference
->   stailq.3: fix section reference
->   strtok.3: fix section reference
->   strtod.3: fix wrong section reference
+    Remove packages from Build-Depends to allow migration to testing.
+   =20
+    There's no clear explanation in d/changelog or the commit
+    messages as to why all those packages should be needed.
+   =20
+    However, it hinders testing migration (currently due to the
+    dependency on iwyu).
 
-I've applied the following patches:
 
-01, 02,  04, 05,  08, 09, 10, 11
+leaving just `debhelper-compat (=3D 13), groff (>=3D 1.23.0), mandoc`.
 
-I've applied an alternative patch to 03, so it's no longer needed.
+The entire list of build dependencies upstream is:
 
-Patches 06 and 07 need some more work, and I've provided comments on
-each of them.
+	$ find share/mk/configure/build-depends -type f \
+		| sed 's,share/mk/configure/build-depends/,,' \
+		| sed 's,\.mk,,' \
+		| sort;
+	binutils/ld
+	bsdextrautils/col
+	bzip2/bzip2
+	checkpatch/checkpatch
+	clang-tidy/clang-tidy
+	clang/clang
+	coreutils/cat
+	coreutils/cp
+	coreutils/cut
+	coreutils/echo
+	coreutils/expr
+	coreutils/head
+	coreutils/install
+	coreutils/ln
+	coreutils/mkdir
+	coreutils/realpath
+	coreutils/rm
+	coreutils/sort
+	coreutils/stat
+	coreutils/tac
+	coreutils/tail
+	coreutils/test
+	coreutils/touch
+	coreutils/true
+	cpp/cpp
+	cppcheck/cppcheck
+	cpplint/cpplint
+	diffoscope/diffoscope
+	findutils/find
+	findutils/xargs
+	fontforge/fontforge
+	gcc/cc
+	git/git
+	grep/grep
+	groff-base/eqn
+	groff-base/grops
+	groff-base/grotty
+	groff-base/nroff
+	groff-base/pic
+	groff-base/preconv
+	groff-base/tbl
+	groff-base/troff
+	groff/afmtodit
+	groff/gropdf
+	groff/pfbtops
+	groff/post-grohtml
+	gzip/gzip
+	iwyu/iwyu
+	libc-bin/locale
+	lzip/lzip
+	man/man
+	mandoc/mandoc
+	moreutils/sponge
+	pkgconf/pkgconf
+	sed/sed
+	tar/tar
+	texlive-fonts-extra-links/Tinos-Regular.ttf
+	texlive-fonts-extra/Tinos.pfb
+	xz-utils/xz
+
+(or just the packages:)
+
+	$ find share/mk/configure/build-depends -type f \
+		| sed 's,share/mk/configure/build-depends/,,' \
+		| sed 's,/.*\.mk,,' \
+		| sort \
+		| uniq;
+	binutils
+	bsdextrautils
+	bzip2
+	checkpatch
+	clang
+	clang-tidy
+	coreutils
+	cpp
+	cppcheck
+	cpplint
+	diffoscope
+	findutils
+	fontforge
+	gcc
+	git
+	grep
+	groff
+	groff-base
+	gzip
+	iwyu
+	libc-bin
+	lzip
+	man
+	mandoc
+	moreutils
+	pkgconf
+	sed
+	tar
+	texlive-fonts-extra
+	texlive-fonts-extra-links
+	xz-utils
+
+
+This includes dependencies for building a PDF book of the manual pages,
+creating the distribution tarball, testing the programs in the EXAMPLES
+sections, and many other targets.
+
+Debian doesn't need all that, so you can restrict that list to the
+targets that Debian does run: `make check`, `make install` (and you may
+want to `make lint`).  For `make check` and `make install` only, you'll
+need a smaller list:
+
+	$ find share/mk/ -type f \
+		| xargs grep include.*configure/build-depends \
+		| sed 's,:.*/configure/build-depends/,:,' \
+		| sed 's,\.mk$,,' \
+		| sort \
+		| grep -v \
+			-e /lint/ -e /dist/ -e /pdf/ -e /ps/ -e /html/ \
+			-e /fonts/ -e /examples/ -e /gcc/ -e /clang/ \
+			-e /binutils/ -e /cpp/ \
+		| sed 's/.*://' \
+		| sort \
+		| uniq;
+	bsdextrautils/col
+	coreutils/cat
+	coreutils/cp
+	coreutils/echo
+	coreutils/expr
+	coreutils/install
+	coreutils/ln
+	coreutils/rm
+	coreutils/sort
+	coreutils/stat
+	coreutils/tail
+	coreutils/test
+	coreutils/touch
+	coreutils/true
+	findutils/find
+	findutils/xargs
+	git/git
+	grep/grep
+	groff-base/eqn
+	groff-base/grotty
+	groff-base/nroff
+	groff-base/preconv
+	groff-base/tbl
+	groff-base/troff
+	libc-bin/locale
+	man/man
+	moreutils/sponge
+	sed/sed
+
+(or just the packages:)
+
+	$ find share/mk/ -type f \
+		| xargs grep include.*configure/build-depends \
+		| sed 's,:.*/configure/build-depends/,:,' \
+		| sed 's,\.mk$,,' \
+		| sort \
+		| grep -v \
+			-e /lint/ -e /dist/ -e /pdf/ -e /ps/ -e /html/ \
+			-e /fonts/ -e /examples/ -e /gcc/ -e /clang/ \
+			-e /binutils/ -e /cpp/ \
+		| sed 's/.*://' \
+		| sed 's,/.*,,' \
+		| sort \
+		| uniq;
+	bsdextrautils
+	coreutils
+	findutils
+	git
+	grep
+	groff-base
+	libc-bin
+	man
+	moreutils
+	sed
+
+
+You should add those at least, or dh_auto_test(1) may fail, I think.
+
+BTW, mandoc(1) is not necessary for `make check` or `make install`, so
+you could just remove it.
+
 
 Have a lovely day!
 Alex
 
->=20
->  man/man3/ceil.3            | 4 ++--
->  man/man3/exec.3            | 2 +-
->  man/man3/floor.3           | 2 +-
->  man/man3/getdtablesize.3   | 2 +-
->  man/man3/posix_fallocate.3 | 4 ++--
->  man/man3/readdir.3         | 8 ++++----
->  man/man3/rint.3            | 4 ++--
->  man/man3/round.3           | 4 ++--
->  man/man3/setjmp.3          | 6 +++---
->  man/man3/sigpause.3        | 2 +-
->  man/man3/stailq.3          | 2 +-
->  man/man3/strtod.3          | 2 +-
->  man/man3/strtok.3          | 2 +-
->  13 files changed, 22 insertions(+), 22 deletions(-)
->=20
-> --=20
-> 2.45.2
->=20
->=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---nmsnfsp3q52pza5w
+--2ohnmfucwxgfwg5g
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZux8MACgkQnowa+77/
-2zL5eA//Xdc2NALsY3B34RsF7IUFwoSDupDgAGch7VonHG0Jy3uUVVgcDsZW6QQE
-DkUVOrl3yV2cxP5BKXyeN1YDmhZkwTNCZUF4PUZdcedVAKyITHKSrbG7ISiCeZ3S
-HbM/VwZgX7Qp1DPR4BO2MDiMaHP2O7e7jDDiy4XFE7i78MNOClDBjjaPDnCqU+cv
-6GlhuyBw/H7PIdqI96bn+FBFlBeiQMukzzSmYlsAESw5RZ5yQwCMrGN0SWgg6vGg
-IODpyv7ZYHo0kuHx1ZvNnR33eSTATOPWe1lZuMWhpIfu4CbarrudkSvrn2s71/lM
-XbxGPIxQ5f8H0UU1EpIuRsmDRdHI9ecsq9zEetyqcN+Jf7QyuVnf6y96p24NqUYn
-vwT9ixG5FSQ/AuCq15QCGeyBvyY5cIYlJj8ybNAkyyGcJVDUPzgC8oDL2q4KgcB5
-VLmKafIymwJYFSb4n2pJDxQn4Z+82konELWjAQJJAbphNUB3Kch2Xx879qUDa9aF
-OTEuSTODGKz228lw2VUpPhuQ7hAncN6W+UBGmEEKtynKepgeBN/g0JoJbm67UF7a
-LZasxoKfsVVD8TQtvbVWIWFa8oPYJUtcfdgH0atOdw8wvYnyy9Ka+pninqgEyj2f
-tXpIzvtKKLo1HTeDM2+IZfiTo3HsA6sO6UwGq7KerXkz+J/lTCk=
-=Hwn2
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZu4WYACgkQnowa+77/
+2zKW4hAAol986sWVd1RpmlRuvOam2iIXE2qIn+kGhrMuuDXPRt8TKsOiv2SeU+kL
+C92iVO/g0K8hQTjdNumHHTcRwJB4Lsr7Y7ozxq4PwJROVbvYeOAMK8JOGbsVnLio
+1RCYKRGtPMZs71XdRvjpG3OntDi02B8hNYti/EMVT68WLUoHgj+nqlzt324uVSyI
+1s0D2TFK0zeKmpvsYL6ABBU8UXcMpSS454zuIR18QhbjAA8AMI4U2DkxZ3ulvp0R
+yx1Z3NuqcB/x0TNtWNgudnkBOR1kZxlHks/jWYLCSn31xEY1uQXDt+4k9tkLXVLU
+0MyvA/rbo2Ay2HU8f9gjJ75fQWwn8IRuW6j57RTrn3GWFMrvBI3kN4k5b4WTpxgu
+Kt7uBxrnsukARg64BPMZHM6i8ltekHg1gR769eAX/yvceNxbajwAja+opZuxYJRz
+r9ZtVzTsT6HKSmICG0V9mAKGl33FJvNquwd+D3h8zpG78uzBU1qB98/rhCjuZjTK
+Bbf49K7/4bZ/3R8bt1LMl5P0S0XLuahJRtDRi+2N3e4gDYY5G7ZfkT+/RZ3TV5by
+KatDg5n3SAmKFe+Lxae/1RQ/stIYyeCl2BT+OI9hlLblq3zb1B3nbfuW0qvGJw8l
+mSwn7Nc3WTtYOslPYhNcEGcmqjZO3Q6LiRQfPk6bvpvrVXWm5gM=
+=hbmu
 -----END PGP SIGNATURE-----
 
---nmsnfsp3q52pza5w--
+--2ohnmfucwxgfwg5g--
 
