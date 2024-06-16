@@ -1,211 +1,128 @@
-Return-Path: <linux-man+bounces-1190-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1191-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1C590999A
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jun 2024 20:35:03 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C0B9909B05
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 03:19:41 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 34FB01F2201F
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jun 2024 18:35:03 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 110EFB20F39
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 01:19:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42CA64964E;
-	Sat, 15 Jun 2024 18:34:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 180AC154C11;
+	Sun, 16 Jun 2024 01:19:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tF0f+P6g"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lrGnYgu+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020A13EA72
-	for <linux-man@vger.kernel.org>; Sat, 15 Jun 2024 18:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730A11527A9
+	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 01:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718476499; cv=none; b=HGo/7ikurSvA40ZcK53BybnCVt5RsWZy13hRYiCyJKhmcQ7clBOpJdvQ674m39/PUD+ktM8UgYMB6AMPaazEx9er37s07hylfViOX2EyiTpFG97wYWmvzs6dvwnQFFCRI8VhDmIlj+SksDkS+mjDDUr6QApPfMRK/bfv5MrKf3E=
+	t=1718500771; cv=none; b=fGSG3hpCkuk6kGEPPIi22NDjPz577JiTaKSzDk9IAx4NqcclkUhPMXoltEVLdah4HC8Y+rVaJ25gKy5EM7Qiu10IhTxoG+BYYLlf7qOsx9vf0KQJbsfX9cHlDP6j6Lhvf+YzSur5FD2zR3y1HtNntmKqo2yJ5pLDQqZ5nzA7VPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718476499; c=relaxed/simple;
-	bh=HsPfov7FdV9KJYrVwOxuMf1BBjkNt6NPVnm41l/ryJM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d6FnVo2XK3NtPtN12txVDz0BF4ve6swqhiOK2w+PlmHuGLO4ZJi2a9HQHNS8yqARRfeiShcNXkP228TzSXiCsf38gZEv1KTm5igGBMrRsyznM2vCGPudV0y1fO95pxQmVEQuDK0vHTHMRIYqVBYA4B3blaPt1dbQt1p3f3Fuvrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tF0f+P6g; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFACCC116B1;
-	Sat, 15 Jun 2024 18:34:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718476498;
-	bh=HsPfov7FdV9KJYrVwOxuMf1BBjkNt6NPVnm41l/ryJM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tF0f+P6gKiAhRpUIBg3/0w+grKYGpCISX1vJaW9YIuETyZM07TgvjEuymttvH59xD
-	 gZskN6c593FZXeNLL7gGOXJsenOOUwtAKMvXSbmTkeVjIpQm22NB88L1DlTK/XL+Ip
-	 fqXLqATXz+k/0VKpBIlhBeKaAHtqfUS4fFuWdfxlc4uyh04EP8zPR5Kv5HzJXBPkJf
-	 oAY7Cs0bp5R8L917PAC0YZ76u+9B00CSQRivtiogqXdc0WDI4lLK3z2G8Cz/9dKZ1t
-	 AV1LAsW4MgpY1E5baJ36hHZGwbqE8vSoVPnuS1t0Br1Pw8ruIb1hHEom+sx88RQELO
-	 8kg6XgErp4TiA==
-Date: Sat, 15 Jun 2024 20:34:55 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: branden@debian.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1] man/: Use \[rs] instead of \e
-Message-ID: <v7cqlwm7m4nvkp32ckkf7nr6erveyrlhbb64pkfzxa3qk6kcdi@ufjxxe3qsadd>
-References: <20240615183058.452624-3-alx@kernel.org>
+	s=arc-20240116; t=1718500771; c=relaxed/simple;
+	bh=Eu5deuODxEKB/asBzeH7WM/D0HbG6n7MW/KbkEYR86c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LEOPzu4jyEGF3IHTUx071uN4Q81axKzO9BFn+TsQDMR78KGvBeCM8znd7ufVg8pFHHRnIQX9oiKIU1wNZYmT6IeJc+O0wY/JeGER1trhIAH1WNnFDSf6/K/Yrvlhl+UQuWF2qr+RkQ49vfGLF4WhvPh6ewq/vM4HmbivsoBY8dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lrGnYgu+; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-6b09072c9d9so26904956d6.1
+        for <linux-man@vger.kernel.org>; Sat, 15 Jun 2024 18:19:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718500769; x=1719105569; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3pAQQ0GxGYZZOTT/+lvJn/QePhax/PhDbHxwjZawpgw=;
+        b=lrGnYgu+0hWcvCcFyr0lIV5vExBsjtALzLxSnoUX728XwPcCNIj9TN5LXBdoMpK+X5
+         VMrFVmEKXEtqWB8xwU66mpNP5ccqyUyODVTMCLDZiFrWR4K7O2M+a3QlKHJbDhKxpPUd
+         8/fYycdOlYrCZU/yu2kYD9E6yQw+hnF7kG3DWJEbRo+kNXncHBJ4itmsz1YSZCqlfa6/
+         wbyKeQW5/0TnMc5OK6ZJSy4Xjal18GDAY0XbJRqccmYQ+qmXqJM+tmgmu+qvw67nTh8g
+         fnd3RXuZvzmnypFuvz2oQqSMU/KrRcgrQfSyYps2QCY3/Be/mZjYPnA361zSED6QwiRq
+         jvPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718500769; x=1719105569;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3pAQQ0GxGYZZOTT/+lvJn/QePhax/PhDbHxwjZawpgw=;
+        b=Qy+7UtJDauRjgJKYVrDS7Rgwq86SbsH1jXGltwqp1Auky/zsCV/zoFifOsZBDY/vVM
+         borwtEkSK6W9ines3fcgokDPovmi0OPuUJiHK1vVIo1cEuC4akjX1WYWUywNq7O9TPEI
+         5QFzZMz9+L5DpOQK+nScOiQ3ooxJJbGP7U+e8CGozCUPpeK9zkq0cAd4P7SdRZ2tg12f
+         Sg7VJ/pIN/XQYxUFySEYDlxuyonUbkJ+KI2z6RwR3xkGFdNme6sNgzOz0sK0zRqqU/so
+         ra/kwi4r7VSbVzGKjMgLuEjfS3tbgvliI379T1GxyjII3C8T7i2OGCXR88CfsyEarPR/
+         oOyA==
+X-Forwarded-Encrypted: i=1; AJvYcCWSlTf9s6cJ16a/3enow7sUmwzVsjAX/fEJBxHoaG2+FxnpyxUZHUqtK/HLXoEwS3s8YPx6s/G++qjFnKG8pTfZweEyu1vkzISz
+X-Gm-Message-State: AOJu0Yz4cG4Xy1RzU/yOWfipIO/Kaq/ovoq1eS42ZsTu2Sre2ELv9As3
+	auEcp4xSc5WpruQns+7rMGfOHRN8U0aCdIu8iM+pkFf7iZzssmG0
+X-Google-Smtp-Source: AGHT+IEa8WM+TwmIS0+VXp4kyhyNxSVC4VjpAzKSreZxCc+qHWoHRN3wf6eqC1M2M+xZQeySj2rf/Q==
+X-Received: by 2002:a05:6214:307:b0:6b2:b997:6513 with SMTP id 6a1803df08f44-6b2b9976557mr86120916d6.7.1718500769159;
+        Sat, 15 Jun 2024 18:19:29 -0700 (PDT)
+Received: from kir-tp1.redhat.com (c-67-160-124-188.hsd1.wa.comcast.net. [67.160.124.188])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b2a5c18209sm38130626d6.42.2024.06.15.18.19.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Jun 2024 18:19:28 -0700 (PDT)
+From: Kir Kolyshkin <kolyshkin@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Kir Kolyshkin <kolyshkin@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH 00/11] man3: fix wrong/non-existent section references
+Date: Sat, 15 Jun 2024 18:18:53 -0700
+Message-ID: <20240616011920.1627949-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uh566ad2kevesqbg"
-Content-Disposition: inline
-In-Reply-To: <20240615183058.452624-3-alx@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+Commit 4131356cd ("man*/, man-pages.7: VERSIONS, STANDARDS, HISTORY:
+Reorganize sections") results in many wrong section references.
 
---uh566ad2kevesqbg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: branden@debian.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v1] man/: Use \[rs] instead of \e
-References: <20240615183058.452624-3-alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20240615183058.452624-3-alx@kernel.org>
+Mostly, this is about references to no-longer-existent section NOTES,
+but there are some other issues as well, such as references to a wrong
+section, or a discussion which is now split in between two sections,
+etc.
 
-Hi Branden!
+This patch series tries to fix some of these issues in man3 section
+only (I haven't checked other section numbers).
 
-On Sat, Jun 15, 2024 at 08:31:31PM GMT, Alejandro Colomar wrote:
-> Link: <https://lore.kernel.org/linux-man/20240611122453.qn6jyl4go4bvwkqm@=
-illithid/>
-> Suggested-by: "G. Branden Robinson" <branden@debian.org>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
-> Range-diff against v0:
-> -:  --------- > 1:  1fc1669e9 man/: Use \[rs] instead of \e
->=20
-[...]
->  man/man7/man-pages.7                          |  18 +--
-[...]
->  284 files changed, 1173 insertions(+), 1173 deletions(-)
->=20
-[...]
-> diff --git a/man/man7/man-pages.7 b/man/man7/man-pages.7
-> index 007b9e7a2..dc117662f 100644
-> --- a/man/man7/man-pages.7
-> +++ b/man/man7/man-pages.7
+Found accidentally when reading exec(3).
 
-The cases in man-pages(7) are a bit special, since they are mostly
-examples of man(7) source code.  Would you recommend using \e or \[rs]
-there?
+Kir Kolyshkin (11):
+  exec.3: fix section reference
+  posix_fallocate.3: fix section references
+  floor.3: fix section reference
+  ceil.3,rint.3,round.3: rm NOTES section
+  getdtablesize.3: fix section reference
+  readdir.3: fix section references
+  setjmp.3: fix section references
+  sigpause.3: fix section reference
+  stailq.3: fix section reference
+  strtok.3: fix section reference
+  strtod.3: fix wrong section reference
 
-Thanks,
-and have a lovely day!
+ man/man3/ceil.3            | 4 ++--
+ man/man3/exec.3            | 2 +-
+ man/man3/floor.3           | 2 +-
+ man/man3/getdtablesize.3   | 2 +-
+ man/man3/posix_fallocate.3 | 4 ++--
+ man/man3/readdir.3         | 8 ++++----
+ man/man3/rint.3            | 4 ++--
+ man/man3/round.3           | 4 ++--
+ man/man3/setjmp.3          | 6 +++---
+ man/man3/sigpause.3        | 2 +-
+ man/man3/stailq.3          | 2 +-
+ man/man3/strtod.3          | 2 +-
+ man/man3/strtok.3          | 2 +-
+ 13 files changed, 22 insertions(+), 22 deletions(-)
 
-Alex
+-- 
+2.45.2
 
-> @@ -184,7 +184,7 @@ .SS Sections within a manual page
->  for important details of the line(s) that should follow the
->  \fB.SH NAME\fP command.
->  All words in this line (including the word immediately
-> -following the "\e\-") should be in lowercase,
-> +following the "\[rs]\-") should be in lowercase,
->  except where English or technical terminological convention
->  dictates otherwise.
->  .TP
-> @@ -464,7 +464,7 @@ .SS Sections within a manual page
->  (don't hyphenate)
->  directives.
->  Hyphenation of individual page names can be prevented
-> -by preceding words with the string "\e%".
-> +by preceding words with the string "\[rs]%".
->  .IP
->  Given the distributed, autonomous nature of FOSS projects
->  and their documentation, it is sometimes necessary\[em]and in many cases
-> @@ -611,7 +611,7 @@ .SS Formatting conventions for manual pages describin=
-g functions
->      .BR fcntl ()
->  .EE
->  .P
-> -(Using this format, rather than the use of "\efB...\efP()"
-> +(Using this format, rather than the use of "\[rs]fB...\[rs]fP()"
->  makes it easier to write tools that parse man page source files.)
->  .\"
->  .SS Use semantic newlines
-> @@ -669,7 +669,7 @@ .SS Lists
->  .TP
->  Bullet lists
->  Elements are preceded by bullet symbols
-> -.RB ( \e[bu] ).
-> +.RB ( \[rs][bu] ).
->  Anything that doesn't fit elsewhere is
->  usually covered by this type of list.
->  .TP
-> @@ -958,7 +958,7 @@ .SS NULL, NUL, null pointer, and null byte
->  is the
->  .IR "null byte" ,
->  a byte with the value 0, represented in C via the character constant
-> -.IR \[aq]\e0\[aq] .
-> +.IR \[aq]\[rs]0\[aq] .
->  .P
->  The preferred term for the pointer is "null pointer" or simply "NULL";
->  avoid writing "NULL pointer".
-> @@ -998,7 +998,7 @@ .SS Use of e.g., i.e., etc., a.k.a., and similar
->  In addition, "e.g." and "i.e." should always be followed by a comma.
->  .SS Em-dashes
->  The way to write an em-dash\[em]the glyph that appears
-> -at either end of this subphrase\[em]in *roff is with the macro "\e[em]".
-> +at either end of this subphrase\[em]in *roff is with the macro "\[rs][em=
-]".
->  (On an ASCII terminal, an em-dash typically renders as two hyphens,
->  but in other typographical contexts it renders as a long dash.)
->  Em-dashes should be written
-> @@ -1073,7 +1073,7 @@ .SS Generating optimal glyphs
->  .P
->  .in +4n
->  .EX
-> -\e\-
-> +\[rs]\-
->  .EE
->  .in
->  .P
-> @@ -1090,11 +1090,11 @@ .SS Generating optimal glyphs
->  produce real minus signs when pasted into a terminal.
->  .P
->  To produce unslanted single quotes that render well in ASCII, UTF-8, and=
- PDF,
-> -use "\e[aq]" ("apostrophe quote"); for example
-> +use "\[rs][aq]" ("apostrophe quote"); for example
->  .P
->  .in +4n
->  .EX
-> -\e[aq]C\e[aq]
-> +\[rs][aq]C\[rs][aq]
->  .EE
->  .in
->  .P
-
---=20
-<https://www.alejandro-colomar.es/>
-
---uh566ad2kevesqbg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZt3s8ACgkQnowa+77/
-2zJYiA/7BexwzDxcysuwt/K6daPFlha1DpRbam/sh3PD926uHs4JianpSi7rJMSG
-9N7QAWputX+e3qa1H5gdF15VC/vH2n7JToYrnyridzAdFgCgYT+W0BcQSWV+COIc
-HqYuMq0sG9tK4b3hRt56vq3179YfDOQm1GEow1qHsjEVJ6ymCQVRl2QgxbPYCSmM
-ojyz6r53kjERa+3uMPZl9di02V5hBuQ4t2E/h/H4SIKGnP4R2pLuEexUMiNGZeEP
-2BFp8n/IGAhhX/ee/qgXfoYa2qm8wnGIIIRb3fWIbE76zLb2ZX2IifGEp69oYsZy
-L6LAnt5Bat2ktpuAl3wbf6WJO9qqIGulhzD7Ap5uhHCHJNWjN742weFa3vUXnsBZ
-GgnUFuVKX3+jJmKOVn8U+svtkhc53YcdPnz5AcwwOLwApkIJu792m+gVmak8MvFC
-2g58Ok0fOmwfru+Z6lZ44T0HP9T9/Ndck4h+1nu3B3Hcdvb20Vn/6oSLpfbOmseD
-Qxjkj/HrYrac7xTFhCyQB3uXyw0eD37PepwAhxz0Lx84Q2tAK7KhBedpWQVrmhmD
-VaW4GdzW51XaM8VJwQRaU0iO5lTiHRGP1DFUChGVyJNrUemlMD53HvesVlRB/q87
-Hbat0z2GPFjrdCsOFLGkO19rDujo3TrRRN+TX0ZfviJrxD/+zlk=
-=1qKZ
------END PGP SIGNATURE-----
-
---uh566ad2kevesqbg--
 
