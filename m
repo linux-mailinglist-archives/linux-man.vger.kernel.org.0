@@ -1,307 +1,136 @@
-Return-Path: <linux-man+bounces-1207-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1208-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF2A909D94
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 14:58:31 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E54B909FA1
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 22:14:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 14DC8B2166F
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 12:58:29 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 774E71C21192
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jun 2024 20:14:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72346187554;
-	Sun, 16 Jun 2024 12:58:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9A7C4D13F;
+	Sun, 16 Jun 2024 20:14:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHuVCR0R"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pcq/6vdQ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312AC16C6AF
-	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 12:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608493A8CB
+	for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 20:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718542704; cv=none; b=B+zRGupPHis+gLByxJs065LT8TQMR65c+DF7NNLiiPnCshnD3I4EtMJTT/kNYFbZ2WMYZWMoasr+WGUkRtWifuSrkvnsx3SZ48hOXjkzcqAEullEgFSi6dY6FnQAIPXbrQHLJRO3FHigm/24x8wILYJyJfVVJfq5XaVEGFP1qGQ=
+	t=1718568843; cv=none; b=D+DqLXPQlP/d/MX0OTkJjYYp71huf1dKK/RPwrHKsQkWJrGUB/F1bn2Dv/L+IQFdmX2masF85N00DG2aGI0PvR7+JMMbXgB1TKC4xiNTgnbA57l2JFpq0aBCi82NtS4Al8uGok3e7RHaEhwS7UgV5Hbb64SqNL3ViDqB0/k5ly0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718542704; c=relaxed/simple;
-	bh=GZcVvfLgkF13BKwwK+u6UNdRJDqOhI+OVjZRoeYq/Cs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=nN84Tc/Lg2Bx/82ISb1qb9U9CkLJbwn8pz5QD8BUDn7tRckAQAXAa8ZcsOKkM7S6IfvmzJT5+pEvIXOO75lg4ywEEvRAOBmF16fnhMbRtGRmuQCgFsS4XAf7lfm8SlrmitI1O72vmSxul9uocvtUxTUFlDfjJNuG25ljvcijn2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHuVCR0R; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61E0C2BBFC;
-	Sun, 16 Jun 2024 12:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718542703;
-	bh=GZcVvfLgkF13BKwwK+u6UNdRJDqOhI+OVjZRoeYq/Cs=;
-	h=Date:From:To:Cc:Subject:From;
-	b=VHuVCR0R1UI+ce8XixlYxPqTAJxLwQx8r7vdh7QgZtmZ2KfS/s8v4Rj5oCgZzD929
-	 eqEaI+Et+i53KX2ILSVOIN79kSYJdnIaSfJ6oWu1B16322EHeVkWnGvBLv+x5lwE6n
-	 8pFb0LOEifxWTTF6AagbA5FO8bR/3eFwSPJsMLvcz+bZfPMa9NH2kv1e3kr9pRWj87
-	 J9eQwzZmxT9wmMpScL/GYci6Uuh1hURAzhnEpRxGhGQWx4KnAbG850rzXoHVFqownY
-	 G6KK3BGkrK0bW6QFMsiaOufBG9t7VeC4J7yWWB5iSe672CvGMvTOipEqZjDuxBq9tX
-	 VtE4GaiHhWrdQ==
-Date: Sun, 16 Jun 2024 14:58:20 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: toddy@debian.org
-Cc: marcos@debian.org, linux-man@vger.kernel.org
-Subject: Debian manpages Build-Depends
-Message-ID: <kt2jczwpcjm7ylszg37vbg5ubjudgxw3fjhuiwbgfrq2f3x73b@rdkpvaie73kg>
+	s=arc-20240116; t=1718568843; c=relaxed/simple;
+	bh=wM+u4oT1irEi8mpzxggiZFKpkko0ganzfbynRj3C1x4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ICoE7E9AMztLHDe4Ys9KbZVt14WsUy30aVT1d7qc/CVl6svDFrOWSBrdEXk7aiIE7wgPAj+1DqP9Iaj1BjtV0Sx/05CS6q3fC7dOrC00/4BXb3R2Mm86vqzKz8INM2Md9DWyliq1y8Cz0hdojuABbBUNK+hWY3N3Jai46oYf+DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pcq/6vdQ; arc=none smtp.client-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-2508320e62dso1973056fac.3
+        for <linux-man@vger.kernel.org>; Sun, 16 Jun 2024 13:14:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718568841; x=1719173641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=16Uj40n4VwliVAcdrABmuelta04sp41nUZ9n7jYaczQ=;
+        b=Pcq/6vdQmKkGi6Tx/QIF2Df/qtkNjdpxZLTta7sFd8EfaOxb0cXJuAUo9JHi6i/5SM
+         eiNXKmJf+y8F9UcRyiDUjr+gwVDpwXn3q4VxJSCQA/eokndkYAhNxDpYpYEIKCShTDCp
+         Rrd9mjgDgwZNj+9byZ2N1Nxf0xBrwMGqNwQf0CkWEF5zx77AHRnf3N6xXxZXW+e6j+zd
+         k6P2GbpELCoLYdzEnJe0F3Vhmv3V35enI1tSpn+WrkPU5bVyLM4WmmD1i0wvTGJFwySw
+         1KAXf77DA6EmgJbAsthggv8MKbThVhedPWJf/gUgW6qeMiSvPC0BFh9Gm9WepgXPzRS4
+         WSJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718568841; x=1719173641;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=16Uj40n4VwliVAcdrABmuelta04sp41nUZ9n7jYaczQ=;
+        b=JmuNLoGCo0zga4dgzCEN5J0mWVwG4M8MiweNmXHkXznnmKBkbg5lyZuUFHlU/O6saK
+         nTNWe6gzI8HZdMRihn2w6wpp8odtRmAgU5GExUI7F80j0dCJ+kMs/sCU1VBFWxYr2DR4
+         au4ucOqLYeJhcu57ov2xDXXVIeM7qSrZYYELNy1J4Y8Xl37gTXkVD+VVQGNmdUCzcOwb
+         Xx/Vykxx6nfsdy8u0MFR2FG+y2pdQ9efrYv8IFemJcP5vHvWORXGy5ggfXZMevmzB04U
+         FgyOhTKxgLVbEhDe5+gjSPPl1/WRQvGSp8kViaMoUzj12jqmDtTfhaN4TqA2zAEq6s+5
+         XYGw==
+X-Forwarded-Encrypted: i=1; AJvYcCVJdeWd8/9cTK74RWJaXF/xtNW3sFEXnf8G29KjEubQ0oLYMVrzWwJDNkLqUyUHnb6F4Rc0IZlkKL+3x79VHXPmyO8EHnaq6IO8
+X-Gm-Message-State: AOJu0Yx9chtkj5RQc1N98ZI1hR4tIekbzDAdwhsfLcnL/tQjSKhwhi0n
+	pV9Kg4S7wuVHu4AtDrFesk+jYvDNapwvWWf4xqlA6TkFUYZxZNHz
+X-Google-Smtp-Source: AGHT+IE63LCn4PRco5tiWnV+rgw2K78Wuy5rermZ+w3Qjre0Oy8xYPgb6KkOJW7fmZtFmHce+l6w5A==
+X-Received: by 2002:a05:6870:1696:b0:254:783d:aeb4 with SMTP id 586e51a60fabf-25842a20260mr8501233fac.35.1718568841114;
+        Sun, 16 Jun 2024 13:14:01 -0700 (PDT)
+Received: from kir-tp1.redhat.com (c-67-160-124-188.hsd1.wa.comcast.net. [67.160.124.188])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b2a5eb4d78sm47185626d6.95.2024.06.16.13.14.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Jun 2024 13:14:00 -0700 (PDT)
+From: Kir Kolyshkin <kolyshkin@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Kir Kolyshkin <kolyshkin@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v2 06/11] readdir.3: fix wrong section references
+Date: Sun, 16 Jun 2024 13:13:20 -0700
+Message-ID: <20240616201323.1662948-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <stctfcc3dl6vdg25dnjx4e5z4qa5whjuqrdpw4c2htpblelcfd@sllphswpkhce>
+References: <stctfcc3dl6vdg25dnjx4e5z4qa5whjuqrdpw4c2htpblelcfd@sllphswpkhce>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2ohnmfucwxgfwg5g"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+There are references to NOTES section, but since the commit 4131356cd
+("man*/, man-pages.7: VERSIONS, STANDARDS, HISTORY: Reorganize
+sections") the relevant information is in VERSIONS.
 
---2ohnmfucwxgfwg5g
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: toddy@debian.org
-Cc: marcos@debian.org, linux-man@vger.kernel.org
-Subject: Debian manpages Build-Depends
-MIME-Version: 1.0
+While at it, unify the "see XXX" style.
 
-Hi Tobias,
+Fixes: 4131356cd
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ man/man3/readdir.3 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-I've noticed you removed most Build-Depends in
+diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
+index 731e25c85..094f21080 100644
+--- a/man/man3/readdir.3
++++ b/man/man3/readdir.3
+@@ -59,7 +59,7 @@ .SH DESCRIPTION
+ and
+ .IR d_ino .
+ The other fields are unstandardized, and not present on all systems;
+-see NOTES below for some further details.
++see VERSIONS.
+ .P
+ The fields of the
+ .I dirent
+@@ -85,7 +85,7 @@ .SH DESCRIPTION
+ .I d_reclen
+ This is the size (in bytes) of the returned record.
+ This may not match the size of the structure definition shown above;
+-see NOTES.
++see VERSIONS.
+ .TP
+ .I d_type
+ This field contains a value indicating the file type,
+@@ -137,8 +137,8 @@ .SH DESCRIPTION
+ .BR DT_UNKNOWN .
+ .TP
+ .I d_name
+-This field contains the null terminated filename.
+-.IR "See NOTES" .
++This field contains the null terminated filename;
++see VERSIONS.
+ .P
+ The data returned by
+ .BR readdir ()
+-- 
+2.45.2
 
-commit fc3a690d91ec913950d1e9ea8cfab7f7e5821ce6
-Author: Dr. Tobias Quathamer <toddy@debian.org>
-Date:   Fri Jun 7 23:07:31 2024 +0200
-
-    Remove packages from Build-Depends to allow migration to testing.
-   =20
-    There's no clear explanation in d/changelog or the commit
-    messages as to why all those packages should be needed.
-   =20
-    However, it hinders testing migration (currently due to the
-    dependency on iwyu).
-
-
-leaving just `debhelper-compat (=3D 13), groff (>=3D 1.23.0), mandoc`.
-
-The entire list of build dependencies upstream is:
-
-	$ find share/mk/configure/build-depends -type f \
-		| sed 's,share/mk/configure/build-depends/,,' \
-		| sed 's,\.mk,,' \
-		| sort;
-	binutils/ld
-	bsdextrautils/col
-	bzip2/bzip2
-	checkpatch/checkpatch
-	clang-tidy/clang-tidy
-	clang/clang
-	coreutils/cat
-	coreutils/cp
-	coreutils/cut
-	coreutils/echo
-	coreutils/expr
-	coreutils/head
-	coreutils/install
-	coreutils/ln
-	coreutils/mkdir
-	coreutils/realpath
-	coreutils/rm
-	coreutils/sort
-	coreutils/stat
-	coreutils/tac
-	coreutils/tail
-	coreutils/test
-	coreutils/touch
-	coreutils/true
-	cpp/cpp
-	cppcheck/cppcheck
-	cpplint/cpplint
-	diffoscope/diffoscope
-	findutils/find
-	findutils/xargs
-	fontforge/fontforge
-	gcc/cc
-	git/git
-	grep/grep
-	groff-base/eqn
-	groff-base/grops
-	groff-base/grotty
-	groff-base/nroff
-	groff-base/pic
-	groff-base/preconv
-	groff-base/tbl
-	groff-base/troff
-	groff/afmtodit
-	groff/gropdf
-	groff/pfbtops
-	groff/post-grohtml
-	gzip/gzip
-	iwyu/iwyu
-	libc-bin/locale
-	lzip/lzip
-	man/man
-	mandoc/mandoc
-	moreutils/sponge
-	pkgconf/pkgconf
-	sed/sed
-	tar/tar
-	texlive-fonts-extra-links/Tinos-Regular.ttf
-	texlive-fonts-extra/Tinos.pfb
-	xz-utils/xz
-
-(or just the packages:)
-
-	$ find share/mk/configure/build-depends -type f \
-		| sed 's,share/mk/configure/build-depends/,,' \
-		| sed 's,/.*\.mk,,' \
-		| sort \
-		| uniq;
-	binutils
-	bsdextrautils
-	bzip2
-	checkpatch
-	clang
-	clang-tidy
-	coreutils
-	cpp
-	cppcheck
-	cpplint
-	diffoscope
-	findutils
-	fontforge
-	gcc
-	git
-	grep
-	groff
-	groff-base
-	gzip
-	iwyu
-	libc-bin
-	lzip
-	man
-	mandoc
-	moreutils
-	pkgconf
-	sed
-	tar
-	texlive-fonts-extra
-	texlive-fonts-extra-links
-	xz-utils
-
-
-This includes dependencies for building a PDF book of the manual pages,
-creating the distribution tarball, testing the programs in the EXAMPLES
-sections, and many other targets.
-
-Debian doesn't need all that, so you can restrict that list to the
-targets that Debian does run: `make check`, `make install` (and you may
-want to `make lint`).  For `make check` and `make install` only, you'll
-need a smaller list:
-
-	$ find share/mk/ -type f \
-		| xargs grep include.*configure/build-depends \
-		| sed 's,:.*/configure/build-depends/,:,' \
-		| sed 's,\.mk$,,' \
-		| sort \
-		| grep -v \
-			-e /lint/ -e /dist/ -e /pdf/ -e /ps/ -e /html/ \
-			-e /fonts/ -e /examples/ -e /gcc/ -e /clang/ \
-			-e /binutils/ -e /cpp/ \
-		| sed 's/.*://' \
-		| sort \
-		| uniq;
-	bsdextrautils/col
-	coreutils/cat
-	coreutils/cp
-	coreutils/echo
-	coreutils/expr
-	coreutils/install
-	coreutils/ln
-	coreutils/rm
-	coreutils/sort
-	coreutils/stat
-	coreutils/tail
-	coreutils/test
-	coreutils/touch
-	coreutils/true
-	findutils/find
-	findutils/xargs
-	git/git
-	grep/grep
-	groff-base/eqn
-	groff-base/grotty
-	groff-base/nroff
-	groff-base/preconv
-	groff-base/tbl
-	groff-base/troff
-	libc-bin/locale
-	man/man
-	moreutils/sponge
-	sed/sed
-
-(or just the packages:)
-
-	$ find share/mk/ -type f \
-		| xargs grep include.*configure/build-depends \
-		| sed 's,:.*/configure/build-depends/,:,' \
-		| sed 's,\.mk$,,' \
-		| sort \
-		| grep -v \
-			-e /lint/ -e /dist/ -e /pdf/ -e /ps/ -e /html/ \
-			-e /fonts/ -e /examples/ -e /gcc/ -e /clang/ \
-			-e /binutils/ -e /cpp/ \
-		| sed 's/.*://' \
-		| sed 's,/.*,,' \
-		| sort \
-		| uniq;
-	bsdextrautils
-	coreutils
-	findutils
-	git
-	grep
-	groff-base
-	libc-bin
-	man
-	moreutils
-	sed
-
-
-You should add those at least, or dh_auto_test(1) may fail, I think.
-
-BTW, mandoc(1) is not necessary for `make check` or `make install`, so
-you could just remove it.
-
-
-Have a lovely day!
-Alex
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---2ohnmfucwxgfwg5g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZu4WYACgkQnowa+77/
-2zKW4hAAol986sWVd1RpmlRuvOam2iIXE2qIn+kGhrMuuDXPRt8TKsOiv2SeU+kL
-C92iVO/g0K8hQTjdNumHHTcRwJB4Lsr7Y7ozxq4PwJROVbvYeOAMK8JOGbsVnLio
-1RCYKRGtPMZs71XdRvjpG3OntDi02B8hNYti/EMVT68WLUoHgj+nqlzt324uVSyI
-1s0D2TFK0zeKmpvsYL6ABBU8UXcMpSS454zuIR18QhbjAA8AMI4U2DkxZ3ulvp0R
-yx1Z3NuqcB/x0TNtWNgudnkBOR1kZxlHks/jWYLCSn31xEY1uQXDt+4k9tkLXVLU
-0MyvA/rbo2Ay2HU8f9gjJ75fQWwn8IRuW6j57RTrn3GWFMrvBI3kN4k5b4WTpxgu
-Kt7uBxrnsukARg64BPMZHM6i8ltekHg1gR769eAX/yvceNxbajwAja+opZuxYJRz
-r9ZtVzTsT6HKSmICG0V9mAKGl33FJvNquwd+D3h8zpG78uzBU1qB98/rhCjuZjTK
-Bbf49K7/4bZ/3R8bt1LMl5P0S0XLuahJRtDRi+2N3e4gDYY5G7ZfkT+/RZ3TV5by
-KatDg5n3SAmKFe+Lxae/1RQ/stIYyeCl2BT+OI9hlLblq3zb1B3nbfuW0qvGJw8l
-mSwn7Nc3WTtYOslPYhNcEGcmqjZO3Q6LiRQfPk6bvpvrVXWm5gM=
-=hbmu
------END PGP SIGNATURE-----
-
---2ohnmfucwxgfwg5g--
 
