@@ -1,54 +1,59 @@
-Return-Path: <linux-man+bounces-1225-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1226-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E0EF90B36C
-	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2024 17:07:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A2A490BD5E
+	for <lists+linux-man@lfdr.de>; Tue, 18 Jun 2024 00:12:41 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AD0F9284BF2
-	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2024 15:07:41 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id BECD31F22735
+	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2024 22:12:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 04C4E14EC7B;
-	Mon, 17 Jun 2024 14:21:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8661F1991AF;
+	Mon, 17 Jun 2024 22:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFDaKPpu"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XG4SpkF2"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE97114EC78
-	for <linux-man@vger.kernel.org>; Mon, 17 Jun 2024 14:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C9B15ECDB;
+	Mon, 17 Jun 2024 22:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718634063; cv=none; b=m24E5rxuBTGeKhAJxgm5KxJQmIucaZ/qSMtgWL7GJMNAu+KD3d/OuK5pl6AVfOEpxRTBF1uCD1MFL8GxE2anBibsiSFCFTkPF8VK+qclDDMN927VOb1+fPjWsF2siEoMpiQHSurrbU5Kd7q8TDes7QR5hI0d69rVXKuQjpiovrU=
+	t=1718662355; cv=none; b=Xgp5P0a/LE9xYLqsS4m4j0aXDSoKrZh9aMkY4fJ4+IicTME9HYMNeafqXTt0vIxc+xw/CWk0WUMPCH1wXwsEhNTxi1wbBtU21FX5kqYdPgwSpE17iDTE56FcHW5NNXzopJLeACVD6V8T3ZM1TS12UqnM3L1uk46DoHx34nqQIzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718634063; c=relaxed/simple;
-	bh=YeH8ffa7AKuJEtprt4uw/vJL7GVRgShctxZs6n914NY=;
+	s=arc-20240116; t=1718662355; c=relaxed/simple;
+	bh=uhTdvcbc9s9DbbwTwLPzpKvx4Qy9vX3N1ppLhw8pIkk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PLt2HLn9szCzVKbhSY5n4arSl0Tl18eL75HjqdBJw6jcWLwCpVygWYpfIlAEKRh5L3KBHlbGqXfGKIF5A5JY53CG8GBK++H87fUFlm+zpuVifgWWZyJmsoNKRiM/38jmjbL4DSJdw9H2RcN7kjJBusg8ugT3YC/bjcyGqyIgko4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFDaKPpu; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FD8C2BD10;
-	Mon, 17 Jun 2024 14:21:02 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9O0BBW1y+OeW5VOf6oPyxSxCtWuI5eN+tIIJgVhIMG88igmezNn+m8LE75LRyGxU6wTRtk5xox+ZxX2eB/e5WOg2eDHbnx7qO5Yh4b5WBQf9S8pgkrUxJFiiLueuHXGE6lmefYMZNkiZ2bGvH1xA8DGXWBCIJYpfzkNQgZZL70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XG4SpkF2; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A89C2BD10;
+	Mon, 17 Jun 2024 22:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718634063;
-	bh=YeH8ffa7AKuJEtprt4uw/vJL7GVRgShctxZs6n914NY=;
+	s=k20201202; t=1718662354;
+	bh=uhTdvcbc9s9DbbwTwLPzpKvx4Qy9vX3N1ppLhw8pIkk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bFDaKPpu4OcYNk+sOrk1lpZqE8GXjcOjF7YMKOG9+Cl2P7b10yJ0jOJZc1XW3SBdA
-	 d8jjAaCXygoPArfoX0mVRuCrCi6qyutmxgiLJfF06WeOFqygSeD9L4i8LdYSxBvvhh
-	 3vQSlrFMFmuSG081wEs+mJZxr3d+0tHVprkxfS3Iol5XKH/rI6qd3httaNgOKI4H2n
-	 E1YUXjRtARBYECrSHuOpQ0ypLrewavgLrQ45xOvJ4Rw3dDd4hScbbg3BMYRkN6EkR1
-	 3/hge14d+WJNvvHY7mhQ56JJ5ITec3w8WJLsXbbcF33rI7OS3s2Vb4XvMzbwzIbA4m
-	 Tk5T1LrRpsfMA==
-Date: Mon, 17 Jun 2024 16:21:00 +0200
+	b=XG4SpkF2Ue34WyMoziqly9VBh+5WSZ9ZZb8Sm7J0GXEX6xLA1XlTjrtz6iSsUiTFB
+	 JKBsILHYMXEaysZzo0Gpi3M9db/hogVJDBJHofYkzNA9cUC0RuZ5rYBQ9ESk2zmkqR
+	 9H+2JvorWxvthKUaDxIOkvTV7t+sQXDp88SHJpLZTQ7YLNH/mwfay+vDP1ZvEaoH9X
+	 hLJDq02veH1at/uuONr2YQFhXs6KKe9alwBjs2HbAqb6rlHpD5nR8YcwXHiAuISpNA
+	 NOl9cUyys8EJU8ieLBPCr5MHqlITZ0MZJ8+dQFklAokshiwdcIq/d1YCCjR9yFhybA
+	 pZe6/nYnDPozg==
+Date: Tue, 18 Jun 2024 00:12:30 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Konstantin Ryabitsev <mricon@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: kup mailing list
-Message-ID: <ZnBGTMjmoozDDFM1@devuan>
-References: <biughofuuvymabklkw2cuchpubk2mzeq3d7snxyrogyu3vqtku@dt6yofflbsxo>
- <20240617-bull-of-glorious-dew-38b2f7@meerkat>
+To: linux-man@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org, 
+	andyrtr@archlinux.org, Luna Jernberg <droidbittin@gmail.com>, 
+	"Dr. Tobias Quathamer" <toddy@debian.org>, Marcos Fouces <marcos@debian.org>, Sam James <sam@gentoo.org>, 
+	Jonathan Corbet <corbet@lwn.net>, man-pages-maintainers@fedoraproject.org, 
+	Petr Gajdos <pgajdos@suse.cz>
+Subject: Re: man-pages-6.9.1 released
+Message-ID: <v25al3xd6xkv5iu5u6msz4bdj5gpmqkctsyvexjvs57jgqow44@xycbebp4iqf5>
+References: <cpolays26kcjvekvowwik3di3ut66puls47w3gvdfwep66uaul@ka4omfzltwcs>
+ <dncnuuuqpf4pa3toado6hk3inupa6ntlqxdt4x4y4l63mubuoy@kyam5murveos>
+ <vqexqoi4imi6e4sm3ddz3vicqslxip24shu42ut37ydanfqnlu@2hpc5rue2d6e>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,63 +61,80 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aizMzW1IReuM1bNN"
+	protocol="application/pgp-signature"; boundary="oft7z5izhsy2ma26"
 Content-Disposition: inline
-In-Reply-To: <20240617-bull-of-glorious-dew-38b2f7@meerkat>
+In-Reply-To: <vqexqoi4imi6e4sm3ddz3vicqslxip24shu42ut37ydanfqnlu@2hpc5rue2d6e>
 
 
---aizMzW1IReuM1bNN
+--oft7z5izhsy2ma26
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Jun 2024 16:21:00 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Konstantin Ryabitsev <mricon@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: kup mailing list
+To: linux-man@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org, 
+	andyrtr@archlinux.org, Luna Jernberg <droidbittin@gmail.com>, 
+	"Dr. Tobias Quathamer" <toddy@debian.org>, Marcos Fouces <marcos@debian.org>, Sam James <sam@gentoo.org>, 
+	Jonathan Corbet <corbet@lwn.net>, man-pages-maintainers@fedoraproject.org, 
+	Petr Gajdos <pgajdos@suse.cz>
+Subject: Re: man-pages-6.9.1 released
+References: <cpolays26kcjvekvowwik3di3ut66puls47w3gvdfwep66uaul@ka4omfzltwcs>
+ <dncnuuuqpf4pa3toado6hk3inupa6ntlqxdt4x4y4l63mubuoy@kyam5murveos>
+ <vqexqoi4imi6e4sm3ddz3vicqslxip24shu42ut37ydanfqnlu@2hpc5rue2d6e>
+MIME-Version: 1.0
+In-Reply-To: <vqexqoi4imi6e4sm3ddz3vicqslxip24shu42ut37ydanfqnlu@2hpc5rue2d6e>
+
+On Mon, Jun 17, 2024 at 02:16:01PM GMT, Alejandro Colomar wrote:
+> Hi,
 
 Hi,
 
-On Mon, Jun 17, 2024 at 09:47:39AM -0400, Konstantin Ryabitsev wrote:
-> On Mon, Jun 17, 2024 at 02:27:22PM GMT, Alejandro Colomar wrote:
-> > Hi K!
-> >=20
-> > Do you have a mailing list for kup?  I'm triggering some fatal
-> > condition (kup-server.c:617), and would like to investigate it.
 >=20
-> Yes, please send to tools@kernel.org.
+> On Mon, Jun 17, 2024 at 01:55:36PM GMT, Alejandro Colomar wrote:
+> > man-pages-6.9 had a broken link page: FICLONERANGE.2 pointed to a
+> > nonexistent page.  Thus, here's:
+> >=20
+> > 	man-pages-6.9.1 - manual pages for GNU/Linux
+> >=20
+> > Tarball download:
+> > <https://www.kernel.org/pub/linux/docs/man-pages/>
+> > Git repository:
+> > <https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
+> > Online PDF book:
+> > <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/>
+>=20
+> Huh, kup(1) is reporting some problem, and I'm not being able to upload
+> the files.
 
-Thanks, I'll do!  Would you mind documenting that list in the README or
-somewhere?  I couldn't find it.  (Or maybe it's documented elsewhere?)
+Problem solved.  I was issuing a wrong command.  The tarball and PDF
+book are online.
 
-Have a lovely day!
+Have a lovely night!
 Alex
 
->=20
-> -K
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---aizMzW1IReuM1bNN
+--oft7z5izhsy2ma26
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZwRkwACgkQnowa+77/
-2zIJbxAAoRuHdyH4qucm41kEJV7nRcygNXlmDxW0SBo1tnZYFLNOrDZWROeJAgxe
-fUcy52jL5ghd+xUjH03oOABBTdnMtROU7nUQN+t4v253uvSgWYVDjSbuHemDs0cg
-29p+sqzdL+WGT6oca7ToIDxmB04JYh3/MxpZxOYqvw1HzDzLaAs3HGeo46pfjh/w
-ky22KcttVPpKgFTSwSgV6leLQ6PAtJfPNIiXOccrxLLImX4iWO9NnqJh+tb2Xu28
-erLLDv63H/9ReQtpzZgriSLgWBPRhO8G6Wnmgsh+0rv9HRO38Wym5jITTwbtRT7p
-JmSBKwthEX/FdPAC2aoIokacQaJsrAe17AVimop45uSmAMBAUQX+lZMJaVzLcIqz
-b3ATPkhKw0qtso47e6W5E3fcYYUzq7XbFvyqwDTgveBbXjDvWKXrM8PSp+oShVVo
-1/GsNy4SrRL2r6b5nNe20MrMoxNoY/pDUhNhuoCtPCdjpkN9ELAFuYDbm+4UlqCs
-QuLIMst9XyaQaSiAWk51lDj4oC1l++7DvFMdxMEE4bejvtMtT+EktUNV3fHmmBrt
-5cakdGWrhKk54N1e1zZzGGcsWTy2h5c52FuxmeHFhAC8icTvwpKhlXmDiYvlXTdE
-8e8H49IRB7ReIcEJQYRE6iz/1A9RsI8cqp1g41ZwSGafB0L2j+c=
-=BBq0
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZwtM0ACgkQnowa+77/
+2zJ9TQ//RqNrnl6AsnnU+Ko8UaV5bbLP+TJst/7Djc1fNP3xBPK6+9f/5VjluvdD
+E/Squ4xjE0btwkRsE/8Z9XAKepHLTHcEeiJsHumlx0257CM35tE+KwagZU+G7ESr
+45mFdKZSStd2xOqXodAxfI9MdA5wVXEeMof0AfGHLmtDsxRp92QUyavPwJd0UYAz
+1RzO2KEcxd7ZctPkjpzfp8GSf7gH30bEGrJr3BZAxzAfCdS9TGp+hGip8OvLpzXO
+Dz3w+jY/X6DfKJ4QioK+8bb4QHPnuP0r4rbMLE46I6mozR+CpzmOR2k8wfWUnqD7
+WpvDzBKHoJG9jDH810soHNDEwZr4z+BBS+84rQ6smGJPNuE6D3d7vCYkKykRiVRJ
+gvwfELeQ0McKzNSr/FS/CkkGdZkZlQ6AEesq2hT/TezsN8mN4Y5GniUrFhOfKQjW
+G/6sgFjSuC3JH88AecCRmePnqhovFb2rwOlk9klasZrsei/RuY4dVOdc5k+ihi8o
+O8vc/DHMaPEjmogPjvDaEYGMLPb7nzZ7XLQTEedyKgD8kBNBSmN5eW3iFlmekdZB
+ytSJYqlHZAfwTJNisoosZp1z8lNP9wy6G9hpNefkvGulVbif/1fmNEF7MlJumSae
+jGiD7c3Q5MuTzbFJ1nKMq/RJJDr9gTE8TDL8lXYofvTk7pDPGcQ=
+=Geql
 -----END PGP SIGNATURE-----
 
---aizMzW1IReuM1bNN--
+--oft7z5izhsy2ma26--
 
