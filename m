@@ -1,84 +1,54 @@
-Return-Path: <linux-man+bounces-1272-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1273-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A2C9918664
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 17:57:05 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id F084591881B
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 19:02:34 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1A3CC1F22CAA
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 15:57:05 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AA80A28241C
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 17:02:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B520818EFCD;
-	Wed, 26 Jun 2024 15:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B1FC13C833;
+	Wed, 26 Jun 2024 17:02:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="NkVG6Tr6"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2rmnaUX"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1981718EFC3
-	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 15:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3526213AA4C;
+	Wed, 26 Jun 2024 17:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719417414; cv=none; b=aXCa0HL6QGjyCnFWcDaEHWi36ydLUGHjkfUwgHVnX+tSt5ZimXsD5JMopEU8Qs3ozv/aZkgOj/wMOBRfL7BHuHkChhEQHthK3GKkcjtZiyUJLvOMvxcvzxKI/jDJI6Al4us1toGU/VZF3c+JvjExXC6N02e8kXjVUZrcCj4cFGE=
+	t=1719421350; cv=none; b=DV2h2pkKXNKT7rRHHY20TesLwyacsnhyFur2j1yibv0DvqSEFzZ610HSIVJsxNGKWNDh2UvCp0JdJCfqH+PdKXOrtv1dseSITMxbDraIMBWY1ZHopf/7AKT4HrTeez6Amc1ViujylbTvwJgn+CXBk1FYUuccrtJFJcTrqcKaBos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719417414; c=relaxed/simple;
-	bh=A+yHe0ceQT8ZgEDbc5qYM4e9GtmAta2qO4IpV3DPLps=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GMRBJk/zQjf199zXOMR0Y32sDwLXxvRb2vpvwoxSGSWwHTMUK6+Zk8CvbUVHE6yrtBQyyWrjqOAQnGwF+DPiKwM4OkrT94dk3pDD2MTWZlUVj/qdytk43HGbD8kilP1Y+t+mF3jCldmCcMIllqyHzRgWBsVgJPCA8Lz3H6BdvwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=NkVG6Tr6; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=toxicpanda.com
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-6b5834b3a94so3167276d6.2
-        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 08:56:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719417412; x=1720022212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=10WXgcGJ8V7XA6aqCXiHxcPSg/sBDgQ5k80z5AUhucU=;
-        b=NkVG6Tr6MjUZZ8id+RnGX9vYacVtwwWT/OuksXaOpH3B6tknyxK6HkzAP53eAk9tpF
-         BcA3ZlfRchfDFu92idUV9R8QwOorl7IdiOy66kss1VVI7YMLkLCrAATxNW/3KbvfZWBW
-         Qvfz1kgZ+pRVa2E0ov7XsZxBPdAivTioN4m7l8leS1FYjLM040D6RjSdWdRrY2FdU1bA
-         RifDsEYfaDt4LpN4OthiJfrDUkZALLayjhiQ8fUmBmTUgncz7TMxixK1/h+HcO2qfq17
-         88cKJOwdy4l1IpRmB6JRnTFykKYoHmXuHm9jA9zueyGclA1PR7qxSQqBlJ0mZ8+L0/n+
-         Q/cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719417412; x=1720022212;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=10WXgcGJ8V7XA6aqCXiHxcPSg/sBDgQ5k80z5AUhucU=;
-        b=QjeelGYE/+48JMxhQvRtcGqua00XJqGX78VWnmyORrdXwmfMBWmGeeTyelRUzMFAA/
-         eG2aUQxbwoqbDr4MFIk9XVk/k4yBQEyh1NVfwwPSBcJM5731Bj2W0Y8QnnSQUenptmiP
-         LlYvjYtuaJJr1Iff80asdHwIolLu8X1z6igseho5FwRasjPLJ6g6E80r+3AAgx6gO92T
-         zhPYTo2dhv9iW5NFd8oDY/2dUYVNFPHuX62Y4bX4sLrOp0/TWjeNJDDNQL8xf4zQcUgT
-         qDCgT7v8tBN7tHEYASe1asUSjacFZpEfMqldQOLjPvYxyQ5xLqVwrKuCnYAPEhYDesgs
-         smvA==
-X-Forwarded-Encrypted: i=1; AJvYcCVchcuyUn0ZXw2EIwOjh+RGpUD9wABqUjJK7dzmsSgsFvx3vEiam4lsqHMcztPtO9mESPseub7eXETEcC39mOMmZQmlCjx9QUkx
-X-Gm-Message-State: AOJu0Yy5rZPN1PacNLCUH1tBVhDJld+QOdr9c2LYdjFo6tIObemNpKch
-	ynvIt89Ub3ApoNyLf1WC/McbUM+GCDZqz5iCUtWECyrFzEV7n9b1UjgTzP1YyOs=
-X-Google-Smtp-Source: AGHT+IHChebJBTl3JTXJ9gtlPz1P7nas/qckMxRBEzsORxOm2x2GIZaGeDtCJhf/VIRcG/UJhGfCyw==
-X-Received: by 2002:a0c:cb08:0:b0:6b4:fbec:952f with SMTP id 6a1803df08f44-6b53bcd3e9bmr117767176d6.25.1719417411922;
-        Wed, 26 Jun 2024 08:56:51 -0700 (PDT)
-Received: from localhost (syn-076-182-020-124.res.spectrum.com. [76.182.20.124])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b51ef32f9csm55814036d6.91.2024.06.26.08.56.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Jun 2024 08:56:51 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-To: alx@kernel.org,
-	linux-man@vger.kernel.org,
-	brauner@kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	mszeredi@redhat.com,
-	kernel-team@fb.com
-Subject: [PATCH v2 2/2] listmount.2: New page describing the listmount syscall
-Date: Wed, 26 Jun 2024 11:56:08 -0400
-Message-ID: <fd4fc27f121664feeabb891990c19d173603b01e.1719417184.git.josef@toxicpanda.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1719417184.git.josef@toxicpanda.com>
+	s=arc-20240116; t=1719421350; c=relaxed/simple;
+	bh=AlbTRzpYkYNZX0jniCSeWu+/qk14Ofv7q3SZYGsVm/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JmjIUWKoP/r7vHY76oKaBAMIAtFDMw0luKvnWcgEqkhWd5HS91dYxyF5oS976APxn5h1JPKkWU/mY+oVf9KFrjoDNPfej3qfArvwmcMfnBi7r36Uy6vz6RziOZZjRLGPS/NJI97f9/cqlcAAEHZxeV1hU2nh4cUGFZYpXhNTsWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2rmnaUX; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F94FC116B1;
+	Wed, 26 Jun 2024 17:02:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719421349;
+	bh=AlbTRzpYkYNZX0jniCSeWu+/qk14Ofv7q3SZYGsVm/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i2rmnaUXmSGG5zBrWmF334//NDXgecStREjQdC+rXLLOBhdQOFGzsSQ4bVnPWsg6i
+	 FbeVUJzDFJ4pbXBdDYpHZgVzobNcY3bzk7EvHged8tkRGHaNvSf63IQ1DiT/26vzFP
+	 V7eyBFB/X/iwdUlpzDwtht3WscCNLMQ8njzFTuRBMgPuJ9rcQjRBMVCmDikCc3MN2p
+	 Si2Z+Q5n/aKm7wAt1XzSzDoSHykmlOCltWHnsYHiZmu7TEhubr1swigMq39/k7UiXX
+	 yvRGef/bHz3S6iz8KDDD8m8H/k8y7YG+MBUPE4tPG0ldu3QF5cQQW5mfTsOoqXvEIT
+	 7+w3gM0pJGpZQ==
+Date: Wed, 26 Jun 2024 19:02:26 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: linux-man@vger.kernel.org, brauner@kernel.org, 
+	linux-fsdevel@vger.kernel.org, mszeredi@redhat.com, kernel-team@fb.com
+Subject: Re: [PATCH v2 0/2] man-pages: add documentation for
+ statmount/listmount
+Message-ID: <t6z4z33wkaf2ufqzt4dtkpw2xdjrr67pm5p5leikj3uj3ahhkg@jzssz7gcv2h5>
 References: <cover.1719417184.git.josef@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -86,137 +56,99 @@ List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vfcxupcgjbbzmfvz"
+Content-Disposition: inline
+In-Reply-To: <cover.1719417184.git.josef@toxicpanda.com>
 
-Add some documentation for the new listmount syscall.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- man/man2/listmount.2 | 114 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 114 insertions(+)
- create mode 100644 man/man2/listmount.2
+--vfcxupcgjbbzmfvz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: linux-man@vger.kernel.org, brauner@kernel.org, 
+	linux-fsdevel@vger.kernel.org, mszeredi@redhat.com, kernel-team@fb.com
+Subject: Re: [PATCH v2 0/2] man-pages: add documentation for
+ statmount/listmount
+References: <cover.1719417184.git.josef@toxicpanda.com>
+MIME-Version: 1.0
+In-Reply-To: <cover.1719417184.git.josef@toxicpanda.com>
 
-diff --git a/man/man2/listmount.2 b/man/man2/listmount.2
-new file mode 100644
-index 000000000..4e046ef39
---- /dev/null
-+++ b/man/man2/listmount.2
-@@ -0,0 +1,114 @@
-+'\" t
-+.\" Copyright (c) 2024 Josef Bacik <josef@toxicpanda.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH listmount 2 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+listmount \- get a list of mount ID's
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc ", " \-lc )
-+.SH SYNOPSIS
-+.nf
-+.BR "#include <linux/mount.h>" "  /* Definition of struct mnt_id_req constants */"
-+.B #include <unistd.h>
-+.P
-+.BI "int syscall(SYS_listmount, struct mnt_id_req * " req ,
-+.BI "            u64 * " mnt_ids ", size_t " nr_mnt_ids ,
-+.BI "            unsigned long " flags " );
-+.P
-+.B #include <linux/mount.h>
-+.P
-+.EX
-+.B struct mnt_id_req {
-+.BR "    __u32 size;" "    /* sizeof(struct mnt_id_req) */"
-+.BR "    __u64 mnt_id;" "  /* The parent mnt_id being searched */"
-+.BR "    __u64 param;" "   /* The next mnt_id we want to find */"
-+.B };
-+.EE
-+.fi
-+.P
-+.IR Note :
-+glibc provides no wrapper for
-+.BR listmount (),
-+necessitating the use of
-+.BR syscall (2).
-+.SH DESCRIPTION
-+To access the mounts in your namespace,
-+you must have CAP_SYS_ADMIN in the user namespace.
-+.P
-+This function returns a list of mount IDs under the
-+.BR req.mnt_id .
-+This is meant to be used in conjuction with
-+.BR statmount (2)
-+in order to provide a way to iterate and discover mounted file systems.
-+.SS The mnt_id_req structure
-+.I req.size
-+is used by the kernel to determine which struct
-+.I mnt_id_req
-+is being passed in,
-+it should always be set to sizeof(struct mnt_id req).
-+.P
-+.I req.mnt_id
-+is the parent mnt_id that we will list from,
-+which can either be
-+.B LSMT_ROOT
-+which means the root mount of the current mount namespace,
-+or a mount ID obtained from either
-+.BR statx (2)
-+using
-+.B STATX_MNT_ID_UNIQUE
-+or from
-+.BR listmount (2) .
-+.P
-+.I req.param
-+is used to tell the kernel what mount ID to start the list from.
-+This is useful if multiple calls to
-+.BR listmount (2)
-+are required.
-+This can be set to the last mount ID returned + 1 in order to
-+resume from a previous spot in the list.
-+.SH RETURN VALUE
-+On success, the number of entries filled into
-+.I mnt_ids
-+is returned, 0 if there are no more mounts left.
-+On error, \-1 is returned, and
-+.I errno
-+is set to indicate the error.
-+.SH ERRORS
-+.TP
-+.B EPERM
-+Permission is denied for accessing this mount.
-+.TP
-+.B EFAULT
-+.I req
-+or
-+.I mnt_ids
-+is NULL or points to a location outside the process's
-+accessible address space.
-+.TP
-+.B EINVAL
-+Invalid flag specified in
-+.IR flags .
-+.TP
-+.B EINVAL
-+.I req
-+is of insufficient size to be utilized.
-+.B E2BIG
-+.I req
-+is too large,
-+the limit is the architectures page size.
-+.TP
-+.B ENOENT
-+The specified
-+.I req.mnt_id
-+doesn't exist.
-+.TP
-+.B ENOMEM
-+Out of memory (i.e., kernel memory).
-+.SH STANDARDS
-+Linux.
-+.SH SEE ALSO
-+.BR statmount (2),
-+.BR statx (2)
--- 
-2.43.0
+Hi Josef,
 
+On Wed, Jun 26, 2024 at 11:56:06AM GMT, Josef Bacik wrote:
+> V1: https://lore.kernel.org/linux-fsdevel/cover.1719341580.git.josef@toxi=
+cpanda.com/
+>=20
+> v1->v2:
+> - Dropped the statx patch as Alejandro already took it (thanks!)
+> - Reworked everything to use semantic newlines
+> - Addressed all of the comments on the statmount.2 man page
+>=20
+> I'm still unable to run anything other than make check, and if I do `make=
+ -t
+> lint-c-checkpatch` and then run make check lint build it fails almost
+> immediately on other unrelated things, so I think I'm too dumb to know ho=
+w to
+> check these patches before I send them.  However I did my best to follow =
+all of
+> the suggestions.  Thanks,
+
+I'm interested in learning what problems contributors face, so please
+let me know those issues, if you don't mind.
+
+You can
+
+	$ make lint build check -j8 -k
+	$ make lint build check
+
+to see the full list of failures.
+
+Have a lovely day!
+Alex
+
+>=20
+> Josef
+>=20
+> Josef Bacik (2):
+>   statmount.2: New page describing the statmount syscall
+>   listmount.2: New page describing the listmount syscall
+>=20
+>  man/man2/listmount.2 | 114 +++++++++++++++++
+>  man/man2/statmount.2 | 289 +++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 403 insertions(+)
+>  create mode 100644 man/man2/listmount.2
+>  create mode 100644 man/man2/statmount.2
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--vfcxupcgjbbzmfvz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZ8SaIACgkQnowa+77/
+2zKgdg/+Mbbds5DVU9ozvsZgoPnQZpL7SjKl6KZ2Qss4Drw/SV2iS/3yVmlUTVmi
+9E+tnfIGq7R22vCE1blQAPjL6OAdT6MlxWzkDcam8qe/izBWb8O9C0q/8tgVNyld
+bORldy61S3g1bqsTGvMOuAssC/DWPY/X0VYuEH9jEwfD9VIjDu27j1lKBA+b2w5y
+680xUK/g+wgQWbBa6nBwthckWS4vj6VgsB4fisUODC5K1MJ1VBeKEgb+qsTGwcvm
+MfgaHqx/s/6N8HT3avRRPB2jDjRT/NfrKo4NddsI1ygXHUlm3E/KLbG7F0kzDWD5
+1mSua3YUkii8JQrX63eMwrSNIKbChFaOU3svuLSkj6i+V5OChJ1L8s91TizREoGa
+xU/6ASRPpmJLM0stXBtZsmsdKf1TeNVtCdmXb9eU0Je3hGNg9G2i8mLB2JSFedwR
+0OvkLfDrWMyGi1IT/THPCn5pwBJkOBY6N7QaMk5/FVnPFtLTudWfFO2pigVm+aZW
+raqyxxhZRPlyRU5qSMYBn9uxhWQWM0SGtqsPSK7P9ikCh+Ffp0NreWPJL/oXk/5U
+R5heRSvBVxwTOhhrWsFUFITtaiOrE3sogQ4xGLzdffjiZfMy5c/eqUsATGHCjv6W
+CRWzBPiHl2JSNBEEl06pl/apiF71pkgc6JcOTW7hH9YWxA/CZrw=
+=kxZX
+-----END PGP SIGNATURE-----
+
+--vfcxupcgjbbzmfvz--
 
