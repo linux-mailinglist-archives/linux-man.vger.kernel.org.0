@@ -1,153 +1,114 @@
-Return-Path: <linux-man+bounces-1269-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1270-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4A66917571
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 03:10:19 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDBE8918661
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 17:56:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9F50C1F222CA
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 01:10:19 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 186391C21B34
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 15:56:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DE99BA47;
-	Wed, 26 Jun 2024 01:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C15E18E77C;
+	Wed, 26 Jun 2024 15:56:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8iCNa/2"
+	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="ntiKi4gI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E91D28FA
-	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 01:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A6C18E745
+	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 15:56:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719364215; cv=none; b=G4XN78V3j+5SsZIwxduFYmAa6SA9eX97zC8K2DixKNGJ4eV4LCDO2zaYNW7dTiOcTrjz8y5UvkyW8XzLxWL3FedfQZ6xf0A8PrigjiL4yQ1pnslWp58bfFqUAz0fNUKkwc2F7+HGM8Pt97GK6QnE4W6fc0wSh1lA6GBXRPqyAiY=
+	t=1719417412; cv=none; b=e7q8MOCukbsDVWNzQRXakkyV4GDyiVDrFQfSnGesuQd30dJDAk2ZMbw3HmQbMookYgAdX6eMWP1nYNWvp179hS1LRJFPlz3uKIKgm8rSODenzgDi8Rs+taHVcBLtWScTn3V5iSkrB4rF0tyH5FeZyExsk4BURUn76gkCDKeCysM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719364215; c=relaxed/simple;
-	bh=Dm2rO4q0QyTwTWNSziMXri7UelZ8pJXdoQwEmH5Z3Qc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qeeGbOo0nvpoFpDEnlqA7OxTkNZcxtOYWVUg6j6p54c8yJIOMOzAh1poRX842h34qfKPaW2tyikgp36wJgN66v32FsTVeKOc1hm5Noti90so9XvJSNyL3W+aAdDOMp4eotARKv6iIUKZDH/+TJsDTYegZBgs1Ysgte9mDHkm5x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8iCNa/2; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4917C32781;
-	Wed, 26 Jun 2024 01:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719364214;
-	bh=Dm2rO4q0QyTwTWNSziMXri7UelZ8pJXdoQwEmH5Z3Qc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T8iCNa/22YYCuFjxy0bdGs7sRWZar98EJQXX9lSN77xGEPEIila1wKxhTqh4KgCXL
-	 tdMgmcdROoimSEPCx0tEpXpvfLKGWc6TZ++vnnAtH2EZamS7Nc83kHOSXHoGnIDVgY
-	 r2XyNzWxYz/XDJT15L9CX21YspEg04ldwuAHBIEZ7LFJGsPNWZjCbk1fkiW00tbJy5
-	 CSQwAjZiZLqtUHSNW0pwMo86Cd6hiUjScdzJi9Z4E34MXuRietkuj/EykmrBf6xuIZ
-	 nOKSNsfPNGOOzRChiPjNwksZ+BaQ84I9AVyfgkrBBPw4pQ0bVyjiHWHAhdop8XKpKv
-	 fFuk4Zen2XnYQ==
-Date: Wed, 26 Jun 2024 03:10:11 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] statx.2: Document STATX_MNT_ID_UNIQUE
-Message-ID: <dl4m45r3txr55k5utlnhrorl7rplaql5abfeh2tutb5mekfm7k@bjluqcdvji6a>
-References: <cover.1719341580.git.josef@toxicpanda.com>
- <a45b2623a25357f33978b49963dad5f99b984386.1719341580.git.josef@toxicpanda.com>
- <20240626003945.hj6ub2jn52teddun@illithid>
+	s=arc-20240116; t=1719417412; c=relaxed/simple;
+	bh=dRmuUwdntKGZRs2g66Sht/s9k6ht1QwVqOYwO4aa7Nw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=CCrfJqwTt70n0wsLQffWXArTLLoxyCdLu3h/OrckpGHnMrUtL1zBG2aTpIxmDn6LWHBK9GCr0w2QnWe4543BGcCv5lJJOodwwgu2QhTk9TDTerxrYSjlvE61Rih/lb/tZA8Z0ReCmJIYvp5EbDtT0gb07J+IBe7Qj1hSlghU10k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=ntiKi4gI; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=toxicpanda.com
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-4463b71d5b0so2199021cf.1
+        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 08:56:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719417408; x=1720022208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LqtrRhJKCCtcDVtGOthUbHs3QGYwiUAnQ6hIsVz4c2I=;
+        b=ntiKi4gIgKpeLC2CWmgBZWFdO6eok1Nk0TyKF4m0WRy9zsWZqf5djV0pvX8Yh9hzP1
+         1nrnob45+Ew0Xe7AP9o19ek4aJjDITn212jqjd+mWsygYP0ur0Qz27nqQphsfD9JegM1
+         /XNZGOXxZv6Nvd5jvVkqPKKMaYDJT0P1CY0zvfzUarKW7xe8382UE0n5Y9UhW+KeM8ja
+         Ujmqu6iAVcW/YYLF8F5gvUcZb3JC7thAU3CwqaAb7aLlNmTZg3ijV8U6G947JLsfFc0Q
+         pawp2hP4DziLrM/Y7wFCgVXz8Eh9VVurq3qyQKOqHjFDJ6Bj4dgf+F4KfJ3jED/Eavlb
+         I2Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719417408; x=1720022208;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LqtrRhJKCCtcDVtGOthUbHs3QGYwiUAnQ6hIsVz4c2I=;
+        b=kDUdIlV8uhv7xwtl91r7YSeDNGMmJ8SekQoLqpfM+snHVTjoXNYDdoNrsNHXMaYQE/
+         kSgYRZk3Db9mAs7lf+Uw9Zt9FGUEiljs0DcP5Ts+4iTLgsf3bFZr5trrQkeGEZ8lFcy+
+         +ZFRP6Tfu+meVn/z18qdG8stJathojq6buJTSDfvVIsCE7EAUxzu75ORhJOcCHK93Dfe
+         SDPo3wei5kylT4hKMnvhvPKyWgSdzpQcxF/+EAeMgNHJiqid+g0KiY8xt5pOj5pTyt4U
+         WctdILNarj1NWn2zIS6U1NyqCa0pEYtIlo4OWbspN0Hob4lzkjTdPzdbFO7g4afpO3gm
+         S7LQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVcBmuWmr/1QGlAoijm4YVtnl4bRHSZr8Oj3FLA31xiZc5sKxaRW0+iA6VJn4B7J4Dwkoq5EeFMvMUSCMtG0dV8FdyaTC1Z5BiF
+X-Gm-Message-State: AOJu0YyXFMErcBN6KCUTyrHcfvpLW5By/+YyCZHHi7E7h163iMIRJyM+
+	0pvj+8kBX95XjqAspVPWx1jDlIWy16TT/mjwc5QAApyP8b0eIn/ZZuJBS3ofetQ=
+X-Google-Smtp-Source: AGHT+IEfzjTYlNIT4Oapcw0QXUvghcCOsOeLPr6suGKAWcbaL35dtyTTzr9HxyE7BQFzAlLV+Ki0XA==
+X-Received: by 2002:a05:622a:607:b0:444:f9e0:9d90 with SMTP id d75a77b69052e-444f9e09fe5mr68138641cf.10.1719417408030;
+        Wed, 26 Jun 2024 08:56:48 -0700 (PDT)
+Received: from localhost (syn-076-182-020-124.res.spectrum.com. [76.182.20.124])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4463871ec4asm3657001cf.23.2024.06.26.08.56.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Jun 2024 08:56:47 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+To: alx@kernel.org,
+	linux-man@vger.kernel.org,
+	brauner@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	mszeredi@redhat.com,
+	kernel-team@fb.com
+Subject: [PATCH v2 0/2] man-pages: add documentation for statmount/listmount
+Date: Wed, 26 Jun 2024 11:56:06 -0400
+Message-ID: <cover.1719417184.git.josef@toxicpanda.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3qclnsprhvosvvvc"
-Content-Disposition: inline
-In-Reply-To: <20240626003945.hj6ub2jn52teddun@illithid>
+Content-Transfer-Encoding: 8bit
 
+V1: https://lore.kernel.org/linux-fsdevel/cover.1719341580.git.josef@toxicpanda.com/
 
---3qclnsprhvosvvvc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] statx.2: Document STATX_MNT_ID_UNIQUE
-References: <cover.1719341580.git.josef@toxicpanda.com>
- <a45b2623a25357f33978b49963dad5f99b984386.1719341580.git.josef@toxicpanda.com>
- <20240626003945.hj6ub2jn52teddun@illithid>
-MIME-Version: 1.0
-In-Reply-To: <20240626003945.hj6ub2jn52teddun@illithid>
+v1->v2:
+- Dropped the statx patch as Alejandro already took it (thanks!)
+- Reworked everything to use semantic newlines
+- Addressed all of the comments on the statmount.2 man page
 
-Hi Branden,
+I'm still unable to run anything other than make check, and if I do `make -t
+lint-c-checkpatch` and then run make check lint build it fails almost
+immediately on other unrelated things, so I think I'm too dumb to know how to
+check these patches before I send them.  However I did my best to follow all of
+the suggestions.  Thanks,
 
-On Tue, Jun 25, 2024 at 07:39:45PM GMT, G. Branden Robinson wrote:
-> [trimming CC list for this formatting issue]
->=20
-> At 2024-06-25T14:56:04-0400, Josef Bacik wrote:
-> [...]
-> > -.in +4n
-> > +.in +1n
-> >  .TS
-> >  lB l.
-> >  STATX_TYPE	Want stx_mode & S_IFMT
-> > @@ -255,6 +255,7 @@ .SH DESCRIPTION
-> >  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> >  STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
-> >  	(since Linux 6.1; support varies by filesystem)
-> > +STATX_MNT_ID_UNIQUE	Want unique stx_mnt_id (since Linux 6.8)
-> >  .TE
->=20
-> In my opinion this would have been better done by retaining the existing
-> indentation and changing the table to (1) expand the right-hand column
-> with the "x" column modifier and (2) using text blocks for lengthy items
-> in the right column.  tbl(1) in groff 1.23.0 covers this ground.
->=20
-> Alex, your acceptance of this patch isn't showing up for me yet.
->=20
-> $ git remote get-url origin
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages/
->=20
-> I guess it's only on your staging site so far?
+Josef
 
-Yep; it's on my staging site.
+Josef Bacik (2):
+  statmount.2: New page describing the statmount syscall
+  listmount.2: New page describing the listmount syscall
 
-And I agree; I dislike that +1n.  But I didn't come up with a good
-solution.
+ man/man2/listmount.2 | 114 +++++++++++++++++
+ man/man2/statmount.2 | 289 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 403 insertions(+)
+ create mode 100644 man/man2/listmount.2
+ create mode 100644 man/man2/statmount.2
 
->=20
-> Anyway, let me know if you agree.
+-- 
+2.43.0
 
-Sure.  Do you want to send a patch against my remote?
-
-Have a lovely night!
-Alex
-
->=20
-> Regards,
-> Branden
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---3qclnsprhvosvvvc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZ7anMACgkQnowa+77/
-2zLM2w/+Ksg8Mfs3M5OmtoRjxfSkN+hKVX5UvMLLag6nh0EC3fvdTp8fgIUlXW1x
-4APVRqTUCxnt5gGmqQk9+B3mJfSBwSJwE9j1WOZaCMYaPSRocWbyWewPpe7Hfqko
-qiTl2zT1gBcCtLwV3g0OtlVp+3SZFirUXFb/HqmPC0yW2k0WCFOljTAEx2Yp5fMK
-4cEmvObKqCNI/nv3R+WtbrMgVH3ZblLhJm79vxp1JGNgPiruiAMe9NS4eRfxr82Z
-J841mhkV3FeVbt4NsGXIbdfPvWiHAeN0xiBQORacWx9fdWr/Gnqiifb4albrc8up
-oepc3jScPTJOfACr3wRe8aRxtMUNKcG+oVF6Iosz6qi+90wkwAIjPINiAW5JHCks
-GpzD4VPhOOgVBKOuA6Rq37QpxtDmzrAb/c30gMalGTd4KY5DPnx2ePksm5L+KDQq
-pxcM2rNdFPyxRFP5mhs+T4EDlNzgxkdFm9AlpJV7na1VcTITQA9irec7v07LVgxW
-e0bv9uvFyCeKc72iBDp1WzNf7+oqMzXntQQVhTRQZeKppGaRW3eZ8gX2PshpVCX2
-8LMOxbKk9ekJBX4eC5VNiE0ukSJ+flihfejHRkPmfUzfsEmJbOf/byFBO7ZbmAuw
-sGzG+HmmMD3jNYI1TFkyMkgrQDeBeD6s27cEgGFS3Q9mndJiu8o=
-=PbCB
------END PGP SIGNATURE-----
-
---3qclnsprhvosvvvc--
 
