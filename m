@@ -1,79 +1,83 @@
-Return-Path: <linux-man+bounces-1280-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1281-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4BD49199BC
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 23:24:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A79B9199DE
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 23:44:17 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E2D081C20C33
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 21:24:43 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 029BE1C21D82
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 21:44:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F9D1193079;
-	Wed, 26 Jun 2024 21:24:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DE64193098;
+	Wed, 26 Jun 2024 21:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="FErPbFVC"
+	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="CYFa51uV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com [209.85.166.176])
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223C216A928
-	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 21:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.166.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66FB192B95
+	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 21:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719437080; cv=none; b=OHIYsvOmlyXXug9UceXQ9NibqWct7hpC6elUdouL1v5os1MtyGYzvs7b8podfeTUIX9Rv3VhGruOUuGPZHJgcWrGEs31Ed7uoXeOWhSD4tZOixOLafIX/akuAPGnkoUn53PPt223unJG8T7QrsXgZPjZNWXN88JmF+AzJ21TZC0=
+	t=1719438251; cv=none; b=B9FjGpKWb6aEMUxk5sRibnREdv9+7rxfsHzgn0O1PHizhPq2Mq0VTE90TyCr5l0mTuOg2BsrOF1o0UuNWWPXkHHlJCuyz39CUJVZyfcVwUL/9NMaJW+yK63hgUK3U3BQpUtrTKLf05TcrsLsqotUZ+1f6E37MCIFWU7IQwfppH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719437080; c=relaxed/simple;
-	bh=y40Osiym+Xp3xAn9qPwZKLctpFVhnIoNTF+S6ZbhXBo=;
+	s=arc-20240116; t=1719438251; c=relaxed/simple;
+	bh=V9EuyUl2ls4FeArP3NylY+Sy3E+SCePkw5Hb7n8K/GI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RrloSVYQ9iASfABdGPi0IS4OZOOqbgBbg+jxZS24PvqXR08goH63P2dqXXDkPhhbTW6xaBZ1knlwbTVHhqf6J4FTa4turZ6mQgZwz+eZSD5YU5mdekGSCqeqBGz+I2Kv3UX6fiS1LfzAozwJH2o5UDxcTh6bJU9HI2Gh5XCgACE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com; spf=pass smtp.mailfrom=rivosinc.com; dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b=FErPbFVC; arc=none smtp.client-ip=209.85.166.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rivosinc.com
-Received: by mail-il1-f176.google.com with SMTP id e9e14a558f8ab-375e96f5fddso27422185ab.1
-        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 14:24:37 -0700 (PDT)
+	 Content-Type:Content-Disposition:In-Reply-To; b=bOFVFJpQpaB8YLfGsUn8WV2zPraj6GY8nGeZmfFTs53RTU9pe8S9Cef5N5FvPSikkOlI8BjGKUbfwwt4fWmXGfE13m+GcsGaZ8uZRhDGvZTnCk+E4NGPjjvL+oFKcP80XB4MYalsQ7qY4PLtEVJlcX6CLgHPs5Zfc6j2rYT5cEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=CYFa51uV; arc=none smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=toxicpanda.com
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-4463b71d5b0so4865991cf.1
+        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 14:44:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1719437077; x=1720041877; darn=vger.kernel.org;
+        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719438249; x=1720043049; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YObfOZoYsOs3fYEyJXwQzsFl/3BQhrlOnxTKaG7pD2k=;
-        b=FErPbFVCxc5pdfBvLYcZai3cWpptjCv52IJdY32fh4oqcZUSYQkfdcLg3ETzmc7Em5
-         pICT+m6iusB6849Ux+dva2xAu85Lsd12yP096hnjWBPJK/ZlVErRIt1z9BszYP+c3894
-         AN00ReEa89oK4UK4eSTNvm+F88XcWioWUyaMgBrWoAn6YrhXl1xeYJCPe6yyDSM2bhu9
-         4Q468ZzzzzgAKYsisIHsVtq9g9QUOgSczuadZqYOMgX5WF+/L3qqleY0vonNXdCH6O+t
-         /W4Ek5aijMibfdrv8hNf51nT66ZsA3QlONIluOicWs3bhvnarjMTsrRsmY5xmJHjDjaU
-         BGNQ==
+        bh=jjNG4R1vZNPfH956v4J0OTtHbyuKxsK4TtmNrljMZDU=;
+        b=CYFa51uVVbz1h8P1DLXe+LwlYxPenbl54+07mwTc9FzrMCcLpTj8ONoFCYeFz4qRLm
+         53eM+0qTtOIef930igIa7kZYQnkLPHTDuOnA+92J+REH3rjCLwFpjeby0wrDHsCXQpcN
+         DPc71iOU1X0ldBoWa7iAuUfkHbq+njrQe0XkJwtingrudGLOXCj9RJquKYDTXLVqWLXd
+         xfLlJfgPROUIfexPl+o7oyaXyErVVARQXAqK/0ix8XsnFkycUljp7IKgc8/C1oLLRhPi
+         3/DEFh15bVMEKFhnGAoZ46krm/tlXtcTY9S3Wdwl10oHq89jpcZtj+kQIM6Mp2EqzM1Q
+         FKug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719437077; x=1720041877;
+        d=1e100.net; s=20230601; t=1719438249; x=1720043049;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YObfOZoYsOs3fYEyJXwQzsFl/3BQhrlOnxTKaG7pD2k=;
-        b=JLyU5zY+4Okyl1OWeJM/iMwTUrS1NCLu97KbpYykt+ewcs6HUCdgVet8lNFUf6fvTv
-         iiaffw3qbEjKPTwCD63ooQHbdl47Zo2EGcZHrPXqy7+maWnbVNbBfZJ4ev1xQ+OVLsBr
-         FSL/LwKn/EilAewsxq4grau46ji2zt69ywR4h4pdVvotyyvqnbsgeGj3uTSey+fAx/O/
-         Uz6MsKt1BVpihM2Yp4KHXqf/jGnwI/mkRw6LS2VYTDv3ExN+M1TmAi/9Pc79zJqd5SrJ
-         Q/V8btteFAD4iMcPyC14Icc6ZlA8TL1QrSnZxRKDFgQS17gL61ZBSxl5KvdmCvSKUT+8
-         oZjA==
-X-Forwarded-Encrypted: i=1; AJvYcCVf4f5PIcykrMnC7BEI7f2ipIACoztA8uQ/4D6pkD6pScsC63K4q0Yuj2TIdiBg3PqYvy858LKfN2MwUqiF+I2pR5mODrhHHRU5
-X-Gm-Message-State: AOJu0YyzpxhZY3BP3yivaX8KXezY5KfwU8CNMW5dQwoqksCu10VSxOWW
-	TPpGjCC5cC6cJjQ44UPAedBwN6+Xp9++7JFtrCVsEUaLG0op7Bx3rXXaAEqx/do=
-X-Google-Smtp-Source: AGHT+IG9lUCAzTIaEXqbzG8spiUEDAW/G/5lTw1PCSpPp7iF6YILtjLjCsdvZPCYWa2Ml6jI1/wjpg==
-X-Received: by 2002:a05:6e02:1caf:b0:376:24b1:174a with SMTP id e9e14a558f8ab-3763df65e22mr141264745ab.1.1719437077110;
-        Wed, 26 Jun 2024 14:24:37 -0700 (PDT)
-Received: from ghost ([2601:647:5700:6860:d695:7ea4:b5e1:c70c])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-716b36466a3sm9009018a12.19.2024.06.26.14.24.35
+        bh=jjNG4R1vZNPfH956v4J0OTtHbyuKxsK4TtmNrljMZDU=;
+        b=LTPYhkOj4mG6cZDu5uK+vHPq32ww3dDUqrXNwJaCeeZXqOlA2Mvy+p8E2o0f+Ex/jm
+         q6zNHY+PQrPBS1BDHQM3br1HhlLXJNIA+soIgIlE5WmiJW+HV3X6RG7Wdmijh6wLLBdm
+         8y17DfrBgp7JCYVqXA8HDRbyZN3SK/XIwYGubW/NpzKpSsNqSYoEZWB9R9Hn5s3kGjaU
+         K2Qo2Gi/CmcSDDyXfBPvudOQgvfnVE+HKwawlq7/tjcK2z3p2CxG5sjoR/z2Uc2yfALu
+         84U9cXUt/IDlg5Tt2T23YkQxOuxJNeUf6F5b/yIGpdcpthDoGdzgVLPLQMzcPTrEZvj2
+         8opg==
+X-Gm-Message-State: AOJu0YxdieTbzLB95UBcNSKlGfU4dBmoCutgqOJk9mRPWROL9EthOoqi
+	x/z93bFgc341d56SqG+aihBSwJyy59fnBUK0RWHVyYo4/F/c6eqMvOUkaWLlOIs=
+X-Google-Smtp-Source: AGHT+IF8WfCEFzI3B+9W0m8Gl2Lh73d5ucYGeDd2e+9DtVLqoWqH8tHCuEQa4FBQgkv1OZMAnZL4/Q==
+X-Received: by 2002:a05:622a:1a83:b0:446:371b:1b9f with SMTP id d75a77b69052e-446371b2083mr23201741cf.22.1719438248726;
+        Wed, 26 Jun 2024 14:44:08 -0700 (PDT)
+Received: from localhost (syn-076-182-020-124.res.spectrum.com. [76.182.20.124])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-44501893592sm18084161cf.37.2024.06.26.14.44.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Jun 2024 14:24:36 -0700 (PDT)
-Date: Wed, 26 Jun 2024 14:24:34 -0700
-From: Charlie Jenkins <charlie@rivosinc.com>
+        Wed, 26 Jun 2024 14:44:08 -0700 (PDT)
+Date: Wed, 26 Jun 2024 17:44:07 -0400
+From: Josef Bacik <josef@toxicpanda.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
-Message-ID: <ZnyHEiYs/V/zwJXq@ghost>
-References: <20240212-fencei_prctl-v2-1-32d940981b05@rivosinc.com>
- <ZdFaStMt83D-i8yH@debian>
+Cc: linux-man@vger.kernel.org, brauner@kernel.org,
+	linux-fsdevel@vger.kernel.org, mszeredi@redhat.com,
+	kernel-team@fb.com
+Subject: Re: [PATCH v2 0/2] man-pages: add documentation for
+ statmount/listmount
+Message-ID: <20240626214407.GA3602100@perftesting>
+References: <cover.1719417184.git.josef@toxicpanda.com>
+ <t6z4z33wkaf2ufqzt4dtkpw2xdjrr67pm5p5leikj3uj3ahhkg@jzssz7gcv2h5>
+ <20240626180434.GA3370416@perftesting>
+ <gsfbaxnh7blhcldfbnhup4wqb2e6gsccpgy4aoyglohvwkoly5@fcctrxviaspy>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -82,126 +86,56 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZdFaStMt83D-i8yH@debian>
+In-Reply-To: <gsfbaxnh7blhcldfbnhup4wqb2e6gsccpgy4aoyglohvwkoly5@fcctrxviaspy>
 
-On Sun, Feb 18, 2024 at 02:15:53AM +0100, Alejandro Colomar wrote:
-> Hi Charlie,
+On Wed, Jun 26, 2024 at 08:41:06PM +0200, Alejandro Colomar wrote:
+> Hi Josef,
 > 
-> On Mon, Feb 12, 2024 at 09:19:21PM -0500, Charlie Jenkins wrote:
-> > I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX flag
-> > for prctl(2) to LKML. It has been reviewed and is expected to land
-> > during the Linux version 6.9 merge window. This adds the relevant
-> > documentation from that patch.
+> On Wed, Jun 26, 2024 at 02:04:34PM GMT, Josef Bacik wrote:
+> > On Wed, Jun 26, 2024 at 07:02:26PM +0200, Alejandro Colomar wrote:
+> > > You can
+> > > 
+> > > 	$ make lint build check -j8 -k
+> > > 	$ make lint build check
+> > > 
+> > > to see the full list of failures.
 > > 
-> > Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
-> > ---
-> > I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX
-> > flag for prctl(2) to LKML. It has been reviewed and is expected to land
-> > during the Linux version 6.9 merge window.
+> > I captured the output of
+> > 
+> > make lint build check -j8 -k > out.txt 2>&1
 > 
-> Can you please ping when that happens?  The below LGTM.
-
-This patch ended up missing a merge window but it is now in the release
-candidates for 6.10. The hash is 6b9391b581fd ("riscv: Include
-riscv_set_icache_flush_ctx prctl").
-
-- Charlie
-
+> Hmmm, please do the following steps to have a cleaner log:
 > 
-> Have a lovely night!
-> Alex
+> 	## Let's see if the build system itself complains:
+> 	$ make nothing >out0.txt
 > 
-> > ---
-> > Changes in v2:
-> > - Update formatting (Alejandro)
-> > - Link to v1: https://lore.kernel.org/r/20240124-fencei_prctl-v1-1-0bddafcef331@rivosinc.com
-> > ---
-> >  man2/prctl.2 | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 59 insertions(+)
-> > 
-> > diff --git a/man2/prctl.2 b/man2/prctl.2
-> > index f1604a7cb..32ce8474f 100644
-> > --- a/man2/prctl.2
-> > +++ b/man2/prctl.2
-> > @@ -1147,6 +1147,65 @@ For further information, see the kernel source file
-> >  (or
-> >  .I Documentation/security/Yama.txt
-> >  before Linux 4.13).
-> > +.\" prctl PR_RISCV_SET_ICACHE_FLUSH_CTX
-> > +.TP
-> > +.BR PR_RISCV_SET_ICACHE_FLUSH_CTX " (since Linux 6.9, RISC-V only)"
-> > +Enable/disable icache flushing instructions in userspace.
-> > +The context and the scope can be provided using
-> > +.I arg2
-> > +and
-> > +.I arg3
-> > +respectively.
-> > +When scope is set to
-> > +.B PR_RISCV_SCOPE_PER_PROCESS
-> > +all threads in the process are permitted to emit icache flushing instructions.
-> > +Whenever any thread in the process is migrated, the corresponding hart's
-> > +icache will be guaranteed to be consistent with instruction storage.
-> > +This does not enforce any guarantees outside of migration.
-> > +If a thread modifies an instruction that another thread may attempt to
-> > +execute, the other thread must still emit an icache flushing instruction
-> > +before attempting to execute the potentially modified instruction.
-> > +This must be performed by the user-space program.
-> > +.IP
-> > +In per-thread context (eg. scope is set to
-> > +.BR PR_RISCV_SCOPE_PER_THREAD )
-> > +only the thread calling this function is permitted to emit icache flushing
-> > +instructions.
-> > +When the thread is migrated, the corresponding hart's icache will be
-> > +guaranteed to be consistent with instruction storage.
-> > +.IP
-> > +On kernels configured without SMP, this function is a nop as migrations across
-> > +harts will not occur.
-> > +.IP
-> > +The following values for
-> > +.I arg2
-> > +can be specified:
-> > +.RS
-> > +.TP
-> > +.BR PR_RISCV_CTX_SW_FENCEI_ON " (since Linux 6.9)"
-> > +Allow fence.i in user space.
-> > +.TP
-> > +.BR PR_RISCV_CTX_SW_FENCEI_OFF " (since Linux 6.9)"
-> > +Disallow fence.i in user space.
-> > +All threads in a process will be affected when scope is set to
-> > +.BR PR_RISCV_SCOPE_PER_PROCESS .
-> > +Therefore, caution must be taken; use this flag only when you can guarantee
-> > +that no thread in the process will emit fence.i from this point onward.
-> > +.RE
-> > +.IP
-> > +The following values for
-> > +.I arg3
-> > +can be specified:
-> > +.RS
-> > +.TP
-> > +.BR PR_RISCV_SCOPE_PER_PROCESS " (since Linux 6.9)"
-> > +Ensure the icache of any thread in this process is coherent with instruction
-> > +storage upon migration.
-> > +.TP
-> > +.BR PR_RISCV_SCOPE_PER_THREAD " (since Linux 6.9)"
-> > +Ensure the icache of the current thread is coherent with instruction storage
-> > +upon migration.
-> > +.RE
-> >  .\" prctl PR_SET_SECCOMP
-> >  .TP
-> >  .BR PR_SET_SECCOMP " (since Linux 2.6.23)"
-> > 
-> > ---
-> > base-commit: a81e893f2b9316869e6098c3a079c30a48158092
-> > change-id: 20240124-fencei_prctl-c24da2643379
-> > 
-> > Best regards,
-> > -- 
-> > Charlie Jenkins <charlie@rivosinc.com>
-> > 
+> 	## Skip checkpatch stuff:
+> 	$ make -t lint-c-checkpatch
 > 
-> -- 
-> <https://www.alejandro-colomar.es/>
-> Looking for a remote C programming job at the moment.
+> 	## Make fast stuff that doesn't break:
+> 	$ make lint build check -j8 -k >/dev/null 2>/dev/null
+> 
+> 	## Now log the remaining errors:
+> 	$ make lint build check >out.txt 2>&1
+> 
+> > and pasted it here
+> > 
+> > https://paste.centos.org/view/ed3387a9
+> 
+> BTW, you seem to also be missing cppcheck(1), which at least in Debian
+> is provided in the cppcheck package.  It also seems to be available in
+> Fedora, but I don't know if your system will have it.
+> 
+> > Clang messes up a bunch for a variety of different pages.
+> 
+> I suspect the Clang errors to be due to missing libbsd-dev.
+> 
 
+Ok well those two things fixed most of the errors, now I'm down to just this
 
+https://paste.centos.org/view/acd71eb7
+
+I'm on Fedora btw. Thanks,
+
+Josef
 
