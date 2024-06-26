@@ -1,130 +1,120 @@
-Return-Path: <linux-man+bounces-1274-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1275-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF3E1918DE0
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 20:04:43 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id A545F918E2F
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 20:22:13 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 97A2928926F
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 18:04:42 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C8E8F1C21470
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 18:22:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C42B18FDDA;
-	Wed, 26 Jun 2024 18:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 364F9190661;
+	Wed, 26 Jun 2024 18:22:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="e2BBrqOG"
+	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="WYR5M80n"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C85143894
-	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 18:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2CB190462
+	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 18:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719425078; cv=none; b=CmsTwqTTD9palkw6rTCXwmmOngxmSiqfODqaZ2A5+YpNGc7VFq7GqCnqbNCEeC9JLBUGOqlg0zHUWf5gVcdPqSDyYJY9+p/AgxKgTc0te6N2Ub38n6NJtfl5sz4WOEKp4YvK81D8G7y3MDl7zGT4IOeH6n1fq04xgT0fnHsqYz0=
+	t=1719426126; cv=none; b=prooqAdzBIf0WvTJMVBZV3Ggjp1dH6wSY9YqbMw+q+J3ou3GzjfhyhV/5qwdJ2kXdc+A2rQE1Ifh9cRbs6zCRelyGuKP0fPnlwf8vDcN4tEBIzeyQeeozVmhqxPU+Ha94DhRHC0k5w8ChC9TlCTdEZ6xdu2Xf9angd1enWTZBxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719425078; c=relaxed/simple;
-	bh=/dpduW/wE6hh7mfMO8FNQYjb2BLFoERD20G7Tp4SERA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=stB2rYEfzoHNhlAaStHj3nU+vJrDHDBnNrX1NWeEgPdU18g5y7Y4NkOvON8VZwNSqnw+iEtofyWZJOQpA5yvRqsSV9WGyrP/xK8HIdydCuxB5Bjx8AxKMBWic2H8pJX/JvpgHnJWibIgNu588SbGbxFTNtPLWLyOpDyrnXOyXwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=e2BBrqOG; arc=none smtp.client-ip=209.85.222.171
+	s=arc-20240116; t=1719426126; c=relaxed/simple;
+	bh=3YS7Big+2/C1n1GT5ksDvGFsfPk1yxEJ6lCNmeCFOzU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=i5i2VZzDru+ox5cQVnFW4hDgwrzoHjeGWqwoGXZHfsvEWJ5e3jEXHLNxlnxj4h3u0nqesW6z64qZDa2iWfLC9UaNjJuzO/YhBzrlWvtc0eC/KwkyqZ0CDEZZuH8EtSotSOpzxC+KVIkCZUBLyg+VsnXRyJ6q5p6j2v4CVV9FwQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=WYR5M80n; arc=none smtp.client-ip=209.85.167.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=toxicpanda.com
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-79c084476bdso211806385a.3
-        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 11:04:36 -0700 (PDT)
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-3c9cc66c649so3538679b6e.1
+        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 11:22:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719425076; x=1720029876; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=aelliLONThBVLV6gF9spFPSnQEST2wClEncs8iGowwM=;
-        b=e2BBrqOGyJsRs1XEk6TIcGJYaK30QODWJWaH88CRkhaAwxvDDYyIspIUrfBW2g5t4X
-         CiFJw4ntb0qbKmlFdo46rh43JCEbzLEmUpFr+zu8fQaz1Ft2RvEa9TiWPbudlYBctXpu
-         wPCpDsdZG80l6NETt2fa3w0HFQO33SBgH0wNnGe+JqN5PobZTEzbKgIfZ9ntquXMnYs9
-         E6ZEKjgOizkAnpY7qFI3lkzFVRw9oeluYXAcysuMpEqwYEIg7sSMjiBjeF//6c48XOMF
-         euxet87mOay08qwst6QDJvs8jP0ewRhHb5ZGHogS0kPCiwN9DsTGFDZf+6hgD7qihyxa
-         zENw==
+        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719426122; x=1720030922; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rj9KENADcu2MwyNzed99Hja88ioeYiKkCX46p9yHNxM=;
+        b=WYR5M80nr4Cl6FGWOKTR8s2Fxe2haZYuRpSNVmhitooQlZnEsLBbF5VT/C4BU1DLy2
+         pUebS9DHAvH7qEPWzdUcfhv/ygtpvUjLQaEJLktqo2X0ptjBM09iGArcVr8Rfq7nwalf
+         diKg32NOP1ymvU/b0UnE+l5D1WsadGPUynzYBeBiUXn52d0KD7RN2a9TAxyZ/HSReqJ+
+         a0JaBd2NYnKY4Yx3wclfCrF+f+LeLPeEsokUMi/qLaosu02Vu1SatAjsavxN9XSa0Gpn
+         KZvEq8DaU/rWyexWEKBYOTYcq+6GWKI1TzY/Q/JhgoayPxhmxVDx3wZu+sTYA9ST3HOe
+         XIlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719425076; x=1720029876;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aelliLONThBVLV6gF9spFPSnQEST2wClEncs8iGowwM=;
-        b=b5p7TgtxWcuwCSqQqkjMVm9TGTt+SArV1cxT4YnZT9j+/5I7X9U5Ney+uWiT/swp9m
-         d0oNSWgOJtVoNOa94VpyMxYtUTsw2eMrKjymPaFihijQSZCpjFh+9fx9jDgsOELJzWdn
-         CmMocrZyc/RGfDembE48+oObCt8CEsUoVDyQ6xPnTqSPSZhWBN7z/Edkah7K+PbVcpI0
-         QAlR2XqILRJhycGX2dQZry/NIc1e6++VAapbQK3GOuSEPUdcMrYvNgP7ZYOhuOmW67Fh
-         bRZ+VMJORZIAtR0CXmXq5bOs/MNRN/CmrSzXh0cQgRbWzHIfR6FuAIFQ75b4syyaTit1
-         foig==
-X-Gm-Message-State: AOJu0YzhumnMj/NHU2d2j6zXjwkPuRcZQv2R5aCrjv4/1s+1jiU6PPgt
-	xhRRo1ovlFPXigKr+yfuQIwtzrxIVzUacCmjSuSA8YyVCvR3Ry4lsTMzpbogW4E=
-X-Google-Smtp-Source: AGHT+IGNXms9RbdWjD9JxYgjNqvnvgPSiXhZuapGkqutvE2Q7YM2CKv0tzCbIXLc1FLLyY/pDkPRpA==
-X-Received: by 2002:a05:620a:25d0:b0:79b:f963:d25 with SMTP id af79cd13be357-79bf9630d29mr908482885a.75.1719425075867;
-        Wed, 26 Jun 2024 11:04:35 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1719426122; x=1720030922;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rj9KENADcu2MwyNzed99Hja88ioeYiKkCX46p9yHNxM=;
+        b=teiCd1jhXqGzWJJp/NF4wsDMu5JGWs0CG5XEmUC9BAEKInk7Xq6cqPW3b70qLYsVKA
+         ddmNn7acP58DKnaCfoaJ3g6iGd78dT5HCunE8du1anurh5Kyx7Ea5Zm+fTd1ThNA8KA4
+         5upwUwQGajQUWHduO5MVeb3e4iyzZFYXVhdzD5iGg+ymhGEwGJ3PI/0wbA3JeMjIjML1
+         h352DD14GauzDiOQ35SeEzovnGyFjdsIi8j8kua8ImmvdOzQ0O0vlGsRyJiUkwVT8Zhf
+         bfdlwGgljB3IG5e0v1TSnHHOReillSqBFS4PdA0NcH8qrTMdGQSLXPbA35hF6t294E4X
+         Cofg==
+X-Forwarded-Encrypted: i=1; AJvYcCWhxH1mUs10fHMe32nWuNwGi3/qZe0kXzpnjYnqDTrSriffK2hDUDHG4cMx0sUWhZeVbLvxGlprk9Zq/pqBUX9It6g9FBJG66Bq
+X-Gm-Message-State: AOJu0YwdXRcRBqgJQs0ioGgNnU3EyLurV82pQbAZuTqT+JAHYOr5V+PQ
+	dt3qBZPGJLBhSpVaDzBQrnHJNh19HLln1aHT6P8kEtaqZ7C3wqROi+qM7PpGgApeWgA+0LNpD4u
+	S
+X-Google-Smtp-Source: AGHT+IFNvf+z97ooYOlFx0M/mpi+HnlcqL8zJDwo6UXEL2Ru47c0XawqIUQ9YOuJe8RkwMIFsyVLpA==
+X-Received: by 2002:a05:6808:1806:b0:3d2:2293:9990 with SMTP id 5614622812f47-3d545962d36mr13895083b6e.2.1719426122179;
+        Wed, 26 Jun 2024 11:22:02 -0700 (PDT)
 Received: from localhost (syn-076-182-020-124.res.spectrum.com. [76.182.20.124])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-79d58e24280sm24239885a.33.2024.06.26.11.04.35
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-444c2caf5eesm69280521cf.96.2024.06.26.11.22.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Jun 2024 11:04:35 -0700 (PDT)
-Date: Wed, 26 Jun 2024 14:04:34 -0400
+        Wed, 26 Jun 2024 11:22:01 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, brauner@kernel.org,
-	linux-fsdevel@vger.kernel.org, mszeredi@redhat.com,
+To: alx@kernel.org,
+	linux-man@vger.kernel.org,
+	brauner@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	mszeredi@redhat.com,
 	kernel-team@fb.com
-Subject: Re: [PATCH v2 0/2] man-pages: add documentation for
- statmount/listmount
-Message-ID: <20240626180434.GA3370416@perftesting>
-References: <cover.1719417184.git.josef@toxicpanda.com>
- <t6z4z33wkaf2ufqzt4dtkpw2xdjrr67pm5p5leikj3uj3ahhkg@jzssz7gcv2h5>
+Subject: [PATCH v3 0/2] man-pages: add documentation for statmount/listmount
+Date: Wed, 26 Jun 2024 14:21:38 -0400
+Message-ID: <cover.1719425922.git.josef@toxicpanda.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <t6z4z33wkaf2ufqzt4dtkpw2xdjrr67pm5p5leikj3uj3ahhkg@jzssz7gcv2h5>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 26, 2024 at 07:02:26PM +0200, Alejandro Colomar wrote:
-> Hi Josef,
-> 
-> On Wed, Jun 26, 2024 at 11:56:06AM GMT, Josef Bacik wrote:
-> > V1: https://lore.kernel.org/linux-fsdevel/cover.1719341580.git.josef@toxicpanda.com/
-> > 
-> > v1->v2:
-> > - Dropped the statx patch as Alejandro already took it (thanks!)
-> > - Reworked everything to use semantic newlines
-> > - Addressed all of the comments on the statmount.2 man page
-> > 
-> > I'm still unable to run anything other than make check, and if I do `make -t
-> > lint-c-checkpatch` and then run make check lint build it fails almost
-> > immediately on other unrelated things, so I think I'm too dumb to know how to
-> > check these patches before I send them.  However I did my best to follow all of
-> > the suggestions.  Thanks,
-> 
-> I'm interested in learning what problems contributors face, so please
-> let me know those issues, if you don't mind.
-> 
-> You can
-> 
-> 	$ make lint build check -j8 -k
-> 	$ make lint build check
-> 
-> to see the full list of failures.
+V2: https://lore.kernel.org/linux-fsdevel/cover.1719417184.git.josef@toxicpanda.com/
+V1: https://lore.kernel.org/linux-fsdevel/cover.1719341580.git.josef@toxicpanda.com/
 
-I captured the output of
+v2->v3:
+- Removed a spurious \t comment in listmount.2 (took me a while to figure out
+  why it was needed in statmount.2 but not listmount.2, it's because it lets you
+  know that there's a TS in the manpage).
+- Fixed some unbalanced " in both pages
+- Removed a EE in the nf section which is apparently not needed
 
-make lint build check -j8 -k > out.txt 2>&1
+v1->v2:
+- Dropped the statx patch as Alejandro already took it (thanks!)
+- Reworked everything to use semantic newlines
+- Addressed all of the comments on the statmount.2 man page
 
-and pasted it here
-
-https://paste.centos.org/view/ed3387a9
-
-Clang messes up a bunch for a variety of different pages.
-
-Also I did hit some mandoc warnings on this series, I'll post a v3 in a moment
-with those things fixed.  Thanks,
+Got more of the checks to run so found more issues, fixed those up, but no big
+changes.  Thanks,
 
 Josef
+
+Josef Bacik (2):
+  statmount.2: New page describing the statmount syscall
+  listmount.2: New page describing the listmount syscall
+
+ man/man2/listmount.2 | 111 +++++++++++++++++
+ man/man2/statmount.2 | 285 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 396 insertions(+)
+ create mode 100644 man/man2/listmount.2
+ create mode 100644 man/man2/statmount.2
+
+-- 
+2.43.0
+
 
