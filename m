@@ -1,228 +1,207 @@
-Return-Path: <linux-man+bounces-1279-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1280-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB632918ECC
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 20:48:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4BD49199BC
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 23:24:44 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E782A1C20899
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 18:48:16 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E2D081C20C33
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jun 2024 21:24:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F9DD18E767;
-	Wed, 26 Jun 2024 18:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F9D1193079;
+	Wed, 26 Jun 2024 21:24:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWY+gloX"
+	dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="FErPbFVC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com [209.85.166.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFAB33C5;
-	Wed, 26 Jun 2024 18:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223C216A928
+	for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 21:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.166.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719427692; cv=none; b=jYBRd86gjZYHm4mZ70r2e01cXb3k28otF9580ujcn5z5sFweg8X2BryUF3b9uePQevl04DfPOS/A8+PdDqZNXSrU72Ltqfp5YvAwKUahiuFzgucvlSkZ4yDatE/U1x+sBADSTUTmJyw5btxVrZblarhEziMiPAMvojWxaB8VJ94=
+	t=1719437080; cv=none; b=OHIYsvOmlyXXug9UceXQ9NibqWct7hpC6elUdouL1v5os1MtyGYzvs7b8podfeTUIX9Rv3VhGruOUuGPZHJgcWrGEs31Ed7uoXeOWhSD4tZOixOLafIX/akuAPGnkoUn53PPt223unJG8T7QrsXgZPjZNWXN88JmF+AzJ21TZC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719427692; c=relaxed/simple;
-	bh=MXyRv2/EuUiRnqhiVTr61Ncqv5aY90G16hLqfEyeGDc=;
+	s=arc-20240116; t=1719437080; c=relaxed/simple;
+	bh=y40Osiym+Xp3xAn9qPwZKLctpFVhnIoNTF+S6ZbhXBo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T7iWHIhmaSB0c1OznyQdNU/ZKssHmbpsCreyJjDBl0MzhzRA4GsKnINCNAFcSrb1HGQ0eY1jXOl4410HM2PoTdKdQ4NtHasvz558d9WqG/lS+bDollb1VWXM8Q8htQWTYf2iwC3eMim9PWFizsYAOHfYVpK4KJ8F8C19QULjA6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWY+gloX; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803A9C116B1;
-	Wed, 26 Jun 2024 18:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719427691;
-	bh=MXyRv2/EuUiRnqhiVTr61Ncqv5aY90G16hLqfEyeGDc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JWY+gloX1tgUFyZWAI3YnonC4fKMGtbEvXQzke019LYMYyEW3dfLtBq2yQ+/zYkIR
-	 r05Hl50V7te5V+pKcdOe/HIljDgZQDdqOW+lB5AqUwrMNF7me6N1CHyd/TnAiC0/P0
-	 VBxH7vuPAViIH+8UK5Uakez8AjZR/XJ9A6h99UfvWtLjO+cKy1QYPUti61jZKoABN7
-	 ugu3VDEr3fBPabliKF9l62A7aOc7Lb17Cqjxjupzzf8uH9U7ZaIiN41Wa9AQPx70zP
-	 n9EKUoskgG0gWx2VnLqp/8FpHHIiyQqQNXyRn7ZDW5kKDAAKvtB6uHU7eGtxe6jQDt
-	 leCY6mhctLaig==
-Date: Wed, 26 Jun 2024 20:48:08 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: linux-man@vger.kernel.org, brauner@kernel.org, 
-	linux-fsdevel@vger.kernel.org, mszeredi@redhat.com, kernel-team@fb.com
-Subject: Re: [PATCH v3 0/2] man-pages: add documentation for
- statmount/listmount
-Message-ID: <zg4fe5xw3gp5tvrcrp5yk2e4ogkmrzv3q3omh3c33ybbfbczib@ev5vhgjjljec>
-References: <cover.1719425922.git.josef@toxicpanda.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=RrloSVYQ9iASfABdGPi0IS4OZOOqbgBbg+jxZS24PvqXR08goH63P2dqXXDkPhhbTW6xaBZ1knlwbTVHhqf6J4FTa4turZ6mQgZwz+eZSD5YU5mdekGSCqeqBGz+I2Kv3UX6fiS1LfzAozwJH2o5UDxcTh6bJU9HI2Gh5XCgACE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com; spf=pass smtp.mailfrom=rivosinc.com; dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b=FErPbFVC; arc=none smtp.client-ip=209.85.166.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rivosinc.com
+Received: by mail-il1-f176.google.com with SMTP id e9e14a558f8ab-375e96f5fddso27422185ab.1
+        for <linux-man@vger.kernel.org>; Wed, 26 Jun 2024 14:24:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1719437077; x=1720041877; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YObfOZoYsOs3fYEyJXwQzsFl/3BQhrlOnxTKaG7pD2k=;
+        b=FErPbFVCxc5pdfBvLYcZai3cWpptjCv52IJdY32fh4oqcZUSYQkfdcLg3ETzmc7Em5
+         pICT+m6iusB6849Ux+dva2xAu85Lsd12yP096hnjWBPJK/ZlVErRIt1z9BszYP+c3894
+         AN00ReEa89oK4UK4eSTNvm+F88XcWioWUyaMgBrWoAn6YrhXl1xeYJCPe6yyDSM2bhu9
+         4Q468ZzzzzgAKYsisIHsVtq9g9QUOgSczuadZqYOMgX5WF+/L3qqleY0vonNXdCH6O+t
+         /W4Ek5aijMibfdrv8hNf51nT66ZsA3QlONIluOicWs3bhvnarjMTsrRsmY5xmJHjDjaU
+         BGNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719437077; x=1720041877;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YObfOZoYsOs3fYEyJXwQzsFl/3BQhrlOnxTKaG7pD2k=;
+        b=JLyU5zY+4Okyl1OWeJM/iMwTUrS1NCLu97KbpYykt+ewcs6HUCdgVet8lNFUf6fvTv
+         iiaffw3qbEjKPTwCD63ooQHbdl47Zo2EGcZHrPXqy7+maWnbVNbBfZJ4ev1xQ+OVLsBr
+         FSL/LwKn/EilAewsxq4grau46ji2zt69ywR4h4pdVvotyyvqnbsgeGj3uTSey+fAx/O/
+         Uz6MsKt1BVpihM2Yp4KHXqf/jGnwI/mkRw6LS2VYTDv3ExN+M1TmAi/9Pc79zJqd5SrJ
+         Q/V8btteFAD4iMcPyC14Icc6ZlA8TL1QrSnZxRKDFgQS17gL61ZBSxl5KvdmCvSKUT+8
+         oZjA==
+X-Forwarded-Encrypted: i=1; AJvYcCVf4f5PIcykrMnC7BEI7f2ipIACoztA8uQ/4D6pkD6pScsC63K4q0Yuj2TIdiBg3PqYvy858LKfN2MwUqiF+I2pR5mODrhHHRU5
+X-Gm-Message-State: AOJu0YyzpxhZY3BP3yivaX8KXezY5KfwU8CNMW5dQwoqksCu10VSxOWW
+	TPpGjCC5cC6cJjQ44UPAedBwN6+Xp9++7JFtrCVsEUaLG0op7Bx3rXXaAEqx/do=
+X-Google-Smtp-Source: AGHT+IG9lUCAzTIaEXqbzG8spiUEDAW/G/5lTw1PCSpPp7iF6YILtjLjCsdvZPCYWa2Ml6jI1/wjpg==
+X-Received: by 2002:a05:6e02:1caf:b0:376:24b1:174a with SMTP id e9e14a558f8ab-3763df65e22mr141264745ab.1.1719437077110;
+        Wed, 26 Jun 2024 14:24:37 -0700 (PDT)
+Received: from ghost ([2601:647:5700:6860:d695:7ea4:b5e1:c70c])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-716b36466a3sm9009018a12.19.2024.06.26.14.24.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Jun 2024 14:24:36 -0700 (PDT)
+Date: Wed, 26 Jun 2024 14:24:34 -0700
+From: Charlie Jenkins <charlie@rivosinc.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
+Message-ID: <ZnyHEiYs/V/zwJXq@ghost>
+References: <20240212-fencei_prctl-v2-1-32d940981b05@rivosinc.com>
+ <ZdFaStMt83D-i8yH@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r2ldyc6l75eqxkt6"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1719425922.git.josef@toxicpanda.com>
+In-Reply-To: <ZdFaStMt83D-i8yH@debian>
+
+On Sun, Feb 18, 2024 at 02:15:53AM +0100, Alejandro Colomar wrote:
+> Hi Charlie,
+> 
+> On Mon, Feb 12, 2024 at 09:19:21PM -0500, Charlie Jenkins wrote:
+> > I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX flag
+> > for prctl(2) to LKML. It has been reviewed and is expected to land
+> > during the Linux version 6.9 merge window. This adds the relevant
+> > documentation from that patch.
+> > 
+> > Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
+> > ---
+> > I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX
+> > flag for prctl(2) to LKML. It has been reviewed and is expected to land
+> > during the Linux version 6.9 merge window.
+> 
+> Can you please ping when that happens?  The below LGTM.
+
+This patch ended up missing a merge window but it is now in the release
+candidates for 6.10. The hash is 6b9391b581fd ("riscv: Include
+riscv_set_icache_flush_ctx prctl").
+
+- Charlie
+
+> 
+> Have a lovely night!
+> Alex
+> 
+> > ---
+> > Changes in v2:
+> > - Update formatting (Alejandro)
+> > - Link to v1: https://lore.kernel.org/r/20240124-fencei_prctl-v1-1-0bddafcef331@rivosinc.com
+> > ---
+> >  man2/prctl.2 | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 59 insertions(+)
+> > 
+> > diff --git a/man2/prctl.2 b/man2/prctl.2
+> > index f1604a7cb..32ce8474f 100644
+> > --- a/man2/prctl.2
+> > +++ b/man2/prctl.2
+> > @@ -1147,6 +1147,65 @@ For further information, see the kernel source file
+> >  (or
+> >  .I Documentation/security/Yama.txt
+> >  before Linux 4.13).
+> > +.\" prctl PR_RISCV_SET_ICACHE_FLUSH_CTX
+> > +.TP
+> > +.BR PR_RISCV_SET_ICACHE_FLUSH_CTX " (since Linux 6.9, RISC-V only)"
+> > +Enable/disable icache flushing instructions in userspace.
+> > +The context and the scope can be provided using
+> > +.I arg2
+> > +and
+> > +.I arg3
+> > +respectively.
+> > +When scope is set to
+> > +.B PR_RISCV_SCOPE_PER_PROCESS
+> > +all threads in the process are permitted to emit icache flushing instructions.
+> > +Whenever any thread in the process is migrated, the corresponding hart's
+> > +icache will be guaranteed to be consistent with instruction storage.
+> > +This does not enforce any guarantees outside of migration.
+> > +If a thread modifies an instruction that another thread may attempt to
+> > +execute, the other thread must still emit an icache flushing instruction
+> > +before attempting to execute the potentially modified instruction.
+> > +This must be performed by the user-space program.
+> > +.IP
+> > +In per-thread context (eg. scope is set to
+> > +.BR PR_RISCV_SCOPE_PER_THREAD )
+> > +only the thread calling this function is permitted to emit icache flushing
+> > +instructions.
+> > +When the thread is migrated, the corresponding hart's icache will be
+> > +guaranteed to be consistent with instruction storage.
+> > +.IP
+> > +On kernels configured without SMP, this function is a nop as migrations across
+> > +harts will not occur.
+> > +.IP
+> > +The following values for
+> > +.I arg2
+> > +can be specified:
+> > +.RS
+> > +.TP
+> > +.BR PR_RISCV_CTX_SW_FENCEI_ON " (since Linux 6.9)"
+> > +Allow fence.i in user space.
+> > +.TP
+> > +.BR PR_RISCV_CTX_SW_FENCEI_OFF " (since Linux 6.9)"
+> > +Disallow fence.i in user space.
+> > +All threads in a process will be affected when scope is set to
+> > +.BR PR_RISCV_SCOPE_PER_PROCESS .
+> > +Therefore, caution must be taken; use this flag only when you can guarantee
+> > +that no thread in the process will emit fence.i from this point onward.
+> > +.RE
+> > +.IP
+> > +The following values for
+> > +.I arg3
+> > +can be specified:
+> > +.RS
+> > +.TP
+> > +.BR PR_RISCV_SCOPE_PER_PROCESS " (since Linux 6.9)"
+> > +Ensure the icache of any thread in this process is coherent with instruction
+> > +storage upon migration.
+> > +.TP
+> > +.BR PR_RISCV_SCOPE_PER_THREAD " (since Linux 6.9)"
+> > +Ensure the icache of the current thread is coherent with instruction storage
+> > +upon migration.
+> > +.RE
+> >  .\" prctl PR_SET_SECCOMP
+> >  .TP
+> >  .BR PR_SET_SECCOMP " (since Linux 2.6.23)"
+> > 
+> > ---
+> > base-commit: a81e893f2b9316869e6098c3a079c30a48158092
+> > change-id: 20240124-fencei_prctl-c24da2643379
+> > 
+> > Best regards,
+> > -- 
+> > Charlie Jenkins <charlie@rivosinc.com>
+> > 
+> 
+> -- 
+> <https://www.alejandro-colomar.es/>
+> Looking for a remote C programming job at the moment.
 
 
---r2ldyc6l75eqxkt6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: linux-man@vger.kernel.org, brauner@kernel.org, 
-	linux-fsdevel@vger.kernel.org, mszeredi@redhat.com, kernel-team@fb.com
-Subject: Re: [PATCH v3 0/2] man-pages: add documentation for
- statmount/listmount
-References: <cover.1719425922.git.josef@toxicpanda.com>
-MIME-Version: 1.0
-In-Reply-To: <cover.1719425922.git.josef@toxicpanda.com>
-
-Hi Josef,
-
-On Wed, Jun 26, 2024 at 02:21:38PM GMT, Josef Bacik wrote:
-> V2: https://lore.kernel.org/linux-fsdevel/cover.1719417184.git.josef@toxi=
-cpanda.com/
-> V1: https://lore.kernel.org/linux-fsdevel/cover.1719341580.git.josef@toxi=
-cpanda.com/
->=20
-> v2->v3:
-> - Removed a spurious \t comment in listmount.2 (took me a while to figure=
- out
->   why it was needed in statmount.2 but not listmount.2, it's because it l=
-ets you
->   know that there's a TS in the manpage).
-
-Yep; here's the Makefile relevant rule:
-
-$ grepc -x mk -tr _LINT_man_tbl share/mk/
-share/mk/lint/man/tbl.mk:$(_LINT_man_tbl): %.lint-man.tbl.touch: % $(MK) | =
-$$(@D)/
-	$(info	$(INFO_)GREP		$@)
-	$(HEAD) -n1 <$< \
-	| if $(GREP) '\\" t$$' >/dev/null; then \
-		$(CAT) <$< \
-		| if ! $(GREP) '^\.TS$$' >/dev/null; then \
-			>&2 $(ECHO) "$<:1: spurious '\\\" t' comment:"; \
-			>&2 $(HEAD) -n1 <$<; \
-			exit 1; \
-		fi; \
-	else \
-		$(CAT) <$< \
-		| if $(GREP) '^\.TS$$' >/dev/null; then \
-			>&2 $(ECHO) "$<:1: missing '\\\" t' comment:"; \
-			>&2 $(HEAD) -n1 <$<; \
-			exit 1; \
-		fi; \
-	fi
-	$(TAIL) -n+2 <$< \
-	| if $(GREP) '\\" t$$' >/dev/null; then \
-		>&2 $(ECHO) "$<: spurious '\\\" t' not in first line:"; \
-		>&2 $(GREP) -n '\\" t$$' $< /dev/null; \
-		exit 1; \
-	fi
-	$(TOUCH) $@
-
-Maybe I should expand those error messages to be a little bit more
-clear.
-
-> - Fixed some unbalanced " in both pages
-> - Removed a EE in the nf section which is apparently not needed
-
-You need to do:
-
-=2Enf
-foo
-=2Efi
-=2EEX
-bar
-=2EEE
-
-You cannot nest them.  The following code is wrong (I discovered that
-recently):
-
-=2Enf
-foo
-=2EEX
-bar
-=2EEE
-=2Efi
-
-See this commit:
-
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3Da=
-911df9e88dedc801bed50eb92c26002729af9c0>
-commit a911df9e88dedc801bed50eb92c26002729af9c0
-Author: Alejandro Colomar <alx@kernel.org>
-Date:   Mon Jun 17 01:18:39 2024 +0200
-
-    man/, share/mk/: Fix nested EX/EE within nf/fi
-   =20
-    EX/EE can't be nested within nf/ni.  The mandoc(1) reports weren't
-    spurious.
-   =20
-    Re-enable the mandoc(1) warnings, and fix the code.
-   =20
-    Fixes: 31203a0c8dbf ("share/mk/: Globally disable two spurious mandoc(1=
-) wa>
-    Link: <https://lists.gnu.org/archive/html/groff/2024-06/msg00019.html>
-    Reported-by: Douglas McIlroy <douglas.mcilroy@dartmouth.edu>
-    Cc: "G. Branden Robinson" <branden@debian.org>
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-
-> v1->v2:
-> - Dropped the statx patch as Alejandro already took it (thanks!)
-> - Reworked everything to use semantic newlines
-> - Addressed all of the comments on the statmount.2 man page
->=20
-> Got more of the checks to run so found more issues, fixed those up, but n=
-o big
-> changes.  Thanks,
-
-Thanks.  I'll review the patches soon, hopefully.
-
-Have a lovely night!
-Alex
-
->=20
-> Josef
->=20
-> Josef Bacik (2):
->   statmount.2: New page describing the statmount syscall
->   listmount.2: New page describing the listmount syscall
->=20
->  man/man2/listmount.2 | 111 +++++++++++++++++
->  man/man2/statmount.2 | 285 +++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 396 insertions(+)
->  create mode 100644 man/man2/listmount.2
->  create mode 100644 man/man2/statmount.2
->=20
-> --=20
-> 2.43.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---r2ldyc6l75eqxkt6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZ8YmgACgkQnowa+77/
-2zLHRBAAjaTtj1/Ym66rGd/gDx+HCqb2DkcnUELoP8INvCLtXqPfA7VhXvmjQ/cc
-W4MKmz316lQYK/u4UiSvTIuato972LgQiF/swefG5UnEYCxSLcDj5RBMuf824Hps
-qiE7LfabMQeMbEImK282rmtniXhD7STiY5MRDYlnloU+0dLnQFY4ukacExHh5wbq
-elYrdAUqMQIATTMaPEyiECzRhRxsTkWU9WhSByOZTSXV7qSKF++ObQadES7ylFZM
-nvBrI8IubnoDMRxC3mDdL1KRQWsINn+hhtEFutjmW1sozB9uqFrOFISOSFSpnEZJ
-RYvil7bhkLalnppUwJg2w6Y1hb0SE7/0d5flKB7LKsIUOVzGZcb8/t6A8H4R4lKw
-+KE6vIFwqulIhdONGPX3LcktHrI6bX+3VUxxok6jXBn5ploRbkP2Mgpd+eLEsojH
-Mk0+JP8Dw0MMCXFeMDPxiYQuUqjZEd8XoxA3QD4XyHzaSYmCZu+IBLEg3makBTGX
-Y0LkECBxG5MJF79qF0OWcK2gfafFI/eaoplNR+bGuATvQvkskGoi9KJuzGVpJqVE
-8w1CslMV5qj/L4pW++oG0YOT4b9Ek8kfpUy32Icrgu1JkdA4eKE8N1/HESJuOxVp
-vSfvN1vn6cDKY/oNhGCWLU6CrUl4iz1NfOplF6YTr0Q3GEQAiC8=
-=9a+l
------END PGP SIGNATURE-----
-
---r2ldyc6l75eqxkt6--
 
