@@ -1,55 +1,54 @@
-Return-Path: <linux-man+bounces-1294-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1295-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB83D91BD4E
-	for <lists+linux-man@lfdr.de>; Fri, 28 Jun 2024 13:23:52 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F1C91BD78
+	for <lists+linux-man@lfdr.de>; Fri, 28 Jun 2024 13:31:40 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D98DE1C215D0
-	for <lists+linux-man@lfdr.de>; Fri, 28 Jun 2024 11:23:51 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2D1A02855E3
+	for <lists+linux-man@lfdr.de>; Fri, 28 Jun 2024 11:31:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FC0D155C9A;
-	Fri, 28 Jun 2024 11:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 395D715687D;
+	Fri, 28 Jun 2024 11:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DulgG3fL"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqV3VBjc"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15E4481D7
-	for <linux-man@vger.kernel.org>; Fri, 28 Jun 2024 11:23:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0A0155A58;
+	Fri, 28 Jun 2024 11:31:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719573827; cv=none; b=TFGn5kCdlRNChc1DSQoysyKLkIIxFxBh0dRSfTnDxCx8KREy+z203ZrOYC2RHAHGC+LycMsd0lfjkTQlAuVkoYL26NJxP77N4LyjMbzlj8N98Key5GL/37R1g/dgF2UgX4/eAIXb6dQSSf2TNYcePtjmMka0bhcun+y8PC6ViWM=
+	t=1719574297; cv=none; b=mFj35Bsa32nKsuMH82nF4dKkLa6tk0PNwjdDtBTQHa076vdvMhKJ9s+4Sfhp5gBNlnfzDDFB9CH946JSxoslv3ga/28dNDO7UDa2CsM/SAFslG8YgTw6h9z8bVdarqXXgjp9vkdwk19y9PMq1bL3CHuXusKsTp1Gx3aGvQUJDhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719573827; c=relaxed/simple;
-	bh=fCaNG2hYYT/5H2XMrORbhKITzbHPMpQdO+BbBzK5iNk=;
+	s=arc-20240116; t=1719574297; c=relaxed/simple;
+	bh=DQGiKP1Rgd4cmBgyGaT6H/sjY+H4TcgZFYa/FjW9Yp4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VRQhxdAi6koZ+cjBS5RWNPwFIJPBsCr5f+KVf08ttj/y3YsivLEKN/IIkRZVKdqA3nYbwiWqYtc5R4t2Cl6wvVX40LQDKdcqEcTzNbySK2N6UKhcPfbwAdmlVpohM4tQ/EX5Z4FOALgxB6NHzRFw/6YXniijabryTdIpNRulgcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DulgG3fL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2A3C116B1;
-	Fri, 28 Jun 2024 11:23:46 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=OeliE98A2rzatmuggj4uVBRR9xDBESzngNA0mZwAo9OqMA02AshW+VQqg1KSOhRzrxsctI92F3Q8dR00J0EvxVZY5rmiksmSIO3stANZSXzsx9h5C9dXpZBIAcc4jElWfTTgBzDeTKA+Y24riBK6gzlCqA3cNub8Ysfqz6SO884=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqV3VBjc; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448A8C116B1;
+	Fri, 28 Jun 2024 11:31:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719573827;
-	bh=fCaNG2hYYT/5H2XMrORbhKITzbHPMpQdO+BbBzK5iNk=;
+	s=k20201202; t=1719574296;
+	bh=DQGiKP1Rgd4cmBgyGaT6H/sjY+H4TcgZFYa/FjW9Yp4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DulgG3fLurpL3jJBDUHvZOhwXdPu3CrbBtPmFTCpnqSl3HzFDKF687OJqo0TcdZ+9
-	 HPlG23+qEdZzpAt7WX0rDkiUa3nzxKNvNxTiwdMXjEL5/PzXzRD3F7aD6xXTfrfs9y
-	 Iyn9nYfGivPDDIVPahyQq78kEWSFtoulsK2PhWRkAxnAS2nFwJFzc/vcsp28/ge5JC
-	 5Tw+RvB83nq+OlnLWOHsRKWu1tZsysq0CPfTUeTB5PUwgzO9t0ZWSGvBfvNJY1rjR2
-	 4UVSr4zMtvsu6ciUj63AUDZ6rC2BvniBWc8mM6G+eLv5IyJZjcGQDMQyJq2qgyIl7g
-	 g23UL1UfnNb0g==
-Date: Fri, 28 Jun 2024 13:23:44 +0200
+	b=kqV3VBjcKDBnYB3vKvE4LhOXvtFs5FshHVWoE1faHexcG2lOzgy79bbOlL5NeVTvy
+	 DCWz03T7Li0/YwCWHlWtKkJfkZSxaz2XOtqLKtIvG32dSCYMHov4dJYbnWsZdPB2WX
+	 s+aVWBIxkkSTXpI2dgr/JhxPXErVvXFpWUFvHhHA6x6dK/obBemU4XcQBGZ99gcS9b
+	 h51TGS8qqKICouLKssVdbaTt0g2uDo2pIf0b3Bh6trNboNffqfxbtwPS8ZpSOqj1cn
+	 nBl8FlQWLEeDcJ1cEOFOENj3ExFJeAHn02SqwuUkmAVCTMtIcvMb0nQGetDZR+GzFh
+	 w8SOgmYIIRIQA==
+Date: Fri, 28 Jun 2024 13:31:33 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Charlie Jenkins <charlie@rivosinc.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
-Message-ID: <xsma4ago4umlvz2fnopwg5qyfd7tg376g2ddumfj3yf4nqsesv@rkmsudvmzvl3>
-References: <20240212-fencei_prctl-v2-1-32d940981b05@rivosinc.com>
- <ZdFaStMt83D-i8yH@debian>
- <ZnyHEiYs/V/zwJXq@ghost>
+To: John Garry <john.g.garry@oracle.com>
+Cc: kent.overstreet@linux.dev, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, ebiggers@kernel.org
+Subject: Re: [PATCH v2] statx.2: Document STATX_SUBVOL
+Message-ID: <5ista6w4cre2odwdwfm76zphnhho5r6br3ahvbawus7f437ueo@k2q7azf7daq3>
+References: <20240620130017.2686511-1-john.g.garry@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,78 +56,111 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xejnpiy24iq47rif"
+	protocol="application/pgp-signature"; boundary="pcltyjurxel5b3jg"
 Content-Disposition: inline
-In-Reply-To: <ZnyHEiYs/V/zwJXq@ghost>
+In-Reply-To: <20240620130017.2686511-1-john.g.garry@oracle.com>
 
 
---xejnpiy24iq47rif
+--pcltyjurxel5b3jg
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Charlie Jenkins <charlie@rivosinc.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
-References: <20240212-fencei_prctl-v2-1-32d940981b05@rivosinc.com>
- <ZdFaStMt83D-i8yH@debian>
- <ZnyHEiYs/V/zwJXq@ghost>
+To: John Garry <john.g.garry@oracle.com>
+Cc: kent.overstreet@linux.dev, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, ebiggers@kernel.org
+Subject: Re: [PATCH v2] statx.2: Document STATX_SUBVOL
+References: <20240620130017.2686511-1-john.g.garry@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <ZnyHEiYs/V/zwJXq@ghost>
+In-Reply-To: <20240620130017.2686511-1-john.g.garry@oracle.com>
 
-Hi Charlie,
+Hi Kent, John,
 
-On Wed, Jun 26, 2024 at 02:24:34PM GMT, Charlie Jenkins wrote:
-> On Sun, Feb 18, 2024 at 02:15:53AM +0100, Alejandro Colomar wrote:
-> > Hi Charlie,
-> >=20
-> > On Mon, Feb 12, 2024 at 09:19:21PM -0500, Charlie Jenkins wrote:
-> > > I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX flag
-> > > for prctl(2) to LKML. It has been reviewed and is expected to land
-> > > during the Linux version 6.9 merge window. This adds the relevant
-> > > documentation from that patch.
-> > >=20
-> > > Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
-> > > ---
-> > > I have proposed and documented the PR_RISCV_SET_ICACHE_FLUSH_CTX
-> > > flag for prctl(2) to LKML. It has been reviewed and is expected to la=
-nd
-> > > during the Linux version 6.9 merge window.
-> >=20
-> > Can you please ping when that happens?  The below LGTM.
+On Thu, Jun 20, 2024 at 01:00:17PM GMT, John Garry wrote:
+> From: Kent Overstreet <kent.overstreet@linux.dev>
 >=20
-> This patch ended up missing a merge window but it is now in the release
-> candidates for 6.10. The hash is 6b9391b581fd ("riscv: Include
-> riscv_set_icache_flush_ctx prctl").
+> Document the new statx.stx_subvol field.
+>=20
+> This would be clearer if we had a proper API for walking subvolumes that
+> we could refer to, but that's still coming.
+>=20
+> Link: https://lore.kernel.org/linux-fsdevel/20240308022914.196982-1-kent.=
+overstreet@linux.dev/
+> Signed-off-by: Kent Overstreet <kent.overstreet@linux.dev>
+> [jpg: mention supported FSes and formatting improvements]
+> Signed-off-by: John Garry <john.g.garry@oracle.com>
 
-Thanks for the ping!  Would you mind resending the patch if it's easy
-for you?  I don't have it locally.
+Patch applied.  Thanks!
 
 Have a lovely day!
 Alex
 
+> ---
+> I am just sending a new version as I want to post more statx updates
+> which are newer than stx_subvol.
+> diff --git a/man/man2/statx.2 b/man/man2/statx.2
+> index 0dcf7e20b..5b17d9afe 100644
+> --- a/man/man2/statx.2
+> +++ b/man/man2/statx.2
+> @@ -68,6 +68,8 @@ struct statx {
+>      /* Direct I/O alignment restrictions */
+>      __u32 stx_dio_mem_align;
+>      __u32 stx_dio_offset_align;
+> +\&
+> +    __u64 stx_subvol;      /* Subvolume identifier */
+>  };
+>  .EE
+>  .in
+> @@ -255,6 +257,8 @@ STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+>  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
+>  STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
+>  	(since Linux 6.1; support varies by filesystem)
+> +STATX_SUBVOL	Want stx_subvol
+> +	(since Linux 6.10; support varies by filesystem)
+>  .TE
+>  .in
+>  .P
+> @@ -439,6 +443,14 @@ or 0 if direct I/O is not supported on this file.
+>  This will only be nonzero if
+>  .I stx_dio_mem_align
+>  is nonzero, and vice versa.
+> +.TP
+> +.I stx_subvol
+> +Subvolume number of the current file.
+> +.IP
+> +Subvolumes are fancy directories,
+> +i.e. they form a tree structure that may be walked recursively.
+> +Support varies by filesystem;
+> +it is supported by bcachefs and btrfs since Linux 6.10.
+>  .P
+>  For further information on the above fields, see
+>  .BR inode (7).
+> --=20
+> 2.31.1
+>=20
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---xejnpiy24iq47rif
+--pcltyjurxel5b3jg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZ+nUAACgkQnowa+77/
-2zL94w//TnvFXJBYnHAwf0RxaczHwC0vtXY/sV+OGrxEDA0N3ko3ydO9eLfUDl/g
-CiptJzZ0q8wxF3FVbUZGje7bLO/DWkPC8AoaGmJsniI6QBBFoVIfYZKfMTH5GYRw
-8jpkc/VMb2zZLyZ59Edz9PQEfR5dB0mTjt7uRCrluCDcLU8oSl5Z2o8RchMwsZpO
-6KEtdFwEwEj7mGJjE0YbjBVoebKL0dhrqCd4LYt1ZGg0VkafK1lEC4SuDwi3odMG
-RgAbH9pQKlbdTvIWqyNQWaXYl5bat3kI1FxdQj61rFWWw0ZljrQK+NHP+sHw7Y/l
-w1JwOrnDZB7vWFVBcaugzavsjkivk+nJQzRNCPSJ+q8LfOxspv4z8t/DqzKzBhxV
-kULZT4XUutjVF0NsI1Wd6kCPiUqCrFZmoJpz2Kxovbno89eBcNu1JQFy1n6bc44U
-jsXdD81zDWQ2XjVSKLpfN3m8DgEb6G8M42tbFcgF2z8UZQsep34Vf+DxmbjZ4jAo
-qDBUVKB+E3V1kq4eKLg4RJ2Lvep2AiZBbGxhHMpCJfDJi9BTv39vjHLw30cpboDI
-l7XEKcoiu2psZUoWi4rsLI7gsmt/Ma8LHgQzEfG6uu+YNTyUbtVOHY0QTgYoTHO0
-qpR2OTVe1Vf8mYEiwl2bjadGGxQryLoAkHXmJFrFEyNUym3iVwE=
-=F3yv
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZ+nxQACgkQnowa+77/
+2zIGrxAAga+Xm8gQb/XwumNE6v5Y3BrZvvQSwraScehic8mDEberfxITuRKvbRTT
+cooOLeAzTv2e4Sq6vPtdSAmqa/WUiGlvPxE4hMdrDKJ4VCTNlRpiu3kIpQXREq9S
+mkOwckjHkLL+7Kkd4OKqvQxwPxmfWL6uziTlb7jhyYBlIAxgnqOPQW9DBuUfyH5u
+n+Dvm4hcLZuvgy8R3U4bK7SVzWKUAcMa7qHg1oQPOFVf5KGbp7R90X+xTd5w4TCE
+9zmYQVQIyadnmK81jE32TU7BJHQ8MMkK5z1afGaoFj5gICg0L2MeX9DHJOOUDb19
+AtTcf8NzNA+aqvElMJ/uSb3T8iZA/S8appisq7JWaMifEBsE/utYOKJdHFGvvvaa
+m7lLy2yBMg08iwbtBpJ+v46Ffip26GEZBpVkhCb/vzHq/VqjHsnTPKBb4cuPoCzG
+zm4eeH6r+ff8oUtxjVO3AWi+7Jh4NS9NuuTSwID8RSZpu3qY2K5CbOPdL0VaZReY
+OFf11Tg7O8uuN+/H2WBzbRXL4nZWETwvCp5rOoL4gd+H9n1wEqY1kHeAQjfr86vv
+hwbQ0ICnjHKzEkKWyBiZ19bn4GSzLpZat57U4scDdjgw0LueblTJ9ZwjYJKwuZEM
+5M2KGNORD3K7z9kL/QKPoP0QvL/xdmGWVLXYE+q3eqxtmyOqXr0=
+=JWdx
 -----END PGP SIGNATURE-----
 
---xejnpiy24iq47rif--
+--pcltyjurxel5b3jg--
 
