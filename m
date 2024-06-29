@@ -1,233 +1,297 @@
-Return-Path: <linux-man+bounces-1302-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1303-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4522C91C817
-	for <lists+linux-man@lfdr.de>; Fri, 28 Jun 2024 23:26:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F0291CAAE
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jun 2024 04:36:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6C6951C21C13
-	for <lists+linux-man@lfdr.de>; Fri, 28 Jun 2024 21:26:05 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 643571C21981
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jun 2024 02:36:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61DD67F487;
-	Fri, 28 Jun 2024 21:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EFFC1AACC;
+	Sat, 29 Jun 2024 02:36:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o5X/fy54"
+	dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="Cio8vAVa"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228EC7EEF5
-	for <linux-man@vger.kernel.org>; Fri, 28 Jun 2024 21:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F281018EB0
+	for <linux-man@vger.kernel.org>; Sat, 29 Jun 2024 02:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719609954; cv=none; b=gSqot+84cdB0aeznTTRvjTRLgS49ymZlArEElcgsElNVYTP5FSPbsYxFYCOfOiX18Mp9T1zIRmcrLBrW0mfPR13D7cN5DcBUrc2a9c63u5anVoz/IWTDfz3guVOnpwY+DSiRF0+zSRKGE0ptJE+FNkOCtPgVfeSt+2QSKaZqRlY=
+	t=1719628584; cv=none; b=n9XierPOTUdS0HUa9Bq5OKQWOY7+9yiU0drpOx73SdEYzdqyzGMNh6K7kloZhkT4aYAIcHxCzDTFspes5XLoTzde2q269JVyFmtC8X62eFExgXyadNRd2BN+lOKbEa40pyC0zREQLSQR8gTURKno0t0vCujG7ViSObgZpMJKvew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719609954; c=relaxed/simple;
-	bh=oOafMfNSTmmqPy5YbChZT64l8E7narO+uYHYUGGrJ2w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q++4djJhsjV6C5DqOjVhrTedyrK2+S59zgVIXBrrSolfwAJ4UZq/ACSZcWFTbXPbwcO30KLxel259yxxz8yc9lCPj/gAg+oucpvqbtJ0CC6njFQzHtvYYMyDCJTN89Zl1/CR0Mt/0QExkDAmNKKxjUDYkFhy6CsJQLjZ/xWSTp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o5X/fy54; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3057C32786;
-	Fri, 28 Jun 2024 21:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719609953;
-	bh=oOafMfNSTmmqPy5YbChZT64l8E7narO+uYHYUGGrJ2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=o5X/fy54Vo/nGDWB/Q0DZ5arct985M8yY0+FgKLdaO81N9L1YjEpHa9/vmcrSuSKP
-	 xq9Ia2h9lK+wjUbpmWfW9bPrBikN+bVi9+eY42hFwMG3cz1mspYsSUaAXHGVvZ5qlb
-	 8FaLURmMQHd7uul5uFShRp6g3nPD45ams/zRryon6VumCBRBaXwjMcSQbIJLSZv3Wl
-	 8rkqO0tmAygV0PLr1FDJT8GI7uxFEUlXD2wPj2VwciGqC5c19y5mOTXqHp7CDXDnRR
-	 qdq8920MKtA9Ht2VwljRUw9BCv2oTFC6GISyRZCwMTI2M/X3UmijwtpSEKSQMbELtB
-	 PVv9NMBntIoZA==
-Date: Fri, 28 Jun 2024 23:25:50 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] printf.3: rework '
-Message-ID: <wb7sbyi4wjbuhoulmbjxi6dqikp5jqjgj4vdpu2kk5fvxbzw6n@fj4gbmf6bb5e>
-References: <zsggflv5tglpkhkobzfmjxtufcq6bkltb7efionlohmkq7ukh5@yr3vt7m6olvt>
- <o2vchme4dchemjo4diziac5rlmhtsaze2yi72fzo5r67umlwny@tarta.nabijaczleweli.xyz>
+	s=arc-20240116; t=1719628584; c=relaxed/simple;
+	bh=oVD1zX3N9bH8/Bx2h8CehiLMK0VnNzMZePICEw9s3nk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OI3ue3RFoEu8gtJUYUQDZPwahJmFllAZi5iwXFeqFVgZrsTCZqKsPdEZpDhdoo9ujfrvRQlI9YTDbTECl6qkjcuiv52FtD0kzEVmU1uUqT451Ct/uD36eRWpoUf9OAe8Bu6Ias3MsuITlpKRIwYJsfS39yNYrVTtfW8KjDhFncA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com; spf=pass smtp.mailfrom=rivosinc.com; dkim=pass (2048-bit key) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b=Cio8vAVa; arc=none smtp.client-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rivosinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rivosinc.com
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-3c9cc681ee4so707707b6e.0
+        for <linux-man@vger.kernel.org>; Fri, 28 Jun 2024 19:36:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1719628581; x=1720233381; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bsWYNy5a20PBIB+BAoKrRfMZlKgBEyiW+d3uIn6Lfz4=;
+        b=Cio8vAVaNIdgZFlYS/BSA6wfsp6NqEVvd+3lFR7fSp0699P4YwaDYc6AmFyPmzMIzR
+         I2ibd+N9hyCc3NUFDPjab5gjH9EXFYcG7o7HqOJSmxm8RMAmhcg7W1HsVFaf4JondbQ3
+         aj2/NMg+CaZxiGJkkPVO8msNDl3ibFmwWjrQSOfewzSVJRfyHJuvAio1fMZA13LAjuPk
+         YHtOk+RFXIgOm1di7E60SE7MKSbcvXnco97xGoHNDqSbZjdrUyJO8E1WkSVuL75HaV5f
+         Ch7FrTCP4YZX88gxsByPi1pex5ekfvDVaGKl4w84vuAI0yeS6ck7G9/ZhUnv2Q0zu1V+
+         l2VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719628581; x=1720233381;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bsWYNy5a20PBIB+BAoKrRfMZlKgBEyiW+d3uIn6Lfz4=;
+        b=cw8JnmmwdR7SU2rExznL+RpfWURf7E2sZ3or8EBVwVF/ubx00z8k07ijVVOeRNsq+s
+         cpQGXRsd3K6fl8izDGnhuCSxE0ErDIuJf+6rs/QbjOwDlSGvk3xZBO+LTqUg4ZZKHQwE
+         TQlgEwPXi1qahsqb1TMz6/Ef1qWxsecdSYPnCLfhOvNjX49HamwL7TxSx0eg/LP60x9a
+         +8te/bACLcrqYX5vtjrAbw0mCzanelswfaqcYEj5Oo40MhRhdlESb09V07CR1KjR+c4F
+         mo4fM1koXmkFCpZYfDUyM7bCNrEw302NyJa7vBd6T9caTriDOYzu5KeisY08/7226E/d
+         og4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUZq2lHUaSEIUZvVXV9fwJDTb3/dJYRhjvHO/T9Br25Xl9YyS6MVc7hXnP+rSWLH+tcXqVYLNfPtiMQ0osBkU/D5ttbIjDF52oG
+X-Gm-Message-State: AOJu0YwnavD1pLaO948K4jxsWfKEHfHkwH2BcKCSnjCt5lYgv/K1GbPR
+	kWbJQcGF9M3DRBVU46+t/PtbJPHN7szRsyBkZhckPugEo2gPXww0GxDpGgH5tsc=
+X-Google-Smtp-Source: AGHT+IEbQ23rKDWvKIPeTJsdC0oG4NZwxLFuidmMu2eJotmxAQBvm1fsHRPO8r4ZPq8BWk9NKZiuiw==
+X-Received: by 2002:a05:6808:1154:b0:3d5:63c2:17c1 with SMTP id 5614622812f47-3d563c226bbmr12814911b6e.8.1719628580735;
+        Fri, 28 Jun 2024 19:36:20 -0700 (PDT)
+Received: from [127.0.1.1] ([2601:647:5700:6860:a292:f80a:858:1ca9])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-708044ae395sm2379103b3a.144.2024.06.28.19.36.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Jun 2024 19:36:20 -0700 (PDT)
+From: Charlie Jenkins <charlie@rivosinc.com>
+Date: Fri, 28 Jun 2024 19:36:18 -0700
+Subject: [PATCH v3] prctl.2: Add PR_RISCV_SET_ICACHE_FLUSH_CTX
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sriho7p5vt6y3xki"
-Content-Disposition: inline
-In-Reply-To: <o2vchme4dchemjo4diziac5rlmhtsaze2yi72fzo5r67umlwny@tarta.nabijaczleweli.xyz>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240628-fencei_prctl-v3-1-56fd31155129@rivosinc.com>
+X-B4-Tracking: v=1; b=H4sIACFzf2YC/3XMSwrCMBSF4a2UjI0kN/HRjtyHiLTJjb2gSUlKU
+ Er3btqJUHB4Dnz/xBJGwsSaamIRMyUKvgy1q5jpW/9ATrZsBgK0kKC5Q2+Q7kM045Mb0LaFo1b
+ qVLNChoiO3mvueiu7pzSG+FnrWS7vn1CWXHLRWds6g04peYmUQyJv9ia82NLK8PMgYeOheAW21
+ qI+y04cNn6e5y8es/OJ6wAAAA==
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Alexandre Ghiti <alexghiti@rivosinc.com>, linux-man@vger.kernel.org, 
+ Charlie Jenkins <charlie@rivosinc.com>
+X-Mailer: b4 0.12.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1719628579; l=5826;
+ i=charlie@rivosinc.com; s=20240124; h=from:subject:message-id;
+ bh=oVD1zX3N9bH8/Bx2h8CehiLMK0VnNzMZePICEw9s3nk=;
+ b=llQcRyKGfoY89XghLX4MBvkKdYESZ6mHawb2+izX1EJQ+mKlyx8A1uXKyufOGLuROiYAKptSc
+ LZMRfj5VjREBfJPPhyJgD8aCPMv5u2IIO9zoG/NdFRvnd/YchGowkxx
+X-Developer-Key: i=charlie@rivosinc.com; a=ed25519;
+ pk=eVndo3OHViAjwuqHqbJB4ZtzJzzvk/r6fUf84tZ3rw4=
 
+Document the PR_RISCV_SET_ICACHE_FLUSH_CTX flag for prctl(2) that is
+supported as of Linux 6.10.
 
---sriho7p5vt6y3xki
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] printf.3: rework '
-References: <zsggflv5tglpkhkobzfmjxtufcq6bkltb7efionlohmkq7ukh5@yr3vt7m6olvt>
- <o2vchme4dchemjo4diziac5rlmhtsaze2yi72fzo5r67umlwny@tarta.nabijaczleweli.xyz>
-MIME-Version: 1.0
-In-Reply-To: <o2vchme4dchemjo4diziac5rlmhtsaze2yi72fzo5r67umlwny@tarta.nabijaczleweli.xyz>
+Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
+---
+Changes in v3:
+- Rebase onto master
+- Add example usage
+- Link to v2: https://lore.kernel.org/r/20240212-fencei_prctl-v2-1-32d940981b05@rivosinc.com
 
-Hi!
+Changes in v2:
+- Update formatting (Alejandro)
+- Link to v1: https://lore.kernel.org/r/20240124-fencei_prctl-v1-1-0bddafcef331@rivosinc.com
+---
+ man/man2/prctl.2                                   |   3 +
+ man/man2const/PR_RISCV_SET_ICACHE_FLUSH_CTX.2const | 149 +++++++++++++++++++++
+ 2 files changed, 152 insertions(+)
 
-On Fri, Jun 28, 2024 at 11:07:02PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
-> As it stands, this is worse than useless
-> (defined as: I had to test it explicitly against strfmon() and look at
->              POSIX myself to make sure the manual wasn't lying to me
->  https://101010.pl/@nabijaczleweli/112694726416515899):
->=20
-> No-one cares if some compiler doesn't understand something from 1994.
-> (Careful readers will note it's been 30 years.)
->=20
-> "SUSv2 doesn't have this, SUSv3 does" is reefer-induced:
-> this figures in SUSv1 (XPG Issue 4 Version 2)
-> and the CHANGE HISTORY clearly notes ' was added in i4, not i4v2.
->=20
-> It's important that these aren't actually grouped by the thousand,
-> but, instead, by "what the locale says".
->=20
-> Each locale has two groupings: monetary and non-monetary,
-> and it's paramount to indicate which is which
-> (hi_IN  is 3,2... monetary and 3... non-monetary;
->  mjw_IN is 3,2... both).
->=20
-> It waxes poetic for way too long about "how to set a locale".
->=20
-> Also replace "The Single UNIX Specification adds" with "POSIX adds".
-> The SUS is, on a good day, a profile of POSIX you pay 300$ for.
-> Maybe you could swing this back when it was an "extension"
-> (so, only required in the SUS profile)
-> but it's just shaded CX ("this is intentionally different from C")
-> in Issue 8. It's really irrelevant here.
->=20
-> Also add this to HISTORY
-> (and call it something sane there;
->  the Proper nomenclature is absolutely meaningless to normal people).
-> The most important bit for every HISTORY reader is the 1994 date.
->=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
-z>
-> ---
-> > Hmmm, struct lconv is documented in lconv(3type), but that page is
-> > missing details that are available in locale(7).  Maybe we should move
-> > some text from there to lconv(3type).
-> Nothing links to lconv(3type) so I didn't even know it existed.
-> Even then, it's a stub that's actively worse than locale(7)
-> (itself not that great). struct lconv is documented in locale(7).
+diff --git a/man/man2/prctl.2 b/man/man2/prctl.2
+index 6db916587..31a3f9064 100644
+--- a/man/man2/prctl.2
++++ b/man/man2/prctl.2
+@@ -157,6 +157,8 @@ The first argument can be:
+ .B PR_SET_MDWE
+ .TQ
+ .B PR_GET_MDWE
++.TQ
++.B PR_RISCV_SET_ICACHE_FLUSH_CTX
+ .SH RETURN VALUE
+ On success,
+ a nonnegative value is returned.
+@@ -268,4 +270,5 @@ so these operations should be used with care.
+ .BR PR_GET_AUXV (2const),
+ .BR PR_SET_MDWE (2const),
+ .BR PR_GET_MDWE (2const),
++.BR PR_RISCV_SET_ICACHE_FLUSH_CTX (2const),
+ .BR core (5)
+diff --git a/man/man2const/PR_RISCV_SET_ICACHE_FLUSH_CTX.2const b/man/man2const/PR_RISCV_SET_ICACHE_FLUSH_CTX.2const
+new file mode 100644
+index 000000000..aec16a237
+--- /dev/null
++++ b/man/man2const/PR_RISCV_SET_ICACHE_FLUSH_CTX.2const
+@@ -0,0 +1,149 @@
++.\" Copyright 2024 Rivos Inc.
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH PR_RISCV_SET_ICACHE_FLUSH_CTX 2const (date) "Linux man-pages (unreleased)"
++.SH NAME
++PR_RISCV_SET_ICACHE_FLUSH_CTX (since Linux 6.10, RISC-V only)
++\-
++Enable/disable icache flushing instructions in userspace.
++.SH LIBRARY
++Standard C library
++.RI ( libc ", " \-lc )
++.SH SYNOPSIS
++.nf
++.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
++.B #include <sys/prctl.h>
++.P
++.B int prctl(PR_RISCV_SET_ICACHE_FLUSH_CTX_ON, ctx, scope);
++.fi
++.SH DESCRIPTION
++The context and the scope can be provided using
++.I arg2
++and
++.I arg3
++respectively.
++When scope is set to
++.B PR_RISCV_SCOPE_PER_PROCESS
++all threads in the process are permitted to emit icache flushing instructions.
++Whenever any thread in the process is migrated, the corresponding hart's
++icache will be guaranteed to be consistent with instruction storage.
++This does not enforce any guarantees outside of migration.
++If a thread modifies an instruction that another thread may attempt to
++execute, the other thread must still emit an icache flushing instruction
++before attempting to execute the potentially modified instruction.
++This must be performed by the user-space program.
++.P
++In per-thread context (eg. scope is set to
++.B PR_RISCV_SCOPE_PER_THREAD )
++only the thread calling this function is permitted to emit icache flushing
++instructions.
++When the thread is migrated, the corresponding hart's icache will be
++guaranteed to be consistent with instruction storage.
++.P
++On kernels configured without SMP, this function is a nop as migrations across
++harts will not occur.
++.P
++The following values for
++.I arg2
++can be specified:
++.RS
++.TP
++.BR PR_RISCV_CTX_SW_FENCEI_ON " (since Linux 6.10)"
++Allow fence.i in user space.
++.TP
++.BR PR_RISCV_CTX_SW_FENCEI_OFF " (since Linux 6.10)"
++Disallow fence.i in user space.
++All threads in a process will be affected when scope is set to
++.BR PR_RISCV_SCOPE_PER_PROCESS .
++Therefore, caution must be taken; use this flag only when you can guarantee
++that no thread in the process will emit fence.i from this point onward.
++.RE
++.IP
++The following values for
++.I arg3
++can be specified:
++.RS
++.TP
++.BR PR_RISCV_SCOPE_PER_PROCESS " (since Linux 6.10)"
++Ensure the icache of any thread in this process is coherent with instruction
++storage upon migration.
++.TP
++.BR PR_RISCV_SCOPE_PER_THREAD " (since Linux 6.10)"
++Ensure the icache of the current thread is coherent with instruction storage
++upon migration.
++.RE
++
++.SH EXAMPLE
++
++The following files are meant to be compiled and linked with each other. The
++modify_instruction() function replaces an add with zero with an add with one,
++causing the instruction sequence in get_value() to change from returning a zero
++to returning a one.
++
++.SS Program source: cmodx.c
++\&
++.EX
++#include <stdio.h>
++#include <sys/prctl.h>
++\&
++extern int get_value();
++extern void modify_instruction();
++\&
++int main()
++{
++    int value = get_value();
++    printf("Value before cmodx: %d\\n", value);
++
++    // Call prctl before first fence.i is called
++    prctl(PR_RISCV_SET_ICACHE_FLUSH_CTX, PR_RISCV_CTX_SW_FENCEI_ON,
++          PR_RISCV_SCOPE_PER_PROCESS);
++    modify_instruction();
++    // Call prctl after final fence.i is called in process
++    prctl(PR_RISCV_SET_ICACHE_FLUSH_CTX, PR_RISCV_CTX_SW_FENCEI_OFF,
++          PR_RISCV_SCOPE_PER_PROCESS);
++
++    value = get_value();
++    printf("Value after cmodx: %d\\n", value);
++    return 0;
++}
++.SS Program source: cmodx.S
++.EX
++\&.option norvc
++
++\&.text
++\&.global modify_instruction
++modify_instruction:
++lw a0, new_insn
++lui a5,%hi(old_insn)
++sw  a0,%lo(old_insn)(a5)
++fence.i
++ret
++
++\&.section modifiable, "awx"
++\&.global get_value
++get_value:
++li a0, 0
++old_insn:
++addi a0, a0, 0
++ret
++
++\&.data
++new_insn:
++addi a0, a0, 1
++.EE
++
++.SS Expected result
++.EX
++Value before cmodx: 0
++Value after cmodx: 1
++.EE
++
++.SH STANDARDS
++Linux.
++.SH HISTORY
++.TP
++.B PR_RISCV_SCOPE_PER_PROCESS
++Linux 6.10.
++.SH SEE ALSO
++.BR prctl (2)
 
-Yeah, I mean, maybe we could move that documentation from locale(7) to
-lconv(3type), and transform that stub into something good.  And then
-link to it.
+---
+base-commit: d0621648b4b5a356e86cea23e842f2591461f0cf
+change-id: 20240124-fencei_prctl-c24da2643379
 
-> > > +Issue 4 of the X/Open Portability Guide (SUSv1, 1994) adds \[aq].
-> > .IR \[aq] .
-> BR actually for compatibility with the rest
+Best regards,
+-- 
+Charlie Jenkins <charlie@rivosinc.com>
 
-D'oh; you're right.
-
-> (in the list and below in HISTORY).
-
-Patch applied.  Thanks!
-
-Cheers,
-Alex
-
->=20
->  man/man3/printf.3 | 33 +++++++++++++++++++--------------
->  1 file changed, 19 insertions(+), 14 deletions(-)
->=20
-> diff --git a/man/man3/printf.3 b/man/man3/printf.3
-> index 54a0339..771e295 100644
-> --- a/man/man3/printf.3
-> +++ b/man/man3/printf.3
-> @@ -361,7 +361,7 @@ .SS Flag characters
->  overrides a space if both are used.
->  .P
->  The five flag characters above are defined in the C99 standard.
-> -The Single UNIX Specification specifies one further flag character.
-> +POSIX specifies one further flag character.
->  .TP
->  .B \[aq]
->  For decimal conversion
-> @@ -373,19 +373,21 @@ .SS Flag characters
->  .BR g ,
->  .BR G )
->  the output is to be grouped with thousands' grouping characters
-> -if the locale information indicates any.
-> -(See
-> -.BR setlocale (3).)
-> -Note that many versions of
-> -.BR gcc (1)
-> -cannot parse this option and will issue a warning.
-> -(SUSv2 did not
-> -include \fI%\[aq]F\fP, but SUSv3 added it.)
-> -Note also that the default locale of a C program is "C"
-> -whose locale information indicates no thousands' grouping character.
-> -Therefore, without a prior call to
-> -.BR setlocale (3),
-> -no thousands' grouping characters will be printed.
-> +as a
-> +.I non-monetary
-> +quantity.
-> +Misleadingly, this isn't necessarily every thousand:
-> +for example Karbi ("mjw_IN"), groups its digits into 3 once, then 2 repe=
-atedly.
-> +Compare
-> +.BR locale (7)
-> +.I grouping
-> +and
-> +.IR thousands_sep ,
-> +contrast with
-> +.IR mon_grouping / mon_thousands_sep
-> +and
-> +.BR strfmon (3).
-> +This is a no-op in the default "C" locale.
->  .P
->  glibc 2.2 adds one further flag character.
->  .TP
-> @@ -980,6 +982,9 @@ .SH HISTORY
->  .BR vdprintf ()
->  GNU, POSIX.1-2008.
->  .P
-> +Issue 4 of the X/Open Portability Guide (SUSv1, 1994) adds
-> +.BR \[aq] .
-> +.P
->  .\" Linux libc4 knows about the five C standard flags.
->  .\" It knows about the length modifiers \fBh\fP, \fBl\fP, \fBL\fP,
->  .\" and the conversions
-> --=20
-> 2.39.2
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---sriho7p5vt6y3xki
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmZ/Kl4ACgkQnowa+77/
-2zKy7A/+L0gAWLeiFOBte3ctrLCC7ZWczSetbhzf3grI7N6X5M8ZcxZZK5yWbPJ1
-4KdG7HrL6XGiZbhRPmwGbi5kpehQUPbagvXrIwN7Ck98cAEgzy1oTWC9h5IEi+yH
-G4pGLFQ/Ezujx6GV/iRut3G2xetPZFZi6lH/6MxsmjTeqHyyta9O0UWiLeDKqudh
-2fDi8NxMHgEUqJpkPoZmksQ1JijOCzpaggsM158hIpfr7hsocHQ609+BPhgRMUxH
-yy8iq6xFkhOOpfcLYWW4rroHD3CvNrN97TkYroYWWdw3odix5k2skI8XJlOeKTcr
-bHqRQRagMWiRnebZLsDxV9kV0CkbiP9Aklco7/HpcmKivh6H8r8i/uvzTo8gaWR1
-xqolYTVGPougt6detzTMLCeb+WrKx0Q61ixEtwlIXjL0E9Hg3GxhPvtX/290fBUm
-+FCBC6T5BNUybwzQFSpPRGzoGwIn1qm42fRXyHZ28W0uzPUOW146wHmZEZZ6z0Hi
-RMjwhbJ5RvvX0j3V0UMgw7wEXeE0lEexw80nCVuLwEPROVwZnQmdOfyvLXAYdCkX
-lppnBZFln6tj15R2MQHT4THvvcOXu/4cMBgDz3FYYHOAbCsAr2yXbEXjfyM9RB5e
-QJgugfiyVciWzOU0ywgSl90wCJ08mB5E9/bXOwoIhII4am2WtBg=
-=sR5S
------END PGP SIGNATURE-----
-
---sriho7p5vt6y3xki--
 
