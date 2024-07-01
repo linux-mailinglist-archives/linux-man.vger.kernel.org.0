@@ -1,73 +1,72 @@
-Return-Path: <linux-man+bounces-1309-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1310-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD26C91E0F1
-	for <lists+linux-man@lfdr.de>; Mon,  1 Jul 2024 15:38:32 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE7DB91E0F2
+	for <lists+linux-man@lfdr.de>; Mon,  1 Jul 2024 15:38:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CF6FB1C21674
-	for <lists+linux-man@lfdr.de>; Mon,  1 Jul 2024 13:38:31 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1D0121C2142F
+	for <lists+linux-man@lfdr.de>; Mon,  1 Jul 2024 13:38:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49D7B15D5D8;
-	Mon,  1 Jul 2024 13:38:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D86115ECEA;
+	Mon,  1 Jul 2024 13:38:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="Or3Akieb"
+	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="QLfX1fv3"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6199C15E5CC
-	for <linux-man@vger.kernel.org>; Mon,  1 Jul 2024 13:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8240815ECCE
+	for <linux-man@vger.kernel.org>; Mon,  1 Jul 2024 13:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719841105; cv=none; b=NH3LzNXgf5AiIdm64Xn/jebDbxQYhxiha2ly7HLznouJCmi74zGPQ23mqrzyE+/bNkrvRNRcJZMe+G0dvX5G4DfM8/Zn7oFSR1QkxOPwJmRgqoWt7gTZmH6IVcyCVyEJkIOgIwikx7j1qhbhQyrKlCEEt6sg+bPMktAwa41dT6E=
+	t=1719841106; cv=none; b=pYgdHreOYS0Rw3m6CQOmDQxaCet68EXcdwW8eHR4mhMG8SBP4f4bNYiUmnTC/umffUSiuenQ07zfvPIT/V18dMygrsDNrcJdNFJ+l5kmeTkHT5BEsbME+QJSUtuX2zXof/YQF1GSl5HrCzL73kIfvv+eRSit5ZmeafPePzH4CYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719841105; c=relaxed/simple;
-	bh=9u41DsETHhhVkQBCKDIrMIBZrILGgPnSxvoMF7y/Sjw=;
+	s=arc-20240116; t=1719841106; c=relaxed/simple;
+	bh=BFanlAoplhXB32nHdBmpMI6luiZgUHiBK8sibXwrz24=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BDF1cwNPNRQL7veTircBsDf0nutiWy/hGcvvr6m9GaMVOF8lWyisPzuc62NroRPaHJ+AeYHX2TD2CHuDrtPhvjnj23USLq8/YpeJJYNaTjgjIn2stPFjnQ2+lxI5ITtSyXOmPmiYHEwWDDgMjAVhlUsf94GdPtWUYuQtzbJamhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=Or3Akieb; arc=none smtp.client-ip=209.85.222.178
+	 MIME-Version; b=VBXRKXbUjIWMcGdybEp68qUhPSTV9HDkBTG66uTNSMIg3ageAGpGYZuL9nGModBJ8qQyI1+ZKWe/jLXb/2vIb4OL3bLkxwish818BxLnWgO5I9VzA/9vulCxT5kiy8SK8mCHMlOpo2qq8ejA2/xcDBRFXvo8A+BA7EsJ8CEii+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=QLfX1fv3; arc=none smtp.client-ip=209.85.160.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=toxicpanda.com
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-79c10f03a5dso204722985a.0
-        for <linux-man@vger.kernel.org>; Mon, 01 Jul 2024 06:38:23 -0700 (PDT)
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-445e1f933e0so17345241cf.0
+        for <linux-man@vger.kernel.org>; Mon, 01 Jul 2024 06:38:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719841102; x=1720445902; darn=vger.kernel.org;
+        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1719841103; x=1720445903; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=s7qsvijbrnO3zL83FQP+aBjucAcxsNHK492EhFqpET4=;
-        b=Or3AkiebznvizfZ1LjhzpqsoD75s/R7OkfCckYEzWfJxZKu9Tt2mHe1hoPFH5Z/eg0
-         byt6iforHmSJMHfb7DxDG9YgtrWjfLyJ2Pk/7fUvB0w90ao29hN1YEWZU7AG91UBGoYk
-         divzuJeQfxiJ0/8omLQoBpGSLMzrPgYzsZVRwNfTo/muIEjtIi8mHiPjkFzhhQvPR+wE
-         xXYs6XGcycAPPN46YcPm11yFjuYrSs4TdCOpMzIh6NJ5fVPqy7ET0ccVDsTcteSmLZ5K
-         PuGnMbQ04/baRjUPCMJMuhktePIC5zJM8N80o017Jny6XdXYPnEg0GISssZmTTpm6Vc9
-         nF2Q==
+        bh=c4P/yJAkaSXXR4DaG+3Op6nTns3gB2UojJv70Msaqo4=;
+        b=QLfX1fv3xVavTYcvomEZN4TIAtIh5J7Rt08Cuv+CUYWW+kgzd8CPd5ttkmFrXqfCR9
+         Caj/0KoxrIpMd8q+LFB2XxHVWoiciwF7o27nVS4Y87jRiJ/bg9xq89CvpNJ2QYe4sjG5
+         NGwShMv4SgrQzC1E9sHIBkjm7A+GYyBcW5WqUaY1r6YWeJX8eRSRNbNjaCKXHWvyhTQv
+         Wa63xZfcSbAhZMFA8MBNkDRhwOW1jJhnSw54eidGt8g2pcNTKj2f55vURUt0GY5beexE
+         GEFHHikJ4Mx9FE7xbwZwXY4ZeHCiW9m1UISwtBIxP/NckKcY70E8OI6+8ZfVurJ8Fykr
+         iHTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719841102; x=1720445902;
+        d=1e100.net; s=20230601; t=1719841103; x=1720445903;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=s7qsvijbrnO3zL83FQP+aBjucAcxsNHK492EhFqpET4=;
-        b=Yfm/MJwyOJELR/BvImvJxQoNrBICfbPIHWPeO2v7Nfa+9d+e4oXV/gK1KLNCgDi6C6
-         rnYP0nXY0yaDYZ5lVDVZsYpjilM9c7KPBLDSxjG6YU4netRLuNcKlqAQGaVhx5hGkMq3
-         rRG8BWbKBedw5uXj2GPj4xfatayT8qwlGrBIKHQkAN0EZFWkPXH1BlzxyCpYSxWHqIgs
-         x+e7sK0K79HexTze2zdJkw4pe45dqXtXYE+dNFDcQLC1p9h1vdz13FEfy24rl113YKaA
-         xhGA1FOE4YjlSqXPvv1SkhY5KMr0lGwEkhzCIbwyEzhpf5dypukmuK8LFFEx3B77B6dh
-         8Efw==
-X-Forwarded-Encrypted: i=1; AJvYcCUS5NqXekENtjB22zlmB2g1mcqydvaTX8NNGfaiZwZEHg6HEbiJ4Kp95ELsDRQXCbVGzMUszJY0jpt/H+wKQAbMC7vep039f2Zh
-X-Gm-Message-State: AOJu0Yz/4EIWgA+QRLZsBdUAI6D38zILo4G+C/noXoC3nFN3XvbErzz1
-	9GwvBI7jwxzBr2QmCxm3955BXG/qdUfazHwPnPwGJdCxCJRXaI5I9zUBnKRTe/KtittgKtt//xS
-	e
-X-Google-Smtp-Source: AGHT+IE3KPabTZqp4SPUI9thkWPbbnWrp8qm09W9yPZVi+SpFR0USJQT/rK0S7m2y1RN8wkd3colGw==
-X-Received: by 2002:a05:620a:13f7:b0:79d:6169:7ab9 with SMTP id af79cd13be357-79d7babf63dmr756617385a.68.1719841102263;
-        Mon, 01 Jul 2024 06:38:22 -0700 (PDT)
+        bh=c4P/yJAkaSXXR4DaG+3Op6nTns3gB2UojJv70Msaqo4=;
+        b=rQcHr7f/0Lu48qhgUyO3vMW8G44pawA//aAgkfP/IoKnJdl4jPkLkIf8gDRLxxUJnH
+         SrSo3nVW8il6sFmUCN2bWimrlsqmmI2qjlvYAze7utGmZf0b+47HIVuCwVFcHowMkdJg
+         zg1mvnoItAn1mPE7Txiepq5MWF035E8S78KGfcftNOLaguYSFmgaUGWBXqqGjJQYLTnQ
+         c+h/kqgwN2YZHjiXu8VKfLI5mrrclOhalqAWswWwSvecan4CppRJFo0rmTFSWs2TDft/
+         8lNQnZFzSiIEA1toT7FfNl8BjVm/vxNCuTV+Tm65tnpimeU924CDZtd9vmejsGNiVnju
+         sziA==
+X-Forwarded-Encrypted: i=1; AJvYcCWR3cOSuXSAMxJHcMXePFyy+5UhXGj8vC06/GZOK8bvo8+2gB30y4GVkL3Rz93z+fKsNt/JC8vL+UjjymJupeF34b2c+ku91iyB
+X-Gm-Message-State: AOJu0YxUAb2R0nMCPz9hmr4f0IedtNCk/COCMX87FfxMP8EqE9RBuawa
+	I8f4KczWy/yVn68d2tq4gm82MPpNXciUO+Dy9H06o9g/1PNShEtcKsff78VywEc=
+X-Google-Smtp-Source: AGHT+IFp2eHJVaMHHJ/1hqixa/EbB/20l1IrMRxZuH2IWPlIoOLg1ieJLGwTB/0BuAkmy/PHQnWNqA==
+X-Received: by 2002:a05:622a:589:b0:440:657c:7e60 with SMTP id d75a77b69052e-44662e4c07fmr59260711cf.21.1719841103432;
+        Mon, 01 Jul 2024 06:38:23 -0700 (PDT)
 Received: from localhost (syn-076-182-020-124.res.spectrum.com. [76.182.20.124])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-79d69308aaasm348426785a.112.2024.07.01.06.38.21
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-446513d3d3dsm31293691cf.5.2024.07.01.06.38.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jul 2024 06:38:21 -0700 (PDT)
+        Mon, 01 Jul 2024 06:38:23 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
 To: alx@kernel.org,
 	linux-man@vger.kernel.org,
@@ -75,9 +74,9 @@ To: alx@kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	mszeredi@redhat.com,
 	kernel-team@fb.com
-Subject: [PATCH v4 1/2] statmount.2: New page describing the statmount syscall
-Date: Mon,  1 Jul 2024 09:37:53 -0400
-Message-ID: <85889ca0f88e79e79bc8bfeb58395c04affe3424.1719840964.git.josef@toxicpanda.com>
+Subject: [PATCH v4 2/2] listmount.2: New page describing the listmount syscall
+Date: Mon,  1 Jul 2024 09:37:54 -0400
+Message-ID: <4e503bc4298e648ada65d1276bd494133c7d99c5.1719840964.git.josef@toxicpanda.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1719840964.git.josef@toxicpanda.com>
 References: <cover.1719840964.git.josef@toxicpanda.com>
@@ -89,259 +88,92 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add some documentation on the new statmount syscall.
+Add some documentation for the new listmount syscall.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- man/man2/statmount.2 | 288 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 288 insertions(+)
- create mode 100644 man/man2/statmount.2
+ man/man2/listmount.2 | 111 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 111 insertions(+)
+ create mode 100644 man/man2/listmount.2
 
-diff --git a/man/man2/statmount.2 b/man/man2/statmount.2
+diff --git a/man/man2/listmount.2 b/man/man2/listmount.2
 new file mode 100644
-index 000000000..3e13107f5
+index 000000000..a86f59a6d
 --- /dev/null
-+++ b/man/man2/statmount.2
-@@ -0,0 +1,288 @@
-+'\" t
++++ b/man/man2/listmount.2
+@@ -0,0 +1,111 @@
 +.\" Copyright (c) 2024 Josef Bacik <josef@toxicpanda.com>
 +.\"
 +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
 +.\"
-+.TH statmount 2 (date) "Linux man-pages (unreleased)"
++.TH listmount 2 (date) "Linux man-pages (unreleased)"
 +.SH NAME
-+statmount \- get a mount status
++listmount \- get a list of mount ID's
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ", " \-lc )
 +.SH SYNOPSIS
 +.nf
-+.BR "#include <linux/mount.h>" "  /* Definition of STATMOUNT_* constants */"
++.BR "#include <linux/mount.h>" "  /* Definition of struct mnt_id_req constants */"
 +.B #include <unistd.h>
 +.P
-+.BI "int syscall(SYS_statmount, struct mnt_id_req * " req ,
-+.BI "            struct statmount * " smbuf ", size_t " bufsize ,
++.BI "int syscall(SYS_listmount, struct mnt_id_req * " req ,
++.BI "            u64 * " mnt_ids ", size_t " nr_mnt_ids ,
 +.BI "            unsigned long " flags );
 +.P
 +.B #include <linux/mount.h>
 +.P
 +.B struct mnt_id_req {
 +.BR "    __u32 size;" "    /* sizeof(struct mnt_id_req) */"
-+.BR "    __u64 mnt_id;" "  /* The mnt_id being queried */"
-+.BR "    __u64 param;" "   /* An ORed combination of the STATMOUNT_ constants */"
-+.B };
-+.P
-+.B struct statmount {
-+.B "    __u32 size;"
-+.B "    __u64 mask;"
-+.B "    __u32 sb_dev_major;"
-+.B "    __u32 sb_dev_minor;"
-+.B "    __u64 sb_magic;"
-+.B "    __u32 sb_flags;"
-+.B "    __u32 fs_type;"
-+.B "    __u64 mnt_id;"
-+.B "    __u64 mnt_parent_id;"
-+.B "    __u32 mnt_id_old;"
-+.B "    __u32 mnt_parent_id_old;"
-+.B "    __u64 mnt_attr;"
-+.B "    __u64 mnt_propagation;"
-+.B "    __u64 mnt_peer_group;"
-+.B "    __u64 mnt_master;"
-+.B "    __u64 propagate_from;"
-+.B "    __u32 mnt_root;"
-+.B "    __u32 mnt_point;"
-+.B "    char  str[];"
++.BR "    __u64 mnt_id;" "  /* The parent mnt_id being searched */"
++.BR "    __u64 param;" "   /* The next mnt_id we want to find */"
 +.B };
 +.fi
 +.P
 +.IR Note :
 +glibc provides no wrapper for
-+.BR statmount (),
++.BR listmount (),
 +necessitating the use of
 +.BR syscall (2).
 +.SH DESCRIPTION
-+To access a mount's status,
++To access the mounts in your namespace,
 +you must have CAP_SYS_ADMIN in the user namespace.
 +.P
-+This function returns information about a mount,
-+storing it in the buffer pointed to by
-+.IR smbuf .
-+The returned buffer is a
-+.I struct statmount
-+with the fields filled in as described below.
-+.P
-+(Note that reserved space and padding is omitted.)
++This function returns a list of mount IDs under the
++.BR req.mnt_id .
++This is meant to be used in conjuction with
++.BR statmount (2)
++in order to provide a way to iterate and discover mounted file systems.
 +.SS The mnt_id_req structure
 +.I req.size
 +is used by the kernel to determine which struct
 +.I mnt_id_req
 +is being passed in,
-+it should always be set to
-+.IR sizeof(struct\~mnt_id_req) .
++it should always be set to sizeof(struct mnt_id req).
 +.P
 +.I req.mnt_id
-+can be obtained from either
++is the parent mnt_id that we will list from,
++which can either be
++.B LSMT_ROOT
++which means the root mount of the current mount namespace,
++or a mount ID obtained from either
 +.BR statx (2)
 +using
 +.B STATX_MNT_ID_UNIQUE
 +or from
++.BR listmount (2) .
++.P
++.I req.param
++is used to tell the kernel what mount ID to start the list from.
++This is useful if multiple calls to
 +.BR listmount (2)
-+and is used as the identifier to query the status of the desired mount point.
-+.P
-+.I req.param
-+is used to tell the kernel which fields the caller is interested in.
-+It is an ORed combination of the following constants
-+.P
-+.in +4n
-+.TS
-+lBl.
-+STATMOUNT_SB_BASIC	/* Want/got sb_* */
-+STATMOUNT_MNT_BASIC	/* Want/got mnt_* */
-+STATMOUNT_PROPAGATE_FROM	/* Want/got propagate_from */
-+STATMOUNT_MNT_ROOT	/* Want/got mnt_root  */
-+STATMOUNT_MNT_POINT	/* Want/got mnt_point */
-+STATMOUNT_FS_TYPE	/* Want/got fs_type */
-+.TE
-+.in
-+.P
-+Note that,
-+in general,
-+the kernel does
-+.I not
-+reject values in
-+.I req.param
-+other than the above.
-+(For an exception,
-+see
-+.B EINVAL
-+in errors.)
-+Instead,
-+it simply informs the caller which values are supported
-+by this kernel and filesystem via the
-+.I statmount.mask
-+field.
-+Therefore,
-+.I "do not"
-+simply set
-+.I req.param
-+to
-+.B UINT_MAX
-+(all bits set),
-+as one or more bits may,
-+in the future,
-+be used to specify an extension to the buffer.
-+.SS The returned information
-+The status information for the target mount is returned in the
-+.I statmount
-+structure pointed to by
-+.IR smbuf .
-+Included in this is
-+.I size
-+which indicates the size of the
-+.I smbuf
-+that was filled in,
-+including any strings.
-+.I mask
-+which indicates what information in the structure has been filled in.
-+.P
-+It should be noted that the kernel may return fields that weren't requested
-+and may fail to return fields that were requested,
-+depending on what the backing file system and kernel supports.
-+In either case,
-+.I req.param
-+will not be equal to
-+.IR mask .
-+.P
-+The fields in the
-+.I statmount
-+structure are:
-+.TP
-+.I smbuf.size
-+The size of the returned
-+.I smbuf
-+structure.
-+.TP
-+.I smbuf.mask
-+The ORed combination of
-+.B STATMOUNT_
-+flags indicating which fields were filled in and thus valid.
-+.TP
-+.I smbuf.sb_dev_major
-+.TQ
-+.I smbuf.sb_dev_minor
-+The device that is mounted at this mount point.
-+.TP
-+.I smbuf.sb_magic
-+The file system specific super block magic.
-+.TP
-+.I smbuf.sb_flags
-+The flags that are set on the super block,
-+an ORed combination of
-+.BR SB_RDONLY ,
-+.BR SB_SYNCHRONOUS ,
-+.BR SB_DIRSYNC ,
-+.BR SB_LAZYTIME .
-+.TP
-+.I smbuf.fs_type
-+The offset to the location in the
-+.I smbuf.str
-+buffer that contains the string representation of the mounted file system. It is
-+a null-terminated string.
-+.TP
-+.I smbuf.mnt_id
-+The unique mount ID of the mount.
-+.TP
-+.I smbuf.mnt_parent_id
-+The unique mount ID of the parent mount point of this mount.
-+If this is the root mount point then
-+.IR smbuf.mnt_id\~==\~smbuf.parent_mount_id .
-+.TP
-+.I smbuf.mnt_id_old
-+This corresponds to the mount ID that is exported by
-+.IR /proc/ pid /mountinfo .
-+.TP
-+.I smbuf.mnt_parent_id_old
-+This corresponds to the parent mount ID that is exported by
-+.IR /proc/ pid /mountinfo .
-+.TP
-+.I smbuf.mnt_attr
-+The
-+.BI MOUNT_ATTR_ *
-+flags set on this mount point.
-+.TP
-+.I smbuf.mnt_propagation
-+The mount propagation flags,
-+which can be one of
-+.BR MS_SHARED ,
-+.BR MS_SLAVE ,
-+.BR MS_PRIVATE ,
-+.BR MS_UNBINDABLE .
-+.TP
-+.I smbuf.mnt_peer_group
-+The ID of the shared peer group.
-+.TP
-+.I smbuf.mnt_master
-+The mount point receives its propagation from this mount ID.
-+.TP
-+.I smbuf.propagate_from
-+The ID from the namespace we propagated from.
-+.TP
-+.I smbuf.mnt_root
-+The offset to the location in the
-+.I smbuf.str
-+buffer that contains the string representation of the mount relative to the root
-+of the file system.
-+It is a NULL terminated string.
-+.TP
-+.I smbuf.mnt_point
-+The offset to the location in the
-+.I smbuf.str
-+buffer that contains the string representation of the mount relative to the
-+current root (ie if you are in a
-+.BR chroot ).
-+It is a NULL terminated string.
++are required.
++This can be set to the last mount ID returned + 1 in order to
++resume from a previous spot in the list.
 +.SH RETURN VALUE
-+On success, zero is returned.
++On success, the number of entries filled into
++.I mnt_ids
++is returned, 0 if there are no more mounts left.
 +On error, \-1 is returned, and
 +.I errno
 +is set to indicate the error.
@@ -353,7 +185,7 @@ index 000000000..3e13107f5
 +.B EFAULT
 +.I req
 +or
-+.I smbuf
++.I mnt_ids
 +is NULL or points to a location outside the process's
 +accessible address space.
 +.TP
@@ -369,16 +201,6 @@ index 000000000..3e13107f5
 +is too large,
 +the limit is the architectures page size.
 +.TP
-+.B EOVERFLOW
-+The size of
-+.I smbuf
-+is too small to contain either the
-+.IR smbuf.fs_type ,
-+.IR smbuf.mnt_root ,
-+or
-+.IR smbuf.mnt_point .
-+Allocate a larger buffer and retry the call.
-+.TP
 +.B ENOENT
 +The specified
 +.I req.mnt_id
@@ -389,7 +211,7 @@ index 000000000..3e13107f5
 +.SH STANDARDS
 +Linux.
 +.SH SEE ALSO
-+.BR listmount (2),
++.BR statmount (2),
 +.BR statx (2)
 -- 
 2.43.0
