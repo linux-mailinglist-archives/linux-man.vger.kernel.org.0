@@ -1,118 +1,108 @@
-Return-Path: <linux-man+bounces-1315-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1316-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1442926FCE
-	for <lists+linux-man@lfdr.de>; Thu,  4 Jul 2024 08:42:39 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id AEFC1928AB0
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 16:29:13 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1E1AC1C216D1
-	for <lists+linux-man@lfdr.de>; Thu,  4 Jul 2024 06:42:39 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 58CF01F24DFC
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 14:29:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E1C31A08C0;
-	Thu,  4 Jul 2024 06:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81AAB15216D;
+	Fri,  5 Jul 2024 14:28:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="As4bRm87"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="stxjaajS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-f201.google.com (mail-yb1-f201.google.com [209.85.219.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DCE1A070E
-	for <linux-man@vger.kernel.org>; Thu,  4 Jul 2024 06:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.37.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF95316B3B9
+	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 14:28:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720075358; cv=none; b=loPekdfnKL3P/854HWmBYNUk8EkEoZqeJ0QeByQgZw99wXdUZKcic/6CN1MvH+Ves4EScq0IUQu6mnsdKMw8VtTH17Smc8jnLVmobnP7G32kf3MIHNDVp7b7Wse8uMdll7V6GBqydEATjZVhB2dvbtcQW56qpju7RsA9YkgwwfU=
+	t=1720189735; cv=none; b=MpofU6S8b9O/R3XEZO4bIA9RD7EMWc/PFtyZ/A099owQlNTcHXtLwwYmWs2L6BlPxOhZCrVVf+tz3vQiPJaK3huOOsl8FbFeDCVgywAyA2Z4q9QOY90Hu4DSQ761yy25DHZD7MgEijAadh0QFvI0Ppo2Xim8fvm27mvk6sgNSTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720075358; c=relaxed/simple;
-	bh=Fvs0dxFNU96Z/HSkogGd+p3ek1ySdgLydJL3wms/Tu4=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=pvHcY/tG+7cU862FPzKA27Pui9zxFTymHn9bM9eQ/Vk/qwe3JO1yGpPqK5G8aOMUN4i1W675nBQIp2zY4ELQjgZ48XXxedoL0IwOFuCfQuZPdAzk6S0d2297trIxjLZUYR7uMZF6dfpdfLSHrWAx+hno8leDJtawYFN5AYO1uJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=As4bRm87; arc=none smtp.client-ip=139.138.37.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1720075355; x=1751611355;
-  h=from:to:cc:subject:date:message-id;
-  bh=Fvs0dxFNU96Z/HSkogGd+p3ek1ySdgLydJL3wms/Tu4=;
-  b=As4bRm87oMeaxJYNe7PQtvAPx40ZzxFhH1RHZU32ZKg5akl8jKwij9wm
-   TRghFAxLqBJH4qjZ7ScYZ9QQC3wKO/bhohfEPJ4STyvnI5zxw2dBM8SGC
-   XS0CywBXE3SZRGjO5blA7JJQr/tdhEW/l+kWLIWtbI34YpASRWC3+lbIh
-   ayb/mPlbbhTmogTIQO5brCJ7xmOb9yffpQo7No3gGVdvhhs06hvY1Yu5M
-   /eU8xO6lUWrvveCbUtBHTKAiTuS5TQNqkxltut6m8nzNlrzqlkp+nPU8h
-   Iwvd37C/MSO96wgKWagp3rotjZIhsHQ/GRQSXoIqcxiHumzuWXbsNBr8O
-   Q==;
-X-IronPort-AV: E=McAfee;i="6700,10204,11122"; a="144917450"
-X-IronPort-AV: E=Sophos;i="6.09,183,1716217200"; 
-   d="scan'208";a="144917450"
-Received: from unknown (HELO oym-r1.gw.nic.fujitsu.com) ([210.162.30.89])
-  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2024 15:41:23 +0900
-Received: from oym-m1.gw.nic.fujitsu.com (oym-nat-oym-m1.gw.nic.fujitsu.com [192.168.87.58])
-	by oym-r1.gw.nic.fujitsu.com (Postfix) with ESMTP id D0AB1CC16A
-	for <linux-man@vger.kernel.org>; Thu,  4 Jul 2024 15:41:21 +0900 (JST)
-Received: from kws-ab4.gw.nic.fujitsu.com (kws-ab4.gw.nic.fujitsu.com [192.51.206.22])
-	by oym-m1.gw.nic.fujitsu.com (Postfix) with ESMTP id 21B75E49CB
-	for <linux-man@vger.kernel.org>; Thu,  4 Jul 2024 15:41:21 +0900 (JST)
-Received: from edo.cn.fujitsu.com (edo.cn.fujitsu.com [10.167.33.5])
-	by kws-ab4.gw.nic.fujitsu.com (Postfix) with ESMTP id AC9EE21736C
-	for <linux-man@vger.kernel.org>; Thu,  4 Jul 2024 15:41:20 +0900 (JST)
-Received: from localhost (unknown [10.167.226.69])
-	by edo.cn.fujitsu.com (Postfix) with ESMTP id 4B3901A0002;
-	Thu,  4 Jul 2024 14:41:20 +0800 (CST)
-From: Ma Xinjian <maxj.fnst@fujitsu.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Ma Xinjian <maxj.fnst@fujitsu.com>
-Subject: [PATCH] clone.2: ffix
-Date: Thu,  4 Jul 2024 14:41:08 +0800
-Message-Id: <20240704064108.27257-1-maxj.fnst@fujitsu.com>
-X-Mailer: git-send-email 2.18.1
-X-TM-AS-GCONF: 00
-X-TM-AS-Product-Ver: IMSS-9.1.0.1417-9.0.0.1002-28508.003
-X-TM-AS-User-Approved-Sender: Yes
-X-TMASE-Version: IMSS-9.1.0.1417-9.0.1002-28508.003
-X-TMASE-Result: 10-1.200600-10.000000
-X-TMASE-MatchedRID: ntF4Soh351Au0i9VlgrN6hF4zyLyne+ATJDl9FKHbrnLe/vEwLULpHzG
-	fWdtXBUcgcDogF3e9CxcWPWm98SUsQzyMxeMEX6wFEUknJ/kEl6qeMqH7QfWstPokMAKQp/bA/n
-	NPR3f3dzGVuWouVipcqqy8LqnlKA0S2o4xLiqbqAxc3HEH5gXE2DpTjg3F2nxOXYXxcN6Uqf2gM
-	aHhTwC9xJyMl4FlHgvucPJ2nBd9tGTXZQoW1Wet/6/2/nZkihaOgB/fz3EXdcVKT0eFRmfDs4Yh
-	afCzgujIdY9jOi4lTI=
-X-TMASE-SNAP-Result: 1.821001.0001-0-1-22:0,33:0,34:0-0
+	s=arc-20240116; t=1720189735; c=relaxed/simple;
+	bh=iOx5qi9O+N1NgHulMBDGAOFmEx4DpEuf9/HEqqwI3Os=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=VSDgu4BdMwZ0lQdAqZGcXMRrnZi4We5b6wvWP+swKVWy1iLYXx3hI9dCQxRcrqN91a1eNfUNiG1ba2yn3Q6gAOEn9YAltQOgmIalHrusl/UPRrFUwJYaRup+ojoKkLrH4L3MXwXq3fZo3i5RsLkRN8ggjB4KbBbCtga21bfSpvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=stxjaajS; arc=none smtp.client-ip=209.85.219.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com
+Received: by mail-yb1-f201.google.com with SMTP id 3f1490d57ef6-e0353b731b8so3032315276.2
+        for <linux-man@vger.kernel.org>; Fri, 05 Jul 2024 07:28:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1720189733; x=1720794533; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id
+         :mime-version:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iOx5qi9O+N1NgHulMBDGAOFmEx4DpEuf9/HEqqwI3Os=;
+        b=stxjaajSNuAoTTeKHPLeG1a7J4FfkWLQB6enKgayHr8uf3vjxvkZdhbPa2xtMSijaN
+         RE/Fv++MJsQ4jhv6LzBL/B7eDOn1e0CcUvQGfEUpMDaKfcx+1OTwspth7mvXBfH6IRRo
+         Z48fC1hBakTcJjLKO3Uz29o2TCgxs2zWrR0kxildf7NcueTSagstExbTYvejiAQYqGy+
+         VAE5OO63Z6NpvoNJkShDQRK+2L/jjuvJhflux2wnw/sZKol21I+qRBBrey2B/ayskDpK
+         ZBeLkl4OuRmGQlZE2jPZDlwbsv+WlJIhVnzH4GOVMkNCCXFjdqqM+VOSjb6LNySIVmZK
+         Zr0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720189733; x=1720794533;
+        h=content-transfer-encoding:cc:to:from:subject:message-id
+         :mime-version:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iOx5qi9O+N1NgHulMBDGAOFmEx4DpEuf9/HEqqwI3Os=;
+        b=TTvDA+5l0411LC/HfwjFFnmVsS3TCMJLvPFXnr+M4B8FxVssSVs7uwZEslnHrWa2oA
+         KcCBIRzOEEhfnZrvwYkd/Ky5ZomkJLYxLUtrqjhhacoPG+jiZppbTtd2CupFoiYnr0ao
+         aQz5G1RbcMqBbXPA7XYYWUaqELhwUh26Al3aBrvatIPdE4okrULs9zUOUs5y4AfPjatE
+         WRnzAccvVW+9P7mCXx4tBgqO8BeRGG4siVJU9vCzQE186O5o9nAkFpKpNwaBfyskbq4z
+         nX1r5j3i/lNeP2ybQwW9oCm0fgT4baW8aPaKic6nFSSJHINlKz34pUxJkqSrhWINuKJh
+         mw/w==
+X-Gm-Message-State: AOJu0YxFx9iH1T/pJLbVBS+9xN4JwRjhWWancHzZBWUik5Zp0H36wtpU
+	iOkNhEx0ygAUhoCxYS6pgSNtjv8x6EBhnzKgE+Lmuca+T2Net75kzuyU7eO2kRtbI8Dwi3DhOnv
+	rMQ==
+X-Google-Smtp-Source: AGHT+IELw1BNOrke0zYrqO1x9yNtgQl5CgqP7ryvNZG6ZpvhS9wgVO/TangVRk5R6GupxJXbgsfWboTzvJk=
+X-Received: from swim.c.googlers.com ([fda3:e722:ac3:cc00:31:98fb:c0a8:1605])
+ (user=gnoack job=sendgmr) by 2002:a05:6902:1549:b0:e02:8473:82c4 with SMTP id
+ 3f1490d57ef6-e03c1bbe8efmr7716276.11.1720189732676; Fri, 05 Jul 2024 07:28:52
+ -0700 (PDT)
+Date: Fri,  5 Jul 2024 14:28:43 +0000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.45.2.803.g4e1b14247a-goog
+Message-ID: <20240705142844.1142998-1-gnoack@google.com>
+Subject: [PATCH] FIONRAD.2const: tfix
+From: "=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	"=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Ma Xinjian <maxj.fnst@fujitsu.com>
+Fix a copy-paste error in SYNOPSIS:
+FIONREAD was mentioned twice,
+but another IOCTL was missing.
+
+Signed-off-by: G=C3=BCnther Noack <gnoack@google.com>
 ---
- man/man2/clone.2 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ man/man2const/FIONREAD.2const | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man/man2/clone.2 b/man/man2/clone.2
-index 655e50b82..0287091b2 100644
---- a/man/man2/clone.2
-+++ b/man/man2/clone.2
-@@ -37,6 +37,7 @@
- .\" 2008-11-19, mtk, document CLONE_NEWUTS
- .\" 2008-11-19, mtk, document CLONE_NEWIPC
- .\" 2008-11-19, Jens Axboe, mtk, document CLONE_IO
-+.\" 2024-07-04, ffix by Ma Xinjian <maxj.fnst@fujitsu.com>
- .\"
- .TH clone 2 (date) "Linux man-pages (unreleased)"
- .SH NAME
-@@ -1684,8 +1685,8 @@ On ia64, a different interface is used:
- .BI "int __clone2(int (*" "fn" ")(void *),"
- .BI "             void *" stack_base ", size_t " stack_size ,
- .BI "             int " flags ", void *" "arg" ", ..."
--.BI "          /* pid_t *" parent_tid ", struct user_desc *" tls ,
--.BI "             pid_t *" child_tid " */ );"
-+.BI "          \fR/*\fP pid_t *" parent_tid ", struct user_desc *" tls ,
-+.BI "             pid_t *" child_tid " \fR*/\fP );"
- .EE
- .in
- .P
--- 
-2.18.1
+diff --git a/man/man2const/FIONREAD.2const b/man/man2const/FIONREAD.2const
+index 5806d280e..d7a44176e 100644
+--- a/man/man2const/FIONREAD.2const
++++ b/man/man2const/FIONREAD.2const
+@@ -25,7 +25,7 @@ Standard C library
+ .BI "int ioctl(int " fd ", TIOCINQ, int *" argp );
+ .BI "int ioctl(int " fd ", TIOCOUTQ, int *" argp );
+ .BI "int ioctl(int " fd ", TCFLSH, int " arg );
+-.BI "int ioctl(int " fd ", FIONREAD, int *" argp );
++.BI "int ioctl(int " fd ", TIOCSERGETLSR, int *" argp );
+ .fi
+ .SH DESCRIPTION
+ .TP
+--=20
+2.45.2.803.g4e1b14247a-goog
 
 
