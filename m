@@ -1,82 +1,125 @@
-Return-Path: <linux-man+bounces-1321-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1322-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45AB928BFE
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 17:53:45 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 871CF928BFF
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 17:55:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 5A9D028438A
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 15:53:44 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 05B211F255EC
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 15:55:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EE690148849;
-	Fri,  5 Jul 2024 15:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B9952D045;
+	Fri,  5 Jul 2024 15:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjZOCOx9"
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="NR6FTgk/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7B813A88B
-	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 15:53:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DD7B16C848
+	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 15:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720194820; cv=none; b=nHZUwH1JAuaDuiO3XwF+TzqU1bNInWG+dntnX+5YtHCYeDtOiieSKHzxH91i92HP8NXwxFclEBZA3HmsMgzB4x9pObLnpXosSpt1fjJx29IyGHjbuZamyGU0CvAl3cG1g4lY7ka2SpHpMU4fdcWI421RJf+zW/GoCmh4sy3VCnw=
+	t=1720194904; cv=none; b=n3vT1ai5H2bobbcaGEFOFnMGuNosqOZdAn/VwszeM54acDTI1zMTlw4SOzMxrlCsgWDilga5AxXKzKO1O7odLdgAiFCOTuYoe2chIAlM+gk5REycujlh9c9Nkj0ttUAZ5lpII5YDXD8EOsQx2XChilrXATG8RbCRY0Tu8tKMVds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720194820; c=relaxed/simple;
-	bh=06tALYLulfCZEWsewRMRB5dlwz8NtCx82+MRbxUfsFs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GgeIziRpppULMtB2DRa8yyEVoKxTQ94H847iGt167+GOhaG7k8ZQya36aGxWcL5CJGDdbl7LWrGKmUN7IoNmEtV5w7k2Fp7JooQHIxe2MzgQMyn6YFZum39ItR1hlKnhvTxX+3lGAud7+jdMV5cYlPLVEueuq+AiSDmU6H4jVLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjZOCOx9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2600C116B1;
-	Fri,  5 Jul 2024 15:53:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720194820;
-	bh=06tALYLulfCZEWsewRMRB5dlwz8NtCx82+MRbxUfsFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YjZOCOx9gXjhPfIuXKlbkd2hFq8l2MI+gC740xGAxsxJxLgwGbijmu76ayBpMQAUm
-	 f23fL5N5WYN8/oDKF+h8nhrEdu5l65qWhEAPwzO/Zk4zrww7YJT+SevNG1CR9SAyQD
-	 1WWTyLAGJBM5HQq+S1i4dJLEdEvwKdjwxwQvkgL1y4klyUra2FnDJuupvFmR1Z1Ehq
-	 alHzkNrHN5bEQSyGmEvrvZctfbZ4nTW+hobIaUZvLpO2cQ2/jkuuIa+vE/p149r+TS
-	 9swyGKpuhp2gMpWFUN1oZWQAy4H3NzkdnwM9tzqVuDBeedybMpLhpd4HeTg3WxhTFB
-	 hIwtYDqpIBe0w==
-Date: Fri, 5 Jul 2024 17:53:36 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Martin Uecker <muecker@gwdg.de>
-Cc: Xi Ruoyao <xry111@xry111.site>, Jakub Jelinek <jakub@redhat.com>, 
-	libc-alpha@sourceware.org, gcc@gcc.gnu.org, Paul Eggert <eggert@cs.ucla.edu>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
- functions
-Message-ID: <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
-References: <20240705130249.14116-2-alx@kernel.org>
- <38982a470643f766747b0ca06b27ca859a87b101.camel@xry111.site>
- <wadzblkwslmjyypxjij4mvt2hy6zihncox5l3mh23vwd7lhmkh@vosxxdjdd53k>
- <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
- <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
- <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+	s=arc-20240116; t=1720194904; c=relaxed/simple;
+	bh=rLN6HXcsg+Or0Sgk3j+eW61yY+6JXBXG8kkjHzHxwyE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MHAX5UXMelR2ZhFKsMBjeWNMSpAoc9f6pxktlDhbWh9Nt/OUfNBrePyrB3UTdjAUpASJ6A3lYLUhB9T1CGM700rU0Jmv6DEq8H98f8QvEGhvx0y+9nbU0HJbOERzO8S8pL2OfCSI1FBIuOOiDk/J4f/tvUeJba4dE1MCwPbofKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=NR6FTgk/; arc=none smtp.client-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:
+	Content-Type; bh=rLN6HXcsg+Or0Sgk3j+eW61yY+6JXBXG8kkjHzHxwyE=;
+	b=NR6FTgk/7WFxevUO//jNd5NjbQTu+z3EdxiBSVDU84rzNFB5ZTrVf3PxZl9a6I
+	eHDBGIXSrUd3qC9Im1+Ld/sYRk3NoCRo+cuKZbSPngxeFS0Hdbu6knDAzE36iV47
+	kvfcsRrh1cb/K9TcA2WEE31rXDUprMlZAx6Q4fhviApaQ=
+Received: from [192.168.71.119] (unknown [114.92.170.147])
+	by gzga-smtp-mta-g1-0 (Coremail) with SMTP id _____wD3Hz4tF4hmhyjQAQ--.23191S2;
+	Fri, 05 Jul 2024 23:54:22 +0800 (CST)
+Message-ID: <ca4bfb17-c1f5-4c0d-8039-e57831c99cff@126.com>
+Date: Fri, 5 Jul 2024 23:54:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eptbhls2u4dp35mz"
-Content-Disposition: inline
-In-Reply-To: <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
+ functions
+To: Alejandro Colomar <alx@kernel.org>
+Cc: gcc@gcc.gnu.org, linux-man@vger.kernel.org, libc-alpha@sourceware.org
+References: <20240705130249.14116-2-alx@kernel.org>
+ <38982a470643f766747b0ca06b27ca859a87b101.camel@xry111.site>
+ <wadzblkwslmjyypxjij4mvt2hy6zihncox5l3mh23vwd7lhmkh@vosxxdjdd53k>
+ <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
+ <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
+Content-Language: en-US
+From: LIU Hao <lh_mouse@126.com>
+Autocrypt: addr=lh_mouse@126.com; keydata=
+ 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
+In-Reply-To: <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------9czRJGxKR0xzcYMJQgghX5aq"
+X-CM-TRANSID:_____wD3Hz4tF4hmhyjQAQ--.23191S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrWr1DuF1DtFy7JF4fuw45Jrb_yoWxWrb_ur
+	yvyF97Ww18uF10gw45Arn8uFsxGF13AF4DKrykJry29asrt3WUCFs5urySyr9rKFZFqr98
+	W390g3W2yry5KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjzVbJUUUUU==
+X-CM-SenderInfo: 5okbz0xxvhqiyswou0bp/1tbi5BETRmVLaOENiAAAsC
 
-
---eptbhls2u4dp35mz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Martin Uecker <muecker@gwdg.de>
-Cc: Xi Ruoyao <xry111@xry111.site>, Jakub Jelinek <jakub@redhat.com>, 
-	libc-alpha@sourceware.org, gcc@gcc.gnu.org, Paul Eggert <eggert@cs.ucla.edu>, 
-	linux-man@vger.kernel.org
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------9czRJGxKR0xzcYMJQgghX5aq
+Content-Type: multipart/mixed; boundary="------------MDrHVXueiyie4InfbyHarXdt";
+ protected-headers="v1"
+From: LIU Hao <lh_mouse@126.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: gcc@gcc.gnu.org, linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Message-ID: <ca4bfb17-c1f5-4c0d-8039-e57831c99cff@126.com>
 Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
  functions
 References: <20240705130249.14116-2-alx@kernel.org>
@@ -84,128 +127,50 @@ References: <20240705130249.14116-2-alx@kernel.org>
  <wadzblkwslmjyypxjij4mvt2hy6zihncox5l3mh23vwd7lhmkh@vosxxdjdd53k>
  <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
  <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
- <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
-MIME-Version: 1.0
-In-Reply-To: <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+In-Reply-To: <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
 
-Hi Martin,
+--------------MDrHVXueiyie4InfbyHarXdt
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Fri, Jul 05, 2024 at 05:34:55PM GMT, Martin Uecker wrote:
-> > I've written functions that more closely resemble strtol(3), to show
-> > that in the end they all share the same issue regarding const-ness:
+5ZyoIDIwMjQtMDctMDUgMjM6MjMsIEFsZWphbmRybyBDb2xvbWFyIHZpYSBHY2Mg5YaZ6YGT
+Og0KPiBIaSBNYXJ0aW4sDQo+IA0KPiBPbiBGcmksIEp1bCAwNSwgMjAyNCBhdCAwNTowMjox
+NVBNIEdNVCwgTWFydGluIFVlY2tlciB3cm90ZToNCj4+PiBCdXQgd2hlbiB0aGUgdGhpbmcg
+Z2V0cyBub24tdHJpdmlhbCwgYXMgaW4gc3RydG9sKDMpLCBHQ0MgbWlzc2VzIHRoZQ0KPj4+
+IC1XcmVzdHJpY3QgZGlhZ25vc3RpYywgYXMgcmVwb3J0ZWQgaW4NCg0KQSBwb2ludGVyIHRv
+IGBjaGFyYCBjYW4gYWxpYXMgYW55IG9iamVjdCwgc28gaW4gdGhlb3J5IG9uZSBjb3VsZCB3
+cml0ZSBjb2RlIHRoYXQgbG9va3MgbGlrZSBiZWxvdy4gDQpUaGlzIHBpZWNlIG9mIGNvZGUg
+aXMgcHJvYmFibHkgbm9uc2Vuc2UsIGJ1dCBpdCBpbGx1c3RyYXRlcyB0aGUgZXhhY3QgbmVj
+ZXNzaXR5IG9mIHRoZSBgcmVzdHJpY3RgIA0KcXVhbGlmaWVyczoNCg0KICAgIGNoYXIqDQog
+ICAgZHVtYihjaGFyKiBwKQ0KICAgICAgew0KICAgICAgICBzdHJ0b2woKGNvbnN0IGNoYXIq
+KSAmcCwgJnAsIDApOw0KICAgICAgICByZXR1cm4gcDsNCiAgICAgIH0NCg0KICAgIC8vIHdh
+cm5pbmc6IHBhc3NpbmcgYXJndW1lbnQgMiB0byAncmVzdHJpY3QnLXF1YWxpZmllZCBwYXJh
+bWV0ZXINCiAgICAvLyBhbGlhc2VzIHdpdGggYXJndW1lbnQgMQ0KDQoNCg0KDQoNCg0KLS0g
+DQpCZXN0IHJlZ2FyZHMsDQpMSVUgSGFvDQoNCg==
 
-(Above I meant s/const/restrict/)
+--------------MDrHVXueiyie4InfbyHarXdt--
 
-> >=20
-> > 	$ cat d.c=20
-> > 	int d(const char *restrict ca, char *restrict a)
-> > 	{
-> > 		return ca > a;
-> > 	}
-> >=20
-> > 	int main(void)
-> > 	{
-> > 		char x =3D 3;
-> > 		char *xp =3D &x;
-> > 		d(xp, xp);
-> > 	}
-> > 	$ cc -Wall -Wextra d.c=20
-> > 	d.c: In function =E2=80=98main=E2=80=99:
-> > 	d.c:10:9: warning: passing argument 2 to =E2=80=98restrict=E2=80=99-qu=
-alified parameter aliases with argument 1 [-Wrestrict]
-> > 	   10 |         d(xp, xp);
-> > 	      |         ^
-> >=20
-> > This trivial program causes a diagnostic.  (Although I think the '>'
-> > should also cause a diagnostic!!)
-> >=20
-> > Let's add a reference, to resemble strtol(3):
-> >=20
-> > 	$ cat d2.c=20
-> > 	int d2(const char *restrict ca, char *restrict *restrict ap)
-> > 	{
-> > 		return ca > *ap;
-> > 	}
-> >=20
-> > 	int main(void)
-> > 	{
-> > 		char x =3D 3;
-> > 		char *xp =3D &x;
-> > 		d2(xp, &xp);
-> > 	}
-> > 	$ cc -Wall -Wextra d2.c=20
-> > 	$=20
-> >=20
-> > Why does this not cause a -Wrestrict diagnostic, while d.c does?  How
-> > are these programs any different regarding pointer restrict-ness?
->=20
-> It would require data flow anaylsis to produce the diagnostic while
-> the first can simply be diagnosed by comparing arguments.
-
-Agree.  It seems like a task for -fanalyzer.
-
-	$ cc -Wall -Wextra -fanalyzer -fuse-linker-plugin -flto d2.c
-	$
-
-I'm unable to trigger that at all.  It's probably not implemented, I
-guess.  I've updated the bug report
-<https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D112833> to change the
-component to 'analyzer'.
-
-At least, I hope there's consensus that while current GCC doesn't warn
-about this, ideally it should, which means it should warn for valid uses
-of strtol(3), which means strtol(3) should be fixed, in all of ISO,
-POSIX, and glibc.
-
-Cheers,
-Alex
-
-> > > > Well, I don't know how to report that defect to WG14.  If you help =
-me,
-> > > > I'll be pleased to do so.  Do they have a public mailing list or
-> > > > anything like that?
-> > >=20
-> > > One can submit clarification or change requests:
-> > >=20
-> > > https://www.open-std.org/jtc1/sc22/wg14/www/contributing.html
-
-P.S.:
-
-I've sent a mail to UNE (the Spanish National Body for ISO), and
-asked them about joining WG14.  Let's see what they say.
-
-P.S. 2:
-
-I'm also preparing a paper; would you mind championing it if I'm not yet
-able to do it when it's ready?
-
-P.S. 3:
-
-Do you know of any Spanish member of WG14?  Maybe I can talk with them
-to have more information about how they work.
-
---=20
-<https://www.alejandro-colomar.es/>
-
---eptbhls2u4dp35mz
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------9czRJGxKR0xzcYMJQgghX5aq
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaIFwAACgkQnowa+77/
-2zKLRhAAimCfTCeHWtFjTJv9l60CjmAKtC7s1uS8whAqh/QyJoc7dDpf9ykEvNrq
-psiUloHI6C6/p7EsZAMzLsXBSGmos1D/d/WlpoVlOPR6Dn9SxczFAEE92fOOghgv
-1YksGBu1MfKFyJTjjf5gs+RPnXdIizfhMhTwY8vZBS39ZVpdwrAefBAJnJSHILTn
-nPcNYUjNgOdCz0RkFaPOMC0GaYshGhey/iBN386QUBHrN3aYJyoPXeQuDghCtHKN
-YwrC09lzOIZWA+lZvwUbb60sfdUx9BagGTzt8h1OIDClJU473hbvTI5UmtpoLw6C
-3HGF2STEQT2Hrk1Ml4bKzvC0v2wxOx8l9e7cDQRT+k6sAKG3X65cRSCLA9kzR3/f
-fJPVb8cy2xtdOSVW1sSk8TQC8O2DWs1j7k1kY6smafi43nR2CnjwFzP1yNxGQ63k
-WE8beoka3rKmkVOtf1FeeMsKmzg+qRKytT+TeEUhZrggvPHd1YpZP3kK+y2uZSvy
-7Fuv1o+AorpigdIwcvDTc4mpTZcc0ITEQhJAyn4iKi4h3NeL+hAAwECJqP7Q4U5U
-cnAadm0bL/R7f8OeeO9rN0moCCBHG03O8UXoq7OFAup1VhnZPvcKo+xldotjkGGC
-50o/2sSqPT7g81uSMMAbnsGTb1HPls5hPXnaMmL//RvsylSjmI8=
-=JVjC
+wsF5BAABCAAjFiEEKGWH6ejW+RUrDPyq+uXgu0XZsY0FAmaIFy4FAwAAAAAACgkQ+uXgu0XZsY2p
+TRAAnEbkXoDP147oK+d1NhaOK6AfLiZqpbrTZOzSo03Vz0W8eYFevubPGlFnW4JqTbRY1BzSLore
+hgJn9lMADJ3NHeHIpIpO8ZnJG9L2dXa20lz0Xf0Q85rOdxfeJFTWOoFvuIG3Cn/N4g5f16dUgIFh
+6VLGSuxmOYRMr9qfh7+M4XH/x/OcOnuNGOxtEi4SaXJn8M89MPbKwCGf2VGlhRG5OTQ+eZoIMxEJ
+JTgkAI2ppRRdFIJkinwM5zktOWbc6HE0FjZXUCk8vD43IF5tYoLG2UC5sTo/D3o6c95Jb1lW37Mh
+h7qheJ0+eRrWzy7bmYOYJHaD0bJ5RXGeLItrqhR0nry7WgNuW/iGNgSRPES/dO1vRIDkUuD799S9
+dE+y/d/wmJlyLbAFOiXZK1ddmXFaZWM5n8vd9InGoKCGDdO0O0r7kf81FojPvRWoTuSJ9y3yylBf
+iloM3rghmY6yhklTBuawJFMWP2bbu5kLM2neiGjqcbxv+o+ZJB1FzWvb+OB17yKZDmwrx7zm/hgt
+o4uNB2b9AGMdnI+uLS8KWyBuMiaeuxDbnjKwnrGvsqT08rVK+WgbPoIhIPPOylj0QBKs9rf5wf/0
+WcuIj4K5HbimbsIFLhzM+pXtZ78EPNXB8fRqvebgs0m0biv9EyQQNY4/naP524hBkx9QcC72mWgN
+FF0=
+=717+
 -----END PGP SIGNATURE-----
 
---eptbhls2u4dp35mz--
+--------------9czRJGxKR0xzcYMJQgghX5aq--
+
 
