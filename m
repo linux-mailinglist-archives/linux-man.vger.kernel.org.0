@@ -1,162 +1,218 @@
-Return-Path: <linux-man+bounces-1346-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1347-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424BC928EE6
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 23:40:14 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47780928F28
+	for <lists+linux-man@lfdr.de>; Sat,  6 Jul 2024 00:02:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9AC01B225A4
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 21:40:11 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E3219285B2F
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 22:02:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7088144D00;
-	Fri,  5 Jul 2024 21:40:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 974CA144D23;
+	Fri,  5 Jul 2024 22:02:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FEBYmuW7"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAKruuOT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DB613A26F
-	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 21:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561D413F432
+	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 22:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720215607; cv=none; b=LN9TVpRwJA4jIiGCmlFLT5mO7gHuV5rQff+x5B3ZMhW+7QCBg5b/xsDbjfcpN8wjlXxIYEmeQDvcD/iQQ2z41Q3Zw1UNH8CoRomZsjm2k5KYsfIJ+6oJxoR84/CQOfWLAkJPXwXfxqd/xrFfDyvm0Bs26xKcTdb+D+RwHVqSGuY=
+	t=1720216931; cv=none; b=AOBupx/Ckh8/gym6yaFHz0YpPhq+R3VMsipNU+h+gn7xMxto+zQcBmNPIxgA4G2nZY/0hk7ZVe4+tqo7VLGTciwGX2Xg+Q25iUK8NMfe335+VgVuhWcrq7czCGPJlUY6v+9KlBcz3mWiUY/OMoRfoyw4KZym3/F5+u3zFkG9V5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720215607; c=relaxed/simple;
-	bh=HGO3/bzUZXzEK4VEe+mjo8xF6UX5wDNcD+VuqFUXJ9s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N2cZ8bL815ta1EAJFSTdETBVHf+f8LralXy+xMe0mdHSyFjgijhwDPbUST//XhliKUdkAcD1brEeWFXuaXKYcYWhdxWa4+Xs7HONWRFdVFeiPNK3zmRrgZtSGxfK4UWUmvzfps/zcI9BDZr+yefR/LweU48p0AcfLnI0IRFkhHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FEBYmuW7; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-52e9b9fb3dcso2415166e87.1
-        for <linux-man@vger.kernel.org>; Fri, 05 Jul 2024 14:40:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720215604; x=1720820404; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DpycvgsGK1xbnsHf+jTveVdwWjRhoTODJDVggSmt5CA=;
-        b=FEBYmuW7CbvbmEUrKm2M6DPg6K3MmDNZ4GeA8Tn6wJO6X96/x+GsPU5zPLiNhPQBMS
-         zKY86hpaOOKEoME4gVFrqUluCOY+3xT2dd74nKeMb4nTPay52ktDYWLg4khREx/hYbl7
-         XIJ9vOFuFonDF2TDdo/4R1Kc0HRPi/f2Za3oO/8riKb4mb6fflDHZXj5pbjeSz5ecKb8
-         vc4YExGvVyF/FUzF8SKx7bNf67M4DfKZs1GZpiWbaC81atU+4FveWLMyOxjZgKtmm46h
-         UmzUT9ylHtRjSEfIZSNVoRRGnV47f8fwoC4/GKnCIh1v9hPopD6rSVqkPBBolsptqBGH
-         75bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720215604; x=1720820404;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DpycvgsGK1xbnsHf+jTveVdwWjRhoTODJDVggSmt5CA=;
-        b=bt+KHS7NgU7WLQ4qMnD3HVPhWXp9Fc0WqqHT9uVNoqDbdVux2Cload71kiceiMyNcC
-         npaFXyBIp+zy+rgReuFWN5K916o6KpbAwL6rUndcL6/lHXSPoyQuiOVVW2T8JYR9uEW3
-         0sbM4TvY3nfVNtCARyYmyH+8B/qsOTREMjS3CTaqoVgvMSaZMSlhGwHCiXdpUxOV+76y
-         JchKHY6O1Vq0TLCls6zCg5a4kVC0tIUZVHpiAYHaPkHTfXgm0Il0h4AfGxpcJmQXbjze
-         xnsu5upbu4xE+oHcr9heMGS6+t296aKYhp4m+vLKWqFe2u/pMMFralHB2mlzZnASXRap
-         9Mkg==
-X-Forwarded-Encrypted: i=1; AJvYcCU7T353KU6iVDAXBTgtxhgNHGRV3LOdOz9zSKHVIXu/YSpjd4we2piSAlqeJ7/27WFRzJyWiReEiWgUMbRLO5sRlhM3gad3dH8C
-X-Gm-Message-State: AOJu0YzT8RszEoOK5Nb3fETPC0NH0Lt9enwot5muXUOKUsF8vF7dlITN
-	5RM/2uFIc9lmTnJ9FW22dxVUEZX86DhdisRx7/iXo2PRnVFKITqubeUrXB6fiO7mYjqdWM76kjH
-	677JM26AMMVjK7BF5FXY7Mcm2+2I=
-X-Google-Smtp-Source: AGHT+IEdqbg0uypeY5fXoDr+KElWL8cSK1pvOYQ3X2aygoXVvZi8M31+DN50gZ32fj6wPAw+AWBeJhB6GJh8boLn0hI=
-X-Received: by 2002:a19:4355:0:b0:52e:9b87:233c with SMTP id
- 2adb3069b0e04-52ea063ee82mr3748977e87.36.1720215603751; Fri, 05 Jul 2024
- 14:40:03 -0700 (PDT)
+	s=arc-20240116; t=1720216931; c=relaxed/simple;
+	bh=7VtYdvNslXcLMl6Zr+E/RqUHqDp9QoPJPMji9OnNyEE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nrAS6iHFpCbdR5OrgdlvP5jd+87xhYL0LsukAzYNHseu79AVcKs1trVySolaXZC4j+RxBwScXFfNht3FC7d+ae/cGeeH6QUDcmla80dP6TRSz4OcnL0s6ydPUTuzlKguG3o1KHf+zhSPzW8mnIZCDoqwi+Z6aQRz5CBlqqfqIzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAKruuOT; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1328C116B1;
+	Fri,  5 Jul 2024 22:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720216930;
+	bh=7VtYdvNslXcLMl6Zr+E/RqUHqDp9QoPJPMji9OnNyEE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IAKruuOT3leWz+Y4kqfb9ikKySxGeTavpSlYCqiGG6LsnTCbbZ1leJiN1Cwurpixm
+	 DRZ2991DkJOG0g2ll3jdPIp3j4iRYY23YAn/524Lqv8gLzofBV0uBrL++Avk9SaZq8
+	 CHd8LGY4QN4LNqKweBeF9fnTfNFTfAv+euFvlrO2wWjoKxLU/h5sNrdYQoacRsu7E8
+	 ea0BwpuSa99COXWrNDrTtT5LTmH/8eZfQ+G5jCyf08yCZaZ75JsIpdiTo2m3fVfDpZ
+	 884JP/JlUVehd1HtR9rAPNvAofQ6fmuZrVG1MVbFkuRHJnyIQJnRHEK0VSDAdVeA6w
+	 njnzYTk9vB1pg==
+Date: Sat, 6 Jul 2024 00:02:06 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Jonathan Wakely <jwakely.gcc@gmail.com>
+Cc: Martin Uecker <muecker@gwdg.de>, Xi Ruoyao <xry111@xry111.site>, 
+	Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, gcc@gcc.gnu.org, 
+	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, LIU Hao <lh_mouse@126.com>, 
+	Richard Earnshaw <Richard.Earnshaw@arm.com>, Sam James <sam@gentoo.org>
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
+ functions
+Message-ID: <te5zb6hxvtppcuw3c2nkw6nxzqvvwk2iy7ucb6chrg3cjzbj24@iufgvodbx64a>
+References: <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+ <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
+ <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
+ <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
+ <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de>
+ <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
+ <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de>
+ <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
+ <exctariw4q4zc7wvqzbeehplzgfs44uxcf6pj4kyzi6kbmgkqa@v2pbw7so4qti>
+ <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
- <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
- <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de> <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
- <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
- <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
- <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de> <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
- <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de> <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
- <exctariw4q4zc7wvqzbeehplzgfs44uxcf6pj4kyzi6kbmgkqa@v2pbw7so4qti>
-In-Reply-To: <exctariw4q4zc7wvqzbeehplzgfs44uxcf6pj4kyzi6kbmgkqa@v2pbw7so4qti>
-From: Jonathan Wakely <jwakely.gcc@gmail.com>
-Date: Fri, 5 Jul 2024 22:39:52 +0100
-Message-ID: <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
-Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like functions
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="72ytn3tda4lu4j4e"
+Content-Disposition: inline
+In-Reply-To: <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
+
+
+--72ytn3tda4lu4j4e
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jonathan Wakely <jwakely.gcc@gmail.com>
 Cc: Martin Uecker <muecker@gwdg.de>, Xi Ruoyao <xry111@xry111.site>, 
 	Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, gcc@gcc.gnu.org, 
 	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, LIU Hao <lh_mouse@126.com>, 
 	Richard Earnshaw <Richard.Earnshaw@arm.com>, Sam James <sam@gentoo.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
+ functions
+References: <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+ <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
+ <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
+ <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
+ <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de>
+ <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
+ <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de>
+ <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
+ <exctariw4q4zc7wvqzbeehplzgfs44uxcf6pj4kyzi6kbmgkqa@v2pbw7so4qti>
+ <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
 
-On Fri, 5 Jul 2024 at 21:55, Alejandro Colomar <alx@kernel.org> wrote:
->
-> On Fri, Jul 05, 2024 at 09:28:46PM GMT, Jonathan Wakely wrote:
-> > > If we marked endptr as "write_only" (which it might already
-> > > be) then a future warning mechanism for -Wrestrict could
-> > > ignore the content of *endptr.
+Hi Jonathan,
+
+On Fri, Jul 05, 2024 at 10:39:52PM GMT, Jonathan Wakely wrote:
+> On Fri, 5 Jul 2024 at 21:55, Alejandro Colomar <alx@kernel.org> wrote:
 > >
+> > On Fri, Jul 05, 2024 at 09:28:46PM GMT, Jonathan Wakely wrote:
+> > > > If we marked endptr as "write_only" (which it might already
+> > > > be) then a future warning mechanism for -Wrestrict could
+> > > > ignore the content of *endptr.
+> > >
+> > >
+> > > That seems more useful. Add semantic information instead of taking it
+> > > away. If the concern is a hypothetical future compiler warning that
+> > > would give false positives for perfectly valid uses of strtol, then
+> > > the problem is the compiler warning, not strtol. If additional
+> > > information can be added to avoid the false positives (and also
+> > > possibly optimize the code better), then that wouldn't require a
+> > > change to the standard motivated by a hypothetical compiler warning.
 > >
-> > That seems more useful. Add semantic information instead of taking it
-> > away. If the concern is a hypothetical future compiler warning that
-> > would give false positives for perfectly valid uses of strtol, then
-> > the problem is the compiler warning, not strtol. If additional
-> > information can be added to avoid the false positives (and also
-> > possibly optimize the code better), then that wouldn't require a
-> > change to the standard motivated by a hypothetical compiler warning.
->
-> Let me be a little bit sarcastic.
->
-> If so, let's take down -Wrestrict at all, because it triggers false
-> positives at the same rate.  How is it even in -Wall and not just
-> -Wextra?
->
-> Here's a false positive:
->
->         $ cat d.c
->         int is_same_pointer(const char *restrict ca, char *restrict a)
->         {
->                 return ca =3D=3D a;
+> > Let me be a little bit sarcastic.
+> >
+> > If so, let's take down -Wrestrict at all, because it triggers false
+> > positives at the same rate.  How is it even in -Wall and not just
+> > -Wextra?
+> >
+> > Here's a false positive:
+> >
+> >         $ cat d.c
+> >         int is_same_pointer(const char *restrict ca, char *restrict a)
+> >         {
+> >                 return ca =3D=3D a;
+>=20
+> This is a strawman argument, because all your example functions have
+> been pretty useless and/or not good uses of restrict.
+>=20
+> Yes, if you put restrict on functions where you don't ever access any
+> objects through the pointers, the restrict qualifiers are misleading
 
-This is a strawman argument, because all your example functions have
-been pretty useless and/or not good uses of restrict.
+That's precisely the case with strtol(3): it doesn't access any objects
+through *endptr, and so that pointer need not be restrict.
 
-Yes, if you put restrict on functions where you don't ever access any
-objects through the pointers, the restrict qualifiers are misleading
-and so compilers might give bad warnings for your bad API.
+Then, nptr is a read-only pointer, so is doesn't matter either if it's
+accessed or not.
 
->         }
->
->         int main(void)
->         {
->                 char x =3D 3;
->                 char *xp =3D &x;
->                 is_same_pointer(xp, xp);
->         }
->         $ cc -Wall d.c
->         d.c: In function =E2=80=98main=E2=80=99:
->         d.c:10:9: warning: passing argument 2 to =E2=80=98restrict=E2=80=
-=99-qualified parameter aliases with argument 1 [-Wrestrict]
->            10 |         d(xp, xp);
->               |         ^~~~~~~~~~~~~~~
->
-> It's impossible to know if a use of restrict causes UB without reading
-> both the source code of the caller and the callee, so except for
-> -fanalyzer, it's impossible to diagnose something with certainty.
->
-> So, it's certainly not something we want in -Wall.
->
-> Or should I remove the 'restrict' qualifier from that function, loosing
-> "precious" semantic information, just because the compiler doesn't like
-> it?
->
-> Cheers,
-> Alex
->
->
-> --
-> <https://www.alejandro-colomar.es/>
+Let's say we add as many attributes as possible to strtol(3):
+
+[[gnu::access(read_only, 1)]]
+[[gnu::access(write_only, 1)]]
+[[gnu::leaf]]
+[[gnu::nothrow]]
+[[gnu::null_terminated_string_arg(1)]]
+ // [[gnu::access(none, *1)]]
+long
+alx_strtol(const char *nptr, char **_Nullable restrict endp, int base);
+
+Let's say we could mark *endptr as a 'access(none)' pointer, since it's
+not accessed.  Let's say we do that with [[gnu::access(none, *1)]].
+
+Then, do you think the information of that prototype is any different
+than a prototype with restrict on the remaining pointers?
+
+[[gnu::access(read_only, 1)]]
+[[gnu::access(write_only, 1)]]
+[[gnu::leaf]]
+[[gnu::nothrow]]
+[[gnu::null_terminated_string_arg(1)]]
+ // [[gnu::access(none, *1)]]
+long
+alx_strtol(const char *restrict nptr,
+           char *restrict *_Nullable restrict endp, int base);
+
+I don't think so.  Since *endptr is access(none), it certainly cannot
+access nptr, and thus the qualifier on nptr is superfluous.
+
+And even without the hypothetical [[gnu::access(none, *1)]]:
+
+-  The callee doesn't care about restrict, because it doesn't access
+   any objects via *endptr, so it certainly knows that nptr can be read
+   without any concerns about optimization.
+
+-  The caller can't know if strtol(3) accesses *endptr, or nptr, and so
+   it can't optimize.  Unless it passes an uninitialized value in
+   *endptr, which means the caller knows for sure that nptr won't be
+   written, regardless of restrict on it or not.
+
+Please, describe what's the information you think is being added by
+having restrict on nptr, on how it would be lost if we remove it.
+
+Cheers,
+Alex
+
+> and so compilers might give bad warnings for your bad API.
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--72ytn3tda4lu4j4e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaIbVgACgkQnowa+77/
+2zJipA//ase8xQvouEDqASJ4XmC6HcqA1ii0XwTAcJW0XCmCun6DwfQERu+qfQUR
+uvkeYl6oEFmDSwI/nKkuxmWkZjZQjQgzpKThAUkaLXuNh+FfvXnOT7iIqt1ZINut
+ICZMxCgfKlaaVO2FDPqzLz4GxF0z9yTJpEugbwq9Pc8CaZyL09Ey/CY5B6HZV2n8
+TTAqXekiiTDiQMt/eT/wkUv3bAMgU+Jb0JesYoSzvGVEMCB8sYXF0HQ+9NRdLggH
+GZ86dp2NK7Jy5LRwml1oS2kfG7WUjh7e9TZogLOAmABJnSNLQLE7vJViAJTDHZ4k
+HqIk8287A+shrOIQDwHNs636OaY83RYfmCg4RRGR0feH/FLxPrRh25rs8BWpigbE
+MG8Ho/OxV6iEdsbm4rC6v7ksY8lWcSyUvaDEyJlatpkqPDotwpDZxKbSVCwhc9Bn
+V+BsqVVJh6D6hYR09078Jdfwdrkp/4q2orMX5M3jzrBf85d/VYAcsPf+TaupuJbR
+jJTUO9ZRMHLFyd66Vxl3mNCgdamvzJ0gduh5oap5aS2EpHDd6u6aNBLeawEOv5PO
+0WOfaa1/RAWm5YzOtM0giIkWAxl8qZf2B6nLWMmnNrRzB5AAkiOq59hCM1t/jg3q
+paxno8ZB1RPCDAheKXmWnd2J55DEyczxQ97GgfPta76YQBXPuGo=
+=LSwP
+-----END PGP SIGNATURE-----
+
+--72ytn3tda4lu4j4e--
 
