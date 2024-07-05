@@ -1,198 +1,96 @@
-Return-Path: <linux-man+bounces-1325-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1326-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D7C928C0B
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 18:03:12 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 67195928C1D
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 18:11:55 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1B4841F21A79
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 16:03:12 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 21609284A38
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 16:11:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5192F14A4C1;
-	Fri,  5 Jul 2024 16:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40FD2148FFB;
+	Fri,  5 Jul 2024 16:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gwdg.de header.i=@gwdg.de header.b="XdcvvhV9"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J1JjQElR"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2532D148849
-	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 16:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.76.10.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC552B9B9
+	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 16:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720195387; cv=none; b=N/R5uMRcjaRTtoncyc0P0QRTXzQx3b7APX8pZJeEdrjRXypZGVVDaYRGfxIR8NkKB/b2pNMUW3DLHlGUDCPnt4er+oa34nPcTEz2fmS2nWDzMLKjvhscqGQiNXEyrEKpMJhiZsyZlhsrDtfv7SRDjbQsmYor7WrVu+tDU58n5lw=
+	t=1720195911; cv=none; b=bByWhA2905ZETkMjZ6umqKbOYf5GBpAuhZt22bKcs1xbZMhspOZ4SBNybnl4PTeFb5HChRQmB3YD6jM+S414MvcLjmirAePT6Bc0cK1lRk+tEHT3A6DS7SROGTV6LPQt0ifgKzE3Ag5v+DatiXZCzr/MagqN1bTtecaODzvR9BY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720195387; c=relaxed/simple;
-	bh=Ya6poSsOVPXgH6wG1U3F6DflmjEo9xTsi8Qf2Fi9kAE=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=seEFvZ15EAz2W5vgUvkcA3qtjHf6Fxe5Ce7XjGBjPyMh6zxF11hjrI2cCSdii+qxXX542pkNggori+RKNZI4Q0GGXWzcdSJW9JRkffLh0KJdh6szi5dqrh8qTrFWQdKnPIClENlFMm5GZyF+/77F5PsiWfSdFr3Np5pCljiDYQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gwdg.de; spf=pass smtp.mailfrom=gwdg.de; dkim=pass (2048-bit key) header.d=gwdg.de header.i=@gwdg.de header.b=XdcvvhV9; arc=none smtp.client-ip=134.76.10.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gwdg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gwdg.de
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gwdg.de;
-	s=2023-rsa; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:CC:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=OEQUpqk5czYawzrRoadHw0JGzD/0XE5UkG2wDR3POBU=; b=XdcvvhV9aZR3j1VzbU2UYdlE4i
-	bpX31oQeYsmNYU7WnMYOuv4Tm4ef4xvAhCBQ+YiNEB1OpjIjgg4l/PHnIZQfD5YFburWClNaieMaQ
-	xsZ23NtDfDR1bHrtHU4rRjgn5ZMLaWar/GTHcowAbada+bIiN/zdIBWhE0cPvGDVKPpZijoOEWKiP
-	x9C29XTfc8V+Vc80FT7yxVx7DDgt/JzO+u0quUW/ZNU8ugiVgoBNaoGq9F0o9JTLe6pmdYiS5QCci
-	BhGRD5Ety8/A9ExuoMFkdryWWpM/6HHTbV0aSCvu83BJvTgOYgOYGwd9Kflaf5SkGkjB+sefWbrpi
-	ZX4KK7CA==;
-Received: from xmailer.gwdg.de ([134.76.10.29]:36796)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <muecker@gwdg.de>)
-	id 1sPlOk-002FgP-0T;
-	Fri, 05 Jul 2024 18:02:58 +0200
-Received: from mbx19-fmz-06.um.gwdg.de ([10.108.142.65] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
-	(GWDG Mailer)
-	(envelope-from <muecker@gwdg.de>)
-	id 1sPlOk-000WkE-0E;
-	Fri, 05 Jul 2024 18:02:58 +0200
-Received: from [192.168.0.221] (10.250.9.199) by MBX19-FMZ-06.um.gwdg.de
- (10.108.142.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.11; Fri, 5 Jul
- 2024 18:02:56 +0200
-Message-ID: <b9f1ea095cc7a38de972c27ff0e0ee2e21782b4a.camel@gwdg.de>
-Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
- functions
-From: Martin Uecker <muecker@gwdg.de>
-To: Alejandro Colomar <alx@kernel.org>
-CC: Xi Ruoyao <xry111@xry111.site>, Jakub Jelinek <jakub@redhat.com>,
-	<libc-alpha@sourceware.org>, <gcc@gcc.gnu.org>, Paul Eggert
-	<eggert@cs.ucla.edu>, <linux-man@vger.kernel.org>
-Date: Fri, 5 Jul 2024 18:02:55 +0200
-In-Reply-To: <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
-References: <20240705130249.14116-2-alx@kernel.org>
-	 <38982a470643f766747b0ca06b27ca859a87b101.camel@xry111.site>
-	 <wadzblkwslmjyypxjij4mvt2hy6zihncox5l3mh23vwd7lhmkh@vosxxdjdd53k>
-	 <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
-	 <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
-	 <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
-	 <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+	s=arc-20240116; t=1720195911; c=relaxed/simple;
+	bh=vJaww+FOWHqiFSl5UCOcSbW6f+tP5CTwORpcqDKqKjw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gh+mCJzBzwVbdxbOpudUzreLr7hISzmof1HZMltmvLF3Ir54jQ25kZ3u0I935qstGS+l7/gfrPHuO7miQ4pgD4xT4TM+eyigGS8N/At5XN5w84MlBmH8F1jpGLmyeLlSrESjlLLPZNkla8qXPcVwf5r9edmadcxhMTm9w42vOQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J1JjQElR; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-a77cbb5e987so104560166b.3
+        for <linux-man@vger.kernel.org>; Fri, 05 Jul 2024 09:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1720195908; x=1720800708; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=vJaww+FOWHqiFSl5UCOcSbW6f+tP5CTwORpcqDKqKjw=;
+        b=J1JjQElR84EWTSr9tIEFE1iCvaxkQW1ORz0EnFx/8RidKuY/9nD9CGS48BposjvCQI
+         9Ue4V3o7qCX3AwQgeDfHu1Im5bfpmT7chmmnBnTaueHgFBNmelZOyjc7X4rp6DTD/miJ
+         UAluWwYeLkoZ80N6VE5VeWeULnU28wkx04L6JnhkjImNVOGeEE0bFZ6TeAve8y1RNl4u
+         +4NB+N2myol0esnI19cwZzBoI69KVuxbRatK908L78J8dlMK14aEqYzwgMdv9NMF/qV7
+         iAtycYplRXUprB0jQ9bL/dAijZxosViXSWtd5i8CnrmZsFh4w2donwcJyB/Wb9rMAZsX
+         qx9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720195908; x=1720800708;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vJaww+FOWHqiFSl5UCOcSbW6f+tP5CTwORpcqDKqKjw=;
+        b=VWyTQw9xDO2xBIju4cuDo5tuQBaUSKRMgmgLdEcclj7ojwbpx3ZR8SLJ+3XNo6JfeS
+         8xzALrk0vbYS43xnu6WwTN1Gp9nUQpd5uiNgX6n7mDd1Y/mtV9uvDzPP01plBZ6StGHJ
+         T0LW3rvbCyzlO7KQ081dG2y952jNyXE6FibTqV4mq/rRQ7Hqi7a7bgenfjCL93/ju+F2
+         Roa+Bs29SSPQ8K8PW4FhRerHfAH4Q8Eke4I9QZUzXc0VU3jWplC7o7gQ/guMWtk+Se5t
+         lmVSid8gF9WvxR5H/IFGFuUr6poI6obz/o0tTJMNLrNR8r7hPzuQkgOMlKLtYcBnKIIb
+         5HvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWdU3XeltrNxnPJm2hEy88zS9x2Knz3Yjv7P73l8K7zp+edxxzNRIvyXRQZNgoQ+8TG6EUBRB9Y5uD3dLRopMJce+w9zhPMOcJg
+X-Gm-Message-State: AOJu0Yz6H3PPuo3Szj/B4t3Oc6376d1LlwaVia0B8WSqV6fLSzh2xNU1
+	ZKW3uZGLlLWfSfJKIBX7ABH44A4gptT515h1bY6HLLnbnvX5GQd4u9BBV8DGKaFr5igbFnRREbR
+	diGtgX+VdRV8OZiPxupfRUE6Y/HMPfw==
+X-Google-Smtp-Source: AGHT+IG+4fEKAeGG87VvgC1x6qJ+YwIYqA2B2jsiAB0M9zNo9fL+H4hEJmxIDLDzrJI9zDTNfdmF6VBhjbpNBkZtIls=
+X-Received: by 2002:a17:906:f0d1:b0:a72:af26:1a12 with SMTP id
+ a640c23a62f3a-a77ba468151mr338711066b.18.1720195907412; Fri, 05 Jul 2024
+ 09:11:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: MBX19-SUB-05.um.gwdg.de (10.108.142.70) To
- MBX19-FMZ-06.um.gwdg.de (10.108.142.65)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+References: <20240705130249.14116-2-alx@kernel.org> <38982a470643f766747b0ca06b27ca859a87b101.camel@xry111.site>
+ <wadzblkwslmjyypxjij4mvt2hy6zihncox5l3mh23vwd7lhmkh@vosxxdjdd53k>
+ <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de> <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
+ <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de> <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
+In-Reply-To: <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
+From: Jonathan Wakely <jwakely.gcc@gmail.com>
+Date: Fri, 5 Jul 2024 17:11:35 +0100
+Message-ID: <CAH6eHdTqVjaUERRpA+m-ikFmuYPSzQTm+aaa_f__duVht+74pQ@mail.gmail.com>
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like functions
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Martin Uecker <muecker@gwdg.de>, Xi Ruoyao <xry111@xry111.site>, 
+	Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, gcc@gcc.gnu.org, 
+	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Am Freitag, dem 05.07.2024 um 17:53 +0200 schrieb Alejandro Colomar:
-> Hi Martin,
->=20
-> On Fri, Jul 05, 2024 at 05:34:55PM GMT, Martin Uecker wrote:
-> > > I've written functions that more closely resemble strtol(3), to show
-> > > that in the end they all share the same issue regarding const-ness:
->=20
-> (Above I meant s/const/restrict/)
->=20
-> > >=20
-> > > 	$ cat d.c=20
-> > > 	int d(const char *restrict ca, char *restrict a)
-> > > 	{
-> > > 		return ca > a;
-> > > 	}
-> > >=20
-> > > 	int main(void)
-> > > 	{
-> > > 		char x =3D 3;
-> > > 		char *xp =3D &x;
-> > > 		d(xp, xp);
-> > > 	}
-> > > 	$ cc -Wall -Wextra d.c=20
-> > > 	d.c: In function =E2=80=98main=E2=80=99:
-> > > 	d.c:10:9: warning: passing argument 2 to =E2=80=98restrict=E2=80=99-=
-qualified parameter aliases with argument 1 [-Wrestrict]
-> > > 	   10 |         d(xp, xp);
-> > > 	      |         ^
-> > >=20
-> > > This trivial program causes a diagnostic.  (Although I think the '>'
-> > > should also cause a diagnostic!!)
-> > >=20
-> > > Let's add a reference, to resemble strtol(3):
-> > >=20
-> > > 	$ cat d2.c=20
-> > > 	int d2(const char *restrict ca, char *restrict *restrict ap)
-> > > 	{
-> > > 		return ca > *ap;
-> > > 	}
-> > >=20
-> > > 	int main(void)
-> > > 	{
-> > > 		char x =3D 3;
-> > > 		char *xp =3D &x;
-> > > 		d2(xp, &xp);
-> > > 	}
-> > > 	$ cc -Wall -Wextra d2.c=20
-> > > 	$=20
-> > >=20
-> > > Why does this not cause a -Wrestrict diagnostic, while d.c does?  How
-> > > are these programs any different regarding pointer restrict-ness?
-> >=20
-> > It would require data flow anaylsis to produce the diagnostic while
-> > the first can simply be diagnosed by comparing arguments.
->=20
-> Agree.  It seems like a task for -fanalyzer.
->=20
-> 	$ cc -Wall -Wextra -fanalyzer -fuse-linker-plugin -flto d2.c
-> 	$
->=20
-> I'm unable to trigger that at all.  It's probably not implemented, I
-> guess.  I've updated the bug report
-> <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D112833> to change the
-> component to 'analyzer'.
->=20
+On Fri, 5 Jul 2024 at 16:54, Alejandro Colomar via Gcc <gcc@gcc.gnu.org> wrote:
 > At least, I hope there's consensus that while current GCC doesn't warn
 > about this, ideally it should, which means it should warn for valid uses
 > of strtol(3), which means strtol(3) should be fixed, in all of ISO,
 > POSIX, and glibc.
 
-I am not sure.=20
-
->=20
-> > > > > Well, I don't know how to report that defect to WG14.  If you hel=
-p me,
-> > > > > I'll be pleased to do so.  Do they have a public mailing list or
-> > > > > anything like that?
-> > > >=20
-> > > > One can submit clarification or change requests:
-> > > >=20
-> > > > https://www.open-std.org/jtc1/sc22/wg14/www/contributing.html
->=20
-> P.S.:
->=20
-> I've sent a mail to UNE (the Spanish National Body for ISO), and
-> asked them about joining WG14.  Let's see what they say.
->=20
-> P.S. 2:
->=20
-> I'm also preparing a paper; would you mind championing it if I'm not yet
-> able to do it when it's ready?
-
-Guests can present too.
-
->=20
-> P.S. 3:
->=20
-> Do you know of any Spanish member of WG14?  Maybe I can talk with them
-> to have more information about how they work.
-
-You could ask Miguel Ojeda.
-
-Martin
-
->=20
-
+I'm not convinced. It doesn't look like anybody else is convinced. I
+wouldn't call that consensus.
 
