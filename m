@@ -1,131 +1,179 @@
-Return-Path: <linux-man+bounces-1343-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1344-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0240E928E47
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 22:31:57 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E119928E4E
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 22:41:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9F2FF1F251CB
-	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 20:31:56 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EE843287596
+	for <lists+linux-man@lfdr.de>; Fri,  5 Jul 2024 20:41:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 854996BFD2;
-	Fri,  5 Jul 2024 20:31:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 887981369B0;
+	Fri,  5 Jul 2024 20:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=kitware.com header.i=@kitware.com header.b="EvAxA30J"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u6gOscbB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3371F1F61C
-	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 20:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1181F61C
+	for <linux-man@vger.kernel.org>; Fri,  5 Jul 2024 20:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720211511; cv=none; b=bJafuns71dUc5fuKQpH5W4e36K+nbUhM6da09XsxE6VTGLOgOVwOaawXhNoKFsT++TyPVtruyBuOk/qmNeuG0wohJ1FrGIShnwuQPCncrkUSq0fCIecyaXMLO+HPtciDbZ4QlivRp2bjcwy/jGr5fIJZh9yenUzXnqVwrP2QOrA=
+	t=1720212080; cv=none; b=eesig3tcwYS0QSDDjbMypgmGJ26NbvT5CxF2tDB2vC/9ySL3/ARpKB4oATNA9Di69hPcwM+AsK15e3n/yT4mEvzvIWCIGFT6LCANC8fjo3qAQch5m8t/c+h8BwZOB+xBcH7byZLSQpSiMCVNGUBlE1aGCcctk6baG+0gga0bdo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720211511; c=relaxed/simple;
-	bh=uMmRoNIliCCSaX7e992CspMNPDI9/1mMkMyaHCAW3Ao=;
+	s=arc-20240116; t=1720212080; c=relaxed/simple;
+	bh=JSVVVuA3cHVscuOo5EANuL9WrEBfc5npGCZ/vaXlx48=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qt+nZw9JIzVGd8C/TRHCWsSibYQxSX1OXDzJ2uZR7lp/5RypCWVq5ucQQOIFmhfmh1ztGQQmQr75cqO69drsJV5hI2ic/5FCPutnPOIOAAPUf2kcmfmXKmPtzisLuy4KrlxWjpepF3WU64WePIR8kaq4KoAuh74Q9AYDXz+0P7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kitware.com; spf=pass smtp.mailfrom=kitware.com; dkim=pass (1024-bit key) header.d=kitware.com header.i=@kitware.com header.b=EvAxA30J; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kitware.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kitware.com
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-6b5dd7cd945so11007096d6.1
-        for <linux-man@vger.kernel.org>; Fri, 05 Jul 2024 13:31:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kitware.com; s=google; t=1720211508; x=1720816308; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SiJ1Yo63lqaTOVau6BBBFOCUbAjpiAfeTti131NgYzE=;
-        b=EvAxA30J+ZZIDsXzJ8am9jBj+MMF3iZUB7LfI7EXOLIt8+neW40XK+WUqd2SOl1Za7
-         rWInbuz94NWvythThIqsw9TnvV1AcWm1Q36QSA3z0zK71MT5cW7JI/02eRHRH2oRJwIh
-         +LembDlQCbXjt5zBHM0qhpLVErvtMPbf3WbLY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720211508; x=1720816308;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SiJ1Yo63lqaTOVau6BBBFOCUbAjpiAfeTti131NgYzE=;
-        b=JdbFI7TcSpGG8U57lJDThX/INnnwe3sid+67VWZX0p9UMm/p4OeLHBaHL5g+Sih+zv
-         BamNSYoERl9NG7ugWQ2kPibIgXDyBTtTdHkxalaEexyn+Q00iqZf+dWUhLk0GDlpHvQv
-         9M5rwWYSYwtFByrKp693yRX8V47M/MQOzCCl4WhoQQec54to/ckHuamGxbYIXwybD4GR
-         GKZ0DLOjsUovcpsMrsnMpOzpoa9OpNYFmuQHVhR4HMpP6mbO/TcwpG4iR2VfdIpmuG3r
-         YCyn/iYZPCdK2aMloJxLRF0xuowt/sbhX1pU7Y32ZUXmNQblfWVLfFRBac1o0dz0j8+R
-         1raQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5kyLbszn7P4crKcdJ1WbmyOW+CsHQim6eYVGs71fa1RI7H5Wz7sEYpi+jGbil2uxz0FxUvEuRV88DQWn3d4ZPG2spw/4loi39
-X-Gm-Message-State: AOJu0YwHWYq07xXTsjgH1OzZrrnGKQtyMuPsrU3sPTpVh99IWtObEDKU
-	R0rTSYdjT3sfqHuy8DiH1BVhQGhHKHbAUReD/xoSY1cFqdmk126WtLdyZzzdSA==
-X-Google-Smtp-Source: AGHT+IGZgVsno2MB8jCSHyp/Tkk1Uxdsvcwam2XEfuSLdQB6BPV3QvGBkbw1S2qCkLeZxT4xQ8PdIQ==
-X-Received: by 2002:ad4:5d69:0:b0:6b5:db9e:2c73 with SMTP id 6a1803df08f44-6b5ecf9d7a4mr66671106d6.10.1720211508087;
-        Fri, 05 Jul 2024 13:31:48 -0700 (PDT)
-Received: from localhost (syn-142-105-146-128.res.spectrum.com. [142.105.146.128])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b59e5f3568sm76142926d6.80.2024.07.05.13.31.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jul 2024 13:31:47 -0700 (PDT)
-Date: Fri, 5 Jul 2024 16:31:46 -0400
-From: Ben Boeckel <ben.boeckel@kitware.com>
-To: Emanuele Torre <torreemanuele6@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>,
-	Jonathan Wakely <jwakely.gcc@gmail.com>,
-	Martin Uecker <muecker@gwdg.de>, Xi Ruoyao <xry111@xry111.site>,
-	Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org,
-	gcc@gcc.gnu.org, Paul Eggert <eggert@cs.ucla.edu>,
-	linux-man@vger.kernel.org, LIU Hao <lh_mouse@126.com>,
-	Richard Earnshaw <Richard.Earnshaw@arm.com>,
-	Sam James <sam@gentoo.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTxq+pBc8aZ3mhJoaQUiBdAv4cx7kxNaQTIgUdZpItyYjkHwxfBkpFjM7CkwTi4vtmOUGzyqW5XZwMowCZzfrjXooiWdmK14sTwGBhPdrZy80VYlvQKRxbIluCmTbCXBacNX+vMdrvXwNQ/z+fI3rzWi/wl+32JCs5PMkeThyLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u6gOscbB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3237C116B1;
+	Fri,  5 Jul 2024 20:41:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720212079;
+	bh=JSVVVuA3cHVscuOo5EANuL9WrEBfc5npGCZ/vaXlx48=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u6gOscbBBlMWvs1ydQZBejnniC/qY8tbCdOBTTln1Wkc8UGJ9w4e5LHZcf4wlEIhw
+	 jjMZyIjpmZMVdOmji/s31pSt5vEOKiEXd5ImQ0Z+enunyA+kGC9TnW0olY5DfK60B4
+	 mdTLaeZeyhube4dUQZ07OijnyZ2d5PgqlSTxXua+aP+b6VZm65ePKlcUP8oPy0PIu1
+	 uH9l7yZFX4b0iVOO+8ABWw/+gtdnIgLA6QgaF9ETEfFDM5m6vUX8RjgUnN4ZxgJRKK
+	 La5wpj08KusIqRCZ5T28+/zzOAknJ5SUj/P5WJ3IkN1gd1h/Jgr6UMn7/ljWcAAm63
+	 h0CAoJNZlwCdw==
+Date: Fri, 5 Jul 2024 22:41:15 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Jonathan Wakely <jwakely.gcc@gmail.com>
+Cc: Martin Uecker <muecker@gwdg.de>, Xi Ruoyao <xry111@xry111.site>, 
+	Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, gcc@gcc.gnu.org, 
+	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, LIU Hao <lh_mouse@126.com>, 
+	Richard Earnshaw <Richard.Earnshaw@arm.com>, Sam James <sam@gentoo.org>
 Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
  functions
-Message-ID: <ZohYMpUBGDydYcTO@farprobe>
-References: <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+Message-ID: <fa2flrqt5kohlkfxmqaopi2ug5olktxfs4vz7bj66zl7cudcew@6ivbfc64hhne>
+References: <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
+ <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
+ <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
  <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
  <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
  <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
  <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de>
  <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
- <CAH6eHdSM3dKvonC9YOhSpasvXukv-wmswrcr1g4LR58h203cdA@mail.gmail.com>
- <2naeq6y7bllpma7zsonkpm2kcptiyubtacgluyb4dehdcvqys7@7byxskyncxqf>
- <CAH6eHdQ2j9rwEkHo3GNdohu9fU1iqQvBjXwqY4sX96yjqEjgdQ@mail.gmail.com>
- <ZohUcLoJbi-A1JvK@t420>
+ <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de>
+ <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p2mgqtrs57lqrp2g"
 Content-Disposition: inline
-In-Reply-To: <ZohUcLoJbi-A1JvK@t420>
-User-Agent: Mutt/2.2.12 (2023-09-09)
+In-Reply-To: <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
 
-On Fri, Jul 05, 2024 at 22:15:44 +0200, Emanuele Torre via Gcc wrote:
-> That is 6.7.3.1p3:
-> 
-> 
-> 
-> In what follows, a pointer expression E is said to be based on object P
->     if (at some sequence point in the execution of B prior to the
->     evaluation of E) modifying P to point to a copy of the array object
->     into which it formerly pointed would change the value of E.153) Note
->     that "based" is defined only for expressions with pointer types.
-> 
-> Footnote 153) In other words, E depends on the value of P itself rather
->     than on the value of an object referenced indirectly through P. For
->     example, if identifier p has type (int **restrict), then the pointer
->     expressions p and p+1 are based on the restricted pointer object
->     designated by p, but the pointer expressions *p and p[1] are not.
-> 
-> 
-> 
-> Which would be the same paragraph of the same section on N3047, but
-> footnote number 168.
 
-Obviously, we need better types on our standardese pointers. Jonathan
-used a pointer of type `footnote _N3220*` while Alejandro was expecting
-a pointer of type `footnote _N3047*`. Of course, given that they end up
-referring to the same thing, this may have interesting implications when
-they are used with `restrict`.
+--p2mgqtrs57lqrp2g
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jonathan Wakely <jwakely.gcc@gmail.com>
+Cc: Martin Uecker <muecker@gwdg.de>, Xi Ruoyao <xry111@xry111.site>, 
+	Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, gcc@gcc.gnu.org, 
+	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, LIU Hao <lh_mouse@126.com>, 
+	Richard Earnshaw <Richard.Earnshaw@arm.com>, Sam James <sam@gentoo.org>
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
+ functions
+References: <08bc01290aca2408f69a6df2088eed7697968e90.camel@gwdg.de>
+ <f3oswcupvsnxglwzp2h3pdc7k6ibuwzfhxl4zarqclwqzenn3h@jaj3ksd4foeg>
+ <b1888e9f069950be010f7d87d4a8ae6ed64b69b0.camel@gwdg.de>
+ <inr67omtoxegfmjxrj24h5fuvgthv2b7yr4v5kv2dq5oaterpl@h6clysw4s4w5>
+ <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
+ <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
+ <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de>
+ <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
+ <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de>
+ <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAH6eHdSXtYgYyKni3PuwTWTZySw4i=xtz+Fq_RawM5F2WyybCA@mail.gmail.com>
 
---Ben
+On Fri, Jul 05, 2024 at 09:28:46PM GMT, Jonathan Wakely wrote:
+> On Fri, 5 Jul 2024 at 21:26, Martin Uecker <muecker@gwdg.de> wrote:
+> >
+> > Am Freitag, dem 05.07.2024 um 21:28 +0200 schrieb Alejandro Colomar:
+> >
+> > ...
+> > >
+> > > > > Showing that you can contrive a case where a const char* restrict=
+ and
+> > > > > char** restrict can alias doesn't mean there's a problem with str=
+tol.
+> > > >
+> > > > I think his point is that a const char* restrict and something which
+> > > > is stored in a char* whose address is then passed can alias and the=
+re
+> > > > a warning would make sense in other situations.
+> > >
+> > > Indeed.
+> > >
+> > > > But I am also not convinced removing restrict would be an improveme=
+nt.
+> > > > It would make more sense to have an annotation that indicates that
+> > > > endptr is only used as output.
+> > >
+> > > What is the benefit of keeping restrict there?  It doesn't provide any
+> > > benefits, AFAICS.
+> >
+> > Not really I think.  I am generally not a fan of restrict.
+> > IMHO it is misdesigned and I would like to see it replaced
+> > with something better.  But I also not convinced it really
+> > helps to remove it here.
+> >
+> > If we marked endptr as "write_only" (which it might already
+> > be) then a future warning mechanism for -Wrestrict could
+> > ignore the content of *endptr.
+>=20
+>=20
+> That seems more useful. Add semantic information instead of taking it
+> away.
+
+How does restrict on nptr (or conversely on *endptr) add any semantic
+information?  Can you please phrase the semantic information provided by
+it?  How is it useful to the caller?  How is it useful to the callee?
+
+Cheers,
+Alex
+
+> If the concern is a hypothetical future compiler warning that
+> would give false positives for perfectly valid uses of strtol, then
+> the problem is the compiler warning, not strtol. If additional
+> information can be added to avoid the false positives (and also
+> possibly optimize the code better), then that wouldn't require a
+> change to the standard motivated by a hypothetical compiler warning.
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--p2mgqtrs57lqrp2g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaIWmsACgkQnowa+77/
+2zK9sw/9E71j7lVzIU3mV6mFCbTD2S3o+NLsgHMeiy/A8KVZAPjtbHttMCqYckML
+FeUCF5i3Tqy5+ZixDx//4Nt3Txu1fsJ/fuEp5+7DsiDTTqQo6PUyek7+iq3itY1b
+XhlQehXGtlAI0bQr6XXf04Z/qlSi9vKv5d9FNItDj/Zfb0Ay4ipErWTRAoneLXRC
+wUrAgu8DFY1iVlHF3EEwgpz+Kw76koIIcT/j+jbKxFxWiReBwnz2f6qV1caf9Rm0
+cs0p3nqQ6OMQ17H/Lff89y5Bejg5+99+tMEHoiAThh3zMXMUoVo6+VxCqNDlGlnQ
+OYGQ6tz+3E6ONU9O8TmfwIAewrwEvnCEiqaXWlpzoWSdBPEWVrLdudPHJ58uuaFg
+mIx8PQjtpJniOKo13av2ywzH2apK2COIhVg+aftc+rg2crAy/vETtwuH0hF2c4cY
+P4Rs/NS612fie22ORe4sX89GGQjPJOMHm56nmFplILZRSQs49BhQwO9zum3wMDxq
+EH86aR8gNAYsG/O64X4C3/CVOWY/V/VNOuktf7T+k75GlC8kVhdxv+1s5IEyhwxn
+zKGEiYVHbXuZRwTPULPP9JwiADEw6Vqi/QnCAnCPyJK9cW3orCh1/iQ0kIpZuh8J
+laaucPiP6Zq0cBj8msZYIwomDYwh0+Gxn/gAsaLOYVcWoW6UgCk=
+=3d15
+-----END PGP SIGNATURE-----
+
+--p2mgqtrs57lqrp2g--
 
