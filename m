@@ -1,58 +1,59 @@
-Return-Path: <linux-man+bounces-1351-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1352-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE99992912F
-	for <lists+linux-man@lfdr.de>; Sat,  6 Jul 2024 07:51:35 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B814F929139
+	for <lists+linux-man@lfdr.de>; Sat,  6 Jul 2024 08:10:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F2BE51C20FBB
-	for <lists+linux-man@lfdr.de>; Sat,  6 Jul 2024 05:51:34 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6BC2B283865
+	for <lists+linux-man@lfdr.de>; Sat,  6 Jul 2024 06:10:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFE1F179BD;
-	Sat,  6 Jul 2024 05:51:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C983D17C68;
+	Sat,  6 Jul 2024 06:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="squShDP0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLQ/Y+Kr"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F61D18645
-	for <linux-man@vger.kernel.org>; Sat,  6 Jul 2024 05:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAC21BC43
+	for <linux-man@vger.kernel.org>; Sat,  6 Jul 2024 06:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720245091; cv=none; b=owTTptU2wBY1U05lUGHLRWx2IZEhYRIDuNTpyp6pRbL1n9z5c6Gq4bcN1a5diEF4CT4i+XZZYaEtgjf3If5HTD/KOGOjuskIHXnMlIYTlouBs6L0CcTtW+8ZAvlEdpNMWYPBTEtgRCq4Ndnq99AmDbP7v7a0q+31Cx9T9tdx7p0=
+	t=1720246228; cv=none; b=npEfWxP1mCfJGnNTKhY50iFNYMMOLVPr/lNHhlaAJoQOOrfWYdybr3x9GHCDL5+TPb200rEFIKOfQZ5bKn8957GPYDGrHGeoJE9QK0nadUueakkNLmjXGseP3dh8WnXGVLQjRDlsTmcsYdo6v13mWh+q+e+aG/AhiFz1p9fJAog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720245091; c=relaxed/simple;
-	bh=wbljjMrUCewQj2hWhiCOwVnOD9ZfTBBVV7AA+Xw8vcs=;
+	s=arc-20240116; t=1720246228; c=relaxed/simple;
+	bh=CVexFMXcxiXKtYYQYsdkxXVjGUZyXd1FjWudYE6P5Xs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F7c+E6AhfCLCMClAntCi67kXUp0HvJHqL2g8jkcxLYxc2ZNRHCssW9G4b7HxJRrHA9GaUCkW4nrYQnQ1DkZptNqDtNFDqk8O9Cx3/oTkyPxNFVI4W2MGfy9Aadh4Hpa1P2ABC904PegKjw3cDQQpipCgsqJfT1HaisUO20mLvVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=squShDP0; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88CC8C2BD10;
-	Sat,  6 Jul 2024 05:51:28 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pt3go/qEAtRkbAH3q58zfmpn8Bqm4aXGpgoURKYtuevFq71NBXxKoLlwEfBWZREc94qWmaFIn4HhrhNxeTCPq89z40x3iNivQiP1AVLUQOw9CVhRQtqOO8COUVQsL3YzAMgVLoo8wJYyo1tUHvOhLiRUpjZaLoHWRScBBFpGBFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLQ/Y+Kr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3052C2BD10;
+	Sat,  6 Jul 2024 06:10:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720245090;
-	bh=wbljjMrUCewQj2hWhiCOwVnOD9ZfTBBVV7AA+Xw8vcs=;
+	s=k20201202; t=1720246228;
+	bh=CVexFMXcxiXKtYYQYsdkxXVjGUZyXd1FjWudYE6P5Xs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=squShDP0d7MLfLe5XoJubvG1ypfYkYGngX6PXvdXfm86A+THGMoiIuwL3Z9XAAmVO
-	 efCBgJGGBQvyJqyURuRe58hPRjVdRVjzcdhKRvM5J9qhct7ZfmhfrRSKHTL95EqUa9
-	 MxNwdqoOwob5Nfjg/iv9W/XCDtXFIDJ73TG02svMe/xPWIDYvleIfnARYj/5tKu9S3
-	 WD2s715T208OPU2OAS5oAJxqL3Bolybo9po8fk2Bax0MOT36rVBYC/OyThEjdc6XJy
-	 B5YAX+bP8uN23ZlZdri3CBHL4Q2h1ETt7wjUlK93R6PWWCBAuHInl9HCgED/Zo76Z0
-	 TPggkmjkhceHw==
-Date: Sat, 6 Jul 2024 07:51:26 +0200
+	b=dLQ/Y+KrRsI/OlERMyR0CIgoj+3NBctmtLIcRYek3htRwdJsF0wLrDJDyUJk3DHcw
+	 YQzyirg9JMmaM06M/LfFWUOQJgeQQZnMmUmci0uWYj9G8fD7nG33E69y7v7zD8vPSk
+	 UGwGuoI8HSxIcIDZrJDI/j1QI40V9pVNV95oKg9bYHt6GSui26RPE8YkizLdH0qX6R
+	 V6IiePvD3Dz1B4L++ddFPiYw8L7MwbaRCcXsaniz4S4NXzSiXQUqfMp7Q/5kisQavb
+	 QAWKES2LkARKXUmt/B19yHjP5NputSl6wafoOfL+bd3E3rJSl74aysfPm6YPxp25zp
+	 V11i8b2Zir6Eg==
+Date: Sat, 6 Jul 2024 08:10:23 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Xi Ruoyao <xry111@xry111.site>
 Cc: Jonathan Wakely <jwakely.gcc@gmail.com>, 
 	Martin Uecker <muecker@gwdg.de>, Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, 
 	gcc@gcc.gnu.org, Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
 	LIU Hao <lh_mouse@126.com>, Richard Earnshaw <Richard.Earnshaw@arm.com>, 
-	Sam James <sam@gentoo.org>
-Subject: [[gnu::null_terminated_string_arg(1)]] on strtol(1) (was: [PATCH v1]
- Remove 'restrict' from 'nptr' in strtol(3)-like) functions
-Message-ID: <3f6core5fdifx3xe633p44odqkxn5idtgbfqziojjwkvhm4bad@4gojiakwgufm>
-References: <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
+	Sam James <sam@gentoo.org>, Ben Boeckel <ben.boeckel@kitware.com>
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
+ functions
+Message-ID: <cigir4ogdtcwzop5vdj66ijal63c4iz6btydjx2htgvttca7xk@4rfpbvvdefdl>
+References: <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
+ <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
  <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de>
  <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
  <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de>
@@ -61,7 +62,6 @@ References: <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
  <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
  <te5zb6hxvtppcuw3c2nkw6nxzqvvwk2iy7ucb6chrg3cjzbj24@iufgvodbx64a>
  <1423b977ef060df385a62330c6b941fd60be7d8f.camel@xry111.site>
- <2f455c08bdd5915de3ee11da2e36e8c740d4db35.camel@xry111.site>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -69,12 +69,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yxnujofeu3uzz4ia"
+	protocol="application/pgp-signature"; boundary="wygusk4ytdlxcbym"
 Content-Disposition: inline
-In-Reply-To: <2f455c08bdd5915de3ee11da2e36e8c740d4db35.camel@xry111.site>
+In-Reply-To: <1423b977ef060df385a62330c6b941fd60be7d8f.camel@xry111.site>
 
 
---yxnujofeu3uzz4ia
+--wygusk4ytdlxcbym
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -84,10 +84,11 @@ Cc: Jonathan Wakely <jwakely.gcc@gmail.com>,
 	Martin Uecker <muecker@gwdg.de>, Jakub Jelinek <jakub@redhat.com>, libc-alpha@sourceware.org, 
 	gcc@gcc.gnu.org, Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
 	LIU Hao <lh_mouse@126.com>, Richard Earnshaw <Richard.Earnshaw@arm.com>, 
-	Sam James <sam@gentoo.org>
-Subject: [[gnu::null_terminated_string_arg(1)]] on strtol(1) (was: [PATCH v1]
- Remove 'restrict' from 'nptr' in strtol(3)-like) functions
-References: <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
+	Sam James <sam@gentoo.org>, Ben Boeckel <ben.boeckel@kitware.com>
+Subject: Re: [PATCH v1] Remove 'restrict' from 'nptr' in strtol(3)-like
+ functions
+References: <d99c2f8230eec6b7244b62ca612ee949466f62aa.camel@xry111.site>
+ <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
  <52b2cc96653f7587ed6e9d11a25ba8b052e9d394.camel@gwdg.de>
  <63bosaubufw75lzubtwykebbottnim5ceraaypstjmojimtjn6@5krmbaevue7w>
  <c764bd923ac6ebc754ef70c537cdc800c7214b7e.camel@gwdg.de>
@@ -96,80 +97,112 @@ References: <CAH6eHdT0NWVEAZ8ZwCc0WCR6RE5-pGJCGKatWyAb9chDZhWjGw@mail.gmail.com>
  <CAH6eHdTB7-k4sLT3brjEX+9evr0+BrfPkkzgfbCDA5ias=SbTQ@mail.gmail.com>
  <te5zb6hxvtppcuw3c2nkw6nxzqvvwk2iy7ucb6chrg3cjzbj24@iufgvodbx64a>
  <1423b977ef060df385a62330c6b941fd60be7d8f.camel@xry111.site>
- <2f455c08bdd5915de3ee11da2e36e8c740d4db35.camel@xry111.site>
 MIME-Version: 1.0
-In-Reply-To: <2f455c08bdd5915de3ee11da2e36e8c740d4db35.camel@xry111.site>
+In-Reply-To: <1423b977ef060df385a62330c6b941fd60be7d8f.camel@xry111.site>
 
 Hi Xi,
 
-On Sat, Jul 06, 2024 at 10:39:41AM GMT, Xi Ruoyao wrote:
-> BTW among your list:
+On Sat, Jul 06, 2024 at 10:24:16AM GMT, Xi Ruoyao wrote:
+> On Sat, 2024-07-06 at 00:02 +0200, Alejandro Colomar wrote:
+> > That's precisely the case with strtol(3): it doesn't access any objects
+> > through *endptr, and so that pointer need not be restrict.
+> >=20
+> > Then, nptr is a read-only pointer, so is doesn't matter either if it's
+> > accessed or not.
 >=20
-> > > [[gnu::access(read_only, 1)]]
-> > > [[gnu::access(write_only, 2)]]
-> > > [[gnu::leaf]]
-> > > [[gnu::nothrow]]
-> > > [[gnu::null_terminated_string_arg(1)]]
->=20
-> IMO we should add these access attributes, they'll definitely help the
-> optimization (like, optimize away the initialization of a pointer).
->=20
-> We already have __THROW which expands to nothrow and leaf.
->=20
-> I'm not sure if null_terminated_string_arg is correct: is the following
-> invalid or not?
->=20
-> char p[] =3D {'1', ')'};
-> char *q;
-> strtol(p, &q, 10);
-> assert(q =3D=3D &p[1]);
->=20
-> If this is invalid we should have null_terminated_string_arg so at least
-> we'll get a warning against this.
+> Restrict allows to reorder any writes to other objects with an read from
+> nptr then. In strtol at least errno can be written, and depending on the
+> implementation of locale things there may be more.
 
-ISO C says:
+This does not apply here, I think.  Let's include errno in the list of
+objects that strtol(3) takes, and list their access modes:
 
-"""
-The strtol, strtoll, strtoul, and strtoull functions convert the initial
-portion of the string pointed to by nptr to long int, long long int,
-unsigned long int, and unsigned long long int representation,
-respectively.  First, they decompose the input string into three parts:
-an initial, possibly empty, sequence of white-space characters (as
-specified by the isspace function), a subject sequence resembling an
-integer represented in some radix determined by the value of base, and a
-final string of one or more unrecognized characters, including the
-terminating null character of the input string.  Then, they attempt to
-convert the subject sequence to an integer, and return the result.
-"""
-<http://port70.net/~nsz/c/c11/n1570.html#7.22.1.4p2>
+-  nptr		access(read_only)
+-  *endptr	access(none)
+-  endptr	access(read_write) [it checks for NULL; I had forgotten]
+-  errno	access(read_write)
 
-I'd say it's a string.
+In the callee:
+~~~~~~~~~~~~~~
+
+The access modes are known by the callee, because of course it knows
+what it does, so even without the attributes, it knows that.
+
+strtol(3) cannot write to errno until it has parsed the string.  And
+once it knows it has failed (so wants to set errno), it has no reasons
+to read nptr again.  Thus, even without knowing if 'errno' and 'nptr'
+are the same thing, there's nothing that could be optimized.
+
+*endptr is access(none), so it is implicitly restricted even without
+specifying restrict on it; the callee couldn't care less about it.
+
+endptr is 'restrict', so it can be treated separately from the rest.
+
+In the caller:
+~~~~~~~~~~~~~~
+
+We can't specify the access mode of *endptr nor errno, so the caller
+must assume they are read_write.
+
+endptr is 'restrict', but this is only useful for having warnings
+against dumb things such as strtol(x, x, 0).  Other than that, the
+caller knows what it has passed in endptr, so it knows it's a different
+thing.
+
+The caller also knows that it hasn't passed errno as nptr.
+
+Then we must make a distinction in what the caller passes in *endptr:
+
+*endptr is uninitialized:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The caller knows that nptr is restricted even without the qualifier,
+since all other objects are either restricted, or known to be different.
+
+*endptr points to the same thing as nptr:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Regardless of the 'restrict' qualifier being specified or not, the
+caller has no way to determine if the callee accesses the object via
+nptr or via *endptr, so it must assume the worst case: *endptr; and so
+it must assume it could have written to it (since *endptr is non-const
+--and even if it were const, as you said, it means nothing--).
+
+
+So, even considering errno in the game, I don't see any difference if we
+specify nptr to be restrict or not.
+
+Thanks for the feedback!  I'll incorporate the discussion about errno in
+the paper for WG14.
 
 Have a lovely day!
 Alex
 
+>=20
+> TBAA does not help here because char aliases with anything.
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---yxnujofeu3uzz4ia
+--wygusk4ytdlxcbym
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaI214ACgkQnowa+77/
-2zLuPQ/9G86aS62FtDGowSHkzBRGNC/TivL9vzjEhG+NaJRFGqN9J8+hDQXWw7vC
-Ad+WL3Lr+xFzO/kua4kFvHo6h45rwE3FMPt/ajIVFJuHpSD22auqTz3dGedcOWvG
-rNb0MPkgQg0WJLuskqb71rMjNXoOD3m6AyFgIu5s71fBUe63QEuChW2xFoK/3dVO
-mWJ2ftT8hGBl4RoC01mZXZinoJLpIylYe/OdYbn/XwvaQNDrv5ey9DZy50DRKYXX
-hVy6QzYRm7QtUEMgXK8+HHsILNoyvhdfLGjDVG7D4c1CqsOpuHt6wPTiYHjrm0He
-V3FOnzZbIjrvxpYt01lmpZYOfWkpMkF6X2hbmFYyj+C1nak/pArSotr7cJIh63ld
-3wLB2PEdLnXmmtSTxroOU74EdGUlF0ah3ojtKybXQQvsNQQ+Ga3wRcnO/UmTCpLi
-SHInm2v2IqyUye0lp0evSi5nYGwwOKZRdjek9YiWHwZ06Oa/9DG8RE9C0J/Q+08L
-FbPZz4j4OVtI3/LaeOXsDSXGhN0sCHY0P0RuhUcceYvXAq6+Asa4BiyQTAM/in/S
-1fkheHN8r8qOZkfY0kjbxtTX33bdpwzPQS8LhMtXFb6q1N2HvP2s9nPpwATi7AQ7
-N27nz5ivt2QJGoNCSk2Uzpi77WcZusi8kAEpnF2Fu45EIhob6OA=
-=luDl
+iQIyBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaI388ACgkQnowa+77/
+2zLEQA/2N45A9UY7Ppsi1Jcpe/REWA+yY3qwwlRto0/HjUmp7d4KOLbi6k3X3B9h
+dndz8QG6MUQCCPhxqolv7/WCwaiqPdvZzF1hM8Vc20rmBvKLtLcdPm+qYL60o3+3
+e55J2+v6qpplIm28l7lqMlt2JH5/w8Gey6wZQbJxJcSE/x3kcVWCT8L/9XUYRJYF
+vKhOuj73fVRdKTmMxQB4kKs30CVu1ODd0m9DaW67ame/ycNtM382ILM4hgcmx+BZ
+EoIYyjDRXD2sNQTCo6j9WWaYxSdMGiTL+8xiMNELvZNF9nrspfpiZKfg1ms75XMn
+7LSVCaufATv+zwjcXoRjVQU5DhnLiBPpVIeIQpGyJDrW7XuQ0uAGTNYHON1EyXWI
+uBqx9NJGf18XxBzbL5MpHtoINXF+z+tOi1CKM1J9/61biP6QLXXUKo/DcQqN2S7M
+Ci7x4MAZlboOf17qbxOsmxeoEO/Y4ZXMCzfkGueoMUqv1yPSYjj9JGzB7CVip6J7
+PL82jrEaDQ8qw/uBwW2vA77IGuHU1Yo/OuPkaQSe9jGJSLGLM3EpF3BotCN2IC8T
+FpyTuVAIRH3+0BamaTVc0cM/othXhjQMipQQD16m+oUXMoRVa4yvpBOqLsWD37jH
+iqWLB369kXcHtT1U1Xb6dyrYMn58PrT3dL6OyxOO8YPL4/sWFA==
+=bSWZ
 -----END PGP SIGNATURE-----
 
---yxnujofeu3uzz4ia--
+--wygusk4ytdlxcbym--
 
