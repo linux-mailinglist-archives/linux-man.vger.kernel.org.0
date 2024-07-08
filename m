@@ -1,229 +1,563 @@
-Return-Path: <linux-man+bounces-1368-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1369-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1327692A170
-	for <lists+linux-man@lfdr.de>; Mon,  8 Jul 2024 13:45:03 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D78392A4B0
+	for <lists+linux-man@lfdr.de>; Mon,  8 Jul 2024 16:31:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 34B2F1C20F8A
-	for <lists+linux-man@lfdr.de>; Mon,  8 Jul 2024 11:45:02 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5ED72B213F4
+	for <lists+linux-man@lfdr.de>; Mon,  8 Jul 2024 14:31:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 018997E111;
-	Mon,  8 Jul 2024 11:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 526801E50B;
+	Mon,  8 Jul 2024 14:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="VUqDR/x8";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="UHKZFX8V"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P1wI0b7O"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474A778C75;
-	Mon,  8 Jul 2024 11:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720439098; cv=fail; b=kg9NT6ZrBDc0yJ3p9HWRbQLaqjKdLO6tbtBpJ6bj+e1BZBI7vx7L5rWsE0HybrCqNbbPDjuF8NCPFrD77kJD3SRLagz+9PKOpNIyMLAXbz3G+MQRdgv4rIHolyJBYCVCmQ/HrJCAWuiFoOsjKKwgqku30s7npIWIeSfW4cydjJg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720439098; c=relaxed/simple;
-	bh=tIU1k6+5ierHaB9xfoAaIM1AsL6e9FpBJWhaSKt5Ruo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GsMDVqaF5kKslgI9viJ29ydhsoRuaLknZBxVzLVl7piwh9uHN1npXHCPyktqjpbQrsz0eV74oaGdWj/k5Qrtv3mbO/CS6ykgt18hYuyFq5LsBWgYMvf8oCZ/ftVfpP+PKoCiHh2NYuyxclDpZeJOgnkvZCspqLO0niGa8JdA2PA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=VUqDR/x8; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=UHKZFX8V; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4687fT97017381;
-	Mon, 8 Jul 2024 11:42:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:content-transfer-encoding:content-type:mime-version; s=
-	corp-2023-11-20; bh=v7AsdXcCPVPAZxrzQhNhlYIKZDnq2FMf+utEDc8C5Kw=; b=
-	VUqDR/x8mTOh1VcYwSOMwphKmdyPVVXbL8b+kjXjrwbyNEN+Uo7SqJAKoUAZCQ0L
-	wTX3oapawrQ1OORoLBYJj4jhHEbAP4mJTqEzDB+McT6Mq02WR9K4Ee3nDiTd+pDz
-	FI81HmMphJdi/NHw7k7cH/O1nD0M+E5TTeSsnvJpJqyGxQh0zEv50IjMdKk6Qd5X
-	YCuxukaRX0wDpEIrJ6x+IPh63zVc4UZ2KP1ZpZeAYbbn3Nof5E4WdVbR0Zv4JOfE
-	4HCyN71qExS5zNJBNkKNL09f6leyrw9Hb4iAkts7sH2MPrKxzYsFztJUGJJVHNMd
-	P+rAwiif5H1y641OgDrOxg==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 406wknjdpg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 08 Jul 2024 11:42:49 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19) with ESMTP id 468BUeEQ013665;
-	Mon, 8 Jul 2024 11:42:48 GMT
-Received: from nam11-dm6-obe.outbound.protection.outlook.com (mail-dm6nam11lp2169.outbound.protection.outlook.com [104.47.57.169])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 407txf990m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 08 Jul 2024 11:42:48 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WWnDIelnc97woAMbHsEAn3R7DrCHWvPvXYSeki50V/cOmjRYAjxrOZ2Sm8tRGS08vpzMJhrCGuB59A6PkNVLzlKQtGgiGNwSipMugGhHRNl+6v5iAMD1Ic6ZpV63dPXxrwKCt0W6MEEVa7jo4G07Kf2FCVOF3sxM6DFl4cDg2YLv8depkg5TK17MluIJUPl8+0C3i93g2cQ77W17SCDXNZLPc73UAYuZLZmBRiBn2ayf1kqyX5ti5tcxUfXJlFPsJuvMioxvOcPiWIS/G0EWxYNbTrk6k0TEbYLllxwkM5SdTaNbevAd1TTcP1QDkYu8VV2SKGVO1katYpKz3arBlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v7AsdXcCPVPAZxrzQhNhlYIKZDnq2FMf+utEDc8C5Kw=;
- b=hxwvzdLrAkyAv5S0cEJbP6KP7Qad71N+RS7R5shwQgaZTi0JtRUxV+QXp42kCaAxd0aitAIXnbiyPydbLGr3PfzBFXzkR3UWKwKc0/HLwiESvb5ydrOTURXXtxJduUYbybMq5PdKYbEqzkbyNvoHZWcgrReMI8ye3aKV90xCiUv8AOQenqlqE9YXjE5Wor6m3ZipjAh5W7+mLAfg9GWz5LULf5GbO+9CZaZJKYhXQFjl6HJ2qlJXMA72mxfUvcH4cEeW+9s90/q/dF3w3bkkfXi5jhDXVSkY15hq6plF6vX48t0xBhI+1uVmow335XmOAjh0oxHN7E+MrcMbPyHsvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v7AsdXcCPVPAZxrzQhNhlYIKZDnq2FMf+utEDc8C5Kw=;
- b=UHKZFX8V1cwypHhpa8WGtTkzIAyj1AcXRPSZeCScVvC6179/KtJiPwwIj4ou3emsxBTzd3MFKdrHja5rK+r7JsHOHC0rljdfjTPSciFQVZzVFRV4H9ptj53JdA5j4B9X/RVWJFchtbLv4qa0y8BbeHnAQrhaI20OaHBut0SXst4=
-Received: from DM6PR10MB4313.namprd10.prod.outlook.com (2603:10b6:5:212::20)
- by PH0PR10MB4454.namprd10.prod.outlook.com (2603:10b6:510:3a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36; Mon, 8 Jul
- 2024 11:42:46 +0000
-Received: from DM6PR10MB4313.namprd10.prod.outlook.com
- ([fe80::4f45:f4ab:121:e088]) by DM6PR10MB4313.namprd10.prod.outlook.com
- ([fe80::4f45:f4ab:121:e088%6]) with mapi id 15.20.7741.033; Mon, 8 Jul 2024
- 11:42:46 +0000
-From: John Garry <john.g.garry@oracle.com>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, axboe@kernel.dk,
-        hch@lst.de, djwong@kernel.org, dchinner@redhat.com,
-        martin.petersen@oracle.com, John Garry <john.g.garry@oracle.com>
-Subject: [PATCH v3 3/3] io_submit.2: Document RWF_ATOMIC
-Date: Mon,  8 Jul 2024 11:42:27 +0000
-Message-Id: <20240708114227.211195-4-john.g.garry@oracle.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20240708114227.211195-1-john.g.garry@oracle.com>
-References: <20240708114227.211195-1-john.g.garry@oracle.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BL1P222CA0005.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:208:2c7::10) To DM6PR10MB4313.namprd10.prod.outlook.com
- (2603:10b6:5:212::20)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003191C06
+	for <linux-man@vger.kernel.org>; Mon,  8 Jul 2024 14:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1720449057; cv=none; b=bR0QQG7Ap10O6rHD2FDLaWsqeWrDa6W70TRwNmov1qjywIzdbWI3kXFnmb+66Y56OyZS6TNqlSMEN93C6UOpkSphIt+YQgeNENDzjz7PY9Zrz+qpJBhef2CSVYm+cRc7TYL0INN8bl8P4k73h2Bz4k/nftkbtN66n2vhAxJlvHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1720449057; c=relaxed/simple;
+	bh=jnTDiFSFKk+DeGpA6i3Li7tovk4z+Mf8EceV1mUzjtk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bum3etK0u7jf6/JPQDu7J66pacBKExsYx+Zr8VL1OHNOQLXkkprRyS8xXgOXhu9bqrhXNObbWxPmhHajfcL77HAi7piHjsL0A6h0+BVTKYvvKX49ijw0bpHdDO6DTjifphSbrfQ0WdrnhwaRx22SQw8f3HfyaAnN8iFPlDcv1Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P1wI0b7O; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1720449054;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=90nXcvtVQw7jQPbh/iGQgfXK+uYY+y/HoMtWSc/QB7E=;
+	b=P1wI0b7ODMQYBjQjIU3OWqvLjKgmFUZBS0QGklZ2qIdr+7apVq8CwRMQlwyuEh6W82/xEG
+	CHiJgRmUzKuVqeAHINGSJDcfP18Tku+O3TYdXxrCOZMzAhbS2BpvJ4oABy7lNoKtgTDEMN
+	bd2+ln02taMAgyyJ/lj6isH6G7OtGNI=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-103-Yg1vwWEXPsa8-MrfVdnq2w-1; Mon, 08 Jul 2024 10:30:52 -0400
+X-MC-Unique: Yg1vwWEXPsa8-MrfVdnq2w-1
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-79f006f9f14so317877685a.0
+        for <linux-man@vger.kernel.org>; Mon, 08 Jul 2024 07:30:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720449052; x=1721053852;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=90nXcvtVQw7jQPbh/iGQgfXK+uYY+y/HoMtWSc/QB7E=;
+        b=rXWMwEizJ6IAPDKyqE59camlKMpyfPLB9m2WJabKhPRgjcxKao/zXCOq5G3vy49g5s
+         BZuK3Ft7H1/+569mgO1H5K1B6fSjtnffitdC7WZVgg/jGXO+ZPCwM8czqit7Yk+YTgT8
+         K7E7divLyYPwVNKv5PQbTtG9uURS2UD+0EQMARD3nEKkk7Vw4MIIRieNQLtQ6HIUAi6D
+         +RhZ/tIftNGKBLwhvDEEOyLQDPxBvXzrF13XBuJ+ecW8JLO+fqdHl3U0xiNTlaHXUpQY
+         5t4mnDG5z9tEGlXrtsTTjhNbHOvct/Za87oxD5/jFcG2fEdwUNC0/ZuptFHQiH61Gs7S
+         Gseg==
+X-Forwarded-Encrypted: i=1; AJvYcCWvh1DnuAg4kh2y42vW9PUtqIaO9narsI6WH3/8DvpVa1m1iAR2GLnpUWLysGqCCuPLduKVQTZzf/wd/dnwNf2wU5QgywzRN6qm
+X-Gm-Message-State: AOJu0YyMK5YOAm84aw3vSVFWJIyFxZYt7oC1EFC9XZ8uzk7Nu+HSAtBD
+	CnKUp8K5tliyQUrPnu0hRtiWgx6TDdQYrb99eT/Az7yQuu9BsyYsXHLg1qWIjuR+8qPVQ5PMBKp
+	8TSmVUrMPBxKzdRIwoIdATDa20LipryrcWmWl1paIPlsSmnB0dXEbMaPlEQ==
+X-Received: by 2002:a05:620a:4089:b0:79f:12e9:1e51 with SMTP id af79cd13be357-79f12e91ff5mr280737185a.5.1720449050302;
+        Mon, 08 Jul 2024 07:30:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHkmk45iwMx62DSMezna23UInic+sD4ztdtkrV72ps7GjLCDic1vdBb8KHDrvAHxzcpv98I1Q==
+X-Received: by 2002:a05:620a:4089:b0:79f:12e9:1e51 with SMTP id af79cd13be357-79f12e91ff5mr280731885a.5.1720449049770;
+        Mon, 08 Jul 2024 07:30:49 -0700 (PDT)
+Received: from t14s.localdomain (c-76-28-97-5.hsd1.ma.comcast.net. [76.28.97.5])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-79f14e684f5sm40482185a.51.2024.07.08.07.30.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jul 2024 07:30:49 -0700 (PDT)
+Message-ID: <e2d7b36d5716f1799ba43d1373a0a2d65cc7cb16.camel@redhat.com>
+Subject: Re: WG14 paper for removing restrict from nptr in strtol(3)
+From: David Malcolm <dmalcolm@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>, Paul Eggert <eggert@cs.ucla.edu>
+Cc: gcc@gcc.gnu.org, linux-man@vger.kernel.org, xry111@xry111.site, 
+ jakub@redhat.com, uecker@tugraz.at, lh_mouse@126.com,
+ jwakely.gcc@gmail.com,  Richard.Earnshaw@arm.com, sam@gentoo.org,
+ ben.boeckel@kitware.com,  heiko.eissfeldt@siemens.com,
+ libc-alpha@sourceware.org
+Date: Mon, 08 Jul 2024 10:30:48 -0400
+In-Reply-To: <tuosvljyewh6oxpjqwgc6jbs7caknva572zij2u6hr4xwphlt2@kxz4xcdghaxl>
+References: <20240705130249.14116-2-alx@kernel.org>
+	 <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq>
+	 <37a1f7fa-eac5-440a-a3e9-08125ee7ec81@cs.ucla.edu>
+	 <tuosvljyewh6oxpjqwgc6jbs7caknva572zij2u6hr4xwphlt2@kxz4xcdghaxl>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4 (3.44.4-2.fc36) 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR10MB4313:EE_|PH0PR10MB4454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5266b2d3-d29f-4f6a-f16b-08dc9f43163b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?lYh3G8X9XT0Ag9CUCxwfEBBff7oZM37pHbWlmpetd8OPNS9d24l1BDA0M9XI?=
- =?us-ascii?Q?j07FBn82NIX/co4f/cyxWy3wjd67v/Ozmph7fBNc8eBd7psMuzFiqk8iKWUV?=
- =?us-ascii?Q?iLL4z0tDO7K1xNWAwK1sbMcc540epIxN/Jsq6vDipPyzBdE6jYyzGaD9LCgB?=
- =?us-ascii?Q?emqE6LfAfLVyiEl1DhhBmhi99siLDMJkh1G/c3o366cnSauc0cEk1uNrTJxx?=
- =?us-ascii?Q?bFUezH2z+y3k057+H0idnwIVrBf9qPIMs2E2d828nNl079jX/E1uniume2On?=
- =?us-ascii?Q?/KuBII6MCDD2JPccim3Z1dH9v2YzuPRcbcUTQtx2XgNhntydSGlafckbvwvP?=
- =?us-ascii?Q?1MD8tmutNZNL7pOBogV9TrVuAXCmTb2fOY65CA6wlrSz2daUY678lntjZi4D?=
- =?us-ascii?Q?nMHbhGldP+1G7JzkNKzv6jLPompjttzu31nJluM3cXusir34ayoxhYWyvvmx?=
- =?us-ascii?Q?6DsvzcCsLBYYahmUEhhN5mxa9OZik6AAq/yfRZ1ZPXpvrAKse/oecj00Rosi?=
- =?us-ascii?Q?jQ2VTHU4mU9H2+8a7AGkCN3mAJGvNgVSKM00L1KxL2IzyzoliOQksSvcUwU/?=
- =?us-ascii?Q?SdL+Kn4NcSZsoihokOFcl+tmTX0TBkAzIUhnG6wZnfjWBhptz09N2LFprw2l?=
- =?us-ascii?Q?CCrZbBD8Et8uW3Iy6XraMLlPlf5K6PV1Yu92y0ThOKsp9VaVqzh6SVw2gVkj?=
- =?us-ascii?Q?yVgxHh40GLRtgOUm/JjKRy33IF4QzU+rri49waY6DoICiNRtpQ72SSKVaVMB?=
- =?us-ascii?Q?LXgv0BtNhZnOFngwpevVjERs8lPCJt/GkfD7tsRwtDXDRebwpdYcgoweGszW?=
- =?us-ascii?Q?RsNDgPFqE/q18Kmhr5OjiMKBHGAlee8UqdgPDM/Kb0bxDEVieju3RAdYR0lh?=
- =?us-ascii?Q?oZJJXywscHvbjlln0jPhD0ZhCEUrdkdk7KFYC5ZKShlOzLyrfIKCVtyAb3Q+?=
- =?us-ascii?Q?HnVJlrQX99r3ulWpIL5LUq33eY1iClKQT8RWMt54xjx5CpyQeaFbyrbz5Se7?=
- =?us-ascii?Q?9hMI/bifY9YsvkQU/ZOo+GRC/Lf1Fu+ezKPRT5LNVlbbAb7l06j3H4i1wZR8?=
- =?us-ascii?Q?e2AQzt/zXVzcZrYXAP60xIwIF2hIeVaBmaATqvf57241kzHFZrEng397JKHS?=
- =?us-ascii?Q?cPkz5NPoQ0sYeCA3Kq2geMUq+bRrh/I7eB9p07Pk9PWaqQEewnfBMBpG+vU5?=
- =?us-ascii?Q?cz91FFc2tBQ9jJJwAel/24SauhrRLyvU6t+/GgNJKAl+yDFB4nwCOndw8CoP?=
- =?us-ascii?Q?TSVn12zljJ6tkKBll/gEZ8wTJWGvg2ftfII2fRX7CVOnBa1/GMiKQbWIDll8?=
- =?us-ascii?Q?goktYKZ6A7/v8fB5FQwxKLTY+HhBw4ipQu9b9OqJvzY+CA=3D=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR10MB4313.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?rv18cAolxW3FxfTEoAw8EydxgB+91m+rCU75R7H04kgyF8CIed/RyK4iH/Gu?=
- =?us-ascii?Q?SG+Vyw7m42uVUqJjAIb1s/8I9oK7gV+KZpVPL2KLOMHTlw0dNsDLRKJv9pui?=
- =?us-ascii?Q?u5U/Npq/gLPBbdNdMlddazZX1f93/jDpGSPeJ2WWehFFPZ/jOASFGJsrVeXi?=
- =?us-ascii?Q?6wnQeTRZJFIHImmAhPM35UCHpp2nxskXc8osEm5cIbbI4MvcFD/KTm1eY0/x?=
- =?us-ascii?Q?Gd+2qw5HEuQtE1JmqoVCHr/j40okLSl055CDeeO+mpM3z8cz4tjxRZSPYaZP?=
- =?us-ascii?Q?Wl1bzKyZSXM4MfktyDrqau/2NLZZXbPxsnRYgBi1yLrdeIn1L2s2lwPpVl+1?=
- =?us-ascii?Q?6paHkBXWvwsKiZRYcUvIGyazwpOXq7pedEwtj5AJABuMKY7Sm8kyqY8Vf+5D?=
- =?us-ascii?Q?7+UvR+a78w30LB0sdQ6a8Ix5Ph7lm4TCvc78efKii8GcGFZoepw15+slIi0c?=
- =?us-ascii?Q?yv5JHydnnHZwsekqEQ9cNUpwOk976UxywXTQfQwPXO2juW/tZCH/B4lyRkg6?=
- =?us-ascii?Q?kGo/dLWsJR53/NYkJgnuG2aZr2bEp0IbsGnjMcXd7pHGNoVNJy2s9DGdS0Ja?=
- =?us-ascii?Q?DauNn05lHd6gwlMJK/vejNlsssNRe14VM6ZBWZD12GptX4jLn2C2ZXv6YkO6?=
- =?us-ascii?Q?ety9b8NnQzKspR5Ww6zArnrZ74B31ApXTNUzQp/GruGqwQvZDUJVRuPVduWp?=
- =?us-ascii?Q?3q2Xe6V9CN5HRfvFaK6Oj+qNyiy0796LvHEXNdanxB8fZxVfjPNHvpiJvY14?=
- =?us-ascii?Q?z59Bdx/gfmm+4xyyQkABSTNtuYcDt80mQkW7K0HB+Ii9t8YlvsBmulTx9SL8?=
- =?us-ascii?Q?3d72jPyOa0Taxwdn6Cp4R9lpKRAmE2Mkx1vdPcWlKmuxETYc6RKr9lE7OcHH?=
- =?us-ascii?Q?4dEtmX08is1WdkL+UKLC0vVA4dZkMrnr4y4Mi/j76io1yR2+wLKcuoyFF+oz?=
- =?us-ascii?Q?Z/xR/TCelnqjd33XI00/esBPieTt+oUgaTKswKjVUCQ8gO6IVwi0OW8JHX8W?=
- =?us-ascii?Q?XZ/MgUMuOHKNtftWuXA8er1q5DTTqv/ZsntWJO71cd8CtI0/9BVP77UBuY7p?=
- =?us-ascii?Q?RO0FIeUpJ+y3+CY1QCMgZTX9SoEokUaKcQZpSrsk9ZwrbbGSs6mZB7yxn4P3?=
- =?us-ascii?Q?PNwxYQ6hFoGN8pU8+ou+/zFLi4+Yx3CcDVK2vTRYWsVrkVrqS+26WG0rfUBl?=
- =?us-ascii?Q?6Pz4+RcuyLmQMIJz7MvyTujoXWQE5EJ2hSTaj7zcjUe++1mK/6CLYSX+/t7d?=
- =?us-ascii?Q?4+vhU/KAldv8IxE6QEMJSU13lZWFPE3uxpIJpB0VayWMi2cTvjAlbwuSZ2P9?=
- =?us-ascii?Q?x1/6caHTrWvk3v4rziVOo7bKm1/+d3UGMX9nSDWbYm+o5dv4rQ4jgOv/Gp9j?=
- =?us-ascii?Q?6v7IXLWWnUvoa2U+jnFK4b3vGgVs+lRf6CChD4pDpfdTr0Nbd/j8367vGZQp?=
- =?us-ascii?Q?lxJ/RrDE6HTTTFT38Afh2B+jzE32QfSj+msqwDMrZDcM0yUk1CivDHhGFNzu?=
- =?us-ascii?Q?HpycPRfzTXfENOob21CqDfhgqFI8Ar9G47TJkL0xz+ehbMUrEZNlwSzmUi76?=
- =?us-ascii?Q?6xIOHsqldIpuIJAzPs6OHeW/hAaqPE1UqhC62hsSsGuLmRQHBYDUhXmAq+UR?=
- =?us-ascii?Q?kg=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
-	i8LPwvsRzoXXsMVt3JoY3jC48RMOaIkrhi5v5ZtVX1BfJtpZ1IkSuVbboYUqi8LkjRteJMCam/KAe+nZxbiGvOTLvafS2YTiSol/U6dTC0TFuE0sOExID3TuYbddfco3MTzJtpSzbq/61y+chTl12677UkIcGETX3C9lbdR1Jpb/GolPrw3nsgC1N8uvmgU2HUJVIf7RpSFHcxMCIyygpp/fQ+HOBZDty1q8uXEHRImX1r0SumTiRf9mcGcrsYekP0MeTqt+Z/6cgd/VwcSEAv5JLoQGT6vp+wz6wbClyl02PN3e4gd/QsfeTqAGDRXiEiihhUDL4XAYbvjDtpoN0Y6cLJgt0GxYVJ+gOP7PaFf3MCLDaw68t2tpb5UhqpTvwb0XSfK/ZycqTTZEnxno991xsSGWkrZowlkOm/UxwXnPyKGSniD7QuTJLbbh3t6mrEfSihJnPymZHgPisNLg51Pq3ThsE2RWRE6UmLiCaG2+nIYOyqKr+SPPdD2kFqy56Jvq+r2CxYhexjvE/ppZ0l+6qURS76Q59j7MU7xbZwgjFZ9V32OurntL+ZMcsV4i+CFea19z4rwlg2BN7jZZJ44Jo+tQGEbKaIYF4YSGYOk=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5266b2d3-d29f-4f6a-f16b-08dc9f43163b
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR10MB4313.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 11:42:46.5924
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ivMayjrJn2gDdAu5ig5X+OODePzIcaeiNSOn5xZqDzhWf9FXp2zKueM0sVmhi6Oq6kpGzv5STwwy2+kfL4ymeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4454
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-08_06,2024-07-05_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0
- suspectscore=0 malwarescore=0 bulkscore=0 mlxscore=0 spamscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2406180000 definitions=main-2407080089
-X-Proofpoint-GUID: 1mnfvAeb9_CykNwItJBEIa1fbhBRP7b0
-X-Proofpoint-ORIG-GUID: 1mnfvAeb9_CykNwItJBEIa1fbhBRP7b0
 
-Document RWF_ATOMIC for asynchronous I/O.
+On Sun, 2024-07-07 at 14:42 +0200, Alejandro Colomar wrote:
+> Hi Paul,
+>=20
+> On Sun, Jul 07, 2024 at 12:42:51PM GMT, Paul Eggert wrote:
+> > On 7/7/24 03:58, Alejandro Colomar wrote:
+> >=20
+> > > I've incorporated feedback, and here's a new revision, let's call
+> > > it
+> > > v0.2, of the draft for a WG14 paper.
+> > Although I have not followed the email discussion closely, I read
+> > v0.2 and
+> > think that as stated there is little chance that its proposal will
+> > be
+> > accepted.
+>=20
+> Thanks for reading thoroughly, and the feedback!
+>=20
+> > Fundamentally the proposal is trying to say that there are two
+> > styles X and
+> > Y for declaring strtol and similar functions, and that although
+> > both styles
+> > are correct in some sense, style Y is better than style X. However,
+> > the
+> > advantages of Y are not clearly stated and the advantages of style
+> > X over Y
+> > are not admitted, so the proposal is not making the case clearly
+> > and fairly.
+> >=20
+> > One other thing: to maximize the chance of a proposal being
+> > accepted, please
+> > tailor it for its expected readership. The C committee is expert on
+> > =E2=80=98restrict=E2=80=99, so don=E2=80=99t try to define =E2=80=98res=
+trict=E2=80=99 in your own way.
+> > Unless merely
+> > repeating the language of the standard, any definition given for
+> > =E2=80=98restrict=E2=80=99
+> > is likely to cause the committee to quibble with the restatement of
+> > the
+> > standard wording. (It is OK to mention some corollaries of the
+> > standard
+> > definition, so long as the corollaries are not immediately
+> > obvious.)
+> >=20
+> > Here are some comments about the proposal. At the start these
+> > comments are
+> > detailed; towards the end, as I could see the direction the
+> > proposal was
+> > headed and was convinced it wouldn=E2=80=99t be accepted as stated, the
+> > comments are
+> > less detailed.
+> >=20
+> >=20
+> > "The API may copy"
+> >=20
+> > One normally doesn=E2=80=99t think of the application programming inter=
+face
+> > as
+> > copying. Please replace the phrase =E2=80=9Cthe API=E2=80=9D with =E2=
+=80=9Cthe caller=E2=80=9D or
+> > =E2=80=9Cthe
+> > callee=E2=80=9D as appropriate. (Although =E2=80=98restrict=E2=80=99 ca=
+n be used in places
+> > other
+> > than function parameters, I don=E2=80=99t think the proposal is concern=
+ed
+> > about
+> > those cases and so it doesn=E2=80=99t need to go into that.)
+>=20
+> Ok.
+>=20
+> > "To avoid violations of for example C11::6.5.16.1p3,"
+> >=20
+> > Code that violates C11::6.5.16.1p3 will do so regardless of whether
+> > =E2=80=98restrict=E2=80=99 is present. I would not mention C11::6.5.16.=
+1p3 as it=E2=80=99s
+> > a red
+> > herring. Fundamentally, =E2=80=98restrict=E2=80=99 is not about the con=
+sequences of
+> > caching
+> > when one does overlapping moves; it=E2=80=99s about caching in a more
+> > general sense.
+>=20
+> The violations are UB regardless of restrict, but consistent use of
+> restrict allows the caller to have a rough model of what the callee
+> will
+> do with the objects, and prevent those violations via compiler
+> diagnostics.=C2=A0 I've reworded that part to make it more clear why I'm
+> mentioning that.
+>=20
+> > =E2=80=9CAs long as an object is only accessed via one restricted point=
+er,
+> > other
+> > restricted pointers are allowed to point to the same object.=E2=80=9D
+> >=20
+> > =E2=80=9Conly accessed=E2=80=9D =E2=86=92 =E2=80=9Caccessed only=E2=80=
+=9D
+>=20
+> Ok.
+>=20
+> > =E2=80=9CThis is less strict than I think it should be, but this propos=
+al
+> > doesn=E2=80=99t
+> > attempt to change that definition.=E2=80=9D
+> >=20
+> > I would omit this sentence and all similar sentences. Don=E2=80=99t
+> > distract the
+> > reader with other potential proposals. The proposal as it stands is
+> > complicated enough.
+>=20
+> Ok.
+>=20
+> > =E2=80=9Creturn ca > a;=E2=80=9D
+> > =E2=80=9Creturn ca > *ap;=E2=80=9D
+> >=20
+> > I fail to understand why these examples are present. It=E2=80=99s not
+> > simply that
+> > nobody writes code like that: the examples are not on point. I
+> > would remove
+> > the entire programs containing them, along with the sections that
+> > discuss
+> > them. When writing to the C committee one can assume the reader is
+> > expert in
+> > =E2=80=98restrict=E2=80=99, there is no need for examples such as these=
+.
+>=20
+> Those are examples of how consistent use of restrict can --or could,
+> in
+> the case of g()-- detect, via compiler diagnostics, (likely)
+> violations
+> of seemingly unrelated parts of the standard, such as the referenced
+> C11::6.5.16.1p3, or in this case, C11::6.5.8p5.=C2=A0=20
+>=20
+> > =E2=80=9Cstrtol(3) accepts 4 objects via pointer parameters and global
+> > variables.=E2=80=9D
+> >=20
+> > Omit the =E2=80=9C(3)=E2=80=9D, here and elsewhere, as the audience is =
+the C
+> > standard
+> > committee.
+>=20
+> The C standard committee doesn't know about historic use of (3)?=C2=A0
+> That
+> predates the standard, and they built on top of that (C originated in
+> Unix).=C2=A0 While they probably don't care about it anymore, I expect my
+> paper to be read by other audience, including GCC and glibc, and I
+> prefer to keep it readable for that audience.=C2=A0 I expect the standard
+> committee to at least have a rough idea of the existence of this
+> syntax,
+> and respect it, even if they don't use it or like it.
+>=20
+> > =E2=80=9Caccepts=E2=80=9D is a strange word to use here: normally one s=
+ays
+> > =E2=80=9Caccepts=E2=80=9D to talk
+> > about parameters, not global variables.
+>=20
+> The thing is, strtol(3) does not actually access *endptr.=C2=A0 I thought
+> that might cause more confusion than using "accepts".
+>=20
+> > Also, =E2=80=9Cglobal variables=E2=80=9D is not
+> > right here. The C standard allows strtol, for example, to read and
+> > write an
+> > internal static cache. (Yes, that would be weird, but it=E2=80=99s
+> > allowed.)
+>=20
+> That's not part of the API.=C2=A0 A user must not access internal static
+> cache, and so the implementation is free to assume that it doesn't,
+> regardless of the use of restrict in the API, so it is not relevant
+> for
+> the purpose of this discussion, I think.
+>=20
+> > I
+> > suggest rephrasing this sentence to talk about accessing, not
+> > accepting.
+>=20
+> I don't want to use accessing, for it would be inconsistent with
+> later
+> saying that *endptr is not accessed.=C2=A0 However, I'm open to other
+> suggested terms that might be more appropriate than both.
+>=20
+> > =E2=80=9Cendptr=C2=A0access(write_only) ... *endptr access(none)=E2=80=
+=9D
+> >=20
+> > This is true for glibc, but it=E2=80=99s not necessarily true for all
+> > conforming
+> > strtol implementations. If endptr is non-null, a conforming strtol
+> > implementation can both read and write *endptr;
+>=20
+> It can't, I think.=C2=A0 It's perfectly valid to pass an uninitialized
+> endptr, which means the callee must not read the original value.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0char *end;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0strtol("0", &end, 0);
+>=20
+> If strtol(3) would be allowed to read it, the user would need to
+> initialize it.
+>=20
+> > it can also both read and
+> > write **endptr. (Although it would need to write before reading,
+> > reading is
+> > allowed.)
+>=20
+> Here, we need to consider two separate objects.=C2=A0 The object pointed-
+> to
+> by *endptr _before_ the object pointed to by endptr is written to,
+> and
+> the object pointed-to by *endptr _after_ the object pointed to by
+> endptr
+> is written to.
+>=20
+> For the former (the original *endptr):
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Since *endptr might be un=
+initialized, strtol(3) must NOT
+> access
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0the object pointed to by =
+an uninitialized pointer.
+>=20
+> For the latter (the final *endptr):
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0The callee cannot write t=
+o it, since the specification of the
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0function is that the stri=
+ng will not be modified.=C2=A0 And in any
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0case, such an access is u=
+ltimately derived from nptr, not
+> from
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0*endptr, so it does not m=
+atter for the discussion of *endptr.
+>=20
+> Of course, that's derived from the specification of the function, and
+> not from its prototype, since ISO C doesn't provide such detailed
+> prototypes (since it doesn't have the [[gnu::access()]] attribute).=C2=A0
+> But
+> the standard must abide by its own specification of functions,
+> anyway.
+>=20
+> > =E2=80=9CThis qualifier helps catch obvious bugs such as strtol(p, p, 0=
+)
+> > and
+> > strtol(&p, &p, 0) .=E2=80=9D
+> >=20
+> > No it doesn=E2=80=99t. Ordinary type checking catches those obvious bug=
+s,
+> > and
+> > =E2=80=98restrict=E2=80=99 provides no additional help there. Please co=
+mplicate the
+> > examples
+> > to make the point more clearly.
+>=20
+> To be pedantic, I didn't specify the type of p, so it might be (void
+> *),
+> and thus avoid type checking at all.=C2=A0 However, to avoid second
+> guessing
+> from the standards committee, I'll add casts, to make it more obvious
+> that restrict is catching those.
+>=20
+> > =E2=80=9CThe caller knows that errno doesn=E2=80=99t alias any of the f=
+unction
+> > arguments.=E2=80=9D
+> >=20
+> > Only because all args are declared with =E2=80=98restrict=E2=80=99. So =
+if the
+> > proposal is
+> > accepted, the caller doesn=E2=80=99t necessarily know that.
+>=20
+> Not really.=C2=A0 The caller has created the string (or has received it
+> via a
+> restricted pointer), and so it knows it's not derived from errno.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0char buf[LINE_MAX + 1];
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0fgets(...);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0n =3D strtol(buf, ...);
+>=20
+> This caller knows with certainty that errno does not alias buf.=C2=A0 Of
+> course, in some complex cases, it might not know, but I ommitted that
+> for simplicity.=C2=A0 And in any case, I don't think any optimizations ar=
+e
+> affected by that in the caller.
+>=20
+> >=20
+> >=20
+> > =E2=80=9CThe callee knows that *endptr is not accessed.=E2=80=9D
+> >=20
+> > This is true for glibc, but not necessarily true for every
+> > conforming strtol
+> > implementation.
+>=20
+> The original *endptr may be uninitialized, and so must not be
+> accessed.
+>=20
+> > =E2=80=9CIt might seem that it=E2=80=99s a problem that the callee does=
+n=E2=80=99t know if
+> > nptr can
+> > alias errno or not. However, the callee will not write to the
+> > latter
+> > directly until it knows it has failed,=E2=80=9D
+> >=20
+> > Again this is true for glibc, but not necessarily true for every
+> > conforming
+> > strtol implementation.
+>=20
+> An implementation is free to set errno =3D EDEADLK in the middle of it,
+> as
+> long as it later removes that.=C2=A0 However, I don't see how it would
+> make
+> any sense.
+>=20
+> If that's done, it's probably done via a helper internal function,
+> which
+> as said below, can use restrict for nptr, and thus know with
+> certainty
+> that nptr is distinct from errno.
+>=20
+> If that's done directly in the body of strtol(3) (the only place
+> where
+> it's not known that nptr is distinct from errno) we can probably
+> agree
+> that the implementation is doing that just for fun, and doesn't care
+> about optimization, and thus we can safely ignore it.
+>=20
+> > To my mind this is the most serious objection. The current standard
+> > prohibits calls like strtol((char *) &errno, 0, 0). The proposal
+> > would relax
+> > the standard to allow such calls. In other words, the proposal
+> > would
+> > constrain implementations to support such calls.
+>=20
+> I don't think it does.=C2=A0 ISO C specifies that strtol(3) takes a strin=
+g
+> as
+> its first parameter, and errno is not (unless you do this:).
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(char *)&errno =3D "111";
+>=20
+> Okay, let's assume you're allowed to do that, since a char* can alias
+> anything.
+>=20
+> I still don't think ISO C constrains implementations to allow passing
+> (char *)&errno as a char*, just because it's not restrict.=C2=A0 Let's
+> find
+> an ISO C function that accepts a non-restrict string:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int system(const char *st=
+ring);
+>=20
+> Does ISO C constrain implementations to support system((char
+> *)&errno)?
+> I don't think so.=C2=A0 Maybe it does implicitly because of a defect in
+> the
+> wording, but even then it's widely understood that it doesn't.
+>=20
+> > Why is this change worth
+> > making? Real-world programs do not make calls like that.
+>=20
+> Because it makes analysis of 'restrict' more consistent.=C2=A0 The obviou=
+s
+> improvement of GCC's analyzer to catch restrict violations will
+> trigger
+> false positives in normal uses of strtol(3).
 
-Signed-off-by: John Garry <john.g.garry@oracle.com>
----
- man/man2/io_submit.2 | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Hi Alejandro
 
-diff --git a/man/man2/io_submit.2 b/man/man2/io_submit.2
-index c53ae9aaf..ef6414d24 100644
---- a/man/man2/io_submit.2
-+++ b/man/man2/io_submit.2
-@@ -140,6 +140,23 @@ as well the description of
- .B O_SYNC
- in
- .BR open (2).
-+.TP
-+.BR RWF_ATOMIC " (since Linux 6.11)"
-+Write a block of data such that a write will never be
-+torn from power fail or similar. See the description
-+of the flag of the same name in
-+.BR pwritev2 (2).
-+For usage with
-+.BR IOCB_CMD_PWRITEV,
-+the upper vector limit is in
-+.I stx_atomic_write_segments_max.
-+See
-+.B STATX_WRITE_ATOMIC
-+and
-+.I stx_atomic_write_segments_max
-+description
-+in
-+.BR statx (2).
- .RE
- .TP
- .I aio_lio_opcode
--- 
-2.31.1
+I'm author/maintainer of GCC's -fanalyzer option, which is presumably
+why you CCed me on this.  One of my GSoC 2022 students (Tim Lange)
+looked at making use of 'restrict' in -fanalyzer, see e.g.=20
+https://lists.gnu.org/archive/html/bug-gnulib/2022-07/msg00062.html
+
+Based on Paul's comment here:
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D99860#c2 (and its
+references) I came to the conclusion at the time that we should work on
+something else, as the meaning of 'restrict' is too ambiguous.
+
+Later, I added a new -Wanalyzer-overlapping-buffers warning in GCC 14,
+which simply has a hardcoded set of standard library functions that it
+"knows" to warn about.
+
+Has the C standard clarified the meaning of 'restrict' since that
+discussion?  Without that, I wasn't planning to touch 'restrict' in
+GCC's -fanalyzer.
+
+Sorry if I'm missing anything here; I confess I've skimmed through
+parts of this thread.
+
+Dave
+
+
+
+
+
+
+
+>=20
+> > =E2=80=9CBut nothing prohibits those internal helper functions to speci=
+fy
+> > that nptr
+> > is restrict and thus distinct from errno.=E2=80=9D
+> >=20
+> > Although true, it=E2=80=99s also the case that the C standard does not
+> > *require*
+> > internal helper functions to use =E2=80=98restrict=E2=80=99. All that m=
+atters is
+> > the
+> > accesses. So I=E2=80=99m not sure what the point of this statement is.
+>=20
+> If an implementation wants to optimize, it should be careful and use
+> restrict.=C2=A0 If it doesn't, then it can't complain that ISO C doesn't
+> allow it to.=C2=A0 It's actually allowed to optimize, but it has to do
+> some
+> work for it.
+>=20
+> > =E2=80=9Cm =3D strtol(p, &p, 0); An analyzer more powerful than the cur=
+rent
+> > ones
+> > could extend the current -Wrestrict diagnostic to also diagnose
+> > this case.=E2=80=9D
+> >=20
+> > Why would an analyzer want to do that? This case is a perfectly
+> > normal thing
+> > to do and it has well-defined behavior.
+>=20
+> Because without an analyzer, restrict cannot emit many useful
+> diagnostics.=C2=A0 It's a qualifier that's all about data flow analysis,
+> and
+> normal diagnostics aren't able to do that.
+>=20
+> A qualifier that enables optimizations but doesn't enable diagnostics
+> is
+> quite dangerous, and probably better not used.=C2=A0 If however, the
+> analyzer
+> emits advanced diagnostics for misuses of it, then it's a good
+> qualifier.
+>=20
+> Have a lovely day!
+> Alex
+>=20
+> >=20
+> > =E2=80=9CTo prevent triggering diagnostics in a powerful analyzer that
+> > would be
+> > smart enough to diagnose the example function g(), the prototype of
+> > strtol(3) should be changed to =E2=80=98long int strtol(const char *npt=
+r,
+> > char
+> > **restrict endptr, int base);=E2=80=99=E2=80=9D
+> >=20
+> > Sorry, but the case has not been made to make any such change to
+> > strtol=E2=80=99s
+> > prototype. On the contrary, what I=E2=80=99m mostly gathering from the
+> > discussion is
+> > that =E2=80=98restrict=E2=80=99 can be confusing, which is not news.
+> >=20
+> > n3220 =C2=A76.7.4.2 examples 5 through 7 demonstrate that the C
+> > committee has
+> > thought through the points you=E2=80=99re making. (These examples were =
+not
+> > present
+> > in C11.) This may help to explain why the standard specifies strtol
+> > with
+> > =E2=80=98restrict=E2=80=99 on both arguments.
+> >=20
+>=20
 
 
