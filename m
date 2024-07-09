@@ -1,179 +1,157 @@
-Return-Path: <linux-man+bounces-1377-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1378-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABAFD92AE15
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 04:14:03 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2241C92AFA1
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 07:59:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DD0E01C2201A
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 02:14:02 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CDB2A281360
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 05:59:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C40C43AAB;
-	Tue,  9 Jul 2024 02:13:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B0EF55C3E;
+	Tue,  9 Jul 2024 05:59:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gjSXfdCA"
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gwdg.de header.i=@gwdg.de header.b="h8SYdckj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76EA40861
-	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 02:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86255139F
+	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 05:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.76.10.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720491231; cv=none; b=l7V+2s/CnI5BcsvFgl56EAIr3gjhgskTbRPGDXxGA48kgDFZlCw9heQvLweKA9h4dxdlD19s7yxn0CXaLlUZgXSYfMqNCMliAq2e4G+6TESuY/62cpa4z858LEzSFBV6a0y53jxWLu324jmna1Xl9af+Hhup8hNhtuROdeOrFQQ=
+	t=1720504739; cv=none; b=FyvULCSS5MxD5bfX0wFEND58TwiPAzKzUOoS5lvHR/e7uf70udJxBtXSUQxuMqGx+Vg4mfjbcoyMQytAC8gh1im1EkoGIrVg9JRCLPLVUhPooVWscPoAyu8SSvD1v1zEnztziRmz0FXMbGVGc2H3xRJHDOUnGhnTg+th2NVD8xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720491231; c=relaxed/simple;
-	bh=5w7qyoaVV1wJROwkD71rdqvx+kA0F7+vJvcRlUxWrfw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q9RY+LEPpur1lDROvXshU/fNTXRe1+b9jpScy4jP2vFmfoORk1ZXbA6fVUjqDVWLw4rzS3eL5n6Pd97LjMMaDPvA2hmmctWbp0kH6JtW2qFPtbGX4y3EYzoBhBoy1wuPNNP/BN9kWoxiGg91JZRlR5bB4pDA2p+YbBcB3IZoYa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gjSXfdCA; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-79f178e6225so58455085a.2
-        for <linux-man@vger.kernel.org>; Mon, 08 Jul 2024 19:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720491229; x=1721096029; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/cvkTCgyA+T3kGGiAlkQWXwJEs2s2emkGbiWkpIatj0=;
-        b=gjSXfdCA/aaGQt/CKdZKTJfYSPpp/oj392mnqXLq/PGzSteaj4+IVNd3JNvMXNOJVp
-         sRiliyVr9l3uMVEZKuDBU5kN32OlPODa9tGTJaE2mymT5ka2v5pjaofPYXkXrnJTkWSG
-         nP18FV27Eom2LtqtPoPdEkQkt9JFX1j4YuFzo18jkEpzvfSVOtcIUqTZO63FICMSET/N
-         Gd9ZpHmNs78/wln5u5/gb8JYU1CW+GKn1CbUdCfNRBQWPEsOlmSjFxYN63euUisc6jj0
-         nrJ39ejLNqkJRYMS0eAckUX/Rp7ylpsb0snhjhOQMDBifssYSSCl+G1Ql2r6f1HsuXmN
-         BGIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720491229; x=1721096029;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/cvkTCgyA+T3kGGiAlkQWXwJEs2s2emkGbiWkpIatj0=;
-        b=g+5LrAChqKGofoUtcpAq9BzxhwdTVXVqkGLnkUpn7Ca70kSWFhfV4eaNypmDKiH+CZ
-         lesQLaezEil3NCdImxXgjpIQXuMp6fyAQVObpTA5+UkvNl8Knn8yT8DaVXE4ByWPH2eH
-         G2ELdQEb7DsZbGrRFuIwaFb+cVSxNJ1Cha0gLcmElI8WC4+m5fgQUDwmWCl3WkU95neL
-         bj9YR2V9dVzeF1IYGSTYCt1a9sfeGIp/4t+OHh5XT4P5CuSicW5FTtSXfnvqZ6SQFBMl
-         8Omx+cnMAKA8uxnbSUILUt4QIyiUrm6TTwHpYJ4tgJwY80etiKKdhKu2FsmeY+UVNUvL
-         Ty5g==
-X-Forwarded-Encrypted: i=1; AJvYcCUVfk6/CBqLis1PYmK5PBYHQIcLM5GjbhfO33Qtk0e8J6IxPOvA8BNWne58lI1f7Xwnve5sISQJSV9yxINYL0FGZ6fsF4wCyzCd
-X-Gm-Message-State: AOJu0YztcIfo2g78xFjjosuCA+RfSkTbbk2iRax0Paa+QTCdK6d5T9JV
-	BiRNbFo7kRaJZxlhVdY2mhEviecB2x3jXgdClKwLkesUPCrGw5Jm
-X-Google-Smtp-Source: AGHT+IGC/G1gktygnnPCZI24bDVxg/Jr87/PXkGyJlW0wSkt4v5M5VnAGEpV4L5lNrzwUjJWcHzzyg==
-X-Received: by 2002:a05:620a:cf7:b0:79d:7014:920e with SMTP id af79cd13be357-79f199f5fb1mr128064885a.7.1720491228708;
-        Mon, 08 Jul 2024 19:13:48 -0700 (PDT)
-Received: from kir-tp1.redhat.com (c-67-160-124-188.hsd1.wa.comcast.net. [67.160.124.188])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-79f190a18a7sm48826185a.109.2024.07.08.19.13.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Jul 2024 19:13:48 -0700 (PDT)
-From: Kir Kolyshkin <kolyshkin@gmail.com>
+	s=arc-20240116; t=1720504739; c=relaxed/simple;
+	bh=+TkPnrxwvNKxJrRP6Y4eD35HbEsGU1wLFy6sIKOrQNo=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R7UFP614HttHrBYBGnVcZlS411we6RtSnLtFrdN78LbphjQL/JAPl82U5GyFf9aHcVv8Qg1wSVlO/++fC+IRyh4k92jf+SJWNk54Xj7uD0FATJ6egqyncfOfrAW77oPzXAUnBkpSC/+OCFEzD7LR0/0CK9wwk7rDQ1ZT8bvwnNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gwdg.de; spf=pass smtp.mailfrom=gwdg.de; dkim=pass (2048-bit key) header.d=gwdg.de header.i=@gwdg.de header.b=h8SYdckj; arc=none smtp.client-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gwdg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gwdg.de
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gwdg.de;
+	s=2023-rsa; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:CC:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=ga8H1i+gAo0YUR8kviwxdIf1qdkf8GIvHCsTz4yJnc0=; b=h8SYdckjJK6rgj8p+RqT2KvlaN
+	5SHhx4Uz4eoI6n7elpm7iXYe8Sb7E/A9Y0dzKALYRSUK4gkifXLWUycBWDZs7Ju2yRevfwgBXRW1x
+	SB7s+/jZePoHTZ8m6zsg/jW0Szh49D7vKe9pldaKBJq9hncc0cHy5dkK6XyCJDOuBH2xCwYjHiqTG
+	35NknA8ajozUh3yppVXC18LcjEPgkzDsQ8esBKylA+EGX4wblBcxFD0GPFuy7G/7KVOOKeAo9cJr+
+	6CIMlV3MVGdOzQNTu1VBU/kXUiimA3ca6KRHt9k590BLgVzLPURNOKHb4ybvFpOlfzfUt+h7fO4PT
+	Nr85kXyA==;
+Received: from xmailer.gwdg.de ([134.76.10.29]:60506)
+	by mailer.gwdg.de with esmtp (GWDG Mailer)
+	(envelope-from <muecker@gwdg.de>)
+	id 1sR3sF-003Aeo-27;
+	Tue, 09 Jul 2024 07:58:47 +0200
+Received: from mbx19-fmz-06.um.gwdg.de ([10.108.142.65] helo=email.gwdg.de)
+	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+	(GWDG Mailer)
+	(envelope-from <muecker@gwdg.de>)
+	id 1sR3sF-00059r-1v;
+	Tue, 09 Jul 2024 07:58:47 +0200
+Received: from [192.168.0.221] (10.250.9.199) by MBX19-FMZ-06.um.gwdg.de
+ (10.108.142.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.11; Tue, 9 Jul
+ 2024 07:58:46 +0200
+Message-ID: <a461e1766a197ff3e2bc1939c1ea5aec43d740d1.camel@gwdg.de>
+Subject: Re: WG14 paper for removing restrict from nptr in strtol(3)
+From: Martin Uecker <muecker@gwdg.de>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Kir Kolyshkin <kolyshkin@gmail.com>,
-	linux-man@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>
-Subject: [PATCH 3/3] pidfd_send_signal.2: describe flags
-Date: Mon,  8 Jul 2024 19:13:34 -0700
-Message-ID: <20240709021335.158849-4-kolyshkin@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240709021335.158849-1-kolyshkin@gmail.com>
-References: <20240709021335.158849-1-kolyshkin@gmail.com>
+CC: David Malcolm <dmalcolm@redhat.com>, Paul Eggert <eggert@cs.ucla.edu>,
+	<gcc@gcc.gnu.org>, <linux-man@vger.kernel.org>, <xry111@xry111.site>,
+	<jakub@redhat.com>, <lh_mouse@126.com>, <jwakely.gcc@gmail.com>,
+	<Richard.Earnshaw@arm.com>, <sam@gentoo.org>, <ben.boeckel@kitware.com>,
+	<heiko.eissfeldt@siemens.com>, <libc-alpha@sourceware.org>
+Date: Tue, 9 Jul 2024 07:58:40 +0200
+In-Reply-To: <yfzhg4mfjxf3bpvgamsgibaqj3npwofon33dorkgs643ttgxks@ujcklvwsph4v>
+References: <20240705130249.14116-2-alx@kernel.org>
+	 <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq>
+	 <37a1f7fa-eac5-440a-a3e9-08125ee7ec81@cs.ucla.edu>
+	 <tuosvljyewh6oxpjqwgc6jbs7caknva572zij2u6hr4xwphlt2@kxz4xcdghaxl>
+	 <e2d7b36d5716f1799ba43d1373a0a2d65cc7cb16.camel@redhat.com>
+	 <flrf5shec7kc466bze35ohi5u2r7svf3nky5dvpnih2djcybo3@f5yvxiwfivos>
+	 <c0a781689d776e49076344e2d7572ce4806667cb.camel@gwdg.de>
+	 <yfzhg4mfjxf3bpvgamsgibaqj3npwofon33dorkgs643ttgxks@ujcklvwsph4v>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: mbx19-fmz-02.um.gwdg.de (10.108.142.53) To
+ MBX19-FMZ-06.um.gwdg.de (10.108.142.65)
+X-Virus-Scanned: (clean) by clamav
+X-Spam-Level: -
 
-Those flags were added in Linux 6.9 (see [1]), and are documented in
-[2].
+Am Montag, dem 08.07.2024 um 22:17 +0200 schrieb Alejandro Colomar:
+> Hi Martin,
+>=20
+> On Mon, Jul 08, 2024 at 06:05:08PM GMT, Martin Uecker wrote:
+> > Am Montag, dem 08.07.2024 um 17:01 +0200 schrieb Alejandro Colomar:
+> > > On Mon, Jul 08, 2024 at 10:30:48AM GMT, David Malcolm wrote:
+> >=20
+> > ...
+> > > And then have it mean something strict, such as: The object pointed t=
+o
+> > > by the pointer is not pointed to by any other pointer; period.
+> > >=20
+> > > This definition is already what -Wrestrict seems to understand.
+> >=20
+> > One of the main uses of restrict is scientific computing. In this
+> > context such a definition of "restrict" would not work for many=C2=A0
+> > important use cases. But I agree that for warning purposes the
+> > definition of "restrict" in ISO C is not helpful.
+>=20
+> Do you have some examples of functions where this matters and is
+> important?  I'm curious to see them.  Maybe we find some alternative.
 
-The text added is a modified version of [3], removing some repetition
-and adapting from markdown to mandoc.
+In many numerical algorithms you want to operate on
+different parts of the same array object.  E.g. for matrix
+decompositions you want to take a row / column and add it=C2=A0
+to another. Other examples are algorithms that decompose
+some input (.e.g. high and low band in a wavelet transform)
+and store it into the same output array, etc.
 
-[1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e1fb1dc08e73
-[2]: https://github.com/brauner/man-pages-md/blob/main/pidfd_send_signal.md
-[3]: https://github.com/brauner/man-pages-md/pull/2
+Without new notation for strided array slicing, one
+fundamentally needs the flexibility of restrict that
+only guarantuees that actual accesses do not conflict.
 
-Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
----
- man/man2/pidfd_send_signal.2 | 53 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 50 insertions(+), 3 deletions(-)
+But this then implies that one can not use restrict as a
+contract specification on function prototypes, but has
+to analyze the implementation of a function to see if
+it is used correctly.  But I would not see it as a design=C2=A0
+problem of restrict. It was simply not the intended use=C2=A0
+case when originally designed.=20
 
-diff --git a/man/man2/pidfd_send_signal.2 b/man/man2/pidfd_send_signal.2
-index c7aecbf96..11d81dbe2 100644
---- a/man/man2/pidfd_send_signal.2
-+++ b/man/man2/pidfd_send_signal.2
-@@ -77,8 +77,55 @@ .SH DESCRIPTION
- .P
- The
- .I flags
--argument is reserved for future use;
--currently, this argument must be specified as 0.
-+argument allows to modify the scope of the signal. By
-+default, the scope of the signal will be inferred from the
-+. I pidfd
-+argument. For example, if
-+.I pidfd
-+refers to a specific thread, i.e., the
-+.I pidfd
-+was created through
-+.BR pidfd_open (2)
-+passing the
-+.B PIDFD_THREAD
-+flag
-+or through
-+.BR clone3 (2)
-+using the
-+.B CLONE_PIDFD
-+flag together with the
-+.B CLONE_THREAD
-+flag, then passing
-+.I pidfd to
-+.BR pidfd_send_signal (2)
-+and leaving the
-+.I flags argument as
-+.B 0
-+will cause the signal to be sent to the specific thread referenced by the
-+.I pidfd.
-+.TP
-+.BR PIDFD_SIGNAL_THREAD " (since Linux v6.9)"
-+.\" commit e1fb1dc08e73466830612bcf2f9f72180965c9ba
-+Ensure that the signal is sent to the specific thread referenced by
-+.I pidfd.
-+.TP
-+.BR PIDFD_SIGNAL_THREAD_GROUP " (since Linux v6.9)"
-+.\" commit e1fb1dc08e73466830612bcf2f9f72180965c9ba
-+If
-+.I pidfd
-+refers to a thread-group leader, ensure that the signal is
-+sent to the thread-group, even if
-+.I pidfd
-+was created to refer to a specific thread.
-+.TP
-+.BR PIDFD_SIGNAL_PROCESS_GROUP " (since Linux v6.9)"
-+.\" commit e1fb1dc08e73466830612bcf2f9f72180965c9ba
-+If
-+.I pidfd
-+refers to a process-group leader, ensure that the signal is
-+sent to the process-group, even if
-+.I pidfd
-+was created to refer to a specific thread or to a thread-group leader.
- .SH RETURN VALUE
- On success,
- .BR pidfd_send_signal ()
-@@ -102,7 +149,7 @@ .SH ERRORS
- .TP
- .B EINVAL
- .I flags
--is not 0.
-+is not valid.
- .TP
- .B EPERM
- The calling process does not have permission to send the signal
--- 
-2.45.2
+
+>=20
+> > > > Has the C standard clarified the meaning of 'restrict' since that
+> > > > discussion?  Without that, I wasn't planning to touch 'restrict' in
+> > > > GCC's -fanalyzer.
+> > >=20
+> > > Meh; no they didn't. =C2=A0
+> >=20
+> > There were examples added in C23 and there are now several papers
+> > being under discussion.
+>=20
+> Hmm, yeah, the examples help with the formal definition.  I was thinking
+> of the definition itself, which I still find quite confusing.  :-)
+
+Indeed.
+
+Martin
+
+>=20
+> Have a lovely night!
+> Alex
+>=20
 
 
