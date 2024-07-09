@@ -1,56 +1,55 @@
-Return-Path: <linux-man+bounces-1389-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1390-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3A5A92B977
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 14:31:17 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0032A92B994
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 14:35:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 65A312866D4
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 12:31:16 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AF891283A57
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 12:35:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1216314EC41;
-	Tue,  9 Jul 2024 12:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C21F4153512;
+	Tue,  9 Jul 2024 12:35:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3KPs3F1"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="Z+Ol3Ox8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6ED61EB2C
-	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 12:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5A4158DB5
+	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 12:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720528272; cv=none; b=UOArXAhNDunlbkPKmcdO0TUfL1ABjZTbMs+b4+/YjFPn1vTOFdKOGowu2oT8p+6gFDhL/i35TmEJeKCSDrrff0tkunkvduWkmd61HicWXeKJe8t7o89jpL2JBonNQzGgCNsuZTWJ/lpt91n24tsAQrXAYqZHu0FDtEZ/VKC0r2A=
+	t=1720528533; cv=none; b=c/rp2ceEDmWmKpYBsglDTP2I98WSGzBZXNLuoyKeU8Y4PA+fMVRxgKQu1em2R8CiD0v719m5RdSBfy37vxbBWSiQKBPs0iHHVPfs0A2QqaCRxNGVlN2g9Xkl9E869ewg94Vo1JDDJMHljE7n9mKQUXEqYXXsmH0ZfmqBi643Y4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720528272; c=relaxed/simple;
-	bh=GR8tHD6ijJgTwpF0qKnq7P/Zkk++qs1IvYdyGuuqRqg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ChyiHZI4wpaCr6zp9CYOzJNbEn8/H98wt5uIm6+oo5geZ45g1drasbZZTj54aL/TzBYoPGA2eOWou9x+L1l17iK+SoS65rvKq2AbBr1hLIrg0bQJe8IXik9j+5J8DrmWfukrSymlkm8f+JGT2H+HHc5IG9QF74ajQjabxiTrJs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3KPs3F1; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE19FC32786;
-	Tue,  9 Jul 2024 12:31:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720528272;
-	bh=GR8tHD6ijJgTwpF0qKnq7P/Zkk++qs1IvYdyGuuqRqg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h3KPs3F1KA2zrRobSf9Bb69uBy3A24bk+rRwhG4qkv2n93vQAR/wZpJ6tAq0PdztH
-	 0QBLULnKkjO4uVV4PB8dHGggrUkAyMYu3ZCdkodk57otxG47/MXwiRmfyhARKJ4Sgr
-	 ht+7PuYA3YfZiWi4szd2NSQCZ+RHQsIXw+Y3/orm94jP+meGfi47WdQa2Z9EczkNED
-	 QVO+ZB3K8sjtJcdZKadtdGa4ZAcEfVzSp1/MTMNm0dRE+S9DkLP00zouSNXB+UPF+b
-	 OtPM0V0L8dVo9zhTJ7k6cgA7URSD20HXG+FDJvVYk5hKOUesDrqkDOFCgDuXwAZuPb
-	 ZQGPzBrlUSh/Q==
-Date: Tue, 9 Jul 2024 14:31:09 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?TWlrb8WCYWogS2/FgmVr?= <kolek.mikolaj@gmail.com>
+	s=arc-20240116; t=1720528533; c=relaxed/simple;
+	bh=FJYoUIoJOwDakPsj8jUVb33oLU7CXJASEhigcVV7sAw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QJQbFvUpS4ThZyoOpAFOty+RJL5jU/Weo8wq83PIg345piuSQqCCOL9lu9M2OaBC3EAcxYrOca5mWHKkwgMJAy/3tQCS1GflZLszP8v9CI23LRFkGNnAqFjInyIThpCsEVmZiB+VgYgucNHExRuvw7jYEJKWrieUlK5l2wRTaes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=Z+Ol3Ox8; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202405; t=1720528520;
+	bh=FJYoUIoJOwDakPsj8jUVb33oLU7CXJASEhigcVV7sAw=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Z+Ol3Ox8ZMP4EytpoKyDAQEAupmWk58MunOU+ub+T5jQqEKS9xLb/56iV7z423/d3
+	 QidflOnl+VghnkOTvPGxoZwplh41c+8s+BA2fk3KHfjYt4AptYPDfUIp0kiG2YeXNl
+	 J2es/tH+LJZvQ3oZ8p+ob+PTwfskyHuBzC2TtaithE5eNlF02WsEs/PtfMXg0bVuAz
+	 9SGa4I5sk1FFUPLQETJaloUutYgQPegnD1UAVY72TrMTY/mCbkqq2ybkHuV7mzbfZq
+	 fA3lGi5jLj4invEHs5N/7fd+MINyB0/VBgmIHUjw1jnZaCwDnvBT+B3z1Cj7qHnbRE
+	 ybqhWWOf12c7g==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 486078956;
+	Tue,  9 Jul 2024 14:35:20 +0200 (CEST)
+Date: Tue, 9 Jul 2024 14:35:19 +0200
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] perf_event_open.2: document combining inherit and cpus =
- -1 preventing the use of mmap
-Message-ID: <wvgbgykorq4dpxe3zpogt4m4blel62xdqig53erktabplv23vh@k6o7gsydg54y>
-References: <CAHGiy68VeGHMazCershVY0f2acq5PifiG=j7suXJ7dfMufcPJA@mail.gmail.com>
- <2s5drc4ywno4tpk3kvej4op7qpfe4ivpf275fxvo2hpckfozgw@lsn4ete4vihl>
- <CAHGiy6-nx0PwBi6xwoG8PN5qND-krGh_rvpfmVc31-QSv04C6g@mail.gmail.com>
+Subject: [PATCH] printf.3: the overall syntax is "%argnum$...", not "%$..."
+Message-ID: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,165 +57,56 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l2l6uyu4zuozz2x2"
+	protocol="application/pgp-signature"; boundary="fie2qgq2d5cvbzut"
 Content-Disposition: inline
-In-Reply-To: <CAHGiy6-nx0PwBi6xwoG8PN5qND-krGh_rvpfmVc31-QSv04C6g@mail.gmail.com>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---l2l6uyu4zuozz2x2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--fie2qgq2d5cvbzut
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?TWlrb8WCYWogS2/FgmVr?= <kolek.mikolaj@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] perf_event_open.2: document combining inherit and cpus =
- -1 preventing the use of mmap
-References: <CAHGiy68VeGHMazCershVY0f2acq5PifiG=j7suXJ7dfMufcPJA@mail.gmail.com>
- <2s5drc4ywno4tpk3kvej4op7qpfe4ivpf275fxvo2hpckfozgw@lsn4ete4vihl>
- <CAHGiy6-nx0PwBi6xwoG8PN5qND-krGh_rvpfmVc31-QSv04C6g@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHGiy6-nx0PwBi6xwoG8PN5qND-krGh_rvpfmVc31-QSv04C6g@mail.gmail.com>
 
-Hi Miko=C5=82aj,
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man/man3/printf.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Tue, Jul 02, 2024 at 09:19:28PM GMT, Miko=C5=82aj Ko=C5=82ek wrote:
-> Hello,
-> I'm very sorry for the corrupt patch formatting, and also for sending
-> this to you twice (I initially forgot to CC the linux-man address),
-> this is my first time submitting contributions this way, and I'm still
-> learning how to do it properly. You can find the fixed patch below.
-
-No problem!  :)
-
-I've applied the patch.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D0f1f2327069d0c0ebb1f090ca1a183ca51de75f2>
-
-Have a lovely day!
-Alex
-
->=20
-> Signed-off-by: Miko=C5=82aj Ko=C5=82ek <kolek.mikolaj@gmail.com>
-> ---
->  man/man2/perf_event_open.2 | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/man/man2/perf_event_open.2 b/man/man2/perf_event_open.2
-> index 15411027d..72d8fd797 100644
-> --- a/man/man2/perf_event_open.2
-> +++ b/man/man2/perf_event_open.2
-> @@ -1027,6 +1027,10 @@ .SS Arguments
->  .I read_format
->  values, such as
->  .BR PERF_FORMAT_GROUP .
-> +Additionally, using it together with
-> +.I cpu =3D=3D \-1
-> +prevents the creation of the mmap ring-buffer used for
-> +logging asynchronous events in sampled mode.
->  .TP
->  .I pinned
->  The
-> --
-> 2.45.2
->=20
-> On Fri, Jun 28, 2024 at 1:02=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
-> wrote:
-> >
-> > Hi Miko=C5=82aj,
-> >
-> > On Sun, Jun 23, 2024 at 02:02:36AM GMT, Miko=C5=82aj Ko=C5=82ek wrote:
-> > > After calling perf_event_open() with cpus =3D=3D -1 and the inherit b=
-it,
-> > > using mmap on the perf file descriptor to create a ring-buffer fails
-> > > with EINVAL. This behavior wasn't previously documented in the man
-> > > page and is caused by the following lines in the perf_mmap function in
-> > > kernel/events/core.c:
-> > > /*
-> > > * Don't allow mmap() of inherited per-task counters. This would
-> > > * create a performance issue due to all children writing to the
-> > > * same rb.
-> > > */
-> > > if (event->cpu =3D=3D -1 && event->attr.inherit)
-> > >         return -EINVAL;
-> >
-> > Thanks for the detailed commit message!
-> >
-> > > Signed-off-by: Miko=C5=82aj Ko=C5=82ek <kolek.mikolaj@gmail.com>
-> > > ---
-> > > man/man2/perf_event_open.2 | 4 ++++
-> > > 1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/man/man2/perf_event_open.2 b/man/man2/perf_event_open.2
-> > > index 2f345ff5b..15a5972d0 100644
-> > > --- a/man/man2/perf_event_open.2
-> > > +++ b/man/man2/perf_event_open.2
-> > > @@ -1025,6 +1025,10 @@ .SS Arguments
-> > > .I read_format
-> >
-> > Applying: perf_event_open.2: document combining inherit and cpus =3D -1=
- preventing the use of mmap
-> > error: corrupt patch at line 10
-> > Patch failed at 0001 perf_event_open.2: document combining inherit and =
-cpus =3D -1 preventing the use of mmap
-> > hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
-> > hint: When you have resolved this problem, run "git am --continue".
-> > hint: If you prefer to skip this patch, run "git am --skip" instead.
-> > hint: To restore the original branch and stop patching, run "git am --a=
-bort".
-> > hint: Disable this message with "git config advice.mergeConflict false"
-> > Press any key to continue...
-> >
-> > The patch seems to be corrupt.  Context lines should begin with a space.
-> > Can you fix that on your end?  Otherwise, I'll manually apply the patch.
-> >
-> > > values, such as
-> > > .BR PERF_FORMAT_GROUP .
-> > > +Additionally, using it together with
-> > > +.BR "cpu =3D=3D -1"
-> >
-> > Please make this
-> >
-> > .I cpu =3D=3D \-1
-> >
-> > > +prevents the creation of the mmap ring-buffer used for
-> > > +logging asynchronous events in sampled mode.
-> > > .TP
-> > > .I pinned
-> > > The
-> > > --
-> > > 2.45.2
-> >
-> > Have a lovely day!
-> > Alex
-> >
-> > >
-> >
-> > --
-> > <https://www.alejandro-colomar.es/>
-
+diff --git a/man/man3/printf.3 b/man/man3/printf.3
+index 771e295..7b8594f 100644
+--- a/man/man3/printf.3
++++ b/man/man3/printf.3
+@@ -180,7 +180,7 @@ .SS Format of the format string
+ .P
+ .in +4n
+ .nf
+-%[$][flags][width][.precision][length modifier]conversion
++%[argument$][flags][width][.precision][length modifier]conversion
+ .fi
+ .in
+ .P
 --=20
-<https://www.alejandro-colomar.es/>
+2.39.2
 
---l2l6uyu4zuozz2x2
+--fie2qgq2d5cvbzut
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaNLY0ACgkQnowa+77/
-2zId5A/9F6C9SkNnvzmQPzN9gYLPiDCCwEfZcg9fKYyn1om7i/qygmlaR9Z0yngj
-tGfHzG4ZtdEniSptpwDrsUJAhT3RorkChqnJWZGqLdbugpK1ULsye0JTia5AVPXz
-9dMq6F+U9pYIgDaCbdwPQnE+6srXSojKR1hWOdwgTaX8NNummcITokRmBbylNdVN
-Fdnx37XBUMjqudpGWm3sEop+2eNDqL0YLIQtpDxRsuW8RC21g8V88pCX/qaSCPlW
-6qpgCOnioKKJNce+uLLzUZoK27NtQHY/spuhwJFMsTGTzvvypLBY5PrDS0L03Qus
-tBtdWE5d7m4sQ2d4kEKahT47qA0/d8OOP4W8u6SccqZlib1Dmk2KCM/UShKQm4mD
-g5qeNQ8+a7Apn6o85rP0x9tkBYKHwM3uGbcxuCvjJilvN4uwXR0fv++Shc0w7Fcx
-MqKAPpUuCzwdsj99CMf1BnJzunhhzwETN/NnnXsdWFript0BCwBd6tCA6dSqeBmb
-BHyAcQnJk4oERaq1iNWKxK1WkSEPK8c6XNJv0BEtYteTChKEZ3gouGXTFP6vmdWQ
-YhcxsWCY4dQV1EBE4onWyWFU7XV4nN/CjPHwaZF3fYsPDOU1XUGdaSjtzz5O+V+f
-h+qbrT3lgjXOWMwiOrhtXtzZC7V0adVUBpCiuhoXFdVhLQd3RyA=
-=3kkF
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmaNLocACgkQvP0LAY0m
+WPHRVRAAre3zr0uiOdWqKPLvFyrSi8LJOhKHy9u9hYH0zIAheUUSy+R4T/WGSVso
+m9VVEh1lT/4Z5FO47g9oEF2DUGtJwfF9ZFrtF/8dsaWPUqJuG3A3H0AoserVIDHz
+kjBiSDG4GjuqVSSSDAxUOCaRhAPyu/EO1GA9BP9jZ05EhHLrSlDklGjB7oWyB2k/
+6S+iFo8rKnG/BWaU1Scfdae+lQ4+ItEhk+3zoI3PShEYxyOcW+n/jewYB/27t/Ml
+JYrSjzbX6jgKFbDIEBO2k4Ayb/4cEX7gCqcyzIXmf2+6zRFYCQmrLHJgW8Wb32SS
+oiGjLgAMWwy/okGN/EVvBY7rvWrNMdQWuL2EkLezV0nLwym/OVJu9jZMw7gyYXq/
+xpWNggOb8eCjU2w51H5VZlu99A7PRxKnfdMesp0jGv5pH4E/M+rt7Dnp8UMwYZ4h
+rsgeAufY7/hBHKQcbGGl9iPiUBZ7yL1axjCyo1d/qRAkE/VAZAI/PXEWFJAS+CPi
+O8IarozOZ57P+lJyWzM5t2AyBlz0kA6Qpd5NYouWnltv3x0FaWsuEhQ96HgYLY+0
+uOxwo2ghYUJlOPhPvX3F6R9W47vTA8lbjeS49GHdo5WWCQR1ocqGMxDr+xiO9Dl/
+WS2weyOxVV5BY31gPp7yfGWWJgysqFOEIdyzrO+A71XI2qyO9lw=
+=yNhz
 -----END PGP SIGNATURE-----
 
---l2l6uyu4zuozz2x2--
+--fie2qgq2d5cvbzut--
 
