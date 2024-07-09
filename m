@@ -1,129 +1,127 @@
-Return-Path: <linux-man+bounces-1402-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1403-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD4F292C202
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 19:14:02 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BDD92C25B
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 19:26:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 926961F228CB
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 17:14:02 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 294711F216FF
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 17:26:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AC21187872;
-	Tue,  9 Jul 2024 16:57:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8177717B029;
+	Tue,  9 Jul 2024 17:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jA1+SjaJ"
+	dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b="Eyc/Ogj0"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFC417B056
-	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 16:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AAB1B86CC
+	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 17:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720544252; cv=none; b=Mr5P+m3gfZ5L1C5zXKGJmqZJXLtWclj6VscnwYVe6mY0O6FH840hrRSQ4Or3Ork+IGM0N+0mnuNr8kKHSmDGit9af1m8tLF8sNOBG4/Z6zfa5dRXvXzCd+LxD6T7Pfl3W6YX/SOFbyx09RZqnjAFjNo1qnBrL34zYAxVMueWqXM=
+	t=1720545976; cv=none; b=gst6JDjQixwB0ar9kZ0RoTtKrAC7jKfewWOUxuSoxfpAlrmW4t0usdCIPtMto2c9l8XhgUGO0++8qEbTiN7e99kBgYKwvUSTWvlkpfvZCPiHBcxs3wzfI338+YbJwVSll5mXbRg1NUDaO0bJL/D05GLqUVrbgf4/jUUxGbSG8jY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720544252; c=relaxed/simple;
-	bh=iwY4LQNOzWVj+PfieO5Z+C2Jjzr2+cQMLhFVap0dXnM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YuUU8OEAH74Mfd/5qgs4pmSw+loqoPb8XJYR2lbi84irDmkEQxfznHi92Vc7aTIDctl+Bzpvv+WZEkOXFJ3wcMjeVMOUUfA/yQq9gsYE2gAFGmR5l0O71BeDo4TqbkBhHfIOiYZ0IujgCJz6R0sJNmXMWY+38HGnKY5URvMR7kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jA1+SjaJ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25AA3C3277B;
-	Tue,  9 Jul 2024 16:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720544251;
-	bh=iwY4LQNOzWVj+PfieO5Z+C2Jjzr2+cQMLhFVap0dXnM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jA1+SjaJ9DRfx8XvktBmPzkyLcYqCV/zx1ykFT4KvkLC486WP3AzSZblr/CuAlyMo
-	 Qyta80IR3oRhYtWVjmrnRtrLQ+5Qbr1gpycC22CYKWqR4dUK0lLqH1oDTGKC6hL2nQ
-	 9OHEenCZQGoPXbb2jo7kl3mw8qefKsUjtp3822o3K341kIjOeErTPdzjpHgxsXkS9u
-	 dquChzM+SxaN7JAYJ0YVZTQghoGQ4ltvokYY8SpXIK8rYfxqujJs3sgMVQ3S95iaio
-	 guN/0d/A4RNjbOKs8I5OcehcpQSfOh/VHOBWOtdfVBkGRu4zYRJk+zBZEuvF3CCHAQ
-	 sA1v10YsncV5g==
-Date: Tue, 9 Jul 2024 18:57:29 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] printf.3: the overall syntax is "%argnum$...", not
- "%$..."
-Message-ID: <gbwgs4u4acvwtabte47aljprwnhhxsznh7il2yfafhwkwrysbm@ij353jrj34qu>
-References: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
+	s=arc-20240116; t=1720545976; c=relaxed/simple;
+	bh=ANkSrrv4ScO6qWavb5OUztt0A6to5bgj4/URa2V+Wjs=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=W0/8AAmLW6LFneUxDI4LV+/hSRh52ZGyxYEcVMkM+MH8VJF45gdK2iR3KV49KP5yiRH95h7DbYzS6Ne5tEBfAP2BzjYrH7t5Grt6adu5+Ybztx1N3JqybqYPQuvXpeQVmi7OWQTh7kjXf+31a7XqRpiRlKOUEDWFXWLnFItt93M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=none smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda-com.20230601.gappssmtp.com header.i=@toxicpanda-com.20230601.gappssmtp.com header.b=Eyc/Ogj0; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=toxicpanda.com
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-6b5def3916bso27833706d6.3
+        for <linux-man@vger.kernel.org>; Tue, 09 Jul 2024 10:26:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda-com.20230601.gappssmtp.com; s=20230601; t=1720545974; x=1721150774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=a5zeumC0NSb8T/WKRDCT1PvfNBJFN4DOntoCOW0mC9g=;
+        b=Eyc/Ogj025+ujm+SjVZGI+vx07JvB8jprdETKDeqnJxbhaabLAckOMHms0IXiMcC4P
+         f19lcDD5cDrj4yOpeEDHWYnFTOSIfhusy0z9HA0LlQNEHuTirpApBlbujNkBleWHmOf/
+         haWelcqv9HjaVdrFvTxlHqdup58XMj8YQSG7I52flfAOBq4tq6PiqDGsfqermOdz5kZO
+         5zdo2L+aKrlWlUnvzOnBNa1/yvYnBylT//ZODTcg9PISIZ8rSxani3jX+QY1lUvQ+70l
+         LKyhoKbPvKADiB2jqMxg+zpZxJa4YQ7plS2RMf3afKr3Tc1pvTKWuMEouBoR4A8aq/Ul
+         bs6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720545974; x=1721150774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=a5zeumC0NSb8T/WKRDCT1PvfNBJFN4DOntoCOW0mC9g=;
+        b=Fyk5WRpUE63oIwrtOL38DHLDO4i1/QdSOlibT+JEK5On78GF3nqJtLRVBK1e1oOn+C
+         9lLciWjoMWNhn6qgQF0fSFkULAWgrzP9zjE+3LuU7xhc1GO4mQ+CbIRye6aPT0bpOfql
+         QADuQ2TPmcqFmZJJebZMU096tkuoqtLl7zt7Imy9yNuvIs2mhJRPuJMJQKjUiIx7pK5f
+         Gu8jLzv5QNpzaCpUoxFDUvENqTkNMSkfWRoMzGYO0Aq+kyugIidf/0omT3pkrehCYUrB
+         AlaXf3Zp08VEY2uVShA7nQ1kkRF9cGjXU/7jk0m3aSBhNYce71lzgcJrrcoMZFVHFVmx
+         FhZg==
+X-Forwarded-Encrypted: i=1; AJvYcCU6sCY1o80Qzq+yMD2SgbY/eOsKFX7niH8S5XYWaA0D+bgXdCrjmVQB7YRnaGFhaz7nGmXs/oGIAG39gOGParprtiFIWxStob0K
+X-Gm-Message-State: AOJu0YyQhR1Ta+UNrbLCJ1f+yGowPp9w0IImLwRSMFOakVdjNWGzYOBq
+	mlgV3VtdsZvCr3e90Ok0PXkL+mbb/TOv3ojZQxK/CvGO5plu5BZf5gDjZro/2MA=
+X-Google-Smtp-Source: AGHT+IHbJbJe7Rx7qH4gUCepFBkDoWzLxn6HMiEAkpQsd0GlXnH7yBhA1FGdzELmXKXKhRERKdwu+A==
+X-Received: by 2002:ad4:5f8f:0:b0:6b5:4288:7e94 with SMTP id 6a1803df08f44-6b61bc855camr46649846d6.8.1720545973807;
+        Tue, 09 Jul 2024 10:26:13 -0700 (PDT)
+Received: from localhost (syn-076-182-020-124.res.spectrum.com. [76.182.20.124])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b61ba04c16sm10329356d6.60.2024.07.09.10.26.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jul 2024 10:26:13 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+To: alx@kernel.org,
+	linux-man@vger.kernel.org,
+	brauner@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	mszeredi@redhat.com,
+	kernel-team@fb.com
+Subject: [PATCH v5 0/2] man-pages: add documentation for statmount/listmount
+Date: Tue,  9 Jul 2024 13:25:41 -0400
+Message-ID: <cover.1720545710.git.josef@toxicpanda.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ttcuhpwmts2avzzs"
-Content-Disposition: inline
-In-Reply-To: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
+Content-Transfer-Encoding: 8bit
 
+V4: https://lore.kernel.org/linux-fsdevel/cover.1719840964.git.josef@toxicpanda.com/
+V3: https://lore.kernel.org/linux-fsdevel/cover.1719425922.git.josef@toxicpanda.com/
+V2: https://lore.kernel.org/linux-fsdevel/cover.1719417184.git.josef@toxicpanda.com/
+V1: https://lore.kernel.org/linux-fsdevel/cover.1719341580.git.josef@toxicpanda.com/
 
---ttcuhpwmts2avzzs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] printf.3: the overall syntax is "%argnum$...", not
- "%$..."
-References: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
-MIME-Version: 1.0
-In-Reply-To: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
+v4->v5:
+- Described bufsize.
+- Moved the general description of some of the fields to under the field labels
+  themselves, and generally reworked everything to be more specific.
+- Addressed the various formatting/wording review comments.
 
-On Tue, Jul 09, 2024 at 02:35:19PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
-z>
-> ---
->  man/man3/printf.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man/man3/printf.3 b/man/man3/printf.3
-> index 771e295..7b8594f 100644
-> --- a/man/man3/printf.3
-> +++ b/man/man3/printf.3
-> @@ -180,7 +180,7 @@ .SS Format of the format string
->  .P
->  .in +4n
->  .nf
-> -%[$][flags][width][.precision][length modifier]conversion
-> +%[argument$][flags][width][.precision][length modifier]conversion
+v3->v4:
+- Addressed review comments.
 
-Maybe argnum is clearer?
+v2->v3:
+- Removed a spurious \t comment in listmount.2 (took me a while to figure out
+  why it was needed in statmount.2 but not listmount.2, it's because it lets you
+  know that there's a TS in the manpage).
+- Fixed some unbalanced " in both pages
+- Removed a EE in the nf section which is apparently not needed
 
->  .fi
->  .in
->  .P
-> --=20
-> 2.39.2
+v1->v2:
+- Dropped the statx patch as Alejandro already took it (thanks!)
+- Reworked everything to use semantic newlines
+- Addressed all of the comments on the statmount.2 man page
 
+Josef
 
+Josef Bacik (2):
+  statmount.2: New page describing the statmount syscall
+  listmount.2: New page describing the listmount syscall
 
---=20
-<https://www.alejandro-colomar.es/>
+ man/man2/listmount.2 | 111 +++++++++++++++++
+ man/man2/statmount.2 | 280 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 391 insertions(+)
+ create mode 100644 man/man2/listmount.2
+ create mode 100644 man/man2/statmount.2
 
---ttcuhpwmts2avzzs
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.43.0
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaNa/gACgkQnowa+77/
-2zJycQ/8DxZNjDpOgNLjgt3YIjjSFGNpWGk4+s3V6mQpGWnctoHnfuI8CKVwSYcV
-SziTk6hEqLGfw34EHrz3SAVOVmo332A6qCFUuR9iEwvsyaxPIQfg/gbxfz0jftU3
-cg6Np5DtBhN/Zepznq13cmU2Fq8RiIvven2aaD6nmXWsbb3Ek01NbeJ9CvJFJR99
-AhC3kT01dTPN1V8dl9UM4o7gwtauoLfj4EnAtIc+CfaArpL0dA3OXmWG3DzheCNN
-W0PQnHNrAf0eyHV472QZWLJSM2ozwKbJsD06SW/LeapNhSFhJy4ngwM79V8ECGtR
-1KCiM6uOR4zi5lY1iEev4aRMWO2CmAiBZec/i59eSK4b6KkgqjDwusTV5TcN4Gkc
-Dqv+MJ8i35DOERR68Hy5hl1fWqMiliv52LEKUlcCt7SzVeLyxQBC8G5OUXqm87pC
-KQTI8PBiX9GOCFTjsjgzs2J/Fw9kEeyrD3D50R7dbVxqnpYYDh7DXysJoKcS86bE
-hiGe9SK7d48b8tXAJmgtY35Q9IdlN5CgVGZbnGCSWQITMM32tmEYV++Y+q2R+Ize
-S02mZPU+p/MlvCBKkIBJmGtYHen2JfQYE2AeSjpIBtgESM7bFiaxdwlaQXGFJ39w
-YU2oPs2Ut0C3eUG82eNjOFCH4xW9fg5zFs98gfoHa1PyZqd803s=
-=ly2h
------END PGP SIGNATURE-----
-
---ttcuhpwmts2avzzs--
 
