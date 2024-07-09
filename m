@@ -1,126 +1,131 @@
-Return-Path: <linux-man+bounces-1383-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1384-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05CD92B441
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 11:44:00 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id F208592B4AF
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 12:06:14 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 451F2B22BE4
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 09:43:58 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 4998AB20B4A
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 10:06:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 737141552FF;
-	Tue,  9 Jul 2024 09:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 600AE155C80;
+	Tue,  9 Jul 2024 10:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="B0DamkRi"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YHCce7j6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB57C13C687
-	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 09:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2143A12CDB6
+	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 10:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720518234; cv=none; b=Ouqcy56JdWC6uDc4u5/lAxOUNXLcC4KtrDEjN80BYqQtQ05pOBA5PniqYj5OANm6P3LCBsMAcx4AY4SVVSHAZ5yThPERVEsVv45gbVEap5A7yQvsMEVyu/oO6C+fT3JlKyuJOv3mE2DPIDT4ShLfIoZ1ZZy6HF1oxt2jmFx3CBY=
+	t=1720519567; cv=none; b=Js5PFH+dgkJyImnQ4v0IBZXGzzi8t6PdgvxULZeCVQCh1extpzrvgz9FlUgfmG2HsaCj2dxW47A3xgV24Bc4cl7t6vMB+ACSsi6ODDlGne0XBrIMo3UBgrT2t+3XXtgfiHvYXiIPVJ2eVJCZd9ZTDh8iqy+sP/CcWQhNn+m0cWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720518234; c=relaxed/simple;
-	bh=CRZbcF4hN82oQbScfeyCiaG6gA9V4j2sdUAXj7wtyec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YFG1GVgfzauJDrmnujzjF/sBy3Hc03c+i5bOP+dlK6XQQtJo3NZ6aOKx23C3ddS6SMpNDQzsMkGkJxqkE9gwszLZtlaLUIONYbuLpqAJRfixCJX5c1VGvhakOOMtibhWLxngnEVVfrxiNPDP/N1x8ApzMTTVIUAdYbmg/eFhqfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=B0DamkRi; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720518231;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tHJ97BXDlAZKI58WRu8rPYtMSzYkeQ3dOxEoRrNIpKQ=;
-	b=B0DamkRiZHjtydVE9RuolEgVIZk4Q4IZ2iXQjFHfoAKhpSaTdb7FAUU2zt4homWLT2D138
-	pv/zTSNA+ox0onxwfaYG5JZPWC/NddjBQRCuV0Lj6W76c7HI9PUiAXj3xUn4I4mtJpCe9T
-	QtgwI62/Qto3hdbE3rsUBtjnGZFBv98=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-269-W7QwtlDaP1mmNqM8RxYp1g-1; Tue,
- 09 Jul 2024 05:43:46 -0400
-X-MC-Unique: W7QwtlDaP1mmNqM8RxYp1g-1
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B2BB219560A2;
-	Tue,  9 Jul 2024 09:43:45 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.45.226.34])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 9890E3000185;
-	Tue,  9 Jul 2024 09:43:43 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue,  9 Jul 2024 11:42:09 +0200 (CEST)
-Date: Tue, 9 Jul 2024 11:42:06 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH 2/3] pidfd_open.2: add PIDFD_THREAD and poll nuances
-Message-ID: <20240709094206.GA28495@redhat.com>
-References: <20240709021335.158849-1-kolyshkin@gmail.com>
- <20240709021335.158849-3-kolyshkin@gmail.com>
+	s=arc-20240116; t=1720519567; c=relaxed/simple;
+	bh=0xNlBpte/OeBbJHp37/TNb6wpL5TLhSlyBJZEpSTGWI=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YZ3G26E2N/7VPUFzCris6XDegTWcdtFEp3nwbys57dHgXfBZS8OydVwyLwz6ApHUGPTe0vhJ5jWoHsQryMUHWyYvDkXhg1ueNvSQIOAt5DV3KYRvsv79dsV3q6tQhLSk6MQb8KXgiM4N47bqnBbyhHCioX06BwQG+Rv2OuLoxTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YHCce7j6; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A5E82C4AF0C
+	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 10:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720519566;
+	bh=0xNlBpte/OeBbJHp37/TNb6wpL5TLhSlyBJZEpSTGWI=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=YHCce7j6cTkmNWK8/nuzR6O27pLEswce2BsitkE6E6BsS85SP775RmJS8QbQVWYgw
+	 TwBOJT90Kok5HDW8C6WwR7lT8ioWHw9CcolTD7tqMy+AIOBkW7j28NBDiYPjLz472J
+	 HJPKDwsncxx5CV5Nw47WS+u+1To9g+nicaknK2D0RjcYRYxBxSxSvZsqnd8T/lY7Ee
+	 plJet4+dEjD0MhizEVPRuz09/PSdYedtxdjwBKHCrJR/guYFNa1hj/vVNflb1e4B9v
+	 WTUOVuHlxSqgLef8WUt29qym9EKKAt0KegypiLl/JRkJsQDOGkXea7CPBxo7A74M99
+	 Mrbym3BBqebWA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 9A8A3C53BB9; Tue,  9 Jul 2024 10:06:06 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 219017] "The call fmod(372, 360) returns 348."
+Date: Tue, 09 Jul 2024 10:06:06 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status cc resolution
+Message-ID: <bug-219017-11311-uCDaLcFYSz@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-219017-11311@https.bugzilla.kernel.org/>
+References: <bug-219017-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240709021335.158849-3-kolyshkin@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hi Kir,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D219017
 
-On 07/08, Kir Kolyshkin wrote:
->
-> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=64bef697d33b
+Alejandro Colomar (alx@kernel.org) changed:
 
-The changelog says:
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+                 CC|                            |alx@kernel.org
+         Resolution|---                         |CODE_FIX
 
-    pidfd: implement PIDFD_THREAD flag for pidfd_open()
+--- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
+Hi!
 
-    With this flag:
+Thanks for the report.  I've fixed it with the commit shown below.
 
-            - pidfd_open() doesn't require that the target task must be
-              a thread-group leader
+Have a lovely day!
+Alex
 
-            - pidfd_poll() succeeds when the task exits and becomes a
-              zombie (iow, passes exit_notify()), even if it is a leader
-              and thread-group is not empty.
+---
 
-              This means that the behaviour of pidfd_poll(PIDFD_THREAD,
-              pid-of-group-leader) is not well defined if it races with
-              exec() from its sub-thread; pidfd_poll() can succeed or not
-              depending on whether pidfd_task_exited() is called before
-              or after exchange_tids().
+commit 346bb648cc963bd9f2c8b16d984cb49030faa05b (HEAD -> contrib, alx/contr=
+ib)
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Tue Jul 9 12:00:18 2024 +0200
 
-> +The behavior depends on whether the file descriptor refers
-> +to a process (thread-group leader) or a thread (see
-> +.B PIDFD_THREAD
-> +above):
-> +.RS
-> +.IP \[bu] 3
-> +For a thread-group leader, the polling task is woken if the
-> +thread-group is empty. In other words, if the thread-group
-> +leader task exits when there are still threads alive in its
-> +thread-group, the polling task will not be woken when the
-> +thread-group leader exits, but rather when the last thread in the
-> +thread-group exits.
+    fmod.3: EXAMPLES: Fix calculation
 
-so this part is not accurate.
+    Fixes: ce23e8188f8f ("fmod.3: Add example section")
+    Closes: <https://bugzilla.kernel.org/show_bug.cgi?id=3D219017>
+    Reported-by: Benjamin Otte <otte@gnome.org>
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-See also 43f0df54c96fa5a ("pidfd_poll: report POLLHUP when pid_task() == NULL")
-which adds another feature.
+diff --git a/man/man3/fmod.3 b/man/man3/fmod.3
+index d6c76c7a3..13e0f2e8c 100644
+--- a/man/man3/fmod.3
++++ b/man/man3/fmod.3
+@@ -170,7 +170,7 @@ .SH BUGS
+ .SH EXAMPLES
+ The call
+ .I fmod(372, 360)
+-returns 348.
++returns 12.
+ .P
+ The call
+ .I fmod(-372, 360)
 
-Oleg.
+--=20
+You may reply to this email to add a comment.
 
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
