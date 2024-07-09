@@ -1,58 +1,58 @@
-Return-Path: <linux-man+bounces-1422-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1423-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21E5492C3DC
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 21:20:37 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6E092C3DF
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 21:24:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 533561C21D42
-	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 19:20:36 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 16141B21AC3
+	for <lists+linux-man@lfdr.de>; Tue,  9 Jul 2024 19:24:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFD7C1B86EA;
-	Tue,  9 Jul 2024 19:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50A2E2629D;
+	Tue,  9 Jul 2024 19:23:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3jl1TCT"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uOKUzFwn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D2B185607
-	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 19:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB8C1B86C9
+	for <linux-man@vger.kernel.org>; Tue,  9 Jul 2024 19:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720552831; cv=none; b=n8E8rxQtiHGPUJ0H4OmxoerFCUtrwSP3dc+wbb++5JepukIX50HyLIcb7rhY9wyTk5sobY3qGpJmz+B7boM8PgEAgRelbArlimDSueizm2epsLmfKmOrEJiTwSCzJVOe/EcjjiOIX5PRHtFu60GoS31RdtVTb42NppUNyEoNv0U=
+	t=1720553036; cv=none; b=jnB5ait1xtEM+nc+LOpq2lxUNwKakw1gVAl64nkRiwbamWkGxNVdVGXkyu/gsn0JNm9T33V0zRytsiOwN0/RallQ96/PFMOv3VBrIHcKbxxiT5xKxh1TfedczrkjFXtI/rWje4sYjROWeCDEHY0SNqQipmPQYRse7RDjbVeBv6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720552831; c=relaxed/simple;
-	bh=26brBebB9EmVUIVgMQXXp6TpGgX0TN990H1bRWOe4lg=;
+	s=arc-20240116; t=1720553036; c=relaxed/simple;
+	bh=HEaxhBS2eV4d+d+KmuI0Y6kd4WAbUo4AM//GHAK6Bv0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=leFIMPA5hpbSgqodcGsPwShu8B3brmbU95OEy5pMlBBH+wb2LSXDC9n3HzYJobDFE5DVig0W8w1r8Uy47NbQlj92scTkdXoqT6RykqhkuDuY/3URJOAq51PzpBiGMZJZmErahTt6rVCPVVNB85/qqzQnUTZgBiGOddM50LiIQsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3jl1TCT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7770BC3277B;
-	Tue,  9 Jul 2024 19:20:30 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=oVGw/JD3Mj0fa/PZB1E8eae/Tx+iPhCzYueAp790P0iEyQnF6cFdgye59eu76FeDMcyTHqzAa2x2SrAucP8dgMCbhe9QrlcAVb4+3KQdteiaIV6l84hMtVqCcbhjff7jB5fJTnAPxQ+f0bF1A7zqzpSCZ3KaTnTQAdTemLeezUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uOKUzFwn; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09DE3C3277B;
+	Tue,  9 Jul 2024 19:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720552831;
-	bh=26brBebB9EmVUIVgMQXXp6TpGgX0TN990H1bRWOe4lg=;
+	s=k20201202; t=1720553035;
+	bh=HEaxhBS2eV4d+d+KmuI0Y6kd4WAbUo4AM//GHAK6Bv0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=o3jl1TCTTR+CQELlVtFMCY7IDlt6xhXg8tZK7i9lUOpapHrVgB3ndGApqjDTzjQls
-	 bDM2IAGxoXkKyA1Rh6bDkb6h4QHo+E3i15Nn3Cdqhj646rVpY7uCZrUaklDoaVNuXy
-	 nANgQEmEN96burzIY15JivKeFYom/30VXxyiIEXC7AKw5k9z51BiVG1UCvlNx4z27u
-	 ONhNTxbW4Uywi22z/ST4EwdFltJ6RS0If+KgmorisfZq6PM7/xsZoff1fB1X9/RWGq
-	 LY1h2DzavAGT/EVvtw5KntAsDJd+T0yBpbPFKSZzdSrR7ODBcK2MfRxwu5rMPwKp3/
-	 yxz/tfTRbipAg==
-Date: Tue, 9 Jul 2024 21:20:28 +0200
+	b=uOKUzFwnFtsxBS8Wm0qfIU+cz+k/rCPwjYyKpaIKmZiRiFClzaxiLzSiT69KD8eLr
+	 tvhTm4Cr1aI5Q8fpOWPlvO99Je+A2TvVpueUKHoIrLDTCrS0kHMjBY+12eem2KZDj6
+	 9Jq0nNzF4jIdg8FLSXZehaWUJCEEeo5pM90V4QarO+fdFn2FDuJ4ltokvc39d/0B9i
+	 CI84AU2m9h4mKEWAkDxDpea02kskEL2l+v+HN2Slj1MJzpDSxakeLhhYyiNh1Gq0c2
+	 sOAxmvkdW6ycXxu6/oMn7qe9WhpZxL+mPF7aSnTjTNqO+OxXt9ZAGTpST6KYB0POxW
+	 EJJipv1E49P2w==
+Date: Tue, 9 Jul 2024 21:23:52 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] sigaction.2: setitimer(2)/alarm(2) timers yield
- si_code=SI_TIMER too
-Message-ID: <eimffawrhk22n7hx6wcc3c3lqmukwkzxfjyglnzgau3cbvue3d@njs4kcjerncp>
-References: <xnwurjcbcwr3nrdpeqtt3afnafem7pbvlkiula5vvnb2mummw6@tarta.nabijaczleweli.xyz>
- <l6nvhqqcvytn4kgx6fnh4kalip6sqhvh2m75q5ee32n7k4vy2d@razgfd4n2zn3>
- <5j5iwu7spgp3jxwiiiup5fxo2cldim4vaexgcnmzwzpe5gtwnc@tarta.nabijaczleweli.xyz>
- <bgvpjt2rb7lkzphzxix7htcuyp2kfgxfzndfhwzr7i6ll2klxy@kuj35deb4dfh>
- <i2mpm6u2p2jphzecto6oltr4wmjqcnvqxjawtztyrl6mm6f675@tarta.nabijaczleweli.xyz>
+Subject: Re: [PATCH] printf.3: the overall syntax is "%argnum$...", not
+ "%$..."
+Message-ID: <ovkagffe7qrdqzxqdd3rserfqgh7rpav2tztsc6eky326ncpaf@khzpqf5tbgrm>
+References: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
+ <gbwgs4u4acvwtabte47aljprwnhhxsznh7il2yfafhwkwrysbm@ij353jrj34qu>
+ <3k35hwsubawtgidt2tvhrw5vspejtfmukyysfaf5ak7bdluswy@tarta.nabijaczleweli.xyz>
+ <3i7s3ym3wj2ya3aiuar27dnfj7xpf3mfj5knxznckeq4blmt3w@hzwf7bs2f6d6>
+ <rmb7glxh25cblpk3ju7dme2s2rt77kak2qzcnmevc7da5v2cpl@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,69 +60,76 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4l24b3upzu6fp3bs"
+	protocol="application/pgp-signature"; boundary="zamzc23rtnxmqbmm"
 Content-Disposition: inline
-In-Reply-To: <i2mpm6u2p2jphzecto6oltr4wmjqcnvqxjawtztyrl6mm6f675@tarta.nabijaczleweli.xyz>
+In-Reply-To: <rmb7glxh25cblpk3ju7dme2s2rt77kak2qzcnmevc7da5v2cpl@tarta.nabijaczleweli.xyz>
 
 
---4l24b3upzu6fp3bs
+--zamzc23rtnxmqbmm
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] sigaction.2: setitimer(2)/alarm(2) timers yield
- si_code=SI_TIMER too
-References: <xnwurjcbcwr3nrdpeqtt3afnafem7pbvlkiula5vvnb2mummw6@tarta.nabijaczleweli.xyz>
- <l6nvhqqcvytn4kgx6fnh4kalip6sqhvh2m75q5ee32n7k4vy2d@razgfd4n2zn3>
- <5j5iwu7spgp3jxwiiiup5fxo2cldim4vaexgcnmzwzpe5gtwnc@tarta.nabijaczleweli.xyz>
- <bgvpjt2rb7lkzphzxix7htcuyp2kfgxfzndfhwzr7i6ll2klxy@kuj35deb4dfh>
- <i2mpm6u2p2jphzecto6oltr4wmjqcnvqxjawtztyrl6mm6f675@tarta.nabijaczleweli.xyz>
+Subject: Re: [PATCH] printf.3: the overall syntax is "%argnum$...", not
+ "%$..."
+References: <atyx4os7275jhfsrnblyr6ykxwghjzdpdnvnrvxcskei7kbb6n@tarta.nabijaczleweli.xyz>
+ <gbwgs4u4acvwtabte47aljprwnhhxsznh7il2yfafhwkwrysbm@ij353jrj34qu>
+ <3k35hwsubawtgidt2tvhrw5vspejtfmukyysfaf5ak7bdluswy@tarta.nabijaczleweli.xyz>
+ <3i7s3ym3wj2ya3aiuar27dnfj7xpf3mfj5knxznckeq4blmt3w@hzwf7bs2f6d6>
+ <rmb7glxh25cblpk3ju7dme2s2rt77kak2qzcnmevc7da5v2cpl@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <i2mpm6u2p2jphzecto6oltr4wmjqcnvqxjawtztyrl6mm6f675@tarta.nabijaczleweli.xyz>
+In-Reply-To: <rmb7glxh25cblpk3ju7dme2s2rt77kak2qzcnmevc7da5v2cpl@tarta.nabijaczleweli.xyz>
 
-On Tue, Jul 09, 2024 at 08:43:40PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
-> On Tue, Jul 09, 2024 at 08:42:14PM +0200, Alejandro Colomar wrote:
-> > On Tue, Jul 09, 2024 at 07:53:34PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
-> > > On Tue, Jul 09, 2024 at 06:38:42PM +0200, Alejandro Colomar wrote:
-> > > > On Mon, Jul 08, 2024 at 04:03:40AM GMT, =D0=BD=D0=B0=D0=B1 wrote:
-> > > > > Applies to Linux and NetBSD.
-> > > > Is this non-standard behavior?
-> > > In the case of setitimer(): "obviously yes" because the interface is
-> > > not part of the standard.
-> > The POSIX.1-2008 standard specifies setitimer(3p).
-> But the current standard (-2024) doesn't.
+Hi =D0=BD=D0=B0=D0=B1,
 
-Hmmm, do you want to send a patch for that?
+On Tue, Jul 09, 2024 at 08:44:26PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
+> On Tue, Jul 09, 2024 at 08:43:36PM +0200, Alejandro Colomar wrote:
+> > On Tue, Jul 09, 2024 at 07:57:34PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
+> > > On Tue, Jul 09, 2024 at 06:57:29PM +0200, Alejandro Colomar wrote:
+> > > > > -%[$][flags][width][.precision][length modifier]conversion
+> > > > > +%[argument$][flags][width][.precision][length modifier]conversion
+> > > > Maybe argnum is clearer?
+> > > Considered it, but nothing else in this string is contracted.
+> > > If it were=20
+> > >   %[argnum$][flags][width][.prec][length]conv
+> > > then sure.
+> > >=20
+> > > I don't think it matters, really, but "argument" reads better with the
+> > > full words. If you like argnum better then feel free to editorialise =
+to
+> > > that.
+> > How about [position$] ?
+> Don't think so, argnum is better than position IMO
 
-Anyway, for 2008, was it non-standard behavior?
+I've applied the original patch.  Thanks!
 
-Thanks!
+Have a lovely day!
 Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---4l24b3upzu6fp3bs
+--zamzc23rtnxmqbmm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaNjXwACgkQnowa+77/
-2zLyUxAAoen1gWc26+k49kKqS9u3yvkISQk2HGTgYU4OrqbNv335nDa179qMiU0g
-JSZ2pIEw+4G7OPCHIpLkEvNn8GZXtRXILAkr+ht4vu75XdQ5WIID1tz8psWgzeEM
-Of0Uvljn4QuO/kvbY5ba03prNbpOgDqux838Lp5MdOAmTO+RIf0nyxp+qXfCI8vW
-XaCMyaU5VvM+FJ8gGr1dbbyQ6+NOTb48QOSi2LAz4K065uqpuO4kF2QnnFUscR1V
-B3s7sRHqpNnRXUyH0QKcrATqQzGGy5By/Xn+kR0njDONieU105EmirNAQ7tlhs9o
-Tk18Op7eS44i1rms8Ds5vWr17TPz8ognat/uMvHpVIfc/jqq4FrUvwyEZUOjvD9v
-E2y6sCzMuBTF2nNEyPriuZv7WyUVyH6oszqj4mUcysJr5ntEM/4bDlDdLECUkFc2
-b2W2agvllEJekhSlpf1l3816RdeMSg5n9n+en7GLpD8UnHVAulSrfzAGuU19SLUV
-850jT4uuPCb7CRPDk28pSQsfnRjrCN3jCCtgfFaL21kbcHVXEMpqo5gatUI0w0DP
-i6zUsgyJAL+MN7lpgE88Vu3fgHm/s1x007RNtYHXJk7TqF5LgNMEX6AtitjCe+Qi
-nbgebjta10hCZ/g5dHSC9+GfQPQHno4e6xAxyZkfT/6BZNvsU40=
-=c65e
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaNjkgACgkQnowa+77/
+2zI6pw//TI47NAxZfFgJbK9GXodqjYpyGF9mq9kEwVJOcl5F+5/eqCTwHBJuf3Hy
+WVZ/90cQWSoOS5vwJ803tA1YEX9fa6v8D9MVP56kvsPxFSkI4qBa4P6P2FvpAZGl
+2F2pLR2CJxGNak+Bo4EL+18drm/zVI7ax8lWCK21rZbKnQk+vypOlItjxVsCxs8C
+1QLhCRg79QNYI21y5p9LUpod7kyv4Vmbla0f4XHPTCyGumg3hmt8mHFLSDnbnzer
+Pj9K/M6i1U/uOFRixXJiio1Z/jvmeuyOBhchPTQNAhTOUJViUlTfffJ8UB2H3aS9
+is1UQOBnOxmEAn1UvnDlyybgAZg1GGHME8gEGQZ0PxfAnge1iWvzP8VdAUCk9kZH
+yfpQPjqY2g6mfmNkQ0bmHz6tgqbQMl72066p6+V7tlIwiaaIFRl9JrS63XPjucpe
+JMD9QvU8a8/WZl8A5oiaPx6oLFc5n6bmC3Xh0C0ZZvNugSRra1YA70o7KUVeWFBL
+noGBbqXDFvlOYqQXfgsTmznmsKB1zszvesHrjlVH5oPhej1Gq+XRXpsj2n2Qv4EZ
+yPq29QWbU+kwcIE4uQDECrIFWjZozJMFBZY2sNNHluJYmjxzdvDp+mwoLzVt08vN
+zqA6s/HX4Zds9OnMFFh8CTBRnHAMQfbiXGFlzEmW9CK8gSQTexc=
+=9B+s
 -----END PGP SIGNATURE-----
 
---4l24b3upzu6fp3bs--
+--zamzc23rtnxmqbmm--
 
