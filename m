@@ -1,189 +1,111 @@
-Return-Path: <linux-man+bounces-1453-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1454-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55C992FFFD
-	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 19:53:28 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 866B3930022
+	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 19:59:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 020691C2163A
-	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 17:53:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 30F4C284234
+	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 17:59:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FB7B175560;
-	Fri, 12 Jul 2024 17:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B042176FD6;
+	Fri, 12 Jul 2024 17:57:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+h4MYim"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oi1R+K/H"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BCE143C52;
-	Fri, 12 Jul 2024 17:53:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5675C172777;
+	Fri, 12 Jul 2024 17:57:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720806803; cv=none; b=Vym9mUYLRMFER3KfkQE1gIwci8xXAClkQWFakt5CXfDOgwlKLMes3hwvOYTM8xv6RBAxziWQDpfYyO/4VkvDz/CujJtca+4v+UH2LVtHPF+v5Hvu1MCQhsBnfa+KmZjzRRIZ0SYhLFJs9lBeckSxAyA2tzAnBhmhoGLkKK11u2M=
+	t=1720807022; cv=none; b=SGTqS5gyYRVHEEusB9rscUMPI8Dghs80dmgkqqJ9yocdl55gbZWYcIv8Yy2WqfrTkuHyK/v8GgutI0pGQ93DIApcDpB/9BvPGysfS4dk74MirezWQ7mhFflw13BqrVXZzyYIf1W5Zmvkc/XZ0aEUBDRNWTZSixJvFWjGLGWWgoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720806803; c=relaxed/simple;
-	bh=j6sIATo6CzMdTySQVxN2VTzdLQnH8mMMhtziO3X3I/E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oZGDzjsuiEucNprjLfsVuJtf01DHtJzLijoRfgBTSiwQx0Nbs7gySAbH7C/Iz/cnbpcasb1NjkWSzuEwgWw5EVchZFgg20eA9TMKD2l9EJQP2RTwYnFqholirsiGk6PB0CItpzQXt1VcBODftwReuV4fGswiYGMSdLtYBATit+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+h4MYim; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E33C32782;
-	Fri, 12 Jul 2024 17:53:21 +0000 (UTC)
+	s=arc-20240116; t=1720807022; c=relaxed/simple;
+	bh=QZOyrPULHwZGMDwiE9qJEry9Fhp//3CwkfjE+W8ccFE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o6Qd/D2v9dOs2mpaJb5ITYbXUYZlMuxjkHoGe3Og+Nvh21CS30xQgGdJn9zVNGQWlItgk1olPIhStcPdFfCnUF5PqLWQayEAG/S23m/5W/oPk4pwdLXCf/hrImJEPQRIJ/WpI3F8mo00htRPjrEQJ0glCqQLBHL2v1Rfp9zGIwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oi1R+K/H; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65BCFC32782;
+	Fri, 12 Jul 2024 17:57:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720806803;
-	bh=j6sIATo6CzMdTySQVxN2VTzdLQnH8mMMhtziO3X3I/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y+h4MYimHoS/UykF28uMFfqcxmYpXz2il8r01j1RcTVzF5NEKehAHQYHRsszEEONT
-	 RGWIC3S+Ennj4P+LgSKLhRqF6zt1Yy2RNocWC2ge5URksHbdnsL8FqFgox1KxUvfj/
-	 WSadZ1ms4Hw2AS3Cc1kM+nYuW0tM2GkcpfIZCnLEQxtvXvwXd4b/T/LW2mSWIRTGc2
-	 zT30N7p4EjEyee/olsLSpBMeJPty8MK8rPSMG/+QevMD3mDOix6Jzsdpa7wzFy5BCx
-	 cQyFTzKB1BwRtfUK9yHMF8DucOORQ3MBW1Tms3CIPYEtoEMCdkO7CgXg4xQKuJbpVo
-	 nd/hHAZZ66dug==
-Date: Fri, 12 Jul 2024 19:53:19 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@linux.microsoft.com>, =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] landlock: Mention -1 return code on failure
-Message-ID: <bz3xewcvhobkffqrwg5bgt5wh3z5rd6ipmsjgczxj6p4ljkbg7@h77ig7r7t2vd>
-References: <20240712172246.151258-1-pvorel@suse.cz>
- <20240712172246.151258-2-pvorel@suse.cz>
+	s=k20201202; t=1720807021;
+	bh=QZOyrPULHwZGMDwiE9qJEry9Fhp//3CwkfjE+W8ccFE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=oi1R+K/HgdrxsVbfUUyVMfkWHF2gc1sqdyyeLMYwXwJz2RWg1FAMHrjGJ/0Zvdfu4
+	 31CSA0Qs/o9Xq8fB6cAwgBZjj8dq+1s6oxOxYLQ0V44REdH/9G/9RsDaLm2HH9BSyT
+	 jz7UJgnShlfEyL96/4vwRqsMALHRt5kiG92Lir76wVvuUpdIwXHK5y10yWwv8LnqgQ
+	 u3CBxy59VLGyEeZyJaZqnFeMk+hY+poeryEYo9HQKMFhmM1gqdb0OUXCxnLhYMSayp
+	 t1akXbQspNBUr6fBJ9n5o2Q1auFYFttrQh+a4zDCYz4cQYJFXwU38VMUxDFpgljL7j
+	 +P6VbcTmlvwZw==
+From: cel@kernel.org
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	amir73il@gmail.com,
+	Chuck Lever <chuck.lever@oracle.com>
+Subject: [PATCH v1 1/2] fa_notify_mark(2): Support for FA_ flags has been backported to LTS kernels
+Date: Fri, 12 Jul 2024 13:56:48 -0400
+Message-ID: <20240712175649.33057-1-cel@kernel.org>
+X-Mailer: git-send-email 2.45.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sec3mkynufb7yv4a"
-Content-Disposition: inline
-In-Reply-To: <20240712172246.151258-2-pvorel@suse.cz>
+Content-Transfer-Encoding: 8bit
 
+From: Chuck Lever <chuck.lever@oracle.com>
 
---sec3mkynufb7yv4a
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@linux.microsoft.com>, =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] landlock: Mention -1 return code on failure
-References: <20240712172246.151258-1-pvorel@suse.cz>
- <20240712172246.151258-2-pvorel@suse.cz>
-MIME-Version: 1.0
-In-Reply-To: <20240712172246.151258-2-pvorel@suse.cz>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+---
+ man/man2/fanotify_mark.2 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Hi Petr,
+diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
+index f3fce0c4e4c4..edeadc883029 100644
+--- a/man/man2/fanotify_mark.2
++++ b/man/man2/fanotify_mark.2
+@@ -176,7 +176,7 @@ the update fails with
+ .B EEXIST
+ error.
+ .TP
+-.BR FAN_MARK_IGNORE " (since Linux 6.0)"
++.BR FAN_MARK_IGNORE " (since Linux 6.0, 5.15.154, and 5.10.220)"
+ .\" commit e252f2ed1c8c6c3884ab5dd34e003ed21f1fe6e0
+ This flag has a similar effect as setting the
+ .B FAN_MARK_IGNORED_MASK
+@@ -271,7 +271,7 @@ error.
+ This is a synonym for
+ .RB ( FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY ).
+ .TP
+-.BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
++.BR FAN_MARK_EVICTABLE " (since Linux 5.19, 5.15.154, and 5.10.220)"
+ .\" commit 5f9d3bd520261fd7a850818c71809fd580e0f30c
+ When an inode mark is created with this flag,
+ the inode object will not be pinned to the inode cache,
+@@ -362,7 +362,7 @@ Create an event when a marked file or directory itself is deleted.
+ An fanotify group that identifies filesystem objects by file handles
+ is required.
+ .TP
+-.BR FAN_FS_ERROR " (since Linux 5.16)"
++.BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
+ .\" commit 9709bd548f11a092d124698118013f66e1740f9b
+ Create an event when a filesystem error
+ leading to inconsistent filesystem metadata is detected.
+@@ -399,7 +399,7 @@ directory.
+ An fanotify group that identifies filesystem objects by file handles
+ is required.
+ .TP
+-.BR FAN_RENAME " (since Linux 5.17)"
++.BR FAN_RENAME " (since Linux 5.17, 5.15.154, and 5.10.220)"
+ .\" commit 8cc3b1ccd930fe6971e1527f0c4f1bdc8cb56026
+ This event contains the same information provided by events
+ .B FAN_MOVED_FROM
+-- 
+2.45.1
 
-On Fri, Jul 12, 2024 at 07:22:46PM GMT, Petr Vorel wrote:
-> Mention -1 return code on failure for landlock_add_rule(),
-> landlock_create_ruleset() and landlock_restrict_self().
->=20
-> Although it's a common rule to return -1 on error, it's better to be
-> explicit (as the other man pages are).
->=20
-> Fixes: a01d04a69 ("landlock_add_rule.2: Document new syscall")
-> Fixes: ca5163697 ("landlock_create_ruleset.2: Document new syscall")
-> Fixes: 3f7e4f808 ("landlock_restrict_self.2: Document new syscall")
-> Reviewed-by: G=C3=BCnther Noack <gnoack@google.com>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-
-Patch applied:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Df635c200e5fddd6f4250246239c59a5b833d435c>
-
-Thanks!
-
-Have a lovely day!
-Alex
-
-> ---
-> changes v1->v2:
-> * s/the cause of //g
->=20
->  man/man2/landlock_add_rule.2       | 4 ++++
->  man/man2/landlock_create_ruleset.2 | 4 ++++
->  man/man2/landlock_restrict_self.2  | 4 ++++
->  3 files changed, 12 insertions(+)
->=20
-> diff --git a/man/man2/landlock_add_rule.2 b/man/man2/landlock_add_rule.2
-> index 4b95afb07..d4ae8f2f6 100644
-> --- a/man/man2/landlock_add_rule.2
-> +++ b/man/man2/landlock_add_rule.2
-> @@ -79,6 +79,10 @@ must be 0.
->  On success,
->  .BR landlock_add_rule ()
->  returns 0.
-> +On error,
-> +\-1 is returned and
-> +.I errno
-> +is set to indicate the error.
->  .SH ERRORS
->  .BR landlock_add_rule ()
->  can fail for the following reasons:
-> diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_creat=
-e_ruleset.2
-> index e62a3f9b9..618d54f37 100644
-> --- a/man/man2/landlock_create_ruleset.2
-> +++ b/man/man2/landlock_create_ruleset.2
-> @@ -86,6 +86,10 @@ returns a new Landlock ruleset file descriptor,
->  or a Landlock ABI version,
->  according to
->  .IR flags .
-> +On error,
-> +\-1 is returned and
-> +.I errno
-> +is set to indicate the error.
->  .SH ERRORS
->  .BR landlock_create_ruleset ()
->  can fail for the following reasons:
-> diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restri=
-ct_self.2
-> index 43f15c932..d4e5e753c 100644
-> --- a/man/man2/landlock_restrict_self.2
-> +++ b/man/man2/landlock_restrict_self.2
-> @@ -72,6 +72,10 @@ must be 0.
->  On success,
->  .BR landlock_restrict_self ()
->  returns 0.
-> +On error,
-> +\-1 is returned and
-> +.I errno
-> +is set to indicate the error.
->  .SH ERRORS
->  .BR landlock_restrict_self ()
->  can fail for the following reasons:
-> --=20
-> 2.45.2
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---sec3mkynufb7yv4a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaRbY8ACgkQnowa+77/
-2zKLXxAAjVQrtfgTKY5//jGDqPV+r04i13hevYBapU+gXszAu3D8rRZpZHJe/4WG
-LpzsqqJr36CLjq/b4x1mMnE7ZoPy3HNSE/I9SlxA2nVXnx9o/toK/kFH/OXAcgm+
-K1UMpU/owZYq2RRUdVxPREbjXqufYPJeKE2AF16E6XfEUtV1iuTVtjcDTPLxjh+V
-vCEqEgJ+3kGD+RYkYzlBC7h11FFuSg1V4XIPE2LRIMgxnOPGJCRpq61FX+oiNfBz
-HDk2KfBUm6BBerPhwHnbfUQ7KGQ9EF27hNDneSPgvMVQ9fKUwmtzTR/9i/Qf4uNI
-NHEN1vemkN7PAFP4Abhu5mII8l0CUxnmLFcywNJwizLHGou6FWOT3x30TOv1RIm8
-J41Y97rBeN3XTt0nx9LszyK04+SipK8ZKovuhQrA7jzOI4jpc9AIwxnsfipDdHLt
-kySNI9zbtms2IQm4QrwKicA4buMJtgU/YO3ubk3rUflh3K8nycFvstdaUzXEzvsY
-bvSIqF4Cpl3VTs+GFicXHnDHqU82s30pdN24IuI2qcbADXnUvTXt8R6q09yVWbbb
-zoZU+29CTX3qfqbQ1jlflGw2fgl65tkcU9o4ywnMQdoX+L/0ZZdV04Cg9X4KosyL
-zGyniPkMisS6mh7INcE/eITNY3jZRxn0R4Od7gL3ZMuF243vm/0=
-=aLxz
------END PGP SIGNATURE-----
-
---sec3mkynufb7yv4a--
 
