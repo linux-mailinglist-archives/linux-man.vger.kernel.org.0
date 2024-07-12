@@ -1,204 +1,192 @@
-Return-Path: <linux-man+bounces-1443-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1444-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B88D92FAEA
-	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 15:09:24 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC1792FAF4
+	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 15:13:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0578F1C20F9C
-	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 13:09:23 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id DD9441F2336C
+	for <lists+linux-man@lfdr.de>; Fri, 12 Jul 2024 13:13:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4A7816EBEA;
-	Fri, 12 Jul 2024 13:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E94716F8E3;
+	Fri, 12 Jul 2024 13:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="cTs4BSJn";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AphytT9X";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="cTs4BSJn";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AphytT9X"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXTfwU6y"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E01616D324;
-	Fri, 12 Jul 2024 13:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB52316F850;
+	Fri, 12 Jul 2024 13:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720789752; cv=none; b=CiOeoSOhOMalhojj4GUV3RHS+KGb8ZTfDp4lC0szY4dYiIzEvz91Np0Eia55dVlb0cdacsdUttGQjfm6xLLGnhZsuWLUEEwAfEuVOkOioWGd1Mm9KPUOwBRygXZKHJ6v8L0Qg7PrxTT6U8HoV/mOSeG1RxwtEK8kLpHWdC47ie8=
+	t=1720789994; cv=none; b=gLmubBppbll5Rpz3Ojb+KjNYvLQLH4laHuyacG9MvyTbiDWgRdGqYg6LiwjZBCx6klWfq1vficQSxSzATyESg5LZx2L6tjiavSPt+sxAWaV4uTs61K3vng+77bwKBksXh4KFCCqiPsauoFeBWlC7JWwg0p8AQLdYLuWvS7yPyJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720789752; c=relaxed/simple;
-	bh=w519+6kp2nEluYL9GrK3MMhPqsE6dxfNbsJk68EOYHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z+feKZE53w4u4OcXf4EK1CJqU1iztQgCcl9VxjMZqD/iHOgq4U/ffp/0zfSw+2LN1G5iVInWoc89kI4RL42mqibcQcZWoxqGw2QE0lTvrbdw0dh3qnHuzcwFNyKI4V81beHnPnAtXtmAFmRcR46MPTBLMkMpZzqIwKX/kvryF24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=cTs4BSJn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AphytT9X; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=cTs4BSJn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AphytT9X; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A05A11FB81;
-	Fri, 12 Jul 2024 13:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1720789748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0a5dSflEVJabFOXF1XSgx8edydh/4ubO5V6SoF96HjU=;
-	b=cTs4BSJnK3FOVAX3FYU/zaGqn9W/zXYRTx6/qkPxTKKHBBiQONCHorlNFKPDTMVDLvu2d+
-	jgpfUsSxrcb04EM+eQr3+Eg9EwE8Lqxl96ppP+A5zxkramOr32LQAzZceNnNynYus5JgcP
-	XbJY74cOAVJ4AqC5uN4OrffhNR6enaU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1720789748;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0a5dSflEVJabFOXF1XSgx8edydh/4ubO5V6SoF96HjU=;
-	b=AphytT9X7ewOCHHhJNDP5V0Bt9RBRFfwoipsOEtUFMNOqoFMLXhy2XNlYOxflWGM+aAh2U
-	EFJKD8y1C9cJH6DQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=cTs4BSJn;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=AphytT9X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1720789748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0a5dSflEVJabFOXF1XSgx8edydh/4ubO5V6SoF96HjU=;
-	b=cTs4BSJnK3FOVAX3FYU/zaGqn9W/zXYRTx6/qkPxTKKHBBiQONCHorlNFKPDTMVDLvu2d+
-	jgpfUsSxrcb04EM+eQr3+Eg9EwE8Lqxl96ppP+A5zxkramOr32LQAzZceNnNynYus5JgcP
-	XbJY74cOAVJ4AqC5uN4OrffhNR6enaU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1720789748;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0a5dSflEVJabFOXF1XSgx8edydh/4ubO5V6SoF96HjU=;
-	b=AphytT9X7ewOCHHhJNDP5V0Bt9RBRFfwoipsOEtUFMNOqoFMLXhy2XNlYOxflWGM+aAh2U
-	EFJKD8y1C9cJH6DQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5302A13686;
-	Fri, 12 Jul 2024 13:09:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pq6xEfQqkWY4YAAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Fri, 12 Jul 2024 13:09:08 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: linux-man@vger.kernel.org
-Cc: Petr Vorel <pvorel@suse.cz>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@linux.microsoft.com>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Alejandro Colomar <alx@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH 1/1] landlock: Mention -1 return code on failure
-Date: Fri, 12 Jul 2024 15:09:04 +0200
-Message-ID: <20240712130904.145010-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.45.2
+	s=arc-20240116; t=1720789994; c=relaxed/simple;
+	bh=XJpN4iWDV662kk6JHLhAJ5VOVp/NFFTzMwtUWb3FEGE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3DTbI/bWnlWEfbKQ6u6TdJ5tYWfOucwOsF0MT7yWSoUhxu+Y17pmHFdsaXDIZM20RPmZJbmFW1rF2g8r8YhNe+26bGo2wdFYxVUXg8N+tMdq3SdYV7/M1w9Z66LwVUFOgYWISBC2KKx7X3V/K3OLyY/nV6lCiANEbQOFQprNuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXTfwU6y; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CFCC32786;
+	Fri, 12 Jul 2024 13:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720789993;
+	bh=XJpN4iWDV662kk6JHLhAJ5VOVp/NFFTzMwtUWb3FEGE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SXTfwU6yDOlvmDl71PDZiCh3cxJcJWeNiddxgK9BEB954ZUkx42IqDAjgrf8rPabC
+	 8NKVc+/s0VVZPH69Y85q1NK5lH4UIPZ2vsDFRvXwslQ3nYN6IjidDu2/rpUSjzj/GS
+	 Mr1It7oe14o6JP5we9XGnvg9qOuI7yycri11o8nnamHgtDf6M9TWEokXtrxqMtAHVm
+	 NOO08LV7j6Vw0FKCgjvcvGJN9pVKY4b5buWqgnQdNfDqQGgkz028iCCF12sjklMJmi
+	 dvFl3+E5O4v/++nI/S7DXBAzJgT5XddHNrUbBLcGQ/hMwwUXqkRrYscGloLu3PYQJL
+	 QXvvtbFpnildw==
+Date: Fri, 12 Jul 2024 15:13:10 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Petr Vorel <pvorel@suse.cz>
+Cc: linux-man@vger.kernel.org, 
+	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@linux.microsoft.com>, =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH 1/1] landlock: Mention -1 return code on failure
+Message-ID: <evf3o7bjqr6262out6aazgbmmgm45o3gtuywdulrzhtd742p7n@v6xdj5yftinm>
+References: <20240712130904.145010-1-pvorel@suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: A05A11FB81
-X-Spam-Flag: NO
-X-Spam-Score: 0.99
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [0.99 / 50.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Level: 
-X-Spamd-Bar: /
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zkufiwn4voij5nsj"
+Content-Disposition: inline
+In-Reply-To: <20240712130904.145010-1-pvorel@suse.cz>
 
-Mention -1 return code on failure for landlock_add_rule(),
-landlock_create_ruleset() and landlock_restrict_self().
 
-Although it's a common rule to return -1 on error, it's better to be
-explicit (as the other man pages are).
+--zkufiwn4voij5nsj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Petr Vorel <pvorel@suse.cz>
+Cc: linux-man@vger.kernel.org, 
+	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@linux.microsoft.com>, =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH 1/1] landlock: Mention -1 return code on failure
+References: <20240712130904.145010-1-pvorel@suse.cz>
+MIME-Version: 1.0
+In-Reply-To: <20240712130904.145010-1-pvorel@suse.cz>
 
-Fixes: a01d04a69 ("landlock_add_rule.2: Document new syscall")
-Fixes: ca5163697 ("landlock_create_ruleset.2: Document new syscall")
-Fixes: 3f7e4f808 ("landlock_restrict_self.2: Document new syscall")
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-FYI we test return codes in LTP.
+Hi Petr,
 
-https://lore.kernel.org/ltp/20240711-landlock-v3-0-c7b0e9edf9b0@suse.com/
-https://lore.kernel.org/ltp/20240711201306.98519-1-pvorel@suse.cz/
+On Fri, Jul 12, 2024 at 03:09:04PM GMT, Petr Vorel wrote:
+> Mention -1 return code on failure for landlock_add_rule(),
+> landlock_create_ruleset() and landlock_restrict_self().
+>=20
+> Although it's a common rule to return -1 on error, it's better to be
+> explicit (as the other man pages are).
+>=20
+> Fixes: a01d04a69 ("landlock_add_rule.2: Document new syscall")
+> Fixes: ca5163697 ("landlock_create_ruleset.2: Document new syscall")
+> Fixes: 3f7e4f808 ("landlock_restrict_self.2: Document new syscall")
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> FYI we test return codes in LTP.
+>=20
+> https://lore.kernel.org/ltp/20240711-landlock-v3-0-c7b0e9edf9b0@suse.com/
+> https://lore.kernel.org/ltp/20240711201306.98519-1-pvorel@suse.cz/
+>=20
+> Kind regards,
+> Petr
 
-Kind regards,
-Petr
+Thanks!  Please see a comment below.
 
- man/man2/landlock_add_rule.2       | 4 ++++
- man/man2/landlock_create_ruleset.2 | 4 ++++
- man/man2/landlock_restrict_self.2  | 4 ++++
- 3 files changed, 12 insertions(+)
+>=20
+>  man/man2/landlock_add_rule.2       | 4 ++++
+>  man/man2/landlock_create_ruleset.2 | 4 ++++
+>  man/man2/landlock_restrict_self.2  | 4 ++++
+>  3 files changed, 12 insertions(+)
+>=20
+> diff --git a/man/man2/landlock_add_rule.2 b/man/man2/landlock_add_rule.2
+> index 4b95afb07..6fdc2f896 100644
+> --- a/man/man2/landlock_add_rule.2
+> +++ b/man/man2/landlock_add_rule.2
+> @@ -79,6 +79,10 @@ must be 0.
+>  On success,
+>  .BR landlock_add_rule ()
+>  returns 0.
+> +On error,
+> +\-1 is returned and
+> +.I errno
+> +is set to indicate the cause of the error.
+>  .SH ERRORS
+>  .BR landlock_add_rule ()
+>  can fail for the following reasons:
+> diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_creat=
+e_ruleset.2
+> index e62a3f9b9..4f638e85c 100644
+> --- a/man/man2/landlock_create_ruleset.2
+> +++ b/man/man2/landlock_create_ruleset.2
+> @@ -86,6 +86,10 @@ returns a new Landlock ruleset file descriptor,
+>  or a Landlock ABI version,
+>  according to
+>  .IR flags .
+> +On error,
+> +\-1 is returned and
+> +.I errno
+> +is set to indicate the cause of the error.
 
-diff --git a/man/man2/landlock_add_rule.2 b/man/man2/landlock_add_rule.2
-index 4b95afb07..6fdc2f896 100644
---- a/man/man2/landlock_add_rule.2
-+++ b/man/man2/landlock_add_rule.2
-@@ -79,6 +79,10 @@ must be 0.
- On success,
- .BR landlock_add_rule ()
- returns 0.
-+On error,
-+\-1 is returned and
-+.I errno
-+is set to indicate the cause of the error.
- .SH ERRORS
- .BR landlock_add_rule ()
- can fail for the following reasons:
-diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_create_ruleset.2
-index e62a3f9b9..4f638e85c 100644
---- a/man/man2/landlock_create_ruleset.2
-+++ b/man/man2/landlock_create_ruleset.2
-@@ -86,6 +86,10 @@ returns a new Landlock ruleset file descriptor,
- or a Landlock ABI version,
- according to
- .IR flags .
-+On error,
-+\-1 is returned and
-+.I errno
-+is set to indicate the cause of the error.
- .SH ERRORS
- .BR landlock_create_ruleset ()
- can fail for the following reasons:
-diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restrict_self.2
-index 43f15c932..88850ddfb 100644
---- a/man/man2/landlock_restrict_self.2
-+++ b/man/man2/landlock_restrict_self.2
-@@ -72,6 +72,10 @@ must be 0.
- On success,
- .BR landlock_restrict_self ()
- returns 0.
-+On error,
-+\-1 is returned and
-+.I errno
-+is set to indicate the cause of the error.
- .SH ERRORS
- .BR landlock_restrict_self ()
- can fail for the following reasons:
--- 
-2.45.2
+I think the common wording is s/the cause of //
 
+Michael unified these a few years ago.
+
+Cheers,
+Alex
+
+>  .SH ERRORS
+>  .BR landlock_create_ruleset ()
+>  can fail for the following reasons:
+> diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restri=
+ct_self.2
+> index 43f15c932..88850ddfb 100644
+> --- a/man/man2/landlock_restrict_self.2
+> +++ b/man/man2/landlock_restrict_self.2
+> @@ -72,6 +72,10 @@ must be 0.
+>  On success,
+>  .BR landlock_restrict_self ()
+>  returns 0.
+> +On error,
+> +\-1 is returned and
+> +.I errno
+> +is set to indicate the cause of the error.
+>  .SH ERRORS
+>  .BR landlock_restrict_self ()
+>  can fail for the following reasons:
+> --=20
+> 2.45.2
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--zkufiwn4voij5nsj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaRK+UACgkQnowa+77/
+2zLDSBAAmQQm8hyufDxubeSyg0Ql9sltjuxUc/zQW1W+pcWuQZF05uQX5aQAlJ+x
+HtikBXTzmtyh1T1tgJGrgIKxP0L0GpkDHembTYa2yQDlvfm+MteEPS+w3Bm/aJLX
+iFCzjmA8cI1yjwYQ2SZffYb3mM4HQLrNwKBkEB7SqhkBoO5KQ0dUNycMcA04Oc15
+iQlzpfwx5JQedotg0n5SrKZ8/Mr4wkZFf0plF8M1+i+4pSOFG8Y9g/4XQc/5enZc
+RfKEUCCCHua/WR1anVNM4TasyomepJMtk4O335TWcJY4VA7Qchovluq9GGBGx11+
+lB1scAVJtI2159Cov+kknijDgyF7rIOVmUxeMSEPh1CoVwAUI30nNSEGbMrWoVgh
+DpjTDf5MhGxhgESEsdYyOf7Qgxkeoen0bU0UxbuDgAbybRXhdgwco9sTxmky+exD
+A+osvDDRQliLRVZtmKYr2lEpct30X+9uS7mb61ejAjAOZ1AN9zRkpKhXJQO8u7Ra
+y5Z6DMnVehIYOcWYTQBOblwEnE7/8AXDtPIqMHKrnyMEvllnbTXHb17v6LE7MDAO
+40sVbj3qo6v6AXOgH1dqipVh9ZlQAGfPY9sAb64VSnXWxAtY+g60wDGUT2v/xkOC
+IH75m4Xz7LT5xe0gCbMCDT+BAQa4qdJjNoFphjrGapzPUmgI+0w=
+=m1sN
+-----END PGP SIGNATURE-----
+
+--zkufiwn4voij5nsj--
 
