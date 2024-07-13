@@ -1,138 +1,85 @@
-Return-Path: <linux-man+bounces-1457-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1458-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3CB19306D7
-	for <lists+linux-man@lfdr.de>; Sat, 13 Jul 2024 20:03:05 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 767839306E5
+	for <lists+linux-man@lfdr.de>; Sat, 13 Jul 2024 20:15:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 637311F217FD
-	for <lists+linux-man@lfdr.de>; Sat, 13 Jul 2024 18:03:05 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2A0DC28120D
+	for <lists+linux-man@lfdr.de>; Sat, 13 Jul 2024 18:15:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 141AB13C9D5;
-	Sat, 13 Jul 2024 18:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E06521F946;
+	Sat, 13 Jul 2024 18:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jcLZjHqd"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GYrGx+8A"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D81125B9;
-	Sat, 13 Jul 2024 18:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC351CFB6;
+	Sat, 13 Jul 2024 18:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720893778; cv=none; b=R/sCtdDOYuPYXDaw9f0QSZdpLQ7CvjBVWLryboxQfwaXBwgaha+cdjWhqFJcApCU4PNzEgwhtaWaL1Ugli+k32jmYV/toSU4ID4DE4ZE8UtLprjRKeI0PKVVI4sqL6g5siWnOGu5uZeAaQJ71ceJ5BL1O++IbPLWMVYjv0w4P8k=
+	t=1720894554; cv=none; b=Ji4TakAbvlLYHcEbXF39VUJfcVW+Fo1PQa0tn0fskDFz6V7f1y9CqZ3eDLXXV8jCf9omSXhMvQ2LaN9sx3udDaoXo9MMoDtPf4z7kWRiYLGel6s/uX1wVAfsKUnoMLpNIP4PiisgcwVLDFFsy92JZGPfBSfqDzknZgTgnu92L/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720893778; c=relaxed/simple;
-	bh=FchtTNMk43f4aPozaY5rZ/GunSmLHYGfdKCWf1W1SHI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V4/G3aWD8eHHaX1XG8Baw32sJe+NGN0rsiSTXCtgbN/SA1gx5IMrthZ3u6Lncd2AeknDMEtBKPYawMawIx3zwTzbJDl+5FrPAIYVn3Qkfwhiz3zC34quU4v9H+eO4p1K+pDzDKtbSI3sS9B3u7C7BT2gFrCaUhtLoc8sWRE90BQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jcLZjHqd; arc=none smtp.client-ip=209.85.167.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-3d93df6b54dso1780103b6e.2;
-        Sat, 13 Jul 2024 11:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720893776; x=1721498576; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Se+tToY6mdcDj/jUCUB7LpEmpUTqGapDeQqzl3mmIFs=;
-        b=jcLZjHqdAUgmCayulpLX5sXgLN0db47j9d9MJGRIG2UAktu6pgiapgBMDUolz4EOYl
-         PAxtVCNBDorw05PRDnwx00EUmgfoXXm7gJms6+sIH1u2uvT7a7nVN7N6OrVy2YbTeDDq
-         490W8Ut7JRMprSXc5wXOsW0bYoyIz/Kt4e6TcUV0b5M/pdNWRFVqYk+duXzUQR/ywXtN
-         LAxJC0swFpF3iqRkoqpBVhUs1g19wdXOCOI/OIaPbv/GE9R83nboyqBXuTXDgYcLRy4p
-         0U3HudEmwhRrTfGSVDXaILavK+ss5TRa2UHjR6GmEngqPtCSPjh2Iwk2kieJ+CbAe1zb
-         mDng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720893776; x=1721498576;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Se+tToY6mdcDj/jUCUB7LpEmpUTqGapDeQqzl3mmIFs=;
-        b=OE2PeR/7DCNrWEbDdl7N4ylyA3ApLY2Ieg6FudOIoeNq7gBRG0Etgh299MshBcjNsb
-         URWlg7eApV1qsNESaDJCW6O7AXXiefzZSbgAKK2FJ4WwdMXMZDbnTsHE6AFAycnJQjgP
-         JRMA92DapCElhTVvIOUiVfUQmxvNpf1L7nJ7wPddhd2YwKI5yXGws+jynz2Q1Pi84fgi
-         DZhiPZMrm0GYhGBwQXbvWuLS3lx3h6swJd9LjFzx25V8Tk1ChSCT739TfUWeLJexF30w
-         8cqqYFA6Rn1p99vIUxcPmUaJK04ieubwsXSuckYVGoE59lXpn7YXsH2G3Svf2TiR63dF
-         85BA==
-X-Forwarded-Encrypted: i=1; AJvYcCWGfnYiRZRpw0BicFo4D5j2J5g3QkpXegTL5lQ2bhXw9+95uAUkFeCnmAgSJT/lm6lX+jR44vknHgEk/rmdTizc3L75nN/h5hhHOlI1pKdFxJbsRkwvUhFGldRfDnSoXybj1jooRgiYsQ==
-X-Gm-Message-State: AOJu0YyGPDrAywd8AZgZmJE/0Pv5FDDtqz/A/ce35HJOxuxGdqIgQJlF
-	fudPg3CCK514+cIdkgGAzKRyoFRGreJ5+fFC+fvnowdd4HiuBh9GgeXl6uo77BSCca817wcpgSA
-	zaabjUHk1b8X7m4r4tULc3gsJUL8=
-X-Google-Smtp-Source: AGHT+IFzuv/pkf33uKV0dVMjWOoEWu9tissZfoR+wB6wKmMHlQMvVSzs5QCSQtjJcnfIGiHVeZgG7M8OkGuuahoohYI=
-X-Received: by 2002:a05:6808:221a:b0:3d6:3106:52bb with SMTP id
- 5614622812f47-3d93bc0c140mr19450414b6e.0.1720893776439; Sat, 13 Jul 2024
- 11:02:56 -0700 (PDT)
+	s=arc-20240116; t=1720894554; c=relaxed/simple;
+	bh=UQSoUz8qJ8oNpDVGR1Uf6HtiOsfJz/+ixtVRaKJlnjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZW772GJVWz0EflPTuJR+bLdyJ+J9KddZIYUkWoX1UOHQazC/b8DMnJapzMy2AhAleQ6k+5Hl6Wbys8IGnpZ/b/WM/rnIa7HBqMtfTyUbncyK4wLS0EZ0ufEgXouMRdOxv5m3VkXXh8uDhLCiq6EahNN+yQjqIjsGBAS9PNMj59I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GYrGx+8A; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926C6C32781;
+	Sat, 13 Jul 2024 18:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720894554;
+	bh=UQSoUz8qJ8oNpDVGR1Uf6HtiOsfJz/+ixtVRaKJlnjk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GYrGx+8AF0//JOt9FDMY2zeDCDHMZW6N4DSW1Nk6icNVxdvxp1dGwXFhjIJVSLdWd
+	 6MtflWVbBQX66h2HZc1nd1LUcr51UJ9De3q/BdQRtmKRkDSFoEWy500XMUEgIRPohz
+	 bHaVGP1pu9SrSaDmIDNTxDyyLyKYE4rmk8Fmgg+A76fh0YdH+n1yIzB7Y8m9ecKIVM
+	 v7VSYAY2DUOCysxX68aBF9tuPVKC6ks+tc6tBlB3lrswEU9dIyQdbd/0yVIPWRmyma
+	 K3k76Rle6j4pqyxwhMnqUAe7GWDyU1HKkWxITxX5nellAdJ0V/smskX8TVIhdoIjEk
+	 z/PtEGTSz56vw==
+From: cel@kernel.org
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	amir73il@gmail.com,
+	Chuck Lever <chuck.lever@oracle.com>
+Subject: [PATCH v2 0/3] Update fanotify man pages for NFSD filecache backports
+Date: Sat, 13 Jul 2024 14:15:45 -0400
+Message-ID: <20240713181548.38002-1-cel@kernel.org>
+X-Mailer: git-send-email 2.45.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20240712175649.33057-1-cel@kernel.org> <20240712175649.33057-2-cel@kernel.org>
-In-Reply-To: <20240712175649.33057-2-cel@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 13 Jul 2024 21:02:45 +0300
-Message-ID: <CAOQ4uxhF9KdLoZRHjXZcWpA_AJn+nXE4DdMbHOvB7Oh9TDL-9g@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] fa_notify_init(2): Support for FA_ flags has been
- backported to LTS kernels
-To: cel@kernel.org
-Cc: alx@kernel.org, linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Chuck Lever <chuck.lever@oracle.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 12, 2024 at 8:57=E2=80=AFPM <cel@kernel.org> wrote:
->
-> From: Chuck Lever <chuck.lever@oracle.com>
->
-> Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-Please fix typo in syscall name in title
+I backported a number of NFSD-related fixes to v5.15 and v5.10 LTS
+kernels. The backports include some changes to the fanotify API
+which need to be documented.
 
-> ---
->  man/man2/fanotify_init.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->       Since Linux 5.13, the following interfaces can be used to control t=
-he amount of kernel resources consumed by fanotify:
+Changes since v1:
+- Amir added a few items to the original list of updates
 
-> diff --git a/man/man2/fanotify_init.2 b/man/man2/fanotify_init.2
-> index e5f9cbf298ee..51c7d61fd86d 100644
-> --- a/man/man2/fanotify_init.2
-> +++ b/man/man2/fanotify_init.2
-> @@ -295,7 +295,7 @@ for additional details.
->  This is a synonym for
->  .RB ( FAN_REPORT_DIR_FID | FAN_REPORT_NAME ).
->  .TP
-> -.BR FAN_REPORT_TARGET_FID " (since Linux 5.17)"
-> +.BR FAN_REPORT_TARGET_FID " (since Linux 5.17, 5.15.154, and 5.10.220)"
->  .\" commit d61fd650e9d206a71fda789f02a1ced4b19944c4
->  Events for fanotify groups initialized with this flag
->  will contain additional information about the child
-> --
+Chuck Lever (3):
+  fanotify_mark(2): Support for FA_ flags has been backported to LTS
+    kernels
+  fanotify_init(2): Support for FA_ flags has been backported to LTS
+    kernels
+  fanotify(7): Document changes backported to LTS kernels
 
-I think that is also needed for
-       FAN_REPORT_PIDFD (since Linux 5.15)
-that was backported to 5.10.y?
+ man/man2/fanotify_init.2 | 8 ++++----
+ man/man2/fanotify_mark.2 | 8 ++++----
+ man/man7/fanotify.7      | 2 +-
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-There's also:
-VERSIONS
-       Prior to Linux 5.13, calling fanotify_init() required the
-CAP_SYS_ADMIN capability.
-       Since Linux 5.13, users may call fanotify_init() without the
-CAP_SYS_ADMIN capability
-       to create  and  initialize an fanotify group with limited functional=
-ity.
+-- 
+2.45.1
 
-and in fanotify.7 there is:
-       Since Linux 5.13, the following interfaces can be used to
-control the amount
-       of kernel resources consumed by fanotify...
-
-Both these changes from 5.13 were backported to 5.10.y.
-
-Thanks,
-Amir.
 
