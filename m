@@ -1,195 +1,158 @@
-Return-Path: <linux-man+bounces-1473-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1474-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC98931C9E
-	for <lists+linux-man@lfdr.de>; Mon, 15 Jul 2024 23:29:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05CA2931CBE
+	for <lists+linux-man@lfdr.de>; Mon, 15 Jul 2024 23:47:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 044CA1C20E70
-	for <lists+linux-man@lfdr.de>; Mon, 15 Jul 2024 21:29:46 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 40FBB1C214D0
+	for <lists+linux-man@lfdr.de>; Mon, 15 Jul 2024 21:47:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07CBF1369B1;
-	Mon, 15 Jul 2024 21:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A69B73462;
+	Mon, 15 Jul 2024 21:47:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nskNRP1j"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPbTB09W"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE2673477
-	for <linux-man@vger.kernel.org>; Mon, 15 Jul 2024 21:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474FC4C7C
+	for <linux-man@vger.kernel.org>; Mon, 15 Jul 2024 21:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721078981; cv=none; b=neJ247+3lVf2O/isrZp1v4rKn5eCxkZUNXkRR7wkom+ygzKfaEXAadL7cuVGkgPt7jQMSmax09YyWHK819ATClKJVIRAM6s7Y6rxJPwEfMGGXQZy6uZBHrEL88DwlFlpSrGFCrad6A2GiL5fW6UwHrzuxAHa6Uf5OLdcffZ3tZw=
+	t=1721080053; cv=none; b=T/fFJuyNvRnSa+9uCAfm9Yxe0Jk/R/QNn91tbfRzX6xEqYv+rRdBQtL63O19mJrwN408HDzFBsc6BuS7FNVph92E1HCCzJ6yPUgDjLHqA6TP3K0DDSoYJI6Tt7c7D4ToiUoo9cmPifDVinomGN1wB7pub4y+K75eoNJBhhT0yz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721078981; c=relaxed/simple;
-	bh=Aeycy/NbwDzFzpWDrNEy5cBjBxUOKd4xlkie8ivSdTo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B100IUoZitAglWbVR5MMaQ/YebHLJj4nCdk4RWlTSPvrDouy2m08HjbYRPyPhxLwHFZVvhn2n3yL49hUFrqeHEO3x5LTX9Sjgyq1za0pUgTNp0YNsg55wL9cM51bEAVSfaRejc8rSxXsbexJO4kkylcmg3Or/P0VF0z9p/YsSFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nskNRP1j; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9473EC32782;
-	Mon, 15 Jul 2024 21:29:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721078981;
-	bh=Aeycy/NbwDzFzpWDrNEy5cBjBxUOKd4xlkie8ivSdTo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nskNRP1jFBVDppj9famKTBAO/9siwG3Q7YjCPJHw7Env7pDUf28fw0/D3Qw9xKoY4
-	 cyzUumAE2kMhDyyr7fL18OXuXrifU2qmfwhQW5tW5/Ssbb/h5hWc4ZyO/tVglFDk/n
-	 Kv4rFr8GaaNXwfuqttj9zw16SqKu1AtH7sB5cWZh9EYoVkGxwtppsJb2a3xSoxKET9
-	 iGXhLn+tXF5FM14MFK6VlcUnfAGWit7n40nhYW7Y2Jdzsa53ff84+C5u8BeDrEaK4X
-	 OX9yiCK7Yw9dgc1sqdPmMAoU6fNXGV+8/lkpZDH6h3Pmk64WTimyWw3P5ze4vrr0YU
-	 0kXb7/IT9tuVA==
-Date: Mon, 15 Jul 2024 23:29:38 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Keith Thompson <Keith.S.Thompson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Ambiguity in memccpy() description, with patch
-Message-ID: <hrbz4sgmavikjl2lb3hmsztmyfmwo3rwzqbfuzfgkrpeuq34ds@wjluxxazndcv>
-References: <CAAHpriMy1NTcTTas9saESMZbsrzdUhrxTEKG=R-HXX4Vo2Dq7w@mail.gmail.com>
+	s=arc-20240116; t=1721080053; c=relaxed/simple;
+	bh=iY3RvstdDb9yiBWww815uc7jWTg3HmnI6EC3kb+jI6w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QcfQ/PNWorge0+P8MnQujB6BT2vgt8UoKZalg/IcsOto8izWMIz0HB1d021AVLrpdnsVOE+kF45j+qyT57HoErqKjIbkSx5lwyUKcfZrB1747wRfwpqMFS4L2lx/X/LoUbSQrbSRydlu78DzSIXj9RAGxIpLZGkaXe6akmvBNR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPbTB09W; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4266fcb311cso33407655e9.1
+        for <linux-man@vger.kernel.org>; Mon, 15 Jul 2024 14:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1721080050; x=1721684850; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ueNtk7yIMpm4xskUhc950CaEsDt+uD8n6RAFaRYMsZc=;
+        b=JPbTB09WsQgb+trR8aVw48cAMMD0RAq5w4D+9Khbcq/NNUmDiqAbXUXvwtVy2sJgI4
+         DQ7IMzmQmXJPsSu8yfUzqZBbH7GVlwhaLjtXS8ztgjQOEZrwLBQaHZLeLDGr5zuK2Xsa
+         oxS8nS+Hd100NqQ40c0PdhHDYN2lNtbN1dElIYyq/N5COLV2NVzI7XAWw+wTZjiumOHa
+         I08xXtAOf8vX4hKlbC+GMC3Rit5UEsWXKlL0R6tEbFfohnjN8wAQ2SsA3Ifb2fwxR0Q4
+         D9Vsj+f4iH9t3upqtG92LAL2nmKM9ebNAhZ5At5j+Bp+QbkSrfLeQvk/P7z+DDkZllrm
+         iThw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721080050; x=1721684850;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ueNtk7yIMpm4xskUhc950CaEsDt+uD8n6RAFaRYMsZc=;
+        b=iQScFkZz4lro7TPR3WKp1D+0p7SNDRwpJ7bcU/1CMPVXd4qCbmMAVWHGDA563LloYF
+         JMAPMVAIzrpbaCd1iNUX/lYnR8cCteREianq/mP28M9BLT8OUnNktCIIBOVsMM9IbChu
+         7UjKnWW/iLJ0oSow/OWIIvnB4G2UB4QJKm0mHOIrZ4Kk6fxMd7iumf1vqk+jSD7Qh/pF
+         ciMq1fR4fPrZTR7inEkA/VDNVB/omkLqw1NtPYWw9G8Vtz+ixlooCp9iIeZ2bHcMVV0h
+         /vN66/rOT4GUbqGAUABsHbf6Q3+Voob0xxP4rGrbT0UTjDLnL6Vs0TJPJUJjLIWJ24jI
+         C9FA==
+X-Gm-Message-State: AOJu0YxE/Em9GXzsT0ZS/dWWQjomroBl70/SUKzzECF0ZmnXP14soX54
+	KLw8atvl6kJb0CSd7be73oN5OwvyHpKLxppSjWxgSynBz4bcFReBruPuUsZzGWPULJ4brA6ntEl
+	EulLvwWcC5FJTGydFqRrGU+J8MqE=
+X-Google-Smtp-Source: AGHT+IEpBkNHxZXmlIfDZk2oT0kQfJAeypNmgCVGz88FFYbeDg/YB8vSz9Brqx/stYEX/n7vMOr5UUp4kyYkXFa2kkM=
+X-Received: by 2002:adf:e448:0:b0:367:40b9:e9e6 with SMTP id
+ ffacd0b85a97d-368260a34fdmr90911f8f.21.1721080050397; Mon, 15 Jul 2024
+ 14:47:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="posw544bqj4cy7il"
-Content-Disposition: inline
-In-Reply-To: <CAAHpriMy1NTcTTas9saESMZbsrzdUhrxTEKG=R-HXX4Vo2Dq7w@mail.gmail.com>
-
-
---posw544bqj4cy7il
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Keith Thompson <Keith.S.Thompson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Ambiguity in memccpy() description, with patch
 References: <CAAHpriMy1NTcTTas9saESMZbsrzdUhrxTEKG=R-HXX4Vo2Dq7w@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAAHpriMy1NTcTTas9saESMZbsrzdUhrxTEKG=R-HXX4Vo2Dq7w@mail.gmail.com>
+ <hrbz4sgmavikjl2lb3hmsztmyfmwo3rwzqbfuzfgkrpeuq34ds@wjluxxazndcv>
+In-Reply-To: <hrbz4sgmavikjl2lb3hmsztmyfmwo3rwzqbfuzfgkrpeuq34ds@wjluxxazndcv>
+From: Keith Thompson <Keith.S.Thompson@gmail.com>
+Date: Mon, 15 Jul 2024 14:47:19 -0700
+Message-ID: <CAAHpriMNx5QnxaOGF+O0+4909jwvhFOdyA3dm6zSOH_23V0W-g@mail.gmail.com>
+Subject: Re: Ambiguity in memccpy() description, with patch
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Keith Thompson <Keith.S.Thompson@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Keith!
+On Mon, Jul 15, 2024 at 2:29=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Keith!
+>
+> On Mon, Jul 15, 2024 at 02:14:23PM GMT, Keith Thompson wrote:
+> > The current description in the memccpy.3 man page:
+> >
+> >        The memccpy() function copies no more than n bytes from memory
+> > area src to memory area dest, stopping when the character c is found.
+> >
+> >        If the memory areas overlap, the results are undefined.
+> >
+> > doesn't clearly say whether the final character c is copied or not. (It=
+ is.)
+>
+> Agree.  It is implied by the RETURN VALUE section, but the description
+> didn't say it (and the RETURN VALUE only implied it).
+>
+> > This patch copies the description from POSIX
+> > https://pubs.opengroup.org/onlinepubs/9699919799/functions/memccpy.html
+> > with the parameter names and added paragraph break retained from the
+> > current version. The updated description is:
+> >
+> >        The memccpy() function copies bytes from memory area src into
+> > dest, stopping after the first occurrence of byte c (converted to an
+> > unsigned char)
+>
+> I'd remove the parenthesis.  That conversion is of course, no?  For the
+> standard, it makes sense to be pedantic, but for a user, I doubt the
+> value of that statement.
 
-On Mon, Jul 15, 2024 at 02:14:23PM GMT, Keith Thompson wrote:
-> The current description in the memccpy.3 man page:
->=20
->        The memccpy() function copies no more than n bytes from memory
-> area src to memory area dest, stopping when the character c is found.
->=20
->        If the memory areas overlap, the results are undefined.
->=20
-> doesn't clearly say whether the final character c is copied or not. (It i=
-s.)
+My personal preference is for the man page to be pedantic, but I'm
+fine either way.
 
-Agree.  It is implied by the RETURN VALUE section, but the description
-didn't say it (and the RETURN VALUE only implied it).
+> Especially with this function.  My personal recommendation, after having
+> researched so much about strings these last years, is that this function
+> is useless (unless you're restricted to ISO C, and even then, it is,
+> because you can write better functions as wrappers to ISO C functions).
 
-> This patch copies the description from POSIX
-> https://pubs.opengroup.org/onlinepubs/9699919799/functions/memccpy.html
-> with the parameter names and added paragraph break retained from the
-> current version. The updated description is:
->=20
->        The memccpy() function copies bytes from memory area src into
-> dest, stopping after the first occurrence of byte c (converted to an
-> unsigned char)
+I've never used memccpy() myself.  I suggest that the perceived
+usefulness of a standardized function is not particularly relevant
+to whether it should be documented.
 
-I'd remove the parenthesis.  That conversion is of course, no?  For the
-standard, it makes sense to be pedantic, but for a user, I doubt the
-value of that statement.
+> May I ask if you have any specific need for string handling?  I'm
+> developing a string library, libs, and I'm interested in feedback of
+> possible users (for now, the targeted user is shadow utils).
 
-Especially with this function.  My personal recommendation, after having
-researched so much about strings these last years, is that this function
-is useless (unless you're restricted to ISO C, and even then, it is,
-because you can write better functions as wrappers to ISO C functions).
+I became aware of this via this article:
+https://nrk.neocities.org/articles/not-a-fan-of-strlcpy
+linked from Hacker News:
+https://news.ycombinator.com/item?id=3D40967069
 
-May I ask if you have any specific need for string handling?  I'm
-developing a string library, libs, and I'm interested in feedback of
-possible users (for now, the targeted user is shadow utils).
+I read the man page to learn about memccpy() and noticed the ambiguity,
+then found that the POSIX description seems better.  My interest is
+improving the man page, not fixing a problem that affects me..
 
-> is copied, or after n bytes are copied, whichever comes
-> first.
->=20
->        If copying takes place between objects that overlap, the
-> behavior is undefined.
->=20
-> I have not (yet) checked whether there are similar ambiguities in
-> other man pages.
->=20
-> Patch follows:
->=20
-> diff --git man/man3/memccpy.3 man/man3/memccpy.3
-> index 0ba805176..057890f7e 100644
-> --- man/man3/memccpy.3
-> +++ man/man3/memccpy.3
-> @@ -23,20 +23,22 @@ Standard C library
->  .fi
->  .SH DESCRIPTION
->  The
-> -.BR memccpy ()
-> -function copies no more than
-> -.I n
-> -bytes from
-> -memory area
-> +.BR memccpy()
+[...]
+> > +.BR memccpy()
+>
+> Missing a space here before the ().
 
-Missing a space here before the ().
+Oops.
 
-> +function copies bytes from memory area
->  .I src
-> -to memory area
-> +into
->  .IR dest ,
-> -stopping when the
-> -character
-> +stopping after the first occurrence of byte
->  .I c
-> -is found.
-> +(converted to an
-> +.BR "unsigned char" )
-> +is copied, or after
-> +.I n
-> +bytes are copied, whichever
-> +comes first.
+[...]
 
-Please break after the comma.
+> > +bytes are copied, whichever
+> > +comes first.
+>
+> Please break after the comma.
 
->  .P
-> -If the memory areas overlap, the results are undefined.
-> +If copying takes place between objects that overlap,
-> +the behavior is undefined.
->  .SH RETURN VALUE
->  The
->  .BR memccpy ()
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---posw544bqj4cy7il
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaVlMIACgkQnowa+77/
-2zJxeQ/5ARHZobhmvls3BLxvW5+6RKdBzTpvX4JTH5ufQ+6eE3nx9GV7Cd76xNWR
-uqSE259HEm6nWZ5QyEcwvp/Ad4JHNKE1QNEX/zZ6+f82XGNUv6bkyT+vgslKiYXt
-CuVL+xvxw2BoJylsnKtRZFZDgV2cqe/25ceH+oX84W+iczi0KlUcPrVkDV5m6dxb
-8fjqksHFSym8VIYFB3mgkhn+0sPwkO5IHMX8QmdpF3aWIeHRnVh43TwzTvssJcq6
-tEfuNwKcdZUWFlYag0kfDHEuhetqCZ0EEK+w82OBFIpeJX+vKGdP+fbAF6QvFJB2
-TZdmssGuFNZc+hk0Hf9Xu89173J6vaEBXgGcrqcu/+8EuWx4itdEArERUTS4/ETZ
-oSZvPm2QW4w9UTkSe/KcQ6mM00im9kcf4/Kwi1cEoYfw+HSB5Odtmslu6o07pdRh
-Mz/8Q/L/JJU7xBPsPdpFY5CE/fgZUTZt6Hrmgo30CtIhc69KT8klobf20cKywhKP
-Y77AqDjF1SfuKkkk6FxSh8TCmoNM1EoqKHF8WKg7f184iDkj+QZVB66QHQfLUmVT
-13rbJRk5in/gpTxPstNOwLIRLebzaQXkEL4cl6Kp2kWwIBJj7+py5sgj4NMGsypG
-zcOmfOu/nSOV8w/I74l934AJK7545KEl9/hd4r0IsCRxfmzvn2M=
-=ntwB
------END PGP SIGNATURE-----
-
---posw544bqj4cy7il--
+I can produce a new patch if you like, or you can modify it as you
+wish before applying it.  Do you want me to produce a new patch?
 
