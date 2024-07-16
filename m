@@ -1,229 +1,198 @@
-Return-Path: <linux-man+bounces-1475-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1476-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BEAF931D2A
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 00:28:42 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA9393297D
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 16:45:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C101A1C21D95
-	for <lists+linux-man@lfdr.de>; Mon, 15 Jul 2024 22:28:41 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DA3A5286612
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 14:45:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0329513E02B;
-	Mon, 15 Jul 2024 22:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B48D19DFA7;
+	Tue, 16 Jul 2024 14:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tl3jgM7C"
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="bgJabpXj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCED13DBB1
-	for <linux-man@vger.kernel.org>; Mon, 15 Jul 2024 22:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DBC19D06A
+	for <linux-man@vger.kernel.org>; Tue, 16 Jul 2024 14:38:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721082516; cv=none; b=QkQzS59QmfDpZ8p0rtdiY0ZXtQh4LugY+vSUsOB6UYJogpLzJj+MYwx6xx11Sm4VlaRjG0CJvWGaFFn2s858xInQxNRjT1//PDybH1F4Gqvht7KqyM8CO6husz1v3G4TkYw64OC+8gI20H1Lyzh9O2k3GTXQKXsbt0P/DN74T0E=
+	t=1721140694; cv=none; b=KHCFgzrw2YBlRJBktpiMGkWdXczJObfuM9CTSMxIET4c/IkDPw68855+ASJffq+P8/MjRK9uDadtN4ExTY/SE+j3nu9d1imCnMsNdmLsrxL93eTqyOyUoRmN5kizPvsuFWjTevHABrFhFCouR0W9++zu8igMoTV+yqFdhtq+TIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721082516; c=relaxed/simple;
-	bh=iIgo4LrSgEZFlIeKd+QpTWpjNnA8dK5sDeaBZPB9lpw=;
+	s=arc-20240116; t=1721140694; c=relaxed/simple;
+	bh=rqw2H6654+EkbFVahq1XySL0qNd/7uRhua0l1R2+4fI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MQIHHuGyeOOmxoCiQsSdVxU3flugtMifz1CpKPyKmoodxIP0G27hPc1csBGxVDJcQNeKcun7fo2cUMz7QrnyBfFa5xzvFWhHtQ9S0GTHmG51hmnTDCBCzwf/HDc6tVdkbhhmzgzb5NtbK+0Cr2ZRIrfgCUMpSjMgnciZZHbmsmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tl3jgM7C; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D035C32782;
-	Mon, 15 Jul 2024 22:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721082516;
-	bh=iIgo4LrSgEZFlIeKd+QpTWpjNnA8dK5sDeaBZPB9lpw=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=pm6X3bAnQcF/6MWELrH6X7FvRGs56khKx0ob8fcuYAtuz46dkm6gIEVRrgS8TJCIauEJnB9luVHTqFYjIMReELfi9AkEyVlXeM2l4njC2vrxOT73qAndF8BEoZ7HhiGeHutWbdGPK5VLm/Z2EZZWJLF9xmOJPGfK1lgb/ySMcdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=bgJabpXj; arc=none smtp.client-ip=83.166.143.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4WNhWN6Yl0znf5;
+	Tue, 16 Jul 2024 16:38:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1721140688;
+	bh=WGO6m2oCNO4cZTX0IVQjfVgCm3RzSsNOpPpASLAtA1w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tl3jgM7C8KO/P9XYpBcJhB+HekRN65OVteSgskprVkTHUJJYdwA9mqMxXuczxONvB
-	 Y6nI46HLA9D01S0dcd/inm7uJeiPaISm6yjkTiEtXrc9dr6cNw+OC9lJw6qnGQWavF
-	 zAje8SvSSPOY7YWvsVzfwbtXWfmzpdINfgEmYMw8KKdNMsfmgvLVVURJIpogKKfORm
-	 mHblP3Pt7ZncHr2mNEJb2nUkS/0ohY0YEC5EJFNvmLoXbiVgKCi5j15sgqpMoGPWI4
-	 Z+zVM594xRNenwZ5DPKxCyLzmD1v0HZNZDt8EbmMkmoc/67g3MYos3fqhFvzlIR4bE
-	 rN2tRr1yKOrUw==
-Date: Tue, 16 Jul 2024 00:28:33 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Keith Thompson <Keith.S.Thompson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Ambiguity in memccpy() description, with patch
-Message-ID: <vgcyaz5f64qntnbccwsnt7fzyyimpwkl4zmw3m3h5vksf4ro4d@63g3mjgxnzmb>
-References: <CAAHpriMy1NTcTTas9saESMZbsrzdUhrxTEKG=R-HXX4Vo2Dq7w@mail.gmail.com>
- <hrbz4sgmavikjl2lb3hmsztmyfmwo3rwzqbfuzfgkrpeuq34ds@wjluxxazndcv>
- <CAAHpriMNx5QnxaOGF+O0+4909jwvhFOdyA3dm6zSOH_23V0W-g@mail.gmail.com>
+	b=bgJabpXjWSxmHdYIEc63wugj3R08zGfJQI4pGKcDQYY+qJvASFBf89HSVRJ4IzObg
+	 0perZqjdsXZn1JJ2/cgoNwMb8lvDCYpPSIDddOiBZmsxFYJr8kd6E5mY5XROXQV+hF
+	 CRvl12M186scoOzwszKMY2lQdMoo7hQ9hq6rdH44=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4WNhWN3Q72z1yk;
+	Tue, 16 Jul 2024 16:38:08 +0200 (CEST)
+Date: Tue, 16 Jul 2024 16:38:07 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/5] landlock.7, landlock_*.2: Wording improvements
+Message-ID: <20240716.quoo0PheuCoh@digikod.net>
+References: <20240715155554.2791018-1-gnoack@google.com>
+ <20240715155554.2791018-2-gnoack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="spexixgnox775zvs"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAAHpriMNx5QnxaOGF+O0+4909jwvhFOdyA3dm6zSOH_23V0W-g@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240715155554.2791018-2-gnoack@google.com>
+X-Infomaniak-Routing: alpha
 
+On Mon, Jul 15, 2024 at 03:55:50PM +0000, Günther Noack wrote:
+> * Various wording fixes
+> * List the same error code multiple times,
+>   if it can happen for multiple reasons.
+> 
+> Cc: Mickaël Salaün <mic@digikod.net>
+> Signed-off-by: Günther Noack <gnoack@google.com>
 
---spexixgnox775zvs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Keith Thompson <Keith.S.Thompson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Ambiguity in memccpy() description, with patch
-References: <CAAHpriMy1NTcTTas9saESMZbsrzdUhrxTEKG=R-HXX4Vo2Dq7w@mail.gmail.com>
- <hrbz4sgmavikjl2lb3hmsztmyfmwo3rwzqbfuzfgkrpeuq34ds@wjluxxazndcv>
- <CAAHpriMNx5QnxaOGF+O0+4909jwvhFOdyA3dm6zSOH_23V0W-g@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAAHpriMNx5QnxaOGF+O0+4909jwvhFOdyA3dm6zSOH_23V0W-g@mail.gmail.com>
+Reviewed-by: Mickaël Salaün <mic@digikod.net>
 
-Hi Keith,
-
-On Mon, Jul 15, 2024 at 02:47:19PM GMT, Keith Thompson wrote:
-> On Mon, Jul 15, 2024 at 2:29=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
-> wrote:
-> > > This patch copies the description from POSIX
-> > > https://pubs.opengroup.org/onlinepubs/9699919799/functions/memccpy.ht=
-ml
-> > > with the parameter names and added paragraph break retained from the
-> > > current version. The updated description is:
-> > >
-> > >        The memccpy() function copies bytes from memory area src into
-> > > dest, stopping after the first occurrence of byte c (converted to an
-> > > unsigned char)
-> >
-> > I'd remove the parenthesis.  That conversion is of course, no?  For the
-> > standard, it makes sense to be pedantic, but for a user, I doubt the
-> > value of that statement.
->=20
-> My personal preference is for the man page to be pedantic, but I'm
-> fine either way.
-
-The thing is, that detail is important to implementations.  The user
-can pass a byte as a char, signed char, unsigned char, or an int, and
-all of them will work, so it doesn't really care what the function does
-internally.
-
-> > Especially with this function.  My personal recommendation, after having
-> > researched so much about strings these last years, is that this function
-> > is useless (unless you're restricted to ISO C, and even then, it is,
-> > because you can write better functions as wrappers to ISO C functions).
->=20
-> I've never used memccpy() myself.  I suggest that the perceived
-> usefulness of a standardized function is not particularly relevant
-> to whether it should be documented.
-
-I agree that it should be well documented.  And while I prefer all pages
-to be short, I think this one has more reasons.  An obscure detail like
-that... hmmm, not sure.  Let's keep it out, and if other readers think
-it is important, let's add it later.
-
-> > May I ask if you have any specific need for string handling?  I'm
-> > developing a string library, libs, and I'm interested in feedback of
-> > possible users (for now, the targeted user is shadow utils).
->=20
-> I became aware of this via this article:
-> https://nrk.neocities.org/articles/not-a-fan-of-strlcpy
-
-Hmm, interesting.  Thanks!
-
-That article seems to use memccpy(3) as a home-made strtcpy()  (and the
-interface it proposes as mystrcpy_trunc() is basically strtcpy().
-
-	inline ssize_t
-	strtcpy(char *restrict d, const char *restrict s, size_t dsize)
-	{
-		bool    trunc;
-		size_t  dlen, slen;
-
-		slen =3D strnlen(s, dsize);
-		trunc =3D (slen =3D=3D dsize);
-		dlen =3D slen - trunc;
-
-		stpcpy(mempcpy(d, s, dlen), "");
-
-		if (trunc) {
-			errno =3D E2BIG;
-			return -1;
-		}
-
-		return dlen;
-	}
-
-It can be written in terms of memccpy(3), but mempcpy(3)+strnlen(3) is
-faster, and to me also reads better, even if it's slightly more code.
-
-	inline ssize_t
-	strtcpy(char *restrict d, const char *restrict s, size_t dsize)
-	{
-		char  *p;
-
-		p =3D memccpy(d, s, '\0', dsize);
-		if (p =3D=3D NULL) {
-			stpcpy(d + dsize - 1, "");
-			errno =3D E2BIG;
-			return -1;
-		}
-
-		return p - d;
-	}
-
-> linked from Hacker News:
-> https://news.ycombinator.com/item?id=3D40967069
->=20
-> I read the man page to learn about memccpy() and noticed the ambiguity,
-> then found that the POSIX description seems better.
-
-Thanks for that!
-
-> My interest is
-> improving the man page, not fixing a problem that affects me..
-
-Good.
-
-> [...]
-> > > +.BR memccpy()
-> >
-> > Missing a space here before the ().
->=20
-> Oops.
->=20
-> [...]
->=20
-> > > +bytes are copied, whichever
-> > > +comes first.
-> >
-> > Please break after the comma.
->=20
-> I can produce a new patch if you like, or you can modify it as you
-> wish before applying it.  Do you want me to produce a new patch?
-
-Nah, I'll amend it.
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---spexixgnox775zvs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaVoosACgkQnowa+77/
-2zIsnBAAphgy8ZmWvE7Oks0/Nr34uKlxEFjWHf6NCEZ1ge1vfZTH6iAtMKux93Uk
-R0hpb7YR2tZI8Bs3ejb7F0SDdtGdQbei3+RKZkuqYMgk+Xk1xG/ydpEZo9GU7cJ7
-xA+94c0mXtCFdZTsHkQPMQp61YgCTfUm5lfzzVZ5uvsrCeMhgJ1pmvmRD+bXdRfC
-ZiR7weqSwQ/8GEiS89AR6f8XLYgEiiymRLwk90r5Dr/hewG8DRC6Ga+VJpXd732T
-lzDExKSqNXlRmhhIZhvvi4mDjUYcYRb+2KSnvLdYFl49uTm6vr87w+6/ZCv4TU6Y
-Vw6PTaXSTtIUBZOeOj9LUdYin0vYTfQQa+iB3rruEUExOMy+xOiKOAD38I7ISbzz
-CfxAlLpJfEKEIYQWHHv03GXjfB07H0jAjsbnfBy823ih3dI6RnXyb8XJrckv9naY
-VvwXCg1sf8fdgstGU0NRYa2LICjQJNklTS2v3v7laatB1NDpgupUtBswpx+GJCiF
-qz0rmmiWtlAm1IJp+lfBFaQSJ6cPM6sIm13amK3IRIYJOWKCtVCAPPPFpwpJeqSR
-pQ5EVI6bQOUbrJwn+ujwEeiWTGDgBSI9X6tVEiGvOjlVDhqQ6tKN5VJadaMpqZV7
-M0numU2wP614sPRNS9iTyBFdxfAPTGMwFlI9VVI0iCuayxol7mM=
-=kqbk
------END PGP SIGNATURE-----
-
---spexixgnox775zvs--
+> ---
+>  man/man2/landlock_add_rule.2       |  9 +++++++--
+>  man/man2/landlock_create_ruleset.2 |  6 +++---
+>  man/man2/landlock_restrict_self.2  | 11 ++++++-----
+>  man/man7/landlock.7                |  6 ++++--
+>  4 files changed, 20 insertions(+), 12 deletions(-)
+> 
+> diff --git a/man/man2/landlock_add_rule.2 b/man/man2/landlock_add_rule.2
+> index d4ae8f2f6..fa0b1f109 100644
+> --- a/man/man2/landlock_add_rule.2
+> +++ b/man/man2/landlock_add_rule.2
+> @@ -60,7 +60,9 @@ struct landlock_path_beneath_attr {
+>  .in
+>  .IP
+>  .I allowed_access
+> -contains a bitmask of allowed filesystem actions for this file hierarchy
+> +contains a bitmask of allowed filesystem actions,
+> +which can be applied on the given
+> +.I parent_fd
+>  (see
+>  .B Filesystem actions
+>  in
+> @@ -92,7 +94,10 @@ Landlock is supported by the kernel but disabled at boot time.
+>  .TP
+>  .B EINVAL
+>  .I flags
+> -is not 0, or the rule accesses are inconsistent (i.e.,
+> +is not 0.
+> +.TP
+> +.B EINVAL
+> +The rule accesses are inconsistent (i.e.,
+>  .I rule_attr\->allowed_access
+>  is not a subset of the ruleset handled accesses).
+>  .TP
+> diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_create_ruleset.2
+> index 618d54f37..871b91dcb 100644
+> --- a/man/man2/landlock_create_ruleset.2
+> +++ b/man/man2/landlock_create_ruleset.2
+> @@ -23,7 +23,8 @@ Standard C library
+>  A Landlock ruleset identifies a set of rules (i.e., actions on objects).
+>  This
+>  .BR landlock_create_ruleset ()
+> -system call enables creating a new file descriptor identifying a ruleset.
+> +system call creates a new file descriptor
+> +which identifies a ruleset.
+>  This file descriptor can then be used by
+>  .BR landlock_add_rule (2)
+>  and
+> @@ -45,8 +46,7 @@ struct landlock_ruleset_attr {
+>  .in
+>  .IP
+>  .I handled_access_fs
+> -is a bitmask of actions that is handled by this ruleset and
+> -should then be forbidden if no rule explicitly allows them
+> +is a bitmask of handled filesystem actions
+>  (see
+>  .B Filesystem actions
+>  in
+> diff --git a/man/man2/landlock_restrict_self.2 b/man/man2/landlock_restrict_self.2
+> index d4e5e753c..f044c6b31 100644
+> --- a/man/man2/landlock_restrict_self.2
+> +++ b/man/man2/landlock_restrict_self.2
+> @@ -20,7 +20,7 @@ Standard C library
+>  .SH DESCRIPTION
+>  Once a Landlock ruleset is populated with the desired rules, the
+>  .BR landlock_restrict_self ()
+> -system call enables enforcing this ruleset on the calling thread.
+> +system call enforces this ruleset on the calling thread.
+>  See
+>  .BR landlock (7)
+>  for a global overview.
+> @@ -38,10 +38,11 @@ with multiple independent rulesets coming from different sources
+>  built-in application policy).
+>  However, most applications should only need one call to
+>  .BR landlock_restrict_self ()
+> -and they should avoid arbitrary numbers of such calls because of the
+> -composed rulesets limit.
+> -Instead, developers are encouraged to build a tailored ruleset thanks to
+> -multiple calls to
+> +and they should avoid arbitrary numbers of such calls
+> +because of the composed rulesets limit.
+> +Instead,
+> +developers are encouraged to build a single tailored ruleset
+> +with multiple calls to
+>  .BR landlock_add_rule (2).
+>  .P
+>  In order to enforce a ruleset, either the caller must have the
+> diff --git a/man/man7/landlock.7 b/man/man7/landlock.7
+> index 4a98f6549..f7bb37cba 100644
+> --- a/man/man7/landlock.7
+> +++ b/man/man7/landlock.7
+> @@ -58,7 +58,7 @@ and
+>  .BR landlock_create_ruleset (2)
+>  for more context.
+>  .P
+> -A file can only receive these access rights:
+> +The following access rights apply only to files:
+>  .TP
+>  .B LANDLOCK_ACCESS_FS_EXECUTE
+>  Execute a file.
+> @@ -87,6 +87,9 @@ or
+>  .BR open (2)
+>  with
+>  .BR O_TRUNC .
+> +.IP
+> +This access right is available since the third version of the Landlock ABI.
+> +.P
+>  Whether an opened file can be truncated with
+>  .BR ftruncate (2)
+>  is determined during
+> @@ -97,7 +100,6 @@ using
+>  .B LANDLOCK_ACCESS_FS_READ_FILE
+>  and
+>  .BR LANDLOCK_ACCESS_FS_WRITE_FILE .
+> -This access right is available since the third version of the Landlock ABI.
+>  .P
+>  A directory can receive access rights related to files or directories.
+>  The following access right is applied to the directory itself,
+> -- 
+> 2.45.2.993.g49e7a77208-goog
+> 
 
