@@ -1,58 +1,58 @@
-Return-Path: <linux-man+bounces-1477-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1478-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7D193297E
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 16:45:38 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 811C093297F
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 16:45:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D1C5F1C22A23
-	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 14:45:37 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3678C286696
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2024 14:45:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D317719D89F;
-	Tue, 16 Jul 2024 14:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 573DA19E7D8;
+	Tue, 16 Jul 2024 14:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="cvR2TBuv"
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="Vzt8F2xr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-42ad.mail.infomaniak.ch (smtp-42ad.mail.infomaniak.ch [84.16.66.173])
+Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BABA19D09B
-	for <linux-man@vger.kernel.org>; Tue, 16 Jul 2024 14:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F4419E7D0
+	for <linux-man@vger.kernel.org>; Tue, 16 Jul 2024 14:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721140710; cv=none; b=qXh43h3hnvkzT6DRJw3WIrwvFVSBUuSYbK9pIy+Foh8nW68acD6+h9ii8iZiFTZHxia6gT8tZ1cmbnuFnP8TW3vZV8+QlranplngZ+ld1Kt3Cmya1oHgAJdqcWlykVyzO/oEdDu2mJuJk3l1lX7SjvcoimOXcubf0VlgLl2bCMA=
+	t=1721140717; cv=none; b=ShLa8/OlntznLy4pgLs8Cms/WXJCP3ou4zBwtIdE+PApJHlMImZ+rSCXagRn/cfF8h4W81mLfLjZOJxhgd2dsoSiq7wi/qYb9sVZ1udurg28ptlq+DOU1FO2LI5RDrv/qmUmR8gojm91f3aA23LiBdQMOY87BC6adJ0a102SP4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721140710; c=relaxed/simple;
-	bh=loN/wpkrCIqIFKpngnTs+SiQmjGCRFmpM4NgrW6n/nY=;
+	s=arc-20240116; t=1721140717; c=relaxed/simple;
+	bh=9b6WdFnSmtI54umaWvTDL1tvPp3C9tL/bhOIo89qUL8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s0qW5KNKLOX755ymwyuBVQ6VsyN1Cu8LMQRx5y+e063BrZvxoYATF7wxkt9qyM6hr9m4e8Pl4XYvH+gPpL3h7iBFfTMJAsxORsLDWhdfNYyaL3ohhoJD2b0oCrGXawR2en6VkmIzbLCDoyemIuBzpVv56doVw2BgsjCmPxZ+dIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=cvR2TBuv; arc=none smtp.client-ip=84.16.66.173
+	 Content-Type:Content-Disposition:In-Reply-To; b=dh698MgrUNO6lC1OFh4WdB3mutWVqFgdSgg6WyCgJPgKwp1t2z405ifodoJhU+rYjZfr9BjcefW8DOY+9dqW7X3spmyrYWRyPOLjPUKYauoeW9Jyo86/eJmlR9HBrxxd740c47+hTHynR1o/z2CkirtQPiRgldRD5ftDW1dJUM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=Vzt8F2xr; arc=none smtp.client-ip=84.16.66.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4WNhWZ3dJ2zqwR;
-	Tue, 16 Jul 2024 16:38:18 +0200 (CEST)
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4WNhWj5WXHzmpJ;
+	Tue, 16 Jul 2024 16:38:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1721140698;
-	bh=ZT6SMQ9Vay3wHFndg1eK3Ov9kf1FqJtgj4uSFvqO6Uk=;
+	s=20191114; t=1721140705;
+	bh=9/F/FhPNmgB81pfg9LPzavbMB9/9A9hK0whlFlG+Qsw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cvR2TBuvA42qTvrWhVEsqinSLnM7uhNt3mNX/j1iO3Apw4ENd5JMZdOIbSc6vETuB
-	 a9B5vgvX3ohTxmpiYvqvD5WYfqY2IlEsij4tX9Lf5tRZL7buVEX443+p1RyWcRoHtM
-	 zvDWjGPOCD2scjVPX9GBs3LHwljWXqNvYbczo0x8=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4WNhWY6zXqzyJk;
-	Tue, 16 Jul 2024 16:38:17 +0200 (CEST)
-Date: Tue, 16 Jul 2024 16:38:16 +0200
+	b=Vzt8F2xrkIivr9/v+yiVtPhsGo6CH+yD7V4d+vQXCAEXR+sT3jwcpGfM1Vin7B1QA
+	 uhO9kqav22psuMadNPFRl7kP75mp34DHXbOmRWjnNF7hnfYWXr/dZaE1UOUcJ9VCBm
+	 tWePEUApEJ0WhGPw3ZzYSZ9a9qoTOTi1BfRPy5Dc=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4WNhWj2VTdz6xv;
+	Tue, 16 Jul 2024 16:38:25 +0200 (CEST)
+Date: Tue, 16 Jul 2024 16:38:24 +0200
 From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
 To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
 Cc: Alejandro Colomar <alx@kernel.org>, 
 	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/5] landlock_create_ruleset.2: Update docs for
- landlock_ruleset_attr
-Message-ID: <20240716.Zeid7zahthei@digikod.net>
+Subject: Re: [PATCH 3/5] landlock_add_rule.2: Document missing reason for
+ EINVAL
+Message-ID: <20240716.aezec8Cohp7i@digikod.net>
 References: <20240715155554.2791018-1-gnoack@google.com>
- <20240715155554.2791018-3-gnoack@google.com>
+ <20240715155554.2791018-4-gnoack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,69 +62,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240715155554.2791018-3-gnoack@google.com>
+In-Reply-To: <20240715155554.2791018-4-gnoack@google.com>
 X-Infomaniak-Routing: alpha
 
-On Mon, Jul 15, 2024 at 03:55:51PM +0000, Günther Noack wrote:
-> This updates the documentation for struct landlock_ruleset_attr
-> in line with the changed kernel documentation (see link below).
+On Mon, Jul 15, 2024 at 03:55:52PM +0000, Günther Noack wrote:
+> This documents a missing reason for why EINVAL might be returned.
+> The documented behavior exists since the first version of Landlock.
 > 
-> Cc: Alejandro Colomar <alx@kernel.org>
 > Cc: Mickaël Salaün <mic@digikod.net>
-> Link: https://lore.kernel.org/all/20240711165456.2148590-2-gnoack@google.com/
 > Signed-off-by: Günther Noack <gnoack@google.com>
 
 Reviewed-by: Mickaël Salaün <mic@digikod.net>
 
 > ---
->  man/man2/landlock_create_ruleset.2 | 34 ++++++++++++++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
+>  man/man2/landlock_add_rule.2 | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
-> diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_create_ruleset.2
-> index 871b91dcb..105e9b062 100644
-> --- a/man/man2/landlock_create_ruleset.2
-> +++ b/man/man2/landlock_create_ruleset.2
-> @@ -51,8 +51,38 @@ is a bitmask of handled filesystem actions
->  .B Filesystem actions
->  in
->  .BR landlock (7)).
-> -This enables simply restricting ambient rights
-> -(e.g., global filesystem access) and is needed for compatibility reasons.
-> +.IP
-> +This structure defines a set of
-> +.IR "handled access rights" ,
-> +a set of actions on different object types,
-> +which should be denied by default
-> +when the ruleset is enacted.
-> +Vice versa,
-> +access rights that are not specifically listed here
-> +are not going to be denied by this ruleset when it is enacted.
-> +.IP
-> +For historical reasons, the
-> +.B LANDLOCK_ACCESS_FS_REFER
-> +right is always denied by default,
-> +even when its bit is not set in
-> +.IR handled_access_fs .
-> +In order to add new rules with this access right,
-> +the bit must still be set explicitly
-> +(see
-> +.B Filesystem actions
-> +in
-> +.BR landlock (7)).
-> +.IP
-> +The explicit listing of
-> +.I handled access rights
-> +is required for backwards compatibility reasons.
-> +In most use cases,
-> +processes that use Landlock will
-> +.I handle
-> +a wide range or all access rights that they know about at build time
-> +(and that they have tested with a kernel that supported them all).
-> +.IP
-> +This structure can grow in future Landlock versions.
->  .P
->  .I size
->  must be specified as
+> diff --git a/man/man2/landlock_add_rule.2 b/man/man2/landlock_add_rule.2
+> index fa0b1f109..530b45947 100644
+> --- a/man/man2/landlock_add_rule.2
+> +++ b/man/man2/landlock_add_rule.2
+> @@ -101,6 +101,16 @@ The rule accesses are inconsistent (i.e.,
+>  .I rule_attr\->allowed_access
+>  is not a subset of the ruleset handled accesses).
+>  .TP
+> +.B EINVAL
+> +In
+> +.IR "struct landlock_path_beneath_attr" ,
+> +the rule accesses are not applicable to the file
+> +(i.e., some access rights in
+> +.I rule_attr\->allowed_access
+> +are only applicable to directories, but
+> +.I rule_attr\->parent_fd
+> +does not refer to a directory).
+> +.TP
+>  .B ENOMSG
+>  Empty accesses (i.e.,
+>  .I rule_attr\->allowed_access
 > -- 
 > 2.45.2.993.g49e7a77208-goog
 > 
