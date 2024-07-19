@@ -1,259 +1,120 @@
-Return-Path: <linux-man+bounces-1489-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1490-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83AAC934FA0
-	for <lists+linux-man@lfdr.de>; Thu, 18 Jul 2024 17:05:24 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id D27AA937856
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jul 2024 15:19:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 00E7A1F21BE6
-	for <lists+linux-man@lfdr.de>; Thu, 18 Jul 2024 15:05:24 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8DFFF28233D
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jul 2024 13:19:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38DF5143749;
-	Thu, 18 Jul 2024 15:05:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0C98135A79;
+	Fri, 19 Jul 2024 13:17:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qtp/TrJs"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jiI+lzeO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com [209.85.218.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DEC142E88;
-	Thu, 18 Jul 2024 15:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E4124211
+	for <linux-man@vger.kernel.org>; Fri, 19 Jul 2024 13:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721315118; cv=none; b=ZCZZnSXl1CVlFYzfhzWNSVotrdh3hU9TqUUwR1h59GP61OP/tLIALBXE8XC+7Sg4LU7SnbRPPM1m+lw8EKBSe4r93oJosuz/EXrkEFMbUOntKQHiuHbYjxeqklo7+exfEJ1E4Y8XUx0fFsKYdjq4ZmpH0YQOXTk8/MCgWDNrzUo=
+	t=1721395071; cv=none; b=cLH4bEjTAVL/POYDHKFurP74Q7vpBtdX9SSe5lmAxEXDWp9G28Zkl4JgLlXYcSECUfOXGUaj8cevrisggk/12ScHS+Fpr8Z4cg7VtPoy+ABnPCd1TQovukd3DJc5PbprIDI6H4k0qcjLv5OQy206OtZyhNn1UQqwnHU6iJPLSaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721315118; c=relaxed/simple;
-	bh=7/dfhgLh/M3NKMwjO5kGc5wSi3Df+4MsQUYRMqvLVUo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k0n1Si5RQ6qBnsAnPoHWJdSa0wzaPGX8fd+7s1jO/ZFY1vsCfKnr67fofUZQ/u4ihVfgzJvrf0APGwHQzCTzR92O5B/1l79wm0B+xMSVMCHz8GCMrF03IhCy/YUC4aS/TpY4C0MIsX/hbIA9r1f7uAyKbs/kclpZt/vlIgGCY7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qtp/TrJs; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C674C116B1;
-	Thu, 18 Jul 2024 15:05:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721315117;
-	bh=7/dfhgLh/M3NKMwjO5kGc5wSi3Df+4MsQUYRMqvLVUo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qtp/TrJsnCwIENfDF2o0vDWlQFd020eKOCXxnky/TdQlhv9D/C5/3frR5wSUKe8U8
-	 3lXb3E0fe/PbZe14sMfSR9iTvfvTqvkBvMgrrkhQyXDGoQjgUMcJ+2AfJN4kvfXwMN
-	 XcovuqeGqBj7EJzWOg8Ve1zJ5WGEPpXci2Vo0+QIxlsPWST4iHjsNTDkYyRK3vHXTB
-	 0C2MdEJkv4UEH936ZAuOvZF6XPRuL19Q/JazWXCDBmbnYjGxG/QKhUbr8n2vzKAw61
-	 zD1TtaY2GLZCKXWEhWumfG67t5Lcscf+PEq5gpWFai1ms+4QXVstqN7t60dVc7dgTc
-	 z6KwyKmE0lsZw==
-Date: Thu, 18 Jul 2024 08:05:16 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: John Garry <john.g.garry@oracle.com>
-Cc: alx@kernel.org, linux-man@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, axboe@kernel.dk, hch@lst.de,
-	dchinner@redhat.com, martin.petersen@oracle.com,
-	Himanshu Madhani <himanshu.madhani@oracle.com>
-Subject: Re: [PATCH v4 2/3] readv.2: Document RWF_ATOMIC flag
-Message-ID: <20240718150516.GH103014@frogsfrogsfrogs>
-References: <20240717093619.3148729-1-john.g.garry@oracle.com>
- <20240717093619.3148729-3-john.g.garry@oracle.com>
- <20240717214423.GI1998502@frogsfrogsfrogs>
- <2eb8c7b7-7758-49a3-b837-2e2a622c0ed9@oracle.com>
+	s=arc-20240116; t=1721395071; c=relaxed/simple;
+	bh=pk9Y6PEjsBy2Vvy2tA/MMgOaFHHudrAnhfA62DjQG2s=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=AIsdS2tQqVwsiac28xhgntgjXhNgvTyBlnA2RIygeeAcE2/dmcdHX8ZFAkq7yvWWr5FDdHyboHVgAfY+w0pGQkgoTUgW8noES/yozTf+qJYPZ4zvj1K2maYR+EKMOOKPgebTMQ56RB8kfn/H44u345zuhRA1rukD+Drx7tKh8Z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jiI+lzeO; arc=none smtp.client-ip=209.85.218.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com
+Received: by mail-ej1-f74.google.com with SMTP id a640c23a62f3a-a77df0dc240so154676566b.3
+        for <linux-man@vger.kernel.org>; Fri, 19 Jul 2024 06:17:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1721395068; x=1721999868; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RlJeIoXzU7MC/dPO0vu5KvKW1ZZYZKn9kuy+F93MF10=;
+        b=jiI+lzeO1r7VMsR2gNmBjjY1lQOxt7VnhcYTCNJlW0MAt+X0nZNx30e6cT8z6ffro7
+         aNw8uO4WaLfSZsbnCm3YuC1cMdP5gi2IoxDzcsSMRsOXsRXzLY65Jo65Y0rhhCXhKJg6
+         N75d/LPPG/FhJVs3Y7v9lRN3ZtKje0VBxOWJeQXnwDktyaocTPKnIADkP/iFSfqz5ove
+         5gjqSAjxfTBOp/D2tMd9n/20QqzmG7JebC+6iF98lv8rbRHMO7qmMkc0L7XnAb0ULj7h
+         tY5gb2ohi1AaL/u4vb7Cwg5xu+Ajp1/gLeGkj0lXlwRxg48EOf/07PfU65SRiz4B1PUX
+         M8cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721395068; x=1721999868;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=RlJeIoXzU7MC/dPO0vu5KvKW1ZZYZKn9kuy+F93MF10=;
+        b=wBjeoO4Pl5qesca6a1ySig+2iEknjDrXWEoe/W75CcgfUQxLz8dcy6kvQzwjE/7A0o
+         KN4lRLeo7iWKxMH25NVyCT9i6CWmA29DGvYq2xlDoM3KdzMGJMWHD62MeYGY/ZyoLI0X
+         Z5wwezKbrjFPZ6ex40AKBiIzqxa2iAdoDcW5LSwUDAhH3Re0jcJGuBCtrpH+Uwc2L6Ll
+         j5QgzFuWYdcijT2aLILeVJrAZpLrzoL/1Jt/u/MoaJhtx1gIXYAFo2lv1s0NoGs+0fIa
+         l8hYi3mBhGLQSieg2Hh6/S1DMOKL5AqhAhyc/EALIU8BEKf7LSKKLszfZ8EeDkMdW58u
+         72vQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW5PEG7iSNSyOdC4qxJ0NjzpPEZEpKbKyLIlQQZKxkFFNaDt+0cVs2/K0UKstx599zHU2qGiOUbytna1YmJ9RN6qkebp6phGYZ8
+X-Gm-Message-State: AOJu0YzwvLFHTTxrPL0IOQXJMLQRXnyyIcR7nMSLQ2BYtlrHmENFkhlZ
+	TlPTdSjDo0rckzaxb0X3RGGgn4DvjoIY9t9im+j1ks3VpKuUVqAZ1BeENayD3lIFl7Rc13WEJ7n
+	8fg==
+X-Google-Smtp-Source: AGHT+IFGSfbp4HLWUDltVpWk/ijp2ngVuS08F7DhtS5YHVM49hjXjEIgFMRxdZ6hFUsyRQfJQOzKdegBlsk=
+X-Received: from swim.c.googlers.com ([fda3:e722:ac3:cc00:31:98fb:c0a8:1605])
+ (user=gnoack job=sendgmr) by 2002:a17:907:a2cb:b0:a77:fc89:e6ea with SMTP id
+ a640c23a62f3a-a7a011e8448mr528866b.8.1721395067923; Fri, 19 Jul 2024 06:17:47
+ -0700 (PDT)
+Date: Fri, 19 Jul 2024 15:17:45 +0200
+In-Reply-To: <bdtipbpybyunclnmnw5o6si6ojkp4wht35cnnu3i4b5keg2lnk@m6bn5i2xr7fl>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2eb8c7b7-7758-49a3-b837-2e2a622c0ed9@oracle.com>
+Mime-Version: 1.0
+References: <20240715155554.2791018-1-gnoack@google.com> <20240715155554.2791018-2-gnoack@google.com>
+ <bdtipbpybyunclnmnw5o6si6ojkp4wht35cnnu3i4b5keg2lnk@m6bn5i2xr7fl>
+Message-ID: <ZppneYlIzBRYAwga@google.com>
+Subject: Re: [PATCH 1/5] landlock.7, landlock_*.2: Wording improvements
+From: "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
+	"=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?=" <mic@digikod.net>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 18, 2024 at 03:07:59PM +0100, John Garry wrote:
-> On 17/07/2024 22:44, Darrick J. Wong wrote:
-> > On Wed, Jul 17, 2024 at 09:36:18AM +0000, John Garry wrote:
-> > > From: Himanshu Madhani <himanshu.madhani@oracle.com>
-> > > 
-> > > Add RWF_ATOMIC flag description for pwritev2().
-> > > 
-> > > Signed-off-by: Himanshu Madhani <himanshu.madhani@oracle.com>
-> > > [jpg: complete rewrite]
-> > > Signed-off-by: John Garry <john.g.garry@oracle.com>
-> > > ---
-> > >   man/man2/readv.2 | 76 ++++++++++++++++++++++++++++++++++++++++++++++++
-> > >   1 file changed, 76 insertions(+)
-> > > 
-> > > diff --git a/man/man2/readv.2 b/man/man2/readv.2
-> > > index eecde06dc..9c8a11324 100644
-> > > --- a/man/man2/readv.2
-> > > +++ b/man/man2/readv.2
-> > > @@ -193,6 +193,66 @@ which provides lower latency, but may use additional resources.
-> > >   .B O_DIRECT
-> > >   flag.)
-> > >   .TP
-> > > +.BR RWF_ATOMIC " (since Linux 6.11)"
-> > > +Requires that writes to regular files in block-based filesystems be issued with
-> > > +torn-write protection.
-> > > +Torn-write protection means that for a power or any other hardware failure,
-> > > +all or none of the data from the write will be stored,
-> > > +but never a mix of old and new data.
-> > > +This flag is meaningful only for
-> > > +.BR pwritev2 (),
-> > > +and its effect applies only to the data range written by the system call.
-> > > +The total write length must be power-of-2 and must be sized in the range
-> > > +.RI [ stx_atomic_write_unit_min ,
-> > > +.IR stx_atomic_write_unit_max ].
-> > > +The write must be at a naturally-aligned offset within the file with respect to
-> > > +the total write length -
-> > > +for example,
-> > 
-> > Nit: these could be two sentences
-> > 
-> > "The write must be at a naturally-aligned offset within the file with
-> > respect to the total write length.  For example, ..."
-> 
-> ok, sure
-> 
-> > 
-> > > +a write of length 32KB at a file offset of 32KB is permitted,
-> > > +however a write of length 32KB at a file offset of 48KB is not permitted.
-> > 
-> > Pickier nit: KiB, not KB.
-> 
-> ok
-> 
-> > 
-> > > +The upper limit of
-> > > +.I iovcnt
-> > > +for
-> > > +.BR pwritev2 ()
-> > > +is in
-> > 
-> > "is given by" ?
-> 
-> ok, fine, I don't mind
-> 
-> > 
-> > > +.I stx_atomic_write_segments_max.
-> > > +Torn-write protection only works with
-> > > +.B O_DIRECT
-> > > +flag, i.e. buffered writes are not supported.
-> > > +To guarantee consistency from the write between a file's in-core state with the
-> > > +storage device,
-> > > +.BR fdatasync (2),
-> > > +or
-> > > +.BR fsync (2),
-> > > +or
-> > > +.BR open (2)
-> > > +and either
-> > > +.B O_SYNC
-> > > +or
-> > > +.B O_DSYNC,
-> > > +or
-> > > +.B pwritev2 ()
-> > > +and either
-> > > +.B RWF_SYNC
-> > > +or
-> > > +.B RWF_DSYNC
-> > > +is required. Flags
-> > 
-> > This sentence   ^^ should start on a new line.
-> 
-> yes
-> 
-> > 
-> > > +.B O_SYNC
-> > > +or
-> > > +.B RWF_SYNC
-> > > +provide the strongest guarantees for
-> > > +.BR RWF_ATOMIC,
-> > > +in that all data and also file metadata updates will be persisted for a
-> > > +successfully completed write.
-> > > +Just using either flags
-> > > +.B O_DSYNC
-> > > +or
-> > > +.B RWF_DSYNC
-> > > +means that all data and any file updates will be persisted for a successfully
-> > > +completed write.
-> > 
-> 
-> ughh, this is hard to word both concisely and accurately...
-> 
-> > "any file updates" ?  I /think/ the difference between O_SYNC and
-> > O_DSYNC is that O_DSYNC persists all data and file metadata updates for
-> > the file range that was written, whereas O_SYNC persists all data and
-> > file metadata updates for the entire file.
-> 
-> I think that https://man7.org/linux/man-pages/man2/open.2.html#NOTES
-> describes it best.
-> 
-> > 
-> > Perhaps everything between "Flags O_SYNC or RWF_SYNC..." and "...for a
-> > successfully completed write." should instead refer readers to the notes
-> > about synchronized I/O flags in the openat manpage?
-> 
-> Maybe that would be better, but we just need to make it clear that
-> RWF_ATOMIC provides the guarantee that the data is atomically updated only
-> in addition to whatever guarantee we have for metadata updates from
-> O_SYNC/O_DSYNC.
-> 
-> 
-> So maybe:
-> RWF_ATOMIC provides the guarantee that any data is written with torn-write
-> protection, and additional flags O_SYNC or O_DSYNC provide
-> same Synchronized I/O guarantees as documented in <openat manpage reference>
+On Mon, Jul 15, 2024 at 06:13:24PM +0200, Alejandro Colomar wrote:
+> Hi G=C3=BCnther,
+>=20
+> > Subject: Re: [PATCH 1/5] landlock.7, landlock_*.2: Wording improvements
+>=20
+> s/Wording improvements/wfix/
 
-  ^ the same
+Done.
 
-> 
-> OK?
+> On Mon, Jul 15, 2024 at 03:55:50PM GMT, G=C3=BCnther Noack wrote:
+> > +.IP
+> > +This access right is available since the third version of the Landlock=
+ ABI.
+> > +.P
+>=20
+> Did you really want a P here?  Or maybe an IP?
 
-Yes.
+Well spotted, thanks!  Done.
 
-> > > +Not using any sync flags means that there is no guarantee that data or
-> > > +filesystem updates are persisted.
-> > > +.TP
-> > >   .BR RWF_SYNC " (since Linux 4.7)"
-> > >   .\" commit e864f39569f4092c2b2bc72c773b6e486c7e3bd9
-> > >   Provide a per-write equivalent of the
-> > > @@ -279,10 +339,26 @@ values overflows an
-> > >   .I ssize_t
-> > >   value.
-> > >   .TP
-> > > +.B EINVAL
-> > > + For
-> > > +.BR RWF_ATOMIC
-> > > +set,
-> > 
-> > "If RWF_ATOMIC is specified..." ?
-> > 
-> > (to be a bit more consistent with the language around the AT_* flags in
-> > openat)
-> 
-> ok, fine
-> 
-> > 
-> > > +the combination of the sum of the
-> > > +.I iov_len
-> > > +values and the
-> > > +.I offset
-> > > +value does not comply with the length and offset torn-write protection rules.
-> > > +.TP
-> > >   .B EINVAL
-> > >   The vector count,
-> > >   .IR iovcnt ,
-> > >   is less than zero or greater than the permitted maximum.
-> > > +For
-> > > +.BR RWF_ATOMIC
-> > > +set, this maximum is in
-> > 
-> > (same)
-> > 
-> > --D
-> > 
-> 
-> Thanks for checking,
+The de-dentation is only needed once the paragraph talks about both truncat=
+e and
+ioctl operations (patch 5/5).  Must have happened when I reshuffled the pat=
+ch
+set.  In patch 5/5 it becomes .P again.
 
-NP. :)
+> >  Whether an opened file can be truncated with
+> >  .BR ftruncate (2)
+> >  is determined during
+> > @@ -97,7 +100,6 @@ using
 
---D
-
-> John
-> 
-> 
+Thanks,
+=E2=80=94G=C3=BCnther
 
