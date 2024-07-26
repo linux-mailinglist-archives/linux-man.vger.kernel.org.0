@@ -1,186 +1,122 @@
-Return-Path: <linux-man+bounces-1531-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1532-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBF693DA1A
-	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 23:15:05 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1253493DA23
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 23:23:31 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 3F986B220A5
-	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 21:15:02 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 48D161C2316C
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 21:23:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07E6B5674E;
-	Fri, 26 Jul 2024 21:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 921481422D4;
+	Fri, 26 Jul 2024 21:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ur7kUsbF"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z88LMQ37"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA7E111A1
-	for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 21:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2DD210EC
+	for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 21:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722028497; cv=none; b=sGRofYNC+zN3Dx/syLGStNrBga9BLlLfjxZSrrjI464ufXuBBB1PWX09J9bPFEg7Hp0sbLrkWzH36xN+3bDfxxwjK8WHzxGlfkcMDRyl/864JRhMEO9+CiCGKRkr0UQdvmjsaTtistlqJvJcY18oApi4PDA17A1Kkp82GBfQlhM=
+	t=1722029006; cv=none; b=AmGCE9WcesfT3MK5PNkoffyoAfaQHRulcZ/CFA+GvNAWo6FQDMSvNsBiIW5L36xD86RYPHpZhxZ2/aPPWGL1hfE3rfFLdJb7cKtXfxdTAtvaqBZp+rk80vZ5EpiHFcdYBaIEKUcBPuESVsuRn73qLlnjiZSncM84FSZDqKu/VHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722028497; c=relaxed/simple;
-	bh=OinK/FqxBYmlYPivYVanUpBFV/MPvdKcZt8ZpGZJm8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WQHM23xLVjfle06wnebQdJAcUyU/FlNC5z50oe8+ce289D3OO6lVQ4xtPQmGQ+dE85k8DLKkVpOJmFnN6ZiGsqpLOTf4bptw/1122eyTKKWBl/AsWaOYA1pe73JCgGqkNcUu9sOSk62r2OLWfEuGeM1ySfcPEfCoRz913ifmVH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ur7kUsbF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8567FC32782;
-	Fri, 26 Jul 2024 21:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722028497;
-	bh=OinK/FqxBYmlYPivYVanUpBFV/MPvdKcZt8ZpGZJm8o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ur7kUsbFimPsEveAH0gMIhCIN/TNogAMyMSM5dh7CH8LV6xZ7o055NWpmhXXIQHbt
-	 TH9UbosfzcgeBekl717uNu06dq/30GxVUpNcJXfNTY5zXvKTjZEMxB/PSLxnHDjoLy
-	 mdttDD0dot1e0wxcMFaQjCheexgorpd60Didq77uoQKeeQuP9rBQy8nZKZypIK2RwH
-	 XTuLeUzIYi0aHBsnVffHwa4bFsxwPYTNIbsnEDRB9Hu5X4dP3L9VNOw7LBdkXTsPAU
-	 REyykyrqZqLw6PB8YoBMhuCRXclqsTpjCy9+3xpp19s0fEWHWIwDDAM4+s13/8KCTU
-	 iH/Vv7d4QiSbA==
-Date: Fri, 26 Jul 2024 23:14:52 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Joseph Myers <josmyers@redhat.com>
-Cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
-	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, xry111@xry111.site, jakub@redhat.com, 
-	lh_mouse@126.com, jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
-	ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
+	s=arc-20240116; t=1722029006; c=relaxed/simple;
+	bh=wSHE1k9x6m8duyn7J9bi3lU3tAnyjXdTnvV2KQWbswQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=sPwVeaf7XBkzYXGuLyIoBv3l62Zn97PUX2zGqY8z9OLzBEFANIvWIm1VEAbS3n6bhExaoHXDR7q6PX3EaRRfJmvyQgyCC4bqbTRrzgSEe/h/jjkLKqmzfUbCsWYJinNpXZTfaoXI+3mT/rg7PxGJHX/StYDDOdaZyMeT62YR4t4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z88LMQ37; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1722029003;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uedLPKcf7HAyZb82ltxrr5sI3VFM/XxiXZmbRYEhjic=;
+	b=Z88LMQ37K9pyekyg909E1IYrsegYkiAPAOXMfoZ+b7LmpwJmPlLUGKRkfsL9pT0UUSgyH3
+	/kBF75Rq2+6mSXaOt4Jo3Jcze3NMXrpm5ekNoO/4sJkT/vkOTZmtRGl29wCuceR23j39Cg
+	z0XMp44TiJqpuJVCcS9rrTSuT3iayHQ=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-691-Q__vJMn2PLOERjPLdF-m3A-1; Fri, 26 Jul 2024 17:23:21 -0400
+X-MC-Unique: Q__vJMn2PLOERjPLdF-m3A-1
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-3683f34d8d9so55379f8f.3
+        for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 14:23:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722029000; x=1722633800;
+        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uedLPKcf7HAyZb82ltxrr5sI3VFM/XxiXZmbRYEhjic=;
+        b=C2Bhqj+0tM3FR5CrsiUTR8BB0JN+/4cLrZt02CTLgbi1C/zCwJ+c4WjwW7/OBxs+qt
+         V5X6x7XUpHK56MVswZXtcPuWnK20nSHJLUJUie/ajZJ4X5s97jpoSq0R1D51v2a5ROkm
+         b8SRKMF4Xcs9iA+lD3noRCQQr0gYu3ZtR3uNfhReZCL85vVG0pNxR3rmr1pCJSS2ZZvV
+         i4zGtEbzSeZz29pKaFn3pcE4OfrriL05ux/Lk3Cx3c8nGhDdUq2eztzOY5ykdtZY3V5X
+         EcjDxQZLR/cwwdHTXJJtTif3QiZZsuTO7p9YQx3NOCXwgsUEkO4rrnAo++hgE12k6omy
+         qzWg==
+X-Forwarded-Encrypted: i=1; AJvYcCVGwZkGZw8FojPi/jUjEAjHCqKiRLqg/Lf/ryfVgNNG4T8XUofnTaUtvddihi9RCfFZG+rBpPLZ5rReuuLQu/x9eK3ndmAuWjhw
+X-Gm-Message-State: AOJu0Yweu9Bcpq/fQx6AVDZAF+ZYd/ltCup185yrUlIBT3dd+uPrUUD3
+	rLs0z+4LplyHjzqTKEFDC88x1Y0m7fP/lQmGi3f4VzucKRM5Y+kMO461CyeUs1RPCRcInEdRbd+
+	Hmt7b2a21Tf9XREpLgaQCo8qqLPJgX90W/ViU7Avo44L/uDt6+pIZt2GEzA==
+X-Received: by 2002:a5d:5911:0:b0:366:e9f9:99c1 with SMTP id ffacd0b85a97d-36b5d0c0f34mr529224f8f.53.1722029000335;
+        Fri, 26 Jul 2024 14:23:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFzzEYxaKfwThKZxnoUYbNeN9mdy1kf+ZaA3OGt/8UBOIfHFyxTxEIeA8bbW/sDusIooy5fdA==
+X-Received: by 2002:a5d:5911:0:b0:366:e9f9:99c1 with SMTP id ffacd0b85a97d-36b5d0c0f34mr529211f8f.53.1722028999968;
+        Fri, 26 Jul 2024 14:23:19 -0700 (PDT)
+Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-36b36861b1esm6031550f8f.92.2024.07.26.14.23.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jul 2024 14:23:19 -0700 (PDT)
+Received: from jsm28 (helo=localhost)
+	by digraph.polyomino.org.uk with local-esmtp (Exim 4.95)
+	(envelope-from <josmyers@redhat.com>)
+	id 1sXSOg-0016Th-Ka;
+	Fri, 26 Jul 2024 21:22:42 +0000
+Date: Fri, 26 Jul 2024 21:22:42 +0000 (UTC)
+From: Joseph Myers <josmyers@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
+    Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
+    xry111@xry111.site, jakub@redhat.com, lh_mouse@126.com, 
+    jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
+    ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
 Subject: Re: n3294 - The restrict function attribute as a replacement of the
  restrict qualifier
-Message-ID: <amyvxtyogghmybjpyqa26reuztb7ilvwxbzv4w3npehcstpzeu@j5pt4pwpqnjn>
-References: <20240705130249.14116-2-alx@kernel.org>
- <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq>
- <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3>
- <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
- <dcmpclh7v3m263hsynbpjvroi4ldbiv6ig4tuug6ieyovcgv7n@vxojhbpm4bst>
- <48bf010-43ec-6761-13b1-55864296a90@redhat.com>
+In-Reply-To: <amyvxtyogghmybjpyqa26reuztb7ilvwxbzv4w3npehcstpzeu@j5pt4pwpqnjn>
+Message-ID: <b7d6847e-9028-cc8d-62c4-89bb83f52c8@redhat.com>
+References: <20240705130249.14116-2-alx@kernel.org> <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq> <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3> <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
+ <dcmpclh7v3m263hsynbpjvroi4ldbiv6ig4tuug6ieyovcgv7n@vxojhbpm4bst> <48bf010-43ec-6761-13b1-55864296a90@redhat.com> <amyvxtyogghmybjpyqa26reuztb7ilvwxbzv4w3npehcstpzeu@j5pt4pwpqnjn>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fs7ii5hyicoxvrqx"
-Content-Disposition: inline
-In-Reply-To: <48bf010-43ec-6761-13b1-55864296a90@redhat.com>
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 26 Jul 2024, Alejandro Colomar via Gcc wrote:
 
---fs7ii5hyicoxvrqx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Joseph Myers <josmyers@redhat.com>
-Cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
-	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, xry111@xry111.site, jakub@redhat.com, 
-	lh_mouse@126.com, jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
-	ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
-Subject: Re: n3294 - The restrict function attribute as a replacement of the
- restrict qualifier
-References: <20240705130249.14116-2-alx@kernel.org>
- <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq>
- <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3>
- <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
- <dcmpclh7v3m263hsynbpjvroi4ldbiv6ig4tuug6ieyovcgv7n@vxojhbpm4bst>
- <48bf010-43ec-6761-13b1-55864296a90@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <48bf010-43ec-6761-13b1-55864296a90@redhat.com>
+> > See reflector message SC22WG14.18575, 17 Nov 2020 (the former convenor 
+> > replying when I asked about just that paper).
+> 
+> Where can I find reflector messages?
 
-Hi Joseph,
+https://www.open-std.org/jtc1/sc22/wg14/18575
 
-On Fri, Jul 26, 2024 at 08:30:33PM GMT, Joseph Myers wrote:
-> On Fri, 26 Jul 2024, Alejandro Colomar via Gcc wrote:
->=20
-> > I don't see why it should not apply to void*.  memcpy(3) should get this
-> > attribute:
-> >=20
-> > 	[[alx::restrict(1)]]
-> > 	[[alx::restrict(2)]]
-> > 	void *memcpy(void *dst, const void *src, size_t n);
->=20
-> That would disallow copying between disjoint subarrays within the same=20
-> toplevel object (and there's no way to specify an array size for void *),=
-=20
-> which hardly seems right.
+> And another one to propose that [n] means the same as [static n] except
+> for the nonnull property of static.
 
-Hmmm, I sometimes forget that ISO C is so painful about void.
+I'm not convinced that introducing extra undefined behavior for things 
+that have been valid since C89 (which would be the effect of such a change 
+for any code that passes a smaller array) is a good idea - the general 
+mood is to *reduce* undefined behavior.
 
-Has WG14 discussed in the past about the GNU extension that defines
-sizeof(void) =3D=3D 1?
+-- 
+Joseph S. Myers
+josmyers@redhat.com
 
-Maybe wording that also considers compiler-specific attributes and
-extensions would allow for the following:
-
-	[[gnu::access(write_only, 1, 3)]]
-	[[gnu::access(read_only, 2, 3)]]
-	[[alx::restrict(1)]]
-	[[alx::restrict(2)]]
-	void *memcpy(void *dst, const void *src, size_t n);
-
-The GNU attribute specifies the number of elements of the subarrays, and
-the GNU extension sizeof(void)=3D=3D1 specifies the size of each element.
-That gives us the size of the subarrays to be considered for the
-restrictness.
-
-So, ISO C wouldn't be allowed to mark malloc(3) as [[alx::restrict]]
-(unless they add these GNU extensions), but GNU C could.
-
-> > BTW, the author of n2529 didn't follow up, right?  I'd like that in, so
-> > I'll prepare something after n2906 is merged.  Martin, would you mind
-> > pinging me about it?
->=20
-> See reflector message SC22WG14.18575, 17 Nov 2020 (the former convenor=20
-> replying when I asked about just that paper).
-
-Where can I find reflector messages?
-
->  As far as I know the author=20
-> has not yet provided an updated version / asked for it to be added to a=
-=20
-> meeting agenda.
-
-I think you mentioned that to me some time ago.  I guess I'll take over
-then.  I'll ask for a number to propose _Nitems().
-
-And another one to propose that [n] means the same as [static n] except
-for the nonnull property of static.
-
-Have a lovely night!
-Alex
-
->=20
-> --=20
-> Joseph S. Myers
-> josmyers@redhat.com
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---fs7ii5hyicoxvrqx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmakEcYACgkQnowa+77/
-2zJPbQ//a3CKWNGaSXxfyATxQ0DCPeGvlU+MnFuC0vAOeCJeNfI0pW1q+lX1FZgy
-pr/mKIaDwkj53+r0PgXcC5Dx8dxK3jkV5EXD5e9ZpkLzZn7hFHsxYQ68FgfcYtwl
-klsCO3wg1bsaRbfwhzY9OQZ4ruUcOzgbCZvpcmWBk9puMItGhRmRb9/cV6/hppm5
-Zgi32fKiVIuV8mXz2iLIrAnUr9zvYMm43L6Ac/Vs0qxx4dEl2GOmZqegxkvR3nAP
-Elpuuq37NjHKoA8X6NqTFAVDORObMo2dN2bfBfAfQINqmTV3MmBo486CtuDAfM7A
-vheNu02Ba8MnSAGJqMMOWXZgSKdgCRpFbfSbZnmD3o3aHLVIwabQmym/gewdD4G4
-S8l71vXZ7+rbXlhYibCZoxPZdTYImphtjDuobE6PxaAOTv/dDC6286478s1MyDp3
-CbcBvhYNt7DGGFaNAvwHkY9IygdijskrRBAAKI/3B2Iv9JfR1cy4letvyIUcA5FS
-HkafEeMa5+4J1mNjRWzqHxGxMYONxprAR2zzaFpt8tuzL5ZFGHW2m8J1NQ2ghzaS
-XUWAVjxcFiZoU+YqEUQ9G4ov1rsSLjW+urPt8Mv2tOqW8oN4q8w3i6gt7CRBPjpa
-mUOopXuGIcniOsUPTrkF4HbvFcQegh5jcwB6itBhl6tnF+0ISbM=
-=uKpR
------END PGP SIGNATURE-----
-
---fs7ii5hyicoxvrqx--
 
