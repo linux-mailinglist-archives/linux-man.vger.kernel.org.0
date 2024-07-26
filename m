@@ -1,256 +1,127 @@
-Return-Path: <linux-man+bounces-1529-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1530-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6EF093D992
-	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 22:11:10 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id D621B93D9C9
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 22:31:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 425EF1F23729
-	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 20:11:10 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 92341285DDF
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 20:31:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D911448CDD;
-	Fri, 26 Jul 2024 20:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 091E6149DF8;
+	Fri, 26 Jul 2024 20:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YpRs5baz"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c5EyghBC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BDA1F5E6
-	for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 20:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A9149C65
+	for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 20:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722024665; cv=none; b=q/4xTHwUw274XIOLKB81feqljDhKjpXNxbQ85mf/KcP2uozy4O60KaRG+o+p9D/9M7pgjRux6VqXQ4SMP4zbbrozgRg8jZ0wA4K+BoEYvROgAZuUoL75pHam9G86aOGUwVvbXt7TZqxI+/oJRpiHgubjYRY20q7//A/IgsxcEB0=
+	t=1722025877; cv=none; b=WwwRBV5ZEsVhN6fXi8MqFyHIzDFR3NXBq0U07hFaxKxuCjVU/QftjWg9Zo1kbOlOw6b5MFO6Bvz0LweVoxJLjnecfqcQyNN4KS8PhThKJgC6lj4t4oohuLiRNfAkIJSGjec0ZSi9tT87fxLb03UPzctbzy2vr7mabCXmk2Kyk6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722024665; c=relaxed/simple;
-	bh=qo1ZNEb5CasR1F/DYL2I/tkqXA91kaPlrHl3fFwWfOc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hmol+J5itpoE8puMJej9h49SrUln62bMYL17zJQoPNDelHqetBPZJK8lc35i3fS+XzlfoE3Xt49TUHs0kOvFyfAiattiefWGwNWsMEt6hA9VvZKqdkItOjPA+57pBIo+vv4XB4HHG4HY/GrqOTcaJ8Jp+2pj7oSQui8VVOU1+rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YpRs5baz; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42E95C32782;
-	Fri, 26 Jul 2024 20:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722024665;
-	bh=qo1ZNEb5CasR1F/DYL2I/tkqXA91kaPlrHl3fFwWfOc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YpRs5bazZeRZjfuHB4M9bTgD0obQmtb+ZfjcMj8a3+2nJtT4D7jn5OK9nt0YUzHph
-	 QuHZaGytsy/EDmHcpZsluYNG3lUk0MWbIekEn3wArho4OTyqPkhQG/2vYimlE5xFGT
-	 aJWodVEV+W/ClmkD/IjB58Gd4jW/w46ivNX3QKK2Vw0LMfA+ehos+o+rQTXCUYRI7h
-	 AfioW496Vd8MTwlQNwFbTmKUryYlcej2HGlOEpqcvzxeJDwwv4gRza46Es+PkK0dh0
-	 61yJdUCvnwhBLlcCgo0secik/wDI9puakcUADdMZyxQ0xJpsNa4dgNs8lUj0evhvOZ
-	 FJfzwS8iSuh4g==
-Date: Fri, 26 Jul 2024 22:11:00 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Joseph Myers <josmyers@redhat.com>
-Cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
-	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, xry111@xry111.site, jakub@redhat.com, 
-	lh_mouse@126.com, jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
-	ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
+	s=arc-20240116; t=1722025877; c=relaxed/simple;
+	bh=R+MBI1Od0gHqa9D4jIP3sg69n9YXFd/n75cy6GlW8nk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=kmgLq9p+KrPyq/sBS8FgS1/VUMsBLUK3Wt2UbeGVZFHS321QyqMmZZWXnIZMx2k/tdx0AdVZ8uv3sxF2R2KBUzjQbPsmgmte9oc8LK50UzPJJk0ommihuapsK+kavpNZlEcHh95ehoUe/J3iBw8Sa9vd4ntVtgtHAc9asz67028=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c5EyghBC; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1722025875;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SH8V3OOcJaVBB/khIXJK7Al5yYi71odWfMkYZPL9bno=;
+	b=c5EyghBCEQcxV/flp2CEVFvmFiZR9kbmSANuqyoyg+Hx6/liFJQq/o9lhxs1c0r5MZGbdm
+	1F4kHvS+pvNcMDBkarKx29cWFi87Df0fMBFUsRwCYCjT8eyAkqYFUsA6ffwTYWvPmEbUEx
+	kS9ZlGfOBllNZ8pvP4/RM58DBbd5GP4=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-563-XztHpZUjOTi2icktbvFhyA-1; Fri, 26 Jul 2024 16:31:13 -0400
+X-MC-Unique: XztHpZUjOTi2icktbvFhyA-1
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-428077f91a9so260735e9.1
+        for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 13:31:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722025872; x=1722630672;
+        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SH8V3OOcJaVBB/khIXJK7Al5yYi71odWfMkYZPL9bno=;
+        b=vxxa7o+Q3iDMH3FhYtdX2yM2SlGiuFrABE9/K2UH+OQAcVUQOP/uTZ4brCGlVu0zbk
+         /itqUEOoIcVjY4UOiSTQY0Tf0G25lx0GCT7SUl12A87oNwkHzlU+UXXo5viCrUPbgjdT
+         5IVZksBqKDCaedPb4VeaYQvLKs8sNeeUcdzBOK69xjZOl4sByJhfRoAngulz/3bhnvMB
+         mZwxsAKOr/D5m2nbICrND/No5htnZ5aN/J5AF0Y+Re62irsZPJ5bltcpvmo4VQmzYIx6
+         o6DPpY8957P/3Fp8X3kSjwxMIAry6f0evDzLh/WjmfNElWX89uwO4lYNVOJUKKZf+c/U
+         LXNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUknut7isZn5u+w760/m6Rt21v710MoLG0a5pkeICvNdGXm42KL5O2gAZaIvGJVuqU8v8axcDFWFcso77ErOrwSVokZugFiCiwx
+X-Gm-Message-State: AOJu0YwbWYdHmKxVZIw1xlKJyEpxvphDexndjJzJGQUcFtj5CKvp9vMj
+	AWr5gL57xclKASOUh/JQSY5N4ossVrY88HOulFrtJT5YQxbwOPKmbYkeayHRTRwMSK8WYdwYOMa
+	X6aFyxDgVEZC2rlq3UpSYuSh53fr9EP2icH/SKWGoxk7qZL0oC+EL49e8Jg==
+X-Received: by 2002:a05:600c:1554:b0:426:676a:c4d1 with SMTP id 5b1f17b1804b1-42811e52383mr4435565e9.8.1722025871964;
+        Fri, 26 Jul 2024 13:31:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE8MLseTMEsu0EmP8jgOM/VOygn0b9loC8YzB8OU0O/1exgscCppDKMlrgdY49rT6r3lgmlpg==
+X-Received: by 2002:a05:600c:1554:b0:426:676a:c4d1 with SMTP id 5b1f17b1804b1-42811e52383mr4435395e9.8.1722025871548;
+        Fri, 26 Jul 2024 13:31:11 -0700 (PDT)
+Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-428057a635csm89466475e9.30.2024.07.26.13.31.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jul 2024 13:31:11 -0700 (PDT)
+Received: from jsm28 (helo=localhost)
+	by digraph.polyomino.org.uk with local-esmtp (Exim 4.95)
+	(envelope-from <josmyers@redhat.com>)
+	id 1sXRaD-0015a4-KM;
+	Fri, 26 Jul 2024 20:30:33 +0000
+Date: Fri, 26 Jul 2024 20:30:33 +0000 (UTC)
+From: Joseph Myers <josmyers@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
+    Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
+    xry111@xry111.site, jakub@redhat.com, lh_mouse@126.com, 
+    jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
+    ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
 Subject: Re: n3294 - The restrict function attribute as a replacement of the
  restrict qualifier
-Message-ID: <dcmpclh7v3m263hsynbpjvroi4ldbiv6ig4tuug6ieyovcgv7n@vxojhbpm4bst>
-References: <20240705130249.14116-2-alx@kernel.org>
- <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq>
- <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3>
- <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
+In-Reply-To: <dcmpclh7v3m263hsynbpjvroi4ldbiv6ig4tuug6ieyovcgv7n@vxojhbpm4bst>
+Message-ID: <48bf010-43ec-6761-13b1-55864296a90@redhat.com>
+References: <20240705130249.14116-2-alx@kernel.org> <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq> <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3> <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
+ <dcmpclh7v3m263hsynbpjvroi4ldbiv6ig4tuug6ieyovcgv7n@vxojhbpm4bst>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7qsc4thbraqogxrs"
-Content-Disposition: inline
-In-Reply-To: <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 26 Jul 2024, Alejandro Colomar via Gcc wrote:
 
---7qsc4thbraqogxrs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Joseph Myers <josmyers@redhat.com>
-Cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
-	Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, xry111@xry111.site, jakub@redhat.com, 
-	lh_mouse@126.com, jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
-	ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
-Subject: Re: n3294 - The restrict function attribute as a replacement of the
- restrict qualifier
-References: <20240705130249.14116-2-alx@kernel.org>
- <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq>
- <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3>
- <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
+> I don't see why it should not apply to void*.  memcpy(3) should get this
+> attribute:
+> 
+> 	[[alx::restrict(1)]]
+> 	[[alx::restrict(2)]]
+> 	void *memcpy(void *dst, const void *src, size_t n);
 
-Hi Joseph,
+That would disallow copying between disjoint subarrays within the same 
+toplevel object (and there's no way to specify an array size for void *), 
+which hardly seems right.
 
-On Fri, Jul 26, 2024 at 04:24:14PM GMT, Joseph Myers wrote:
-> On Wed, 10 Jul 2024, Alejandro Colomar via Gcc wrote:
->=20
-> >    6.7.13.x The restrict function attribute
-> >      Constraints
-> >             The restrict attribute shall be applied to a function.
-> >=20
-> >             A 1=E2=80=90based index can be specified in an  attribute  =
-argument
-> >             clause,  to  associate the attribute with the corresponding
-> >             parameter of the function, which must be of a pointer type.
->=20
-> It's more appropriate to say "shall", and you need a requirement for the=
-=20
-> pointer to be a pointer to a complete object type (it makes no sense with=
-=20
-> function pointers, or void).
+> BTW, the author of n2529 didn't follow up, right?  I'd like that in, so
+> I'll prepare something after n2906 is merged.  Martin, would you mind
+> pinging me about it?
 
-I don't see why it should not apply to void*.  memcpy(3) should get this
-attribute:
+See reflector message SC22WG14.18575, 17 Nov 2020 (the former convenor 
+replying when I asked about just that paper).  As far as I know the author 
+has not yet provided an updated version / asked for it to be added to a 
+meeting agenda.
 
-	[[alx::restrict(1)]]
-	[[alx::restrict(2)]]
-	void *memcpy(void *dst, const void *src, size_t n);
+-- 
+Joseph S. Myers
+josmyers@redhat.com
 
-The index to which the text above refers is that '(1)' and '(2)'.
-
->  That is, something like "If an attribute=20
-> argument clause is present, it shall have the form:
->=20
->   ( constant-expression )
->=20
-> The constant expression shall be an integer constant expression with=20
-> positive value.  It shall be the index, counting starting from 1, of a=20
-> function parameter whose type is a pointer to a complete object type.".
->=20
-> (That might not quite be sufficient - there are the usual questions of=20
-> exactly *when* the type needs to be complete, if it's completed part way=
-=20
-> through the function definition, but the standard already doesn't tend to=
-=20
-> specify such things very precisely.)
->=20
-> >             (Optional.)   The argument attribute clause may be omitted,
-> >             which is equivalent to specifying the  attribute  once  for
-> >             each parameter that is a pointer.
->=20
-> For each parameter that is a pointer to a complete object type, or should=
-=20
-> there be a constraint violation in this case if some are pointers to such=
-=20
-> types and some are pointers to other types?
->=20
-> >             If the number of elements is specified with array  notation
-> >             (or  a compiler=E2=80=90specific attribute), the array obje=
-ct to be
-> >             considered for aliasing is a sub=E2=80=90object of the orig=
-inal ar=E2=80=90
-> >             ray object, limited by the number  of  elements  specifiedr
-> >             [1].
->=20
-> This is semantically problematic in the absence of something like N2906=
-=20
-> (different declarations could use different numbers of elements),
-
-Agree.  I think arrays should be fixed in C.  n2906 is a good step
-towards that.  Thanks Martin!  :)
-
-BTW, the author of n2529 didn't follow up, right?  I'd like that in, so
-I'll prepare something after n2906 is merged.  Martin, would you mind
-pinging me about it?
-
-For what this [[alx::restrict]] proposal is concerned, I'd wait after
-n2906 is merged for proposing that extension.
-
-> and even=20
-> N2906 wouldn't help for the VLA case.
-
-I'd basically propose that [3] or [n] means the same as [static 3] and
-[static n], except for the nonnull implications of static.  Is there any
-such paper?  I'm interested in presenting one for that.
-
-Maybe it would also be interesting to wait after n2906 for that too.
-
-> >      [1]  For the following prototype:
-> >=20
-> >                  [[restrict(1)]] [[restrict(2)]]
-> >                  void f(size_t n, int a[n], const int b[n]);
->=20
-> That declaration currently means
->=20
->   void f(size_t n, int a[*], const int b[*]);
-
-Yeah, that should be fixed in the standard.
-
-I'll keep that extension of restrict out of a proposal until array
-parameters are fixed in that regard.
-
-> (that is, the expression giving a VLA size is ignored).  It's equivalent=
-=20
-> to e.g.
->=20
->   void f(size_t n, int a[n + foo()], const int b[n + bar()]);
->=20
-> where because the size expressions are never evaluated and there's no tim=
-e=20
-> defined for evaluation, it's far from clear what anything talking about=
-=20
-> them giving an array size would even mean.
-
-Yup.
-
-> I know that "noalias" was included in some C89 drafts but removed from th=
-e=20
-> final standard after objections.  Maybe someone who was around then could=
-=20
-> explain what "noalias" was, what the problems with it were and how it=20
-> differs from "restrict", so we can make sure that any new proposals in=20
-> this area don't suffer from whatever the perceived deficiencies of=20
-> "noalias" were?
-
-As I said in reply to Branden's response, it seems Dennis's concern was
-that the noalias proposal was a qualifier, which admittedly makes little
-sense (very much like the problems restrict has, but applied to the
-pointee, which makes them much worse).
-
-That in fact led me recently to think that an _Optional qualifier
-(similar to Clang's _Nullable) as is being proposed at the moment in
-n3222 is similarly DOA.  Those qualities of pointers are attributes,
-which cannot be specified in the type system.
-
-Have a lovely night!
-Alex
-
-
->=20
-> --=20
-> Joseph S. Myers
-> josmyers@redhat.com
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---7qsc4thbraqogxrs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmakAs4ACgkQnowa+77/
-2zJDuA/7BVWnM668KlL3CdCE5g+zJKcAgHzR1cupQC84QvnnZHG7oXSx90zmvTeX
-x5LD2m/lRPNV40DQB4YyyZQdvWpKx6goE1N9Ls/Ben0eqkzxYfQ8CL+cusqCpM65
-KhKb5p1s3bmsr38tq3yH+0hBXfPxFQMcWq2EShAy6OhoQTmRRve7Y0eAiHUsZS5p
-O9pDieRy4yYlmTtjLV//hIpKKXKQDQ/MKdmaNdK4xAx6d3A1aot4LSeTO6l9qyks
-+g3pPButJpSKJ915gttnttYIctts0NferLw0DEFUIIe5MfYKfqjbO81TXUlqMe4r
-qYBSUf4yaKlRQH9tGp5+LCzI8nW3853u6PrHyR31W1a0A1BJZlRvm5fytZEAk3hx
-i3c0e7Ex/R3BJmxRGzMWb1Qm/gjysIIOR7T0scygPV5pWph0MRvkZYQk1JX/AnYU
-HKdfcjBZydpX3pvwsfJ0wdnryMYnZKqCSJ4g1gk0aVvQKStN1/EyQtxTJP2GZxMM
-zYvQ0YmD35Phg2AROLbIIEt/VgerpeizG0mb+8+ILN6m95wwGFMFKo1j+wfX9aJK
-MSkhtzZoTvg38nBKyYmKjdZirZWVQDwSrJ1IHB1mJ7lYh2kDOUOi39xKH5q2mVmd
-EdGrSJtGm5bCqlz0ZzRmzu3NEKtEj+2oRLje+HMtbXZR9W7ck80=
-=uKyy
------END PGP SIGNATURE-----
-
---7qsc4thbraqogxrs--
 
