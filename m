@@ -1,166 +1,182 @@
-Return-Path: <linux-man+bounces-1523-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1524-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id D991D93B331
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jul 2024 16:54:58 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7BFD93D6DA
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 18:25:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 64348B23826
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jul 2024 14:54:56 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id BECA3B2370E
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jul 2024 16:25:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3EA2155CB2;
-	Wed, 24 Jul 2024 14:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 883C23FBA5;
+	Fri, 26 Jul 2024 16:24:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjkXeqEv"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="G0CJxvCg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9453154657
-	for <linux-man@vger.kernel.org>; Wed, 24 Jul 2024 14:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FE72E620
+	for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 16:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721832886; cv=none; b=sEF5BwP1mvx6Lijd77WhiwNPEGXRoxQfp95vS9WmJaaSiKfmALizna+xScqoiOr0I7TgMvFBanJiLNxTe8OSQxBTS7o0OztJk7goEgNp1sSBF7uRblWsansiFkwkniXuM3MfxuHjaBFaAH13ibPD8AdXvD04yeF0XZhG2VcaNeI=
+	t=1722011096; cv=none; b=f2ahtBHba0vyvx8qQV17mHg2zYAdFA8AOqrLzTDNnAwgzK7UQhStJ5Mde3njv55ALyeE7xXiNSKuSWbx8ttS9lCg9MhGEK+NqdbJE4/VNupFK7nVxCENAGpmjeS9WkPklYdZiy9LUAXVZ7X3r3ZIeqbOeDCDPDkHs8WxOeh42Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721832886; c=relaxed/simple;
-	bh=QvX3mC/WMD0taF4z0K5+lSoP/zjgN/EHUpp9B/tNm4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfeMY7u6cMY9YzDEydlzNl0aIMKxThvHxKtYFdxxiyeV3P1xHoS7tqb7/VtUGVhbwt3yG8sS+7CEooJivH8oz5HaQhMPLBA7HP4L4v+nYll5Vo4sFw0CMzuvJX6LhqOEEJnvLI8JKpc8dmc0+FieCQpBVRTlyP85kAjHXM32viw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjkXeqEv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F7DC32781;
-	Wed, 24 Jul 2024 14:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721832886;
-	bh=QvX3mC/WMD0taF4z0K5+lSoP/zjgN/EHUpp9B/tNm4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LjkXeqEv2Lhm3t1qJwCVj0MfMvGuQgY58rOp/Z/smBwEP509vUoMWMiuaI13glpWP
-	 yf1b7eSg8atMPJyHho3myyeO2u+l35tMb28egsWMCtSMIJNiZUd67DFetGwQl7doRm
-	 d7xIpRlgn5p66hYqjELV1gt4pvzf7VQHXyFPtbZXTVSNtTWYNhJJcBDKhBQ+eMy7gy
-	 7PP7BPYURjoreuIJkAvuMQ96jDPLu7eS0j2/5HDwd4n0nEzyKHSIlsGcV36A+XUl/e
-	 cfLmCCRdg/FbFE2hUL/loiywDm7kEyJs0XoVLxl1vILgeAUyTMLL9PFyP1p7rELOfX
-	 Ow9kjvrirVmeg==
-Date: Wed, 24 Jul 2024 16:54:43 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] landlock.7, landlock_*.2: Document Landlock ABI
- version 4
-Message-ID: <yncoitkjxgqypzr4hp2j26dnfxtw3p4cznhulkr2gmkvvii5ml@b4t7thznpzf7>
-References: <20240723101917.90918-1-gnoack@google.com>
- <20240723101917.90918-2-gnoack@google.com>
- <f2lafh7vylh6rxxnmliap5fneawwlh4aepkffeqwejfn3tlrir@fzm3hucyrocc>
- <ZqENZk7VcbBeaXFG@google.com>
- <4pnwtxlxnaa4j7ldpj3nquophl7ac6gpio5esuqlxjep6hjznw@5oopxwhkyiyr>
- <ZqEU8jHku1ZZOWv-@google.com>
+	s=arc-20240116; t=1722011096; c=relaxed/simple;
+	bh=ngMASjWe+cKX4Wp+l5tQXY78sLacyde+dxIxx4CKwMs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Bi0v4xkfoKOj0P87vqesakCigMYujVE6yUb4bEmysjDUxFZFowU3mAcKdPrXH+mgI1Clhct7Ggl4D6/ae9G4YhkLdG88FzfcCVaSHGcrLG+8cES2k2LKN4Njrahz4Gvey1LeakbtpkGyPE5tNlZ17cWb366LgvdqD2Qht41PZVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=G0CJxvCg; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1722011093;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=olpD09BHJcDWF5RrjKFS1I3duUb+xG5ZzB2Nhxvobjc=;
+	b=G0CJxvCgXa3jUVC3elqvMAjmXht+xGotY99aCbWHL16BI7atUgTCh2bU2mwZ0BrPdyNdiy
+	aOH1I9z6fbjj+uX9EW5PMpvWGLWGG/O0ekT8IZ+q4WbjOHKIz2mpTLwL5Mu+Y0QPCUjSgB
+	G9gDuI/XBeRxdu/L0l6LJ6GFd607oQo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-22-qtrXWv4GNP6fcYpnrxV1Pw-1; Fri, 26 Jul 2024 12:24:52 -0400
+X-MC-Unique: qtrXWv4GNP6fcYpnrxV1Pw-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4280a39ecebso5405605e9.0
+        for <linux-man@vger.kernel.org>; Fri, 26 Jul 2024 09:24:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722011091; x=1722615891;
+        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=olpD09BHJcDWF5RrjKFS1I3duUb+xG5ZzB2Nhxvobjc=;
+        b=PJnK1KRqtTN6CmglfeJry+flBQImS8ZN/linIhgP9z8xPnsIJ2I22fPoDmGMTgQZac
+         hrydkMGGXtNjnpIPcrVuKgMbbmtyVsomLk/PPtSL8D9VJI9IVXe9vkXB2fd7++1AgilD
+         ApnYqcCHs1EsBSVFaqeb38M9UmPVLd/RbouU+vtdigMpr//m451u9vy3xcHhfGXZ/Zq/
+         gviCmLp/TwqffLixuFYddE3OwNbYH6jUKT2z6D8DkH7CycSiv+HWF1YSyotKYbHVfhn2
+         dHFHjDNZqdjg7H85PSUaVO7nTaOou62lYoLIfCdrquKu1pMjy3/lqkA/lnNn4pgu9CDC
+         nb8w==
+X-Forwarded-Encrypted: i=1; AJvYcCUscbVt8WkwzYbXXvZy+XN2Rwe6DC/gWhaLjP3WgHM0tj8Z6C0LgyTH0otGXeqm1n64z7InA98gwRsvGvsL8HzRFnXTRf0ODS0v
+X-Gm-Message-State: AOJu0YzcfSraK6Cy2lhPfbgMkAcJFfcZjd788nklkVd9c5jgBg8m6qla
+	hDpXoJWZzrTMq9E6bskk66YE5DChcZ7IXlr58tHQSf6KXjBXU1MABcN8jzv9AkTADsLaCtPuLqN
+	2cnHtAe/7KuhLet2uoYDqopMdInfqOC9qshKreXk5hmeV6PGbdDEnKSGW5w==
+X-Received: by 2002:a05:600c:3146:b0:424:a7f1:ba2 with SMTP id 5b1f17b1804b1-42811fde2a9mr568405e9.17.1722011090768;
+        Fri, 26 Jul 2024 09:24:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFwQhFe5NrTeh/QWmIupVSHJuUHOpHqye6y2qTDD1jVkNFRIUX019TXqBrEmVrjEpYwlNxU+A==
+X-Received: by 2002:a05:600c:3146:b0:424:a7f1:ba2 with SMTP id 5b1f17b1804b1-42811fde2a9mr568125e9.17.1722011090278;
+        Fri, 26 Jul 2024 09:24:50 -0700 (PDT)
+Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-427f93e605esm130205855e9.34.2024.07.26.09.24.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jul 2024 09:24:49 -0700 (PDT)
+Received: from jsm28 (helo=localhost)
+	by digraph.polyomino.org.uk with local-esmtp (Exim 4.95)
+	(envelope-from <josmyers@redhat.com>)
+	id 1sXNjq-000yWJ-5u;
+	Fri, 26 Jul 2024 16:24:14 +0000
+Date: Fri, 26 Jul 2024 16:24:14 +0000 (UTC)
+From: Joseph Myers <josmyers@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+cc: libc-alpha@sourceware.org, uecker@tugraz.at, gcc@gcc.gnu.org, 
+    Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
+    xry111@xry111.site, jakub@redhat.com, lh_mouse@126.com, 
+    jwakely.gcc@gmail.com, Richard.Earnshaw@arm.com, sam@gentoo.org, 
+    ben.boeckel@kitware.com, heiko.eissfeldt@siemens.com, dmalcolm@redhat.com
+Subject: Re: n3294 - The restrict function attribute as a replacement of the
+ restrict qualifier
+In-Reply-To: <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3>
+Message-ID: <ca2e8de-b5e5-45f1-8184-7d67c6e4cb8@redhat.com>
+References: <20240705130249.14116-2-alx@kernel.org> <xjoazfkcloggmceefxusjusbksfslgpdpoph4ixdtp4kbu4kua@vdh73ba7k2zq> <2zazxwbvnjd5vqqqz66fpqdpzqnwjujwxeltz5rhu7camgsdmg@vvbalwgwmek3>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lj3q4tm6fil6x5tx"
-Content-Disposition: inline
-In-Reply-To: <ZqEU8jHku1ZZOWv-@google.com>
+Content-Type: multipart/mixed; boundary="-1152306461-1997570556-1722011054=:229467"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+---1152306461-1997570556-1722011054=:229467
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
+
+On Wed, 10 Jul 2024, Alejandro Colomar via Gcc wrote:
+
+>    6.7.13.x The restrict function attribute
+>      Constraints
+>             The restrict attribute shall be applied to a function.
+> 
+>             A 1‐based index can be specified in an  attribute  argument
+>             clause,  to  associate the attribute with the corresponding
+>             parameter of the function, which must be of a pointer type.
+
+It's more appropriate to say "shall", and you need a requirement for the 
+pointer to be a pointer to a complete object type (it makes no sense with 
+function pointers, or void).  That is, something like "If an attribute 
+argument clause is present, it shall have the form:
+
+  ( constant-expression )
+
+The constant expression shall be an integer constant expression with 
+positive value.  It shall be the index, counting starting from 1, of a 
+function parameter whose type is a pointer to a complete object type.".
+
+(That might not quite be sufficient - there are the usual questions of 
+exactly *when* the type needs to be complete, if it's completed part way 
+through the function definition, but the standard already doesn't tend to 
+specify such things very precisely.)
+
+>             (Optional.)   The argument attribute clause may be omitted,
+>             which is equivalent to specifying the  attribute  once  for
+>             each parameter that is a pointer.
+
+For each parameter that is a pointer to a complete object type, or should 
+there be a constraint violation in this case if some are pointers to such 
+types and some are pointers to other types?
+
+>             If the number of elements is specified with array  notation
+>             (or  a compiler‐specific attribute), the array object to be
+>             considered for aliasing is a sub‐object of the original ar‐
+>             ray object, limited by the number  of  elements  specifiedr
+>             [1].
+
+This is semantically problematic in the absence of something like N2906 
+(different declarations could use different numbers of elements), and even 
+N2906 wouldn't help for the VLA case.
+
+>      [1]  For the following prototype:
+> 
+>                  [[restrict(1)]] [[restrict(2)]]
+>                  void f(size_t n, int a[n], const int b[n]);
+
+That declaration currently means
+
+  void f(size_t n, int a[*], const int b[*]);
+
+(that is, the expression giving a VLA size is ignored).  It's equivalent 
+to e.g.
+
+  void f(size_t n, int a[n + foo()], const int b[n + bar()]);
+
+where because the size expressions are never evaluated and there's no time 
+defined for evaluation, it's far from clear what anything talking about 
+them giving an array size would even mean.
 
 
---lj3q4tm6fil6x5tx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] landlock.7, landlock_*.2: Document Landlock ABI
- version 4
-References: <20240723101917.90918-1-gnoack@google.com>
- <20240723101917.90918-2-gnoack@google.com>
- <f2lafh7vylh6rxxnmliap5fneawwlh4aepkffeqwejfn3tlrir@fzm3hucyrocc>
- <ZqENZk7VcbBeaXFG@google.com>
- <4pnwtxlxnaa4j7ldpj3nquophl7ac6gpio5esuqlxjep6hjznw@5oopxwhkyiyr>
- <ZqEU8jHku1ZZOWv-@google.com>
-MIME-Version: 1.0
-In-Reply-To: <ZqEU8jHku1ZZOWv-@google.com>
+I know that "noalias" was included in some C89 drafts but removed from the 
+final standard after objections.  Maybe someone who was around then could 
+explain what "noalias" was, what the problems with it were and how it 
+differs from "restrict", so we can make sure that any new proposals in 
+this area don't suffer from whatever the perceived deficiencies of 
+"noalias" were?
 
-On Wed, Jul 24, 2024 at 02:51:30PM GMT, G=C3=BCnther Noack wrote:
-> Hello Alejandro!
+-- 
+Joseph S. Myers
+josmyers@redhat.com
+---1152306461-1997570556-1722011054=:229467--
 
-Hi!
-
-> On Wed, Jul 24, 2024 at 04:31:21PM +0200, Alejandro Colomar wrote:
-> > On Wed, Jul 24, 2024 at 04:19:18PM GMT, G=C3=BCnther Noack wrote:
-> > > On Tue, Jul 23, 2024 at 03:03:13PM +0200, Alejandro Colomar wrote:
-> > > > On Tue, Jul 23, 2024 at 10:19:16AM GMT, G=C3=BCnther Noack wrote:
-> > > > > @@ -143,8 +151,8 @@ was not a valid address.
-> > > > >  .TP
-> > > > >  .B ENOMSG
-> > > > >  Empty accesses (i.e.,
-> > > > > -.I attr\->handled_access_fs
-> > > > > -is 0).
-> > > > > +.I attr
-> > > > > +did not specify any access rights to restrict).
-> > > >=20
-> > > > This looks like a wording fix, isn't it?  If so, it might be worth a
-> > > > separate patch.
-> >=20
-> > Ping.
->=20
-> Thanks, I missed that.
->=20
-> It is not a pure wording fix, but it corrects an overly specific error
-> description that does not hold any more in the case of Landlock ABI versi=
-on 4.
->=20
-> With the introduction of Landlock ABI v4, attr->handled_access_fs is not
-> technically accurate any more, but it can also be attr->handled_access_ne=
-t(!)
-> now, in the case where someone uses these new networking features.  So I =
-made
-> the phrasing a bit more general to cover both.
-
-Makes sense; thanks!
-
->=20
-> > It depends on your answer to the pinged question above.
-
-I'll apply this patch set, and amend the s/i/I/ myself.
-
-Have a lovely day!
-Alex
-
->=20
-> Sounds good.
->=20
-> Thanks for the review!
-> =E2=80=94G=C3=BCnther
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---lj3q4tm6fil6x5tx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmahFbIACgkQnowa+77/
-2zJsSxAAih1HlHUocx81i2YaTRtMcghW87oU75PSy0FP5PJFoJk4Vjq/zVSXTUFw
-IQBdYye7NvYQGCMfWz8HEIVlyxRAzX9Cth7I2NslhGdQLLKZ/kvM++Deo641A5Sf
-IoIgxMMk1TWJfUw0G/qRCVZow0/4r2B3WfWos4pYVq3J2ZQOnXOZVmasLEeCFaLY
-wli4XJEGLXbUHoKiCg79RL3kZZfQh1uZfad7DDDEG5mnxp+rFnk8y2OVW9LGw4GS
-N6pPcdCP7mhYuWLOdBYFg83rowsHbs9HTYgbaotmnor+vLj3D5ANPunHhrMaOL5Y
-2Aov9w8jvbZpTzrChpLRppCr72p8qJbdBUnAkznV6NEBRLh9++AgzCa7EIhH7a2h
-DxvLfkGWF5aS4XZMzRS07+GGp88Hsp1vGyEVBsAE+5gt4DJG071Y13ZJu+9uvcGw
-Pzf9ZaNydllfDrsj4zFWIoHBhwKVVfPA4BI5f2t4m7KPW1l30wgJr2rq2xhUpOak
-xgfLm/BjmHuAP5MctGzDy6YQRPhVecTMJshRVtKsJSjUK+S6uXrgCrWi1DsuF9CZ
-6wwr4erbAODB8dyZ5bzLTGcWgcdj3Xf6fhCExrs45AanLEiJSwYyZAAs4ryTuvbv
-Dw9Qtx7rT5bRPB1rkJvIJBfSmWtt0VZflGVVbifFxO1mGIdiolA=
-=Rl3g
------END PGP SIGNATURE-----
-
---lj3q4tm6fil6x5tx--
 
