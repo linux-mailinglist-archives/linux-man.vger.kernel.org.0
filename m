@@ -1,75 +1,75 @@
-Return-Path: <linux-man+bounces-1542-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1543-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93E493E0B5
-	for <lists+linux-man@lfdr.de>; Sat, 27 Jul 2024 21:28:01 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0C8593E0B6
+	for <lists+linux-man@lfdr.de>; Sat, 27 Jul 2024 21:28:12 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A357F281A8A
-	for <lists+linux-man@lfdr.de>; Sat, 27 Jul 2024 19:28:00 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C63F21C20C86
+	for <lists+linux-man@lfdr.de>; Sat, 27 Jul 2024 19:28:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9753C185E6A;
-	Sat, 27 Jul 2024 19:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 012BA185E6A;
+	Sat, 27 Jul 2024 19:28:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Asj8YiSY"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OvY9zS3V"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CA711C83
-	for <linux-man@vger.kernel.org>; Sat, 27 Jul 2024 19:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0462211C83
+	for <linux-man@vger.kernel.org>; Sat, 27 Jul 2024 19:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722108477; cv=none; b=WYEe1SgnYSDYD27xt76LqewE8Yp3iXqVhO9vYTtOw02kiV9e+ATihbax50fwBmkkhq0YAhyGlic9f5kCLObMOOf/9YnVYsQnAVFNgTB7sQb1+zuxZWmU46LfPrRGjbAKcnKKbi83PKkB+0yilR17EHitNmyOjLB7W+J4s0RYHIY=
+	t=1722108488; cv=none; b=NrQeOIuutzZoAvdFKvhRETGLC0unfIzvj/OFwyfEHN5vLSM1ctKUNoJgxUdQtmKm/gcJ3thgU1SrU8oi/k1oCMshCiApVC731nLVxyqHDdx2xwjIEoDAsOncyRFc+msF/NwfxkQB0jpXD312KFIGlHGvWm1hEqmLjOZDwXuUbSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722108477; c=relaxed/simple;
-	bh=v6cfydPfCtyWw+8Tw9HjSR8to17WaX5F6Yk6n4WoEyE=;
+	s=arc-20240116; t=1722108488; c=relaxed/simple;
+	bh=aKXdT2OrBT/LSfdBWQGzO4B5J0WT/P42ab3gy8b2dr4=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=SXnexXYL9RyIzX2TQlZk2zBXbv97Iv0Z57smY+8eSSjnIHanhrFGphzsU1SHfLJRZFpBGdxJYwMWS28BJddFSt+qi0vFA39R5kC/Y+HveRenN/Qc6Vla9XJt88o7fW9x83OzNjkI93SpW7c2znnw7vQcQ96SlTgMiOvQXyO06JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Asj8YiSY; arc=none smtp.client-ip=209.85.160.43
+	 Content-Disposition; b=LzknkGqDNu7NsFZkbt+/xuI9QHf14GW7kTQ8QmVhzLHXB10zv2a7QmYgUL1Zhy63Cfzod4kGmOsE+t6VBFT9nA4aC2gt8rFp46SE4XAhP5wND5vco4I+vzEk1tfCqnBPqi8zzJ0+YnDewR/w6AN6h2NsohBrYgglN9gDZACn6xU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OvY9zS3V; arc=none smtp.client-ip=209.85.167.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-260f033fda3so1410853fac.3
-        for <linux-man@vger.kernel.org>; Sat, 27 Jul 2024 12:27:55 -0700 (PDT)
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-3db14339fb0so1401128b6e.2
+        for <linux-man@vger.kernel.org>; Sat, 27 Jul 2024 12:28:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722108474; x=1722713274; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1722108485; x=1722713285; darn=vger.kernel.org;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/a1PLpyFHW3HjAZSA2Es5O1TZMtVU097PokjoOYTJmw=;
-        b=Asj8YiSYTM/YT1LqU2LGu4Y0Qmqum8ptFyekiqFHzrYZybauOMSzOYl7EkaJuK2kpH
-         IVxopPLuSL0BvXGVwRGcEqX6pCSMuNJrt4Ow1EkxbwarqkWS9V44KllugNchjmlfipc9
-         HRsPgF1lMc5q6A7iC7LuKTQefyLr0xC8fDsLqr2xBjaYFZFcWCVOM3iT68y6DUvvJlva
-         zPjCD206Atox8XHrULv2BFpDounnj37OdlxAc5qqfIrWbRZmygDBnoxRyKzBC1Ab1u6a
-         Z9+l/cUowKGsGEG2w96ayvlWm0rHutEH1CZV0C3gkIjXf6BFlpPUnS3cKMqXSPgpQ543
-         rZiQ==
+        bh=dP+XYVMzbI1D/QewEEMHvUNn612zjyH2/Z2qzdCOaH0=;
+        b=OvY9zS3VuQC8lSMvJM9nep8HeAozMcyDemisSZbhH+Pk39PCDGaGp/7ldy+r5Vb0fi
+         wH4hLQvjY83fiWZN9pSLsS99n7ZezpSh7qqhSbw80XRYGfHKH2Y292kO0J7YyryasSD7
+         vVe87mMJXjAWzZ6lJXuwzhivfNVEX5nNYxN9P6QzIz6KVP51n4DWokK360/muNp/8q43
+         ld1mVM5+is4RQ7X6daM4jTlpNS11LAPRQRLOZhBG9/DhO1JCa1h8iMQeVxYP0NxesGsA
+         u4MPa2uYFA6ngfIFElK2MsAHGViNdAUeyv0DktxEHsErecQPkhJPDGZJwGAi9MyauQBv
+         CrhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722108474; x=1722713274;
+        d=1e100.net; s=20230601; t=1722108485; x=1722713285;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/a1PLpyFHW3HjAZSA2Es5O1TZMtVU097PokjoOYTJmw=;
-        b=UrPJBfSt3cFOlqfCVPJ29jI7oDffOM5rmbmm2SQ80SnAdnGFcYVnUcO/ixBrk8Pokv
-         t9bY+9cMIXY+BHq6kZn0iZOUeroGcxPAuqLfXciK9+I2e+z04CE5TkoqtJJHSrQMxF6B
-         iuVYH3J+lLzJEslSnrdLeTxJv+6eSoLBo7ICkCPj5FqYn5t1GuQg7WJy3o5fxV4OPZ15
-         k2F8vFFgRXlSRESHOqEnd36qhh3KuJjTBsOujUAHsOtFQYMNIOhnX0HLUaCnUvWN7+yq
-         YKZSX1n6APz+vgvpCFDViuh2gkNVshJVUi1AJSB50hBjDUS1dQP6LcL+LjWZ3K2q8mq4
-         k86Q==
-X-Gm-Message-State: AOJu0Yw6MvBqMqRJO1ANkB1YrTprP++sH7qV4vH8G02nywKJVTpKmYsZ
-	xmSILr9mvUn0rQuIj9gR2WOW7Ummimk/60eGUW+VbVkWe/IaNl5PLZSyYw==
-X-Google-Smtp-Source: AGHT+IEq149GE0ANaX7mBh+czgR9Ip7vNGpXSbBYnbHdPyTFliWnQn1hq1DM0tj1BtW0gLbrEuzrqg==
-X-Received: by 2002:a05:6870:c14c:b0:25e:24d5:4d6b with SMTP id 586e51a60fabf-267d4f3d53dmr3488683fac.50.1722108474267;
-        Sat, 27 Jul 2024 12:27:54 -0700 (PDT)
+        bh=dP+XYVMzbI1D/QewEEMHvUNn612zjyH2/Z2qzdCOaH0=;
+        b=K/9r1DCiVDJg9gv0rGEQ46DJnfBybBKNZFnOlNF0QzX7N0IIJeNY2RqOZll4YyrN0m
+         Xpkbm/UWJliKG0BX/FrqbWJcGidfX4o3HW+MP6npPh5/rZ1yD+32ucP1fCS192uqVUPd
+         3uAkqOhG6CGF7e9+JpAIx6kladBXxN8saiGqbUOkzQHsfHFmYk9AaTXFbEGW0HFwkjMb
+         GwS3+L262VYj629618DDI9+e42idis8nWCoJhVN+IjttiqqO34BdkvfkpF8il3K4izih
+         TdxLmOaqnDKC3fArYGW+HStPpTB0DjRmQ7wvuDhDPqaBOmwvQhWf9DVjWC9HoIoEd38Z
+         L4DQ==
+X-Gm-Message-State: AOJu0Yy15wlsmuH75+rKnQjagVTWDpdp3i6Q4wXb5RPc9yZCVNJ7nKFO
+	p81VchFxt+K6FrrBT1iB99EFjKewKw9nLMyjd6uU3nOQQDmxzKwREtHIJQ==
+X-Google-Smtp-Source: AGHT+IGiJ7x1yRgMwsMew17Ah0Tsx+74N5I4OxPZz+HC5NG8/Cuz+QqPwKsdbyA5YzD/JIsOAs+9pg==
+X-Received: by 2002:a05:6808:13d6:b0:3db:208f:c5af with SMTP id 5614622812f47-3db238b899bmr4066957b6e.11.1722108484469;
+        Sat, 27 Jul 2024 12:28:04 -0700 (PDT)
 Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7093071e976sm1330664a34.34.2024.07.27.12.27.53
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-3db13552fddsm1270304b6e.49.2024.07.27.12.28.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jul 2024 12:27:53 -0700 (PDT)
-Date: Sat, 27 Jul 2024 14:27:52 -0500
+        Sat, 27 Jul 2024 12:28:03 -0700 (PDT)
+Date: Sat, 27 Jul 2024 14:28:02 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH 2/3] man/man2/syscalls.2: srcfix (2/3)
-Message-ID: <20240727192752.hxxo4nl52qyskb2u@illithid>
+Subject: [PATCH 3/3] man/man2/syscalls.2: srcfix (3/3)
+Message-ID: <20240727192802.gsdglp5n3mjdiren@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -77,15 +77,15 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zqtw6wvg4qvufz5w"
+	protocol="application/pgp-signature"; boundary="hkb4axrsdy33evup"
 Content-Disposition: inline
 
 
---zqtw6wvg4qvufz5w
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--hkb4axrsdy33evup
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH 2/3] man/man2/syscalls.2: srcfix (2/3)
+Subject: [PATCH 3/3] man/man2/syscalls.2: srcfix (3/3)
 MIME-Version: 1.0
 
 Migrate table entries from using font selection escape sequences to font
@@ -93,627 +93,2175 @@ alternation macros to set man page cross references.
 
 This change was automatically driven by the following sed(1) script.
 
-$ cat fix-syscall-table-2.sed
-\# Rewrite man page cross references on tbl(1) rows that precede text
-\# blocks to themselves use text blocks, and convert them to use man(7)
-\# macros instead of troff(1) font selection escape sequences (which
-\# cannot be done outside a text block).
+Hard tabs are present in some of the following commands.
+
+$ cat fix-syscall-table-3.sed
+\# Rewrite man page cross references on tbl(1) rows that don't use text
+\# blocks to use text blocks for the cross references, and convert them
+\# to use man(7) macros instead of troff(1) font selection escape
+\# sequences (which cannot be done outside a text block).
 /^\.\\"/b
-/^\\fB[^\\]*\\fP([0-9][a-z]*).*T{/s/\\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)\(.*=
-\)/T{\
+/^\.TS/,/^\.TE/{
+s/^\\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)$/.BR \1 \2/
+s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)$/\
+=2EBR \1 \2/
+s/\\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)   /T{\
 =2EBR \1 \2\
-T}\3/
+T}      /
+}
+
+$ cat dump-page.sh
+groff -t -dAD=3Dl -rHY=3D0 -m andoc -T utf8 -P -cbou "$@"
+
+The following procedure was used.
+
+$ sh dump-page.sh man/man2/syscalls.2 > syscalls.2.txt.0
+$ sed -i -f fix-syscall-table-1.sed man/man2/syscalls.2
+$ sh dump-page.sh man/man2/syscalls.2 > syscalls.2.txt.1
+$ cmp syscalls.2.txt.[01] && echo SAME
+$ git commit -v man/man2/syscalls.2
+$ sed -i -f fix-syscall-table-2.sed man/man2/syscalls.2
+$ sh dump-page.sh man/man2/syscalls.2 > syscalls.2.txt.2
+$ cmp syscalls.2.txt.[12] && echo SAME
+$ git commit -v man/man2/syscalls.2
+$ sed -i -f fix-syscall-table-3.sed man/man2/syscalls.2
+$ sh dump-page.sh man/man2/syscalls.2 > syscalls.2.txt.3
+$ cmp syscalls.2.txt.[23] && echo SAME
+$ git commit -v man/man2/syscalls.2
+
+This change introduces one warning from GNU troff(1).
+
+troff:man/man2/syscalls.2:754: warning [page 2, line 26, diversion '3tbd174=
+,0', line 0]: cannot break line
+
+All this means is that the new system call `landlock_create_ruleset()`
+is the new record holder for longest Linux system call name.  The table
+was not designed for such a lengthy identifier, and it causes its cell
+oversets the column width automatically computed for it.
+
+tbl(1):
+     If w or x modifiers are not specified for all columns of a text
+     block=E2=80=99s span, the default length of the text block (more preci=
+sely,
+     the line length used to process the text block=E2=80=99s diversion) is
+     computed as L=C3=97C/(N+1), where L is the current line length, C the
+     number of columns spanned by the text block, and N the number of
+     columns in the table.  If necessary, you can also control a text
+     block=E2=80=99s width by including an ll (line length) request in it p=
+rior
+     to any text to be formatted.  Because a diversion is used to format
+     the text block, its height and width are subsequently available in
+     the registers dn and dl, respectively.
+
+This is not necessarily a problem, and there are multiple ways to
+address it that aren't germane to this patch.  These can be deliberated
+in due course.
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man/man2/syscalls.2 | 260 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 195 insertions(+), 65 deletions(-)
+ man/man2/syscalls.2 | 1714 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 1275 insertions(+), 439 deletions(-)
 
 diff --git a/man/man2/syscalls.2 b/man/man2/syscalls.2
-index c8afd537b..ed8a21b77 100644
+index ed8a21b77..bb6ce446a 100644
 --- a/man/man2/syscalls.2
 +++ b/man/man2/syscalls.2
-@@ -146,7 +146,9 @@ .SS System call list
- \fB_llseek\fP(2)	1.2
- \fB_newselect\fP(2)	2.0
- \fB_sysctl\fP(2)	2.0	Removed in 5.5
--\fBaccept\fP(2)	2.0	T{
+@@ -143,26 +143,53 @@ .SS System call list
+ L2 L  L.
+ System call	Kernel	Notes
+ _
+-\fB_llseek\fP(2)	1.2
+-\fB_newselect\fP(2)	2.0
+-\fB_sysctl\fP(2)	2.0	Removed in 5.5
 +T{
-+.BR accept (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
- T}
- \fBaccept4\fP(2)	2.6.28
-@@ -162,22 +164,30 @@ .SS System call list
++.BR _llseek (2)
++T}	1.2
++T{
++.BR _newselect (2)
++T}	2.0
++T{
++.BR _sysctl (2)
++T}	2.0	Removed in 5.5
+ T{
+ .BR accept (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
+-T}
+-\fBaccept4\fP(2)	2.6.28
+-\fBaccess\fP(2)	1.0
+-\fBacct\fP(2)	1.0
+-\fBadd_key\fP(2)	2.6.10
+-\fBadjtimex\fP(2)	1.0
+-\fBalarm\fP(2)	1.0
+-\fBalloc_hugepages\fP(2)	2.5.36	Removed in 2.5.44
++See notes on
++.BR socketcall (2)
++T}
++T{
++.BR accept4 (2)
++T}	2.6.28
++T{
++.BR access (2)
++T}	1.0
++T{
++.BR acct (2)
++T}	1.0
++T{
++.BR add_key (2)
++T}	2.6.10
++T{
++.BR adjtimex (2)
++T}	1.0
++T{
++.BR alarm (2)
++T}	1.0
++T{
++.BR alloc_hugepages (2)
++T}	2.5.36	Removed in 2.5.44
+ .\" 4adeefe161a74369e44cc8e663f240ece0470dc3
+-\fBarc_gettls\fP(2)	3.9	ARC only
+-\fBarc_settls\fP(2)	3.9	ARC only
++T{
++.BR arc_gettls (2)
++T}	3.9	ARC only
++T{
++.BR arc_settls (2)
++T}	3.9	ARC only
  .\" 91e040a79df73d371f70792f30380d4e44805250
- \fBarc_usr_cmpxchg\fP(2)	4.9	ARC only
- .\" x86: 79170fda313ed5be2394f87aa2a00d597f8ed4a1
--\fBarch_prctl\fP(2)	2.6	T{
+-\fBarc_usr_cmpxchg\fP(2)	4.9	ARC only
 +T{
-+.BR arch_prctl (2)
-+T}	2.6	T{
++.BR arc_usr_cmpxchg (2)
++T}	4.9	ARC only
+ .\" x86: 79170fda313ed5be2394f87aa2a00d597f8ed4a1
+ T{
+ .BR arch_prctl (2)
+@@ -170,8 +197,12 @@ .SS System call list
  x86_64, x86 since 4.12
  T}
  .\" 9674cdc74d63f346870943ef966a034f8c71ee57
- \fBatomic_barrier\fP(2)	2.6.34	m68k only
- \fBatomic_cmpxchg_32\fP(2)	2.6.34	m68k only
--\fBbdflush\fP(2)	1.2	T{
+-\fBatomic_barrier\fP(2)	2.6.34	m68k only
+-\fBatomic_cmpxchg_32\fP(2)	2.6.34	m68k only
 +T{
-+.BR bdflush (2)
-+T}	1.2	T{
- Deprecated (does nothing)
- since 2.6
++.BR atomic_barrier (2)
++T}	2.6.34	m68k only
++T{
++.BR atomic_cmpxchg_32 (2)
++T}	2.6.34	m68k only
+ T{
+ .BR bdflush (2)
+ T}	1.2	T{
+@@ -181,21 +212,36 @@ .SS System call list
+ T{
+ .BR bind (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
--\fBbind\fP(2)	2.0	T{
+-\fBbpf\fP(2)	3.18
+-\fBbrk\fP(2)	1.0
 +T{
-+.BR bind (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
- T}
- \fBbpf\fP(2)	3.18
- \fBbrk\fP(2)	1.0
--\fBbreakpoint\fP(2)	2.2	T{
++.BR bpf (2)
++T}	3.18
 +T{
-+.BR breakpoint (2)
-+T}	2.2	T{
++.BR brk (2)
++T}	1.0
+ T{
+ .BR breakpoint (2)
+ T}	2.2	T{
  ARM OABI only, defined with
  \fB__ARM_NR\fP prefix
  T}
-@@ -186,7 +196,9 @@ .SS System call list
- \fBcapset\fP(2)	2.2
- \fBchdir\fP(2)	1.0
- \fBchmod\fP(2)	1.0
--\fBchown\fP(2)	2.2	T{
+-\fBcacheflush\fP(2)	1.2	Not on x86
+-\fBcapget\fP(2)	2.2
+-\fBcapset\fP(2)	2.2
+-\fBchdir\fP(2)	1.0
+-\fBchmod\fP(2)	1.0
 +T{
-+.BR chown (2)
-+T}	2.2	T{
- See
++.BR cacheflush (2)
++T}	1.2	Not on x86
++T{
++.BR capget (2)
++T}	2.2
++T{
++.BR capset (2)
++T}	2.2
++T{
++.BR chdir (2)
++T}	1.0
++T{
++.BR chmod (2)
++T}	1.0
+ T{
  .BR chown (2)
+ T}	2.2	T{
+@@ -204,18 +250,42 @@ .SS System call list
  for
-@@ -215,7 +227,9 @@ .SS System call list
- .\" T}
- .\" 867e359b97c970a60626d5d76bbe2a8fadbf38fb
- .\" bb9d812643d8a121df7d614a2b9c60193a92deb0
--\fBconnect\fP(2)	2.0	T{
-+T{
-+.BR connect (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
+ version details
  T}
- \fBcopy_file_range\fP(2)	4.5
-@@ -235,7 +249,9 @@ .SS System call list
- \fBepoll_wait\fP(2)	2.6
- \fBeventfd\fP(2)	2.6.22
- \fBeventfd2\fP(2)	2.6.27
--\fBexecv\fP(2)	2.0	T{
+-\fBchown32\fP(2)	2.4
+-\fBchroot\fP(2)	1.0
+-\fBclock_adjtime\fP(2)	2.6.39
+-\fBclock_getres\fP(2)	2.6
+-\fBclock_gettime\fP(2)	2.6
+-\fBclock_nanosleep\fP(2)	2.6
+-\fBclock_settime\fP(2)	2.6
+-\fBclone2\fP(2)	2.4	IA-64 only
+-\fBclone\fP(2)	1.0
+-\fBclone3\fP(2)	5.3
+-\fBclose\fP(2)	1.0
+-\fBclose_range\fP(2)	5.9
 +T{
-+.BR execv (2)
-+T}	2.0	T{
++.BR chown32 (2)
++T}	2.4
++T{
++.BR chroot (2)
++T}	1.0
++T{
++.BR clock_adjtime (2)
++T}	2.6.39
++T{
++.BR clock_getres (2)
++T}	2.6
++T{
++.BR clock_gettime (2)
++T}	2.6
++T{
++.BR clock_nanosleep (2)
++T}	2.6
++T{
++.BR clock_settime (2)
++T}	2.6
++T{
++.BR clone2 (2)
++T}	2.4	IA-64 only
++T{
++.BR clone (2)
++T}	1.0
++T{
++.BR clone3 (2)
++T}	5.3
++T{
++.BR close (2)
++T}	1.0
++T{
++.BR close_range (2)
++T}	5.9
+ .\" .\" dcef1f634657dabe7905af3ccda12cf7f0b6fcc1
+ .\" .\" cc20d42986d5807cbe4f5c7c8e3dab2e59ea0db3
+ .\" .\" db695c0509d6ec9046ee5e4c520a19fa17d9fce2
+@@ -230,80 +300,203 @@ .SS System call list
+ T{
+ .BR connect (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
+ T}
+-\fBcopy_file_range\fP(2)	4.5
+-\fBcreat\fP(2)	1.0
+-\fBcreate_module\fP(2)	1.0	Removed in 2.6
+-\fBdelete_module\fP(2)	1.0
++T{
++.BR copy_file_range (2)
++T}	4.5
++T{
++.BR creat (2)
++T}	1.0
++T{
++.BR create_module (2)
++T}	1.0	Removed in 2.6
++T{
++.BR delete_module (2)
++T}	1.0
+ .\" 1394f03221790a988afc3e4b3cb79f2e477246a9
+ .\" 4ba66a9760722ccbb691b8f7116cad2f791cca7b
+-\fBdup\fP(2)	1.0
+-\fBdup2\fP(2)	1.0
+-\fBdup3\fP(2)	2.6.27
+-\fBepoll_create\fP(2)	2.6
+-\fBepoll_create1\fP(2)	2.6.27
+-\fBepoll_ctl\fP(2)	2.6
+-\fBepoll_pwait\fP(2)	2.6.19
+-\fBepoll_pwait2\fP(2)	5.11
+-\fBepoll_wait\fP(2)	2.6
+-\fBeventfd\fP(2)	2.6.22
+-\fBeventfd2\fP(2)	2.6.27
++T{
++.BR dup (2)
++T}	1.0
++T{
++.BR dup2 (2)
++T}	1.0
++T{
++.BR dup3 (2)
++T}	2.6.27
++T{
++.BR epoll_create (2)
++T}	2.6
++T{
++.BR epoll_create1 (2)
++T}	2.6.27
++T{
++.BR epoll_ctl (2)
++T}	2.6
++T{
++.BR epoll_pwait (2)
++T}	2.6.19
++T{
++.BR epoll_pwait2 (2)
++T}	5.11
++T{
++.BR epoll_wait (2)
++T}	2.6
++T{
++.BR eventfd (2)
++T}	2.6.22
++T{
++.BR eventfd2 (2)
++T}	2.6.27
+ T{
+ .BR execv (2)
+ T}	2.0	T{
  SPARC/SPARC64 only, for
  compatibility with SunOS
  T}
-@@ -289,7 +305,9 @@ .SS System call list
- \fBget_robust_list\fP(2)	2.6.17
- \fBget_thread_area\fP(2)	2.6
- .\" 8fcd6c45f5a65621ec809b7866a3623e9a01d4ed
--\fBget_tls\fP(2)	4.15	T{
+-\fBexecve\fP(2)	1.0
+-\fBexecveat\fP(2)	3.19
+-\fBexit\fP(2)	1.0
+-\fBexit_group\fP(2)	2.6
+-\fBfaccessat\fP(2)	2.6.16
+-\fBfaccessat2\fP(2)	5.8
+-\fBfadvise64\fP(2)	2.6
 +T{
-+.BR get_tls (2)
-+T}	4.15	T{
++.BR execve (2)
++T}	1.0
++T{
++.BR execveat (2)
++T}	3.19
++T{
++.BR exit (2)
++T}	1.0
++T{
++.BR exit_group (2)
++T}	2.6
++T{
++.BR faccessat (2)
++T}	2.6.16
++T{
++.BR faccessat2 (2)
++T}	5.8
++T{
++.BR fadvise64 (2)
++T}	2.6
+ .\" Implements \fBposix_fadvise\fP(2)
+-\fBfadvise64_64\fP(2)	2.6
+-\fBfallocate\fP(2)	2.6.23
+-\fBfanotify_init\fP(2)	2.6.37
+-\fBfanotify_mark\fP(2)	2.6.37
++T{
++.BR fadvise64_64 (2)
++T}	2.6
++T{
++.BR fallocate (2)
++T}	2.6.23
++T{
++.BR fanotify_init (2)
++T}	2.6.37
++T{
++.BR fanotify_mark (2)
++T}	2.6.37
+ .\" The fanotify calls were added in Linux 2.6.36,
+ .\" but disabled while the API was finalized.
+-\fBfchdir\fP(2)	1.0
+-\fBfchmod\fP(2)	1.0
+-\fBfchmodat\fP(2)	2.6.16
+-\fBfchown\fP(2)	1.0
+-\fBfchown32\fP(2)	2.4
+-\fBfchownat\fP(2)	2.6.16
+-\fBfcntl\fP(2)	1.0
+-\fBfcntl64\fP(2)	2.4
+-\fBfdatasync\fP(2)	2.0
+-\fBfgetxattr\fP(2)	2.6; 2.4.18
+-\fBfinit_module\fP(2)	3.8
+-\fBflistxattr\fP(2)	2.6; 2.4.18
+-\fBflock\fP(2)	2.0
+-\fBfork\fP(2)	1.0
+-\fBfree_hugepages\fP(2)	2.5.36	Removed in 2.5.44
+-\fBfremovexattr\fP(2)	2.6; 2.4.18
+-\fBfsconfig\fP(2)	5.2
+-\fBfsetxattr\fP(2)	2.6; 2.4.18
+-\fBfsmount\fP(2)	5.2
+-\fBfsopen\fP(2)	5.2
+-\fBfspick\fP(2)	5.2
+-\fBfstat\fP(2)	1.0
+-\fBfstat64\fP(2)	2.4
+-\fBfstatat64\fP(2)	2.6.16
+-\fBfstatfs\fP(2)	1.0
+-\fBfstatfs64\fP(2)	2.6
+-\fBfsync\fP(2)	1.0
+-\fBftruncate\fP(2)	1.0
+-\fBftruncate64\fP(2)	2.4
+-\fBfutex\fP(2)	2.6
+-\fBfutimesat\fP(2)	2.6.16
+-\fBget_kernel_syms\fP(2)	1.0	Removed in 2.6
+-\fBget_mempolicy\fP(2)	2.6.6
+-\fBget_robust_list\fP(2)	2.6.17
+-\fBget_thread_area\fP(2)	2.6
++T{
++.BR fchdir (2)
++T}	1.0
++T{
++.BR fchmod (2)
++T}	1.0
++T{
++.BR fchmodat (2)
++T}	2.6.16
++T{
++.BR fchown (2)
++T}	1.0
++T{
++.BR fchown32 (2)
++T}	2.4
++T{
++.BR fchownat (2)
++T}	2.6.16
++T{
++.BR fcntl (2)
++T}	1.0
++T{
++.BR fcntl64 (2)
++T}	2.4
++T{
++.BR fdatasync (2)
++T}	2.0
++T{
++.BR fgetxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR finit_module (2)
++T}	3.8
++T{
++.BR flistxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR flock (2)
++T}	2.0
++T{
++.BR fork (2)
++T}	1.0
++T{
++.BR free_hugepages (2)
++T}	2.5.36	Removed in 2.5.44
++T{
++.BR fremovexattr (2)
++T}	2.6; 2.4.18
++T{
++.BR fsconfig (2)
++T}	5.2
++T{
++.BR fsetxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR fsmount (2)
++T}	5.2
++T{
++.BR fsopen (2)
++T}	5.2
++T{
++.BR fspick (2)
++T}	5.2
++T{
++.BR fstat (2)
++T}	1.0
++T{
++.BR fstat64 (2)
++T}	2.4
++T{
++.BR fstatat64 (2)
++T}	2.6.16
++T{
++.BR fstatfs (2)
++T}	1.0
++T{
++.BR fstatfs64 (2)
++T}	2.6
++T{
++.BR fsync (2)
++T}	1.0
++T{
++.BR ftruncate (2)
++T}	1.0
++T{
++.BR ftruncate64 (2)
++T}	2.4
++T{
++.BR futex (2)
++T}	2.6
++T{
++.BR futimesat (2)
++T}	2.6.16
++T{
++.BR get_kernel_syms (2)
++T}	1.0	Removed in 2.6
++T{
++.BR get_mempolicy (2)
++T}	2.6.6
++T{
++.BR get_robust_list (2)
++T}	2.6.17
++T{
++.BR get_thread_area (2)
++T}	2.6
+ .\" 8fcd6c45f5a65621ec809b7866a3623e9a01d4ed
+ T{
+ .BR get_tls (2)
+@@ -311,16 +504,25 @@ .SS System call list
  ARM OABI only, has
  \fB__ARM_NR\fP prefix
  T}
-@@ -298,13 +316,17 @@ .SS System call list
- \fBgetdents\fP(2)	2.0
- \fBgetdents64\fP(2)	2.4
- .\" parisc: 863722e856e64dae0e252b6bb546737c6c5626ce
--\fBgetdomainname\fP(2)	2.2	T{
+-\fBgetcpu\fP(2)	2.6.19
+-\fBgetcwd\fP(2)	2.2
+-\fBgetdents\fP(2)	2.0
+-\fBgetdents64\fP(2)	2.4
 +T{
-+.BR getdomainname (2)
-+T}	2.2	T{
++.BR getcpu (2)
++T}	2.6.19
++T{
++.BR getcwd (2)
++T}	2.2
++T{
++.BR getdents (2)
++T}	2.0
++T{
++.BR getdents64 (2)
++T}	2.4
+ .\" parisc: 863722e856e64dae0e252b6bb546737c6c5626ce
+ T{
+ .BR getdomainname (2)
+ T}	2.2	T{
  SPARC, SPARC64; available
- as \fBosf_getdomainname\fP(2)
+-as \fBosf_getdomainname\fP(2)
++as
++.BR osf_getdomainname (2)
  on Alpha since Linux 2.0
  T}
  .\" ec98c6b9b47df6df1c1fa6cf3d427414f8c2cf16
--\fBgetdtablesize\fP(2)	2.0	T{
-+T{
-+.BR getdtablesize (2)
-+T}	2.0	T{
+@@ -329,16 +531,32 @@ .SS System call list
+ T}	2.0	T{
  SPARC (removed in 2.6.26),
  available on Alpha as
- \fBosf_getdtablesize\fP(2)
-@@ -318,15 +340,21 @@ .SS System call list
- \fBgetgroups\fP(2)	1.0
- \fBgetgroups32\fP(2)	2.4
- .\" SPARC removal: ec98c6b9b47df6df1c1fa6cf3d427414f8c2cf16
--\fBgethostname\fP(2)	2.0	T{
+-\fBosf_getdtablesize\fP(2)
+-T}
+-\fBgetegid\fP(2)	1.0
+-\fBgetegid32\fP(2)	2.4
+-\fBgeteuid\fP(2)	1.0
+-\fBgeteuid32\fP(2)	2.4
+-\fBgetgid\fP(2)	1.0
+-\fBgetgid32\fP(2)	2.4
+-\fBgetgroups\fP(2)	1.0
+-\fBgetgroups32\fP(2)	2.4
++.BR osf_getdtablesize (2)
++T}
 +T{
-+.BR gethostname (2)
-+T}	2.0	T{
++.BR getegid (2)
++T}	1.0
++T{
++.BR getegid32 (2)
++T}	2.4
++T{
++.BR geteuid (2)
++T}	1.0
++T{
++.BR geteuid32 (2)
++T}	2.4
++T{
++.BR getgid (2)
++T}	1.0
++T{
++.BR getgid32 (2)
++T}	2.4
++T{
++.BR getgroups (2)
++T}	1.0
++T{
++.BR getgroups32 (2)
++T}	2.4
+ .\" SPARC removal: ec98c6b9b47df6df1c1fa6cf3d427414f8c2cf16
+ T{
+ .BR gethostname (2)
+@@ -346,50 +564,91 @@ .SS System call list
  Alpha, was available on
  SPARC up to Linux 2.6.26
  T}
- \fBgetitimer\fP(2)	1.0
--\fBgetpeername\fP(2)	2.0	T{
+-\fBgetitimer\fP(2)	1.0
 +T{
-+.BR getpeername (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
++.BR getitimer (2)
++T}	1.0
+ T{
+ .BR getpeername (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
--\fBgetpagesize\fP(2)	2.0	T{
-+T{
-+.BR getpagesize (2)
-+T}	2.0	T{
+ T{
+ .BR getpagesize (2)
+ T}	2.0	T{
  Alpha, SPARC/SPARC64 only
  T}
- \fBgetpgid\fP(2)	1.0
-@@ -342,27 +370,39 @@ .SS System call list
- \fBgetrlimit\fP(2)	1.0
- \fBgetrusage\fP(2)	1.0
- \fBgetsid\fP(2)	2.0
--\fBgetsockname\fP(2)	2.0	T{
+-\fBgetpgid\fP(2)	1.0
+-\fBgetpgrp\fP(2)	1.0
+-\fBgetpid\fP(2)	1.0
+-\fBgetppid\fP(2)	1.0
+-\fBgetpriority\fP(2)	1.0
+-\fBgetrandom\fP(2)	3.17
+-\fBgetresgid\fP(2)	2.2
+-\fBgetresgid32\fP(2)	2.4
+-\fBgetresuid\fP(2)	2.2
+-\fBgetresuid32\fP(2)	2.4
+-\fBgetrlimit\fP(2)	1.0
+-\fBgetrusage\fP(2)	1.0
+-\fBgetsid\fP(2)	2.0
 +T{
-+.BR getsockname (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
++.BR getpgid (2)
++T}	1.0
++T{
++.BR getpgrp (2)
++T}	1.0
++T{
++.BR getpid (2)
++T}	1.0
++T{
++.BR getppid (2)
++T}	1.0
++T{
++.BR getpriority (2)
++T}	1.0
++T{
++.BR getrandom (2)
++T}	3.17
++T{
++.BR getresgid (2)
++T}	2.2
++T{
++.BR getresgid32 (2)
++T}	2.4
++T{
++.BR getresuid (2)
++T}	2.2
++T{
++.BR getresuid32 (2)
++T}	2.4
++T{
++.BR getrlimit (2)
++T}	1.0
++T{
++.BR getrusage (2)
++T}	1.0
++T{
++.BR getsid (2)
++T}	2.0
+ T{
+ .BR getsockname (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
--\fBgetsockopt\fP(2)	2.0	T{
-+T{
-+.BR getsockopt (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
+ T{
+ .BR getsockopt (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
- \fBgettid\fP(2)	2.4.11
- \fBgettimeofday\fP(2)	1.0
- \fBgetuid\fP(2)	1.0
- \fBgetuid32\fP(2)	2.4
--\fBgetunwind\fP(2)	2.4.8	T{
+-\fBgettid\fP(2)	2.4.11
+-\fBgettimeofday\fP(2)	1.0
+-\fBgetuid\fP(2)	1.0
+-\fBgetuid32\fP(2)	2.4
 +T{
-+.BR getunwind (2)
-+T}	2.4.8	T{
++.BR gettid (2)
++T}	2.4.11
++T{
++.BR gettimeofday (2)
++T}	1.0
++T{
++.BR getuid (2)
++T}	1.0
++T{
++.BR getuid32 (2)
++T}	2.4
+ T{
+ .BR getunwind (2)
+ T}	2.4.8	T{
  IA-64 only; deprecated
  T}
- \fBgetxattr\fP(2)	2.6; 2.4.18
--\fBgetxgid\fP(2)	2.0	T{
+-\fBgetxattr\fP(2)	2.6; 2.4.18
 +T{
-+.BR getxgid (2)
-+T}	2.0	T{
++.BR getxattr (2)
++T}	2.6; 2.4.18
+ T{
+ .BR getxgid (2)
+ T}	2.0	T{
+@@ -405,40 +664,98 @@ .SS System call list
+ T}	2.0	T{
  Alpha only; see NOTES
  T}
--\fBgetxpid\fP(2)	2.0	T{
+-\fBinit_module\fP(2)	1.0
+-\fBinotify_add_watch\fP(2)	2.6.13
+-\fBinotify_init\fP(2)	2.6.13
+-\fBinotify_init1\fP(2)	2.6.27
+-\fBinotify_rm_watch\fP(2)	2.6.13
+-\fBio_cancel\fP(2)	2.6
+-\fBio_destroy\fP(2)	2.6
+-\fBio_getevents\fP(2)	2.6
+-\fBio_pgetevents\fP(2)	4.18
+-\fBio_setup\fP(2)	2.6
+-\fBio_submit\fP(2)	2.6
+-\fBio_uring_enter\fP(2)	5.1
+-\fBio_uring_register\fP(2)	5.1
+-\fBio_uring_setup\fP(2)	5.1
+-\fBioctl\fP(2)	1.0
+-\fBioperm\fP(2)	1.0
+-\fBiopl\fP(2)	1.0
+-\fBioprio_get\fP(2)	2.6.13
+-\fBioprio_set\fP(2)	2.6.13
+-\fBipc\fP(2)	1.0
 +T{
-+.BR getxpid (2)
-+T}	2.0	T{
- Alpha only; see NOTES
- T}
--\fBgetxuid\fP(2)	2.0	T{
++.BR init_module (2)
++T}	1.0
 +T{
-+.BR getxuid (2)
-+T}	2.0	T{
- Alpha only; see NOTES
- T}
- \fBinit_module\fP(2)	1.0
-@@ -399,7 +439,9 @@ .SS System call list
- \fBlandlock_add_rule\fP(2)	5.13
- \fBlandlock_create_ruleset\fP(2)	5.13
- \fBlandlock_restrict_self\fP(2)	5.13
--\fBlchown\fP(2)	1.0	T{
++.BR inotify_add_watch (2)
++T}	2.6.13
 +T{
-+.BR lchown (2)
-+T}	1.0	T{
- See
- .BR chown (2)
++.BR inotify_init (2)
++T}	2.6.13
++T{
++.BR inotify_init1 (2)
++T}	2.6.27
++T{
++.BR inotify_rm_watch (2)
++T}	2.6.13
++T{
++.BR io_cancel (2)
++T}	2.6
++T{
++.BR io_destroy (2)
++T}	2.6
++T{
++.BR io_getevents (2)
++T}	2.6
++T{
++.BR io_pgetevents (2)
++T}	4.18
++T{
++.BR io_setup (2)
++T}	2.6
++T{
++.BR io_submit (2)
++T}	2.6
++T{
++.BR io_uring_enter (2)
++T}	5.1
++T{
++.BR io_uring_register (2)
++T}	5.1
++T{
++.BR io_uring_setup (2)
++T}	5.1
++T{
++.BR ioctl (2)
++T}	1.0
++T{
++.BR ioperm (2)
++T}	1.0
++T{
++.BR iopl (2)
++T}	1.0
++T{
++.BR ioprio_get (2)
++T}	2.6.13
++T{
++.BR ioprio_set (2)
++T}	2.6.13
++T{
++.BR ipc (2)
++T}	1.0
+ .\" Implements System V IPC calls
+-\fBkcmp\fP(2)	3.5
+-\fBkern_features\fP(2)	3.7	SPARC64 only
++T{
++.BR kcmp (2)
++T}	3.5
++T{
++.BR kern_features (2)
++T}	3.7	SPARC64 only
+ .\" FIXME . document kern_features():
+ .\" commit 517ffce4e1a03aea979fe3a18a3dd1761a24fafb
+-\fBkexec_file_load\fP(2)	3.17
+-\fBkexec_load\fP(2)	2.6.13
++T{
++.BR kexec_file_load (2)
++T}	3.17
++T{
++.BR kexec_load (2)
++T}	2.6.13
+ .\" The entry in the syscall table was reserved starting in 2.6.7
+ .\" Was named sys_kexec_load() from 2.6.7 to 2.6.16
+-\fBkeyctl\fP(2)	2.6.10
+-\fBkill\fP(2)	1.0
+-\fBlandlock_add_rule\fP(2)	5.13
+-\fBlandlock_create_ruleset\fP(2)	5.13
+-\fBlandlock_restrict_self\fP(2)	5.13
++T{
++.BR keyctl (2)
++T}	2.6.10
++T{
++.BR kill (2)
++T}	1.0
++T{
++.BR landlock_add_rule (2)
++T}	5.13
++T{
++.BR landlock_create_ruleset (2)
++T}	5.13
++T{
++.BR landlock_restrict_self (2)
++T}	5.13
+ T{
+ .BR lchown (2)
+ T}	1.0	T{
+@@ -447,91 +764,195 @@ .SS System call list
  for
-@@ -409,7 +451,9 @@ .SS System call list
- \fBlgetxattr\fP(2)	2.6; 2.4.18
- \fBlink\fP(2)	1.0
- \fBlinkat\fP(2)	2.6.16
--\fBlisten\fP(2)	2.0	T{
-+T{
-+.BR listen (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
+ version details
  T}
- \fBlistxattr\fP(2)	2.6; 2.4.18
-@@ -452,16 +496,24 @@ .SS System call list
- \fBmq_timedsend\fP(2)	2.6.6
- \fBmq_unlink\fP(2)	2.6.6
- \fBmremap\fP(2)	2.0
--\fBmsgctl\fP(2)	2.0	T{
+-\fBlchown32\fP(2)	2.4
+-\fBlgetxattr\fP(2)	2.6; 2.4.18
+-\fBlink\fP(2)	1.0
+-\fBlinkat\fP(2)	2.6.16
 +T{
-+.BR msgctl (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBmsgget\fP(2)	2.0	T{
++.BR lchown32 (2)
++T}	2.4
 +T{
-+.BR msgget (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBmsgrcv\fP(2)	2.0	T{
++.BR lgetxattr (2)
++T}	2.6; 2.4.18
 +T{
-+.BR msgrcv (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBmsgsnd\fP(2)	2.0	T{
++.BR link (2)
++T}	1.0
 +T{
-+.BR msgsnd (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
++.BR linkat (2)
++T}	2.6.16
+ T{
+ .BR listen (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
+-T}
+-\fBlistxattr\fP(2)	2.6; 2.4.18
+-\fBllistxattr\fP(2)	2.6; 2.4.18
+-\fBlookup_dcookie\fP(2)	2.6
+-\fBlremovexattr\fP(2)	2.6; 2.4.18
+-\fBlseek\fP(2)	1.0
+-\fBlsetxattr\fP(2)	2.6; 2.4.18
+-\fBlstat\fP(2)	1.0
+-\fBlstat64\fP(2)	2.4
+-\fBmadvise\fP(2)	2.4
+-\fBmbind\fP(2)	2.6.6
+-\fBmemory_ordering\fP(2)	2.2	SPARC64 only
++See notes on
++.BR socketcall (2)
++T}
++T{
++.BR listxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR llistxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR lookup_dcookie (2)
++T}	2.6
++T{
++.BR lremovexattr (2)
++T}	2.6; 2.4.18
++T{
++.BR lseek (2)
++T}	1.0
++T{
++.BR lsetxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR lstat (2)
++T}	1.0
++T{
++.BR lstat64 (2)
++T}	2.4
++T{
++.BR madvise (2)
++T}	2.4
++T{
++.BR mbind (2)
++T}	2.6.6
++T{
++.BR memory_ordering (2)
++T}	2.2	SPARC64 only
+ .\" 26025bbfbba33a9425be1b89eccb4664ea4c17b6
+ .\" bb6fb6dfcc17cddac11ac295861f7608194447a7
+-\fBmembarrier\fP(2)	3.17
+-\fBmemfd_create\fP(2)	3.17
+-\fBmemfd_secret\fP(2)	5.14
+-\fBmigrate_pages\fP(2)	2.6.16
+-\fBmincore\fP(2)	2.4
+-\fBmkdir\fP(2)	1.0
+-\fBmkdirat\fP(2)	2.6.16
+-\fBmknod\fP(2)	1.0
+-\fBmknodat\fP(2)	2.6.16
+-\fBmlock\fP(2)	2.0
+-\fBmlock2\fP(2)	4.4
+-\fBmlockall\fP(2)	2.0
+-\fBmmap\fP(2)	1.0
+-\fBmmap2\fP(2)	2.4
+-\fBmodify_ldt\fP(2)	1.0
+-\fBmount\fP(2)	1.0
+-\fBmove_mount\fP(2)	5.2
+-\fBmove_pages\fP(2)	2.6.18
+-\fBmprotect\fP(2)	1.0
+-\fBmq_getsetattr\fP(2)	2.6.6
++T{
++.BR membarrier (2)
++T}	3.17
++T{
++.BR memfd_create (2)
++T}	3.17
++T{
++.BR memfd_secret (2)
++T}	5.14
++T{
++.BR migrate_pages (2)
++T}	2.6.16
++T{
++.BR mincore (2)
++T}	2.4
++T{
++.BR mkdir (2)
++T}	1.0
++T{
++.BR mkdirat (2)
++T}	2.6.16
++T{
++.BR mknod (2)
++T}	1.0
++T{
++.BR mknodat (2)
++T}	2.6.16
++T{
++.BR mlock (2)
++T}	2.0
++T{
++.BR mlock2 (2)
++T}	4.4
++T{
++.BR mlockall (2)
++T}	2.0
++T{
++.BR mmap (2)
++T}	1.0
++T{
++.BR mmap2 (2)
++T}	2.4
++T{
++.BR modify_ldt (2)
++T}	1.0
++T{
++.BR mount (2)
++T}	1.0
++T{
++.BR move_mount (2)
++T}	5.2
++T{
++.BR move_pages (2)
++T}	2.6.18
++T{
++.BR mprotect (2)
++T}	1.0
++T{
++.BR mq_getsetattr (2)
++T}	2.6.6
+ .\" Implements \fBmq_getattr\fP(3) and \fBmq_setattr\fP(3)
+-\fBmq_notify\fP(2)	2.6.6
+-\fBmq_open\fP(2)	2.6.6
+-\fBmq_timedreceive\fP(2)	2.6.6
+-\fBmq_timedsend\fP(2)	2.6.6
+-\fBmq_unlink\fP(2)	2.6.6
+-\fBmremap\fP(2)	2.0
++T{
++.BR mq_notify (2)
++T}	2.6.6
++T{
++.BR mq_open (2)
++T}	2.6.6
++T{
++.BR mq_timedreceive (2)
++T}	2.6.6
++T{
++.BR mq_timedsend (2)
++T}	2.6.6
++T{
++.BR mq_unlink (2)
++T}	2.6.6
++T{
++.BR mremap (2)
++T}	2.0
+ T{
+ .BR msgctl (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
  T}
- \fBmsync\fP(2)	2.0
-@@ -473,15 +525,21 @@ .SS System call list
- \fBname_to_handle_at\fP(2)	2.6.39
- \fBnanosleep\fP(2)	2.0
+ T{
+ .BR msgget (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR msgrcv (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR msgsnd (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+-\fBmsync\fP(2)	2.0
++T{
++.BR msync (2)
++T}	2.0
+ .\" \fBmultiplexer\fP(2)	??	__NR_multiplexer reserved on
+ .\"		PowerPC, but unimplemented?
+-\fBmunlock\fP(2)	2.0
+-\fBmunlockall\fP(2)	2.0
+-\fBmunmap\fP(2)	1.0
+-\fBname_to_handle_at\fP(2)	2.6.39
+-\fBnanosleep\fP(2)	2.0
++T{
++.BR munlock (2)
++T}	2.0
++T{
++.BR munlockall (2)
++T}	2.0
++T{
++.BR munmap (2)
++T}	1.0
++T{
++.BR name_to_handle_at (2)
++T}	2.6.39
++T{
++.BR nanosleep (2)
++T}	2.0
  .\" 5590ff0d5528b60153c0b4e7b771472b5a95e297
--\fBnewfstatat\fP(2)	2.6.16	T{
-+T{
-+.BR newfstatat (2)
-+T}	2.6.16	T{
- See \fBstat\fP(2)
+ T{
+ .BR newfstatat (2)
+ T}	2.6.16	T{
+-See \fBstat\fP(2)
++See
++.BR stat (2)
  T}
- \fBnfsservctl\fP(2)	2.2	Removed in 3.1
- \fBnice\fP(2)	1.0
--\fBold_adjtimex\fP(2)	2.0	T{
+-\fBnfsservctl\fP(2)	2.2	Removed in 3.1
+-\fBnice\fP(2)	1.0
 +T{
-+.BR old_adjtimex (2)
-+T}	2.0	T{
- Alpha only; see NOTES
- T}
--\fBold_getrlimit\fP(2)	2.4	T{
++.BR nfsservctl (2)
++T}	2.2	Removed in 3.1
 +T{
-+.BR old_getrlimit (2)
-+T}	2.4	T{
- Old variant of \fBgetrlimit\fP(2)
++.BR nice (2)
++T}	1.0
+ T{
+ .BR old_adjtimex (2)
+ T}	2.0	T{
+@@ -540,38 +961,68 @@ .SS System call list
+ T{
+ .BR old_getrlimit (2)
+ T}	2.4	T{
+-Old variant of \fBgetrlimit\fP(2)
++Old variant of
++.BR getrlimit (2)
  that used a different value
  for \fBRLIM_INFINITY\fP
-@@ -490,7 +548,9 @@ .SS System call list
- \fBoldlstat\fP(2)	1.0
- \fBoldolduname\fP(2)	1.0
- \fBoldstat\fP(2)	1.0
--\fBoldumount\fP(2)	2.4.116	T{
+ T}
+-\fBoldfstat\fP(2)	1.0
+-\fBoldlstat\fP(2)	1.0
+-\fBoldolduname\fP(2)	1.0
+-\fBoldstat\fP(2)	1.0
 +T{
-+.BR oldumount (2)
-+T}	2.4.116	T{
- Name of the old \fBumount\fP(2)
++.BR oldfstat (2)
++T}	1.0
++T{
++.BR oldlstat (2)
++T}	1.0
++T{
++.BR oldolduname (2)
++T}	1.0
++T{
++.BR oldstat (2)
++T}	1.0
+ T{
+ .BR oldumount (2)
+ T}	2.4.116	T{
+-Name of the old \fBumount\fP(2)
++Name of the old
++.BR umount (2)
  syscall on Alpha
  T}
-@@ -501,7 +561,9 @@ .SS System call list
- \fBopenat\fP(2)	2.6.16
- \fBopenat2\fP(2)	5.6
- .\" 9d02a4283e9ce4e9ca11ff00615bdacdb0515a1a
--\fBor1k_atomic\fP(2)	3.1	T{
+-\fBolduname\fP(2)	1.0
+-\fBopen\fP(2)	1.0
+-\fBopen_by_handle_at\fP(2)	2.6.39
+-\fBopen_tree\fP(2)	5.2
+-\fBopenat\fP(2)	2.6.16
+-\fBopenat2\fP(2)	5.6
 +T{
-+.BR or1k_atomic (2)
-+T}	3.1	T{
++.BR olduname (2)
++T}	1.0
++T{
++.BR open (2)
++T}	1.0
++T{
++.BR open_by_handle_at (2)
++T}	2.6.39
++T{
++.BR open_tree (2)
++T}	5.2
++T{
++.BR openat (2)
++T}	2.6.16
++T{
++.BR openat2 (2)
++T}	5.6
+ .\" 9d02a4283e9ce4e9ca11ff00615bdacdb0515a1a
+ T{
+ .BR or1k_atomic (2)
+ T}	3.1	T{
  OpenRISC 1000 only
  T}
- \fBpause\fP(2)	1.0
-@@ -511,12 +573,16 @@ .SS System call list
- .\" , PowerPC, ARM; not x86
- \fBpciconfig_write\fP(2)	2.0.26; 2.2	Not on x86
- .\" , PowerPC, ARM; not x86
--\fBperf_event_open\fP(2)	2.6.31	T{
+-\fBpause\fP(2)	1.0
+-\fBpciconfig_iobase\fP(2)	2.2.15; 2.4	Not on x86
 +T{
-+.BR perf_event_open (2)
-+T}	2.6.31	T{
++.BR pause (2)
++T}	1.0
++T{
++.BR pciconfig_iobase (2)
++T}	2.2.15; 2.4	Not on x86
+ .\" Alpha, PowerPC, ARM; not x86
+-\fBpciconfig_read\fP(2)	2.0.26; 2.2	Not on x86
++T{
++.BR pciconfig_read (2)
++T}	2.0.26; 2.2	Not on x86
+ .\" , PowerPC, ARM; not x86
+-\fBpciconfig_write\fP(2)	2.0.26; 2.2	Not on x86
++T{
++.BR pciconfig_write (2)
++T}	2.0.26; 2.2	Not on x86
+ .\" , PowerPC, ARM; not x86
+ T{
+ .BR perf_event_open (2)
+@@ -579,109 +1030,226 @@ .SS System call list
  Was perf_counter_open() in
  2.6.31; renamed in 2.6.32
  T}
- \fBpersonality\fP(2)	1.2
--\fBperfctr\fP(2)	2.2	T{
+-\fBpersonality\fP(2)	1.2
 +T{
-+.BR perfctr (2)
-+T}	2.2	T{
++.BR personality (2)
++T}	1.2
+ T{
+ .BR perfctr (2)
+ T}	2.2	T{
  SPARC only; removed in 2.6.34
  T}
  .\"	commit c7d5a0050773e98d1094eaa9f2a1a793fafac300 removed perfctr()
-@@ -533,7 +599,9 @@ .SS System call list
- \fBpoll\fP(2)	2.0.36; 2.2
- \fBppoll\fP(2)	2.6.16
- \fBprctl\fP(2)	2.2
--\fBpread64\fP(2)		T{
+-\fBperfmonctl\fP(2)	2.4	IA-64 only; removed in 5.10
+-\fBpidfd_getfd\fP(2)	5.6
+-\fBpidfd_send_signal\fP(2)	5.1
+-\fBpidfd_open\fP(2)	5.3
+-\fBpipe\fP(2)	1.0
+-\fBpipe2\fP(2)	2.6.27
+-\fBpivot_root\fP(2)	2.4
+-\fBpkey_alloc\fP(2)	4.8
+-\fBpkey_free\fP(2)	4.8
+-\fBpkey_mprotect\fP(2)	4.8
+-\fBpoll\fP(2)	2.0.36; 2.2
+-\fBppoll\fP(2)	2.6.16
+-\fBprctl\fP(2)	2.2
 +T{
-+.BR pread64 (2)
-+T}		T{
++.BR perfmonctl (2)
++T}	2.4	IA-64 only; removed in 5.10
++T{
++.BR pidfd_getfd (2)
++T}	5.6
++T{
++.BR pidfd_send_signal (2)
++T}	5.1
++T{
++.BR pidfd_open (2)
++T}	5.3
++T{
++.BR pipe (2)
++T}	1.0
++T{
++.BR pipe2 (2)
++T}	2.6.27
++T{
++.BR pivot_root (2)
++T}	2.4
++T{
++.BR pkey_alloc (2)
++T}	4.8
++T{
++.BR pkey_free (2)
++T}	4.8
++T{
++.BR pkey_mprotect (2)
++T}	4.8
++T{
++.BR poll (2)
++T}	2.0.36; 2.2
++T{
++.BR ppoll (2)
++T}	2.6.16
++T{
++.BR prctl (2)
++T}	2.2
+ T{
+ .BR pread64 (2)
+ T}		T{
  Added as "pread" in 2.2;
  renamed "pread64" in 2.6
  T}
-@@ -546,7 +614,9 @@ .SS System call list
- \fBpselect6\fP(2)	2.6.16
- .\" Implements \fBpselect\fP(2)
- \fBptrace\fP(2)	1.0
--\fBpwrite64\fP(2)		T{
+-\fBpreadv\fP(2)	2.6.30
+-\fBpreadv2\fP(2)	4.6
+-\fBprlimit64\fP(2)	2.6.36
+-\fBprocess_madvise\fP(2)	5.10
+-\fBprocess_vm_readv\fP(2)	3.2
+-\fBprocess_vm_writev\fP(2)	3.2
+-\fBpselect6\fP(2)	2.6.16
 +T{
-+.BR pwrite64 (2)
-+T}		T{
++.BR preadv (2)
++T}	2.6.30
++T{
++.BR preadv2 (2)
++T}	4.6
++T{
++.BR prlimit64 (2)
++T}	2.6.36
++T{
++.BR process_madvise (2)
++T}	5.10
++T{
++.BR process_vm_readv (2)
++T}	3.2
++T{
++.BR process_vm_writev (2)
++T}	3.2
++T{
++.BR pselect6 (2)
++T}	2.6.16
+ .\" Implements \fBpselect\fP(2)
+-\fBptrace\fP(2)	1.0
++T{
++.BR ptrace (2)
++T}	1.0
+ T{
+ .BR pwrite64 (2)
+ T}		T{
  Added as "pwrite" in 2.2;
  renamed "pwrite64" in 2.6
  T}
-@@ -563,17 +633,25 @@ .SS System call list
- \fBreadlinkat\fP(2)	2.6.16
- \fBreadv\fP(2)	2.0
- \fBreboot\fP(2)	1.0
--\fBrecv\fP(2)	2.0	T{
+-\fBpwritev\fP(2)	2.6.30
+-\fBpwritev2\fP(2)	4.6
+-\fBquery_module\fP(2)	2.2	Removed in 2.6
+-\fBquotactl\fP(2)	1.0
+-\fBquotactl_fd\fP(2)	5.14
+-\fBread\fP(2)	1.0
+-\fBreadahead\fP(2)	2.4.13
+-\fBreaddir\fP(2)	1.0
 +T{
-+.BR recv (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
++.BR pwritev (2)
++T}	2.6.30
++T{
++.BR pwritev2 (2)
++T}	4.6
++T{
++.BR query_module (2)
++T}	2.2	Removed in 2.6
++T{
++.BR quotactl (2)
++T}	1.0
++T{
++.BR quotactl_fd (2)
++T}	5.14
++T{
++.BR read (2)
++T}	1.0
++T{
++.BR readahead (2)
++T}	2.4.13
++T{
++.BR readdir (2)
++T}	1.0
+ .\" Supersedes \fBgetdents\fP(2)
+-\fBreadlink\fP(2)	1.0
+-\fBreadlinkat\fP(2)	2.6.16
+-\fBreadv\fP(2)	2.0
+-\fBreboot\fP(2)	1.0
++T{
++.BR readlink (2)
++T}	1.0
++T{
++.BR readlinkat (2)
++T}	2.6.16
++T{
++.BR readv (2)
++T}	2.0
++T{
++.BR reboot (2)
++T}	1.0
+ T{
+ .BR recv (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
--\fBrecvfrom\fP(2)	2.0	T{
-+T{
-+.BR recvfrom (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
+ T{
+ .BR recvfrom (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
--\fBrecvmsg\fP(2)	2.0	T{
-+T{
-+.BR recvmsg (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
+ T{
+ .BR recvmsg (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
- \fBrecvmmsg\fP(2)	2.6.33
--\fBremap_file_pages\fP(2)	2.6	T{
+-\fBrecvmmsg\fP(2)	2.6.33
 +T{
-+.BR remap_file_pages (2)
-+T}	2.6	T{
++.BR recvmmsg (2)
++T}	2.6.33
+ T{
+ .BR remap_file_pages (2)
+ T}	2.6	T{
  Deprecated since 3.16
  T}
- \fBremovexattr\fP(2)	2.6; 2.4.18
-@@ -594,7 +672,9 @@ .SS System call list
- \fBrt_sigsuspend\fP(2)	2.2
- \fBrt_sigtimedwait\fP(2)	2.2
- \fBrt_tgsigqueueinfo\fP(2)	2.6.31
--\fBrtas\fP(2)	2.6.2	T{
+-\fBremovexattr\fP(2)	2.6; 2.4.18
+-\fBrename\fP(2)	1.0
+-\fBrenameat\fP(2)	2.6.16
+-\fBrenameat2\fP(2)	3.15
+-\fBrequest_key\fP(2)	2.6.10
+-\fBrestart_syscall\fP(2)	2.6
 +T{
-+.BR rtas (2)
-+T}	2.6.2	T{
++.BR removexattr (2)
++T}	2.6; 2.4.18
++T{
++.BR rename (2)
++T}	1.0
++T{
++.BR renameat (2)
++T}	2.6.16
++T{
++.BR renameat2 (2)
++T}	3.15
++T{
++.BR request_key (2)
++T}	2.6.10
++T{
++.BR restart_syscall (2)
++T}	2.6
+ .\" 921ebd8f2c081b3cf6c3b29ef4103eef3ff26054
+-\fBriscv_flush_icache\fP(2)	4.15	RISC-V only
+-\fBrmdir\fP(2)	1.0
+-\fBrseq\fP(2)	4.18
+-\fBrt_sigaction\fP(2)	2.2
+-\fBrt_sigpending\fP(2)	2.2
+-\fBrt_sigprocmask\fP(2)	2.2
+-\fBrt_sigqueueinfo\fP(2)	2.2
+-\fBrt_sigreturn\fP(2)	2.2
+-\fBrt_sigsuspend\fP(2)	2.2
+-\fBrt_sigtimedwait\fP(2)	2.2
+-\fBrt_tgsigqueueinfo\fP(2)	2.6.31
++T{
++.BR riscv_flush_icache (2)
++T}	4.15	RISC-V only
++T{
++.BR rmdir (2)
++T}	1.0
++T{
++.BR rseq (2)
++T}	4.18
++T{
++.BR rt_sigaction (2)
++T}	2.2
++T{
++.BR rt_sigpending (2)
++T}	2.2
++T{
++.BR rt_sigprocmask (2)
++T}	2.2
++T{
++.BR rt_sigqueueinfo (2)
++T}	2.2
++T{
++.BR rt_sigreturn (2)
++T}	2.2
++T{
++.BR rt_sigsuspend (2)
++T}	2.2
++T{
++.BR rt_sigtimedwait (2)
++T}	2.2
++T{
++.BR rt_tgsigqueueinfo (2)
++T}	2.6.31
+ T{
+ .BR rtas (2)
+ T}	2.6.2	T{
  PowerPC/PowerPC64 only
  T}
- \fBs390_runtime_instr\fP(2)	3.7	s390 only
-@@ -602,7 +682,9 @@ .SS System call list
- \fBs390_pci_mmio_write\fP(2)	3.19	s390 only
- \fBs390_sthyi\fP(2)	4.15	s390 only
- \fBs390_guarded_storage\fP(2)	4.12	s390 only
--\fBsched_get_affinity\fP(2)	2.6	T{
+-\fBs390_runtime_instr\fP(2)	3.7	s390 only
+-\fBs390_pci_mmio_read\fP(2)	3.19	s390 only
+-\fBs390_pci_mmio_write\fP(2)	3.19	s390 only
+-\fBs390_sthyi\fP(2)	4.15	s390 only
+-\fBs390_guarded_storage\fP(2)	4.12	s390 only
 +T{
-+.BR sched_get_affinity (2)
-+T}	2.6	T{
- Name of
++.BR s390_runtime_instr (2)
++T}	3.7	s390 only
++T{
++.BR s390_pci_mmio_read (2)
++T}	3.19	s390 only
++T{
++.BR s390_pci_mmio_write (2)
++T}	3.19	s390 only
++T{
++.BR s390_sthyi (2)
++T}	4.15	s390 only
++T{
++.BR s390_guarded_storage (2)
++T}	4.12	s390 only
+ T{
+ .BR sched_get_affinity (2)
+ T}	2.6	T{
+@@ -689,13 +1257,27 @@ .SS System call list
  .BR \%sched_getaffinity (2)
  on SPARC and SPARC64
-@@ -614,7 +696,9 @@ .SS System call list
- \fBsched_getparam\fP(2)	2.0
- \fBsched_getscheduler\fP(2)	2.0
- \fBsched_rr_get_interval\fP(2)	2.0
--\fBsched_set_affinity\fP(2)	2.6	T{
+ T}
+-\fBsched_get_priority_max\fP(2)	2.0
+-\fBsched_get_priority_min\fP(2)	2.0
+-\fBsched_getaffinity\fP(2)	2.6
+-\fBsched_getattr\fP(2)	3.14
+-\fBsched_getparam\fP(2)	2.0
+-\fBsched_getscheduler\fP(2)	2.0
+-\fBsched_rr_get_interval\fP(2)	2.0
 +T{
-+.BR sched_set_affinity (2)
-+T}	2.6	T{
- Name of
++.BR sched_get_priority_max (2)
++T}	2.0
++T{
++.BR sched_get_priority_min (2)
++T}	2.0
++T{
++.BR sched_getaffinity (2)
++T}	2.6
++T{
++.BR sched_getattr (2)
++T}	3.14
++T{
++.BR sched_getparam (2)
++T}	2.0
++T{
++.BR sched_getscheduler (2)
++T}	2.0
++T{
++.BR sched_rr_get_interval (2)
++T}	2.0
+ T{
+ .BR sched_set_affinity (2)
+ T}	2.6	T{
+@@ -703,51 +1285,87 @@ .SS System call list
  .BR \%sched_setaffinity (2)
  on SPARC and SPARC64
-@@ -626,33 +710,47 @@ .SS System call list
- \fBsched_yield\fP(2)	2.0
- \fBseccomp\fP(2)	3.17
- \fBselect\fP(2)	1.0
--\fBsemctl\fP(2)	2.0	T{
-+T{
-+.BR semctl (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
  T}
--\fBsemget\fP(2)	2.0	T{
+-\fBsched_setaffinity\fP(2)	2.6
+-\fBsched_setattr\fP(2)	3.14
+-\fBsched_setparam\fP(2)	2.0
+-\fBsched_setscheduler\fP(2)	2.0
+-\fBsched_yield\fP(2)	2.0
+-\fBseccomp\fP(2)	3.17
+-\fBselect\fP(2)	1.0
 +T{
-+.BR semget (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBsemop\fP(2)	2.0	T{
++.BR sched_setaffinity (2)
++T}	2.6
 +T{
-+.BR semop (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
- \fBsemtimedop\fP(2)	2.6; 2.4.22
--\fBsend\fP(2)	2.0	T{
++.BR sched_setattr (2)
++T}	3.14
 +T{
-+.BR send (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
- T}
- \fBsendfile\fP(2)	2.2
- \fBsendfile64\fP(2)	2.6; 2.4.19
- \fBsendmmsg\fP(2)	3.0
--\fBsendmsg\fP(2)	2.0	T{
++.BR sched_setparam (2)
++T}	2.0
 +T{
-+.BR sendmsg (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
- T}
--\fBsendto\fP(2)	2.0	T{
++.BR sched_setscheduler (2)
++T}	2.0
 +T{
-+.BR sendto (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
- T}
- \fBset_mempolicy\fP(2)	2.6.6
- \fBset_robust_list\fP(2)	2.6.17
- \fBset_thread_area\fP(2)	2.6
- \fBset_tid_address\fP(2)	2.6
--\fBset_tls\fP(2)	2.6.11	T{
++.BR sched_yield (2)
++T}	2.0
 +T{
-+.BR set_tls (2)
-+T}	2.6.11	T{
- ARM OABI/EABI only (constant
- has \fB__ARM_NR\fP prefix)
++.BR seccomp (2)
++T}	3.17
++T{
++.BR select (2)
++T}	1.0
+ T{
+ .BR semctl (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
  T}
-@@ -675,14 +773,18 @@ .SS System call list
- \fBsetgroups\fP(2)	1.0
- \fBsetgroups32\fP(2)	2.4
+ T{
+ .BR semget (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR semop (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+-\fBsemtimedop\fP(2)	2.6; 2.4.22
++T{
++.BR semtimedop (2)
++T}	2.6; 2.4.22
+ T{
+ .BR send (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
+ T}
+-\fBsendfile\fP(2)	2.2
+-\fBsendfile64\fP(2)	2.6; 2.4.19
+-\fBsendmmsg\fP(2)	3.0
++T{
++.BR sendfile (2)
++T}	2.2
++T{
++.BR sendfile64 (2)
++T}	2.6; 2.4.19
++T{
++.BR sendmmsg (2)
++T}	3.0
+ T{
+ .BR sendmsg (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
+ T}
+ T{
+ .BR sendto (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
+ T}
+-\fBset_mempolicy\fP(2)	2.6.6
+-\fBset_robust_list\fP(2)	2.6.17
+-\fBset_thread_area\fP(2)	2.6
+-\fBset_tid_address\fP(2)	2.6
++T{
++.BR set_mempolicy (2)
++T}	2.6.6
++T{
++.BR set_robust_list (2)
++T}	2.6.17
++T{
++.BR set_thread_area (2)
++T}	2.6
++T{
++.BR set_tid_address (2)
++T}	2.6
+ T{
+ .BR set_tls (2)
+ T}	2.6.11	T{
+@@ -763,25 +1381,51 @@ .SS System call list
+ .\" T}
+ .\" See http://lkml.org/lkml/2005/8/1/83
+ .\" "[PATCH] remove sys_set_zone_reclaim()"
+-\fBsetdomainname\fP(2)	1.0
+-\fBsetfsgid\fP(2)	1.2
+-\fBsetfsgid32\fP(2)	2.4
+-\fBsetfsuid\fP(2)	1.2
+-\fBsetfsuid32\fP(2)	2.4
+-\fBsetgid\fP(2)	1.0
+-\fBsetgid32\fP(2)	2.4
+-\fBsetgroups\fP(2)	1.0
+-\fBsetgroups32\fP(2)	2.4
++T{
++.BR setdomainname (2)
++T}	1.0
++T{
++.BR setfsgid (2)
++T}	1.2
++T{
++.BR setfsgid32 (2)
++T}	2.4
++T{
++.BR setfsuid (2)
++T}	1.2
++T{
++.BR setfsuid32 (2)
++T}	2.4
++T{
++.BR setgid (2)
++T}	1.0
++T{
++.BR setgid32 (2)
++T}	2.4
++T{
++.BR setgroups (2)
++T}	1.0
++T{
++.BR setgroups32 (2)
++T}	2.4
  .\" arch/alpha/include/asm/core_lca.h
--\fBsethae\fP(2)	2.0	T{
-+T{
-+.BR sethae (2)
-+T}	2.0	T{
+ T{
+ .BR sethae (2)
+ T}	2.0	T{
  Alpha only; see NOTES
  T}
- \fBsethostname\fP(2)	1.0
- \fBsetitimer\fP(2)	1.0
- \fBsetns\fP(2)	3.0
- \fBsetpgid\fP(2)	1.0
--\fBsetpgrp\fP(2)	2.0	T{
+-\fBsethostname\fP(2)	1.0
+-\fBsetitimer\fP(2)	1.0
+-\fBsetns\fP(2)	3.0
+-\fBsetpgid\fP(2)	1.0
 +T{
-+.BR setpgrp (2)
-+T}	2.0	T{
- Alternative name for
++.BR sethostname (2)
++T}	1.0
++T{
++.BR setitimer (2)
++T}	1.0
++T{
++.BR setns (2)
++T}	3.0
++T{
++.BR setpgid (2)
++T}	1.0
+ T{
+ .BR setpgrp (2)
+ T}	2.0	T{
+@@ -789,77 +1433,143 @@ .SS System call list
  .BR setpgid (2)
  on Alpha
-@@ -698,7 +800,9 @@ .SS System call list
- \fBsetreuid32\fP(2)	2.4
- \fBsetrlimit\fP(2)	1.0
- \fBsetsid\fP(2)	1.0
--\fBsetsockopt\fP(2)	2.0	T{
-+T{
-+.BR setsockopt (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
  T}
- \fBsettimeofday\fP(2)	1.0
-@@ -707,19 +811,29 @@ .SS System call list
- \fBsetup\fP(2)	1.0	Removed in 2.2
- \fBsetxattr\fP(2)	2.6; 2.4.18
- \fBsgetmask\fP(2)	1.0
--\fBshmat\fP(2)	2.0	T{
+-\fBsetpriority\fP(2)	1.0
+-\fBsetregid\fP(2)	1.0
+-\fBsetregid32\fP(2)	2.4
+-\fBsetresgid\fP(2)	2.2
+-\fBsetresgid32\fP(2)	2.4
+-\fBsetresuid\fP(2)	2.2
+-\fBsetresuid32\fP(2)	2.4
+-\fBsetreuid\fP(2)	1.0
+-\fBsetreuid32\fP(2)	2.4
+-\fBsetrlimit\fP(2)	1.0
+-\fBsetsid\fP(2)	1.0
 +T{
-+.BR shmat (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBshmctl\fP(2)	2.0	T{
++.BR setpriority (2)
++T}	1.0
 +T{
-+.BR shmctl (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBshmdt\fP(2)	2.0	T{
++.BR setregid (2)
++T}	1.0
 +T{
-+.BR shmdt (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBshmget\fP(2)	2.0	T{
++.BR setregid32 (2)
++T}	2.4
 +T{
-+.BR shmget (2)
-+T}	2.0	T{
- See notes on \fBipc\fP(2)
- T}
--\fBshutdown\fP(2)	2.0	T{
++.BR setresgid (2)
++T}	2.2
 +T{
-+.BR shutdown (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
- T}
- \fBsigaction\fP(2)	1.0
-@@ -731,21 +845,29 @@ .SS System call list
- \fBsigprocmask\fP(2)	1.0
- \fBsigreturn\fP(2)	1.0
- \fBsigsuspend\fP(2)	1.0
--\fBsocket\fP(2)	2.0	T{
++.BR setresgid32 (2)
++T}	2.4
 +T{
-+.BR socket (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
++.BR setresuid (2)
++T}	2.2
++T{
++.BR setresuid32 (2)
++T}	2.4
++T{
++.BR setreuid (2)
++T}	1.0
++T{
++.BR setreuid32 (2)
++T}	2.4
++T{
++.BR setrlimit (2)
++T}	1.0
++T{
++.BR setsid (2)
++T}	1.0
+ T{
+ .BR setsockopt (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
- \fBsocketcall\fP(2)	1.0
+-\fBsettimeofday\fP(2)	1.0
+-\fBsetuid\fP(2)	1.0
+-\fBsetuid32\fP(2)	2.4
+-\fBsetup\fP(2)	1.0	Removed in 2.2
+-\fBsetxattr\fP(2)	2.6; 2.4.18
+-\fBsgetmask\fP(2)	1.0
++T{
++.BR settimeofday (2)
++T}	1.0
++T{
++.BR setuid (2)
++T}	1.0
++T{
++.BR setuid32 (2)
++T}	2.4
++T{
++.BR setup (2)
++T}	1.0	Removed in 2.2
++T{
++.BR setxattr (2)
++T}	2.6; 2.4.18
++T{
++.BR sgetmask (2)
++T}	1.0
+ T{
+ .BR shmat (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR shmctl (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR shmdt (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR shmget (2)
+ T}	2.0	T{
+-See notes on \fBipc\fP(2)
++See notes on
++.BR ipc (2)
+ T}
+ T{
+ .BR shutdown (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
+-T}
+-\fBsigaction\fP(2)	1.0
+-\fBsigaltstack\fP(2)	2.2
+-\fBsignal\fP(2)	1.0
+-\fBsignalfd\fP(2)	2.6.22
+-\fBsignalfd4\fP(2)	2.6.27
+-\fBsigpending\fP(2)	1.0
+-\fBsigprocmask\fP(2)	1.0
+-\fBsigreturn\fP(2)	1.0
+-\fBsigsuspend\fP(2)	1.0
++See notes on
++.BR socketcall (2)
++T}
++T{
++.BR sigaction (2)
++T}	1.0
++T{
++.BR sigaltstack (2)
++T}	2.2
++T{
++.BR signal (2)
++T}	1.0
++T{
++.BR signalfd (2)
++T}	2.6.22
++T{
++.BR signalfd4 (2)
++T}	2.6.27
++T{
++.BR sigpending (2)
++T}	1.0
++T{
++.BR sigprocmask (2)
++T}	1.0
++T{
++.BR sigreturn (2)
++T}	1.0
++T{
++.BR sigsuspend (2)
++T}	1.0
+ T{
+ .BR socket (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
+ T}
+-\fBsocketcall\fP(2)	1.0
++T{
++.BR socketcall (2)
++T}	1.0
  .\" Implements BSD socket calls
--\fBsocketpair\fP(2)	2.0	T{
-+T{
-+.BR socketpair (2)
-+T}	2.0	T{
- See notes on \fBsocketcall\fP(2)
+ T{
+ .BR socketpair (2)
+ T}	2.0	T{
+-See notes on \fBsocketcall\fP(2)
++See notes on
++.BR socketcall (2)
  T}
  .\" 5a0015d62668e64c8b6e02e360fbbea121bfd5e6
- \fBspill\fP(2)	2.6.13	Xtensa only
- \fBsplice\fP(2)	2.6.17
--\fBspu_create\fP(2)	2.6.16	T{
+-\fBspill\fP(2)	2.6.13	Xtensa only
+-\fBsplice\fP(2)	2.6.17
 +T{
-+.BR spu_create (2)
-+T}	2.6.16	T{
++.BR spill (2)
++T}	2.6.13	Xtensa only
++T{
++.BR splice (2)
++T}	2.6.17
+ T{
+ .BR spu_create (2)
+ T}	2.6.16	T{
+@@ -870,13 +1580,27 @@ .SS System call list
+ T}	2.6.16	T{
  PowerPC/PowerPC64 only
  T}
--\fBspu_run\fP(2)	2.6.16	T{
+-\fBssetmask\fP(2)	1.0
+-\fBstat\fP(2)	1.0
+-\fBstat64\fP(2)	2.4
+-\fBstatfs\fP(2)	1.0
+-\fBstatfs64\fP(2)	2.6
+-\fBstatx\fP(2)	4.11
+-\fBstime\fP(2)	1.0
 +T{
-+.BR spu_run (2)
-+T}	2.6.16	T{
- PowerPC/PowerPC64 only
- T}
- \fBssetmask\fP(2)	1.0
-@@ -755,10 +877,14 @@ .SS System call list
- \fBstatfs64\fP(2)	2.6
- \fBstatx\fP(2)	4.11
- \fBstime\fP(2)	1.0
--\fBsubpage_prot\fP(2)	2.6.25	T{
++.BR ssetmask (2)
++T}	1.0
 +T{
-+.BR subpage_prot (2)
-+T}	2.6.25	T{
- PowerPC/PowerPC64 only
- T}
--\fBswapcontext\fP(2)	2.6.3	T{
++.BR stat (2)
++T}	1.0
 +T{
-+.BR swapcontext (2)
-+T}	2.6.3	T{
++.BR stat64 (2)
++T}	2.4
++T{
++.BR statfs (2)
++T}	1.0
++T{
++.BR statfs64 (2)
++T}	2.6
++T{
++.BR statx (2)
++T}	4.11
++T{
++.BR stime (2)
++T}	1.0
+ T{
+ .BR subpage_prot (2)
+ T}	2.6.25	T{
+@@ -888,89 +1612,201 @@ .SS System call list
  PowerPC/PowerPC64 only
  T}
  .\" 529d235a0e190ded1d21ccc80a73e625ebcad09b
-@@ -775,7 +901,9 @@ .SS System call list
- .\" \fBsys_debug_setcontext\fP(2)	???	PowerPC if CONFIG_PPC32
- \fBsyncfs\fP(2)	2.6.39
- \fBsys_debug_setcontext\fP(2)	2.6.11	PowerPC only
--\fBsyscall\fP(2)	1.0	T{
+-\fBswitch_endian\fP(2)	4.1	PowerPC64 only
+-\fBswapoff\fP(2)	1.0
+-\fBswapon\fP(2)	1.0
+-\fBsymlink\fP(2)	1.0
+-\fBsymlinkat\fP(2)	2.6.16
+-\fBsync\fP(2)	1.0
+-\fBsync_file_range\fP(2)	2.6.17
+-\fBsync_file_range2\fP(2)	2.6.22
 +T{
-+.BR syscall (2)
-+T}	1.0	T{
++.BR switch_endian (2)
++T}	4.1	PowerPC64 only
++T{
++.BR swapoff (2)
++T}	1.0
++T{
++.BR swapon (2)
++T}	1.0
++T{
++.BR symlink (2)
++T}	1.0
++T{
++.BR symlinkat (2)
++T}	2.6.16
++T{
++.BR sync (2)
++T}	1.0
++T{
++.BR sync_file_range (2)
++T}	2.6.17
++T{
++.BR sync_file_range2 (2)
++T}	2.6.22
+ .\" PowerPC, ARM, tile
+ .\" First appeared on ARM, as arm_sync_file_range(), but later renamed
+ .\" \fBsys_debug_setcontext\fP(2)	???	PowerPC if CONFIG_PPC32
+-\fBsyncfs\fP(2)	2.6.39
+-\fBsys_debug_setcontext\fP(2)	2.6.11	PowerPC only
++T{
++.BR syncfs (2)
++T}	2.6.39
++T{
++.BR sys_debug_setcontext (2)
++T}	2.6.11	PowerPC only
+ T{
+ .BR syscall (2)
+ T}	1.0	T{
  Still available on ARM OABI
  and MIPS O32 ABI
  T}
-@@ -828,7 +956,9 @@ .SS System call list
- .\" There's a man page for Solaris 5.11
- \fBvfork\fP(2)	2.2
- \fBvhangup\fP(2)	1.0
--\fBvm86old\fP(2)	1.0	T{
+-\fBsysfs\fP(2)	1.2
+-\fBsysinfo\fP(2)	1.0
+-\fBsyslog\fP(2)	1.0
 +T{
-+.BR vm86old (2)
-+T}	1.0	T{
++.BR sysfs (2)
++T}	1.2
++T{
++.BR sysinfo (2)
++T}	1.0
++T{
++.BR syslog (2)
++T}	1.0
+ .\" glibc interface is \fBklogctl\fP(3)
+-\fBsysmips\fP(2)	2.6.0	MIPS only
+-\fBtee\fP(2)	2.6.17
+-\fBtgkill\fP(2)	2.6
+-\fBtime\fP(2)	1.0
+-\fBtimer_create\fP(2)	2.6
+-\fBtimer_delete\fP(2)	2.6
+-\fBtimer_getoverrun\fP(2)	2.6
+-\fBtimer_gettime\fP(2)	2.6
+-\fBtimer_settime\fP(2)	2.6
++T{
++.BR sysmips (2)
++T}	2.6.0	MIPS only
++T{
++.BR tee (2)
++T}	2.6.17
++T{
++.BR tgkill (2)
++T}	2.6
++T{
++.BR time (2)
++T}	1.0
++T{
++.BR timer_create (2)
++T}	2.6
++T{
++.BR timer_delete (2)
++T}	2.6
++T{
++.BR timer_getoverrun (2)
++T}	2.6
++T{
++.BR timer_gettime (2)
++T}	2.6
++T{
++.BR timer_settime (2)
++T}	2.6
+ .\" .\" b215e283992899650c4271e7385c79e26fb9a88e
+ .\" .\" 4d672e7ac79b5ec5cdc90e450823441e20464691
+ .\" \fBtimerfd\fP(2)	2.6.22	T{
+ .\" Old timerfd interface,
+ .\" removed in 2.6.25
+ .\" T}
+-\fBtimerfd_create\fP(2)	2.6.25
+-\fBtimerfd_gettime\fP(2)	2.6.25
+-\fBtimerfd_settime\fP(2)	2.6.25
+-\fBtimes\fP(2)	1.0
+-\fBtkill\fP(2)	2.6; 2.4.22
+-\fBtruncate\fP(2)	1.0
+-\fBtruncate64\fP(2)	2.4
+-\fBugetrlimit\fP(2)	2.4
+-\fBumask\fP(2)	1.0
+-\fBumount\fP(2)	1.0
++T{
++.BR timerfd_create (2)
++T}	2.6.25
++T{
++.BR timerfd_gettime (2)
++T}	2.6.25
++T{
++.BR timerfd_settime (2)
++T}	2.6.25
++T{
++.BR times (2)
++T}	1.0
++T{
++.BR tkill (2)
++T}	2.6; 2.4.22
++T{
++.BR truncate (2)
++T}	1.0
++T{
++.BR truncate64 (2)
++T}	2.4
++T{
++.BR ugetrlimit (2)
++T}	2.4
++T{
++.BR umask (2)
++T}	1.0
++T{
++.BR umount (2)
++T}	1.0
+ .\" sys_oldumount() -- __NR_umount
+-\fBumount2\fP(2)	2.2
++T{
++.BR umount2 (2)
++T}	2.2
+ .\" sys_umount() -- __NR_umount2
+-\fBuname\fP(2)	1.0
+-\fBunlink\fP(2)	1.0
+-\fBunlinkat\fP(2)	2.6.16
+-\fBunshare\fP(2)	2.6.16
+-\fBuselib\fP(2)	1.0
+-\fBustat\fP(2)	1.0
+-\fBuserfaultfd\fP(2)	4.3
+-\fBusr26\fP(2)	2.4.8.1	ARM OABI only
+-\fBusr32\fP(2)	2.4.8.1	ARM OABI only
+-\fButime\fP(2)	1.0
+-\fButimensat\fP(2)	2.6.22
+-\fButimes\fP(2)	2.2
+-\fButrap_install\fP(2)	2.2	SPARC64 only
++T{
++.BR uname (2)
++T}	1.0
++T{
++.BR unlink (2)
++T}	1.0
++T{
++.BR unlinkat (2)
++T}	2.6.16
++T{
++.BR unshare (2)
++T}	2.6.16
++T{
++.BR uselib (2)
++T}	1.0
++T{
++.BR ustat (2)
++T}	1.0
++T{
++.BR userfaultfd (2)
++T}	4.3
++T{
++.BR usr26 (2)
++T}	2.4.8.1	ARM OABI only
++T{
++.BR usr32 (2)
++T}	2.4.8.1	ARM OABI only
++T{
++.BR utime (2)
++T}	1.0
++T{
++.BR utimensat (2)
++T}	2.6.22
++T{
++.BR utimes (2)
++T}	2.2
++T{
++.BR utrap_install (2)
++T}	2.2	SPARC64 only
+ .\" FIXME . document utrap_install()
+ .\" There's a man page for Solaris 5.11
+-\fBvfork\fP(2)	2.2
+-\fBvhangup\fP(2)	1.0
++T{
++.BR vfork (2)
++T}	2.2
++T{
++.BR vhangup (2)
++T}	1.0
+ T{
+ .BR vm86old (2)
+ T}	1.0	T{
  Was "vm86"; renamed in
  2.0.28/2.2
  T}
+-\fBvm86\fP(2)	2.0.28; 2.2
+-\fBvmsplice\fP(2)	2.6.17
+-\fBwait4\fP(2)	1.0
+-\fBwaitid\fP(2)	2.6.10
+-\fBwaitpid\fP(2)	1.0
+-\fBwrite\fP(2)	1.0
+-\fBwritev\fP(2)	2.0
++T{
++.BR vm86 (2)
++T}	2.0.28; 2.2
++T{
++.BR vmsplice (2)
++T}	2.6.17
++T{
++.BR wait4 (2)
++T}	1.0
++T{
++.BR waitid (2)
++T}	2.6.10
++T{
++.BR waitpid (2)
++T}	1.0
++T{
++.BR write (2)
++T}	1.0
++T{
++.BR writev (2)
++T}	2.0
+ .\" 5a0015d62668e64c8b6e02e360fbbea121bfd5e6
+-\fBxtensa\fP(2)	2.6.13	Xtensa only
++T{
++.BR xtensa (2)
++T}	2.6.13	Xtensa only
+ .TE
+ .P
+ On many platforms, including x86-32, socket calls are all multiplexed
 --=20
 2.30.2
 
-
---zqtw6wvg4qvufz5w
+--hkb4axrsdy33evup
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmalSjgACgkQ0Z6cfXEm
-bc7ArQ/9F0+/ffJgQNfkSmnB+YgYKPfEgyErKEJaRAmfWsDein3D0BgXWca81Kcg
-SPjOSGmVxriy7FQdnYL2yjMiAPU7EHHMl7S2kN6wxf2G4LahLerFQadNKv8JP1+0
-S3C1gRGpSsZLgZPPb7ube0yZ/l+eNByTH1r8JYIKYjh316uLmOPR6e7Qwc8qvTUQ
-Jx6ifVfj9h5EVmUj59osaobdwGiAMVT//zNjP2icnXscTJuzcJNkYlHhBK0YIH1L
-4tXJTE4v+zS66NJHadtc4s2zqR2D8i+zXi9FAn49ajqFik5xdTsXutnmDzlqSWl0
-rvNJuXEt1/dXWwHEp3VhjCzrayWljY4i52B7oi4GLS2uNlckCJjuLKvIrhhGpzmH
-rh9eO4YgCSE+krK3dAh9A4rt1XjBAZQBRFkriWwOTBpX4i53YKY1lakrffo+pTgq
-5Px8vLH1fVevCnC1hzzaWUQnTqjisPryz4+0nIMreGjxgcUNN+x51z9ZTIALdi89
-wX42F/bi68ngzRYkk6fYYNJkvo6DRWiFSHnXCiVhKf12089wexC7uDEPQVyQ2VSN
-vCqmZ1+KqE90crVTzzXL/KPAeGq/eeqp0zLIWCjb9FyWeZ2LumUXeYd5w/k8kbQ9
-1+wwipZI1muBGCzx+E49x3xZGzy9ul6w8tIUHSwDj8H2VS9Iz5c=
-=+Gsk
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmalSkIACgkQ0Z6cfXEm
+bc74Lw//beahaXrQ3esqb3iKsFHU1N7mUKOxmQemuae70v8rmncjctoMaPY/Sk30
+B3OUmfNeJPLvCkrLI5qvceNJesQRl92jaJpmCcWWn4QTM2KANz1Pi41uX3FUoiA+
+MzqRa2TmBK5Utujpwi2mPVk/vqD0mnzm7wauyYojeBpNZ/LT21BIDdOcJ1mQ8w6P
+O7oGk/IeLuIaPDcQrmZ0r64Ar+Apt2WcP6lCVRwldykRQ3oPoTmJtEBJWT5N79ij
+t3bNfXwY/ZyAOIHTj5KOTLa53QMYOpguQ2mIRQRBKaLyHvTcdBWLa0HcImAHIk7f
+iOFLo6wwLsisHjp1WxKtO1HM5RYaZ2ZSK2+oHA5r5W3Y+mPJABVIvHgf1fIgMpKw
+8eTpiywf3LMkn1OeFA+vSA/+4/4ADYKExfmT9qXex0+Ny6sYIJ9zDZ1OA3xa8U4Y
+M0uGLXW7M1Jjkbz4yjTklnyHTI/Zs3XBjVQUmWhbL061h0npxZekw5Jlk6wEY2KS
+v2+S3SWHxO8QTCtWOt6Z/hwgwoWwuj6QoqCuGvmTenu8Di/Q81oIzLa9toj8cnJD
+niWX+WIjNL33WNF7AgJ3XLAXrigbQWQyRux01J0hpo1XcMbqRb8leyUiwQmcooXq
+89Lm0TKGrhpDZmRqGy+BOz9QtUxZ7iRi1IIeq8GPOraRt0mSH54=
+=3Yv/
 -----END PGP SIGNATURE-----
 
---zqtw6wvg4qvufz5w--
+--hkb4axrsdy33evup--
 
