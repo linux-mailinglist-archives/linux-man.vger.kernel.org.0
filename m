@@ -1,54 +1,53 @@
-Return-Path: <linux-man+bounces-1555-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1556-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F17942C1B
-	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 12:39:46 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81699942C4F
+	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 12:47:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 20F322852BC
-	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 10:39:45 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id B8571B21BD2
+	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 10:47:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 866BF1AC427;
-	Wed, 31 Jul 2024 10:39:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1B30F1A8C18;
+	Wed, 31 Jul 2024 10:47:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alFEDCuz"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXxK/d5U"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBFE1A8C02;
-	Wed, 31 Jul 2024 10:39:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF5E190473
+	for <linux-man@vger.kernel.org>; Wed, 31 Jul 2024 10:47:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722422381; cv=none; b=CM+w8rXw6mzzcHKj33D7QO+ja7ENSeskFizOxV2eOOVJZywqfBDAjevYlJNzk/ywHi6flvfg2YPdJyMniYGZF3HsjoZ4pECm5GYEtlZlRkjs6gVBFWEIl5GI86zmD5RhxThEI92+iJ8eN6njaJvkZNIpKFaVPo8Wrypow+8Nju8=
+	t=1722422837; cv=none; b=ddBglBliB+vW/5hgopyUD0Ef8OppAibDuLJAPkT+2MQDzaXHQ0QiY4mbvrljnyrKlFWUM/FLB4Zl+tIjPpzYoqs513k+tOZZ91OyF0tUjsqTwlsu5xOU8te/11KOWHoWAYxlqUgQJS3ljur8/6zT9Fc8IzZPCbu74gbKqaDjWZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722422381; c=relaxed/simple;
-	bh=hmY49EYIkEU0IIjY/bJn1AptTT8L7M7DbX3tRtiCYWQ=;
+	s=arc-20240116; t=1722422837; c=relaxed/simple;
+	bh=DcC/D/1/1H+g7YwqrP5fLy0fS9vhN78LgkrCcYvMB+s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LN4V8sqP1L6GLY+idssxBSkyqYiylxuKbR9Pubo9ePVZaGw20BGQCCC8NTMDkdsYIT55QRVav21vM1OeFzBSRo5PL4V5ynu64xZCQHD3zoTZ2hSHWzvQEN8l/ZPNJo8oouDnptUwdibH4Bwv5gHvFUhRNZmQKhNtBTrH44WLS7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alFEDCuz; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C85C4AF0C;
-	Wed, 31 Jul 2024 10:39:39 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=RBuTnPsUtYNFl63ld8SAOVMG9NBFFeJLp6Y3F7witSej3Ydxb1TvdOAnSHxNVMEYuM+fgMqR7rIFRs1OYuVjwTUliUTEcSv9zAVXPKS4jQaykEpIFrVt5sAYLzyS0+idsL7TTl+L8TM4AQUKw0jBVLGo70768uOuefIu9ubgbQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXxK/d5U; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8F1C4AF09;
+	Wed, 31 Jul 2024 10:47:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722422380;
-	bh=hmY49EYIkEU0IIjY/bJn1AptTT8L7M7DbX3tRtiCYWQ=;
+	s=k20201202; t=1722422837;
+	bh=DcC/D/1/1H+g7YwqrP5fLy0fS9vhN78LgkrCcYvMB+s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=alFEDCuzMGme0gfI3Y0W+uW/hgZIGCfoB8j/R3gbrG3vgvMuOtOJfmYhZU08gBMGZ
-	 9zteapRfPG+WkE2oDnv7vA8OWIaSfJBorrEdS+biMTYxZH9vnzPrYB6y2/Y+7wGy5t
-	 0QU3OT3GZE70IFQyf9wtvibq+9aF81OOTW/nk0Xjdd+oyKj/tWwLAqk8UEzOipb0uo
-	 /aaCVxbdnmsmXvWBYy5vRq40xrtsSJhpK4beBvmSJg2wqoY9cZ+FbaLfe7tACvbIc3
-	 J7Vx05dQo/aQqLxg62/lpXyxbjJjC4PpeQbuq2VMPZaypv4++AmSAj9OlH/io/In53
-	 XfLkiGd++XJeg==
-Date: Wed, 31 Jul 2024 12:39:37 +0200
+	b=WXxK/d5U+io6eCjcDr+bgDqANT8Ba6HOTEwC6+JrlNBMV9nAcHMhzHw38m0tqfJxN
+	 2D7Iw0lJuXTPFci+UCap+VDyP0gdwzgmZtSQiB0ba9mApcRG77U/GBTi0FerXqRYqH
+	 +C/Ktg/xeAYAg7p6MBUHNNr7ZWNIdxHQqo7RJQrKfRVVl3V4peqTRqnZhWqwL/a8jc
+	 +/H52H4TYsJiKo5k3oojq0/OqaaQdeIqMprFbViAOOou866peN5jDxRTyWtBGNmtsy
+	 D9BXzOSKnOT+3OIXWPJNQBN40a2TV3ydi/A3oNzm5fQRKFEFoLX2JACPjzyZnas9gt
+	 qC0lNJ2bhIXeg==
+Date: Wed, 31 Jul 2024 12:47:14 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: i@andypan.me
-Cc: linux-man@vger.kernel.org, linux-api@vger.kernel.org
-Subject: Re: [PATCH v3] epoll.7: clarify the event distribution under
- edge-triggered mode
-Message-ID: <2yb4zrih5esl3qldowd34ojg7mjq3xqjmqvq5bb5y6ru4x7rv5@p6ahw4ztu5cf>
-References: <20240730-epoll-et-desc-v3-1-6aa81b1c400d@andypan.me>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/3] man/man2/syscalls.2: srcfix (1/3)
+Message-ID: <4qkfvng73y7imzy22xj6nkjxyzszzxkehunwpmanuzmen5kite@h2wka7pnijz4>
+References: <20240727192745.lt2oo34hw3limkls@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,146 +55,115 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="porat6pdyflkro4y"
+	protocol="application/pgp-signature"; boundary="2criuiobaob65q7s"
 Content-Disposition: inline
-In-Reply-To: <20240730-epoll-et-desc-v3-1-6aa81b1c400d@andypan.me>
+In-Reply-To: <20240727192745.lt2oo34hw3limkls@illithid>
 
 
---porat6pdyflkro4y
+--2criuiobaob65q7s
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: i@andypan.me
-Cc: linux-man@vger.kernel.org, linux-api@vger.kernel.org
-Subject: Re: [PATCH v3] epoll.7: clarify the event distribution under
- edge-triggered mode
-References: <20240730-epoll-et-desc-v3-1-6aa81b1c400d@andypan.me>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/3] man/man2/syscalls.2: srcfix (1/3)
+References: <20240727192745.lt2oo34hw3limkls@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20240730-epoll-et-desc-v3-1-6aa81b1c400d@andypan.me>
+In-Reply-To: <20240727192745.lt2oo34hw3limkls@illithid>
 
-Hi Andy,
+Hi Branden,
 
-On Tue, Jul 30, 2024 at 10:48:28AM GMT, Andy Pan via B4 Relay wrote:
-> From: Andy Pan <i@andypan.me>
+On Sat, Jul 27, 2024 at 02:27:45PM GMT, G. Branden Robinson wrote:
+> Migrate table entries from using font selection escape sequences to font
+> alternation macros to set man page cross references.
 >=20
-> For the moment, the edge-triggered epoll generates an event for each
-> receipt of a chunk of data, that is to say, epoll_wait() will return
-> and tell us a monitored file descriptor is ready whenever there is a
-> new activity on that FD since we were last informed about that FD.
-> This is not a real _edge_ implementation for epoll, but it's been
-> working this way for years and plenty of projects are relying on it
-> to eliminate the overhead of one system call of read(2) per wakeup event.
+> This change was automatically driven by the following sed(1) script.
 >=20
-> There are several renowned open-source projects relying on this feature
-> for notification function (with eventfd): register eventfd with EPOLLET
-> and avoid calling read(2) on the eventfd when there is wakeup event (even=
-tfd being written).
-> Examples: nginx [1], netty [2], tokio [3], libevent [4], ect. [5]
-> These projects are widely used in today's Internet infrastructures.
-> Thus, changing this behavior of epoll ET will fundamentally break them
-> and cause a significant negative impact.
-> Linux has changed it for pipe before [6], breaking some Android libraries,
-> which had got "reverted" somehow. [7] [8]
+> $ cat fix-syscall-table-1.sed
+> \# Rewrite man page cross references inside tbl(1) text blocks to use
+> \# man(7) macros instead of troff(1) font selection escape sequences.
+> /^\.\\"/b
+> /T{$/,/^T}/s/ \\fB\([a-z0-9_][a-z0-9_]*\)\\fP\(([0-9][a-z]*)\) /\
+> .BR \1 \2\
+> /
 >=20
-> Nevertheless, the paragraph in the manual pages describing this
-> characteristic of epoll ET seems ambiguous, I think a more explict
-> sentence should be used to clarify it. We're improving the notification
-> mechanism for libuv recently by exploiting this feature with eventfd,
-> which brings us a significant performance boost. [9]
->=20
-> Therefore, we (as well as the maintainers of nginx, netty, tokio, etc.)
-> would have a sense of security to build an enhanced notification function
-> based on this feature if there is a guarantee of retaining this implement=
-ation
-> of epoll ET for the backward compatibility in the man pages.
->=20
-> [1]: https://github.com/nginx/nginx/blob/efc6a217b92985a1ee211b6bb7337cd2=
-f62deb90/src/event/modules/ngx_epoll_module.c#L386-L457
-> [2]: https://github.com/netty/netty/pull/9192
-> [3]: https://github.com/tokio-rs/mio/blob/309daae21ecb1d46203a7dbc0cf4c80=
-310240cba/src/sys/unix/waker.rs#L111-L143
-> [4]: https://github.com/libevent/libevent/blob/525f5d0a14c9c103be750f2ca1=
-75328c25505ea4/event.c#L2597-L2614
-> [5]: https://github.com/libuv/libuv/pull/4400#issuecomment-2123798748
-> [6]: https://lkml.iu.edu/hypermail/linux/kernel/2010.1/04363.html
-> [7]: https://github.com/torvalds/linux/commit/3a34b13a88caeb2800ab44a4918=
-f230041b37dd9
-> [8]: https://github.com/torvalds/linux/commit/3b844826b6c6affa80755254da3=
-22b017358a2f4
-> [9]: https://github.com/libuv/libuv/pull/4400#issuecomment-2103232402
->=20
-> Signed-off-by: Andy Pan <i@andypan.me>
+> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 > ---
-> Changes in v3:
-> - Updated the git commit description
-> - Link to v2: https://lore.kernel.org/r/20240727-epoll-et-desc-v2-1-c99b2=
-ac66775@andypan.me
->=20
-> Changes in v2:
-> - Added the git commit description based on feedback
-> - Link to v1: https://lore.kernel.org/r/20240727-epoll-et-desc-v1-1-390ba=
-fc678b9@andypan.me
-> ---
->  man/man7/epoll.7 | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/man/man7/epoll.7 b/man/man7/epoll.7
-> index 951500131..361d9db99 100644
-> --- a/man/man7/epoll.7
-> +++ b/man/man7/epoll.7
-> @@ -172,6 +172,7 @@ .SS Level-triggered and edge-triggered
->  Since even with edge-triggered
->  .BR epoll ,
 
-This paragraph is not only about EPOLLET.
-
->  multiple events can be generated upon receipt of multiple chunks of data,
-> +that is, an event will be generated upon each receipt of a chunk of data,
-
-Is this strictly true in all modes?  The commit message seems to say
-that this is the behavior of EPOLLET, but this paragraph is not only
-about EPOLLET.  Is this correct here, or should it go somewhere else?
+I've applied this patch.  Thanks!
 
 Have a lovely day!
 Alex
 
->  the caller has the option to specify the
->  .B EPOLLONESHOT
->  flag, to tell
+>  man/man2/syscalls.2 | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
 >=20
-> ---
-> base-commit: cbc0a111e4dceea2037c51098de33e6bc8c16a5c
-> change-id: 20240727-epoll-et-desc-04ea9a590f3b
->=20
-> Best regards,
+> diff --git a/man/man2/syscalls.2 b/man/man2/syscalls.2
+> index 7a7d6d730..c8afd537b 100644
+> --- a/man/man2/syscalls.2
+> +++ b/man/man2/syscalls.2
+> @@ -187,7 +187,9 @@ .SS System call list
+>  \fBchdir\fP(2)	1.0
+>  \fBchmod\fP(2)	1.0
+>  \fBchown\fP(2)	2.2	T{
+> -See \fBchown\fP(2) for
+> +See
+> +.BR chown (2)
+> +for
+>  version details
+>  T}
+>  \fBchown32\fP(2)	2.4
+> @@ -398,7 +400,9 @@ .SS System call list
+>  \fBlandlock_create_ruleset\fP(2)	5.13
+>  \fBlandlock_restrict_self\fP(2)	5.13
+>  \fBlchown\fP(2)	1.0	T{
+> -See \fBchown\fP(2) for
+> +See
+> +.BR chown (2)
+> +for
+>  version details
+>  T}
+>  \fBlchown32\fP(2)	2.4
+> @@ -679,7 +683,9 @@ .SS System call list
+>  \fBsetns\fP(2)	3.0
+>  \fBsetpgid\fP(2)	1.0
+>  \fBsetpgrp\fP(2)	2.0	T{
+> -Alternative name for \fBsetpgid\fP(2) on Alpha
+> +Alternative name for
+> +.BR setpgid (2)
+> +on Alpha
+>  T}
+>  \fBsetpriority\fP(2)	1.0
+>  \fBsetregid\fP(2)	1.0
 > --=20
-> Andy Pan <i@andypan.me>
+> 2.30.2
 >=20
->=20
+
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---porat6pdyflkro4y
+--2criuiobaob65q7s
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaqFGMACgkQnowa+77/
-2zL4tA//dBMK8dx6Kp1ZPeRX3l4ZLP5zp+7keNRFAytyOn4FF3Nq57BgRb6Ll+IJ
-EAly8NlAYy5lpFM5V3XWdbgLeYFwFGP1uD6GqduvVdK4jtUMCh5q+7qCyQuMCyKV
-TlH7GDq9Oh62EMNvjYKaIHQIrtaS2YjjzizIEHFBRF945srlu9Oy6LztQIRjDiiT
-pTTrNxbaYOV0Q30DROpjO5YPDZq0V0QemnuNaSJH2ffLhOgysndEgbrUvek+QQ+4
-TaTtbI87u/a0ddEsimpTXuDOLckhJuXvBmLUlwmy7MDQxnS2j/7472QqqF1a71V5
-c5d9qzJsbv0gywNnnd/JVs36gVrgFBcvLar8YL+fhI+8EprTrTwNI28lQsJxCA44
-OwEnkotXfs5Eemoj4pHWhHZjP3hltUxt1/qXE3FQD7H83KvnAjm0KMcOj/wwJ31R
-OWcWb1QraTZeySRaKs1zrtam4n3TFnReQOdgokkgb4ErdIjYdgeQ7QS907H99kJF
-0cnTB3PdcjjNF5aMu3Ja6ZNHbPcwR1quLiprr0kETDHpzdmPJDJlxaCl/aEBMiw3
-n37OQnPo06/XSmKjnO5mkiyY0fQHDxeR+3LS4y6jwHU/PrfOmklGOr/eH2wT92/i
-9ZMLE3dI0vNHwiVb9keRS2AIvTdlagM7P57EDl3X1DWmkSPYbyE=
-=Q1K0
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaqFjIACgkQnowa+77/
+2zI44g/8DpHhttN/O8y9KMsJjT58+ceBbHwPl2BFL5CcUm1AnI2G4ssGyrp2Fmkm
+uyJGzHVa22PSpf9JfKvy9v9gobWrEpbJbqlwqCwgIS36LaD+QewJw1ogDaxvQbY1
+jE3X5LLW/uZ8YwTyqJwWfqe/DJ7Z3Xtncy/nWNEWdO9cj1yQIPEenFDtKuurH/Ib
+Jp8tFLbEJ660zDupwOCG370A/dfM8bOpgEXcMTvD0/bm7aiZkuDi9YcHty8uy9Gj
+NufTdmjAdiAMg6Cew4NHF84gzfw6rNFJHid9t8D8Ic5JNnynsh2J5Itf7V+qZSBb
+ZfiqowvF6aYzej54uH9AOFsIRq+RdC8hGP6KK8CqpD2jimM8MogcgOWGL07LBrab
+kT/y1oZkb22KjDybAp1KkEe76vMhmtknEL3dCV3Tc6zwO+atpzK7/sFzjvLTzoq2
+/BFUoiZmM/VoLJ8s7QoFYmYlK1fuecBQJea5fJkSMOGWLQeuy0HXxKMcQh09bdRE
+l7cLmjtDSw7vG+j1lfG/6aNWr2Awu0gQs4SPile2aL0qEkJCIJRFzD4rSYSR/Apa
+sj7yn89LynSmrbohjcVANpFYpEChVaCdkYQMUmY1Xx8R719P258M1yKVsl7SPHQ+
+jR7u2mXDbd3NLBFFvDSLQX4145dlT3czSh9CEBoMyT74qaojzyI=
+=LdBh
 -----END PGP SIGNATURE-----
 
---porat6pdyflkro4y--
+--2criuiobaob65q7s--
 
