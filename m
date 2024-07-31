@@ -1,165 +1,161 @@
-Return-Path: <linux-man+bounces-1565-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1566-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7294E942DA0
-	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 13:58:30 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F6B94330B
+	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 17:21:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id F3543B22A5E
-	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 11:58:27 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id BCD5D1F2A30A
+	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2024 15:21:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF4D31AD9F3;
-	Wed, 31 Jul 2024 11:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5356B175AD;
+	Wed, 31 Jul 2024 15:17:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vL/5/I89"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXaFjEVV"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904641AC428
-	for <linux-man@vger.kernel.org>; Wed, 31 Jul 2024 11:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE4A17BA3;
+	Wed, 31 Jul 2024 15:17:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722427102; cv=none; b=M7MIg1+Hh68rmnPFAOMrOQOsnOBNC7Rk5GDDDsO1zPmBVPMMIrxfnteLNruYdbH7ryRVv+2Qi1o849qaGEV3W6cBdxvZCbr5F5wxUslbIBCX0BwjDFET0bLnGPKnE77i+YXYc6wYdGm5xabnG2s5wEFl/jKp4/ATPVMNeK/Q9qA=
+	t=1722439069; cv=none; b=M8X1faMABO6nUdITkvd8ztP+M2ctiCKuNGDZwyBXl0KtDXcZhf96E/RboofTvvBB0kB3JsPqENFL7poNMDw9oGtugMKHemuikq7n73CvA+CSsBD1Odwg3duvV+PZ5m2ZEujCeOZznnT1g+/CaU95KZCsfYc8wxTPuM591+JOlrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722427102; c=relaxed/simple;
-	bh=9hw29dfFfQbWb4jGv82BevvLfKu9qnkTh86rVtAvO3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bGp9WorOo8FHVC7P2lxVvlh2G3IFIZ5vG4OxfVj0fDkUln17Imaov0Jb5D8McivtEXsj+yJirjfm1lQOkrzF0xo7e2Gm4m12ZHwGXmbbYD0VaIONrYUOgmVb/rWYLRo/33SwOCF08xtnMLzubN8l2Wq9kHYNmZ7Il35it7WfKRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vL/5/I89; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7B9C116B1;
-	Wed, 31 Jul 2024 11:58:21 +0000 (UTC)
+	s=arc-20240116; t=1722439069; c=relaxed/simple;
+	bh=EEwIrVKjjU170csMrkgAB/jxA+j558inEvkmk+4+NUE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=k2zRCaCsBW242oB5Vhqz0jsoJkdo7pPzxxMbOzLEFZsLc2PxCAAvcqymP22mB6T7aEFbNxBYCoLKlZzcaznvsfG9SNDYFrFkUs+uLy/8KK1CdTrWlOtpJGledXeJKIOonifyKbhnN+pfnCuulEbVw3iQtfBTqfKjWjPbhp5GskI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXaFjEVV; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8AA98C116B1;
+	Wed, 31 Jul 2024 15:17:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722427102;
-	bh=9hw29dfFfQbWb4jGv82BevvLfKu9qnkTh86rVtAvO3o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vL/5/I89w0BaCfGu/hvyIXU5srPCdyB5o/snHlC72NurUNVuE2N71nPVUIUfT47ho
-	 KHyhQW3+UQbhllforqeyeWZPmUF62DRUrEzy1yu4nvopgHSi/WV2TdYagoJRZVcf8D
-	 v+xhQFTUKjCjitVnjhUGXrOtwqnfms7hNKc9WKNGCj3G3SUJwdLoT2UoodH8El0ybo
-	 GMBfXXHBpcBgiisBRmNwCAw5DcqhDUJghjIA2BqcgtDWXrodj2f3TyVGlJJbnWcxL3
-	 DTnGuGBXkq+VykEPizgoqR79k+nNGauiXWpPd+eRGe7AXUTgNgGesk4lNVUWjHB6ZW
-	 cT8MdljcwN7KA==
-Date: Wed, 31 Jul 2024 13:58:19 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] landlock.7: Document Landlock ABI version 5
- (IOCTL)
-Message-ID: <je4a6nlaizc2556ul422wro3zs4gwyql6qfw6gberitna3t3m5@z5xlxcun6j2y>
-References: <20240723101917.90918-1-gnoack@google.com>
- <20240723101917.90918-3-gnoack@google.com>
- <lejbnx6uijbneira3l7wxvheurflymuzbxzpeoz7q6hxt6b7bj@7yrhpwxyccqy>
- <ZqoixhC_jvuiK0m4@google.com>
+	s=k20201202; t=1722439068;
+	bh=EEwIrVKjjU170csMrkgAB/jxA+j558inEvkmk+4+NUE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=FXaFjEVVySGOZ3+xdetRBjgZSuhkLsPrQCWmC7aA4nu9mFmAgHAjdONnh4qBbLr8K
+	 ytI2SMz/GNHVLHcRY7KCwiPRxXajmWMT5iWFEcPi8/O8ScE+XjsqBnPR6bOyKC2Cus
+	 JZ41cTXiMB5EMykQkV5MQ+q7/huKaaqgtKxaLS9Rxx7Yu9SSxw3rWdh+Tip7U214Cu
+	 RYH5nAsCuQhGb4eh7xXq9W8Kq/Wp+uNbQR/hwPIVtClfGH0+vQ3SbmvETgbUKFVAT9
+	 kE8x7700nXLK/sUHk36d21jrn9jQScjn1MaflbeD0igplV+ww3hHH8GkZWTYh2nCMf
+	 Fy8LKXo7jooNg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FC76C3DA64;
+	Wed, 31 Jul 2024 15:17:47 +0000 (UTC)
+From: Andy Pan via B4 Relay <devnull+i.andypan.me@kernel.org>
+Date: Wed, 31 Jul 2024 15:17:31 +0000
+Subject: [PATCH v4] epoll.7: clarify the event distribution under
+ edge-triggered mode
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6yro6vxhiclozbcn"
-Content-Disposition: inline
-In-Reply-To: <ZqoixhC_jvuiK0m4@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240731-epoll-et-desc-v4-1-7eb819bdde0d@andypan.me>
+X-B4-Tracking: v=1; b=H4sIAIpVqmYC/33MSw6CMBSF4a2Qjq3pC0oduQ/j4La9SBMEQgmRE
+ PZuYeQjOjwn+f6FRBwCRnLKFjLgFGLo2jTUISOuhvaGNPi0iWBCMS00xb5rGooj9RgdZQrBQG5
+ YJS1Jph+wCo+9d7mmXYc4dsO85ye+vb9KE6ecSsMsVK7QpTVnaP3cQ3u8I9lSk/jLReLOGCvAF
+ YXW+ReXL1yyTy4TLwBKbrlTjPk3vq7rEwW7QXIpAQAA
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+ "mtk.manpages" <mtk.manpages@gmail.com>, Andy Pan <panjf2000@gmail.com>, 
+ Andy Pan <i@andypan.me>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1722439066; l=3951;
+ i=i@andypan.me; s=20240727; h=from:subject:message-id;
+ bh=cFFLz7HRfvtxuzSXKqH96ioljLSowE+zdO5R+VVbRbs=;
+ b=8dIKNl9Fz+j8+YB1kZkT6UtxXm1uS0nuPWtxb2L8I8+EGaK9IHtlmCRVzjV6oLGt4eU/z05dc
+ zAUoBlUsApCBk4+LapDqLZhPiGgpotz5GanxzRL5fx119jYfJhp7FBy
+X-Developer-Key: i=i@andypan.me; a=ed25519;
+ pk=ZLGY5dzAGPy8bpSKbl9Jfyp/Ud0eac0BY5cKedQXMcw=
+X-Endpoint-Received: by B4 Relay for i@andypan.me/20240727 with auth_id=190
+X-Original-From: Andy Pan <i@andypan.me>
+Reply-To: i@andypan.me
+
+From: Andy Pan <i@andypan.me>
+
+For the moment, the edge-triggered epoll generates an event for each
+receipt of a chunk of data, that is to say, epoll_wait() will return
+and tell us a monitored file descriptor is ready whenever there is a
+new activity on that FD since we were last informed about that FD.
+This is not a real _edge_ implementation for epoll, but it's been
+working this way for years and plenty of projects are relying on it
+to eliminate the overhead of one system call of read(2) per wakeup event.
+
+There are several renowned open-source projects relying on this feature
+for notification function (with eventfd): register eventfd with EPOLLET
+and avoid calling read(2) on the eventfd when there is wakeup event (eventfd being written).
+Examples: nginx [1], netty [2], tokio [3], libevent [4], ect. [5]
+These projects are widely used in today's Internet infrastructures.
+Thus, changing this behavior of epoll ET will fundamentally break them
+and cause a significant negative impact.
+Linux has changed it for pipe before [6], breaking some Android libraries,
+which had got "reverted" somehow. [7] [8]
+
+Nevertheless, the paragraph in the manual pages describing this
+characteristic of epoll ET seems ambiguous, I think a more explict
+sentence should be used to clarify it. We're improving the notification
+mechanism for libuv recently by exploiting this feature with eventfd,
+which brings us a significant performance boost. [9]
+
+Therefore, we (as well as the maintainers of nginx, netty, tokio, etc.)
+would have a sense of security to build an enhanced notification function
+based on this feature if there is a guarantee of retaining this implementation
+of epoll ET for the backward compatibility in the man pages.
+
+[1]: https://github.com/nginx/nginx/blob/efc6a217b92985a1ee211b6bb7337cd2f62deb90/src/event/modules/ngx_epoll_module.c#L386-L457
+[2]: https://github.com/netty/netty/pull/9192
+[3]: https://github.com/tokio-rs/mio/blob/309daae21ecb1d46203a7dbc0cf4c80310240cba/src/sys/unix/waker.rs#L111-L143
+[4]: https://github.com/libevent/libevent/blob/525f5d0a14c9c103be750f2ca175328c25505ea4/event.c#L2597-L2614
+[5]: https://github.com/libuv/libuv/pull/4400#issuecomment-2123798748
+[6]: https://lkml.iu.edu/hypermail/linux/kernel/2010.1/04363.html
+[7]: https://github.com/torvalds/linux/commit/3a34b13a88caeb2800ab44a4918f230041b37dd9
+[8]: https://github.com/torvalds/linux/commit/3b844826b6c6affa80755254da322b017358a2f4
+[9]: https://github.com/libuv/libuv/pull/4400#issuecomment-2103232402
+
+Signed-off-by: Andy Pan <i@andypan.me>
+---
+Changes in v4:
+- Move the added sentence elsewhere to make more sense
+- Link to v3: https://lore.kernel.org/r/20240730-epoll-et-desc-v3-1-6aa81b1c400d@andypan.me
+
+Changes in v3:
+- Updated the git commit description
+- Link to v2: https://lore.kernel.org/r/20240727-epoll-et-desc-v2-1-c99b2ac66775@andypan.me
+
+Changes in v2:
+- Added the git commit description based on feedback
+- Link to v1: https://lore.kernel.org/r/20240727-epoll-et-desc-v1-1-390bafc678b9@andypan.me
+---
+ man/man7/epoll.7 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/man/man7/epoll.7 b/man/man7/epoll.7
+index 951500131..a7235971d 100644
+--- a/man/man7/epoll.7
++++ b/man/man7/epoll.7
+@@ -121,7 +121,8 @@ .SS Level-triggered and edge-triggered
+ meanwhile the remote peer might be expecting a response based on the
+ data it already sent.
+ The reason for this is that edge-triggered mode
+-delivers events only when changes occur on the monitored file descriptor.
++delivers events only when changes occur on the monitored file descriptor,
++that is, an event will only be generated upon each receipt of a chunk of data.
+ So, in step
+ .B 5
+ the caller might end up waiting for some data that is already present inside
+
+---
+base-commit: cbc0a111e4dceea2037c51098de33e6bc8c16a5c
+change-id: 20240727-epoll-et-desc-04ea9a590f3b
+
+Best regards,
+-- 
+Andy Pan <i@andypan.me>
 
 
---6yro6vxhiclozbcn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] landlock.7: Document Landlock ABI version 5
- (IOCTL)
-References: <20240723101917.90918-1-gnoack@google.com>
- <20240723101917.90918-3-gnoack@google.com>
- <lejbnx6uijbneira3l7wxvheurflymuzbxzpeoz7q6hxt6b7bj@7yrhpwxyccqy>
- <ZqoixhC_jvuiK0m4@google.com>
-MIME-Version: 1.0
-In-Reply-To: <ZqoixhC_jvuiK0m4@google.com>
-
-Hi G=C3=BCnther!
-
-On Wed, Jul 31, 2024 at 01:40:54PM GMT, G=C3=BCnther Noack wrote:
-> Hello Alejandro!
->=20
-> On Wed, Jul 31, 2024 at 12:58:51PM +0200, Alejandro Colomar wrote:
-> > On Tue, Jul 23, 2024 at 10:19:17AM GMT, G=C3=BCnther Noack wrote:
-> > > Landlock ABI 5 restricts ioctl(2) on device files.
-> > >=20
-> > > Closes: <https://github.com/landlock-lsm/linux/issues/39>
-> > > Reviewed-by: Micka=C3=ABl Sala=C3=BCn <mic@digikod.net>
-> > > Signed-off-by: G=C3=BCnther Noack <gnoack@google.com>
-> > > ---
-> >=20
-> > I've applied both patches; thanks!  For the moment, they're here:
-> > <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git=
-/log/?h=3Dcontrib>
->=20
-> Ah, thanks, I did not realize you had a separate cgit running there.
-> These patches look good. =F0=9F=91=8D
-
-Yup; I use it both as a staging area, and as a backup of patches to
-several projects.  :)
-
-> > Did you not add a CC tag for Konstantin on purpose on this patch, or did
-> > you forget?  Should I add it?
->=20
-> It's fine as is.
-
-Thanks.
-
->=20
-> I CC'd Konstantin on the first patch, because he authored the networking
-> features, and their kernel documentation, which are being turned into man=
- pages
-> there.  He was not involved in the IOCTL feature, so on that patch he is =
-not
-> CC'd (but can happily comment, if interested).
->=20
-> Konstantin: I would still appreciate if you could have a look and sign-of=
-f on
-> the networking documentation patch as well, since you are the original au=
-thor of
-> much of that documentation on the kernel side.
->=20
-
-I'll leave it for a few more days there, to allow Konstantin to review
-it; I'll push to master in a week or so.
-
-Cheers,
-Alex
-
-> Thanks,
-> =E2=80=94G=C3=BCnther
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---6yro6vxhiclozbcn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaqJtoACgkQnowa+77/
-2zL6txAAmWxLc9OpfP35QzEElB7DiPizL8RZXlF+uXJ+6nXaPDxXBWZMAIZ4MHUQ
-ymhS6eiHrq0726GhLSQvyMR3JC8CLSHJr/3E42/G75Ipr5Fntsl8lO9yHUGz0Qip
-RsUJM0xnMiqrOOUWXbTzaE1hhcSxkEkduOaDcAtaRTdevncQOzYq8n/THLpzRzz7
-qR4Dp62HC9nTKsbl08I1Tuax0YVPSqtNRi5/Kqvkovydp2i0HGvr1PyHljrFJvck
-mi+2WkPZ4CZdMj2idaY+WOy57v43tuOoikgQklUbZWBWDoPx7xTr+4247MdJGry2
-qOXhy+hQ9xxG7igXh/DnYIAPoNGf5goLtcE6eV164O3cy1sBBRkDCRXEKX4an4Uq
-OdmGKYBuB7TU4TAiTjThql0qdyQG0JesBUAkFLQO6rSNzmvPqypegspThvA6UUN5
-meVpOoQgNCBIsVN//0UztlYCabYTaTda0PJZEkQlWiUsqoNwOjv+a/uvEMWsBDDW
-4thl5Wo+LnAssucLm9J8ilqUUbC5kTJ8D0xSHEHPV/RvjOMtvozzdSnWXgAswRoI
-/TsDov+xJQ/5UUL1GRfRxPnbrY/iH8DcUBB1dvBS4mv61GBM1ODjjdl7OyVe9WyC
-nx47NpsHpzlscRCmCs7X/q1GuVtg3r8GqWkDZDfTlAK5X9nzzEU=
-=MUR/
------END PGP SIGNATURE-----
-
---6yro6vxhiclozbcn--
 
