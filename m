@@ -1,96 +1,157 @@
-Return-Path: <linux-man+bounces-1588-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1589-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F4E294B13E
-	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2024 22:27:45 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B0D94B201
+	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2024 23:20:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5CBFC1C219E6
-	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2024 20:27:44 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1C1631F231AC
+	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2024 21:20:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73E9F145A1D;
-	Wed,  7 Aug 2024 20:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A213A149DFF;
+	Wed,  7 Aug 2024 21:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tdJJ0Pim"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F21113DDC0;
-	Wed,  7 Aug 2024 20:27:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616A7149DFA
+	for <linux-man@vger.kernel.org>; Wed,  7 Aug 2024 21:20:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723062459; cv=none; b=DWZcZh3OISmh3SMblu+tNnWBF+5CjpxJovPvyEtp2u7qZoy7Lcb9HTH0UE7l/xcupGFrFYsrWRWM0axszmZNPoKeh3TfRAbOfWCIyDtYYT0g225MfUbOY+YfyumqkHi/qhk0lFX59ItNaYweZr8/OcEqW/sHYlRIIDHykZRthu0=
+	t=1723065600; cv=none; b=u3LAsf6waQtD07XdJPW/RV3eqiIyRLSBzV8sqEd915isncrLrUJKre+FXN/OGjbzsyHEWywG1YVFdk3RQzta0A3Wf/H5y8pEjIu8rYJJI81GFEPzC/VV2iE2zZTijdyxMTdJQxEgnHkDlx9le2kax/Jt+ZEEXM+BfDPQ8p5O1Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723062459; c=relaxed/simple;
-	bh=kWzeeeEWflSkWrZ7uE+UJrYood+eEW8LK3yF5WzZ8p8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y7l2JDCJQ4ugoCnOGnqnwYbvXQQ7/npnMinubp00RZ63EDKdGvDkt/dx0xL11azQwyrz9OY9Sve5UGOO0CV9MQ95a3XROv/CK/QLr7xrKRFu1zxY5MI6xhIEXT2QSGfK6HSNGypkWmR1WwOv9oC+daeoTB6dLF/jYzuj7oWxAh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505C7C32781;
-	Wed,  7 Aug 2024 20:27:36 +0000 (UTC)
-Date: Wed, 7 Aug 2024 16:27:34 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
- <andrii@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org,
- linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, Song Liu
- <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, John Fastabend
- <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, Thomas
- Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, Ingo
- Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, "Edgecombe,
- Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
-Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
-Message-ID: <20240807162734.100d3b55@gandalf.local.home>
-In-Reply-To: <3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
-References: <20240611112158.40795-1-jolsa@kernel.org>
-	<20240611112158.40795-10-jolsa@kernel.org>
-	<20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
-	<3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1723065600; c=relaxed/simple;
+	bh=dyBp/O4DKB+1ZXv8mLdFlxGn441Bi2O1oFj8DU+bggQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Txwmrw9gq5fkMXpyIyPqxFguccX4Uzq+0e1SbCNIfhG7Cz98Fj1QFna8mg7KBwyoAKd+lPRuBuVCLqo4TIVAyvxmO3Or3MgMCgGBVFePe7nduXFi/oTOTq9kLF3kc9mB/8i6BoTIk8nJwD2pDfBUQghNtMaw2L0Z2rYOWcepc/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tdJJ0Pim; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5738C32781;
+	Wed,  7 Aug 2024 21:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723065599;
+	bh=dyBp/O4DKB+1ZXv8mLdFlxGn441Bi2O1oFj8DU+bggQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tdJJ0PimbWl7wTUl8Cr19YKRwTdfgMQ5D/98DE0Gp6DJFABkphwyNa+NWn2eSym14
+	 TkALr5ll6EwTvWyWl0VpSMtmJ2Y0FiKQbmaD/4nMEftoLilKAURiAeStIFLnU6UCj4
+	 /wndHwKqLl6jfBgSWChs57ErBurT7EHnAWOZFgUU6prOSz6h/TibgBta+qkG3rQBuB
+	 XS6BPzmxuUhGckQUG8q/SetjMXie4NeITK50ABDgMhjOl35aEycU0NsOy/GSklXDfD
+	 dHlW9o68bQsMhs31rtdHV56h+lLY6iY+8SxNzmw011XFLCCT1plkPitvyq0OagtfJ4
+	 7aqrbWprpX/8A==
+Date: Wed, 7 Aug 2024 23:19:56 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Vincent Lefevre <vincent@vinc17.net>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, 
+	Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] nextup.3: minor improvements
+Message-ID: <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
+References: <20240807105617.GH3221@qaa.vinc17.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Tue, 11 Jun 2024 16:49:24 +0200
-Alejandro Colomar <alx@kernel.org> wrote:
-
-> Hi,
-> 
-> On Tue, Jun 11, 2024 at 11:30:22PM GMT, Masami Hiramatsu wrote:
-> > On Tue, 11 Jun 2024 13:21:58 +0200
-> > Jiri Olsa <jolsa@kernel.org> wrote:
-> >   
-> > > Adding man page for new uretprobe syscall.
-> > > 
-> > > Acked-by: Andrii Nakryiko <andrii@kernel.org>
-> > > Reviewed-by: Alejandro Colomar <alx@kernel.org>
-> > > Signed-off-by: Jiri Olsa <jolsa@kernel.org>  
-> > 
-> > This looks good to me.
-> > 
-> > Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > 
-> > And this needs to be picked by linux-man@ project.  
-> 
-> Yup; please ping me when the rest is merged and I should pick it.
-
-Just in case nobody pinged you, the rest of the series is now in Linus's
-tree.
-
--- Steve
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t3oggq3vrwj7n2om"
+Content-Disposition: inline
+In-Reply-To: <20240807105617.GH3221@qaa.vinc17.org>
 
 
-> 
-> Have a lovely day!
-> Alex
-> 
+--t3oggq3vrwj7n2om
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Vincent Lefevre <vincent@vinc17.net>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, 
+	Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] nextup.3: minor improvements
+References: <20240807105617.GH3221@qaa.vinc17.org>
+MIME-Version: 1.0
+In-Reply-To: <20240807105617.GH3221@qaa.vinc17.org>
+
+Hi Vincent,
+
+On Wed, Aug 07, 2024 at 12:56:17PM GMT, Vincent Lefevre wrote:
+> The current "If x is 0" is a bit misleading because "is" is not the
+> equality test, while this condition should apply to both -0 and 0.
+> Replace this condition by "If x is equal to 0".
+
+How does 'is' differ semantically from 'is equal to' in this case?
+
+I don't think 'is equal to' does anything different to mean also -0.
+
+>=20
+> Replace "Nan" by "NaN" (typography used everywhere else).
+
+Ok.
+
+>=20
+> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
+> ---
+>  man/man3/nextup.3 | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/man/man3/nextup.3 b/man/man3/nextup.3
+> index 285c2bcda..02fdb9bae 100644
+> --- a/man/man3/nextup.3
+> +++ b/man/man3/nextup.3
+> @@ -38,8 +38,8 @@ is the smallest representable negative number in the co=
+rresponding type,
+>  these functions return \-0.
+>  If
+>  .I x
+> -is 0, the returned value is the smallest representable positive number
+> -of the corresponding type.
+> +is equal to 0, the returned value is the smallest representable positive
+> +number of the corresponding type.
+
+Please keep semantic newlines.  See man-pages(7).
+
+Have a lovely night!
+Alex
+
+>  .P
+>  If
+>  .I x
+> @@ -52,7 +52,7 @@ of the corresponding type.
+>  .P
+>  If
+>  .I x
+> -is Nan,
+> +is NaN,
+>  the returned value is NaN.
+>  .P
+>  The value returned by
+> --=20
+> 2.45.2
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--t3oggq3vrwj7n2om
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaz5PwACgkQnowa+77/
+2zLXlA/+NpJFCMYmKNfQYG3c0CWfKF/UVZYicsn0aPL+O+SrkI3uldPJS3CKnywM
+QNlKr2UC8xTrzkQoLatOaOG+LH37hw82oGkpeVXsYFmr/3hBJhDMhjWQz3qqmdHs
+yOUMDrPb/Xw5e5N7eD5ZuHoNejJc1Sj11ZuDEuuKZqy/c8axusK3aShQTHYVonBt
+8m5m85J8mXsq4SG11IBJFD8uTvFWJHb3QxNX5v6QdDXVXbQzVCHu14UFyKKEGisP
+L67G4bCfsQqN79nWSSnv8YRLYF1V6ppc+94HVRe1PauCuQ3BBNLczrNSAUiFTeoZ
+CgroUxJSOTX5/hq/FyX26Bqtyxx+8bDnvmDJjLDbobqEHkl+CtHzsvVxtqOODU3m
+fGvWYGqe2xdNvwi6j67fFQcEIbc5tknjHJRze666CcqU9rx/5RCCW+CpDtNxfrbX
+PQXbjnBJq6emyigI5xr7jVD75bDnluTwY9OwNk5KY4jewPl4c/Z/HUIfmZaqeCx7
+EQp0XgOgtD35nY228mCfiMsIBN/SdCkgIpMCsjxdogIoYOnT7+8OzoOLXt23vmr6
+wAGCND0iX9NUG0RExuICxPJXEltM4XgrT0LnRwiBTA/FatEOBpSJR3kEhKMER3jI
+UjXh0Rxf9ZfJo5UK+I2DcyfKzeYOfdoKxG4l3b4MM68uHvkRLOs=
+=5eza
+-----END PGP SIGNATURE-----
+
+--t3oggq3vrwj7n2om--
 
