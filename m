@@ -1,157 +1,132 @@
-Return-Path: <linux-man+bounces-1589-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1590-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B0D94B201
-	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2024 23:20:30 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4732694B53C
+	for <lists+linux-man@lfdr.de>; Thu,  8 Aug 2024 04:56:48 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1C1631F231AC
-	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2024 21:20:30 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CDDFC28478A
+	for <lists+linux-man@lfdr.de>; Thu,  8 Aug 2024 02:56:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A213A149DFF;
-	Wed,  7 Aug 2024 21:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tdJJ0Pim"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5DA11A291;
+	Thu,  8 Aug 2024 02:56:40 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616A7149DFA
-	for <linux-man@vger.kernel.org>; Wed,  7 Aug 2024 21:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0600A433C1
+	for <linux-man@vger.kernel.org>; Thu,  8 Aug 2024 02:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723065600; cv=none; b=u3LAsf6waQtD07XdJPW/RV3eqiIyRLSBzV8sqEd915isncrLrUJKre+FXN/OGjbzsyHEWywG1YVFdk3RQzta0A3Wf/H5y8pEjIu8rYJJI81GFEPzC/VV2iE2zZTijdyxMTdJQxEgnHkDlx9le2kax/Jt+ZEEXM+BfDPQ8p5O1Nc=
+	t=1723085800; cv=none; b=jluH4Wi/JL7to+UadVXZjP5iUYhLQl8tY6M2D8v4o3yX+vS2w9T0uqaaQQXPucfkyUCErue855jU2u/n5geAnJ9Ly7TdMQb5/Q5Qq2pxnVybmrOOivFBuGgK/bhB00x3w9KVnN7al5ncPU1LYurueK0S1hS+QPeTd2GcvyL2jSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723065600; c=relaxed/simple;
-	bh=dyBp/O4DKB+1ZXv8mLdFlxGn441Bi2O1oFj8DU+bggQ=;
+	s=arc-20240116; t=1723085800; c=relaxed/simple;
+	bh=1TCMtepEtx/rYY09+zvAHIy3ThYiAzwj8mn+fv1yPPM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Txwmrw9gq5fkMXpyIyPqxFguccX4Uzq+0e1SbCNIfhG7Cz98Fj1QFna8mg7KBwyoAKd+lPRuBuVCLqo4TIVAyvxmO3Or3MgMCgGBVFePe7nduXFi/oTOTq9kLF3kc9mB/8i6BoTIk8nJwD2pDfBUQghNtMaw2L0Z2rYOWcepc/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tdJJ0Pim; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5738C32781;
-	Wed,  7 Aug 2024 21:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723065599;
-	bh=dyBp/O4DKB+1ZXv8mLdFlxGn441Bi2O1oFj8DU+bggQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tdJJ0PimbWl7wTUl8Cr19YKRwTdfgMQ5D/98DE0Gp6DJFABkphwyNa+NWn2eSym14
-	 TkALr5ll6EwTvWyWl0VpSMtmJ2Y0FiKQbmaD/4nMEftoLilKAURiAeStIFLnU6UCj4
-	 /wndHwKqLl6jfBgSWChs57ErBurT7EHnAWOZFgUU6prOSz6h/TibgBta+qkG3rQBuB
-	 XS6BPzmxuUhGckQUG8q/SetjMXie4NeITK50ABDgMhjOl35aEycU0NsOy/GSklXDfD
-	 dHlW9o68bQsMhs31rtdHV56h+lLY6iY+8SxNzmw011XFLCCT1plkPitvyq0OagtfJ4
-	 7aqrbWprpX/8A==
-Date: Wed, 7 Aug 2024 23:19:56 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, 
-	Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=LxILW/ciM/8yMU11ILMvZ/mrkxXQf1FZZ7CZqwByaKSGDXlVC+zFYY4q44bk0UOkrpZ+3WfhuJC3p8+OCGmofOKIM9wW8SjTlXei8iV7PWGsk1j9AoloPMZkcGjPLLrAPdpO1UFEgpV72IstlboMquAWYnViOzOv4Pj7uoLRpz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
+Received: from smtp-qaa.vinc17.net (135.197.67.86.rev.sfr.net [86.67.197.135])
+	by joooj.vinc17.net (Postfix) with ESMTPSA id 060324FA;
+	Thu,  8 Aug 2024 04:56:36 +0200 (CEST)
+Received: by qaa.vinc17.org (Postfix, from userid 1000)
+	id 857BDCA0100; Thu, 08 Aug 2024 04:56:36 +0200 (CEST)
+Date: Thu, 8 Aug 2024 04:56:36 +0200
+From: Vincent Lefevre <vincent@vinc17.net>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>,
+	Alejandro Colomar <alx.manpages@gmail.com>,
+	linux-man@vger.kernel.org
 Subject: Re: [PATCH] nextup.3: minor improvements
-Message-ID: <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
+Message-ID: <20240808025636.GE3086@qaa.vinc17.org>
 References: <20240807105617.GH3221@qaa.vinc17.org>
+ <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t3oggq3vrwj7n2om"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240807105617.GH3221@qaa.vinc17.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
 
+On 2024-08-07 23:19:56 +0200, Alejandro Colomar wrote:
+> Hi Vincent,
+> 
+> On Wed, Aug 07, 2024 at 12:56:17PM GMT, Vincent Lefevre wrote:
+> > The current "If x is 0" is a bit misleading because "is" is not the
+> > equality test, while this condition should apply to both -0 and 0.
+> > Replace this condition by "If x is equal to 0".
+> 
+> How does 'is' differ semantically from 'is equal to' in this case?
 
---t3oggq3vrwj7n2om
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, 
-	Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] nextup.3: minor improvements
-References: <20240807105617.GH3221@qaa.vinc17.org>
-MIME-Version: 1.0
-In-Reply-To: <20240807105617.GH3221@qaa.vinc17.org>
+"is" designates the value (it is a short for "has the value").
+For instance, in the same man page (with the typo fixed):
+"If x is NaN" (saying "is equal to" would be incorrect, because
+the equality comparison with NaN is always false).
 
-Hi Vincent,
+That's why the sqrt(3) man page has
 
-On Wed, Aug 07, 2024 at 12:56:17PM GMT, Vincent Lefevre wrote:
-> The current "If x is 0" is a bit misleading because "is" is not the
-> equality test, while this condition should apply to both -0 and 0.
-> Replace this condition by "If x is equal to 0".
+  If x is +0 (-0), +0 (-0) is returned.
 
-How does 'is' differ semantically from 'is equal to' in this case?
+and the cbrt(3) man page has
 
-I don't think 'is equal to' does anything different to mean also -0.
+  If x is +0, -0, positive infinity, [...]
 
->=20
-> Replace "Nan" by "NaN" (typography used everywhere else).
+"is equal to" corresponds to the usual equality, as written in
+a source code. (IEEE 754-2019 actually uses "equals".)
 
-Ok.
+For zero, one can also say "If x is ±0" as in the IEEE 754 standard.
+The IEEE 754 standard also uses "zero" in the sense "±0" (but it
+never uses "0" in this sense when there may be an ambiguity, knowing
+that in practice, "0" has the same meaning as "+0"). In a condition,
+when it says something like "x = 0", this means that x is either +0
+or -0 because these values compare equal to each other.
 
->=20
-> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
-> ---
->  man/man3/nextup.3 | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man/man3/nextup.3 b/man/man3/nextup.3
-> index 285c2bcda..02fdb9bae 100644
-> --- a/man/man3/nextup.3
-> +++ b/man/man3/nextup.3
-> @@ -38,8 +38,8 @@ is the smallest representable negative number in the co=
-rresponding type,
->  these functions return \-0.
->  If
->  .I x
-> -is 0, the returned value is the smallest representable positive number
-> -of the corresponding type.
-> +is equal to 0, the returned value is the smallest representable positive
-> +number of the corresponding type.
+So one could also say "If x is zero".
 
-Please keep semantic newlines.  See man-pages(7).
+> I don't think 'is equal to' does anything different to mean also -0.
 
-Have a lovely night!
-Alex
+Note that the glibc manual in info format says for nextup:
 
->  .P
->  If
->  .I x
-> @@ -52,7 +52,7 @@ of the corresponding type.
->  .P
->  If
->  .I x
-> -is Nan,
-> +is NaN,
->  the returned value is NaN.
->  .P
->  The value returned by
-> --=20
-> 2.45.2
+  If X = ‘0’ the function returns the smallest positive subnormal
+  number in the type of X.
 
---=20
-<https://www.alejandro-colomar.es/>
+and for nextdown:
 
---t3oggq3vrwj7n2om
-Content-Type: application/pgp-signature; name="signature.asc"
+  If X = ‘0’ the function returns the smallest negative subnormal
+  number in the type of X.
 
------BEGIN PGP SIGNATURE-----
+> >  If
+> >  .I x
+> > -is 0, the returned value is the smallest representable positive number
+> > -of the corresponding type.
+> > +is equal to 0, the returned value is the smallest representable positive
+> > +number of the corresponding type.
+> 
+> Please keep semantic newlines.  See man-pages(7).
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmaz5PwACgkQnowa+77/
-2zLXlA/+NpJFCMYmKNfQYG3c0CWfKF/UVZYicsn0aPL+O+SrkI3uldPJS3CKnywM
-QNlKr2UC8xTrzkQoLatOaOG+LH37hw82oGkpeVXsYFmr/3hBJhDMhjWQz3qqmdHs
-yOUMDrPb/Xw5e5N7eD5ZuHoNejJc1Sj11ZuDEuuKZqy/c8axusK3aShQTHYVonBt
-8m5m85J8mXsq4SG11IBJFD8uTvFWJHb3QxNX5v6QdDXVXbQzVCHu14UFyKKEGisP
-L67G4bCfsQqN79nWSSnv8YRLYF1V6ppc+94HVRe1PauCuQ3BBNLczrNSAUiFTeoZ
-CgroUxJSOTX5/hq/FyX26Bqtyxx+8bDnvmDJjLDbobqEHkl+CtHzsvVxtqOODU3m
-fGvWYGqe2xdNvwi6j67fFQcEIbc5tknjHJRze666CcqU9rx/5RCCW+CpDtNxfrbX
-PQXbjnBJq6emyigI5xr7jVD75bDnluTwY9OwNk5KY4jewPl4c/Z/HUIfmZaqeCx7
-EQp0XgOgtD35nY228mCfiMsIBN/SdCkgIpMCsjxdogIoYOnT7+8OzoOLXt23vmr6
-wAGCND0iX9NUG0RExuICxPJXEltM4XgrT0LnRwiBTA/FatEOBpSJR3kEhKMER3jI
-UjXh0Rxf9ZfJo5UK+I2DcyfKzeYOfdoKxG4l3b4MM68uHvkRLOs=
-=5eza
------END PGP SIGNATURE-----
+I suppose that the issue is here "long clauses should be split at
+phrase boundaries", so that you would like to avoid a split between
+"positive" and "number". Perhaps better between "is" and "the".
 
---t3oggq3vrwj7n2om--
+BTW, it seems that this is often not honored, including in new text
+(see e.g. commit c86bb39a117fb593f1ff7b7e729d70166d942446 two months
+ago, with a split between "undefined" and "behavior").
+
+And should I introduce a newline after the comma, though it is
+currently not present? But this will not eliminate the need for
+another line break.
+
+-- 
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
 
