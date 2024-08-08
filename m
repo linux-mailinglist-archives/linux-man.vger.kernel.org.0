@@ -1,201 +1,145 @@
-Return-Path: <linux-man+bounces-1591-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1592-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE5994B896
-	for <lists+linux-man@lfdr.de>; Thu,  8 Aug 2024 10:08:00 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A8F94B9AA
+	for <lists+linux-man@lfdr.de>; Thu,  8 Aug 2024 11:28:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 528E4288978
-	for <lists+linux-man@lfdr.de>; Thu,  8 Aug 2024 08:07:59 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A500A1C21845
+	for <lists+linux-man@lfdr.de>; Thu,  8 Aug 2024 09:28:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6A441898E0;
-	Thu,  8 Aug 2024 08:07:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E8D51474CE;
+	Thu,  8 Aug 2024 09:28:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYnbSDul"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rJMew0Ka"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f73.google.com (mail-ej1-f73.google.com [209.85.218.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9310918950C
-	for <linux-man@vger.kernel.org>; Thu,  8 Aug 2024 08:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC10146D55
+	for <linux-man@vger.kernel.org>; Thu,  8 Aug 2024 09:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723104458; cv=none; b=DsbrDPx2ESjYoQE8UT5GThuN5SneKz8NOR3uzlaY3y35puZ+sS4CfLJbf2zT53xAZCgEkPiFKobZrjylCYTxEgUTlk1z6fcvQShG88HYiJr2MtzWZXr6/LkoVxL6zIQr0JRqkcY9rgDs6bnNNLkPEf/quw5R0RhmG6NAneO412Y=
+	t=1723109334; cv=none; b=VVv607sq/+cycK0ttSEy3JuXlLR3SI00buV1saRH+JSVW8MsfU8qliXZ+SlLwdLv/QzOygj75EvVbgsUSFHla6ad3f+fxW4FqQTr+od1lA5GSNKaMDhp9OnjPtyuQamkB31UeF5MaKHllJL9cBmSvyB8QXAuEWzypcllVqprEaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723104458; c=relaxed/simple;
-	bh=O1O0m+hgpRTqQ2F+JslR1IiiaitppKtk6ypNMVePJGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g9sc+AC7ai7xTIZW2RYUFnq/vp4jUvib7z1028EbhH0ZzSfS6AJbGy/womlT8UxmWxZxmDuUgIKknoqOFM4YsXg8Yd8jbScIysbzNjEF07UkmMKxDCTyK4a0Q6dIgSZaz7859HdV4CSMrri5MeA8VWB4+4JteBCpqiBvUEZhgGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYnbSDul; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA1BC32782;
-	Thu,  8 Aug 2024 08:07:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723104458;
-	bh=O1O0m+hgpRTqQ2F+JslR1IiiaitppKtk6ypNMVePJGI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jYnbSDulRgHj7q2gR1M58Ye0vhDJ8u/EwyrtGLdy0ZUlt1rd7TRXe/hb1F4QWprYP
-	 Uvk78T3FgKbhMyZpLhC7PWlmDc8qMGpdv+7LhnaGuewaHAeCeulJYvzlUJSORm7id6
-	 Rl3JdaPv0lOzNN/RoYrIt2+kOO9HzRUDrrivg8wl5VAjDlypKKxwbEsGmVledXmDw5
-	 rO8juh95cTcMrvYYcmMp7jr1XkoApN83zFOBHpZiHZvWUnEL1aXKABbSTVu/f3LhvE
-	 /kdG9wiPs051LnzoPaoRlewzenJ6ej6Ru/28fJLt8eFgKMSb44ZlQyuyXNIWyP/t8r
-	 II5Q2+T2KQS6Q==
-Date: Thu, 8 Aug 2024 10:07:35 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] nextup.3: minor improvements
-Message-ID: <wpkh52aryrsgp52qur6igf5uwidbhetszb4krfcfgfpyarv7yg@abea5srk4kuy>
-References: <20240807105617.GH3221@qaa.vinc17.org>
- <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
- <20240808025636.GE3086@qaa.vinc17.org>
+	s=arc-20240116; t=1723109334; c=relaxed/simple;
+	bh=6pVTZVnQ/FgFq+rc1IjWgKmPBOJHksH8JIxbvqVyZ5g=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QtiknfYxDNKWRUDc3kB+7wGbQD08hFJ2FSoqrgu0CYLbVL/VWI7ko+VIg2V0/SP8liqLlcbQgcT/w4kNmg4lqM0THIQx3K/vgkvbiNvdjsBYk4yQqhpdYf2pVFN/du6/NZQfuYJjlHiSCJwjKQYGCPyzh7ewdBTf1LFq+C7KoAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rJMew0Ka; arc=none smtp.client-ip=209.85.218.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com
+Received: by mail-ej1-f73.google.com with SMTP id a640c23a62f3a-a7d6a72ad99so62983766b.2
+        for <linux-man@vger.kernel.org>; Thu, 08 Aug 2024 02:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1723109331; x=1723714131; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZP7+xrj+w4O8M+i4UGfg6SgaWupsCPTQihfug43xeDU=;
+        b=rJMew0Ka45zUfx06AMkSI/SK7QB4mTLfywropYIrNsTgc5/+/cgk8c8qkZ2kLTKwhA
+         7QVXZcjKCnBOeGjTDXVCgAnYkEHnHMTi1N65UCZs8pAzq3+IS4qymC7jebGS9ymeaFO5
+         J3Ikjfuy2wq5PTaoVZCBWyTNxYW9wdoSEKRiOPRsUCkMT50dDObJkZJzEMysrfYFntnT
+         357LUvEKuCfAUyvroZN9dlFDRz8mirY7ebMpATG0ufJoql29u+ehQZb/V21Tzz2MiTsU
+         /pIT292FItUXQomldpKRpGy2fzGGCNL4BYA3FnTqnnmXfASkRqn4bl+s7L04bh3R2U/u
+         WS3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723109331; x=1723714131;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ZP7+xrj+w4O8M+i4UGfg6SgaWupsCPTQihfug43xeDU=;
+        b=LPlL6jG3zOE0CBmCes+usoHcM2x+BBvlUq40L0V7WDYOsBpFOBFNATgppQJTm4SEJE
+         1BHUy3hpQJhGPm3DoiIRasP1q77XxIfz2AHFpLWqcrCpA8ly7AZoCTJp9oSW9N/SIs66
+         jXAirkICve7GXWspdP7Ml/2PV5ga9CRaeZFija5H03EmrLnaefZnTttj90rScLV9Ilnj
+         0XWQaMfgBXzGewR8JidQtOoaDBAva3VHv4GRJ9PP7mEi0e2I/5SgiixTFtbRF0b6Ic9i
+         Qb2ZDQ2RLcfufhwM/0v48jNd6FArKUDqLK5pi0GgLlGfCqh22NvmjqG58toyTpPhp6O6
+         1Abg==
+X-Forwarded-Encrypted: i=1; AJvYcCU8pQVQNOUs5NuRD8Wq1xCAl/AT87zja+sJan6kB3UpViZunDuScs41XtPdjFoMkZKNT5DY07SdgyPtR9JuR70qZm+qJSOuoVup
+X-Gm-Message-State: AOJu0YwzSuWdglHyPp8Auk9kQAfDIyCF+qCHBBWMyvX+M7T4BCwug7pm
+	Xq7eY0rcCpc40/XgkH+lBcSskS1OqQ6vYsD/mPoz4If9ZRj+oWbaRt+BahIBOSw43fz8CUFK3b6
+	bvA==
+X-Google-Smtp-Source: AGHT+IHEBVo8ymUhKpar2wWlQwb8Hv6osJ8Rytyy+JerAv2233NQ2XDOGoGLu/NTwy2bCIzvGA9dYmhgzpM=
+X-Received: from swim.c.googlers.com ([fda3:e722:ac3:cc00:31:98fb:c0a8:1605])
+ (user=gnoack job=sendgmr) by 2002:a17:906:1d16:b0:a7a:c130:8207 with SMTP id
+ a640c23a62f3a-a8090e41d76mr171666b.8.1723109330793; Thu, 08 Aug 2024 02:28:50
+ -0700 (PDT)
+Date: Thu, 8 Aug 2024 11:28:48 +0200
+In-Reply-To: <b684e2c4-ccb5-4402-ad2d-0eb99db1b57b@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wmsvqehlqllllr4s"
-Content-Disposition: inline
-In-Reply-To: <20240808025636.GE3086@qaa.vinc17.org>
-
-
---wmsvqehlqllllr4s
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20240723101917.90918-1-gnoack@google.com> <20240723101917.90918-2-gnoack@google.com>
+ <7558cd6d-199d-608e-ee18-293036461526@huawei.com> <rvzol7iujgcb22fd6wcfohtjkpnpdsjyzlxx7uecdhw5od4t7a@dtzcxfwonjyq>
+ <b684e2c4-ccb5-4402-ad2d-0eb99db1b57b@huawei.com>
+Message-ID: <ZrSP0NU2MQz0kCGl@google.com>
+Subject: Re: [PATCH v3 1/2] landlock.7, landlock_*.2: Document Landlock ABI
+ version 4
+From: "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>
+To: "Konstantin Meskhidze (A)" <konstantin.meskhidze@huawei.com>
+Cc: Alejandro Colomar <alx@kernel.org>, "=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?=" <mic@digikod.net>, linux-man@vger.kernel.org, 
+	Artem Kuzin <artem.kuzin@huawei.com>, yusongping <yusongping@huawei.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] nextup.3: minor improvements
-References: <20240807105617.GH3221@qaa.vinc17.org>
- <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
- <20240808025636.GE3086@qaa.vinc17.org>
-MIME-Version: 1.0
-In-Reply-To: <20240808025636.GE3086@qaa.vinc17.org>
 
-Hi Vincent,
+Hello Konstantin!
 
-On Thu, Aug 08, 2024 at 04:56:36AM GMT, Vincent Lefevre wrote:
-> On 2024-08-07 23:19:56 +0200, Alejandro Colomar wrote:
-> > Hi Vincent,
-> >=20
-> > On Wed, Aug 07, 2024 at 12:56:17PM GMT, Vincent Lefevre wrote:
-> > > The current "If x is 0" is a bit misleading because "is" is not the
-> > > equality test, while this condition should apply to both -0 and 0.
-> > > Replace this condition by "If x is equal to 0".
-> >=20
-> > How does 'is' differ semantically from 'is equal to' in this case?
->=20
-> "is" designates the value (it is a short for "has the value").
-> For instance, in the same man page (with the typo fixed):
-> "If x is NaN" (saying "is equal to" would be incorrect, because
-> the equality comparison with NaN is always false).
->=20
-> That's why the sqrt(3) man page has
->=20
->   If x is +0 (-0), +0 (-0) is returned.
->=20
-> and the cbrt(3) man page has
->=20
->   If x is +0, -0, positive infinity, [...]
->=20
-> "is equal to" corresponds to the usual equality, as written in
-> a source code. (IEEE 754-2019 actually uses "equals".)
->=20
-> For zero, one can also say "If x is =C2=B10" as in the IEEE 754 standard.
-> The IEEE 754 standard also uses "zero" in the sense "=C2=B10" (but it
-> never uses "0" in this sense when there may be an ambiguity, knowing
-> that in practice, "0" has the same meaning as "+0"). In a condition,
-> when it says something like "x =3D 0", this means that x is either +0
-> or -0 because these values compare equal to each other.
+On Tue, Aug 06, 2024 at 01:34:01PM +0300, Konstantin Meskhidze (A) wrote:
+> 8/6/2024 1:19 PM, Alejandro Colomar =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> > On Tue, Aug 06, 2024 at 11:38:57AM GMT, Konstantin Meskhidze (A) wrote:
+> > > 7/23/2024 1:19 PM, G=C3=BCnther Noack =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> > > > Landlock ABI 4 restricts bind(2) and connect(2) on TCP port numbers=
+.
+> > > > > The intent is to bring the man pages mostly in line with the
+> > > kernel
+> > > > documentation again.  I intentionally did not add networking suppor=
+t to the
+> > > > usage example in landlock.7 - I feel that in the long run, we would=
+ be better
+> > > > advised to maintain longer example code in the kernel samples.
+> > > > > Closes: <https://github.com/landlock-lsm/linux/issues/32>
+> > > > Cc: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
+> > > > Reviewed-by: Micka=C3=ABl Sala=C3=BCn <mic@digikod.net>
+> > > > Signed-off-by: G=C3=BCnther Noack <gnoack@google.com>
 
-Hmmm, I see.  Thanks!  I think "If x is =C2=B10" is the clearest way to say
-it.  I'm not sure if that glyph is available everywhere, though.  How
-about "If x is 0 or -0"?
+> > > > @@ -439,9 +455,10 @@ and only use the available subset of access ri=
+ghts:
+> > > >    * numbers hardcoded to keep the example short.
+> > > >    */
+> > > >   __u64 landlock_fs_access_rights[] =3D {
+> > > > -    (LANDLOCK_ACCESS_FS_MAKE_SYM << 1) \- 1,  /* v1               =
+  */
+> > > > -    (LANDLOCK_ACCESS_FS_REFER    << 1) \- 1,  /* v2: add "refer"  =
+  */
+> > > > -    (LANDLOCK_ACCESS_FS_TRUNCATE << 1) \- 1,  /* v3: add "truncate=
+" */
+> > > > +    (LANDLOCK_ACCESS_FS_MAKE_SYM  << 1) \- 1,  /* v1              =
+    */
+> > > > +    (LANDLOCK_ACCESS_FS_REFER     << 1) \- 1,  /* v2: add "refer" =
+    */
+> > > > +    (LANDLOCK_ACCESS_FS_TRUNCATE  << 1) \- 1,  /* v3: add "truncat=
+e"  */
+> > > > +    (LANDLOCK_ACCESS_FS_TRUNCATE  << 1) \- 1,  /* v4: TCP support =
+    */   Double "LANDLOCK_ACCESS_FS_TRUNCATE  << 1", I think its a mistype =
+here.
+> Double "LANDLOCK_ACCESS_FS_TRUNCATE  << 1", I think its a mistype here or
+> its ok??
 
->=20
-> So one could also say "If x is zero".
->=20
-> > I don't think 'is equal to' does anything different to mean also -0.
->=20
-> Note that the glibc manual in info format says for nextup:
->=20
->   If X =3D =E2=80=980=E2=80=99 the function returns the smallest positive=
- subnormal
->   number in the type of X.
->=20
-> and for nextdown:
->=20
->   If X =3D =E2=80=980=E2=80=99 the function returns the smallest negative=
- subnormal
->   number in the type of X.
->=20
-> > >  If
-> > >  .I x
-> > > -is 0, the returned value is the smallest representable positive numb=
-er
-> > > -of the corresponding type.
-> > > +is equal to 0, the returned value is the smallest representable posi=
-tive
-> > > +number of the corresponding type.
-> >=20
-> > Please keep semantic newlines.  See man-pages(7).
->=20
-> I suppose that the issue is here "long clauses should be split at
-> phrase boundaries", so that you would like to avoid a split between
-> "positive" and "number".
+No, this is intentionally the same as on the previous line.
 
-Yes.
+This table is part of the example code in the landlock(7) man page.  As I
+mentioned in the commit message, the example code is (intentionally) still =
+only
+using Landlock's file system features, not the network access rights.
 
-> Perhaps better between "is" and "the".
+The table lists the file system(!) access rights which are available at
+different Landlock ABI versions, but those did not change between v3 and v4=
+.
 
-LGTM.
-
-> BTW, it seems that this is often not honored, including in new text
-> (see e.g. commit c86bb39a117fb593f1ff7b7e729d70166d942446 two months
-> ago, with a split between "undefined" and "behavior").
-
-Hmmm, that's an oversight from my part; sorry.  But I would say it's
-rather not often.  That's by far the most repeated issue in incoming
-patches, and I try to always require contributors to fix them.  :)
-
-I'll fix that one, with a 'Reported-by:' you.
-
-> And should I introduce a newline after the comma, though it is
-> currently not present? But this will not eliminate the need for
-> another line break.
-
-Sure, thanks!
-
-Have a lovely day!
-Alex
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---wmsvqehlqllllr4s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma0fMYACgkQnowa+77/
-2zIWDw/+OS13uY/4AbrvNf+98DW6kVjCwgoYo7JVvlsysesOqDKlXLwFVMZe3Kml
-4AH4/msz9Q7nDKUjfdcMh6pz+AXQnKATSGpWLZTfQ7dyAOFhLCozMcqrT8TQP5dM
-FVmUq6AlEGdtH4pRsZ2HZDhVlSaWPiWGT81Q60PfTx+Ht+oSDALP8VsOijKcv97i
-oeB0KYxJIB3dcwTEJjaZN/FxTTdP7DR4+O/0h8RRJLkd64j33L0+Ay/08bH56Ogg
-DTLOCLLjRUoSmpFwJvgQKRWRlX0Urx2+xzQ24hnxIEvX/chMpwgknAiqdvbxEiT0
-3hY83Vl4rv6AakU5b7gFjSNfWHpgBCZpiaMxAQZGMkA5bM6+VYZG/lJ6Hi/Uc/xl
-e1O+Xn/qfptl6F/HoDVftd5yezzsT9gp4hHfmdeyP+qz6nOw8/YcU8Gqi5hxFS90
-ezVLRbrVPjDmzY/VK75dohsDxXtKZdA9Aobz3XdG4DWM5HDjrxkfGIB11uZdev+Q
-A7wwQGdaKcC7+8BiWM11a+Owylqyfk5U/m6NDqq91fWiEey7wjldHcz46WDbUX52
-xAEwECPHIweDyXcFOLqoWFd5I9GKKqbjsb08BB44+5RewV/EJDpVoNvDdZuiqwCU
-MnHzg4/tHLHfQd/yEaS/LHt9OboZZd2OV3g2qLiNzJaMag7wZpo=
-=RA/e
------END PGP SIGNATURE-----
-
---wmsvqehlqllllr4s--
+=E2=80=94G=C3=BCnther
 
