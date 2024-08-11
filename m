@@ -1,86 +1,91 @@
-Return-Path: <linux-man+bounces-1604-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1605-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE5E94CED5
-	for <lists+linux-man@lfdr.de>; Fri,  9 Aug 2024 12:41:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2181C94E3E1
+	for <lists+linux-man@lfdr.de>; Mon, 12 Aug 2024 01:39:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 00865282357
-	for <lists+linux-man@lfdr.de>; Fri,  9 Aug 2024 10:41:08 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CA18C281F06
+	for <lists+linux-man@lfdr.de>; Sun, 11 Aug 2024 23:39:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FE7C1922DB;
-	Fri,  9 Aug 2024 10:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDD583D97A;
+	Sun, 11 Aug 2024 23:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YM3wttIT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D8415ECE2
-	for <linux-man@vger.kernel.org>; Fri,  9 Aug 2024 10:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D94B1757E
+	for <linux-man@vger.kernel.org>; Sun, 11 Aug 2024 23:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723200065; cv=none; b=iSXgrPYQuu+MIv5eh6yB0NC4jQRiidXfJWh1MI31El4oU2Ll18ht7qInIf6Tq1euy8p4a+NT9ckHb+zKyxVAU2CNbWEhcwtKQdlnG1Kryq34HZUs9s1VLeGxbLY6Wj3GJPMgAYkiQcahE1HNYKWa741/PEBwbQ8KU36J25tznBU=
+	t=1723419556; cv=none; b=iJzTMYsMPyPIQz/uXXVjzAOMjVxBn/EZoTWGl6G9hUoSxbcdHoSOxrsbZFBuFxQinCjWwJtiMT5/5hg9mqsJZKh4d7AESgjpFeeGjuXeUflq6NBpW5yzgdeQDwFp70TjGI4p0hboLMsnrRWeoVsL6mT8W5ZrZ4g7HLlg1TGLDcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723200065; c=relaxed/simple;
-	bh=7dhY7zvFOREeekiCaXzd9EjEAoZJKNhbGC+YwXHvLlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fpGNpHwlIjq4WuhEmg8O1DtR/yJ5/lZvk7gcJCozeUtO1tCFv5jWQaskhT8J6BLt25B+Pfu3rVjS7+AR8yS2ppxk66gSaaNr89MX8/gcMLDhOmkEbXUjGdkgTOpQfE+IdEngbEqDGg6iEOC/q8T4ZVWp10Nk6eDpeE+FKQDiLLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
-Received: from smtp-qaa.vinc17.net (2a02-8428-1b1d-4d01-96a9-491d-7b48-ba31.rev.sfr.net [IPv6:2a02:8428:1b1d:4d01:96a9:491d:7b48:ba31])
-	by joooj.vinc17.net (Postfix) with ESMTPSA id 9D42F3D6;
-	Fri,  9 Aug 2024 12:41:01 +0200 (CEST)
-Received: by qaa.vinc17.org (Postfix, from userid 1000)
-	id 498E6CA00FF; Fri, 09 Aug 2024 12:41:01 +0200 (CEST)
-Date: Fri, 9 Aug 2024 12:41:01 +0200
-From: Vincent Lefevre <vincent@vinc17.net>
-To: John Gardner <gardnerjohng@gmail.com>
-Cc: Dave Kemper <saint.snit@gmail.com>, linux-man@vger.kernel.org,
-	groff@gnu.org
-Subject: Re: [PATCH] nextup.3: minor improvements
-Message-ID: <20240809104101.GD4789@qaa.vinc17.org>
-References: <20240807105617.GH3221@qaa.vinc17.org>
- <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
- <20240808025636.GE3086@qaa.vinc17.org>
- <wpkh52aryrsgp52qur6igf5uwidbhetszb4krfcfgfpyarv7yg@abea5srk4kuy>
- <20240808121603.fatotzqmtpbf2jez@illithid>
- <20240808125838.GD2669@cventin.lip.ens-lyon.fr>
- <CACRhBXPyVNN8q9pbeZSzSFj-nB1woJLWhTGw8N8yuBpJRyY6CQ@mail.gmail.com>
- <CAGcdaje1Fo_DuFf87ST8rrNCHmXx8uEzjJCwHiZ2Wf47h_O0Pg@mail.gmail.com>
- <20240809092514.GB4789@qaa.vinc17.org>
- <CAGcdajc55V7D0H2WiX5xEBcVg+mydTrvhXCKEXDpmWHZ75uj5w@mail.gmail.com>
+	s=arc-20240116; t=1723419556; c=relaxed/simple;
+	bh=jQXItVM32R4cE+KZEtBvyUTpXkTJLdRabLWc6B6gSsY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=IZ8GsSTqmt8/oZqAnqpd9KAdWPb+AFHebmE8R6UgIEERby6jmIBaQZSTgrJxAWwg/BGadqzJ68+AHnbGK40oA8UAoW1dFdbJ+04xT1O3Y7jrEt9oliJD00R+3LffO65mxvkAGfTAg4YGxExuwxjQnkiwxzcZp6qjVkxt4EbHviU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YM3wttIT; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-a7a9a7af0d0so422079466b.3
+        for <linux-man@vger.kernel.org>; Sun, 11 Aug 2024 16:39:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1723419553; x=1724024353; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+Mj9n12FuoL3AQbvFa5YE3ee4lJPaciwcXzIdCaBSCs=;
+        b=YM3wttITuNgrcUijdpDuMETRrK9tH+Kud9foAUsUKnO0u82Rf/MxHRI715lErM0QjN
+         6v2/aTTM+8zdKNAXOjj8cwLCypNBT/3a+wSmlqAGdQXRlabhJQNCTp3g3BtNEXy5RwWI
+         OUeK1oREjqbXVbPJb+4BUfdKMkJAwVRAvWvDYbl+aToWXREThWEPS15ejSo1D0w2EzS+
+         +tWWXNp79/5dOezZdZxj8ByV59LhjSF7UkBjvziLSTTWUAuQ8K3OyLAryKr8eaLJ8SUd
+         Z+Why36Q+c+7Y60ETPKBIsu5rhLkRi5nx7MdFPfiCgB8ZDLJF9GTZyLdKJEkyhlIuJRY
+         CQXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723419553; x=1724024353;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+Mj9n12FuoL3AQbvFa5YE3ee4lJPaciwcXzIdCaBSCs=;
+        b=XshxW3isO4LEfVWLFi8D5N9tjXHfp/2epHP3u2a1cKasRbswo+XWIlfYQaP8f9FHit
+         9RG8FAczFgLSyQH4ew4g6HW9mnBZbwzyZGZKlEHpz9Y+RZQE17DiHJwyncNo4d6mTB0T
+         hOXO2PbGlYhysaR/imiX2DMCs06HDDitj3qfVGFlw3WpKEtlawqyuxcEwh9PBOcr9Keh
+         8cHTP2RtY1F+wjF3tBEk5kWk9xz1X8kEfdz0v8JLdw9i2O1fnSm9BbIgF+wN8hZBOdyJ
+         /HUTQSYKZEoZkQjp7GD8ncwyyTQQCWPs/8h3oxbuFKQHmZY6E+hXRphNB+J2KxAbUFtA
+         Qd+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCU+P3jTijx3U9Y9cSCrTTORcQ9ZJgUux9WNtTV1kXg/fU4xi6MoOhVcVb4J5dGLrtN7g1r3n7RRYlah700kDnDjgFyHTuZLqew0
+X-Gm-Message-State: AOJu0YxXpgFAsyx4BITCa2VkKzieDwlBfRikiGt1Gu8r9v5fKdiUoMbM
+	Qr8V3dMx/xxubZ0aTmKQNGVQmC1+PwVHFpdcqvyGxcB3xGqzTKEkyEkeDiWZJSqoqGinZhXc3QA
+	IZxrWR0WZ3Z/VCHz50BcP+hp69UA=
+X-Google-Smtp-Source: AGHT+IGZZZkXJ5054SPopkCuzjgy/xuc953+JLAGIxC/rjJuM1vVA2lTvNtR/JPdhsTL7LojucYgvYIbxFL5ZkgllDI=
+X-Received: by 2002:a17:907:c7d3:b0:a7a:acae:3425 with SMTP id
+ a640c23a62f3a-a80aa55689fmr597825566b.14.1723419553054; Sun, 11 Aug 2024
+ 16:39:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGcdajc55V7D0H2WiX5xEBcVg+mydTrvhXCKEXDpmWHZ75uj5w@mail.gmail.com>
-X-Mailer-Info: https://www.vinc17.net/mutt/
-User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
+From: Morten Welinder <mwelinder@gmail.com>
+Date: Sun, 11 Aug 2024 19:39:01 -0400
+Message-ID: <CANv4PNkXjtWjzWib=AetdKLrhSqJEZHYzPjUMJNwsgrZsusRbA@mail.gmail.com>
+Subject: Man page issue: fmod
+To: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2024-08-09 19:38:48 +1000, John Gardner wrote:
-> Hi Vincent,
-> 
-> > I really see a "+" underlined
-> 
-> Is it visually distinct from an ordinary underscore? I merely ask now out
-> of curiosity, as Brandan explained why overstriking is a no-go.
+The fmod man page recommends this code to get the least positive residue:
 
-The underline bar is slightly different from an underscore, but
-this is not the issue. What matters is that the underlined "+"
-is very different from the ± character: in this ± character,
-the "+" part and the "-" part have the same width, but in the
-underlined "+", the underline bar is larger than the "+";
-moreover, the underline bar is below the baseline.
+    z = fmod(x, y);
+    if (z < 0)
+         z += y;
 
--- 
-Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
-100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
-Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
+That last line should be "z += fabs (y);"  Otherwise, for x=-0.25 and
+y=-1 you get z=-1.25 which isn't what anyone is looking for.
+
+The man page could perhaps also state that the sign of y has no effect
+on the output, other than possibly when the result is a NaN.
+
+M.
 
