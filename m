@@ -1,66 +1,57 @@
-Return-Path: <linux-man+bounces-1613-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1614-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89EF195482E
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 13:42:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE01F954839
+	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 13:47:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id AE7E31C21C01
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 11:42:44 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E1BE31C22068
+	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 11:47:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 493021AD9F9;
-	Fri, 16 Aug 2024 11:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4F15194AF6;
+	Fri, 16 Aug 2024 11:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKfX+cDL"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QiTpto2q"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E822954BD4;
-	Fri, 16 Aug 2024 11:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D4419DF9F
+	for <linux-man@vger.kernel.org>; Fri, 16 Aug 2024 11:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723808553; cv=none; b=pUqfLrmuS3UPGdMbFP6v3BIDAz6yFdJFP0gQhrLnXP3I+2KduoZgO4Vg8Upm51V47P8+BI0gpVdn1XzKQdqsRsbsV72O/IxeBIE3ZgfrvcqnLJ8tuEwTaCN3sYCZqn/NMD0ktlj8RI5c7HckBD55r1cF+SzERQZS6lcli+rPIzQ=
+	t=1723808832; cv=none; b=V2JBP6Qq2IdXtVUsgBRMwE8ylvqBjkpEs0LlNyCmb38HMr3RTWz4ZNILVz7Io0TAHWeMyEFfmRvuuO4jCMx+LCuroSzwnUUv/1zRRPRQHQUypcYc0WBBJQMVWo6t2dd65wGey9kgIyW+sFF1d6DyMBN+mP02OGW9xJDarxyihFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723808553; c=relaxed/simple;
-	bh=J+GSTdLpJEZfAk/f/yXm2p8gFmA0yCS+q76KUgXiJdQ=;
+	s=arc-20240116; t=1723808832; c=relaxed/simple;
+	bh=1bOHboniVa7ZfGWdVnKn9jQkwoUBSjAaSpu/vBSl/yo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZfR+WWv6y0ZTJIlm/Td1zD/Wo+WR9vfTg72sRpzqC2C3lqeeyfV/vUacQZFqZaOI4ZH0Ll9uSTU+FScgpU4APIBfxNnQQbYYOLXOAFcxmCTQh+jjU5p+KHyP1o4UPLD8JU+R0siptEQ1wL4+oqdsZIwzMrFPaatF4ZZJdCv9Kko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKfX+cDL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42484C4AF0D;
-	Fri, 16 Aug 2024 11:42:28 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=k2h1eI+OQ4OwZkKprLZXfkZiJ3yKWxqZrhwte37bfImBsukCFug+9zg2evQLdfoA3dza0KkQNyG9+oJkzyWi2V0upVB/NsQcZL5jYEFy1uZUzpD4HYshBY68Hu2qA+XmTj1htQ8COawYeo8Ts/P9EUdZOEvfb599gRJEC+mWKFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QiTpto2q; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375F3C32782;
+	Fri, 16 Aug 2024 11:47:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723808552;
-	bh=J+GSTdLpJEZfAk/f/yXm2p8gFmA0yCS+q76KUgXiJdQ=;
+	s=k20201202; t=1723808832;
+	bh=1bOHboniVa7ZfGWdVnKn9jQkwoUBSjAaSpu/vBSl/yo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZKfX+cDLe9cWJg0Jsc/3IFVH4xssQrIdWDyXAdVBkooWS2TBxzTytsXYgh+KarcPq
-	 SOdGJvmrOoHFMr1br8qx8sAr7lIAl8AMBgau8VodV9yQXD98IDOzQaEOMEEQwOXTFi
-	 BVGM6D+6SEc3sh/DaeqzG5IOCMeUfE8n+fn3velhWq2ju0ry0LjdIUkyMnwz8mmI1M
-	 SO8/UYZ7360FyeDOgQk65crCXPbEVqp+59srpUbtAW+vsLBetnOdpDXoLV1KIde5pp
-	 7Kkq4r+M8kdWWjbQ+cGA2oqDi19LN14UpktOzg+AbJ8cZwkymF2msZHXuXAZ6HHYH+
-	 IWFG7sEs1rG+w==
-Date: Fri, 16 Aug 2024 13:42:26 +0200
+	b=QiTpto2qrpvONFb10vcGTzC2W7n6f6jZHsqrMq5cIElUzql2s/TJgkSrzB7moBE1M
+	 SPzA3lGN15I6Gx3WSdcdu77AqCqVWIqBmli7dSS8ty656msOIfjfy77ezeosJYrtig
+	 ikI3fCG0ieGGjWnIr9ITgj74WUqV2OSmUBYSqD+Wcr2PnhWh4b0VCe3SLfHusQMINv
+	 OKVfAFqT9Gi8B4e18JbTHfSHpNHM/g1boJENl+vRHBjh6r9yMwxP2hKxfHdRda+Civ
+	 jcVkDtlEojyTDaxpjq9NFjwnkoNMAJDMk/LY8ks42Hqkgyj4DqdDlovJJ9tbNp6c5E
+	 cZtQ0qi9Uunng==
+Date: Fri, 16 Aug 2024 13:47:09 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
-	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
-Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
-Message-ID: <ygpwfyjvhuctug2bsibvc7exbirahojuivglcfjusw4rrqeqhc@44h23muvk3xb>
-References: <20240611112158.40795-1-jolsa@kernel.org>
- <20240611112158.40795-10-jolsa@kernel.org>
- <20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
- <3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
- <20240807162734.100d3b55@gandalf.local.home>
+To: Vincent Lefevre <vincent@vinc17.net>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] nextup.3: minor improvements
+Message-ID: <a3kn6smqwspla7x5cl5tccupn5myo5ba5gemkb7a2ea7zzbr2n@txtqxk7jvpvm>
+References: <20240807105617.GH3221@qaa.vinc17.org>
+ <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
+ <20240808025636.GE3086@qaa.vinc17.org>
+ <wpkh52aryrsgp52qur6igf5uwidbhetszb4krfcfgfpyarv7yg@abea5srk4kuy>
+ <20240808115610.GC2669@cventin.lip.ens-lyon.fr>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,152 +59,102 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o547xbwl3zxtiyuh"
+	protocol="application/pgp-signature"; boundary="ahqqd3jly4g3tgst"
 Content-Disposition: inline
-In-Reply-To: <20240807162734.100d3b55@gandalf.local.home>
+In-Reply-To: <20240808115610.GC2669@cventin.lip.ens-lyon.fr>
 
 
---o547xbwl3zxtiyuh
+--ahqqd3jly4g3tgst
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
-	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
-Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
-References: <20240611112158.40795-1-jolsa@kernel.org>
- <20240611112158.40795-10-jolsa@kernel.org>
- <20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
- <3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
- <20240807162734.100d3b55@gandalf.local.home>
+To: Vincent Lefevre <vincent@vinc17.net>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] nextup.3: minor improvements
+References: <20240807105617.GH3221@qaa.vinc17.org>
+ <oa5aca4pqtnnwjopngqkouwueglyujmusnms535mgh4ipyawbk@4wonm4ymhcdv>
+ <20240808025636.GE3086@qaa.vinc17.org>
+ <wpkh52aryrsgp52qur6igf5uwidbhetszb4krfcfgfpyarv7yg@abea5srk4kuy>
+ <20240808115610.GC2669@cventin.lip.ens-lyon.fr>
 MIME-Version: 1.0
-In-Reply-To: <20240807162734.100d3b55@gandalf.local.home>
+In-Reply-To: <20240808115610.GC2669@cventin.lip.ens-lyon.fr>
 
-Hi Steven, Jiri,
+Hi Vincent,
 
-On Wed, Aug 07, 2024 at 04:27:34PM GMT, Steven Rostedt wrote:
-> Just in case nobody pinged you, the rest of the series is now in Linus's
-> tree.
+On Thu, Aug 08, 2024 at 01:56:10PM GMT, Vincent Lefevre wrote:
+> The current "If x is 0" condition is a bit misleading because "is"
+> is not the equality test (just like when saying "x is NaN") and 0
+> as a FP number stands for +0, while this condition should apply to
+> both -0 and +0.
+> Replace this condition by "If x is +0 or -0".
+>=20
+> Replace "Nan" by "NaN" (typography used everywhere else).
+>=20
+> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
 
-Thanks for the ping!
-
-I have prepared some tweaks to the patch (see below).
-Also, I have some doubts.  The prototype shows that it has no arguments
-(void), but the text said that arguments, if any, are arch-specific.
-Does any arch have arguments?  Should we use a variadic prototype (...)?
-
-Please add the changes proposed below to your patch, tweak anything if
-you consider it appropriate) and send it as v10.
+Patch applied.  Thanks!
 
 Have a lovely day!
 Alex
 
-
-diff --git i/man/man2/uretprobe.2 w/man/man2/uretprobe.2
-index cf1c2b0d8..51b566998 100644
---- i/man/man2/uretprobe.2
-+++ w/man/man2/uretprobe.2
-@@ -7,50 +7,43 @@ .SH NAME
- uretprobe \- execute pending return uprobes
- .SH SYNOPSIS
- .nf
--.B int uretprobe(void)
-+.B int uretprobe(void);
- .fi
- .SH DESCRIPTION
--The
- .BR uretprobe ()
--system call is an alternative to breakpoint instructions for triggering re=
-turn
--uprobe consumers.
-+is an alternative to breakpoint instructions
-+for triggering return uprobe consumers.
- .P
- Calls to
- .BR uretprobe ()
--system call are only made from the user-space trampoline provided by the k=
-ernel.
-+are only made from the user-space trampoline provided by the kernel.
- Calls from any other place result in a
- .BR SIGILL .
--.SH RETURN VALUE
--The
-+.P
-+Details of the arguments (if any) passed to
- .BR uretprobe ()
--system call return value is architecture-specific.
-+are architecture-specific.
-+.SH RETURN VALUE
-+The return value is architecture-specific.
- .SH ERRORS
- .TP
- .B SIGILL
--The
- .BR uretprobe ()
--system call was called by a user-space program.
-+was called by a user-space program.
- .SH VERSIONS
--Details of the
--.BR uretprobe ()
--system call behavior vary across systems.
-+The behavior varies across systems.
- .SH STANDARDS
- None.
- .SH HISTORY
--TBD
--.SH NOTES
--The
-+Linux 6.11.
-+.P
- .BR uretprobe ()
--system call was initially introduced for the x86_64 architecture
-+was initially introduced for the x86_64 architecture
- where it was shown to be faster than breakpoint traps.
- It might be extended to other architectures.
--.P
--The
-+.SH CAVEATS
- .BR uretprobe ()
--system call exists only to allow the invocation of return uprobe consumers.
-+exists only to allow the invocation of return uprobe consumers.
- It should
- .B never
- be called directly.
--Details of the arguments (if any) passed to
--.BR uretprobe ()
--and the return value are architecture-specific.
+> ---
+>  man/man3/nextup.3 | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/man/man3/nextup.3 b/man/man3/nextup.3
+> index 285c2bcda..568f3b13f 100644
+> --- a/man/man3/nextup.3
+> +++ b/man/man3/nextup.3
+> @@ -38,8 +38,9 @@ is the smallest representable negative number in the co=
+rresponding type,
+>  these functions return \-0.
+>  If
+>  .I x
+> -is 0, the returned value is the smallest representable positive number
+> -of the corresponding type.
+> +is +0 or \-0,
+> +the returned value is
+> +the smallest representable positive number of the corresponding type.
+>  .P
+>  If
+>  .I x
+> @@ -52,7 +53,7 @@ of the corresponding type.
+>  .P
+>  If
+>  .I x
+> -is Nan,
+> +is NaN,
+>  the returned value is NaN.
+>  .P
+>  The value returned by
+> --=20
+> 2.45.2
+>=20
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---o547xbwl3zxtiyuh
+--ahqqd3jly4g3tgst
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma/OyEACgkQnowa+77/
-2zJDCxAAhQ1Ra2KloypCCqkmA4dXbkaqQJyIuJ1Nmls+E5zYqiF2zKYI6OZ9njtq
-Ev/Fx+c59cm2r0DQtu04LfbzrymBLncErRofjceDWAU7Z28hYtFtVEs+Rx4Mdrxu
-5LwnSiLgTv0rwjj3rz91liRasAxBRmDBx/llAHrwO3fYQk2Zp2Y0UrT3GT02moSG
-f/LXSx/DihVQzoZJPvDC0hy+sYix6Lkr/hZRdlBSclfQJJsm1xv79N0qG6lKCgP9
-Au4DW4Pvjfw1xeYtfHAHLvw2cyvHUcHvLyH2uvX5F+33kk1hLGf81DjraL3wFsyj
-z0uDA/TkNHrLiMu8fxNnG6CBxasaZYk8U7EsUFqtC3gVMleDZFxLzuSrRI4xprBe
-rxJ/SxkVl0pLOGMMlj+Q3yjilgPQqBklZK1fOwqdNQ7fWAKR2K7vRXj+fRb84Xck
-O3LJg02hlH8Oquh3QmlGFl9QaMZn8FHV16Rpk4Vl3q+Y3I48rg8n+bhT7vuhOK+H
-4G5yEMLB5BfmQ5DSDlpSmN7jQlK9NVoPgk9yV09LkBtlW29pDvJXaTth9H0Is3ci
-DxTJySu/USezOarYS/AUjbTGJT943EtGj5KMHwcixS6ub+CsufI6CAnyXkfJMvzt
-CdseNjZW7MfslXPlP3fpVehUSUXSA36CDIH754UV4xZLoxrOHs0=
-=J420
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma/PDwACgkQnowa+77/
+2zKTVg//a9q94n5la+sGmEI5LvqSg8F9+jeRu81eoaZ28oQJb1tp37umezt8BJEv
+VleCbPs62YarvbT7HQ3C967UrWZ6qtvcEqzqEwZlhz/ejFT9njeaegiNG9nKEQGE
+iOiDx16xAnbqpvZwlwUiXtvm+177vN8XNct2PZg6g+xOFlj1lbabizekk8NzMypZ
+jYETYK5BW2dX/xXCkKM4B2l3nnlbnW41ZSksaIpyy3Z2qOIOADtw5QmgWoqaROd4
+PVNZK6avAA5TM8eUpWMgtNjnmqKFA7e/kpPYP2sYbid5Sr7E0w2/gln/qilNEuiF
+5gGbSEL+6P0KdcP0jcqVHT+WmTZVZv/5dIkTlGr/z95vVbfapSPh1P/TY3u2rmrV
+nD6vIbGtjvrfa5KRk86B3WOCShy36ARKj7t7NIjO7LvYo8fkCIne8dj1XRx4FftB
+IRB6PEG2bfYQlmCKAxPfe+/gIetdTH1KeNeXQXZCEU5VuTcB8kzW/1Cxi80JDouX
+kb11h0VVM9ss0+ieeC6boyg36pWxIsQJUh4o0BrXz9n/NX/ow1Ao1VBaVS9u0M5e
+fs78aRO7RuxFRG/WLb07KWuxP34HhBkYmuKBZfQGKTK5LbSBG/PfRcm/qOYwOq/t
+X3vZeyJVFcfr67k9tD1dWF6OIbBlZkfQysTKSJgb2ItnPJnljL4=
+=Qud3
 -----END PGP SIGNATURE-----
 
---o547xbwl3zxtiyuh--
+--ahqqd3jly4g3tgst--
 
