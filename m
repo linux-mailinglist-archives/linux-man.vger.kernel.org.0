@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-1615-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1616-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C27A954870
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 14:02:11 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A66C954880
+	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 14:07:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B63FB1F222EF
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 12:02:10 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 1DF56B20D2B
+	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 12:07:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B9DE16F262;
-	Fri, 16 Aug 2024 12:02:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1CE419DF42;
+	Fri, 16 Aug 2024 12:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aXVR4txA"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHrxzTll"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFD4156F34
-	for <linux-man@vger.kernel.org>; Fri, 16 Aug 2024 12:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7280E13AA2B
+	for <linux-man@vger.kernel.org>; Fri, 16 Aug 2024 12:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723809725; cv=none; b=D8n+2so/rs415+NeUx273GJeild4yaV0gfeu4Xnqa1pzIu5kCu1fh5K4Ku3CLpqO2PAli3znV4n6WsReNgqw0znoNVU0eicFBXhj4gCeX/1qVdHI8c3xOy1iz4VxQxkzgfJPi17uWdnfBhrm1NM2IlBu3Sy5jOPvRtbsTmVQn8c=
+	t=1723810025; cv=none; b=HKkjmHQFaFSPx78S661EvtiNi4VYleNmq4xkSL8ByWCr5+1br+y2py6YMdxuk/Pk8fsFEnJHAxw9EWFXf6cXeHGA99ZRJ1K6bXaKDj/8zbW2ItEkWAbIMjqa/utzSMiH0LB+m4FAFvZBEkXPu1Aqa1bl9VkD1Ma3nIUAXxMEioE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723809725; c=relaxed/simple;
-	bh=bvbfWksnUxxYrDmTMADIEP1txvl0HHyCiKvzLifL8eg=;
+	s=arc-20240116; t=1723810025; c=relaxed/simple;
+	bh=TQtsJaMOmbDuU6lutXn66c12HYJapCJmaltrkmBqYAs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uIgV57onBCVl1QcA1OAza2Pp+tZxZvfszCK+aWRQHgbkZVvGxu83TjmQUeeP/bMw6hXSvBCzkML/RTV8Vy7QgTIVOqkF4szTKMDqmyrDXapKs4apsb+ahC0dgs2MugUNh2Qwq+ODnjIqrU+lCWoZekkmQ+43yd57cUOKpPO7yLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aXVR4txA; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0518EC32782;
-	Fri, 16 Aug 2024 12:02:03 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=qtDYLQ4+jSVY8zZrnDg0RoAo5luSwINQf2IWSzWfpyGtCaiYOWenO1kU9vWtcWA7klUL01rNVO2pezuHi928HC62eRXCVg5Aj1gu93qaLPciPcbUf9sdc/y6VzVlE8NikHVyI4BH35yyZIFYYquqlSnPd6moCrPFWV5R+XNU3VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHrxzTll; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3378C32782;
+	Fri, 16 Aug 2024 12:07:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723809724;
-	bh=bvbfWksnUxxYrDmTMADIEP1txvl0HHyCiKvzLifL8eg=;
+	s=k20201202; t=1723810025;
+	bh=TQtsJaMOmbDuU6lutXn66c12HYJapCJmaltrkmBqYAs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aXVR4txAbFQI23CHLIb/gIc/yvjh4yHOuC25Zm9qQxwbCiTPW8Kj++T10an1XbAS3
-	 aszbb6HW3kiZnLb7CpsTjmEIFPMrfRU2pH59AQxPQWXSYyipyYJJ6aanFHGD3abCbu
-	 wWZTEKeHGc9nRyy0PZq/oEylPUNnhFGyGxsSXLeXGbd93ev7EyuxWKj0MRivwyw//i
-	 dZFDIjCCXmgy2HuOfZ5rFcHhmpwQK5jV/ZHwcZjDyOBmTCuxymazkPqaYHnznaysJ/
-	 AZzM8vMpDX04SpyIwMOfxj4/uuwlPHNLu6ii0CImr2P8KKyylJvboxGkBKQjksez34
-	 O3/R9T1q/Flug==
-Date: Fri, 16 Aug 2024 14:02:01 +0200
+	b=kHrxzTllD2QzS2O60tfC4AbDXfzRKqbcMoHNDEZKp8rPfriLA7uhRIKr6p2NViGr7
+	 b5X+RCTlFUGuZF0nLD1zf3FpAzLGhDClAylx6jW2+Lb+OL9s5eSy+s5bEG9U3BFPVS
+	 657FfwZWXFsI6TIJT94lrFGRFnV80vaj2kB0haKJqyWTh9jph4B7lJrO92EuTRGj4G
+	 NLrT8e4FzLNMpmHqjdFCKDFGP0z7D0wzOx4vpeMOSW1i2wxtbpI52sgTfThohRvrjR
+	 vYZMybx0Bqn6ZyiNH3tI/gFSgSpTWx7HMFhypkce2sLhwhxcj1ObC7tfT18adnqxNu
+	 j81YT9CBU38zQ==
+Date: Fri, 16 Aug 2024 14:07:02 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Morten Welinder <mwelinder@gmail.com>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: Man page issue: fmod
-Message-ID: <6nzerecagvew62fvpt4z4ayqwcm4oxul5jmdrc3ib6l3a6iwly@romjnqxcixug>
-References: <CANv4PNkXjtWjzWib=AetdKLrhSqJEZHYzPjUMJNwsgrZsusRbA@mail.gmail.com>
+Subject: Re: [PATCH] syscalls.2: grow the Notes column to the right margin
+Message-ID: <hz5qlcwhfgimcsaxhttuivzfbq32vsyn25sxzxmwprrln2anl4@uc4p5352cnxx>
+References: <qruxkxy2wtmmaohagimcanhyoyfvmtzn3zmbasxqsgn5tvjfgc@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,96 +55,91 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qyi7xrlpgcjtjxff"
+	protocol="application/pgp-signature"; boundary="fwavemnktjplaxln"
 Content-Disposition: inline
-In-Reply-To: <CANv4PNkXjtWjzWib=AetdKLrhSqJEZHYzPjUMJNwsgrZsusRbA@mail.gmail.com>
+In-Reply-To: <qruxkxy2wtmmaohagimcanhyoyfvmtzn3zmbasxqsgn5tvjfgc@tarta.nabijaczleweli.xyz>
 
 
---qyi7xrlpgcjtjxff
+--fwavemnktjplaxln
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Morten Welinder <mwelinder@gmail.com>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: Man page issue: fmod
-References: <CANv4PNkXjtWjzWib=AetdKLrhSqJEZHYzPjUMJNwsgrZsusRbA@mail.gmail.com>
+Subject: Re: [PATCH] syscalls.2: grow the Notes column to the right margin
+References: <qruxkxy2wtmmaohagimcanhyoyfvmtzn3zmbasxqsgn5tvjfgc@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <CANv4PNkXjtWjzWib=AetdKLrhSqJEZHYzPjUMJNwsgrZsusRbA@mail.gmail.com>
+In-Reply-To: <qruxkxy2wtmmaohagimcanhyoyfvmtzn3zmbasxqsgn5tvjfgc@tarta.nabijaczleweli.xyz>
 
-Hi Morten,
+Hi =D0=BD=D0=B0=D0=B1!
 
-On Sun, Aug 11, 2024 at 07:39:01PM GMT, Morten Welinder wrote:
-> The fmod man page recommends this code to get the least positive residue:
+> Subject: Re: [PATCH] syscalls.2: grow the Notes column to the right margin
+
+I've s/grow/Expand/ for mnemonics with 'x'.
+Also, we use upper case for the subject after the ':'.
+
+Does that sound good to you?
+
+On Mon, Aug 12, 2024 at 07:22:20PM GMT, =D0=BD=D0=B0=D0=B1 wrote:
+> This prevents rows breaking when they could just go further to the right
+
+Good!
+
 >=20
->     z =3D fmod(x, y);
->     if (z < 0)
->          z +=3D y;
->=20
-> That last line should be "z +=3D fabs (y);"  Otherwise, for x=3D-0.25 and
-> y=3D-1 you get z=3D-1.25 which isn't what anyone is looking for.
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
+z>
 
-Thanks!  I've applied the following patch:
-
-	commit 5cf880bcb8f9a6678d37cad0ac2e17637e314f3f (HEAD -> contrib)
-	Author: Alejandro Colomar <alx@kernel.org>
-	Date:   Fri Aug 16 13:54:47 2024 +0200
-
-	    fmod.3: Fix example
-	   =20
-	    Reported-by: Morten Welinder <mwelinder@gmail.com>
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-	diff --git a/man/man3/fmod.3 b/man/man3/fmod.3
-	index f5d80b2ce..20f0899d1 100644
-	--- a/man/man3/fmod.3
-	+++ b/man/man3/fmod.3
-	@@ -66,7 +66,7 @@ .SH DESCRIPTION
-	 .nf
-	 z =3D fmod(x, y);
-	 if (z < 0)
-	-       z +=3D y;
-	+       z +=3D fabs(y);
-	 .fi
-	 .in
-	 .P
-
-> The man page could perhaps also state that the sign of y has no effect
-> on the output, other than possibly when the result is a NaN.
-
-I'm not sure.  That's already implied by saying that the return value is
-`x - trunc(x / y) * y`.  We'd need to be careful with the wording to
-stay correct with NaN, so I think it's better to keep it as implicitly-
-stated information.
+Patch applied.  Thanks!
 
 Have a lovely day!
 Alex
 
+> ---
+>  man/man2/syscalls.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> M.
+> diff --git a/man/man2/syscalls.2 b/man/man2/syscalls.2
+> index 7a7d6d730..795a3f7be 100644
+> --- a/man/man2/syscalls.2
+> +++ b/man/man2/syscalls.2
+> @@ -140,7 +140,7 @@ .SS System call list
+>  .\"
+>  .TS
+>  Lb Lb Lb
+> -L2 L  L.
+> +L2 L  Lx.
+>  System call	Kernel	Notes
+>  _
+>  \fB_llseek\fP(2)	1.2
+> --=20
+> 2.39.2
+>=20
+
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---qyi7xrlpgcjtjxff
+--fwavemnktjplaxln
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma/P7kACgkQnowa+77/
-2zL3cw/9FFclEnHQggCog6Hwap9S9WMdSw8THm5n9zwBYCnkyFDv2A492VKNhFd5
-AdyTFoTebfjoOY7sSPX9gZEaHrvdizKypKhDKjb90J9w24Ko8dZdMrIvlZTW5XtP
-xGu9cAfAldp2skUYy0J5Pu6pf4lGI0klhAEUylX2Gbg7D9o3ApdY1lN5udNHZ6TE
-5MvbXgoFFYB+IbPDfr47aa2qY5KDA5l0Efb2H3MilZajFT7sarBZockAgSZ6RMPT
-ehn1Ay30QVyUGiTC1j1/xFAHwJjEsd/t28Q/vw8EQh/bEmZ7kiU8b0biW4B1ZMs+
-LpYZQNvUj+h5o+OV3/f+91jhuMvUotceJFt4dJG/qW/kmwE+2ePesQxlpyX+oewJ
-OktOAQlhWrrae+jsX1/c5ELZ1ywZJiB6rYbU0dAkHaey6RmygKlvYx3AzuN1x3L/
-YKIjCHkimGbR3HARkAkUbiczymjAUpteSdkBjmGYP4hNqxswNymv6iiDNCpmuVj8
-ekQ+b3tVO/QNLVAiLeWCnVjk0Np79vADmbjI0k+5yk+E2+HWdq6RTcDkuK03Cccj
-XEwi3pYUTkiQCCFUSwSPtoulcMN1pumyIvMG5fGjeKzx8vzmsTek6BAixQtDJCDi
-gnNS72MmK9Awz1pIhwZ+wnVhtKJ1eFogmZadwc7WKSXt1aUMqTI=
-=lCnR
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma/QOYACgkQnowa+77/
+2zL1kg//QtIp92LcWLxTtkuL1ZDE/Xk6Sn64kv/+1EHepOVJXLdnpcGHaW3VCa+C
+K1u77Fm3yw3IfbOr7buxPUrR3sa9VLXIQMYq8507qm/KYWP69F7K7kVDgw5ha3vg
+lJa3wyQaVMCUm4tYhvC8rkRgKAf0MRvtwWxlCxQZoAavwQeN/xC/GVUTPBMaOGpe
+PyVyN+N10fwe0oO1HujHdDyjgn+ez3rYpQsjCeJYOBQbwQKEb77ZEL42FiMe9gs8
+u1lGsPcHn7I5MYi+cDF4nGmG4TlIzqlahcFdpM2H8lZbWr2HbxaIIVvWOjaPMZFO
+8vMgmjnO1UHDcr4Fow9dbaiOT2IGMg4yKmVKtw2U3uOeCKbXDzVQnmJfxsiDcAPa
+SZSDQKs9lp9wWg0yRIvQgpa1kw7ZB5+DcNf+2GyTeS8ZU69h6ol3DZbC/LBnGutV
+loLs28YOYupsyweL9XjSiaMQHmyIhHj3wQ5j+/05IKHOTSQc+8zMBU2+C2mRywhl
+1Q83WUkmaIdAc0VwXi3tPwbrSa+iwrbPN2CXJTb0zSgTNbChkgzfWd9+0pDQmTJK
+9rkkGJ6J/VGobg4VlKjdp1r1U5g5XxZPQ1pEDLczRKgjhQO+CeVLUrXF7JlUk3ju
+pGgwzfuuRVPnj/VDSGmITEXkeYZFAsUPh3cq6PuxazL+K2GdxSg=
+=9ZZl
 -----END PGP SIGNATURE-----
 
---qyi7xrlpgcjtjxff--
+--fwavemnktjplaxln--
 
