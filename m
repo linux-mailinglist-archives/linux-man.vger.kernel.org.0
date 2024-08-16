@@ -1,57 +1,66 @@
-Return-Path: <linux-man+bounces-1612-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1613-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C956954801
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 13:23:41 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89EF195482E
+	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 13:42:45 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id EF3C41F2163B
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 11:23:40 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id AE7E31C21C01
+	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 11:42:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 04F4134CD8;
-	Fri, 16 Aug 2024 11:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 493021AD9F9;
+	Fri, 16 Aug 2024 11:42:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mbj32Avv"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKfX+cDL"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F19817
-	for <linux-man@vger.kernel.org>; Fri, 16 Aug 2024 11:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E822954BD4;
+	Fri, 16 Aug 2024 11:42:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723807416; cv=none; b=qfwvnGfMaGeJUkkh1CPwZDYfI27NUhIKnxyQtq+45ct0mEWseb6x4foMyKUyFER1i5gVRKjkqqu9fxf+kqyWjspJq5jZI593AdtGsdZX3s0p4oGk7Akimp7dxKdYEc82qM5tjuzJ8O9zQMv73j5O1S+yuMQ5vWbLGrUWUOtWzf8=
+	t=1723808553; cv=none; b=pUqfLrmuS3UPGdMbFP6v3BIDAz6yFdJFP0gQhrLnXP3I+2KduoZgO4Vg8Upm51V47P8+BI0gpVdn1XzKQdqsRsbsV72O/IxeBIE3ZgfrvcqnLJ8tuEwTaCN3sYCZqn/NMD0ktlj8RI5c7HckBD55r1cF+SzERQZS6lcli+rPIzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723807416; c=relaxed/simple;
-	bh=uusr9ESUYqbNwZI6MJhfdWV60vjHfzk6v/Tbmwsr48c=;
+	s=arc-20240116; t=1723808553; c=relaxed/simple;
+	bh=J+GSTdLpJEZfAk/f/yXm2p8gFmA0yCS+q76KUgXiJdQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cfZ4S8QBTzKzRk0ltiq7sM1IEpJuKGWnlbqHRSqLeFeHMuFcX60Q/qfJYFtbjo5QpCNse7X1UkHm9nH1pFy7XMY1ffvbZSmL07PSz8lDRooGEsLOz7+Oaw1zLmBuBLwzhX97tq85siLG2fRsm/Hp7jTpQbB2hmKgkDJe51rY3h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mbj32Avv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEE4AC32782;
-	Fri, 16 Aug 2024 11:23:34 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZfR+WWv6y0ZTJIlm/Td1zD/Wo+WR9vfTg72sRpzqC2C3lqeeyfV/vUacQZFqZaOI4ZH0Ll9uSTU+FScgpU4APIBfxNnQQbYYOLXOAFcxmCTQh+jjU5p+KHyP1o4UPLD8JU+R0siptEQ1wL4+oqdsZIwzMrFPaatF4ZZJdCv9Kko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKfX+cDL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42484C4AF0D;
+	Fri, 16 Aug 2024 11:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723807416;
-	bh=uusr9ESUYqbNwZI6MJhfdWV60vjHfzk6v/Tbmwsr48c=;
+	s=k20201202; t=1723808552;
+	bh=J+GSTdLpJEZfAk/f/yXm2p8gFmA0yCS+q76KUgXiJdQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mbj32AvvwvKnw5VWgNba26cnpmbEOrxMfVtHhglu6wkGyrSLdQm6QPyyziTkY1eYw
-	 kjXYI62c1LQXVaSU0RzoEX1HFkEnmviKg7p5YtgCpWCmj6HBbyWLizfvuCn3Axqz/i
-	 0uwLS+dfoG27WByOpA/0nz+7INrKCRZ5lrWQuqx8bYLzgzMTkqmfmb70zzNmVpaSuc
-	 V0/jyC8XVColgnoPR4CO2QoGzCEhZjDbBx5/o9JH9dN2Jo1P5yZ/kEpChp5wty/iAE
-	 o4Kf6SDtcAJiZ50t6ZCGGAd0/7ltpNjlyViliB8t01PkVuZnAtX546kxwI8zsjmGvu
-	 htoL5pqgjItww==
-Date: Fri, 16 Aug 2024 13:23:32 +0200
+	b=ZKfX+cDLe9cWJg0Jsc/3IFVH4xssQrIdWDyXAdVBkooWS2TBxzTytsXYgh+KarcPq
+	 SOdGJvmrOoHFMr1br8qx8sAr7lIAl8AMBgau8VodV9yQXD98IDOzQaEOMEEQwOXTFi
+	 BVGM6D+6SEc3sh/DaeqzG5IOCMeUfE8n+fn3velhWq2ju0ry0LjdIUkyMnwz8mmI1M
+	 SO8/UYZ7360FyeDOgQk65crCXPbEVqp+59srpUbtAW+vsLBetnOdpDXoLV1KIde5pp
+	 7Kkq4r+M8kdWWjbQ+cGA2oqDi19LN14UpktOzg+AbJ8cZwkymF2msZHXuXAZ6HHYH+
+	 IWFG7sEs1rG+w==
+Date: Fri, 16 Aug 2024 13:42:26 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?TWlrb8WCYWogS2/FgmVr?= <kolek.mikolaj@gmail.com>
-Cc: linux-man@vger.kernel.org, Zack Weinberg <zackw@panix.com>, 
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH] sigaction.2: Improve wording and add an example in the
- BUGS section
-Message-ID: <e3zgdpqlccwzik5yinclrbiacf2koxxnenoxqemm5vc47ydetv@smm2zxipqu2n>
-References: <CAHGiy69M+TOOukpuOnkxY2bT4j=aSk5hP3fTRXsuiF-h3v=t4Q@mail.gmail.com>
- <geae7xuxzy5pdrn2uwozhyums7kv6l5lubj2p57o52ex675uk2@22pnucysmvoz>
- <CAHGiy69OQ78x42+6iE7HqAiOaPCscn8fs=VNaxFMNSR7Q9R-mw@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
+Message-ID: <ygpwfyjvhuctug2bsibvc7exbirahojuivglcfjusw4rrqeqhc@44h23muvk3xb>
+References: <20240611112158.40795-1-jolsa@kernel.org>
+ <20240611112158.40795-10-jolsa@kernel.org>
+ <20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
+ <3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
+ <20240807162734.100d3b55@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,328 +68,152 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="esaue556jlvuvinv"
+	protocol="application/pgp-signature"; boundary="o547xbwl3zxtiyuh"
 Content-Disposition: inline
-In-Reply-To: <CAHGiy69OQ78x42+6iE7HqAiOaPCscn8fs=VNaxFMNSR7Q9R-mw@mail.gmail.com>
+In-Reply-To: <20240807162734.100d3b55@gandalf.local.home>
 
 
---esaue556jlvuvinv
+--o547xbwl3zxtiyuh
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?B?TWlrb8WCYWogS2/FgmVr?= <kolek.mikolaj@gmail.com>
-Cc: linux-man@vger.kernel.org, Zack Weinberg <zackw@panix.com>, 
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH] sigaction.2: Improve wording and add an example in the
- BUGS section
-References: <CAHGiy69M+TOOukpuOnkxY2bT4j=aSk5hP3fTRXsuiF-h3v=t4Q@mail.gmail.com>
- <geae7xuxzy5pdrn2uwozhyums7kv6l5lubj2p57o52ex675uk2@22pnucysmvoz>
- <CAHGiy69OQ78x42+6iE7HqAiOaPCscn8fs=VNaxFMNSR7Q9R-mw@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org, 
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
+References: <20240611112158.40795-1-jolsa@kernel.org>
+ <20240611112158.40795-10-jolsa@kernel.org>
+ <20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
+ <3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
+ <20240807162734.100d3b55@gandalf.local.home>
 MIME-Version: 1.0
-In-Reply-To: <CAHGiy69OQ78x42+6iE7HqAiOaPCscn8fs=VNaxFMNSR7Q9R-mw@mail.gmail.com>
+In-Reply-To: <20240807162734.100d3b55@gandalf.local.home>
 
-Hi Miko=C5=82aj,
+Hi Steven, Jiri,
 
-On Wed, Aug 07, 2024 at 03:58:32PM GMT, Miko=C5=82aj Ko=C5=82ek wrote:
-> Hi Alejandro,
->=20
-> On Wed, Aug 7, 2024 at 12:20=E2=80=AFAM Alejandro Colomar <alx@kernel.org=
-> wrote:
-> >
-> > Hi Miko=C5=82aj,
-> >
-> > On Wed, Aug 07, 2024 at 12:07:57AM GMT, Miko=C5=82aj Ko=C5=82ek wrote:
-> > > This patch clears up the wording of the first part of the BUGS section
-> > > of the sigaction.2 man page.
-> > > Currently, it is very unclear when exactly the bug can occur, and
-> > > there is no example, which I aim to fix.
-> > >
-> > > I also attach the source code of a C program that,
-> >
-> > Please include the example program in the commit message.
->=20
-> I have updated the patch to include the code in the commit message. I
-> have also reorganised the code a bit, to be simpler and for the output
-> to be easier to understand. Here is the updated patch, I hope it will
-> be to your satisfaction:
+On Wed, Aug 07, 2024 at 04:27:34PM GMT, Steven Rostedt wrote:
+> Just in case nobody pinged you, the rest of the series is now in Linus's
+> tree.
 
-Yup; thanks!
+Thanks for the ping!
 
->=20
-> From 6f80374c12ad5e4917e8af8d0814201b4a916a49 Mon Sep 17 00:00:00 2001
-> From: Miko=C5=82aj Ko=C5=82ek <kolek.mikolaj@gmail.com>
-> Date: Wed, 7 Aug 2024 13:14:21 +0200
-> Subject: [PATCH] sigaction.2: Improve wording and add an example in the B=
-UGS
->  section
-> MIME-Version: 1.0
-> Content-Type: text/plain; charset=3DUTF-8
-> Content-Transfer-Encoding: 8bit
->=20
-> This patch clears up the wording of the first part of the BUGS section
-> of the sigaction.2 man page. Currently, it is very unclear when
-> exactly the bug can occur, and there is no example, which I aim to
-> fix. The text of the patch is partially based on the BUGS section of
-> the signal.2 man page.
->=20
-> I also attach a C program that, when run on an x86 Linux computer,
-> shows that my example behaves like I say it does. The code runs the
-> int instruction for each value from 0 to 255 with all registers set to
-> 0 to show that all fields of the siginfo_t besides si_signo and
-> si_code equal zero. The program is based on the attachment to bug
-> 205831 on the kernel bugtracker which first dealt with this issue,
-> which you can find here:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D205831. This is the code
-> of the test program:
->=20
-> #define CR "\n\t"
-> #define _GNU_SOURCE 1
->=20
-> #include <stdbool.h>
-> #include <signal.h>
-> #include <stdint.h>
-> #include <stdio.h>
->=20
-> static siginfo_t siginfo;
->=20
-> void handler(int sig, siginfo_t *info, void *ucontext) {
->     ucontext_t *uc =3D (ucontext_t*) ucontext;
->     const uint8_t *pc =3D (const uint8_t*) uc->uc_mcontext.gregs[REG_RIP];
->     siginfo =3D *info;
->=20
->     //skip the faulting instruction
->     if(*pc =3D=3D 0xCC || *pc =3D=3D 0xF1)
->         uc->uc_mcontext.gregs[REG_RIP] +=3D 1;
->     else if(*pc =3D=3D 0xCD)
->         uc->uc_mcontext.gregs[REG_RIP] +=3D 2;
->     else
->         ; //assume the PC has already been advanced over the fault
-> }
->=20
-> static __attribute__((noinline)) void call_int(unsigned char argument) {
->     asm volatile(
->         "leaq 1f(%%rip), %%rcx"
->         CR "addq   %%rcx, %%rax"
->         CR "xor    %%rbx, %%rbx"
->         CR "xor    %%rcx, %%rcx"
->         CR "xor    %%rdx, %%rdx"
->         CR "xor    %%rsi, %%rsi"
->         CR "xor    %%rdi, %%rdi"
->         CR "xor    %%rbp, %%rbp"
->         CR "xor    %%r8, %%r8"
->         CR "xor    %%r9, %%r8"
->         CR "xor    %%r10, %%r10"
->         CR "xor    %%r11, %%r11"
->         CR "xor    %%r12, %%r12"
->         CR "xor    %%r13, %%r13"
->         CR "xor    %%r14, %%r14"
->         CR "xor    %%r15, %%r15"
->         CR "call   *%%rax"
->         CR "jmp    2f"
->         CR ".p2align 3"
->         "\n1:"
->         CR ".irp   i,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15"
->         CR ".irp   j,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15"
->         CR "xor    %%rax, %%rax"
->         CR ".byte  0xCD,(\\i*16 + \\j)"
->         CR "ret"
->         CR ".p2align 3"
->         CR ".endr"
->         CR ".endr"
->         "\n2:"
->=20
->         :
->         : "a" (argument * 8)
->         : "rbx", "rcx", "rdx", "rsi", "rdi",
->           "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15"
->     );
-> }
->=20
-> int main() {
->     struct sigaction sa =3D { 0 };
->     sa.sa_sigaction =3D &handler;
->     sa.sa_flags =3D SA_SIGINFO | SA_RESTART;
->     sigaction(SIGSEGV, &sa, 0);
->     sigaction(SIGTRAP, &sa, 0);
->=20
->     for(int i =3D 0; i < 256; i++) {
->         call_int(i);
->=20
->         bool others_zeroed =3D (
->             siginfo.si_errno =3D=3D 0 &&
->             siginfo.si_pid =3D=3D 0 &&
->             siginfo.si_uid =3D=3D 0 &&
->             siginfo.si_status =3D=3D 0 &&
->             siginfo.si_utime =3D=3D 0 &&
->             siginfo.si_stime =3D=3D 0 &&
->             siginfo.si_value.sival_ptr =3D=3D 0 &&
->             siginfo.si_value.sival_int =3D=3D 0 &&
->             siginfo.si_int =3D=3D 0 &&
->             siginfo.si_ptr =3D=3D 0 &&
->             siginfo.si_overrun =3D=3D 0 &&
->             siginfo.si_timerid =3D=3D 0 &&
->             siginfo.si_addr =3D=3D 0 &&
->             siginfo.si_band =3D=3D 0 &&
->             siginfo.si_fd =3D=3D 0 &&
->             siginfo.si_addr_lsb =3D=3D 0 &&
->             siginfo.si_lower =3D=3D 0 &&
->             siginfo.si_upper =3D=3D 0 &&
->             siginfo.si_pkey =3D=3D 0 &&
->             siginfo.si_call_addr =3D=3D 0 &&
->             siginfo.si_syscall =3D=3D 0 &&
->             siginfo.si_arch =3D=3D 0
->         );
->=20
->         printf("int $0x%02x: sig=3D%2d code=3D%04x others_zeroed=3D%i\n",
->             i,
->             siginfo.si_signo,
->             siginfo.si_code,
->             others_zeroed
->         );
->     }
->=20
->     return 0;
-> }
->=20
-> Signed-off-by: Miko=C5=82aj Ko=C5=82ek <kolek.mikolaj@gmail.com>
+I have prepared some tweaks to the patch (see below).
+Also, I have some doubts.  The prototype shows that it has no arguments
+(void), but the text said that arguments, if any, are arch-specific.
+Does any arch have arguments?  Should we use a variadic prototype (...)?
 
-Patch applied.  Have a lovely day!
+Please add the changes proposed below to your patch, tweak anything if
+you consider it appropriate) and send it as v10.
+
+Have a lovely day!
 Alex
 
-> ---
->  man/man2/sigaction.2 | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/sigaction.2 b/man/man2/sigaction.2
-> index df8826e71..dcd450ce9 100644
-> --- a/man/man2/sigaction.2
-> +++ b/man/man2/sigaction.2
-> @@ -1129,13 +1129,29 @@ .SS Undocumented
->  See the relevant Linux kernel sources for details.
->  This use is obsolete now.
->  .SH BUGS
-> -When delivering a signal with a
-> +When delivering a signal resulting from a hardware exception with a
->  .B SA_SIGINFO
->  handler,
->  the kernel does not always provide meaningful values
->  for all of the fields of the
->  .I siginfo_t
->  that are relevant for that signal.
-> +For example, when the x86
-> +.I int
-> +instruction is called with a forbidden argument
-> +(any number other than 3 or 128), a
-> +.BR SIGSEGV
-> +signal is delivered, but the
-> +.I siginfo_t
-> +passed to the signal handler has all its fields besides
-> +.I si_signo
-> +and
-> +.I si_code
-> +set to zero, even if other fields should be set (as an example,
-> +.I si_addr
-> +should be non-zero for all
-> +.BR SIGSEGV
-> +signals).
->  .P
->  Up to and including Linux 2.6.13, specifying
->  .B SA_NODEFER
-> --=20
-> 2.46.0
->=20
-> >
-> > > when run on an x86
-> > > Linux computer, shows that my example behaves like I say it does. The
-> > > code runs the int instruction for each value from 0 to 255 with all
-> > > registers set to 0 to show what is contained in the siginfo_t returned
-> > > to the signal handler afterwards.
-> > >
-> > > The program is based on the attachment to bug 205831 on the kernel
-> > > Bugzilla, which first dealt with this issue, you can find that bug
-> > > report here: https://bugzilla.kernel.org/show_bug.cgi?id=3D205831. The
-> > > text of my contribution is also partially based on the BUGS section of
-> > > the signal.2 man page.
-> >
-> > Please CC the people that contributed in that discussion.
-> >
-> > Have a lovely night!
-> > Alex
-> >
-> >
-> > >
-> > > Signed-off-by: Miko=C5=82aj Ko=C5=82ek <kolek.mikolaj@gmail.com>
-> > > ---
-> > >  man/man2/sigaction.2 | 18 +++++++++++++++++-
-> > >  1 file changed, 17 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/man/man2/sigaction.2 b/man/man2/sigaction.2
-> > > index df8826e71..2b797355b 100644
-> > > --- a/man/man2/sigaction.2
-> > > +++ b/man/man2/sigaction.2
-> > > @@ -1129,13 +1129,29 @@ .SS Undocumented
-> > >  See the relevant Linux kernel sources for details.
-> > >  This use is obsolete now.
-> > >  .SH BUGS
-> > > -When delivering a signal with a
-> > > +When delivering a signal resulting from a hardware exception with a
-> > >  .B SA_SIGINFO
-> > >  handler,
-> > >  the kernel does not always provide meaningful values
-> > >  for all of the fields of the
-> > >  .I siginfo_t
-> > >  that are relevant for that signal.
-> > > +For example, when the x86
-> > > +.I int
-> > > +instruction is called with a forbidden argument
-> > > +(any number other than 3 or 128), a
-> > > +.BR SIGSEGV
-> > > +signal is delivered, but the
-> > > +.I siginfo_t
-> > > +passed to the signal handler has all its fields besides
-> > > +.I si_signo
-> > > +and
-> > > +.I si_code
-> > > +set to zero, even if other fields should be set (as an example,
-> > > +.I si_addr
-> > > +should be non-zero for all
-> > > +.BR SIGSEGV
-> > > +signals).
-> > >  .P
-> > >  Up to and including Linux 2.6.13, specifying
-> > >  .B SA_NODEFER
-> > > --
-> > > 2.46.0
-> >
-> >
-> >
-> > --
-> > <https://www.alejandro-colomar.es/>
->=20
+
+diff --git i/man/man2/uretprobe.2 w/man/man2/uretprobe.2
+index cf1c2b0d8..51b566998 100644
+--- i/man/man2/uretprobe.2
++++ w/man/man2/uretprobe.2
+@@ -7,50 +7,43 @@ .SH NAME
+ uretprobe \- execute pending return uprobes
+ .SH SYNOPSIS
+ .nf
+-.B int uretprobe(void)
++.B int uretprobe(void);
+ .fi
+ .SH DESCRIPTION
+-The
+ .BR uretprobe ()
+-system call is an alternative to breakpoint instructions for triggering re=
+turn
+-uprobe consumers.
++is an alternative to breakpoint instructions
++for triggering return uprobe consumers.
+ .P
+ Calls to
+ .BR uretprobe ()
+-system call are only made from the user-space trampoline provided by the k=
+ernel.
++are only made from the user-space trampoline provided by the kernel.
+ Calls from any other place result in a
+ .BR SIGILL .
+-.SH RETURN VALUE
+-The
++.P
++Details of the arguments (if any) passed to
+ .BR uretprobe ()
+-system call return value is architecture-specific.
++are architecture-specific.
++.SH RETURN VALUE
++The return value is architecture-specific.
+ .SH ERRORS
+ .TP
+ .B SIGILL
+-The
+ .BR uretprobe ()
+-system call was called by a user-space program.
++was called by a user-space program.
+ .SH VERSIONS
+-Details of the
+-.BR uretprobe ()
+-system call behavior vary across systems.
++The behavior varies across systems.
+ .SH STANDARDS
+ None.
+ .SH HISTORY
+-TBD
+-.SH NOTES
+-The
++Linux 6.11.
++.P
+ .BR uretprobe ()
+-system call was initially introduced for the x86_64 architecture
++was initially introduced for the x86_64 architecture
+ where it was shown to be faster than breakpoint traps.
+ It might be extended to other architectures.
+-.P
+-The
++.SH CAVEATS
+ .BR uretprobe ()
+-system call exists only to allow the invocation of return uprobe consumers.
++exists only to allow the invocation of return uprobe consumers.
+ It should
+ .B never
+ be called directly.
+-Details of the arguments (if any) passed to
+-.BR uretprobe ()
+-and the return value are architecture-specific.
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---esaue556jlvuvinv
+--o547xbwl3zxtiyuh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma/NrQACgkQnowa+77/
-2zLSMQ//cROzvL0vCRpJkPglfPI5EY5ugxM59kqlqHZMXEDuNWPP+z3EKoSp7yI2
-YcQ0PTTDT3JtciCwRlH4llNatD9cKUIh9JXJ14zxljv56Mtv3vFsQpjlO15plxqa
-Np2hUC2EUJ64Rzfg1BfbVVFOg4ATwZkGCBAKZ8lc1rZHMwool8Q0nsdZ1/mKwSZ3
-N9xrrXXLuCelBn7GtvxAHQWawH6qqSBILDTtuhjWO9WXg+tdqH2WGvjTu2qfexxw
-3phlHnZnLuG3pZ/96SJWQ4YpMCnuwtYzRreHdLEVBmxP+Zk5IuatpV3j1gQbq0gb
-dSOr9wsJbgXAk7/x4KvZ7FsSXvOX6dxlongvQKZnwkNukzuAnqdZ8N00ohRCDckU
-8Q2cQ2fk1iCrgPWFb0mwzb2AvxNb9Aj6kNe9vnxtaVBJ4qMZaS0Il6rhaLMnF/mJ
-PIZ0jjp8N41HTbi55xycaFGzZq41jGXI90ibBUhk0e+wSodyUx6Osnter1SNP3jb
-0RMkougPZ1AW7DTwxR4cyLNuj6LReYnGxuuv13KAtxUK4DSYvx5jDCUsyG+uUYhw
-fLJ/JZOjwBwDScRRLKDn61i9tsmm5lCyEJrG1R56yufDFRDS0uYQmcFNgvozJY6T
-XWzT6rTap6e5TyLlpatlOk+ZP10xzLSON5d8PjD5mYmpR3+WMuY=
-=E0fA
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAma/OyEACgkQnowa+77/
+2zJDCxAAhQ1Ra2KloypCCqkmA4dXbkaqQJyIuJ1Nmls+E5zYqiF2zKYI6OZ9njtq
+Ev/Fx+c59cm2r0DQtu04LfbzrymBLncErRofjceDWAU7Z28hYtFtVEs+Rx4Mdrxu
+5LwnSiLgTv0rwjj3rz91liRasAxBRmDBx/llAHrwO3fYQk2Zp2Y0UrT3GT02moSG
+f/LXSx/DihVQzoZJPvDC0hy+sYix6Lkr/hZRdlBSclfQJJsm1xv79N0qG6lKCgP9
+Au4DW4Pvjfw1xeYtfHAHLvw2cyvHUcHvLyH2uvX5F+33kk1hLGf81DjraL3wFsyj
+z0uDA/TkNHrLiMu8fxNnG6CBxasaZYk8U7EsUFqtC3gVMleDZFxLzuSrRI4xprBe
+rxJ/SxkVl0pLOGMMlj+Q3yjilgPQqBklZK1fOwqdNQ7fWAKR2K7vRXj+fRb84Xck
+O3LJg02hlH8Oquh3QmlGFl9QaMZn8FHV16Rpk4Vl3q+Y3I48rg8n+bhT7vuhOK+H
+4G5yEMLB5BfmQ5DSDlpSmN7jQlK9NVoPgk9yV09LkBtlW29pDvJXaTth9H0Is3ci
+DxTJySu/USezOarYS/AUjbTGJT943EtGj5KMHwcixS6ub+CsufI6CAnyXkfJMvzt
+CdseNjZW7MfslXPlP3fpVehUSUXSA36CDIH754UV4xZLoxrOHs0=
+=J420
 -----END PGP SIGNATURE-----
 
---esaue556jlvuvinv--
+--o547xbwl3zxtiyuh--
 
