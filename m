@@ -1,382 +1,146 @@
-Return-Path: <linux-man+bounces-1625-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1626-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id A830D955362
-	for <lists+linux-man@lfdr.de>; Sat, 17 Aug 2024 00:35:44 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB376955684
+	for <lists+linux-man@lfdr.de>; Sat, 17 Aug 2024 10:58:28 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 289AB1F21FFE
-	for <lists+linux-man@lfdr.de>; Fri, 16 Aug 2024 22:35:44 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0A25B1C20DF6
+	for <lists+linux-man@lfdr.de>; Sat, 17 Aug 2024 08:58:28 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C18D1459F7;
-	Fri, 16 Aug 2024 22:35:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7F13145B1D;
+	Sat, 17 Aug 2024 08:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="XAEa06TH"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j2c76Nea"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6073C146591
-	for <linux-man@vger.kernel.org>; Fri, 16 Aug 2024 22:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87C61459FA;
+	Sat, 17 Aug 2024 08:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723847734; cv=none; b=gKQ9zdXFAyFEWc17HObifUg2qacGTc6rmPoyEJS7ZASeNHTv/rDvFiFGmsD3NTagjrIpIyHrqGBgwXWJpyD/b0Nlfk0GrgDm67tyvhBJ1rQaAgYxwvMjnUCO+LvDXGMfMN8KiIgplaBYMBLpKyeZW9gv73LZo8tFpaGhBnsz6VI=
+	t=1723885102; cv=none; b=oOQuB/zOOiGSE4PB+6SImslSei7KZ+9kZ6xmJzDlGeqnvOLZuiDdlu+mDFpUdo6pr3UoJ/PfHWWjhr25UNgA7wPjFSnmMRYGjrp5ZGueJ5rzAjyVhrIR64kfggp4NrezoB4eiPhMvFn7RtUMyAxktbx3I7DpLZTICD3oi6A70/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723847734; c=relaxed/simple;
-	bh=UarNtiAS4ndYdnVOzsVpG/ZY+dxrFNh3lb8m6LyvxYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=WR6agp+IRT6I90B+m6IioW0f/gdjT4bMcbSxDKI0bspS5pyNmbqeZMREgHLY1Y9YmaKu72IKEot09HsXD2Pu4emu3Aa5We4blNroJ6qsQ4huI4J4/e1bPQbBHR9+tyWKRTlrADxwcfe8Zrvjd0F8UU7/yGOY3Z5IJA7VYxCHQYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=XAEa06TH; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202405; t=1723847728;
-	bh=UarNtiAS4ndYdnVOzsVpG/ZY+dxrFNh3lb8m6LyvxYQ=;
-	h=Date:From:To:Cc:Subject:From;
-	b=XAEa06THWMY7lRABOuSxZLM4iq/U01omMLDkmCoq29webjQAgAUUcrIvnlczFAORK
-	 9tkq3rJ4yExqoDdsRH9jIIsUIfchSfHjG1HKzjMU9fZptvQN7MaDGrVSCjNBjMp0ib
-	 MHuSefzzUhFy3tZZK1VGtBLGQtHxeImR+BiHTie8gQu1kcbt55zAwuvTFA7LO7DkHU
-	 yTNFuz3p6z2B0LUOgdIFzseH6R9inkVgSZrMClw4Mxw8gaWdHfDamqm8MhBUPPlpXK
-	 jDiWENXAxz3Y43ezXYo3VEDub/p0AcX/3V/qWn+I6ac1IgH6xdid9OjXug9EnTYdA/
-	 36StwGwaI7Iqw==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id EF179BEE4;
-	Sat, 17 Aug 2024 00:35:27 +0200 (CEST)
-Date: Sat, 17 Aug 2024 00:35:27 +0200
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH v2] bdflush.2, syscalls.2: bdflush was removed
-Message-ID: <ynknns52cczu2bxtazbmub3xxe62a2hajkod2qephnby5dqt7o@tarta.nabijaczleweli.xyz>
+	s=arc-20240116; t=1723885102; c=relaxed/simple;
+	bh=2Pq9C5IPW660mygnX9oIyuuVWv8qtJEXNGjXTr8fJO4=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fcCyqpUwuZav7+4aBj9Q4Cr1Y0VV/MHhooA30/wqeHu1H9qoo8gQ3i+pya53V5OtTD00hBq1fy69iieYSDw0/i0V72HZbw9Np7x7TADrfSeNA+A4UjlluoZDJu/AqA4X8mPPNAspQ2k55aWV3P5p2zXvK7k5FCrIFwEu7XixF7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j2c76Nea; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-371936541caso963067f8f.0;
+        Sat, 17 Aug 2024 01:58:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1723885099; x=1724489899; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hrv4H1dCJwtdoZUxlozPpn/SA8hHGjZJ+RyaiCWe+Ig=;
+        b=j2c76NeaEFMZyfhDZWiRFppZBw87XARUk/llF9TdpyWQU1V0qV0lyfWIMAr4hocnBn
+         kv4Df6lOrjkMP55XD8vlPNjNLVIRROPSkUp0Auj0Q3KH3gHqMLJXE2gR9ujUEkX8Ck7k
+         TZ7LK7M1XxxCTpU/x9XbxHx3iskfL7l5LoeNaExTyqj6R/3MQiEhFilk+NAxjgc2UK04
+         r5vD1HMVDhRPEs/5VQhU9eHr0HF4NQ5KLEtGuP9+iMAjffg9UsglsD1E1Gs2QZg1MB5S
+         OzdwNF5X1GYVcVjxHSj4adYhL4IN3jEPONBR9KToPv7hwvPxM5q0P+u2XddwQ3G99uo8
+         YApQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723885099; x=1724489899;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hrv4H1dCJwtdoZUxlozPpn/SA8hHGjZJ+RyaiCWe+Ig=;
+        b=qfoGejNefJASlm3o9QGuOEOWouOwCwaEhZSfVUYys421hKZ03YUMWprtoFtLr/xUkd
+         pQeNUfvvCUJD+w1fQ7WTYmeraCty/Hg87YEj2R8HokGB4t6TwrJEGrIzcgl9Dxai2Bat
+         yGuTQt6p21oM1WpRr0/nvpShcSfDab8WuNpQ+/UOyboylY85dh7rTmxjX6wMC3Uyownr
+         Cy/frFFnlapVHvsNXWIZCjbsdjisMHE7Ic1eBpYiaI0kM/8Y32rrJlfPY9A3PLNeVHty
+         TIBMPoHHdUAJNXdV2UiMl7q6E9fFchMHz0e33phhzdPQma86usvoFihAu9afZvlZ1M0l
+         UWFA==
+X-Forwarded-Encrypted: i=1; AJvYcCXl0v5JYR0CckSMpucfYdNshIexSGKcTWtutsphgG/taZZ0oYkPzcWIJ6oc1O/a87uOXSLYFQUWzFjZIKHpSsk/BC0CkKyBH99UW3mqOyhHCI7vMiZxl1oAP/zY0/dBc4yVg9Qzm55m/SCdB6kwtmUqD/vAbU61b9dK8LbUPkOVFHoMVoMYeLE2IT+YMYlixMYMwV83qaSSkeBXhmQTfKJtr6sGQF8sccjWkDdAPlsApNha/UP6FVdmtxJN
+X-Gm-Message-State: AOJu0YxXQr8GGxg+uzVeAhdGCtMN4CKMvY7GTW6WqjEWfn2+TbZnACiG
+	7hW1byVJG3PRZ3krgDTEAHhNqf/93fhvneLrN+JqPpp+DJjtOStE
+X-Google-Smtp-Source: AGHT+IHvMHDQOsgSZ2XMN8wNomoexC5wBk0XKsWfNZmIyBVBMrfzO4yJfF5IMQzpCT58qbYNrUxHsA==
+X-Received: by 2002:a5d:5f42:0:b0:36b:b297:1419 with SMTP id ffacd0b85a97d-371a73ea90emr1484428f8f.20.1723885098855;
+        Sat, 17 Aug 2024 01:58:18 -0700 (PDT)
+Received: from krava (dynamic-2a00-1028-83ac-367a-fff8-e06b-b9cd-8053.ipv6.o2.cz. [2a00:1028:83ac:367a:fff8:e06b:b9cd:8053])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-429ed78481asm44247765e9.32.2024.08.17.01.58.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Aug 2024 01:58:18 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Sat, 17 Aug 2024 10:58:15 +0200
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jiri Olsa <olsajiri@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org, x86@kernel.org, bpf@vger.kernel.org,
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	Deepak Gupta <debug@rivosinc.com>
+Subject: Re: [PATCHv8 9/9] man2: Add uretprobe syscall page
+Message-ID: <ZsBmJzX7BaHJB_oc@krava>
+References: <20240611112158.40795-1-jolsa@kernel.org>
+ <20240611112158.40795-10-jolsa@kernel.org>
+ <20240611233022.82e8abfa2ff0e43fd36798b2@kernel.org>
+ <3pc746tolavkbac4n62ku5h4qqkbcinvttvcnkib6nxvzzfzym@k6vozf6totdw>
+ <20240807162734.100d3b55@gandalf.local.home>
+ <ygpwfyjvhuctug2bsibvc7exbirahojuivglcfjusw4rrqeqhc@44h23muvk3xb>
+ <Zr-Gf3EEganRSzGM@krava>
+ <c7v4einpsvpswvj3rqn5esap2e5lpeiwacylqlzwdcp7slsgvg@jfmchkiqru4u>
+ <ht6hc5dbvgx3ny22pvhiazs7vxjhiockr6glpho5bpp6hrwn4f@oew3iu7a62j2>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kox4lfomr5f77x5r"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
+In-Reply-To: <ht6hc5dbvgx3ny22pvhiazs7vxjhiockr6glpho5bpp6hrwn4f@oew3iu7a62j2>
 
+On Fri, Aug 16, 2024 at 11:56:39PM +0200, Alejandro Colomar wrote:
+> Hi Jiri, Steven,
+> 
+> On Fri, Aug 16, 2024 at 08:55:47PM GMT, Alejandro Colomar wrote:
+> > > hi,
+> > > there are no args for x86.. it's there just to note that it might
+> > > be different on other archs, so not sure what man page should say
+> > > in such case.. keeping (void) is fine with me
+> > 
+> > Hmmm, then I'll remove that paragraph.  If that function is implemented
+> > in another arch and the args are different, we can change the manual
+> > page then.
+> > 
+> > > 
+> > > > 
+> > > > Please add the changes proposed below to your patch, tweak anything if
+> > > > you consider it appropriate) and send it as v10.
+> > > 
+> > > it looks good to me, thanks a lot
+> > > 
+> > > Acked-by: From: Jiri Olsa <jolsa@kernel.org>
+> 
+> I have applied your patch with the tweaks I mentioned, and added several
+> tags to the commit message.
+> 
+> It's currently here:
+> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=977e3eecbb81b7398defc4e4f41810ca31d63c1b>
+> 
+> and will $soon be pushed to master.
+> 
+> Have a lovely night!
+> Alex
 
---kox4lfomr5f77x5r
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+great, thanks
 
-There's no point documenting this syscall at any point in time,
-because it changed constantly. A post-mortem summary I believe to be
-comprehensive is included below.
-
-The #include <sys/kdaemon.h> was removed in glibc 2.23:
-    commit eed3e1eb79bcfa9b52609fd875fa2d522e2d6bce
-    Author: Joseph Myers <joseph@codesourcery.com>
-    Date:   Mon Dec 14 22:52:15 2015 +0000
-
-    Make obsolete syscall wrappers into compat symbols (bug 18472).
-
-    * bdflush: in Linux 2.6, does nothing if present.
-
-    [...]
-    generated for such aliases.  Those five syscalls are then made into
-    compat symbols (obsoleted in glibc 2.23, so future ports won't have
-    these symbols at all), with the header <sys/kdaemon.h> declaring
-    bdflush being removed.  When we move to 3.2 as minimum kernel version,
-    the same can be done for nfsservctl (removed in Linux 3.1) as well.
-    [...]
-
-Appears in 1.1.3
-(func=3D0  turns the calling process into the bdflush daemon,
- func=3D1  return sync_old_buffers();,
- func>=3D2 is parameters):
-    Author: Linus Torvalds <torvalds@linuxfoundation.org>
-        Import 1.1.3
-
-    +/* This is the interface to bdflush.  As we get more sophisticated, we=
- can
-    + * pass tuning parameters to this "process", to adjust how it behaves.=
-  If you
-    + * invoke this again after you have done this once, you would simply m=
-odify
-    + * the tuning parameters.  We would want to verify each parameter, how=
-ever,
-    + * to make sure that it is reasonable. */
-    +
-    +asmlinkage int sys_bdflush(int func, int data)
-    +{
-
-bdflush() is just a kernel thread, and func 0 is just return 0; since 1.3.5=
-0:
-    Author: Linus Torvalds <torvalds@linuxfoundation.org>
-        Import 1.3.50
-
-    -       /* Basically func 0 means start, 1 means read param 1, 2 means =
-write param 1, etc */
-    +       /* Basically func 1 means read param 1, 2 means write param 1, =
-etc */
-            if (func >=3D 2) {
-                    i =3D (func-2) >> 1;
-                    if (i < 0 || i >=3D N_PARAM)
-    @@ -1930,13 +1845,32 @@ asmlinkage int sys_bdflush(int func, long data)
-                    bdf_prm.data[i] =3D data;
-                    return 0;
-            };
-    +
-    +       /* Having func 0 used to launch the actual bdflush and then nev=
-er
-    +       return (unless explicitly killed). We return zero here to
-    +       remain semi-compatible with present update(8) programs. */
-    +
-    +       return 0;
-    +}
-    +
-    +/* This is the actual bdflush daemon itself. It used to be started from
-    + * the syscall above, but now we launch it ourselves internally with
-    + * kernel_thread(...)  directly after the first thread in init/main.c =
-*/
-    +
-    +int bdflush(void * unused) {
-
-func 1 is actually exit(0) since 2.3.23pre1:
-    Author: Linus Torvalds <torvalds@linuxfoundation.org>
-        Import 2.3.23pre1
-
-                if (func =3D=3D 1) {
-    +               /* do_exit directly and let kupdate to do its work alon=
-e. */
-    +               do_exit(0);
-    +#if 0 /* left here as it's the only example of lazy-mm-stuff used from
-    +        a syscall that doesn't care about the current mm context. */
-
-fund!=3D0 is a return 0 since 2.5.12:
-    Author: Andrew Morton <akpm@zip.com.au>
-    Date:   Mon Apr 29 23:52:10 2002 -0700
-
-        [PATCH] writeback from address spaces
-
-        [ I reversed the order in which writeback walks the superblock's
-          dirty inodes.  It sped up dbench's unlink phase greatly.  I'm
-          such a sleaze ]
-
-        The core writeback patch.  Switches file writeback from the dirty
-        buffer LRU over to address_space.dirty_pages.
-
-        - The buffer LRU is removed
-
-        - The buffer hash is removed (uses blockdev pagecache lookups)
-
-        - The bdflush and kupdate functions are implemented against
-          address_spaces, via pdflush.
-
-        [...]
-
-Deprecated since 2.5.52:
-    Author: Andrew Morton <akpm@digeo.com>
-    Date:   Sat Dec 14 03:16:29 2002 -0800
-
-        [PATCH] deprecate use of bdflush()
-
-        Patch from Robert Love <rml@tech9.net>
-
-        We can never get rid of it if we do not deprecate it - so do so and
-        print a stern warning to those who still run bdflush daemons.
-
-Removed outright in 5.15-rc1:
-    commit b48c7236b13cb5ef1b5fdf744aa8841df0f7b43a
-    Author: Eric W. Biederman <ebiederm@xmission.com>
-    Date:   Tue Jun 29 15:11:44 2021 -0500
-
-        exit/bdflush: Remove the deprecated bdflush system call
-
-        The bdflush system call has been deprecated for a very long time.
-        Recently Michael Schmitz tested[1] and found that the last known
-        caller of of the bdflush system call is unaffected by it's removal.
-
-        Since the code is not needed delete it.
-
-        [1] https://lkml.kernel.org/r/36123b5d-daa0-6c2b-f2d4-a942f069fd54@=
-gmail.com
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
-First two applied.
-
-As for the errors: those are equally as varying as the behaviours,
-and a general summary of "some of them" or "all of them at some point"
-is equally as meaningless and useless as the main DESCRIPTION was.
-
-If you're unfortunate enough to care about bdflush(2) (no one is),
-the same applies for the errors (though, if I'm reading=20
-  https://lkml.kernel.org/r/36123b5d-daa0-6c2b-f2d4-a942f069fd54@gmail.com
-right, update(8) du jour didn't care about them either,
-so much so it still works with the syscall removed).
-
- man/man2/bdflush.2  | 104 +++++++++++---------------------------------
- man/man2/syscalls.2 |   3 +-
- 2 files changed, 28 insertions(+), 79 deletions(-)
-
-diff --git a/man/man2/bdflush.2 b/man/man2/bdflush.2
-index 8627a42..5b5ed16 100644
---- a/man/man2/bdflush.2
-+++ b/man/man2/bdflush.2
-@@ -12,91 +12,39 @@ .SH SYNOPSIS
- .nf
- .B #include <sys/kdaemon.h>
- .P
--.BI "[[deprecated]] int bdflush(int "  func ", long *" address );
--.BI "[[deprecated]] int bdflush(int "  func ", long " data );
-+.BI "int bdflush(int "  func ", long " data );
- .fi
- .SH DESCRIPTION
--.IR Note :
--Since Linux 2.6,
--.\" As noted in changes in the 2.5.12 source
--this system call is deprecated and does nothing.
--It is likely to disappear altogether in a future kernel release.
--Nowadays, the task performed by
--.BR bdflush ()
--is handled by the kernel
--.I pdflush
--thread.
-+This system call used to turn the calling process into the
-+.I bdflush
-+daemon,
-+or tune it,
-+or flush the "old buffers".
-+It then progressively lost all of that functionality.
- .P
--.BR bdflush ()
--starts, flushes, or tunes the buffer-dirty-flush daemon.
--Only a privileged process (one with the
--.B CAP_SYS_ADMIN
--capability) may call
--.BR bdflush ().
--.P
--If
--.I func
--is negative or 0, and no daemon has been started, then
--.BR bdflush ()
--enters the daemon code and never returns.
--.P
--If
--.I func
--is 1,
--some dirty buffers are written to disk.
--.P
--If
--.I func
--is 2 or more and is even (low bit is 0), then
--.I address
--is the address of a long word,
--and the tuning parameter numbered
--.RI "(" "func" "\-2)/2"
--is returned to the caller in that address.
--.P
--If
--.I func
--is 3 or more and is odd (low bit is 1), then
--.I data
--is a long word,
--and the kernel sets tuning parameter numbered
--.RI "(" "func" "\-3)/2"
--to that value.
--.P
--The set of parameters, their values, and their valid ranges
--are defined in the Linux kernel source file
--.IR fs/buffer.c .
--.SH RETURN VALUE
--If
--.I func
--is negative or 0 and the daemon successfully starts,
--.BR bdflush ()
--never returns.
--Otherwise, the return value is 0 on success and \-1 on failure, with
--.I errno
--set to indicate the error.
-+See
-+.I fs/buffer.c
-+in the kernel version you're interested in to see what it actually does th=
-ere.
- .SH ERRORS
--.TP
--.B EBUSY
--An attempt was made to enter the daemon code after
--another process has already entered.
--.TP
--.B EFAULT
--.I address
--points outside your accessible address space.
--.TP
--.B EINVAL
--An attempt was made to read or write an invalid parameter number,
--or to write an invalid value to a parameter.
--.TP
--.B EPERM
--Caller does not have the
--.B CAP_SYS_ADMIN
--capability.
-+.B ENOSYS
-+(this system call is unimplemented)
- .SH STANDARDS
- Linux.
- .SH HISTORY
--Since glibc 2.23, glibc no longer supports this obsolete system call.
-+This system call was introduced in Linux 1.1.3,
-+became effectively obsolete in Linux 1.3.50,
-+mostly useless in Linux 2.3.23,
-+entirely useless in Linux 2.5.12,
-+officially deprecated in Linux 2.5.52,
-+and removed outright in Linux 5.15.
-+.P
-+Sometimes, if
-+.I func
-+was even,
-+.I data
-+actually represented a pointer.
-+.P
-+The header and prototype were removed in glibc 2.23.
- .SH SEE ALSO
- .BR sync (1),
- .BR fsync (2),
-diff --git a/man/man2/syscalls.2 b/man/man2/syscalls.2
-index 7a7d6d7..56bbb59 100644
---- a/man/man2/syscalls.2
-+++ b/man/man2/syscalls.2
-@@ -170,7 +170,8 @@ .SS System call list
- \fBatomic_cmpxchg_32\fP(2)	2.6.34	m68k only
- \fBbdflush\fP(2)	1.2	T{
- Deprecated (does nothing)
--since 2.6
-+since 2.6,
-+removed in 5.15
- T}
- \fBbind\fP(2)	2.0	T{
- See notes on \fBsocketcall\fP(2)
---=20
-2.39.2
-
---kox4lfomr5f77x5r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAma/1C0ACgkQvP0LAY0m
-WPHdIA/9GAbwCHRDQ+4UpjE0k9XfUkg2KRDoKnUnbkBRoBnUsBeZvs6lwDA0G8cK
-mWHqe7pOfM/iJYL1hsAOmrlSd/U9TBo5WJFC6L2SbQ8WqVwaPw/vxwAWJnFbQn/g
-mLxICm8niciZlYRtI9gZ7gk2GMMQJi58dz0yq8slcNUo5au3T5Xo8eiiTqEXrb6p
-zx//qeESJSfa+Av71LJE76afJA6denvI8O4BIb4N2gksKfA5jzje2zMniw4Gudug
-wYpmhU8oI1wyTCE8NBj6laqXVNoPjpBodMOGZAi+AK7uj/OYMww9Lv6KPldslw+F
-LcXxlVs3FCNFnhwfXpapdfSqhWujUz5DRITpalk+8SADhUfsFas0rwuQT2gOEj+L
-JzzRk2sZTtUC5k82BVBrzYpvDiaBFKnD0YFn+Fp8i82JXKHPHYMM5UC1CpjFyr59
-mxaS0YN7fyK2FHSyQi6/M8mJ1Dz4pMXfiV58WvrBapUimBkOtH8WHksLY14zKNlN
-wkCEv+/+r7+Q2ub5jeCJBUKcte/+NQpDnWBfzLqjBFDJ7vTu1oxI/1Q1tIzFWRaO
-ykGa1K+q5jMQslsEqDfgyjtBa8gPP4fGWp4JHGGzZDwJ0hEJ860PmJJ5Q9XmpZry
-ueW9W0LDR4S/hfvPyPrgOj7DdUGFfncDPcH+7j2z63e+c+p0eOU=
-=qtt9
------END PGP SIGNATURE-----
-
---kox4lfomr5f77x5r--
+jirka
 
