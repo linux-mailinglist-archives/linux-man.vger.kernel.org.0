@@ -1,98 +1,145 @@
-Return-Path: <linux-man+bounces-1628-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1629-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22AA0959817
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 12:45:54 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 696639599EF
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 13:31:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 54DFE1C21D67
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 10:45:53 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DA8DCB27CD6
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 11:31:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9814189B86;
-	Wed, 21 Aug 2024 08:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B330F1D12F6;
+	Wed, 21 Aug 2024 10:36:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=umich.edu header.i=@umich.edu header.b="V5g0kTz2"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTsd2Sjc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from violet-aeron.relay-egress.a.mail.umich.edu (relay-egress-host.us-east-2.a.mail.umich.edu [18.216.144.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EA3165F11
-	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 08:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.216.144.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736C81D12F4
+	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 10:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724230429; cv=none; b=X9obBK5a5oIMF4A61ZiowX8Ac0Ju5GD+yzVOBFf5+jf6PkBMGcnZAuCGhs8Tx8dE7Km6vnWaWsK81axRTxSqYsu/mqPZP/v3+9WCVKpv12eEa4qDHjOe/56l56WakF5Gj9hI3xzLGqBBwGUmeJtjAyHhahC6JVaSnfBICizK26Q=
+	t=1724236577; cv=none; b=LnS0CnMZk6+XHTWkVnmM0EzNAbPsyqAKoBVsHL9m8X+0BGRyijzcVFw5lQvflQh7ujaPAYQA0FoatObuK6TDLynvyMSe7FPk45iguq/E0nCkSRl5Z6CzZsc1cTuwOU58O0wNTa3XkrRRwq/ju9odX+bfv5UtwwtHKiNUQXL3kl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724230429; c=relaxed/simple;
-	bh=ItAWJVcwlWLPpsg2epUE6NQ4rmIgNA8VIN4Opie6lZY=;
-	h=From:To:Cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=TVqPse9wZhPhTdG7ef9mJ+Qe0hMVL2JZN3LvKkhA1PFid5OAkuLdDArgYxEghfSuh9fXk6pZ3XGapz0ZpSQ/hQAGbTrCt1iF4fwPpDtyAsaZTtCWuj4hg6IPEZaDH/pSpabu1UHjutcI3IzIwhLlckT8LXVlotIB9FjJK+wy6jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=umich.edu; spf=pass smtp.mailfrom=umich.edu; dkim=pass (2048-bit key) header.d=umich.edu header.i=@umich.edu header.b=V5g0kTz2; arc=none smtp.client-ip=18.216.144.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=umich.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=umich.edu
-Received: from devoted-ogre.authn-relay.a.mail.umich.edu (ip-10-0-72-123.us-east-2.compute.internal [10.0.72.123])
-	by violet-aeron.relay-egress.a.mail.umich.edu with ESMTPS
-	id 66C5AA46.3A729F5D.70BC97FE.2787037;
-	Wed, 21 Aug 2024 04:50:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umich.edu;
-	s=relay-0; t=1724230214;
-	bh=Ykm2DmOBSOrg/BhF2XW0yyxbaXWtYT/uBBDiBA2m27M=;
-	h=From:To:Cc:Subject:Date;
-	b=V5g0kTz2H9w4nxMttGaBElfEd5+9ljvmK/myrjjaIrSwpJxkbDd5+sbkSUNguSK5O
-	 O3MHHRdygqrAyktTRw9djAgqJ+3uxSdOvHzTd6OzT6lCvkPeeZZKPxiVIFZ7o7RwBP
-	 RjQffvpSiwacV3Ig5Oi2IKH+Ld5DHrEBK10Ytg77JgZ3jpJNDWmzfgdOgUWAcO5LNG
-	 vJiaz1fGKNlCRllruJ9Q3n3XWKJIM7yJx7ndlcyGBO9xlnggYWQnZ50l4+3svA+vgD
-	 Au4E+Mf0Avs7x/Dr2cxWg94FcewYXCUgKNd6DHFUWFpXGg03LOsv5oBRF6zoGUuVrr
-	 ZAEZS7tty3+bA==
-Authentication-Results: devoted-ogre.authn-relay.a.mail.umich.edu; 
-	iprev=fail policy.iprev=85.108.143.146 (Mismatch);
-	auth=pass smtp.auth=minshall
-Received: from localhost (Mismatch [85.108.143.146])
-	by devoted-ogre.authn-relay.a.mail.umich.edu with ESMTPSA
-	id 66C5AA45.1C46BCB4.DD01EC4.1393344;
-	Wed, 21 Aug 2024 04:50:14 -0400
-From: Greg Minshall <minshall@umich.edu>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1724236577; c=relaxed/simple;
+	bh=7PlmcZSZ0lOnxASA+o1cKAXGngcmnq1Fzl+qeRzkMuc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G4oABvtPvJhwpFXTwe/1L/0mXlLFERi71jx2hjkmi2mFrReVF87jN9rBuTl6wzbsc2NFMb29P2e7MGKI8niD81Y2jN6SXF5XF1nFg5JrO8HSkAK8mVK2Dn96is9D4uSL0ph7ZVKvsTk/Zt9uFlGxbhz/5Yn3siVH9M4jkyQZeVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTsd2Sjc; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7FAC32782;
+	Wed, 21 Aug 2024 10:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724236577;
+	bh=7PlmcZSZ0lOnxASA+o1cKAXGngcmnq1Fzl+qeRzkMuc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FTsd2SjcoMhKYjozJEoP4jMk3/TwIt90xdazCjii01dTH+YKAbLw1fJ4MErotmmEo
+	 nPR1k2gcuIcCyEfg9rKshfOTcv0gKwYMKkAVQqRaTWmjvJKxO5/17ZHXB5mNniH0MO
+	 OoCJJ9Y5JrddlrSV4Q0aGPpODXEkxHTmf4AdbO1f/78iCwTEjenXquXrX0MC7DnVR6
+	 T6hzaL23urUI+tH6N1zL4mGCRNuMW9SHS7N/8rFQqTWcSFrcd+8R2MtQuIRthAhqC5
+	 bnaHKueWQXYZ86uqI/ABUXx94WLCzAMjJV/SXx+F2PygMtvmN8os0r06RO+C1SOiwW
+	 4YZVUihr4q5ow==
+Date: Wed, 21 Aug 2024 12:36:14 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Greg Minshall <minshall@umich.edu>
 Cc: linux-man@vger.kernel.org
-Subject: getaddrinfo_a man page: add notification example?
-X-Mailer: MH-E 8.6+git; nmh 1.8; Emacs 31.0.50
+Subject: Re: getaddrinfo_a man page: add notification example?
+Message-ID: <ournrsj2l2cym7kbz5nl65mgtuuuqmd62i5unlkxr3kfduhq65@ajz4sjya43hj>
+References: <728184.1724230207@archlinux>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <728183.1724230207.1@archlinux>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hpjy5rg5se524cwr"
+Content-Disposition: inline
+In-Reply-To: <728184.1724230207@archlinux>
+
+
+--hpjy5rg5se524cwr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Aug 2024 11:50:07 +0300
-Message-ID: <728184.1724230207@archlinux>
+From: Alejandro Colomar <alx@kernel.org>
+To: Greg Minshall <minshall@umich.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: getaddrinfo_a man page: add notification example?
+References: <728184.1724230207@archlinux>
+MIME-Version: 1.0
+In-Reply-To: <728184.1724230207@archlinux>
 
-hi.  first, thanks for the man pages.  always a great resource (in spite
-of the --help's of the world).
+Hi Greg,
 
-i recently tried to figure out how to use getaddrinfo_a with its
-notification facilities.
-----
-https://git.sr.ht/~minshall/gai-a
-----
+On Wed, Aug 21, 2024 at 11:50:07AM GMT, Greg Minshall wrote:
+> hi.  first, thanks for the man pages.  always a great resource
 
-the examples in the man page was very helpful to me.
-----
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man/man3/=
-getaddrinfo_a.3
-----
+:-)
 
-that there is any example is great, though i can imagine controversial
-(because of length).  but ...
+> (in spite
+> of the --help's of the world).
+>=20
+> i recently tried to figure out how to use getaddrinfo_a with its
+> notification facilities.
+> ----
+> https://git.sr.ht/~minshall/gai-a
+> ----
+>=20
+> the examples in the man page was very helpful to me.
+> ----
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man/man3=
+/getaddrinfo_a.3
+> ----
+>=20
+> that there is any example is great, though i can imagine controversial
+> (because of length).  but ...
+>=20
+> > This example shows a simple interactive getaddrinfo_a() front-end.
+> > The notification facility is not demonstrated.
+>=20
+> if there was a desire to expand the asynchronous example to demonstrate
+> signal and callback notifications, i could take a stab at it.  maybe
+> adding commands to change the facility (for future requests that
+> session), or some such.
 
-> This example shows a simple interactive getaddrinfo_a() front-end.
-> The notification facility is not demonstrated.
+I think examples are great in the manual pages (I wish we had at least
+one example in every page).
 
-if there was a desire to expand the asynchronous example to demonstrate
-signal and callback notifications, i could take a stab at it.  maybe
-adding commands to change the facility (for future requests that
-session), or some such.
+If you can provide an example for those features, it could be good.  Do
+you think it would fit in the existing examples, or maybe it's better to
+add a separate new example?
 
-cheers, and again thanks, Greg
+Have a lovely day!
+Alex
+
+>=20
+> cheers, and again thanks, Greg
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--hpjy5rg5se524cwr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbFwxgACgkQnowa+77/
+2zJoqw/+JMDJvc/f5BRrKns0eq+oLeylNIvN3q5azjclBjpgn/singtf+enNa7M9
+e6dBds2gKHwpnt8SN+6Qx89t/FxWS8aGhPYm9RBv+OJhYtRTnNE4x8hN5UeUFHhh
+q9wgyVMGHSrR6xbG4KIkPxwJmZw3b1CnMYrdxo2Fuj9F6Jt5/YX3I2rMU5k6zCW1
+sRplSiLbI6MiqVymXVi1+Qlhoh2mQXLgEmbmF59SAcfjJ2a80we4yuRE1SaLrFCn
+HRPdHwBKm6yvJwobUU7MurEfTowAokI9EUzm6VYtH5uO3fG/Q49bkHYSdIWeIeGc
+VvSxs9lpkSzt7IBEdZnzvujr11allqR9SDgCXrpdufKxDe0rwZyHDeqWs0l+V2Y/
++3G60R6NLaVH21OX3SLs5VGqLVRlRqA0nIg9B7ixOEr7ajZUXtUrvzGWhuLlbXLE
+a8gzYfaQA0hcsgmSv9wPVQocLqZBHUaL7YKkgWe+JXKAji4J+6qq13R7qdqhVft2
+pHWXrw9A9eELBVQ+rdevHzBJaJc/8XDmWZVOv3S6m4i6lmGWZiyIe15RrT1dcwcI
+Nk7q6OvmrEo7ewMbHlr8D1CXMHfNwB+0pcLRFgLpcqNQ1AMXByzxgKAW0WXwhJoY
+vByIRad9o7s3qXSedvsOnGfUP/g0OKHprHIolZveApIiW9dMe1c=
+=wDQm
+-----END PGP SIGNATURE-----
+
+--hpjy5rg5se524cwr--
 
