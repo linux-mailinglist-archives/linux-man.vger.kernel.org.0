@@ -1,70 +1,70 @@
-Return-Path: <linux-man+bounces-1639-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1640-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B1CF95A44B
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 19:59:41 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9119C95A46E
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 20:09:48 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id D53701F21442
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 17:59:40 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3C18D1F21BBE
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 18:09:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCA691B2ED8;
-	Wed, 21 Aug 2024 17:59:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0D9E1B2EE2;
+	Wed, 21 Aug 2024 18:09:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ca8UX58j"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="3DV1QN1R"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19991B2EF5
-	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 17:59:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381651494D1
+	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 18:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724263176; cv=none; b=AncG4LkBt27MX+0K1oBEf61nqihXQA09DsRJeHnw7OWwdErN50gKCJuQ2gTWfGf+xsMJkGMScIR5tB7FswWGknlspshscYJzfns1kokPfFgBcC+knHibBb9VDADk8t6yE3lPsyK0ztGEyeTTGoUh0XAecJh7sYtIP02NGNw6rMA=
+	t=1724263783; cv=none; b=gh/sGqGWbt+/mtCT6HmkAOwYCN1n0mdttBs6W+p/opAmqkQ7xWfOzxHcK9Hv3T7qZ8+ytlGePMidfFRmrnwWhws4i+ca7o2FtV6Q7QMl+iGWyeLfv50kNeV7xg5DmdLQcJNrTLra0L+/95ISiQBMmzHG+XA8rFCqeIGpin2+XrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724263176; c=relaxed/simple;
-	bh=DD2DN2lqEW5hlhBcTpXuQfP5ZZhepPnokRxo0jA5IEk=;
+	s=arc-20240116; t=1724263783; c=relaxed/simple;
+	bh=m+NRXc6KZ8ZbnHh9Ub5fX9y3jsB2yG//4zgP1g6nF88=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YGLqOwIUew5L9H2nCnRujDDlk3VKDjfFBoBSAP6mxokUno+MfTNBGyznawqEv0wdbqYO4PUTT/OP8iLSLIGROrFMPj++YGuV0IunnDE3qhVRXJks8ublU6x5nWsrt9GWaBaDwSKmIIDRN//SYYr2gJQK4F7NbeAVDOOn7luDx+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ca8UX58j; arc=none smtp.client-ip=209.85.219.49
+	 To:Cc:Content-Type; b=LYbdq4RXSc1qyrqsx2Ng6qUrdv9/IWCZijBph1NLRxOgb0EMZjQgn+BBm9zdiaSsnUjtaB41VsWlhrtrjZcLaApyZqBshmQ2TCM6mua23WrKw574Rlr6DBwlXlZyFNwPSE28SlkA7yOuugRfWc9MJcVW7FdCMLPFqCWc/dcGMrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=3DV1QN1R; arc=none smtp.client-ip=209.85.222.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-6bf7ad1ec3aso36008126d6.0
-        for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 10:59:34 -0700 (PDT)
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-7a1d7a544e7so432785a.3
+        for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 11:09:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1724263174; x=1724867974; darn=vger.kernel.org;
+        d=google.com; s=20230601; t=1724263781; x=1724868581; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+83IXXwAwhpybwqhjxZ2aNdOQgVzZyT3Yex1Qb6FMp4=;
-        b=ca8UX58jXHK5mhxQAYv4Gg34gcfrdAog6VhIwp5W2zgweX6x9mg+4B6l4pC5e4GczJ
-         xJBgQjIVRMe0/LMHiIZqFPPlKK38h2V1/PXLOKXjL9jY1NbroAmPdOOUXjfQdtxL/elr
-         iyUs/dff4PD9cUmkv22cOLnT28qi/McipbIzb6qEwrI9dqsJr1wgBUPhjXoq7sJHmf/E
-         y8rOMo/8BJZ4F2hW07xcOwOp95+tY2IWzELTkSzOdcT+ChFdvNhSsVL/poA2M4aQ1nfQ
-         CzscaQTy5O+X/p3R7JEgRLJhKxDiSm7cp+kcvuBI4DLbJ6ducrzjOZNQQGBhy3zuHlZW
-         MZcA==
+        bh=1WyDu/z+Kg8Mnoy345f0rBD85BH+evmxIBUPPCCpNp4=;
+        b=3DV1QN1RWpLxMK5lDtUKW14EX9SVJ+klUgGUfKVy74neEaTZ4UBCFXKkU0x0aTEAc7
+         AVc5K9qx/u5Nx7q+b8s5jpP25DfCZzxyZwJh4kwr9/dZes4oZL6HyJ0zmPsNLkiADTx+
+         eIqSr5gfgwl5NBl2NR4zqDQ9dHWCLeScUO6EU1llSpKZW3UQTRcVFv1S4OpJvDCSJcDZ
+         XAhv3mnDzBTGKaKG+EgM5TKsmUoGM3sXWoJu/ORvvngQg6ysupw3d5uTN5+OHfJLOZD8
+         lQAMplA3bViYjZCLM/A+hrZElypKI5UgS7NaHX5dGwejElMfgYtat+AsUuOwixj9n+M2
+         bqDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724263174; x=1724867974;
+        d=1e100.net; s=20230601; t=1724263781; x=1724868581;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=+83IXXwAwhpybwqhjxZ2aNdOQgVzZyT3Yex1Qb6FMp4=;
-        b=pJyPobdzUrwpAqpc/2ip/oCF6g/Ye9iBHHseS2t1zOn/ESdWI6RpPbRt6XTyHifnbd
-         lwcLVMmhWXTIqGoQhKRtA5BNHoumdsetMulOHNUH8bJqM8HZmcuFC2LxPdZsdOVvX/4O
-         +LDZdQRpn55BdsON+ZX012UdSTJseqP0fXrgx1c169If1BuGbmxqtz5nEB9CV8VqD7Ym
-         54vP/XNucq7Aowl5qf/3Ou3Dw7sNR4QlL7eBVD5Vgh8M4Ht78av8+uaySPQHdhvBw+ed
-         2YficPEfAJPxRS9LHoLMTONW+hy4jipA8BgPc1Cb82hbhddy8pGAoEq2ibdLkEDf1/bV
-         N1wg==
-X-Forwarded-Encrypted: i=1; AJvYcCVMgFx+Ma2ScQMjdkc0BRLFGq2INDxxQQ6gLso6GIO4xU4wEw07jKRcmu0Sjaef2c5SiTCJFlIHgnA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaPSfpkDpTu6KwWgbk/jmBTT7Rc9QnpDAY5GhEdzVlCUsqRnFX
-	+6Jp2YZAcrq0GDXkTehCPqnEW8PerGNoQRS4oigzhrrHk9TejyqR9wrQ8nLac6ilhpkc0dYydxI
-	HsA7Dsmtw9Xe/LBjzs/AFZ8wxrjozYzx3RSea
-X-Google-Smtp-Source: AGHT+IFA1GoLv8z/A5Tb//vQG6LcPIgV5O/E3SUsk/uNJWcxge6TkBzSVoLIgz+MV4EGzk4DUAX+HhfCE0SqD49LQTM=
-X-Received: by 2002:a05:6214:5a0d:b0:6bb:841c:ec72 with SMTP id
- 6a1803df08f44-6c1567b4d46mr35798846d6.10.1724263173611; Wed, 21 Aug 2024
- 10:59:33 -0700 (PDT)
+        bh=1WyDu/z+Kg8Mnoy345f0rBD85BH+evmxIBUPPCCpNp4=;
+        b=DqWqjPIPr2MFOlSzeqIPx7n8O49hxZGx5IS1wuAtE4LMahjPXFlEeihdhaNiTFC2vR
+         DNauXaGMVmkY7g3h0VqG+0/LSUKwDpvmNmuIxs0xuqFihQdkBXvs0Pnvg6jFRqKY5dNK
+         lcNr6v1kno3mbfggDa/lieI46bQ5uG0uiu6Q8B2n2cp8TlFL3VwiWvGTtLCg7Xz5RbHo
+         N7UO/6aVB4C9m6a/HAAOh3NfqMyO/qst/R7MZcZLw4smhAsbo5rnLCEdmXKUu5nZE1G7
+         9+2gbts8krrsRtypylKenwMhdrPIaNQ55zJ7BWufAlvc1BeM2wan9sMC4M0WbPnzX32C
+         trCA==
+X-Forwarded-Encrypted: i=1; AJvYcCUbdTq7N+phVBgGHVisO8SOm/a7UDxz+obRHnQNdENkHHf5g+a7r/qIrRCZssB+NoViVJ9YJ1nei7s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzY8U9ca1HcJl/xv/Z3oD/6l8yPtn0oNWAgtyAkGX/n7VXM6MNs
+	VaOOROvJyw1REG4HYZhKB4bPzCxrDPP5Bcyfq1+S1dGI5KsWf4cROOI1CDhpZIMlPUN46YsLmqQ
+	PA/ndT05SAph5gpE8QiFTNXB026xzDQCY4W4+n+jEemPbs9TZ1vzd
+X-Google-Smtp-Source: AGHT+IFhCBeXvnxAXCAXttVT4pQdRwCojOhUR7dcKtSts9c8w6Nfql5NayDeccoF098cMr6vSl7HyNittqG05KSLMOI=
+X-Received: by 2002:a05:6214:5f01:b0:6b5:936d:e5e9 with SMTP id
+ 6a1803df08f44-6c155d9aeaemr44738586d6.26.1724263780942; Wed, 21 Aug 2024
+ 11:09:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -72,48 +72,56 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <CAJgzZoq7rTQ5mQm9JzSkeGJ8fqu1aDw0BfQnUqs4F24YuxV0Wg@mail.gmail.com>
- <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org>
-In-Reply-To: <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org>
+ <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org> <CAJgzZoq+PgP71mP3XBnJsiD_wr58Z-7mAix7NxBWV2K_=0cxKA@mail.gmail.com>
+In-Reply-To: <CAJgzZoq+PgP71mP3XBnJsiD_wr58Z-7mAix7NxBWV2K_=0cxKA@mail.gmail.com>
 From: enh <enh@google.com>
-Date: Wed, 21 Aug 2024 13:59:22 -0400
-Message-ID: <CAJgzZoq+PgP71mP3XBnJsiD_wr58Z-7mAix7NxBWV2K_=0cxKA@mail.gmail.com>
+Date: Wed, 21 Aug 2024 14:09:29 -0400
+Message-ID: <CAJgzZorYAxxxa0+RFz706ip1J97hz0oDz32et_FONMu-bLpeKQ@mail.gmail.com>
 Subject: Re: arch_prctl()
 To: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
 Cc: libc-alpha <libc-alpha@sourceware.org>, linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-i wonder if part of the problem was wondering what the signature should be?
+it also looks like the relevant constants (such as ARCH_SET_FS) are
+only exposed in <asm/prctl.h>, which isn't currently transitively
+included from <sys/prctl.h>...
 
-       arch_prctl() sets architecture-specific process or thread state.
-       op selects an operation and passes argument addr to it; addr is
-       interpreted as either an unsigned long for the "set" operations,
-       or as an unsigned long *, for the "get" operations.
-
-On Wed, Aug 21, 2024 at 1:39=E2=80=AFPM Adhemerval Zanella Netto
-<adhemerval.zanella@linaro.org> wrote:
+On Wed, Aug 21, 2024 at 1:59=E2=80=AFPM enh <enh@google.com> wrote:
 >
+> i wonder if part of the problem was wondering what the signature should b=
+e?
 >
+>        arch_prctl() sets architecture-specific process or thread state.
+>        op selects an operation and passes argument addr to it; addr is
+>        interpreted as either an unsigned long for the "set" operations,
+>        or as an unsigned long *, for the "get" operations.
 >
-> On 21/08/24 14:02, enh wrote:
-> > i see glibc has a _symbol_ for arch_prctl(), but there's nothing in
-> > the headers? a variety of projects seem to `extern` it themselves so
-> > they can use the glibc symbol, even though the man page denies that it
-> > exists and suggests you use syscall() instead.
+> On Wed, Aug 21, 2024 at 1:39=E2=80=AFPM Adhemerval Zanella Netto
+> <adhemerval.zanella@linaro.org> wrote:
 > >
-> > is this half-existence deliberate, or should it be fixed one way or
-> > the other (adding the header declaration or removing the symbol)?
 > >
-> > i notice musl is the same, but i assume that's just for glibc
-> > compatibility rather than an actual decision on their part.
 > >
-> > before i copy the same oddity in bionic for
-> > https://blog.chromium.org/2024/06/building-faster-smarter-chromebook.ht=
-ml
-> > i thought i'd at least _ask_ :-)
+> > On 21/08/24 14:02, enh wrote:
+> > > i see glibc has a _symbol_ for arch_prctl(), but there's nothing in
+> > > the headers? a variety of projects seem to `extern` it themselves so
+> > > they can use the glibc symbol, even though the man page denies that i=
+t
+> > > exists and suggests you use syscall() instead.
+> > >
+> > > is this half-existence deliberate, or should it be fixed one way or
+> > > the other (adding the header declaration or removing the symbol)?
+> > >
+> > > i notice musl is the same, but i assume that's just for glibc
+> > > compatibility rather than an actual decision on their part.
+> > >
+> > > before i copy the same oddity in bionic for
+> > > https://blog.chromium.org/2024/06/building-faster-smarter-chromebook.=
+html
+> > > i thought i'd at least _ask_ :-)
+> > >
 > >
->
-> It seems to be a overlook from when it was originally added (a47fd6810cb)=
-.
-> I think we should add a x86 sys/prctl.h with the definition.
+> > It seems to be a overlook from when it was originally added (a47fd6810c=
+b).
+> > I think we should add a x86 sys/prctl.h with the definition.
 
