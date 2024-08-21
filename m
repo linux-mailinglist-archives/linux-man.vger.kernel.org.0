@@ -1,145 +1,95 @@
-Return-Path: <linux-man+bounces-1629-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1630-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696639599EF
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 13:31:20 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F35959E44
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 15:12:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DA8DCB27CD6
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 11:31:17 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id ED7A21F23599
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 13:12:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B330F1D12F6;
-	Wed, 21 Aug 2024 10:36:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B6D919993D;
+	Wed, 21 Aug 2024 13:12:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTsd2Sjc"
+	dkim=pass (2048-bit key) header.d=umich.edu header.i=@umich.edu header.b="RV2hvcqk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from succinct-culhwch.relay-egress.a.mail.umich.edu (relay-egress-host.us-east-2.a.mail.umich.edu [13.59.128.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736C81D12F4
-	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 10:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE90199942
+	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 13:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.59.128.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724236577; cv=none; b=LnS0CnMZk6+XHTWkVnmM0EzNAbPsyqAKoBVsHL9m8X+0BGRyijzcVFw5lQvflQh7ujaPAYQA0FoatObuK6TDLynvyMSe7FPk45iguq/E0nCkSRl5Z6CzZsc1cTuwOU58O0wNTa3XkrRRwq/ju9odX+bfv5UtwwtHKiNUQXL3kl8=
+	t=1724245926; cv=none; b=EBhUQi9k1WgM0ugxYxK0w9TKMGbYA24buSN/JrMCK1SFk2Yu8NZTJcN4P4+cAUZYDd72ysnLp5gVlxodsTfk5c3oy3KUj9X4lGPyCDoGMs+CtCEcpI/pEvWkmyeWunD/l9t6XDlssSFbpR6Kx4ABgiX48aEjpG6l3TF6ruFqAvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724236577; c=relaxed/simple;
-	bh=7PlmcZSZ0lOnxASA+o1cKAXGngcmnq1Fzl+qeRzkMuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G4oABvtPvJhwpFXTwe/1L/0mXlLFERi71jx2hjkmi2mFrReVF87jN9rBuTl6wzbsc2NFMb29P2e7MGKI8niD81Y2jN6SXF5XF1nFg5JrO8HSkAK8mVK2Dn96is9D4uSL0ph7ZVKvsTk/Zt9uFlGxbhz/5Yn3siVH9M4jkyQZeVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTsd2Sjc; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7FAC32782;
-	Wed, 21 Aug 2024 10:36:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724236577;
-	bh=7PlmcZSZ0lOnxASA+o1cKAXGngcmnq1Fzl+qeRzkMuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FTsd2SjcoMhKYjozJEoP4jMk3/TwIt90xdazCjii01dTH+YKAbLw1fJ4MErotmmEo
-	 nPR1k2gcuIcCyEfg9rKshfOTcv0gKwYMKkAVQqRaTWmjvJKxO5/17ZHXB5mNniH0MO
-	 OoCJJ9Y5JrddlrSV4Q0aGPpODXEkxHTmf4AdbO1f/78iCwTEjenXquXrX0MC7DnVR6
-	 T6hzaL23urUI+tH6N1zL4mGCRNuMW9SHS7N/8rFQqTWcSFrcd+8R2MtQuIRthAhqC5
-	 bnaHKueWQXYZ86uqI/ABUXx94WLCzAMjJV/SXx+F2PygMtvmN8os0r06RO+C1SOiwW
-	 4YZVUihr4q5ow==
-Date: Wed, 21 Aug 2024 12:36:14 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Greg Minshall <minshall@umich.edu>
-Cc: linux-man@vger.kernel.org
+	s=arc-20240116; t=1724245926; c=relaxed/simple;
+	bh=2XBUzx2nKOO+db8uGbiSORkO50TevgztopJyEQzG3CE=;
+	h=To:cc:From:Subject:In-reply-to:References:MIME-Version:
+	 Content-Type:Date:Message-ID; b=HkguqbrGsVXwLLUlFLDMtdRKn+5iS2gsj6kXCHky2Td1IJ7JfF+kktyN/cEGs8IbQ/jBVHa/AB7i5etTAsu+idzA1cyOD+eDNY7XGV7JWLL/YoDOfGWZcpQxac0o4Y8In0YimUbEgC1q13Upa8wXtestr56Coy52Dh1W/IF4Sh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=umich.edu; spf=pass smtp.mailfrom=umich.edu; dkim=pass (2048-bit key) header.d=umich.edu header.i=@umich.edu header.b=RV2hvcqk; arc=none smtp.client-ip=13.59.128.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=umich.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=umich.edu
+Received: from abundant-redcap.authn-relay.a.mail.umich.edu (ip-10-0-72-228.us-east-2.compute.internal [10.0.72.228])
+	by succinct-culhwch.relay-egress.a.mail.umich.edu with ESMTPS
+	id 66C5E717.1C6E2B7B.65A4DF91.3906611;
+	Wed, 21 Aug 2024 09:09:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umich.edu;
+	s=relay-0; t=1724245783;
+	bh=5suJrS1z6EIh8ivF0nBFEAvPT1oj1gLmoHhQTsxobCw=;
+	h=To:cc:From:Subject:In-reply-to:References:Date;
+	b=RV2hvcqkWGnPN+F3Qnegm2T1ElcxeNpkzrGu7gbV69CgBNjer64h1xfpAjc5r1S3F
+	 0kkNy3vC03okPogSYmic7Fc5IkihJSwraypFdDmufQh+Azqq2PPXmD3+onxGhw8bNe
+	 vJf/1e2KYpPw9x3UwijF4NqEfIuFJ8IXZPlBcEDtExDBGO5w3TMKzxYKsDfiBP+q8J
+	 kowOLh4wPkFr2WBQb8YugTvQ7XIfVq62tm4wdRdw9oVN9i9JvQ4MHAAgKIpqqBHQU9
+	 8iUF5Fd0kRKMMEPSu6l3EK5t0/XYao0gCvgl5Gbp3dE/VsYk17S+3AKbV2bqVJi4BB
+	 CSNYxr+N12HEQ==
+Authentication-Results: abundant-redcap.authn-relay.a.mail.umich.edu; 
+	iprev=fail policy.iprev=85.108.143.146 (Mismatch);
+	auth=pass smtp.auth=minshall
+Received: from localhost (Mismatch [85.108.143.146])
+	by abundant-redcap.authn-relay.a.mail.umich.edu with ESMTPSA
+	id 66C5E715.3AF28A2F.41ADEE9.346864;
+	Wed, 21 Aug 2024 09:09:42 -0400
+To: Alejandro Colomar <alx@kernel.org>
+cc: linux-man@vger.kernel.org
+From: Greg Minshall <minshall@umich.edu>
 Subject: Re: getaddrinfo_a man page: add notification example?
-Message-ID: <ournrsj2l2cym7kbz5nl65mgtuuuqmd62i5unlkxr3kfduhq65@ajz4sjya43hj>
-References: <728184.1724230207@archlinux>
+In-reply-to: <ournrsj2l2cym7kbz5nl65mgtuuuqmd62i5unlkxr3kfduhq65@ajz4sjya43hj>
+References: <728184.1724230207@archlinux> <ournrsj2l2cym7kbz5nl65mgtuuuqmd62i5unlkxr3kfduhq65@ajz4sjya43hj>
+Comments: In-reply-to Alejandro Colomar <alx@kernel.org>
+   message dated "Wed, 21 Aug 2024 12:36:14 +0200."
+X-Mailer: MH-E 8.6+git; nmh 1.8; Emacs 31.0.50
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hpjy5rg5se524cwr"
-Content-Disposition: inline
-In-Reply-To: <728184.1724230207@archlinux>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <739468.1724245777.1@archlinux>
+Date: Wed, 21 Aug 2024 16:09:37 +0300
+Message-ID: <739469.1724245777@archlinux>
 
+Alex,
 
---hpjy5rg5se524cwr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Greg Minshall <minshall@umich.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: getaddrinfo_a man page: add notification example?
-References: <728184.1724230207@archlinux>
-MIME-Version: 1.0
-In-Reply-To: <728184.1724230207@archlinux>
+thanks for the response.
 
-Hi Greg,
+> I think examples are great in the manual pages (I wish we had at least
+> one example in every page).
+> 
+> If you can provide an example for those features, it could be good.  Do
+> you think it would fit in the existing examples, or maybe it's better to
+> add a separate new example?
 
-On Wed, Aug 21, 2024 at 11:50:07AM GMT, Greg Minshall wrote:
-> hi.  first, thanks for the man pages.  always a great resource
+unless you or someone thinks otherwise, i would first try to see if i
+can make the notifications sit naturally inside the current asynchronous
+example.  i think they will, but maybe they won't.
 
-:-)
+if that doesn't seem to work, i can try to slim down my current code,
+convert to getopt(3), etc., and see if you think the results would work
+as an additional example.
 
-> (in spite
-> of the --help's of the world).
->=20
-> i recently tried to figure out how to use getaddrinfo_a with its
-> notification facilities.
-> ----
-> https://git.sr.ht/~minshall/gai-a
-> ----
->=20
-> the examples in the man page was very helpful to me.
-> ----
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man/man3=
-/getaddrinfo_a.3
-> ----
->=20
-> that there is any example is great, though i can imagine controversial
-> (because of length).  but ...
->=20
-> > This example shows a simple interactive getaddrinfo_a() front-end.
-> > The notification facility is not demonstrated.
->=20
-> if there was a desire to expand the asynchronous example to demonstrate
-> signal and callback notifications, i could take a stab at it.  maybe
-> adding commands to change the facility (for future requests that
-> session), or some such.
-
-I think examples are great in the manual pages (I wish we had at least
-one example in every page).
-
-If you can provide an example for those features, it could be good.  Do
-you think it would fit in the existing examples, or maybe it's better to
-add a separate new example?
-
-Have a lovely day!
-Alex
-
->=20
-> cheers, and again thanks, Greg
-
---=20
-<https://www.alejandro-colomar.es/>
-
---hpjy5rg5se524cwr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbFwxgACgkQnowa+77/
-2zJoqw/+JMDJvc/f5BRrKns0eq+oLeylNIvN3q5azjclBjpgn/singtf+enNa7M9
-e6dBds2gKHwpnt8SN+6Qx89t/FxWS8aGhPYm9RBv+OJhYtRTnNE4x8hN5UeUFHhh
-q9wgyVMGHSrR6xbG4KIkPxwJmZw3b1CnMYrdxo2Fuj9F6Jt5/YX3I2rMU5k6zCW1
-sRplSiLbI6MiqVymXVi1+Qlhoh2mQXLgEmbmF59SAcfjJ2a80we4yuRE1SaLrFCn
-HRPdHwBKm6yvJwobUU7MurEfTowAokI9EUzm6VYtH5uO3fG/Q49bkHYSdIWeIeGc
-VvSxs9lpkSzt7IBEdZnzvujr11allqR9SDgCXrpdufKxDe0rwZyHDeqWs0l+V2Y/
-+3G60R6NLaVH21OX3SLs5VGqLVRlRqA0nIg9B7ixOEr7ajZUXtUrvzGWhuLlbXLE
-a8gzYfaQA0hcsgmSv9wPVQocLqZBHUaL7YKkgWe+JXKAji4J+6qq13R7qdqhVft2
-pHWXrw9A9eELBVQ+rdevHzBJaJc/8XDmWZVOv3S6m4i6lmGWZiyIe15RrT1dcwcI
-Nk7q6OvmrEo7ewMbHlr8D1CXMHfNwB+0pcLRFgLpcqNQ1AMXByzxgKAW0WXwhJoY
-vByIRad9o7s3qXSedvsOnGfUP/g0OKHprHIolZveApIiW9dMe1c=
-=wDQm
------END PGP SIGNATURE-----
-
---hpjy5rg5se524cwr--
+cheers, Greg
 
