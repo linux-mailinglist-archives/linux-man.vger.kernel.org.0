@@ -1,95 +1,130 @@
-Return-Path: <linux-man+bounces-1630-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1631-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F35959E44
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 15:12:21 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F481959E9A
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 15:27:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id ED7A21F23599
-	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 13:12:20 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CFBB2282F4E
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2024 13:27:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B6D919993D;
-	Wed, 21 Aug 2024 13:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=umich.edu header.i=@umich.edu header.b="RV2hvcqk"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CB93199955;
+	Wed, 21 Aug 2024 13:27:04 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from succinct-culhwch.relay-egress.a.mail.umich.edu (relay-egress-host.us-east-2.a.mail.umich.edu [13.59.128.245])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE90199942
-	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 13:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.59.128.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E8919994C
+	for <linux-man@vger.kernel.org>; Wed, 21 Aug 2024 13:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724245926; cv=none; b=EBhUQi9k1WgM0ugxYxK0w9TKMGbYA24buSN/JrMCK1SFk2Yu8NZTJcN4P4+cAUZYDd72ysnLp5gVlxodsTfk5c3oy3KUj9X4lGPyCDoGMs+CtCEcpI/pEvWkmyeWunD/l9t6XDlssSFbpR6Kx4ABgiX48aEjpG6l3TF6ruFqAvg=
+	t=1724246824; cv=none; b=gmQd87ZFOyVJB8GV/FRA0WBvCf4k3QFdM9UUdw7V34zafvujaBuI18U7za9V2J4CEt4gqI4cpHRk81oiae+pOa4UpmBOoVHq1M7xhUTMFXqWEzyOK2eQD1CdWL71mZBCkiwg1fcPk0Z5al57ABdWC/K689kyHQYeX3IctU80kdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724245926; c=relaxed/simple;
-	bh=2XBUzx2nKOO+db8uGbiSORkO50TevgztopJyEQzG3CE=;
-	h=To:cc:From:Subject:In-reply-to:References:MIME-Version:
-	 Content-Type:Date:Message-ID; b=HkguqbrGsVXwLLUlFLDMtdRKn+5iS2gsj6kXCHky2Td1IJ7JfF+kktyN/cEGs8IbQ/jBVHa/AB7i5etTAsu+idzA1cyOD+eDNY7XGV7JWLL/YoDOfGWZcpQxac0o4Y8In0YimUbEgC1q13Upa8wXtestr56Coy52Dh1W/IF4Sh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=umich.edu; spf=pass smtp.mailfrom=umich.edu; dkim=pass (2048-bit key) header.d=umich.edu header.i=@umich.edu header.b=RV2hvcqk; arc=none smtp.client-ip=13.59.128.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=umich.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=umich.edu
-Received: from abundant-redcap.authn-relay.a.mail.umich.edu (ip-10-0-72-228.us-east-2.compute.internal [10.0.72.228])
-	by succinct-culhwch.relay-egress.a.mail.umich.edu with ESMTPS
-	id 66C5E717.1C6E2B7B.65A4DF91.3906611;
-	Wed, 21 Aug 2024 09:09:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umich.edu;
-	s=relay-0; t=1724245783;
-	bh=5suJrS1z6EIh8ivF0nBFEAvPT1oj1gLmoHhQTsxobCw=;
-	h=To:cc:From:Subject:In-reply-to:References:Date;
-	b=RV2hvcqkWGnPN+F3Qnegm2T1ElcxeNpkzrGu7gbV69CgBNjer64h1xfpAjc5r1S3F
-	 0kkNy3vC03okPogSYmic7Fc5IkihJSwraypFdDmufQh+Azqq2PPXmD3+onxGhw8bNe
-	 vJf/1e2KYpPw9x3UwijF4NqEfIuFJ8IXZPlBcEDtExDBGO5w3TMKzxYKsDfiBP+q8J
-	 kowOLh4wPkFr2WBQb8YugTvQ7XIfVq62tm4wdRdw9oVN9i9JvQ4MHAAgKIpqqBHQU9
-	 8iUF5Fd0kRKMMEPSu6l3EK5t0/XYao0gCvgl5Gbp3dE/VsYk17S+3AKbV2bqVJi4BB
-	 CSNYxr+N12HEQ==
-Authentication-Results: abundant-redcap.authn-relay.a.mail.umich.edu; 
-	iprev=fail policy.iprev=85.108.143.146 (Mismatch);
-	auth=pass smtp.auth=minshall
-Received: from localhost (Mismatch [85.108.143.146])
-	by abundant-redcap.authn-relay.a.mail.umich.edu with ESMTPSA
-	id 66C5E715.3AF28A2F.41ADEE9.346864;
-	Wed, 21 Aug 2024 09:09:42 -0400
-To: Alejandro Colomar <alx@kernel.org>
-cc: linux-man@vger.kernel.org
-From: Greg Minshall <minshall@umich.edu>
-Subject: Re: getaddrinfo_a man page: add notification example?
-In-reply-to: <ournrsj2l2cym7kbz5nl65mgtuuuqmd62i5unlkxr3kfduhq65@ajz4sjya43hj>
-References: <728184.1724230207@archlinux> <ournrsj2l2cym7kbz5nl65mgtuuuqmd62i5unlkxr3kfduhq65@ajz4sjya43hj>
-Comments: In-reply-to Alejandro Colomar <alx@kernel.org>
-   message dated "Wed, 21 Aug 2024 12:36:14 +0200."
-X-Mailer: MH-E 8.6+git; nmh 1.8; Emacs 31.0.50
+	s=arc-20240116; t=1724246824; c=relaxed/simple;
+	bh=UFuYefNKthGolZ/YbRWIMHBZvz9Aqa4g1iHJWiW4/8U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=MOdMey/eqKEqTUfw4eEvjzHaPh4soH4kgqOfYIh94OnaUOmBv4AN/cCWFApGLOWYaiGxICN7ofsNQj7OUzxBluJhg6Vst3xhWXC4B+7IP5nOs/cc+Rud0LNrLI2FgIr7yQGuSKx9+9kGLQOt9J6od7+VjoMXGpyigBLwqeIpqoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Received: from mail.maildlp.com (unknown [172.18.186.231])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4Wpn9314T0z6L73H;
+	Wed, 21 Aug 2024 21:23:51 +0800 (CST)
+Received: from lhrpeml500004.china.huawei.com (unknown [7.191.163.9])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0F664140680;
+	Wed, 21 Aug 2024 21:26:57 +0800 (CST)
+Received: from [10.123.123.200] (10.123.123.200) by
+ lhrpeml500004.china.huawei.com (7.191.163.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 21 Aug 2024 14:26:56 +0100
+Message-ID: <d1cc0d28-43a4-b06d-8ef0-43f756bfd5f8@huawei.com>
+Date: Wed, 21 Aug 2024 16:26:43 +0300
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <739468.1724245777.1@archlinux>
-Date: Wed, 21 Aug 2024 16:09:37 +0300
-Message-ID: <739469.1724245777@archlinux>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH v3 2/2] landlock.7: Document Landlock ABI version 5
+ (IOCTL)
+Content-Language: ru
+To: Alejandro Colomar <alx@kernel.org>, =?UTF-8?Q?G=c3=bcnther_Noack?=
+	<gnoack@google.com>
+CC: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
+	<linux-man@vger.kernel.org>, Artem Kuzin <artem.kuzin@huawei.com>, yusongping
+	<yusongping@huawei.com>
+References: <20240723101917.90918-1-gnoack@google.com>
+ <20240723101917.90918-3-gnoack@google.com>
+ <lejbnx6uijbneira3l7wxvheurflymuzbxzpeoz7q6hxt6b7bj@7yrhpwxyccqy>
+ <ZqoixhC_jvuiK0m4@google.com>
+ <d06be80a-44ca-3eac-6b04-b5d2336309f0@huawei.com>
+ <ZrSZRi5BPelnaq6X@google.com>
+ <n53k7mnidikj4tj6mgxrxe4lvccdea7wfuezrjwc44kvyjbzyz@g6aoyti7mhtw>
+From: "Konstantin Meskhidze (A)" <konstantin.meskhidze@huawei.com>
+In-Reply-To: <n53k7mnidikj4tj6mgxrxe4lvccdea7wfuezrjwc44kvyjbzyz@g6aoyti7mhtw>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: lhrpeml500004.china.huawei.com (7.191.163.9) To
+ lhrpeml500004.china.huawei.com (7.191.163.9)
 
-Alex,
 
-thanks for the response.
 
-> I think examples are great in the manual pages (I wish we had at least
-> one example in every page).
+8/16/2024 3:37 PM, Alejandro Colomar пишет:
+> Hi Günther, Konstantin,
 > 
-> If you can provide an example for those features, it could be good.  Do
-> you think it would fit in the existing examples, or maybe it's better to
-> add a separate new example?
+> On Thu, Aug 08, 2024 at 12:09:10PM GMT, Günther Noack wrote:
+>> On Wed, Aug 07, 2024 at 03:09:02PM +0300, Konstantin Meskhidze (A) wrote:
+>> > 7/31/2024 2:40 PM, Günther Noack пишет:
+>> > > Konstantin: I would still appreciate if you could have a look and sign-off on
+>> > > the networking documentation patch as well, since you are the original author of
+>> > > much of that documentation on the kernel side.
+>> > 
+>> > Hi Günther. I have checked the patch. It looks good, I left one question
+>> > there. Please check it. Do I really need to sign-off it?
+>> 
+>> Thank you, Konstantin!
+>> 
+>> I would like to put both your "Co-developed-by" and "Signed-off-by" into the
+>> patch, because:
+>> 
+>>   (a) We should give you credit for the documentation that you've written :-),
+>>       and this man page change is based on your documentation in the kernel
+>>       Documentation/ directory and headers.
+>> 
+>>   (b) Committing this man-page change would put it under the
+>>       "Linux-man-pages-copyleft" license, which is different than the licenses
+>>       used for the kernel, where the documentation was originally written.  I
+>>       would like to add your "Co-developed-by" and "Signed-off-by", so that it's
+>>       clear that we all agree on this.
+>> 
+>> For reference, the rules for "Co-developed-by" are also discussed in [1].
+>> 
+>> Would that work for you, if we put your "Co-developed-by" and "Signed-off-by"
+>> lines on the "ABI version 4" man page commit?
+> 
+> I'll extend the wait until September.  I guess Konstantin's on vacation.
 
-unless you or someone thinks otherwise, i would first try to see if i
-can make the notifications sit naturally inside the current asynchronous
-example.  i think they will, but maybe they won't.
+  Hi Alex!!!
+  Thanks for waiting!!
+  Can you please explain the procedure for me? Do I need to resend the 
+first patch with my "Co-developed-by" and "Signed-off-by" or you can 
+sign-off it for me?
 
-if that doesn't seem to work, i can try to slim down my current code,
-convert to getopt(3), etc., and see if you think the results would work
-as an additional example.
-
-cheers, Greg
+  Best regards,
+     Konstantin
+> 
+> Cheers,
+> Alex
+> 
+>> 
+>> Thanks,
+>> —Günther
+>> 
+>> [1] https://www.kernel.org/doc/html/latest/process/submitting-patches.html#when-to-use-acked-by-cc-and-co-developed-by
+>> 
+> 
 
