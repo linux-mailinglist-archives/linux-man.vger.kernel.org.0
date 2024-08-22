@@ -1,148 +1,167 @@
-Return-Path: <linux-man+bounces-1652-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1653-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6955495BC07
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 18:34:51 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E49295BC8A
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 18:57:33 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 221FA2822E7
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 16:34:50 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 17E73B21382
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 16:57:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C7B71CDA17;
-	Thu, 22 Aug 2024 16:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 779A51CDFA5;
+	Thu, 22 Aug 2024 16:57:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AoAiRENB"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sOHHDaKl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4187B1CCEEE
-	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 16:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D3E1CCEF1
+	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 16:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724344469; cv=none; b=SorCqa/bcg+cjOfGNIjAotppupu9LQ0OFjOCqnDLbVCPtBNVoj38ETz4HLvmSTdJjFZaMAk0y+8IHrf0NPgM8jth0KSXggZkJ6ncgBxEVcn8TK/u+Nqf8o1sbGN/ZQak0oJMaFDoINQxS0aO/eSkQdsPYLouBIJqAyu6tmi3SNo=
+	t=1724345846; cv=none; b=BBlcBaUfQyfgmGuyti1fOVApQPaJ/Qa2fAxpsz/wzsNhUE+ztEn0Ayt0g+In0Y2h3X5/miUTnGbEOtm0RYVPsv/22EDxA+8Dedbvt5ex38tVdb0K0VT/y8YDIHNSWj+4SRHAOjtbCkWPEYAMBP/qd3rfCcBrS8w6md/jHidVDKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724344469; c=relaxed/simple;
-	bh=nzHYsDx7a+Wb5bp/atC0/rfQ5ALcl6dMNiJMK8I3qs8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MqFup6h4Tp13wxW1k7txRfM8gOgjVdXG7KQH7JG3Qn4TYGtJI6JbX0CWIPV+YFlD6wwbb/xx7of3dDHMB+qPURC46yXxSmt7SpW+WUWKpF9C6+Cmm/PBx0hj9y6bJjBv8uPLlyuS+qBo6Ge4fKh37Z1arrxzbWlBFQe0CoPDcro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AoAiRENB; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-6bf7707dbb6so7758876d6.0
-        for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 09:34:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1724344463; x=1724949263; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0HLmj3NdxkpQcvIgNQKtvuQMQq+3DwBsg6ZzyH0/1ms=;
-        b=AoAiRENB4WKcf/0C81BMz2kIU96t9/BySh++fSNFu/J/BA7nuOeLHtP5Ayn5tiGtgY
-         Xy+9tGoRU1c3X7/AxdwDnfO+DCij7zNoZYCccnKRNlOfvvYO2QyEc9LJLouRJz6Sak+w
-         Z+GWH/Jm2V5LTYcGaeQGeaeVhgWS3bplKpFXFB4FPuD1wWcuv+TULMdVE8gSrvg3BHWW
-         15xvr8RpSQVS5hqEUgS0hFUPru4m+8q7K4K9cuc8idnLV39+pfYtMqRmJJwpL1Pck1tM
-         Pe49q4xmYXAuBKNGR7dXUVWyMvLWt5RDOExh2cHISQ5lgKji6DB7m/NZThQMMiYLqURl
-         oeeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724344463; x=1724949263;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0HLmj3NdxkpQcvIgNQKtvuQMQq+3DwBsg6ZzyH0/1ms=;
-        b=G+fxWeVVaBpsURFGXmG9SUCeRpw/HSXciwVDyhWSzA41qBO/xeEbZy9h9K29g/Cg5+
-         gZ3GdYrTN/dKu9EByzxlwwJJa6ZykFsbpGJVwczLbeeRD6D3cjmI3OYRheZAPMjCYPgD
-         B+l6fA/6sPn83+E9XxjOXAeAl/O4noVMIHHXa77vgrkm4DbeF4TBZuTdRD9bJ6LRWwty
-         Dtx0MGu135pQnEatRAU4sWJLcFkgTHPMPSywG4yBduvmnB6ejEaqP6fbn0YppTJwyS7w
-         LD4b49CzJUKcW7cDPzSjjPFmSz/8+IbU93HExvqFQQNCImddb+AMGDjrfRerP7kHZovl
-         rWOg==
-X-Forwarded-Encrypted: i=1; AJvYcCXhVUZ2lR9c0Ipq45MSfp/fRBmJzfnV+S2HrnxmviwwoNTmyAg4xF6yknhzYaryldv2pC+FtI0Pldc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxw9YcjfvwdtKvIwkSJMdwc0MzGk91qHuT5E/A+k/6q3rd6RKDj
-	JcbgcXbjTeR6c4PdSs+e16w21p6puwFIDAPSCUKQk//cmQ02QRIsZI9iRgagOIP72ACYHpIUFJd
-	eMzBUFbN/OqPOfHnHq+vPesu5AUjse35ZSPMl
-X-Google-Smtp-Source: AGHT+IHCM4HoEOAWqrzRYJ/JOjotuLJ52mGAXAw5SmSUw6GhG5uwY+6BfRyV3ocNsUKVqr4O2aOr3sEnvsc/doewMS8=
-X-Received: by 2002:ad4:5b86:0:b0:6bf:835a:87b6 with SMTP id
- 6a1803df08f44-6c160cbb6e0mr57376676d6.27.1724344462769; Thu, 22 Aug 2024
- 09:34:22 -0700 (PDT)
+	s=arc-20240116; t=1724345846; c=relaxed/simple;
+	bh=j3f+se6MTXQfnSbFggw8BKjkBnVsvU7cGIu+1+QRtFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d03hxNhVXL8OV7pltyZFBmivz3lG5m9Bl8rDzWbCntVOpm5CVPyuXNBZeR1GyMaRy74vVM63O6LFH4QjvBSbzuXjhNJaIOTqV9FwtRU+SnWmXBEmv7H1MgyDHnMoX2XQ20Ea6c8esl7NRwBIoRWS6kAD6XSLfafaxQZJOQwv9rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sOHHDaKl; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5DAC32782;
+	Thu, 22 Aug 2024 16:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724345845;
+	bh=j3f+se6MTXQfnSbFggw8BKjkBnVsvU7cGIu+1+QRtFw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sOHHDaKlM+a1p7JlEerBjgsxqkPYbM4O7SQ0CJW3/LFuFuBaNx6twPgZb8PfG21k8
+	 Zw5vbnboSbHIidBHyaRA7VVOHAnyltgvkVRCSMrF+JJO1GvDf8FZ8tvziIyKsKVS5Y
+	 F5jy+VqAVvJUhuh+Dc9sHzhvQeSZ4t+JvC4TYOWlfbnexDL04YO28euMIVs8taw/ev
+	 yfTS80qjqcutWsCky+gPK2ytM2wdgSRKB41iXHwPUsrXX/1Aj+fgzRgPe8ujNAbAc7
+	 Yz3aG6HC4kC2MAcNN3zJP0z6CMrIaqOkKwTJBd5wjtxafxgJ90n3JYax8Gw68exaqx
+	 PD/9/fORvLPyg==
+Date: Thu, 22 Aug 2024 18:57:22 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: enh <enh@google.com>
+Cc: "H.J. Lu" <hjl.tools@gmail.com>, 
+	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
+	linux-man <linux-man@vger.kernel.org>
+Subject: Re: arch_prctl()
+Message-ID: <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
+References: <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org>
+ <CAJgzZoq+PgP71mP3XBnJsiD_wr58Z-7mAix7NxBWV2K_=0cxKA@mail.gmail.com>
+ <CAJgzZorYAxxxa0+RFz706ip1J97hz0oDz32et_FONMu-bLpeKQ@mail.gmail.com>
+ <138cac72-3ec9-42c0-9c1d-982aae975fc3@linaro.org>
+ <xryntaw4ltavijpf7ejf4v7uhvwfp2lytgfzeablezxlvex4ky@yfkfhw7jtzch>
+ <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
+ <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
+ <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
+ <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
+ <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAJgzZoq7rTQ5mQm9JzSkeGJ8fqu1aDw0BfQnUqs4F24YuxV0Wg@mail.gmail.com>
- <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org> <CAJgzZoq+PgP71mP3XBnJsiD_wr58Z-7mAix7NxBWV2K_=0cxKA@mail.gmail.com>
- <CAJgzZorYAxxxa0+RFz706ip1J97hz0oDz32et_FONMu-bLpeKQ@mail.gmail.com>
- <138cac72-3ec9-42c0-9c1d-982aae975fc3@linaro.org> <xryntaw4ltavijpf7ejf4v7uhvwfp2lytgfzeablezxlvex4ky@yfkfhw7jtzch>
- <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org> <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
- <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com> <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
-In-Reply-To: <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
-From: enh <enh@google.com>
-Date: Thu, 22 Aug 2024 12:34:11 -0400
-Message-ID: <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
-Subject: Re: arch_prctl()
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n7awchzjl53rszyf"
+Content-Disposition: inline
+In-Reply-To: <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
+
+
+--n7awchzjl53rszyf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: enh <enh@google.com>
 Cc: "H.J. Lu" <hjl.tools@gmail.com>, 
 	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
 	linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: arch_prctl()
+References: <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org>
+ <CAJgzZoq+PgP71mP3XBnJsiD_wr58Z-7mAix7NxBWV2K_=0cxKA@mail.gmail.com>
+ <CAJgzZorYAxxxa0+RFz706ip1J97hz0oDz32et_FONMu-bLpeKQ@mail.gmail.com>
+ <138cac72-3ec9-42c0-9c1d-982aae975fc3@linaro.org>
+ <xryntaw4ltavijpf7ejf4v7uhvwfp2lytgfzeablezxlvex4ky@yfkfhw7jtzch>
+ <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
+ <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
+ <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
+ <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
+ <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
 
-On Thu, Aug 22, 2024 at 12:27=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
+Hi Elliott,
+
+On Thu, Aug 22, 2024 at 12:34:11PM GMT, enh wrote:
+> On Thu, Aug 22, 2024 at 12:27=E2=80=AFPM Alejandro Colomar <alx@kernel.or=
+g> wrote:
+> > I'd rather add a diagnostic for those who define it themselves now,
+> > than providing a sub-par prototype for eternity.  I guess the existing
+> > number of users is small, and it doesn't break binaries, just
+> > compilation.
+>=20
+> yeah, afaict it's basically just "qemu-like things" and the occasional
+> debugging tool.
+>=20
+> > Those will probably just need to add an ifdef for the glibc version that
+> > added the prototype, so it's an easy fix.
+>=20
+> no, they'd just have to change their declaration to match whatever
+> glibc ships. (which is definitely more verbose if it's any kind of
+> union.)
+
+Redefinition of transparent unions is allowed?  I'm not sure; at least
+prior to C23.
+
+>=20
+> i don't have a strong opinion, other than "i want to make sure that
+> bionic and glibc have the _same_ declaration so that it's at least
+> possible for folks to fix their source to 'just work' everywhere"...
+
++1
+
+> > But I tend to value more eternity than added diagnostics, and others may
+> > disagree with that, so whatever you decide is probably good, and I'll
+> > document it.  :)
+>=20
+> minimizing the need for changes on the man page is also a [minor]
+> argument for just going with the kernel declaration :-)
 >
-> Hi Elliott,
->
-> On Thu, Aug 22, 2024 at 12:18:21PM GMT, enh wrote:
-> > On Thu, Aug 22, 2024 at 10:05=E2=80=AFAM H.J. Lu <hjl.tools@gmail.com> =
-wrote:
-> > > On Thu, Aug 22, 2024 at 5:21=E2=80=AFAM Adhemerval Zanella Netto
-> > > <adhemerval.zanella@linaro.org> wrote:
-> > > > Although we do use __transparent_union__ we have to still handle ve=
-ry old
-> > > > compilers:
-> > >
-> > > We can hide the prototype for the older compilers.  Softwares need to
-> > > deal with the missing prototype anyway.
-> >
-> > (avoiding source incompatibility via mismatching declarations is
-> > perhaps a reason to just go with the kernel signature, since that's
-> > what the folks i've seen `extern` this function themselves seem to
-> > use...)
->
-> I'd rather add a diagnostic for those who define it themselves now,
-> than providing a sub-par prototype for eternity.  I guess the existing
-> number of users is small, and it doesn't break binaries, just
-> compilation.
+> plus it's demonstrably "good enough" for existing callers. it's not
+> like the union would make the api any less error-prone?
 
-yeah, afaict it's basically just "qemu-like things" and the occasional
-debugging tool.
+The union removes the need for a cast.  The cast is error-prone, since
+it disables most compiler diagnostics.
 
-> Those will probably just need to add an ifdef for the glibc version that
-> added the prototype, so it's an easy fix.
+Cheers,
+Alex
 
-no, they'd just have to change their declaration to match whatever
-glibc ships. (which is definitely more verbose if it's any kind of
-union.)
+--=20
+<https://www.alejandro-colomar.es/>
 
-i don't have a strong opinion, other than "i want to make sure that
-bionic and glibc have the _same_ declaration so that it's at least
-possible for folks to fix their source to 'just work' everywhere"...
+--n7awchzjl53rszyf
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> But I tend to value more eternity than added diagnostics, and others may
-> disagree with that, so whatever you decide is probably good, and I'll
-> document it.  :)
+-----BEGIN PGP SIGNATURE-----
 
-minimizing the need for changes on the man page is also a [minor]
-argument for just going with the kernel declaration :-)
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbHbfIACgkQnowa+77/
+2zIloQ//TAti9Rzn5kUNFMzg50h50X72Uew3rCyh/aEzfbThykIkEoVjnRuxnrFu
+B6SgK1mboDFgFrbSjGIUQ+bL0kcL0lQTwU9b3e41zHKMxutTIZDAfhjQZc9oCzMp
+Y2R11LdvBPuAyAeUJXR/M9lVVwz4tI8k5RkAKqj7Ve+xxRKyjEejZyoGCNsPBMEr
+XsE4//2l0TtBplDSqd27MLNLsnAaPx4jzHu3Si2FlOOZg4Mdf7e8j45kxAIEnEWm
+IjNuiAiIHF2le54cTnBtg/jUwv4k8H7m5yaaFDYti4WX1YJ4BOb9TozW5w3Tj+8U
+Cdgd/rqe2QU9neTcsKgjeSKI5h5tq2VleEXb2quvstqKTG1ZvCFZk4kJXzHVxRQD
+MtilEKTfLUcCyMCBC+FcR+OqGcp/pBxiD885bJvoKw97oPsYtHJPDyeiyJD3d5r7
+DupKaIAExjoeZo8QeenTgilmr+GHF+A5HTek7ozCZGq7/YfDlWwzJVjesh6UFZL1
+j9MamWE4jtG/Ms5uElQX7ZHsm0nX//6bFwWXsyHw5trMCGyrhEosRXb74RMgiBdI
+DeoFRj8TmrMWUnjpGFQTjt8u2QbxVjDeobqeqgZEcUREn6OjZ1NlqXxqNs5vZPhG
+I2aew2t27DwpQtNmYr/t1HRZhfGeHjEUxS0nxW7C1EGPhyVoegs=
+=vAp4
+-----END PGP SIGNATURE-----
 
-plus it's demonstrably "good enough" for existing callers. it's not
-like the union would make the api any less error-prone?
-
-> Have a lovely day!
-> Alex
->
-> --
-> <https://www.alejandro-colomar.es/>
+--n7awchzjl53rszyf--
 
