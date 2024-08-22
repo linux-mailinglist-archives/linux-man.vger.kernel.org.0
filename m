@@ -1,70 +1,70 @@
-Return-Path: <linux-man+bounces-1655-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1656-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8847E95BD62
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 19:35:09 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C90C95BDF6
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 20:06:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 6A761B25FF6
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 17:35:01 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8D91C1C21EB7
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 18:06:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E5E71CCB4B;
-	Thu, 22 Aug 2024 17:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC6111CF2BA;
+	Thu, 22 Aug 2024 18:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JfA6kyx/"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XiSNfvFt"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C4C1CEACC
-	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 17:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7AA1CF2B5
+	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 18:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724348095; cv=none; b=ClpbDyIHzO380ax+7qaV1u+zCOINf158rMqwz82uHBGlCX8uTprGhFCg189f7rFFkOF6b8LzX3EIe9MQFbcgS626WWS5Hj3sxfy9etBqlzGfy+FRbLzRi0RYxrSiEk/lCWJ53ZiQVM3jNhodOTOP3lPUupU8i717yDKGfX/tie0=
+	t=1724349951; cv=none; b=WpBuJJrHwQU5U1CZtPKYNoBu/kX36X6/1YrBBfens2A8So9wOUSD9i9Nt9CdSaM5N5KCwvbt9qO7lCSZYrkfSsIrIyfuj8GuvwQYRNEouCS4LfgZjC8RJeQT8iN2IxaYiwyST2auu9CYCz3WYpXX1jPuSaXW/kYmLChtnbso/RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724348095; c=relaxed/simple;
-	bh=LWer6P5gsOiKcrXLFTk/g39spV5R60yd3BI2EwR9acU=;
+	s=arc-20240116; t=1724349951; c=relaxed/simple;
+	bh=eLua6iKUWjrQisfZZoo6dtLjLn+DzxbP/XJan/75Tco=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S3/zTanixwmWEPgdvyIjSZDUW7QzInGmgKxEJs0KItqYl5dg0dHRgSheKBKgOIFwEtpL8t1dO1JhFf4e1JqWP74+bVYiYYL76R+K3b5LcTegybq93vK0QNXi9w6wZAtMMR5YXjnWYd1xy+goKeXjS+knMJpd8nktX+KzKmepmJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JfA6kyx/; arc=none smtp.client-ip=209.85.219.43
+	 To:Cc:Content-Type; b=gjXQ00kh+lNc6Hbohb9zuLtG5AjuAmb1jDJbDR08Te0xRSUSy5OcyWjsnObbrYQAEqZ1x1DetIcoFOe8Ekj71tWYoxPQw3mAlTCvvsHmOi9WuHr6Qgo9xHzJbxelAb9x0RDFxvT7QVbXlFaTqtgYI2EIoDRjsUuoml1chqvAfuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XiSNfvFt; arc=none smtp.client-ip=209.85.219.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-6bf6ea1d34aso5325296d6.1
-        for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 10:34:53 -0700 (PDT)
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-6bf8b41b34dso5550956d6.0
+        for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 11:05:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1724348092; x=1724952892; darn=vger.kernel.org;
+        d=google.com; s=20230601; t=1724349949; x=1724954749; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uHFExF9dsha8y1AP0lkL+rBTFTZz7xaUBH3a3+1rngs=;
-        b=JfA6kyx/GDuzo53mwqdzkoaCfoVuB10tfvV89Y06FDU3oZCzupWdprITM5SeuVOAZQ
-         zkca47V0tM6goIV4eX/q92rk+F3m5qq5EKXvZRPp9eAXJix7RLmArr9B3EsOAS6xxtzh
-         zxFdscPFDrds94DQd5dTUFThDWVmcaG4VLV1GxyYwDWeReyKOWr6kZ3yKUayZ657t8Od
-         OKC2xQWDykcwBeylpInWSK+altiqFZs9I90mCDudpYY7jKhFS6GegeGKsLniZbSz89gn
-         6X5/Xw5k4giCFaxycUZnM4cnpGJh5ReptS3tBCv7RjOCEmqP5fXalDyhFTtbNePXMbJu
-         NDkg==
+        bh=kbZGpIVKx6xWBz8wQNjyPLU8+Fm7iHEd65jgYL/MBw4=;
+        b=XiSNfvFtNrPgvNaFlsp74DfAbOseK3RoPR4RKwXVlADTXz/gA3tVfbguTvppWLk98E
+         vVy2BmMC0pxOsraOD9L7/+eaDfTwn5Cf3Nyt44abE5j3bgcRjuIX9K+w1lVWxWUnhn23
+         UZFUkXeNy3lxXf0iXD8LFc34gEUz2sf9mReUhbROmoNR4Gk8K3laRNnUHcC3F+YbEHxF
+         NXmuTOqn4qIUYjlkRuS1/zcVNRAXBYrfWE7Fyx4kDuZiFAng3unulY0i2RzGz1nDZWaV
+         ZXu7NPVZdGBeb+S3Xr4PWUkdwCqdEf+zkd/SkSc8j5vTeZCt9CsH19ti98aLJXBZL9eS
+         8ibA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724348092; x=1724952892;
+        d=1e100.net; s=20230601; t=1724349949; x=1724954749;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uHFExF9dsha8y1AP0lkL+rBTFTZz7xaUBH3a3+1rngs=;
-        b=MgMYKs+biOej2pwV9n5aoY18EA19r+LI0RTE5FQJBI98QnJ3qFqTWcWGiFg019/wnA
-         hI4Lj7OwWbXvBQ3HXFf4LuNREvLEhJWDzLNBX1NsV/M4j63NF7i0UMxvbB+WPwT6yiLF
-         KO1DvsWryvajgUC5eVhQJFs9RCOOeaMeh6TNCmguRfH5MaYReCuN1wuOJCCIMiuedXaw
-         FQvyEnKRvczRzOy9eRu45ZJNEqMOqIf52PhrCFhHDvZO+yi7iZzOVME7xe4CRiGAyQhx
-         YOhkdDIXrqgHD9Ej6R97uJelgFULwxzkEd/jAH+b25BF/2RtuzynweWuEnO+kX+9wE8M
-         kc8g==
-X-Forwarded-Encrypted: i=1; AJvYcCWi0yxzD2PLK+4qFHdvbs5c2WPQxtgU38+mIWs0uwYCvXyfAQJ3QkJhbAKWFSncS9ewahp8WASRf2Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9GLK/LW2lmPzhmeMXhSr0wLSUvpJzihSJT3qH8mDR+VZ6Davk
-	Ar6LvbTMFcNyREGv7f6KBPIMPjXiNoVWy4w3p1JUO3b8GPr9ny2nIVsIEQZOIRYVvHXzuc9mE3R
-	qT6xPWU9yeRir4eEOWaPgp8xU8CAXw44zT6vh
-X-Google-Smtp-Source: AGHT+IEpYmAki85EteayvrdP6N/Lb3bnZFlcJIDGgvYDE3Iiq2CpD8Ht4r8lm8RHOnrOH+fXsb+tEBE9rSU3aFhi11c=
-X-Received: by 2002:a05:6214:3102:b0:6b5:e7e5:e62d with SMTP id
- 6a1803df08f44-6c156842ecfmr80924696d6.43.1724348092333; Thu, 22 Aug 2024
- 10:34:52 -0700 (PDT)
+        bh=kbZGpIVKx6xWBz8wQNjyPLU8+Fm7iHEd65jgYL/MBw4=;
+        b=KwYa5C/cXPJJY/f0TMNqdqMXqA7rqfrYT1kEJM9BAzZrGQsGixWpQsflCIYycR06vn
+         APpbkwQhZWc0SR0tBV9mwr8ApkF0F1pFgSdk8JAWCSbUg5R4Tkrn9R1hY7msFNCdFBsb
+         irnUMQw7gCcIWkBY5i0SFbhoEO0qBgsHl4gz6N/QOn5Wf75/dxJMlLJumnqXfOmbasAT
+         5z3vG41mGI+e+r+56uwxRi+c2b3CYMYZmDmb7GwbCaLBw+TlP7vvlzEpUDQC2rlvoOA4
+         Z090HYdJywruz4vm70sUFnbsRTZlMVVbwsjTNPDMZ1QiegImbmgpckSJnvlBAhgGeHHg
+         XstQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWn90CZjOwsyN3aXngXLKutjfhuUhmqVQpTn9BIgII+G8igMOrcIa5AyFhI4FZZ8OS6E1rgbGyfWmQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeBxgeik+G0ASvZCmZZMoGjo3LPdtrcQ3UWUFhxnkFyay5cOHL
+	VI5EGUfFbUZfrlqP4HvdAAmhKDUwOTd//4Ds3x2y45JkY5FGd3srRmaj5cBtVlbWnoAouiUpIBq
+	ENslgTxqWUIjjaZ0FNvzsI4UAfjlAV81mMZoy
+X-Google-Smtp-Source: AGHT+IE4nOdoKh8nT7ynyvH7P93oOVHq42vYg/qXtkeIKLRDQj+ugvi+BYqKrChXXtGX8FsS0Svyi6ktNkWg33bkYa0=
+X-Received: by 2002:a05:6214:498d:b0:6bf:9ce2:654b with SMTP id
+ 6a1803df08f44-6c155e2662cmr93938296d6.52.1724349948765; Thu, 22 Aug 2024
+ 11:05:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -78,11 +78,12 @@ References: <937dcbd1-69c3-48ba-ada1-6b25e5381672@linaro.org>
  <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org> <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
  <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
  <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
- <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com> <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
-In-Reply-To: <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
+ <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
+ <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp> <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
+In-Reply-To: <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
 From: enh <enh@google.com>
-Date: Thu, 22 Aug 2024 13:34:41 -0400
-Message-ID: <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
+Date: Thu, 22 Aug 2024 14:05:33 -0400
+Message-ID: <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
 Subject: Re: arch_prctl()
 To: Alejandro Colomar <alx@kernel.org>
 Cc: "H.J. Lu" <hjl.tools@gmail.com>, 
@@ -91,77 +92,84 @@ Cc: "H.J. Lu" <hjl.tools@gmail.com>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 22, 2024 at 12:57=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
+On Thu, Aug 22, 2024 at 1:34=E2=80=AFPM enh <enh@google.com> wrote:
 >
-> Hi Elliott,
->
-> On Thu, Aug 22, 2024 at 12:34:11PM GMT, enh wrote:
-> > On Thu, Aug 22, 2024 at 12:27=E2=80=AFPM Alejandro Colomar <alx@kernel.=
-org> wrote:
-> > > I'd rather add a diagnostic for those who define it themselves now,
-> > > than providing a sub-par prototype for eternity.  I guess the existin=
-g
-> > > number of users is small, and it doesn't break binaries, just
-> > > compilation.
+> On Thu, Aug 22, 2024 at 12:57=E2=80=AFPM Alejandro Colomar <alx@kernel.or=
+g> wrote:
 > >
-> > yeah, afaict it's basically just "qemu-like things" and the occasional
-> > debugging tool.
+> > Hi Elliott,
 > >
-> > > Those will probably just need to add an ifdef for the glibc version t=
-hat
-> > > added the prototype, so it's an easy fix.
+> > On Thu, Aug 22, 2024 at 12:34:11PM GMT, enh wrote:
+> > > On Thu, Aug 22, 2024 at 12:27=E2=80=AFPM Alejandro Colomar <alx@kerne=
+l.org> wrote:
+> > > > I'd rather add a diagnostic for those who define it themselves now,
+> > > > than providing a sub-par prototype for eternity.  I guess the exist=
+ing
+> > > > number of users is small, and it doesn't break binaries, just
+> > > > compilation.
+> > >
+> > > yeah, afaict it's basically just "qemu-like things" and the occasiona=
+l
+> > > debugging tool.
+> > >
+> > > > Those will probably just need to add an ifdef for the glibc version=
+ that
+> > > > added the prototype, so it's an easy fix.
+> > >
+> > > no, they'd just have to change their declaration to match whatever
+> > > glibc ships. (which is definitely more verbose if it's any kind of
+> > > union.)
 > >
-> > no, they'd just have to change their declaration to match whatever
-> > glibc ships. (which is definitely more verbose if it's any kind of
-> > union.)
+> > Redefinition of transparent unions is allowed?  I'm not sure; at least
+> > prior to C23.
 >
-> Redefinition of transparent unions is allowed?  I'm not sure; at least
-> prior to C23.
-
-huh. i did not know that. "works for me" on clang, anyway, and seems
-like a good argument for the transparent union...
-
-i took a more careful look at the code i can easily search, and i found:
-
-1. extern int arch_prctl(int, unsigned long);
-  the most common choice, presumably popularized by the kernel source
-and the man page.
-2. extern int arch_prctl(int, uintptr_t);
-  much less common, and compatible with option 1 anyway.
-3. extern int arch_prctl(int, unsigned long*);
-  very rare, but used in compiler-rt for tsan (and at least a gcc
-hwasan tests?).
-4. extern int arch_prctl(int, unsigned long int);
-  if you're not into the whole brevity thing.
-
-so actually the transparent union is the only thing that's source
-compatible with all the existing code [in the corpus i have easy
-access to].
-
-> > i don't have a strong opinion, other than "i want to make sure that
-> > bionic and glibc have the _same_ declaration so that it's at least
-> > possible for folks to fix their source to 'just work' everywhere"...
+> huh. i did not know that. "works for me" on clang, anyway, and seems
+> like a good argument for the transparent union...
 >
-> +1
+> i took a more careful look at the code i can easily search, and i found:
 >
-> > > But I tend to value more eternity than added diagnostics, and others =
-may
-> > > disagree with that, so whatever you decide is probably good, and I'll
-> > > document it.  :)
+> 1. extern int arch_prctl(int, unsigned long);
+>   the most common choice, presumably popularized by the kernel source
+> and the man page.
+> 2. extern int arch_prctl(int, uintptr_t);
+>   much less common, and compatible with option 1 anyway.
+> 3. extern int arch_prctl(int, unsigned long*);
+>   very rare, but used in compiler-rt for tsan (and at least a gcc
+> hwasan tests?).
+> 4. extern int arch_prctl(int, unsigned long int);
+>   if you're not into the whole brevity thing.
+>
+> so actually the transparent union is the only thing that's source
+> compatible with all the existing code [in the corpus i have easy
+> access to].
+
+...except transparent unions are C-only, so we'd need something else
+for C++ if we went with this for C.
+
+> > > i don't have a strong opinion, other than "i want to make sure that
+> > > bionic and glibc have the _same_ declaration so that it's at least
+> > > possible for folks to fix their source to 'just work' everywhere"...
 > >
-> > minimizing the need for changes on the man page is also a [minor]
-> > argument for just going with the kernel declaration :-)
+> > +1
 > >
-> > plus it's demonstrably "good enough" for existing callers. it's not
-> > like the union would make the api any less error-prone?
->
-> The union removes the need for a cast.  The cast is error-prone, since
-> it disables most compiler diagnostics.
->
-> Cheers,
-> Alex
->
-> --
-> <https://www.alejandro-colomar.es/>
+> > > > But I tend to value more eternity than added diagnostics, and other=
+s may
+> > > > disagree with that, so whatever you decide is probably good, and I'=
+ll
+> > > > document it.  :)
+> > >
+> > > minimizing the need for changes on the man page is also a [minor]
+> > > argument for just going with the kernel declaration :-)
+> > >
+> > > plus it's demonstrably "good enough" for existing callers. it's not
+> > > like the union would make the api any less error-prone?
+> >
+> > The union removes the need for a cast.  The cast is error-prone, since
+> > it disables most compiler diagnostics.
+> >
+> > Cheers,
+> > Alex
+> >
+> > --
+> > <https://www.alejandro-colomar.es/>
 
