@@ -1,64 +1,55 @@
-Return-Path: <linux-man+bounces-1657-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1658-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 814C795BECC
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 21:24:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CD3595C198
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 01:49:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B12591C224B0
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 19:24:53 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BA20B1C221ED
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 23:49:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 713BF1D0DD4;
-	Thu, 22 Aug 2024 19:24:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54D5B186E5D;
+	Thu, 22 Aug 2024 23:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Moq0AYmx"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sf9jeHw+"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31690AD55
-	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 19:24:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C61D183CC8
+	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 23:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724354682; cv=none; b=Zqqk/Xzuqd0KcR0aWypreuzyyKJvuljNwUjITGkTsp595IB3xuzMbh77FPiaWqKB9bIv6X/0htgQTUEMV5sFMYGPMwKI/LUDyq6UyRsyD+fCtwMO6tzXfeFGBcT67/CNz70WWI20EzEnCL70IkWHp/pIui5pV0BkRYFA9ydIkpg=
+	t=1724370593; cv=none; b=dk/u7FRpbWL1PVBmeh8gcvIBo/3y6yOFXC/k98e8DAyRfC1WAgwwT+JWhWxinF2Gk9Uuw/k/N2mY4i3DZ4l0tBWyJsHayVWRgOQdgb0u+E9hIbNQ95W26dSSj97oKE/g86imxcEbnIjPdjDM6ZJOV1aVusyABRZRkWi7RT8USWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724354682; c=relaxed/simple;
-	bh=P3LMCTIVosboFF+3nn/+UHHs3rpnZKdIyRaBnj7uscs=;
+	s=arc-20240116; t=1724370593; c=relaxed/simple;
+	bh=T4JvnyraaKof3CIbv1mF/+r/o1D68I4jM9cZcaViYQg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NZtbhnq1OJ5K0/pSARU3FY3LCyRaWxb3ZPg1oSQQE2EYMRhwqxmIW2vr12q0hs/daf8MSohUL93VYEJhCA65+5sKmV2tH375tcGEYcVqYKplj5KR6Gn2ndmA3TAY1n/rOAEpFd45ItKwlZc6b7FfuIxtwOQwO1TK+0X7uIBfMYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Moq0AYmx; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F59AC4AF0B;
-	Thu, 22 Aug 2024 19:24:40 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xau16rqfP4bHMD3QrLSUwgSSFXe3yW3387RgxZ2MVmYBVVWmZ7ECHRr8kKpqwJ4QfsiG2VJ5hoJdZ3X5+7cpxokfBeG6ADJDugaoesGDV+SEkGwnOF2WIKF0oTrwHbZX9JR+yRGE1MCdWnqTViafQKnEqezwEp3YjIvJh5rOS54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sf9jeHw+; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BBBC32782;
+	Thu, 22 Aug 2024 23:49:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724354681;
-	bh=P3LMCTIVosboFF+3nn/+UHHs3rpnZKdIyRaBnj7uscs=;
+	s=k20201202; t=1724370592;
+	bh=T4JvnyraaKof3CIbv1mF/+r/o1D68I4jM9cZcaViYQg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Moq0AYmxzi8Q3fKB1+MgXVTFnhFOALnijMewyT2fiaLM0/N/wvcS4ynYedeuwTCvf
-	 GslXa6zFn6DX+qqWiM31Lgo475sZnG8Rlh1nvLUuxbgx+1YwnNuWMtX3BvRJEZHujN
-	 hrBBmJdsjzci0/uYc3z4LOXBCYdmVkFr0hcG03KPOiDLh6iXJ8qUkZqeG/yub7slGO
-	 Wqq8MyDEfCSGpRTDrT6rC7y3dK4ZHvgobGRYZr8zGYYASBKHDfOTBPJsOt74tVk+RA
-	 DwReCAUK19i0FRtJ27pY7/nuLq6UkSIon5MyCgWJOM5TgeQBS04qINUNC/7lLF23oy
-	 CUSeeja9us4TA==
-Date: Thu, 22 Aug 2024 21:24:38 +0200
+	b=Sf9jeHw+7He5FnTkIXK7cQ0Z3EvKT5BFV8hfkYv3U2pdCXYwNIuqtslzuaAIrT0sL
+	 Cmphmd/K1haKSSNOdceCiS6ViUKXuR6+PXUd0HF9ktZYM12iQ6IMm49gHuDVxDiXsa
+	 30m+8fmdZ+udq/6+Wi3300BI3LNl8rsKkjAfA2ulmmSZliciq4oMWQnhW/2DvRDgGX
+	 p86IjBhJP/AkDBj3YjNneJZ1cbFlxARO/4wsaNas0VG/NtXylKuTLN5evV1C251Bas
+	 FdWsTVg41FpV9PZfBMety8aUv4XpLXQtCiTmBlNiVSUyAYpZ5cA1ubRWMlIumI1eT1
+	 b95ns/VE6wHPA==
+Date: Fri, 23 Aug 2024 01:49:49 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: "H.J. Lu" <hjl.tools@gmail.com>, 
-	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: arch_prctl()
-Message-ID: <uzhkcbjxjypbwpzvdqlgukiorrgfn7hc7oe2m76r36kahpreun@wextt7canmee>
-References: <138cac72-3ec9-42c0-9c1d-982aae975fc3@linaro.org>
- <xryntaw4ltavijpf7ejf4v7uhvwfp2lytgfzeablezxlvex4ky@yfkfhw7jtzch>
- <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
- <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
- <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
- <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
- <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
- <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
- <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
- <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+To: Alejandro Colomar <alx@kernel.org>, DJ Delorie <dj@redhat.com>, 
+	Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org, carlos@redhat.com
+Subject: [PATCH v3] ctime.3: EXAMPLES: Add example program
+Message-ID: <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
+X-Mailer: git-send-email 2.45.2
+References: <xned6jlywd.fsf@greed.delorie.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -66,98 +57,382 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n3sdazjg3wbgqjgy"
+	protocol="application/pgp-signature"; boundary="mgm6wvyjzp7pek3l"
 Content-Disposition: inline
-In-Reply-To: <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+In-Reply-To: <xned6jlywd.fsf@greed.delorie.com>
 
 
---n3sdazjg3wbgqjgy
+--mgm6wvyjzp7pek3l
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: "H.J. Lu" <hjl.tools@gmail.com>, 
-	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
-	linux-man <linux-man@vger.kernel.org>
-Subject: Re: arch_prctl()
-References: <138cac72-3ec9-42c0-9c1d-982aae975fc3@linaro.org>
- <xryntaw4ltavijpf7ejf4v7uhvwfp2lytgfzeablezxlvex4ky@yfkfhw7jtzch>
- <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
- <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
- <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
- <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
- <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
- <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
- <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
- <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+To: Alejandro Colomar <alx@kernel.org>, DJ Delorie <dj@redhat.com>, 
+	Paul Eggert <eggert@cs.ucla.edu>
+Cc: linux-man@vger.kernel.org, carlos@redhat.com
+Subject: [PATCH v3] ctime.3: EXAMPLES: Add example program
+References: <xned6jlywd.fsf@greed.delorie.com>
 MIME-Version: 1.0
-In-Reply-To: <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+In-Reply-To: <xned6jlywd.fsf@greed.delorie.com>
 
-Hi Elliott, H.J.,
+This example documents the corner cases of mktime(3), such as what
+happens during DST transitions, and other jumps in the calendar.
 
-On Thu, Aug 22, 2024 at 02:05:33PM GMT, enh wrote:
-> On Thu, Aug 22, 2024 at 1:34=E2=80=AFPM enh <enh@google.com> wrote:
-> > > Redefinition of transparent unions is allowed?  I'm not sure; at least
-> > > prior to C23.
-> >
-> > huh. i did not know that. "works for me" on clang, anyway, and seems
-> > like a good argument for the transparent union...
-> >
-> > i took a more careful look at the code i can easily search, and i found:
-> >
-> > 1. extern int arch_prctl(int, unsigned long);
-> >   the most common choice, presumably popularized by the kernel source
-> > and the man page.
-> > 2. extern int arch_prctl(int, uintptr_t);
-> >   much less common, and compatible with option 1 anyway.
-> > 3. extern int arch_prctl(int, unsigned long*);
-> >   very rare, but used in compiler-rt for tsan (and at least a gcc
-> > hwasan tests?).
-> > 4. extern int arch_prctl(int, unsigned long int);
-> >   if you're not into the whole brevity thing.
-> >
-> > so actually the transparent union is the only thing that's source
-> > compatible with all the existing code [in the corpus i have easy
-> > access to].
+Link: <https://www.redhat.com/en/blog/brief-history-mktime>
+Reported-by: DJ Delorie <dj@redhat.com>
+Cc: Paul Eggert <eggert@cs.ucla.edu>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-Good.  :)
+Hi DJ, Paul!
 
-> ...except transparent unions are C-only, so we'd need something else
-> for C++ if we went with this for C.
+Below is the rendered text.  I've tested this program with several
+"weird" times, and it all makes sense.  Please review.
 
-Why don't they have transparent unions in C++?  Is it just that nobody
-cared to implement them?  Or do they have inherent problems there?
+I call it v3, since it supersedes DJ's patches.
 
-Anyway, a C++ project can probably compile a few objects as C files to
-workaround that.
-
-
-Cheers,
+Have a lovely night!
 Alex
 
---=20
-<https://www.alejandro-colomar.es/>
+EXAMPLES
+     Passing an invalid time to mktime()  or  an  invalid  tm=E2=80=90>tm_i=
+sdst
+     value  yields  unspecified results.  Also, passing the value -1 in
+     tm=E2=80=90>tm_isdst will result in an  ambiguous  time  during  some =
+ DST
+     transitions, which will also yield an unspecified result.
 
---n3sdazjg3wbgqjgy
+     The program below uses a wrapper that allows detecting invalid and
+     ambiguous times, with EINVAL and ENOTUNIQ, respectively.
+
+     The following shell session shows sample runs of the program:
+
+         $ export TZ=3DEurope/Madrid;
+         $
+         $ ./a.out 2024 08 23 00 17 53 -1;
+         1724365073
+         $ ./a.out 2024 08 23 00 17 53 0;
+         a.out: mktime: Invalid argument
+         1724368673
+         $ ./a.out 2024 08 23 00 17 53 1;
+         1724365073
+         $
+         $ ./a.out 2024 02 23 00 17 53 -1;
+         1708643873
+         $ ./a.out 2024 02 23 00 17 53 0;
+         1708643873
+         $ ./a.out 2024 02 23 00 17 53 1;
+         a.out: mktime: Invalid argument
+         1708640273
+         $
+         $ ./a.out 2024 03 26 02 17 53 -1;
+         a.out: mktime: Invalid argument
+         1679793473
+         $
+         $ ./a.out 2024 10 29 02 17 53 -1;
+         a.out: mktime: Name not unique on network
+         1698542273
+         $ ./a.out 2024 10 29 02 17 53 0;
+         1698542273
+         $ ./a.out 2024 10 29 02 17 53 1;
+         1698538673
+         $
+         $ ./a.out 2024 02 29 12 00 00 -1;
+         a.out: mktime: Invalid argument
+         1677668400
+
+   Program source: mktime.c
+
+     #include <err.h>
+     #include <errno.h>
+     #include <stdint.h>
+     #include <stdio.h>
+     #include <stdlib.h>
+     #include <time.h>
+
+     time_t my_mktime(struct tm *tp);
+
+     int
+     main(int argc, char *argv[])
+     {
+         char       **p;
+         time_t     t;
+         struct tm  tm;
+
+         if (argc !=3D 8) {
+             fprintf(stderr, "Usage: %s yyyy mm dd HH MM SS isdst\n", argv[=
+0]);
+             exit(EXIT_FAILURE);
+         }
+
+         p =3D &argv[1];
+         tm.tm_year  =3D atoi(*p++) - 1900;
+         tm.tm_mon   =3D atoi(*p++) - 1;
+         tm.tm_mday  =3D atoi(*p++);
+         tm.tm_hour  =3D atoi(*p++);
+         tm.tm_min   =3D atoi(*p++);
+         tm.tm_sec   =3D atoi(*p++);
+         tm.tm_isdst =3D atoi(*p++);
+
+         errno =3D 0;
+         t =3D my_mktime(&tm);
+         if (errno =3D=3D EOVERFLOW)
+             err(EXIT_FAILURE, "mktime");
+         if (errno =3D=3D EINVAL || errno =3D=3D ENOTUNIQ)
+             warn("mktime");
+
+         printf("%ju\n", (uintmax_t) t);
+         exit(EXIT_SUCCESS);
+     }
+
+     time_t
+     my_mktime(struct tm *tp)
+     {
+         int        e, isdst;
+         time_t     t;
+         struct tm  tm;
+
+         e =3D errno;
+         errno =3D 0;
+
+         tm =3D *tp;
+         isdst =3D tp->tm_isdst;
+
+         t =3D mktime(tp);
+         if (t =3D=3D -1 && errno =3D=3D EOVERFLOW)
+             return -1;
+
+         if (isdst =3D=3D -1)
+             tm.tm_isdst =3D tp->tm_isdst;
+
+         if (   tm.tm_sec   !=3D tp->tm_sec
+             || tm.tm_min   !=3D tp->tm_min
+             || tm.tm_hour  !=3D tp->tm_hour
+             || tm.tm_mday  !=3D tp->tm_mday
+             || tm.tm_mon   !=3D tp->tm_mon
+             || tm.tm_year  !=3D tp->tm_year
+             || tm.tm_isdst !=3D tp->tm_isdst)
+         {
+             errno =3D EINVAL;
+             return t;
+         }
+
+         if (isdst !=3D -1)
+             goto out;
+
+         tm =3D *tp;
+         tm.tm_isdst =3D !tm.tm_isdst;
+
+         if (mktime(&tm) =3D=3D -1 && errno =3D=3D EOVERFLOW)
+             goto out;
+
+         if (tm.tm_isdst !=3D tp->tm_isdst) {
+             errno =3D ENOTUNIQ;
+             return t;
+         }
+     out:
+         errno =3D e;
+         return t;
+     }
+
+
+ man/man3/ctime.3 | 157 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 157 insertions(+)
+
+diff --git a/man/man3/ctime.3 b/man/man3/ctime.3
+index 5aec51b79..5ab881978 100644
+--- a/man/man3/ctime.3
++++ b/man/man3/ctime.3
+@@ -412,6 +412,163 @@ .SH NOTES
+ object types may overwrite the information in any object of the same type
+ pointed to by the value returned from any previous call to any of them."
+ This can occur in the glibc implementation.
++.SH EXAMPLES
++Passing an invalid time to
++.BR mktime ()
++or an invalid
++.I tm->tm_isdst
++value
++yields unspecified results.
++Also,
++passing the value
++.I \-1
++in
++.I tm->tm_isdst
++will result in an ambiguous time during some DST transitions,
++which will also yield an unspecified result.
++.P
++The program below uses a wrapper that
++allows detecting invalid and ambiguous times,
++with
++.B EINVAL
++and
++.BR ENOTUNIQ ,
++respectively.
++.P
++The following shell session shows sample runs of the program:
++.P
++.in +4n
++.EX
++.RB $\~ "export TZ=3DEurope/Madrid" ;
++$
++.RB $\~ "./a.out 2024 08 23 00 17 53 \-1" ;
++1724365073
++.RB $\~ "./a.out 2024 08 23 00 17 53 0" ;
++a.out: mktime: Invalid argument
++1724368673
++.RB $\~ "./a.out 2024 08 23 00 17 53 1" ;
++1724365073
++$
++.RB $\~ "./a.out 2024 02 23 00 17 53 \-1" ;
++1708643873
++.RB $\~ "./a.out 2024 02 23 00 17 53 0" ;
++1708643873
++.RB $\~ "./a.out 2024 02 23 00 17 53 1" ;
++a.out: mktime: Invalid argument
++1708640273
++$
++.RB $\~ "./a.out 2024 03 26 02 17 53 \-1" ;
++a.out: mktime: Invalid argument
++1679793473
++$
++.RB $\~ "./a.out 2024 10 29 02 17 53 \-1" ;
++a.out: mktime: Name not unique on network
++1698542273
++.RB $\~ "./a.out 2024 10 29 02 17 53 0" ;
++1698542273
++.RB $\~ "./a.out 2024 10 29 02 17 53 1" ;
++1698538673
++$
++.RB $\~ "./a.out 2024 02 29 12 00 00 \-1" ;
++a.out: mktime: Invalid argument
++1677668400
++.EE
++.SS Program source: mktime.c
++\&
++.\" SRC BEGIN (mktime.c)
++.EX
++#include <err.h>
++#include <errno.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <time.h>
++\&
++time_t my_mktime(struct tm *tp);
++\&
++int
++main(int argc, char *argv[])
++{
++    char       **p;
++    time_t     t;
++    struct tm  tm;
++\&
++    if (argc !=3D 8) {
++        fprintf(stderr, "Usage: %s yyyy mm dd HH MM SS isdst\[rs]n", argv[=
+0]);
++        exit(EXIT_FAILURE);
++    }
++\&
++    p =3D &argv[1];
++    tm.tm_year  =3D atoi(*p++) \- 1900;
++    tm.tm_mon   =3D atoi(*p++) \- 1;
++    tm.tm_mday  =3D atoi(*p++);
++    tm.tm_hour  =3D atoi(*p++);
++    tm.tm_min   =3D atoi(*p++);
++    tm.tm_sec   =3D atoi(*p++);
++    tm.tm_isdst =3D atoi(*p++);
++\&
++    errno =3D 0;
++    t =3D my_mktime(&tm);
++    if (errno =3D=3D EOVERFLOW)
++        err(EXIT_FAILURE, "mktime");
++    if (errno =3D=3D EINVAL || errno =3D=3D ENOTUNIQ)
++        warn("mktime");
++\&
++    printf("%ju\[rs]n", (uintmax_t) t);
++    exit(EXIT_SUCCESS);
++}
++\&
++time_t
++my_mktime(struct tm *tp)
++{
++    int        e, isdst;
++    time_t     t;
++    struct tm  tm;
++\&
++    e =3D errno;
++    errno =3D 0;
++\&
++    tm =3D *tp;
++    isdst =3D tp\->tm_isdst;
++\&
++    t =3D mktime(tp);
++    if (t =3D=3D \-1 && errno =3D=3D EOVERFLOW)
++        return \-1;
++\&
++    if (isdst =3D=3D \-1)
++        tm.tm_isdst =3D tp\->tm_isdst;
++\&
++    if (   tm.tm_sec   !=3D tp\->tm_sec
++        || tm.tm_min   !=3D tp\->tm_min
++        || tm.tm_hour  !=3D tp\->tm_hour
++        || tm.tm_mday  !=3D tp\->tm_mday
++        || tm.tm_mon   !=3D tp\->tm_mon
++        || tm.tm_year  !=3D tp\->tm_year
++        || tm.tm_isdst !=3D tp\->tm_isdst)
++    {
++        errno =3D EINVAL;
++        return t;
++    }
++\&
++    if (isdst !=3D \-1)
++        goto out;
++\&
++    tm =3D *tp;
++    tm.tm_isdst =3D !tm.tm_isdst;
++\&
++    if (mktime(&tm) =3D=3D \-1 && errno =3D=3D EOVERFLOW)
++        goto out;
++\&
++    if (tm.tm_isdst !=3D tp\->tm_isdst) {
++        errno =3D ENOTUNIQ;
++        return t;
++    }
++out:
++    errno =3D e;
++    return t;
++}
++.EE
++.\" SRC END
+ .SH SEE ALSO
+ .BR date (1),
+ .BR gettimeofday (2),
+
+base-commit: 0813c125d8bf754c40015aa1b31f23e0650584ac
+--=20
+2.45.2
+
+
+--mgm6wvyjzp7pek3l
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbHkGkACgkQnowa+77/
-2zL8NRAAoyOVw8NilFVEsopOCOMUltPoLRCrujCv4jojsbkEwoJ+mwSe6sCXa9/4
-SOooSGeQuMnoxQt0Dow9q/68Ne6jxKVpIbxSTBxFt6uV9xuTMs4PMOrZN4cxYfz1
-81gziEMA/PPGkfBMvebCx7wa/hoqH6lnXhpZurL5hZR1UXsnaNV0w8ZDAhPwizn2
-4hlF0BykTukUL8j0DJdxqioQ93wWq0fPuEJUvsAUYaJL152z5Tspm2T03ToJScBS
-HZNidt5ssnXEW5WjNmFlFhdOrbWJENZQgW/P2I8afRDivGuem1RSiZGM87eopdaB
-1t78pDArsa4v2TwvHgrhEGwsNVSl+CLbB7jJTnncrMTsJbUjD/hyaegst/g6TFb6
-oL7NbIUT/RWJpPZPOpEetdMWbCTTKEnHdYimyUPsj0vtXc9KCu5H+a2QjQe0IrPK
-EYIp1kzp3aHl5hrHWr6CSzJrnrUDkePMXrnIAuE93C3wfFDqNZ4KDYIp8Lsh2EVR
-lk31YYUWr4DaUnrQi2/WOsD+px5alwpks2OYrk3aObs6O3qPwiZCw5ulrIpMPymA
-WI9/y6ekGkuVv9Mf9DFvuSgvz6d0EsEPpHizeOYk3L7HsHRX736079FRdFNgZFWQ
-56y2KTpmKCChwmvs5+6wtE+NQtv5G97VQDE6yaQzV0q+ixTjg+Q=
-=KU/T
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbHzp0ACgkQnowa+77/
+2zJ7dg//QmzCs0PgvzOVJAbZL7bu3cCn4h6MMKxAP0dp4Os8s/QVAAzfji2ewQHr
+0YPMd64ECniKaCGyLvLrKpj8S6Xge9xkj6DUxWg5godv7tMkVXCWeKVR4Iy/uvf4
+ZIw3lkWA0qi9Th713V3ziYWPvLrHrpXhln0CnwL9juq8T5pyyZ6q9oK3mAb7FibE
+ojxtnsAujHEOCvNBACNxsh1Mw2qglM9vPEKLPcFc9aFUscDlSXQYXfrrjkdv3GuR
+cn0F6kjOs6TJynhpDM48cVfRRWEBjvDby6Q6vs5FIHheTiUcCwjOQJburo1VI24s
+sAvQfDthLRBNBuwp4VGHSIbrehYx9J1Q7SIF4HZo1HTpnX7I5ECKldGVdtMnccJO
+F/FUUUABlPQKd1/0ccpREwjmTFxQPEE0X5gfXm/oZx04BKpdCppqSB7h/tVzbJft
+3rGcX0QhesBAFyYE2ShURmEUujorqfrh+jTg8KgU+xe6LlT+fWb33P80/s3KlQRQ
+F2NItout639t7S1ek06GN+l+zpJEj7WlIEpeF1+doGjHhJf0M6Z+8oEKS1KeCND7
+HFUIxQru9ZidZN/YTFXY3hHeKNQD95ZnIfboGr6VGTpL+oRtPIaqTBlTk9kdtyaA
++mVB9+scMLiro2qp04KiIdDSsqEFoYG8dt2xS+pTV16NiLD2Npk=
+=OzSP
 -----END PGP SIGNATURE-----
 
---n3sdazjg3wbgqjgy--
+--mgm6wvyjzp7pek3l--
 
