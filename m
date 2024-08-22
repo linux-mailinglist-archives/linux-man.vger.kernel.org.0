@@ -1,89 +1,105 @@
-Return-Path: <linux-man+bounces-1645-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1646-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F6CA95A958
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 03:10:31 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 539C295B0E1
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 10:47:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A23441C22CD7
-	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 01:10:30 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 061911F262E6
+	for <lists+linux-man@lfdr.de>; Thu, 22 Aug 2024 08:47:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF9BB79C8;
-	Thu, 22 Aug 2024 01:10:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37E0016EB65;
+	Thu, 22 Aug 2024 08:46:18 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F712A933;
-	Thu, 22 Aug 2024 01:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3F216DEAC
+	for <linux-man@vger.kernel.org>; Thu, 22 Aug 2024 08:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724289026; cv=none; b=lfvStu9mokqi3nxFOAmOvxSK664hWuDsyE/4BLAzrw84L6xUCjPfX/TDcWLq7QKouCUcpCf1gjr157XNe/Tw+gs9l0lRsWlCQ2YWnyZH1qSDbd2Uy6lK1Zlmo0qposYizC6DF0KfgOfC0ScP+K06eCgUgDJCjWb6ktW/MTUbO0I=
+	t=1724316378; cv=none; b=PZpRXQJA/Pic207dX0DB+FOpBlJ4iCZPBtTILbOPsQozQI5xgKwZ6qu+k5tLvERMBpL3wLHBCAps1CUjXr7XYuGae4GsHpCyZeY/Zg6/IOR7qhJXCf7bkO7O/LaFkxMzxD9v9E6RAoe4wjebjD9PcRDXQAVuIWWn9hR8RpaTjTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724289026; c=relaxed/simple;
-	bh=AJktN86JM2bB2gxNwdyEi8DPDMMsORX140sSEpaRto0=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=njp03X6ZlGXPkDjHrptPDB3cGkE62FY/HHwQefn2WWZPImpMGdIZ5hhHyvkNR1wJKj9vMz0TU+az79o3CxFbms5o8p6Jd73yv0Sh38CgaQfwV46FjQVid4yZIHDIpjX1FgR4hakawXes4KtPXjxl01J7tALNEKHA5WcAgf1BQrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=andypan.me; spf=pass smtp.mailfrom=andypan.me; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=andypan.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andypan.me
-X-QQ-GoodBg: 0
-X-QQ-SSF: 0000000000000010
-X-QQ-XMRINFO: Nq+8W0+stu50PRdwbJxPCL0=
-X-QQ-XMAILINFO: MxdW4jxL6NvXD6fHL120gYbfm76yjsmYLfXpO0z88/xgOld2ErRuJXXW
-	thOv4z0NTrKcJTy482VWPLdsDPWzR93inopnbWfvm5m3bm/z5YKyZMt0YSQdmSMVhKIHMcx
-	rwDFxuG1SsqqvwPPzNFuTw9NzBbHRCcLmHly0CUb3/Rm8QrEQvhexB7dfFHMe4Akgmfghzv
-	af43QnEeDBJCeFnvzUvMQv4FfPmLwHqLO1wombQGTpajojlQQ/Z+TUqrDXTt6n3otIaJ/UO
-	lkNNiYJkOkasLjAFbB7/r2iS3XcADsPl924oQPMJeGaTflLByBf7SStuxuQqQQnCjM+ijqQ
-	LxWuE0B1RxZVZTY2A5alVrKcHiyqhYlkrvuvLxSFFpBN3hDTMEaliMHXAw9oLclU0AbpP7d
-	9pPgc57EROvZvfKtNzaIyP+FPmzYjuf0dNGKomm45G4x1O2cxCUXi/upGJk+cl8xJ/dJWVC
-	4joB08wq1fAX/Wb6SSteOWt+3Iw5UqpLrXd/3beh1mv5jWLeGjPR+XxM5RpxAjy4nqMtGRq
-	ZK9wb7XXmMowagM5Ovu4Sscw46Q0oy+xA9eLiF9oMU09GTuwyjIIgxj1y/t43EdiRDUbGYD
-	huzpam1+PwZylBMJUPaYqWc67/dq+ZdH3zz7kwnyuMzyqFtRcQTPQhRFvqlkF3QuxfLmmIS
-	IpfODs1vB5hZLTxtS2pQbSh0xbhZPpx8Yw4lIG5ZmF1tOb2U20jRQb6KBUyTP/OrnbBwLBr
-	1Ov6d7bIZzfZxuoeZx2+G4GpJ6s10KCO+uRYvC44AEBQXlSu/a3JldSkyoe8253gEzCXWck
-	bi7lDITSIoDIZXzupFGp3Rxp7NgoA==
-X-QQ-FEAT: 3C1WcPM5lQ5OGwDMoz4wZ4QxfRDjUqa7
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: UVZSgsRBzq6eE0CxbJW2yj4WfYyIKp3FlJd5zZVy/1o=
-X-QQ-STYLE: 
-X-QQ-mid: t3sz3a-0t1724288988t108164
-From: "=?utf-8?B?5r2Y5bCR?=" <i@andypan.me>
-To: "=?utf-8?B?QWxlamFuZHJvIENvbG9tYXI=?=" <alx@kernel.org>
-Cc: "=?utf-8?B?bGludXgtbWFu?=" <linux-man@vger.kernel.org>, "=?utf-8?B?bGludXgtYXBp?=" <linux-api@vger.kernel.org>, "=?utf-8?B?TWljaGFlbCBLZXJyaXNr?=" <mtk.manpages@gmail.com>, "=?utf-8?B?cGFuamYyMDAw?=" <panjf2000@gmail.com>
-Subject: Re: [PATCH v5] epoll.7: clarify the event distribution under edge-triggered mode
+	s=arc-20240116; t=1724316378; c=relaxed/simple;
+	bh=Abxm4+auBbZXMdl8j+nlQzwljg/aMjpONdC5RuCtLiE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=OgIM7KtJ59XaaucwN7C6sEsa64isn3jSXVfwX/xa4vysDZMtKRZo6nvzPA6DUZLjXUklWbM6UkQDwnNvbJeYr+MFrR4ufVJ9GoCmtKsGYOxTwwyvWT9KmEltlpZ59ZD5Ex9Bc7zwxHuacPycpJROZPz52Pls8xa4Z578CmBejOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Received: from mail.maildlp.com (unknown [172.18.186.216])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4WqGtl1pJZz6K9bP;
+	Thu, 22 Aug 2024 16:43:11 +0800 (CST)
+Received: from lhrpeml500004.china.huawei.com (unknown [7.191.163.9])
+	by mail.maildlp.com (Postfix) with ESMTPS id 758CB140A46;
+	Thu, 22 Aug 2024 16:46:12 +0800 (CST)
+Received: from [10.123.123.200] (10.123.123.200) by
+ lhrpeml500004.china.huawei.com (7.191.163.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Thu, 22 Aug 2024 09:46:11 +0100
+Message-ID: <66eef8a3-007a-2a64-c95b-f23edc872db0@huawei.com>
+Date: Thu, 22 Aug 2024 11:46:09 +0300
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 22 Aug 2024 09:09:48 +0800
-X-Priority: 3
-Message-ID: <tencent_07661819392F7C6A41801501@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20240801-epoll-et-desc-v5-1-7fcb9260a3b2@andypan.me>
-	<3d4xkgo7fr6mrlnbcocstjs4ctrh3sutcyrxtgqseiwdjoino5@i3bbqxzii3vx>
-	<tencent_45987B697E98024524D8BF8C@qq.com>
-	<u2duuhzmc7ht57qwwzsei2p2f6da424pjshyswfmtman3kvmdp@slfra5g3k5q2>
-In-Reply-To: <u2duuhzmc7ht57qwwzsei2p2f6da424pjshyswfmtman3kvmdp@slfra5g3k5q2>
-X-QQ-ReplyHash: 1024104548
-X-BIZMAIL-ID: 1204096202833613912
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Thu, 22 Aug 2024 09:09:49 +0800 (CST)
-Feedback-ID: t:andypan.me:qybglogicsvrgz:qybglogicsvrgz5a-0
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH v3 1/2] landlock.7, landlock_*.2: Document Landlock ABI
+ version 4
+Content-Language: ru
+To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack@google.com>
+CC: Alejandro Colomar <alx@kernel.org>, =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?=
+	<mic@digikod.net>, <linux-man@vger.kernel.org>, Artem Kuzin
+	<artem.kuzin@huawei.com>
+References: <20240723101917.90918-1-gnoack@google.com>
+ <20240723101917.90918-2-gnoack@google.com>
+ <014330e9-ce68-335e-142f-533317e6afa0@huawei.com>
+ <ZsYXx1unBN1kISK9@google.com>
+From: "Konstantin Meskhidze (A)" <konstantin.meskhidze@huawei.com>
+In-Reply-To: <ZsYXx1unBN1kISK9@google.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: lhrpeml100002.china.huawei.com (7.191.160.241) To
+ lhrpeml500004.china.huawei.com (7.191.163.9)
 
-SGkgQWxlamFuZHJvLA0KR3JhdGlmeWluZyEgQWxzbywgdGhhbmtzIGZvciB5b3VyIGVmZm9y
-dHMgaW4gcmV2aWV3aW5nIGFuZCBzdWJtaXR0aW5nIHRoaXMgcGF0Y2ghDQotLS0tLS0tLS0t
-LQ0KQmVzdCByZWdhcmRzLA0KQW5keSBQYW4=
 
+
+8/21/2024 7:37 PM, Günther Noack wrote:
+> On Wed, Aug 21, 2024 at 06:30:09PM +0300, Konstantin Meskhidze (A) wrote:
+>> 7/23/2024 1:19 PM, Günther Noack wrote:
+>> >   [...]
+>> >
+>> >   Users should use the Landlock ABI version rather than the kernel version
+>> > @@ -439,9 +455,10 @@ and only use the available subset of access rights:
+>> >    * numbers hardcoded to keep the example short.
+>> >    */
+>> >   __u64 landlock_fs_access_rights[] = {
+>> > -    (LANDLOCK_ACCESS_FS_MAKE_SYM << 1) \- 1,  /* v1                 */
+>> > -    (LANDLOCK_ACCESS_FS_REFER    << 1) \- 1,  /* v2: add "refer"    */
+>> > -    (LANDLOCK_ACCESS_FS_TRUNCATE << 1) \- 1,  /* v3: add "truncate" */
+>> > +    (LANDLOCK_ACCESS_FS_MAKE_SYM  << 1) \- 1,  /* v1                  */
+>> > +    (LANDLOCK_ACCESS_FS_REFER     << 1) \- 1,  /* v2: add "refer"     */
+>> > +    (LANDLOCK_ACCESS_FS_TRUNCATE  << 1) \- 1,  /* v3: add "truncate"  */
+>> > +    (LANDLOCK_ACCESS_FS_TRUNCATE  << 1) \- 1,  /* v4: TCP support     */
+>> >   };
+>> >   \&
+>> >   int abi = landlock_create_ruleset(NULL, 0,
+>> 
+>> Co-developed-by: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
+>> Signed-off-by: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
+> 
+> Thank you very much, Konstantin! :)
+> 
+> —Günther
+
+   Thank you, Günther!!! :)
+	
+   Best regards,
+       Konstantin!
+> .
 
