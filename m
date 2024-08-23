@@ -1,165 +1,107 @@
-Return-Path: <linux-man+bounces-1676-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1677-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64BE795D156
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 17:26:40 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84CB495D49D
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 19:45:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 93E381C234A5
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 15:26:39 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 405BB282C48
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 17:45:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D08611891B2;
-	Fri, 23 Aug 2024 15:26:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 003F8190470;
+	Fri, 23 Aug 2024 17:45:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="lzUX3FyK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from cventin.lip.ens-lyon.fr (cventin.lip.ens-lyon.fr [140.77.13.17])
+Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F38188A1B
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 15:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.13.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0B818E059
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 17:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724426783; cv=none; b=kdBIEAlCKbmB4k2qCOvtoKSjQj7rlkw/dl4W/xvda3xwmSA8TNuiXwwmtky09c/jPnHsmcZzjAvkikmGVCDVGQLPjujV8oTLIKgv7fgbGBdDcq0zr4BhSk8xQ8xHDaPlQLIl6SCAAHCHr/L37g72AyX9D47d7umanQIo9uMgZ3I=
+	t=1724435099; cv=none; b=BGgBRhpZ7QNyHIHSpKjA55e+nhJbcj+KKPMIfxxBrquAPN2S1RYUD+YyATukNAejtveLo9Pr0BD+upPT+mRl3JnqoIk9+Q9hLrZWz+IVrB0VFVPs+ecpccSwJvzVhtPszdtLy9li30fxHiBLds/xsFxceq0YikAkYaldDmcEqEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724426783; c=relaxed/simple;
-	bh=bj7FKYi8LuqGLRCRpoHUP36YW3z4U6vz81l9Iec/l9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NPzBVAWEZDQ7fPsGSUg27rYxfyPvYfMk0C4R206IqQ4HZtmj9yJLY42I2CRrJisXsA/FIywtIr48Qi61eW2Z54qEvJXZLfp0mmOI4DdZjRPnEaBCOZDQbWMUKXLqQ+KxpOsn+78YAuECZTU38/hamPpmXvkgjfZ0Duk+qrsELQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=140.77.13.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
-Received: from vlefevre by cventin.lip.ens-lyon.fr with local (Exim 4.98)
-	(envelope-from <vincent@vinc17.net>)
-	id 1shWB7-0000000Dcib-3hXN;
-	Fri, 23 Aug 2024 17:26:17 +0200
-Date: Fri, 23 Aug 2024 17:26:17 +0200
-From: Vincent Lefevre <vincent@vinc17.net>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Xi Ruoyao <xry111@xry111.site>, Paul Eggert <eggert@cs.ucla.edu>,
-	libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>,
-	linux-man@vger.kernel.org, carlos@redhat.com,
-	"Robert C. Seacord" <rcseacord@gmail.com>,
-	Jens Gustedt <jens.gustedt@inria.fr>
-Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-Message-ID: <20240823152617.GI2713@cventin.lip.ens-lyon.fr>
-Mail-Followup-To: Vincent Lefevre <vincent@vinc17.net>,
-	Alejandro Colomar <alx@kernel.org>, Xi Ruoyao <xry111@xry111.site>,
-	Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org,
-	DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org,
-	carlos@redhat.com, "Robert C. Seacord" <rcseacord@gmail.com>,
-	Jens Gustedt <jens.gustedt@inria.fr>
-References: <xned6jlywd.fsf@greed.delorie.com>
- <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
- <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
- <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
- <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
- <jexdbqmvupx3q546nipasrhunylrjazpbe2d3inmbqa4llowjo@6gu4orqoerbo>
- <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
- <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
- <20240823135449.GF2713@cventin.lip.ens-lyon.fr>
- <4n6fqru43irlzw7qcqkj6za4hxtn5g3icvtmyuneap4fs2aryk@ctcmkvw2xxl5>
+	s=arc-20240116; t=1724435099; c=relaxed/simple;
+	bh=77sZsYCpInh1+yUPiZBwbWHOZUcfhmk0RxIvTiU4UNY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=giRi/PU3muHdELWsLg/lRJgaotbiWDLQhfdKtJf6gAaHqIX/gai+xDiD5CbY9KbwXMg3QMmxUfFCqdD9m8bnGQzRK81GDMRmkEiLPtThSgRQi9fzsM71bPbzSUEocRhyzqskQYyS0Y/ReyfxkjPMUayVuRN1rLOGBzR162gv1QQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=lzUX3FyK; arc=none smtp.client-ip=131.179.128.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 84BD93C011BD8;
+	Fri, 23 Aug 2024 10:44:57 -0700 (PDT)
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id kKos_umJSrHh; Fri, 23 Aug 2024 10:44:57 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.cs.ucla.edu (Postfix) with ESMTP id 3DA283C00516B;
+	Fri, 23 Aug 2024 10:44:57 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 3DA283C00516B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
+	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1724435097;
+	bh=RlBfFqj480IQHc4uW0iH2yFmoQ41Tjqu7pG5l8i1WFg=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=lzUX3FyKn4ob8gzMhfRpksee+FDZ6W/x/7uS4Sj5kow6nVLFB+ySTcedUlTkgi4zH
+	 jVYL+c8w/+/FwABY7sYVe5z7RU2jTcN+Bo7pF+9ACw4Mg7oE4n6+5f6a63nWk7K8GS
+	 Qm3e2Pc7gYCrKwIjVZ6uAp308U53PlCQrWTGiPxTBX6MBCs7b+UPC3WIqrgLD8xxBK
+	 4AFxQc4lhF7WiBpWmsuGA4SryGfyh4+0JMctedJeH7+l9vmTxqqdpjbjQT2NAPLwRE
+	 PlmXT3NhMP8k/xvOs7Ia/HM9AJNngO/8N+sJcoAQtiy/YeOE9iALG7zvTqYsShrZPt
+	 +xmdGH+YTZ7wA==
+X-Virus-Scanned: amavis at mail.cs.ucla.edu
+Received: from mail.cs.ucla.edu ([127.0.0.1])
+ by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id fH8Smc8tpFet; Fri, 23 Aug 2024 10:44:57 -0700 (PDT)
+Received: from [192.168.254.12] (unknown [47.150.137.250])
+	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 1D62B3C011BD8;
+	Fri, 23 Aug 2024 10:44:57 -0700 (PDT)
+Message-ID: <3c04eb41-14aa-480f-bf61-b91e5a673bec@cs.ucla.edu>
+Date: Fri, 23 Aug 2024 10:44:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4n6fqru43irlzw7qcqkj6za4hxtn5g3icvtmyuneap4fs2aryk@ctcmkvw2xxl5>
-X-Mailer-Info: https://www.vinc17.net/mutt/
-User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ctime.3: Document how to check errors from mktime(3)
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <664cd54a8ee998fd3a07ffc6c9e6fe9d6117620f.1724423646.git.alx@kernel.org>
+Content-Language: en-US
+From: Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <664cd54a8ee998fd3a07ffc6c9e6fe9d6117620f.1724423646.git.alx@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2024-08-23 16:18:21 +0200, Alejandro Colomar wrote:
-> Hi Vincent,
-> 
-> On Fri, Aug 23, 2024 at 03:54:49PM GMT, Vincent Lefevre wrote:
-> > On 2024-08-23 15:12:16 +0200, Alejandro Colomar wrote:
-> > > Looking at the WG14 document logs, it seems it was added in n3147:
-> > > <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3147.txt>
-> > 
-> > Thanks for the reference. Additional details can be found
-> > in CD2 ballot at
-> > 
-> >   https://open-std.org/JTC1/SC22/WG14/www/docs/n3148.doc
-> 
-> It's interesting that WG14 claims that they're not aware of any existing
-> implementations that would modify tm_wday on failure.
+On 2024-08-23 07:37, Alejandro Colomar wrote:
+>      ++    if (tm.tm_wday == \-1)
 
-AFAIK, this is not a claim from WG14, but from the one who submitted
-the GB-159 comment. The claim is
+'if (tm.tm_wday < 0)' is a bit faster on typical machines. (There are 
+multiple instances of this issue.)
 
-  There is some existing practice where application code sets tm_wday
-  to an out-of-range sentinel value and checks whether it was changed
-  by mktime, and we are not aware of any implementation where this
-  does not work.
+> +To determine if
 
-and this is rather vague: we do not know whether this existing practice
-is common and which implementations have been checked.
+"if" -> "whether"
 
-> Although it's weird, because WG14 attributes that claim to the Austin
-> Group, and
+> +    printf("%jd\[rs]n", (intmax_t) t);
 
-The comment attributes the issues to the Austin Group, but perhaps
-not all the details.
+This is not portable in general, as time_t might be unsigned. You could 
+use strftime instead of printf. But see below for a better suggestion.
 
-> > which references the POSIX bug
-> > 
-> >   https://austingroupbugs.net/view.php?id=1614
-> 
-> I don't see any discussion about tm_wday in that Austin Group bug.  :|
-> Maybe it happened in a mailing list or elsewhere.
+> +    tm.tm_year  = atoi(*p++) \- 1900;
 
-Yes, perhaps in the austin-group-l mailing-list.
+This doesn't work for the year 2147485547 (2**31 + 1899), which mktime 
+can handle on typical machines with 32-bit int and 64-bit time_t. Also, 
+all the atoi calls silently mess up if the argument overflows or is 
+syntactically invalid.
 
-> (If any implementation does not conform, at least it should
-> be feasible to fix that implementation to conform.)
-
-That's something new in the future C23 standard. So I don't think
-that older implementations (stable releases) would change.
-
-> > This is the test I suggested: a check that mktime() returns -1,
-> 
-> I think that test suggested by POSIX is bogus (redundant).  If mktime(3)
-> has failed, tm_wday is unchanged.  If it has succeeded, tm_wday must be
-> changed.  Thus, the return value is meaningless for the purpose of
-> determining if it has failed.
-
-Yes, after some thoughts, I agree.
-
-However, it should be said that with pre-C23 implementations,
-it is not guaranteed to detect failures.
-
-Said otherwise, the change from
-
-  if (mktime(&time_str) == -1)
-
-to
-
-  if (time_str.tm_wday == -1)
-
-will avoid spurious failures (the case where -1 is a valid calendar
-value), but it might make some failures be undetected, though no
-implementations with such an issue are known.
-
-> > and since it can be a valid value, a second test on tm_wday
-> > (where the input, which is ignored, has an invalid value such
-> > as -1 here, or INT_MAX in your case; note that -1 may be more
-> > efficient with some processors, and shorter to write).
-> 
-> I didn't use -1 because I thought some weird weeks might contain 8 days
-> (for some of those weird timezone adjustments), and that that might
-> cause wday -1 to actually exist.
-
-This is invalid and could cause crashes in programs, or worse.
-In C17:
-
-  int tm_wday; // days since Sunday -- [0, 6]
-
--- 
-Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
-100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
-Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
+To simplify the example, I suggest not doing I/O or parsing. Just have a 
+function that accepts a struct tm *, and returns true or false and 
+updates the struct tm when it returns true. That would avoid the issues 
+with printf and atoi.
 
