@@ -1,182 +1,138 @@
-Return-Path: <linux-man+bounces-1679-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1680-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1287B95D536
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 20:19:32 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id F3AF695D550
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 20:31:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B125B1F214F1
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 18:19:31 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A81681F226BE
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 18:31:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 260A01922D7;
-	Fri, 23 Aug 2024 18:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mS4ppVnA"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B57039FD8;
+	Fri, 23 Aug 2024 18:31:11 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from relay.hostedemail.com (smtprelay0010.hostedemail.com [216.40.44.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2E190682
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 18:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771085695
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 18:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724437064; cv=none; b=IqlMA1lJmzx9e491yEFlCJrhPn5MIBXqholf+O+l5QaqK86jOHzPOGjEFlqwiOcE8SZKEJjIvEoV7r5nd69tAyCKQvO8/CCmZQD0tgtwccLOy83lCZhYCwVTXeoJLRVmUEStKwJs2okyjkZNcqoPIlzY7cmZ5mB4HFfC7TMnnNo=
+	t=1724437871; cv=none; b=AeM6mEGZzkbQrKoVgZ2bjsPxSL0INSqJFururbi6PsM4SmjnhNNybppTTkDW1J3b0P7IDsmt0AdhLQgSFgS7jPXI7MUwNiC6eF6BUaf176F0JSSPy+JfIFPinAKsMaTscdruY7Xa9iaIcnPz2YY5BGwr9uDhhJCH9z4af6lOE18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724437064; c=relaxed/simple;
-	bh=LE37w6wpSR31leI7XLMS90VCFkg09vWbuAiBcRd2XJ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pPpHenqMzippY0nIsFUnhOFEip/eR+UfRtcSN7lEFL3soxxPRbT+tO3MYdZR7wERbLgW3uwcGWpubZoPnbVY3OrAIWzcbQ0yXwZr5hP8kPOHHidM+60US7QLrjuekbN630Oh6wIWb+TVC6oFCi9CmH0NIY+ycmzjLugP/oBg5XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mS4ppVnA; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD177C32786;
-	Fri, 23 Aug 2024 18:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724437064;
-	bh=LE37w6wpSR31leI7XLMS90VCFkg09vWbuAiBcRd2XJ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mS4ppVnA7uTyAL3szUq/Z4VReVz9a5yv56jH7uWG8LAsuMm5oWDfbhtCb6yDBtJ1T
-	 xbVn1FVzUu8HRhw2/lUSno51U3lAksqyMRc6jsYlsVxlMsKm4zkaEdqr3PB1VLqvBW
-	 2dBhgOgg62mM9x1186blHxlCuMeH3o2uyor+nrET3rURcOvuWp08+LAJUGq8QogHfD
-	 2B7rarLs77HmyfxcT5s5leX8JouNX0VnSNXp7vSq20U41wg5O6m0lP/EhKWukE1yGG
-	 Yk1nH/HtG2dUJc/vELdVKyjRyVb30b9V1dLfp8eohc34z3Ibpvvcif7+l+R4YbcjVQ
-	 CByMSYwpM3I4w==
-Date: Fri, 23 Aug 2024 20:17:41 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>, 
-	"Michael T. Kerrisk" <mtk.manpages@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] ctime.3: Document how to check errors from mktime(3)
-Message-ID: <el23ihpmltucruo3s2lbxplhkg4batoca4yumyxpz4ursbpxk2@gbfgwtcypywo>
-References: <664cd54a8ee998fd3a07ffc6c9e6fe9d6117620f.1724423646.git.alx@kernel.org>
- <3c04eb41-14aa-480f-bf61-b91e5a673bec@cs.ucla.edu>
+	s=arc-20240116; t=1724437871; c=relaxed/simple;
+	bh=Uj6bm6TizaBN3tivJK6LAGBmir1HKh9AZa4f/jmgA2w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NuIGXJvbGluulX1NXnaJWQh/eB8CIV2xKaJL4R7Q6tfb4Z3C0cTOL9dXz9IfrcvqnYVlb2ANzqSyZj3loCscBb/WkdVNG63uZF3hp83ZqVpr/B4rhazesKWVFI5wmiIXC5QeM2NYcHZAksYtgOwXUxFQr2usx+VhAWHceYSxBrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=SystematicSW.ab.ca; spf=pass smtp.mailfrom=SystematicSW.ab.ca; arc=none smtp.client-ip=216.40.44.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=SystematicSW.ab.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=SystematicSW.ab.ca
+Received: from omf17.hostedemail.com (a10.router.float.18 [10.200.18.1])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 1A057A6E7B;
+	Fri, 23 Aug 2024 18:31:06 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: Brian.Inglis@SystematicSW.ab.ca) by omf17.hostedemail.com (Postfix) with ESMTPA id 6797118;
+	Fri, 23 Aug 2024 18:31:02 +0000 (UTC)
+Message-ID: <e6395fed-ec28-41a2-bd48-ba6db2389a85@SystematicSW.ab.ca>
+Date: Fri, 23 Aug 2024 12:31:01 -0600
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rv636jn6si6vxvfy"
-Content-Disposition: inline
-In-Reply-To: <3c04eb41-14aa-480f-bf61-b91e5a673bec@cs.ucla.edu>
+User-Agent: Mozilla Thunderbird
+Reply-To: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, carlos@redhat.com, dj@redhat.com,
+ eggert@cs.ucla.edu, jens.gustedt@inria.fr, libc-alpha@sourceware.org,
+ rcseacord@gmail.com, vincent@vinc17.net, xry111@xry111.site
+References: <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
+ <331b41ea-dce5-414d-8588-9e4e2a59dedd@SystematicSW.ab.ca>
+ <jqdmfoxuecuevujyv66eyzg3xsvfhou4hhvvi5bachy4dujnhu@gwcgwegj7qml>
+Content-Language: en-CA
+From: Brian Inglis <Brian.Inglis@SystematicSW.ab.ca>
+Autocrypt: addr=Brian.Inglis@Shaw.ca; keydata=
+ xjMEXopx9BYJKwYBBAHaRw8BAQdAPq8FIaW+Bz7xnfyJ1gHQyf2EZo5sAwSPy/bRAcLeWl/N
+ I0JyaWFuIEluZ2xpcyA8QnJpYW4uSW5nbGlzQFNoYXcuY2E+wpYEExYIAD4WIQTG63sbl+cr
+ 2nyOuZiKvQKcH1E27wUCXopx9AIbAwUJCWYBgAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAK
+ CRCKvQKcH1E276DmAP91Bt8kfJhKHYb9b2sao2fxwJFsl1GlRi516WKI0OkphQEA+ULITsPs
+ blfzSq+GgI7q4LPfRfTLy4Oo3gorlnhnfgnOOAReinH0EgorBgEEAZdVAQUBAQdAepgIsLwm
+ GQicfoIBaB9xHp63MQJqVCPbgPzESTg7EEwDAQgHwn0EGBYIACYWIQTG63sbl+cr2nyOuZiK
+ vQKcH1E27wUCXopx9AIbDAUJCWYBgAAKCRCKvQKcH1E27+zoAP4u2ivMQBAqaMeLOilqRWgy
+ nV2ATImz1p2v1H5P4kBiDwD3caPK1cxU5lijzuSDCjgtIpgF/avHbjA32fxJdIRwAA==
+Organization: Systematic Software
+In-Reply-To: <jqdmfoxuecuevujyv66eyzg3xsvfhou4hhvvi5bachy4dujnhu@gwcgwegj7qml>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 6797118
+X-Stat-Signature: u1w8dnrew41dr9nnk61ua3a47fs891yu
+X-Rspamd-Server: rspamout08
+X-Session-Marker: 427269616E2E496E676C69734053797374656D6174696353572E61622E6361
+X-Session-ID: U2FsdGVkX18aqsl58eN0pUF7v7NbKFRNnTRi8iOMQg8=
+X-HE-Tag: 1724437862-164648
+X-HE-Meta: U2FsdGVkX186V6xnLurGyicpB1paJSn2rQRuByC+1qBpYquDym6SAqarR6JMSAp2hTpI+SgfZBgioBniTd94jOQI26WPZMoCEfGWJhkxt0SswFVah63wlrwK8ypweynr8Wx+JDiGRRfZeuClAA01kUVat3JKifB2AyzFl0nxtXbqp3qPCphDTc8FoDscAbMW3qFOMxhN8CE46qOVZPipRVpp4NlHQ0bzFIIhXtio0XIGHHgZLufCFQYM9V95Y5c1SaUd2vA63zkQArk7ZJkXY30HbZXxeYb/LRQWaZGezhGXT6ruS7JzBCUfVkqQJZn/Btyte8lstNB1OCjICZ67DjRl23MLy9M/N1VL0WCw2Lx+hINxR/ZkVh11OO7pYHUvj2qI0tB/8tYbfGjf+8wZ2x8c5WlFZZe1eorE5fK0L70ysQv70cES0sheYKk/xu8tK/WeUQmTQBCdtHDmgp/UABnccPX/thoLs6z6RRnLvPg=
 
+On 2024-08-23 08:25, Alejandro Colomar wrote:
+> Hi Brian,
+> 
+> On Fri, Aug 23, 2024 at 08:04:20AM GMT, Brian Inglis wrote:
+>> AFAICS from 9899 1998 Draft to 2023, the *mktime* wording has been essentially:
+> 
+> I find the above confusing.  What is 9899 1998?  The draft is for
+> ISO/IEC 9899:2024.  There's no 1998 in the name.
 
---rv636jn6si6vxvfy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>, 
-	"Michael T. Kerrisk" <mtk.manpages@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] ctime.3: Document how to check errors from mktime(3)
-References: <664cd54a8ee998fd3a07ffc6c9e6fe9d6117620f.1724423646.git.alx@kernel.org>
- <3c04eb41-14aa-480f-bf61-b91e5a673bec@cs.ucla.edu>
-MIME-Version: 1.0
-In-Reply-To: <3c04eb41-14aa-480f-bf61-b91e5a673bec@cs.ucla.edu>
+Sorry for the typo - from the original *1988* Draft from ANSI X3J11 88-090 
+1988-05-13 of ANSI/ISO/IEC 9899:1990 through 2023.
 
-[TO +=3D mtk]
+>> "The original values of the tm_wday and tm_yday components of the structure
+>> are ignored, and the original values of the other components are not
+>> restricted to the ranges indicated above. On successful completion, the
+>> values of the tm_wday and tm_yday components of the structure are set
+>> appropriately,"
+> 
+> The text you've quoted is there since ISO C89.
+> <https://port70.net/~nsz/c/c89/c89-draft.html#4.12.2.3>
+> 
+> And that is not guarantee enough.  It says that wday and yday are
+> ignored (for the purposes of determining the return value).  And it says
+> that on success it modifies them.  But that text is silent about what
+> happens on error.
 
-Hi Paul,
+It states they are set on successful completion, and implied left alone if not.
 
-On Fri, Aug 23, 2024 at 10:44:56AM GMT, Paul Eggert wrote:
-> On 2024-08-23 07:37, Alejandro Colomar wrote:
-> >      ++    if (tm.tm_wday =3D=3D \-1)
->=20
-> 'if (tm.tm_wday < 0)' is a bit faster on typical machines. (There are
-> multiple instances of this issue.)
+> It is C23 in 7.19.2.3p3 which provides a novel guarantee, that those
+              ^^^^^^^^^^
+              7.29.2.3.p3
 
-I had the costume of checking errors with <0, and Michael Kerrisk
-convinced me of using =3D=3D-1 because it's more explicit for the reader.
-I now prefer =3D=3D-1.  I find that when I read <0, it's sometimes unclear
-whether the author really intended to reject all negatives values or
-not, and it also requires that I check the specific API to know if
-other negative values are possible.  On the contrary, -1 is usual for
-meaning an error, and rarely is the time when I need to check that it
-actually means an error.
+See "WD" https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#page=415
 
-(And tangentially, I don't think anyone who calls mktime(3) will be
- worried about a single instruction.  But I see that this discussion
- applies in other places where that might be more meaningful.)
+> fields won't be modified on a failed call.
+> 
+>>
+>> so the recommendation has been to do something like (pointless example):
+>>
+>> 	time_t tt = time(&tt);
+>> 	struct tm *tm = localtime(&tt);
+>> 	tm->tm_wday = tm->tm_yday = -1;
+>> 	if ((tt = mktime(tm)) == -1 && tm->tm_wday == -1 && tm->tm_yday == -1)
+> 
+> This conditional, just like the one in the POSIX 2024 standard, is
+> redundant.  Reading tm_wday is enough for determining a failure.
+> 
+> Otherwise, what would you expect if tm_yday is 4 but tm_wday is -1? Half an error? :)
 
-> > +To determine if
->=20
-> "if" -> "whether"
+Checking both are still untouched guarantees an error!
+If one is set, it's a QoI bug, not an error ;^>
 
-Thanks.
+-- 
+Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
 
->=20
-> > +    printf("%jd\[rs]n", (intmax_t) t);
->=20
-> This is not portable in general, as time_t might be unsigned. You could u=
-se
-> strftime instead of printf. But see below for a better suggestion.
+La perfection est atteinte                   Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
+                                 -- Antoine de Saint-Exupéry
 
-Out of curiosity, in systems where time_t is unsigned, does a mktime(3)
-call with a time representing a time before Epoch result in an error, or
-is it stored as a huge time_t value?
-
-Does any existing system (or historic one) use an unsigned time_t, or is
-that only hypothetical?
-
-> > +    tm.tm_year  =3D atoi(*p++) \- 1900;
->=20
-> This doesn't work for the year 2147485547 (2**31 + 1899), which mktime can
-> handle on typical machines with 32-bit int and 64-bit time_t. Also, all t=
-he
-> atoi calls silently mess up if the argument overflows or is syntactically
-> invalid.
-
-We extensively use atoi(3) in the EXAMPLES sections where we intend to
-communicate to the user that they should add error handling and call
-strtol(3) (or something better, cough) but that for brevity we don't.
-
-The program serves to illustrate how mktime(3) works, and how its errors
-are handled.
-
->=20
-> To simplify the example, I suggest not doing I/O or parsing. Just have a
-> function that accepts a struct tm *, and returns true or false and updates
-> the struct tm when it returns true. That would avoid the issues with prin=
-tf
-> and atoi.
-
-But then it wouldn't allow the reader to interact with the function as
-easily.  They'd need to recompile the program every time.  We try that
-example programs are interactive when it makes sense, and I think this
-one makes sense.  The small oddities in the parsing are obviously wrong
-so that they are not copied.
-
-Thanks for the review!
-
-
-Have a lovely day!
-Alex
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---rv636jn6si6vxvfy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbI0j8ACgkQnowa+77/
-2zKPdw//dfOjBHLD3xtp6eMNKIqCeQRCOxV4odzeIPbPVF2ptlrTydHkm7GvQ+aX
-4Ctiu6+jHZbTY8fgEV1DhU43v91ULTgR9ATRnPkYfcj6DezgX9NzDiPe5zm3EV/X
-qh4g2sk/43FGVxG3rT3xtmxcRYz2FMT4GSib1XlaAncAZWRhH/flITEvdE9M96gq
-cFM9iFGT+6j0iIJOGaOVy/8m48GdLxxg4/VRplGd4j2G9eRLaqrPDtvo+kFkXR0s
-cLiHLQQZpZQA/yDehOZKzP8Pmv49k8rb7G5IcdXTnTJoYmsgDIoKYKOtcMI0IcGr
-7Tc95eH7zIT6o1lZ0zkE2nLH6mzyZ3FBRcA7W/dYCdu4s4JItpm7nq9F9SuU3zl1
-Tj/oGRtOAF7StKzlg41CSazknupJbGHMC66blj4/tq1nOyJkWQQ0EKwe7MUruHDI
-A76oI5ixw56Nm5mwtuAbbLeFVHcU+kDAfmIePJqo9BGko0X6q7LeGYwTOlWuU3c9
-D+Kqev4ju5GX5jxyk56WB1fWZmv1fYF8HyIO+Sx2sc9t8yWIP6zKoSaMQ7Ucw3Jf
-uoltOdya+qC0Yxw3Vuv4gjFbu7NDNGUHa7hCSCNEoQG7oc4egm8hT5ioSXQPfEjN
-igoYy8fe/clHL8DqESnhoK+y9/bb7Q8+vUGuI5TP3trpmlv5Xm4=
-=VLO3
------END PGP SIGNATURE-----
-
---rv636jn6si6vxvfy--
 
