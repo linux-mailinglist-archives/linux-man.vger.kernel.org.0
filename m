@@ -1,97 +1,154 @@
-Return-Path: <linux-man+bounces-1659-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1660-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26F5A95C49A
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 07:07:51 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 527E395C5FD
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 09:02:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 8994BB21344
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 05:07:48 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 103A7285030
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 07:02:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 393BB482FA;
-	Fri, 23 Aug 2024 05:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49F0D17984;
+	Fri, 23 Aug 2024 07:02:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b="QY1rmGz2"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASpn6gKR"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.cs.ucla.edu (mail.cs.ucla.edu [131.179.128.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8489E8493
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 05:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=131.179.128.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADDC5674D
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 07:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724389663; cv=none; b=KHiu2sfEz+KOHx7i3Gq4jJqtJ7SLN97dWjAVrhCsOcEA7ts7wANirxSz87g5V8lBYwHTaKzaEKh3aX+mQP4SOjjygbTEIfYl+4Uiis9bsPWTJIPyV/h8n/NJIbIGMl8aoZS9yLk58g80CEjFqyd69+45zf7s5FVOJ1/rGXVJSBc=
+	t=1724396554; cv=none; b=ERqj5rWX+j/CFpQ+21il6e2ZvSxKBljHWdCMCbBykQjU86aWSilL+ZSV/Ai15Ba/avABtLGkhHOTjT0/JPWEBph3TJlCZYe5ptVP2aKuIkKCr0fkp7vzJQtLNXyorStRPSmXbeAu7sywWhCPbPtPdNVbqwGPsiHiewqAGM2KrSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724389663; c=relaxed/simple;
-	bh=x2eMGM9pTnlC+7sHfUvBp63mUq2G4yIDHt0sIBMaSCA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NkqSvci9b1XlgTdg78yEh/GUQYon6PfnrPRFl5X6qPlET8lviAcne7vvth22p7HnPzj/ACbAJYkApz7S0U4NB4Devk7zIeZgBFAg2nUZz1CFxyxlY0JZf2sQ1YQF0iTVe9aL53xsWpRbDbOt1THe0RZFqyU8KrDc2h80oq7iu4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu; spf=pass smtp.mailfrom=cs.ucla.edu; dkim=pass (2048-bit key) header.d=cs.ucla.edu header.i=@cs.ucla.edu header.b=QY1rmGz2; arc=none smtp.client-ip=131.179.128.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.ucla.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.ucla.edu
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id CC3003C011BD7;
-	Thu, 22 Aug 2024 21:57:39 -0700 (PDT)
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10032) with ESMTP
- id rUExoQjSe5RC; Thu, 22 Aug 2024 21:57:39 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.cs.ucla.edu (Postfix) with ESMTP id 8DEB03C00514E;
-	Thu, 22 Aug 2024 21:57:39 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.cs.ucla.edu 8DEB03C00514E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.ucla.edu;
-	s=9D0B346E-2AEB-11ED-9476-E14B719DCE6C; t=1724389059;
-	bh=ck2ckbh2cstHtjWF9Yx1B+qNhE/6W11Kh0vpHxlbYRc=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=QY1rmGz2WIMmaHitFMm1kb8YszD6oRaMFc8c5s40QcjyL2UDrMdti9hZ7MIw+yyiJ
-	 1lP4UlO3QbWgiHN+gJIJhG3bppLiHyxc42611Z/qE3IPAv6Qa2FKMWHE5TUvt50TGo
-	 NfpZKggywtmSN8zaRsz0ntLlmaEUEJJraJYjRYxvKQCfmxeCEfNBqvbcn5pVRsUwks
-	 DGKwxWV/MrLa5TisfK8IN2nBl+COkVFQlHdt229xbtP9xRgdJWd7hbRjoGNa/QcOsh
-	 00nqD2QLLSW/64Qk3/c746fxmtfJWUvt5w1AG1fEgNKqctRKvtMr6OM/ea1wZS3uWN
-	 aIQp/rV0Exd+w==
-X-Virus-Scanned: amavis at mail.cs.ucla.edu
-Received: from mail.cs.ucla.edu ([127.0.0.1])
- by localhost (mail.cs.ucla.edu [127.0.0.1]) (amavis, port 10026) with ESMTP
- id gcIN4tRtYTbx; Thu, 22 Aug 2024 21:57:39 -0700 (PDT)
-Received: from [192.168.254.12] (unknown [47.150.137.250])
-	by mail.cs.ucla.edu (Postfix) with ESMTPSA id 706A33C011BD7;
-	Thu, 22 Aug 2024 21:57:39 -0700 (PDT)
-Message-ID: <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
-Date: Thu, 22 Aug 2024 21:57:39 -0700
+	s=arc-20240116; t=1724396554; c=relaxed/simple;
+	bh=mj1IbawCyQsJo6Z355fl++kxlM58xM/vMZHRKQQespU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UEMZO8Lo5aUDxysr4AQRW9DUQc/mZ21EhfEix+Jl+WVrpwEz44GDdYxSi95iL5M9Tp4peEQ62mwO0iO16lVSDE2Xw42M5ehccpfC9E1JSXnHgqDTUSg/FrzN3a6S/7E+Lqqcpaz1st0j9Sta9aDQkdWgMNUPmt6cvFY43oPKCoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASpn6gKR; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FC4C32786;
+	Fri, 23 Aug 2024 07:02:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724396553;
+	bh=mj1IbawCyQsJo6Z355fl++kxlM58xM/vMZHRKQQespU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ASpn6gKR/WWEIA+6lMCmKe/ofZqDYs6Q/Z0HvflxDEty33HzUy2LXDUfieWxFaFfu
+	 c/tRCuG989ndRmsZrZ7uqx6pNTd1tzNOAtRZyzcqRZfQIXtoHLkMukaL4Zp+J2xMT9
+	 qCf0+FtYP6AdR2BnqklfbaD2Pfyfv9UMqF+BaiLbc7PgP5GnUmAhEoK7c3bHNFxX/s
+	 p0t5mkOz8KJDtXq4DCo7Qsw8muGBUWVAmxhwimyLv/r2Z9H4Ip1mSKIYF2Y9b7TLvl
+	 Yw6KTegIlmriv9vpTUIcvuP99+k/pI6j0iIDcFAJNyLdjZhDdhxH0MfiTOhjV+XOa3
+	 1ZVEaEWGxsn3Q==
+Date: Fri, 23 Aug 2024 09:02:30 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org
+Cc: DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org, 
+	carlos@redhat.com
+Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
+Message-ID: <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+References: <xned6jlywd.fsf@greed.delorie.com>
+ <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
+ <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tcf3jqsv3ihhulnd"
+Content-Disposition: inline
+In-Reply-To: <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
+
+
+--tcf3jqsv3ihhulnd
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org
+Cc: DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org, 
+	carlos@redhat.com
 Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-To: Alejandro Colomar <alx@kernel.org>, DJ Delorie <dj@redhat.com>
-Cc: linux-man@vger.kernel.org, carlos@redhat.com
 References: <xned6jlywd.fsf@greed.delorie.com>
  <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
-Content-Language: en-US
-From: Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-In-Reply-To: <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
+MIME-Version: 1.0
+In-Reply-To: <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
 
-On 2024-08-22 16:49, Alejandro Colomar wrote:
->           t = mktime(tp);
->           if (t == -1 && errno == EOVERFLOW)
->               return -1;
+On Thu, Aug 22, 2024 at 09:57:39PM GMT, Paul Eggert wrote:
+> On 2024-08-22 16:49, Alejandro Colomar wrote:
+> >           t =3D mktime(tp);
+> >           if (t =3D=3D -1 && errno =3D=3D EOVERFLOW)
+> >               return -1;
+>=20
+> This isn't right, for the same reason similar code wasn't right earlier. A
+> successful call to mktime can return -1 and set errno to whatever value it
+> likes.
 
-This isn't right, for the same reason similar code wasn't right earlier. 
-A successful call to mktime can return -1 and set errno to whatever 
-value it likes.
+Is mktime(3) allowed to return -1 and set EOVERFLOW on a successful
+call?
 
-This is just the first problem I found with the code (and I found it 
-quickly because I remembered the earlier problem). I would expect there 
-to be others.
+RETURN VALUE
+     The mktime() function shall return the specified  time  since  the
+     Epoch  encoded  as  a value of type time_t.  If the time since the
+     Epoch cannot be represented, the function shall return  the  value
+     (time_t)-1 and set errno to indicate the error.
 
-How about if we omit the sample code and make the minimal changes I 
-suggested earlier?
+ERRORS
+     The mktime() function shall fail if:
+
+     EOVERFLOW
+            The result cannot be represented.
+
+     The following sections are informative.
+
+
+Then I think the API is completely broken.  How should we check for
+errors after a mktime(3) call?
+
+If this is so, let me file a glibc bug requesting a fix of the API,
+adding a promise that on success, errno will remain unset.
+
+> This is just the first problem I found with the code (and I found it quic=
+kly
+> because I remembered the earlier problem). I would expect there to be
+> others.
+>=20
+> How about if we omit the sample code and make the minimal changes I
+> suggested earlier?
+
+Because I'm being very careful writing that code, and still I'm having
+trouble doing that, I think we must provide some example of a correct
+call, to prevent many other programmers from doing it wrong.
+
+Cheers,
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--tcf3jqsv3ihhulnd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbINAYACgkQnowa+77/
+2zJWUBAAjacrBGYLykLjFxzR6iPLEhtfCkB+8xTzi/gV/oTEBJ8I882fykXL5asz
+ng05HJ0/qfu1URnxUaDV/7loOkAsAY1rtVccMGcVx2z78bsiFVpZGmjahRhtzsJ1
+FXwF8FS7EW8Q6v6O9dBTMzLbLj990mU+YdY4KiDs5yJc0gOj+lZzSK18/8k3sfVp
+BJzq3nkCUptAdxxAwZbz2maA1WhQbyzkfR2DxdLwNrwwWZvXbXzxOZegqhjOa5U8
+PWY4KbXAqJVMe7UPS/FNseTBitzkpMHf2hNmI6IW3vGC171iDLXZRGtOcAVshsao
+t9h05vt+j0AUU+jAfSObXtKpXztKvAXQYvNIPHiiNpVTY4oQoG0y/PbrmOjlBhIP
+zbbO3AYS1GD47zTIPoVhGXmYFhC+D4VckzqY0+j6nmPMI5YZdRQ7v5o0oy/Sp5iq
+OHzvSFjxHiON1tJvCDzMImc3c9lTtSQmL7jivQlLHrwuWBpAAcTLjNH5z2eLFXmD
+bPFuBO07b1CxywoCl01NcOXCQgYUio3s2lQlr1I/e5JDYumQgVM1RbBGdE3lOFzo
+4Z3l+jdg+pIb2q+hxhz1KQsD6Gxh96/71aQC7V22n5pfNbZLIahSQhI8Sfxo3fMf
+BRZKJeRR5cgbPIEJW16rUYLqKufRsXMK+ovvxKtnF4VxTO29wpU=
+=ajts
+-----END PGP SIGNATURE-----
+
+--tcf3jqsv3ihhulnd--
 
