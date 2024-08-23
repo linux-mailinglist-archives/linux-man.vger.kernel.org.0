@@ -1,55 +1,54 @@
-Return-Path: <linux-man+bounces-1670-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1671-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091F795CD72
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 15:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6425295CE74
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 15:55:00 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 760021F22F22
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 13:12:45 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 0D1721F22801
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 13:55:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53DCB1865E9;
-	Fri, 23 Aug 2024 13:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dopcxEps"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CBBEF187FEE;
+	Fri, 23 Aug 2024 13:54:55 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from cventin.lip.ens-lyon.fr (cventin.lip.ens-lyon.fr [140.77.13.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1460F18452B
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 13:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA19046556
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 13:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.13.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724418741; cv=none; b=NrpLUQy1+ogAqeSVX0Fha6UMJKfWmgZk+OpdPeljb4v+jlS3Akt6NDYmGGFxX+7egjRUVNXhboI3MDVzysuO6uxsCYApWxhEEQSKKrWueSmFLBPX7RIvBIo/HVn6xpidLfAZpmHQ0jPNOutBRxQLv6mCPokC/WCZ1YxeVrjUsSQ=
+	t=1724421295; cv=none; b=sQxtOqGNPiJ40JWCPY/gpPxCHtg8bRYD7Dmte10cyXF1LHJRTOMFXaN3vzaaEgoPAnmf75nqbiDgFRLMu4RZgS7aCz10jFctmantnA+EZvl2C3RVWiXdwGhQrrosPQl2vmSJuHgMo6NMVcxhrpKxVwIM2jp89URe3fdzhVET578=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724418741; c=relaxed/simple;
-	bh=DwN2rymgmA4Tdz+MgaJnqdQhc9+ZnMOMZdhxWjAVTvE=;
+	s=arc-20240116; t=1724421295; c=relaxed/simple;
+	bh=dythOZ9opzbwxFAuMU6RKNcCNVnAxXzA+hHtHyihz7k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eCT7C47m2OTN5D6B9gbMLsTOHbvToE0LEGy8nd943H+4axqOl/7UtbSNM2ZPBCQftVjJmARFiYRfdQh+Ayol/u+7QqXxHxsBl7DiMs6tMGCUJ5kCtzo6F3dW2Sv5a0e8PugEu6ee54lZ/7e8iVIhsBnLDFY1Cjkah2sndfknrB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dopcxEps; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD389C32786;
-	Fri, 23 Aug 2024 13:12:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724418740;
-	bh=DwN2rymgmA4Tdz+MgaJnqdQhc9+ZnMOMZdhxWjAVTvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dopcxEpsrB1SQxykQ8K6sZ45qsNfEVQIhxo/2N0CIg5ju8mdNxgzyTFg5ffClFf0z
-	 x8CA3eqr6IC0B85yRHadflDPaEKnhq3tIsXfuvzfaafuzejptRfypgT8VpIxzLpXxv
-	 Prcz0Pjcj1lksD26Ta0hXD+mjqhG/nGkfrJoIdeAJFgIDZIRBBNYLxXDSRM5Gc7M39
-	 HLLDMI+REz8OMPaqF9A7B/C4/jV4y/ZlEuFMt+8822WyiZgMhGuUcZeUpGZSu4864K
-	 2OHYXgyJu8TNu9eP2JIiblFJ045JM2J/SM2zQJsTWMY93M487/bKOzKINhX2V7XzS/
-	 LG1M5L/5xTF4Q==
-Date: Fri, 23 Aug 2024 15:12:16 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>, Xi Ruoyao <xry111@xry111.site>, 
-	Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>, 
-	linux-man@vger.kernel.org, carlos@redhat.com
-Cc: "Robert C. Seacord" <rcseacord@gmail.com>, 
+	 Content-Type:Content-Disposition:In-Reply-To; b=ATwGmn1NSdmgjiswzNxS0DUQSe/rvb8RUmjlr9wp0I40KFhMo3SITwaVV7HwZ53At6Ir0CkL1rsVx2kbxP2lMRtkD9QYUJfR43Uhs2SXnVasKX8qtu5VdGIzelJp3xX3fL8MqXzSHaZvkLS6Awqcts5gL7W7hiYv/58AqAT2dwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=140.77.13.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
+Received: from vlefevre by cventin.lip.ens-lyon.fr with local (Exim 4.98)
+	(envelope-from <vincent@vinc17.net>)
+	id 1shUkb-0000000CBzc-3kWr;
+	Fri, 23 Aug 2024 15:54:49 +0200
+Date: Fri, 23 Aug 2024 15:54:49 +0200
+From: Vincent Lefevre <vincent@vinc17.net>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Xi Ruoyao <xry111@xry111.site>, Paul Eggert <eggert@cs.ucla.edu>,
+	libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>,
+	linux-man@vger.kernel.org, carlos@redhat.com,
+	"Robert C. Seacord" <rcseacord@gmail.com>,
 	Jens Gustedt <jens.gustedt@inria.fr>
 Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-Message-ID: <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
+Message-ID: <20240823135449.GF2713@cventin.lip.ens-lyon.fr>
+Mail-Followup-To: Vincent Lefevre <vincent@vinc17.net>,
+	Alejandro Colomar <alx@kernel.org>, Xi Ruoyao <xry111@xry111.site>,
+	Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org,
+	DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org,
+	carlos@redhat.com, "Robert C. Seacord" <rcseacord@gmail.com>,
+	Jens Gustedt <jens.gustedt@inria.fr>
 References: <xned6jlywd.fsf@greed.delorie.com>
  <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
  <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
@@ -57,133 +56,52 @@ References: <xned6jlywd.fsf@greed.delorie.com>
  <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
  <jexdbqmvupx3q546nipasrhunylrjazpbe2d3inmbqa4llowjo@6gu4orqoerbo>
  <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
+ <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="akvzmqccrv7tmkej"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
 
+On 2024-08-23 15:12:16 +0200, Alejandro Colomar wrote:
+> Looking at the WG14 document logs, it seems it was added in n3147:
+> <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3147.txt>
 
---akvzmqccrv7tmkej
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>, Xi Ruoyao <xry111@xry111.site>, 
-	Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>, 
-	linux-man@vger.kernel.org, carlos@redhat.com
-Cc: "Robert C. Seacord" <rcseacord@gmail.com>, 
-	Jens Gustedt <jens.gustedt@inria.fr>
-Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-References: <xned6jlywd.fsf@greed.delorie.com>
- <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
- <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
- <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
- <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
- <jexdbqmvupx3q546nipasrhunylrjazpbe2d3inmbqa4llowjo@6gu4orqoerbo>
- <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
-MIME-Version: 1.0
-In-Reply-To: <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
+Thanks for the reference. Additional details can be found
+in CD2 ballot at
 
-Hi Vincent,
+  https://open-std.org/JTC1/SC22/WG14/www/docs/n3148.doc
 
-On Fri, Aug 23, 2024 at 02:53:13PM GMT, Vincent Lefevre wrote:
-> On 2024-08-23 14:28:13 +0200, Alejandro Colomar wrote:
-> [about mktime]
-> > tm_wday is guaranteed to be left unmodified on a failed call.
->=20
-> Where did you see that?
+which references the POSIX bug
 
-Hmmm, it seems a novelty of C23.  I don't find it in C11.
+  https://austingroupbugs.net/view.php?id=1614
 
-Here's the text in C23:
+where I can see at the end:
 
-<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#subsubsection.7=
-=2E29.2.3>
+  On page 1332 line 44348 section mktime(), change:
 
-	If the calendar time cannot be represented in the time_t
-	encoding used for the return value or the value to be returned
-	in the tm_year component of the structure pointed to by timeptr
-	cannot be represented as an int, the function returns the value
-	(time_t)(-1) and does not change the value of the tm_wday
-	component of the structure.
+    if (mktime(&time_str) == -1)
 
-And the example code has also been modified in C23 to use this feature:
+  to:
 
-	static const char *const wday[] =3D {
-		"Sunday", "Monday", "Tuesday", "Wednesday",
-		"Thursday", "Friday", "Saturday", "-unknown-"
-	};
+    time_str.tm_wday = -1;
+    if (mktime(&time_str) == (time_t)-1 && time_str.tm_wday == -1)
 
-	...
+This is the test I suggested: a check that mktime() returns -1,
+and since it can be a valid value, a second test on tm_wday
+(where the input, which is ignored, has an invalid value such
+as -1 here, or INT_MAX in your case; note that -1 may be more
+efficient with some processors, and shorter to write).
 
-	time_str.tm_wday =3D 7;
-	mktime(&time_str);
-	printf("%s\n", wday[time_str.tm_wday]);
-
-> I cannot see any guarantee in case of a failed call, so that I would
-> say that tm_wday could have been modified, e.g. if the values are
-> set before checking whether the calendar time can be represented.
-
-Looking at the WG14 document logs, it seems it was added in n3147:
-<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3147.txt>
-
-I've CCed Robert (author of that paper) and Jens (proposed other changes
-to mktime(3) recently), which may know what was discussed there.  I
-assume they checked that this is true in all existing implementations,
-but that's just my assumption, so maybe they can say something.
-
-> > This provides a way to determine if the call failed.
->=20
-> The example in C17 does not use the above claim that "tm_wday is
-> guaranteed to be left unmodified on a failed call" to determine
-> whether the call failed. Instead, it uses
->=20
->   if (mktime(&time_str) =3D=3D (time_t)(-1))
->=20
-> which is not 100% correct, since -1 can be a valid value (as already
-> noticed).
->=20
-> > Indeed, this is the only way to determine if the call failed:
-> >=20
-> > 	tm.tm_wday =3D INT_MAX;
-> > 	mktime(&tm);
-> > 	if (tm.tm_wday =3D=3D INT_MAX)
-> > 		err(1, "mktime");
->=20
-> Because of my above remark, I think that a mktime(&tm) =3D=3D (time_t)(-1)
-> test is needed *in addition to* the tm.tm_wday =3D=3D INT_MAX test.
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---akvzmqccrv7tmkej
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbIip4ACgkQnowa+77/
-2zLfmA//Rt0yzOTOBxMurU7Jf24jFQNmLTTWXwLSod24ATweqGd9bkGDQvNWI5oO
-lnuGs+rZSoThDPc9L3nkrq5XrCSCDODo6znyAjhnJneWNAkvp77dQfyKVNj/Dk2d
-Une6heSQz8Y9VSl0QrABG2uLdGHBs4hY29m6WCcVIcOV16JX7yzNkKqUHrF2ikF1
-TOB50djc9sMEKnNLCxMh1sRrwrg1Zqyi/sgSnDDqBN9kYaBJY1HRrO+ylHQiPrFN
-+wIzDFP7dFAFESFbjArcygslHerKjtbbJou87suc6oR3X8+Q1OKv/J52p1rP/fvP
-7vaGruRqH1asBHlhLhI7SwFixVFCg/WU9ZILrHaZWYVIPx+IPrMNpRedjdMfaYM4
-bP7+iudNDwSNagCKiqEnIfojl2HTYIpSus/TXFVkTf2LZdGm5mdh+lEXWzly7QeC
-eQglfPYNL+v1Y++tUDmVgdin0fxRWANitfSNueTK5nZYyEYLzq68WVVmDqnQx2sv
-yJYW2KWHUBzwCDvVIq89DS37fjV7TDlDMR7Bd/nKx03EsMYyRbag7uC55jGpA0bv
-D7oC4l/qc5AzE4FoYi54CmONJYxke2Q0B/rirlDZm2qEzzH6iDVhqCcgnIMum9t4
-UT7CicbapB0UNjZ8ZsqPNi0rBH9TZ6aPM7ZH4z6uGEEDNlkujJQ=
-=4NoX
------END PGP SIGNATURE-----
-
---akvzmqccrv7tmkej--
+-- 
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
 
