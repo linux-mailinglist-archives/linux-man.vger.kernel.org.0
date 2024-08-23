@@ -1,107 +1,151 @@
-Return-Path: <linux-man+bounces-1663-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1664-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314C295C727
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 10:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFEBE95CC3D
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 14:19:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id CF20C1F21D70
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 08:00:38 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 72EA51F226DB
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 12:19:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5460C5FEE4;
-	Fri, 23 Aug 2024 08:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 708DE358A7;
+	Fri, 23 Aug 2024 12:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okk1z2ND"
 X-Original-To: linux-man@vger.kernel.org
-Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0F62AE95
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 08:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DE2185923
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 12:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724400019; cv=none; b=H5SHB0WE7GBza9+CJay6DEQHSDcp2zglW9umUA4GRN6OWSMM9D1A4TytSLOT85A4vdiBEIrNuo61j4pYfVBVEFyYp9JZ17UPz5RUgZp/Kf8zcLf5DZjqiGT7881plpO2a+BRyWdTw6ONb2jYTEyC1HBNxiYWcewT+6UwJJgnfMk=
+	t=1724415568; cv=none; b=mrHcGabx+hTfCwFwljIoLrEaephvN8qvrUtb19pFzIVQipqX5Ku6Qtu61azp1+0t3EY+1t1IjQkiqlUTmRUqogCpdTMIZxKb6uz+neaTW4Cm6WPH3TOyt8XhDztnYN43YnUCVG7w4zaCuxi20DphUSHY8KvP4RgOxMBcWrRAMOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724400019; c=relaxed/simple;
-	bh=8Tabc+0DHSZBn+BH80PMUPpYl1r5qd4byoBHku+2bMU=;
+	s=arc-20240116; t=1724415568; c=relaxed/simple;
+	bh=vwrqSGM5UUHLR1JLYr1U8qos5EMrbXsWYodzdVHqqiA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HFmWYjwW2NDwyXxL/fenkwxNToEj8O0Ud2R2vA2ukIWLBt+cQV0RfLwXwW8QEkWABrOOEHZMwUSWpWolPe8e0mpCTIcOca1FlBplSkhGhx9tOy7FWD1LFY9ReFSuH0u1NHjNQS79lr/h8SgbjJgeJjKz/lSiHFuXXuTVsHDNRRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
-Received: from smtp-qaa.vinc17.net (2a02-8428-1b1d-4d01-96a9-491d-7b48-ba31.rev.sfr.net [IPv6:2a02:8428:1b1d:4d01:96a9:491d:7b48:ba31])
-	by joooj.vinc17.net (Postfix) with ESMTPSA id 8AB555D0;
-	Fri, 23 Aug 2024 09:57:30 +0200 (CEST)
-Received: by qaa.vinc17.org (Postfix, from userid 1000)
-	id 281C3CA0100; Fri, 23 Aug 2024 09:57:30 +0200 (CEST)
-Date: Fri, 23 Aug 2024 09:57:30 +0200
-From: Vincent Lefevre <vincent@vinc17.net>
+	 Content-Type:Content-Disposition:In-Reply-To; b=F0/owfPW+zlkvjRvC98DgtSgnpAyGZJ+CvYnpDkdmt6D6az9Qwz3EPEkLj/nY5CjsUgThkAS2+0GUCFB67GW9z0UA0NGfIZZ6NwnmFpg9jgMT8npS+ZhpaekjZYViibXTVCQzURvT1Hm7rqsaL4gwKgf9xev2Ogo/kSlQJ2H7Ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okk1z2ND; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB939C32786;
+	Fri, 23 Aug 2024 12:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724415568;
+	bh=vwrqSGM5UUHLR1JLYr1U8qos5EMrbXsWYodzdVHqqiA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=okk1z2ND0Na5OzyMNmOKhhXeYnHVuHVA+ukyFZmeGbxn/QPrb3SpEaPLn32d8Ih2a
+	 ebrxbGpg8i5M6pvJoy0KUvl5l5gkc60zNJcoEd0OFwhjZO9TkHqrCI+7DH5cPI/mQh
+	 BC+aq1v/dAHR9tTwCwtLZHq/sOfDA3U/+XiBupOL3iePVUy/TBk8W+qBBFqZs0+MYo
+	 TOl/4DSevJi6k2voxFsnJfcU3rr8xnKz4A+rWsrbLjGkMeVTpmoHx/NwusALSG4ent
+	 HV0Rr+aaIhvwCzNJyZc5MXSlThS4IhCINFkJTiHQDcUddowBOqpxDAEiS6sib2BBxO
+	 kRj+4jNvx68yA==
+Date: Fri, 23 Aug 2024 14:19:24 +0200
+From: Alejandro Colomar <alx@kernel.org>
 To: Xi Ruoyao <xry111@xry111.site>
-Cc: Alejandro Colomar <alx@kernel.org>, Paul Eggert <eggert@cs.ucla.edu>,
-	libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>,
-	linux-man@vger.kernel.org, carlos@redhat.com
-Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-Message-ID: <20240823075730.GG2981@qaa.vinc17.org>
-Mail-Followup-To: Vincent Lefevre <vincent@vinc17.net>,
-	Xi Ruoyao <xry111@xry111.site>, Alejandro Colomar <alx@kernel.org>,
-	Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org,
-	DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org,
-	carlos@redhat.com
-References: <xned6jlywd.fsf@greed.delorie.com>
- <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
- <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
- <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
- <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
+Cc: enh <enh@google.com>, "H.J. Lu" <hjl.tools@gmail.com>, 
+	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
+	linux-man <linux-man@vger.kernel.org>
+Subject: Re: arch_prctl()
+Message-ID: <sgvjkeuzoufmghgnou5fgloedkaknnusv2xbzbjfx23uqf5d6l@zxbnwwz6p2iw>
+References: <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
+ <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
+ <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
+ <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
+ <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
+ <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
+ <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
+ <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+ <uzhkcbjxjypbwpzvdqlgukiorrgfn7hc7oe2m76r36kahpreun@wextt7canmee>
+ <c52d3d0c243e8a507d70eb8968c2f632f9b7429b.camel@xry111.site>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yk52bssyk7wjphwo"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
-X-Mailer-Info: https://www.vinc17.net/mutt/
-User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
+In-Reply-To: <c52d3d0c243e8a507d70eb8968c2f632f9b7429b.camel@xry111.site>
 
-On 2024-08-23 15:26:04 +0800, Xi Ruoyao wrote:
-> On Fri, 2024-08-23 at 09:02 +0200, Alejandro Colomar wrote:
-> > Is mktime(3) allowed to return -1 and set EOVERFLOW on a successful
-> > call?
-> > 
-> > RETURN VALUE
-> >      The mktime() function shall return the specified  time  since  the
-> >      Epoch  encoded  as  a value of type time_t.  If the time since the
-> >      Epoch cannot be represented, the function shall return  the  value
-> >      (time_t)-1 and set errno to indicate the error.
-> 
-> For mktime the standard only says "return (time_t)-1."  It does not
-> mention errno at all.  And the standard also says:
-> 
->    The value of errno may be set to nonzero by a library function call
->    whether or not there is an error, provided the use of errno is not
->    documented in the description of the function in this document.
-> 
-> > Then I think the API is completely broken.  How should we check for
-> > errors after a mktime(3) call?
-> 
-> Maybe, special case if tm contains Dec 31 1969 23:59:59 UTC...  But it's
-> just stupid.
-> 
-> > If this is so, let me file a glibc bug requesting a fix of the API,
-> > adding a promise that on success, errno will remain unset.
-> 
-> It's a bug in the standard, not glibc.  And the standard has deprecated
-> it anyway.
-> 
-> https://www.open-std.org/JTC1/SC22/WG14/www/docs/n2566.pdf
 
-I can see only asctime and ctime mentioned there, not mktime.
-So mktime isn't deprecated, is it?
+--yk52bssyk7wjphwo
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Xi Ruoyao <xry111@xry111.site>
+Cc: enh <enh@google.com>, "H.J. Lu" <hjl.tools@gmail.com>, 
+	Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
+	linux-man <linux-man@vger.kernel.org>
+Subject: Re: arch_prctl()
+References: <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
+ <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
+ <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
+ <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
+ <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
+ <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
+ <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
+ <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+ <uzhkcbjxjypbwpzvdqlgukiorrgfn7hc7oe2m76r36kahpreun@wextt7canmee>
+ <c52d3d0c243e8a507d70eb8968c2f632f9b7429b.camel@xry111.site>
+MIME-Version: 1.0
+In-Reply-To: <c52d3d0c243e8a507d70eb8968c2f632f9b7429b.camel@xry111.site>
 
--- 
-Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
-100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
-Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
+Hi Xi,
+
+On Fri, Aug 23, 2024 at 03:35:39PM GMT, Xi Ruoyao wrote:
+> On Thu, 2024-08-22 at 21:24 +0200, Alejandro Colomar wrote:
+> > > ...except transparent unions are C-only, so we'd need something else
+> > > for C++ if we went with this for C.
+> >=20
+> > Why don't they have transparent unions in C++?=C2=A0 Is it just that no=
+body
+> > cared to implement them?=C2=A0 Or do they have inherent problems there?
+>=20
+> In C++ you can write something like
+>=20
+> union X {
+> 	int x;
+> 	float y;
+>=20
+> 	X(int _x) : x(_x) {}
+> 	X(float _y) : y(_y) {}
+> };
+>=20
+> anyway.
+
+But by not having transparent unions, C++ will reject valid C code.
+This ultimately means that C++ won't be able to include a header that
+provides arch_prctl(2).
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--yk52bssyk7wjphwo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbIfkwACgkQnowa+77/
+2zLOvRAAqzxJ+yUbl+TY7hGckI8LkWOll4GNNG6jn+c1yJ6GBAps2nNGPEIezjl5
+cj0d2WkiDUGDrnOoVZmZeZt705yGCI/7BtnOgq22iRr9jcaB+zZ8e7oLYIAOfin7
+lii7a2FAfmrrXmM9BI/o/lNRRi/ZXsrOFU1SjDWe77TZ+V9GL9ryS2KzUPROu6M8
+0Gk3QVXnmJu3kazMlp2hjG4mNmCoKW2Js7U+3jwvlsnQTIQxwY7iIYkITXyXtn+M
+oOzAox+wGXgsA4NkgOmogiUISnZtLESc/UtqhgOe9oNsuB6tqK/RvqayGlz51dNY
+iLfnQTi8ypXhzb5D7kCoVf3HzwA85CubOADqz309EBdCm6JVBKtn71oZsg6EGk+C
+w9WNUTZrg85wEmUwINQBoLEA9XxAAeiCZLqJfIlPGB/D40PMVW8nuW7ZjODIN/6K
+LYs2wNiOUNf03d2wn1x5yfEMDqkLdBCVGUXm/qpDPcfmpJgNe1mTDF8SHJTfNAuO
+dLLbgGq/SyW7ldthCqSM6pgLIzYNikUzx2RHvc5NHCNcfFP7Xd8fKFYQgaSEQVCv
+MdW40D0hFaoBCoO+mXHdXMsbALsH9EK5wCGliukwXB/Mey2s5wF0rg7YQ4DSxEHf
+hMxK3xI+jq4kSDfEmaxY588zaVn6lNZbRP1h8JS7WZzEacn8L4o=
+=w8Ul
+-----END PGP SIGNATURE-----
+
+--yk52bssyk7wjphwo--
 
