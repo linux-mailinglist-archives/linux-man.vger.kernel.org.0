@@ -1,62 +1,70 @@
-Return-Path: <linux-man+bounces-1661-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1662-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 557D195C67D
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 09:26:14 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B04395C696
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 09:35:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 10686284FC7
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 07:26:13 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2EF711F2557C
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 07:35:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6EA613AA2A;
-	Fri, 23 Aug 2024 07:26:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B417813BC0C;
+	Fri, 23 Aug 2024 07:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="W5S+tMkw"
+	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="erlPuaQc"
 X-Original-To: linux-man@vger.kernel.org
 Received: from xry111.site (xry111.site [89.208.246.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC7A86126
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 07:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3059C49658
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 07:35:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724397969; cv=none; b=cBZWtMEsi4UPFxFMbYhGvrZSudMb+1YONu1qPQFepEiwXVe29MA3IDXhrEN6iFO4pwJDuq0vLlx1pkBzhF1s5kGF5Wo3dEyss35QoGVx0Lp0hAM2aEQysS2/d1rnIeMvC+5Qopza+b3cuB6VdJ7VGAFhPrI561PZrjzP9REv/08=
+	t=1724398544; cv=none; b=Je2rZ+bVTtE9XWPxfuXavYT3bkpQRLmOL7z3nHUnUfLYqVZ9Y4zVVNVMVNSGhutfoZ0Iy0IrhEPOuE74cLCVEM++pxEoQqawEj/Bwb5WXYdmHXhGpL6N7F7dKomEN6itCLW1OOB5r58aCShg/FxRqCarz+Pfll0pONcyvnAg8Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724397969; c=relaxed/simple;
-	bh=yW7XvujB/5FDJ1yHqschzXlOW+YG9t+e4GhmBdylcOE=;
+	s=arc-20240116; t=1724398544; c=relaxed/simple;
+	bh=9PkBk/dDLpZNZsfw8RYo1/yOg0DrX8fqcrab8WfnF5o=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DBflBUklU31LF5g+Mn6roARECkzQHq47SAzMEstf5Xn0xRm17u/PaZ3PZzFwFxWOQhjmahYpqT/3ylA30gHPNlTYYmOmFAZk2eAY+iLvaOf4Re+RH6bKXjSNDX83xqtOT6RSoTFhU2mR02yPpnxbtz1GgyOKffTj8dncgpcJkTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=W5S+tMkw; arc=none smtp.client-ip=89.208.246.23
+	 Content-Type:MIME-Version; b=WfuSGxg9QrQ/hKQj3pgmrV47rqM9+JUpF2dzcYW/7cCKmZ9q+KN6DHnmfKloehPwYd1yt/JF6q9L23Zc1sqFZ2cnmsqcUN9zuMlKga2veeTDxrQPeXQuTuVCNG0q7IyoZPcWM5tdHX6oIN31MQCh54UZG3gKfEC+8FMoRPRwXrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=erlPuaQc; arc=none smtp.client-ip=89.208.246.23
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xry111.site;
-	s=default; t=1724397966;
-	bh=yW7XvujB/5FDJ1yHqschzXlOW+YG9t+e4GhmBdylcOE=;
+	s=default; t=1724398542;
+	bh=9PkBk/dDLpZNZsfw8RYo1/yOg0DrX8fqcrab8WfnF5o=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=W5S+tMkwseUNoWUTuKcSNaDn9sWredjvgrJAZ+EVeptGgsO6vdpNznel7T3dUny3J
-	 Lm/N4TndevpQhg81ZRS7q06rfS8u51yEPSCMjCu5oyaeyfy7T5eM5kljOAGIUtmHwY
-	 tRZ84Ly6eUBt1iPepHJRUoobGF2CVhcPmxWTHFjE=
+	b=erlPuaQcU3Zfe+dRYfFIFNdPj2YCgi+jVwRYexQYLoG19Vg+yspRojey/OBiILHVF
+	 D4iKQvyB/k+bEo4tX0ftkYuV1kMdcfb42F03k58/WWj0GLUvaU12Qgj9sTT7ODmsK+
+	 HWaV/1MY2ueBQb2mkCLFsWASyaRXPzmqEDdoeU7Q=
 Received: from [127.0.0.1] (unknown [IPv6:2001:470:683e::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest SHA384)
 	(Client did not present a certificate)
 	(Authenticated sender: xry111@xry111.site)
-	by xry111.site (Postfix) with ESMTPSA id ABE7666F26;
-	Fri, 23 Aug 2024 03:26:05 -0400 (EDT)
-Message-ID: <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
-Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
+	by xry111.site (Postfix) with ESMTPSA id D567966F26;
+	Fri, 23 Aug 2024 03:35:40 -0400 (EDT)
+Message-ID: <c52d3d0c243e8a507d70eb8968c2f632f9b7429b.camel@xry111.site>
+Subject: Re: arch_prctl()
 From: Xi Ruoyao <xry111@xry111.site>
-To: Alejandro Colomar <alx@kernel.org>, Paul Eggert <eggert@cs.ucla.edu>, 
-	libc-alpha@sourceware.org
-Cc: DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org, carlos@redhat.com
-Date: Fri, 23 Aug 2024 15:26:04 +0800
-In-Reply-To: <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
-References: <xned6jlywd.fsf@greed.delorie.com>
-	 <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
-	 <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
-	 <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+To: Alejandro Colomar <alx@kernel.org>, enh <enh@google.com>
+Cc: "H.J. Lu" <hjl.tools@gmail.com>, Adhemerval Zanella Netto
+	 <adhemerval.zanella@linaro.org>, libc-alpha <libc-alpha@sourceware.org>, 
+ linux-man <linux-man@vger.kernel.org>
+Date: Fri, 23 Aug 2024 15:35:39 +0800
+In-Reply-To: <uzhkcbjxjypbwpzvdqlgukiorrgfn7hc7oe2m76r36kahpreun@wextt7canmee>
+References: <138cac72-3ec9-42c0-9c1d-982aae975fc3@linaro.org>
+	 <xryntaw4ltavijpf7ejf4v7uhvwfp2lytgfzeablezxlvex4ky@yfkfhw7jtzch>
+	 <a580c3e7-2489-445d-8ea0-cbac245092a7@linaro.org>
+	 <CAMe9rOpSYOG-J1H+pLWHp5aNtSFuoHo=ZFS5H17jhK2obZtddQ@mail.gmail.com>
+	 <CAJgzZorgr+vHuQgQyMkMZPwWjDpr=b1ibkv4U0B2V9Lh=K_dag@mail.gmail.com>
+	 <lnrhoiigxf7ft6p4lv7x5euyeu6qwdqndmhjxr36orkaxztrkw@qsazxkgfyzvn>
+	 <CAJgzZooftn7zPoSa8_P+OuQ2rH9ZXnsFnrZXcHA8oxXq7q_2-w@mail.gmail.com>
+	 <zhim7duq7za34iw4zhircvsp2zx7fm7cw7ic2t476ncar2hubo@4ikcz6zekspp>
+	 <CAJgzZooJuS92W5bbr_jFu_TYNJ-TwkpmMnv=3_FTcv-mxg2xnQ@mail.gmail.com>
+	 <CAJgzZooK43s5A82+RsmnMmLcj8Y2+CTOFENYekz2tu66oaJchQ@mail.gmail.com>
+	 <uzhkcbjxjypbwpzvdqlgukiorrgfn7hc7oe2m76r36kahpreun@wextt7canmee>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.52.3 
@@ -67,49 +75,25 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Fri, 2024-08-23 at 09:02 +0200, Alejandro Colomar wrote:
-> Is mktime(3) allowed to return -1 and set EOVERFLOW on a successful
-> call?
+On Thu, 2024-08-22 at 21:24 +0200, Alejandro Colomar wrote:
+> > ...except transparent unions are C-only, so we'd need something else
+> > for C++ if we went with this for C.
 >=20
-> RETURN VALUE
-> =C2=A0=C2=A0=C2=A0=C2=A0 The mktime() function shall return the specified=
-=C2=A0 time=C2=A0 since=C2=A0 the
-> =C2=A0=C2=A0=C2=A0=C2=A0 Epoch=C2=A0 encoded=C2=A0 as=C2=A0 a value of ty=
-pe time_t.=C2=A0 If the time since the
-> =C2=A0=C2=A0=C2=A0=C2=A0 Epoch cannot be represented, the function shall =
-return=C2=A0 the=C2=A0 value
-> =C2=A0=C2=A0=C2=A0=C2=A0 (time_t)-1 and set errno to indicate the error.
+> Why don't they have transparent unions in C++?=C2=A0 Is it just that nobo=
+dy
+> cared to implement them?=C2=A0 Or do they have inherent problems there?
 
-For mktime the standard only says "return (time_t)-1."  It does not
-mention errno at all.  And the standard also says:
+In C++ you can write something like
 
-   The value of errno may be set to nonzero by a library function call
-   whether or not there is an error, provided the use of errno is not
-   documented in the description of the function in this document.
+union X {
+	int x;
+	float y;
 
-> Then I think the API is completely broken.  How should we check for
-> errors after a mktime(3) call?
+	X(int _x) : x(_x) {}
+	X(float _y) : y(_y) {}
+};
 
-Maybe, special case if tm contains Dec 31 1969 23:59:59 UTC...  But it's
-just stupid.
-
-> If this is so, let me file a glibc bug requesting a fix of the API,
-> adding a promise that on success, errno will remain unset.
-
-It's a bug in the standard, not glibc.  And the standard has deprecated
-it anyway.
-
-https://www.open-std.org/JTC1/SC22/WG14/www/docs/n2566.pdf
-
-> > How about if we omit the sample code and make the minimal changes I
-> > suggested earlier?
->=20
-> Because I'm being very careful writing that code, and still I'm having
-> trouble doing that, I think we must provide some example of a correct
-> call, to prevent many other programmers from doing it wrong.
-
-So IMO you should just say "the interface is deprecated, do not use it
-in any new code."
+anyway.
 
 --=20
 Xi Ruoyao <xry111@xry111.site>
