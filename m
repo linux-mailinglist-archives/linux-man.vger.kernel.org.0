@@ -1,329 +1,165 @@
-Return-Path: <linux-man+bounces-1675-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1676-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA39795D024
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 16:38:51 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64BE795D156
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 17:26:40 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 49E1F1F22C55
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 14:38:51 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 93E381C234A5
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 15:26:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3D56185E7B;
-	Fri, 23 Aug 2024 14:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNGa0Sd2"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D08611891B2;
+	Fri, 23 Aug 2024 15:26:23 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from cventin.lip.ens-lyon.fr (cventin.lip.ens-lyon.fr [140.77.13.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6365214A4EF
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 14:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F38188A1B
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 15:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.13.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724423878; cv=none; b=IYSOIitzd/8XIJdWtktM2P2oCvux6jgI7bbX5IYbpy0Qds+2hMMCXcnyrtYPJbZqw3oa3Az9Ck8HQjFFnIKi7hXLbMURcmWTAZXIfMn2RMKEaUyFEVHy6GlgQm+YCYcd5DR0Q/MH02hLbN5GIN4O7FEKZqfHEvQxRZZGdmqcdMo=
+	t=1724426783; cv=none; b=kdBIEAlCKbmB4k2qCOvtoKSjQj7rlkw/dl4W/xvda3xwmSA8TNuiXwwmtky09c/jPnHsmcZzjAvkikmGVCDVGQLPjujV8oTLIKgv7fgbGBdDcq0zr4BhSk8xQ8xHDaPlQLIl6SCAAHCHr/L37g72AyX9D47d7umanQIo9uMgZ3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724423878; c=relaxed/simple;
-	bh=woRr0nYF9VkBv1Z++ziMEb/XhCyJ0gN2jBLlE4UCYIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=kNJDhoAlhOCXDm5gyHmS+kE8Tp0zZWxcCjawxPdKb0MgdX3GDE+om2WFlEroY05y9uLo1jIHhNNHRuE4qyy3NAPCNKTDrqFQEVGuwOTm38UjXRx6j6BRbh8EUltauCrneNuccHTe8Hv4kaSul7mORC3gMIEr4k1joY5FsGxolgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNGa0Sd2; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C037EC32786;
-	Fri, 23 Aug 2024 14:37:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724423877;
-	bh=woRr0nYF9VkBv1Z++ziMEb/XhCyJ0gN2jBLlE4UCYIU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=hNGa0Sd2T3uIReD81OY9Sank81N4mdo4++JFyXS5E3SHl58hJNlhS8SLPQpwaUySP
-	 RNsbFBdGl9BG1mA9jy50wPRdIluhgr36rye3AQWG4ybnEjaL/SICftVI8/GLW4imQ4
-	 GfCr3N++sL4I+DjVjYNDc6SQSlIoon98m/8Tv3TRfuwm26XAlFzXmnQIH4NthmSgbN
-	 JQKMM3Loar/I1fxVZa908TA8mNd0hiwXtnqd0Dn+Kj08swgMknNFSitFd/LfqnyzSj
-	 C3ut+H5Dggqho/telqCyZywADpHegFgvL7pSFCJpXNC4MEGfqUgPzxxL5c8ygJiAWm
-	 nlVAmLmGwoogw==
-Date: Fri, 23 Aug 2024 16:37:54 +0200
-From: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1724426783; c=relaxed/simple;
+	bh=bj7FKYi8LuqGLRCRpoHUP36YW3z4U6vz81l9Iec/l9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NPzBVAWEZDQ7fPsGSUg27rYxfyPvYfMk0C4R206IqQ4HZtmj9yJLY42I2CRrJisXsA/FIywtIr48Qi61eW2Z54qEvJXZLfp0mmOI4DdZjRPnEaBCOZDQbWMUKXLqQ+KxpOsn+78YAuECZTU38/hamPpmXvkgjfZ0Duk+qrsELQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=140.77.13.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
+Received: from vlefevre by cventin.lip.ens-lyon.fr with local (Exim 4.98)
+	(envelope-from <vincent@vinc17.net>)
+	id 1shWB7-0000000Dcib-3hXN;
+	Fri, 23 Aug 2024 17:26:17 +0200
+Date: Fri, 23 Aug 2024 17:26:17 +0200
+From: Vincent Lefevre <vincent@vinc17.net>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Paul Eggert <eggert@cs.ucla.edu>, 
-	Vincent Lefevre <vincent@vinc17.net>, DJ Delorie <dj@redhat.com>, Carlos O'Donell <carlos@redhat.com>, 
-	Xi Ruoyao <xry111@xry111.site>, Brian Inglis <Brian.Inglis@systematicsw.ab.ca>, 
-	"Robert C. Seacord" <rcseacord@gmail.com>, Jens Gustedt <jens.gustedt@inria.fr>, 
-	GNU C Library <libc-alpha@sourceware.org>
-Subject: [PATCH v2] ctime.3: Document how to check errors from mktime(3)
-Message-ID: <664cd54a8ee998fd3a07ffc6c9e6fe9d6117620f.1724423646.git.alx@kernel.org>
-X-Mailer: git-send-email 2.45.2
+Cc: Xi Ruoyao <xry111@xry111.site>, Paul Eggert <eggert@cs.ucla.edu>,
+	libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>,
+	linux-man@vger.kernel.org, carlos@redhat.com,
+	"Robert C. Seacord" <rcseacord@gmail.com>,
+	Jens Gustedt <jens.gustedt@inria.fr>
+Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
+Message-ID: <20240823152617.GI2713@cventin.lip.ens-lyon.fr>
+Mail-Followup-To: Vincent Lefevre <vincent@vinc17.net>,
+	Alejandro Colomar <alx@kernel.org>, Xi Ruoyao <xry111@xry111.site>,
+	Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org,
+	DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org,
+	carlos@redhat.com, "Robert C. Seacord" <rcseacord@gmail.com>,
+	Jens Gustedt <jens.gustedt@inria.fr>
+References: <xned6jlywd.fsf@greed.delorie.com>
+ <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
+ <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
+ <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+ <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
+ <jexdbqmvupx3q546nipasrhunylrjazpbe2d3inmbqa4llowjo@6gu4orqoerbo>
+ <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
+ <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
+ <20240823135449.GF2713@cventin.lip.ens-lyon.fr>
+ <4n6fqru43irlzw7qcqkj6za4hxtn5g3icvtmyuneap4fs2aryk@ctcmkvw2xxl5>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dssyzfw6ruzmfcb3"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <433eddc3e5fed0230183aeb178c08ccf247f3da0.1724417835.git.alx@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4n6fqru43irlzw7qcqkj6za4hxtn5g3icvtmyuneap4fs2aryk@ctcmkvw2xxl5>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
 
+On 2024-08-23 16:18:21 +0200, Alejandro Colomar wrote:
+> Hi Vincent,
+> 
+> On Fri, Aug 23, 2024 at 03:54:49PM GMT, Vincent Lefevre wrote:
+> > On 2024-08-23 15:12:16 +0200, Alejandro Colomar wrote:
+> > > Looking at the WG14 document logs, it seems it was added in n3147:
+> > > <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3147.txt>
+> > 
+> > Thanks for the reference. Additional details can be found
+> > in CD2 ballot at
+> > 
+> >   https://open-std.org/JTC1/SC22/WG14/www/docs/n3148.doc
+> 
+> It's interesting that WG14 claims that they're not aware of any existing
+> implementations that would modify tm_wday on failure.
 
---dssyzfw6ruzmfcb3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Paul Eggert <eggert@cs.ucla.edu>, 
-	Vincent Lefevre <vincent@vinc17.net>, DJ Delorie <dj@redhat.com>, Carlos O'Donell <carlos@redhat.com>, 
-	Xi Ruoyao <xry111@xry111.site>, Brian Inglis <Brian.Inglis@systematicsw.ab.ca>, 
-	"Robert C. Seacord" <rcseacord@gmail.com>, Jens Gustedt <jens.gustedt@inria.fr>, 
-	GNU C Library <libc-alpha@sourceware.org>
-Subject: [PATCH v2] ctime.3: Document how to check errors from mktime(3)
-MIME-Version: 1.0
-In-Reply-To: <433eddc3e5fed0230183aeb178c08ccf247f3da0.1724417835.git.alx@kernel.org>
+AFAIK, this is not a claim from WG14, but from the one who submitted
+the GB-159 comment. The claim is
 
--1 is a valid successful time_t, for one second before the Epoch.  And
-mktime(3) is allowed (like most libc calls) to set errno on success.
-This makes it impossible to determine errors from the return value or
-errno.
+  There is some existing practice where application code sets tm_wday
+  to an out-of-range sentinel value and checks whether it was changed
+  by mktime, and we are not aware of any implementation where this
+  does not work.
 
-ISO C specifies that tp->tm_wday is unmodified after a failed call, and
-puts an example where this is used to determine errors.  It is indeed
-the only way to check for errors from this call.
+and this is rather vague: we do not know whether this existing practice
+is common and which implementations have been checked.
 
-Document this detail in the RETURN VALUE section, add a CAVEATS section
-that warns about this, and write an example program that shows how to
-properly call this function.
+> Although it's weird, because WG14 attributes that claim to the Austin
+> Group, and
 
-All the code I've been able to find in several search engines either
-doesn't check for errors after mktime(3), or checks them incorrectly, so
-this documentation should help fix those.
+The comment attributes the issues to the Austin Group, but perhaps
+not all the details.
 
-This is guaranteed since ISO C23 and POSIX.1-2024.  Prior to those
-standards, there was no standard way to check for errors.  However,
-there are no known implementations that do not conform to this,
-according to WG14 (which themselves refer to the Austin Group for having
-researched that).
+> > which references the POSIX bug
+> > 
+> >   https://austingroupbugs.net/view.php?id=1614
+> 
+> I don't see any discussion about tm_wday in that Austin Group bug.  :|
+> Maybe it happened in a mailing list or elsewhere.
 
-Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3147.txt>
-Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3148.doc>
-Link: <https://austingroupbugs.net/view.php?id=3D1614>
-Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#subsubsec=
-tion.7.29.2.3>
-Reported-by: Paul Eggert <eggert@cs.ucla.edu>
-Cc: Vincent Lefevre <vincent@vinc17.net>
-Cc: DJ Delorie <dj@redhat.com>
-Cc: Carlos O'Donell <carlos@redhat.com>
-Cc: Xi Ruoyao <xry111@xry111.site>
-Cc: Brian Inglis <Brian.Inglis@SystematicSW.ab.ca>
-Cc: "Robert C. Seacord" <rcseacord@gmail.com>
-Cc: Jens Gustedt <jens.gustedt@inria.fr>
-Cc: GNU C Library <libc-alpha@sourceware.org>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
+Yes, perhaps in the austin-group-l mailing-list.
 
-Hi!
+> (If any implementation does not conform, at least it should
+> be feasible to fix that implementation to conform.)
 
-This v2 changes the use of INT_MIN to just -1, which is simpler, and is
-blessed by POSIX.
+That's something new in the future C23 standard. So I don't think
+that older implementations (stable releases) would change.
 
-Cheers,
-Alex
+> > This is the test I suggested: a check that mktime() returns -1,
+> 
+> I think that test suggested by POSIX is bogus (redundant).  If mktime(3)
+> has failed, tm_wday is unchanged.  If it has succeeded, tm_wday must be
+> changed.  Thus, the return value is meaningless for the purpose of
+> determining if it has failed.
 
-Range-diff against v1:
-1:  433eddc3e ! 1:  664cd54a8 ctime.3: Document how to check errors from mk=
-time(3)
-    @@ Commit message
-         doesn't check for errors after mktime(3), or checks them incorrect=
-ly, so
-         this documentation should help fix those.
-    =20
-    +    This is guaranteed since ISO C23 and POSIX.1-2024.  Prior to those
-    +    standards, there was no standard way to check for errors.  However,
-    +    there are no known implementations that do not conform to this,
-    +    according to WG14 (which themselves refer to the Austin Group for =
-having
-    +    researched that).
-    +
-    +    Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3147.txt>
-    +    Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3148.doc>
-    +    Link: <https://austingroupbugs.net/view.php?id=3D1614>
-    +    Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#=
-subsubsection.7.29.2.3>
-         Reported-by: Paul Eggert <eggert@cs.ucla.edu>
-    +    Cc: Vincent Lefevre <vincent@vinc17.net>
-         Cc: DJ Delorie <dj@redhat.com>
-         Cc: Carlos O'Donell <carlos@redhat.com>
-         Cc: Xi Ruoyao <xry111@xry111.site>
-    -    Cc: Vincent Lefevre <vincent@vinc17.net>
-    +    Cc: Brian Inglis <Brian.Inglis@SystematicSW.ab.ca>
-         Cc: GNU C Library <libc-alpha@sourceware.org>
-         Signed-off-by: Alejandro Colomar <alx@kernel.org>
-    =20
-    @@ man/man3/ctime.3: .SH NOTES
-     +.EX
-     +#include <err.h>
-     +#include <errno.h>
-    -+#include <limits.h>
-     +#include <stdint.h>
-     +#include <stdio.h>
-     +#include <stdlib.h>
-    @@ man/man3/ctime.3: .SH NOTES
-     +    tm.tm_sec   =3D atoi(*p++);
-     +    tm.tm_isdst =3D atoi(*p++);
-     +\&
-    -+    tm.tm_wday =3D INT_MIN;
-    ++    tm.tm_wday =3D \-1;
-     +    t =3D mktime(&tm);
-    -+    if (tm.tm_wday =3D=3D INT_MIN)
-    ++    if (tm.tm_wday =3D=3D \-1)
-     +        err(EXIT_FAILURE, "mktime");
-     +\&
-     +    printf("%jd\[rs]n", (intmax_t) t);
+Yes, after some thoughts, I agree.
 
- man/man3/ctime.3 | 99 +++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 98 insertions(+), 1 deletion(-)
+However, it should be said that with pre-C23 implementations,
+it is not guaranteed to detect failures.
 
-diff --git a/man/man3/ctime.3 b/man/man3/ctime.3
-index 5aec51b79..68f9277b1 100644
---- a/man/man3/ctime.3
-+++ b/man/man3/ctime.3
-@@ -241,7 +241,10 @@ .SH RETURN VALUE
- On error,
- .BR mktime ()
- returns the value
--.IR "(time_t)\ \-1" .
-+.IR "(time_t)\ \-1" ,
-+and leaves the
-+.I tm->tm_wday
-+member unmodified.
- The remaining functions return NULL on error.
- On error,
- .I errno
-@@ -412,6 +415,100 @@ .SH NOTES
- object types may overwrite the information in any object of the same type
- pointed to by the value returned from any previous call to any of them."
- This can occur in the glibc implementation.
-+.SH CAVEATS
-+.SS mktime()
-+.I (time_t) \-1
-+can represent a valid time
-+(one second before the Epoch).
-+To determine if
-+.BR mktime ()
-+failed,
-+one must use the
-+.I tm->tm_wday
-+field.
-+See the example program in EXAMPLES.
-+.SH EXAMPLES
-+The following shell session shows sample runs of the program:
-+.P
-+.in +4n
-+.EX
-+.RB $\~ "TZ=3DUTC ./a.out 1969 12 31 23 59 59 0" ;
-+\-1
-+$
-+.RB $\~ "export TZ=3DEurope/Madrid" ;
-+$
-+.RB $\~ "./a.out 2147483647 2147483647 00 00 00 00 -1" ;
-+a.out: mktime: Value too large for defined data type
-+$
-+.RB $\~ "./a.out 2024 08 23 00 17 53 \-1" ;
-+1724365073
-+.RB $\~ "./a.out 2024 08 23 00 17 53 0" ;
-+1724368673
-+.RB $\~ "./a.out 2024 08 23 00 17 53 1" ;
-+1724365073
-+$
-+.RB $\~ "./a.out 2024 02 23 00 17 53 \-1" ;
-+1708643873
-+.RB $\~ "./a.out 2024 02 23 00 17 53 0" ;
-+1708643873
-+.RB $\~ "./a.out 2024 02 23 00 17 53 1" ;
-+1708640273
-+$
-+.RB $\~ "./a.out 2024 03 26 02 17 53 \-1" ;
-+1679793473
-+$
-+.RB $\~ "./a.out 2024 10 29 02 17 53 \-1" ;
-+1698542273
-+.RB $\~ "./a.out 2024 10 29 02 17 53 0" ;
-+1698542273
-+.RB $\~ "./a.out 2024 10 29 02 17 53 1" ;
-+1698538673
-+$
-+.RB $\~ "./a.out 2024 02 29 12 00 00 \-1" ;
-+1677668400
-+.EE
-+.SS Program source: mktime.c
-+\&
-+.\" SRC BEGIN (mktime.c)
-+.EX
-+#include <err.h>
-+#include <errno.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <time.h>
-+\&
-+int
-+main(int argc, char *argv[])
-+{
-+    char       **p;
-+    time_t     t;
-+    struct tm  tm;
-+\&
-+    if (argc !=3D 8) {
-+        fprintf(stderr, "Usage: %s yyyy mm dd HH MM SS isdst\[rs]n", argv[=
-0]);
-+        exit(EXIT_FAILURE);
-+    }
-+\&
-+    p =3D &argv[1];
-+    tm.tm_year  =3D atoi(*p++) \- 1900;
-+    tm.tm_mon   =3D atoi(*p++) \- 1;
-+    tm.tm_mday  =3D atoi(*p++);
-+    tm.tm_hour  =3D atoi(*p++);
-+    tm.tm_min   =3D atoi(*p++);
-+    tm.tm_sec   =3D atoi(*p++);
-+    tm.tm_isdst =3D atoi(*p++);
-+\&
-+    tm.tm_wday =3D \-1;
-+    t =3D mktime(&tm);
-+    if (tm.tm_wday =3D=3D \-1)
-+        err(EXIT_FAILURE, "mktime");
-+\&
-+    printf("%jd\[rs]n", (intmax_t) t);
-+    exit(EXIT_SUCCESS);
-+}
-+.EE
-+.\" SRC END
- .SH SEE ALSO
- .BR date (1),
- .BR gettimeofday (2),
+Said otherwise, the change from
 
-base-commit: 0813c125d8bf754c40015aa1b31f23e0650584ac
---=20
-2.45.2
+  if (mktime(&time_str) == -1)
 
+to
 
---dssyzfw6ruzmfcb3
-Content-Type: application/pgp-signature; name="signature.asc"
+  if (time_str.tm_wday == -1)
 
------BEGIN PGP SIGNATURE-----
+will avoid spurious failures (the case where -1 is a valid calendar
+value), but it might make some failures be undetected, though no
+implementations with such an issue are known.
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbInsEACgkQnowa+77/
-2zJBtQ//bRfRrzAgqpbKeetgUoNCEh9TUDI3Bv/X3bTKHW45tMTqz8/UwF6/VX4+
-xAjrOdMplq7uXJ3z+R4lv6ZqEKxL99JYpXj+OZRtFTwU0ErsbBTn3mumu5xda1/d
-uTvd0FAOKC8gucDkyRMUzDcdYuRM638gGzRmd904shk9kaH8GnWJc0rXNgd6g2I2
-XpRwbVjScFBCbmHd9azjLBgA3bZMnSJEoEYUTZeaKui74l+O3sHBI5d6SyeC/lwY
-Aca6WIwav8LcN2Kn4NWkYEUDVB091UKiMiVQg78EW+bRhqy4kx9FAM+iqB+ISacH
-AYRvvWTSimDiDP29F9SA3DcAqHnH6WO1eAGp9XQ+WeCq9JXVHo1Yoqul5PLb4gjc
-PnsrbJXrKxBE9bBCvz+kOCS5T2p4jsgwFtHQtd83ziLD/2F8IUebj/KI5Qe+XVN6
-TcWnJ5Xf/DiH+VEQMQU+2ktqKfPmzgOZ322tkFcKZfDz8c5MzJ/G3an7NOMqhTSJ
-B0vpTp9tCWWHGLkn7IEx2W2s5h+nIKwKwYYDeRGy6Pgrx2MeYIt3cRTmPmeVbgBI
-mgI1OraekMa+agdBsVeoZhc02gPdQ9TaxLeNn2uuUUZMjRYe/7Ak4/p9n6vU1KlA
-eRR2dXvkqedqKrZcmI2oJAU7ZDeJm5iNyOa1FerOOV/FsHgRR8g=
-=V84h
------END PGP SIGNATURE-----
+> > and since it can be a valid value, a second test on tm_wday
+> > (where the input, which is ignored, has an invalid value such
+> > as -1 here, or INT_MAX in your case; note that -1 may be more
+> > efficient with some processors, and shorter to write).
+> 
+> I didn't use -1 because I thought some weird weeks might contain 8 days
+> (for some of those weird timezone adjustments), and that that might
+> cause wday -1 to actually exist.
 
---dssyzfw6ruzmfcb3--
+This is invalid and could cause crashes in programs, or worse.
+In C17:
+
+  int tm_wday; // days since Sunday -- [0, 6]
+
+-- 
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
 
