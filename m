@@ -1,154 +1,117 @@
-Return-Path: <linux-man+bounces-1660-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1661-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 527E395C5FD
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 09:02:39 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 557D195C67D
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 09:26:14 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 103A7285030
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 07:02:38 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 10686284FC7
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 07:26:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49F0D17984;
-	Fri, 23 Aug 2024 07:02:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6EA613AA2A;
+	Fri, 23 Aug 2024 07:26:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASpn6gKR"
+	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="W5S+tMkw"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from xry111.site (xry111.site [89.208.246.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADDC5674D
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 07:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC7A86126
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 07:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724396554; cv=none; b=ERqj5rWX+j/CFpQ+21il6e2ZvSxKBljHWdCMCbBykQjU86aWSilL+ZSV/Ai15Ba/avABtLGkhHOTjT0/JPWEBph3TJlCZYe5ptVP2aKuIkKCr0fkp7vzJQtLNXyorStRPSmXbeAu7sywWhCPbPtPdNVbqwGPsiHiewqAGM2KrSQ=
+	t=1724397969; cv=none; b=cBZWtMEsi4UPFxFMbYhGvrZSudMb+1YONu1qPQFepEiwXVe29MA3IDXhrEN6iFO4pwJDuq0vLlx1pkBzhF1s5kGF5Wo3dEyss35QoGVx0Lp0hAM2aEQysS2/d1rnIeMvC+5Qopza+b3cuB6VdJ7VGAFhPrI561PZrjzP9REv/08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724396554; c=relaxed/simple;
-	bh=mj1IbawCyQsJo6Z355fl++kxlM58xM/vMZHRKQQespU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UEMZO8Lo5aUDxysr4AQRW9DUQc/mZ21EhfEix+Jl+WVrpwEz44GDdYxSi95iL5M9Tp4peEQ62mwO0iO16lVSDE2Xw42M5ehccpfC9E1JSXnHgqDTUSg/FrzN3a6S/7E+Lqqcpaz1st0j9Sta9aDQkdWgMNUPmt6cvFY43oPKCoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASpn6gKR; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FC4C32786;
-	Fri, 23 Aug 2024 07:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724396553;
-	bh=mj1IbawCyQsJo6Z355fl++kxlM58xM/vMZHRKQQespU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ASpn6gKR/WWEIA+6lMCmKe/ofZqDYs6Q/Z0HvflxDEty33HzUy2LXDUfieWxFaFfu
-	 c/tRCuG989ndRmsZrZ7uqx6pNTd1tzNOAtRZyzcqRZfQIXtoHLkMukaL4Zp+J2xMT9
-	 qCf0+FtYP6AdR2BnqklfbaD2Pfyfv9UMqF+BaiLbc7PgP5GnUmAhEoK7c3bHNFxX/s
-	 p0t5mkOz8KJDtXq4DCo7Qsw8muGBUWVAmxhwimyLv/r2Z9H4Ip1mSKIYF2Y9b7TLvl
-	 Yw6KTegIlmriv9vpTUIcvuP99+k/pI6j0iIDcFAJNyLdjZhDdhxH0MfiTOhjV+XOa3
-	 1ZVEaEWGxsn3Q==
-Date: Fri, 23 Aug 2024 09:02:30 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org
-Cc: DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org, 
-	carlos@redhat.com
+	s=arc-20240116; t=1724397969; c=relaxed/simple;
+	bh=yW7XvujB/5FDJ1yHqschzXlOW+YG9t+e4GhmBdylcOE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DBflBUklU31LF5g+Mn6roARECkzQHq47SAzMEstf5Xn0xRm17u/PaZ3PZzFwFxWOQhjmahYpqT/3ylA30gHPNlTYYmOmFAZk2eAY+iLvaOf4Re+RH6bKXjSNDX83xqtOT6RSoTFhU2mR02yPpnxbtz1GgyOKffTj8dncgpcJkTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=W5S+tMkw; arc=none smtp.client-ip=89.208.246.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xry111.site;
+	s=default; t=1724397966;
+	bh=yW7XvujB/5FDJ1yHqschzXlOW+YG9t+e4GhmBdylcOE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=W5S+tMkwseUNoWUTuKcSNaDn9sWredjvgrJAZ+EVeptGgsO6vdpNznel7T3dUny3J
+	 Lm/N4TndevpQhg81ZRS7q06rfS8u51yEPSCMjCu5oyaeyfy7T5eM5kljOAGIUtmHwY
+	 tRZ84Ly6eUBt1iPepHJRUoobGF2CVhcPmxWTHFjE=
+Received: from [127.0.0.1] (unknown [IPv6:2001:470:683e::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest SHA384)
+	(Client did not present a certificate)
+	(Authenticated sender: xry111@xry111.site)
+	by xry111.site (Postfix) with ESMTPSA id ABE7666F26;
+	Fri, 23 Aug 2024 03:26:05 -0400 (EDT)
+Message-ID: <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
 Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-Message-ID: <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+From: Xi Ruoyao <xry111@xry111.site>
+To: Alejandro Colomar <alx@kernel.org>, Paul Eggert <eggert@cs.ucla.edu>, 
+	libc-alpha@sourceware.org
+Cc: DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org, carlos@redhat.com
+Date: Fri, 23 Aug 2024 15:26:04 +0800
+In-Reply-To: <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
 References: <xned6jlywd.fsf@greed.delorie.com>
- <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
- <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
+	 <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
+	 <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
+	 <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tcf3jqsv3ihhulnd"
-Content-Disposition: inline
-In-Reply-To: <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
 
-
---tcf3jqsv3ihhulnd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>, libc-alpha@sourceware.org
-Cc: DJ Delorie <dj@redhat.com>, linux-man@vger.kernel.org, 
-	carlos@redhat.com
-Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-References: <xned6jlywd.fsf@greed.delorie.com>
- <e9e31a505f59c75ae5f9549b67102a433b39b42c.1724370362.git.alx@kernel.org>
- <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
-MIME-Version: 1.0
-In-Reply-To: <53dc1a78-980f-49cf-a6cc-ab5a42cde3dd@cs.ucla.edu>
-
-On Thu, Aug 22, 2024 at 09:57:39PM GMT, Paul Eggert wrote:
-> On 2024-08-22 16:49, Alejandro Colomar wrote:
-> >           t =3D mktime(tp);
-> >           if (t =3D=3D -1 && errno =3D=3D EOVERFLOW)
-> >               return -1;
+On Fri, 2024-08-23 at 09:02 +0200, Alejandro Colomar wrote:
+> Is mktime(3) allowed to return -1 and set EOVERFLOW on a successful
+> call?
 >=20
-> This isn't right, for the same reason similar code wasn't right earlier. A
-> successful call to mktime can return -1 and set errno to whatever value it
-> likes.
+> RETURN VALUE
+> =C2=A0=C2=A0=C2=A0=C2=A0 The mktime() function shall return the specified=
+=C2=A0 time=C2=A0 since=C2=A0 the
+> =C2=A0=C2=A0=C2=A0=C2=A0 Epoch=C2=A0 encoded=C2=A0 as=C2=A0 a value of ty=
+pe time_t.=C2=A0 If the time since the
+> =C2=A0=C2=A0=C2=A0=C2=A0 Epoch cannot be represented, the function shall =
+return=C2=A0 the=C2=A0 value
+> =C2=A0=C2=A0=C2=A0=C2=A0 (time_t)-1 and set errno to indicate the error.
 
-Is mktime(3) allowed to return -1 and set EOVERFLOW on a successful
-call?
+For mktime the standard only says "return (time_t)-1."  It does not
+mention errno at all.  And the standard also says:
 
-RETURN VALUE
-     The mktime() function shall return the specified  time  since  the
-     Epoch  encoded  as  a value of type time_t.  If the time since the
-     Epoch cannot be represented, the function shall return  the  value
-     (time_t)-1 and set errno to indicate the error.
+   The value of errno may be set to nonzero by a library function call
+   whether or not there is an error, provided the use of errno is not
+   documented in the description of the function in this document.
 
-ERRORS
-     The mktime() function shall fail if:
+> Then I think the API is completely broken.  How should we check for
+> errors after a mktime(3) call?
 
-     EOVERFLOW
-            The result cannot be represented.
+Maybe, special case if tm contains Dec 31 1969 23:59:59 UTC...  But it's
+just stupid.
 
-     The following sections are informative.
+> If this is so, let me file a glibc bug requesting a fix of the API,
+> adding a promise that on success, errno will remain unset.
 
+It's a bug in the standard, not glibc.  And the standard has deprecated
+it anyway.
 
-Then I think the API is completely broken.  How should we check for
-errors after a mktime(3) call?
+https://www.open-std.org/JTC1/SC22/WG14/www/docs/n2566.pdf
 
-If this is so, let me file a glibc bug requesting a fix of the API,
-adding a promise that on success, errno will remain unset.
-
-> This is just the first problem I found with the code (and I found it quic=
-kly
-> because I remembered the earlier problem). I would expect there to be
-> others.
+> > How about if we omit the sample code and make the minimal changes I
+> > suggested earlier?
 >=20
-> How about if we omit the sample code and make the minimal changes I
-> suggested earlier?
+> Because I'm being very careful writing that code, and still I'm having
+> trouble doing that, I think we must provide some example of a correct
+> call, to prevent many other programmers from doing it wrong.
 
-Because I'm being very careful writing that code, and still I'm having
-trouble doing that, I think we must provide some example of a correct
-call, to prevent many other programmers from doing it wrong.
-
-Cheers,
-Alex
+So IMO you should just say "the interface is deprecated, do not use it
+in any new code."
 
 --=20
-<https://www.alejandro-colomar.es/>
-
---tcf3jqsv3ihhulnd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbINAYACgkQnowa+77/
-2zJWUBAAjacrBGYLykLjFxzR6iPLEhtfCkB+8xTzi/gV/oTEBJ8I882fykXL5asz
-ng05HJ0/qfu1URnxUaDV/7loOkAsAY1rtVccMGcVx2z78bsiFVpZGmjahRhtzsJ1
-FXwF8FS7EW8Q6v6O9dBTMzLbLj990mU+YdY4KiDs5yJc0gOj+lZzSK18/8k3sfVp
-BJzq3nkCUptAdxxAwZbz2maA1WhQbyzkfR2DxdLwNrwwWZvXbXzxOZegqhjOa5U8
-PWY4KbXAqJVMe7UPS/FNseTBitzkpMHf2hNmI6IW3vGC171iDLXZRGtOcAVshsao
-t9h05vt+j0AUU+jAfSObXtKpXztKvAXQYvNIPHiiNpVTY4oQoG0y/PbrmOjlBhIP
-zbbO3AYS1GD47zTIPoVhGXmYFhC+D4VckzqY0+j6nmPMI5YZdRQ7v5o0oy/Sp5iq
-OHzvSFjxHiON1tJvCDzMImc3c9lTtSQmL7jivQlLHrwuWBpAAcTLjNH5z2eLFXmD
-bPFuBO07b1CxywoCl01NcOXCQgYUio3s2lQlr1I/e5JDYumQgVM1RbBGdE3lOFzo
-4Z3l+jdg+pIb2q+hxhz1KQsD6Gxh96/71aQC7V22n5pfNbZLIahSQhI8Sfxo3fMf
-BRZKJeRR5cgbPIEJW16rUYLqKufRsXMK+ovvxKtnF4VxTO29wpU=
-=ajts
------END PGP SIGNATURE-----
-
---tcf3jqsv3ihhulnd--
+Xi Ruoyao <xry111@xry111.site>
+School of Aerospace Science and Technology, Xidian University
 
