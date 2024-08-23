@@ -1,58 +1,66 @@
-Return-Path: <linux-man+bounces-1686-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1687-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E90B95D7D0
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 22:27:32 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC1B95D7E3
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 22:34:53 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CE0B82874DD
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 20:27:30 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 1BB24B22682
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2024 20:34:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EABF0194AFA;
-	Fri, 23 Aug 2024 20:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A8641C689A;
+	Fri, 23 Aug 2024 20:34:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZG4HqAjo"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tZ/IhhLP"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F4E194AD9
-	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 20:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A707C148
+	for <linux-man@vger.kernel.org>; Fri, 23 Aug 2024 20:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724444846; cv=none; b=kCPzv63QGNqrQvA5QbPatMoTHXutQiSNBo7BKhD8AiUlvqVwG2AnhvBIhPLzA9xbVSJfX/5csB9vxhnrOzeunO7nK/Uvz/F0oeU0LDOIfk7mbRu2zeVuInnI74WydnfSkE/Ot4Zl8zHEgRzhJqngfKHJABYceWdcrbtL47TmqYE=
+	t=1724445287; cv=none; b=KaGJTHp+T3vqoY3GV6ni8JRGPUHGlzMb4kpPiOxSQUrDxfhxGK+tjFX22bWGU0JBCyQ9jfH1LcOkieucaf/2AGNbYPZp3/MFmyHfbDayH/9n6bXVELGFPIpMe8WR/XLUMyu6WFqbB8H/ilx1AuWLh0V7AEctg0nIKndd6kHVeSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724444846; c=relaxed/simple;
-	bh=DX8vYIDpKyfQ+tgRrN/9StgrUd+OoV8NUilnlZLT8kE=;
+	s=arc-20240116; t=1724445287; c=relaxed/simple;
+	bh=LAJg2BuDgoTnHpj3+vWJbwa3mFYws9u6ByG8IdHm2Hs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K7o/nmJEz1d4NjN7EsJjbiA+evuaT/xvmKUj7bBMjM6EMtHUuSqwcRPUOcJbNg4rkXqKb4BaPv0ybHbbyf6o+L6xklwD8pGszbYfzkLnEub/ctpTAcUm2MMpHHnJw/jH7EuukyobtIn4eTtCEw/5qe42mUtHp9/fOXqNqw/9HM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZG4HqAjo; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5086BC4AF09;
-	Fri, 23 Aug 2024 20:27:22 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQoag24WEVcaxUtn6ELcuWaZ2e8hW06UGfuEqoUp59INRmPqSEjchmYosDmacmALKCNOF6t9scezdyfiIn/1Tf08mEzAoGlW/Mb4J8EK8ZvoBoyfxHmINuwJVHD261mdaGshwSwqkzrPvd9j/C9e52QGASbjB2wB287lxT37U4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tZ/IhhLP; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CBAC32786;
+	Fri, 23 Aug 2024 20:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724444844;
-	bh=DX8vYIDpKyfQ+tgRrN/9StgrUd+OoV8NUilnlZLT8kE=;
+	s=k20201202; t=1724445286;
+	bh=LAJg2BuDgoTnHpj3+vWJbwa3mFYws9u6ByG8IdHm2Hs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZG4HqAjoJ6MHH5XYodM1ACoIopidRWX1yx0aXGIorxH9VNOigtFLz//3bx3fkaoXs
-	 Rx9EaSGefIUW4uZBBsA8q7XZL4ZfpSzSGVrYRofNW1p/400L+dH6oYh2tBaqR6kcr+
-	 6H3zk3XHd8aDTtImGK385y7IJeO1pG2LGV32NAMTm3XWKFntqOt8fZIqFixb2/xIZt
-	 ssoJ4SSsLBgWqNZCyv1CrBBfI4mP+Z38ddSh0OQtEcmGCLyb9zAY4c4ywCj9NcMUKl
-	 +tNMG+XdeeUywneM6/GPC06qTi/R91pHNOWjMS9M4kuxg9QHsCoFWjjpV3WA4FJONo
-	 k4h/K/z3PX6Uw==
-Date: Fri, 23 Aug 2024 22:27:20 +0200
+	b=tZ/IhhLPeURx3B9N3m5pspZOhJXysiE3OsvCvhxwoRK0hY+5jZSxfrShDO0j3TXvA
+	 Bh22OuYExQh2RYvjL2wAvxQTbL0buDSi8AFrwiNtsd6FuCO6AJAf2nB6jDvQCaDjDC
+	 I0BonSRzuCu0Yb0XHdKmVd3qWeiJYboq3ymuQxBbrMyi7H3hu8m1fb05TIUhaRFd4G
+	 Qc8/kUuER3wcPWS/8vIqtUltO3VCJ6l8KhPeQPUTnPQpXRb84SzDedAafp/Smy9qHy
+	 8100udR0IcmbFnAVQpqdvB3queYVkpHECHSHvpy1aeZedxEVpyIuFqAaJaqBJpYi+J
+	 VhIBGsx882x/A==
+Date: Fri, 23 Aug 2024 22:34:41 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: carlos@redhat.com, dj@redhat.com, eggert@cs.ucla.edu, 
-	jens.gustedt@inria.fr, libc-alpha@sourceware.org, rcseacord@gmail.com, 
-	vincent@vinc17.net, xry111@xry111.site
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: Robert Elz <kre@munnari.oz.au>, Andrew Josey <ajosey@opengroup.org>, 
+	Geoff Clare <gwc@opengroup.org>, Vincent Lefevre <vincent@vinc17.net>, 
+	Xi Ruoyao <xry111@xry111.site>, libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>, 
+	linux-man@vger.kernel.org, carlos@redhat.com, "Robert C. Seacord" <rcseacord@gmail.com>, 
+	Jens Gustedt <jens.gustedt@inria.fr>, austin-group-l@opengroup.org
 Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-Message-ID: <6un6baaq5tez23irtycuvzqtuh7a4sdrf2px7tnyb3y6iqoxmq@2ofln4cd27ep>
-References: <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
- <331b41ea-dce5-414d-8588-9e4e2a59dedd@SystematicSW.ab.ca>
- <jqdmfoxuecuevujyv66eyzg3xsvfhou4hhvvi5bachy4dujnhu@gwcgwegj7qml>
- <e6395fed-ec28-41a2-bd48-ba6db2389a85@SystematicSW.ab.ca>
+Message-ID: <dhpb2izqpkly4n5m6x2pvxyp5z6mayskxohpf2wfgai5sv4wd7@tf6cx5enzwce>
+References: <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+ <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
+ <jexdbqmvupx3q546nipasrhunylrjazpbe2d3inmbqa4llowjo@6gu4orqoerbo>
+ <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
+ <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
+ <20240823135449.GF2713@cventin.lip.ens-lyon.fr>
+ <4n6fqru43irlzw7qcqkj6za4hxtn5g3icvtmyuneap4fs2aryk@ctcmkvw2xxl5>
+ <20240823152617.GI2713@cventin.lip.ens-lyon.fr>
+ <cb65drmcb6cotrz6rzkfuwg5aod2jta4ma6f6cds4pouk5tjdj@6wl6iwby2isi>
+ <8a48b03e-2873-4ec1-8896-98a28da9e824@cs.ucla.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,126 +68,85 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fovafpn7qp55imvt"
+	protocol="application/pgp-signature"; boundary="nqqykyhogiyc7c6n"
 Content-Disposition: inline
-In-Reply-To: <e6395fed-ec28-41a2-bd48-ba6db2389a85@SystematicSW.ab.ca>
+In-Reply-To: <8a48b03e-2873-4ec1-8896-98a28da9e824@cs.ucla.edu>
 
 
---fovafpn7qp55imvt
+--nqqykyhogiyc7c6n
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: carlos@redhat.com, dj@redhat.com, eggert@cs.ucla.edu, 
-	jens.gustedt@inria.fr, libc-alpha@sourceware.org, rcseacord@gmail.com, 
-	vincent@vinc17.net, xry111@xry111.site
+To: Paul Eggert <eggert@cs.ucla.edu>
+Cc: Robert Elz <kre@munnari.oz.au>, Andrew Josey <ajosey@opengroup.org>, 
+	Geoff Clare <gwc@opengroup.org>, Vincent Lefevre <vincent@vinc17.net>, 
+	Xi Ruoyao <xry111@xry111.site>, libc-alpha@sourceware.org, DJ Delorie <dj@redhat.com>, 
+	linux-man@vger.kernel.org, carlos@redhat.com, "Robert C. Seacord" <rcseacord@gmail.com>, 
+	Jens Gustedt <jens.gustedt@inria.fr>, austin-group-l@opengroup.org
 Subject: Re: [PATCH v3] ctime.3: EXAMPLES: Add example program
-References: <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
- <331b41ea-dce5-414d-8588-9e4e2a59dedd@SystematicSW.ab.ca>
- <jqdmfoxuecuevujyv66eyzg3xsvfhou4hhvvi5bachy4dujnhu@gwcgwegj7qml>
- <e6395fed-ec28-41a2-bd48-ba6db2389a85@SystematicSW.ab.ca>
+References: <kibbmshdcm3jfmpdyrspdnodqfehwd4bredtojemojvngdnzno@cfommtte6drm>
+ <7be010d1eb77d72caef1ff7018213f94e0074714.camel@xry111.site>
+ <jexdbqmvupx3q546nipasrhunylrjazpbe2d3inmbqa4llowjo@6gu4orqoerbo>
+ <20240823125313.GB2713@cventin.lip.ens-lyon.fr>
+ <daswt7u6tvj7mq4x5ntjzel5cspkyfmkphrtvsdsywoaalhrgh@7s2eedsskylp>
+ <20240823135449.GF2713@cventin.lip.ens-lyon.fr>
+ <4n6fqru43irlzw7qcqkj6za4hxtn5g3icvtmyuneap4fs2aryk@ctcmkvw2xxl5>
+ <20240823152617.GI2713@cventin.lip.ens-lyon.fr>
+ <cb65drmcb6cotrz6rzkfuwg5aod2jta4ma6f6cds4pouk5tjdj@6wl6iwby2isi>
+ <8a48b03e-2873-4ec1-8896-98a28da9e824@cs.ucla.edu>
 MIME-Version: 1.0
-In-Reply-To: <e6395fed-ec28-41a2-bd48-ba6db2389a85@SystematicSW.ab.ca>
+In-Reply-To: <8a48b03e-2873-4ec1-8896-98a28da9e824@cs.ucla.edu>
 
-Hi Brian,
+Hi Paul,
 
-On Fri, Aug 23, 2024 at 12:31:01PM GMT, Brian Inglis wrote:
-> On 2024-08-23 08:25, Alejandro Colomar wrote:
-> > Hi Brian,
-> >=20
-> > On Fri, Aug 23, 2024 at 08:04:20AM GMT, Brian Inglis wrote:
-> > > AFAICS from 9899 1998 Draft to 2023, the *mktime* wording has been es=
-sentially:
-> >=20
-> > I find the above confusing.  What is 9899 1998?  The draft is for
-> > ISO/IEC 9899:2024.  There's no 1998 in the name.
+On Fri, Aug 23, 2024 at 12:08:36PM GMT, Paul Eggert wrote:
+> On 2024-08-23 10:48, Alejandro Colomar wrote:
+> > Robert, Geoff, Andrew, can you please clarify where is the discussion
+> > that led to the following change?:
 >=20
-> Sorry for the typo - from the original *1988* Draft from ANSI X3J11 88-090
-> 1988-05-13 of ANSI/ISO/IEC 9899:1990 through 2023.
-
-Ahh, thanks!
-
+> Why does it matter? The tm_wday idea has worked everywhere for decades and
+> is now standardized.
 >=20
-> > > "The original values of the tm_wday and tm_yday components of the str=
-ucture
-> > > are ignored, and the original values of the other components are not
-> > > restricted to the ranges indicated above. On successful completion, t=
-he
-> > > values of the tm_wday and tm_yday components of the structure are set
-> > > appropriately,"
-> >=20
-> > The text you've quoted is there since ISO C89.
-> > <https://port70.net/~nsz/c/c89/c89-draft.html#4.12.2.3>
-> >=20
-> > And that is not guarantee enough.  It says that wday and yday are
-> > ignored (for the purposes of determining the return value).  And it says
-> > that on success it modifies them.  But that text is silent about what
-> > happens on error.
+> For what it's worth, GNU Emacs has been using the tm_wday idea since 2018,
+> when I made the following change:
 >=20
-> It states they are set on successful completion, and implied left alone i=
-f not.
-
-ISO C leaves everything not explicitly stated as Undefined Behavior.  :)
-Implied left alone is too optimistic.
-
+> https://git.savannah.gnu.org/cgit/emacs.git/commit/?id=3Db4eb908f858284a7=
+962851fd99c94598f76afa6f
 >=20
-> > It is C23 in 7.19.2.3p3 which provides a novel guarantee, that those
->              ^^^^^^^^^^
->              7.29.2.3.p3
-
-Oops typo.  :)
-
+> and many GNU tools also use the idea, because I made a similar change to
+> Gnulib too:
 >=20
-> See "WD" https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#page=
-=3D415
->=20
-> > fields won't be modified on a failed call.
-> >=20
-> > >=20
-> > > so the recommendation has been to do something like (pointless exampl=
-e):
-> > >=20
-> > > 	time_t tt =3D time(&tt);
-> > > 	struct tm *tm =3D localtime(&tt);
-> > > 	tm->tm_wday =3D tm->tm_yday =3D -1;
-> > > 	if ((tt =3D mktime(tm)) =3D=3D -1 && tm->tm_wday =3D=3D -1 && tm->tm=
-_yday =3D=3D -1)
-> >=20
-> > This conditional, just like the one in the POSIX 2024 standard, is
-> > redundant.  Reading tm_wday is enough for determining a failure.
-> >=20
-> > Otherwise, what would you expect if tm_yday is 4 but tm_wday is -1? Hal=
-f an error? :)
->=20
-> Checking both are still untouched guarantees an error!
-> If one is set, it's a QoI bug, not an error ;^>
+> https://git.savannah.gnu.org/cgit/gnulib.git/commit/?id=3D6ccfbb4ce5d4fa7=
+9f7afb48f3648f2e0401523c3
 
-Cheers,
+Great!  That gives me more confidence.  Thanks a lot.  :)
+
+Have a lovely night!
 Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---fovafpn7qp55imvt
+--nqqykyhogiyc7c6n
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbI8KgACgkQnowa+77/
-2zJOkQ/9FXyEtq4QiLs2IExeqJDBegSWMm7r/mHea03KwPlp8WPMWUl2XwoV72Ov
-uVyyZEiOQmtr3qeCA8n529xkPcCat/frpWPOcjmzQ+Tc88mualIzfS2slEOxixAR
-le21eCVEe435fGpozT767my0G81JMFRKYLeYVymMF636l1MDTw8fG7WrWqg/fZRJ
-/BaG5QzZR1zTBvcvRiRWBq85Ptx+dZR8xsYWTfxJE1YhJE1K4ArdC7cil2qMUwyQ
-JCyd19k/zw4i8ogoBgNemtI7h5B0bo5T3vtUUWdIWoQOk4FPuE+H3LULOnBVbHxa
-nroC79lL7MRUmZXjjj8h6cVlndFA1RgzXBi5oeSq4bSPKvK6rwOl2Xp7gScKV3Lg
-ClNeHz8zBuxA29pcmFyF/V1cpvdz//fmYvXyTef91VXIbStG5GoPzBrJImGoAW2V
-NYg138CbBkpwXY5aY8U+qVqVYaYss8+0FtyPngR77YcxS7LEV03iWkc4YMBk7G5Z
-Q/uXKfAzQ0HB67WuhJrI8YqmXBt2u+0nRA8llzC5mwPfcpCJA5YI01FFBW2IOmwc
-h7v1nrhJSbUDmbnOOAEZU/+EQV0YYutTTDzcrlnIyLGs9SqWiWQujoEzhEzZyuSl
-RahBMZTd25U52ivMu/08+iUmml/YhuMELeNpfbISaTyVFIzG5PE=
-=pWES
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbI8mEACgkQnowa+77/
+2zIyJRAAmGQCSJDq9LXiE1xHIuuSbFy387uiOsiYi9YV3P5DfwUKJxsaW9FtqvAU
+565sQmIBG9nwqXaxb0sU5bXjjDb1d7pm0QoRBoEewzCHG1pK+TDJpFmACkfVJp5W
+XrlkSOxJtrQLoqnKmPrZe1UwDfYsQoQaWw7nvrBqbJDYOzQbi0b0hW4ISXahntD/
+3c1a+q2Xp8Q9WumAoU52jq87KmlUYFgjeZYZsyww1L3GSsOiZvcSLcWIVz/JpuIw
+lWGVqZBk7TO5jRnpQwZ7gMBwD1hvLZaW8/MMzPRTjZJrQb4K0XikLJ5+uUwn9NLh
+EqCJ36VuZnc7vqlLF1Xoj2QDU1lrwfnM1KR0kakhVy8ZXoVg2LugOOk5X5WcmndR
+LGH0Jtm4gGiHLIynGxIPCPBjU/RwwgS1Ax5c8wFK8OVQnLQdPFyNXk1pOZsFg5Si
+JzQoa0k49fpuer7iI5OaDVjphDSNcKDEsfE+/DZIUop7UE0zQi4TyyvPUny1sp6k
+wvGEOBYMN+jU1yzwqhAIOO8nSS+ZJQOump8fpfPA0axS4d8VHtrqbF2OZ7Zzm1mX
+yHiQjUbK5WLJjZ50gWHOEfDSknWJOe7VPqnTv7QjQP64f4iJVKK0kkwc3gQsxUxO
+VPnYpWm/836J8yoBqhxvJWYxFvZ+92iW7drzfbQlXlnQA0IRvR0=
+=SYLZ
 -----END PGP SIGNATURE-----
 
---fovafpn7qp55imvt--
+--nqqykyhogiyc7c6n--
 
