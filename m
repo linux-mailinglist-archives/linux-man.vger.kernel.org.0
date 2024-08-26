@@ -1,206 +1,176 @@
-Return-Path: <linux-man+bounces-1705-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1706-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEDAD95F688
-	for <lists+linux-man@lfdr.de>; Mon, 26 Aug 2024 18:29:02 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 168ED95F6C6
+	for <lists+linux-man@lfdr.de>; Mon, 26 Aug 2024 18:39:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F1B401C20891
-	for <lists+linux-man@lfdr.de>; Mon, 26 Aug 2024 16:29:01 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3AFF41C20FE5
+	for <lists+linux-man@lfdr.de>; Mon, 26 Aug 2024 16:39:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EE3B1946DA;
-	Mon, 26 Aug 2024 16:28:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C3DD197A7A;
+	Mon, 26 Aug 2024 16:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RY4qV/uU"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hJWr4dM4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1657E1;
-	Mon, 26 Aug 2024 16:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11651957FC
+	for <linux-man@vger.kernel.org>; Mon, 26 Aug 2024 16:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724689738; cv=none; b=DD4igEA/r5EXd7G1U5stezy7xM6g9VOtzxnAlSLEqlATVe1VCcWXJZiWgDXHu6/BHYJBHRPa4kPTL+EGgNa75MtLpU2VFmLmadiFX74rMx+he85FT518cFjOWxJIUuPlOC70dLXzwJeVIJWcrZSFLQheaoGtByu/MCKDDF0zbnA=
+	t=1724690283; cv=none; b=plASFjS7VZtl8JPum0JwgMHF3uHxXLIFVEnhBcjwcEUgw/PsxJMUcdI4Ao6NOv/8oKbUqRMQOZ9Bdo4g5tJBXIdv01giNWc6Sm1cMBchXKGkIH8FD2GKaWLx8MKMpkIwc94dG8qrK8ey0IHY0uxql88SNYLt729bH9Aw6n+GIUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724689738; c=relaxed/simple;
-	bh=r0t170+dJDDqs5a9t3WYaX2A2dxrujny3h/WpuN9CS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=guXW2vFf40IE+CdATKzghh64LcEU6MhDjuJkIccRAiAXJTwrMfMqskMXA+hQiBX35YCQjCW6TXC+shjDg5ZAK7VyFeahnqfuTVZ7pI+Ptpko5R2xQkp8NvzbmdO6VXejb0HYDcE0bdCfVi6P2GKGg0iDpVT+TsGHXdCbZAVsGD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RY4qV/uU; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9840AC52FC1;
-	Mon, 26 Aug 2024 16:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724689737;
-	bh=r0t170+dJDDqs5a9t3WYaX2A2dxrujny3h/WpuN9CS4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RY4qV/uUbQq0V52Y09N+EV9otB6jCh8Yt5Mrc9GkfcpizPhYQ0fvs91ZLDdcEkiFU
-	 TYW295IAU12snTCJ1YzXlKdoeFUyE/UKDmvmzKrM1Hwq5Xr+EOHspWqryjNaYrglqc
-	 vJB54C79w0qHS87lKqPmLM0OM22Pwx9dhwUBiUrgt3G4b4TXONLB+ShkUi6GsURD3X
-	 +iUsds6o9VmeCDsQZlSGTQFy7j59v0+yGMAGCsNC6PbKnNm3AmcrmaLP+e1AcOJL3X
-	 9rrIaCSOEvad86d09L8ALqT76HLaFMXlk56U4bhRdF7u4nrmo4qssSbWejjdtXyA6x
-	 N2jsp30frcK7w==
-Date: Mon, 26 Aug 2024 18:28:54 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Xi Ruoyao <xry111@xry111.site>
-Cc: linux-man@vger.kernel.org, Mateusz Guzik <mjguzik@gmail.com>, 
-	Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] statx.2: Document AT_EMPTY_PATH allows using NULL
- instead of "" for pathname
-Message-ID: <oy6ccnyva4jt2355ut32me7otbjxdro2rtentxnyr3mhnxvj36@giagon74ilcl>
-References: <20240826145718.60675-2-xry111@xry111.site>
+	s=arc-20240116; t=1724690283; c=relaxed/simple;
+	bh=4Fr8I8OUez9tcTyQOrTT7mpvI8llSC20hZ2GgBpIriM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lAGzSfMRw0z+aWJv7/YX2R1mMh9hvpmRi/wiHEdOuJVQmdyhp4BgiaEWkeHBVSogy0bPVfhMFz9RlPJjy0IQB2j1z4a+vS1eTbj4L0xcDlpsv4GhBVnHMfFuvbX398RFATZind0tfFsW5Fu2Guuci14tb5GOKi8wyOgKOZF/NaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hJWr4dM4; arc=none smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-6bf747371ecso21338166d6.3
+        for <linux-man@vger.kernel.org>; Mon, 26 Aug 2024 09:38:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1724690280; x=1725295080; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RtwdO7LuRPCqLsbuDffV999mCXBmh6bcwdwh+gP7EH0=;
+        b=hJWr4dM4Z9681F5TQ7Nl0jkSjySShT4yLlLia0ymsUonevH3LyYz/Qo5+bh+AyQD/G
+         LkfEQLTq05ggQ/DJkE8cnUvFWFKq0iU+Uf4eUoL+xLbkaWmd/x801CqupgtdGwiXps2x
+         mHuqJwC0I8KyWD1OR3AmuNj4JWTEeitMHinPju0BO7OLlieu6bbqr6Nw2h3FHsc3dVSi
+         u5MUYIUFjEMpzpwuuRV2wbVdATI42Z16eYj8Em4C1ASGfunxuM7hqKGZdtFl2GpZNMte
+         Z8RIIQN/nq7vYNPpEU2Dx7rT8X8FfKApx0kqpFm1BlLTjgujdSdKKvozMPUNqwTBZH6C
+         ep1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724690280; x=1725295080;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RtwdO7LuRPCqLsbuDffV999mCXBmh6bcwdwh+gP7EH0=;
+        b=UAZYuZS1yS6Vi9LSSWRdg6XASQDbtubFJ4y7MnkOFkLU4ZLbOJWO+F1ibYL6HNoobD
+         zTVzptPM5BEi5A02we27WNaY7UurWcvVRk1aT/VRfliFwBvjXktE7xeDUehtmayJOEt8
+         JOFupXj69KXUJ2ka67vOuYFknyOYgMXYgYWngYlOqgGVbTcZYGrKZVGcRkk/hpdFdwxS
+         t2LdbB4wxfQT6WsTxTNMpwSzhgpPthVk7iCHD9Fcx20B+HoPpcb/pDKS12+SjIAsJB+G
+         lxUpIRSe6kj547VAcr5j59jNpoUaVmCAOW34zyXna2qzcl3RrCR6jxJqUkzsqCsP3gmS
+         cKkw==
+X-Gm-Message-State: AOJu0YyGVxH7SkCHDEmTKoJXajmYHo6F5q7Br0gPibiWboE3PxmYk+69
+	0vjWb4gAeIU6Wd6Vwt6QpQEMIL+c8sa0vdPQfm0JIUZZEBGFm8+73S4c1/dfTuRCx0h+YupmgHE
+	MIEj4s8BgapDraOGvZsr4JeQZH0AIdal9kpKd
+X-Google-Smtp-Source: AGHT+IHW0PjToejQyAjN11fUZiRWhJoh5Q1N/jG7Xjl5Gu35ZCZuGhvFbF/h5ko3EoXIK9u5Gvf3O3wJPGmCygNH3qY=
+X-Received: by 2002:a05:6214:3990:b0:6bf:799a:ea14 with SMTP id
+ 6a1803df08f44-6c16dc50d11mr127378896d6.21.1724690280312; Mon, 26 Aug 2024
+ 09:38:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wz4ypvb6jm4y7icx"
-Content-Disposition: inline
-In-Reply-To: <20240826145718.60675-2-xry111@xry111.site>
-
-
---wz4ypvb6jm4y7icx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <CAJgzZoon_Ewki=qGEPnzbSi7Tfu-i51cT529z3obiHeaP+WuuQ@mail.gmail.com>
+ <akk6v6ddvxj2wr3eo32jw4frjqxvgygbbf7xsqrzdofu7gabko@r45j6x5blmfk>
+In-Reply-To: <akk6v6ddvxj2wr3eo32jw4frjqxvgygbbf7xsqrzdofu7gabko@r45j6x5blmfk>
+From: enh <enh@google.com>
+Date: Mon, 26 Aug 2024 12:37:46 -0400
+Message-ID: <CAJgzZooRNJbSe0fsYztsMKvb=C1FLU_cXQX9xtR9DPCavx6H7w@mail.gmail.com>
+Subject: Re: fchmodat(2) does support AT_SYMLINK_NOFOLLOW now, no?
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Xi Ruoyao <xry111@xry111.site>
-Cc: linux-man@vger.kernel.org, Mateusz Guzik <mjguzik@gmail.com>, 
-	Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] statx.2: Document AT_EMPTY_PATH allows using NULL
- instead of "" for pathname
-References: <20240826145718.60675-2-xry111@xry111.site>
-MIME-Version: 1.0
-In-Reply-To: <20240826145718.60675-2-xry111@xry111.site>
 
-Hi Xi!
+looks like Linux 6.6...
 
-On Mon, Aug 26, 2024 at 10:57:19PM GMT, Xi Ruoyao wrote:
-> Link: https://git.kernel.org/torvalds/c/0ef625bba6fb
-> Cc: Mateusz Guzik <mjguzik@gmail.com>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: linux-fsdevel@vger.kernel.org
-> Signed-off-by: Xi Ruoyao <xry111@xry111.site>
-> ---
+commit 475d4df82719225510625b4263baa1105665f4b3
+Merge: 511fb5bafed1 712143795327
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Mon Aug 28 11:25:27 2023 -0700
 
-Thanks for the patch.  Please see some small comments below.
+    Merge tag 'v6.6-vfs.fchmodat2' of
+git://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs
 
->  man/man2/statx.2 | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
->=20
-> diff --git a/man/man2/statx.2 b/man/man2/statx.2
-> index f7a06467d..741de10be 100644
-> --- a/man/man2/statx.2
-> +++ b/man/man2/statx.2
-> @@ -20,8 +20,9 @@ Standard C library
->  .BR "#include <fcntl.h>           " "/* Definition of " AT_* " constants=
- */"
->  .B #include <sys/stat.h>
->  .P
-> -.BI "int statx(int " dirfd ", const char *restrict " pathname ", int " f=
-lags ,
-> -.BI "          unsigned int " mask ", struct statx *restrict " statxbuf =
-);
-> +.BI "int statx(int " dirfd ", const char *_Nullable restrict " pathname ,
-> +.BI "          int " flags ", unsigned int " mask ",
-> +.BI "          struct statx *restrict " statxbuf );
->  .fi
->  .SH DESCRIPTION
->  This function returns information about a file, storing it in the buffer
-> @@ -146,7 +147,7 @@ for an explanation of why this is useful.)
->  By file descriptor
->  If
->  .I pathname
-> -is an empty string and the
-> +is an empty string (or NULL since Linux 6.11) and the
->  .B AT_EMPTY_PATH
->  flag is specified in
->  .I flags
-> @@ -164,7 +165,8 @@ is constructed by ORing together zero or more of the =
-following constants:
->  .\" commit 65cfc6722361570bfe255698d9cd4dccaf47570d
->  If
->  .I pathname
-> -is an empty string, operate on the file referred to by
-> +is an empty string (or NULL since Linux 6.11), operate on the file refer=
-red
-> +to by
+    Pull fchmodat2 system call from Christian Brauner:
+     "This adds the fchmodat2() system call. It is a revised version of the
+      fchmodat() system call, adding a missing flag argument. Support for
+      both AT_SYMLINK_NOFOLLOW and AT_EMPTY_PATH are included.
 
-Please use semantic newlines.  In this specific case, please break the
-line after the ','.  See man-pages(7):
+      Adding this system call revision has been a longstanding request but
+      so far has always fallen through the cracks. While the kernel
+      implementation of fchmodat() does not have a flag argument the libc
+      provided POSIX-compliant fchmodat(3) version does. Both glibc and mus=
+l
+      have to implement a workaround in order to support AT_SYMLINK_NOFOLLO=
+W
+      (see [1] and [2]).
 
-$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
-   Use semantic newlines
-     In the source of a manual page, new sentences should be started on
-     new lines, long sentences should be split  into  lines  at  clause
-     breaks  (commas,  semicolons, colons, and so on), and long clauses
-     should be split at phrase boundaries.  This convention,  sometimes
-     known as "semantic newlines", makes it easier to see the effect of
-     patches, which often operate at the level of individual sentences,
-     clauses, or phrases.
+      The workaround is brittle because it relies not just on O_PATH and
+      O_NOFOLLOW semantics and procfs magic links but also on our rather
+      inconsistent symlink semantics.
 
+      This gives userspace a proper fchmodat2() system call that libcs can
+      use to properly implement fchmodat(3) and allows them to get rid of
+      their hacks. In this case it will immediately benefit them as the
+      current workaround is already defunct because of aformentioned
+      inconsistencies.
 
->  .I dirfd
->  (which may have been obtained using the
->  .BR open (2)
-> @@ -604,7 +606,11 @@ nor a valid file descriptor.
->  or
->  .I statxbuf
->  is NULL or points to a location outside the process's
-> -accessible address space.
-> +accessible address space (except since Linux 6.11 if
+      In addition to AT_SYMLINK_NOFOLLOW, give userspace the ability to use
+      AT_EMPTY_PATH with fchmodat2(). This is already possible with
+      fchownat() so there's no reason to not also support it for
+      fchmodat2().
 
-You could reorder the above to be
+      The implementation is simple and comes with selftests. Implementation
+      of the system call and wiring up the system call are done as separate
+      patches even though they could arguably be one patch. But in case
+      there are merge conflicts from other system call additions it can be
+      beneficial to have separate patches"
 
-"""
-=2EI statxbuf
-points to a location outside the process's accessible address space
-or is NULL
-(except ...
-"""
+    Link: https://sourceware.org/git/?p=3Dglibc.git;a=3Dblob;f=3Dsysdeps/un=
+ix/sysv/linux/fchmodat.c;h=3D17eca54051ee28ba1ec3f9aed170a62630959143;hb=3D=
+a492b1e5ef7ab50c6fdd4e4e9879ea5569ab0a6c#l35
+[1]
+    Link: https://git.musl-libc.org/cgit/musl/tree/src/stat/fchmodat.c?id=
+=3D718f363bc2067b6487900eddc9180c84e7739f80#n28
+[2]
 
-which makes the added parenthetical to be next to the mention of NULL.
+    * tag 'v6.6-vfs.fchmodat2' of
+git://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs:
+      selftests: fchmodat2: remove duplicate unneeded defines
+      fchmodat2: add support for AT_EMPTY_PATH
+      selftests: Add fchmodat2 selftest
+      arch: Register fchmodat2, usually as syscall 452
+      fs: Add fchmodat2()
+      Non-functional cleanup of a "__user * filename"
 
-Have a lovely day!
-Alex
-
-> +.B AT_EMPTY_PATH
-> +is specified in
-> +.IR flags ,
-> +pathname is allowed to be NULL)
->  .TP
->  .B EINVAL
->  Invalid flag specified in
-> --=20
-> 2.46.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---wz4ypvb6jm4y7icx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbMrUAACgkQnowa+77/
-2zKGjw//T3J4KMj2Q1vXvOnbgbajvMIKBSYwGza20iNMW4S6cDHybt5oAI8lav8+
-ykDQSWGeadPJ72VoYbsg3A639OMzFU+MIejvPvIS3It9W22ohQizxUHU+zozqKGd
-TRakwrO6rhJ2AjHCEFh1x0onG3aAQMRaRXjn2z6CHYpAtoqpCwsLhMWI258g48Oq
-AwzvlZibp2dPKDRHCR4IO7XmloBHIwXkby0KenTS+Gpjzsf5ZnOB7bhjk+YwA4V2
-Xzh5Q4m1K1/JeHYyr0OwpvqK2He8s69+1SEEv0Tu5lHOR4nU12+lmrBfEPk+1lwF
-e76vMBCOF2Wn16kAjl4kBeJs5q1DD1/NXz0LuRM4wuLbROBu8JsPF31jA7ZjB7xU
-dkx/symQRn2lnYhr7ohaBopdlBjSt/fq28RO0zbB6oHbmlUFJGlC35+SCoSLNFtL
-anep4NckS61oJ6YTNy6oPQw2cWY5UIvnOPSyJQtOqT7mI4XE7jVUxUy3vLMHSJVK
-yeYhwQMBh3GkaEh1ojGMhROGWXKRL0/BlXBtdGD96md44EzqU7kgq+8F4PNsBtX5
-uzfmXOgpbP2IE0xFgfjXCiIcw3Brs8TrNiqut9gvNTKW0EduBUWkqiCZC0Cp1Imk
-q+0i9q6q3Gn31DNHpLuIGm5Js+JPwEiXqy43ozBxWMCKFTgvoic=
-=Dtse
------END PGP SIGNATURE-----
-
---wz4ypvb6jm4y7icx--
+On Sun, Aug 25, 2024 at 5:52=E2=80=AFAM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Elliott,
+>
+> On Fri, Aug 23, 2024 at 02:40:16PM GMT, enh wrote:
+> > subject says it all... the "This flag is not currently implemented."
+> > on the man page is wrong, i think?
+>
+> I guess it was right when the text was written in 2006.
+>
+> $ git blame --follow -- man/man2/chmod.2 | grep currently
+> 92f114db82 man2/chmod.2     (Michael Kerrisk   2014-02-21 08:35:27 +0100 =
+207) This flag is not currently implemented.
+> $ git blame 92f114db82^ -- man2/fchmodat.2 | grep currently
+> a53b8cb2a0 (Michael Kerrisk  2006-05-02 00:05:06 +0000  99) This flag is =
+not currently implemented.
+>
+> That might perfectly have changed in the last 18 years.  :)
+>
+> Would you mind writing a small program and shell session that
+> demonstrates it?  It could be interesting for an EXAMPLES section.
+>
+>
+> Have a lovely day!
+> Alex
+>
+> --
+> <https://www.alejandro-colomar.es/>
 
