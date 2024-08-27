@@ -1,195 +1,185 @@
-Return-Path: <linux-man+bounces-1710-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1711-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D42C195FFA4
-	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 05:09:51 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B5190960423
+	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 10:15:31 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 119E71C21A83
-	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 03:09:51 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6C97E2835B7
+	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 08:15:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D3DD1773A;
-	Tue, 27 Aug 2024 03:09:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26F32157468;
+	Tue, 27 Aug 2024 08:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nN7jxFDs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvYeLa9/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3458110A3E
-	for <linux-man@vger.kernel.org>; Tue, 27 Aug 2024 03:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D675680027
+	for <linux-man@vger.kernel.org>; Tue, 27 Aug 2024 08:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724728187; cv=none; b=k6+mItcWSPys36iYAqpn3k5tb4qpMdW6PDF/5kQxUNxh1gOoVNaa/bd72RWHYagIlqxLyfhF4SnE64WJSJPPe//plAWAXrpzvVUDJkYJKXYoVxdmt2HfI0MQGsX8DY9g2pyDbUmDrW9x3qwhCBZWx4JtWrGk9TToDg98Bf6jG2U=
+	t=1724746526; cv=none; b=eJRtPt3JWuRVHIhRr+LTejYLvILTHAAGFrYUeHGKCiR40i1Ccoy3gnh19sZ0IxCN7rQejeZQN/R/CON9WLMQ8OzXqJV2o3+yRTa1Z5tStix+3EDNHsCFbjbwcK9M5eBkzj5DDCxWnFIcKaYRqfxPgakHSCBiQJ58FjAm0+K1ex0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724728187; c=relaxed/simple;
-	bh=DIhYIQ+JPsiGae9jd4qr+o4jDcUVsHYYqP7mCcfFtZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rWX0I43UiV2+gOrFLR19CLOnVrU1Q0jCLOocO70KfmHg4221HAi748fjuo4JyxFhYJeBbJdCTkab77l6kYk1/6XLhLPlWvZjo8ylLdMfazecj8prUl1MpbFm4ZpZM9aIG9+U+lGALGT16h3htRksCAt7Ms3MbkrVDMS546kcHE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nN7jxFDs; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-5a10835487fso7463353a12.1
-        for <linux-man@vger.kernel.org>; Mon, 26 Aug 2024 20:09:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724728184; x=1725332984; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lYlhyhehC521JkAYiIJOTxP8qGteuWbqnZ+gfUDYK9g=;
-        b=nN7jxFDsra5OyW5rbZPre4KJLQriOALDHeaETc1JdLvVKzqDwutALKty2fDQ2LCxlg
-         gwGd9+H43xjuASAnRQvRYfiMEkykQPykZ7nW/S9wlzH7o6POOP3Uep3iNtZUHw8qnk0C
-         5o59kmeFe0gxV59v7T7oDWUBd82SDZlxgpgydvQr9zU683fBKIBBoIkrmSMyANtUk0RK
-         0Q+5ABkyCbXUt0JOrsZM1cIPgKFhzZtANkKJfe9aLSm8WeVMjwVwrGdmi+LoookmLGuB
-         9y2NFiymrvPYWYzJ0AnR/kxri3RPkLdvbyKweghFhB6tMlnXvtWKYpN3BxHo79/uL9E9
-         ffaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724728184; x=1725332984;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lYlhyhehC521JkAYiIJOTxP8qGteuWbqnZ+gfUDYK9g=;
-        b=Px9XsdAsN4E7IIXlBLyaJUIgOX6NSg6PRp9gtLcDFu/OCd0y901PN0omFaQw3QyHmQ
-         NSfmSTDnfDM5dreyb6DBOXjYeUVZqAY5yLgQ0css5tt66RgUJ0//0vVj1YZBJIYrQN7Y
-         HXNVm6G+YGSD/FCdSyUDYCJ16FKz57P2OAx5RlVvypHtLPotnhGwj8J9mcoH1fSrqVuF
-         LOol1ENSdbyEDp+0DnOIu2CXg5+7z5v1qpVmtqzMkeUEI3BTJPyptekqaiS4ybTXElSD
-         oxZz5BNVA9Oq4yeYYAl1eN/CDhIMUWf/zEdaKi1XDFK6kZHjE7k9NXjT6olTUCbs+TjX
-         1MsA==
-X-Gm-Message-State: AOJu0YxNZi7WvbKtRndOlUogrfumOl0s1KZsVVQhMkq3mZHnvpJ7dLNp
-	MXS7wJIjwdyzTnfeBUS8J/AJx2Iztlpe3MS/WbiuPYTtj/UYMuWoPq8OVnYCP94TAvlxdRu+tnS
-	5UDLmSmvdRn9qhgPutC32CUEX5I6jPbJ6apM=
-X-Google-Smtp-Source: AGHT+IHGjzWyjETLzXVBvBZWs2C8aRRUB15VjGunBSuXKLxUlEA61jAplDGZEQyuVIJ3FiSen8flLKyJdhYDt4HT7qo=
-X-Received: by 2002:a17:907:7d89:b0:a83:94bd:d913 with SMTP id
- a640c23a62f3a-a86a516542emr844577466b.10.1724728184182; Mon, 26 Aug 2024
- 20:09:44 -0700 (PDT)
+	s=arc-20240116; t=1724746526; c=relaxed/simple;
+	bh=bnglRTdyNkldlltDUfeM2Y9G62uKF53Nvqj4kzRpWd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P23w0vncNw3Kbk4lK7+sIm/8tuvP/8A6T+EEacLpKtamjIX3YeTcIFQf7mO0G0qNG0mg9zs4i3gmgbH5KtEFNEyhgjRvG4cc9hsxdL0YHmcnnTGmQeSoVDdGmQR4STph2bKMVqLLar6+D1TqlcAx7I4VHZKfBBWCoafn3E4eLNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvYeLa9/; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5E87C567F0;
+	Tue, 27 Aug 2024 08:15:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724746526;
+	bh=bnglRTdyNkldlltDUfeM2Y9G62uKF53Nvqj4kzRpWd8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FvYeLa9/Zbui5s3WfWTMhj9TpsA88csCRrbM+3NQzFa6/i1XQuRnDBRId1Bbxmc8x
+	 2P6w6SHGILALGD+S/Nf79W3ulMmN/HcbUhsKZPj2x4YgDy3uU9NQuEqx+mFAVXc4q5
+	 rablvYDtKMmJ3IFb9lIc+rG/bsTWOdotiXgeJSlL9fXJylivh1CHXtNVMfzqovWsMJ
+	 AYntiLyNAdf4AwnhjxgfpqzzcO4kVbh0835RZ8DPyyTWEhT8YppiEe3sDMRChOkVNX
+	 09OIoY2ObWTpLsFXrHNjjocQhwQkS8JgIr1yZgSgFMM+O73Qf7M/NPE7pQCA1DdzA4
+	 xkOcN213oAQlQ==
+Date: Tue, 27 Aug 2024 10:15:23 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Absee Seeab <doesnt.look.like.temp.mail@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Missing crucial information in splice(2) manpage
+Message-ID: <4xw464u2munxbgujopgfggxvnvgxa2b5lh35eriaeziapaa4uq@z6jmdim6f5mo>
+References: <CAHeAhPS-Z1zV_2TX3T-FPcgW9H8DLafas9-GGUpr-pk-5zEzXA@mail.gmail.com>
+ <utbcwylyt4dsx7ikfhv2vwbqedxmxlfivjih6nxtm424zba7de@5ctrj6xvegxb>
+ <CAHeAhPR+G5k2k+nF18TqfAsMtP_pf+Gr9RQDLbotzQnATb_TyA@mail.gmail.com>
+ <mztcfeqtqhzmw2bng7sbs3h3ym4t63hrlolcj7uctdkxy37yox@7uqjzipgst4y>
+ <CAHeAhPRcRaxryqc20-XQNo-KPs-=8ObyrfW35w8Kyux+fwBOAA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="34uljdywlhupcx2h"
+Content-Disposition: inline
+In-Reply-To: <CAHeAhPRcRaxryqc20-XQNo-KPs-=8ObyrfW35w8Kyux+fwBOAA@mail.gmail.com>
+
+
+--34uljdywlhupcx2h
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Absee Seeab <doesnt.look.like.temp.mail@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Missing crucial information in splice(2) manpage
 References: <CAHeAhPS-Z1zV_2TX3T-FPcgW9H8DLafas9-GGUpr-pk-5zEzXA@mail.gmail.com>
  <utbcwylyt4dsx7ikfhv2vwbqedxmxlfivjih6nxtm424zba7de@5ctrj6xvegxb>
- <CAHeAhPR+G5k2k+nF18TqfAsMtP_pf+Gr9RQDLbotzQnATb_TyA@mail.gmail.com> <mztcfeqtqhzmw2bng7sbs3h3ym4t63hrlolcj7uctdkxy37yox@7uqjzipgst4y>
-In-Reply-To: <mztcfeqtqhzmw2bng7sbs3h3ym4t63hrlolcj7uctdkxy37yox@7uqjzipgst4y>
-From: Absee Seeab <doesnt.look.like.temp.mail@gmail.com>
-Date: Tue, 27 Aug 2024 06:09:33 +0300
-Message-ID: <CAHeAhPRcRaxryqc20-XQNo-KPs-=8ObyrfW35w8Kyux+fwBOAA@mail.gmail.com>
-Subject: Re: Missing crucial information in splice(2) manpage
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CAHeAhPR+G5k2k+nF18TqfAsMtP_pf+Gr9RQDLbotzQnATb_TyA@mail.gmail.com>
+ <mztcfeqtqhzmw2bng7sbs3h3ym4t63hrlolcj7uctdkxy37yox@7uqjzipgst4y>
+ <CAHeAhPRcRaxryqc20-XQNo-KPs-=8ObyrfW35w8Kyux+fwBOAA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHeAhPRcRaxryqc20-XQNo-KPs-=8ObyrfW35w8Kyux+fwBOAA@mail.gmail.com>
 
-I'm not sure that's a good way to construct documentation examples
-personally, but here is an example program demonstrating that my claim
-is correct, as I agree that's useful for you to have.
-Feel free to edit it as you see fit.
+Hi Absee,
+
+On Tue, Aug 27, 2024 at 06:09:33AM GMT, Absee Seeab wrote:
+> I'm not sure that's a good way to construct documentation examples
+> personally, but here is an example program demonstrating that my claim
+> is correct, as I agree that's useful for you to have.
+> Feel free to edit it as you see fit.
+
+Thanks!
+
+I've rewritten it to:
+
 
 #define _GNU_SOURCE
 #define _FILE_OFFSET_BITS 64
+#include <err.h>
 #include <fcntl.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int main()
+int
+main(void)
 {
-        int fd =3D open("example_file.dat", O_WRONLY | O_CREAT | O_TRUNC, 0=
-666);
-        if (fd < 0) {
-                printf("couldn't create example file");
-                exit(1);
-        }
+	int         fd;
+	int         pfd[2];
+	off_t       off;
+	const char  s[12] =3D "Hello, world";
 
-        int pipefd[2];
-        pipe(pipefd);
+	fd =3D open("out", O_WRONLY | O_CREAT | O_EXCL, 0666);
+	if (fd =3D=3D -1)
+		err(EXIT_FAILURE, "open");
 
-        char ch =3D '\1';
-        write(pipefd[1], &ch, 1);
+	if (pipe(pfd) =3D=3D -1)
+		err(EXIT_FAILURE, "pipe");
 
-        off_t offset =3D 0x10;
-        if (splice(pipefd[0], NULL, fd, &offset, 0x10, 0) < 0) {
-                printf("splice FAILED");
-                exit(1);
-        }
+	if (write(pfd[1], s, sizeof(s)) !=3D sizeof(s))
+		err(EXIT_FAILURE, "write");
+	if (close(pfd[1]) =3D=3D -1)
+		err(EXIT_FAILURE, "close");
 
-        close(fd);
-        printf("done - new offset is %lld", (long long) offset);
+	off =3D 10;
+	if (splice(pfd[0], NULL, fd, &off, sizeof(s), 0) !=3D sizeof(s))
+		err(EXIT_FAILURE, "splice");
+	if (close(pfd[0]) =3D=3D -1)
+		err(EXIT_FAILURE, "close");
+
+	printf("New offset is %jd\n", (intmax_t) off);
+
+	if (close(fd) =3D=3D -1)
+		err(EXIT_FAILURE, "close");
+	exit(EXIT_SUCCESS);
 }
 
-On Mon, Aug 26, 2024 at 1:12=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
-wrote:
->
-> Hi Absee,
->
-> On Mon, Aug 26, 2024 at 07:40:37AM GMT, Absee Seeab wrote:
-> > Hi.
-> > Not sure I have an idea for an example program.
-> >
-> > As for a paragraph documenting it, here is a patch of one suggestion,
-> > though feel free to modify it or change it as needed.
->
-> Maybe write a program that demonstrates that the statement is true
-> without having to look at the kernel source?  That will probably serve
-> for the EXAMPLES section.  :)
->
-> Have a lovely day!
-> Alex
->
-> >
-> > --- splice.2    2024-08-26 07:39:07.553952939 +0300
-> > +++ splice.2        2024-08-26 07:38:36.503953192 +0300
-> > @@ -63,7 +63,9 @@
-> >  .IR fd_in ;
-> >  in this case, the file offset of
-> >  .I fd_in
-> > -is not changed.
-> > +is not changed, and the offset pointed to by
-> > +.I off_in
-> > +is adjusted appropriately instead..
-> >  .P
-> >  Analogous statements apply for
-> >  .I fd_out
-> >
-> > On Sun, Aug 25, 2024 at 12:08=E2=80=AFPM Alejandro Colomar <alx@kernel.=
-org> wrote:
-> > >
-> > > Hello Absee,
-> > >
-> > > On Sun, Aug 25, 2024 at 07:22:43AM GMT, Absee Seeab wrote:
-> > > > Hello,
-> > > >
-> > > > The splice(2) manpage (at least the version at man7.org) does not
-> > > > specify that off_in/off_out are written to after the operation.
-> > > >
-> > > > This, however, is done by the kernel (observed both by behaviour an=
-d
-> > > > source code).
-> > > >
-> > > > Plus I see similar functions (like copy_file_range and send_file) d=
-o
-> > > > document this fact, but splice does not, so it seems like a
-> > > > documentation omission.
-> > > >
-> > > > (This caused me a bit of a debugging headache today)
-> > >
-> > > Would you mind adding an example program to that page, and also some
-> > > paragraph that documents that?
-> > >
-> > > Cheers,
-> > > Alex
-> > >
-> > > >
-> > > > Thanks
-> > > >
-> > >
-> > > --
-> > > <https://www.alejandro-colomar.es/>
-> >
->
-> --
-> <https://www.alejandro-colomar.es/>
+And used it as
+
+	$ gcc -Wall -Wextra splice.c=20
+	$ ./a.out=20
+	New offset is 22
+	$ echo $?
+	0
+	$ hd out=20
+	00000000  00 00 00 00 00 00 00 00  00 00 48 65 6c 6c 6f 2c  |..........Hel=
+lo,|
+	00000010  20 77 6f 72 6c 64                                 | world|
+	00000016
+
+
+I think this is interesting information to readers of the page.  (And we
+didn't have an example, so this is better than nothing.)
+
+I'll put it all together in a patch.
+
+Have a lovely day!
+Alex
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--34uljdywlhupcx2h
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbNixsACgkQnowa+77/
+2zKzVA/+K/TwsGn5hVHeajEiQs1bfG4wOuMNZxKm4uuKLcU5kYWbkC+ukMIY+H1S
+SvzZ6sYvednjlhIRK8QhsoLJ/UdE6wR8RZ/z/zZtbrArI5HI8m0ge6CN/FElwF4k
++Gdt5YR//dJyW5CBxnWzP17b7bAlQPOZEeJFwhA48HVlLGZEKRLET8y0hlhS/8fE
+4KuVxHJUlOalc+99wX9W8+6FqN1coexzyvrZPQmo+pS91cXXmrArpRordq418D5R
+tVAFZirIICEj6TdSITL41J3+0Hokekd8XtkrSvKwl3/EJPIWQ0D4QlPqRBQD0jWm
+VEhcoiBzw5tX9d+W88FtPWrtnFjqniGafRg7UVeOgKmSi7HkOkuxVsBCkKcRVpu7
+PoJS1UuTKy1aR9sx6GWMBmiw4BvM3PTM5mR3CufNlMCCPjT6GJyYwjk9jv2jEaKT
+ZWZhHeCwBGuG0QJwJC1Lvgim1miydJhgOsGp6NQAv77IzI9+uc/YmzVo153FmMeb
+BSwc3cLL0ZFM4gh4S19NMVzx3SomWnqUULhXWDPCS9QioKuQvKPk+r2h1dnl2S9b
+lLGOITrzSKNXu9CtO0MdlIcyp893ycGoZl3agfJaV0dHWZW4qX12kT+wrnb2k1x7
+7F018n27gUZ4zU38KzWZWdw+LNV6Gr0MBNQIiBhokhHIzpzFOfI=
+=943l
+-----END PGP SIGNATURE-----
+
+--34uljdywlhupcx2h--
 
