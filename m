@@ -1,135 +1,187 @@
-Return-Path: <linux-man+bounces-1712-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1713-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5569896075F
-	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 12:27:19 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id E41B4960761
+	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 12:27:40 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 00EE81F21C9F
-	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 10:27:19 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A1F802813B9
+	for <lists+linux-man@lfdr.de>; Tue, 27 Aug 2024 10:27:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A7EC19AD48;
-	Tue, 27 Aug 2024 10:27:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47B2C199EB4;
+	Tue, 27 Aug 2024 10:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="dcs8zJDB"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDAjBXSD"
 X-Original-To: linux-man@vger.kernel.org
-Received: from xry111.site (xry111.site [89.208.246.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4331E13B588;
-	Tue, 27 Aug 2024 10:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0770613B588
+	for <linux-man@vger.kernel.org>; Tue, 27 Aug 2024 10:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724754432; cv=none; b=fSOveM+Yj60mQidN6nLSeTBKGCfhF4QvOkjsW1rzljAy+ipkqFH3pGoCnYrWzxT27AUu4HTbDB61bBN8Oohv9z7PqMIRYJhoHOBAQiJlSc+deaDsQm0BJoH/5U9CGAje7tNrM2X8ONo0NWVDb3KRc6Fqx6w52yOfxuVuMURRsv0=
+	t=1724754455; cv=none; b=G7E5oWZe4fiLSUena5jiPXiapU3v6l/N4GIFqLOPy6mCBf8JlkwoZVZ08M7uONEvFm6Uw3bdgw0OGHQzvsKq/WwqUYod4jBL3YNq8InnVHINpwKAEYx3BCcozp9UfKAQlbxegQhIyoJUZ9WxYF3xIRDS6QcwYQ+JXLx52c2eFbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724754432; c=relaxed/simple;
-	bh=FQU2KV+r3vlPhj5b/I9PIiDx3dWovZFqmmraHao0Owk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IZiXSTukxycAv40ehCkVS0Q0ObF7YE+qc2MLOf6RfTP1l1N+K7MktM21iW6dm2YNtLrFYkld2LChBBsEDs6jxb87+fJEspeX4SGHP3GogH9ThdqHOU3/D9W3I65v0rJhxy5UowjrzRx3MMyXFUeG6+k60kbdbqLcjWPuM5rwUSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=dcs8zJDB; arc=none smtp.client-ip=89.208.246.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xry111.site;
-	s=default; t=1724754422;
-	bh=FQU2KV+r3vlPhj5b/I9PIiDx3dWovZFqmmraHao0Owk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=dcs8zJDBVXnj+3mqDHsWAAA0HLJWPUhcBpC1alTQZU3jFbaVLOuA6JZOGwwRL2t/S
-	 hEUy2tvYpJwL1BUiwGBUd+j793tTTXcIatHC16j9erRw3txiGIX+rwRgPBu1ybiidj
-	 hFk+Y+N/+p0LmFEL7hpxiVBeriHU6w36ZKFhD9xQ=
-Received: from stargazer.. (unknown [113.200.174.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
-	(Client did not present a certificate)
-	(Authenticated sender: xry111@xry111.site)
-	by xry111.site (Postfix) with ESMTPSA id 57B6B66F24;
-	Tue, 27 Aug 2024 06:27:01 -0400 (EDT)
-From: Xi Ruoyao <xry111@xry111.site>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Xi Ruoyao <xry111@xry111.site>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org
-Subject: [PATCH v2] statx.2: Document AT_EMPTY_PATH allows using NULL instead of "" for pathname
-Date: Tue, 27 Aug 2024 18:25:19 +0800
-Message-ID: <20240827102518.43332-2-xry111@xry111.site>
-X-Mailer: git-send-email 2.46.0
+	s=arc-20240116; t=1724754455; c=relaxed/simple;
+	bh=RAS7LyFuPvUx+CekSnwIMgFr3n/LuBnBt46+czXe+LM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Lscniv1aPGJLmwF0QIX55PVkcf+IZJF3ZKai4tMzlOCGT4eko3vQ1oUuGoySCt4zd0IFYLf4e14Pgk6wTdEJGLnf1qQELON+RSsdNLUIv8PJjHv5gnAMFD50tQViw71h42Wp/6cIK/1enHaNaN4fYWHvqdI65YS3H9Yx726XaF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDAjBXSD; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A5DC8B7A0;
+	Tue, 27 Aug 2024 10:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724754454;
+	bh=RAS7LyFuPvUx+CekSnwIMgFr3n/LuBnBt46+czXe+LM=;
+	h=Date:From:To:Cc:Subject:From;
+	b=kDAjBXSDfcJPULRw1iVU2qH81EtYmKhUV40yvku+JG+gdO0yYrk0Fj/iasaO5JoYl
+	 SnnjYpkLvcLlkIpJ1yvmkeQ8P4k6G28kOid1CVSyy3ruMj1dOd1cJ7WIroHxashMeh
+	 s90/tJc+7RlWMZhWP+VXZymEGNjuRniTYxcXq0mn0OuJBpUZP7+/oJKs61pNhauj1h
+	 FfUFO1dofySI95ijD6Y/bN0mDTFK8SkQU3EkWRxlH4socSTXBAamom4Eu4x3ObbNxz
+	 JAo4EZlzKCsrMyo302dbX5AZAEpuZusbbFWHDESJciKSBUXxJp+NkMiS0AL+dN5Fq0
+	 CbrOM7kyNEoAg==
+Date: Tue, 27 Aug 2024 12:27:31 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, 
+	"G. Branden Robinson" <branden@debian.org>, Deri James <deri@chuzzlewit.myzen.co.uk>, 
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>
+Subject: PDF book title: "GNU/Linux Programmer's Manual"
+Message-ID: <no63r6yyt7bklpu4mldyc7ul3375nlynqhrqghqirowpedzphk@zp4wlhax6ti3>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n4cego22hqwzu6es"
+Content-Disposition: inline
 
-Link: https://git.kernel.org/torvalds/c/0ef625bba6fb
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org
-Signed-off-by: Xi Ruoyao <xry111@xry111.site>
----
 
-Changes from v1:
+--n4cego22hqwzu6es
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, 
+	"G. Branden Robinson" <branden@debian.org>, Deri James <deri@chuzzlewit.myzen.co.uk>, 
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>
+Subject: PDF book title: "GNU/Linux Programmer's Manual"
+MIME-Version: 1.0
 
-- Use semantic newlines in AT_EMPTY_PATH description.
-- Reorder EFAULT conditions so the added parenthetical describing NULL
-  with AT_EMPTY_PATH is next to "NULL".
+Hi all,
 
- man/man2/statx.2 | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+I've done a restorative change to the PDF book title.
 
-diff --git a/man/man2/statx.2 b/man/man2/statx.2
-index f7a06467d..38754d40c 100644
---- a/man/man2/statx.2
-+++ b/man/man2/statx.2
-@@ -20,8 +20,9 @@ Standard C library
- .BR "#include <fcntl.h>           " "/* Definition of " AT_* " constants */"
- .B #include <sys/stat.h>
- .P
--.BI "int statx(int " dirfd ", const char *restrict " pathname ", int " flags ,
--.BI "          unsigned int " mask ", struct statx *restrict " statxbuf );
-+.BI "int statx(int " dirfd ", const char *_Nullable restrict " pathname ,
-+.BI "          int " flags ", unsigned int " mask ",
-+.BI "          struct statx *restrict " statxbuf );
- .fi
- .SH DESCRIPTION
- This function returns information about a file, storing it in the buffer
-@@ -146,7 +147,7 @@ for an explanation of why this is useful.)
- By file descriptor
- If
- .I pathname
--is an empty string and the
-+is an empty string (or NULL since Linux 6.11) and the
- .B AT_EMPTY_PATH
- flag is specified in
- .I flags
-@@ -164,7 +165,8 @@ is constructed by ORing together zero or more of the following constants:
- .\" commit 65cfc6722361570bfe255698d9cd4dccaf47570d
- If
- .I pathname
--is an empty string, operate on the file referred to by
-+is an empty string (or NULL since Linux 6.11),
-+operate on the file referred to by
- .I dirfd
- (which may have been obtained using the
- .BR open (2)
-@@ -603,8 +605,12 @@ nor a valid file descriptor.
- .I pathname
- or
- .I statxbuf
--is NULL or points to a location outside the process's
--accessible address space.
-+points to a location outside the process's accessible address space or is NULL
-+(except since Linux 6.11 if
-+.B AT_EMPTY_PATH
-+is specified in
-+.IR flags ,
-+pathname is allowed to be NULL).
- .TP
- .B EINVAL
- Invalid flag specified in
--- 
-2.46.0
+The manual pages in this project had historically used the 5th argument
+to TH, with the string "Linux Programmer's Manual".  This was showed as
+the center-top title of the pages.  This was incidentally consistent
+with the UNIX Programmer's Manual.
 
+A few years ago, I removed the 5th argument to TH to use the default
+string, to follow conventions.  At the same time, I put the project name
+and version in the 4th argument to TH: "Linux man-pages X.Y".
+
+When we added the scripts written by Deri to produce a PDF book, the
+title of the book was "The Linux Manpage Book", and the front page said
+"GNU/Linux\nTHE MAN PAGES BOOK".  For consistency with the project name,
+I changed those some time ago to be title: "The Linux man-pages Book"
+and front: "GNU/Linux\nTHE MAN-PAGES BOOK".
+
+However, for consistency with the UNIX Programmer's Manual, and with the
+old title used within the project, I'm now (partially) restoring the
+title of the book and its front page to be both:
+"GNU/Linux Programmer's Manual".
+(It's not fully restorative, because it has GNU/Linux where the old
+ title had just Linux, but half of our documentation is for glibc, so I
+ think it's deserved.)
+(I was never convinced by the old front text: why should it have the
+ word "book"?)
+
+I'll hold this change for a few days in case anyone has comments for it.
+
+
+Have a lovely day!
+Alex
+
+
+commit 9926e7cefe109b1752b166e5105025db3615b9ca (HEAD -> contrib)
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Tue Aug 27 11:48:58 2024 +0200
+
+    share/mk/: build-pdf-book: Rename book to "GNU/Linux Programmer's Manua=
+l"
+   =20
+    This more closely resembles the historical name used in the project.
+    The manual pages had "Linux Programmer's Manual" in the 5th argument to
+    TH, until that was changed a few years ago to follow groff(7)
+    conventions.
+   =20
+    This restoration of the title is also consistent with the
+    UNIX Programmer's Manual.
+   =20
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+diff --git a/share/mk/build/pdf/book/front.roff b/share/mk/build/pdf/book/f=
+ront.roff
+index fdf1a9820..c18ab6b92 100644
+--- a/share/mk/build/pdf/book/front.roff
++++ b/share/mk/build/pdf/book/front.roff
+@@ -17,7 +17,7 @@
+ \m[maroon]GNU/Linux\m[]
+ .sp 18p
+ .ps 16
+-\f[BMB]THE MAN-PAGES BOOK\fP
++\f[BMB]Programmer's Manual\fP
+ .sp 6i
+ .ps 12
+ \f[HB]Maintainers:\fP
+diff --git a/share/mk/build/pdf/book/prepare.pl b/share/mk/build/pdf/book/p=
+repare.pl
+index 800715d82..ef8c17b18 100755
+--- a/share/mk/build/pdf/book/prepare.pl
++++ b/share/mk/build/pdf/book/prepare.pl
+@@ -83,7 +83,7 @@ BuildBook();
+=20
+ sub BuildBook
+ {
+-       print ".pdfpagenumbering D . 1\n.nr PDFOUTLINE.FOLDLEVEL 0\n.defcol=
+or pdf:href.colour rgb 0.00 0.25 0.75\n.pdfinfo /Title \"The Linux man-page=
+s Book\"\n.special TinosR S\n";
++       print ".pdfpagenumbering D . 1\n.nr PDFOUTLINE.FOLDLEVEL 0\n.defcol=
+or pdf:href.colour rgb 0.00 0.25 0.75\n.pdfinfo /Title \"GNU/Linux Programm=
+er's Manual\"\n.special TinosR S\n";
+=20
+        foreach my $bkmark (sort sortman keys %files) {
+                BuildPage($bkmark);
+
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--n4cego22hqwzu6es
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbNqgwACgkQnowa+77/
+2zJSYRAAloje36bVlDms4rkWfl90/UTiY9nDFBIs5hdNJXrwciGqxT0xwb1sXDAk
+oieSELYiGgTAjZnRnK4QTN/sOSyYDTpQ/28vdgH4dClVA8V1BoaUipWPRUVuKMvV
+vfGr1XYT0Hs1vurO21eaCUua+XfzB8YLw5VJrMkV/sxlXP4MPqpaYXaHzsc9oVKn
+Ol8LUBzi9jfvmXgPzlNMlr5vQOkWW2cjIhLtnrNeiWhyWVMj84aNGPkHlOLsVsCe
+cMHEogToAw+tHBchaDTai286gE7wedXlU8P8pvTWl8Qj9G/tJ+NEbs20VIthbIdT
+VSHfyTinFV+OmNoYevHkPay1cfNfNBDfjGXSXEJPXXCwEl9jThKFPq0xELq2Ji+q
+VnguZccpMUawpGmD4cgOlWn+wFm/OLadaurSElP8dPYDqxEuWjomxXvOS67xc63Y
+RUl12nTCSuJyvnVko5bEVsgWX+gPTwzaTjfJ9Dal6Cdi60CpbsRVmAbMiPutXgYN
+l4s7O1onCV6fkpaTzN8e4VsYHW1XNyCSZL+DTOQbYCo//v/oa/SCWMZlYJRS9QNy
+dOllQUYsMnOPSbUvHB7cgouXgvPeOaA3kLnXEuOZddE/dXgPk8wazjv1yp9AuclQ
+R3Qb2hZDF9TNmaCr0HBfgE5SmMGdwiQbfWMESDXY3h+ZWZiVZMs=
+=7NZI
+-----END PGP SIGNATURE-----
+
+--n4cego22hqwzu6es--
 
