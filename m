@@ -1,143 +1,122 @@
-Return-Path: <linux-man+bounces-1727-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1728-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6E2C964CD1
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 19:31:27 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C5E9650E1
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 22:45:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 687AF1F23AB2
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 17:31:27 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id E070C1F22FC7
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 20:45:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C8351B6541;
-	Thu, 29 Aug 2024 17:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B5251662F1;
+	Thu, 29 Aug 2024 20:45:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bf7jAguj"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="tO84TkN7"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout.efficios.com (smtpout.efficios.com [167.114.26.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA121B7902
-	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 17:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8651F335C0
+	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 20:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=167.114.26.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724952641; cv=none; b=e1bNS7wONmShkarIoR6WgRXvsIEsd5W9sjN89S7YlvZKnq0DfAMuNex7DmIa6WSGIBF6AxzBEoMDkrreeWXikUiv5fEiZ9fqC119+FPD4dLBpwcBSL0GFbgyskxgnH2Q2jx/WrwW6WlPpQG9pYpCCFjNW4X7YdUwK58tksT6jSo=
+	t=1724964344; cv=none; b=o2pMnu7o4GVGl1/UvhnbhqeIiKHILFrstDcqTYA3RUjs9Td+VUWMb4MBdtE/cwC3aoG/Xr3rRi/8JJlBXRtnLKRJVA6cjwyVFBfEoQcnKyofFWcD616FSvCTLJLJi8Y/iey5GKMW2Z5JeQcaVx2UHR+wsPXPiZZEm3esDZzoc5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724952641; c=relaxed/simple;
-	bh=FTgJOGUWONvhAEVGdHpfiX3ityZ0eZ9xGuoJZgLwSEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W2RB7IVQ7NsHvTOtFMRgfWOj1NgTPjBMyNAWEM2kROb/XilgwRiCCJqx/8+GD39is71DM2baFIlrWSv2q9Uqt/FqeieA+CyAeM9isyKi082SIJP3BOe0Hm89qNoTQbgBzmWd5weBspN3uqgK4brXCfwsqbxnkODSxomwqJOreCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bf7jAguj; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B26C4CEC7;
-	Thu, 29 Aug 2024 17:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724952640;
-	bh=FTgJOGUWONvhAEVGdHpfiX3ityZ0eZ9xGuoJZgLwSEc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bf7jAgujLnCo1H2JAddV5lz1erdlSlb6vOT9BslHCmimZS7qued9fa40zjcjcF7MX
-	 N+WkLZdjD8pAeJeLm5T6O1LF71vGJav9/n2YW/d6YC3Xs/qYvHIhM8xl/rzWmckq9t
-	 zWRuas5K/0dcqfsOiPMTwJixnqi8MxctkqrmlcPfbfmm7DrLxCoXcf9hyePDTn6ydl
-	 h9Ft0rFhyfxbudp5ISZ7JonXeMr5MHFy7WtEATyiwob+un4i7P+zPiYjMEw5jLh1dj
-	 /aIwYeySDL4yLKKmQItSPud6cFll4g4W0FLRecgrjjq98/DORFL69CdPrfCjTzjuGs
-	 dsUIW7fzlpEKA==
-Date: Thu, 29 Aug 2024 19:30:37 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Kienan Stewart <kstewart@efficios.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/2] pipe.7: Reference potential lower default in pipe
- capacity section
-Message-ID: <2yg2ckpbzbsdabrhm5y6isue4e7u7mwwcngtshnz65zqieh5b6@ht76cbarxje6>
-References: <20240829154304.2010305-1-kstewart@efficios.com>
- <20240829154304.2010305-2-kstewart@efficios.com>
+	s=arc-20240116; t=1724964344; c=relaxed/simple;
+	bh=jixr1Karpt0ddWthcx/CNT3F/TVBzNi1VwEHO8CUQOM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XtPtrSX/+anFQTfAx22HTJWfU3HFGSpnxZVpUb1efZ4iuFSjoHZYcInS5nijmmkRlE0Q/Zxlu+ftkTPYHc2VGwmf9B6OD2/JLnx8cdHQfH6Jh/edQHYAoxSLc/5cfXQGqruJc9JNmDGDscahv/pThucqd50idaIrpKZUmGrf2SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=tO84TkN7; arc=none smtp.client-ip=167.114.26.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=efficios.com;
+	s=smtpout1; t=1724964328;
+	bh=jixr1Karpt0ddWthcx/CNT3F/TVBzNi1VwEHO8CUQOM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=tO84TkN72kKcaCg/g+gu5WcWHoWRlsL4SRLMu99hObjiU4pvSJEvoRjSDJWcGVMRX
+	 WPkEaorZf+dHmdCREbklvjzqoWqp+tDNXcwD57iQM5CDQKG/ZcJghYRKX0w1AMmEcA
+	 6sjlphJ1ekaXQpiBbWqqRc0276WlRvbwuEvQ01AvTRpautOmlBoAPPpc9fXzlj/NMy
+	 +VJY/UhAp84q5SlObX4UVcLChY1fQTbIIAKUfXkbw8K7NJiYSjroyVpsmHUzmFG0uG
+	 XFRKA4TnUHCEOLXNpRnnV+WlNGoN34vjfmAjXW70uZ/uIQM6BpHCnA1c1oV2+/ZHcu
+	 30LVjt9pk7A8A==
+Received: from smtpout01.internal.efficios.com (96-127-217-162.qc.cable.ebox.net [96.127.217.162])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4WvtZv74lTz1JHH;
+	Thu, 29 Aug 2024 16:45:27 -0400 (EDT)
+Received: from laptop-kstewart.internal.efficios.com (laptop-kstewart.internal.efficios.com [172.16.0.60])
+	by smtpout01.internal.efficios.com (Postfix) with ESMTP id AAF77816;
+	Thu, 29 Aug 2024 16:45:27 -0400 (EDT)
+From: Kienan Stewart <kstewart@efficios.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: alex_y_xu@yahoo.ca,
+	Kienan Stewart <kstewart@efficios.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v2 1/1] pipe.7: Note change to default pipe size when soft limit is exceeded
+Date: Thu, 29 Aug 2024 16:44:49 -0400
+Message-ID: <20240829204448.2027276-2-kstewart@efficios.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wtjw4atxpm46jhz5"
-Content-Disposition: inline
-In-Reply-To: <20240829154304.2010305-2-kstewart@efficios.com>
+Content-Transfer-Encoding: 8bit
 
+See upstream commit:
 
---wtjw4atxpm46jhz5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kienan Stewart <kstewart@efficios.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/2] pipe.7: Reference potential lower default in pipe
- capacity section
-References: <20240829154304.2010305-1-kstewart@efficios.com>
- <20240829154304.2010305-2-kstewart@efficios.com>
-MIME-Version: 1.0
-In-Reply-To: <20240829154304.2010305-2-kstewart@efficios.com>
+    commit 46c4c9d1beb7f5b4cec4dd90e7728720583ee348
+    Author: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
+    Date:   Thu Aug 5 10:40:47 2021 -0400
 
-Hi Kienan,
+        pipe: increase minimum default pipe size to 2 pages
 
-On Thu, Aug 29, 2024 at 11:43:04AM GMT, Kienan Stewart wrote:
-> The pipe capacity section makes no indication that the default
-> capacity of pipes may not be `16 * PAGE_SIZE` for users exceeding the
-> `pipe_user_pages_soft` limit.
->=20
-> Signed-off-by: Kienan Stewart <kstewart@efficios.com>
-> ---
+Signed-off-by: Kienan Stewart <kstewart@efficios.com>
+---
 
-Thanks for the patch!  I've applied it, with small tweaks to the commit
-message.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D663202e816e27dbfb5fddfeb2b93a86919f69027>
+Hi Alex,
 
-Have a lovely day!
-Alex
+I appreciate your feedback! I've made the changes requested.
 
->  man/man7/pipe.7 | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/man/man7/pipe.7 b/man/man7/pipe.7
-> index c7f3fbb9e..3d853d27c 100644
-> --- a/man/man7/pipe.7
-> +++ b/man/man7/pipe.7
-> @@ -131,6 +131,9 @@ operations.
->  See
->  .BR fcntl (2)
->  for more information.
-> +Since Linux 4.5, the default pipe capacity is lower than 16 pages when t=
-he
-> +.I pipe\-user\-pages\-soft
-> +limit is exceeded.
->  .P
->  The following
->  .BR ioctl (2)
-> --=20
-> 2.45.2
->=20
+Here is a range-diff against v1 and the new v2 patch.
 
---=20
-<https://www.alejandro-colomar.es/>
+thanks,
+kienan
 
---wtjw4atxpm46jhz5
-Content-Type: application/pgp-signature; name="signature.asc"
+Range-diff against v1:
+1:  7957cb086 < -:  --------- pipe.7: Note change to default pipe size when soft limit is exceeded
+2:  b0aa965eb ! 1:  4074d2770 pipe.7: Note change to default pipe size when soft limit is exceeded
+    @@ man/man7/pipe.7: nor the
+      for this user is at this limit,
+     -individual pipes created by a user will be limited to one page,
+     -and attempts to increase a pipe's capacity will be denied.
+    --As of Linux 5.14 the default capacity of individual pipes created
+    --by a user is two pages instead. Users may reduce the pipe capacity
+    --below this default value.
+     +individual pipes created by a user will be limited to two pages
+     +(one page before Linux 5.14), and attempts to increase a pipe's
+     +capacity will be denied.
 
------BEGIN PGP SIGNATURE-----
+ man/man7/pipe.7 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbQsD0ACgkQnowa+77/
-2zJ9HQ/+PoDPJIxj5I/Jcj/xytpguLsS6CKzBnIDG4F4vPRVBr8iJt9bPjlEkxQK
-qScOloFNfeaZXHsmtDd5RVMJ4khCbgAcGD5w8Vv/vrPIXbCQTZm8f7quXSnFhcA4
-LK1d9ZZd9MpZlpB72D53X0gpi6UKvWATm/oke+h6jbb7G7ow+/6EirN91dpGcGGE
-60kO1+WkVX8JTbM/tx39aImqjpq4jNnFd4VD3C0OBTO8h6/8ocJP8gTPQpz36iCX
-BMgrMJ+AxselS7joMUb69tLRewgW089eWiYqD0L5P+guv8/OoJ25LcbrxsR+sydq
-XySqMJCL5Tl06r32go6UafiKLXPCaj1Q3f64TSceVJYGAai2Nb3pYJw4GsV62ndD
-6hUzJKFmcpSLPA8OiyzGMhvkK8jNqaSUe/Dr6ZclnsIAx1rGL2s91N3r0R4fFCTE
-Q4wVQv1uYCV39Afjw0te5dAK4P9kU6EK7tuMBWcr2gneybhmDY9zs4P8iRUt0UBt
-ClRhUCtxM5GyOVcMrzA6l/69A7vF1sFGWx5q4yKT56duBISZdedWkr9vNbqR39tm
-89Xwn230jUe9dB5Kc4qdZM0x8Klcef/1bAf3XaOJehJ9n7QrlDUp/OTYvrfEb8Y3
-v/RjXLglV0ILjBUuapRZ3TmHORW/0fbwUZvwJtngHG43le0Tu98=
-=5cL8
------END PGP SIGNATURE-----
+diff --git a/man/man7/pipe.7 b/man/man7/pipe.7
+index d1fad9974..ba5b77df3 100644
+--- a/man/man7/pipe.7
++++ b/man/man7/pipe.7
+@@ -221,8 +221,9 @@ nor the
+ capability).
+ So long as the total number of pages allocated to pipe buffers
+ for this user is at this limit,
+-individual pipes created by a user will be limited to one page,
+-and attempts to increase a pipe's capacity will be denied.
++individual pipes created by a user will be limited to two pages
++(one page before Linux 5.14), and attempts to increase a pipe's
++capacity will be denied.
+ .IP
+ When the value of this limit is zero, no soft limit is applied.
+ The default value for this file is 16384,
+-- 
+2.45.2
 
---wtjw4atxpm46jhz5--
 
