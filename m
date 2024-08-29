@@ -1,54 +1,55 @@
-Return-Path: <linux-man+bounces-1726-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1727-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED17964CB1
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 19:24:32 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E2C964CD1
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 19:31:27 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 73A93B21D98
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 17:24:29 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 687AF1F23AB2
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 17:31:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4D9A16D9BA;
-	Thu, 29 Aug 2024 17:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C8351B6541;
+	Thu, 29 Aug 2024 17:30:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnoypX47"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bf7jAguj"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62BE146A96
-	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 17:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA121B7902
+	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 17:30:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724952264; cv=none; b=Mwr5x6y9PzDxX8Si9YZyiKRHAdV+uKy/+8q+Wf82rNu7vcntjTSjW8O/3y2L3b38MX2ynLaPW6Y1m2QvRy50Tl5eVYaSaVK14o2x4tEA9JW86z1duTRae4dPZDKNbzGKpLTiLi9IkdMPwQMR9db3+1KbOnEQV9nglPl/EgOAKQo=
+	t=1724952641; cv=none; b=e1bNS7wONmShkarIoR6WgRXvsIEsd5W9sjN89S7YlvZKnq0DfAMuNex7DmIa6WSGIBF6AxzBEoMDkrreeWXikUiv5fEiZ9fqC119+FPD4dLBpwcBSL0GFbgyskxgnH2Q2jx/WrwW6WlPpQG9pYpCCFjNW4X7YdUwK58tksT6jSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724952264; c=relaxed/simple;
-	bh=MOb8ohwHJ4HgGHDB6PHAvSljOIGrwHSp6uFy6OZ2gMo=;
+	s=arc-20240116; t=1724952641; c=relaxed/simple;
+	bh=FTgJOGUWONvhAEVGdHpfiX3ityZ0eZ9xGuoJZgLwSEc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZVbtvwDvB7tahmJyTf28ITLybXGyFXz8uBX6N3sQMTwVfY3cPGdApzoiwaLPhbA2n56pC71Cy9jbJs6wNY9EYK0AlUzBgEZGOVyE4mkm7JxPHDW8BT+RcTiuNvlp2mMzeAZFyjMjNNeaZBGsrubArj5gOfX8ADPPnHNG5KhnGNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnoypX47; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7044BC4CEC1;
-	Thu, 29 Aug 2024 17:24:23 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=W2RB7IVQ7NsHvTOtFMRgfWOj1NgTPjBMyNAWEM2kROb/XilgwRiCCJqx/8+GD39is71DM2baFIlrWSv2q9Uqt/FqeieA+CyAeM9isyKi082SIJP3BOe0Hm89qNoTQbgBzmWd5weBspN3uqgK4brXCfwsqbxnkODSxomwqJOreCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bf7jAguj; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B26C4CEC7;
+	Thu, 29 Aug 2024 17:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724952264;
-	bh=MOb8ohwHJ4HgGHDB6PHAvSljOIGrwHSp6uFy6OZ2gMo=;
+	s=k20201202; t=1724952640;
+	bh=FTgJOGUWONvhAEVGdHpfiX3ityZ0eZ9xGuoJZgLwSEc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lnoypX47J7wQDRz1+slAv0gAd0mhQCzq0HOQdu98dAPjI1G1e9YzNGnQi5tqqQ8oY
-	 6/ztSRvsV4/0J8EvAik5mk1cVtf4AusqIY2sNVDfNz/Hej1dsU1BrznlqJPHMJHuop
-	 sLMDWkOH8X7HIA0pLJRJ/n96rxjLqB/TonBKc9079iphfgI9cFjcJeNb+SRvhsAqx8
-	 5JR/1T1sj2D3puMt0st5tFgFLRYFG7LbWo+oR+r6cyD70exRz7Sil5Ij9hbwbaJaJO
-	 PlCpwsPwg46wW3N6ZihoH4Y7KVFZg3tqmoeR4xCGoqx0Wr8tMCbM+cDa1CtzuQI5VD
-	 awHBUVFeWkeVA==
-Date: Thu, 29 Aug 2024 19:24:21 +0200
+	b=bf7jAgujLnCo1H2JAddV5lz1erdlSlb6vOT9BslHCmimZS7qued9fa40zjcjcF7MX
+	 N+WkLZdjD8pAeJeLm5T6O1LF71vGJav9/n2YW/d6YC3Xs/qYvHIhM8xl/rzWmckq9t
+	 zWRuas5K/0dcqfsOiPMTwJixnqi8MxctkqrmlcPfbfmm7DrLxCoXcf9hyePDTn6ydl
+	 h9Ft0rFhyfxbudp5ISZ7JonXeMr5MHFy7WtEATyiwob+un4i7P+zPiYjMEw5jLh1dj
+	 /aIwYeySDL4yLKKmQItSPud6cFll4g4W0FLRecgrjjq98/DORFL69CdPrfCjTzjuGs
+	 dsUIW7fzlpEKA==
+Date: Thu, 29 Aug 2024 19:30:37 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Kienan Stewart <kstewart@efficios.com>
-Cc: linux-man@vger.kernel.org, Alex Xu <alex_y_xu@yahoo.ca>
-Subject: Re: [PATCH 1/2] pipe.7: Note change to default pipe size when soft
- limit is exceeded
-Message-ID: <jtmp6mblo42qwzflcf34y4k2nl45wamp6xiyjl2xssi6gtb5pe@4kza5wtgpa6v>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] pipe.7: Reference potential lower default in pipe
+ capacity section
+Message-ID: <2yg2ckpbzbsdabrhm5y6isue4e7u7mwwcngtshnz65zqieh5b6@ht76cbarxje6>
 References: <20240829154304.2010305-1-kstewart@efficios.com>
+ <20240829154304.2010305-2-kstewart@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,110 +57,87 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="b3h3wntbedf22mce"
+	protocol="application/pgp-signature"; boundary="wtjw4atxpm46jhz5"
 Content-Disposition: inline
-In-Reply-To: <20240829154304.2010305-1-kstewart@efficios.com>
+In-Reply-To: <20240829154304.2010305-2-kstewart@efficios.com>
 
 
---b3h3wntbedf22mce
+--wtjw4atxpm46jhz5
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Kienan Stewart <kstewart@efficios.com>
-Cc: linux-man@vger.kernel.org, Alex Xu <alex_y_xu@yahoo.ca>
-Subject: Re: [PATCH 1/2] pipe.7: Note change to default pipe size when soft
- limit is exceeded
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] pipe.7: Reference potential lower default in pipe
+ capacity section
 References: <20240829154304.2010305-1-kstewart@efficios.com>
+ <20240829154304.2010305-2-kstewart@efficios.com>
 MIME-Version: 1.0
-In-Reply-To: <20240829154304.2010305-1-kstewart@efficios.com>
+In-Reply-To: <20240829154304.2010305-2-kstewart@efficios.com>
 
 Hi Kienan,
 
-On Thu, Aug 29, 2024 at 11:43:03AM GMT, Kienan Stewart wrote:
-> See upstream commit:
->=20
->     commit 46c4c9d1beb7f5b4cec4dd90e7728720583ee348
->     Author: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
-
-[CC +=3D Alex Xu]
-
->     Date:   Thu Aug 5 10:40:47 2021 -0400
->=20
->         pipe: increase minimum default pipe size to 2 pages
+On Thu, Aug 29, 2024 at 11:43:04AM GMT, Kienan Stewart wrote:
+> The pipe capacity section makes no indication that the default
+> capacity of pipes may not be `16 * PAGE_SIZE` for users exceeding the
+> `pipe_user_pages_soft` limit.
 >=20
 > Signed-off-by: Kienan Stewart <kstewart@efficios.com>
 > ---
->  man/man7/pipe.7 | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/man/man7/pipe.7 b/man/man7/pipe.7
-> index d1fad9974..c7f3fbb9e 100644
-> --- a/man/man7/pipe.7
-> +++ b/man/man7/pipe.7
-> @@ -223,6 +223,9 @@ So long as the total number of pages allocated to pip=
-e buffers
->  for this user is at this limit,
->  individual pipes created by a user will be limited to one page,
->  and attempts to increase a pipe's capacity will be denied.
-> +As of Linux 5.14 the default capacity of individual pipes created
 
-I think it makes more sense to say "Since" rather than "As of".
-"Since" more clearly says what happens in Linux 5.13 and Linux 5.15.
-
-Also, this sentence doesn't seem to relate to the one-page limit
-mentioned in this paragraph, which is only when the soft limit for the
-number of pipes has been reached.  It seems to say that this limit is
-the default limit of individual pipes, with no mention to the soft limit
-of pipes.
-
-And also, I would mention the current behavior first, and only as a note
-the historic behavior, instead of first mentioning the historic behavior
-and later the current one.
-
-Instead of your proposal, I would do:
-
-	-individual pipes created by a user will be limited to one page,
-	+individual pipes created by a user will be
-	+limited to two pages
-	+(one page before Linux 5.14),
-	 and attempts to increase a pipe's capacity will be denied.
+Thanks for the patch!  I've applied it, with small tweaks to the commit
+message.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D663202e816e27dbfb5fddfeb2b93a86919f69027>
 
 Have a lovely day!
 Alex
 
-> +by a user is two pages instead. Users may reduce the pipe capacity
-> +below this default value.
->  .IP
->  When the value of this limit is zero, no soft limit is applied.
->  The default value for this file is 16384,
+>  man/man7/pipe.7 | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/man/man7/pipe.7 b/man/man7/pipe.7
+> index c7f3fbb9e..3d853d27c 100644
+> --- a/man/man7/pipe.7
+> +++ b/man/man7/pipe.7
+> @@ -131,6 +131,9 @@ operations.
+>  See
+>  .BR fcntl (2)
+>  for more information.
+> +Since Linux 4.5, the default pipe capacity is lower than 16 pages when t=
+he
+> +.I pipe\-user\-pages\-soft
+> +limit is exceeded.
+>  .P
+>  The following
+>  .BR ioctl (2)
 > --=20
 > 2.45.2
->=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---b3h3wntbedf22mce
+--wtjw4atxpm46jhz5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbQrr8ACgkQnowa+77/
-2zIKORAAj+KNT0gBSceSFW9LRORNt/dFOJ6TNBJ4FyrD9jlxGJqecHDjum8dWFLj
-S/swvDtKtvPpHqs/RSLq+7G9xk64p1QvO0NhhHMFSBefN6MD+H+GSJhgRGdKIv9N
-n+NYQK1ZEtnKVEiudXzWFSpOYpsxYMjvCAWkErDpnFBfQb9oEM/0d3Xa20oBgVUz
-4iJI2YF/XXGcvBBvq8SdjT0UL0bbpA+ENwQPeQK00UP396BK3QJ+2muqPCixtYWo
-EjJtHRg5PwW0hlta9DL+DKahk0k+QPHfygwDqJD5Y48qaLAxlEaUDqAg/jDJ+lks
-pLL9/H0ksJDNrd1un0HguJ0Z8unXi9mVMYUfMZVAH6ku8Kr3QpxYkkI9SlNl6XaN
-vXTVaOSe/G6k6mA6dnfm+lxNV+qfGm0gB4CQZGSA4vmqg+iUgnP4Xw86hmYDz4Rb
-lhaOMlMSFS8I5llB8atjgoJf22+hcLkCCqAmObwS8PGanUm49bIstJg2zYqPmMt3
-902uaRmdOvcOONQWfl88yQ4UUQtZV5rWIjdYuJUZEK3WWq87QdmSGM7rk6r87rdd
-71OwYllNAEpy3O2sltreOTKn+htZwp49a0IYC0l2MbXhm+nbsqksDdgfnA/Ousf5
-iHSz90S6g5Ex/XFhZh3D2ASjVuuch0F8oBiQ5zv2BLLd68GmWrw=
-=Mqlj
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbQsD0ACgkQnowa+77/
+2zJ9HQ/+PoDPJIxj5I/Jcj/xytpguLsS6CKzBnIDG4F4vPRVBr8iJt9bPjlEkxQK
+qScOloFNfeaZXHsmtDd5RVMJ4khCbgAcGD5w8Vv/vrPIXbCQTZm8f7quXSnFhcA4
+LK1d9ZZd9MpZlpB72D53X0gpi6UKvWATm/oke+h6jbb7G7ow+/6EirN91dpGcGGE
+60kO1+WkVX8JTbM/tx39aImqjpq4jNnFd4VD3C0OBTO8h6/8ocJP8gTPQpz36iCX
+BMgrMJ+AxselS7joMUb69tLRewgW089eWiYqD0L5P+guv8/OoJ25LcbrxsR+sydq
+XySqMJCL5Tl06r32go6UafiKLXPCaj1Q3f64TSceVJYGAai2Nb3pYJw4GsV62ndD
+6hUzJKFmcpSLPA8OiyzGMhvkK8jNqaSUe/Dr6ZclnsIAx1rGL2s91N3r0R4fFCTE
+Q4wVQv1uYCV39Afjw0te5dAK4P9kU6EK7tuMBWcr2gneybhmDY9zs4P8iRUt0UBt
+ClRhUCtxM5GyOVcMrzA6l/69A7vF1sFGWx5q4yKT56duBISZdedWkr9vNbqR39tm
+89Xwn230jUe9dB5Kc4qdZM0x8Klcef/1bAf3XaOJehJ9n7QrlDUp/OTYvrfEb8Y3
+v/RjXLglV0ILjBUuapRZ3TmHORW/0fbwUZvwJtngHG43le0Tu98=
+=5cL8
 -----END PGP SIGNATURE-----
 
---b3h3wntbedf22mce--
+--wtjw4atxpm46jhz5--
 
