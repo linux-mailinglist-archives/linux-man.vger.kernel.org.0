@@ -1,155 +1,95 @@
-Return-Path: <linux-man+bounces-1723-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1724-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6999962728
-	for <lists+linux-man@lfdr.de>; Wed, 28 Aug 2024 14:35:15 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCFFA964A5A
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 17:43:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 05B791C2156C
-	for <lists+linux-man@lfdr.de>; Wed, 28 Aug 2024 12:35:15 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 902B21F23ED4
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 15:43:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C658E178364;
-	Wed, 28 Aug 2024 12:35:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CEE21B372F;
+	Thu, 29 Aug 2024 15:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7Fva8eP"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="pfK1hoOM"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout.efficios.com (smtpout.efficios.com [167.114.26.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF3B177982
-	for <linux-man@vger.kernel.org>; Wed, 28 Aug 2024 12:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF87C1B252C
+	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 15:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=167.114.26.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724848501; cv=none; b=ejOHz3rLkQn/c3cNOAf4bv6Xu3pzh1YW26laUMyo3I0RfPATey/Jh0fI4q46qo/0HNvg8Bfhawmn0ppFVY4WmRc6gdAi9Rv310oZQcv963ayz4XhyRem3VTDgLgv3/PwYEMNEAFuaAKEMz1ezznsJAu9mg0Ml10tj0hlIt/1RYA=
+	t=1724946190; cv=none; b=RckpQl5IxVKQTpoI1/1HEIuR7coEr98fIBGBTHVn6h3owkd8uUuZsC1IUGUh6rT11aCf18YqHHhwpmfXLUJmLTzeKy1D0Z/iF2CBb1MSo+BHk6oBiQoC5TMXJS3tg09uHNRAuA32qmTEmlxJOo3lmB77eT7czfSP5AzfzNb+Q70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724848501; c=relaxed/simple;
-	bh=4KntJoYxTcejd8R8ANYNpg/hXmEcGL4CRFY4eDVSQI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U/nTIonxsfyBs7ooHftn/MoakWz7e6SO9gv4BdGug/mvcgr9RuEN6ju6DTSBVxMD8Exez7q7G9pF/vY+Vy/GFedvthnxymnmEJJKxMTyXcCv6smQRvRRUM8Xagq5v+cNYsIwB4dSlX3wgLWyFam7fxEBHaJwtlYmDyzQ8uIfopk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7Fva8eP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CECC98EC2;
-	Wed, 28 Aug 2024 12:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724848501;
-	bh=4KntJoYxTcejd8R8ANYNpg/hXmEcGL4CRFY4eDVSQI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U7Fva8ePF8DeAQEWA2H7nLe7yigu77KIGEkDDEkuFTmQU1bLYG5p/ohuu8xv+tunp
-	 ceOlsQiS5SdY6J0mRcjWffsNkEedVlrl7kqAg8rNtQNxcirgP1QqDBYrItGhQpWjl+
-	 io7gX3mI2Kn6q4BYaCy3L7Wc8sfCtAjGfwOvNlirCSJDPmSY2zMhQxck1wT0JlfBry
-	 rSk6XP92N230cdFQpSoUopCfP2Wv9KWaF7RtqXKk9OgJK7lkzCLdPWNp1dzFqwcQMK
-	 /VcQtb79MbzUkEmS6w7cbXsXlbPcT2zlrdhmT+LgD3aabYx8+DGL09G7FGTmASz0RA
-	 3iEzNMhvjFUMA==
-Date: Wed, 28 Aug 2024 14:34:58 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: [PATCH v2] dlinfo.3: Document the RTLD_DI_PHDR request
-Message-ID: <jscfc7bom5tjbwlfj4s7hk7vksleiaozfljgq3jqpz3tetqsgp@zhfsglz3qnvv>
-References: <87o75chpwb.fsf@oldenburg.str.redhat.com>
- <n7mi3i227tecv4waqwxrcq7cg5ll5mws7iirecgvvlgjyh65bs@xmhcxfhfpufz>
- <87h6b4hnnk.fsf@oldenburg.str.redhat.com>
+	s=arc-20240116; t=1724946190; c=relaxed/simple;
+	bh=xMzAlnLEy18dw7glsHU0KDwQnIYCh9ZrOtijFMxKevY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PLE16KPNEmfDaVtEciRHEcvC81N6r71yJkl3oEhMjxK0M4jlaARAX4vb7zNJin0Q857tQ1JYsFIqO6ipjJEFwuQSSuBSpVx/utfSSpWBx5es8BYR0XaLa/tCsIcU+dbJNuGU8p7f/sAuTSsZ9KOqq1X7V/QOXiQxH5JMbSEeFGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=pfK1hoOM; arc=none smtp.client-ip=167.114.26.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=efficios.com;
+	s=smtpout1; t=1724946186;
+	bh=xMzAlnLEy18dw7glsHU0KDwQnIYCh9ZrOtijFMxKevY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pfK1hoOMcVZfdgpoKmJzLh+cUEehk1/TIs0XWjXxDBZ3/bOceZ4d0la+k69cY/coS
+	 oBr88kQTwrdFg+NLcqWIlJJLpqQKeISMQvZRZUTbHsAtO5eTh69fekBAfLufHq6EXC
+	 Nm8fmmBrV35/l6X4z1I1o6ageWbnMRswX7zIMHWLfFjqOWu2h4oytg82nX9zHE79wH
+	 eyDXVIHAucedh0FDz+VC3s4+NWAgy1pGVMxxl20mpa7mhkxdKzKg8nMsF0LzLTDlsn
+	 kbNu8MhI7ncpD4DCNiXpddq5LATrAVfuHZ4pL6hQO5omEuEFm8+QHpnjoniLiGdHlo
+	 yq7ulQxyvCj/Q==
+Received: from smtpout01.internal.efficios.com (96-127-217-162.qc.cable.ebox.net [96.127.217.162])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4Wvlt24jB4z1JjN;
+	Thu, 29 Aug 2024 11:43:06 -0400 (EDT)
+Received: from laptop-kstewart.internal.efficios.com (laptop-kstewart.internal.efficios.com [172.16.0.60])
+	by smtpout01.internal.efficios.com (Postfix) with ESMTP id 63CB87B1;
+	Thu, 29 Aug 2024 11:43:06 -0400 (EDT)
+From: Kienan Stewart <kstewart@efficios.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Kienan Stewart <kstewart@efficios.com>
+Subject: [PATCH 1/2] pipe.7: Note change to default pipe size when soft limit is exceeded
+Date: Thu, 29 Aug 2024 11:43:03 -0400
+Message-ID: <20240829154304.2010305-1-kstewart@efficios.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sorq3fmuste6c4k2"
-Content-Disposition: inline
-In-Reply-To: <87h6b4hnnk.fsf@oldenburg.str.redhat.com>
+Content-Transfer-Encoding: 8bit
 
+See upstream commit:
 
---sorq3fmuste6c4k2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: [PATCH v2] dlinfo.3: Document the RTLD_DI_PHDR request
-References: <87o75chpwb.fsf@oldenburg.str.redhat.com>
- <n7mi3i227tecv4waqwxrcq7cg5ll5mws7iirecgvvlgjyh65bs@xmhcxfhfpufz>
- <87h6b4hnnk.fsf@oldenburg.str.redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <87h6b4hnnk.fsf@oldenburg.str.redhat.com>
+    commit 46c4c9d1beb7f5b4cec4dd90e7728720583ee348
+    Author: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
+    Date:   Thu Aug 5 10:40:47 2021 -0400
 
-Hi Florian,
+        pipe: increase minimum default pipe size to 2 pages
 
-On Wed, Aug 28, 2024 at 01:50:23PM GMT, Florian Weimer wrote:
-> * Alejandro Colomar:
->=20
-> > Hi Florian,
-> >
-> > On Wed, Aug 28, 2024 at 01:01:56PM GMT, Florian Weimer wrote:
-> >> First added in glibc 2.36, backported upstream to glibc 2.34,
-> >> so mention 2.34.1 for the first version.
-> >>=20
-> >> Signed-off-by: Florian Weimer <fweimer@redhat.com>
-> >>=20
-> >> ---
-> >> v2: Fix commit IDs.
-> >>  man/man3/dlinfo.3 | 15 ++++++++++++++-
-> >>  1 file changed, 14 insertions(+), 1 deletion(-)
-> >>=20
-> >> diff --git a/man/man3/dlinfo.3 b/man/man3/dlinfo.3
-> >> index 84b696f8c..8158356bd 100644
-> >> --- a/man/man3/dlinfo.3
-> >> +++ b/man/man3/dlinfo.3
-> >> @@ -194,10 +194,23 @@ If this object does not define a PT_TLS segment,
-> >>  or if the calling thread has not allocated a block for it,
-> >>  NULL is placed in
-> >>  .IR *info .
-> >> +.TP
-> >> +.BR RTLD_DI_PHDR " (\fIconst ElfW(Phdr *)\fP, since glibc 2.34.1)"
-> >> +.\" glibc commit d056c212130280c0a54d9a4f72170ec621b70ce5 (2.36)
-> >> +.\" glibc commit 28ea43f8d64f0dd1f2de75525157730e1532e600 (2.35.1)
-> >> +.\" glibc commit 91c2e6c3db44297bf4cb3a2e3c40236c5b6a0b23 (2.34.1)
-> >> +Obtain the address of this shared object's program header and place it
-> >> +in
-> >> +.IR *info .
-> >> +This
-> >> +.B dlinfo
-> >> +call returns the number of program headers in the shared object.
-> >
-> > Can that number be 0?
->=20
-> No, there has to be at least one PT_LOAD segment.
+Signed-off-by: Kienan Stewart <kstewart@efficios.com>
+---
+ man/man7/pipe.7 | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks!  I've applied the patch.
+diff --git a/man/man7/pipe.7 b/man/man7/pipe.7
+index d1fad9974..c7f3fbb9e 100644
+--- a/man/man7/pipe.7
++++ b/man/man7/pipe.7
+@@ -223,6 +223,9 @@ So long as the total number of pages allocated to pipe buffers
+ for this user is at this limit,
+ individual pipes created by a user will be limited to one page,
+ and attempts to increase a pipe's capacity will be denied.
++As of Linux 5.14 the default capacity of individual pipes created
++by a user is two pages instead. Users may reduce the pipe capacity
++below this default value.
+ .IP
+ When the value of this limit is zero, no soft limit is applied.
+ The default value for this file is 16384,
+-- 
+2.45.2
 
-Cheers,
-Alex
-
->=20
-> Thanks,
-> Florian
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---sorq3fmuste6c4k2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbPGXEACgkQnowa+77/
-2zLytA/+PxmcUKtphIdljkN2mW1/bGy6OvFQiIY2PDG+wHr5fS2HiKw5WgGe6NOA
-WMuF6xO55L9k+Gp5Z+BP6jRkyymO3UMz9aGj4ymYNaROHYZpkXUaEaHtQCk7ChlP
-WRasb1OVRhkBWhTrFrN2OPlabsrBNZorxndE3DnhuXDAKaLY5tAdNVo8oZtyAVgl
-j7jncrK1f83XNES4RpR0BeyuivVKpKZ6shS48zAGVdviULknPkkEUTZDFZ/5u2NQ
-aP8xVAST7ALuEWAh3jlWQnVCk+9dh1Dl2mh9wjKGJEqh+Br1Xp0BH2/6lYYdQ4qx
-WggSxfb6D95hzAZRJhKhgZTFeDukXkAgU58QT5HB82COFm1t2Dhj5tDdCFPavCkE
-QaSEyHwBULVMsa2RAQ/LRcX9/ZYdVVNdPVrdrcSJgScFMJRp39e2U3nu8+EAcN9K
-eKvCH+8hmvFxAwSoWQl45r1Ac0hea5Tu+tGhaCdlSWRt+OtBy/hujwrqHEPaOe2E
-nV3qGoQb896fK/uzAoy4EGI1tM9ptJu9rbvFRa56jpftAowhmYTvdR+MYCXIAS/O
-tcBX8YyJzb5gami9kvV20zyaCysn105/dauS7qwIrNtounn8mKOXg1YiuR6L8mLb
-iphppHEYM3Gfw8nS/E0rQM3EHczhFRUp82bvFXdwdAIoz5jFCKs=
-=cv0q
------END PGP SIGNATURE-----
-
---sorq3fmuste6c4k2--
 
