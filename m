@@ -1,54 +1,59 @@
-Return-Path: <linux-man+bounces-1729-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1730-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2328965218
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 23:35:51 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF2796539F
+	for <lists+linux-man@lfdr.de>; Fri, 30 Aug 2024 01:44:53 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 667A61F21BD6
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 21:35:51 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id AEECD1F2462D
+	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2024 23:44:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9445C1B3B1D;
-	Thu, 29 Aug 2024 21:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7CAD18F2C3;
+	Thu, 29 Aug 2024 23:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnaCbVsH"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rLnep2z6"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EF618C91F
-	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 21:35:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CCC187843
+	for <linux-man@vger.kernel.org>; Thu, 29 Aug 2024 23:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724967347; cv=none; b=VepP4ckmsRqmUQL/Q+k34wpbyYXESytcxU5bhAhatLuxyGHglHpIf6hKovEFd9nx1xRBrt4HBfHtJ4cCCAWuF4vsNjwdIEACZxw8PUnPcEbTicr4s3dbQ67C6Oeh4mYm2A9MnQh/kSzkqgNR7r3SHDF6QOOk6wwA31uy9v3r1TE=
+	t=1724975090; cv=none; b=RASLJUcpLdJxLrJFJg2Bv94ZQqHCLPWeaEALeprWquw/JP4qYMSalJd3sRbfZEDk1t5uVgzg9kuYntcVK/U9NVeI/Z91vTe5lizaGPsigo4V9wUJFDzcUWAvetblj05HpslIywyl2NlGxBl9nQTdBaelOV7onPLmfBV9mL3l69A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724967347; c=relaxed/simple;
-	bh=zWJfi8X2IN/Z6nsLlSulaF7cMKcXPkPEXxBhBIe87JY=;
+	s=arc-20240116; t=1724975090; c=relaxed/simple;
+	bh=NixjuPf1ir5wTWsaBqmqsfl5CqiY/LEhEB5OLAnu248=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MzzdUqsBjEDPrEq/pexj0tiqVh90POR5enU+7rQTWYgGB3MRcwR24H+ktQ0jTJa4PbmkZVkhKS30fMmzm9iWd6MuMjZ1jLeqDGg9yTLKFP0aDX1xjUt391YJ21utHRLa8l9yw2yz7Rj9TczfOjlz55vc2dwlOT/edk2TXl1mOro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnaCbVsH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05ABC4CEC1;
-	Thu, 29 Aug 2024 21:35:44 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=SNXQzwTFerFdblZKUGWbs7fHuOr2mZ1fGr3AP2d0VNmKfkDip3hoxP0Jym6JGhTWWRkXZ7mdfKKu2QzFkWhdf1dsilRDMpPlqkofKjXSGbONq0er0g1Zw6thOa/a3X1Jlw7hF7ThpnCpuqo+Gvi06x1LqmCtnm5sEIvRM5gT22s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rLnep2z6; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E1DC4CEC1;
+	Thu, 29 Aug 2024 23:44:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724967345;
-	bh=zWJfi8X2IN/Z6nsLlSulaF7cMKcXPkPEXxBhBIe87JY=;
+	s=k20201202; t=1724975090;
+	bh=NixjuPf1ir5wTWsaBqmqsfl5CqiY/LEhEB5OLAnu248=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OnaCbVsHQzyz+wnJh4JtullLwhIdMV5zykz8quxa46sgJBPYM4G5hb5nUrO+Ln1uG
-	 5jKZKGk6E/iWUCOa5qc/BZvHtS2ty0L0eg7rtR6ZzgNzCigAGZKyuD/TT77XpLlcGp
-	 bWuD6wjCJ3bmLyVzeVPuQsKiRp89d8RJcsrRlbOcSHZxLz8JlBEgGyd5I3BrNbyBMB
-	 haAmHgcLwJnstcyRmwIMKRTbHYS5FsnSoKbPvkyS9Vpf/48r8s5kT5hUTeGd2swJZ6
-	 9Xk4fVc0pE8nfP12CYVq0Pm1Ct/p8JwyTXZ3/PiA9zITLkaKPDJesaK1z5Q2W9DDcr
-	 W4eyrGXK20q/g==
-Date: Thu, 29 Aug 2024 23:35:42 +0200
+	b=rLnep2z6NifAOlkxUZN7aZ0Qeg9pj8gbZBO4eh2Lvu/Yqd+llVaLaNznVGknvvigb
+	 CoUVoY/yIR6MTwBlY0AC4dE1R84JKFBcKvSBqiDWsqqwq56DCwH3HdEs8Jf9UXZBE0
+	 LggyuksqbGUjr3L+gs+oqcENQ/pin2tqD8cY9unSa3Q5yUVo3h8Wg/Ygtxd85pAfw/
+	 3x6t4j4wCQko8GAwGroedli4Dkz02oKDz+kmgUbcXQva66kiskSBM5pLsI4jZDbECF
+	 RThoXJw3SQSs0C2/Hg7lH6rQivj4RdbyYxym7xbd5Tn1aHbSvj9EApJvJTt3fFHICk
+	 VedrF+21szGvg==
+Date: Fri, 30 Aug 2024 01:44:47 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Kienan Stewart <kstewart@efficios.com>
-Cc: alex_y_xu@yahoo.ca, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] pipe.7: Note change to default pipe size when
- soft limit is exceeded
-Message-ID: <hedl7jfdxoc4kbu4b3za2ynmme5ro64uidindugxizuh75vppx@ub2qtswjmpx3>
-References: <20240829204448.2027276-2-kstewart@efficios.com>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: fchmodat(2) does support AT_SYMLINK_NOFOLLOW now, no?
+Message-ID: <5lvpbbvk7azxadhlfalfssera5hmxadpce7c22e7eyis6ra3tv@mikedqdtx7en>
+References: <CAJgzZoon_Ewki=qGEPnzbSi7Tfu-i51cT529z3obiHeaP+WuuQ@mail.gmail.com>
+ <akk6v6ddvxj2wr3eo32jw4frjqxvgygbbf7xsqrzdofu7gabko@r45j6x5blmfk>
+ <CAJgzZooRNJbSe0fsYztsMKvb=C1FLU_cXQX9xtR9DPCavx6H7w@mail.gmail.com>
+ <22l25y4gk7qaersl4zfsyvvoxctkzs5ea5beiz44wmvbn7tg5i@q2yzq7zaj2b4>
+ <CAJgzZornYRGFRmUF6KaOCDgsgYSKdJ=V6GKxVsxNSJDCyZc+SQ@mail.gmail.com>
+ <kmig5buwz7eydpyk5in7hqzdmvykrq5kvajnkdixarfjzpeqaj@msyiruggayrx>
+ <CAJgzZopav8Z_FEAnPNDHmw0aYuS8zk6F9nU5ocn5ZdK2RYBJDQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,136 +61,204 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d67zszyeulx6ahvm"
+	protocol="application/pgp-signature"; boundary="dktfyrgozm5zq5sv"
 Content-Disposition: inline
-In-Reply-To: <20240829204448.2027276-2-kstewart@efficios.com>
+In-Reply-To: <CAJgzZopav8Z_FEAnPNDHmw0aYuS8zk6F9nU5ocn5ZdK2RYBJDQ@mail.gmail.com>
 
 
---d67zszyeulx6ahvm
+--dktfyrgozm5zq5sv
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Kienan Stewart <kstewart@efficios.com>
-Cc: alex_y_xu@yahoo.ca, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] pipe.7: Note change to default pipe size when
- soft limit is exceeded
-References: <20240829204448.2027276-2-kstewart@efficios.com>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: fchmodat(2) does support AT_SYMLINK_NOFOLLOW now, no?
+References: <CAJgzZoon_Ewki=qGEPnzbSi7Tfu-i51cT529z3obiHeaP+WuuQ@mail.gmail.com>
+ <akk6v6ddvxj2wr3eo32jw4frjqxvgygbbf7xsqrzdofu7gabko@r45j6x5blmfk>
+ <CAJgzZooRNJbSe0fsYztsMKvb=C1FLU_cXQX9xtR9DPCavx6H7w@mail.gmail.com>
+ <22l25y4gk7qaersl4zfsyvvoxctkzs5ea5beiz44wmvbn7tg5i@q2yzq7zaj2b4>
+ <CAJgzZornYRGFRmUF6KaOCDgsgYSKdJ=V6GKxVsxNSJDCyZc+SQ@mail.gmail.com>
+ <kmig5buwz7eydpyk5in7hqzdmvykrq5kvajnkdixarfjzpeqaj@msyiruggayrx>
+ <CAJgzZopav8Z_FEAnPNDHmw0aYuS8zk6F9nU5ocn5ZdK2RYBJDQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20240829204448.2027276-2-kstewart@efficios.com>
+In-Reply-To: <CAJgzZopav8Z_FEAnPNDHmw0aYuS8zk6F9nU5ocn5ZdK2RYBJDQ@mail.gmail.com>
 
-Hi Kienan,
+Hi Elliott,
 
-On Thu, Aug 29, 2024 at 04:44:49PM GMT, Kienan Stewart wrote:
-> See upstream commit:
+On Tue, Aug 27, 2024 at 03:07:54PM GMT, enh wrote:
+> oh, i can definitely make a start...
 >=20
->     commit 46c4c9d1beb7f5b4cec4dd90e7728720583ee348
->     Author: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
->     Date:   Thu Aug 5 10:40:47 2021 -0400
->=20
->         pipe: increase minimum default pipe size to 2 pages
->=20
-> Signed-off-by: Kienan Stewart <kstewart@efficios.com>
-> ---
->=20
-> Hi Alex,
->=20
-> I appreciate your feedback! I've made the changes requested.
->=20
-> Here is a range-diff against v1 and the new v2 patch.
+> (i was going to at least send you the easiest patch, but then i
+> realized even there there's a bit of a bikeshed opportunity, so i'll
+> just give you all the pieces and let you decide what to do with them!)
 
-Thanks!  I've applied the patch.
+Thanks!
 
 >=20
-> thanks,
-> kienan
+> so i think we have these things to say:
 >=20
-> Range-diff against v1:
-> 1:  7957cb086 < -:  --------- pipe.7: Note change to default pipe size wh=
-en soft limit is exceeded
-> 2:  b0aa965eb ! 1:  4074d2770 pipe.7: Note change to default pipe size wh=
-en soft limit is exceeded
->     @@ man/man7/pipe.7: nor the
->       for this user is at this limit,
->      -individual pipes created by a user will be limited to one page,
->      -and attempts to increase a pipe's capacity will be denied.
->     --As of Linux 5.14 the default capacity of individual pipes created
->     --by a user is two pages instead. Users may reduce the pipe capacity
->     --below this default value.
->      +individual pipes created by a user will be limited to two pages
->      +(one page before Linux 5.14), and attempts to increase a pipe's
->      +capacity will be denied.
-
-This range-diff seems a bit weird.  :)
-
+> 1. AT_SYMLINK_NOFOLLOW _is_ supported for fchmodat(2).
+> 2. but only since Linux 6.6 (except see 4).
+> 3. there's no mention of lchmod().
+> 4. that function is very old, but it doesn't actually work on glibc
+> until 2.32 (https://sourceware.org/bugzilla/show_bug.cgi?id=3D14578#c16)
+> where it uses the O_PATH trick that musl and bionic also use (and so
+> doesn't need Linux 6.6).
 >=20
->  man/man7/pipe.7 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+> heh, actually trying to write the bits down is probably easiest done
+> as a diff anyway...
 >=20
-> diff --git a/man/man7/pipe.7 b/man/man7/pipe.7
-> index d1fad9974..ba5b77df3 100644
-> --- a/man/man7/pipe.7
-> +++ b/man/man7/pipe.7
-> @@ -221,8 +221,9 @@ nor the
->  capability).
->  So long as the total number of pages allocated to pipe buffers
->  for this user is at this limit,
-> -individual pipes created by a user will be limited to one page,
-> -and attempts to increase a pipe's capacity will be denied.
-> +individual pipes created by a user will be limited to two pages
-> +(one page before Linux 5.14), and attempts to increase a pipe's
-> +capacity will be denied.
+> diff --git a/man/man2/chmod.2 b/man/man2/chmod.2
+> index ae53fe3c9..c6c54eeca 100644
+> --- a/man/man2/chmod.2
+> +++ b/man/man2/chmod.2
+> @@ -11,7 +11,7 @@
+>  .\"
+>  .TH chmod 2 (date) "Linux man-pages (unreleased)"
+>  .SH NAME
+> -chmod, fchmod, fchmodat \- change permissions of a file
+> +chmod, fchmod, lchown, fchmodat \- change permissions of a file
+>  .SH LIBRARY
+>  Standard C library
+>  .RI ( libc ,\~ \-lc )
+> @@ -21,6 +21,7 @@ Standard C library
+>  .P
+>  .BI "int chmod(const char *" pathname ", mode_t " mode );
+>  .BI "int fchmod(int " fd ", mode_t " mode );
+> +.BI "int lchmod(const char *" pathname ", mode_t " mode );
 
-LGTM.  Although, it should be using semantic newlines.  See
-man-pages(7):
+Does lchmod() need any feature test macros?
 
-$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
-   Use semantic newlines
-     In the source of a manual page, new sentences should be started on
-     new lines, long sentences should be split  into  lines  at  clause
-     breaks  (commas,  semicolons, colons, and so on), and long clauses
-     should be split at phrase boundaries.  This convention,  sometimes
-     known as "semantic newlines", makes it easier to see the effect of
-     patches, which often operate at the level of individual sentences,
-     clauses, or phrases.
+>  .P
+>  .BR "#include <fcntl.h>" "           /* Definition of AT_* constants */"
+>  .B #include <sys/stat.h>
+> @@ -60,9 +61,10 @@ Feature Test Macro Requirements for glibc (see
+>  .fi
+>  .SH DESCRIPTION
+>  The
+> -.BR chmod ()
+> -and
+> +.BR chmod (),
+>  .BR fchmod ()
 
-I've amended that myself into the patch, plus some small changes to the
-commit message.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D7543e84442d70a85afc076a1a22fbceef8c283c9>
+We use Oxford comma.
+
+> +and
+> +.BR lchmod ()
+>  system calls change a file's mode bits.
+>  (The file mode consists of the file permission bits plus the set-user-ID,
+>  set-group-ID, and sticky bits.)
+> @@ -76,6 +78,11 @@ which is dereferenced if it is a symbolic link.
+>  .BR fchmod ()
+>  changes the mode of the file referred to by the open file descriptor
+>  .IR fd .
+> +.IP \[bu]
+> +.BR lchmod ()
+> +is like
+> +.BR chmod (),
+> +but does not dereference symbolic links.
+>  .P
+>  The new file mode is specified in
+>  .IR mode ,
+> @@ -203,8 +210,9 @@ can either be 0, or include the following flag:
+>  If
+>  .I pathname
+>  is a symbolic link, do not dereference it:
+> -instead operate on the link itself.
+> -This flag is not currently implemented.
+> +instead operate on the link itself,
+> +like
+> +.BR lchmod ().
+>  .P
+>  See
+>  .BR openat (2)
+> @@ -285,6 +293,7 @@ is a file descriptor referring to a file other
+
+Would you mind checking this?:
+
+	$ head -n11 <CONTRIBUTING.d/git
+	Name
+	       Git - instructions for configuring git(1)
+
+	Description
+	   git-diff(1), gitattributes(5)
+	       To produce useful hunk contexts in manual pages, we need to hack
+	       git(1)'s idea of a function name, and also to tell git what is a
+	       manual page.
+
+		   $ git config --global diff.man.xfuncname '^\.S[SHsh] .*$';
+		   $ echo '*.[0-9]* diff=3Dman' >>~/.config/git/attributes;
+
+It helps reviewing diffs for manual pages.  :)
+
+> than a directory.
+>  specified
+>  .BR AT_SYMLINK_NOFOLLOW ,
+>  which is not supported.
+> +(See C library/kernel differences.)
+>  .TP
+>  .B EPERM
+>  The effective UID does not match the owner of the file,
+> @@ -310,12 +319,22 @@ This interface differs from the underlying Linux
+> system call, which does
+>  have a
+>  .I flags
+>  argument.
+> +.P
+> +Linux 6.6 added the
+> +.BR fchmodat2 ()
+> +system call with the POSIX flags argument.
+>  .SS glibc notes
+>  On older kernels where
+> -.BR fchmodat ()
+> +.BR fchmodat2 ()
+>  is unavailable, the glibc wrapper function falls back to the use of
+> -.BR chmod ().
+> -When
+> +.BR fchmodat ()
+> +when no flags are supplied,
+> +or to
+> +.BR chmod ()
+> +otherwise.
+> +In the
+> +.BR chmod ()
+> +fallback, if
+>  .I pathname
+>  is a relative pathname,
+>  glibc constructs a pathname based on the symbolic link in
+>=20
+> something along those lines?
+
+Sounds good.  I'd like to also add entries in HISTORY for lchmod() and
+fchmodat2().  And STANDARDS should also be updated.
+
 
 Have a lovely night!
 Alex
 
->  .IP
->  When the value of this limit is zero, no soft limit is applied.
->  The default value for this file is 16384,
-> --=20
-> 2.45.2
->=20
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---d67zszyeulx6ahvm
+--dktfyrgozm5zq5sv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbQ6a4ACgkQnowa+77/
-2zLxHQ/+Nr66FWiK8ffcsg1CUPNkJS9VB3W3S2CYaOEetp6S79gKlC5SI7udDOzL
-9zGiSOQIAz17xJjoZn2Er88H2A99Wnvoz+vMdP+HaPFb9GH+tXtDZf1XkzA6ErL3
-piQSgCSMESAG8AfbE3pORfgxN9P1pKxv4YqKKkLCthilkN5q4nKnLO0g4bkncXbB
-rvKFOlThSHD+BDyZvDbmtdQTzoD/nhr2D5LyXmivwGp7GJWObvYfJe82RXvgm7yN
-ahUNssFad4Z7VOYXAV7nZDZ3jsTIFwiqfu3OOpnEtZQCeaQwsBHGtsSRDC7Y83z5
-7rphXcR94Pfiye7O56tOMKzgEWF/MSxdHfZ6eFRHQ/Zs9pClX1ZlFAP9KW0yYN7t
-ZNiBqKsWldhF6yeIEGyMO68owvdZVxdmmz7WhHWIsNJOzlxiec8wDczXAJgt0D3m
-tGX3jMKqhhDVnTwP999Lk05QI1pfX+LrUtJ5kor/skhqeODLoA5e7S6xiR/hX4nd
-e0PWposyUfd5k3ak24brcbfJYhZGvwZGxjuOQA/qoRiZKjb4WS+NgFWiPz1zjJR8
-6+HWU5LF+Cri4RmiIYOaCv/oFoVX3iSEmHrj7ElYM/POPWJpimRVbMzxK04ZRp95
-bgUzBgB4oyzjtPN7oSPFP47/GjvJiOgvbKebkCfqTGQhs6aaM0I=
-=o95X
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbRB+kACgkQnowa+77/
+2zK6/g/+NeHtxxUgzopF5iQox5f3cbqAN3ZhoA+Ejz5kW9jQuYJxW1zlUegYaiBr
+1GCx7xhLqHFpwofFFLtyqU35bvk7iC+Vu7rU3sE4mRcM81YtEsjIE/YAj0bZEU3S
+lkm4zlbYp/A9DnxmV/F+l1XS8HrUEKzCKrDpkgLJtF2e9zp9rblLdoQAW6yklXuH
+OcrU9xO1RY2oADWuAlEIy2qyEiJUi39ClvJ6RFPzO8bsJKuCoCC9pBXuSgqqMK4V
+ZVHFtn9BIXVtVZxW0zTAncM/pqhg1/XTAkU5ZEPHDrY5RlLxyCkYQERVDKpzayGr
+L0pRMY3Vs/8yEPWMjSb5lFEJV2yrvW3+1k/37h+K2DUlwY9wgmm/GRdduqCCAEHk
+K4YeXK6+9Y/fyyv0mA1zHTY2takZ5Rv+x6IcRsovqCB0tDtaUQMbaKYKtigHWLgF
+Op+is3LM5eRMbmpJXdN/qcDdPfnGp8YG1imYKVYdUtfIPg4S7sUid2Tp4OZUSmkw
+lZZhLY2pJ/eSoQfOtpYROJA07yB29i0rQTZC6fqa78LXAgzpt/fxbAiYweDAjAja
+Z0/10hZROIwtkLtx6AMi65wUz28+7Rqr2ykexQMB43UsXvlHKZRvsQbW3qo4WiyG
+uKTwqncRLADyoj29jG3ihv1TsjVbQ/wNWQr31MwjnQm+ITaoYa4=
+=fOEC
 -----END PGP SIGNATURE-----
 
---d67zszyeulx6ahvm--
+--dktfyrgozm5zq5sv--
 
