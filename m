@@ -1,75 +1,75 @@
-Return-Path: <linux-man+bounces-1734-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1735-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B7039672F5
-	for <lists+linux-man@lfdr.de>; Sat, 31 Aug 2024 20:20:54 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 568B49672F6
+	for <lists+linux-man@lfdr.de>; Sat, 31 Aug 2024 20:21:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 488C0283532
-	for <lists+linux-man@lfdr.de>; Sat, 31 Aug 2024 18:20:53 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 1C000283517
+	for <lists+linux-man@lfdr.de>; Sat, 31 Aug 2024 18:21:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40F0B13B2B8;
-	Sat, 31 Aug 2024 18:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FC3413B2B8;
+	Sat, 31 Aug 2024 18:21:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WkBMFFrW"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MxQplBAB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F05C23774
-	for <linux-man@vger.kernel.org>; Sat, 31 Aug 2024 18:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1359923774
+	for <linux-man@vger.kernel.org>; Sat, 31 Aug 2024 18:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725128450; cv=none; b=Vy1RMMuVehMIqWhlPoj9A6XgUsrLAJMYouYPU3dEWqOhMaU7oIXZIpznzCBWwqYp3+9cGjlvDCFg/BozNRIcK7sQW4RoO0seq9DUlZBwgiFg3YiBn/WMUlTI6PT1bUG4Gdh4qOk8gkdhSOI+V+n0xuzK19OdJHfvhJs2QQ+pMoM=
+	t=1725128462; cv=none; b=TMJ3hpprZWVpx1k58Ybb4GXD9iIP+Vfv29tzGT0Y0rwwHMzA9CzItevvWifwpBnnDxgmx+PGbYLLZShyJmQU1yWwcAth9Y4unN1C+5QB6UVI9LyJVpWD94+/KHTBUn7LHJr9X7mLzN/3ndiVJ8jlfG6+aVJ079OU2B8m2ijhocg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725128450; c=relaxed/simple;
-	bh=g+trAzcuaI/oydJ2kysPHNiv+HKJy9tEHvlt+suKU+4=;
+	s=arc-20240116; t=1725128462; c=relaxed/simple;
+	bh=SZ8k2bMF3iBK24lqzwzUjpjeDXrjz9azlGJe83frkM8=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=bxYEG3Wr0gp/ek8Yy+ifG/Bo9TaNcN2POHlRcX2t7XTIIlum5KY9SjAs+oADxJqn/c4/JfS8Nl/hTtEOGpNKS7bV9gst/wc07whHMytRkYoMY3p4oyBDO8wiIlNv2nx1PzlQ1g8p1W+GGFa3IV9KA+pcl3CzHr5Lj/6CakKdLfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WkBMFFrW; arc=none smtp.client-ip=209.85.210.41
+	 Content-Disposition; b=Ni3t8CovarGhHPVeNkrWIJ2wk5XVEYhFGYihWadTfTjo7c3de4iWrWSHnu1kPiKfrGkt+v2FHtE+ucIGkK6gLGQ8bEII5jK4gaS4MPz/E6zYeIx76lDn39yijJaiv26KrUcN9xlpIjS0XRpURd5hK18CNMYeZC0upGFJczQcpt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MxQplBAB; arc=none smtp.client-ip=209.85.160.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-70f5cd2fa39so2020233a34.0
-        for <linux-man@vger.kernel.org>; Sat, 31 Aug 2024 11:20:48 -0700 (PDT)
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-2704b6a6fe6so1624668fac.1
+        for <linux-man@vger.kernel.org>; Sat, 31 Aug 2024 11:21:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1725128447; x=1725733247; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1725128460; x=1725733260; darn=vger.kernel.org;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HFOtcObHewJx39VUkXmKqhtKwGaxzQ7Sh2tghK0g+7o=;
-        b=WkBMFFrW0TNvDiiONM5Pdqq+RkhVaaZ1QGyfJSfcGf8fzJ/tyaeECxUSlJWcsLFOAW
-         nj7oxx1edx709SmDqZ/k0onE9gtB96WXOGIj50WGb5YPrjkOphxFzwjD4ItyMGJSzmH+
-         atZmsS6PHlAN6wytIuUTBNZmQMStxfv1W/Y9I3h9jMnOMUIfKb2dER5tpKUOl0DNTAHX
-         37uunoxtbGPLTIWWEclc7iVwiNaRLerWCjHHmJL1YD0kQybJOGICDW4pZ6oMtIkXbtKO
-         Z0QaPWAcRjbJ/3EhqfbxCl/W3AVrvfEl2CL4F6Sp/DupfGE8Z3k6q9mhW7WF234UpOkI
-         t4oA==
+        bh=iEwp+HffUUMKOtg+xBv95AFiZef9BAXpwbCbJmYyRtE=;
+        b=MxQplBABYY0/35IKAISVJz06i0a+8++1rmMPksRMkNadIpd6i+Rf/MEqcPXZ/oK9mi
+         fSReXTMW7CSTQRwATzxrIOPMErFhAy7HdeouTnLgOdNNC3FWvXFtHBpdpd40DDLCd0HD
+         GwkQLxFBHFm9npSzJR8jlSFnQQkB1g5nLp+fCU4j+taX5WgV7SZO2BISZrsQdj/mTAmg
+         0zmJsLtDewT9XzJiFHm3OTqQ+C3ecynX83cfhHDfvg92cbVGhrF2oMa5SQlPusqaagcz
+         URaiY2TGG1bLdfMTSKXL4bJNLmyG9LKB6IXEnmjH6RIetNJzsBvUsNxWvCUN1OuU61W6
+         IN6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725128447; x=1725733247;
+        d=1e100.net; s=20230601; t=1725128460; x=1725733260;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HFOtcObHewJx39VUkXmKqhtKwGaxzQ7Sh2tghK0g+7o=;
-        b=Rs+qrJ6nLYddS7EAiLgC+t6tFj5xZ3Ft9b+lnJ7fizPK2XfhCrNb1bzXiNWXOQ/glp
-         jno1e2XZdiCoj7efQTmHbsEAzieJx7egXm82PJ+u1WxOWJrV1yLLigjzPDT+RbxCbIlY
-         hjqPgVwVQ3FrBwipBywnK/s8qh75xT2OEo+2/KhzebUcR6Wttw6SlVN3eGdJqHBqy06i
-         PERyHeDDyoW6qfUmVXdpssUJRJ6YSfhsLj2QlqC3HXKSE+cEbrxL+LLlw9kTObGmYTJ/
-         jzblOFI0w2cE3gGK4ZnH8RJJVLD9S1SZ/I2ma70Ah8zYh1OJLYn0KPCAi1CNZIXmBuM5
-         sFIw==
-X-Gm-Message-State: AOJu0Yz8GrePULf4gE/HRCq4LwyJwY9sa5ltjuxenQL3l4GEW0kzqpW/
-	GD766KHkxADqQ6n3IGVv3y7zEw9tmFtw9ufrpKlsg45uPdomHHyFu8ZvhQ==
-X-Google-Smtp-Source: AGHT+IEqShcQokd88G4JWq1Sx+OxLl2RO1GuxXfSKXhhfRRsWmDgz4uzitkek3mSqJb6AW7JTs9aHQ==
-X-Received: by 2002:a05:6830:3496:b0:70f:6f81:d258 with SMTP id 46e09a7af769-70f7118c193mr3475118a34.31.1725128447387;
-        Sat, 31 Aug 2024 11:20:47 -0700 (PDT)
+        bh=iEwp+HffUUMKOtg+xBv95AFiZef9BAXpwbCbJmYyRtE=;
+        b=Zm3hNOwuavvxxioB7CJ514etivQYCguy2UU0/d1UBLOSFcrEIzXTGd5X9LXO7fInZE
+         KpXGQp5QEdRzB7fpt28oZgLG/BpjcLlN0OEZDTf6C6HirjW4wG1lUdKNRu+PvXJnUOrf
+         UUdsH3XhWh1BRLTmZg8Nj3a1p01MuQEZn3ixOwd1FaIFRFkYB2OzzwYXBr1Vf/+HO3Er
+         lum1btvU2Dp7MlI+wABP8wbcBaBqIYolip8aV8/L6/uLeI0S/x0UAk6ze0DAEQjoA3Fu
+         mipzLp/hLl50dMPuCS6aWgFtiq0sHeFIhXL9YrORtEfEIiZ3tYn31+qMW4FWzlojTwqC
+         DteA==
+X-Gm-Message-State: AOJu0YxXoTaUbA4zUGlKDzUMLWO9cdTMaES74Zjk39ETKUwY8saXnnf4
+	cTBu9b+Cqt1v59I3CKvyKjhYPsJGrnNtyGtpzYOWBOP6YBIKzWmBrIxYlA==
+X-Google-Smtp-Source: AGHT+IHj6MBjeIlXvP5QlHRX3tv+S2+x4WXkhdGJPx2QTYOwlC5PyAhfWZuhXwtQ9FKJZ4od+TO6iA==
+X-Received: by 2002:a05:6870:9127:b0:26f:ddfa:3571 with SMTP id 586e51a60fabf-2779009f3e3mr11094960fac.2.1725128460115;
+        Sat, 31 Aug 2024 11:21:00 -0700 (PDT)
 Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-70f67156226sm1102175a34.20.2024.08.31.11.20.46
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-277d5ed026csm364579fac.38.2024.08.31.11.20.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Aug 2024 11:20:46 -0700 (PDT)
-Date: Sat, 31 Aug 2024 13:20:45 -0500
+        Sat, 31 Aug 2024 11:20:59 -0700 (PDT)
+Date: Sat, 31 Aug 2024 13:20:57 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH 2/5] syscalls.2, signal-safety.7, namespaces.7: srcfix
-Message-ID: <20240831182045.kvhjjxbztnhudjga@illithid>
+Subject: [PATCH 3/5] namespaces.7: ffix
+Message-ID: <20240831182057.u6mza33uhz55j3xd@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -77,96 +77,62 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="d3ywugjivy2vxqpp"
+	protocol="application/pgp-signature"; boundary="kffdk66t4bgdnovc"
 Content-Disposition: inline
 
 
---d3ywugjivy2vxqpp
+--kffdk66t4bgdnovc
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH 2/5] syscalls.2, signal-safety.7, namespaces.7: srcfix
+Subject: [PATCH 3/5] namespaces.7: ffix
 MIME-Version: 1.0
 
-Explicitly set the width of certain table columns so that they don't
-change or cause "can't break line" warnings from troff(1) when the rows
-are converted to use text blocks.
+Let the table columns breathe again.
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man/man2/syscalls.2      | 4 ++--
- man/man7/namespaces.7    | 4 ++--
- man/man7/signal-safety.7 | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ man/man7/namespaces.7 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man/man2/syscalls.2 b/man/man2/syscalls.2
-index c259901e7..89c4e7f10 100644
---- a/man/man2/syscalls.2
-+++ b/man/man2/syscalls.2
-@@ -139,8 +139,8 @@ .SS System call list
- .\" instructive about x86 specifics.
- .\"
- .TS
--Lb Lb Lb
--L2 L  Lx.
-+Lb       Lb Lb
-+Lw(26n)2 L  Lx.
- System call	Kernel	Notes
- _
- \fB_llseek\fP(2)	1.2
 diff --git a/man/man7/namespaces.7 b/man/man7/namespaces.7
-index 5cf054665..9f0fda553 100644
+index 9f0fda553..cf3436f09 100644
 --- a/man/man7/namespaces.7
 +++ b/man/man7/namespaces.7
 @@ -30,8 +30,8 @@ .SS Namespace types
  The last column is a summary of the resources that are isolated by
  the namespace type.
  .TS
--lB lB lB lB
--l1 lB1 l1 l.
-+lB lB  lB       lB
-+l1 lB1 lw(21n)1 lx.
+-lB lB  lB       lB
+-l1 lB1 lw(21n)1 lx.
++lB lB lB      lB
++l  lB lw(21n) lx.
  Namespace	Flag	Page	Isolates
  Cgroup	CLONE_NEWCGROUP	\fBcgroup_namespaces\fP(7)	T{
  Cgroup root directory
-diff --git a/man/man7/signal-safety.7 b/man/man7/signal-safety.7
-index 440894529..36cbf8d6e 100644
---- a/man/man7/signal-safety.7
-+++ b/man/man7/signal-safety.7
-@@ -71,8 +71,8 @@ .SH DESCRIPTION
- the table details changes in the subsequent standards.
- .P
- .TS
--lb lb
--l l.
-+lb      lb
-+lw(24n) l.
- Function	Notes
- \fBabort\fP(3)	Added in POSIX.1-2001 TC1
- \fBaccept\fP(2)
 --=20
 2.30.2
 
 
---d3ywugjivy2vxqpp
+--kffdk66t4bgdnovc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmbTXv0ACgkQ0Z6cfXEm
-bc7vCBAAke4Tqib4uAoKSwuqFx+3UtKMcUaSZcMvVuANdBHLcx6mptjEskIPGlTF
-0NLERwgzsJUAVbjKVDgYleqpGllSynGAXuhC+dqEbuib30TbJgHdErI9xKXR+CO2
-srEIpTz0LPKvrplTTzFsSJxtluj+BZuLxn2nlE/Ga0fIAKwqed1Q/zDO4tLcx7EG
-SdS0RG4U7FG2aixREUHM3844vyZ+/ijoCoiGh5e3k9vb89JlbzXLjekIrKvc8I1U
-dsp2SzfYNTxVw7EVEynRIn1dC9DLPMH+fcAutL4cBdCLtiUxr5HmPOKjhqMcMWFW
-8Ug63u27kajUWXqtKdFxuZy7uILjsbEEgPMW0qzk6VTwzf4poXyK5WT0oOe3QHG1
-Z3IoaSwiry/UZDK3aBRMlg9UosAQDZvMXm6QR1freoYLKi9U4T25Zv5ELXz6lnRH
-h3ncoGdBydjqB6zoRXM6ETo8LCDP/l49aZN6aQNu651f/MgvT+gTn2vASSUqWIgl
-JrTZ6FVixtbOAxtkQY2qQCfHteO0iOSV9TKngD/NMYdI4hTrtYXwa1vf29ABiBwB
-GNERwXnl17VrMiJRANqKTO3wdX7wrcn50uOPnyPoC51/3zagYjvXuOfFEDwiP5n3
-fdnVfzD6yMVioHxPpz9OKrCUOG9Mwxa7AsxYHNBIjNrf4jSovSY=
-=mKpq
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmbTXwkACgkQ0Z6cfXEm
+bc4ULA/9E0bU871m40O8KhMCJf1Wfpv26la3+Q8g7lim2mZFv9jtbsJko4oGFORv
+jenTvnH6227tkvTFZ+GPywMIyysvLye9Q60hfe5vbyGyfMfG15JQ8MG2abPTJQn1
+7XhzR/itqF4Y9rkSvEivrNVKi2uxnR5k8YTh395FHAjsSVZhZ8qyfmU6pzac0dKa
+VeQI6kgFZrix8N6tkL8Qpc3xK7X7tDudedjfnJei9u9nwN8dn7ssj3WiYg669ekD
+l39CbCzpMNIIgVX/hs5EFcyzAcsfeFlkA+sSlMsbF2TB3OzeK19x7953UaTfnNX7
+Cg6g0U8KFI7XBmrCxLDiVAQuvF9mafLdgmLZ7EhhET/udl6ylGsL1Zkl789fCQ0J
+dUfqLerkvCcQmKCMLaLQiQZ5sRmY9EOMQ0pZRSD4DMXGX3QeaY2vEGBTg8sK9Xt2
+/T5PLXkrHzV3yiocjaKqUtRJhw9A2f6mbTvav+yLO6eMjV9OAIcW/Fs4ZdqqvxtU
+adQqq0hqUh7QaU5EDiSA2pZv+Mb4XuP3x/1Zft3RH5gIntEIyVz846H5LHhy/5+P
+ucNqg+wZw0d8EYmYW1X8jtmZXUjVLIAHD2UJunbnAKLrB/aVKKBfWCWyu1C8Taqq
+Bii4wWBaVrLScnnv9XnuMCLDbngT6UT4bMAqp6Lb1joC9m6DBEk=
+=Uy9e
 -----END PGP SIGNATURE-----
 
---d3ywugjivy2vxqpp--
+--kffdk66t4bgdnovc--
 
