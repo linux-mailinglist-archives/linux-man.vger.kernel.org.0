@@ -1,76 +1,76 @@
-Return-Path: <linux-man+bounces-1756-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1757-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88DBF967469
-	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 05:26:10 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CBC896746A
+	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 05:26:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B5F791C203DD
-	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 03:26:09 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1CDAA1F21F96
+	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 03:26:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBBFE28DA0;
-	Sun,  1 Sep 2024 03:26:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 660E417BA6;
+	Sun,  1 Sep 2024 03:26:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W1cqsu0B"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="isqU75S1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0F6288C3
-	for <linux-man@vger.kernel.org>; Sun,  1 Sep 2024 03:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B241EF1D
+	for <linux-man@vger.kernel.org>; Sun,  1 Sep 2024 03:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725161160; cv=none; b=Aw3K76/iiF5hiBQ8LmbUPCtWX8G478xz3NpuQJ5JIyRez8In9t1lckTUSAMGw9o63gwwHDcsIEBXcufNCkxdJCJ9cMhGtimxcYqngpvV0Sl5qlVqCPXe3OFWRgE/e0CKr61ENE2tMJqwp4+bddBQi7Npjxiw8gLVRQM71QB0H1I=
+	t=1725161168; cv=none; b=N1Z+HOOuSR0anDaYeeIe+qo/BIWo873m42u11Npnxi3CKZeXbOXb82uJLGC6TTPbTzkeJfttb2I2/9WYmmwjZ4EXS7nTIxPXG8AsaJ9TGtKb28rxgutAhqIecaIZiElUUhBjpPaICdGRYb+Mz5h8+F68lsTUq9jD+7iljmhGtYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725161160; c=relaxed/simple;
-	bh=7RLoooXucP+yhDtuCWAAnWIhagB3m00Wif7+MHYnZ9U=;
+	s=arc-20240116; t=1725161168; c=relaxed/simple;
+	bh=atWXuQ1XoRMO5lQebnUcPuJexSwl4fupUxRHxhVaDZY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FJu77Z5bhfU6y3rLCqWo/M58ndgUbBZ7yQSRDfx2E9f73o0kvXpqDGkwdlSFreiazfQ8bmazNyeB1oC9X+Lmd/nWZF2A4DRLW4LZtDrotamE9WDlbcRVpwt/RpbgPsH3+peu3oSsh+EojeMqPJyyfATkOJlk+ax7DjAv0//GRJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W1cqsu0B; arc=none smtp.client-ip=209.85.161.44
+	 Content-Type:Content-Disposition:In-Reply-To; b=c+kziDX3LkR/Unvghlya54JzgBGNvAPppX8I6Pd3bWyAISk/5KIUOXKcDkkcsfO+JtVN6+GO5jFGd2tPyBM261ouFZbMpUYOeRdzAJj9h7uTm6d/VzjdS8+mBsLtSEym4i4ds+Pi1iUJVaA8v0K5CaBjhOcbzwTNHiv+4jmUfTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=isqU75S1; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-5dca9cc71b2so1877093eaf.2
-        for <linux-man@vger.kernel.org>; Sat, 31 Aug 2024 20:25:58 -0700 (PDT)
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-70f6a7c4dcdso1150225a34.1
+        for <linux-man@vger.kernel.org>; Sat, 31 Aug 2024 20:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1725161158; x=1725765958; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1725161166; x=1725765966; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=SYr5AdUQZoLgei+EYuEmsaaPO+pTxb1ffxxYynMPBhk=;
-        b=W1cqsu0B3r5I4LklAw9oaQu7+vkuzgyA4wFOHZP5wSwTc1qUEIQvJWdlHHHsOQ1T1/
-         UZouywinEf7jIXShoxuVbiLMle32BxJbXcLk3DOtOefisD+goUpoZihunRZ7SF1veMop
-         sxKAh4t6sWG7SE0FJZ/B7XQMjNP9zJeaen0kLwWC6zpEcrIJtYEtTmrcTxIJTFdldHrF
-         74c4H7gBWtDoh5BXcwo32mX91G3jgY8kYh6jLv2CtZAukWsKKz6Rp48+TljGlQAjSYeH
-         g+ZWJ9GD7qwZeA3zCl5ZlwlRYP7iyevbh8urqab+yZr7t57f/2f0QXhAMpqZ+lqRN1gf
-         PPOg==
+        bh=d4PtQ4mF+dKpbDkZBEuSjiy6/uM5qX2CPO2/Be+UevQ=;
+        b=isqU75S1+x1zAGyAp6RLArDYUhwANxidLF8rxGi/hxI2eroYq7702UUCK8Ifp8uT6i
+         6RkOs+fnphm9hwQZZw47SyMoZMqjMhgKMVVtysDGmgpdZtP2J6IKWcmwy9f+02cFyCZx
+         XV7SSwY7p8Sg8IctMGrJlHW0E/35rN41k7viG+k2uEpVz7gC3yZWvx+kzzQxNF4oZD4q
+         3hHH+F0lmXuB0v5gWekBChKQh4xhsme0DUI8bo+Y2tsqiRyjvmkKaEtkdYUAb6x5NfsO
+         aqkpwNW9bYT2CnldteIRbxeXg+rlT1LB/5SnG+pFZ7FOD9Nv7rbd0GD6kQLMwU+rJrrD
+         BfXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725161158; x=1725765958;
+        d=1e100.net; s=20230601; t=1725161166; x=1725765966;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SYr5AdUQZoLgei+EYuEmsaaPO+pTxb1ffxxYynMPBhk=;
-        b=lHysnmrXbeUIEGQ8kC44jgEK8/WaBmAq0h1qiePrRO7rEPxh7YBRU50ixXkK8o5NZS
-         fVvEx4RtakE8PeLHAR5dto2bCp34+bgbeaavF5ROeqhcSoh+RLa8nnYkdvhytVVcq8qN
-         ELz0qjON5uZx6zL88A/M93oQkiL5hrUYo9YYXWHvwSK9p6DB44Lp5lPV4I2238BiEkQK
-         nf3BNsX/wH9ReQ8Y82JzpUt7GFXLywHltDyLbmFHYo3p1PjCuteUH9JHJoUk6yCUpEM5
-         +MAny7XLlYOvX6xRnFEn3XyeXSzCSFGKkrZcKxTyZ74l9gFCuMo5svnvKhWrEOZAfP2b
-         gQKA==
-X-Gm-Message-State: AOJu0Yw3/4rAAk2wqRBkL1aptZVh830J2XH1IDko4IJoMBuJV5u1xgtb
-	5GewQMPAfH8AxzVSuxA8yQUVtu89H0eB3TWSEJTUggYFuPlSf/mXAuBPnw==
-X-Google-Smtp-Source: AGHT+IEan4KR+qA+doipb6AjwjIql1kIQcKv7pstFVaq0q81Bd/Mrq/En7x3Z7WymBA1MrnIGCz1Cw==
-X-Received: by 2002:a05:6870:8201:b0:277:e868:334f with SMTP id 586e51a60fabf-277e8685a4bmr520576fac.34.1725161158078;
-        Sat, 31 Aug 2024 20:25:58 -0700 (PDT)
+        bh=d4PtQ4mF+dKpbDkZBEuSjiy6/uM5qX2CPO2/Be+UevQ=;
+        b=ctfvVhAaiglGlqGJsUFeUc1UzzebGe8/rjwoci0Hpqb4QhAruOoEKqp5jDdD8f8qxY
+         fg1WMOaBZgm+FLkpj2GBcBzrHsSsSX66naoWT7s0azXjwknrnsPt3zlNaRPh1oYSW6J9
+         Lw7WJHRZKkCUV7ZnXMGWipMeJtq/XbXK8p9KBEYn7uXhLMzqYxkfv2aGHInDWlo63Y5a
+         I66bn8KlXlXlvVpkKMKQf4vQQhze3FSM9dqNAYgclQo1tg/DWIKa6gM2pJrpS8JbcuiA
+         CmmH/r38W9mGYB01M0MCPqFlJ5mFtDQrZshM69hQvk/JosXp+mMy77Py56fQlSBcSxbb
+         B0JQ==
+X-Gm-Message-State: AOJu0YzuzesIQTS3Psa9T+jj25lGvHc/vwJBQl/1kNxqtblIfdNml8LZ
+	iSLqaCQJWXm61Ln/nLPS150Q0TPCnS6IQzFLLciUAMhm6Y0X7CVMbfpNvw==
+X-Google-Smtp-Source: AGHT+IGqxatG5/NlKJZOObz9Lf/jZUrxsE9xPKdFbIHKW9SGUd9VU1juP8VtTeV2MrPUozGEgHg4rA==
+X-Received: by 2002:a05:6830:4122:b0:709:30eb:dfcb with SMTP id 46e09a7af769-70f5c38f770mr9057817a34.18.1725161165577;
+        Sat, 31 Aug 2024 20:26:05 -0700 (PDT)
 Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-277abd70b51sm1584247fac.56.2024.08.31.20.25.57
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-70f671aa882sm1312551a34.58.2024.08.31.20.26.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Aug 2024 20:25:57 -0700 (PDT)
-Date: Sat, 31 Aug 2024 22:25:56 -0500
+        Sat, 31 Aug 2024 20:26:05 -0700 (PDT)
+Date: Sat, 31 Aug 2024 22:26:03 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH 07/10] lirc.4: srcfix
-Message-ID: <20240901032556.mmrwd27rpr3zzb5s@illithid>
+Subject: [PATCH 08/10] console_codes.4, inode.7: srcfix
+Message-ID: <20240901032603.khxdcqiqc2pxooky@illithid>
 References: <5bec58a0a261f834a2fc29d471b0b984822905b7.1725161054.git.g.branden.robinson@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -79,74 +79,117 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ce3j6dj6ub2j2zrg"
+	protocol="application/pgp-signature"; boundary="a7uch2orl3wg6nkr"
 Content-Disposition: inline
 In-Reply-To: <5bec58a0a261f834a2fc29d471b0b984822905b7.1725161054.git.g.branden.robinson@gmail.com>
 
 
---ce3j6dj6ub2j2zrg
+--a7uch2orl3wg6nkr
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH 07/10] lirc.4: srcfix
+Subject: [PATCH 08/10] console_codes.4, inode.7: srcfix
 MIME-Version: 1.0
 
 Prepare for `MR` macro migration.
 
-Migrate man page cross references in "SEE ALSO" section from using font
-selection escape sequences to font alternation macros to set man page
-cross references.
+Rewrite man page cross references inside tbl(1) text blocks to use
+man(7) macros instead of troff(1) font selection escape sequences.
 
-This is an oddball case where `\-` appears in the man page title and,
-for no obvious reason, a nonbreaking space escape sequence was applied
-between list items.  (I can _guess_ why: someone was trying to defeat
-line adjustment, and didn't notice that they were trying to do so right
-before a paragraph break, so adjustment wouldn't have happened anyway.)
+$ cat fix-man-page-refs-in-tbl-tables-1.sed
+	# Rewrite man page cross references inside tbl(1) text blocks to use
+	# man(7) macros instead of troff(1) font selection escape sequences.
+	/^\.\\"/b
+	# Case: (handled in commit 9d21f97766, 2024-07-27)
+	# T{
+	# See \fBchown\fP(2) for
+	# T}
+	/T{$/,/^T}/s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\) /\
+	.BR \1 \2\
+	/
+	# Case:
+	# T{
+	# the map that is loaded by the utility \fBmapscrn\fP(8).
+	# T}
+	/T{$/,/^T}/s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)\([^0-9a-z]\+\)$/\
+	.BR \1 \2\3/
+	# Case:
+	# T{
+	# by \fBxterm\fP(1)'s \fBhpLowerleftBugCompat\fP resource).
+	# T}
+	/T{$/,/^T}/s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)\([^ ]\+\) \(.*\)/\
+	.BR \1 \2\3\
+	\4/
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man/man4/lirc.4 | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ man/man4/console_codes.4 | 7 +++++--
+ man/man7/inode.7         | 3 ++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/man/man4/lirc.4 b/man/man4/lirc.4
-index ae1caafcf..2eda9a0cd 100644
---- a/man/man4/lirc.4
-+++ b/man/man4/lirc.4
-@@ -417,7 +417,9 @@ .SH BUGS
- .UE .
- .\"
- .SH SEE ALSO
--\fBir\-ctl\fP(1), \fBlircd\fP(8),\ \fBbpf\fP(2)
-+.BR ir\-ctl (1),
-+.BR lircd (8),
-+.BR bpf (2)
- .P
- .UR https://www.kernel.org/\:doc/\:html/\:latest/\:userspace\-api/\:media/=
-\:rc/\:lirc\-dev.html
- .UE
+diff --git a/man/man4/console_codes.4 b/man/man4/console_codes.4
+index dfbb672ec..a12d21660 100644
+--- a/man/man4/console_codes.4
++++ b/man/man4/console_codes.4
+@@ -173,7 +173,8 @@ .SS Linux console controls
+ Select null mapping \- straight to character ROM.
+ T}
+ ESC ( K		T{
+-Select user mapping \- the map that is loaded by the utility \fBmapscrn\fP=
+(8).
++Select user mapping \- the map that is loaded by the utility
++.BR mapscrn (8).
+ T}
+ ESC )		T{
+ Start sequence defining G1 (followed by one of B, 0, U, K, as above).
+@@ -709,7 +710,9 @@ .SS Comparisons with other terminals
+ l l lx.
+ ESC F		T{
+ Cursor to lower left corner of screen (if enabled
+-by \fBxterm\fP(1)'s \fBhpLowerleftBugCompat\fP resource).
++by
++.BR xterm (1)'s
++\fBhpLowerleftBugCompat\fP resource).
+ T}
+ ESC l		Memory lock (per HP terminals).
+ 		Locks memory above the cursor.
+diff --git a/man/man7/inode.7 b/man/man7/inode.7
+index 497e30e8a..1fd3de85d 100644
+--- a/man/man7/inode.7
++++ b/man/man7/inode.7
+@@ -347,7 +347,8 @@ .SS The file type and mode
+ .TS
+ lB l lx.
+ S_ISUID	  04000	T{
+-set-user-ID bit (see \fBexecve\fP(2))
++set-user-ID bit (see
++.BR execve (2))
+ T}
+ S_ISGID	  02000	T{
+ set-group-ID bit (see below)
 --=20
 2.30.2
 
 
---ce3j6dj6ub2j2zrg
+--a7uch2orl3wg6nkr
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmbT3sQACgkQ0Z6cfXEm
-bc4HNhAAmgdqpQMeXHUjM1U2MKBapweViB946LbK6A8LkcvWEjtEDrVtVTsYXp3f
-4ZOi7i1oRDbz5pgdhF22cs+XJ5KrLLZajlgzGGbLz+ZctT7vvyimCg4RvJWS1ocB
-t/dARJt3V9P+xWigVgcChiHdXMA2uYzgVxks5prTS2UBHI+VIgovouHLhYgmT1k8
-VskI2S7jTCSq0nRwU4huWDGL+/MAdhKDKhgsmHKD0Dic3dIuG77gTa2TMlprOgzr
-jM0jLdV9rjCajN0aMUhZCApwxh7JpXtxQcIN5BqxMWpwOTg5bXp9fv+DH17FpIH9
-a+zVZul+NxlvnFXeMikY0c8HCC1rfUVXu+j8WH3q5ivZt0GX1uvBPsJEsNGkkBKj
-Pbm4Ci4Swm1Jgi7npZbL+zVy7l1oSAqnzTZTTX8GR3tkvw9wcoZNhlTkEfqzp22o
-cWGz8NDNubBNH0zydoSt+UdHnON/U9fz6IabqlCZuHWavU0eT4qvXt8DPmLVULJJ
-7IjqIRQ57sqFbQDtt9XH5I+p7Jxt42h0Wu7toYZxq+r47L6MLPUQLLe7DL9KsgMl
-MWITQUsKWZkKdhoSKUb1NNxcGcx7/Kti1vQsfuKZcPLvsnPUDVrWzUh74Tl3BRlQ
-B66kmiHGmUIWnRohl0d2CayxbwFK2VwtPTAxLNg3t1fDd9vjH58=
-=ulkQ
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmbT3ssACgkQ0Z6cfXEm
+bc786hAAmNDs4Y3k/3SlEIxkmJvrBcaUJARqzIgAmI7KJXZaxZrieGx0LO1YTITf
+rLy7QH28rXPxEWd64Tzb7wR1J7vFcZSvNaZDPe7Qo5hiop+ZXi7dgDXJNjLJlWxF
+L09rLxv0yRfR2jv/8fHvz/6y2onXC7lSb0PLE+wzP7Rle0XR3Kjc7RQ293Yi2uPv
+cDMC/npqQGSIThJZVS7NS5wA+UrOKWnrLrmBSUlgSjvcGsUsxM7MdZNFAQ52iXch
+dGTb25+yQtAK5+gIq2qs3UtFxmvJTCNfGQfFXG42vUJKzA2iR6DeighfZOIAEH30
+9TxuuVXTBq+6O6Wr3GJli+/Z7YWuLQrQzL0JMe6uCZ8+F7Uul3OfjZd4CRgLc9SJ
+wfwDhSZ472bsycI5DaiOqGj5JmkllilEca44r9q4h9SqsmkmvSRPr69KzIQpfhTx
+VYF+ybxSGvo3/bjJChCvwT2jTFsUu7xzI3lxnzeSOJazGBhBgsDeQ9Cul++3D/fn
+n7korQxOiL21L/DYYgGHMHsvGUXRMo1lBQxnWR0a4Q+7k5qj+s4pMZfbEvIP6aqp
+/Q0RQvI+esDcj/k5H9aBZjapS4Br1H7LfgNuy0tZ/6aRq0GOnq9m1swc4nkiiqej
+hSZ3/5usT3EpFCsHHsrkfpLVnCEGEhAfqTQ6/zkOslMpX10r5iE=
+=x8m8
 -----END PGP SIGNATURE-----
 
---ce3j6dj6ub2j2zrg--
+--a7uch2orl3wg6nkr--
 
