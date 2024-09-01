@@ -1,57 +1,53 @@
-Return-Path: <linux-man+bounces-1760-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1761-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA63E967589
-	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 10:13:50 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE2E96758B
+	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 10:18:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 84E5D1F21A76
-	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 08:13:50 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 457AA1C20E9C
+	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2024 08:18:28 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2673143C4C;
-	Sun,  1 Sep 2024 08:13:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D16C25FEE6;
+	Sun,  1 Sep 2024 08:18:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqVVX9vc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2jj8gc4"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25E1A94B
-	for <linux-man@vger.kernel.org>; Sun,  1 Sep 2024 08:13:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E6326AF6
+	for <linux-man@vger.kernel.org>; Sun,  1 Sep 2024 08:18:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725178425; cv=none; b=KZMttnoeozDxmE4ZhWNv7O/S1nthxUX5U+xpnIvWcCFWCgdEWW728vbBdmNbGbN7ajZrSjENLNKB3xkR99HsBbIWlEU6/+I06qEFuGxr3sVRRnxYBPpZfNZKVVKT4tbHdI9mOfBkMBTp9/B+kvZHtClLFtrQsyCJS/BlHr8CM+s=
+	t=1725178703; cv=none; b=IdouSPFk/D01+cEzYmrgR6VrMxAj0DFWmomN/u9Aym8+INwoDQqhmU0g2hx0dXtfYupQnVsvau/sTtf8GCc1IInUteyabUY6nLAQ8FPi6teKCNhWCpTsw6wj+P5Vp+m7/4xHku54vXeEuSpghSr0gGbT2vQ0drGzk0XHXR8tqrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725178425; c=relaxed/simple;
-	bh=fm2lsGnMneVTimgDhPv99f/WyIPvU+yKI9jFiLQz82g=;
+	s=arc-20240116; t=1725178703; c=relaxed/simple;
+	bh=wib0k3vu3umY5cHFjwGHigNriVUWWALs3wOpQohNXfI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dDXAlaYiO+JRHz1Ue6fMWzpOzOXaC+RK0RB8GMl8pkaYuWdHmH94b9ECPnUdgGAcLwI+IF0oZGq9Pc0dI8k2ioemkz4MDvd9hy7i6EgbWZcdLxHOcXKMY4zCf8GXpU+2ItIzmBPAsGTpYdFOc25e3NR6pXelM/ZMpB55UzdIJl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqVVX9vc; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ABF0C4CEC3;
-	Sun,  1 Sep 2024 08:13:44 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=QELv2A6usX5uyTvClqZk6Y+ksm8BPIQ8AKm4z2fN2NlhBMTDqDS3b9+dUp4K9jXsAqjjDz1mcw4fyX2ZhdoS73Gd+STRK5zrH4OD8q89fM/MdZPQv7UuVFm2SEov/KBZelx4+EuIGY9bbFAF7Io9c1aYwbuN04mnwZ9BQyzKeVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2jj8gc4; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4C1C4CEC3;
+	Sun,  1 Sep 2024 08:18:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725178425;
-	bh=fm2lsGnMneVTimgDhPv99f/WyIPvU+yKI9jFiLQz82g=;
+	s=k20201202; t=1725178703;
+	bh=wib0k3vu3umY5cHFjwGHigNriVUWWALs3wOpQohNXfI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dqVVX9vc3vUT2WB78lbTLMKU5UJejceFTWAg09VXOUTy55ff7RY/X1gxsoR2/EGqk
-	 2UI84fPjhnyCI0CBi29MnPy1Jfdb8+Dff1LSnvigzW4MgAy271kbM+nejIx5c2ua2I
-	 PXaV6eLkDZGFFHu15aedh5iCBGfbp+F1J/LLMq4ZcVFQIf+lI8DNsb9Ihsr/oaYmpk
-	 ZKnxWUBKcV70XRwuTh9T3kS2/SHY9Unl0AC9iwNXS6kEOlqmMXxdAG0eFsFrQBAnbH
-	 O3479ZWCYeRxXvMOK+1e0BZNk1qrIbfwewU/72vE+eV0tN7kJY2eD8M7bP4jjf1l9z
-	 X5/sUQerowTIg==
-Date: Sun, 1 Sep 2024 10:13:42 +0200
+	b=C2jj8gc43eGKhDFXfwdXDFM73nTNYFASCIeKoBV4EOE32RoVgR+0NCaDXdNyFpqXi
+	 Ebw9wfDtuF2+rVTcQcVjvblJm3GktLy7cZPgztpJjMPTLr7mL9/IHjYnfrn/5HSxn0
+	 Rbi+rk7TjNIJLep+rdoRgQUJ3KmUOstNhxXYE3JTeDIEhouvXOBjYUHidvIT/HZ6uK
+	 /647J1ijwurRTw+kJVmpqWQN/bVK+XnlhXB6/Q5DS/WXfaUTq8bEDBCxehr5JDxfkY
+	 lVQ/P44cf7y0hGUtTcp5ignPy8TuWR+l5f7pBQ6GvJVxW6Ntf5VPF8ouc5Ac158Vcw
+	 2vp5F5CYgJWRA==
+Date: Sun, 1 Sep 2024 10:18:20 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/5] man/: srcfix
-Message-ID: <6r7eowwv4d4oleyqkqcmqekoxd54dcaayklmqmyyuvtj7jmfjh@fdgsuqxrnpr5>
-References: <20240831182119.wifbdbligob6h3fg@illithid>
- <uqdvw7tsxj2aemaezurnigbxzuvwwbcmw3isnblvlxxtbrf43v@cyihbxxa6xju>
- <20240831221626.b2t6knmfdqc54rm2@illithid>
- <cq6ykykosgn2ytewgmx6rwmvnqm37by5bfedvk7ywkzz3ihwhr@6kwfxjqly7cv>
- <20240901025912.l6rpcee2d6gzftcn@illithid>
+Subject: Re: [PATCH 01/10] namespaces.7: ffix
+Message-ID: <w5hozxv36mkgqsntyitcgfm7y2s7rzehkqbhmyko6c6yy6vsae@eaublrushpbx>
+References: <20240901032453.3dmhjz7urk2saizq@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,113 +55,93 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mvmsd5xpxltglfmm"
+	protocol="application/pgp-signature"; boundary="ehcq6hpnmkfa3p6h"
 Content-Disposition: inline
-In-Reply-To: <20240901025912.l6rpcee2d6gzftcn@illithid>
+In-Reply-To: <20240901032453.3dmhjz7urk2saizq@illithid>
 
 
---mvmsd5xpxltglfmm
+--ehcq6hpnmkfa3p6h
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/5] man/: srcfix
-References: <20240831182119.wifbdbligob6h3fg@illithid>
- <uqdvw7tsxj2aemaezurnigbxzuvwwbcmw3isnblvlxxtbrf43v@cyihbxxa6xju>
- <20240831221626.b2t6knmfdqc54rm2@illithid>
- <cq6ykykosgn2ytewgmx6rwmvnqm37by5bfedvk7ywkzz3ihwhr@6kwfxjqly7cv>
- <20240901025912.l6rpcee2d6gzftcn@illithid>
+Subject: Re: [PATCH 01/10] namespaces.7: ffix
+References: <20240901032453.3dmhjz7urk2saizq@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20240901025912.l6rpcee2d6gzftcn@illithid>
+In-Reply-To: <20240901032453.3dmhjz7urk2saizq@illithid>
 
 Hi Branden,
 
-On Sat, Aug 31, 2024 at 09:59:12PM GMT, G. Branden Robinson wrote:
-> Hi Alex,
+On Sat, Aug 31, 2024 at 10:24:53PM GMT, G. Branden Robinson wrote:
+> Put a paragraph break above the table to ensure separation from the
+> preceding paragraph with the man(7) macros from groff >=3D 1.23 and
+> forthcoming mandoc(1) release.
 >=20
-> At 2024-09-01T00:30:26+0200, Alejandro Colomar wrote:
-> > Using indentation for the scripts (and cat(1) before a script starts)
-> > would probably help.
->=20
-> Ok, I'll do that in my next submission.
->=20
-> > > > Could you split this change into some simpler smaller patches?
-> > >=20
-> > > That's harder.  It's a scripted change.  I don't think breaking it
-> > > up by individual sed commands is going to enlighten anyone.  But it
-> > > would be easy to break it up by affected file...
-> >=20
-> > Do the individual sed(1) commands produce good states?  Or are they
-> > temporary steps that would not be good by themselves?
->=20
-> How about this?  How about I improve the internal documentation of each
-> sed script so that it discloses the sorts of case to which each
-> substitution applies?
+> See <https://cvsweb.bsd.lv/mandoc/man_term.c?rev=3D1.241\
+> &content-type=3Dtext/x-cvsweb-markup>.
 
-While that would help, I still think that each case should be handled in
-a different commit.
+I've reformatted the commit message, and applied the patch.  Thanks!
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dad47f4823cb8e0ea0f4eefef26bac2424572834b>
 
-Have a lovely day!
+Cheers,
 Alex
 
 >=20
-> $ cat fix-man-page-refs-in-tbl-tables-1.sed
-> # Rewrite man page cross references inside tbl(1) text blocks to use
-> # man(7) macros instead of troff(1) font selection escape sequences.
-> /^\.\\"/b
-> # Case: (handled in commit 9d21f97766, 2024-07-27)
-> # T{
-> # See \fBchown\fP(2) for
-> # T}
-> /T{$/,/^T}/s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\) /\
-> .BR \1 \2\\"1A\
-> /
-> # Case:
-> # T{
-> # the map that is loaded by the utility \fBmapscrn\fP(8).
-> # T}
-> /T{$/,/^T}/s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)\([^0-9a-z]\+\)$/\
-> .BR \1 \2\3\\"1B/
-> # Case:
-> # T{
-> # by \fBxterm\fP(1)'s \fBhpLowerleftBugCompat\fP resource).
-> # T}
-> /T{$/,/^T}/s/ \\fB\([^\\]*\)\\fP\(([0-9][a-z]*)\)\([^ ]\+\) \(.*\)/\
-> .BR \1 \2\3\\"1C\
-> \4/
+> Draw a horizontal rule under the column headings.
 >=20
-> I'll be taking out the injected "1A", "1B", "1C" comments before
-> submitting.  But they were helpful in development.
+> Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+> ---
+>  man/man7/namespaces.7 | 2 ++
+>  1 file changed, 2 insertions(+)
 >=20
-> Regards,
-> Branden
+> diff --git a/man/man7/namespaces.7 b/man/man7/namespaces.7
+> index cf3436f09..5d19d004c 100644
+> --- a/man/man7/namespaces.7
+> +++ b/man/man7/namespaces.7
+> @@ -29,10 +29,12 @@ .SS Namespace types
+>  on the namespace type.
+>  The last column is a summary of the resources that are isolated by
+>  the namespace type.
+> +.P
+>  .TS
+>  lB lB lB      lB
+>  l  lB lw(21n) lx.
+>  Namespace	Flag	Page	Isolates
+> +_
+>  Cgroup	CLONE_NEWCGROUP	\fBcgroup_namespaces\fP(7)	T{
+>  Cgroup root directory
+>  T}
+> --=20
+> 2.30.2
+>=20
 
 
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---mvmsd5xpxltglfmm
+--ehcq6hpnmkfa3p6h
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbUIjYACgkQnowa+77/
-2zIRIA/+PjAfFcPFzKW6eZs7u+0gJicDkgYJJvqMVZcS1A2RhoaL8mi7P+GXHRLV
-MwRSislWkDlmY5RCoP7SKfqeWUz42uoLSZopeY06Ku/4KJ9ETmVA+th1XjGWV6kz
-Tz9FpaOvR2iDlKGNNzPA8FaNlA/1oVoMAeCbIdFmmJSoRXkv8FFi9hBnyg0/n3fs
-xeks7t4jFm29YJzJkEYxUPtNQLZjsJHZ5W7QjZAamZu83yaE8H4J+o8YGEjEpK5P
-2p1kQkV1UHdpSKEhbC7EUmxGR/0m/hBpq319hgcJ5gBsbHV4eGrX3VOtZVQSamtI
-DknqSQ1F2967YYuPzAZTujg0dRzLbqf/0RzmQHkHNLQOTuQXslXjQEFdHtPXgD5T
-Byc5OuxH1lOz79Jvi7OMAF8CGylAsStmH6H/K9ARXMALUAI43WdqAxhUk0wRkwSk
-oLo9pvOyhjepj0A37Of42lMM7uKS+x7Yt58O+DwXmKyJr5VLmTNKR6fz/ArDHlPO
-wLzIrSDFUf3G6PBTt/pWr4WfI01i6lp/zHz6HmtxBP2i+5knbg3CIm0Kx0uU0kDr
-5BXTV/wYXH/jtQ+n978I1QQ5vSD2C0iRpTKgdBcXrdge3YZGgg56NzeiSAihwbRk
-85Y1M3j8i0XkQyYk2t9B1sciabk4hfgnzlAtdWsw9+pp2iMu/sU=
-=xEam
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmbUI0wACgkQnowa+77/
+2zJO3A/+PSkfQ7oC0xtYcu3qvTZLXa6KA4/wPgQHErZRimYaZjUwVZ0ScD/mbCj8
+zkWs/ZV3o52eFdKTXjDnmO8NPJsho2WDEAcGNjqYlHawwcdjXeF67R9wHSYxVm0h
+pGuVX04AUvq84BqfdW3ZdDz+oD2p142GeagrOCAg8V9K1/WfzKo9Zh31+tkNgJB+
+r1x8eZWOidizYjakB1U8LYmnv1eNTFwX3DSY9ZrTohXoq7GlkDcaEzPMgOuWLW8/
+r2b98dblzQcnO0PS/Uop95HY+15AGoORDR+N7DbLyZhW4CVcfWlXzwsF/UFwVVSb
+6TaM7/I4OWq/NtFxZ5SSXOp3KCF1xc0YPt7S0Okgh8L3fg4lsm+nd8Cg4+cHeOHQ
+SkkyJ2WHBmRKUOoRml13zk3CWc3tWR9cDDDlWR/bfgkucpdYyiMDAY4inpAINtvF
+NtVFvkmr43Kl0HPUI/tkBLul8WgpofsB7T8npajnkhDRlnXiWUWtZoopqVQiX5yG
+LcgG2oTkCwcPCRDvXh6L4a+UWKdxhZwViss9kuE2+hbFVGl333yhfIrwQmpMFYXK
+pCLryH2t4dmDfdqqHU9FFU4QPtOHXXHsnTJhbEyMKouN2grq8b6HCEfn/l79tqP3
+o5p8f8xbSo2IYFmrbNW8j9htc2Oijbuq3dmrrrLI02vpYf2xJG8=
+=WgGD
 -----END PGP SIGNATURE-----
 
---mvmsd5xpxltglfmm--
+--ehcq6hpnmkfa3p6h--
 
