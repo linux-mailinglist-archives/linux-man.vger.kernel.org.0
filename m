@@ -1,310 +1,143 @@
-Return-Path: <linux-man+bounces-1778-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1779-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86D997DA37
-	for <lists+linux-man@lfdr.de>; Fri, 20 Sep 2024 23:17:49 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1BF97DFD8
+	for <lists+linux-man@lfdr.de>; Sun, 22 Sep 2024 04:12:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0B03F28293A
-	for <lists+linux-man@lfdr.de>; Fri, 20 Sep 2024 21:17:48 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2DC3B1F212C0
+	for <lists+linux-man@lfdr.de>; Sun, 22 Sep 2024 02:12:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51F0E183CCD;
-	Fri, 20 Sep 2024 21:17:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3313F18F2D3;
+	Sun, 22 Sep 2024 02:12:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thomasvoss.com header.i=@thomasvoss.com header.b="7m67Beo5"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="briQAwaK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D6117BB2B
-	for <linux-man@vger.kernel.org>; Fri, 20 Sep 2024 21:17:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42671E529
+	for <linux-man@vger.kernel.org>; Sun, 22 Sep 2024 02:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1726867064; cv=none; b=b1uubVFTqZmFrTEIDxnTIF78WjBqElCtkLzppeEH9zyDQiAeeRBktBwWxlPN0Q0l0v/XFVAYKx4qFtjmbdEMmqojKJmSooZ42MhJc8jH6K/Td81CKsDkYBoybn33EFU35pZP2gcOvYurBQRMn+9QbvgcJ/YHfJ5GI/04+RielgI=
+	t=1726971144; cv=none; b=Q3LQMtoEdkgR/3pjFZ9379bf2VtZtG8kchmUBzVFyGzdKGzRWsX8nHgHxD8GBMCTX2LuV7DxWhCjdgZqWbHA1d1HhgoMcaKnlSv/c6FkWim0V3/JQOURG4c/wuJIdDVl9miE15LChXzl3Pbj2laMFIFX9fuiBsmDqiwjnhZz+Wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1726867064; c=relaxed/simple;
-	bh=WoVxxjiepANt00BXgOGLhDPmwW8YrpFKjN428ITeCAg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nvt+zRnDSOi+WRqDwiUA6a2tPXwvEhKLsuYehT1CJ1P5Gn3mXlveth/EBRgnoOrAzoWa18lWW9itIUepc2mhdmGf9yLA+QTLt0ggM717KOCVn+SzcGDxBXrpY8WA3yk6vc4iW7ovcW619K+nV4dSF3ZHxWcXDlZ2Iklsrv2r9NY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thomasvoss.com; spf=pass smtp.mailfrom=thomasvoss.com; dkim=pass (2048-bit key) header.d=thomasvoss.com header.i=@thomasvoss.com header.b=7m67Beo5; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thomasvoss.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thomasvoss.com
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thomasvoss.com;
-	s=key1; t=1726867058;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=nXoccRAiAThXVjrDJ/3JFzItwH8neuJZyK7u1ZlLd8E=;
-	b=7m67Beo5jSEvKwf2U6nIJPLJV8N4kUYOObC64+rvNp37nnA4G+Qh3DUffvmD48B+lxsjuz
-	KRAwzF8+EhjA7/iRdN3KXJYJ2vM6eulaYp+g/CAWHgZiS8zWFOUgguKQQaKwdlg8Xebjkn
-	fiPmS62ECBX7ZrcrrZwkbRnPln7Z7Wsl6euT9f1zX1R5MOg53vKVr7NfnS/Sda+o0iips3
-	8LClA0balq+sehq4WovkrpmUGcQ75E/EkL8tcp6Nqd5IvAoHpkLoNK9va5mv9JewdlBcdg
-	1jGTk2nQo/3lL4PqUdYEol0H55I1XQ8qsAVcP6LwhvHpfsM5HrRDJHwFq9EigA==
-From: Thomas Voss <mail@thomasvoss.com>
+	s=arc-20240116; t=1726971144; c=relaxed/simple;
+	bh=fi03gmqkV2q7lfC5QlNw+/S35JFG+05z1jWeZ1AEIDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=oDBbkobAJzAd3tI6f+ywge3vZenxXLIaJIDUIh8dN5Di9Ugue2G3E5cMBys2/ru8rbYKCJUVRiKRddPksSs0yo5OeNRpMPfYXXeobp+jv2Ua/da5QKHR/OXM0j78u+6bjFwq2pMc4B+NQJG6noEHIEqhKdQgRmjIPzXrAsnSwl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=briQAwaK; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2059112f0a7so29287385ad.3
+        for <linux-man@vger.kernel.org>; Sat, 21 Sep 2024 19:12:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726971142; x=1727575942; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fi03gmqkV2q7lfC5QlNw+/S35JFG+05z1jWeZ1AEIDE=;
+        b=briQAwaKRjQwKV00GFhrPvwRJXxOkzN5sBTr+g/WmSFej0pvErSHTpc/cdNigdy56d
+         paGZCOOWytP/ix7FMtowyfw92uwwFQAwxX0kHaMEOVIDctr1Wh4wxeXHVUHGEjxByzsm
+         5ilFzCgSxqrpZbj1v+XG5ooIGLtK6s/THrkGBiZTpYXvi/hcsI+HUcEVkzDJPt7MuZp/
+         fppRgoO0sDZ5IjfW3k6arNiDDCVZNq9LQ9IG2F8uq2t69wkWf1E8FdOErCEGfXSTg2A/
+         XIueOVvSG9l+O5vzhpHJN8G9z/7balLxcFK1+1xo9kIEBl45aJehqNulhSHhTW02jkqA
+         0anA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726971142; x=1727575942;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fi03gmqkV2q7lfC5QlNw+/S35JFG+05z1jWeZ1AEIDE=;
+        b=WYAaDjBRTYbgqL66ewvNPKHe8qUsm2qCGmiZppRIEgGpYiw1wpsje9z6B+VCX0LlWJ
+         qoA2/m11cYRkbil2LlKal+jkZDqyH6JImYcYlpJy1EjpxlM0NHkJh60fg+GZYgvFx8fo
+         nYteWlpXNlsIjQ9pwhpuWOqRPycynF/2Q7wo77Xds6+pl5vH8/vWwekh0QQHJbosyk7w
+         mmzkYCui4P49VUgIJWo8DoeHlfTxBTC6lyUGUh7dWMZkDdbDOhY29JFqajWeAvGv4rsZ
+         8rUegmoclABBJRC+crNjfbIU3cTTBYN17+S8NdDh9GSE02c9zbpUSHcCCp6fmNXWElI4
+         fRqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVYJ9utNniorDoe/IQJwWgQWl/bfO0sdCa9wDo5GfAXWqJANL7ZxP3eqlWcnnP3oE5pHf1YyzHWzmw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwN/uiduqb2+7QTlgw6iLE3MEE6wC16IENZyAtD5qO4Dst6WsgF
+	8NGPOMkO2wVNiD8BOeitg1n0cATG2XxuqDsbKuqUkCvm/UldEZYSF4pJjFui
+X-Google-Smtp-Source: AGHT+IGwMhcp6FQBn/iOpa4XwU/yTZ+00akNiax6oD7tTdIOW2R4t+NgRoVL9yOL50MC65X1H3a+Iw==
+X-Received: by 2002:a17:902:d505:b0:205:841d:122d with SMTP id d9443c01a7336-208d8397de3mr107431385ad.26.1726971141681;
+        Sat, 21 Sep 2024 19:12:21 -0700 (PDT)
+Received: from lsc-framework (c-73-70-4-185.hsd1.ca.comcast.net. [73.70.4.185])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-207946d2933sm113715795ad.155.2024.09.21.19.12.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Sep 2024 19:12:21 -0700 (PDT)
+Date: Sat, 21 Sep 2024 19:12:20 -0700
+From: Lucas Culverhouse <lucasculverhouse@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Thomas Voss <mail@thomasvoss.com>,
+Cc: Lucas Culverhouse <lucasculverhouse@gmail.com>, 
 	linux-man@vger.kernel.org
-Subject: [PATCH] stdc_count_ones.3, stdc_count_zeros.3: Add manual pages
-Date: Fri, 20 Sep 2024 23:17:14 +0200
-Message-ID: <d82e86d2240785d77510495dd574b761cbf3be81.1726866666.git.mail@thomasvoss.com>
+Subject: [PATCH] bind.2: Document possible errors from protocol
+Message-ID: <cdaf3b91d467ee84e824f1b264f3a931c54b7e1b.1726971114.git.lucasculverhouse@gmail.com>
+X-Mailer: git-send-email 2.46.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="viehvnmq4yswynnn"
+Content-Disposition: inline
 
-Hello again!
 
-I noticed that manuals are missing for all of the new stdbit.h functions.
-I had some spare time, so I wrote up a quick set of manuals for these two
-functions.  I hope I followed the style correctly; I tried to copy what I
-saw in other manual pages.
+--viehvnmq4yswynnn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH] bind.2: Document possible errors from protocol
+MIME-Version: 1.0
 
-Signed-off-by: Thomas Voss <mail@thomasvoss.com>
+When looking through the errors of socket(2) I noticed that it specifies
+the selected underlying protocol may extend the potential errors returned.
+For example, using AF_PACKET and SOCK_RAW can return EPERM if the user
+does not have CAP_NET_RAW or uid 0 (This is all fully documented).
+
+However, AF_PACKET and SOCK_RAW extend the potential errors
+returned from bind as well. For example, calling bind with an invalid
+sll_ifindex set on the sock_addr passed in will return ENODEV.
+
+While this possibility is documented in the raw(7) manpage, the bind(2)
+manpage does not mention that its potential set of errors can be extended by
+the underlying protocol. This patch simply duplicates the relevant language
+=66rom the socket(2) manpage to the bind(2) manpage.
+
+It is possible further extensions for send, recv, setsockopt, etc. are also
+undocumented, but I have not yet verified this.
 ---
- man/man3/stdc_count_ones.3      | 65 +++++++++++++++++++++++++++++++++
- man/man3/stdc_count_ones_uc.3   |  1 +
- man/man3/stdc_count_ones_ui.3   |  1 +
- man/man3/stdc_count_ones_ul.3   |  1 +
- man/man3/stdc_count_ones_ull.3  |  1 +
- man/man3/stdc_count_ones_us.3   |  1 +
- man/man3/stdc_count_zeros.3     | 64 ++++++++++++++++++++++++++++++++
- man/man3/stdc_count_zeros_uc.3  |  1 +
- man/man3/stdc_count_zeros_ui.3  |  1 +
- man/man3/stdc_count_zeros_ul.3  |  1 +
- man/man3/stdc_count_zeros_ull.3 |  1 +
- man/man3/stdc_count_zeros_us.3  |  1 +
- 12 files changed, 139 insertions(+)
- create mode 100644 man/man3/stdc_count_ones.3
- create mode 100644 man/man3/stdc_count_ones_uc.3
- create mode 100644 man/man3/stdc_count_ones_ui.3
- create mode 100644 man/man3/stdc_count_ones_ul.3
- create mode 100644 man/man3/stdc_count_ones_ull.3
- create mode 100644 man/man3/stdc_count_ones_us.3
- create mode 100644 man/man3/stdc_count_zeros.3
- create mode 100644 man/man3/stdc_count_zeros_uc.3
- create mode 100644 man/man3/stdc_count_zeros_ui.3
- create mode 100644 man/man3/stdc_count_zeros_ul.3
- create mode 100644 man/man3/stdc_count_zeros_ull.3
- create mode 100644 man/man3/stdc_count_zeros_us.3
+ man/man2/bind.2 | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/man/man3/stdc_count_ones.3 b/man/man3/stdc_count_ones.3
-new file mode 100644
-index 0000000..5cfc3cf
---- /dev/null
-+++ b/man/man3/stdc_count_ones.3
-@@ -0,0 +1,65 @@
-+'\" t
-+.\" Copyright (c) 2024 by Thomas Voss <mail@thomasvoss.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.\"
-+.TH stdc_count_ones 3 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+stdc_count_ones, stdc_count_ones_uc, stdc_count_ones_us,
-+stdc_count_ones_ui, stdc_count_ones_ul, stdc_count_ones_ull \- count set
-+bits
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc )
-+.SH SYNOPSIS
-+.nf
-+.B #include <stdbit.h>
+diff --git a/man/man2/bind.2 b/man/man2/bind.2
+index 388974145..a59ac16f9 100644
+--- a/man/man2/bind.2
++++ b/man/man2/bind.2
+@@ -184,6 +184,8 @@ .SH ERRORS
+ .TP
+ .B EROFS
+ The socket inode would reside on a read-only filesystem.
 +.P
-+.BI "generic_return_type stdc_count_ones(generic_value_type " value );
-+.BI "unsigned int stdc_count_ones_uc(unsigned char " value );
-+.BI "unsigned int stdc_count_ones_us(unsigned short " value );
-+.BI "unsigned int stdc_count_ones_ui(unsigned int " value );
-+.BI "unsigned int stdc_count_ones_ul(unsigned long " value );
-+.BI "unsigned int stdc_count_ones_ull(unsigned long long " value );
-+.fi
-+.SH DESCRIPTION
-+These functions return the total number of 1 bits in
-+.IR value .
-+This operation is also often known as a pop count.
-+.P
-+.B generic_value_type
-+may be any unsigned integer type excluding
-+.B bool
-+and bit-precise integer types
-+(unless they have a width which matches a standard integer type),
-+while
-+.B generic_value_type
-+is an unspecified unsigned type.
-+.SH ATTRIBUTES
-+For an explanation of the terms used in this section, see
-+.BR attributes (7).
-+.TS
-+allbox;
-+lbx lb lb
-+l l l.
-+Interface	Attribute	Value
-+T{
-+.na
-+.nh
-+.BR stdc_count_ones (),
-+.BR stdc_count_ones_uc (),
-+.BR stdc_count_ones_us (),
-+.BR stdc_count_ones_ui (),
-+.BR stdc_count_ones_ul (),
-+.BR stdc_count_ones_ull ()
-+T}	Thread safety	MT-Safe
-+.TE
-+.SH STANDARDS
-+C23.
-+.SH SEE ALSO
-+.BR stdc_count_zeros () ,
-+.BR stdc_leading_ones () ,
-+.BR stdc_leading_zeros () ,
-+.BR stdc_trailing_ones () ,
-+.BR stdc_trailing_zeros ()
-diff --git a/man/man3/stdc_count_ones_uc.3 b/man/man3/stdc_count_ones_uc.3
-new file mode 100644
-index 0000000..f075079
---- /dev/null
-+++ b/man/man3/stdc_count_ones_uc.3
-@@ -0,0 +1 @@
-+.so stdc_count_ones
-diff --git a/man/man3/stdc_count_ones_ui.3 b/man/man3/stdc_count_ones_ui.3
-new file mode 100644
-index 0000000..f075079
---- /dev/null
-+++ b/man/man3/stdc_count_ones_ui.3
-@@ -0,0 +1 @@
-+.so stdc_count_ones
-diff --git a/man/man3/stdc_count_ones_ul.3 b/man/man3/stdc_count_ones_ul.3
-new file mode 100644
-index 0000000..f075079
---- /dev/null
-+++ b/man/man3/stdc_count_ones_ul.3
-@@ -0,0 +1 @@
-+.so stdc_count_ones
-diff --git a/man/man3/stdc_count_ones_ull.3 b/man/man3/stdc_count_ones_ull.3
-new file mode 100644
-index 0000000..f075079
---- /dev/null
-+++ b/man/man3/stdc_count_ones_ull.3
-@@ -0,0 +1 @@
-+.so stdc_count_ones
-diff --git a/man/man3/stdc_count_ones_us.3 b/man/man3/stdc_count_ones_us.3
-new file mode 100644
-index 0000000..f075079
---- /dev/null
-+++ b/man/man3/stdc_count_ones_us.3
-@@ -0,0 +1 @@
-+.so stdc_count_ones
-diff --git a/man/man3/stdc_count_zeros.3 b/man/man3/stdc_count_zeros.3
-new file mode 100644
-index 0000000..b29118d
---- /dev/null
-+++ b/man/man3/stdc_count_zeros.3
-@@ -0,0 +1,64 @@
-+'\" t
-+.\" Copyright (c) 2024 by Thomas Voss <mail@thomasvoss.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.\"
-+.TH stdc_count_zeros 3 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+stdc_count_zeros, stdc_count_zeros_uc, stdc_count_zeros_us,
-+stdc_count_zeros_ui, stdc_count_zeros_ul,
-+stdc_count_zeros_ull \- count unset bits
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc )
-+.SH SYNOPSIS
-+.nf
-+.B #include <stdbit.h>
-+.P
-+.BI "generic_return_type stdc_count_zeros(generic_value_type " value );
-+.BI "unsigned int stdc_count_zeros_uc(unsigned char " value );
-+.BI "unsigned int stdc_count_zeros_us(unsigned short " value );
-+.BI "unsigned int stdc_count_zeros_ui(unsigned int " value );
-+.BI "unsigned int stdc_count_zeros_ul(unsigned long " value );
-+.BI "unsigned int stdc_count_zeros_ull(unsigned long long " value );
-+.fi
-+.SH DESCRIPTION
-+These functions return the total number of 0 bits in
-+.IR value .
-+.P
-+.B generic_value_type
-+may be any unsigned integer type excluding
-+.B bool
-+and bit-precise integer types
-+(unless they have a width which matches a standard integer type),
-+while
-+.B generic_value_type
-+is an unspecified unsigned type.
-+.SH ATTRIBUTES
-+For an explanation of the terms used in this section, see
-+.BR attributes (7).
-+.TS
-+allbox;
-+lbx lb lb
-+l l l.
-+Interface	Attribute	Value
-+T{
-+.na
-+.nh
-+.BR stdc_count_zeros (),
-+.BR stdc_count_zeros_uc (),
-+.BR stdc_count_zeros_us (),
-+.BR stdc_count_zeros_ui (),
-+.BR stdc_count_zeros_ul (),
-+.BR stdc_count_zeros_ull ()
-+T}	Thread safety	MT-Safe
-+.TE
-+.SH STANDARDS
-+C23.
-+.SH SEE ALSO
-+.BR stdc_count_ones () ,
-+.BR stdc_leading_ones () ,
-+.BR stdc_leading_zeros () ,
-+.BR stdc_trailing_ones () ,
-+.BR stdc_trailing_zeros ()
-diff --git a/man/man3/stdc_count_zeros_uc.3 b/man/man3/stdc_count_zeros_uc.3
-new file mode 100644
-index 0000000..a644881
---- /dev/null
-+++ b/man/man3/stdc_count_zeros_uc.3
-@@ -0,0 +1 @@
-+.so stdc_count_zeros
-diff --git a/man/man3/stdc_count_zeros_ui.3 b/man/man3/stdc_count_zeros_ui.3
-new file mode 100644
-index 0000000..a644881
---- /dev/null
-+++ b/man/man3/stdc_count_zeros_ui.3
-@@ -0,0 +1 @@
-+.so stdc_count_zeros
-diff --git a/man/man3/stdc_count_zeros_ul.3 b/man/man3/stdc_count_zeros_ul.3
-new file mode 100644
-index 0000000..a644881
---- /dev/null
-+++ b/man/man3/stdc_count_zeros_ul.3
-@@ -0,0 +1 @@
-+.so stdc_count_zeros
-diff --git a/man/man3/stdc_count_zeros_ull.3 b/man/man3/stdc_count_zeros_ull.3
-new file mode 100644
-index 0000000..a644881
---- /dev/null
-+++ b/man/man3/stdc_count_zeros_ull.3
-@@ -0,0 +1 @@
-+.so stdc_count_zeros
-diff --git a/man/man3/stdc_count_zeros_us.3 b/man/man3/stdc_count_zeros_us.3
-new file mode 100644
-index 0000000..a644881
---- /dev/null
-+++ b/man/man3/stdc_count_zeros_us.3
-@@ -0,0 +1 @@
-+.so stdc_count_zeros
--- 
++Other errors may be generated by the underlying protocol modules.
+ .SH STANDARDS
+ POSIX.1-2008.
+ .SH HISTORY
+--=20
 2.46.1
 
+
+--viehvnmq4yswynnn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRei/iXy5+43ihYqFOmzwMuNwF/QAUCZu99AwAKCRCmzwMuNwF/
+QHN8AP9Yzd/cM1q5PcdC4UlCj3lMU68Y9ESJ7f8Z0ou6zWVwvwEA9mC41NfupYAQ
+dWhmWe/KqLlAvIxGTOjwy+04Qkuusww=
+=or+J
+-----END PGP SIGNATURE-----
+
+--viehvnmq4yswynnn--
 
