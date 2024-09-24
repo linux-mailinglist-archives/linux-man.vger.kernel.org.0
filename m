@@ -1,83 +1,68 @@
-Return-Path: <linux-man+bounces-1780-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1781-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E07E98454C
-	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2024 13:59:18 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDE2E98456A
+	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2024 14:02:24 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7D54B1C20852
-	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2024 11:59:17 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8038C285E0D
+	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2024 12:02:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E307E85260;
-	Tue, 24 Sep 2024 11:59:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE05B127E37;
+	Tue, 24 Sep 2024 12:02:21 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
 Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1C8824AD
-	for <linux-man@vger.kernel.org>; Tue, 24 Sep 2024 11:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B5C126C02
+	for <linux-man@vger.kernel.org>; Tue, 24 Sep 2024 12:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1727179153; cv=none; b=dIklSv/j418xGWtTJuQAQ0TaOFB24bxRXpHzQ78QSXlJMWC4Dyji7SCigI65hbA/1aWKHX/XF5FLMPFRICMqDrjzV81Au2F35X5pJC8++XZaz5AQ9grheiBrcnjA/U93TUs18SpughqpxskG0B+Q3w+CnpvdM/fOikAfFG3Mn1U=
+	t=1727179341; cv=none; b=PftlFy+Gre8IpYJCN0At66oI+fL+dvXzo0CVSvI8kEKpfITPnng9w9yFpFrI8i9ABweAW3wI7bR+tTDlDjhFNIj8DnMZsTM2qmxNPfsRm8RK1V3Ry7f5cXRJVJMzNHfbkgdaN9B8k89Qd3VaZpU9g9kz1P4IGp4Iph0D3W6Qcq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1727179153; c=relaxed/simple;
-	bh=aiKcol2PHrT6qZegIi7434TMk9CJjGKdPDUz+YqM5Dc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hGgpXWLra8OARC5N1n1UqVpyQ0+QSHSYmoURTi7GKjrH2nH0pbY27rGg0IobSFsNJZbw4SDEXHP6D3sFcGrKYkrMaGSNuFp1qeSvd6kEMRqnS/X3OYOn0tSlexcezo7cS2mERyfbfwXLUBO9aHz9ASEWRBXoIA4HnhzGgPtCZ/U=
+	s=arc-20240116; t=1727179341; c=relaxed/simple;
+	bh=ypDoPPtjCCAhLNKqmPoUjyV+sFjbSyfQeyPE+E/LdV8=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SR55CrSLurtWwSgV5JG+WfzrDGrc6GO3Vswiq3D5x5ew8o+KNYNrUdvUVLi/xCt7s8tLiGqGbB+qyGe1J9NPIeQNiMIBzyvDRu6Fs2+kX6scigzxgD/1Txhx79nf8owkehlsB9fnJ3V4ZY/UuytjnHcmyTF2TsdsZk4vRCXEfzg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
-Received: from smtp-qaa.vinc17.net (2a02-8428-1b1d-4d01-96a9-491d-7b48-ba31.rev.sfr.net [IPv6:2a02:8428:1b1d:4d01:96a9:491d:7b48:ba31])
-	by joooj.vinc17.net (Postfix) with ESMTPSA id 197554CB;
-	Tue, 24 Sep 2024 13:56:26 +0200 (CEST)
+Received: from smtp-qaa.vinc17.net (135.197.67.86.rev.sfr.net [86.67.197.135])
+	by joooj.vinc17.net (Postfix) with ESMTPSA id 8E9EE4CB;
+	Tue, 24 Sep 2024 14:02:18 +0200 (CEST)
 Received: by qaa.vinc17.org (Postfix, from userid 1000)
-	id D7EF5CA00F4; Tue, 24 Sep 2024 13:56:25 +0200 (CEST)
+	id 5BBDFCA00F4; Tue, 24 Sep 2024 14:02:18 +0200 (CEST)
+Date: Tue, 24 Sep 2024 14:02:18 +0200
 From: Vincent Lefevre <vincent@vinc17.net>
-To: Michael Kerrisk <mtk.manpages@gmail.com>,
-	linux-man@vger.kernel.org
-Cc: Vincent Lefevre <vincent@vinc17.net>
-Subject: [PATCH] signal.7: Better description for SIGFPE
-Date: Tue, 24 Sep 2024 13:54:46 +0200
-Message-ID: <20240924115547.294466-1-vincent@vinc17.net>
-X-Mailer: git-send-email 2.45.2
+To: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] signal.7: Better description for SIGFPE
+Message-ID: <20240924120218.GM3024@qaa.vinc17.org>
+References: <20240924115547.294466-1-vincent@vinc17.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240924115547.294466-1-vincent@vinc17.net>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+77 (9dc98409) vl-169878 (2024-06-20)
 
-SIGFPE has comment "Floating-point exception", which corresponds to
-the FPE acronym. But this is misleading as this signal may also be
-generated by an integer division by 0.
+On 2024-09-24 13:54:46 +0200, Vincent Lefevre wrote:
+> Change it to "Erroneous arithmetic operation" from POSIX:
+> https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/signal.h.html
 
-Change it to "Erroneous arithmetic operation" from POSIX:
-https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/signal.h.html
+BTW, the term "Erroneous arithmetic operation" also comes from
+the ISO C standard (present at least since C99). I don't know
+which one was the first to standardize it...
 
-Note: the GNU C Library manual says "fatal arithmetic error".
-https://www.gnu.org/software/libc/manual/html_node/Program-Error-Signals.html
-
-Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
----
- man/man7/signal.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man/man7/signal.7 b/man/man7/signal.7
-index 7a9e91cc7..d19f171b3 100644
---- a/man/man7/signal.7
-+++ b/man/man7/signal.7
-@@ -373,7 +373,7 @@ SIGCHLD	P1990	Ign	Child stopped or terminated
- SIGCLD	\-	Ign	A synonym for \fBSIGCHLD\fP
- SIGCONT	P1990	Cont	Continue if stopped
- SIGEMT	\-	Term	Emulator trap
--SIGFPE	P1990	Core	Floating-point exception
-+SIGFPE	P1990	Core	Erroneous arithmetic operation
- SIGHUP	P1990	Term	Hangup detected on controlling terminal
- 			or death of controlling process
- SIGILL	P1990	Core	Illegal Instruction
 -- 
-2.45.2
-
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
 
