@@ -1,141 +1,116 @@
-Return-Path: <linux-man+bounces-1782-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1783-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 429B6987EBC
-	for <lists+linux-man@lfdr.de>; Fri, 27 Sep 2024 08:53:02 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 46A3398A85C
+	for <lists+linux-man@lfdr.de>; Mon, 30 Sep 2024 17:22:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id EBD971F227FF
-	for <lists+linux-man@lfdr.de>; Fri, 27 Sep 2024 06:53:01 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F0CAB283DD9
+	for <lists+linux-man@lfdr.de>; Mon, 30 Sep 2024 15:22:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4FD0171089;
-	Fri, 27 Sep 2024 06:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E611F1925A4;
+	Mon, 30 Sep 2024 15:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9RcEWKz"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCOxRL6k"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1AA15D5C1;
-	Fri, 27 Sep 2024 06:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71FE18FDDA
+	for <linux-man@vger.kernel.org>; Mon, 30 Sep 2024 15:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1727419975; cv=none; b=GWOvbUa/9IBjYZENRRruEMMU4P7NU5MdACnYxWPPLKGIqdTd99BXwaPdlcjC4ma5fIXU3FlmGwVROxX7qBfh31ztLNzRrVZE8G0K7cQaeN2vgS2Kj1YSoQBP4ruwevf1oaOn5rBicTWtZkMWk1EQ4Xd5fvND/glEQrtYKFqrYoU=
+	t=1727709724; cv=none; b=X+yFUuM1mwm1MmpuRH1yXDgjvOKVCAyEiOuUcv86t7RYamIXcoUeeJcH7PCNGyzUXm9fEtlQ3r4r6jipHuA4j0c7ABAItbjwiV1BJoroX1DwOlM49B1fJannrO4E2qZWRR0tUnfIrdyDPszIYNYIj+PaQfBXN+CzKuP0T/pkHz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1727419975; c=relaxed/simple;
-	bh=D85vgrtDpZI98vi53liCsQQ+BxQvK2UuXBHp/M7xbTI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=joy0W6NbDo2LvAmCVJ0GyfFmviRRYU2I+2Fl6loS4BsdO9xlOWuiDotPp548h7ISvhC8tWGjjLZYLTKYNlQMhJjVzU74JkWxFZZe1AOdenOChxxb86VF4nfAKmAy+vrzZ7RliDbsaa3UlA4rpVnTTK7VwE8iSZegf6IHcU4fFzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9RcEWKz; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 11007C4CEC4;
-	Fri, 27 Sep 2024 06:52:55 +0000 (UTC)
+	s=arc-20240116; t=1727709724; c=relaxed/simple;
+	bh=9BLgB4gL38t0spy1Ur7cEtbBRrPGpqVeA2FihXxnjiM=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fi4kc6CWMtOBFpaOVEKaPUffyDrxFfIA2mPTbNUIvFPdKeM0kp5F4O80Wn7Um5Gvk6imYQEIvO5TznlGxoNwzjYiMnPTGq2w8JYI+Jsjl3TOHY5eSag33QZ2528CpfdALwaNpmMvSIqZhHPV6p8JMFcAR50cSakfnSojyD/cB0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCOxRL6k; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6ADBEC4CECF
+	for <linux-man@vger.kernel.org>; Mon, 30 Sep 2024 15:22:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727419975;
-	bh=D85vgrtDpZI98vi53liCsQQ+BxQvK2UuXBHp/M7xbTI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=c9RcEWKzG8HtlXroCEJJsCjGW1ute+0oNBint11DGSXXYwZhbluO/mrKEmoCRTWbb
-	 9wP9yk7VCG044JfLBtvUTFTy0TjfOCDqVkEZQZ/zVm3ACbdHa1qLy4my4LrwCVSpDj
-	 YT/3+azoNsO6HQVSwpe/wXWszqzWlqh3xNX2oF7W8B8etf6cfKRfH6cDIpTv4CqJuX
-	 1i1QA7XparxbUdrMBp1Ho81vkivBa3yugqy+vL5A4kOFJr6h4dovNX7lN6smqT7R7r
-	 dNWZeBodi9YVz+2/j+jwW63vfVUJV5GqMjS6l/NO7qpyMCgKzyuKS5a4EQHsuVaTvu
-	 Cnk3HpTeDo0QA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0057DCEBF7A;
-	Fri, 27 Sep 2024 06:52:54 +0000 (UTC)
-From: Levi Zim via B4 Relay <devnull+rsworktech.outlook.com@kernel.org>
-Date: Fri, 27 Sep 2024 14:52:29 +0800
-Subject: [PATCH] dup.2: Add ENOMEM to ERRORS
+	s=k20201202; t=1727709724;
+	bh=9BLgB4gL38t0spy1Ur7cEtbBRrPGpqVeA2FihXxnjiM=;
+	h=From:To:Subject:Date:From;
+	b=YCOxRL6kDeveq8Cg5J2+yOqyE2xKSBHXjt82yfewUdjy6HfhgLR+ays7OaQO1Czm/
+	 ax/ydW+ZXi3kDP1tdnyHqAFLvtBzyh2M7jEJgbiKmRcTs7q0xwKXu03jzhNV6qAMcd
+	 7LYDdxsdc4SLlsc4tDqWwq+/4PdvaTAJiQnYljJ9PTvgkx2cMswW1l1/vmu+k4eMYb
+	 k4i6ZPn4RBBaIm+OXqTKeMxXOzQnNh1CvSgtA0s+EpoVzJE7NEqv1FFGIeXUw4NygV
+	 ILsY3snX95w0OLHwFmv5lDRv3Cq2xpTmv7UVCKUnlJouuvcpSfogKhovxQp8t/Rzkq
+	 aFjI6edwMvvAA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 5B011C53BCA; Mon, 30 Sep 2024 15:22:04 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 219335] New: Wrong in the write text
+Date: Mon, 30 Sep 2024 15:22:04 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: rmbeer2@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-219335-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240927-dup2-v1-1-12ecc79167d5@outlook.com>
-X-B4-Tracking: v=1; b=H4sIACxW9mYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxMDSyNz3ZTSAiNdcyPzVEsLs1RDSwMDJaDSgqLUtMwKsDHRsbW1ACQQ8Il
- WAAAA
-X-Change-ID: 20240927-dup2-727e986e1900
-To: linux-man@vger.kernel.org
-Cc: Linux API <linux-api@vger.kernel.org>, 
- Levi Zim <rsworktech@outlook.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1277;
- i=rsworktech@outlook.com; h=from:subject:message-id;
- bh=WlIAO1mmcIQbRV8l8FS+BAcsh1rqVPTGYW1EOb7BydQ=;
- b=owEBbQKS/ZANAwAIAW87mNQvxsnYAcsmYgBm9lZCu+Ky5T0AQ2EUB/Q8m+ikUppvTf5hC86fT
- GAVS9GjICCJAjMEAAEIAB0WIQQolnD5HDY18KF0JEVvO5jUL8bJ2AUCZvZWQgAKCRBvO5jUL8bJ
- 2COJD/0fLyAlWF+2IOOQeGVFF8Gn9EbRqiotZGkyQFbEAPbPPrpY6o704u7v22jXcLYfwwswF2s
- wZ5dJKIv67HYW57AOBBQNWhPSzygMHb4BD3BxfPFSy9nGsMHCKZ0l8oiYENa8zY4sh2j+iq6fjJ
- JQQyDlfSR5vn4BiZdcBnwJc+tqpRIWnKNWzu2ORgpQLGmM856G6f8tgWXg/dOYaLnBffKzXi8fF
- 230c9f6OU4Gg98ctngfvn9wsBdEMrCqLCYdn5frkybHk0MMwie0XvVlpgd9UNu8ixBz1ikGcqrU
- dFAO9sR/8L4rDE3axKl+uUcN4PXfM9hPe5RPkuMYHiF9YX/+KuyEsNjbN9CY+RyBRL5cKmmILHz
- sl3wo4SyxqSduTJw36ieGzWB4uUPX+YyJRVOfki0N4+kCTomlzEZ8HIHwf+Ts/7WG10SgPKBTk6
- nahzQlPkWNS3JiXRhad4WOYY2B30Gnqic4JbhsCNaWsYmdMzll9Dr5rOVNgkiniQbb1MqVtIeW2
- JmtOC7cGzhs7Hj5fgvO9T55LqSvfucSQKagnME8H0ROzcEaupt+qHJhPQJdHDQa7yv5SqXGVzEr
- mSOjgwa2W38hSPkTBlE2FMikatjQZISNzh3WKba6Mj4X7FSFauCTB+IBR4Stoi8+Tgy3CfDy+Di
- RWR0GmzKy2gTk1g==
-X-Developer-Key: i=rsworktech@outlook.com; a=openpgp;
- fpr=17AADD6726DDC58B8EE5881757670CCFA42CCF0A
-X-Endpoint-Received: by B4 Relay for rsworktech@outlook.com/default with
- auth_id=219
-X-Original-From: Levi Zim <rsworktech@outlook.com>
-Reply-To: rsworktech@outlook.com
 
-From: Levi Zim <rsworktech@outlook.com>
+https://bugzilla.kernel.org/show_bug.cgi?id=3D219335
 
-dup2 could return ENOMEM under extreme condition.
-For example, when sysctl fs.nr_open=2147483584, and RLIMIT_NOFILE is also
-2147483584. The following program fails with ENOMEM:
+            Bug ID: 219335
+           Summary: Wrong in the write text
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: rmbeer2@gmail.com
+        Regression: No
 
-int main(){
-  int ret = dup2(0, 2000000000);
-  if (ret < 0) {
-    perror("dup2");
-    return 1;
-  }
-  return 0;
-}
+For /usr/share/man/man3/sem_post.3.gz=20
 
-This ENOMEM comes from an allocation error here:
-https://elixir.bootlin.com/linux/v6.1/source/mm/util.c#L596
+In the line:
 
-ENOMEM is already documented for open(2).
+EOVERFLOW: The maximum allowable value for a semaphore would be exceeded.
 
-Signed-off-by: Levi Zim <rsworktech@outlook.com>
----
-While experimenting with fs.nr_open sysctl and RLIMIT_NOFILE,
-I noticed that dup(2) could return an undocumented errno ENOMEM.
-This patch add ENOMEM to ERRORS in dup.2.
----
- man/man2/dup.2 | 3 +++
- 1 file changed, 3 insertions(+)
+Must change to:
 
-diff --git a/man/man2/dup.2 b/man/man2/dup.2
-index ee964a827ca062d90419c7d39f457de270d42ca3..719f0ae9e78165733cbe607bbf8a803a5d0943b4 100644
---- a/man/man2/dup.2
-+++ b/man/man2/dup.2
-@@ -197,6 +197,9 @@ .SH ERRORS
- .B RLIMIT_NOFILE
- in
- .BR getrlimit (2)).
-+.TP
-+.B ENOMEM
-+Insufficient kernel memory was available.
- .SH STANDARDS
- .TP
- .BR dup ()
+EOVERFLOW: The value exceeded SEM_VALUE_MAX limit.
 
----
-base-commit: 1e2d36deb2de1dbaf7084bb7dc3cb2c170cce852
-change-id: 20240927-dup2-727e986e1900
+The text in the help must be as illuminating as possible and avoid confusion
+about its real limit, one cannot inquire, assume or guess what the maximum
+allowed value is. And much less waste time with trials and errors in testca=
+se
+to know its real limit.
 
-Best regards,
--- 
-Levi Zim <rsworktech@outlook.com>
+--=20
+You may reply to this email to add a comment.
 
-
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
