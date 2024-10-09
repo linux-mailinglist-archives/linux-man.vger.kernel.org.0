@@ -1,238 +1,109 @@
-Return-Path: <linux-man+bounces-1788-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1789-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2BDC99705F
-	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2024 18:04:14 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A38139970AD
+	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2024 18:10:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6945D1F2397F
-	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2024 16:04:14 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 159B1B213D2
+	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2024 16:10:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12E2D1F8EF6;
-	Wed,  9 Oct 2024 15:39:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EE7B01E379F;
+	Wed,  9 Oct 2024 15:49:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gqSerZbq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ODENQEQ/";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="h7cr0TMC";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZDAifS4z"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kdbYAXJc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E2F1A00C9;
-	Wed,  9 Oct 2024 15:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8431E32B7;
+	Wed,  9 Oct 2024 15:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1728488347; cv=none; b=IoVQPWNfD+m41+BiOp5ylBxd0apXc6p3275rqnlHhg+ZpiuCHjbTdhl2uksqfGSVs1PseUHxsHf5aO3ou+xRIBxXf5x0HHlR4FXOD+Al0oEpH9PuIvn+ML8h10kzcAjFnbSTDD9C3I3N4HMh4nNYBsLpXg/fxtkRn4elTNz9rZw=
+	t=1728488969; cv=none; b=kvH4xneH7PBcom6oduyOVUFvO/IJDogSqWVZld5KHBi4z+GRb07ERD+5KFB/Ub/0CV5oOUy5jzCaOQ5BWEeLoqEzQf+rpQdZm7ITGqHOLQL+t5Ds8P11C62d4GrdIiyH1xJPARewnsr/tfE2yVjXaPUwp/lkFacbw5Hr4md58N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1728488347; c=relaxed/simple;
-	bh=dXxiUZjJaOULNJ0EMfbX/wHdHa7hVffABqxUcGGd1sg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NUMxrvq3XaN2BnpS8wSVT/jtvq5jtO5XDi5BdRpqdHCDhlIBKYrLzSQNfNLYDQpECQdHNa8UnKLuGH4QLMEma4hTao90mDduMHk4ISEqhzQYpzwPRSbh+ouJQwTgVUSXMU/6Vc93S4cFxpUeZg+4N+nlqKE9X3JCeFXj+IVb04M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gqSerZbq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ODENQEQ/; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=h7cr0TMC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZDAifS4z; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AC3F721F69;
-	Wed,  9 Oct 2024 15:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1728488332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/TA6Q3ii8645i5aJ6kKXUi/x/v2doufdkll3lxsZmE=;
-	b=gqSerZbqHMtOfY0JKO7cxRHJRPmIeoFfH2KRWze1z0Zt8c8JA403yIZ3n706JkXePIHutF
-	sOrUO5Vtw9cmoLSdEU7/dltlLl62WwuiUUZIUlacbg5+C6vix17OTgGrmuMjDh3UHQahk1
-	b2V9044m3Kq/W5PaEKDeGsbmq2DSWl4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1728488332;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/TA6Q3ii8645i5aJ6kKXUi/x/v2doufdkll3lxsZmE=;
-	b=ODENQEQ/fD/V+ip2QWM4V77F9/9JftVjrkD/R66sGT+OAqLU2t4vqbCOapLxAzMmEBcHS0
-	ULiPUxpiJghQPsAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1728488331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/TA6Q3ii8645i5aJ6kKXUi/x/v2doufdkll3lxsZmE=;
-	b=h7cr0TMCR56nZHNoZgufFP+Mm6ouEEvIMsi63d8x8BRzYM7Sif2FwK5sWMJ4l80cAdApzV
-	yzysVW9zBplPfmcRnQDSJ2YzKAmmdIleZVhOk/EUDPsN2RhKVAPtHORlZbfYWTH/AczXoz
-	4KyJYXJxRvbPSa6E0XwHd0oMvKg0+Eo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1728488331;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/TA6Q3ii8645i5aJ6kKXUi/x/v2doufdkll3lxsZmE=;
-	b=ZDAifS4zOZN7uLtMxUOICdox4ahGpYUb/Sea0wdyJzYyme0sRDTGPo7pXt9C/TfBsngVnJ
-	gL9FSQ3Y7pMymCBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 99A1413A58;
-	Wed,  9 Oct 2024 15:38:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id J7c4JYujBmeWWwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 09 Oct 2024 15:38:51 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4CA77A0896; Wed,  9 Oct 2024 17:38:36 +0200 (CEST)
-Date: Wed, 9 Oct 2024 17:38:36 +0200
-From: Jan Kara <jack@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
-	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] fanotify.7,fanotify_mark.2: update documentation of
- fanotify w.r.t fsid
-Message-ID: <20241009153836.xkuzuei2gxeh2ghj@quack3>
-References: <20241008094503.368923-1-amir73il@gmail.com>
+	s=arc-20240116; t=1728488969; c=relaxed/simple;
+	bh=pliWJTowb4v36/oVVcDzs8wkhL4uPEIgll194fN9VUc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dlfwEYSfchj75DtChA5bMF2+I+kfSEMd6Eb7qgj8b5o2tDw7U7k0kI0JfG4f0MBnyCiXgTJv6ItjHxfiJdSFpf784crXDFxK0XUTjQGZjSaRLmKcZQ5hMUFovDDlWlzl2kt7kW6+VW9OLfPPZaQQCfu/r3CwQsN4A1PRpLjDOzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kdbYAXJc; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-7ac83a98e5eso94547285a.0;
+        Wed, 09 Oct 2024 08:49:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1728488967; x=1729093767; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pliWJTowb4v36/oVVcDzs8wkhL4uPEIgll194fN9VUc=;
+        b=kdbYAXJcOebn8/ovWpXCZCieWcbc/nHNZGI7AYi+Nmttkwsb0HRjF+s+n3fwAq9chs
+         tTBG0U2KavFKXdkcVo3jG7VFYCGZ0QUEKkccfKKn/+FSk/gO2Tq9+EpQLqoMwrQKduQl
+         XczjLBeABF7SWviaq8cUGnQFOdnGG4up+WRsRrE2tq893e7y5Ltp60LYZGyEhDuI1kp7
+         NejIc+dDdT4rMQ6b/cROEdWj9y1Uwxv7AhEmFIPEDR5XWyAd03Ur1nvHqjcWNq8ec/I7
+         8mycC6Gn9j/7Zse+CrTLuzMacENt162LGWmuizJi+JAKjU8Ftrc3f6bG8H4xAUO2T2O2
+         kRgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728488967; x=1729093767;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=pliWJTowb4v36/oVVcDzs8wkhL4uPEIgll194fN9VUc=;
+        b=HlubbNPzFm/nRXklV0tXy7KUrdOb+Tc0hh0bG2CwD1KeccrrQT9DoiMdz4mlgKK2Xu
+         66uzEvAcm6MPLTJrN3K0w+C9hPucuIQ5IND6qui5HOZe0w3Pb38MMeZR36dxI0N0utts
+         L3aMG1zM0Fy9oWB33Vp5xOA6kFCVq/xGLb/EVWXybMTlbxRRUq3xIixRLLL7LqfpLuUp
+         az/3xr6BM8cB5GaIRePqf1jvlgqEb/T53zOpsg93kd4CeSoZSncY4aGa30E7VYLctxXm
+         pq5/amYbP5AVUBSlQiCNhHOR+HpYOAr/TWGWnx8DGuwqmCM6U2/VnYjlYH/+BTiZDNCS
+         rIpg==
+X-Forwarded-Encrypted: i=1; AJvYcCWIoZtoVzKrpLvzjcJElD3Ih/UIjZcFQYJezuTPV7kKtYl3Hq9/0MwHRnu7Uqb2f6Ww+c2kiny19BwE5Cc4@vger.kernel.org, AJvYcCWe0j7CFAPoW/JF195KayX9/KjlEP15h/w/K0uVyATimBjORBsllaZYSZn4nwT+NKLGLWrHEaTk4mJp@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6cyjX3fXNyug7D1m8G1PHAtXCXJ8j5E+A1l3hclII6/xZbDB6
+	YWMXJzeLCKPTUoApoVXZtsLMUO5FiXvut2vNqm7IH/YTUZ+9HT+t1YKE2FN/eMIdsz72Fx/FYgL
+	28kF/EqtuJv03+TkB5glACIkLxvI=
+X-Google-Smtp-Source: AGHT+IGMWQNHaR/4azYk0DF/AU8GCtoRx1sTy3DKtQgllhYjDTmOFNXxXvFTkWQtwx/j1GnQsB1vRoCD0jKJq6V6FeA=
+X-Received: by 2002:a05:620a:2802:b0:7ac:9bdd:6e78 with SMTP id
+ af79cd13be357-7b1124d215amr12267385a.14.1728488967058; Wed, 09 Oct 2024
+ 08:49:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241008094503.368923-1-amir73il@gmail.com>
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,suse.cz,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
+References: <20241008094503.368923-1-amir73il@gmail.com> <20241009153836.xkuzuei2gxeh2ghj@quack3>
+In-Reply-To: <20241009153836.xkuzuei2gxeh2ghj@quack3>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 9 Oct 2024 17:49:15 +0200
+Message-ID: <CAOQ4uxiNJ9a40fWzH09pXC7u0OuCqQPLuMJ8Yku+1Qww_Kc7KQ@mail.gmail.com>
+Subject: Re: [PATCH] fanotify.7,fanotify_mark.2: update documentation of
+ fanotify w.r.t fsid
+To: Jan Kara <jack@suse.cz>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue 08-10-24 11:45:03, Amir Goldstein wrote:
-> Clarify the conditions for getting the -EXDEV and -ENODEV errors.
-> 
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+On Wed, Oct 9, 2024 at 5:38=E2=80=AFPM Jan Kara <jack@suse.cz> wrote:
+>
+> On Tue 08-10-24 11:45:03, Amir Goldstein wrote:
+> > Clarify the conditions for getting the -EXDEV and -ENODEV errors.
+> >
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+>
+> Looks good. Feel free to add:
+>
+> Reviewed-by: Jan Kara <jack@suse.cz>
+>
+> But I've read somewhere that Alejandro stepped down as manpages maintaine=
+r
+> so they are officially unmaintained?
 
-Looks good. Feel free to add:
+Yes, I just caught up with this news.
+Anyway, it's good to have the patch on the list.
+I will be maintaining the fanotify man pages queue
+until manpages are back to maintenance.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-But I've read somewhere that Alejandro stepped down as manpages maintainer
-so they are officially unmaintained?
-
-								Honza
-
-> Hi Alejandro,
-> 
-> This is a followup on fanotify changes from v6.8
-> that are forgot to follow up on at the time.
-> 
-> Thanks,
-> Amir.
-> 
->  man/man2/fanotify_mark.2 | 27 +++++++++++++++++++++------
->  man/man7/fanotify.7      | 10 ++++++++++
->  2 files changed, 31 insertions(+), 6 deletions(-)
-> 
-> diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-> index fc9b83459..b5e091c25 100644
-> --- a/man/man2/fanotify_mark.2
-> +++ b/man/man2/fanotify_mark.2
-> @@ -659,17 +659,16 @@ The filesystem object indicated by
->  .I dirfd
->  and
->  .I pathname
-> -is not associated with a filesystem that supports
-> +is associated with a filesystem that reports zero
->  .I fsid
->  (e.g.,
->  .BR fuse (4)).
-> -.BR tmpfs (5)
-> -did not support
-> -.I fsid
-> -prior to Linux 5.13.
-> -.\" commit 59cda49ecf6c9a32fae4942420701b6e087204f6
->  This error can be returned only with an fanotify group that identifies
->  filesystem objects by file handles.
-> +Since Linux 6.8,
-> +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
-> +this error can be returned only when
-> +trying to add a mount or filesystem mark.
->  .TP
->  .B ENOENT
->  The filesystem object indicated by
-> @@ -768,6 +767,22 @@ which uses a different
->  than its root superblock.
->  This error can be returned only with an fanotify group that identifies
->  filesystem objects by file handles.
-> +Since Linux 6.8,
-> +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
-> +this error will be returned
-> +when trying to add a mount or filesystem mark on a subvolume,
-> +when trying to add inode marks in different subvolumes,
-> +or when trying to add inode marks in a
-> +.BR btrfs (5)
-> +subvolume and in another filesystem.
-> +Since Linux 6.8,
-> +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
-> +this error will also be returned
-> +when trying to add marks in different filesystems,
-> +where one of the filesystems reports zero
-> +.I fsid
-> +(e.g.,
-> +.BR fuse (4)).
->  .SH STANDARDS
->  Linux.
->  .SH HISTORY
-> diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-> index 449af949c..db8fe6c00 100644
-> --- a/man/man7/fanotify.7
-> +++ b/man/man7/fanotify.7
-> @@ -575,6 +575,16 @@ and contains the same value as
->  .I f_fsid
->  when calling
->  .BR statfs (2).
-> +Note that some filesystems (e.g.,
-> +.BR fuse (4))
-> +report zero
-> +.IR fsid .
-> +In these cases, it is not possible to use
-> +.I fsid
-> +to associate the event with a specific filesystem instance,
-> +so monitoring different filesystem instances that report zero
-> +.I fsid
-> +with the same fanotify group is not supported.
->  .TP
->  .I handle
->  This field contains a variable-length structure of type
-> -- 
-> 2.34.1
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Thanks,
+Amir.
 
