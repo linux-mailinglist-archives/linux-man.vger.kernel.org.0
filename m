@@ -1,146 +1,98 @@
-Return-Path: <linux-man+bounces-1793-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1794-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D11C998641
-	for <lists+linux-man@lfdr.de>; Thu, 10 Oct 2024 14:39:57 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC8AE99948C
+	for <lists+linux-man@lfdr.de>; Thu, 10 Oct 2024 23:41:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C8B5E1F25190
-	for <lists+linux-man@lfdr.de>; Thu, 10 Oct 2024 12:39:56 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F26721C22225
+	for <lists+linux-man@lfdr.de>; Thu, 10 Oct 2024 21:41:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CD3B1C1AD9;
-	Thu, 10 Oct 2024 12:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9DAE1E2029;
+	Thu, 10 Oct 2024 21:41:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=jankratochvil.net header.i=@jankratochvil.net header.b="XGS68eoS";
-	dkim=pass (1024-bit key) header.d=jankratochvil.net header.i=@jankratochvil.net header.b="7kfZuONn"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PDfs+RNy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from vps3.jankratochvil.net (vps3.jankratochvil.net [45.136.17.69])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAFE1BD00B
-	for <linux-man@vger.kernel.org>; Thu, 10 Oct 2024 12:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.136.17.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306168F6A
+	for <linux-man@vger.kernel.org>; Thu, 10 Oct 2024 21:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1728563978; cv=none; b=dID8nTdBWGoOiLK755mdQD45qB5FfVftPJiR2Hmzs1rDySL+MmzlUKuf6gFQw70fDzJVSe2OutRO+IlZPiO5UnNBI1vyDMgEpC9OY0NrwqNahOswoafB6YKNFU39FZaBC2l/xWtFVIFGEB6w+p4I8lQjp+gFV6USSVNimoIl6po=
+	t=1728596506; cv=none; b=T0Q00w7rDPm3JQFiQW4nYCYsKWlTNe6iYgTzHqwQo8xy1oNyb11YIlhthQfTvS+bAz4PJ1MisewqVH4SD7p+qbd2lMKRkgWRVmGH7flE/OQDRQHtHNvd71fmEiqnFR4JNbJJVaWCNo9lockDcTlwoJOBebcmkejgaQLw3pR8XlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1728563978; c=relaxed/simple;
-	bh=XZJWQCdaNmYlw0Cqechwl/TxMeH69gue52HW6P55r4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sze9YNuGWMtxBb8U21V6CCLWZefgyV2ZLr6XoT8VTEd5npqypeVx4CZaSlnxdqx5aEIgFz98iKA0M2WT2vr8qbI031My4rqDTxuXvTRMg3r1S8B4lsw18wUWJWHGZ7Z5Iia0gx07/W/EFTPvUAmzqLNGDKJPxY8HCWS+a8f9jKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jankratochvil.net; spf=pass smtp.mailfrom=jankratochvil.net; dkim=fail (0-bit key) header.d=jankratochvil.net header.i=@jankratochvil.net header.b=XGS68eoS reason="key not found in DNS"; dkim=pass (1024-bit key) header.d=jankratochvil.net header.i=@jankratochvil.net header.b=7kfZuONn; arc=none smtp.client-ip=45.136.17.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jankratochvil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jankratochvil.net
-Received: from host2.jankratochvil.net (host2vpn [192.168.92.2])
-	by vps3.jankratochvil.net (8.16.1/8.16.1) with ESMTPS id 49ACdODn3467417
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Oct 2024 14:39:26 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 vps3.jankratochvil.net 49ACdODn3467417
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jankratochvil.net;
-	s=202405; t=1728563967;
-	bh=XZJWQCdaNmYlw0Cqechwl/TxMeH69gue52HW6P55r4k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XGS68eoSuqfsY+TIJUnVAR4ohzAoUphM9viWkHuOwBGo6BQg57tNpDPlBOvA1aEHW
-	 RgtmYL5kYQBgJykNd8l4t2f+NT1QFPr7K1xQcn96+tyAyD3Q51cs14Fh6ldP/ri9Np
-	 pKaq4n2otQjptCouwL9u/zOclEfCQPryHwGYeDbg=
-Received: from host2.jankratochvil.net (localhost [127.0.0.1])
-	by host2.jankratochvil.net (8.18.1/8.18.1) with ESMTPS id 49ACdMsn218516
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Oct 2024 20:39:22 +0800
-DKIM-Filter: OpenDKIM Filter v2.11.0 host2.jankratochvil.net 49ACdMsn218516
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jankratochvil.net;
-	s=default; t=1728563963;
-	bh=XZJWQCdaNmYlw0Cqechwl/TxMeH69gue52HW6P55r4k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=7kfZuONnrnDkB8eLh4n+wr1O99etBgN8eTRkeAneXiaVQzTrrzDeKa2NTcJR1/ip1
-	 EOkTtz/m3xalrXu5H7rafkcPkYMmExY18x2rvBPXqz5dAe7ZFQjmnM/6gA/FxGzP7g
-	 YAqTWglKBdsljAlqulcJJWWmRFrUvM7J6pPkJJNM=
-Received: (from lace@localhost)
-	by host2.jankratochvil.net (8.18.1/8.18.1/Submit) id 49ACdKhj218265;
-	Thu, 10 Oct 2024 20:39:20 +0800
-Date: Thu, 10 Oct 2024 20:39:20 +0800
-From: Jan Kratochvil <jan@jankratochvil.net>
-To: Florian Weimer <fw@deneb.enyo.de>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: [patchv3] pthread_cond_wait and pthread_cond_timedwait can also
- return EPERM
-Message-ID: <ZwfK-LmLeU0gQjLe@host2.jankratochvil.net>
-References: <ZwZ8wiQz6hYtQxV2@host2.jankratochvil.net>
- <8734l4fdt8.fsf@mid.deneb.enyo.de>
- <Zwe-ipF5N82CTN64@host2.jankratochvil.net>
- <87ttdkdu0b.fsf@mid.deneb.enyo.de>
+	s=arc-20240116; t=1728596506; c=relaxed/simple;
+	bh=j3nLbuOk6eQsqtGUL+XtAdJBCcrG0AjKVwALZZ2f08s=;
+	h=From:Date:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=E+d/djW4pA/0BTXTHpoqTArE7TZA6NwRblcy7gl9Bf1yUYZQFqDFfzBrRAzh5t+Gyhax69f44ZrATNQESOWzEeKY6SJJqUDQxCeS0gFuDECPLIHqmuGbYgNLQOjyAxMft4llMBZ7JzN7uolMUy6cSGhpO5odtGooJxzdN3meNqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PDfs+RNy; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1728596504;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=j3nLbuOk6eQsqtGUL+XtAdJBCcrG0AjKVwALZZ2f08s=;
+	b=PDfs+RNy3/MbAO+ZqVBWADzJp/w+I0WmwHAiHSHbyyM7axY9Kz6TpE1DKxnE0SKog8htyx
+	l18fj8IGJVMDB9kmP5ShV7EplIDqmNJ/P1ijayWVakILkFrqLhSIK0yfUqw3iTF2kf3bt4
+	PT7P8CHyZNpS+WMBoLZk7128aR0sXXs=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-414-cRkp_BlcP4-jtBO-kOtdrA-1; Thu,
+ 10 Oct 2024 17:41:40 -0400
+X-MC-Unique: cRkp_BlcP4-jtBO-kOtdrA-1
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9D0241956095;
+	Thu, 10 Oct 2024 21:41:39 +0000 (UTC)
+Received: from localhost (unknown [10.22.64.96])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 432E51956052;
+	Thu, 10 Oct 2024 21:41:39 +0000 (UTC)
+From: tyberry@redhat.com
+Date: Thu, 10 Oct 2024 17:41:38 -0400
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, lgoncalv@redhat.com
+Subject: [PATCH] madvise: MADV_SOFT_OFFLINE requests can return -EBUSY
+Message-ID: <ZwhJXaNGoA4Y1UNz@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="3pG/YDsAWUAFsM+/"
-Content-Disposition: inline
-In-Reply-To: <87ttdkdu0b.fsf@mid.deneb.enyo.de>
-User-Agent: Mutt/2.2.12 (2023-09-09)
-
-
---3pG/YDsAWUAFsM+/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Thu, 10 Oct 2024 20:25:56 +0800, Florian Weimer wrote:
-> Indeed, POSIX disallows EINTR for all three wait functions.
+If any page(s) within the add+length range could not be offlined madvise
+will return -EBUSY. This might occur if the page is currently in use or
+locked.
 
-Fixed.
+Signed-off-by: Tyonnchie Berry <tyberry@redhat.com>
 
+---
 
-Jan
-
-Signed-off-by: Jan Kratochvil <jan@jankratochvil.net>
-Reviewed-by: Florian Weimer <fw@deneb.enyo.de>
-
---3pG/YDsAWUAFsM+/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="pthread_cond_init.3.patch"
-
-diff --git a/man/man3/pthread_cond_init.3 b/man/man3/pthread_cond_init.3
-index 42e7eac..df1f631 100644
---- a/man/man3/pthread_cond_init.3
-+++ b/man/man3/pthread_cond_init.3
-@@ -141,22 +141,28 @@ and a non-zero error code on error.
- .
- .SH ERRORS
- \fBpthread_cond_init\fP,
--\fBpthread_cond_signal\fP,
--\fBpthread_cond_broadcast\fP,
--and \fBpthread_cond_wait\fP
-+\fBpthread_cond_signal\fP
-+and \fBpthread_cond_broadcast\fP,
- never return an error code.
- .P
-+The \fBpthread_cond_wait\fP function returns
-+the following error codes on error:
-+.RS
-+.TP
-+\fBEPERM\fP
-+\fBmutex\fP is not locked.
-+.RE
-+.P
- The \fBpthread_cond_timedwait\fP function returns
- the following error codes on error:
- .RS
+diff --git a/man/man2/madvise.2 b/man/man2/madvise.2
+index 441edfbc1..13ee7957c 100644
+--- a/man/man2/madvise.2
++++ b/man/man2/madvise.2
+@@ -702,6 +702,11 @@ The map exists, but the area maps something that isn't a file.
+ .BR MADV_COLLAPSE )
+ Could not charge hugepage to cgroup: cgroup limit exceeded.
  .TP
-+\fBEPERM\fP
-+\fBmutex\fP is not locked.
++.B EBUSY
++(for
++.B MADV_SOFT_OFFLINE )
++If any page(s) within the add+length range could not be offlined madvise will return -EBUSY. This might occur if the page is currently in use or locked.
 +.TP
- \fBETIMEDOUT\fP
- The condition variable was not signaled
- until the timeout specified by \fIabstime\fP.
--.TP
--\fBEINTR\fP
--\fBpthread_cond_timedwait\fP was interrupted by a signal.
--.RE
- .P
- The \fBpthread_cond_destroy\fP function returns
- the following error code on error:
+ .B EFAULT
+ .I advice
+ is
 
---3pG/YDsAWUAFsM+/--
 
