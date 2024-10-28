@@ -1,204 +1,123 @@
-Return-Path: <linux-man+bounces-1802-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1803-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74A5599F8EF
-	for <lists+linux-man@lfdr.de>; Tue, 15 Oct 2024 23:17:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A375A9B2E51
+	for <lists+linux-man@lfdr.de>; Mon, 28 Oct 2024 12:14:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 98C741C219D4
-	for <lists+linux-man@lfdr.de>; Tue, 15 Oct 2024 21:17:56 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D56C51C21141
+	for <lists+linux-man@lfdr.de>; Mon, 28 Oct 2024 11:14:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 958291FE0EB;
-	Tue, 15 Oct 2024 21:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 755C51D9A52;
+	Mon, 28 Oct 2024 11:04:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E94PCxDH"
+	dkim=pass (2048-bit key) header.d=bfs.de header.i=@bfs.de header.b="mkzQiqWx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f202.google.com (mail-yw1-f202.google.com [209.85.128.202])
+Received: from mxdmz01-muc.bfs.de (mxdmz01-muc.bfs.de [193.174.230.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D321D1FBF7A
-	for <linux-man@vger.kernel.org>; Tue, 15 Oct 2024 21:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD221D6191;
+	Mon, 28 Oct 2024 11:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.174.230.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729027050; cv=none; b=qSserLpwCCBRk0b4cbjIAok9qB79uWfpr3cKRAWGfm1CMb3bO1AEOTFrxiHiB3fiSUfLD0ocLrY+43u7SEq3PHBLCr1PvYqv+M55yyp/qIQ9WtHdibsR/xQd5sbP0+ZtCxx5B9VOEqS8YObKPobQrwFsYU6qeTOohG/Tl4BZY54=
+	t=1730113459; cv=none; b=TiU59A0XVlUyXuEnt74AHaDivnFqIXF6NgKBqUaGEzFWLcAf+yNIr9X15pWJgbqUk93SXDipeFItc7J7i+P7rmQcJMdy7J5AjDjWM5lgziXKsjxGqNbm7xmffz/zXPmDKIPSrF/DPIWoFOBdpAWtrMu+d9BKcnJ1Erl4ObXiLFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729027050; c=relaxed/simple;
-	bh=kBpbcw1zYMMwWP/n8mwopVROyJozEpjDPvBdKUBkL5w=;
-	h=Date:In-Reply-To:Message-Id:Mime-Version:References:Subject:From:
-	 To:Cc:Content-Type; b=TOLhP8EEK+BXFhEXdis4A1Skj8Cvq2DOjKfAaH13mQIhh9Pla6J8qbwEYynbjc1XkSYh1Eil/TJ8whtYZ/XhlCqRJRtHeyarYuK1a9S/Vzh4Jj/vi69rXBa5kDdyAkzYz3R0xaqhyL4LwMxPtn5P3MdCeGPn44Sar7+mcA12PE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E94PCxDH; arc=none smtp.client-ip=209.85.128.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Received: by mail-yw1-f202.google.com with SMTP id 00721157ae682-6e389169f92so43848257b3.0
-        for <linux-man@vger.kernel.org>; Tue, 15 Oct 2024 14:17:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1729027048; x=1729631848; darn=vger.kernel.org;
-        h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WKU5Ql8c4lOWuBE9mb5dgHxWXN25Z3UPK2tc2nBX/Hw=;
-        b=E94PCxDHtENYiiEsiuWSjIqS/FxmIlkMyGe6OWanHoWBuzkwRtxadYyXrrqT7EBDlv
-         Uyy5VC0c7SZXD7tMhAiqorZEJuEcMTjydD1Gl6D2dzVsOWUvnhMZMFYb6s5xBF7NuQ/Y
-         TeyuvZHuFTtziM9R636JLXP4hsMRCQ069Yce6aFSDnV6lM8W3/VoMA3/+ojOc+o/7YM4
-         0WKukLX1zD9et+pf9idLqDoRk69hPBwNlDUJ845fhWZZsh7Rn/L8ibIosKqeUPgAEpN8
-         WCNzsYBiDlcNdkOm0qRzR/WKJznT3SKj6k6ScZnrmOCaBl78/T6JVx1RKwAIMi5ZL5Co
-         BSwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729027048; x=1729631848;
-        h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WKU5Ql8c4lOWuBE9mb5dgHxWXN25Z3UPK2tc2nBX/Hw=;
-        b=rpr2mCB4MkqZ7gw8LDw8DcKOD9xpDHJ4hzTgG1WBjyFcn/yslLwsDEq7UyaBfMX5Ub
-         gAkInpKlPP3lkW/Itu3y4gGadPNosgMoZ8cA6FWQoImDShxDWh7r9mYgd5jVnv7J9HKJ
-         E87NebAKvmsD+YOwrOJjec5FGHRKqNWR3u/s3cT7jrIO7HiJNRWOaTDIWmD/WURyFNn+
-         QG/edPulbg06KuWsCGvL/GhEZosBWVy+MskmXHdl26frtSU1JOVO9iXwBybc13dezikk
-         VxV5q58AXEXD2+Pg9kb8SJ/5OvKWjxVaPJT4FnCOW5aLZ7/FIlqsP0mO5zlyuTYS2pac
-         Atpg==
-X-Forwarded-Encrypted: i=1; AJvYcCW0aPdVtAgA19pKVVQTRRZOANB5Y+kwjxfz8XXWxCFYFs9/YUU0D30e2bnOGUhXodh4xy3K+klzce8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyT0Bxjd+pb0oN4xkFAPYApC8/NwC4sVppyIHBShnnmFE7MKyVh
-	QO6LTDDQs6q+vPlWYhCXtxl7aWJR25vCvnRRn5WOKf7y91Og1AFychR0jf62A0WaVaQ3PSqvjcd
-	wFM43Mw==
-X-Google-Smtp-Source: AGHT+IETvJtGSVidjurE+k5FibZOHgtYv0ZzxgqNHn8C/rHRsq8sjnXk5FCqfV1MPhDQwBmALvvUhYa1EhM9
-X-Received: from irogers.svl.corp.google.com ([2620:15c:2c5:11:61a1:4d9d:aca1:ada])
- (user=irogers job=sendgmr) by 2002:a05:690c:2fc9:b0:66a:764f:e57f with SMTP
- id 00721157ae682-6e3d41fb686mr13757b3.7.1729027047836; Tue, 15 Oct 2024
- 14:17:27 -0700 (PDT)
-Date: Tue, 15 Oct 2024 14:17:19 -0700
-In-Reply-To: <20241015211719.1152862-1-irogers@google.com>
-Message-Id: <20241015211719.1152862-3-irogers@google.com>
+	s=arc-20240116; t=1730113459; c=relaxed/simple;
+	bh=QmlUvMqA+sOKktJ9K/nU4F2jHihqNwUBY58epILBHuw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nHqeAUrHh0lrnVepkRCy7iBDTGFqXoRAYYkYh6ce8WRX1rKHG+teBGX2XSrJvCf4sNLnUTxkzJuAus8ljplJ2QDfljdfkfSgroHyaBgNEMUz+0cx/EPEmDfnqgcpX+3ZSsrdjDSurTUtCvOJnpRuoIMNQRrVV/+OBk3WfS6T9Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bfs.de; spf=pass smtp.mailfrom=bfs.de; dkim=pass (2048-bit key) header.d=bfs.de header.i=@bfs.de header.b=mkzQiqWx; arc=none smtp.client-ip=193.174.230.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bfs.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bfs.de
+Received: from mxint01-sz.bfs.intern (unknown [10.175.16.17])
+	by mxdmz01-muc.bfs.de (Postfix) with ESMTPS id 20A9E200B41E;
+	Mon, 28 Oct 2024 11:58:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+	t=1730113088;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QmlUvMqA+sOKktJ9K/nU4F2jHihqNwUBY58epILBHuw=;
+	b=mkzQiqWx88PkHYKkeuCB/EbxeQZFfygKOocRnEFinpgi15OpTOMg3HCaiYGOoJ20L8iH7y
+	+HNRyfMk5M0boGzi0FiGYt5zJmakmHi4OZoUXF4I3Y8gWGOeVjy/Rzp8AOmS5UmQXldNnd
+	HhUWWoM/yYbX6mjvnLDtcomuz/c/u+ZqGtG6v9suk21u0+rKAW/DSn0sCTKNuGpHGUUaLX
+	rC7R4Kqb8vnk3WEH27saG5RADTud/RVaQd7UM7B83WKmRBexRGeqLElBPsBdKo0hqeRHbp
+	FTuNuoeTYQ/Cm4+z9q2c/4kLzxj8AfvxY1l19FHOIRiHGrLg7dCtPC51iC06PQ==
+Received: from SRVEX01-MUC.bfs.intern (SRVEX01-MUC.bfs.intern [10.161.90.31])
+	by mxint01-sz.bfs.intern (Postfix) with ESMTP id E368A121E9;
+	Mon, 28 Oct 2024 11:58:07 +0100 (CET)
+Received: from SRVEX01-MUC.bfs.intern (10.161.90.31) by SRVEX01-MUC.bfs.intern
+ (10.161.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Mon, 28 Oct
+ 2024 11:58:07 +0100
+Received: from SRVEX01-MUC.bfs.intern ([fe80::e8ba:5ab1:557f:4aad]) by
+ SRVEX01-MUC.bfs.intern ([fe80::e8ba:5ab1:557f:4aad%5]) with mapi id
+ 15.01.2507.039; Mon, 28 Oct 2024 11:58:07 +0100
+From: Walter Harms <wharms@bfs.de>
+To: Alejandro Colomar <alx@kernel.org>
+CC: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
+Subject: AW: Linux man-pages project maintenance
+Thread-Topic: Linux man-pages project maintenance
+Thread-Index: AQHbAF0LU22OOupWbUqeh2kqDP3GT7JPAh8AgE1MSS8=
+Date: Mon, 28 Oct 2024 10:58:06 +0000
+Message-ID: <9b278997317141558aff37afeaff153e@bfs.de>
+References: <4d7tq6a7febsoru3wjium4ekttuw2ouocv6jstdkthnacmzr6x@f2zfbe5hs7h5>,<CACKs7VB_GEt_u463R4JvWveghBBscQeqaWtKrMmxNSQ2mn+-VA@mail.gmail.com>
+In-Reply-To: <CACKs7VB_GEt_u463R4JvWveghBBscQeqaWtKrMmxNSQ2mn+-VA@mail.gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-as-product-ver: SMEX-14.0.0.3197-9.1.2019-28758.007
+x-tm-as-result: No-10--12.807400-5.000000
+x-tmase-matchedrid: zwpC2WOSP9V3vIGb4JF4peZcuYJz1PU5N0X64jGy2dZJTOxleK2tZvTh
+	5ZG51qRLtxo6Bb+iP2/IuNKfYHvw6VkLLUsH7hZSwrtF+y9i1an6hXFsBGSLz4cBR6etkh29rcF
+	NuDgWZ83ACjBe8fI4NQ9HVZG0CfkMzPvigSWE1EEhPK2mn+OsTGnTqal/GlimMNBqjpGQEyCFlr
+	BwBrGB/sb6oVhOl7WulD0yNK/lHn+FUp9a5vCd5DSI4WraM54/ZrTG9WaiuOD1cpbEcVEOoLfaM
+	gQ7+FGaRH8WZZlSEHxX099pNHuCkqY9Pv8gh/n0ju2XlcEx9HRV0rSepB3ZeNshC9xp7YwHr54J
+	Ix46I6T3t3pfLmJRU9vIAMT/07OiB73xunbyKrq0QRlrBF3eZY7k0IXv+jygF7gkeTtWM1OsBCV
+	XXb1XzwZCcOD0tvCT7oAAJpC+qWE=
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--12.807400-5.000000
+x-tmase-version: SMEX-14.0.0.3197-9.1.2019-28758.007
+x-tm-snts-smtp: 4FAC0822D45D150C43447CF595E1615B7326BED2DEFE659E58EF041E7E362BE32000:9
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20241015211719.1152862-1-irogers@google.com>
-X-Mailer: git-send-email 2.47.0.rc1.288.g06298d1525-goog
-Subject: [PATCH v2 3/3] proc_pid_fdinfo.5: Add DRM subsection
-From: Ian Rogers <irogers@google.com>
-To: Alejandro Colomar <alx@kernel.org>, "G . Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-man@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Add description of DRM fdinfo information based on the Linux kernel's
-`Documentation/gpu/drm-usage-stats.rst`:
-https://docs.kernel.org/gpu/drm-usage-stats.html
-
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- man/man5/proc_pid_fdinfo.5 | 94 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 94 insertions(+)
-
-diff --git a/man/man5/proc_pid_fdinfo.5 b/man/man5/proc_pid_fdinfo.5
-index 02eceac04..bb6c07527 100644
---- a/man/man5/proc_pid_fdinfo.5
-+++ b/man/man5/proc_pid_fdinfo.5
-@@ -300,5 +300,99 @@ fields contain the values that
- .BR timerfd_gettime (2)
- on this file descriptor would return.)
- .RE
-+.SS Direct Rendering Manager
-+.P
-+DRM drivers can optionally choose to expose usage stats through
-+/proc/pid/fdinfo/. For example:
-+.P
-+.in +4n
-+.EX
-+pos:    0
-+flags:  02100002
-+mnt_id: 26
-+ino:    284
-+drm-driver:     i915
-+drm-client-id:  39
-+drm-pdev:       0000:00:02.0
-+drm-total-system0:      6044 KiB
-+drm-shared-system0:     0
-+drm-active-system0:     0
-+drm-resident-system0:   6044 KiB
-+drm-purgeable-system0:  1688 KiB
-+drm-total-stolen-system0:       0
-+drm-shared-stolen-system0:      0
-+drm-active-stolen-system0:      0
-+drm-resident-stolen-system0:    0
-+drm-purgeable-stolen-system0:   0
-+drm-engine-render:      346249 ns
-+drm-engine-copy:        0 ns
-+drm-engine-video:       0 ns
-+drm-engine-capacity-video:      2
-+drm-engine-video-enhance:       0 ns
-+.EE
-+.TP
-+.IR drm-driver: " .+  (mandatory)"
-+The name this driver registered.
-+.TP
-+.IR drm-pdev: " <aaaa:bb:cc.d>"
-+For PCI devices this should contain the PCI slot address of the device
-+in question.
-+.TP
-+.IR drm-client-id: " [0-9]+"
-+Unique value relating to the open DRM file descriptor used to
-+distinguish duplicated and shared file descriptors.
-+.P
-+GPUs usually contain multiple execution engines. Each shall be given a
-+stable and unique name (<engine_name>), with possible values
-+documented in the driver specific documentation.
-+.TP
-+.IR drm-engine-<engine_name>: " [0-9]+ ns"
-+GPU engine utilization, time spent busy executing workloads for this client.
-+.TP
-+.IR drm-engine-capacity-<engine_name>: " [0-9]+"
-+Capacity of the engine if not 1, cannot be 0.
-+.TP
-+.IR drm-cycles-<engine_name>: " [0-9]+"
-+Contains the number of busy cycles for the given engine.  Values are
-+not required to be constantly monotonic, but are required to catch up
-+with the previously reported larger value within a reasonable
-+period. Upon observing a value lower than what was previously read,
-+userspace is expected to stay with that larger previous value until a
-+monotonic update is seen.
-+.TP
-+.IR drm-total-cycles-<engine_name>: " [0-9]+"
-+Contains the total number cycles for the given engine.  This is a
-+timestamp in GPU unspecified unit that matches the update rate of
-+drm-cycles-<engine_name>. For drivers that implement this interface,
-+the engine utilization can be calculated entirely on the GPU clock
-+domain, without considering the CPU sleep time between 2 samples.
-+.P
-+Each possible memory type which can be used to store buffer objects by
-+the GPU in question shall be given a stable and unique name <region>.
-+The name "memory" is reserved to refer to normal system memory.
-+.TP
-+.IR drm-memory-<region>: " [0-9]+ [KiB|MiB]"
-+The amount of storage currently consumed by the buffer objects belong
-+to this client, in the respective memory region.
-+.IP
-+Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
-+indicating kibi- or mebi-bytes.
-+.TP
-+.IR drm-shared-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are shared with another file (e.g., have more
-+than a single handle).
-+.TP
-+.IR drm-total-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that including shared and private memory.
-+.TP
-+.IR drm-resident-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are resident in the specified region.
-+.TP
-+.IR drm-purgeable-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are purgeable.
-+.TP
-+.IR drm-active-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are active on one or more engines.
-+
- .SH SEE ALSO
- .BR proc (5)
--- 
-2.47.0.rc1.288.g06298d1525-goog
-
+SGVsbG8gQWxleCwNCg0KMS4gdGh4IGZvciBhbGxsIHlvdXIgd29yaw0KMi4gaSBjYW4gZnVsbCB1
+bmRlcnN0YW5kLCBpIGFsc28gaGFkIHRvIHJlZHVjZSB0aGUgdGltZSBpIHNwZW5kIHdpdGggc2V2
+ZXJhbCBPUyBwcm9qZWN0cw0KMy4gaXMgdGhlcmUgYSBwbGFuIGhvdyB0byBnbyBmb3J3YXJkIChi
+ZXNpZGUgYSB3aGl0ZSBrbmlnaHQpID8NCg0KQ1UNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18NClZvbjogU3RlZmFuIFB1aXUgPHN0ZWZhbi5wdWl1QGdtYWlsLmNvbT4N
+Ckdlc2VuZGV0OiBNb250YWcsIDkuIFNlcHRlbWJlciAyMDI0IDEwOjI4DQpBbjogQWxlamFuZHJv
+IENvbG9tYXINCkNjOiBsaW51eC1tYW5Admdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdl
+ci5rZXJuZWwub3JnOyBsaWJjLWFscGhhQHNvdXJjZXdhcmUub3JnDQpCZXRyZWZmOiBSZTogTGlu
+dXggbWFuLXBhZ2VzIHByb2plY3QgbWFpbnRlbmFuY2UNCg0KSGkgQWxleCwNCg0KT24gRnJpLCBT
+ZXAgNiwgMjAyNCBhdCA0OjA24oCvUE0gQWxlamFuZHJvIENvbG9tYXIgPGFseEBrZXJuZWwub3Jn
+PiB3cm90ZToNCj4NCj4gSGkgYWxsLA0KPg0KPiBBcyB5b3Uga25vdywgSSd2ZSBiZWVuIG1haW50
+YWluaW5nIHRoZSBMaW51eCBtYW4tcGFnZXMgcHJvamVjdCBmb3IgdGhlDQo+IGxhc3QgNCB5ZWFy
+cyBhcyBhIHZvbHVudGFyeS4gIEkndmUgYmVlbiBkb2luZyBpdCBpbiBteSBmcmVlIHRpbWUsIGFu
+ZCBubw0KPiBjb21wYW55IGhhcyBzcG9uc29yZWQgdGhhdCB3b3JrIGF0IGFsbC4gIEF0IHRoZSBt
+b21lbnQsIEkgY2Fubm90IHN1c3RhaW4NCj4gdGhpcyB3b3JrIGVjb25vbWljYWxseSBhbnkgbW9y
+ZSwgYW5kIHdpbGwgdGVtcG9yYXJpbHkgYW5kIGluZGVmaW5pdGVseQ0KPiBzdG9wIHdvcmtpbmcg
+b24gdGhpcyBwcm9qZWN0LiAgSWYgYW55IGNvbXBhbnkgaGFzIGludGVyZXN0cyBpbiB0aGUNCj4g
+ZnV0dXJlIG9mIHRoZSBwcm9qZWN0LCBJJ2Qgd2VsY29tZSBhbiBvZmZlciB0byBzcG9uc29yIG15
+IHdvcmsgaGVyZTsgaWYNCj4gc28sIHBsZWFzZSBsZXQgbWUga25vdy4NCg0KVGhhbmtzIGZvciBh
+bGwgdGhlIHdvcmsgeW91IHB1dCBpbi4gSXQncyB0cnVlLCBvZnRlbnRpbWVzIGluIHRoZSBMaW51
+eA0Kd29ybGQgZG9jdW1lbnRhdGlvbiBkb2VzIG5vdCBnZXQgdGhlIGF0dGVudGlvbiBpdCBkZXNl
+cnZlcywgc28ga3Vkb3MNCnRvIHlvdSAoYW5kIE1pY2hhZWwgYmVmb3JlIHlvdSkgZm9yIHRha2lu
+ZyB1cCB0aGlzIHVuZGVyYXBwcmVjaWF0ZWQNCnRhc2shDQoNClN0ZWZhbi4NCg0KPg0KPiBIYXZl
+IGEgbG92ZWx5IGRheSENCj4gQWxleA0KPg0KPiAtLQ0KPiA8aHR0cHM6Ly93d3cuYWxlamFuZHJv
+LWNvbG9tYXIuZXMvPg0KDQo=
 
