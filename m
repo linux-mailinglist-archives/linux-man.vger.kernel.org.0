@@ -1,57 +1,58 @@
-Return-Path: <linux-man+bounces-1806-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1807-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C7769B9182
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 14:07:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA6289B918E
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 14:10:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C12DF28392C
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:07:44 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AE9942829B4
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:10:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA08919E982;
-	Fri,  1 Nov 2024 13:07:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C736A19F117;
+	Fri,  1 Nov 2024 13:10:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZ21h6SX"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tZD32488"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D22487A7;
-	Fri,  1 Nov 2024 13:07:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86195487A7
+	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 13:10:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730466460; cv=none; b=nF3s8grJYXnUkSdTjuXcYNrhHC2T/0VtBWWcCARLQkYBuYNM/e0rZU8xXvieH7YNW20Czz+8wX3ILu+4KNvSDTrCu1FqhBZp/ugcj+GlAcbv16JSO0/pOr9pfN84Zs5LXcksbqh9RJpR67JDf/HEbuzmEFY3elTnPbdwlCnj89w=
+	t=1730466616; cv=none; b=ggD8rGgMYMW0OUZtDDpk4SyII0bsljvg4kw6bUDBcgMvgxklYQba2WA2rpkrZQnnPhn/6q9pWzBij2NHqShmX7uWzl7sZ9HJC8LfceY6Buft63KzcupOr58R2pMAanrJM7Y68ArDW7Ys6NbC4I8YTM3y5U/UZWe7fqU53Fi57U8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730466460; c=relaxed/simple;
-	bh=9GC6gd/VKTtyyozgny3QU95BtNXTBCGrAw1L2qaH6zA=;
+	s=arc-20240116; t=1730466616; c=relaxed/simple;
+	bh=+BFbpHcXgXqU4GAEa7UNhEz1YjNaSjHcDnUMB0s8BDo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LU/TQL1usw7rcu55eeoqsSzMtO/8lXzkBbY/r8ShUIvNajGpRqxaF/dXQT037yxPN/fVL5C0ZtYFVOSGrDb20hGgRqGfeXijlgtgfQO8QS/qnZaa2/+rg1b2XVvq26W0JCd4D4BaYi+jj1eHDEs8kRyEjucfdh8Q3ebwk93P+r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZ21h6SX; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CCBC4CECD;
-	Fri,  1 Nov 2024 13:07:34 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=dHQgIN/OKGtCLuQ+lhNXxSskdBDlevWoLZJ4Aoz61oV39G8uBp6LopdCA6/C2iD669/ZOy+ZrOvB5YDAxjqvgrpFHbWbIZRVounN3M/Q7+6bvlqqr/t/8x7Hb+sjBGDkEb1lCJ+uV45/t4ndY+utPxMiqc7e7OIXX1701j4AS5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tZD32488; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39FAC4CECD;
+	Fri,  1 Nov 2024 13:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730466459;
-	bh=9GC6gd/VKTtyyozgny3QU95BtNXTBCGrAw1L2qaH6zA=;
+	s=k20201202; t=1730466616;
+	bh=+BFbpHcXgXqU4GAEa7UNhEz1YjNaSjHcDnUMB0s8BDo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iZ21h6SXe+A/rZoj4EyHi/WdCvSSULj+rIrIdNq3GjylI/2vkdd35x7+0ORpMihyN
-	 1ISZoVSqMOA/hXJa2nw31yU0JptSiysjMVRi2krZdD2ZBgiEI1VDXQPLWefOrHvWbQ
-	 dmMOb8DA7hO91xxqQ0ScUzQ9xVzJCX00IR7YzU5BR3P/OGKeIx8C4yXfD20TnYXc8D
-	 yt1MVh/CtosfoopEDAoTISReRcZgf1O3HlCuWMPn9RvbcNWWdkZQ4/IuLmohmwRPvp
-	 AAMqynU97O1Vajzfq4UgWJ0ylXMfbrtluZWnGB8fCXSuamR5+6iXXc9jt/OulVbjdF
-	 NI8BmiGE7o9xw==
-Date: Fri, 1 Nov 2024 14:07:32 +0100
+	b=tZD32488gqO0EgA3w/uU0+dnepe4A4vwuT7KD8/RvPKZGA8CLHAxcx7MPG1ziv/HQ
+	 P/66IYU6+rhqyl7+i8LnyatWKl0UksFWJnbteKRt3wSpL3ltjY3u3kaTLMYwPZkwcE
+	 YuRtr0clTCP6dvI4cRP3P9NyhrJaV0FzDlfaLiH4uojbb3rty0itN3Ti9piX598aBm
+	 1M9WNgPcUlgz0rrHBzq9q3bEZuxXa0dqY1N+nH/E1eL458c/CFgk578iWas462wA7l
+	 GT8S67gSzD5P2YcwmDSOOJOoA9jx5ZJWjRObDeyvdKEack0L699Bs7A9DIuT458P8W
+	 bP3lUhNJDFy8w==
+Date: Fri, 1 Nov 2024 14:10:11 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Alejandro Colomar <alx.manpages@gmail.com>,
-	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] fanotify.7,fanotify_mark.2: update documentation of
- fanotify w.r.t fsid
-Message-ID: <20241101130732.xzpottv5ru63w4wd@devuan>
-References: <20241008094503.368923-1-amir73il@gmail.com>
- <20241009153836.xkuzuei2gxeh2ghj@quack3>
+To: Jan Kratochvil <jan@jankratochvil.net>
+Cc: Florian Weimer <fw@deneb.enyo.de>, linux-man@vger.kernel.org
+Subject: Re: [patchv3] pthread_cond_wait and pthread_cond_timedwait can also
+ return EPERM
+Message-ID: <20241101131011.4vvwbww2ls7oqatb@devuan>
+References: <ZwZ8wiQz6hYtQxV2@host2.jankratochvil.net>
+ <8734l4fdt8.fsf@mid.deneb.enyo.de>
+ <Zwe-ipF5N82CTN64@host2.jankratochvil.net>
+ <87ttdkdu0b.fsf@mid.deneb.enyo.de>
+ <ZwfK-LmLeU0gQjLe@host2.jankratochvil.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,170 +60,102 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d723bfrsts26vlyf"
+	protocol="application/pgp-signature"; boundary="s3tizrkztw2lrpcc"
 Content-Disposition: inline
-In-Reply-To: <20241009153836.xkuzuei2gxeh2ghj@quack3>
+In-Reply-To: <ZwfK-LmLeU0gQjLe@host2.jankratochvil.net>
 
 
---d723bfrsts26vlyf
+--s3tizrkztw2lrpcc
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] fanotify.7,fanotify_mark.2: update documentation of
- fanotify w.r.t fsid
+Subject: Re: [patchv3] pthread_cond_wait and pthread_cond_timedwait can also
+ return EPERM
 MIME-Version: 1.0
 
-Hi Amir, Jan,
+Hi Jan,
 
-On Wed, Oct 09, 2024 at 05:38:36PM +0200, Jan Kara wrote:
-> On Tue 08-10-24 11:45:03, Amir Goldstein wrote:
-> > Clarify the conditions for getting the -EXDEV and -ENODEV errors.
-> >=20
-> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+On Thu, Oct 10, 2024 at 08:39:20PM +0800, Jan Kratochvil wrote:
+> On Thu, 10 Oct 2024 20:25:56 +0800, Florian Weimer wrote:
+> > Indeed, POSIX disallows EINTR for all three wait functions.
 >=20
-> Looks good. Feel free to add:
-
-Please see some minor inline comments below.
-
-> Reviewed-by: Jan Kara <jack@suse.cz>
-
-Thanks!
-
+> Fixed.
 >=20
-> But I've read somewhere that Alejandro stepped down as manpages maintainer
-> so they are officially unmaintained?
+>=20
+> Jan
+>=20
+> Signed-off-by: Jan Kratochvil <jan@jankratochvil.net>
+> Reviewed-by: Florian Weimer <fw@deneb.enyo.de>
 
-A contract is imminent, and I've started to review/apply old patches
-today already.  I'll probably make an official announcement soon.
-Maintenance is restored.  (As much as I possibly can, since my region
-has limited electricity, water, and internet, after the worst flooding
-in centuries.)
+Patch applied.  Thank you both!
 
 Have a lovely day!
 Alex
 
->=20
-> 								Honza
->=20
-> > Hi Alejandro,
-> >=20
-> > This is a followup on fanotify changes from v6.8
-> > that are forgot to follow up on at the time.
-> >=20
-> > Thanks,
-> > Amir.
-> >=20
-> >  man/man2/fanotify_mark.2 | 27 +++++++++++++++++++++------
-> >  man/man7/fanotify.7      | 10 ++++++++++
-> >  2 files changed, 31 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-> > index fc9b83459..b5e091c25 100644
-> > --- a/man/man2/fanotify_mark.2
-> > +++ b/man/man2/fanotify_mark.2
-> > @@ -659,17 +659,16 @@ The filesystem object indicated by
-> >  .I dirfd
-> >  and
-> >  .I pathname
-> > -is not associated with a filesystem that supports
-> > +is associated with a filesystem that reports zero
-> >  .I fsid
-> >  (e.g.,
-> >  .BR fuse (4)).
-> > -.BR tmpfs (5)
-> > -did not support
-> > -.I fsid
-> > -prior to Linux 5.13.
-> > -.\" commit 59cda49ecf6c9a32fae4942420701b6e087204f6
-> >  This error can be returned only with an fanotify group that identifies
-> >  filesystem objects by file handles.
-> > +Since Linux 6.8,
-> > +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
-> > +this error can be returned only when
+> diff --git a/man/man3/pthread_cond_init.3 b/man/man3/pthread_cond_init.3
+> index 42e7eac..df1f631 100644
+> --- a/man/man3/pthread_cond_init.3
+> +++ b/man/man3/pthread_cond_init.3
+> @@ -141,22 +141,28 @@ and a non-zero error code on error.
+>  .
+>  .SH ERRORS
+>  \fBpthread_cond_init\fP,
+> -\fBpthread_cond_signal\fP,
+> -\fBpthread_cond_broadcast\fP,
+> -and \fBpthread_cond_wait\fP
+> +\fBpthread_cond_signal\fP
+> +and \fBpthread_cond_broadcast\fP,
+>  never return an error code.
+>  .P
+> +The \fBpthread_cond_wait\fP function returns
+> +the following error codes on error:
+> +.RS
+> +.TP
+> +\fBEPERM\fP
+> +\fBmutex\fP is not locked.
+> +.RE
+> +.P
+>  The \fBpthread_cond_timedwait\fP function returns
+>  the following error codes on error:
+>  .RS
+>  .TP
+> +\fBEPERM\fP
+> +\fBmutex\fP is not locked.
+> +.TP
+>  \fBETIMEDOUT\fP
+>  The condition variable was not signaled
+>  until the timeout specified by \fIabstime\fP.
+> -.TP
+> -\fBEINTR\fP
+> -\fBpthread_cond_timedwait\fP was interrupted by a signal.
+> -.RE
+>  .P
+>  The \fBpthread_cond_destroy\fP function returns
+>  the following error code on error:
 
-I think "when" is more appropriate in the following line.  It also adds
-some consistency with the rest of the patch below (@@762).
-
-> > +trying to add a mount or filesystem mark.
-> >  .TP
-> >  .B ENOENT
-> >  The filesystem object indicated by
-> > @@ -768,6 +767,22 @@ which uses a different
-> >  than its root superblock.
-> >  This error can be returned only with an fanotify group that identifies
-> >  filesystem objects by file handles.
-> > +Since Linux 6.8,
-> > +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
-> > +this error will be returned
-> > +when trying to add a mount or filesystem mark on a subvolume,
-> > +when trying to add inode marks in different subvolumes,
-> > +or when trying to add inode marks in a
-> > +.BR btrfs (5)
-> > +subvolume and in another filesystem.
-> > +Since Linux 6.8,
-> > +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
-> > +this error will also be returned
-> > +when trying to add marks in different filesystems,
-> > +where one of the filesystems reports zero
-> > +.I fsid
-> > +(e.g.,
-> > +.BR fuse (4)).
-> >  .SH STANDARDS
-> >  Linux.
-> >  .SH HISTORY
-> > diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-> > index 449af949c..db8fe6c00 100644
-> > --- a/man/man7/fanotify.7
-> > +++ b/man/man7/fanotify.7
-> > @@ -575,6 +575,16 @@ and contains the same value as
-> >  .I f_fsid
-> >  when calling
-> >  .BR statfs (2).
-> > +Note that some filesystems (e.g.,
-> > +.BR fuse (4))
-> > +report zero
-> > +.IR fsid .
-> > +In these cases, it is not possible to use
-
-Please break the line after the comma.
-
-> > +.I fsid
-> > +to associate the event with a specific filesystem instance,
-> > +so monitoring different filesystem instances that report zero
-> > +.I fsid
-> > +with the same fanotify group is not supported.
-> >  .TP
-> >  .I handle
-> >  This field contains a variable-length structure of type
-> > --=20
-> > 2.34.1
-> >=20
-> --=20
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---d723bfrsts26vlyf
+--s3tizrkztw2lrpcc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmck0pQACgkQnowa+77/
-2zI8yA//T5mqLzgVU/dnY2C22HqDHNCPq2c2rJtzT3Qg7Z7awurqMgkkC3b12vjp
-8UbnYC0ohRV4j3TCemTnu9WNExRlezNfJW/nwFHCWdunDycRtFfvQign9vNZhUuB
-k7jrMmnVcEzxkobSSb5hUt6qI/mO76ZNHw4loHPP7xZPJ+pmRwbwG3AEuDW1KOwZ
-MfXafSyhTe7ScSaFZU10vJ/UObX6Db5RDg0rsnka4Egkkjc6PFQSLtwpCqdNnXiG
-GNVwXOldT/dug1m1bzHftcGkaXakQqTfFywBt/3apXTS6gSj9MIcHv1Hd72KzveE
-TmMM9gbxleuPmp/55LerFECtCUWqqJ3/DpCcwIXHJZdDiyvYBoCJPzs4tjE19NnG
-ATofsqhcs91VhtsJYwGZFaF+inkNgrK9QWJQhPC4Fo3q8b4jJ61lUyzogvCYaB+Q
-bvZadubYKVcM+rP6Otv6GHTAVf/Vaq6Jq1M2qXwuXbkfElVgdqwbEFjezdGHep21
-6Ey4SF3lpxoiR32a/giGlFF/UaB/U4j5YlgQeH1VHZUqTJ2jO6q8t2Xe3a67gzs0
-bxNXUSoGRreM9WlovCrEUOa8x32O7WTj2gGgajiNG6rVjIBUOSvsVYWUYDUmFiOP
-/kWXostURUJfZgEEtrIWm5ecXWi6HO7l9Q90DB7iqvg8mbVxb3s=
-=pwcC
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmck0zMACgkQnowa+77/
+2zKSnBAAjl1iLDsumTX1R98eftW52m+M0zi32j/eybjGT53EA2SVhw8caIh039A2
+GYqR64kRZXzXUxLkpscimE1tscGtjmSGYAtzsn0AxmccXsPEpNF02A2gZGMwQ95/
+SxSXSKiWhrC8t2fsIyogeNma46a3pNCZ3A4N7Qo+TN8jo+wEO1zvIQriTrs8B2m2
+HpFpfLkYTtZx7jGrMEvGxOJh/zYCQPuZCwgrMGX8FSNor8AH6l6N4H3/Zzn2apFj
+ffsaQkz9v6Apf8BdsqksU5HhU7wp9Q+vulSUlCPirZlmI0mJJ4slDsoRZ8G+ZfdQ
+RO2TBoKwSRrX3VfniY91WCS50nW/bnVNT2mWBap4YAQCUXXApEqi8mPWg83gWcct
+PTk/HHUbJbuBxQ1jGZI9G/ENhUXw6MYymdklTRC23cODB+W3zGJvkPt9YncxyVdQ
+GheXIlvvmYoOTqlE0WPhpeDchrV1ndhmtdvH/oMDqnFNmDOfJrX+FUS3269URUAS
+xVHLusbf+cDNE4IUNwAwEPjgOHE2KGiMJA2W8qg9ZWeuw+IU4MuPdc6Tw8Te5XuD
+xduYxxoZMiz2u7GjEvOJbB7VSeOITGlqUnZIS+udAYVkRI3sYPM0peRBTcychaw+
+PBnZlm+G1EryO6kwY1kFIXsnI7M5IdijTUpteSfMKZfUz/gl1vA=
+=A79g
 -----END PGP SIGNATURE-----
 
---d723bfrsts26vlyf--
+--s3tizrkztw2lrpcc--
 
