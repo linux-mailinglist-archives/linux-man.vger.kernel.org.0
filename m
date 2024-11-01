@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-1804-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1805-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BFC29B913B
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:43:35 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B257E9B914A
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:48:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5BBFD1C20F88
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 12:43:34 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 49C7CB20B91
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 12:48:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7412219E971;
-	Fri,  1 Nov 2024 12:43:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD2D420B22;
+	Fri,  1 Nov 2024 12:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PA0sqwaq"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Juhv3Erf"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4C513B592
-	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 12:43:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA7AF9D9
+	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 12:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730465010; cv=none; b=bVryFvJYw8vyOEJvkGQiXDh4Pyz04dHd5x1qfKs6fHTZ8aUjYO/VODsT/lhqph0XIhlWPv1Ab78VG2S+yLWP6aPGUSohv4MzvoCmj+DvLhQbqHqZv96YN0BYcyUbvX7/PYhHniKqkUoP+LRwztHc++xcgCOB0fUiVRLiPQqZP68=
+	t=1730465325; cv=none; b=ur9+qc1Lot56yZwfbE57Wdoaf+nbT+OAvFvsds/DCYvRTdcB3X5io+xBkEom2cCXGEjpFMmtNZJjVYISkgZXWIcK+xGH7+iqvXjsxlFNRkzCF9FL1/E9N97BtTWUNlZS0WYjHrMSxXfy+Y81NjfEQteAeekyXyaRxM6VDdOhTsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730465010; c=relaxed/simple;
-	bh=JUJ+DLqK8U2AdrD4lCPHBKvT50szeU0h36FmkkPHmFM=;
+	s=arc-20240116; t=1730465325; c=relaxed/simple;
+	bh=OBnb6sk07Jxcje65Xzu1pW8pMGIvq3KqnaryDuFNLD4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ccDEkwe4OOnmQz0Cs7WxkLaEYCgSJWlfzvJsuHxfkBvWPJj1/NXOvF3NwZx1n7Pt2+mllpu95I5HH4sNdsP82WCHeaDnd4L1S0KGTSx1tjE/xH/7I7bZsM8WdRfCLI40WUqj3L2sBdwvys00jQK6oRvcT+HKDKjwUDRddNpGcxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PA0sqwaq; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28AD5C4CECD;
-	Fri,  1 Nov 2024 12:43:27 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=UW2+y/gNBmXmDqxjObIiT15UA7ZHgPbliwW4LjRf7KPd05WaxmI2gx6siSTWLRFPaANZQIoCKPBKErAQ4MKjLrZfnrI9nUQT6Q74z9Tb9hDGVAN/s9WsSzorvLCT8bbsN+OPWFKSRqPjnT5fL/hXKLA68DRz5WzHlx6gtgjOBgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Juhv3Erf; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510D0C4CECD;
+	Fri,  1 Nov 2024 12:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730465009;
-	bh=JUJ+DLqK8U2AdrD4lCPHBKvT50szeU0h36FmkkPHmFM=;
+	s=k20201202; t=1730465325;
+	bh=OBnb6sk07Jxcje65Xzu1pW8pMGIvq3KqnaryDuFNLD4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PA0sqwaqliripOSwh2V2O4drLlgHJ3/2w9WrpTxlyd9eveKxIva1p859l/i7NEoJy
-	 WjfrQ+w26Q7JMBYLGJorhD3AbUm+ky96dBdiFnuo8e0T2iU4z6P2oci21pvcoLnidy
-	 /lNpw3JPvdZQzFBkE40ToSw1bGxS0NPRdHyAiM485JhzPcz2wqzZUI7g9jTH2zU5ZU
-	 Xgm/1vcxrwfohrM+SoMa7mGuNlht0sNmFHvQk2qNBwy5xzfQtzEvzsMkoLsx7QKj8i
-	 4H2sZ43G/f8VbcZOD9QDbu41mZ6PKmV0T6E7mVYjmO1vGUhIqBlfE/iHn7tjHviJn8
-	 +xxqeNDReSEww==
-Date: Fri, 1 Nov 2024 13:43:25 +0100
+	b=Juhv3ErfCr++sGjIEgqmVB/vT8UmkY0Vt7c0Cpk00J4bA0QU16pm3ufiELnBfUaax
+	 nmaLOFT3AHCvtPzCDVEgUpl++89fP5sj/Pxc/DKUGltJieDG1zE6BJ5KnFtFtVrTjd
+	 Ou75JgtYcHuZ6YtGLEwbXkKSiBSLQr6xTNXfLiqQWFyYz2j1jSohnOaJO4JuXYg3Yc
+	 qnjHdzWyQvEHEPcWYyHmBgv/Js12kldLYW52cGmiL+Mu9pQALM8Oa6XtnmclRckoks
+	 THb6IDiTkig5w1yf/V33lOrV70fMsbHjpNkbuIGRcSTunzIDOWYIl9A87BVHCKD+ua
+	 L8kV2Zbl4Mp5g==
+Date: Fri, 1 Nov 2024 13:48:40 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
+To: Philipp Takacs <philipp@bureaucracy.de>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] signal.7: Better description for SIGFPE
-Message-ID: <20241101124325.vdqomeiemzabwtee@devuan>
-References: <20240924115547.294466-1-vincent@vinc17.net>
+Subject: Re: bind EADDRNOTAVAIL at wrong postition
+Message-ID: <20241101124840.icu2zoyzbmfnzckd@devuan>
+References: <67816c00225a0e945f73e22641d4f299.philipp@bureaucracy.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,83 +55,61 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wddxq3e2mishc6em"
+	protocol="application/pgp-signature"; boundary="23swpow4twe5p7qs"
 Content-Disposition: inline
-In-Reply-To: <20240924115547.294466-1-vincent@vinc17.net>
+In-Reply-To: <67816c00225a0e945f73e22641d4f299.philipp@bureaucracy.de>
 
 
---wddxq3e2mishc6em
+--23swpow4twe5p7qs
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] signal.7: Better description for SIGFPE
+Subject: Re: bind EADDRNOTAVAIL at wrong postition
 MIME-Version: 1.0
 
-Hi Vincent,
+Hi Philipp,
 
-On Tue, Sep 24, 2024 at 01:54:46PM +0200, Vincent Lefevre wrote:
-> SIGFPE has comment "Floating-point exception", which corresponds to
-> the FPE acronym. But this is misleading as this signal may also be
-> generated by an integer division by 0.
+On Sun, Oct 06, 2024 at 03:17:48AM +0200, Philipp Takacs wrote:
+> Hi
 >=20
-> Change it to "Erroneous arithmetic operation" from POSIX:
-> https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/signal.h.html
->=20
-> Note: the GNU C Library manual says "fatal arithmetic error".
-> https://www.gnu.org/software/libc/manual/html_node/Program-Error-Signals.=
-html
->=20
-> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
+> In bind(2) there are general errors and errors specific for AF_UNIX. The
+> EADDRNOTAVAIL error is sorted at the AF_UNIX specific errors. But in
+> posix[0] EADDRNOTAVAIL is a normal error.
 
-Patch applied.  Thanks!
+Do you know any system under which it happens with a socket other than
+AF_UNIX?  It would be interesting to know if that's just a POSIX thing,
+or if actual systems do have that.
 
 Have a lovely day!
 Alex
 
-> ---
->  man/man7/signal.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/man/man7/signal.7 b/man/man7/signal.7
-> index 7a9e91cc7..d19f171b3 100644
-> --- a/man/man7/signal.7
-> +++ b/man/man7/signal.7
-> @@ -373,7 +373,7 @@ SIGCHLD	P1990	Ign	Child stopped or terminated
->  SIGCLD	\-	Ign	A synonym for \fBSIGCHLD\fP
->  SIGCONT	P1990	Cont	Continue if stopped
->  SIGEMT	\-	Term	Emulator trap
-> -SIGFPE	P1990	Core	Floating-point exception
-> +SIGFPE	P1990	Core	Erroneous arithmetic operation
->  SIGHUP	P1990	Term	Hangup detected on controlling terminal
->  			or death of controlling process
->  SIGILL	P1990	Core	Illegal Instruction
-> --=20
-> 2.45.2
+> Philipp
 >=20
->=20
+> [0] https://pubs.opengroup.org/onlinepubs/9699919799/functions/bind.html
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---wddxq3e2mishc6em
+--23swpow4twe5p7qs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmckzO0ACgkQnowa+77/
-2zIjIhAAqym8RtCqEst9lE+8Ky34AzhZd/cM4/6NfHMp3SwO1U0/r/X4s33n8prh
-FgCfs9H1/R1ukjQri45slA/98coSeBFSaKUW7bA1OIEQRZwIdDDfGt/AZdKPjoxg
-nFdBISw1TbvB0pgrKh7AQPwEA7Obv86Gs1ExCMCvXY6It++CIPE+UKkfUQGt9OD3
-i2WY27ks1rA8axIrMfo8r76CrvzJNip5ktVECX/onBffHse05KEzorSzVycu4or4
-f+kkt0j/niSwPx9F6WMnIlKAFVcs5Y2pvYXC54sOKOExjw5MJ+dItaJpIWy8vjGb
-J1FuL333IdVhGDQQDyMjTRA0eCk5jUyjEq9j1neYYCUFLKXx18Ew+EekFPdaoUe4
-fB0arlwADot6hpO2jIfQUh8t+cHd0WURztbHnSrlbuP/rU3H334KayXvrhJ0A688
-JZ0MG6izAj/M2Dbkk3cfBGzAqzapDIgq9hWcdERNQKC8C9ZVuOmbuewDQicNGWjH
-re3R6TzWc5TZEBBI6oCRKL6O1dvoj1okiATCCLHauOR7S1xS1wPD7FLlY3zhlnVt
-8dV5fJfKtM1DFiRmGDIQUeZAtXvt7tz4T+QacjKS0VhbQhvmZ2J3y7wJgvQa/6K8
-m6SLGOPMPxUnAHG/5VKm3HG0lwWTIFApYmA5kqr/oOfyx4tX8RM=
-=MuQh
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmckzicACgkQnowa+77/
+2zItMw/+K38wuFQm++QU7fyykclzlzKc5SVzKp1XqFgsa8N89qS/yyuYePaoMZjx
+bkJZW/1luiekMF9IJ1Qsw/sy9gHW8rSqBQ0DyS3FbuIbS6RqB1bUHpkxnPAcG0cc
++DA/FYikDFU8ntOExb41QuQxuRlVLg+l6qU8Ia7XPJDQcncQ8RWYW6hJ52+P9Z6n
+u4V1focNhng8SdZjNoG/gFGYKzOIULhrwthreCQdMOw92VdfchDIkylE3ryNr239
+s+VvaLlSV26ep+V5Fx77PKhef6ZyARLvP2kV6Lqru0L9gboIm8EHO4QwYxiKqVA8
+I3GKze7EkCQHOoabCBQfH0h/3f0XHxJaohVQAJSvmE8J18PgcjihPlH1snA+lgeb
+Rj5j2HXh1LvmWmkNpmXvbLByqBW/y7yd46ffv4sFkbnGoYzh1RnmHpcYdi7WIPX5
+RLlz9utDPS3royu2MbYxgptOP8lZ01eDweuFNUC10IeyYCoQZ5X/uv485C5Usxe9
+Jpu3emmUDkEzqHbfLDdqWXldhqeFtH5izyxDwU5UgklA3gpRE2MJaysjuQ+kfL3+
+rmupLNsFVTYUrWOVePN9PxjLxt0pVNjMTzi8CekS0IuN0cW/aJTyY/yAMbZz92t9
+CkY8yYoeAKt8nfT0i/awOUCqUtqmdIfSDlmMylZKtE5P7TkvhAM=
+=EDLH
 -----END PGP SIGNATURE-----
 
---wddxq3e2mishc6em--
+--23swpow4twe5p7qs--
 
