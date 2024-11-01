@@ -1,204 +1,203 @@
-Return-Path: <linux-man+bounces-1819-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1820-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72AB59B982C
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 20:12:46 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DE849B9919
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 21:01:35 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D7605B21385
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 19:12:43 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CA7E8282A00
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 20:01:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D6A11CF7D2;
-	Fri,  1 Nov 2024 19:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 350341C7287;
+	Fri,  1 Nov 2024 20:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t9xBr4fp"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tdlu2oXw"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f202.google.com (mail-yw1-f202.google.com [209.85.128.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C61CF5C4
-	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 19:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82E9168DA
+	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 20:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730488329; cv=none; b=ZtXboxZ2noKCFceZHQMHkfZ/YagMym3pGjaXBXw26oRNnEezqjU8ZSAWObRVf1qDGim3H6E1xeGCw2eMRAMMqg8MWUOiqs/KA09Lq5v5xkjGl62QEm4ZleBwevoJMrRpva/G1Xg5InMC9ne7YCcurQQXE6BkejxBIRGOmDsNBGw=
+	t=1730491291; cv=none; b=HROMxFN2BPvIYXLoqGsUpTgL/hWFIISZecLLh3iNVjQz/DHMTiUUPaEQUOovn6EhktixM5Me6on5VKr9SUI57N6mz+zvVs6YEJmu9nKASIN44dFKSZHl4wQGur+9xqvzKicOibJyIwDOSjHVzyqlMKOK0TazuLH7BIICvklZx2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730488329; c=relaxed/simple;
-	bh=sjWLwU72+TM3wrbCnZk1mLiwGKN++8XAP8RRimOMboo=;
-	h=Date:In-Reply-To:Message-Id:Mime-Version:References:Subject:From:
-	 To:Cc:Content-Type; b=oHvhVHXNgDvuXTGpAEPstXZLHtFvicehyIM1en1t/0r/8U1AHANmPnDFAya3bxJ5tRKwcOTKl1tubRmmU2fjQn4erU1tiVb/WAily4MXYI4ZCsJt7GmMOL/8UzhQOZUpNKJy4khccuH7yb5jVeeHTJO4mSO3SFggd4eabB7Lekg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t9xBr4fp; arc=none smtp.client-ip=209.85.128.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Received: by mail-yw1-f202.google.com with SMTP id 00721157ae682-6e9e897852fso50339627b3.3
-        for <linux-man@vger.kernel.org>; Fri, 01 Nov 2024 12:12:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1730488326; x=1731093126; darn=vger.kernel.org;
-        h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ohnZM44rwMZlspoSV7nexQOFx9fd9I0RoLZU+lRn4Jw=;
-        b=t9xBr4fp8xOO4y9DFYzoVTUoOyTBVwH2aDwjhEWP8CKvn+GLWiwi3i7YUr/QJFQXOO
-         KNHhlsrEs6HuJEqvAlKpQNgFe2uwPMATuDka+VGvViB0Hz6uiYYGYKIYKSJMHvcrPyyC
-         7qdzuYgO0ZFYLD39/Aro6lmP2bh3j6cApQIFnOaiTC6ngYIJKQzxKhA3uGBgGiIPsHjH
-         ON14E85uokgP33WI5STz1mAdag4Po6YZsZnZKOv6H1HS/6ulGH/P40y6stmj+h4OXoUJ
-         AmjpsVLvYeO7SWZOH7DuJ+wxeYwbOfbdzMvMAZyYCiqERaeu+oERwFen0YmtzckNZr0/
-         YMKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730488326; x=1731093126;
-        h=cc:to:from:subject:references:mime-version:message-id:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ohnZM44rwMZlspoSV7nexQOFx9fd9I0RoLZU+lRn4Jw=;
-        b=BozD9ApWhXqXO+ld7CkPXTv7D/RXFP2/Pjkkv6wNXEWiUlpvziK8Q4lctjlNZB063D
-         Wx1tHV+FZhr4kIRmMnZJrNrWCL93smDGFhozJAh6Jl4fnHmcrZJqrH/63aotHuKMF0a5
-         AU462BnOTsCvhWvjrt4AHtZDpO97POenuMcRsmK0ElW5YHCKK6n0WC3AD7bLYAmuvJtT
-         sIKzmxwQV/TO9BdpB9tfhcozJt/h85aBEh0Xbb+x3LO/bCnhBs/M6Dxj8jKPKDzb9bf9
-         dUzP2IdLnGMCPzwFXK4Hzu+QVJTHMW21SFODY6RnQAWlZsYgsAxaX6svwYbo7YNn7idJ
-         QeXw==
-X-Forwarded-Encrypted: i=1; AJvYcCXA5UyGcHt151dMwzG0wrR73Ct0z+dHgjc9dF+ILItDr8XGBvbgcno0FYAZ1dujWrosTHyGmTBYB94=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfANWJK3fjyNeNMZjDahvkPKYuMOPFtSMuAbKAYx09o0OT7/JS
-	pqBIsX07JF+pedWfDeI8OARZ4c78qSREpx141McNNtXa9N3K2IZNQekC6UNuhi8wKYmHwP7ehyN
-	q8C/2kQ==
-X-Google-Smtp-Source: AGHT+IEuIJAQ2wb2B6bc2za+FDb03I7t2GB4uUnxnQv8Bdi+HQoDpYmPSz/8C2693i9quEq0xJ1kmlxHgSAn
-X-Received: from irogers.svl.corp.google.com ([2620:15c:2c5:11:f2e6:5ab5:a95f:35cb])
- (user=irogers job=sendgmr) by 2002:a05:690c:6407:b0:6e3:8562:ffa with SMTP id
- 00721157ae682-6e9d8b5f046mr14987157b3.5.1730488326506; Fri, 01 Nov 2024
- 12:12:06 -0700 (PDT)
-Date: Fri,  1 Nov 2024 12:11:56 -0700
-In-Reply-To: <20241101191156.1272730-1-irogers@google.com>
-Message-Id: <20241101191156.1272730-4-irogers@google.com>
+	s=arc-20240116; t=1730491291; c=relaxed/simple;
+	bh=owToXLTrG1Ve7+bEmae8qEho82WfSDRFCz1FRYIEkAo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MI0rCL9WqAVDNVmESteSVlsvIoLv4jcyTe1ziqBDgngwwh+c4fTyLkH2bGrY0D5L1ZnSCC7PZzM75z54tmJ1iaM0GX+5Y3oq0VsGzJ2dI7Pq/TK7z+UuFoWy9Jw0N6CVfe/vm598b2ZPtq+orS0928OzfDjWShZ7UpZLKvNqTK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tdlu2oXw; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B9EC4CECD;
+	Fri,  1 Nov 2024 20:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730491290;
+	bh=owToXLTrG1Ve7+bEmae8qEho82WfSDRFCz1FRYIEkAo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tdlu2oXwwtU2RafzsbXY9Jfvl62jCoXGnnBbHiz3Q8uQF0UqEYKp010TY0FAIoNyQ
+	 u8Iz0iZ54TpDR29GpQLaDic3PDAFe8JNSsslzXHvkiHckF1wg7OhgZPIuAOkGOrdWR
+	 953aurdA1LBcatEir5D21dXVRSCcVQ/MmFgQrCx+CLQEhVY6Yn2HB18sm2DRW3gxh5
+	 7jK4K46s74sfdaiUaDeZ0/ZGbCeJ72JzsnXitMguGRQ8oFi8g7g3zKSpx0OeqSCArK
+	 15N7VY84NpJ/RUgxj9kqh5DxVqlHrljsZ14DnfFnPqzxPuwOOryvrzYaXAGLjfuazR
+	 mzpHJqAajtIdQ==
+Date: Fri, 1 Nov 2024 21:01:26 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Greg Minshall <minshall@umich.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: getaddrinfo_a man page: add notification example?
+Message-ID: <20241101200126.a37hkoylwwlmhdnh@devuan>
+References: <863308.1724581040@archlinux>
+ <4vdd7x3bdhpomg5epf4huwbdsytvgd2qqgohyavpsjmqgwperv@tx2ytsol5ymv>
+ <864874.1724585353@archlinux>
+ <20241101134653.3vwbgzk3ffegckzh@devuan>
+ <76180.1730483827@archlinux>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20241101191156.1272730-1-irogers@google.com>
-X-Mailer: git-send-email 2.47.0.199.ga7371fff76-goog
-Subject: [PATCH v3 4/4] proc_pid_fdinfo.5: Add DRM subsection
-From: Ian Rogers <irogers@google.com>
-To: Alejandro Colomar <alx@kernel.org>, "G . Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-man@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k7pelffys3puevhk"
+Content-Disposition: inline
+In-Reply-To: <76180.1730483827@archlinux>
 
-Add description of DRM fdinfo information based on the Linux kernel's
-`Documentation/gpu/drm-usage-stats.rst`:
-https://docs.kernel.org/gpu/drm-usage-stats.html
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- man/man5/proc_pid_fdinfo.5 | 94 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 94 insertions(+)
+--k7pelffys3puevhk
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: getaddrinfo_a man page: add notification example?
+MIME-Version: 1.0
 
-diff --git a/man/man5/proc_pid_fdinfo.5 b/man/man5/proc_pid_fdinfo.5
-index 290cae6a6..98ac12f16 100644
---- a/man/man5/proc_pid_fdinfo.5
-+++ b/man/man5/proc_pid_fdinfo.5
-@@ -301,5 +301,99 @@ fields contain the values that
- .BR timerfd_gettime (2)
- on this file descriptor would return.)
- .RE
-+.SS Direct Rendering Manager
-+.P
-+DRM drivers can optionally choose to expose usage stats through
-+/proc/pid/fdinfo/. For example:
-+.P
-+.in +4n
-+.EX
-+pos:    0
-+flags:  02100002
-+mnt_id: 26
-+ino:    284
-+drm-driver:     i915
-+drm-client-id:  39
-+drm-pdev:       0000:00:02.0
-+drm-total-system0:      6044 KiB
-+drm-shared-system0:     0
-+drm-active-system0:     0
-+drm-resident-system0:   6044 KiB
-+drm-purgeable-system0:  1688 KiB
-+drm-total-stolen-system0:       0
-+drm-shared-stolen-system0:      0
-+drm-active-stolen-system0:      0
-+drm-resident-stolen-system0:    0
-+drm-purgeable-stolen-system0:   0
-+drm-engine-render:      346249 ns
-+drm-engine-copy:        0 ns
-+drm-engine-video:       0 ns
-+drm-engine-capacity-video:      2
-+drm-engine-video-enhance:       0 ns
-+.EE
-+.TP
-+.IR drm-driver: " .+  (mandatory)"
-+The name this driver registered.
-+.TP
-+.IR drm-pdev: " <aaaa:bb:cc.d>"
-+For PCI devices this should contain the PCI slot address of the device
-+in question.
-+.TP
-+.IR drm-client-id: " [0-9]+"
-+Unique value relating to the open DRM file descriptor used to
-+distinguish duplicated and shared file descriptors.
-+.P
-+GPUs usually contain multiple execution engines. Each shall be given a
-+stable and unique name (<engine_name>), with possible values
-+documented in the driver specific documentation.
-+.TP
-+.IR drm-engine-<engine_name>: " [0-9]+ ns"
-+GPU engine utilization, time spent busy executing workloads for this client.
-+.TP
-+.IR drm-engine-capacity-<engine_name>: " [0-9]+"
-+Capacity of the engine if not 1, cannot be 0.
-+.TP
-+.IR drm-cycles-<engine_name>: " [0-9]+"
-+Contains the number of busy cycles for the given engine.  Values are
-+not required to be constantly monotonic, but are required to catch up
-+with the previously reported larger value within a reasonable
-+period. Upon observing a value lower than what was previously read,
-+userspace is expected to stay with that larger previous value until a
-+monotonic update is seen.
-+.TP
-+.IR drm-total-cycles-<engine_name>: " [0-9]+"
-+Contains the total number cycles for the given engine.  This is a
-+timestamp in GPU unspecified unit that matches the update rate of
-+drm-cycles-<engine_name>. For drivers that implement this interface,
-+the engine utilization can be calculated entirely on the GPU clock
-+domain, without considering the CPU sleep time between 2 samples.
-+.P
-+Each possible memory type which can be used to store buffer objects by
-+the GPU in question shall be given a stable and unique name <region>.
-+The name "memory" is reserved to refer to normal system memory.
-+.TP
-+.IR drm-memory-<region>: " [0-9]+ [KiB|MiB]"
-+The amount of storage currently consumed by the buffer objects belong
-+to this client, in the respective memory region.
-+.IP
-+Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
-+indicating kibi- or mebi-bytes.
-+.TP
-+.IR drm-shared-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are shared with another file (e.g., have more
-+than a single handle).
-+.TP
-+.IR drm-total-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that including shared and private memory.
-+.TP
-+.IR drm-resident-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are resident in the specified region.
-+.TP
-+.IR drm-purgeable-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are purgeable.
-+.TP
-+.IR drm-active-<region>: " [0-9]+ [KiB|MiB]"
-+The total size of buffers that are active on one or more engines.
-+
- .SH SEE ALSO
- .BR proc (5)
--- 
-2.47.0.199.ga7371fff76-goog
+Hi Greg,
 
+On Fri, Nov 01, 2024 at 10:57:07AM -0700, Greg Minshall wrote:
+> hi, Alejandro,
+>=20
+> thanks for the e-mail and code inspection.
+>=20
+> > > static char notification =3D 'n';
+> >=20
+> > Would it be better to use an enum instead of comments?
+> >=20
+> > 	enum {
+> > 		NOTIFICATION_NONE =3D 'n',
+> > 		NOTIFICATION_SIGNAL =3D 's',
+> > 		NOTIFICATION_CALLBACK =3D 'c'
+> > 	};
+>=20
+> that works.  i like that, by initializing the tags with, e.g., " =3D 'n'",
+> i can still use the user's input to set values, without needing some
+> sort of a lookup.
+>=20
+> : echo -ne 'n signal\na example.com\nw 0' | ./manpage-like-gai
+>=20
+>=20
+> > >     if (buf[strlen(buf) - 1] =3D=3D '\n')
+> > >         buf[strlen(buf) - 1] =3D 0;
+> >=20
+> > If the string does not contain a newline, it probably means something is
+> > wrong.  Returning as if all were good is probably not a good idea.
+>=20
+> here i'm thinking of the case where the program gets its input via a
+> pipe, which may present an EOF without a trailing newline.  i'll be
+> to follow your guidance here.
+
+For serious programs, I prefer being POSIXly pedantic and reporting an
+error for such files.
+
+For an example program, for simplicity, we can do this:
+
+	stpcpy(strchrnul(buf, '\n'), "");
+
+If removes the conditional, has less moving parts (no '-1'; and thus
+less error-prone), and is protected by _FORTIFY_SOURCE.
+
+>=20
+>=20
+> > >     static struct sigevent senull; /* static, so initialized to zero =
+*/
+> > >     static struct sigaction sanull; /* static, so intitialized to zer=
+o */
+> >=20
+> > These comments are redundant.  Please remove them.  Maybe add a blank
+> > line between static variables and automatic ones to make it more
+> > evident.
+>=20
+> sure, thanks.
+>=20
+>=20
+> > > /* List all requests. */
+> > > static void
+> > > list_requests(void)
+> > > {
+> > >     int ret;
+> > >     char host[NI_MAXHOST];
+> > >     struct addrinfo *res;
+> > >=20
+> > >     for (size_t i =3D 0; i < nreqs; i++) {
+> > >         printf("[%02zu] %s: ", i, reqs[i]->ar_name);
+> > >         ret =3D gai_error(reqs[i]);
+> > >=20
+> > >         if (!ret) {
+> > >             res =3D reqs[i]->ar_result;
+> > >=20
+> > >             ret =3D getnameinfo(res->ai_addr, res->ai_addrlen,
+> > >                               host, sizeof(host),
+> > >                               NULL, 0, NI_NUMERICHOST);
+> > >             if (ret) {
+> > >                 fprintf(stderr, "getnameinfo() failed: %s\n",
+> > >                         gai_strerror(ret));
+> > >                 exit(EXIT_FAILURE);
+> > >             }
+> > >             puts(host);
+> > >         } else {
+> > >             puts(gai_strerror(ret));
+> >=20
+> > If you invert the conditional, you can add a continue after this, and
+> > unindent the non-error code.
+>=20
+> that seems nice.  i think i didn't touch this code, but let me know if
+> you'd like me to add this to my submission.
+
+Hmmm, if you've copied this from existing code, we can keep it like that
+and change it in a different commit.
+
+Have a lovely night!
+Alex
+
+>=20
+>=20
+> again, thanks.
+>=20
+> cheers, Greg
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--k7pelffys3puevhk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmclM5YACgkQnowa+77/
+2zL09RAAkokkzCRtg4hOFsP9VsOFvaJ0phhcIMkQdBZi93YdVIq+JIl1/q0utIKX
+mDdIORXhz62jq2WG3mO6rzAYzXIvzNwYCPBfDpCa73hgXEwOA6noechzJxXufZET
+SRg4Xv3aAWuZEGxAsJI30zKCBHd59kpeIHhnGY2aqrr4NaEi9mAIRJXV53HBuqUP
+8poGl0Y8kxacSVTuaHR6nGMl/v0EC/aiuWX38qa/F1rPPFCK/f2CP1S6hYqHYAHJ
+l5KBbG58vUAd0KBFDef7+FVG8yPbVhb6RyoEXMkboLb0JUbiEj2BN7Mn82ypkr03
+hcXkrVAkqS/GabsTzRL6LEtCO9onoVQjsxa4bwE3dgBBz9w9Tne12WnKU8zWOeBE
+lYul8nmZyQR2goABLPmtk4kdHDVYNWi+bYkv87X6lB9yBoMHPOxCo/XzSTMhzzCc
+/pwCOCXfFriIMZdj1uF7hN8QmnKtp5oCSV5SxGsJ5XfynK88FJNecgmsWQCyB2PJ
+bUWxc73UIjPEZ+LSMxQk3uRNx30CsYXXoVZslKgkyU1QNoCUMQOrgKsiE1JZHAI7
+yk6QM6W7ZTX/AOI9PM7lYhvUrMtFTfdz4w8rIMbl30ELhKJHzpULB3NsrYhNwboe
+yCnZdcZMZniO0U7oqr1Ut+R799GKYAkM0zjsniU7EBwgQdPwW9s=
+=XCtH
+-----END PGP SIGNATURE-----
+
+--k7pelffys3puevhk--
 
