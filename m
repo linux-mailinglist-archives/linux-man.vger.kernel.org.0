@@ -1,53 +1,57 @@
-Return-Path: <linux-man+bounces-1805-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1806-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id B257E9B914A
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:48:52 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C7769B9182
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 14:07:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 49C7CB20B91
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 12:48:50 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C12DF28392C
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:07:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD2D420B22;
-	Fri,  1 Nov 2024 12:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA08919E982;
+	Fri,  1 Nov 2024 13:07:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Juhv3Erf"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZ21h6SX"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA7AF9D9
-	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 12:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D22487A7;
+	Fri,  1 Nov 2024 13:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730465325; cv=none; b=ur9+qc1Lot56yZwfbE57Wdoaf+nbT+OAvFvsds/DCYvRTdcB3X5io+xBkEom2cCXGEjpFMmtNZJjVYISkgZXWIcK+xGH7+iqvXjsxlFNRkzCF9FL1/E9N97BtTWUNlZS0WYjHrMSxXfy+Y81NjfEQteAeekyXyaRxM6VDdOhTsw=
+	t=1730466460; cv=none; b=nF3s8grJYXnUkSdTjuXcYNrhHC2T/0VtBWWcCARLQkYBuYNM/e0rZU8xXvieH7YNW20Czz+8wX3ILu+4KNvSDTrCu1FqhBZp/ugcj+GlAcbv16JSO0/pOr9pfN84Zs5LXcksbqh9RJpR67JDf/HEbuzmEFY3elTnPbdwlCnj89w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730465325; c=relaxed/simple;
-	bh=OBnb6sk07Jxcje65Xzu1pW8pMGIvq3KqnaryDuFNLD4=;
+	s=arc-20240116; t=1730466460; c=relaxed/simple;
+	bh=9GC6gd/VKTtyyozgny3QU95BtNXTBCGrAw1L2qaH6zA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UW2+y/gNBmXmDqxjObIiT15UA7ZHgPbliwW4LjRf7KPd05WaxmI2gx6siSTWLRFPaANZQIoCKPBKErAQ4MKjLrZfnrI9nUQT6Q74z9Tb9hDGVAN/s9WsSzorvLCT8bbsN+OPWFKSRqPjnT5fL/hXKLA68DRz5WzHlx6gtgjOBgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Juhv3Erf; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510D0C4CECD;
-	Fri,  1 Nov 2024 12:48:43 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=LU/TQL1usw7rcu55eeoqsSzMtO/8lXzkBbY/r8ShUIvNajGpRqxaF/dXQT037yxPN/fVL5C0ZtYFVOSGrDb20hGgRqGfeXijlgtgfQO8QS/qnZaa2/+rg1b2XVvq26W0JCd4D4BaYi+jj1eHDEs8kRyEjucfdh8Q3ebwk93P+r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZ21h6SX; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CCBC4CECD;
+	Fri,  1 Nov 2024 13:07:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730465325;
-	bh=OBnb6sk07Jxcje65Xzu1pW8pMGIvq3KqnaryDuFNLD4=;
+	s=k20201202; t=1730466459;
+	bh=9GC6gd/VKTtyyozgny3QU95BtNXTBCGrAw1L2qaH6zA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Juhv3ErfCr++sGjIEgqmVB/vT8UmkY0Vt7c0Cpk00J4bA0QU16pm3ufiELnBfUaax
-	 nmaLOFT3AHCvtPzCDVEgUpl++89fP5sj/Pxc/DKUGltJieDG1zE6BJ5KnFtFtVrTjd
-	 Ou75JgtYcHuZ6YtGLEwbXkKSiBSLQr6xTNXfLiqQWFyYz2j1jSohnOaJO4JuXYg3Yc
-	 qnjHdzWyQvEHEPcWYyHmBgv/Js12kldLYW52cGmiL+Mu9pQALM8Oa6XtnmclRckoks
-	 THb6IDiTkig5w1yf/V33lOrV70fMsbHjpNkbuIGRcSTunzIDOWYIl9A87BVHCKD+ua
-	 L8kV2Zbl4Mp5g==
-Date: Fri, 1 Nov 2024 13:48:40 +0100
+	b=iZ21h6SXe+A/rZoj4EyHi/WdCvSSULj+rIrIdNq3GjylI/2vkdd35x7+0ORpMihyN
+	 1ISZoVSqMOA/hXJa2nw31yU0JptSiysjMVRi2krZdD2ZBgiEI1VDXQPLWefOrHvWbQ
+	 dmMOb8DA7hO91xxqQ0ScUzQ9xVzJCX00IR7YzU5BR3P/OGKeIx8C4yXfD20TnYXc8D
+	 yt1MVh/CtosfoopEDAoTISReRcZgf1O3HlCuWMPn9RvbcNWWdkZQ4/IuLmohmwRPvp
+	 AAMqynU97O1Vajzfq4UgWJ0ylXMfbrtluZWnGB8fCXSuamR5+6iXXc9jt/OulVbjdF
+	 NI8BmiGE7o9xw==
+Date: Fri, 1 Nov 2024 14:07:32 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Philipp Takacs <philipp@bureaucracy.de>
-Cc: linux-man@vger.kernel.org
-Subject: Re: bind EADDRNOTAVAIL at wrong postition
-Message-ID: <20241101124840.icu2zoyzbmfnzckd@devuan>
-References: <67816c00225a0e945f73e22641d4f299.philipp@bureaucracy.de>
+To: Jan Kara <jack@suse.cz>
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	Alejandro Colomar <alx.manpages@gmail.com>,
+	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] fanotify.7,fanotify_mark.2: update documentation of
+ fanotify w.r.t fsid
+Message-ID: <20241101130732.xzpottv5ru63w4wd@devuan>
+References: <20241008094503.368923-1-amir73il@gmail.com>
+ <20241009153836.xkuzuei2gxeh2ghj@quack3>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,61 +59,170 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="23swpow4twe5p7qs"
+	protocol="application/pgp-signature"; boundary="d723bfrsts26vlyf"
 Content-Disposition: inline
-In-Reply-To: <67816c00225a0e945f73e22641d4f299.philipp@bureaucracy.de>
+In-Reply-To: <20241009153836.xkuzuei2gxeh2ghj@quack3>
 
 
---23swpow4twe5p7qs
+--d723bfrsts26vlyf
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: bind EADDRNOTAVAIL at wrong postition
+Subject: Re: [PATCH] fanotify.7,fanotify_mark.2: update documentation of
+ fanotify w.r.t fsid
 MIME-Version: 1.0
 
-Hi Philipp,
+Hi Amir, Jan,
 
-On Sun, Oct 06, 2024 at 03:17:48AM +0200, Philipp Takacs wrote:
-> Hi
+On Wed, Oct 09, 2024 at 05:38:36PM +0200, Jan Kara wrote:
+> On Tue 08-10-24 11:45:03, Amir Goldstein wrote:
+> > Clarify the conditions for getting the -EXDEV and -ENODEV errors.
+> >=20
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 >=20
-> In bind(2) there are general errors and errors specific for AF_UNIX. The
-> EADDRNOTAVAIL error is sorted at the AF_UNIX specific errors. But in
-> posix[0] EADDRNOTAVAIL is a normal error.
+> Looks good. Feel free to add:
 
-Do you know any system under which it happens with a socket other than
-AF_UNIX?  It would be interesting to know if that's just a POSIX thing,
-or if actual systems do have that.
+Please see some minor inline comments below.
+
+> Reviewed-by: Jan Kara <jack@suse.cz>
+
+Thanks!
+
+>=20
+> But I've read somewhere that Alejandro stepped down as manpages maintainer
+> so they are officially unmaintained?
+
+A contract is imminent, and I've started to review/apply old patches
+today already.  I'll probably make an official announcement soon.
+Maintenance is restored.  (As much as I possibly can, since my region
+has limited electricity, water, and internet, after the worst flooding
+in centuries.)
 
 Have a lovely day!
 Alex
 
 >=20
-> Philipp
+> 								Honza
 >=20
-> [0] https://pubs.opengroup.org/onlinepubs/9699919799/functions/bind.html
+> > Hi Alejandro,
+> >=20
+> > This is a followup on fanotify changes from v6.8
+> > that are forgot to follow up on at the time.
+> >=20
+> > Thanks,
+> > Amir.
+> >=20
+> >  man/man2/fanotify_mark.2 | 27 +++++++++++++++++++++------
+> >  man/man7/fanotify.7      | 10 ++++++++++
+> >  2 files changed, 31 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
+> > index fc9b83459..b5e091c25 100644
+> > --- a/man/man2/fanotify_mark.2
+> > +++ b/man/man2/fanotify_mark.2
+> > @@ -659,17 +659,16 @@ The filesystem object indicated by
+> >  .I dirfd
+> >  and
+> >  .I pathname
+> > -is not associated with a filesystem that supports
+> > +is associated with a filesystem that reports zero
+> >  .I fsid
+> >  (e.g.,
+> >  .BR fuse (4)).
+> > -.BR tmpfs (5)
+> > -did not support
+> > -.I fsid
+> > -prior to Linux 5.13.
+> > -.\" commit 59cda49ecf6c9a32fae4942420701b6e087204f6
+> >  This error can be returned only with an fanotify group that identifies
+> >  filesystem objects by file handles.
+> > +Since Linux 6.8,
+> > +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
+> > +this error can be returned only when
+
+I think "when" is more appropriate in the following line.  It also adds
+some consistency with the rest of the patch below (@@762).
+
+> > +trying to add a mount or filesystem mark.
+> >  .TP
+> >  .B ENOENT
+> >  The filesystem object indicated by
+> > @@ -768,6 +767,22 @@ which uses a different
+> >  than its root superblock.
+> >  This error can be returned only with an fanotify group that identifies
+> >  filesystem objects by file handles.
+> > +Since Linux 6.8,
+> > +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
+> > +this error will be returned
+> > +when trying to add a mount or filesystem mark on a subvolume,
+> > +when trying to add inode marks in different subvolumes,
+> > +or when trying to add inode marks in a
+> > +.BR btrfs (5)
+> > +subvolume and in another filesystem.
+> > +Since Linux 6.8,
+> > +.\" commit 30ad1938326bf9303ca38090339d948975a626f5
+> > +this error will also be returned
+> > +when trying to add marks in different filesystems,
+> > +where one of the filesystems reports zero
+> > +.I fsid
+> > +(e.g.,
+> > +.BR fuse (4)).
+> >  .SH STANDARDS
+> >  Linux.
+> >  .SH HISTORY
+> > diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
+> > index 449af949c..db8fe6c00 100644
+> > --- a/man/man7/fanotify.7
+> > +++ b/man/man7/fanotify.7
+> > @@ -575,6 +575,16 @@ and contains the same value as
+> >  .I f_fsid
+> >  when calling
+> >  .BR statfs (2).
+> > +Note that some filesystems (e.g.,
+> > +.BR fuse (4))
+> > +report zero
+> > +.IR fsid .
+> > +In these cases, it is not possible to use
+
+Please break the line after the comma.
+
+> > +.I fsid
+> > +to associate the event with a specific filesystem instance,
+> > +so monitoring different filesystem instances that report zero
+> > +.I fsid
+> > +with the same fanotify group is not supported.
+> >  .TP
+> >  .I handle
+> >  This field contains a variable-length structure of type
+> > --=20
+> > 2.34.1
+> >=20
+> --=20
+> Jan Kara <jack@suse.com>
+> SUSE Labs, CR
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---23swpow4twe5p7qs
+--d723bfrsts26vlyf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmckzicACgkQnowa+77/
-2zItMw/+K38wuFQm++QU7fyykclzlzKc5SVzKp1XqFgsa8N89qS/yyuYePaoMZjx
-bkJZW/1luiekMF9IJ1Qsw/sy9gHW8rSqBQ0DyS3FbuIbS6RqB1bUHpkxnPAcG0cc
-+DA/FYikDFU8ntOExb41QuQxuRlVLg+l6qU8Ia7XPJDQcncQ8RWYW6hJ52+P9Z6n
-u4V1focNhng8SdZjNoG/gFGYKzOIULhrwthreCQdMOw92VdfchDIkylE3ryNr239
-s+VvaLlSV26ep+V5Fx77PKhef6ZyARLvP2kV6Lqru0L9gboIm8EHO4QwYxiKqVA8
-I3GKze7EkCQHOoabCBQfH0h/3f0XHxJaohVQAJSvmE8J18PgcjihPlH1snA+lgeb
-Rj5j2HXh1LvmWmkNpmXvbLByqBW/y7yd46ffv4sFkbnGoYzh1RnmHpcYdi7WIPX5
-RLlz9utDPS3royu2MbYxgptOP8lZ01eDweuFNUC10IeyYCoQZ5X/uv485C5Usxe9
-Jpu3emmUDkEzqHbfLDdqWXldhqeFtH5izyxDwU5UgklA3gpRE2MJaysjuQ+kfL3+
-rmupLNsFVTYUrWOVePN9PxjLxt0pVNjMTzi8CekS0IuN0cW/aJTyY/yAMbZz92t9
-CkY8yYoeAKt8nfT0i/awOUCqUtqmdIfSDlmMylZKtE5P7TkvhAM=
-=EDLH
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmck0pQACgkQnowa+77/
+2zI8yA//T5mqLzgVU/dnY2C22HqDHNCPq2c2rJtzT3Qg7Z7awurqMgkkC3b12vjp
+8UbnYC0ohRV4j3TCemTnu9WNExRlezNfJW/nwFHCWdunDycRtFfvQign9vNZhUuB
+k7jrMmnVcEzxkobSSb5hUt6qI/mO76ZNHw4loHPP7xZPJ+pmRwbwG3AEuDW1KOwZ
+MfXafSyhTe7ScSaFZU10vJ/UObX6Db5RDg0rsnka4Egkkjc6PFQSLtwpCqdNnXiG
+GNVwXOldT/dug1m1bzHftcGkaXakQqTfFywBt/3apXTS6gSj9MIcHv1Hd72KzveE
+TmMM9gbxleuPmp/55LerFECtCUWqqJ3/DpCcwIXHJZdDiyvYBoCJPzs4tjE19NnG
+ATofsqhcs91VhtsJYwGZFaF+inkNgrK9QWJQhPC4Fo3q8b4jJ61lUyzogvCYaB+Q
+bvZadubYKVcM+rP6Otv6GHTAVf/Vaq6Jq1M2qXwuXbkfElVgdqwbEFjezdGHep21
+6Ey4SF3lpxoiR32a/giGlFF/UaB/U4j5YlgQeH1VHZUqTJ2jO6q8t2Xe3a67gzs0
+bxNXUSoGRreM9WlovCrEUOa8x32O7WTj2gGgajiNG6rVjIBUOSvsVYWUYDUmFiOP
+/kWXostURUJfZgEEtrIWm5ecXWi6HO7l9Q90DB7iqvg8mbVxb3s=
+=pwcC
 -----END PGP SIGNATURE-----
 
---23swpow4twe5p7qs--
+--d723bfrsts26vlyf--
 
