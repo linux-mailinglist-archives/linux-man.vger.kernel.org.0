@@ -1,61 +1,57 @@
-Return-Path: <linux-man+bounces-1810-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1811-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AC39B91F1
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 14:24:52 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 122E19B91FA
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 14:27:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 239EE1C217A3
-	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:24:52 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 950D31F2114F
+	for <lists+linux-man@lfdr.de>; Fri,  1 Nov 2024 13:27:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B767019AD5C;
-	Fri,  1 Nov 2024 13:24:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AA439479;
+	Fri,  1 Nov 2024 13:27:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BW90yfi5"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSMo8giY"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0279479;
-	Fri,  1 Nov 2024 13:24:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5E9168DA
+	for <linux-man@vger.kernel.org>; Fri,  1 Nov 2024 13:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730467486; cv=none; b=bc8I6bWEny8fiJKwa277FKudCR82QIdMBk43oR/gG9VOlB48wJYt7AHDrMJ3DFAL1xWnVbtInbEDDKtjjNIy0a1sFbp5G/Xr8w3pOM/sshgXgsiNB1fD55jej34zvsOm0xvQPxOyg9PcKLPUKqkKh4sD2xqAhZYJh6LlKMBXYck=
+	t=1730467628; cv=none; b=ud8vI/l1TY5d6LWrOMbcKqO9beTgwr8+4MsRxC8zxRN03DHAay1SI1oYW9HITclbuexsJVdk8bUVc0XcrFDHcPJPtNpsC69NyzXAmiRe7vNhnhsW1zzlNHpyo3MyvmccD/fMVtEx93Z+uFApn5g5kBPPadL0raZYnW+idqJO+gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730467486; c=relaxed/simple;
-	bh=kOPe53k3pne06Tgy9gvWlTsoJZ6eLug2mHwnHOd1KC0=;
+	s=arc-20240116; t=1730467628; c=relaxed/simple;
+	bh=01NdUp9+ucgrPnNPGPxgJwsKLwtRHnHBZFLuahC6JN8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RuHksoH6+G+i2GtWxKsZ1R0OQn7i5PiZlbhmmzMBe58OcbBz/FEJFXjn4RY4h6n4Y43oUbJU5BrUhjjHavwnZtnuG5CRft75AVTUJONhfsLUwYn0eaC5iZhrOdv3fmLg9NBAdH3vJK+TUvF1h3cC063ua8BnbfR7n0z7a52bXPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BW90yfi5; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF1CC4CECD;
-	Fri,  1 Nov 2024 13:24:39 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=hIZGvvwO0aM3YHD/K2zKnkQyW5FN/O1tY4oCMv0iN9eYUq8ZYThPfA6dhhnTI689srTM37eXtAgwlZ70djihHDl/wiKPAai1RuACo1Q8tN7ivaXrxibGIWumF40yeKcUliSpY8foG6wevZmZBKT4N2YFn+eM+ODszWnHq4PonUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSMo8giY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47545C4CECD;
+	Fri,  1 Nov 2024 13:27:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730467485;
-	bh=kOPe53k3pne06Tgy9gvWlTsoJZ6eLug2mHwnHOd1KC0=;
+	s=k20201202; t=1730467628;
+	bh=01NdUp9+ucgrPnNPGPxgJwsKLwtRHnHBZFLuahC6JN8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BW90yfi5VjHVGsx+qjjfpfbR/939M3+2W+t0zwt7buqUP0Ccd6n/ZHArIRu07gRUI
-	 lN2TYl8hLpIZhdF5gmFUJ8gPtUQtFP5eHsdkLYLDJTjjNz7XqK5sfH3kSvLQHi6XY3
-	 ybIQpcfOzWwcNotk2dPw3bXLhIj9nbjtzJyknYpsLYT5OQA1u4qzGAMLoyTV947myL
-	 i1fA4ZYvxsxI2pD3UV2OO1SIutLgjPMlniZLu5IfzQpiR/FIyeClkqcZXR1lCmXF0Z
-	 PQZYpDVod+b1gv4IwWE8eCl3GWFNH2gU4K8hBqt4ztmnB38yilZdEkxkGV0S5eF1Fk
-	 IZuRbRBhe8aAQ==
-Date: Fri, 1 Nov 2024 14:24:37 +0100
+	b=cSMo8giYsUEuGtlj3ZNItQuFkK+26X3aSmy71jUMk4E5gYrbiMiyqD9uaYeChVmcd
+	 JrALnIs99IFCQ8rvB2DhptzbgzhrXHSRMA/2FZKSp30Zi5Si0rRjM3mF1L+nI08rrn
+	 AkiWjn7Eu0d91Okb0QSVnMHc2ACHks2iH3jwsxuaKP3Mn3U+wXEFGd4On/Q9eBM6ou
+	 eJeSGJ5qCNkSScJGZWXjlCFc5IrRMJyE87x2s8rzH+pUvenV8ow5MxElYvESpHCbUI
+	 dNCRI2MxS3JrZg6xM+DSemwmxMtpCL+78+ZGF9V4bGbgjOpXSmS5vNvTcHeQvTazXw
+	 RtQPlyR0t0EBg==
+Date: Fri, 1 Nov 2024 14:27:03 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: "G . Branden Robinson" <g.branden.robinson@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
-Message-ID: <20241101132437.ahn7xdgvmqamatce@devuan>
-References: <20241015211719.1152862-1-irogers@google.com>
+To: Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
+Cc: Emanuele Torre <torreemanuele6@gmail.com>, linux-man@vger.kernel.org,
+	libc-alpha@sourceware.org
+Subject: Re: pidfd_open.2: PIDFD_NONBLOCK is not defined by the listed headers
+Message-ID: <20241101132703.4negmxkknlc5huty@devuan>
+References: <ZkrZb91EgZoaOybZ@t420>
+ <e4avr4d44fpkqtby6i53qthlkvhvum7fxkq63hkmuqtqgougyr@cropbgglzx2a>
+ <5j4gyoh75xrmuljl3dlobviroi3huhriufk6gzcwsyeibupov3@lpmy4moyjjhn>
+ <2c45b22d-7800-4c53-b145-3ca1944c0c02@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -63,295 +59,187 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rrjrdqy252cemugf"
+	protocol="application/pgp-signature"; boundary="xsb75f7pnb32j5he"
 Content-Disposition: inline
-In-Reply-To: <20241015211719.1152862-1-irogers@google.com>
+In-Reply-To: <2c45b22d-7800-4c53-b145-3ca1944c0c02@linaro.org>
 
 
---rrjrdqy252cemugf
+--xsb75f7pnb32j5he
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
+Subject: Re: pidfd_open.2: PIDFD_NONBLOCK is not defined by the listed headers
 MIME-Version: 1.0
 
-On Tue, Oct 15, 2024 at 02:17:17PM -0700, Ian Rogers wrote:
-> When /proc/pid/fdinfo was part of proc.5 man page the indentation made
-> sense. As a standalone man page the indentation doesn't need to be so
-> far over to the right. Remove the initial tagged pragraph and move the
-> styling to the initial summary description.
->=20
-> Suggested-by: G. Branden Robinson <g.branden.robinson@gmail.com>
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  man/man5/proc_pid_fdinfo.5 | 66 ++++++++++++++++++--------------------
->  1 file changed, 32 insertions(+), 34 deletions(-)
->=20
-> diff --git a/man/man5/proc_pid_fdinfo.5 b/man/man5/proc_pid_fdinfo.5
-> index 1e23bbe02..8678caf4a 100644
-> --- a/man/man5/proc_pid_fdinfo.5
-> +++ b/man/man5/proc_pid_fdinfo.5
-> @@ -6,20 +6,19 @@
->  .\"
->  .TH proc_pid_fdinfo 5 (date) "Linux man-pages (unreleased)"
->  .SH NAME
-> -/proc/pid/fdinfo/ \- information about file descriptors
-> +.IR /proc/ pid /fdinfo " \- information about file descriptors"
+Hi Emanuele,
 
-I wouldn't add formatting here for now.  That's something I prefer to be
-cautious about, and if we do it, we should do it in a separate commit.
-
->  .SH DESCRIPTION
-> -.TP
-> -.IR /proc/ pid /fdinfo/ " (since Linux 2.6.22)"
-> -This is a subdirectory containing one entry for each file which the
-> -process has open, named by its file descriptor.
-> -The files in this directory are readable only by the owner of the proces=
-s.
-> -The contents of each file can be read to obtain information
-> -about the corresponding file descriptor.
-> -The content depends on the type of file referred to by the
-> -corresponding file descriptor.
-> -.IP
-> +Since Linux 2.6.22,
-
-You could move this information to a HISTORY section.
-
-> +this subdirectory contains one entry for each file that process
-> +.I pid
-> +has open, named by its file descriptor.  The files in this directory
-
-Please don't reflow existing text.  Please read about semantic newlines
-in man-pages(7):
-
-$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
-   Use semantic newlines
-     In  the  source of a manual page, new sentences should be started
-     on new lines, long sentences should be split into lines at clause
-     breaks (commas, semicolons, colons, and so on), and long  clauses
-     should be split at phrase boundaries.  This convention, sometimes
-     known  as  "semantic newlines", makes it easier to see the effect
-     of patches, which often operate at the level of  individual  sen=E2=80=
-=90
-     tences, clauses, or phrases.
+Do you have any updates of this patch?  Thanks!
 
 Have a lovely day!
 Alex
 
-> +are readable only by the owner of the process.  The contents of each
-> +file can be read to obtain information about the corresponding file
-> +descriptor.  The content depends on the type of file referred to by
-> +the corresponding file descriptor.
-> +.P
->  For regular files and directories, we see something like:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  .RB "$" " cat /proc/12015/fdinfo/4"
-> @@ -28,7 +27,7 @@ flags:  01002002
->  mnt_id: 21
->  .EE
->  .in
-> -.IP
-> +.P
->  The fields are as follows:
->  .RS
->  .TP
-> @@ -51,7 +50,6 @@ this field incorrectly displayed the setting of
->  at the time the file was opened,
->  rather than the current setting of the close-on-exec flag.
->  .TP
-> -.I
->  .I mnt_id
->  This field, present since Linux 3.15,
->  .\" commit 49d063cb353265c3af701bab215ac438ca7df36d
-> @@ -59,13 +57,13 @@ is the ID of the mount containing this file.
->  See the description of
->  .IR /proc/ pid /mountinfo .
->  .RE
-> -.IP
-> +.P
->  For eventfd file descriptors (see
->  .BR eventfd (2)),
->  we see (since Linux 3.8)
->  .\" commit cbac5542d48127b546a23d816380a7926eee1c25
->  the following fields:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  pos:	0
-> @@ -74,16 +72,16 @@ mnt_id:	10
->  eventfd\-count:               40
->  .EE
->  .in
-> -.IP
-> +.P
->  .I eventfd\-count
->  is the current value of the eventfd counter, in hexadecimal.
-> -.IP
-> +.P
->  For epoll file descriptors (see
->  .BR epoll (7)),
->  we see (since Linux 3.8)
->  .\" commit 138d22b58696c506799f8de759804083ff9effae
->  the following fields:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  pos:	0
-> @@ -93,7 +91,7 @@ tfd:        9 events:       19 data: 74253d2500000009
->  tfd:        7 events:       19 data: 74253d2500000007
->  .EE
->  .in
-> -.IP
-> +.P
->  Each of the lines beginning
->  .I tfd
->  describes one of the file descriptors being monitored via
-> @@ -110,13 +108,13 @@ descriptor.
->  The
->  .I data
->  field is the data value associated with this file descriptor.
-> -.IP
-> +.P
->  For signalfd file descriptors (see
->  .BR signalfd (2)),
->  we see (since Linux 3.8)
->  .\" commit 138d22b58696c506799f8de759804083ff9effae
->  the following fields:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  pos:	0
-> @@ -125,7 +123,7 @@ mnt_id:	10
->  sigmask:	0000000000000006
->  .EE
->  .in
-> -.IP
-> +.P
->  .I sigmask
->  is the hexadecimal mask of signals that are accepted via this
->  signalfd file descriptor.
-> @@ -135,12 +133,12 @@ and
->  .BR SIGQUIT ;
->  see
->  .BR signal (7).)
-> -.IP
-> +.P
->  For inotify file descriptors (see
->  .BR inotify (7)),
->  we see (since Linux 3.8)
->  the following fields:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  pos:	0
-> @@ -150,7 +148,7 @@ inotify wd:2 ino:7ef82a sdev:800001 mask:800afff igno=
-red_mask:0 fhandle\-bytes:8
->  inotify wd:1 ino:192627 sdev:800001 mask:800afff ignored_mask:0 fhandle\=
--bytes:8 fhandle\-type:1 f_handle:27261900802dfd73
->  .EE
->  .in
-> -.IP
-> +.P
->  Each of the lines beginning with "inotify" displays information about
->  one file or directory that is being monitored.
->  The fields in this line are as follows:
-> @@ -168,19 +166,19 @@ The ID of the device where the target file resides =
-(in hexadecimal).
->  .I mask
->  The mask of events being monitored for the target file (in hexadecimal).
->  .RE
-> -.IP
-> +.P
->  If the kernel was built with exportfs support, the path to the target
->  file is exposed as a file handle, via three hexadecimal fields:
->  .IR fhandle\-bytes ,
->  .IR fhandle\-type ,
->  and
->  .IR f_handle .
-> -.IP
-> +.P
->  For fanotify file descriptors (see
->  .BR fanotify (7)),
->  we see (since Linux 3.8)
->  the following fields:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  pos:	0
-> @@ -190,7 +188,7 @@ fanotify flags:0 event\-flags:88002
->  fanotify ino:19264f sdev:800001 mflags:0 mask:1 ignored_mask:0 fhandle\-=
-bytes:8 fhandle\-type:1 f_handle:4f261900a82dfd73
->  .EE
->  .in
-> -.IP
-> +.P
->  The fourth line displays information defined when the fanotify group
->  was created via
->  .BR fanotify_init (2):
-> @@ -210,7 +208,7 @@ argument given to
->  .BR fanotify_init (2)
->  (expressed in hexadecimal).
->  .RE
-> -.IP
-> +.P
->  Each additional line shown in the file contains information
->  about one of the marks in the fanotify group.
->  Most of these fields are as for inotify, except:
-> @@ -228,16 +226,16 @@ The events mask for this mark
->  The mask of events that are ignored for this mark
->  (expressed in hexadecimal).
->  .RE
-> -.IP
-> +.P
->  For details on these fields, see
->  .BR fanotify_mark (2).
-> -.IP
-> +.P
->  For timerfd file descriptors (see
->  .BR timerfd (2)),
->  we see (since Linux 3.17)
->  .\" commit af9c4957cf212ad9cf0bee34c95cb11de5426e85
->  the following fields:
-> -.IP
-> +.P
->  .in +4n
->  .EX
->  pos:    0
-> --=20
-> 2.47.0.rc1.288.g06298d1525-goog
+On Mon, May 20, 2024 at 08:35:48AM -0300, Adhemerval Zanella Netto wrote:
 >=20
+>=20
+> On 20/05/24 05:53, Alejandro Colomar wrote:
+> > Oops, I mistyped the glibc list.  Below is included the original email.
+> >=20
+> > ---
+> >=20
+> > On Mon, May 20, 2024 at 07:02:39AM GMT, Emanuele Torre wrote:
+> >> Hello.
+> >=20
+> > Hi Emanuele,
+> >=20
+> >> pidfd_open(2) only lists sys/syscall.h and unistd.h in its SYNOPSYS:
+> >>
+> >>   SYNOPSIS
+> >>          #include <sys/syscall.h>      /* Definition of SYS_* constant=
+s */
+> >>          #include <unistd.h>
+> >>
+> >>          int syscall(SYS_pidfd_open, pid_t pid, unsigned int flags);
+> >>
+> >>          Note:  glibc provides no wrapper for pidfd_open(), necessitat=
+ing
+> >>          the use of syscall(2).
+> >>
+> >> Then it mentions PIDFD_NONBLOCK as one of its flags:
+> >>
+> >>   PIDFD_NONBLOCK (since Linux 5.10)
+> >>          Return  a nonblocking file descriptor.  If the process referr=
+ed
+> >>          to by the file descriptor has not yet terminated, then  an  a=
+t=E2=80=90
+> >>          tempt to wait on the file descriptor using waitid(2) will imm=
+e=E2=80=90
+> >>          diately return the error EAGAIN rather than blocking.
+> >>
+> >> But PIDFD_NONBLOCK is not defined in any of the listed headers.
+> >=20
+> > Hmmm.  Thanks!  We need to add its header.
+> >=20
+> >> I have noticed that PIDFD_NONBLOCK is the same value as O_NONBLOCK,
+> >> so perhaps this flag could be listed as
+> >>
+> >>   O_NONBLOCK or PIDFD_NONBLOCK (since Linux 5.10)
+> >>
+> >> like O_NDELAY and O_NONBLOCK in open.2.
+> >>
+> >> This way the user would know that O_NONBLOCK may be used instead of
+> >> PIDFD_NONBLOCK if PIDFD_NONBLOCK is not available.
+> >=20
+> > No.  That's an implementation detail, which shouldn't be abused.
+> >=20
+> >> I have also noticed that GNU libc (in its linux-api-headers submodule)
+> >> provides a linux/pidfd.h header that just defines PIDFD_NONBLOCK as
+> >> O_NONBLOCK, perhaps another solution would be to list in linux/pidfd.h
+> >> in the synopsis and say it is required to use PIDFD_NONBLOCK.
+> >=20
+> > Yep, that's the kernel uapi header.  I didn't know glibc redistributes
+> > those.
+> >=20
+> > Anyway, we should indeed include <linux/pidfd.h> for this macro.
+>=20
+> The glibc provides the pidfd_open, pidfd_getfd, and pidfd_send_signal
+> since 2.36 [1][2][3], and pidfd_getpid since 2.39 [4].  It also provides =
+the
+> pidfd_spawn and pidfd_spawp [5], which are similar to posix_spawn, but
+> return return a pidfd.
+>=20
+> >=20
+> >> Then, I also noticed that GNU libc now also provides the sys/pidfd.h
+> >> header with the definition of PIDFD_NONBLOCK, and prototypes for
+> >> pidfd_open, pidfd_send_signal, pidfd_getfd, and also a prototype for
+> >> pidfd_getpid that is an helper function that parses the "Pid:" field
+> >> from /proc/self/fdinfo/FD and currently does not have a man page.
+> >=20
+> > Hmmm, I've CCed glibc for a question:  When you provide a macro like
+> > this one, without providing a syscall wrapper, should we include the
+> > glibc header or the kernel one?  Do you provide all kernel uapi macros,
+> > or just select ones?
+>=20
+> For pidfd function we decided to add the function on sys/pidfd.h which
+> is a distinct header.  Maybe we should follow other kernel header=20
+> integration and include it if existent and only define the required
+> macros if not existent (like we do on mount.h).=20
+>=20
+> >=20
+> > As far as I understand (I have never tried to use it in a program),
+> >=20
+> >   pid_t pid =3D pidfd_getfd(pidfd);
+> >=20
+> > Is equivalent to the following command in shell:
+> >=20
+> >   pid=3D$(grep -Pom1 '^Pid:\t\K.*' proc/self/fdinfo"$pidfd" || echo -1)
+>=20
+> Yes, and it sets errno depending parsing and 'Pid:' value (you can check
+> on the pidfd_getfd documentation on glibc manual).
+>=20
+>=20
+> [1] https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3D97f5d19c4579=
+9e3abedef771430b5562f1b8764f
+> [2] https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3D32dd8c251a43=
+1c90451092653f0231a4ad2665e5
+> [3] https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3D56cf9e8eec3b=
+dc0ce44efeda373de9d6b825ea1e
+> [4] https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3De7190fc73dbc=
+8a1f8f94f8ccacd9a190fa5e609c
+> [5] https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommit;h=3D0d6f9f626521=
+678f330f8bfee89e1cdb7e2b1062
+>=20
+> >=20
+> >>
+> >> So probably the best solution is to just make the pidfd_open(2),
+> >> pidfd_send_signal(2), and pidfd_getfd(2) man pages tell users to inclu=
+de
+> >> sys/pidfd.h and call the GNU libc functions instead of including
+> >> sys/syscall.h and unistd.h and calling syscall(2) directly; now that
+> >> sys/pidfd.h exists.
+> >=20
+> > Ahh, interesting.  I'm using glibc 2.38 and still don't have that one.
+> > It seems added in 2.39.  We can directly document that in
+> > pidfd_getfd(2).
+> >=20
+> >> And maybe to also add a pidfd_getpid(3) man page for the new pidfd
+> >> helper function.
+> >=20
+> > No, usually we document the glibc wrapper in man2, unless there's a big
+> > difference between the kernel syscall and the glibc wrapper.
+> >=20
+> > Thanks for the detailed report!
+> >=20
+> > Have a lovely day!
+> > Alex
+> >=20
+> >>
+> >>
+> >> o/
+> >>  emanuele6
+> >=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---rrjrdqy252cemugf
+--xsb75f7pnb32j5he
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmck1pUACgkQnowa+77/
-2zI8FQ/8D9EPYu4wju/TAVHgaKGIEfcv/qsDaMh52KMkW/6Lkj81laXLzfEk5zPw
-yMYKELHyhvNZe8ZjL94BKFRmX1wE4MJBtMy/a8FVwIGdsY3+Odla55NMWlj6pk9Z
-OH3c3QaSP9US1OdSoXf61bt3v6nwL3pyUtoCm5ZMGRmCIOy4rLZnWhfAwBexL0jE
-/EM56KjB0aENn8wLOtgz+vNuPVrXQHMIQ9b/+p3Ymu1gPi8Jpou2Cmzk3smnYnQi
-B0sgaAkVXnUJwhmCH7hwzuVXrKkHzOMbVrfgJzU7ONOXPJyn7LBdMF2oR9/BzpcG
-Jgn2UJ7n+hffD35M10MzdW5HFgPo/NTdWEp4SCaZE0u2Lg2PUJUl3nnsmFm56Jqb
-VNqdF9aMdYT/WNJhZY/QpDjkZwXeo3xd4uLWaxImzx3IYkQMsiQ178hNKPYu3j/V
-qG8AhgHnyHTGUBDGKZazKB+sZgXKLyfORuFE0KqvJi34ZzCxZ/tPX5szJYyd5iR5
-O0HUDeCrwmFRnxFqlGnJD43uuVrPq/tVoMN8xTVbRRoKmTlidhZHUaz5+jOjjRBI
-s1p4fppcGF3aFTeslQsT3umhKtE8U1xYOqYdk96JpVsznjU/je073TQeiT2eaMSH
-YecF07tEWELQiWbr79B/hQ+1Doi8vhseJPb15kl7OuXTzNfUZqQ=
-=KPYY
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmck1ycACgkQnowa+77/
+2zJUsQ//QzkkjpWp5se5Y+bCSaGqeu9b0PZCAisXyrtzrpKDFpY16M2kH1HMlfq7
+98TxbvpsSPyjWNPmgJ9WSBus7a4h2tdjRP2VslGkDmkhLIjYs5+ijg2moEkolL4f
+XbOtPBj3vA58XXy8Mr17PrjeCGD585YiEDDQ8QTQkBGdh8C5kjCL9ZxokMReB6eE
++Un5/IfnhqoDzX3bFUwMc69b6SukzQ9pMHKuudC+MsjQXdPv6cKV5V5WAVBQwqGc
+4/q2mgxr1Cs7KHQ5SeDELGiM0SgOYWwKSOWHs7v1xXqEYnMKGTWqGo6TrnoNeiy7
+UZP9pKnLM4pH2MLY4YwtLvPwHA8s5x9Cfgk1CqPw4XqaVEVFQh6CbVBrAzs0bNKT
+fxCxszuty4WA+GTojH8asQ9T082ctRGCQwA4g8iYb0PjqfrF//YOLSK0QEhaTnRa
+Fpw8TjibGnUWL68uOhyVBPFFI58xQKG2z6d7V/vXaWNasu22+xOm+yzovVk8wBKg
+dCLTq+/tk6V3xkAFS16yFCbhxbYJrqAjOUqiFDxEdOs77GRj0CR345nBTHqqD4Fh
+FFxSiZ3ECsy0nJyENSka0JABCVkFfj6l2DSpkS7N2ecmDKdGM4OpZ5TQNhuFegVj
+oVf9EvGyBgRoRJB56sbBibN1AOX0elumqgp7HWA2YPUTyaxURvo=
+=U5sg
 -----END PGP SIGNATURE-----
 
---rrjrdqy252cemugf--
+--xsb75f7pnb32j5he--
 
