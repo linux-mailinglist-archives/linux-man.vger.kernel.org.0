@@ -1,172 +1,345 @@
-Return-Path: <linux-man+bounces-1826-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1827-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id C096A9B9E22
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 10:20:20 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC5F9B9E6B
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 10:48:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 504A91F21DAB
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 09:20:20 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9F1621C218AC
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 09:48:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DFD315A856;
-	Sat,  2 Nov 2024 09:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A49D516A94B;
+	Sat,  2 Nov 2024 09:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jD53bc4f"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYBfr6Md"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6B413BACC;
-	Sat,  2 Nov 2024 09:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548C516726E;
+	Sat,  2 Nov 2024 09:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730539213; cv=none; b=QtoUoW1e/9xnUInb9lKbP4usxCsJwSM5rta7UkH/KABxwzhwSDjRhH6XZhhx6aDjLGE25p1A2sAwLADDSsjECf30jVeNsT0KXpuagAKgOZ1exEnUfGhH+B/nH6f0tB1eo5sp/vVWHVC9dEmkpuWVZXVc8pGmy4ahM5ko6FdKaMI=
+	t=1730540913; cv=none; b=kKRIuOAFqqzOEnQMX3OWv1souemgEjcUSI8aQCxTw3Gl1smJD0cTCm3kOP1/f1ZArTBcE6aQdJOJLiklF8iV+v4CTNMyX0ivCq4PkqPwlBAENg0WRE9gtT2GjekTB6Wx3hLcPAe05/C6J+VXyTrQ+FFrIpGf6MKFhUHmD/dr8go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730539213; c=relaxed/simple;
-	bh=gdWMNWxXFHL9qw19MfKzkIcpkx3y/3En0QAut+yHzj0=;
+	s=arc-20240116; t=1730540913; c=relaxed/simple;
+	bh=jd28hCvXGoTqrGluJ1YGAvzXlDy9P1YJIaXnpIhXrVY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ppqjffqyjGWkhESdV09o3Vrf8Br3RcnLLGbXUlcRAFqOiSV2+4V7JoeW9eijVkDyJOcxbz3mw9esm4qZNG1SWXvLRlv0LwK1EXklfrCgPpIj55nJ8pomUe51HaLD7b1FwykP/H8X0XAaiFsaCBMo0oCqoLN3FMhuKQGp3Tn5Qb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jD53bc4f; arc=none smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7180d9d0dcbso1061087a34.3;
-        Sat, 02 Nov 2024 02:20:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730539211; x=1731144011; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=kpGFODYS8j6Lc9OgDllYcnBQdgtbbm75EKILrrrUJdM=;
-        b=jD53bc4fu3eKgADSgSp5ryOi2Pt+RtUNSHkSsDjKTopyKeR8mxRmaTENTBHW9YKPZN
-         bn2NpPYRqvIVGPbbACVzupUe7MWD8MM3v2wSsxjLoLEZl1tYaPF+5QAIeVRFpFZRR/zv
-         qyt+9g6FHw3BiXsaUb+n4T5f4LfijoQysK7O+kCq3ciE2goKgCPInzPeSycxxYMLWysj
-         o2wTqeqErhtQne2vCAnaIsVarmTUbjw3GW4pPO3TNx2WwcZ1LUBd40o58LOopUUajpMy
-         Z3CLh5+eMRrx2h2Add2J5iKHwGZY4//F2s9F0OzeTaaB5FKxS7RfIKwhxKOAQX737Q/Z
-         fY5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730539211; x=1731144011;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kpGFODYS8j6Lc9OgDllYcnBQdgtbbm75EKILrrrUJdM=;
-        b=FOLGGAPpPiv95a1TLUu2rrbjuEOAfsWfxjKLpwVRa8uvnYgVYEXPWmtKsao4lssoUg
-         g9Ut5uhMXj38T4rSrwHFS7j4YeIbtvZj7iJ5UDwo/5G7evYr/SxNCylC8XuNX3dCrfc7
-         FkkOLwylp18Tugq1eKzcW80lbfsqe83wqqD56Uojl6fLMxO7JeSsjQLa/5zj1wycTorT
-         scL5XiuJMiaspqaqCSSpBNBWwyOaeCWm/nIcaqZTuqYXqVXft0BmBLUl+SZrXN/5PjV1
-         NyFgebeFFNz5GajT+NXiwmt0HQ+TUCfe8h5qhtp+lOVUION52m4huUSc/PDEeHfhor+3
-         KRDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU0GweHSFZplVYDFWAiso7F7rIvYhaFvJ/zCUtGTnm2HEvo+T13BmvRO6IKljk9d//Ay6dUjexd4qyn@vger.kernel.org, AJvYcCV2Y7jssZ0Kj/ZSxSM949C3DWYnoI2ZSgBnA1wIVVH08r6bYL+SPSGzD269zqK7IDKeFyNB8qqNS6o=@vger.kernel.org, AJvYcCWvHxDHBiK+If7eRbDSbEB1Jbit2TSb5vAbH2bMicEEQLJpFUYtcW8Lp7MNt7j+kk63bJE8P6iQPTqR9PXR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQ5XKxMU1kyqwFcbiQcUeUFkhXfg3aFitL+dbMZpCDCqOYqDyh
-	6BCHAd1FbK4tWvHs391F/oBqE83CP9E6Z06xAMhhxgkIKbYP73Ff
-X-Google-Smtp-Source: AGHT+IFLReBsrRpmxL4vu2o+HK8LR5rKgVTw5Pae/xERGUN3VNDuKb5mCI4fypHiqCUe37x/W4d24w==
-X-Received: by 2002:a05:6830:6015:b0:717:fe2d:a4e4 with SMTP id 46e09a7af769-7189b4f40e0mr8772997a34.19.1730539211247;
-        Sat, 02 Nov 2024 02:20:11 -0700 (PDT)
-Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7189cccf736sm1089795a34.69.2024.11.02.02.20.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Nov 2024 02:20:10 -0700 (PDT)
-Date: Sat, 2 Nov 2024 04:20:07 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=cAINNJxxV9iFL5N9HPxsIpOBVu3jTnpYosJb/n7AqyIgzzn20sufozP3Oe4nBYoFZZ0qHyuFpLmUTHu5tV3bAVyeieq68xm4LYvMdGgibZWHW6+669tWO1/roi+6mu2iBh1lyqm3135ywHEPHU1qIq2zTD+fhwOrMTnpdS6cGio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYBfr6Md; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299E4C4CEC3;
+	Sat,  2 Nov 2024 09:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730540912;
+	bh=jd28hCvXGoTqrGluJ1YGAvzXlDy9P1YJIaXnpIhXrVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aYBfr6MdRQY25x9hdTXkNbkPmhm1rXGvVexpYuulyHz5g2qu7gWS7tMPO0d0dMyEd
+	 gaLs0aQX3IMZOP+YiQo9+bYWaejfxNHfFXc08tOL5fOIungIlQolZtkzaHwv2w2Dlp
+	 xoqsau3zU3dXcVSQiqlBhc4zCRsvaaZCIOG956FWC/1H2K1nCiPvPbr1R+qDlF3EoF
+	 TjAkyOdKQfAIXq1cB9KkbxkG8ELGhep9VlAEa6Vx3HvuErTxZfLiiA8Uby925x89Ry
+	 eQE3SVwp+3D0w/sGKMXDnyDiTHypJGNuW+9h6Kr7ljUozt6u3r7e8ilVUekG2tD6YW
+	 Jr6cs25a9E25w==
+Date: Sat, 2 Nov 2024 10:48:16 +0100
+From: Alejandro Colomar <alx@kernel.org>
 To: Ian Rogers <irogers@google.com>
-Cc: Alejandro Colomar <alx@kernel.org>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+Cc: "G . Branden Robinson" <g.branden.robinson@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
 	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-man@vger.kernel.org
-Subject: Re: [PATCH v4 3/4] proc_pid_fdinfo.5: Add subsection headers for
- different fd types
-Message-ID: <20241102092007.ixxtdc6u4iutxmam@illithid>
+Subject: Re: [PATCH v4 1/4] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
+Message-ID: <20241102094816.rpxwjv4wnfsepg3x@devuan>
 References: <20241101211830.1298073-1-irogers@google.com>
- <20241101211830.1298073-3-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4bjtnlpbcduyzdoo"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="77xwxs3hqc5jfuto"
 Content-Disposition: inline
-In-Reply-To: <20241101211830.1298073-3-irogers@google.com>
+In-Reply-To: <20241101211830.1298073-1-irogers@google.com>
 
 
---4bjtnlpbcduyzdoo
+--77xwxs3hqc5jfuto
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 3/4] proc_pid_fdinfo.5: Add subsection headers for
- different fd types
+Subject: Re: [PATCH v4 1/4] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
 MIME-Version: 1.0
 
 Hi Ian,
 
-At 2024-11-01T14:18:29-0700, Ian Rogers wrote:
-> Make the sections about eventfd, epoll, signalfd, inotify, fanotify,
-> timerfd better separated with a clearer subsection header.
+On Fri, Nov 01, 2024 at 02:18:27PM -0700, Ian Rogers wrote:
+> When /proc/pid/fdinfo was part of proc.5 man page the indentation made
+> sense. As a standalone man page the indentation doesn't need to be so
+> far over to the right. Remove the initial tagged pragraph, move the
+> "since Linux 2.6.22" to a new history subsection.
 >=20
+> Suggested-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 > Signed-off-by: Ian Rogers <irogers@google.com>
-[...]
-> +.SS eventfd
->  .P
-[...]
-> +.SS epoll
->  .P
-[...]
-> +.SS signalfd
->  .P
-[...]
-> +.SS inotify
->  .P
-[etc.]
+> ---
+> v4. Move since to history from Alejandro Colomar's <alx@kernel.org> review
+>     comment.
+>=20
+> ---
+>  man/man5/proc_pid_fdinfo.5 | 51 +++++++++++++++++++-------------------
+>  1 file changed, 25 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/man/man5/proc_pid_fdinfo.5 b/man/man5/proc_pid_fdinfo.5
+> index 1e23bbe02..ad739bd84 100644
+> --- a/man/man5/proc_pid_fdinfo.5
+> +++ b/man/man5/proc_pid_fdinfo.5
+> @@ -8,8 +8,6 @@
+>  .SH NAME
+>  /proc/pid/fdinfo/ \- information about file descriptors
+>  .SH DESCRIPTION
+> -.TP
+> -.IR /proc/ pid /fdinfo/ " (since Linux 2.6.22)"
+>  This is a subdirectory containing one entry for each file which the
+>  process has open, named by its file descriptor.
+>  The files in this directory are readable only by the owner of the proces=
+s.
+> @@ -17,9 +15,9 @@ The contents of each file can be read to obtain informa=
+tion
+>  about the corresponding file descriptor.
+>  The content depends on the type of file referred to by the
+>  corresponding file descriptor.
+> -.IP
+> +.P
+>  For regular files and directories, we see something like:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  .RB "$" " cat /proc/12015/fdinfo/4"
+> @@ -28,7 +26,7 @@ flags:  01002002
+>  mnt_id: 21
+>  .EE
+>  .in
+> -.IP
+> +.P
+>  The fields are as follows:
+>  .RS
+>  .TP
+> @@ -51,7 +49,6 @@ this field incorrectly displayed the setting of
+>  at the time the file was opened,
+>  rather than the current setting of the close-on-exec flag.
+>  .TP
+> -.I
+>  .I mnt_id
+>  This field, present since Linux 3.15,
+>  .\" commit 49d063cb353265c3af701bab215ac438ca7df36d
+> @@ -59,13 +56,13 @@ is the ID of the mount containing this file.
+>  See the description of
+>  .IR /proc/ pid /mountinfo .
+>  .RE
+> -.IP
+> +.P
+>  For eventfd file descriptors (see
+>  .BR eventfd (2)),
+>  we see (since Linux 3.8)
+>  .\" commit cbac5542d48127b546a23d816380a7926eee1c25
+>  the following fields:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  pos:	0
+> @@ -74,16 +71,16 @@ mnt_id:	10
+>  eventfd\-count:               40
+>  .EE
+>  .in
+> -.IP
+> +.P
+>  .I eventfd\-count
+>  is the current value of the eventfd counter, in hexadecimal.
+> -.IP
+> +.P
+>  For epoll file descriptors (see
+>  .BR epoll (7)),
+>  we see (since Linux 3.8)
+>  .\" commit 138d22b58696c506799f8de759804083ff9effae
+>  the following fields:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  pos:	0
+> @@ -93,7 +90,7 @@ tfd:        9 events:       19 data: 74253d2500000009
+>  tfd:        7 events:       19 data: 74253d2500000007
+>  .EE
+>  .in
+> -.IP
+> +.P
+>  Each of the lines beginning
+>  .I tfd
+>  describes one of the file descriptors being monitored via
+> @@ -110,13 +107,13 @@ descriptor.
+>  The
+>  .I data
+>  field is the data value associated with this file descriptor.
+> -.IP
+> +.P
+>  For signalfd file descriptors (see
+>  .BR signalfd (2)),
+>  we see (since Linux 3.8)
+>  .\" commit 138d22b58696c506799f8de759804083ff9effae
+>  the following fields:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  pos:	0
+> @@ -125,7 +122,7 @@ mnt_id:	10
+>  sigmask:	0000000000000006
+>  .EE
+>  .in
+> -.IP
+> +.P
+>  .I sigmask
+>  is the hexadecimal mask of signals that are accepted via this
+>  signalfd file descriptor.
+> @@ -135,12 +132,12 @@ and
+>  .BR SIGQUIT ;
+>  see
+>  .BR signal (7).)
+> -.IP
+> +.P
+>  For inotify file descriptors (see
+>  .BR inotify (7)),
+>  we see (since Linux 3.8)
+>  the following fields:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  pos:	0
+> @@ -150,7 +147,7 @@ inotify wd:2 ino:7ef82a sdev:800001 mask:800afff igno=
+red_mask:0 fhandle\-bytes:8
+>  inotify wd:1 ino:192627 sdev:800001 mask:800afff ignored_mask:0 fhandle\=
+-bytes:8 fhandle\-type:1 f_handle:27261900802dfd73
+>  .EE
+>  .in
+> -.IP
+> +.P
+>  Each of the lines beginning with "inotify" displays information about
+>  one file or directory that is being monitored.
+>  The fields in this line are as follows:
+> @@ -168,19 +165,19 @@ The ID of the device where the target file resides =
+(in hexadecimal).
+>  .I mask
+>  The mask of events being monitored for the target file (in hexadecimal).
+>  .RE
+> -.IP
+> +.P
+>  If the kernel was built with exportfs support, the path to the target
+>  file is exposed as a file handle, via three hexadecimal fields:
+>  .IR fhandle\-bytes ,
+>  .IR fhandle\-type ,
+>  and
+>  .IR f_handle .
+> -.IP
+> +.P
+>  For fanotify file descriptors (see
+>  .BR fanotify (7)),
+>  we see (since Linux 3.8)
+>  the following fields:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  pos:	0
+> @@ -190,7 +187,7 @@ fanotify flags:0 event\-flags:88002
+>  fanotify ino:19264f sdev:800001 mflags:0 mask:1 ignored_mask:0 fhandle\-=
+bytes:8 fhandle\-type:1 f_handle:4f261900a82dfd73
+>  .EE
+>  .in
+> -.IP
+> +.P
+>  The fourth line displays information defined when the fanotify group
+>  was created via
+>  .BR fanotify_init (2):
+> @@ -210,7 +207,7 @@ argument given to
+>  .BR fanotify_init (2)
+>  (expressed in hexadecimal).
+>  .RE
+> -.IP
+> +.P
+>  Each additional line shown in the file contains information
+>  about one of the marks in the fanotify group.
+>  Most of these fields are as for inotify, except:
+> @@ -228,16 +225,16 @@ The events mask for this mark
+>  The mask of events that are ignored for this mark
+>  (expressed in hexadecimal).
+>  .RE
+> -.IP
+> +.P
+>  For details on these fields, see
+>  .BR fanotify_mark (2).
+> -.IP
+> +.P
+>  For timerfd file descriptors (see
+>  .BR timerfd (2)),
+>  we see (since Linux 3.17)
+>  .\" commit af9c4957cf212ad9cf0bee34c95cb11de5426e85
+>  the following fields:
+> -.IP
+> +.P
+>  .in +4n
+>  .EX
+>  pos:    0
+> @@ -296,5 +293,7 @@ fields contain the values that
+>  .BR timerfd_gettime (2)
+>  on this file descriptor would return.)
+>  .RE
+> +.SH HISTORY
+> +Since Linux 2.6.22.
 
-I suggest deleting the paragraphing macros when you add (sub)sectioning
-macros immediately before them.  In these cases the `P` calls end up
-doing nothing.
+In the HISTORY section we don't add the "Since", since it's obvious.
+Just
 
-groff_man(7):
-       .SS [subheading=E2=80=90text]
-              Set subheading=E2=80=90text as a subsection heading indented
-              between a section heading and an ordinary paragraph (.P).
-              If no argument is given, a one=E2=80=90line input trap is pla=
-nted;
-              text on the next line becomes subheading=E2=80=90text.  The l=
-eft
-              margin is reset to the value of the SN register to set the
-              heading text in bold (or the font specified by the string
-              HF).  If the heading font \*[HF] is bold, use of an italic
-              style in subheading=E2=80=90text is mapped to the bold=E2=80=
-=90italic
-              style if available in the font family.  The inset level is
-              reset to 1, setting the left margin to the value of the IN
-              register.  Text after subheading=E2=80=90text is set as an
-              ordinary paragraph (.P).
+Linux x.y.z.
 
-Regards,
-Branden
+Have a lovely day!
+Alex
 
---4bjtnlpbcduyzdoo
+>  .SH SEE ALSO
+>  .BR proc (5)
+> --=20
+> 2.47.0.199.ga7371fff76-goog
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--77xwxs3hqc5jfuto
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmcl7scACgkQ0Z6cfXEm
-bc5BFg//Q9uaGXm0MGnz6aClftEXxT5cINEJIJq4ZOtnAqBKeSw5QBdlvDiPIMPr
-Rv9yHC5rz5Ha6STdxQCX6feI2OImonRaWx8ZCl92h3U03Wxhw686lBGSfdHdwJqe
-6sqMDyIVILx3oqnWkuqfs/SIKRkmbVBacBo0x6KSOglbHR/Swa9qEMtmyJzrnxzJ
-PJctPqWtxv8Zd8+zNc1caOG3ckeLwnNtUeoVC4iOe3hFdSE3XBnm5hM0UbGFSYjG
-AHcfRD3C8QsQYO+F9ikevajUwijcCXmyoQ6Pe85qqSL6Fcn1u7HHA705NEomDDD+
-Bfn3S5txZANBc1IxGqc7CKnUy3MuoIYP5bmoF8VTje3crBCBaNqg610F8FfaLPYj
-KR6mx29956y5GnfhAsYWx1nyNio+6KaBHXL9qE80Fwq4+s3V8UJT+Ii4jRd1cnI6
-JXNMfdjf82P4gKeDLi31LsYUHxO/paq0gVLerw8YPtJUiozjM5QxbnvCCSx2zKr8
-L7syuSsFt7VVQyJyY3REHT35LTxcNx7h/QRnXxlvM8lVLDzHcGegsk5lCCf2OMyg
-YjCFZihestXdMtn74kSArBWGjjqW4Zu5gojc6dMXp5pC+JzeGxhzWFN6iFGPFgUH
-LTQimXt367vOAdi9XpoaaG1FkZHiXXlMLcHbq315rctNKdsJAl8=
-=14Tv
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcl9WAACgkQnowa+77/
+2zK29w//R+cB0ouFZ+/E9pIYrBoa9T+TtycqsBlrD5fv4IbJtwqmJGFvvTUbpBqB
+AUT9Xda02pUM7Ppj6y4ZheWTCEp9sI87iI2QVZU6QwtPRr4Qk5MGd06uiAUQzi0K
+Gj95Y4l+MqIVwBdWShDWjd25B3m8V7gBtOwLTUPDBO9x2ifbLkK+MM+Mj2JWFGC9
+Y2jiq3MHB/O3ohR2u5meAbmTagpatvBrhvJ9aa4LC+8Hkiiu6yRKobX/+KlJ6o9L
+Pn4FVwcGh+Tm6JlRKx0Q8Y98VIjO3Pzn7tP+cetUdHbmPnUw6ml0AAS/nCdhvA8b
+sSrKU565Wc/AZRHEygvNXfhXTkYNfsXkqg6YQyCgMhGlyKVWC03xN/sJtk18/vaC
+HL0sOxKziIgePEHJJAihD5UMCjNsQG7yJI639OAPQUudHvpmcpLq5EYanDuxnqyz
+hCwFKUcfpomYpIv255X+E6e1DmO9tfenoLUy9OaTj/b6p+XHCcm1qV/n8sVJV/ia
++2edfKupQiq1FfkqEGWP4ac2C+1vd7MvpiQy30fRGeInW3Mk/6We8wrOWNoPd/Ox
+spMYCmuCJGXY/bZVEC9CYEzTsZV2GdKTxUyVQXG7cuftPtLcumC4MzGbELL5hwID
+xyNHHKjP5I3M8oFoZICC4s04c/Z9j8TApe/Y7nMT7fRxvIRfFBM=
+=+0ZT
 -----END PGP SIGNATURE-----
 
---4bjtnlpbcduyzdoo--
+--77xwxs3hqc5jfuto--
 
