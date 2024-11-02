@@ -1,146 +1,115 @@
-Return-Path: <linux-man+bounces-1841-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1842-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FF7F9BA303
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 00:17:22 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BEFB9BA31D
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 00:47:35 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3AE201F226CD
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 23:17:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 604552825DF
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 23:47:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D21731ABEB4;
-	Sat,  2 Nov 2024 23:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42EAC16DED2;
+	Sat,  2 Nov 2024 23:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sZ6C7VSD"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="AlG2mx3S"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3F21A0B07
-	for <linux-man@vger.kernel.org>; Sat,  2 Nov 2024 23:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CACE153814;
+	Sat,  2 Nov 2024 23:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730589440; cv=none; b=i8A99AJ/l8Ht/VWvqyifcKqN+KqYLBbKq9CQlwq9Ebs+wKhMzH/5ynQWGA4K/aWmg1bktQNjMAof6eGzPOeZ/2/9P9b6bYbK7iffXdxEw2y3x7SP8anLDaWxhG0Yu4JismK+3pXHWNAiEww9xMChqfT14M67P7UWFC1u6SYe5oc=
+	t=1730591250; cv=none; b=fb6YpcVoCoE1vm4z2BUXEtqc6G/4Nv01vfwwL3BNLsljBvnA/qY1gvq37EfrfICGyvHae3k/vqq2BMEmmmJkKLWQhmHveI0cyw/oSoa5nb9dk8NUVKvwBnWSTN5LQxW75ANTZ6jMbSwxRoB+XwDHDHF6Uo1asQiYUNDE5wH33qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730589440; c=relaxed/simple;
-	bh=hTyfzq3h++vfnaQa4XStlfUnRyrWWP6chCjj3vJ0jqE=;
+	s=arc-20240116; t=1730591250; c=relaxed/simple;
+	bh=aPi8nvd0AW+bjbsxjmvzeX/7F7wjCNtFd8NG5RtiGPM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TZN2BTKEAeNzvSsjvRKZaA1EAyvxLW0kFUqs4vnuJSJcQb5Q9Uo/CBqXr4tS02gSTCB7T4OL8KMfk0AEPmRLWQiZ4EX1Mz2hgifMRtpm5Mb+CUXk9073cJyEM8gVYamV3edOKQrCFsILlQl/3PWr9DiOViwku0MCwJ77tb4tAus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sZ6C7VSD; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1EBC4CEC3;
-	Sat,  2 Nov 2024 23:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730589440;
-	bh=hTyfzq3h++vfnaQa4XStlfUnRyrWWP6chCjj3vJ0jqE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sZ6C7VSDCGB7yRhB3svKYfdrFT5VznWNeDzCIaUQE7PpHz8OoZrqGW0wfeMoaNzf/
-	 1WklcA22mOuAcaa+U0Q5rx6gLBcRsjvGZ9qJvXhvzjky7DZxy1nKsDjIleB91qSNXh
-	 emyjc68qyFt6EzHWz/nITlSb+hprnFsu4ylClBmN1uiH8K/Z/lDbxnBr8WBGJhM2E7
-	 ITcaD5SeX9ibNo3A8ECBLekii8vtZ4R9gCecpXRYhm6X67l+5p/kLo0BQW25s2BEVS
-	 I1uIb8qo5Ezkghai8qnXH3wNb5bGb+DNHf+aQqw2e1ICbfECc4NuokodRL/2A7Tk0B
-	 3W0IBCU2i0A1g==
-Date: Sun, 3 Nov 2024 00:17:13 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, branden@debian.org, cjwatson@debian.org
-Cc: groff@gnu.org, Vincent Lefevre <vincent@vinc17.net>
-Subject: Re: [PATCH 1/3] signal.7: Better description for SIGFPE
-Message-ID: <20241102231310.xy5yjoaszto3gwtw@devuan>
-References: <cover.1730588410.git.alx@kernel.org>
- <d6c757da60206c8b3dc095d3194da2b3eb8fa42d.1730588410.git.alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=F7lK+BbQfQiyfLt/hfz+XlRtKj86OdoWw1T2ZfakueNMrhJ4m7LYdlwUag192hlDbUxpAfCxYPk8VdgZIbvX3i7l986b6xRNrRXovE/eB7PT9bFpxyNN/1ea3a9QaGes9tpzEEgYD8WPT0+UYsfsG/M5jPf02EpJkAuXzxhNUgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=AlG2mx3S; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=eoGhU4EOnnVch2ZqousEJe/1GDqYRsVtfFAZpWXwzv0=; b=AlG2mx3SsFA1RWNC+Z2sgikSKv
+	y7RaposLnPon6AMwqXzk/VWaNBSXd7tux4PJaJqH0yT9AppLSuFoOXbUd2bpvrtpv+cIyI9TvkwfI
+	4eRl8OphQOD7zcnxAFb1vvoqYMRMMfHnmr3m9WLAav+1rrlfco+glkszlZlBBqZMGgQq4lKerjuYZ
+	fWmVVMbI2gyXtpQemhU7J4xmTTGuM7qGg7yb96ELoDQZF/CbC729qpQe9TgBpoUNFsa+DTL0yiT16
+	FDjKOglGcJt8OfNzp2CeWtodXlUWc5ZDWbY+DZQ9PXDgw0axJcw3iuQhwD1Pb5Q5xv0FSthyc09lh
+	O/0gDTpA==;
+Received: from authenticated user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.94.2)
+	(envelope-from <cjwatson@debian.org>)
+	id 1t7Npt-00B0e0-Bw; Sat, 02 Nov 2024 23:47:17 +0000
+Received: from ns1.rosewood.vpn.ucam.org ([172.20.153.2] helo=riva.ucam.org)
+	by riva.rosewood.vpn.ucam.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <cjwatson@debian.org>)
+	id 1t7Npr-004e0o-2B;
+	Sat, 02 Nov 2024 23:47:15 +0000
+Date: Sat, 2 Nov 2024 23:47:14 +0000
+From: Colin Watson <cjwatson@debian.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org, groff@gnu.org
+Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
+Message-ID: <Zya6ApewCZQNEfJb@riva.ucam.org>
+Mail-Followup-To: Alejandro Colomar <alx@kernel.org>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org, groff@gnu.org
+References: <20241015211719.1152862-1-irogers@google.com>
+ <20241101132437.ahn7xdgvmqamatce@devuan>
+ <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
+ <20241101200729.6wgyksuwdtsms3eu@devuan>
+ <20241102100837.anfonowxfx4ekn3d@illithid>
+ <20241102103937.ose4y72a7yl3dcmz@devuan>
+ <20241102213620.kfccilxvhihwmnld@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mc2wzekfa7l3qxky"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d6c757da60206c8b3dc095d3194da2b3eb8fa42d.1730588410.git.alx@kernel.org>
+In-Reply-To: <20241102213620.kfccilxvhihwmnld@devuan>
+X-Debian-User: cjwatson
 
+On Sat, Nov 02, 2024 at 10:36:20PM +0100, Alejandro Colomar wrote:
+> This is quite naive, and will not work with pages that define their own
+> stuff, since this script is not groff(1).  But it should be as fast as
+> is possible, which is what Colin wants, is as simple as it can be (and
+> thus relatively safe), and should work with most pages (as far as
+> indexing is concerned, probably all?).
 
---mc2wzekfa7l3qxky
-Content-Type: multipart/signed; protected-headers=v1; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5pzikd4denappodn"
-Content-Disposition: inline
-Subject: Re: [PATCH 1/3] signal.7: Better description for SIGFPE
-MIME-Version: 1.0
+I seem to be being invoked here for something I actually don't think I
+want at all, which suggests that wires have been crossed somewhere.  Can
+you explain why I'd want to replace some part of a fairly well-optimized
+and established C program with a shell pipeline?  I'm pretty certain it
+would not be faster, at least.
 
+Thanks,
 
---5pzikd4denappodn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/3] signal.7: Better description for SIGFPE
-MIME-Version: 1.0
-
-Oops, this was sent by accident.
-
-On Sun, Nov 03, 2024 at 12:10:27AM +0100, Alejandro Colomar wrote:
-> From: Vincent Lefevre <vincent@vinc17.net>
->=20
-> SIGFPE has comment "Floating-point exception", which corresponds to
-> the FPE acronym.  But this is misleading as this signal may also be
-> generated by an integer division by 0.
->=20
-> Change it to "Erroneous arithmetic operation" from POSIX.
-> Note: the GNU C Library manual says "fatal arithmetic error".
->=20
-> Link: <https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/signal.h=
-=2Ehtml>
-> Link: <https://www.gnu.org/software/libc/manual/html_node/Program-Error-S=
-ignals.html>
-> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  man/man7/signal.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man/man7/signal.7 b/man/man7/signal.7
-> index 7a9e91cc7..d19f171b3 100644
-> --- a/man/man7/signal.7
-> +++ b/man/man7/signal.7
-> @@ -373,7 +373,7 @@ .SS Standard signals
->  SIGCLD	\-	Ign	A synonym for \fBSIGCHLD\fP
->  SIGCONT	P1990	Cont	Continue if stopped
->  SIGEMT	\-	Term	Emulator trap
-> -SIGFPE	P1990	Core	Floating-point exception
-> +SIGFPE	P1990	Core	Erroneous arithmetic operation
->  SIGHUP	P1990	Term	Hangup detected on controlling terminal
->  			or death of controlling process
->  SIGILL	P1990	Core	Illegal Instruction
-> --=20
-> 2.39.5
->=20
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---5pzikd4denappodn--
-
---mc2wzekfa7l3qxky
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmsvkACgkQnowa+77/
-2zJe7xAAlGbbrE/e9rnTrvjroGNZ9x6YosSE4WalIHH1ZrgzepziG9c5Mkj9t3Gq
-scajvvsKyDXaeU1SSCV3GI5yZR8dOzkVfk8JkbEUwMhu0NJiZ2t6xRLIXIzMf/PL
-k/2rPwBhBGVGFxsZhBgOhgMOR1n0A17Dy6srBu91fzwE7pj1Fx7Onk4lfHmIZopf
-R4TFxdkrM0BV6u/7882+g2zWxCY4vKtC4D4sY6OWTYKSQ7F9QgpXCmsRYLpNA07K
-jm0QsViPuHbdGrqcse/QBxC208WSHy1tdNNor4QP4xGYUK64rCkfPChsg+tTd5WB
-aFP+GnPXx906A/DM5RdHEKN+N9BtLkUXjVPmL9p6JImnGsnW/gUKxg5ZTelZ8Qrc
-z5YHyfEzlIt851sD9KxbQ17JCiJSp+zJWNwzqS4tGQ/qt6mfBGlRTQmBtW+p86XA
-PZZRGJ8mh0usuAbFl2obmR1P7ljIQNQAfA9Fy2sVyn++BoAiMgbjBD0gZCoWTMWA
-hyStFxcAJ411Hf+bFVPytID7tdVAQzglzyuF27VFG6qcIxBeRq4lSjMlX+FYQMQN
-Ql4pA18PUagcgsyDNhUbfZp87NduIP891lwhaN46YwSnF9IzzyB21emgjxJk91mU
-8vIoUIdDV5YMD/sQX1xd6QxDKQ8zNHqSCWjvQ9GKZM1I3dxJ2fo=
-=sP1X
------END PGP SIGNATURE-----
-
---mc2wzekfa7l3qxky--
+-- 
+Colin Watson (he/him)                              [cjwatson@debian.org]
 
