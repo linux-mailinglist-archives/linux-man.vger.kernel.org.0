@@ -1,72 +1,72 @@
-Return-Path: <linux-man+bounces-1830-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1831-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63D3E9B9ECE
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 11:17:33 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7019B9EEE
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 11:38:50 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8BBCC1C22CB7
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 10:17:32 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9A0D6282BA4
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 10:38:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31D8E15B543;
-	Sat,  2 Nov 2024 10:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D33F16F8E9;
+	Sat,  2 Nov 2024 10:38:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1A8HNjo"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l/6VNM6J"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7C523CB;
-	Sat,  2 Nov 2024 10:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BEF92E40E;
+	Sat,  2 Nov 2024 10:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730542647; cv=none; b=rXvBPEe59y4MpFsURjuP0dtWSVv0EA9ewBmCljIlHJbOJ/60GyNn4O2kYQ0jy9nAhxWlH/g2lRTtI2z1m9W8L82b8B17wwuBjTETJtzkpir+EQY9wrRjZAIvnjUn8oap7NLrr6w5oYEpWBeGU4Q+Vmvg4REAidwqNZYSZocE0K4=
+	t=1730543925; cv=none; b=MNUQ9p0fB7atSHC6sehp4qFlJH53sLOFdZWEX/brAUCY1VmNnKM17IwVmAmHaVXa1Hp63j9Lnnf1WFrov7BNHfy34i+/HtJEMlI/2YJBnjoZY35L+0YzbbjwWMBy6LHteX0v40dSetl1NnrwXVX+qEFN41y1S+OPHfgsjzsIal0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730542647; c=relaxed/simple;
-	bh=txwRNj41QMCu1NgmDYV/xdy/Fz30Ms9isTxG3ebYBkc=;
+	s=arc-20240116; t=1730543925; c=relaxed/simple;
+	bh=BQwJJ/cANGiQk+8X5Fbd38HuiSZSJSpJGS/bhmW7yBw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZBngkRfKJFGmbauygZc3RAYYomkkJUEsyH1uhQK6IL14dpaWQgerBbeYwYKdLMcYAYGP2fSq8senycyAfiHGv4UjRFVIrPUJaN9HfRYHBMIlepKPXLc9DabGripAwa+aTGXpR+JjtBqdhwLr/MH7muQgn/AWVmw4MhTIlWiCqVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1A8HNjo; arc=none smtp.client-ip=209.85.210.45
+	 Content-Type:Content-Disposition:In-Reply-To; b=dmjP3K2JtakRkmHv8qW8UaRrdJ3HhPi6mvH9hp4AKcUffG4XcLt2nDdNoQB+ZsctY2lK9SFKNpfMrPtC0PMPOoxTsyfNV8S1gYHgp7rw9XqJG3T8SPwUNOH1sQC+tcH9bs3Gxsc8ifNzuDG3eCFq4I545FmQxHSPK0uyLUD18ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l/6VNM6J; arc=none smtp.client-ip=209.85.167.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-71822fabf4fso1445722a34.2;
-        Sat, 02 Nov 2024 03:17:25 -0700 (PDT)
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-3e5ffbc6acbso1620662b6e.3;
+        Sat, 02 Nov 2024 03:38:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730542644; x=1731147444; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1730543923; x=1731148723; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vynadvg6iX3sID33azO+FlsPSY6tF6gRoM9qSXItYIg=;
-        b=b1A8HNjot6g1uFI6M+cpOJdLXWGfB9bQKe4pyd24F2y6fDRjqmshrzyaTLzIKkmB7u
-         dPYWwsCjkL8xNXAqU5ZRbLN2CfQdKKr7adBwyihLe+PK9blLamUXhYAC+Y76DO2aHmTE
-         czq7nVzpyZaxHx3CPD6jjAPFCK1DBcRtLO+dzTm8TwAvrBQzFBtloFPz/y6w34pSCZim
-         zy46SY9zrcPI7Qf/tfAQLqH5HQPmZv6iqmbeyOuW+gMhFY6qPHfAxVp2Hx/yKUfdDRcW
-         Bi8D9weZcb7VDqE4kGovnO4OBEdYdfX+dabeK3sS5mFazonc38X5Pk8GOExk+af6P8ts
-         cfkw==
+        bh=k/ZWk9DDmTrPA9Bmswxbiav7q4dUci0lNhwSdMNy9Po=;
+        b=l/6VNM6JlnoE0V4SzhIh84592l/iybCyffynu9Zw2wOrV5PCXp6zX9LGdxC04jjtFe
+         8Bo6jxHQamYmP0fOD8zjGWqq9ez8y7QdBbwyyHjCSsckgbETgsrOEnrv6HfqrsN1q8Ih
+         pNWIobHt6Jm7hEIU+Y/hzDFCN105365dttCBiZsr0lwXWGUS3nVsnXftKYtZWfHbEBAG
+         ORO4ddHiwipKOqMo4f4P7htdblXyWy+OQ1glYsLHTmHYjLfjhpL8mq/dIi6sTei0bmNx
+         yOtlzwwEo38QO9TRHdsgMFjDBgTaOAxJPquFRC+cHz72IGeoo36nT2GAqOY3tdUhRFZp
+         Q1OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730542644; x=1731147444;
+        d=1e100.net; s=20230601; t=1730543923; x=1731148723;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vynadvg6iX3sID33azO+FlsPSY6tF6gRoM9qSXItYIg=;
-        b=Hc/yOCFuWiBJRRpXPNcyXLq6D6A+Len/nkliCgZ8YLyg29/UFHXEl1ZD+gdyvoOCCD
-         UM+fmKzKKV9c5FXgmxURFBeaV8Awp/VMYwcYINRkerjYo0cXLSam3A3xn1s+VfMWMtyt
-         hipAbNgSrOJJ8ms+L3J7FXOH35dgYl7W5AOyXPAZdlRh1Nd3K3G6PmLoVx95LBYEEK7B
-         LoRRQ0Yv0EOKe7SWxOv99jG8q3rbVzMoB5cVM/s1IO/LG8QfOnCUieWasJExsRDjl60Q
-         INpDqZNXcPTeg2jnexphaKmY9wpVKPnaWEu5+V/F/cLJVjC3+eA0yR5WHFhJ8pp/Xyjr
-         PTeA==
-X-Forwarded-Encrypted: i=1; AJvYcCV9DbqEbH90gie7Gd8pWUWcnwjg/LDg/hZzEj3oJDPRRnwuElIYe6WtUANrWry0Aen92BNKlmMK1ToM@vger.kernel.org, AJvYcCX6D+hw4lmKhEQ0TrD6BF2f0JBEG8FNXpXqe0EqiyEboYf3NDIb53OEOaID0kMlBDjljngB8+ulXXs=@vger.kernel.org, AJvYcCXdorYMYoY2lfCobwpcPqZ1Hvqpjre7iWe1g3VFcFz9CKn2zwxDY7bUlWkJXnpwr9bXsOdLwB4IiWiHenci@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDxSU2ICqOv/SyZZzpogcQDjxXArmOJ6sa0kQOMx5BQF1gsrBl
-	h3hZ2Hug77YxcCZXsAW5u5gmWbS9/k2sZA4JYcFeutk9ebBEUGjk
-X-Google-Smtp-Source: AGHT+IHidLOCarYXK3bOwQUlD9L2dhpcG4PxlbHDpS91JTZGSTCQoRppL25J2s1Ke4EKjF3/LoK0/A==
-X-Received: by 2002:a05:6830:2690:b0:718:a52:e1cc with SMTP id 46e09a7af769-7186828d81emr25889797a34.25.1730542644492;
-        Sat, 02 Nov 2024 03:17:24 -0700 (PDT)
+        bh=k/ZWk9DDmTrPA9Bmswxbiav7q4dUci0lNhwSdMNy9Po=;
+        b=vGNZVCyWJHZVWYw6hGgKRezbcSJFj5xyeNG9v1Fy7Ulz+G6HtN/n/0SyikEKymHfpU
+         pCqDjpFqn88D6gVnWfonVNs6T6dSfAGGRU43IPNsFkrE0NyWRM9OynrjjQM6y9fBDIZm
+         3vc3IoBdWhyHWQ+qW0KHC1vmnGvWv/BOV22wi3F3U3bW0q9XTl2TPDDE7a4R8e7cWoFy
+         Hf/n73aLFurBWcJj20FSDZxZaGRHRlzImQfl28WjL+A9T2OhW8+Bss9B7iKdcvgAg/xs
+         Qkc88FNOXrQzpSxFQ7q1Ph9zfyofgdwbeE76wrrwrI5n/GyrmNymSYyHMJfX7YTrFU2K
+         WHfA==
+X-Forwarded-Encrypted: i=1; AJvYcCV6jnlWOYtS4huT0pAZsBtvzNghGAnK6q2NT87QWlLSOtkEAAvIhDczz9D1hF5swRyZ1ryk2+lh16A=@vger.kernel.org, AJvYcCVCFgcM4bfFDFCBGWbLjhxOzC4IwqHLPSwvrB3cVgma/G6WQKt/cs9GBBV7qH/fYAmVPKixNYJWBeBXw8xJ@vger.kernel.org, AJvYcCXr5K7X/Xl6CQipfaU7uRUJWteGTX3CkboPmbnGB9uVJp++ycp5Dw+8Bt+bTm2oRssgaV/jmnSiMgci@vger.kernel.org
+X-Gm-Message-State: AOJu0YykhS63w2eY/151k73+Ldb6fSl5oewBQBSMQRyZjB44zjIbuuHS
+	rVZcb1yC/ahXr5Rb5K8G4guFTTxIB1oJNC1wZHrZv4ShnHtgB7cT
+X-Google-Smtp-Source: AGHT+IHrk6/Q5n2E+je2c41WlxltR+FCVn8JFH147Ayi2cb5tVwj+WI6Q57hGT3UkY8Rx4u714ZQ4A==
+X-Received: by 2002:a05:6808:2e93:b0:3e7:5b07:6a with SMTP id 5614622812f47-3e75b07017amr5014623b6e.22.1730543922530;
+        Sat, 02 Nov 2024 03:38:42 -0700 (PDT)
 Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-5ec70607719sm980306eaf.30.2024.11.02.03.17.21
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-3e66123f363sm1185127b6e.37.2024.11.02.03.38.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Nov 2024 03:17:23 -0700 (PDT)
-Date: Sat, 2 Nov 2024 05:17:20 -0500
+        Sat, 02 Nov 2024 03:38:41 -0700 (PDT)
+Date: Sat, 2 Nov 2024 05:38:39 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Ian Rogers <irogers@google.com>
 Cc: Alejandro Colomar <alx@kernel.org>, David Airlie <airlied@gmail.com>,
@@ -77,11 +77,10 @@ Cc: Alejandro Colomar <alx@kernel.org>, David Airlie <airlied@gmail.com>,
 	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
 	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] proc_pid_fdinfo.5: Make pid clearer in the name
- and 1st paragraph
-Message-ID: <20241102101720.cwp7lcidqbzkrub6@illithid>
+Subject: Re: [PATCH v3 4/4] proc_pid_fdinfo.5: Add DRM subsection
+Message-ID: <20241102103839.fv3qvp2ltgzzvlr5@illithid>
 References: <20241101191156.1272730-1-irogers@google.com>
- <20241101191156.1272730-2-irogers@google.com>
+ <20241101191156.1272730-4-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -89,103 +88,178 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5pnc5f5hp5bdfe73"
+	protocol="application/pgp-signature"; boundary="554cw2lezzhi6vpu"
 Content-Disposition: inline
-In-Reply-To: <20241101191156.1272730-2-irogers@google.com>
+In-Reply-To: <20241101191156.1272730-4-irogers@google.com>
 
 
---5pnc5f5hp5bdfe73
+--554cw2lezzhi6vpu
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 2/4] proc_pid_fdinfo.5: Make pid clearer in the name
- and 1st paragraph
+Subject: Re: [PATCH v3 4/4] proc_pid_fdinfo.5: Add DRM subsection
 MIME-Version: 1.0
 
 Hi Ian,
 
-At 2024-11-01T12:11:54-0700, Ian Rogers wrote:
-> diff --git a/man/man5/proc_pid_fdinfo.5 b/man/man5/proc_pid_fdinfo.5
-> index 87e6dbe56..935b54b4c 100644
-> --- a/man/man5/proc_pid_fdinfo.5
-> +++ b/man/man5/proc_pid_fdinfo.5
+At 2024-11-01T12:11:56-0700, Ian Rogers wrote:
 [...]
-> -this is a subdirectory containing one entry for each file which the
-> -process has open, named by its file descriptor.
-> +this subdirectory contains one entry for each file that process
-> +.IR pid
-> +has open, named by its file descriptor.
+> +.EX
+> +pos:    0
+> +flags:  02100002
+> +mnt_id: 26
+> +ino:    284
+> +drm-driver:     i915
+> +drm-client-id:  39
+> +drm-pdev:       0000:00:02.0
+> +drm-total-system0:      6044 KiB
+> +drm-shared-system0:     0
+> +drm-active-system0:     0
+> +drm-resident-system0:   6044 KiB
+> +drm-purgeable-system0:  1688 KiB
+> +drm-total-stolen-system0:       0
+> +drm-shared-stolen-system0:      0
+> +drm-active-stolen-system0:      0
+> +drm-resident-stolen-system0:    0
+> +drm-purgeable-stolen-system0:   0
+> +drm-engine-render:      346249 ns
+> +drm-engine-copy:        0 ns
+> +drm-engine-video:       0 ns
+> +drm-engine-capacity-video:      2
+> +drm-engine-video-enhance:       0 ns
+> +.EE
+> +.TP
+> +.IR drm-driver: " .+  (mandatory)"
+> +The name this driver registered.
+> +.TP
+> +.IR drm-pdev: " <aaaa:bb:cc.d>"
+> +For PCI devices this should contain the PCI slot address of the device
+> +in question.
+> +.TP
+> +.IR drm-client-id: " [0-9]+"
+> +Unique value relating to the open DRM file descriptor used to
+> +distinguish duplicated and shared file descriptors.
+> +.P
+> +GPUs usually contain multiple execution engines. Each shall be given a
+> +stable and unique name (<engine_name>), with possible values
+> +documented in the driver specific documentation.
+> +.TP
+> +.IR drm-engine-<engine_name>: " [0-9]+ ns"
+> +GPU engine utilization, time spent busy executing workloads for this cli=
+ent.
+[...]
 
-`IR` is better used with two or more arguments.
+In my opinion the use of <bracketed_notation> like that is not idiomatic
+in man pages.  (We sometimes see it anyway, because for a long time
+"rock star programmers" have treated the neglect of man page idioms as a
+competitive sport.[1])
 
-As of groff 1.23 (July 2023), the man(7) package will warn you about
-problem like this if you ask it to.
+Also the mixture of regex notation with <bracketed_notation> is a little
+bewildering (again, my opinion).
 
-$ nroff -man -rCHECKSTYLE=3D1 /tmp/proc_pid_fdinfo_mini.5
-an.tmac:/tmp/proc_pid_fdinfo_mini.5:7: style: .IR expects at least 2 argume=
-nts, got 1
-proc_pid_fdinfo_mini(5)       File Formats Manual      proc_pid_fdinfo_mini=
-(5)
+I would recast these to use bold for the literal bits, italics for the
+variable parts, roman for nonliteral syntax, and, for this page, lean
+completely into the use of EREs.
 
-Name
-       /proc/pid/fdinfo - information about file descriptors
+groff_man_style(7) offers suggestions:
 
-Description
-       Text text text text.  One pid to rule them all and in the darkness b=
-ind
-       them.
-
-example                           2024=E2=80=9011=E2=80=9002           proc=
-_pid_fdinfo_mini(5)
-
-I think Alex has a make(1) target that assists with running groff this
-way.
-
-groff_man(7):
    Font style macros
-     ... It is often necessary to set
-     text in different styles without intervening space.  The macros
-     .BI, .BR, .IB, .IR, .RB, and .RI, where =E2=80=9CB=E2=80=9D, =E2=80=9C=
-I=E2=80=9D, and =E2=80=9CR=E2=80=9D
-     indicate bold, italic, and roman, respectively, set their odd=E2=80=90
-     and even=E2=80=90numbered arguments in alternating styles, with no spa=
-ce
-     separating them.
+=2E..
+              Use bold for literal portions of syntax synopses, for
+              command=E2=80=90line options in running text, and for literals
+              that are major topics of the subject under discussion; for
+              example, this page uses bold for macro, string, and
+              register names.  In an .EX/.EE example of interactive I/O
+              (such as a shell session), set only user input in bold.
+=2E..
+              Use italics for file and path names, for environment
+              variables, for C data types, for enumeration or
+              preprocessor constants in C, for variant (user=E2=80=90
+              replaceable) portions of syntax synopses, for the first
+              occurrence (only) of a technical concept being introduced,
+              for names of journals and of literary works longer than an
+              article, and anywhere a parameter requiring replacement by
+              the user is encountered.  An exception involves variant
+              text in a context already typeset in italics, such as file
+              or path names with replaceable components; in such cases,
+              follow the convention of mathematical typography: set the
+              file or path name in italics as usual but use roman for
+              the variant part (see .IR and .RI below), and italics
+              again in running roman text when referring to the variant
+              material.
+=2E..
+       Observe what is not prescribed for setting in bold or italics
+       above: elements of =E2=80=9Csynopsis language=E2=80=9D such as ellip=
+ses and
+       brackets around options; proper names and adjectives; titles of
+       anything other than major works of literature; identifiers for
+       standards documents or technical reports such as CSTR #54,
+       RFC 1918, Unicode 13.0, or POSIX.1=E2=80=902017; acronyms; and
+       occurrences after the first of a technical term.
 
-One reason to pay close attention to this point is that
+So I might write these more like the following.
 
-=2EIR foo bar
+=2EP
+We use extended regular expressions to represent the expected parameter
+values;
+see
+=2EBR regex (7). \" `BR` for Linux man-pages documents only
+=2ETP
+=2EBR drm\-driver: " .+"\c
+=2EI " (mandatory)"
+The name this driver registered.
+=2ETP
+=2EBR drm\-pdev: " [0-9A-F]{4}:[0-9A-F]{2}:[0-9A-F]{2}.[0-9A-F]"
+For PCI devices this should contain the PCI slot address of the device
+in question.
+=2ETP
+=2EBR drm\-client\-id: " [0-9]+"
+Unique value relating to the open DRM file descriptor used to
+distinguish duplicated and shared file descriptors.
+=2EP
+GPUs usually contain multiple execution engines.
+Each shall be given a
+stable and unique
+=2EIR engine-name ,
+with possible values documented in driver-specific documentation.
+=2ETP
+=2EBI drm\-engine\- engine-name :\c
+\& [0-9]+ ns
+GPU engine utilization:
+time spent busy executing workloads for this client.
 
-formats as "foobar" (with "foo" in italics), whereas
-
-=2EI foo bar
-
-formats as "foo bar", with both words in italics.
-
-The different handling of the space is a common manifestation of error.
+I also (1) used the `\c` escape sequence to fit three different font
+styles into a paragraph tag; and (2) escaped literal hyphens.
 
 Regards,
 Branden
 
---5pnc5f5hp5bdfe73
+[1] I give you the Worst Man Page in the World.
+
+    https://gitlab.com/procps-ng/procps/blob/7ac9a0e1f5606696dc799b773d5ec7=
+0183ca91a3/ps/ps.1
+
+    Fortunately the procps-ng maintainers eventually rewrote it.
+
+--554cw2lezzhi6vpu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmcl/DAACgkQ0Z6cfXEm
-bc6BNg//Z3bHTZ3wx1TbS0lEh0b8tKloBfFBMkOkYm/YtDcADzujhdVn/gI2YeX/
-M440Gik5t3w8nEE27yCZJdAE6lbho9KzT7W36m6FIX0ZxvU5FfUetJz0+DfeZ9jc
-mKuqdqSriHk6C2QIekNAWLUvxpOzy9fg9iIiUNbMGzKi+v3b+b1yYCfWND80fx07
-7G1/8XNrV2bpoLj+5fbFkO7vgO6aFdXOIgQHjV2LmPSgQv7yF+Dq8265m2u/dnXn
-0bPxX/V118CPYqYB04rQ5BS+4r+BPBiAJo9r544jj3iqSL/Yr/7dpSU3b50YCJpT
-uLs+1ZiUV4whb8dbJiDnqbHipnREQtCrK4DS92Bgg+n+sSdslnJIu2oZqYrkDNPi
-uAvp4RBUuQbd2gz+T68fE9Fc3zFpCqLtk7GWxyVvRPj2rd6gqVbkW7cB+YLylxQs
-DqoUIFJXPkjTclto/5RrWcXviC0yqEHjuD19t1hdYYy1ETDVuLwgPH+O5d/MgWMV
-0aYCPfKiG4brg9HUI0kbxfnewSlkncqPsrWWDH3dMV+fY0OcWQpnA1OmDgSQPm6x
-iKjYEqYIJiMmr3tWn9I6sU0F+6foe4wfLluNHKOzdNi2o0732uJtZwYCxrg57Hdh
-uBd/5EI67WCnK7KYns0av+fzV3cqGRFDm/LpY5VH3lApDUHQFYQ=
-=N03W
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmcmAScACgkQ0Z6cfXEm
+bc6FyhAArhPCoDcGbr4qZXkTeFtQzbsVWT+LAgQPsbzDSRulHcOyRYqiosrjGVDo
+sooTFzFrPusklFvLAeG4KQIeHgPRF9b2HgEXQcbUS2e6fy4p1qa/9bSlsazl1cPw
+v99bJgnvKSjVWxLCslb9o0mSGeemiusTwb8ncC4ZVVqjKsLNHlRQ4bQ4+vG4PyeM
+jX07pv3yEybOY4yaEvmFj/aBOWbY6CSJCQ+xQYtyYKcJ7ywXHpxh0uqHxsc5EGk9
+VRA/0b7VT88E1BeB2TTZtjb9NWRVX49JrZCtJFLllzCOn4+LtwrGL5mWQyLV0BaZ
+dWP1QhejnaL/F+UeAmKNdTXIucecvzNlp00iggWYfwxPEJCiFFC7tzgML78ypI77
+N7j/NJdluMGivipgQtPIdIAfyEfwq7Qd0P64soJD3lkChX+RbkyNZKhkdQ4ncim5
+JfMf/oj0lTMsiTVQrvUge/Ru48yQgPCaa7eT4DhcUN1pTORWKqTFZN/+Z0UZR7au
+EL1wSR3pVSHOoqPHh31R/xM+W8fuh6Ri+GTJvz0g8Hy4IaWRYhuGr1XWHGrtoKT8
+CBBjYZzKm+Mh+l5ZoccElOaDYAKTXQRSrVRBbyGggM3/H36futr/WgSQycmr05e5
+KGZFv6fTvqxpBXFKiWidvr+tLb5w5ls4V1spZSdEbgbpi7/BM4E=
+=wUZx
 -----END PGP SIGNATURE-----
 
---5pnc5f5hp5bdfe73--
+--554cw2lezzhi6vpu--
 
