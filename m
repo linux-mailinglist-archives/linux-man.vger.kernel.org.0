@@ -1,54 +1,58 @@
-Return-Path: <linux-man+bounces-1839-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1840-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C229BA2FF
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 00:10:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EC779BA302
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 00:17:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 84F9D1C21458
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 23:10:47 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 57ADA1C21854
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 23:17:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8A1D170A30;
-	Sat,  2 Nov 2024 23:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFC3D18593A;
+	Sat,  2 Nov 2024 23:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QG2w28TQ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXKmzBE8"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9A0158546
-	for <linux-man@vger.kernel.org>; Sat,  2 Nov 2024 23:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE03158DC4
+	for <linux-man@vger.kernel.org>; Sat,  2 Nov 2024 23:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730589044; cv=none; b=pAooCy6N98x7hy35TCpXzQJ5WUvkbjz9kegMkUSySeI3FcC7NEh6mQ1Fl4mQAQdg2MvNY70G1fb65IIPNXFGGOEVZOXjFztu3+NZTpjKJiCGH5HEaZ1Cgn1tWqxyjNr2TmQjKs7UTNojvTzLmjUZX6QDVKUewAiI4U0NeuRl3M0=
+	t=1730589433; cv=none; b=cO/HWio8hxRYkAHhkLdflQrPJpuPRUR6MYuQz55/dQhiujGwzxwzhWoBwYii32Zb7l07a3mi2qCTyMN8/pHBZ61AV7mhO+t9FBZjnJtC8HZ9/mPrIxrfbsthyDrdCvmVeStZ0tYfFeykL07HhaDUwmxLQaZIIuVxO7s6pGa36c0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730589044; c=relaxed/simple;
-	bh=vFYZujIPEWtUNGV2Hm7xLCnu+nNd6WhBO2iLdjrpyeI=;
+	s=arc-20240116; t=1730589433; c=relaxed/simple;
+	bh=kgTwKeALZgC9O7RLUtNuMeQrCJ14Xmm3sdLfxaj75Xs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FIYD/vx4T9Zb+3c92Bvcbki/PmMsjuceNmWEvLV+5DxlBi3upYfr8IoM1KYC3eEfgFfHof1geBuebgm35/CcY5NQXrNACPMoOsEYnH0LuvGhfXzQ28egFEAIsL3kHNM+E1+fgpe+TDaSRGIGU7BI6HuT3AyzH9QSjcnP/6lPZto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QG2w28TQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD183C4CEC3;
-	Sat,  2 Nov 2024 23:10:41 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=eJ3FoPibjftyCy7cbaldfHPuxeHtYegroBkNq1q7f/T3fAe4OHuhX1b6N9D3Tabhl1wx1ydgI3oqqCkWsrBhkE3gXscv/P/a12HD2zeNw+Czt93rcDRSEiijVvWBXGWyhSkX+vtoRxa/NaWxESf3Ne3eHgBwKdpXFfF1a5Ljrog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXKmzBE8; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE45EC4CEC3;
+	Sat,  2 Nov 2024 23:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730589044;
-	bh=vFYZujIPEWtUNGV2Hm7xLCnu+nNd6WhBO2iLdjrpyeI=;
+	s=k20201202; t=1730589433;
+	bh=kgTwKeALZgC9O7RLUtNuMeQrCJ14Xmm3sdLfxaj75Xs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QG2w28TQgkEpQj7tRndbOZrbYi1csinp7j4/jMSLwhVpzpssGfb4onYLcLtwLp8vE
-	 v/oAZ/o660B7hUPyeypk/gMyZ8CY0EGyPtqquaCXAOcBcS0uaHA2yvbq1VbOg4xae5
-	 hmTe1LuPFN/DXYzSCrx2axhuENFmpxf4hUhm5/oeUD6dqnjvSFOU7D82J2vARdgpPA
-	 aNDvkX9lPRyr7F9pnGvAh3m49eP3dc+pE84HkD1bBknQJaV1TyinpiZx1mgC0Vo0He
-	 ivN7QKCH05I4D2s4JhiUr2Nk/bK4s3uEgmWL6jQClBdNnHFBbEygoV04LhWPXrMOSv
-	 2Ay+R9Cr21Vjg==
-Date: Sun, 3 Nov 2024 00:10:39 +0100
+	b=FXKmzBE8r87UDUyrDLgFMwwB94vaTYrO4AWOyzcSZ66w4DV8GyaMy+/OflntKuesS
+	 ZIfFSs7qk61SbB09tL+yc+wlf5XiAV62MqeirndbZvcfT2Iv3fZL2bKzmFo0r0n5uz
+	 PkhiOlzN15uFutCIJeZ6fBFE7156Vo2EPjvEHoWy0FeSnOnk8x12wjecuUhsb5acpt
+	 I0wszjJVEj4qQq3v1Wt43fkQurb3zB4YoyCbg/n/t3MbrvuTQl5CV57qzxdhtFFdcs
+	 o7nNSpg3meDovIWyZzBSDqRHHVavD03QNB5Ymgavx54JnlDOCvEgUdW0k9ea91mPP3
+	 rNv/DlUXmNqEA==
+Date: Sun, 3 Nov 2024 00:17:08 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, branden@debian.org, cjwatson@debian.org
-Cc: groff@gnu.org, Alejandro Colomar <alx@kernel.org>
-Subject: [PATCH 3/3] scripts/bash_aliases: man_section(), man_lsfunc(),
- man_lsvar(): Use mansect(1)
-Message-ID: <d79336b4d236f9b27ca0a56f5e98abc5f4d3d5ab.1730588410.git.alx@kernel.org>
-References: <cover.1730588410.git.alx@kernel.org>
+To: linux-man@vger.kernel.org, branden@debian.org, cjwatson@debian.org,
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>,
+	Jiri Olsa <jolsa@kernel.org>
+Cc: groff@gnu.org
+Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
+ the features
+Message-ID: <20241102231150.tjhrq6ugdjr2jri3@devuan>
+References: <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
+ <cover.1730588410.git.alx@kernel.org>
+ <20241102231018.18979-1-alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,121 +60,125 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g0JHlVw8Afd5ZzTT"
+	protocol="application/pgp-signature"; boundary="sr3x27kokorwmhqo"
 Content-Disposition: inline
-In-Reply-To: <cover.1730588410.git.alx@kernel.org>
-X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20241102231018.18979-1-alx@kernel.org>
 
 
---g0JHlVw8Afd5ZzTT
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--sr3x27kokorwmhqo
+Content-Type: multipart/signed; protected-headers=v1; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="joi74y32ju7ceqr2"
+Content-Disposition: inline
+Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
+ the features
+MIME-Version: 1.0
+
+
+--joi74y32ju7ceqr2
+Content-Type: multipart/signed; protected-headers=v1; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ilvqxv3ug4ooctsq"
+Content-Disposition: inline
+Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
+ the features
+MIME-Version: 1.0
+
+
+--ilvqxv3ug4ooctsq
+Content-Type: text/plain; charset=utf-8; protected-headers=v1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 3 Nov 2024 00:10:39 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, branden@debian.org, cjwatson@debian.org
-Cc: groff@gnu.org, Alejandro Colomar <alx@kernel.org>
-Subject: [PATCH 3/3] scripts/bash_aliases: man_section(), man_lsfunc(),
- man_lsvar(): Use mansect(1)
+Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
+ the features
+MIME-Version: 1.0
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- scripts/bash_aliases | 38 ++++++--------------------------------
- 1 file changed, 6 insertions(+), 32 deletions(-)
+Oops, this was sent by accident.  :)
 
-diff --git a/scripts/bash_aliases b/scripts/bash_aliases
-index e461707c8..0b0b5e08a 100644
---- a/scripts/bash_aliases
-+++ b/scripts/bash_aliases
-@@ -40,35 +40,13 @@ sed_rm_ccomments()
-=20
- #  man_section()  prints specific manual page sections (DESCRIPTION, SYNOP=
-SIS,
- # ...) of all manual pages in a directory (or in a single manual page file=
-).
--# Usage example:  .../man-pages$ man_section man2 SYNOPSIS 'SEE ALSO';
-+# Usage example:  .../man-pages$ man_section '\(SYNOPSIS\|SEE ALSO\)' man2=
-/;
-=20
- man_section()
- {
--	if [ $# -lt 2 ]; then
--		>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>...";
--		return $EX_USAGE;
--	fi
--
--	local page=3D"$1";
--	shift;
--	local sect=3D"$*";
--
--	find "$page" -type f \
--	|xargs wc -l \
--	|grep -v -e '\b1 ' -e '\btotal\b' \
--	|awk '{ print $2 }' \
--	|sort \
--	|while read -r manpage; do
--		(sed -n '/^\.TH/,/^\.SH/{/^\.SH/!p}' <"$manpage";
--		 for s in $sect; do
--			<"$manpage" \
--			sed -n \
--				-e "/^\.SH $s/p" \
--				-e "/^\.SH $s/,/^\.SH/{/^\.SH/!p}";
--		 done;) \
--		|mandoc -Tutf8 2>/dev/null \
--		|col -pbx;
--	done;
-+	mansect "$@" \
-+	| mandoc -Tutf8 2>/dev/null \
-+	| col -pbx;
- }
-=20
- #  man_lsfunc()  prints the name of all C functions declared in the SYNOPS=
-IS
-@@ -83,9 +61,7 @@ man_lsfunc()
- 		return $EX_USAGE;
- 	fi
-=20
--	for arg in "$@"; do
--		man_section "$arg" 'SYNOPSIS';
--	done \
-+	man_section 'SYNOPSIS' "$@";
- 	|sed_rm_ccomments \
- 	|pcregrep -Mn '(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]*?(...)?\s*\); *$' \
- 	|grep '^[0-9]' \
-@@ -106,9 +82,7 @@ man_lsvar()
- 		return $EX_USAGE;
- 	fi
-=20
--	for arg in "$@"; do
--		man_section "$arg" 'SYNOPSIS';
--	done \
-+	man_section 'SYNOPSIS' "$@";
- 	|sed_rm_ccomments \
- 	|pcregrep -Mv '(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]+?(...)?\s*\); *$' \
- 	|pcregrep -Mn \
+On Sun, Nov 03, 2024 at 12:10:18AM +0100, Alejandro Colomar wrote:
+> Link: <https://lwn.net/Articles/989380/>
+> Cc: Jiri Olsa <jolsa@kernel.org>
+> Cc: G=C3=BCnther Noack <gnoack@google.com>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>=20
+> [offlist]
+>=20
+> Hi G=C3=BCnther, Jiri,
+>=20
+> I've prepared a draft of this contributing process that we talked about.
+> I won't officially post it until the other situation (sponsoring) is
+> resolved, but we can discuss it in private if you want.
+>=20
+>=20
+> Have a lovely night!
+> Alex
+>=20
+>  CONTRIBUTING.d/patches | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>=20
+> diff --git a/CONTRIBUTING.d/patches b/CONTRIBUTING.d/patches
+> index fedb163d3..0562ded66 100644
+> --- a/CONTRIBUTING.d/patches
+> +++ b/CONTRIBUTING.d/patches
+> @@ -131,6 +131,26 @@ Description
+>         to the list.  See also <CONTRIBUTING.d/git> for instructions for
+>         configuring git-send-email(1) to use neomutt(1) as a driver.
+> =20
+> +   New kernel/libc features
+> +       If you write a new kernel or libc feature, you should document it
+> +       in the same patch set that adds the feature, including any
+> +       patches to the manual pages.  The entire patch set consisting of
+> +       both the feature and its manual page should be sent to all
+> +       recipients for a better review process.  That can be done with
+> +       the following procedure:
+> +
+> +       1)  Generate the kernel or libc patch set, with a cover letter,
+> +           and using --thread in git-format-patch(1) (as specified in
+> +           our ./CONTRIBUTING.d/git).  This will generate a Message-ID
+> +           header field in the cover letter.
+> +
+> +       2)  Generate the man-pages patch set using
+> +           --in-reply-to=3D"<message-id>", where <message-id> is the val=
+ue
+> +           of the header field of the cover letter.
+> +
+> +       3)  Send first the kernel/libc patch set, and then the man-pages
+> +           one, so that they have a consistent order.
+> +
+>  See also
+>         CONTRIBUTING
+>         CONTRIBUTING.d/*
+> --=20
+> 2.39.2
+>=20
+
+
+
 --=20
-2.39.5
+<https://www.alejandro-colomar.es/>
 
+--ilvqxv3ug4ooctsq--
 
---g0JHlVw8Afd5ZzTT
+--joi74y32ju7ceqr2--
+
+--sr3x27kokorwmhqo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmsW8ACgkQnowa+77/
-2zKx7RAAk9cc0vL8HCncqigaaIAbWcVCber9CHyOCPImsn+2dOW3d1hM+fV0nkiV
-gL268txgjonZgqwxBRudACf3vW+vRzLFpJEuern51swosc66OjW89RfO6K+zvWa8
-GdqW4zKMCQ8XCyHONM18vhG/4z76Yh6z80nlIAwytFwVbQeIUnX6p19A+FjLjPY+
-v79X8cKL+h1fqDt/P8xCFWOtWHgCpzsbcGABt5Mouj1C7utuNzpQWcVSY0F94Vrl
-4U/knCU0Tu3WM2S48CvGvi/kBXgfJywhOk2rxgFYqo/2ZDXe6U98rqbZvFYKKzLD
-Bc6+ru/DcsLVsM3Fp0YFVOn4Zum0wLjebnDP/7xYBsWjP99828CC2erF5XdAd1+0
-mb2MQ3QI/dor7hnqvhrgAho7N2IjqOyGU5YU6k9mQpyFg31fGfEo2+o5PoBHx9Po
-vDosoJtAviFzjS63t9wmZq6UrgaInC2n3Y41DpCXV07V2UhEOJa0CQc1qVI2M45Q
-twlZWGlRAm9tEM6YjHotHPR+LAvwtNLy62g++XnAAM+tDun5C41+t8qrkQIMvdC9
-e3TRxuhgI2veDTavwnt671p+TyUDBToIgVPyZPlcdC3hCXxfCnSQmlZlO5areBxg
-Oop10cKzp1STIoTgu4FvkqpSLLCEMAhEXFIPVsk2zBozpNcKY74=
-=2tpL
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmsvMACgkQnowa+77/
+2zI5FBAAiOcBgPePLqDI1vybwnr1qknAMbmxXft2dZK7E/Dioy4q2SpwLzXLB+2C
+fGM4UtujD33u5p+2vV5ZwRthUQjaSn4/zxFtiCLgSyx2jqLeqgVgcLaLY+xnPqqj
+q37G3flPs+nAGGMRRD49s0h6rrZv0lP0MUsyTv7XC2s/GLk0DVjkvtvSL8wlUdRt
+udYmJMo3ee0R6hJMomiA6CqlVBkZB1t1Bzbh9e/eJIhGTrotvd5RgRanm6eaVt/A
+tLtpWDDmJWQ27ZQK/TlTYXheNhdoLbll86VMWlZalMV1G60h/6FJDun89BkiTFW3
+GSUDbO2V94rGr9Moiv7L4pt1meDN8NPZi8ARWIY96pfFmFtteMSOPecnBgWqZphe
+44pLUm1bGlwB/4GrDAR81yXYJ3DUbfgzO6RXTJJGntaZuZg02rIslvrRZnj5qWK3
+QotejvzsK32yj0b4gX/ARL+HrfXvWJPpp4KTJKkep+CBXOqYQ5g/19v+C90dACVk
+rK1UlOAKTSx0f0YUe1agKp1hWHAKmSJ4odnMN1iiL+ys4b45PDDmBAIQJFHyd6Zn
+rHj6iIS2Nx7eBUzXwcb/6+5thhBLc07/k8tjXIhV4rMu3gJhkAqCcWsOCtmE3XbE
+6syYrn9Ghbt5UvnvGLHYGei9co7EwViXNDW41i9a0aNKRc11e7M=
+=j5r4
 -----END PGP SIGNATURE-----
 
---g0JHlVw8Afd5ZzTT--
+--sr3x27kokorwmhqo--
 
