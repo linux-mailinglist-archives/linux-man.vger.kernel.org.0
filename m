@@ -1,58 +1,54 @@
-Return-Path: <linux-man+bounces-1840-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1841-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EC779BA302
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 00:17:21 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FF7F9BA303
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 00:17:22 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 57ADA1C21854
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 23:17:20 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3AE201F226CD
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 23:17:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFC3D18593A;
-	Sat,  2 Nov 2024 23:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D21731ABEB4;
+	Sat,  2 Nov 2024 23:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXKmzBE8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sZ6C7VSD"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE03158DC4
-	for <linux-man@vger.kernel.org>; Sat,  2 Nov 2024 23:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3F21A0B07
+	for <linux-man@vger.kernel.org>; Sat,  2 Nov 2024 23:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730589433; cv=none; b=cO/HWio8hxRYkAHhkLdflQrPJpuPRUR6MYuQz55/dQhiujGwzxwzhWoBwYii32Zb7l07a3mi2qCTyMN8/pHBZ61AV7mhO+t9FBZjnJtC8HZ9/mPrIxrfbsthyDrdCvmVeStZ0tYfFeykL07HhaDUwmxLQaZIIuVxO7s6pGa36c0=
+	t=1730589440; cv=none; b=i8A99AJ/l8Ht/VWvqyifcKqN+KqYLBbKq9CQlwq9Ebs+wKhMzH/5ynQWGA4K/aWmg1bktQNjMAof6eGzPOeZ/2/9P9b6bYbK7iffXdxEw2y3x7SP8anLDaWxhG0Yu4JismK+3pXHWNAiEww9xMChqfT14M67P7UWFC1u6SYe5oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730589433; c=relaxed/simple;
-	bh=kgTwKeALZgC9O7RLUtNuMeQrCJ14Xmm3sdLfxaj75Xs=;
+	s=arc-20240116; t=1730589440; c=relaxed/simple;
+	bh=hTyfzq3h++vfnaQa4XStlfUnRyrWWP6chCjj3vJ0jqE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eJ3FoPibjftyCy7cbaldfHPuxeHtYegroBkNq1q7f/T3fAe4OHuhX1b6N9D3Tabhl1wx1ydgI3oqqCkWsrBhkE3gXscv/P/a12HD2zeNw+Czt93rcDRSEiijVvWBXGWyhSkX+vtoRxa/NaWxESf3Ne3eHgBwKdpXFfF1a5Ljrog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXKmzBE8; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE45EC4CEC3;
-	Sat,  2 Nov 2024 23:17:10 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=TZN2BTKEAeNzvSsjvRKZaA1EAyvxLW0kFUqs4vnuJSJcQb5Q9Uo/CBqXr4tS02gSTCB7T4OL8KMfk0AEPmRLWQiZ4EX1Mz2hgifMRtpm5Mb+CUXk9073cJyEM8gVYamV3edOKQrCFsILlQl/3PWr9DiOViwku0MCwJ77tb4tAus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sZ6C7VSD; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1EBC4CEC3;
+	Sat,  2 Nov 2024 23:17:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730589433;
-	bh=kgTwKeALZgC9O7RLUtNuMeQrCJ14Xmm3sdLfxaj75Xs=;
+	s=k20201202; t=1730589440;
+	bh=hTyfzq3h++vfnaQa4XStlfUnRyrWWP6chCjj3vJ0jqE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FXKmzBE8r87UDUyrDLgFMwwB94vaTYrO4AWOyzcSZ66w4DV8GyaMy+/OflntKuesS
-	 ZIfFSs7qk61SbB09tL+yc+wlf5XiAV62MqeirndbZvcfT2Iv3fZL2bKzmFo0r0n5uz
-	 PkhiOlzN15uFutCIJeZ6fBFE7156Vo2EPjvEHoWy0FeSnOnk8x12wjecuUhsb5acpt
-	 I0wszjJVEj4qQq3v1Wt43fkQurb3zB4YoyCbg/n/t3MbrvuTQl5CV57qzxdhtFFdcs
-	 o7nNSpg3meDovIWyZzBSDqRHHVavD03QNB5Ymgavx54JnlDOCvEgUdW0k9ea91mPP3
-	 rNv/DlUXmNqEA==
-Date: Sun, 3 Nov 2024 00:17:08 +0100
+	b=sZ6C7VSDCGB7yRhB3svKYfdrFT5VznWNeDzCIaUQE7PpHz8OoZrqGW0wfeMoaNzf/
+	 1WklcA22mOuAcaa+U0Q5rx6gLBcRsjvGZ9qJvXhvzjky7DZxy1nKsDjIleB91qSNXh
+	 emyjc68qyFt6EzHWz/nITlSb+hprnFsu4ylClBmN1uiH8K/Z/lDbxnBr8WBGJhM2E7
+	 ITcaD5SeX9ibNo3A8ECBLekii8vtZ4R9gCecpXRYhm6X67l+5p/kLo0BQW25s2BEVS
+	 I1uIb8qo5Ezkghai8qnXH3wNb5bGb+DNHf+aQqw2e1ICbfECc4NuokodRL/2A7Tk0B
+	 3W0IBCU2i0A1g==
+Date: Sun, 3 Nov 2024 00:17:13 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, branden@debian.org, cjwatson@debian.org,
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>,
-	Jiri Olsa <jolsa@kernel.org>
-Cc: groff@gnu.org
-Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
- the features
-Message-ID: <20241102231150.tjhrq6ugdjr2jri3@devuan>
-References: <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
- <cover.1730588410.git.alx@kernel.org>
- <20241102231018.18979-1-alx@kernel.org>
+To: linux-man@vger.kernel.org, branden@debian.org, cjwatson@debian.org
+Cc: groff@gnu.org, Vincent Lefevre <vincent@vinc17.net>
+Subject: Re: [PATCH 1/3] signal.7: Better description for SIGFPE
+Message-ID: <20241102231310.xy5yjoaszto3gwtw@devuan>
+References: <cover.1730588410.git.alx@kernel.org>
+ <d6c757da60206c8b3dc095d3194da2b3eb8fa42d.1730588410.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,95 +56,63 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sr3x27kokorwmhqo"
+	protocol="application/pgp-signature"; boundary="mc2wzekfa7l3qxky"
 Content-Disposition: inline
-In-Reply-To: <20241102231018.18979-1-alx@kernel.org>
+In-Reply-To: <d6c757da60206c8b3dc095d3194da2b3eb8fa42d.1730588410.git.alx@kernel.org>
 
 
---sr3x27kokorwmhqo
+--mc2wzekfa7l3qxky
 Content-Type: multipart/signed; protected-headers=v1; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="joi74y32ju7ceqr2"
+	protocol="application/pgp-signature"; boundary="5pzikd4denappodn"
 Content-Disposition: inline
-Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
- the features
+Subject: Re: [PATCH 1/3] signal.7: Better description for SIGFPE
 MIME-Version: 1.0
 
 
---joi74y32ju7ceqr2
-Content-Type: multipart/signed; protected-headers=v1; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ilvqxv3ug4ooctsq"
-Content-Disposition: inline
-Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
- the features
-MIME-Version: 1.0
-
-
---ilvqxv3ug4ooctsq
-Content-Type: text/plain; charset=utf-8; protected-headers=v1
+--5pzikd4denappodn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] CONTRIBUTING.d/patches: Document new features alongside
- the features
+Subject: Re: [PATCH 1/3] signal.7: Better description for SIGFPE
 MIME-Version: 1.0
 
-Oops, this was sent by accident.  :)
+Oops, this was sent by accident.
 
-On Sun, Nov 03, 2024 at 12:10:18AM +0100, Alejandro Colomar wrote:
-> Link: <https://lwn.net/Articles/989380/>
-> Cc: Jiri Olsa <jolsa@kernel.org>
-> Cc: G=C3=BCnther Noack <gnoack@google.com>
+On Sun, Nov 03, 2024 at 12:10:27AM +0100, Alejandro Colomar wrote:
+> From: Vincent Lefevre <vincent@vinc17.net>
+>=20
+> SIGFPE has comment "Floating-point exception", which corresponds to
+> the FPE acronym.  But this is misleading as this signal may also be
+> generated by an integer division by 0.
+>=20
+> Change it to "Erroneous arithmetic operation" from POSIX.
+> Note: the GNU C Library manual says "fatal arithmetic error".
+>=20
+> Link: <https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/signal.h=
+=2Ehtml>
+> Link: <https://www.gnu.org/software/libc/manual/html_node/Program-Error-S=
+ignals.html>
+> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
 > Signed-off-by: Alejandro Colomar <alx@kernel.org>
 > ---
+>  man/man7/signal.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> [offlist]
->=20
-> Hi G=C3=BCnther, Jiri,
->=20
-> I've prepared a draft of this contributing process that we talked about.
-> I won't officially post it until the other situation (sponsoring) is
-> resolved, but we can discuss it in private if you want.
->=20
->=20
-> Have a lovely night!
-> Alex
->=20
->  CONTRIBUTING.d/patches | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->=20
-> diff --git a/CONTRIBUTING.d/patches b/CONTRIBUTING.d/patches
-> index fedb163d3..0562ded66 100644
-> --- a/CONTRIBUTING.d/patches
-> +++ b/CONTRIBUTING.d/patches
-> @@ -131,6 +131,26 @@ Description
->         to the list.  See also <CONTRIBUTING.d/git> for instructions for
->         configuring git-send-email(1) to use neomutt(1) as a driver.
-> =20
-> +   New kernel/libc features
-> +       If you write a new kernel or libc feature, you should document it
-> +       in the same patch set that adds the feature, including any
-> +       patches to the manual pages.  The entire patch set consisting of
-> +       both the feature and its manual page should be sent to all
-> +       recipients for a better review process.  That can be done with
-> +       the following procedure:
-> +
-> +       1)  Generate the kernel or libc patch set, with a cover letter,
-> +           and using --thread in git-format-patch(1) (as specified in
-> +           our ./CONTRIBUTING.d/git).  This will generate a Message-ID
-> +           header field in the cover letter.
-> +
-> +       2)  Generate the man-pages patch set using
-> +           --in-reply-to=3D"<message-id>", where <message-id> is the val=
-ue
-> +           of the header field of the cover letter.
-> +
-> +       3)  Send first the kernel/libc patch set, and then the man-pages
-> +           one, so that they have a consistent order.
-> +
->  See also
->         CONTRIBUTING
->         CONTRIBUTING.d/*
+> diff --git a/man/man7/signal.7 b/man/man7/signal.7
+> index 7a9e91cc7..d19f171b3 100644
+> --- a/man/man7/signal.7
+> +++ b/man/man7/signal.7
+> @@ -373,7 +373,7 @@ .SS Standard signals
+>  SIGCLD	\-	Ign	A synonym for \fBSIGCHLD\fP
+>  SIGCONT	P1990	Cont	Continue if stopped
+>  SIGEMT	\-	Term	Emulator trap
+> -SIGFPE	P1990	Core	Floating-point exception
+> +SIGFPE	P1990	Core	Erroneous arithmetic operation
+>  SIGHUP	P1990	Term	Hangup detected on controlling terminal
+>  			or death of controlling process
+>  SIGILL	P1990	Core	Illegal Instruction
 > --=20
-> 2.39.2
+> 2.39.5
 >=20
 
 
@@ -156,29 +120,27 @@ ue
 --=20
 <https://www.alejandro-colomar.es/>
 
---ilvqxv3ug4ooctsq--
+--5pzikd4denappodn--
 
---joi74y32ju7ceqr2--
-
---sr3x27kokorwmhqo
+--mc2wzekfa7l3qxky
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmsvMACgkQnowa+77/
-2zI5FBAAiOcBgPePLqDI1vybwnr1qknAMbmxXft2dZK7E/Dioy4q2SpwLzXLB+2C
-fGM4UtujD33u5p+2vV5ZwRthUQjaSn4/zxFtiCLgSyx2jqLeqgVgcLaLY+xnPqqj
-q37G3flPs+nAGGMRRD49s0h6rrZv0lP0MUsyTv7XC2s/GLk0DVjkvtvSL8wlUdRt
-udYmJMo3ee0R6hJMomiA6CqlVBkZB1t1Bzbh9e/eJIhGTrotvd5RgRanm6eaVt/A
-tLtpWDDmJWQ27ZQK/TlTYXheNhdoLbll86VMWlZalMV1G60h/6FJDun89BkiTFW3
-GSUDbO2V94rGr9Moiv7L4pt1meDN8NPZi8ARWIY96pfFmFtteMSOPecnBgWqZphe
-44pLUm1bGlwB/4GrDAR81yXYJ3DUbfgzO6RXTJJGntaZuZg02rIslvrRZnj5qWK3
-QotejvzsK32yj0b4gX/ARL+HrfXvWJPpp4KTJKkep+CBXOqYQ5g/19v+C90dACVk
-rK1UlOAKTSx0f0YUe1agKp1hWHAKmSJ4odnMN1iiL+ys4b45PDDmBAIQJFHyd6Zn
-rHj6iIS2Nx7eBUzXwcb/6+5thhBLc07/k8tjXIhV4rMu3gJhkAqCcWsOCtmE3XbE
-6syYrn9Ghbt5UvnvGLHYGei9co7EwViXNDW41i9a0aNKRc11e7M=
-=j5r4
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmsvkACgkQnowa+77/
+2zJe7xAAlGbbrE/e9rnTrvjroGNZ9x6YosSE4WalIHH1ZrgzepziG9c5Mkj9t3Gq
+scajvvsKyDXaeU1SSCV3GI5yZR8dOzkVfk8JkbEUwMhu0NJiZ2t6xRLIXIzMf/PL
+k/2rPwBhBGVGFxsZhBgOhgMOR1n0A17Dy6srBu91fzwE7pj1Fx7Onk4lfHmIZopf
+R4TFxdkrM0BV6u/7882+g2zWxCY4vKtC4D4sY6OWTYKSQ7F9QgpXCmsRYLpNA07K
+jm0QsViPuHbdGrqcse/QBxC208WSHy1tdNNor4QP4xGYUK64rCkfPChsg+tTd5WB
+aFP+GnPXx906A/DM5RdHEKN+N9BtLkUXjVPmL9p6JImnGsnW/gUKxg5ZTelZ8Qrc
+z5YHyfEzlIt851sD9KxbQ17JCiJSp+zJWNwzqS4tGQ/qt6mfBGlRTQmBtW+p86XA
+PZZRGJ8mh0usuAbFl2obmR1P7ljIQNQAfA9Fy2sVyn++BoAiMgbjBD0gZCoWTMWA
+hyStFxcAJ411Hf+bFVPytID7tdVAQzglzyuF27VFG6qcIxBeRq4lSjMlX+FYQMQN
+Ql4pA18PUagcgsyDNhUbfZp87NduIP891lwhaN46YwSnF9IzzyB21emgjxJk91mU
+8vIoUIdDV5YMD/sQX1xd6QxDKQ8zNHqSCWjvQ9GKZM1I3dxJ2fo=
+=sP1X
 -----END PGP SIGNATURE-----
 
---sr3x27kokorwmhqo--
+--mc2wzekfa7l3qxky--
 
