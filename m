@@ -1,265 +1,465 @@
-Return-Path: <linux-man+bounces-1831-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1832-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7019B9EEE
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 11:38:50 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6F99B9EF8
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 11:40:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9A0D6282BA4
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 10:38:49 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id F0723B20CAF
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 10:40:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D33F16F8E9;
-	Sat,  2 Nov 2024 10:38:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FCED170822;
+	Sat,  2 Nov 2024 10:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l/6VNM6J"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7Hj9kQV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BEF92E40E;
-	Sat,  2 Nov 2024 10:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2398C2FC52;
+	Sat,  2 Nov 2024 10:40:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730543925; cv=none; b=MNUQ9p0fB7atSHC6sehp4qFlJH53sLOFdZWEX/brAUCY1VmNnKM17IwVmAmHaVXa1Hp63j9Lnnf1WFrov7BNHfy34i+/HtJEMlI/2YJBnjoZY35L+0YzbbjwWMBy6LHteX0v40dSetl1NnrwXVX+qEFN41y1S+OPHfgsjzsIal0=
+	t=1730544014; cv=none; b=QU8CaUVwu0CDHX//Wds3eXM7kxUZtvhMIo6RDkAhf7eDaOGf1lNWq6K2zxwMhpwXmlOuDZYLn/E3uQpL5NqXxc0ccf7mK7J0XkpQXEMVDFQ9Ayfg4fnus3YyqhGhvZLYG4S3O2Cx6Bgjvn4427TeLnY3tIX1LrxRnArKIO8g7WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730543925; c=relaxed/simple;
-	bh=BQwJJ/cANGiQk+8X5Fbd38HuiSZSJSpJGS/bhmW7yBw=;
+	s=arc-20240116; t=1730544014; c=relaxed/simple;
+	bh=G8vSms3QEx81BYdaYQQ8p7yFlT3/ZisDZT7QefotGeA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dmjP3K2JtakRkmHv8qW8UaRrdJ3HhPi6mvH9hp4AKcUffG4XcLt2nDdNoQB+ZsctY2lK9SFKNpfMrPtC0PMPOoxTsyfNV8S1gYHgp7rw9XqJG3T8SPwUNOH1sQC+tcH9bs3Gxsc8ifNzuDG3eCFq4I545FmQxHSPK0uyLUD18ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l/6VNM6J; arc=none smtp.client-ip=209.85.167.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-3e5ffbc6acbso1620662b6e.3;
-        Sat, 02 Nov 2024 03:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730543923; x=1731148723; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=k/ZWk9DDmTrPA9Bmswxbiav7q4dUci0lNhwSdMNy9Po=;
-        b=l/6VNM6JlnoE0V4SzhIh84592l/iybCyffynu9Zw2wOrV5PCXp6zX9LGdxC04jjtFe
-         8Bo6jxHQamYmP0fOD8zjGWqq9ez8y7QdBbwyyHjCSsckgbETgsrOEnrv6HfqrsN1q8Ih
-         pNWIobHt6Jm7hEIU+Y/hzDFCN105365dttCBiZsr0lwXWGUS3nVsnXftKYtZWfHbEBAG
-         ORO4ddHiwipKOqMo4f4P7htdblXyWy+OQ1glYsLHTmHYjLfjhpL8mq/dIi6sTei0bmNx
-         yOtlzwwEo38QO9TRHdsgMFjDBgTaOAxJPquFRC+cHz72IGeoo36nT2GAqOY3tdUhRFZp
-         Q1OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730543923; x=1731148723;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k/ZWk9DDmTrPA9Bmswxbiav7q4dUci0lNhwSdMNy9Po=;
-        b=vGNZVCyWJHZVWYw6hGgKRezbcSJFj5xyeNG9v1Fy7Ulz+G6HtN/n/0SyikEKymHfpU
-         pCqDjpFqn88D6gVnWfonVNs6T6dSfAGGRU43IPNsFkrE0NyWRM9OynrjjQM6y9fBDIZm
-         3vc3IoBdWhyHWQ+qW0KHC1vmnGvWv/BOV22wi3F3U3bW0q9XTl2TPDDE7a4R8e7cWoFy
-         Hf/n73aLFurBWcJj20FSDZxZaGRHRlzImQfl28WjL+A9T2OhW8+Bss9B7iKdcvgAg/xs
-         Qkc88FNOXrQzpSxFQ7q1Ph9zfyofgdwbeE76wrrwrI5n/GyrmNymSYyHMJfX7YTrFU2K
-         WHfA==
-X-Forwarded-Encrypted: i=1; AJvYcCV6jnlWOYtS4huT0pAZsBtvzNghGAnK6q2NT87QWlLSOtkEAAvIhDczz9D1hF5swRyZ1ryk2+lh16A=@vger.kernel.org, AJvYcCVCFgcM4bfFDFCBGWbLjhxOzC4IwqHLPSwvrB3cVgma/G6WQKt/cs9GBBV7qH/fYAmVPKixNYJWBeBXw8xJ@vger.kernel.org, AJvYcCXr5K7X/Xl6CQipfaU7uRUJWteGTX3CkboPmbnGB9uVJp++ycp5Dw+8Bt+bTm2oRssgaV/jmnSiMgci@vger.kernel.org
-X-Gm-Message-State: AOJu0YykhS63w2eY/151k73+Ldb6fSl5oewBQBSMQRyZjB44zjIbuuHS
-	rVZcb1yC/ahXr5Rb5K8G4guFTTxIB1oJNC1wZHrZv4ShnHtgB7cT
-X-Google-Smtp-Source: AGHT+IHrk6/Q5n2E+je2c41WlxltR+FCVn8JFH147Ayi2cb5tVwj+WI6Q57hGT3UkY8Rx4u714ZQ4A==
-X-Received: by 2002:a05:6808:2e93:b0:3e7:5b07:6a with SMTP id 5614622812f47-3e75b07017amr5014623b6e.22.1730543922530;
-        Sat, 02 Nov 2024 03:38:42 -0700 (PDT)
-Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-3e66123f363sm1185127b6e.37.2024.11.02.03.38.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Nov 2024 03:38:41 -0700 (PDT)
-Date: Sat, 2 Nov 2024 05:38:39 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Alejandro Colomar <alx@kernel.org>, David Airlie <airlied@gmail.com>,
+	 Content-Type:Content-Disposition:In-Reply-To; b=sj7bcMft7BAsJWXU8AY0T70x/oIhvrZXS/aLkTEPe3FvghsPxVa+RWvJMkWaqITBdGqcL7Js75RHCO/YzYMY+5Eipg6YW80CyVErHROcXV7vRgiCaMSle9zrYcMPBWYt6pgp1dSAtJPyqzEqCILz1m5BC28DrjK8//UWV00+QBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7Hj9kQV; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B95C4CEC3;
+	Sat,  2 Nov 2024 10:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730544013;
+	bh=G8vSms3QEx81BYdaYQQ8p7yFlT3/ZisDZT7QefotGeA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e7Hj9kQV0Pip3OJRBxCAdDBjZx/M1ic//FsZX3RalJAf0XwbhGL6VJQLq2+hk5IuB
+	 O67lTdWUk/f0XCCKlx2THddKAJy+p9B9x0PQ426lDVXfOIsXI9ju1PmIptt1fhSisp
+	 TKwqRNrBx9UEEpCc8RDDqR0RdUX087FCPIvLr/DgdEj/aKcCIb1IBhC4fhBbBAt/DQ
+	 Jt8Vnc+Y57nuww7BZex/hhA84ZKSKo/XvvGkVRajg9ZV3MPtUkGDF7LWWvIHGX6otg
+	 4oOtFA3q8No0jTBwXaWcBVgORZZYX7M6cCX8786BqbLkrBn7nNc7YegMjhx04p4oYO
+	 RXT0TwHw5awig==
+Date: Sat, 2 Nov 2024 11:39:37 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
 	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] proc_pid_fdinfo.5: Add DRM subsection
-Message-ID: <20241102103839.fv3qvp2ltgzzvlr5@illithid>
-References: <20241101191156.1272730-1-irogers@google.com>
- <20241101191156.1272730-4-irogers@google.com>
+	linux-man@vger.kernel.org, cjwatson@debian.org, groff@gnu.org
+Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
+Message-ID: <20241102103937.ose4y72a7yl3dcmz@devuan>
+References: <20241015211719.1152862-1-irogers@google.com>
+ <20241101132437.ahn7xdgvmqamatce@devuan>
+ <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
+ <20241101200729.6wgyksuwdtsms3eu@devuan>
+ <20241102100837.anfonowxfx4ekn3d@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="554cw2lezzhi6vpu"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5cmlld5whomfrgvl"
 Content-Disposition: inline
-In-Reply-To: <20241101191156.1272730-4-irogers@google.com>
+In-Reply-To: <20241102100837.anfonowxfx4ekn3d@illithid>
 
 
---554cw2lezzhi6vpu
+--5cmlld5whomfrgvl
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 4/4] proc_pid_fdinfo.5: Add DRM subsection
+Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
 MIME-Version: 1.0
 
-Hi Ian,
+Hi Branden,
 
-At 2024-11-01T12:11:56-0700, Ian Rogers wrote:
-[...]
-> +.EX
-> +pos:    0
-> +flags:  02100002
-> +mnt_id: 26
-> +ino:    284
-> +drm-driver:     i915
-> +drm-client-id:  39
-> +drm-pdev:       0000:00:02.0
-> +drm-total-system0:      6044 KiB
-> +drm-shared-system0:     0
-> +drm-active-system0:     0
-> +drm-resident-system0:   6044 KiB
-> +drm-purgeable-system0:  1688 KiB
-> +drm-total-stolen-system0:       0
-> +drm-shared-stolen-system0:      0
-> +drm-active-stolen-system0:      0
-> +drm-resident-stolen-system0:    0
-> +drm-purgeable-stolen-system0:   0
-> +drm-engine-render:      346249 ns
-> +drm-engine-copy:        0 ns
-> +drm-engine-video:       0 ns
-> +drm-engine-capacity-video:      2
-> +drm-engine-video-enhance:       0 ns
-> +.EE
-> +.TP
-> +.IR drm-driver: " .+  (mandatory)"
-> +The name this driver registered.
-> +.TP
-> +.IR drm-pdev: " <aaaa:bb:cc.d>"
-> +For PCI devices this should contain the PCI slot address of the device
-> +in question.
-> +.TP
-> +.IR drm-client-id: " [0-9]+"
-> +Unique value relating to the open DRM file descriptor used to
-> +distinguish duplicated and shared file descriptors.
-> +.P
-> +GPUs usually contain multiple execution engines. Each shall be given a
-> +stable and unique name (<engine_name>), with possible values
-> +documented in the driver specific documentation.
-> +.TP
-> +.IR drm-engine-<engine_name>: " [0-9]+ ns"
-> +GPU engine utilization, time spent busy executing workloads for this cli=
-ent.
-[...]
+On Sat, Nov 02, 2024 at 05:08:37AM -0500, G. Branden Robinson wrote:
+> [adding Colin Watson to CC; and the groff list because I started musing]
+>=20
+> Hi Alex,
+>=20
+> At 2024-11-01T21:07:29+0100, Alejandro Colomar wrote:
+> > > > > -/proc/pid/fdinfo/ \- information about file descriptors
+> > > > > +.IR /proc/ pid /fdinfo " \- information about file descriptors"
+> > > >
+> > > > I wouldn't add formatting here for now.  That's something I prefer
+> > > > to be cautious about, and if we do it, we should do it in a
+> > > > separate commit.
+> > >=20
+> > > I'll move it to a separate patch. Is the caution due to a lack of
+> > > test infrastructure? That could be something to get resolved,
+> > > perhaps through Google summer-of-code and the like.
+> >=20
+> > That change might be controversial.
+>=20
+> Then let those with objections step forward and make them!
 
-In my opinion the use of <bracketed_notation> like that is not idiomatic
-in man pages.  (We sometimes see it anyway, because for a long time
-"rock star programmers" have treated the neglect of man page idioms as a
-competitive sport.[1])
+Sure!  But that in itself (and the length of your mail) makes a strong
+reason to have this in a separate commit.  :)
 
-Also the mixture of regex notation with <bracketed_notation> is a little
-bewildering (again, my opinion).
+I'm not opposed to the change.  Only cautious.
 
-I would recast these to use bold for the literal bits, italics for the
-variable parts, roman for nonliteral syntax, and, for this page, lean
-completely into the use of EREs.
+>=20
+> (I may be one of them; see below.)
+>=20
+> > We'd first need to check that all software that reads the NAME section
+> > would behave well for this.
+>=20
+> Not _all_ software, surely.  Anybody can write a craptastic man(7)
+> scraper, and several have, mainly back when Web 1.0 was going to eat the
+> world.  Most of those have withered on the vine.
 
-groff_man_style(7) offers suggestions:
+Ahh, yeah, I committed the same mistake I criticise in others every now
+and then.  $all does not really mean "all".  (-Wall, `make all`, ...)
 
-   Font style macros
-=2E..
-              Use bold for literal portions of syntax synopses, for
-              command=E2=80=90line options in running text, and for literals
-              that are major topics of the subject under discussion; for
-              example, this page uses bold for macro, string, and
-              register names.  In an .EX/.EE example of interactive I/O
-              (such as a shell session), set only user input in bold.
-=2E..
-              Use italics for file and path names, for environment
-              variables, for C data types, for enumeration or
-              preprocessor constants in C, for variant (user=E2=80=90
-              replaceable) portions of syntax synopses, for the first
-              occurrence (only) of a technical concept being introduced,
-              for names of journals and of literary works longer than an
-              article, and anywhere a parameter requiring replacement by
-              the user is encountered.  An exception involves variant
-              text in a context already typeset in italics, such as file
-              or path names with replaceable components; in such cases,
-              follow the convention of mathematical typography: set the
-              file or path name in italics as usual but use roman for
-              the variant part (see .IR and .RI below), and italics
-              again in running roman text when referring to the variant
-              material.
-=2E..
-       Observe what is not prescribed for setting in bold or italics
-       above: elements of =E2=80=9Csynopsis language=E2=80=9D such as ellip=
-ses and
-       brackets around options; proper names and adjectives; titles of
-       anything other than major works of literature; identifiers for
-       standards documents or technical reports such as CSTR #54,
-       RFC 1918, Unicode 13.0, or POSIX.1=E2=80=902017; acronyms; and
-       occurrences after the first of a technical term.
+I meant all [of which I care], which is basically groff(1) and
+mandoc(1).  :)
 
-So I might write these more like the following.
+> This is the _Linux_ man-pages project, so what matters are (1) man page
+> formatters and (2) man page indexers that GNU/Linux systems actually
+> use.  Where people get nervous with the "NAME" section is because of the
+> indexer; if one's man(7) _formatter_ can't handle an `IR` call, it
+> hasn't earned the name.
 
-=2EP
-We use extended regular expressions to represent the expected parameter
-values;
-see
-=2EBR regex (7). \" `BR` for Linux man-pages documents only
-=2ETP
-=2EBR drm\-driver: " .+"\c
-=2EI " (mandatory)"
-The name this driver registered.
-=2ETP
-=2EBR drm\-pdev: " [0-9A-F]{4}:[0-9A-F]{2}:[0-9A-F]{2}.[0-9A-F]"
-For PCI devices this should contain the PCI slot address of the device
-in question.
-=2ETP
-=2EBR drm\-client\-id: " [0-9]+"
-Unique value relating to the open DRM file descriptor used to
-distinguish duplicated and shared file descriptors.
-=2EP
-GPUs usually contain multiple execution engines.
-Each shall be given a
-stable and unique
-=2EIR engine-name ,
-with possible values documented in driver-specific documentation.
-=2ETP
-=2EBI drm\-engine\- engine-name :\c
-\& [0-9]+ ns
-GPU engine utilization:
-time spent busy executing workloads for this client.
+Yup.
 
-I also (1) used the `\c` escape sequence to fit three different font
-styles into a paragraph tag; and (2) escaped literal hyphens.
+>=20
+> Here's a sample input.
+>=20
+> $ cat /tmp/proc_pid_fdinfo_mini.5
+> .TH proc_pid_fdinfo_mini 5 2024-11-02 "example"
+> .SH Name
+> .IR /proc/ pid /fdinfo " \- information about file descriptors"
+> .SH Description
+> Text text text text.
+>=20
+> Starting with formatters, let's see how they do.
+>=20
+> $ nroff -man /tmp/proc_pid_fdinfo_mini.5
+> proc_pid_fdinfo_mini(5)       File Formats Manual      proc_pid_fdinfo_mi=
+ni(5)
+>=20
+> Name
+>        /proc/pid/fdinfo - information about file descriptors
+>=20
+> Description
+>        Text text text text.
+>=20
+> example                           2024=E2=80=9011=E2=80=9002           pr=
+oc_pid_fdinfo_mini(5)
+> $ mandoc /tmp/proc_pid_fdinfo_mini.5 | ul
+> proc_pid_fdinfo_mini(5)       File Formats Manual      proc_pid_fdinfo_mi=
+ni(5)
+>=20
+> Name
+>        /proc/pid/fdinfo - information about file descriptors
+>=20
+> Description
+>        Text text text text.
+>=20
+> example                           2024-11-02           proc_pid_fdinfo_mi=
+ni(5)
+> $ ~/heirloom/bin/nroff -man /tmp/proc_pid_fdinfo_mini.5 | ul
+> proc_pid_fdinfo_mini(5)       File Formats Manual      proc_pid_fdinfo_mi=
+ni(5)
+>=20
+>=20
+>=20
+> Name
+>        /proc/pid/fdinfo - information about file descriptors
+>=20
+> Description
+>        Text text text text.
+>=20
+>=20
+>=20
+> example                           2024-11-02           proc_pid_fdinfo_mi=
+ni(5)
+> $ DWBHOME=3D~/dwb ~/dwb/bin/nroff -man /tmp/proc_pid_fdinfo_mini.5 | cat =
+-s | ul
+>=20
+>        proc_pid_fdinfo_mini(5)example (2024-11-02)roc_pid_fdinfo_mini(5)
+>=20
+>        Name
+>             /proc/pid/fdinfo - information about file descriptors
+>=20
+>        Description
+>             Text text text text.
+>=20
+>        Page 1                                        (printed 11/2/2024)
+>=20
+> I leave the execution of these to perceive the correct font style
+> changes as an exercise for the reader, but they all get the
+> "/proc/pid/fdinfo" line right.
+>=20
+> On GNU/Linux systems, the only man page indexer I know of is Colin
+> Watson's man-db--specifically, its mandb(8) program.  But it's nicely
+> designed so that the "topic and summary description extraction" task is
+> delegated to a standalone tool, lexgrog(1), and we can use that.
+>=20
+> $ lexgrog /tmp/proc_pid_fdinfo_mini.5
+> /tmp/proc_pid_fdinfo_mini.5: parse failed
+>=20
+> Oh, damn.  I wasn't expecting that.  Maybe this is what defeats Michael
+> Kerrisk's scraper with respect to groff's man pages.[1]
+>=20
+> Well, I can find a silver lining here, because it gives me an even
+> better reason than I had to pitch an idea I've been kicking around for a
+> while.  Why not enhance groff man(7) to support a mode where _it_ will
+> spit out the "Name"/"NAME" section, and only that, _for_ you?
+>=20
+> This would be as easy as checking for an option, say '-d EXTRACT=3DName',
+> and having the package's "TH" and "SH" macro definitions divert
+> (literally, with the `di` request) everything _except_ the section of
+> interest to a diversion that is then never called/output.  (This is
+> similar to an m4 feature known as the "black hole diversion".)
 
-Regards,
-Branden
+Sounds good.  And then lexgrog(1) would be a one-liner that calls
+groff(1) with the appropriate flag, right?
 
-[1] I give you the Worst Man Page in the World.
+> All of the features necessary to implement this[2] were part of troff as
+> far as back as the birth of the man(7) package itself.  It's not clear
+> to me why it wasn't done back in the 1980s.
 
-    https://gitlab.com/procps-ng/procps/blob/7ac9a0e1f5606696dc799b773d5ec7=
-0183ca91a3/ps/ps.1
+Not enough energy of activation, probably, as with most stuff.
 
-    Fortunately the procps-ng maintainers eventually rewrote it.
+> lexgrog(1) itself will of course have to stay around for years to come,
 
---554cw2lezzhi6vpu
+You can make it a wrapper around groff(1) with flags, no?
+
+> but this could take a significant distraction off of Colin's plate--I
+> believe I have seen him grumble about how much *roff syntax he has to
+> parse to have the feature be workable, and that's without upstart groff
+> maintainers exploring up to every boundary that existed even in 1979 and
+> cheerfully exercising their findings in man pages.
+>=20
+> I also of course have ideas for generalizing the feature, so that you
+> can request any (sub)section by name, and, with a bit more ambition,[4]
+> paragraph tags (`TP`) too.
+>=20
+> So you could do things like:
+>=20
+> nroff -man -d EXTRACT=3D"RETURN VALUE" man3/bsearch.3
+
+I certainly use this.
+
+	#  man_section()  prints specific manual page sections (DESCRIPTION, SYNOP=
+SIS,
+	# ...) of all manual pages in a directory (or in a single manual page file=
+).
+	# Usage example:  .../man-pages$ man_section man2 SYNOPSIS 'SEE ALSO';
+
+	man_section()
+	{
+		if [ $# -lt 2 ]; then
+			>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>...";
+			return $EX_USAGE;
+		fi
+
+		local page=3D"$1";
+		shift;
+		local sect=3D"$*";
+
+		find "$page" -type f \
+		|xargs wc -l \
+		|grep -v -e '\b1 ' -e '\btotal\b' \
+		|awk '{ print $2 }' \
+		|sort \
+		|while read -r manpage; do
+			(sed -n '/^\.TH/,/^\.SH/{/^\.SH/!p}' <"$manpage";
+			 for s in $sect; do
+				<"$manpage" \
+				sed -n \
+					-e "/^\.SH $s/p" \
+					-e "/^\.SH $s/,/^\.SH/{/^\.SH/!p}";
+			 done;) \
+			|mandoc -Tutf8 2>/dev/null \
+			|col -pbx;
+		done;
+	}
+
+	#  man_lsfunc()  prints the name of all C functions declared in the SYNOPS=
+IS
+	# of all manual pages in a directory (or in a single manual page file).
+	# Each name is printed in a separate line
+	# Usage example:  .../man-pages$ man_lsfunc man2;
+
+	man_lsfunc()
+	{
+		if [ $# -lt 1 ]; then
+			>&2 echo "Usage: ${FUNCNAME[0]} <manpage|manNdir>...";
+			return $EX_USAGE;
+		fi
+
+		for arg in "$@"; do
+			man_section "$arg" 'SYNOPSIS';
+		done \
+		|sed_rm_ccomments \
+		|pcregrep -Mn '(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]*?(...)?\s*\); *$' \
+		|grep '^[0-9]' \
+		|sed -E 's/syscall\(SYS_(\w*),?/\1(/' \
+		|sed -E 's/^[^(]+ \**(\w+)\(.*/\1/' \
+		|uniq;
+	}
+
+	#  man_lsvar()  prints the name of all C variables declared in the SYNOPSIS
+	# of all manual pages in a directory (or in a single manual page file).
+	# Each name is printed in a separate line
+	# Usage example:  .../man-pages$ man_lsvar man3;
+
+	man_lsvar()
+	{
+		if [ $# -lt 1 ]; then
+			>&2 echo "Usage: ${FUNCNAME[0]} <manpage|manNdir>...";
+			return $EX_USAGE;
+		fi
+
+		for arg in "$@"; do
+			man_section "$arg" 'SYNOPSIS';
+		done \
+		|sed_rm_ccomments \
+		|pcregrep -Mv '(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]+?(...)?\s*\); *$' \
+		|pcregrep -Mn \
+		  -e '(?s)^ +extern [\w ]+ \**\(\*+[\w ]+\)\([\w\s(,)[\]*]+?\s*\); *$' \
+		  -e '^ +extern [\w ]+ \**[\w ]+; *$' \
+		|grep '^[0-9]' \
+		|grep -v 'typedef' \
+		|sed -E 's/^[0-9]+: +extern [^(]+ \**\(\*+(\w* )?(\w+)\)\(.*/\2/' \
+		|sed    's/^[0-9]\+: \+extern .* \**\(\w\+\); */\1/' \
+		|uniq;
+	}
+
+Even grepc(1) derived from those scripts.
+
+>=20
+> and:
+>=20
+> nroff -man -d EXTRACT=3D"OPTIONS/-b" man8/zic.8
+
+While I haven't used this yet, it's probably because it's quite complex
+to implement with regexes, not because it wouldn't be useful.
+
+>=20
+> ...does this sound appetizing to anyone?
+
+Certainly.
+
+> > Also, many other pages might need to be changed accordingly for
+> > consistency.
+>=20
+> I withdraw the suggestion until lexgrog(1) flexes its own muscles, or
+> has groff(1) do the lifting.  I'm sorry for prompting churn, Ian.
+>=20
+> > No, this isn't outdated, since that reduces the quality of the diff.
+> > Also, I review a lot of patches in the mail client, without running
+> > git(1).  And it's not just for reviewing diffs, but also for writing
+> > them.  Semantic newlines reduce the amount of work for producing the
+> > diffs.
+>=20
+> It's a real win for diffs.
+
+And diffs are a real win for text.  Thus, semantic newlines are a real
+win for text.  "Write poems, not prose."  (Any chance we may get that
+warning added to groff(1)?  :D)
+
+
+Cheers,
+Alex
+
+>=20
+> Here's a very recent example from groff.
+>=20
+> diff --git a/man/groff.7.man b/man/groff.7.man
+> index 1fb635f2b..1d248b237 100644
+> --- a/man/groff.7.man
+> +++ b/man/groff.7.man
+> @@ -1281,6 +1281,7 @@ .SH Identifiers
+>  typeface,
+>  color,
+>  special character or character class,
+> +hyphenation language code,
+>  environment,
+>  or stream.
+>  .
+>=20
+>=20
+> (So recent that in fact I haven't pushed that yet.)
+>=20
+> Lists like the foregoing are common in man pages.
+>=20
+> Regards,
+> Branden
+>=20
+> [1] https://man7.org/linux/man-pages/dir_by_project.html#groff
+> [2] String definitions, "string comparisons"[3], and diversions.
+> [3] strictly, "formatted output comparisons"
+>=20
+>     https://www.gnu.org/software/groff/manual/groff.html.node/Operators-i=
+n-Conditionals.html
+>=20
+>     You can do stricter string comparisons in GNU troff.  And I've
+>     thought of some syntactic sugar for performing them that wouldn't
+>     break backward compatibility.
+>=20
+> [4] To really land the feature, we need automatic tag generation from
+>     input text (we don't want to make the man page author construct
+>     their own tags).  Another reason we want the construction to be
+>     automatic is to make the tags unique when multiple man pages are
+>     formatted in one run, as one might do when making a book of man
+>     pages.  Automatic tagging will also enable the slaying of two other
+>     ancient dragons.
+>=20
+>     1.  deep internal links for PDF bookmarks
+>     2.  pod2man's `IX`-happy output; the widespread use of this
+>         nonstandard macro confuses way too many novice page authors, and
+>         bloats document size.
+>=20
+>    Another feature we'll really want to do this right is improved string
+>    processing facilities.  That, too, is something that will pay
+>    dividends in several areas.  With a proper string iterator in the
+>    formatter (and a couple more conditional operators),[5] it will be
+>    possible to write a string library as a macro file, slimming down the
+>    formatter itself a little and making macro writers' lives easier.
+>    We're only two days into the month and this has already come up on
+>    the groff list.
+>=20
+>    https://lists.gnu.org/archive/html/groff/2024-11/msg00002.html
+>=20
+> [5] https://savannah.gnu.org/bugs/?62264
+
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--5cmlld5whomfrgvl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmcmAScACgkQ0Z6cfXEm
-bc6FyhAArhPCoDcGbr4qZXkTeFtQzbsVWT+LAgQPsbzDSRulHcOyRYqiosrjGVDo
-sooTFzFrPusklFvLAeG4KQIeHgPRF9b2HgEXQcbUS2e6fy4p1qa/9bSlsazl1cPw
-v99bJgnvKSjVWxLCslb9o0mSGeemiusTwb8ncC4ZVVqjKsLNHlRQ4bQ4+vG4PyeM
-jX07pv3yEybOY4yaEvmFj/aBOWbY6CSJCQ+xQYtyYKcJ7ywXHpxh0uqHxsc5EGk9
-VRA/0b7VT88E1BeB2TTZtjb9NWRVX49JrZCtJFLllzCOn4+LtwrGL5mWQyLV0BaZ
-dWP1QhejnaL/F+UeAmKNdTXIucecvzNlp00iggWYfwxPEJCiFFC7tzgML78ypI77
-N7j/NJdluMGivipgQtPIdIAfyEfwq7Qd0P64soJD3lkChX+RbkyNZKhkdQ4ncim5
-JfMf/oj0lTMsiTVQrvUge/Ru48yQgPCaa7eT4DhcUN1pTORWKqTFZN/+Z0UZR7au
-EL1wSR3pVSHOoqPHh31R/xM+W8fuh6Ri+GTJvz0g8Hy4IaWRYhuGr1XWHGrtoKT8
-CBBjYZzKm+Mh+l5ZoccElOaDYAKTXQRSrVRBbyGggM3/H36futr/WgSQycmr05e5
-KGZFv6fTvqxpBXFKiWidvr+tLb5w5ls4V1spZSdEbgbpi7/BM4E=
-=wUZx
+iQIyBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmAWMACgkQnowa+77/
+2zKjyA/41uXG5JULAGWPOTb33xWvPfeLnaPRlMLA0/9fRrciPgseMk2r75TPNfNj
+wu492NCFElCTASpWu6WWpA7wSV5L84mNGglUn//qjfKNKsK8qM8R5UkZulPdlEH1
+CKfMvTl/AkqS4qISSe+l4vA5SMNjRs+zhjL8qq17N/0ByiX+txjoqPcu7nYmgGUz
+uxEfqhShcNXR/eEoFLP1v1MdMM+fM+Bkn1byB1NQH7uNsfm1yKZizCCYmL/1bNWq
+MTaz/og/EEhzgAhqZ6TXlcjr0spDaPNETb1ZBRFvmNuU88Cq6mUxD5WGeOYzvcPY
+o+nbidFj875u3KjFRzJENsbpkl0YHLpLPatXt88VgtY/cyqaQjxcz8LZLpwaYLHt
+8k+S6deFDy1XW0nOoByLWYOIpaWY8XoFPMkrjQTeB1L7LCyjdKDkOu6jUwBBY1fi
+LyIYIRzSCeJHKpxZEGrRTw/s7RxkPEcrgD1MS3h7rwFwFypiyzT8dRh2IIB/wXIB
+vJ5OKRQly6vm1v/XyZ8qVEOdY/WcjZl1gso8PNZvLkygHpluXJntAS4rR5gh/HCJ
+EPZV9g42FS8WOfSKwGnBSKWB6DlbfSOU07UFPMdYlSjfQR3tJLUkNAZSzncm9pD7
+ZbCvY9gnnH/ByVef6kUP7ERlhTQgcf8Xbj9cUGx0I0Ht9bJ+LQ==
+=pI2g
 -----END PGP SIGNATURE-----
 
---554cw2lezzhi6vpu--
+--5cmlld5whomfrgvl--
 
