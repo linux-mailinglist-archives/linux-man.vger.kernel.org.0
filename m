@@ -1,165 +1,283 @@
-Return-Path: <linux-man+bounces-1833-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1834-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5567A9BA220
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 20:18:12 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52D8B9BA291
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 22:41:18 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C45411F211C0
-	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 19:18:11 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 62CDD1C213BC
+	for <lists+linux-man@lfdr.de>; Sat,  2 Nov 2024 21:41:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4CE119923A;
-	Sat,  2 Nov 2024 19:18:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E594A1AB515;
+	Sat,  2 Nov 2024 21:41:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="siV35kK1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NUCkZeZt"
 X-Original-To: linux-man@vger.kernel.org
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7F69474;
-	Sat,  2 Nov 2024 19:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E4714AD20;
+	Sat,  2 Nov 2024 21:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730575086; cv=none; b=qAd5V8qVCseqLCptWlk48TqhcDQov6m/l2xMDM81HSox/jCS6H+tA751ouNFFMiSCH1tnJ9MVWc1ckwudvAF5bIcT5r5e2pLoFVR5X2tPqBxzKcZu6GpTMH6XfDCcmebs5B++6WOeZbGx30wG8KVQ5V6vZOiDpEYyc4QBH2h7dA=
+	t=1730583671; cv=none; b=R6pTaRWHxoqifhdrPXV+aLIWauraqwoJymD0vujP+R6NbgdgC5Jh1GZLWegkoFS1zMoi4Ni5kjUUctsjy5RL1JI/Bf59x1O67tKor+5mUndKfyQxpuOy2kdGkvgO8Vsd30NW+BkmGB2rNwTkxfivqNIb9bMMdrNIESrdKkgvfiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730575086; c=relaxed/simple;
-	bh=FvlFwpJDSO+d5NYtpPrqV+dgkHif69q8Gp1faalEoHQ=;
+	s=arc-20240116; t=1730583671; c=relaxed/simple;
+	bh=/c2O3YS/cOYDIPdqZPnfxaGOcF3uCPuJZI6+tQd9U6c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m5q29lmFQ97ktq9uHWie/tKMfjSaAf7Gi+HyCW1EpzF5k0DchypAyImphTwOPzFAAQim0SsMXUmzD7rMHbI5fgGcMKW1JO6/2Kf1rRyrvhs7n0ZqWyXsXmaVRiWmHOm6ZFGqWJIwkBYilSXeHvOCvcJRbvVkIH6m9/c/bIwOyuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=siV35kK1; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=gRdoADem0zi3UiPGufevBBdXeee4wC93CBeg2OV7GkM=; b=siV35kK1g1+QJ3GQvf6cmw53CE
-	FRCDIEOreFqbmhbkCLZsSHAm4yeYhjJ5gKOWRUahEOiLnDvibrxUNzV2LLRsf89e8yRVbDTzIaBI8
-	moOd8grqJqCQ6pEEO3yVxO1PmGYeEyXxwZBuXUdeICBocNDgVNiGssk7VPockapDNesdotdwBNpmt
-	BJXcpNbaTTj1LfSn45EjlIYHYje4DY6AinU7TN+K9g2TigsS2ug4Lld7Ddo76dK93TAuvTTlzy6In
-	MmEtnJ9oo3AOruesWjn9+hoH79ncjg2n1+czjydf8jl0P4jCF/1RnBGrwco7fqljjWYcecGeEs/UN
-	c72enfNA==;
-Received: from authenticated user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.94.2)
-	(envelope-from <cjwatson@debian.org>)
-	id 1t7JSZ-00AqcD-D6; Sat, 02 Nov 2024 19:06:55 +0000
-Received: from ns1.rosewood.vpn.ucam.org ([172.20.153.2] helo=riva.ucam.org)
-	by riva.rosewood.vpn.ucam.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <cjwatson@debian.org>)
-	id 1t7JSY-0044X1-0k;
-	Sat, 02 Nov 2024 19:06:54 +0000
-Date: Sat, 2 Nov 2024 19:06:53 +0000
-From: Colin Watson <cjwatson@debian.org>
-To: "G. Branden Robinson" <cjwatson@debian.org>
-Cc: Alejandro Colomar <alx@kernel.org>, Ian Rogers <irogers@google.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
-Message-ID: <ZyZ4Tfxfr7M-EqUo@riva.ucam.org>
-Mail-Followup-To: Alejandro Colomar <alx@kernel.org>,
-	Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
+	 Content-Type:Content-Disposition:In-Reply-To; b=hc5NYi3h8x7gEYS+FoE9d7n+HtmS4AVpaljvaOK9D1eICyvc0qWtSQZFLGIQ8bhNVtXf0huUsTvoYbvTuUiesLIEaQyDrFFLx6Cas/NGQFVOQjlp5WpS/d1ys4J71wyHWNaWe0JKOn04Er7M7BT6jnAGtvggcga0S4pYe90M9us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NUCkZeZt; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A134CC4CEC3;
+	Sat,  2 Nov 2024 21:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730583671;
+	bh=/c2O3YS/cOYDIPdqZPnfxaGOcF3uCPuJZI6+tQd9U6c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NUCkZeZtYEUmnJ1FDpk2ad7Kuh4S1hEJOITt9ITaaOICyRXZIgfZpGMbHLk+aOQmR
+	 KD0ElOZ9x71uBleV6yWa7e7xC4+p7Hewu+Bb2QbO59M7nz/jFqhq0fWYye3M4xej16
+	 cs/SFy4G1+jw+lkWRR/r4vwjdcfK8cxWUTmW3NnaqAt97UWtGZ+7Q1iSPIiXiWh7ev
+	 9CB4lx4s5faR+E+d0z+zHuo73ahaZQ1FeJmlQPmhTDLqGiNGnIST7PKccc7h2ZRqmM
+	 K3vcMM7pH9VfHMwe9NTDGVFccmXes2Wa2CgAwruOOIVIDdA1M7/kkEmvaizGnQn0i/
+	 Pqd+WUNzOisqw==
+Date: Sat, 2 Nov 2024 22:36:20 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	cjwatson@debian.org
+Cc: Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
 	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org, groff@gnu.org
+	linux-man@vger.kernel.org, cjwatson@debian.org, groff@gnu.org
+Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
+Message-ID: <20241102213620.kfccilxvhihwmnld@devuan>
 References: <20241015211719.1152862-1-irogers@google.com>
  <20241101132437.ahn7xdgvmqamatce@devuan>
  <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
  <20241101200729.6wgyksuwdtsms3eu@devuan>
  <20241102100837.anfonowxfx4ekn3d@illithid>
+ <20241102103937.ose4y72a7yl3dcmz@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ptczkh6frrdnk65f"
 Content-Disposition: inline
-In-Reply-To: <20241102100837.anfonowxfx4ekn3d@illithid>
-X-Debian-User: cjwatson
+In-Reply-To: <20241102103937.ose4y72a7yl3dcmz@devuan>
 
-On Sat, Nov 02, 2024 at 05:08:37AM -0500, G. Branden Robinson wrote:
-> On GNU/Linux systems, the only man page indexer I know of is Colin
-> Watson's man-db--specifically, its mandb(8) program.  But it's nicely
-> designed so that the "topic and summary description extraction" task is
-> delegated to a standalone tool, lexgrog(1), and we can use that.
-> 
-> $ lexgrog /tmp/proc_pid_fdinfo_mini.5
-> /tmp/proc_pid_fdinfo_mini.5: parse failed
-> 
-> Oh, damn.  I wasn't expecting that.  Maybe this is what defeats Michael
-> Kerrisk's scraper with respect to groff's man pages.[1]
 
-How embarrassing.  Could somebody please file a bug on
-https://gitlab.com/man-db/man-db/-/issues to remind me to fix that?  (Of
-course there'll be a lead time for fixes to get into distributions.)
+--ptczkh6frrdnk65f
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
+MIME-Version: 1.0
 
-> Well, I can find a silver lining here, because it gives me an even
-> better reason than I had to pitch an idea I've been kicking around for a
-> while.  Why not enhance groff man(7) to support a mode where _it_ will
-> spit out the "Name"/"NAME" section, and only that, _for_ you?
-> 
-> This would be as easy as checking for an option, say '-d EXTRACT=Name',
-> and having the package's "TH" and "SH" macro definitions divert
-> (literally, with the `di` request) everything _except_ the section of
-> interest to a diversion that is then never called/output.  (This is
-> similar to an m4 feature known as the "black hole diversion".)
-> 
-> All of the features necessary to implement this[2] were part of troff as
-> far as back as the birth of the man(7) package itself.  It's not clear
-> to me why it wasn't done back in the 1980s.
-> 
-> lexgrog(1) itself will of course have to stay around for years to come,
-> but this could take a significant distraction off of Colin's plate--I
-> believe I have seen him grumble about how much *roff syntax he has to
-> parse to have the feature be workable, and that's without upstart groff
-> maintainers exploring up to every boundary that existed even in 1979 and
-> cheerfully exercising their findings in man pages.
+Hi Branden, Colin,
 
-lexgrog(1) is a useful (if oddly-named, sorry) debugging tool, but if
-you focus on that then you'll end up with a design that's not very
-useful.  What really matters is indexing the whole system's manual
-pages, and mandb(8) does not do that by invoking lexgrog(1) one page at
-a time, but rather by running more or less the same code in-process.  I
-already know that getting acceptable performance for this requires care,
-as illustrated by one of the NEWS entries for man-db 2.10.0:
+On Sat, Nov 02, 2024 at 11:40:13AM +0100, Alejandro Colomar wrote:
+> > I also of course have ideas for generalizing the feature, so that you
+> > can request any (sub)section by name, and, with a bit more ambition,[4]
+> > paragraph tags (`TP`) too.
+> >=20
+> > So you could do things like:
+> >=20
+> > nroff -man -d EXTRACT=3D"RETURN VALUE" man3/bsearch.3
+>=20
+> I certainly use this.
+>=20
+> 	#  man_section()  prints specific manual page sections (DESCRIPTION, SYN=
+OPSIS,
+> 	# ...) of all manual pages in a directory (or in a single manual page fi=
+le).
+> 	# Usage example:  .../man-pages$ man_section man2 SYNOPSIS 'SEE ALSO';
+>=20
+> 	man_section()
+> 	{
+> 		if [ $# -lt 2 ]; then
+> 			>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>...";
+> 			return $EX_USAGE;
+> 		fi
+>=20
+> 		local page=3D"$1";
+> 		shift;
+> 		local sect=3D"$*";
+>=20
+> 		find "$page" -type f \
+> 		|xargs wc -l \
+> 		|grep -v -e '\b1 ' -e '\btotal\b' \
+> 		|awk '{ print $2 }' \
+> 		|sort \
+> 		|while read -r manpage; do
+> 			(sed -n '/^\.TH/,/^\.SH/{/^\.SH/!p}' <"$manpage";
+> 			 for s in $sect; do
+> 				<"$manpage" \
+> 				sed -n \
+> 					-e "/^\.SH $s/p" \
+> 					-e "/^\.SH $s/,/^\.SH/{/^\.SH/!p}";
+> 			 done;) \
+> 			|mandoc -Tutf8 2>/dev/null \
+> 			|col -pbx;
+> 		done;
+> 	}
 
- * Significantly improve `mandb(8)` and `man -K` performance in the common
-   case where pages are of moderate size and compressed using `zlib`: `mandb
-   -c` goes from 344 seconds to 10 seconds on a test system.
+On the other hand, you may want to just package this small shell script
+(or rather a part of it) as a program.
 
-... so I'm prepared to bet that forking nroff one page at a time will be
-unacceptably slow.  (This also combines with the fact that man-db
-applies some sandboxing when it's calling nroff just in case it might
-happen that a moderately-sized C++ project has less than 100% perfect
-security when doing text processing, which I'm sure everyone agrees
-would never happen.)
+How about this?
 
-If it were possible to run nroff over a whole batch of pages and get
-output for each of them in one go, then maaaaybe.  man-db would need a
-reliable way to associate each line (or sometimes multiple lines) of
-output with each source file, and of course care would be needed around
-error handling and so on.  I can see the appeal, in terms of processing
-the actual language rather than a pile of hacks that try to guess what
-to do with it - but on the other hand this starts to feel like a much
-less natural fit for the way nroff is run in every other situation,
-where you're processing one document at a time.
+	$ cat /usr/local/bin/mansect
+	#!/bin/sh
 
-Cheers,
+	if [ $# -lt 1 ]; then
+		>&2 echo "Usage: $0 SECTION [FILE ...]";
+		return 1;
+	fi
 
--- 
-Colin Watson (he/him)                              [cjwatson@debian.org]
+	s=3D"$1";
+	shift;
+
+
+	if test -z "$*"; then
+		sed -n \
+			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+			-e '/^\.SH '"$s"'$/p' \
+			-e '/^\.SH '"$s"'$/,/^\.SH/{/^\.SH/!p}' \
+			;
+	else
+		find "$@" -not -type d \
+		| xargs wc -l \
+		| sed '${/ total$/d}' \
+		| grep -v '\b1 ' \
+		| awk '{ print $2 }' \
+		| xargs -L1 sed -n \
+			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+			-e '/^\.SH '"$s"'$/p' \
+			-e '/^\.SH '"$s"'$/,/^\.SH/{/^\.SH/!p}' \
+			;
+	fi;
+
+This only filters the source of the page, producing output that's
+suitable for the groff pipeline.
+
+	alx@devuan:~$ man -w proc | xargs cat | mansect NAME
+	.TH proc 5 2024-06-15 "Linux man-pages 6.9.1-158-g2ac94c631"
+	.SH NAME
+	proc \- process information, system information, and sysctl pseudo-filesys=
+tem
+	alx@devuan:~$ man -w strtol strtoul | xargs mansect 'NAME'
+	.TH strtol 3 2024-07-23 "Linux man-pages 6.9.1-158-g2ac94c631"
+	.SH NAME
+	strtol, strtoll, strtoq \- convert a string to a long integer
+	.TH strtoul 3 2024-07-23 "Linux man-pages 6.9.1-158-g2ac94c631"
+	.SH NAME
+	strtoul, strtoull, strtouq \- convert a string to an unsigned long integer
+
+You can request several sections with a regex:
+
+	$ man -w strtol strtoul | xargs mansect '\(NAME\|SEE ALSO\)'
+	.TH strtol 3 2024-07-23 "Linux man-pages 6.9.1-158-g2ac94c631"
+	.SH NAME
+	strtol, strtoll, strtoq \- convert a string to a long integer
+	.SH SEE ALSO
+	.BR atof (3),
+	.BR atoi (3),
+	.BR atol (3),
+	.BR strtod (3),
+	.BR strtoimax (3),
+	.BR strtoul (3)
+	.TH strtoul 3 2024-07-23 "Linux man-pages 6.9.1-158-g2ac94c631"
+	.SH NAME
+	strtoul, strtoull, strtouq \- convert a string to an unsigned long integer
+	.SH SEE ALSO
+	.BR a64l (3),
+	.BR atof (3),
+	.BR atoi (3),
+	.BR atol (3),
+	.BR strtod (3),
+	.BR strtol (3),
+	.BR strtoumax (3)
+
+And it can then be piped to groff(1) to format the entire set of pages:
+
+	$ man -w strtol strtoul | xargs mansect '\(NAME\|SEE ALSO\)' | groff -man =
+-Tutf8
+	strtol(3)                  Library Functions Manual                  strto=
+l(3)
+
+	NAME
+	     strtol, strtoll, strtoq - convert a string to a long integer
+
+	SEE ALSO
+	     atof(3), atoi(3), atol(3), strtod(3), strtoimax(3), strtoul(3)
+
+	Linux man=E2=80=90pages 6.9.1=E2=80=90158=E2=80=90g2ac... 2024=E2=80=9007=
+=E2=80=9023                         strtol(3)
+	=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+	strtoul(3)                 Library Functions Manual                 strtou=
+l(3)
+
+	NAME
+	     strtoul, strtoull, strtouq - convert a string to an unsigned long int=
+eger
+
+	SEE ALSO
+	     a64l(3), atof(3), atoi(3), atol(3), strtod(3), strtol(3), strtoumax(3)
+
+	Linux man=E2=80=90pages 6.9.1=E2=80=90158=E2=80=90g2ac... 2024=E2=80=9007=
+=E2=80=9023                        strtoul(3)
+
+
+This is quite naive, and will not work with pages that define their own
+stuff, since this script is not groff(1).  But it should be as fast as
+is possible, which is what Colin wants, is as simple as it can be (and
+thus relatively safe), and should work with most pages (as far as
+indexing is concerned, probably all?).
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--ptczkh6frrdnk65f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmm04ACgkQnowa+77/
+2zI6oRAAmc4IuCUxorPruqbBwNoVvT87J8omNEjhQdrN2D4Qhofs94T+KPiBng4y
+oOWZrYty05VOXOmVqFIXmwIZ5aW8yQNoTG0FAQo5DV65C+FDoi/aXLIpuETXza2C
+SWA9Ebq8LHC/oFY6XArLd1l/DS4KaBsvyLnKj1ewiQ9IQbLiDaBcpLgmsEQnUiHJ
+STzk/D2SBiEI5iUhMMkBDhsaTseTaGq83m7jn206JQA2g1NQ/8GeWV7LlXceRzhe
+uSVTfhqw8qU+dPdSxCU/BXPr1jp0MqEe0ujYVdcSQMZsuk8qeIL07Bqvp23S8oMS
+hM2dZIOOxG+IFb5S6saMFaUoRob0LkusNSXEu3FUy86iptBo5UAKy26pUNHaYxq1
+g7eO5GxNZVPgnoNJGDtLD+QqIxTfSbogvuAbnNrTjRVxWRmwgTiUANo3U19nll4o
+RG/u0ACkIH69KusTucHbbOp0o/JXAhTcZLen++Slg+/eSAy1o44FwjBoKy8rY7k1
+K+Yp8Oi3idDVbG54sUu6kyooYge/a8C+Rj95KaFdi5ERo3FYF91tGba0eWfM/JBt
+4wmGqCBcDYZTmuMSiVLZ5TCPTp7gewX4TIamKrqM/mgby585RkbqqWPkJckZtEMv
+LNb1hws3RiQF0toeYJAmv3HLaFSpDeDp0BW4JdI9XRWXWnE81+Y=
+=tWCc
+-----END PGP SIGNATURE-----
+
+--ptczkh6frrdnk65f--
 
