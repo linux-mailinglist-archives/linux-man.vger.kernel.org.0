@@ -1,117 +1,133 @@
-Return-Path: <linux-man+bounces-1849-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1850-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE1B9BA360
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:15:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E685B9BA362
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:16:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 55447282AB0
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:15:55 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A9F96282B93
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:16:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 964D12AF00;
-	Sun,  3 Nov 2024 01:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5A4AA945;
+	Sun,  3 Nov 2024 01:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=chiark.greenend.org.uk header.i=@chiark.greenend.org.uk header.b="1szn5lWC"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUC/KjpI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from chiark.greenend.org.uk (permutation-city.chiark.greenend.org.uk [93.93.131.194])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8802833FE;
-	Sun,  3 Nov 2024 01:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.93.131.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823DB481B6
+	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 01:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730596550; cv=none; b=ErRpuDS//WBPM9Wb3+fAkFKDXIE8b6HeJ/J8aWtfUIc7JIKRei1e3G3ZZt4M/r6pXsnXg494zStTa1wPoGEnB9yHzEZ4AJEfDN1H6lMelh3Q68XzUaRdUZHwtUmMDH+aacyluqKDYPx1ao+iFLJMIG9C0XMX7h83ObfMp89ncTA=
+	t=1730596606; cv=none; b=JlxEyQsjU6WbkSqphCfL+Kdm9uvNfMxGsaYF0BWIhAMTqX+c7laP4kd1rF/Lcj89qsaLVgoXQyJlZrjULYfYgrFELX7v0St2CymfK0SG1p9Md2IfxzEWd1R+JBtE7GZwRMrA0Pg8di69c2awvMe4mAA59xbXzKD5ogkw+wHCZu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730596550; c=relaxed/simple;
-	bh=9+sfWe5DTppdkBK63wDI4UAYPWvSDfIFCh5NjA+1ygc=;
+	s=arc-20240116; t=1730596606; c=relaxed/simple;
+	bh=nfaU2x5FO7roO3vnHZWLfqUChsxRRcKvWZzsRY45HZM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CLmlyXL6Rf723aTBfL+emP47bAmErx6R4bGV1KoKW/TemvKbZhcFUrqiYHJy4JULLDE7YpuxrL+/l3I/vTM5q29EO/dRr4mIeTQy9IIJW7SjqPJWR1wW33xO2hNh9E1TeRMCCIxVXsWrnVarSeIS8GMMc0Z/pMEh3ZaRL6Q+kzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chiark.greenend.org.uk; spf=none smtp.mailfrom=chiark.greenend.org.uk; dkim=pass (2048-bit key) header.d=chiark.greenend.org.uk header.i=@chiark.greenend.org.uk header.b=1szn5lWC; arc=none smtp.client-ip=93.93.131.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chiark.greenend.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=chiark.greenend.org.uk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=chiark.greenend.org.uk; s=n.chiark; h=DKIM-Signature-Warning:In-Reply-To:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=K99DbM/X9UDHqpSWXZmsvhSxE/wI224pXodl18QBjjc=; b=1szn5lWCj0MX
-	gtLNF6kOo6nFKs6bFCQSI0pAS2NpCHfz7ONVIRmyjk2IOVYg16FTFxxgCgnYBaTSElylSUb4s4lEj
-	tuSbfMibikiHc4pFLr9IIQu0y5OfBCjGWtENWVaCjMZC7V8vA7aHvF2JP4FVdif/Jcu8HLejxngLm
-	8aFp0uD14Ld/cQkFX/4EXzVc9gSsvy/UHPeJwGP12EznSzHZnStMMXxkjhXoA6UWG1+pE/TYoSLW5
-	Q+jwfNBw1AE/alCeI5+YCk+TX+WbU6JckYan5uAjQ7Lte0aVzBwEXHEQMsKlf/Fs7eeDAmGtbNnSc
-	U50F/3jX7gEAg4+DuT7Glg==;
-Received: from [90.155.79.218] (helo=riva.rosewood.vpn.ucam.org)
-	by chiark.greenend.org.uk (Debian Exim 4.94.2 #2) with esmtpsa
-	(return-path cjwatson@chiark.greenend.org.uk)
-	id 1t7Om4-0007mI-EQ; Sun, 03 Nov 2024 00:47:24 +0000
-Received: from ns1.rosewood.vpn.ucam.org ([172.20.153.2] helo=riva.ucam.org)
-	by riva.rosewood.vpn.ucam.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <cjwatson@chiark.greenend.org.uk>)
-	id 1t7Om4-004mHG-0S;
-	Sun, 03 Nov 2024 00:47:24 +0000
-Date: Sun, 3 Nov 2024 00:47:23 +0000
-From: Colin Watson <cjwatson@chiark.greenend.org.uk>
-To: Alejandro Colomar <cjwatson@debian.org>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
-Message-ID: <ZybIG9xykOW6driW@riva.ucam.org>
-Mail-Followup-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org, groff@gnu.org
-References: <20241015211719.1152862-1-irogers@google.com>
- <20241101132437.ahn7xdgvmqamatce@devuan>
- <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
- <20241101200729.6wgyksuwdtsms3eu@devuan>
- <20241102100837.anfonowxfx4ekn3d@illithid>
- <20241102103937.ose4y72a7yl3dcmz@devuan>
- <20241102213620.kfccilxvhihwmnld@devuan>
- <Zya6ApewCZQNEfJb@riva.ucam.org>
- <20241103000534.th3jq7umwojlxnma@devuan>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ad5an577iRacVFK2KQ7q1IYZURLGQfhhQENDEeRFWlhcnjoCNAh1XFBru3PBpUgL5KyzCfIdc3H9s2XJEAxCjZTu/oqrqYP9FuZZTbmFMmD6X6QwmJU3wAQiccLx3Eejoj2QZi+3vN69f6DZr1d0jS7KfCX4GarVLMOpb+z3PZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUC/KjpI; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D054C4CEC3;
+	Sun,  3 Nov 2024 01:16:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730596606;
+	bh=nfaU2x5FO7roO3vnHZWLfqUChsxRRcKvWZzsRY45HZM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BUC/KjpI9S3mRHTImtkL4ltj/9DjYZGn9x+KksA7CoCVTWp9+64cyPPsAtB/IAjHI
+	 kX0NG+kPrJEJAx4TmQlabQNNyF3uRTHqeLOuyXOvx5Jtywwe37DVEA8rDeqvC1W0Rt
+	 YSvnH8HiNMnFicCmVnDghDn+5JaTYLzsIn8gXpHypvewLnfjiK3uYgM/+qI1BfuEkm
+	 RjAPaamxBiXQFsXbgav6KJ/5Bz9VayCRFMH9TDbrK8j0TcRDWQ3nuBVbswAAXL4tE2
+	 shdyDpMbhnTqNOnRX1C62Apt0dJ/wHq/Pnq5sYgZJ/ZNiJIrjYkViIkvz2EbU6FLcM
+	 3zNiummvnrhaQ==
+Date: Sun, 3 Nov 2024 02:16:40 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
+	branden@debian.org
+Subject: [PATCH v2 0/4] Add mansect(1)
+Message-ID: <cover.1730596504.git.alx@kernel.org>
+References: <cover.1730588410.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xj3L7oCIcr3E/v/z"
 Content-Disposition: inline
-In-Reply-To: <20241103000534.th3jq7umwojlxnma@devuan>
-DKIM-Signature-Warning: NOTE REGARDING DKIM KEY COMPROMISE https://www.chiark.greenend.org.uk/dkim-rotate/README.txt https://www.chiark.greenend.org.uk/dkim-rotate/99/994dcb1603a1454f0f92dbe5c4081b04.pem
+In-Reply-To: <cover.1730588410.git.alx@kernel.org>
+X-Mailer: git-send-email 2.39.5
 
-I'm not trying to stop you committing whatever you want to your
-repository, of course, but I want to be clear that this doesn't actually
-solve the right problem for manual page indexing.  The point of the
-parsing code in mandb(8) - and I'm not claiming that it's great code or
-the perfect design, just that it works most of the time - is to extract
-the names and summary-descriptions from each page so that they can be
-used by tools such as apropos(1) and whatis(1).  Splitting on section
-boundaries is just the simplest part of that problem, and I don't think
-that doing it in a separate program really gains anything.
 
-(That's leaving aside things like localized man pages, which I know some
-folks on the groff list tend to sniff at but I think they're important,
-and the fact that the NAME section has both semantic and presentational
-meaning means that like it or not the parser needs to be aware of this.)
+--xj3L7oCIcr3E/v/z
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 3 Nov 2024 02:16:40 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
+	branden@debian.org
+Subject: [PATCH v2 0/4] Add mansect(1)
 
--- 
-Colin Watson (he/him)                              [cjwatson@debian.org]
+Hi Colin, Branden,
+
+I've further optimized the script to be 3x faster, simpler and more
+robust.  It now also prints the filename in the output, by calling
+preconv(1), which is necessary for doing the job that mandb(8) does (see
+patch 4/4).
+
+Cheers,
+Alex
+
+Alejandro Colomar (4):
+  src/bin/mansect, mansect.1: Add program and its manual page
+  scripts/bash_aliases: man_lsfunc(), man_lsvar(): Use mansect(1)
+  scripts/bash_aliases: man_lsfunc(), man_lsvar(): Use pcre2grep(1)
+    instead of pcregrep(1)
+  src/bin/mansect: Preprocess with preconv(1)
+
+ man/man1/mansect.1   | 61 ++++++++++++++++++++++++++++++++++++++++++++
+ scripts/bash_aliases | 51 +++++++-----------------------------
+ src/bin/mansect      | 27 ++++++++++++++++++++
+ 3 files changed, 97 insertions(+), 42 deletions(-)
+ create mode 100644 man/man1/mansect.1
+ create mode 100755 src/bin/mansect
+
+Range-diff against v0 (ignoring v1):
+-:  --------- > 1:  5ccf08a11 src/bin/mansect, mansect.1: Add program and i=
+ts manual page
+-:  --------- > 2:  ef793bf0a scripts/bash_aliases: man_lsfunc(), man_lsvar=
+(): Use mansect(1)
+-:  --------- > 3:  0464c22ec scripts/bash_aliases: man_lsfunc(), man_lsvar=
+(): Use pcre2grep(1) instead of pcregrep(1)
+-:  --------- > 4:  929d1df17 src/bin/mansect: Preprocess with preconv(1)
+--=20
+2.39.5
+
+
+--xj3L7oCIcr3E/v/z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmzvgACgkQnowa+77/
+2zLS+xAAnwTRAZs/Y12ClDHpcBmQBc+Tl8DhuYrzB/t1EJkvJIB2INkQrmBinUkv
+zvAjqnLvdtSBhdka/bCyX3m1ySUZKfPrV7rrswlSHJ5e5JaBGUvMoNCBQewtyfkz
+F5zYhDCW/dw27pZgRTcnRVp1TzGtsuzp13qZIhV12d7El76OkNYJv5WFD9voQQPA
+MSqsJUfs5dYRpYgraVE4B61x6mz9VWDxOvJHZj9y/wmzlOm6ZvyrHa+DLFmf9oMj
+uGZW7Qo1vgd2fWGApPPcf6JONwwiVShaqHC2munngdPygUJN5cAfo1+pvTMsM56y
+FW6P//jL590XzATJvefWulLl62BfubdgIUpYvR4FgOOcBkWd7hlAV1/d2AtZHZ9j
+BT5CwJXZ8hZotnhc40X5btsSo13p/2E+jmoam6fUbh5rGFiEieCI1w+8UUgQeZI0
+cfF3fcRBZFjbE9C5ZXVjmavUxWo25oBQppLqmYxBti+sij2zI2mrUufllS02Bu5/
+xE+9ccRdBcUiCmPByDrEVHRJoiHzsSu65ChIYHDtESI+jD152YW9B+Ye5lqAAO8i
+4KQ5MF6OEyw4F8ypUKeRaFFnQKdplB9WYTMUO1rZrs/RThF0x1BYmeoHORX8PM07
+RmfliHlw+yFOePF3nA1iiSkkOHpxsqkfLxDU7jHWhzv0bKJ/0D8=
+=0+ku
+-----END PGP SIGNATURE-----
+
+--xj3L7oCIcr3E/v/z--
 
