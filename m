@@ -1,192 +1,134 @@
-Return-Path: <linux-man+bounces-1862-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1863-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id E35CE9BA3DC
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 05:05:30 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DA79BA42C
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 06:33:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5A1B4B21B15
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 04:05:28 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 99B591F2116F
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 05:33:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15ABF7081A;
-	Sun,  3 Nov 2024 04:05:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA64170833;
+	Sun,  3 Nov 2024 05:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nt31FliZ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I7NHmejy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFBCB658;
-	Sun,  3 Nov 2024 04:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9863C7080C
+	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 05:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730606721; cv=none; b=jELYMWhiYVepAzVbt3Gv85IWWGlDyOjGtS8FYjy1nwuAM3yn2OHogouFb4z3+51cisHt2EMtR5TmIl4AYRu0MynaB2z6M6OgK8gVxzY9Bo6520Lh4eXqgKeWKYnwHKwLu8TbclBywWF+zhxgUCk1vP0FopHKO1BzoBdXkNvi10I=
+	t=1730611988; cv=none; b=YaAEZ68Y/YfCikN/kedWBbmjrpstuxUIpBFYgHqzjdXkv+3U25mRhd/w0Rxls9uJR9rHDwDs4MOGPghxHYB1EdlQvfs/clYdD0abR6IKAaq16BJO6tlnu0bPnvR+tVX0I8TvWv5v/QSrrj/VwrTDJiqmgGuE2HuZHRVZQlRV2/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730606721; c=relaxed/simple;
-	bh=Gyg5zdarFFMb9NhxqxzGVJBjxsx3a/E23SagF5aTie0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I1nqPiDEX1AWPIMH+Id+RzWipY0fzpeTQINnZIYg9t8hnOeTypThgOIdGFpwonOHjWgDAsCJGM2kpotlFdiTKWKYNlVtrU7ZrVNnbcQKFjWwG6m8uS9n1shavdW7FYozmcKrGs+9LnzZgy7Rz/aICB1GT706zMZRdxtDXbfOJUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nt31FliZ; arc=none smtp.client-ip=209.85.160.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-2884910c846so1487949fac.0;
-        Sat, 02 Nov 2024 21:05:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730606719; x=1731211519; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q3NbQqHGavlGKaUtOquClqL6oZ5jwUgWkkB2nQy7c60=;
-        b=Nt31FliZ3SEbXlilSR+apIOf28sqm+j9kzfgwHBn1KA8GOZCe31cGLhfhLpTNfQInu
-         Dy30lzlLIO2/ABoPotTUfHjOqUaWeISrfCRidEbeTIbotDEurXfN9kPKl4yhzfpmUxzI
-         vpGaC+Lwzdx8He+KnwxhzJDsHQhxi3K8XJYH+0KWIr3LFU499ffdX/NmRxeQLqJzbKhF
-         9OMhbARgdItiB1uWB8x8RAPeJU8gqm8J5SGRF38AeMDyHeG2RVlYZbqnfHgJ/byaDsyz
-         8Lk/V7bO4Cq/LDQEX7IwSJBbsIYL7arxZ/aj6m0s9yMCvHm5IUQ8WLxxyxRmVzYpEQf7
-         FWTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730606719; x=1731211519;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q3NbQqHGavlGKaUtOquClqL6oZ5jwUgWkkB2nQy7c60=;
-        b=C+vTi0NcDWjP/TXWzfU/mKVac8JIwybGwaesJEperCmlucAne/qaGVvtLQkEoTblj3
-         GpmS2gsQlzNcGzltWzdxXMAtqt/0G0fR6Cq/a3/3GiTG0j6WL/EkC1jAPbSJbKBDCZqq
-         7ATFVQE7/e7eY0UMWKtH8UgLMBx93NlUCzL0jZ2LUW2RKWNFde4hHtCz+VYGjSKXDTHP
-         hzotEK4aEDEoXUIwKJiLbPu6rhDAu4IR2YV9ZqPuIYJZS0R5IQ4ftf3WGERzkhv0aEQk
-         7Ijn9tcO0+KxMy7/pWkFQcSkkV8W4seNp/2d5i7HgAZ4CIJA2kui2+XskjejqC6wWdOQ
-         ldMg==
-X-Forwarded-Encrypted: i=1; AJvYcCV7THiO+bz4VGblBTL+kSgljOu29iDB7Dv0/7ou4UUdGFPiNBoLBBY1wJpw4JCXn47HuOzQbT7gNpk=@vger.kernel.org, AJvYcCWtYjCofpMuo/Ol8a1o1kUKQg/jboUgYw7e32hAvhgod3zog17lBHF2XkmAEc0SiuXMAVUAGLOGT9ws@vger.kernel.org, AJvYcCX3Q2hQmd+UpPQf/Azac9oVs2H+UVmw+Q4P+uMHOMXS+89sj3ux/bKIwZKCfkjEb34OWoMoCyt+ozNdzxeg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkHmKVSd30COj03UvbDEsaO6NFMCU6E+qUzTakbNEDG6tzEZLi
-	zQQ0B1HqaA6nUR+rkSs/WXy8voGm49VbtvNlpb9Rq7O68CTrk7YI
-X-Google-Smtp-Source: AGHT+IH1IuMJjXidoZxnvbOq8EhauNN2fyc1gFkAHH1Y5mnVtlVIMI/Co/2ogwXyqrLdvm8tOuNG6w==
-X-Received: by 2002:a05:6870:498f:b0:277:eea4:a436 with SMTP id 586e51a60fabf-2948442b3e7mr9572727fac.7.1730606719281;
-        Sat, 02 Nov 2024 21:05:19 -0700 (PDT)
-Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-294874880c7sm2151154fac.22.2024.11.02.21.05.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Nov 2024 21:05:17 -0700 (PDT)
-Date: Sat, 2 Nov 2024 23:05:14 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org, cjwatson@debian.org, groff@gnu.org
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
-Message-ID: <20241103040514.6wo54kf7smiqf4yg@illithid>
-References: <20241015211719.1152862-1-irogers@google.com>
- <20241101132437.ahn7xdgvmqamatce@devuan>
- <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
- <20241101200729.6wgyksuwdtsms3eu@devuan>
- <20241102100837.anfonowxfx4ekn3d@illithid>
- <20241102103937.ose4y72a7yl3dcmz@devuan>
+	s=arc-20240116; t=1730611988; c=relaxed/simple;
+	bh=SYTNq1q6EdlrZKMefRrKZQU9yJzfoLgV0e39/9zaidI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Cnx+XCld+VFrbpyHL2QvP5epf8l2cAmmDqjO8LCU/xBiCjNOGyY0As3MYNLmpX+LJulSm1pOAsjnse9RvteDXdQR+1s6CACo0p+Mv3W9mgjA42kEvPVa6u3G7IwXDpWoLzewZsh/ceGFJGRPxHxYbD8ZwXp2z6soilDfZ/PQHK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I7NHmejy; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DACC4CECD;
+	Sun,  3 Nov 2024 05:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730611988;
+	bh=SYTNq1q6EdlrZKMefRrKZQU9yJzfoLgV0e39/9zaidI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=I7NHmejyB+vH3jbwvxhuS6KVV1SwDhAvPvZB0MlKbhKd19Hn1Oa1ZtlitwF1oiV+a
+	 +Cl1CQ5t/yU/TKxnWowRdvi5r44V0A9LwSmzSyCB3YUm/Sm+RVsCttr48/jhq5QLWm
+	 EzPN/aPAFkjmVGd5owe2lVUs1JTacBLm2K2UnY77WCvwWUYoJkzwGZD1XGWHJcYZa4
+	 xjmBqSXdH9PesVtqgr2zQmToOwiUglreGIfbfFpZXUixkcl7NuLGWV7onGySs7+/3a
+	 zHMrNOZGYcmB+k9pVRCj5uDcx1+RL3h2vK2xbPU3i8Qkd2nnhxvYm9y0kxUjStdffZ
+	 fQ8/ClSngVmHg==
+Date: Sun, 3 Nov 2024 06:31:32 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: mtk.manpages@gmail.com
+Cc: linux-man@vger.kernel.org, branden@debian.org
+Subject: Re: pdfman
+Message-ID: <ZycKuuxXSbZI2-Wo@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="pscddhjqsar3tshn"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ePsCZpY0G3P3bxWg"
 Content-Disposition: inline
-In-Reply-To: <20241102103937.ose4y72a7yl3dcmz@devuan>
+In-Reply-To: <6d09983e-7c7e-c04d-dc02-33d3828594a7@gmail.com>
 
 
---pscddhjqsar3tshn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--ePsCZpY0G3P3bxWg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 3 Nov 2024 06:31:32 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: mtk.manpages@gmail.com
+Cc: linux-man@vger.kernel.org, branden@debian.org
+Subject: Re: pdfman
 
-Hi Alex,
+[CC +=3D Branden]
 
-At 2024-11-02T11:39:37+0100, Alejandro Colomar wrote:
-> And diffs are a real win for text.  Thus, semantic newlines are a real
-> win for text.  "Write poems, not prose."  (Any chance we may get that
-> warning added to groff(1)?  :D)
+Hi Michael,
 
-Yes, but I've kicked it out to groff 1.25 because a gift-wrapped
-opportunity came along.  We get to retire a warning category and its
-number.
+[Speleology session below]
+<https://lore.kernel.org/linux-man/ae31daa2-a44b-2e79-1a70-a95428b7e231@gma=
+il.com/>
 
-groff(7) [1.23.0]:
+On 2021-01-06, Michael wrote:
+> Hi Alex,
+>=20
+> On 1/5/21 3:05 PM, Alejandro Colomar (man-pages) wrote:
+> > Hey Michael,
+> >=20
+> > On 1/5/21 1:00 PM, Michael Kerrisk (man-pages) wrote:
+> >> function pdfman {
+> >>     man -Tps -l $1 > /tmp/$(basename $1).$$.ps
+> >>     ps2pdf /tmp/$(basename $1).$$.ps $1.pdf
+> >>     evince $1.pdf
+> >> }
 
-Warnings
-...
-       el             16   The el request was encountered with no prior
-                           corresponding ie request.
+I was wondering why -Tps and then ps2pdf(1) instead of directly -Tpdf.
+Do you remember a reason?  We still have the function around (with my
+rewrite, but we kept that ps thing), and was wondering if I could
+simplify.
 
-groff 1.24.0 [in preparation] NEWS:
+Cheers,
+Alex
 
-*  The "el" warning category has been withdrawn.  If enabled (which it
-   was not by default), the formatter would emit a diagnostic if it
-   inferred an imbalance between `ie` and `el` requests.  Unfortunately
-   its technique wasn't reliable and sometimes spuriously issued these
-   warnings, and making it perfectly reliable did not look tractable.
-   We recommend using brace escape sequences `\{` and `\}` to ensure
-   that your control flow structures remain maintainable.
+> >=20
+> > Would you mind adding that to a script in scripts/?
+>=20
+> I'm not convinced it really belongs in there.
+>=20
+> Thanks,
+>=20
+> Michael
 
-This was a 35-year-old bug (or incomplete feature) in GNU troff that as
-far as I know first came to attention 10 years ago when the
-then-Heirloom Doctools maintainer pointed out an incompatibility between
-AT&T troff (from which Heirloom Doctools descends) and GNU troff.
+--=20
+<https://www.alejandro-colomar.es/>
 
-https://savannah.gnu.org/bugs/?45502
-
-More recently, Paul Eggert scored big-time grognard points by actually
-depending on the AT&T troff behavior in the zic(8) man page.
-
-https://savannah.gnu.org/bugs/?65474
-
-We therefore _had_ to fix it.
-
-The consequence is that the warning category `el` and bit 4 in the
-warning mask integer are undefined for groff 1.24.
-
-This was irresistible serendipity, because this warning category was (1)
-not enabled by default and (2) probably used only by people who wouldn't
-object to style warnings anyway.
-
-In groff 1.25, I want to revive bit 4 as new warning category `style`.
-
-Ending sentences before the end of a text line is something we can warn
-about as discussed a while back, and I plan to do so.
-
-https://lists.gnu.org/archive/html/groff/2022-06/msg00052.html
-
-I've been collecting specimens of other contemplated style warnings.
-
-https://savannah.gnu.org/bugs/?62776
-
-Regards,
-Branden
-
---pscddhjqsar3tshn
+--ePsCZpY0G3P3bxWg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmcm9nIACgkQ0Z6cfXEm
-bc5ZnRAAqhIZQOmVX214qFJPNcP4uF/DYd1DJjyabBQb/MwJd/KVO1kM/n2bsaAG
-F/alGpXKF+6oJ2mlz05zkC/I0qMQ7JxB6jDxtSRTivQyT2zf0pHFIZTrOj/7Po5S
-SnmRJk354RKLXJF6JtjG6Wtymyg/hbnQEMzOCl8c6p46vwcg7b+cK8G5G5dsZRKY
-bH1pjEPunVQEFeQKnVTmulirbSYduhWk07q2j6VMM8E3JaX2zSSQf4EyHutCTGoP
-VztycC1344QDk2w00PdgDAEKLIclzTQpttqatlCy2rBcLhAvDrimeqmA7H4weQlo
-xrJNz7mxYYGdEGJiFdBpRygvdmkAvbqVpPn8hbv0Y8cFSnisnHdMfWluaVEnSCm8
-hYRDHcRx7ZwQeP/d+AL8B9uHQrLoA53iZLqt6RnzZZyRqae8L0ayTQnoRjGVACDR
-XGFhl85oisMEd4eJeMihq2qV60UXz2tUWFpd9BApWdtj7ySKKe0Ul+0BOesXnJw9
-5abyFC6NTt/FlhUJRi85GR97AavxYLwPGOjkDOiqf3pelY0JrF4QmS3dH2I2zIka
-+DslpTR0aEyWNwUsNxIACSmvmE4UXKKoYX1fqGpAwUlPXssRsz283TGSlxUdSisK
-f2aND1zHzp/1WFkK2FQ5fCPmC/7BX+wslaVFrMBan/9QTRDcvDc=
-=GEH3
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcnCrQACgkQnowa+77/
+2zJ0dw/+MxB+DqtBCQckh/1Ra2j0JiCpGSHjxGHnib9gDlxWqB8zttRQ2ODCeDn7
+PlAgvPWZ+jqI/4tSaPGYIkboUg1L7mYagCOOC1Y4Qw6kaM3d/ZcXjFC+XcIdwE/x
+14AbVjWfDZ5lwmLYAQN893mufKmbJCsk6EytwOlsR2cEOVnK98TSiXy7Qm1oXNQa
+MgQtcQZFPYAdOKVLhGETmV6yj88oDT83YAY73+gpttnPAVw8Jbz/yjIU35nORZ31
+mHqWKDiOZV2G7rtQCvvPo92AY/dI/8m7c8pGkGu4u51C0unve6IlMZ0DZZJaDlea
+lm1D+q+6MyFH6tDkXLfuZK1ej1Xa1MYGtGaxLYI2LcXAaC7ZLQxVgP7wf4llaEQN
+tKfJPmBXmrDpwMMk/lX11GTIuOQR9JpEM1dqzUVd1KLHETBxUttYakDJ/RvNYWBP
+wDJ8t3iWnQqtbzz54UBxSF4I4nTdmtCx67OrWJi0aAj7FWXPj+WmkQJ94Nqumsuc
+lQKdPy8xbe/ZXoas+9YdObQzYyW00q6dvXpaWiOQTWqJQQLffpP3fwPKV+LQkz/+
+L0AyyqYgSCsE3GrsxgRMyvOmoxGjbTLdwRpfYHDGl7KjdMNtdei63ln7O181kbwk
+OKoVCCwSe2yY6GM+9kVbOA3/wwL/jW3lm9LqHjkKF5mSQ1ZjhHs=
+=8gC0
 -----END PGP SIGNATURE-----
 
---pscddhjqsar3tshn--
+--ePsCZpY0G3P3bxWg--
 
