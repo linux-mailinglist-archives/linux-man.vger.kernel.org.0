@@ -1,130 +1,118 @@
-Return-Path: <linux-man+bounces-1857-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1858-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9B7E9BA36A
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:17:33 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 136449BA36E
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:19:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8B6271F220D4
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:17:33 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 8E9ABB2208B
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:19:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2670EAD31;
-	Sun,  3 Nov 2024 01:17:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FEA02AF00;
+	Sun,  3 Nov 2024 01:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GNtkdA+v"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="oZZjPwIo"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BB133FE
-	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 01:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F7433FE;
+	Sun,  3 Nov 2024 01:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730596648; cv=none; b=feBMC67LgM4CiNQmNoJhEyn0FXxqfJYmqr4L4DKbeb18bbpjlSwUklAUUuYjCD1tv8SEgf97xt+4pdBGqaPHnMRTrtFDwf4VIXzr/QkddSZs4MCdoTgv3iMGDcaw5k6BAxZDmFsVPKm7Hw07E3llKH3Hj2i6PFsxnaAxxKPbl5A=
+	t=1730596736; cv=none; b=YBTdSmFYLyOPXWi6FqVjqMyuzdJiEkLvJFzGpWDtdAS7M9zsj8/QCUlmxLft45g3nkK6qgbalgB0tPLhV9/0PkI50qJV4Riz1uy/pu6vB4zNDF/tnrwvQus1B5soIwS86GBOQSQZ1fpEtWwdYbpIc7hYs+bvjigRmqZsLk38NQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730596648; c=relaxed/simple;
-	bh=CJn9j78HTW84ERGSNDONxA/PwKZcZCbSTgMj8gFrxYU=;
+	s=arc-20240116; t=1730596736; c=relaxed/simple;
+	bh=WTX1ZWReIBnrdeQNOih4l4kEUIEo/nK+wfcp8IDoEM8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HCt6xNbS/BYxZHPAQBM5KlAnpwcZLZALfs27cRd8aZzwmJK0JCRFljkezUK4D8O86RDi98OO+nknUHltJ8ZlhAvebaJ2dv+68iy56j5i7LskL3+8Oem05C9UrDqnGJm6WavAoEP1c557OZANt4KqYDt6zMQzddzO+ru6jo5kZ7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GNtkdA+v; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A09C4CEC3;
-	Sun,  3 Nov 2024 01:17:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730596648;
-	bh=CJn9j78HTW84ERGSNDONxA/PwKZcZCbSTgMj8gFrxYU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GNtkdA+v/zK4VGBrumjV7Bhb2oWqX/nfaAWGo/ivnw7Nd3YhcKxZaZOH6Z0tTtaBs
-	 nEnrrwgPyhf475W7DPk9PbYcsm3d8+HX9wsGO/eucp4sVliZ8Tq64PUJktuRUY+7zi
-	 qsAnpu2SB80QCrusz6wFqiLyDz6Cqt8AtcC9xp8cEZwlQQ9QSJUF6qg5s96S1BRfJ1
-	 VpJtSEJxNijYmgC51PKrHOZIBRzGDQUkzdpv7a+CxY5lmFzUQvDxJ7/lnh/1FNot+m
-	 P7aDBOiR46wcST+PlmdGzLTBeLpEFVVRkA7C93e9ImB5bWTk6lTtDCb4htU+BjS050
-	 RCZTa8r7dsNaQ==
-Date: Sun, 3 Nov 2024 02:17:23 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
-	branden@debian.org
-Subject: [PATCH v2 4/4] src/bin/mansect: Preprocess with preconv(1)
-Message-ID: <929d1df174d5656e3e14228d990db258e0405459.1730596504.git.alx@kernel.org>
-References: <cover.1730596504.git.alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=lG2F4LJ3etXm8v5lIy8SGEo8QoRlmIt47ul7QDZfIwG1eUWD8VNhm5iBdrj2Z6E+KY4iV+bUU54n/qte/z2JHFLBHbvdmnhJOT2sMXsRGPnK4okh1NIqYi2LqGLOcLssgK/DVwej6wtHE02C4WAY/6CR12czRk9OjnByhA8PYus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=oZZjPwIo; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tXQXYJsNjDvSzDy6sM0+n74th0uBmgUZPr+cgVqYamw=; b=oZZjPwIoemtSxKJonQP5vJP0Cd
+	EEy2ZE4tn6jEtgGO3UUiG4l90WvnonAm90MRDssjgA1cPAZzFwVzL/r64i7DQLmzT2+FGX9/lhZcR
+	Bu8GmkuUMCFolHUDegMLu5kvZSyhsR0J/hP5su++QiHi3VZ3lKw521X1Z3T4LWCHGntwpLvAbMQ/y
+	Bpgjze4aHbIjxHbnJpfFSRNN47VZyO05jDmwLMMTgJAB63D4X7cSvxFT8hI9mEk9iAuSmuqtc4+3R
+	xJAp9/Fi/O32demqCie7LwoCaQgjO3+HosRHsrrcichLrauoRzMOFdbg1Fs8Z0Jw3hX3GHgkGOX81
+	wenrq8rg==;
+Received: from authenticated user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.94.2)
+	(envelope-from <cjwatson@debian.org>)
+	id 1t7PGO-00B3pR-7h; Sun, 03 Nov 2024 01:18:44 +0000
+Received: from ns1.rosewood.vpn.ucam.org ([172.20.153.2] helo=riva.ucam.org)
+	by riva.rosewood.vpn.ucam.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <cjwatson@debian.org>)
+	id 1t7PGN-004qFr-0R;
+	Sun, 03 Nov 2024 01:18:43 +0000
+Date: Sun, 3 Nov 2024 01:18:42 +0000
+From: Colin Watson <cjwatson@debian.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org, groff@gnu.org
+Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
+ page
+Message-ID: <ZybPcmC-93wvsxtr@riva.ucam.org>
+Mail-Followup-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	Ian Rogers <irogers@google.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org, groff@gnu.org
+References: <20241101132437.ahn7xdgvmqamatce@devuan>
+ <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
+ <20241101200729.6wgyksuwdtsms3eu@devuan>
+ <20241102100837.anfonowxfx4ekn3d@illithid>
+ <20241102103937.ose4y72a7yl3dcmz@devuan>
+ <20241102213620.kfccilxvhihwmnld@devuan>
+ <Zya6ApewCZQNEfJb@riva.ucam.org>
+ <20241103000534.th3jq7umwojlxnma@devuan>
+ <ZybIG9xykOW6driW@riva.ucam.org>
+ <20241103010929.ke6vf4amh76hyqb4@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cfqBoLfmkc1oRZur"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1730596504.git.alx@kernel.org>
-X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20241103010929.ke6vf4amh76hyqb4@illithid>
+X-Debian-User: cjwatson
 
+(now with some local vim macros fixed to stop accidentally corrupting
+the To: lines of some of my outgoing emails ...)
 
---cfqBoLfmkc1oRZur
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 3 Nov 2024 02:17:23 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
-	branden@debian.org
-Subject: [PATCH v2 4/4] src/bin/mansect: Preprocess with preconv(1)
+On Sat, Nov 02, 2024 at 08:09:29PM -0500, G. Branden Robinson wrote:
+> At 2024-11-03T00:47:23+0000, Colin Watson wrote:
+> > and the fact that the NAME section has both semantic and
+> > presentational meaning means that like it or not the parser needs to
+> > be aware of this.)
+> 
+> Even if mandb(8) doesn't run groff to extract the summary descriptions/
+> apropos lines, I think this feature might be useful to you for
+> coverage/regression testing.  Presumably, for valid inputs, groff and
+> mandb(8) should reach similar conclusions about how the text of a "Name"
+> section is to be formatted.
 
-This doesn't process the pages in a significant way, and has the benefit
-that it writes the name of the pages in the output.
+Yes, that's a good point and I agree with that.
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- src/bin/mansect | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/src/bin/mansect b/src/bin/mansect
-index a13a6b534..e1e83a8d8 100755
---- a/src/bin/mansect
-+++ b/src/bin/mansect
-@@ -14,13 +14,14 @@ shift;
-=20
-=20
- if test $# -lt 1; then
--	cat;
-+	preconv;
- else
- 	find -L "$@" -not -type d \
- 	| xargs grep -l '^\.TH ' \
--	| xargs cat;
-+	| xargs preconv;
- fi \
- | sed -En \
-+	-e '/^\.lf 1 /p' \
- 	-e '/^\.TH /p' \
- 	-e '/^\.SH '"$s"'$/p' \
- 	-e '/^\.SH '"$s"'$/,/^\.(TH|SH)/{/^\.(TH|SH)/!p}';
---=20
-2.39.5
-
-
---cfqBoLfmkc1oRZur
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmzyMACgkQnowa+77/
-2zK6KxAAqx4lywCdhik9Azz+ImeMH/+bDaK2qt4rZPOdX18QtBGe3Ak6mifYCUou
-fGyzkn/fFddFwKeWDS/ZTFw/X5F+CjGZjMt9AM3J5YDWdG9F2Pr1XpvY4DL+qwhe
-cIe2CUSA+NX8RuR3Ulbmb42zKuZhPw8G8ArgJQK3fdGtIxLnX41MPh95FVa3R7He
-5iR66K6u3M7DX3ubz2lB/cXFxFxd0sAnNlvqBgs3Kp9qFYH3itvhkfzyfr9pJDki
-4Aqo/6CSa9Sb1+cc78/MCq+mbOgRd2HfS+aGQDi7BGQeWtLODwF2q1+QkH7USjr1
-ehVcwYAxgFlEfqJe62m+mLHOeWyjABLuIGiNdiIFayhf32BbkJ32OwnY1DnwPFED
-QsB/heZmzuQYFTGbVp/cR9aauQGuUcSF7bndq3fglz5DVj0bFDoRySkd4HRifsmJ
-S8QbgVkeQDUFjmSITAa01aA5RpluGPAxmOvcgFVcPfCbVgEL7L2W6a1Pz1wotkjf
-FrvemUM7D/u3umFhIpjsxFw5LsD2RY9K35IYnGFPXhW1lB6NA7tPQSbqwfJxfe4U
-pepxDbFcxZdw834qgLfCdMTMLtNCpRKxlM8Y+e/15RrcGgRve0Y0BaddQYxbXfUE
-N03CdlJ4gVXO1RFe4utTQM+tRJ+V4X7daWcOiwnNB5FBs5qOnhI=
-=I9yB
------END PGP SIGNATURE-----
-
---cfqBoLfmkc1oRZur--
+-- 
+Colin Watson (he/him)                              [cjwatson@debian.org]
 
