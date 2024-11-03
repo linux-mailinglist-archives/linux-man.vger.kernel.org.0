@@ -1,54 +1,54 @@
-Return-Path: <linux-man+bounces-1856-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1857-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id D141B9BA369
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:17:27 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id D9B7E9BA36A
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:17:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8E4BA1F22354
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:17:27 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8B6271F220D4
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:17:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 960A7AD31;
-	Sun,  3 Nov 2024 01:17:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2670EAD31;
+	Sun,  3 Nov 2024 01:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJcFH1IJ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GNtkdA+v"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5301BA945
-	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 01:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BB133FE
+	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 01:17:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730596643; cv=none; b=YOFJyOIJOCaBDFZQ7fkGVWd1z8fK8lsgvuRLl8xuCGIg6+Qy+djo8tocG9jVJCWugyZwab7FkXi+6bidG1tq/Gjr9bfdLyrj5bbeVi4ojV6q5HR6HtL3mXXZOi9MeXEaBhwovBctMrqd3jW+ptEN7N82CeWiyd6PTgVDjwfYoWM=
+	t=1730596648; cv=none; b=feBMC67LgM4CiNQmNoJhEyn0FXxqfJYmqr4L4DKbeb18bbpjlSwUklAUUuYjCD1tv8SEgf97xt+4pdBGqaPHnMRTrtFDwf4VIXzr/QkddSZs4MCdoTgv3iMGDcaw5k6BAxZDmFsVPKm7Hw07E3llKH3Hj2i6PFsxnaAxxKPbl5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730596643; c=relaxed/simple;
-	bh=I3BHEiL2WPaqxyJ50ZxmCpZS4q1COEeavtJrPcsLsRg=;
+	s=arc-20240116; t=1730596648; c=relaxed/simple;
+	bh=CJn9j78HTW84ERGSNDONxA/PwKZcZCbSTgMj8gFrxYU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hc5ZfWqlX/zvQmHz2pUM6Ee18rQB5AvUkHzi57uR1elfriAVX8s9BSsSIRGzk7Wh1w5Bf2vmo4mk99NswFIT1WbGhx3OSw+bJxk5WLB+6oDL1LpR0E9kZt5LyZcun6lkZdc2ejHXVTIV/J73M85Q+hP6EHHKJQ+44bulO3CVWIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJcFH1IJ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9ECCC4CEC3;
-	Sun,  3 Nov 2024 01:17:20 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=HCt6xNbS/BYxZHPAQBM5KlAnpwcZLZALfs27cRd8aZzwmJK0JCRFljkezUK4D8O86RDi98OO+nknUHltJ8ZlhAvebaJ2dv+68iy56j5i7LskL3+8Oem05C9UrDqnGJm6WavAoEP1c557OZANt4KqYDt6zMQzddzO+ru6jo5kZ7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GNtkdA+v; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A09C4CEC3;
+	Sun,  3 Nov 2024 01:17:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730596642;
-	bh=I3BHEiL2WPaqxyJ50ZxmCpZS4q1COEeavtJrPcsLsRg=;
+	s=k20201202; t=1730596648;
+	bh=CJn9j78HTW84ERGSNDONxA/PwKZcZCbSTgMj8gFrxYU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HJcFH1IJlIzSx37lgRG8PB1aLHYZGxezpP4hgUVVfMAaAkvuEGga11WEy9jw5YPTw
-	 AVr9Uyu6d4g+539Du/zh0PcAxdQIqEbETmCZ1R8Nc88RvhZbb5VgkXwnIIm7Rr54kH
-	 KxhxFP7SSmNaj1NKcN2mkal5Bn33CDcWgLRyUqAX3uX1iH4HJNlZNTTPDJFVsOTlgy
-	 VGnSUpunsaLLJh/eg7XYAQzcZrr6ykUmjTgWAO/ArzM6V5AxqOE+qEmUPj2mv9HkBE
-	 bzVWA2Hb9jwOPyCh2CyxJ5UvDV4OzkSicIIlsXfHjiMtwxg/q+9AsKFmlOTidhFVlq
-	 P7gTPa6duJeHQ==
-Date: Sun, 3 Nov 2024 02:17:18 +0100
+	b=GNtkdA+v/zK4VGBrumjV7Bhb2oWqX/nfaAWGo/ivnw7Nd3YhcKxZaZOH6Z0tTtaBs
+	 nEnrrwgPyhf475W7DPk9PbYcsm3d8+HX9wsGO/eucp4sVliZ8Tq64PUJktuRUY+7zi
+	 qsAnpu2SB80QCrusz6wFqiLyDz6Cqt8AtcC9xp8cEZwlQQ9QSJUF6qg5s96S1BRfJ1
+	 VpJtSEJxNijYmgC51PKrHOZIBRzGDQUkzdpv7a+CxY5lmFzUQvDxJ7/lnh/1FNot+m
+	 P7aDBOiR46wcST+PlmdGzLTBeLpEFVVRkA7C93e9ImB5bWTk6lTtDCb4htU+BjS050
+	 RCZTa8r7dsNaQ==
+Date: Sun, 3 Nov 2024 02:17:23 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
 	branden@debian.org
-Subject: [PATCH v2 3/3] src/bin/mansect: Preprocess with preconv(1)
-Message-ID: <929d1df174d5656e3e14228d990db258e0405459.1730596445.git.alx@kernel.org>
-References: <cover.1730596445.git.alx@kernel.org>
+Subject: [PATCH v2 4/4] src/bin/mansect: Preprocess with preconv(1)
+Message-ID: <929d1df174d5656e3e14228d990db258e0405459.1730596504.git.alx@kernel.org>
+References: <cover.1730596504.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,22 +56,22 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="F3NkBm+LAwKP7GBP"
+	protocol="application/pgp-signature"; boundary="cfqBoLfmkc1oRZur"
 Content-Disposition: inline
-In-Reply-To: <cover.1730596445.git.alx@kernel.org>
+In-Reply-To: <cover.1730596504.git.alx@kernel.org>
 X-Mailer: git-send-email 2.39.5
 
 
---F3NkBm+LAwKP7GBP
+--cfqBoLfmkc1oRZur
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 3 Nov 2024 02:17:18 +0100
+Date: Sun, 3 Nov 2024 02:17:23 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
 	branden@debian.org
-Subject: [PATCH v2 3/3] src/bin/mansect: Preprocess with preconv(1)
+Subject: [PATCH v2 4/4] src/bin/mansect: Preprocess with preconv(1)
 
 This doesn't process the pages in a significant way, and has the benefit
 that it writes the name of the pages in the output.
@@ -106,25 +106,25 @@ index a13a6b534..e1e83a8d8 100755
 2.39.5
 
 
---F3NkBm+LAwKP7GBP
+--cfqBoLfmkc1oRZur
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmzx4ACgkQnowa+77/
-2zIORRAAoxuFnwc715DwvXEgsUOAfiZ2s6xA2Sc5BlzODfEktzJYZIyk9bOLW3Fc
-uUsS/NdougZvM7w8wyj5U+/YUzkKMYrADij8nyiZd9q31+8gqwFuRGAxDU/68zv9
-2h08miRgihWoh5N+rXYHKsnhtsrmm+o9HdkrlTs6tqp4+407XFVsWukXeUgmpDeM
-6VytgdbUCeZXTRo039BdflsMy+L8SZIHcJUrxZq49Dnv6gCw+43Ihwi+V0a1qK5+
-1ea4FqOMaRvL7wJB60Ds7/wUGkS0Mrx4n0r9MeXtLbL7TFl9XhwnWqvOZhkryfGj
-dX/QHlLHxqrFnBFmD4CjEiqo7QxjCCwQle/0FcJUJJkArVKHcciwWONHbpG4g/1p
-7mRXgozUeM3Zkti0jbefOZi5+2iczVOpaz6g5PMYcNUga/8UVMq+V/3FA/WiEaXP
-//UJSZD/kpxxQPvJxcnQNCBj8BpXg+a8GM5NPuOZ+9tTyTm+wsG9nN9jj1o+wrX2
-1gMxWUWVlmGTMWrmzKKOogk/bBJV6glacO9efLDTQ8ItVZkjgyDftgvZor2w7WvK
-HAvccn6N91D4Xr987Hnj+q0vjpAVoNFaz5yG/EFuQxDkP+PZxZgDpQ79aXVx8OSB
-F3ncUo42k1kAJJcehZzzOK22yHP3eS87QqO7JT1yYHnOeyis8xg=
-=KFp+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmzyMACgkQnowa+77/
+2zK6KxAAqx4lywCdhik9Azz+ImeMH/+bDaK2qt4rZPOdX18QtBGe3Ak6mifYCUou
+fGyzkn/fFddFwKeWDS/ZTFw/X5F+CjGZjMt9AM3J5YDWdG9F2Pr1XpvY4DL+qwhe
+cIe2CUSA+NX8RuR3Ulbmb42zKuZhPw8G8ArgJQK3fdGtIxLnX41MPh95FVa3R7He
+5iR66K6u3M7DX3ubz2lB/cXFxFxd0sAnNlvqBgs3Kp9qFYH3itvhkfzyfr9pJDki
+4Aqo/6CSa9Sb1+cc78/MCq+mbOgRd2HfS+aGQDi7BGQeWtLODwF2q1+QkH7USjr1
+ehVcwYAxgFlEfqJe62m+mLHOeWyjABLuIGiNdiIFayhf32BbkJ32OwnY1DnwPFED
+QsB/heZmzuQYFTGbVp/cR9aauQGuUcSF7bndq3fglz5DVj0bFDoRySkd4HRifsmJ
+S8QbgVkeQDUFjmSITAa01aA5RpluGPAxmOvcgFVcPfCbVgEL7L2W6a1Pz1wotkjf
+FrvemUM7D/u3umFhIpjsxFw5LsD2RY9K35IYnGFPXhW1lB6NA7tPQSbqwfJxfe4U
+pepxDbFcxZdw834qgLfCdMTMLtNCpRKxlM8Y+e/15RrcGgRve0Y0BaddQYxbXfUE
+N03CdlJ4gVXO1RFe4utTQM+tRJ+V4X7daWcOiwnNB5FBs5qOnhI=
+=I9yB
 -----END PGP SIGNATURE-----
 
---F3NkBm+LAwKP7GBP--
+--cfqBoLfmkc1oRZur--
 
