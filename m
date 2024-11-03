@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-1854-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1855-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65A149BA367
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:17:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E043A9BA368
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 02:17:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 29157282B97
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:17:15 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A4F05282B6F
+	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 01:17:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B4D814A84;
-	Sun,  3 Nov 2024 01:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CBCF14A84;
+	Sun,  3 Nov 2024 01:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPAozqiL"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUVCrFPS"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF86F33FE
-	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 01:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC1833FE
+	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 01:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730596632; cv=none; b=t5mFQA3fSilY8IgAiha5eQ7YNgSBETlSrIYZg53Rz+VKBddHbLP9xhDF+4DTsveWG8X7jiXAcGm3g1yJczew1ZvJisR2E47ke6oT6FabltFeFRtsYIeAY1iLFYfw225rWcyt/56d5puFxl4J0mNYljbD5WYJBE/Cgio8DEMM6ew=
+	t=1730596637; cv=none; b=FBiR840Fb/5j5obSGigsvD44uVuHo3RyRkhCfH6/Io3PzUikS3Z2PPSxqDv/dCM26g5zMj53yDRJr2JwxgkpmAcN4yLRx2wvLlSKRs684QwRpLpXDRnc7iyoaMvtOxUPLrEIJzU6M1cZuUCfve4CzUILZ1L9/EiO1LBC8bqh/oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730596632; c=relaxed/simple;
-	bh=veqsPsYcpQoURJ5gtWR09UAE2pahMqFSl8u9hrlGfjg=;
+	s=arc-20240116; t=1730596637; c=relaxed/simple;
+	bh=CBacAZNR8Mnxxyg4BMb0sDrk8/Rq7wUWzOHlo3KZMD4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNQHjvdLnqJ6+xOMo84rw69T733t7gNELFqNMmdnnpT6gOlUIwOozEsoHOILit3ELf4vrR2DYTIrFM/IpmX3A+3NJPbWlZ1OlzVLe1IKgoO5zcSKBESynCRnQtcYYcbTZO3nMTz25tULAFgiAoCeFzipbfy393Ny/C7rWg+KaxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPAozqiL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F11DC4CEC3;
-	Sun,  3 Nov 2024 01:17:09 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=VCEXdspcBDGaPl1muYozv2BSM5XxcfkdlcbwIessLVmzUSVwkULTJPbrsP46FKMCsIWbMq1h909mTw5L0BDvnSFOAg64vj/0E1cxW9RbzxrbkNXCa+Fr+fPf2yTs74pSLGbQ6M4x10kAXAXox8btX+LhWnRpjjnQwmRz497cz8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUVCrFPS; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068E0C4CEC3;
+	Sun,  3 Nov 2024 01:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730596631;
-	bh=veqsPsYcpQoURJ5gtWR09UAE2pahMqFSl8u9hrlGfjg=;
+	s=k20201202; t=1730596637;
+	bh=CBacAZNR8Mnxxyg4BMb0sDrk8/Rq7wUWzOHlo3KZMD4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gPAozqiL/x9GZCT20AlPefP3z4dFu1zZDUyw5Pzd5VKCwAvP+W3vtNW/CdU09IagZ
-	 GzIeF5fagOGfRtFF0C2fsXtVOg179htanzJnSM49Bc7KRxA0EE0KtqPN94LDO5+deU
-	 +WXx06RGmn75FAQGbp30dQzlAxPwhYSpFXfQxqO7eyBxv+btKNmSgVYn2z3KXZp/U4
-	 PBrfgkml9nK/9Vm4nVQPlNvwBxfj4q3bGpYLNpUWqJuzUGVPe9fUikdy2t6rhSH4dr
-	 FJ9nBEVodoRJnwwoO/tnsY4ibx3e0/KDPXPtvrAWKLgeHJyDiYFChbUQm8NW2wNYmb
-	 5Ki9NWjsrugWw==
-Date: Sun, 3 Nov 2024 02:17:06 +0100
+	b=TUVCrFPS6jNLRja5X2POM5JD1HhvFqhZTOkX9iED2eGGyhBGIoUE8TNgvVuJ8yd8O
+	 ttbkZXuN307SGxbxKVGKk501VMx+JQbDS2faj78GJD4DmS+VDBJz91uG2yZusl6hnq
+	 1FrPHGm1dyS2QMdhzG3Fy2qs1j7BiiWq8LgJVyyftBCOPpmr02ZFPbEBvwT4iUwUjR
+	 NVlTX/WmiLFt2KLc2IMfVcH0MXDmO0AXpt6/YwKy+C/jW6uzhQZ4++jdndbQRpIcv+
+	 ZsMvKiItkJEXaMfGcqWISJf2P8PRVboiNs6b0ZIpb/R3ociI++0e0GnIc/FTn9De3o
+	 TFUYizUiEV/PA==
+Date: Sun, 3 Nov 2024 02:17:12 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
 	branden@debian.org
-Subject: [PATCH v2 2/3] scripts/bash_aliases: man_lsfunc(), man_lsvar(): Use
+Subject: [PATCH v2 3/4] scripts/bash_aliases: man_lsfunc(), man_lsvar(): Use
  pcre2grep(1) instead of pcregrep(1)
-Message-ID: <0464c22ec3af1ee92f05c6a4202b10b2a1c2dc4f.1730596445.git.alx@kernel.org>
-References: <cover.1730596445.git.alx@kernel.org>
+Message-ID: <0464c22ec3af1ee92f05c6a4202b10b2a1c2dc4f.1730596504.git.alx@kernel.org>
+References: <cover.1730596504.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,22 +57,22 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LL68t5WHLvXmVT74"
+	protocol="application/pgp-signature"; boundary="2gs+vgnHevs5BVds"
 Content-Disposition: inline
-In-Reply-To: <cover.1730596445.git.alx@kernel.org>
+In-Reply-To: <cover.1730596504.git.alx@kernel.org>
 X-Mailer: git-send-email 2.39.5
 
 
---LL68t5WHLvXmVT74
+--2gs+vgnHevs5BVds
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 3 Nov 2024 02:17:06 +0100
+Date: Sun, 3 Nov 2024 02:17:12 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, groff@gnu.org, cjwatson@debian.org,
 	branden@debian.org
-Subject: [PATCH v2 2/3] scripts/bash_aliases: man_lsfunc(), man_lsvar(): Use
+Subject: [PATCH v2 3/4] scripts/bash_aliases: man_lsfunc(), man_lsvar(): Use
  pcre2grep(1) instead of pcregrep(1)
 
 pcregrep(1) is obsolete.
@@ -110,25 +110,25 @@ index 25425c389..98b466410 100644
 2.39.5
 
 
---LL68t5WHLvXmVT74
+--2gs+vgnHevs5BVds
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmzxIACgkQnowa+77/
-2zKJJg/9Eli0f3Av7DLmLyEYl9k2Dx469tsuxfX54XSTceOaX4YVbZIhD41tlef9
-6HDRuK2yDVxlladPA9O6FfF/pbj7B906mMf3g9zCOSO15lThOWieAk34aoEy3cw4
-p9F20SbAt145J7mSlD/WaZyxtzp88bi4F+wNhs8bp1MuuUPkiHRnbVQ83VmnYfbi
-dfA1J4wYYac9mTrpM645EEfWf1uVB5mPecJYjsthbKNk/NpyvL4kxjL2NP6ldJTt
-OI1rrpqXqvTSMwKgcBoBTQvI3gVrUo0WUovqrx7QEht8l3x/zNR4EVNHqLSB8fRU
-BGwhRDIs124Nerp0bDhMybFNjXzG9IYKxPcQMo5kBXLd7GhW0ihC/LjZou/w+4kz
-ZPnZRzQFlmmTxz0D/T304x0bBCf22QNmZQS0kMV3U8QLquqCOTPzglUBBDwNq6zl
-ZI19fA/80eku/wj4pP6m+07GVjFhiWPQzDOViyv0BKX265KfF/ZFb6l1NNPDMbKN
-ka29k+UqVA4/oRNm/WmQxg51tNAcwxY7bX98osKYCTd38yq9dxZfDC2N/AaimStf
-z2u/o2Ro//RsSvKJnQcbBpI7SXrXFCucCGLvGbu3Hjlny1bZnArCHQa02Q8pb9bB
-rSaxo6gp/P0VcRFW/eszBL3YvECCrRCEAXn4Q7Ld97fPFpRdDbY=
-=m34A
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcmzxgACgkQnowa+77/
+2zJCVBAAhKS8hNuBMBe78keMIm/FuupZXJliC745NPfIHSO+bcgKcZ8MjlnJmNgi
+B8zZQ6ZPLMe2MyWcLti/6Fe7wx5OvM4hnLFTqcLC9odfWmMVP7L0FFUrrivxluFo
+edC/l7i18HzvSG9zhiIZmA5ZnGd13uovPG9lpDHHzCxcRbqKFalyNK188hv8xHBm
+PcY/2d2weEgkDKZkUHEbarS311tn1RYWCwEmIiizMyC9ngHSc8wz6y72SUSXjTd5
+bNrueGacRfpDVruQhdropLjt4yHYSPcIkgYGXAEtB0W3XzLC+u38vJowKN1EoURw
+PdX8On449szNdSIKRyqEnSOZTPSHns1LWpkfaSuFbgIsTxG2dAyPIV+Rlmz3e6eU
+59S8P8ewMVnWtYmhlqbEztsXwbhJN9yOfjC8Hf1nLeKbGB7AkkyndXr6VmZxmlY4
+dOCirDt4plAtgaxxtAFsbFByNIPXjpiBQWN0qQ4vq04qZ02jXt7ziseleKkbTp90
+WQZLxRDgbDntliGSvDNktHDhuK/xPJ1jDe5ZEcpkpplGoFHIXuwzHtINkSooc8L8
+nKMcU8hZec1Zd6N9wZYyoUvssWbOXH6hXNybei6qCfqeHsDgfOmbpK+tyPEovc48
+GupJGzns2SJyEDOvdN3nmjYUFkup502CQTxyPrBOlDjXZKIUo/Y=
+=gLGx
 -----END PGP SIGNATURE-----
 
---LL68t5WHLvXmVT74--
+--2gs+vgnHevs5BVds--
 
