@@ -1,84 +1,117 @@
-Return-Path: <linux-man+bounces-1865-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1866-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B67AD9BC144
-	for <lists+linux-man@lfdr.de>; Tue,  5 Nov 2024 00:08:14 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF8A39BC157
+	for <lists+linux-man@lfdr.de>; Tue,  5 Nov 2024 00:20:49 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 76BB41F22822
-	for <lists+linux-man@lfdr.de>; Mon,  4 Nov 2024 23:08:14 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BE9891C219B9
+	for <lists+linux-man@lfdr.de>; Mon,  4 Nov 2024 23:20:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EFDE1B3953;
-	Mon,  4 Nov 2024 23:08:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F5DD1B392D;
+	Mon,  4 Nov 2024 23:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XalrSwkm"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khw2iqY2"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92811E5725
-	for <linux-man@vger.kernel.org>; Mon,  4 Nov 2024 23:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A4F3C6BA
+	for <linux-man@vger.kernel.org>; Mon,  4 Nov 2024 23:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730761690; cv=none; b=A5dGmGsWFUylN0F8p9lnmEHtIkKCezCLswo57onB25qEik6ohc/2E6O6DkYArNmeMh0vLdbsPYjLdOs5yQqI2J2oReXcr0t/4NtRqnK8MAubhLdgRW4JsyJ266I8+6E01CmntZYolyNsMnhhCOPsHvmRLymwWwRTuGpR2GAaZ/0=
+	t=1730762444; cv=none; b=H1M7GA88YGl6oHjg4G5/ZhiXmvcU+GOZ+R2qItTbR2qezCq6Se52SHIT0jGwz5DfCjgI0lqjkEyUSgiPLTd0Z0GFFIZWbrkbv4UZChLks5JlbN00Nj2AK1QLaFmRVXOOg5Ru3iRqbHCVnKq7BH+irH79wGYqBy+oKobQaqMKGz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730761690; c=relaxed/simple;
-	bh=N8II08XOVTTCBVmkijvgICPFLVzrgabfSH81oimhyPQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=dRrjRKwdaK4ZrpnAfSGJtAZ6+jRiVJYbfhyvLKXTK1LYMlSX/uPyAbIZ3qOkDp5y6nGt7mjIJEJZZJFa/07wRb9F6uForsJnQEdXecDnhJDzk3SLQinvzIbQoKUvKT8MgfNEYw/B/fTR8wkkPCZV2MJuwci9SIRFBPMT+1mfVuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XalrSwkm; arc=none smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-5ebc1af8f10so2133785eaf.2
-        for <linux-man@vger.kernel.org>; Mon, 04 Nov 2024 15:08:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730761687; x=1731366487; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=N8II08XOVTTCBVmkijvgICPFLVzrgabfSH81oimhyPQ=;
-        b=XalrSwkmNN70BVmfLe9m+CO4MgwCWbVMoYwFQ4IhfwsjhrO0ocyULrEHyBO4t1nGW0
-         6+Fj2UyoyDVUw4FOgRolMF816DkPjIRPzii2ce8LdVcDHd+TndsBs65/qEN8jhYoekTH
-         UvK/33tH/Vy2eZEa1Q8PMV/NmqG9gZRkFkHsMZbFMzVeRBX0dgjtsXxyNSIRQnMXR492
-         GTUV9upLRzMTL392KuGypfK37ExbWZeOaW1gb81TDBiAL3KHgWrLGWUlUdiV4loMraUO
-         QrjruIdbIclQ0LtjdqZqY6RXz0jtlcmEzS9IzUW2zDeaafU/40K8TB5fdbh8n8GoXSmg
-         G11Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730761687; x=1731366487;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=N8II08XOVTTCBVmkijvgICPFLVzrgabfSH81oimhyPQ=;
-        b=CAQJiKsO60PTQFtz80tPpKDu3Um7mhX+eDzurUCF7vkmpD0OQNpFatsVkFdlGL2eCk
-         V5WFWIkGHS+yAHqSIc87nOg/cg90MilWu5Z6mFGUQL6rcpgmXAZFZYf/0l7PGvTkxv1W
-         R+7+8ph5idX5lBTnpr6Z+1U4UO3ju5OJjrmm6DOkncPr6iC1o1OlIEtS5djMqKP2XNSj
-         eL29G8WsCex4GXkE5OawREvOQcpCgkXtlvV+1bHIPW7LnIWZEYowor74B+5+hPdKQmsW
-         DEtHPOhjtzy3JM99p2reQeJQ8LUm7KEXzilPNBgahX7aXzMHnujRy3WX4onnlxjC8fdi
-         l3ig==
-X-Gm-Message-State: AOJu0YzeppproXnVa+R81ENqrFfy8Gz1wV4XGwtEOumg2D8CNIYfAALv
-	mlicAwtMKUQxAZEo/3Wii1dIgeiKVw8LAbuQvk7ql0TOqB/z0SGmhTjSzUWD4DrPZI/2zLdRJ/W
-	5You+IJpyBL9d8CwSzuMKXAKVn27vaoQC
-X-Google-Smtp-Source: AGHT+IHkkTVRKHZKGgMHTl3HNyaw3hItrDNXVcnlbmbqiMxFe20yP9AEy1dFR9yS4h4TxaB3WT6fe74Z3KW/D/dkrfI=
-X-Received: by 2002:a05:6359:7603:b0:1c3:7503:86cd with SMTP id
- e5c5f4694b2df-1c5f98c8858mr672538855d.1.1730761687352; Mon, 04 Nov 2024
- 15:08:07 -0800 (PST)
+	s=arc-20240116; t=1730762444; c=relaxed/simple;
+	bh=jVlqNQ+Rp4xFDq85okbjZB8IlI0Zv3fdzqWNXMjuVrQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cfoO2RyfLzX5q/Bz8RApTca3CnwPab7s487XQLua64hJK+gWdOZduE37gy4r4hsg2XnLLbpWoUUa7g/7u3A+QWEWsuhi+Hyxrhd+QNvcD6UPPRDy6XZqYWZKGbL54DJW9hxhqu0Mh4e1rVE1jAG0Q+6uLvHVNfN+Ol2ulRkx5nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khw2iqY2; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7136C4CECE;
+	Mon,  4 Nov 2024 23:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730762444;
+	bh=jVlqNQ+Rp4xFDq85okbjZB8IlI0Zv3fdzqWNXMjuVrQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=khw2iqY2S/+aDITjznpQAUNJn7X1Tv0hso+NTPYNSedQXEDvW1kESwPMgH1B656Rf
+	 qX91jqpf0vScYXlm1+nBe9wOOWi9Tfd7B5yzF8JIdSzQgjV+k5hwG+3oa5r4UAcqRW
+	 /UQaGoaVy2lIZq7D3+rV99fqGZ+S0gMF1EayCwAntadsyOLgytgPOO2kPZU3HnJwaS
+	 +TCByVAinWEaZV3ugNh+tdPl5WSBN2t4ZjUxT0yQpkqinbRN26ijOeTY9jjeapTYlu
+	 Fx6wy9uJVUvsTfMhl+1oo3g1xi6/G/Hu2COZyvgCnYzl4UlCno/CBEDmJQRikfzy31
+	 EH3okH0NO0r2w==
+Date: Tue, 5 Nov 2024 00:20:41 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jona Christopher Sahnwaldt <jcsahnwaldt@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Typo in man3/pthread_cancel.3
+Message-ID: <ej7fodybzzvigjeoximducvc3dujxrlbppnpo2owc2s3bqy5ht@vgny7uwn2ppl>
+References: <CAEQewprcZmJBcMcbnoxX_5TqOibKMByC71TQymecRVpnMtJCrQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Jona Christopher Sahnwaldt <jcsahnwaldt@gmail.com>
-Date: Tue, 5 Nov 2024 00:07:56 +0100
-Message-ID: <CAEQewprcZmJBcMcbnoxX_5TqOibKMByC71TQymecRVpnMtJCrQ@mail.gmail.com>
-Subject: Typo in man3/pthread_cancel.3
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dtj2qxqutyca52xs"
+Content-Disposition: inline
+In-Reply-To: <CAEQewprcZmJBcMcbnoxX_5TqOibKMByC71TQymecRVpnMtJCrQ@mail.gmail.com>
+
+
+--dtj2qxqutyca52xs
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jona Christopher Sahnwaldt <jcsahnwaldt@gmail.com>
 Cc: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: Typo in man3/pthread_cancel.3
+References: <CAEQewprcZmJBcMcbnoxX_5TqOibKMByC71TQymecRVpnMtJCrQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAEQewprcZmJBcMcbnoxX_5TqOibKMByC71TQymecRVpnMtJCrQ@mail.gmail.com>
 
-"cancelation requested" should be "cancelation request"
+Hi Jona,
 
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man/man3/pthread_cancel.3#n60
+On Tue, Nov 05, 2024 at 12:07:56AM GMT, Jona Christopher Sahnwaldt wrote:
+> "cancelation requested" should be "cancelation request"
+>=20
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man/man3=
+/pthread_cancel.3#n60
+>=20
+> (I hope it's OK that I'm not sending a patch, but since it's just two
+> characters...)
 
-(I hope it's OK that I'm not sending a patch, but since it's just two
-characters...)
+Thanks!  I've fixed it now.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Db3de1ca93732dd48c4828a37bc6ee3b002f18c6c>
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--dtj2qxqutyca52xs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcpVskACgkQnowa+77/
+2zJpYA/+Kl3LOI5LtHbiAgzbp+tGwaO/dYkNIt2hqU7+UgOWTw848/PmDU5VsMny
+6b06I5QcnLfYgNm4ayvzk8Y6wac7Ye/3ctzbyrXWFIQTCAvO6KzqpvGtLtDYx9gy
+9dA1kPjH0iB/rlR6IwEtehmZpEIvBn6pPVCmZ7Xz0qB+EVVwy7lXKgrH7YPlCiuE
+zm096EQFz4aQwZTUxDTG7fxNf6dscO3EOa8QwJ4T/+8rH8yguRKwYhfEy8QEh98l
+vATweBiG4DYMPQY/UhncnZHNKSx3awo5vDfgV1ojnmENsghchRFspUBQE7CkO63Q
+etM6MDPXN/oFKV6A7MMxciDgmdjQJQzVkjQhO4LBARXg3yxQ6Pp3aKmqSTh8fZfd
+bV8Hxf+/ZppCOjbGCRyEthZfbByB8diCuumepbPZMezEqIFm3oarY3NWZtm36MIe
+cWkZ7SuT9LhN317oGuC3hBdwG3X3erKAp4fHBBSfR9GyPX+fwhFthtPmn6I/k+Pb
+Gx/uDwWTHWg5PmuJZj9jj0ve3Fdr63TkStlyY251OAVYohFNFSXFkZruof480zwM
+lZIePPbLXTuTYBiwySaUDunaNsZ7SJvHid0Z4qnIa9xyfXmGeFx5f+12jip6lx0o
+qOHNfuKqdscIevsanfGP0HCYyEWlawyZiQiqTXhse1iLnqaMsX8=
+=u/nw
+-----END PGP SIGNATURE-----
+
+--dtj2qxqutyca52xs--
 
