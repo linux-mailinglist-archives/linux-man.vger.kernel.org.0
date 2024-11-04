@@ -1,117 +1,84 @@
-Return-Path: <linux-man+bounces-1864-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1865-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E929BA5EE
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 15:32:28 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B67AD9BC144
+	for <lists+linux-man@lfdr.de>; Tue,  5 Nov 2024 00:08:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 25098B21196
-	for <lists+linux-man@lfdr.de>; Sun,  3 Nov 2024 14:32:26 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 76BB41F22822
+	for <lists+linux-man@lfdr.de>; Mon,  4 Nov 2024 23:08:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5E1BF9E4;
-	Sun,  3 Nov 2024 14:32:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EFDE1B3953;
+	Mon,  4 Nov 2024 23:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Q+IX4rql"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XalrSwkm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF284C81
-	for <linux-man@vger.kernel.org>; Sun,  3 Nov 2024 14:32:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92811E5725
+	for <linux-man@vger.kernel.org>; Mon,  4 Nov 2024 23:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730644341; cv=none; b=nwuSnsfaA5jcOBB7IxP57hT0sqjvosdu3mjgsOYzeNprJEJe/6XBl9mkWB+nbNwHPveBkxdgJ7GsJSPBGV1M4UPtXNrVUTHj299qd6jvNELiGQJHuMv8WSLETcNNRnU0UDFPLCSi3YIRwMbVu78wLC3xyJgCoyKv18yoY4abvkI=
+	t=1730761690; cv=none; b=A5dGmGsWFUylN0F8p9lnmEHtIkKCezCLswo57onB25qEik6ohc/2E6O6DkYArNmeMh0vLdbsPYjLdOs5yQqI2J2oReXcr0t/4NtRqnK8MAubhLdgRW4JsyJ266I8+6E01CmntZYolyNsMnhhCOPsHvmRLymwWwRTuGpR2GAaZ/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730644341; c=relaxed/simple;
-	bh=hM9REaEL+juKbWB50TCMfRrSMiKZ3pAI3Iol1+1mAl0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bhdAjSt6iRfHR3qquKza2NDEhCl7KWwBa7avm8qFfk+tUPMI/Rd8t3BxY4pV3AeLBOVU3+O99P9J4wyHZWBLeXk/FtQ/Ro8lhbwscaIilZiftSi0TJT3DI8ye5Ut+gY37UUBf21LYccKb86zjsF0u0ahmluvEHHZRxgg/KbeQwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Q+IX4rql; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=nCn61xfrKxFAUXdzREBpw/VvPzpD3gKXYPL1+Jo7ntc=; b=Q+IX4rqlZyTITLKjha1IBx07+5
-	ELFYsO6ZvEUn0dCQ8aLMH+I1RPnQ/cR3A/IJCkiZGx8wvqo38EMNWE1Zdr0M0g1aRzSaBcwX3WHrk
-	awbUlOwRaiyg5ZRHuxL+cBFSWy1k9dJe/DbcNPs6+4AlkFMgHZdZKrOjLuNVox4aU+5fW71fmbNh0
-	puIQg78eu1wI3YsDJO14R6nliJLScuSaHYuN8yO6btCLrCBJEH/VyRg0DfMJeQlSKtLv/UGmVdLcz
-	Zp3GUSRvS8+WIo64zfUMjyakOQCn20gaQ72VQzKmUv7KpENhbIcg2r+Rt2hleuIMuG5fC2CNvPTRZ
-	ymkqTebQ==;
-Received: from authenticated user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.94.2)
-	(envelope-from <cjwatson@debian.org>)
-	id 1t7beK-00BVwr-Hk; Sun, 03 Nov 2024 14:32:16 +0000
-Received: from ns1.rosewood.vpn.ucam.org ([172.20.153.2] helo=riva.ucam.org)
-	by riva.rosewood.vpn.ucam.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <cjwatson@debian.org>)
-	id 1t7beJ-006URf-06;
-	Sun, 03 Nov 2024 14:32:15 +0000
-Date: Sun, 3 Nov 2024 14:32:13 +0000
-From: Colin Watson <cjwatson@debian.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: [PATCH v2 1/3] proc_pid_fdinfo.5: Reduce indent for most of the
- page
-Message-ID: <ZyeJbQdlXiMPcM7j@riva.ucam.org>
-Mail-Followup-To: Alejandro Colomar <alx@kernel.org>,
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
-	linux-man@vger.kernel.org, groff@gnu.org
-References: <20241101132437.ahn7xdgvmqamatce@devuan>
- <CAP-5=fXo5XjxUXshm9eRX-hCcC5VWOv0C5LBZ3Z0_wQb+rdnsw@mail.gmail.com>
- <20241101200729.6wgyksuwdtsms3eu@devuan>
- <20241102100837.anfonowxfx4ekn3d@illithid>
- <20241102103937.ose4y72a7yl3dcmz@devuan>
- <20241102213620.kfccilxvhihwmnld@devuan>
- <Zya6ApewCZQNEfJb@riva.ucam.org>
- <20241103000534.th3jq7umwojlxnma@devuan>
- <ZybIG9xykOW6driW@riva.ucam.org>
- <20241103015934.gs67lyd2x77ehoev@devuan>
+	s=arc-20240116; t=1730761690; c=relaxed/simple;
+	bh=N8II08XOVTTCBVmkijvgICPFLVzrgabfSH81oimhyPQ=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=dRrjRKwdaK4ZrpnAfSGJtAZ6+jRiVJYbfhyvLKXTK1LYMlSX/uPyAbIZ3qOkDp5y6nGt7mjIJEJZZJFa/07wRb9F6uForsJnQEdXecDnhJDzk3SLQinvzIbQoKUvKT8MgfNEYw/B/fTR8wkkPCZV2MJuwci9SIRFBPMT+1mfVuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XalrSwkm; arc=none smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-5ebc1af8f10so2133785eaf.2
+        for <linux-man@vger.kernel.org>; Mon, 04 Nov 2024 15:08:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1730761687; x=1731366487; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=N8II08XOVTTCBVmkijvgICPFLVzrgabfSH81oimhyPQ=;
+        b=XalrSwkmNN70BVmfLe9m+CO4MgwCWbVMoYwFQ4IhfwsjhrO0ocyULrEHyBO4t1nGW0
+         6+Fj2UyoyDVUw4FOgRolMF816DkPjIRPzii2ce8LdVcDHd+TndsBs65/qEN8jhYoekTH
+         UvK/33tH/Vy2eZEa1Q8PMV/NmqG9gZRkFkHsMZbFMzVeRBX0dgjtsXxyNSIRQnMXR492
+         GTUV9upLRzMTL392KuGypfK37ExbWZeOaW1gb81TDBiAL3KHgWrLGWUlUdiV4loMraUO
+         QrjruIdbIclQ0LtjdqZqY6RXz0jtlcmEzS9IzUW2zDeaafU/40K8TB5fdbh8n8GoXSmg
+         G11Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730761687; x=1731366487;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N8II08XOVTTCBVmkijvgICPFLVzrgabfSH81oimhyPQ=;
+        b=CAQJiKsO60PTQFtz80tPpKDu3Um7mhX+eDzurUCF7vkmpD0OQNpFatsVkFdlGL2eCk
+         V5WFWIkGHS+yAHqSIc87nOg/cg90MilWu5Z6mFGUQL6rcpgmXAZFZYf/0l7PGvTkxv1W
+         R+7+8ph5idX5lBTnpr6Z+1U4UO3ju5OJjrmm6DOkncPr6iC1o1OlIEtS5djMqKP2XNSj
+         eL29G8WsCex4GXkE5OawREvOQcpCgkXtlvV+1bHIPW7LnIWZEYowor74B+5+hPdKQmsW
+         DEtHPOhjtzy3JM99p2reQeJQ8LUm7KEXzilPNBgahX7aXzMHnujRy3WX4onnlxjC8fdi
+         l3ig==
+X-Gm-Message-State: AOJu0YzeppproXnVa+R81ENqrFfy8Gz1wV4XGwtEOumg2D8CNIYfAALv
+	mlicAwtMKUQxAZEo/3Wii1dIgeiKVw8LAbuQvk7ql0TOqB/z0SGmhTjSzUWD4DrPZI/2zLdRJ/W
+	5You+IJpyBL9d8CwSzuMKXAKVn27vaoQC
+X-Google-Smtp-Source: AGHT+IHkkTVRKHZKGgMHTl3HNyaw3hItrDNXVcnlbmbqiMxFe20yP9AEy1dFR9yS4h4TxaB3WT6fe74Z3KW/D/dkrfI=
+X-Received: by 2002:a05:6359:7603:b0:1c3:7503:86cd with SMTP id
+ e5c5f4694b2df-1c5f98c8858mr672538855d.1.1730761687352; Mon, 04 Nov 2024
+ 15:08:07 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241103015934.gs67lyd2x77ehoev@devuan>
-X-Debian-User: cjwatson
+From: Jona Christopher Sahnwaldt <jcsahnwaldt@gmail.com>
+Date: Tue, 5 Nov 2024 00:07:56 +0100
+Message-ID: <CAEQewprcZmJBcMcbnoxX_5TqOibKMByC71TQymecRVpnMtJCrQ@mail.gmail.com>
+Subject: Typo in man3/pthread_cancel.3
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 03, 2024 at 02:59:34AM +0100, Alejandro Colomar wrote:
-> On Sun, Nov 03, 2024 at 12:47:23AM +0000, Colin Watson wrote:
-> > I'm not trying to stop you committing whatever you want to your
-> > repository, of course, but I want to be clear that this doesn't actually
-> > solve the right problem for manual page indexing.  The point of the
-> > parsing code in mandb(8) - and I'm not claiming that it's great code or
-> > the perfect design, just that it works most of the time - is to extract
-> > the names and summary-descriptions from each page so that they can be
-> > used by tools such as apropos(1) and whatis(1).  Splitting on section
-> > boundaries is just the simplest part of that problem, and I don't think
-> > that doing it in a separate program really gains anything.
-> 
-> Splitting on section boundaries is the minimum thing so that mandb(8)
-> can use groff(1) directly to parse the section (instead of rolling your
-> own man(7) parser).
+"cancelation requested" should be "cancelation request"
 
-No, it doesn't help, because mandb(8) still has to do a bunch of other
-man(7) parsing on top of that (including the problem that caused me to
-be CCed into this thread in the first place).  Delegating just the
-section splitting to a separate tool would add quite a bit of complexity
-without removing the need for man-db's own parser.
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man/man3/pthread_cancel.3#n60
 
-A separate tool is only useful if it solves the whole problem at hand,
-rather than maybe 10% of it.  And even then it would need some careful
-thought around integration.
-
-Thanks,
-
--- 
-Colin Watson (he/him)                              [cjwatson@debian.org]
+(I hope it's OK that I'm not sending a patch, but since it's just two
+characters...)
 
