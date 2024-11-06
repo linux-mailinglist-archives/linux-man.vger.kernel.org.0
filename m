@@ -1,145 +1,194 @@
-Return-Path: <linux-man+bounces-1881-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1882-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFA0F9BF428
-	for <lists+linux-man@lfdr.de>; Wed,  6 Nov 2024 18:18:11 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96F069BF47A
+	for <lists+linux-man@lfdr.de>; Wed,  6 Nov 2024 18:44:16 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DFB801C237A9
-	for <lists+linux-man@lfdr.de>; Wed,  6 Nov 2024 17:18:10 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BA5041C23A5D
+	for <lists+linux-man@lfdr.de>; Wed,  6 Nov 2024 17:44:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB71E204F96;
-	Wed,  6 Nov 2024 17:18:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4430E2071FE;
+	Wed,  6 Nov 2024 17:44:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=networkplumber-org.20230601.gappssmtp.com header.i=@networkplumber-org.20230601.gappssmtp.com header.b="zoLzxBv/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rkRtqA7N"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com [209.85.210.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE54B1632F1
-	for <linux-man@vger.kernel.org>; Wed,  6 Nov 2024 17:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F221D645;
+	Wed,  6 Nov 2024 17:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730913486; cv=none; b=QQtxwQ5qGx1jt9tfOhytNcCwnljz/yB5rpa5ehu8vztO+PYdbOzUcMklwyh2YzSWnSrjQqQhDbKYVVMnUle+ew6aG2JhEoTt/vvw9ZmhggWIAxBEd6sq/PblgGMmzk/aBT9o1j4W1D0tED8TD/pHje/3Ge1T9EnEX492u+6hUdc=
+	t=1730915052; cv=none; b=TBi6IetYwhSlPQ1PmsaK3oK8HiUsxsX1d7tJGHMEafMtbyV/XdqlwicFo6MRDiCKHR2yvyY46P6uGxrfiaHKSRJPlt7BzmjfL2YMcB9wSiKtRB56ph+Ry+8RJBVOBTy9aCOzsaxYOLhnioedKMCegeyqTUV/7YpBkTQwFHdPfEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730913486; c=relaxed/simple;
-	bh=D3akWTzzrhH0TTwjTl32BYFaTzK8flwrj+FMP0QjcGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ew6IjoHdtCl9+sD7Lrp0ubAqvee9AizHuh3i8NWCBkObeCjVSc+pzwVrs4ZDCBK5u7tvet1vHMGMxEmjqrR5UXr5wC8UehCxNSojHBsaRgBFsu/KtrxI5HJpp3y7VLrUFAirfwthz8ytza68K+XzhW/J46J2f01s7q7heUTGNho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org; spf=pass smtp.mailfrom=networkplumber.org; dkim=pass (2048-bit key) header.d=networkplumber-org.20230601.gappssmtp.com header.i=@networkplumber-org.20230601.gappssmtp.com header.b=zoLzxBv/; arc=none smtp.client-ip=209.85.210.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
-Received: by mail-pf1-f193.google.com with SMTP id d2e1a72fcca58-723f37dd76cso1772138b3a.0
-        for <linux-man@vger.kernel.org>; Wed, 06 Nov 2024 09:18:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=networkplumber-org.20230601.gappssmtp.com; s=20230601; t=1730913484; x=1731518284; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z4mS4bhbgWkrfNh/k8UQSZlBBclWCC8e/vq4LQXj0z0=;
-        b=zoLzxBv/YH0kzFG1rxemhN+0DCxlRlvoRIg6S/KeDkjTl7+cSREKIMLY/DCDVIyRcf
-         lD3ia28FXEyDEc8R3ezwOMSR2wrBA8xw081dn7nMhqoH0JGcvF+gZdGYz5U6JiCpoavc
-         8xariOQObCMxe2l9hLACSRdF1ycMZGQlkgMNmakoqE9bR0sZ0q9+RcyBJ+gTFfQ314nU
-         8+zAApvGejPHNqljQeBxekQTveT7DjfexVtqwD+XfPVE9U7B1qMpyOBEAz/Omtecn+k9
-         tyrN+zSWnaO5UcpEReCf/X1zBqyjLEb5hTBxQvQ4BIvHVm1zvuExctPB6Ck8Cgrcl1LR
-         7qcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730913484; x=1731518284;
-        h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z4mS4bhbgWkrfNh/k8UQSZlBBclWCC8e/vq4LQXj0z0=;
-        b=uO2Rj2MrXfTo1QZ0qB8kEihGMKmwjpPDg4qfWqB7aZCLbR/r/eAteSmyfDJWToX17M
-         ZmRgIF+7dUNVdvjxcj5i3+tcVrU/BuCtoEjWmlfCBvk5zZ4Sr+CAXrrl/YTCyJ0dtkc2
-         3wrffHFYzUMh3RQLcPoHJ6fQM8bfA3A+01dyjeRQlPFt+Pf1c46tttGH9UwKsBIrBzLE
-         ZR7jj29RyT/bGzHsrqeIa4aCMQ6jANXdeRaJhPvSs83N9hH6mqAC7PNEK+hTIrs+7zlT
-         8+VYOqIehj17rAzZ1qHaHEsIYT51QW1HP/Ek6VNnwoEcIiKrZ+fjRZ8VCzoKkEuTEx+Q
-         8i/g==
-X-Forwarded-Encrypted: i=1; AJvYcCXbOIwied05hwigdUU+P866/0l0fsD7bPqlUjU8gqZAZKpZ87wkjneimXXzJgRtNvynRDJxFZvRubY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAKBXZVuqTxCLhmIxo7Nlc9D8B0s69W+XXQWhdJ4n0nu0IdKAG
-	OPqKEv5LuQ0mdZmRT4NGIr9d3lp46XARr1vl3LO7cOefvviL9uKnA+oS0DtRo3I=
-X-Google-Smtp-Source: AGHT+IFAtTbMlzlYTZPpconsYstGTwm32F/0lmZYGv5EMIr8bwO59JKoYHo/OBN0fp3YFHP1pkdBDA==
-X-Received: by 2002:a05:6a00:a0a:b0:71e:581f:7d7e with SMTP id d2e1a72fcca58-720b9c29c4cmr31554907b3a.15.1730913484062;
-        Wed, 06 Nov 2024 09:18:04 -0800 (PST)
-Received: from hermes.local (204-195-96-226.wavecable.com. [204.195.96.226])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-720bc2eb6a5sm12396869b3a.144.2024.11.06.09.18.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Nov 2024 09:18:03 -0800 (PST)
-Date: Wed, 6 Nov 2024 09:18:01 -0800
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, alexhenrie24@gmail.com,
- branden@debian.org, linux-man@vger.kernel.org, netdev@vger.kernel.org
+	s=arc-20240116; t=1730915052; c=relaxed/simple;
+	bh=Rssw4J64+/02oRAFGD+lHZDXB3WZSNvYoCZVgffjPdM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rQEf44v4Pv5A0y9Kr/9ZnKtf2o1aE9cSbYm27gEY4/Lh4MqrEhcP+RPlsL8v+PlSIksQ9lMvf6YcI3bOqFutB42C9p0Sr7YFyclXFmYrchniI52Dw3EZV0Thu1YO60fLKIp4qjUpzdHz0YHDB6QgkTZ4TnbVklLcKso0LfQ3c9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rkRtqA7N; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE1CC4CEC6;
+	Wed,  6 Nov 2024 17:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730915051;
+	bh=Rssw4J64+/02oRAFGD+lHZDXB3WZSNvYoCZVgffjPdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rkRtqA7N1pjtZQoeJV8DM5HVJXz225396PwTJsAdU3cp2sstTbKgJ/TKy8HT60JQ3
+	 mWulyIac15Ab/IpxyJO5EaamStBBFDfMeAsX8Q4ZJOvIHTmNrf/5rnowghQzqs+dm3
+	 dIvpN0V7H9WfxkkbwwT1bXltIAbgxrrOiZRhY+MUAQbzD8UTEZxYr05Z4UuuPO0+yt
+	 +dK+QMqC9wIfhAAL1ymyhpQdmbdFFhjOp3sRLrvUIwNDJLMI2lqH1WfUf/B85isJV5
+	 vjGJuLcBXlmykdjpauuimAeCpwl/I9/8vRXoQqOjHkJq/8dUoQlnIFTDF3hDvzxDXJ
+	 Vfguq7y5qDT9w==
+Date: Wed, 6 Nov 2024 18:44:08 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Stephen Hemminger <stephen@networkplumber.org>
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, alexhenrie24@gmail.com, 
+	branden@debian.org, linux-man@vger.kernel.org, netdev@vger.kernel.org
 Subject: Re: [PATCH] rtnetlink.7: Document struct ifa_cacheinfo
-Message-ID: <20241106091801.3e021842@hermes.local>
-In-Reply-To: <xfzcwmn6syhywvdcu6kn3mkuwqpo5usiwkssblvk6qrpoys5dp@hwgvspb43tdo>
+Message-ID: <soyssk73kxv4njvwmfq635q4wolfjhgprlq3mfvxnciurzxhsh@g72tril7ys2k>
 References: <20241105041507.1292595-1-alexhenrie24@gmail.com>
-	<20241105055338.61082-1-kuniyu@amazon.com>
-	<xfzcwmn6syhywvdcu6kn3mkuwqpo5usiwkssblvk6qrpoys5dp@hwgvspb43tdo>
+ <20241105055338.61082-1-kuniyu@amazon.com>
+ <xfzcwmn6syhywvdcu6kn3mkuwqpo5usiwkssblvk6qrpoys5dp@hwgvspb43tdo>
+ <20241106091801.3e021842@hermes.local>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/yZ/6uzGj=Ivqbt8l7t7+7Ae";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ktvgng6dma7l4oys"
+Content-Disposition: inline
+In-Reply-To: <20241106091801.3e021842@hermes.local>
 
---Sig_/yZ/6uzGj=Ivqbt8l7t7+7Ae
-Content-Type: text/plain; charset=UTF-8
+
+--ktvgng6dma7l4oys
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Stephen Hemminger <stephen@networkplumber.org>
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, alexhenrie24@gmail.com, 
+	branden@debian.org, linux-man@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH] rtnetlink.7: Document struct ifa_cacheinfo
+References: <20241105041507.1292595-1-alexhenrie24@gmail.com>
+ <20241105055338.61082-1-kuniyu@amazon.com>
+ <xfzcwmn6syhywvdcu6kn3mkuwqpo5usiwkssblvk6qrpoys5dp@hwgvspb43tdo>
+ <20241106091801.3e021842@hermes.local>
+MIME-Version: 1.0
+In-Reply-To: <20241106091801.3e021842@hermes.local>
 
-On Tue, 5 Nov 2024 12:33:48 +0100
-Alejandro Colomar <alx@kernel.org> wrote:
+Hi Stephen,
 
-> Hi Alex, Kuniyuki, Branden,
+On Wed, Nov 06, 2024 at 09:18:01AM GMT, Stephen Hemminger wrote:
+> On Tue, 5 Nov 2024 12:33:48 +0100
+> Alejandro Colomar <alx@kernel.org> wrote:
 >=20
-> On Mon, Nov 04, 2024 at 09:53:38PM GMT, Kuniyuki Iwashima wrote:
-> > From: Alex Henrie <alexhenrie24@gmail.com>
-> > Date: Mon,  4 Nov 2024 21:14:20 -0700 =20
-> > > struct ifa_cacheinfo contains the address's creation time, update tim=
-e,
-> > > preferred lifetime, and valid lifetime. See =20
+> > Hi Alex, Kuniyuki, Branden,
+> >=20
+> > On Mon, Nov 04, 2024 at 09:53:38PM GMT, Kuniyuki Iwashima wrote:
+> > > From: Alex Henrie <alexhenrie24@gmail.com>
+> > > Date: Mon,  4 Nov 2024 21:14:20 -0700 =20
+> > > > struct ifa_cacheinfo contains the address's creation time, update t=
+ime,
+> > > > preferred lifetime, and valid lifetime. See =20
+> >=20
+> > We use two spaces after period (the correct amount).  :)
 >=20
-> We use two spaces after period (the correct amount).  :)
+> Double spacing after period is a leftover from using typewriters.
 
-Double spacing after period is a leftover from using typewriters.
-Modern usage is single space after period.
+That's a lie that modern style guides repeat believing that repeating it
+will eventually make it true (as if that were possible).
 
-https://www.grammarly.com/blog/punctuation-capitalization/spaces-after-peri=
-od/
+The origin is much older, and ancient (pre-typewriter) books already
+used different space lengths for after period.
 
-	These days most contemporary style guides also recommend using a single sp=
-ace between sentences,
-	including:
+The true reason why the 2-space tradition was replaced by the 1-space
+modern rule is that editorials started hiring incompetent people, and
+it seems it was hard for that incompetent people to decide if one space
+or two spaces were appropriate at a given place, so they would get it
+wrong.  To avoid being embarrased by frequent spacing typos, instead of
+hiring competent people (which would have been expensive), they simply
+changed the rules to accomodate for those incompetent ones, and told
+them to unconditionally use 1 space always.  That also reduces the time
+they had to think about the number of spaces being used, so they became
+more efficient.
 
-	The Chicago Manual of Style
-	The American Psychological Association (often referred to as =E2=80=9CAPA=
-=E2=80=9D)
-	Microsoft Manual of Style
-	The Gregg Reference Manual
-	The Associated Press Stylebook
+But that removes information from the text.  If a sentence ends in some
+initials, it's hard to distinguish if it's the end of a sentence, or if
+the sentence continues and the dot is just for the initials.  It seems
+the editorials just cared about generating text faster, and didn't care
+at all about readers having more difficulty in reading what they wrote
+(which just shows the low quality of what they produced).
 
---Sig_/yZ/6uzGj=Ivqbt8l7t7+7Ae
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+Ironically enough, studies promoted by the defendants of the one-space
+rule proof that two spaces result in more readable text.  They try to
+write their conclusions as if not, but if you read enough in their
+experiments, you realize how blind they are with their own experiments.
+
+And also ironically, those one-space defendants say two-space tradition
+is obsolete cruft from times where mono-spaced fonts were prevalent.
+Guess what?  We here still live in a world were mono-spaced fonts are
+the rule (anyone reading manual pages in a terminal here?) (I guess none
+of us programs with proportional fonts, right?), so even if all those
+lies were true (and they are not), in our reigns two-spaces should still
+be the rule.
+
+We had some discussion about this a few years ago, and we had links for
+the claims I'm making, so I want to eventually recollect those links and
+document it well for all contributors to see.
+
+> Modern usage is single space after period.
+>=20
+> https://www.grammarly.com/blog/punctuation-capitalization/spaces-after-pe=
+riod/
+>=20
+> 	These days most contemporary style guides also recommend using a single =
+space between sentences,
+> 	including:
+>=20
+> 	The Chicago Manual of Style
+> 	The American Psychological Association (often referred to as =E2=80=9CAP=
+A=E2=80=9D)
+> 	Microsoft Manual of Style
+> 	The Gregg Reference Manual
+> 	The Associated Press Stylebook
+
+Paraphrasing the Linux kernel coding style...
+
+	First off, I=E2=80=99d suggest printing out a copy of the Chicago Manual
+	of Style, and NOT read it.  Burn it, it=E2=80=99s a great symbolic
+	gesture.
+
+
+Have a lovely night!
+Alex
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--ktvgng6dma7l4oys
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEn2/DRbBb5+dmuDyPgKd/YJXN5H4FAmcrpMkACgkQgKd/YJXN
-5H6lfQ/+LRJwkmcq2J21/EL8AISA6nKMzUO+T/V7TkkfTj+JkLz/XpL0s89A5to8
-zFE4afRF0b5F9cbZJK38WhfQZEEM62HX81scYtbkTlMq5VxxecdpHNOghbBaw3xQ
-00y1fvGb0wCJ4d3fp/onxa6Lv8H53OLjd/ZdqpNBPwv8eUecdUlI/JPOMYEPgwY+
-JLUAAgK4yPL1yMCkTdZZNITfJaNGSc+TGudVZFMIrSdA35NXdK3PuORIxv1oM/aG
-xMHwFJTzShpjl39MmwwYCBP7XNh17zZU/ugEyb9awv8wUziVE4i1tgCubrJFxcln
-iMyUYELb7WVGfpxR52cFECmMZrvUEjkrlfcVtPUatcZHYSAF45gsjHRXaFHwRii1
-zkXCXV28RFkqbjsFlZFNE8WGOXwEr3scGI9mPvzOCjg5wgobiYoumGA8DQ0W3GKF
-DwA7f6jaYsj6Xdt/sHfCcxokCEH0+ltce6KaE/CUDZjenJRSlBcXxkTnkGCWJizF
-PLYiCgsrAIeihMfyeNulYxu3d3q6VJOLjXZK0ta+HOzAntwC9qEr2NTi+kZUhT38
-Xh7F5SMden2bUBXje12pNAOXmsmycasN5bCDkznCOW767Ii6ivoFcTXeuDv3bd9b
-HSUwBDEbEJKimoozrzfpzoNSfG0PtK4EbSY3lI9KSPVOLd9biYg=
-=mUQo
+iQIyBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcrquIACgkQnowa+77/
+2zKHZg/4uKym2MgdUWEYEc8UstBlEZE+CEeG3US1gOnec9f2RU2Yyi2F1cGV8nld
+L2j/lou1/3HpAXhu8thE1BTXzKV8Lfpy0+cXXkqBaEs5lYZjT4UWdDXMlihp8hDv
+jKn8qqDka3/uNzarUt+bD+ncelZZI8hyU4sd8KF658RKpyKrD27Ln/JJxDCPn4VR
+ugzUymZ9iWFHADX0sDPaQm11OPzCHbOcpLww3T6ODh4gnEFpFJxWcZdqNvSLpniU
+Jrv+d+YPDRjTAN4h+PyRBDqfN2m9KX+FhoGgDgSInw5pI/qcoqXEobxVB82lOByS
+20WeBZpmYBRaS0UolZPdPSdwzfa1vLxacJ3QvTeS/eLIcGU3q/WZnEGm1/sfY9CO
+hw2A3RNTnmFm5DgwtdhcghuKNEtZrpqGXCyim8YXER0OryShbLzffvsGok2orw9F
+yIJ7jd+b+RgYjCF2I+MPJpo0YWxV9YNcWKIEZVIzzQBNmLkO0dWBfMghpoNCjx+h
+JN3hDwO9d1MCCGtRppEWu/gY/6zq5N1qXlpuN1cyX7E62xHCfbDbj+oG4MPBIVUw
+iq/3XxRqE2wR2M0a4kxKmj911CaPXWSO6B0jOP2OLSsnsEXoR0/HRaY1CP/H/f4Y
+2L9jPhJB1Z/Sha675Natk9L/8IW7unHTwwdfVR/omAv69CpTHw==
+=Y7iw
 -----END PGP SIGNATURE-----
 
---Sig_/yZ/6uzGj=Ivqbt8l7t7+7Ae--
+--ktvgng6dma7l4oys--
 
