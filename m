@@ -1,196 +1,289 @@
-Return-Path: <linux-man+bounces-1893-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1894-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A5C9C3AF0
-	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2024 10:34:56 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FE2B9C47E2
+	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2024 22:17:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 326EB1F22A78
-	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2024 09:34:56 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 954901F21E9E
+	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2024 21:17:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB08813C3C2;
-	Mon, 11 Nov 2024 09:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 982A41A9B3A;
+	Mon, 11 Nov 2024 21:17:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R95SSjES"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iy30JtE9"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DEF224D6;
-	Mon, 11 Nov 2024 09:34:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EBD1EB36;
+	Mon, 11 Nov 2024 21:17:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731317690; cv=none; b=BRnlme429m8a33ZoIiCCoUgxLVXIvOY8uSArEjmQI8X5sJ9L9tm1cCYsfQ5OtV9pmHg5gCjf4Z/cYDDt5mN0IWiHBJwNrAIH6xU7QcdAVKrOfYibORNcVP01vwEnkijja6Efvgix4ckGPxOJn1ep3Beop83dKy1zodQVw+lDk0c=
+	t=1731359856; cv=none; b=D8ibYCzi0TuxF6m/Smy0/oyR/kOZ/aRj+6TTO1H507UYdN+1lmf86eANqlG4FAqy/DI9o7jFavOFbJsZ4l+vG6ETRqzw1Em3QBXyb4qI+b3jVzgKI5WFpVTj5pEWzPdOpR+etDGYR222MGAbyqzDbmCVTHn8Kae8ZvTb9hLjSaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731317690; c=relaxed/simple;
-	bh=oM2w0fRYXaMjbTO38PsVcs6JogWiEt4Q6dRAHtie0eo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BkK0WGu21gW5DTXZqL5vk16b/yHVDIFiOhM5ndrnS80F9+8bFI9UO38Jquqc0WMCFgd9AT/orzffQzQiWSPHy+so4bO3kdOKdMywpisKuUtZG4r1xBGlGR1aumAzUf69pEM2BfOnQ4+BINrXkZy4svDnJQqj+lSXEtx5Kv4Zpb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R95SSjES; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D58C4CED0;
-	Mon, 11 Nov 2024 09:34:48 +0000 (UTC)
+	s=arc-20240116; t=1731359856; c=relaxed/simple;
+	bh=VOtzLRREwYKogahWnFcgDN0XsOJAWUaQY8DIwqVdt0A=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mSnE1mZc4/cDkqckZprRW6AM5qFkf5kGBzytW4Qjxzg+30AAdMDtGeMQluP32fpHMxberUcFCbDqyTvnFQTec0eKsZV7WVyo2LOanIHtmaE6aTy9glmstbd4u3IvFPjoNk8nCjasHF9mpNxUif/4o/+imJxuI1WxtUK0dWyToB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iy30JtE9; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EE2C4CECF;
+	Mon, 11 Nov 2024 21:17:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731317689;
-	bh=oM2w0fRYXaMjbTO38PsVcs6JogWiEt4Q6dRAHtie0eo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=R95SSjESFg3QmTa8vxxlbcrC6i6NsFUGgxfQXxSum8ijc1moLzsBimBtbk7eyEYby
-	 zoGDftPywOTnYx4poI7YLwvBTX+wFEu2NrxN5fO/6RXyQfyIqW96n/ylDiL1jaeEZy
-	 m3BlpzQ5DhupjVMwFCHa6kTRaCQGFw/H/HWi8rMMEdovgOm6RsrRKB2vw/LHAU5JhE
-	 hXAXoKiUJosjaDbiLuvouPyqN4NF5GPOtOQfPTrCKRf4FdcUCVnScRZgfiADX6vBOt
-	 ghqEgfYyFwIdes3DMkj8c8tYnnG/2A/MmPy9Kz/3wvRk7TLSm+0D4WuZzG6/8sGGN0
-	 VvInvaFT5FH0w==
-Date: Mon, 11 Nov 2024 10:34:46 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Alex Henrie <alexhenrie24@gmail.com>
-Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, branden@debian.org, 
-	linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Document struct ifa_cacheinfo
-Message-ID: <76utdqobulhs7botd22qrtxooklpv6ai6xyh7wbjy737kiblhw@637outnydbi7>
-References: <20241105041507.1292595-1-alexhenrie24@gmail.com>
- <20241105055338.61082-1-kuniyu@amazon.com>
- <xfzcwmn6syhywvdcu6kn3mkuwqpo5usiwkssblvk6qrpoys5dp@hwgvspb43tdo>
- <CAMMLpeRMKEWkNC=irH5dWwJSMS2jp6OSeB6KJBh2=ZbLsigM7A@mail.gmail.com>
+	s=k20201202; t=1731359855;
+	bh=VOtzLRREwYKogahWnFcgDN0XsOJAWUaQY8DIwqVdt0A=;
+	h=Subject:From:To:Date:In-Reply-To:References:From;
+	b=Iy30JtE99PTVfkhAtHCmLVh/LH811GkSLT+KBDrZZ3rRT43EBH3EdGcDpRwKg7DX3
+	 i/7pepNnpYq8lmfM1mbuLMTKeCutYg+kXMExL8avUFJYuQ/f1kNdDOQ3HuRQScNsZo
+	 lWTiWsAem6MgXqtgtwaW1knRoJmtP01PH2MpU0syHoAN2JZEnWzoE+H4d8BLKphz0G
+	 +Y2XRTdDGXRFcAIgGqGW5XGlbltbpLYMycg5Bu5Tn7kZkXR7j2rFVZ9m7G+Fol+T5E
+	 p3PgHJf/gCW5U0ytkERfkjh1qItiO0ljdY0uWTTd/d69UCWjTFNDBGtStoAWYethW9
+	 Fes2r1WRJ3yng==
+Message-ID: <3f85c0a6ed1131f1446cc97fe9ae12cff4cb1850.camel@kernel.org>
+Subject: Re: [PATCH v6 2/2] listmount.2: New page describing the listmount
+ syscall
+From: Jeff Layton <jlayton@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>, alx@kernel.org, 
+ linux-man@vger.kernel.org, brauner@kernel.org,
+ linux-fsdevel@vger.kernel.org,  mszeredi@redhat.com, kernel-team@fb.com
+Date: Mon, 11 Nov 2024 16:17:34 -0500
+In-Reply-To: <2d72a44fa49f47bd7258d7efb931926b26de4004.1720549824.git.josef@toxicpanda.com>
+References: <cover.1720549824.git.josef@toxicpanda.com>
+	 <2d72a44fa49f47bd7258d7efb931926b26de4004.1720549824.git.josef@toxicpanda.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40) 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fg5ihjp3ifj7wsod"
-Content-Disposition: inline
-In-Reply-To: <CAMMLpeRMKEWkNC=irH5dWwJSMS2jp6OSeB6KJBh2=ZbLsigM7A@mail.gmail.com>
+
+On Tue, 2024-07-09 at 14:31 -0400, Josef Bacik wrote:
+> Add some documentation for the new listmount syscall.
+>=20
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  man/man2/listmount.2 | 112 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 112 insertions(+)
+>  create mode 100644 man/man2/listmount.2
+>=20
+> diff --git a/man/man2/listmount.2 b/man/man2/listmount.2
+> new file mode 100644
+> index 000000000..212929fb6
+> --- /dev/null
+> +++ b/man/man2/listmount.2
+> @@ -0,0 +1,112 @@
+> +.\" Copyright (c) 2024 Josef Bacik <josef@toxicpanda.com>
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.TH listmount 2 (date) "Linux man-pages (unreleased)"
+> +.SH NAME
+> +listmount \- get a list of mount ID's
+> +.SH LIBRARY
+> +Standard C library
+> +.RI ( libc ", " \-lc )
+> +.SH SYNOPSIS
+> +.nf
+> +.BR "#include <linux/mount.h>" "  /* Definition of struct mnt_id_req con=
+stants */"
+> +.B #include <unistd.h>
+> +.P
+> +.BI "int syscall(SYS_listmount, struct mnt_id_req * " req ,
+> +.BI "            u64 * " mnt_ids ", size_t " nr_mnt_ids ,
+> +.BI "            unsigned long " flags );
+> +.P
+> +.B #include <linux/mount.h>
+> +.P
+> +.B struct mnt_id_req {
+> +.BR "    __u32 size;" "    /* sizeof(struct mnt_id_req) */"
+> +.BR "    __u64 mnt_id;" "  /* The parent mnt_id being searched */"
+> +.BR "    __u64 param;" "   /* The next mnt_id we want to find */"
+> +.B };
+> +.fi
+> +.P
+> +.IR Note :
+> +glibc provides no wrapper for
+> +.BR listmount (),
+> +necessitating the use of
+> +.BR syscall (2).
+> +.SH DESCRIPTION
+> +To access the mounts in your namespace,
+> +you must have CAP_SYS_ADMIN in the user namespace.
+
+The above does not seem to be correct. I can access the mounts in my
+own namespace just fine. What I can't do is access mounts in other
+namespaces without CAP_SYS_ADMIN, right?
+
+Maybe this?
+
+"To access mounts outside your own namespace, you must
+have=C2=A0CAP_SYS_ADMIN in the user namespace."
 
 
---fg5ihjp3ifj7wsod
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Alex Henrie <alexhenrie24@gmail.com>
-Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, branden@debian.org, 
-	linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Document struct ifa_cacheinfo
-References: <20241105041507.1292595-1-alexhenrie24@gmail.com>
- <20241105055338.61082-1-kuniyu@amazon.com>
- <xfzcwmn6syhywvdcu6kn3mkuwqpo5usiwkssblvk6qrpoys5dp@hwgvspb43tdo>
- <CAMMLpeRMKEWkNC=irH5dWwJSMS2jp6OSeB6KJBh2=ZbLsigM7A@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMMLpeRMKEWkNC=irH5dWwJSMS2jp6OSeB6KJBh2=ZbLsigM7A@mail.gmail.com>
+> +.P
+> +This function returns a list of mount IDs under the
+> +.BR req.mnt_id .
+> +This is meant to be used in conjuction with
+> +.BR statmount (2)
+> +in order to provide a way to iterate and discover mounted file systems.
+> +.SS The mnt_id_req structure
+> +.I req.size
+> +is used by the kernel to determine which struct
+> +.I mnt_id_req
+> +is being passed in,
+> +it should always be set to sizeof(struct mnt_id req).
+> +.P
+> +.I req.mnt_id
+> +is the parent mnt_id that we will list from,
+> +which can either be
+> +.B LSMT_ROOT
+> +which means the root mount of the current mount namespace,
+> +or a mount ID obtained from either
+> +.BR statx (2)
+> +using
+> +.B STATX_MNT_ID_UNIQUE
+> +or from
+> +.BR listmount (2) .
 
-Bon dia Alex,  :)
+The above is a little vague. It's not clear whether the list is just
+immediate child mounts or if you get all mounts below that point. The
+implementation in the kernel is the latter. You get a list of any
+descendent mount of the given mnt_id.
 
-On Sun, Nov 10, 2024 at 11:17:40PM GMT, Alex Henrie wrote:
-> On Tue, Nov 5, 2024 at 4:33=E2=80=AFAM Alejandro Colomar <alx@kernel.org>=
- wrote:
->=20
-> > On Mon, Nov 04, 2024 at 09:53:38PM GMT, Kuniyuki Iwashima wrote:
-> > > From: Alex Henrie <alexhenrie24@gmail.com>
-> > > Date: Mon,  4 Nov 2024 21:14:20 -0700
-> > > > struct ifa_cacheinfo contains the address's creation time, update t=
-ime,
-> > > > preferred lifetime, and valid lifetime. See
-> >
-> > We use two spaces after period (the correct amount).  :)
-> > (I'm thinking we probably want to document something about it in
-> >  man-pages(7).  Branden, do you want to send a patch about it?  I want
-> >  to include the references you showed to me, and you probably remember
-> >  better those links.)
-> >
-> > > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/include/uapi/linux/if_addr.h?h=3Dv6.11#n60
-> >
-> > Please use this format for links:
-> >
-> > Link: <http://example.com>
->=20
-> Since the second sentence will be eliminated in favor of a Link line,
-> the first sentence will no longer have any spaces after its period.
->=20
-> > Which include provides the structure?
+Should we make that more clear?
 
-The manual page should document it.  Readers should know which header
-they need to include to use a structure, no?
-
->=20
-> linux/if_addr.h, which is the file I linked to in the commit message,
-> and the same file that contains struct ifaddrmsg which is documented a
-> few paragraphs earlier in the same section of the man page.
->=20
-> > > > +struct ifa_cacheinfo {
-> > > > +    __u32 ifa_prefered; /* Preferred lifetime in seconds, -1 =3D f=
-orever */
-> > > > +    __u32 ifa_valid;    /* Valid lifetime in seconds, -1 =3D forev=
-er */
-> > >
-> > > -1 should be rather 0xFFFFFFFF (INFINITY_LIFE_TIME) as it's unsigned.
-> >
-> > I prefer UINT32_MAX over 0xF...F, which might be unclear how many Fs it
-> > has.
->=20
-> INFINITY_LIFE_TIME is not defined in any public header, so let's not
-> mention it. I agree that it's hard to see at a glance how many F's are
-> in 0xFFFFFFFF. I would suggest ~0u, which is short and sweet, but
-> UINT32_MAX is a little better because ~0u isn't 32 bits on all C
-> compilers that have ever existed.
->=20
-> > > Also, it would be nice to mention that ifa_prefered must be less than
-> > > or equal to ifa_valid (ifa_prefered <=3D ifa_valid) and 0 is invalid =
-for
-> > > ifa_valid.
-> > >
-> > >   0 <=3D ifa_prefered <=3D ifa_valid
-> > >   0 < ifa_valid <=3D 0xFFFFFFFF
->=20
-> I'll add a paragraph to explain those relationships.
->=20
-> > It might also be interesting to add a separate manual page for the type,
-> > and reference it here.  Otherwise, the page starts getting fatty.
->=20
-> Perhaps. In my opinion, there's not enough material here to be worthy
-> of its own page.
-
-If you see the pages in section 2type or 3type, they're pretty small.
-Types don't have that much to tell.  But they're nevertheless useful.
-When you just want to see which header you need for a given type, just
-run `make type`, and you'll immediately see it.  It also has a few lines
-of description.
-
-But up to you.
-
-> Thanks for the feedback,
-
-Have a lovely day!
-Alex
-
->=20
-> -Alex
->=20
+> +.P
+> +.I req.param
+> +is used to tell the kernel what mount ID to start the list from.
+> +This is useful if multiple calls to
+> +.BR listmount (2)
+> +are required.
+> +This can be set to the last mount ID returned + 1 in order to
+> +resume from a previous spot in the list.
+> +.SH RETURN VALUE
+> +On success, the number of entries filled into
+> +.I mnt_ids
+> +is returned, 0 if there are no more mounts left.
+> +On error, \-1 is returned, and
+> +.I errno
+> +is set to indicate the error.
+> +.SH ERRORS
+> +.TP
+> +.B EPERM
+> +Permission is denied for accessing this mount.
+> +.TP
+> +.B EFAULT
+> +.I req
+> +or
+> +.I mnt_ids
+> +points to a location outside the process's accessible
+> +address space.
+> +.TP
+> +.B EINVAL
+> +Invalid flag specified in
+> +.IR flags .
+> +.TP
+> +.B EINVAL
+> +.I req
+> +is of insufficient size to be utilized.
+> +.TP
+> +.B E2BIG
+> +.I req
+> +is too large,
+> +the limit is the architectures page size.
+> +.TP
+> +.B ENOENT
+> +The specified
+> +.I req.mnt_id
+> +doesn't exist.
+> +.TP
+> +.B ENOMEM
+> +Out of memory (i.e., kernel memory).
+> +.SH STANDARDS
+> +Linux.
+> +.SH SEE ALSO
+> +.BR statmount (2),
+> +.BR statx (2)
 
 --=20
-<https://www.alejandro-colomar.es/>
-
---fg5ihjp3ifj7wsod
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcxz68ACgkQnowa+77/
-2zKzjQ/+JFCWdop6trDsOsYD3fs91JWi7vPkiNOlGazo8k4y78alVjf5iWw+1T96
-v2vhPK/vHhnJhHVFnI/8LGmiMkkPrzrJ27xm6wl/pfvfFbeZ3odct0VqTbxJbNx8
-9YrIVFG6UUyxVfmm4jb4LvqH/Z5Gt3EvXaikSCF0qHMAp1racQB025X/zoS4m1u4
-8rvxOHfD/xLbG5AhPu3tZmY0oEpAat8F7eB7uqsAhUGN0mDMv3z6KwdUyr+yT5RM
-OCvLuTsMhM0r4uTDbjPo68WglQoFdg353ijcWUYMF4A1DeBW1lRvbhayQ2yOhIsa
-5mUJm4EKeOs4hCz+oZJIGHR0IOj5VHwbVO+Oiigs5HgnifNVdPsFrHOBpnNnj0yg
-XbzHj0R/CIghcvv29jVqQDswQlpVG0bgZU7b1yMfeBqe0HM7X4StUCaCjJZJw1lF
-dZqAE4F2Nt26/wMMN38hFW3p9NxdL8ak4AUNz1jTNGxYeSVxU0Eqrv8B+om4/M2U
-imcjW7YuVrKuqo59Cz59axrgb5upxvyEFQEnHNSxSFBE51zd3oqPNxIEViy4RX2i
-SLFhpVtrXB2QI9bD9q8EvpSHz3Yerj6g3j2ix1UI8GovV7K4RdvbxlbPGKnjAwcf
-DvEzetmhZO51Pra+0eCnyU8Y3OqXhHf9RLdaMTNFVzTbJcrjyhI=
-=Uhqn
------END PGP SIGNATURE-----
-
---fg5ihjp3ifj7wsod--
+Jeff Layton <jlayton@kernel.org>
 
