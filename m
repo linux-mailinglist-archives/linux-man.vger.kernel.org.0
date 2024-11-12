@@ -1,289 +1,97 @@
-Return-Path: <linux-man+bounces-1894-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1895-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE2B9C47E2
-	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2024 22:17:40 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CA319C4B8F
+	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2024 02:12:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 954901F21E9E
-	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2024 21:17:39 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D37DFB2107F
+	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2024 01:12:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 982A41A9B3A;
-	Mon, 11 Nov 2024 21:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A78EE20100C;
+	Tue, 12 Nov 2024 01:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iy30JtE9"
+	dkim=pass (1024-bit key) header.d=amazon.com header.i=@amazon.com header.b="rq2jod52"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp-fw-6001.amazon.com (smtp-fw-6001.amazon.com [52.95.48.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EBD1EB36;
-	Mon, 11 Nov 2024 21:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D981E884;
+	Tue, 12 Nov 2024 01:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.95.48.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731359856; cv=none; b=D8ibYCzi0TuxF6m/Smy0/oyR/kOZ/aRj+6TTO1H507UYdN+1lmf86eANqlG4FAqy/DI9o7jFavOFbJsZ4l+vG6ETRqzw1Em3QBXyb4qI+b3jVzgKI5WFpVTj5pEWzPdOpR+etDGYR222MGAbyqzDbmCVTHn8Kae8ZvTb9hLjSaM=
+	t=1731373917; cv=none; b=if4cmLKwDSIwoXI4kvr2jhU0lLp7MjKiYS5E/MIK1ku9cW8JsVns/9XzOMHGUO2HLBq4smcdbrECZmwahcJTKd2W3Ldd0qjresDCaJmJUGIwE8NA86ndlAzdEqZcHEJtyGU2V7Hm7fldPEaJBxqrYnWc4aeCbbf7xi1VI2ag7yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731359856; c=relaxed/simple;
-	bh=VOtzLRREwYKogahWnFcgDN0XsOJAWUaQY8DIwqVdt0A=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mSnE1mZc4/cDkqckZprRW6AM5qFkf5kGBzytW4Qjxzg+30AAdMDtGeMQluP32fpHMxberUcFCbDqyTvnFQTec0eKsZV7WVyo2LOanIHtmaE6aTy9glmstbd4u3IvFPjoNk8nCjasHF9mpNxUif/4o/+imJxuI1WxtUK0dWyToB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iy30JtE9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EE2C4CECF;
-	Mon, 11 Nov 2024 21:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731359855;
-	bh=VOtzLRREwYKogahWnFcgDN0XsOJAWUaQY8DIwqVdt0A=;
-	h=Subject:From:To:Date:In-Reply-To:References:From;
-	b=Iy30JtE99PTVfkhAtHCmLVh/LH811GkSLT+KBDrZZ3rRT43EBH3EdGcDpRwKg7DX3
-	 i/7pepNnpYq8lmfM1mbuLMTKeCutYg+kXMExL8avUFJYuQ/f1kNdDOQ3HuRQScNsZo
-	 lWTiWsAem6MgXqtgtwaW1knRoJmtP01PH2MpU0syHoAN2JZEnWzoE+H4d8BLKphz0G
-	 +Y2XRTdDGXRFcAIgGqGW5XGlbltbpLYMycg5Bu5Tn7kZkXR7j2rFVZ9m7G+Fol+T5E
-	 p3PgHJf/gCW5U0ytkERfkjh1qItiO0ljdY0uWTTd/d69UCWjTFNDBGtStoAWYethW9
-	 Fes2r1WRJ3yng==
-Message-ID: <3f85c0a6ed1131f1446cc97fe9ae12cff4cb1850.camel@kernel.org>
-Subject: Re: [PATCH v6 2/2] listmount.2: New page describing the listmount
- syscall
-From: Jeff Layton <jlayton@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>, alx@kernel.org, 
- linux-man@vger.kernel.org, brauner@kernel.org,
- linux-fsdevel@vger.kernel.org,  mszeredi@redhat.com, kernel-team@fb.com
-Date: Mon, 11 Nov 2024 16:17:34 -0500
-In-Reply-To: <2d72a44fa49f47bd7258d7efb931926b26de4004.1720549824.git.josef@toxicpanda.com>
-References: <cover.1720549824.git.josef@toxicpanda.com>
-	 <2d72a44fa49f47bd7258d7efb931926b26de4004.1720549824.git.josef@toxicpanda.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-2.fc40) 
+	s=arc-20240116; t=1731373917; c=relaxed/simple;
+	bh=SPL3XQ1tu1vWeHaH3hszUW99/LjWt2MUH/1JFp5Dok8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NixYEnPPprLDznEP5ojGH6V0Q+/MaX5xDR04sqxtMHnEgCgiGU87mJcxCKi7B9OQQTWlqmBWYxiNIcxXAOGRruox1J23lrOEu8xePpZ2Ds4WhMeWTUI2eBr3ukuADCI9I5inH4eBEqViA8GCtPgoEpTbxG7q77A8JAJxAjKFtqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.co.jp; dkim=pass (1024-bit key) header.d=amazon.com header.i=@amazon.com header.b=rq2jod52; arc=none smtp.client-ip=52.95.48.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.jp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1731373916; x=1762909916;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=kbTAqDo4z0mETHSFiamEzBpNc9m1yAvP8V71QAcPZhI=;
+  b=rq2jod52F1vp2NfsTbCsNR21HLGJjyq/sTwcUoRr0ZvfIoX83H3kV0ps
+   Pds2EBZG43gvuPt9EEKcpTmMttdRDSqv0H6JRV/Fn5L0vjBn07TECGZJ5
+   9UjnnU+GTLDdVdsJVxJ9bWWaf0exhRGJqVnEzG6pTbF8hgKO9D42wr9xF
+   0=;
+X-IronPort-AV: E=Sophos;i="6.12,146,1728950400"; 
+   d="scan'208";a="438837700"
+Received: from iad6-co-svc-p1-lb1-vlan2.amazon.com (HELO smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.124.125.2])
+  by smtp-border-fw-6001.iad6.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2024 01:11:52 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [10.0.7.35:29434]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.17.195:2525] with esmtp (Farcaster)
+ id 16a8b21c-41f4-49aa-91ef-9847d021dfb7; Tue, 12 Nov 2024 01:11:51 +0000 (UTC)
+X-Farcaster-Flow-ID: 16a8b21c-41f4-49aa-91ef-9847d021dfb7
+Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.34;
+ Tue, 12 Nov 2024 01:11:51 +0000
+Received: from 6c7e67c6786f.amazon.com (10.187.170.36) by
+ EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.35;
+ Tue, 12 Nov 2024 01:11:49 +0000
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
+To: <alexhenrie24@gmail.com>
+CC: <alx@kernel.org>, <branden@debian.org>, <kuniyu@amazon.com>,
+	<linux-man@vger.kernel.org>, <mtk.manpages@gmail.com>,
+	<netdev@vger.kernel.org>
+Subject: Re: [PATCH man-pages v2] rtnetlink.7: Document struct ifa_cacheinfo
+Date: Mon, 11 Nov 2024 17:11:45 -0800
+Message-ID: <20241112011145.65139-1-kuniyu@amazon.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20241111062205.207027-1-alexhenrie24@gmail.com>
+References: <20241111062205.207027-1-alexhenrie24@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D042UWB001.ant.amazon.com (10.13.139.160) To
+ EX19D004ANA001.ant.amazon.com (10.37.240.138)
 
-On Tue, 2024-07-09 at 14:31 -0400, Josef Bacik wrote:
-> Add some documentation for the new listmount syscall.
->=20
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
->  man/man2/listmount.2 | 112 +++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 112 insertions(+)
->  create mode 100644 man/man2/listmount.2
->=20
-> diff --git a/man/man2/listmount.2 b/man/man2/listmount.2
-> new file mode 100644
-> index 000000000..212929fb6
-> --- /dev/null
-> +++ b/man/man2/listmount.2
-> @@ -0,0 +1,112 @@
-> +.\" Copyright (c) 2024 Josef Bacik <josef@toxicpanda.com>
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.\"
-> +.TH listmount 2 (date) "Linux man-pages (unreleased)"
-> +.SH NAME
-> +listmount \- get a list of mount ID's
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ", " \-lc )
-> +.SH SYNOPSIS
-> +.nf
-> +.BR "#include <linux/mount.h>" "  /* Definition of struct mnt_id_req con=
-stants */"
-> +.B #include <unistd.h>
-> +.P
-> +.BI "int syscall(SYS_listmount, struct mnt_id_req * " req ,
-> +.BI "            u64 * " mnt_ids ", size_t " nr_mnt_ids ,
-> +.BI "            unsigned long " flags );
-> +.P
-> +.B #include <linux/mount.h>
-> +.P
-> +.B struct mnt_id_req {
-> +.BR "    __u32 size;" "    /* sizeof(struct mnt_id_req) */"
-> +.BR "    __u64 mnt_id;" "  /* The parent mnt_id being searched */"
-> +.BR "    __u64 param;" "   /* The next mnt_id we want to find */"
-> +.B };
-> +.fi
-> +.P
-> +.IR Note :
-> +glibc provides no wrapper for
-> +.BR listmount (),
-> +necessitating the use of
-> +.BR syscall (2).
-> +.SH DESCRIPTION
-> +To access the mounts in your namespace,
-> +you must have CAP_SYS_ADMIN in the user namespace.
+From: Alex Henrie <alexhenrie24@gmail.com>
+Date: Sun, 10 Nov 2024 23:20:06 -0700
+> struct ifa_cacheinfo contains the address's creation time, update time,
+> preferred lifetime remaining, and valid lifetime remaining.
+> 
+> Link: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/if_addr.h?h=v6.11#n60>
 
-The above does not seem to be correct. I can access the mounts in my
-own namespace just fine. What I can't do is access mounts in other
-namespaces without CAP_SYS_ADMIN, right?
-
-Maybe this?
-
-"To access mounts outside your own namespace, you must
-have=C2=A0CAP_SYS_ADMIN in the user namespace."
+Link does not need <> around URL.
 
 
-> +.P
-> +This function returns a list of mount IDs under the
-> +.BR req.mnt_id .
-> +This is meant to be used in conjuction with
-> +.BR statmount (2)
-> +in order to provide a way to iterate and discover mounted file systems.
-> +.SS The mnt_id_req structure
-> +.I req.size
-> +is used by the kernel to determine which struct
-> +.I mnt_id_req
-> +is being passed in,
-> +it should always be set to sizeof(struct mnt_id req).
-> +.P
-> +.I req.mnt_id
-> +is the parent mnt_id that we will list from,
-> +which can either be
-> +.B LSMT_ROOT
-> +which means the root mount of the current mount namespace,
-> +or a mount ID obtained from either
-> +.BR statx (2)
-> +using
-> +.B STATX_MNT_ID_UNIQUE
-> +or from
-> +.BR listmount (2) .
+> Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>
 
-The above is a little vague. It's not clear whether the list is just
-immediate child mounts or if you get all mounts below that point. The
-implementation in the kernel is the latter. You get a list of any
-descendent mount of the given mnt_id.
+otherwise looks good to me:
 
-Should we make that more clear?
-
-> +.P
-> +.I req.param
-> +is used to tell the kernel what mount ID to start the list from.
-> +This is useful if multiple calls to
-> +.BR listmount (2)
-> +are required.
-> +This can be set to the last mount ID returned + 1 in order to
-> +resume from a previous spot in the list.
-> +.SH RETURN VALUE
-> +On success, the number of entries filled into
-> +.I mnt_ids
-> +is returned, 0 if there are no more mounts left.
-> +On error, \-1 is returned, and
-> +.I errno
-> +is set to indicate the error.
-> +.SH ERRORS
-> +.TP
-> +.B EPERM
-> +Permission is denied for accessing this mount.
-> +.TP
-> +.B EFAULT
-> +.I req
-> +or
-> +.I mnt_ids
-> +points to a location outside the process's accessible
-> +address space.
-> +.TP
-> +.B EINVAL
-> +Invalid flag specified in
-> +.IR flags .
-> +.TP
-> +.B EINVAL
-> +.I req
-> +is of insufficient size to be utilized.
-> +.TP
-> +.B E2BIG
-> +.I req
-> +is too large,
-> +the limit is the architectures page size.
-> +.TP
-> +.B ENOENT
-> +The specified
-> +.I req.mnt_id
-> +doesn't exist.
-> +.TP
-> +.B ENOMEM
-> +Out of memory (i.e., kernel memory).
-> +.SH STANDARDS
-> +Linux.
-> +.SH SEE ALSO
-> +.BR statmount (2),
-> +.BR statx (2)
-
---=20
-Jeff Layton <jlayton@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
 
