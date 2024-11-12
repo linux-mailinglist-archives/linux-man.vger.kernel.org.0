@@ -1,108 +1,154 @@
-Return-Path: <linux-man+bounces-1898-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1899-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D489C6571
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 00:48:17 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C6B39C65F9
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 01:27:45 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 398CAB2891C
-	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2024 23:33:47 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 2A017B2DD2C
+	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2024 23:35:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FBA821B427;
-	Tue, 12 Nov 2024 23:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C64621B42A;
+	Tue, 12 Nov 2024 23:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amazon.com header.i=@amazon.com header.b="M8sLhgMN"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LE7BvSgB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-fw-6002.amazon.com (smtp-fw-6002.amazon.com [52.95.49.90])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4164C2FC23;
-	Tue, 12 Nov 2024 23:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.95.49.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DF420ADDB
+	for <linux-man@vger.kernel.org>; Tue, 12 Nov 2024 23:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731454420; cv=none; b=jV0C7eGbgh6R7qiqDPeXY+SnqtxZq7S/8kI9YthV3l9GBI8Jqkwn+yJR9yKsW4/Bb++SCnOUJ4jONYF2o5eea/MFizBZ3yJqO5S+yjU8wfswEWTacP47d9H1lrm4CYwIQ3ya8yrJImb6uUAyuhgRRgDaVSUfgwVGA8SZ/1tgTLQ=
+	t=1731454549; cv=none; b=Yexr2eeX+3HEcnruOeGFUnZ0LhgKQdzzK72/m4zs+OMOh6p5dTj/Cfakapsu5kvjgG5NhVse4qEsD7L1ForFitAH5jk4xo7jMzi2Ba3Dk3AMxIlaG1U+6R0gRh0WEOoFMFWHtNOUNfM8DH+dgdhrOD48Q+EZvFGjkgYFHbuVWLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731454420; c=relaxed/simple;
-	bh=YKjGAf9kZuR2qoV6k16Nz/6vScH9jlk85PVf8wfiSdE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HaPWA2UZ/aFBGsnQqFL9Hm3kMhFSbPrM6Wyolmbz7eqfmYxaIs+Suq32PWRoAdHdbu89mSxLxrUwJw+kbo9sx53fLwz8xQHcDhgH+DnnL3d8k/4uAH7qDXWHL1djVbNJWB1cdIhpFPJFxWIYdDsK24HoP3xxwFZgvOc9VFEpeag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.co.jp; dkim=pass (1024-bit key) header.d=amazon.com header.i=@amazon.com header.b=M8sLhgMN; arc=none smtp.client-ip=52.95.49.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.jp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1731454419; x=1762990419;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=uERQzekAYseuy0oga6agm4jG+J47cKgTXiOb+j8YYDM=;
-  b=M8sLhgMNpEIqe/YOMk9nFLflAhXNk4xluWMCTGX4zQppGIHZ2Hv3aoOW
-   bQwUGgYrIDrXZ/qQzSHBt3iVMpfSlQOiWsk/ug+m3jvIJJ7AlGI6ueWtu
-   /fGhMfAwtt6lIYWKDcTcqzlNm9FrDN0W9E//XPXqh/ZgTBno/DiED6cnq
-   Y=;
-X-IronPort-AV: E=Sophos;i="6.12,149,1728950400"; 
-   d="scan'208";a="448263153"
-Received: from iad6-co-svc-p1-lb1-vlan3.amazon.com (HELO smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.124.125.6])
-  by smtp-border-fw-6002.iad6.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2024 23:33:35 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [10.0.38.20:25993]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.18.34:2525] with esmtp (Farcaster)
- id 25d1d0c9-6f7d-484f-95e6-ba6a92942794; Tue, 12 Nov 2024 23:33:34 +0000 (UTC)
-X-Farcaster-Flow-ID: 25d1d0c9-6f7d-484f-95e6-ba6a92942794
-Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.34;
- Tue, 12 Nov 2024 23:33:34 +0000
-Received: from 6c7e67c6786f.amazon.com (10.187.170.24) by
- EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.35;
- Tue, 12 Nov 2024 23:33:32 +0000
-From: Kuniyuki Iwashima <kuniyu@amazon.com>
-To: <alx@kernel.org>
-CC: <alexhenrie24@gmail.com>, <branden@debian.org>, <kuniyu@amazon.com>,
-	<linux-man@vger.kernel.org>, <mtk.manpages@gmail.com>,
-	<netdev@vger.kernel.org>
-Subject: Re: [PATCH man-pages v2] rtnetlink.7: Document struct ifa_cacheinfo
-Date: Tue, 12 Nov 2024 15:33:29 -0800
-Message-ID: <20241112233329.20660-1-kuniyu@amazon.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <udctaxcv6yqjvffgrtzgqo24ee3kr4h4ku66ubohc7l4hqwg3w@6ujhaoyg4kla>
-References: <udctaxcv6yqjvffgrtzgqo24ee3kr4h4ku66ubohc7l4hqwg3w@6ujhaoyg4kla>
+	s=arc-20240116; t=1731454549; c=relaxed/simple;
+	bh=5wIk14m9i48/hcirmlXYwYxQb2VBlWZE++9E8KuVICE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ibwy7oX7u/qfRgTBXxT6+w0oDX7fO88sqXaeD74RldCRnOL4DA6wXluodeHcb3wlE7Nbp+QaOEwzz9BardXMaWu5VQOas8MXWiYIUpMMub3rNN5dxUpB/vccCHHPH4kpAL6BzHRAi8r3fjDoFkiuWiV+P3uNPCdFUy+lnjRk6HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LE7BvSgB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74B4CC4CECD;
+	Tue, 12 Nov 2024 23:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1731454548;
+	bh=5wIk14m9i48/hcirmlXYwYxQb2VBlWZE++9E8KuVICE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LE7BvSgBrsEzyCZegFyzMsBS7BcvpvXBx16IiZOtBjaZRcvFqUtXam5LpKVhAsM7P
+	 C3K9kww8TyD4kHi7NNsvGWVNrbeTg1jVsmJbAoVUhQWVRUii1JSgp758V9bbwPbp32
+	 n4I6yhOzthMFJmhU4mdDyA9QwgzCeKxNKfdsYvUilxxxW13mOAnpDzZ/qkXO1iIjyi
+	 tbKzyGgFJ47k7CXrrKS4dzhkrWm8UO3PFDyyAJ2yLqktx9qq6zrvHntuD7t4LsHig0
+	 fIt/vwGRl9IiP/hCQGOE6HwMIaQkjKCKxilzFZlJZ8p9azetyfboU8aT4+061fzdYi
+	 /va1DM6O+tK0A==
+Date: Wed, 13 Nov 2024 00:35:45 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Alex Henrie <alexhenrie24@gmail.com>
+Cc: linux-man@vger.kernel.org, bgeffon@google.com, linux-mm@kvack.org
+Subject: Re: [PATCH man-pages v2] mremap.2: Update information about
+ MREMAP_DONTUNMAP restrictions
+Message-ID: <e32hemtogjfgdclaao5oms4uezl7jss34ekdzcitf3r7qxuqsd@ok7tqhu4oe5o>
+References: <20241105041700.1386571-1-alexhenrie24@gmail.com>
+ <20241111061139.206404-1-alexhenrie24@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D044UWA002.ant.amazon.com (10.13.139.11) To
- EX19D004ANA001.ant.amazon.com (10.37.240.138)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nsvrghmtksw4j2l6"
+Content-Disposition: inline
+In-Reply-To: <20241111061139.206404-1-alexhenrie24@gmail.com>
 
+
+--nsvrghmtksw4j2l6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-Date: Wed, 13 Nov 2024 00:26:15 +0100
-> > diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-> > index 86ed459bb..ed08834b0 100644
-> > --- a/man/man7/rtnetlink.7
-> > +++ b/man/man7/rtnetlink.7
-> > @@ -176,7 +176,24 @@ IFA_BROADCAST:raw protocol address:broadcast address
-> >  IFA_ANYCAST:raw protocol address:anycast address
-> >  IFA_CACHEINFO:struct ifa_cacheinfo:Address information
-> >  .TE
-> > -.\" FIXME Document struct ifa_cacheinfo
-> > +.IP
-> > +.EX
-> 
-> I expect users that need to use this struct to also need to include the
-> header that defines it, right?
+To: Alex Henrie <alexhenrie24@gmail.com>
+Cc: linux-man@vger.kernel.org, bgeffon@google.com, linux-mm@kvack.org
+Subject: Re: [PATCH man-pages v2] mremap.2: Update information about
+ MREMAP_DONTUNMAP restrictions
+References: <20241105041700.1386571-1-alexhenrie24@gmail.com>
+ <20241111061139.206404-1-alexhenrie24@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20241111061139.206404-1-alexhenrie24@gmail.com>
 
-rtnetlink.7 tells #include <linux/rtnetlink.h> is needed in SYNOPSIS
-and the header internally includes <linux/if_addr.h>, so users need
-not include it explicitly for struct ifa_cacheinfo.
+Hi Alex,
 
+On Sun, Nov 10, 2024 at 11:10:19PM GMT, Alex Henrie wrote:
+> Link: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git=
+/commit/?id=3Da4609387859f0281951f5e476d9f76d7fb9ab321>
+> Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>
+> ---
+> Changes in v2:
+> - Move link to Link line in commit message
+> - Consistently position the word "only"
+> - Use .B instead of .BR for a word followed by a space
+>=20
+> Thanks to Alejandro for your feedback.
 
-> We should probably specify it by using
-> an #include.  What do you think?
+Thank you for the patch!
 
-So I think we need not mention linux/if_addr.h here.
+I've applied it.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D5cd75b8958eed06365849fce4d70582e19ab7fdf>
+
+Have a lovely night!
+Alex
+
+> ---
+>  man/man2/mremap.2 | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/mremap.2 b/man/man2/mremap.2
+> index 53e0bcf2d..62bf17b76 100644
+> --- a/man/man2/mremap.2
+> +++ b/man/man2/mremap.2
+> @@ -106,7 +106,13 @@ remaps a mapping to a new address but does not unmap=
+ the mapping at
+>  .IP
+>  The
+>  .B MREMAP_DONTUNMAP
+> -flag can be used only with private anonymous mappings
+> +flag can be used only with mappings that are not
+> +.B VM_DONTEXPAND
+> +or
+> +.BR VM_MIXEDMAP .
+> +Before Linux 5.13, the
+> +.B MREMAP_DONTUNMAP
+> +flag could be used only with private anonymous mappings
+>  (see the description of
+>  .B MAP_PRIVATE
+>  and
+> --=20
+> 2.47.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--nsvrghmtksw4j2l6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcz5lEACgkQnowa+77/
+2zITcg//fAbOja0+xYk7pOSwv5nsIEFNQbDX2M1dg+9zhR292z+Z3R5RpIEhTa9a
+pvdM6k2YLePsw+QYH7vu0d4x0t4Oyd+4GUnt3+c+PPvXPp6fw8/E2EU/uXJxDNeQ
+mY+GXHHlGLReRrp8nxfwnSsykBVx6wlMDoxMvBXg6wkz0B/m3sDZRGMPgYFkGbZ3
+PldWUDW1Dud36SoZcqpN174EKLoQDIDXSAXJuHMWOfQh/vzjnmsrb+cAfpLd2nLe
+aPSCgIfFOKeoTrJma+SBZ85TVpfMeiFFoHuKpLUmqbKESEtebiWtpfhzMtTTYKi3
+5ne5KGQh5LkHg5p4TP97ftwBbNe9Zi93H3uQzLr6+hXdIuISWdfXzbLlvA3YEaHS
+eGga6s02n0DX0Rf3gLRFmVlmsPe/Hp8YkKK6b7PuidUc1fmel6+nAb7xSfKMg94u
+MgV3uuQdj1GaaUoyiljkvR7BGYUGYYq1pynQIaBJBGOK1lgbr9ppkt1eToubjHpO
+8C3wkR8POKMCG5AiUNJ04mT4/uiSjWxgxx6QyJDwOshhRYsGeR/JhBar5nH3ock5
+n6Pkbzc3JYN2+dVmUpXcA9APXXGU8XiCUKyhK9bD7tRq76EXmj9C1OK1AOtCR2oS
+gCTlyOk7Ht0dpUG2ICL8YUjpulk3EQACA+J+I+yjUXW2P1TMFYM=
+=eHA9
+-----END PGP SIGNATURE-----
+
+--nsvrghmtksw4j2l6--
 
