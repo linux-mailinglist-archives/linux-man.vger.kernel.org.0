@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-1900-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1901-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D29789C654C
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 00:38:53 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 685769C656C
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 00:47:07 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9204F28489E
-	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2024 23:38:52 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2BF0B282187
+	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2024 23:47:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAFD521B42A;
-	Tue, 12 Nov 2024 23:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F355221B427;
+	Tue, 12 Nov 2024 23:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foEY8jE/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfTexfFp"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9483420ADC6;
-	Tue, 12 Nov 2024 23:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B236E2FC23;
+	Tue, 12 Nov 2024 23:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731454726; cv=none; b=r5EPUow0IPRwVMlN6KMB43B+WP/HdJDpL+3iEsLgeR9tbfWGWd5U01JJ3mSWnLBU/hoQqsu5L9GOaOko4G5PO3+sMb/1TSFhoPsExKlrOIiERXreX6TGH6gsYekznyLoHlmvXnN1BE2BFH5FRly557/Mdw/G2qGmvLiOdxKceVw=
+	t=1731455221; cv=none; b=cy2onJiMYyLWtNx2l018K72Q+VoTKIYznYILED/ZpeXIwr133qh/PeeKMYoTln13F4JplHsnmhDjQ4GGKEzVYw8qX7jPmP/j2HIEg5kCj/Q+pZxP745cWY/fEkfdxszlVfeaj07lnsEGkUaWLQsFGV516mSXn7DOwG1eeRa+cps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731454726; c=relaxed/simple;
-	bh=4jhBImA9fphWU/iPklkgltmJav0ylKqo+Ae/jTfczDo=;
+	s=arc-20240116; t=1731455221; c=relaxed/simple;
+	bh=p+pkVgK+GHj/lm+LRx0FaUf5eXSGISrXbitR3i4a8cg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fETnFxJS4EHAMExtibetJj0PA1zrQn8GR8eMCd35tXUavCZTSb8DqG0/7CjQ9eBZ9LPRfnkf0jx9yZsmWAqRRkVYqjQe02XOjmHQ0uHMJjcT70BnmQLOQeFqTUodkNDsNt64+Gs+c6xDGXbVLQkOPYBhAal8nBdsyccdtiCHoMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foEY8jE/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C9DC4CECD;
-	Tue, 12 Nov 2024 23:38:44 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=ew75uj/56JsMnj445dRR06aE/oYy7wiA4/cMesaZEtvIUdVnflx7CgQXJ4zUvMCKxaV5P2sSXJcf7YDBU8qxz/v5a89qdbryBB4jiQRIDFpkUhb7hiMcrI2MiFLJU++coYYONJPlmDjowptlYPek9MHPhAVFxV5cAyUzd8dfoI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bfTexfFp; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA2BC4CECD;
+	Tue, 12 Nov 2024 23:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731454726;
-	bh=4jhBImA9fphWU/iPklkgltmJav0ylKqo+Ae/jTfczDo=;
+	s=k20201202; t=1731455221;
+	bh=p+pkVgK+GHj/lm+LRx0FaUf5eXSGISrXbitR3i4a8cg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=foEY8jE/MaZ1a2YPpL0RG4WjZrUhXg4E9Dxu436Kx/EWTXwFIIrx+zRx98Ww/C829
-	 FMrDNlN7olIKiG+1D2Xt9BXYvDDlSohLMixPSznHLo4dtXnuj3C2aDzi6VILw7bzc9
-	 78d5393lHqCzcPF45zHu3Px/3HCNTwZ6jT0TShSHe71Yy2OL3CtmtaeYaSs+OQY4D+
-	 nhO3SE4b5cDIarqTOy+3UtPci0bJ5kTt0tliF76LT7uiR6r6Pe+EozOQxu/ffFeJFJ
-	 KoyJDq0tjoEjV+IrehMbjmQVDj5B8XwZn6txxBDGZXJ++L84Ugm9mM/+tE30t+Qfk2
-	 dPotO3BFVzE3g==
-Date: Wed, 13 Nov 2024 00:38:42 +0100
+	b=bfTexfFpP1OUN0YkkD15tI/PbVUt5ZHC614phUNFvu6e2JPEZJos2kFxDfD3bsvH+
+	 EIY2bxcQ2ln9NQjmCZ/8bfd0tXCT9638LrfF1lNbBveDSB4gxbtMVirbgipMJgY4u4
+	 LhwXqIQk6v5tyNNKw6KjHBugQK96heqHn0Tq/Owl9Aqmzve5rU6jsKDGdlhx//hzcf
+	 +0sWxswIrw5MSfAcdfVT2n5xKYd/Rl9bi7PbbrY/7Ksr0EUoUmJZ39W8RTbkMnVTjM
+	 DWJ91VhJ1C7bb+pA6N3RFDzrg3PZcqYx5N6XVQbmsnYPkS73LtMThvdWmWIhJQyaSs
+	 r6rhsbToQNC4Q==
+Date: Wed, 13 Nov 2024 00:46:58 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Kuniyuki Iwashima <kuniyu@amazon.com>
-Cc: alexhenrie24@gmail.com, branden@debian.org, linux-man@vger.kernel.org, 
-	mtk.manpages@gmail.com, netdev@vger.kernel.org
+To: Alex Henrie <alexhenrie24@gmail.com>
+Cc: linux-man@vger.kernel.org, kuniyu@amazon.com, mtk.manpages@gmail.com, 
+	branden@debian.org, netdev@vger.kernel.org
 Subject: Re: [PATCH man-pages v2] rtnetlink.7: Document struct ifa_cacheinfo
-Message-ID: <fvfuejrz36cejk344h646cm2chfnfangqjyq4pzpjeuhaxacq2@6kzmclbqsqg6>
-References: <udctaxcv6yqjvffgrtzgqo24ee3kr4h4ku66ubohc7l4hqwg3w@6ujhaoyg4kla>
- <20241112233329.20660-1-kuniyu@amazon.com>
+Message-ID: <gmtdbcjvptsrkhos7hsw66vbcmroqlo3777qtlyki6vawgf5ot@tmavdu2oufde>
+References: <20241105041507.1292595-1-alexhenrie24@gmail.com>
+ <20241111062205.207027-1-alexhenrie24@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,84 +57,124 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uvruoyo774in7xnr"
+	protocol="application/pgp-signature"; boundary="a43pcku5xczo6dy3"
 Content-Disposition: inline
-In-Reply-To: <20241112233329.20660-1-kuniyu@amazon.com>
+In-Reply-To: <20241111062205.207027-1-alexhenrie24@gmail.com>
 
 
---uvruoyo774in7xnr
+--a43pcku5xczo6dy3
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Kuniyuki Iwashima <kuniyu@amazon.com>
-Cc: alexhenrie24@gmail.com, branden@debian.org, linux-man@vger.kernel.org, 
-	mtk.manpages@gmail.com, netdev@vger.kernel.org
+To: Alex Henrie <alexhenrie24@gmail.com>
+Cc: linux-man@vger.kernel.org, kuniyu@amazon.com, mtk.manpages@gmail.com, 
+	branden@debian.org, netdev@vger.kernel.org
 Subject: Re: [PATCH man-pages v2] rtnetlink.7: Document struct ifa_cacheinfo
-References: <udctaxcv6yqjvffgrtzgqo24ee3kr4h4ku66ubohc7l4hqwg3w@6ujhaoyg4kla>
- <20241112233329.20660-1-kuniyu@amazon.com>
+References: <20241105041507.1292595-1-alexhenrie24@gmail.com>
+ <20241111062205.207027-1-alexhenrie24@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20241112233329.20660-1-kuniyu@amazon.com>
+In-Reply-To: <20241111062205.207027-1-alexhenrie24@gmail.com>
 
-Hi Kuniyuki,
+Hi Alex,
 
-On Tue, Nov 12, 2024 at 03:33:29PM GMT, Kuniyuki Iwashima wrote:
-> From: Alejandro Colomar <alx@kernel.org>
-> Date: Wed, 13 Nov 2024 00:26:15 +0100
-> > > diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-> > > index 86ed459bb..ed08834b0 100644
-> > > --- a/man/man7/rtnetlink.7
-> > > +++ b/man/man7/rtnetlink.7
-> > > @@ -176,7 +176,24 @@ IFA_BROADCAST:raw protocol address:broadcast add=
-ress
-> > >  IFA_ANYCAST:raw protocol address:anycast address
-> > >  IFA_CACHEINFO:struct ifa_cacheinfo:Address information
-> > >  .TE
-> > > -.\" FIXME Document struct ifa_cacheinfo
-> > > +.IP
-> > > +.EX
-> >=20
-> > I expect users that need to use this struct to also need to include the
-> > header that defines it, right?
+On Sun, Nov 10, 2024 at 11:20:06PM GMT, Alex Henrie wrote:
+> struct ifa_cacheinfo contains the address's creation time, update time,
+> preferred lifetime remaining, and valid lifetime remaining.
 >=20
-> rtnetlink.7 tells #include <linux/rtnetlink.h> is needed in SYNOPSIS
-> and the header internally includes <linux/if_addr.h>, so users need
-> not include it explicitly for struct ifa_cacheinfo.
->=20
+> Link: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git=
+/tree/include/uapi/linux/if_addr.h?h=3Dv6.11#n60>
+> Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>
 
-Ahh, okay.  Then it's fine.
+Patch applied.  Thanks!  And thank you for the review, Kuniyuki!
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Deb801003747466333742aeb0e25abb8235ca4776>
 
-Thanks!
+I've applied some minor tweaks below, to avoid going over the 80-col
+right margin in the formatted output (which BTW triggers a warning in
+`make check`).  See below.
+
+Cheers,
 Alex
 
+> ---
+> Changes from v1:
+> - Move link to Link line in commit message
+> - Add the word "remaining" to clarify that the reported values will
+>   decrease over time
+> - Say UINT32_MAX instead of -1
+> - Add a short paragraph to explain the constraints on the minimum and
+>   maximum lifetimes
 >=20
-> > We should probably specify it by using
-> > an #include.  What do you think?
+> Thanks to Kuniyuki and Alejandro for your feedback.
+> ---
+>  man/man7/rtnetlink.7 | 19 ++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
 >=20
-> So I think we need not mention linux/if_addr.h here.
+> diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
+> index 86ed459bb..ed08834b0 100644
+> --- a/man/man7/rtnetlink.7
+> +++ b/man/man7/rtnetlink.7
+> @@ -176,7 +176,24 @@ IFA_BROADCAST:raw protocol address:broadcast address
+>  IFA_ANYCAST:raw protocol address:anycast address
+>  IFA_CACHEINFO:struct ifa_cacheinfo:Address information
+>  .TE
+> -.\" FIXME Document struct ifa_cacheinfo
+> +.IP
+> +.EX
+> +struct ifa_cacheinfo {
+> +    __u32 ifa_prefered; /* Preferred lifetime remaining, in seconds */
+> +    __u32 ifa_valid;    /* Valid lifetime remaining, in seconds */
+> +    __u32 cstamp;       /* Creation timestamp, in hundredths of seconds =
+*/
+> +    __u32 tstamp;       /* Update timestamp, in hundredths of seconds */
+
++struct ifa_cacheinfo {
++    __u32 ifa_prefered; // Preferred lifetime remaining, in seconds
++    __u32 ifa_valid;    // Valid lifetime remaining, in seconds
++    __u32 cstamp;       // Creation timestamp, in centiseconds
++    __u32 tstamp;       // Update timestamp, in centiseconds
+
+> +};
+> +.EE
+> +.IP
+> +.I ifa_valid
+> +cannot be zero, and
+> +.I ifa_prefered
+> +cannot be greater than
+> +.IR ifa_valid .
+> +A value of
+> +.B UINT32_MAX
+> +represents an infinite lifetime.
+>  .TP
+>  .B RTM_NEWROUTE
+>  .TQ
+> --=20
+> 2.47.0
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---uvruoyo774in7xnr
+--a43pcku5xczo6dy3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcz5wIACgkQnowa+77/
-2zKz0g/9EGXL6rBiHLOffPE8b9l1Yny6ZHBw0qNjCMKDSeyi1qpTNWxNOhoHOJyu
-NXhbmjrKsBo1TDpM8FdncDhg7pDwZLcqyH9w6CkNjJRUYGkdiPlkDF3J3F3zXYHY
-T+JnQ0l4QtI/Mgzdeo8GwaCDoZ25VJigIgUPYg9z+nbsqpn2IsyVN3HFYD80uGoY
-xDIe3Qva4RKfJC8jisMCN49+U4THqgmyA6RQthuQ8mA8kyKM4xm1qEMEYPE0DFds
-/EJlewUqLyHm2gFlH7iPtZmbQwbruON/3EVxwQBmZ/UXD+q8hNG7tJUGKi1Q6fSQ
-cdTmnjhfTovhc157WYTR5uzqscrtL1qfjCZdAitDXw74l7tDyex4TEieUYDqT9Dc
-+64nQlu0YVrhg5wX17kwkVTBnY3X0i2/SUDYGjVLn0UXZO9pqDeivj6TkCJRMNcK
-mN/8mjVvHgJT+lTmCVCAaY+tSVUYvDrBBIk+xdRhRe6jW/gQ5INS5xnj3nJh/16o
-I8Y3dHA+lgy0p7tjguzu2bzqLoSfgajpPn/GVTFe01zBLS3m+MlYr5Uw+skwh8+3
-OPYewBWA7WlPvb0LwgRPR8+iNWKPfckzIRJczdOQ56MWh+eEne78q+bmFZFYoVVj
-AtrhevXdP0NjFzSsLxUZO53n0VccnTiUrbaw2UKQ8ri2RSXFEP0=
-=9Q3+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmcz6PEACgkQnowa+77/
+2zLy9A/7BzU5nTIzdP12W2ZoiCiNxevyiR6aejlSfE9tixoOFo4wKuvTb2A+rlZ/
+NAPa1plSKwD/luCZz7jJIgeWBTVVMxdTky30KTHp0gMfh8ssvNfcUtw64AJ/JK9c
+WDJiaUmKDMDv72WhLJY5dLJy4txdSkEZ+fvluLy2jqmkpN1eQOfpOqFOPKsVzbr5
+PW9TyfRLwrVFGmQ80qxJnzvP3lA529hPr9dsQ2+HJoPj9JK6NIc505IpN5/fvO1z
+55oR+ZEwo40YA7kafM7O1Cwx5FE6FcOHshRsWn9j3852BpFciRZDENiJuJ/q5hdb
+uZdLGslM/EeWHHCC1VAI7RW2HZfrSq1TdB5kaSPRJV8iJhDQUSe2vkcHk/mKajwS
+e/NtJVswozOdZgFmWZlfqLyp3WFlZ0le2RTxJP1VsxLXsMetwQoXFJ7aAXWgjROV
+aEUvpEuutByF74dAcDYOp4QyL/vFLddhDxFx9v8dJ60dpRnSpfxfaH5ekVOH3PXQ
+tiEzY6zdMqXUoq2xNEV4Upe3bVuXnk3kNKSC7K9HG5aZnxgr/DyKYh5dbrSkEb6v
+398nn/ixIf5piR/b7LPTmM4/FPI731WAso+w8rVE9ovdhXTL7+QB4pfbjkT3eiXR
+fseKm/GtJskvHmYAHVOTU/ByJ8g2b7S9wJH7WU68CjNh9g5yl4Y=
+=mXZl
 -----END PGP SIGNATURE-----
 
---uvruoyo774in7xnr--
+--a43pcku5xczo6dy3--
 
