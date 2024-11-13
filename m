@@ -1,53 +1,55 @@
-Return-Path: <linux-man+bounces-1905-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1906-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 370629C6DEB
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 12:34:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FD089C6E11
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 12:42:33 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id BCDBB1F21246
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 11:34:44 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id D361A1F2279B
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 11:42:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAB001FF619;
-	Wed, 13 Nov 2024 11:34:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D4F520010C;
+	Wed, 13 Nov 2024 11:42:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vKzuon3I"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f60Tum9k"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CB6193092
-	for <linux-man@vger.kernel.org>; Wed, 13 Nov 2024 11:34:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01221FF7D9
+	for <linux-man@vger.kernel.org>; Wed, 13 Nov 2024 11:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731497680; cv=none; b=Ej1LWNXjb2NnUJ8ErE7WKs5wl8ZwirxKKevd1McoqQGV7esWc9h9M1/nHrjM2hRngmhO8V+8iVc5czPWyHUCp7QR+Gs1WRRFW0DQ3/St1UQMEqy7piOoOxFT1DcO3J0zw7DRo/1XlJhw3szWIdJYsk0W5yoJdA4dS7JoeJvWdlI=
+	t=1731498138; cv=none; b=cPsrFnq6J3g6+hfvS9v+FpIiHMzsoTAJNdXKdsghITuK3i5+BULyKEgIj/B+0ERHGoZ3YIWDYvxxOCoGQ5ecHJ4vZcHHhviJRtLwKaF1r3FBcq5Fk+edWF3VsVwbp8Z+7Njg0sF8EnWdvXdyGE5ZWoes5qElDFsASM3Clw7XsGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731497680; c=relaxed/simple;
-	bh=70vocmBhc7gs1MN9m70CIEiOt736uhwZjBLa0CQJyMM=;
+	s=arc-20240116; t=1731498138; c=relaxed/simple;
+	bh=BjTbJmatYHoFC8EnvEEWRDk6vK3/TFVANbhNujCF9yE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gj/wEZRrBOULHXN5GlUHJpgto8/mdJuAufxQYdJ5trV5g+w7NCqUR+fCnAj7yGwFvAzgvTxS6M284KQbspBxpgdwpxQVIyrIaO1kvyfw95lRPad9Q8n2Jejcq32aSRu40SqPg0PfVp5e+WVPwKykDvfg/SfzOnLBcFfJ0Jzf9GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vKzuon3I; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B188C4CECD;
-	Wed, 13 Nov 2024 11:34:39 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=d1niMRizA09yBHhkeCVeDVnCvJPvN3EZam36D+4d39wdzXxunwDmLAQr5NrcznVUwzMtTSsGgCV4cvZfTc1Q3Af9gvq+fB2OXpJsuLHLLDnUp9QBx0AYA3BQSiuIyO9OUEnQGYxmveRnHJwZgwOtV9W/XMpexu/pYZry0bIH79g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f60Tum9k; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 207FCC4CECD;
+	Wed, 13 Nov 2024 11:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731497680;
-	bh=70vocmBhc7gs1MN9m70CIEiOt736uhwZjBLa0CQJyMM=;
+	s=k20201202; t=1731498138;
+	bh=BjTbJmatYHoFC8EnvEEWRDk6vK3/TFVANbhNujCF9yE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vKzuon3IMJvJI950vDXe+AeJdT/3FZKkYqKQIBTXBGeTGNOgczqkHA1GPmIQ5/AcR
-	 Cc8+9zBRXYEl28BY7ftic4/UolVWlWQEy+6r/JshlyhlxdltYawe0/05MvqaxAK5vQ
-	 iA2y2DAqJs2le691Hgf8EkJOlaLaDcXdUHOd6D8Dc1nKoWjO5CVbBLK35KOKdSI5RG
-	 MHGhVvL7GX5Z2LOCXFWsZz/w7RtwaaufbipDSNGRg+IPWThAklNdEbfW1NgvNw2mbJ
-	 Dmr97zbj66jvZo0Z6UOGyBZo+K6DkdeOo544L6XHeS7GFg5DwjQ+m/UgYOp4YOJcRN
-	 GldayATu6t1Eg==
-Date: Wed, 13 Nov 2024 12:34:37 +0100
+	b=f60Tum9kjC1H5LBv1Z0/kfWJG54yVRK0YgNgR0sejIxYxVzx4GpRu6Kfk9BZtZDjQ
+	 ZKrH1Y1k6LDhSS+dNtRcdQiVFuAPyswvDikUTF6PMSWJKQh5Yrko4BN9nPwYIt0IVB
+	 pkG0Q/ARD6didhuSmNKqOoeZ50F0EAYgd5/mmE4Q7WIuzwlpVVwjFVPol7ef8laA9Q
+	 7tjSkHBkZOVbEWhsdm5pLiwWpcNozMWKYB3fGbpKo1C0od5Nyk6Bp1BrdzrTYNbUQ/
+	 XpKeNC5V2aJUzI9qVF/96S01gzbJyv/Lufx7cxN5FlqlEtuZYTj7xG3Nudq9KzUKbI
+	 X4pWGwJLCghIw==
+Date: Wed, 13 Nov 2024 12:42:15 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Ken Pizzini <ken@gnu.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: improve description of %a in printf(3)
-Message-ID: <hoxou4yctztlze24w2usfvknrnbs5h4hspzsg6q4zy3hfm2p6k@6erj3vhl5rcm>
-References: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
+To: Yuanchu Xie <yuanchu@google.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Yu Zhao <yuzhao@google.com>, linux-man@vger.kernel.org, 
+	"T.J. Alumbaugh" <talumbau@google.com>
+Subject: Re: [PATCH v4] posix_fadvise.2: NOREUSE now supported.
+Message-ID: <xuzxyv26ncwokfb32j4kajaqsnzo2o776encbvb4kli3jtyaxo@2duy42n7boga>
+References: <20241113031654.3964740-1-yuanchu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,128 +57,161 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fcdqfjwmfiqhdrgv"
+	protocol="application/pgp-signature"; boundary="ownjjxqwt5mkvs3k"
 Content-Disposition: inline
-In-Reply-To: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
+In-Reply-To: <20241113031654.3964740-1-yuanchu@google.com>
 
 
---fcdqfjwmfiqhdrgv
+--ownjjxqwt5mkvs3k
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Ken Pizzini <ken@gnu.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: improve description of %a in printf(3)
-References: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
+To: Yuanchu Xie <yuanchu@google.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Yu Zhao <yuzhao@google.com>, linux-man@vger.kernel.org, 
+	"T.J. Alumbaugh" <talumbau@google.com>
+Subject: Re: [PATCH v4] posix_fadvise.2: NOREUSE now supported.
+References: <20241113031654.3964740-1-yuanchu@google.com>
 MIME-Version: 1.0
-In-Reply-To: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
+In-Reply-To: <20241113031654.3964740-1-yuanchu@google.com>
 
-Hi Ken,
+Hi Yuanchu,
 
-On Wed, Nov 13, 2024 at 02:11:52AM GMT, Ken Pizzini wrote:
-> The description of the %a/%A specifiers in the printf(3) man page
-> could stand some improvement.  In particular, it is not clear from
-> the current (6.9.1) document what base is used for the "p=C2=B1d" part of
-> the format.  Furthermore, the description refers to a "decimal point",
-> even though it would be better referred to as the "radix point",
-> as the number in question is not a decimal representation.
->=20
-> It can be inferred from the nature of %a that the base should be
-> a power of two. and it can be further inferred from the nature of
-> hexadecimal floating-point literals in C (as specified by C99 and
-> later) that the base must exactly be the number two, but it would be
-> helpful for the printf(3) man page to state this explicitly.  My first
-> expectation when reading the man page was that the exponent would be
-> taken in base 16; my second thought is that it is base FLT_RADIX (which
-> is 2 on IEEE 754 floating-point systems, but 16 on S/390).  Only by
-> going back to the standard and reading carefully could I determine
-> that the exponent in p-notation must always be taken from a base of 2.
->=20
-> A patch with one suggested wording is attached. The entry for "a, A" in
->    https://pubs.opengroup.org/onlinepubs/9699919799/functions/printf.html
+> Subject: Re: [PATCH v4] posix_fadvise.2: NOREUSE now supported.
 
-The latest standard is POSIX.1-2024.  Please link to it.
+Please spell the full name of the macro.
 
-<https://pubs.opengroup.org/onlinepubs/9799919799/functions/printf.html>
+On Tue, Nov 12, 2024 at 07:16:54PM GMT, Yuanchu Xie wrote:
+> POSIX_FADV_NOREUSE is now supported in Linux[1].
+> Updates text regarding former no op behavior. Indicates the readahead
 
-> gives an even better rewording, though I suspect there would be
-> copyright issues in simply copying its text.
->=20
-> 		--Ken Pizzini
-
-
-The patch is missing the metadata that will make it be accepted by
-git-am(1).  Would you mind formatting the patch with
-git-format-patch(1)?
-
-See:
+Please use 2 spaces after period.
 <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING.d/patches/patches>
+ING.d/patches/description#n44>
+
+> policy and treatment of file pages read with this flag.
+>=20
+> [1]: https://lore.kernel.org/linux-mm/20221230215252.2628425-2-yuzhao@goo=
+gle.com/
+
+Please prepend this with a Link: tag, and wrap the URI in <>.
 <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING.d/patches/description>
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING.d/patches/subject>
+ING.d/patches/description#n42>
 
-> --- printf.3~	2024-11-13 01:07:23.023847047 -0800
-> +++ printf.3	2024-11-13 01:55:48.368341811 -0800
-> @@ -757,15 +757,18 @@
->  the letters ABCDEF, and the exponent separator
->  .B P
->  is used.
-> -There is one hexadecimal digit before the decimal point,
-> +There is one hexadecimal digit before the radix point,
->  and the number of digits after it is equal to the precision.
->  The default precision suffices for an exact representation of the value
->  if an exact representation in base 2 exists
->  and otherwise is sufficiently large to distinguish values of type
->  .IR double .
-> -The digit before the decimal point is unspecified for nonnormalized
-> +The digit before the radix point is unspecified for nonnormalized
->  numbers, and nonzero but otherwise unspecified for normalized numbers.
-> -The exponent always contains at least one
-> +The exponent
-> +.IR d ,
-> +which is the appropriate exponent of 2 expressed as a decimal integer,
+>=20
+> Signed-off-by: T.J. Alumbaugh <talumbau@google.com>
+> Signed-off-by: Yuanchu Xie <yuanchu@google.com>
+> ---
+> Changelog
+> v3 -> v4
+> - Use semantic newlines
+> - Format with macros like .B instead of inline \f
+>=20
+> v3: https://lore.kernel.org/linux-man/20230320222057.1976956-1-talumbau@g=
+oogle.com/
+>=20
+>  man/man2/posix_fadvise.2 | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/man/man2/posix_fadvise.2 b/man/man2/posix_fadvise.2
+> index ed40b0c0d..11452699e 100644
+> --- a/man/man2/posix_fadvise.2
+> +++ b/man/man2/posix_fadvise.2
+> @@ -62,9 +62,15 @@ The specified data will be accessed in random order.
+>  .B POSIX_FADV_NOREUSE
+>  The specified data will be accessed only once.
+>  .IP
+> -Before Linux 2.6.18, \fBPOSIX_FADV_NOREUSE\fP had the
+> -same semantics as \fBPOSIX_FADV_WILLNEED\fP.
+> +Before Linux 2.6.18,
+> +.B POSIX_FADV_NOREUSE
+> +had the same semantics as
+> +.B POSIX_FADV_WILLNEED.
 
-I would remove the 'which', and s/,/;/
+Please don't reformat text that you don't change at all.  Patches should
+be minimal.
 
-> +always contains at least one
+Also, you've made the '.' bold.  To keep it in Roman, you should use:
 
-And prepend an 'it' here.
+=2EBR POSIX_FADV_WILLNEED .
 
-Other than that, it LGTM.  Thanks!
+> -This was probably a bug; since Linux 2.6.18, this flag is a no-op.
+> +This was probably a bug; from Linux 2.6.18 until Linux 6.2 this flag was=
+ a no-op.
+
+This goes beyond the 80-column right margin.  Please break the line in
+an appropriate point (';').
+
+> +From Linux 6.3 and beyond,
+> +.B POSIX_FADV_NOREUSE
+> +signals that the LRU algorithm can ignore access to mapped page cache ma=
+rked by this flag.
+
+Same here.  See man-pages(7).  I'd break here right after "algorithm".
+
+$ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
+   Use semantic newlines
+     In the source of a manual page, new sentences should be started on
+     new lines, long sentences should be split  into  lines  at  clause
+     breaks  (commas,  semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention,  sometimes
+     known as "semantic newlines", makes it easier to see the effect of
+     patches, which often operate at the level of individual sentences,
+     clauses, or phrases.
 
 Have a lovely day!
 Alex
 
->  digit; if the value is zero, the exponent is 0.
+> +This is useful, for example, while streaming large files.
 >  .TP
->  .B c
-
+>  .B POSIX_FADV_WILLNEED
+>  The specified data will be accessed in the near future.
+> @@ -127,9 +133,15 @@ Linux returned
+>  .B EINVAL
+>  in this case.)
+>  .SH VERSIONS
+> -Under Linux, \fBPOSIX_FADV_NORMAL\fP sets the readahead window to the
+> -default size for the backing device; \fBPOSIX_FADV_SEQUENTIAL\fP doubles
+> -this size, and \fBPOSIX_FADV_RANDOM\fP disables file readahead entirely.
+> +Under Linux,
+> +.B POSIX_FADV_NORMAL
+> +sets the readahead window to the default size for the backing device;
+> +.B POSIX_FADV_SEQUENTIAL
+> +doubles this size, and
+> +.B POSIX_FADV_RANDOM
+> +disables file readahead entirely.
+> +.B POSIX_FADV_NOREUSE
+> +does not modify the readahead window size.
+>  These changes affect the entire file, not just the specified region
+>  (but other open file handles to the same file are unaffected).
+>  .SS C library/kernel differences
+> --=20
+> 2.46.0
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---fcdqfjwmfiqhdrgv
+--ownjjxqwt5mkvs3k
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc0jscACgkQnowa+77/
-2zL72Q/7BrtkOrZqTckaSM9OZHs0ctPvoCSw2H8jwHZOaDoDI/zwqomh+DlZPEfw
-0AtecfHRCh3j5shdEJNzubPTe0+k7hZbqYXH6da+bXsEzhA6byba5FGOIkC6tz/c
-4ZZIwRFtY0NQtfMMt/+L5nJTr2wU/AuFE9uCVqXgeqd1XLJQ1PMPiYJ8hryI6FHb
-o1mYUDJcZ18wr+HvsNoCg6RMAvtLDXiNd+J0/3aC66AKUbZrV0u/3kZUG/uuaglA
-+DO4AgS3bs+azjzgb5iflJhTS1kAnO58Q/GWyiCNeAp5hjI4U/jpi38pjgpJ91RB
-WiCZO3G7OoJ0aAELKIzjjLlYyywG4hn9GK8qheMP+/8bTYIFZKw1GNYMPvpx8D/1
-v6eZmc5my0E2E4abSNgq/l5jKBjG8AQF7sdTIxaf2aSIHfOdLidLnK9vZSCqcHCx
-1Z6K2MLVd5PNHpTIIB5pGUkSy8o7zhUjlFX1tcISY/toFrePd70g9zKZDgCtT2GY
-Vkh5syjkU55FiSaDISJNGq0AB0sm6MDu9uIQYMqdSsORw9SV5sdfvkAd5wXmuaZd
-atDhb0yRrXJjxmM/OFu6AOyix9ZhrIF87D/mZBhbJBb2qeWPLaIkIM6In6BkJZkr
-8n9JwQ9SKfgJPIv9W2CrWHLmXhK+g1ZfnF7KZWM1Bg7HCbnKxvc=
-=6UdK
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc0kJYACgkQnowa+77/
+2zJKGQ/9Fs4NRfj0lHeUrEdvJzAv2/hmRC7530vVAzhxFeSkBIkQifG1XMGN5Z6C
+2ZTglwscgcBRNjyM0xTujQs2RVnIiUKFZXyMsppgk6QqaWMJqWLZSrfRFn/+abmg
+KeIO+FQLxpkIsNZiYr0iOKaOl3RqoKOTLvT8CDL+51TByzbfePK/AtO6omeGKqI2
+j8VdOuDWJsYoEaE1VR4mI44UxxKlVk5GiRuqDrdVuHg2NlkHa5lOkw2OAehAG1eR
+ZXw/8UNOgvagkUfu+FOtikkdfgSOzUT2YK6yFXbZ9x1FpDo20UVO7esyBRnhYEyX
+noI3eOtunqVTbWvo0liNACeD9nSj1oTblQy0ZUZP2LPM2akR8ntKKACtAsvgMsAP
+1d81RNFbwwA2BHGdnSpdSrw8fKiVrwRKhesRU4BwtcUSH2A/17o+Z+uPAkrehPn0
+trs4SUPDdzJR8vtl6KEDlG2yR1YIn3A2cbTSzrammI83aFxBzBJT76hNqoAdGvNp
+BGLR9Ji1+1U7YYbZ4IKrn67BzI30RaU7e+HnLtJDhPWbqthZP8nCaM5jLfvojreZ
+HfKLlYK6/P6KPlpDQ1qbQ5kBvIbjD6xXlzEIPDKd3cr4gRCa5BhbQSwaAH3EmI+X
+qaLmCgqqojYD2uG8I1i3ZLcKXGdheaaVhuJ4xW5Knaw7NBtgtdU=
+=sBxR
 -----END PGP SIGNATURE-----
 
---fcdqfjwmfiqhdrgv--
+--ownjjxqwt5mkvs3k--
 
