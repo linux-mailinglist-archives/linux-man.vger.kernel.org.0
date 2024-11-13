@@ -1,114 +1,149 @@
-Return-Path: <linux-man+bounces-1909-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1910-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013009C74CE
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 15:51:38 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id C79C19C7804
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 16:59:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 30F20B367B6
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 14:49:17 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7989A1F215A3
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 15:59:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D48913AD33;
-	Wed, 13 Nov 2024 14:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0625146588;
+	Wed, 13 Nov 2024 15:59:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LTw+RixM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4VQImlR"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58233208A7;
-	Wed, 13 Nov 2024 14:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C38813D24D;
+	Wed, 13 Nov 2024 15:59:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731509348; cv=none; b=daJIPCXS+hdRPdV0Arz58BCjRiXtR2sUKn7SqyBGamoxMKXl4KCohOKlz6w/8j9oWtwr4Wa8/1B3lTU4Ogilzjkjm4oEbW40jSkdoi4ejmHA4pp4JiVOxAF9EU3+tMn/Iz7Q6tKF3UpuMRMQ0vhwq275MYRPgk5AXANiN/zGOE0=
+	t=1731513558; cv=none; b=Cj8BKhsrIinrfFf8hZ8+giHoax635i0cPIpPqP6+1xknlRyZ6MLAULjAjC8pKx+oDBQdpL6PZC5l3CLc5VGcyWq/L5oIfEk1hk44TxDHSaN2t23XUxtna0u7fqHcP5CjeojpeMYPD7UNNpa9qOB2S9CqQbIRzX1Un3D/1mumBOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731509348; c=relaxed/simple;
-	bh=XO/moQFwA/UzdpVLbdaRbzcRuBess2uvYfNKaZYVfdY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=J/b+uOfpqsqUpMuP2yZygUkcCmvXD9MQPl54JS2fYQMGCT7TM4c+58zDbpZYWnVD6Qsmm3gOLOAPXTRp8P0Ih1laVXXHHyjxJvxUEdnlq805ZMZm49Hd0KsqqA2m1as4vHjrc0Ml7vFx4xGDysI9pmyCDIcyN9avDCnCaAVLzYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LTw+RixM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C22C4CEC3;
-	Wed, 13 Nov 2024 14:49:07 +0000 (UTC)
+	s=arc-20240116; t=1731513558; c=relaxed/simple;
+	bh=hqZyRsogYpMQZ4NB3j2amF/q+twR3uBKKDpWVppb0dQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OcgLCfMUDfACcxMZhL/YATgKpcJRHRaQCHRxSMw+mzo4SX+FuuHooFQKslnZ1/Es+EHnsO4QspQ6hROManDnAk0kqgwDgwTXb5fWsRCxvtdZJX70E0s1jcmhHomQgIx/st/jb9coVMWIhrT7q/oHokvNLJc7rYxP0oLRMRpTgqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4VQImlR; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0428C4CEC3;
+	Wed, 13 Nov 2024 15:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731509347;
-	bh=XO/moQFwA/UzdpVLbdaRbzcRuBess2uvYfNKaZYVfdY=;
-	h=From:Date:Subject:To:Cc:From;
-	b=LTw+RixMS/Q8U0v4+D695I95J0UnhqM7ZWZYqCNLefWWlidcHlUfz1YnnMgLTyGRI
-	 t5atiIEw9xnMTsYdKMkaQoY5Hsr7LIGVfkXFkTLjQ9dQdXrCL/y1ixgFVVU3KojY8L
-	 32/bbEsnfBucA3AkKJWh23dvJQCzBjuloTGIx8Nk4F76knXgSy6xTPzLF4kgb6VfFE
-	 CL8omS2/N5/yTvYFdgoSX1/HdrTZ+Lx9k/Z7+xYO5X5s5ILgNX20/+ZBEPoqx9N5eS
-	 9hypGw3OpsfE5djvw/TS7D2DwbllcWgQBsWnViKu6fqKTBbrM6E6lr4T30JAnbncQI
-	 G1g+RDQDpTHRA==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Wed, 13 Nov 2024 09:49:02 -0500
-Subject: [PATCH manpages] listmount.2: fix verbiage about continuing the
+	s=k20201202; t=1731513558;
+	bh=hqZyRsogYpMQZ4NB3j2amF/q+twR3uBKKDpWVppb0dQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A4VQImlR73FJJBPytqbGdQfmcS00LILHEZ01p80q7JdrQ5J9CQ/Bdbk0Hsm85sAUT
+	 avuUM+DnxaTF2dO+QRboFwJrhTnp+rb6p078M2QtkXbkaa/5jWDk6lmbCKPLoY6I0s
+	 5jMo9keVlonT2CZP/U2+ufAV3HEc8bpBb8jIfC3dQs/XGdMenRuRaNgafhi+SYOYGN
+	 GgMzog6dnqQkn+f9S1bKPGL3738pB1hL0sI+P58m1hIsztkCBGNO91qHjifptDqjZr
+	 co1JMEaKyjXWMP1TtoXtxptJFnnVq8tkZSMY/NFQb2ocyFiQQxz7vzBy44bAjefMjK
+	 mMM8QFPLmbV8A==
+Date: Wed, 13 Nov 2024 16:59:14 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, Miklos Szeredi <miklos@szeredi.hu>, 
+	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH manpages] listmount.2: fix verbiage about continuing the
  iteration
+Message-ID: <ofoedlcmowbhd6asd6yhp6jhetv2n5s6xsmzmu2qf2nnh2o22b@5nozhjvjbpvm>
+References: <20241113-main-v1-1-a6b738d56e55@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241113-main-v1-1-a6b738d56e55@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAF28NGcC/x3MQQqAIBBA0avErBMadVFdJVpMNtkstFCIQLx70
- vLB5xfInIQzzF2BxI9kuWID9h24k6JnJXsz6EFbRDQqkESFk6aNnTF2ZGjpnfiQ998sECje5Bv
- WWj9Md7clYAAAAA==
-X-Change-ID: 20241113-main-192abec3348e
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4nljuu3txwk3t47p"
+Content-Disposition: inline
+In-Reply-To: <20241113-main-v1-1-a6b738d56e55@kernel.org>
+
+
+--4nljuu3txwk3t47p
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>
 Cc: Josef Bacik <josef@toxicpanda.com>, Miklos Szeredi <miklos@szeredi.hu>, 
- linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1072; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=XO/moQFwA/UzdpVLbdaRbzcRuBess2uvYfNKaZYVfdY=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBnNLxjnBEjLVAgOhJ6jKw4qUoTHgU8sb4TIyA+x
- EjU6dFhF6WJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCZzS8YwAKCRAADmhBGVaC
- Fc0hD/0Tzi3skgPCxeo58Yy1zXEqBMUQW4B6P90she9vBVdXA6Wluqs+WNnR8i66HTKqwwFZEES
- sZj2iHZNcB1YV/Ota76Onz+FBLFgEDQDsNF3NW/RK0Bve02vJnJ1+6jo2ZRnwRV91O+/QMCey1t
- eX/vl/MuPo/9zrwnNdShVxhTPlPxcsd9EnKwciRtI2HXVfgThe7+sO3fPvTshsRgGLpVllcAQRD
- h8a2fQuERQ5/612qSGOABes201dyRG6ukwg8P599RPKmjHPjhOKajDqy08S6gVSS20oB0zp/fMX
- G15pyahwE6WAKlz9GHlsFFXIVbtlRrKwho2LozLL/XY/B0+OwdPbgDiBJSQaAhcgXbZY4bouiwI
- tjFe6d1lPgzoxtveAsZ5mXbSmL0t10tU7Thw4krTyhVKwNy6eOYS7DZRT4woPNDH0boj4EDZQNK
- OuCoDf8TsjRtYggY/0Em/GDxVbDVzgUblEIcx4JP76Ib+OPG5JTG3mTdPVLACnZWm/KEbEDd5Tw
- nOKJcB4SfxDNqAXbDxR9GQE/EJ/gUKhv/VVlGds4rYUBXQTlnB/AAYmDpXcBuYk6pG5ur7To3UM
- m3KNyBuXoDVKjciIYeCtxLAnUacxPpz/ZsBvfpkukWwgRt28DrIq/Ch84K6PnUsustnzu1UfzZO
- CCznEb/d8kXSB7w==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH manpages] listmount.2: fix verbiage about continuing the
+ iteration
+References: <20241113-main-v1-1-a6b738d56e55@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <20241113-main-v1-1-a6b738d56e55@kernel.org>
 
-The "+1" is wrong, since the kernel already increments the last_id. Fix
-the manpage verbiage.
+Hi Jeff,
 
-Cc: Josef Bacik <josef@toxicpanda.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- man/man2/listmount.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Wed, Nov 13, 2024 at 09:49:02AM GMT, Jeff Layton wrote:
+> The "+1" is wrong, since the kernel already increments the last_id. Fix
+> the manpage verbiage.
 
-diff --git a/man/man2/listmount.2 b/man/man2/listmount.2
-index 717581b85e12dc172b7c478b4608665e9da74933..00ac6a60c0cfead5c462fcac44e61647d841ffe5 100644
---- a/man/man2/listmount.2
-+++ b/man/man2/listmount.2
-@@ -67,7 +67,7 @@ is used to tell the kernel what mount ID to start the list from.
- This is useful if multiple calls to
- .BR listmount (2)
- are required.
--This can be set to the last mount ID returned + 1 in order to
-+This can be set to the last mount ID returned in order to
- resume from a previous spot in the list.
- .SH RETURN VALUE
- On success, the number of entries filled into
+If it's not too difficult, could you show a small example program that
+shows this?  Thanks!
 
----
-base-commit: df69651a5c1abb61bd0d7ba0791f65f427923f75
-change-id: 20241113-main-192abec3348e
+Have a lovely day!
+Alex
 
-Best regards,
--- 
-Jeff Layton <jlayton@kernel.org>
+>=20
+> Cc: Josef Bacik <josef@toxicpanda.com>
+> Cc: Miklos Szeredi <miklos@szeredi.hu>
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> ---
+>  man/man2/listmount.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/listmount.2 b/man/man2/listmount.2
+> index 717581b85e12dc172b7c478b4608665e9da74933..00ac6a60c0cfead5c462fcac4=
+4e61647d841ffe5 100644
+> --- a/man/man2/listmount.2
+> +++ b/man/man2/listmount.2
+> @@ -67,7 +67,7 @@ is used to tell the kernel what mount ID to start the l=
+ist from.
+>  This is useful if multiple calls to
+>  .BR listmount (2)
+>  are required.
+> -This can be set to the last mount ID returned + 1 in order to
+> +This can be set to the last mount ID returned in order to
+>  resume from a previous spot in the list.
+>  .SH RETURN VALUE
+>  On success, the number of entries filled into
+>=20
+> ---
+> base-commit: df69651a5c1abb61bd0d7ba0791f65f427923f75
+> change-id: 20241113-main-192abec3348e
+>=20
+> Best regards,
+> --=20
+> Jeff Layton <jlayton@kernel.org>
+>=20
+>=20
 
+--=20
+<https://www.alejandro-colomar.es/>
+
+--4nljuu3txwk3t47p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc0zNIACgkQnowa+77/
+2zIgHw//VSXzEkgoyJGcTumIdnqml/juu1Tzv96NgdOzcixCvUs1tIOcTATUPLMG
+56Lnt1Elrk+6AXtFHBOYSGyJRHDTMYztnjau9hpa2mU2diRXRD5YV6GoVmq+Ysca
+soxhcVC4YgEh0+l6ozCRCMJY/wuUHeAVgkzj1sK7UKUwGM9kDjJ1c7AJJ4Jbh5r1
+AUsJIltanJg7WJqXjQmKTuNb9yFEBJEwong1qpwmnddVtp1SorrZVhvdcqDhCrCQ
+KVjp3YoVouPqJOiuwD24KKRPUJZz56RSkQ5aG+GBeFUdPDJsa9PIOVXTRFG2nfmL
+vhl4RvcI8qI680o4td3ny678u89aD422q/uAlaZJ8NBtVNpNiXHr5+WdSNw6dMvn
+//9fyQWhyTG0dubcLt9yI4ipsDWFzdOFdmvIA5Lj9GSpkN18GUXfOt3DE037iyEp
+hTacFOyU8tNDUG4yw6FLX9U602J3KbaJQQm26JmCbP+Q1JQ3ApwgYIMzdEcy7uij
+oA7dH4NYGGYNYEKXSwU32ekYli1K/B6fvvjHsFUkYa7D3mPI6uT6UXm707TNJlwC
+Ot143iGhRDG5F5FF5ZLEW7mZ5yI0UJD6TWY8h5ufER5ivPLd7lB1i97S7kUEhEdZ
+DQbR+qkUsS+C8Fi1QGXii6kxFJoHM6a290woflGRmH0lY2ql+To=
+=gik2
+-----END PGP SIGNATURE-----
+
+--4nljuu3txwk3t47p--
 
