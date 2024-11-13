@@ -1,147 +1,124 @@
-Return-Path: <linux-man+bounces-1902-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1903-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052CE9C67AF
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 04:17:06 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 985D69C6C7A
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 11:12:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id BDBBD285989
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 03:17:04 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 481001F23133
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2024 10:12:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78285166310;
-	Wed, 13 Nov 2024 03:17:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 685941FB3FD;
+	Wed, 13 Nov 2024 10:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J4BiXvk3"
+	dkim=pass (2048-bit key) header.d=gnu.org header.i=@gnu.org header.b="SHltpWJP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yb1-f201.google.com (mail-yb1-f201.google.com [209.85.219.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from eggs.gnu.org (eggs.gnu.org [209.51.188.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67691662E7
-	for <linux-man@vger.kernel.org>; Wed, 13 Nov 2024 03:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4744D1FAC48
+	for <linux-man@vger.kernel.org>; Wed, 13 Nov 2024 10:12:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.51.188.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731467821; cv=none; b=nRGrzCM1wf4gGJY2FiooHM6RKcsA+eIgjGC+BQNlRFhdF3C6AwOpxvGPGhXyepANWzY957e1FuJdIgEVWkY/oPjOmmzF3a+Emyvi8+QBB28tAv2nm2ZsBiTDQc0Koe/TAonpQ5CT+0z6O1915zljmShXkgd6uXPIGfmwQPsRwyk=
+	t=1731492751; cv=none; b=XeZfYR7XHHTrLf4qUo3u8l3btndChkKDWZHdsMbkRib6o1RTyc4YeOCZu8BC+N6s8Sliq2tpyXFug0LXP73Y23GBuOyPN6bMHCsgJD88Pyuwgm8AcFSgMQ5uBfLd/oCGvXZZu6Kjy8NpuTkx8EiztRX3RKR3CMPVrjj4GXLWroA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731467821; c=relaxed/simple;
-	bh=JBElt/04SVxtzwVJJc8xDVKtRffpaMEP3gXY4w7DeVQ=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cu0Qm8ssGTpAKoO8Z5v/QA96qAhfGdhaGe41U4s69ABHen6SO9h1guKK7ud0YcrUvHPF3Lqi7UURN/ElE4IXynXM1wVrquwOSm8Yeq7MJpYYDMBMLkWxavChWY3o6Rdo4hiSaBpX4zBhuq31HN3Vmvg69yuWcOjaToyJyMzW+H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--yuanchu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J4BiXvk3; arc=none smtp.client-ip=209.85.219.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--yuanchu.bounces.google.com
-Received: by mail-yb1-f201.google.com with SMTP id 3f1490d57ef6-e3313b47a95so12308493276.3
-        for <linux-man@vger.kernel.org>; Tue, 12 Nov 2024 19:16:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1731467818; x=1732072618; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Hm2827LF3R8c3fZLBRValKtMG1B3t3KOZHCq9GuWQMU=;
-        b=J4BiXvk3Hm5EOsuvV8lm5mhKuseXcD/aKQ5fT++HSl+HzsWUQ1LBuQN19G8qAyk74/
-         H4LxT8DqbPZIAvD2pVL8PtGE4OWaUQkHYV9hLdd2QKA3ZmQwgJ3N7l4rQIMvQhiLeEoW
-         Fu0xzjSXWzgEEX64QL23CY6vfEBNEL6euV4iPztBlhcqWElnfm23zpixdrgy9QRzCpqj
-         5nc2oJWHmpbiK8WXhcadJIEDOTpwzgC6GVkGQFwO/QFIsIYshx3ctJEZXZp8DHsz9rdC
-         HSWVRtotEYIOPdlWHANdvoyruATTykcoK3sjvQ1Ogi4KCpt0qqFtVdJye8YFhZ7y4X0U
-         g5cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731467818; x=1732072618;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Hm2827LF3R8c3fZLBRValKtMG1B3t3KOZHCq9GuWQMU=;
-        b=NsZZ05STsJT29HLlwWeSox8ANH27RDolaiEfoG36KEWL3CYNGBGhlbW0ofFrUtusWE
-         7rPYO6fDfwSR+IUCco/qh5rclZm3X3bTHUick4wE1lv1XQ+stxCgYRffnxqCiKO7dSlo
-         Kp6wkudF3zhaWitfVPk9nMNGz4BKv6Fzfrhelw9ZhfIVAUefy5kTlxokWZpDwjXzzU6z
-         9nIxZda+eHmZJv/Dknm2QrWaixQS3b878TZc73u0QapSpdAJZ/HcyCuFMGd8f0i7Bhc0
-         x+WiHeojypAoKCzYKwrARSKHdakqt3vHilwE4pM2JpBY3PDz2HG6/AZ05hKoA/qHpeHb
-         v2Rg==
-X-Forwarded-Encrypted: i=1; AJvYcCVDMIBw+Z4NUPTGhM5ztAVTLu0ZtKiq6ob+yUSnx/+MJszcasRB32pUe7+bBR9KlKGPru7yhWky/rk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQdB2i4hXiFrBvrm/ppmhY+aF/hDE+lGdjISw8kJkV5s7N6P4E
-	kCVrBEqGQ6flVKEbQHrACfFthyHnfiIFpoMj7VjZWG5A9aj0KPtndrAyTt4CO9mjPV1TSNQacS2
-	7YIXPeQ==
-X-Google-Smtp-Source: AGHT+IHS0NtvDUqh3f2MUpSfIcGXiy1RfQgpYIe1wTmZ64GiUnrbjJ/X9HHymyrtufnpz9XJ1d7bNdBgV3/7
-X-Received: from yuanchu.svl.corp.google.com ([2620:15c:2c5:11:bb33:513:502c:f791])
- (user=yuanchu job=sendgmr) by 2002:a25:ce0b:0:b0:e29:b6d7:20e2 with SMTP id
- 3f1490d57ef6-e337f786589mr30840276.0.1731467818630; Tue, 12 Nov 2024 19:16:58
- -0800 (PST)
-Date: Tue, 12 Nov 2024 19:16:54 -0800
+	s=arc-20240116; t=1731492751; c=relaxed/simple;
+	bh=GghWXNBGcOA21L47cxe62fHg9wmtQ4Jt2KuQIuTc9HM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=bCP/uuV9OcFFvPBQClhjOzah8DznP4TBpF3V1lkCy387egGIYwt29NNExqu2MRplKV/QjxrIl96S8Bh7a8Nl3fmkGlzUNOBiSTPFraGZ+Yn2LMwDC1BG7VNAgjNrg+6tq/frdft/N97LDQ5ixOVER55eT/Cya9tlYzqEQhOjsk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gnu.org; spf=pass smtp.mailfrom=gnu.org; dkim=pass (2048-bit key) header.d=gnu.org header.i=@gnu.org header.b=SHltpWJP; arc=none smtp.client-ip=209.51.188.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gnu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gnu.org
+Received: from fencepost.gnu.org ([2001:470:142:3::e])
+	by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.90_1)
+	(envelope-from <ken@gnu.org>)
+	id 1tBAMN-0000Ys-Cr; Wed, 13 Nov 2024 05:12:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
+	s=fencepost-gnu-org; h=MIME-Version:Subject:To:From:Date:in-reply-to:
+	references; bh=s0cGwX8LsPWFBeXvyvtFhxClpk3WHjWYM7nRgOc43Xk=; b=SHltpWJPwf4nrz
+	pd8nRus/UIdmsp3TrkqJ6keSciBkxwev5E3eoP2MXUPyapbHs8XBOC6c5iAUDZiICokin9EkJxuzm
+	ZPQNXQlcBMLve5xdTVclq5EPArdmhxS2sQeMufPnBlXMxVg3JfzDTvogVu/tWOPzP3yDDXnKtWlLG
+	ChNqoHMR0JkNa1F/M91UUY7JLTKDNiSaqLrko5jEg4fz9o3Z1RuL+HU2vCaXyaqcpXoElt1uiTGr5
+	tGM+M2JF5apG3Q8r2ExZwQmRZva2wnUBcAksR9BBwM9BbkSTS26cu8afZ/GoE2tlBwe/IghsrsurK
+	HeY+nttc5iOnSFfW1Lig==;
+Date: Wed, 13 Nov 2024 02:11:52 -0800
+From: Ken Pizzini <ken@gnu.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: improve description of %a in printf(3)
+Message-ID: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.46.0
-Message-ID: <20241113031654.3964740-1-yuanchu@google.com>
-Subject: [PATCH v4] posix_fadvise.2: NOREUSE now supported.
-From: Yuanchu Xie <yuanchu@google.com>
-To: Alejandro Colomar <alx.manpages@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Yu Zhao <yuzhao@google.com>, 
-	linux-man@vger.kernel.org, Yuanchu Xie <yuanchu@google.com>, 
-	"T.J. Alumbaugh" <talumbau@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="IwHjWAgeO62hruqb"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-POSIX_FADV_NOREUSE is now supported in Linux[1].
-Updates text regarding former no op behavior. Indicates the readahead
-policy and treatment of file pages read with this flag.
 
-[1]: https://lore.kernel.org/linux-mm/20221230215252.2628425-2-yuzhao@google.com/
+--IwHjWAgeO62hruqb
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: T.J. Alumbaugh <talumbau@google.com>
-Signed-off-by: Yuanchu Xie <yuanchu@google.com>
----
-Changelog
-v3 -> v4
-- Use semantic newlines
-- Format with macros like .B instead of inline \f
+The description of the %a/%A specifiers in the printf(3) man page
+could stand some improvement.  In particular, it is not clear from
+the current (6.9.1) document what base is used for the "p±d" part of
+the format.  Furthermore, the description refers to a "decimal point",
+even though it would be better referred to as the "radix point",
+as the number in question is not a decimal representation.
 
-v3: https://lore.kernel.org/linux-man/20230320222057.1976956-1-talumbau@google.com/
+It can be inferred from the nature of %a that the base should be
+a power of two. and it can be further inferred from the nature of
+hexadecimal floating-point literals in C (as specified by C99 and
+later) that the base must exactly be the number two, but it would be
+helpful for the printf(3) man page to state this explicitly.  My first
+expectation when reading the man page was that the exponent would be
+taken in base 16; my second thought is that it is base FLT_RADIX (which
+is 2 on IEEE 754 floating-point systems, but 16 on S/390).  Only by
+going back to the standard and reading carefully could I determine
+that the exponent in p-notation must always be taken from a base of 2.
 
- man/man2/posix_fadvise.2 | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+A patch with one suggested wording is attached. The entry for "a, A" in
+   https://pubs.opengroup.org/onlinepubs/9699919799/functions/printf.html
+gives an even better rewording, though I suspect there would be
+copyright issues in simply copying its text.
 
-diff --git a/man/man2/posix_fadvise.2 b/man/man2/posix_fadvise.2
-index ed40b0c0d..11452699e 100644
---- a/man/man2/posix_fadvise.2
-+++ b/man/man2/posix_fadvise.2
-@@ -62,9 +62,15 @@ The specified data will be accessed in random order.
- .B POSIX_FADV_NOREUSE
- The specified data will be accessed only once.
- .IP
--Before Linux 2.6.18, \fBPOSIX_FADV_NOREUSE\fP had the
--same semantics as \fBPOSIX_FADV_WILLNEED\fP.
--This was probably a bug; since Linux 2.6.18, this flag is a no-op.
-+Before Linux 2.6.18,
-+.B POSIX_FADV_NOREUSE
-+had the same semantics as
-+.B POSIX_FADV_WILLNEED.
-+This was probably a bug; from Linux 2.6.18 until Linux 6.2 this flag was a no-op.
-+From Linux 6.3 and beyond,
-+.B POSIX_FADV_NOREUSE
-+signals that the LRU algorithm can ignore access to mapped page cache marked by this flag.
-+This is useful, for example, while streaming large files.
+		--Ken Pizzini
+
+--IwHjWAgeO62hruqb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="printf.diff"
+
+--- printf.3~	2024-11-13 01:07:23.023847047 -0800
++++ printf.3	2024-11-13 01:55:48.368341811 -0800
+@@ -757,15 +757,18 @@
+ the letters ABCDEF, and the exponent separator
+ .B P
+ is used.
+-There is one hexadecimal digit before the decimal point,
++There is one hexadecimal digit before the radix point,
+ and the number of digits after it is equal to the precision.
+ The default precision suffices for an exact representation of the value
+ if an exact representation in base 2 exists
+ and otherwise is sufficiently large to distinguish values of type
+ .IR double .
+-The digit before the decimal point is unspecified for nonnormalized
++The digit before the radix point is unspecified for nonnormalized
+ numbers, and nonzero but otherwise unspecified for normalized numbers.
+-The exponent always contains at least one
++The exponent
++.IR d ,
++which is the appropriate exponent of 2 expressed as a decimal integer,
++always contains at least one
+ digit; if the value is zero, the exponent is 0.
  .TP
- .B POSIX_FADV_WILLNEED
- The specified data will be accessed in the near future.
-@@ -127,9 +133,15 @@ Linux returned
- .B EINVAL
- in this case.)
- .SH VERSIONS
--Under Linux, \fBPOSIX_FADV_NORMAL\fP sets the readahead window to the
--default size for the backing device; \fBPOSIX_FADV_SEQUENTIAL\fP doubles
--this size, and \fBPOSIX_FADV_RANDOM\fP disables file readahead entirely.
-+Under Linux,
-+.B POSIX_FADV_NORMAL
-+sets the readahead window to the default size for the backing device;
-+.B POSIX_FADV_SEQUENTIAL
-+doubles this size, and
-+.B POSIX_FADV_RANDOM
-+disables file readahead entirely.
-+.B POSIX_FADV_NOREUSE
-+does not modify the readahead window size.
- These changes affect the entire file, not just the specified region
- (but other open file handles to the same file are unaffected).
- .SS C library/kernel differences
--- 
-2.46.0
+ .B c
 
+--IwHjWAgeO62hruqb--
 
