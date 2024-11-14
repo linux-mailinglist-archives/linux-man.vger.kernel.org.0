@@ -1,54 +1,51 @@
-Return-Path: <linux-man+bounces-1917-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1918-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD9F9C8FE7
-	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 17:36:13 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A36E9C955F
+	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 23:50:02 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C507D281F84
-	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 16:36:11 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A7ADD1F22FCC
+	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 22:50:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A46F717BEB7;
-	Thu, 14 Nov 2024 16:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E51D01B0F34;
+	Thu, 14 Nov 2024 22:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S4m3j0lQ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Di7TfOGG"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D1617A5A4
-	for <linux-man@vger.kernel.org>; Thu, 14 Nov 2024 16:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64D41B0F2C
+	for <linux-man@vger.kernel.org>; Thu, 14 Nov 2024 22:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731602163; cv=none; b=YFOIahxVemcJp0LGX1XiF/oy7ZhbkTASvhearl4pQayI83iWgi0hr3XHdj6GxS/vA0vYqPYIpOhCGrTNwPnuX2/B767OM8rxl5W81JScNY8TWT/5fO44d98chjEumr1x+jvpYWgBSyM0WvNuRmKNwsH9WhXi1Y2TbG2a63IqpQU=
+	t=1731624592; cv=none; b=hD9zs4H4j+ezpRLs09ASOg2X0ePEtvIG6xxwVIkHemw3O/nxkFC5f+Z+wUyLkEzrznDQvY0Dnb892AAoPOyUQe3tekk1eoPI9Lm3MZ/m/02In32ZWxJKE6w9nVbhymjLTTHfSpHkxqpyrjGF+M+ET+JEgwBlHJ/JLq/Ah+S9uPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731602163; c=relaxed/simple;
-	bh=7m+E7FybdbHmANXZO5pr+f7b88c7Ne47NbEBYBiCM6I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PNM8o/8cH9p8Bt4qDa2XAIO98rsl1PahbW+oQl9VHJzHRAlMhXIL1kTSEaltaWJmi5apfvjDU4zCcAB5j0oNFVFAwStdUllYUE/1WYOJG0bmhyUqGnJI/MlaPYHve5j0YcmzXVooVR7eyrF5E2TEhmHuRi8DHt1s1lNd/aY3+mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S4m3j0lQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3203FC4CED7;
-	Thu, 14 Nov 2024 16:36:02 +0000 (UTC)
+	s=arc-20240116; t=1731624592; c=relaxed/simple;
+	bh=iav0YTGcw/OpJWxuXSmu9zogCMMFi8H7LAJOoytnKOc=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=GQTL3Q8KqOz4/SIZtD24f4v41ws3Up5BInnP75e/R8QS6MDD0MATaaKi28QJ/dA7FNUp7NKLKrGVcl0F+Nnl7uLkYoEgo8t5BpK9U3Rsq1KytUiwamINPNOwJOy15zopieka5B6Efp6XyqVB9/hzjnMiHJXGp2/MoQx4h3Us4+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Di7TfOGG; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17E3C4CECD;
+	Thu, 14 Nov 2024 22:49:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731602163;
-	bh=7m+E7FybdbHmANXZO5pr+f7b88c7Ne47NbEBYBiCM6I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S4m3j0lQGOiVLLVCwPB0uP7Hq5GOFyN9v6sFiipchAQD/BrROhJE/r2lvJwcpvwFi
-	 3d9Lt9LoCBdJMn5HX7gaT5iEndyMDibu5v+Ab7qUHBpmNgFGqZeOLH2dzPPUuOfTZM
-	 fcrkHrNlxJoxSvJiEX78sP1Y9RTMpAjIRfkDo28zFPdhX59KTKaMNcdC/LPMwA/xGn
-	 oz0sypUBtGr8/bf2ySoGE66cq43o41bB4EqTEdw9ZFWdQU1U5ZZM7NCGYLQI/+IheK
-	 A6VQIP7jtutejHp26+ICD+HUW3fKrmb0hgbaC75Tyzat/gKI0RBtD4b53xrSXyczfD
-	 KdbWmmElfXq/g==
-Date: Thu, 14 Nov 2024 17:36:00 +0100
+	s=k20201202; t=1731624592;
+	bh=iav0YTGcw/OpJWxuXSmu9zogCMMFi8H7LAJOoytnKOc=;
+	h=Date:From:To:Subject:From;
+	b=Di7TfOGGnvPybP4c6TDwhs5gFQD+keNMjIjjMKKtu6HhbZr1l8/a68qtiOFgJFaan
+	 b6ST8Y5vxaxc4MBSE4nkQKvXjVI1ppkascGopVylLORMoKMlJ43KRRZaDB91SfYht2
+	 GB5XTFjVSEPML3CDQ5HT8zbnf4CQgUeiu/E+sPkhGwne6VwaPxji6Bh/BUi1Ng5JbR
+	 wZQdDYuAHPsbwnhIXGXUk6zGb5YrBV4QydsFDjgi3D/AsaMGXRsIBUGrTrlDo+Fgi4
+	 WvYj9k+phZrqhGX3r+iVKztNeTtanvShTxDzA3UF/rYso+wQPBhBB9B0kRRqkAEbJL
+	 VqHRiXBcu6uNw==
+Date: Thu, 14 Nov 2024 23:49:49 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Gabriel Ravier <gabravier@gmail.com>
-Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: lfind(3) $3 type should be const
-Message-ID: <fghvmxn7opm2l46rcsk2hue2cdez4wugcl2ftbr3sb7unhztuw@7rh5yq4qqtn6>
-References: <dhl6sjfzoeezrefjsjt4igcn3jlqxvvbrz5uozxjmmmskxse6l@qtfpmwhgfiod>
- <7e0401be-0435-4c76-a987-0ef833483cbe@gmail.com>
+To: linux-man@vger.kernel.org, Martin Uecker <uecker@tugraz.at>
+Subject: lsearch(3) nmemb dereference
+Message-ID: <d62nemy6v6e27axxegnh44jzoliv4ki3unlghx3vc2xrrn7cpj@v37q53k7adc3>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,85 +53,52 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="35rl5bzbcgsmibno"
+	protocol="application/pgp-signature"; boundary="qoxfmoprnqoifkwg"
 Content-Disposition: inline
-In-Reply-To: <7e0401be-0435-4c76-a987-0ef833483cbe@gmail.com>
 
 
---35rl5bzbcgsmibno
+--qoxfmoprnqoifkwg
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Gabriel Ravier <gabravier@gmail.com>
-Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: lfind(3) $3 type should be const
-References: <dhl6sjfzoeezrefjsjt4igcn3jlqxvvbrz5uozxjmmmskxse6l@qtfpmwhgfiod>
- <7e0401be-0435-4c76-a987-0ef833483cbe@gmail.com>
+To: linux-man@vger.kernel.org, Martin Uecker <uecker@tugraz.at>
+Subject: lsearch(3) nmemb dereference
 MIME-Version: 1.0
-In-Reply-To: <7e0401be-0435-4c76-a987-0ef833483cbe@gmail.com>
 
-Hi Gabriel,
+Hi Martin,
 
-On Thu, Nov 14, 2024 at 05:24:36PM GMT, Gabriel Ravier wrote:
-> On 11/14/24 3:38 PM, Alejandro Colomar wrote:
-> > Hi!
-> >=20
-> > lfind(3) does not modify its third argument, *nmemb.
-> >=20
-> > It's already suspicious that it takes a pointer, but I guess it's due to
-> > historic reasons, and that's already set in stone.
-> >=20
-> > However, I don't see why we should not make it 'const'.  The function
-> > doesn't use it as an output pointer.  Should I sent a patch for
-> > constifying it?
->=20
->=20
-> I believe the reason is that it aims to mirror lsearch, and to be able to=
- be
-> used with it interchangeably as a function with the same type - doesn't
-> `const` make the pointer types distinct and incompatible ?
+I've applied a patch after your report.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dc0399060705501f7b85b4bc701dc686a1ea2dbcf>
 
-Hmmm.  That makes sense.
+I'll push to <kernel.org> tomorrow (probably).
 
-Thanks!
+Have a lovely night!
 Alex
-
->=20
-> I'd imagine it's not even used much at all elsewhere given how simple it =
-is
-> and how cumbersome it is to use compared to an directly inlined
-> implementation. That is, I think making it non-const might just happen to
-> break a majority of uses of it.
->=20
-> The only way to plausibly rectify this, I think, would be to make the
-> compatibility implicit in the standard for any similar function (in the s=
-ame
-> way one might like to make it standard to e.g. pass a pointer to a pointer
-> to const char to strtol).
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---35rl5bzbcgsmibno
+--qoxfmoprnqoifkwg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc2JuYACgkQnowa+77/
-2zKDdQ/9HF/fpLoU8PEAMQOlW00jqSFttmQU4/jLcEwrr4Z/2j7u0134vjj5Ra0N
-UKTQ0QGXFbYu+89hM/KTAXoCAewj2YMY0tAdKdHI1yxk50CWPmNmGFU9J4VIb39l
-BTwG0Wol4VtyVcMaGsdvMo/jpft5QqLQy2oxCfW8uWEaHeNVnQujSPb0YOBrZHt4
-euvY/PG+8VPNmjaTCmCwGD3aDlPAz9w1eEOaIQgDT6ZZEbkZVn5fPRDh5IRvfhoq
-ePon3EWPsM6pkd5N0v2HBx6fyIGIYaonDBxucCOMFgx2m78xNCsclz9HMmEma1dI
-kxEzXlF4jJOOc8p2VUtiBprOvl3oFS9Crij9Zzc2W8glwXsTht6SEBZ6qCS8nxAr
-rKJ3kjD4bSOF6XFnkIh1Lklaz3LvJBb0hYZmVQgKrKvjTLcrDVrpHDShjlIpYmK0
-2fDfgogqPglu9Gsa75ya8PvEGFTfgamolFMO0DhA2C90zcqCLpehQN8RW+0iVCje
-1XVwVpNjEzmzPnpMUySN/Ci1ZaMpEk4prZc3j+wDha6ZXZlZJymUJHRSZVtD21jA
-2fI7Ja6nsQg5/3KlgT10u01luHqi4h05OnCTlig4dSzNXdQ98S2Idz3AZ+OgTgUU
-jMFjHb2j7B/BsLJ/PZV9pWgfGA7KyUfXKIULZHvr6HPViTlwafk=
-=gks1
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc2fo0ACgkQnowa+77/
+2zK3Gg/+NqnPn+BkPMsQt6ac+XZdaLKH7vv7N5iurLR7PrLdBjzKHhRTI5N1AU26
+e5bpk5/+FfHWre9VbC30oc2b0w6g+0Sc7CMN2MACA9qzvYcIL5fYt7WJw+GAHAPW
+BlYc6zeeohMzORJxYm/Ia3gpLGB+3oZazkv335+khTPTftV2x8eY20i4HSkYCrxv
+44tUTgDoKTEeoYwyFNNfEygu8E/UNvwSbGSdFeSPQA2VPKmTmL4XO/0MmEldivlI
+jrS02pplXDyuY7HvwgZm2YqTE+2MbjwgBgyiZ5PZyxn6yX5HBeAAWliDrrFTBe5e
+nj72WA50/kM6Gj5XTqDecQ0Z4LfsDHv80IGfWmr1bsaYo/49VvGNhvSUhcVivzKI
+JWkF0LR+wEscJXSMIvptq7M1fx0H2k3vtR1GeFoCDt19eCNvU7JytT/Z1meGPYjJ
+bcPjkhe0ICNH4nR7Uevsji638tRFToqn7Mlpqyeoi4AM8QaGoXbMYcS0XhJFTIVv
+7afSwMEdxyhHazrDczylUR+jLiYLrIirIwTfISDyFSw/tMc0CJ9FbKpVWAr09n/n
+Rhl5ztvXI00Z43whkdOyR5c8QcBcf9ESQmOyzVuT9ZTPAD5TBGfxUORMaSpfz6pJ
+nUkvCTjRLr6y6W+VudKlofsST9wig2D2ZOWFPaH9hETE5GX5+KQ=
+=fvbD
 -----END PGP SIGNATURE-----
 
---35rl5bzbcgsmibno--
+--qoxfmoprnqoifkwg--
 
