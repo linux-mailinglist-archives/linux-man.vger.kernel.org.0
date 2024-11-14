@@ -1,55 +1,52 @@
-Return-Path: <linux-man+bounces-1914-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1915-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id D28999C8821
-	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 11:54:34 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9849C8D04
+	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 15:39:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9642C281633
-	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 10:54:33 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9FD151F23576
+	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 14:39:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69FF31F80CC;
-	Thu, 14 Nov 2024 10:53:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDCAD210FB;
+	Thu, 14 Nov 2024 14:38:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ALqI27n0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+vQYc5n"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293021F80B2
-	for <linux-man@vger.kernel.org>; Thu, 14 Nov 2024 10:53:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A657F9E6
+	for <linux-man@vger.kernel.org>; Thu, 14 Nov 2024 14:38:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731581623; cv=none; b=d/qE781JH6M2IPvgEvqjrg7GpVuvXGPVFZpRFOWQULxFyOtP67ZTI86sNtQS7Vi/Mibwql9QiuNnHN+NuD5+1p+AWRMkqRPbOg2ziU6Q9FNqfmuM0fZSMFdoWyndSoyieAkET7jsrV5g9FETJSN9g1TpGi0DQq4pPNBAdWFvqjA=
+	t=1731595090; cv=none; b=W0GP+FSCngEA5U1iJf8LOE7b/ODvxJejYLJ3QZm+PPJq4kmGX70iBybe67ZZv6eCHeHnI/5QKUjhZMR0+D67dC+QqKeJrsBAC7fYXZW7VxAtkNpCPOGN9h19yNcNb1WtTUqEjL9wO1wahvyGZaWrbX6Pol2hZUKHfVNXKjPIn/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731581623; c=relaxed/simple;
-	bh=ARK8yTH+gulN8mhJBF1h3rRlR5fcnqpNVQaxl1YfQHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aIeSbxfbV/cBlScARwEC9D6frYCg8wHw35E9lEp7LHcVsqw3bvSU5canIxa24AgrYOsfF2khsk+4UvUHzOwb6d0N+cx7Z6FCDe/H7hBig4ieDSjRMFkPtEcx7tQRjKoj3M8olziJg3NmkdjsjinChuomiwu3ziDyv8OzRBHxhlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ALqI27n0; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61ACAC4CECD;
-	Thu, 14 Nov 2024 10:53:40 +0000 (UTC)
+	s=arc-20240116; t=1731595090; c=relaxed/simple;
+	bh=XhHj6Yk57QpWaA1ih8Rf6b+EZTVZ+fkUtg8cqILadrU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QLNDaBtRCYtC5E+wesk1cXsEub6NMKPHriA63PazR/tLyD0iiD9AfwvZpE5b4r30+e/2tgFYXDRKmUPQqtaF1WSLo/PusKlbabZhB9r4r195jPjTB4GrQff/0ln4iqBrQ4lUf9FOOE0L0E4C8TORRmRbwMHvq8Yb58+pYdHmq0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+vQYc5n; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0F2C4CECD;
+	Thu, 14 Nov 2024 14:38:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731581621;
-	bh=ARK8yTH+gulN8mhJBF1h3rRlR5fcnqpNVQaxl1YfQHI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ALqI27n0rVsk6W9fhevQlAEhvo0grO9MzP+4IL7d+I9BEnhfCf3UCg4t4tZyshMBP
-	 gQHxutzkWuabjPgpSbgkH5kJeVILzMRvhngjiA9CUkdkl0fijeI/1uH3Wd289W8rOE
-	 DZZ5lk412B1duWrozHd48NL1XQTv9tEZJPk+RHIUOTdBIdALfcWd1AwcM52XdVje2A
-	 1scFbJdqvt9dyAbYCt7bqxgo2Qp4BaQBet2c2m4+8vXrn+GW72esLAekkrOpPrz6t/
-	 e+T+05TFWhQ5mZgpfCwBvI+IsMjNrSdsiAWQZ6PMACOmopkhK4HUqZGr54yJksA2k4
-	 q/Vja64UwssMQ==
-Date: Thu, 14 Nov 2024 11:53:38 +0100
+	s=k20201202; t=1731595090;
+	bh=XhHj6Yk57QpWaA1ih8Rf6b+EZTVZ+fkUtg8cqILadrU=;
+	h=Date:From:To:Cc:Subject:From;
+	b=B+vQYc5n8msYi9jerE5TtAwFWcRJzLROR/NPMPfDVw6vWg/f1J3Fp4Yu6eH5p4HYl
+	 SisYu8s4I+cf3aj+75b3s0XoOdDPXCSHLaskRMMgev+wGurUKBl5kqQXo6MRw+Xg6M
+	 pDB7S7xQOdgoiPTybRuqNouncWpbBC/olWySaJctQkzvKuK8DAv8atVM/FqBdTmwzM
+	 xd6viVLdk7B0OdOmLjQwREToLTPY+Q5CZ372oH8VHs1AQgkGwURtEjfragh0t6dKkM
+	 tzG76K2O7bD33tZ9vJEgwvqZ/d76+DLkWuK4qy1cYnnMGfF+2N0ioIwewPjBrOX8rV
+	 OBSd9kBIiYgrA==
+Date: Thu, 14 Nov 2024 15:38:07 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Yuanchu Xie <yuanchu@google.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Yu Zhao <yuzhao@google.com>, linux-man@vger.kernel.org, 
-	"T.J. Alumbaugh" <talumbau@google.com>
-Subject: Re: [PATCH v5] posix_fadvise.2: POSIX_FADV_NOREUSE now supported.
-Message-ID: <g5br5ispdajhe45jzop5jz2a7p7wx7nxaa2vkngno4l33ok5ia@e2lk57xgwv6o>
-References: <20241114012233.4152152-1-yuanchu@google.com>
+To: libc-alpha@sourceware.org
+Cc: linux-man@vger.kernel.org
+Subject: lfind(3) $3 type should be const
+Message-ID: <dhl6sjfzoeezrefjsjt4igcn3jlqxvvbrz5uozxjmmmskxse6l@qtfpmwhgfiod>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,123 +54,56 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vrkqdhvf6c6rjfze"
+	protocol="application/pgp-signature"; boundary="cvo3jdrpevdvg5ni"
 Content-Disposition: inline
-In-Reply-To: <20241114012233.4152152-1-yuanchu@google.com>
 
 
---vrkqdhvf6c6rjfze
+--cvo3jdrpevdvg5ni
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Yuanchu Xie <yuanchu@google.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Yu Zhao <yuzhao@google.com>, linux-man@vger.kernel.org, 
-	"T.J. Alumbaugh" <talumbau@google.com>
-Subject: Re: [PATCH v5] posix_fadvise.2: POSIX_FADV_NOREUSE now supported.
-References: <20241114012233.4152152-1-yuanchu@google.com>
+To: libc-alpha@sourceware.org
+Cc: linux-man@vger.kernel.org
+Subject: lfind(3) $3 type should be const
 MIME-Version: 1.0
-In-Reply-To: <20241114012233.4152152-1-yuanchu@google.com>
 
-Hi Yuanchu,
+Hi!
 
-On Wed, Nov 13, 2024 at 05:22:33PM GMT, Yuanchu Xie wrote:
-> POSIX_FADV_NOREUSE is now supported in Linux.
-> Update text regarding former no op behavior.  Indicate the readahead poli=
-cy
-> and treatment of file pages read with this flag.
->=20
-> Link: <https://lore.kernel.org/linux-mm/20221230215252.2628425-2-yuzhao@g=
-oogle.com/>
-> Signed-off-by: T.J. Alumbaugh <talumbau@google.com>
-> Signed-off-by: Yuanchu Xie <yuanchu@google.com>
-> ---
-> Changelog
-> v4 -> v5
-> - Remove unnecessary changes
-> - Use two space inter-sentence spacing
-> - Fix lines exceeding 80-column
->=20
-> v3 -> v4
-> - Use semantic newlines
-> - Format with macros like .B instead of inline \f
->=20
-> v3: https://lore.kernel.org/linux-man/20230320222057.1976956-1-talumbau@g=
-oogle.com/
-> v4: https://lore.kernel.org/linux-man/20241113031654.3964740-1-yuanchu@go=
-ogle.com/
->=20
->  man/man2/posix_fadvise.2 | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/posix_fadvise.2 b/man/man2/posix_fadvise.2
-> index ed40b0c0d..3c47efeb8 100644
-> --- a/man/man2/posix_fadvise.2
-> +++ b/man/man2/posix_fadvise.2
-> @@ -64,7 +64,13 @@ The specified data will be accessed only once.
->  .IP
->  Before Linux 2.6.18, \fBPOSIX_FADV_NOREUSE\fP had the
->  same semantics as \fBPOSIX_FADV_WILLNEED\fP.
-> -This was probably a bug; since Linux 2.6.18, this flag is a no-op.
-> +This was probably a bug;
-> +from Linux 2.6.18 until Linux 6.2 this flag was a no-op.
-> +From Linux 6.3 and beyond,
+lfind(3) does not modify its third argument, *nmemb.
 
-'Since' means precisely "from ... and beyond", so I'd rewrite this as
+It's already suspicious that it takes a pointer, but I guess it's due to
+historic reasons, and that's already set in stone.
 
-	Since Linux 6.3,
+However, I don't see why we should not make it 'const'.  The function
+doesn't use it as an output pointer.  Should I sent a patch for
+constifying it?
 
-> +.B POSIX_FADV_NOREUSE
-> +signals that the LRU algorithm
-
-What is the LRU algorithm?  I suggest saying
-
-	signals that the Last Recently Used (LRU) algorithm
-
-Have alovely day!
+Have a lovely day!
 Alex
-
-> +can ignore access to mapped page cache marked by this flag.
-> +This is useful, for example, while streaming large files.
->  .TP
->  .B POSIX_FADV_WILLNEED
->  The specified data will be accessed in the near future.
-> @@ -130,6 +136,8 @@ in this case.)
->  Under Linux, \fBPOSIX_FADV_NORMAL\fP sets the readahead window to the
->  default size for the backing device; \fBPOSIX_FADV_SEQUENTIAL\fP doubles
->  this size, and \fBPOSIX_FADV_RANDOM\fP disables file readahead entirely.
-> +.B POSIX_FADV_NOREUSE
-> +does not modify the readahead window size.
->  These changes affect the entire file, not just the specified region
->  (but other open file handles to the same file are unaffected).
->  .SS C library/kernel differences
-> --=20
-> 2.46.0
->=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---vrkqdhvf6c6rjfze
+--cvo3jdrpevdvg5ni
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc11qsACgkQnowa+77/
-2zJbuw//UCnC7Q0+08xOzUsI2KkzEKc9XBQ4MrJZI43oi6Qf/TZ3QYrfuOvyoTCW
-m4w4ZRG8fEHKR5e1pyxwFwaQDD80Sh15ZJ6qyuHf4PjMNXO28JR2ORgpWRxJ/N+m
-u/H5Dtmy+yy9rbenNPJN+dXKBx7b+uUoMSqjDNoE8CElRwH5DkjZreT4DAxMIlfk
-vwSHxlGJwGlNopmuHNbH1sV8W65XMYKO1w8MAcc3uF41WMTq3qMMqxt/nmcjdvrA
-dyUP2ckbLPBKMXbn1htWbIKklMlz575veOOlKPfNNegLHk9O0YQbazwfdlajAYLc
-2ILF7zGbxC6B7n8dqCXmHOmT67mRu2ka8hjje/XYQW1TTdQI6iKLKdl0v7eZQJg8
-JafOGWJSg/Mk7CiqQIti8bMTKImJPmG3uznnEjygU4aOq9JJX99wxHgWrzUwK861
-oX1xizd23D0Q93nHeM8hcIkV3XGIwNR/gwOhpNHvGf+xNUHugJK5eN9pJmdHWU8g
-XQjAamyAkr5ERL7aM6q+VP+r6vzrBzHhsOJizbOnXNMfF0Oru0meg5q7YxfqK3z1
-EaicYhCqSLXuRN4Fx6N4IX3/ynr177Wv0UnlbHXJAmwph+UM9Wg/WiKaC55GwfI/
-PAUdW7f1Qq/begXE93JzZHvJ1LZM3kat1kc3Mcqr//52ov0W65o=
-=De4w
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc2C08ACgkQnowa+77/
+2zIjIA/+MDe/nxQV3wMATSf3Wh+4PZB0m4LVkuavK0/aqH67RkhbMd0xF6rFAoDA
+NhYW5JSekFDK/DzmhoEL0t3tFQSOWyjsENpyknz7dDQLriJie+2bTl6EAV/fW7Pr
+tu/+nFDHSUbAfEEN4UHl8ywqe2KVaZGEYUtAHyBkkOBJXIoh9CxnQnxcAp9Aon+q
+q2MRg/2l10cQXZP6UPxCOgmD2exyZHzYtA4SzLCeusRQW/9+RZAhtvhLGQszb2uW
+7mgyunV9OvMRtQnx0oNqv05eTVvjPXbIGRkWOhRJhayBS9kPkCmJ8+ZiJxTHOHJM
+8KDQeM40lbvlAafKHs20HtnvLOmGbHhOGhftDlXPwZ5+Qch4jGDGn5RDrHe4JoJ8
+LfYoc/UBjDbMT11f1zx2EX6fmb2oLF+/KvjME6yDf8nbtJMJK9FOsTYdpxcQrOaB
+vQOUjsgTg1EgOH3DFJCkU1gO3pq6uRuKg1mB8T1fBsAZOOdtOIUnPyM+hhTQoP1+
+Rkw7DGInNG92QKhqjB2XE02fuUXp0KN3lrgHIhM36TeLL42iSlvCEVixvMLv+JBZ
+3vVZtOoXpFwDtzJTAVrM0SrnMAHQ8p9uKl3RIpwDm2e5IoHPT8KMEgimWF0krljX
+HgvlRFxTFJCC2+Q/R+lWdOgb281jJmltMIi6iSuQRqwc8YyGVlw=
+=kdkB
 -----END PGP SIGNATURE-----
 
---vrkqdhvf6c6rjfze--
+--cvo3jdrpevdvg5ni--
 
