@@ -1,104 +1,81 @@
-Return-Path: <linux-man+bounces-1918-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1919-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A36E9C955F
-	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 23:50:02 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D169CDA62
+	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2024 09:21:50 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A7ADD1F22FCC
-	for <lists+linux-man@lfdr.de>; Thu, 14 Nov 2024 22:50:01 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 65E421F22B95
+	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2024 08:21:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E51D01B0F34;
-	Thu, 14 Nov 2024 22:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BB4516EB4C;
+	Fri, 15 Nov 2024 08:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Di7TfOGG"
+	dkim=pass (2048-bit key) header.d=gnu.org header.i=@gnu.org header.b="MpMZYxG4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from eggs.gnu.org (eggs.gnu.org [209.51.188.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64D41B0F2C
-	for <linux-man@vger.kernel.org>; Thu, 14 Nov 2024 22:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472972B9B7
+	for <linux-man@vger.kernel.org>; Fri, 15 Nov 2024 08:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.51.188.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731624592; cv=none; b=hD9zs4H4j+ezpRLs09ASOg2X0ePEtvIG6xxwVIkHemw3O/nxkFC5f+Z+wUyLkEzrznDQvY0Dnb892AAoPOyUQe3tekk1eoPI9Lm3MZ/m/02In32ZWxJKE6w9nVbhymjLTTHfSpHkxqpyrjGF+M+ET+JEgwBlHJ/JLq/Ah+S9uPo=
+	t=1731658904; cv=none; b=pY1IiK2lgQ86mVZ0CdPVNdiBgEeJAelKZIJDvJGnUCXaOCr5FDO5Gv9Km8Fmx8TfFgzrTt4iSjn15G1+pL1w+NAnJpkUpJ5NigqHQlZ52UVvvS9TK/V6YdxuBSJndXDHw0kOtFOLV3Wm1RJob6rm8MU9AjwL4bgwVxTWX/xbs6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731624592; c=relaxed/simple;
-	bh=iav0YTGcw/OpJWxuXSmu9zogCMMFi8H7LAJOoytnKOc=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=GQTL3Q8KqOz4/SIZtD24f4v41ws3Up5BInnP75e/R8QS6MDD0MATaaKi28QJ/dA7FNUp7NKLKrGVcl0F+Nnl7uLkYoEgo8t5BpK9U3Rsq1KytUiwamINPNOwJOy15zopieka5B6Efp6XyqVB9/hzjnMiHJXGp2/MoQx4h3Us4+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Di7TfOGG; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17E3C4CECD;
-	Thu, 14 Nov 2024 22:49:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731624592;
-	bh=iav0YTGcw/OpJWxuXSmu9zogCMMFi8H7LAJOoytnKOc=;
-	h=Date:From:To:Subject:From;
-	b=Di7TfOGGnvPybP4c6TDwhs5gFQD+keNMjIjjMKKtu6HhbZr1l8/a68qtiOFgJFaan
-	 b6ST8Y5vxaxc4MBSE4nkQKvXjVI1ppkascGopVylLORMoKMlJ43KRRZaDB91SfYht2
-	 GB5XTFjVSEPML3CDQ5HT8zbnf4CQgUeiu/E+sPkhGwne6VwaPxji6Bh/BUi1Ng5JbR
-	 wZQdDYuAHPsbwnhIXGXUk6zGb5YrBV4QydsFDjgi3D/AsaMGXRsIBUGrTrlDo+Fgi4
-	 WvYj9k+phZrqhGX3r+iVKztNeTtanvShTxDzA3UF/rYso+wQPBhBB9B0kRRqkAEbJL
-	 VqHRiXBcu6uNw==
-Date: Thu, 14 Nov 2024 23:49:49 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, Martin Uecker <uecker@tugraz.at>
-Subject: lsearch(3) nmemb dereference
-Message-ID: <d62nemy6v6e27axxegnh44jzoliv4ki3unlghx3vc2xrrn7cpj@v37q53k7adc3>
+	s=arc-20240116; t=1731658904; c=relaxed/simple;
+	bh=XM6a7NK7IKjRkmJE6f5scOwISUpTGhUF9sT87SrSx8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j8mii7G4jwN+CdPLeOisZHoJYkFYQBVBgIf+Kb22g5zzFpTLSEU/x5l56E2jmjuVIQRhNXd0c/WuoO/YfOTqeA6EK7IT73nS+QTy+t22kDELfw83OnFp3iGnhm1LJS6myp45EFgmYR6t+WRCSzHBjI5MKYq6mpZy2HkZ+Sykd1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gnu.org; spf=pass smtp.mailfrom=gnu.org; dkim=pass (2048-bit key) header.d=gnu.org header.i=@gnu.org header.b=MpMZYxG4; arc=none smtp.client-ip=209.51.188.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gnu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gnu.org
+Received: from fencepost.gnu.org ([2001:470:142:3::e])
+	by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.90_1)
+	(envelope-from <ken@gnu.org>)
+	id 1tBraE-0000mn-NV; Fri, 15 Nov 2024 03:21:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
+	s=fencepost-gnu-org; h=In-Reply-To:MIME-Version:References:Subject:To:From:
+	Date; bh=/Kd/z36OwA4bAPjZx5QP2lRXk1zNd1dZvq+1Oofmfy0=; b=MpMZYxG44DTd2PwFR16O
+	yvqeIZ+bcpg+u/LMXEX4KEHGmBBv8zbg8PVNmk19Xwpz60BzbmJNQYw2iqTy/ht8eLgazRbjRk7Ps
+	eDqFM+vN9u1BtbZy7IDSo1dzqfRqgPr/rowIju8kr+U7NKaXYJ44YZLOGtNPVIFKTNGsxCaH6HM4Z
+	xkIwDEXH3ze4QPd9btd9kG4VboDMG9xWUEg+Ar2viFrwVWzGXoNPa5USs/KpxVuscbGxPzkqw/7fR
+	n/HQMBxZsEdRX/+uC4STHWxpFzLC29VEfBnbXu8nqbsRuL2coQHzYMU8HCleo5PHsyixeDihXCUFT
+	m7YAD+EM6w9J/g==;
+Date: Fri, 15 Nov 2024 00:21:32 -0800
+From: Ken Pizzini <ken@gnu.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH 0/2] improve description of %a in printf(3)
+Message-ID: <63799ebb-bcc4-45a6-82eb-27520d760191@vagg4fs7.msa.explicate.org>
+References: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
+ <hoxou4yctztlze24w2usfvknrnbs5h4hspzsg6q4zy3hfm2p6k@6erj3vhl5rcm>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qoxfmoprnqoifkwg"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <hoxou4yctztlze24w2usfvknrnbs5h4hspzsg6q4zy3hfm2p6k@6erj3vhl5rcm>
 
+Okay, trying again using git-format-patch...
 
---qoxfmoprnqoifkwg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, Martin Uecker <uecker@tugraz.at>
-Subject: lsearch(3) nmemb dereference
-MIME-Version: 1.0
+I was recently trying to work with the %a conversion specifier in
+printf(3), and found a couple of issues with the man page:
+   1. The references to "decimal point" in the context of the
+      hexadecimal representation of %a strike me as wrong;
+      the first patch changes these to refer to the "radix point"
+      instead.
+   2. It took me some effort, ultimately having to track down a
+      copy of a relevant standards document, in order to discover
+      and be confident about how to interpret the "d" portion of
+      the output; the second patch adds some clarity on this point.
+      (This text incorporates the change suggested by Jonathan Wakely
+      relating to my earlier, not-git-am-friendly, submission.)
 
-Hi Martin,
-
-I've applied a patch after your report.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dc0399060705501f7b85b4bc701dc686a1ea2dbcf>
-
-I'll push to <kernel.org> tomorrow (probably).
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---qoxfmoprnqoifkwg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc2fo0ACgkQnowa+77/
-2zK3Gg/+NqnPn+BkPMsQt6ac+XZdaLKH7vv7N5iurLR7PrLdBjzKHhRTI5N1AU26
-e5bpk5/+FfHWre9VbC30oc2b0w6g+0Sc7CMN2MACA9qzvYcIL5fYt7WJw+GAHAPW
-BlYc6zeeohMzORJxYm/Ia3gpLGB+3oZazkv335+khTPTftV2x8eY20i4HSkYCrxv
-44tUTgDoKTEeoYwyFNNfEygu8E/UNvwSbGSdFeSPQA2VPKmTmL4XO/0MmEldivlI
-jrS02pplXDyuY7HvwgZm2YqTE+2MbjwgBgyiZ5PZyxn6yX5HBeAAWliDrrFTBe5e
-nj72WA50/kM6Gj5XTqDecQ0Z4LfsDHv80IGfWmr1bsaYo/49VvGNhvSUhcVivzKI
-JWkF0LR+wEscJXSMIvptq7M1fx0H2k3vtR1GeFoCDt19eCNvU7JytT/Z1meGPYjJ
-bcPjkhe0ICNH4nR7Uevsji638tRFToqn7Mlpqyeoi4AM8QaGoXbMYcS0XhJFTIVv
-7afSwMEdxyhHazrDczylUR+jLiYLrIirIwTfISDyFSw/tMc0CJ9FbKpVWAr09n/n
-Rhl5ztvXI00Z43whkdOyR5c8QcBcf9ESQmOyzVuT9ZTPAD5TBGfxUORMaSpfz6pJ
-nUkvCTjRLr6y6W+VudKlofsST9wig2D2ZOWFPaH9hETE5GX5+KQ=
-=fvbD
------END PGP SIGNATURE-----
-
---qoxfmoprnqoifkwg--
+		--Ken Pizzini
 
