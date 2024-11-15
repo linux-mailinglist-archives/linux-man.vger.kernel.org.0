@@ -1,56 +1,55 @@
-Return-Path: <linux-man+bounces-1923-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1924-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A39B9CDD36
-	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2024 12:04:11 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 749B89CFA48
+	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2024 23:44:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A63781F214EC
-	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2024 11:04:10 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 71F7AB3FF4D
+	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2024 22:18:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1884619004D;
-	Fri, 15 Nov 2024 11:04:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE78C18C345;
+	Fri, 15 Nov 2024 22:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIYe2ufX"
+	dkim=pass (2048-bit key) header.d=gnu.org header.i=@gnu.org header.b="ODKtxbZn"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from eggs.gnu.org (eggs.gnu.org [209.51.188.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2EB154C00
-	for <linux-man@vger.kernel.org>; Fri, 15 Nov 2024 11:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B542433997
+	for <linux-man@vger.kernel.org>; Fri, 15 Nov 2024 22:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.51.188.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731668644; cv=none; b=d2o34KBtuBPrwpDUwUubaXunAtJUv1xEwyHy22rf1khUAmWkittWjWkcB4ZOWgg0xOCEPx2gE4Kq3ihZYnU+lxWWQ6uRBImS9BIwmTcTjxCq3Z8fXDk40AvbagAvrH/I9m/cAgZTiFbcfWP5VfBawPD53lHlkq1YnNehwF9kOI8=
+	t=1731708673; cv=none; b=D3Yghl4XFr0HLSIfBTfLkRIwrq1XTL6ZO/90T2jtIbiMaXNN3ChPyIK3ouSDWjLgkFXeFpDi02kaLbG+xv08l9/OVCUhkGYRHJM6JBe9gU31ybrDhu9TWn510vmO6wlhnS1GWvgSNHI3MACYdpaFNx6iWxcuVeCi/nYWrSDZGQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731668644; c=relaxed/simple;
-	bh=aPULIVG4tKor2ZvWgKPzFxQnIOVV8jOj5Rc6mcbuMgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dlj72z5k4bd6Oz7/mLfvL+cADWfzyEKg8btY61WweYpaJCQisQeVAqe37o00dbRNZVF2QmHqli6hVjV1pk5ltub9AoSS6cc0/ENoVHdRAuRkcHPOn1XePqOWOjRtX6/1KUMAO9gXbfAFoD2DfV9QPSMsZ8RePPMrtsVQYEy+Cr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIYe2ufX; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5271C4CECF;
-	Fri, 15 Nov 2024 11:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731668644;
-	bh=aPULIVG4tKor2ZvWgKPzFxQnIOVV8jOj5Rc6mcbuMgA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JIYe2ufXCdyryfSxpx46aqfBG+NQRcuyTPGJrYCR7eYNSm5DeteRIm972yixRIEYr
-	 AgqSYmjvlqpuLmFX3zhvXUTvIuygt8neZucE/hh0QASsqzXSTc4Aj2CvE6DJNqHHoR
-	 utld9wkcQsP43pupmem0aVxeSeAJdG8MJ9x+ASx1KsNq45olpFSLHAOyWnD1MU11H9
-	 ik46WtS+zVMGAHIfJjrEQhgYFjxcPD5wEjtlvR6H5kWp2cDC38oMI0a7fnoeV1GmuC
-	 4LYmZD8m+/F2GUmMFL2QyjUWK4YuuzaLE25mCaUkJG3jain/h3PnMFbdwHc8b3Xqzv
-	 FIEpky1sR9Qdw==
-Date: Fri, 15 Nov 2024 12:04:01 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Ken Pizzini <ken@gnu.org>
+	s=arc-20240116; t=1731708673; c=relaxed/simple;
+	bh=XMnayzwx47P3ND8MBntFQmivsYjb+Sv8GMWoVNNkUDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Z4FCU+bCUB51MizHy+aBx7kUPwXbf/7BdIz8B8OKC46NPOozyTj61tvgPz+WMgz6dc7uLhIGYv+/jvjFiP66EdWL0UOW4FCASdZSeWTxm++c041V2QAleYXh1PGAgULFWW+zLuphxuaM/hYkrHTJZoo2+Q0izPpdV97RSi0F0eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gnu.org; spf=pass smtp.mailfrom=gnu.org; dkim=pass (2048-bit key) header.d=gnu.org header.i=@gnu.org header.b=ODKtxbZn; arc=none smtp.client-ip=209.51.188.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gnu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gnu.org
+Received: from fencepost.gnu.org ([2001:470:142:3::e])
+	by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.90_1)
+	(envelope-from <ken@gnu.org>)
+	id 1tC4Wy-0006w9-MX; Fri, 15 Nov 2024 17:11:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
+	s=fencepost-gnu-org; h=In-Reply-To:MIME-Version:Subject:To:From:Date:
+	references; bh=sXlzeTvTwV+dpieA29xXKhQuTOMmVjiB2yXfw5HMHaE=; b=ODKtxbZnMpgs2+
+	Cohe8mbCrcw37nW0ETsVuGY7gc3DP47S33wb2jm3jjmFGqVMMc32V3bkChyxMhuyU2osDA5gQFExH
+	hnSJGaOexvFwXvZtHR52LOcEyoblA4n/czOqiF5Z7+E8Dea7Z8m1ebIaJ9Y3aZ2e+Fa90fHKX595D
+	lu93Xb+oOYryWNAJAP4oBWlPQyrlaAvYHeEsKLJ1Pb8P0oO1OOoCzrRIQPFlpAi2eg67JxT2CSpqT
+	l+ewGImlzLzn4mYFfHt4Lcf95hlWAgxMJzUsfSj/pjvt4BTll/fAZfvs17x76WOISOXwrXyBqN13Y
+	KCtMm4JxQMxQNcKa0zIw==;
+Date: Fri, 15 Nov 2024 14:11:04 -0800
+From: Ken Pizzini <ken@gnu.org>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] printf(3): improve terminology in %a description
-Message-ID: <4btqtluesqglcbwdanool2bikd36zfwtpvgphtbcuaieb2diyk@2morr4ufs75p>
-References: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
- <hoxou4yctztlze24w2usfvknrnbs5h4hspzsg6q4zy3hfm2p6k@6erj3vhl5rcm>
- <63799ebb-bcc4-45a6-82eb-27520d760191@vagg4fs7.msa.explicate.org>
- <db91cc6f-93cc-4e99-806c-7a8b86232848@vagg4fs7.msa.explicate.org>
+Subject: [PATCH v3] printf(3): improve description of %a format
+Message-ID: <b932f13642502e063ef139d57b8f3c496023bf4a.1731707666.git.ken@gnu.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,103 +57,82 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3m3utu722qnsysx6"
+	protocol="application/pgp-signature"; boundary="lM+tKXP1ix4Fx09s"
 Content-Disposition: inline
-In-Reply-To: <db91cc6f-93cc-4e99-806c-7a8b86232848@vagg4fs7.msa.explicate.org>
+In-Reply-To: <63799ebb-bcc4-45a6-82eb-27520d760191@vagg4fs7.msa.explicate.org>
 
 
---3m3utu722qnsysx6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--lM+tKXP1ix4Fx09s
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Ken Pizzini <ken@gnu.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] printf(3): improve terminology in %a description
-References: <306bc8df-d75f-40fc-b1df-1a34cca0b4fa@vagg4fs7.msa.explicate.org>
- <hoxou4yctztlze24w2usfvknrnbs5h4hspzsg6q4zy3hfm2p6k@6erj3vhl5rcm>
- <63799ebb-bcc4-45a6-82eb-27520d760191@vagg4fs7.msa.explicate.org>
- <db91cc6f-93cc-4e99-806c-7a8b86232848@vagg4fs7.msa.explicate.org>
-MIME-Version: 1.0
-In-Reply-To: <db91cc6f-93cc-4e99-806c-7a8b86232848@vagg4fs7.msa.explicate.org>
 
-On Fri, Nov 15, 2024 at 12:23:05AM GMT, Ken Pizzini wrote:
-> The term "decimal point" does not technically apply when using bases
-> other than 10; the more generic term is "radix point".  Update the
-> description of the a/A conversion specifier (i.e., for hexadecimal
-> floating point output) in printf(3) to use this terminology.
->=20
-> I do note that POSIX.1-2024 [1] does use the term "decimal-point
-> character" here, but I still maintain that using "radix point" is a
-> better term for that object in the %a description.  (Confusingly, POSIX
-> does refer to "radix character" in the descriptions of %f and %e, where
-> reference to "decimal" instead of "radix" would actually make sense.)
->=20
-> [1] <https://pubs.opengroup.org/onlinepubs/9799919799/functions/printf.ht=
-ml>
->=20
-> Signed-off-by: Ken Pizzini <ken@gnu.org>
+[I've incorporated wording fixes from Alex.  Part 1/2 of the previous
+patch set was accepted; this patch assumes that part 2/2 was not
+applied (i.e, this submission is not incremental relative to the
+earlier one).  I'm not sure if this is the preferred way of doing
+things, but hopefully good enough?]
 
-Hi Ken,
 
-I've applied this patch.  Thanks!
+The description of the %a/%A specifiers in the printf(3) man page
+could stand some improvement.  In particular, it is not clear from the
+current document what base is used for the "p=B1d" part of the format.
 
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dfa80aedf4aed0b92ba3b329f0a003922eb960337>
+It can be inferred from the nature of %a that the base should be
+a power of two. and it can be further inferred from the nature of
+hexadecimal floating-point literals in C (as specified by C99 and
+later) that the base must exactly be the number two, but it would be
+helpful for the printf(3) man page to state this explicitly.  My first
+expectation when reading the man page was that the exponent would be
+taken in base 16; after experimentation my second thought is that it
+is base FLT_RADIX (which is 2 on IEEE 754 floating-point systems, but
+16 on S/390).  Only by going back to the standard [1] could I determine
+that the exponent in p-notation must always be taken from a base of 2.
 
-Have a lovely day!
-Alex
+[1] POSIX.1-2024
+    <https://pubs.opengroup.org/onlinepubs/9799919799/functions/printf.html>
 
-> ---
->  man/man3/printf.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man/man3/printf.3 b/man/man3/printf.3
-> index 3bc731f6e..7a96ec9c7 100644
-> --- a/man/man3/printf.3
-> +++ b/man/man3/printf.3
-> @@ -759,13 +759,13 @@ .SS Conversion specifiers
->  the letters ABCDEF, and the exponent separator
->  .B P
->  is used.
-> -There is one hexadecimal digit before the decimal point,
-> +There is one hexadecimal digit before the radix point,
->  and the number of digits after it is equal to the precision.
->  The default precision suffices for an exact representation of the value
->  if an exact representation in base 2 exists
->  and otherwise is sufficiently large to distinguish values of type
->  .IR double .
-> -The digit before the decimal point is unspecified for nonnormalized
-> +The digit before the radix point is unspecified for nonnormalized
->  numbers, and nonzero but otherwise unspecified for normalized numbers.
->  The exponent always contains at least one
->  digit; if the value is zero, the exponent is 0.
-> --=20
-> 2.47.0
->=20
+Signed-off-by: Ken Pizzini <ken@gnu.org>
+---
+ man/man3/printf.3 | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/man/man3/printf.3 b/man/man3/printf.3
+index 7a96ec9c7..2129e26dc 100644
+--- a/man/man3/printf.3
++++ b/man/man3/printf.3
+@@ -767,8 +767,11 @@ .SS Conversion specifiers
+ .IR double .
+ The digit before the radix point is unspecified for nonnormalized
+ numbers, and nonzero but otherwise unspecified for normalized numbers.
+-The exponent always contains at least one
+-digit; if the value is zero, the exponent is 0.
++The exponent,
++.IR d ,
++is the appropriate exponent of 2 expressed as a decimal integer;
++it always contains at least one digit;
++if the value is zero, the exponent is 0.
+ .TP
+ .B c
+ If no
 --=20
-<https://www.alejandro-colomar.es/>
+2.47.0
 
---3m3utu722qnsysx6
+
+--lM+tKXP1ix4Fx09s
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc3KqEACgkQnowa+77/
-2zKLlQ/+ObZ+UIHJ1pCf69g1gb2KQjhTxlKwlQehj1ZeJ4/qqrUwXXLM7lR/Peys
-6fCgIviZ1zZVtiuOMYoNKF6sm7pz61wGvwuLTOnVA1grar6ABr5oKa+xzI0j/agc
-jKCidwqaXq0K0T8AAlK2zaBRr4ERTRlrjGZlJGcz1FgZOrt5W2qAQTzxQt0xajEj
-QysDtPIIql22atjbXbfzt3xh24xnrF4/54asPuHiDEB/jagiUGFqVGNiE76yJoZm
-kZNL7kjwzTh/mpGpJe1u3n9oSUKqWgIRiYFv6YBntW8B5t3GblnJeJfsLJQJGHqN
-q5vd60OaHbWh3ZbBapvcdGXL7zo6lrG2EgYa1vd7cbD+31xjPvxTM00lfyUmN2zy
-84LSziTxHLf+DDJvsWyWbo50arkhklWiw+ydCeZApBmpNHWDwQL21AUkX06BaLOd
-EhaKNUPNAqzIdjoAKRRK/BapKLAfiuXd2EUaFZUGFbZ9vGvDegWnuvGzEcpnxoDE
-08tzXIxYh4t5jNyMMUYPqBo2aLPMutM8Mbpe1gHhXsXT1YCwTk8Q/luAo0V26aqi
-04OnpE+TqJIljgzx57cRlje6ksso4pvWoAYSaYtm8RI8IpXvyOETyi6mIY2xKGM8
-BFooMz0Z1aFipepLEtYa9hl6/ihvgG1IJwQkRK+rty95/3KYEUU=
-=PeUh
+iQEzBAABCgAdFiEEMltU5GU/k1olzzK9oYYnjUJqOOkFAmc3xvQACgkQoYYnjUJq
+OOkFTAf+P1stlTPP6PUawt4psHTqiqEbA+oYXnC9SaG+TWdC/OQC63JUXpzNlqAe
+udLGo4FU2DDJDYfIa7S/UDOqesvRVIsksGjARklqT2kbc7wUsUFbxe+QKl+rpts7
+k3Ywt3ZFl0DRGfuFGKDfoYnhNKFRW+w38akD/468WuePxJUuDXDh2TAtdAicvEDW
+KCaoZLjRFxdnO9fJEqqQIHj1g0c51it3Wjq1uOwyUatiNgMTWXueJYD9Q2ysiXcV
+r8cYb5QDM6e04RIMWg5INHzE20iyvG0vknYQQmYD4n0IYQ9U0Z674VWXM+LorT1S
+NACouQtk4MVFJDDXKvfAmnTKVfOknQ==
+=DusL
 -----END PGP SIGNATURE-----
 
---3m3utu722qnsysx6--
+--lM+tKXP1ix4Fx09s--
 
