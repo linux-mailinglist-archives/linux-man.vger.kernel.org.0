@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-1935-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1933-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 362BD9D02FA
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:46:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FFC99D02F8
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:46:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EFE1528432D
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:46:56 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AF4CE283DC0
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:46:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D22917C224;
-	Sun, 17 Nov 2024 10:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18C31171652;
+	Sun, 17 Nov 2024 10:46:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="EnHv3VYz"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="qGF9l9kT"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76450167DB7
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8570483A17
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731840398; cv=none; b=KppjQQBIAR3jMyw3nH1dgzMWldvUwNI8gGoBF/ZioZqHEIpgVYUBg4z4ytlz0H7B9UoaQAfXikIZ46VN24Jv3QmYWpBczG3ltZ0IiUN9h7FHkJlICTWcXG5vZ6C6z2gjUs1MMN7KJLMn/mvb4GL5I9DTPRjf+PbGbwuskufdjmU=
+	t=1731840397; cv=none; b=qR4b4hdLoy2dvvKeJE33F/Epxd8aWISo3YkohgLrTuJkrKSHGt4JJ735hWVa2XJA9VVv7XnIZJZrw2uxWLcdOsrlRf2h93sUVp+h9S3GhV4m3i+N1FxKfsRSrg9usN9vf5dIO+IdNhnvi4kcHHimul76fwlHHf5rt0anPAErLQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731840398; c=relaxed/simple;
-	bh=guRNddT0KBiiUSPu1lpXK+RxVx9ozNoehRj6PXz46aQ=;
+	s=arc-20240116; t=1731840397; c=relaxed/simple;
+	bh=8vDhdQZcf5uryHUkDVNue5GByyaYBAudnuV2A8gufug=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cMeCl2czpmwV9tIWIG5+cGjy7tLvpYy3h9pEAEotWS88Xwyo46Ci3iL1ZUSsJ9SRtxBarJYFS3Gibm5wPasjUEP4VfVNO22yUy8X0jvJ+BlSF3zHk660TXcmop/5K60g3xJkvBC9Ol1GvN65WtyLrzC8qKYsb8JJbEdhPq9os/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=EnHv3VYz; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=TB9FibYQ6yoPKtI55rR79oLwZLI3xbsDTa/OvUOJmwq42+5ut/HmYW2D58L8sfb4ymvWP3ajBSrTZWyo+eHPFwgh/7ltP6AKY7pionYXAEb7DGSbwX3z1hIoaIm0e6wnaRDZpm11ccU6nrJyeMeWgbv4Urvty5qBh6YwRU3JyCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=qGF9l9kT; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1731840385;
-	bh=vHGHWthwJATpiwFDnx4jz858jcAMWnEEggzxNprInAQ=;
+	bh=WZddB7N64Cp3ADW49vVXLwqXt5Klr437rf5l+DBnCoc=;
 	h=Date:From:To:Cc:Subject;
-	b=EnHv3VYzaEJ32VMLVDEUoubRRT0sx+0UsdAOGNV3meZLrDmIKRe43djwpDizOObrK
-	 vnkEGCWZGM71bsi1MPj/uMvqqrP/jBoS6DpUcah5VAA6zCtRUHXVHG1zgyFj4C3s8w
-	 Ijb7EdGWTUcCOryLUhamqLWVK5f+pa1xwQGFtfp+FH7sCodQbkzjlEdjwA94BPYSpJ
-	 jX3V6z5SHlXDLr/1jC2KDUUkMojS5sELu6qOAp8/h0p8LcTkiPZjZs9obW3QrRsRkK
-	 hZp4pHl7z48UpZey6MCdHKenJDg4cjfbvFGTrXaTHYY/xo8wgAZ6LJu7rWtG38w7Qc
-	 ZoYj1UoLiVpHQ==
-Original-Subject: Issue in man page fmod.3
+	b=qGF9l9kTSJgMMzU03sRT/c8gh4DQbuiubvMngklBlivixcJ6UVzD4jZNh3Ok0BuPG
+	 BsMmWI7b592PbnYACOR4/Nq3M3QHRPx83DfQaFPAl6DAnBE3Vp2Cy/fSyjjmzJlg5S
+	 q25nRmU1lHp14etMxgUTQCxwYjcItMXlTf/4MKmSNnCG1lZId9N8fAhd7uIyjf2UBA
+	 BhQ7Mogjb/HGg5yS8AioT8qw6PMVv4SQqWt8fKAm+53AvaP06O+gG3iQgpy4oGxBQg
+	 /1Y/I26QhtqEyOCq1m4uNBEVsu0SpuPysC186Nf3S1HR53Rp5efi4xOhWEAScR6mod
+	 nGttunQFtcjtw==
+Original-Subject: Issue in man page clone.2
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000216A8.000000006739C981.003FC60A; Sun, 17 Nov 2024 10:46:25 +0000
+  id 0000000000021699.000000006739C981.003FC5D8; Sun, 17 Nov 2024 10:46:25 +0000
 Date: Sun, 17 Nov 2024 10:46:25 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page fmod.3
-Message-ID: <ZznJgQGHh77fpY8Z@meinfjell.helgefjelltest.de>
+Subject: Issue in man page clone.2
+Message-ID: <ZznJge9al7KNW0tN@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,9 +68,8 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue 1:  Either B<fmod>() → B<fmod>    or → I<fmod>()
-Issue 2:  What does "cost a branch" really mean? Branch of execution?
+Issue:    I<exit_signal.> → I<exit_signal>.
 
-"An alternate way to express this is with I<fmod(fmod(x, y) + y, y)>, but the "
-"second B<fmod>()  usually costs way more than the one branch."
+"B<CLONE_THREAD> or B<CLONE_PARENT> was specified in the I<flags> mask, but a "
+"signal was specified in I<exit_signal>."
 
