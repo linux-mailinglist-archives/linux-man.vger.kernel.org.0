@@ -1,124 +1,122 @@
-Return-Path: <linux-man+bounces-2020-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2021-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D6949D0474
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:14:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C219D0475
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:16:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id AE66FB210A0
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 15:14:17 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 2E9A6B217AF
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 15:16:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E50A71D8E18;
-	Sun, 17 Nov 2024 15:14:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AB6C192D89;
+	Sun, 17 Nov 2024 15:16:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYSTVL00"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="sZOZ88wd"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A717F7DA68
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 15:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4F9C2ED
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 15:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731856452; cv=none; b=lkYe3bYLg0ew4suvzay9VTKm8JQFmE8Es/M0jIdue8ACD66lBLOr70+kxH2p4XZUxE36Z2Yxk4ytcQnDP59W/QxeiiXP2nIeRlb94tmsvg7BHrnLy+8iwJK+DGQ0BB13A1flCD9eFDc1lWTtpXdGACkMmH8N/Dc94JBPO9xL5bU=
+	t=1731856582; cv=none; b=dMKG+SMny2ur5l5JiFb6Tprcf+l1q8ey98hrWWw0w07tvi+E1MR6TpKrqzG4aR4DzE6iFO0Lfzy7F6+oaguUlI3hx1cp7lOljzCgwPR1zLULC0qLC815CmzgUSEoLf0blPYDIx3ZhbsTxI+E+sD9/trB7rK9nVIKn35glsHxbjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731856452; c=relaxed/simple;
-	bh=n0BiatIOxlFxQvDR21loVPRbMaJ4PttjFYmT1GiLsEY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mraEOHl/p1WI8N1MuPYV+luHKchLsk7vXi5pB3/WLtyrmRhCwZHZnxAWxxkAyFbCsclAKnORfKBypDa8voAuKcAqncNGFTH76ga+GFEC9l2cxavjMxQPQdzuYl3+1G7XB9lIRxEeZOqxzbh+UBxd0/OEOF4+EQASDMDfrfvDeA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYSTVL00; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72474C4CECD;
-	Sun, 17 Nov 2024 15:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731856452;
-	bh=n0BiatIOxlFxQvDR21loVPRbMaJ4PttjFYmT1GiLsEY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kYSTVL00196iGLfrzCQFbCDSx70NGqXbOQ6gcQL9NpAXWAFlS2vC8GaoRLYM2GPIx
-	 f0ppfhBqo7+rDPlLYvE+CocTcU4PH3RdhgGo15dPA8odpc2qMDOBA6VB6/ef0agteo
-	 Pkoud0cXDqFBzczQeOMy+AIGX1eQH5OjOCUrBwZmOkzhSTsLktrNXaYZZZPyuOr/Cl
-	 e1J5ohBMLnou2aVFbwt3sBLriTWR30HSv5wJgt37EiWDUeTSIZWopHf+MXNv962niR
-	 8Tr4UrDYcZ3bx17kxPeZxOQS/W7vnzh0R0GtC0CyDNrdVtUAkMrDxyyAO4eC8xEE22
-	 37MuV2LDD8aRw==
-Date: Sun, 17 Nov 2024 16:14:09 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
+	s=arc-20240116; t=1731856582; c=relaxed/simple;
+	bh=jYjPKf9zsr7wD2r1byjJYQHu6twKObyyqZgjg8JpFwM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DnNg4TpYIufV7yjWiWidRqjV92Y+XIqmT3sT2AlsfPrzFHN+DJNTVEgp3dUOpXrYWBfT1vrLfF3GEjsBDGbEkGAu9T8XaJBHs8vkdi2f2Y4HJoVHbdkiFPe3TroeaiJyB2LZI3Otfue4fnByijFV0g1Lx1AA4bcettlXHADvi0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=sZOZ88wd; arc=none smtp.client-ip=142.132.201.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
+	s=selector.helgefjell; t=1731856579;
+	bh=CuMDp/fLir8e7wMvzCQaE0mW+r4P1fcBsb+H0XvoCEs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=sZOZ88wdtOju5btsgXiQvLOVV3KkEN7D/qDLp0b+j34kXkAmGqL+0X8203Jxv84+Y
+	 4YjyN38SStYBIco0LF3jOWKuWWSeFmCNkwDo3miFA1VmHWrhGy+IzV2MsafPLz2lD9
+	 tUU0i6e3m2cbTxREUs5xt5W5M5/dBga4gCPslESDRAEGkNsQv4wgj1PZ0+zIFVTtju
+	 +b9MD5l0b9F8yo2mwOkMN1P3AVQ3YQ23uKc9PZgijqYQg3F056I5//L5j4tq0ZgBcT
+	 kXDgaMUUsr/S5GnPKZSV+eg/Tee5JytzBk7GdhLpaqf/j7Ftl5Wfg8YDo5xm5+Wm19
+	 WSI3fDpDdr4tw==
+Original-Subject: Re: Issue in man page clone.2
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 00000000000200D0.00000000673A08C3.003FF380; Sun, 17 Nov 2024 15:16:19 +0000
+Date: Sun, 17 Nov 2024 15:16:19 +0000
+From: Helge Kreutzmann <debian@helgefjell.de>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page time.1
-Message-ID: <3nljyrx547bylj4rlcpo3slo6dvy5cerzfcg524kmrh4ou2gzm@cxtv26jahqfk>
-References: <ZznJgUunApKZIFH-@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page clone.2
+Message-ID: <ZzoIw383yIqC14CS@meinfjell.helgefjelltest.de>
+References: <ZznJge9al7KNW0tN@meinfjell.helgefjelltest.de>
+ <rdmt5cqz7vgbne5vwxel3ws2scki2yjzdt5iqc3t73sh4weyki@k3z5rxxkria5>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p3b6gy44nub6f4pr"
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-4191104-1731856579-0001-2"
 Content-Disposition: inline
-In-Reply-To: <ZznJgUunApKZIFH-@meinfjell.helgefjelltest.de>
+In-Reply-To: <rdmt5cqz7vgbne5vwxel3ws2scki2yjzdt5iqc3t73sh4weyki@k3z5rxxkria5>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
 
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
---p3b6gy44nub6f4pr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--=_meinfjell-4191104-1731856579-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page time.1
-References: <ZznJgUunApKZIFH-@meinfjell.helgefjelltest.de>
-MIME-Version: 1.0
-In-Reply-To: <ZznJgUunApKZIFH-@meinfjell.helgefjelltest.de>
 
-Hi Helge,
-
-On Sun, Nov 17, 2024 at 10:46:25AM GMT, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
+Hello Alejandro,
+Am Sun, Nov 17, 2024 at 04:01:29PM +0100 schrieb Alejandro Colomar:
+> This was fixed in
 >=20
-> Issue:    B<bash> =E2=86=92 B<bash>(1)
+> commit befb4aaa6d3e2bf1bf975a3585c23b863a534092
+> Author: Alejandro Colomar <alx@kernel.org>
+> Date:   Wed Nov 1 16:02:49 2023 +0100
 
-Can't find it.  Probably same EBKAC as the other reports from time(1).
-:-)
+Yes, ashes on my head. I usually double check the FIXME, but this one
+slipped me. The text is correct in all distros.
 
-Cheers,
-Alex
+Greetings
 
->=20
-> "Users of the\n"
-> "B<bash>\n"
-> "shell need to use an explicit path in order to run the external\n"
-> "B<time>\n"
-> "command and not the shell builtin variant.  On system where\n"
-> "B<time>\n"
-> "is installed in\n"
-> "I</usr/bin>,\n"
-> "the first example would become\n"
-> "     /usr/bin/time wc /etc/hosts\n"
+          Helge
 
 --=20
-<https://www.alejandro-colomar.es/>
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
 
---p3b6gy44nub6f4pr
+--=_meinfjell-4191104-1731856579-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6CEEACgkQnowa+77/
-2zJlqg//eBxBR6buyMm/xQLiij0aFb+bcwSDYjDd/rYmIG8d+WnL6Ru64IOAtBto
-LwQQqFm6u6RNXSqup3yNdQSFSrReDvv7D/WsTQkGtmUFNU8iS0neTKFlYtdLk63n
-coj4F3+37bsHq4RewEdCO3miqRrAkYwz4F1gjmYSsbrInX1+zJBh3ornJPk0bR4J
-ho+CzrcZn/1Qv7be7M8yhZRHrsSPQUlRBQpyuFntch6H6QO25/S+vASDG+LHIJPn
-hNh/pAAIscyv21e+VqCQNxAim+m/veHqGiEvXKBgP9rUj0KQ3Kv2P2KeX28xoWPw
-itpuOyfAYiqzlcCJJ3jnykxNCAGH9XK2r40JUn1Kyij6BM58exzb+nuyLTLWFVPy
-D7RLPi0FPCo+IVujr5ns8+oSvTfa9rLl3VQRWNlADKJgFUWH0lWlV7vfbED6Kpuq
-OFVh28o2laJ8U+AIyXV8SCef8FRPJODoXPLd8OYM5GU+RvnpnM2HDXKrgOWrkjIV
-+yZKu1nDxXubj0zur0cFxD+wKLOKWy7gv9HDhYPxpBLYahjwthKD0wxMZjt+yc33
-kRxn+ImDSw93qC7teCqwIuu4xSKqoNQRyIa+R/Ymup/0fYzXIX0sE/s6g/Oye4/+
-cOp6+uQt4OaJ+NJTMarv4P6e+bu8VdSUvEoT7uxp85SE/8toc9c=
-=mjQP
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmc6CMMACgkQQbqlJmgq
+5nABhg//ewqKVQfcpO+9+SP5MhdaoECV52ul5XIi6jSSYMJGHPFKIIk5qcCYvAVv
+1J7qb4aBi2pU/O6I24oRCTTzIggPx/FmXWzHqljcJKphSs98yYNPNPwU++n/iL5b
+orDU0jQrSgShdQ2CISbq7E4vNVz7vhE5X/v0LLxkxHYke/zUsnKLEFUHCKPBEkjH
+6ROGRXHyev7H8HzYhNBn8iMUS+H+XwfOkgfiqOUUXl6+Wxs5vOIQfduoLEViICu3
+vtQNZ3pa+hPYIyhFIPo4suvvG2ZKZyOesT0NdnblsMbHh9Lxt46nD4XEmmBA0BSN
+RyVWg/gjHd2JFPDnUHGPMOMnLfpEIL7nNGVADqBMgBI/SGhCR93bcioaGobhZ5nN
+n6aNU48LP8xwiXJgOC7r5aOxhzR1LjbOgMF6+uo8H36+94617PdMKSNXCS9UcgPu
+aXbC3uhy5cmq0y1FmiVvQnRdjM9VYekz7fm3yj2B8ZbR7fvwsi5wpE0r1grM0thy
+YzLO0WocAmEH1Qr1Ui4y0g/OF0Q1PpEpUeG1VnqBDHF6siABz+nNn0VuBlABztSk
+DQD8RcXkVEWqjmdDpxgAQHKUNsuXmNiZwqLEU52DFaQTxA2O8U/iXpGMcnS9ctOg
+SSH+ldKkDpPRTkHIK+mxeQXI2ndo4mx1eyF3FFqa0N5WvWqrsrQ=
+=/9h6
 -----END PGP SIGNATURE-----
 
---p3b6gy44nub6f4pr--
+--=_meinfjell-4191104-1731856579-0001-2--
 
