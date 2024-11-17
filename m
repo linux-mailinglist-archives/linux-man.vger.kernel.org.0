@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-1964-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1931-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739C69D0318
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:51:57 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF609D02F6
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:46:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1FD0B1F21B00
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:51:57 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7CBCC283A3A
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:46:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99F26166F00;
-	Sun, 17 Nov 2024 10:51:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 19EA815B0F2;
+	Sun, 17 Nov 2024 10:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="UNj6a98Y"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="gpuZ5fcm"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1634B176FB0
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F6F2942A
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:46:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731840703; cv=none; b=OcUbUdgxPRllPXZGEavrlLamk1NhK0gCoYPUGRVw7E1IE+DtlpEpG0wK8Ru5wqhiUWKXHwvsJsgPA2LN7P1RhGnZgwDX7UsxxWZXEmKwH2EThdtKbOE3VM8CHTxL6Z1d1d+28JAhQa5SGjJoQoUpYpxOsrlNpGe4ASvzVSB+jZU=
+	t=1731840396; cv=none; b=M/B2Cs8MjGq+AVm+CZqD6FybZtNY5usSh0Gyx5kDy0NYPspwaLqbvMYANdqKdPM5MrXL4ydrG4NpRxMAhUtpzLWTqgo1MfvheSLxd+/aHXwu3FY8EFmYK4ZsinNP3cYL/4+0k8/bBAIM8uUbi01MInREpNvVqRpArT/3oVqhSDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731840703; c=relaxed/simple;
-	bh=qMWxy2Ff42Np1QomYpsLYvWp/VJv1Zk38s5kUUf7E3k=;
+	s=arc-20240116; t=1731840396; c=relaxed/simple;
+	bh=V1FqVwJcGV9vvSTcGFvYueSDT6jvItqDb740CJK2w2g=;
 	h=Date:From:To:Cc:Subject:Message-ID:Mime-Version:Content-Type:
-	 Content-Disposition; b=TZHdJj8mQkYdherMmtz2TrcG6+O5eiB6DktpyFNMAgKbRIhkspKAZzU3vB/6sVPhWn68B/F7tinQ5qfi+FcE3z0QKd7tGtvwf2d3WkgccR8BxS9hIzeqWI5c1GR77/fnkvncjTr5w3yf4HGLFzRxVP+0PjmA6bVMJCshmdBKPEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=UNj6a98Y; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=Rfj8hPVJIw67ppafehs5q5KaaEBr7XgKktLphYswd+3rGly08qrhN05uwlpzH0Ohn411TnHDwdPVj0d3jyVv3MtdYdh7YC/UMXMbtr0XlMo+qAUQcIXYTiZ7/2bvDkbzgDRp6yAQhXbmLEATrx3trfX4RuZmlHGuNgTzVS8LIYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=gpuZ5fcm; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1731840384;
-	bh=yjb0qDpYifybauypiOuH+oU+kbw2FtPU4Q+JzGWlHrM=;
+	s=selector.helgefjell; t=1731840385;
+	bh=lXlp1bE/j/eE3If1YrOuHRENah+R+78F7315jyu9up4=;
 	h=Date:From:To:Cc:Subject;
-	b=UNj6a98YicTF/t30ADRAr+Xqyi3z5oHp973KxITJpPAOFiDBoWrJyv4Vtc0m880An
-	 mfhH6K1DAn5hmUM8HzkaR7X3viKdrabvBVpbWGUD4jywoJzBIDc5c6tUi5gblmSAoY
-	 GCAhzKxyYRtVptbHBa7xcT4SHtb/Hunsk2vX/6nnPeTYpQpDcYAhNh3tPL59Y6S9+M
-	 n1loF6e1L56ONhML2OgVvkcipTZ4C5GrPwBsD/s89Vt2HyxxeemFWXm58Q7Vu+cJqX
-	 3jZp9IaVCybNaW4cL1d1vGEm7HsxvLAi80UV08thNbwiD5blWJjHixJnEowd73Rv9O
-	 rRVHp2SXNI72A==
-Original-Subject: Issue in man page time.1
+	b=gpuZ5fcmDdHJsrG5OfSFhrm3z0wJgKc4FfEAons8lh/D5S30WzVB1/tVQGcPDnXAi
+	 MO0btT/yCMkyBFX5Df/uJnvCE+2gEOMUw5hv8iJjYnOebh71q6qMJdAOG3B8wICWXd
+	 MGOO5Si7Umli65hDB6zJ4DtKuMZDZAfuZXrdZ5vH/P5P/TcDpRAckeowOt4O5Fuirh
+	 VoXL4SWemUnhcmPlwUwFEP0plObtdQMS92pJeyPBl42TCuuMj+sGu0W8NpndjZTJJT
+	 EiSNAMPFD/X1snqLPT87VC81f3Il5/rnNdUBy1hi9OJZ2a+pZ7WQaeEKGmzTpKH4kx
+	 KKHSwHRFWuMoA==
+Original-Subject: Issue in man page charsets.7
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 000000000002164E.000000006739C980.003FC53F; Sun, 17 Nov 2024 10:46:24 +0000
-Date: Sun, 17 Nov 2024 10:46:24 +0000
+  id 0000000000021685.000000006739C981.003FC5A6; Sun, 17 Nov 2024 10:46:25 +0000
+Date: Sun, 17 Nov 2024 10:46:25 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page time.1
-Message-ID: <ZznJgFxUqytE7-eR@meinfjell.helgefjelltest.de>
+Subject: Issue in man page charsets.7
+Message-ID: <ZznJgUpx_AoG7C8T@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,18 +68,10 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    Remove hard line breaks, they are not necessary, rather use a separate paragraph for the last two lines
+Issue:    (it) is \\[aq]/\\[aq]s correct (the final s is a english plural s)
 
-"The format string\n"
-"I<FORMAT>\n"
-"controls the contents of the\n"
-"B<time>\n"
-"output.  The format string can be set using the `-f' or `--format', `-v' or\n"
-"`--verbose', or `-p' or `--portability' options.  If they are not\n"
-"given, but the\n"
-"I<TIME>\n"
-"environment variable is set, its value is used as the format string.\n"
-"Otherwise, a built-in default format is used.  The default format is:\n"
-"  %Uuser %Ssystem %Eelapsed %PCPU (%Xtext+%Ddata %Mmax)k\n"
-"  %Iinputs+%Ooutputs (%Fmajor+%Rminor)pagefaults %Wswaps\n"
+"Note that UTF-8 is self-synchronizing: 10xxxxxx is a tail, any other byte is "
+"the head of a code.  Note that the only way ASCII bytes occur in a UTF-8 "
+"stream, is as themselves.  In particular, there are no embedded NULs "
+"(\\[aq]\\[rs]0\\[aq]) or \\[aq]/\\[aq]s that form part of some larger code."
 
