@@ -1,74 +1,75 @@
-Return-Path: <linux-man+bounces-1936-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1934-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503079D02FB
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:47:00 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FEAB9D02F9
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:46:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D1B58B23EF8
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:46:57 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 24B80283EAE
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:46:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E15917C7B1;
-	Sun, 17 Nov 2024 10:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4065E83A17;
+	Sun, 17 Nov 2024 10:46:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="EG4MGYQG"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="I07EObFc"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBA716F27E
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41E614A617
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731840398; cv=none; b=K6vEx7L5iBcqjFlUd+9aU5c6mjZ0KfitPemS0rUIMqrQCYA17b6HBer/TUcOjFozUJbmayGOfZuh7IP49aifgOxGc/xalV8ii0xePNn73m3KpdLpRFqrt81VEhM+5Dr3c7UlI/eR+SDlHofeg0aQWT/fRA7YHEr9dX4I1G2BEQ4=
+	t=1731840398; cv=none; b=QHeAT0vcHN2OwAVOvLn8kae2zk6ialigdiB3COfeTpoJV23efZnBPfYhS+j/6OIuc+XAENnZkhgp0h2d+tsUCZr1SkoW4ppCu8VUaujRHYRD2ydGcDDs7Lxs1Ya8JSvyHm0XlQSJn2weDHdR89MfboieQUsUotY3wZBS6UBnF8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1731840398; c=relaxed/simple;
-	bh=5PojgqdJd/whDL0ccm9aAS5ow0Cim7sQdtZcFCw3Gmg=;
-	h=Date:From:To:Cc:Subject:Message-ID:Mime-Version:Content-Type:
-	 Content-Disposition; b=fFctO8b9nUWgBhEFXpvd3yQp87gex6F+xYe6Z9KOauGIBmrewoezGIVFN1IRtoP48xr6iRtDCwltaVneFJyYV8m8R0XtOpVljLKQf1TehJvIwduAsGFf0vyL83ej7c4u9EjmKSu121y4ennybxhoeGyDkrv3qbBoildm3eP/JSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=EG4MGYQG; arc=none smtp.client-ip=142.132.201.35
+	bh=1RqMaKb0ZZcnrRN2JJ5k1LlklvwFwTUkDxquCz2wxHE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=bHXthhe17Zeq/g7FUiSCoEXULf/FyKfmfcBuRafDyYLqd2N4p4wWNHLvO5+ST3Wm8+ZMUj5g6aeSUwwy5tGjXpGg1BTK++xRdjAbSH3p63zU0zt2+1Nt09irlFUjrcMlFTYM+9Jdo2y/dIhDO4YBNn3S3XsRk28p7dhyNcEa+Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=I07EObFc; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1731840386;
-	bh=BcdRkoweO2zfPS1yxs1zreomXVAmIF2dZ9RjK/xNZbU=;
+	s=selector.helgefjell; t=1731840385;
+	bh=D/gkDSX3ZsvEu05wLTXtQLHuiUjW7w0zpalfzxak1bg=;
 	h=Date:From:To:Cc:Subject;
-	b=EG4MGYQGnOeVSv6ZVOMtwORRVWjpw20EB85q0acODpITJMn3bqRLXvVrTVQ+MyUvN
-	 QTPtyPIjFDgJFRptv1WGBBfE3dNh3V3hqX6Yeh/LohmRTuOHHYYgh8yWG75Xy8G3Re
-	 PDsFVCRXjnzvyP6kw+MK+KROhvAFMQ74fZU/pLiX6P+Ew3x1iDjRaOmsovjq0vIFvQ
-	 h21UQTkkLlzcp3UkLUGds0f+HGDLf65pJYLEFsJBIkzT37CkIZTU+67DbhJ2mFmNx8
-	 baAYEua+cGx3FZRYNtu/ovqeQztSL/JsVVJ8/IYOwfB0lZVgABIFLymvV8ZwVDs0gh
-	 dJwL7KmNFfRoA==
+	b=I07EObFcDLNKghpLuNDvYKwgy7oQbMtkW7d/oH29AROeDZsIphE85Z6IBNMplFTJU
+	 BuDhjb8Eep6sYU3oIqyxXTAAVfFS8yWXu5OpZgxso0650ROqQYTV2mwlKnwxhpPNeN
+	 FfVNfDyGOPgg50lWyuXt12I+LlKePxwlx4c07d9pkaZMGnR0xNxqb0yglIZ+xve5i3
+	 guPFle04WIZOOvvxQgfvtQRv7VLfgdQSoXSyV4s6C/NvF9IFI3QBSB2F1aTF9r1v2q
+	 hkuwM5A42VCu0dD7yLYxAh/L4CnvnMT1hqT5oMpdStO6RIcxWAHoVgn/uyjQ7ZQOn+
+	 ++z5Rgx7YVteQ==
 Original-Subject: Issue in man page fmod.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000216AE.000000006739C982.003FC623; Sun, 17 Nov 2024 10:46:26 +0000
+  id 00000000000216A4.000000006739C981.003FC5F1; Sun, 17 Nov 2024 10:46:25 +0000
 Date: Sun, 17 Nov 2024 10:46:25 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page fmod.3
-Message-ID: <ZznJgeQZ-zy4v153@meinfjell.helgefjelltest.de>
+Message-ID: <ZznJgTA9xeSYKNwA@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    372/360=1.xxxx => n=1 and thus as result 372-1*360=12 Why is this 348? Running this in a minimalistic c programm confirms the result to be 12
+Issue:    fmod → B<fmod>
 
-"The call I<fmod(372, 360)> returns 348."
+"To obtain the modulus, more specifically, the Least Positive Residue, you "
+"will need to adjust the result from fmod like so:"
 
