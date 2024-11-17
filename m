@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-1991-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1992-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F4EF9D0377
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 13:06:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7979D0378
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 13:07:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D3877B224F2
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:06:25 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 66179B22173
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:07:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7D52A937;
-	Sun, 17 Nov 2024 12:06:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73297176ADE;
+	Sun, 17 Nov 2024 12:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mq4Ywvlp"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbIxvDbg"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9763139D07
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 12:06:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D2EA937
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 12:07:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731845180; cv=none; b=ZmmVIMHSvjqDz+1Ae51KpBweymox7Lbjd68jTba6R1VyPRHKAtJ6y1t9ooE1btoY2/BD965DhQckFbikiQkcqpaY/z7BLZENDNoYX+AXFu5dZyPuvxfZDihG/zKmhVG5rY86QXomtq/xyi4yIJeKvkBSkNBAQ8DHCkxSmSPgma4=
+	t=1731845264; cv=none; b=u4O2Y/KOp+Bf4Q5prjdxj/2EdkzJDPQu67xhj/GYrFgpih5i8cW5goQmAthCSSm6ELb7MXx+wzjeO/VdMcr3kPTWa8EcjfLgiIl1OiXWx0VXVv7q2MUULJ3+V6QvaQ2CxhJedjjbXBmJN7v8xQHSyUMg/T9x5525C0SijhYJVKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731845180; c=relaxed/simple;
-	bh=Y9Oa+cN0eDoLTIvgBrPylPSEi/ZF7qMiaM5HkROrVhw=;
+	s=arc-20240116; t=1731845264; c=relaxed/simple;
+	bh=MrXmjj54zIBcOEa0QQCRDS+re5Ott5epDXflhYEw220=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ef7aE1wgBgF7Pf8il2SDn+2QY44GMy5dpvkGfSB4VqxRiKJKTi9fPcpoIUHsMWCBLWbKhphOodR1xXi1mlLEKo+dNod6/iT9uLol3T6tBvB8FCQsyJiVeIhFQTJlxf6BjV/0Dw915VLntc+X2BViT6j0Q9IOlbiX09FfMAGXxzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mq4Ywvlp; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CF7C4CECD;
-	Sun, 17 Nov 2024 12:06:17 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=A8GJFT3BOBYgvWwzTpl+uT08Gp9Y6hIsY2ljmUSrxeG3ocO9M0qF0vVGuhMZcicXeXOa3BsQmLjrAvluCt3zp4adZNFrO7HdcQ1xfkvk6T4ia8L8HU3bMrATm9b2t0ClWm6aLSc+eCOybEryTLz1cKGMr/rV5uo3+WBiUHbIHMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbIxvDbg; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E5DC4CECD;
+	Sun, 17 Nov 2024 12:07:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731845178;
-	bh=Y9Oa+cN0eDoLTIvgBrPylPSEi/ZF7qMiaM5HkROrVhw=;
+	s=k20201202; t=1731845263;
+	bh=MrXmjj54zIBcOEa0QQCRDS+re5Ott5epDXflhYEw220=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mq4YwvlphBCALTgmtIoTNnzcO/FiWZ4cTrQbo/2KDAsMr3qfJV7GJTVDZK3XpKMKH
-	 WViWm7prREK8HMLp3KyMLJCrL1Mt/J5Qc/W+k1efQEwah9zGM74WVisfrB9Uguwbs6
-	 eXmOuJkmZzAheyp1pNpyOgdGHJi5+H4HT5sk4K9r/cCBIqUgxEJX9A4qppwQQIeLsR
-	 aCMPiwtDI7eC75AsK1F77R6Yrx3UR+L7eG1X9Glc6EM3aY6YKJMKU4W7/+wxfDj7MQ
-	 QDqBRXod1iRoqgVWn0ikM2CPevHqeqOWm6awr2ju/EQL163xqM+jC3XarP6BpsZTcm
-	 jGxrz+bze2m0A==
-Date: Sun, 17 Nov 2024 13:06:15 +0100
+	b=dbIxvDbgAy1pt+YGiFCMIWMOvUSMQnmoqcG+wNK0LM1o/SBd1YYT7N0OqA9xqskfq
+	 D/ctv0qyX5sOYGQBFvXGJQcQUlVGwRKHMcmwenP3BDMA6JS47r08vv73c7Z/V0usmz
+	 r0SKm/RwSuStSqydSEOVi4+/kPOgC4zHa8IPpL1zWskX5Xcwcg0c/Beu7EnBez0vAF
+	 4alrJB3jFdP4q8siWLawtKOUvWpVQ2gUfr4nzQv6E43z71D6SEc+9YffDp/nFSYVrm
+	 KYyChuYd1sPTMx4FtfK7Q8Rdls8RKrw6mYFyFfWZYF/5UcBehFTj0k4TrEIoVQM3hH
+	 M7EAgn/tBKvlg==
+Date: Sun, 17 Nov 2024 13:07:40 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page syscalls.2
-Message-ID: <2gwtywiyzbawbi5cpxpgdqd3fdxqrof6u73nibg555sdrkxjaf@tb6dx72jp4hc>
-References: <ZznJgOK4ZGunfj-f@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page attributes.7
+Message-ID: <nbc3wmui2wbbtivpugd4dcvfmxxvv7qcfvlfhm4y7s4wkg3c2g@qowbwtwztfqk>
+References: <ZznJgI1T6Sq11qnk@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,34 +55,46 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vwgivp4achuhympv"
+	protocol="application/pgp-signature"; boundary="vsagr6ygcudiv3eh"
 Content-Disposition: inline
-In-Reply-To: <ZznJgOK4ZGunfj-f@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZznJgI1T6Sq11qnk@meinfjell.helgefjelltest.de>
 
 
---vwgivp4achuhympv
+--vsagr6ygcudiv3eh
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page syscalls.2
-References: <ZznJgOK4ZGunfj-f@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page attributes.7
+References: <ZznJgI1T6Sq11qnk@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <ZznJgOK4ZGunfj-f@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZznJgI1T6Sq11qnk@meinfjell.helgefjelltest.de>
 
 Hi Helge,
 
 On Sun, Nov 17, 2024 at 10:46:24AM GMT, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    Is the first one correct? In Debian, ausyscall(8) exists
+> Issue 1:  The function =E2=86=92 Functions marked with
+> Issue 2:  reads =E2=86=92 read
 >=20
-> "B<ausyscall>(1), B<intro>(2), B<syscall>(2), B<unimplemented>(2), "
-> "B<errno>(3), B<libc>(7), B<vdso>(7)"
+> "The function marked with I<hostid> as an MT-Safety issue reads from the "
+> "system-wide data structures that hold the \"host ID\" of the machine.  T=
+hese "
+> "data structures cannot generally be modified atomically.  Since it is "
+> "expected that the \"host ID\" will not normally change, the function tha=
+t "
+> "reads from it (B<gethostid>(3))  is regarded as safe, whereas the functi=
+on "
+> "that modifies it (B<sethostid>(3))  is marked with I<const:hostid>, "
+> "indicating it may require special care if it is to be called.  In this "
+> "specific case, the special care amounts to system-wide (not merely intra=
+-"
+> "process) coordination."
 
-Let's assume it was a typo.  I've fixed it.
+Fixed.  Thanks!
 
 Cheers,
 Alex
@@ -90,25 +102,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---vwgivp4achuhympv
+--vsagr6ygcudiv3eh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc53DcACgkQnowa+77/
-2zKthg/+Ia2eZDaPRCIkJGxoVgsBJmq5NZadS1ztlwtQQ3IesSVBySDC1TKb/ens
-geX3pdMGRL2HEiEMZa6su4N2o5j0Bt4I2OoHlOLuR5m62rT4tLofagRiUZDLbZ3k
-oYXVdjtponr9sgI42/iWuBdKPQeO8n7ItD1yLxBMTZaFRjjv1PxVkm+UG/SFp5eX
-KOAox3d0c1BBip1ftiXHmlvKT/uAWRhiQUj2gdRJRVV0U60+3bBOXQoN0FbaTjxd
-/y8Hr3AxxbSY8qzFuhZPsDYaJH04hrZkaxGKWcPGpFWNzU4QWyqHTv9MtCkfmLC0
-RwnW080Js3zWjwnBDznjbO4nXhsxUs8Ab6ifDIJ4QK/hBlxL1iRe8rj8I8a94LjC
-wCwtpyrA0wGD4JgTCWYSykNCuypNpKKN4U678W/Oi8stqSkSXGZcRP+X6nBk8glI
-uvlZFcgcSwRvfRkW5epZnQOu4+SBqxvH00+wGcxc41rajsK17NcwK5STlSNqML30
-j/zf5GjBCfj/6Dtc5LcvTU9CN2jYkl8EveCeL+JkTi6XE+zm9SjTsrSryFaZsufq
-ZBCkFUJDlsT5eALq06jmLZEebN9IoiRG9nPFVMzcx8OexsrjtZKJ0wy6wDgxUTMF
-oF0z7msB2P4FnfoVyQy631/EdOe/S6Fo2E8kcCIExwvGyJ5hL30=
-=O58M
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc53IwACgkQnowa+77/
+2zJb2Q/+ILmqrrFN8gXoT3ambkDKS2VTelg16WlIl0yDX8/87DTI3ViN/Yk3x2aq
+Xu2S0+heJ5h9yJf5qHkkMgOZ/Y76W9bKEhWJu3kjNAS36qPDx94Yf/Cusnm3ZQJJ
+F9DFR5mg+8l9Iphv+xd7cmAigSghwSB4pTo40InqcgckEEWUOviziCtxLHkK0hwg
+f0K2QMNgXTqZOYjXavrPUZQQltYvPFXFkPD+dIViVlqMjfvTYg3TdUsUPW9AVsOu
+CGAKAjqUM4ufN+bI0WZG1HMFPGRZ4qvqw1Y2f9ni1VczjT+G1kY0sbav5+AQc5Hf
+jDIhK4UzCppLisap1AkyonccHd5c1iKJTQ952APW5qNCNvIC08e9P0BZ6bgkX3O3
+852qeYf0Az1qGnMqyWuXrFF5LeEnCBQx+mYn17BHSaGFHsgX8k6sOV6mcz/N/5kx
+fZdNJlhcNUmp6qbK6uh2CA1mtL0Y2X6qik13YScZDOmeWuJBl5j9e2AT4qYbLHAC
+TAwTFHKsPFX1tG2+0dzUigpGgS3sci48MFND9zf0WSXd/560Uvys5E9JouuVq4cT
+BuyABs2VcOked14dqVGWwzZOWt5rE+F08F3cTDPnxRs7WAbgBB2rtPEMwISAbRN4
+vS/uiNU7KLt0PUQ/tyjAL3DvjgWP5OoUKEGRGlYj36qXbaGkYc4=
+=LJQE
 -----END PGP SIGNATURE-----
 
---vwgivp4achuhympv--
+--vsagr6ygcudiv3eh--
 
