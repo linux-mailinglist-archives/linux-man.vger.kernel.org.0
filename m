@@ -1,80 +1,82 @@
-Return-Path: <linux-man+bounces-2033-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2034-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4BE9D04B0
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 17:43:56 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 731EC9D04B1
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 17:52:59 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8C60C1F21987
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:43:54 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 726CF2823B6
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:52:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FDEC1DA0E1;
-	Sun, 17 Nov 2024 16:43:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41C171D9A78;
+	Sun, 17 Nov 2024 16:52:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AOvXQzle"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C91C+YPa"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE4F23AD
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 16:43:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B44C16F27E
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 16:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731861829; cv=none; b=SNWpdZ37AOlSZRmk50sKYz+S57MdBr6fF8l/aWejO9+UhNm6T91Jlc1yjsV+XuarqCPwwpWNbTL8/jA9mmpfRF7NNxg/NboF2r1D5L9xVWwLoPBiimurC47IpH9MrZyiAQfxfgTin6P2tqqnFIGgfZ6ZdylSeL+Hi5vPMaWk5G8=
+	t=1731862373; cv=none; b=KSTzvXRF0ZYlVBTvLuhtjnIqF6hb7WHopeQQAP+Qd1ZBPCqPA1kubO8qpA3ED1z1oBcioSJx7ntfbA712CcboMAJjOweidWnFu9RVUnITlEZQySGQ/10VcY6LW7Vn9j2BoLV4QrMKy6lVAEQYASvo950/dpHyC5w1HRSMFUKBW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731861829; c=relaxed/simple;
-	bh=QMBIZ3K0zG+jmyiz80DNkIMi7x+VDk82rhVwpEmUc9s=;
+	s=arc-20240116; t=1731862373; c=relaxed/simple;
+	bh=iMzuz9Onck3O2F7NfseggpDaoKIMU+nZXfSocdF9OX8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YPHARIrAnzwYVXxAEk3U64oUZ8S1wC0YUFS0hn3HOmSp3g+S1hZP9Of5Lleyzr05RZLeoNGnaMSkscROmMaIODeI++GvhGSBtzx+RaMAa0mKVsqs7yCoxAx5YM9ZDnkOe8tMPY7WatJv6gkW4vXdplo8UdhomygN1B1GFDkTH+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AOvXQzle; arc=none smtp.client-ip=209.85.210.51
+	 Content-Type:Content-Disposition:In-Reply-To; b=VoBQj0AvgPVUrijv1ih2S3J2g24RRGJgFWnG02qNyKpvebvMFjngr8QoE2rY1ozs7oWd0t0vYY+rK3Y3vycdx8kOGVK2uulprCd4ndUAUMcEHDBv7oCTuyroePV68kEc0ENWk7PF67ZPc1P4W397FJiKjf4kHqRw6rmoAOjLOFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C91C+YPa; arc=none smtp.client-ip=209.85.160.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7181c0730ddso1069676a34.2
-        for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 08:43:47 -0800 (PST)
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-29678315c06so153057fac.1
+        for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 08:52:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1731861827; x=1732466627; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1731862370; x=1732467170; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=EeabfV4cILzStAfzg8QN2uY3ipUyTjHJxaP09hKydXM=;
-        b=AOvXQzleBUBGvwENJI2TuaEXnwr97ZIXD4H/CBfUevKZOWD0GMU2hKaTcxjscgpwmU
-         JVc4eQt84kC254Age1EeeAQTCz9b5gq+rHoLutTcG1B7C71x7zKiTC/jzwkH5iETijWb
-         3b6YgFVRb1xYVhPr7BlfE1FpT1Sfqx+7gDtLFNOvmi+nEXrvRwdc9KKw26P3Fm/r7Xjw
-         Yy3mrIZWtdj4q+M1HhsPy7x09J8IqvB+jpevC/C96/uQn4kin0zait+ygJqtzGD4sX7U
-         Xv/218wEdTSo1Q4LcezBfggTMdCehlucSGDLEp2FOBCWI9oGW7NCH9jBKz7iT83lvbH7
-         ahkw==
+        bh=MlcKk1K7mHuoeFWXW7GLK9/cTImPL5r69l5+JlNeRyQ=;
+        b=C91C+YPappoTknfZRYwnejjGAkLKcoZ4n9OREh69mpDyULjNePp4RERUEGQ1RAHEsH
+         SnnlF1i4eNPsnPjOQfKTEFFRiuIc0YqeRXEQCsZGVh+rvAYO9E1p2w3PjfTX/7357SHR
+         TV1eZdSIbrGop/vFitTK305QSd+21FCsQajblPGUvjQa72+wa2Y8XqVZwJte7XCloE9g
+         JH7AxnBPlIU+lggVr+BWwwXRc/3mZIhlh1um9491x5EbIcDnJi/jF9qp7x/NgxXQPJwV
+         WGCEXNTKh4LfzFN+1+n3oc7iHtZEWRefiGnuwcJ7Ypc6EL86Th9Mq3K4Di1vWA55xm7+
+         mJlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731861827; x=1732466627;
+        d=1e100.net; s=20230601; t=1731862370; x=1732467170;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EeabfV4cILzStAfzg8QN2uY3ipUyTjHJxaP09hKydXM=;
-        b=HNa91NsZzfEkcOYLbCxg5F2oKPesYSx/i3FlPe/2Kok1+RYBnq+YGXrnu053EGy1AH
-         Gz6CZkdZ0EEQK+oDfFBJpOzxcx0zYpQKS+X5HEARNyblSMtbTo7Kcd0egysKvwjIlxyi
-         L6U0uLDV/fguiKvnV7TOCDzfOMCJD5D4KrbBiHjQ0S7hA4IMp1RAzBwjPz41VmND09Ax
-         9Y3unkvYPX//UJ6FIJj++OtRlvH7LNb7r2C4X+lBiHInhL3EO6H8rnrafWLIpLKG/2pj
-         znAbe6aj/NFA0D/uxQt8qFkECj74ygwNT72uhlTioC7dJfP7EZlNjnKO7Xl6kYF1VVdn
-         BTiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWRvEJDeww3qT78AWwQOpGaAvgt/eYXiCnA5ZZ0hLB4bUXAWtZ8rUu8GBjneop3kUA8mSLUXPizSCo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwyYhruNL+leOaKp24dckQL5T4lt6Dn+Gi7RjC0c07+zw+Atr61
-	XFZmPLdN4576knjm16kS6beZRDY9jKR2CuXJVJ+PvI52bAVsoL7e
-X-Google-Smtp-Source: AGHT+IEwFOdqyiUnsi5paUGqr8/dhUEQoCtD6cK4HaVFFoPKrH7pLNYOgGgIyYqdy0Fq3J+8wPcGeA==
-X-Received: by 2002:a05:6830:4982:b0:71a:4b13:c561 with SMTP id 46e09a7af769-71a779b34abmr8147619a34.16.1731861827034;
-        Sun, 17 Nov 2024 08:43:47 -0800 (PST)
+        bh=MlcKk1K7mHuoeFWXW7GLK9/cTImPL5r69l5+JlNeRyQ=;
+        b=dDI37CZ5yWD4nWnpGKyx++i2hsvq28rttvfm0cXFUpT3Toi0anCY3Y+wbfjlKARVdy
+         hhHuYf/AehsaCLxyNspkI8oTShDbHEJTITMddlJRpcEirTwSQoqR6C6k7lZTCTwV7dvV
+         EB0q7HvkfrHWTVIu0RZAcfSnZwT9kstPntOXX2nl1EjNl0y2IXzzwLITI7pbtT5MnX9Y
+         HARqOPWxK9RDRYcyJR9unfQvc1nRp3WVw+oKLvF94Ev5i3fuKtYA5XpLiGaE4a8z4Z/o
+         Ooxw2gltKeEgkQ8pxs2sukQJLvf8jKbSZQUk9juu+7sg8scQYf1C64h7qQgS8ROfkAWt
+         soww==
+X-Forwarded-Encrypted: i=1; AJvYcCVVCh+JrNEhXeBranvQPY753RkNfPAmj5BPm8Fpq0Pv68XtldaLWlBIxOyKGYdsozeck3HCJ2aT/Mo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdVo81E23zma2yAWY36dc1sXcwUju6N4gbtNNTUYdMP2o6sr85
+	CLxJhqJvIMpxZXefwishzvHfkZiQhhWeWyMlwJhJHWRrGwn3c+yjnt9akQ==
+X-Google-Smtp-Source: AGHT+IFsC8GZqGUVCy05oVOs6b4lplXyKobnP1AXUZ+pbkaF9Jv8SE1TL1BZcaJqfYqH9v7XMNk2pw==
+X-Received: by 2002:a05:6870:76ac:b0:296:82ed:12ec with SMTP id 586e51a60fabf-29682ed61b1mr449572fac.17.1731862370531;
+        Sun, 17 Nov 2024 08:52:50 -0800 (PST)
 Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-5eeabd51728sm2129308eaf.30.2024.11.17.08.43.44
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-71a78124c58sm2105239a34.41.2024.11.17.08.52.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 Nov 2024 08:43:45 -0800 (PST)
-Date: Sun, 17 Nov 2024 10:43:43 -0600
+        Sun, 17 Nov 2024 08:52:48 -0800 (PST)
+Date: Sun, 17 Nov 2024 10:52:46 -0600
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com,
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page proc_timer_stats.5
-Message-ID: <20241117164343.53rxospihkd4upgh@illithid>
-References: <ZznJfjcl7JIMY7y9@meinfjell.helgefjelltest.de>
- <6f36qk2pgcvkd4hijiwdafu5wm5olgbrxl5ywshw45zv4x26v2@s73psznizi2q>
+	linux-man@vger.kernel.org, branden@debian.org
+Subject: Re: Issue in man page pthread_attr_setschedpolicy.3
+Message-ID: <20241117165246.wokob2lw4if72cer@illithid>
+References: <ZznJfpN_LuCf-ERy@meinfjell.helgefjelltest.de>
+ <6teowwb5747ra73s6kt4egc44obtwtmuilcrmxuf4n5p2ruusv@uuuf5gsdf3cw>
+ <Zznh6miM2ROCvd5G@meinfjell.helgefjelltest.de>
+ <ewbluvbiuqurszt2nquemzv4v7lb6p6vlmqoob6k5wiwweptmc@6pex5535xuee>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -82,80 +84,85 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zqsqrxgimloccjty"
+	protocol="application/pgp-signature"; boundary="gk7oz6jbziormyke"
 Content-Disposition: inline
-In-Reply-To: <6f36qk2pgcvkd4hijiwdafu5wm5olgbrxl5ywshw45zv4x26v2@s73psznizi2q>
+In-Reply-To: <ewbluvbiuqurszt2nquemzv4v7lb6p6vlmqoob6k5wiwweptmc@6pex5535xuee>
 
 
---zqsqrxgimloccjty
+--gk7oz6jbziormyke
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: Issue in man page proc_timer_stats.5
+Subject: Re: Issue in man page pthread_attr_setschedpolicy.3
 MIME-Version: 1.0
 
 Hi Alex,
 
-At 2024-11-17T12:33:13+0100, Alejandro Colomar wrote:
-> Hi Helge,
->=20
-> On Sun, Nov 17, 2024 at 10:46:22AM GMT, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
+At 2024-11-17T15:33:33+0100, Alejandro Colomar wrote:
+> On Sun, Nov 17, 2024 at 12:30:34PM GMT, Helge Kreutzmann wrote:
+> > Hello Alejandro,
+> > Am Sun, Nov 17, 2024 at 12:26:16PM +0100 schrieb Alejandro Colomar:
+> > > On Sun, Nov 17, 2024 at 10:46:22AM GMT, Helge Kreutzmann wrote:
+> > > > Without further ado, the following was found:
+> > > >=20
+> > > > Issue:    inherit-scheduler =E2=86=92 inherit scheduler
+> > > >=20
+> > > > "In order for the policy setting made by B<pthread_attr_setschedpol=
+icy>()  to "
+> > > > "have effect when calling B<pthread_create>(3), the caller must use=
+ "
+> > > > "B<pthread_attr_setinheritsched>(3)  to set the inherit-scheduler a=
+ttribute "
+> > > > "of the attributes object I<attr> to B<PTHREAD_EXPLICIT_SCHED>."
+> > >=20
+> > > I think that text is ok.  Can you please clarify why you think the
+> > > - should be replaced by a space?
 > >=20
-> > Issue:    Other pages don't use FROM and until =E2=86=92 to - maybe ali=
-gn?
+> > Is "inherit scheduler" a name? Then it is ok.
+> >=20
+> > I assume the reporting translator read it as intrinsic attribute of
+> > the schedule, then the space would be correct, in my (non native)
+> > humble opintion.
 >=20
-> When a feature is discontinued, "from" makes more sense than "since".
-> "Since" means that it still exists today.
->=20
-> I'll eventually do a consistency fix in this regard.
->=20
-> About until/to, I think until is more common.  I'll also check.
+> Branden, would you mind revising this?  I believe it's correct, but
+> just in case.
 
-Where the value of unambiguous expression is paramount, it's hard to
-beat interval notation, like "[2.6.24, 6.3)".
+My copy has the hyphen, and I would retain it, because
+"inherit-scheduler" is an attributive phrase modifying the subsequent
+noun "attribute".  Except for some set phrases,[1] attribute phrases are
+hyphenated.  This one seems to fit with some structurally analogous
+phrases.
 
-Failing that, I would select a fixed set of English words to correspond
-to interval notation, and document that, probably in man-pages(7).
-
-For instance, and just spitballing here:
-
-	since	[
-	after	(
-	until	)
-	through	]
-
-I wouldn't expect this choice of associations to be accepted without
-some amount of argument--that's the advantage of proper interval
-notation.
-
-But, if interval notation is thought too unfamiliar or too awkward-
-looking for man page readers and/or contributors, such a mapping of
-English words to it might be the next best thing.  Disciplined use of
-the terms will be important.
+inherited-scheduler attribute
+load-based scheduling
+fixed-size buffer
+red-headed stepchild
+greased-up JavaScript programmer
 
 Regards,
 Branden
 
---zqsqrxgimloccjty
+[1] and probably some other idiomatic exceptions, because English
+
+--gk7oz6jbziormyke
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmc6HT8ACgkQ0Z6cfXEm
-bc4LChAAmix9Za9qELiXYTJ6UqUCF/oDf6gt/Qummf8av601iMC6cwyHF7dPhtqR
-sfzjren7Iy+ztAnsA2Kr4YBHqIWjZU6aHBlQfDLXo7rE5OHMBwlpe463QRdEe9LE
-sd7QgcKNT73P1TTe+O6wz4aydS4p/yrbcFF9mq8ncgbaybj9+I59mA+V+cLH0liP
-lzkBIg+qiEVatM60Z20Z1yBEXFTy77RSkqE3hDQ8GZC203rfkp0H6eX6bZh3Ls1O
-/nqhG3ZqP5H4E9WHxJ0YDiS080x/GCi8pLo3JJG1imlbmWfVYgyHabpo55Egbwsr
-4NqA+u/pwo0wkjRZ0gzkuIvZ7I4oswsf1W2KTm0K+Epm6qUocqnrzibxI4dQcIAH
-dbz7MgZ9w1Qnic0AehFW9DlrV3jVrei2Oyy7SlrOcN4/L5tP81ZdaTjqeUXkfYCD
-OdsTCMU2VdVYvupYsCOWnNYD9HJyQTt/n+5/xcHdTMXLPtWp3w4xLRnpm1Xithyf
-4r4e3UEnzfjZ1F6OEf8WgRF8ImfogVNRPwPizYHJo/48kDmIxMTJrbGCBiKEeyMZ
-yFtsf7kJQ5Lj08W/Zz4dZUm7g5/9KJLkKc+f4bPfvwyWKBPa4WJaYS6E2eGGusNj
-9kT5F+x5TtRrIogUZmmWijAEXghfxcdti9sNYJci8v4FPMbzs2Q=
-=lUOi
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmc6H14ACgkQ0Z6cfXEm
+bc5iKg/+Khu2+i44d3Cbj8tAlPMCcIEFy/UOTFPHEnqNNPragM68tBEc0jsNXH95
+IjS11oSbJzaOTX8N9x8r+gqniXEJESHjwJ3qi2cbSfUnUksoW6/0QFwHJimMjWc6
+H7W1mBg+H03owYyaeS/LpUUT/F1mzBTVEgC4uk30j/LhvJQ6EW0xgi+u4d9kikzq
+zxOUlIkFsXe8zXmfQIZ8+uIYf1ysYeO8DiC8/6JhmlZuRdBzipzZ9i0HVIRmFiy5
+5B0vpEMrsZE0YKVshpUllPO1BQ2yajihRkUMx7rDJMbfccfZupBsFkbGg0IBhq/x
+/AIL2+7FW0Zvl7r2fPFNJAmcoxpFDJDaK7P4easlXMC0PAqWOrDcOK682cT4EXh3
+Sg3A3Hew65zPwPFm1bF1+KyFuavRtgzc4boNZZT45ZaUeEN5lgZcK67pBYehPS7e
+HwmYkgvuuU22S4J5Gi/i/7VC84ti7zSu490MsOF3O2qrmQ2c9gdoI1mudcq9g5fq
+8O/9BBZYpyKaDvthTm+L4JY9CQXWtm/b2uNTOAYi0jSWCFURwJQ8HA/s714iozNS
+bAYNkafBYYbb5taujWgse5XrkOPGgfSuLhYUJx6e2PH11KSdCMgJGN/AfZcWV5l1
+3syveHSkAl4CmJppkfvqfKazlIGoKbuU5DoCm4dbXOC4Nx0Uz+E=
+=PXWi
 -----END PGP SIGNATURE-----
 
---zqsqrxgimloccjty--
+--gk7oz6jbziormyke--
 
