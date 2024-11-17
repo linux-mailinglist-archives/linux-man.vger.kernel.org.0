@@ -1,53 +1,54 @@
-Return-Path: <linux-man+bounces-1970-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1971-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 313719D032B
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:04:36 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B709D0333
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:10:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EB3922831CC
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:04:34 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4104C283A58
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:10:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FCC613AA5D;
-	Sun, 17 Nov 2024 11:04:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD1C413A27D;
+	Sun, 17 Nov 2024 11:10:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TnHQ31Ie"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qa9VvUT9"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18717E0FF
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 11:04:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B09326ACB
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 11:10:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731841471; cv=none; b=FBD/Exw+0eGW4lSRHFc2uYbIeI/2v/56SU5bUYYcG8n+RWJRCGd1xKmf4eWmKdZEEVLmjJWnkVe2AmN7CRG7H009sGDK4exg7pBrxjCd2ln80LVoJnDUtj4VULG3c6Mx1HZCxSFfUAAT7088tQ9NLFDK8M/V91i2r+jbqyj25kM=
+	t=1731841847; cv=none; b=Hd1nONJYtnDNyQXeYO1F5NyRLnbn2BtcD3J2pbVVYZzMBBsZ/NwlzzYJ/jU2SjlbXaNl8sKP192zauCvIZzmpm3LYmfVgZW3du/jrnbJT2GGcQji4nDS1U9aGXsrRHuyJxjixkeIf3vGHviu1J3v3S/P9UTLPVPJDG4+LuuomFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731841471; c=relaxed/simple;
-	bh=SztriQ2kyJ4GMPUmjOTBhlTjxjBm4Zsbk00QUKpEM9o=;
+	s=arc-20240116; t=1731841847; c=relaxed/simple;
+	bh=Z4jwxhmQuAM/RcIz+ar3tiSGGbm6zIGOmosefFpx84Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MO7rm/AfjxZ8sJb/FLauI4Ywn4JNzWiB+KGQhGcHktAWCPvCFred/6sDiR3Us5yuh9JDsbQGTH5cjYeRSpz6buL7fe5kIOWvZsuuGLw3+Nav6gvd4/BOXWQbcrj/2fQVAiIzQEVhiyMYYP8v0LN47L8tty40XSFdn95VG6mtwTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TnHQ31Ie; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2A1EC4CECD;
-	Sun, 17 Nov 2024 11:04:29 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=GfG0Nd1cEt4l4okCJg32BsdLE0ZlHKOFvg8C7w8gMZfBbO0Qlcyow5OYiHWH7B5m11cRrZrrhC8ZWAEPuOkor1PyVQFBjwmmHVmpdlTG9uO6B9AeDb8SWtZOCM9X+7JKaBYLXt/tnuJqwY262+XxQdiaGjRONVF3l3YXpdkF6UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qa9VvUT9; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1BEC4CECD;
+	Sun, 17 Nov 2024 11:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731841470;
-	bh=SztriQ2kyJ4GMPUmjOTBhlTjxjBm4Zsbk00QUKpEM9o=;
+	s=k20201202; t=1731841847;
+	bh=Z4jwxhmQuAM/RcIz+ar3tiSGGbm6zIGOmosefFpx84Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TnHQ31IeJ39D5xlA2DbS/P0tCec3q4AxcQjgESX4jeIi/WbOR5JLqfAQ0jnu3Als6
-	 Qf5MQZbTJuDGhLy0ui15pWMCzFapwvkXjn1FCq9b9MqAmUNISmZFgg7em1KAGzpKmE
-	 Xu9FHpDGqsnA5tI7ELrxWrHs0HtOf+1kxRPrly1TM4kDvvF0bcU7d20Df41Gksfmpi
-	 zLy6K/o55nCKT+JWL74pabC+8xpWQjPlEFaDlKOtVEtXI7hV9wlIRVyqDEdJSdLmu+
-	 Uy8CwI9MecafJ0MYY9kkd3odLK+Ddak3Kcv3jifMHpQWvqtQV9EugMvFSYuW/ZdNYc
-	 +X5lXL4+esZww==
-Date: Sun, 17 Nov 2024 12:04:27 +0100
+	b=Qa9VvUT9LHdptA6YXvmzIbNLk4aKtta48SvSVqqqghmOClg2KXwe+8s+SgqTt1DLq
+	 WXIebBwHlSViyiANSpVeFTuzcSFq9R9TG5TGQTNLQw7GeBLJAupi6jRejZ4zTbPrhL
+	 pgmU7KIFFg1xi3qKIQNqDDATBA+B5SsuDHhm+z/Oa/AgPCFQildf188Rq7XGAygWxt
+	 cRixJ/qBYvCpT/zTAb/7WDBVq0CJk/kav2+tx9LAp1JXfYeVLVMBd6b9YN/Um1FV/5
+	 I6ACCbKmHaAZf2TDO4FRCDpinZESeeLp4IqT9VZbxt8qNA2lr+2tuNfUkd9thYCHX2
+	 dXFx7iX7YkaHw==
+Date: Sun, 17 Nov 2024 12:10:43 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
+To: Helge Kreutzmann <debian@helgefjell.de>, 
+	Marcos Fouces <marcos@debian.org>, "Dr. Tobias Quathamer" <toddy@debian.org>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page getrpcent_r.3
-Message-ID: <y65shlzo76e6enllyqx6eh4kdhkfc3a656ayhw376hjqv23n2c@fhp3qe7fshoo>
-References: <ZznJfcq7xl4n6oXL@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page motd.5
+Message-ID: <r6pzxg3yr5g65bh3go2g2visovpymilhyvsmnf2zh2xjtnl4m4@cgngga5l5ed6>
+References: <ZznJfQAa4S1cRBE5@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,62 +56,116 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vumlpl7xifa67oj3"
+	protocol="application/pgp-signature"; boundary="iqroamx52zdu677f"
 Content-Disposition: inline
-In-Reply-To: <ZznJfcq7xl4n6oXL@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZznJfQAa4S1cRBE5@meinfjell.helgefjelltest.de>
 
 
---vumlpl7xifa67oj3
+--iqroamx52zdu677f
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
+To: Helge Kreutzmann <debian@helgefjell.de>, 
+	Marcos Fouces <marcos@debian.org>, "Dr. Tobias Quathamer" <toddy@debian.org>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page getrpcent_r.3
-References: <ZznJfcq7xl4n6oXL@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page motd.5
+References: <ZznJfQAa4S1cRBE5@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <ZznJfcq7xl4n6oXL@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZznJfQAa4S1cRBE5@meinfjell.helgefjelltest.de>
+
+[To +=3D Debian developers]
 
 Hi Helge,
 
 On Sun, Nov 17, 2024 at 10:46:21AM GMT, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    I<result> =E2=86=92 I<*result> ?
+> Issue:    Missing full stop
 >=20
-> "On error, record not found (B<getrpcbyname_r>(), B<getrpcbynumber_r>()),=
- or "
-> "end of input (B<getrpcent_r>())  I<result> is set to NULL."
+> "On Debian GNU/Linux, dynamic content configured at I</etc/pam.d/login> i=
+s "
+> "also displayed by I<pam_exec>"
 
-Fixed.  Thanks!
+That's a bug in a downstream patch from Debian.  See the patch below.
+In that patch,
 
-Cheers,
+	+.I pam_exec
+
+should become
+
+	+.IP pam_exec .
+
+Woever does that change, please add:
+
+	Reported-by: Helge Kreutzmann <debian@helgefjell.de>
+	Reported-by: Alejandro Colomar <alx@kernel.org>
+	Suggested-by: Alejandro Colomar <alx@kernel.org>
+
+Have a lovely day!
 Alex
-=20
+
+
+alx@debian:~/src/debian/doc/manpages/debian/latest/debian/patches$ cat 0007=
+-motd.5.patch=20
+=46rom: "Dr. Tobias Quathamer" <toddy@debian.org>
+Date: Sat, 6 Feb 2016 01:22:57 +0100
+Subject: motd.5
+
+---
+ man/man5/motd.5 | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/man/man5/motd.5 b/man/man5/motd.5
+index 9de8eea..2ddfae3 100644
+--- a/man/man5/motd.5
++++ b/man/man5/motd.5
+@@ -12,12 +12,20 @@ motd \- message of the day
+ The contents of
+ .I /etc/motd
+ are displayed by
+-.BR login (1)
++.\" Patched in Debian, maybe other distribs
++.BR pam_motd (8)
++.\" End of patch
++.\" .BR login (1)
+ after a successful login but just before it executes the login shell.
+ .P
+ The abbreviation "motd" stands for "message of the day", and this file
+ has been traditionally used for exactly that (it requires much less disk
+ space than mail to all users).
++.P
++On Debian GNU/Linux, dynamic content configured at
++.I /etc/pam.d/login
++is also displayed by
++.I pam_exec
+ .SH FILES
+ .I /etc/motd
+ .SH SEE ALSO
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---vumlpl7xifa67oj3
+--iqroamx52zdu677f
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc5zbsACgkQnowa+77/
-2zIXJBAAgZ6kaiETe/gYtGaQuKMChqb1SMSMJPbJ37uVMkzP1xSbfYDAII4+xRjg
-CPEBlPW1EgBKtkAj9iP9RQVO+8ZKqtDgnHx/J09VFcNVbDt4UCNWPt295ofgu0nB
-cgAJ3gT1e9VRTNH2kC/pyYrnvuaQ6zRkp5r/etQA8RGHg4JFJ3x4C6IQlNaFuicC
-H4tg+iUFKeMBW1BRKjUMbWYDYkKLTD7FdzKYiu9gyyQJuF8a9qNvgNkgFK74xG8N
-qq+BJpXn4fb5nzbbx827t0FXyKE3sZ4BaXsjZQ6jzNd8g3vDP7MjV7edXeZtBV+Y
-pU7ZYAe6B5DICjNy3vPt21zDGnB2cPUQSIL3+odBV5dg0TxLNv8J7piwq4k7caHr
-i53QlwtBmiTwis2hzF4xEcQoRjjHuRamyToHvQZPc+kDOvcVTOfpPk7wVu7dA5GR
-tvozR6yryajpb0HdNoAn7A9ThLv8+rAiCKIlTPtHf1/9b6Ws3vKnGobSjqAz0kTK
-YR+i/GQNjSRVIn79mZ5IGm1elHOI/sN5sGHwURGcqjj1TlQYgqCjrXwK+nMa96ze
-6L2sU2ggVFMA1LWQzti4nRT/rl6RinV2w7ugkIlgoyrkTZqKTRrWBo1YwqDHYjdV
-SSnh7iSyWPg79aPpoJpZb66CQamM+BoUoXSiL9OZT9ROrU7293k=
-=TjQ9
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc5zzMACgkQnowa+77/
+2zK1iA/9Ft0X/Cq1+Lbm4mkxEMbjpHhS0uAJ/p70YGDOY/gauKQurc5fu2XXWf9+
+UCt+GsqevGxfX5BDWE1yYJxw5MMdbB0mmvDokNSdHUOQI2eFQlsezYlEdOLwAxgM
+mlS42iqKs2unZH8XzO9Px15+qymLnBrvFDM1xjijxMZn8J8WvOvxUrN3I3NK3tmo
+kMfC+FTw67LOPTo1CMbjTvKBAQQ5lzTxkEPz7zv7Y4mOzll4xWAg7oL48QgvRqzg
+23o5vl6LJffJ594KCtcoyh+CcU/zrhF5ezr2Vvm4ewcpPIBHM5UEREpuMYNjVGBy
+76pa7JOD2KjjNEsjJfOJRyMB/7hs5BimngOoZg4Phb2+0RlBCxE9tljjgt3YbHSD
+uMnwuXce213FDtDC6aDUo814vf2Is+UecCCpNRG0bfxe8kCfnF5BaOQyZkVR27HG
+bmmv9fwudTw1+1dxkd3lakJfCTARhq9BQEKui0yBOMRc+EfS2ih5mhbvpmnVmy2F
+2wYc603oSLsUPUlIOz3eNGLQ424faXrRl9KlRWV690qtBjoGDTmjM91swhtoD0D+
+E34W9S3pFw1HmKH35lK46T0lSk0jcgq1nMFf+v8RAZaggDenHvJO3BMVkGmDSYFM
+Lq8Ng0gfqp6yUUfGmko0GTkQV5ChKbWox/qpyc3ptz6v1NXtieA=
+=2Wyz
 -----END PGP SIGNATURE-----
 
---vumlpl7xifa67oj3--
+--iqroamx52zdu677f--
 
