@@ -1,56 +1,55 @@
-Return-Path: <linux-man+bounces-2037-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2038-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83369D04D7
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 18:36:42 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CCB09D06AB
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 23:27:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 677D7281C9A
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 17:36:41 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id BC5CB1F21918
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 22:27:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3649A1DFFB;
-	Sun, 17 Nov 2024 17:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 341931DD880;
+	Sun, 17 Nov 2024 22:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKsd1k7j"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cc44fYE0"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E895415C0
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 17:36:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E765D1DD9AB
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 22:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731864998; cv=none; b=Czflk+3ReL+Jj2YyQHStd5g3Ag64yIIw+wB+j7xFUxz7fKyII0kA5ii7FIRGUuP705mS7tqfFwOAd5CZ5vv8+tyTVYbjQebKY2IaFX0q5E1CGi/CGqupC2xRV+e0FfCVgXOEeoMtroqpMIt9Q3wcXDo9DMKQb+TRmiiF/ZKQnFw=
+	t=1731882439; cv=none; b=mT/SFllBVgNlSLLuWal/wJcpoJx2y3V/bmru+wQ0pJp99enNweVUILxcZl+rrI4trO/s4/fvXMAXNFLmcYgF5xQb2xZV5cdIqAhrwUHeyYwi+XflabqZAPhBD3yzOoMFPuv6wQ10Fh0mdHPUNfOAlVa3IrUPV+1t2DjNZbDi+0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731864998; c=relaxed/simple;
-	bh=i7frr0qso+VrLPEV3RYhkfCENWS6PAEv0VtXpC3uefk=;
+	s=arc-20240116; t=1731882439; c=relaxed/simple;
+	bh=xKcGX+6ZZj0BsLQbmcxxnJc5vjusSHmG3SIIpO+qQSQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hA1w7oSAvEpsbpy0tdnQbDgys3+eCnV4WWhVpCz/XpRoXfR3USAalo6Gb4VHSwKh0KvQGMnTjptcyXcvqcFMz8CrjjywBpLMv6tRFRBPVfnMOumHyhvwyh3n5KlFTNVgCmOdYGmvIljpPnt74llGPucWDLEaf6H39akR24X1Nww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKsd1k7j; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878C4C4CECD;
-	Sun, 17 Nov 2024 17:36:36 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zap6Wv3ySvEPRrmHdcsQjxY6t5NGa+gdg+7jHXAhjNv8ljzv/krx4i14hAs8fQRpoxOQHlI5Z50itKdyB/NEJevA297S7/LeP8UJINfN0jg4ZwmNWvx2UncQ7s/EjoPwF+f9ievXK760Ns5Pn/NiNjjREqFOaNT6sGt2pvgyxC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cc44fYE0; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B0AC4CECD;
+	Sun, 17 Nov 2024 22:27:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731864997;
-	bh=i7frr0qso+VrLPEV3RYhkfCENWS6PAEv0VtXpC3uefk=;
+	s=k20201202; t=1731882438;
+	bh=xKcGX+6ZZj0BsLQbmcxxnJc5vjusSHmG3SIIpO+qQSQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cKsd1k7jwD5T1ILT9qK87qe6QCMxYUZfWZQ08t0RvA44WZ0TOIf+q14ahQQzkmCTE
-	 Z1HOlrDQgEUEIf0gBRa25KaePZg1b/0uf9K8+ygprA4FIsufZh9iIS398aXmRCoggC
-	 CIzIw50LJ+3SNQaG7GU022iicu0jNhgPyf0tg4IXR1n07ts1r8kt8B7TzUPFXM46Wm
-	 WwQD5lxM5QYmYVMmyVYrh94reGfbK/52y44ABSUAdwgiAOzi19bPQBNccG8OIXyP4/
-	 zQKG+g+fFubZz57xbWviERM72p7kyoXvI+z+CLxVv+5jFB4E76+KuUHOhJzygTwiof
-	 WN+wayslMFQRw==
-Date: Sun, 17 Nov 2024 18:36:34 +0100
+	b=cc44fYE08dTwSmLp/waiHbnD+0sTWbXML9c9ZRzt6ETqdkpUf58qoxY8iXqm1T7Rj
+	 fUfHTp9Y7ly84lI5WI4q5rq+nDvOOwxqX2V7N44FfquxpoFf7TtfEjEjB2bCp0RebT
+	 G1kd/Pnwya7dfuqEyhThyDi+56z3+jupiUzJxykWlwR2XFvQba2g4mOJjFeG/CSTfM
+	 U2+Tex4lx7n+5tC+zm44T5uNIM1Y7+coRBNN2ukpGTTROhvNtzYU5F8LEk/jdWLNnx
+	 nGE2LbWxBSiCVffddVEsocXuE6E7QSiIy12ntKXaaQw/XqreLB6VioLi5r7Yu8EzZ/
+	 1QRtxhwiaD01Q==
+Date: Sun, 17 Nov 2024 23:27:15 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page proc_timer_stats.5
-Message-ID: <wezgpkwwh4nybx4m5fw6zcdxznc4p3cooaihdaby7g5p3njyzg@ctmx2klxtkjc>
-References: <ZznJfjcl7JIMY7y9@meinfjell.helgefjelltest.de>
- <6f36qk2pgcvkd4hijiwdafu5wm5olgbrxl5ywshw45zv4x26v2@s73psznizi2q>
- <20241117164343.53rxospihkd4upgh@illithid>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, 
+	Jakub Wilk <jwilk@jwilk.net>, "Michael T. Kerrisk" <mtk.manpages@gmail.com>
+Subject: Re: Issue in man page mount_namespaces.7
+Message-ID: <7elpn3pm64eppgssdjxww26rha27p5sgvaaan52yuklxa62byp@d3wviepzambt>
+References: <ZznJfoZZNXyYl_K-@meinfjell.helgefjelltest.de>
+ <mkpssyao4vvayy5w4ezm7hakazt4qsliay2x7lrjexe2tzpvck@uuqnjwizw3ex>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,124 +57,130 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gg5iq3x2eijepev2"
+	protocol="application/pgp-signature"; boundary="jfutc6peposcot5d"
 Content-Disposition: inline
-In-Reply-To: <20241117164343.53rxospihkd4upgh@illithid>
+In-Reply-To: <mkpssyao4vvayy5w4ezm7hakazt4qsliay2x7lrjexe2tzpvck@uuqnjwizw3ex>
 
 
---gg5iq3x2eijepev2
+--jfutc6peposcot5d
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page proc_timer_stats.5
-References: <ZznJfjcl7JIMY7y9@meinfjell.helgefjelltest.de>
- <6f36qk2pgcvkd4hijiwdafu5wm5olgbrxl5ywshw45zv4x26v2@s73psznizi2q>
- <20241117164343.53rxospihkd4upgh@illithid>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, 
+	Jakub Wilk <jwilk@jwilk.net>, "Michael T. Kerrisk" <mtk.manpages@gmail.com>
+Subject: Re: Issue in man page mount_namespaces.7
+References: <ZznJfoZZNXyYl_K-@meinfjell.helgefjelltest.de>
+ <mkpssyao4vvayy5w4ezm7hakazt4qsliay2x7lrjexe2tzpvck@uuqnjwizw3ex>
 MIME-Version: 1.0
-In-Reply-To: <20241117164343.53rxospihkd4upgh@illithid>
+In-Reply-To: <mkpssyao4vvayy5w4ezm7hakazt4qsliay2x7lrjexe2tzpvck@uuqnjwizw3ex>
 
-Hi Branden,
+Hi Helge, Michael, Jakub,
 
-On Sun, Nov 17, 2024 at 10:43:43AM GMT, G. Branden Robinson wrote:
-> Hi Alex,
+On Sun, Nov 17, 2024 at 12:21:03PM GMT, Alejandro Colomar wrote:
+> [CC +=3D Jakub, mtk]
 >=20
-> At 2024-11-17T12:33:13+0100, Alejandro Colomar wrote:
-> > Hi Helge,
+> Hi Helge,
+>=20
+> On Sun, Nov 17, 2024 at 10:46:22AM GMT, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
 > >=20
-> > On Sun, Nov 17, 2024 at 10:46:22AM GMT, Helge Kreutzmann wrote:
-> > > Without further ado, the following was found:
-> > >=20
-> > > Issue:    Other pages don't use FROM and until =E2=86=92 to - maybe a=
-lign?
+> > Issue:    mount point =E2=86=92 mount ?
 > >=20
-> > When a feature is discontinued, "from" makes more sense than "since".
-> > "Since" means that it still exists today.
-> >=20
-> > I'll eventually do a consistency fix in this regard.
-> >=20
-> > About until/to, I think until is more common.  I'll also check.
+> > "The propagation type assigned to a new mount depends on the propagatio=
+n type "
+> > "of the parent mount.  If the mount has a parent (i.e., it is a non-roo=
+t "
+> > "mount point) and the propagation type of the parent is B<MS_SHARED>, t=
+hen "
+> > "the propagation type of the new mount is also B<MS_SHARED>.  Otherwise=
+, the "
+> > "propagation type of the new mount is B<MS_PRIVATE>."
 >=20
-> Where the value of unambiguous expression is paramount, it's hard to
-> beat interval notation, like "[2.6.24, 6.3)".
+> I still don't know what to do about this.  Maybe Michael has an opinion.
 >=20
-> Failing that, I would select a fixed set of English words to correspond
-> to interval notation, and document that, probably in man-pages(7).
->=20
-> For instance, and just spitballing here:
->=20
-> 	since	[
-> 	after	(
-> 	until	)
-> 	through	]
+> For context:
+> <https://lore.kernel.org/linux-man/20231101162310.u4b46gii47yjhsgt@jwilk.=
+net/>
 
-I kind of did that, but it seems I didn't do it well.  There are a few
-places where it's not consistent.
+We finally have a solution to this report.  I have pushed the following
+commit to my server, and will tomorrow push to <kernel.org>.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dfbbb5b3100f38721911f91caa4bd1472213649f8>
 
-']' (through) is something we don't use.  Normally, we specify the
-version when something was fixed, but not the last broken one.
+	commit 842920e7c877c93f0bddc17d4fa1710d6ce46330 (HEAD -> contrib, alx/cont=
+rib)
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Sun Nov 17 23:16:59 2024 +0100
 
-And about since, is it correct English to say "since x until y"?  Or is
-it more correct to say "from x until y"?
+	    mount_namespaces.7: Use correctly the terms "mount" and "mount point"
+	   =20
+	    On Sun, Nov 17, 2024 at 04:12:24PM GMT, Michael Kerrisk wrote:
+	    >
+	    > A "mount" is a tuple consisting of:
+	    > * a mount ID
+	    > * a source (e.g., a device)
+	    > * a target or "mount point" (i.e. a path name)
+	    > * the ID of the parent of this mount
+	    > * other stuff (e.g., options)
+	   =20
+	    Reported-by: Helge Kreutzmann <debian@helgefjell.de>
+	    Cc: Jakub Wilk <jwilk@jwilk.net>
+	    Acked-by: "Michael T. Kerrisk" <mtk.manpages@gmail.com>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-In my head, it would be:
+	diff --git a/man/man7/mount_namespaces.7 b/man/man7/mount_namespaces.7
+	index 75ccfc80d..a1645e9e2 100644
+	--- a/man/man7/mount_namespaces.7
+	+++ b/man/man7/mount_namespaces.7
+	@@ -985,8 +985,9 @@ .SH HISTORY
+	 .SH NOTES
+	 The propagation type assigned to a new mount depends
+	 on the propagation type of the parent mount.
+	-If the mount has a parent (i.e., it is a non-root mount
+	-point) and the propagation type of the parent is
+	+If the mount has a parent
+	+(i.e., it is a non-root mount)
+	+and the propagation type of the parent is
+	 .BR MS_SHARED ,
+	 then the propagation type of the new mount is also
+	 .BR MS_SHARED .
 
-	[x, y)		From x until y.  (I think we also use
-			                  since...until somtimes.)
-	[0, y)		Until y.
-	[x, today]	Since x.
 
-I think those are all the common uses of these terms.
-
->=20
-> I wouldn't expect this choice of associations to be accepted without
-> some amount of argument--that's the advantage of proper interval
-> notation.
-
-I might be convinced to use interval notation.  I'll first try to be
-consistent using English terms, and after that I'll consider a second
-pass of changes that might transform to interval notation.
-
->=20
-> But, if interval notation is thought too unfamiliar or too awkward-
-> looking for man page readers and/or contributors, such a mapping of
-> English words to it might be the next best thing.  Disciplined use of
-> the terms will be important.
+We finally have a guide for differentiating mounts and mount points
+(thanks Michael!), so if anyone finds anything that deviates from it,
+please report it.  Thanks!
 
 Cheers,
 Alex
 
->=20
-> Regards,
-> Branden
 
+P.S.: Michael, is this use of your addresses ok?
 
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---gg5iq3x2eijepev2
+--jfutc6peposcot5d
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6KaIACgkQnowa+77/
-2zLNxw//Xts0OT1LSXlxT+lqkpoPOnOKDbvkMchD8hoc74WnzYiuJi2YFbBEBoR2
-7vbH49/k1ZLs1FIIYd4+q8xtb2MYvrc1z5sQln+5DMlJSLCz30OqoROzIr+PAdpE
-KorJmARmlmthx6yjCZhwGdAOnEOrv7tKvNF3qApdxonPr1ie4V6EPDPxkZZNkFDj
-kyH+QYtAiK9LKfUnGd8aKgx7Rzv7hASiXku1wMPtD5buz7QpsszNoztfdN9qpDfN
-uTDIL70K0VQW2kpQneaVS3jt6DeGUVH91M3TL8Q/4s2XzSaXT2cTsJC4FFcy/gK6
-vqI6ruY2NrYIxhMkdOJz/Q1lL3ZK+NM0irnmsZ044l3hIYHQ/X8QJkXa8Nnr8nfF
-kxnQzNV7GDiPNrHF/nnUgC3aTPREcqS1ztk/6Ga+QSqpxAhGQ6LJ+OoYJ8s2y9c6
-D4KrXARK9sKeKmsrc/PnJ4LKYq/6FoEZfzdR7i/OHOTnKmgn/XnemNf5bh9b8bHJ
-jbC8/zNv0nDtbsvVBKLds1iYOIX7oPq9lCFijsynB6gDCEtdIGDdU4znRNibsJ99
-+6/lLg3vmzHPLNDnJaSzT1ePE9z0AhmClLRjjkSM9sOiXbf5b26Qt3eAf7OKODid
-eqeILgewviJmLfhPmrzeWMffK2qF3Z1Sh0cs/w8XS//uvhSlWk0=
-=kWIR
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6bcIACgkQnowa+77/
+2zKA+g/8C3b+h9eR8VkvMEIO1GZK/vQfkNnKwzOIJAjHWKJ/Hwckk0uvnIJVh/qW
+A7IUMKsWKcqZ4BhCFL3IHcxij+GBnKP6sYryhkiVQ2JfLlTnFLBwZcE1c7otduRz
+ZNZrUSBOMjgQ26NFqsEnlsgWsX0h74Un+sYlYvMSVNrjUt53MWfZuVRUtHaIVjlt
+6kYhLV4HUf3gXypYjj55qA0NgSouYTB/nO9XP9emCfBdtVBY6/wdxZfIWRsIK4U9
+n8fLB25Jku1OZ6GmwxRLXVOpomvHiYBP6xh26//YJn925gKHZTO7fZTdZFpy36vX
+joeu/jcXVirlSfZuXhlUY5nkTS5WTb/+JdoE57rQMcAMCapRE7mi9gCMTEr2jpzb
+0F7Hk3xcdlytZ7gdytbzm8svNHPD59Badc6a5JX5DdI8f/7XMxURUKzSgM2cElUY
+XBaY8expTAxU4iCltEo3Vh7Ijp4BdRw51fQvKzy7ljt7z3uNE2Jqyqwbc4lz2iqd
+vT3RuTi+pJ41fkLxquaihdStFw9mWP96txbVCGttv9smVpy6B/laR80EoX/eyDIz
+boCM5LVb5h/lSyagjgsoUIqCYS5Z3qz16yqm3FCJJ9ig5A3Q86uXmQ+Ymxa87rCk
+aEZ1x549kcvZlSFVinJ/45zUZjZ+q289LHV2t/N2IgTNdn3V+AI=
+=q4d+
 -----END PGP SIGNATURE-----
 
---gg5iq3x2eijepev2--
+--jfutc6peposcot5d--
 
