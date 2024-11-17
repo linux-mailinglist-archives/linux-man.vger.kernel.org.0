@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-1938-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1937-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58ED99D02FD
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:47:03 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E61D9D02FC
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:47:02 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 155762849F4
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:47:02 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 429D6284AEF
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:47:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 56CA317A58F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 167E180C02;
 	Sun, 17 Nov 2024 10:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="FfM4CGjc"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="RXel+zrn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A178717B402
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1B917A58F
 	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:46:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731840400; cv=none; b=J4a4DHEzD/AVSN8EeJUOfSojP5e3ovN6Z8DzE/pWpGCEqfHb6eQ74r8WnCjH1gfE027Ve6Lih+7CHTJ3p7zrb2eYHCQtgJW86/GI0jlg9XpibX8dCqc26uV+9Wc/YlJIvYvbpxkuSMHJbDRzzYuPlcy/MvO88DjOQ2Lmm6zMjXo=
+	t=1731840399; cv=none; b=T1EMIXu/6Hwylqd7sGxkeDLwSAzwrXvGNi8rlZITl3S4YgePx1WTjti4YbV8skm9WNwoXA6xKbbnhSgUU1sNUqkiKSa7Fau0IAm9iAe5u+Edtzia+iOOhFa7x+7xs6rIHm/yXqcj7m/Hep1quAbUklJr9mKkPvHaxjaEmVhWQf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731840400; c=relaxed/simple;
-	bh=yNQp6XxNOOdVjPKGPz3Ds+/wkIwmG82pnLFrxG9hxDc=;
+	s=arc-20240116; t=1731840399; c=relaxed/simple;
+	bh=L0PBs2pOasBC1YOCJ6JDb7gBEX34UCBvAID/DhSzb9M=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ConmKgZ8izVwwEIa/sHsTkqqiWI2BriYTLRKl12XUVx5sMi2z932+e36zvBRL4lwsJnIvAm7/tNgiPCiqZybuuGvx68fp+Wgj6ecS08ILd0iCg200QnW1V5ZLBrIF1tg+buWOGF/Fb1oPaavfqI1GKI6yrBDMwjqQjaYPDtcLSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=FfM4CGjc; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=EN5CgSLEY07l3uE6J7nqklCThwNjp8+2h1owwsjsSBRZYapHtF6VToVHx6v80of3yopx69pOrYnaxPe0aioDKUv3hmCkymOFa/C4vdu2e8OWl8PTNj9Ptho1+hO87kCTrsBomz3cVo7A7n3qGZJT4+tHPrzPpKz1R8L21v1H4sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=RXel+zrn; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1731840386;
-	bh=3sqaiqwxNy+GXVG10ULD9RmZSDJs3x2mK5OFCU7lz4o=;
+	bh=ZOeDRV1TQIkzm5XOCJBP1+WdFEFSblxAea6OWcTdbAE=;
 	h=Date:From:To:Cc:Subject;
-	b=FfM4CGjc10sgje74d/XE/h7r4KFyKvv93alJAw5hXVlbZWBrOmgkR29qDbVFm4BOU
-	 0Cxg/4xPAo+FSDhtlPGm1VgdYa3pz/sJKocVK7I/7unL9WRQaQueWSA0oJt3f/xpqq
-	 JaFbYp4uU1G7Tw4yHOVf/j672S+PEyOzvNRvyHxEJZiESwwMarzYSEpgUnU+VcDx3v
-	 pZXZnUj/AhDyo1ffLAFhV5Djr6jrSLmcu9Fli5xkJNrwxuE4lx7uRbOlUsJQ3lxVua
-	 QiryEzWT7FC0RolUDO88HkmptvC0hUE12UgEmvQLh23KUs4rjuQpMHghtwkvbFTUic
-	 zHenLlOBHQGew==
-Original-Subject: Issue in man page getent.1
+	b=RXel+zrnUMsaKlMqiTx0BOSWTxn2Huq50jgn+pI8yhaYfP6z7lkPzIM2W0ZrYXEFO
+	 A7xqMwS2BjgGvyHmRLCAy4l2GnhJFFgLAcTN16D6dQpmwKc2tuZqi9mTr6GRH65UyD
+	 FKdRl3pQCOwx/W2dxjAeYSqGMWTBcfLo1IlsK0xfxBHRo9+ZTZ/sTGWA24daENwN23
+	 XhYlxd0x3Ff5tzB59akwz2a8dlCI+lU4n9olu5sIxRXcw7AMBVTthdjkC4z8yqHzgN
+	 KV1I2qtqmYJKtWnjzJMJ4aUtNGn6UxDPf7mMjCUkPiQVerpp9bmHJq0eoHEjd6VKjY
+	 RKqc7K2mdsiZg==
+Original-Subject: Issue in man page getdents.2
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000216B9.000000006739C982.003FC655; Sun, 17 Nov 2024 10:46:26 +0000
+  id 00000000000216B0.000000006739C982.003FC63C; Sun, 17 Nov 2024 10:46:26 +0000
 Date: Sun, 17 Nov 2024 10:46:26 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page getent.1
-Message-ID: <ZznJgjKF5psWsP3d@meinfjell.helgefjelltest.de>
+Subject: Issue in man page getdents.2
+Message-ID: <ZznJgidnFAE3KqQe@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,16 +68,11 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    No "in succession" here on purpose?
+Issue:    B<readdir>(3)B<.> → B<readdir>(3).
 
-"When no I<key> is provided, use B<sethostent>(3), B<gethostent>(3), and "
-"B<endhostent>(3)  to enumerate the hosts database.  When one or more I<key> "
-"arguments are provided, pass each I<key> to B<gethostbyaddr>(3)  or "
-"B<gethostbyname2>(3), depending on whether a call to B<inet_pton>(3)  "
-"indicates that the I<key> is an IPv6 or IPv4 address or not, and display the "
-"result."
-
-… and in many other paragraphs (I can provide you the full list). Last
-time you said, that this is under review with glibc - are there any
-results on this?
+"I<d_ino> is an inode number.  I<d_off> is a filesystem-specific value with "
+"no specific meaning to user space, though on older filesystems it used to be "
+"the distance from the start of the directory to the start of the next "
+"I<linux_dirent>; see B<readdir>(3)B<.> I<d_reclen> is the size of this "
+"entire I<linux_dirent>.  I<d_name> is a null-terminated filename."
 
