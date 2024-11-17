@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-1962-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1958-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B0C29D0319
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:51:58 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E9539D0313
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:51:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9A922B23E72
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:51:55 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 059191F2315D
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:51:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9ED2914A617;
-	Sun, 17 Nov 2024 10:51:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94A0913AA5D;
+	Sun, 17 Nov 2024 10:51:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="Jf6zoyRN"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="JyB/FcYn"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEAB14D717
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:51:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F31115B0F2
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:51:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731840702; cv=none; b=Tj9MQnLnR/OTf3ivRAgWxdoZ8E2lfkMprDbElSdGRrkvIn6ZK4MsVSVrKEWaQMfo413MEiwvBfvaN9F+mDPq/54nDEM5v59mdX0naajET+ynxJ/YFnAwxWJaQ6oJlfuG4JCksLEhhW+DtX0L0V1+6OPA3Hdm0oWnc6K1cOIxFms=
+	t=1731840700; cv=none; b=q0oQ10KVOsvMWYYLDfI8j5YmIG4da0hMeR21o+1hpj40YKqXVNe2+fyyCJhWEhIMk8Aolc2gKgO8ovE6dGXJAgC2+idk/TXG+yOHZh+M0h6fbW58VuT+9NFjXqhS5XoHzJG5vwBQZc00T/WpXwCNE5dCqlvGHIapdRdav+wo3Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731840702; c=relaxed/simple;
-	bh=qDyNpDhVTDXG3OvQFE0jmVGnj0piC8hYhXBFuxbDeas=;
+	s=arc-20240116; t=1731840700; c=relaxed/simple;
+	bh=/7VNzKW4Hnquxpg5NM2CqM4Pyk7PI4DM4nU7WeY4Zsc=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=si2R/Y2eVbxE8yrPP5mqKObUOqHoLMW7UaYyF5jCDihK6/d0Qcr6g584VuciixwEsBMdVNU1CoTVvtcuzh6vC38jYCAjBFwNltN0/KP+hZ6bemPJPDgyuuvQ9WERYSLdek8ReruSBjFmy58jv+vpPItXjwSI4hqULz1Kpj9vFhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=Jf6zoyRN; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=o1shcMgg5yHYF6Fb4BYIJR6QHcyMAQSV0nzVt55Y6n92N4NEQpMPWf/AusDYO47f6cm4StxMawXsZeDpy+WRtxZHE81OyNu27pfadWUlaKDMDvoRLIGua1VXLh3aJ0q4zvqjT/HWzWfKSPSfk6k6iduZW/KvbO4Lp+dU86DgasY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=JyB/FcYn; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1731840383;
-	bh=eBFmIhFfKW8bShiXRXYyZxmxt5hjsrPsqGDeutnxvNw=;
+	s=selector.helgefjell; t=1731840384;
+	bh=2t1kxlucPJAfQTfRZN0db2F+ARC+oCPnEOpMrXm9H5s=;
 	h=Date:From:To:Cc:Subject;
-	b=Jf6zoyRNd9YKo+8Mc1jtTZqVATFVF5UzuP8RbszCnjt9T4SQy7waXhaIo9n61ntSX
-	 RgM6aJ6ALSFE+sYqvj3YjDDnYWX6VXhaGv3cxTqS+xUY9q+ZvYPdR8qlZOk2CMWt8B
-	 FbEe2HFu1a9/aXkNzyhZxbdGQZVAqzE7t34qgdac1w6m0lL2hwg/5efy1b4sDBi+U8
-	 lv+Ruzp6aviTpe3dF6c/S81iuKuNIiRvnNo8TFKEXUcxO/SaqSee+kAD3yxsvWqtj8
-	 yJ7wziarV5eBxrB72VPT7dsbEtXeBq7gPkuzyVbYaPLv53i3BU00O9J9vK4NGrw0Pz
-	 Egus1WH6Tw5aQ==
-Original-Subject: Issue in man page sched_get_priority_max.2
+	b=JyB/FcYnW+EaNszdXwMyxt40avjXzO6YACpTEERc+LtkBl1RefHz99PULiNvKT2wB
+	 6uZISXJTMONRI1NoEjr9nc6aQM6uwTNVGEDDsYxaVgeteijbruWiUPOSLmqS5fbIlB
+	 xcokKCRoA/2WuKQ1UqQkJ9Mt/9LCimaCVQn3KWAexZwwCNXrohylGesPeHm2etM1pt
+	 ZKzUdsBjt6Ck0zTidY7XSfo2r0JSwRPI1JowVaTyFP2eiCl72dG3EoUqifX3RxCx9A
+	 GSOuTnqnnn4vEwWlK71FI4pi7zICxjFYwihz/NhMv5UI49LeYq0RG4ztHnV5R+pIJC
+	 nw6WO6jIGbYUA==
+Original-Subject: Issue in man page sscanf.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000207F5.000000006739C97F.003FC413; Sun, 17 Nov 2024 10:46:23 +0000
-Date: Sun, 17 Nov 2024 10:46:23 +0000
+  id 0000000000021110.000000006739C980.003FC4A9; Sun, 17 Nov 2024 10:46:24 +0000
+Date: Sun, 17 Nov 2024 10:46:24 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page sched_get_priority_max.2
-Message-ID: <ZznJfy67cEKrL3PW@meinfjell.helgefjelltest.de>
+Subject: Issue in man page sscanf.3
+Message-ID: <ZznJgJrfwS4O3toC@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,11 +68,12 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<sched_get_priority_min>()  POSIX.1 → B<sched_get_priority_min>(). POSIX.1
+Issue:    on other architectures → on other plattforms
 
-"The range of scheduling priorities may vary on other POSIX systems, thus it "
-"is a good idea for portable applications to use a virtual priority range and "
-"map it to the interval given by B<sched_get_priority_max>()  and "
-"B<sched_get_priority_min>()  POSIX.1 requires a spread of at least 32 "
-"between the maximum and the minimum values for B<SCHED_FIFO> and B<SCHED_RR>."
+"Some combinations of the type modifiers and conversion specifiers defined by "
+"C99 do not make sense (e.g., B<%Ld>).  While they may have a well-defined "
+"behavior on Linux, this need not to be so on other architectures.  Therefore "
+"it usually is better to use modifiers that are not defined by C99 at all, "
+"that is, use B<q> instead of B<L> in combination with B<d>, B<i>, B<o>, "
+"B<u>, B<x>, and B<X> conversions or B<ll>."
 
