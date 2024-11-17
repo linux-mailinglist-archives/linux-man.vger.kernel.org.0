@@ -1,56 +1,56 @@
-Return-Path: <linux-man+bounces-2036-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2037-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCC1B9D04D0
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 18:26:24 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A83369D04D7
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 18:36:42 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 924B928140B
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 17:26:23 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 677D7281C9A
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 17:36:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A33131DA0FE;
-	Sun, 17 Nov 2024 17:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3649A1DFFB;
+	Sun, 17 Nov 2024 17:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6hQWboQ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKsd1k7j"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6124C23AD
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 17:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E895415C0
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 17:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731864379; cv=none; b=nELnGLNGQm2FLxZo4wuWOnUpQ813gvCkgGx6DJ3dEnkj/gfFSYYlwEHTtzVMN3YoKGh44ikR0V3VSkWpOegvB/82kIVtaz5oAHUu7Rr2RMQJgRBF/JveFDkc67IJxS5FNM3R/bbZAS6VpzLudWZdbXd1qHktNKHqxsrAPTMzKko=
+	t=1731864998; cv=none; b=Czflk+3ReL+Jj2YyQHStd5g3Ag64yIIw+wB+j7xFUxz7fKyII0kA5ii7FIRGUuP705mS7tqfFwOAd5CZ5vv8+tyTVYbjQebKY2IaFX0q5E1CGi/CGqupC2xRV+e0FfCVgXOEeoMtroqpMIt9Q3wcXDo9DMKQb+TRmiiF/ZKQnFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731864379; c=relaxed/simple;
-	bh=Y0xgHAD5ahTbEb0dF/XZXUasbSpNKLy7/LBDxzM8rKQ=;
+	s=arc-20240116; t=1731864998; c=relaxed/simple;
+	bh=i7frr0qso+VrLPEV3RYhkfCENWS6PAEv0VtXpC3uefk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KNhSCp9lAk7iRmJjhlu1wgzl6CttKrZZU3uVfEtvyV6T46zZkWeGe4sydd+AdjrMmEkPRbgGvVCZMETXqZmvSYUZ+uLyquBHtWg1WQLPJLqhHVcKihOHeYaX83QB8MGJeiPuo6foKLLHlJqqClMhrUgzND83nH3TPZBuPFsa6+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6hQWboQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53A3C4CECD;
-	Sun, 17 Nov 2024 17:26:17 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=hA1w7oSAvEpsbpy0tdnQbDgys3+eCnV4WWhVpCz/XpRoXfR3USAalo6Gb4VHSwKh0KvQGMnTjptcyXcvqcFMz8CrjjywBpLMv6tRFRBPVfnMOumHyhvwyh3n5KlFTNVgCmOdYGmvIljpPnt74llGPucWDLEaf6H39akR24X1Nww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKsd1k7j; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878C4C4CECD;
+	Sun, 17 Nov 2024 17:36:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731864378;
-	bh=Y0xgHAD5ahTbEb0dF/XZXUasbSpNKLy7/LBDxzM8rKQ=;
+	s=k20201202; t=1731864997;
+	bh=i7frr0qso+VrLPEV3RYhkfCENWS6PAEv0VtXpC3uefk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M6hQWboQ+xInthH+SByclWeWSgY3iZ0huLhbi3sUGKBFdAXQUW76voCXBbF/AVGQH
-	 8I4JqDGW5zts1dyOfhGy6jtmEJJ0zElXrFz9fHzG99niJQjiBBWRXzcQR1ugHZ9yRt
-	 rNEb2B3KJcNECtR+TbyHAUTp6g0MOotSsQEFuOfktnEh8l/Q+iFbLXRDqKCSqZKxlN
-	 NC9KvI4jkK7N3cnyEq2GkbyZG1MhkGg0GnzKsy48TBUPz79XVgyMJDH71TRVBSqk7s
-	 1mmvBEJzZU1MFDi79VGKH4hHdrSUIpwQbrsN3Lh216F0+baUpH00gpCniovWsa+5pb
-	 bI8zMRhIEqnJA==
-Date: Sun, 17 Nov 2024 18:26:15 +0100
+	b=cKsd1k7jwD5T1ILT9qK87qe6QCMxYUZfWZQ08t0RvA44WZ0TOIf+q14ahQQzkmCTE
+	 Z1HOlrDQgEUEIf0gBRa25KaePZg1b/0uf9K8+ygprA4FIsufZh9iIS398aXmRCoggC
+	 CIzIw50LJ+3SNQaG7GU022iicu0jNhgPyf0tg4IXR1n07ts1r8kt8B7TzUPFXM46Wm
+	 WwQD5lxM5QYmYVMmyVYrh94reGfbK/52y44ABSUAdwgiAOzi19bPQBNccG8OIXyP4/
+	 zQKG+g+fFubZz57xbWviERM72p7kyoXvI+z+CLxVv+5jFB4E76+KuUHOhJzygTwiof
+	 WN+wayslMFQRw==
+Date: Sun, 17 Nov 2024 18:36:34 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
 	linux-man@vger.kernel.org
-Subject: Re: Issue in man page proc_pid_fd.5
-Message-ID: <b4zt4qv2d65ukvgfwos54h4p4tmrjcmfbzniiwe57rzqqm6l7p@x4h5hfxearh3>
-References: <ZznJftO2LwVxlMV0@meinfjell.helgefjelltest.de>
- <rkahavnoaq6iryfg26isqi7rwncw57ihenyvlzwxzt4b5qmbma@vo6iu4jdvm4d>
- <20241117163547.k6cvvaz5xitbvicn@illithid>
+Subject: Re: Issue in man page proc_timer_stats.5
+Message-ID: <wezgpkwwh4nybx4m5fw6zcdxznc4p3cooaihdaby7g5p3njyzg@ctmx2klxtkjc>
+References: <ZznJfjcl7JIMY7y9@meinfjell.helgefjelltest.de>
+ <6f36qk2pgcvkd4hijiwdafu5wm5olgbrxl5ywshw45zv4x26v2@s73psznizi2q>
+ <20241117164343.53rxospihkd4upgh@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,12 +58,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dygnpsvrwr6etixh"
+	protocol="application/pgp-signature"; boundary="gg5iq3x2eijepev2"
 Content-Disposition: inline
-In-Reply-To: <20241117163547.k6cvvaz5xitbvicn@illithid>
+In-Reply-To: <20241117164343.53rxospihkd4upgh@illithid>
 
 
---dygnpsvrwr6etixh
+--gg5iq3x2eijepev2
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -71,105 +71,83 @@ From: Alejandro Colomar <alx@kernel.org>
 To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
 	linux-man@vger.kernel.org
-Subject: Re: Issue in man page proc_pid_fd.5
-References: <ZznJftO2LwVxlMV0@meinfjell.helgefjelltest.de>
- <rkahavnoaq6iryfg26isqi7rwncw57ihenyvlzwxzt4b5qmbma@vo6iu4jdvm4d>
- <20241117163547.k6cvvaz5xitbvicn@illithid>
+Subject: Re: Issue in man page proc_timer_stats.5
+References: <ZznJfjcl7JIMY7y9@meinfjell.helgefjelltest.de>
+ <6f36qk2pgcvkd4hijiwdafu5wm5olgbrxl5ywshw45zv4x26v2@s73psznizi2q>
+ <20241117164343.53rxospihkd4upgh@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20241117163547.k6cvvaz5xitbvicn@illithid>
+In-Reply-To: <20241117164343.53rxospihkd4upgh@illithid>
 
 Hi Branden,
 
-On Sun, Nov 17, 2024 at 10:35:47AM GMT, G. Branden Robinson wrote:
+On Sun, Nov 17, 2024 at 10:43:43AM GMT, G. Branden Robinson wrote:
 > Hi Alex,
 >=20
-> At 2024-11-17T12:24:56+0100, Alejandro Colomar wrote:
-> > [CC +=3D Branden]
->=20
-> What do you need from me here?  I'll take a guess and review your patch.
-
-The guess was good.  :)
-
+> At 2024-11-17T12:33:13+0100, Alejandro Colomar wrote:
+> > Hi Helge,
+> >=20
 > > On Sun, Nov 17, 2024 at 10:46:22AM GMT, Helge Kreutzmann wrote:
 > > > Without further ado, the following was found:
 > > >=20
-> > > Issue:    Inode -> I<inode>?
-> > >=20
-> > > "type:[inode]\n"
+> > > Issue:    Other pages don't use FROM and until =E2=86=92 to - maybe a=
+lign?
 > >=20
-> > I've applied the following patch:
+> > When a feature is discontinued, "from" makes more sense than "since".
+> > "Since" means that it still exists today.
 > >=20
-> > 	commit f3ac823f7501910031855c1f6e640f0dc5e295bb (HEAD -> contrib)
-> > 	Author: Alejandro Colomar <alx@kernel.org>
-> > 	Date:   Sun Nov 17 12:23:48 2024 +0100
+> > I'll eventually do a consistency fix in this regard.
 > >=20
-> > 	    proc_pid_fd.5: ffix
-> > 	   =20
-> > 	    Reported-by: Helge Kreutzmann <debian@helgefjell.de>
-> > 	    Cc: "G. Branden Robinson" <branden@debian.org>
-> > 	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> >=20
-> > 	diff --git a/man/man5/proc_pid_fd.5 b/man/man5/proc_pid_fd.5
-> > 	index 2e3341ad8..903063e82 100644
-> > 	--- a/man/man5/proc_pid_fd.5
-> > 	+++ b/man/man5/proc_pid_fd.5
-> > 	@@ -24,7 +24,7 @@ .SH DESCRIPTION
-> > 	 .IP
-> > 	 .in +4n
-> > 	 .EX
-> > 	-type:[inode]
-> > 	+.IB type :[ inode ]
+> > About until/to, I think until is more common.  I'll also check.
 >=20
-> This markup looks okay to me, if "type" and "inode" are parameterized
-> and ":[" and "]" are literal.
+> Where the value of unambiguous expression is paramount, it's hard to
+> beat interval notation, like "[2.6.24, 6.3)".
 >=20
-> Personally, I would use `IR` instead of `IB` since the example is of
-> _output_, not user input.
+> Failing that, I would select a fixed set of English words to correspond
+> to interval notation, and document that, probably in man-pages(7).
+>=20
+> For instance, and just spitballing here:
+>=20
+> 	since	[
+> 	after	(
+> 	until	)
+> 	through	]
 
-Hmmm, interesting.  I'll amend the patch, since it's not yet pushed to
-the master branch.
+I kind of did that, but it seems I didn't do it well.  There are a few
+places where it's not consistent.
 
->=20
-> groff_man_style(7):
->             Use bold for literal portions of syntax synopses, for
->             command=E2=80=90line options in running text, and for literal=
-s that
->             are major topics of the subject under discussion; for
->             example, this page uses bold for macro, string, and register
->             names.  In an .EX/.EE example of interactive I/O (such as a
->             shell session), set only user input in bold.
->=20
-> But (a) the exhibit here is more an example of file content than I/O per
-> se, and (b) I don't recall if you have an overriding style rule for the
-> man-pages project.
+']' (through) is something we don't use.  Normally, we specify the
+version when something was fixed, but not the last broken one.
 
-(b) I don't.
+And about since, is it correct English to say "since x until y"?  Or is
+it more correct to say "from x until y"?
+
+In my head, it would be:
+
+	[x, y)		From x until y.  (I think we also use
+			                  since...until somtimes.)
+	[0, y)		Until y.
+	[x, today]	Since x.
+
+I think those are all the common uses of these terms.
 
 >=20
-> As ever, clarity is the first principle.  If the example is clear either
-> way, the choice of typeface for the literal parts of it is a matter of
-> polish, and not likely a barrier to the reader's comprehension.
+> I wouldn't expect this choice of associations to be accepted without
+> some amount of argument--that's the advantage of proper interval
+> notation.
 
-Since either way it's clear, I'll take the Roman.
+I might be convinced to use interval notation.  I'll first try to be
+consistent using English terms, and after that I'll consider a second
+pass of changes that might transform to interval notation.
+
+>=20
+> But, if interval notation is thought too unfamiliar or too awkward-
+> looking for man page readers and/or contributors, such a mapping of
+> English words to it might be the next best thing.  Disciplined use of
+> the terms will be important.
 
 Cheers,
 Alex
 
->=20
-> > 	 .EE
-> > 	 .in
-> > 	 .IP
-> > 	@@ -50,7 +50,7 @@ .SH DESCRIPTION
-> > 	 .IP
-> > 	 .in +4n
-> > 	 .EX
-> > 	-.RI anon_inode: file-type
-> > 	+.BI anon_inode: file-type
-> > 	 .EE
-> > 	 .in
-> > 	 .IP
-> >=20
-> > If anyone has comments, please let me know.
 >=20
 > Regards,
 > Branden
@@ -179,25 +157,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---dygnpsvrwr6etixh
+--gg5iq3x2eijepev2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6Jy4ACgkQnowa+77/
-2zLvqg/5AcFafXcEITB5G2L0mrNOQhYjwG/Vs4hxpFqy/szMCnTdTWxg3Vq8Ec1o
-AhTcGVbPTn5MsgZlo1KXa303sirXqbEW35TCuRtH4UhHx4WY2dMQow0x0aCU4MI9
-k90znQ2zWRk5ADXK3WiVqz5tmofnCaBvm/CHlDgvBJ+mYGvA+cQ4s6Sb/usbK786
-WFgVipYAcm9EwSnOCxJM7IryRatHY8QwmtKWoSrYELGYpLKlXMbJCDIZQGGK2lKm
-1fUKo43ZV8IsVmZKD0Jkuv6ZtWoyfnX0hGmwH6UpD8DT3qSZRxxTS+QS2Sl9qPG7
-0lYrWBuFGC/8GZtyvE7O4jjcQ3WuhW+HAx3y/+/Er5u9Dvplee4W5x64dwQgaSPu
-FFSI9OkqBwRYjWdq2+IV990u6b4uE8GqLkoYMZiNCtjV12TbFvwO0sIlHxDq2ggG
-5LAOKx2o3Uk+rhemXbRJjRMTuJGMhA1t2ZEl49+eBzQchCr6pJuAwTd91kpxNJ+9
-6bEHycQCiEKC/VZTiijbhN5KuFQtGs00YXjn17HXqwiXAZJhN/xfFZcSpsoit6RC
-epLlXc9QUQBoRjjkBp+cWMfjdjsLr34/TLMmng0iL8qMs2TQRFnUBIzkeiFr/Vy9
-PU5ArWR17awjZ9VrbV5F0+s2WxQCYDZ/R/9acdI64puqXN7zkcA=
-=R5TV
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6KaIACgkQnowa+77/
+2zLNxw//Xts0OT1LSXlxT+lqkpoPOnOKDbvkMchD8hoc74WnzYiuJi2YFbBEBoR2
+7vbH49/k1ZLs1FIIYd4+q8xtb2MYvrc1z5sQln+5DMlJSLCz30OqoROzIr+PAdpE
+KorJmARmlmthx6yjCZhwGdAOnEOrv7tKvNF3qApdxonPr1ie4V6EPDPxkZZNkFDj
+kyH+QYtAiK9LKfUnGd8aKgx7Rzv7hASiXku1wMPtD5buz7QpsszNoztfdN9qpDfN
+uTDIL70K0VQW2kpQneaVS3jt6DeGUVH91M3TL8Q/4s2XzSaXT2cTsJC4FFcy/gK6
+vqI6ruY2NrYIxhMkdOJz/Q1lL3ZK+NM0irnmsZ044l3hIYHQ/X8QJkXa8Nnr8nfF
+kxnQzNV7GDiPNrHF/nnUgC3aTPREcqS1ztk/6Ga+QSqpxAhGQ6LJ+OoYJ8s2y9c6
+D4KrXARK9sKeKmsrc/PnJ4LKYq/6FoEZfzdR7i/OHOTnKmgn/XnemNf5bh9b8bHJ
+jbC8/zNv0nDtbsvVBKLds1iYOIX7oPq9lCFijsynB6gDCEtdIGDdU4znRNibsJ99
++6/lLg3vmzHPLNDnJaSzT1ePE9z0AhmClLRjjkSM9sOiXbf5b26Qt3eAf7OKODid
+eqeILgewviJmLfhPmrzeWMffK2qF3Z1Sh0cs/w8XS//uvhSlWk0=
+=kWIR
 -----END PGP SIGNATURE-----
 
---dygnpsvrwr6etixh--
+--gg5iq3x2eijepev2--
 
