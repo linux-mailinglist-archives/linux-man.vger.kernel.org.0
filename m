@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-1982-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1983-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 362D99D0351
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:45:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C8709D0354
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:50:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F067F283694
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:45:53 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C00B1283741
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:50:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0C7717DE2D;
-	Sun, 17 Nov 2024 11:45:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0BFF7145FE8;
+	Sun, 17 Nov 2024 11:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="quEDul2T"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gScDaMal"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929F317A58F
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 11:45:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF62580054
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 11:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731843944; cv=none; b=MIdWV0FEFRAAxJDZ24mHssdHwyrThsGDNFZDq/qqhCvMnUDQcRbQsXnn8d2YwS2WXCRCZK60z9Z5U//qtBh2Nr2eOghm5N0ZpUnzM4iTOtXKLib41ZGa1AZQ6kvhgxyGOb/jMto9onOsnymT/ji5Fzd+S0n2YGt3fRGv5Zvw+wo=
+	t=1731844203; cv=none; b=G4/cGgz+nVUFlTj4WmH/y76sypqyq3cohIkmGEUWh6eecVPHPeMXMz2k4N9pbhwiNkbXAlerUzPFaSgxQPoVLjQi9ry65W7ctAkXEu6HlGxt4/QU0MWFX0/XKJuGmosdOmUMGOz/32lH6FOxw1oA7z72XUsPGr6QFevL8meiX7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731843944; c=relaxed/simple;
-	bh=gTA8leefnY2+c2iFgLGDu4N/bkLpHtUipmTflIjXFO4=;
+	s=arc-20240116; t=1731844203; c=relaxed/simple;
+	bh=neXchs+oQLA2YD1xmA4/NCiM0DB5M4sBAlcK5qd+3nk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WWuLVzJRSUH25/mD5EpZJh0aJCsdRfV39VxpP5mFU0K+NKDk9eP6FmfO7UG7HdE4HDWT+3M6c4v7XG8ApNmJAuxp4RkXIfZuArifpdYIuJMSWgKXTrlFudXBnXHSIxGc13IVZSk2cSuRlV/2KyVgeZrio/GbZpLPBvgKik9rl6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=quEDul2T; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF07C4CECD;
-	Sun, 17 Nov 2024 11:45:43 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=bKruzZE3c40HNXX10lXyjuHzJimUQYfAhnncQbSgLtJKzs8TP941+HUAvV0pxO01f99eng4c+laxRTPvVMz2pCEBnC42a6D17x/K54LTwDlfTUBlKIdr8FS9i1cLTwwj4KFE52t6oL8T01BHctKfs2IXYoImp0dK0kXSGuhJHgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gScDaMal; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B77CC4CED2;
+	Sun, 17 Nov 2024 11:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731843944;
-	bh=gTA8leefnY2+c2iFgLGDu4N/bkLpHtUipmTflIjXFO4=;
+	s=k20201202; t=1731844203;
+	bh=neXchs+oQLA2YD1xmA4/NCiM0DB5M4sBAlcK5qd+3nk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=quEDul2Tm7aIfQskVUupcp3qIXS6CYnVr3WogIw7Jw4KVGt+04th+3SQPoOz8AviZ
-	 jnUEx57VOJQe64bXNfZ/Vd6btqzVxAFnGUU3hAwTbDT2F84363ZsY2G58KRIb400rF
-	 dwKNY+qTwiEiuYLDgvPsmN7M18z6SRw9BJ0eSffHGVB/LTfzJrSOW6MFgkSqgZizSz
-	 oP9FXvg79rZ/QLcMXIBgrlQKIKrf2ZuXo6iAwWuEp/KkzYWXWikuOS4AGm1MuXRN9y
-	 EB0aFTrqQs8vqZsW2LKgJnCptJmCdgRYKa45h7ysazWuhOASWgAJPd3zJ4LaXxtAp6
-	 Gyo7CNms1Frwg==
-Date: Sun, 17 Nov 2024 12:45:41 +0100
+	b=gScDaMalUznxlmx325flrL3c8q7Oyy8TFqanIRqQxH2VdBaFwFdit9AJPABe+9Byu
+	 KAqjLBkJw0bVZLlE0m5C+14O2rKK39iO5AB3luUjPzbCE8ssKzqbLsILwLL+u+dUYY
+	 WdeSqkKfEbqUkPf7g+e7VofcnSLSeOER9OUQ8YbkQOUSOIc9x43kaIGj9SMGTF4jqb
+	 ZQmn/R9RcHwdQRniG+OII8JD/Negp8UiDA/NwDv20BXtBrtQlZxbNQGeM8co3A9XJh
+	 fkJtEWOcEAnDkAzoAiYyCQfJXQWbJT5fHRP2tW24CSFlJCLjKk1vrFXt30OFjFon6P
+	 1kPZrK78ePodw==
+Date: Sun, 17 Nov 2024 12:50:00 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Re: Issue in man page sscanf.3
-Message-ID: <5ptvzcccsoidj44iy2lqmun33vd723wzs722maqp2lmyxaubvp@uy35df6uxmgq>
-References: <ZznJf8X73k2a4ms7@meinfjell.helgefjelltest.de>
+Message-ID: <3ztlsn7bwy7jrn6kwyq5b3khxplnqvp477agshzlyesp5tgoge@ig744z2gnvlm>
+References: <ZznJfzfiBOnRbni5@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,12 +55,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ez4p6mj6vlbya6lv"
+	protocol="application/pgp-signature"; boundary="zvsteyrtv2smtqv2"
 Content-Disposition: inline
-In-Reply-To: <ZznJf8X73k2a4ms7@meinfjell.helgefjelltest.de>
+In-Reply-To: <ZznJfzfiBOnRbni5@meinfjell.helgefjelltest.de>
 
 
---ez4p6mj6vlbya6lv
+--zvsteyrtv2smtqv2
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -68,32 +68,18 @@ From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Re: Issue in man page sscanf.3
-References: <ZznJf8X73k2a4ms7@meinfjell.helgefjelltest.de>
+References: <ZznJfzfiBOnRbni5@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <ZznJf8X73k2a4ms7@meinfjell.helgefjelltest.de>
-
-Hi Helge,
+In-Reply-To: <ZznJfzfiBOnRbni5@meinfjell.helgefjelltest.de>
 
 On Sun, Nov 17, 2024 at 10:46:23AM GMT, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    Why is "Undefined Behaviour" capitalized?
+> Issue:    I<info> =E2=86=92 B<info>(1)
 >=20
-> "Use of the numeric conversion specifiers produces Undefined Behavior for=
- "
-> "invalid input.  See E<.UR https://port70.net/\\:%7Ensz/\\:c/\\:c11/\\:n1=
-570."
-> "html\\:#7.21.6.2p10> C11 7.21.6.2/10 E<.UE .> This is a bug in the ISO C=
- "
-> "standard, and not an inherent design issue with the API.  However, curre=
-nt "
-> "implementations are not safe from that bug, so it is not recommended to =
-use "
-> "them.  Instead, programs should use functions such as B<strtol>(3)  to p=
-arse "
-> "numeric input.  Alternatively, mitigate it by specifying a maximum field=
- "
-> "width."
+> "The Linux version of these functions is based on the I<GNU> I<libio> "
+> "library.  Take a look at the I<info> documentation of I<GNU> I<libc "
+> "(glibc-1.08)> for a more concise description."
 
 Fixed.  Thanks!
 
@@ -103,25 +89,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---ez4p6mj6vlbya6lv
+--zvsteyrtv2smtqv2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc512UACgkQnowa+77/
-2zL2ahAAjZuVCiTlQT0i4oEwge2U335HrOYats5lkxAiJS1sMQOYeCBUeOv4i0h4
-rehVY+o8GfJ7ROUzJmBEbFYwPxjMWeRB64kOT0P1xK1GZYZuwEBheP4ofXZ4W1Yi
-JrQyKi2op6HTUL0Q0MCe64fyzavwJZB5G3pmujjRD/ApaB7Tt0QhUCzNWzBdy+X+
-cfb4bP00pcFknItmz1bvrHLdVa95MdaXfq1UNfo7kF1Xq1OPqKjdklSnfd2hSJhU
-y2g74ajUy9tvoeVnJ9Fke5WSEFuiZ8Jzy7y5MOzN1eEH0cvGI5IG2R79IBWiQD3v
-JpcUv5nHa0edMkycLV7sYaG5vDtVKXv0pfZw3JvO/wGEed3ozqN9ctT1lHFPgTsr
-MaAwDqaKHEVWwsBtzPRCEOzZ0U0KxYDsEV9vyDYPSE8sKESm2HfT9eY4Ia7MmEhs
-/DT3tJGV1th2k/XxPwdp+sJWs5fbariP5P5S73lFrPDYfSjnQy9H/68XJazk7IOU
-yoPlku11pTLNLYqlJDB+PQYQfXQEF/iSO9NhLTDA9i11ZmwfsOnciZ8scD+rEXBf
-DgOsstjQlyZLXTIWIhWOdYl/O5dXwwZG+hSAj+R4yhhsR4Vi1CZX2vl396OiZG1I
-RSFFknD8jStflGEV51HxCi4paO0OMSU4Tm16qAaPB4XfWLn63BE=
-=0eZU
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc52GgACgkQnowa+77/
+2zKk+w/+NGrYWRG6TK293gLGeq1OzyfjuVi7iaLK/I1gC5kVlgwWR0RudRtdr7IL
+mcuvbssQ7L60mSpUNnoerh2FtUKBIcaUDTuYYc0yc89r3ziZEh2Nzx0sK+w96R0s
+bVD0p+U1+TPeNZ7Ik9iiYU54INxdEjgvGBT8hR6zGV/86IqI84ubu/fZYx/2bL/L
+7ouM0Y9tsTejs4UfGBLPV63T933QYZysJfMECuU1lZUSO07z8pAnIolE9+otgR94
+mPMjaKZ47C7+jszUfWpOlAfKXxAGsghf7b067RuUtIX0b0moAjCYsheLRypskXb/
+7UNOwY5FLZrS6e+TLff2IZB63fneJpx7oBfPiXEXmIO8gVTHfr/cgcSu/nyp+p/4
+3K66IsJA4+nPh8i5SQQENhYRcd8LWlce/38dppbIFJV2PvGMdhuG8kQaUYkUmWo5
+eSsfUGbsHtw4sdYZ5NU2Qurzy4b5GwnhPX6J8kvggq4wSFOeQysWNlIa0jjt9IpW
+tSd5YDkf9qS3QJMX3B/d98xdoarnXMlZuI3uzVVw0YtKanw19BgJ8pAD6FmRjYg/
+zt9kMnyLIiDP8xQ3/vIJ93D1XwmCGCFvp+zgQ9qVQG21g5l/MNdLJt3XGNmyZ13c
+DusP4ZPQ9KO1OSqt6dhACNReqNOmmrH5Kk2upuj4SHk8rwmQpis=
+=v1CD
 -----END PGP SIGNATURE-----
 
---ez4p6mj6vlbya6lv--
+--zvsteyrtv2smtqv2--
 
