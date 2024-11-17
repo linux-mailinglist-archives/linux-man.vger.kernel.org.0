@@ -1,143 +1,123 @@
-Return-Path: <linux-man+bounces-2014-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2015-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00D929D0466
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:04:14 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC8609D046B
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:06:06 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 4B9DCB21753
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 15:04:12 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 797931F21928
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 15:06:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DE3D1898FC;
-	Sun, 17 Nov 2024 15:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1D4A1D14E9;
+	Sun, 17 Nov 2024 15:06:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="o2Ofz3oN"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQV6S1aC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DD538DE0
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 15:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833537DA68
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 15:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731855846; cv=none; b=g8CLtnwZqppR2DsD1GfF9h28JT/7JP9D66PxPWguc+0cjmN5gok1leuSTel1UVDWWucnfoeUEWwjkP3WMJKcwj1uKhrYkDyiQ4tVj0T6nGbirC6ThiAgmUOeiZV9yMTyFN7lQ/TC+Qrd8dJTxC71fpFVJLXyK0h2mzu2t8SQrcg=
+	t=1731855961; cv=none; b=XRZhZL159EblWGkIrEcJxwnxwis1jYPvjaAhigPOSffeXQMebDvGJEcMAIZopQa9srlSZiHHoLhkgyBexX9XrF40juvjzznI5DsGUwg4orZukPgZ/Bwr0meB2kXJUZpPObD/Y5lP9LN5sp2kEN51dAmM5feXnvPDXpiGEq5olVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731855846; c=relaxed/simple;
-	bh=gVaunjrThacUP3TPclH9hDWqSVZB9ph+pIbRNtsbVz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qKEuDi1hjlqxk6yByP+fVtcnaCy/pWsCVX2tqnAIvVna3pm2Qe9iq+rBWX3LpI1zKVUOKNUoB5CDBG/8ai7vHlY1DrCXfUqsTt0nB8nKc5tuTgPoa9/P0sGWoRcHWJjoQfoChC7W7Ocfv8dpeThU+q8387yMW2fmbw2mFtaYCzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=o2Ofz3oN; arc=none smtp.client-ip=142.132.201.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1731855843;
-	bh=JQVrYU6d4ubBP/Hc+FxEBjDfGAMdibxfTsasMgVWbVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=o2Ofz3oNactaPg24LnHs5UeFnymWigep8lH4d9sDHwJr1I4QjagZzcg1NbHrTK3ap
-	 nY1rjQkYZ/+Fc0+zwRUILyQ7RbDvg6GkBGm3Od8tpwFmo0unI5e7br3W80FFrhiVrj
-	 t0l5G/I1nyygv8TymGYb7HGwBaLQwTKeZLD1HEK35Ka/Z2AHxoKr8ZJRwQhiwDf8If
-	 XGn//62t/cNhSYMfeqCbqrw+L79j/zL4T39GByJj6qW5G29xKnifoRyAz4u7Da7kOj
-	 C1ZZCkoj3MBJt9e5uVHWTcALxpllio0hrsV6wNW12wXibUn7/nNVNcTQ0Siyg4IzLf
-	 PxvlWRCNAy4Tg==
-Original-Subject: Re: Issue in man page remquo.3
-Author: Helge Kreutzmann <debian@helgefjell.de>
-Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 00000000000200D0.00000000673A05E3.003FF1D3; Sun, 17 Nov 2024 15:04:03 +0000
-Date: Sun, 17 Nov 2024 15:04:03 +0000
-From: Helge Kreutzmann <debian@helgefjell.de>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1731855961; c=relaxed/simple;
+	bh=5SWkYb2SvapBNruVIOODw7HyJNbsX0/BkgfckvvelDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AriRX3u8208UU12MHX6PY1GLRIigtKskFOSUjWdiA/RdaHlsy+xSnyI5HAaT+52Prv6uZlMP/8qvCxZW+V9ic1QPr+e/Mt/ZxoVjBFYOBr3/UXpUrcyXIg61+GnfdcVwV88qLQNn7/DCot8Bwl9Dk79y41U/653ksn3E95bWG9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQV6S1aC; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E28C4CECD;
+	Sun, 17 Nov 2024 15:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1731855961;
+	bh=5SWkYb2SvapBNruVIOODw7HyJNbsX0/BkgfckvvelDc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PQV6S1aCfqYECQ8AoeTayCmF2BL4XaRBL+X6bgdsc7nsBeoZPqOzufJbLKFICkfxa
+	 tfJ7URfKPzWaDvbEqYoYyYcKG626xYFphJQzxAfElkBX+DYpUHOdN2qnMAPlpaYTmj
+	 g4uo0r3n1rB1Dw41P/Suk1QdhHOytnNyDNkWMLtRTHthhp74Ol9uA4EXGdBinAVsJk
+	 kBSQwKiOOCbiYgPftOP0rqu5Bk1Bn/cSKvd2QJlYytSbedZ4j28wyT9fpIvjO6MIux
+	 3lCtGqLLPxUVe2SxbKrrILvYFwUar28q6xDawGFrnInjePC2ylqYwyuTYOm8xsNqQg
+	 9qk05rqAVckLw==
+Date: Sun, 17 Nov 2024 16:05:58 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page remquo.3
-Message-ID: <ZzoF41qS65rQOqrp@meinfjell.helgefjelltest.de>
-References: <ZznJf900B2F5LgrV@meinfjell.helgefjelltest.de>
- <vxkhytkjj6tacxxn52vjw3acxd2nui3yut4hy52ipmz7lomhsg@r3mciiohdixq>
- <Zzni2BTz1UHU7IXP@meinfjell.helgefjelltest.de>
- <hbibcoxzivfn3l3ys67sbhs2j7ubcsqlhkomu4euqzn2mcqxhn@zh3reluma6ol>
+Subject: Re: Issue in man page fmod.3
+Message-ID: <4ldq3fge7ybnbjf7r6ivpbeqk3pbhwmlcjym4qrdycav7e7ekw@32di2urjdbjs>
+References: <ZznJgQGHh77fpY8Z@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-4190675-1731855843-0001-2"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4gywokygoc2btpau"
 Content-Disposition: inline
-In-Reply-To: <hbibcoxzivfn3l3ys67sbhs2j7ubcsqlhkomu4euqzn2mcqxhn@zh3reluma6ol>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
+In-Reply-To: <ZznJgQGHh77fpY8Z@meinfjell.helgefjelltest.de>
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
 
---=_meinfjell-4190675-1731855843-0001-2
-Content-Type: text/plain; charset=us-ascii
+--4gywokygoc2btpau
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page fmod.3
+References: <ZznJgQGHh77fpY8Z@meinfjell.helgefjelltest.de>
+MIME-Version: 1.0
+In-Reply-To: <ZznJgQGHh77fpY8Z@meinfjell.helgefjelltest.de>
 
-Hello Alejandro,
-Am Sun, Nov 17, 2024 at 03:37:34PM +0100 schrieb Alejandro Colomar:
-> On Sun, Nov 17, 2024 at 12:34:32PM GMT, Helge Kreutzmann wrote:
-> > Hello Alejandro,
-> > Am Sun, Nov 17, 2024 at 12:38:24PM +0100 schrieb Alejandro Colomar:
-> > > On Sun, Nov 17, 2024 at 10:46:23AM GMT, Helge Kreutzmann wrote:
-> > > > Without further ado, the following was found:
-> > > >=20
-> > > > Issue:    Why is this no-wrap?
-> > >=20
-> > > Are you asking about the behavior of the function?
-> > > >=20
-> > > > "Domain error: I<x> is an infinity or I<y> is 0, and the other argu=
-ment is not a NaN"
-> >=20
-> > No, it is about the formatting. Normally, all paragraphs are wrapped
-> > as needd, but this paragraph has word wrapping hard coded explicitly,
-> > which you usually do in code blocks or when long lines should not be
-> > automatically wrapped due to some visual layout.
+Hi Helge,
+
+On Sun, Nov 17, 2024 at 10:46:25AM GMT, Helge Kreutzmann wrote:
+> Without further ado, the following was found:
 >=20
-> In the upstream (English, man(7)) page, I don't see any hard breaks.
-> Maybe it's an issue with the intermediate format that you use for
-> translation?
+> Issue 1:  Either B<fmod>() =E2=86=92 B<fmod>    or =E2=86=92 I<fmod>()
 
-Strange, both in the original file as well as in the translated
-output, so something in the toolchain, indeed.
+The formatting is correct.  The name of a function is written in bold.
+(This will soon change, due to the use of the new .MR man(7) macro.)
 
-So disregard this bug (or add a full stop at the end of the line, I
-just noticed).
+> Issue 2:  What does "cost a branch" really mean? Branch of execution?
 
-Greetings
+Yes.  Running fmod() is slower than an if().
 
-         Helge
+The wording is a bit weird.  I'll revise that...
+
+Cheers,
+Alex
+
+>=20
+> "An alternate way to express this is with I<fmod(fmod(x, y) + y, y)>, but=
+ the "
+> "second B<fmod>()  usually costs way more than the one branch."
 
 --=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
+<https://www.alejandro-colomar.es/>
 
---=_meinfjell-4190675-1731855843-0001-2
+--4gywokygoc2btpau
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmc6BeMACgkQQbqlJmgq
-5nAxgRAAsGhuc+XRh2tMqOe6r+KGFHh054P48qIpvxAADUElorviDl+6D3SKHQPB
-Zi5eM1EzHIwoSYOKQFPbC3Ts+yl+LZvvSrZfpB3jllDo5ulzS0K8h+W/5xSP6uUh
-N9Pb/vhKruGB3K5pYV6zKOxz54fKZnTEw2Ag2BICptKP1PhbcOqQgtZHOat54mIY
-zM2PJAa0lI3oXq3X0HQcM6g2tOulD8Rcg1GaJhQJiWrUyYetaJWeWbM/JguGkpgz
-jY7phtMzVfPZqWhqQC+VWPZNr2m/Bps7lbxLuZy5ErZz/a1FOjhqWOiDDZxFas7R
-ue1fKprbEpqeAqDMIZh1a+jkBYDBLkCidrwUD3n+VBgfjI4wfbouxJyUSaiUNR0n
-//wxsg73EQPL8ZLKH5sQePa2BOJ4UETe7vfvJAhVEw0yZh4HKhQdyW6Z+qJJRwbG
-WvWLrOOVBzJckuY93nRM2l9esIXYz2q7ZxSGSOV/kzkcTCL8+obOddtrMcCd2zDx
-4nBV3eL4x+hAt4kv98sj2T3MhmWVqxUVI5vZ8gpWtF6s3YzsHusQ2Sry0XYpB7Bn
-lFrfckPpEIv1vkm05qxwz1QDeQBGnEw/bai+3QGhuVRjdLZVfmKeNwGgMwmahw6g
-SkOQWBKL7t2m/E8t2Qq/mtgx37cSLxnFR5KQZ5r4hlTjij7UbiQ=
-=dvGy
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6BlUACgkQnowa+77/
+2zKTRg//Xk7CbpKAC+wFlq69Pjx1qzVNx1m1E/+3CJFCEdMu3UJmFAkgTtttKMYj
+LSuEbvGofdh32ZXkgO4Kjf7uWxaDrQSdccXkyWG712AOCmkW6djP4aOVD5qEsWYS
+CuT4k4DJI03vQHlmqs03EYPJMH7E0Y197ndEwJ7LX7iWZCKtdrZzgM+IClx2H9Fq
+vB4gkB7AKnW6HH0yNXypY0E4PveNzMY/gVGP0zxiuw+XDPsBql3QeHVT2x6nxYgr
+UkjAshmf+OXzNz9H5vo/mr9YJEUAboo+IBFMZ3mBYBLTUevuYN+a3WhfAgvuPug+
+DRYzXqExNIcdWQX9pKsJQCkyZy+MuTufPaN5LuBAgf/TquD5QtsUQP37jFt6ncZQ
+Bv7tRnzhOh36gyhOHu2nnPV+1dQgKciiXkENtjR68rR+oHi1YciO38EYOB3EG6Zc
+qKlaOHfrUeLkukeyVFzz2KsJCXx0wUsZOslobspwZ5dNQycs/ThaOTt2FtOXPGld
+m+BKRa/MJYbW3goDFoF0mpnEy9SJ6+TTVcluVKfuGSNgoRv3qVDhcD7pdtt/mwOI
+UZhEo+mAF//zpKzovFsaWVg9muyhtFnCHpMqKPnCY8aMjVKhEpVgKUSs2Wt2EoWE
+fCop/OyUT0OF7Dc/kUhvzjQIP+B8Xhiv2RBgE0l9wNjFbwdnmAI=
+=wmUF
 -----END PGP SIGNATURE-----
 
---=_meinfjell-4190675-1731855843-0001-2--
+--4gywokygoc2btpau--
 
