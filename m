@@ -1,119 +1,135 @@
-Return-Path: <linux-man+bounces-1984-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1985-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B90D69D0355
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:51:19 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4C09D0359
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 12:52:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7F300283CFA
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:51:18 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id B9A4A1F23045
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:52:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A744D1422AB;
-	Sun, 17 Nov 2024 11:51:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C060A1422AB;
+	Sun, 17 Nov 2024 11:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGTgjfLa"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="Ke2ZIr/H"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B88224EA
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 11:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B581F224EA
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 11:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731844275; cv=none; b=s49VEK6OcpUNdRiTtMM/PIE7MqYSAHIJ/VHo4kFbdCl4EQSH4CKDsAXHVQHuWjBLihBYn3HfppfymG4mZSj4bCsLZIpA8JAd9NA6g5nGBIqRnAQvfjuVyOGMOMh5Dx/94tKwiTmqJNX2ULFscJlLOFoQN2knOExvEbcGsT6p6oA=
+	t=1731844333; cv=none; b=jschPh+YJM6+OeShv7PwZf8NLZQwiaWokR/LIqxLpUsQYd/0wIpEsP7vleZuxSY/cBM8likvQutBI/mGldmAQdTjDxvvZg/dfYU3NRQGGPs9mbc3Mt6auFkBrBH1QFPsBqZSvY+VMhyYeCySIYra7e6z6zPmpvuiRQuS81GCGmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731844275; c=relaxed/simple;
-	bh=WANdvT8/V4NYWJ/B3U/wesTSNb51DXXTa1X09zsqvDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ILr1aZnmkTQaPzTRwXbRGkfuNdOQKpAfdSUPYm0TuFmQLWK2TXhucO+ZlMd++GNzB1LOlmme5nZ226Mbrl4l5WXZHR/y0XfKQ7c5FpMlVR54lNG50Xu8u8FkuAKoBkKpLHm7h/lyLvdEPc+zmU6aqH+r2eoXWsPNhMZPUUl1W7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGTgjfLa; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7A8C4CECD;
-	Sun, 17 Nov 2024 11:51:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731844274;
-	bh=WANdvT8/V4NYWJ/B3U/wesTSNb51DXXTa1X09zsqvDs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aGTgjfLarSTkAJEy23CHq9qgHKFyTI/0Ea/8mtXOmp7VJmRrP31/HIMvOn58tz8bZ
-	 KbZ5knFbWkEAft9Yx1ws17M1TKGW5uUqXl2KkGy3yxuA9rWvVl0nbWCKjhgCq70atk
-	 tEXNhV5TeeTSDekpBFjyvHVSB9dVB92XTRyjej1EGuUb+c2B6txLPEmqirCKr29dIH
-	 IL/jGAgx+hvxhr4qfHA2ryKwXZJTcthALlvW8S8SCvK4QEyStcT5FA009vT64hKyrr
-	 p5/2PpP8RbxRHfqGPDxBPCI9rGECSubJaEHFdKlOdWOm3UKOyRB7lYLtyBggFi2Vpi
-	 heUEUbvkKQTsQ==
-Date: Sun, 17 Nov 2024 12:51:11 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
+	s=arc-20240116; t=1731844333; c=relaxed/simple;
+	bh=6DDN72MIfNc7g8Ba7xqlvS1Qb6lK8LwQfZSzkqaEvjI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pdFj/yN7/rvIpwGJHwMgnJPXqNYUzeXGxh93U4NMRc2+u++1O+kOaVxxFUBDCTHz+vxQcwwcMs5s/vQzEbVl/WC5c7OnwdPbRqI12rVj5gg6o1Kh9ORl4Tbwaae0GOG7+IUm0B/VH8DT1Mo5FiYZmHbhsArczuBLfqQdiFFFj+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=Ke2ZIr/H; arc=none smtp.client-ip=142.132.201.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
+	s=selector.helgefjell; t=1731844329;
+	bh=87YcQsJGIUHiYJpLpRz85u+61kVbZy5CmdB6cIz1a/8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ke2ZIr/Hx0SCwtf+oieBHEotMKClDnaasChcWwRzDIioHgOLAobLY0C5SlGyd4Q7e
+	 3MbtPcJmBQ4fhPlzGT9QTSMSiWNhdyhybLFQyJwqLB0jPMgBFmpLBscXU+Xye8PGw1
+	 mc0tSNY4AxEIKGbUJWkn2MIQuFUoO5DGBZFrM+IwoyIFeCUDBrqygkdTvrbrnnFkuJ
+	 ubr5ADm7MMR8+LyRjAC2A4qydTR/gQjtDpqbMGtgDkEwjhw1J/AxRtRm+mWLO4L1Ll
+	 jepRGWlvm24zttLVuvCc8lBeKkRE9+IzyponGZApgh5CNOyUeD+DaLDyOb78q5P8Ou
+	 loereV55ADP8Q==
+Original-Subject: Re: Issue in man page proc_pid_fd.5
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 00000000000200E3.000000006739D8E9.003FCF69; Sun, 17 Nov 2024 11:52:09 +0000
+Date: Sun, 17 Nov 2024 11:52:09 +0000
+From: Helge Kreutzmann <debian@helgefjell.de>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page sched_get_priority_max.2
-Message-ID: <urrcxpw4n7qyop3ubujedrvskeo4rx2aegbex6wp4lydplb5wc@jk4hjwvwnmwk>
-References: <ZznJfy67cEKrL3PW@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page proc_pid_fd.5
+Message-ID: <ZznY6Q6IY9OKn0xg@meinfjell.helgefjelltest.de>
+References: <ZznJfkqbDXJWpVXm@meinfjell.helgefjelltest.de>
+ <bkueim7gfjvp2w6tpqnjust3wwnibeuxmrt5pupeb3ycclujwm@6apz5kypcr5z>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="st3l4mpxgrkh4zds"
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-4181865-1731844329-0001-2"
 Content-Disposition: inline
-In-Reply-To: <ZznJfy67cEKrL3PW@meinfjell.helgefjelltest.de>
+In-Reply-To: <bkueim7gfjvp2w6tpqnjust3wwnibeuxmrt5pupeb3ycclujwm@6apz5kypcr5z>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
 
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
---st3l4mpxgrkh4zds
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--=_meinfjell-4181865-1731844329-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page sched_get_priority_max.2
-References: <ZznJfy67cEKrL3PW@meinfjell.helgefjelltest.de>
-MIME-Version: 1.0
-In-Reply-To: <ZznJfy67cEKrL3PW@meinfjell.helgefjelltest.de>
 
-On Sun, Nov 17, 2024 at 10:46:23AM GMT, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
+Hello Alejandro,
+Am Sun, Nov 17, 2024 at 12:30:28PM +0100 schrieb Alejandro Colomar:
+> On Sun, Nov 17, 2024 at 10:46:22AM GMT, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
+> >=20
+> > Issue:    When executing this commands, sudo prompts me for my password
 >=20
-> Issue:    B<sched_get_priority_min>()  POSIX.1 =E2=86=92 B<sched_get_prio=
-rity_min>(). POSIX.1
+> And what's the problem?
+
+=46rom reading the example, this is not expected. But if this is
+implied/clear, then I can mark this accordingly in our file.
+
+> > "$B< echo test | sudo -u nobody cat>\n"
+> > "test\n"
+> > "$B< echo test | sudo -u nobody cat /proc/self/fd/0>\n"
+> > "cat: /proc/self/fd/0: Permission denied\n"
 >=20
-> "The range of scheduling priorities may vary on other POSIX systems, thus=
- it "
-> "is a good idea for portable applications to use a virtual priority range=
- and "
-> "map it to the interval given by B<sched_get_priority_max>()  and "
-> "B<sched_get_priority_min>()  POSIX.1 requires a spread of at least 32 "
-> "between the maximum and the minimum values for B<SCHED_FIFO> and B<SCHED=
-_RR>."
+> alx@debian:~$ sudo echo
+> [sudo] password for alx:
+>=20
+> alx@debian:~$ echo test | sudo -u nobody cat
+> test
+> alx@debian:~$ echo test | sudo -u nobody cat /proc/self/fd/0
+> cat: /proc/self/fd/0: Permission denied
 
-Fixed.  Thanks!
+Greetings
 
-Cheers,
-Alex
-
+         Helge
 --=20
-<https://www.alejandro-colomar.es/>
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
 
---st3l4mpxgrkh4zds
+--=_meinfjell-4181865-1731844329-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc52K4ACgkQnowa+77/
-2zIdGA/8C795UBZewC8iZSX1KLDvThoJHCB1yNCfMVxGXER/mA2iKHmo1zOQ63lL
-ipdJ6QWmY1rGb5XeNpFMVaJbxIte4WxbXPu+ZBMN34SIq5jpvhELadNtwP7hsSNz
-GDcLTQrfLLFi7n8PG206fmtcEKPHlxLOg1p+vrM2bHD4RGqtrkmta6zHznQc9ipm
-lY6P/Up30wVR8hvPGc3wBnBYFxuE1t29RX8HhfCrf6Ty59pH1S7Jkm+BWoeB3Q0f
-RKgYMXnDtdH4DNmiB5igQK6o9FiQM69K0zRlyWv/ZHAhPlN4lLaztqYBNSS3426h
-YBuNsPl3RHJBqJjtgk0dzKNNbGQ7IvCgvlUqpS8iX/qrculMkch+SopL4pDJvA+Z
-WnzLIq5B/dOre6vLRZUeS8Qt+4lHmXJ1ofFW9UjzGB+sLhc7lrHtoS9rHXTJKnty
-jPz70CFKaV5h4pIVejEL0u4wuV0/2ReWfuHzuec3cT3ilDw91Nm4hPfdXdjH+758
-hnx+M/pjQEYke0pWQCbCLLu3P6SxfZHk/5bEkyPYFszkRLLqfUURM1PnlmQnYW9G
-9s52+rMz2iWTuHh8M19zlWivo21G9tWyY28qFcnhPx1XuwNFrQkDokJ7/YBNdIv9
-PHUJq2eTHVssQc4Z/Te5mlQN50InaTJNu9PcvHz2Xf1E0lsajq8=
-=/6ct
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmc52OMACgkQQbqlJmgq
+5nDjKg//VZQk521n8il6q89XDudczwgPJ/d2pxo02OT8yyjDWwFQJkP9LTgUbu6o
+hKunexxJwpfR0bSl9xL4UUVkDdX0dmuJ/t7UeFawEcL01mohFWBWCX/C2lkw9v2E
+FSlcbsMnyiHntxDfkxh8VZgquiFB99dJAKGj/O8B4MDtwxj1dHj5AVxP4cUehEwr
+//kjZnWguE7qz95YxFsW9lthWt7dOQYQS/ZrBbsN13anI27IOpODOvTuLZcqMKlI
+TB938DJlq+zKJknJEsBS5vJquhe+PJiPx+qfdDUaka35qAnqb4kxPoXZAkD0ps1k
+HG2GxAgR+m4JVXtVDkrIJtCTIlBy1Q1lDOm2JdNdoKu3D/wYvsuxDGIequu2MMD0
+qeTJtrikFJkHgkLrxulRy4vCxLI/JamjsmN2tXneZkPrPhsYXN3EWzbGbs8WMmjz
+uHahW6RuQ438WuJdj1dk7rUAF77R8FBc1CGfX8XY9+I61nvoKt9bMXu/OtjgYZy7
+C5dcTJPSI+2jZ8zO7TlQ//VJz/BzM/0IPUEwsFQSSbAOyViCd/lVUOxkPqxuRWpp
+84Fef4Ls1xws3ezen0vbSf0deWUQ/Ovlp82S6H9e09EC+7Cjb0yhUGWEJ6ScVp9u
+SawqLBBtOMiugmDG73pw2hMRY/OayQV8kCDSGrHjm52L4DVGlCg=
+=ypuU
 -----END PGP SIGNATURE-----
 
---st3l4mpxgrkh4zds--
+--=_meinfjell-4181865-1731844329-0001-2--
 
