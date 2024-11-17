@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-1954-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-1949-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABEE49D0312
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:51:51 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B799D030D
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 11:51:49 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id C9EFDB23D9F
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:51:48 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 301A3B22407
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 10:51:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A29DC14A4D4;
-	Sun, 17 Nov 2024 10:51:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97B74170A11;
+	Sun, 17 Nov 2024 10:51:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="DRi/nzlS"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="dGtzsQUA"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2331E15B0F2
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3FF14A4D4
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 10:51:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731840698; cv=none; b=Nh5faLL16jDD2siM25S1M+OKrlgLAPsiOfIjY0OlxmE1rGHTlmMnABVmNZxgZc+tRNUJehX2r4lE5S5BITedxc8Pnj0Y5OL4MuSFIniBza5k9Qv2VknDA8nZKu4VJO10j/2QIv9QH9xTzfWZ0oCEt8ew1egq6e401SoANcP05Dc=
+	t=1731840696; cv=none; b=d8jlQ8CIDbIyjcIBNqyLBKXE55GQbI+sp+OjhusEkgzZvr5//MADflOmlUJ4krTRXd3H0cAhFFW8lBKvxXxpm62IMOlbR7duMmZuiDKIFt0WnAR4fWgYHK58zAzt+UPn7ppkuYX/z9TbiwkNHCLneUoIo5HRBOCh8qsRZ4FdPY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731840698; c=relaxed/simple;
-	bh=rcS3sz6FxB4HBR9jSyd37Fj+LIZfEM9Ci/2pssxDq9g=;
+	s=arc-20240116; t=1731840696; c=relaxed/simple;
+	bh=W70ul3HtAfY3JxYPrbjK/OiFU78Dta1bxvNHRZVNUcw=;
 	h=Date:From:To:Cc:Subject:Message-ID:Mime-Version:Content-Type:
-	 Content-Disposition; b=OO4JgbFdNGbHc5iaGT64fwkVw5XeBAc90p8U8bhRXB2WpaAE43UL2ajryZnhhCG1x2/9E2IZKYmBRk49Ro6Q7sESfHPzByQ0dejbbsxbt+Bv+nFtXBcfK6WiN2N53Bmp44Y0rOnxdVvta61GfnNFwb5cD81HptV0a4pR+bO7hgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=DRi/nzlS; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=j0zakEiI2FLQuEbYK+4HOlsIWROnAJ9UOgz1OEXSBaH+6RNWhGBVKYRUIdRZwmvP8Z8CJTJYEsl447gB9LJAr5rQaxdsRXYOelJuCWoGzfR98R34gjozqMEwwC9WJ+oNTtIUCZWKdcDlgjAVBxS6BrModN5/FvO28cXpS8aODuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=dGtzsQUA; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1731840382;
-	bh=ZI5lSdD6ZXWWTKrU8e8qnI37C/3vrazWmRae/rDeZwc=;
+	s=selector.helgefjell; t=1731840383;
+	bh=sqcnCFntCKodigjpoaRDBKE8SD0vGcuRezH3BMHQuIc=;
 	h=Date:From:To:Cc:Subject;
-	b=DRi/nzlS7u+X/5eE3X8YulvrRYnjTs2JXjpVR3N6dMCD5rL7cjamREEGwW7B26xsX
-	 fwUBvcGk+FsLTivQlw+kFKcnexTog6E6TFxM6EhoR9Dky1tMe/i4w7dDBRRYU29LHj
-	 npR6/T0H6gegbMcni+WnY5uDaqrhrjQ7kqihUVDojHzL+OfovawlP2984Cf8qyceha
-	 wssNYMcdjzFPgbMKnwApJI/sGw2/XNcK12lpZabm6vZ71lyc4XK3QUt6rf06mwvE4g
-	 arWEQ0JRoKFqEeLgnsScCmPTdHWVBa7NW5zD9iIYmUDJ608m6UMjyG0FZMB2vMAAcp
-	 OiljptEhp0XKA==
-Original-Subject: Issue in man page proc_pid_fd.5
+	b=dGtzsQUAAz6pZyaqeu1G22WS1Pa+6aUK+QNczoJ/HUNenDY0cmC2kj6coXypKZyg1
+	 Vv5FHWZ+HIgm+g1Lct+lcbMeSD62OfSYN51eV5jG7Tln0aRn6+u6qz/IA0gpzbIchR
+	 c2TKHI0OvMLYkXd8+cy7E9imlds//lZh2F0+sCQ3Dqdp9aJBmoS3qvb5gWAABIi3WU
+	 kf+jkRUWAGbGGISq9xJAvBnL0ts5b3KRDXA7GS5j/VdpqEEOSltFmCjFI7cExXEqc+
+	 1zKi/HiAfWWndBmA3aW1rpQ+jACWjgF/downJpxmLWF4iwfHdadTsyOh47XfCSKe1q
+	 qPTb/BWl7bWiQ==
+Original-Subject: Issue in man page remquo.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000203EC.000000006739C97E.003FC34B; Sun, 17 Nov 2024 10:46:22 +0000
-Date: Sun, 17 Nov 2024 10:46:22 +0000
+  id 00000000000206C6.000000006739C97F.003FC3C8; Sun, 17 Nov 2024 10:46:23 +0000
+Date: Sun, 17 Nov 2024 10:46:23 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page proc_pid_fd.5
-Message-ID: <ZznJfkqbDXJWpVXm@meinfjell.helgefjelltest.de>
+Subject: Issue in man page remquo.3
+Message-ID: <ZznJf900B2F5LgrV@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,10 +68,7 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    When executing this commands, sudo prompts me for my password
+Issue:    Why is this no-wrap?
 
-"$B< echo test | sudo -u nobody cat>\n"
-"test\n"
-"$B< echo test | sudo -u nobody cat /proc/self/fd/0>\n"
-"cat: /proc/self/fd/0: Permission denied\n"
+"Domain error: I<x> is an infinity or I<y> is 0, and the other argument is not a NaN"
 
