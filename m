@@ -1,122 +1,155 @@
-Return-Path: <linux-man+bounces-2021-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2022-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3C219D0475
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:16:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF3B9D0476
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 16:16:55 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 2E9A6B217AF
-	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 15:16:29 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 45C5FB217A9
+	for <lists+linux-man@lfdr.de>; Sun, 17 Nov 2024 15:16:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AB6C192D89;
-	Sun, 17 Nov 2024 15:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 43DDD192D89;
+	Sun, 17 Nov 2024 15:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="sZOZ88wd"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKJGoRhV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4F9C2ED
-	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 15:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04154335B5
+	for <linux-man@vger.kernel.org>; Sun, 17 Nov 2024 15:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731856582; cv=none; b=dMKG+SMny2ur5l5JiFb6Tprcf+l1q8ey98hrWWw0w07tvi+E1MR6TpKrqzG4aR4DzE6iFO0Lfzy7F6+oaguUlI3hx1cp7lOljzCgwPR1zLULC0qLC815CmzgUSEoLf0blPYDIx3ZhbsTxI+E+sD9/trB7rK9nVIKn35glsHxbjM=
+	t=1731856608; cv=none; b=XKH92Lr8KBpvqzP2E9qk6uWdB64w8lq4wsFcJPzJo+Ur8W7fz9AXNY8OQupL+ajX5nOdHNC3P10QYOT5CJYufIajO9gU1Nt7VuXnZqy5oCB2+DFj4VHXVU4PNTcwfVJw0bCRhOSWIqnbSL/qAnZQAr6Eq+mULam/2wbqTTUR4cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731856582; c=relaxed/simple;
-	bh=jYjPKf9zsr7wD2r1byjJYQHu6twKObyyqZgjg8JpFwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DnNg4TpYIufV7yjWiWidRqjV92Y+XIqmT3sT2AlsfPrzFHN+DJNTVEgp3dUOpXrYWBfT1vrLfF3GEjsBDGbEkGAu9T8XaJBHs8vkdi2f2Y4HJoVHbdkiFPe3TroeaiJyB2LZI3Otfue4fnByijFV0g1Lx1AA4bcettlXHADvi0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=sZOZ88wd; arc=none smtp.client-ip=142.132.201.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1731856579;
-	bh=CuMDp/fLir8e7wMvzCQaE0mW+r4P1fcBsb+H0XvoCEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=sZOZ88wdtOju5btsgXiQvLOVV3KkEN7D/qDLp0b+j34kXkAmGqL+0X8203Jxv84+Y
-	 4YjyN38SStYBIco0LF3jOWKuWWSeFmCNkwDo3miFA1VmHWrhGy+IzV2MsafPLz2lD9
-	 tUU0i6e3m2cbTxREUs5xt5W5M5/dBga4gCPslESDRAEGkNsQv4wgj1PZ0+zIFVTtju
-	 +b9MD5l0b9F8yo2mwOkMN1P3AVQ3YQ23uKc9PZgijqYQg3F056I5//L5j4tq0ZgBcT
-	 kXDgaMUUsr/S5GnPKZSV+eg/Tee5JytzBk7GdhLpaqf/j7Ftl5Wfg8YDo5xm5+Wm19
-	 WSI3fDpDdr4tw==
-Original-Subject: Re: Issue in man page clone.2
-Author: Helge Kreutzmann <debian@helgefjell.de>
-Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 00000000000200D0.00000000673A08C3.003FF380; Sun, 17 Nov 2024 15:16:19 +0000
-Date: Sun, 17 Nov 2024 15:16:19 +0000
-From: Helge Kreutzmann <debian@helgefjell.de>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1731856608; c=relaxed/simple;
+	bh=V/iaskuy4IDT0LqQqcdarUolA2kyIzlTGNXKd13lPJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z1plT2wQbTFxcSbHsVZe0LoG0FmsbvNrufgQhpB1UT3OJ6u/dyIBDBHrlHdgDtWRh/aXrLgrSIY6LEgKFOTWBDIdw+d0MZ50txW+grL6SuCtOODp2DrJpuf6e7sU/m3DwCFN65gjsl+FTGGQaG1cjlJgiMtBpwbqEGQeV0IlnDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKJGoRhV; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7889C4CECD;
+	Sun, 17 Nov 2024 15:16:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1731856607;
+	bh=V/iaskuy4IDT0LqQqcdarUolA2kyIzlTGNXKd13lPJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PKJGoRhV0Wzryr18OhyX9P0oeLor8Ll977VDWQt151hjdDyS6dIMrrFFnmSHPrGoN
+	 e/ZOHoiHvTQSDfj3sYFuNmZLw2LGjEjMip21TNf5Y+OmNAA5wlAE7ChdnYIQSGEUtP
+	 su3ozNh3wJ3CuYNYyQ2SFpgLGnSdGP2qjpd7I9PR4NGq32tBr6ErCBQsIhO+Gdie9u
+	 tI088zRZzaT+oJzzjBsGF+e7fdoOcx0RfRQfrj9PBiJqxBOEYyNkbsQVH7X9K+xwN5
+	 LP8bnUY2lAF9DMisVooIs8PPoK4T3pETFVrwVXYbTiQK7IhIlKQZjE5ZWq/wxsXc7n
+	 Od2j5XzJQEGVQ==
+Date: Sun, 17 Nov 2024 16:16:44 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page clone.2
-Message-ID: <ZzoIw383yIqC14CS@meinfjell.helgefjelltest.de>
-References: <ZznJge9al7KNW0tN@meinfjell.helgefjelltest.de>
- <rdmt5cqz7vgbne5vwxel3ws2scki2yjzdt5iqc3t73sh4weyki@k3z5rxxkria5>
+Subject: Re: Issue in man page charsets.7
+Message-ID: <i72sj6q7ugenx46iwmjbqteewvrxyymt3ygafnjoknurvfanl3@4spr24bsl2gh>
+References: <ZznJgUpx_AoG7C8T@meinfjell.helgefjelltest.de>
+ <zdew7riqkeywiwstzz2jecvet63zwozvjtpeudr2ef7z5ezvhn@tvow2a5qofwe>
+ <ZzoGspXgEj0u0TMO@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-4191104-1731856579-0001-2"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="37jd63svuh5znyo4"
 Content-Disposition: inline
-In-Reply-To: <rdmt5cqz7vgbne5vwxel3ws2scki2yjzdt5iqc3t73sh4weyki@k3z5rxxkria5>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
+In-Reply-To: <ZzoGspXgEj0u0TMO@meinfjell.helgefjelltest.de>
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
 
---=_meinfjell-4191104-1731856579-0001-2
-Content-Type: text/plain; charset=us-ascii
+--37jd63svuh5znyo4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Helge Kreutzmann <debian@helgefjell.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page charsets.7
+References: <ZznJgUpx_AoG7C8T@meinfjell.helgefjelltest.de>
+ <zdew7riqkeywiwstzz2jecvet63zwozvjtpeudr2ef7z5ezvhn@tvow2a5qofwe>
+ <ZzoGspXgEj0u0TMO@meinfjell.helgefjelltest.de>
+MIME-Version: 1.0
+In-Reply-To: <ZzoGspXgEj0u0TMO@meinfjell.helgefjelltest.de>
 
-Hello Alejandro,
-Am Sun, Nov 17, 2024 at 04:01:29PM +0100 schrieb Alejandro Colomar:
-> This was fixed in
+Hi Helge,
+
+On Sun, Nov 17, 2024 at 03:07:30PM GMT, Helge Kreutzmann wrote:
+> Hello Alejandro,
+> Am Sun, Nov 17, 2024 at 03:47:27PM +0100 schrieb Alejandro Colomar:
+> > On Sun, Nov 17, 2024 at 10:46:25AM GMT, Helge Kreutzmann wrote:
+> > > Without further ado, the following was found:
+> > >=20
+> > > Issue:    (it) is \\[aq]/\\[aq]s correct (the final s is a english pl=
+ural s)
+> >=20
+> > Would you mind clarifying the report?  I don't understand it.  Thanks!
+> >=20
+> > Cheers,
+> > Alex
+> >=20
+> > >=20
+> > > "Note that UTF-8 is self-synchronizing: 10xxxxxx is a tail, any other=
+ byte is "
+> > > "the head of a code.  Note that the only way ASCII bytes occur in a U=
+TF-8 "
+> > > "stream, is as themselves.  In particular, there are no embedded NULs=
+ "
+> > > "(\\[aq]\\[rs]0\\[aq]) or \\[aq]/\\[aq]s that form part of some large=
+r code."
 >=20
-> commit befb4aaa6d3e2bf1bf975a3585c23b863a534092
-> Author: Alejandro Colomar <alx@kernel.org>
-> Date:   Wed Nov 1 16:02:49 2023 +0100
+> As I understand it, the reporter is wondering if the "s" after \\[aq]/\\[=
+aq]=20
+> is correct. For the (\\[aq]\\[rs]0\\[aq]) there is no (plural) "s" and
 
-Yes, ashes on my head. I usually double check the FIXME, but this one
-slipped me. The text is correct in all distros.
+The '\0' is in a parenthetical, but '/'s has the plural like NULs.
+Let's keep it like that.  :)
 
-Greetings
+Cheers,
+Alex
 
-          Helge
+> here grammar (which probably dictates a plural s) and clarity are a
+> little in conflict.
+>=20
+> Greetings
+>=20
+>       Helge
+>=20
+> --=20
+>       Dr. Helge Kreutzmann                     debian@helgefjell.de
+>            Dipl.-Phys.                   http://www.helgefjell.de/debian.=
+php
+>         64bit GNU powered                     gpg signed mail preferred
+>            Help keep free software "libre": http://www.ffii.de/
+
+
 
 --=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
+<https://www.alejandro-colomar.es/>
 
---=_meinfjell-4191104-1731856579-0001-2
+--37jd63svuh5znyo4
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmc6CMMACgkQQbqlJmgq
-5nABhg//ewqKVQfcpO+9+SP5MhdaoECV52ul5XIi6jSSYMJGHPFKIIk5qcCYvAVv
-1J7qb4aBi2pU/O6I24oRCTTzIggPx/FmXWzHqljcJKphSs98yYNPNPwU++n/iL5b
-orDU0jQrSgShdQ2CISbq7E4vNVz7vhE5X/v0LLxkxHYke/zUsnKLEFUHCKPBEkjH
-6ROGRXHyev7H8HzYhNBn8iMUS+H+XwfOkgfiqOUUXl6+Wxs5vOIQfduoLEViICu3
-vtQNZ3pa+hPYIyhFIPo4suvvG2ZKZyOesT0NdnblsMbHh9Lxt46nD4XEmmBA0BSN
-RyVWg/gjHd2JFPDnUHGPMOMnLfpEIL7nNGVADqBMgBI/SGhCR93bcioaGobhZ5nN
-n6aNU48LP8xwiXJgOC7r5aOxhzR1LjbOgMF6+uo8H36+94617PdMKSNXCS9UcgPu
-aXbC3uhy5cmq0y1FmiVvQnRdjM9VYekz7fm3yj2B8ZbR7fvwsi5wpE0r1grM0thy
-YzLO0WocAmEH1Qr1Ui4y0g/OF0Q1PpEpUeG1VnqBDHF6siABz+nNn0VuBlABztSk
-DQD8RcXkVEWqjmdDpxgAQHKUNsuXmNiZwqLEU52DFaQTxA2O8U/iXpGMcnS9ctOg
-SSH+ldKkDpPRTkHIK+mxeQXI2ndo4mx1eyF3FFqa0N5WvWqrsrQ=
-=/9h6
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmc6CNwACgkQnowa+77/
+2zJHvg/+K1422MZ+nNT79uVz36DOkdAEWjdwupo0EnoLEhlTv7gg4jZViZtNtC16
+X+BDwTDHBf+e8uTrwb7C4m/p8Rk+K2UZlnhV87uaMRkQEYbA7YSrzI2k1y7vDT9G
+zRuCru3uQJOHKLNfPW6+CUG3k5VCWy6mkq1PgUzMAK97mewFnyf2fSVWgfYUXimY
+Q+am11CeqrhNJQgOWPRNlGaCyR/1DVRFwwXDxI32TcwUi23Hx9f3fW5wtJDUdhZH
+VLe5h4he32dLMFF5zA5T0a/X9VTDb/QNRl4dr1eJH3yqwT1VDRQsIYNfJkR4Iyq6
+LxQKzwBT1GosnLx3jccHu6VaaBqoDvzWs/2+HCNwgmvJQVsi/iKM64HYELQu+2jF
+UlXoIGxXeWmsUy8hcGbc7YP5T3CXTD2wKrQlV+FFTa8iXvFTSrtmpmvObfe6bjar
+uU4Rkn0jifxoP8EdGc9rDBow38csw/5xUIZv5KRUE5zlsrXDvfc27WaEUuBqQFTq
+DuQOABCdFYsXIlJzJfqHaTNB8R+gKOMLHYWZULHv99WXRHws55VYESAZOY566X6Q
+yELVQDCQc+K7Gv77RW9dIZD4Fe7UUiETun9ATqzWTra3dB6Kt5GYz9l2kLIjYWGh
+QaTYEtRqClpghW+JXjPEHtiNrWJubU8cbgUthrv0tnCx+O+Gno4=
+=WcmV
 -----END PGP SIGNATURE-----
 
---=_meinfjell-4191104-1731856579-0001-2--
+--37jd63svuh5znyo4--
 
