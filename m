@@ -1,265 +1,83 @@
-Return-Path: <linux-man+bounces-2042-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2043-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 523839D18DA
-	for <lists+linux-man@lfdr.de>; Mon, 18 Nov 2024 20:26:41 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id A36EE9D1B2B
+	for <lists+linux-man@lfdr.de>; Mon, 18 Nov 2024 23:39:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id CF3791F22336
-	for <lists+linux-man@lfdr.de>; Mon, 18 Nov 2024 19:26:40 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 391E3281D37
+	for <lists+linux-man@lfdr.de>; Mon, 18 Nov 2024 22:39:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6ED071E47DA;
-	Mon, 18 Nov 2024 19:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14BCB1E7C39;
+	Mon, 18 Nov 2024 22:39:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b="tbxdbluW";
-	dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b="JJ4McGNJ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y7XLEzw6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from haruka.juszkiewicz.com.pl (haruka.juszkiewicz.com.pl [185.243.53.191])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AC11E0DFC
-	for <linux-man@vger.kernel.org>; Mon, 18 Nov 2024 19:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.243.53.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78146158DAC
+	for <linux-man@vger.kernel.org>; Mon, 18 Nov 2024 22:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731957988; cv=none; b=XlSz+11KAp+RCaBtxSWN2kH/ZoJXw2lMjJdSALb9htxbbX9pTYc0GmGSLwm6RbnMxNKMjk551GNgYyGUd5uf9rFOUlVNFinje3PMX3z/fiTa7Poj1lm/oJsd6DV+8AIB51RoHehTBaCW0YCPHVqjH3IeBFDXrOeY7gRCMEdhPLA=
+	t=1731969543; cv=none; b=FzyTqAy50z/pLySPlGyojoABJqh8WFE+7Zo5JbxD3erSblk1thGiVRwXtVuYl3O5LxvFeZTgq7dw0ohP737BYVbFvPomWb08cpKjVFPaaxOTM1jQAo2ae2zP20eL2oHkMDJ47WBRAjSgCgZbQ6YnsIdBFpz6IL6ETneQUzyshLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731957988; c=relaxed/simple;
-	bh=BeS4F7p6MGQkCpBO8/NzHiURDbXbyyoJPR6wns0JF1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SoLBjq7aCsTEr8lIgVf9bufzv1upcm4igYax57OmIXy8HAz/ucl+wBPlpxvig1JmLLBVxMMWbNSpDhjCWqOCQu3/dBhyE8wU+QVbSF2XZtW/7+pASQbWh7/ZkISGrTWfJ3eJnV0GIlOxYE2zHCN9OLC8Th+Z4kt1+kDkkdqFSbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juszkiewicz.com.pl; spf=pass smtp.mailfrom=juszkiewicz.com.pl; dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b=tbxdbluW; dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b=JJ4McGNJ; arc=none smtp.client-ip=185.243.53.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juszkiewicz.com.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=juszkiewicz.com.pl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=juszkiewicz.com.pl;
-	s=mail; t=1731957405;
-	bh=BeS4F7p6MGQkCpBO8/NzHiURDbXbyyoJPR6wns0JF1o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tbxdbluWSX2Sou2DSbjUbFxbXk7OEsa7q79unhcccajOa7T9bt7uI5Qg7raKdL64e
-	 kK/gcpZUo0VELD1wRMPkLk2QH23e6thYAUhJ3lD0vijRkfrE2M5nVp8fpad6Cu70IG
-	 AvYf/bJPoxMfifuzzhw4tio9LBqLnJ35jeDqDENQ9LT+4oaLfwQC54uBcAPqhBPsdx
-	 Pb3Y0HS6ytC+cfcretgRw+uEHI+skl6hx7VBSpmJ4EyawDph/ySsOwgZYFMI35ANgU
-	 5jcLsoB/V/8JdMLs5+UkbLcIsaMmpllwuC5tvGiyLNt135oMW5xmpkPeJPrXeM7X6H
-	 xwZhtTB7JHqAQ==
-Received: from utena.juszkiewicz.com.pl (utena.juszkiewicz.com.pl [158.101.208.177])
-	by haruka.juszkiewicz.com.pl (Postfix) with ESMTPSA id E56E12297D;
-	Mon, 18 Nov 2024 20:16:44 +0100 (CET)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BC4894132E;
-	Mon, 18 Nov 2024 20:16:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=juszkiewicz.com.pl;
-	s=mail; t=1731957404;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+enKxBz/xm6/v6mIO6J3NrTKOnD2ABEIG47+bHSsVOo=;
-	b=JJ4McGNJhhlH6vMib62ZVzc/RH6Ntiok4azdK5aGCsp9zPB5d71+aCSr72cck2RMbZs1Pi
-	d0lLH+m7XgtC5T0NM9wvKOHd+iOdinfXZTUtfYI5WmjNPVbXaW1c+u1Y3BM3phnXg+dFIr
-	JkiEtYsMjRELTdS06je1GhuxriHRM2ytatICVnlB5hDnpxHCCapVwiN1F8tg+uZi3Z82ty
-	UnN5JXb1Q5Bv/73pmG9zzl07z6BUeSiw93R+K1y7p4xpIJTAyiriusOUyurRpFGfbQ+kAd
-	1YLxgwxKxlqjxylhWf5JRyVCVbPBleZ0zbuRKafJ9SAfp9LN6Oq+J2pbbE9LEg==
-From: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>,
-	linux-man@vger.kernel.org
-Subject: [PATCH] add time64 copies of system calls
-Date: Mon, 18 Nov 2024 20:16:24 +0100
-Message-ID: <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
-References: <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
+	s=arc-20240116; t=1731969543; c=relaxed/simple;
+	bh=mqk98GP19dZ+Ay7HEP68kLZER2bT/NkIqYTu8jMJ4BE=;
+	h=From:Message-ID:To:Subject:Date:MIME-Version:Content-Type; b=KLdmJgzPPMlOdCNu4BrfnT0CbAX6Pr0m93RQDdyMZf8blTU2wlXnJTf4oAcDcWxepe0rGjwxf4/mU1kF7uXzeAZw2gNftQTaTnrQVwROLBRFtAzqC23SEok64S+/4QkGhO5lj8Gd6B4w/qB1jyWb23vw/4/J2NcbFIXj7/J0t/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y7XLEzw6; arc=none smtp.client-ip=209.85.128.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f67.google.com with SMTP id 5b1f17b1804b1-4315eac969aso27377035e9.1
+        for <linux-man@vger.kernel.org>; Mon, 18 Nov 2024 14:39:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1731969540; x=1732574340; darn=vger.kernel.org;
+        h=mime-version:date:subject:to:reply-to:message-id:from:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mqk98GP19dZ+Ay7HEP68kLZER2bT/NkIqYTu8jMJ4BE=;
+        b=Y7XLEzw6kvVJFBiJCv2Mq2FrMKNilTBGnsNsTWTf6fWHnNAUA/z9hUNVjeakLaXTPC
+         i5fWsCfxoPA/JGNJBysz3wUoU4Y2dxhRWmVg3zr5IRyMldGlu+7nHj3PP7jUASlzxYR9
+         Hk9izyjt6KHV9+KfWMgNpeAKCS6GRS1qvbvAuTaUCNqQ/bmbo5nG6McrclsctMAjjfiX
+         0D14yiP2JWXAOcYQuox53H3mmMW2TlvB7hjnygSaGVxsV4r9i19GsX4xmTC8UZ9fMsbC
+         bT3zgJyD0BHd2H98x7daKv8+yXcVzw7Pa4SDqTAeAf1X53vFVfD+5Wz+bcCKkAO6g43x
+         Eisg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731969540; x=1732574340;
+        h=mime-version:date:subject:to:reply-to:message-id:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mqk98GP19dZ+Ay7HEP68kLZER2bT/NkIqYTu8jMJ4BE=;
+        b=tRZu/YD8/PMFL6hyHy106owbHDfGcDS+RykCCwLhB3zs4KXtbYtiAR5c3rQ/lBnQcS
+         HNWQTqoWaNygmmq8L+Q6qSypARpk9gRf5rYOXJJ/GALSuxBHl0KTsmi1X6xoXnAoaSza
+         r69WZj1eJsr6b4gKLVI61MCpi63obHsh8wiU93DHFfePhC1r202QmxupKbQkksg7k0wH
+         eEN/v+xkVmjmt+4iuLVjcsqFuIJddUY/akq2eqtqKHJ9dlEzGzmn0dwHFFEEGp8KCGce
+         0NnGGTty9nrb7iB8zXSl9/APsacxrku6ljj/U16SJ9xc7XwXpRH/xAkBWPv1KDnI2183
+         WASQ==
+X-Gm-Message-State: AOJu0Yw148sltULgrS+DhNNLA+MQ++oQFu3BNJQc+NDjMvr4Er9FbP/e
+	WpqeGealEOVVWvLOSb+FvNJOQfqwhZbBOP6SL4Bf957eAqlimS4qFiqH+U3T
+X-Google-Smtp-Source: AGHT+IGRDqq16SAQczKN+FzpZ5lBxYgVe3Y2faS5LmCRtXUmUS6djW0XcMVIdbrbHyrdEmuKeKx6vw==
+X-Received: by 2002:a05:600c:1c16:b0:424:895c:b84b with SMTP id 5b1f17b1804b1-432f57b37b1mr7067405e9.4.1731969539662;
+        Mon, 18 Nov 2024 14:38:59 -0800 (PST)
+Received: from [87.120.84.56] ([87.120.84.56])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-38230e88f57sm9703492f8f.94.2024.11.18.14.38.57
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 18 Nov 2024 14:38:57 -0800 (PST)
+From: William Cheung <muralidhoron73@gmail.com>
+X-Google-Original-From: William Cheung <info@gmail.com>
+Message-ID: <84d6221bfd50f16510d4e4dc9cfee23797bd0a79b560f2ee25fccf94ed51b832@mx.google.com>
+Reply-To: willchg@hotmail.com
+To: linux-man@vger.kernel.org
+Subject: A Proposal
+Date: Mon, 18 Nov 2024 14:38:45 -0800
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
 
-During work on y2038 problem several time related system calls got "64"
-or "_time64" copies. It happened only on 32-bit architectures as there
-was no problem on 64-bit ones.
-
-Signed-off-by: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
----
- man/man2/clock_adjtime64.2              | 1 +
- man/man2/clock_getres64.2               | 1 +
- man/man2/clock_gettime64.2              | 1 +
- man/man2/clock_nanosleep_time64.2       | 1 +
- man/man2/clock_settime64.2              | 1 +
- man/man2/futex_time64.2                 | 1 +
- man/man2/mq_timedreceive_time64.2       | 2 ++
- man/man2/mq_timedsend_time64.2          | 2 ++
- man/man2/ppoll_time64.2                 | 1 +
- man/man2/pselect6_time64.2              | 1 +
- man/man2/recvmmsg_time64.2              | 1 +
- man/man2/rt_sigtimedwait_time64.2       | 1 +
- man/man2/sched_rr_get_interval_time64.2 | 1 +
- man/man2/semtimedop_time64.2            | 1 +
- man/man2/timer_gettime64.2              | 1 +
- man/man2/timer_settime64.2              | 1 +
- man/man2/timerfd_gettime64.2            | 1 +
- man/man2/timerfd_settime64.2            | 1 +
- man/man2/utimensat_time64.2             | 1 +
- 19 files changed, 21 insertions(+)
- create mode 100644 man/man2/clock_adjtime64.2
- create mode 100644 man/man2/clock_getres64.2
- create mode 100644 man/man2/clock_gettime64.2
- create mode 100644 man/man2/clock_nanosleep_time64.2
- create mode 100644 man/man2/clock_settime64.2
- create mode 100644 man/man2/futex_time64.2
- create mode 100644 man/man2/mq_timedreceive_time64.2
- create mode 100644 man/man2/mq_timedsend_time64.2
- create mode 100644 man/man2/ppoll_time64.2
- create mode 100644 man/man2/pselect6_time64.2
- create mode 100644 man/man2/recvmmsg_time64.2
- create mode 100644 man/man2/rt_sigtimedwait_time64.2
- create mode 100644 man/man2/sched_rr_get_interval_time64.2
- create mode 100644 man/man2/semtimedop_time64.2
- create mode 100644 man/man2/timer_gettime64.2
- create mode 100644 man/man2/timer_settime64.2
- create mode 100644 man/man2/timerfd_gettime64.2
- create mode 100644 man/man2/timerfd_settime64.2
- create mode 100644 man/man2/utimensat_time64.2
-
-diff --git a/man/man2/clock_adjtime64.2 b/man/man2/clock_adjtime64.2
-new file mode 100644
-index 000000000..b08b9c801
---- /dev/null
-+++ b/man/man2/clock_adjtime64.2
-@@ -0,0 +1 @@
-+.so man2/adjtimex.2
-diff --git a/man/man2/clock_getres64.2 b/man/man2/clock_getres64.2
-new file mode 100644
-index 000000000..5a599b4b9
---- /dev/null
-+++ b/man/man2/clock_getres64.2
-@@ -0,0 +1 @@
-+.so man2/clock_getres.2
-diff --git a/man/man2/clock_gettime64.2 b/man/man2/clock_gettime64.2
-new file mode 100644
-index 000000000..5a599b4b9
---- /dev/null
-+++ b/man/man2/clock_gettime64.2
-@@ -0,0 +1 @@
-+.so man2/clock_getres.2
-diff --git a/man/man2/clock_nanosleep_time64.2 b/man/man2/clock_nanosleep_time64.2
-new file mode 100644
-index 000000000..b69e18aaa
---- /dev/null
-+++ b/man/man2/clock_nanosleep_time64.2
-@@ -0,0 +1 @@
-+.so man2/clock_nanosleep.2
-diff --git a/man/man2/clock_settime64.2 b/man/man2/clock_settime64.2
-new file mode 100644
-index 000000000..5a599b4b9
---- /dev/null
-+++ b/man/man2/clock_settime64.2
-@@ -0,0 +1 @@
-+.so man2/clock_getres.2
-diff --git a/man/man2/futex_time64.2 b/man/man2/futex_time64.2
-new file mode 100644
-index 000000000..5dbcdeae1
---- /dev/null
-+++ b/man/man2/futex_time64.2
-@@ -0,0 +1 @@
-+.so man2/futex.2
-diff --git a/man/man2/mq_timedreceive_time64.2 b/man/man2/mq_timedreceive_time64.2
-new file mode 100644
-index 000000000..b4184f8c2
---- /dev/null
-+++ b/man/man2/mq_timedreceive_time64.2
-@@ -0,0 +1,2 @@
-+.so man3/mq_timedreceive.3
-+.\" Because mq_timedreceive(3) is layered on a system call of the same name
-diff --git a/man/man2/mq_timedsend_time64.2 b/man/man2/mq_timedsend_time64.2
-new file mode 100644
-index 000000000..db95863ad
---- /dev/null
-+++ b/man/man2/mq_timedsend_time64.2
-@@ -0,0 +1,2 @@
-+.so man3/mq_timedsend.3
-+.\" Because mq_timedsend(3) is layered on a system call of the same name
-diff --git a/man/man2/ppoll_time64.2 b/man/man2/ppoll_time64.2
-new file mode 100644
-index 000000000..227cd0e47
---- /dev/null
-+++ b/man/man2/ppoll_time64.2
-@@ -0,0 +1 @@
-+.so man2/poll.2
-diff --git a/man/man2/pselect6_time64.2 b/man/man2/pselect6_time64.2
-new file mode 100644
-index 000000000..e17784318
---- /dev/null
-+++ b/man/man2/pselect6_time64.2
-@@ -0,0 +1 @@
-+.so man2/select.2
-diff --git a/man/man2/recvmmsg_time64.2 b/man/man2/recvmmsg_time64.2
-new file mode 100644
-index 000000000..8b9c14ff3
---- /dev/null
-+++ b/man/man2/recvmmsg_time64.2
-@@ -0,0 +1 @@
-+.so man2/recvmmsg.2
-diff --git a/man/man2/rt_sigtimedwait_time64.2 b/man/man2/rt_sigtimedwait_time64.2
-new file mode 100644
-index 000000000..ca098e5fc
---- /dev/null
-+++ b/man/man2/rt_sigtimedwait_time64.2
-@@ -0,0 +1 @@
-+.so man2/sigtimedwait.2
-diff --git a/man/man2/sched_rr_get_interval_time64.2 b/man/man2/sched_rr_get_interval_time64.2
-new file mode 100644
-index 000000000..27c946363
---- /dev/null
-+++ b/man/man2/sched_rr_get_interval_time64.2
-@@ -0,0 +1 @@
-+.so man2/sched_rr_get_interval.2
-diff --git a/man/man2/semtimedop_time64.2 b/man/man2/semtimedop_time64.2
-new file mode 100644
-index 000000000..8a4061874
---- /dev/null
-+++ b/man/man2/semtimedop_time64.2
-@@ -0,0 +1 @@
-+.so man2/semop.2
-diff --git a/man/man2/timer_gettime64.2 b/man/man2/timer_gettime64.2
-new file mode 100644
-index 000000000..42015ca6b
---- /dev/null
-+++ b/man/man2/timer_gettime64.2
-@@ -0,0 +1 @@
-+.so man2/timer_settime.2
-diff --git a/man/man2/timer_settime64.2 b/man/man2/timer_settime64.2
-new file mode 100644
-index 000000000..42015ca6b
---- /dev/null
-+++ b/man/man2/timer_settime64.2
-@@ -0,0 +1 @@
-+.so man2/timer_settime.2
-diff --git a/man/man2/timerfd_gettime64.2 b/man/man2/timerfd_gettime64.2
-new file mode 100644
-index 000000000..6d1294048
---- /dev/null
-+++ b/man/man2/timerfd_gettime64.2
-@@ -0,0 +1 @@
-+.so man2/timerfd_create.2
-diff --git a/man/man2/timerfd_settime64.2 b/man/man2/timerfd_settime64.2
-new file mode 100644
-index 000000000..6d1294048
---- /dev/null
-+++ b/man/man2/timerfd_settime64.2
-@@ -0,0 +1 @@
-+.so man2/timerfd_create.2
-diff --git a/man/man2/utimensat_time64.2 b/man/man2/utimensat_time64.2
-new file mode 100644
-index 000000000..a365c7b53
---- /dev/null
-+++ b/man/man2/utimensat_time64.2
-@@ -0,0 +1 @@
-+.so man2/utimensat.2
--- 
-2.47.0
-
+I have a lucratuve proposal for you, reply for more info.
 
