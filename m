@@ -1,82 +1,81 @@
-Return-Path: <linux-man+bounces-2054-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2055-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A31F9D43C1
-	for <lists+linux-man@lfdr.de>; Wed, 20 Nov 2024 23:05:11 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDDA89D4402
+	for <lists+linux-man@lfdr.de>; Wed, 20 Nov 2024 23:40:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2A4302831A2
-	for <lists+linux-man@lfdr.de>; Wed, 20 Nov 2024 22:05:10 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 52BDBB238D2
+	for <lists+linux-man@lfdr.de>; Wed, 20 Nov 2024 22:40:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0206216C69F;
-	Wed, 20 Nov 2024 22:05:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 017D51AA1DC;
+	Wed, 20 Nov 2024 22:40:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WT7Rqh8q"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="d+IeHVdC"
 X-Original-To: linux-man@vger.kernel.org
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FC533998
-	for <linux-man@vger.kernel.org>; Wed, 20 Nov 2024 22:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407CE1865E5
+	for <linux-man@vger.kernel.org>; Wed, 20 Nov 2024 22:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1732140305; cv=none; b=SVtfZL6EEcX9EazVGCvKOFyXzX7n3qR0IIsgtczBlag5BElQ44Eg7zfL7H6UwnwvMQv6/XLFkIV4C3x5KScYI4+NHG5p6lBHaLdaZODUtrji+E4MUjxVNaw0DvSlueXQwu2uacbzuzVrJ5BCS02DCYuWmu+OaiXx2wtXqyQlA2I=
+	t=1732142421; cv=none; b=MOErNHUC4QhnDWZU9OmphRB/OVWd/l4rx6zaDpPUqqSbiyJx5CVX4da9kl/X/g3WRzgIdUvrFvB5ianguVeAjRDW9nUVYi5xZCNaKDHuZa4w+NUEmALzyq1eUorrttcHrtCgSmcGTzvCKdbpohq72ZkwCP3UvBPCqE/o+RGsGeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1732140305; c=relaxed/simple;
-	bh=N4z4MJ9VPmoFwtf+mX79KvbfGC3F4X355D27+U8o/OI=;
+	s=arc-20240116; t=1732142421; c=relaxed/simple;
+	bh=xyIcZyh5UFf4Nlh4/WzYNHYKbECCJCHeO8fTlDEFfoA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AvqciUbn9d/HWGxz56zrUpNvUceOmY+ZG2R+gJ1kYMkyHMV9DPpj/1R8shFm8kzBi8JcKunmI6hLYnwXMpp3jaIgWGu5G5YHn0YS3ymtnuOSGfKuizc4F1zHQAEiBu9hAkhwCmuMiNbGESZ1q7+O7aPEsAqqEc+kKwvLhgkkyfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WT7Rqh8q; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=VDnjyjyVO/y+lVuJ9YiyXF9odZEHNVnFhtMpGPIG36QnLuXQrr5b/FeXAr1XQkhmmkJ2zeCLsYsl2RMwafifC3MTyDsVTbf5pwZ2MqCZsAbSfkQhLfCR2xVB6rNM8CCx/A8V2jCTxBMc9bg8MwufG4/s8U1h8UocrHCchZGUeyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=d+IeHVdC; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1732140303;
+	s=mimecast20190719; t=1732142419;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9J3jxrIkckDg+pc7hRfZITGfZpvCtgaCzHRLtvlalO0=;
-	b=WT7Rqh8qKnqIxp+trnIQCN3QvyGoSA8FrNPxTISKUfeYIzCxJDZua6tlu3D+0wMhvUmHhe
-	TA8cRttIaZaixjDfVO2vtffsWmHw/+DJCctqHlk+ixN8KaQ7hDn1luK9qyRlmWdUJgxqaM
-	/KcJ1rcJ45mstQJsiTfKzmiFn6lxS7c=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=bLPtaX+nuI9zE4XTERdLiKqtlfRfDBRNY7ch60czIp8=;
+	b=d+IeHVdCOZ60AbdyFlARCYgBQF2DmXwSVwPMvKFqMdCAIEVXl1cUxKow49YSicBpV7BZ2N
+	uHlUuv98iiBuRxwItk/ZO5lYma3m91ay+Ni0LuNhIsfmBJ86WELr8PTpISNcEB4jieg0Oo
+	MQSIsDj5vAk+CGYSmmvRDtnAeV5yLR0=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-31-epWk4hdjMOOkaL-WdgklZg-1; Wed, 20 Nov 2024 17:05:01 -0500
-X-MC-Unique: epWk4hdjMOOkaL-WdgklZg-1
-X-Mimecast-MFC-AGG-ID: epWk4hdjMOOkaL-WdgklZg
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-6d4037d4fcbso3380156d6.3
-        for <linux-man@vger.kernel.org>; Wed, 20 Nov 2024 14:05:00 -0800 (PST)
+ us-mta-643-a4XXZ2ieMsm27iYZtN6ulg-1; Wed, 20 Nov 2024 17:40:17 -0500
+X-MC-Unique: a4XXZ2ieMsm27iYZtN6ulg-1
+X-Mimecast-MFC-AGG-ID: a4XXZ2ieMsm27iYZtN6ulg
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-6eeb9152b2cso3528927b3.1
+        for <linux-man@vger.kernel.org>; Wed, 20 Nov 2024 14:40:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732140300; x=1732745100;
+        d=1e100.net; s=20230601; t=1732142417; x=1732747217;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9J3jxrIkckDg+pc7hRfZITGfZpvCtgaCzHRLtvlalO0=;
-        b=iSukxZjIX7xA+XjMvPaoa8nymQsS3eeSFU3vikfe0jhPOEPqKx+JZJ49iiSDlapEos
-         yQkkntpwCzsjpjIL7ksYQSso9FJ6c1eCQGS9rfJwgNCFKO8DdGUHI2WuuKpTdKgEu96p
-         JvzupFrQD3/S9B2HDByXnTDERmjLF5EU/hPDn59rnAoocRt3eQ1C9b/JD8nP/6ROoflY
-         iRG8hZbBeo4G94NEji3FEPYWFKVSmpbFcYdsCa/efsv1jrUhFKZ10R2mzes1SYOCN0qT
-         Ar65PGbPPunYvofn7ZXjLG+RepSxvyaoAQHIZmq6x/EOMJ+00dJcVcLXH9sUO3OCw/Ep
-         v23A==
-X-Forwarded-Encrypted: i=1; AJvYcCW/2rysyNqpCHISVwB/XYcYpkbzHCmeq2a1nSOwsrwfZxTIZVGRSvSYrvze7HGYdiJrlu6SxkSXl/E=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz61lbns4/qzvDU9NFvElC9LNXxvbrjql1Tmk7R7VOTGYsReErw
-	y0wS0UZT5cxi0QQ/LIeTETi4BcXTYYBy1y79Yi3etI4am+m2J6steFIh+jwaxZigCTuqkpO0Wcu
-	2PtWE3pmz1IQIbHCzqUn4QVx33YLeUwuJq14gjx4+H4eKqODuNo4ZZn5Ujw==
-X-Received: by 2002:a05:6214:5096:b0:6d4:29ae:fd3e with SMTP id 6a1803df08f44-6d43782d324mr64118686d6.29.1732140300530;
-        Wed, 20 Nov 2024 14:05:00 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFt+fFKS+LopM7K2FJ/Aiv20f45XyaQtPoTNq5cg0PL9XrJZ1UIwDAe0rrASlUimF43pM5Z9A==
-X-Received: by 2002:a05:6214:5096:b0:6d4:29ae:fd3e with SMTP id 6a1803df08f44-6d43782d324mr64118446d6.29.1732140300268;
-        Wed, 20 Nov 2024 14:05:00 -0800 (PST)
+        bh=bLPtaX+nuI9zE4XTERdLiKqtlfRfDBRNY7ch60czIp8=;
+        b=rBvRIHv2224gWm6+TD93idJ+CSvJWKPG27DSUY1nDFi/xqADyUALrnJfFChgst/5Wo
+         JaQlyKqruioN29OPYSlj5255ElOg7d4Sq0wB40Ho4FP/ENRhTHABHYxFs5xMGjByQfSY
+         YFnsrWpaxRaFa12mCebfuESUsZSoZx0TKQPY63SHKCF3Rk4HBeu4vAvhKbOqeu+hQfsc
+         6zZ/3/YETfdMQw79oB8ZlVGZbuMSoj8/fH4JrxFS8AfXtlDbHh4xD/dqxPhf3Z/EY0Fe
+         D+7mxS84QmUaB0yd+rmGsu3fTsdLOwCOlQ/jmd3T57jKLNLmRR1kUhTqs6O3XBbj94NT
+         ZkEA==
+X-Gm-Message-State: AOJu0YyLPQke+CrMZ0AR+22jbepnE3jXxqMZLzVsTmvB8209VmsOBlRg
+	JuFodN/tsgrosLpIKpGQF6JgOu1+fscTNOUE5/Zz33qvJ6WljSIMurgZBN1CA5CkOwZSK6xQmdN
+	IwyLsCUJ7lBnaP8xc5wNpNEaHMiVq/qt90XTbkC1080eL/DRGVwjaltZZCg==
+X-Received: by 2002:a05:690c:4a09:b0:6e3:3275:8e5e with SMTP id 00721157ae682-6eebd2a006dmr51045777b3.33.1732142417133;
+        Wed, 20 Nov 2024 14:40:17 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEMxFLE1eghH1sENc4+zZxGHs4UZMpddhrOiUkNCdK16AuBXQiOEAghgup29sDSqRpotu2iuw==
+X-Received: by 2002:a05:690c:4a09:b0:6e3:3275:8e5e with SMTP id 00721157ae682-6eebd2a006dmr51045647b3.33.1732142416912;
+        Wed, 20 Nov 2024 14:40:16 -0800 (PST)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6d43812ad2csm15395936d6.89.2024.11.20.14.04.59
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6d4380d8b6bsm15729936d6.34.2024.11.20.14.40.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 Nov 2024 14:04:59 -0800 (PST)
-Message-ID: <c1a2f5d6-0be7-4821-b489-75a71e29e618@redhat.com>
-Date: Wed, 20 Nov 2024 17:04:58 -0500
+        Wed, 20 Nov 2024 14:40:16 -0800 (PST)
+Message-ID: <fb5d9a20-9937-4cf7-b8e0-99710d88f4bc@redhat.com>
+Date: Wed, 20 Nov 2024 17:40:15 -0500
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -84,12 +83,14 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Issue in man page sprof.1
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: alx@kernel.org, mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-References: <ZznJf0DLo7CVHddl@meinfjell.helgefjelltest.de>
- <8c9a2898-1a2d-46de-93c9-2b46b65f1811@redhat.com>
- <Zzy6RjZvu_jYo5rz@meinfjell.helgefjelltest.de>
+Subject: Re: [PATCH] add time64 copies of system calls
+To: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>,
+ Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
+ <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
+ <20241118225148.fgrvxxg2p6on4nl3@devuan>
+ <5778beee-a1c0-45cf-93fa-8d36501911f9@juszkiewicz.com.pl>
 Content-Language: en-US
 From: Carlos O'Donell <carlos@redhat.com>
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -137,52 +138,34 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O4uRThl5mMDx8MXQz6M9qQ5anYwre+/TudTfCzcTpgXod1wEqi2ErJ5jNgh18DRlSQ3tbDvG
  O0FatDMfJw==
 Organization: Red Hat
-In-Reply-To: <Zzy6RjZvu_jYo5rz@meinfjell.helgefjelltest.de>
+In-Reply-To: <5778beee-a1c0-45cf-93fa-8d36501911f9@juszkiewicz.com.pl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/19/24 11:18 AM, Helge Kreutzmann wrote:
-> Hello Carlos,
-> Am Tue, Nov 19, 2024 at 08:29:34AM -0500 schrieb Carlos O'Donell:
->> On 11/17/24 5:46 AM, Helge Kreutzmann wrote:
->>> Without further ado, the following was found:
->>>
->>> Issue:    Inconsistency detected by ld.so: dl-open.c: 930:
->>> _dl_open: Assertion `_dl_debug_update (args.nsid)->r_state ==
->>> RT_CONSISTENT' failed!
+On 11/19/24 3:23 AM, Marcin Juszkiewicz wrote:
+> W dniu 18.11.2024 o 23:51, Alejandro Colomar pisze:
+>> Hi Marcin,
 >>
->> This is no translation for this assertion failure.
+>> On Mon, Nov 18, 2024 at 08:16:24PM +0100, Marcin Juszkiewicz wrote:
+>>> During work on y2038 problem several time related system calls got "64"
+>>> or "_time64" copies. It happened only on 32-bit architectures as there
+>>> was no problem on 64-bit ones.
+>>>
+>>> Signed-off-by: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
+>>
+>> This only adds link pages, but doesn't add any documentation for them.
+>> Should we add anything?  Maybe to the SYNOPSIS and VERSIONS (or HISTORY)?
 > 
-> Sorry for beeing unclear. This is not about translating the string.
-> One of our translators tried out the example given in sprof(1) and
-> came across this message.
-> 
-> So the question is:
-> Is the example correct, despite the failure?
-
-The example looks correct to me.
-
-We have glibc/elf/tst-sprof-basic.sh to verify basic operation of sprof
-(though we test it wrapped using the newly built ld.so, so we might improve
-this with a containerized test).
-
-It doesn't fail for me on a glibc-2.39 test system I have right now, but
-I haven't verified the data is correct either.
-
-If this is failing for you please submit a bug upstream to glibc and we'll review.
-
-> And if yes, maybe this failure should be mentioned in the man page.
-
-We shouldn't document every bug in the man-pages.
-
-We should verify the examples keep working though.
+> Will look into it.
  
-> As a side note:
-> We translators regularly check if messages are translated or not, so
-> in this case we would *not* translate the output ourselves, but leave
-> it in English, of course.
+We absolutely can and should add documentation for the kernel syscalls since they are
+unique syscalls that take 64-bit time_t variants for a 32-bit userspace.
 
-Thank you!
+These syscalls are the 64-bit time_t variants to allow userspace to build 32-bit targets
+that have 64-bit time_t e.g. alternate ABI i686 with 64-bit time_t.
+
+The userspace interfaces are hidden behind a 64-bit time_t though and shouldn't change
+(though the ABI changes).
 
 -- 
 Cheers,
