@@ -1,61 +1,54 @@
-Return-Path: <linux-man+bounces-2058-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2059-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11CE89D713D
-	for <lists+linux-man@lfdr.de>; Sun, 24 Nov 2024 14:46:26 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C9629D7830
+	for <lists+linux-man@lfdr.de>; Sun, 24 Nov 2024 22:10:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9E308B42334
-	for <lists+linux-man@lfdr.de>; Sun, 24 Nov 2024 13:43:26 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0B1F4281CAC
+	for <lists+linux-man@lfdr.de>; Sun, 24 Nov 2024 21:10:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0BA201D5166;
-	Sun, 24 Nov 2024 13:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FC5113D8B2;
+	Sun, 24 Nov 2024 21:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfVT+SB5"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L2o0nkgo"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCF0192B81;
-	Sun, 24 Nov 2024 13:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3517F163
+	for <linux-man@vger.kernel.org>; Sun, 24 Nov 2024 21:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1732455318; cv=none; b=DFA7Uxd9GXPPJZcIfU0SoxRoomIVr1Jo7tNA28zBpnk5HJIEBzh0oGDRU1GVw6bhbvn6o+vQICnFHC2XVg6lCS5O7pCDMRSP+nad0M8uNRWeOr3EBcsJ+li79jSP2++rmzEeryuJkGHTpJnJJYJBZAUiBOEk0FoUeGBrVxmZjlk=
+	t=1732482623; cv=none; b=Tm3XazQ8exExqf7TTDEm6Ieox/A3X598AatAgh3vl8KjpVVLQJwZkII3NBOfXxVBSVwJVI6xC2g5Ufy3IUSUvMg2+mSyn1ZMoyjSGFH8XKH7wOSOkCFWN5Ymbs7x6p9ExaXwsfdLJAnAx2TUdntafJQRI3xzyozmRyw8JjU5zs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1732455318; c=relaxed/simple;
-	bh=NSj1wSAy/qfbahm0QBwKnDfovE8e9X2OpaniglPLPhg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NWImS8pcwZSgYRI94nLKXDauC2foRtVR8LAbe6Ov9ZBAiGAj5Mho7Te8wO21Ts3a5z/1Y9mqZkJ6NqWCR6iXaJYrzAtVkefQr3I2R8ukJoPo73a3cvERNx5LAiN/AsTVUhnNvCIHjqEaEkkiOybgJ/c9lVPqf2pw4m3v8f7Zmy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfVT+SB5; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FBBFC4CED6;
-	Sun, 24 Nov 2024 13:35:17 +0000 (UTC)
+	s=arc-20240116; t=1732482623; c=relaxed/simple;
+	bh=4DsJqMTnfgGxm2b9anTezzVSHz7FKy/XbFBwxEPJtwQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=FUJXBWeCooCpGJF6UZGXs+/ab7MFa74f70xWeyHVuEtjKBB2Lv8rDreMcT2jpe+RWQHF/W1XD7rMEbIOdm1dy50dpraymKw3U3zpDtXE2ITywvP7NGZpItMumtpA8UKRpg8x4NVisppC3HFNZlM3DoxcVGi7YVTDitSpTPHiFBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L2o0nkgo; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FB4C4CECC;
+	Sun, 24 Nov 2024 21:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732455318;
-	bh=NSj1wSAy/qfbahm0QBwKnDfovE8e9X2OpaniglPLPhg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LfVT+SB5h0mOz8XpC+clKCzEC3vA9NUa98UCsiOsWiNmwxF05HNl1JJEu/rpmgQpw
-	 Q/Af16Dls4gkHsEQzr0ub5w/xrF6BOyNgr7K9yVtwwNN6r84au2sek8igaCz2J98hd
-	 VnJ93DKT8ibrW6+qWarrxfcdBzcQrhQ6HH8wm+mwWQCfNvEUfjQdTKDyYf3iyCJXJ/
-	 UwpGYXpbIQLfexuwweRJ7USvb2xZgmRHoQ6LsbYDpVM1Spf8q9QNPs7nvLjHJUMxrN
-	 ifyShMVwDNxtpT3ksXLaoT72h38GUdV5TVdL298x/7Dfv9z5Fh2pozSsfEn0n2j9GA
-	 HTxEpUuI7ZeIQ==
-Date: Sun, 24 Nov 2024 14:35:15 +0100
+	s=k20201202; t=1732482622;
+	bh=4DsJqMTnfgGxm2b9anTezzVSHz7FKy/XbFBwxEPJtwQ=;
+	h=Date:From:To:Cc:Subject:From;
+	b=L2o0nkgoAhrNPSh0AzITcdvfjf/M1K0uovjcoVIQdAnF9u4hqdw+5LwA4i53/cFPl
+	 zspV5aqUqx1hzFDvK2OBL2MuM37RzNfz8hmxguyLkI6H/FFLbCV53FV179RzbBTevz
+	 YUE3UXdiM6EqlEiyLux6o1O9I7DN52E1QZBieDp6RY4ORjxODkJaW+KtIpRvpiwc+4
+	 N3zP7tNy1wfdMn6E7ubQXUH6Kg+KvSvsmIREpqmRUhrnMEGWAN04aEslh3IcIddPlx
+	 Kvow8fBmrtmccwAVFnS2lxNaRd3YpVPvY7uUKCnzjdOVBK+LucxYJvn+ufIkHfxdTl
+	 8HkQDvYt3Eq+A==
+Date: Sun, 24 Nov 2024 22:10:19 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: John Garry <john.g.garry@oracle.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] statx.2: Document STATX_SUBVOL
-Message-ID: <20241124133515.cb7u64jccayt3deb@devuan>
-References: <20240311203221.2118219-1-kent.overstreet@linux.dev>
- <20240312021908.GC1182@sol.localdomain>
- <ZfRRaGMO2bngdFOs@debian>
- <019bae0e-ef9d-4678-80cf-ad9e1b42a1d8@oracle.com>
- <bjrixeb4yxanusxjn6w342bbpfp7vartr2hoo2n7ofwdbjztn4@dawohphne57h>
- <1d188d0e-d94d-4a49-ab88-23f6726b65c2@oracle.com>
- <7ljnlwwyvzfmfyl2uu726qvvawuedrnvg44jx75yeaeeyef63b@crgy3bn5w2nd>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>,
+	Ingo Schwarze <schwarze@openbsd.org>,
+	"Branden G. Robinson" <branden@debian.org>
+Subject: [PATCH] man2/: SYNOPSIS: Use SY/YS
+Message-ID: <78b8c8acc83d4d1a1ab964e2574ba8024859b705.1732482078.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -63,96 +56,198 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i7e4vfpnwr6ekend"
+	protocol="application/pgp-signature"; boundary="Za15BEWGzeH5ZgHc"
 Content-Disposition: inline
-In-Reply-To: <7ljnlwwyvzfmfyl2uu726qvvawuedrnvg44jx75yeaeeyef63b@crgy3bn5w2nd>
+X-Mailer: git-send-email 2.39.5
 
 
---i7e4vfpnwr6ekend
+--Za15BEWGzeH5ZgHc
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] statx.2: Document STATX_SUBVOL
-MIME-Version: 1.0
+Date: Sun, 24 Nov 2024 22:10:19 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>,
+	Ingo Schwarze <schwarze@openbsd.org>,
+	"Branden G. Robinson" <branden@debian.org>
+Subject: [PATCH] man2/: SYNOPSIS: Use SY/YS
 
-Hi Kent, Eric, John,
+This makes it easier to write the SYNOPSIS, which will reduce the
+learning curve for contributors.
 
-Thread: <https://lore.kernel.org/linux-man/20240311203221.2118219-1-kent.ov=
-erstreet@linux.dev/T/#u>
+Another benefit is that the prototypes are wrapped correctly for the
+terminal width that the reader is using, so it's not hardcoded at 80.
+It also removes the need for carefully aligning the prototypes by the
+author of a page.
 
-I revisited this thread today and checked that there wasn't an updated
-patch.  Would you like to send a revised version of the patch?
+It causes a small unwanted problem: a white space is added after the
+opening parenthesis.  That's a minor trade-off for the benefits it
+brings.  Once groff 1.24.0 is released, we'll be able to use an
+extension that it provides, which allows us to remove that space, by
+using the second argument to SY.
 
-Have a lovely day!
+Suggested-by: "Branden G. Robinson" <branden@debian.org>
+Cc: Ingo Schwarze <schwarze@openbsd.org>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+
+Hi all!
+
+I'm preparing an important change for the SYNOPSIS sections of the
+manual pages for syscalls and libc functions.  This was originally
+suggested by Branden, which has authored a man(7) extension in groff
+that will make SY/YS suitable for this.
+
+This patch will be applied after Debian Trixie is released, and after
+groff-1.24.0 is released (ideally groff-1.24.0 would be in Trixie, but
+I don't know how likely that is).  I'm only foreshadowing for now.
+
+This patch will be immediately followed by another one which will be a
+scripted change: '/^\.SY.*($/s/($/ (/'
+The idea is that distros using old versions of groff(1) (or other
+formatters) that don't support the GNU extension would revert the second
+patch, and get backwards-compatible source, at the expense of having an
+unwanted whitespace.  Distros using a recent-enough formatter will be
+able to get all the juice with no downside.
+
+I'll slowly prepare this patch by transforming a few functions per day,
+until the time comes.
+
+Have a lovely night!
 Alex
 
-On Tue, Jun 18, 2024 at 02:14:46PM +0200, Alejandro Colomar wrote:
-> Hi John,
->=20
-> On Tue, Jun 18, 2024 at 10:19:05AM GMT, John Garry wrote:
-> > Hi Alex,
-> >=20
-> > >=20
-> > > On Mon, Jun 17, 2024 at 08:36:34AM GMT, John Garry wrote:
-> > > > On 15/03/2024 13:47, Alejandro Colomar wrote:
-> > > > > Hi!
-> > > >=20
-> > > > Was there ever an updated version of this patch?
-> > > >=20
-> > > > I don't see anything for this in the man pages git yet.
-> > > When I pick a patch, I explicitly notify the author in a reply in the
-> > > same thread.  I haven't.  I commented some issues with the patch so t=
-hat
-> > > the author sends some revised patch.
-> > >=20
-> >=20
-> > I wanted to send a rebased version of my series https://lore.kernel.org=
-/linux-api/20240124112731.28579-1-john.g.garry@oracle.com/
-> >=20
-> > [it was an oversight to not cc you / linux-man@vger.kernel.org there]
-> >=20
-> > Anyway I would like to use a proper baseline, which includes STATX_SUBV=
-OL
-> > info. So I will send an updated patch for STATX_SUBVOL if I don't see it
-> > soon.
->=20
-> Thanks!  no problem.
->=20
-> Have a lovely day!
-> Alex
->=20
-> >=20
-> > Thanks,
-> > John
-> >=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
+ man/man2/landlock_create_ruleset.2 | 11 +++++++----
+ man/man2/posix_fadvise.2           | 10 +++++++---
+ man/man2/wait4.2                   | 19 ++++++++++++++-----
+ man/man2/write.2                   |  8 ++++++--
+ 4 files changed, 34 insertions(+), 14 deletions(-)
 
-
-
+diff --git a/man/man2/landlock_create_ruleset.2 b/man/man2/landlock_create_=
+ruleset.2
+index cfeab62c9..5bc4ee529 100644
+--- a/man/man2/landlock_create_ruleset.2
++++ b/man/man2/landlock_create_ruleset.2
+@@ -15,11 +15,14 @@ .SH SYNOPSIS
+ .BR "#include <linux/landlock.h>" "  /* Definition of " LANDLOCK_* " const=
+ants */"
+ .BR "#include <sys/syscall.h>" "     /* Definition of " SYS_* " constants =
+*/"
+ .B #include <unistd.h>
+-.P
+-.B int syscall(SYS_landlock_create_ruleset,
+-.BI "            const struct landlock_ruleset_attr *" attr ,
+-.BI "            size_t " size " , uint32_t " flags );
+ .fi
++.P
++.SY int\~syscall(
++.B SYS_landlock_create_ruleset,
++.BI const\~struct\~landlock_ruleset_attr\~* attr ,
++.BI size_t\~ size ,
++.BI uint32_t\~ flags );
++.YS
+ .SH DESCRIPTION
+ A Landlock ruleset identifies a set of rules (i.e., actions on objects).
+ This
+diff --git a/man/man2/posix_fadvise.2 b/man/man2/posix_fadvise.2
+index c7a42baa9..47fc5b789 100644
+--- a/man/man2/posix_fadvise.2
++++ b/man/man2/posix_fadvise.2
+@@ -15,11 +15,15 @@ .SH LIBRARY
+ .SH SYNOPSIS
+ .nf
+ .B #include <fcntl.h>
+-.P
+-.BI "int posix_fadvise(int " fd ", off_t " offset ", off_t " size \
+-", int " advice ");"
+ .fi
+ .P
++.SY int\~posix_fadvise(
++.BI int\~ fd ,
++.BI off_t\~ offset ,
++.BI off_t\~ size ,
++.BI int\~ advice );
++.YS
++.P
+ .ad l
+ .RS -4
+ Feature Test Macro Requirements for glibc (see
+diff --git a/man/man2/wait4.2 b/man/man2/wait4.2
+index f419ce834..a55e21622 100644
+--- a/man/man2/wait4.2
++++ b/man/man2/wait4.2
+@@ -19,13 +19,22 @@ .SH LIBRARY
+ .SH SYNOPSIS
+ .nf
+ .B #include <sys/wait.h>
+-.P
+-.BI "pid_t wait3(int *_Nullable " "wstatus" ", int " options ,
+-.BI "            struct rusage *_Nullable " rusage );
+-.BI "pid_t wait4(pid_t " pid ", int *_Nullable " wstatus ", int " options ,
+-.BI "            struct rusage *_Nullable " rusage );
+ .fi
+ .P
++.SY pid_t\~wait3(
++.BI int\~*_Nullable\~ wstatus ,
++.BI int\~ options ,
++.br
++.BI struct\~rusage\~*_Nullable\~ rusage );
++.YS
++.SY pid_t\~wait4(
++.BI pid_t\~ pid ,
++.BI int\~*_Nullable\~ wstatus ,
++.BI int\~ options ,
++.br
++.BI struct\~rusage\~*_Nullable\~ rusage );
++.YS
++.P
+ .RS -4
+ Feature Test Macro Requirements for glibc (see
+ .BR feature_test_macros (7)):
+diff --git a/man/man2/write.2 b/man/man2/write.2
+index cd0677cc9..cfbe706f6 100644
+--- a/man/man2/write.2
++++ b/man/man2/write.2
+@@ -25,9 +25,13 @@ .SH LIBRARY
+ .SH SYNOPSIS
+ .nf
+ .B #include <unistd.h>
+-.P
+-.BI "ssize_t write(int " fd ", const void " buf [. count "], size_t " coun=
+t );
+ .fi
++.P
++.SY ssize_t\~write(
++.BI int\~ fd ,
++.BI const\~void\~ buf [. count ],
++.BI size_t\~ count );
++.YS
+ .SH DESCRIPTION
+ .BR write ()
+ writes up to
 --=20
-<https://www.alejandro-colomar.es/>
+2.39.5
 
---i7e4vfpnwr6ekend
+
+--Za15BEWGzeH5ZgHc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIyBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdDK4wACgkQnowa+77/
-2zL/cg/4yOgSMw7FeuoYYPp66yZ0dqVpMfSWsavTPNFwhqqozAXtFYNdrSYN9q5H
-dapHLr5+BfqClZcvJYiaCLmJq8o0XazxSUfAtE06FFIUgrziv+nNvRAQUiH6JZpV
-vnwbIeTo8auggFwf8BUtIb+4jjRMr86DZLTuDcF8E9W5qcr7EY3M8SR3M1/hzXfj
-RcDCgEagscbZb1MN7yfGbk5O1UeZ0Cs92svomSm/dvbbkMmZLKQa7OvJfONYpXwp
-/BEDYYFlp589PFylhcsrreJV5xZtqQ/Mf58hKwYiSPaEp2DFUdvH1YB3ZhhNwxoe
-menU9OTJ+NPR7r9FDuzNTJb7KtCNHMK1SEotKT77AwN4FHSJ/pvNCGltkth9hAIs
-89heHB93xGIQuKgDBOL2KxrNG+Zy6P/5Yr54Zg23NFcKijnj3ok95DcarpNITUZn
-kIW4EiIsOF+Z39h135wBVfp+pBelhQFtSkpUPEiJKzNyFVkVOsHLtFn0dWMPqgD2
-oIJ+SJ61sc7zZjygDghddIUyi5Q+0mWdioUt1NqZOvPxhupmhE96TuX6N9EvfpFq
-GqBqz9kMohs+v/N9v4cDgm5ZnoSSosZrN2rYV0lcAqz1Zytja14QdqQs+XQVnS/l
-5LubrE6S2Yt6WASbBBR/EZU48QTPmeqp5gxefHubmk31fvyB/Q==
-=O9BK
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdDljsACgkQnowa+77/
+2zLugxAAmBUUXTlew/LTdYC1nraphA/mlpgUIZ7fBONTLBI/D1sQDD5/wZe4myok
+Fq1C6cQuEI3D/utcOg8NHy3H2ZWx3jhXi8CWHSRLi+vT2RXHj7qyvX3MU6lKCk2c
+bMJteQLrfH7eQ2F5nDCu8eg6kVam/x6okJM7YHHbyOlaiOuYVArHgf9hS5id3YRw
+X2QC8EWRC2+TC0D4L7oI8LKQaukDy50HmQz0AdzzPV7KViw1BbX+HLn8oNorYScy
+sGspxSn0v6SOlFUIh3qZk4Ip4C4DaOJOf91vImFDqIx6zCzV3noH3XPzORyV2N5Z
+RtrPR5ctLdrUMPJlRhYf72lF0veotXst0T/fpMrCNlI1llsgfVXCULc404dk5es4
+MjR6o+Ghd4aZoAuKxAp/E4ytue660+NgvSRmUZg3xAtdT+0mmmQgUEUHLhfGpLgE
+0csfcHr9Kdl4TcxSPfttQB7zmRBHYn7A1diBrR+Obr1JAYlGZNHAa4o1VvI4mOta
+8ZJw9/qsGDGofO6GJ9CCyoMYyh0UC6N6Q3IiApNrDdXxg4PiJuRfTxh+7LZkkIbN
+gaxqx29CK/JODbmvjCyaOLdLzKWf7Eyz+FkC2dncaVt6g2C4NQIyqK85iRMgaXse
+Plt551HpWDILDMpkP4pDY48uUmEfON90UHTOsF7bs5hCWIHbFc8=
+=yM32
 -----END PGP SIGNATURE-----
 
---i7e4vfpnwr6ekend--
+--Za15BEWGzeH5ZgHc--
 
