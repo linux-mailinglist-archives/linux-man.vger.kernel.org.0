@@ -1,56 +1,55 @@
-Return-Path: <linux-man+bounces-2070-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2071-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BAAF9D9547
-	for <lists+linux-man@lfdr.de>; Tue, 26 Nov 2024 11:15:39 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B07269D968E
+	for <lists+linux-man@lfdr.de>; Tue, 26 Nov 2024 12:53:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 3D885B215DD
-	for <lists+linux-man@lfdr.de>; Tue, 26 Nov 2024 10:15:34 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 75D4928A5B0
+	for <lists+linux-man@lfdr.de>; Tue, 26 Nov 2024 11:53:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 919DA199951;
-	Tue, 26 Nov 2024 10:15:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 209221C4616;
+	Tue, 26 Nov 2024 11:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jr4QDxMa"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcKzmmqf"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAC9170A13;
-	Tue, 26 Nov 2024 10:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D152E17B506;
+	Tue, 26 Nov 2024 11:53:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1732616129; cv=none; b=oVUQ683YW9vxiVX6f6oGSrY0ruV1+7rd/1LiMd7pYLBD6X3hKq6LSzdOHgySuSefQHdw9iEWMKgSjgCMAl2HSTKEgXyehgaE02jScqcWbyfKd5BUwxLDp3U71GJnR/327kBhJ+nkI7pkZv524XVc8no9ji/+hSuVjeqEZ15PH/c=
+	t=1732621980; cv=none; b=h4gPg1PYWRRExB906NABRtKEoiifRfxKiN0vSzmH2+wHkULIZLfn8jv1CJQhciBzJi14NzTubHRA9SCiBY5wRg6ngeHDoUNsoY9mpcerXZRoYgXlg/MW6z7S89neozUy58Yyc8OCY4x4X9lSjmhktWwEYO1N8srma70HoQIlBJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1732616129; c=relaxed/simple;
-	bh=CTBzW7SvB+7qRzMehEkzANw3zSIXVQA59DR4zRNCFIs=;
+	s=arc-20240116; t=1732621980; c=relaxed/simple;
+	bh=m+Fon3EC0XStbI0qN8vcP5jsqZTOv4n+rTBn8bBdjdM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P2LD1lzRzr4LX7pOXLF9WNN4Pb3GxRC+tsVkJSumGJTnS+YfgBz5MknHQNnD5CE0RxIYVvTbiv3+A+G2SX6WfQmxMPjWD84K5dsQ1P0BkYPD7NyWIyfv0RqNnAOBc7I9aZetEN+LWkF6vXVeaJahJ3cDQ5robAZ30bVAjMH53BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jr4QDxMa; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DE4C4CECF;
-	Tue, 26 Nov 2024 10:15:27 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=L7voD4rFYZqy2T3oaBdh+rKobXAN80xAa3hoTOcH5ZmKtAozFXS2fhcHd9f9QObo+H9zesZiIK8TNDGKLbEV00gspUHS9x19AwjHGmq0tyd0MR4CpLZssz4ALik9a7wIBFSUtDkioZU3Q9FYONvffiIwjudVwSrwibaQ4yPELug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcKzmmqf; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BFFC4CECF;
+	Tue, 26 Nov 2024 11:52:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732616128;
-	bh=CTBzW7SvB+7qRzMehEkzANw3zSIXVQA59DR4zRNCFIs=;
+	s=k20201202; t=1732621980;
+	bh=m+Fon3EC0XStbI0qN8vcP5jsqZTOv4n+rTBn8bBdjdM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jr4QDxMaDKOcIKGsBdrR1S0OtSu86W2S1Lyrhly6z16OAx0VX/XQ17O0UNNoU4WTJ
-	 X1useA2XOxTU4zxij8gAMGguh7JiM/RJ4xGwPbKEscOZz0KVIUSGTxuxF90bKfL0U7
-	 k1/6ObF82MY+WQQLmKXWXizs8KaVhprECVyHBG02o4W8RnxPcTZzQ1WWT6qcXNtr6p
-	 FFPkyPbCUt7lfIAyDX4g22lQyC9fpTK8rfdSjuVXlQXfNc+6wij5hVkUM4aNRw7ucH
-	 mbvmnQoqSgKSJM8YGhy81YNgEaR8KzPNKetGxo0NFnxbOXijpWP53PnJBF4pcFpaTd
-	 BztAI1TD2f/gA==
-Date: Tue, 26 Nov 2024 11:15:25 +0100
+	b=jcKzmmqfzhywtXURq1jDsFkUd0tEAuN/nIHkdOep9BxiVxds4T+kBZrbin2VG0Qm5
+	 JrPvSOJgmaswUFyzDk7D51sIBDnZvUKjDR/lwFPQNSy1xJcjUJ4EtyzNGSuYnerFVf
+	 uqNKP2bqjqNGQPTDGyFqmPE0zYC6awSvaJ7MHStRt3UyrJARBGVI74MkLizW2eQxfT
+	 Ue0+FJlorde6VDCFPU/rs9iJnfO3b/LCkZQX2qd+fzv9IrQbOHmJb3Q/JALMfr6Ugt
+	 cKyTa4mIR/f3JMMhs0w8lHGG9jPlX5xfwZ3sebt5zT15IFdKeZ7bvRL34BYlJc0biT
+	 /MKl/Y/+6G5vQ==
+Date: Tue, 26 Nov 2024 12:52:57 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: =?utf-8?B?TWlrb8WCYWogS2/FgmVr?= <kolek.mikolaj@gmail.com>,
-	linux-man@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: perf_event_open.2: mmap ring buffer requirement for receiving
- overflow notifications
-Message-ID: <20241126101525.scvaunb3fwyv7tun@devuan>
-References: <CAHGiy68y37n-y_b0gR-dArxFRzYOAr93dCw_6bvkNReNWQ37Hw@mail.gmail.com>
- <Z0Vf3lrTUsbE_4NP@google.com>
+To: John Garry <john.g.garry@oracle.com>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	dalias@libc.org, brauner@kernel.org
+Subject: Re: [PATCH 1/2] readv.2: Document RWF_NOAPPEND flag
+Message-ID: <20241126115257.r4riru6oot5nn6x6@devuan>
+References: <20241126090847.297371-1-john.g.garry@oracle.com>
+ <20241126090847.297371-2-john.g.garry@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,73 +57,97 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qbhkr4qy6k24dey3"
+	protocol="application/pgp-signature"; boundary="dpxysf623xg355uw"
 Content-Disposition: inline
-In-Reply-To: <Z0Vf3lrTUsbE_4NP@google.com>
+In-Reply-To: <20241126090847.297371-2-john.g.garry@oracle.com>
 
 
---qbhkr4qy6k24dey3
+--dpxysf623xg355uw
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: perf_event_open.2: mmap ring buffer requirement for receiving
- overflow notifications
+Subject: Re: [PATCH 1/2] readv.2: Document RWF_NOAPPEND flag
 MIME-Version: 1.0
 
-Hi Namhyung,
+Hi John,
 
-On Mon, Nov 25, 2024 at 09:42:54PM -0800, Namhyung Kim wrote:
-> Thanks for the report and the test code.  I agree that the current man
-> page is a little confusing about the overflow notification.  I can see
-> the following sentences in the "overflow handling" section.
+On Tue, Nov 26, 2024 at 09:08:46AM +0000, John Garry wrote:
+> Document flag introduced in Linux v6.9
 >=20
->   There are two ways to generate overflow notifications.
+> Signed-off-by: John Garry <john.g.garry@oracle.com>
+> ---
+>  man/man2/readv.2 | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 >=20
->   The  first is to set a wakeup_events or wakeup_watermark value that
->   will trigger if a certain number of samples or bytes have been
->   written to the mmap ring buffer.  In this case, POLL_IN is indicated.
->=20
->   The other way is by use of the PERF_EVENT_IOC_REFRESH ioctl.  This
->   ioctl adds to a counter that decrements each  time  the  event
->   overflows.  When nonzero, POLL_IN is indicated, but once the counter
->   reaches 0 POLL_HUP is indicated and the underlying event is disabled.
->=20
-> I think the first and the default way uses the ring buffer to determine
-> overflow condition so it should be allocated before calling poll(2) or
-> similar.  The second way doesn't seem to require ring buffers, but I
-> haven't tested it actually.
->=20
-> Maybe we can add something like this to the first section:
->=20
->   If the ring buffer is not allocated, POLL_HUP is indicated.
+> diff --git a/man/man2/readv.2 b/man/man2/readv.2
+> index 78232c19f..836612bbe 100644
+> --- a/man/man2/readv.2
+> +++ b/man/man2/readv.2
+> @@ -238,6 +238,26 @@ However, if the
+>  .I offset
+>  argument is \-1, the current file offset is updated.
+>  .TP
+> +.BR RWF_NOAPPEND " (since Linux 6.9)"
+> +The
+> +.BR pwritev2 ()
+> +system call does not honor the
 
-Thanks!  Would you mind sending a patch?
+The other surrounding paragraphs talk in imperative (e.g., "Do not
+wait").  This should be consistent with them.  How about this?:
+
+	Do not honor the O_APPEND open(2) flag.  This flag is meaningful
+	only for pwritev2().  ...
+
+Thanks for the patch!
 
 Have a lovely day!
 Alex
 
+> +.B O_APPEND
+> +.BR open (2)
+> +flag.
+> +Historically Linux honored
+> +.B O_APPEND
+> +flag if set and ignored the offset argument, which is a bug.
+> +For
+> +.BR pwritev2 (),
+> +the
+> +.I offset
+> +argument is honored as expected if
+> +.BR RWF_NOAPPEND
+> +flag is set, the same as if
+> +.B O_APPEND
+> +flag were not set.
+> +.TP
+>  .BR RWF_ATOMIC " (since Linux 6.11)"
+>  Requires that
+>  writes to regular files in block-based filesystems
+> --=20
+> 2.31.1
+>=20
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---qbhkr4qy6k24dey3
+--dpxysf623xg355uw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdFn70ACgkQnowa+77/
-2zJTFQ/9GQhnFK07lSmxpkg4XhR+RngD2pbJfRms4vjfoePMBW0RszuNBPSJwFVx
-CdVOEM0YmSTYOXkOGfONw5p76HmGFVP8lXdyDBaJhcYvwzwZKG73CJ5e9LHpA85b
-pa5IJDjWU9cKZUf5Zk+IccdaqNiYaoLYzr8VO/IKlU2FxObupE2Nu/eFOwXrSlY8
-iL9zygKurdCSNer6DKpEvyzUm7VU3GHp9vS2dtVSoox2Zaqb4Z8bncjW3MeMa86t
-rH+34+9Ks65fx48xsHjugwSdhxcHhhPUK7JQL5yB6/UJmmvVTNXpsIqgd1jwN98F
-v/6sCrQYmx/ScC6xH/titoLpdwDuwt18ugUp0ikjAD8FvwiXvAjS/DMJVEDFyzKB
-MEnIlG4+GOm0/y0MYFVdQr1PQnw1sHLsZw6N2p52KeWHMQ4N18VAQxi+TiB8PAd1
-swhvl7glB1LlMW3akDzI4ledYVZzeBf30RL5mrHgiLDX8Xvf1iHQVz2VhJN68zr0
-Gr4n8K4kpd7gbhBR5QgFNKN4uXWrL0JOB0rrJl0hW8xMO/U5p6pP8j44tqkyb53j
-SJaG1LONhljy0CzgjirnaLavQAs5i0gfOUZzTBZdzqrydo972FEiQh6yvMlVv+ju
-YsFsdiKU0CtzdmfNvHZ59mHfxI2vDNIWgV+hjOLi7GzTCY5XshY=
-=fzzu
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdFtpgACgkQnowa+77/
+2zIFVQ//Ww7fVUap+NnlF/pr0nV8zGeol+ViuwerEJ5Yh/GZrOn5PVI0auKuvRQl
+1t+ViaVKnXv2oACv0VawVhkPHT8rvKINmNMiH2/NvmeVzplTbA3pWUQHs2hs4iKM
+L0pMp41kZwZKsOU7HqHLdet2dvu8+08AyUyT0xxdq3Vs0ColZMYcymeaCu26LneT
+A9AyGq8OgK0DpEwEnSi3qa5oF/799flWHsu9DAvarAb6UvFxj/it5w54MWqaPUc4
+IvjxLSb46jv4Y6KeocXamf8pQrlhCzE7Zi3rqacvDKdb+4lYhos0WnxiYE4CmeN5
+160i12tzgn7JFf3xzb/47RxHnts4GCpQ2xljNz+q+ROBoBI1zTMksKEEb0APQE3I
+gep7HrbH/slWyRRNwXJH3hhMPIoMdErU+6d/Syp6Bnx1hMuz12xSIkgzHFqgwukp
+/J0Xu+rHXVYssD1QJN27+84+hBYQZ3c1qOrvJle/C4V2cVop455TJtOmEj+DS1fF
+W628uvU5Mtq+zCUhHijnqP7KOWvERhWAqim7ybfGJwZIfMFXeLUdxocHxnq2LU3+
+oGvtt4KZ+1Nd9Kpmu/vz/x+OvCxqcpGQUu5feqnC4hvR2pUcdx1wwRb7P8eSd/ge
+LPPun8WHyERBEaSTC0/jA10veso8ZV6yXWNBtLLmAAeEKf3FCIg=
+=/Rd3
 -----END PGP SIGNATURE-----
 
---qbhkr4qy6k24dey3--
+--dpxysf623xg355uw--
 
