@@ -1,150 +1,249 @@
-Return-Path: <linux-man+bounces-2065-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2066-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 850309D8A74
-	for <lists+linux-man@lfdr.de>; Mon, 25 Nov 2024 17:34:27 +0100 (CET)
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D35F69D916E
+	for <lists+linux-man@lfdr.de>; Tue, 26 Nov 2024 06:43:01 +0100 (CET)
+Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 473052861BC
-	for <lists+linux-man@lfdr.de>; Mon, 25 Nov 2024 16:34:26 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 69122166F2E
+	for <lists+linux-man@lfdr.de>; Tue, 26 Nov 2024 05:42:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A98881B4F0D;
-	Mon, 25 Nov 2024 16:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06286154C00;
+	Tue, 26 Nov 2024 05:42:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXBU0Sml"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L2J2qL5e"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6377E1B415E
-	for <linux-man@vger.kernel.org>; Mon, 25 Nov 2024 16:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22CB7E76D;
+	Tue, 26 Nov 2024 05:42:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1732552465; cv=none; b=Noof2MrKl2OFryubOOY2p3wEvCIuoJNqRyy4roTRhpREKI5pKC+O8oqACbB/+Ybd4LfNfBBVhrN4RLCGURvnK23NYTKZ4JDO6X0aUzUStXjhNQKamEPllVT3EULlPLqFf3rRPWoT50EclHTx6hsutJT8xH+S+9xjG0sP6xzzAEY=
+	t=1732599776; cv=none; b=TVFo16CrmVzHfkOxdS0GFXKO0253C6GwM3rGp+F1O+QnfvoSATFs1uEDf05ShY7SJRSGQp6DEKqi4EsEB9Gd3FOR34+hCa0YqxiL/Ze9eDBl4cXjIVT2x/4TUCyxoaI1UzFtEIGBsFWWMThm/fFzxQ4XeG1F/axNsNusjqq7Spk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1732552465; c=relaxed/simple;
-	bh=5VDOesijHw2quAODY72cEI2q30DVj3PkBcwynhLnPe8=;
+	s=arc-20240116; t=1732599776; c=relaxed/simple;
+	bh=ygMY9QEjwTbcPZtVq0FIQ3TyslnFJ3rWP89mXCayalw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LBFbat60Ho/r3uZ85lbkZCGqrTJujAPlTuoKMI/F3z0QrDaPv2/8ut5QNoAuPrPbSPCmQZlkB3ASaAskNdTpWuXpZCpuBG685ywF+r7Zx3f0u4XQIfNooxEjV5DVvgeODkSDKBiGq0zuti0v9Ov7JBMJF7FcK5QL/fSNEBXoHSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXBU0Sml; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E3CC4CECF;
-	Mon, 25 Nov 2024 16:34:23 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=WUycdgNc+0W1Bv+rXYbaE0x4bDN9uGuS1RTiAIQIbUz0rggCAfq5kTNoAPZKOmCXlpK16Tr563qBlM7Ti8QXztslDzgmKQwl8ZZLJ2H8LBg/uKnXRzJRKceFafHYN5VgaEvurlC5d3A2yj2y1yOp0JVpLVXpT59DJhD2ZUZGu8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L2J2qL5e; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A86EC4CECF;
+	Tue, 26 Nov 2024 05:42:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732552464;
-	bh=5VDOesijHw2quAODY72cEI2q30DVj3PkBcwynhLnPe8=;
+	s=k20201202; t=1732599776;
+	bh=ygMY9QEjwTbcPZtVq0FIQ3TyslnFJ3rWP89mXCayalw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WXBU0Smlkcv76b/7SklRB8BKUsS1D2hKxTy9ytWrOh+Gd/crDY1pFUoO7jMGMGqU2
-	 BqUlSp337by76ksMsBkoQsvwWtLjQmqga978/YYH1FLJ8SkITwsxhuAA7Rfb19THgN
-	 h+bSBjhpdVAdtl7jsjSc7v821yXaMOJXonU+t/eAtPO2VbF7gaMPil7nUe/OcWdWZn
-	 wYfKoXb/lM7KQJ3SZxHqdF56a/fYGe6yRezD4nI9QrXTjoRTtqPTjG19JDNnaaD8hb
-	 Gw3QqeRZRzisr7/OsoxY7xTzAn6DmsqVeTpxh2TokIg4/HqeE3lXDyTFUq1urb/EQv
-	 K+FBqFU6EruWQ==
-Date: Mon, 25 Nov 2024 17:34:21 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: onf <onf@disroot.org>
-Cc: linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: diffman(1)
-Message-ID: <20241125163421.f37ftfuxq33bax2v@devuan>
-References: <20241125124404.h37pgmy2pxuzxevg@devuan>
- <D5VE1OMV9LG2.3GYDJOAGFIR0F@disroot.org>
+	b=L2J2qL5er8Oh6Pk80io4IUrbz4063Eo4pbSSvZ8eVEjYF7ykSHzw3jjhnziwp5CkN
+	 1zbUbX5blwIZ53c7bUwLEU2BWlXTi8LZoueOGCmmvble2sRxVP8s/e4sq5Wx/mQfTy
+	 OY1bc9FXoe8iKeQ8/9FyCXanK6psnCIExz+70i6sDJoi0Rajm8cm9hLjfMa9j+lCGw
+	 euzv9CYson9qy++Xx7TmUUAbFa3mcoFDwwVES2lU07LMuEILAS/7rooZ+OLQ1gTb8h
+	 hkM2z4Tg2J+TTlU5MgQjIvHNRHS4UhaNT2FN5mIFiUKu7dIEo83m5oc3LIfxUIVAkH
+	 bOq4L5sW9xIhQ==
+Date: Mon, 25 Nov 2024 21:42:54 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: =?utf-8?B?TWlrb8WCYWogS2/FgmVr?= <kolek.mikolaj@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: perf_event_open.2: mmap ring buffer requirement for receiving
+ overflow notifications
+Message-ID: <Z0Vf3lrTUsbE_4NP@google.com>
+References: <CAHGiy68y37n-y_b0gR-dArxFRzYOAr93dCw_6bvkNReNWQ37Hw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pzglbtbqfu6qppth"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <D5VE1OMV9LG2.3GYDJOAGFIR0F@disroot.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHGiy68y37n-y_b0gR-dArxFRzYOAr93dCw_6bvkNReNWQ37Hw@mail.gmail.com>
+
+Hello,
+
+On Sat, Nov 23, 2024 at 09:49:40PM +0100, Mikołaj Kołek wrote:
+> I have found that when monitoring a file descriptor returned by
+> perf_event_open() with poll(), it is required to allocate an mmap ring
+> buffer to properly receive overflow notifications. If this is not
+> done, poll() keeps continuously returning POLLHUP, even when an
+> overflow notification should not be raised. Notably, this behavior is
+> different from listening for overflow notifications by setting the
+> O_ASYNC flag on the file descriptor - in that case, creating the mmap
+> ring buffer is not required to receive the SIGIO signal delivered
+> after the file descriptor becomes available for reading. I attach code
+> showcasing this behavior (the functionality is explained in the
+> comments).
+
+Thanks for the report and the test code.  I agree that the current man
+page is a little confusing about the overflow notification.  I can see
+the following sentences in the "overflow handling" section.
+
+  There are two ways to generate overflow notifications.
+
+  The  first is to set a wakeup_events or wakeup_watermark value that
+  will trigger if a certain number of samples or bytes have been
+  written to the mmap ring buffer.  In this case, POLL_IN is indicated.
+
+  The other way is by use of the PERF_EVENT_IOC_REFRESH ioctl.  This
+  ioctl adds to a counter that decrements each  time  the  event
+  overflows.  When nonzero, POLL_IN is indicated, but once the counter
+  reaches 0 POLL_HUP is indicated and the underlying event is disabled.
+
+I think the first and the default way uses the ring buffer to determine
+overflow condition so it should be allocated before calling poll(2) or
+similar.  The second way doesn't seem to require ring buffers, but I
+haven't tested it actually.
+
+Maybe we can add something like this to the first section:
+
+  If the ring buffer is not allocated, POLL_HUP is indicated.
+
+> 
+> This behavior by itself is not a problem, however, in the current
+> state of the perf_event_open man page, it's not documented, and in
+> fact, there are confusing statements that seem to contradict my
+> findings. In the MMAP layout section of the page, you can find this
+> sentence:
+> Before Linux 2.6.39, there is a bug that means you must allocate
+> an mmap ring buffer when sampling even if you do not plan to
+> access it.
+
+I don't remember the old kernels, but it sounds like the event was
+failing if no ring buffer is available.  Maybe no samples would be
+generated in that case.
+
+Thanks,
+Namhyung
 
 
---pzglbtbqfu6qppth
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: diffman(1)
-MIME-Version: 1.0
+> Unless I'm somehow misunderstanding it, this statement does not seem
+> to be well worded, or alternatively this bug does not seem to be
+> fixed. I would not call simply using poll() on the file descriptor
+> intent to access the ring buffer (unless it's meant to be understood
+> that way, in which case, in my opinion, it's quite confusing).
+> Additionally, I cannot find any change in Linux 2.6.39 that would fit
+> this description (however, that is likely just due to my lack of
+> experience searching through the kernel changelogs and commits).
+> 
+> I would like to receive clarification on whether this current behavior
+> of perf_event_open is intentional and desired (that is why I cc'd
+> linux-perf-users). If it is, I could also create a patch to the man
+> page that lays out the requirements more clearly. In that case, it
+> would also be helpful to further clarify the wording of the sentence
+> mentioning the Linux 2.6.39 change, however I don't know if I'm
+> qualified to do that, because as I have previously stated, I am unable
+> to find what changes that sentence actually refers to.
 
-Hi onf,
-
-On Mon, Nov 25, 2024 at 05:08:48PM +0100, onf wrote:
-> Hi Alejandro,
->=20
-> On Mon Nov 25, 2024 at 1:44 PM CET, Alejandro Colomar wrote:
-> > You may find it useful for development of manual pages.  If so, please
-> > let me know any feedback you have for it.  I was wondering if I should
-> > pipe to less -R, just like man(1) does.  For now, having doubts, I kept
-> > it simple, which would allow wrapping this in fancier scripts that for
-> > exaple diff an entire repository of manual pages (although that maybe
-> > calls for running groff(1) and diff(1) directly).
->=20
-> less simply pipes the data through if it's not at the end of a pipeline,
-> so piping the diff's output to less -R shouldn't complicate use in
-> scripts in any way (except perhaps for escape sequences if you use
-> color).
-
-I've seen less(1) cause issues when called in a while loop.
-And indeed, there's good reasons for calling this in a loop.
-Here's a useful wrapper I came up with after writing this email:
-
-	$ tail -n19 scripts/bash_aliases=20
-	# diff all modified pages against the system ones.
-
-	duffman()
-	{
-		cd $(git rev-parse --show-toplevel);
-
-		git diff --name-only \
-		| grep -E \
-		   '(\.[[:digit:]]([[:alpha:]][[:alnum:]]*)?\>|\.man)+(\.man|\.in)*$' \
-		| sortman \
-		| while read f; do \
-			local sys=3D"$(basename "$f")";
-
-			diffman "$sys" "$f";
-		done \
-		| less -R;
-
-		cd -;
-	}
-
->=20
->   $ less -R /usr/include/stdio.h | grep -E '^#' | wc -l
->   241
->   $ sed -E "s/^/$(printf '\033[1m')/; s/\$/$(printf '\033[m')/" \
->       /usr/include/stdio.h | less -R | wc -l
->   985
->=20
-> ~ onf
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---pzglbtbqfu6qppth
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdEpw0ACgkQnowa+77/
-2zIt5RAAjqvM2iIvWOUdl4XmonleRQR8ugrUDM5WVlf1IORXNgZgjKTxg5cQ6rkH
-pe0RNW0F9lI3BPDXaJSZjdIGXg/QbAfCHb0Hr1nmJScsMYpJpSMeusGYREh3gx8x
-IiPR1j8iMVx1mOYAyv1SvEnwuLb0zfZ3Os8ZOrUzcImK+xwBGyeozoa/BjZ8rvbN
-FMHlSAl8dKO1m73EVsIQyeERnSgDuDlCk/GPVVgQQLbytWylJ5YhplWE81YpfpN4
-eZGscC3emC1OF3PvxnAJpr2MvdnJiBhcZHzwm/j0SMAU2PCe9GTeLWpqVUeyHGl3
-cAqmNjBb067atc2/6uNH6Cqz/FWIoEId3G+Tv0C7/YmzPAh/v6GHM8NFg0tTr1Sx
-IqA6lSTftDwwmnaQRc7KFD/btryp1YXzqy2rRNVTOU8qv1kK6a3yIK9JRIL+1tr1
-PLtZ45TYzIStI61AOKyBeFlo+M7RMDSEoHV7pNiJ7yOajV/oHhJ/eFR5vLPr5eMj
-7S/tiVxEb0Mj7din+aBQrOIUfycOkLxws2s/S7hkW3mXT4CkCSPg2eL6+fDpAlPA
-UU9f1vA2ctohlQEB+YowvCUDoevNe/ys4ZZkDEuP4IR2+b1Cz/S6wseIITdZi+Sg
-9JfTmW5nCKhEBo/5u7Aqw89An4QpDm+Q4pNPIF6GByNL12O+6Nc=
-=oyyC
------END PGP SIGNATURE-----
-
---pzglbtbqfu6qppth--
+> #include <linux/perf_event.h>
+> #include <sys/syscall.h>
+> #include <sys/mman.h>
+> #include <iostream>
+> #include <unistd.h>
+> #include <signal.h>
+> #include <fcntl.h>
+> #include <cstdint>
+> #include <poll.h>
+> 
+> // Modify the value of this constant to change the variant of the program
+> // that is run. The possible values are:
+> // 1: SIGIO without mmap, 2: SIGIO with mmap, 
+> // 3: poll without mmap, 4: poll with mmap
+> // As stated in the email, varaints 1, 2 and 4 properly trigger overflow
+> // notifications approximately after each 1000000000 hardware instructions,
+> // however when the program is run with variant = 3, poll will just 
+> // continuously return POLLHUP, without waiting for the overflow
+> // 
+> // Also, before running any variant, make sure to set the 
+> // kernel.perf_event_paranoid sysctl to -1 
+> // (for example by running sudo sysctl kernel.perf_event_paranoid=-1)
+> const int variant = 1;
+> 
+> static long perf_event_open(struct perf_event_attr *hw_event, pid_t
+> 	pid, int cpu, int group_fd, unsigned long flags) {
+>     return syscall(SYS_perf_event_open, hw_event, pid, cpu, group_fd, flags);
+> }
+> 
+> volatile sig_atomic_t sigioOccurred = 0;
+> void sigioHandler(int signum) {
+>     sigioOccurred = 1;
+> }
+> 
+> uint64_t get_instructions_used(int perf_fd) {
+>     uint64_t result;
+>     ssize_t size = read(perf_fd, &result, sizeof(uint64_t));
+> 
+>     if (size != sizeof(result)) {
+>         std::cout << "read failed";
+>         exit(0);
+>     }
+>     if (result < 0) {
+>         std::cout << "read negative instructions count";
+>         exit(0);
+>     }
+> 
+>     return result;
+> }
+> 
+> int main() {
+>     struct sigaction sa;
+>     sa.sa_handler = sigioHandler; sa.sa_flags = 0; sigemptyset(&sa.sa_mask);
+>     sigaction(SIGIO, &sa, 0);
+> 
+>     int child = fork(), num = 2;
+>     if(child == 0) {
+>         while(true) {
+>             num *= 2;
+>         }
+>     }
+> 
+>     struct perf_event_attr attrs {}; attrs.config = PERF_COUNT_HW_INSTRUCTIONS; 
+>     attrs.type = PERF_TYPE_HARDWARE; attrs.sample_period = 1000000000; 
+> 	attrs.wakeup_events = 1;
+>     int perf_fd = perf_event_open(&attrs, child, -1, -1, 0);
+> 
+>     if(variant == 2 or variant == 4) {
+>         void *base = mmap(NULL, getpagesize() * (8192 + 1), PROT_READ
+> 			| PROT_WRITE, MAP_SHARED, perf_fd, 0);
+> 		
+>         if (base == MAP_FAILED) {
+>             std::cout << "mmap err " << errno << "\n";
+>             return -1;
+>         }
+>     }
+> 
+>     if(variant == 1 or variant == 2) {
+>         fcntl(perf_fd, F_SETOWN, getpid());
+>         fcntl(perf_fd, F_SETFL, (fcntl(perf_fd, F_GETFL, 0) | O_ASYNC));
+>     }
+> 
+>     while(true) {
+>         if(variant == 1 or variant == 2) {
+>             if(sigioOccurred) {
+>                 std::cout << "SIGIO delivered, instructions used: " <<
+> 					get_instructions_used(perf_fd) << "\n";
+> 				
+>                 sigioOccurred = 0;
+>             }
+>         }
+> 
+>         if(variant == 3 or variant == 4) {
+>             struct pollfd pfd = { .fd = perf_fd, .events = POLLIN };
+>             int res = poll(&pfd, 1, 1000000);
+> 
+>             std::cout << "Poll returned ";
+>             if(pfd.revents == POLLHUP)
+>                 std::cout << "POLLHUP, instructions used: " << 
+> 					get_instructions_used(perf_fd) << "\n";
+>             else if(pfd.revents == POLLIN)
+>                 std::cout << "POLLIN, instructions used: " <<
+> 					get_instructions_used(perf_fd) << "\n";
+>             else
+>                 std::cout << pfd.revents << "\n";
+>         }
+>     }
+> 
+>     return 0;
+> }
 
