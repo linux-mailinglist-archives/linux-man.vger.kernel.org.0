@@ -1,107 +1,103 @@
-Return-Path: <linux-man+bounces-2107-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2108-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F4F9E4737
-	for <lists+linux-man@lfdr.de>; Wed,  4 Dec 2024 22:50:45 +0100 (CET)
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 771789E4744
+	for <lists+linux-man@lfdr.de>; Wed,  4 Dec 2024 22:55:53 +0100 (CET)
+Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5C0E8B35BDE
-	for <lists+linux-man@lfdr.de>; Wed,  4 Dec 2024 21:17:12 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 52FED167C01
+	for <lists+linux-man@lfdr.de>; Wed,  4 Dec 2024 21:55:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8862618C903;
-	Wed,  4 Dec 2024 21:17:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C99F318FDC2;
+	Wed,  4 Dec 2024 21:55:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8jf9T4a"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="1dtpnRLm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482EA18B460
-	for <linux-man@vger.kernel.org>; Wed,  4 Dec 2024 21:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94CC2391A0
+	for <linux-man@vger.kernel.org>; Wed,  4 Dec 2024 21:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733347028; cv=none; b=IRlXmyxQrueVVyBVSnPSclAq0Bd70yPuxz2PBKBZlYSGLP2ABZ8jmZDEHkc6LpWeJtuGJRV3Vuc/jP9ElHLPzjGV3x6W58vufC362PnoTtxW/Lu2C1a29vNYv0BSbXJRXsftwBnekY82xhFjiU8fd4nztiu/BLlOSxqtNgk+tUI=
+	t=1733349349; cv=none; b=AmCB4DiJPqOFWE8N7+bZB991i5XoT/HKe4QqPOilO0pLSqkJ8YPcAUr55egR1Bt5ZU4M/tifXIq1By0/EWA/HxiLItdQegvYcVQP2ThHIsZxJSo/3Q27XGK4axgPEIOVgtx4jSb2ZzQd9vn39ywXN1be9NeeisrKmfFs/5eG4iE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733347028; c=relaxed/simple;
-	bh=pffBILs5FeUCUih7yq4T4Rk/cd7GcbspCztQ36oFqTk=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Qrk1MpXDjULQVBmTDzYgsfKKfDJSPMObhsg3lj/McJWAarq0avHYZPlAcA1rha1sZqKHIVbRmHabdr2aZN2QgZO71e3a91p2A+uAyY0/RJAMGWnwItfU2BILBmF8eB4m3ujvPQknmdaW7rAkB1gSLls7VCt19t0BeKt/9RAaiqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8jf9T4a; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79854C4CECD;
-	Wed,  4 Dec 2024 21:17:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1733347028;
-	bh=pffBILs5FeUCUih7yq4T4Rk/cd7GcbspCztQ36oFqTk=;
-	h=Date:From:To:Subject:From;
-	b=M8jf9T4ahORxhdhnKdjy9BggUEbfJ4DXmPUd+GxSO/lA7nYRYEPEuRs5kRPAVnzYS
-	 Y7bATvUDi9KhjlDzsQ1eO8tQDUWmHnAZaFmsUMy8JNeDGciI1vB1WYN6BV3MmZx+at
-	 p81tNH5dYdjcumJyYJbev2D9u+sir4PaAqEl1OTq+xD6RbRgNesSFa1OGQ9ceWtYOE
-	 WAsH3xumQQGHBbrLMYc9WLiHdbjAOapceylJDGiGXoZ3WiqK8DGZfNtnTyoc9P3teK
-	 0OUnlB5wBTxsVhifim8KLGQnG3cpdDvA5Ehq7EVvLsNokzofjBY4jLtpHCBz/2XBE3
-	 93hh9iPUFBFMA==
-Date: Wed, 4 Dec 2024 22:17:05 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, douglas.mcilroy@dartmouth.edu
-Subject: intro(1), pipes
-Message-ID: <20241204211705.wjvbznlr45ztbn2o@devuan>
+	s=arc-20240116; t=1733349349; c=relaxed/simple;
+	bh=IMiQ2u/Zc2kHvz4sv1w1Nw0ZdUAgxlMURi1u2JV3CYw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ecSA3vmplsEpNCPAdXH0gG5qlDOsYinRbKezlPgwKufVY5wQ8/e9HpPvMipLU4mKrP5FUCyrBFHfaWLVHWd0FJYasft9Qc7KaD71BSsjgNjALyQQe5Vons80dQYZCB05AGlgD9mqJdWB4/iWKi8WVd8wbBnqu8hHu2SQHpQHpPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=1dtpnRLm; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-5d0c5c8cb5cso851a12.0
+        for <linux-man@vger.kernel.org>; Wed, 04 Dec 2024 13:55:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1733349346; x=1733954146; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IMiQ2u/Zc2kHvz4sv1w1Nw0ZdUAgxlMURi1u2JV3CYw=;
+        b=1dtpnRLmQRqCZu5auM+5qgqLlc7k7dN8kylcsdIHAzfVUwCp0wiVAt25cUtj8auTyG
+         QeSQU7BLD9QzlPHkA/Ab7tw8jpQpjehQolMDH5EGSq/CQ52wm0TzaqpTshjSoSzr6/gQ
+         IYWyUhNNOEvkQJ0Bc1FHTQvciSFDfCqJKzrkH/InFNCUpT+8yjEPZ2pY9eTkAdDt5ODW
+         Qo6X1Jir16zse6CzqbiGmkrr7rKSueLeL0bbsqHsiQpV6WVorHghGIz1+pWABkX2gwg7
+         Gz587Tdlf9CR6/rflOX3H4/+fLsnlUODiIT56mByL7fHuWFs5xUfQL8MWV60jwNJoL2h
+         PvrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733349346; x=1733954146;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=IMiQ2u/Zc2kHvz4sv1w1Nw0ZdUAgxlMURi1u2JV3CYw=;
+        b=CJHf+LFobS4up4qWTPnn90D1uWu38O24yU+sNYvvyGmy0UgynNwDosipl6Wscsv9MD
+         i/n/WHXYW9fY+oMvqKAyR7+Yjj0HsQdogf09Y+1uPQnenxd29KZe3eP/rjL43Puto97S
+         vVbdG2/KgvxwlsFaYJXJ5Lt+N82cJtrEHcuC4JGvwpenDDj7oF6VZbGiFQdfK+PI+kRX
+         Gl3Ce8tv1n0HxOb5brXKoxxr5Hip4QO1lPUzW8W2n9HVEplQIsLf4HtCcSc7KlpSJqv+
+         IibjZLkzRwS6p81yuniKq2OI+CE3If/xs+UowwD64atEMIUcSRoxPuMUvWrrYk0FENW8
+         uTDw==
+X-Forwarded-Encrypted: i=1; AJvYcCWH/tnegb34SFzApA6Ma1TRfm8kIQhb3yjbVbZiHrWAkugJ5Jr8emIPh6XRdx9MGoxxCDTShwBEh4c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPbnRi7/v5fDvyhgqmp8O5O7cEL+vsuXpMRXuai7MrtTkmC04E
+	1R9AOBJzKuJFeu3iBVZ8A81bUGpPAqsFh42LuIIL7lkte57ikMxDG3VQoGb93VHv0uXT82vYvhw
+	6la/JXXUObr60/Gp5dniaPylCW+IjDDmkk61S
+X-Gm-Gg: ASbGnctQEVz7SR30JTDc+RyJJevDDrici7zaODEJ4zXlHuqgueJCox/OE93m3rLfZZH
+	4WZXi4rGduKmLOQQT03gLdHGHlzZKbLO94fk8xFcW/o+hoGJnWVzxoT/4gJo=
+X-Google-Smtp-Source: AGHT+IEEohoifE5Eot4EK58etrAKXc5uyTYYgVTf9FDYBpQvVGSrkTHkziz5Jre1jyL9uPZjIQbyVWdZRRuu5I8O3w0=
+X-Received: by 2002:aa7:c0d9:0:b0:5d0:b6ff:5277 with SMTP id
+ 4fb4d7f45d1cf-5d12598f208mr29089a12.2.1733349345713; Wed, 04 Dec 2024
+ 13:55:45 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yfpvh5m3j2ixbbzr"
-Content-Disposition: inline
-
-
---yfpvh5m3j2ixbbzr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20241202165829.72121-1-lorenzo.stoakes@oracle.com>
+In-Reply-To: <20241202165829.72121-1-lorenzo.stoakes@oracle.com>
+From: Jann Horn <jannh@google.com>
+Date: Wed, 4 Dec 2024 22:55:09 +0100
+Message-ID: <CAG48ez2Djqj2_5fqn5nfXewyBHSBFUvEgHZ2Nin-FmYArkkXOQ@mail.gmail.com>
+Subject: Re: [PATCH man-pages v3] madvise.2: add MADV_GUARD_INSTALL,
+ MADV_GUARD_REMOVE description
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
+	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@suse.cz>, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: intro(1), pipes
-MIME-Version: 1.0
 
-Hi Doug!
+On Mon, Dec 2, 2024 at 5:58=E2=80=AFPM Lorenzo Stoakes
+<lorenzo.stoakes@oracle.com> wrote:
+> Lightweight guard region support has been added to Linux 6.13, which adds
+> MADV_GUARD_INSTALL and MADV_GUARD_REMOVE flags to the madvise() system
+> call. Therefore, update the manpage for madvise() and describe these
+> operations.
+>
+> Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-This week I showed the Linux man-pages PDF book (she was curious about
-what I do in my job), and that prompted me to read the intro(1) page
-more carefully.
+Looks good to me. Thanks for adding nice manpage documentation for this fea=
+ture!
 
-To my surprise, it gives an overview of using Unix commands, but it
-doesn't mention pipes at all.  We should address this.  Would you mind
-doing the honours?  :-)
-
-<https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-H=
-EAD.pdf#intro%281%29>
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---yfpvh5m3j2ixbbzr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdQxtEACgkQnowa+77/
-2zK/6w//U5iTIFQHBPO+teFYiAuocCnyqdGoHy+aJeWTqaGILo2QmlwOdozK2947
-x0xTxai8voaHpWdXRprlNhqhwio5H3YyNuhheuW3I1cbOoc2Hz2Ld1zv+l9rMCOu
-g4yKA8CenPi/bhClvje+ealhymx0H94F8jmJQomh+fh0MBzLUjbiM8YdVx+iyisQ
-7Bz5zt0fWkHqzn6MB4mMPayLkdZfPm/FuTTp9iIJXPeJhDRiLEZ1p/rSruQae+N+
-bJZpfNNDFibMX9+AYwks9d9TTvjJjaSJM2CZjd5ef+lCmSwqcr+M0NE+IJfEmNYv
-QbzveRjvM77MVZpDOnG7Gluiq2QeJzAueiXPz/AXwm182BhXfzXHylSMegWZdXrP
-DCyklqM84wTBgNpK1G8OSNMnptPGmTwrvNEn0bMwns5YrmAQH6SZSBEZsVDTACgM
-NNB909ADowJZtkl3iSRVwK8EiboRUDYZ1iFAkBhFjwYi2usOFQVWAxIgsN0+ADZk
-jPuA6ZaYZ0f+GBs+N3rw0Icg42CQPpqs2ywoGcX2jaWuJOavHOl3Hapehj2WKFIy
-ywd475ZZUCu0ZsR1CtbjI4Xo/SEoBTaEsNeUbKDcLRKXNo/wRkDzv7YLQhupnAQA
-bn41PNgu2yNWEN1m0vTlG9qb+Twxhy567nqcnPecdFtCRIlItSc=
-=/8C1
------END PGP SIGNATURE-----
-
---yfpvh5m3j2ixbbzr--
+Reviewed-by: Jann Horn <jannh@google.com>
 
