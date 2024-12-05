@@ -1,96 +1,96 @@
-Return-Path: <linux-man+bounces-2120-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2121-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id B21CB9E5D88
-	for <lists+linux-man@lfdr.de>; Thu,  5 Dec 2024 18:42:43 +0100 (CET)
-Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id D3EC39E5DA7
+	for <lists+linux-man@lfdr.de>; Thu,  5 Dec 2024 18:50:18 +0100 (CET)
+Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E3BCA1669E0
-	for <lists+linux-man@lfdr.de>; Thu,  5 Dec 2024 17:42:36 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8EEAC282C38
+	for <lists+linux-man@lfdr.de>; Thu,  5 Dec 2024 17:50:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88E6222578E;
-	Thu,  5 Dec 2024 17:41:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9B8B21D5AC;
+	Thu,  5 Dec 2024 17:50:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KbGWfDih";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4Z0orvwp";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KbGWfDih";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4Z0orvwp"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ERSypDMw";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xod107vZ";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="exmjsGNS";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="h9qKu0sm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F60224B0F
-	for <linux-man@vger.kernel.org>; Thu,  5 Dec 2024 17:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD80218E98
+	for <linux-man@vger.kernel.org>; Thu,  5 Dec 2024 17:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733420519; cv=none; b=Ud2qbiUEV3G/F7RP9l3x2b2S5Shj2o7/TeQKwIxJSooHiC9eTQLuITC8tQyduYkrv5vkmSy4AI5VFdTDwG62CcFaop7pZJ8L8sxp5WAbtZu8VeEMG6SJECNWGl3P5fVrE6b6n8qKw5rawz1jLxkdJDBd1RvFFAwe1jSnfo2Yq1I=
+	t=1733421014; cv=none; b=Qyd/vBZIFqLBjS+2e5Y78DKoijHV3ncRavx+cuSfCbui2VJwvBSRv+bNBymSLXrDAANpqStgjoJ4BfGNfw71drSsa2wsFerzfnQwaGHgdcVeRJAFBWnTAiCvpffgUs72kgUziNv8qLTGkryKttWLnwaQtrrCVE116jOphuyj1IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733420519; c=relaxed/simple;
-	bh=dIcikjCr1O6Y/vm03s7okVuAEmcbi0sD9fBQRUe+LZM=;
+	s=arc-20240116; t=1733421014; c=relaxed/simple;
+	bh=jDGauDjz7IwIDjbFYmRf5dsTLsZrfbuZvBVlhF/vXgY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g4Eo0lfKglkIvy6S/tzFttV/1vnaLZHSFVDOvXB5loBTKps95Uzpzs6tGlT30zKATx6a939p8sM04kX3DYmoFhpgBn6tiDPWxWcIvQoDF2tZ+GGS8PlCZl7INCMZ9WHz8Si5AjXUB3KSq8tquRSunFfwWeo8K5L0yXA/Av+CzCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KbGWfDih; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4Z0orvwp; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KbGWfDih; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4Z0orvwp; arc=none smtp.client-ip=195.135.223.130
+	 In-Reply-To:Content-Type; b=ujFw3XNllDxReA8DvWrfqy+F9sA9nZT3S99Jl5cIXem9FNrOvadDqS5ryZX99RrI4jDZM8IRIrHmGPCd5MWPy2Fpw6UQcYq6oYqFft1e8Kk3dnAQ9CcZRMCB2vKMHQ5PJBkdCVq20w4Qn+6bIpO5sVeERZKTuMAkiKWus7jwtJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ERSypDMw; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=xod107vZ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=exmjsGNS; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=h9qKu0sm; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2E67C21114;
-	Thu,  5 Dec 2024 17:41:55 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 730EE1F38C;
+	Thu,  5 Dec 2024 17:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1733420515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1733421010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ebNRQ+Npgol6Yjf9lTfEbZmSLv1h5GM1iThnTKm6DNI=;
-	b=KbGWfDihlCDdbC1hkOMjTLL3s//tW/iJntb9T1DbA/ZzNbzza9k5npey3OQf2BlTwpS6rv
-	fFOPwY8N5N6u/mZ8HO+/+aGcl9atTcOM2ullOIe8ZknQGCz0e879jbGa2yP3jas44jgRa3
-	6msnsLpxoEHJrg9l7cuyBs8NGJ10Os0=
+	bh=ssw4lT/FrrxkWzHPEs7J+XtZPtU95ZBUColtMR1uZsQ=;
+	b=ERSypDMwuyGsXk0FGP5xAkbNBXrB8A4PQIM+62NXl0BY2euzFffjxspXMipYBTxdA3Oale
+	uJRSyRburWaytFt+4XXoeDEotG7IQkBz0fCRpLJipGzCTDmmE69H7kMfcgqrx0wBMkyP74
+	ewN9ZTCUd5I2DR1Uzl9yS73Mwz/KFG8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1733420515;
+	s=susede2_ed25519; t=1733421010;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ebNRQ+Npgol6Yjf9lTfEbZmSLv1h5GM1iThnTKm6DNI=;
-	b=4Z0orvwp/vFjPVxEa0i7naOLaX+FbbDNOVKvCMTIhv6nlCR5Yb61y6mQh//5lRIifAboQd
-	D5elxO6PYoOsQHDA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KbGWfDih;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=4Z0orvwp
+	bh=ssw4lT/FrrxkWzHPEs7J+XtZPtU95ZBUColtMR1uZsQ=;
+	b=xod107vZswGRbAKz/281SoyqjpaQL8KLv75jSv6uqX8tET4LrL8BkqeI/rAeT+b9O4Q1MK
+	yQHgwM6wJiBqgjAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=exmjsGNS;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=h9qKu0sm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1733420515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1733421009; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ebNRQ+Npgol6Yjf9lTfEbZmSLv1h5GM1iThnTKm6DNI=;
-	b=KbGWfDihlCDdbC1hkOMjTLL3s//tW/iJntb9T1DbA/ZzNbzza9k5npey3OQf2BlTwpS6rv
-	fFOPwY8N5N6u/mZ8HO+/+aGcl9atTcOM2ullOIe8ZknQGCz0e879jbGa2yP3jas44jgRa3
-	6msnsLpxoEHJrg9l7cuyBs8NGJ10Os0=
+	bh=ssw4lT/FrrxkWzHPEs7J+XtZPtU95ZBUColtMR1uZsQ=;
+	b=exmjsGNS8+VGaqsu8G4X6IXv4fBDTJsURQXC3Di11QisU2zzCfEKmcnIOTGvPRfFGmzCZ9
+	0TBZwbXMCWgkb/C0v1EPdkZ9l8Q9vpGatwaoCw9/Aaa5wgpJI7qImTHcwYxFtofGxumCbz
+	yqwsCcSjjKw0NG+ujzdV7XFDKWc4pfk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1733420515;
+	s=susede2_ed25519; t=1733421009;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ebNRQ+Npgol6Yjf9lTfEbZmSLv1h5GM1iThnTKm6DNI=;
-	b=4Z0orvwp/vFjPVxEa0i7naOLaX+FbbDNOVKvCMTIhv6nlCR5Yb61y6mQh//5lRIifAboQd
-	D5elxO6PYoOsQHDA==
+	bh=ssw4lT/FrrxkWzHPEs7J+XtZPtU95ZBUColtMR1uZsQ=;
+	b=h9qKu0smN9uUeXyyIaPKTJuM2sm/qHjmZNqMQfm744ioVpEjLtW2YzJryPohr/TuLV8wXM
+	0KjH0vGP3FaISUCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 190A1138A5;
-	Thu,  5 Dec 2024 17:41:55 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E34B138A5;
+	Thu,  5 Dec 2024 17:50:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lp3LBePlUWfXIwAAD6G6ig
-	(envelope-from <vbabka@suse.cz>); Thu, 05 Dec 2024 17:41:55 +0000
-Message-ID: <a651283d-3af7-4deb-a729-5c3a1868c63c@suse.cz>
-Date: Thu, 5 Dec 2024 18:41:54 +0100
+	id 4CyKFtHnUWcTJgAAD6G6ig
+	(envelope-from <vbabka@suse.cz>); Thu, 05 Dec 2024 17:50:09 +0000
+Message-ID: <b9f4f985-771e-4f09-a87f-d56f898e8d39@suse.cz>
+Date: Thu, 5 Dec 2024 18:50:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -98,8 +98,8 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH man-pages v2] process_madvise.2: describe 6.13 behaviour
- permitting all madvise flags
+Subject: Re: [PATCH man-pages v4] madvise.2: add MADV_GUARD_INSTALL,
+ MADV_GUARD_REMOVE description
 Content-Language: en-US
 To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  Alejandro Colomar <alx@kernel.org>
@@ -107,7 +107,7 @@ Cc: linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>,
  "Liam R . Howlett" <Liam.Howlett@oracle.com>,
  Matthew Wilcox <willy@infradead.org>, Jann Horn <jannh@google.com>,
  linux-mm@kvack.org
-References: <20241129164422.89837-1-lorenzo.stoakes@oracle.com>
+References: <20241205104125.67518-1-lorenzo.stoakes@oracle.com>
 From: Vlastimil Babka <vbabka@suse.cz>
 Autocrypt: addr=vbabka@suse.cz; keydata=
  xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
@@ -148,10 +148,10 @@ Autocrypt: addr=vbabka@suse.cz; keydata=
  w9XOLH1IIWh7RURU7G1iOfEfmImFeC3cbbS73LQEFGe1urxvIH5K/7vX+FkNcr9ujwWuPE9b
  1C2o4i/yZPLXIVy387EjA6GZMqvQUFuSTs/GeBcv0NjIQi8867H3uLjz+mQy63fAitsDwLmR
  EP+ylKVEKb0Q2A==
-In-Reply-To: <20241129164422.89837-1-lorenzo.stoakes@oracle.com>
+In-Reply-To: <20241205104125.67518-1-lorenzo.stoakes@oracle.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 2E67C21114
+X-Rspamd-Queue-Id: 730EE1F38C
 X-Spam-Score: -4.51
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-4.51 / 50.00];
@@ -161,73 +161,88 @@ X-Spamd-Result: default: False [-4.51 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:mid,suse.cz:email]
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,suse.cz:dkim];
+	DKIM_TRACE(0.00)[suse.cz:+]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Flag: NO
 X-Spam-Level: 
 
-On 11/29/24 17:44, Lorenzo Stoakes wrote:
-> Since Linux 6.13 it has become possible to use all madvise flags when targeting
-> the calling process. Update the man page to reflect this change.
+On 12/5/24 11:41, Lorenzo Stoakes wrote:
+> Lightweight guard region support has been added to Linux 6.13, which adds
+> MADV_GUARD_INSTALL and MADV_GUARD_REMOVE flags to the madvise() system
+> call. Therefore, update the manpage for madvise() and describe these
+> operations.
 > 
-> Reviewed-by: David Hildenbrand <david@redhat.com>
+> Reviewed-by: Jann Horn <jannh@google.com>
 > Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-
-FWIW,
-Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-
 > ---
+> v4:
+> * Reference function chapters as per Alejandro.
+> * Minor rewording as per Alejandro.
+> 
+> v3:
+> * Don't describe SIGSEGV as a fatal signal as per Jann.
+> https://lore.kernel.org/all/20241202165829.72121-1-lorenzo.stoakes@oracle.com
 > 
 > v2:
-> * Use semantic newlines as suggested by Alejandro.
+> * Updated to use semantic newlines as suggested by Alejandro.
+> * Avoided emboldening parens as suggested by Alejandro.
+> * One very minor grammatical fix.
+> https://lore.kernel.org/all/20241129155943.85215-1-lorenzo.stoakes@oracle.com
+> 
 > v1:
-> https://lore.kernel.org/all/20241129095507.11001-1-lorenzo.stoakes@oracle.com/
+> https://lore.kernel.org/all/20241129093205.8664-1-lorenzo.stoakes@oracle.com
 > 
->  man/man2/process_madvise.2 | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+>  man/man2/madvise.2 | 93 ++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 93 insertions(+)
 > 
-> diff --git a/man/man2/process_madvise.2 b/man/man2/process_madvise.2
-> index b78a61553..2ebbfea44 100644
-> --- a/man/man2/process_madvise.2
-> +++ b/man/man2/process_madvise.2
-> @@ -54,7 +54,9 @@ This value must be less than or equal to
->  or accessible via the call
->  .IR sysconf(_SC_IOV_MAX) ).
->  .P
-> -The
-> +If manipulating another process,
-> +or before Linux 6.13,
-> +the
->  .I advice
->  argument is one of the following values:
->  .TP
-> @@ -74,6 +76,10 @@ See
->  See
->  .BR madvise (2).
->  .P
-> +Starting in Linux 6.13,
-> +when manipulating the calling process,
-> +any advice flag is permitted.
-> +.P
->  The
->  .I flags
->  argument is reserved for future use; currently, this argument must be
-> --
-> 2.47.1
+> diff --git a/man/man2/madvise.2 b/man/man2/madvise.2
+> index 4f2210ee2..7d682fa40 100644
+> --- a/man/man2/madvise.2
+> +++ b/man/man2/madvise.2
+> @@ -676,6 +676,91 @@ or secret memory regions created using
+>  Note that with
+>  .BR MADV_POPULATE_WRITE ,
+>  the process can be killed at any moment when the system runs out of memory.
+> +.TP
+> +.BR MADV_GUARD_INSTALL " (since Linux 6.13)"
+> +Install a lightweight guard region into the range specified by
+> +.I addr
+> +and
+> +.IR size ,
+> +causing any read or write in the range to result in a
+> +.B SIGSEGV
+> +signal being raised.
+> +.IP
+> +If the region maps memory pages they will be cleared as part of the operation,
+> +though if
+
+Hm this reads a bit ambiguous. One could read it as the memory pages are
+being cleared, but it's the page tables.
+
+> +.B MADV_GUARD_INSTALL
+> +is applied to regions containing pre-existing lightweight guard regions,
+> +they are left in place.
+> +.IP
+> +This operation is only supported for writable anonymous private mappings which
+> +have not been mlock'd.
+
+Not sure if "mlock'd" is the canonical term, I think I've seen "locked" used
+before, which I don't think it's great. Maybe Alejandro knows better.
+
+(there's also another "mlock'd" later in the patch)
 
 
