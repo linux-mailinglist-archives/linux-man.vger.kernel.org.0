@@ -1,118 +1,131 @@
-Return-Path: <linux-man+bounces-2138-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2139-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id B272D9F1B50
-	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2024 01:29:24 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E9C9F1B59
+	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2024 01:37:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CAC5816AAE3
-	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2024 00:29:21 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D0E6316AAEA
+	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2024 00:37:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65F533208;
-	Sat, 14 Dec 2024 00:29:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE2D16AA7;
+	Sat, 14 Dec 2024 00:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b="qstRJycJ";
-	dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b="IgY/bZ9g"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPt6LC3H"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155038F58
-	for <linux-man@vger.kernel.org>; Sat, 14 Dec 2024 00:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.218
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1734136157; cv=pass; b=XG44YVjmWVGqd0EXWts+T+P6ECVwh3owITHYV966pZt9PhjDOreYdskan5jm8MlheK7EcgbHJgNSdXd8uUEP2qlU7PWlIV2YDVKD+RsfLxv1nGlNpsJII0novE5ILioyKdcJITw9dUxoYm2lYvPtJ+2nWUb5D20Dv9G3UQuWcyo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1734136157; c=relaxed/simple;
-	bh=DjLhmJqtbFQUg4LqxOI+n/t++g5Y/kiExvpWKqbDEmw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Iu0j9VhNsMuVV6ZNcAfXKGr88r05MIGtSbtSGrS5SI2qWSmA0W696g1eFo0G87HF7QlC81/uRjwU2I8a++uhdKNqvf9GqhQkkJFbsp2PTvJ6cEQcy06b7xYKf9US8KMgP+HHnEOi0velB/frqEEs6txCLzc5/k2W5QAznj+TeXE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=clisp.org; spf=none smtp.mailfrom=clisp.org; dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b=qstRJycJ; dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b=IgY/bZ9g; arc=pass smtp.client-ip=81.169.146.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=clisp.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=clisp.org
-ARC-Seal: i=1; a=rsa-sha256; t=1734135789; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=sxHdss2OkK2EIgj4kDopw3wjqKjCGYrLa2Ze2KJ9W5oh7Pr6y5Em7/ROJPCURpjRZ9
-    tfzCVsrUox7i3KGD2DlPUySxO7XQso4shsMtnlX2s+Q5/LOeE5/1Ul7ZIivmdrP+idEj
-    a1lwPNCQ/OLDvvEg68gIkhyiXDemFMDLnLg9w2a8/+/7BNDVqFD0jV5IA3lfzahpCdmM
-    UmqRz6ci423x7ylEva9bYBJpr0yd0KdrHwA4tNBqrotzUzxTvZA4avst+ITrysWaJUpY
-    3j2tdD+yfEOJGOzvVNkUXUdWXyyb9jfS81WPjvQiVUdUjZX6wm+MgODMFoKavkCDuwdj
-    hsgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1734135789;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
-    bh=yAMGOihGiHxPPtr6a2/8Df+iY8DPKGCB31DbM7CclbQ=;
-    b=YSNqN5imtYvYDvnuOJjFlNsTNO3cBCDwHsd7WkW0GYevA2hAie9Zi3I25dvX4xKx1V
-    G63EVywEg7Ca+Mk5loH5wl5jcnrbUTnxGcrZZx6QZnobTlVwNNkSdNUE371b1T8/WBIO
-    qI+UB/Fll4YQce+hdQIHBNHXmDkLpqrsoFhts3omdq3hAFXlZkJG5+Bkfv0xd6VHI99j
-    0EGoD1EY1OkHhMxZ+qqzq3/83k7y3Jy2geHkWCyFy8rYi2UN3kXV81cp/BJhfGFwRHSn
-    ht3n2J39c7YXhtQ672O3WgP7OFgtbiaQQV4U56wkwP/gyVBP3ZocXBviAc4RsB0iaHMS
-    ByBw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1734135789;
-    s=strato-dkim-0002; d=clisp.org;
-    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
-    bh=yAMGOihGiHxPPtr6a2/8Df+iY8DPKGCB31DbM7CclbQ=;
-    b=qstRJycJBVR1fsumYMHRSqKAo6SwxASUw1Taa7uAvypcRax6uVcArnt0gwIe/HcrB5
-    3I1Yc2mofFAb/0ZdaSYN9HbtINyclY7k6BdVRnLBXelvszfj5oHFiiQuhX752zyolcYR
-    rpMRMBaJH+KheGD7wDaB6Jbe2DkgV7i7Yd4Uz2+KmQprn2UmZd8rcr1Z1/fDk7Ir6TYs
-    JTPD74AtMAL9SZQpgv43DeOGAUu7FsZhGmtYKWHhSQdfMfVku4Csecdy9iXH17J+grbx
-    UTBGMb6iykT710mVXQMD/Dcob0wspNqHMJUgekRfjgcKuEnjLsQrWWWBMPFAZj3Y2ly2
-    KXug==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1734135789;
-    s=strato-dkim-0003; d=clisp.org;
-    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
-    bh=yAMGOihGiHxPPtr6a2/8Df+iY8DPKGCB31DbM7CclbQ=;
-    b=IgY/bZ9gzTYkG64o8PVOGEbWAtzOgK/gysS3ulN6odJEj6MiXQW2GSRQ8lbxRAXvgt
-    QlkYJFZtdoYpKSNV6sDw==
-X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlLnY4jECd2hdUURIbZgL8PX2QiTuZ3cdB8X/nqmabFzq5a+FoLrNjOvYVO4GsP2jK"
-Received: from nimes.localnet
-    by smtp.strato.de (RZmta 51.2.15 AUTH)
-    with ESMTPSA id N7c3f40BE0N95iG
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sat, 14 Dec 2024 01:23:09 +0100 (CET)
-From: Bruno Haible <bruno@clisp.org>
-To: linux-man@vger.kernel.org
-Subject: names of ISO 8859 encodings
-Date: Sat, 14 Dec 2024 01:23:09 +0100
-Message-ID: <3678665.hdfAi7Kttb@nimes>
-Organization: GNU
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF95539A
+	for <linux-man@vger.kernel.org>; Sat, 14 Dec 2024 00:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1734136641; cv=none; b=JcnBsytRI7F4OY4NuO+bCVgsOZwX6rFdnMTsv/Qb3i+VWuTIeEjAzUj5gwDDs4tD3Jq31yqvLRhkFH4d80y279dXcI0XwgawCRx6VENjnPnpoQumZ7LCLT3VP7u1iaO/LyZ5TKXi5JaFcNTh3ppwmLbeGYcIDiW8Rersu8D/hVM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1734136641; c=relaxed/simple;
+	bh=jjbzHErVcbPDzJZMP0qe3/Oal8huTlx09ej6vdSEfqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FSQAHV7oI3b0/lp8BrMdNv9T26YNCQMfi/GldNWWII9zXYMv19oxKdH6Ow3feT2IFMVJg4nKktLGAVhwzLSgk7IZApzfAHdTnWNWIxFpxppYU1HHy1Dgj+SBNuDRTlpLzAXcfKzBjtjm9EpE1uQ8RJCx5Dc2sNaFGLg9QDPPhYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPt6LC3H; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A33DC4CED0;
+	Sat, 14 Dec 2024 00:37:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1734136639;
+	bh=jjbzHErVcbPDzJZMP0qe3/Oal8huTlx09ej6vdSEfqM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LPt6LC3HnSbruAzPNvRU8IJLR+l5TnXb2ACpdES+MaMEgBI8NNzBj+v5uc2xrPtkY
+	 BzCQe5WYc8UikG5aaMu4MYXLOU7aboWqh5FuQuaaBkH7UIb3CwFBeY/Z9o0iZtUkHn
+	 wqkSPIR95UP3C3LqnjUkZ+XaTrX3McTa4MIZNNhw7p8fvXk4SfZOlkqMDNNz0/q+nh
+	 4SrNcXjaUy6kl8uxcurhDKaPrt17H9DnRXk5JMkFyPuG/hMonW4sHesVDHzRUjMMlP
+	 edgF+yMFz/E5fpiTBBaIZTK1tNfUOLH9jLXfrD0sTj/TR28yjTzQLFZqfIM8EMSz96
+	 WuL5JwMwHclOw==
+Date: Sat, 14 Dec 2024 01:37:16 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Bruno Haible <bruno@clisp.org>
+Cc: linux-man@vger.kernel.org, Helge Kreutzmann <debian@helgefjell.de>,
+	Mario Blaettermann <mario.blaettermann@gmail.com>
+Subject: Re: names of ISO 8859 encodings
+Message-ID: <20241214003716.gnockyne6qh7jpml@devuan>
+References: <3678665.hdfAi7Kttb@nimes>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-
-Hi,
-
-Commit 3ed1de0ddccb42bae4151c7225d3fddeab04ff43 should better
-be reverted, IMO. The ISO organization or their *standards* can
-be renamed to whatever names; what matters here is what the
-*encoding* is commonly referred to.
-
-The *encoding* names are standardized by IANA:
-https://www.iana.org/assignments/character-sets/character-sets.xhtml
-The first ISO 8859 encoding there has the name
-  ISO-8859-1
-or
-  ISO_8859-1
-and the first among these is the preferred MIME name. So, please,
-in encoding names:
-  * revert the ISO -> ISO/IEC change,
-  * change the space after ISO to a dash/hyphen-minus.
-
-Likewise (partially) for commit d5e5db91ece5955b21ae1aedc03ba1d56d3cf423.
-
-Bruno
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pdj7yfq4zammrze5"
+Content-Disposition: inline
+In-Reply-To: <3678665.hdfAi7Kttb@nimes>
 
 
+--pdj7yfq4zammrze5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: names of ISO 8859 encodings
+MIME-Version: 1.0
 
+Hi Bruno,
+
+On Sat, Dec 14, 2024 at 01:23:09AM +0100, Bruno Haible wrote:
+> Hi,
+>=20
+> Commit 3ed1de0ddccb42bae4151c7225d3fddeab04ff43 should better
+> be reverted, IMO. The ISO organization or their *standards* can
+> be renamed to whatever names; what matters here is what the
+> *encoding* is commonly referred to.
+>=20
+> The *encoding* names are standardized by IANA:
+> https://www.iana.org/assignments/character-sets/character-sets.xhtml
+> The first ISO 8859 encoding there has the name
+>   ISO-8859-1
+> or
+>   ISO_8859-1
+> and the first among these is the preferred MIME name. So, please,
+> in encoding names:
+>   * revert the ISO -> ISO/IEC change,
+>   * change the space after ISO to a dash/hyphen-minus.
+>=20
+> Likewise (partially) for commit d5e5db91ece5955b21ae1aedc03ba1d56d3cf423.
+>=20
+> Bruno
+
+I'm okay with reverting those if there's consensus.  Would you mind
+CCing the interested parties (e.g., the people that requested that
+change, and anybody that participated in the discussion)?
+
+(I've CCed them now, anyway.)
+
+Thanks!
+And have a lovely night!
+Alex
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--pdj7yfq4zammrze5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdc0zwACgkQnowa+77/
+2zLkyg//SVBiE8yCrMeSasgLlj06MundQfnvsHW7ENxIaU7iXNUFeQPXXiSQwAYu
+X6IlyL7V+QMKHLEUhRDmCeq09G4sOsgIA0mEiinWB0Ha+WnnyTRrnUcXhat6iNC8
+rB9QcbTQA5o3BiuX1AjlNU6WufGXQtmjAY0dZfYqQiw91lWcCyv/vDL3xD5ry7de
+RI0Mk8kTJudn5dn9RW6R4gt05TGxFlMyZJs2FY2FHwXUelNn4Tvt0+G749480x24
+ymnByshML5xajrdh0V1WN9fQ8sG7+CNmYsSKD2dnRUazgqvbktVaIwe4LQ/bCGC4
+Iu8B3kqWIPFzRdaY57p2Op3HYE4zBvqCO2WxD71csU05AaicVtCYyzFIhSfvVWM9
+NG41B90m2RjGIlTsSVgkd45Wy+rZK2STCP8ATGyvmG+ZqaK5szb7wFn1kOcIAM2W
+fO5xNDQJ4ZS6IVIVZSWCTul5OStfmM6M6CIXxqi+izVJA1jlo0Xz5RlONyQ7Fy4o
+Njj6lMaq3gobiM5u8rchVx7J463pjCUjVfo66hzYzlw1zHEGHfJNi0o7ap0cvm+x
+JrU9qH4ZeXTNrXhAgArM+qk36g4D/k+cm6OuNTLFqceYXvG+ug7x10pRYUaHmidh
+Dzl/Pdp4xpMQ1wguMH2yERpkFlQEZAfzLLbyAyzaLhvzm6mqMFk=
+=S2WD
+-----END PGP SIGNATURE-----
+
+--pdj7yfq4zammrze5--
 
