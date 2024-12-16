@@ -1,115 +1,177 @@
-Return-Path: <linux-man+bounces-2160-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2161-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80DD09F320D
-	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 14:57:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5660F9F3213
+	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 14:57:46 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3B3361884523
-	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 13:57:36 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 70AF118857C0
+	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 13:57:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AAD9205AA8;
-	Mon, 16 Dec 2024 13:57:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46869205E0F;
+	Mon, 16 Dec 2024 13:57:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LaUeF6mC"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvPNica2"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46FE29CA
-	for <linux-man@vger.kernel.org>; Mon, 16 Dec 2024 13:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E40205E04
+	for <linux-man@vger.kernel.org>; Mon, 16 Dec 2024 13:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1734357450; cv=none; b=Pg5MRkIHfSouKAWcN7YPWrJgTwCquG6j87uG70Axgy9YOG8utffNOxM5hu9WYmRcI3BCtlzml7FkVydGVQHYnnRZHkKIZykLfcG94h5u9klho8sVgMjv2Y/nCR7AzbEvBRfXuxk4tGhhaof5idz9qsD4UGQCTCyNytbZR+a4Ibw=
+	t=1734357454; cv=none; b=Z5nTRepUYgjGv8o6w6B1PobnAp9GR+6JAnxhEFUX1oGopKTRFllI8GAid/lcjrMfw58ji49v5lsGpSuanWnlR8JcKYxATmLWpF3Igx/ww+BCPXNBCYyf625pUZAgNSfyOV3IFePDQ0wpVfZjBdoWbZTgEbIaTeKR+I8LOnIQLBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1734357450; c=relaxed/simple;
-	bh=lPFxzayesKXKD2iHDuABr134b1/a4khIIMzgr72X/YI=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=QSc4YhYydB8/zyjl3CjK3aU61Cr3DCK4sdylp0VhTfVvWu5s82vxPUhz8pRAtc3VU+iEzaw4SHpvABS9zFQtqrUN9uPMUbgmaqrJWXCdjaFyLQmd5IuZ0s6G3TnZN/igVYzG31LbeNQFcr2x6pBdjakkFrvcdiSU6ga7t/aGWno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LaUeF6mC; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-6dcdd9a3e54so14421086d6.3
-        for <linux-man@vger.kernel.org>; Mon, 16 Dec 2024 05:57:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1734357446; x=1734962246; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=lPFxzayesKXKD2iHDuABr134b1/a4khIIMzgr72X/YI=;
-        b=LaUeF6mC+REk7t7PGRr+qMTd61d4hZ6bxKeN+NUruBTYR9XZt0nbV1DmUap+LOtUqh
-         +7PM2R/6h/iLYhln/gXK5A3lDMbvvnzmXvxsbaKPGG+7RoBLH1RzKXM+2hkhU1o14dV6
-         sy9Ysw7PZiSI85qSfBN31AovkbJyxVFWkCTi5FORgJMuvK3UgPhhI5aQ6AGJ6Qnr8Sbb
-         ZA5fjmJiT8Cse+D1fSeAWTFdEsx4bHHVVqL4PGFt8xP6VPgCLMf0X3MnwY5xAIvLYQ48
-         mK+Y/hcVgd7RkwMXaqbgwuy/AzvOvj8SLsQdkQOGtQn/P9gQJXRLRvnKjL+bGFa5GZMI
-         LcPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734357446; x=1734962246;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lPFxzayesKXKD2iHDuABr134b1/a4khIIMzgr72X/YI=;
-        b=LuoLR57yF93ipXd4Is/gWay5uKTd9SLusV5DxWrTumnYMuovJG9PpCRkjclWayYmX7
-         hiGs5r+HFd28r5/qOOsb1+46920LvV/6bC0d8Gqx/pPS6UH7qR+KHPmTI4lCEzAXBhVi
-         AAqvYgbaL410LNa6EtvFKzgG7RRIge6PlVCdKUuvbpRgsmEYEuk0mSy1/zwpGmBYGleX
-         GXIjo2P/2gOkX+ELW4kSkFQ/rZ1De8Ky5TcErfMVfFVzzrHHhSccHk7edNbt/jS9llpX
-         ZmIvgFQC6CqLmNO9Y4jfb6xEbd8BWdJEzNixkN0cbPTpioh9855CEyIxX0PYCRLc/rpR
-         /ihA==
-X-Gm-Message-State: AOJu0YwFmToBccWYUIHAT6aQ0XzkzqvD3J/NXK97ggrUMgg39juOpBtE
-	vTW8iMQJmX9Azc5uZGdhuvdo5ePcjImqz/lxVoLYgUf00Ysb47+K0LmY+eKf6GQpFtM4IXlfoDz
-	TSIERK946eMxNyQNnnpGeaFoFni71SHaR3mwOGvjgbRusgr2RNi4e
-X-Gm-Gg: ASbGncsgJCHbfQ/tXISfseDgd+wcHbTMAk2Aw3Z8reSxiMpWRmM1baiZOlihcB6s/n+
-	x2PoLXVEmJJ7jdAGblUNVlPYQERT7DwpNfRE=
-X-Google-Smtp-Source: AGHT+IF9HZGLmBTx1k8wcqsvJFe857OlviL7aiBm5d3LYo2rTXtX8OYoUdiWN8r2bpT0VNel4aWYyUiR1Rze/XEKlUA=
-X-Received: by 2002:a05:6214:e83:b0:6d8:9b7b:14b8 with SMTP id
- 6a1803df08f44-6dc83b2624cmr175755626d6.3.1734357445738; Mon, 16 Dec 2024
- 05:57:25 -0800 (PST)
+	s=arc-20240116; t=1734357454; c=relaxed/simple;
+	bh=4N5oh+T/tdLylt8fPr+wWNCjACMRQ0phtMFl9SY9k0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LLhmsD/NfaJcEpq0ULPVA88218JU94QfVXtbYozwQ8wrh7fD+C90p7qhgNN4kMwrKSmVy+hIBtZ3FsUHgzgd0w7zp6q6WdegNdE/V0HivbRvhks5HsI8PBAr0mFKZGHRMPuznCjqodqsYl5ZysH1l1Rldsz+wLDGhOYPE18S9Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvPNica2; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEBCBC4CED0;
+	Mon, 16 Dec 2024 13:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1734357453;
+	bh=4N5oh+T/tdLylt8fPr+wWNCjACMRQ0phtMFl9SY9k0w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gvPNica21lPFX7gsYetYtavwk1mytP6CT8i/1urSZzhV6cF8kT3wMCNVGD1w/z1tl
+	 A6PyrNf8A6M9H3IJlUIf9VfA/P4EsqlvKzfZoHS370FXrUFOCZqRO80Amv4DqtioXu
+	 src1N8mtSHtfnss8aAf1ZSHEbQVOlCcfVFB0e4ZcRbMQHiUh0DXk/iXLP85wojsswJ
+	 UZDVPSmnDEpLuC9aibGEDxeibHfi8unMPHmIXuuR8iHuUxAHaBdoSPUYdC31a5LmpD
+	 VTrhszm4tgZQTFBALlHaLHcK+z4mpOtqQWkqf4Xn0FtOf5JJlrLS1dzE28eKcodJEt
+	 WEqDlGSz4vF+A==
+Date: Mon, 16 Dec 2024 14:57:30 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: fchmodat(2) does support AT_SYMLINK_NOFOLLOW now, no?
+Message-ID: <qwsphfj22qtmb3g4ldorx4thzwzf3jo5ibhfdcig5bizw5yma4@ujxlvm7pebug>
+References: <CAJgzZoon_Ewki=qGEPnzbSi7Tfu-i51cT529z3obiHeaP+WuuQ@mail.gmail.com>
+ <akk6v6ddvxj2wr3eo32jw4frjqxvgygbbf7xsqrzdofu7gabko@r45j6x5blmfk>
+ <CAJgzZooRNJbSe0fsYztsMKvb=C1FLU_cXQX9xtR9DPCavx6H7w@mail.gmail.com>
+ <22l25y4gk7qaersl4zfsyvvoxctkzs5ea5beiz44wmvbn7tg5i@q2yzq7zaj2b4>
+ <CAJgzZornYRGFRmUF6KaOCDgsgYSKdJ=V6GKxVsxNSJDCyZc+SQ@mail.gmail.com>
+ <kmig5buwz7eydpyk5in7hqzdmvykrq5kvajnkdixarfjzpeqaj@msyiruggayrx>
+ <CAJgzZopav8Z_FEAnPNDHmw0aYuS8zk6F9nU5ocn5ZdK2RYBJDQ@mail.gmail.com>
+ <5lvpbbvk7azxadhlfalfssera5hmxadpce7c22e7eyis6ra3tv@mikedqdtx7en>
+ <CAJgzZopVMJ4NOLSVpjPgOZ1EJgz=ygVc4Fue_AGUJ3LOoKEruQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: enh <enh@google.com>
-Date: Mon, 16 Dec 2024 08:57:14 -0500
-Message-ID: <CAJgzZoruFUg6X=JUNJXCbBOKs13SX=dsNFNdTMct2VecUFG=ww@mail.gmail.com>
-Subject: [PATCH] getline.3: clarify ERRORS.
-To: linux-man <linux-man@vger.kernel.org>, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Content-Type: multipart/mixed; boundary="0000000000007866b80629638f92"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6uc6im2xvcjrksff"
+Content-Disposition: inline
+In-Reply-To: <CAJgzZopVMJ4NOLSVpjPgOZ1EJgz=ygVc4Fue_AGUJ3LOoKEruQ@mail.gmail.com>
 
---0000000000007866b80629638f92
-Content-Type: multipart/alternative; boundary="0000000000007866b50629638f90"
 
---0000000000007866b50629638f90
-Content-Type: text/plain; charset="UTF-8"
+--6uc6im2xvcjrksff
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: fchmodat(2) does support AT_SYMLINK_NOFOLLOW now, no?
+References: <CAJgzZoon_Ewki=qGEPnzbSi7Tfu-i51cT529z3obiHeaP+WuuQ@mail.gmail.com>
+ <akk6v6ddvxj2wr3eo32jw4frjqxvgygbbf7xsqrzdofu7gabko@r45j6x5blmfk>
+ <CAJgzZooRNJbSe0fsYztsMKvb=C1FLU_cXQX9xtR9DPCavx6H7w@mail.gmail.com>
+ <22l25y4gk7qaersl4zfsyvvoxctkzs5ea5beiz44wmvbn7tg5i@q2yzq7zaj2b4>
+ <CAJgzZornYRGFRmUF6KaOCDgsgYSKdJ=V6GKxVsxNSJDCyZc+SQ@mail.gmail.com>
+ <kmig5buwz7eydpyk5in7hqzdmvykrq5kvajnkdixarfjzpeqaj@msyiruggayrx>
+ <CAJgzZopav8Z_FEAnPNDHmw0aYuS8zk6F9nU5ocn5ZdK2RYBJDQ@mail.gmail.com>
+ <5lvpbbvk7azxadhlfalfssera5hmxadpce7c22e7eyis6ra3tv@mikedqdtx7en>
+ <CAJgzZopVMJ4NOLSVpjPgOZ1EJgz=ygVc4Fue_AGUJ3LOoKEruQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAJgzZopVMJ4NOLSVpjPgOZ1EJgz=ygVc4Fue_AGUJ3LOoKEruQ@mail.gmail.com>
 
-Signed-off-by: Elliott Hughes <enh@google.com>
+Hi Elliott,
 
---0000000000007866b50629638f90
-Content-Type: text/html; charset="UTF-8"
+On Mon, Dec 16, 2024 at 08:44:59AM GMT, enh wrote:
+> On Thu, Aug 29, 2024 at 7:44=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
+> wrote:
+> > > @@ -285,6 +293,7 @@ is a file descriptor referring to a file other
+> >
+> > Would you mind checking this?:
+> >
+> >         $ head -n11 <CONTRIBUTING.d/git
+> >         Name
+> >                Git - instructions for configuring git(1)
+> >
+> >         Description
+> >            git-diff(1), gitattributes(5)
+> >                To produce useful hunk contexts in manual pages, we need=
+ to
+> > hack
+> >                git(1)'s idea of a function name, and also to tell git w=
+hat
+> > is a
+> >                manual page.
+> >
+> >                    $ git config --global diff.man.xfuncname '^\.S[SHsh]
+> > .*$';
+> >                    $ echo '*.[0-9]* diff=3Dman' >>~/.config/git/attribu=
+tes;
+> >
+> > It helps reviewing diffs for manual pages.  :)
+> >
+>=20
+> ~/man-pages$ echo '*.[0-9]* diff=3Dman' >>~/.git/attributes;
 
-<div dir="ltr"><div>Signed-off-by: Elliott Hughes &lt;<a href="mailto:enh@google.com">enh@google.com</a>&gt;</div><div><br></div></div>
+You mistyped.  It should be
 
---0000000000007866b50629638f90--
---0000000000007866b80629638f92
-Content-Type: text/plain; charset="US-ASCII"; name="getline.3.patch.txt"
-Content-Disposition: attachment; filename="getline.3.patch.txt"
-Content-Transfer-Encoding: base64
-Content-ID: <f_m4r3ms0d0>
-X-Attachment-Id: f_m4r3ms0d0
+	>>~/.config/git/attributes;
 
-ZGlmZiAtLWdpdCBhL21hbi9tYW4zL2dldGxpbmUuMyBiL21hbi9tYW4zL2dldGxpbmUuMwppbmRl
-eCBlMWM1YjBkNjMuLmFjMTA0MGRiMiAxMDA2NDQKLS0tIGEvbWFuL21hbjMvZ2V0bGluZS4zCisr
-KyBiL21hbi9tYW4zL2dldGxpbmUuMwpAQCAtOTUsMTEgKzk1LDEzIEBAIGJ1dCBub3QgaW5jbHVk
-aW5nIHRoZSB0ZXJtaW5hdGluZyBudWxsIGJ5dGUgKFxbYXFdXFtyc10wXFthcV0pLgogVGhpcyB2
-YWx1ZSBjYW4gYmUgdXNlZAogdG8gaGFuZGxlIGVtYmVkZGVkIG51bGwgYnl0ZXMgaW4gdGhlIGxp
-bmUgcmVhZC4KIC5QCi1Cb3RoIGZ1bmN0aW9ucyByZXR1cm4gXC0xIG9uIGZhaWx1cmUgdG8gcmVh
-ZCBhIGxpbmUgKGluY2x1ZGluZyBlbmQtb2YtZmlsZQotY29uZGl0aW9uKS4KLUluIHRoZSBldmVu
-dCBvZiBhIGZhaWx1cmUsCitBdCBlbmQgb2YgZmlsZSwKK2JvdGggZnVuY3Rpb25zIHJldHVybiBc
-LTEgd2l0aCB0aGUgZmlsZSBzdHJlYW0gZW5kLW9mLWZpbGUgaW5kaWNhdG9yIHNldC4KK09uIGVy
-cm9yLAorYm90aCBmdW5jdGlvbnMgcmV0dXJuIFwtMSB3aXRoIHRoZSBmaWxlIHN0cmVhbSBlcnJv
-ciBpbmRpY2F0b3Igc2V0LAorYW5kIHdpdGgKIC5JIGVycm5vCi1pcyBzZXQgdG8gaW5kaWNhdGUg
-dGhlIGVycm9yLgorc2V0IHRvIGluZGljYXRlIHRoZSBlcnJvci4KIC5QCiBJZgogLkkgKmxpbmVw
-dHIK
---0000000000007866b80629638f92--
+not
+
+	>>~/.git/attributes;
+
+> -bash: /usr/local/google/home/enh/.git/attributes: No such file or direct=
+ory
+
+Hmmm, I should mkdir(1) first.
+
+> i assume this is meant to be
+>=20
+> ~/man-pages$ echo '*.[0-9]* diff=3Dman' >>~/.gitattributes;
+>=20
+> instead?
+
+Nope; I think that won't work (per your patch, it seems it didn't).
+
+Would you mind creating the directories as appropriate, re-running that
+command, and resending the patch?  (That will also help check that you
+ran it correctly.)
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--6uc6im2xvcjrksff
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdgMcoACgkQnowa+77/
+2zLQng//Q2Ob7BavPq8v3wHT+slh1Zf3qdEs/9S75GVKNxwfAd+3azjYYfoOiUbc
+vXkZYPU5T4FO2OcGDoqZq5fCEwPxB76jBbqEcU2CgPfHeaDZPCNteT5wm0lueIFN
+BRzeEBrANZuKerfe+pfoBy0Jk9lPmFtAvSqBcExW28AUOVti6kIGm/kV8oqLASRw
+VgdeAt++Wv33VYMbyKVywmj8s4sWZ+gSVLaSboJwMj+7UYWIugebm3589fsS9KDW
+VFuZAVrr/9V1mtSEPk0/9pMyCf8f273N8NuDDCeOrjCb9xjzGVy0lasSUmy0pA4+
+hxqUMwVOnEgxBmCSZUGp2esAzOSgQDsUqD74jPMcYABIX5jR7mEagdeDwl3gqcpD
+WkTuJ90tCVl9qjdUVUqhT9eQfEOBQDM3j8dnBRV3IwaxvtO2lBAsXrjhXVSq5OYL
+ZTtVnQcTp+ckhdlQsy4MauwSQ83NLknoEDhLC36MaeP7KgWwuJ3CVgyRMSdkn/mx
+erTFqvXDTcA12xDfXS70F7u9C1vRB1yhteLQ1EeuCl9L1/W2kQQlBWpubmbJOxTw
+DgkRNIOnNqZnnOHPqikgDzt+uZ+xptoJzgblmL6nv2FWzroekjzFVG8+A9uDXWmO
+U5JvAm3Q8+ah9jrJh4avPL0IGi8Wwm+hgifzJ02QI37WIQYt9Y4=
+=gL7r
+-----END PGP SIGNATURE-----
+
+--6uc6im2xvcjrksff--
 
