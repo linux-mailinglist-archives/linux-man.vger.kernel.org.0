@@ -1,134 +1,144 @@
-Return-Path: <linux-man+bounces-2156-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2157-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F159F2E59
-	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 11:42:35 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 805F29F30AD
+	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 13:39:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 544E6161CE3
-	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 10:42:32 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id D7FDD1881E41
+	for <lists+linux-man@lfdr.de>; Mon, 16 Dec 2024 12:39:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D72D20371E;
-	Mon, 16 Dec 2024 10:41:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71AAD204C11;
+	Mon, 16 Dec 2024 12:39:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAX90nR9"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LKVIOaKc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E926203711
-	for <linux-man@vger.kernel.org>; Mon, 16 Dec 2024 10:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69D21FF7BE;
+	Mon, 16 Dec 2024 12:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1734345708; cv=none; b=Cr5SmOvUCiHc+gozzDQOMKUJ9rg22Dt7KZLgMAsLMDhZAoxp+CIgYO4uTTXBqY63ZCaXj6WOUnU15enjMMz+FeJX8mSvirZStJlxzHReKj5AcxyXvP1g7xlIKBZ7CFTi1SBqgb/FCgY0kHVkKcI6wnwty6iy+g+mrm+w+ps8/I0=
+	t=1734352741; cv=none; b=PDJuGIpCkmxZreSyDDthG0rLHw5wu/CFoki8zTA3fUqz7FGhIz05FW5KVRk/uIVWQfC/Hm7ktFmoPsfHj7Q3T5ItPqhBBPMYsm2lOegreEt4yTSmqXcYf3Fsrl72UvLv+Nf1K1h0Bkeu2pOXzDluz0BUg0zapCkk0IjqsZdIgcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1734345708; c=relaxed/simple;
-	bh=YuKqQisTI0JMYRVrUqpiBxLhXX9kg8rNKdGeULfwHtk=;
+	s=arc-20240116; t=1734352741; c=relaxed/simple;
+	bh=RxrgrvihZTuoLyQr4cr+IrHGG+3c4Zsd7PvDcCZzpnM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V6qDaoPONWj1CVfQtSgHG6EPYfgEnWTKOvSYwPFP2adOHEKrw8mF7bslGIFgl7n8Q2epZ6VVykomPSAlJ3A7p5Qq/F4UxyuS3XpTll8w3c1P8BPpN30xdoTAaUcBPBD235wMdrp4UUTHiN+le7aoaRNIDn/7oEkiVA04xulLUKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAX90nR9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182D1C4CED0;
-	Mon, 16 Dec 2024 10:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1734345707;
-	bh=YuKqQisTI0JMYRVrUqpiBxLhXX9kg8rNKdGeULfwHtk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jAX90nR9CtwzvYjm499AoiR9h3Jg0dWMSPM+wwPbSn1k3qJ9+rhP2hFVerI6lbAzw
-	 hoZTSjEq55+b5ANbRZ3nJq4jNeqeCds/c/sFNftkvuukBnmj+ZvYWWQReAZirWkTZI
-	 KDbDdoeSSJvaSlXAW0GnIs13OuiEdnhmsp3xUG6oB+4O3rb0dLuO9rmPeCxXf3bkdd
-	 he0HzYSXMjzEycKJEtOsL4cni2Jz0r7kkmEMt0Df7On1fnSU79KFe6A7SEvoaWvIYN
-	 IF5VUpTj7EFv2yUhfbd+3dyanCJXsFrTe0MVr3JjkWxax6Yqlidp1ctMGwvqt1TMPk
-	 KJQW1cIlxk5/Q==
-Date: Mon, 16 Dec 2024 11:41:44 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Dashuai Wu <3380520452@qq.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Inconsistencies between Linux Kernel Documentation and Man Pages
-Message-ID: <20241216104144.g23fqalrrnqpshmt@devuan>
-References: <tencent_C8D6922C0F618F0B4470A55DEAE00B236105@qq.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=CAuoYmc2EvughJLgo7G/irZAoZlMemIbJNgjT407iP8EZ7JIbIxpnOnNwk9rRMtI8FeCK469gd+G7akWI5a/WPOA9XM1GB4qQ3tqgxaO4JYj2s6I23wGwnRRqditab4opPWhLZ1dpVTN+0dQUo+shnJ1bTIF4Ac+hLUQJG3UP6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LKVIOaKc; arc=none smtp.client-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-3eba7784112so1449258b6e.2;
+        Mon, 16 Dec 2024 04:38:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1734352739; x=1734957539; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=QVGVMQ89oExPaozKGHaGfm/3lGE50xUx9fRNT1jAvsc=;
+        b=LKVIOaKcf3eAWsEd3/6Ic239U1y2HiAZM8GmsXGNJJHiHJ/iiZeKuPK43wY6Rft80C
+         g4UyWD7mmCPWu6cfRa0Ymht7cgBzGj9Eh6xRQCmhysDYLMte5Jow3FxEoA7scwrGHi4n
+         F8XyCVNWz2kHWrYc4tEbUgpQS09mkSWcROwu/t3FL00REyEdag93KgY7dzdSljrPUEy6
+         RMXok0rq7P7+6ygN43Tsfj28iR9wdICBIRWt4ur5ZzLHgPeGKH7BbGh5Ohwf9LOrHqCD
+         h8YOMoGbmdn11+zn0mbEIRYa0RE7agDgdnsu+VzmUujVzvXqxQFXC/9qMOWaYehPLYWL
+         QSkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734352739; x=1734957539;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QVGVMQ89oExPaozKGHaGfm/3lGE50xUx9fRNT1jAvsc=;
+        b=jICOnYP0w+QDE8Z9YBfjlTj8Bnj9iNBvyADQADWuFlhuYkEyyWrkF5Ou8efTe1Xh5g
+         2MuEHNNztTZTLAI5YJ7aP9VQ8YRs3GyMTXppM+q2Fm7pp+fKPg6Bouw0ZO366pz86rJy
+         Kw3MVQ6D1nRMyWxHepl8fh7e75MZYsUZltcT2uhmTeuAx6fUW6GvZuLVw3stGpfMz+M1
+         gucyRk+bfvZ8bsT7VZ/SAyaOiblNTsOvWwH/BMahKxRYXhM4F6F6gfyxckO2Gu0D16d/
+         RPxJQBQeyR5RWVdQXr0gWJKGY+QNpL63IVbWIZFRwaoyiZ92HWCCvRH9juyGc5AUP6aa
+         vSBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV2PIqTskZyPZMiJBgFdiT3VSH5w7Q5baVWwI9YsF8NSBY2yLVfDblrpL+ThCrtgDRUoEAPozJOVKZVrNG2@vger.kernel.org, AJvYcCW5GkTJn4xNNSb1+cT42YoaOX49vqapj1QP2b7wnIo1+hCGpNVLgiJLJN14l1kdjhhexpT5tYDmrMWz@vger.kernel.org
+X-Gm-Message-State: AOJu0YxImi5Reu3n+1RnHQNOwUTXQMIM6yyJxRsEpW4HnAuFzmx4767D
+	gzAO80EJG2ncPv4s6hYkHFaDpnBLxHr31//NGcvnNbm6cBggNXJ0
+X-Gm-Gg: ASbGnctiVhacfADi2yJFFerZE4Qb5WbSwWgpz+cjDaWUVrmIfPHtBfctVRuSIQ93q1r
+	4No8ZutsURcU0IIFV5rUaiI8XlIfDnXvk0QybmFuheaETxulVaIWvum/agAeUNxkd7UaYmm41P8
+	Gs2XlBmuhj8oGCnvUtK7qyjGZNa2NjYCG4ArFLY0tA4VUJeYqDgypFu2EcGtbj3gJhH8NgmaX/j
+	zf+J2BzCo0AT+bt0gNmMYKM7SposPHfzp99xEkiEsiQ4lc=
+X-Google-Smtp-Source: AGHT+IGRpWafDNkQJ+0/EF66VMx/62RnlUk4Fn+/6oaYB0X5Px1PH2XyKtGdpy9/e4qQAyjFNNExcw==
+X-Received: by 2002:a05:6808:14c5:b0:3ea:6174:ac24 with SMTP id 5614622812f47-3eba67feba4mr8251226b6e.1.1734352737677;
+        Mon, 16 Dec 2024 04:38:57 -0800 (PST)
+Received: from illithid ([2600:1700:957d:1d70::49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-3ebb492bec3sm1516861b6e.45.2024.12.16.04.38.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Dec 2024 04:38:56 -0800 (PST)
+Date: Mon, 16 Dec 2024 06:38:53 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: John Garry <john.g.garry@oracle.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, djwong@kernel.org,
+	ritesh.list@gmail.com
+Subject: Re: [PATCH] statx.2: Update STATX_WRITE_ATOMIC filesystem support
+Message-ID: <20241216123853.g43jqafi7avnntpg@illithid>
+References: <20241203145359.2691972-1-john.g.garry@oracle.com>
+ <20241204204553.j7e3nzcbkqzeikou@devuan>
+ <430694cf-9e34-41d4-9839-9d11db8515fb@oracle.com>
+ <20241205100210.vm6gmigeq3acuoen@devuan>
+ <ba9bbcbd-a43e-465e-ba17-8982d8adf475@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4oqjdbiip3ghfwxo"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="tiyppvgn6f5esnzy"
 Content-Disposition: inline
-In-Reply-To: <tencent_C8D6922C0F618F0B4470A55DEAE00B236105@qq.com>
+In-Reply-To: <ba9bbcbd-a43e-465e-ba17-8982d8adf475@oracle.com>
 
 
---4oqjdbiip3ghfwxo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--tiyppvgn6f5esnzy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: Inconsistencies between Linux Kernel Documentation and Man Pages
+Subject: Re: [PATCH] statx.2: Update STATX_WRITE_ATOMIC filesystem support
 MIME-Version: 1.0
 
-Hi Dashuai,
+Hi John,
 
-On Mon, Dec 16, 2024 at 05:56:51PM +0800, Dashuai Wu wrote:
-> Hi=EF=BC=8C
-> I noticed an inconsistency between the ARP manual page and the Linux kern=
-el
-> documentation regarding kernel parameters.
+At 2024-12-16T10:35:42+0000, John Garry wrote:
+> On 05/12/2024 10:02, Alejandro Colomar wrote:
+> > On Thu, Dec 05, 2024 at 09:33:18AM +0000, John Garry wrote:
+> > Nah, we can apply it already.  Just let me know if anything changes
+> > before the release.
 >=20
-> The ARP manual page
-> https://www.man7.org/linux/man-pages/man7/arp.7.html
-> does not contain information about the deprecation of the 'unres_qlen'
-> parameter and its replacement 'unres_qlen_bytes', while this information =
-is
-> present in the kernel documentation
-> https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html.
->=20
-> Would it be possible to update the ARP manual page to reflect these chang=
-es
-> and maintain consistency with the kernel documentation?
+> I'd suggest that it is ok to merge this now, but Branden seems to have
+> comments...
 
-Sure; would you mind sending a patch, and CCing the relevant kernel
-developers?
+I don't generally intend my review comments to be gating, and this is no
+exception.  (I should try harder to state that explicitly more often.)
+Please don't delay on my account.  :)
 
-You can find some guidelines for contributing patches here:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING.d>
+Regards,
+Branden
 
-Thanks!
-
-Have a lovely day!
-Alex
-
->=20
-> Thank you for your attention to this matter.
->=20
-> Best regards.
->=20
-> Dashuai Wu
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---4oqjdbiip3ghfwxo
+--tiyppvgn6f5esnzy
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdgA+gACgkQnowa+77/
-2zLPIA/5AerF1nzxPLD4PLp2HCPd0mB+UlmcQ+D0DwPTtGtCEbXow2p1EmRPi1gl
-hvCq6WQXOwoQeYPdl77A0frRk+CNPFVrf9TzMkNwC1h+6I5alnGlVwzoglA9fWfm
-VvES/OE0DRk0FnwZu+WxxSQ7oz+9FWoxP0NTLNPC+TOIrjaByJKG3J0Pyiu5OyDs
-iUct2gJqW+4vwlzo4DVrcFJO5ViiiMXr+eNOzDi5/Lq0CGJ+HlsFaae70OXpFgI0
-HWbeQr2xYQD5fvIRtCxN6eDEUnCRhSLTV32LGYEKUu9ZA2ipnpHPvG/1gBqB65Ro
-POJAY1kWlODGid68DlM7N+b7dFqhngN4EAu2cDvfct4v2TUfe7o76SoaurAtGFqE
-Ipmyy/JXbrHYi9SDc5RgZBVzJ0hEWZJl4zNDG6vFtzxDiqY7zaLOp7W8Y4c6ulEm
-EdLWAcQI+VcnHiGs2ZGZvtjVAPQafFhrSoTR49h7mQSsLtrbzR1zhCOTFKPp34rG
-2HO6laUQ47hurA9WtzUpnAuLuAWM5FUeoPJXYotTPOLMix3IVlNxQ7vRZaxzFFM0
-LsnRF1V4aeisEKHDEYGtwcrI224PwGksHsDqG6ScWdd5olSBYfEHYPfhEwYPEGTt
-X9e+b9QR207DKsG0AhRAHHzhEM31WXsCKLJAudZAPzmgQitolh8=
-=9JmV
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmdgH1UACgkQ0Z6cfXEm
+bc6iNA//WT+ynMu2/AuQ7G7FCSK0Ue2De75z3UHuw6ev6I24nnaLbH+aDJXJe1Ef
+sfDqMLrZ1FaQbh0jImoFAE6zfl4gb+DO1KH318cL9rWgC7GcuBydNweiMdLv2djM
+I/D6PylcHhXxUE+iLHCEOep8zIQpB3VcusHPwakNbePpr+zpT2VvEjoAdMcN1NeJ
+Dow9LIB2NcT8cQMcMGyDtrCSWya+j2zvwpmSN2NmjtxfgZKuldD1aRzoxRFhmJsi
+WnNseMJNMTYtn4knfNtZwFW4DOy02iKG0cnxKLPbD0MJYwi33tmruKBYXkRSwg+V
+BDtLMix4Nnc8R2n62q1NfnLTWGABZDgi3N9qLhIpfJ60N3zxaOltfFPr5BTig+7n
+5Pa3gMaRmfp9RJ9p37QDHvB/6z+Lcu36q6en6zVfmAAVkDdpcEm12CpvSp+zyh7K
+d1uciEEVPOGLJQxQQgjZ+KKf5iMfX0EpqywEmk9CyfQwQR4ObajD7SuC/y2DLfG6
+BoOcosebShJdmNE9rX+QrJjkQ5IszisoGfJEruuzYdSnnQ7d3ajetJMznas/kSaU
+pTkoUHNAfDgr0DDHf3mM8S28Ez8nzPvtiCEqglv4Ewk9oYA3JyFbe103o5iFk9qo
+OAxwKdJwoiluB2VdsIC0uEPooNSygH9GrPKhpPdFQM7hSnYifvM=
+=sYF0
 -----END PGP SIGNATURE-----
 
---4oqjdbiip3ghfwxo--
+--tiyppvgn6f5esnzy--
 
