@@ -1,114 +1,137 @@
-Return-Path: <linux-man+bounces-2168-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2169-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93C189F651F
-	for <lists+linux-man@lfdr.de>; Wed, 18 Dec 2024 12:43:22 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F249F6637
+	for <lists+linux-man@lfdr.de>; Wed, 18 Dec 2024 13:51:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D9399162D60
-	for <lists+linux-man@lfdr.de>; Wed, 18 Dec 2024 11:43:19 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A608216B799
+	for <lists+linux-man@lfdr.de>; Wed, 18 Dec 2024 12:51:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5794D19C54E;
-	Wed, 18 Dec 2024 11:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A06319CC3D;
+	Wed, 18 Dec 2024 12:51:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uybolxs3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DghIeeiP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB2A158853
-	for <linux-man@vger.kernel.org>; Wed, 18 Dec 2024 11:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAAE150980
+	for <linux-man@vger.kernel.org>; Wed, 18 Dec 2024 12:51:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1734522197; cv=none; b=Z9esUI+a/kHwZEt5dFq4BwkmfN+DGh0b56o9XIYas/zibnWsa8/RkErP7kmiWGGTOW9DNUTOOgIjCx1XkGIZvqTh8Ppn5bhEum9zSVLMkaF4onihVhipVa6X5j7jnc4W9Ejqxwyq5TzUoAF8yrPZRVpfTV9XSF1rOMTHr0NA04U=
+	t=1734526307; cv=none; b=nuT2FKHwZutstNkyQnuATdRewEsYIX/zSpZZPrhhKsq59Xt54+zZ0S64KE35EfUJTlKClvFNbkUFTKsGGtdGkHB1ZDnHGzxV2T7ATeR4AHSMhFz5NS10aMTLL6Zi1K2bqPbnQLYqGWJUodMeYvsPxgNPszzVhMF2QYHfavGhves=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1734522197; c=relaxed/simple;
-	bh=544wI4g5ckn0Uqm+P+JBz4vG0XYNqepM/LGLX9rv+DU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CR2YIXOHY3XOV9ZLoVnkipQ1USXILEY7E0k4Rom+Ub99Uev0qXHCLc1CgLX1UpfV5jxuBjLJNEYcW9huReMIhWYD1GOUAMIJmV23vBQ4MTfvEmcasmwvstr2sxMyFDYv4L0u9Dx4E6v7pNyqUhUAlfWrvTGB8x6vIdPAtnoPByI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uybolxs3; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2162c0f6a39so5865395ad.0
-        for <linux-man@vger.kernel.org>; Wed, 18 Dec 2024 03:43:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1734522194; x=1735126994; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PZWFmhwhTHs1JEcP0j4wffD2r2mOmbR6ZGN5u8FtDyo=;
-        b=Uybolxs3oUzwyyhCAe259uDFxGIx/nn0r8MyeqlI8Qi29qipyXodIEk6j8Z8qP/2zb
-         357aPDhnZVlrX2CruGSYZUC8e6qui/B3RLGvznF24lfR2iCOE108mzCrTRvx8uO0bTik
-         CkVjw/xKfBGhMLHz0g6cSWmlCwRhftVzLdO8NaVXtHPpYEQz+47tShCS9Q9bTCUpWMNo
-         RLHzONRYRdyOw9B3KnLZzWEFX1j8OFk5DvB3JS3pFjObnos8HFntfpr0MKbTh4keqwGU
-         2a+GTGHol7+nA66PY4raNZV50+ZZGD/gdawt+Cf8WRtfh66GI2nDgr1uUQXF7remtarx
-         6rzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734522194; x=1735126994;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PZWFmhwhTHs1JEcP0j4wffD2r2mOmbR6ZGN5u8FtDyo=;
-        b=O7pEBOVaj1pNwNfhIRKeN0rSYQQmNohpmWvjyuhIF/bvu+JRW+CPIvc9IVKzu4ZqQd
-         KCnaDtopf+v3GpAYE3AqxC+5Qjg9Ig3MuwjFdJUfD/+vUCsz7YF1VuX5YZIeE3yJ5BSo
-         Dv1HJ+MVPCMv0LCGil5Y5URTpIgKblL4ntn/05aYwfTRM89EToy6g8rkh0puhf1fCSsl
-         mEeOxsSgclFBkLzhui3oVNbVlpPAU5j2SA0q1CPF4o8za++1JkvcXDFQsmKhHmeVqWYi
-         f6M0ooKxRQoQOXMStNJoXhbDOLcGWxqkL3z/PkuCO/7+6ZZsO8GP3gpSQuYVDzXqAIbN
-         GGFw==
-X-Forwarded-Encrypted: i=1; AJvYcCVP4CTD/61XRYs9TS3izOTNBgeTff0Qa8P5CL7CKC5AJt/HYYb1edRwsipkVENvFYBIpdlEXlj17x0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywxn4d3pWU9RPc4vsF4EFEKo9OnmOPYuQyHysWU5CHRUZJkEdWM
-	CWyHb2ffsarX+PD+ixa2aLK6wsmkcfIywRwc0MF0mxFcIOBnunpUz70Xq/4AM73ROpY64O62GQ2
-	D3sS/acPyAaPcw44ZPrrb86U/C/nN9AJF
-X-Gm-Gg: ASbGncvt7xMy5fWsXcxTPK2S4+ujZp45eB8GWOYXbgny9JyK1+D+bPqt6H2tOXfMj4r
-	k3hRrE40A/p/uEBYwrAlw28D643moCUIUTFKPtQ==
-X-Google-Smtp-Source: AGHT+IHPgvovkybDgoK1TWMPci1YHHgUbWfQr6cIhYLTpCQTGEBh2WePDApDFdvLlwxhOhtY7r2FalMHybijyv+NVzs=
-X-Received: by 2002:a17:90a:f944:b0:2ee:7e53:bfae with SMTP id
- 98e67ed59e1d1-2f2e95b2458mr3526778a91.10.1734522194620; Wed, 18 Dec 2024
- 03:43:14 -0800 (PST)
+	s=arc-20240116; t=1734526307; c=relaxed/simple;
+	bh=ha+F0aCSHowVhXXFx4Tv9OfeWpyjlcokAqppTqOPD3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NESacbXwSuvpruVXLKcZheBw39zPTcx8NUKJjM90JZkhqRDBj6luUtz5N/wk59uMxOSWkMaYLgDrbeSjmwpTs0Q9sAYNjcJqy5pPtZBN5OsASEwMqlhaL7r1jn2OicD9D9EGY5oWk6/ruPM6+au02EojKsvtcTWatEGEMpgAlwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DghIeeiP; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD26DC4CECE;
+	Wed, 18 Dec 2024 12:51:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1734526307;
+	bh=ha+F0aCSHowVhXXFx4Tv9OfeWpyjlcokAqppTqOPD3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DghIeeiPDL/xCB27lreSS5T/2JNnQSzXh5Ijoy59XaPcDtIeM7hpGRaKRy4w06AZv
+	 JTWsGMIQD6HeHDw0b7JknYAQ67ooThzkWGkwkdQ//yvy8zibt9OtEtnZB8aKxVRwGf
+	 SVkkFfNcpuIJGrMYidC3jc4b/Zd2lW0B909q6NeswpTVEINiX9TSrsjEGPtVMDDcwK
+	 jqicCXmrQRyWzi/IK/ZNs9VQ2OP0+qUHo1MxKdnYR4wYVnadwMPcY2bGpXCnnPYX20
+	 1LXWVZ4vQRlf0pzH7785qecz7C+ZBlQLDqykhEaAf9p3iP6HchswFJMMqWSw32qRAL
+	 /TCPpGtKs97bg==
+Date: Wed, 18 Dec 2024 13:51:44 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc: Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH] getopt.3: remove _<PID>_GNU_nonoption_argv_flags_
+ description
+Message-ID: <3oaxdb2364nqty4fxts6i2fx66dksiw2vq3s5nlzfukztakg3j@iyl3vwrgrfe2>
+References: <k57itvvrwcyzpgojoh6y4qe7gagkt4tuof6w6gcfpzpjg6juo7@tarta.nabijaczleweli.xyz>
+ <CACGkJdsJ16u0Gedv-wBo4-qzbCbDyNoVm_mPz1pxxL+SiQ04Wg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <k57itvvrwcyzpgojoh6y4qe7gagkt4tuof6w6gcfpzpjg6juo7@tarta.nabijaczleweli.xyz>
-In-Reply-To: <k57itvvrwcyzpgojoh6y4qe7gagkt4tuof6w6gcfpzpjg6juo7@tarta.nabijaczleweli.xyz>
-From: Eugene Syromyatnikov <evgsyr@gmail.com>
-Date: Wed, 18 Dec 2024 12:43:06 +0100
-X-Gm-Features: AbW1kvb9gwX2G0-BsEm0cCfE0UsyEaceNTPRjbDsMgOvNZQXMiKCCTc3vHdCLSY
-Message-ID: <CACGkJdsJ16u0Gedv-wBo4-qzbCbDyNoVm_mPz1pxxL+SiQ04Wg@mail.gmail.com>
-Subject: Re: [PATCH] getopt.3: remove _<PID>_GNU_nonoption_argv_flags_ description
-To: =?UTF-8?Q?Ahelenia_Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: alx@kernel.org, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7j7qe7okumujoh2e"
+Content-Disposition: inline
+In-Reply-To: <CACGkJdsJ16u0Gedv-wBo4-qzbCbDyNoVm_mPz1pxxL+SiQ04Wg@mail.gmail.com>
+
+
+--7j7qe7okumujoh2e
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc: Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH] getopt.3: remove _<PID>_GNU_nonoption_argv_flags_
+ description
+References: <k57itvvrwcyzpgojoh6y4qe7gagkt4tuof6w6gcfpzpjg6juo7@tarta.nabijaczleweli.xyz>
+ <CACGkJdsJ16u0Gedv-wBo4-qzbCbDyNoVm_mPz1pxxL+SiQ04Wg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CACGkJdsJ16u0Gedv-wBo4-qzbCbDyNoVm_mPz1pxxL+SiQ04Wg@mail.gmail.com>
 
-On Tue, Dec 17, 2024 at 5:36=E2=80=AFPM Ahelenia Ziemia=C5=84ska
-<nabijaczleweli@nabijaczleweli.xyz> wrote:
->
-> Per <https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf079e1=
-9f50d64aa5e05b5e17ec29afab9aabb20>:
-> * this was set by bash 2.0 (1996-12)
->   (implemented in glibc b07c5668f672125074dd5b0b658145e1544120be)
-> * it's no longer set by bash 2.01 (1997-06) because it was bad
-> * glibc disabled this with no way to enable it in 2001-08
->   (518a0dd201c48a5c15d73c1919c304a9f8f5e3c1)
-> * glibc removed it in 2017 bf079e19f50d64aa5e05b5e17ec29afab9aabb20
->
-> So this was experienced by people for 5 months at best,
-> and could remotely be experienced for 3 years
-> (if you somehow wanted this bad behaviour and added it into your shell),
-> over 20 years ago. No modern reader (or, frankly, non-modern reader)
-> has ever used this, or could use it, really.
+Hi Eugene, nab,
 
-I would suggest to rather comment it out (along with the provided
-history above), so it's still preserved in some
-relatively-easy-to-find form.
+On Wed, Dec 18, 2024 at 12:43:06PM GMT, Eugene Syromyatnikov wrote:
+> On Tue, Dec 17, 2024 at 5:36=E2=80=AFPM Ahelenia Ziemia=C5=84ska
+> <nabijaczleweli@nabijaczleweli.xyz> wrote:
+> >
+> > Per <https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf079=
+e19f50d64aa5e05b5e17ec29afab9aabb20>:
+> > * this was set by bash 2.0 (1996-12)
+> >   (implemented in glibc b07c5668f672125074dd5b0b658145e1544120be)
+> > * it's no longer set by bash 2.01 (1997-06) because it was bad
+> > * glibc disabled this with no way to enable it in 2001-08
+> >   (518a0dd201c48a5c15d73c1919c304a9f8f5e3c1)
+> > * glibc removed it in 2017 bf079e19f50d64aa5e05b5e17ec29afab9aabb20
+> >
+> > So this was experienced by people for 5 months at best,
+> > and could remotely be experienced for 3 years
+> > (if you somehow wanted this bad behaviour and added it into your shell),
+> > over 20 years ago. No modern reader (or, frankly, non-modern reader)
+> > has ever used this, or could use it, really.
+>=20
+> I would suggest to rather comment it out (along with the provided
+> history above), so it's still preserved in some
+> relatively-easy-to-find form.
+
+Maybe move it to HISTORY, having a short mention about it?  I don't like
+those comments too much.
+
+Have a lovely day!
+Alex
+
 
 --=20
-Eugene Syromyatnikov
-mailto:evgsyr@gmail.com
-xmpp:esyr@jabber.{ru|org}
+<https://www.alejandro-colomar.es/>
+
+--7j7qe7okumujoh2e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdixWAACgkQnowa+77/
+2zIvSxAAlN3kzkx8nPhXxasnHU3jf+c1pXtSPoHKYaRXTBYPgiTAW6v7Be5KyfPM
++1yvS6KbTBtAVObfx2bHtrOaX4yhFqQGOYRiN8g/Rn8VPa+v3WP+mDEu5bcNQkWT
+wNly1iNBfakyOg/94If+vxpt0XT24KVGqTkLi/mluYa13FcwXaSnadiC4U4+txEx
+05RP8CgSdsEN5w0vbiC9YpSnzWS+T0hUxe3EGOfgrVbrFHAySl0Uphi0JzCmr9G6
+DUJ/IqzlBaWwDFz2wzVFkTGJrBBtLFKFgZmz9NThW0rJzjiQ/wAG28SfeQxU+7he
+z9xCPNA3whj1HqJu347z33F0FNIck5r32sbFHi8wzzsVjRp7gvzhdrnouOEfgoOj
+Sxbi7cqQwwDmNqkxmRLQElDTMhtmk+U92xWN4WdMuDlD/xWsCP9/ChVIUgUrjgr8
+ccjjMqVLU4wIVAewpDNFb49bmcwjyXeFzquRBIcVhv7mltbcVvKBbx17Bk7F85bE
+9fV8rDpGXQL3TH9+5FxpWM0DZhujvDVF8Tld/U1kOzyYgSrAdi2XoVV4HxPO5kzi
+LrR+UBblmSKyTItXABiAzU1/rWQLsc/1oKiq7oF5s5vkmPbuFj+h1pFEIjdHOoIP
+nZj6xuTi5nUDcfl0G7fuSdDhxKox9IfqSXPHleF0Xf+GD6vEKRY=
+=bX+M
+-----END PGP SIGNATURE-----
+
+--7j7qe7okumujoh2e--
 
