@@ -1,190 +1,193 @@
-Return-Path: <linux-man+bounces-2173-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2174-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id A14B39F7A15
-	for <lists+linux-man@lfdr.de>; Thu, 19 Dec 2024 12:08:45 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3589F7F3B
+	for <lists+linux-man@lfdr.de>; Thu, 19 Dec 2024 17:19:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9B35D188E5A6
-	for <lists+linux-man@lfdr.de>; Thu, 19 Dec 2024 11:08:46 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id C6E147A2339
+	for <lists+linux-man@lfdr.de>; Thu, 19 Dec 2024 16:19:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DAC1223328;
-	Thu, 19 Dec 2024 11:08:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A124225A2C;
+	Thu, 19 Dec 2024 16:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CqOaAPqZ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yj14lbzp"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24150222D6B
-	for <linux-man@vger.kernel.org>; Thu, 19 Dec 2024 11:08:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62907225769
+	for <linux-man@vger.kernel.org>; Thu, 19 Dec 2024 16:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1734606519; cv=none; b=RRJchhAJdmaml5Mrk+uRjbCcl7W9I+YerK2dkMODBJbQoSzUepiaId0JjsAmef/1QIhThVSwz5mjToQp0gq1g6207BLNbZKAJKpdlUwlTdKXTMCMkKxiN+9C0SLXBII7S8Xyb093ohJ98ESlIAOPgd9VGzHBtIXNnyRq6YwFMbg=
+	t=1734625158; cv=none; b=jlBVmOxs7XsNepZnwAJvjxqTETlpE8j5OhlgClmgkzyqBgWjF3B9FoZ9l3aBwPUFPc5A3LJ8hcbBpVgb6UOzMtE9SVlPYIX+VsQqAPQmaoJSSFsjOENEPg8Myn/mtOfBnIY486FjbHcDZ1yz8hhQ2IskdReXAYaUeHV4x9a+i48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1734606519; c=relaxed/simple;
-	bh=gxNltHEOKBSiXvjAjwYSF54Qlu7/MGpN6UhEH7a6dCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e3tzm8XYzSS4fSG8iWMg1vpa9hAPqbiFqEpsQJIw1jjywYsmsLun/7YutT3JJtaeAGVNkrLVBw2VLz5Qu3p/jCbXty083uYSSgfDWxUemdcCb56HlTgev1/Ggsj1S0VRWmE/iHxPZ7O3yKDb9tYe130tbjk08vp5C24mZBxcjvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CqOaAPqZ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DABD6C4CECE;
-	Thu, 19 Dec 2024 11:08:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1734606518;
-	bh=gxNltHEOKBSiXvjAjwYSF54Qlu7/MGpN6UhEH7a6dCU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CqOaAPqZl3Ljiq4gac8RgwPc6gvjhOo9wqqLc216wHMnDzVzhrsSfLAqg7bGO4Xs2
-	 U69W+KXXd6eKegvcnM27jQVOUgUPAc/oT9N5UzdHBABdQqtUgbdH9emH0u3W9Ye3bU
-	 0gkVgXeTfah8FxykhTBoaQ9j8SYZh2lnM5ulxMFoVDcecJGCwIQQ+GD81rkyBD4/pW
-	 BRWzGtQzrFTjCL0qrV5JW9qaJCi1BZKMyCSWUYrY28OGurpbmVGUfOfptrxbwUKXg8
-	 WRGxXYcLCgdJHiMfhh5AqhXZT+ANQJYraef88yNndc2NEPYTqPwLeoMxfiOnkzPut3
-	 xUFZBtqGAhZHA==
-Date: Thu, 19 Dec 2024 12:08:35 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org, Eugene Syromyatnikov <evgsyr@gmail.com>
-Subject: Re: [PATCH v2] getopt.3: remove _<PID>_GNU_nonoption_argv_flags_
- description
-Message-ID: <20241219110835.gtn34v2syxtg2jlg@devuan>
-References: <3oaxdb2364nqty4fxts6i2fx66dksiw2vq3s5nlzfukztakg3j@iyl3vwrgrfe2>
- <dwfybzlb5ydbsc4puo6igj7nm7iregquv6hxhhqb53bwrvqswb@tarta.nabijaczleweli.xyz>
- <20241218184538.fuf3334vyg53qqx4@devuan>
+	s=arc-20240116; t=1734625158; c=relaxed/simple;
+	bh=x/luLya0Ae30YUdS5HvQwQ9GH3BxzgcBM2HrovwsGDQ=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=sqb8TYG1wMClu1PhtuaYByUbI3VtFyRYOHx6+OT3gSygqyaYYSuTS2o0ZBiau+o8d1HeyWbDcLuKaY75C/7CTGmzhXnsCw+Mypqn0Q76B3ycz1gADPmym3oIXU1YB1xOlhFii9n5Rx9xRAuzU6/0ID2A1ZBaBKzx/ECv7l6/aTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yj14lbzp; arc=none smtp.client-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-29fcbf3d709so297052fac.2
+        for <linux-man@vger.kernel.org>; Thu, 19 Dec 2024 08:19:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1734625155; x=1735229955; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Gge9rTrI17fj6f9GKyqqBJ+aAeaSkuT9XIzK2ioPYuA=;
+        b=Yj14lbzpkS+jYVmEyv4L298GsWwOvXY8cejzA7sTUgWW5wERW0HYZappMjpZ6Kakv0
+         vWHNi+5L+zn7oLWIx9oxyiNX/3quGCycmPdPxnP6+JJXmo9lyv0tE7Ojntk7Gqc6MbYp
+         CBLzXUan3Ugcq3GDl0NsvVjgboARzWeuKBjt3XBJGlLXPpz1WtfEStVKw5yIoa/HTMkw
+         OynazeCiejz14b+/Vi5WgZvMxdHNSVivN13qWlBIipWlEOCPUm1rrYpAs8vZ63QoR8th
+         +FH1LLp9avslrbx8oj6k4YebKm1FpC4+FPujTfFk2tYFnnYvqp9TWRS9nO9Wu8kZ0ZaJ
+         XMbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734625155; x=1735229955;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gge9rTrI17fj6f9GKyqqBJ+aAeaSkuT9XIzK2ioPYuA=;
+        b=F2c/w5nCWb4eJxjip9OTYZuERQLTYcL6KnJpcRAjPXdmqpTV9s8jPPg8ABVnmxuvJr
+         3MBRZGNPZJKbfJ1wNE/PY1hBcdO3ydg8xGDy8RYsxZ/8w3EhN8xA5v5mM93wDE/AD2cy
+         V2JB/uVg+TvZq2W009pLhxyoZHJIZKbfT1kyaAPMMq3+8KR2J94+5wi94AFdb26pa1gw
+         N7CIVOZIrESm5zuENsRfO5fvmDLBYSXV/T+4fL8H9DNPtWDFkOMd97fEQk3xyPQjk7PE
+         5WyFLDbZa1Pa6RYcR7+AWKTZ2y27oD6UVToYrUhZuiJ4sEdS3MSq+ToqsxR50KQf+gqQ
+         FTIA==
+X-Gm-Message-State: AOJu0YypmOV6hDBN6Y4ViSkm0F+IODuPhWiqIthB6lJDkFWPKT9UlR0n
+	fMwrBGgIkabA7b1YzZG1FTd4OrOQROYg0aQumaZAY17n8uad/9fXIYc/jA==
+X-Gm-Gg: ASbGnct5YnnahgpMyDOcvxlRHXs4WkHmOlCghKbMH93P1dcHXh1DQa6S9QYsyhqc4qj
+	dsrJyX30p++iR8jZAbKsRx/8fIxik5Fw+ACFHyp+43l0Ca1Of9v9RZXLyinT+Y2MJ6l3RHNTbW9
+	Uy/15Hdfxv6fVF/Ga2p34YeaPbOeW0NBBfbayvaR7j1E2a2+R3duTbsh9+VKdzqn6Ran6SMFuf5
+	Jql6LLQq8TAuugL8zLd3v4LXVJPlMm0lfeOwg2ea4Q73oI=
+X-Google-Smtp-Source: AGHT+IGAdRX8ifrFh4LMTYZSkjS+CfTw1hL2n9/jAO8tcOu8G3bAd+Il1xFhZD6Yw4iRT3aeivK0Mg==
+X-Received: by 2002:a05:6870:9d8c:b0:296:beb3:aa40 with SMTP id 586e51a60fabf-2a7d0a559f8mr2201884fac.36.1734625154809;
+        Thu, 19 Dec 2024 08:19:14 -0800 (PST)
+Received: from illithid ([2600:1700:957d:1d70::49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-2a7d7454102sm367748fac.1.2024.12.19.08.19.13
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Dec 2024 08:19:14 -0800 (PST)
+Date: Thu, 19 Dec 2024 10:19:12 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: linux-man@vger.kernel.org
+Subject: How to set URLs in man pages
+Message-ID: <20241219161912.bclicxtutaji42qd@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uw5cxixjpbar7hro"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="cskwisnaht3vaava"
 Content-Disposition: inline
-In-Reply-To: <20241218184538.fuf3334vyg53qqx4@devuan>
 
 
---uw5cxixjpbar7hro
+--cskwisnaht3vaava
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] getopt.3: remove _<PID>_GNU_nonoption_argv_flags_
- description
+Subject: How to set URLs in man pages
 MIME-Version: 1.0
 
-Hi,
+Alex raised an issue that I suspect a lot of people don't know how to
+cope with:
 
-On Wed, Dec 18, 2024 at 07:45:42PM +0100, Alejandro Colomar wrote:
-> > Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
-xyz>
+How do we avoid warnings from the formatter and/or bad typography in a
+man page when huge URLs or file names must occur in the document?
+
+The mechanism for doing so has been in groff for decades, but practical
+advice to man page authors has been locking.  A few years we hashed the
+matter out of the groff list, and you can find guidance in the
+groff_man_style(7) page.
+
+groff_man_style(7):
+     Prepare arguments to .MR, .MT, and .UR for typesetting; they can
+     appear in the output.  Use special character escape sequences to
+     encode Unicode basic Latin characters where necessary, particularly
+     the hyphen=E2=80=90minus.  (See section =E2=80=9CPortability=E2=80=9D =
+below.)  URIs can be
+     lengthy; rendering them can result in jarring adjustment or
+     variations in line length, or troff warnings when one is longer
+     than an output line.  The application of non=E2=80=90printing break po=
+int
+     escape sequences \: after each slash (or series thereof), and
+     before each dot (or series thereof) is recommended as a rule of
+     thumb.  The former practice avoids forcing a trailing slash in a
+     URI onto a separate output line, and the latter helps the reader to
+     avoid mistakenly interpreting a dot at the end of a line as a
+     period (or multiple dots as an ellipsis).  Thus,
+            .UR http://\:example\:.com/\:fb8afcfbaebc74e\:.cc
+     has several potential break points in the URI shown.  Consider
+     adding break points before or after at signs in email addresses,
+     and question marks, ampersands, and number signs in HTTP(S) URIs.
+
+Here's the exhibit Alex handled recently:
+
+At 2024-12-19T12:08:35+0100, Alejandro Colomar wrote:
+> I've had to amend the patch again.  I didn't notice that it caused
+> many warnings in -Tutf8, -Thtml, -Tps, and -Tpdf output.  I've applied
+> the following diff.
 >=20
-> Thanks!  I've applied the patch, plus minor tweaks for the issues above.
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
-ommit/?h=3Dcontrib&id=3Dfed899f4cd6149daa8c9a0f4c352728eadfd9d77>
-
-I've had to amend the patch again.  I didn't notice that it caused many
-warnings in -Tutf8, -Thtml, -Tps, and -Tpdf output.  I've applied the
-following diff.
-
-diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
-index 3b0025528..cb946355a 100644
---- a/man/man3/getopt.3
-+++ b/man/man3/getopt.3
-@@ -384,7 +384,7 @@ .SH HISTORY
- .IR <stdio.h> .
- .P
- Very old versions of glibc were affected by a
--.UR https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf079e19f=
-50d64aa5e05b5e17ec29afab9aabb20
-+.UR https://\:sourceware.org/\:git/\:?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf0=
-79e19f50d64aa5e05
- .BI _ PID _GNU_nonoption_argv_flags_
- environment variable
- .UE .
-
-
-That adds break points, and also reduces the hash by half (which should
-hold without clashes forever, hopefully).  I've kept the full URI in the
-commit message, just in case (and BTW, it's good to have the URI in the
-commit message anyway).  After this diff, the warning disappears.
-
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dbc34639b160d8bd3d3daf748e8a54bc1df429901>
-
-
-Have a lovely day!
-Alex
-
-
-> > ---
-> >  man/man3/getopt.3 | 15 ++++++---------
-> >  1 file changed, 6 insertions(+), 9 deletions(-)
-> >=20
-> > diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
-> > index 67c3ec9b3..9a84e2f44 100644
-> > --- a/man/man3/getopt.3
-> > +++ b/man/man3/getopt.3
-> > @@ -318,15 +318,6 @@ .SH ENVIRONMENT
-> >  .B POSIXLY_CORRECT
-> >  If this is set, then option processing stops as soon as a nonoption
-> >  argument is encountered.
-> > -.TP
-> > -.B _<PID>_GNU_nonoption_argv_flags_
-> > -This variable was used by
-> > -.BR bash (1)
-> > -2.0 to communicate to glibc which arguments are the results of
-> > -wildcard expansion and so should not be considered as options.
-> > -This behavior was removed in
-> > -.BR bash (1)
-> > -2.01, but the support remains in glibc.
-> >  .SH ATTRIBUTES
-> >  For an explanation of the terms used in this section, see
-> >  .BR attributes (7).
-> > @@ -391,6 +382,12 @@ .SH HISTORY
-> >  for this purpose as LEGACY.
-> >  POSIX.1-2001 does not require the declaration to appear in
-> >  .IR <stdio.h> .
-> > +.P
-> > +Very old versions of glibc were affected by a
-> > +.UR https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf079=
-e19f50d64aa5e05b5e17ec29afab9aabb20
-> > +.BI _ PID _GNU_nonoption_argv_flags_
-> > +environment variable
-> > +.UE .
-> >  .SH NOTES
-> >  A program that scans multiple argument vectors,
-> >  or rescans the same vector more than once,
-> > --=20
-> > 2.39.5
+> diff --git a/man/man3/getopt.3 b/man/man3/getopt.3
+> index 3b0025528..cb946355a 100644
+> --- a/man/man3/getopt.3
+> +++ b/man/man3/getopt.3
+> @@ -384,7 +384,7 @@ .SH HISTORY
+>  .IR <stdio.h> .
+>  .P
+>  Very old versions of glibc were affected by a
+> -.UR https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3Dbf079e1=
+9f50d64aa5e05b5e17ec29afab9aabb20
+> +.UR https://\:sourceware.org/\:git/\:?p=3Dglibc.git;a=3Dcommitdiff;h=3Db=
+f079e19f50d64aa5e05
+>  .BI _ PID _GNU_nonoption_argv_flags_
+>  environment variable
+>  .UE .
 >=20
->=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
+> That adds break points, and also reduces the hash by half (which
+> should hold without clashes forever, hopefully).
 
+I observe that break points could also be added after semicolons.
 
+Also, you can escape a newline to keep the input line length short.
 
---=20
-<https://www.alejandro-colomar.es/>
+=2EUR https://\:sourceware.org/\:git/\:?p=3Dglibc.git;a=3Dcommitdiff;\
+h=3Dbf079e19f50d64aa5e05
 
---uw5cxixjpbar7hro
+groff_man_style(7):
+     \newline  Join the next input line to the current one.  Except for
+               the update of the input line counter (used for diagnostic
+               messages and related purposes), a series of lines ending
+               in backslash=E2=80=90newline appears to groff as a single in=
+put
+               line.  Use this escape sequence to split excessively long
+               input lines for document maintenance.
+
+Regards,
+Branden
+
+--cskwisnaht3vaava
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdj/rMACgkQnowa+77/
-2zIa+Q/8DWHOju75nHNZy9nRw8q9cJIs2S5LY4IYxDZX68wMXVo72dfja248Fa3X
-1vED1FqT5G7E4cXd+0maHP2G9W3uZWKFGgDNhrCx7mfcY3p/4IcwLRcnmwWNUcNa
-hBlMDOrgZSVVjpscJRj0eUrOHu6wawGzMpCCkBCZX7/K1p9C2bptZod7BckfOA5X
-Q9Yf8OWkdPE+nohQ8DeqgTWFtFdTdrWGDnaBynI6enC7ZAmLt5AmY2jGkwOumZ5Y
-74tTqEAdD0mrQayanTBw3s6xHXLZtkax5td7OkF8YNo7PZgQjEp6NSLQApbn0fVK
-bDaZVXFHpKMhf6lZ46jQE4JmRLzpmWBob/Whi4w3tFV0pdoz8QQIrOfbavRKSnn9
-en/dfLRbTBuOaCvpFJakPBhoIvR7r9iE1sNRup03k9Q25Q/0OS7VmQ2s4BpZy9Dm
-yISX08QUVZK8kYR5iXNBWXi0OjHLujWw962YmBgtcfwTVlbrLIjTO7uQja5jxEqA
-84GS0ypK5vLPRDS2X/pXiOhYd8h8YsWYRpj85v8uy+2T7iK5xyP2tYqn7vdjLN53
-sTZEwOsFOlJKld5w6nwQLEMKor7hgl7WEotLsbVMd4gJbx6mX9KFAHzm+MoC3Y9B
-7JWzXF5xNez83YJ5ZrszMo96Jh4BxFXrI++tZNanZohF0xsPy9g=
-=UQod
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmdkR3gACgkQ0Z6cfXEm
+bc7jLA//fcWQE51vhAF9RjQAyqrPx3a7WzZ0f6od10yPIxxhIY0u7tf9t0MX1Spz
+MZJB1m+4BW50d0HetQZMYItV/G2T8MwKgxaxza4AUEAGnAw3x8GaaJowZmRJuGre
+ZqVY7o+9Ql4mJHH8av9CKmN5N2Gx5E4Kndqe02O0PHuH217IUjN0dQnJLU89fEvq
+kpYwR22e9/Uezcap4DUw8+yIks4J0gDJ9IrZernVkBTuBpTnZpxYkSRizd57OCZg
++I6CmI0A7TteOtRsN+O/y3gYEW2TMdsaEP0Ybvtg87qwobcvxRW0gDKs0W4M1dcj
+A4V1JdSm4xZqvrAIAjF+cB0OQQT9anxcKa0NxJozQE01NDolDMKx9iEwujvggV2/
+OK/Qu20vboba3HUQq+C+I3GpKRetJL1sze1yjKdUFVx/nqo1JnL9nP/d2lWLn/Wl
+LP6ITdwDEkHlqzkyJ1gx26uqp9Z7p2hmKNPxNCl0M3YzDQjIeiyYSaXVW1Bprlte
+iYQnaBSCblJMhwyEkWYgunqhwimVretZYju0nH8OkapMAN/opEeF21WBSHeJNFtp
+sWE+HSvuJQ3gfLBW2KOp1bWWfXH3fxD+aWlVCyRwQUKQCnyp7UUXGFex0bdYgP6Z
+fpjOgY7DDzMv2z5LgMvN9+P93lOx1JC+SPn+Nf9tAy+usGS4tCg=
+=Yrmq
 -----END PGP SIGNATURE-----
 
---uw5cxixjpbar7hro--
+--cskwisnaht3vaava--
 
