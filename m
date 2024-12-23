@@ -1,56 +1,55 @@
-Return-Path: <linux-man+bounces-2176-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2177-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 913EB9FB564
-	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2024 21:38:10 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3109FB60F
+	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2024 22:30:05 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C16A01880877
-	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2024 20:38:11 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 772EA164DAB
+	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2024 21:30:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C144B1BBBE3;
-	Mon, 23 Dec 2024 20:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A65DB1C4A34;
+	Mon, 23 Dec 2024 21:29:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iB++Y5cb"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjMOVR6d"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6A11AE01E
-	for <linux-man@vger.kernel.org>; Mon, 23 Dec 2024 20:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D2761FFE
+	for <linux-man@vger.kernel.org>; Mon, 23 Dec 2024 21:29:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1734986284; cv=none; b=f0TQ6hectD1QXA58BDHTwKlbGCaULwmdjkpMPsWq/9svOtRkKpfEw4FXlMZjnddzaXLlBLlQJVpDUd+uFp3SaDW6Oz0fH8kU7hHl/VUn4qYxhI04Iy5B/ny85QtfI7veJaBPqEhjuNWrSNeL5Nin+1Y2dUESVwKdOaQORPNs5Sc=
+	t=1734989399; cv=none; b=UmHJJuwqGeEsJSqMDQHfPtc+2cP6MgAxyOLbSHh28xZWALi38fSJHMxWoEqTNct7US77+kM/vfSb+zvZGksX3aMN5iQ3epn9WJA/BqlBEAGX2QqvcF1k0HndYCU3y/ja1RCU0gEraYKX6LiJsX1taVtlTZqxG52nwKaPclCcuIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1734986284; c=relaxed/simple;
-	bh=orjMZ9FWSr3bZVu8cL98b0JVbJdxXLv8JBThb29V/Hk=;
+	s=arc-20240116; t=1734989399; c=relaxed/simple;
+	bh=Hi9XK7y4wORxmFiY+oLXPm7uw+dttb0pJSEB+XFuCHY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C2cRSV+RWqmtHmYDpa4gtW0g+3xVAnrK982E6/qkI1fY8rLeyqI8tZk/dmkpICEbxT6fZa+D8Z+7i/5nBb5QU5SkHeH4UOq64PuplWN9191GCeZDmM+yzMvLjNdhMKtjz175/BqEiBZ1EbRUtGIXSAaDLKQ1PTEeO9xZ8sUqG2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iB++Y5cb; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A56C4CED3;
-	Mon, 23 Dec 2024 20:38:02 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=uiGShZwkR6Kni8xeFVY2cNNOiM/tpnK++CIAFvMvpPGpngm5IbmpKsTU68dfck4Jq/sknO6Q4qsHYsAbsczf676p7JUtvE5uncAYqn080UEjYZbA1TG5Wi4+8C67KAZMGwQysgEb1hMf4dkaseGOMTs1Je4eai47LpaUyYiRBPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjMOVR6d; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BCC1C4CED3;
+	Mon, 23 Dec 2024 21:29:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1734986284;
-	bh=orjMZ9FWSr3bZVu8cL98b0JVbJdxXLv8JBThb29V/Hk=;
+	s=k20201202; t=1734989399;
+	bh=Hi9XK7y4wORxmFiY+oLXPm7uw+dttb0pJSEB+XFuCHY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iB++Y5cbQ1A8GJT87B9OkoJn603bniaOfpAt2hencJbPKNxcpVElwZe46cVx+nS0B
-	 Z1LZeqZyhcIk+uZm+h7mrcFl+tgaNlOhG4hE+6SQuOvXvw1m7h0pIjGHusV4z5su6C
-	 JqYu2wqenlGfvv5WQrkDmFuKZCXHGQM1TMUPdoaMPiluiGRedQAS1s/pugsjJkWFKf
-	 mg+VmrnEl5YRVAbxYJUbQfMyPoX7kLLFrreN2s2KUejWi3s8JBgKCu9cwvA6VQubfm
-	 YpHzj+Lhru3yYt7Yey2hZrr4Zku5Cs86JzWPfHQrlJoHZ2v8B85Dkb4py9TjMHfHri
-	 HXfewTAlWlClA==
-Date: Mon, 23 Dec 2024 21:38:00 +0100
+	b=mjMOVR6dfNBi8mln7V9YU1ZR1Tde1/5mG/ISP8HUVCPFZYQ8qCWDcG1xxfJ7zxEeq
+	 vPIkEROSn4viDw83ecDHmumPhjEdghFw3+gKkD3yQ47Ecu7HVKtIUjH34H5HMF4yVm
+	 7luTni98TMnxwRR5lI1bbpKrVWeIaNUnZSPTwH9dpvy+m/SQmu8dHwpXXA2FQAGrnf
+	 4z+KCYHp4bmrWg3cAsg/S87oMBJObcF1MciD44DUm/BnpboaKUGLpSwTM4/Ok/R5AH
+	 drIuFgLTqyNCZcMr+dJ5ibj9AD3vMHH09UKz9lZm///QVPuaz5+N5BzlzmWnyqcm17
+	 F1UYnAm0QCC9Q==
+Date: Mon, 23 Dec 2024 22:29:56 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Matthew Wilcox <willy@infradead.org>, 
-	Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, linux-mm@kvack.org
-Subject: Re: [PATCH man-pages v5] madvise.2: add MADV_GUARD_INSTALL,
- MADV_GUARD_REMOVE description
-Message-ID: <nha5xqqku4ruuo4ufuduu2wqhouzs6fjwy2ligu3qef3l7dzik@3n3plrml7ijm>
-References: <20241206113418.14327-1-lorenzo.stoakes@oracle.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Cc: David Howells <dhowells@redhat.com>, linux-man@vger.kernel.org
+Subject: Re: ioctl_pipe(2): SYNOPSIS: $1
+Message-ID: <ffjzjxeeip52tjseiexesoypjhrhvr2s7zo34zyosptbg34skx@yd6d2kexfjph>
+References: <20241214180348.pp4vrlnxqpo6cus6@devuan>
+ <20241214180423.2thsuyyfosrlyajb@devuan>
+ <Z1__sIy3Kyka0nrS@yuki.lan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,230 +57,112 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dosriwtkowp7omk4"
+	protocol="application/pgp-signature"; boundary="mc6wjjury5ysabtg"
 Content-Disposition: inline
-In-Reply-To: <20241206113418.14327-1-lorenzo.stoakes@oracle.com>
+In-Reply-To: <Z1__sIy3Kyka0nrS@yuki.lan>
 
 
---dosriwtkowp7omk4
+--mc6wjjury5ysabtg
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Matthew Wilcox <willy@infradead.org>, 
-	Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, linux-mm@kvack.org
-Subject: Re: [PATCH man-pages v5] madvise.2: add MADV_GUARD_INSTALL,
- MADV_GUARD_REMOVE description
-References: <20241206113418.14327-1-lorenzo.stoakes@oracle.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Cc: David Howells <dhowells@redhat.com>, linux-man@vger.kernel.org
+Subject: Re: ioctl_pipe(2): SYNOPSIS: $1
+References: <20241214180348.pp4vrlnxqpo6cus6@devuan>
+ <20241214180423.2thsuyyfosrlyajb@devuan>
+ <Z1__sIy3Kyka0nrS@yuki.lan>
 MIME-Version: 1.0
-In-Reply-To: <20241206113418.14327-1-lorenzo.stoakes@oracle.com>
+In-Reply-To: <Z1__sIy3Kyka0nrS@yuki.lan>
 
-Hi Lorenzo,
+Hi Cyril,
 
-On Fri, Dec 06, 2024 at 11:34:18AM GMT, Lorenzo Stoakes wrote:
-> Lightweight guard region support has been added to Linux 6.13, which adds
-> MADV_GUARD_INSTALL and MADV_GUARD_REMOVE flags to the madvise() system
-> call. Therefore, update the manpage for madvise() and describe these
-> operations.
+On Mon, Dec 16, 2024 at 11:23:44AM GMT, Cyril Hrubis wrote:
+> Hi!
+> > > The manual page ioctl_pipe(2) has this synopsis:
+> > >=20
+> > >        int ioctl(int pipefd[1], IOC_WATCH_QUEUE_SET_SIZE, int size);
+> > >        int ioctl(int pipefd[1], IOC_WATCH_QUEUE_SET_FILTER,
+> > >                  struct watch_notification_filter *filter);
+> > >=20
+> > > Which says the $1 is an array of int (the type is declared as int[1]).
+> > > However, this is incorrect, since the first argument is of course a
+> > > plain int, a single file descriptor.  Would you mind revising the pag=
+e?
 >=20
-> Reviewed-by: Jann Horn <jannh@google.com>
-> Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-> Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> That looks indeed wrong, I suppose that we need just 'int pipefd' there.
+>=20
+> And looking at the kernel both pipe file descriptors seems to get the
+> exact same fops so it shouldn't matter on which end we call the ioctl().
 
-Thanks for the updated patch.  I had already applied v4:
-<https://lore.kernel.org/all/20241205104125.67518-1-lorenzo.stoakes@oracle.=
-com/T/#m7a891296e1ade7025569e3c3595b4f288135a7a9>
-
-> ---
-> v5:
-> * Prefer 'replaced' to 'cleared' when discussing existing mappings that h=
-ave
->   MADV_GUARD_INSTALL applied to them, as suggested by Vlastimil.
-> * Included small changes Alejandro applied to patch.
-
-So I have now rebased v5 on top of the current tip of the branch, which
-results in a small patch containing just the wording fix:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D28c42e01fc175e50e38d>
+Thanks!  I've applied the patch below.
 
 Have a lovely night!
 Alex
 
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Db199d102db5be24e0ac88eb6879e3e3b6e0ea722>
+	commit b199d102db5be24e0ac88eb6879e3e3b6e0ea722 (HEAD -> contrib, alx/cont=
+rib)
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Mon Dec 23 22:25:54 2024 +0100
+
+	    man/man2/ioctl_pipe.2: SYNOPSIS: Fix $1, which is not an array paramet=
+er
+	   =20
+	    Link: <https://lore.kernel.org/linux-man/20241214180423.2thsuyyfosrlya=
+jb@devuan/T/#u>
+	    Reported-by: Alejandro Colomar <alx@kernel.org>
+	    Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+	    Cc: David Howells <dhowells@redhat.com>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man2/ioctl_pipe.2 b/man/man2/ioctl_pipe.2
+	index 5f5c42652..fc15e1511 100644
+	--- a/man/man2/ioctl_pipe.2
+	+++ b/man/man2/ioctl_pipe.2
+	@@ -10,8 +10,8 @@ .SH SYNOPSIS
+	 .BR "#include <linux/watch_queue.h>" "  /* Definition of " IOC_WATCH_QUEU=
+E_ "* */"
+	 .B #include <sys/ioctl.h>
+	 .P
+	-.BI "int ioctl(int " pipefd "[1], IOC_WATCH_QUEUE_SET_SIZE, int " size );
+	-.BI "int ioctl(int " pipefd "[1], IOC_WATCH_QUEUE_SET_FILTER,"
+	+.BI "int ioctl(int " pipefd ", IOC_WATCH_QUEUE_SET_SIZE, int " size );
+	+.BI "int ioctl(int " pipefd ", IOC_WATCH_QUEUE_SET_FILTER,"
+	 .BI "          struct watch_notification_filter *" filter );
+	 .fi
+	 .SH DESCRIPTION
+
 >=20
-> v4:
-> * Reference function chapters as per Alejandro.
-> * Minor rewording as per Alejandro.
-> https://lore.kernel.org/all/20241205104125.67518-1-lorenzo.stoakes@oracle=
-=2Ecom
+> --=20
+> Cyril Hrubis
+> chrubis@suse.cz
 >=20
-> v3:
-> * Don't describe SIGSEGV as a fatal signal as per Jann.
-> https://lore.kernel.org/all/20241202165829.72121-1-lorenzo.stoakes@oracle=
-=2Ecom
->=20
-> v2:
-> * Updated to use semantic newlines as suggested by Alejandro.
-> * Avoided emboldening parens as suggested by Alejandro.
-> * One very minor grammatical fix.
-> https://lore.kernel.org/all/20241129155943.85215-1-lorenzo.stoakes@oracle=
-=2Ecom
->=20
-> v1:
-> https://lore.kernel.org/all/20241129093205.8664-1-lorenzo.stoakes@oracle.=
-com
->=20
->  man/man2/madvise.2 | 103 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 103 insertions(+)
->=20
-> diff --git a/man/man2/madvise.2 b/man/man2/madvise.2
-> index 0dd481d21..c9b4722db 100644
-> --- a/man/man2/madvise.2
-> +++ b/man/man2/madvise.2
-> @@ -676,6 +676,101 @@ or secret memory regions created using
->  Note that with
->  .BR MADV_POPULATE_WRITE ,
->  the process can be killed at any moment when the system runs out of memo=
-ry.
-> +.TP
-> +.BR MADV_GUARD_INSTALL " (since Linux 6.13)"
-> +Install a lightweight guard region
-> +into the range specified by
-> +.I addr
-> +and
-> +.IR size ,
-> +causing any read or write in the range to result in a
-> +.B SIGSEGV
-> +signal being raised.
-> +.IP
-> +If the region maps memory pages
-> +those mappings will be replaced
-> +as part of the operation,
-> +though if
-> +.B MADV_GUARD_INSTALL
-> +is applied to regions
-> +containing pre-existing lightweight guard regions,
-> +they are left in place.
-> +.IP
-> +This operation is supported
-> +only for writable anonymous private mappings
-> +which have not been mlock'd.
-> +An
-> +.B EINVAL
-> +error is returned if it is attempted on any other kind of mapping.
-> +.IP
-> +This operation is more efficient than mapping a new region of memory
-> +.BR PROT_NONE ,
-> +as it does not require the establishment of new mappings.
-> +Instead,
-> +regions of an existing mapping
-> +simply have their page tables
-> +manipulated to establish the desired behavior.
-> +No additional memory is used.
-> +.IP
-> +Lightweight guard regions remain on fork
-> +(except for any parts which have had
-> +.B MADV_WIPEONFORK
-> +applied to them),
-> +and are not removed by
-> +.BR MADV_DONTNEED ,
-> +.BR MADV_FREE ,
-> +.BR MADV_PAGEOUT ,
-> +or
-> +.BR MADV_COLD .
-> +.IP
-> +Attempting to
-> +.BR mlock (2)
-> +lightweight guard regions will fail,
-> +as will
-> +.B MADV_POPULATE_READ
-> +or
-> +.BR MADV_POPULATE_WRITE .
-> +.IP
-> +If the mapping has its attributes changed,
-> +or is split or partially unmapped,
-> +any existing guard regions remain in place
-> +(except if they are unmapped).
-> +.IP
-> +If a mapping is moved using
-> +.BR mremap (2),
-> +lightweight guard regions are moved with it.
-> +.IP
-> +Lightweight guard regions are removed when unmapped,
-> +on process teardown,
-> +or when the
-> +.B MADV_GUARD_REMOVE
-> +operation is applied to them.
-> +.TP
-> +.BR MADV_GUARD_REMOVE " (since Linux 6.13)"
-> +Remove any lightweight guard regions
-> +which exist in the range specified by
-> +.I addr
-> +and
-> +.IR size .
-> +.IP
-> +All mappings in the range
-> +other than lightweight guard regions
-> +are left in place
-> +(including mlock'd mappings).
-> +The operation is,
-> +however,
-> +valid only for writable anonymous private mappings,
-> +returning an
-> +.B EINVAL
-> +error otherwise.
-> +.IP
-> +When lightweight guard regions are removed,
-> +they act as empty regions of the containing mapping.
-> +Since only writable anonymous private mappings are supported,
-> +they therefore become zero-fill-on-demand pages.
-> +.IP
-> +If any transparent huge pages are encountered in the operation,
-> +they are left in place.
->  .SH RETURN VALUE
->  On success,
->  .BR madvise ()
-> @@ -794,6 +889,14 @@ or
->  or secret memory regions created using
->  .BR memfd_secret(2) .
->  .TP
-> +.B EINVAL
-> +.I advice
-> +is
-> +.B MADV_GUARD_INSTALL
-> +or
-> +.BR MADV_GUARD_REMOVE ,
-> +but the specified address range contains an unsupported mapping.
-> +.TP
->  .B EIO
->  (for
->  .BR MADV_WILLNEED )
-> --
-> 2.47.1
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---dosriwtkowp7omk4
+--mc6wjjury5ysabtg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdpyigACgkQnowa+77/
-2zLLrw/6A3ku+cLYHfP8Jeqb8QeHlAZPu6/p40sluCGJE9/TtZLTFzash5wP7WTx
-QEu3Z/tuvxOIPdz6dRSMRB2K1eW99pDfrSxDcKzuaZN9W7MD0DZh0wl8pbCp7HWA
-l/+3zrVzbUjEW5VZXNrxXISFX5mp01qZlNyu7CU+92SgMn3V1nL4JNz/QiA1xk5j
-1hHoSQV35i2WHO0KyhGpy6zT3VWozSCYAag82eNzDyD3r83kLzLNHSmb0b5+9f8R
-iOBdgi4JWcBQIG340ZCEjFIcY1NnbAt5xOMo+5S0W8jS93cAcs+QJrYjyE2PkVPd
-1PyvNmWNjAYfTcnwAuLRfHjMVp/M1HgHonZPCEVggUQj8EO2P7c3hcZUVCnRGIWB
-eCdLrWqtjXnR3jt8nZfTWkiE8/y9N/GW1W8QLyXqEUWVHb8zuEFyw63BshC0ZEWO
-tX7WEmGLO50FwPYapuZGS9kQuZXsr6lyNDDlu/4c9xHFGApJ9yuo3Uc1ZiQXlG1H
-0SmIZozcnmH+mlUJL5nNzJf5LujGDT3+Ben1xYrbVkY208iXDoL6Juj5sxLPxqin
-XAap4oPenVXZNLbZhpJJV0NFCf/tmEME6QN8ZK8hmxg5lI8VtAaEDAX96bQwb+DL
-t1q7KbldHNV8iDijgfdCN66MEcobINefSVRbi1Z960fZ0+jsq/8=
-=QC3M
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmdp1lMACgkQnowa+77/
+2zL9Bg//VZWlZhb4wOJnsTdouOhFCIfuj2syprBvkifk0FKfC9/+FwKk+Pl6cAKi
+zMiD+qE4twb17DY6VEyE6SETiqYg2GEsYxZ2Df2+/F9ywgmMcj62WXCEg14k7mxJ
+uZrk7ov5kVcLq0QL2TE/355F94PKUc5wMuruaQbxlsy8A71CR4Cy+6/+EzELnB88
+6nBF2GPg0t+GrIUnCDKTiQbYdhKQoF6FVYxbf+i3bh9Nj5ej/6AyA3qV6zC8zAxh
+VXyc4tJqNJGgxlYDaWisYK3Rw9utrpji/t6fHDyXSJWM9k+c5XB6rFo60GvfKHcZ
+StnYAoTd42SgqlfjfupIqSv324U5LYRs8vYCfbfqelKIz8xuruA1sQz1f6vxoCux
+3mMltBzZNRyAj4no2/pS9kDYeTY85EiSAeGham32/eraYAr7CPTtbcqIyXxz2DzS
+8VWWfJLWEeGb48MF4miZM+CYjYkZmlCBUn3JBYUEsUm4C3+9AZqndWGpMO+UYGML
+9ZZ4xkza1fNQAh6wwgbcFNbzy/k7GRsXM+owWid9U2cIjMvrgc2oTBmXvceCYgDX
+rm4o6DqAWwIuerMm1Hkd+aJKjjs/Ch8u4zwlEcajil5BjiAdbcRdWOv+HuKRRBZR
+Rf7TiXXk8g70UKwmPy1VueLzl84cI3vgvV73/CN9AA3L4dbkx/I=
+=/Bpo
 -----END PGP SIGNATURE-----
 
---dosriwtkowp7omk4--
+--mc6wjjury5ysabtg--
 
