@@ -1,146 +1,128 @@
-Return-Path: <linux-man+bounces-2195-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2196-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AEFBA016BE
-	for <lists+linux-man@lfdr.de>; Sat,  4 Jan 2025 21:37:03 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81FC0A0291C
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2025 16:20:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C2FA81884E08
-	for <lists+linux-man@lfdr.de>; Sat,  4 Jan 2025 20:37:05 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7316A163E4F
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2025 15:19:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6DB61537A8;
-	Sat,  4 Jan 2025 20:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DlJ65DFN"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBBB415C120;
+	Mon,  6 Jan 2025 15:19:45 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CD128377;
-	Sat,  4 Jan 2025 20:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1301474A0;
+	Mon,  6 Jan 2025 15:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736023017; cv=none; b=XZtBO4BZg+0q7gm4/+lhceV5izrq/hcundOWeHwZ5GpVTwPtO2ngs8Yg6JP0Slrd1VrF9mmIVBWaisBQcaPxkgk/6oday6XLYPxxJHJHOM/XxWhxBGC4sTe1lJZYhMosqxlsSFrJy0cA9pGUmXKV1htDtszQVWoIQ5SjZu7bPuc=
+	t=1736176785; cv=none; b=IiAnx9lnt272SBtMlk91rVLCwXuQAKk8E1DcoNa3NvJ3QdKaN/M8lTjf1zWbT16hcFQXCRpgF/eNAzr8q3hRGBw6KOOQbrqwhbxqpA0gwaBEvP03kXpR4NRwr0olEScrItdweVNyTXy4hLml3V0O3sKQ3SdCVJDZt0v/6YvpRHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736023017; c=relaxed/simple;
-	bh=/RMNgqpwIu/nD7Yk1K3S5jPkpNnDHSYwILmmPuLsHLI=;
+	s=arc-20240116; t=1736176785; c=relaxed/simple;
+	bh=8zrCXLf6X5v1dVcJogjOZPO6npUy+5xRwpbRzC49N90=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=igauuBWAOf6uq0Xil2TXgg50h17koRKJNFt8hKxHfxuers/DiKMHQuNtMduUbCXPwgWyydK+el2MZ+sUdPIX9nDNZTkRodBEa1syLyGL1ruBsRz+2hZb03eHEbf4rA2sG7iquCsB4BCopxh81QiUq80/j/0759eDh0XxN4hvl/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DlJ65DFN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C239C4CED1;
-	Sat,  4 Jan 2025 20:36:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736023017;
-	bh=/RMNgqpwIu/nD7Yk1K3S5jPkpNnDHSYwILmmPuLsHLI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DlJ65DFNPVS6gpJmLx/RG2m7yrJ10QDJKVGJK6hUi1H3+rRH3HYpUPROKilKct6Wx
-	 8HTErU+kfP5ro/2M06AU0JFPSj4w8h3X1eCnc2yvJNttU4ukcACwnt2PB/u5vUSCED
-	 SEiGRu6bf+5QcvT8xpFtbQaVyAZFrcSR1OsBqQ+2j1rCdkYeRvdaVTHmJEF6WqhA3/
-	 kEbpl4TKxJcll0I/oFEbFNmuOQvFgqbNB3m2ohKs2/9PpIdi4QY0RUGpYB+66OcG3j
-	 tHUHG16qX7nouGd3NaQtA1lK97kMU5KMpz15r5pEOySynVfmRqEHpgrqg2IokZun8v
-	 fHYSn4ojGUgvg==
-Date: Sat, 4 Jan 2025 21:36:56 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: John Garry <john.g.garry@oracle.com>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	dalias@libc.org, brauner@kernel.org
-Subject: Re: [PATCH 2/2] io_submit.2: Document RWF_NOAPPEND flag
-Message-ID: <nflhswam4ohkepaim2g2r3vspmvnkm3jytknjljf6oukdglztc@phkl335ceelb>
-References: <20241126090847.297371-1-john.g.garry@oracle.com>
- <20241126090847.297371-3-john.g.garry@oracle.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qyql2XY532r4GiYEc2oagyexbdiFWV1xzVhT2mES/JJHh/WyPluuAi3zFxqi/tvJvlHCZsi/DeeyGzzZ4eOI4ITWv0TGM91woSKw9CIrZNaKRhfABPlLpIiZrFlgiSEuw29E4CtrTp2QMN8/RIIVBTSKHTqW/kLGZI/TRMErQb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id D493468C7B; Mon,  6 Jan 2025 16:19:38 +0100 (CET)
+Date: Mon, 6 Jan 2025 16:19:38 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Chandan Babu R <chandan.babu@oracle.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-man@vger.kernel.org
+Subject: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
+Message-ID: <20250106151938.GA27324@lst.de>
+References: <20250106151607.954940-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zr6jkobcxtl6qelc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241126090847.297371-3-john.g.garry@oracle.com>
+In-Reply-To: <20250106151607.954940-1-hch@lst.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
+Document the new STATX_DIO_READ_ALIGN flag and the new
+stx_dio_read_offset_align field guarded by it.
 
---zr6jkobcxtl6qelc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: John Garry <john.g.garry@oracle.com>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	dalias@libc.org, brauner@kernel.org
-Subject: Re: [PATCH 2/2] io_submit.2: Document RWF_NOAPPEND flag
-References: <20241126090847.297371-1-john.g.garry@oracle.com>
- <20241126090847.297371-3-john.g.garry@oracle.com>
-MIME-Version: 1.0
-In-Reply-To: <20241126090847.297371-3-john.g.garry@oracle.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ man/man2/statx.2 | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
-Hi John,
+diff --git a/man/man2/statx.2 b/man/man2/statx.2
+index c5b5a28ec2f1..378bf363d93f 100644
+--- a/man/man2/statx.2
++++ b/man/man2/statx.2
+@@ -76,6 +76,9 @@ struct statx {
+     __u32 stx_atomic_write_unit_min;
+     __u32 stx_atomic_write_unit_max;
+     __u32 stx_atomic_write_segments_max;
++
++    /* File offset alignment for direct I/O reads */
++    __u32   stx_dio_read_offset_align;
+ };
+ .EE
+ .in
+@@ -261,7 +264,7 @@ STATX_BTIME	Want stx_btime
+ STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+ 	It is deprecated and should not be used.
+ STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
+-STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
++STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align.
+ 	(since Linux 6.1; support varies by filesystem)
+ STATX_MNT_ID_UNIQUE	Want unique stx_mnt_id (since Linux 6.8)
+ STATX_SUBVOL	Want stx_subvol
+@@ -270,6 +273,8 @@ STATX_WRITE_ATOMIC	Want stx_atomic_write_unit_min,
+ 	stx_atomic_write_unit_max,
+ 	and stx_atomic_write_segments_max.
+ 	(since Linux 6.11; support varies by filesystem)
++STATX_DIO_READ_ALIGN	Want stx_dio_read_offset_align.
++	(since Linux 6.14; support varies by filesystem)
+ .TE
+ .in
+ .P
+@@ -467,6 +472,26 @@ This will only be nonzero if
+ .I stx_dio_mem_align
+ is nonzero, and vice versa.
+ .TP
++.I stx_dio_read_offset_align
++The alignment (in bytes) required for file offsets and I/O segment lengths for
++direct I/O reads
++.RB ( O_DIRECT )
++on this file.  If zero the limit in
++.I
++stx_dio_offset_align
++applies for reads as well.  If non-zero this value must be
++smaller than
++.I
++stx_dio_offset_align
++which must be provided by the file system.
++This value does not affect the memory alignent in
++.I stx_dio_mem_align .
++.IP
++.B STATX_DIO_READ_ALIGN
++.I ( stx_dio_offset_align )
++support by filesystem;
++it is supported by xfs since Linux 6.14.
++.TP
+ .I stx_subvol
+ Subvolume number of the current file.
+ .IP
+-- 
+2.45.2
 
-On Tue, Nov 26, 2024 at 09:08:47AM +0000, John Garry wrote:
-> Document flag introduced in Linux v6.9
->=20
-> Signed-off-by: John Garry <john.g.garry@oracle.com>
-
-I've applied this patch.  Thanks!
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D58dcfdd953c1546cb6aea81c2209d6bb076dc246>
-
-Cheers,
-Alex
-
-> ---
->  man/man2/io_submit.2 | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/man/man2/io_submit.2 b/man/man2/io_submit.2
-> index c3d86b4c4..64292037d 100644
-> --- a/man/man2/io_submit.2
-> +++ b/man/man2/io_submit.2
-> @@ -141,6 +141,16 @@ as well the description of
->  in
->  .BR open (2).
->  .TP
-> +.BR RWF_NOAPPEND " (since Linux 6.9)"
-> +Do not honor
-> +.B O_APPEND
-> +.BR open (2)
-> +flag.
-> +See the description of
-> +.B RWF_NOAPPEND
-> +in
-> +.BR pwritev2 (2).
-> +.TP
->  .BR RWF_ATOMIC " (since Linux 6.11)"
->  Write a block of data such that
->  a write will never be torn from power fail or similar.
-> --=20
-> 2.31.1
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---zr6jkobcxtl6qelc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmd5m+gACgkQnowa+77/
-2zJPhw/+K9uCm3aip3EYLgCkqyIBdr4SyCmeNOlfFFempTGgGZhqUfgDPmyWUphF
-VHwdInDT0iZbD+JkU50VMLTbzmOkMBRlZf0px1HYiat6mBkmYTSiLH4TC4N3y9zd
-yIN0FVAvYj88CRUu46WIPXKp48pljoCCb2Fd+yxBCC05ShfBKPWPGxda8RiYMa8K
-41png5xEytROpqSQRoS/QA462PJ/EyCN+PrtXu4f+FTRbGkWvWwYcw5p1DYmKyDc
-V7w5xf9/Kk7vaLNK97BlCquK/56xGlPQx0cScdCeLpBMoG8j4G6pv1OhIWU8JuSp
-ywoKb7vmDe4HwmHHaFBW+CDrrbs8FIDpa0DccbEVJf4lpEACnzmmCzkzYmkaHyE/
-SvqwXriqM2QiqtvGC7NB3PTq2/jpncSLTm4MzXMFjSu9IaCvFVvAtKYD1pU+rHXR
-IOYfriBiU2zLhcSQrNaZm4jDkL+9wg1E8pvmY7ZxPsR0SZddleJFRdRzjkJMNdi0
-rXwvZ1dCuR85ocWx+HjCtlx11S89UBqcdW6lJph4PaVhr9gu0lKpqJ//2soPQRSk
-FQh962mXbkS/TdR253UJSSKiS/VUDHh0vD9aMnjtRlbi7t9TK0WlcMAlSOOqiB/H
-X2wKaWwrg0NGZHYhIrOeM9rK+tpUw1331jy/3jQetOw3/KGW0MM=
-=UEuN
------END PGP SIGNATURE-----
-
---zr6jkobcxtl6qelc--
 
