@@ -1,50 +1,41 @@
-Return-Path: <linux-man+bounces-2197-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2198-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407DBA02F2F
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2025 18:40:22 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11236A02F78
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2025 19:10:13 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 23F501635FF
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2025 17:40:20 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 963C81885820
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2025 18:10:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E53A1DF267;
-	Mon,  6 Jan 2025 17:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fc/tb42i"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 993DF1DEFE9;
+	Mon,  6 Jan 2025 18:10:06 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D4C1DF255;
-	Mon,  6 Jan 2025 17:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74ABE13665B;
+	Mon,  6 Jan 2025 18:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736185208; cv=none; b=UrjzArtd7Vg3R2+rWVZY5qhmAVPP1WUVESknQbvV7H2KN+P0baysnTjN75G9C3qZbR2qU1e1B7DDs6uYmO/TRzUoylFVc+FSn8540hOAIM3VOAWP67hFWYXKqsV0wj/TucEFp5DndbQXoLSWMmDzS0dkF9ul3tq+0zByitpfDXI=
+	t=1736187006; cv=none; b=OHgUi7mGN/8ddETDWna1eJxMKTohamgEWGqEDv9qZYZdtSR13wA2CXSEjowX/2oS5Daq6MVHrXkZoP5quOzQzgaJszaPHKo08Ytz7btRvzRbMmqdsCqkScqChq/NVXiw0cyXsta7H0z01HvhPHdDN09wCNeswMp06FaugFoYb7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736185208; c=relaxed/simple;
-	bh=7W9pHS4PWpd3SS1uQabJP+wUkjf2TzWY9fHvfJnEDBs=;
+	s=arc-20240116; t=1736187006; c=relaxed/simple;
+	bh=ISmDF3NYXI+g/hdwPzPNHQ6RI19mtoJBjqx49TSulCQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jwCCgswDQemtfCZJMo94yNOMLT6IBSNvuTnV8ceIs63dwINQH+eknBAkCsg4aZFsRWrSGLhy67veJ3WgOh8Kl8N8IYjVVHCrkGiaNNrH8/FrvZPaB9XbQ3IdeTxkt5M6rXvpgZccv9acpKl8Hyiyn3REbsvM7NpqMr3GHVI2JFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fc/tb42i; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B34C2C4CEDF;
-	Mon,  6 Jan 2025 17:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736185207;
-	bh=7W9pHS4PWpd3SS1uQabJP+wUkjf2TzWY9fHvfJnEDBs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fc/tb42iPn0lxr2eEBP3jvwUDRYAFIuzsdptqvVQXGhb1+AQg5hoK/FZKbLuXSg6x
-	 4xTbVpdRz+reXHWcrcHaipcXpJakO8v5b1JEs2R4nXCH0Nc0iKBwPc1opwUj+hxYXW
-	 shkfeyPwDriIwgAXrCLLtajilkTxZMsWGQfPuTRWea0V8Uf3BWtbnJeVhCEKPH17lM
-	 PHkRmohJYstf1VQO8OtR9xJtYY2dLfaXDTVhOhSk0J6LD7/ZceKhenRUhKBlSIlSby
-	 KsTOA3gN3OyFRLOWJZyYSeA2Fl0CZhP+boljKiR24cc0maB61rupC7iAMRoaJgfdU4
-	 rBq0ir5dO8a4w==
-Date: Mon, 6 Jan 2025 09:40:07 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	 Content-Type:Content-Disposition:In-Reply-To; b=OxvCictJV2Frzbz9CI2PtBxHUpOlP5T3DM5BACN/bn/jmc0+2Q8JRb6MO9e6yhVBq2kClA6gnEs/a34Rbv7cX+JNfgGX3EoVUtg5IG2x4fydMjXeAE/LJZ9ROkFzXozMAdDUeTzxPY/UxqHCyXL9mw5vlCnCH2cl+UKihzWz06U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 6569567373; Mon,  6 Jan 2025 19:09:59 +0100 (CET)
+Date: Mon, 6 Jan 2025 19:09:58 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
 	Chandan Babu R <chandan.babu@oracle.com>,
 	Hongbo Li <lihongbo22@huawei.com>,
@@ -52,9 +43,8 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
 	linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-xfs@vger.kernel.org, linux-man@vger.kernel.org
 Subject: Re: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
-Message-ID: <20250106174007.GD6174@frogsfrogsfrogs>
-References: <20250106151607.954940-1-hch@lst.de>
- <20250106151938.GA27324@lst.de>
+Message-ID: <20250106180958.GA31325@lst.de>
+References: <20250106151607.954940-1-hch@lst.de> <20250106151938.GA27324@lst.de> <20250106174007.GD6174@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -63,98 +53,18 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250106151938.GA27324@lst.de>
+In-Reply-To: <20250106174007.GD6174@frogsfrogsfrogs>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Mon, Jan 06, 2025 at 04:19:38PM +0100, Christoph Hellwig wrote:
-> Document the new STATX_DIO_READ_ALIGN flag and the new
-> stx_dio_read_offset_align field guarded by it.
+On Mon, Jan 06, 2025 at 09:40:07AM -0800, Darrick J. Wong wrote:
+> > +stx_dio_offset_align
+> > +which must be provided by the file system.
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  man/man2/statx.2 | 27 ++++++++++++++++++++++++++-
->  1 file changed, 26 insertions(+), 1 deletion(-)
-> 
-> diff --git a/man/man2/statx.2 b/man/man2/statx.2
-> index c5b5a28ec2f1..378bf363d93f 100644
-> --- a/man/man2/statx.2
-> +++ b/man/man2/statx.2
-> @@ -76,6 +76,9 @@ struct statx {
->      __u32 stx_atomic_write_unit_min;
->      __u32 stx_atomic_write_unit_max;
->      __u32 stx_atomic_write_segments_max;
-> +
-> +    /* File offset alignment for direct I/O reads */
-> +    __u32   stx_dio_read_offset_align;
->  };
->  .EE
->  .in
-> @@ -261,7 +264,7 @@ STATX_BTIME	Want stx_btime
->  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
->  	It is deprecated and should not be used.
->  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> -STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
-> +STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align.
->  	(since Linux 6.1; support varies by filesystem)
->  STATX_MNT_ID_UNIQUE	Want unique stx_mnt_id (since Linux 6.8)
->  STATX_SUBVOL	Want stx_subvol
-> @@ -270,6 +273,8 @@ STATX_WRITE_ATOMIC	Want stx_atomic_write_unit_min,
->  	stx_atomic_write_unit_max,
->  	and stx_atomic_write_segments_max.
->  	(since Linux 6.11; support varies by filesystem)
-> +STATX_DIO_READ_ALIGN	Want stx_dio_read_offset_align.
-> +	(since Linux 6.14; support varies by filesystem)
->  .TE
->  .in
->  .P
-> @@ -467,6 +472,26 @@ This will only be nonzero if
->  .I stx_dio_mem_align
->  is nonzero, and vice versa.
->  .TP
-> +.I stx_dio_read_offset_align
-> +The alignment (in bytes) required for file offsets and I/O segment lengths for
-> +direct I/O reads
-> +.RB ( O_DIRECT )
-> +on this file.  If zero the limit in
+> I can't imagine a filesystem where dio_read_offset > dio_offset makes
+> sense, but why do we need to put that in the manpage?
 
-manpage nit: new sentences should start on a new line.
+Well, to be backwards compatible to older userspace the value put into
+stx_dio_offset_align also needs to work for reads.  Given that there
+were questions about this in the RFC round I thought I'd mention it.
 
-> +.I
-> +stx_dio_offset_align
-> +applies for reads as well.  If non-zero this value must be
-
-Here too.
-
-> +smaller than
-> +.I
-> +stx_dio_offset_align
-> +which must be provided by the file system.
-
-I can't imagine a filesystem where dio_read_offset > dio_offset makes
-sense, but why do we need to put that in the manpage?
-
-vs. "If non-zero, the filesystem must also provide stx_dio_offset_align."
-
-> +This value does not affect the memory alignent in
-
-                                         alignment
-
-> +.I stx_dio_mem_align .
-> +.IP
-> +.B STATX_DIO_READ_ALIGN
-> +.I ( stx_dio_offset_align )
-> +support by filesystem;
-> +it is supported by xfs since Linux 6.14.
-
-Aside from those bits, this looks good to me.
-
---D
-
-> +.TP
->  .I stx_subvol
->  Subvolume number of the current file.
->  .IP
-> -- 
-> 2.45.2
-> 
-> 
 
