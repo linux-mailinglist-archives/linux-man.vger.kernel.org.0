@@ -1,155 +1,102 @@
-Return-Path: <linux-man+bounces-2204-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2205-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3DCBA0635B
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jan 2025 18:27:54 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DFA0A069B3
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 00:53:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A9D9D165B00
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jan 2025 17:27:52 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id ED32A1887D9C
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jan 2025 23:53:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0D5220010B;
-	Wed,  8 Jan 2025 17:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEC8C204C23;
+	Wed,  8 Jan 2025 23:53:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pWS/oUo+"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RcUXNt2F"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D50E1FF7D5;
-	Wed,  8 Jan 2025 17:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AA01A23A9
+	for <linux-man@vger.kernel.org>; Wed,  8 Jan 2025 23:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736357263; cv=none; b=nYP8e5C+n7oXaMHJFXEeKzrDXytsSa0jl3izveTdYGC5Rz1RdoE8b4SwYusOGiAQ0Ei8EYwp74GxhzE6cEP2vcsALkgJGsZuuB7jHM2YKXVPLzQgpC3kLXiPG/Leg8TXO6/CEP65aTJcvk2yniMrMC39GqpUJehALZvo9VfVAQc=
+	t=1736380411; cv=none; b=B6YqnHQ4vJoS1lvqQvagAp9UDBIjJTUW/HMY0bbHAjk4bpSlSlpbsdrYbMGfe2s2E3cMeI2fh7YivgcOEIeg0sbYtJCOXu65vsJPROzQuc2MeFrIjan+UEzXREfN4fxRicvuR/SaeC2DI3FvDJNTyua0zFpqaoUbFcXIc/+kR4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736357263; c=relaxed/simple;
-	bh=Fd/ChOXqWXSLL6ad01QK9TB9XaT+4qZHk5d/62xJaSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n4tYYOqsHJ8mwi04pLtUGE2+T/NEYkkc89gSFeEOyu9tFdggxrVedFnNWFZFzJALEbmKfu3PBeYRCpuJ+PSBK3HoaSK87HibVfY3LSCt9J4yEWOmL9kKJhQioFWCjMuU4eWUikQK0n9rauG5wQFt5izrUuA8kNsC65DTeN38D3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pWS/oUo+; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B0EC4CED3;
-	Wed,  8 Jan 2025 17:27:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736357262;
-	bh=Fd/ChOXqWXSLL6ad01QK9TB9XaT+4qZHk5d/62xJaSI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pWS/oUo+z1iZbbqIThQJ9SY8CG3ds2ucVWo0LaCtoRXf3hL6b3B3/r4+AxCRvB4nm
-	 N16ORCVDFJLZUuOxPdk/8MbFS9qJ5UopEHQGvNVrQd0BPvIN+J7D6FbY8AxD8XHfVR
-	 H+xnuwtP0ls3E5fO08XEaz7QoFtMKhMPnyMrLIVvjjpOsFQRKFbATRXiTHqAh0QTx1
-	 dDeViBKg/XM0JnYj0OnGBMRygkTlX3+d4bCo5rz667lhmCC+28rLA00IlPLbNpu0o6
-	 j1qx7vP2gKJ+PuN9hs67LCWGX0zn5gsDZWgRnx7Vg1gH6c+BwT2bbzuAlJ/fIaz34V
-	 FvcV7xcrOq1Ng==
-Date: Wed, 8 Jan 2025 09:27:42 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Chandan Babu R <chandan.babu@oracle.com>,
-	Hongbo Li <lihongbo22@huawei.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-xfs@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
-Message-ID: <20250108172742.GH1306365@frogsfrogsfrogs>
-References: <20250108085549.1296733-1-hch@lst.de>
- <20250108085900.GA27227@lst.de>
+	s=arc-20240116; t=1736380411; c=relaxed/simple;
+	bh=nmes0/kfTsMmKD1uSHc9m1+tyYtYAaGFsLIEPHl5eU8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=DxBkp2d1FmVP+ZBX61LmhxnnZg5+Rc447ORrBvOURLrSjRpY+jTjmNAEbg4lmFXvaZHoJFWznEt79RW/tjirWEV+4dZUP5HMfz7PMBlYiG/tNX+XbHdKQd5AFpiVtGeWXcuBX0ylf3AjP1QyV/d2sEG7aLQLOsBef7iiyr8CWbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RcUXNt2F; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-6dd1b895541so6582566d6.0
+        for <linux-man@vger.kernel.org>; Wed, 08 Jan 2025 15:53:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1736380409; x=1736985209; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=9yzDHi5QyA4iA930wJ8btwfhxLtwUVAX1kjf4w8ESQM=;
+        b=RcUXNt2FAcGRklm35r6AMWp5pFlBqxEEfRLajlI/IAxR8IHcVwqjf/FnRQIOQLCV8y
+         ph98RFD3Pjtb3g+rnPfYE+YiOf6xiqQGy7VOJt/u1lQ6XJBVvnLv6C5auR9incSaslBR
+         wrLSqpyHH+mZBIhc1fPsdQ4BhrxKZN8eccDuwJ4AUjIZGw+4v19Q4VAQ+WQBjcCvVWO6
+         tf0DjlbMh2J0gEKc/bz3dyb+3GWAcfDNihC8jn7XJSAf6xuAh3zgk1cP4F+hx74bUx7L
+         TqMglnLXxeWy14EW4HPdqfzwWgjk9mbTmHuefSmM6ThPQDcjL7aHjAFiuN03U6Ybj5e1
+         becw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736380409; x=1736985209;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9yzDHi5QyA4iA930wJ8btwfhxLtwUVAX1kjf4w8ESQM=;
+        b=gaOi8Or8wOyCmfgfclJnR15Qu32xSizFUfxf+qgpmlCS/L2hCpefXTPtpt5icE/LmD
+         aqVak2wYbJQZM4GIJXRhQu/0+LSI1rn2Mn53cZqOjF5cZWVUfSOve0Gft+KBadSMfPIe
+         /yqULrN5107yplqyQ0T0o52q+WSVAQuds/M7ZOo3ohRBDourwdXfft0vdtrnijwS3Zs/
+         AoX65Hp2F3RcMSlvZQ1xsWF3gPWmRHM/Ii69jjJP7EBkJl7TxY7WYHRMzBZThFkOEJSr
+         t9geFH+zSrLb8kLsjY6N/zEk0UhumVeoicOWQqlTq3HpcZzl//B3BrF7Huzt3/vYISda
+         w7HQ==
+X-Gm-Message-State: AOJu0Yz/2GlaXbR7qxVTagZ/KZlHTD90SPUOAifIbGYr12rwlmAXajGz
+	9/0nmDIt3v1LU00kMkR8t5uSx1WKSPgVbPpzGW4JEvMoTBL7gcSfBifwFpZArTct0H0JG133YyH
+	7w02kGYKhtW27ZyfgbDQWHA2065U8fRDBYQGLtfFg/7RuXgDeLVplQ5k=
+X-Gm-Gg: ASbGnct5nflpHh4oojR8OcpQPDlAdrzcmcKFoD8K3bHjYV58dHei4Y6lzkHjPexMX9K
+	+xCO1kaVR1YnJbJ9Eqlzg1lbv8qcoRz2nO+Q=
+X-Google-Smtp-Source: AGHT+IEOCFHrXJkMZLM/fWE+jp6zYUPFlinkr7uozWal/zL/Bhigk6RRuSXn33i/m/2hRMNd7vi50ubdOSwOA3IWBJE=
+X-Received: by 2002:a05:6214:4015:b0:6df:97c6:ccc0 with SMTP id
+ 6a1803df08f44-6df9b22de6bmr84289476d6.28.1736380408804; Wed, 08 Jan 2025
+ 15:53:28 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250108085900.GA27227@lst.de>
+From: enh <enh@google.com>
+Date: Wed, 8 Jan 2025 18:53:17 -0500
+X-Gm-Features: AbW1kvYCA5xjECuzw6hMrDp9LBA_5FSbGsLzqKBW_xPrOsXQM3bhRwclZj6oqrU
+Message-ID: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
+Subject: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quirk.
+To: linux-man <linux-man@vger.kernel.org>, 
+	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc: Dan Albert <danalbert@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jan 08, 2025 at 09:59:00AM +0100, Christoph Hellwig wrote:
-> Document the new STATX_DIO_READ_ALIGN flag and the new
-> stx_dio_read_offset_align field guarded by it.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  man/man2/statx.2 | 26 +++++++++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
-> 
-> diff --git a/man/man2/statx.2 b/man/man2/statx.2
-> index c5b5a28ec2f1..8ef6a1cfb1c0 100644
-> --- a/man/man2/statx.2
-> +++ b/man/man2/statx.2
-> @@ -76,6 +76,9 @@ struct statx {
->      __u32 stx_atomic_write_unit_min;
->      __u32 stx_atomic_write_unit_max;
->      __u32 stx_atomic_write_segments_max;
-> +
-> +    /* File offset alignment for direct I/O reads */
-> +    __u32   stx_dio_read_offset_align;
->  };
->  .EE
->  .in
-> @@ -261,7 +264,7 @@ STATX_BTIME	Want stx_btime
->  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
->  	It is deprecated and should not be used.
->  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> -STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
-> +STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align.
->  	(since Linux 6.1; support varies by filesystem)
->  STATX_MNT_ID_UNIQUE	Want unique stx_mnt_id (since Linux 6.8)
->  STATX_SUBVOL	Want stx_subvol
-> @@ -270,6 +273,8 @@ STATX_WRITE_ATOMIC	Want stx_atomic_write_unit_min,
->  	stx_atomic_write_unit_max,
->  	and stx_atomic_write_segments_max.
->  	(since Linux 6.11; support varies by filesystem)
-> +STATX_DIO_READ_ALIGN	Want stx_dio_read_offset_align.
-> +	(since Linux 6.14; support varies by filesystem)
->  .TE
->  .in
->  .P
-> @@ -467,6 +472,25 @@ This will only be nonzero if
->  .I stx_dio_mem_align
->  is nonzero, and vice versa.
->  .TP
-> +.I stx_dio_read_offset_align
-> +The alignment (in bytes) required for file offsets and I/O segment lengths for
-> +direct I/O reads
-> +.RB ( O_DIRECT )
-> +on this file.
-> +If zero the limit in
+Signed-off-by: Elliott Hughes <enh@google.com>
 
-nit: add a comma here (really a dependent clause) to make it clearer
-that 'zero' isn't being used as a verb here:
-
-"If zero, the limit in..."
-
-> +.I stx_dio_offset_align
-> +applies for reads as well.
-> +If non-zero this value must be smaller than
-
-Same here.
-
-"If non-zero, this value..."
-
-With that fixed,
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-
---D
-
-> +.I stx_dio_offset_align
-> +which must be provided by the file system.
-> +The memory alignment in
-> +.I stx_dio_mem_align
-> +is not affected by this value.
-> +.IP
-> +.B STATX_DIO_READ_ALIGN
-> +.RI ( stx_dio_offset_align )
-> +is supported by xfs on regular files since Linux 6.14.
-> +.TP
->  .I stx_subvol
->  Subvolume number of the current file.
->  .IP
-> -- 
-> 2.45.2
-> 
-> 
+diff --git a/man/man2/stat.2 b/man/man2/stat.2
+index 099c56b15..cfbfb654b 100644
+--- a/man/man2/stat.2
++++ b/man/man2/stat.2
+@@ -175,7 +175,9 @@ can either be 0, or include one or more of the
+following flags ORed:
+ .\" commit 65cfc6722361570bfe255698d9cd4dccaf47570d
+ If
+ .I pathname
+-is an empty string, operate on the file referred to by
++is an empty string
++(or NULL, since Linux 6.11)
++operate on the file referred to by
+ .I dirfd
+ (which may have been obtained using the
+ .BR open (2)
+-- 
+2.47.1.613.gc27f4b7a9f-goog
 
