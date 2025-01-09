@@ -1,107 +1,180 @@
-Return-Path: <linux-man+bounces-2210-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2211-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5939AA07FA2
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 19:15:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAA4AA0828B
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 23:02:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3F0533A64A6
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 18:15:11 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EB6A63A89EE
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 22:02:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0BC1199235;
-	Thu,  9 Jan 2025 18:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF1802046A3;
+	Thu,  9 Jan 2025 22:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rUZHiaR9"
 X-Original-To: linux-man@vger.kernel.org
-Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA5F19D886
-	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 18:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.43.8.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B535200B95
+	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 22:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736446508; cv=none; b=tZlfTYSwTbMxB2OgKmO4GSdAM2fjV55YF2v8akRMn5RXorDeIyVSwKQV94UqdxTiZq3q8R2uYxFrDHIIM3gAl0f4uZY4ZSFl1/ini73rMzVVL6NBFSzdPfQJYo7E5kpek/GJuj3ddmRTyd7NqP478ztK2dolQrzMzjvVSejZhe4=
+	t=1736460139; cv=none; b=KjzIv1VFIlS3rwzIe6JWs6Rd11KgvZndjt+aG3PgePD3xv2uHsvKzezPQ3e+ZZ1xsw4fpZqt+M6WCTD8e9KT1mQyDU0WRHasDs7Ubk1LwCT0bx3iotR9t8VVfopsqQ6VkJTKWs398w8zOL1D02SzsmtetVEKpTExCgMJndVRl7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736446508; c=relaxed/simple;
-	bh=gZXEAOUS7io7tBMCbxZ/6gvAtmjmiSN+j/m0CEv2IGc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=rDnJLfeSCuSRw58fevmH5yBFm8I0+LLZKkn5nJkmxqz41ijVpR+7kg2Pu4NAHRlndqvXH7WSIvBuhis6YNuMu5gtrt7qaa1UuCITN8PReOkSyzjXVSFEVVoymvd10gHddHkqIa355YneXfM125ZSB2d/InWwn3LFK6sra43xNtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=193.43.8.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
-Received: from geochip-laptop (unknown [83.242.179.123])
-	by air.basealt.ru (Postfix) with ESMTPSA id B012C23397;
-	Thu,  9 Jan 2025 21:06:32 +0300 (MSK)
-Date: Thu, 9 Jan 2025 21:06:32 +0300
-From: Alexander Stepchenko <geochip@altlinux.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Alexander Stepchenko <geochip@altlinux.org>, linux-man@vger.kernel.org
-Subject: [PATCH] man/man7/user_namespaces.7: tfix
-Message-ID: <bc17315eff26eb31ecc78a2c44b89dfb077813df.1736444255.git.geochip@altlinux.org>
-X-Mailer: git-send-email 2.42.2
+	s=arc-20240116; t=1736460139; c=relaxed/simple;
+	bh=63d5dtx00LHDJpVrlqcmdVpplO3pTqlQHmTpl0qCzUI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jUjrK8cfOGzBt5rWXVWYDEZUyeUozDCcYkgnJnJA90gCVLJgQlpc1KVOAPhzRU1e4yBlolPN/k42oS0hSDGyXSG0gaCGwnEA3WSjqC4Uit+YcgZDcIADCSWb12hypv3bw6CM9xL7tnQ1cPMADLeD0iZQPB186T0tRb7bGkkQm8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rUZHiaR9; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-6d888fc8300so7635126d6.3
+        for <linux-man@vger.kernel.org>; Thu, 09 Jan 2025 14:02:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1736460137; x=1737064937; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rV+yIAaV+UVK1VMW+TTnx158+jKunzERYZN5w4eUhhQ=;
+        b=rUZHiaR9vUxigqeo8OAvwSO3xkdxe1u+eMCXM8gntX9mwnU4mTfccJZ1XjpJ3Abo3v
+         pM9XmZX1EQS6rpbdGU+r7R+eku7kA/w7xMMvPNlGJzde6X0ERftJuWFLenrTQQugJVHL
+         NXE6wtIUdgDG6JpRvAfDVLXRW58TrobhBx9ZuaBJZdeWYxBW76rq4o4g/MuzrB1BZjrO
+         oq+YI8U0W3cWqrK0eCuviK/CXlPXINA40BArRecraUtVajViTyJ1ETeSXunabOz5dmNv
+         fqeNut1XRvMzGHRw2F9E1fo+Dz7efUoPVVfvgYDlwBLMqy2efQlLArR9fsyUalZNdaAU
+         B8RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736460137; x=1737064937;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rV+yIAaV+UVK1VMW+TTnx158+jKunzERYZN5w4eUhhQ=;
+        b=GegmUAayEbWTUf9sMBewOpP+Y7036DAEW256JQfPfHRdWWZB95fqQDsQVPiYUW3KzN
+         FU2uejaUoRO0Ri6gno4LI5wCtH5VCKCciZr07I6wVNCfLCppZU0OjXol9xf4df55gJOb
+         Ac/JxqIa+mfnrILv9aaueRpvau+pruBYa0AanaQviZExhz4uPuhxrsGPHzhy2AkVvZ4v
+         7BEwNyQMcNsWYVoSkRUneL7m1GU35VDfhzj4S3DoUaYOKPOEuz62O6vojrUXdD4MSI6J
+         N3KcUO1UJuy6jLYkmAil4hwbzcLXCvZHO2ifKaHhW6QQeO+EsQxcPcf+bQi2NFpZV4j5
+         hANg==
+X-Gm-Message-State: AOJu0Yy3qI8ro1cKzeY17QuvRzPlROd1KDUb9NYm4W2fY2WUL6PNBn1Y
+	4lVwITCQWlP3jTWTmHOCPX5tfi/mynKYI0LuQTkjSX7lbSc957QeOSPxnDKyc0DBL/qWJA8lVml
+	6ZTZG0040INcCTGfgZxKIFdB44yLJhtSqR8IA
+X-Gm-Gg: ASbGncsO9IUl6We4vcw9oIo1IFldGeXoypyq3Sg/55J1m/Koy20Au+PUYvMcJv8Si2w
+	KQsJuOSh60GnBrkjQaeCMVGTC7AhCSOI72Gk=
+X-Google-Smtp-Source: AGHT+IFpJfEubg1RVgCec6OZoOcjZgfJP+K4lPrqxqyu2C1MjiN5xrEQH+AwGuBbJnCaFW9UOBm6XZNBKZNBNcq0lY4=
+X-Received: by 2002:a05:6214:20e3:b0:6d8:a32e:8426 with SMTP id
+ 6a1803df08f44-6df9b1d237fmr121101426d6.3.1736460136862; Thu, 09 Jan 2025
+ 14:02:16 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="bcqi6wiralzlxcsm"
-Content-Disposition: inline
-
-
---bcqi6wiralzlxcsm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
+ <nwauygp7cdhazyz76wuel6vrkukvd447ijquxxswipfpucrhqh@oheowzbs2sqb>
+In-Reply-To: <nwauygp7cdhazyz76wuel6vrkukvd447ijquxxswipfpucrhqh@oheowzbs2sqb>
+From: enh <enh@google.com>
+Date: Thu, 9 Jan 2025 17:02:05 -0500
+X-Gm-Features: AbW1kvZZNyDmYWy42b2iMnZqLXP7ubfAQOxaM9oVnv8ycIvaN9S7LuRK8zyqJ-o
+Message-ID: <CAJgzZorN0mFU8UVwpWJO19+t_wTJkEApcfrRj_XcG=W54KAzAA@mail.gmail.com>
+Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quirk.
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>, 
+	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, Dan Albert <danalbert@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: [PATCH] man/man7/user_namespaces.7: tfix
-MIME-Version: 1.0
 
-Fixes: 8c74a1cea495 ("user_namespaces.7: Clarify details of CAP_SYS_ADMIN a=
-nd cgroup v1 mounts")
-Signed-off-by: Alexander Stepchenko <geochip@altlinux.org>
----
- man/man7/user_namespaces.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Wed, Jan 8, 2025 at 7:41=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
+rote:
+>
+> Hi Elliott,
+>
+> > Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH qu=
+irk.
+>
+> Thanks for using the full path!  :)
+>
+> Regarding "Add missing", I decided to transform that a little bit.
 
-diff --git a/man/man7/user_namespaces.7 b/man/man7/user_namespaces.7
-index 40a2a53634dc..eec29c2434ce 100644
---- a/man/man7/user_namespaces.7
-+++ b/man/man7/user_namespaces.7
-@@ -286,7 +286,7 @@ .SS Effect of capabilities within a user namespace
- .B CAP_SYS_ADMIN
- within the user namespace that owns a process's cgroup namespace
- allows (since Linux 4.6)
--that process to the mount the cgroup version 2 filesystem and
-+that process to mount the cgroup version 2 filesystem and
- cgroup version 1 named hierarchies
- (i.e., cgroup filesystems mounted with the
- .I \[dq]none,name=3D\[dq]
+(no worries, i just copied that from one of your more recent changes i
+saw in `git log` anyway :-) )
 
-base-commit: 48618d7701d55ca9401b259bb4e6200d841df6d0
---=20
-2.42.2
+> Since most stuff we document was previously undocumented/missing, it
+> doesn't help much (unless it was undocumented for decades).  I changed
+> it for "Linux 6.11 allows using NULL with AT_EMPTY_PATH".
+>
+> On Wed, Jan 08, 2025 at 06:53:17PM -0500, enh wrote:
+> > Signed-off-by: Elliott Hughes <enh@google.com>
+>
+> I prefer if you write the CCd people in the commit message too.
+> I'll paste it anyway (when I remember).  :)
+>
+> > diff --git a/man/man2/stat.2 b/man/man2/stat.2
+> > index 099c56b15..cfbfb654b 100644
+> > --- a/man/man2/stat.2
+> > +++ b/man/man2/stat.2
+> > @@ -175,7 +175,9 @@ can either be 0, or include one or more of the
+> > following flags ORed:
+>
+> The patch is corrupted.  The line above seems to have been broken by the
+> mailer.  :|
+>
+> Luckily, it was easy enough to apply with the following pipeline:
+>
+>         sed '/175/N;s/\n/ /' | git am -s
+>
+>
+> BTW, you should have a look at this:
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIB=
+UTING.d/git#n11>
+> That will produce more useful hunk contexts.
 
+i think the trouble here is that i tend to just check out a new clone
+every time i have something to send to you, so this keeps getting
+lost. is there any way you can make it a property of the git project
+itself?
 
---bcqi6wiralzlxcsm
-Content-Type: application/pgp-signature; name="signature.asc"
+... ah, actually, no, i was just on a different computer /facepalm
 
------BEGIN PGP SIGNATURE-----
+>         $ sed -n 11,19p CONTRIBUTING.d/git
+>            git-diff(1), gitattributes(5)
+>                To produce useful hunk contexts in manual pages, we need t=
+o hack
+>                git(1)'s idea of a function name, and also to tell git wha=
+t is a
+>                manual page.
+>
+>                    $ git config --global diff.man.xfuncname '^\.S[SHsh] .=
+*$';
+>                    $ mkdir -p ~/.config/git/;
+>                    $ echo '*.[0-9]* diff=3Dman' >>~/.config/git/attribute=
+s;
+>
+>
+> Thanks for the patch!  I've applied it.
+> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
+ommit/?h=3Dcontrib&id=3D996ca597328f0c93eb6d5eea3e86b6ac277db5f0>
 
-iQIzBAABCAAdFiEEVFMC46vVZ5ezSipbJLrN3rRGHpQFAmeAECgACgkQJLrN3rRG
-HpTb2Q/9EdFow86Zj8UvT9lshw44BjRjH0tw7Jx/4UD9og4jOfoD2iSVPNck1rSC
-e8g1CZZEZW9Iw9YkWJg5Pcek15TFuHs1qd+8G+zSaIBpsH+AL7K0Wu6hGg9wFnJd
-tw3aVFZqp3UP8AQZCyJCkpAzFGbCHcgZGoeCfDG4f/sTjEi6RG8sZAadfb6yUPJn
-pIriJdGghYcQ0tkMBH5IW3dh1+LkFY9Uu3fzeeYe5lBOewokuZbvHdJnL0p76THt
-O+2Nvc1mVk5fvkZJJImX6ZJ4Pn+/da/+Ugf0zGySXpb+WkzJMQ+tyrzVe6nUREKm
-2Q45f69kLK1j+Qe6u8FhCkGlezZf4JPvfK8q4pl/7F0PlvtP1wTVKVMKpvszVpq7
-2ae9qQyAWxm5MEb7dIfmb4I4XYbbRFA8NhIyb3t7SlxlFphQ+Kpf6SL61g8Vi9fC
-903VRB3Ck6MyQCWPip4iS4Z1FbHOUEz+ynvSTD69ekK51yTVH4mibKWxQgBM8nhu
-je9fpZDfZR05Xr2phPO18WEatno+SMC/PEytLgKL/mj4y4lrK75PhZebW/GjSoYq
-2zq4aPFWbLz2CaeqkoDJYE0oMoMNSYAWQAryXemQdsNu1UdN+6qIHiLy9zXpDRhT
-eQ+WLsvuBo0R7GkcFBsKk2T7Sfw1fTbCTmygYRQDN2vITKNM6cY=
-=7QQV
------END PGP SIGNATURE-----
+thanks!
 
---bcqi6wiralzlxcsm--
+> Have a lovely night!
+> Alex
+>
+> >  .\" commit 65cfc6722361570bfe255698d9cd4dccaf47570d
+> >  If
+> >  .I pathname
+> > -is an empty string, operate on the file referred to by
+> > +is an empty string
+> > +(or NULL, since Linux 6.11)
+> > +operate on the file referred to by
+> >  .I dirfd
+> >  (which may have been obtained using the
+> >  .BR open (2)
+> > --
+> > 2.47.1.613.gc27f4b7a9f-goog
+>
+> --
+> <https://www.alejandro-colomar.es/>
 
