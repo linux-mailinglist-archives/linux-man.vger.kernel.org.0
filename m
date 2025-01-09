@@ -1,171 +1,128 @@
-Return-Path: <linux-man+bounces-2206-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2207-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D91A069FC
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 01:41:49 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45548A0701C
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 09:32:38 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 723E13A6086
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 00:41:43 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4925B160BEE
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 08:32:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CAFD4C76;
-	Thu,  9 Jan 2025 00:41:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUu53ssI"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D5CD4214A97;
+	Thu,  9 Jan 2025 08:32:32 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189CE290F
-	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 00:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81B4155345;
+	Thu,  9 Jan 2025 08:32:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736383305; cv=none; b=X1ddxm+RtDjTGmh9yAm55yiEvfQfcTQkynrQI6zoclcCOYj2AjUX+Kl+X4Fd25gW5R4hHqJTn+huSYkTjHnaOYpLIEBGj0bBzpRjNZbNsWO+Xh5Aab5aN9DxxmGuAhXVSBIIhz6Ucck3rXZFcxR9dtfdML5v6HBVZwCw3h+BuHE=
+	t=1736411552; cv=none; b=VRc762JhIwHnB2+9wOnzt3phphVemuPq0XpIzstSM9/wrY/koQ7e6tJa3Y+s3AhzZUUmv34snOnejzATctvB81T5kDgixPsV7bVNnvJe0a0kpfODetOJfTXCkQpY7068seCxpftcegSWJZLLUZnRtf2YS408ehrjscWDn7bSB5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736383305; c=relaxed/simple;
-	bh=OVB2+luJoN3DGClCsZ/GQQ/bAjhYMKKxqh5oUEWQI3Y=;
+	s=arc-20240116; t=1736411552; c=relaxed/simple;
+	bh=poarNGRIRlrFhCZq/SYxzI+AosnCkqKYGO1MLVWHu9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XqcusNUNmVxhhazQo9ANk85TaeBUpUnqsFbLi7lLcenljtWIweaZ+ZKqjQdp0nRIL911xtQyi9fHh3+1lHu8b+RbmAw8eBZoSUqHrlOynWrc+8NHM3CbAe4ksUrMTwS9rgXk5JYTVGYnF7W++l+877zeJbGWpcWx0zKJO5AYTRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUu53ssI; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91823C4CED3;
-	Thu,  9 Jan 2025 00:41:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736383304;
-	bh=OVB2+luJoN3DGClCsZ/GQQ/bAjhYMKKxqh5oUEWQI3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cUu53ssIPjF9CnKvZvDi/Lq1l3mdDI53Mou4z2JoJNAE8xhOocwlrMe9UKtMEgwIo
-	 cgAHJXzWSYfMWmS9mJNTx4+tf0JRvM+QsXKVbSgc/FvhURTYRkf0jjl1HQwEZrLoas
-	 Em7sowE2pu9uaVU11ebRqJa2+OhRQnvcb5dvfR1rzFClzP+YGtpwjGtfutemjqJxbE
-	 4jQ3L74lWKQE6x+FSG/jj1k9LIdc8rK8qRJwoKII5y4j6uJYrdowNEBwYKgujr7OUX
-	 H9Wo75+w9f5PfAuJaqZ/9xYQXvHCKvdupuMSGBauNmtcTCG8Iw9Tr9TYQuAbjXxV4N
-	 RI+dbhFpMohBQ==
-Date: Thu, 9 Jan 2025 01:41:46 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, Dan Albert <danalbert@google.com>
-Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quirk.
-Message-ID: <nwauygp7cdhazyz76wuel6vrkukvd447ijquxxswipfpucrhqh@oheowzbs2sqb>
-References: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=HCWssD5PPY/gPo3c6XjHDZLM3BikdSVOz5fx7CbLr3oe6N1THM1ndnsVY6k6NiROGGUOpjhNfUtOW+dd730OnZEdYWZ+B8XR++KoXykB7IZA/zO6V6PcUtnIT96w1si2dw5ZhdeFAoademPCOBUItG7q2e9WAAjDr5fulGsk0NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 4E79B68AFE; Thu,  9 Jan 2025 09:32:26 +0100 (CET)
+Date: Thu, 9 Jan 2025 09:32:26 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Chandan Babu R <chandan.babu@oracle.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-man@vger.kernel.org
+Subject: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
+Message-ID: <20250109083226.GA22264@lst.de>
+References: <20250109083109.1441561-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hjuh4cf2jd6dahpc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
+In-Reply-To: <20250109083109.1441561-1-hch@lst.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
+Document the new STATX_DIO_READ_ALIGN flag and the new
+stx_dio_read_offset_align field guarded by it.
 
---hjuh4cf2jd6dahpc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, Dan Albert <danalbert@google.com>
-Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quirk.
-References: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+ man/man2/statx.2 | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-Hi Elliott,
+diff --git a/man/man2/statx.2 b/man/man2/statx.2
+index c5b5a28ec2f1..7ad9c219a51d 100644
+--- a/man/man2/statx.2
++++ b/man/man2/statx.2
+@@ -76,6 +76,9 @@ struct statx {
+     __u32 stx_atomic_write_unit_min;
+     __u32 stx_atomic_write_unit_max;
+     __u32 stx_atomic_write_segments_max;
++
++    /* File offset alignment for direct I/O reads */
++    __u32   stx_dio_read_offset_align;
+ };
+ .EE
+ .in
+@@ -261,7 +264,7 @@ STATX_BTIME	Want stx_btime
+ STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+ 	It is deprecated and should not be used.
+ STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
+-STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
++STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align.
+ 	(since Linux 6.1; support varies by filesystem)
+ STATX_MNT_ID_UNIQUE	Want unique stx_mnt_id (since Linux 6.8)
+ STATX_SUBVOL	Want stx_subvol
+@@ -270,6 +273,8 @@ STATX_WRITE_ATOMIC	Want stx_atomic_write_unit_min,
+ 	stx_atomic_write_unit_max,
+ 	and stx_atomic_write_segments_max.
+ 	(since Linux 6.11; support varies by filesystem)
++STATX_DIO_READ_ALIGN	Want stx_dio_read_offset_align.
++	(since Linux 6.14; support varies by filesystem)
+ .TE
+ .in
+ .P
+@@ -467,6 +472,25 @@ This will only be nonzero if
+ .I stx_dio_mem_align
+ is nonzero, and vice versa.
+ .TP
++.I stx_dio_read_offset_align
++The alignment (in bytes) required for file offsets and I/O segment lengths for
++direct I/O reads
++.RB ( O_DIRECT )
++on this file.
++If zero, the limit in
++.I stx_dio_offset_align
++applies for reads as well.
++If non-zero, this value must be smaller than or equal to
++.I stx_dio_offset_align
++which must be provided by the file system if requested by the application.
++The memory alignment in
++.I stx_dio_mem_align
++is not affected by this value.
++.IP
++.B STATX_DIO_READ_ALIGN
++.RI ( stx_dio_offset_align )
++is supported by xfs on regular files since Linux 6.14.
++.TP
+ .I stx_subvol
+ Subvolume number of the current file.
+ .IP
+-- 
+2.45.2
 
-> Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quir=
-k.
-
-Thanks for using the full path!  :)
-
-Regarding "Add missing", I decided to transform that a little bit.
-Since most stuff we document was previously undocumented/missing, it
-doesn't help much (unless it was undocumented for decades).  I changed
-it for "Linux 6.11 allows using NULL with AT_EMPTY_PATH".
-
-On Wed, Jan 08, 2025 at 06:53:17PM -0500, enh wrote:
-> Signed-off-by: Elliott Hughes <enh@google.com>
-
-I prefer if you write the CCd people in the commit message too.
-I'll paste it anyway (when I remember).  :)
-
-> diff --git a/man/man2/stat.2 b/man/man2/stat.2
-> index 099c56b15..cfbfb654b 100644
-> --- a/man/man2/stat.2
-> +++ b/man/man2/stat.2
-> @@ -175,7 +175,9 @@ can either be 0, or include one or more of the
-> following flags ORed:
-
-The patch is corrupted.  The line above seems to have been broken by the
-mailer.  :|
-
-Luckily, it was easy enough to apply with the following pipeline:
-
-	sed '/175/N;s/\n/ /' | git am -s
-
-
-BTW, you should have a look at this:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING.d/git#n11>
-That will produce more useful hunk contexts.
-
-	$ sed -n 11,19p CONTRIBUTING.d/git=20
-	   git-diff(1), gitattributes(5)
-	       To produce useful hunk contexts in manual pages, we need to hack
-	       git(1)'s idea of a function name, and also to tell git what is a
-	       manual page.
-
-		   $ git config --global diff.man.xfuncname '^\.S[SHsh] .*$';
-		   $ mkdir -p ~/.config/git/;
-		   $ echo '*.[0-9]* diff=3Dman' >>~/.config/git/attributes;
-
-
-Thanks for the patch!  I've applied it.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D996ca597328f0c93eb6d5eea3e86b6ac277db5f0>
-
-
-Have a lovely night!
-Alex
-
->  .\" commit 65cfc6722361570bfe255698d9cd4dccaf47570d
->  If
->  .I pathname
-> -is an empty string, operate on the file referred to by
-> +is an empty string
-> +(or NULL, since Linux 6.11)
-> +operate on the file referred to by
->  .I dirfd
->  (which may have been obtained using the
->  .BR open (2)
-> --=20
-> 2.47.1.613.gc27f4b7a9f-goog
-
---=20
-<https://www.alejandro-colomar.es/>
-
---hjuh4cf2jd6dahpc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmd/G0oACgkQnowa+77/
-2zICshAAkeU/aGUSY3B/lkQA8GF8RjLjWCeJ9m16l+S+gRJ47yc9gvtAORYsY7uo
-ePXTJzdAITGypikk3KZW8BHLTic2QwTVlHKsLLBtgJIMlZo63Ffr5+If1/c0T4Qv
-7lT/vq/RKjVvnKUg2IBRRvQbiQ8ceFo6Ln0gkP13IsabVLfeL4ygYM31ou2UisqD
-YhdL9+JbvCpOd/nilTsv68bDE9WgtsRRG8ohAbAvHZg8//ylJFqnDhk8NSOhboD4
-ButV6qKOvuAZB32JdR6UC/XdZ6ni+Cy7N1l/FmCKdzcmdar1jWm/Ck2nEQskXmv5
-s6DTYCVPUgHPMzezpB/cuAbedgU84FLBkpT4qJNKM0RPQQdS+q2/R1xaHGj6JLe3
-w5wZyc2m9MBrtPK0SCjhNBVXNOwClLDsrMdAjq+C3C3/tZbieobvQZrxTwbpXAZs
-mWSS3wVHwcz5gOFOahNM1ifQjJ3SJmLfCDxe932p1whTq0qO03rK+ZXkLZiclxOa
-MrsHYgk8RpdC3Ciak/3I7+yHT2cX4lxcDVGafqHiBGF4SYif+PIc0gJsOULcqArV
-iLLG4in8lmBn1lachuMhc31WNNT4LnG7h//DXVken1JymkYWsmv0eUnGlqA8NcmU
-Ca/jlNRjPcz0K6/zc83vkdFTwAsfqDjJkwZVE27hu98TeJkwW0M=
-=T6OO
------END PGP SIGNATURE-----
-
---hjuh4cf2jd6dahpc--
 
