@@ -1,59 +1,55 @@
-Return-Path: <linux-man+bounces-2208-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2209-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB995A0772C
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 14:21:32 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BE37A07855
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 14:59:11 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CDD54168D47
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 13:21:30 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 327B37A292E
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 13:59:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3E1A217F28;
-	Thu,  9 Jan 2025 13:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3518219A8F;
+	Thu,  9 Jan 2025 13:59:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVnzvjV1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbNnM6ai"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81BD215F5F;
-	Thu,  9 Jan 2025 13:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70259219A7E
+	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 13:59:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736428887; cv=none; b=fTl0DXKXNFgc3nL0TeDDQwYKaTUTDNCF2BKzPDcC331lRn6tFKw0B8z69oDUmJoOWJ3RH7ZjHVLM85eeM74hi+zrYUprNAdKuyw249uNDlKn4ChXJWYidIaLvvDxKNM4gTGqs0rwsJktHYPgapYeumk1U+eGAAco7PObaVitu6c=
+	t=1736431143; cv=none; b=M5Rl4+svW9x1oGm8xy+P1Y2t0rre80aTRFZdg+oIpjFpfqfve3qSfZHYjcRUHG1ntf+QoMqRBm9Toq93zCcTIqqiznUapVfdzsuLFPCD17W9ZVWSc0y44igYHQ8mOBub+R11E9+p0FYTplCBMxMt4Pf0losO5UgT8H7TB/uiSe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736428887; c=relaxed/simple;
-	bh=6d+LO0dPq7EhPfFup42LjHy3/gWDPCkOtjawOogUy3Q=;
+	s=arc-20240116; t=1736431143; c=relaxed/simple;
+	bh=o5LXSvYx/07R3wTbyoEzVjmBfQ291eHYTfrXycdYrno=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fua43Kh6wYeXaIjX287teiv/R6eUnbQNg460DTLJtzjNpzTn36bYr0gOdkOJ7RWWrXuoO1amiH2u/BTICbynQSAq/74Mh9+H20zJ2KOvmGQHPQyaH0HqUdcon7chCnIQLO1yOMhyutgXTmFQdflRiCqYZK/gDQYEOAcRyV6iVh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVnzvjV1; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25AAC4CED2;
-	Thu,  9 Jan 2025 13:21:24 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=AFyMtWZm52XLH/yL8aZKk8LPjlMmzI12vJOjLSd9E11LF+ovGbFMc2juaMGtwnSWJ3KcxoOD+YAQgarVm7QiMDngigrlB0nHyF1FPQAlvXoE4NfU2YFBWnmyerH1PTkLYQVEZqRkCQBWs44OrnsghugsXux0R+/f3VDwV7T1ap8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbNnM6ai; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F26DC4CED2;
+	Thu,  9 Jan 2025 13:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736428887;
-	bh=6d+LO0dPq7EhPfFup42LjHy3/gWDPCkOtjawOogUy3Q=;
+	s=k20201202; t=1736431143;
+	bh=o5LXSvYx/07R3wTbyoEzVjmBfQ291eHYTfrXycdYrno=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gVnzvjV1pM+3JKBgDFloKrmn1ptVAmfToOSLih9Sklu5psfrlrZtZi1rdzacNN6vz
-	 kmVfYn8t9+Nw2VM5UellqXfuP1yfaR/avYHveYgMQei1JdkDJof5/FPc5NjYNSnhNl
-	 JhakAcSp9nl+qx31u2HAN0cKtDza94XYyuloRGfkpLshqd0eZ7M7yzuXD6BadVgrc7
-	 Vmgt5zrS+sntX7ZWbEXROhsOgmnU3NWllXyHZ09cfWnJ4nN/CEkvuFfDu0Ues13DvX
-	 ir4kD6hmnpeZPwW+nSuzE0CfaYTgbP1Kys3RVfhZvaFXpnltA55Xq5NKg7S2Z5jda5
-	 RF2Wlr46zLhzQ==
-Date: Thu, 9 Jan 2025 14:21:28 +0100
+	b=XbNnM6aiVdp1vo7hH2OAL7G4DPBDs5wY1VBDLbPTkTbFcKmXlGcf8AmfO1YUX+E/u
+	 U5C8AmILT9XmHenFWJgtKgB8RvJTN2xy9yj0Kj4dJQyBPtigAkLf3jSECXObFYGEL7
+	 NXLqVqjWotrY4sCsW0+jrWfgO3cLBQ4K0DhMJzJlZLm/7xAeR2fMG2BJZeRI8HSjQk
+	 QHXlSTEyyz+X6JaXRCYxf8pc8oYzCgQpBwLt1AbtTX00jGBZTdlu5A1e6nh8xbsUpG
+	 pxqZhk2bcNGycxi8UQyWFJtNZebtJ/HStGq91LNhFLt062VcdxeEP8nguwNEdVq9f3
+	 YULHpjr0aBAzQ==
+Date: Thu, 9 Jan 2025 14:59:06 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Chandan Babu R <chandan.babu@oracle.com>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Hongbo Li <lihongbo22@huawei.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
-	linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
-Message-ID: <mpmubgbnuk5vw34l6req2yctf5zdgbggq5k2zwyp2cksquuupe@gqkytiva43ca>
-References: <20250109083109.1441561-1-hch@lst.de>
- <20250109083226.GA22264@lst.de>
+To: linux-man@vger.kernel.org, groff@gnu.org
+Cc: onf <onf@disroot.org>
+Subject: duffman(1) (was: diffman(1))
+Message-ID: <64nwglzgyqvdpkruvwnp53gd35nzib7xjbluvph7mqg75cjtn6@fm4ckauriwfi>
+References: <20241125124404.h37pgmy2pxuzxevg@devuan>
+ <D5VE1OMV9LG2.3GYDJOAGFIR0F@disroot.org>
+ <20241125163421.f37ftfuxq33bax2v@devuan>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -61,154 +57,140 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2fvkxjltk6wvfh43"
+	protocol="application/pgp-signature"; boundary="ctzmvvyo5kovs35v"
 Content-Disposition: inline
-In-Reply-To: <20250109083226.GA22264@lst.de>
+In-Reply-To: <20241125163421.f37ftfuxq33bax2v@devuan>
 
 
---2fvkxjltk6wvfh43
+--ctzmvvyo5kovs35v
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Chandan Babu R <chandan.babu@oracle.com>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Hongbo Li <lihongbo22@huawei.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
-	linux-nilfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
-References: <20250109083109.1441561-1-hch@lst.de>
- <20250109083226.GA22264@lst.de>
+To: linux-man@vger.kernel.org, groff@gnu.org
+Cc: onf <onf@disroot.org>
+Subject: duffman(1) (was: diffman(1))
+References: <20241125124404.h37pgmy2pxuzxevg@devuan>
+ <D5VE1OMV9LG2.3GYDJOAGFIR0F@disroot.org>
+ <20241125163421.f37ftfuxq33bax2v@devuan>
 MIME-Version: 1.0
-In-Reply-To: <20250109083226.GA22264@lst.de>
+In-Reply-To: <20241125163421.f37ftfuxq33bax2v@devuan>
 
-Hi Christoph,
+Hi!
 
-On Thu, Jan 09, 2025 at 09:32:26AM +0100, Christoph Hellwig wrote:
-> Document the new STATX_DIO_READ_ALIGN flag and the new
-> stx_dio_read_offset_align field guarded by it.
->=20
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+I have added a duffman(1) program (script) to the Linux man-pages repo.
+It is similar to diffman(1), but it diffs the git working directory (or
+a commit, if specified).
 
-Thanks for the patch!  I've applied it.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D3eb8ef31cb5295b5eaaaf319796ea6279b7f7002>
+Here are a couple of examples.
 
-A few minor comments:
+A change in the working directory:
 
-Please add the CCd people as Cc: in the commit message.  I'll do that
-anyway, so it avoids me pasting them, and will probably make it easier
-for you to send with git-send-email(1) (or whatever you use).
+	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ git diff
+	diff --git i/man/man3/printf.3 w/man/man3/printf.3
+	index 2129e26dc..a379ae609 100644
+	--- i/man/man3/printf.3
+	+++ w/man/man3/printf.3
+	@@ -24,7 +24,7 @@ .SH SYNOPSIS
+	 .nf
+	 .B #include <stdio.h>
+	 .P
+	-.BI "int printf(const char *restrict " format ", ...);"
+	+.BI "int foo(const char *restrict " format ", ...);"
+	 .BI "int fprintf(FILE *restrict " stream ,
+	 .BI "            const char *restrict " format ", ...);"
+	 .BI "int dprintf(int " fd ,
+	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ duffman=20
+	--- HEAD:man/man3/printf.3
+	+++ man/man3/printf.3
+	@@ -10,7 +10,7 @@
+	 SYNOPSIS
+	      #include <stdio.h>
+	=20
+	-     int printf(const char *restrict format, ...);
+	+     int foo(const char *restrict format, ...);
+	      int fprintf(FILE *restrict stream,
+			  const char *restrict format, ...);
+	      int dprintf(int fd,
 
-> Subject: Re: [PATCH] statx.2: document STATX_DIO_READ_ALIGN
+(The actual output includes bold and italics.)
 
-I changed commit subjects to use the full path to the manual page.
-Also please start with uppercase after the ':'.
+And with an old commit:
 
-Also, please use version numbers for patches (v2, v3, ...).
+	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ git show 437e4afec6ca
+	commit 437e4afec6cae16ba75587f835acee1e251f2e75
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Sun Jan 5 13:44:32 2025 +0100
 
-> ---
->  man/man2/statx.2 | 26 +++++++++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/statx.2 b/man/man2/statx.2
-> index c5b5a28ec2f1..7ad9c219a51d 100644
-> --- a/man/man2/statx.2
-> +++ b/man/man2/statx.2
-> @@ -76,6 +76,9 @@ struct statx {
->      __u32 stx_atomic_write_unit_min;
->      __u32 stx_atomic_write_unit_max;
->      __u32 stx_atomic_write_segments_max;
-> +
+	    man/man3/sem_open.3: SYNOPSIS: This is a variadic function
+	   =20
+	    Specify the prototype consistently with open(2).
+	   =20
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-I didn't realize this needed a \&.  The CI reminded me.  I've amended
-that.
+	diff --git a/man/man3/sem_open.3 b/man/man3/sem_open.3
+	index 6a2aceb50..35275a024 100644
+	--- a/man/man3/sem_open.3
+	+++ b/man/man3/sem_open.3
+	@@ -15,9 +15,8 @@ .SH SYNOPSIS
+	 .BR "#include <sys/stat.h>" "        /* For mode constants */"
+	 .B #include <semaphore.h>
+	 .P
+	-.BI "sem_t *sem_open(const char *" name ", int " oflag );
+	-.BI "sem_t *sem_open(const char *" name ", int " oflag ,
+	-.BI "                mode_t " mode ", unsigned int " value );
+	+.BI "sem_t *sem_open(const char *" name ", int " oflag ", ..."
+	+.BI "                \fR/*\fP mode_t " mode ", unsigned int " value " \fR=
+*/\fP );"
+	 .fi
+	 .SH DESCRIPTION
+	 .BR sem_open ()
+	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ duffman 437e4afec6ca
+	--- 437e4afec6ca^:man/man3/sem_open.3
+	+++ 437e4afec6ca:man/man3/sem_open.3
+	@@ -11,9 +11,8 @@
+	      #include <sys/stat.h>        /* For mode constants */
+	      #include <semaphore.h>
+	=20
+	-     sem_t *sem_open(const char *name, int oflag);
+	-     sem_t *sem_open(const char *name, int oflag,
+	-                     mode_t mode, unsigned int value);
+	+     sem_t *sem_open(const char *name, int oflag, ...
+	+                     /* mode_t mode, unsigned int value */ );
+	=20
+	 DESCRIPTION
+	      sem_open()  creates  a new POSIX semaphore or opens an existing sema=
+phore.
+
+
+I found this very useful for reviewing changes.  Maybe you do too.  :)
 
 
 Have a lovely day!
 Alex
 
-> +    /* File offset alignment for direct I/O reads */
-> +    __u32   stx_dio_read_offset_align;
->  };
->  .EE
->  .in
-> @@ -261,7 +264,7 @@ STATX_BTIME	Want stx_btime
->  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
->  	It is deprecated and should not be used.
->  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> -STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
-> +STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align.
->  	(since Linux 6.1; support varies by filesystem)
->  STATX_MNT_ID_UNIQUE	Want unique stx_mnt_id (since Linux 6.8)
->  STATX_SUBVOL	Want stx_subvol
-> @@ -270,6 +273,8 @@ STATX_WRITE_ATOMIC	Want stx_atomic_write_unit_min,
->  	stx_atomic_write_unit_max,
->  	and stx_atomic_write_segments_max.
->  	(since Linux 6.11; support varies by filesystem)
-> +STATX_DIO_READ_ALIGN	Want stx_dio_read_offset_align.
-> +	(since Linux 6.14; support varies by filesystem)
->  .TE
->  .in
->  .P
-> @@ -467,6 +472,25 @@ This will only be nonzero if
->  .I stx_dio_mem_align
->  is nonzero, and vice versa.
->  .TP
-> +.I stx_dio_read_offset_align
-> +The alignment (in bytes) required for file offsets and I/O segment lengt=
-hs for
-> +direct I/O reads
-> +.RB ( O_DIRECT )
-> +on this file.
-> +If zero, the limit in
-> +.I stx_dio_offset_align
-> +applies for reads as well.
-> +If non-zero, this value must be smaller than or equal to
-> +.I stx_dio_offset_align
-> +which must be provided by the file system if requested by the applicatio=
-n.
-> +The memory alignment in
-> +.I stx_dio_mem_align
-> +is not affected by this value.
-> +.IP
-> +.B STATX_DIO_READ_ALIGN
-> +.RI ( stx_dio_offset_align )
-> +is supported by xfs on regular files since Linux 6.14.
-> +.TP
->  .I stx_subvol
->  Subvolume number of the current file.
->  .IP
-> --=20
-> 2.45.2
->=20
->=20
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---2fvkxjltk6wvfh43
+--ctzmvvyo5kovs35v
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmd/zVgACgkQnowa+77/
-2zKP/hAAiff/HOuiTtbwQXRuRtY7UOESjfLKrJM/e1SDpBYV+rtPOCoWIjU5PbAc
-4F+HgRwKvylcgb6PLk1oEOZkm8Plway4Xkq3Tz9Vg96oClWwbto66x1oqd+2Xxtk
-j+7dptOn+wnIlQdpB1HsrceadOIDXQOr8UINGwr2yhL7Cb0uyXOgShOPxbtCcYgp
-kZr8wC/+AD2drL2eORlf5A4GWXicsDqAgGRqmFX7wiTYEhnLtNqkrfCNLArvGV8M
-AmiIPzcgHraBIUWi8aiXxKYg2iqYoEHvo/vqSA+bFCba6PSVII77Fn9rYVhoaBnt
-E1q9WctVJljV/z57CAp14NHsiedGIAa/kNpsKb1UpLizvIPiVpA0qJek5tyd4M/h
-l5wGbUDp6kmhaq49Y0ZRe5hcgr4apV6HbsYcuyIwiD4VXnLguPM9U5waz0GtUk1l
-bNH9Ddvg/dwdL211qELX0PzFQh9ILd9u/5OXjHjBG2DczETycvkhl5HRgnOVUgmB
-5wrgUeSercTs7Zx/vu3twsZFIs4tjk34WexSYhMszzGfHb4eQ/LovSkzHZjn2H1f
-YJ/YH2YY3JAanJk++yagnjdqZlJDO60bIsd/LLSo0GRr649liRyWs49yXdLjU7r2
-5PuE4ri0PWePw47bu/8ZzR83E6xcBtJQmBTWyjIXI6J2h/BAUVo=
-=52Ng
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmd/1iMACgkQnowa+77/
+2zJVCxAApolzo/rC7h0X19mbdAYqazcOMu4HgKz3BtjHWOdDBrbBlB9hZqWaB5Lr
+ubUXraa+lggS9uy0IJxfVQ+xBY40E1aKM6BtXlIite5/tuMcEQYcIGBnY+7c0nzk
+OULo5xf9R873U/myJyoIZ3zGKjeNsYxNkD0KHZYbvXv5W0KmG0TeT6k0gLEWkn7F
+3qBRpDqanmuD/evjpq6qlqpvGg/zQPwDG3bHq/+frQGaaa7PyHcC3BnWLQ6dznwy
+Qp90K2inPoatBUvkmEspvsPSkmoByyls/r7r8V3TH+j32sluulIvfx8CKIWv8cGq
+whr8WbPsSh5FxkRugz8c7mF8nKilDulPlPRhSLPdMjl8TcWYBtY0tdBePGstHRli
+PHooOjVLRgABGzlLRXL5VqOjyMa7lqdpJtag65h9AQjmzwNikme9dLwoFO+0Dtk4
+OvHh8Z7qzlnZMqJw2Uuzql2Dwr5cX5foi8UP/hyXmhBnlTwxw2Y3Aeasu6h6tkkl
+6d/pXtOlpFYgk59zCDKjlPsWLwY+hSlBaOzHBqMxAjzswxuVG1+b1FiJuRGrM2Ew
+7oSs+17rkA1t6N/85w+pNUlZO7/gOqseEq7LgPAgnZbcu2CTarliibTvzK3yMyfi
+itKFOLcKcXy2PpV90nYY9eeRBTvwaE3MLWOiQiJDOiNykm4PssQ=
+=c2Gb
 -----END PGP SIGNATURE-----
 
---2fvkxjltk6wvfh43--
+--ctzmvvyo5kovs35v--
 
