@@ -1,196 +1,107 @@
-Return-Path: <linux-man+bounces-2209-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2210-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE37A07855
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 14:59:11 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5939AA07FA2
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 19:15:17 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 327B37A292E
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 13:59:03 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3F0533A64A6
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 18:15:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3518219A8F;
-	Thu,  9 Jan 2025 13:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbNnM6ai"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0BC1199235;
+	Thu,  9 Jan 2025 18:15:08 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70259219A7E
-	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 13:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA5F19D886
+	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 18:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.43.8.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736431143; cv=none; b=M5Rl4+svW9x1oGm8xy+P1Y2t0rre80aTRFZdg+oIpjFpfqfve3qSfZHYjcRUHG1ntf+QoMqRBm9Toq93zCcTIqqiznUapVfdzsuLFPCD17W9ZVWSc0y44igYHQ8mOBub+R11E9+p0FYTplCBMxMt4Pf0losO5UgT8H7TB/uiSe8=
+	t=1736446508; cv=none; b=tZlfTYSwTbMxB2OgKmO4GSdAM2fjV55YF2v8akRMn5RXorDeIyVSwKQV94UqdxTiZq3q8R2uYxFrDHIIM3gAl0f4uZY4ZSFl1/ini73rMzVVL6NBFSzdPfQJYo7E5kpek/GJuj3ddmRTyd7NqP478ztK2dolQrzMzjvVSejZhe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736431143; c=relaxed/simple;
-	bh=o5LXSvYx/07R3wTbyoEzVjmBfQ291eHYTfrXycdYrno=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AFyMtWZm52XLH/yL8aZKk8LPjlMmzI12vJOjLSd9E11LF+ovGbFMc2juaMGtwnSWJ3KcxoOD+YAQgarVm7QiMDngigrlB0nHyF1FPQAlvXoE4NfU2YFBWnmyerH1PTkLYQVEZqRkCQBWs44OrnsghugsXux0R+/f3VDwV7T1ap8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbNnM6ai; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F26DC4CED2;
-	Thu,  9 Jan 2025 13:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736431143;
-	bh=o5LXSvYx/07R3wTbyoEzVjmBfQ291eHYTfrXycdYrno=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XbNnM6aiVdp1vo7hH2OAL7G4DPBDs5wY1VBDLbPTkTbFcKmXlGcf8AmfO1YUX+E/u
-	 U5C8AmILT9XmHenFWJgtKgB8RvJTN2xy9yj0Kj4dJQyBPtigAkLf3jSECXObFYGEL7
-	 NXLqVqjWotrY4sCsW0+jrWfgO3cLBQ4K0DhMJzJlZLm/7xAeR2fMG2BJZeRI8HSjQk
-	 QHXlSTEyyz+X6JaXRCYxf8pc8oYzCgQpBwLt1AbtTX00jGBZTdlu5A1e6nh8xbsUpG
-	 pxqZhk2bcNGycxi8UQyWFJtNZebtJ/HStGq91LNhFLt062VcdxeEP8nguwNEdVq9f3
-	 YULHpjr0aBAzQ==
-Date: Thu, 9 Jan 2025 14:59:06 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, groff@gnu.org
-Cc: onf <onf@disroot.org>
-Subject: duffman(1) (was: diffman(1))
-Message-ID: <64nwglzgyqvdpkruvwnp53gd35nzib7xjbluvph7mqg75cjtn6@fm4ckauriwfi>
-References: <20241125124404.h37pgmy2pxuzxevg@devuan>
- <D5VE1OMV9LG2.3GYDJOAGFIR0F@disroot.org>
- <20241125163421.f37ftfuxq33bax2v@devuan>
+	s=arc-20240116; t=1736446508; c=relaxed/simple;
+	bh=gZXEAOUS7io7tBMCbxZ/6gvAtmjmiSN+j/m0CEv2IGc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=rDnJLfeSCuSRw58fevmH5yBFm8I0+LLZKkn5nJkmxqz41ijVpR+7kg2Pu4NAHRlndqvXH7WSIvBuhis6YNuMu5gtrt7qaa1UuCITN8PReOkSyzjXVSFEVVoymvd10gHddHkqIa355YneXfM125ZSB2d/InWwn3LFK6sra43xNtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org; spf=pass smtp.mailfrom=altlinux.org; arc=none smtp.client-ip=193.43.8.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
+Received: from geochip-laptop (unknown [83.242.179.123])
+	by air.basealt.ru (Postfix) with ESMTPSA id B012C23397;
+	Thu,  9 Jan 2025 21:06:32 +0300 (MSK)
+Date: Thu, 9 Jan 2025 21:06:32 +0300
+From: Alexander Stepchenko <geochip@altlinux.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Alexander Stepchenko <geochip@altlinux.org>, linux-man@vger.kernel.org
+Subject: [PATCH] man/man7/user_namespaces.7: tfix
+Message-ID: <bc17315eff26eb31ecc78a2c44b89dfb077813df.1736444255.git.geochip@altlinux.org>
+X-Mailer: git-send-email 2.42.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ctzmvvyo5kovs35v"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bcqi6wiralzlxcsm"
 Content-Disposition: inline
-In-Reply-To: <20241125163421.f37ftfuxq33bax2v@devuan>
 
 
---ctzmvvyo5kovs35v
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--bcqi6wiralzlxcsm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, groff@gnu.org
-Cc: onf <onf@disroot.org>
-Subject: duffman(1) (was: diffman(1))
-References: <20241125124404.h37pgmy2pxuzxevg@devuan>
- <D5VE1OMV9LG2.3GYDJOAGFIR0F@disroot.org>
- <20241125163421.f37ftfuxq33bax2v@devuan>
+Subject: [PATCH] man/man7/user_namespaces.7: tfix
 MIME-Version: 1.0
-In-Reply-To: <20241125163421.f37ftfuxq33bax2v@devuan>
 
-Hi!
+Fixes: 8c74a1cea495 ("user_namespaces.7: Clarify details of CAP_SYS_ADMIN a=
+nd cgroup v1 mounts")
+Signed-off-by: Alexander Stepchenko <geochip@altlinux.org>
+---
+ man/man7/user_namespaces.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I have added a duffman(1) program (script) to the Linux man-pages repo.
-It is similar to diffman(1), but it diffs the git working directory (or
-a commit, if specified).
+diff --git a/man/man7/user_namespaces.7 b/man/man7/user_namespaces.7
+index 40a2a53634dc..eec29c2434ce 100644
+--- a/man/man7/user_namespaces.7
++++ b/man/man7/user_namespaces.7
+@@ -286,7 +286,7 @@ .SS Effect of capabilities within a user namespace
+ .B CAP_SYS_ADMIN
+ within the user namespace that owns a process's cgroup namespace
+ allows (since Linux 4.6)
+-that process to the mount the cgroup version 2 filesystem and
++that process to mount the cgroup version 2 filesystem and
+ cgroup version 1 named hierarchies
+ (i.e., cgroup filesystems mounted with the
+ .I \[dq]none,name=3D\[dq]
 
-Here are a couple of examples.
-
-A change in the working directory:
-
-	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ git diff
-	diff --git i/man/man3/printf.3 w/man/man3/printf.3
-	index 2129e26dc..a379ae609 100644
-	--- i/man/man3/printf.3
-	+++ w/man/man3/printf.3
-	@@ -24,7 +24,7 @@ .SH SYNOPSIS
-	 .nf
-	 .B #include <stdio.h>
-	 .P
-	-.BI "int printf(const char *restrict " format ", ...);"
-	+.BI "int foo(const char *restrict " format ", ...);"
-	 .BI "int fprintf(FILE *restrict " stream ,
-	 .BI "            const char *restrict " format ", ...);"
-	 .BI "int dprintf(int " fd ,
-	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ duffman=20
-	--- HEAD:man/man3/printf.3
-	+++ man/man3/printf.3
-	@@ -10,7 +10,7 @@
-	 SYNOPSIS
-	      #include <stdio.h>
-	=20
-	-     int printf(const char *restrict format, ...);
-	+     int foo(const char *restrict format, ...);
-	      int fprintf(FILE *restrict stream,
-			  const char *restrict format, ...);
-	      int dprintf(int fd,
-
-(The actual output includes bold and italics.)
-
-And with an old commit:
-
-	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ git show 437e4afec6ca
-	commit 437e4afec6cae16ba75587f835acee1e251f2e75
-	Author: Alejandro Colomar <alx@kernel.org>
-	Date:   Sun Jan 5 13:44:32 2025 +0100
-
-	    man/man3/sem_open.3: SYNOPSIS: This is a variadic function
-	   =20
-	    Specify the prototype consistently with open(2).
-	   =20
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-	diff --git a/man/man3/sem_open.3 b/man/man3/sem_open.3
-	index 6a2aceb50..35275a024 100644
-	--- a/man/man3/sem_open.3
-	+++ b/man/man3/sem_open.3
-	@@ -15,9 +15,8 @@ .SH SYNOPSIS
-	 .BR "#include <sys/stat.h>" "        /* For mode constants */"
-	 .B #include <semaphore.h>
-	 .P
-	-.BI "sem_t *sem_open(const char *" name ", int " oflag );
-	-.BI "sem_t *sem_open(const char *" name ", int " oflag ,
-	-.BI "                mode_t " mode ", unsigned int " value );
-	+.BI "sem_t *sem_open(const char *" name ", int " oflag ", ..."
-	+.BI "                \fR/*\fP mode_t " mode ", unsigned int " value " \fR=
-*/\fP );"
-	 .fi
-	 .SH DESCRIPTION
-	 .BR sem_open ()
-	alx@devuan:~/src/linux/man-pages/man-pages/contrib$ duffman 437e4afec6ca
-	--- 437e4afec6ca^:man/man3/sem_open.3
-	+++ 437e4afec6ca:man/man3/sem_open.3
-	@@ -11,9 +11,8 @@
-	      #include <sys/stat.h>        /* For mode constants */
-	      #include <semaphore.h>
-	=20
-	-     sem_t *sem_open(const char *name, int oflag);
-	-     sem_t *sem_open(const char *name, int oflag,
-	-                     mode_t mode, unsigned int value);
-	+     sem_t *sem_open(const char *name, int oflag, ...
-	+                     /* mode_t mode, unsigned int value */ );
-	=20
-	 DESCRIPTION
-	      sem_open()  creates  a new POSIX semaphore or opens an existing sema=
-phore.
-
-
-I found this very useful for reviewing changes.  Maybe you do too.  :)
-
-
-Have a lovely day!
-Alex
-
+base-commit: 48618d7701d55ca9401b259bb4e6200d841df6d0
 --=20
-<https://www.alejandro-colomar.es/>
+2.42.2
 
---ctzmvvyo5kovs35v
+
+--bcqi6wiralzlxcsm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmd/1iMACgkQnowa+77/
-2zJVCxAApolzo/rC7h0X19mbdAYqazcOMu4HgKz3BtjHWOdDBrbBlB9hZqWaB5Lr
-ubUXraa+lggS9uy0IJxfVQ+xBY40E1aKM6BtXlIite5/tuMcEQYcIGBnY+7c0nzk
-OULo5xf9R873U/myJyoIZ3zGKjeNsYxNkD0KHZYbvXv5W0KmG0TeT6k0gLEWkn7F
-3qBRpDqanmuD/evjpq6qlqpvGg/zQPwDG3bHq/+frQGaaa7PyHcC3BnWLQ6dznwy
-Qp90K2inPoatBUvkmEspvsPSkmoByyls/r7r8V3TH+j32sluulIvfx8CKIWv8cGq
-whr8WbPsSh5FxkRugz8c7mF8nKilDulPlPRhSLPdMjl8TcWYBtY0tdBePGstHRli
-PHooOjVLRgABGzlLRXL5VqOjyMa7lqdpJtag65h9AQjmzwNikme9dLwoFO+0Dtk4
-OvHh8Z7qzlnZMqJw2Uuzql2Dwr5cX5foi8UP/hyXmhBnlTwxw2Y3Aeasu6h6tkkl
-6d/pXtOlpFYgk59zCDKjlPsWLwY+hSlBaOzHBqMxAjzswxuVG1+b1FiJuRGrM2Ew
-7oSs+17rkA1t6N/85w+pNUlZO7/gOqseEq7LgPAgnZbcu2CTarliibTvzK3yMyfi
-itKFOLcKcXy2PpV90nYY9eeRBTvwaE3MLWOiQiJDOiNykm4PssQ=
-=c2Gb
+iQIzBAABCAAdFiEEVFMC46vVZ5ezSipbJLrN3rRGHpQFAmeAECgACgkQJLrN3rRG
+HpTb2Q/9EdFow86Zj8UvT9lshw44BjRjH0tw7Jx/4UD9og4jOfoD2iSVPNck1rSC
+e8g1CZZEZW9Iw9YkWJg5Pcek15TFuHs1qd+8G+zSaIBpsH+AL7K0Wu6hGg9wFnJd
+tw3aVFZqp3UP8AQZCyJCkpAzFGbCHcgZGoeCfDG4f/sTjEi6RG8sZAadfb6yUPJn
+pIriJdGghYcQ0tkMBH5IW3dh1+LkFY9Uu3fzeeYe5lBOewokuZbvHdJnL0p76THt
+O+2Nvc1mVk5fvkZJJImX6ZJ4Pn+/da/+Ugf0zGySXpb+WkzJMQ+tyrzVe6nUREKm
+2Q45f69kLK1j+Qe6u8FhCkGlezZf4JPvfK8q4pl/7F0PlvtP1wTVKVMKpvszVpq7
+2ae9qQyAWxm5MEb7dIfmb4I4XYbbRFA8NhIyb3t7SlxlFphQ+Kpf6SL61g8Vi9fC
+903VRB3Ck6MyQCWPip4iS4Z1FbHOUEz+ynvSTD69ekK51yTVH4mibKWxQgBM8nhu
+je9fpZDfZR05Xr2phPO18WEatno+SMC/PEytLgKL/mj4y4lrK75PhZebW/GjSoYq
+2zq4aPFWbLz2CaeqkoDJYE0oMoMNSYAWQAryXemQdsNu1UdN+6qIHiLy9zXpDRhT
+eQ+WLsvuBo0R7GkcFBsKk2T7Sfw1fTbCTmygYRQDN2vITKNM6cY=
+=7QQV
 -----END PGP SIGNATURE-----
 
---ctzmvvyo5kovs35v--
+--bcqi6wiralzlxcsm--
 
