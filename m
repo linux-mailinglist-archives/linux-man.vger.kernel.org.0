@@ -1,56 +1,53 @@
-Return-Path: <linux-man+bounces-2212-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2213-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3FEEA082BD
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 23:24:39 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0AFA08336
+	for <lists+linux-man@lfdr.de>; Fri, 10 Jan 2025 00:02:37 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B04EF160C16
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 22:24:37 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8F00D188BB86
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2025 23:02:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 877A1205AD2;
-	Thu,  9 Jan 2025 22:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 097D01A707A;
+	Thu,  9 Jan 2025 23:02:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="czRXP2wh"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDF0Q/8V"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468AF204F7A
-	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 22:24:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC22E171658
+	for <linux-man@vger.kernel.org>; Thu,  9 Jan 2025 23:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736461475; cv=none; b=d/DXgdra0/woySsr+XFnr348oeRPj6+i6vcWm7UMUd0pGTrYh4BWFRnbJO4FzorjSqBu6oRX4pisuDlrYNQZ+AwLgLosDQRCDP1b/aMRHimKx/IXjjd7I02CC+jqw4hNN98IUYDjC7ECSWFNgCG948cIbAznL1R+4p8PKYKDCjI=
+	t=1736463753; cv=none; b=eKCPNqStf7ANsOkoXSNVgfRgHHGChM7NtWrGfYcxxt51sOA9zovC1YA9tlz4FxdWNKxIhNtVnqj4oFlOxJAd3imM7OJQyKbJGhWF6NxLKQGlHAhtYDHlrxeQM91EuzxojGZyznWsjJVhhkQhYqP20ePpYFQK+MIx87iRBujDv78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736461475; c=relaxed/simple;
-	bh=Shq4autqw0qGTUV52UYAijB5zbDPYKTKegv/SYCVPuE=;
+	s=arc-20240116; t=1736463753; c=relaxed/simple;
+	bh=OSDct+A6U3Q6PEqtawPhjpt0EadNKyfK8YWiVZsNIgs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D4NmkNMUSj8VI+gwrHh9VvUpp/c1vLg8fQ69R302IYO7RfrH23DsDVYJ9NlDlPVYlNpDPj32utaL3d9jiIuRTP8uF+Z17Ua8hsTCMC9sw2QJQF4zwKgp/lgAJp0Tw3ZU64ThIZ/U1kjjvSVD6q3mbc8zu1+1NDnQvImUtCrdt5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=czRXP2wh; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D19C4CED2;
-	Thu,  9 Jan 2025 22:24:33 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=PiRdX4ocmtHyCbzVji+Be35szfgHcJrPAHjVvLvJBRAKKOYXi8Lp7FJpY5Q8B4vz5IWEnojZTSpOCIh4ph8jKVS7jQEwj0S3SAF22G4cT7rKYdeajK5yQPMtzRBmXda4nHp1Rt2E8YvtvwVS38ues2z0bjJ6ZEJqmdEW+EczNWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDF0Q/8V; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8858BC4CED2;
+	Thu,  9 Jan 2025 23:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736461474;
-	bh=Shq4autqw0qGTUV52UYAijB5zbDPYKTKegv/SYCVPuE=;
+	s=k20201202; t=1736463753;
+	bh=OSDct+A6U3Q6PEqtawPhjpt0EadNKyfK8YWiVZsNIgs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=czRXP2whRJLLaAkCAOFJheGAwvMYEmMCJB2N9vaWwnBOPZNfxTzWxrFeicbmQ3y4/
-	 xzHk2AuYYSVuewRK4zFnHbvt0obP4iD+M8CKlBD5JTZ+h6WixlRmYpNwniK/lanvk5
-	 LuGvJNi69deahKrXPgRUfZ4OMxdtVESX/yW7CgmeR6hQIYC5F6xsxIWGUZGFmBuuDF
-	 M19+lM+bkrerMkALuW70tTip8YV35fmNh5qDQ+t96GuFsgdHG1cZ4X9waJnt91djrx
-	 xTsVxBRcRaAv2ZpVd6W5u6YXGoI5+zLqd/pjNIwMBb2QWJyd1IkSl76XC/2jmPHFOS
-	 N0kGRkSYl7xHQ==
-Date: Thu, 9 Jan 2025 23:24:38 +0100
+	b=aDF0Q/8V6aatz2bN7AHct1ro76kuFV4anmwQl74585QEEEcRaiFC44pzCVgNdYTtl
+	 4Zb7bft1sOvk9bpNI6U4XMeXbfk6UvCC2ns+eSJ6ulJ6QnpIWP65lybMT+zdGI4MuB
+	 ZdZL7mzaYcTY0OiYOF5GFzGdq8MAykH/FrN65PVy0hBAex2uhbvp/h5rsAQYfMMLX+
+	 8SYvc2LH8/mftnJgAC+xx8btbXYPX5tZ7FyvqGQfR8mlqHpO0pQCerZbKqgGFQq2JG
+	 ScTD5fehyyP83ucyUp3ikMRTJ8yxcwFwOFrINJYOGxtajTMh/mKNsyEgUn+QsC5CkM
+	 8SpwEWTHiUa/Q==
+Date: Fri, 10 Jan 2025 00:02:37 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, Dan Albert <danalbert@google.com>
-Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quirk.
-Message-ID: <6nzv22aujl53ew4pqenflniygkh5hchjxgrh6ikkcit5mghksp@iiiakkdxgcnz>
-References: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
- <nwauygp7cdhazyz76wuel6vrkukvd447ijquxxswipfpucrhqh@oheowzbs2sqb>
- <CAJgzZorN0mFU8UVwpWJO19+t_wTJkEApcfrRj_XcG=W54KAzAA@mail.gmail.com>
+To: Alexander Stepchenko <geochip@altlinux.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man7/user_namespaces.7: tfix
+Message-ID: <ouve4dcwfcsfzhzaqe23onzflg2meen33hbmj3w5oohmnz6wj7@5juh6pbcsvxc>
+References: <bc17315eff26eb31ecc78a2c44b89dfb077813df.1736444255.git.geochip@altlinux.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,78 +55,82 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uwxhgaon6m7iexst"
+	protocol="application/pgp-signature"; boundary="sawb3bslhtkt62fl"
 Content-Disposition: inline
-In-Reply-To: <CAJgzZorN0mFU8UVwpWJO19+t_wTJkEApcfrRj_XcG=W54KAzAA@mail.gmail.com>
+In-Reply-To: <bc17315eff26eb31ecc78a2c44b89dfb077813df.1736444255.git.geochip@altlinux.org>
 
 
---uwxhgaon6m7iexst
+--sawb3bslhtkt62fl
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: enh <enh@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>, Dan Albert <danalbert@google.com>
-Subject: Re: [PATCH] man/man2/stat.2: Add missing 6.11 AT_EMPTY_PATH quirk.
-References: <CAJgzZoqAOpJajmAnr-i9h3sPC8F_Uu0A+3eg4nkP+xTAV5fPGg@mail.gmail.com>
- <nwauygp7cdhazyz76wuel6vrkukvd447ijquxxswipfpucrhqh@oheowzbs2sqb>
- <CAJgzZorN0mFU8UVwpWJO19+t_wTJkEApcfrRj_XcG=W54KAzAA@mail.gmail.com>
+To: Alexander Stepchenko <geochip@altlinux.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man7/user_namespaces.7: tfix
+References: <bc17315eff26eb31ecc78a2c44b89dfb077813df.1736444255.git.geochip@altlinux.org>
 MIME-Version: 1.0
-In-Reply-To: <CAJgzZorN0mFU8UVwpWJO19+t_wTJkEApcfrRj_XcG=W54KAzAA@mail.gmail.com>
+In-Reply-To: <bc17315eff26eb31ecc78a2c44b89dfb077813df.1736444255.git.geochip@altlinux.org>
 
-Hi Elliott,
+Hi Alexander,
 
-On Thu, Jan 09, 2025 at 05:02:05PM -0500, enh wrote:
-> > Regarding "Add missing", I decided to transform that a little bit.
->=20
-> (no worries, i just copied that from one of your more recent changes i
-> saw in `git log` anyway :-) )
+On Thu, Jan 09, 2025 at 09:06:32PM +0300, Alexander Stepchenko wrote:
+> Fixes: 8c74a1cea495 ("user_namespaces.7: Clarify details of CAP_SYS_ADMIN=
+ and cgroup v1 mounts")
+> Signed-off-by: Alexander Stepchenko <geochip@altlinux.org>
 
-I should have asked more questions in that one.  :-)
+Patch applied.  Thanks!
 
-> > BTW, you should have a look at this:
-> > <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTR=
-IBUTING.d/git#n11>
-> > That will produce more useful hunk contexts.
->=20
-> i think the trouble here is that i tend to just check out a new clone
-> every time i have something to send to you, so this keeps getting
-> lost. is there any way you can make it a property of the git project
-> itself?
-
-I don't think so.
-<https://stackoverflow.com/a/18330114/6872717>
-
-> ... ah, actually, no, i was just on a different computer /facepalm
-
-No worries.  :)
-
-Cheers,
+Have a lovely night!
 Alex
+
+> ---
+>  man/man7/user_namespaces.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man7/user_namespaces.7 b/man/man7/user_namespaces.7
+> index 40a2a53634dc..eec29c2434ce 100644
+> --- a/man/man7/user_namespaces.7
+> +++ b/man/man7/user_namespaces.7
+> @@ -286,7 +286,7 @@ .SS Effect of capabilities within a user namespace
+>  .B CAP_SYS_ADMIN
+>  within the user namespace that owns a process's cgroup namespace
+>  allows (since Linux 4.6)
+> -that process to the mount the cgroup version 2 filesystem and
+> +that process to mount the cgroup version 2 filesystem and
+>  cgroup version 1 named hierarchies
+>  (i.e., cgroup filesystems mounted with the
+>  .I \[dq]none,name=3D\[dq]
+>=20
+> base-commit: 48618d7701d55ca9401b259bb4e6200d841df6d0
+> --=20
+> 2.42.2
+>=20
+
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---uwxhgaon6m7iexst
+--sawb3bslhtkt62fl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeATKYACgkQnowa+77/
-2zJJYw//USyhWoctKDEwmI14s2ZyfJKzPao8ohK88liLjODRR0YNPaV8nOiHd1BX
-XizqrWttgnbI9Y3MEaLCsEv/cc8RutlN3mojmogJw2/yi/iUbeN5OPw8jpWX4RKt
-kTvCES37aCu43AbHvydeIidCSmXVxR50vE4nfx0uMAau8DAIAHT600hUEY8S/DMM
-iXCjpqpSPRP9NdKZ/BjeoE92P1WMmHT1pqPHe68DHzdl++jWGKLAHEYaln7LGHzT
-xOg/OU0eV5wWBMLN7CenjFT0PxVhpmVdR0lK4I+LpQL9NbIP5m/h+aD7AIdziynV
-1FBF4OF7L2/sUNj+cXYSYNIZsYX+r6cB8YmXq+hdnrwr906ZwrjE2sZq0Ibvh/x9
-KPJEtw02xObY79hsw62c99ldH05KSKFVyF3kRBnqn2dfeX9xPEZ1JoNxYLAut1rl
-TwGMiB08AyaCGibIqa8IZ7baEiyFwAAaL5HINg06/zxUR9nxEmSs4VahvGgMmpIN
-4OEH1FB+XPHBf5sJ+8BYFMMGye0DVrHA1qXbbIX8Xsn4DPiBYfPiIj/fZypJu0xm
-Y6PIzzsVNgYfyOIP+iIG8MOzoQWTQEwyZxLnNW4q6OCEdO7uIl17PzkMy5/73LuH
-eEtz5XG4g+cFsszw4GcYHOfBpFiO0i3MxNkyggM4p6BTOEnKwmk=
-=0cMq
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeAVYwACgkQnowa+77/
+2zLKKA//fvjAB5871ipgfRLe7BhoFtIdv6EufxW0vYEDZFcHx/uoYWWL0UeRm+Ak
+E4AHtjcGofVL62JwpN8nR/XXeh/EeT7NQi61YOVt2ApwCv4NHpOZSQL+mUxuRmQC
+LrReiLT6jYblFzjSX27lFn827TwigEkHAP/zO/AUkPi0bJPZXoqRo98Ps/jlr9dm
+fyZoEs5BiUUcNVHFlvJmVWNIIOMKZT52SApSkvpfr9mnTjtgCaWCFba71HsbZmHu
+wqhoFkzesGu7M2BQNmeOHyepjiMSR7Mf2qL+qt7tQ0IwvJTH4+E50nPHaXgDpzEY
+dHDURG/ySnq6hCXyqcWyJh3ev4JSxFzPMzZPSZXa7qurEyaBLVcjJEChpSZ3IVPJ
+1QfggupQcA0MkBItSJAUTRmPFWrx4vxmCcaDRrFnrD5lGUxdJFqAiWuO+foKFnqG
+a2doXskpXSFdbgY8hIEoyeErDe4thwmsh1sNAf/VfnDly/RFLRQAXLcVQxXJmvfn
+rQTAxz33OqXJmeQJd7/M/Y0aw5EsyH2yHD3WFm/knrJJTZQhMw5b+alu/fX9knwD
+5fGmpSjAPD+vYOwt12ovd+6w+iFfMMMQrmesifJ9Z/tQ2MMcCHf6CmNIhSVcx9wR
+yu4aNacEdEvhAh+M5R8Dn8hYa5sos05/6sHPS742N8AbgWp7atc=
+=F+mX
 -----END PGP SIGNATURE-----
 
---uwxhgaon6m7iexst--
+--sawb3bslhtkt62fl--
 
