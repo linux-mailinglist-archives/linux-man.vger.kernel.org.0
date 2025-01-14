@@ -1,61 +1,61 @@
-Return-Path: <linux-man+bounces-2230-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2231-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F697A112B3
-	for <lists+linux-man@lfdr.de>; Tue, 14 Jan 2025 22:01:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05C9CA112D2
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jan 2025 22:15:18 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A43CD163971
-	for <lists+linux-man@lfdr.de>; Tue, 14 Jan 2025 21:01:53 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 24627166E97
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jan 2025 21:15:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0EBE207643;
-	Tue, 14 Jan 2025 21:01:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94FF0211488;
+	Tue, 14 Jan 2025 21:15:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b="YO4z1GaS"
+	dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b="TMd/yyxK"
 X-Original-To: linux-man@vger.kernel.org
 Received: from box.jasonyundt.email (box.jasonyundt.email [104.248.224.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F22020C47C
-	for <linux-man@vger.kernel.org>; Tue, 14 Jan 2025 21:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E441FC7FE
+	for <linux-man@vger.kernel.org>; Tue, 14 Jan 2025 21:15:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.248.224.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736888491; cv=none; b=DRZGJ0R91T0nTeyHbe9qsNv0GfibhlLdk8u1yPjqhK5rPGCrTCexMxSaRpZ1QXzcwyXHTB7ESS0+p6g+MFs7OTCuvyJkC0Cu+X9t+3fMQxvf7qAWwUwqDeOBGmP9uNaYy1bxGfNvorl4uo3NqgFtkGSxFPEzOUqr3p+Umszj59o=
+	t=1736889315; cv=none; b=qDEWWcbmhyoJar3pWQle7W9mE0zzEwCtn9B7p6OdmN5i679zh2b8h5XJ36v76Gtgclmc6DVrrLyzQOc+A8W8+O0T2gz3+fFH5wUHXVtMlvJ8ls1gvCe3KZ0agd+HrHN/WrlZpBtYj0vQ6jeBtLB28gYM2Ml7X9iHUAwLj2N7wYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736888491; c=relaxed/simple;
-	bh=julx5e34AnvJhXFxSrHa9qO2zs3rD7L13TBsnZQ8x74=;
+	s=arc-20240116; t=1736889315; c=relaxed/simple;
+	bh=aP9FPGNJ6daLCg5cvAtAIw6SNGWc1Jpd5CCDalqhdXM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hdPC32s1+QD7LIDuMIM4kaglfMccvC2WvZ3pG3FLte0bcPIpVsQTlaJKEMaoAJgTnxbki/hW+ticCjMSPLkcXEx70q5sQeRTDFGEXDULJMCgR/6YzOeH5FxjM/65ZA8tl3BY/ikFnBcE4OAZzPveLISkuhQD1kZ+S1OCvo6Op4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email; spf=pass smtp.mailfrom=jasonyundt.email; dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b=YO4z1GaS; arc=none smtp.client-ip=104.248.224.157
+	 MIME-Version:Content-Type; b=tFKy6+b+V2rJ1YpJ2Az88X+XprUBY5X7BBCZHqgmon4ELNpMAaQb1K43bmcy3AdLb2r1MSBA1HNVdkt1p6vNOcfrw3PlFVpq0zizjNI9We5JRWzWbr1yyw0y0CA5f5fHhd8Wa0OtMTHFEm43jkNAxKtYCuwWvBBh1szKRtidUQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email; spf=pass smtp.mailfrom=jasonyundt.email; dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b=TMd/yyxK; arc=none smtp.client-ip=104.248.224.157
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jasonyundt.email
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jasonyundt.email;
-	s=mail; t=1736888488;
-	bh=julx5e34AnvJhXFxSrHa9qO2zs3rD7L13TBsnZQ8x74=;
+	s=mail; t=1736889311;
+	bh=aP9FPGNJ6daLCg5cvAtAIw6SNGWc1Jpd5CCDalqhdXM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YO4z1GaS8H2cCrIAH20+uA+GgRvQWzSVaGMzwChIcK9nNVbkI68AL15nOm83ELIqj
-	 F+gPgImWyJajHt7Nw0EANhZm1jQ9fzYFRWacA579nZNXfkf8TI00g8G25bpEPXROrb
-	 wFugegwqmnsW7QDduGCtffFHcBWSzDr9hoGT5Kgu4vVy9rTbn3A+4sT0ad1m6i5+Gz
-	 OgDAzqu9jzHs9NLr/0AAnaQ35hS9djarzbexwwybTKkGcmadz4uqFXABxhLUvZnplU
-	 6lSR4hw6MiPkryhtJZuT4aEYkRbiTIh6lSVCuYgbXs9NP0Mn9eQNRjHO5ivzmGPjDS
-	 xyBcdYx4LHiIQ==
+	b=TMd/yyxK0p7UH6mRbU1hrirdX6K+P0yJGQpLIKbP+qcLUxAoyikpobLzZGfTsUi98
+	 8xROApAM+KXCMsWWeiOwQ8k/oDxXM/68fmVBb3qbm+yt1WeB6Z1nAUB46wcLu6gcl6
+	 029I61evkC0JvgR3N8nz6KyTm6JxBz37DkL2Had+Y21ewOti4xKqUWF32qIVJsk45i
+	 L/et6YVaz4P/hPsNtp18iXwBDDC87kK3uea8gq0usSzpm4wto3SnjTe2HQkoIGtJD6
+	 HM9wAzpePKU6GFYG9WndWlUofxm45qqdhZJDNHvR1FnzyHQN3cMa6xYgkUyiYoVE4Z
+	 8RJwPL9+mBuQQ==
 Received: from authenticated-user (box.jasonyundt.email [104.248.224.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by box.jasonyundt.email (Postfix) with ESMTPSA id 8E0957ED56;
-	Tue, 14 Jan 2025 16:01:28 -0500 (EST)
+	by box.jasonyundt.email (Postfix) with ESMTPSA id D48657E26E;
+	Tue, 14 Jan 2025 16:15:11 -0500 (EST)
 From: Jason Yundt <jason@jasonyundt.email>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Jason Yundt <jason@jasonyundt.email>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v3] man/man7/path_format.7: Add file documenting format of pathnames
-Date: Tue, 14 Jan 2025 16:01:14 -0500
-Message-ID: <20250114210117.157508-1-jason@jasonyundt.email>
-In-Reply-To: <20250113213301.410280-1-jason@jasonyundt.email>
-References: <20250113213301.410280-1-jason@jasonyundt.email>
+Subject: [PATCH v2] man/man7/man-pages.7: Stop telling contributors to write titles in all caps
+Date: Tue, 14 Jan 2025 16:14:25 -0500
+Message-ID: <20250114211427.160509-1-jason@jasonyundt.email>
+In-Reply-To: <20250114130028.28638-1-jason@jasonyundt.email>
+References: <20250114130028.28638-1-jason@jasonyundt.email>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,77 +65,38 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The goal of this new manual page is to help people create programs that
-do the right thing even in the face of unusual paths.  The information
-that I used to create this new manual page came from this Unix & Linux
-Stack Exchange answer [1], this Libc-help mailing list post [2] and this
-line of code from the kernel [3].
+Recently, I submitted my first patch to the Linux man-pages project.  In
+my patch, I had created a new manual page.  On the manual page’s title
+line, I had written the title of my new page in all caps because
+man-pages(7) said that I should write it that way.  It turns out that
+man-pages(7) was wrong and that the title on the title line should have
+matched the title in the manual page’s filename [1][2].  This commit
+corrects man-pages(7) so that it does not tell contributors to use all
+caps when writing titles on title lines.
 
-[1]: <https://unix.stackexchange.com/a/39179/316181>
-[2]: <https://sourceware.org/pipermail/libc-help/2024-August/006737.html>
-[3]: <https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/fs/ext4/ext4.h?h=v6.12.9#n2288>
-
-Signed-off-by: Jason Yundt <jason@jasonyundt.email>
+[1]: <https://lore.kernel.org/linux-man/rph24kz36vysoeix4qoxxxcwq3c3fskws2vmxkkgcb2lpits3f@ysm7ug66svzh/T/#mc84250a6634d7f776118879021331001cceccbe5>
+[2]: <https://lore.kernel.org/linux-man/mog6nnwzwl2dmlrec5b7l76wbxlsnklvdulok644x6o557trib@3zwtoz47r4x3/T/#mf71422d0e159210a7ca2798f2bba50a668e1410e>
 ---
- man/man7/path_format.7 | 49 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
- create mode 100644 man/man7/path_format.7
+This new version of the patch removes the ", written in ..." part like
+Alex suggested.
 
-diff --git a/man/man7/path_format.7 b/man/man7/path_format.7
-new file mode 100644
-index 000000000..c34d78f65
---- /dev/null
-+++ b/man/man7/path_format.7
-@@ -0,0 +1,49 @@
-+.\" Copyright (C) 2025 Jason Yundt (jason@jasonyundt.email)
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH path_format 7 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+path_format \- how pathnames are encoded and interpreted
-+.SH DESCRIPTION
-+Some system calls allow you to pass a pathname as a parameter.
-+When writing code that deals with paths,
-+there are kernel space requirements that you must comply with
-+and userspace requirements that you should comply with.
-+.P
-+The kernel stores paths as null-terminated byte sequences.
-+As far as the kernel is concerned, there are only three rules for paths:
-+.IP \[bu]
-+The last byte in the sequence needs to be a null byte.
-+.IP \[bu]
-+Any other bytes in the sequence need to be non-null bytes.
-+.IP \[bu]
-+A 0x2F byte is always interpreted as a directory separator (/).
-+.P
-+Filesystems may impose additional restrictions on paths, though.
-+ext4 is one example of a filesystem that does this.
-+If you want to store a file on an ext4 filesystem,
-+then its filename can’t be longer than 255 bytes.
-+vfat is another example.
-+If you want to store a file on a vfat filesystem,
-+then its filename can’t contain a 0x3A byte (: in ASCII)
-+unless the filesystem was mounted with iocharset set to something unusual.
-+.P
-+Userspace treats paths differently.
-+Userspace applications typically expect paths to use
-+a consistent character encoding.
-+For maximum interoperability, programs should use
-+.BR nl_langinfo (3)
-+to determine the current locale’s codeset.
-+Paths should be encoded and decoded using the current locale’s codeset
-+in order to help prevent mojibake.
-+For maximum interoperability,
-+programs and users should also limit
-+the characters that they use for their own paths to characters in
-+.UR https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html#tag_03_265
-+the POSIX Portable Filename Character Set
-+.UE .
-+.SH SEE ALSO
-+.BR open (2),
-+.BR nl_langinfo (3),
-+.BR path_resolution (7)
+ man/man7/man-pages.7 | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/man/man7/man-pages.7 b/man/man7/man-pages.7
+index dc117662f..0ba3991e8 100644
+--- a/man/man7/man-pages.7
++++ b/man/man7/man-pages.7
+@@ -95,8 +95,7 @@ .SS Title line
+ The arguments of the command are as follows:
+ .TP
+ .I title
+-The title of the man page, written in all caps (e.g.,
+-.IR MAN-PAGES ).
++The title of the man page.
+ .TP
+ .I section
+ The section number in which the man page should be placed (e.g.,
 -- 
 2.47.0
 
