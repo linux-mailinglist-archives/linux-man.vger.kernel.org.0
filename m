@@ -1,57 +1,55 @@
-Return-Path: <linux-man+bounces-2233-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2234-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24696A11532
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jan 2025 00:16:25 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B5EDA11558
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jan 2025 00:26:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id AE60E16989B
-	for <lists+linux-man@lfdr.de>; Tue, 14 Jan 2025 23:16:19 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 7990F7A02DD
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jan 2025 23:25:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F9A02144B5;
-	Tue, 14 Jan 2025 23:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98EDF2139DC;
+	Tue, 14 Jan 2025 23:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaV0Ky8J"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6WofnTr"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3A020F07A
-	for <linux-man@vger.kernel.org>; Tue, 14 Jan 2025 23:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DB91D47BD
+	for <linux-man@vger.kernel.org>; Tue, 14 Jan 2025 23:25:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736896575; cv=none; b=EyFq0clauDiLKQ9vz/Ltw7kNqdSvBHx1RDbWIAA02JhzTzvHeFLeUN59aE71Uiw4xr9DSZPp1IvgcftAWKFJf9VPzEg7Qv1hTS1Y+MwkcVIkEt2VktgBvog0tfirJapn++1mrIjSm1REJOLGvrXr59XNGPg/vSaATbQQ2SAZTU4=
+	t=1736897161; cv=none; b=OAMON4+egCQOFx3IPrbZfypcVprJvog/rGCe1qQRPmzub1R3/zd8A8dI/Q8YiwMTUghaNAcL8Iah5tQYGW9/4LezuFo+c/rHwyHry8jFhuKZW5hx9mRtJ69z/+udo/kkC4T0a/76WfB/+GPm85PXoKKshi6XkJKkKheDS8//n9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736896575; c=relaxed/simple;
-	bh=Y9TaOD+ge33wEmc2Oj6aslyFY+F8MLOVYO4cBbPklf8=;
+	s=arc-20240116; t=1736897161; c=relaxed/simple;
+	bh=FSBCxq5BmoQSEx4uLa937OIxD+8u32Kp8a6PvJBs5QM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b5mQAhVMq+h9zuCXy/ljk1khOHsT99z/grfsXsvguJ+8Odu6d/8eDfOKBU3sMAdoiW4DEzidwjOYR9lAJ0sFBKnNedfR7bHM1MthbqFlMh3X2lBpqBOU4ZGx3xerzFXl09qm8fPXUh9o6vlA7LxMRRzUI+DOpvcz09o6KUNN654=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaV0Ky8J; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FF6C4CEDD;
-	Tue, 14 Jan 2025 23:16:12 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=LxOKS/vFN3Mf9C2nDpijIb7dl5q2058lUnvsEg2W9l/gLtixkIi75o2aCIXCGgo4icMEPVCZUyEFAsEf8qSaCFf9B2ElIvnMqFoNGxA47urUkM9ZlpVAKz2/dzRjf/i3nYO4NeaYGdefof0luxouiOifbfo6gKDU/GF7DCUAGJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6WofnTr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27088C4CEDD;
+	Tue, 14 Jan 2025 23:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736896573;
-	bh=Y9TaOD+ge33wEmc2Oj6aslyFY+F8MLOVYO4cBbPklf8=;
+	s=k20201202; t=1736897159;
+	bh=FSBCxq5BmoQSEx4uLa937OIxD+8u32Kp8a6PvJBs5QM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FaV0Ky8JwoUVFNvKujZ+GS7EL1GmEz7RFbVfx4AnjrTpSEuYvU1kZW2qo9bzHfmF4
-	 u1Uj0tQ4sDqJTxLm4JnPO3sjreMKfFWmnM/GnuOiAjb1pepMF4W/49AhKBZT5LfZwt
-	 58+5EZ90f+pL6wuN8cPXP0xyAyZfb63YJL4egpczuFD8IWHlikcAbqcbVFCmRv6+rQ
-	 GnoCtUGEljZEnIfbBRKvuaC9+fRzr5MgA3OW5v5NYp+QaEQW7VozG7JixRFE+Wa8IT
-	 dj96DeFovnFV1NnZQvo1lfmmtjpCYGvAGnl+ERCVLzUIBj4R3ffj+nNK4NuAMkQTCS
-	 wSVXv+50OETng==
-Date: Wed, 15 Jan 2025 00:16:22 +0100
+	b=V6WofnTr2lczhUpK4//fbvduMfeSgw/UqWmzoymwIdfSxIPkOt34Q9chSt7Tr7Vp4
+	 9tHIIa7it/LR7cs/iD+fiZe06ggIIxqYoa76CV0wW1tO+rYRSTf+cdhWdHrEYkYyeJ
+	 jIYjAmEXqFViBHDIu5sXmhpW+FI8nDkErCMrcw+9nBnjhz9/yFsfjTO4iMphTFhlVZ
+	 O0vxGm4K+6jon9PeqK8+c0MMsFDMIaoYkfNVvsLbRdd4LoP0vK/FdjIunUSWuToukG
+	 D7Cxcpv6LfhyHBRl1FdHYXH6RoWffNtwsRgWds9+29yhPVjgIPZv7vQuMMNo+8JDqM
+	 reTk+O8JZVbhQ==
+Date: Wed, 15 Jan 2025 00:26:08 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>
-Subject: Re: Man page titles, identifers, capitalization, and hyphens therein
-Message-ID: <d7ee53vahk2atqk2bz3fnwvzkp63vthymrd2adeiyzjhqlv4bc@pcc2vxtpintm>
+To: Jason Yundt <jason@jasonyundt.email>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man/man7/man-pages.7: Stop telling contributors to
+ write titles in all caps
+Message-ID: <bjjq5xfz5kzcqgqpegt3k33hv6cprrpj2vmqupba4g7nssedvp@u2zqmyey5wex>
 References: <20250114130028.28638-1-jason@jasonyundt.email>
- <mog6nnwzwl2dmlrec5b7l76wbxlsnklvdulok644x6o557trib@3zwtoz47r4x3>
- <20250114151504.3wipct4hpkuzn57t@illithid>
- <ndy2h5rm2azltvcozordn66sl5fn6lipmen32qhgtjgyuxgt4p@fnlasx4tg7ax>
- <20250114155214.3rdz4zwqim2gyhfc@illithid>
+ <20250114211427.160509-1-jason@jasonyundt.email>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,101 +57,98 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kfcz2arx2ounftmm"
+	protocol="application/pgp-signature"; boundary="rqrrgge636orlx2j"
 Content-Disposition: inline
-In-Reply-To: <20250114155214.3rdz4zwqim2gyhfc@illithid>
+In-Reply-To: <20250114211427.160509-1-jason@jasonyundt.email>
 
 
---kfcz2arx2ounftmm
+--rqrrgge636orlx2j
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>
-Subject: Re: Man page titles, identifers, capitalization, and hyphens therein
+To: Jason Yundt <jason@jasonyundt.email>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man/man7/man-pages.7: Stop telling contributors to
+ write titles in all caps
 References: <20250114130028.28638-1-jason@jasonyundt.email>
- <mog6nnwzwl2dmlrec5b7l76wbxlsnklvdulok644x6o557trib@3zwtoz47r4x3>
- <20250114151504.3wipct4hpkuzn57t@illithid>
- <ndy2h5rm2azltvcozordn66sl5fn6lipmen32qhgtjgyuxgt4p@fnlasx4tg7ax>
- <20250114155214.3rdz4zwqim2gyhfc@illithid>
+ <20250114211427.160509-1-jason@jasonyundt.email>
 MIME-Version: 1.0
-In-Reply-To: <20250114155214.3rdz4zwqim2gyhfc@illithid>
+In-Reply-To: <20250114211427.160509-1-jason@jasonyundt.email>
 
-Hi Branden,
+Hi Jason,
 
-On Tue, Jan 14, 2025 at 09:52:14AM -0600, G. Branden Robinson wrote:
-> Hi Alex,
+On Tue, Jan 14, 2025 at 04:14:25PM -0500, Jason Yundt wrote:
+> Recently, I submitted my first patch to the Linux man-pages project.  In
+> my patch, I had created a new manual page.  On the manual page=E2=80=99s =
+title
+> line, I had written the title of my new page in all caps because
+> man-pages(7) said that I should write it that way.  It turns out that
+> man-pages(7) was wrong and that the title on the title line should have
+> matched the title in the manual page=E2=80=99s filename [1][2].  This com=
+mit
+> corrects man-pages(7) so that it does not tell contributors to use all
+> caps when writing titles on title lines.
 >=20
-> Thanks for clarifying a couple of points.  I have...
->=20
-> ...counter-clarifications!  :P
+> [1]: <https://lore.kernel.org/linux-man/rph24kz36vysoeix4qoxxxcwq3c3fskws=
+2vmxkkgcb2lpits3f@ysm7ug66svzh/T/#mc84250a6634d7f776118879021331001cceccbe5>
+> [2]: <https://lore.kernel.org/linux-man/mog6nnwzwl2dmlrec5b7l76wbxlsnklvd=
+ulok644x6o557trib@3zwtoz47r4x3/T/#mf71422d0e159210a7ca2798f2bba50a668e1410e>
+> ---
+> This new version of the patch removes the ", written in ..." part like
+> Alex suggested.
 
-:P
+Thanks!  I've applied this patch:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D6eb4c25e3744c9ccbb68af70da1889594cc732b3>
 
-> > For consistency with "TH" (title heading?), I think I prefer "title".
->=20
-> Except in *roff(7), "titles" are the term given to headers and footers
-> collectively; the content of these is precisely what the `TH` macro
-> configures; and arguments beyond its first are just determinative of
-> "title" content.
-
-Hmmm, makes sense.
-
-> > filename is the file name.
->=20
-> No disagreement here.  I would say that "filename" is an excellent C
-> identifier, but it is not English.  Novice man page authors have a
-> terrible habit of porting C identifiers into English prose as if they
-> were the same language.  Possibly this practice arises from a feeling
-> of greater confidence and a self-assessment of more experience
-> expressing themselves in C than in English.
-
-I have been tempted to do a reform, and change man-pages(7) to recommend
-using file name and file system (etc.) instead of filename and
-filesystem.  I find it inconsistent that it recommends filename but
-recommends user space.  I would either use a neologism in all of them or
-in none of them, but find the status quo arbitrary.
-
-So far, I've had more important food in my plate, but at some point I
-might take a fork and a knive and start with it.
-
-> > > > if the name is something like UTF-8,
-> > >=20
-> > > (by which you mean "uses code points outside the Basic Latin range")
-> >=20
-> > Nope.  I meant UTF-8(7):
->=20
-> Oh, ha!  I'd have quoted it in that case -- use/mention distinction. ;-)
-
-Thanks!  Indeed, I should have.
-
-
-Have a lovely night!
+Cheers,
 Alex
+
+>=20
+>  man/man7/man-pages.7 | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>=20
+> diff --git a/man/man7/man-pages.7 b/man/man7/man-pages.7
+> index dc117662f..0ba3991e8 100644
+> --- a/man/man7/man-pages.7
+> +++ b/man/man7/man-pages.7
+> @@ -95,8 +95,7 @@ .SS Title line
+>  The arguments of the command are as follows:
+>  .TP
+>  .I title
+> -The title of the man page, written in all caps (e.g.,
+> -.IR MAN-PAGES ).
+> +The title of the man page.
+>  .TP
+>  .I section
+>  The section number in which the man page should be placed (e.g.,
+> --=20
+> 2.47.0
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---kfcz2arx2ounftmm
+--rqrrgge636orlx2j
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeG8DwACgkQnowa+77/
-2zJTBQ/+OfqdF6YtyVq4+WwZcdTRYx1coEL0nPqwNu3u2cv1myDss0bsBy2iZ1iX
-W1AHfRu6lt6tmueUBnX0PZcl06FrB5drEfaopigN/DCYuGrZd9Vd3DvJLjU8ScTY
-2FCYfCdaVymKCZjmOwHY/5SeQ/x5xbjEy7lcqunIdchyeh6TFU9oPIPOj4VsJqC8
-eOsmXsg1rqYo6SMLUnZ5KdRCfNZOLw5URNUeuYftn4urqf9kqebgsKVCcqcrSDvY
-0RM0Z1cUFFbHTQYTjZymm9BTDwtdoPCCb91H6qy+tQUXIXt4P9n+hFKKML+UxNGg
-JA3NV1vuaJtlKt7Str4/xFIgXzREYgLfI18SPriR+AERHwrXTEKI9Ocp7KYUuAXG
-uB2VQuAz4yhZAhUtYLkPd1zREbKD1QD14Mh6TP4KsGHJb5uPM2RsT5yleJNHs3a7
-zVhvais012HiUr99XalWRdl0r9EfYphEAM1VSWZGhpc5dv4nuP6OfYCgV6kwtCHf
-mbuilDTpY7GXMbMyR8Oa92A/xfUUwXlt2mq3SLg242Tg/FPbiS93pHhcz1geCwd0
-yxyTyxLxBeSgVTunxYvDeRoL6bEcmaJfIm5SFx4IEuERZOTaLnasLnYxXqxwUhTu
-VzqCAwzl0jEd6DYHY677kWT6IYYKHii6KxxSsOgpE2LE3d0dfzI=
-=O2tG
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeG8pAACgkQnowa+77/
+2zLwTA/+Ovu5cKenVa5rq95mN6yYeIY+3sWQhMBUnUsanNxyZq/4gOwWRQiOd6BG
+rIWRvErwABIhB8gUDTGExQ9DEdA97mrHCX2mnbABrqi++UBf+4FJKAYmY3bccMnE
+SVsJBxh5MJ2Ni33MskdNB9pEd5KOy2MbyXzngmmHAhj5sFnPNB+YeNapL98YywRo
+tybEnAl66cqixj6LtCEawiqrp0tLHfeN8Y6IIBMrE4+siIdFN44ISM12W+tqp12y
+tNLHnnzI3yZH76saaciGqdqfWaDuDZjBr5fB0bYhRoPQrzg/mea2cdSE55CXMzde
+8f3r01XGPofLffKqMlw+MDyon4mym7wLHsifYIhkruQDxs48oSV60opztAA8JYdJ
+oNvbCPtPnV1Vt0x68NiCeZPOoVqXs3glP7caWwSINaRCIALTz2yIbKSIF+7aJ3Z5
+2+j1gInbBU5JPiS0Bf42LWzaNI+VTZEr9VRuUdrBxgRYWP/X6uvKlwEgh9wwyUNO
+hi8TroiwXqQTTEvw7Ayes3AD+l4NfFfzfdARmOmuIQ2C5aI7gtYP28tjYnr77Nbn
+jJfwio7mTabN4mdWJcNgiOw46b8n9JtH31JC/5/iS/62dm3LOdWPQVnYEsNCYlEW
+vR3r/AYGRo1fvV1TVgh5thygHB4QqPlaPT24Cp4oDdJKCVdXw2U=
+=0iW3
 -----END PGP SIGNATURE-----
 
---kfcz2arx2ounftmm--
+--rqrrgge636orlx2j--
 
