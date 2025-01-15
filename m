@@ -1,158 +1,95 @@
-Return-Path: <linux-man+bounces-2238-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2239-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FBDA12926
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jan 2025 17:47:53 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FAEA12980
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jan 2025 18:12:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 02AFE1612E6
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jan 2025 16:47:52 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0021C167231
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jan 2025 17:12:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C0FC192D69;
-	Wed, 15 Jan 2025 16:47:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 759D91A239C;
+	Wed, 15 Jan 2025 17:12:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r4EqfNVl"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ph0qFxeD"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE991304B0
-	for <linux-man@vger.kernel.org>; Wed, 15 Jan 2025 16:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3F915688C
+	for <linux-man@vger.kernel.org>; Wed, 15 Jan 2025 17:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736959670; cv=none; b=FlODNWHuDAeNDyJFtzJs68ncrSZUXff2WJueJABpLoB0m4YjQ8p3pS7NkW9Y4EtNYD+Ot7/hIZTnVyGmVDWIyBW3iQ1eJQKifP+6QOj+RlLrSnl7hMAgLYvYqfEvZwM0YElO8HZM3qaYSc8nLw1p9azx6iKbmexq9BLQykDPB9c=
+	t=1736961136; cv=none; b=g3WVCV/w8lskY4WKX5BRHHshPE6PhUg69D1RWHvxl+4taC+7GiY/n1qrXt6S6FaS5MHLZa0U9nRAV8aBPuIOZwZXqN10+Ofq1goUbPsWuPKrryz1an5PuNwYB3EYT6Rd73q+Xd9juo3feMwGSGD1XXHX8lYUdP7MCVCP94vvnNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736959670; c=relaxed/simple;
-	bh=HT+B+wegoilDrgdtGX9JuckRHjMoRthJRX3gKnP6Qf4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PsSibAYDYhxKoq64C5w3ClyszMWPuUN2LZQNUsZh0Ifm/eZ1/HlA8119dJ1xZRD4wMGXWrCpQPKvd42LkvrxmgDPRqSwBWc61duRAOJP/mfGxam9nU4w3aq5RDxpEwm8KxqZ2fP3rPJaGm0L7w3ogdTOid1amfWdjhTNrU49v4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r4EqfNVl; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37E6C4CED1;
-	Wed, 15 Jan 2025 16:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736959669;
-	bh=HT+B+wegoilDrgdtGX9JuckRHjMoRthJRX3gKnP6Qf4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=r4EqfNVlrgo7YwFCNmxVXVAWM6YcEH3hks8pVf6Qee13InvQkIkIGgghTjBqQli40
-	 XEFQqs69S7DsDJjiNfqIxJwPfEBsxxpg1ND45NJpvrjuRPWDNwsPnZKFm1YJos4SIN
-	 2yuLeSfv9q0fwbX/gptZnJfobAnG9qd9SPuUoWRu4K/jrJBbebGaY07IJexSjFBh7H
-	 b9beklYYHf8yKQgHA5fklnZMEOF151wzniX47ThDLfnqRcwzTlhheFccvTVMmLuYhW
-	 YgQB/mT7hr1gbOfy+9v/OUbmE6LIXChvOvGosPyoNhvFXcVakYIK/n89y9SpV/yEdv
-	 Z8HaeokIpS/2w==
-Date: Wed, 15 Jan 2025 17:47:58 +0100
-From: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1736961136; c=relaxed/simple;
+	bh=Q+8QgaTEw5b5LXwvCl3tHAzrSKTDngbQZg7cE3RyT8o=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NOOnFFi4j+IA28D7Nn9ZLpnqa1kpK/zfTT+giwVeU1SqdpBQA9HA+GQfYe1udyceQ2QewtjDG+FuMYhFKexVdIvsg3PfV9ZemLKFdp5j+ONIubl1C6odSxvinBLVLqqeNNSHnVj/PY8xDujCqV7IKig6pHQ64PKtZlgpDFSLqk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ph0qFxeD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1736961133;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRQHDpuqg7ZYVjVOKwelrDede3vxXPe7ykn50k0p3B0=;
+	b=Ph0qFxeDunVjposoEUeK/iDmqJQ8oTR5bTKx58tDh0drtxbukTFUosA/Zrly1k/82ehJEz
+	9QA5Nyz4vMLal+II7QzUGbogTQfKw3WOj5U1ofVyjpVdUjtIYc7147Cm6CxtpIkcx0XD1p
+	WxvIvva52mzbnLBJdrqqtvFyY5t4Izk=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-345-k08CgrhyMTWwqUs6M9zRzw-1; Wed,
+ 15 Jan 2025 12:12:09 -0500
+X-MC-Unique: k08CgrhyMTWwqUs6M9zRzw-1
+X-Mimecast-MFC-AGG-ID: k08CgrhyMTWwqUs6M9zRzw
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CB79C195608A;
+	Wed, 15 Jan 2025 17:12:08 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.2.16.35])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 398FA1944D01;
+	Wed, 15 Jan 2025 17:12:06 +0000 (UTC)
+From: Florian Weimer <fweimer@redhat.com>
 To: Jason Yundt <jason@jasonyundt.email>
-Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>
-Subject: Re: [PATCH v2] man/man7/path-format.7: Add file documenting format
- of pathnames
-Message-ID: <btbgsc6gxcspjihye3nm6wippj433j6qwdyxi6mqsyujer3s5k@o4sgqstgofmp>
+Cc: Alejandro Colomar <alx@kernel.org>,  linux-man@vger.kernel.org
+Subject: Re: [PATCH v4] man/man7/pathname.7: Add file documenting format of
+ pathnames
+In-Reply-To: <20250115162052.131794-1-jason@jasonyundt.email> (Jason Yundt's
+	message of "Wed, 15 Jan 2025 11:20:51 -0500")
 References: <20250113213301.410280-1-jason@jasonyundt.email>
- <20250114125453.27520-1-jason@jasonyundt.email>
- <4hr3zjbop6w5bsvcm4op32akjibwt4vkz52itcdjsdjpsvp7cs@nfahhxnwzlsk>
- <r6bjj4gemyri65nlgq5pm4sro5cdkuml4d5f5nelyuebinb2u7@yuf4ducafb2v>
- <lkualciyuk7hv7dcpcvp5xprtq3gmiscogr5lcjhvh56cia2my@bm5opv5k3adj>
- <rltbzsovlb3yapb5r2t7gsv3b433i7kfuo27raojktdkabhlcz@p26ufmtcjhih>
+	<20250115162052.131794-1-jason@jasonyundt.email>
+Date: Wed, 15 Jan 2025 18:12:04 +0100
+Message-ID: <87y0zcgfx7.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7uyt3d2u6oysftul"
-Content-Disposition: inline
-In-Reply-To: <rltbzsovlb3yapb5r2t7gsv3b433i7kfuo27raojktdkabhlcz@p26ufmtcjhih>
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+* Jason Yundt:
 
---7uyt3d2u6oysftul
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Jason Yundt <jason@jasonyundt.email>
-Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>
-Subject: Re: [PATCH v2] man/man7/path-format.7: Add file documenting format
- of pathnames
-References: <20250113213301.410280-1-jason@jasonyundt.email>
- <20250114125453.27520-1-jason@jasonyundt.email>
- <4hr3zjbop6w5bsvcm4op32akjibwt4vkz52itcdjsdjpsvp7cs@nfahhxnwzlsk>
- <r6bjj4gemyri65nlgq5pm4sro5cdkuml4d5f5nelyuebinb2u7@yuf4ducafb2v>
- <lkualciyuk7hv7dcpcvp5xprtq3gmiscogr5lcjhvh56cia2my@bm5opv5k3adj>
- <rltbzsovlb3yapb5r2t7gsv3b433i7kfuo27raojktdkabhlcz@p26ufmtcjhih>
-MIME-Version: 1.0
-In-Reply-To: <rltbzsovlb3yapb5r2t7gsv3b433i7kfuo27raojktdkabhlcz@p26ufmtcjhih>
+> +.IP \[bu]
+> +Filenames can be at most 255 bytes long.
 
-Hi Jason,
+I don't think this is accurate, particularly not for network file
+systems and file systems that use UCS-2 or UTF-16 internally.  The
+latter typically have their own 255 character limit, but a character can
+take up to 3 bytes in UTF-8 (as used by Linux).
 
-On Wed, Jan 15, 2025 at 11:21:02AM -0500, Jason Yundt wrote:
-> > Makes sense.  How about a null-terminated string?
->=20
-> The term null-terminated string still has some of the problems that I
-> mentioned earlier.  Specifically, people think of null-terminated
-> strings as sequences of characters.  It=E2=80=99s easier to understand ho=
-w the
-> kernel handles paths if you think of paths as sequences of bytes, not as
-> sequences of characters.
+This is why we deprecated readdir_r.
 
-Hmmm, okay.  Maybe I'm too biased as a C programmer, and this being a
-generic page for users it makes sense to use other terms.
-=20
-> That being said, I think that you misunderstood my two questions.  You
-> told me the current state of things.  I=E2=80=99m not asking about the cu=
-rrent
-> state of things, I=E2=80=99m asking about a hypothetical future where pro=
-grams
-> started to =E2=80=9Cassume the Portable Filename Character Set (or at mos=
-t some
-> subset of ASCII), and fail hard outside of that=E2=80=9D.  If we start ma=
-king
-> that recommendation and programs start following that recommendation,
-> then it sounds like I wouldn=E2=80=99t be able to do anything with a larg=
-e part
-> of my music collection,
+Thanks,
+Florian
 
-You could rename that music into something usable, and then use it.  :)
-
-> and it sounds like I wouldn=E2=80=99t be able to use the
-> symbolic links that are in my /dev/disks/by-partlabel directory.  Am I
-> understanding your recommendation correctly?
-
-I would be happy in a world where all tools are restricted to the
-portable filename character set.  I once toyed with a patch for
-enforcing such filenames in the kernel, just for fun.
-
-On the other hand, I see the usefulness for others in programs trying to
-work with other stuff.  So the manual page makes sense, and I'll swallow
-my disagreement.  :-)
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---7uyt3d2u6oysftul
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeH5rgACgkQnowa+77/
-2zJNOQ//U6chffQIvBIIVaTuSm0NVsJ34xNyAojmjQXda/Xj+dVIu9aRfV1Wn25H
-f/tImfY1ZfbA5k/TxzIfjFoIR4dxyvex43CIYOds/TVMdSrUn4XR2zEenJ0ltVK6
-uyOeaF8QAoeFftz1voQLAuor1Mnnfm9TgeJX04MqBWQVOVDJIa1EGRdNxynq77Rf
-I0RH0FeJkHV3fsbw75/l0osTjDTVQAAMPz0Iz4lVitfw6tK7yK6hINqzN5jKcKLk
-Vih2RxVdhEUjHNI05enw8YO4MPpzCc5341wIliV8ihmce0jdWhnbxkbExXqm2vWq
-HGY9xPTqy1x6D0SKDfnL1SoAv+oE5bduy/TyJlgb8H4PTgUYXG2fTJRFDPureOX0
-N4C1GhVICTbhRvaRsCi8VgA3NW0o9upT8DiDZpwvIzEk9RIs8CXBhbjD3VmN9aX2
-uv6LqZKL1o/ln8IqFfQ/i21X1mYXYCqZTWf5xAuHuE/zPU3dQtcZoR44GV9byRL7
-NL0nORWfdVRUg9yPPwRoASFyfRnbsqEnU4TwLfHJu8eRhGnEvWdVFrtZNo2tFawP
-p9qYYogL5NXHlY2kogPQSvxS7JFM517GWjQodBtW0gkb2EJ1C1GCGWlv38JK/MPa
-ndzPTLj4F1r+ZSoM1fsx4i9Xbcs9V0ZgEGkKuVHe4+I7TPIHnjA=
-=6i8o
------END PGP SIGNATURE-----
-
---7uyt3d2u6oysftul--
 
