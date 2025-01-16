@@ -1,149 +1,96 @@
-Return-Path: <linux-man+bounces-2251-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2252-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AF48A13C6D
-	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 15:37:51 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id C93CAA140A6
+	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 18:20:04 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id BF03E188DB40
-	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 14:37:54 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DEF5D168FD9
+	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 17:20:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 146CF22B8A2;
-	Thu, 16 Jan 2025 14:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07DB02309B8;
+	Thu, 16 Jan 2025 17:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DzIGp7g7"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWDASun1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E07D22B58E
-	for <linux-man@vger.kernel.org>; Thu, 16 Jan 2025 14:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD69A153808;
+	Thu, 16 Jan 2025 17:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737038259; cv=none; b=fcLliLSMM3LHzUSXx59mlRhXfQlWc/u7wcZ2CzbJ/VRet6y8If2rOElARBq4z9+Hy/M37cbrE18az4hnSGpsA346H4S37OIU9T5XkHoQiBDck3aek3/Nj5s0uFvHSWY4QzT18znCXlrpgWjxQV6YMolHHLBwYGHZXw4NY9Rcq28=
+	t=1737047966; cv=none; b=NnSmPena1mjvFpfQYN4TiTsww0WYm2We6YUXRF31zIN95X5PlM4B9CQUybOkHWQ/5Tx5KbcSlcXLn0Uoiq5Z1qW98ddNK7oSKKgT07dZxoFWg2prlPBJFA895hAt0EZ3guFd8t7SdPJFrj7Jyimr5E+lIFM7k/OpxVVGln7IPKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737038259; c=relaxed/simple;
-	bh=Ugtpl9SH7y98fH6v7GsT0453yzZih4TWy5rrUGcv79I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=AKUdKHxnaHXHi9Hg0DtfTKuU3gecgNut/4JJFrX1aD2WXuxTA1HLlKebKi6XIGi4qClXN+0LF8P9LkJIuKS6OqtyaETthidsFZw9lFv3DlRwI/h3rhTYWp5usTA5STGQFiDbb8CHc3IXr2hIYBjdebFa9B40tQFn0NeBW8SvpgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DzIGp7g7; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1737038257;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=365y7JlHC80N2S+oGkqBXtlk3XrzLwH2T51QQBHq03E=;
-	b=DzIGp7g7qZUkCGcbYD8JcoBQyMZQaNHTxq6+wUI22vdZtmafx7tuv4ZK+Z6YFhLZ2jn2F4
-	suTZzQiSnR5Dky+oZ/J0m38+AUG2LCcQXuwxhX8ljbYX4N1UnUoDfuIVKPcpGbXmUq/w9o
-	s8bI9s6LIkYMjrAqcxttg4qofBcSso4=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-623-PL23JHHZPK27gQ5I_V-0tw-1; Thu,
- 16 Jan 2025 09:37:34 -0500
-X-MC-Unique: PL23JHHZPK27gQ5I_V-0tw-1
-X-Mimecast-MFC-AGG-ID: PL23JHHZPK27gQ5I_V-0tw
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DD3DB19560B4;
-	Thu, 16 Jan 2025 14:37:32 +0000 (UTC)
-Received: from isengard.. (vm-10-0-109-147.hosted.upshift.rdu2.redhat.com [10.0.109.147])
-	by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2CEFF195608A;
-	Thu, 16 Jan 2025 14:37:32 +0000 (UTC)
-From: Phil Auld <pauld@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Carlos O'Donell <codonell@redhat.com>
-Subject: [PATCH v2] man/man7/sched.7: Mention autogroup disabled behavior
-Date: Thu, 16 Jan 2025 14:37:47 +0000
-Message-ID: <20250116143747.2366152-1-pauld@redhat.com>
+	s=arc-20240116; t=1737047966; c=relaxed/simple;
+	bh=YIoWdKHGdFmsZJhT/FUx6sQICOoP0aC2w3v4diiifNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PAZxYxie7hmBLfH21h2OIfKRhhf594b8YSPLFYP9aifDUcDjujav12+k1KjRp5Sx9w4O78Me4VR18yrreQjjtZzge+LH3yv7WRhiUBS5wN2kAL7Gb2y7C+mFeFozHg88s+SWT1ajPB7QV06f78ahR9ndJuYzyBqvQKgQqE4v/ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWDASun1; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63B6C4CEE2;
+	Thu, 16 Jan 2025 17:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737047966;
+	bh=YIoWdKHGdFmsZJhT/FUx6sQICOoP0aC2w3v4diiifNg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KWDASun1oa3I5A0jonA1qX+rkJH+mPfklPrR3+kUsyVih2hdO2dEMlY05XL8WJF9e
+	 +yFUt6VgOCkIvGT75OxuRkEFsRkvMVHnkSgGuaQTt4U3ZtC8t5inP2v8117FJWh3Ho
+	 6Cv0xUF0+n8duBz4M37XdjCVS1C9Scuov/yCP7yO2WTUZuncKsYY4BRIE7By5VIcsD
+	 sTA0KirRW9AsOS3Ok6IaaBcf5DyuWJ2w6c0sflr3lnoPne6MLVra7dm564sbUd9Ni0
+	 F16fKJYG5VkOS436XrHO3C0KLpIABvqqzbgHIJr7CBKidmXLt/QuPeugLZQl0ohCiB
+	 H1S2yWUo0cDaA==
+Date: Thu, 16 Jan 2025 17:19:24 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+	Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/2] f2fs: register inodes which is able to donate pages
+Message-ID: <Z4k_nKT3V1xuhXGc@google.com>
+References: <20250115221814.1920703-1-jaegeuk@kernel.org>
+ <20250115221814.1920703-2-jaegeuk@kernel.org>
+ <Z4imEs-Se-VWcpBG@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Z4imEs-Se-VWcpBG@infradead.org>
 
-The autogroup feature can be contolled at runtime when
-built into the kernel. Disabling it in this case still
-creates autogroups and still shows the autogroup membership
-for the task in /proc.  The scheduler code will just not
-use the the autogroup task group.  This can be confusing
-to users. Add a sentence to this effect to sched.7 to
-point this out.
+On 01/15, Christoph Hellwig wrote:
+> On Wed, Jan 15, 2025 at 10:16:51PM +0000, Jaegeuk Kim wrote:
+> > This patch introduces an inode list to keep the page cache ranges that users
+> > can donate pages together.
+> > 
+> >  #define F2FS_IOC_DONATE_RANGE		_IOW(F2FS_IOCTL_MAGIC, 27,	\
+> > 						struct f2fs_donate_range)
+> >  struct f2fs_donate_range {
+> > 	__u64 start;
+> > 	__u64 len;
+> >  };
+> 
+> > e.g., ioctl(F2FS_IOC_DONATE_RANGE, &range);
+> 
+> This is not a very good description.  "donate" here seems to basically
+> mean a invalidate_inode_pages2_range.  Which is a strange use of the
+> word.  what are the use cases?  Why is this queued up to a thread and
+> not done inline?  Why is this in f2fs and not in common code.
 
-The kernel code shows how this is used. The
-sched_autogroup_enabled toggle is only used in one place.
+The idea is let apps register some file ranges for page donation and admin
+recliam such pages all togehter if they expect to see memory pressure soon.
+We can rely on LRU, but this is more user-given trigger. I'm not sure whether
+there's a need in general, hence, wanted to put it in f2fs first to get more
+concrete use-cases beyond this Android case.
 
-kernel/sched/autogroup.h:
-
-static inline struct task_group *
-autogroup_task_group(struct task_struct *p, struct task_group *tg)
-{
-        extern unsigned int sysctl_sched_autogroup_enabled;
-        int enabled = READ_ONCE(sysctl_sched_autogroup_enabled);
-
-        if (enabled && task_wants_autogroup(p, tg))
-                return p->signal->autogroup->tg;
-
-        return tg;
-}
-
-task_wants_autogroup() is in kernel/sched/autogroup.c:
-
-bool task_wants_autogroup(struct task_struct *p, struct task_group *tg)
-{
-        if (tg != &root_task_group)
-                return false;
-    ...
-
-        return true;
-}
-
-One can see that any group set other than root also bypasses the use of
-the autogroup.
-
-All of the machinery around the creation of the autogroup is not
-effected by the toggle.
-
-From userspace:
-0
-/autogroup-112 nice 0
-
-Note, systemd based system these days is not really using autogroups at all
-anyway because any task in a non-root cgroup bypasses the autogroup as
-well.
-
-Signed-off-by: Phil Auld <pauld@redhat.com>
-Cc: Alejandro Colomar <alx@kernel.org>
-Cc: <linux-man@vger.kernel.org>
----
- man/man7/sched.7 | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/man/man7/sched.7 b/man/man7/sched.7
-index 71f098e48..f0a708cd7 100644
---- a/man/man7/sched.7
-+++ b/man/man7/sched.7
-@@ -724,6 +724,8 @@ in the group terminates.
- .P
- When autogrouping is enabled, all of the members of an autogroup
- are placed in the same kernel scheduler "task group".
-+When disabled the group creation happens as above, and autogroup membership
-+is still visible in /proc, but the autogroups are not used.
- The CFS scheduler employs an algorithm that equalizes the
- distribution of CPU cycles across task groups.
- The benefits of this for interactive desktop performance
--- 
-2.47.1
-
+> 
+> I also which file systems wouldn't just add random fs specific ioctls
+> all the time without any kinds of discussion of the API.  f2fs is by
+> far the worst offender there, but not the only one.
 
