@@ -1,163 +1,159 @@
-Return-Path: <linux-man+bounces-2249-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2250-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A85A13B70
-	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 14:59:15 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60245A13BF3
+	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 15:15:08 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 404133A9FE3
-	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 13:59:09 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9B69C7A2A5F
+	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2025 14:14:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C7AA22A4F1;
-	Thu, 16 Jan 2025 13:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1181522B595;
+	Thu, 16 Jan 2025 14:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="olU6/TxZ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BaENz/Sh"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE6E1D8A0D;
-	Thu, 16 Jan 2025 13:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E4722ACCF
+	for <linux-man@vger.kernel.org>; Thu, 16 Jan 2025 14:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737035951; cv=none; b=mJFgkyKZvlsdVaB3/F1gJ0EUoB+//w/YaPEqx/HtoNbBLTfByZNcNAMRWz1b9DbXRtYeQfmPmjzccTq+M2bCSXVicUSiPnXUoe8+Dsd4uGYDNb31b5sE1yrFbiIKauqCr+6JWvS7tG/iI9P53kts8/SGkhCeVMT/FkDeyQCvc/c=
+	t=1737036896; cv=none; b=uILUK+KuvJw9zl7CaqMoSCoy5ZjCKLv2pdUaf0dQEjkTe8JWP0K2SsMAzrB2Wttuq1CND2vRFqeuoub0AuAKFaAtUMwuVsyPkkGZ7Wnm9T9MIKA3etrvcs6zkO6MhYGuTsbS1k9R4Y0Kn2pbc6m1t5MSAD8y9y0Jav6klm9MMvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737035951; c=relaxed/simple;
-	bh=QBNEhe+D72Ad5HJWMkYW+YBAN1kKKCBI4GwFdfIg1zA=;
+	s=arc-20240116; t=1737036896; c=relaxed/simple;
+	bh=SZjPpRxiV7sqca3BMcy6MppZ2QsadsXP9wjKG8W1E2I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JeNdajf49VBvyYPdLBzOtdYdi2DnYCqIVr1RaNbnR0/97AJCm3I+N0sSNCQeb4edCxQB7CDHrcCmSe0aQyGGAY2qhRR1mjOd1wQZfe338wvwS6vued/iK2u+PxMODnkKux4P1x2ajeoXj40tiAoW1QSSyQA3ADceBe83P1MalUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=olU6/TxZ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9B61C4CED6;
-	Thu, 16 Jan 2025 13:59:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1737035950;
-	bh=QBNEhe+D72Ad5HJWMkYW+YBAN1kKKCBI4GwFdfIg1zA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=olU6/TxZICyFc21FQV6L6Ks0gKS8dmulx0qQCnYZi1SHk6AVeQeOGOz9XVYDeJYgk
-	 CsYzA/TE9GjHIZAqNAFoR/TJQSmA+aYhPBvvYbQQiDAaAuYypI2/AtaehBSy9OmiSK
-	 A5Lg1yYxiMebj1VQMDHaq8EHfOh2jBtO8Fr34dqwm7uF/nAp06TG5lgfiUHEB8o3t3
-	 d3OTPWsWBF5lkXlrbW8JXeg+MnqvESt8MONhOMcAK61lt8F3CprWiAfm3fK6ZiZ8cR
-	 wRv3gUZL6evBo/GwDrmrRgDeCFGoxu3thynSNMysRXynfslm/gNIGR+n9lRAtsRlQV
-	 Iibk5LEqpsgew==
-Date: Thu, 16 Jan 2025 14:59:20 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Phil Auld <pauld@redhat.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lgu0ipxPnsaSyNz2PKXLMQtCeMdLcwEAPedTXFSrL8Zbacl5uFimp9BrOJMJxl4s/d2NsS+5de/NoN4soIZqaSZHyEPqBHfJgzEbtf5ZurHg3RrbR9p89VERT5bJhqBtrx873iqVD5Axh9uEOaleWtYQamGDOMKsmOcFUwVB3eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BaENz/Sh; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1737036894;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0+1pMScv/P1lMgD0y4/lgXAMlLY8SFDkgSS9rPVeXkg=;
+	b=BaENz/ShKdJLkeOxb8HZlrsI4AAOSo1yQ/M/+uV2gSfIiHL7bOefr28INCJ1c5zJ35cr9s
+	GXoAEb41K9wGPXRf51P52X5czrb64duLFibdB7hRW3Js9UJQIzMrP8qsuay5B18OuitRfH
+	VPqRFv4DXGyQn7TQmv/LsO7vH+5oZ+g=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-611-iBrAJP9FPGuzuelT3yAWWg-1; Thu,
+ 16 Jan 2025 09:14:50 -0500
+X-MC-Unique: iBrAJP9FPGuzuelT3yAWWg-1
+X-Mimecast-MFC-AGG-ID: iBrAJP9FPGuzuelT3yAWWg
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E0FDE1955DC6;
+	Thu, 16 Jan 2025 14:14:48 +0000 (UTC)
+Received: from pauld.westford.csb (unknown [10.22.88.147])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DCB781955F10;
+	Thu, 16 Jan 2025 14:14:47 +0000 (UTC)
+Date: Thu, 16 Jan 2025 09:14:45 -0500
+From: Phil Auld <pauld@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v1] sched: Mention autogroup disabled behavior
-Message-ID: <bpbyx7d567ctpoqutwy2sk6dh7xsilrglnkoomcfgrtrqtjwtl@tajyt523goqu>
+Message-ID: <20250116141445.GB7382@pauld.westford.csb>
 References: <20250116124654.2365691-1-pauld@redhat.com>
  <fzshiseda5ispy7utboswemxr54d7646rz5v2ilgatlih3vqwk@r3775k54ixeh>
  <20250116135315.GA7382@pauld.westford.csb>
+ <bpbyx7d567ctpoqutwy2sk6dh7xsilrglnkoomcfgrtrqtjwtl@tajyt523goqu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rbir3fhbpz5q4d32"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250116135315.GA7382@pauld.westford.csb>
+In-Reply-To: <bpbyx7d567ctpoqutwy2sk6dh7xsilrglnkoomcfgrtrqtjwtl@tajyt523goqu>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+On Thu, Jan 16, 2025 at 02:59:20PM +0100 Alejandro Colomar wrote:
+> Hi Phil,
+> 
+> On Thu, Jan 16, 2025 at 08:53:15AM -0500, Phil Auld wrote:
+> > This is actually part of the problem. It's very hard to see this
+> > from userspace. I can show a shell session that shows that autogroup
+> > is disabled and that my task has an autogroup in /proc but determining
+> > that the autogroup is not being used not so much. (I may be missing
+> > something obvious but I could not find it).
+> > 
+> > I had to look at the kernel code:
+> > 
+> > kernel/sched/autogroup.h:
+> > static inline struct task_group *
+> > autogroup_task_group(struct task_struct *p, struct task_group *tg)
+> > {
+> >         extern unsigned int sysctl_sched_autogroup_enabled;
+> >         int enabled = READ_ONCE(sysctl_sched_autogroup_enabled);
+> > 
+> >         if (enabled && task_wants_autogroup(p, tg))
+> >                 return p->signal->autogroup->tg;
+> > 
+> >         return tg;
+> > }
+> > 
+> > bool task_wants_autogroup(struct task_struct *p, struct task_group *tg)
+> > {
+> >         if (tg != &root_task_group)
+> >                 return false;
+> >     ...
+> > 
+> > }
+> > 
+> > The former being called from sched_group_fork() and sched_get_task_group().
+> > 
+> > I suppose looking at /proc/pid/cgroup and seeing it report not "0::/"
+> > is part of it since it then won't be in root task group.
+> > 
+> > To some extent any systemd based system these days is not really
+> > using autogroup at all anyway. 
+> > 
+> > I can put some of the above in there or just something like:
+> > 
+> > # cat /proc/sys/kernel/sched_autogroup_enabled 
+> > 0
+> > # cat /proc/$$/autogroup 
+> > /autogroup-112 nice 0
+> > 
+> > 
+> > Thoughts?
+> 
+> Both.  :)
+> 
+> The more information we have in the commit message, the better (in case
+> someone needs to check in the future, that will give more context).
+>
 
---rbir3fhbpz5q4d32
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Phil Auld <pauld@redhat.com>
-Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] sched: Mention autogroup disabled behavior
-References: <20250116124654.2365691-1-pauld@redhat.com>
- <fzshiseda5ispy7utboswemxr54d7646rz5v2ilgatlih3vqwk@r3775k54ixeh>
- <20250116135315.GA7382@pauld.westford.csb>
-MIME-Version: 1.0
-In-Reply-To: <20250116135315.GA7382@pauld.westford.csb>
+Okay, fair enough. Will do.  It was just hard for me to show that the
+listed autogroup is not really being used. 
 
-Hi Phil,
+I'll put the above in there and send v2.
 
-On Thu, Jan 16, 2025 at 08:53:15AM -0500, Phil Auld wrote:
-> This is actually part of the problem. It's very hard to see this
-> from userspace. I can show a shell session that shows that autogroup
-> is disabled and that my task has an autogroup in /proc but determining
-> that the autogroup is not being used not so much. (I may be missing
-> something obvious but I could not find it).
->=20
-> I had to look at the kernel code:
->=20
-> kernel/sched/autogroup.h:
-> static inline struct task_group *
-> autogroup_task_group(struct task_struct *p, struct task_group *tg)
-> {
->         extern unsigned int sysctl_sched_autogroup_enabled;
->         int enabled =3D READ_ONCE(sysctl_sched_autogroup_enabled);
->=20
->         if (enabled && task_wants_autogroup(p, tg))
->                 return p->signal->autogroup->tg;
->=20
->         return tg;
-> }
->=20
-> bool task_wants_autogroup(struct task_struct *p, struct task_group *tg)
-> {
->         if (tg !=3D &root_task_group)
->                 return false;
->     ...
->=20
-> }
->=20
-> The former being called from sched_group_fork() and sched_get_task_group(=
-).
->=20
-> I suppose looking at /proc/pid/cgroup and seeing it report not "0::/"
-> is part of it since it then won't be in root task group.
->=20
-> To some extent any systemd based system these days is not really
-> using autogroup at all anyway.=20
->=20
-> I can put some of the above in there or just something like:
->=20
-> # cat /proc/sys/kernel/sched_autogroup_enabled=20
-> 0
-> # cat /proc/$$/autogroup=20
-> /autogroup-112 nice 0
->=20
->=20
-> Thoughts?
-
-Both.  :)
-
-The more information we have in the commit message, the better (in case
-someone needs to check in the future, that will give more context).
-
+Thanks!
 
 Cheers,
-Alex
+Phil
 
---=20
-<https://www.alejandro-colomar.es/>
 
---rbir3fhbpz5q4d32
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> Cheers,
+> Alex
+> 
+> -- 
+> <https://www.alejandro-colomar.es/>
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeJELcACgkQnowa+77/
-2zKf6xAAgm/YiF8VPjhi7ER9IH6z8pkLhkCj1H2Xq8lKT/BUzWR0cf1APonaVBn6
-tOxc4JPm1x0nnyxIiqS1iPh2fGkSayVOZNfJD5kbOW3dTKkIorTu0WpqbJUHy11W
-uu9NoU+Aca40TqCfGUYU3y0avUgxG8q/seMBWQyznBCd+lInjYru2FQ3yS6SiYdX
-zn3icXWtOgVnnYuyhp48kG3EKh+qZ2kx1wilaR7zKXcXu46R4r3W8VsnKBo2locB
-0VFm0uHvGFcYzyEnBno1opgWKy85Lq7F1WUgSTUQP8swl9iGAvr8Su7qvKVWQWMn
-SYfGIWyOjzs8Wq8U6zDIfbHTjlg2fMBO7UVA3hEp43dCdpZBVxX7WBeP+UYHL1l6
-0SMG857tMwpzmSE5b9U4XTsoaeVJQB4cVxtDX87/yxd6uhHss6fqp051gH6W+b32
-T9lP15WHWMfIM2ta8AqdoPs7Mma243h++JwsDIRTTuYMbqIVxtlqyACUcqpU+/HJ
-DPjuJTsJGCTSyCsi33mIdo4wLEK/FzDpNHJhjDGBc8Tfg9OUN3CacMYXw+VCMXuF
-extVKj4EfOpq0JIyRmEt/ViJrVQUxcYLQiF4YPWZhnxhsEaErFCNc3qkxYQtak1t
-kKVLspDd9HM18TIrYcDnIuH54XdgmwP/X1DjDkMt0jbjfREpZ0o=
-=CHQp
------END PGP SIGNATURE-----
 
---rbir3fhbpz5q4d32--
+-- 
+
 
