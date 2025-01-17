@@ -1,102 +1,87 @@
-Return-Path: <linux-man+bounces-2253-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2254-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB4CA14904
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 06:00:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDBBFA14A7C
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 08:56:19 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 86F6C1883385
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 05:00:35 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 677781887BD3
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 07:56:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37CEC1F5613;
-	Fri, 17 Jan 2025 05:00:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 102171F7908;
+	Fri, 17 Jan 2025 07:56:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J30WdUol"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="3g8uUr/z"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDE825A643
-	for <linux-man@vger.kernel.org>; Fri, 17 Jan 2025 05:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C981F6687;
+	Fri, 17 Jan 2025 07:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737090027; cv=none; b=u+0COh4Y+4lHgwi58mWH/fd+hT8FWNWb5EJCHb7+RXeWWFHQwPPzzqMOrAGRGk3Nh1us8/zPdGhiTzBnDUyi5WaWPHndJZUyz3vBi4f1dtwIpjovH7W2om8T24D20qH54x3K3Y6Q5BfviLzrqfUfwrrUeDXaBxb87i3QznDqh9k=
+	t=1737100573; cv=none; b=tu2rtKfaR1DDE9RC8zEkKBbOgkYqMs3oLkQr4hOFNjRNF/yR8iUsTyeFacR2ccq9S1qvgwJt/6UkWVs7pPIOWN+R/XMvtuAuUOUukuD+eVrCiOtmh7GJHG0WsTbZ/NJ9h9CST/2sk7KkPOoTuSCV4QR6j/xq1x8qcl9hhizcil4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737090027; c=relaxed/simple;
-	bh=jegf11PZwhrVrNhmCCsZpW+y6s2YZ0Ed7NmdDJG0djI=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=Xl27t3KqeWhSvzhJI+nCb3V7wzBPbr87RXiKK4NOreZWfPgA5Uksb2Ln1MBgafulhlVHNXXQH2/anmoa4tN6raMv6cDjuaA2duugTJV45R7XC3IEfUwpKiwPd5YTBLOPRndEJJW6KmHLQ2GAyy3mvqvyD9LKKfTDxJ8cIDMJG/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J30WdUol; arc=none smtp.client-ip=209.85.161.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-5f304ac59b9so848575eaf.0
-        for <linux-man@vger.kernel.org>; Thu, 16 Jan 2025 21:00:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737090024; x=1737694824; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=uOZsUbaWrzChsBjaZ6eovmVbDD51mQy5dM+auFkaOss=;
-        b=J30WdUolhunnWNPceVzqSlQeKyJMI7AAGnbAMPms7atBkXOejeXw+xocfLpp/lhd3d
-         xCbfYFYpAgmVVKBxIloWJCh+ozSbGAKv1sirrxfZ1689xVpfo3cxxJtBpGybc0pWGQe2
-         E3iIT7XcMOwQBsdtl69dU9sfl63mIhCIKJLPaqQPw+vs8cEwyq39Npt2umEqwraEVTbM
-         ck3jqoePDXMjJau1qaKkmlNAwpGTQL0rKjt3RvE2ipinn04eqatrEQ6LXgLTnMMtbMYa
-         Gim3lxE2mwRv9i18xhb73vIkTvGczXxvPctNvkm37CHBlfzonsK5M9YKqueNTe5vD5KO
-         TYow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737090024; x=1737694824;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=uOZsUbaWrzChsBjaZ6eovmVbDD51mQy5dM+auFkaOss=;
-        b=qjRGarSH00MOv1/jTWB1YfAE4gteaJOS9RgmehVCiWEMsPWNaWAhCom1ciDFJcDWPy
-         k+pOrgTfU388Gg4xSuQaWA3rm9AliQTVZXr0+UgX3b/WCNOL7eFyUe3ZXD1Ur1i2SBgj
-         uxEG0OOlrgSlzJfGN6gXeqrexh4zNEi5lSGMS4vvvyYlExIc1TeuyKQBVARzwa1UWk80
-         ZSvgPeDTkjCxJ2iFyQfykMLreKc8ORyVVKEMx7rPd69tpP8C1vL5cCE75S8+LnUKw7Wg
-         P4yt36jt3oj11H3ulhqP7VJhn1Pc5saqSyzHn3Rega2j6/4Cjq3x0g1afKwi3HwKYX9b
-         XMtw==
-X-Gm-Message-State: AOJu0YxD9Lk7N51EJGxZxEufTFnuHSSx6I1mQ3UZXnpqIqlESel5wyPb
-	mmHrE1xMeCXBxQaEJIhsfirDi4nNVGjhh0WjDIDbWZ0qvjzm28YQexDRJWv0305F4bPEsXrziyQ
-	HtnTG46fWLPDD4McIJhG0dQu6llXN1VtZqR8=
-X-Gm-Gg: ASbGncuOBMEaftBIDDWvLqY6+96ZVyUN7EEnCuPqQK0J/umAiRalw8w7Mh+GsbdEbV8
-	kja/vBBylyb8awliPIRU6GFRRdWEellnQPvXVtkWMT4e4bMIS5ylkFDpfu5BzlfxLiD9O3V7y
-X-Google-Smtp-Source: AGHT+IEFWIExvNK+Tkq+W1hOldtNrawKHy98EG8HbKuak9u8AIjwmCrAEmp/BsQXBqZT/OrI1ZGK2/ciLaEIrlyq5SA=
-X-Received: by 2002:a05:6871:d048:b0:29e:3d0b:834 with SMTP id
- 586e51a60fabf-2b1c099e3c4mr944038fac.5.1737090024590; Thu, 16 Jan 2025
- 21:00:24 -0800 (PST)
+	s=arc-20240116; t=1737100573; c=relaxed/simple;
+	bh=vbsrK0oAOquXB6Qxnm6v5muRqOVJe9pjcUpbdG/aAbI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KQ2nTWjqY2ATG6ZzT669frGMnpIRjJKLddJJfKPnCfRtejnw+Co/N9CksEMWKgvl7EFPe+o7bWcd1/4dA/eFVrtOyRVGzIZFKmWCXaPCIz1QQVONW3k/+a7LJpftJFmnOOBQYdauHWwByi7KmlspPzMeNEu3l2Ox3aie3SJD6HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=3g8uUr/z; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0xS4rzAwShP4fR0GmRf+Y/L+j7Nhbi6WmSe8J0Qupus=; b=3g8uUr/zQeamxBYJg5IR9w1nI5
+	4XFglwglcwD6Kg+PhuCwG7MVHgvS5R/Pv5qLbbjmqEPK6DcIdD8PqbKmKt2IqippGnsPrcU8W8Ymy
+	XYnki7fkGVODbJ/QGQkw95oNIYJRFIlp6gFu4h4wfGz+AXhghuLQOG4XlVtrU+INYLUoGcKddyaCm
+	q3GJGEWpcbQcUCO0eIRoTyJ1iV3dj8zetOQr9Rbg7SOb/YBakeHaz9vZ9YgflNRZZP5NVMotg68rR
+	6TGchrX0Hlb2sgEsRFJEjDaIE7qkOcAzCPou0RQ4xolbPR3/9ssMsF8+dP0kUVg/7qGKwYqvmaaHR
+	0EfZr12g==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.98 #2 (Red Hat Linux))
+	id 1tYhD7-0000000HGFi-3cg9;
+	Fri, 17 Jan 2025 07:56:09 +0000
+Date: Thu, 16 Jan 2025 23:56:09 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-man@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 1/2] f2fs: register inodes which is able to donate pages
+Message-ID: <Z4oNGYJrN-XGX87M@infradead.org>
+References: <20250115221814.1920703-1-jaegeuk@kernel.org>
+ <20250115221814.1920703-2-jaegeuk@kernel.org>
+ <Z4imEs-Se-VWcpBG@infradead.org>
+ <Z4k_nKT3V1xuhXGc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Wyatt Carpenter <wyattscarpenter@gmail.com>
-Date: Thu, 16 Jan 2025 21:00:14 -0800
-X-Gm-Features: AbW1kvZQzkfOz5FZQyoqgBPFGixoQ2u4eQPnbA9LkcQCIeKyosz6zr8rOcBdNI8
-Message-ID: <CADwVmK1HeikMTODLu-NpThE2po2u9n9FaCgEQQQcvkzz-3h57g@mail.gmail.com>
-Subject: comma splice in unicode(7)
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Z4k_nKT3V1xuhXGc@google.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hello! Today I noticed that in unicode(7)
+On Thu, Jan 16, 2025 at 05:19:24PM +0000, Jaegeuk Kim wrote:
+> > mean a invalidate_inode_pages2_range.  Which is a strange use of the
+> > word.  what are the use cases?  Why is this queued up to a thread and
+> > not done inline?  Why is this in f2fs and not in common code.
+> 
+> The idea is let apps register some file ranges for page donation and admin
+> recliam such pages all togehter if they expect to see memory pressure soon.
+> We can rely on LRU, but this is more user-given trigger. I'm not sure whether
+> there's a need in general, hence, wanted to put it in f2fs first to get more
+> concrete use-cases beyond this Android case.
 
-> A combining character just adds an accent to the
-       previous character.  The most important accented characters have
-       codes of their own in UCS, however, the combining character
-       mechanism allows us to add accents and other diacritical marks to
-       any character.
+Well, that's certainly not a file system feature.  Please build this
+as generic infrastucture and send it to the linux-mm list.
 
-should be
-
-> A combining character just adds an accent to the
-       previous character.  The most important accented characters have
-       codes of their own in UCS; however, the combining character
-       mechanism allows us to add accents and other diacritical marks to
-       any character.
-
-With a semicolon instead. Hope this helps! Love the project, by the way.
-
-Regards,
-
-Wyatt
 
