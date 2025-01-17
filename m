@@ -1,137 +1,269 @@
-Return-Path: <linux-man+bounces-2255-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2256-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FB83A14DB8
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 11:37:08 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B3832A15001
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 14:03:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A37B4188AC56
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 10:37:11 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D299A161372
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2025 13:03:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3670B1F9EA0;
-	Fri, 17 Jan 2025 10:37:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 366DF1FECBA;
+	Fri, 17 Jan 2025 13:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uvcU0GfT"
+	dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b="MDeklgYl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from box.jasonyundt.email (box.jasonyundt.email [104.248.224.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D7B1F8690
-	for <linux-man@vger.kernel.org>; Fri, 17 Jan 2025 10:37:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431051FDE1B
+	for <linux-man@vger.kernel.org>; Fri, 17 Jan 2025 13:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.248.224.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737110224; cv=none; b=GgMpJeJ63z4XA53dcYMBBZSpN+/hT7/lkJheSze1APzHEzrRq/JDF5r+3JbL9LF6jcUKnnGyy4L1Eo//5VeRFvo484hkvjx4iv85bhzhdqW+xBKAlEFQcfWfNgSgHEdXRgk7ncBOzGHYB7q6V9vwVtNPgmIbXg5lf+9mA+BWdEs=
+	t=1737118943; cv=none; b=P+KwS4lRtUv+UxA2m7rPJsFCi2yeK8+oQoKwgF3BV5xu2wIzicolRvy8je5RCLX4mFY++0sz8lMR5DUW+YOSJgKSZNS1BDgyyWobpgLboIcCQouxmuoDKzVdTgRWGfOW58PFvVoi6DVcjrzD97hQjR9Sjaz1FmXQOGiXmglTezo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737110224; c=relaxed/simple;
-	bh=WgpDcGsEP3HnBUoASEGPBvXryMEdEZTaADOhClZmEFs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iNk22dv8DdVcItd2lwgA7GAL5GuaROslBIgdbGbFdEJ/gxnMNBW7wG5LGbgY19D/GjguVDNMf+JI1FAYznJnCnsXx+ByU72e6enouSRsqziCvhZjerc7Umh4ADX/o/XKQ3oYHgnzdczGfHFIkFK9oR0a5AUmXqw8yPaEdrmhYvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uvcU0GfT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24FCC4CEDD;
-	Fri, 17 Jan 2025 10:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1737110223;
-	bh=WgpDcGsEP3HnBUoASEGPBvXryMEdEZTaADOhClZmEFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uvcU0GfTcUKND0At8rxHvCshZUVunqL6Jf4Y6pZNh8KsDokcy4X0ptdvO7FTOjhRq
-	 lPw6FQWuLQT3+PmJ3tApM0ElunRCFa0FNIxmzvzSadTcRyaEPbCyYw7RikxESrC49f
-	 V/8K0GdCZj7QZAjf0B9WopJa2fWxWdRk0ZVtLV3ORtE6y4L43yNr5Nfz8hW0Y8IVxD
-	 oUv0CdNuvzLGZS2Blmv8M03fps4ZqAZ88+BVU3VLb8681K7xOyTQ9c3uo6Li9Tw37c
-	 gEeXHpLLrjr64rLYiaaOzwyarORXpJzYAAuI75nL1vxn+qCsWK/bEhodu2FOjSYSrh
-	 xfLWqiglAPrSQ==
-Date: Fri, 17 Jan 2025 11:37:13 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Wyatt Carpenter <wyattscarpenter@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: comma splice in unicode(7)
-Message-ID: <z6dlkx4crybzekonfxzmm4ehvsdhzyzxj6gct4k76kojdlhpu2@uquysoalop6n>
-References: <CADwVmK1HeikMTODLu-NpThE2po2u9n9FaCgEQQQcvkzz-3h57g@mail.gmail.com>
+	s=arc-20240116; t=1737118943; c=relaxed/simple;
+	bh=Ex7ql8efagih64c7EEnk17Hgr2sYzRrbSE1QP/eVVSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RD/OqY8jN0EDi87cywZRsFh0TAS1wd+vlvJVEOjTtiyyD/mXRoMw7i/9ZT4altald33cHBWSxRF6Xrz4IxWCHnZxXCgzi4FipxDn5k3zP8Bb21cn6gXdhby0q5kKzt2N8M8hdhrECLWcmp/pooKSefuVkG9nWyJ2PLzAN2Mc7PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email; spf=pass smtp.mailfrom=jasonyundt.email; dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b=MDeklgYl; arc=none smtp.client-ip=104.248.224.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jasonyundt.email
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jasonyundt.email;
+	s=mail; t=1737118933;
+	bh=Ex7ql8efagih64c7EEnk17Hgr2sYzRrbSE1QP/eVVSQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=MDeklgYlcVJb4wMXWU5pmuSMr6PGnCepYWFopvArs0ob8S0VAZHU/YN7lu8K82myY
+	 8E/Mvk2XMdfFnqbr0j/6w4OwqMUl/nF6RdErvo0GkltJRz3l8oN/HudNQIDWNkYupP
+	 Te9yHpcj9JMWXrADIaRwLC8HMwOnwq1gfAOe7LRYlymMcpMJNWQ6SF5UoeLxuZkXyo
+	 ZA/5ZWzSA2GrNFGqwiEeSTf/t0wWVhl+xRrDhmHkFjUGuuz1pC6jBwhSPa8xDokEOT
+	 XnuDtwSGQUuycx/gottzrZ5R0XIW9PF2tmMEhT8KKJmcUkFdQkTFLyTmad1AD/nfbd
+	 QruIUDq1xNIpg==
+Received: from authenticated-user (box.jasonyundt.email [104.248.224.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by box.jasonyundt.email (Postfix) with ESMTPSA id 252D67E247;
+	Fri, 17 Jan 2025 08:02:12 -0500 (EST)
+From: Jason Yundt <jason@jasonyundt.email>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jason Yundt <jason@jasonyundt.email>,
+	linux-man@vger.kernel.org,
+	Florian Weimer <fweimer@redhat.com>
+Subject: [PATCH v5] man/man7/pathname.7: Add file documenting format of pathnames
+Date: Fri, 17 Jan 2025 08:02:03 -0500
+Message-ID: <20250117130205.33119-1-jason@jasonyundt.email>
+In-Reply-To: <20250113213301.410280-1-jason@jasonyundt.email>
+References: <20250113213301.410280-1-jason@jasonyundt.email>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="s2oemksdrbwfvafw"
-Content-Disposition: inline
-In-Reply-To: <CADwVmK1HeikMTODLu-NpThE2po2u9n9FaCgEQQQcvkzz-3h57g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The goal of this new manual page is to help people create programs that
+do the right thing even in the face of unusual paths.  The information
+that I used to create this new manual page came from these sources:
 
---s2oemksdrbwfvafw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Wyatt Carpenter <wyattscarpenter@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: comma splice in unicode(7)
-References: <CADwVmK1HeikMTODLu-NpThE2po2u9n9FaCgEQQQcvkzz-3h57g@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CADwVmK1HeikMTODLu-NpThE2po2u9n9FaCgEQQQcvkzz-3h57g@mail.gmail.com>
+• <https://unix.stackexchange.com/a/39179/316181>
+• <https://sourceware.org/pipermail/libc-help/2024-August/006737.html>
+• <https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/fs/ext4/ext4.h?h=v6.12.9#n2288>
+• <man:unix(7)>
+• <https://unix.stackexchange.com/q/92426/316181>
 
-Hi Wyatt!
+Signed-off-by: Jason Yundt <jason@jasonyundt.email>
+---
+Here’s what I changed from the previous version:
 
-On Thu, Jan 16, 2025 at 09:00:14PM -0800, Wyatt Carpenter wrote:
-> Hello! Today I noticed that in unicode(7)
->=20
-> > A combining character just adds an accent to the
->        previous character.  The most important accented characters have
->        codes of their own in UCS, however, the combining character
->        mechanism allows us to add accents and other diacritical marks to
->        any character.
->=20
-> should be
->=20
-> > A combining character just adds an accent to the
->        previous character.  The most important accented characters have
->        codes of their own in UCS; however, the combining character
->        mechanism allows us to add accents and other diacritical marks to
->        any character.
->=20
-> With a semicolon instead. Hope this helps!
+• I stopped saying that the kernel has a 255-byte limit on filenames.
+  Florian was right, you can create files with names longer than 255
+  characters.  I tried it, and I was able to create a file with a 355-character
+  long name on both tmpfs and bcachefs.  This leaves us with one problem,
+  though.  In <linux/limits.h>, NAME_MAX is defined as 255 and has a comment
+  that says “chars in a file name” [1].  POSIX says that NAME_MAX is the
+  “Maximum number of bytes in a filename (not including the terminating null of
+  a filename string).”  Why is NAME_MAX set to 255 if you can have longer
+  filenames?
+• I from the Amiga filesystem back to the ext4 filesystem example.  The only
+  reason why I had used the Amiga filesystem example was because I had
+  previously thought that 255 bytes was the maximum for any filename,
+  regardless of the filesystem.  I think that ext4 is better example because
+  people are more likely to use an ext4 filesystem than an Amiga filesystem.
+• I implemented all of Alex suggestions, except for the ones that
+  no longer apply because they were suggestions for text that was deleted for
+  other reasons.
+• I added an example program.
 
-That's right.  Thanks!  I've applied a patch:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D9b8dc5c8b3cafed82f8400ba6d19bc8df5ff6772>
+[1]: <https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/limits.h?h=v6.12.9#n12>
+[2]: <https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/limits.h.html#tag_14_26_03_02>
 
-> Love the project, by the way.
+ man/man7/pathname.7 | 151 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 151 insertions(+)
+ create mode 100644 man/man7/pathname.7
 
-Thanks a lot!  :-}
+diff --git a/man/man7/pathname.7 b/man/man7/pathname.7
+new file mode 100644
+index 000000000..9545c3b07
+--- /dev/null
++++ b/man/man7/pathname.7
+@@ -0,0 +1,151 @@
++.\" Copyright (C) 2025 Jason Yundt (jason@jasonyundt.email)
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH pathname 7 (date) "Linux man-pages (unreleased)"
++.SH NAME
++pathname,
++filename
++\-
++how pathnames are encoded and interpreted
++.SH DESCRIPTION
++Some system calls allow you to pass a pathname as a parameter.
++When writing code that deals with pathnames,
++there are kernel-space requirements that you must comply with,
++and user-space requirements that you should comply with.
++.P
++The kernel stores pathnames as null-terminated byte sequences.
++The kernel has a few general rules that apply to all pathnames:
++.IP \[bu] 3
++The last byte in the sequence needs to be a null byte.
++.IP \[bu]
++Any other bytes in the sequence need to be non-null bytes.
++.IP \[bu]
++A 0x2F byte is always interpreted as a directory separator (/)
++and cannot be part of a filename.
++.IP \[bu]
++A pathname can be at most 4,096 bytes long.
++A pathname that’s longer than 4,096 bytes
++can be split into multiple smaller pathnames and opened piecewise using
++.BR openat (2).
++.P
++The kernel also has some rules that only apply in certain situations.
++Here are some examples:
++.IP \[bu] 3
++Filenames on the ext4 filesystem can be at most 30 bytes long.
++.IP \[bu]
++Filenames on the vfat filesystem cannot a
++0x22, 0x2A, 0x3A, 0x3C, 0x3E, 0x3F, 0x5C or 0x7C byte
++(", *, :, <, >, ?, \ or | in ASCII)
++unless the filesystem was mounted with iocharset set to something unusual.
++.IP \[bu]
++A UNIX domain socket’s sun_path can be at most 108 bytes long (see
++.BR unix (7)
++for details).
++.P
++User space treats pathnames differently.
++User space applications typically expect pathnames to use
++a consistent character encoding.
++For maximum interoperability, programs should use
++.BR nl_langinfo (3)
++to determine the current locale’s codeset.
++Paths should be encoded and decoded using the current locale’s codeset
++in order to help prevent mojibake.
++For maximum interoperability,
++programs and users should also limit
++the characters that they use for their own pathnames to characters in
++.UR https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html#tag_03_265
++the POSIX Portable Filename Character Set
++.UE .
++.SH EXAMPLES
++The following program demonstrates
++how to ensure that a pathname uses the proper encoding.
++The program starts with a UTF-32 encoded pathname.
++It then calls
++.BR nl_langinfo (3)
++in order to determine what the current locale’s codeset is.
++After that, it uses
++.BR iconv (3)
++to convert the UTF-32 encoded pathname into a locale codeset encoded pathname.
++Finally, the program uses the locale codeset encoded pathname to create
++a file that contains the message “Hello, world!”
++.SS Program source
++.\" SRC BEGIN (pathname_encoding_example.c)
++.EX
++#include <iconv.h>
++#include <langinfo.h>
++#include <locale.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <uchar.h>
++\&
++int
++main(void)
++{
++    if (setlocale(LC_ALL, "") == NULL) {
++        exit(EXIT_FAILURE);
++    }
++    char32_t *utf32_pathname = U"example";
++    size_t characters_in_pathname = (sizeof utf32_pathname) \- 1;
++    size_t bytes_in_locale_pathname =
++        characters_in_pathname * MB_CUR_MAX + 1;
++    // We use calloc() here to make sure that the output from iconv() is null
++    // terminated.
++    char *locale_pathname = calloc(1, bytes_in_locale_pathname);
++    if (locale_pathname == NULL) {
++        exit(EXIT_FAILURE);
++    }
++\&
++    iconv_t cd = iconv_open(nl_langinfo(CODESET), "UTF\-32");
++    if (cd == (iconv_t) \- 1) {
++        exit(EXIT_FAILURE);
++    }
++    char *inbuf = (char *) utf32_pathname;
++    size_t inbytesleft =
++        characters_in_pathname * (sizeof *utf32_pathname);
++    char *outbuf = locale_pathname;
++    size_t outbytesleft = bytes_in_locale_pathname;
++    size_t iconv_result;
++    // iconv() doesn’t necessarily convert everything all in one go, so we call
++    // it in a while loop just in case it takes multiple calls to finish
++    // converting everything.
++    while (inbytesleft > 0) {
++        iconv_result =
++            iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
++        if (iconv_result == \-1) {
++            exit(EXIT_FAILURE);
++        }
++    }
++    // This ensures that the conversion is 100% complete.  See iconv(3) for
++    // details.
++    iconv_result =
++        iconv(cd, NULL, &inbytesleft, &outbuf, &outbytesleft);
++    if (iconv_result == \-1) {
++        exit(EXIT_FAILURE);
++    }
++    if (iconv_close(cd) == \-1) {
++        exit(EXIT_FAILURE);
++    }
++\&
++    FILE *fp = fopen(locale_pathname, "w");
++    if (fp == NULL) {
++        exit(EXIT_FAILURE);
++    }
++    if (fputs("Hello, world!\\n", fp) == EOF) {
++        exit(EXIT_FAILURE);
++    }
++    if (fclose(fp) == EOF) {
++        exit(EXIT_FAILURE);
++    }
++\&
++    free(locale_pathname);
++    exit(EXIT_SUCCESS);
++}
++.EE
++.\" SRC END
++.SH SEE ALSO
++.BR open (2),
++.BR iconv (3),
++.BR nl_langinfo (3),
++.BR path_resolution (7),
++.BR mount (8)
+-- 
+2.47.1
 
-Have a lovely day!
-Alex
-
-
->=20
-> Regards,
->=20
-> Wyatt
-
---=20
-<https://www.alejandro-colomar.es/>
-
---s2oemksdrbwfvafw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeKMtkACgkQnowa+77/
-2zIV8w//bKN0Bx+bYxMm4TPPpENyr83fZcvIt6tOJpvV+Im9/Lvg9harxMcLNqfi
-deklJUQ3SkLvXBV+Deztn8vqFGbBHvlYJuvzEnBcLgxPxMS3L0PgFk2u/J9LVqZZ
-ueDycEQczLMmzsDGrJNXg3rhwNIse35r/HDIdklbBiR7boV5Ebw7NqnNryB09y5T
-aMdZWQiDAkjbcaBtDoEy2rMiXalBk2Fo2V98VnkRXPim6akIY9miUZKYBqfqHi+G
-dle7OU/Nwlw8Cxa/Qa2AgL8ERmmu/j0veBsx1817tin35Wa06ruJcNKgx12PRHgf
-3EBIjBoeQjtl/CvgyrZrjUBntVyXR1+mCMDesUouQCr6Uuj/Dcl3JDB3bYZLw/V+
-MigEg7vMtzTWdMZ/9U7qVGfYPmogk9gk8S4kOnjZKy1ikALUNURRKccTbOZGrVRL
-6J2B2xG1Sx+gbpLnuUE2rtnitZ1beYApaBPNC8x/IZzUl8ovx6IeW5c9Dzq4DfaF
-8cEZLjoyGJw1gY8kQD6PyjtsgUVo484i1tlkaEFk1wGmQnFsBZ6Uf0erCMjk3MoE
-PEtwB5o209bDQ1hQ7vj30fRduqSu/m69z7U7o8u7U1tZ3o9TnoabHgDteLyBXY9+
-RIIgQEaz7RlUQlsuEP7FAfptot9H8UzEsp6J1vb/t+imh2BMANU=
-=qQNc
------END PGP SIGNATURE-----
-
---s2oemksdrbwfvafw--
 
