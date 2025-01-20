@@ -1,261 +1,218 @@
-Return-Path: <linux-man+bounces-2269-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2270-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42658A16D8F
-	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 14:42:46 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CCC5A16E5D
+	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 15:22:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 54CC53A53D4
-	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 13:42:39 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 266CF169BF5
+	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 14:22:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B8E11E1A3E;
-	Mon, 20 Jan 2025 13:42:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 349F41E3772;
+	Mon, 20 Jan 2025 14:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b="jwdj8lPX"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcpPxvIk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from box.jasonyundt.email (box.jasonyundt.email [104.248.224.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204191FC8
-	for <linux-man@vger.kernel.org>; Mon, 20 Jan 2025 13:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.248.224.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96891B4F02
+	for <linux-man@vger.kernel.org>; Mon, 20 Jan 2025 14:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737380561; cv=none; b=lRkTbqdOX6YqbSIIMj6wjppTaAeEHryfCh/3ttpFSL0XuiIDJO/2RnH2wkS+L0RtZjPGJbtNqkg+cK990kiktoQKOpZ2q5yte3nBVcipdfglB9Gt8uJQCydwmy+GMuOSzUDGBaAxlKRqB8uXGBXA+dZ64f4dKEEgXWMe/PTcnzM=
+	t=1737382914; cv=none; b=hj4EixNVNsuYifFC5R2ZWAhGjqM2Ht7GNQ5foRT5GXCTRyba5PpFJU7J2fgPJ6fBIbgmvBjW8tLEfSACeRRr3p+AeJTe3wCQYxpqTgyfcVOTNvjsicmUkNmWNFi2NOFEC6kUqHAZdl0VrlUzqRUJHW5QXoUGQwa2o6X6+HZhfiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737380561; c=relaxed/simple;
-	bh=zzfBEtZj7Dk3pAakrupNqNA7rqf39PKEiPJbMkWa5UM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OahQIGQsNb5x36CmCBRXYA0Cj1r8FQ1k7icqjW3UgSiT3xAEV6GJXKJ4c7sdpDSbaaqJ2w9Z49pUtMT1fgXMSwtUo7X2aniW6lWkljaPDDSwhZ7iXreZm4h66qQr/fa75nsX8MFzR0v9e1R/pZwJ5XbHnjgMRIfVM/8w6HQVGLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email; spf=pass smtp.mailfrom=jasonyundt.email; dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b=jwdj8lPX; arc=none smtp.client-ip=104.248.224.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jasonyundt.email
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jasonyundt.email;
-	s=mail; t=1737380552;
-	bh=zzfBEtZj7Dk3pAakrupNqNA7rqf39PKEiPJbMkWa5UM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=jwdj8lPXy7oK95AAhXwEkjvW5ucYIyd8PDke8/8GEd+Vec9f62Ndwd+xffUUFCGKg
-	 kDNAGk4yeir8hxcU30MLZOmJg+/MtL71x/fHF2PdE6WTlAgUajzEUg2kfjMDFEk++U
-	 YBLCI3F/Zkif8og4Gr5JfI8wHIrLH7MS5eeq1eZQwF8rgSlpNWKzayjXQo9JA8ItcK
-	 jN2dzhR8VhtwlaHqiQC4MKdzm9soN3aSBe+J8lHUZxieiCrTNvaKXsADWrfD46MqNO
-	 AeAM0ne5UCNyTAjAWDmt87W5ZOKly02IclCD8WY8qK7hLiw8CViSD6p5XH8JJQtKP9
-	 M5qbpfyWYeVNg==
-Received: from authenticated-user (box.jasonyundt.email [104.248.224.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by box.jasonyundt.email (Postfix) with ESMTPSA id 585FA7E23B;
-	Mon, 20 Jan 2025 08:42:32 -0500 (EST)
-From: Jason Yundt <jason@jasonyundt.email>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Florian Weimer <fweimer@redhat.com>,
-	Jason Yundt <jason@jasonyundt.email>,
-	linux-man@vger.kernel.org
-Subject: [PATCH v7] man/man7/pathname.7: Add file documenting format of pathnames
-Date: Mon, 20 Jan 2025 08:42:17 -0500
-Message-ID: <20250120134222.29136-1-jason@jasonyundt.email>
+	s=arc-20240116; t=1737382914; c=relaxed/simple;
+	bh=6eMooLmK52DDAqEp1+IsLNDHS91AAYW6/ZYG7Jc7jCA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P6FlVCA+pyRf66s5KuBobPDZK7JiPnULOykAC0bplTa5VC6U/QUV9QeDguOoxlc3alHio3EQj86YNj4SYwbiHA/amMDbinqxzUadQgh07ht7ZjXs8g7HbH+IiFylESIuIQe3ej6P2zx5WntlTwv/FT5/O9nf1K+917s5m0Vu9qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcpPxvIk; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E3FC4CEDD;
+	Mon, 20 Jan 2025 14:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737382913;
+	bh=6eMooLmK52DDAqEp1+IsLNDHS91AAYW6/ZYG7Jc7jCA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fcpPxvIkHefeWATs/PMBTIBor4z3A8wdtcLhlqrZZH3gbDaduAU88/45nE75Jfzqm
+	 Qj2TyhQmUOBsoszOL6zPnfM3WXxMBT6wTIIQQL+Kk9uJ1Ebalet3IddW0I15qLdB5a
+	 pyQH8HMwU1qkiXaM1gXa9FUu4EgBcBG7ONUOm9ntJKb6ms2sZZhfEBRiuewSNXPaz/
+	 VM6w5FwCOnA8z/Mo6ZOJmFbcGaxnmWuNQ02XUkTbbfOCmMjlwXA1GbYqZLnalp4Ro2
+	 cxc+2pV/0STNpnUsbUaJ4oWztqv4NOmswAC/ZifN5AR2USU00BhOFzXjLg5du34APl
+	 6u040ehH/z/9Q==
+Date: Mon, 20 Jan 2025 15:22:05 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jason Yundt <jason@jasonyundt.email>
+Cc: Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v7] man/man7/pathname.7: Add file documenting format of
+ pathnames
+Message-ID: <44lwfhugenusvqlbykuedke74oblz6m4tgboy35g6s7zzgq4fe@po5tmyuu6dhh>
+References: <20250120134222.29136-1-jason@jasonyundt.email>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3zqjlbdbpmenfi5z"
+Content-Disposition: inline
+In-Reply-To: <20250120134222.29136-1-jason@jasonyundt.email>
 
-The goal of this new manual page is to help people create programs that
-do the right thing even in the face of unusual paths.  The information
-that I used to create this new manual page came from these sources:
 
-• <https://unix.stackexchange.com/a/39179/316181>
-• <https://sourceware.org/pipermail/libc-help/2024-August/006737.html>
-• <https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/fs/ext4/ext4.h?h=v6.12.9#n2288>
-• <man:unix(7)>
-• <https://unix.stackexchange.com/q/92426/316181>
+--3zqjlbdbpmenfi5z
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jason Yundt <jason@jasonyundt.email>
+Cc: Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v7] man/man7/pathname.7: Add file documenting format of
+ pathnames
+References: <20250120134222.29136-1-jason@jasonyundt.email>
+MIME-Version: 1.0
+In-Reply-To: <20250120134222.29136-1-jason@jasonyundt.email>
 
-Signed-off-by: Jason Yundt <jason@jasonyundt.email>
----
-Here’s what I changed from the previous version:
+Hi Jason,
 
-• The pathname_len variable in the example program is now named len.
-• iconv(3) is no longer called in a while loop.
-• The example program now calls malloc() instead of calloc().  It now relies on
-  a U+0000 null character in order to null terminate locale_pathname.
+On Mon, Jan 20, 2025 at 08:42:17AM -0500, Jason Yundt wrote:
+> +.SS Program source
+> +.\" SRC BEGIN (pathname_encoding_example.c)
+> +.EX
+> +#include <err.h>
+> +#include <iconv.h>
+> +#include <langinfo.h>
+> +#include <locale.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <uchar.h>
+> +\&
+> +#define NELEMS(a)  (sizeof(a) / sizeof(a[0]))
+> +\&
+> +int
+> +main(void)
+> +{
+> +    if (setlocale(LC_ALL, "") =3D=3D NULL) {
+> +        err(EXIT_FAILURE, "setlocale");
+> +    }
+> +    char32_t utf32_pathname[] =3D U"example";
 
- man/man7/pathname.7 | 163 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 163 insertions(+)
- create mode 100644 man/man7/pathname.7
+Please separate declarations from code.
 
-diff --git a/man/man7/pathname.7 b/man/man7/pathname.7
-new file mode 100644
-index 000000000..cdf21de8f
---- /dev/null
-+++ b/man/man7/pathname.7
-@@ -0,0 +1,163 @@
-+.\" Copyright (C) 2025 Jason Yundt (jason@jasonyundt.email)
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH pathname 7 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+pathname,
-+filename
-+\-
-+how pathnames are encoded and interpreted
-+.SH DESCRIPTION
-+Some system calls allow you to pass a pathname as a parameter.
-+When writing code that deals with pathnames,
-+there are kernel-space requirements that you must comply with,
-+and user-space requirements that you should comply with.
-+.P
-+The kernel stores pathnames as null-terminated byte sequences.
-+The kernel has a few general rules that apply to all pathnames:
-+.IP \[bu] 3
-+The last byte in the sequence needs to be a null byte.
-+.IP \[bu]
-+Any other bytes in the sequence need to be non-null bytes.
-+.IP \[bu]
-+A 0x2F byte is always interpreted as a directory separator (/)
-+and cannot be part of a filename.
-+.IP \[bu]
-+A pathname can be at most PATH_MAX bytes long.
-+PATH_MAX is defined in
-+.BR limits.h (0p)\
-+\.
-+A pathname that’s longer than PATH_MAX bytes
-+can be split into multiple smaller pathnames and opened piecewise using
-+.BR openat (2).
-+.IP \[bu]
-+A filename can be at most a certain number of bytes long.
-+The number is filesystem-specific.
-+You can get the filename length limit for a currently mounted filesystem
-+by passing _PC_NAME_MAX to
-+.BR fpathconf (3)\
-+\.
-+For maximum portability, programs should be able to handle filenames
-+that are as long as the relevant filesystems will allow.
-+For maximum portability, programs and users should limit the length
-+of their own pathnames to NAME_MAX bytes.
-+NAME_MAX is defined in
-+.BR limits.h (0p)\
-+\.
-+.P
-+The kernel also has some rules that only apply in certain situations.
-+Here are some examples:
-+.IP \[bu] 3
-+Filenames on the ext4 filesystem can be at most 30 bytes long.
-+.IP \[bu]
-+Filenames on the vfat filesystem cannot a
-+0x22, 0x2A, 0x3A, 0x3C, 0x3E, 0x3F, 0x5C or 0x7C byte
-+(", *, :, <, >, ?, \ or | in ASCII)
-+unless the filesystem was mounted with iocharset set to something unusual.
-+.IP \[bu]
-+A UNIX domain socket’s sun_path can be at most 108 bytes long (see
-+.BR unix (7)
-+for details).
-+.P
-+User space treats pathnames differently.
-+User space applications typically expect pathnames to use
-+a consistent character encoding.
-+For maximum interoperability, programs should use
-+.BR nl_langinfo (3)
-+to determine the current locale’s codeset.
-+Paths should be encoded and decoded using the current locale’s codeset
-+in order to help prevent mojibake.
-+For maximum interoperability,
-+programs and users should also limit
-+the characters that they use for their own pathnames to characters in
-+.UR https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html#tag_03_265
-+the POSIX Portable Filename Character Set
-+.UE .
-+.SH EXAMPLES
-+The following program demonstrates
-+how to ensure that a pathname uses the proper encoding.
-+The program starts with a UTF-32 encoded pathname.
-+It then calls
-+.BR nl_langinfo (3)
-+in order to determine what the current locale’s codeset is.
-+After that, it uses
-+.BR iconv (3)
-+to convert the UTF-32 encoded pathname into a locale codeset encoded pathname.
-+Finally, the program uses the locale codeset encoded pathname to create
-+a file that contains the message “Hello, world!”
-+.SS Program source
-+.\" SRC BEGIN (pathname_encoding_example.c)
-+.EX
-+#include <err.h>
-+#include <iconv.h>
-+#include <langinfo.h>
-+#include <locale.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <uchar.h>
-+\&
-+#define NELEMS(a)  (sizeof(a) / sizeof(a[0]))
-+\&
-+int
-+main(void)
-+{
-+    if (setlocale(LC_ALL, "") == NULL) {
-+        err(EXIT_FAILURE, "setlocale");
-+    }
-+    char32_t utf32_pathname[] = U"example";
-+    size_t len = NELEMS(utf32_pathname) \- 1;
-+    size_t locale_pathname_size = len * MB_CUR_MAX + 1;
-+    char *locale_pathname = malloc(locale_pathname_size);
-+    if (locale_pathname == NULL) {
-+	err(EXIT_FAILURE, "malloc");
-+    }
-+\&
-+    iconv_t cd = iconv_open(nl_langinfo(CODESET), "UTF\-32");
-+    if (cd == (iconv_t) \- 1) {
-+        err(EXIT_FAILURE, "iconv_open");
-+    }
-+    char *inbuf = (char *) utf32_pathname;
-+    size_t inbytesleft = sizeof utf32_pathname;
-+    char *outbuf = locale_pathname;
-+    size_t outbytesleft = locale_pathname_size;
-+    size_t iconv_result =
-+        iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
-+    if (iconv_result == \-1) {
-+        err(EXIT_FAILURE, "iconv");
-+    }
-+    // This ensures that the conversion is 100% complete.
-+    // See iconv(3) for details.
-+    iconv_result =
-+        iconv(cd, NULL, &inbytesleft, &outbuf, &outbytesleft);
-+    if (iconv_result == \-1) {
-+        err(EXIT_FAILURE, "iconv");
-+    }
-+    if (iconv_close(cd) == \-1) {
-+        err(EXIT_FAILURE, "iconv_close");
-+    }
-+\&
-+    FILE *fp = fopen(locale_pathname, "w");
-+    if (fp == NULL) {
-+        err(EXIT_FAILURE, "fopen");
-+    }
-+    if (fputs("Hello, world!\\n", fp) == EOF) {
-+        err(EXIT_FAILURE, "fputs");
-+    }
-+    if (fclose(fp) == EOF) {
-+        err(EXIT_FAILURE, "fclose");
-+    }
-+\&
-+    free(locale_pathname);
-+    exit(EXIT_SUCCESS);
-+}
-+.EE
-+.\" SRC END
-+.SH SEE ALSO
-+.BR limits.h (0p),
-+.BR open (2),
-+.BR fpathconf (3),
-+.BR iconv (3),
-+.BR nl_langinfo (3),
-+.BR path_resolution (7),
-+.BR mount (8)
--- 
-2.47.1
+	int
+	main(void)
+	{
+		size_t    size;
+		char32_t  utf32_pathname[] =3D U"example";
+		...
 
+		if (setlocale(...
+		...
+	}
+
+
+> +    size_t len =3D NELEMS(utf32_pathname) \- 1;
+> +    size_t locale_pathname_size =3D len * MB_CUR_MAX + 1;
+
+Since there's no other use of len, I'd just inline it.
+Since there's no other *_size variable, let's just call this size.
+
+	size_t  size =3D NELEMS(utf32_pathname) * MB_CUR_MAX;
+
+> +    char *locale_pathname =3D malloc(locale_pathname_size);
+> +    if (locale_pathname =3D=3D NULL) {
+> +	err(EXIT_FAILURE, "malloc");
+> +    }
+> +\&
+> +    iconv_t cd =3D iconv_open(nl_langinfo(CODESET), "UTF\-32");
+> +    if (cd =3D=3D (iconv_t) \- 1) {
+> +        err(EXIT_FAILURE, "iconv_open");
+> +    }
+> +    char *inbuf =3D (char *) utf32_pathname;
+> +    size_t inbytesleft =3D sizeof utf32_pathname;
+> +    char *outbuf =3D locale_pathname;
+> +    size_t outbytesleft =3D locale_pathname_size;
+> +    size_t iconv_result =3D
+> +        iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+> +    if (iconv_result =3D=3D \-1) {
+> +        err(EXIT_FAILURE, "iconv");
+> +    }
+> +    // This ensures that the conversion is 100% complete.
+> +    // See iconv(3) for details.
+> +    iconv_result =3D
+> +        iconv(cd, NULL, &inbytesleft, &outbuf, &outbytesleft);
+> +    if (iconv_result =3D=3D \-1) {
+> +        err(EXIT_FAILURE, "iconv");
+> +    }
+
+Do we really need two calls?  Why?
+
+> +    if (iconv_close(cd) =3D=3D \-1) {
+> +        err(EXIT_FAILURE, "iconv_close");
+> +    }
+> +\&
+> +    FILE *fp =3D fopen(locale_pathname, "w");
+> +    if (fp =3D=3D NULL) {
+> +        err(EXIT_FAILURE, "fopen");
+> +    }
+> +    if (fputs("Hello, world!\\n", fp) =3D=3D EOF) {
+> +        err(EXIT_FAILURE, "fputs");
+> +    }
+
+We don't check for fputs(3) errors in examples.  stdio buffers stuff,
+so anyway this call most likely won't fail.
+
+> +    if (fclose(fp) =3D=3D EOF) {
+> +        err(EXIT_FAILURE, "fclose");
+> +    }
+
+This would be the only error handling we need, I think.
+
+
+Cheers,
+Alex
+
+> +\&
+> +    free(locale_pathname);
+> +    exit(EXIT_SUCCESS);
+> +}
+> +.EE
+> +.\" SRC END
+> +.SH SEE ALSO
+> +.BR limits.h (0p),
+> +.BR open (2),
+> +.BR fpathconf (3),
+> +.BR iconv (3),
+> +.BR nl_langinfo (3),
+> +.BR path_resolution (7),
+> +.BR mount (8)
+> --=20
+> 2.47.1
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--3zqjlbdbpmenfi5z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeOXAcACgkQnowa+77/
+2zJSeg/+JLiuGSk7Rkk1WRydECiFs34aNi3PxJPjDSjtAjPmVaazt9sd+TvuXe4C
+dOfg4i5nL4szVULiXgay8/GaQteiTME7uZT9D4hqkTyE6QF4Xz8qNlm31gwvv9wK
+YmOaig63+e4hXLcMz6t5ckpBD3o3jB5elOhlSggLpVfoyQziW4CEywegxurDcH0a
+HuMl+wFhNqomi4V39cWZQKk58tJPwtuz+cM93bkIHg0W7zB9W3tPsaVGNhG4otwh
+R7NxbQ8bCHvoDG4W3lzccGJUZIZFL9W9+mWfgA3y8+uoA2WGXhiIv6qkoIJbFwEH
+yTo4co18QjsEX+FHrGNZvZIvHlQoaZgHxehgx3QvKL27Egw86iyz94i5HXSn2O6l
+Fw3lVFlgKeLtc/t/xNLQYHAAb5Ffswj60OamY0K6OhIc/TEv0RBnYqEfK14i8vly
+sDdj2U/iPXEksod61I/FnlxykW2vCoQ5mxexmWWqXAiATbCrmiwEI+rlefuba/aZ
+PrOrJzTZZASDrtCrJ8QYHIeYyfKh5xk5Qz04G3kPQJWpfA9lgqGgtqNKS1mC179j
+HLLPtLB9LmfBi1GNVC6N+wZxTHb63ISa36Jh2AiMLRoHFzj4C/dnE+/UkertK8Rd
+R8Vp715MydreFhwg3BLwKIZ6hSt86OvJpZjJWTcbljzShh66a/Q=
+=EkyG
+-----END PGP SIGNATURE-----
+
+--3zqjlbdbpmenfi5z--
 
