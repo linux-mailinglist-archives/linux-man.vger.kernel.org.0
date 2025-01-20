@@ -1,88 +1,112 @@
-Return-Path: <linux-man+bounces-2264-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2265-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 268FAA1692E
-	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 10:21:54 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8644CA16B16
+	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 11:56:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 30FAC18840D5
-	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 09:21:57 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3DEDF188702F
+	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2025 10:56:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0511619D8BC;
-	Mon, 20 Jan 2025 09:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 301B61B6CFD;
+	Mon, 20 Jan 2025 10:56:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="IiKU56P0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SiR9BnUJ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457011AB6D4
-	for <linux-man@vger.kernel.org>; Mon, 20 Jan 2025 09:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4912187872
+	for <linux-man@vger.kernel.org>; Mon, 20 Jan 2025 10:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737364893; cv=none; b=Ilu0T94Lb3NLbCYlzIhssvuYc4pRIQQvcXNFBstNOI3U1HnuOk7/6AEsBkTaYa/Nh+ddk5rVyYc3+yhMPJiMegHzdpkclxmnKbyREoSDfHLjJ7gpETRXLYRfPkWIEwvmjUlbd8vhD3gHqooZiTB/jfpqHO6yE6me3Bft5P6Zwc4=
+	t=1737370582; cv=none; b=uaZDC33PQXdMi2+TtWKdqhoFSX4xzOkMKUpFYesCpWgEBgP1Xxvjpx0+vwNhm37Q0uPYhjPjgQaFKv1xngoEy/TEohYbLd2ARoLc4f2oZ0+B8OhZ5fvdRlOKpvn4tentzlnoI6o/eS9kD3QNKzPTkyb0kjs8B8y2Wi+D6rWB0hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737364893; c=relaxed/simple;
-	bh=jFm9Hi1dAsrUpS/kZeEEhEU19J+TcGs9NldOcB9Eht8=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=cLdVUAmEMXXDd47X51gNXJ12mrurYDLpeNieOmpXLTdlspMjlSVQ0d+pWpsgit8jm4uQ9DpCCQ6feLXlX/y/G9kK9oaUClrhb7IQkZl87TNON0WoTWDhzGR438M9pv2QtSLTlMLGCcrmjHf2AiWxs4Eu0UTvqfPQZGJ+HEe/7F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=IiKU56P0; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1737364858;
-	bh=jFm9Hi1dAsrUpS/kZeEEhEU19J+TcGs9NldOcB9Eht8=;
-	h=Message-ID:Subject:From:To:Date:MIME-Version;
-	b=IiKU56P0FZySRUtcNR66G+2iuEhRAjNS+w2xcHtAXJBbQSQzyhnxJYrpRWc7NtTsw
-	 yPusv6uiYGR3o75rnY6MfDRw3cIcMExvPp7lpMYeko0LisD7M7NvuJ6Zr4u7c0tTOZ
-	 MmOQOQ4ofm9hyHJeyT5caNqQV4wZSsSlyoMwB5Co=
-X-QQ-mid: bizesmtpsz4t1737364855t19m339
-X-QQ-Originating-IP: dwOFHPkybseh5T8TkU0s3GO66dqTyPVOVmw7yTikYQk=
-Received: from [10.20.53.121] ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 20 Jan 2025 17:20:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10979868328934859203
-Message-ID: <0FE174BEFC4B0385+2930538d0fd26e9b135e20d69c75590ea6237435.camel@uniontech.com>
-Subject: Missing `munmap` in clone.2 example code
-From: Chen Linxuan <chenlinxuan@uniontech.com>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1737370582; c=relaxed/simple;
+	bh=rdYeXwZhAqzeuOr46gsYyoP0AG71G8iTh68NYC4CT5Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KkTr3VCzdlAXgVnaQ13TeSFlh+V0OdWnv23GWAYMX5xEvM9Atx39NXDt2zzeklMX5/sujAqBXLILafHrtpgfP+u9Hon/wUxEGru5mH1YafV3EMqXTVzLKrWnNQT71yvlLrRzfbIUAdmLnLq04EPORDyDK3x6n6Rrfi6gTe19TtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SiR9BnUJ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB98C4CEE0;
+	Mon, 20 Jan 2025 10:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737370582;
+	bh=rdYeXwZhAqzeuOr46gsYyoP0AG71G8iTh68NYC4CT5Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SiR9BnUJ6RlU9KKihV8Q2KY7rACbgqZgVfPG6axZAf+Xo/7OUalI1AmPASdZGBRQ6
+	 EflzCBQtYhvtwajePHb/RHtIIZR+pxg3dIFzlkYJTzHc+1UmMvIpzorydoheXhLLFc
+	 Icuy4R0DSB00L89ta1TrEY5aB+3MDrJstHo107rsqeryqhvVRX90C5McQaOavlW5Vi
+	 0fVPRPyGs0R6F2Gzm7Cqha6yc2jDt5m0Z7FBwAF532gjyscOQaZlD0PdaRyww56Y4m
+	 zaFbHvLfDIBNx5ucPd/tE+xyJfaaKtotuD4VEb9yVmetgnvA1RugHNPQ6rMcKx//ff
+	 52or2lqVzt5JQ==
+Date: Mon, 20 Jan 2025 11:56:35 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Chen Linxuan <chenlinxuan@uniontech.com>
 Cc: linux-man@vger.kernel.org
-Date: Mon, 20 Jan 2025 17:20:54 +0800
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1 
+Subject: Re: Missing `munmap` in clone.2 example code
+Message-ID: <amuuz7myresymfcsl6nmg7riwmmlzn42qadqmqbeck6lfmrpwl@jmeocxcpkynb>
+References: <0FE174BEFC4B0385+2930538d0fd26e9b135e20d69c75590ea6237435.camel@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
-X-QQ-XMAILINFO: MCiK9DnWZEXsEHOBVUKWX83PpcRzxH+t5k0efpxCMxQgm+d6PEgmvLoj
-	2+HnjjasfBLczf+zisDfcJj/GshvqvQ/mZzLH1f3JqRtHkdQ+GvT8bTUDq2nHi6ki8DZ/iN
-	14I8Dq9iUe04ICmsvJw5NKaiIdau1piXUwqzzU6LOFQ6MulABP8Hr8ynIFEtrOkjsqZQUie
-	hPykIb/njnv4D3zRESLQAmtTeChiciQnOzzjCwv1VSWRPYcf64Ly3Ta+XmiKbSZW27I/qxV
-	ne0WAww0f82kJ2Hsz9kYmynwJKwzBw+NNVNI5FRrKJkgzJtF6mxLgwvX/5Ytq1YThxKeGo+
-	/hA14nLs/SGkdX9jxA0hSp4dfIFKEz9FaYR2XgCyOiO7afkmp9kZjfvlBEZ6OQniAmP2FLY
-	o5LXRVrisS+V1UNKF0SO4/rrQbdUehshhcKB2OBUFWzzyJCLt+aIMhj2YWlDewE4toBRBul
-	9y5iEVWeqKZbASgMyy33Lt/9Vl/y+LqAhaW+3Wsn6HcdJ8iYtmqLOQayVOc/84UQ5ph3Wkp
-	gaM6FjOlFsusMzqXv6qWWxj35yC7SxA8BTId4x3k4mm0neb2Tb4U72WPv7UGfogeQzlHVTS
-	X6V26CU84cNb45dYahx00i8tLxRmjv/A2Q6e9cW9vg/azPGl9Y1uFBTI4RIdrYY4Up/qiJ8
-	LP4t0rV/tRjEFn0j+a7N7Dz8sWRjhsmuBpkLHPILd9nAnWgPDeie4krY6nCvgGVCRpNj9Hf
-	qMhwmY05nepSuoZwqICmCM2Bkf21ACLAidzeqjyEVLAVka971UWLLmT3zX3HYnyTdKNbySS
-	dgMh8BFKc+Bbqp/wzfFbBmDTpSk6vJ7wx3jGPYFAKKaY0iQlSPfRGyg2nm0Hrm/GDGL2KP8
-	p4/bEIMOJWC/Wq8s0Djcv1mbhjFnnQXIkrUZeYwp+Pqhfopcd/9JTdmzEHUBMYmkDeajeja
-	67WKc72AkhrW46evXYxdXee0KbKJIvGm/Loc=
-X-QQ-XMRINFO: M/715EihBoGSf6IYSX1iLFg=
-X-QQ-RECHKSPAM: 0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5dvy4hkkem5rde3r"
+Content-Disposition: inline
+In-Reply-To: <0FE174BEFC4B0385+2930538d0fd26e9b135e20d69c75590ea6237435.camel@uniontech.com>
 
-While reading `man clone.2`,
-I found that the parent process doesn't unmap the stack of child
-process.
-Should we unmap the memory in this example?
 
+--5dvy4hkkem5rde3r
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Chen Linxuan <chenlinxuan@uniontech.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Missing `munmap` in clone.2 example code
+References: <0FE174BEFC4B0385+2930538d0fd26e9b135e20d69c75590ea6237435.camel@uniontech.com>
+MIME-Version: 1.0
+In-Reply-To: <0FE174BEFC4B0385+2930538d0fd26e9b135e20d69c75590ea6237435.camel@uniontech.com>
+
+Hi Chen,
+
+On Mon, Jan 20, 2025 at 05:20:54PM +0800, Chen Linxuan wrote:
+> While reading `man clone.2`,
+> I found that the parent process doesn't unmap the stack of child
+> process.
+> Should we unmap the memory in this example?
+
+Would you mind sending a patch to discuss it?  Thanks!
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--5dvy4hkkem5rde3r
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeOK9wACgkQnowa+77/
+2zKmEw//QO/b14+nfL4AY4xtQ5HumDF2cRYkCp9qNScF9lUnig8PpUicEgm8EJpw
+6OarA0LzZY+X2N/c5kQhjvgwqEWAKX7ELa1ptfqboHrjye5NYsDDxo2fHfgfXpBU
+C10qgOMQqi7Mm9BXRfKtB5S3PiTP1fgxjgZkg0pyysjA3ijUj49k5x3Gj8O9UfFG
+gSCBUVB/PA1s3upnXH1u+fYhfdNDY+TC8M9Y2+N41y75CcHhOXpq00axNKO2X0Kz
+1urmQvm+TNwYOTerV7tj6xSAQcBm52LAr3KYVomX/wvVAUQEA/TYudUKlXE62IsR
+wMCRdjH+0Zt0udOGYF3TqcSlSxC443YuWv8LfODy+mppMpF+nO3HyivYB5WSkMBK
+Vf8/vnd/OtVKMb4LfIkbxLV1WX6FY7FK3b2Ma1ue64eRQ1wr2mjc6JN60MAgq5f8
+BHw90hOF/NdLsCsbkM/Jb4PRJhEsGi6WLx1GKog2sdNV21UHpiOruR8liqccT00E
+IhdTYemiLAdyfoTaNln2c0i94aptDiPfsXiyjz71gslRwYCn0TbQpDfTR30Kg66T
+/mottHR5hAcNd/zLTTB/ArWHETECb56rN7u08eOgpXwnfJ34tBehj6pQKYdaOu8B
+eku5AUqWfFR7gloU4uyo677mug0GaSv4X1T5Y1oWF5LjX7sm0o8=
+=JoA6
+-----END PGP SIGNATURE-----
+
+--5dvy4hkkem5rde3r--
 
