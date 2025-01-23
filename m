@@ -1,143 +1,101 @@
-Return-Path: <linux-man+bounces-2286-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2287-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05371A1A41F
-	for <lists+linux-man@lfdr.de>; Thu, 23 Jan 2025 13:25:21 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2538A1AD1B
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jan 2025 00:09:37 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E30291887EA0
-	for <lists+linux-man@lfdr.de>; Thu, 23 Jan 2025 12:25:24 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id ADBC0188DC26
+	for <lists+linux-man@lfdr.de>; Thu, 23 Jan 2025 23:09:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 007DA20E33E;
-	Thu, 23 Jan 2025 12:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uKDqhO+V"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B49091CDA2D;
+	Thu, 23 Jan 2025 23:09:32 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from queue02c.mail.zen.net.uk (queue02c.mail.zen.net.uk [212.23.3.242])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B350B20E035
-	for <linux-man@vger.kernel.org>; Thu, 23 Jan 2025 12:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E240B139CEF;
+	Thu, 23 Jan 2025 23:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.23.3.242
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737635116; cv=none; b=DJMCDRkdhpvwYiU/7eQMdJ2OIVVEfaikfWckiIz2jo/u3bQGIR8BcrSEL3zX6owN8EcRkOahDSx2d8jANk80XehduZoNaMtm4X5qYWBBDAuj6uHEobASLNIh8EMmUXtKjK9wYAQpFpp1JTPvSIZQjdMDhikyNMlixW5QVCywcTo=
+	t=1737673772; cv=none; b=jO4sdJET7iGFnryJ+ypgxHd3nRH/snl0rRe+aZb8BdthOZDvbQfJbuxG43CX2rcJ06P13THB3ecknmcsmwjpIWtJAwDDCvZeHnabwSgYBGMvWHaMqy+F12DoM9t2ndfH8fS/AUcAe+GoV2VfFdnTfFfNLS3q3uYnPAXsqrUUHX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737635116; c=relaxed/simple;
-	bh=N3InOtnO24BjOwPZb2ehIqOWs9647Mn5eSsbC8fypSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c3b/b2Q4wORdrGxUZOR0nAjXENtvxQsBcVSNCLDfWjl8TcmE2sAV4uxqfMFNcMnl6EKA4CRvmhpBaD04CLkxuU9S7otHyLRV5EiaGIvS7Xkn/FOS+tqvRyvOMQJ79Y1noCb7YnGwUi/O8lDfomh1E/ZfuO48ktKRHSKojU7izMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uKDqhO+V; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BCF4C4CEE5;
-	Thu, 23 Jan 2025 12:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1737635116;
-	bh=N3InOtnO24BjOwPZb2ehIqOWs9647Mn5eSsbC8fypSI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uKDqhO+VRnRefwYRh4oFJ2HUj/yQAUCEK9aeBMr59AJkiFO4BPIJBZdgvggjdyA7z
-	 pltWF7BoxySDvc1GfguHiIeMP6PONXLRqKCp7eFJNuR1w8RVF4FZ3OIoUqjfafIQvx
-	 6gmlPc+Z+N3VUMuS5x7MTeB6sJVK6f11bX1UQrWEWgqm6ejvk8D5K/wZgGJNIWSUeg
-	 ONkrZpvuluV/6RcFNuTh+0/yU5bOU5xFmgrvQArvzhEB2bzGTIxgNrIm9u5VllX4g/
-	 JcJYp9X/BGyGnfWon0Ag2/OQ/gOvhl9+q8IBitDJE9oHu69c1Iyv7gwp5xgOXgGnQC
-	 g15DjEiD70hAw==
-Date: Thu, 23 Jan 2025 13:25:30 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: linux-man@vger.kernel.org, 
-	"Eric W . Biederman" <ebiederm@xmission.com>
-Subject: Re: [PATCH] man/man2/mkdir.2: Add EOVERFLOW
-Message-ID: <hvmtgu7kscyawznd4o6zod45xklalinom2zdlcwn3bllkxlrg6@syxa44h4cp64>
-References: <A5A55492765B9570+20250122092417.811572-1-chenlinxuan@uniontech.com>
+	s=arc-20240116; t=1737673772; c=relaxed/simple;
+	bh=K/Af685oAWhv28+sGZFPMVsqwPV1BQztqfhmToFw55k=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=abJ3VgM7W7m8cpxXljiE9t12CwI6/KaV+7EaqKewA6glzRqxEivcAMuszMOr2u61UAcHAnhOzrCbK4b+DLAnPmVR8wyr0Zn0sgbL/ASWmCSfyBdCJWoPsuWKO/X9b2ZWrmn97hD+ivKd0Ioj3P1sUEF1LQkNSds6lYUer9ZXeiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chuzzlewit.myzen.co.uk; spf=pass smtp.mailfrom=chuzzlewit.myzen.co.uk; arc=none smtp.client-ip=212.23.3.242
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chuzzlewit.myzen.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chuzzlewit.myzen.co.uk
+Received: from [212.23.1.3] (helo=smarthost01b.sbp.mail.zen.net.uk)
+	by queue02c.mail.zen.net.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <deri@chuzzlewit.myzen.co.uk>)
+	id 1tb64d-002hB0-R6;
+	Thu, 23 Jan 2025 22:53:19 +0000
+Received: from [82.71.22.80] (helo=pip.localnet)
+	by smarthost01b.sbp.mail.zen.net.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <deri@chuzzlewit.myzen.co.uk>)
+	id 1tb64H-00Eo1M-3o;
+	Thu, 23 Jan 2025 22:53:04 +0000
+From: Deri <deri@chuzzlewit.myzen.co.uk>
+To: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: man-pages-6.10 released
+Date: Thu, 23 Jan 2025 22:53:04 +0000
+Message-ID: <5879567.Si16P0KhqQ@pip>
+In-Reply-To: <glkd5bliwzofuoevcr5uqxkkebrwnwfqxiea4dblnjjj24sl72@22f5lir52umy>
+References: <glkd5bliwzofuoevcr5uqxkkebrwnwfqxiea4dblnjjj24sl72@22f5lir52umy>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5fk4sj6nvrvhybhy"
-Content-Disposition: inline
-In-Reply-To: <A5A55492765B9570+20250122092417.811572-1-chenlinxuan@uniontech.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-Originating-smarthost01b-IP: [82.71.22.80]
+Feedback-ID: 82.71.22.80
+
+On Wednesday, 22 January 2025 22:26:48 GMT Alejandro Colomar wrote:
+> Gidday!
+> 
+> I'm proud to announce:
+> 
+>         man-pages-6.10 - manual pages for GNU/Linux
+
+Hi Alex,
+
+I have noticed in recent releases using a newer version of groff, the overview 
+panel was getting double entries. Here's a patch to fix it. 
+
+================================================================================
+
+diff --git a/share/mk/build/pdf/book/prepare.pl b/share/mk/build/pdf/book/
+prepare.pl
+index ef8c17b18..4620072ca 100755
+--- a/share/mk/build/pdf/book/prepare.pl
++++ b/share/mk/build/pdf/book/prepare.pl
+@@ -184,7 +184,7 @@ sub BuildPage
+                                # Add a level two bookmark. We don't set it in 
+the TH macro since the name passed
+                                # may be different from the filename, i.e. 
+file = unimplemented.2, TH = UNIMPLEMENTED 2
+ 
+-                               print ".pdfbookmark -T $bkmark 2 $nm($sec)\n";
++                               print ".pdfhref M -N $bkmark\n";
+ 
+                                next;
+                        }
+
+================================================================================
+
+Cheers
+
+Deri
 
 
---5fk4sj6nvrvhybhy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: linux-man@vger.kernel.org, 
-	"Eric W . Biederman" <ebiederm@xmission.com>
-Subject: Re: [PATCH] man/man2/mkdir.2: Add EOVERFLOW
-References: <A5A55492765B9570+20250122092417.811572-1-chenlinxuan@uniontech.com>
-MIME-Version: 1.0
-In-Reply-To: <A5A55492765B9570+20250122092417.811572-1-chenlinxuan@uniontech.com>
-
-Hi Chen,
-
-On Wed, Jan 22, 2025 at 05:24:17PM +0800, Chen Linxuan wrote:
-> `mkdir` and `mkdirat` might set errno to EOVERFLOW when UID or GID
-> mapping has not been configured. See
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D036d523641c66bef713042894a17f4335f199e49
-
-Would you mind adding a small program in the commit message that shows
-this behavior?
-
-> Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
-
-Thanks for the patch!  It LGTM.
-
-
-Have a lovely day!
-Alex
-
-> ---
->  man/man2/mkdir.2 | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/man/man2/mkdir.2 b/man/man2/mkdir.2
-> index d84dbc27e..2af618d68 100644
-> --- a/man/man2/mkdir.2
-> +++ b/man/man2/mkdir.2
-> @@ -203,6 +203,10 @@ does not support the creation of directories.
->  .B EROFS
->  .I pathname
->  refers to a file on a read-only filesystem.
-> +.B EOVERFLOW
-> +UID or GID mappings (see
-> +.BR user_namespaces (7))
-> +has not been configured.
->  .SH VERSIONS
->  Under Linux, apart from the permission bits, the
->  .B S_ISVTX
-> --=20
-> 2.43.0
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---5fk4sj6nvrvhybhy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeSNTkACgkQnowa+77/
-2zJ4NQ/+KTJE1Zr4Wi/wVbfQJP0kCVt5oDSTBhnLEkQ4klBvE9eInLs53t6rv60X
-aVyrzvqxC5vHecplJ6oeEmU4mBxeSVQYI8QKzv9Q3Q3qYxCq6QSOwNHsHydV7RQg
-40EL+EoqXECu6fDlGlBAor1lIe41VaA7gsI7aux/YX54D04NqzX78urPHqVt01fI
-eT5ttpxzs0xoQBPGDT1xbh1Ki8bZAX/BtJo8MDZ458WntxVmwMyKoMP68dEpv6Aa
-ZxIbnSsTpL0cqsqhDiZcUIyNv/KIs5aXNPNVk8Sh9jmWAbdDuVcGraV071u3qJmr
-svyj6XBd6xx0jJVjt4NTvKwswoQcyNqcI9LNDNbv+6AtdulLZKWVERawOIm+mqad
-D+RJYb9ZHB2J/HOQSSvLupRY8+fd5i02WIkCgmWjYfx2omue2QIrpLeQYdsepLaA
-E+wsUeumLG7anCiSTzVW5kNKIG8BDw/Jidawv0Wym2PtqYEQXsPr9L+im+LonzA5
-FpGq5psMTDlL7rUETyEXnpRns+h0IKihemM2iTwxzRWp85Lc7gberr2sgLxrkiEM
-iPlOat5mSblka90Fnfhkyg4IbHH6fYMjW7DKxblOMHeCBHy7TDcnjzRCv1/FEYtL
-tWZW4LfiqHPHBdN4Rz+JNSpIgAN6+MXMcFeNAnvnxzX29BbSBP0=
-=jtyx
------END PGP SIGNATURE-----
-
---5fk4sj6nvrvhybhy--
 
