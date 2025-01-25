@@ -1,150 +1,110 @@
-Return-Path: <linux-man+bounces-2294-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2295-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE161A1C295
-	for <lists+linux-man@lfdr.de>; Sat, 25 Jan 2025 10:47:01 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6166AA1C501
+	for <lists+linux-man@lfdr.de>; Sat, 25 Jan 2025 19:59:30 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C9B3E1886A72
-	for <lists+linux-man@lfdr.de>; Sat, 25 Jan 2025 09:47:05 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D9E0D3A578A
+	for <lists+linux-man@lfdr.de>; Sat, 25 Jan 2025 18:59:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D75E1DB92A;
-	Sat, 25 Jan 2025 09:46:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="WOHgp3wB"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D1B77DA7F;
+	Sat, 25 Jan 2025 18:59:26 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4DE1DAC92
-	for <linux-man@vger.kernel.org>; Sat, 25 Jan 2025 09:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168127083D
+	for <linux-man@vger.kernel.org>; Sat, 25 Jan 2025 18:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737798416; cv=none; b=m4puzH5mSLP2Njn+cq73wFwQG8QFNy7r2cKIzl48vr6p4Ps/zXwjQ6xhrFVkxY9PUra5FMOTb5DVlm4KaAfSj8K0wXR46BLnPXUFsgQUUDr3lOXLV6LWYR7Vr1u4PFihxTLfpEKeZW7DpwAstlOvPQ4WYJUlZ+04idmYqHZiEOU=
+	t=1737831566; cv=none; b=un70nUP8YXRP12jvHeL6IbFkjJ3Uz5Qv6wxQM7ISpGogHYNNfajVd8Oenor67+NekATWGWE8ORGUgRoI4Y4x2piAcxunKzWBAu8eiaQ5le/tGpDfLzHtRbaAHsxnmoPhrAsvTXRd+spTWF8wHqzoKjd7pDR+a9cvRdEIt8bxxH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737798416; c=relaxed/simple;
-	bh=g3XlOwIRFSwVvqFjHQv7CpvLo4oeovOCLvXs2KaKBeg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDtiFrrWxfHt11sgRuZbb12FkgWtk4QypYC/q8/XD1UzX/Z9wrr1Ua/SLm+hq6jG8jCCtMCGDSGg5UmwY1DMPdexxGJJe2PfCy7ozVwhAsaozHeoZ//xJOITlKqyVfFYTJd2w1Ow8WhQv7/4G3cBJf0AuH6XLiyfY6ZhZ3e7G50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=WOHgp3wB; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1737798378;
-	bh=QgDcgXgBw0e0OODgx8lEzuZZiHVu0vTFvJzHSfDQhjA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=WOHgp3wBVFSB4D+oXUxmzSo6GvfbqIlLLqD0MqiMO2opwew/mnjFnM+kq+jFqgWu4
-	 d7R5yzhMQpA9xoqtRyxUiYZd1nyu8wLlbir3ZrfipqpVhBkv5RId0uVf0RxyGt7KuI
-	 MLNwKdQcR6M80pvHKcU+e+RmHXukXW5XWJI4jJJY=
-X-QQ-mid: bizesmtp78t1737798374t0j35re4
-X-QQ-Originating-IP: VbWjIpVHdOZC34McICPIVzl0SbxosLr8u3X6KIIDTIo=
-Received: from localhost.localdomain ( [220.250.46.165])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 25 Jan 2025 17:46:12 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10517027248427496648
-From: Chen Linxuan <chenlinxuan@uniontech.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Chen Linxuan <chenlinxuan@uniontech.com>,
-	"Eric W . Biederman" <ebiederm@xmission.com>
-Subject: [PATCH v2] man/man2/mkdir.2: Add EOVERFLOW
-Date: Sat, 25 Jan 2025 17:46:05 +0800
-Message-ID: <FA96BA75CD41C940+20250125094605.28203-1-chenlinxuan@uniontech.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1737831566; c=relaxed/simple;
+	bh=C92PZT7/tHFNk88QmCnximw1JF4H+kjvRNAj99NOkAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=q0eOl4GdRCwq9u3M2gGxLEFiuLBfuz5eY0hgSO/b2B+t+vIoBP/veDygUmUVwOaBKM1wR82Q3SR6A2AMiH8OtpMMELv7T5XsMJfp2gVKUH5PIJ0DzGnvCMNxWHm4qn9Fv5Wsy3YulVGpK2e3Lr18zp6QWKYeqMMlfDUD7tXJTP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=drabczyk.org; spf=pass smtp.mailfrom=drabczyk.org; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=drabczyk.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=drabczyk.org
+Received: from eig-obgw-6007a.ext.cloudfilter.net ([10.0.30.247])
+	by cmsmtp with ESMTPS
+	id bfaktWkj5WuHKblNFtClJH; Sat, 25 Jan 2025 18:59:17 +0000
+Received: from gator3278.hostgator.com ([198.57.247.242])
+	by cmsmtp with ESMTPS
+	id blNEt9lbt3770blNEtQUbz; Sat, 25 Jan 2025 18:59:16 +0000
+X-Authority-Analysis: v=2.4 cv=WYoKaVhX c=1 sm=1 tr=0 ts=67953484
+ a=wI8P0wgu9qut9Qmby1c6ng==:117 a=x0OE6rfHJZ6H1OKZOK5cGQ==:17
+ a=kj9zAlcOel0A:10 a=VdSt8ZQiCzkA:10 a=uZvujYp8AAAA:8 a=Ye9q-bpsAAAA:8
+ a=VGZVzwQjAAAA:8 a=QOf3tZM2wIWWSm-CzcMA:9 a=CjuIK1q_8ugA:10 a=MlTqRYyVK_IA:10
+ a=SLzB8X_8jTLwj6mN0q5r:22 a=7KbCETwRv5F4J-amU3zH:22 a=m_VEIBz21GJuPbWKIyfi:22
+Received: from 89-77-246-87.dynamic.chello.pl ([89.77.246.87]:33848 helo=localhost)
+	by gator3278.hostgator.com with esmtpa (Exim 4.96.2)
+	(envelope-from <arkadiusz@drabczyk.org>)
+	id 1tblND-004H72-1I;
+	Sat, 25 Jan 2025 12:59:15 -0600
+Date: Sat, 25 Jan 2025 19:58:34 +0100
+From: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+To: Alejandro Colomar <alx@kernel.org>, mtk.manpages@gmail.com
+Cc: linux-man@vger.kernel.org
+Subject: signal(7): should it mention that SIGCHLD is also sent when child is
+ continued?
+Message-ID: <Z5U0Wh_KF3Ki62Pk@comp..>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
-X-QQ-XMAILINFO: MyirvGjpKb1j86pt50fyNKhMyrPKL2FcNwxWrR+gvc7TyQ1f0LKb92aD
-	ypz3FtFsfrvSZJCU/l14YSR3c9Mib4c/RFfPS3OhFMF/ZROU0pDqzC8Z2af/9j3RrGXHecx
-	EMz/PxyD6eswoYgYRlDC07hx4qSc9hkgXKFyRCN2Sk/JPRjrMjVm8bTMalQXhI0MPjKCLiG
-	Bn2ArlJIAIw19cOw8c19mE9DTZeVXaPlxK1b8LyUrli1OLRvoYuNdpfJ5W6UqbRQGoBy0hj
-	c3aViqW3UUoTPjb/RyVSsY8SLlfpM7NRic7zpGX9L5ujUeX+3iKINB3f9YIJYfvlRIwG2I+
-	5EySdWLt2yUbL6vyRWH+9Pk8TNXo1oEgMbHtiet26fTJmcHASeVzK19+gqY7IE1bzIwtXk2
-	KsHPxXzzw8I7Hqt8xMSEj6cCkA56WCx0bKe4GGct+6RN70oGcba37K28gPwHUor3CeDjXiw
-	e6QII2PDnKUHFsoxBEh1OgYsJxsJLwlLuzbSSKDnM5ufZ5kQEJzzmIjv+EUZDZvA9EIFm5j
-	/nyI8oQTUVi63Y2yt2tiJsBH8sLspwfbyrI6NDdKUAji5oTcQT6OlkniyClvRAOXKZ/+Nwa
-	xjryMNwtbonrbfO3unjd9MaHfZ9+dH5akI0p8+OvtasRiqizU9corFwUHoXouFnhd9tV+9/
-	L5DRFRoIC1UqvVkqKNm8ejFl99ZtdTCcVvM0gmavMjlSeWyXgflGmA5X1uf24q3MpTPTgwU
-	ha7TGyP7qv9p6D3srhfjuaXSzGk5IyiAMArAjFb8k/lU/YCzURdfJWtA2pBbK17w01tF/GN
-	NmKWOPvxjB4mGwgYETaR9yLWkV9TBqbf/8/HyDirMHK1cG+LFVLHdNLY0J/3SqH3YDRgR/+
-	QOmKD7VMT3I4+yT2OLgQly2HE4HQ7tVjkqIv5i8VV8ircVv7iilwerSqlLDxDmu5FvOVG7p
-	F6Km8h/y8hcaSwmbHxEzvVdwr
-X-QQ-XMRINFO: NI4Ajvh11aEj8Xl/2s1/T8w=
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator3278.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - drabczyk.org
+X-BWhitelist: no
+X-Source-IP: 89.77.246.87
+X-Source-L: No
+X-Exim-ID: 1tblND-004H72-1I
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 89-77-246-87.dynamic.chello.pl (localhost) [89.77.246.87]:33848
+X-Source-Auth: arkadiusz@drabczyk.org
+X-Email-Count: 1
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: cmt1bXZicmg7cmt1bXZicmg7Z2F0b3IzMjc4Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfI9Rp5QyHctY4KUdB2P0BQkgfo4jmMJNhpXpOzJQtYt9VeCZ5Spn14a9QRxIxprFndquZCO9Uq2cMig6rJmhFDd5Udb3bPZsHYSW2/EdC5WvKjoXW7PU
+ Z+6mbwYHCetL8bfFjqhRxnmkuoPBT9d/dWNr3n/O2gTFq56mE/VyIpAJWmGCmGQpJG7jmRxcX7aAr4IWqah8VjsWj/rndOdYbwI=
 
-`mkdir` and `mkdirat` might set errno to EOVERFLOW when UID or GID
-mapping has not been configured. See
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=036d523641c66bef713042894a17f4335f199e49
+Currently it says:
 
-This is a small program in the commit message that shows this behavior:
+> SIGCHLD      P1990      Ign     Child stopped or terminated
 
-static int childFunc(void *_)
-{
-        if (mount("tmpfs", "/tmp", "tmpfs", 0, NULL)) {
-                err(EXIT_FAILURE, "mount");
-        }
-        if (mkdir("/tmp/test", 0755) == -1) {
-                err(EXIT_FAILURE, "mkdir");
-        }
-        return 0;
-}
+It's the definition from POSIX 1990 which is referred here but the
+modern POSIX says that it's also sent when child continues
+https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/signal.h.html:
 
-int main(int argc, char *argv[])
-{
-        char *stack; /* Start of stack buffer */
-        char *stackTop; /* End of stack buffer */
-        pid_t pid;
+> Child process terminated, stopped, or continued.
 
-        stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
-                     MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
-        if (stack == MAP_FAILED)
-                err(EXIT_FAILURE, "mmap");
+It's supported on Linux - in sigaction(2) a flag is described that
+controls this and it correctly says that it's sent on stop and resume:
 
-        stackTop = stack + STACK_SIZE;
+> SA_NOCLDSTOP
+>
+> If signum is SIGCHLD, do not receive notification when child processes
+> stop (i.e., when they receive one of SIGSTOP, SIGTSTP, SIGTTIN, or
+> SIGTTOU) or resume (i.e., they receive SIGCONT) (see wait(2)).  This
+> flag is meaningful only when establishing a handler for SIGCHLD.
 
-        pid = clone(childFunc, stackTop, CLONE_NEWUSER | CLONE_NEWNS | SIGCHLD,
-                    NULL);
-        if (munmap(stack, STACK_SIZE) == -1)
-                err(EXIT_FAILURE, "munmap");
-        if (pid == -1)
-                err(EXIT_FAILURE, "clone");
+The question about wording in signal(7) has been originally asked by a
+confused user here
+https://unix.stackexchange.com/q/790116/72304. Should it be changed?
 
-        if (waitpid(pid, NULL, 0) == -1)
-                err(EXIT_FAILURE, "waitpid");
-
-        exit(EXIT_SUCCESS);
-}
-
-Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
----
- man/man2/mkdir.2 | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/man/man2/mkdir.2 b/man/man2/mkdir.2
-index d84dbc27e..2af618d68 100644
---- a/man/man2/mkdir.2
-+++ b/man/man2/mkdir.2
-@@ -203,6 +203,10 @@ does not support the creation of directories.
- .B EROFS
- .I pathname
- refers to a file on a read-only filesystem.
-+.B EOVERFLOW
-+UID or GID mappings (see
-+.BR user_namespaces (7))
-+has not been configured.
- .SH VERSIONS
- Under Linux, apart from the permission bits, the
- .B S_ISVTX
 -- 
-2.43.0
-
+Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
 
