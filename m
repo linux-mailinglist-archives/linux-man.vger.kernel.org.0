@@ -1,57 +1,61 @@
-Return-Path: <linux-man+bounces-2302-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2303-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF5D0A1DB62
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 18:37:27 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22F4AA1DC1E
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 19:34:20 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C257A1888493
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 17:37:31 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8196A163D40
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 18:34:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75944186E26;
-	Mon, 27 Jan 2025 17:37:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2727C19007F;
+	Mon, 27 Jan 2025 18:34:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEJ0d+Ec"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="QHih39d7"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31998291E
-	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 17:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6D118A6C5
+	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 18:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737999443; cv=none; b=WaKwYAoQlt30ZoA+l6dgY5dx8X1OKQa9ovzByFJGz3sWYnll946PDKc5/iBGg+xL3DwT8sqt8yyGKajE/guCdM2Uhe4PJ2VFiugs/OXfa1gf1ewdcwZPtKMwwEXP02N9o4b4pCl7XJMSQajAeR19zqH4LqF7iSkPeNXh3nWNe18=
+	t=1738002850; cv=none; b=iaiWiaiEjQzvik5yRelVFsfL3SbmLbnoxdWgUl4gwUbSupsTym+tTBbk20I1wuEer5ctv6JcfLVh3zJpFcPQtc41mu7mcJS4Ophr3QOpFhTGvQfvjulfP4HeVLIKYfoEeiDo9oAxUYlXdC5399dOFDgKU/g8bcD7EqlwALtr9Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737999443; c=relaxed/simple;
-	bh=2yC1DD0LURWMFI6Q3FSHbPlm2HetdetFZSLy+uZVW04=;
+	s=arc-20240116; t=1738002850; c=relaxed/simple;
+	bh=Idn+QH2H0IVIZ8RTjE+B96IvfgoP41zZC7netjr3Ajo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sCV3WdBza1N0z/VfpOHjFt3ZrYyk2XvtxV4prJuNhxMJzdXpbxmHoIRZZaZNgCEsH+TifRgjkNbs3hBulDvqPABMGGXtMF6glZquuWrzktN5Phc6VXLBXSUB20xy8TGDiebQz70wFeQ7Zr0cz22eYhAcR7CIhL8qsOT95k5qAUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEJ0d+Ec; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA6BC4CED2;
-	Mon, 27 Jan 2025 17:37:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1737999442;
-	bh=2yC1DD0LURWMFI6Q3FSHbPlm2HetdetFZSLy+uZVW04=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=U1unVx585uXcpk8ITXhNVnBSHwiqF8Ba8El2YTd1WRpoG+J8hKkg11uiKh869/TUsPehSngPe+58sh0zvERMn7XL7Eh9PWG2A4DYaqZfFwW06ujnC8v7Phtq7hzwlz2NpYYTn2GWfU2CIkcrd/+8g4BUPVz05irnodNidQijJI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=QHih39d7; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202405; t=1738002480;
+	bh=Idn+QH2H0IVIZ8RTjE+B96IvfgoP41zZC7netjr3Ajo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IEJ0d+EcxctYhEON3RRFxf4Lp6NbyDEO6RIWwCDMWpzKZCpzVn3XJJm2g2iD7aCzp
-	 bqborYGuX8C4JhfhDWg2BCnvqRDGnMkS5dFe5GbBALKVW2DuPZZDIJGUhrsHoB+ZXq
-	 JySR6ER5o0yaOG6LXiy1n99WWzIIOVyghcl9tN37/0djfyR8nXeMal8ArRRZy0ojPc
-	 v/o+9mbUXRGj+13P3s/w6hsJ5zs9bARbs4RQI5xr6Apum4IS5QdqkR0d1fs4gcVCAA
-	 Ptm9W+609q0acMJU330ae8MtcX2e2alWhvO/IGkHvZ40Yh4w3iQA+VniS0WKHUXQdJ
-	 1geZo2HSGf4/g==
-Date: Mon, 27 Jan 2025 18:37:40 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Jason Yundt <jason@jasonyundt.email>
-Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>, 
-	"G. Branden Robinson" <branden@debian.org>, =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	b=QHih39d7BrX/FwNXlKkrdt1wFcJNylyYVbZgpBHtOEmSRWlYE35TnWQEtOprdomHe
+	 UfoNVPwdWSqhOwFI8Ldc2Q4fgX97jjCW/JZqSxPHmriTFBS2MudMILVwQ4KUHlrHbJ
+	 CZo7vYaiein/vwnNk3KEZlMRtWJPPOjrjneBxEQ0fxMHv5QkdShJZub4PnyItca7gX
+	 Eye8J9eE9RyNVfBemJxeP4FnsfFy1GCAkABlH+oRSzPJdDz0hFpumca2ea8qDJIT/A
+	 iEe93MSjGiCKwfh2RDaLxqSA1nVpYPh1hOuwp0GdzF5jMEF/WdYUP81QzUk2A4km6z
+	 RZ2DyJilc8YVQ==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id F37A25F76;
+	Mon, 27 Jan 2025 19:27:59 +0100 (CET)
+Date: Mon, 27 Jan 2025 19:27:59 +0100
+From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jason Yundt <jason@jasonyundt.email>, linux-man@vger.kernel.org, 
+	Florian Weimer <fweimer@redhat.com>, "G. Branden Robinson" <branden@debian.org>
 Subject: Re: man/man7/pathname.7: Correct handling of pathnames
-Message-ID: <a3turtye3rcug5glnau3x6brxjlvkruu7unely5dpz6ttjr255@aurahmflvg2d>
+Message-ID: <ru2mlbwytntlel3jwwjcumn4i3v65bishfymxemiwvqpeeddmt@tarta.nabijaczleweli.xyz>
 References: <kvezw2xintnc5cv3ijqefahwt4i3rzczcidp4krmxsafr4azsb@nvbkzgciq3vm>
  <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
  <barhqqli6kccy6sntknt444bwees3jbwy6quyapd4l24juz5th@l4cj3yhfrms5>
  <lpgdi23g56ksr622o6w4tpd6vqphyio4jjw6c5gwafenuwjncb@ubitjqklzxer>
+ <a3turtye3rcug5glnau3x6brxjlvkruu7unely5dpz6ttjr255@aurahmflvg2d>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,111 +63,80 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i6duvnku7zrnjclz"
+	protocol="application/pgp-signature"; boundary="qejau6h4okiiswyb"
 Content-Disposition: inline
-In-Reply-To: <lpgdi23g56ksr622o6w4tpd6vqphyio4jjw6c5gwafenuwjncb@ubitjqklzxer>
+In-Reply-To: <a3turtye3rcug5glnau3x6brxjlvkruu7unely5dpz6ttjr255@aurahmflvg2d>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---i6duvnku7zrnjclz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--qejau6h4okiiswyb
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Jason Yundt <jason@jasonyundt.email>
-Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>, 
-	"G. Branden Robinson" <branden@debian.org>, =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: man/man7/pathname.7: Correct handling of pathnames
-References: <kvezw2xintnc5cv3ijqefahwt4i3rzczcidp4krmxsafr4azsb@nvbkzgciq3vm>
- <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
- <barhqqli6kccy6sntknt444bwees3jbwy6quyapd4l24juz5th@l4cj3yhfrms5>
- <lpgdi23g56ksr622o6w4tpd6vqphyio4jjw6c5gwafenuwjncb@ubitjqklzxer>
-MIME-Version: 1.0
-In-Reply-To: <lpgdi23g56ksr622o6w4tpd6vqphyio4jjw6c5gwafenuwjncb@ubitjqklzxer>
 
-[CC +=3D =D0=BD=D0=B0=D0=B1]
+Skimming the thread: UNIX paths are sequences of non-NUL bytes.
 
-Hi Jason,
+It is never correct to expect to be able to have a (parse, unparse)
+operation pair for which unparse(parse(x)) =3D x for path x.
 
-On Mon, Jan 27, 2025 at 12:14:43PM -0500, Jason Yundt wrote:
-> On Mon, Jan 27, 2025 at 04:53:10PM +0100, Alejandro Colomar wrote:
-> > Right.  But then, when do you need to do encoding?
->=20
-> Personally, my preference is that programs use the locale=E2=80=99s codes=
-et
-> because I can override the locale codeset in the rare event that UTF-8
-> isn=E2=80=99t the correct option.  In my previous example, I was able to =
-set the
-> LANG environment variable to jp_JP.SJIS so that I could run that old
-> software in an environment where pathnames were encoded in Shift-JIS.
-> If everything just always assumed a particular character encoding for
-> pathnames, then I wouldn=E2=80=99t have been able to do that.
+It's obviously wrong to reject a pathname just because you dont like it.
 
-But if the program handles arbitrary strings, just like the kernel does,
-that would work too.
+Thus, when displaying a path, either (a) dump it directly to the output
+(the user has configured their display device to understand the paths they =
+use),
+or if that's not possible (b) setlocale(LC_ALL, "") + mbrtowc() loop
+and render the result (applying usual ?/=EF=BF=BD substitutions for mbrtowc=
+()
+errors makes sense here).
 
-> > > > -  Accept anything, but reject control characters.
-> > > > -  Accept anything, just like the kernel.
-> > >=20
-> > > These last two also aren=E2=80=99t quite complete recommendations.  I=
-f a GUI
-> > > program wants to display a pathname on the screen, then what character
-> > > encoding should it use when decoding the bytes?
-> >=20
-> > Just print them as they got in.  No decoding.  Send the raw bytes to
-> > write(2) or printf(3) or whatever.
->=20
-> I don=E2=80=99t think that printing is a good way for GUI applications to
-> display text.  I don=E2=80=99t normally run GUI applications in a termina=
-l, so
-> I=E2=80=99m not normally able to see a GUI application=E2=80=99s stdout o=
-r stderr.  Most
-> of the GUI applications that I use display pathnames as part of a larger
-> window.  In order to do that, the GUI application needs to know which
-> characters the bytes in the pathname represent so that the GUI
-> application can draw those characters on the screen.
+There are very few operations on paths that are actually reasonable
+to do, ever; those are: appending stuff, prepending stuff
+(this is just appending stuff with the arguments backwards),
+and cleaving at /es;
+the "stuff" better be copied whole-sale from some other path
+or an unprocessed argument (or, sure, the PFCS).
 
-I would do in a GUI exactly the same as what command-line programs do:
-pass the raw string to whatever API prints them.  If the string makes
-sense in the current locale, it will be shown nicely.  If it doesn't
-make sense, it will display weird characters, but that's not a terrible
-issue.  Just run again with the appropriate locale.
+If you're getting bytes to append to a path, do that directly.
 
-For example, in the git repository of the Linux man-pages project, there
-are commits authored by =D0=BD=D0=B0=D0=B1 <nabijaczleweli@nabijaczleweli.x=
-yz>. =20
-Whenever I see the git-log(1) in one of my systems with the C locale, I
-see weird characters.  I just need to re-run with the C.UTF-8 locale.
+If you're getting characters to append to a path,
+then wctomb(3) is the only non-invalid solution,
+since that (obviously) turns characters into bytes in the current
+locale, which (ex def) is the operation desired.
 
-But it handles the bytes correctly, even if they don't make sense to the
-system.  If git(1) failed whenever a string doesn't make sense in the
-current locale, the repo would be corrupted sooner than later.
+I don't understand what the UTF-32 dance is supposed to be.
 
+If you're recommending transcoding paths, don't.
 
-Cheers,
-Alex
+To re-iterate: paths are not character sequences.
+They do not represent characters.
+You can't meaningfully coerce them thusly without loss of precision
+(this is ok to do for display! and nothing else).
+If at any point you find yourself turning wchar_t -> char
+you are doing something wrong;
+if you find yourself doing char -> wchar_t for anything beside display
+you should probably reconsider.
 
---=20
-<https://www.alejandro-colomar.es/>
+This is different under Win32 of course. But that concerns us naught.
 
---i6duvnku7zrnjclz
+--qejau6h4okiiswyb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeXxF0ACgkQnowa+77/
-2zImlRAAjLn12zi6jnTTDPCQ1GA+59SvtfuG/CuqFQrqUMrxAxiZuvI6uATBx5lm
-k11p2H3y9aPsVCS3CG1OChesImWTOLKIDOoew5YrwzTIZ4J6AqZFAznghZsQAbqZ
-OtOILj90L9ZcmSJUk/msE2Bhs2MsBpB3kF85YzpnSk0WT5kBxikHvMOys3JV/omK
-uiBG3ZfZYeX0ykKGAHU3MXK8ClGs6UkdRvSJorhxtI/4RS4UJjJRreX5Db4rzKkx
-JO/fF9Ru5jjubD0oLWHM+G9m1lOjjwXd5SEnqLXKw202bq7oO5G89pEJWO2XsNO/
-EvPG8gET/bFQlHdKivJioIA8XtdJGYHG5vjg9CuJhvHMdtPq7wAwPzdRe+T/eyfw
-jB1kb3Jhl1tw0aKsDfPA3BSBkSIq28PGE5zMZIQcn3agDwJ9SGVymnZGiZcsjozT
-RyVIjJRHGsF11kMSg9oMk5ap1O8HwL9Fr0/E8nsU5wGLY+ZjMd9MDbpDCfPEs+HV
-35VFsQfXvi5n2TUXG7l4Y5jHnNNf5ceTGxfPbT0IDscp1gL2rCfFOPYXKViKIpEI
-F6KIuSK0minnuFMjo/IDYsWGgIFam8hbvgfqKhZpG0QEGT9q3EijDzTLKGGgq8RQ
-C8ZL4/kOm7bnw9BLF1jmudvYfqfxZn+9F06IV0NFuOHn2vPLg38=
-=MfaN
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmeX0C0ACgkQvP0LAY0m
+WPGYxg/6AiXTMAkI89kqQcatmAbqdxhzKYhx/au8FROy3MnGBmJah+bRm9Ozt4SG
+npMYyAkW8zxAn7IuJLa4jMAhiCKhuqeDQvjtHLaBD32Y8lrAodrt2930SQ2K1UcZ
+UgEjagts2e4gLAuoyiJO5e/WVtyPXmFv8o+ZVQIjmpr7HlVI7RbcDjvZuYdafku/
+Ztnc0CkhztPBNx7gSj78gOwYXEvYEKFG+nsFXh320OflEs4BSwZhHu5Iy2M3fCoa
+Gl132tMCqAL4le7AW21JJWO20gTNKT0oB5dq6jRhH5oCbWfuZEzr++vsR4F2j6Y9
+DTPveSUqaU+7rCBW6eguKvqjo5MOpmsSOP/yZJD7Jf9X+mWY3NE+5YS7sYQ3ReCO
+s8eJ4odnpKvAQ3EhlcvFDdFoqsWaCR5nDmWEmSVLy0yyvsynmKhOoSaa3Sbiznts
+puyjyQFyUA8MjdbqoFkldnUsiIz/pdGkYrj2laB12tVIb0lp+7tAofFFQOYkmHP2
+OqvAaVxGDUyyljIjQBKWtb6LufmGvw1GUCjRvAcVqbbpTxcY5K20fs82jSbEMyN7
+CYVujLATdTCBRK1iBvo+M+fo3QTgdEBczVjbqcqe+dS5JWP28qQmFGWPT+tX/KjB
+aGnTqHE2XAzDetFXhracqBlUHVFnF1JXDsCB2MEY8s4eC832KLk=
+=Kf5H
 -----END PGP SIGNATURE-----
 
---i6duvnku7zrnjclz--
+--qejau6h4okiiswyb--
 
