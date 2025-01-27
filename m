@@ -1,131 +1,135 @@
-Return-Path: <linux-man+bounces-2309-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2310-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9B91A2015E
-	for <lists+linux-man@lfdr.de>; Tue, 28 Jan 2025 00:07:40 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E6AABA201E4
+	for <lists+linux-man@lfdr.de>; Tue, 28 Jan 2025 00:49:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F21391652BA
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 23:07:38 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 127CA7A29C0
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 23:49:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 506F91DC197;
-	Mon, 27 Jan 2025 23:07:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C9C81DEFE0;
+	Mon, 27 Jan 2025 23:49:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b="V32kPZkD"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFlSL1Vv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from box.jasonyundt.email (box.jasonyundt.email [104.248.224.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB791DB153
-	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 23:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.248.224.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6A31DF969
+	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 23:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738019255; cv=none; b=Qxs2ygzt3t0dfFmkwDqb4HPX6xbp+lyvyz6GjZ80WClkKPKFU5dHKerVMZX/KjzvuCQetoTYWNMzClzjV3buEpAXUYi3QqYRVvZivXDUC5hD34CqqehvxT6/da4ojpEZFCxVDmxetwiVsyrEEcKPjEnS42JfT1h/QV2Kpfli6OE=
+	t=1738021773; cv=none; b=m5n8zpuYoB/4Zs4BJOR5DgcYE273J8cUiNBDEWtEPJ1ulIGwCBTsDuICYkPbkTZuLRZhfrpi97q3XA6NbOAaRQR86weMoZb7h4L3BtAhyNhwj1oAskUnJWatghdboV5vcTeyenwbEMKxEokxmm/W5CvhXeuKFAKP5z5DRD7WHkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738019255; c=relaxed/simple;
-	bh=7d9vUaI7PyBHoLveiFLPEd2ou1kVwTZOJmkU09ouWFg=;
+	s=arc-20240116; t=1738021773; c=relaxed/simple;
+	bh=LdR8KALAya6l3ENrVgVEMLIq2npMe/c65h3ZcmQlwMo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AC/G3j7kvQCqbUNqs3rjoYGA+LtTS9fJPhLTcbUF2dnSHkAcJcDQ/C99if5uimCHoLw3i9zud76WjCZqYymEjr1RJyVFpebLWwxgWuA3+ZSMS+i4P6qc6v3/xWWaxE2jYnE+rr9idAl31ysvULGnIBIYhmH6DhuDmjBOoX8IgCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email; spf=pass smtp.mailfrom=jasonyundt.email; dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b=V32kPZkD; arc=none smtp.client-ip=104.248.224.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jasonyundt.email
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jasonyundt.email;
-	s=mail; t=1738019251;
-	bh=7d9vUaI7PyBHoLveiFLPEd2ou1kVwTZOJmkU09ouWFg=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=BSMffu7mPlyS3JUhWTY5QvCLkVRaxAel8KYkXUOsZDRcLAj5kmwOJAHq7e5Ze/1GEEd9e1mFFaGJmDSQ+hvsmBQIbcE7OJBoyv7nKd14m3xAvD3NVIrBu8NWLfzwkVd3ZsSvCYpnqkZlDghu6Y0eWkg7xs0b6YmsWjEPn67gFGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFlSL1Vv; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC70C4CEE2;
+	Mon, 27 Jan 2025 23:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738021772;
+	bh=LdR8KALAya6l3ENrVgVEMLIq2npMe/c65h3ZcmQlwMo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V32kPZkDXITmzgIB1qUtPeSk2n9UeS0WUnQrPimV8dBWvGi8OTYT+6YGPy/hQ7/gf
-	 7ATMIYCzWeuyF+A0hT/axYfA9/F6dsQ+WADtMKYL+tS0kJLvpafrIhr2ZYQCMGlZaq
-	 Rmfj9xhuVZZAgrK6QlB3xSPF67siVXgsOJ2x12ArhKC+g+G4lNN1GxCwxjmOj1J/JJ
-	 2cjnLi/BZkCotkzFtwlYtxpIZOuozZNZKooEtOd8i1/PC14Gt7GCvn21xPHpm7yd1U
-	 NiDVT6siCDuMFxm5VHHjgOaN7txZi6GqlRa4GdIxIEBVqs6JoG8SEw2xt0kgIHXd7L
-	 JDcEa1Kb/OxBQ==
-Received: from authenticated-user (box.jasonyundt.email [104.248.224.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by box.jasonyundt.email (Postfix) with ESMTPSA id 314997E3B6;
-	Mon, 27 Jan 2025 18:07:30 -0500 (EST)
-Date: Mon, 27 Jan 2025 18:07:30 -0500
-From: Jason Yundt <jason@jasonyundt.email>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>, 
-	"G. Branden Robinson" <branden@debian.org>, =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+	b=iFlSL1Vv7IZHxnjI/+zDJZcYMAMWBHPFZOxacgzqh4fKzMTEvr0C6LbyUAuRcBeKL
+	 TvhNL1BpGQSSw2l4u7EAmX+mBNX8x3w26g9j6dxy01Aa94i8xV/MTS7JUwWX5U/mJp
+	 UHmjvdYNafnFlbSJSreRmVOSnlPLEYXEAKqwTxn/W9JbSLVT78Uwm1noNlFJcGnYID
+	 zyFD1D/D43izRY/mqdGSznbNMwBp+B0D06m/fHcrAktdjBckVpBgCW1Qrshx/2smch
+	 gHgI9GiyEuxEe6c/3eeOQ6Q5UGK5d0J5162Gt4lBqIFc+ZJTMJ7TC2tyCtKMAhALvf
+	 F4ZuTs6oswbQA==
+Date: Tue, 28 Jan 2025 00:49:29 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jason Yundt <jason@jasonyundt.email>
+Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>,
+	"G. Branden Robinson" <branden@debian.org>,
+	?????? <nabijaczleweli@nabijaczleweli.xyz>
 Subject: Re: man/man7/pathname.7: Correct handling of pathnames
-Message-ID: <3hlim4xayawyffcqb4ykolrairbvsitn57p4jpwax2iqqqz6hw@4sn5qqdme2c6>
+Message-ID: <20250127234929.wbpd43qg2g65dlru@devuan>
 References: <kvezw2xintnc5cv3ijqefahwt4i3rzczcidp4krmxsafr4azsb@nvbkzgciq3vm>
  <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
  <barhqqli6kccy6sntknt444bwees3jbwy6quyapd4l24juz5th@l4cj3yhfrms5>
  <lpgdi23g56ksr622o6w4tpd6vqphyio4jjw6c5gwafenuwjncb@ubitjqklzxer>
  <a3turtye3rcug5glnau3x6brxjlvkruu7unely5dpz6ttjr255@aurahmflvg2d>
+ <3hlim4xayawyffcqb4ykolrairbvsitn57p4jpwax2iqqqz6hw@4sn5qqdme2c6>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="23vhj56tg5wsn5xe"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3turtye3rcug5glnau3x6brxjlvkruu7unely5dpz6ttjr255@aurahmflvg2d>
+In-Reply-To: <3hlim4xayawyffcqb4ykolrairbvsitn57p4jpwax2iqqqz6hw@4sn5qqdme2c6>
 
-On Mon, Jan 27, 2025 at 06:37:40PM +0100, Alejandro Colomar wrote:
-> [CC += наб]
-> 
-> Hi Jason,
-> 
-> On Mon, Jan 27, 2025 at 12:14:43PM -0500, Jason Yundt wrote:
-> > On Mon, Jan 27, 2025 at 04:53:10PM +0100, Alejandro Colomar wrote:
-> > > Right.  But then, when do you need to do encoding?
-> > 
-> > Personally, my preference is that programs use the locale’s codeset
-> > because I can override the locale codeset in the rare event that UTF-8
-> > isn’t the correct option.  In my previous example, I was able to set the
-> > LANG environment variable to jp_JP.SJIS so that I could run that old
-> > software in an environment where pathnames were encoded in Shift-JIS.
-> > If everything just always assumed a particular character encoding for
-> > pathnames, then I wouldn’t have been able to do that.
-> 
-> But if the program handles arbitrary strings, just like the kernel does,
-> that would work too.
-> 
-> > > > > -  Accept anything, but reject control characters.
-> > > > > -  Accept anything, just like the kernel.
-> > > > 
-> > > > These last two also aren’t quite complete recommendations.  If a GUI
-> > > > program wants to display a pathname on the screen, then what character
-> > > > encoding should it use when decoding the bytes?
-> > > 
-> > > Just print them as they got in.  No decoding.  Send the raw bytes to
-> > > write(2) or printf(3) or whatever.
-> > 
-> > I don’t think that printing is a good way for GUI applications to
-> > display text.  I don’t normally run GUI applications in a terminal, so
-> > I’m not normally able to see a GUI application’s stdout or stderr.  Most
-> > of the GUI applications that I use display pathnames as part of a larger
-> > window.  In order to do that, the GUI application needs to know which
-> > characters the bytes in the pathname represent so that the GUI
-> > application can draw those characters on the screen.
-> 
-> I would do in a GUI exactly the same as what command-line programs do:
-> pass the raw string to whatever API prints them.  If the string makes
-> sense in the current locale, it will be shown nicely.  If it doesn't
-> make sense, it will display weird characters, but that's not a terrible
-> issue.  Just run again with the appropriate locale.
 
-OK, but how does that API figure out what characters to display?  What
-character encoding should that API use when drawing the characters?  I
-think that it’s OK to replace the current recommendation, but
-pathname(7) should really explain how such an API would figure out what
-characters need to be drawn on the screen.
+--23vhj56tg5wsn5xe
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: man/man7/pathname.7: Correct handling of pathnames
+MIME-Version: 1.0
 
-> For example, in the git repository of the Linux man-pages project, there
-> are commits authored by наб <nabijaczleweli@nabijaczleweli.xyz>.  
-> Whenever I see the git-log(1) in one of my systems with the C locale, I
-> see weird characters.  I just need to re-run with the C.UTF-8 locale.
-> 
-> But it handles the bytes correctly, even if they don't make sense to the
-> system.  If git(1) failed whenever a string doesn't make sense in the
-> current locale, the repo would be corrupted sooner than later.
+Hi Jason,
+
+On Mon, Jan 27, 2025 at 06:07:30PM -0500, Jason Yundt wrote:
+> > I would do in a GUI exactly the same as what command-line programs do:
+> > pass the raw string to whatever API prints them.  If the string makes
+> > sense in the current locale, it will be shown nicely.  If it doesn't
+> > make sense, it will display weird characters, but that's not a terrible
+> > issue.  Just run again with the appropriate locale.
+>=20
+> OK, but how does that API figure out what characters to display?  What
+> character encoding should that API use when drawing the characters?  I
+> think that it???s OK to replace the current recommendation, but
+> pathname(7) should really explain how such an API would figure out what
+> characters need to be drawn on the screen.
+
+That's not a pathname issue anymore.  It's just the issue of printing
+bytes to a user.  I don't think pathname(7) should talk about how bytes
+are shown to a user.
+
+That wouldn't affect at all how applications handle files.
+
+For example, I have just installed my new laptop (with the C locale),
+and nab's name shows as ??????.  I expect a Japanese filename to be
+shown similarly, although that depends on what each application wants to
+do.  It doesn't really matter, since it's just a cosmetic issue.  The
+string still contains the appropriate bytes, even if I can't read them
+properly.  If I had a file called nab in cyrillic, I would expect ls(1)
+to similarly show ??????, but internally just handle it well, because it
+doesn't even look at the bytes; it just passes them through.
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--23vhj56tg5wsn5xe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeYG4kACgkQnowa+77/
+2zKZFg/+ISdb/V+HLz/mmZBWMsjeFFG7m3ja1weC0nA+xvboh40zj8b12d5stSX2
+5NkuyAqjMnxPZCzf42ShywjK8eFk4hhayIPcHIL+9JgVATzB2SzceZ8qRcvA2Kt8
+6OhSIzije4RnIg64xw121MH8ssCeZtJbo/62BSnaW1KmVHBa7Q8uFm4QbS65KczL
+XtKWSSI3IURnJyap3eAKAsL1saLk2Y6GyipTJAOq0rGIc4l5iescPwgnsvQCuGTl
+DfUBiPezhKD6ZAxj3cth1DKblY8p7rVwMuSLiAoRfKg5aLEJmQDZFtwmdL301h18
+QdSwKvR6d10cFcGnxzcVuvFsq7DpqQ5oc58OsU5kprVoa7howi54btfGkGKCtHjx
+tgNnn8RuxCM0bEoSncwVjHimVsl8gcSj6rh926LIakhVnnSoairc3WJsvqBTdvSz
+S7aBXv+uDZ758sE2DBHEdkm74JpNZcRzYAOTaCVswRZ/YHHa/QkOiHbzh9jImbx2
+E8cZ+0WNGNeX0UqNcMJI5nDrmbKThIjxqZQ818QPh+KBuf382tD+EVs0ojroTAUW
+YUY/sSR+w6RT7J26zRYp8o6i089X/lac/7YEnvmIr5ym8itySknSntcfRCO91JUh
+Acy/mMVrf73eaiq/h35AhCbFXysjANHEEHeQWR6LOhV/8okjZYE=
+=xB2x
+-----END PGP SIGNATURE-----
+
+--23vhj56tg5wsn5xe--
 
