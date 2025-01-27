@@ -1,58 +1,56 @@
-Return-Path: <linux-man+bounces-2305-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2306-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616DDA1DC4E
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 19:58:10 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4087AA1DC67
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 20:05:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B525E3A68BD
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 18:58:02 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 972287A2996
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 19:04:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBFCB18E02A;
-	Mon, 27 Jan 2025 18:58:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E93A18A6A1;
+	Mon, 27 Jan 2025 19:04:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="KHZ9Bxqs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlNAPeYm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B9918A6A9
-	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 18:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12521096F
+	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 19:04:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738004286; cv=none; b=R5KVIFTlfh18EU3dmAqFwH8VKlg4fhAX9yRiAx11c7RNrPxSkWeEfzUkvH0NPD1r7UK07TgLU4+c9sYCHyqTrxo8EHoNbd6fEWQJkuQOkw6i1xFo6mgCTClnR0yNXJa9ZMPILwfzTemzp2bQCm2bjldbRsmJZtDLqIwivXkPER8=
+	t=1738004696; cv=none; b=lAYF7Vrz+CLWY69SQDPtGfKLq5nFxiHxSPYca7uuXJpFAFXddYpPfbEl9PfK/dzNNRaeGn7ORvt4wkGEcAjjHcRcfyEeBae5g/ldm70NZL/j0r3MA7L+4kWUHcNlCUe2O7TIu3Wle11lVjMHzF8wA1omWPOnGi5bqgmxauajfOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738004286; c=relaxed/simple;
-	bh=9Fd9b5ZCqojV1Io65e34II8+UJN2wxrZ68nO4KxMHJY=;
+	s=arc-20240116; t=1738004696; c=relaxed/simple;
+	bh=25xK2BoRF1SE3eaNcnPmtOuACbTybvG8SqGvn80jcX4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ESJjlChXNNfG92SoNNWq8DYSVDDSNlvP6PBAPxBOvT5rBXOgxilSlvSK8b4iZJSOR3/1gBCeOh0lZbd3KRpd85Mi6ADaX48ZzWLWMrqey7+YUj7paDveZ+jun6O3AufbigEwiib3GZuW9hhUdMsrTdx6SIHzSaALypbMeobWgh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=KHZ9Bxqs; arc=none smtp.client-ip=139.28.40.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-	s=202405; t=1738004282;
-	bh=9Fd9b5ZCqojV1Io65e34II8+UJN2wxrZ68nO4KxMHJY=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=QwnJl+QPIvtEe606u9UUYiVLpQHpdg53AClLdmfqTTtaMgBojllcNWEoiRHtZk/76fN74NJvcp49zraC77I+2GU/ShX5UPM0nYuM6fK4SDZoXLUZyFoOsoMfc6JmXL2u3DkMr28ki5TxkWiJuj/owMKZvIEgDePlGHkvsmGl1mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlNAPeYm; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BEB8C4CED2;
+	Mon, 27 Jan 2025 19:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738004696;
+	bh=25xK2BoRF1SE3eaNcnPmtOuACbTybvG8SqGvn80jcX4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KHZ9Bxqs27vZbQ+IXCBXIsJHyxNK0Rr6fJ5kvLmSWP1sTJ5dgKzw72vfDsah2zqj4
-	 8xHQrtWocy6HNQxCDNcwgrbVyrs027KJp3lSARFcpxN1qJz0ARY6meiZrYJilkJMxN
-	 /vrUzXnXzvAbsB0WplHNxleI7tkpFzqYoAsnivZxF2FDorFu1RIHYBlEEiNI4Ejx9l
-	 WhlH60ZD+N6Z9sp3vKun41dwS42Mrtu69/qj5Mgyw595bMc+LCA67AxUyG75ds3N9B
-	 IGA6f9EGBHV1hW8hR6jLX7FIMP/VTaL/1l0FFn2ZvRG83OcIfE7U1E2myFp91zjt1l
-	 lv2zYxYzRDaSg==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 4884F652C;
-	Mon, 27 Jan 2025 19:58:02 +0100 (CET)
-Date: Mon, 27 Jan 2025 19:58:02 +0100
-From: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To: Alejandro Colomar <alx@kernel.org>
+	b=UlNAPeYmbTcr2J85tREWfIimHKZqIfvtt4kEVRMoHK++0Y/thts7bKEYzqXYJOwoK
+	 M/qLSjs4b6mVNonDUrw41HWbOAws9okE2B59zpbXBCXSHqegpzcABjko3GXWMDJvDG
+	 D2Eof8QrWixX4ro+hORO3iMrcpDGon5l0sXFG0Nv6kCxCgG7y03M9CGoixppBdTxhA
+	 VMdqM+ozfVwycbeGGHyv9Uvf0lb6+qOgbgprLzeb5MsAE9IUky22T+9QsYyLaAXnbO
+	 P9ikgSeZYeaWlSi8uryNk0u8y2XsL7W0RksnM+mmp+PHwi1K1BJIoaf/y9G4bLpUPP
+	 7zVIefvDqTjZA==
+Date: Mon, 27 Jan 2025 20:05:13 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>, 
 	Florian Weimer <fweimer@redhat.com>, "G. Branden Robinson" <branden@debian.org>
 Subject: Re: [PATCH v1] man/man7/pathname.7: Pathnames are opaque C strings
-Message-ID: <6blf4yxrx7cyqubqdpkzbifqcnvpvobpicsinquhwcv5hcd666@tarta.nabijaczleweli.xyz>
+Message-ID: <sotummbpsajmtgakisnj6ppliot4pula67o7xbu3clsuhzrnkm@voadpeybyvct>
 References: <ru2mlbwytntlel3jwwjcumn4i3v65bishfymxemiwvqpeeddmt@tarta.nabijaczleweli.xyz>
  <b9f5079f6bdeb29594f8ac24bd2eb4289e562613.1738003465.git.alx@kernel.org>
+ <6blf4yxrx7cyqubqdpkzbifqcnvpvobpicsinquhwcv5hcd666@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,45 +58,77 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mnxk3jhgogays3yf"
+	protocol="application/pgp-signature"; boundary="fgjh6lida5ymfyhq"
 Content-Disposition: inline
-In-Reply-To: <b9f5079f6bdeb29594f8ac24bd2eb4289e562613.1738003465.git.alx@kernel.org>
-User-Agent: NeoMutt/20231221-2-4202cf-dirty
+In-Reply-To: <6blf4yxrx7cyqubqdpkzbifqcnvpvobpicsinquhwcv5hcd666@tarta.nabijaczleweli.xyz>
 
 
---mnxk3jhgogays3yf
-Content-Type: text/plain; charset=us-ascii
+--fgjh6lida5ymfyhq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>, 
+	Florian Weimer <fweimer@redhat.com>, "G. Branden Robinson" <branden@debian.org>
+Subject: Re: [PATCH v1] man/man7/pathname.7: Pathnames are opaque C strings
+References: <ru2mlbwytntlel3jwwjcumn4i3v65bishfymxemiwvqpeeddmt@tarta.nabijaczleweli.xyz>
+ <b9f5079f6bdeb29594f8ac24bd2eb4289e562613.1738003465.git.alx@kernel.org>
+ <6blf4yxrx7cyqubqdpkzbifqcnvpvobpicsinquhwcv5hcd666@tarta.nabijaczleweli.xyz>
+MIME-Version: 1.0
+In-Reply-To: <6blf4yxrx7cyqubqdpkzbifqcnvpvobpicsinquhwcv5hcd666@tarta.nabijaczleweli.xyz>
 
-On Mon, Jan 27, 2025 at 07:46:21PM +0100, Alejandro Colomar wrote:
-> Thanks for the detailed response.  I applied this patch based on it.
-> Does it sound good to you?  Please review.
-Can't really find the base file for this, but the deletions look good.
+Hi,
 
->  man/man7/pathname.7 | 87 ++-------------------------------------------
->  1 file changed, 2 insertions(+), 85 deletions(-)
+On Mon, Jan 27, 2025 at 07:58:02PM +0100, =D0=BD=D0=B0=D0=B1 wrote:
+> On Mon, Jan 27, 2025 at 07:46:21PM +0100, Alejandro Colomar wrote:
+> > Thanks for the detailed response.  I applied this patch based on it.
+> > Does it sound good to you?  Please review.
+> Can't really find the base file for this,
 
-Best,
+It's the contrib banch on my server:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log=
+/?h=3Dcontrib>
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Db9f5079f6bdeb29594f8ac24bd2eb4289e562613>
 
---mnxk3jhgogays3yf
+> but the deletions look good.
+
+Thanks!
+
+Have a lovely night!
+Alex
+
+>=20
+> >  man/man7/pathname.7 | 87 ++-------------------------------------------
+> >  1 file changed, 2 insertions(+), 85 deletions(-)
+>=20
+> Best,
+
+
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--fgjh6lida5ymfyhq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmeX1zcACgkQvP0LAY0m
-WPHBCxAAlAgUX3V5W7GRNFKuNIx2BAMWqiwVdzUhrZSg2HwFGNe2mRM8k/X9W3kh
-p7Wh32/RI2lt9EDXbethoF1nr1VReg+gK0ZFKDgAjjTI3bTvmyhsdYmryh0dBetz
-xAycff1HuUq2QgMyCFlRlKk4e1Uk1pb/10GmVxPum2w1n0aRwySxwTdo4/NZCIZN
-7xjivS0GYXnu/t5N6nGoYdRRb1ZPhYM5QeNDjMo7y8DQWRP9rYpmAw+u0tp4Zj4x
-BwBduED7QEKpvOSwiRmfvaGAk/iml7EteXmkN0nUdPVXBO98FHUYFl9JM8UjWAgM
-dptlnQ8X7iuIywlXRU74sM97ohAK42MFHvTe5ti5RKCV2eOW6nvc0zJ41OmadOqY
-1tGh4D0VmN4spAgdWl80fL2h7WI9EkFTUDCsiYATrzwWXzj6m/n6V86CJW1Y5AUN
-l+5nDmyVne7lfZudZEuC5V0oeKLImbFC2xq6HaRpdtEJCpx0j73AeAExoDki96lG
-UjDDC/+Pt8ZLW1wdpZWpbc/OAApU5RrnE+8iNSugQDACK7hfg/hMgo4CUVc376v7
-qIvbZu6OE5NU+a2Hv9DlJjZqS2xWurUYPOyG78tSVmWK1TMOa+bqxVNGLZQItTdQ
-HhHANYd2K290xreRUq9nmmdc2XuAZ09BTOCAptNlMqgqv7FskzU=
-=RzT8
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeX2N0ACgkQnowa+77/
+2zKjUxAAiUZ7GuEOyCCtgten/bC+HRKASqN/1oHJrrGoPlHRj+66hj0/79uCtANP
+GRh9e7Vdb96CcSjG6RSIn5JiAZeLTPbnMkc04wtxLI+NacOIDvK2psNZS66wL0Md
+MKgyZCEMpDdQ4Vc3wkILL6YunMo+9mpjwZmusYLKd34Nb3qzcmZ9yteN80RFeNTe
+h9yOvciiscE8VPvlroOSdVt5vuoidSu2/ZayXCsxd5llo9ekNNVd8vLnZziEiKVc
+nZ2lM+RURn4miab4wczFzVSv5ui5ROyAneP12lTVCuSJW5Iqqr2LdrQUC6GiWPFb
+67ZjTeoPkmeIeAvkMn+HApJtjOFAkEKngsZLeyLBaeQ4g7kj6NT57T3txofD73qa
+YoWnMZ5R/ZG5vxDotFWZSohQbNbZXWg2CxDgVfKcSlfUCv503t/zHwAQ6IIp2STq
+o1CDDPvfM2k1YgjVwA9HpWfEn89Yu0ERwD/VpaSafZnMG0clPuw70+J6AMiPUbej
+t0YuU7WkCQq4cIE6th069q29yO4Tj8S0cSQU/RGCwKV1TLPnbgE9ylt27OnYq+r5
+mbTCpN5dZOzv0LGD/R8HDDqAGizOsDHkImFkhhYtd3JQNpwgzVDD6wLubHOQFR/W
+1DZqoDLTrBrckUGtZcRuS8RarCwK3SOF9kR3vFtbPddLAsZ3tHU=
+=g7RU
 -----END PGP SIGNATURE-----
 
---mnxk3jhgogays3yf--
+--fgjh6lida5ymfyhq--
 
