@@ -1,292 +1,242 @@
-Return-Path: <linux-man+bounces-2299-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2300-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25CA7A1D8BA
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 15:51:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D961A1D9F4
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 16:53:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 843971642EF
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 14:51:10 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D9A851622A4
+	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2025 15:53:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B7BF84D02;
-	Mon, 27 Jan 2025 14:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F2C886333;
+	Mon, 27 Jan 2025 15:52:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b="hStbYbWi"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mt96lvOq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from box.jasonyundt.email (box.jasonyundt.email [104.248.224.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5071B4A1D
-	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 14:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.248.224.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD0F189F36
+	for <linux-man@vger.kernel.org>; Mon, 27 Jan 2025 15:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737989462; cv=none; b=n4rNTktknkuZh6JWbQuzctbKNRjpcULqmEUgl/JUDSfjsl57XrdgrDWk16IOgXf3+fhMC2w0P6ATF0igY4kg7QTFODhCXI/9Fn8F/m94oC8AVohc9DM7UD2df2F7gky1uv/Lqp6cqPtYrOk9q6pztOpv9kR3XsiybG3RP7u+kDg=
+	t=1737993173; cv=none; b=pbwVE8+ehvkId9dWSLD+8cfzgrK0MUwzpMsgA7HwFXqZ6pbjBMuf7l9AxvnVHG0eZ9VAxQywDtYEPDT3qCrSupGueThEbAmSmMqvPpJVCiU0vO9ZHfcInRMdWdtbhghwLXmcb5q9pCNJ7UqKLtymv/+taJHx4X/9ihmQfsGFXYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737989462; c=relaxed/simple;
-	bh=h6fQAeV/m9m3K2KuO/FOulMdU7nk5NdUTs1A4dW/vBY=;
+	s=arc-20240116; t=1737993173; c=relaxed/simple;
+	bh=M3pJPBTOaBfG1iryr0vBAPFDLL124kpb8dlWdm99Whc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CahHRaM6SUYdr81vjAVDF6oQz0lWuRKBjiQlLZ6yrICAILOvCZo8qORDstHBAyGGzh22OKFGiGqq4N9xjkDGpTxvHObl8G3PWvoQZa207KLrdcZpoyLNK6lZxyDeheecMex1YSPaQ5kcJf162TZTW+vcSy6vKceBiy+YcNqofNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email; spf=pass smtp.mailfrom=jasonyundt.email; dkim=pass (2048-bit key) header.d=jasonyundt.email header.i=@jasonyundt.email header.b=hStbYbWi; arc=none smtp.client-ip=104.248.224.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jasonyundt.email
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jasonyundt.email
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jasonyundt.email;
-	s=mail; t=1737989451;
-	bh=h6fQAeV/m9m3K2KuO/FOulMdU7nk5NdUTs1A4dW/vBY=;
+	 Content-Type:Content-Disposition:In-Reply-To; b=JrNnQ4DI9y9NzTaJYvLqpUdkP9VrvQzoAqUR8MVuUXKyGiTvqsrbOLVI6J1fzrLOPzpj9l98it/oFyKj2cScCuG/Cgpi+YHuM2CsA3OELKuLDR4l0cnOtv9qrIvY4fDFG8L7lzUpVoor/QX+ArpEzoPGonosgI33iFTX2Oe/gzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mt96lvOq; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3447C4CED2;
+	Mon, 27 Jan 2025 15:52:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737993172;
+	bh=M3pJPBTOaBfG1iryr0vBAPFDLL124kpb8dlWdm99Whc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hStbYbWiv2b/AUzFmK1pha8gScpJKvBinPoNFEkForp4fQwCioptrhP1AZl/CHtnI
-	 KOe/ybkydaRO2qvXoMgBNAmjDApsZiQ1oeVG8OE73J5YT+A2+DsgdJFWZGg0Gd4/iy
-	 ZTpFlMs+uqtMctQacPBFP9vfWHW8wwxdj7xVf4kpxM0tAKfVaJhTaVLktxGiYiFQIv
-	 xjQLfT2mNp8YT4HrJGrFmTY/CNtCnKTyJXodHQh3SChLEsgVPTKfrru5VbzqAm0nq/
-	 tIbNb4qazyoDXrpG31Dvhsef86QjXYiTUUyiymOMQ/uhqF2cOJUtIuvW0GStyqV793
-	 +6ra/hYbdC/Rg==
-Received: from authenticated-user (box.jasonyundt.email [104.248.224.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by box.jasonyundt.email (Postfix) with ESMTPSA id A69147E3A0;
-	Mon, 27 Jan 2025 09:50:51 -0500 (EST)
-Date: Mon, 27 Jan 2025 09:50:49 -0500
-From: Jason Yundt <jason@jasonyundt.email>
-To: Alejandro Colomar <alx@kernel.org>
+	b=mt96lvOquuYGplgcYthrv4J9JwH0lO4xbZd0ZWsr8tPsijV4B6/e2NuGQfr/0b55w
+	 p3GpxqKg4lj+WR4xXQtqIi93My+AAiLJSzBIpxCtEjLipLt6ii6LnPg7gfaJ5qUb2V
+	 mvD8zy9/0aL7vY6lEVG2eyfwfHOModKqzpHa9bCBisLjcaQx13z9jmGINlICmsyKs7
+	 LqBayYjA10fYypwLXsLwVaan/1iquyYEiISFtlD6BA1EZ9SKIbXFGqEyQFKrZdFuhH
+	 tVpe7Y9M64XOGypU6muS3tA2u1+QvaPpUDGnUmnz96NxytG99MTYpCSAx1SBpI0GEu
+	 Oj5+WRdl5sZkg==
+Date: Mon, 27 Jan 2025 16:53:10 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jason Yundt <jason@jasonyundt.email>
 Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>, 
 	"G. Branden Robinson" <branden@debian.org>
 Subject: Re: man/man7/pathname.7: Correct handling of pathnames
-Message-ID: <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
+Message-ID: <barhqqli6kccy6sntknt444bwees3jbwy6quyapd4l24juz5th@l4cj3yhfrms5>
 References: <kvezw2xintnc5cv3ijqefahwt4i3rzczcidp4krmxsafr4azsb@nvbkzgciq3vm>
+ <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dzxxwkcvn44yeqbc"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <kvezw2xintnc5cv3ijqefahwt4i3rzczcidp4krmxsafr4azsb@nvbkzgciq3vm>
-
-On Mon, Jan 27, 2025 at 12:22:49PM +0100, Alejandro Colomar wrote:
-> Hi Jason,
-> 
-> I think the recommendation to use the current locale for handling
-> pathnames isn't good.
-> 
-> If I use the C locale (and I do have systems with the C locale), then
-> programs running on that system would corrupt files that go through that
-> system.
-
-I agree.  I think that this is just a limitation of the design of
-UNIX-like systems.  As long as users are allowed to choose different
-locale codesets, mojibake will always be possible.  Sometimes, you just
-have to temporarily switch to a different locale in order to make things
-work.  For example, I was trying to run some old Japanese software a
-while ago, and I had to add a Shift-JIS locale to my system in order to
-get it to work.
-
-> Let's say you send me María.song, and I download it on a system
-> using the C locale.  Programs would fail to copy the file.
-
-Not necessarily.  pathname(7) says “Paths should be encoded and decoded
-using the current locale’s codeset in order to help prevent mojibake.”
-In many cases, you don’t need to encode or decode a pathname.  Here’s a
-program that copies a file without encoding or decoding any pathnames:
-
-    #include <stdio.h>
+In-Reply-To: <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
 
 
-    int main(int argc, char *argv[]) {
-        FILE *src = NULL, *dest = NULL;
-        int exit_status = 0;
-        if (argc != 3) {
-            fprintf(stderr, "USAGE: %s <src> <dest>\n", argv[0]);
-            exit_status = 1;
-            goto clean_up;
-        };
+--dzxxwkcvn44yeqbc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jason Yundt <jason@jasonyundt.email>
+Cc: linux-man@vger.kernel.org, Florian Weimer <fweimer@redhat.com>, 
+	"G. Branden Robinson" <branden@debian.org>
+Subject: Re: man/man7/pathname.7: Correct handling of pathnames
+References: <kvezw2xintnc5cv3ijqefahwt4i3rzczcidp4krmxsafr4azsb@nvbkzgciq3vm>
+ <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
+MIME-Version: 1.0
+In-Reply-To: <cf6lfplzm5hkmo7lkuyuw6blw4zemrsrhhlucjr4vpwns7m4nu@7pfcxat7bgue>
 
-        // Everything in argv[] should already use the correct character encoding,
-        // so we don’t need to do any encoding or decoding here.
-        // See <https://sourceware.org/pipermail/libc-help/2024-August/006737.html>.
-        src = fopen(argv[1], "r");
-        if (src == NULL) {
-            fprintf(stderr, "ERROR: Failed to open %s\n", argv[1]);
-            exit_status = 1;
-            goto clean_up;
-        }
-        dest = fopen(argv[2], "w");
-        if (dest == NULL) {
-            fprintf(stderr, "ERROR: Failed to open %s\n", argv[2]);
-            exit_status = 1;
-            goto clean_up;
-        }
-        int c;
-        while((c = fgetc(src)) != EOF) {
-            if (fputc(c, dest) == EOF) {
-                fprintf(stderr, "ERROR: Error while writing to %s\n", argv[2]);
-                exit_status = 1;
-                goto clean_up;
-            }
-        }
+Hi Jason, Florian,
 
-    clean_up:
-        if (src != NULL) {
-            if (fclose(src) == EOF) {
-                fprintf(stderr, "ERROR: Failed to close %s\n", argv[1]);
-                exit_status = 1;
-            }
-        }
-        if (dest != NULL) {
-            if (fclose(dest) == EOF) {
-                fprintf(stderr, "ERROR: Failed to close %s\n", argv[2]);
-                exit_status = 1;
-            }
-        }
-        return exit_status;
-    }
+On Mon, Jan 27, 2025 at 09:50:49AM -0500, Jason Yundt wrote:
+> On Mon, Jan 27, 2025 at 12:22:49PM +0100, Alejandro Colomar wrote:
+> > Hi Jason,
+> >=20
+> > I think the recommendation to use the current locale for handling
+> > pathnames isn't good.
+> >=20
+> > If I use the C locale (and I do have systems with the C locale), then
+> > programs running on that system would corrupt files that go through that
+> > system.
+>=20
+> I agree.  I think that this is just a limitation of the design of
+> UNIX-like systems.  As long as users are allowed to choose different
+> locale codesets, mojibake will always be possible.  Sometimes, you just
+> have to temporarily switch to a different locale in order to make things
+> work.  For example, I was trying to run some old Japanese software a
+> while ago, and I had to add a Shift-JIS locale to my system in order to
+> get it to work.
+>=20
+> > Let's say you send me Mar=C3=ADa.song, and I download it on a system
+> > using the C locale.  Programs would fail to copy the file.
+>=20
+> Not necessarily.  pathname(7) says =E2=80=9CPaths should be encoded and d=
+ecoded
+> using the current locale=E2=80=99s codeset in order to help prevent mojib=
+ake.=E2=80=9D
+> In many cases, you don=E2=80=99t need to encode or decode a pathname.  He=
+re=E2=80=99s a
+> program that copies a file without encoding or decoding any pathnames:
 
-> Instead, I think a good recommendation would be to behave in one of the
-> following ways:
-> 
-> -  Accept only the POSIX Portable Filename Character Set.
+Right.  But then, when do you need to do encoding?  Programs will either
+receive the pathname from the command line, or read it from some file,
+or create one of its own.
 
-This one isn’t quite a complete recommendation.  The POSIX Portable
-Filename Character Set is just a character set.  It’s not a character
-encoding.  If we go with this one, then we would need to say something
-along the lines of “Encode and decode paths using ASCII and only accept
-characters that are in the POSIX Protable Filename Character Set.”
+When creating a path of its own, it should restrict itself to the
+Portable Filename Character Set, so encoding shouldn't be a problem.
 
-> -  Assume UTF-8, but reject control characters.
-> -  Assume UTF-8.
+When reading pathnames, they'll already be encoded suitably.
 
-> -  Accept anything, but reject control characters.
-> -  Accept anything, just like the kernel.
+> > Instead, I think a good recommendation would be to behave in one of the
+> > following ways:
+> >=20
+> > -  Accept only the POSIX Portable Filename Character Set.
+>=20
+> This one isn=E2=80=99t quite a complete recommendation.  The POSIX Portab=
+le
+> Filename Character Set is just a character set.  It=E2=80=99s not a chara=
+cter
+> encoding.  If we go with this one, then we would need to say something
+> along the lines of =E2=80=9CEncode and decode paths using ASCII and only =
+accept
+> characters that are in the POSIX Protable Filename Character Set.=E2=80=9D
+>=20
+> > -  Assume UTF-8, but reject control characters.
+> > -  Assume UTF-8.
+>=20
+> > -  Accept anything, but reject control characters.
+> > -  Accept anything, just like the kernel.
+>=20
+> These last two also aren=E2=80=99t quite complete recommendations.  If a =
+GUI
+> program wants to display a pathname on the screen, then what character
+> encoding should it use when decoding the bytes?
 
-These last two also aren’t quite complete recommendations.  If a GUI
-program wants to display a pathname on the screen, then what character
-encoding should it use when decoding the bytes?
+Just print them as they got in.  No decoding.  Send the raw bytes to
+write(2) or printf(3) or whatever.
 
-> The current locale should actively be ignored when handling pathnames.
-> 
-> I've modified the example in the manual page to use a filename that's
-> non-ASCII, to make it more interesting.  See how it fails:
-> 
-> 	alx@devuan:~/tmp/gcc$ cat path.c 
-> 	     #include <err.h>
-> 	     #include <iconv.h>
-> 	     #include <langinfo.h>
-> 	     #include <locale.h>
-> 	     #include <stdio.h>
-> 	     #include <stdlib.h>
-> 	     #include <uchar.h>
-> 
-> 	     #define NELEMS(a)  (sizeof(a) / sizeof(a[0]))
-> 
-> 	     int
-> 	     main(void)
-> 	     {
-> 		 char      *locale_pathname;
-> 		 char      *in, *out;
-> 		 FILE      *fp;
-> 		 size_t    size;
-> 		 size_t    inbytes, outbytes;
-> 		 iconv_t   cd;
-> 		 char32_t  utf32_pathname[] = U"María";
-> 
-> 		 if (setlocale(LC_ALL, "") == NULL)
-> 		     err(EXIT_FAILURE, "setlocale");
-> 
-> 		 size = NELEMS(utf32_pathname) * MB_CUR_MAX;
-> 		 locale_pathname = malloc(size);
-> 		 if (locale_pathname == NULL)
-> 		     err(EXIT_FAILURE, "malloc");
-> 
-> 		 cd = iconv_open(nl_langinfo(CODESET), "UTF-32");
-> 		 if (cd == (iconv_t)-1)
-> 		     err(EXIT_FAILURE, "iconv_open");
-> 
-> 		 in = (char *) utf32_pathname;
-> 		 inbytes = sizeof(utf32_pathname);
-> 		 out = locale_pathname;
-> 		 outbytes = size;
-> 		 if (iconv(cd, &in, &inbytes, &out, &outbytes) == (size_t) -1)
-> 		     err(EXIT_FAILURE, "iconv");
-> 
-> 		 if (iconv_close(cd) == -1)
-> 		     err(EXIT_FAILURE, "iconv_close");
-> 
-> 		 fp = fopen(locale_pathname, "w");
-> 		 if (fp == NULL)
-> 		     err(EXIT_FAILURE, "fopen");
-> 
-> 		 fputs("Hello, world!\n", fp);
-> 		 if (fclose(fp) == EOF)
-> 		     err(EXIT_FAILURE, "fclose");
-> 
-> 		 free(locale_pathname);
-> 		 exit(EXIT_SUCCESS);
-> 	     }
-> 
-> 	alx@devuan:~/tmp/gcc$ cc -Wall -Wextra path.c 
-> 	alx@devuan:~/tmp/gcc$ ls
-> 	a.out  path.c
-> 	alx@devuan:~/tmp/gcc$ ./a.out ; echo $?
-> 	0
-> 	alx@devuan:~/tmp/gcc$ ls
-> 	María  a.out  path.c
-> 	alx@devuan:~/tmp/gcc$ cat María 
-> 	Hello, world!
-> 	alx@devuan:~/tmp/gcc$ LC_ALL=C ./a.out ; echo $?
-> 	a.out: iconv: Invalid or incomplete multibyte or wide character
-> 	1
-> 
-> What do you think?
-
-I honestly don’t know what the recommendation should be.  Here’s what I
-would need to know in order to figure out what the recommendation should
-be.  A while ago, I asked this question on the Unix & Linux Stack
-Exchange [1]:
-
-> What does a locale’s codeset get used for?
->
-> According to glibc’s manual:
->
-> > Most locale names follow XPG syntax and consist of up to four parts:
+> > The current locale should actively be ignored when handling pathnames.
+> >=20
+> > I've modified the example in the manual page to use a filename that's
+> > non-ASCII, to make it more interesting.  See how it fails:
+> >=20
+> >=20
+> > What do you think?
+>=20
+> I honestly don=E2=80=99t know what the recommendation should be.  Here=E2=
+=80=99s what I
+> would need to know in order to figure out what the recommendation should
+> be.  A while ago, I asked this question on the Unix & Linux Stack
+> Exchange [1]:
+>=20
+> > What does a locale=E2=80=99s codeset get used for?
 > >
-> > ```
-> > language[_territory[.codeset]][@modifier]
-> > ```
->
-> For example, you could have a locale named zh_CN.GB18030 which would
-> use the GB 18030 character encoding, or you could have a locale named
-> zh_CN.UTF-8 which would use the UTF-8 character encoding.
->
-> Here’s where I’m confused: let’s say that I switch from a zh_CN.UTF-8
-> locale to a zh_CN.GB18030 locale. In that situation, some things that
-> used to be encoded in UTF-8 are now going to be encoded in GB 18030.
-> Which things will now be encoded in GB 18030? Will stdin, stdout and
-> stderr use GB 18030? What about argv? What about filesystem paths?
->
-> Technically, a program can do whatever it wants and ignore the locale
-> completely, but let’s assume that programs are doing the correct thing
-> here. What is supposed to be encoded in GB 18030 if I use a
-> zh_CN.GB18030 locale?
+> > According to glibc=E2=80=99s manual:
+> >
+> > > Most locale names follow XPG syntax and consist of up to four parts:
+> > >
+> > > ```
+> > > language[_territory[.codeset]][@modifier]
+> > > ```
+> >
+> > For example, you could have a locale named zh_CN.GB18030 which would
+> > use the GB 18030 character encoding, or you could have a locale named
+> > zh_CN.UTF-8 which would use the UTF-8 character encoding.
+> >
+> > Here=E2=80=99s where I=E2=80=99m confused: let=E2=80=99s say that I swi=
+tch from a zh_CN.UTF-8
+> > locale to a zh_CN.GB18030 locale. In that situation, some things that
+> > used to be encoded in UTF-8 are now going to be encoded in GB 18030.
+> > Which things will now be encoded in GB 18030? Will stdin, stdout and
+> > stderr use GB 18030? What about argv? What about filesystem paths?
+> >
+> > Technically, a program can do whatever it wants and ignore the locale
+> > completely, but let=E2=80=99s assume that programs are doing the correc=
+t thing
+> > here. What is supposed to be encoded in GB 18030 if I use a
+> > zh_CN.GB18030 locale?
+>=20
+> I didn=E2=80=99t get an answer to that question, so I asked it again on t=
+he
+> libc-help mailing list [2].  I got one response that was super helpful
+> [3].  That response clearly said that paths should be encoded using the
+> locale=E2=80=99s codeset.  If you think that answer was incorrect, then I=
+ would
+> like a very specific list of things that should and should not be
+> encoded using the locale=E2=80=99s codeset so that I can add it to the gl=
+ibc
+> manual (and maybe the POSIX standard if I can figure out how to
+> contribute to that).
+>=20
+> [1]: <https://unix.stackexchange.com/q/780404/316181>
+> [2]: <https://sourceware.org/pipermail/libc-help/2024-August/006736.html>
+> [3]: <https://sourceware.org/pipermail/libc-help/2024-August/006737.html>
 
-I didn’t get an answer to that question, so I asked it again on the
-libc-help mailing list [2].  I got one response that was super helpful
-[3].  That response clearly said that paths should be encoded using the
-locale’s codeset.  If you think that answer was incorrect, then I would
-like a very specific list of things that should and should not be
-encoded using the locale’s codeset so that I can add it to the glibc
-manual (and maybe the POSIX standard if I can figure out how to
-contribute to that).
+Maybe Florian can comment.
 
-[1]: <https://unix.stackexchange.com/q/780404/316181>
-[2]: <https://sourceware.org/pipermail/libc-help/2024-August/006736.html>
-[3]: <https://sourceware.org/pipermail/libc-help/2024-August/006737.html>
 
-> Have a lovely day!
-> Alex
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
+Have a lovely day!
+Alex
+
+>=20
+> > Have a lovely day!
+> > Alex
+> >=20
+> > --=20
+> > <https://www.alejandro-colomar.es/>
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--dzxxwkcvn44yeqbc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeXq+AACgkQnowa+77/
+2zJYxg//Q4PIZIthuJstV4wYRFe9GvTAHkjyjG0Ax6CU0p4E8lhNWd/xPrzRT0bo
+IzVFprQqGm8pXwy+zU8YL5QJFBDopT+9X3VpkkPV8C06Cn++qZeBLHeBDb++tIwY
+vTIP5z40mOY/xCGubXerpAoHrSB0xMRX3OaDOJ7f+O29OYDI6F93ciR+PQmwIzxo
+bzCzSpvwqiPyvu3Punaue7EcUaEoZc7x5Dhj2U9sXcByNUkJ4/P54wE2vUpXmr4o
+8Mitmi7zTSPO9gYjY14VH++tcZBNt41LQIDO7GwI0PnQl6Cu43hg8Xsv4GWL+sNE
+fiOJtJGo8dktFdYofVgimKlo2yoih6nJ2uSMqDRUyMjRzc+SqE22mRrG4Hlx/fsg
+E4fQkJS8gRV+VVkHq05kqxBFC3Yk7+WpxYlPeBzhxLEiZdannp6dsU+RBsuh5mj5
+SMFO7ZErh7X4oZUUbEt3qoh6FE+TSQ3x1H5Ne+QzGEWStP6MYTnNHRX/HPTfa1cV
+yQlDwcYz1PxDxiz+8Gc3FONUe7iMMF8HaYQolw6npGsaaMRCRA26JhCYWtQi7LVi
+SkUzqx5yrinGrmjh0VcgAiF75WyF0cxACvascts1+3GK8ANobsaegsddMyulilf8
+CslvA88ovrgdqJRYo2aAKTgmMnpNSRy6Gdsd2TayEa8onxP2X4Y=
+=1dbA
+-----END PGP SIGNATURE-----
+
+--dzxxwkcvn44yeqbc--
 
