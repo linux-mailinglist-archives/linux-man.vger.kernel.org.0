@@ -1,81 +1,124 @@
-Return-Path: <linux-man+bounces-2315-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2316-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5E2A246DD
-	for <lists+linux-man@lfdr.de>; Sat,  1 Feb 2025 03:43:54 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 485F5A24DA1
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 11:54:48 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D406C3A5258
-	for <lists+linux-man@lfdr.de>; Sat,  1 Feb 2025 02:43:45 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BB8471613BB
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 10:54:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADDE9381AF;
-	Sat,  1 Feb 2025 02:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8915A1D516C;
+	Sun,  2 Feb 2025 10:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="B0Lf1TXS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPwnRXcz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F9C4A3E;
-	Sat,  1 Feb 2025 02:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738377827; cv=pass; b=oSKizHumFc3QSviOhA7Q46oWeyVa+orylwKzdtSYBJC8dXWben3Ib1Thsyv4ZPz5oJUTC0pT7oOTxyhzV1PvXpfbOkT5bil0rrIXaR/ghxNthrfmi/LegT9krW6FycN0UygRWh/S6hm/R88wGnvR6tvqnSfDa1PwZFMYfps6hQs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738377827; c=relaxed/simple;
-	bh=GMODuOBsrY8WRZETQm+HiDn/En2Bjw4oMn91H/iV5Ps=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FaWZ9OrsmH3+Z2dtDOOUvo5BsMhwmk1YdMkBMMuC6Fkp5zPCUrtzuExLoC6KGMUmC5Sx0Lti17beg4FcsTiCCkQYvxLOuH5ST0NnDJCBC9ZBn6YKyVHWv4ociObCi8TfprFbb932Ipt2swbncK9h+owDwZBmoARMv2NqQ7kO6QE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=B0Lf1TXS; arc=pass smtp.client-ip=136.143.188.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1738377811; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=b5haWb3rfP9MtHsZDsxCRhmY0rmME6UspJZw5yL0xBdS3ozwIURxuexg1RUNnM0ysq6B14w2th4lZgC9EodMAptqoxw1XowhMjlYX5mzjwTymThCj5xDuPJpR4GdO1fGkEYiGcviYcrT8AAQTQ2OsbzpirWcrQMX6tENpPB6gmE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1738377811; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GMODuOBsrY8WRZETQm+HiDn/En2Bjw4oMn91H/iV5Ps=; 
-	b=d8Q+2ukXLNwhoU+m3jc9qeS40sU5NaVO3cSHK5Mt+W8jhrY70g15dXKO3tStKl4PxMi1K5qkRXP8uR/AUY0+dg7+zS884CZknQZQj4gcKBP3i+QRWnbn2/ZJNIUVY05n62WBeyIyr8BP5qQU9xuXe+p4kXvut63EbDBQ5PRyk9k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
-	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738377811;
-	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Reply-To;
-	bh=GMODuOBsrY8WRZETQm+HiDn/En2Bjw4oMn91H/iV5Ps=;
-	b=B0Lf1TXSr1ZGr2OsQnfUutgdKUFqrxjLovaVdJGHMQjojea5yIVkVM16EIl3YW59
-	wmnJtwE3ZLErKD4ZvPVCu6J3617ziiLWdjOJBidsbKdvJLMviCHEa0xe51q4JBpwuOi
-	yOyPT6mW4fWEYiboYFhEwX1itl/V7g87XxstGeHQ=
-Received: by mx.zohomail.com with SMTPS id 1738377807804961.3242472563459;
-	Fri, 31 Jan 2025 18:43:27 -0800 (PST)
-From: Askar Safin <safinaskar@zohomail.com>
-To: dhowells@redhat.com
-Cc: christian.brauner@ubuntu.com,
-	linux-api@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org,
-	viro@zeniv.linux.org.uk
-Subject: Re: [PATCH 1/5] Add manpage for open_tree(2)
-Date: Sat,  1 Feb 2025 05:43:22 +0300
-Message-Id: <20250201024322.2625842-1-safinaskar@zohomail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk>
-References: <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459D21DA53
+	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 10:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1738493683; cv=none; b=bXLFzqihiL9AQ1iF+nsIC5/u2gmmqWE8bE/0WQXbRb9YMR42djjZHX9ImQ8zCHtAzyXTlWHoTBGUGiykZ/tEMi6wGZRZKp/FV+7goItAWwu0kvIDlzfA/lhLJkaKqFe56DmBOo1zDhFa6X5j/srQKbj10fQxNU79VbeqqafcA2M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1738493683; c=relaxed/simple;
+	bh=DNvtKEZ1oun2+dhNdV9weCa1HD34zHjLqqmBCSdmO8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=smXvzLc2t867fmTos2w2bBhaz+oXu4ZfJf5ZhQqLnKmQ60NrzLb+JclPRHlI9mClnm9K0YF9aPqOZP4Blv/4aVV6M6Jfv4lwFafY38P+DRr2Jmn3rL6fPZWQpwGwwrXhBQ2RU05co7n2rEvwrewMKu3knLKk2TtTNz0sHs5qfrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPwnRXcz; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFEBC4CED1;
+	Sun,  2 Feb 2025 10:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738493682;
+	bh=DNvtKEZ1oun2+dhNdV9weCa1HD34zHjLqqmBCSdmO8g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KPwnRXcztwlJEnfsHe1lKDbmCcWIQSlnQ2noJM8SZi99wPRoMjrp7x7i1kjJQ87fu
+	 42XbTmYhLXeSkRISRsudxibMmKzLMD8RXQ05+CM6bLq0n8MNoRYI4nrlUy/fzbzuO6
+	 zpExYNZr9KI/14slw+k7/Al3RE4OOV6k+/wziOka/YAbpX0XWzxGssDbSPFQlAkB0h
+	 FTzT8n4vp6y/fASUtxBRTs5KwHdAVEIpRzsG/uXAQrpAEGFpAdj/6skMFyJdPY6B6M
+	 deZPKl2W4G1fTtzV5jW6ZEIrU7AtpMg9WgVhjbg8NdfhNR5yP/WH60iOqWNSW0OXYs
+	 Rr1TBLVQbi6tg==
+Date: Sun, 2 Feb 2025 11:54:39 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "Tomerius, Kai" <Kai.Tomerius@elektrobit.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: man proc_pid_limits typo
+Message-ID: <5iuqimymgbrr5q5g5oh75pmlrayuzutgvxezi7dozn22wsghd5@jufcy2zsutuy>
+References: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: rr0801122cdfcf9964647958ede0c52b01000061f855f066d959016a5a9aeb8d8ac2b562924eac93f82f7b468f258658b7:zu08011227011cd5f454f9342e9cc22f83000071cfc7e82987801c0e0d46333920226891152fe82319cbf0e8:rf0801122cc48feaafdeec6066e041face0000a5192a6b5cad411612f1c958ba862b41a8b386fa55172d65916ee7856e38:ZohoMail
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lkdt4dn2bi5ygdlq"
+Content-Disposition: inline
+In-Reply-To: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
 
-David Howells, ping! You still didn't add all these manpages.
 
-https://lore.kernel.org/linux-man/159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk/
+--lkdt4dn2bi5ygdlq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "Tomerius, Kai" <Kai.Tomerius@elektrobit.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: man proc_pid_limits typo
+References: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
+MIME-Version: 1.0
+In-Reply-To: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
+
+[CC +=3D linux-man@]
+
+Hi Kai,
+
+On Fri, Jan 31, 2025 at 10:33:54AM +0000, Tomerius, Kai wrote:
+> Hi *,
+>=20
+> I think I found a small typo in the proc_pid_limits man page:
+>=20
+> <span class=3D"headline"><i>proc_oid_limits</i>(5)         File Formats M=
+anual        <i>proc_oid_limits</i>(5)</span>
+> <span class=3D"footline">Linux man-pages 6.9.1          2024-05-02       =
+      <i>proc_oid_limits</i>(5)</span>
+>=20
+> It's "oid" instead of "pid", e.g. here: https://man7.org/linux/man-pages/=
+man5/proc_pid_limits.5.html
+
+Thanks for the report!  I've fixed it now:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Db08e50b78c544df5c78a54a7a9c209de04bff072>
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--lkdt4dn2bi5ygdlq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmefTu8ACgkQnowa+77/
+2zJepA/9EHAIXKFZjhSpJgAiiOdb7kq9n90mTIkQutRZnpAC5ErqL19KUnCd/bzG
+W9ybpWQUBDwEshnPcGG9ax2mGhL5fKhhWQr7ujfcn+lbI2qzTDIkY9Xgf/xJoKb3
+gx0nLLK4ZMRHxOHdjdIqUeDYjDLIsA1pQJWTMl/vzpZO63c3J6JcPjCagRUW2VNi
+duFsJ1S/vVfr8Qiat5HtOTltILieNAuW4Zf+4QiKpsKLkb+SYNK+O77MPho8CQAQ
+osnD8XnU0i/kskmHL95hsNVS09y9oyUxA0o41wSagmq0fcXfpSRsZZIbyPZ7O7Wf
+RVj9Hhyme97POhL6/EheUpBqGK+ipX5L/kXVFNJB/BTM2oybN+LQasbReqvzD8pk
+blIfIzV7YykH5zimHFdPOS42UmtqlVvvP6chKVfV2E32fMvJMaW6t/HN7Sd7Zrbi
+fGMqn+xDhfAGyDTA8uhGfCiLZ+PP8HwRqx3zZEjArJQfD7aFLFRXzDckZI0xqYGC
+eIagCz8wuJ+Dg3Eq7Nt0pkycuRUmj+Q8zNYt1+sMDMD70JqRcFo3rl59ewmPt56o
+RYMHi44Ntk8sijNpIa5x8n5bxaJKSPN/BVjOFct40thTQcTG1uLSVawreJcT8Urg
+nuF8/28JlUpIg9r4Lu2KjrURrGQusJgBURwnnOiWtGJU5mp/9Co=
+=nJGO
+-----END PGP SIGNATURE-----
+
+--lkdt4dn2bi5ygdlq--
 
