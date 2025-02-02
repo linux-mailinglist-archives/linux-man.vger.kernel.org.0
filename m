@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-2316-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2317-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 485F5A24DA1
-	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 11:54:48 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58B8BA24DA2
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 11:57:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BB8471613BB
-	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 10:54:46 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 04AA31883946
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 10:57:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8915A1D516C;
-	Sun,  2 Feb 2025 10:54:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DB461D5CF5;
+	Sun,  2 Feb 2025 10:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPwnRXcz"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgEbQrpx"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459D21DA53
-	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 10:54:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04D91DA53
+	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 10:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738493683; cv=none; b=bXLFzqihiL9AQ1iF+nsIC5/u2gmmqWE8bE/0WQXbRb9YMR42djjZHX9ImQ8zCHtAzyXTlWHoTBGUGiykZ/tEMi6wGZRZKp/FV+7goItAWwu0kvIDlzfA/lhLJkaKqFe56DmBOo1zDhFa6X5j/srQKbj10fQxNU79VbeqqafcA2M=
+	t=1738493859; cv=none; b=e1IWvF4J04f72xa0Rx61gEgNj82y7RRPG+CwQz9k13wzh8YIngXw60x2jfAV8YTaOM+Wiwa0S/C2vR57+llZP7sC+/rcutFDP8qzIIw5920b83DlSiI1EOKT23p8zFU4GK+iyPdoORKzfwnlUGQ5cm4s/nT2tW1rTtfAfUUJAA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738493683; c=relaxed/simple;
-	bh=DNvtKEZ1oun2+dhNdV9weCa1HD34zHjLqqmBCSdmO8g=;
+	s=arc-20240116; t=1738493859; c=relaxed/simple;
+	bh=WU7m/ZacNG3kKd32HcnrNe1tJpkuqGHbYUuQheR3Tlk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=smXvzLc2t867fmTos2w2bBhaz+oXu4ZfJf5ZhQqLnKmQ60NrzLb+JclPRHlI9mClnm9K0YF9aPqOZP4Blv/4aVV6M6Jfv4lwFafY38P+DRr2Jmn3rL6fPZWQpwGwwrXhBQ2RU05co7n2rEvwrewMKu3knLKk2TtTNz0sHs5qfrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPwnRXcz; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFEBC4CED1;
-	Sun,  2 Feb 2025 10:54:41 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=eA1PYU+BtUQM8KR4kGPqBFAgF2XgggFlZ1pJQ8f2l4QHcfF9r9Nqur9BoeOiBiDGPOT2E2pcpFaZocNHExAIfnZbQU6jiGBXqybG3AROYRKfgYqzGp9IEEW2ClPdAPVY7Q1ny6W8Ig10+C6Hp7IZK3+Z7ZnDRmO+dOC4Oxg0qb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgEbQrpx; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3255C4CED1;
+	Sun,  2 Feb 2025 10:57:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738493682;
-	bh=DNvtKEZ1oun2+dhNdV9weCa1HD34zHjLqqmBCSdmO8g=;
+	s=k20201202; t=1738493858;
+	bh=WU7m/ZacNG3kKd32HcnrNe1tJpkuqGHbYUuQheR3Tlk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KPwnRXcztwlJEnfsHe1lKDbmCcWIQSlnQ2noJM8SZi99wPRoMjrp7x7i1kjJQ87fu
-	 42XbTmYhLXeSkRISRsudxibMmKzLMD8RXQ05+CM6bLq0n8MNoRYI4nrlUy/fzbzuO6
-	 zpExYNZr9KI/14slw+k7/Al3RE4OOV6k+/wziOka/YAbpX0XWzxGssDbSPFQlAkB0h
-	 FTzT8n4vp6y/fASUtxBRTs5KwHdAVEIpRzsG/uXAQrpAEGFpAdj/6skMFyJdPY6B6M
-	 deZPKl2W4G1fTtzV5jW6ZEIrU7AtpMg9WgVhjbg8NdfhNR5yP/WH60iOqWNSW0OXYs
-	 Rr1TBLVQbi6tg==
-Date: Sun, 2 Feb 2025 11:54:39 +0100
+	b=FgEbQrpxhKAcvGkDfz713xQKSc0sDLG95p4SVUdyc5Idp7st6zTI0TtirVzaGFJ9V
+	 wslb68nHHsRH/iSdgFhNUIw6ub/soqagmznu2ISwwPZzxaNSITY1NcVV+YZPbbrupE
+	 2dEhpwff6nmrqUZKxG8orFZJ8d9smCclGr2CjgTmYvLkE46MoBSS3y9+ea9LXR4aWG
+	 r6Mj+g1jl1reP9rR9P17+Is0gzcZdWUfmfIWxOWaXxwrGj9478aODF/VXMYXzWcl+w
+	 5jDDISs0Z81j6ej1UniSPiZ4mk3QYb5A+Fui6pRcoJ3zmA/1ILMrEKZN9o8A02KPW5
+	 D+LLxw3yT8tXA==
+Date: Sun, 2 Feb 2025 11:57:35 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: "Tomerius, Kai" <Kai.Tomerius@elektrobit.com>
+To: Askar Safin <safinaskar@zohomail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: man proc_pid_limits typo
-Message-ID: <5iuqimymgbrr5q5g5oh75pmlrayuzutgvxezi7dozn22wsghd5@jufcy2zsutuy>
-References: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH] man/man2/rt_sigqueueinfo.2: change tid to tgid
+Message-ID: <5g75llchd52jvn5m536maibcpxqxuakucydymvecrgcqxxytaz@moet36ib7cho>
+References: <20250130050625.3356602-1-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,70 +55,82 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lkdt4dn2bi5ygdlq"
+	protocol="application/pgp-signature"; boundary="rerfpita77al6vri"
 Content-Disposition: inline
-In-Reply-To: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
+In-Reply-To: <20250130050625.3356602-1-safinaskar@zohomail.com>
 
 
---lkdt4dn2bi5ygdlq
+--rerfpita77al6vri
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "Tomerius, Kai" <Kai.Tomerius@elektrobit.com>
+To: Askar Safin <safinaskar@zohomail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: man proc_pid_limits typo
-References: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH] man/man2/rt_sigqueueinfo.2: change tid to tgid
+References: <20250130050625.3356602-1-safinaskar@zohomail.com>
 MIME-Version: 1.0
-In-Reply-To: <AM9P195MB1364568757CF793EFF5FC606E7E82@AM9P195MB1364.EURP195.PROD.OUTLOOK.COM>
+In-Reply-To: <20250130050625.3356602-1-safinaskar@zohomail.com>
 
-[CC +=3D linux-man@]
+Hi Askar,
 
-Hi Kai,
-
-On Fri, Jan 31, 2025 at 10:33:54AM +0000, Tomerius, Kai wrote:
-> Hi *,
+On Thu, Jan 30, 2025 at 08:06:25AM +0300, Askar Safin wrote:
+> There is a typo. Author meant tgid.
 >=20
-> I think I found a small typo in the proc_pid_limits man page:
->=20
-> <span class=3D"headline"><i>proc_oid_limits</i>(5)         File Formats M=
-anual        <i>proc_oid_limits</i>(5)</span>
-> <span class=3D"footline">Linux man-pages 6.9.1          2024-05-02       =
-      <i>proc_oid_limits</i>(5)</span>
->=20
-> It's "oid" instead of "pid", e.g. here: https://man7.org/linux/man-pages/=
-man5/proc_pid_limits.5.html
+> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
 
-Thanks for the report!  I've fixed it now:
+Thanks!  I've applied the patch with small tweaks to the commit message.
 <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Db08e50b78c544df5c78a54a7a9c209de04bff072>
+mit/?h=3Dcontrib&id=3D6f02ec4e583a56864dfe69fe168439e6198c593b>
 
 
 Have a lovely day!
 Alex
 
+> ---
+>  man/man2/rt_sigqueueinfo.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/rt_sigqueueinfo.2 b/man/man2/rt_sigqueueinfo.2
+> index 5e55e89..8bd1800 100644
+> --- a/man/man2/rt_sigqueueinfo.2
+> +++ b/man/man2/rt_sigqueueinfo.2
+> @@ -48,7 +48,7 @@ system call sends the signal
+>  to the thread group with the ID
+>  .IR tgid .
+>  (The term "thread group" is synonymous with "process", and
+> -.I tid
+> +.I tgid
+>  corresponds to the traditional UNIX process ID.)
+>  The signal will be delivered to an arbitrary member of the thread group
+>  (i.e., one of the threads that is not currently blocking the signal).
+> --=20
+> 2.39.5
+>=20
+>=20
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---lkdt4dn2bi5ygdlq
+--rerfpita77al6vri
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmefTu8ACgkQnowa+77/
-2zJepA/9EHAIXKFZjhSpJgAiiOdb7kq9n90mTIkQutRZnpAC5ErqL19KUnCd/bzG
-W9ybpWQUBDwEshnPcGG9ax2mGhL5fKhhWQr7ujfcn+lbI2qzTDIkY9Xgf/xJoKb3
-gx0nLLK4ZMRHxOHdjdIqUeDYjDLIsA1pQJWTMl/vzpZO63c3J6JcPjCagRUW2VNi
-duFsJ1S/vVfr8Qiat5HtOTltILieNAuW4Zf+4QiKpsKLkb+SYNK+O77MPho8CQAQ
-osnD8XnU0i/kskmHL95hsNVS09y9oyUxA0o41wSagmq0fcXfpSRsZZIbyPZ7O7Wf
-RVj9Hhyme97POhL6/EheUpBqGK+ipX5L/kXVFNJB/BTM2oybN+LQasbReqvzD8pk
-blIfIzV7YykH5zimHFdPOS42UmtqlVvvP6chKVfV2E32fMvJMaW6t/HN7Sd7Zrbi
-fGMqn+xDhfAGyDTA8uhGfCiLZ+PP8HwRqx3zZEjArJQfD7aFLFRXzDckZI0xqYGC
-eIagCz8wuJ+Dg3Eq7Nt0pkycuRUmj+Q8zNYt1+sMDMD70JqRcFo3rl59ewmPt56o
-RYMHi44Ntk8sijNpIa5x8n5bxaJKSPN/BVjOFct40thTQcTG1uLSVawreJcT8Urg
-nuF8/28JlUpIg9r4Lu2KjrURrGQusJgBURwnnOiWtGJU5mp/9Co=
-=nJGO
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmefT58ACgkQnowa+77/
+2zIt1Q//cmc23q2clvFQR59IOjmETBo+BK6GNt/71lmzFT6Dz8SwRMNBcLxVIKhR
+SyH8CUD0Z50Sy/4oHB6QMt5U79CTvUhnAnlw6dskXmCk3Ew1U+PQV3euF2WYsXl3
+RVmCfYEqFEj0HDKW+lpUgBAe/GxzvrPCYIVv3kl9yGe3NsgF5wrk6Epqrf7dWz16
+pZXPfe/s02v1l7QWvVhFODTABTKTU9so9y1C5BQ5OiZK0YQQzalvbCLD3eRHCXJc
+Vj5yZ1dIFu8s21jpaP7fYOEuFcUwSIcwUUhmREVZg4E0SuA5riGjJB6nSRhlNlDz
+G0njusSd2z9croVAlCy9x7/GY/dYX1nvmTog0KJ8ZIHjCneFZiEeSOV16qYeiQn4
+2U3eRGs0b7vKKNr7VfDro0jA+WuZcvzgHF5M0gdwvwHcbhyDabwYDpSHMXKllriw
+teJRmmsHiGfKMteEoxbA4bTlt6BKpBq23c/cwE2QoJUH+xIsv6drz9JID49ueDML
+cs7IavUKHGetML4AJXXR0bILR73eZhzfOuUI3WbcD72ZyTiCYjQRoK7MnfLfI2BP
+hhBho2i+X5R6wQ2imKhQTQ5qLM2P7Dv1TOX0fQsfoUpAo4vxWNyA+sU3Spjvxusv
+5uB0dSS11UMUWA6AgqGKg5bieQjGgsuxCeOcdMCJtdXCqCF6Ob0=
+=d3wN
 -----END PGP SIGNATURE-----
 
---lkdt4dn2bi5ygdlq--
+--rerfpita77al6vri--
 
