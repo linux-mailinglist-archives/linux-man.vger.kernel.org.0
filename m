@@ -1,182 +1,164 @@
-Return-Path: <linux-man+bounces-2329-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2330-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DEDBA24E3A
-	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 14:28:45 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C047DA24E77
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 14:59:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 11C6F3A68BC
-	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 13:28:37 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 38C86163D8A
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 13:59:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F210D1D63DC;
-	Sun,  2 Feb 2025 13:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAA1A1F540D;
+	Sun,  2 Feb 2025 13:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3M1ipxy"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="HTx5Oejq"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E282746D
-	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 13:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B0CC8DF
+	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 13:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738502917; cv=none; b=tCbiPq4nLYzXaLBBScldyrM20GmhBgoBdXsiy3Rh5aRQsL61m4nzzRZE5OFQHAP+8wG+nmAUAf45uasBFwO8Y5WgaavOEHrjl/82x/KOpmpTqX5njR8+kT+8c0Opo+NAgo0MLbkE+MOiNgE6Wuis6UsLVb7oNKtf2w78cBEchd4=
+	t=1738504776; cv=none; b=QyHS6vI29hfuv3fHVT+Pg4KIC4uOnMqo+SF538u4Z8b4/EsWVo/LR+xY18JuZptFNQVdTbNP/b0jGSRx75H6lBn/SCQ6QZ97HyWtDXcLy0mw6K1D5aziLMTBycK5Utgk+qqTCpkyxa9fNIaANrjFKosqgG3pkBuKTA2x75s6yAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738502917; c=relaxed/simple;
-	bh=GorvEl+kLuuv9sq1FTF411jr2Wgf4p2hqzhNCZXTT+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZOi1cXAjcOKEyBHbssM63Ijk/X8ogr2gvu5t7Pc2LAO8qJFUiLlOEX0p4A2bB6kFHIPKyprrLZxqG4ixrmuNVKLaqGQIthDfGVzUgxjeVNa517OXPa4eLtdYGtGSeZXEqQ0zrZDKNEh/DWgj/RvlRRX2VZMWkMn6sIdV44ZccV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3M1ipxy; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1D1C4CEE3;
-	Sun,  2 Feb 2025 13:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738502917;
-	bh=GorvEl+kLuuv9sq1FTF411jr2Wgf4p2hqzhNCZXTT+8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I3M1ipxyrDJ9Y9PhQa0Yuawd9LsmqTCItSSI6nZTG45cf1vPYeVKrSmeb3zij72rZ
-	 7OVNFL50Yx3isjaWkXJQlr4BoVeWPJJCtWr32C0LRHMFGR9LlP1fcCAQ7HXvcib1Yr
-	 1O7ZVwjvJWxvvHMnvvR6yQ17WwFebIhw2C03SoPV0Sh2x8RyMx3I+SQkntnTroWCt9
-	 v7SacKoqDru7rVBfoGvBPPYjjMN1PsSoQpjE1ehb3ziTjOc0jYi4Q4li2dY0T/xWqc
-	 SrIxYtxNn//UDFRJBU30b/uoUDlEv9NzYYXrTY/hrUhdXLE6LmH8m+HFw4ufMG2F7x
-	 mK2Va1QJB0WXw==
-Date: Sun, 2 Feb 2025 14:28:31 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: linux-man@vger.kernel.org, 
+	s=arc-20240116; t=1738504776; c=relaxed/simple;
+	bh=05ViqDWvuaDOkrtSWAbFhSIeNEMuK6K8MRDua9mz6Y4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MXd2jo4ICzCng8OTxfXXkY3qUnhIFOUUBanS4K+Rch5MxJ+g1whXjM+MQ8blFevtHwDObDh4FRAfV/N6dKY0GcsU39bXQd1u+LCU1Hvzouz2xqvWvr87V2705oqreE819aUrDPBWDI7jPONTnlirw1mUV6UGH34t0kIc/5BJYDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=HTx5Oejq; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1738504668;
+	bh=xOwuPWVDGiLYDlhVCyKmuNlqSykIPBOrMUFwKKrsZpQ=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=HTx5OejqmmBVXpd4Q6XCImG/rc/27+MAChAqshprgXTSl3O3VXgXGv8+HU1SWRxN7
+	 2Rf3abOwA7WXVg9s1qt/FkGBdVxa9YV1M3+kfn+OhaZxDy5i9ZnAtXX0FJ0glBdv0L
+	 6G9oVeR8dUSeQsha6BFwAVYoRDgrzuWN+++LcbcE=
+X-QQ-mid: bizesmtpsz14t1738504663teejqx
+X-QQ-Originating-IP: YJBhhdPTUbg5frVwUZ0x8VV7r0wa8T1slUpUvXmJxMk=
+Received: from localhost.localdomain ( [220.250.46.165])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 02 Feb 2025 21:57:42 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7263818905182605552
+From: Chen Linxuan <chenlinxuan@uniontech.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Chen Linxuan <chenlinxuan@uniontech.com>,
 	"Eric W . Biederman" <ebiederm@xmission.com>
-Subject: Re: [PATCH v2] man/man2/mkdir.2: Add EOVERFLOW
-Message-ID: <u2qbdk2owlwcs5sjdgcuua4z73gvf4atqtfvhbrwtt4tuvw2vd@nklz2rvljwhg>
-References: <FA96BA75CD41C940+20250125094605.28203-1-chenlinxuan@uniontech.com>
+Subject: [PATCH v3] man/man2/mkdir.2: Add EOVERFLOW
+Date: Sun,  2 Feb 2025 21:57:33 +0800
+Message-ID: <F22A2B1500170B63+20250202135733.11800-1-chenlinxuan@uniontech.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gyrh3wvl7yjvzh73"
-Content-Disposition: inline
-In-Reply-To: <FA96BA75CD41C940+20250125094605.28203-1-chenlinxuan@uniontech.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
+X-QQ-XMAILINFO: NXAwOXNh0CeGTcsg2ncOHdwuqFsoMySdokSA9EN+yI+k0hQb3IOxEKDW
+	hAue8oi2EvyzJAORHZROde13hwP49+R/BRTdH1qqqWWrojwgF7q5Ss+yO3/UoKxWMoDklK8
+	xvTy6iwNm8dyUk4SwN0bO6A/dcew/YoC39qri6COubIBJULHE7Byp9c17OqiZN4ctaBPJhN
+	unJwUb+fvy+Xgrn4dXJmHndvhfYDqd4Js4/5JkyqmVgYC19YuuSyLWuMgIjetGtLxKRdtbQ
+	QBO60R+1scDPm5pX1ASzZudnqncvgToG2IyZi0z6yGI4VChTvORQs9tC07Fs+ivtb3z97cN
+	ob9dLrSFmY3MDPTKHaWfRr0uv6Mgyzmp94LtOl+Pr0wHtxafya8gG9O8Molb6DMqAXGNm1e
+	Dp2gf0UBVLzgGSfuCqCAwNkM9iGAntvV3inQ/MizCwra7w0fW2P7uOVHNCKXhR5FGwyDzMC
+	7wbiqZrnH4sG6SyqpC3i/FCPw7xOCDUo2O8mpeumb1SMVpNMim5oh6e9nShR/8SRfRsL8gs
+	M4nftyYOPiJPD76smDKGQ1I2vQdlJacMDGXbJdK8zYrBRJVkbFSHF4Q61qQ1HVJd6WVJIak
+	IXynCzSRUZqnhHUTHGDQjPM0Q6cPcj0LcuyhdFMag8vRmsi3OypxBm1T/EY1+d/GSiKuEXr
+	p8gMMyyCjY2edf+unNlqkVCoeEC6P8d9cLyrOJefWQiSJkUSz9OAd0AjlRXOxb4nHLDFpUw
+	4UlpaVo+ybp8qnhdJXEcSKQd4AV8mWMzNruNT+bOpgbcf+evi0KmclWY/OZK1T6n5V5vhi5
+	Pqy9W33ExMkt1xEv5xJ/43oAuea7yyRCzaSIi5owhxtQZSDb75RKfwBqB0jD5G621b67rxe
+	ChihVeqASGeiXEJqqc6wRf7QHJbJCrur7KaKqBumTqnI2BpwT+FTLPOZY4c0ClJPKT15NJc
+	ieGfDe09n7NrHSsG7AJV14Akui/XWnTOmj/0=
+X-QQ-XMRINFO: NS+P29fieYNw95Bth2bWPxk=
+X-QQ-RECHKSPAM: 0
 
+`mkdir` and `mkdirat` might set errno to EOVERFLOW when UID or GID
+mapping has not been configured. See
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=036d523641c66bef713042894a17f4335f199e49
 
---gyrh3wvl7yjvzh73
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: linux-man@vger.kernel.org, 
-	"Eric W . Biederman" <ebiederm@xmission.com>
-Subject: Re: [PATCH v2] man/man2/mkdir.2: Add EOVERFLOW
-References: <FA96BA75CD41C940+20250125094605.28203-1-chenlinxuan@uniontech.com>
-MIME-Version: 1.0
-In-Reply-To: <FA96BA75CD41C940+20250125094605.28203-1-chenlinxuan@uniontech.com>
+This is a small program in the commit message that shows this behavior:
 
-Hi Chen,
+        #define _GNU_SOURCE
 
-On Sat, Jan 25, 2025 at 05:46:05PM +0800, Chen Linxuan wrote:
-> `mkdir` and `mkdirat` might set errno to EOVERFLOW when UID or GID
-> mapping has not been configured. See
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D036d523641c66bef713042894a17f4335f199e49
->=20
-> This is a small program in the commit message that shows this behavior:
+        #include <err.h>
+        #include <sched.h>
+        #include <stdlib.h>
+        #include <sys/mman.h>
+        #include <sys/mount.h>
+        #include <sys/stat.h>
+        #include <sys/wait.h>
+        #include <unistd.h>
 
-Please add the necessary includes.  I can't compile the program.
-You'll need to indent the program, so that the '#' are not interpreted
-as comments by git(1).
+        static int childFunc(void *_)
+        {
+                if (mount("tmpfs", "/tmp", "tmpfs", 0, NULL)) {
+                        err(EXIT_FAILURE, "mount");
+                }
+                if (mkdir("/tmp/test", 0755) == -1) {
+                        err(EXIT_FAILURE, "mkdir");
+                }
+                return 0;
+        }
 
+        #define STACK_SIZE (1024 * 1024)
 
-Have a lovely day!
-Alex
+        int main(int argc, char *argv[])
+        {
+                char *stack; /* Start of stack buffer */
+                char *stackTop; /* End of stack buffer */
+                pid_t pid;
 
->=20
-> static int childFunc(void *_)
-> {
->         if (mount("tmpfs", "/tmp", "tmpfs", 0, NULL)) {
->                 err(EXIT_FAILURE, "mount");
->         }
->         if (mkdir("/tmp/test", 0755) =3D=3D -1) {
->                 err(EXIT_FAILURE, "mkdir");
->         }
->         return 0;
-> }
->=20
-> int main(int argc, char *argv[])
-> {
->         char *stack; /* Start of stack buffer */
->         char *stackTop; /* End of stack buffer */
->         pid_t pid;
->=20
->         stack =3D mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
->                      MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
->         if (stack =3D=3D MAP_FAILED)
->                 err(EXIT_FAILURE, "mmap");
->=20
->         stackTop =3D stack + STACK_SIZE;
->=20
->         pid =3D clone(childFunc, stackTop, CLONE_NEWUSER | CLONE_NEWNS | =
-SIGCHLD,
->                     NULL);
->         if (munmap(stack, STACK_SIZE) =3D=3D -1)
->                 err(EXIT_FAILURE, "munmap");
->         if (pid =3D=3D -1)
->                 err(EXIT_FAILURE, "clone");
->=20
->         if (waitpid(pid, NULL, 0) =3D=3D -1)
->                 err(EXIT_FAILURE, "waitpid");
->=20
->         exit(EXIT_SUCCESS);
-> }
->=20
-> Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
-> ---
->  man/man2/mkdir.2 | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/man/man2/mkdir.2 b/man/man2/mkdir.2
-> index d84dbc27e..2af618d68 100644
-> --- a/man/man2/mkdir.2
-> +++ b/man/man2/mkdir.2
-> @@ -203,6 +203,10 @@ does not support the creation of directories.
->  .B EROFS
->  .I pathname
->  refers to a file on a read-only filesystem.
-> +.B EOVERFLOW
-> +UID or GID mappings (see
-> +.BR user_namespaces (7))
-> +has not been configured.
->  .SH VERSIONS
->  Under Linux, apart from the permission bits, the
->  .B S_ISVTX
-> --=20
-> 2.43.0
->=20
+                stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
+                             MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK,
+                             -1, 0);
+                if (stack == MAP_FAILED)
+                        err(EXIT_FAILURE, "mmap");
 
---=20
-<https://www.alejandro-colomar.es/>
+                stackTop = stack + STACK_SIZE;
 
---gyrh3wvl7yjvzh73
-Content-Type: application/pgp-signature; name="signature.asc"
+                pid = clone(childFunc, stackTop, CLONE_NEWUSER |
+                            CLONE_NEWNS | SIGCHLD, NULL);
+                if (munmap(stack, STACK_SIZE) == -1)
+                        err(EXIT_FAILURE, "munmap");
+                if (pid == -1)
+                        err(EXIT_FAILURE, "clone");
 
------BEGIN PGP SIGNATURE-----
+                if (waitpid(pid, NULL, 0) == -1)
+                        err(EXIT_FAILURE, "waitpid");
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmefcv4ACgkQnowa+77/
-2zKGPQ/8DabTZljFSaSALG+hlMpShNt70GRuXp2GOkA8J2vPzIAw/xAwqYppDkmc
-odSasULJVs9z5bzm8Rwiz+i7+dhm2b9YLSxSP8dGTRCFE5UeV0e2yNBcoqASaz8p
-MLmzYUisl+aJy/1v1IagrdSOGx6OeO11PzOv+bVWk1SLgZmoNxfLNld7u1HVw3Pr
-Ykt8OPMzVhvVQ1YemzsQON3zN30dohxCESxMfIuKwhG+/X16/obBHqUgWZA597OO
-0nmgZMMBlX490e7bl0M9SKUMZHK9wA5iMs/jkqn1LO0lEfub1JX/4egTDs3x/kpo
-hH+FXjrUIlIC2o6NGtrR1N5RAmQexOqhqXm4PONZEz4C3A65qMs5Enyfb4Pbw4cV
-GsdxFsPo4JVSja8VeOySWlX6Uqua5u/TyEsKFZU/a1c8HTjOCrbkhrLpYkik1eX0
-tsx8ehxMxEwntXWU/IGdOQUWtnYGxtZrKazqqlIi/Th8Wgyx+0ylAopK9sa2Mj7F
-TVZOi0cBbAnGZo46VsMORjYps5+fiUGR8ztdppk21HO+0/YpZW+35Lf4lNzQB1rJ
-Q4Hlte8n1KZtqeOUpg0htVqkZEtMRdOSoi9wIPoyPharY4T428mhLGaXP7NQefkv
-RgBvXu0Het+PfzTBqDLAcxI/eUVpGbpBXjQjVqk32uoBF3Jqfko=
-=ECyW
------END PGP SIGNATURE-----
+                exit(EXIT_SUCCESS);
+        }
 
---gyrh3wvl7yjvzh73--
+Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
+---
+ man/man2/mkdir.2 | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/man/man2/mkdir.2 b/man/man2/mkdir.2
+index d84dbc27e..2af618d68 100644
+--- a/man/man2/mkdir.2
++++ b/man/man2/mkdir.2
+@@ -203,6 +203,10 @@ does not support the creation of directories.
+ .B EROFS
+ .I pathname
+ refers to a file on a read-only filesystem.
++.B EOVERFLOW
++UID or GID mappings (see
++.BR user_namespaces (7))
++has not been configured.
+ .SH VERSIONS
+ Under Linux, apart from the permission bits, the
+ .B S_ISVTX
+-- 
+2.43.0
+
 
