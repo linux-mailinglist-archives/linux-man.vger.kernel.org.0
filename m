@@ -1,55 +1,54 @@
-Return-Path: <linux-man+bounces-2327-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2328-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D099A24E28
-	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 14:16:55 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A40A24E2D
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 14:19:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2C7333A4C59
-	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 13:16:47 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8B5081886098
+	for <lists+linux-man@lfdr.de>; Sun,  2 Feb 2025 13:19:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09D0B1E4A6;
-	Sun,  2 Feb 2025 13:16:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 19EBD1EB3D;
+	Sun,  2 Feb 2025 13:19:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLWgSFKO"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kapQOUK4"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B393FAD2F
-	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 13:16:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3DAAD2F
+	for <linux-man@vger.kernel.org>; Sun,  2 Feb 2025 13:19:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738502211; cv=none; b=ZKpF72bYfHNJY9pP2f8jV4My/unaoHPgeIEXoH954Z/9O3t4h3sLBTE0+6J9bo+SJ5cDhs8RXus0MwAfymSgB4JI7MCObikFTv1Kd2oJ3f3HqH8acLBdE8Lwvh5KD5rb6+GbBXjNTbarjAhWC8/JfFdQYesDy0tYeJ9zdzamGrg=
+	t=1738502376; cv=none; b=ho7aBDzHDGUmPHESNP6NYkfjqdwWeS8EpKRuuZLHKNXeM9HD27pss1r6rZxSLAF+pGzC7lgyNEDzKEoGu4dX+sW0PSsCfsHdgvHOWz27XVItGYuZFIQbnJHzGDUG3hokKjbcHbViWITApQA5bWuprMjppAhNUsWsEKsS2hJIeV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738502211; c=relaxed/simple;
-	bh=TUx6XbW9/qg8HdcHoyYH1mqWXUoSuFWZ99AUzF1H45o=;
+	s=arc-20240116; t=1738502376; c=relaxed/simple;
+	bh=2DcJ3x5w3vTRPs1YjNuHn8JliGJvmbFQx01snTneknU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EfPKOMXsKAIAeRF9iQvBERAe9Z7XKlf0FV8Tivj5R0Bi1VrRASjkvXosAzvlQ85/hyuHGH1DJfJp2/3nJF0H/9uI5vTSQdJSCqNq/3RykClPRM6Wv+v3ZGAM6FiVej/1vpBmghe7//Np6rTUcK3dinNgO06l7XKhNnZyCsp4VrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLWgSFKO; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7335C4CED1;
-	Sun,  2 Feb 2025 13:16:49 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=K+QAYX/Ts4MSCpXUA7/ZjPB5wRK2DajuVOAr69rE+VSj4R3QMmMKo3G4WjGb3VlmyGshus4iFmt4fBB7bY8r15I93uEl0jqQOQORkr4VAojE+U8IMwx9BGsykV0tWqggsnztwnMA/cpvyaPa6qWazrwgAkILeK+jmynD590qUMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kapQOUK4; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F50FC4CED1;
+	Sun,  2 Feb 2025 13:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738502211;
-	bh=TUx6XbW9/qg8HdcHoyYH1mqWXUoSuFWZ99AUzF1H45o=;
+	s=k20201202; t=1738502376;
+	bh=2DcJ3x5w3vTRPs1YjNuHn8JliGJvmbFQx01snTneknU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JLWgSFKOEuuib/IsYqanr79VPPNRw4dWXyHUBB0L7pYtv+MdisTSpnxFq635SiWTv
-	 cK92myTQTUwhlhiVzxbMU4Pu0NJa+fneXgAj9TleOwMXGQHzO2F4EFY/3Gc/g6IxQB
-	 nT7LVdpz3DsxhxI1S7DS1jzY3tD6xBhr72IiQ5CW7amdVyHWXeYZIjTu/NIlaeZ9pH
-	 +hiv3Lguqfbe8l7x1Y1M4xjhJW+mLOfJk42305MMciLvIj+FY8AaNe3cIZGM20xLRh
-	 vww4eKkVqSIQpbYDOAtqD0V550ZoW8d7pVXDiqGDC4bjYWhgmE9QnWvrf9LrwTDAnO
-	 KdOtuBALSowSw==
-Date: Sun, 2 Feb 2025 14:16:45 +0100
+	b=kapQOUK4AH0ddWu7wYbcIu62myhLXFASUOc+gIiD98LY0BzO4/5h8sYoqKi/Wi2D6
+	 dKwkSUONUS/f2D3Ue1YmQ64tUXPxKzfDyDMLe+iH+FX/YStEqdyVb5P5jLqp3CELZO
+	 sfHhwGtyQiEampe/GiUJbnpHE4OZE4jHkly8BJ1Mts3g0FPPicLtF10bEu5Oj3dh2g
+	 Oe3e1RQkNDEidlHX7cQOUz23MMYStACCQgj6j1mTFoClYNCS8Iwid9L5IA/6D3s6Gl
+	 dHnwlnRZhEprjoswE3JePc2VRrvc0cGU4rQxZ5cRotGpv2fvfpJ/YrjS3FO3Ieu/sB
+	 2ys8yWyvkL7wQ==
+Date: Sun, 2 Feb 2025 14:19:29 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man7/signal.7: Update definition of SIGCHLD
-Message-ID: <dv2b3g5om4o27t2x3lckg3akadpar7tpzyr4imvm2ip6crd5bt@sft42jpejgeg>
+Cc: mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man/man7/signal.7: Update definition of SIGCHLD
+Message-ID: <xnlz36ksyiyuxpcilzcokmhrtfbpqwkejwqfjv46bfu253onsl@xkxj3ckec75w>
 References: <20250202121112.9911-1-arkadiusz@drabczyk.org>
- <daw7t3a6apgrepg35pxrhfnirxqtkjtzutonvv6ry5lvc7sdfg@5lj7652rabim>
- <Z59t4-g91hVntcGQ@comp..>
+ <20250202130331.20320-1-arkadiusz@drabczyk.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,78 +56,92 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="njeun4kq5hvycoze"
+	protocol="application/pgp-signature"; boundary="apr4sribwjj6lrws"
 Content-Disposition: inline
-In-Reply-To: <Z59t4-g91hVntcGQ@comp..>
+In-Reply-To: <20250202130331.20320-1-arkadiusz@drabczyk.org>
 
 
---njeun4kq5hvycoze
+--apr4sribwjj6lrws
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man7/signal.7: Update definition of SIGCHLD
+Cc: mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man/man7/signal.7: Update definition of SIGCHLD
 References: <20250202121112.9911-1-arkadiusz@drabczyk.org>
- <daw7t3a6apgrepg35pxrhfnirxqtkjtzutonvv6ry5lvc7sdfg@5lj7652rabim>
- <Z59t4-g91hVntcGQ@comp..>
+ <20250202130331.20320-1-arkadiusz@drabczyk.org>
 MIME-Version: 1.0
-In-Reply-To: <Z59t4-g91hVntcGQ@comp..>
+In-Reply-To: <20250202130331.20320-1-arkadiusz@drabczyk.org>
 
 Hi Arkadiusz,
 
-On Sun, Feb 02, 2025 at 02:06:43PM +0100, Arkadiusz Drabczyk wrote:
-> On Sun, Feb 02, 2025 at 01:30:00PM +0100, Alejandro Colomar wrote:
-> > Please add a comma before the 'or' (Oxford comma).  Other than that, it
-> > LGTM.  Do you know if there are any other XSI extensions documented here
-> > and what we do with them?  It would be interesting to be consistent
-> > about that.
->=20
-> No, I don't. It would require a lot of manual work to go through all
-> of them but I agree that it's a job that needs to be done.
+On Sun, Feb 02, 2025 at 02:03:31PM +0100, Arkadiusz Drabczyk wrote:
+> Link: <https://unix.stackexchange.com/q/790116/72304>
+> Link: <https://lore.kernel.org/linux-man/Z5U0Wh_KF3Ki62Pk@comp../>
+> Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
 
-Hmm, I've done it now and it wasn't that bad.  There seem to only be 3
-signals that are specified as XSI extensions.
-
-<https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/signal.h.html>
-
-Apart from this SIGCHLD extension, there are:
-
-	SIGSYS		A	Bad system call.
-	SIGVTALRM	T	Virtual timer expired.
-
-And we document them normally, without saying anything about them being
-XSI extensions.  So I guess it's just fine to not do it with SIGCHLD.
-
-Nice!  :)
+Thanks!  I've applied the patch.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dac93c406a779bd0def5817d78c30f8a25bb318b9>
 
 
 Cheers,
 Alex
 
+> ---
+>  man/man7/signal.7 | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/man/man7/signal.7 b/man/man7/signal.7
+> index dd04c6d1a..83251e071 100644
+> --- a/man/man7/signal.7
+> +++ b/man/man7/signal.7
+> @@ -360,7 +360,8 @@ Linux supports the standard signals listed below.
+>  The second column of the table indicates which standard (if any)
+>  specified the signal: "P1990" indicates that the signal is described
+>  in the original POSIX.1-1990 standard;
+> -"P2001" indicates that the signal was added in SUSv2 and POSIX.1-2001.
+> +"P2001" indicates that the signal was added or its definition changed
+> +in SUSv2 and POSIX.1-2001.
+>  .TS
+>  l c c l
+>  ____
+> @@ -369,7 +370,7 @@ Signal	Standard	Action	Comment
+>  SIGABRT	P1990	Core	Abort signal from \fBabort\fP(3)
+>  SIGALRM	P1990	Term	Timer signal from \fBalarm\fP(2)
+>  SIGBUS	P2001	Core	Bus error (bad memory access)
+> -SIGCHLD	P1990	Ign	Child stopped or terminated
+> +SIGCHLD	P2001	Ign	Child stopped, terminated, or continued
+>  SIGCLD	\-	Ign	A synonym for \fBSIGCHLD\fP
+>  SIGCONT	P1990	Cont	Continue if stopped
+>  SIGEMT	\-	Term	Emulator trap
+> --=20
+> 2.45.2
+>=20
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---njeun4kq5hvycoze
+--apr4sribwjj6lrws
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmefcDYACgkQnowa+77/
-2zI/pA//eEVXf5PcGlMRElOVQzR3DHR6L02j/NfUbqZshWNo4z3nTciqfxogYk/j
-7PwRePX6kCpTvb+Ia/xqFT2ue3Hd9VlOF/ngodSTTvH7e2C14IwaYmfHg+/rYmBF
-FCIkbvG4hmtB4ALW+3Lo6S6TQGPc9Aj8ReE4PkxaZnDrL3ZVXaeA0u12OEXCWFav
-A0t40EM3gzOqZhmBv+ic10M8vHlc5kfvT3JzGGDKO8GjcipzA3zMpkWJTftLHL4f
-40L9a05YtaJImbi6OZsQkeKIwBxytdSCvrFUNepKepxjckq7C3Z1tLAXqYRDBKiH
-M9qv16kRqyfmLmkBpQV/knWNdmLMhlCXcT6FfRgzhxC4UruUgrKgeIY7MzWwlbZM
-r3yCI4e4C3huN3yLPfs9jLFN0Z1lp97AYOm7YZ0YCs24vxFssOOQEUKTThuR/nDz
-I/pxA+CPJdsbrg16cv/OfvQ9XnAilw+YOtreY9NBmCEq33vD17As6Otqa4Vul0Rr
-yRKLbYgq1E9xwp3vMXSY4ivgb+jgzVfEBtKaQYd9pkgQ3d0x2hvUN+b9eooLyr9o
-o2+BoGjWxqweLm8Y+CoNaq/mG58seNxQHDorGDacRWXvGkqrMg3QxOXM0fhKcq29
-wqou+HB+x0M2m5uoizl37a+Ecq70Zed4+KyjBhd6KuIOk+5h/TY=
-=zU91
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmefcOEACgkQnowa+77/
+2zKP+g//fcAaU7ai5tTsk7VSJMT4mm+AbgD7JFiGdzGgrRl50j7ZxpJ2LsjzV8Ww
+x7neh+I0GEQ6QDKFYGhcpe5fwZVFF6lnX5ty26O5Q2Ypb2eoFqF1McLICN1LVNYI
+x0jeJjvVT2vnCktVTdBJnLDsYVzd9ZbOKS2NWuA5lvqQIN6PX2WD8Yhz/PFYzyVa
+oVtfJ6+ENz0R/h6Xeu8zQ93miHW33hU9lPh7SE81NIhJIlTjfDikC5Sw2gElORU8
+vMwFHdm+TXy5Nb6/vel7EHHpBiz5bHKbCtwTvm16/9HaMs1rZDGlcXLNUr6Dcht3
+WmeJQsbJKrl14LhBAge5SviIAiIdXS8TAAgME7NjGRBc3AEzP8D7Og7n45MSoO8m
++SlozRZxAG6r/nCyOLtd/ttK10XcnTCnjv6M/pldxYm69CqTznqTgmU+W4bqEFkq
+IfYeAbS7yhkwZnorFtugnek1RMJgm29sKI4BuFLtP9LxTUWtccGX8I+XEy2AN376
+H4k3cDa/+ArrtNTVK0LKqzHDYB4cF80wWxV3PndttsXXaPE8g51rgnxOfB5tkvv+
+0Cz6xlzq1/6Pzor0RhFFVQDaFN8BCKPKMHpStLdYQlxn5EFPCyGws79q0VYy6bTB
+miNigR9niNgG1Tb+peaH6zDpJ7Mb6DdxBue2cWAfaMnKmcKk9wM=
+=Wnba
 -----END PGP SIGNATURE-----
 
---njeun4kq5hvycoze--
+--apr4sribwjj6lrws--
 
