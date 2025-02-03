@@ -1,162 +1,163 @@
-Return-Path: <linux-man+bounces-2333-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2334-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C41A2536F
-	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 08:59:41 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A33A256B5
+	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 11:13:44 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D8AA51628A6
-	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 07:59:39 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CE1211618B7
+	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 10:13:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 43D8A1F8EFE;
-	Mon,  3 Feb 2025 07:59:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26E5A20013E;
+	Mon,  3 Feb 2025 10:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjv8/zya"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/Lpd0ud"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0413D1E7C34
-	for <linux-man@vger.kernel.org>; Mon,  3 Feb 2025 07:59:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0471D5176
+	for <linux-man@vger.kernel.org>; Mon,  3 Feb 2025 10:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738569577; cv=none; b=ECgRxJAeeimCWcbtRpSONuCmUet2IG2Pey+beNWrW9tu/RbFCiRMYnJziXeeSzlGP7CXyIptXILY4vWE/D9H9+G28wUSl8krEaTpsR4k3/aax8QXwbY3LTSE4Hc4bFX/eR1sDiZ+rMBMEugG1iGO+PyjwBupljFUx3TeIocnV60=
+	t=1738577619; cv=none; b=f6jWA7KYW2kXwIr8u7UnLVDpfxl8aAerQgWBb8H1AVLyo0FebftkYWvsgvmRMCNFriLtHZb814YBaxv4kIonYKTQNryRs4leQcOWZrufA4ulmYo2mgmcoHcMLTzdxwwHusTk/SLr7bJDsMRp5HAx3moqPd2XeaO0szpG1ndudFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738569577; c=relaxed/simple;
-	bh=4AqbD+F/+UXKxasKSENeu+gKiWSl60g2E8MluWBPw7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u7ujfyrr5sid1peRZX8zuppUJ1h3UCWqV9YGEFHD6f1WrjFt/4JPBhxKuvcPO0A3umX9ViMvzb2CzQuA15vlb62I0xK0l1peFztITvYkWHRuB3/pvrVDuvx1iOrcxjsD1RRglh0NfbmCszuYIDc53waU9xfPNMaxfgDOkjWSMrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjv8/zya; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CB0C4CEE2;
-	Mon,  3 Feb 2025 07:59:35 +0000 (UTC)
+	s=arc-20240116; t=1738577619; c=relaxed/simple;
+	bh=hpYr+g3LNuIUwSUkN8l+pY/80QdnKfoK8AZaOH29uGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=DFLCd0gBg1YYJPHLGGyS3hAylm4Vgk6sWu2l3Rgwk7SQMDdM18p0pqaEDdUW6feOaNbW8d/BbQTmVB6bwBC3DHwc1r2+CoeQwr5DzhUhrqV24COSOBj/TuonJYzKzicw44CdQ7DRg/B4VNDlilFg7O9wQ9Lfn4aFheggu+6lv4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/Lpd0ud; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027F9C4CED2;
+	Mon,  3 Feb 2025 10:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738569576;
-	bh=4AqbD+F/+UXKxasKSENeu+gKiWSl60g2E8MluWBPw7k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hjv8/zyaIMGEH62aDmiA86DGX9fL5lY+NRSQdw6O7/bSo7wZLEJ/tDr1m0U4gciai
-	 zvKuzjzs8ubzF4d1M+98t9O4CtvwwCyhmYhe64LMHnJM+gjtCss+3UQJwwoXNOhVh0
-	 T5qP+A+iaTSVuNs+9wLiCCTP51V6RPytSVTJkqy355/Kr+oubemQG3MjyOe52OV5JR
-	 GG0s2jzJY/1UjDzAQh5pF4SN6GcMhLZVmMtU5g/qImDEyOu0/rt5pGJeHGpSMic7dj
-	 w8YzQBVrYDyOEEsVcGYopNW3+TcjLrW9OjX0qdmG5qxLzGt9kDRRFPBaUQRbW4LJd3
-	 g5cfZKOMNw7Mw==
-Date: Mon, 3 Feb 2025 08:59:32 +0100
+	s=k20201202; t=1738577619;
+	bh=hpYr+g3LNuIUwSUkN8l+pY/80QdnKfoK8AZaOH29uGg=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Q/Lpd0udKgqQARxEEVcfVUMnH4jcOgRJb0gUyZYUWbd+fHLYX4uUDwtlX/M84WgKv
+	 8hH9CNb/OoxcMWIupKzrgizgWzwHsshpCNBk29xxml4Xnr1JLVYZtJP6XDQ/GXfZno
+	 gybq2x/nzFPsOf6Vkwj5sdMUFIer+KY5BkWc+paLSq+KvHzaHi3qqR4c9JbKBhla9Q
+	 X3yJdgrpdbdMVHAFR6+7HH8K/GV2XWIOY/57jxKalTlhg+lazOGwn7KLogrQFV2upl
+	 qF62Az9u3uGUGGQtJbGn1bmcDHYtnLARAu5izjFurGtoOn5yC15sN/YkOsh0WwnhAe
+	 9RktyT5dyTN5g==
+Date: Mon, 3 Feb 2025 11:13:27 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/clone.2: Use munmap() to free child stack
-Message-ID: <zv2pv4azqpfpczm3tjybymjijpdhhsbkgbjo5ndmg7fotmp2qm@zdckgbnnphb7>
-References: <647EBDB1A8DE7507+20250121031351.548052-1-chenlinxuan@uniontech.com>
- <42ewgvp6rg2lnyrd2z3dsfenqp33gjfrbeofirkzdeoaivtbpt@fzue6wssksib>
- <CAC1kPDPUPu9F1tozO684T9P_xzy1_z1QBqD4Xc1Ok4W+OBGFwg@mail.gmail.com>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, Sam James <sam@gentoo.org>,
+	Paul Smith <psmith@gnu.org>, Guenther Noack <gnoack@google.com>
+Subject: [PATCH 0/3] GNUmakefile, share/mk/: Use ?=, and require users to
+ specify -R
+Message-ID: <cover.1738577250.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fqpfkzpkudcmzenv"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAC1kPDPUPu9F1tozO684T9P_xzy1_z1QBqD4Xc1Ok4W+OBGFwg@mail.gmail.com>
+X-Mailer: git-send-email 2.47.2
 
+Hi Sam, Paul, Guenther,
 
---fqpfkzpkudcmzenv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/clone.2: Use munmap() to free child stack
-References: <647EBDB1A8DE7507+20250121031351.548052-1-chenlinxuan@uniontech.com>
- <42ewgvp6rg2lnyrd2z3dsfenqp33gjfrbeofirkzdeoaivtbpt@fzue6wssksib>
- <CAC1kPDPUPu9F1tozO684T9P_xzy1_z1QBqD4Xc1Ok4W+OBGFwg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAC1kPDPUPu9F1tozO684T9P_xzy1_z1QBqD4Xc1Ok4W+OBGFwg@mail.gmail.com>
+I've rumiated this idea for some months already:  I can use ?=, as long
+as I force users to add a dummy -R to the command line.  The dummy -R
+will only be required if they GNU make(1) is too old (but everyone's
+make(1) is too old, because the requirement will be 4.5, so...).  That's
+a minor inconvenience, but anyway, I should do it even when 4.5 is out
+and I move to ?=, because otherwise people running on old make(1) would
+have a broken build system, so I really need to force people to specify
+-R.
 
-[CC +=3D linux-man@]
+What do you think about it?
 
-Hi Chen,
-
-On Mon, Feb 03, 2025 at 02:25:14PM +0800, Chen Linxuan wrote:
-> Alejandro Colomar <alx@kernel.org> ???2025???2???3????????? 00:56?????????
-> > On Tue, Jan 21, 2025 at 11:13:51AM +0800, Chen Linxuan wrote:
-> > > While reading the help manual for clone.2, I notice that the parent
-> > > process in the example code does not release the stack of the child
-> > > process.
-> > >
-> > > This is not a problem for the example program, but it is somewhat
-> > > misleading.
-> > >
-> > > Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
-> > > ---
-> > >  man/man2/clone.2 | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/man/man2/clone.2 b/man/man2/clone.2
-> > > index 3ffe8e7b8..5e6b2ef1f 100644
-> > > --- a/man/man2/clone.2
-> > > +++ b/man/man2/clone.2
-> > > @@ -1910,6 +1910,8 @@ main(int argc, char *argv[])
-> > >         child commences execution in childFunc(). */
-> > >  \&
-> > >      pid =3D clone(childFunc, stackTop, CLONE_NEWUTS | SIGCHLD, argv[=
-1]);
-> > > +    if (munmap(stack, STACK_SIZE))
-> > > +        err(EXIT_FAILURE, "munmap");
-> > >      if (pid =3D=3D \-1)
-> >
-> > Would you mind clarifying why this munmap(2) call goes before the error
-> > handling of clone(2)?  I'm not very familiar with clone(2).
->=20
-> The memory we mmap here is used as the stack of child process we are
-> going to create.
-> Once child process is created, I mean clone(2) return without error,
-> it's OK to munmap(2) memory,
-> as the child process has its own memory space, and that memory is not
-> used in parent process at all.
-> So, whether the clone(2) is success or not, we both need to call
-> munmap(2) to release the memory.
-
-In case of a clone(2) error, exit(3) (called within err(3)) will release
-the memory, right?  Why do we need an explicit munmap(2) call?
-
->=20
-> If we call munmap(2) after the error handling of clone(2), we will
-> print a error message and then exit
-> before we free those memory.
-
-exit(3) releases all memory, doesn't it?  Why would we want to
-explicitly munmap(2) it before printing the error message?
+Here are the patches for the Linux man-pages build system.  Please have
+a look at them.  :)
 
 
 Have a lovely day!
 Alex
 
---=20
-<https://www.alejandro-colomar.es/>
+P.S.:  Guenther, I just CCd you in case you were curious about this.  ;)
 
---fqpfkzpkudcmzenv
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Alejandro Colomar (3):
+  GNUmakefile: Require the user to specify '-R' if their make(1) is too
+    old
+  share/mk/: Use ?= assignments for user-facing variables
+  GNUmakefile: help: Show only variables assigned with '?='
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmegd1wACgkQnowa+77/
-2zKkOw//a7Xudp1caKoHmpOU7aaIggeLfMIptWJh6MDjZbPsRpZLjmFssAC06VY2
-yiJurdHJFi1i7a8nNDqwsEYHvb91MaRSpF3N8Pv86rWk0Sde+ioq7pq6//Zlw0L+
-0fmwk2wtyk5VUjYjlYA0QBi/gynOykZNJW1fICZ+62lQdmq4mx4xxSVAVYxwG/fv
-VzrfZXWxohzGFk69nQiv9soVR0EmEmZ5YptOTxuVPtbkvzj6Jk2umS4fxgLEOZxK
-KKcGrEJyKqu20tXbnjLN2/clw0t5PciV9057qCJE4/mvgUS+8paKxilRFMOtsvAP
-TWd+pJvQVDd0/1ji+cZ9uTEdpigA0u1LOBAEwd5St/GlTVXAP7bz4lh8hJfeKq1G
-P9IzZc/JO13gqLT40/HFKRyNcyR2CpPFDWdQ8rkgsjWWjPa9GYcA5Dw2Q/q7bqRs
-08ZJGoPcSYqTBvA5VoyG8dCkprEFyK1SZ5E2dsuPlHQvq5WpbW5o7/KUgnnyM/ma
-GN5JeDK5rJtGsgzAOagJfSXXKOeTsujreTtFQFVl6zXlTnTWZWi0hdirBzxsGUk+
-VFtG747NU3XUAbE/iHNHRIocO9I/l9P6HiJ71xVuX3XamFCf5wv93Ak1nqVABQar
-QXNeSBprUuLW1rFZC5WBUSvmMOkzeBgvfNahrQB2+DT4hDV48zg=
-=z2Tw
------END PGP SIGNATURE-----
+ GNUmakefile                                   | 16 +++++++++-----
+ .../mk/configure/build-depends/binutils/ld.mk |  8 +++----
+ .../build-depends/bsdextrautils/col.mk        |  6 ++---
+ .../mk/configure/build-depends/bzip2/bzip2.mk |  6 ++---
+ .../build-depends/checkpatch/checkpatch.mk    |  6 ++---
+ .../build-depends/clang-tidy/clang-tidy.mk    |  6 ++---
+ .../mk/configure/build-depends/clang/clang.mk |  4 ++--
+ .../configure/build-depends/coreutils/cat.mk  |  2 +-
+ .../configure/build-depends/coreutils/cp.mk   |  2 +-
+ .../configure/build-depends/coreutils/cut.mk  |  2 +-
+ .../configure/build-depends/coreutils/echo.mk |  2 +-
+ .../configure/build-depends/coreutils/expr.mk |  2 +-
+ .../configure/build-depends/coreutils/head.mk |  2 +-
+ .../build-depends/coreutils/install.mk        |  8 +++----
+ .../configure/build-depends/coreutils/ln.mk   |  2 +-
+ .../build-depends/coreutils/mkdir.mk          |  2 +-
+ .../build-depends/coreutils/realpath.mk       |  2 +-
+ .../configure/build-depends/coreutils/rm.mk   |  2 +-
+ .../configure/build-depends/coreutils/sort.mk |  2 +-
+ .../configure/build-depends/coreutils/stat.mk |  2 +-
+ .../configure/build-depends/coreutils/tac.mk  |  2 +-
+ .../configure/build-depends/coreutils/tail.mk |  2 +-
+ .../configure/build-depends/coreutils/test.mk |  2 +-
+ .../build-depends/coreutils/touch.mk          |  2 +-
+ .../configure/build-depends/coreutils/true.mk |  2 +-
+ share/mk/configure/build-depends/cpp/cpp.mk   |  6 ++---
+ .../build-depends/cppcheck/cppcheck.mk        |  6 ++---
+ .../build-depends/cpplint/cpplint.mk          |  6 ++---
+ .../build-depends/diffoscope/diffoscope.mk    |  2 +-
+ .../configure/build-depends/findutils/find.mk |  2 +-
+ .../build-depends/findutils/xargs.mk          |  2 +-
+ .../build-depends/fontforge/fontforge.mk      |  6 ++---
+ share/mk/configure/build-depends/gcc/cc.mk    |  6 ++---
+ share/mk/configure/build-depends/git/git.mk   |  2 +-
+ share/mk/configure/build-depends/grep/grep.mk |  2 +-
+ .../configure/build-depends/groff-base/eqn.mk |  6 ++---
+ .../build-depends/groff-base/grops.mk         |  6 ++---
+ .../build-depends/groff-base/grotty.mk        |  6 ++---
+ .../build-depends/groff-base/nroff.mk         | 10 ++++-----
+ .../configure/build-depends/groff-base/pic.mk |  6 ++---
+ .../build-depends/groff-base/preconv.mk       |  6 ++---
+ .../configure/build-depends/groff-base/tbl.mk |  2 +-
+ .../build-depends/groff-base/troff.mk         |  6 ++---
+ .../configure/build-depends/groff/afmtodit.mk | 10 ++++-----
+ .../configure/build-depends/groff/gropdf.mk   |  6 ++---
+ .../configure/build-depends/groff/pfbtops.mk  |  6 ++---
+ .../build-depends/groff/post-grohtml.mk       |  6 ++---
+ share/mk/configure/build-depends/gzip/gzip.mk |  6 ++---
+ share/mk/configure/build-depends/iwyu/iwyu.mk |  6 ++---
+ .../build-depends/libc-bin/locale.mk          |  2 +-
+ share/mk/configure/build-depends/lzip/lzip.mk |  6 ++---
+ .../configure/build-depends/mandoc/mandoc.mk  |  6 ++---
+ .../build-depends/moreutils/sponge.mk         |  2 +-
+ .../build-depends/pkgconf/pkgconf.mk          |  8 +++----
+ share/mk/configure/build-depends/sed/sed.mk   |  2 +-
+ .../build-depends/shellcheck/shellcheck.mk    |  6 ++---
+ share/mk/configure/build-depends/tar/tar.mk   |  6 ++---
+ .../Tinos-Regular.ttf.mk                      |  2 +-
+ .../texlive-fonts-extra/Tinos.pfb.mk          |  2 +-
+ .../mk/configure/build-depends/xz-utils/xz.mk |  6 ++---
+ .../mk/configure/directory_variables/build.mk |  2 +-
+ .../configure/directory_variables/install.mk  | 22 +++++++++----------
+ share/mk/configure/man/link_pages.mk          |  2 +-
+ share/mk/configure/version.mk                 | 10 ++++-----
+ share/mk/configure/xfail.mk                   |  2 +-
+ 65 files changed, 157 insertions(+), 151 deletions(-)
 
---fqpfkzpkudcmzenv--
+
+base-commit: 2904e040ded291a898aa5e74b361d12ec90d5a2d
+-- 
+2.47.2
+
 
