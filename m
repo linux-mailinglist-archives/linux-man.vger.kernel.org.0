@@ -1,168 +1,132 @@
-Return-Path: <linux-man+bounces-2340-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2341-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B146A25E9A
-	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 16:25:55 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03986A25EC2
+	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 16:31:51 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6F875160E57
-	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 15:23:16 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 32E471882B71
+	for <lists+linux-man@lfdr.de>; Mon,  3 Feb 2025 15:31:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C521134A8;
-	Mon,  3 Feb 2025 15:23:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 154B4433A4;
+	Mon,  3 Feb 2025 15:31:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="oHJqhYKf"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dO0y/lk4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE067205E1C
-	for <linux-man@vger.kernel.org>; Mon,  3 Feb 2025 15:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E73209F5F
+	for <linux-man@vger.kernel.org>; Mon,  3 Feb 2025 15:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738596192; cv=none; b=tBUV5G9WCICEBfO4CJNEw488FF35kmoIEX5VIs9isKbnOQjzlveDuhuXI6rBZgNe6Q1khUHKO1VYx9cqHv+CPufzEJ+uEde/Vf5n3flRV57P9Zo0bfs36ojzZKYPXCCMQ9LEMhV1y/4FYOqmEfZ+XFMG5YremvuAdMQXKahjj1U=
+	t=1738596685; cv=none; b=O+8wT3HRpzh3xIA71VUkJkLmVuSPbFBQjK9XZjPJK6PjIQBnrMYIGuNJRE/4sFcYkVMdFhBrpLej5cxaOFnpttgX2D5xhZp50E7+U2ITUd7+2UKOKyvhg6QhWvAjFlHwWXezh7WwDQ0sLdCsMqEZUNMobMWSzgaK+QYs1iD0e4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738596192; c=relaxed/simple;
-	bh=6IfZsZrpWxf92nxErt5g1M6uFyQ7QMkRI7F4RDQPRsc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fNg3qr0nOQZ4P5aP/9vj13wp6zzsUtsW/OaS6AN1LXLFeaqOLR2PIuHLFuTw3I+baj6UJ79ur+iGTBc07qZkepCc5rOVLMtvHzc0/cMC6KSRLhuFN4+EmnuK7DTHiuNmqAB0qr7kKcb63Wbf3QcSxelEKth/VmghDlM6kKiz24M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=none smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=oHJqhYKf; arc=none smtp.client-ip=54.204.34.129
+	s=arc-20240116; t=1738596685; c=relaxed/simple;
+	bh=gPm87tYPKY3hHvWbJ1H3u5V97lpjMLc9oNRW/XIbfAg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dvkH8hU82E5MjasHs88MM2+sSgYlzSNBvJvEh4+nG2up7ha8jjPH7U2OvHWtpjCJOtK5/bbQU09xcNTbp6n+S1CIf2NIMdBvVMZ9IiwN+nMD2rqEw3dZmStQKSKsqifsxZHqWSZtrYN0fllkapHZ9uOKFvuLqGRVSK9+P9KKUH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dO0y/lk4; arc=none smtp.client-ip=52.59.177.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1738596161;
-	bh=qI+N2lCu1440+0JpigZrkkS34rGbJOkjh9+sq9Prz8g=;
-	h=Message-ID:Subject:From:To:Date:MIME-Version;
-	b=oHJqhYKf29zJwz1FIeg99wsHKlpJ2Kcw92DBFKZyMdV/IjjJdY96HiWDEpU6g33ar
-	 ZAALmoVbs3ZyKMBmOvMHAOrEEeWrvqKpoitjmwaE0dS2Fbd90bmKGCYV+SPeeJluZj
-	 XnmeHgUOLQD616gvFzj7QmSH8JqWzfH7tdWf03dE=
-X-QQ-mid: bizesmtp81t1738596159teuc3w6d
-X-QQ-Originating-IP: o3GSvsakQ3MgXNgzFvRlLOKQzWUT/mqf6kilQr041Fk=
-Received: from [192.168.3.11] ( [220.250.46.165])
+	s=onoh2408; t=1738596657;
+	bh=iMLEiw0G3XA9JZuPTRmj3HhCkwgu34ULbXZhVrVHOFw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=dO0y/lk4vTrdNjxU4h4e9RPfHhFS3RWctZBy9obQweUOZl4bDZ+FSyZqN6Pe/6OEi
+	 AKWzrMe+EU3gb/wGNsc2/c3azFykbfJ7f/3xjubxi5irgTBOY36kC20MhzQgQd+c7G
+	 DEZD7qTVviPA4nHd9z/EzArkYzYp+2rox5HqLbjY=
+X-QQ-mid: bizesmtp85t1738596652t7ime7wz
+X-QQ-Originating-IP: nuf+s+8o1IJ9eplHRjn8zQcyWPBeYV3z11qe7Gz4IA8=
+Received: from localhost.localdomain ( [220.250.46.165])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 03 Feb 2025 23:22:38 +0800 (CST)
+	id ; Mon, 03 Feb 2025 23:30:51 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1727509274907843061
-Message-ID: <A0F1DEFC977E1F93+07c873399ddd582be03ea7026c5f982e8b65ae1d.camel@uniontech.com>
-Subject: Re: [PATCH] man/man2/clone.2: Use munmap() to free child stack
+X-BIZMAIL-ID: 9131855832084950591
 From: Chen Linxuan <chenlinxuan@uniontech.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Date: Mon, 03 Feb 2025 23:22:37 +0800
-In-Reply-To: <2637em7i4bykghsw4wdcyv3jzjo3wzshfauoeqr53ycoy27ffb@r7jkkh7d5fej>
-References: 
-	<647EBDB1A8DE7507+20250121031351.548052-1-chenlinxuan@uniontech.com>
-	 <42ewgvp6rg2lnyrd2z3dsfenqp33gjfrbeofirkzdeoaivtbpt@fzue6wssksib>
-	 <CAC1kPDPUPu9F1tozO684T9P_xzy1_z1QBqD4Xc1Ok4W+OBGFwg@mail.gmail.com>
-	 <zv2pv4azqpfpczm3tjybymjijpdhhsbkgbjo5ndmg7fotmp2qm@zdckgbnnphb7>
-	 <6DCE8AF098C0EF64+2feea6f06399f0b0663c943f6e20c95cbb50e131.camel@uniontech.com>
-	 <2637em7i4bykghsw4wdcyv3jzjo3wzshfauoeqr53ycoy27ffb@r7jkkh7d5fej>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1 
+Cc: linux-man@vger.kernel.org,
+	Chen Linxuan <chenlinxuan@uniontech.com>,
+	"Eric W . Biederman" <ebiederm@xmission.com>
+Subject: [PATCH v2] man/man2/clone.2: Use munmap() to free child stack
+Date: Mon,  3 Feb 2025 23:30:05 +0800
+Message-ID: <A6B3C875B683B1DD+20250203153004.70234-2-chenlinxuan@uniontech.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
-X-QQ-XMAILINFO: NDqwrR4vqDWQAn6NvN+PEhsGofwuC5IG+sWzsulXhm4TRw3IV3FM8Ut0
-	SjIEqHoJ3JgSnzwUJfTjvbApOQfsDLNhMRb6JgQjUHEM/aWdugRqS3KxeNAM8HB1voE6mUN
-	kf2a5UVZPVm9ve6AhdBTVM5VqHSDJRbrORBK811yUizYYBcdIaUL7D9bZFR/SDzHjD/HfEz
-	rbFOWcUfquPI0MTkI2IKCnJoB5bIYzUt/BiShLmDxhXSuT/xt5IkdrxRoe56XNeNsIzxP9j
-	5Gp2KIJmtK8NV1s3uGWjsPZqbRtH74p/5lhww5tKbMHNAgvIlg8rzFwUZc4PdRLDFBuEfSY
-	W0tUPooUQLBO5nrYYfcuMqORG95Gj9X4t0fT//fPqWNhQupATwnzYZ0sQA2Cm2W/yliyJRV
-	IOUALb7BXAy2YHB3USIOEcL7ITUhzTnKK25kyzrHLpKU5yrYhrpXH1NsdGIdesXqBEfAQe7
-	VnXEG8yqHWgr00Ed3hGtNsJyFygWdkTeCauIAUxAnVdXqAUTU+yyZk/I7u2fpz0np+K4XRD
-	q0PBUBFfN8E77HmN0md5oQRFzLlgWAsoGecFU2QlBhKSNnp00pCPtaElCMAUfTNHJd6bH9B
-	DgCAGk4HP+ytANrfa5H0012m65D1gUcLv/2KgaDMCfeDI44+xw7skzEC0ofNlEAQ565mhWZ
-	lBNTrY3R3jHjvKdCFG2jplQUqJBUatwvOsKtC7im+lYFwqmFSJKgK+4F/BbaqGfzAoReb15
-	w+dGksDTXubMBRjjivU3StnwLvxg+of9LjTKfc0kn8gZ9j3UXsvCWI1Y4mQ2nyEvitjubVx
-	rg/BgZFgfdxDo7/WVSUv3JNujb93vDlorGGIIUmGlxfPhM68G94xVyrxbPQEXpIH47WER/h
-	PxanZXsW0Nst5J94pI1JqOthFR/xL0LE6FzmB6IQqeEidy0PGVkVOVyRSMxwyh73YYk4lnX
-	3WjVG5kDdFRBrBOet3bEZtPCllVsix3UgN0diyXKW5UDe7BuexeFFxVElYwTsRRIYH7kIHd
-	iTjc25ng+c8pbbWONB
-X-QQ-XMRINFO: MSVp+SPm3vtS1Vd6Y4Mggwc=
+X-QQ-XMAILINFO: NpkqIJajMatoN7tSyxBDAR27KdXMJONEaHgBg9G6yrTxt7C5NGajbJg/
+	ks8FT6AGZbHwnpNuyYsRIGB28Ek4vZpA1SeAw449jVe0j9oIMYpJKkdqH3/6uongEpdFYgX
+	SQci3luGi0n0MARhWSo+FgC8BCsVNEjZg8tawPPRPMW7V3rSV856m83w7967kW8Mf7ijh1F
+	330RsLZjhmKzUhgWg6XRGX6B4JhZLg/QqSD5MyBXuxJ9QcjF4yl0VSRXjPRFhVE7Alyy1U8
+	q25WCCkMchL4M072INebPrGS+7H/lwebRwkJ8kAT0jQieuFe3WkPiIwe9syofrGh6R8ORZY
+	5VhX6aZqIAGyO3KlrCe5XiB0TRTa9AT1OEgfxcHwQAkX+wyHOp26Sh2UPA+nsp/MZBjYceZ
+	dh5IgKjrqAmSqV707xNi3Znd3J/0Wbj33mseCZWn0bz6ZIbMAMFNqAzSXmTEiXMa04mtB5y
+	1r08Q+7lUwsuUXILCauGD4tL2wRCMcqv+U1+CuHguRCnf9GuJSXjLu9Nk2rg58v//P9gq51
+	Vj3/DNlYLGnrD9LOUTa1Vv6lP9mZAp6S9P61AE0YfV0eNXXNxCK+Szb9JN/EbHbR8FkNtQN
+	mAPL6VeHtDPHwb8Mcr45OJ+EHnuRAVf0ilQjJn7VMJYsFjU3jetNQ9iF14ZVQgZ2sF8S+xJ
+	DaubG8NxkjGlRIAvoccrYQqpCRksM0POuJ6J5U7cH20GxP9XNtghUbu+fOX9CuJm/0+f1+q
+	0gTdSpagw2hcxxoIP8eCKlB1EIZGbBQC8Riee8550n7IZGrY0bDhjyKO4ssz9w5E+GAKksM
+	+IydT1vojvzGPeJJ2biiZPk3Qdb0scqkaDVre+gv6UUiAgc7/BhIp325xOVntlNKOHVVIqL
+	np1uu2BcgMG42l4UsmU28/NNI4USY+cHFd1tSfNxNqPTFi69e7M4Y09RJEj9w1JS5U407kS
+	ZxxuF0wY+TK141S1/EUob9Ia8NMxbwdqX8LUtr2GOWz90CbjF2uvKJ9HyhAf1PLaSgzGm51
+	yt1nCT7ETTA4z2+Wv4xr8zXGcpRLc=
+X-QQ-XMRINFO: NS+P29fieYNw95Bth2bWPxk=
 X-QQ-RECHKSPAM: 0
 
-On Mon, 2025-02-03 at 15:36 +0100, Alejandro Colomar wrote:
-> Hi Chen,
->=20
-> On Mon, Feb 03, 2025 at 10:11:14PM +0800, Chen Linxuan wrote:
-> > > > The memory we mmap here is used as the stack of child process we ar=
-e
-> > > > going to create.
-> > > > Once child process is created, I mean clone(2) return without error=
-,
-> > > > it's OK to munmap(2) memory,
-> > > > as the child process has its own memory space, and that memory is n=
-ot
-> > > > used in parent process at all.
-> > > > So, whether the clone(2) is success or not, we both need to call
-> > > > munmap(2) to release the memory.
-> > >=20
-> > > In case of a clone(2) error, exit(3) (called within err(3)) will rele=
-ase
-> > > the memory, right?  Why do we need an explicit munmap(2) call?
-> > >=20
-> > > >=20
-> > > > If we call munmap(2) after the error handling of clone(2), we will
-> > > > print a error message and then exit
-> > > > before we free those memory.
-> > >=20
-> > > exit(3) releases all memory, doesn't it?  Why would we want to
-> > > explicitly munmap(2) it before printing the error message?
-> > >=20
-> >=20
-> > In the code snippet provided as an example for clone(2), I believe we
-> > should strive to write example code in a way that avoids potential
-> > misunderstandings. From the perspective of whether memory is eventually
-> > released, the original program does not technically cause any memory
-> > leak since the parent process exits immediately after completing
-> > clone(2).
-> >=20
-> > However, I think it's necessary to explicitly perform munmap(2) in
-> > cases where clone(2) fails. The reason is: for readers studying this
-> > documentation, the error handling approach in their actual code might
-> > not be as simple as directly exiting the process. In real-world
-> > scenarios, if the error handling here involves returning error codes
-> > instead of terminating immediately, handling clone(2) error before
-> > calling munmap(2) could become misleading.
->=20
-> I believe reporting the error from munmap(2) if there is one, and
-> silencing the clone(2) error, would be similarly confusing.  I prefer
+While reading the help manual for clone.2, I notice that the parent
+process in the example code does not release the stack of the child
+process.
 
-I just notice that call munmap(2) before handling clone(2) error will
-overwrite errno set by clone(2).
+This is not a problem for the example program, but it is somewhat
+misleading.
 
-> to have the munmap(2) call after the clone(2) error handling.  That's
-> how we do it in most examples.
+Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
+---
+ man/man2/clone.2 | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-I think it is better to use warn(3) to report munmap(2) error here. I
-will send another patch.
-
->=20
-> But I like proposal to do correct cleanup in the successful path.
->=20
->=20
-> Cheers,
-> Alex
->=20
-> > By explicitly freeing
-> > resources before error handling, we ensure the example demonstrates
-> > robust practices that remain valid across different error-handling
-> > architectures.
-> >=20
-> >=20
-> > > Have a lovely day!
-> > > Alex
-> > >=20
-> >=20
->=20
+diff --git a/man/man2/clone.2 b/man/man2/clone.2
+index 3ffe8e7b8..cd63fe0b1 100644
+--- a/man/man2/clone.2
++++ b/man/man2/clone.2
+@@ -1891,6 +1891,7 @@ main(int argc, char *argv[])
+     char            *stackTop;      /* End of stack buffer */
+     pid_t           pid;
+     struct utsname  uts;
++    int savedErrno;
+ \&
+     if (argc < 2) {
+         fprintf(stderr, "Usage: %s <child\-hostname>\[rs]n", argv[0]);
+@@ -1910,8 +1911,18 @@ main(int argc, char *argv[])
+        child commences execution in childFunc(). */
+ \&
+     pid = clone(childFunc, stackTop, CLONE_NEWUTS | SIGCHLD, argv[1]);
+-    if (pid == \-1)
++\&
++    /* Free child stack, as it is not used by the parent. */
++\&
++    savedErrno = errno;
++    if (munmap(stack, STACK_SIZE)) {
++        warn("munmap");
++    }
++    errno = savedErrno;
++\&
++    if (pid == \-1) {
+         err(EXIT_FAILURE, "clone");
++    }
+     printf("clone() returned %jd\[rs]n", (intmax_t) pid);
+ \&
+     /* Parent falls through to here */
+-- 
+2.43.0
 
 
