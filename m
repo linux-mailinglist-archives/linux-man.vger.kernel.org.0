@@ -1,183 +1,179 @@
-Return-Path: <linux-man+bounces-2345-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2346-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101D0A2773E
-	for <lists+linux-man@lfdr.de>; Tue,  4 Feb 2025 17:36:06 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F66A28221
+	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2025 03:44:22 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8B9B13A4BE4
-	for <lists+linux-man@lfdr.de>; Tue,  4 Feb 2025 16:35:57 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5D5FB1618C3
+	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2025 02:44:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 211502153E1;
-	Tue,  4 Feb 2025 16:36:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4DD1212FBA;
+	Wed,  5 Feb 2025 02:43:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OPnvlnjF"
+	dkim=pass (1024-bit key) header.d=tapscott.me header.i=@tapscott.me header.b="MvpFkh4w"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3093E2153CF
-	for <linux-man@vger.kernel.org>; Tue,  4 Feb 2025 16:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C539C20F082
+	for <linux-man@vger.kernel.org>; Wed,  5 Feb 2025 02:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738686960; cv=none; b=KqohDYKtXjDGBDVbTkPYWKDTqDaCRCdsVxj0/mkJAVCAQTY0sjaVeGzLt7SZRQedl8ICflSokknbQI0Mv9/HHKU9dsgfJgxU0BWqa+P7yxmqpRYkvw59HjvAapQVA1WNytwe6N+IMTpDLMKyQToReFWSAjMGDamsBzh/GnbpUak=
+	t=1738723393; cv=none; b=h2fs99cS/0Khj+aq3Vw5IbtR5Uap+TbdFhWdDAoMjwQ+BADMufegpA3WKSckpuEL987kJJJbodx62hOMb5p47d9+Smj6v3zw5+CYHf6ecpA4wlLQA5LWbh46cuOxyg4LL6bZZ/rHtyP0L5Oawq66HLOpLLaLdS98qczkKEcjZAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738686960; c=relaxed/simple;
-	bh=7CgPMXkcmTQwZC7Sq+5XWWHTKmvnegp5GafTPvlt4zg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dndfYK3UQzS4ZWH/WoO3helClollCsUMMRElECDtdcJnxWhbKEBaw5VcdQk2/lhTNnYxbrOTYMrQ1jxrnCUq3cjSjvOMooDM+8Uhjq8ilQrt+IVkgjF8g1Za0t/ezTcsUnBY0L4VEsXc6hijOjyN23j2zN/B+EA41yqtxE85kts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OPnvlnjF; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1738686957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tv4SLy7xcZIYPDODYnmCnAdVpNXRbqYFjtcplZRerHI=;
-	b=OPnvlnjFFlIORzoOoth0wnVkHvJcNyUU0/R6QdVPg/fJIRBxLBKuvhHpuUIq9rwpk2ZlS0
-	UukQhQI0xsCkxpK8Mr6+ywQ0X3oAAGjrhgqXBer/mX5WpfFPoMtbyBJO+0e5qQCOZeTC7U
-	r5dATHPVUrXAtim6T10Jora624HhGJs=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-227-0_mnrfUlNmaBW2Fd8g08Ag-1; Tue,
- 04 Feb 2025 11:35:54 -0500
-X-MC-Unique: 0_mnrfUlNmaBW2Fd8g08Ag-1
-X-Mimecast-MFC-AGG-ID: 0_mnrfUlNmaBW2Fd8g08Ag
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6F8B91801F17;
-	Tue,  4 Feb 2025 16:35:53 +0000 (UTC)
-Received: from pauld.westford.csb (unknown [10.22.81.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2612F19560A7;
-	Tue,  4 Feb 2025 16:35:51 +0000 (UTC)
-Date: Tue, 4 Feb 2025 11:35:49 -0500
-From: Phil Auld <pauld@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Carlos O'Donell <codonell@redhat.com>
-Subject: Re: [PATCH v2] man/man7/sched.7: Mention autogroup disabled behavior
-Message-ID: <20250204163549.GA176386@pauld.westford.csb>
-References: <20250116143747.2366152-1-pauld@redhat.com>
- <hmvmnl52rvv2cln5d6ggheqjvzshlmdkc3fevbrc2sjwwdmteg@6egcrtlhywi7>
+	s=arc-20240116; t=1738723393; c=relaxed/simple;
+	bh=5tmUpQCEcmpatsfCvfDgs4Q4Yakiu7HCPzfQeIIhuZE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=aMROwqhgcq0npIi/sJXvE/JCNHzU+JCVSF9e0vZaph/eVY1oK/6aQwAubT0YyH5jaM8sFCZ0CcobZZAiyMVRnijEwGis0THwzrTo28BWP45POokiaeKg5fLQnuidLfWHpJPd3aUcmq3mWB3igk+kWQkCJzV4du7AaADJOSDkwfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tapscott.me; spf=pass smtp.mailfrom=tapscott.me; dkim=pass (1024-bit key) header.d=tapscott.me header.i=@tapscott.me header.b=MvpFkh4w; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tapscott.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tapscott.me
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-2f9b91dff71so2521052a91.2
+        for <linux-man@vger.kernel.org>; Tue, 04 Feb 2025 18:43:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tapscott.me; s=google; t=1738723391; x=1739328191; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6YnXjMYvyrfiMDnEhCbC4NAq9mPgBQz7YTITmT/+280=;
+        b=MvpFkh4wm0a0SB8kuA/RKetVBACK+/VduXTd05NdvwbnWjPDjF39lKL5x8A3tDy+s8
+         1VE7+4s/xJDtW4RedfaI8MhgHtM+mqAO8TCLAaTibffv/R288AZyeFoztvId0wvv8VlO
+         NFNCXUcxmGX+rkCLl5O18WkgYfJ2bgEXXI7C0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738723391; x=1739328191;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6YnXjMYvyrfiMDnEhCbC4NAq9mPgBQz7YTITmT/+280=;
+        b=JSpyKrp1gqFY4ODoihCbpDM3CbwoSKvyTlBJfXIK1av3S1pc039sij+1BSa7KDmowk
+         gdD7L0NNBC8NiqvKC6RpKMhw+NYGm9xWrkKXtvSNHEolapzozQLWTAies/Bd4NXedxNC
+         CDldTadL3+lVQqgPmst2miXcNdJ/qBvF/K+IUvKKOufFzSGnSE61Ax8Fn0PZAEm+9xP0
+         /mtzkecyrwiw6guet8dIzMiDwr7wmMsPapi4+AoITQsQkIXjsDuMEBwvUU0vFViRpKEY
+         Fi5K+P/1v+CxbIprG7O8NQhBL4LlBvGxoMvOPeE2SHg1bixaw6xlxY4DCDbv19YaDj3S
+         4KVg==
+X-Gm-Message-State: AOJu0YyACroKS4HoFwStVvdJsCMhsJXEbep5X2OUJLQhZ00Rl0rbMjW6
+	vQeonSGDJm4FmU3CNuM92b2BuhEray76dwarAQIIppZ8V5tiN9dDR45mymHknEKz8dqkHmPyDF7
+	g++e88Nkr0pmgFlJb8OdYQtRyRN57ax7JFrsFuPZeafVOmpY5bTzrZg==
+X-Gm-Gg: ASbGncvMJbHUwOIo8uezhwWzE7hJJtWMiq/Tqdg/8jYWuZMyBWT0DpPp2cPe2Eqh1Sc
+	o4DQXD9dViDmsWpbfCvMgt7jwN8kToTRtPAOI/x2SS3An3Jq5A8NyvwRUgNq504/DR93UZ3H3
+X-Google-Smtp-Source: AGHT+IFKzpR/UY/UU4uhshPfHOQjoiyKXSVUghNMie00utsv+UP5x7B5bziWhfKw4ULsbzB3Zb1Qb3sqo1q2Txo5fV8=
+X-Received: by 2002:a17:90a:d44b:b0:2ea:59e3:2d2e with SMTP id
+ 98e67ed59e1d1-2f9e07627cfmr1832312a91.10.1738723390739; Tue, 04 Feb 2025
+ 18:43:10 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <hmvmnl52rvv2cln5d6ggheqjvzshlmdkc3fevbrc2sjwwdmteg@6egcrtlhywi7>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+From: Cody Tapscott <cody@tapscott.me>
+Date: Tue, 4 Feb 2025 21:42:59 -0500
+X-Gm-Features: AWEUYZmczDrFQpHcOwFOuTwtu8jdWlX6ZmH_wpDwhVMVY340symsbL71J7OElzg
+Message-ID: <CAAM_cidrPK1W+K-nb1gY_QHbveKguOMzG34NJ=_QKhz49=vh9A@mail.gmail.com>
+Subject: [PATCH] man/man2/perf_event_open.2: Clarify that exclude_kernel does
+ not affect time_running
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000118d4a062d5c164e"
 
-On Sun, Feb 02, 2025 at 02:02:21PM +0100 Alejandro Colomar wrote:
-> Hi Phil,
-> 
-> On Thu, Jan 16, 2025 at 02:37:47PM +0000, Phil Auld wrote:
-> > The autogroup feature can be contolled at runtime when
-> > built into the kernel. Disabling it in this case still
-> > creates autogroups and still shows the autogroup membership
-> > for the task in /proc.  The scheduler code will just not
-> > use the the autogroup task group.  This can be confusing
-> > to users. Add a sentence to this effect to sched.7 to
-> > point this out.
-> > 
-> > The kernel code shows how this is used. The
-> > sched_autogroup_enabled toggle is only used in one place.
-> > 
-> > kernel/sched/autogroup.h:
-> > 
-> > static inline struct task_group *
-> > autogroup_task_group(struct task_struct *p, struct task_group *tg)
-> > {
-> >         extern unsigned int sysctl_sched_autogroup_enabled;
-> >         int enabled = READ_ONCE(sysctl_sched_autogroup_enabled);
-> > 
-> >         if (enabled && task_wants_autogroup(p, tg))
-> >                 return p->signal->autogroup->tg;
-> > 
-> >         return tg;
-> > }
-> > 
-> > task_wants_autogroup() is in kernel/sched/autogroup.c:
-> > 
-> > bool task_wants_autogroup(struct task_struct *p, struct task_group *tg)
-> > {
-> >         if (tg != &root_task_group)
-> >                 return false;
-> >     ...
-> > 
-> >         return true;
-> > }
-> > 
-> > One can see that any group set other than root also bypasses the use of
-> > the autogroup.
-> > 
-> > All of the machinery around the creation of the autogroup is not
-> > effected by the toggle.
-> > 
-> > From userspace:
-> > 0
-> > /autogroup-112 nice 0
-> > 
-> > Note, systemd based system these days is not really using autogroups at all
-> > anyway because any task in a non-root cgroup bypasses the autogroup as
-> > well.
-> > 
-> > Signed-off-by: Phil Auld <pauld@redhat.com>
-> > Cc: Alejandro Colomar <alx@kernel.org>
-> > Cc: <linux-man@vger.kernel.org>
-> 
-> Thanks!  I've applied the patch.
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=ca69daf45f94fda061f796efcc4f24ca76d8e380>
-> 
-> 
-> Have a lovely day!
+--000000000000118d4a062d5c164e
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks!
+The goal of this patch is to clarify some limitations regarding re-scaled event
+counts measured via perf_event_open.
 
-You too :)
+The man page recommends re-scaling event counts as (value * time_enabled
+/ time_running), but does not mention that some time-filters (esp.
+exclude_kernel and exclude_user) do not affect the reported time_enabled or
+time_running, sometimes causing a very noisy estimate of the true event count.
 
+This limitation is easy to encounter when profiling events that are dominated
+by kernel (>= 50%) vs. user time and which are relatively short compared to
+the PMU muxing frequency (~several milliseconds, on my machine). In those
+cases, it is common to see (time_running / time_enabled) report, e.g., ~50%
+active time when perhaps almost none of the user time was actually spent
+with the counter running, leading to a dramatic under-estimate of the event
+counts.
 
-Cheers,
-Phil
+Signed-off-by: Cody Tapscott <cody@tapscott.me>
+---
+ man/man2/perf_event_open.2 | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-
-> Alex
-> 
-> > ---
-> >  man/man7/sched.7 | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/man/man7/sched.7 b/man/man7/sched.7
-> > index 71f098e48..f0a708cd7 100644
-> > --- a/man/man7/sched.7
-> > +++ b/man/man7/sched.7
-> > @@ -724,6 +724,8 @@ in the group terminates.
-> >  .P
-> >  When autogrouping is enabled, all of the members of an autogroup
-> >  are placed in the same kernel scheduler "task group".
-> > +When disabled the group creation happens as above, and autogroup membership
-> > +is still visible in /proc, but the autogroups are not used.
-> >  The CFS scheduler employs an algorithm that equalizes the
-> >  distribution of CPU cycles across task groups.
-> >  The benefits of this for interactive desktop performance
-> > -- 
-> > 2.47.1
-> > 
-> > 
-> 
-> -- 
-> <https://www.alejandro-colomar.es/>
-
-
-
+diff --git a/man/man2/perf_event_open.2 b/man/man2/perf_event_open.2
+index bcc6a39cb..d52c04c3d 100644
+--- a/man/man2/perf_event_open.2
++++ b/man/man2/perf_event_open.2
+@@ -1063,9 +1063,23 @@ .SS Arguments
+ .TP
+ .I exclude_user
+ If this bit is set, the count excludes events that happen in user space.
++
++Note this does not affect the
++.I time_running
++or
++.I time_enabled
++fields, so enabling this may impact the reliability of the estimated total
++counts in the presence of multiplexing.
+ .TP
+ .I exclude_kernel
+ If this bit is set, the count excludes events that happen in kernel space.
++
++Note this does not affect the
++.I time_running
++or
++.I time_enabled
++fields, so enabling this may impact the reliability of the estimated total
++counts in the presence of multiplexing.
+ .TP
+ .I exclude_hv
+ If this bit is set, the count excludes events that happen in the
+@@ -1677,6 +1691,11 @@ .SS Reading results
+ and
+ .I time running
+ values can be used to scale an estimated value for the count.
++
++Note that for most events these values are not affected by
++.IR exclude_hv ", " exclude_idle ", " exclude_user ", or " exclude_kernel
++and, if these are enabled, the scaled estimate may be
++significantly less reliable in the presence of multiplexing.
+ .TP
+ .I value
+ An unsigned 64-bit value containing the counter result.
 -- 
+2.34.1
 
+--000000000000118d4a062d5c164e
+Content-Type: application/x-patch; name="man2-perf_event_open.patch"
+Content-Disposition: attachment; filename="man2-perf_event_open.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m6r9j3jm0>
+X-Attachment-Id: f_m6r9j3jm0
+
+ZGlmZiAtLWdpdCBhL21hbi9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yIGIvbWFuL21hbjIvcGVyZl9l
+dmVudF9vcGVuLjIKaW5kZXggYmNjNmEzOWNiLi5kNTJjMDRjM2QgMTAwNjQ0Ci0tLSBhL21hbi9t
+YW4yL3BlcmZfZXZlbnRfb3Blbi4yCisrKyBiL21hbi9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yCkBA
+IC0xMDYzLDkgKzEwNjMsMjMgQEAgbWVhc3VyZW1lbnQgYXMgd2VsbCBhcyBhbnkga2VybmVsIHVz
+ZSBvZiB0aGUgcGVyZm9ybWFuY2UgY291bnRlcnMKIC5UUAogLkkgZXhjbHVkZV91c2VyCiBJZiB0
+aGlzIGJpdCBpcyBzZXQsIHRoZSBjb3VudCBleGNsdWRlcyBldmVudHMgdGhhdCBoYXBwZW4gaW4g
+dXNlciBzcGFjZS4KKworTm90ZSB0aGlzIGRvZXMgbm90IGFmZmVjdCB0aGUKKy5JIHRpbWVfcnVu
+bmluZworb3IKKy5JIHRpbWVfZW5hYmxlZAorZmllbGRzLCBzbyBlbmFibGluZyB0aGlzIG1heSBp
+bXBhY3QgdGhlIHJlbGlhYmlsaXR5IG9mIHRoZSBlc3RpbWF0ZWQgdG90YWwKK2NvdW50cyBpbiB0
+aGUgcHJlc2VuY2Ugb2YgbXVsdGlwbGV4aW5nLgogLlRQCiAuSSBleGNsdWRlX2tlcm5lbAogSWYg
+dGhpcyBiaXQgaXMgc2V0LCB0aGUgY291bnQgZXhjbHVkZXMgZXZlbnRzIHRoYXQgaGFwcGVuIGlu
+IGtlcm5lbCBzcGFjZS4KKworTm90ZSB0aGlzIGRvZXMgbm90IGFmZmVjdCB0aGUKKy5JIHRpbWVf
+cnVubmluZworb3IKKy5JIHRpbWVfZW5hYmxlZAorZmllbGRzLCBzbyBlbmFibGluZyB0aGlzIG1h
+eSBpbXBhY3QgdGhlIHJlbGlhYmlsaXR5IG9mIHRoZSBlc3RpbWF0ZWQgdG90YWwKK2NvdW50cyBp
+biB0aGUgcHJlc2VuY2Ugb2YgbXVsdGlwbGV4aW5nLgogLlRQCiAuSSBleGNsdWRlX2h2CiBJZiB0
+aGlzIGJpdCBpcyBzZXQsIHRoZSBjb3VudCBleGNsdWRlcyBldmVudHMgdGhhdCBoYXBwZW4gaW4g
+dGhlCkBAIC0xNjc3LDYgKzE2OTEsMTEgQEAgSW4gdGhhdCBjYXNlIHRoZSBldmVudHMgcnVuIG9u
+bHkgcGFydCBvZiB0aGUgdGltZSBhbmQgdGhlCiBhbmQKIC5JIHRpbWUgcnVubmluZwogdmFsdWVz
+IGNhbiBiZSB1c2VkIHRvIHNjYWxlIGFuIGVzdGltYXRlZCB2YWx1ZSBmb3IgdGhlIGNvdW50Lgor
+CitOb3RlIHRoYXQgZm9yIG1vc3QgZXZlbnRzIHRoZXNlIHZhbHVlcyBhcmUgbm90IGFmZmVjdGVk
+IGJ5CisuSVIgZXhjbHVkZV9odiAiLCAiIGV4Y2x1ZGVfaWRsZSAiLCAiIGV4Y2x1ZGVfdXNlciAi
+LCBvciAiIGV4Y2x1ZGVfa2VybmVsCithbmQsIGlmIHRoZXNlIGFyZSBlbmFibGVkLCB0aGUgc2Nh
+bGVkIGVzdGltYXRlIG1heSBiZQorc2lnbmlmaWNhbnRseSBsZXNzIHJlbGlhYmxlIGluIHRoZSBw
+cmVzZW5jZSBvZiBtdWx0aXBsZXhpbmcuCiAuVFAKIC5JIHZhbHVlCiBBbiB1bnNpZ25lZCA2NC1i
+aXQgdmFsdWUgY29udGFpbmluZyB0aGUgY291bnRlciByZXN1bHQuCg==
+--000000000000118d4a062d5c164e--
 
