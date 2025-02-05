@@ -1,210 +1,166 @@
-Return-Path: <linux-man+bounces-2347-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2348-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF6F9A296AA
-	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2025 17:50:34 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 41EABA29A15
+	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2025 20:31:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B36633A93C3
-	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2025 16:49:18 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C5627165ADC
+	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2025 19:31:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C92CC1DC9BB;
-	Wed,  5 Feb 2025 16:46:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DEB91547F2;
+	Wed,  5 Feb 2025 19:31:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pvN9Fa1n"
+	dkim=pass (1024-bit key) header.d=tapscott.me header.i=@tapscott.me header.b="qYZNs5cg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893D814B088
-	for <linux-man@vger.kernel.org>; Wed,  5 Feb 2025 16:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982B7210FB
+	for <linux-man@vger.kernel.org>; Wed,  5 Feb 2025 19:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738774016; cv=none; b=Y7Q0r8X2cDyGu9QyniSyKbUyS7QSSkjb+j8aO1Zs+/FfXoCLAmVKUWq/yljQ0rOvcCyIG4g5zIGOdR/KT8FU0a/vECXAXATJp+zqAdfnM6O0WHA9CtRL7PyR9fHEr/6Kb4TKA75d3DgA/by/haYz1EG3UXCWxd2892DlASzdtak=
+	t=1738783887; cv=none; b=oQU9f2B6PV/B/nhgtwmv12f/la4riCiMny4gX/Ens4QaJhJFyEAhUFDc4PO00JK6P7WAbQ0+QqBDx7HlxmP6D/om76otjP8raA9gz5AGkI8ALVI46/ER1uJi8k4UTIDAF0Yi25p3KsUOOcFz/l2mxR+2PD8HSIdzSyQI4LwQ0q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738774016; c=relaxed/simple;
-	bh=LMCZ477O0NbNHCsyS/jhI7a36xOAMPVhfau1WVxg8mY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LTJL5IK/jKaCNEATU5ipmw6UBtPTSoZgjRppxe+08MXZVj49GlvoIx6xXHZqGa7071GdtPAzaywC/Jzb1Due3kxseaAoY+sK2/aEr0xU8XnHmHRruuvGNrSa6vcVDgg7DNfdondcyEDOhDViwH8HAfrvfFxoq6YLkcE0WUsxpNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pvN9Fa1n; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02535C4CED1;
-	Wed,  5 Feb 2025 16:46:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738774014;
-	bh=LMCZ477O0NbNHCsyS/jhI7a36xOAMPVhfau1WVxg8mY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pvN9Fa1nxuDc4C/bkKN6U9NBCfItbJ4EzPf22a+xx/VXp3Ptk3WMO+WtlJVLpxkny
-	 kko3GsDJcXloZ0EKny1HkZ1gUN6dMVj+uWbY8vJy1SHvVnMBbOITpU+Il8gnjs0Tff
-	 yYj68w+kWAyW3xI5UwcvUrxNjFx5FcxOMmTzZIjbphXtzbx9oqAEiHUck1pbKT2GiR
-	 x5yKFeHyLHIEGdjNxHunvUkb99GXmVuWu5LuN4jDoQNqFrsr7dEWr05m/8d0VEyqoB
-	 lHMzlKHJR5712UE1OtAW6bD1k8hOpC5XLRUh/xBI9WCs1qjzsGMvxjqZI/bll2toQD
-	 e8FzLZA9ppNRg==
-Date: Wed, 5 Feb 2025 17:46:45 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Cody Tapscott <cody@tapscott.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/perf_event_open.2: Clarify that exclude_kernel
- does not affect time_running
-Message-ID: <roqxwpqg6s6ixfqhespsusppefzv6ta5lpmhu2424gzbeyyksm@eoqao3ydz2vp>
-References: <CAAM_cidrPK1W+K-nb1gY_QHbveKguOMzG34NJ=_QKhz49=vh9A@mail.gmail.com>
+	s=arc-20240116; t=1738783887; c=relaxed/simple;
+	bh=YO6dLfRCstJPDXEMCBEG1MNkR5kNw3kKVAUORcAvN0c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZCkMUvqOnDBXzk1wP8zxgiuV4nYamSRNZYtXKhdVc24WdulWQs0PXVtG9nRUK+lk/dOFsEubJrShwqi9tBwcAGbashJm/gzRwjZwq7iqChwN0ADG49weRMMnePf7qtPPIDiIETKKZ1f7CuLFCG73AjtOeQRAWUSG/djtqsoiPPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tapscott.me; spf=pass smtp.mailfrom=tapscott.me; dkim=pass (1024-bit key) header.d=tapscott.me header.i=@tapscott.me header.b=qYZNs5cg; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tapscott.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tapscott.me
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-2ef72924e53so94385a91.3
+        for <linux-man@vger.kernel.org>; Wed, 05 Feb 2025 11:31:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tapscott.me; s=google; t=1738783885; x=1739388685; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=YO6dLfRCstJPDXEMCBEG1MNkR5kNw3kKVAUORcAvN0c=;
+        b=qYZNs5cg4I9W0QwMDXgDgagviZ79iCK3ezLRjrslFn2N8RiJaj7aWDxpHwWX7MUZgG
+         7/37zlXC6gtQplLGMOJWOJdKyPtBPs7o17GufTOD8z+1cfWPvBIe/Q3iQ/0VMWOefCx7
+         TwuwJACbcikK0H9IT4qkdadJi09Fh22o4CFRA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738783885; x=1739388685;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YO6dLfRCstJPDXEMCBEG1MNkR5kNw3kKVAUORcAvN0c=;
+        b=QvrWRLRIoGBvs1lCGqe1Smr2Xkn9P58UgV8w7Mjw6u0EvRCCxLSUY09oODiqKSsGW9
+         pYR93hISODHR1Mnli7dtvmwIpiuWi0QvwMOSLjMbn/PwYtlxPa8qAi42zlJxXx20ZT5k
+         7HjK8ah+SQaAXVomd1xtvJpI6FYZA9a0FTghgx/OmGFyzl0+ArlFeO6GJf7Tkwhh7Pe0
+         xGm1HhGjSm702WIlqOSH5+ppW84Z+92lSSeZzjH2I53Ox12Rh09bUvTe94OTsSJ8VjFR
+         El7ZwwE/eZZxwI5bm+pYk2jcgtqR7RDZOSnfpbuFGrJW9/ltj8xVZuBoo2LnLXeaJzT6
+         uyYw==
+X-Gm-Message-State: AOJu0YyiHgAwjeWMYnuulzAM5aPd3SRSJkWe3Wp8A21v5AuDMDgkUGJU
+	i4CbGKMZ/ayB80GRoy0kYXsqULxUObrlf4U14KEVwBHdY4USr5wjKQjGbfQny87QFnDM4hThtfy
+	KDz4Hr/RWmdBAP9tGaBWCuAUd107Q93SNpiu7P4Tm4h4ech4oWTjBDQ==
+X-Gm-Gg: ASbGncsj/mdd0xLHBCJQpF1ygApSlpdz8O6ajJ9nJFiwWN/ZCHnaz4H3q3UbcFKFvxh
+	SVFOy4dsCVwsgzL+QShkDGopVJ/3zlPw5KStKELE+p0MZZgwoB7go+XiTgGPBeenVil3qe5Sg
+X-Google-Smtp-Source: AGHT+IG9kW/z3B0kngeXsaenOgwaw1fA0yd+rPZjyf53yM+91WVIE1VIW0fmzYiIxtfdHYJ65goK2gAytslCjQpg+UU=
+X-Received: by 2002:a17:90b:2c86:b0:2ee:a744:a4fe with SMTP id
+ 98e67ed59e1d1-2f9e081058dmr5958550a91.25.1738783884610; Wed, 05 Feb 2025
+ 11:31:24 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pn5t53ts2yxojpss"
-Content-Disposition: inline
-In-Reply-To: <CAAM_cidrPK1W+K-nb1gY_QHbveKguOMzG34NJ=_QKhz49=vh9A@mail.gmail.com>
-
-
---pn5t53ts2yxojpss
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Cody Tapscott <cody@tapscott.me>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/perf_event_open.2: Clarify that exclude_kernel
- does not affect time_running
 References: <CAAM_cidrPK1W+K-nb1gY_QHbveKguOMzG34NJ=_QKhz49=vh9A@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAAM_cidrPK1W+K-nb1gY_QHbveKguOMzG34NJ=_QKhz49=vh9A@mail.gmail.com>
+ <roqxwpqg6s6ixfqhespsusppefzv6ta5lpmhu2424gzbeyyksm@eoqao3ydz2vp>
+In-Reply-To: <roqxwpqg6s6ixfqhespsusppefzv6ta5lpmhu2424gzbeyyksm@eoqao3ydz2vp>
+From: Cody Tapscott <cody@tapscott.me>
+Date: Wed, 5 Feb 2025 14:31:12 -0500
+X-Gm-Features: AWEUYZnPVB0HDPHhGmPSrr_rpxoYXoE8jTd63Xvu-bMt-NyI-Zm_Asw1rPWYvJw
+Message-ID: <CAAM_ciemoj0G8NZ7_0Fhr6tfJR5K08ZOXnmyMV1ePRmbOwaCRg@mail.gmail.com>
+Subject: [PATCH v2] man/man2/perf_event_open.2: Clarify that exclude_kernel
+ does not affect time_running
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Cody,
+Hi Alex,
 
-On Tue, Feb 04, 2025 at 09:42:59PM -0500, Cody Tapscott wrote:
-> The goal of this patch is to clarify some limitations regarding re-scaled=
- event
-> counts measured via perf_event_open.
->=20
-> The man page recommends re-scaling event counts as (value * time_enabled
-> / time_running), but does not mention that some time-filters (esp.
-> exclude_kernel and exclude_user) do not affect the reported time_enabled =
-or
-> time_running, sometimes causing a very noisy estimate of the true event c=
-ount.
->=20
-> This limitation is easy to encounter when profiling events that are domin=
-ated
-> by kernel (>=3D 50%) vs. user time and which are relatively short compare=
-d to
-> the PMU muxing frequency (~several milliseconds, on my machine). In those
-> cases, it is common to see (time_running / time_enabled) report, e.g., ~5=
-0%
-> active time when perhaps almost none of the user time was actually spent
-> with the counter running, leading to a dramatic under-estimate of the eve=
-nt
-> counts.
->=20
-> Signed-off-by: Cody Tapscott <cody@tapscott.me>
-> ---
->  man/man2/perf_event_open.2 | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->=20
-> diff --git a/man/man2/perf_event_open.2 b/man/man2/perf_event_open.2
-> index bcc6a39cb..d52c04c3d 100644
-> --- a/man/man2/perf_event_open.2
-> +++ b/man/man2/perf_event_open.2
-> @@ -1063,9 +1063,23 @@ .SS Arguments
->  .TP
->  .I exclude_user
->  If this bit is set, the count excludes events that happen in user space.
-> +
+Thanks for the guidance.
 
-This should be .IP (indented paragraph).
+I've done my best to incorporate your feedback in the updated patch below.
 
-> +Note this does not affect the
-> +.I time_running
-> +or
-> +.I time_enabled
-> +fields, so enabling this may impact the reliability of the estimated tot=
-al
-> +counts in the presence of multiplexing.
+> Have a lovely day!
+You as well! Thanks
 
-Please use semantic newlines.  See man-pages(7):
+Cody
 
-$ MANWIDTH=3D72 man man-pages 2>/dev/null \
-| sed -n '/Use semantic newlines/,/^$/p';
-   Use semantic newlines
-       In  the source of a manual page, new sentences should be started
-       on new lines, long sentences  should  be  split  into  lines  at
-       clause  breaks (commas, semicolons, colons, and so on), and long
-       clauses should be split at phrase boundaries.  This  convention,
-       sometimes  known  as "semantic newlines", makes it easier to see
-       the effect of patches, which often operate at the level of indi-
-       vidual sentences, clauses, or phrases.
+---
+The goal of this patch is to clarify some limitations regarding re-scaled event
+counts measured via perf_event_open.
 
+The man page recommends re-scaling event counts as (value * time_enabled
+/ time_running), but does not mention that some time-filters (esp.
+exclude_kernel and exclude_user) do not affect the reported time_enabled or
+time_running, sometimes causing a very noisy estimate of the true event count.
 
->  .TP
->  .I exclude_kernel
->  If this bit is set, the count excludes events that happen in kernel spac=
-e.
-> +
-> +Note this does not affect the
-> +.I time_running
-> +or
-> +.I time_enabled
-> +fields, so enabling this may impact the reliability of the estimated tot=
-al
-> +counts in the presence of multiplexing.
->  .TP
->  .I exclude_hv
->  If this bit is set, the count excludes events that happen in the
-> @@ -1677,6 +1691,11 @@ .SS Reading results
->  and
->  .I time running
->  values can be used to scale an estimated value for the count.
-> +
-> +Note that for most events these values are not affected by
-> +.IR exclude_hv ", " exclude_idle ", " exclude_user ", or " exclude_kernel
+This limitation is easy to encounter when profiling events that are dominated
+by kernel (>= 50%) vs. user time and which are relatively short compared to
+the PMU muxing frequency (~several milliseconds, on my machine). In those
+cases, it is common to see (time_running / time_enabled) report, e.g., ~50%
+active time when perhaps almost none of the user time was actually spent
+with the counter running, leading to a dramatic under-estimate of the event
+counts.
 
-Please use one line per identifier:
+Signed-off-by: Cody Tapscott <cody@tapscott.me>
+---
+ man/man2/perf_event_open.2 | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-=2EIR a ,
-=2EIR b ,
-or
-=2EI c
-
-
-Have a lovely day!
-Alex
-
-> +and, if these are enabled, the scaled estimate may be
-> +significantly less reliable in the presence of multiplexing.
->  .TP
->  .I value
->  An unsigned 64-bit value containing the counter result.
-> --=20
-> 2.34.1
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---pn5t53ts2yxojpss
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmejlfUACgkQnowa+77/
-2zLUYw//dh3FY1+mAjm9a4Pbp9zXypxk/5V1y2BR4TU8NxRqOSh+X++WPeF5rlef
-bzvkEYqWIMozzdbwKUoWv2uvLY26AeBR7kzXEWSeoovbg50f+BfhzAFc7Ndf0hX0
-TB6n4OZf7+F2NsuZyVZk7SUGlqzG2+dpftaRURHJ4lPfS62NvGO+q08DLYwRXDn6
-A+yKHyFZW3lqgmG3/ly0C9bQH7tJ2usRr/aRmBY22/fF6aZXRpJuFTQK+Sp/zO1b
-xkfkSYkZb4W9H7f/ulr1/njL3iTUfyNrYkU3kXcdwnpaXX4wN2MfV+uYTNE7gvBz
-Jnteg3Qav6itK2ac8cPy+DCT2tOvwl/f1Mgl8jXjaRvzAi1qUAQEYy+OT2KOhxBc
-2pFoweF1QM2Fa67nxF4i/Tw6LJFYf0DQKfh0x8TvYu37ferYWD0QLugV4p8eSFvc
-9GvsPHSK2VawcSitT6arbfGDuTzDBUR+y4MeBrQ+PNTL7tO6j98jcsKMOoaVpS5S
-UImeHOIWP9x2c7uTMK9BGMWvyR2Iw20EZM5H+s9+bFLe8EFNQOFC6TmF5cju2kTL
-7xOFgaLfY8OAgL+KWbBdw73rxQ3OAwX6mN84Jney3kMc/JfIMM3hnfLA6lyHFss2
-HS0cS4wXOJwRlwemSx68Hj1UJIJ98qOcas7DGL5Mzig8WKw+OFk=
-=a/QE
------END PGP SIGNATURE-----
-
---pn5t53ts2yxojpss--
+diff --git a/man/man2/perf_event_open.2 b/man/man2/perf_event_open.2
+index bcc6a39cb..bc22a3b12 100644
+--- a/man/man2/perf_event_open.2
++++ b/man/man2/perf_event_open.2
+@@ -1063,9 +1063,22 @@ .SS Arguments
+ .TP
+ .I exclude_user
+ If this bit is set, the count excludes events that happen in user space.
++.IP
++Note this does not affect the
++.I time_running
++or
++.I time_enabled
++fields, so enabling this may impact the reliability of the estimated
+total counts in the presence of multiplexing.
+ .TP
+ .I exclude_kernel
+ If this bit is set, the count excludes events that happen in kernel space.
++.IP
++Note this does not affect the
++.I time_running
++or
++.I time_enabled
++fields,
++so enabling this may impact the reliability of the estimated total
+counts in the presence of multiplexing.
+ .TP
+ .I exclude_hv
+ If this bit is set, the count excludes events that happen in the
+@@ -1677,6 +1690,16 @@ .SS Reading results
+ and
+ .I time running
+ values can be used to scale an estimated value for the count.
++.IP
++Note that for most events these values are not affected by
++.IR exclude_hv ,
++.IR exclude_idle ,
++.IR exclude_user ,
++or
++.I exclude_kernel
++and,
++if these are enabled,
++the scaled estimate may be significantly less reliable in the
+presence of multiplexing.
+ .TP
+ .I value
+ An unsigned 64-bit value containing the counter result.
+--
+2.34.1
 
