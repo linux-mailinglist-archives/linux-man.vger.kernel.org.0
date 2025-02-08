@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-2361-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2362-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 401B7A2D8C6
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 22:03:08 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB98A2D95B
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 23:44:12 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 479BD18837E5
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 21:03:13 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C94F1164D18
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 22:44:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAFA624397E;
-	Sat,  8 Feb 2025 21:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 236DF1F2B94;
+	Sat,  8 Feb 2025 22:44:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AE8Q3aX9"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5gLw4Le"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3DB243959
-	for <linux-man@vger.kernel.org>; Sat,  8 Feb 2025 21:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38491F2B86
+	for <linux-man@vger.kernel.org>; Sat,  8 Feb 2025 22:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739048583; cv=none; b=Es+AtgFIWcp3MBGhqksFqrTr79zL/kJt/1EPT/WSniYm5XE1LzIrywHyXn0GL0OHs+pE5LZ4vsIXI3c0f1+kjJGFMeBTX+uXu0lnCRZq3LfVXRRsab720NHOtyZflufKymCPgFm51Ii7y517E7YIRgwe0/FSJ5vYOkbmhvV3rsw=
+	t=1739054646; cv=none; b=X5MYC5Z+ThUyaWVDxWw7PT9nk9NEXmlYARpQxcHeFk7ZZAqlqW9Ruh433snUsSGFzJASO8j7Ylio4wybysFoe6NTTwyafBBh3KrqCj686+nsix4NyyBpQxZAC0v3kWCEBPnUH6xhxvrYl8z6ZYIyGz9YuIKEk2wH7DSTlnIMPqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739048583; c=relaxed/simple;
-	bh=Kv5iEC11zFLOHixL7QRksB++luxe0LvpPi/OmJY06nI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nxMGXbtqc4kurba3BZ1oBUitkgspdvMHZr5oF2mDR5j+UHZnFb97w3h3Za82R4YYhbPwNmjsjKKZAoJEXWBq4CUqeU+oGTHIArBRLEkSHio7qpsdRjfKywHJZMVFCbzM0MkmHeSw6ObeMVCJvQcHiZeKN75oSUNCqidhmzqffqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AE8Q3aX9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6E5C4CED6;
-	Sat,  8 Feb 2025 21:03:01 +0000 (UTC)
+	s=arc-20240116; t=1739054646; c=relaxed/simple;
+	bh=g9qoc5ag27XgWnv/59GPmei0P7E5DRrR4zP6fkeOuWw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=OsGjrBWTd4fOIJ7PlHf7EJMMPbz9kqJANajMNfdJWa91EDg5ULdhu/HURFJzY+qQfw4vTjQ2VALTTYLC+UqWnDBSYjsFU4mEYIAI0JPG3m05XUv08Ro0kPiUSDOUlMTjxwDLLhwajDJYJ6BrXw6hEoWx5s2+IB7T2G85neofGwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5gLw4Le; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BAA3C4CED6;
+	Sat,  8 Feb 2025 22:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739048582;
-	bh=Kv5iEC11zFLOHixL7QRksB++luxe0LvpPi/OmJY06nI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AE8Q3aX9Ak58MEzHNLndIklvS5PQ351yl/wonrHg/1PoSZVIr4OesWdyiDB/I0+kp
-	 h8kzPbjcM2gthEHO4bsPQIn02D6zj+lJvvLGBuVPFpOHTHdOZKKfJ0C1cTl7FMIquA
-	 Asu4jRH6g/2YyQB8o+9gvmBxyMMGc+IJUdYN5Vsk7qMa5riUEz2AlTcbjEsLxEkC4x
-	 SNHgBQVPgan7Pj/rkV8yunGJ4IY3uVoqL4NyKhAST081eAXSZoBhgpg3v/OYYRYHS6
-	 P2p/KoFYhcIYEGWv6kCq9gxjrdMTjh6Rn9CEKbgEIPPUOXLhfGxRd8I2PdFGTCiha6
-	 Iv80mTK1IkW6Q==
-Date: Sat, 8 Feb 2025 22:03:37 +0100
+	s=k20201202; t=1739054645;
+	bh=g9qoc5ag27XgWnv/59GPmei0P7E5DRrR4zP6fkeOuWw=;
+	h=Date:From:To:Cc:Subject:From;
+	b=a5gLw4Le7/lzQIhFKNXHvAyxmxlg5/DZY4pb45LU8OgAYlxRgtdGVRIs2YygqbPlR
+	 2hbgEN4VVXRb84oRrgVLuR/v0oy1938xGvJQRWJMcyfhUA2bNKp1KlAkOi2VPlvZpN
+	 pp1KzMb9mpzcg+ErXDXcex09o1xF63ziVrVTqgatMU0QxPYc69x+Sju3SEnQBh1vvn
+	 mGrWFOHerV35hLen5zqphJzV3bz6Tp+Ucuk0G419cqmq8KUwjOIniswcLRdNlJzv7N
+	 NdMzfp+Dbt7cO7GC34/dSZn+rf5O8vFEm0JVMYcVWZUyfFfBOtMOr/06m7NBV/hLU4
+	 NFNah2xuV4wzw==
+Date: Sat, 8 Feb 2025 23:44:40 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: [PATCH] man/man3/timespec_get.3: Correct return value and
- clarify description
-Message-ID: <qrlytrdkrmaebyntohfmnczxjgzdoky3jxtilghgxe6ookw5qk@qfkxpzlu3bbf>
-References: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
+To: linux-man@vger.kernel.org, branden@debian.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Jason Yundt <jason@jasonyundt.email>
+Subject: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the example
+ programs
+Message-ID: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org>
+X-Mailer: git-send-email 2.47.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,223 +57,209 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kriw2ork5nc6qks6"
+	protocol="application/pgp-signature"; boundary="wx26uwdlwdachnup"
 Content-Disposition: inline
-In-Reply-To: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
 
 
---kriw2ork5nc6qks6
+--wx26uwdlwdachnup
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: linux-man@vger.kernel.org, 
-	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Subject: Re: [PATCH] man/man3/timespec_get.3: Correct return value and
- clarify description
-References: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
+To: linux-man@vger.kernel.org, branden@debian.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Jason Yundt <jason@jasonyundt.email>
+Subject: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the example
+ programs
 MIME-Version: 1.0
-In-Reply-To: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
 
-Hi Mark,
+Personally, I prefer tabs for actual programming.  But for manual pages,
+we can live with 4 spaces for $reasons.
 
-On Sat, Feb 08, 2025 at 12:41:42PM -0800, Mark Harris wrote:
-> - 0, not -1, is returned for an unsupported time base or error
->   (C23 7.29.2.6, 7.29.2.7; POSIX.1-2024 line 74358).
+Reported-by: "G. Branden Robinson" <branden@debian.org>
+Reported-by: Jason Yundt <jason@jasonyundt.email>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-LGTM.  C23 7.19.2.6p4 says
+Hi Branden, Jason,
 
-	If the timespec_get function is successful it returns the
-	nonzero value base; otherwise, it returns zero.
-
-> - Clarify that any supported value of base is always nonzero (i.e.,
->   there is no overlap between the two return value cases that may
->   require errno or some other source to disambiguate)
->   (C23 7.29.2.6, 7.29.2.7; POSIX.1-2024 line 74357).
-
-LGTM.  The paragraph quoted above confirms this.
-
-> - Clarify that timespec_getres(NULL, base) is a valid call to check
->   whether the specified time base is supported (C23 7.29.2.7).
-
-LGTM.
-
-> - Clarify that the resolution for a particular time base is constant
->   for the lifetime of the process (i.e., there is no need to retrieve
->   it repeatedly) (C23 7.29.2.7).
-
-LGTM.  C23 7.19.2.7p2 says
-
-	For each supported base, multiple calls to the timespec_getres
-	function during the same program execution shall have identical
-	results.
-
-> - Calls to these functions are not technically equivalent to any
->   clock_* function call; at least the return value will be different.
-
-It would be interesting to clarify if they are equivalent except for the
-return value.
-
-> - The ERRORS section is removed, because it states only what is true
->   for every function that does not state otherwise (i.e., errno might
->   be affected by underlying system calls).
-
-LGTM.
-
-> Signed-off-by: Mark Harris <mark.hsj@gmail.com>
-
-Please add appropriate tags:
-
-	Fixes: 7bda5119fe5e (2024-09-08; "timespec_get.3, timespec_getres.3: Add p=
-age and link page")
-	Cc: =D0=BD=D0=B0=D0=B1 <nabijaczleweli@nabijaczleweli.xyz>
-
-> ---
->  man/man3/timespec_get.3 | 62 ++++++++++++++++++++++++-----------------
->  1 file changed, 36 insertions(+), 26 deletions(-)
->=20
-> diff --git a/man/man3/timespec_get.3 b/man/man3/timespec_get.3
-> index 8c8d45d33..7993e138a 100644
-> --- a/man/man3/timespec_get.3
-> +++ b/man/man3/timespec_get.3
-> @@ -18,37 +18,47 @@ .SH SYNOPSIS
->  .BI "int timespec_getres(struct timespec *" tp ", int " base );
->  .fi
->  .SH DESCRIPTION
-> -.I timespec_get(tp, TIME_UTC)
-> -is defined as
-> -.IR "clock_gettime(CLOCK_REALTIME, tp)" .
-> +The
-> +.BR timespec_get ()
-> +function stores the current time, based on the specified time base, in t=
-he
-> +.I struct timespec
-
-I would say
-
-	.BR timespec (3type)
-	structure
-
-We usually say XXX structure in the manual pages, instead of struct XXX.
-Just for consistency, I'd follow that.
-
-> +pointed to by
-> +.IR res .
->  .P
-> -.I timespec_getres(res, TIME_UTC)
-> -is equivalent to
-> -.IR "clock_getres(CLOCK_REALTIME, res)" .
-> +The
-> +.BR timespec_getres ()
-> +function stores the resolution of times retrieved by
-> +.BR timespec_get ()
-> +with the specified time base in the
-> +.I struct timespec
-> +pointed to by
-> +.IR tp ,
-> +if
-> +.I tp
-> +is non-NULL.
-> +For a particular time base,
-> +the resolution is constant for the lifetime of the calling process.
-
-LGTM.
-
->  .P
->  .B TIME_UTC
-> -is universally guaranteed to be a valid
-> -.IR base ,
-> -and is the only one supported under Linux.
-> -Some other systems support different time bases.
-> +is always a supported time base,
-> +and is the only time base supported on Linux.
-> +The time and resolution in this time base is the same as that retrieved =
-by
-
-Maybe s/is/are/ and s/that/those/?
-
-> +.I clock_gettime(CLOCK_REALTIME, res)
-> +and
-> +.IR "clock_getres(CLOCK_REALTIME, tp)" ,
-
-I'd use a non-breaking space:
-
-	.I clock_gettime(CLOCK_REALTIME,\~res)
-	and
-	.IR clock_getres(CLOCK_REALTIME,\~tp) ,
-
-> +respectively.
-> +Other systems may support additional time bases.
-
-LGTM.
-
->  .SH RETURN VALUE
-> -On success,
-> +.BR timespec_get ()
-> +returns the nonzero value
-
-I think I'd remove "value".  What do you think?
-
-> +.I base
-> +if it represents a supported time base
-> +and the current time was successfully retrieved, or 0 otherwise.
-
-D'oh.  Someone designed another non-standard return value.  <facepalm/>
+Here's a first iteration of a C coding style.  Please let me know if you
+think something isn't clear enough, or if something would need more
+rationale.
 
 
 Have a lovely night!
 Alex
 
-> +.P
-> +.BR timespec_getres ()
-> +returns the nonzero value
->  .I base
-> -is returned.
-> -On error,
-> -\-1 is returned.
-> -.SH ERRORS
-> -Some C libraries
-> -.I may
-> -set
-> -.I errno
-> -to the same value as would be set by
-> -.BR clock_gettime (2)
-> -or
-> -.BR clock_getres (2).
-> -Neither C nor POSIX specify this,
-> -but they don't really indicate it shouldn't happen, either.
-> -Don't rely on this.
-> +if it represents a supported time base, or 0 otherwise.
->  .SH ATTRIBUTES
->  For an explanation of the terms used in this section, see
->  .BR attributes (7).
-> --=20
-> 2.48.0
->=20
+ CONTRIBUTING.d/style/c | 128 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 128 insertions(+)
+ create mode 100644 CONTRIBUTING.d/style/c
 
+diff --git a/CONTRIBUTING.d/style/c b/CONTRIBUTING.d/style/c
+new file mode 100644
+index 000000000..2ac09d043
+--- /dev/null
++++ b/CONTRIBUTING.d/style/c
+@@ -0,0 +1,128 @@
++Name
++       style/c - C coding style
++
++Description
++    Indentation
++	Use 4 spaces.  Ideally, tabs would be preferred; however, they
++	cause 5 spaces in manual pages, which is weird, so we use 4
++	spaces.
++
++		if (foo)
++		    bar();
++
++	Indent preprocessor directives after the hash by 1 space.
++
++		#ifndef  FOO
++		# define FOO
++		#endif
++
++	'case' is not indented within a 'switch'.
++
++		switch (x) {
++		case 1:
++		    foo();
++		    break;
++		default:
++		    break;
++		}
++
++    Line length
++	Lines should not be longer than 80 columns.  Except that if they
++	contain string literals, they can be longer; don't break
++	user-visible string literals.
++
++	When breaking a function prototype, start the continuation line
++	with 4 spaces.
++
++	When breaking a function call, align at the opening parenthesis.
++
++    Braces and spaces
++	Use K&R style for braces.  But if the controlling expression of
++	an if/for/while is broken, the opening brace goes on a line of
++	its own.
++
++		if (foo)
++		    bar();
++
++		if (foooooooooooooooooooooooooo
++		 || baaaaaaaaaaaaaaaaaaaaaaaaaar)
++		{
++		    baz();
++		}
++
++	Treat sizeof() and similar operators as functions, not keywords.
++	Use a space after keywords, but not after functions.
++
++	Use a space to separate binary and ternary operators (except
++	`.` and `->`), but not to separate unary operators.
++
++	Use a space between a cast and the expression it converts.
++
++    Naming
++	Use short names.  Long names should be an exception, and
++	indicate that something probably isn't well designed.
++
++    Functions
++	Functions should be short and sweet.
++
++	All functions should have prototypes.
++
++    Macros
++	Don't be worried about using macros.  They can and do improve
++	safety, if used judiciously.
++
++    Error handling
++	goto is good for error handling.  It's certainly better than the
++	alternatives most of the time.
++
++	Check for explicit error codes (connect(sfd, &sa, len) =3D=3D -1)
++	instead of vague comparisons (connect(sfd, &sa, len) < 0).
++
++    Includes
++	Follow include-what-you-use guidelines.
++
++    Comments
++	Comments lie; don't write comments.  If you need to comment
++	code, do it in the commit message.  If that's not enough, maybe
++	the code isn't good.
++
++	In most cases, a function with an appropriate name is better
++	than a comment.  A function is also better than a named loop.
++
++    Variables
++	Variable should be declared at the top of the block in which
++	they are used.  That is, use C89 declarations.  The exception is
++	loop variables; we use C99 for-loop variable declarations.
++
++	The '*' goes with the variable name, not with the type name.
++	Except if the pointer is qualified, in which case the '*' goes
++	with the type name.
++
++	Variable declarations should be sorted by type-name length, and
++	then by type-name alphabetic order.  The variable names should
++	all be aligned.  There should be at least two spaces between a
++	type name and the variable name.  Declarations should be
++	separate from statements by a blank line.
++
++		int     i;
++		char    c;
++		char    *p;
++		size_t  size;
++
++    Dialect
++	We use the latest GNU C dialect.  Feel free to use new language
++	features, unless they are evil.
++
++See also
++	For anything not explicitly covered above, you can check the
++	following coding styles, roughly in order of appearance:
++
++	<https://include-what-you-use.org/>
++	<https://doc.cat-v.org/bell_labs/pikestyle>
++	<https://www.kernel.org/doc/html/latest/process/coding-style.html>
++	<https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/CodingGuid=
+elines>
++	<https://mbsd.evolvis.org/htman/i386/man9/style.htm>
++	<https://nginx.org/en/docs/dev/development_guide.html#code_style>
++	<https://google.github.io/styleguide/>
++	<https://www.gnu.org/prep/standards/standards.html>
++	<https://www.cis.upenn.edu/~lee/06cse480/data/cstyle.ms.pdf>
+
+Range-diff against v0:
+-:  --------- > 1:  63bd99658 CONTRIBUTING.d/style/c: Add coding style for =
+the example programs
+
+base-commit: 6f71d1e4958bd327b4cea006d27a854e66b85380
+prerequisite-patch-id: 1567497bcbaa900493128c86ca25a75f15ecd394
 --=20
-<https://www.alejandro-colomar.es/>
+2.47.2
 
---kriw2ork5nc6qks6
+
+--wx26uwdlwdachnup
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmenxqMACgkQnowa+77/
-2zIqQxAAkky+50O7xSptbD1uatXm0jW5cafiV762X24ScNXsMWwkGoGYxvAcC/XV
-MBWBO3iSFYmLP5RudanipvpUJ0zT3VADB0iE5s5MC6onxfaElIeWxa6jM1CHv0y/
-gKMKC8mh+jB0cQVW8S6XZBZsyaozBGiNn65wIAvfyo2wj2udpWmrfJYiBB72tjS9
-kAzvIQDRRWxqdivO/sMqFaVF89+Z3EBbfi7p3gUkXJ9l7JaDjDVOilnlwsGxFOwm
-BJ/7oe8np9EOMmSUE8X5xFpc9rVoCds922pgrfG18DvlBl3UsW110+4V1KMkYE8I
-0AqlWSvJ9du8alSeR2E7xDzUan+5angxdpa0gYm3o90XDGjek32s6SOx9xzpNjT9
-AC0QqcBSbTcPWHhHfDvr0Z7O9g+FpqNvdoAeM0WpVSrj5WtyepLn7PQcL0/uqFms
-mnxULEwd+Kv+T/EGLhEQKGUDcNI/D6DrAjWdYbK6OUex+aSLGy/mDbv9ql7iyWRi
-8uuJt6knynm5kjRv3/AxNNFori8P8RueigS6SO56xX2JugtVUR99FzHAGpB0jkaa
-+7PArpiGIXsMf+u/cetLsWKXuZ+gkf64mySx6NnBWCzVTfr6suXsX7XelBhvwP1W
-tqUq3g3nMzFaa903OzuvIknT2igG4hWPuyT8gKgXK+oxe2io2O4=
-=vStS
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmen3lgACgkQnowa+77/
+2zILMxAAqm3A0/wwO/5a7StS6FoilwpsghXHbxHgOyLwpstOmPzmiR8vSZBgyGtM
+PXM0F7np8wYLV6k/mvVvTmjj2rePniOykOkrs+4tWL8vNJjTWIVFe0b3b/ARXqvH
+F7+j2asaYLzJzxfYMN9JwCnj8Ywmv8faEfB/+AV9YUDssIT6dLRt7JTZcVh92Xcf
+B1teVGDZo9kcxYY/ygXwoA1+3gVHMq/b6M++jk204qZO3e7kMUVnRwJ93nLCjJ/Z
+jfcXSUDonFYrajqzM1VvZ+Eknc6iQrPkIl3LS0mBTvs1g7k+394uOzTifqwsZ/6d
+22E8uvYLx/0IyF9jYtz12Q51YJaRgZU86wtYUpWFiNexN6ZhfZXpcZele1aJzffK
+7HJ1aBrLotq++l5zQjMo/Sck53egfUwN/YA6HyoipJc92BzuwiWLXYl7BGL537zz
+CXOsPkZ5Tbum4r1rzxxAyYbljGFduin/uWCsYDfFX+DZH+ftEAFblLOX3mtoZG/y
+5Y7U3fftioFkZgUATTSklig56s3mwEkLPTmHsaKrDdZqHRreq1eCWhimvhax2ah5
+LWj01sEtj7VCvsj29UClYI5J3kBFN0OvAPt7CDRWW7dhwTX5/nUxGcqtRVKyr2a0
+imGoArRWrQ3RFsmQoM1fkIkmEppyZE6RNbg+s5/64ZMkzQFYMuo=
+=xjEg
 -----END PGP SIGNATURE-----
 
---kriw2ork5nc6qks6--
+--wx26uwdlwdachnup--
 
