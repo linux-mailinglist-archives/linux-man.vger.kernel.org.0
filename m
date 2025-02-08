@@ -1,232 +1,204 @@
-Return-Path: <linux-man+bounces-2365-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2366-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA37A2D9D5
-	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 00:35:30 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 57125A2D9DB
+	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 00:46:29 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7F54D166817
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 23:35:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4C4DE3A7C2F
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 23:46:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0858C243399;
-	Sat,  8 Feb 2025 23:35:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E17C324338B;
+	Sat,  8 Feb 2025 23:46:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pD8q1xJh"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZjMg2yTg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD444243362;
-	Sat,  8 Feb 2025 23:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323F5243360
+	for <linux-man@vger.kernel.org>; Sat,  8 Feb 2025 23:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739057723; cv=none; b=DsRp+WlQ0EquPChbmJGPg35ou7fJv7QtJbCzyPLy0yMtJcJJY+sD1EJrW6ANYNNdv3CgwbQ59kxBuaNwraLbuK0xwzhD7de02LNqt86XdFVuPZB0/yaH2SCo4rGiSZPXxBJ1iWP3myC0OK+zW1CA3u385w5vy/ZzLETCUbry/ks=
+	t=1739058384; cv=none; b=WVjoQ4F/B0/fszUWTkGH8DFreQhrbPS/Dc4WefHzwn6R48y1MI9lWv2xrwI2WdsGTWyOZQDW4fSdNUf0+VDSk7LXqnxnhxtR+Q0329QUILsOCevqCBdXL9bl/e57Wnql0IJNXSAyIWWTPnWQVyWZhhvRPHov5OFypSlKSnqaXZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739057723; c=relaxed/simple;
-	bh=E3jIEw77CN12sCSme42AdJcx/E7C7ePNg8h5x0nsJUc=;
+	s=arc-20240116; t=1739058384; c=relaxed/simple;
+	bh=YXidNghgYpNmd20Ehf+bm3x5p90ahNJmGMWEUvs3F50=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NMUdCIkrF8dL86Q37fTtK8EPM5BoRLU5TEyCIA3Ww0cDab2fYJZ8uuvSASLHcEvnnIJfS1vp9F+SDLjLq/CnOoSmbmx05GvbDpcm1BqM+d51b/XpnfSTqqBfN8l11IzTlImGD5QKPc88swQSJugqLr90A4ibUtfvWLOArN8Gh28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pD8q1xJh; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DFC5C4CED6;
-	Sat,  8 Feb 2025 23:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739057723;
-	bh=E3jIEw77CN12sCSme42AdJcx/E7C7ePNg8h5x0nsJUc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pD8q1xJhyvNxfLW4Oo127GwKB4vMBxFrOEVHJ+iX+HzzL7mUp9z1F7vVHYsX4mzk3
-	 l5V3F6QbiNKIknY8cxSsGwy8DNYMuwA68bWabs4keA671MPCpZ5T+FNjpG+CuviHgj
-	 5J4Mz3AaF9MpWRzKL2I8oUXTvWI8LnEZnRIszQ+IQNoS6nBqlEvqY1yQz9UUEoOi5S
-	 rx2a2iNYmPbOqwG4ZqPWxufSsHLGFHJYRlu0pDEg9xz9v31uBjCUorjA2MpNOrO0bf
-	 FsYKhFif8dslzi4riBQW7imPW2FdaBjr0MIAtDXxejv09PcfLeP0qONmi0K1Nz2Vyu
-	 pB1cRDSb2T2wA==
-Date: Sun, 9 Feb 2025 00:35:55 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, 
-	Will Newton <will.newton@linaro.org>, Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
-	Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
-	Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <benno.lossin@proton.me>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: alloc: satisfy `aligned_alloc` requirements
-Message-ID: <iocqkifz6dsywt2ueqppsdw53bgcp6i7ju7vadxxxu7pow6w5c@n2wqgypsiq2d>
-References: <20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com>
- <CANiq72nH3N9UMu2hsPG7WfYCZQwy9M_4q_rQHJnJMScQ3D9-Jg@mail.gmail.com>
- <Z6T5sOWXxmUsflW7@pollux>
- <CANiq72n7jx5ve9UL3oDD08=PjY55QHoMY8fyfsW9RNEvjH_b4Q@mail.gmail.com>
- <Z6UGNbowcvqTN0-T@pollux>
- <CANiq72=BGFp95jyyF6-uQWT8K8dS5qBpBD55duUYpF4hJDbFxw@mail.gmail.com>
- <kfkku4rjsktgkufkuehliojv3izxdutc55inmv3yvenu33zr7e@lluedzjnqnki>
- <CANiq72nky1vpP6qNf4rdSNnr3i7oAdaB4SRQgSG5QaUCCiMs1A@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=d0Nsh4rOoQyNWMxekpdiQoyKgKsb8damGL4O/LqZLT9RwzJ0/XXCbZHAnCtooYpumXEDw9q4gYA40MX2uevZSaV17k6pn409vPL/LC7N0Ao+xhMfUotfJYXHEe1Du7n1u+L0aHnFJlnJLNXWqnMLjnSKD/YwX1GbBLuc4Lu3XZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZjMg2yTg; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-723442fd88aso976621a34.3
+        for <linux-man@vger.kernel.org>; Sat, 08 Feb 2025 15:46:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739058382; x=1739663182; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=N1dy1FHR5ukHgQ4t7OyT0/s1jIM3OydCn1wqboFuga8=;
+        b=ZjMg2yTgAfaotMks1V4qbQugnXnM79WD+dOjAcO/ovieYbBsJkEFUG42iogWaa4jZ3
+         mRkK3RmkoLk4Cus6KlllNwZaAPbI3ZPIIOebaZTi/KTTywTJ4QCSqfORpTHnhC7ZtNzc
+         +OvbUkJOpQiDzq7GblGHc4O/wP1jsKsE9JO/BcRB+SXqxU8qDhoRGcjv8ZbT7GEsVqqa
+         wRmIBBZwokNuR1ssfMyZrcKWggp2lZVw3ksn+Sc0Czip3ioZ6KNf817NVba9ev4M3jCx
+         Rd0298IvejhIrXjRKKNNrjwC+tG64GjwuD2vNOju8MzDXT3VDk7EpCx8E4Qml/ZI6l84
+         om2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739058382; x=1739663182;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=N1dy1FHR5ukHgQ4t7OyT0/s1jIM3OydCn1wqboFuga8=;
+        b=eFguzW0aWKGpzP93CLr8qfYcY8Egv6W24sXXv5uSSdk3vTv/2GzhqXcO80nOwuOc17
+         2MKWrAfNAVmJcIk9cD8sqwZjP+ySTCjZ5GLYEVK71goqr2WYLEHQpyLkxD1MGnvC7K4d
+         TZ1WGBTS21HnbNKvrlEfZz7zfAD9YAmrCtmxb3nXURxf+TaCNqIR5y9ePrn3L7pIi+3G
+         alIncB0dtP6dxUJgtGMOuBJ+t1Ye5pGS5TepT0aQ1yM/GrljyZREPQlQOSSO+sIu/7CE
+         UJ3eyrKQiTruRh6SCCqEBpAUcQFwhYstpmEulILBV5ZhMdHvUL2KLR1ZhkjeGYm5v/BQ
+         mVww==
+X-Gm-Message-State: AOJu0YzODqlcmgqCKiX6fqqCNq8zfXsbj3jL5eUsornToyFkUE/7miKn
+	7F7h1TR3YYMD35wRlcBvuF+ywh9MOpo7SpNWVZBP4412xL8FwuxCYnhMBw==
+X-Gm-Gg: ASbGnctLtTvoALWAdpKZWQmnCVaQRBWXVf5rxpnBCAZapm0LeIsWgWreT+XleISUptA
+	txqurcNlzhbQxIL2khMjoZJzCXb1JpqlZxWoCQndmjxOa40GiwYbStvQiB/FnmogOv4mnCu7Itj
+	5e9nUMkY6VEfns8oTxArtpwYuZti3bRmyvk0D7aqLi8NyrE4AEaPVlZBHmcFEVmudRWQGOGwOUJ
+	tlUjziI8rRz5NahHe8YB21BpoBdQsz39UfqWXm0ih39c0byc2ttY4qxc9Fo+FVb/OeMtAuM6pFF
+	htoChQ==
+X-Google-Smtp-Source: AGHT+IEGXVMheyp8EBb4IbxNBDPUdNlHVDWaTmEPTbCXhtJDmi1dgDjYwIBtXZRJotNB3drDAmhb2w==
+X-Received: by 2002:a05:6808:1709:b0:3eb:5d13:f688 with SMTP id 5614622812f47-3f3923c203dmr5807498b6e.26.1739058382034;
+        Sat, 08 Feb 2025 15:46:22 -0800 (PST)
+Received: from illithid ([2600:1700:957d:1d70::49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-3f389fd6712sm1525684b6e.45.2025.02.08.15.46.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Feb 2025 15:46:20 -0800 (PST)
+Date: Sat, 8 Feb 2025 17:46:19 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>,
+	groff@gnu.org
+Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
+ example programs
+Message-ID: <20250208234619.a3zfan43cawwhae2@illithid>
+References: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org>
+ <qdcjd7falwasz4fakmt6mraw6omkt3gdhfi5o4teigxwobtoqq@ga5bgz26yoas>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2db4dfaw4amostq7"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="x6fhmgmktothd3kn"
 Content-Disposition: inline
-In-Reply-To: <CANiq72nky1vpP6qNf4rdSNnr3i7oAdaB4SRQgSG5QaUCCiMs1A@mail.gmail.com>
+In-Reply-To: <qdcjd7falwasz4fakmt6mraw6omkt3gdhfi5o4teigxwobtoqq@ga5bgz26yoas>
 
 
---2db4dfaw4amostq7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--x6fhmgmktothd3kn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, 
-	Will Newton <will.newton@linaro.org>, Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org, 
-	Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
-	Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <benno.lossin@proton.me>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: alloc: satisfy `aligned_alloc` requirements
-References: <20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com>
- <CANiq72nH3N9UMu2hsPG7WfYCZQwy9M_4q_rQHJnJMScQ3D9-Jg@mail.gmail.com>
- <Z6T5sOWXxmUsflW7@pollux>
- <CANiq72n7jx5ve9UL3oDD08=PjY55QHoMY8fyfsW9RNEvjH_b4Q@mail.gmail.com>
- <Z6UGNbowcvqTN0-T@pollux>
- <CANiq72=BGFp95jyyF6-uQWT8K8dS5qBpBD55duUYpF4hJDbFxw@mail.gmail.com>
- <kfkku4rjsktgkufkuehliojv3izxdutc55inmv3yvenu33zr7e@lluedzjnqnki>
- <CANiq72nky1vpP6qNf4rdSNnr3i7oAdaB4SRQgSG5QaUCCiMs1A@mail.gmail.com>
+Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
+ example programs
 MIME-Version: 1.0
-In-Reply-To: <CANiq72nky1vpP6qNf4rdSNnr3i7oAdaB4SRQgSG5QaUCCiMs1A@mail.gmail.com>
 
-Hi Miguel,
+[looping in groff list because I bring up grotty *roff details]
 
-On Sun, Feb 09, 2025 at 12:11:58AM +0100, Miguel Ojeda wrote:
-> On Sat, Feb 8, 2025 at 8:18=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
-> >
-> > -  aligned_alloc()
-> >
-> >         It seems to be like memalign(), with *some* input validation.
-> >         It makes sure that the input is a power of two, or it fails.
-> >         However, it doesn't check that the input is multiple of
-> >         _Alignof(void*).  That requirement is implementation-defined;
-> >         neither POSIX nor ISO C impose any specific requirements, so the
-> >         requirements that the input is a power of two are imposed by
-> >         glibc.  The documentation matches the experimental behavior.
+(in both senses of "grotty"!)
+
+Hi Alex,
+
+At 2025-02-08T23:57:07+0100, Alejandro Colomar wrote:
+> On Sat, Feb 08, 2025 at 11:44:43PM +0100, Alejandro Colomar wrote:
+> > Personally, I prefer tabs for actual programming.  But for manual
+> > pages, we can live with 4 spaces for $reasons.
+> >=20
 >=20
-> Thanks Alejandro.
+> [...]
 >=20
-> I am not sure I agree -- I am confused about three points:
+> > +Description
+> > +    Indentation
+> > +	Use 4 spaces.  Ideally, tabs would be preferred; however, they
+> > +	cause 5 spaces in manual pages, which is weird, so we use 4
+> > +	spaces.
 >=20
->   - I am not sure the documentation is matching the experimental
-> behavior. For instance, the Linux man pages say:
->=20
->       "except for the added restriction that `size` should be a
-> multiple of `alignment`"
->=20
->     But a call like `aligned_alloc(8, 9)` succeeds. What does "added
-> restriction" mean in this context? i.e. is it supposed to fail?
+> On a side note, Branden, I've considered changing the manual pages'
+> EXAMPLES' source code to use tabs, and let the formatter do whatever
+> it wants.  Do you have any opinion on that?
 
-Your manual page is too old.  :)
+The behavior of input tab characters is well-defined in *roff, but
+defined _weirdly_ to most people's sensibilities when filling is
+enabled.  I won't quote the documentation here, merely point to it.
 
-	commit 7fd1e0f2be216a5e7f7aef0d03304bdf81bca9e0
-	Author: DJ Delorie <dj@redhat.com>
-	Date:   Mon May 8 20:43:35 2023 -0400
+https://www.gnu.org/software/groff/manual/groff.html.node/Tabs-and-Leaders.=
+html
 
-	    posix_memalign.3: Update aligned_alloc(3) to match C17
-	   =20
-	    Link: <https://sourceware.org/pipermail/libc-alpha/2023-May/147810.htm=
-l>
-	    Link: <https://patchwork.sourceware.org/project/glibc/patch/33ec9e0c1e=
-587813b90e8aa771c2c8e6e379dd48.camel@posteo.net/>
-	    Link: <https://lore.kernel.org/linux-man/d79b505c-5b19-331c-5b25-d40ad=
-c9cc843@wanadoo.fr/>
-	    Cc: John Scott <jscott@posteo.net>
-	    Cc: Paul Floyd <pjfloyd@wanadoo.fr>
-	    Signed-off-by: DJ Delorie <dj@redhat.com>
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+(This discussion is somewhat elaborated for clarity in the forthcoming
+groff 1.24.)
 
-	diff --git a/man3/posix_memalign.3 b/man3/posix_memalign.3
-	index 9bc6eb9a4..88e4a8b63 100644
-	--- a/man3/posix_memalign.3
-	+++ b/man3/posix_memalign.3
-	@@ -91,9 +91,8 @@ .SH DESCRIPTION
-	 is the same as
-	 .BR memalign (),
-	 except for the added restriction that
-	-.I size
-	-should be a multiple of
-	-.IR alignment .
-	+.I alignment
-	+must be a power of two.
-	 .PP
-	 The obsolete function
-	 .BR valloc ()
+_If_ you advise the use of tab characters _only_ when filling is
+disabled, as, apropos of the Subject line, is the case in (displayed)
+code examples, you should be fine.
 
+However, you will get 8 character cells per tab stop and I am _not_ sure
+it's portable to expect, or to try to configure, anything else.
 
-On retrospective, we should have added some more details to that commit
-message.  DJ, has the requirement of the size been lifted?  Was it never
-present?
+For example, grotty(1) has the `-h` option, which is accessible via the
+MANROFFOPT environment variable supported by man-db man(1).
 
-If the implementation in glibc has changed over time, we should probably
-add a HISTORY section documenting historic behavior.
+     -h      Use literal horizontal tab characters in the output.  Tabs
+             are assumed to be set every 8 columns.
 
->   - I am not sure if ISO C intends to require the power of two or not.
-> One of the C23 drafts says `aligned_alloc()` is supposed to fail if
->=20
->       "the value of `alignment` is not a valid alignment supported by
-> the implementation the function"
->=20
->     And then, elsewhere, that:
->=20
->       "Valid alignments include only fundamental alignments, plus an
-> additional implementation-defined set of values, which can be empty.
-> Every valid alignment value shall be a nonnegative integral power of
-> two."
->=20
->     So if those are intended to be connected, then it sounds like a
-> non-power-of-two is invalid and thus the function should fail.
+Hmm, I should edit this to add "to optimize movement to the next tab
+stop" or similar language.  In other words, when given this option,
+grotty(1) performs a crude curses-style optimization, replacing long
+sequences of spaces with tabs even where tabs do not appear in the
+input.  For example:
 
-Hmmm, you're probably true.  I hadn't read that part.
+$ printf 'foo\tbar          baz' | nroff | od -c
+0000000   f   o   o                       b   a   r
+0000020                       b   a   z  \n  \n  \n  \n  \n  \n  \n  \n
+0000040  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n
+*
+0000120  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n
+0000132
+$ printf 'foo\tbar          baz' | nroff -P-h | od -c
+0000000   f   o   o  \t   b   a   r  \t                       b   a   z
+0000020  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n
+*
+0000120  \n  \n
+0000122
 
->   - What Danilo mentioned about the sections, e.g. is the "ERRORS"
-> section in the Linux man pages supposed to apply to all the functions
-> documented in the same page?
->=20
->     Would it help to somehow indicate which errors apply for each functio=
-n?
+Finally, I have a vague memory--perhaps not a correct one--that Michael
+Kerrisk preferred 4-cell tab stops over 8-cell ones (however obtained)
+because he found that the latter caused lines to overrun too frequently.
+Keep in mind that displayed code examples in man pages will always be
+significantly indented, unlike in real C source where we start
+everything at column 0.  Things to consider.
 
-It probably needs some rewrite to make it more generic for all
-functions.
+I would proceed with caution, and test with multiple formatters.  (Maybe
+you already do.)
 
+Regards,
+Branden
 
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---2db4dfaw4amostq7
+--x6fhmgmktothd3kn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmen6lQACgkQnowa+77/
-2zLEOBAAo05uGWwn+45C1Qn8GR0pw2f0FhbO4WesgPQlH6brn9PERq6HUCmQjivf
-yp8hjHMHYLINOQmHPe0OcLbFjNXQE+xjwxkXctzABNcnvDBhEiiSQoTd+BdcRkvE
-1RsQkLZNVXBBRm9gqr8qTos4l44qDQs3cAaTFGmR1usQo7z0hVEe/o7c+wodLiU1
-gF/Kh8/L0V5kLzW9tlM4iiOFa/BuoYiAfRWGrNko68Ix6EQMpXUSY9gMD7O3h3mP
-JyK2cAUfeVBYxSnjTjV91oVl+ImnnWs856ZUL3VHH+a7tNkvCZpDxd9HmV4AWhaO
-tj8BUWTfAT5a0PFJhQ907cpn2HyaM/lWyerv4L/vt9jTYC5C0MVy4CnkwwtYRDFS
-XXIBRnCCImPrH1dl8HeiyBP5zqwKnvOx9hqBogCdcfIYSIO+ins7rpOItsZO+QFy
-UKgB5mxaXEnpmp+yGSvS+KnJLW5BIO7L+w/r6A6eEYdPVCxSTY1VcGte1RYePM7p
-vv/Tf9mDHp+PhGeNN2ryrKNAMHGbBvO1UYkJ+uKGgc/UWX41v7z9AqRvQEo8HzwO
-IrxRHpQw8YzBN2+0KiGbzRi/Ww3uaaGmfl8szEUrUHX/AIZDXBMgK+pifPqjiIlp
-8mIhtoCLiHJy/N/66dcZJu6E6uNhaIQSiDfn0vYCMOee18VVjYk=
-=jlWq
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmen7MMACgkQ0Z6cfXEm
+bc7aYQ//bnV/Uhy9xy0U63TuMZ2DBjRLylMJP008gbAY4OVIliWmgozkZyD+6gFP
+tgswyOyUdtW+sXa8vaMqBU6Vh79EZ6QVZsViW38ZvVWz+OShNGVFw3DosvECqOjs
+KhA2at8dJMDxORAdTPaMtWY8gphH4gly7sdT7VUXA7lZbf9CK16sWwkQ67afdXfZ
+KFMtWGKUWGVCbjAP79iNomfkEfVpMhWJDG796HtAdF/bm8DOLd4IfMXHPKBto4QJ
+efRmwV4Bf2R3XDdiaKLbuQt8xsEZJewjZHnfQnPx7nZAOmZz3jDQF7XjEB13UgQf
+tqC6GdQRG7Tv0V6RPbVAPDKU5+SNgra3dJZ2LOjoek8Q0rWJBYzkZ8tHcRs5h8PI
+Oepl7/Wfbhroix6iWSNjFz9y6RMDGu/7YzhLHiPWJuKSga/V8CAkDHqj4hQJBGkH
+8SMiR47vePefW/XC+IWzx0L8GwqrHnLbyVsgOlZs9ENTAwWoj/0/OKxOz4bOs+t7
+ky1EYz8PaYp3ITGoq7Rdm4bEZnw9BKm0lVOPOZQZOJQO+N79hlVuyCDPjHOY2iBb
+mvZ/o/9vVlY0gY16qgwf6AWcBf0R7VfV9vIfpQS7BNHt88NBYD7x+Y6HCVcsE8VV
+ez5IDRf+h8EmQSXx3ji6v6cQnKleJd/3UCkeEBy4AhJvmHcR4es=
+=egs2
 -----END PGP SIGNATURE-----
 
---2db4dfaw4amostq7--
+--x6fhmgmktothd3kn--
 
