@@ -1,199 +1,193 @@
-Return-Path: <linux-man+bounces-2358-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2359-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42336A2D8A4
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 21:31:01 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA04FA2D8B4
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 21:43:58 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D09FE165877
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 20:30:59 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id E51261886279
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 20:44:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA20E24395E;
-	Sat,  8 Feb 2025 20:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A9481922F8;
+	Sat,  8 Feb 2025 20:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKKUolps"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vpq8DtPI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF63243960;
-	Sat,  8 Feb 2025 20:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DE5243946
+	for <linux-man@vger.kernel.org>; Sat,  8 Feb 2025 20:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739046657; cv=none; b=HebY2O2YSptrXcXqj7q7YEMnxXHtrqDeRwdTF/u+NKKgVaLEW6KIXrohKuDoQ/7g/FgDL1pYpOvk+LCGm7nb6Zo3HW94VzXCWRnWWTngS2s3JNyx621M+5g00+XIvkYHwDC3l27JptNqEdox5LCqnB8hH2uBZzKbfhq1a6/hjt8=
+	t=1739047430; cv=none; b=J7MPbv1fev4lfhT9yTGilts7U2AducZ5g52ElfZSkUFxo2nsxvofH8zS4xQhv4nCEZNznNEj4rD/yOG2arrFgoXxKgckHjQnUlAHAxFokEiTT4NTNYfSM9SezsUEKDoP2hPKwlUv+xwNX1qkXZ1ctUQUzUbl21wP+j3/mUhFKCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739046657; c=relaxed/simple;
-	bh=SlHgcOVFuSDkkrhVLNgGBirYfljYltbNzHb0GTiACPI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Iu4fF2o2/xKfCiNOSOdP/864Pd8jVD/IfwCV1LXb/owyEj838BfRuQOssZVyOKu3R4qi1v4Ak/Hi9mWo2mTH5d1UHYuOXyAq5UiY837G99JzEa++owgYvQ/0ykEWlmJdLFirKVhX8bq/M81YXrAEhrFTFO8jhmvK7lB1/xmKXdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKKUolps; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27257C4CED6;
-	Sat,  8 Feb 2025 20:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739046657;
-	bh=SlHgcOVFuSDkkrhVLNgGBirYfljYltbNzHb0GTiACPI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oKKUolps9yiS1untN4e6Ts138BHDcgxsdf38S6BNZuU/UrjeUdaS/dUp5YQZQ090h
-	 DJYRe1SsHT8QA1zonXLDi6MThoxfAo3Vps9AMmWmwpvbw+4CwSFmFiK7dXOP+UR3DM
-	 V4NihuJobe7xI9+J4bigi/mM3uRCWTI8oLWNafpJ73JoDOfDyTHr0Uw7buRNCfhAGJ
-	 xpCmoCiu58Zq4JpZacY/M8C1YRNXb4677jmhY6bQRxGNqmY4DyhngTQH2XPDGsEieH
-	 Rxn02XURmLawAO1NxrAGVIfwctzzhkUIsr0a/QBtUYhADcJ7vjDtwl7NsnzeP2DqDn
-	 V6luH55TRUWKQ==
-Date: Sat, 8 Feb 2025 21:31:28 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, 
-	Will Newton <will.newton@linaro.org>, linux-man@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
-	Tamir Duberstein <tamird@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <benno.lossin@proton.me>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Subject: Re: [PATCH v2] rust: alloc: satisfy `aligned_alloc` requirements
-Message-ID: <uz7llpat4rs55ixdkkvj5uyavy4t4fthk57dasiszhglgldcl5@wp272ippaffa>
-References: <20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com>
- <CANiq72nH3N9UMu2hsPG7WfYCZQwy9M_4q_rQHJnJMScQ3D9-Jg@mail.gmail.com>
- <Z6T5sOWXxmUsflW7@pollux>
- <CANiq72n7jx5ve9UL3oDD08=PjY55QHoMY8fyfsW9RNEvjH_b4Q@mail.gmail.com>
- <Z6UGNbowcvqTN0-T@pollux>
- <CANiq72=BGFp95jyyF6-uQWT8K8dS5qBpBD55duUYpF4hJDbFxw@mail.gmail.com>
- <kfkku4rjsktgkufkuehliojv3izxdutc55inmv3yvenu33zr7e@lluedzjnqnki>
- <d00561e2-145f-42e0-8fb2-5ca3556afac8@cs.ucla.edu>
+	s=arc-20240116; t=1739047430; c=relaxed/simple;
+	bh=MAMeo9psevvmDQMy1FIqaT0ZZMV/KMQWmKBOw5Yp5DI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jrfYeh6jH2iOi7WJWM5Tviyx3E2sGrPYmVySXzL4hV6m+JgXyWkUWNQ5xryKoXu8TF5SyscqVoo1Yc/owg4/ZM48ALBYuJJ3vLpNdHIwx27vxWzi6pNYyiDEOBkPv3QhZ2tcKqHTMqjz6DKE9BgejyHKnPl3le30lAC6a3HrVrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vpq8DtPI; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-21f7f1e1194so3664135ad.2
+        for <linux-man@vger.kernel.org>; Sat, 08 Feb 2025 12:43:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739047429; x=1739652229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=frwx5m1ot6z1RPlQQ2vUxxXO3onC6wMdBlhebKoyliY=;
+        b=Vpq8DtPIRCfu7khFEO3FsFhH0rYjWHE9BjMIhloSYBOW1e7j8qtE6NpCWmEzr80E+2
+         JS6cAJrrJDHzBBeoRFMvJ2k25CFVwm7p3OT24ANv/ZBFhLr/dX0Y1VxJ91sUnO17gP0R
+         YaC7345Bg6PX5IayBn9uFc5t/eMWLXDgWS5DQNExkVGin5lrEkFHOw3G5l2GYafwy96L
+         RJ4FjptnfmSsHONndn5SZs2+H57yMGTE20xpyHvFJiGSTbp2QLB4JMwNS0dJNmUqZtB0
+         4XmhT4BclLp2GrZp/tfBjLUxmI295KhVx7LHzXdsfTnNgz/2ayiH2I7IXiv52dXpiDll
+         xdCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739047429; x=1739652229;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=frwx5m1ot6z1RPlQQ2vUxxXO3onC6wMdBlhebKoyliY=;
+        b=ZoJwCVJzOxIRPEno/Tgs+sWShBWE+m8roAvy8E42OT0uTdsB9ndA9lM0oaEULXea+2
+         gH3R4Z6r0W8MO8lDB8Zm6G7wmHp2rzz53dpnIvdbgOUPRe2qOYNSEJ4s88iqB3Vy40qI
+         AjW8mS9TJHLObnEz1rVG8nz5CeVx9dRky8odc/U7sZQiWcjG4bSSdwR5JnRQ74w4G0e9
+         pKUcJb352dJ5jZVPNTME2S3puGyV76xcML0MZg04JqTwbI1v98nErnzneJb8VTNJaBST
+         Z+U7gy8C02belmj+O7O3mzPwP0ZG0uF/dVDQ8eyhQq34QlMSAWJydSv5V9FN2YTrf4xV
+         iAUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWsNw6jnw6ishjW7l2b4z3q2QSkG+CjfQsVx452AFofhaf2NswXg1B/Mz3DwlvHxa3tvOkltxF0pcg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMtnG8OZ1VGiJN9W1R7aqH5YX9agvOUfp7nA8X0JdzhVts7Zve
+	r8py/Pq2PzUaq4yyFlrhme+CbJXbqZ0k5yKyHwjBgiNhUuxXFU2m
+X-Gm-Gg: ASbGncullbrr1t35GG43s/ZUFl3nB3FVVNabXXa9mH6bGaL9CdwJ/HC3R6hbSCcbGkF
+	n/0/9c1d7KCDF++9s4vUQY4Ajx6fQSZjo8YOf4l/i+F4Q5tU8f0HfPHT8LCTkS4APTN/9H/bbSf
+	jjmOxLNMoX96B/k9oAwm80fxO/9AuFSWaL0GnIZfuSF3PW+fPSD/oLwvnbvIPWe8twGehppyqPs
+	fpi1GkPMX+b1wgGkG36cJCxcE2/K8PguZc9Sy18Uh8EqxeycVAa05D4L5uzzJdiguIBnhRqfV7w
+	BcpyNp/jArDUPFfIWVGTNwaIfDUqHars/uE=
+X-Google-Smtp-Source: AGHT+IHQPrhbNlzyTvAf2xFnqJ8KfvBXxAUj1/V9MoF//xTODhXpW4yo/OwAQPGcxULiu08xrwqasg==
+X-Received: by 2002:a05:6a20:9e46:b0:1e0:d796:b079 with SMTP id adf61e73a8af0-1ee03a474acmr12606072637.17.1739047428509;
+        Sat, 08 Feb 2025 12:43:48 -0800 (PST)
+Received: from kira.gmail.com ([2601:646:9e01:94:b9ed:2803:99f7:1852])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-73079facc59sm1236154b3a.123.2025.02.08.12.43.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Feb 2025 12:43:48 -0800 (PST)
+Sender: Mark Harris <markh.sj@gmail.com>
+From: Mark Harris <mark.hsj@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Mark Harris <mark.hsj@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH] man/man3/timespec_get.3: Correct return value and clarify description
+Date: Sat,  8 Feb 2025 12:41:42 -0800
+Message-ID: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
+X-Mailer: git-send-email 2.48.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ddmwmz4h6lnof5bq"
-Content-Disposition: inline
-In-Reply-To: <d00561e2-145f-42e0-8fb2-5ca3556afac8@cs.ucla.edu>
+Content-Transfer-Encoding: 8bit
 
+- 0, not -1, is returned for an unsupported time base or error
+  (C23 7.29.2.6, 7.29.2.7; POSIX.1-2024 line 74358).
+- Clarify that any supported value of base is always nonzero (i.e.,
+  there is no overlap between the two return value cases that may
+  require errno or some other source to disambiguate)
+  (C23 7.29.2.6, 7.29.2.7; POSIX.1-2024 line 74357).
+- Clarify that timespec_getres(NULL, base) is a valid call to check
+  whether the specified time base is supported (C23 7.29.2.7).
+- Clarify that the resolution for a particular time base is constant
+  for the lifetime of the process (i.e., there is no need to retrieve
+  it repeatedly) (C23 7.29.2.7).
+- Calls to these functions are not technically equivalent to any
+  clock_* function call; at least the return value will be different.
+- The ERRORS section is removed, because it states only what is true
+  for every function that does not state otherwise (i.e., errno might
+  be affected by underlying system calls).
 
---ddmwmz4h6lnof5bq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Paul Eggert <eggert@cs.ucla.edu>
-Cc: DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, 
-	Will Newton <will.newton@linaro.org>, linux-man@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
-	Tamir Duberstein <tamird@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <benno.lossin@proton.me>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Subject: Re: [PATCH v2] rust: alloc: satisfy `aligned_alloc` requirements
-References: <20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com>
- <CANiq72nH3N9UMu2hsPG7WfYCZQwy9M_4q_rQHJnJMScQ3D9-Jg@mail.gmail.com>
- <Z6T5sOWXxmUsflW7@pollux>
- <CANiq72n7jx5ve9UL3oDD08=PjY55QHoMY8fyfsW9RNEvjH_b4Q@mail.gmail.com>
- <Z6UGNbowcvqTN0-T@pollux>
- <CANiq72=BGFp95jyyF6-uQWT8K8dS5qBpBD55duUYpF4hJDbFxw@mail.gmail.com>
- <kfkku4rjsktgkufkuehliojv3izxdutc55inmv3yvenu33zr7e@lluedzjnqnki>
- <d00561e2-145f-42e0-8fb2-5ca3556afac8@cs.ucla.edu>
-MIME-Version: 1.0
-In-Reply-To: <d00561e2-145f-42e0-8fb2-5ca3556afac8@cs.ucla.edu>
+Signed-off-by: Mark Harris <mark.hsj@gmail.com>
+---
+ man/man3/timespec_get.3 | 62 ++++++++++++++++++++++++-----------------
+ 1 file changed, 36 insertions(+), 26 deletions(-)
 
-Hi Paul,
+diff --git a/man/man3/timespec_get.3 b/man/man3/timespec_get.3
+index 8c8d45d33..7993e138a 100644
+--- a/man/man3/timespec_get.3
++++ b/man/man3/timespec_get.3
+@@ -18,37 +18,47 @@ .SH SYNOPSIS
+ .BI "int timespec_getres(struct timespec *" tp ", int " base );
+ .fi
+ .SH DESCRIPTION
+-.I timespec_get(tp, TIME_UTC)
+-is defined as
+-.IR "clock_gettime(CLOCK_REALTIME, tp)" .
++The
++.BR timespec_get ()
++function stores the current time, based on the specified time base, in the
++.I struct timespec
++pointed to by
++.IR res .
+ .P
+-.I timespec_getres(res, TIME_UTC)
+-is equivalent to
+-.IR "clock_getres(CLOCK_REALTIME, res)" .
++The
++.BR timespec_getres ()
++function stores the resolution of times retrieved by
++.BR timespec_get ()
++with the specified time base in the
++.I struct timespec
++pointed to by
++.IR tp ,
++if
++.I tp
++is non-NULL.
++For a particular time base,
++the resolution is constant for the lifetime of the calling process.
+ .P
+ .B TIME_UTC
+-is universally guaranteed to be a valid
+-.IR base ,
+-and is the only one supported under Linux.
+-Some other systems support different time bases.
++is always a supported time base,
++and is the only time base supported on Linux.
++The time and resolution in this time base is the same as that retrieved by
++.I clock_gettime(CLOCK_REALTIME, res)
++and
++.IR "clock_getres(CLOCK_REALTIME, tp)" ,
++respectively.
++Other systems may support additional time bases.
+ .SH RETURN VALUE
+-On success,
++.BR timespec_get ()
++returns the nonzero value
++.I base
++if it represents a supported time base
++and the current time was successfully retrieved, or 0 otherwise.
++.P
++.BR timespec_getres ()
++returns the nonzero value
+ .I base
+-is returned.
+-On error,
+-\-1 is returned.
+-.SH ERRORS
+-Some C libraries
+-.I may
+-set
+-.I errno
+-to the same value as would be set by
+-.BR clock_gettime (2)
+-or
+-.BR clock_getres (2).
+-Neither C nor POSIX specify this,
+-but they don't really indicate it shouldn't happen, either.
+-Don't rely on this.
++if it represents a supported time base, or 0 otherwise.
+ .SH ATTRIBUTES
+ For an explanation of the terms used in this section, see
+ .BR attributes (7).
+-- 
+2.48.0
 
-On Sat, Feb 08, 2025 at 12:09:40PM -0800, Paul Eggert wrote:
-> On 2025-02-08 11:19, Alejandro Colomar wrote:
-> > I wonder why glibc silently overaligns aligned_alloc() without reporting
-> > an error for an alignment of 2, while it reports an error for an
-> > alignment of 3.  It doesn't make much sense at first glance.
->=20
-> Why doesn't it make sense?
->=20
-> If the underlying memory management system supports only some power-of-two
-> alignments including one alignment greater than 2, it is easy to support
-> alignment of 2 by overaligning, but it is not possible to support an
-> alignment of 3.
-
-Hmmm, I thought the memory management system could find some
-overalignment that would be multiple of 3 and that could work (maybe
-3 * page size, as a big hammer).  But maybe some implementation details
-just don't allow that, so I guess it's fair to reject it.  Sounds
-reasonable.
-
-Do you happen to know why the memalign(3) description says that the
-alignment must be a power of two when it doesn't do any validation and
-just rounds up as necessary?  I'll send a patch for the manual page, but
-it would be good to know if something has changed about it at some
-point.  Maybe in the past it did have different requirements?
-
-
-Have a lovely night!
-Alex
-
-	alx@devuan:~/tmp/gcc$ cat overalign.c=20
-	#define _GNU_SOURCE
-	#include <errno.h>
-	#include <malloc.h>
-	#include <stdlib.h>
-	#include <string.h>
-
-	int
-	main(void)
-	{
-		int   i;
-		void  *p;
-
-		errno =3D 0;
-		p =3D aligned_alloc(3, 3);
-		printf("aligned_alloc(3, 3): %p; %#m\n", p);
-
-		puts("");
-		puts("non-power of two, alignof(void*)");
-
-		errno =3D 0;
-		p =3D aligned_alloc(24, 24);
-		printf("aligned_alloc(24, 24): %p; %#m\n", p);
-
-		puts("");
-		puts("Power of two, alignof(void*)");
-
-		errno =3D 0;
-		p =3D aligned_alloc(8, 8);
-		printf("aligned_alloc(8, 8): %p; %#m\n", p);
-	}
-	alx@devuan:~/tmp/gcc$ cc overalign.c=20
-	alx@devuan:~/tmp/gcc$ ./a.out=20
-	aligned_alloc(3, 3): (nil); EINVAL
-
-	non-power of two, alignof(void*)
-	aligned_alloc(24, 24): (nil); EINVAL
-
-	Power of two, alignof(void*)
-	aligned_alloc(8, 8): 0x55ba005056b0; 0
-
---=20
-<https://www.alejandro-colomar.es/>
-
---ddmwmz4h6lnof5bq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmenvxkACgkQnowa+77/
-2zJ7bA//bOZkKUMXrMjzqF9Aem8f7CrkQxjHx+/XGpbTeGwGk1yunlLzjTzOQJ0C
-Ih97hUJhXNWyH6DucYKHIcc5uYm44fJd6xAkQj+tFHgMXstbEd0SGtDX0tclHvPR
-azHUT1T1fKPLV82rxAP04+BT2oLTkbcRh10g4zfAoHIoLnOjC9/aDcdjjmaDJTqu
-SRP0HPv8mOc7s894o72YNMus5puyjMVGW58QbwKz+iM0RM1SbrmAOwHR+Xzlqtc6
-TZ/bWxXbFGmHQkFglIse2ylYdxSdRomzIqQH/widsTFrccgV4ql+z/XIj6h3I0OW
-4SMXIOvhvp+qFzGTLiySGgFb7hPYvy67+o30IGNxzP8JUeDdMSfuE10b7yUPZhaP
-32jRQLDmvpEJesAflce8cqDjFf/noA6+1chXtQnutqVAAjJac3TUzsTioN6mVujv
-NdudhXM2Ay+zI01vzpBht1kX6fZisjjogZSNauNlh0ws+xfk7K9ztHD9CKTV/Dv9
-18cF23kzTbExUVjuWqb19vN26gK5Dwx2/wTqND7KtIFnmhxrE2dbMAWxRGOL2iPa
-P0nad7C0XQiKN0WTTRMsYZccplmVmqaev6+IEDTuoC8Yu3C9xX6BuWOYXlvIY/Zp
-97tGNJdMA5Sm9F1GU1LwJxP+VQuLCb+teu3q1uAar2E9QVwiGh4=
-=rufw
------END PGP SIGNATURE-----
-
---ddmwmz4h6lnof5bq--
 
