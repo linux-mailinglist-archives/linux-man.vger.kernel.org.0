@@ -1,123 +1,162 @@
-Return-Path: <linux-man+bounces-2353-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2354-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00377A2CEEC
-	for <lists+linux-man@lfdr.de>; Fri,  7 Feb 2025 22:17:35 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C73BA2D7D4
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 18:48:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 198E13A59FF
-	for <lists+linux-man@lfdr.de>; Fri,  7 Feb 2025 21:17:27 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 6EDA87A2844
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 17:47:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD84B1AB6D8;
-	Fri,  7 Feb 2025 21:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63298241131;
+	Sat,  8 Feb 2025 17:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/Gq5s29"
 X-Original-To: linux-man@vger.kernel.org
-Received: from omta034.useast.a.cloudfilter.net (omta034.useast.a.cloudfilter.net [44.202.169.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCB7194C6A
-	for <linux-man@vger.kernel.org>; Fri,  7 Feb 2025 21:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22537241103
+	for <linux-man@vger.kernel.org>; Sat,  8 Feb 2025 17:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738963051; cv=none; b=W1WjiJ2acoTnLVpSKtWdV3vsEs6v7KchXc/lYyjYizxXedXvXWVuLTEGUi6C3yCEAmOHRY/PokHMT1iTzvxgAnpLS07ePw0W3eTg+kNppihdcM5i8vml5M1AdVKd2FEeY9ASQm5dxEEJrqgHV8/ptA+9wWFwzIX17Dggiqzp65Q=
+	t=1739036876; cv=none; b=jBzSNEZDmIxzNI5x98MjTVb3Rl9mHH0pV2BLj0TkUskkdzkr6u5CFsFZjrk3H1UPeYsQQY75Hd1576qFYXCOJd7ToISD0zMjvmcAVcfYXF9c2ZxFCKOi8grdy3/vrpt0U40i32gngkXkCk/UIIdcqTM+r7+0vN1aL8vTFhfw3ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738963051; c=relaxed/simple;
-	bh=HbdxaL1wluVGwVSFFRjL4pq62JalQRsSMRCJoD1/mUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XgD/W46kxDBQ+9znPPoa4mLr7Aot/iaerrvCzKArxGk8EPUkzD6pqTNKpRA4BLpVtvqrF+sG1YFe5Q8tnRzGI4Fi+oQa+ruCH9ABVYCaaPqWXH3jt2Nrsf1WF6/ywMB6NqDINqXOK0fIcdzAwUGrM4ynVeOpLOZvr1L1T8Q83N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=drabczyk.org; spf=pass smtp.mailfrom=drabczyk.org; arc=none smtp.client-ip=44.202.169.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=drabczyk.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=drabczyk.org
-Received: from eig-obgw-5009a.ext.cloudfilter.net ([10.0.29.176])
-	by cmsmtp with ESMTPS
-	id gS3Utr2ALXshwgVj6tZ5UQ; Fri, 07 Feb 2025 21:17:28 +0000
-Received: from gator3278.hostgator.com ([198.57.247.242])
-	by cmsmtp with ESMTPS
-	id gVj5tmH071kimgVj5teMAY; Fri, 07 Feb 2025 21:17:27 +0000
-X-Authority-Analysis: v=2.4 cv=B/i/0vtM c=1 sm=1 tr=0 ts=67a67867
- a=wI8P0wgu9qut9Qmby1c6ng==:117 a=x0OE6rfHJZ6H1OKZOK5cGQ==:17
- a=IkcTkHD0fZMA:10 a=T2h4t0Lz3GQA:10 a=VGZVzwQjAAAA:8 a=Qo95dsebSWBDh275kEMA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=7KbCETwRv5F4J-amU3zH:22
- a=m_VEIBz21GJuPbWKIyfi:22
-Received: from 89-77-246-87.dynamic.chello.pl ([89.77.246.87]:43326 helo=localhost.localdomain)
-	by gator3278.hostgator.com with esmtpa (Exim 4.96.2)
-	(envelope-from <arkadiusz@drabczyk.org>)
-	id 1tgVj4-002ooQ-2E;
-	Fri, 07 Feb 2025 15:17:27 -0600
-From: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1739036876; c=relaxed/simple;
+	bh=QpDflegu+Etb+sDbWRRp7cQoJL4CGLu89N0u5qgXTYo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gik+CH24yPEKTGMdU0IOl3m/yjcMR7jeE26nPJk8PUYDrhe0/GX8mXMex+I0n5Fm/BvrXe81zAM8am/KAuy1mnk8HVuQhxf15jiKP7n1TqYf1a1dt9jyagnspBNltE0j2ZSEIm6vWvrGfOkQ1f/iPme3FgEJjFlK2WZBWb+hwTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/Gq5s29; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56787C4CED6;
+	Sat,  8 Feb 2025 17:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739036876;
+	bh=QpDflegu+Etb+sDbWRRp7cQoJL4CGLu89N0u5qgXTYo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I/Gq5s29BemJ+rYvJiVu7M5V3ItmCw/Akz1ISvOXLDmOhKCodb2tBbEmYBIojFcJJ
+	 NriUqhKAtJueO/c5RbypP+VmA3Ujdk0Rt5hQqznQiMjf9ceZfwRGelkSn6GtVQ7oIh
+	 cI/qjpha2TkM7D1GDmVI+jxPbTvYaYLWhSn/90/LF4+AKx9XjWw3j8QsQX3BhOwiDF
+	 oiVvZNS48ighpChwy9L0MW0FUn47lCPTBQlqb+P3DVPeoNtgBIgSsT6MHENbYoC5ZT
+	 oUAoMrrsTysWjSF+3aFyjIZSD3Cmgz8Vjh3JyLSw+m2N2pieOeCySn2HOZA4sFMzqx
+	 0PNR9whTDW/Rg==
+Date: Sat, 8 Feb 2025 18:48:31 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH] regex.3: don't use z length modifier with unsigned int
-Date: Fri,  7 Feb 2025 22:16:28 +0100
-Message-ID: <20250207211628.25164-1-arkadiusz@drabczyk.org>
-X-Mailer: git-send-email 2.45.2
+Subject: Re: [PATCH] regex.3: don't use z length modifier with unsigned int
+Message-ID: <gh2ogtjhlpf3vzovphcq4vulo22pdg7lzsdohol7fpbj3zcwvl@ewl5ayvhk6vg>
+References: <20250207211628.25164-1-arkadiusz@drabczyk.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator3278.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - drabczyk.org
-X-BWhitelist: no
-X-Source-IP: 89.77.246.87
-X-Source-L: No
-X-Exim-ID: 1tgVj4-002ooQ-2E
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 89-77-246-87.dynamic.chello.pl (localhost.localdomain) [89.77.246.87]:43326
-X-Source-Auth: arkadiusz@drabczyk.org
-X-Email-Count: 1
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: cmt1bXZicmg7cmt1bXZicmg7Z2F0b3IzMjc4Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLW+IZjU9IrFGNs3sBHsjX3vHVNIShexcWzwArFvNRNCA+YMGGDmzttkGWAWJKle04ZkJqczfnj3R+aymajhDoxZ8h+w0iXlCwXM/R4tXTQ3pKfEC//l
- wWh1FdUhcPWG7Z+ggvET75js1oJ/s41Swhols8Ccv24Nie/22PNAlbtDiojd72nYnhLSxPIJfu3VoWcPApSwjgOu78Vx1M8i/ME=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s5ovnowuj57dpfv6"
+Content-Disposition: inline
+In-Reply-To: <20250207211628.25164-1-arkadiusz@drabczyk.org>
 
-GCC and Clang print warnings:
 
-    $ clang main.c -Wall
-    main.c:30:23: warning: format specifies type 'size_t' (aka 'unsigned long') but the argument has type 'unsigned int' [-Wformat]
-       30 |     printf("#%zu:\n", i);
-          |              ~~~      ^
-          |              %u
-    1 warning generated.
+--s5ovnowuj57dpfv6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] regex.3: don't use z length modifier with unsigned int
+References: <20250207211628.25164-1-arkadiusz@drabczyk.org>
+MIME-Version: 1.0
+In-Reply-To: <20250207211628.25164-1-arkadiusz@drabczyk.org>
 
-    $ gcc main.c -Wall
-    main.c: In function ‘main’:
-    main.c:30:16: warning: format ‘%zu’ expects argument of type ‘size_t’, but argument 2 has type ‘unsigned int’ [-Wformat=]
-       30 |     printf("#%zu:\n", i);
-          |              ~~^      ~
-          |                |      |
-          |                |      unsigned int
-          |                long unsigned int
-          |              %u
+Hi Arkadiusz,
 
-Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
----
- man/man3/regex.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, Feb 07, 2025 at 10:16:28PM +0100, Arkadiusz Drabczyk wrote:
+> GCC and Clang print warnings:
+>=20
+>     $ clang main.c -Wall
+>     main.c:30:23: warning: format specifies type 'size_t' (aka 'unsigned =
+long') but the argument has type 'unsigned int' [-Wformat]
+>        30 |     printf("#%zu:\n", i);
+>           |              ~~~      ^
+>           |              %u
+>     1 warning generated.
+>=20
+>     $ gcc main.c -Wall
+>     main.c: In function =E2=80=98main=E2=80=99:
+>     main.c:30:16: warning: format =E2=80=98%zu=E2=80=99 expects argument =
+of type =E2=80=98size_t=E2=80=99, but argument 2 has type =E2=80=98unsigned=
+ int=E2=80=99 [-Wformat=3D]
+>        30 |     printf("#%zu:\n", i);
+>           |              ~~^      ~
+>           |                |      |
+>           |                |      unsigned int
+>           |                long unsigned int
+>           |              %u
+>=20
+> Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
 
-diff --git a/man/man3/regex.3 b/man/man3/regex.3
-index 3069489cb..a094c3b20 100644
---- a/man/man3/regex.3
-+++ b/man/man3/regex.3
-@@ -392,7 +392,7 @@ int main(void)
- \&
-         off = pmatch[0].rm_so + (s \- str);
-         len = pmatch[0].rm_eo \- pmatch[0].rm_so;
--        printf("#%zu:\[rs]n", i);
-+        printf("#%u:\[rs]n", i);
-         printf("offset = %jd; length = %jd\[rs]n", (intmax_t) off,
-                 (intmax_t) len);
-         printf("substring = \[rs]"%.*s\[rs]"\[rs]n", len, s + pmatch[0].rm_so);
--- 
-2.45.2
+Thanks!  I've applied the patch:
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D6f71d1e4958bd327b4cea006d27a854e66b85380>
 
+I also added a Fixes tag:
+
+	Fixes: b42296e4feaf (2022-09-15; "Various pages: EXAMPLES: Use unsigned ty=
+pes for loop iterators")
+
+
+Have a lovely night!
+Alex
+
+> ---
+>  man/man3/regex.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man3/regex.3 b/man/man3/regex.3
+> index 3069489cb..a094c3b20 100644
+> --- a/man/man3/regex.3
+> +++ b/man/man3/regex.3
+> @@ -392,7 +392,7 @@ int main(void)
+>  \&
+>          off =3D pmatch[0].rm_so + (s \- str);
+>          len =3D pmatch[0].rm_eo \- pmatch[0].rm_so;
+> -        printf("#%zu:\[rs]n", i);
+> +        printf("#%u:\[rs]n", i);
+>          printf("offset =3D %jd; length =3D %jd\[rs]n", (intmax_t) off,
+>                  (intmax_t) len);
+>          printf("substring =3D \[rs]"%.*s\[rs]"\[rs]n", len, s + pmatch[0=
+].rm_so);
+> --=20
+> 2.45.2
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--s5ovnowuj57dpfv6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmenmO8ACgkQnowa+77/
+2zJKzg/+PMnq1ePmapmm2hrd5gu9eSicOb148p86VjX/9rkNx/2sye5cRQgd5uex
+zJ7luHGUeOedslBMdrr9dRmKww63ZtWqknJXxTVUyBwG8m+hrUaYXw5Ht1ynJ2BA
+7+fLoKnCt7l+t7lcFHkXwZpA/EGw3JvWH0FpA7iSm4gaxJ3r8iFK5weAytWwb2ot
+VXqq4fX4Uv33WRUzkVXD8i/Oudh91r+XzxQfqJEBbsKiGrULI436694PwE5ee2xV
+a6RKJf3KtCUHCa6TDYQzHNgXtZEdE0NMTMNbO/Xk71WWGawTsea7PfQ2ask6m6vV
+EchpuUcMJVVZbD2IFKpnCZTjVYiYw1a3xFwmjTFbORMySQ6/3wON/KZwKMEr8rWj
+iC91zqaEDpnFAwkphxmcQJOh2txQHUbFaCUqN8t4GNiAwEhfZfb6Z7Mwgdat0xth
+NGc+/jkXHgb4eU6luKqSeDGAtk2cTWjoW6Nqtc3pKKlXy1WbRZwrVrRfSMEMB1g4
+BlM+h3vBYgaTqZNRAFEpz79ZzSYloDOUFKl3RGP5jQEdMWXOtizL7LnmdlRmgUSj
+8wjXLMgps85ibFypZYMqfmO6EDjqBqM6W3SMv+QhEtHMsfp+G9m78otwj0JBvAw8
+QglIRisXgDVp3U45UKweh8JCh4XfzBEmAlfbqRe+4SjYNoACLxI=
+=ZBQy
+-----END PGP SIGNATURE-----
+
+--s5ovnowuj57dpfv6--
 
