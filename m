@@ -1,128 +1,158 @@
-Return-Path: <linux-man+bounces-2372-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2373-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BE6A2DA63
-	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 03:20:25 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5408AA2DBC0
+	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 10:16:09 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 154F87A2DE8
-	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 02:19:29 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F2709165690
+	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 09:16:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 490BE20EB;
-	Sun,  9 Feb 2025 02:20:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CCA5146D6A;
+	Sun,  9 Feb 2025 09:16:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="TgLTsEH3"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rRPDjeH+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A7F1392
-	for <linux-man@vger.kernel.org>; Sun,  9 Feb 2025 02:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10693FD4
+	for <linux-man@vger.kernel.org>; Sun,  9 Feb 2025 09:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739067617; cv=none; b=hNv5mQBBFA8g9RGjTMfygPUBaxJci/ObMlmh74oqeLLbIWgF0N1LvNHjLxGHvZVR+54cY4jjfeZl29pGgdLS0JHfoCy02M1o0WAv1tUBtGu2LD1t5nvzHLnXvn1KueQhBX6IL8S0sLYSLckJ6iDAZn8YCn4Op4pHBmYblSeuWQI=
+	t=1739092565; cv=none; b=uvIt7s0msHu2xIq50kXc8Ru4Wzz2plbc7+Jcq28IG7E6hGe8LZXwd/zg9mslTHkx4+Sioe2Tque3TEOkhWtHWz1Go4lGHdU6AqRcpw9JsTtu6QaKuYj7o6NoAze26BVkLmW0onsZTCQIfQikVrYquT96g3qtqU6UdtPLIQPky4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739067617; c=relaxed/simple;
-	bh=PbSYRVbbPmAkVRvQoZWfTc/fppB/zBGuLiTXHc17YXs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=OZl6OhyHIZJuuD7QR89BbguwD5BNJyXjF0seSOgk+sIKf3QccXKKJOYesBMfR7+JEIPCm2fTzZj4tYsa3F4ftg1LfO9HJjk9hOvJWjzwGHz2TV+F0Hywr9M4+2T8K1hljPZRsUwOT+3+EqvGbrqDzbLRDujjMI1dX4iI8p4n57g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=TgLTsEH3; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id A44B325D9D;
-	Sun,  9 Feb 2025 03:20:12 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id qzbQMsh6dCFl; Sun,  9 Feb 2025 03:20:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1739067608; bh=PbSYRVbbPmAkVRvQoZWfTc/fppB/zBGuLiTXHc17YXs=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To;
-	b=TgLTsEH3XzwaIKUXhBJku/8K1rWRmDZpdR1WWEZplzO9+0HBUv1ei7eVOx0s+rngS
-	 dAoyuPNcDP0kSA8VAQZDyQINzINUSVpgeqZekm2F+rbXF1Y/x6vB4XiWVwOVZ2fjr+
-	 rsT4evAbWKTHXg/+3awOUUSBe//7d+Tc+dx5MxGEOsLmNHwerWUpeqOyDEr/soNse+
-	 gH36UW3FKvpVFwQslZiWze5OKL4BQXH6fVRSjWTpsqQjNk+RflYx/Nw3+WphLrNFco
-	 GUY87yZPRyJM+2Tw+9BU0f9mo+eeJALkxDAs8D0tjvB4oXV/2dYptFTW4mmLe0wXYe
-	 wUJeM8Kxnxzkg==
+	s=arc-20240116; t=1739092565; c=relaxed/simple;
+	bh=G9see2hCdJDOwgYMkKi0eU85JEFgAJXuCNScM5Htbns=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uqi/Dk+gy3Zt7WmONv6YGi0UCA7buylJ8soSq99BN2re7w4VLinwdjf3CsRk4I8bu3VTGanrhDs6RLHYdm/k00whUgz3hBv7tdjrgV3f0YbfisHfC313xLeVi8fa5u2nAH39grCgiqDpnO6KCcV+ExMTOGAbepBo+1pJazXQCKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rRPDjeH+; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E84C4CEDD;
+	Sun,  9 Feb 2025 09:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739092564;
+	bh=G9see2hCdJDOwgYMkKi0eU85JEFgAJXuCNScM5Htbns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rRPDjeH+1+asF1TjOzs58DMlh2ntW4zyJLYBHwrvEqMuyElZ+dK1R2smG2Sb41cEL
+	 osOZaZOZnfaqkDL+pPG7H93Atctw+Rf/1rM+/8DyvXdwMEj2HMayLXL9ajfgMcXtqB
+	 nketP2TaGI2R3kwXvEMH+TDOM8BbPzsipakCsCbCFoemxSTrQglaKDEYwJ2ql1TJKX
+	 0F/JnYvo/gHd6Z27FbowGRkUVvqD9KcvVAsDN0EnWXh16bCQIKvui1vRZi1Jt2ZrbN
+	 F5HCxY14vw0abdZhtm05eQk9ymg7U/zXYuM/JRvv3WqqqWnAX/JOWxg8JXSU40d/WW
+	 gHGsu8yThv2eg==
+Date: Sun, 9 Feb 2025 10:16:40 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Mark Harris <mark.hsj@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Subject: Re: [PATCH] man/man3/timespec_get.3: Correct return value and
+ clarify description
+Message-ID: <on3wt75buovfutl6n5slbmymcav4mkwbm5siexkbt5wxkuidws@pamis2zxekjq>
+References: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
+ <qrlytrdkrmaebyntohfmnczxjgzdoky3jxtilghgxe6ookw5qk@qfkxpzlu3bbf>
+ <CAMdZqKHLX0LeHNxKxW94LugHmrk52LrG3SOLG9ObzYzED+hwvg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dfbbabvtjnsoy3av"
+Content-Disposition: inline
+In-Reply-To: <CAMdZqKHLX0LeHNxKxW94LugHmrk52LrG3SOLG9ObzYzED+hwvg@mail.gmail.com>
+
+
+--dfbbabvtjnsoy3av
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 09 Feb 2025 03:20:06 +0100
-Message-Id: <D7NK0L9YCTEA.GUG1NL6I5YZP@disroot.org>
-Cc: <linux-man@vger.kernel.org>, "Jason Yundt" <jason@jasonyundt.email>,
- <groff@gnu.org>
-Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
- example programs
-From: "onf" <onf@disroot.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>, "Alejandro
- Colomar" <alx@kernel.org>
-References: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org> <qdcjd7falwasz4fakmt6mraw6omkt3gdhfi5o4teigxwobtoqq@ga5bgz26yoas> <20250208234619.a3zfan43cawwhae2@illithid>
-In-Reply-To: <20250208234619.a3zfan43cawwhae2@illithid>
+From: Alejandro Colomar <alx@kernel.org>
+To: Mark Harris <mark.hsj@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	=?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Subject: Re: [PATCH] man/man3/timespec_get.3: Correct return value and
+ clarify description
+References: <c6990f9c922bd8b842589c700efde8f7a00ab68b.1739046395.git.mark.hsj@gmail.com>
+ <qrlytrdkrmaebyntohfmnczxjgzdoky3jxtilghgxe6ookw5qk@qfkxpzlu3bbf>
+ <CAMdZqKHLX0LeHNxKxW94LugHmrk52LrG3SOLG9ObzYzED+hwvg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAMdZqKHLX0LeHNxKxW94LugHmrk52LrG3SOLG9ObzYzED+hwvg@mail.gmail.com>
 
-Hi Branden & Alex,
+Hi Mark,
 
-On Sun Feb 9, 2025 at 12:46 AM CET, G. Branden Robinson wrote:
-> [...]
-> At 2025-02-08T23:57:07+0100, Alejandro Colomar wrote:
-> > On Sat, Feb 08, 2025 at 11:44:43PM +0100, Alejandro Colomar wrote:
-> > > Personally, I prefer tabs for actual programming.  But for manual
-> > > pages, we can live with 4 spaces for $reasons.
-> > >=20
-> >=20
-> > [...]
-> >=20
-> > > +Description
-> > > +    Indentation
-> > > +	Use 4 spaces.  Ideally, tabs would be preferred; however, they
-> > > +	cause 5 spaces in manual pages, which is weird, so we use 4
-> > > +	spaces.
-> >=20
-> > On a side note, Branden, I've considered changing the manual pages'
-> > EXAMPLES' source code to use tabs, and let the formatter do whatever
-> > it wants.  Do you have any opinion on that?
->
-> The behavior of input tab characters is well-defined in *roff, but
-> defined _weirdly_ to most people's sensibilities when filling is
-> enabled.  I won't quote the documentation here, merely point to it.
->
-> https://www.gnu.org/software/groff/manual/groff.html.node/Tabs-and-Leader=
-s.html
-> [...]
+On Sat, Feb 08, 2025 at 05:25:33PM -0800, Mark Harris wrote:
+> > > - Calls to these functions are not technically equivalent to any
+> > >   clock_* function call; at least the return value will be different.
+> >
+> > It would be interesting to clarify if they are equivalent except for the
+> > return value.
+>=20
+> The clock_* functions also specify that errno is set to certain values
+> on error, but the timespec_* functions do not guarantee this.  So
+> instead I just state that the time and resolution are the same.
 
-TL;DR:
-With the default settings, a tab essentially translates into a
-horizontal motion. What this means is that when filling is on
-and you have text like this:
-  int main(int argc, char **argv) {
-  \tif (argc !=3D 2 || strcmp(argv[1], "-h") =3D=3D 0) {
-  \t\tfprintf(stderr, usage, argv[0]);
-  \t\treturn argc !=3D 2;
-  \t}
-  \treturn 0;
-  }
+Makes sense.
 
-it ends up like this:
-  int  main(int  argc, char **argv) {         if (argc !=3D 2 || str=E2=80=
-=90
-  cmp(argv[1], "=E2=80=90h") =3D=3D 0) {                 fprintf(stderr, us=
-age,
-  argv[0]);                 return argc !=3D 2;         }         re=E2=80=
-=90
-  turn 0; }
+> > >  .SH RETURN VALUE
+> > > -On success,
+> > > +.BR timespec_get ()
+> > > +returns the nonzero value
+> >
+> > I think I'd remove "value".  What do you think?
+>=20
+> Ok, if you think that is sufficiently clear I will remove "value" and
+> s/represents/is/ (below).
 
-This is because tab stops are related to the beginning of a paragraph
-rather than the beginning of an output line as one would expect.
+Yeah, that sounds good.
 
-The desired behavior can be enabled with the request .linetabs,
-but this is groff-specific and not supported by other troffs.
+> > > +.I base
+> > > +if it represents a supported time base
+> > > +and the current time was successfully retrieved, or 0 otherwise.
+> >
+> > D'oh.  Someone designed another non-standard return value.  <facepalm/>
+>=20
+> I agree that the return value is unusual, but of the dozens of
+> interfaces to get high resolution time we have finally stumbled onto
+> one that Linux, BSD, macOS, and Windows could all agree to support (at
+> least for TIME_UTC), and the unusual return value is less ugly than a
+> bunch of #ifdefs.
 
-~ onf
+Yeah, that's good.  I'm just complaining that these people could have
+just spent a little bit more on the design of the API, and returned a
+0/-1 code as is usual for standard APIs.  Returning the base is just
+nonsense, because the caller already has it, unless I'm missing some
+weird use case that they had in mind.  :)
+
+I see the revision in my mailbox; I'll check it in a moment.  Thanks!
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--dfbbabvtjnsoy3av
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmeocnEACgkQnowa+77/
+2zKhwhAAn2DAQ9prEPhsjCIeO1LJWsb7QJcd9x2dPpV9Qt2T9shIOITZyJtCRnHi
+p6HAmcy778HdSTYbQ8AHvyTmkMtlKxxl2RjkDURs12+izATPCl1eMzUvxO2E0TMk
+oTxv3PYnHUkNkun0wkqaxjFWZ8SulKwkrfzVSNdW6+DqnPQXn8I4UxEQp515odxN
+rJIKKe3jNQ3SnwyBXIPELIAJEoIz5I2YdcuoQT2vDlyI8tclRZuaXBX0NSoMhLXe
+DFFryawbVw9qPy1IeED0EZYRJlmVojQ8R7HRUpuoXsPgo0riZBEt4Xqreuh1JI3D
+3LPFznnqXG30p5C+yOFZFs6pKUFYQV4MSAYS+kh+4YkV5M8zDDJMKxe7nwrx1x3y
+bfBuCN1BAwWbJKCUW23W9rqU9Ut3w6BRhy2GzLqFmejp9/WmUof2oCbWDM1PrTcP
+vsUos+wZHSwf4cEp4lk+wsEqapU4w6jQcHD6QxSnUkkSmmLbFSzBisrHcsuW1LfV
+lYblrwxZkOsYXTD6Eise22gtRqdsYSnOEB+WSrTXs8LlJsU8R5J2/Glm+qu+cjQR
+YzNGNx8o4GE5oyfkujPQkEYX/rGiiAnr4zbjFfpsGUeNLv5hGpqjmazr3mMjxI0J
+OYcHOMYgweowSk9AlMUXy3lOCF3r2BeiT93IJxXy4m7C+eNkUOo=
+=P/+x
+-----END PGP SIGNATURE-----
+
+--dfbbabvtjnsoy3av--
 
