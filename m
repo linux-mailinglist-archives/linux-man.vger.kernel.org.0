@@ -1,196 +1,206 @@
-Return-Path: <linux-man+bounces-2368-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2369-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CA7CA2D9E5
-	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 00:59:23 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98ECEA2DA08
+	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 01:45:42 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2241A1887918
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2025 23:59:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 74F143A52D7
+	for <lists+linux-man@lfdr.de>; Sun,  9 Feb 2025 00:45:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F3011AF0AF;
-	Sat,  8 Feb 2025 23:59:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27F00243373;
+	Sun,  9 Feb 2025 00:45:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="it3ygzMT"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MKWgc0+e"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C49D24338C
-	for <linux-man@vger.kernel.org>; Sat,  8 Feb 2025 23:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FD9196
+	for <linux-man@vger.kernel.org>; Sun,  9 Feb 2025 00:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739059157; cv=none; b=dvBtsVT7ZL++SiJeToKFDRmsFGkCO2EyO3VZUaYJpQg1knopgalIwl68fU8Cnic1OXxWXGaiqBFIowrgjqVvnW5HY5ZORjKXQCDZPBUjv9draYIpY5TKkgYmJ5ZIxLRjH4RM7mpVD3duTpRoL9wEgEju6+09TplMRYoaRZSfUzE=
+	t=1739061937; cv=none; b=lhnseUao89hPq5w3xjbzYWRqgyG2Zxvw5Vf4eOV9Tmxdj4GS2NJ765ycsom7BMLdDKdcv/5b3QewEPK12FTCMVB87uKA/0Z9gcanlP2LBtajna374hjW206+l7eGDEcZHY9c5RKuwQp2vK/dM7QuWpZQkbSgKi2xEW48gXDXRDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739059157; c=relaxed/simple;
-	bh=MrFlxYOZTIOlAU5UmHX22QHHbxwJ9Yj6KXntMd8pobU=;
+	s=arc-20240116; t=1739061937; c=relaxed/simple;
+	bh=C8F0UIef4XR8p5OU/l19O6mRvkE7a+9zrksMIjwRXvc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mIKmL8+jh0uoWhAKwUBPy/45BZXjEKPKE5ZZCEFXr2ho1BLQX4MGeNDOvTE8xpjSndSRlRSm6jnWF4qt6tJFI5zt8tWbO/hs+DJ9X9lDNTQVoF4DNB6ss/MWSdyQephlLK3dxUPUE2Al88aglTjPCceKVBm0AR6BV6qy5u1U7Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=it3ygzMT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74DBEC4CED6;
-	Sat,  8 Feb 2025 23:59:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739059155;
-	bh=MrFlxYOZTIOlAU5UmHX22QHHbxwJ9Yj6KXntMd8pobU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=it3ygzMTXUoCHGYpe8XsxHm2gOjaoVMcAylAOrhU7+m6JfnGe1+P8IMla8NxZw3Kz
-	 2NVNomGjLq/Y6GeTMJnP0c1vt9WdZqZKZU0RkGfUosoBDxVmIa31N9XKD/kzn23njX
-	 v9K4XGukNVPiXsBpQUpyPKXdjZBBJ1shNnhK9xTXdyOyN7VSv5/hVXSJoPneoIuTIZ
-	 ARGkYwHen0b9xj/+K1b4XpHS2FetwpZhebIjOBgqbN4cIT4IStqFkeTC421JONlsJA
-	 r15gtquQ8qCClJjCJcZfA3dByxq45tryb0q66MABXNGDgWSaOvSeNpC8ZaVnxcUEm6
-	 crm+QlecXgdJA==
-Date: Sun, 9 Feb 2025 00:59:50 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>, 
+	 Content-Type:Content-Disposition:In-Reply-To; b=d3UTbIGNDvtfc+uaSSkpoprPP9ye19S0vz0+Z7tuiWroG1Jq//r8zvelGfPD77asPKrT4PKm2HDTOcQhHdA2CoEXG3okk0lMCM8sQGXCH4bidFCDJik/QzwxZu+CUgQHbAOEFNoUOezj+NCQLpFzHCh/at60aE9YUwzhQKPfPeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MKWgc0+e; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-71e3f291ad6so2369392a34.0
+        for <linux-man@vger.kernel.org>; Sat, 08 Feb 2025 16:45:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739061935; x=1739666735; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1DyD3hhFGxZD1HBW/z/bmK1LNW3IYkoGgWtK4G2unzo=;
+        b=MKWgc0+eNvIsPL0xF2JseKc1lB4htJyl1qGo8SE1bGKtXQId60VVSB0Vf/xStsLshS
+         eZqjMHVf1nrM8p1anHysEIQ347YfnL6tD53cr8qgz5oJQNRH07aCFerKaqY0gQWU8fcO
+         Bdf8gjAJs+Au50puooxX8mEDR7P+08D2uCs09kiqzhz2kwVCU6Y1tKx0nCCIH//Uzz8Z
+         vl+7oA74fXmnPMnb4sOm8k0aWN0WAD6b7FjZBGBcb3dWCH647722dnapvFglNoKjmYtb
+         o5aojyABv82OJ1vTCAwSkjq/HR3kKGv3WvATow6WNqx2TyG207MA487cGeFfWsAO49LK
+         X3Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739061935; x=1739666735;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1DyD3hhFGxZD1HBW/z/bmK1LNW3IYkoGgWtK4G2unzo=;
+        b=Ko51MdW9dtrGkQAKiEuiAhAUD6rTXMKWihV48ynLSzuGY7q0RUckhF3PZwsvf4jXFb
+         6ahmHv2mmtbbwkZNaSiadaioCiyLSrcKHjwZiScFTSvCRLLAjcqO3D2mrGrnbraA4NMV
+         mYWPKyuljm5NIJ2pNFTW9lgIp3niu3V6OfTqSv1pkOp8uuXXd/kN/UpjiKRai5BIRlcw
+         bTWK0rzsNmM2ec1KvL6+sPVQ7fcmN4qKqSjhwVTbhXDG0zApy08iYGHuElUxz6YYvNwa
+         MDXzkCL3Zghxn3fuqZ0SAru2rWGGYIBGtj4hry87+o0Joal4a7AgQzw4CNBzulS/zAEa
+         /2rQ==
+X-Gm-Message-State: AOJu0Yzu40OACrwACCd1ZGtUKUvUyeYbR3PchM2ZjXm5wvxcwmpeCTg6
+	nqHK13mSeabQHmDq/k+K/Dz61/70JOjDKqhQgadeG8gMw45oEE96
+X-Gm-Gg: ASbGncv4sQJDeiZRwjBiZ5rrzbFUjcWim6+a5U755RzY1MxsGzM0fYu16zxi8oM047H
+	0QzdhI6F1+d96Y5B/vm5kxxoxsac5giIaC/4mYmEkVN69uFJLF9phMMeU40PsfGXu4cIPCP6EC3
+	BkuzWtjIhTeN3YYb2CO7RPsc1X4uJJc0h/kAujpjltsNVpbQ3fnjZgc/jOSdoESaCH3AmVOIsVz
+	oYxGcdOysFljgYlNLVBscRVhmfvjgn7kpg29abqQ+y8cn+k+d7Ur6BrKJeLSZMuWZ8TyLY6L0Al
+	bLtKIw==
+X-Google-Smtp-Source: AGHT+IEYYiyFTT0Qchk1aZxsiGXiyNtzE5snJmTe9ThXka+ti+RrqpYKyR98cqJ9mFN73bM/HyJyKQ==
+X-Received: by 2002:a05:6830:6404:b0:71d:eee3:fd22 with SMTP id 46e09a7af769-726b87a23edmr6085249a34.5.1739061935189;
+        Sat, 08 Feb 2025 16:45:35 -0800 (PST)
+Received: from illithid ([2600:1700:957d:1d70::49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-726af914f1csm1711467a34.3.2025.02.08.16.45.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Feb 2025 16:45:33 -0800 (PST)
+Date: Sat, 8 Feb 2025 18:45:31 -0600
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>,
 	groff@gnu.org
 Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
  example programs
-Message-ID: <sxeh5c2rcyyp7eakkmjsxvdhiugw34ytqe3rqk3khi6mjpuikn@qglzlxykjlvs>
+Message-ID: <20250209004531.bayfkwan2sr2vncz@illithid>
 References: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org>
  <qdcjd7falwasz4fakmt6mraw6omkt3gdhfi5o4teigxwobtoqq@ga5bgz26yoas>
  <20250208234619.a3zfan43cawwhae2@illithid>
+ <sxeh5c2rcyyp7eakkmjsxvdhiugw34ytqe3rqk3khi6mjpuikn@qglzlxykjlvs>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gq2uzx7rwkx6ijhf"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="7du5bxtrjbv6b2vq"
 Content-Disposition: inline
-In-Reply-To: <20250208234619.a3zfan43cawwhae2@illithid>
+In-Reply-To: <sxeh5c2rcyyp7eakkmjsxvdhiugw34ytqe3rqk3khi6mjpuikn@qglzlxykjlvs>
 
 
---gq2uzx7rwkx6ijhf
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--7du5bxtrjbv6b2vq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Jason Yundt <jason@jasonyundt.email>, 
-	groff@gnu.org
 Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
  example programs
-References: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org>
- <qdcjd7falwasz4fakmt6mraw6omkt3gdhfi5o4teigxwobtoqq@ga5bgz26yoas>
- <20250208234619.a3zfan43cawwhae2@illithid>
 MIME-Version: 1.0
-In-Reply-To: <20250208234619.a3zfan43cawwhae2@illithid>
 
-Hi Branden,
+Hi Alex,
 
-On Sat, Feb 08, 2025 at 05:46:19PM -0600, G. Branden Robinson wrote:
-> _If_ you advise the use of tab characters _only_ when filling is
-> disabled, as, apropos of the Subject line, is the case in (displayed)
-> code examples, you should be fine.
+At 2025-02-09T00:59:50+0100, Alejandro Colomar wrote:
+> On Sat, Feb 08, 2025 at 05:46:19PM -0600, G. Branden Robinson wrote:
+> > _If_ you advise the use of tab characters _only_ when filling is
+> > disabled, as, apropos of the Subject line, is the case in
+> > (displayed) code examples, you should be fine.
+>=20
+> Yes, I'm proposing using tabs exclusively within EX/EE.
+>=20
+> > However, you will get 8 character cells per tab stop and I am _not_
+> > sure it's portable to expect, or to try to configure, anything else.
+>=20
+> Are you sure?  I'm getting 5 characters per cell, which is what has
+> prevented me from doing it more happily.  I would have done it already
+> if I had seen 8 chars-per-tab.
 
-Yes, I'm proposing using tabs exclusively within EX/EE.
+Good thing I looped in the groff list; this way more people got to see
+me make a fool of myself.
 
-> However, you will get 8 character cells per tab stop and I am _not_ sure
-> it's portable to expect, or to try to configure, anything else.
+You're right.  Here's why.
 
-Are you sure?  I'm getting 5 characters per cell, which is what has
-prevented me from doing it more happily.  I would have done it already
-if I had seen 8 chars-per-tab.
+https://git.savannah.gnu.org/cgit/groff.git/tree/tmac/an.tmac?h=3D1.23.0#n1=
+62
 
-	alx@devuan:~/tmp$ cat c.man=20
-	.TH a s d f
-	.SH g
-	.EX
-	if (foo)
-		bar();
-	.EE
-	alx@devuan:~/tmp$ hd c.man=20
-	00000000  2e 54 48 20 61 20 73 20  64 20 66 0a 2e 53 48 20  |.TH a s d f..=
-SH |
-	00000010  67 0a 2e 45 58 0a 69 66  20 28 66 6f 6f 29 0a 09  |g..EX.if (foo=
-)..|
-	00000020  62 61 72 28 29 3b 0a 2e  45 45 0a                 |bar();..EE.|
-	0000002b
-	alx@devuan:~/tmp$ groff -man -Tutf8 c.man=20
-	a(s)                                                                      =
-  a(s)
+My days of furious hacking on the man(7) macro package seem mostly to be
+in the past, and I'm spending much more time on GNU troff itself of
+late.  So I insensibly crafted a demonstrator for the formatter's own
+behavior, not incorporating that of the macro package.
 
-	g
-	     if (foo)
-		  bar();
+> Why am I not seeing 8-char indents?
 
-	f                                       d                                 =
-  a(s)
-	alx@devuan:~/tmp$ groff -man -Tutf8 c.man | hd
-	00000000  1b 5b 34 6d 61 1b 5b 32  34 6d 28 73 29 20 20 20  |.[4ma.[24m(s)=
-   |
-	00000010  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |             =
-   |
-	*
-	00000050  20 20 20 20 20 1b 5b 34  6d 61 1b 5b 32 34 6d 28  |     .[4ma.[2=
-4m(|
-	00000060  73 29 0a 0a 1b 5b 31 6d  67 1b 5b 30 6d 0a 20 20  |s)...[1mg.[0m=
-=2E  |
-	00000070  20 20 20 69 66 20 28 66  6f 6f 29 0a 20 20 20 20  |   if (foo). =
-   |
-	00000080  20 20 20 20 20 20 62 61  72 28 29 3b 0a 0a 66 20  |      bar();.=
-=2Ef |
-	00000090  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |             =
-   |
-	*
-	000000b0  20 20 20 20 20 20 64 20  20 20 20 20 20 20 20 20  |      d      =
-   |
-	000000c0  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |             =
-   |
-	000000d0  20 20 20 20 20 20 20 20  20 20 1b 5b 34 6d 61 1b  |          .[4=
-ma.|
-	000000e0  5b 32 34 6d 28 73 29 0a                           |[24m(s).|
-	000000e8
+Because the package redefines the tab stops.
 
-Why am I not seeing 8-char indents?
+This rears the head of the portability beast a bit higher.
 
-> Finally, I have a vague memory--perhaps not a correct one--that Michael
-> Kerrisk preferred 4-cell tab stops over 8-cell ones (however obtained)
-> because he found that the latter caused lines to overrun too frequently.
-> Keep in mind that displayed code examples in man pages will always be
-> significantly indented, unlike in real C source where we start
-> everything at column 0.  Things to consider.
+Famous Original Doug's man(7) in Seventh Edition Unix also set the tab
+stops at every half-inch.
 
-Yeah, that's one consideration.  I'd try to make sure that examples fit
-in 80 columns before switching to tabs.  On the other hand, once I have
-all the examples fit in there with tabs, the code will be more readable
-(less nesting).
+https://minnie.tuhs.org/cgi-bin/utree.pl?file=3DV7/usr/lib/tmac/tmac.an
 
-> I would proceed with caution, and test with multiple formatters.  (Maybe
-> you already do.)
+So does Heirloom Doctools.  So does mandoc(1).
 
-Yup.  :-)
+Neatroff doesn't ship its own man(7) implementation, and Plan 9 and
+Solaris 10 troffs, and whatever other System V troffs still exist,
+I'll wager have no relevance to the Linux man-pages project.
 
+Fortunately grotty(1)'s different idea of how wide a tab stop is doesn't
+pose a problem.  It renders a page as a rectangular grid of character
+cells, populates those cells where the formatter (which knows the
+document's tab stops) tells it to, then, if it's been given the `-h`
+option, it uses 8-column tab stops to optimize output.  But, provided
+the Unix terminal driver's tab stops are also configured to every 8
+columns,[1] this causes no alteration of the output.
 
-Have a lovely night!
-Alex
+This works out okay because there's no such thing as a "tab stop" in the
+formatter's page description language.
 
---=20
-<https://www.alejandro-colomar.es/>
+This half-inch tab stop default would seem to foreclose the possibility
+of using hard tabs for code examples in your man page sources, unless
+you want to depart from Ingo's and my man(7) portability advice
+regarding the use of formatter requests.
 
---gq2uzx7rwkx6ijhf
+Regards,
+Branden
+
+[1] ...which is almost always true, and while traditionally this was
+    configurable on Unix systems,[2] it's possible that userland and/or
+    terminal driver support has bitrotted to nonfunctionality on
+    Linux-based systems, or was never implemented in the first place.
+
+    See subsection "Tabs and Initialization" of terminfo(5).
+
+[2] ...because of the long shadow cast by typewriters (the original Unix
+    terminal devices) and the corresponding more "manual" and
+    labor-intensive table composition procedures they required.
+    Similarly, newspaper-style page composition with "cut" and "paste"
+    operations involving scissors and adhesive are fading from memory--
+    as is the Aldus PageMaker product that largely killed the practice.
+
+--7du5bxtrjbv6b2vq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmen7/AACgkQnowa+77/
-2zInkRAAnWE7bpvKNB2f47Pz8s98gUtj2y0OAfYj/cfA7bNb6SA9cqRDnb8lW8h/
-mP8S1tzaoQesIwdFEx0fhUzCqXCVjIua1FAnAyiz9i/fe/bH111exwIYF7oRVEPX
-wsB78BSFbb2PVTUV7mosCHjg5A1oEN3CxRbWNdkKmlbZGdfrzMSt8cPLdDacHO8T
-2JpzlxuxE8SlGu9Smv9/vP6vntZu9gYToO2rMnc99+98T2GA9Gm24I++o7g+I+q3
-qh9ddK6B1mPLeGqUvNHkk1WMh2u+eINQJkOP1orMnbHw8z+0K8HD5zR6HIKm2IQe
-Niug+3tfeanaGxB9qbtFaStNe6XwYULt4dnnNBTLhJLvu0ezt3h4h/QUjJFeDS3p
-+sHUhSoTJYLKjWN3uUCX9DwtiQat97UjJnKGxEEwTSWVpwC/31jFUKoz5NVcKlBj
-kn4ON6f+WKb1wLgbz0dorZofenAlr5vK/sikuvSixQtlBzJ31no6/hR5swjYeCGW
-r8PtsRVB/wvTdv/Xmab7wqd23rqIrKExIrnFgiUy6HCEZpWH8Nza+Wi7KylinJbt
-dRmQ1cCTTtDY/8pCLsCIb0kcj+NhhKqP4HrkyPq4BuGBptqkmxahq0x7qKtqmJOq
-mqMqGTKiW+M65XCJOgWCP6L1cWZa09gtizPvVKHuuQfG1HDpfS0=
-=V5r+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmen+qQACgkQ0Z6cfXEm
+bc7VKw//ezLBVd2C3RW1Lj0EX5yFa2/Sgvb/BodwQzWRshk14yfBFhXdNdOVl+6p
+t80DBMUzhc+sTifmWbEwPiym+UsxJBpXT7fO/Aga6Ne5bCtLBvdJSqaKIBHGm2Aw
+0HWy9GeoUKAoTLHDKvbZUQWCf3zhVfJ9v5fG+BIilXqn/agpiV/CxvHE5VV2PZaS
+rwedc4DaLLytMapXIj/hY30rQRb2hqQkybb75NVCZdInv+Z2TMk9vIBVw1RSGJ6I
+4ZYNLFT3oZlsYEbLGSt8W5KjlFsJv//oH1VLXwIPQlXDKgG6KLjt+46XvbkWEMoO
+Oncdp6RKXQ4lGWictD5gf76I3Mc2Uh9DDUjgQwtvpvOXwVG0nfo2SO3ZHsVTXTUk
+E/h/ZnUQ+adG6JcKZE/o3WTjlL4mQ9AhxlxHttH4S4jJrwBCxwiirG7kR+2x+m5N
+KthWCpABkEFCWUBodyGsK3nVHK6iRExvQmMdlWDa6V6eRJVarw2SxqCOEY9Gew/D
+/ukFL2zLkXr/G8Ktinl7CDYBx4EYNs8vxbUQu6tIDjLUH0YAVGxPjMUlXD3LSdzv
+nQW1f2+8GMsLhYSCZ/ddOrqRw+cDhSh5s5AxWEMTh0Lh5DtLlpZQ++SW1CdE1seA
+VTwgmbw84b8N2kS0XFI/NqE30/dNli0D8ZQScNTmTxxVkRUe4TY=
+=TaFC
 -----END PGP SIGNATURE-----
 
---gq2uzx7rwkx6ijhf--
+--7du5bxtrjbv6b2vq--
 
