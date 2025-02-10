@@ -1,242 +1,250 @@
-Return-Path: <linux-man+bounces-2378-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2379-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CB4AA2E712
-	for <lists+linux-man@lfdr.de>; Mon, 10 Feb 2025 09:56:51 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26D75A2EA89
+	for <lists+linux-man@lfdr.de>; Mon, 10 Feb 2025 12:06:15 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5C8F57A1D1A
-	for <lists+linux-man@lfdr.de>; Mon, 10 Feb 2025 08:55:54 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 54A98169006
+	for <lists+linux-man@lfdr.de>; Mon, 10 Feb 2025 11:05:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C54051C1F04;
-	Mon, 10 Feb 2025 08:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55BC11E47C2;
+	Mon, 10 Feb 2025 11:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKICD+pz"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u+l/iov4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E8C178395
-	for <linux-man@vger.kernel.org>; Mon, 10 Feb 2025 08:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A351DED71
+	for <linux-man@vger.kernel.org>; Mon, 10 Feb 2025 11:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739177804; cv=none; b=XxRgirBB/Gmddq0vnnaCYt2K+r3lQFoyWXUlDCuKQIDjfjuj1Eno9CHmyVQUtch8n42FoT89ilRXDNg/w3+3S9S3/bjxpkawrZ0vnN9H7Ssx6udtoAjCbl2P3C/ksZCSG3cYkfHZzptOxlEJfUYklPwqjvgkSI4MWmevaRLlh/o=
+	t=1739185387; cv=none; b=jKwU5rDO8jVjpU5O4Fyubswe0aZ6136QvyAkLpIsAHKuyyvgQuo9Mp9Z8otcpCqRPsDV0OHjxExwvoid9L3Dix4e1zvNPcR2efxsXJ1PeIJUjkD37ARxs9rTSI5HG8VuSgGD2Txey1AtMvw4nJ80Yo+hGjbcwsICfl/w2Ro6pMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739177804; c=relaxed/simple;
-	bh=eUi15UtJ0i+ZIFibFtIM9Z6mm9ag6b6sYJP+XPvdeSE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JvpckI1IuvWRSHPE2taoMFfEr/9ylehTZ1QlSoTqoIGogWOIv7aBepg7yuk+HZYWn+KjR+y1IhFxtdVf+dy6sESm64wN4zNjrnu1/1nWWGXcPr02pd/xG/ZMn2YQH8r+Ch53HtwAEnHUFqKsaijjLJe7bEhXIZu2IhfnMNEerfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKICD+pz; arc=none smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-5de56ff9851so4122485a12.2
-        for <linux-man@vger.kernel.org>; Mon, 10 Feb 2025 00:56:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739177801; x=1739782601; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3qZAR6HQzevf7HP1e1GO3il0u7RKGpdGvXgouvaT9OY=;
-        b=TKICD+pzAhwKiWMSc4u95nu+skTyOeLVUIYTRSVWhYKbEoimO0HO649vhschtrPbGk
-         XGzW9bJjv6TpqUWY7QHXxugcp6FOlMTf8jt3Re29weiuItZdue6BRLn55HdcfNArrbAy
-         jNfFZeNEwks/IhSCdOD3xFvR2nH5XU3RoNcmzRP2lLayf8/a4qydvX6stTDbZhGg+lQj
-         vIdgT2ZdxxNhobCDF7EyxdrBR0g3nkDqYinDEGWOIzjEJWyj6J0pywwF5758biAFytAf
-         OvbChf6ObIE2wmAiWHt5a2zTiegwSW6KSQq/qyFlHwYukqtbFCedIQxLAJ2GniL4Lpgp
-         Q82A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739177801; x=1739782601;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3qZAR6HQzevf7HP1e1GO3il0u7RKGpdGvXgouvaT9OY=;
-        b=ZSo2Q3/7IZaVoRJheAbVuhJiZT++0GZgHCBsByWpnIzHfCQK/OqnmFjjGbtyygRwt9
-         +pHEHcu/iFlT5g1LuXbRmapb8AZHszsIHkzUw7O1d30Ft8qiwuIf8SfkYMyEUnoi4wk+
-         xpBb08JBjGTiemWvOXcV7ZIXfsnxB8u4mMiHptqYkL/LZJ8XQnawXsv6CJlvE7mPOu2V
-         MdLcs+uM7HwEOTGOLIK2kT5ovhRp22RxI3+4l+L7l4wwBxbL9rhZEyqPnBRYkYqxy/dH
-         WnlzhRP1x8VP0HDllrfBDosIlT5wpbxyxJkn7simaFlfVTOSwELPQZA4ejamTqEdujmz
-         ggzA==
-X-Gm-Message-State: AOJu0YwSfPcAf64tIL0INlkUofwjHZScbY/PlOxtd8zYDE3kKsrhVzK3
-	A5DOdC7neYUw9lmy17OU7xoHV/e6qdBsxOrX5G1mqHIQSC68jGFR
-X-Gm-Gg: ASbGncsUh66l/eHfeEFePpxCr60qGtSEPtpINTxMUSauMhmmlUelMWAVk1s+bD73Nr5
-	nwjMeCCFvfbGSe6i0gDHYgxgeegj9K3olBMKSRBjmVli8dfexSoEROx3JqWFXgYLrJBRuZcoy0s
-	6P+71f98tALJPkU8xILWc+6I3qiXT2MvoTDuV6HqayAtGamCmXKPIY8UN2pBizVnekApwZw0c35
-	HlOphB+IpSRTSV5NNScgqg+9kpCmzQKzv89Alxgp2KyfbZks6tHFtmdE6BnwpRb3Ug40PVXCKBC
-	IDMqNxAp1m78yHWhcJcnb5z3PYA239SSLPYbODzQelPq02kzLlXO
-X-Google-Smtp-Source: AGHT+IFEJAKQmao7B2gQSY/wkAkNQyDQGXSECbqhAFoNckq9uFmmPsUIqEL6Hu2H3nKUFcFmvEzTdQ==
-X-Received: by 2002:a17:907:c15:b0:aab:dc3e:1c84 with SMTP id a640c23a62f3a-ab789ada5a2mr1146138666b.17.1739177800811;
-        Mon, 10 Feb 2025 00:56:40 -0800 (PST)
-Received: from [192.168.145.35] (p508aef01.dip0.t-ipconnect.de. [80.138.239.1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ab7c9550012sm100132866b.95.2025.02.10.00.56.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Feb 2025 00:56:40 -0800 (PST)
-Message-ID: <8058a323-1d7c-4af8-b030-8ad69999751b@gmail.com>
-Date: Mon, 10 Feb 2025 09:56:40 +0100
+	s=arc-20240116; t=1739185387; c=relaxed/simple;
+	bh=gn+jHnGXdloC0h7h+xKwVrtEpMyaOT/pR8SL/QHR+8I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YGa9UyEezmBrTKMt/d7/VpvNRvvUoPAdR0eQWC3bzK2IEpuu6iZI0sOzl0mKwXD7QoEBPB9AYI9yZjFVvCqvvHWO95CdXLNIYqe6DsuuEkuWu9dkeof9i1gTU6I1j4d4yuSeDgY0QQJBKUu6WTGBFT1jAUPlYC59n57TgOlUelY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u+l/iov4; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2445C4CED1;
+	Mon, 10 Feb 2025 11:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739185386;
+	bh=gn+jHnGXdloC0h7h+xKwVrtEpMyaOT/pR8SL/QHR+8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u+l/iov4l7qxBFRBTk+T0lduq7uf3h0ajFmVvSbRh6uYCtM2LNMHYZxmvRzwYz7py
+	 cv18IoyncuPiirHwnoStE4N57wfsh2BzfYOz+/X5SYJUTraYg12xsM8Y5Hj4/XAN+D
+	 UPS5J2CadVmihVe/C77WjCUje+f4TyFp2lMym5ynI4cOFbDyxcGf4PJp0Sv9QV2XNF
+	 AMsc5T3IZkJwJ9xGDEdEYE0mWZAYsYUD/I3WZww6WaMzxdhTVOg6ix5O2SyEV2HaMk
+	 NEqwDKC67GUCTyAVMgFh78QKjxteiGXASMZLeL29DUsRP6MJpG5MJCni0h5ptyxkvT
+	 vNRVX1NcN4prA==
+Date: Mon, 10 Feb 2025 12:03:42 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Boris Pigin <boris.pigin@gmail.com>
+Cc: linux-man@vger.kernel.org, sam@gentoo.org
+Subject: Re: man-page-6.10 make share/mk/src/sh.mk:16: *** unterminated call
+ to function 'shell': missing ')'
+Message-ID: <uvn4vqmdrmsamjjf7n36dtiqndrvbjmipja3iihr4ulcafmqh2@qjo6w36av6wn>
+References: <38f900b3-28f2-4854-bec3-5b79759eb5b6@gmail.com>
+ <ytgxskuvjqldvv4amftqx27t4fh7lpw32nwyirjdxkeazduyxo@vfi5tfoa72h6>
+ <26a527c3-f7dd-470d-8b19-c6ac45a33e7a@gmail.com>
+ <eb65be1e-b885-442d-806e-ca209576ccbc@gmail.com>
+ <5ajfvthbrexcmjd4trqvfaitnqrvfkyiabhvanm3gwga4y6g7l@qqrdmg6rd2qe>
+ <8058a323-1d7c-4af8-b030-8ad69999751b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3a2jmvrm5imegcok"
+Content-Disposition: inline
+In-Reply-To: <8058a323-1d7c-4af8-b030-8ad69999751b@gmail.com>
+
+
+--3a2jmvrm5imegcok
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Boris Pigin <boris.pigin@gmail.com>
+Cc: linux-man@vger.kernel.org, sam@gentoo.org
 Subject: Re: man-page-6.10 make share/mk/src/sh.mk:16: *** unterminated call
  to function 'shell': missing ')'
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, sam@gentoo.org
 References: <38f900b3-28f2-4854-bec3-5b79759eb5b6@gmail.com>
  <ytgxskuvjqldvv4amftqx27t4fh7lpw32nwyirjdxkeazduyxo@vfi5tfoa72h6>
  <26a527c3-f7dd-470d-8b19-c6ac45a33e7a@gmail.com>
  <eb65be1e-b885-442d-806e-ca209576ccbc@gmail.com>
  <5ajfvthbrexcmjd4trqvfaitnqrvfkyiabhvanm3gwga4y6g7l@qqrdmg6rd2qe>
-Content-Language: en-US
-From: Boris Pigin <boris.pigin@gmail.com>
-In-Reply-To: <5ajfvthbrexcmjd4trqvfaitnqrvfkyiabhvanm3gwga4y6g7l@qqrdmg6rd2qe>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <8058a323-1d7c-4af8-b030-8ad69999751b@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <8058a323-1d7c-4af8-b030-8ad69999751b@gmail.com>
 
-Hi Alex,
+Hi Boris,
 
-as my email was rejected by the mailing list due to containing HTML part 
-here is the second try.
+On Mon, Feb 10, 2025 at 09:56:40AM +0100, Boris Pigin wrote:
+> Hi Alex,
+>=20
+> as my email was rejected by the mailing list due to containing HTML part
+> here is the second try.
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:46:35  🖿 ~ 🧬 📦 🐾1
-  ╰ $ rm test/
-rm: cannot remove 'test/': Is a directory
+[...]
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:46:40  🖿 ~ 🧬 📦 🐾2
-  ╰ $ rm -rf test/
+> =C2=A0=E2=95=AD=E2=94=80 =F0=9F=90=BA borisp@blacksun=C2=A0 bash 5.2.37=
+=C2=A0 =F0=9F=95=9109:50:38=C2=A0 =F0=9F=96=BF ~/test/man-pages-6.10 =F0=9F=
+=A7=AC
+> =F0=9F=93=A6 =F0=9F=90=BE14
+> =C2=A0=E2=95=B0 $ make -version
+> GNU Make 4.2.1
+> Built for x86_64-pc-linux-gnu
+> Copyright (C) 1988-2016 Free Software Foundation, Inc.
+> License GPLv3+: GNU GPL version 3 or later
+> <http://gnu.org/licenses/gpl.html>
+> This is free software: you are free to change and redistribute it.
+> There is NO WARRANTY, to the extent permitted by law.
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:46:44  🖿 ~ 🧬 📦 🐾3
-  ╰ $ mkdir test
+This seems to be the problem.  I hadn't used such an old version of
+make(1) in a long time.  I've been able to reproduce the problem in a
+Docker container with Debian Buster.
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:46:47  🖿 ~ 🧬 📦 🐾4
-  ╰ $ cd test
+	root@b3cfb66d7016:/# wget https://kernel.org/pub/linux/docs/man-pages/man-=
+pages-6.10.tar.gz >/dev/null 2>&1
+	root@b3cfb66d7016:/# ls
+	bin   dev  home  lib64			media  opt   root  sbin  sys  usr
+	boot  etc  lib	 man-pages-6.10.tar.gz	mnt    proc  run   srv	 tmp  var
+	root@b3cfb66d7016:/# tar xf man-pages-6.10.tar.gz=20
+	root@b3cfb66d7016:/# rm man-pages-6.10.tar.gz=20
+	root@b3cfb66d7016:/# ls
+	bin   dev  home  lib64		 media	opt   root  sbin  sys  usr
+	boot  etc  lib	 man-pages-6.10  mnt	proc  run   srv   tmp  var
+	root@b3cfb66d7016:/# cd man-pages-6.10/
+	root@b3cfb66d7016:/man-pages-6.10# make | wc -l; echo $?
+	/man-pages-6.10/share/mk/src/sh.mk:16: *** unterminated call to function '=
+shell': missing ')'.  Stop.
+	0
+	0
+	root@b3cfb66d7016:/man-pages-6.10# cat /etc/os-release=20
+	PRETTY_NAME=3D"Debian GNU/Linux 10 (buster)"
+	NAME=3D"Debian GNU/Linux"
+	VERSION_ID=3D"10"
+	VERSION=3D"10 (buster)"
+	VERSION_CODENAME=3Dbuster
+	ID=3Ddebian
+	HOME_URL=3D"https://www.debian.org/"
+	SUPPORT_URL=3D"https://www.debian.org/support"
+	BUG_REPORT_URL=3D"https://bugs.debian.org/"
+	root@b3cfb66d7016:/man-pages-6.10# make -v
+	GNU Make 4.2.1
+	Built for x86_64-pc-linux-gnu
+	Copyright (C) 1988-2016 Free Software Foundation, Inc.
+	License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.ht=
+ml>
+	This is free software: you are free to change and redistribute it.
+	There is NO WARRANTY, to the extent permitted by law.
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:46:50  🖿 ~/test 🧬 📦 🐾5
-  ╰ $ wget 
-https://kernel.org/pub/linux/docs/man-pages/man-pages-6.10.tar.gz 
- >/dev/null 2>&1
+It seems to be a make(1) bug?  (Or maybe a simpler, older
+specification.)  It is caused by the '#' in the string.  make(1)
+probably interprets it as the start of a comment.
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:03  🖿 ~/test 🧬 📦 🐾6
-  ╰ $ ls
-man-pages-6.10.tar.gz
+The problem also triggers in another place:
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:09  🖿 ~/test 🧬 📦 🐾7
-  ╰ $ tar xf man-pages-6.10.tar.gz
+	CPP_HAS_ALREADY_D_FORTIFY_SOURCE :=3D \
+		$(shell \
+			$(CPP) -dM - -Wno-error </dev/null \
+			| $(GREP) '#define _FORTIFY_SOURCE ' >/dev/null \
+			&& $(ECHO) yes \
+			|| $(ECHO) no; \
+		)
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:17  🖿 ~/test 🧬 📦 🐾8
-  ╰ $ rm man-pages-6.10.tar.gz
+It's surprising that I haven't triggered issues with old make(1) before.
+I have now tried 6.9.1 there, and it works (I see some pages reporting
+issues, but the makefile does work).
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:22  🖿 ~/test 🧬 📦 🐾9
-  ╰ $ ls
-man-pages-6.10
+I've pushed a fix to the contrib branch, and will try to make a new
+release in a few days.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Da0d5f1961dfd8eb3af2b0ece845448a42c492ae0>
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:26  🖿 ~/test 🧬 📦 🐾10
-  ╰ $ cd man-pages-6.10/
+	commit a0d5f1961dfd8eb3af2b0ece845448a42c492ae0 (HEAD -> contrib, alx/cont=
+rib)
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Mon Feb 10 11:56:01 2025 +0100
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:31  🖿 
-~/test/man-pages-6.10 🧬 📦 🐾11
-  ╰ $ make | wc -l; echo $?
-/home/borisp/test/man-pages-6.10/share/mk/src/sh.mk:16: *** unterminated 
-call to function 'shell': missing ')'.  Stop.
-0
-0
+	    share/mk/: Escape '#' in regexes
+	   =20
+	    GNU make(1) 4.2 seems to be interpreting those characters as the start
+	    of a comment, so we need to escape them.  That seems to calm those old
+	    versions of make(1), and doesn't affect negatively the newer ones, and
+	    doesn't negatively affect grep(1) either.
+	   =20
+	    Fixes: 35a780a99bd8 (2024-07-20; "share/mk/: CPPFLAGS: Only define _FO=
+RTIFY_SOURCE if it's not already defined")
+	    Fixes: 2130162900ab (2024-11-03; "share/mk/, etc/shellcheck/: lint-sh:=
+ Add target to lint shell scripts")
+	    Reported-by: Boris Pigin <boris.pigin@gmail.com>
+	    Cc: Sam James <sam@gentoo.org>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:37  🖿 
-~/test/man-pages-6.10 🧬 📦 🐾12
-  ╰ $ make
-/home/borisp/test/man-pages-6.10/share/mk/src/sh.mk:16: *** unterminated 
-call to function 'shell': missing ')'.  Stop.
+	diff --git a/share/mk/configure/build-depends/cpp/cpp.mk b/share/mk/config=
+ure/build-depends/cpp/cpp.mk
+	index 594215892..65da77f84 100644
+	--- a/share/mk/configure/build-depends/cpp/cpp.mk
+	+++ b/share/mk/configure/build-depends/cpp/cpp.mk
+	@@ -19,7 +19,7 @@ CPP ?=3D $(CC) $(CFLAGS_) -E
+	 CPP_HAS_ALREADY_D_FORTIFY_SOURCE :=3D \
+		$(shell \
+			$(CPP) -dM - -Wno-error </dev/null \
+	-               | $(GREP) '#define _FORTIFY_SOURCE ' >/dev/null \
+	+               | $(GREP) '\#define _FORTIFY_SOURCE ' >/dev/null \
+			&& $(ECHO) yes \
+			|| $(ECHO) no; \
+		)
+	diff --git a/share/mk/src/sh.mk b/share/mk/src/sh.mk
+	index 487eaf14d..05c9e0449 100644
+	--- a/share/mk/src/sh.mk
+	+++ b/share/mk/src/sh.mk
+	@@ -14,7 +14,7 @@ include $(MAKEFILEDIR)/configure/directory_variables/src=
+=2Emk
+	=20
+	=20
+	 BIN_sh :=3D $(shell $(FIND) $(SRCBINDIR) -type f \
+	-               | $(XARGS) $(GREP) -l '^#!/bin/\(sh\|bash\)\>' \
+	+               | $(XARGS) $(GREP) -l '^\#!/bin/\(sh\|bash\)\>' \
+			| $(SORT))
+	=20
 
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:47:43  🖿 
-~/test/man-pages-6.10 🧬 📦 🐾13
-  ╰ $ bash -version
-GNU bash, version 5.2.37(1)-release (x86_64-pc-linux-gnu)
-Copyright (C) 2022 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later 
-<http://gnu.org/licenses/gpl.html>
-
-This is free software; you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:50:38  🖿 
-~/test/man-pages-6.10 🧬 📦 🐾14
-  ╰ $ make -version
-GNU Make 4.2.1
-Built for x86_64-pc-linux-gnu
-Copyright (C) 1988-2016 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later 
-<http://gnu.org/licenses/gpl.html>
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-  ╭─ 🐺 borisp@blacksun  bash 5.2.37  🕑09:50:45  🖿 
-~/test/man-pages-6.10 🧬 📦 🐾15
+Thanks for the report!
 
 
-Best wishes
-Boris
+Have a lovely day!
+Alex
 
-On 2/9/25 22:27, Alejandro Colomar wrote:
-> [CC += linux-man@]
->
-> Hi Boris,
->
-> I realized the mailing list wasn't CCd.  I've added it to CC now.
->
-> On Sun, Feb 09, 2025 at 09:40:16PM +0100, Boris Pigin wrote:
->> Bash and make
-> Hummm.  I don't see why it would fail on bash and (assuming GNU) make.
-> Especially if previous versions of man-pages releases worked well.
->
->> On 2/9/25 21:38, Boris Pigin wrote:
->>> Hi Alex,
->>>
->>> I'm on Funtoo.
-> I've also added Sam James to CC, in case he knows anything.
->
->>> On 2/9/25 18:43, Alejandro Colomar wrote:
->>>> Hi Boris,
->>>>
->>>> On Sun, Feb 09, 2025 at 05:13:51PM +0100, Boris Pigin wrote:
->>>>> Hello Alejandro,
->>>>>
->>>>> I see here a problem with the man-page-6.10. If I call make I get the
->>>>> following error
->>>>> I downloaded the package from
->>>>> https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.10.tar.xz
->>>>> I don't see the problem with the earlier version e.g. 6.9, 6.9.1.
->>>>>
->>>>> '''
->>>>>    ╰ $ pwd
->>>>> /home/user/src/man-pages-6.10
->>>>>    ╰ $ make
->>>>> /home/user/src/man-pages-6.10/share/mk/src/sh.mk:16: *** unterminated call
->>>>> to function 'shell': missing ')'.  Stop.
->>>>> '''
->>>> Hmmm, I can't reproduce the problem.  Could you please run the following
->>>> commands?  Also, could you detail what's your shell, and what's your
->>>> make(1), and what's your OS?  Let's see if we can learn why that's
->>>> happening.
->>>>
->>>> alx@devuan:~/tmp/foo$ wget https://kernel.org/pub/linux/docs/man-pages/man-pages-6.10.tar.gz >/dev/null 2>&1
->>>> alx@devuan:~/tmp/foo$ ls
->>>> man-pages-6.10.tar.gz
->>>> alx@devuan:~/tmp/foo$ tar xf man-pages-6.10.tar.gz
->>>> alx@devuan:~/tmp/foo$ rm man-pages-6.10.tar.gz
->>>> alx@devuan:~/tmp/foo$ ls
->>>> man-pages-6.10
->>>> alx@devuan:~/tmp/foo$ cd man-pages-6.10/
->>>> alx@devuan:~/tmp/foo/man-pages-6.10$ make | wc -l; echo $?
->>>> 2965
->>>> 0
->>>> alx@devuan:~/tmp/foo/man-pages-6.10$ make
->>>> alx@devuan:~/tmp/foo/man-pages-6.10$
-> Can you run exactly these commands?  I'm puzzled.
->
->
-> Have a lovely night!
-> Alex
->
+--=20
+<https://www.alejandro-colomar.es/>
+
+--3a2jmvrm5imegcok
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmep3Q4ACgkQnowa+77/
+2zJttxAAljn3ZdMajfbbYtfNS02DlXKPLR0lQMXLCXOOjPSrZxyqZb7YYAfe1ijN
+5wNn5YuLBvydTODd4pDI/hazSv9Zs6puyPUCHY6tKq+7UyOuLRlRPjsFTLGL0BSv
+HvP3YiMZYdOWfcguBUHBe64HR4PvL+ZGk6UYY9LMa5iDcXKCsC3B+dEryuXrONxS
+KijB71TfUySLssEpGbs4V9g5yAQSe2wjLWvVN7QhtUvJ+eYHbqnoT8XYsENpLxO6
+v5XoawlHsDcz0jhoZvQy7sPj6oGJz8SaCwnXcm6bECRZGf3og4B40yDmua/6aoWa
+iYk3HkVFUh5om8WvacaGiD9Y24EGgSeskHg2BeAbP5cNgPdHhPE1//6M6x6cKaVm
+AJ1j+iiO7QLGjpEXYibnZ+/M114WnXN3O3O2ZHapEUe4lRlkqFbbfmmEMhDUunX1
+PM9DlVNf18dx+dr1Uy0rQn3a2Wl4Cxc2kBiPKwVXP/unVNgkaZb6o2PrkIEFiph5
+4DCIqI6vH2vcXlHTjrLB+5c7UhT5/7MtBvBJJDTylYP2zc56EzZKy+Y0wep+DpHO
+QIVMmi6wWp3CLOuwnrnmUA1x5B+mYlwCJ3JVAaUGhfa6EIHXsYV2pfddqtAdMa7t
+KFf/t24Eld0YNVO4Sx7knLj2BZZDpAwYKCwd0f4vqyrH6wNDXt0=
+=oZ1z
+-----END PGP SIGNATURE-----
+
+--3a2jmvrm5imegcok--
 
