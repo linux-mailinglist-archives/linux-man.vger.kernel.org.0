@@ -1,188 +1,251 @@
-Return-Path: <linux-man+bounces-2390-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2391-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 180DDA310E5
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 17:14:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A930BA3121C
+	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 17:52:52 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6FD53169469
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 16:13:25 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4ACDE165A78
+	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 16:52:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB526254AF4;
-	Tue, 11 Feb 2025 16:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B01A260A20;
+	Tue, 11 Feb 2025 16:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RM/Z9FKN"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="qroVaUnz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021089.outbound.protection.outlook.com [52.101.100.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62ED3254B0B;
-	Tue, 11 Feb 2025 16:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739290366; cv=none; b=mdbRFvcrQ38hjTpr93cb6Y7CkEQkynkwI206bSBakUbNsGX1IsAQSAUyTLYrXu56ohr7RQ8krCUqudUmaPse3d9IijH6tL5ugapXOrdx7culIMsfdmdz8XQmHVjJFx4aSsM7Tox4rPzl2WO3fQ9ni8nWCd79T5B25EsdJbghDIY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739290366; c=relaxed/simple;
-	bh=ExX1hIFSL04lqowmKkcasm2jISXBQF19XqfdcbWI4mY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qY4DYj6IOkYb9Eudrw+zyM4tni5PBXj00mOQmGL38/Rv+waYmW7PDgM2G6L/85E5FvXKErT6Nt4RxlyZPTRcC+PderhM4wOHKkQVwm8tIHSmzs2edOh7scNrDk5YcpM12oGaHnqETrJ7Mb2kYD2S98hf3HVq2XOW8vllSz/Fh70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RM/Z9FKN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B3EC4CEDD;
-	Tue, 11 Feb 2025 16:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739290365;
-	bh=ExX1hIFSL04lqowmKkcasm2jISXBQF19XqfdcbWI4mY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RM/Z9FKNwxm96IRvreaQzf6dieJeK70Dje5SgmY373o/dZMWmIxdVa2zkVupIH/9t
-	 +pRFI+p1g4SXe8E8WutuWhc95bQhToP3sa5DsAKqyQ9NIybkoCdBt7xMSGkbw2uMJ1
-	 XYLx61MH2N10cJcr6Q6SERDIeonUNdDlHbHFHEmDimMhLySAQVesoGdqxgWPlfwb8x
-	 nU0bzCiw2BIAV71qfjaFuzfAq5IAvpuw6r0p5dyRZKINQwO5DrHOw7NALMzRJkYNle
-	 WMAeQ8jcXFlSHZjGlTujXhrQrV17nebipxRLyYm2NUxqVPjdmF5r6dJ2lAEXt0TscD
-	 KdLksQnT4aPFw==
-Date: Tue, 11 Feb 2025 17:13:21 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
-	linux-security-module@vger.kernel.org, Tahera Fahimi <fahimitahera@gmail.com>, 
-	Tanya Agarwal <tanyaagarwal25699@gmail.com>, Daniel Burgener <dburgener@linux.microsoft.com>, 
-	tools@kernel.org, linux-doc@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
- scoping documentation
-Message-ID: <3unkhxarmiddobfjvojx4sdpgitjld26udcagka2ocgrb6c2jc@dcg4w5yk5mut>
-References: <20250124154445.162841-1-gnoack@google.com>
- <20250211.Ree5bu6Eph2p@digikod.net>
- <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
- <20250211.ieSoo7Phe5oh@digikod.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72B625EFB3;
+	Tue, 11 Feb 2025 16:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.89
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1739292767; cv=fail; b=NDM8hwRXy5CjTANSUogNsCR4m8aEvEF7tryHe5tpsEBgojKvce0UCvsLKgXncVMgbpHe7e09PLHYQgViljXinm7A91uzgH7f7QSEKmgWE5EzTm+fatzKEj7qz23rlLN3+Fz/s6MLqRcAfpEI8m2Q2nkXV/BrCiIyYLPWC8cg8gQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1739292767; c=relaxed/simple;
+	bh=0xbbjk2aoUWv2yZFtr2DuBd4qipCuhgJIVfYKMeCP/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=vEODI7xgGCoA0AXOd+kJTOwb98wBBjfkmMkFNUZtcZeiFp0AZSN1bw6WCdF9dRUco6dXvwee6vYCOhHVdGlufaC255iBpbF/SucAvvBABOQOltp6Pk/M7A5werMVLlv3E3kUIZZUeIV61DEpUsRT9acmkxZX2RcLWZLAJBFmYD0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=qroVaUnz; arc=fail smtp.client-ip=52.101.100.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GJGctFYvEb2VTbotLCUTxPL3wAJYvwipMP9ChCUr4s5XQ3PYUoIns0DqcMf4bskk/OqJ/yB0Odo6BX8vZtRO6eOccotwy7ZjxGxKC5yt9kvjH50EYyMlUm7huItF5TD0h1iaOgcbL3oVYWSIRMCt9x7txe1zuBlSnP10CWw4LVlc0xGWtFcjr8sYvdCg7WPZZKuKSdj2bs3jKR17sfDFjj44qZST+sSmCqbk0LGQ0emXxb2KPEi2/iGu+l/JbTJ0F4icnX/55TFI/s5FpXh9G+nxjoSDJwArgSQf37lPjdTdOghEWswVS3DQLblZinAQICCvgeFhCcoO9QJukdBrYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=20SoRC89pRLBRkHYM4I+3UYB0Umi45FBWx1aHgKrsQc=;
+ b=UxO96/SOadQLxnh/eLskuHaH3w3Sulkvo0pQJKuXT9uJ5gRL830uqCe5SBFapuQCFLdOijv9Yf66VHvEJp0xGbwXCFgVgCCiJqNYOSDTC4/YlhQOhNxhTFCtdxdDpnGMYB/f7dCIT/Z0V6cjX046Yft7qXtVAraQ60haHoCXnMq1ZoPwLKANOAGtzT3O9c7hemMJaTyRFN0SOCIGkmwxapn4Arxoh1UwyFtZx5QiL2LxFppVXh7U49ptG/cvhmxDeFHXaID+PcCQBo+cT4w/RISZxmpPRmzu8En3YgLJv8QpV8ekqMekIV2n9+1j3KD5YW0ouQTBdp/6R8+TO+yWyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=20SoRC89pRLBRkHYM4I+3UYB0Umi45FBWx1aHgKrsQc=;
+ b=qroVaUnz0QKZw4Cmwlf9NEb9dcLL3yl+lJYQh8t/KgCNL3Ae0U+FTYUoM7qziGTkzQdNmgkUyqypRiq2+umiAjfgsSFH/75qwVRmg+9RDnqAfFwkpbvybesApsLjLziQ8eEnd6anHYHQDmbuh0ZRRLqDr/ZbeGIu0xh4ozWS1jQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:253::10)
+ by CWXP265MB2391.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:7c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.19; Tue, 11 Feb
+ 2025 16:52:43 +0000
+Received: from LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1818:a2bf:38a7:a1e7]) by LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1818:a2bf:38a7:a1e7%4]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
+ 16:52:42 +0000
+Date: Tue, 11 Feb 2025 16:52:40 +0000
+From: Gary Guo <gary@garyguo.net>
+To: Tamir Duberstein <tamird@gmail.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, DJ
+ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, Will Newton
+ <will.newton@linaro.org>, Paul Eggert <eggert@cs.ucla.edu>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ =?UTF-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <benno.lossin@proton.me>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ rust-for-linux@vger.kernel.org, linux-man@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] rust: alloc: satisfy POSIX alignment requirement
+Message-ID: <20250211165240.5f600eac@eugeo>
+In-Reply-To: <20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com>
+References: <20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P302CA0028.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::19) To LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:253::10)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qwbn4iyhdyh726ll"
-Content-Disposition: inline
-In-Reply-To: <20250211.ieSoo7Phe5oh@digikod.net>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO2P265MB5183:EE_|CWXP265MB2391:EE_
+X-MS-Office365-Filtering-Correlation-Id: 162f53c2-6fde-4845-10a8-08dd4abc8086
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?IdMPMaUAY/8LmVN2BRTrVbNpwYuiJBvEs6/Qiuah9BwDM7aOiXUPQn71IjH2?=
+ =?us-ascii?Q?MoQ2kdHhxATQaCGRQxnF9kAM7/wQ/B4KhNHWgAedfgpIGQh/TyR2QKP1irSJ?=
+ =?us-ascii?Q?eRZ9rZ0qiqn3reaKR+QN6bG2aV/eCVwkyId80o6P18BREq0rlVKud5Z6RBy/?=
+ =?us-ascii?Q?2jsO+AVZs2BgIHqRPFz5K+ksxegxNuIkW90O07MX+kw9btXTMANLpnaTyMlV?=
+ =?us-ascii?Q?o5Ehqy4/33Pt2yZ+kjlcKzU/kEDaJre/vtAFammf+nCnfRKFpFw+c5lGf3te?=
+ =?us-ascii?Q?bv1kHM2lRKeLL936FYbs1M+FjcKPZqyqjra7j+uWcuVLr516jTf4aZWY/HFv?=
+ =?us-ascii?Q?pDYRmDkrjzubChzkA+cBwfR4ANfspGlIQotXV1pkrS6NJAfx2vaszcuOklCd?=
+ =?us-ascii?Q?H9e3OKx59gC7o/frGH3aMYMNgoun8f1auitqKOY+fzFmEnckw5ARxuV2dwlx?=
+ =?us-ascii?Q?+Wak+d4FJcwMxeaxt6qbmSnjj201eyNz7hS7OpeKk7KNLMrIm+kkmqxAvFcK?=
+ =?us-ascii?Q?oPJEjbMrFkOO5KKawkBjjAmMzd8Ma8m1WbfIQsA50/cvWtrZpr8QwVvuXmUY?=
+ =?us-ascii?Q?OsRlFGye99I4j2b1Wz0noJVFYGWYTqrbjvGT3FpYDjVK2pmb5fE2wdZ469BN?=
+ =?us-ascii?Q?O03Ekhq9xTGgBPjmi5dWkRmuYKj+xQiB5sZOavK0c2i8mklzVl9SgP6uUNWH?=
+ =?us-ascii?Q?wYp1pGtMaimqOeGgr8oC7MslCHrlnUPSWnRWbunAq8+UJks+U4Byx4DU8wmv?=
+ =?us-ascii?Q?a0+ChouIvMu15lEwPYOyqF8JZmuU36YSSgC6tRBkJv20/US/n8e36GWHkhY8?=
+ =?us-ascii?Q?wJLCuIA/BQGYj5Kl7OR6IMIbANlOlIErwTrPSgQszKvPvd8sJdJaa0dGAYHo?=
+ =?us-ascii?Q?Za2s57n0R+V9Giap731pkvzJ16HVqrL7ZH3SKMH1zUI9QquCfieVSlfg+4Mh?=
+ =?us-ascii?Q?ae6ume+t4rV6C9Sr9xlLtk7hULdNeWu7/TBa0vCSFzg1Tws660abkeROGzxO?=
+ =?us-ascii?Q?1yVjDCMU9kfHPxNvBijx3/7D7ymycdvVm6RronLWNP0W0rVqj2ig4jb20ujh?=
+ =?us-ascii?Q?PYvIK3wVIIMxEc8YWAVEHJYWLXNNaoqPFZvc1yEf9P+BAjxp9/0NmqdlYYum?=
+ =?us-ascii?Q?8ksUjaLScSfbW089Oz9Q4wXGlLIiCxlQ4XyvXsUiFHK09H4A5Ai4EXLe0WNq?=
+ =?us-ascii?Q?YfaJ0tPdzkn+exoQxAUox72GL0lOo/kmk9Tv3gjHzYAmviIgoPj4dgBekpyF?=
+ =?us-ascii?Q?oXDHU732+13MG58TRD4mvn78QLhrl9uydbGLp41YXtCMvJCQsYK+7d+oyNWk?=
+ =?us-ascii?Q?iTEW7MAKFTGiex3Ngtd3RnwT0VhAQiG4Ej28S3Rp6p/pST55nJ55K9GbwzLZ?=
+ =?us-ascii?Q?lBjPzyfZkP3uWB+JEsbm5R4Txgi/?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Amfmk6RdSwX1rg0306lBYyZ8yZBrh7ahxKwL4UgaBfmr9LRjjmgoO0/9GmMq?=
+ =?us-ascii?Q?931XPehOz/GvrbfAO3ptjgEV2FoluQG7W8W1Mvl6VNLG95JUOHYZ3mF0X/8M?=
+ =?us-ascii?Q?OL86zTwVuvIA5WpRnls+wSIae4IiGZ9zFdROC5rwU+0vkYse5HTQf0D6Erwh?=
+ =?us-ascii?Q?sI4zf9V7T9knkJDFrEg8CjeCHt0vCgvKTajsdN3anEHMBpIRr6o3WeKZ+KCs?=
+ =?us-ascii?Q?kM6sdF+zHn3QP10gysA/7KvaRQRTeJSKBjK6wueVGltAEyaOFJ7t5G8eG5N7?=
+ =?us-ascii?Q?ax5wr/DgKDsnsDMIyuHVqWmCPO4FcRz7U/fvA7ky03T5G8GYl2B1oMp6fe1K?=
+ =?us-ascii?Q?zbeZGtbLf0cqHGuoecVaJeJ7bDbv2PSLsgxs7atNvvrVsUelklYnCLSSbw9D?=
+ =?us-ascii?Q?Lk3/QHJPBjDMeABvIosoL2EMxwIwgsi3lEcdFE/FD9gO7EAvFGCoHyyVPyMH?=
+ =?us-ascii?Q?VVlx4ZPlreFVvrS+LZySycYdFJZy8tPWiXDPQJ+hZZP0sKBkFnkgtRvmD9FB?=
+ =?us-ascii?Q?t3pINX/t40GxIKggcyOeYOJ64Yv7RBKOA3RxJO4mkwRvJJZInqaxT3Ls2Gw0?=
+ =?us-ascii?Q?gJtpfvUbLe9lsnNskOI7zppGWAaaxjj3UNgB04wxVN7bair7rUBgYl2q+H6B?=
+ =?us-ascii?Q?wzTFzlQ98AOif+gR6gcSVydTJCnTHzTVrNczwEDoyvh6y04X9x0rUi6QYtG/?=
+ =?us-ascii?Q?Ct97xs0UhhI76dPeYc73mdZfKGW37isnmaDevyq2IvyFegp1fymH2014L/1K?=
+ =?us-ascii?Q?p32hq2JMfwGGwyMH/tN3oaF2dfWmH+aSVl1XYe5rlRTTd3fLOA5kUoCxAyFQ?=
+ =?us-ascii?Q?kusrWUtu0OqbsBMBCXwH1fh4HWopW4emjEA/aQ3w1XoLuc+Z+ujlZFAWWXRq?=
+ =?us-ascii?Q?zXkTxAM35kD5d6lvesTtwL5J2P7WqSScYWMTjP2RRcDqAI1uRLeK7BFt136G?=
+ =?us-ascii?Q?ZrtltNg0HJOr9EQwoZI4MNWtjNH9N20BKDUZy0wWicQAm6GVu4Ud7Anajww/?=
+ =?us-ascii?Q?sP23P6ECq+WrP3fy2IfsYqZHVVhyx8eKKglrdcK6qhUCFCMJ/0OtIMy/lWOa?=
+ =?us-ascii?Q?Rwa2ii1eMxQoz5HRdIvPQh1ABRg5/niBH1BRP+DYlfDngdXS/e47c8CP9Jx9?=
+ =?us-ascii?Q?fOuiR74eGutkt1iHGhHlowA5+Z4HECCz8GfOTyk4F3eTvXk4j39Y3YymZwf8?=
+ =?us-ascii?Q?47/uqR6eAySwxM8wx4VDVFpRRynX6CSIxtz4JkdYf7xUceRZpH5U5nhYCB2K?=
+ =?us-ascii?Q?oOA4F5idenLGEN8Q//PYFfCW03947TMA2/K15SLIKRZojQ8uf40Rj8xmh4IS?=
+ =?us-ascii?Q?roZRH/BWyE+vRWwFRU9LltDUpZ1cnp46w7krvnv5VAIvecwVoOivV6xzJK0B?=
+ =?us-ascii?Q?gOvCP/jMGAF+kUk4lTU6DLI7xavD2BkHoJ8/ciOqBZ+Q72rMPXWafuooN6AF?=
+ =?us-ascii?Q?J2Ahf7V0QKzlF9wazJssfPRt3B8f6TbTenX0flGJXcdWbyCzLjirWSKLRyOO?=
+ =?us-ascii?Q?rD/Gk2xuyIHVrgpTtS0VhxOg/ESydbq0x1yJULsTq20W86dJrcsT1IkU4gp8?=
+ =?us-ascii?Q?Ok3T6Rq93pzatGASWIvxTKfFi/jp9k/BYc5QTtz3?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 162f53c2-6fde-4845-10a8-08dd4abc8086
+X-MS-Exchange-CrossTenant-AuthSource: LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2025 16:52:42.9058
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8+eMFKpgo8v+30IbfQgDlrLoXaCnH5nThlRSpk+JY3UfnnWUMqy9chS4cr8wOFQeNmMErBHE+jS6RtZyjHVZjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2391
 
+On Mon, 10 Feb 2025 09:55:19 -0500
+Tamir Duberstein <tamird@gmail.com> wrote:
 
---qwbn4iyhdyh726ll
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
-	linux-security-module@vger.kernel.org, Tahera Fahimi <fahimitahera@gmail.com>, 
-	Tanya Agarwal <tanyaagarwal25699@gmail.com>, Daniel Burgener <dburgener@linux.microsoft.com>, 
-	tools@kernel.org, linux-doc@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
- scoping documentation
-References: <20250124154445.162841-1-gnoack@google.com>
- <20250211.Ree5bu6Eph2p@digikod.net>
- <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
- <20250211.ieSoo7Phe5oh@digikod.net>
-MIME-Version: 1.0
-In-Reply-To: <20250211.ieSoo7Phe5oh@digikod.net>
+> ISO C's `aligned_alloc` is partially implementation-defined; on some
+> systems it inherits stricter requirements from POSIX's `posix_memalign`.
+> 
+> This causes the call added in commit dd09538fb409 ("rust: alloc:
+> implement `Cmalloc` in module allocator_test") to fail on macOS because
+> it doesn't meet the requirements of `posix_memalign`.
+> 
+> Adjust the call to meet the POSIX requirement and add a comment. This fixes
+> failures in `make rusttest` on macOS.
+> 
+> Fixes: dd09538fb409 ("rust: alloc: implement `Cmalloc` in module allocator_test")
+> 
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Tamir Duberstein <tamird@gmail.com>
+> ---
+> Changes in v4:
+> - Revert to `aligned_alloc` and correct rationale. (Miguel Ojeda)
+> - Apply Danilo's Acked-by from v2.
+> - Rebase on v6.14-rc2.
+> - Link to v3: https://lore.kernel.org/r/20250206-aligned-alloc-v3-1-0cbc0ab0306d@gmail.com
+> 
+> Changes in v3:
+> - Replace `aligned_alloc` with `posix_memalign` for portability.
+> - Link to v2: https://lore.kernel.org/r/20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com
+> 
+> Changes in v2:
+> - Shorten some variable names. (Danilo Krummrich)
+> - Replace shadowing alignment variable with a second call to
+>   Layout::align. (Danilo Krummrich)
+> - Link to v1: https://lore.kernel.org/r/20250201-aligned-alloc-v1-1-c99a73f3cbd4@gmail.com
+> ---
+>  rust/kernel/alloc/allocator_test.rs | 23 ++++++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+> 
+> diff --git a/rust/kernel/alloc/allocator_test.rs b/rust/kernel/alloc/allocator_test.rs
+> index e3240d16040b..1c881ed73d79 100644
+> --- a/rust/kernel/alloc/allocator_test.rs
+> +++ b/rust/kernel/alloc/allocator_test.rs
+> @@ -62,9 +62,30 @@ unsafe fn realloc(
+>              ));
+>          }
+>  
+> +        // ISO C (ISO/IEC 9899:2011) defines `aligned_alloc`:
+> +        //
+> +        // > The value of alignment shall be a valid alignment supported by the implementation
+> +        // [...].
+> +        //
+> +        // As an example of the "supported by the implementation" requirement, POSIX.1-2001 (IEEE
+> +        // 1003.1-2001) defines `posix_memalign`:
+> +        //
+> +        // > The value of alignment shall be a power of two multiple of sizeof (void *).
+> +        //
+> +        // and POSIX-based implementations of `aligned_alloc` inherit this requirement. At the time
+> +        // of writing, this is known to be the case on macOS (but not in glibc).
+> +        //
+> +        // Satisfy the stricter requirement to avoid spurious test failures on some platforms.
+> +        let min_align = core::mem::size_of::<*const crate::ffi::c_void>();
+> +        let (align, size) = if layout.align() < min_align {
+> +            (min_align, layout.size().div_ceil(min_align) * min_align)
+> +        } else {
+> +            (layout.align(), layout.size())
+> +        };
 
-Hi!
+I think this can be more concisely expressed as
 
-On Tue, Feb 11, 2025 at 04:53:44PM +0100, Micka=C3=ABl Sala=C3=BCn wrote:
-> > Let me suggest the opposite: Could we move the kernel docs to manual
-> > pages in man9?  (As is the historic place for kernel docs.)
-> > (You could keep man9 in the kernel tree if you want, or could handle it
-> >  to the Linux man-pages project, if you want.)  That would help have a
-> > more clear separation between the two sets of documentation, and prevent
-> > duplication.
->=20
-> I didn't know about man9 but it's not clear to me what would be the
-> content.
+	let layout = layout.align_to(min_align)?.pad_to_align();
 
-The official name of man9 is "Kernel Developer's Manual".
-In-scope in man9 are internal kernel APIs, and in general anything that
-is of interest to kernel developers but not to user-space developers.
+Best,
+Gary
 
->  Because I want new kernel features to come with proper tests
-> and documentation, it would be much easier to apply all these patches to
-> the same repository, at the same time.  Using the same repository should
-> also help to synchronize documentation with code changes.
->=20
-> One remaining issue would be that some generated documentation come from
-> the kernel source files, especially the UAPI headers, which also helps
-> maintaining the documentation in sync with the code.  What would you
-> suggest to improve the current workflow?
+> +
+>          // SAFETY: Returns either NULL or a pointer to a memory allocation that satisfies or
+>          // exceeds the given size and alignment requirements.
+> -        let dst = unsafe { libc_aligned_alloc(layout.align(), layout.size()) } as *mut u8;
+> +        let dst = unsafe { libc_aligned_alloc(align, size) } as *mut u8;
+>          let dst = NonNull::new(dst).ok_or(AllocError)?;
+>  
+>          if flags.contains(__GFP_ZERO) {
+> 
+> ---
+> base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+> change-id: 20250201-aligned-alloc-b52cb2353c82
+> 
+> Best regards,
 
-For generated documentation, I'd really avoid that.  Currently, in the
-man-pages we only have bpf-helpers(7), and I'd very much not follow that
-for other pages.
-
-For APIs that change often, that may make sense, but in general, APIs
-shouldn't change significantly enough to prefer generated docs.
-
-> > I personally don't like the idea of having man2 in the kernel tree.
-> > Michael Kerrisk already mentioned several reasons for why it's a bad
-> > idea in the past.  On top of them, I'd add that the build system of the
-> > Linux man-pages project is quite more powerful than the kernel one, and
-> > it would be an important regression to have to adapt to the kernel
-> > Makefiles in the manual pages.
->=20
-> For the Landlock syscalls case, could we move the syscall documentation
-> to man9?
-
-man9 is for internal kernel APIs.  Here's intro(9) in different systems,
-which documents what should go into man9, and what shouldn't:
-
-<https://man.netbsd.org/intro.9>
-<https://man.openbsd.org/intro.9>
-<https://man.freebsd.org/cgi/man.cgi?query=3Dintro&apropos=3D0&sektion=3D9&=
-manpath=3DFreeBSD+14.2-RELEASE+and+Ports&arch=3Ddefault&format=3Dhtml>
-
-Debian had a project which documented some Linux kernel internals in
-man9, but it was eventually dropped.  I don't know who maintained that,
-and what was the history about it.
-
-If Landlock has internal documentation that only matters to kernel
-developers, yes, that would be in-scope for man9.  The user-facing docs
-are more relevant in man2 and man7, though.
-
-I would be happy to take all the landlock docs in the form of man9 pages
-if you handle them to the Linux man-pages project.  I can do the work of
-transforming the .rst docs into man(7) pages; that's fine by me.
-
-If there's consensus in the kernel of moving to man9 docs, I'd be happy
-to help with that.  I fear that some maintainers may fear man(7) pages.
-If you need me to give any talks to explain how to write man(7) source
-code, and show that it's easier than it looks like, I could do that
-(G=C3=BCnther already suggested me to do so :).  Maybe I should give a talk
-at Plumbers.
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---qwbn4iyhdyh726ll
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmerdxsACgkQnowa+77/
-2zIHhw/+M+2zNJlER+uRIpHd8YeuvEju7kHxHXJRAcSnPLBFr4kRWqG/VeDuTbcP
-7XKy7KDksG8F1kvgsdXko9qi1YXTSY8RElnvUmAmnLkSYklZNONiBMtBhCSBVxi2
-pcRSvcW3sWV/6AruF9LSXoccETiZCPGipt0HI/M1NT9/2RTCW0O6j9s9wFFlQTXd
-MA9f/jEjY7BPARu0Zs2VuoUbZHvB7y3CkHkJVenu2FSAzQIuE0f4Tv17GqIT8uJW
-JwXtFWT/ERvB1WtP1275FkSb6DHQzSfQnOsnFmV5lT1ry5IDoo98SuhKvwRFIA41
-5Ei+DuKrjrnqBEyo8Xv+5KsboHyeRPDZtxL05oiggRoVWJnm7le+WGARyjLjzQEg
-t50Nkh1GNrPkrkEpYaofxZkwZ4RSICuprhkONzQPNlS00i6qKce3d38yEcMu/cex
-UNQQGGVV/bEiBXC8+pzJjEbK4vFvJsphgwyS7b680V6HrJMefezABsS4z5mOB6Bx
-rGxT8T6BN3KvEAmLGHPOt2GAuYeLJcwBXNZbhfmt/Z9pPVlxu7ptacg+la3Zj6K7
-q/SjVorjJpfej2hD7TVNDbbwJ2Ly4kKxTcxyNOHv4X2IFxm+ciuJPWsXaKv1O0HX
-rQsd+SuvLhsAn4K6vcX7W0evuPC5pYmhFiFZfIvInPUtIyAkkXg=
-=W7tw
------END PGP SIGNATURE-----
-
---qwbn4iyhdyh726ll--
 
