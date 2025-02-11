@@ -1,154 +1,115 @@
-Return-Path: <linux-man+bounces-2388-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2384-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1918A30FC0
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 16:27:55 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 667E7A30F73
+	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 16:18:56 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8C9541882228
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 15:27:49 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1825B164A32
+	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 15:18:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14BEC252918;
-	Tue, 11 Feb 2025 15:27:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CB64250BFC;
+	Tue, 11 Feb 2025 15:18:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="K8n3ZcGH"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbSo3RE6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31296253326
-	for <linux-man@vger.kernel.org>; Tue, 11 Feb 2025 15:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEE81F8AE2;
+	Tue, 11 Feb 2025 15:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739287657; cv=none; b=doA8L0Mk00hyJS6cM6n1kTUg2ed6V0VdpZzm3/wrixMW6swkVNbMyeamKwTiK6/xfezQq8Qk56MRQ/4y3FMeQHACI1jsa5vLzhAvrZ9EO4DKBDDTxx41vCphIkFsrEf2zftjz1ebzi6f8PZR9IjNn37d/CNluUBCQzc9mAfkwZY=
+	t=1739287130; cv=none; b=ME4awv6HNQfTuTDQQZw943Cgu6clKvDBmx8GUIEPHExDT71TDemxPY/elTZ2Tl2YjMJmBaFdTLKctBlc7in9IbFn5w2j2JE07u8rXBFY/sKGyluLW0qK4Kc4Pzsi1Ts4eTAJc2xVYdHBe56+3IXoLpAN383ts+YFHz4VL0Ztn5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739287657; c=relaxed/simple;
-	bh=kWTtxQVrKConfwTAlQFCjUwbPtW/PdbSVcS+IchiLDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R0fhzo0QSMqJpKksJ4x3OrZmbTG4jwmDM4P3SMsbhZrP46jEdezrbbQjjA11iRO3iyyuQRnX+TC1pUkT1V83Ig+ySwlGTDfUIOZ/rHn3/NG+NkPMmYUXBGrn/M6ChLrGHs0ONXnfGwg++yHbZ/lKJz9e6JESWvQGX8iB0T+ZQxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=K8n3ZcGH; arc=none smtp.client-ip=83.166.143.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4YslRw1dx3zRf8;
-	Tue, 11 Feb 2025 16:17:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1739287052;
-	bh=p1zuxEihrnjNC82+T9NtIGxS+saUSJKm1xCyiLMo7yo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K8n3ZcGHTLsbVnm/9ObmaLdoY0hoVTRfvtXySszJEAXG07pA/PcDdmv3xiYkpUuDg
-	 akTtkMOg6Zp2dVMAy0NJPZva0xqVpYbZX6cVYbIA81qakDeDa9BUauaEqaDjw/EDA1
-	 cJJENcKGIUOCHW+Z/OXVlhP1CYRE8iSxIfRHl3nk=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4YslRv5H2szBCt;
-	Tue, 11 Feb 2025 16:17:31 +0100 (CET)
-Date: Tue, 11 Feb 2025 16:17:30 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: linux-security-module@vger.kernel.org, 
-	Tahera Fahimi <fahimitahera@gmail.com>, Tanya Agarwal <tanyaagarwal25699@gmail.com>, 
-	Daniel Burgener <dburgener@linux.microsoft.com>, tools@kernel.org, linux-doc@vger.kernel.org, 
-	Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
- scoping documentation
-Message-ID: <20250211.Ree5bu6Eph2p@digikod.net>
-References: <20250124154445.162841-1-gnoack@google.com>
+	s=arc-20240116; t=1739287130; c=relaxed/simple;
+	bh=WvJeLkplpOnW2HwevNTVcMQld9wJtdh1MKgRLdFMZDI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m3n8ep+6HSVWD+SLisJND/5N2JKuYPd+pXMvyG1LeKWawG2koTl9aDQRxSV2xlEVdeZPJi/mVTslnPAOByHNCgISW5s1Esz1MFDMov6zFIJ0UA4qDiF5Sx0+N7TixrfkyOA1w511UKTJQYuNfsNcZbZoh+/6BV5W8ztJ39BX/g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbSo3RE6; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-2f2f5e91393so1498425a91.0;
+        Tue, 11 Feb 2025 07:18:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739287129; x=1739891929; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WvJeLkplpOnW2HwevNTVcMQld9wJtdh1MKgRLdFMZDI=;
+        b=LbSo3RE6tjSAc8GCCKtEvzIDUIkzfTSXsC5A1f8W6XAmYV3A3nQRY55xaPYeEa84Qx
+         2ap/OFJVVJD4hCaAyDPv7yZK//bIqhDBoGbg9tSiKNJdd/DSCrpiknRBu9t75jeZ+k3f
+         Tn2vbl8z4QO5feZ3124VXdoxxEmR/PlttMPWANyrgXgQR8h1yrkK3ySm8OWzqRQ0Vnuu
+         Xp+UMGBDV9fSXhoJba0SyOaT3ERK2zp/N8le+qfb2yka3anV533JoYwK0r/Mw89rH56h
+         nv9GFPEiiQrkHcJCG75uWFTb6XhsMemRDregKhoTwAii9gX0+Dr3IY+AwKNviLn8nR3I
+         7J2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739287129; x=1739891929;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WvJeLkplpOnW2HwevNTVcMQld9wJtdh1MKgRLdFMZDI=;
+        b=ivm2us3Dwp/mDAglGB1XSqPjtb8jJP1Op48SMmVV5UI69wtvJodVjMOsz2XaxafUa7
+         J8tCTWuv4gMejw0w7vba4Lo5Jxb5B7PqqPMnnMZX1eVRYun7fRB0wRCJHDNKfSlSaMnE
+         GmngEEM7e3ig6esVSP4bghhzhVSYsxqt7tjJ+MUI0TGdZAlNArBpsnMZr3YzEXOhfAgM
+         cRWXwSZd9amPCI4ZluOqNo/P8Z0c+H+dHBHmTcVNHLKdyqtXTdpykyXFhU9LLO7NZGoF
+         ZvmawNBtYqJjgYqh+ThxsozXRv3P1qOZtwOI2LbbuGpsonkgIa6I/hcxgaB+S5XYcSQW
+         ehwA==
+X-Forwarded-Encrypted: i=1; AJvYcCUmdcBHogrkq6ureBQQ9GojX+PDmuThB45QD9RPgDd6RBPogWIFM64q1PtPv/blSmtyfv8+hhrrXzebYlE=@vger.kernel.org, AJvYcCXDStBn3SbJC0ynMMj29cDWY37Etbji52j5NMx2Mgdy+L4w1A/Hb/p9O1r/Nidok2FO9pGbvzpGi/HaTpTveNE=@vger.kernel.org, AJvYcCXfUDvBRlaD36YpEbT8RVyrDRB8QcAFI7y4Q9sfY+G8UTIZGu+6+KVtx5N6gcl/8qf0jo+g352jW3xK@vger.kernel.org
+X-Gm-Message-State: AOJu0YziuligqRD0nKmY+uCos61kQO2MObkj2idNRR/dc5p5neazezV0
+	hZ175NwfXrl5G2FGdr0ErXsQKx5z6/zUHD15BZ27mKia+0qAVF6v39SFxcPK9c+lCjSR8jassNd
+	ghmH1hvp8XILdhL3N/6u/ugBnIZ4=
+X-Gm-Gg: ASbGncvAXBJWAE1sGVw6+oJn/Cam99XLcLb7E+0YbShghKyeHpSZbsKiNQruV2bJCU4
+	4297t1jKLh81/ZAyASKlsqKiamphA+dca4IQ7Ng3DEAaJs1ONunA5EXt+E0VtKo6BiIwcnvlq
+X-Google-Smtp-Source: AGHT+IGzJkzVrpMALwsxqLHKqev6ECJUX+YW82mjcNjNCg8Wu8nBA+8vD/kiTP2MhGhH35rWwsHBxm0QfPgIBCcXiK0=
+X-Received: by 2002:a17:90b:3891:b0:2fa:17d2:158 with SMTP id
+ 98e67ed59e1d1-2faa490a9c4mr1792843a91.0.1739287128622; Tue, 11 Feb 2025
+ 07:18:48 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250124154445.162841-1-gnoack@google.com>
-X-Infomaniak-Routing: alpha
+References: <20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com>
+In-Reply-To: <20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 11 Feb 2025 16:18:35 +0100
+X-Gm-Features: AWEUYZnC3aCDrPsPnwgIWLOJD4mf_4uv6coex7poBSP5UJ65YitdeiLOgh1U4bU
+Message-ID: <CANiq72n2J5N1c=-PV+-2n71WsmzWy+HH6K_YdobyWK2wYx0A-g@mail.gmail.com>
+Subject: Re: [PATCH v4] rust: alloc: satisfy POSIX alignment requirement
+To: Tamir Duberstein <tamird@gmail.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, DJ Delorie <dj@redhat.com>, 
+	Eric Blake <eblake@redhat.com>, Will Newton <will.newton@linaro.org>, 
+	Paul Eggert <eggert@cs.ucla.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <benno.lossin@proton.me>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, 
+	linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jan 24, 2025 at 03:44:44PM +0000, Günther Noack wrote:
-> * Fix some whitespace, punctuation and minor grammar
-> * Add a missing sentence about the minimum ABI version,
->   to stay in line with the section next to it
-> 
-> Cc: Mickaël Salaün <mic@digikod.net>
-> Cc: Tahera Fahimi <fahimitahera@gmail.com>
-> Cc: Tanya Agarwal <tanyaagarwal25699@gmail.com>
-> Signed-off-by: Günther Noack <gnoack@google.com>
+On Mon, Feb 10, 2025 at 3:55=E2=80=AFPM Tamir Duberstein <tamird@gmail.com>=
+ wrote:
+>
+> Fixes: dd09538fb409 ("rust: alloc: implement `Cmalloc` in module allocato=
+r_test")
+>
 
-Looks good, thanks!
+Hmm... The newline issue is still present in newer series you are
+sending. Maintainers need to fix this manually, so please fix it on
+your side.
 
-I'm going to take this patch in my tree with the changes explained
-below. You can send a v2 with the second patch according to the reviews.
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
 
-As a side note, applying the patch series from this thread with b4
-doesn't work because they apply to different repositories.
+I understand that you re-picked the v2 ack, since it is (at least the
+code) similar again now, right?
 
-Dealing with duplicated doc in two repositories is not practical and
-adds work to everyone...  Could we move the non-libc syscall man pages
-to the kernel repository?
+Thanks!
 
-> ---
->  Documentation/userspace-api/landlock.rst | 4 ++--
->  include/uapi/linux/landlock.h            | 6 ++++--
->  2 files changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-> index d639c61cb472..ca8b325d53e5 100644
-> --- a/Documentation/userspace-api/landlock.rst
-> +++ b/Documentation/userspace-api/landlock.rst
-> @@ -329,11 +329,11 @@ non-sandboxed process, we can specify this restriction with
->  A sandboxed process can connect to a non-sandboxed process when its domain is
->  not scoped. If a process's domain is scoped, it can only connect to sockets
->  created by processes in the same scope.
-> -Moreover, If a process is scoped to send signal to a non-scoped process, it can
-> +Moreover, if a process is scoped to send signal to a non-scoped process, it can
->  only send signals to processes in the same scope.
->  
->  A connected datagram socket behaves like a stream socket when its domain is
-> -scoped, meaning if the domain is scoped after the socket is connected , it can
-> +scoped, meaning if the domain is scoped after the socket is connected, it can
->  still :manpage:`send(2)` data just like a stream socket.  However, in the same
->  scenario, a non-connected datagram socket cannot send data (with
->  :manpage:`sendto(2)`) outside its scope.
-> diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-> index 33745642f787..048a2c77c4eb 100644
-> --- a/include/uapi/linux/landlock.h
-> +++ b/include/uapi/linux/landlock.h
-> @@ -268,7 +268,7 @@ struct landlock_net_port_attr {
->   * ~~~~~~~~~~~~~~~~
->   *
->   * These flags enable to restrict a sandboxed process to a set of network
-> - * actions. This is supported since the Landlock ABI version 4.
-> + * actions. This is supported since Landlock ABI version 4.
-
-If that's OK with you, I'll move this sentence to a standalone paragraph
-like the one you added below:
-
-+ * actions.
-+ *
-+ * This is supported since Landlock ABI version 4.
-
->   *
->   * The following access rights apply to TCP port numbers:
->   *
-> @@ -291,11 +291,13 @@ struct landlock_net_port_attr {
->   * Setting a flag for a ruleset will isolate the Landlock domain to forbid
->   * connections to resources outside the domain.
->   *
-> + * This is supported since Landlock ABI version 6.
-> + *
->   * Scopes:
->   *
->   * - %LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET: Restrict a sandboxed process from
->   *   connecting to an abstract UNIX socket created by a process outside the
-> - *   related Landlock domain (e.g. a parent domain or a non-sandboxed process).
-> + *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
->   * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
->   *   to another process outside the domain.
->   */
-> -- 
-> 2.48.1.262.g85cc9f2d1e-goog
-> 
-> 
+Cheers,
+Miguel
 
