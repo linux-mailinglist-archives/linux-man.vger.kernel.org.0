@@ -1,115 +1,186 @@
-Return-Path: <linux-man+bounces-2398-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2399-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C9C9A3184F
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 22:57:26 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA385A31A33
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 01:09:58 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DA7633A513E
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2025 21:57:16 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8EA0A1883E46
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 00:09:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F746267AF2;
-	Tue, 11 Feb 2025 21:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86A57184F;
+	Wed, 12 Feb 2025 00:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TTPuPtSm"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHgju3FN"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838C3267715;
-	Tue, 11 Feb 2025 21:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4351FA31
+	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 00:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739311040; cv=none; b=IBdi2DoKct17QKu5uZMBM/bXAxxMl6ubyqqvkxQzt4bwKmGea1MEUusYrsDcYY0JLDG01XwoILV9l3XXcFL3ZsXAUSHCKN7UJZwhq3B7TPxiXyAVmk/J3LYFV+3fCBsNTOr6fMZyvcAQ+LTDDE6EixLA9fTtG9AbJfYXl2F8yqs=
+	t=1739318970; cv=none; b=He/IrS8eDsceaOVWhkwuqLOdzaKDldrab2LZC5uoGwG5FWkOsnLBei2DgMkGUuCLKMEafeXixPmzz/FENCe0HzlJmMpjT5/YQ32tx0S8W8QgOqhlf0a00Ltb5aAiH7tPKsM+r7C+xRT70gbK1i20U1EWoPVWEHspeub1gwd4jo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739311040; c=relaxed/simple;
-	bh=c2F4YyO0zty73qP5MfZbEEE38U1+9j5KgY2f7LQMC10=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MF9f/6Es0dixjo1aFUwOnCvJtrEJpjqpWYUlnKwoi7pYQVA2S+oaQ7pxflC6+ZJW5IqLAyrpqbV4iQt1XgCMZVKJUZEFq+hvQUDxAmZ0jtlrchclGUmw3xDEwGIhtDWuyRptRZaUyamZUA4pfEjEjZ3yZklncapeiu24IQaxpuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TTPuPtSm; arc=none smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3061513d353so60972741fa.2;
-        Tue, 11 Feb 2025 13:57:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739311035; x=1739915835; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=c2F4YyO0zty73qP5MfZbEEE38U1+9j5KgY2f7LQMC10=;
-        b=TTPuPtSmvHRYlnVrbcu2s6KqIDjoRwDVt1kg9tgnd/j0TvwhoV1CcpSGEWhb7DmAu2
-         eJ5scPciG8KfHOMBqrLHt8MtHWxT/ANNJeydW8ZH0iPOEwO37FGGVuMpx4esvZHVte4D
-         x/s+Css8Py9RbF04qYsE/W69Cw0wQg5kg09KydiwE0mdYDT08u84AZg5k4YK2PeWgpe/
-         BeVt+6tFgCeXUjmnh5NkMHlT9jJCehZkEuqPkpcVj/2d2kPXbrcO4zpvc2ENkKZgIw8F
-         +0Lgin0xbidyPLAcb87qMZfzHfp+amSdsxmzojhqocdC7s7OORfQeof05Jzb97v/tXn0
-         Sptw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739311035; x=1739915835;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=c2F4YyO0zty73qP5MfZbEEE38U1+9j5KgY2f7LQMC10=;
-        b=ouJPb5JLpIyGuQNBD620uePWTgTChVTAR+/54jT9jQbXiwoXCZwwefwSZ5o/8P8mpE
-         kbqjjimwv/EZtyEvQhjipDiE771h84zBOadjpx90MBXJhjPGYRlEigruSV6eWiY+ko1+
-         GGFW5cy7Ua+MOjWb4J2dmEhHGC9ErkmzpIXF4Ae51vKC+2Uej1DhIicqa5UiVtyEexy5
-         Jqz0Qjp/TKGtgALgEcGGqO8du3vYv/y08rNyhigzwLD21VcNmsmYxFPLkioU9i8/xsIJ
-         a7wxZ9W10qq9mjUH5FcmWXTIaB0pDvHdUPDgUXI3XaAmdUoo0NnW7/0mSMzLY9zu+GyO
-         eYPg==
-X-Forwarded-Encrypted: i=1; AJvYcCURaltPbLqYvyQlDmGLbfKmP1x3zpBZ1ou1T0s2bSjZZvqt3jH7BYq9mFIZZtP0DlryBffzytGVNsHsO2M=@vger.kernel.org, AJvYcCVsTeQJphyZQvbvT8Ko7/Fv9NZqC3wj8pzOlgyZZNnhcSDeJuZVkRiV+oBY7WzvRRpRb7qDjkmvYcU43tSM4Z4=@vger.kernel.org, AJvYcCW1IHCeEO7bUVfutezhZ/6KrLBzVdVnDweCcMRq9D+oahxhn1PqDTVwkZTDKeJI900YYHXfLiITR0JJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFnw7j9fq9M5xGX6+68DR3VsXYqWaXwu7jIMZYHn1m2rMzjXUZ
-	btygMa5Jr8nPhyG2uXKJ7PYC2P7d0hXc9VBWO4OaUNeWaEQtkppJlLMJG2ybvHGU7PVMQknSU3U
-	WsXerapJSVPawY5+84s1QD1tnYvI=
-X-Gm-Gg: ASbGncuIaEOFc2TDPQu97LpTRnq70/9sz7EBKJ3fvS8PtNxx7kNhZ98efEZ1c8cgZAu
-	+4/EcO1mO7zd/cNPDDgE9fS1QHlvyI4yQ/1zRwTajDLazvges57+SL2rqigW2vO8hvzJh7x8GSL
-	Z1zg2cXw3Wa/r8
-X-Google-Smtp-Source: AGHT+IGOrQD8MxdRfmx9iEDiigrvV+LC60zfPkJa9wsNZ2IYahMoY1znouGoofXO5nJURcbJHtFuqGFw30gWvKVUqTY=
-X-Received: by 2002:a2e:be10:0:b0:308:f75f:441 with SMTP id
- 38308e7fff4ca-309039149f7mr3478471fa.24.1739311035451; Tue, 11 Feb 2025
- 13:57:15 -0800 (PST)
+	s=arc-20240116; t=1739318970; c=relaxed/simple;
+	bh=O9UBMlGRQYXJQKFlPX42Spix5KTHeqNLB0lXTl3HjD0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JyVlhxEEtrbh1xm2u8l0tqI2PjC1GdtB5VM93Hqw8/4/Fklv33MSQoP+RUyLBU3rKJ8fJFd+7QV9boQ7uvgfdvVmvf2Q3I2WV9gS2viTfNMCi9ytuIYz6J3QVpjMPPHWfKE0C9pQtku0pk46GiYi8Ty5WHJbH9r/HaoCXWobKps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHgju3FN; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E20FC4CEDD;
+	Wed, 12 Feb 2025 00:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739318969;
+	bh=O9UBMlGRQYXJQKFlPX42Spix5KTHeqNLB0lXTl3HjD0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lHgju3FNcRL5m7j9y2kwatQ6FXX7ulNtlpzHw02H/caYhTGrPo99FJaVt69kY8fUz
+	 EHPLJwI1+Q7I9gsTVkuutfdO5fpfNowZkSRPUZ6iYt8eAS7NquUiLMmJbYzxrHEbb5
+	 fO06mp0E29QZxA2nQZhLzc7gJrqSpB6W1rTyid8p5X+dBThsb5/ReqHXD8HfJHVfMT
+	 hixNvYhFXQfZKBF9YDfAAcefDx4l8f0sOVLCeLtUhEUu60vRpQktzhpM/H9ESyZ1Ud
+	 tbiA8kcpEfa27e7IVfMRffWAsI0OJMBHQzfXC7Dw/783q/iNjxWWwMRv+ejudtUfnh
+	 FbbgvUT9G+Qkg==
+Date: Wed, 12 Feb 2025 01:10:07 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Amit Pinhas <amitpinhass@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Wording issue in kill(2) with sig=0
+Message-ID: <cgagaczm73j6i2ergudwdigwxdiurrfxesz2b5dmsagata4tgs@7by2urnkzqp7>
+References: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com>
- <CANiq72n2J5N1c=-PV+-2n71WsmzWy+HH6K_YdobyWK2wYx0A-g@mail.gmail.com>
- <CAJ-ks9kmaJxkug9YEzE6EVp7pCwkiZQHZiq89ciQw15G3YvjQA@mail.gmail.com>
- <CANiq72m8W7Ve_X0nQNQVdbBFxp7QD-iCQ7fx7hBwkT1rHfMssw@mail.gmail.com> <Z6vG9QlPbwfpxwdJ@pollux>
-In-Reply-To: <Z6vG9QlPbwfpxwdJ@pollux>
-From: Tamir Duberstein <tamird@gmail.com>
-Date: Tue, 11 Feb 2025 16:56:38 -0500
-X-Gm-Features: AWEUYZnzR1AtDjAcjoltaT7aZuGANxavWMnLa0DRAmHtuXs50HetFZqN4hA1bDA
-Message-ID: <CAJ-ks9ko_cGmOT3=kkcS3RAJ5pB1dAFR2GfXoE+C7c_k_8_3GA@mail.gmail.com>
-Subject: Re: [PATCH v4] rust: alloc: satisfy POSIX alignment requirement
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, Will Newton <will.newton@linaro.org>, 
-	Paul Eggert <eggert@cs.ucla.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
-	Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <benno.lossin@proton.me>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, 
-	linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mi3umhkunjwykmr7"
+Content-Disposition: inline
+In-Reply-To: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+
+
+--mi3umhkunjwykmr7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Amit Pinhas <amitpinhass@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Wording issue in kill(2) with sig=0
+References: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
 
-On Tue, Feb 11, 2025 at 4:54=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> Agree with Miguel, better to drop it in such cases.
->
-> But no worries, Tamir. It was still valid in this case, which is why I di=
-d not
-> complain. :)
->
-> Also feel free to keep it for v5, moving to Gary's simplification.
->
-> - Danilo
+Hello Amit,
 
-=F0=9F=AB=A1
+Please CC the mailing list.  (I've added it now.)
 
-Thanks!
+On Tue, Feb 11, 2025 at 09:43:43PM +0200, Amit Pinhas wrote:
+> Hello!
+> My name is Amit, and I started getting deep into both linux kernel and us=
+er
+> space programming in the last few years.
+> During my journey, I stumbled upon a small mistake, or rather a misphrasi=
+ng
+> in `man 2 kill`.
+>=20
+> At my scenario, I was looking to check an existence of a certain process,
+> and so i have seen that kill will check it for me, as mentioned:
+> ```
+>=20
+> If *sig* is 0, then no signal is sent, but existence and permission
+> checks are still performed; this can be used to check for the
+> existence of a process ID...
+>=20
+> ```
+> Which is great! I was trying it and it worked just as I expected.
+> When the process did exist, I would get 0 as a success, and if not, then
+> the call failed, as I expected.
+>=20
+> On the other hand, when I read the `RETURN VALUE` section, I saw a small
+> misphrasing:
+> ```
+>=20
+> On success (at least one signal was sent), zero is returned.  On
+> error, -1 is returned...
+>=20
+> ```
+> Which seemed rational.
+>=20
+> But wait! How can I get 0 when providing sig=3D0, if no signal was actual=
+ly
+> sent, which is the criteria for success of this call???
+>=20
+> If i understand correctly, there should be a disclaimer, something like:
+> ```
+>=20
+> On success (at least one signal was sent *or if sig=3D0 and the checks
+> done were successful*), zero is returned.  On
+> error, -1 is returned...
+
+You're correct.  I'd maybe rephrase it differently:
+
+	On success, zero is returned.  If signals were sent to a process
+	group, success means that at least one signal was delivered.
+
+	On error, -1 is returned...
+
+This helps clarify what the sentence really meant.
+
+>=20
+> ```
+>=20
+> If you read my thoughts this far, thank you for your time! I love your wo=
+rk
+> and keep it going!
+
+Thanks!  :)
+
+> I would like to know how and if I could fix the man page if needed :)
+
+Sure, you can send a patch!  Here are the contributing guidelines:
+
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
+ING>
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
+ING.d/>
+
+You'll first need to clone the repository with git(1), and edit the file
+<man/man2/kill.2>.  Then do a commit.  Then format a patch, and then
+send it.  Sending it is the most difficult part, if you're not used to
+it, but we can help with that.  Feel free to ask if you have any doubts!
+It may be difficult to write the first patch, so ask as much as you
+need.
+
+> Have a nice day guys!
+> Much love from Israel :)
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--mi3umhkunjwykmr7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmer5tgACgkQnowa+77/
+2zJx1BAAoyZKpRecJ/EBfVPdJT+b8r6FevNpO0EN8pXalFF5Y+Q9zhsYbtHtDe0c
+OxvEFlvwCzLOZTgsYaNUpyI/nrGxXVkqQTUgg1Y5PAVZ7ru9ZPgqz5zuWMfoU+WA
+b00qwKefo0vTv2DamXBjkq+N2eVNXvfWPGiwZ/ZkLn0Mi6I+YBdSSimzap5F6F8s
+X9OOxTXb9FROG/Fxken+2D1aIaoderCtbqP7bD3qTm6L9j/d7JBcb2ku5D/gJHEN
+dIoOxvybhRuRkJf3XcB643+MBIIr1COs3Q6gv0WKGKelap36bBk4bDxTlnt/LLYP
+8nUDLpahp3eB5L4kbK2x68mOlJKnR9jYJ2cZ6TzZHDB4CN41ibLcSRy0Ei9z3BFa
+WOVp5cpFfZcXDVJyJ8wo1t1cTzDIW01XI27jPOjkO6aqxzpOWb7N+4FqWba/1Mvl
+N2i1JyJjUPQpXl8J6YIexehLQs7lfDaQdAUhfzZz7Z/rYWFYyb/wz/1z9npxct4B
+bu1HX4eNb1J8v+KOWWo9IlVG2OHB2eahbqQLH1hxY7qb1eJ0koTEI3gqvphNQT6T
+g6peXxma1cFw50Z6eOSgPgOd6x+KP8hHHG87ug0Pmos2XqIA8arOs5A7UUtpdiI0
+g/QaF0P8ZCHooIMwXkPy0n7229O/7dozfhY0pmTb6ahUkhGiVXs=
+=lhgW
+-----END PGP SIGNATURE-----
+
+--mi3umhkunjwykmr7--
 
