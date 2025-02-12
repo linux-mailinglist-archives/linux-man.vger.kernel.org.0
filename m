@@ -1,179 +1,140 @@
-Return-Path: <linux-man+bounces-2410-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2411-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44A92A33050
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 21:01:42 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C3CAA330C3
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 21:25:50 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 90053188BD45
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 20:01:45 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CB8A0168027
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 20:25:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B854201022;
-	Wed, 12 Feb 2025 20:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A909F20103D;
+	Wed, 12 Feb 2025 20:25:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u/SYAqBl"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/J/8WfN"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA9E201017;
-	Wed, 12 Feb 2025 20:01:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F7A200B99
+	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 20:25:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739390492; cv=none; b=aZ3F+CU/vH28peLkzniN0ogBoge6DMSNG/jhTQdOeXpTjOmSUeU0DSGrPdfhlV4LG88JV0UEYUXsfZE72HNuoZR21Ae77f3cl11lVzd8GyrK88RXq8GPKaNsnQhWM1N/cI/KEPREw32Gq2gyKEo4P3qUuY2oYCIWBpdPDf2HiUk=
+	t=1739391946; cv=none; b=ZLGcCoD3gi0i6Tv9LbGTPCBRvm2zd5LJCUC5mRfBs21Rf8cvR38nQBSaHT1iXxxj6pYqXzkWzSKD1p15p0zXD6IgNJALjsoxfhz5wK58IHrf/ajt6oL5B4KwhjGG6kwEn5sXYZbte2YErefK4jje8LqQvvy8GXRSjE2yltJzoTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739390492; c=relaxed/simple;
-	bh=ih7UwWQTGH9m1+e48DnI4Kmn77m9E1quXg8pFdtmvwE=;
+	s=arc-20240116; t=1739391946; c=relaxed/simple;
+	bh=3S8XhqO9cRItaKD2o4autuGSgIKenNB/zbz4SJMUbl8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Na/O+DlcVoNz6zuJywiDuyBGPmXWFajH3gCXWrEYZfDsl32x2v3R378GBqnPPbX9aG5YiTQSl7QwxnHr4fOfzyNunS52X4qtGSj6AX4nCgcaXN2O+MDtw5wRPzXNkNEMqgrSv+k1aozEk3V0ungOyZdivu4btmyFz4rZEehMBCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u/SYAqBl; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF7BC4CEDF;
-	Wed, 12 Feb 2025 20:01:28 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=mu/xRDDFJMxL8glnooQ1xDlxPqrWull5fL6aVKNZlACZgpB1WABxIxoB2SWIkCdDiBSEjS9HCUoFQf76IPROI4TVUtCVcVbuYh0+UZqsFjwGCXxNBKK0S6T/SVFHpTGWBfExQ61cwPtC3a9QFN7QHDiridJ91nwvJLX0i6/5kHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/J/8WfN; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0C5C4CEDF;
+	Wed, 12 Feb 2025 20:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739390492;
-	bh=ih7UwWQTGH9m1+e48DnI4Kmn77m9E1quXg8pFdtmvwE=;
+	s=k20201202; t=1739391942;
+	bh=3S8XhqO9cRItaKD2o4autuGSgIKenNB/zbz4SJMUbl8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u/SYAqBlCpPfF1iq+4ICv36S0WZyNqpyqeX0b1enYwZlNh5j2DPR8Opx8VV7fzkX4
-	 3a0UmILl6EVPNFxAerkdjEk1xBH3Az1b8tEjoLNLcsUXFQ2q9mnnK9f5hSM4NoivI8
-	 VK83HinlUaR1JvKM4QXOmocK/H9riF648gVnrJx90CVsSupWQrM20TXYfbfi4soNyC
-	 iofcBj2lqigFLl4YqTHcEt8kzHL2cyc9LgfOXFtCOjTqcW8U5+d/IQZygN0lFMy7dC
-	 Lh91Z9CHzPW0d5m6xoDI/2nuUa3GX0wvyGPDxhFlrXzjOznYXifgMaB2nMASjxEmFJ
-	 Li17Bkvb2AwfQ==
-Date: Wed, 12 Feb 2025 21:01:26 +0100
-From: Danilo Krummrich <dakr@kernel.org>
-To: Tamir Duberstein <tamird@gmail.com>
-Cc: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
-	DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>,
-	Paul Eggert <eggert@cs.ucla.edu>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <benno.lossin@proton.me>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	rust-for-linux@vger.kernel.org, linux-man@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] rust: alloc: satisfy POSIX alignment requirement
-Message-ID: <Z6z-FlEUk9OfeJCV@cassiopeiae>
-References: <20250212-aligned-alloc-v5-1-c51e0b17dee9@gmail.com>
- <Z6zA9UNm_UckccRm@pollux>
- <20250212163848.22e8dcff@eugeo>
- <Z6zT6mZuxonewQ9z@pollux>
- <CAJ-ks9=-kP5jBGQ_A88VPU_HW9VkF=OCqcGufqrJobhJu8dhww@mail.gmail.com>
+	b=d/J/8WfNCymw27tNS3vSVUlTIHAl25od3ki8dH9Wevb1JR9obCMPkI0Wa30tbolVi
+	 JoREn3pqy/xt2gJhZzSFhWi/tVZ5hTv+LXEx/HE2jQUu4cpFRvVpKl4iguI+GSQb8A
+	 Wzs6K7Zr2dpwJccZCZYgQ6v+xmg+T+CrryQXFED+BnDhpbFvPEMAI61sdjmVtWVB6X
+	 tAlChpewz4V0oP0biejWxr4HIpj/27pQx/ImbDPkfsSFTDnKmwG7NF5UdkA8MBPoCH
+	 4ZJSCWGD9cGY65k2AaAwgYq212St7uxT1hpQaE366xnGz51PEfnbiPpKEP7WB4KXx/
+	 t3dL9wiomdfdg==
+Date: Wed, 12 Feb 2025 21:26:20 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Amit Pinhas <amitpinhass@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] [PATCH v2] man/man2/kill.2: Add Amit Pinhas as a
+ contributer
+Message-ID: <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
+References: <cover.1739389071.git.amitpinhass@gmail.com>
+ <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wt777dkgcs75s7s4"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJ-ks9=-kP5jBGQ_A88VPU_HW9VkF=OCqcGufqrJobhJu8dhww@mail.gmail.com>
+In-Reply-To: <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
 
-On Wed, Feb 12, 2025 at 01:44:45PM -0500, Tamir Duberstein wrote:
-> On Wed, Feb 12, 2025 at 12:01 PM Danilo Krummrich <dakr@kernel.org> wrote:
-> >
-> > On Wed, Feb 12, 2025 at 04:38:48PM +0000, Gary Guo wrote:
-> > > On Wed, 12 Feb 2025 16:40:37 +0100
-> > > Danilo Krummrich <dakr@kernel.org> wrote:
-> > >
-> > > > On Wed, Feb 12, 2025 at 09:43:02AM -0500, Tamir Duberstein wrote:
-> > > > > diff --git a/rust/kernel/alloc/allocator_test.rs b/rust/kernel/alloc/allocator_test.rs
-> > > > > index e3240d16040b..17a475380253 100644
-> > > > > --- a/rust/kernel/alloc/allocator_test.rs
-> > > > > +++ b/rust/kernel/alloc/allocator_test.rs
-> > > > > @@ -62,6 +62,26 @@ unsafe fn realloc(
-> > > > >              ));
-> > > > >          }
-> > > > >
-> > > > > +        // ISO C (ISO/IEC 9899:2011) defines `aligned_alloc`:
-> > > > > +        //
-> > > > > +        // > The value of alignment shall be a valid alignment supported by the implementation
-> > > > > +        // [...].
-> > > > > +        //
-> > > > > +        // As an example of the "supported by the implementation" requirement, POSIX.1-2001 (IEEE
-> > > > > +        // 1003.1-2001) defines `posix_memalign`:
-> > > > > +        //
-> > > > > +        // > The value of alignment shall be a power of two multiple of sizeof (void *).
-> > > > > +        //
-> > > > > +        // and POSIX-based implementations of `aligned_alloc` inherit this requirement. At the time
-> > > > > +        // of writing, this is known to be the case on macOS (but not in glibc).
-> > > > > +        //
-> > > > > +        // Satisfy the stricter requirement to avoid spurious test failures on some platforms.
-> > > > > +        let min_align = core::mem::size_of::<*const crate::ffi::c_void>();
-> > > > > +        let layout = layout.align_to(min_align).unwrap_or_else(|_err| {
-> > > > > +            crate::build_error!("invalid alignment")
-> > > >
-> > > > That's not what I thought this patch will look like. I thought you'll directly
-> > > > follow Gary's proposal, which is why I said you can keep the ACK.
-> > > >
-> > > > build_error!() doesn't work here, there is no guarantee that this can be
-> > > > evaluated at compile time.
-> > >
-> > > `align_to` will only fail if `min_align` is not a valid alignment (i.e.
-> > > not power of two), which the compiler should be easy to notice that the
-> > > size of pointer is indeed power of 2.
-> >
-> > From the documentation of align_to():
-> >
-> > "Returns an error if the combination of self.size() and the given align violates
-> > the conditions listed in Layout::from_size_align."
-> >
-> > Formally self.size() may still be unknown at compile time.
-> >
-> > Do I miss anything?
-> 
-> Formally, I agree. I tried testing (in allocator_test.rs):
-> 
-> #[cfg(test)]
-> mod tests {
->     use super::*;
-> 
->     #[test]
->     fn test_allocate() {
->         #[inline(never)]
->         fn non_const_usize() -> usize {
->             let x = 0;
->             &x as *const _ as usize
->         }
-> 
->         let layout = Layout::array::<bool>(non_const_usize()).unwrap();
->         let ptr = Cmalloc::alloc(layout, GFP_KERNEL).unwrap();
->         let ptr = ptr.cast();
->         // SAFETY:
->         // - `ptr` was previously allocated with `Cmalloc`.
->         // - `layout` is equal to the `Layout´ `ptr` was allocated with.
->         unsafe { Cmalloc::free(ptr, layout) };
->     }
-> }
-> 
-> and it compiled (and passed).
 
-I suggest to try the following.
+--wt777dkgcs75s7s4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Amit Pinhas <amitpinhass@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] [PATCH v2] man/man2/kill.2: Add Amit Pinhas as a
+ contributer
+References: <cover.1739389071.git.amitpinhass@gmail.com>
+ <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
 
-Move non_const_usize() into allocator_test.rs and within realloc(), try [1];
-then try [2].
+Hi Amit,
 
-Besides that, I still think build_error!() can't be used here correctly, since
-layout.size() might not be known at compile time. Please change things to what I
-did suggest previously.
+On Wed, Feb 12, 2025 at 09:39:29PM +0200, Amit Pinhas wrote:
+> ---
+>  man/man2/kill.2 | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/man/man2/kill.2 b/man/man2/kill.2
+> index 8bb75545b..3022ae02a 100644
+> --- a/man/man2/kill.2
+> +++ b/man/man2/kill.2
+> @@ -20,6 +20,7 @@
+>  .\"     Added note on CAP_KILL
+>  .\" Modified 2004-06-24 by aeb
+>  .\" Modified, 2004-11-30, after idea from emmanuel.colbus@ensimag.imag.fr
+> +.\" Modified 2025-02-12, after correction from <amitpinhass@gmail.com>
 
---
+We don't update those anymore.  We now rely on the metadata in git(1).
 
-[1]
-```
-if non_const_usize() < 0x42 {
-   crate::build_error!();
-}
-```
+Every now and then, I consider if I should just remove all of those
+lines, to avoid confusing people.  If anyone is interested in the
+history before git(1), one can certainly look at those lines in old
+versions of the pages.  Anyone reading the mailing list opposes removing
+those lines?  (I'll ask again before removing anything, with a proper
+subject line.)
 
-[2]
-```
-if non_const_usize() >= 0x42 {
-   crate::build_error!();
-}
-```
+
+Have a lovely night!
+Alex
+
+>  .\"
+>  .TH kill 2 (date) "Linux man-pages (unreleased)"
+>  .SH NAME
+> --=20
+> 2.43.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--wt777dkgcs75s7s4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmetA+UACgkQnowa+77/
+2zLlrBAAmH1W8Y0O7DtXDNgPjKH9cam+kbl9PyRoJeyQsgNZ9u7Q+Y8jiu7ncEmY
+OEyuaCCDn90gx/3AxMYbJZuahgzV304dcUjALYfDOglrr+qF7aMIqUsnBKhxtl2n
+U1kiwXhGasHCp7q25O+GeokUJkzL9ZTgQ83Q7Q4JqhhyyiqEAlLOF5MeeuqVswYq
+WNY6dV+Y/dqKCGgh/f0BnGexNnP6YmCIXzghWGO0yBugw2VtmynNz72zcYmS/w+D
+OdPlvrh9GNP+rgosBuRsvyc6RY0Ewm20a03VYosx9QwOfc+r0+qCwrEY8XrglAvu
+ldKP1h4ShgPX3QljDLM5IQiGdrXvXvNW3lPdeFvZEoW/Ao3ZZVPNvV1yTBAdrlsG
+1t9Xpf9PzZVC6VSeMNksCPXrsh8YbZHu+2mb9oLOESV2jGnTTFGrGthaw02mjmnd
+0mt9HsMwD7jIjk66C+LqJoLXPQJl0+VsCR6ejTayzyXt5Lq8J+RTnP+ks0HjgxHy
+PlsSUsTRuGOWJDrgUyEG84Y7IwLU4FAe+1piMbW5y4bYkJ6h6fp+035qQsN4NPgg
+EG4BDc16+Fn5ZtvSLsYkPdYB4qHykMOhXwyxnmfambnuclSyqJx3L8fk9PaYDjeE
+gxdrDePzRu43/HsdmbB3iIQ0e6OyN8F6AdP2QReUgcQgKG0K/QU=
+=ce07
+-----END PGP SIGNATURE-----
+
+--wt777dkgcs75s7s4--
 
