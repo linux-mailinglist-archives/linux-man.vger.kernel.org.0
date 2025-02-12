@@ -1,186 +1,182 @@
-Return-Path: <linux-man+bounces-2399-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2400-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA385A31A33
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 01:09:58 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DFC2A328E6
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 15:43:36 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8EA0A1883E46
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 00:09:48 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3BBD13A9EC3
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 14:43:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86A57184F;
-	Wed, 12 Feb 2025 00:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54844210F5D;
+	Wed, 12 Feb 2025 14:43:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHgju3FN"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bRx9AJQu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4351FA31
-	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 00:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F8820967D;
+	Wed, 12 Feb 2025 14:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739318970; cv=none; b=He/IrS8eDsceaOVWhkwuqLOdzaKDldrab2LZC5uoGwG5FWkOsnLBei2DgMkGUuCLKMEafeXixPmzz/FENCe0HzlJmMpjT5/YQ32tx0S8W8QgOqhlf0a00Ltb5aAiH7tPKsM+r7C+xRT70gbK1i20U1EWoPVWEHspeub1gwd4jo4=
+	t=1739371389; cv=none; b=MV1YhxWxFm2rHmLGj7EqHDbjt6TQn+t3Nr6+pj2WS6mRJHzfIkTNqB5dod5qOzSPS0uqeaWlWZTLhuVgPnWsZsDJOVuBlTaF8r3Hs0NQR699EdqXBUAWDz1jEhr5n3n6h3eG2xoUiAkjtaKKz5Lf4h4Bg1oIOH/PfJlUkrxynpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739318970; c=relaxed/simple;
-	bh=O9UBMlGRQYXJQKFlPX42Spix5KTHeqNLB0lXTl3HjD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JyVlhxEEtrbh1xm2u8l0tqI2PjC1GdtB5VM93Hqw8/4/Fklv33MSQoP+RUyLBU3rKJ8fJFd+7QV9boQ7uvgfdvVmvf2Q3I2WV9gS2viTfNMCi9ytuIYz6J3QVpjMPPHWfKE0C9pQtku0pk46GiYi8Ty5WHJbH9r/HaoCXWobKps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHgju3FN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E20FC4CEDD;
-	Wed, 12 Feb 2025 00:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739318969;
-	bh=O9UBMlGRQYXJQKFlPX42Spix5KTHeqNLB0lXTl3HjD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lHgju3FNcRL5m7j9y2kwatQ6FXX7ulNtlpzHw02H/caYhTGrPo99FJaVt69kY8fUz
-	 EHPLJwI1+Q7I9gsTVkuutfdO5fpfNowZkSRPUZ6iYt8eAS7NquUiLMmJbYzxrHEbb5
-	 fO06mp0E29QZxA2nQZhLzc7gJrqSpB6W1rTyid8p5X+dBThsb5/ReqHXD8HfJHVfMT
-	 hixNvYhFXQfZKBF9YDfAAcefDx4l8f0sOVLCeLtUhEUu60vRpQktzhpM/H9ESyZ1Ud
-	 tbiA8kcpEfa27e7IVfMRffWAsI0OJMBHQzfXC7Dw/783q/iNjxWWwMRv+ejudtUfnh
-	 FbbgvUT9G+Qkg==
-Date: Wed, 12 Feb 2025 01:10:07 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Amit Pinhas <amitpinhass@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Wording issue in kill(2) with sig=0
-Message-ID: <cgagaczm73j6i2ergudwdigwxdiurrfxesz2b5dmsagata4tgs@7by2urnkzqp7>
-References: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+	s=arc-20240116; t=1739371389; c=relaxed/simple;
+	bh=V4mU0GjkjWbEkL/INC2a+sJpha9ZmCGaZJr78NjeBY8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KKoR6F1GOZROKQZ/M1B8ltuN62towZrrOnjO2jH+vu5xaKKLVJB+s8sWxTSMfUzEwvbHdOdyeSEcWOQjTGav1hP/cRheAu9jyysKEp+hdCkmhMbd2hI5RudgIpR2ngnGnGK/xI6zorq0cn86E2aLk9fGG817rnWdkqQ77xXHZkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bRx9AJQu; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-6e46269d2c2so40843636d6.3;
+        Wed, 12 Feb 2025 06:43:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739371386; x=1739976186; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=gGpyZWwaIydNu+RxVjlhMHpFk5vW0QiePFraEUdR7ws=;
+        b=bRx9AJQuRCip/0zWvCMCifd7LTIUCIUSpmb/GsMcgcNLOzUaCiRK/AjNDM1KyulYAz
+         rlVmUQ2OpCBAdFOMa2fCLd9XmZTlKnZo0J5Ou05zn+iwh68Dudt9e0VYpxJWWMukGsgT
+         ewjteisk0WVy6M1ANAZuNKc3sokLk94bUmCxu8Kb7Mw1bNoG685+7W9X3gY+YmBRXBuS
+         e1jy7XMylS7T9MsTiHAq/n7YUy/vangIFXxIKgIesNuH9Mdqyx6ehYvRE3ub///7LPCC
+         9MtfR4r4YJCJJ8Qf2JAQ6rP2n8jyebnavxgpXp+3gnKtoiZXR/jTqBFYXRuxd7t3BYi7
+         XgYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739371386; x=1739976186;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gGpyZWwaIydNu+RxVjlhMHpFk5vW0QiePFraEUdR7ws=;
+        b=t/VKuIHxvW0p7Tup5aUKlpRyyPwl2IqjRQvTBf9z9wnf8vumQk3EolWRKugCX+/Qj0
+         qr27xN9JsSNxiQOngvOGJ0KdNC+Exti9p3wBa+xifgcHYDeQUeGp6N1HrMna6tYdYT6N
+         jlPCK2QVG0txTYXQWK9v5+SeqqMGftU/Qk7mXAKM8rCbDFHSTb7vI/1TDXi4fX6/YySX
+         +CTT7FEkTXrVF6vQYZ9nM1Y/gykmtFPccxAelG4l5jEAVLtWaMEUE8M7X/cOSNvnpXUA
+         TgFoeWw1iqgdC74NtgPwJodBQtlCDAXS9UV5iRbG4UdHsyTlRbIIfVS8pnXUP/T+B7Wo
+         imxA==
+X-Forwarded-Encrypted: i=1; AJvYcCXFsRgJ0sH16p2BJ2YVDe2iC7mpzLW6TPrCUiqlT2qjg0ckJO95QlhnQM14QxSFyuDkEDIlGIpJozjKgyc=@vger.kernel.org, AJvYcCXa3bP6dGIeGgj3+yaMK7sUkM37GZc3LqCMesuFz+xCLhiRtXRNct7NclnrO3soXdiisxJedPz3nEr2@vger.kernel.org
+X-Gm-Message-State: AOJu0YzoLNqScrMQ3gB4UN2jJ2heryAIlZLh76L/9cmO7TVElU9grKwC
+	KMd0XPfPPQb6ZMB+IWZSpKXh44EY4qxbNgm3Ha4XMHkCU013OcQT
+X-Gm-Gg: ASbGncuIYD7zZk/M+AWK52y0fWglit/Gy5a9q5WpviuK7QUYHep9wV1Ew5MQDh9+X83
+	b1A9kfbUZqZveym2+lorf2j2UUcsMq8458JWKeJdpOufXDaiLxW3Gng5NFejp6QdGZvUedoZchj
+	jOvujBfmakKKTkGrZkBrV92WwvztPP6XRT+xIdgZQcP+Rsc8ifoRWXlbXTAE+n6q87zfphlMoiD
+	MPpxo5XEE43DzgDkMc+b1724g4XIHJcC52POlZZnM/prKEqIrvpo3nk8QOj4CHbaNMhHvTLcWQL
+	kbZ87/giDSwCCp4SnnGQgN3BoIPGKno+GF+2NBNdM2hPCH26q2Xx4DDLACrz/Z+KVzvBXRawQgv
+	w85Elrbq/59xEJ2DTkSoA8YaK
+X-Google-Smtp-Source: AGHT+IF9seDh6AWQtalF752Q0jhtPu9m93pQFxRunT/I8QcmdFHIUexk3E9l9PKkC9TOV9kt0lknzg==
+X-Received: by 2002:a0c:e884:0:b0:6e4:6ee2:1a0d with SMTP id 6a1803df08f44-6e46ee21a93mr48589516d6.18.1739371386093;
+        Wed, 12 Feb 2025 06:43:06 -0800 (PST)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2620:10d:c091:600::1:1968])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6e445c50a10sm70366836d6.91.2025.02.12.06.43.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Feb 2025 06:43:05 -0800 (PST)
+From: Tamir Duberstein <tamird@gmail.com>
+Date: Wed, 12 Feb 2025 09:43:02 -0500
+Subject: [PATCH v5] rust: alloc: satisfy POSIX alignment requirement
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mi3umhkunjwykmr7"
-Content-Disposition: inline
-In-Reply-To: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250212-aligned-alloc-v5-1-c51e0b17dee9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAHWzrGcC/3XMQQrCMBCF4atI1kYmM020rryHuEgmSRuorbRSF
+ OndjV2VgKvhDXz/R0xhTGES591HjGFOUxr6PPR+J7i1fRNk8nkLBNSAoKTtUtMHn283sHQa2SF
+ p4hOKbB5jiOm19q63vNs0PYfxveZn9fv+K81KKsl1bY8UiZ2vLs3dpu7Aw138SjNuNZYas9Y2g
+ tPR+8rEUtNWm1JT1sCOwTogML7U1UYrKHWVtYGayZoYFNVbvSzLF1C5j4BkAQAA
+X-Change-ID: 20250201-aligned-alloc-b52cb2353c82
+To: Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, 
+ Paul Eggert <eggert@cs.ucla.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <benno.lossin@proton.me>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>
+Cc: rust-for-linux@vger.kernel.org, linux-man@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Tamir Duberstein <tamird@gmail.com>
+X-Mailer: b4 0.15-dev
 
+ISO C's `aligned_alloc` is partially implementation-defined; on some
+systems it inherits stricter requirements from POSIX's `posix_memalign`.
 
---mi3umhkunjwykmr7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Amit Pinhas <amitpinhass@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Wording issue in kill(2) with sig=0
-References: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+This causes the call added in commit dd09538fb409 ("rust: alloc:
+implement `Cmalloc` in module allocator_test") to fail on macOS because
+it doesn't meet the requirements of `posix_memalign`.
 
-Hello Amit,
+Adjust the call to meet the POSIX requirement and add a comment. This
+fixes failures in `make rusttest` on macOS.
 
-Please CC the mailing list.  (I've added it now.)
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Fixes: dd09538fb409 ("rust: alloc: implement `Cmalloc` in module allocator_test")
+Signed-off-by: Tamir Duberstein <tamird@gmail.com>
+---
+Changes in v5:
+- Remove errant newline in commit message. (Miguel Ojeda)
+- Use more succinct expression. (Gary Guo)
+- Drop and then add Danilo's Acked-by again.
+- Link to v4: https://lore.kernel.org/r/20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com
 
-On Tue, Feb 11, 2025 at 09:43:43PM +0200, Amit Pinhas wrote:
-> Hello!
-> My name is Amit, and I started getting deep into both linux kernel and us=
-er
-> space programming in the last few years.
-> During my journey, I stumbled upon a small mistake, or rather a misphrasi=
-ng
-> in `man 2 kill`.
->=20
-> At my scenario, I was looking to check an existence of a certain process,
-> and so i have seen that kill will check it for me, as mentioned:
-> ```
->=20
-> If *sig* is 0, then no signal is sent, but existence and permission
-> checks are still performed; this can be used to check for the
-> existence of a process ID...
->=20
-> ```
-> Which is great! I was trying it and it worked just as I expected.
-> When the process did exist, I would get 0 as a success, and if not, then
-> the call failed, as I expected.
->=20
-> On the other hand, when I read the `RETURN VALUE` section, I saw a small
-> misphrasing:
-> ```
->=20
-> On success (at least one signal was sent), zero is returned.  On
-> error, -1 is returned...
->=20
-> ```
-> Which seemed rational.
->=20
-> But wait! How can I get 0 when providing sig=3D0, if no signal was actual=
-ly
-> sent, which is the criteria for success of this call???
->=20
-> If i understand correctly, there should be a disclaimer, something like:
-> ```
->=20
-> On success (at least one signal was sent *or if sig=3D0 and the checks
-> done were successful*), zero is returned.  On
-> error, -1 is returned...
+Changes in v4:
+- Revert to `aligned_alloc` and correct rationale. (Miguel Ojeda)
+- Apply Danilo's Acked-by from v2.
+- Rebase on v6.14-rc2.
+- Link to v3: https://lore.kernel.org/r/20250206-aligned-alloc-v3-1-0cbc0ab0306d@gmail.com
 
-You're correct.  I'd maybe rephrase it differently:
+Changes in v3:
+- Replace `aligned_alloc` with `posix_memalign` for portability.
+- Link to v2: https://lore.kernel.org/r/20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com
 
-	On success, zero is returned.  If signals were sent to a process
-	group, success means that at least one signal was delivered.
+Changes in v2:
+- Shorten some variable names. (Danilo Krummrich)
+- Replace shadowing alignment variable with a second call to
+  Layout::align. (Danilo Krummrich)
+- Link to v1: https://lore.kernel.org/r/20250201-aligned-alloc-v1-1-c99a73f3cbd4@gmail.com
+---
+ rust/kernel/alloc/allocator_test.rs | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-	On error, -1 is returned...
+diff --git a/rust/kernel/alloc/allocator_test.rs b/rust/kernel/alloc/allocator_test.rs
+index e3240d16040b..17a475380253 100644
+--- a/rust/kernel/alloc/allocator_test.rs
++++ b/rust/kernel/alloc/allocator_test.rs
+@@ -62,6 +62,26 @@ unsafe fn realloc(
+             ));
+         }
+ 
++        // ISO C (ISO/IEC 9899:2011) defines `aligned_alloc`:
++        //
++        // > The value of alignment shall be a valid alignment supported by the implementation
++        // [...].
++        //
++        // As an example of the "supported by the implementation" requirement, POSIX.1-2001 (IEEE
++        // 1003.1-2001) defines `posix_memalign`:
++        //
++        // > The value of alignment shall be a power of two multiple of sizeof (void *).
++        //
++        // and POSIX-based implementations of `aligned_alloc` inherit this requirement. At the time
++        // of writing, this is known to be the case on macOS (but not in glibc).
++        //
++        // Satisfy the stricter requirement to avoid spurious test failures on some platforms.
++        let min_align = core::mem::size_of::<*const crate::ffi::c_void>();
++        let layout = layout.align_to(min_align).unwrap_or_else(|_err| {
++            crate::build_error!("invalid alignment")
++        });
++        let layout = layout.pad_to_align();
++
+         // SAFETY: Returns either NULL or a pointer to a memory allocation that satisfies or
+         // exceeds the given size and alignment requirements.
+         let dst = unsafe { libc_aligned_alloc(layout.align(), layout.size()) } as *mut u8;
 
-This helps clarify what the sentence really meant.
+---
+base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+change-id: 20250201-aligned-alloc-b52cb2353c82
 
->=20
-> ```
->=20
-> If you read my thoughts this far, thank you for your time! I love your wo=
-rk
-> and keep it going!
+Best regards,
+-- 
+Tamir Duberstein <tamird@gmail.com>
 
-Thanks!  :)
-
-> I would like to know how and if I could fix the man page if needed :)
-
-Sure, you can send a patch!  Here are the contributing guidelines:
-
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING>
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING.d/>
-
-You'll first need to clone the repository with git(1), and edit the file
-<man/man2/kill.2>.  Then do a commit.  Then format a patch, and then
-send it.  Sending it is the most difficult part, if you're not used to
-it, but we can help with that.  Feel free to ask if you have any doubts!
-It may be difficult to write the first patch, so ask as much as you
-need.
-
-> Have a nice day guys!
-> Much love from Israel :)
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---mi3umhkunjwykmr7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmer5tgACgkQnowa+77/
-2zJx1BAAoyZKpRecJ/EBfVPdJT+b8r6FevNpO0EN8pXalFF5Y+Q9zhsYbtHtDe0c
-OxvEFlvwCzLOZTgsYaNUpyI/nrGxXVkqQTUgg1Y5PAVZ7ru9ZPgqz5zuWMfoU+WA
-b00qwKefo0vTv2DamXBjkq+N2eVNXvfWPGiwZ/ZkLn0Mi6I+YBdSSimzap5F6F8s
-X9OOxTXb9FROG/Fxken+2D1aIaoderCtbqP7bD3qTm6L9j/d7JBcb2ku5D/gJHEN
-dIoOxvybhRuRkJf3XcB643+MBIIr1COs3Q6gv0WKGKelap36bBk4bDxTlnt/LLYP
-8nUDLpahp3eB5L4kbK2x68mOlJKnR9jYJ2cZ6TzZHDB4CN41ibLcSRy0Ei9z3BFa
-WOVp5cpFfZcXDVJyJ8wo1t1cTzDIW01XI27jPOjkO6aqxzpOWb7N+4FqWba/1Mvl
-N2i1JyJjUPQpXl8J6YIexehLQs7lfDaQdAUhfzZz7Z/rYWFYyb/wz/1z9npxct4B
-bu1HX4eNb1J8v+KOWWo9IlVG2OHB2eahbqQLH1hxY7qb1eJ0koTEI3gqvphNQT6T
-g6peXxma1cFw50Z6eOSgPgOd6x+KP8hHHG87ug0Pmos2XqIA8arOs5A7UUtpdiI0
-g/QaF0P8ZCHooIMwXkPy0n7229O/7dozfhY0pmTb6ahUkhGiVXs=
-=lhgW
------END PGP SIGNATURE-----
-
---mi3umhkunjwykmr7--
 
