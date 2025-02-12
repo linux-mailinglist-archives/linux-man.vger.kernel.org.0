@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-2411-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2412-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C3CAA330C3
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 21:25:50 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADF8A330D1
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 21:28:20 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CB8A0168027
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 20:25:48 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 957693A4C5E
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 20:28:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A909F20103D;
-	Wed, 12 Feb 2025 20:25:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D46F520103D;
+	Wed, 12 Feb 2025 20:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/J/8WfN"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kc61SQAd"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F7A200B99
-	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 20:25:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F24200B99
+	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 20:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739391946; cv=none; b=ZLGcCoD3gi0i6Tv9LbGTPCBRvm2zd5LJCUC5mRfBs21Rf8cvR38nQBSaHT1iXxxj6pYqXzkWzSKD1p15p0zXD6IgNJALjsoxfhz5wK58IHrf/ajt6oL5B4KwhjGG6kwEn5sXYZbte2YErefK4jje8LqQvvy8GXRSjE2yltJzoTk=
+	t=1739392094; cv=none; b=TPxN7upCobqu3qKO5a45NTvZRoQNMJimuLXoU2YQ5QRBbapmucyyzPh8gu7pR3245Wu6AOC1FNzPLh/V4uygnVQ+eqfvBxairmy9D9hKxWgpjHnQ91kkXp4kBin+MNYTdTArypjK+VrYN0EAMtOX/4P6zWqSayay8Xc15680M5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739391946; c=relaxed/simple;
-	bh=3S8XhqO9cRItaKD2o4autuGSgIKenNB/zbz4SJMUbl8=;
+	s=arc-20240116; t=1739392094; c=relaxed/simple;
+	bh=TVAdrlFM1+FeCSpdWih3zK7+9IIzc4D0MKR42lVVmhg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mu/xRDDFJMxL8glnooQ1xDlxPqrWull5fL6aVKNZlACZgpB1WABxIxoB2SWIkCdDiBSEjS9HCUoFQf76IPROI4TVUtCVcVbuYh0+UZqsFjwGCXxNBKK0S6T/SVFHpTGWBfExQ61cwPtC3a9QFN7QHDiridJ91nwvJLX0i6/5kHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/J/8WfN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0C5C4CEDF;
-	Wed, 12 Feb 2025 20:25:42 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=hsOAJxqnsSZ+s8yqdb/TQM2ph9RDoCqYklmlsxjlCT7Q0ZPiH4b3oXsIu5L0KgIwKJabw+7w2HTyDbEYmHHak4Hi/74ZlcoX92LMfPaiJn4bnDCNt6DF/phXkvOKcR18hsuemFghj7ASGoJjw7ivwI6gapDy+ppys5AQk3gyL1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kc61SQAd; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B79EC4CEDF;
+	Wed, 12 Feb 2025 20:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739391942;
-	bh=3S8XhqO9cRItaKD2o4autuGSgIKenNB/zbz4SJMUbl8=;
+	s=k20201202; t=1739392094;
+	bh=TVAdrlFM1+FeCSpdWih3zK7+9IIzc4D0MKR42lVVmhg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=d/J/8WfNCymw27tNS3vSVUlTIHAl25od3ki8dH9Wevb1JR9obCMPkI0Wa30tbolVi
-	 JoREn3pqy/xt2gJhZzSFhWi/tVZ5hTv+LXEx/HE2jQUu4cpFRvVpKl4iguI+GSQb8A
-	 Wzs6K7Zr2dpwJccZCZYgQ6v+xmg+T+CrryQXFED+BnDhpbFvPEMAI61sdjmVtWVB6X
-	 tAlChpewz4V0oP0biejWxr4HIpj/27pQx/ImbDPkfsSFTDnKmwG7NF5UdkA8MBPoCH
-	 4ZJSCWGD9cGY65k2AaAwgYq212St7uxT1hpQaE366xnGz51PEfnbiPpKEP7WB4KXx/
-	 t3dL9wiomdfdg==
-Date: Wed, 12 Feb 2025 21:26:20 +0100
+	b=kc61SQAd1k1GWH8ealfzgMQXHxnR8G9M0M6WasXmo/WBT6aOFQsnOzLI8Uq8vJu9e
+	 u6DnzaUm72QfyM/HYGzItevST98+D/OPa+oNe1I7ImPRMb+qaqRJhoYi2Mmqd9hYyp
+	 Z60ysgUJltavRf4g00OwuX3fa6f8XYLUeg1gqb546K5oGedIEwi0mNW+F2Xk3/6GsA
+	 E+DUzlOS0UtAKbf5PA6QKxVaYe77On79jl0U5XVucAPUpcosbZ8kvUPwKAN+NmwEd8
+	 j3vTxK5n1dWGm5nybzKcy6QUjW1fk3/jMm53tHtaAICidfot7INQF2WX9I3DIyMB/E
+	 hu+0Nb1gsBMHQ==
+Date: Wed, 12 Feb 2025 21:28:51 +0100
 From: Alejandro Colomar <alx@kernel.org>
 To: Amit Pinhas <amitpinhass@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] [PATCH v2] man/man2/kill.2: Add Amit Pinhas as a
- contributer
-Message-ID: <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
-References: <cover.1739389071.git.amitpinhass@gmail.com>
- <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+Subject: Re: Wording issue in kill(2) with sig=0
+Message-ID: <vt44xxdtw4alqgz4wbiv3ajfczmmxt7hcirdxpvmrt5scs26aw@lgqdzyjloxoa>
+References: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+ <cgagaczm73j6i2ergudwdigwxdiurrfxesz2b5dmsagata4tgs@7by2urnkzqp7>
+ <CAFOwVBJ2nNSjU1CYhcE-YZso9c_NM4oF7GgaUsB+5tFO+KwBVg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,84 +57,165 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wt777dkgcs75s7s4"
+	protocol="application/pgp-signature"; boundary="yzou5ubucfepqqj5"
 Content-Disposition: inline
-In-Reply-To: <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+In-Reply-To: <CAFOwVBJ2nNSjU1CYhcE-YZso9c_NM4oF7GgaUsB+5tFO+KwBVg@mail.gmail.com>
 
 
---wt777dkgcs75s7s4
+--yzou5ubucfepqqj5
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Amit Pinhas <amitpinhass@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] [PATCH v2] man/man2/kill.2: Add Amit Pinhas as a
- contributer
-References: <cover.1739389071.git.amitpinhass@gmail.com>
- <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+Subject: Re: Wording issue in kill(2) with sig=0
+References: <CAFOwVBLo+FQDzHagO1OqFoukHTMYHbGzfrvc3gDLRBtbOd8ggg@mail.gmail.com>
+ <cgagaczm73j6i2ergudwdigwxdiurrfxesz2b5dmsagata4tgs@7by2urnkzqp7>
+ <CAFOwVBJ2nNSjU1CYhcE-YZso9c_NM4oF7GgaUsB+5tFO+KwBVg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+In-Reply-To: <CAFOwVBJ2nNSjU1CYhcE-YZso9c_NM4oF7GgaUsB+5tFO+KwBVg@mail.gmail.com>
 
-Hi Amit,
+On Wed, Feb 12, 2025 at 09:46:47PM +0200, Amit Pinhas wrote:
+> Hello! :)
+> I sent the patch the way that I read in the docs that you sent me, hope I
+> did everything right (or at least some of it :)).
+> I would like to make sure that everything was properly sent :)
+> Thanks!
 
-On Wed, Feb 12, 2025 at 09:39:29PM +0200, Amit Pinhas wrote:
-> ---
->  man/man2/kill.2 | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/man/man2/kill.2 b/man/man2/kill.2
-> index 8bb75545b..3022ae02a 100644
-> --- a/man/man2/kill.2
-> +++ b/man/man2/kill.2
-> @@ -20,6 +20,7 @@
->  .\"     Added note on CAP_KILL
->  .\" Modified 2004-06-24 by aeb
->  .\" Modified, 2004-11-30, after idea from emmanuel.colbus@ensimag.imag.fr
-> +.\" Modified 2025-02-12, after correction from <amitpinhass@gmail.com>
+Hello!  :)
 
-We don't update those anymore.  We now rely on the metadata in git(1).
-
-Every now and then, I consider if I should just remove all of those
-lines, to avoid confusing people.  If anyone is interested in the
-history before git(1), one can certainly look at those lines in old
-versions of the pages.  Anyone reading the mailing list opposes removing
-those lines?  (I'll ask again before removing anything, with a proper
-subject line.)
+Yep, it looks quite good.  I have some minor comments about the source
+code itself, but the process looks good.  Thanks!
 
 
-Have a lovely night!
+Cheers,
 Alex
 
->  .\"
->  .TH kill 2 (date) "Linux man-pages (unreleased)"
->  .SH NAME
-> --=20
-> 2.43.0
 >=20
+> On Wed, 12 Feb 2025 at 02:09, Alejandro Colomar <alx@kernel.org> wrote:
+>=20
+> > Hello Amit,
+> >
+> > Please CC the mailing list.  (I've added it now.)
+> >
+> > On Tue, Feb 11, 2025 at 09:43:43PM +0200, Amit Pinhas wrote:
+> > > Hello!
+> > > My name is Amit, and I started getting deep into both linux kernel and
+> > user
+> > > space programming in the last few years.
+> > > During my journey, I stumbled upon a small mistake, or rather a
+> > misphrasing
+> > > in `man 2 kill`.
+> > >
+> > > At my scenario, I was looking to check an existence of a certain proc=
+ess,
+> > > and so i have seen that kill will check it for me, as mentioned:
+> > > ```
+> > >
+> > > If *sig* is 0, then no signal is sent, but existence and permission
+> > > checks are still performed; this can be used to check for the
+> > > existence of a process ID...
+> > >
+> > > ```
+> > > Which is great! I was trying it and it worked just as I expected.
+> > > When the process did exist, I would get 0 as a success, and if not, t=
+hen
+> > > the call failed, as I expected.
+> > >
+> > > On the other hand, when I read the `RETURN VALUE` section, I saw a sm=
+all
+> > > misphrasing:
+> > > ```
+> > >
+> > > On success (at least one signal was sent), zero is returned.  On
+> > > error, -1 is returned...
+> > >
+> > > ```
+> > > Which seemed rational.
+> > >
+> > > But wait! How can I get 0 when providing sig=3D0, if no signal was ac=
+tually
+> > > sent, which is the criteria for success of this call???
+> > >
+> > > If i understand correctly, there should be a disclaimer, something li=
+ke:
+> > > ```
+> > >
+> > > On success (at least one signal was sent *or if sig=3D0 and the checks
+> > > done were successful*), zero is returned.  On
+> > > error, -1 is returned...
+> >
+> > You're correct.  I'd maybe rephrase it differently:
+> >
+> >         On success, zero is returned.  If signals were sent to a process
+> >         group, success means that at least one signal was delivered.
+> >
+> >         On error, -1 is returned...
+> >
+> > This helps clarify what the sentence really meant.
+> >
+> > >
+> > > ```
+> > >
+> > > If you read my thoughts this far, thank you for your time! I love your
+> > work
+> > > and keep it going!
+> >
+> > Thanks!  :)
+> >
+> > > I would like to know how and if I could fix the man page if needed :)
+> >
+> > Sure, you can send a patch!  Here are the contributing guidelines:
+> >
+> > <
+> > https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRI=
+BUTING
+> > >
+> > <
+> > https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRI=
+BUTING.d/
+> > >
+> >
+> > You'll first need to clone the repository with git(1), and edit the file
+> > <man/man2/kill.2>.  Then do a commit.  Then format a patch, and then
+> > send it.  Sending it is the most difficult part, if you're not used to
+> > it, but we can help with that.  Feel free to ask if you have any doubts!
+> > It may be difficult to write the first patch, so ask as much as you
+> > need.
+> >
+> > > Have a nice day guys!
+> > > Much love from Israel :)
+> >
+> > Have a lovely night!
+> > Alex
+> >
+> > --
+> > <https://www.alejandro-colomar.es/>
+> >
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---wt777dkgcs75s7s4
+--yzou5ubucfepqqj5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmetA+UACgkQnowa+77/
-2zLlrBAAmH1W8Y0O7DtXDNgPjKH9cam+kbl9PyRoJeyQsgNZ9u7Q+Y8jiu7ncEmY
-OEyuaCCDn90gx/3AxMYbJZuahgzV304dcUjALYfDOglrr+qF7aMIqUsnBKhxtl2n
-U1kiwXhGasHCp7q25O+GeokUJkzL9ZTgQ83Q7Q4JqhhyyiqEAlLOF5MeeuqVswYq
-WNY6dV+Y/dqKCGgh/f0BnGexNnP6YmCIXzghWGO0yBugw2VtmynNz72zcYmS/w+D
-OdPlvrh9GNP+rgosBuRsvyc6RY0Ewm20a03VYosx9QwOfc+r0+qCwrEY8XrglAvu
-ldKP1h4ShgPX3QljDLM5IQiGdrXvXvNW3lPdeFvZEoW/Ao3ZZVPNvV1yTBAdrlsG
-1t9Xpf9PzZVC6VSeMNksCPXrsh8YbZHu+2mb9oLOESV2jGnTTFGrGthaw02mjmnd
-0mt9HsMwD7jIjk66C+LqJoLXPQJl0+VsCR6ejTayzyXt5Lq8J+RTnP+ks0HjgxHy
-PlsSUsTRuGOWJDrgUyEG84Y7IwLU4FAe+1piMbW5y4bYkJ6h6fp+035qQsN4NPgg
-EG4BDc16+Fn5ZtvSLsYkPdYB4qHykMOhXwyxnmfambnuclSyqJx3L8fk9PaYDjeE
-gxdrDePzRu43/HsdmbB3iIQ0e6OyN8F6AdP2QReUgcQgKG0K/QU=
-=ce07
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmetBIMACgkQnowa+77/
+2zKavA/9ERmao7A0EYgN1Kc/BZF8qeNnWtq7au7mNjJN+JQsCOmISBAZ0fsJ6xda
+eSahL9DJrG+qVIfqQIUCJjQc7smFEQjBBhJvEAiAscBfwDmC4u5ZI73Y5EJqsxPg
+8RxEPstb4av243Y16/C4GzcvN6wroF6Qza+JKmgfdhILy9UJ+R913xxp+sIj9oZ/
+9nREUCyUkOBp4M87L7Q6XK7RDoGoZO2jGqULfEnBUiuToVzSbX/ZyzhcXQTkGXLA
+4bfJA7QFoEDXPhQxn9I+ZijqAM6sHUt7TykIlrLLBhvtSHPcnOuVpu9CfkpGuL34
+T9aY6szjIKDYm0aQXTg2L5zU05eQVpIuI0wGYrrogGhuDsRLdI7Nb/o9GB8VC9AH
+2SdZlZndU0Uz9X/TxagjIm9NsEhyHRhZ0QeLEZtTCLbjnjbJUxGSeyqe93KaoU1h
+cXxXX6x3gO03hdde4ttI2Wxli+k6g61flixzMU1o178lg4Wd9scN5OCVVmsOfvyb
+TfAhu0SNxQh8LOiF/k3+3X+SiegWtNJXNOq8pQz+6RRgvyp8vkSXpDVKF7czO+m2
+Sez/Koi3W7Lq2adPr+ZeKLCbzw4DjdmHq6Oe4pjjSRMWyYRhA/XwNyYj2MpQbaSr
+/S4lX4hocVaWpeNpl36BE/L/EYt5yrkhZpGhNGjswznTtF9geiw=
+=OmB9
 -----END PGP SIGNATURE-----
 
---wt777dkgcs75s7s4--
+--yzou5ubucfepqqj5--
 
