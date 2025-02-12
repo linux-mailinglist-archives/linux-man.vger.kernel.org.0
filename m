@@ -1,182 +1,262 @@
-Return-Path: <linux-man+bounces-2400-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2401-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DFC2A328E6
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 15:43:36 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98B61A3297F
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 16:06:35 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3BBD13A9EC3
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 14:43:05 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9B57F188742D
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 15:05:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54844210F5D;
-	Wed, 12 Feb 2025 14:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 127FB21127A;
+	Wed, 12 Feb 2025 15:05:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bRx9AJQu"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qz2wZeVz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F8820967D;
-	Wed, 12 Feb 2025 14:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC34C20F077;
+	Wed, 12 Feb 2025 15:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739371389; cv=none; b=MV1YhxWxFm2rHmLGj7EqHDbjt6TQn+t3Nr6+pj2WS6mRJHzfIkTNqB5dod5qOzSPS0uqeaWlWZTLhuVgPnWsZsDJOVuBlTaF8r3Hs0NQR699EdqXBUAWDz1jEhr5n3n6h3eG2xoUiAkjtaKKz5Lf4h4Bg1oIOH/PfJlUkrxynpg=
+	t=1739372730; cv=none; b=JGK8jyQoMAdMEYdHsPfwAkbgVM0RZDY8adrG3No29Brt3tFmzLtYcuXRZwb3iNGrfnsQT+H1paguveXNZOlkQ6nw+1YAvvrIchi6QDIq2nQfyvDa3N7ABNXRrM+76R2KxDbAmXPVsyr9mJFUBmq16AEcAWueWAZTD4P07+fDcMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739371389; c=relaxed/simple;
-	bh=V4mU0GjkjWbEkL/INC2a+sJpha9ZmCGaZJr78NjeBY8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KKoR6F1GOZROKQZ/M1B8ltuN62towZrrOnjO2jH+vu5xaKKLVJB+s8sWxTSMfUzEwvbHdOdyeSEcWOQjTGav1hP/cRheAu9jyysKEp+hdCkmhMbd2hI5RudgIpR2ngnGnGK/xI6zorq0cn86E2aLk9fGG817rnWdkqQ77xXHZkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bRx9AJQu; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-6e46269d2c2so40843636d6.3;
-        Wed, 12 Feb 2025 06:43:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739371386; x=1739976186; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=gGpyZWwaIydNu+RxVjlhMHpFk5vW0QiePFraEUdR7ws=;
-        b=bRx9AJQuRCip/0zWvCMCifd7LTIUCIUSpmb/GsMcgcNLOzUaCiRK/AjNDM1KyulYAz
-         rlVmUQ2OpCBAdFOMa2fCLd9XmZTlKnZo0J5Ou05zn+iwh68Dudt9e0VYpxJWWMukGsgT
-         ewjteisk0WVy6M1ANAZuNKc3sokLk94bUmCxu8Kb7Mw1bNoG685+7W9X3gY+YmBRXBuS
-         e1jy7XMylS7T9MsTiHAq/n7YUy/vangIFXxIKgIesNuH9Mdqyx6ehYvRE3ub///7LPCC
-         9MtfR4r4YJCJJ8Qf2JAQ6rP2n8jyebnavxgpXp+3gnKtoiZXR/jTqBFYXRuxd7t3BYi7
-         XgYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739371386; x=1739976186;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gGpyZWwaIydNu+RxVjlhMHpFk5vW0QiePFraEUdR7ws=;
-        b=t/VKuIHxvW0p7Tup5aUKlpRyyPwl2IqjRQvTBf9z9wnf8vumQk3EolWRKugCX+/Qj0
-         qr27xN9JsSNxiQOngvOGJ0KdNC+Exti9p3wBa+xifgcHYDeQUeGp6N1HrMna6tYdYT6N
-         jlPCK2QVG0txTYXQWK9v5+SeqqMGftU/Qk7mXAKM8rCbDFHSTb7vI/1TDXi4fX6/YySX
-         +CTT7FEkTXrVF6vQYZ9nM1Y/gykmtFPccxAelG4l5jEAVLtWaMEUE8M7X/cOSNvnpXUA
-         TgFoeWw1iqgdC74NtgPwJodBQtlCDAXS9UV5iRbG4UdHsyTlRbIIfVS8pnXUP/T+B7Wo
-         imxA==
-X-Forwarded-Encrypted: i=1; AJvYcCXFsRgJ0sH16p2BJ2YVDe2iC7mpzLW6TPrCUiqlT2qjg0ckJO95QlhnQM14QxSFyuDkEDIlGIpJozjKgyc=@vger.kernel.org, AJvYcCXa3bP6dGIeGgj3+yaMK7sUkM37GZc3LqCMesuFz+xCLhiRtXRNct7NclnrO3soXdiisxJedPz3nEr2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoLNqScrMQ3gB4UN2jJ2heryAIlZLh76L/9cmO7TVElU9grKwC
-	KMd0XPfPPQb6ZMB+IWZSpKXh44EY4qxbNgm3Ha4XMHkCU013OcQT
-X-Gm-Gg: ASbGncuIYD7zZk/M+AWK52y0fWglit/Gy5a9q5WpviuK7QUYHep9wV1Ew5MQDh9+X83
-	b1A9kfbUZqZveym2+lorf2j2UUcsMq8458JWKeJdpOufXDaiLxW3Gng5NFejp6QdGZvUedoZchj
-	jOvujBfmakKKTkGrZkBrV92WwvztPP6XRT+xIdgZQcP+Rsc8ifoRWXlbXTAE+n6q87zfphlMoiD
-	MPpxo5XEE43DzgDkMc+b1724g4XIHJcC52POlZZnM/prKEqIrvpo3nk8QOj4CHbaNMhHvTLcWQL
-	kbZ87/giDSwCCp4SnnGQgN3BoIPGKno+GF+2NBNdM2hPCH26q2Xx4DDLACrz/Z+KVzvBXRawQgv
-	w85Elrbq/59xEJ2DTkSoA8YaK
-X-Google-Smtp-Source: AGHT+IF9seDh6AWQtalF752Q0jhtPu9m93pQFxRunT/I8QcmdFHIUexk3E9l9PKkC9TOV9kt0lknzg==
-X-Received: by 2002:a0c:e884:0:b0:6e4:6ee2:1a0d with SMTP id 6a1803df08f44-6e46ee21a93mr48589516d6.18.1739371386093;
-        Wed, 12 Feb 2025 06:43:06 -0800 (PST)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2620:10d:c091:600::1:1968])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6e445c50a10sm70366836d6.91.2025.02.12.06.43.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Feb 2025 06:43:05 -0800 (PST)
-From: Tamir Duberstein <tamird@gmail.com>
-Date: Wed, 12 Feb 2025 09:43:02 -0500
-Subject: [PATCH v5] rust: alloc: satisfy POSIX alignment requirement
+	s=arc-20240116; t=1739372730; c=relaxed/simple;
+	bh=w9HBmzbsRhGZHlzu5GUY4UoHmAOJCRjBXRBw6avZ0xg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pfv5ir2D2Vj+lU1Wt8+DycYLR/lfH/17hQIrGWi+PpBlCjR8G1BDkLNf4/qaJ1W4+5vSE9MR18e175VCEkLf10vaBWdKC/n0uGzPIdvsdqKTdvE99LULjC0528m2ytMGtz3M0/8MtFVtZh7M+9USUNhExXSCd3C4ZTZwkoZuCX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qz2wZeVz; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6273BC4CEDF;
+	Wed, 12 Feb 2025 15:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739372730;
+	bh=w9HBmzbsRhGZHlzu5GUY4UoHmAOJCRjBXRBw6avZ0xg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qz2wZeVz1Yi9vq6BDXVrCvUySVc5c8FaNCs70mWOICKflyO9kPSzeOYCqoeILaVXl
+	 535sUYmqALGRZg6Jgo18HFbnfqSQLr/JFvh8/1ToN9O0PwxDVRhbMPLxGqj1WdkmyF
+	 eDG91IRZW4QBvpVPdwgksiIIb5B7A19zR+uTTcbiDc/SFBowGjQK/aI6vjWLCu7Rgu
+	 LMrCPQpWLjHk5WK3YYyW6Egjswf9sklCdH+fSRerXm+DA49v2HMj6Dshy2ibNimaCR
+	 hzMAUiO0lSj9cvpmV/+Pj7HArFw+Cg2DOw8J8p6kSp3R4TDpqiam3AJDeJ5Vyatu5a
+	 ++RnDnNR8o93A==
+Date: Wed, 12 Feb 2025 16:06:06 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	linux-security-module@vger.kernel.org, Tahera Fahimi <fahimitahera@gmail.com>, 
+	Tanya Agarwal <tanyaagarwal25699@gmail.com>, Daniel Burgener <dburgener@linux.microsoft.com>, 
+	tools@kernel.org, linux-doc@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
+ scoping documentation
+Message-ID: <7vl6uylhzgkokl42bz36d5g3krcusqf7mdy4bd7tblcjckatrw@ullu2kblovji>
+References: <20250124154445.162841-1-gnoack@google.com>
+ <20250211.Ree5bu6Eph2p@digikod.net>
+ <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
+ <20250211.ieSoo7Phe5oh@digikod.net>
+ <3unkhxarmiddobfjvojx4sdpgitjld26udcagka2ocgrb6c2jc@dcg4w5yk5mut>
+ <20250211.oavooPhap9OX@digikod.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250212-aligned-alloc-v5-1-c51e0b17dee9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHWzrGcC/3XMQQrCMBCF4atI1kYmM020rryHuEgmSRuorbRSF
- OndjV2VgKvhDXz/R0xhTGES591HjGFOUxr6PPR+J7i1fRNk8nkLBNSAoKTtUtMHn283sHQa2SF
- p4hOKbB5jiOm19q63vNs0PYfxveZn9fv+K81KKsl1bY8UiZ2vLs3dpu7Aw138SjNuNZYas9Y2g
- tPR+8rEUtNWm1JT1sCOwTogML7U1UYrKHWVtYGayZoYFNVbvSzLF1C5j4BkAQAA
-X-Change-ID: 20250201-aligned-alloc-b52cb2353c82
-To: Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- DJ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, 
- Paul Eggert <eggert@cs.ucla.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <benno.lossin@proton.me>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>
-Cc: rust-for-linux@vger.kernel.org, linux-man@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Tamir Duberstein <tamird@gmail.com>
-X-Mailer: b4 0.15-dev
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sewn3eknkwtsr5ds"
+Content-Disposition: inline
+In-Reply-To: <20250211.oavooPhap9OX@digikod.net>
 
-ISO C's `aligned_alloc` is partially implementation-defined; on some
-systems it inherits stricter requirements from POSIX's `posix_memalign`.
 
-This causes the call added in commit dd09538fb409 ("rust: alloc:
-implement `Cmalloc` in module allocator_test") to fail on macOS because
-it doesn't meet the requirements of `posix_memalign`.
+--sewn3eknkwtsr5ds
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	linux-security-module@vger.kernel.org, Tahera Fahimi <fahimitahera@gmail.com>, 
+	Tanya Agarwal <tanyaagarwal25699@gmail.com>, Daniel Burgener <dburgener@linux.microsoft.com>, 
+	tools@kernel.org, linux-doc@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
+ scoping documentation
+References: <20250124154445.162841-1-gnoack@google.com>
+ <20250211.Ree5bu6Eph2p@digikod.net>
+ <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
+ <20250211.ieSoo7Phe5oh@digikod.net>
+ <3unkhxarmiddobfjvojx4sdpgitjld26udcagka2ocgrb6c2jc@dcg4w5yk5mut>
+ <20250211.oavooPhap9OX@digikod.net>
+MIME-Version: 1.0
+In-Reply-To: <20250211.oavooPhap9OX@digikod.net>
 
-Adjust the call to meet the POSIX requirement and add a comment. This
-fixes failures in `make rusttest` on macOS.
+Hi Micka=C3=ABl,
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-Fixes: dd09538fb409 ("rust: alloc: implement `Cmalloc` in module allocator_test")
-Signed-off-by: Tamir Duberstein <tamird@gmail.com>
----
-Changes in v5:
-- Remove errant newline in commit message. (Miguel Ojeda)
-- Use more succinct expression. (Gary Guo)
-- Drop and then add Danilo's Acked-by again.
-- Link to v4: https://lore.kernel.org/r/20250210-aligned-alloc-v4-1-609c3a6fe139@gmail.com
+On Tue, Feb 11, 2025 at 08:24:21PM +0100, Micka=C3=ABl Sala=C3=BCn wrote:
+> > The official name of man9 is "Kernel Developer's Manual".
+> > In-scope in man9 are internal kernel APIs, and in general anything that
+> > is of interest to kernel developers but not to user-space developers.
+> >=20
+> > >  Because I want new kernel features to come with proper tests
+> > > and documentation, it would be much easier to apply all these patches=
+ to
+> > > the same repository, at the same time.  Using the same repository sho=
+uld
+> > > also help to synchronize documentation with code changes.
+> > >=20
+> > > One remaining issue would be that some generated documentation come f=
+rom
+> > > the kernel source files, especially the UAPI headers, which also helps
+> > > maintaining the documentation in sync with the code.  What would you
+> > > suggest to improve the current workflow?
+> >=20
+> > For generated documentation, I'd really avoid that.  Currently, in the
+> > man-pages we only have bpf-helpers(7), and I'd very much not follow that
+> > for other pages.
+>=20
+> OK, kernel doc in man9 would not be a good fit then.
 
-Changes in v4:
-- Revert to `aligned_alloc` and correct rationale. (Miguel Ojeda)
-- Apply Danilo's Acked-by from v2.
-- Rebase on v6.14-rc2.
-- Link to v3: https://lore.kernel.org/r/20250206-aligned-alloc-v3-1-0cbc0ab0306d@gmail.com
+Well, I think I should develop what I said.  I think the quality of
+generated documentation isn't good, compared to hand-written
+documentation.  I wouldn't recommend in general generating man(7) pages,
+just like I wouldn't recommend generating .rst documents.
 
-Changes in v3:
-- Replace `aligned_alloc` with `posix_memalign` for portability.
-- Link to v2: https://lore.kernel.org/r/20250202-aligned-alloc-v2-1-5af0b5fdd46f@gmail.com
+However, given the assumption that you're going to generate the
+documentation anyway from comments (which is what I recommend against),
+generating man(7) source isn't worse than generating .rst docs.  I
+personally don't like in-source comments either, so writing only man(7)
+source is fine --I don't have the problem of keeping it up to date with
+the comments; there's no duplication--.  If you're committed to
+in-source comments, and your internal APIs change so often that it
+wouldn't be reasonable to write documentation by hand (other than the
+in-source comments), then it makes sense to generate man(7) pages in
+the man9 section.
 
-Changes in v2:
-- Shorten some variable names. (Danilo Krummrich)
-- Replace shadowing alignment variable with a second call to
-  Layout::align. (Danilo Krummrich)
-- Link to v1: https://lore.kernel.org/r/20250201-aligned-alloc-v1-1-c99a73f3cbd4@gmail.com
----
- rust/kernel/alloc/allocator_test.rs | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+I'm going to release today the next version of the Linux man-pages
+project, and have refreshed the bpf-helpers(7) manual page from Linux
+source.  The process is pretty easy:
 
-diff --git a/rust/kernel/alloc/allocator_test.rs b/rust/kernel/alloc/allocator_test.rs
-index e3240d16040b..17a475380253 100644
---- a/rust/kernel/alloc/allocator_test.rs
-+++ b/rust/kernel/alloc/allocator_test.rs
-@@ -62,6 +62,26 @@ unsafe fn realloc(
-             ));
-         }
- 
-+        // ISO C (ISO/IEC 9899:2011) defines `aligned_alloc`:
-+        //
-+        // > The value of alignment shall be a valid alignment supported by the implementation
-+        // [...].
-+        //
-+        // As an example of the "supported by the implementation" requirement, POSIX.1-2001 (IEEE
-+        // 1003.1-2001) defines `posix_memalign`:
-+        //
-+        // > The value of alignment shall be a power of two multiple of sizeof (void *).
-+        //
-+        // and POSIX-based implementations of `aligned_alloc` inherit this requirement. At the time
-+        // of writing, this is known to be the case on macOS (but not in glibc).
-+        //
-+        // Satisfy the stricter requirement to avoid spurious test failures on some platforms.
-+        let min_align = core::mem::size_of::<*const crate::ffi::c_void>();
-+        let layout = layout.align_to(min_align).unwrap_or_else(|_err| {
-+            crate::build_error!("invalid alignment")
-+        });
-+        let layout = layout.pad_to_align();
-+
-         // SAFETY: Returns either NULL or a pointer to a memory allocation that satisfies or
-         // exceeds the given size and alignment requirements.
-         let dst = unsafe { libc_aligned_alloc(layout.align(), layout.size()) } as *mut u8;
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3De=
+bfa53a052e70a1252051ba3ad99c3b5a87da42d>
+	commit ebfa53a052e70a1252051ba3ad99c3b5a87da42d
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Wed Feb 12 15:46:18 2025 +0100
 
----
-base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
-change-id: 20250201-aligned-alloc-b52cb2353c82
+	    man/man7/bpf-helpers.7: Refresh page from Linux v6.13
+	   =20
+	    Scripted change:
+	   =20
+		    $ ~/src/linux/linux/v6.13/scripts/bpf_doc.py \
+		    | rst2man \
+		    >man7/bpf-helpers.7;
+	   =20
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-Best regards,
--- 
-Tamir Duberstein <tamird@gmail.com>
+	diff --git a/man/man7/bpf-helpers.7 b/man/man7/bpf-helpers.7
+	[...]
 
+So you could really use man9 for internal Landlock stuff.  Even if I
+think generated documentation isn't ideal, it's better than nothing.
+Being able to use man(1) for reading kernel documentation would still be
+a nice feature.
+
+And while I can't run all the linters that I run on hand-written docs on
+generated pages (because generated source necessarily triggers many
+false positives), I could still run some, which would trigger some
+accidents in the docs, and would also detect bugs in the software
+translating the docs from one language to another.
+
+So, I'd still recommend you considering man9.
+
+> > For APIs that change often, that may make sense, but in general, APIs
+> > shouldn't change significantly enough to prefer generated docs.
+> >=20
+> > > > I personally don't like the idea of having man2 in the kernel tree.
+> > > > Michael Kerrisk already mentioned several reasons for why it's a bad
+> > > > idea in the past.  On top of them, I'd add that the build system of=
+ the
+> > > > Linux man-pages project is quite more powerful than the kernel one,=
+ and
+> > > > it would be an important regression to have to adapt to the kernel
+> > > > Makefiles in the manual pages.
+> > >=20
+> > > For the Landlock syscalls case, could we move the syscall documentati=
+on
+> > > to man9?
+> >=20
+> > man9 is for internal kernel APIs.  Here's intro(9) in different systems,
+> > which documents what should go into man9, and what shouldn't:
+> >=20
+> > <https://man.netbsd.org/intro.9>
+> > <https://man.openbsd.org/intro.9>
+> > <https://man.freebsd.org/cgi/man.cgi?query=3Dintro&apropos=3D0&sektion=
+=3D9&manpath=3DFreeBSD+14.2-RELEASE+and+Ports&arch=3Ddefault&format=3Dhtml>
+> >=20
+> > Debian had a project which documented some Linux kernel internals in
+> > man9, but it was eventually dropped.  I don't know who maintained that,
+> > and what was the history about it.
+> >=20
+> > If Landlock has internal documentation that only matters to kernel
+> > developers, yes, that would be in-scope for man9.  The user-facing docs
+> > are more relevant in man2 and man7, though.
+> >=20
+> > I would be happy to take all the landlock docs in the form of man9 pages
+> > if you handle them to the Linux man-pages project.  I can do the work of
+> > transforming the .rst docs into man(7) pages; that's fine by me.
+> >=20
+> > If there's consensus in the kernel of moving to man9 docs, I'd be happy
+> > to help with that.  I fear that some maintainers may fear man(7) pages.
+> > If you need me to give any talks to explain how to write man(7) source
+> > code, and show that it's easier than it looks like, I could do that
+> > (G=C3=BCnther already suggested me to do so :).  Maybe I should give a =
+talk
+> > at Plumbers.
+>=20
+> It would be interesting to get the point of view of other kernel
+> maintainers but I guess a lot of them would have the same: to lower the
+> bar of contributions.
+
+I'm working hard on making it easier to contribute to the Linux
+man-pages project.  Adding consistency to the existing pages makes it
+easier to just look at the surrounding documentation and deduce how to
+document some new feature.  The source is today much more
+self-consistent than it was 5 years ago.
+
+Also, me being paid to work on the project means significantly less time
+to review something.  If I can do anything else to make it easier to
+write man(7) and/or contribute via email, please let me know.
+
+Yes, tools like b4(1) may not be ideal for working in two different
+repos, but I expect that if you report that to Konstantin, he'll
+probably have ideas for that.  I don't think that should be impossible
+to fix.
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--sewn3eknkwtsr5ds
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmesuNgACgkQnowa+77/
+2zJGtg/+ObB/c0bD0V5sdyKq/7jhMu2/ds415RlgP9ISaGSed0nAH9JVQpbkzkhh
+PKlk9N2WszM+x+bAu/+VIVUgBY5Z27Uw9e5BJ+vbZJZjkQPq/cjY1NTbHHTHalbe
+aeh5xHoRXxWJrdr9xrNozQNV2I0bLBWfnFLhaOj47SQ8Ep+maMKD1dwctLUDCRW8
+2Sx1/UiqYx0ZTGZdkvIiSI4iFQje6UdvjzaFf4RXdo3s4ILUhclSkrnOcoDOw47h
+YTUBr7vBytGLSiI3ZpAYhLs+FCfyYKMIDPM+Scw4KxBq0LW1zAiR4Z0os9Wq+9rf
+P1ZM7E1MWeChxy070OXm8AXq+68QEhMG4v7DDHmol/UYhEiWdWdtlsyw7i3N38Ks
+ifE4Aa0Tg7jRjEL6jKUr+JeZ0IdzFdvPN/defU6m0v5bP4GLFEt+w7v0KTLjJqMS
+B8H/+SsqRMfuemEc+FiOaU74GBdl8mZ5C1ZjIkyRLjvzOQtFE3TRDOmlLBrzHZ0q
+/y7etqDSUAxy5GgMpAelJWeu7WvRgyQY+xH7IewrqAhTLF948nESuZScM987S7r6
+rIX22xE1kxIyT4UrOHGAxxT9FhYr+1yxw/N+gyh9fQpwAzAlwh94GKZBRFC30U9v
+ZhAPm6DZEHiSuBZhxYDvycij80TIS0C9Oge7vQwQdnwxKOjPOo8=
+=OiCp
+-----END PGP SIGNATURE-----
+
+--sewn3eknkwtsr5ds--
 
