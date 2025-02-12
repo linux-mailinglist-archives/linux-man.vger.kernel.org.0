@@ -1,159 +1,184 @@
-Return-Path: <linux-man+bounces-2419-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2420-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 228FEA33321
-	for <lists+linux-man@lfdr.de>; Thu, 13 Feb 2025 00:02:28 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37578A33344
+	for <lists+linux-man@lfdr.de>; Thu, 13 Feb 2025 00:20:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 127F2167945
-	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 23:02:25 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 0EE137A325D
+	for <lists+linux-man@lfdr.de>; Wed, 12 Feb 2025 23:19:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A966209F40;
-	Wed, 12 Feb 2025 23:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF882209F53;
+	Wed, 12 Feb 2025 23:20:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HwCFqci6"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcgO9nSs"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CADD200114
-	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 23:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DED51FF1D6
+	for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 23:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739401337; cv=none; b=u6WfrsgCpgjbu2HmTsyaTEWe+PUqiOEiD5dkdcuHbIcfmtPp6RUy1aLFzvuVBxEd5FvKvbFyB6GkL0Gh1Ho0dwo2bElgCBea1T+vvK+J8hDxWoQ1uJAftd8yXlCYQfsnsewspo2Dh+3sNA8fOM1HTTjusGdZP07wIxQ/Zn8dqNQ=
+	t=1739402418; cv=none; b=S3ilTmlMU5dnRPieaGd7RLSpqFCeoIHwk7TIE8v/WTaslSzzUeEMxMnd6k5wo8qthUj83X2y2T+NPbpoEzJXl70DDX92/SuVx4iAawWkpQf8VMFynehRKzesLemOAmMq6Z9y1viNtd5mzicxXbBJ6mVX9Zjcwdi8fP5KZ05L+nU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739401337; c=relaxed/simple;
-	bh=el9bl3O4G4QXhJFPAJ+uOt83HwlaNnB2gu3PZHFTuNk=;
+	s=arc-20240116; t=1739402418; c=relaxed/simple;
+	bh=xmTXu4vao/wRYFrzAY6vps36kVCN+AYTURhgVFeqY/E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fJQNpIS5VBDhHRW3OSfXztnS6bz6ur7ODjx1oyaI5c0iX6hy1Eg3qzJ7U3pA2czh8z0VSzP+at832XsfaKC/tlLImDM9WA/MvBWfRf5jIRPhuyzD1wgS2ZxrUaFCyBoDaPhM7YA0ooiYm5CMDHMXc97ZdLp0c9GCl4yAWVr0iec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HwCFqci6; arc=none smtp.client-ip=209.85.210.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-726fc93a617so186986a34.3
-        for <linux-man@vger.kernel.org>; Wed, 12 Feb 2025 15:02:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739401334; x=1740006134; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=NsWqlj8UEeFsEe+lmhldmpEmchsvlS2sxfyN+Tw5PA8=;
-        b=HwCFqci6DmSRfwIUOPWoqQ+xu5geHpGdVvi4QWp30cgKJXCR0Nc2KyKHoPIEZeVIKZ
-         +YusMOoO+abOEOXQNgfitfYfsd/l9Wp4IAd/vKT2iE0xddAmg5lH/QlavnL0WL7wuhF5
-         kPSJbXm+Pe/6to33YR+UUR+hv45uj7Ua/kLsUDglr6oCQ5TaDMxbznGjXkpcl7BNHNkV
-         ArY/ViE+okQqX6+t2v6ZvjfJOL5zoxywYFpsl0M4St6D/spF4X5lxfoK/kfreVrr7mgz
-         J/lDuiAzjMatpeSxPyGJF9BUCvptTm+FiyBZ9UkSEgigNDXB/dUJS3U3Ll19F0oxuJHT
-         2AJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739401334; x=1740006134;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NsWqlj8UEeFsEe+lmhldmpEmchsvlS2sxfyN+Tw5PA8=;
-        b=pohBkSHhOuRsO+haYFR9kA2XkAuUqAQpqqnJfkXLcf0ieXl9+z2ihyYgzgq8sx+ObL
-         Af9MF52qlOpsqBaRjwOAf4ThOOyIP27LOTwfke2uNTMPPlQK7LZPdLa+JNI8zUsRX2AZ
-         Ghy+vMii/XuyRUMxzctAzr473HXoSwzoTy3Nr7UBw2/Z+BD7t5eN8ehcLK4dWBlzjTkT
-         w2QN1VPRAGxm/cH626CJKnrAG/hPi9wNgeFO3upAW0FMfB4rKtk1DOFoD0DA/U+v1EmV
-         nNgyDQR7Ex0HazRMt2Vui6mfAnuHZ6d+YwBgitT8TPaGYb1a7SlH2ng5JYK0rW2eo1zv
-         Nehw==
-X-Forwarded-Encrypted: i=1; AJvYcCXeByV7E6Pf/6GSFX9Xz70NLmHt/rOdkTv+zmHK8OZgxXPB74olztwb8RgHPyuB+j7KsumeSp3v1ss=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaVM5y6qoj0hZDZYJOl4WbJ1bhaW5O1yLBd4XU5HZgWKXBkRW1
-	e3hHVGAkNh10ppfdIpvAEB1M6E2+cenJ1DhoZe1R/mlGHXS6+mgF3igp5Q==
-X-Gm-Gg: ASbGncshAawLMNOV+prU1E5vATnrjneaSKcezDSBLyicTALnKWyOCpL/M8Z2u48ycv4
-	PcOp3OpeQIgnX3NqEZp+4NeVE6VOoNDnt161GP7LDk7WQVPNCKVE4IK85CRmkeV9p129NYP5g+L
-	WaTfZ4FWWOxCSsDXR0AOVGuakjoAsBq/bft8tONXXX5y48nLJe8JlQLSLpup4Giom0yw7EC5OOz
-	Yfuqm1ju4xWddeyQwpoZ43Z2CRDVdua9UKgoii0uP4QgHrWZ3rIsxOsmJympU33AICfoynavS3p
-	froD6g==
-X-Google-Smtp-Source: AGHT+IEa1/YEm2WhjH/IeKE1g5VQrMZvYTODS95XZctv1YIz12EQ6d1CmvWohDEeYql0FmBoglpheg==
-X-Received: by 2002:a05:6830:3389:b0:726:fca9:bb2 with SMTP id 46e09a7af769-726fca90f09mr1100885a34.16.1739401334387;
-        Wed, 12 Feb 2025 15:02:14 -0800 (PST)
-Received: from illithid ([2600:1700:957d:1d70::49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-72700264bd4sm88618a34.66.2025.02.12.15.02.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Feb 2025 15:02:12 -0800 (PST)
-Date: Wed, 12 Feb 2025 17:02:10 -0600
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Amit Pinhas <amitpinhass@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] [PATCH v2] man/man2/kill.2: Add Amit Pinhas as a
- contributer
-Message-ID: <20250212230210.3kkixsk7bi3cdc4d@illithid>
+	 Content-Type:Content-Disposition:In-Reply-To; b=BzgmHIsbu0AHdDr8r+K+r1XdWLCnXP91IF2dlBUAjg5BSPrtBfTK/uLs6j/B229e6DnIUZPm6c06yDqSv/BKc3p8nx3yAc/GBtVNpnyfN3T93pi1ganqaGs3dOdOni74d0LZ3TT7DmkXO4s+i3GzPOA/84BBBJX4oco5lDt/oVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcgO9nSs; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2BA1C4CEDF;
+	Wed, 12 Feb 2025 23:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739402417;
+	bh=xmTXu4vao/wRYFrzAY6vps36kVCN+AYTURhgVFeqY/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bcgO9nSs1WR37WsCh/A28t9TURWFzNz0m9uVhpKt4eP4aAsfNJPrClynlbhsN3+wC
+	 ZzlEasu5nNcYdrBZFwKytpp9kezTV70zDL56gQmXN0gPcyRQNYijOr2BEG47IZjvxd
+	 2vdekfOa1xlsykjI2nDLASA6oMYJEVXzpJSB7MO3Khry+Xv/GOa48iDDkQn51GtC7Y
+	 dlPIaXNojtsm8BsCn4Sms6I0OKttu+xeS/efWMC+2295/CZkiwgnYCbKfCJBO3iJH+
+	 Q9q+GpdFkYZGSmiaRkdRUhFbZoVCTySYOzovxHXdwcnuv1EKA5NGIl5HrM4F8Luc5K
+	 RUP0lN4NhgIPw==
+Date: Thu, 13 Feb 2025 00:20:54 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Amit Pinhas <amitpinhass@gmail.com>
+Subject: Removing in-source contribution records contributer
+Message-ID: <lvhwk4czikqmx4acydi5t5q3nshvgdipedz6xkt7auvz5mnmwp@auuzri4hvsrn>
 References: <cover.1739389071.git.amitpinhass@gmail.com>
  <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
  <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
+ <20250212230210.3kkixsk7bi3cdc4d@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4cxurwa3vsuqbaou"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nwb4plvphvljzvvg"
 Content-Disposition: inline
-In-Reply-To: <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
+In-Reply-To: <20250212230210.3kkixsk7bi3cdc4d@illithid>
 
 
---4cxurwa3vsuqbaou
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--nwb4plvphvljzvvg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/2] [PATCH v2] man/man2/kill.2: Add Amit Pinhas as a
- contributer
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Amit Pinhas <amitpinhass@gmail.com>
+Subject: Removing in-source contribution records contributer
+References: <cover.1739389071.git.amitpinhass@gmail.com>
+ <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+ <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
+ <20250212230210.3kkixsk7bi3cdc4d@illithid>
 MIME-Version: 1.0
+In-Reply-To: <20250212230210.3kkixsk7bi3cdc4d@illithid>
 
-Hi Alex,
+Hi Branden,
 
-At 2025-02-12T21:26:20+0100, Alejandro Colomar wrote:
-[...]
-> >  .\" Modified 2004-06-24 by aeb
-> >  .\" Modified, 2004-11-30, after idea from emmanuel.colbus@ensimag.imag=
-=2Efr
-> > +.\" Modified 2025-02-12, after correction from <amitpinhass@gmail.com>
+[Subject reformed to the topic of in-source records of contribution]
+
+On Wed, Feb 12, 2025 at 05:02:10PM -0600, G. Branden Robinson wrote:
+> Hi Alex,
 >=20
-> We don't update those anymore.  We now rely on the metadata in git(1).
+> At 2025-02-12T21:26:20+0100, Alejandro Colomar wrote:
+> [...]
+> > >  .\" Modified 2004-06-24 by aeb
+> > >  .\" Modified, 2004-11-30, after idea from emmanuel.colbus@ensimag.im=
+ag.fr
+> > > +.\" Modified 2025-02-12, after correction from <amitpinhass@gmail.co=
+m>
+> >=20
+> > We don't update those anymore.  We now rely on the metadata in git(1).
+> >=20
+> > Every now and then, I consider if I should just remove all of those
+> > lines, to avoid confusing people.  If anyone is interested in the
+> > history before git(1), one can certainly look at those lines in old
+> > versions of the pages.  Anyone reading the mailing list opposes
+> > removing those lines?  (I'll ask again before removing anything, with
+> > a proper subject line.)
+
+Okay, time has come to open this melon.  :)
+
+> If you do this, I suggest you replace these lines with something like:
 >=20
-> Every now and then, I consider if I should just remove all of those
-> lines, to avoid confusing people.  If anyone is interested in the
-> history before git(1), one can certainly look at those lines in old
-> versions of the pages.  Anyone reading the mailing list opposes
-> removing those lines?  (I'll ask again before removing anything, with
-> a proper subject line.)
+> .\" See the Git revision history at
+> .\"   $URL
+> .\" for records of changes and contributors to this file.
 
-If you do this, I suggest you replace these lines with something like:
+Good idea.
 
-=2E\" See the Git revision history at
-=2E\"   $URL
-=2E\" for records of changes and contributors to this file.
+> That way (1) anyone diffing old and new versions don't see what looks
+> like an unmotivated erasure of contributor credits; (2) people who
+> have contributed and been credited don't feel as much of a sting, since
+> they know records continue to be kept in a publicly available (and
+> replicated, distributed place) and (3) future contributors know that
+> they can expect to be treated equitably with past ones.
 
-That way (1) anyone diffing old and new versions don't see what looks
-like an unmotivated erasure of contributor credits; (2) people who
-have contributed and been credited don't feel as much of a sting, since
-they know records continue to be kept in a publicly available (and
-replicated, distributed place) and (3) future contributors know that
-they can expect to be treated equitably with past ones.
+How about something like this?
 
-Regards,
-Branden
+	diff --git i/man/man2/mount.2 w/man/man2/mount.2
+	index 178d59b52..f65c3947f 100644
+	--- i/man/man2/mount.2
+	+++ w/man/man2/mount.2
+	@@ -4,18 +4,8 @@
+	 .\"
+	 .\" SPDX-License-Identifier: Linux-man-pages-copyleft
+	 .\"
+	-.\" Modified 1996-11-04 by Eric S. Raymond <esr@thyrsus.com>
+	-.\" Modified 2001-10-13 by Michael Kerrisk <mtk.manpages@gmail.com>
+	-.\"    Added note on historical behavior of MS_NOSUID
+	-.\" Modified 2002-05-16 by Michael Kerrisk <mtk.manpages@gmail.com>
+	-.\"    Extensive changes and additions
+	-.\" Modified 2002-05-27 by aeb
+	-.\" Modified 2002-06-11 by Michael Kerrisk <mtk.manpages@gmail.com>
+	-.\"    Enhanced descriptions of MS_MOVE, MS_BIND, and MS_REMOUNT
+	-.\" Modified 2004-06-17 by Michael Kerrisk <mtk.manpages@gmail.com>
+	-.\" 2005-05-18, mtk, Added MNT_EXPIRE, plus a few other tidy-ups.
+	-.\" 2008-10-06, mtk: move umount*() material into separate umount.2 page.
+	-.\" 2008-10-06, mtk: Add discussion of namespaces.
+	+.\" See git(1) commit man-pages-6.11^ (2025-02-13, "Remove in-source cont=
+ribution records")
+	+.\" for old records of changes to this file.
+	 .\"
+	 .TH mount 2 (date) "Linux man-pages (unreleased)"
+	 .SH NAME
 
---4cxurwa3vsuqbaou
+I would of course make sure to commit this right before the release, to
+make sure I don't invalidate the reference.
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--nwb4plvphvljzvvg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmetKGgACgkQ0Z6cfXEm
-bc59RA//dASiHQLvbpHg1zxR7DdhKEgb1M2Rl7KN8C7fDMpBP2K+2CPXEZ6ZGTJp
-MzCjA8HE5mUgtQd2gNaFLmOwSvF3z6etXHtkjviqGmorWt/oGg6ubh0oZIkhuNc1
-0QFBAHXxPkGDOXzPEJP+zjlbCbBo/BhOMhrM6gR7zBHlPxOaYdIn4I64YHrGGapN
-WhjY6ElqntIdZVTIhXA4tk9UAHEVylhDFcbLxyWnwsGrZ9vorVds9JBtp2jx1/Lz
-UgUMBTzPJBHZeMGnrw1cqiUuLeDjbhyMLC2XaxtYyZwqGVNqNfDJvV14mNNZHNMK
-8BpHDqo/mYkYOTqu4dLjVZmCcd0ANR6lBZsg/ZXW1ex84KxTeKMdmecr2rprzQ5C
-YtNi+g6yuMBl3ZszJ1dr8JNaayGk8TYWmSdF99L2O4Zxc/mJ74cOlSZxmfbUnuK8
-zGBeGoiUxl+ry1TZqBQtX4VBxuHRJx0m0Oa0DVPXTu0ARkyKsJVnFEtysxCAlqVU
-bAiapr1KjRK/KhqH+JxkgVbz2nrGC6tNITtREDQKimZjAwI38QLX8ZBApgoI3qdY
-XNVCbe36N20yzWIx2huDfFN2qH7s0iIR9EGjX1oneRhttW/BzfN9jLaI/o0tlBQh
-lHhwF38MFgVYm+uBBPxKjEMv7pOGGhQx6d/xr7UhqyfvdbKRX4g=
-=TKD6
+iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmetLMoACgkQnowa+77/
+2zJo2xAApdqHK8rbn4uea861ypK60Ge8HMKNXFh2tzRSHZ9ZIwIhHFqudLlRuZpw
+v+5jS/XrRBuVzn0pMEh68LnJB9io8s+2HCm5m6kul/O6iiVCdlmlTLPBj4zMfxy+
+su3974v1DBIOkqWwE657qkPBylrOTkd7zUxJhUIEUrqZUU2B1+VB18NM+WFUfK9M
+++5jVpBd/qayhb+gx0ub8VqrawWa3vNd//lGDOmsEHwSh3E9+PSBjJQLxw9pHE1a
+hROiyDhNtRp+GIA+ih2GhkUUma+EXuREET4wWvTAahadzjB4lApCsFUTg4Wyd38h
+EsoSq1PbxlkAxuAESU3Yv0S32L04wVrBcjPi+izJ5NJkxYHFpMili2JyxthrwThH
+R0QyVeIoZgTSJkeW24dBdtRzAxg49tMjSI+4P5NF4fXVaK8WefJ7BOnzD6DJqJST
+UNgYHyW3GQT546GYM9aNst9g1QzV1LlY6K6z/Pq6MM/MDaVH/NcO1mVSOQ0G9BZ/
+w78RPaeRV6flHpiMm+GwEfo4ouaREccd6uNm9v5qhGj6bQwauE0e3Rph5EXYJXZO
+uNlKdv0DK53vlJl+nKXj7Ji5Vmt198PGzSbU+EOkHlMk82562uiiRrvE1Sw7q4Qn
+NUcBp7dso2YeEpQAQqS56lunCOlXSi4/hK04CnMpZxZrib6xlsU=
+=Y+y2
 -----END PGP SIGNATURE-----
 
---4cxurwa3vsuqbaou--
+--nwb4plvphvljzvvg--
 
