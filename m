@@ -1,175 +1,240 @@
-Return-Path: <linux-man+bounces-2428-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2429-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C39FA33B9D
-	for <lists+linux-man@lfdr.de>; Thu, 13 Feb 2025 10:50:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54043A33DD3
+	for <lists+linux-man@lfdr.de>; Thu, 13 Feb 2025 12:23:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CC62916806B
-	for <lists+linux-man@lfdr.de>; Thu, 13 Feb 2025 09:49:45 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E0CAE163563
+	for <lists+linux-man@lfdr.de>; Thu, 13 Feb 2025 11:23:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2386020F061;
-	Thu, 13 Feb 2025 09:48:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 442AC227EBF;
+	Thu, 13 Feb 2025 11:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqPjYOIA"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="nIm9kdC2"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020137.outbound.protection.outlook.com [52.101.196.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCABB20E70A
-	for <linux-man@vger.kernel.org>; Thu, 13 Feb 2025 09:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739440106; cv=none; b=lTOzRmG8wE9oxZS9q72UpbAkiyIZjW+VeUASadYnsnBv+PL4I6uqYDotpDUeJCBgGsFyX1m+wFZCFg+HFSc06+Vdjdi2+Hesgi/NbDJWKkbVMFaKbmf+ruzfyfTQHpI0Hr++6iW8Y8gDbzGxUmag1ktDltIUY5XQfaI+4MnPzJ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739440106; c=relaxed/simple;
-	bh=04I2HyOmNBI6sHDU2Wb4QpCG4ZrlJChUAMU30a7ycs4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MTMeYvQyhZ0Yc/Up2ygnQnIScucAzQuctO8JHRoc+Evx6Nu6LW0Khp9bqz+yOZeqJQGLA66uJdlZXvrAvH9vMsj9QTllmIYUEZfa4d5U09l6M/3+6peCv2GwMvPxGdqvs1PP99gWQ+273DhZqy5z3Qdu2EUYJut3nt2sm19Ay4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqPjYOIA; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A49C4CED1;
-	Thu, 13 Feb 2025 09:48:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739440106;
-	bh=04I2HyOmNBI6sHDU2Wb4QpCG4ZrlJChUAMU30a7ycs4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IqPjYOIATedOGDZe6txJZKNjwLVcwVxQpLD/tlEC2M6eRgZrp+ooSeHVWVKbrrH+/
-	 DjJUSeyyiwe7xEL8u4sMp8k9H8hecwtHoRSkcYNsILLsUNbHujyGi7C8V5uLyR4tbU
-	 o1f/fahHuUpPpwScgdPJiO4vhlSy6CcZc0BdiDNE2VBsj3G2dPLZxRaRNzFVHta+K0
-	 s9wgwuyx1dbq0SZ+UvkYxgzzkZerzc9E6nemFKYbPCk4Oi4UqWCfcpwOHfEaqVFFWU
-	 GySy2EFfVkNg7h16eq6usSTURPysQaVUvyIFyOOjkN2+ioayYNJYB52LVHVoJgcycw
-	 nxoBH2vHZOQVA==
-Date: Thu, 13 Feb 2025 10:49:04 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, 
-	linux-man@vger.kernel.org, tuhs@tuhs.org
-Subject: Re: Unix V10 Volume 2 PDFs
-Message-ID: <uaqgnws4f2l5hkmegjmh2kq4camhcvtaurgm6ym6kgqack5q4j@2mkwngs2krs2>
-References: <6jefoqbmf6fwzjjvonee7npjvpvwayksydqjcouijbfufipn4z@adrjauck4ov4>
- <20250213012107.urh4ndk4tnnzm3wx@illithid>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04601227EB6;
+	Thu, 13 Feb 2025 11:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1739445702; cv=fail; b=iTgETIc8y0R37FbdKgXyoAWcmaM4VJZay3Tdr27slNEUZkuZm7rdFZMi89U9ccu84tAWeaSB3YduShAzZCGrNLd0RGOYLBqF9tAZe8pJZT6nhVdAf94deRU1alKIYKYz/LU4UgUOq16gSRI5opNu6ECYemtnMk+TMtHZh4jjrnA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1739445702; c=relaxed/simple;
+	bh=zkYKGURITM4btT7FISriNJWnfFlX+Tv6TTpCw8DrnJ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fezE8DT1rMwBEAOVBVlSm9/ZyozoJDsKdXE0ScSj0zphidBmRHfvkaFau8gLmWzwOTPVLam2BSkYRtnoxI5E/Z+CHxXmJQtDFE0Kj6mCAwmjMQvHk8MH37C+ZVGe8ldavFA5xO8W8JV4fQAHFLtuJDo2NUjwM2h10bX60baXsgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=nIm9kdC2; arc=fail smtp.client-ip=52.101.196.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I72p4F96LDww6H9YEZfffR/5OSbxQj1h9cOm/mYC507B98rSJFxnwSxrmfTGiuMCQwl0Mfkl6k7mGsvqnkfCR4CSIPKn9o1A7tKbOO/1qd0+40/jA+qCFVRKO6tbf9QD5FU34NivB2iZyHE/H4tDGlCElB/UtcZ2lNqOCOvI1FnQcFo43g4pfcNfKgRiTgqHXqQVL3eeSZtegyTY1G7hpOr445MF7gDNycxzchEeZLA2o9zac77ocrIIYKeGrOzC8OC3wJDOxCnhorsUffMT8JAyzT0pRiZQOay0TtC/9bRYrymXRWbuhfjXx3yTRZYfEdmPoDXRc4u9X0E450YKPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n4GJ+z3nPwNyVEMvEmBwNI/3Se6eivbUhsyaPF26nFM=;
+ b=QvkcJNHup5eohnOUBBxqEs0ZH3wWWGWl9ltOqOpsjNI0S8w+OrCi8sQ2wSHHWv0yRh3HNUfQkaak+AFLKmLZNCcKsLeSZcF9wPQOM5bsB0ScJa6iPgWGeiprBdYMIHbRNi/Jd4DNPUK9ADK8eZwmm3iJyGuoapFU5A5xbZvdN3kIqJQmnyxtM/TEpf7xgb7Gi/9mckx4TfVZ2GSnZYVfEnHUD4dsBUXW/a4bh8unPz7+VlLN6qcFBYwOixGiUVeEvcIvJAY/3Fm21A1XUmJ+yM/nrlsWGFnX3lO2qNVlLB6rf0vBGWSLQdpCt79vvcS12qKhj45fDqS542mO0nENDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n4GJ+z3nPwNyVEMvEmBwNI/3Se6eivbUhsyaPF26nFM=;
+ b=nIm9kdC2ViM6zBtRV/dgGKOyjOco7AqTJyQCJ33LbM+23ZIl1Z9pTuXCEg0cVE+rexSXBWnolGRkO/8uSBsC+T+wkVL9/zLTCdpsnAlbUPC+itr7hoqslVYYi+QWYxXEFA+hse8GtZy2Tsu7AQ+KLu/wfjdB6WQKihjdi/RSddw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:253::10)
+ by LOYP265MB2158.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:116::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.16; Thu, 13 Feb
+ 2025 11:21:37 +0000
+Received: from LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1818:a2bf:38a7:a1e7]) by LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1818:a2bf:38a7:a1e7%4]) with mapi id 15.20.8445.015; Thu, 13 Feb 2025
+ 11:21:37 +0000
+Date: Thu, 13 Feb 2025 11:21:35 +0000
+From: Gary Guo <gary@garyguo.net>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Tamir Duberstein <tamird@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, DJ
+ Delorie <dj@redhat.com>, Eric Blake <eblake@redhat.com>, Paul Eggert
+ <eggert@cs.ucla.edu>, Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng
+ <boqun.feng@gmail.com>, =?UTF-8?B?QmrDtnJu?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <benno.lossin@proton.me>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org,
+ linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] rust: alloc: satisfy POSIX alignment requirement
+Message-ID: <20250213112135.7319862c@eugeo>
+In-Reply-To: <Z6zT6mZuxonewQ9z@pollux>
+References: <20250212-aligned-alloc-v5-1-c51e0b17dee9@gmail.com>
+	<Z6zA9UNm_UckccRm@pollux>
+	<20250212163848.22e8dcff@eugeo>
+	<Z6zT6mZuxonewQ9z@pollux>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::13) To LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:253::10)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lpvhfvg2qeu5jphe"
-Content-Disposition: inline
-In-Reply-To: <20250213012107.urh4ndk4tnnzm3wx@illithid>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO2P265MB5183:EE_|LOYP265MB2158:EE_
+X-MS-Office365-Filtering-Correlation-Id: e001c9bc-7244-4f5f-5a69-08dd4c20946d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?cXEcIT6ZUGsVM+eIgrg3Am+LNP0RwqA/IFeJmerNMMcWm4bxFsjcH2o2Icrl?=
+ =?us-ascii?Q?dIcwjLEZwVoqw19Y0qbuX23+OfJOi1nrEfdFkzANVimthyX5VMsfvlE6Pqec?=
+ =?us-ascii?Q?20YpI2h5tG7W0FLYB+GPikD8e9xNMEhjWyCdX8I7/s6+aPk2OateNruzD2al?=
+ =?us-ascii?Q?kW+qEhkD0j874vJTwV+Y5+APs8QUqCiVC9ob8ScefFM/X6czG8v1XlQ29pAi?=
+ =?us-ascii?Q?mDJYBhtGKAsAnIrX5nzFoOOlafyN+c4SAkTYAk85WxM6swxJhFoGhL0fJ7Ak?=
+ =?us-ascii?Q?5mHlwjOch01yySRXrdHFH8hdvTdaUOfDAIsW4xVvAEQWEPqREkcd6ikqUeUq?=
+ =?us-ascii?Q?Qfp5qFgrBP9QTKYkKj9MCO0G79SPXPEfRGorTuoYWOF1a8R42TW00XOaSyqu?=
+ =?us-ascii?Q?l/kbbdx8QsEcabhL+z+OqVJLlAVRGbiarHcurNFKmhktgLnW2cmd08s9g3I5?=
+ =?us-ascii?Q?X+1xVqThV0wqrqn0oVBzllWSSu1ntToDbgkkIT/uNxsP/UF3hOyiVw/8VQnT?=
+ =?us-ascii?Q?TVMBjK8b2adVnyMYiFy9ZIm68Q5DIf4R5M+ydTys0k7I7tXFoSzUtk3cv/LC?=
+ =?us-ascii?Q?rZ0nMoimCBP8uYsf0s04a1d+0kWMAB90/19XsgY8L5tGw8jtZBOISdaTzQpf?=
+ =?us-ascii?Q?6u068u7mAnQbiRFybnJRiEgerLfr2LexCtUm7urdxoUwMojE/96OCHNER79m?=
+ =?us-ascii?Q?gZyxm4/AuB6eB8oepT+9/MIl2i6TurGr6uzORtKRISdRru4lwv6Z8KWKErjd?=
+ =?us-ascii?Q?pTeMDjrCxV88XMkRMu0//JAQuqmjQ2hS8dvu6zUQu3TcqsKbE1Tu+HUD36cf?=
+ =?us-ascii?Q?+iyjMwt15ZOyUTYmrlRc29s3I/+u0ZDucqDeEKhBIRcRCXDGOJJ+5PXFtOIN?=
+ =?us-ascii?Q?kmTZnPViZJhwT4lm1yFryRc0Mt0oN0E9kXFIE+rRTVLLyFmYD3yfjmjC7REh?=
+ =?us-ascii?Q?9VF4MSF0o9HrsBHbMAtY34f4SHTAmeg4C64n3igNlRjLigqUpA5wzEOA2OOq?=
+ =?us-ascii?Q?TD79No1nwm3T8VAb61S6s0snxIrsViiSdjY1O6VDFmgUmMXw82eb3NXC6J24?=
+ =?us-ascii?Q?5Ci4+xiDxNnPifTSsnKYQ0FtNSIyWeZrGFC5DJgr7wBInQsl5ZRY3YqOEDXe?=
+ =?us-ascii?Q?ts2wz8Ba/hKDw982w5rwM+M/3rEFljKE1HS102OIeKIaJzPFc0HKXKgq7rrn?=
+ =?us-ascii?Q?9sjGo2CLf50Tak5LbdpdMAyBguyNcCFfkkR7DHMFMd3vzCDtKMioJPWmRC3T?=
+ =?us-ascii?Q?M9ejEhPbdJurFFbQxRqAEz4E/N1rGNCfet6RJdasZs8kATpinCURJkYIukSu?=
+ =?us-ascii?Q?xekqRWAyR9YDwRbaf/2sc6+gvSUQXAs+JySkuJuQDgFRcR16mJJqEo2o0C8y?=
+ =?us-ascii?Q?VZgpHTGcIyFrh7Sya0UPFqpn9g7F?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?yHPs5vuSolA4i/qzHhueGSHVGGWRgmZj9+7g6T3kVDyFG8WQVmVFxJLErsxj?=
+ =?us-ascii?Q?Szx6Zau4j6mhee59Kp8bWdSUnQtQobCDfZgCd8jceZZrqulrdGf0RJtQiPjd?=
+ =?us-ascii?Q?u6lDzO82ncEZkpQsPp97O9xk3/IsbmpW07lj8SOPPRu+fXy2UYS/nzjPJLfB?=
+ =?us-ascii?Q?h/WxRbPqHkT6VH87wap4OAGUTtjW01i0JiTsSay4p3BwrGDkQoCHcFJYdf9i?=
+ =?us-ascii?Q?gnoC05PeOvOVILjWpmIqykjeoKhUZJJp7mmHSpzHh7p1SADX6obGqFcZNrI8?=
+ =?us-ascii?Q?/o2Kl6RGE0dG1zOP2J8iBH+YEpC1Yc3vDcBqe8pOPFOG9VlJdlVrK4TZbSsx?=
+ =?us-ascii?Q?WEkDyt44RRPvm++Z03g/fHHzZbq0fvyq85NfgOaNb7G/9zvfFsl5UEoxkHWb?=
+ =?us-ascii?Q?yl/4ya2XeMki55H5fZAWst4ZtYShT1oY0L9mPCx0ihtl+YCd1gNNV6UlbKm7?=
+ =?us-ascii?Q?ZEQ2U1UXySBDd0WzWZipGQcl5F+ttYI6b/T9PPKXfXm232WjIJV/oDGthKgQ?=
+ =?us-ascii?Q?caLUw+jNEOaj1hed0Vm3B6FGly6WadkiDWdE84oPrLOmUzgqvhPE+ARJ9j24?=
+ =?us-ascii?Q?yNl6SjrYdzrZpWVWcKSPxVrUg5PQ5KuYNGBtBl1NOi7S7lQGqtu31nOYIuH3?=
+ =?us-ascii?Q?YwSCwRjmUzbNRmcE50ONBGXlF5RydvkS7GZhJxTF6yD8mWq7iPMCa7qcbSvh?=
+ =?us-ascii?Q?7D/0WvcOO/WWFh6uo66P4ZoLkmkvw3IYngTDiX0NrCxASqCE7TJ4cwmGM2y2?=
+ =?us-ascii?Q?YanaxK/yH5zjtXv77ysVNtNKqmQPLrRIMvZkouAeU6zrsrEzMu1VTzbHh+D1?=
+ =?us-ascii?Q?bQkvFvvLmwzyUSn1WOdAbDX7gmeZhjK4xSpUD99rq3e+mzuNPTvYW9AkD54j?=
+ =?us-ascii?Q?Ptg4bJJBL73RaC4cp2Ei1mfcyyL0MFjT6dFPIgo6fXYlUU3W8h7pGHoCmAlJ?=
+ =?us-ascii?Q?ol+cy1RNxjjHGRFpAplV9TcLKt+5ic9TV2mf8ev9BPMDNcHyUo0bA0FLHuSQ?=
+ =?us-ascii?Q?P6bbIzvCv+9EqYaG/J+yCkZhOetmFJjGeFYHZNAdDuSrGZTeIdlZEL1yE+Ff?=
+ =?us-ascii?Q?u6pQZi8BSf1q0A3p6rlEkd/UWfdr9PB2XgaJpRxGRL4HVhdRLuLKgd6FwSRo?=
+ =?us-ascii?Q?O8LOJdwBgqZ/4lvPK4aYb8f7E9dHxUpe/g/8V46rtPT6j+vdk1Txi9mkTrjK?=
+ =?us-ascii?Q?1LWQiHwob8KX564tlD4ux9gKmhnd1E/QkmZ8+WGA59GXWIDq5+nkgHXE0MUy?=
+ =?us-ascii?Q?li37HLRfb3gc2Hk7aecRw8vy8lWStxgfTJBiydtB1dEQ4KqqvFD2AEsI+35g?=
+ =?us-ascii?Q?3YMIgyrkN25zN2VcDNWY5Pk7DwSHTL5Qvy8Ta3wL50qSKTw2NLYAwIZh2AJo?=
+ =?us-ascii?Q?dH8VXrWEQudoXGeK/EFULtp6Sd5bd/WP3vildTwVk+pNI8hRHeJEcR1CScBE?=
+ =?us-ascii?Q?uShpZwixrUIfoaxFpO4PWLtlyDkITYcfexR/gc3YpsZwY4LoCucGjdOO/4iA?=
+ =?us-ascii?Q?CG37GRkVK21TI81DFR78yQcJtzwVFHTBQpqAGDsQEobyTlNHWXiSOdcUoIq4?=
+ =?us-ascii?Q?iZbZ9E1ERzStN5DobU0503VUMTrKQjnSQX8kbaND?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: e001c9bc-7244-4f5f-5a69-08dd4c20946d
+X-MS-Exchange-CrossTenant-AuthSource: LO2P265MB5183.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2025 11:21:37.1315
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9FqstqBguhZZXRKlvAAMykYzTwMccrWnHt+tebrzbXccW+u/yq/CCOgpgsJeRvQ07+nO7oSUhDw6YVIWlGILOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2158
 
+On Wed, 12 Feb 2025 18:01:30 +0100
+Danilo Krummrich <dakr@kernel.org> wrote:
 
---lpvhfvg2qeu5jphe
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>, 
-	linux-man@vger.kernel.org, tuhs@tuhs.org
-Subject: Re: Unix V10 Volume 2 PDFs
-References: <6jefoqbmf6fwzjjvonee7npjvpvwayksydqjcouijbfufipn4z@adrjauck4ov4>
- <20250213012107.urh4ndk4tnnzm3wx@illithid>
-MIME-Version: 1.0
-In-Reply-To: <20250213012107.urh4ndk4tnnzm3wx@illithid>
+> On Wed, Feb 12, 2025 at 04:38:48PM +0000, Gary Guo wrote:
+> > On Wed, 12 Feb 2025 16:40:37 +0100
+> > Danilo Krummrich <dakr@kernel.org> wrote:
+> >   
+> > > On Wed, Feb 12, 2025 at 09:43:02AM -0500, Tamir Duberstein wrote:  
+> > > > diff --git a/rust/kernel/alloc/allocator_test.rs b/rust/kernel/alloc/allocator_test.rs
+> > > > index e3240d16040b..17a475380253 100644
+> > > > --- a/rust/kernel/alloc/allocator_test.rs
+> > > > +++ b/rust/kernel/alloc/allocator_test.rs
+> > > > @@ -62,6 +62,26 @@ unsafe fn realloc(
+> > > >              ));
+> > > >          }
+> > > >  
+> > > > +        // ISO C (ISO/IEC 9899:2011) defines `aligned_alloc`:
+> > > > +        //
+> > > > +        // > The value of alignment shall be a valid alignment supported by the implementation
+> > > > +        // [...].
+> > > > +        //
+> > > > +        // As an example of the "supported by the implementation" requirement, POSIX.1-2001 (IEEE
+> > > > +        // 1003.1-2001) defines `posix_memalign`:
+> > > > +        //
+> > > > +        // > The value of alignment shall be a power of two multiple of sizeof (void *).
+> > > > +        //
+> > > > +        // and POSIX-based implementations of `aligned_alloc` inherit this requirement. At the time
+> > > > +        // of writing, this is known to be the case on macOS (but not in glibc).
+> > > > +        //
+> > > > +        // Satisfy the stricter requirement to avoid spurious test failures on some platforms.
+> > > > +        let min_align = core::mem::size_of::<*const crate::ffi::c_void>();
+> > > > +        let layout = layout.align_to(min_align).unwrap_or_else(|_err| {
+> > > > +            crate::build_error!("invalid alignment")    
+> > > 
+> > > That's not what I thought this patch will look like. I thought you'll directly
+> > > follow Gary's proposal, which is why I said you can keep the ACK.
+> > > 
+> > > build_error!() doesn't work here, there is no guarantee that this can be
+> > > evaluated at compile time.  
+> > 
+> > `align_to` will only fail if `min_align` is not a valid alignment (i.e.
+> > not power of two), which the compiler should be easy to notice that the
+> > size of pointer is indeed power of 2.  
+> 
+> From the documentation of align_to():
+> 
+> "Returns an error if the combination of self.size() and the given align violates
+> the conditions listed in Layout::from_size_align."
+> 
+> Formally self.size() may still be unknown at compile time.
+> 
+> Do I miss anything?
 
-Hi Branden,
+Ah, I think you're indeed correct. If I get a type that has the size of
+`isize::MAX - 1` and alignment of 1, and then trying to align up to
+pointer size will cause an error.
 
-On Wed, Feb 12, 2025 at 07:21:07PM -0600, G. Branden Robinson wrote:
-> C.  Getting a scan out there tells us at least what one software
->     configuration deemed acceptable by producers of the book generated,
->     even if it's impossible to identify details of that software
->     configuration.  That in turn helps us to judge the results of
->     _known_ software configurations--groff, and other troffs too.
+We should proceed with `map_err` then.
 
-Hmmm, yeah, sounds useful for a modern troff(1) implementor.  Probably
-not so much for one interested in the contents of the documentation
-itself.  Whenever I meet a scanned PDF while searching for a PDF, it's
-not a good feeling.
+Best,
+Gary
 
-> > Doesn't groff(1) handle the Unix sources?
->=20
-> Assuming the full source of a document is available, and no part of its
-> toolchain requires software that is unavailable (like Van Wyk's "ideal"
-> preprocessor) then if groff cannot satisfactorily render a document
-> produced by the Bell Labs CSRC, then I'd consider that presumptively a
-> bug in groff.  It's a rebuttable presumption--if one document in one
-> place relied upon a _bug_ in AT&T troff to produce correct rendering, I
-> think my inclination would be to annotate the problem somewhere in
-> groff's documentation and leave it unresolved.
->=20
-> For a case where groff formats a classic Unix document "better" (in
-> the sense of not unintentionally omitting a formatted equation) than
-> AT&T troff, see the following.
-
-Hmmm, yep, that's what I expected.
-
-> https://github.com/g-branden-robinson/retypesetting-mathematics
->=20
-> > I expect the answer is not licenses (because I expect redistributing
-> > the scanned original will be as bad as generating an apocryphal PDF in
-> > terms of licensing).
->=20
-> I've opined before that the various aspects of Unix "IP" ownership
-> appear to be so complicated and mired in the details of decades-old
-> contracts in firms that have changed ownership structures multiple
-> times, that legally valid answers to questions like this may not exist.
-> Not until a firm that thinks it holds the rights decides it's worth the
-> money to pay a bunch of archivists and copyright attorneys to go on a
-> snipe hunt.
->=20
-> And that decision won't be made unless said firm thinks the probability
-> is high that they can recover damages from infringers in excess of their
-> costs.  Otherwise the decision simply sets fire to a pile of money.
-
-Hmmmm.
-
-> ...which isn't impossible.  Billionaires do it every day.
->=20
-> > I sometimes wondered if I should run the Linux man-pages build system
-> > on the sources of Unix manual pages to generate an apocryphal PDF book
-> > of Volume 1 of the different Unix systems.  I never ended up doing so
-> > for fear of AT&T lawyers (or whoever owns the rights to their manuals
-> > today), but I find it would be useful.
->=20
-> It's the kind of thing I've thought about doing.  :)
->=20
-> If you do, I very much want to know if groff appears to misbehave.
-
-Hmmmmm, I guess I should do it.  I'll take some time, but I'll keep it
-in mind for things to do this year.  For some reason, I'm more busy now
-only doing free software, than when I had a regular job _and_ also did
-free software.  :|
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---lpvhfvg2qeu5jphe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmetwA8ACgkQnowa+77/
-2zJ6lQ//STv6Rkooq7D1VxwcQKKlPuGW2qShPWJmb1T/oifacnLAByqnPxZUAq0y
-3FG0XX/809hVTJOOSYV4gSRtijIg+YTeHoja3ZOH4e4S3PYwXn5JuseuiXv5mmVL
-qhI15JsLlkfrxfrNfcAbXjFeFEQFeg2eQIGUGwptWOBZnBVMTcvDlhbxTECppZ8P
-Hm8gfFBxHh35e/I5D3909BRv6mKTzzNUZNoEHn2tgLirEG/9b3dEoBSpa9Hl5Bm8
-+sJZ3SqoUQPXPa/vopy3jFeSXk3BDjmOpSIM8Y9l+qB4+q3Nflj8uSA3OVPxEmYI
-hlFZdRvYG44y5/azeAUE4rZbzybzXAYs2ueeS5VFPot+6aRWPoUJA7OpnUtL6ymZ
-2/4HN65ovezeU6IF2NlvZi1CUgl8WNra1pEo4CG53JyORav1rDyTcmizmZfVsppv
-HV6MRBYa2fGCLsepK1DRaq6TfNoouFUfSOEMUfx1DRUpZXbKEv6alGnkBw8gifIV
-oPWUEeN7W6HvewucnzQmXrotTd3lGckRqpRMstrNqx5lk+6dBPrpThED/txZ+zAb
-sB2y2bPZWYTizZMTr/2OZ5UnKnHdpveukMHpwzU/c8hBdOJXKTjPJvcBdsNVnjM5
-tW+/Y1RdqZcvZX3nvDVDTHsWTxzlli27vuee0aH3rqobV5XfJjE=
-=Nt5B
------END PGP SIGNATURE-----
-
---lpvhfvg2qeu5jphe--
+> 
+> > 
+> > I think both `build_error!` and `map_err` version below is fine to me. 
+> > 
+> > Best,
+> > Gary
+> >   
+> > > 
+> > > I think this should just be:
+> > > 
+> > > let layout = layout.align_to(min_align).map_err(|_| AllocError)?.pad_to_align();
+> > > 
+> > > - Danilo
 
