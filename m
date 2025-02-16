@@ -1,52 +1,52 @@
-Return-Path: <linux-man+bounces-2456-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2458-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71E13A3770D
-	for <lists+linux-man@lfdr.de>; Sun, 16 Feb 2025 20:02:52 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E873A37718
+	for <lists+linux-man@lfdr.de>; Sun, 16 Feb 2025 20:16:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 91D933AA788
-	for <lists+linux-man@lfdr.de>; Sun, 16 Feb 2025 19:02:42 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 58CFC188E1C0
+	for <lists+linux-man@lfdr.de>; Sun, 16 Feb 2025 19:16:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF89219C574;
-	Sun, 16 Feb 2025 19:02:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D94D19B3CB;
+	Sun, 16 Feb 2025 19:16:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOzk4fKs"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="prs6ie4t"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F77617E4
-	for <linux-man@vger.kernel.org>; Sun, 16 Feb 2025 19:02:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18708748D
+	for <linux-man@vger.kernel.org>; Sun, 16 Feb 2025 19:16:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739732567; cv=none; b=r5I4pHZueTKg3h3An9yb0PZIVV/oRg3t43s2OJWbkze6rFmylrUGyubzYBydvI4RzWrItvgvV8kV7jRrprsh/mlptuMDWVCxmhfRBDRhRs6c8/Qz8tVL+xda6BiVjMJ1YdnL/hpL3FnpL6s3JtdbNNjN1PLnEdTxy+K2rzqqJ+o=
+	t=1739733378; cv=none; b=ZpJi3ZfBwhunGFUNuVxnZ/A5VdYtAOvVTppFhpgm6nfLh2op4J3b6LSBSIwWDxlEcmg2DJW1nrmfaqoV2rEUZyk69GSUQbzORhfDV0LsgdW+X+607LRx15Kz6/fZu2XXpnt+vFImqQo1vKq5yuHgK6ZuU9yU3n2BSUZM8xPRNlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739732567; c=relaxed/simple;
-	bh=6edLSLUuocj+OX93QgBuiLS8BFVQm+5UXrcng9QOwYU=;
+	s=arc-20240116; t=1739733378; c=relaxed/simple;
+	bh=aurQ1JpDnzAZc6zHrjYTAXEVlj1epuEeGuJYUG8ecCs=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lx7TlMgRnEJDrMXCbQ3pUJAjjKUKmEBpSjvMG7xPOzaQYUIbca0lq2+kOIJuwnx07CQEgiGxN1jbWzvH+vyZ1sFDX2l8kD0q76GsqyRng62bglX+CLSc9SjlZzLnTvHbZt2H13jrn13DkQ7zeB8eqNxNZkSxo56qc7QtPmiH/d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOzk4fKs; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1D40BC4CEDD
-	for <linux-man@vger.kernel.org>; Sun, 16 Feb 2025 19:02:47 +0000 (UTC)
+	 Content-Type:MIME-Version; b=VhUWPwdP4zJXu2IBYJ7ohitnGe3IDQSrDRm2cbDgGB6JKZ0/nBwUnoB7YwtAIdinhlzaoDyiHUbfGUM9/6vX+mWQsH0jUEDnkYjaTm2rbBlk1E/q/SB+ApEo9Qv+1V9Y9X1gryu4BjtI5gF9hrVlywlT5389J5R0D8zWzVY393c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=prs6ie4t; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F298C4CEE9
+	for <linux-man@vger.kernel.org>; Sun, 16 Feb 2025 19:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739732567;
-	bh=6edLSLUuocj+OX93QgBuiLS8BFVQm+5UXrcng9QOwYU=;
+	s=k20201202; t=1739733377;
+	bh=aurQ1JpDnzAZc6zHrjYTAXEVlj1epuEeGuJYUG8ecCs=;
 	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=TOzk4fKslWdZwM1M15WnMx6no++55/hgUs5Iwnz48ImOQIo8mFnMzBRZlMy8rxCM9
-	 zpdcMwzUcA8wQDrJPddqqBSLH8IGTnzyJxEIVos0hmFAfZLd33nxASf+uvcRzEU76Z
-	 pe0RY3lo3iSOyg0js/tyS9InoCuFhNT5MSBbVCUA8zWqj2O+x/U/4gZzcCjRU108Gk
-	 mmMVxTLCajGqJTbFMKPuLrOZfyqy+PnVWTuZJp6nIzGZSiuVaE1Tc2J6RU5RZ1nkez
-	 ZBgkKwKdfBMjJ29LBMaT4GT6zlkeF7ACRxpJhR+s97bXTi0VBz/tRCHC9bhMN5WHhK
-	 TFv3hDN76KzWg==
+	b=prs6ie4tQkuuz4jYuGvYjG8xCpaFB16C14esvvZfWbVOTpLyjeD6lTSUMbfxxwhS5
+	 sztsFhI5Semj5T+JRMsBpw8WuBAgSwYA7OvomdR1a7GPHpl97eoI6TuZCJHIFxR+iv
+	 ACvmCVMjxCUUM6cJvAe+8tTxTpWO3YqIroZgYaIT5WnQ6NTkEiFlVwcd7ArcLMUEyR
+	 fVbaKDomcDtFB5DWr/4WR7KJpZ2kjv/zyK4arnQichHdb0kjRkh/iH2DF4kkihjMtZ
+	 iiXkYTEfir6o73PvK0SuJnZd/lo3mEGfLeJ3NXGSMhpNbdBzWlYSV9ewa+bFSf9r9v
+	 dGkF67L79mlNA==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 122C0C41612; Sun, 16 Feb 2025 19:02:47 +0000 (UTC)
+	id 3C782C41612; Sun, 16 Feb 2025 19:16:17 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: linux-man@vger.kernel.org
 Subject: [Bug 217709] Mistake in example in mount_namespaces(7)
-Date: Sun, 16 Feb 2025 19:02:46 +0000
+Date: Sun, 16 Feb 2025 19:16:17 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -56,14 +56,14 @@ X-Bugzilla-Component: man-pages
 X-Bugzilla-Version: unspecified
 X-Bugzilla-Keywords: 
 X-Bugzilla-Severity: low
-X-Bugzilla-Who: goeran@uddeborg.se
+X-Bugzilla-Who: alx@kernel.org
 X-Bugzilla-Status: NEW
 X-Bugzilla-Resolution: 
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-217709-11311-pA1GAvvhxS@https.bugzilla.kernel.org/>
+Message-ID: <bug-217709-11311-x9PaaEpj8b@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-217709-11311@https.bugzilla.kernel.org/>
 References: <bug-217709-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -79,19 +79,37 @@ MIME-Version: 1.0
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D217709
 
---- Comment #6 from G=C3=B6ran Uddeborg (goeran@uddeborg.se) ---
-Hi Alex,
+--- Comment #7 from Alejandro Colomar (alx@kernel.org) ---
+Hi G=C3=B6ran,
 
-I've tried to submit a patch of my own now. While the patch itself is trivi=
-al,
-it took me a little while to figure out how to submit it. Did I get it righ=
-t?
+On Sun, Feb 16, 2025 at 07:02:46PM +0000, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D217709
+>=20
+> --- Comment #6 from G=C3=B6ran Uddeborg (goeran@uddeborg.se) ---
+> Hi Alex,
+>=20
+> I've tried to submit a patch of my own now. While the patch itself is
+> trivial,
+> it took me a little while to figure out how to submit it. Did I get it ri=
+ght?
 
-I couldn't find any way to state in the message the patch would solve this
-bugzilla. Did I miss something, or is there no such connection?
+Yup, the submission looks right.  Is there anything we could improve in
+the contributing guidelines that would have made it easier to figure it
+out?
 
-Regards,
-G=C3=B6ran
+> I couldn't find any way to state in the message the patch would solve this
+> bugzilla. Did I miss something, or is there no such connection?
+
+You could add the following line in the commit message:
+
+Closes: <https://bugzilla.kernel.org/show_bug.cgi?id=3D217709>
+
+>=20
+> Regards,
+> G=C3=B6ran
+
+Have a lovely day!
+Alex
 
 --=20
 You may reply to this email to add a comment.
