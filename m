@@ -1,55 +1,56 @@
-Return-Path: <linux-man+bounces-2474-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2475-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 182AFA38E69
-	for <lists+linux-man@lfdr.de>; Mon, 17 Feb 2025 22:59:39 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4817A38EE5
+	for <lists+linux-man@lfdr.de>; Mon, 17 Feb 2025 23:16:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2E50B3B465F
-	for <lists+linux-man@lfdr.de>; Mon, 17 Feb 2025 21:57:39 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 945201651DF
+	for <lists+linux-man@lfdr.de>; Mon, 17 Feb 2025 22:16:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 852EA1AA1E8;
-	Mon, 17 Feb 2025 21:57:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1D4419F101;
+	Mon, 17 Feb 2025 22:16:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nv3EK6IP"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYx/9qoI"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C0C1A4F2F
-	for <linux-man@vger.kernel.org>; Mon, 17 Feb 2025 21:57:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901BA33E7
+	for <linux-man@vger.kernel.org>; Mon, 17 Feb 2025 22:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739829447; cv=none; b=PpAqaUSCrOC0TRtIdgA2mc3E52iNOSVTaxCW39CgauOhtB1HMYNviSCE3ZnEjHLG7gVUyEZc+rWmZLCBgz5frfCNVsoHbmzaC8/sB9SPMFQhnB+TniTgj8OMLLZK2e02pw8Zn3k16rvuKdImcsUN5aPInKHtBYC9ydLWtmYuufc=
+	t=1739830580; cv=none; b=GLdJrnWVuNigmchPbQzm6KL/oEptyn2YXBQNFd53z9+l29WOu4Yw7R3gh/7Y4kZgYrj3LLOc9X7LrcD9WcMGE1Rkn+1w1dHTksYhRn2tF+SjH4efsSPNiEJjtk/i9DUkd5h8AJ3uFtgPZDlZUW9jRpvRFqr2b/9iYRawOT5Y9I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739829447; c=relaxed/simple;
-	bh=j3npxDEEGqCqo9x6QwQfWGyCUDVoLgUwB0vLg4/3b98=;
+	s=arc-20240116; t=1739830580; c=relaxed/simple;
+	bh=7HnZsjMTtD+xZ2gpKxVIzakRhYVMVRSx1CGzG7KyobI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OHVFjK9oOwZq1bkpLjCFCohzIfHsZY9VPze6J6/451WmKy7cIW3Dx1RYIHem40HSK1x70AZAIRJ09fruEAw5zlS8GCqSgt5/C5nvvOJDdJn1ovKqZqLrVagomgm08C9VwYQcKoRNWzMKHfyQ3wl8lsE2S/G3KaI+LxnIivONJ5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nv3EK6IP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB49C4CED1;
-	Mon, 17 Feb 2025 21:57:25 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=keYkrdCLM/i56QBb4mzN9qB66M2nj2BxsayszzNEJ7QSn30fdjKhyqa7kBSMvPbyYrSlkoamqJwWH7XJZcYEQIn94EVKmY7OGTk0yOuO90meAA5PHhlSW4/vzZxbfy8yU9qkdQcrPSkWu0t1ata8b+F1waI/4VdjND8TtZRJncg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYx/9qoI; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9CCC4CED1;
+	Mon, 17 Feb 2025 22:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739829446;
-	bh=j3npxDEEGqCqo9x6QwQfWGyCUDVoLgUwB0vLg4/3b98=;
+	s=k20201202; t=1739830578;
+	bh=7HnZsjMTtD+xZ2gpKxVIzakRhYVMVRSx1CGzG7KyobI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Nv3EK6IPtk8XeIZXcb5X+oQ+SBi6LQSLiYFdVoS8V93OwroqWpYEB/XMHLoBSDNls
-	 an+w8vQ2bXZH9ZH1CI1DR568KVFSTrkTJw7mWlxfNFJMd0Z8SFla7nrd8WW81jKwUy
-	 7Hry1WPpalYWDw+VfB8nbRIzGunbtOlmbxc8QAGEfbtPiuezzznS+HHNWXOmL+yUQH
-	 PlrpDUhXct8JaFIgFmgtDZA6HKtwB+vK+/nJFQqhOoCnZIN123G4f5LVi1bMnG/XH7
-	 /n19Vh1IDa88+nQyW60vGqWtBihGW+97Io9iPfyknviV0G4F35VMk7uJS4CN7hl4jt
-	 Bd1PPRDAmx/Zg==
-Date: Mon, 17 Feb 2025 22:58:07 +0100
+	b=dYx/9qoIcz1duw5ajKDnRC6rxpHOz2VbOsHYZE3qGc4zOxx5RgskIz3czkZwFd77r
+	 Xz8HkO5Y/CqgO2DcH2s7fNlkGzWuzRnJDW5EWurZEqcLXx+HeIsjJPXedG5VmhstIz
+	 pUuUYcpPUrbSMC5z1/kMMd9HegWhqqRoru2bjFGsk6ofWg5y4ubC20grS+MTUIuVQY
+	 0mmhH/dsO0TDXbWH7esQekOaInFR6try6OGdB198uZ+IUURBQMUeCRRt2HIPdWdZC5
+	 KtvBrLH1JXK5UcF281a75y48hpByxfBBgdwkTRNYB9maIKvKZ241vnR/JMIXRSkLtF
+	 3QzQtDyGw4Ijg==
+Date: Mon, 17 Feb 2025 23:16:59 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Problem in prepare.pl (PDF book script) when handling Unix V10
- manual pages
-Message-ID: <nd77jkxtgzh4harov35j6au7tgch4qbkxraa2x5fdwxgfeu5t2@7ttpi3qhggts>
-References: <ydrwk436ykp6qbl7mc4huswr4sp2rolev6mzxo4j3ccwweesbd@sdogm3kxgxew>
- <144994063.NCV6AghAH5@pip>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: linux-man@vger.kernel.org, branden@debian.org, 
+	Jason Yundt <jason@jasonyundt.email>
+Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
+ example programs
+Message-ID: <eawtdhfhbikpqnqygk6sisjb4drhzp6szneea2cajved6rwfkh@uf6ai7rjom4l>
+References: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org>
+ <20250217.157b556c3b77@gnoack.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,177 +58,210 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="apxd6nn3nmshoulc"
+	protocol="application/pgp-signature"; boundary="nhmwi33udchpxl42"
 Content-Disposition: inline
-In-Reply-To: <144994063.NCV6AghAH5@pip>
+In-Reply-To: <20250217.157b556c3b77@gnoack.org>
 
 
---apxd6nn3nmshoulc
+--nhmwi33udchpxl42
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Problem in prepare.pl (PDF book script) when handling Unix V10
- manual pages
-References: <ydrwk436ykp6qbl7mc4huswr4sp2rolev6mzxo4j3ccwweesbd@sdogm3kxgxew>
- <144994063.NCV6AghAH5@pip>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: linux-man@vger.kernel.org, branden@debian.org, 
+	Jason Yundt <jason@jasonyundt.email>
+Subject: Re: [PATCH v1] CONTRIBUTING.d/style/c: Add coding style for the
+ example programs
+References: <63bd996581c9ceedf9752852831e984c9ff00306.1739054584.git.alx@kernel.org>
+ <20250217.157b556c3b77@gnoack.org>
 MIME-Version: 1.0
-In-Reply-To: <144994063.NCV6AghAH5@pip>
+In-Reply-To: <20250217.157b556c3b77@gnoack.org>
 
-Hi Deri!
+On Mon, Feb 17, 2025 at 09:24:11PM +0100, G=C3=BCnther Noack wrote:
+> Hi!
 
-On Mon, Feb 17, 2025 at 06:52:46PM +0000, Deri wrote:
-> On Thursday, 13 February 2025 16:08:39 GMT Alejandro Colomar wrote:
-> > Hi Deri,
-> >=20
-> > I tried generating a PDF book from the Unix v10 manual pages, and found
-> > some issues with the Perl script.  I don't understand Perl, as you know,
-> > so I don't know what to do.
-> >=20
-> > I've attached a tarball with the manual pages that I'm trying to handle.
-> > They're slightly modified V10 files, in order to make them slightly more
-> > conventional (e.g., the =3D.1 page is now called eq.1, and the manx/ dir
-> > and other dirs than didn't have a digit in their names are now divided
-> > into dirs that have one digit after the name (e.g., man1x/, ...)).
-> >=20
-> > The command I'm trying to run is:
-> >=20
-> > 	$ make -R build-pdf-book MANDIR=3D~/Downloads/unix/man/
-> >=20
-> > (Of course, replace that path with wherever you untar the tarball.)
-> >=20
-> > The error I see is a forever loop (or so it seems) with the following
-> > error line:
-> >=20
-> > 	Use of uninitialized value $v in exists at
-> > /srv/alx/src/linux/man-pages/man-pages/contrib/share/mk/build/pdf/book/=
-prep
-> > are.pl line 67.
-> >=20
-> > Would you mind having a look at it?
-> > In case it matters:
-> >=20
-> > 	alx@devuan:~$ groff --version
-> > 	GNU groff version 1.23.0.2695-49927
-> > 	Copyright (C) 1989-2023 Free Software Foundation, Inc.
-> > 	This is free software, distributed under the terms of the GNU General
-> > Public License, version 3, or any later version, at your option.  There=
- is
-> > NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
-> > PURPOSE.
-> >=20
-> > 	programs in constructed pipeline:
-> >=20
-> > 	GNU grops (groff) version 1.23.0.2695-49927
-> > 	GNU troff (groff) version 1.23.0.2695-49927
-> >=20
-> >=20
-> > Have a lovely day!
-> > Alex
->=20
-> Hi Alex,
->=20
-> This was caused by nonsense "aliases", see man1w/splitrules.1, and man1b/=
-pins.
-> 1g, which looks like an alias, but is not. This has now been fixed by bei=
-ng=20
-> more tolerant of weird entries which look like aliases.
->=20
-> There are a lot of pages which should have aliases added.
->=20
-> I found some other issues which I have fixed:-
->=20
-> When an alias points to another alias the code was meant to keep looking =
-until=20
-> the real page is found. This affects the recent 6.11 (an example is=20
-> fchown32(2) which has no associated page number in the overview panel, it=
- now=20
-> works properly.
->=20
-> Since the v10 pages are intended to run on a version of troff with a two=
-=20
-> character name limit (I think). Code such as ".ne4" cause a problem for g=
-roff,=20
-> which needs ".ne 4" to work (otherwise groff looks for a macro called "ne=
-4"=20
-> and fails. Many of these issues are now corrected.
->=20
-> A strange issue is that if a page contained a "$" character it sent eqn i=
-nto=20
-> the stratosphere (thinking was dealing with an inline equation), I killed=
- it=20
-> when eqn chewed up over 24gb of memory. I have no idea why, and it is not=
-=20
-> triggered by a single page containing a "$", so it must be triggered by=
-=20
-> something in an earlier man page which triggers it, but changing some "$"=
- to=20
-> "\[Do]" fixed the problem.
->=20
-> One page redefined the ".P" man macro, which then affects all following m=
-an=20
-> pages.
->=20
-> One page introduced a string register called "mc" which then masks the gr=
-off=20
-> command ".mc" with very strange results .
->=20
-> Font L is used in many entries, no clue what font this is, but I convert =
-to=20
-> font CB. Please change to taste (see lines 130 onwards).
->=20
-> Several pages use lower case macro names, i.e. ".th" rather than ".TH".
->=20
-> I have "fixed" a lot of the problems but there are still many warnings wh=
-en=20
-> running groff. I have attached two parthes, one for the V10 man pages, an=
-d one=20
-> for prepare.pl. You should be able to produce a "useful" book after apply=
-ing=20
-> these.
+Hi!
 
-Thanks for all of that work!!
-
+> > +Name
+> > +       style/c - C coding style
 >=20
-> If you wish to see the fruits of my labour as a pdf, it is here:-
->=20
-> http://chuzzlewit.co.uk/UnixV10.pdf
+> "...for code examples in man pages"?
 
-It looks quite good!  I need to update the front page, and it's done, I
-guess.  :-)
+I didn't specify, because it also applies to programs written in commit
+messages (for example to prove that a patch is correct).  It applies to
+every C program that I have to look at as maintainer of this project
+(and actually, of any project that I comaintain too).
+
+> > +
+> > +Description
+> > +    Indentation
+> > +	Use 4 spaces.  Ideally, tabs would be preferred; however, they
+> > +	cause 5 spaces in manual pages, which is weird, so we use 4
+> > +	spaces.
+> > +
+> > +		if (foo)
+> > +		    bar();
+> > +
+> > +	Indent preprocessor directives after the hash by 1 space.
+> > +
+> > +		#ifndef  FOO
+> > +		# define FOO
+> > +		#endif
+> > +
+> > +	'case' is not indented within a 'switch'.
+> > +
+> > +		switch (x) {
+> > +		case 1:
+> > +		    foo();
+> > +		    break;
+> > +		default:
+> > +		    break;
+> > +		}
+> > +
+> > +    Line length
+> > +	Lines should not be longer than 80 columns.
+>=20
+> I assume that this is referring to a column limit on the fully
+> rendered man page, including surrounding indentation?
+
+It applies at several levels:
+
+-  The source code cannot go past column 80.
+-  The rendered page cannot go past column 80.
+
+80 is a hard limit in every way possible.
+
+> > +     Except that if they
+> > +	contain string literals, they can be longer; don't break
+> > +	user-visible string literals.
+> > +
+> > +	When breaking a function prototype, start the continuation line
+> > +	with 4 spaces.
+>=20
+> When we break parameter lists in function prototypes, do we need to
+> break them in function definitions the same?
+
+Yes.  With the only difference that the return type goes in a line of
+its own in the definition, but goes in the same line in the declaration.
+
+>  I'm asking because it
+> might make the indentation confusing when it's next to a function body
+> with the same indentation.  For instance:
+>=20
+> void foobar(char *bananas, int oranges, float pineapples,
+>     int cucumbers) {
+
+The opening brace goes in a line of its own.  It should be:
+
+
+
+	void foobar(char *bananas, int oranges, float pineapples,
+	    int cucumbers);
+
+	void
+	foobar(char *bananas, int oranges, float pineapples,
+	    int cucumbers)
+	{
+	}
+
+
+>     int gherkins;
+>     int potatoes;
+>=20
+>     /* actual code starts here */
+> }
+>=20
+> Now the last parameter and the local variables have the same
+> indentation and can get confused more easily.
+
+The rule for braces is K&R, which places the opening brace of a function
+in a line of its own (unlike most other braces).
+
+When a conditional is split across several lines, I also override K&R by
+moving the brace to an empty line to avoid precisely that:
+
+                if (foooooooooooooooooooooooooo
+                 || baaaaaaaaaaaaaaaaaaaaaaaaaar)
+                {
+                    baz();
+                }
+
+> > +
+> > +	When breaking a function call, align at the opening parenthesis.
+> > +
+> > +    Braces and spaces
+> > +	Use K&R style for braces.  But if the controlling expression of
+> > +	an if/for/while is broken, the opening brace goes on a line of
+> > +	its own.
+> > +
+> > +		if (foo)
+> > +		    bar();
+> > +
+> > +		if (foooooooooooooooooooooooooo
+> > +		 || baaaaaaaaaaaaaaaaaaaaaaaaaar)
+> > +		{
+> > +		    baz();
+> > +		}
+> > +
+> > +	Treat sizeof() and similar operators as functions, not keywords.
+> > +	Use a space after keywords, but not after functions.
+> > +
+> > +	Use a space to separate binary and ternary operators (except
+> > +	`.` and `->`), but not to separate unary operators.
+> > +
+> > +	Use a space between a cast and the expression it converts.
+> > +
+> > +    Naming
+> > +	Use short names.  Long names should be an exception, and
+> > +	indicate that something probably isn't well designed.
+> > +
+> > +    Functions
+> > +	Functions should be short and sweet.
+> > +
+> > +	All functions should have prototypes.
+>=20
+> Like this?
+>=20
+> int foobar(int a, int b);
+>=20
+> int foobar(int a, int b) {
+>     return a + b;
+> }
+>=20
+> I don't understand what this duplication would be good for.
+> Or I am misunderstanding what you meant here. :)
+
+The definitions go all after main().  The prototypes go all before
+main().  The benefit is that you can get an overview of what is defined
+without having to look at the implementation.
 
 
 Have a lovely night!
 Alex
 
-> Cheers=20
->=20
-> Deri
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---apxd6nn3nmshoulc
+--nhmwi33udchpxl42
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmezsOgACgkQ64mZXMKQ
-wqlythAAlsm4SradKn7IymN/WtGohY/W2IZERTExffO5RXAGEaD56FckK2c6a3Dn
-HuMOfbZzEkr7XzX262yXbRd6TPbAW3igQVZXlHAT4DKeXHcS7b826wRBxVNzDzl8
-i2kYDU8EwdwoDVCUVDR/XZVumpKPg21TjD25/yGMUWv/hl8p+S4Ihc3S9qCMqQoq
-UABuJG8icnOWeW9gcO34GvBo8NNZd6Vm0eFNSNobKw2daF/5WvKXTHmfkVja1IIf
-7IcXJF/q7CBdMCs76DpbcdhheMumERp5y40ETIb9Nk6W9xKGp2AK5zhuVRrdG7m4
-w6/NmvjUyqZXZsz4KwYUxDIpcRT7jWMuuLNrLHpc+k5yg4SBUu7FXwXccgjMYk5v
-wYaDEypM7eFu3MqC6wWkrrhEl/yJKhCpdyqsbkCEHmQq+dwkMr/x0B9wbgrNXZWK
-zFnq0jtAyHC7cJ4Oir2hH2/n9uSFp7kmJdNJMpmiCpYSH7/If+TsR27CBEjAkCO0
-FO3YJ8zh4DaenXt0S6d5QTI6CAyRpUfDI1I/M/YxoBzN6nDUNxOBEIi1mpS45eyq
-YMozEmSp98LpPraJo97RxNPtRkEvIVuVUFgwu3BvGZ86m/9A+lvwphyHm1x1WgPT
-Vd4XXcEE/CBEl4pT/N98EORkoBaLxXo3+p6WCO5eJ/Fg3Yne5Hw=
-=/3eS
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmeztVAACgkQ64mZXMKQ
+wql0dw//URPsVEgbUEDOUwMl7yqru11BW2hMB+BF7CUbt9fqWVCFOGu699nKhTLu
+mseh4yLLxst8euy78qSYtkazRp06RbYLh5BID+XN6ENbYOqxd+TWLz2Y6hLoMqNB
+bwB9A8BxV0HFVcsGHogoCexs2BEy0aM4dHsNBeSwpvJL8Jmw9f/BmVohnGF7Hnl/
+Nb1HNPJkNUw7aqWu8W+OIzfFoutraScTBhAUKaeTtCe6Hhsx7qfAS3kAdPTK7bpf
+6StzAn+nT0xWgmHuL22cILza+bYAT1vAM/o9nYzRByIMhpPGhpmzNDs05H3/CHY+
+BKDXMcfx6C2SVCQ93zymh1FQ9TR/41QJUlu0WCxAosNsMabaGSLefcsyyLgn1gfR
+6zbsFP+W0ni1C698boYYXOd+9Fm3IzjQ0Q8VTgOgMhUgbQGP4WOYd+WJ9ZqiAd0l
+r2rw3uiX8B34z+05V0kryY0oc6s793+5yS/t2qOp7riSnxZs5j7RxPfopIu10MOL
+mMC+6mZtuQtDQoJFSoGONn3wyCJHgAziUI6IJBFINChZrFnreZNTnxNhwV1jnAtw
+OhdhFmwYCH7+1ZEkyp1nuKLNIbGJupkf7F60eT+rprs0NErrEZnPnKFWfYfKM6Ep
+ecPRpJw4UjP5WxERR2mvF4c23ocCtNRasqO5JnwF4yuSqgqeOjo=
+=+oST
 -----END PGP SIGNATURE-----
 
---apxd6nn3nmshoulc--
+--nhmwi33udchpxl42--
 
