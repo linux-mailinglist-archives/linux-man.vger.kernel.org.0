@@ -1,86 +1,86 @@
-Return-Path: <linux-man+bounces-2481-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2482-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD837A3AC95
-	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 00:33:40 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4975A3AC9B
+	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 00:37:28 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5CA4A7A5304
-	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2025 23:32:42 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 81396188AF8E
+	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2025 23:37:34 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5507C19CC17;
-	Tue, 18 Feb 2025 23:33:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 411BA1D86C7;
+	Tue, 18 Feb 2025 23:37:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KmPibyGy"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TOwZG6vL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEC91474D3
-	for <linux-man@vger.kernel.org>; Tue, 18 Feb 2025 23:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F12018A6DB
+	for <linux-man@vger.kernel.org>; Tue, 18 Feb 2025 23:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739921613; cv=none; b=E+mFGYzw3+IT8ZZxh1JTaExDN/4GCaNaV1z0uJJdbypJoSpiP6dSqee6EuHVSO6h5go3mNHY/kAxGWt1YbGlJ/vk31yNliILBJ64Me/ylaOUNLWQGv0Nekt7ezdRs14swhuuQrDbSyE1O/oDKI5AkAxao9QqxKJMMWuZQWfxlOE=
+	t=1739921844; cv=none; b=CKIzj4HW3ayHDMO7wfX5omnAeKaYrucNkoF+bacjQGkRFXqw2yR90KKqF6TXy2YuNkevARp3D4inM2MbeeQMBU4LJDvJDE3+bPhRPNa/6iZFEtVShlBx8vSr8QXT8dSVf+4QsZQyiEbGztJm7v+Fs1Ba043Vbbh976ZDhNxs8jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739921613; c=relaxed/simple;
-	bh=pkvxohChHaVYV+W+CklcNuXvckeo5nmCDmtpu+KnfTE=;
+	s=arc-20240116; t=1739921844; c=relaxed/simple;
+	bh=cj4q8/wSCSoCBIuloNkgYJ6DTmzWgP8zXcNwRUhuISE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bOjOZG9Y5jL04aG6EipdaIOwT3CQtq2wK0upgItxwuBKqdqQeKpkv+AfTLl4qXHnuWvADxM4tl61l44W12PfE0U8YB6b5kdVlSNli6ADgFEIL9C0uXjvRqOmG209O6nvGTg1kQncVV8HdkjOkk9N3yuElCtV9V6Q0HHoyuKQjgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KmPibyGy; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=un+vLCFjMNKIY55kmd28NYugz2/zjXP9iPm7PiYvR4xmtyrFSDqU0RPHP8WsRe27iHSe5krmDrBHT37AQspxuF6Ig3KMyH9Ysko8oZS7/Dq4a5XIPLUlWFH/xhxZoHa/9tKcwM2GcoQrygBKbz1oKGrp7f/kuYRD30+RF8aGhXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TOwZG6vL; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1739921610;
+	s=mimecast20190719; t=1739921838;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=beZDvX0G2ztVmqD2hItZV++oJf80Za01P3giaeJHVy0=;
-	b=KmPibyGyfnNr22TCOAj4KbzG4DtKt8ADz7o3PZx9QH22y6dtT0WQh7X4gttZeSFuP1oPK1
-	aLxGO3lm/gbhwxoACJdkSQLGAdlaFchv1pzkylh4tsWte5MU3Fyt/ppBS9LxwRShNZIfJU
-	n1lw4Mjoc72gV+t4hcvS6rmGNRWXMlc=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=X1bUFfSvd9COht87VmOY5Py9hkxQ2PEKwvpcxjxpt+4=;
+	b=TOwZG6vL970CKGhX1iRvm5kKpQcn4aaeExwYRvfxrdUahSDH7lMuGrCO0frmSIbO77fwUm
+	6iZ4Gna5wsfiqm38W8+cz2xu/0N+WOaI3Hd7iWBENvjCeiVq2MSfohZGJwoEa/WPPGZZXm
+	eamwpmOq/y8AQVe6syBlifXuzBppOTs=
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-282-vLdhclNtPoC6Nzf4HUeF2A-1; Tue, 18 Feb 2025 18:33:28 -0500
-X-MC-Unique: vLdhclNtPoC6Nzf4HUeF2A-1
-X-Mimecast-MFC-AGG-ID: vLdhclNtPoC6Nzf4HUeF2A_1739921608
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7272bdd323dso543104a34.3
-        for <linux-man@vger.kernel.org>; Tue, 18 Feb 2025 15:33:28 -0800 (PST)
+ us-mta-257-lReCJO-HOo2vg7BvCcA8GQ-1; Tue, 18 Feb 2025 18:37:12 -0500
+X-MC-Unique: lReCJO-HOo2vg7BvCcA8GQ-1
+X-Mimecast-MFC-AGG-ID: lReCJO-HOo2vg7BvCcA8GQ_1739921831
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-5f6e3f02e27so1864852eaf.3
+        for <linux-man@vger.kernel.org>; Tue, 18 Feb 2025 15:37:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739921608; x=1740526408;
+        d=1e100.net; s=20230601; t=1739921831; x=1740526631;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=beZDvX0G2ztVmqD2hItZV++oJf80Za01P3giaeJHVy0=;
-        b=DJ82TFSrPglSMUFnt0UyG0Vbb2N8Qx4bSTb/yfp8gPKgeJDqXS1noQeXgu2ztHDGkN
-         ukT8rs8qrru/L44/to0nScXfQWxRkaZj8KQ5pfZUYf+DItkUuUxZ4XfPlzusHXXRIgbv
-         uxfSmcm0A+qdcl74pGf4g4DYlMTUwiy4hQufd+dU4x4TOAYdngoPaNYNUc7YRGzbN/9J
-         F3HTMsHaeR2RZeWCMqGU9VqP87umqr/IFtEkZifQ5EwRsfMBd8pSIp7XCMoqeA8EFco5
-         3CFTlN4aDu9dAO7KRgPEBoHQqiACCfMzeWgCJHEsjaVnjgyFkO1o+RULxXHWzEHi2wP8
-         5tug==
-X-Gm-Message-State: AOJu0YwigSvakry60V/cN6IGs8pUhP/hQtpYvfM0grt/vYFu6bwUw+nL
-	Lb+WnWmkrN7qJDDjXaf8hQ+FPCVz5qBleN58EZEgxTGR/zQ+ZSLZLEmgHEaOVau7ckfy7U4A2mf
-	e9zP2akJf3blpTG6BvCCiqmrm6AGvS5nbDGxJphX7dIbjSXWT9ACCceGsDg==
-X-Gm-Gg: ASbGncvsciZqwaOzfet+PrxvBkGh5lQeswe3BJQJ7IAyfwFwwM1ltcICYZEcQbckofF
-	D4i/xXrLisNgIs4KXyTRRyJ0kPRMHDsCi3iEKtMx2Qq2QBY0OeM4jwniGsLLj/MeavGL2+KB10N
-	swpoegQNZAry7cFPmYILEALYvVjdjNlzmOb5WHlIFabXOK5/nVYrcEn5VL4bSyW5SekuSfhb+32
-	4cr/UL/UaeSLqUSlBgd1yaqUt7+Ju36sr3+IKoD3Hae0FkfvnmTGQQb/epwY3rUkw5gAuNcmxiK
-	1XJAIA==
-X-Received: by 2002:a05:6830:442a:b0:727:3380:66c3 with SMTP id 46e09a7af769-727338068c9mr3060118a34.28.1739921607814;
-        Tue, 18 Feb 2025 15:33:27 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFijtkA6O4LjSYWDIA4MOcT8l4Q4lMu8/45XHV9ZUvr6Zr01g/5k7eT28xQKlUvpZuO96TCgg==
-X-Received: by 2002:a05:6830:442a:b0:727:3380:66c3 with SMTP id 46e09a7af769-727338068c9mr3060104a34.28.1739921607526;
-        Tue, 18 Feb 2025 15:33:27 -0800 (PST)
+        bh=X1bUFfSvd9COht87VmOY5Py9hkxQ2PEKwvpcxjxpt+4=;
+        b=RX+R3IPda+UTYOKwCL8tOhWX4J7ODTMT6ADeqXUkoa7/Te9cn9Sj2ftQRxnrUcFjC3
+         5LOlGXHIHlhiLOwdRb5apKdNT32zr7qmcy2sD4YkkOGJiIbKgHybrZwUDsDoBXcDi5JE
+         1TSamzZ1aRmYdNu8duHdvdIKShEnVUwuuHq5xCzQXxIA3po5aLjPBZ/y0tO6XD90y6uR
+         FKlkZI7UQ5ILfLkWwQG/99VoqqmJ/yKr36IliA3x0W0V+I46IESjTp58iet8BvxRqoaA
+         DJ4jjyQokdhWCTAdAoHG1IcFX2/az+8ZS0r6D23JmlU7MJRO23IcBwVVAD/5rSSB1cly
+         3APw==
+X-Gm-Message-State: AOJu0YxYHydhs9fBv3XQQi+EdDgumz/KX/SHbX8N+qYvUWvHFIN5sbul
+	u7QQ7B53aj/R7rkPDsztCi6arTQNc1zhWEGIbfpAXzHauAZtydRucPWwakaBAl/DisT/x3lToAt
+	thHC13dMFb2ksu7VT6zaHjTLbXZmfDXsLeGwv8TdIis/EKZXGFoXKmY8SOQ==
+X-Gm-Gg: ASbGncvO5iRfiK+P2qtgchWz9ADHIis8fdHWtq/4mO68fyrnlYXUPSjT4aLVq5lBQnM
+	g4NAofMLY1eEc8AasBhtezUz6waNF4NTygqOkcGnho9bnnG9iyIhLrffIblhSvsGf/DDAOh1LlK
+	pCLYw90R97925C5YKwjmK1cxYVSTcs0fLaHBw5zsJmD6qKQLBY+i2PKABbyTvvUzQRTCiQTkvRp
+	u2nliT3TdQkd0JkH65jGFdrFutdcTpVsbFQhWLfAZaf43DsxqnfzWDgE82o9k+rW5Bqr/DK9bA4
+	zXKJXA==
+X-Received: by 2002:a05:6870:472a:b0:29f:b09d:d93a with SMTP id 586e51a60fabf-2bc99a6d355mr9642119fac.16.1739921831281;
+        Tue, 18 Feb 2025 15:37:11 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEVbp+jcqncgInqnVkJ1VGM9fL/K54T/SfOuIUBu1uWWsEcF+SAkckHpfa2RuxdzHzbzIISkw==
+X-Received: by 2002:a05:6870:472a:b0:29f:b09d:d93a with SMTP id 586e51a60fabf-2bc99a6d355mr9642108fac.16.1739921830931;
+        Tue, 18 Feb 2025 15:37:10 -0800 (PST)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-72721e49c2asm1736912a34.23.2025.02.18.15.33.26
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-2bc69a3a572sm4989612fac.30.2025.02.18.15.37.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Feb 2025 15:33:27 -0800 (PST)
-Message-ID: <1a4ff544-28d6-45e3-96c9-55097cd6fa4a@redhat.com>
-Date: Tue, 18 Feb 2025 18:33:26 -0500
+        Tue, 18 Feb 2025 15:37:10 -0800 (PST)
+Message-ID: <88f30f87-0498-4d2a-a9be-27b737ce54a7@redhat.com>
+Date: Tue, 18 Feb 2025 18:37:09 -0500
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -88,12 +88,13 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] man/man3/getcwd.3: tfix (pathname => pathnames)
+Subject: Re: [PATCH v3 1/2] man/man3/getcwd.3: say more clear that syscall can
+ return "(unreachable)", but modern glibc wrapper cannot
 To: Askar Safin <safinaskar@zohomail.com>, Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
 References: <20250216061828.2277971-1-safinaskar@zohomail.com>
  <20250217165143.1265542-1-safinaskar@zohomail.com>
- <20250217165143.1265542-3-safinaskar@zohomail.com>
+ <20250217165143.1265542-2-safinaskar@zohomail.com>
 Content-Language: en-US
 From: Carlos O'Donell <carlos@redhat.com>
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -141,34 +142,88 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O4uRThl5mMDx8MXQz6M9qQ5anYwre+/TudTfCzcTpgXod1wEqi2ErJ5jNgh18DRlSQ3tbDvG
  O0FatDMfJw==
 Organization: Red Hat
-In-Reply-To: <20250217165143.1265542-3-safinaskar@zohomail.com>
+In-Reply-To: <20250217165143.1265542-2-safinaskar@zohomail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 2/17/25 11:51 AM, Askar Safin wrote:
-> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
+> I verified using expirement that modern glibc wrapper getcwd actually never returns "(unreachable)".
+> Also I have read modern glibc sources for all 3 functions documented here.
+> All they don't return "(unreachable)".
+> Also I changed "pathname" to "pathnames".
 
-LGTM.
+Commit message is incorrect, but the rest of the change looks good.
+
+Please drop the "Also I changed..." line since you made this change in patch 2/2.
+
+You can keep my RB if you drop the line.
 
 Reviewed-by: Carlos O'Donell <carlos@redhat.com>
 
+> 
+> Now let me describe my expirement:
+> 
+> 	d-user@comp:/tmp$ cat getcwd.c
+> 	#include <unistd.h>
+> 	#include <stdio.h>
+> 	#include <sys/syscall.h>
+> 
+> 	int
+> 	main(void)
+> 	{
+> 		char  buf[1000];
+> 
+> 		if (syscall(SYS_getcwd, buf, sizeof(buf)) == -1)
+> 			perror("SYS_getcwd");
+> 		else
+> 			printf("SYS_getcwd: %s\n", buf);
+> 
+> 		if (getcwd(buf, sizeof(buf)) == NULL)
+> 			perror("getcwd");
+> 		else
+> 			printf("getcwd: %s\n", buf);
+> 
+> 		return 0;
+> 	}
+> 	d-user@comp:/tmp$ gcc -Wall -Wextra -o getcwd getcwd.c
+> 	d-user@comp:/tmp$ sudo unshare --mount bash
+> 	d-root@comp:/tmp# mkdir /tmp/dir
+> 	d-root@comp:/tmp# mount -t tmpfs tmpfs /tmp/dir
+> 	d-root@comp:/tmp# cd /tmp/dir
+> 	d-root@comp:/tmp/dir# umount -l .
+> 	d-root@comp:/tmp/dir# /tmp/getcwd
+> 	SYS_getcwd: (unreachable)/
+> 	getcwd: No such file or directory
+> 	d-root@comp:/tmp/dir# exit
+> 	exit
+> 
+> Cc: Carlos O'Donell <carlos@redhat.com>
+> Link: <https://sourceware.org/bugzilla/show_bug.cgi?id=18203>
+> Link: <https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=52a713fdd0a30e1bd79818e2e3c4ab44ddca1a94>
+> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
 > ---
->  man/man3/getcwd.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  man/man3/getcwd.3 | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
 > diff --git a/man/man3/getcwd.3 b/man/man3/getcwd.3
-> index 919ffb08f..f3da4b5a9 100644
+> index 685585a60..919ffb08f 100644
 > --- a/man/man3/getcwd.3
 > +++ b/man/man3/getcwd.3
-> @@ -245,7 +245,7 @@ process (e.g., because the process set a new filesystem root using
->  without changing its current directory into the new root).
+> @@ -246,7 +246,10 @@ without changing its current directory into the new root).
 >  Such behavior can also be caused by an unprivileged user by changing
 >  the current directory into another mount namespace.
-> -When dealing with pathname from untrusted sources, callers of the
-> +When dealing with pathnames from untrusted sources, callers of the
->  functions described in this page (until glibc 2.27)
->  or the raw
->  .BR getcwd ()
+>  When dealing with pathname from untrusted sources, callers of the
+> -functions described in this page
+> +functions described in this page (until glibc 2.27)
+> +or the raw
+
+OK. Includes Alejandro's suggestion.
+
+> +.BR getcwd ()
+> +system call
+>  should consider checking whether the returned pathname starts
+>  with '/' or '(' to avoid misinterpreting an unreachable path
+>  as a relative pathname.
 
 
 -- 
