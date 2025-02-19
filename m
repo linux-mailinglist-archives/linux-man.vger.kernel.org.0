@@ -1,201 +1,206 @@
-Return-Path: <linux-man+bounces-2484-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2485-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43280A3ACDC
-	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 00:52:57 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EE1A3AF9A
+	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 03:30:12 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1D3451750FF
-	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2025 23:52:56 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id BFC0D7A4A8E
+	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 02:29:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EA901DC184;
-	Tue, 18 Feb 2025 23:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3523317CA12;
+	Wed, 19 Feb 2025 02:30:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjPiqt+U"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JFjj19+T"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27491D86CE
-	for <linux-man@vger.kernel.org>; Tue, 18 Feb 2025 23:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3FC18C011
+	for <linux-man@vger.kernel.org>; Wed, 19 Feb 2025 02:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739922772; cv=none; b=mcIGZaPsiH2Rh44mcQ8N8GrZA+ov3lmAt4PatjUGAqzIbxboi57wmszxOWr2H7ESyUahnUk2orpFAlmnnGgQIaoDgNHQna1ovhdy7K+dEOrafD9IhqFl+tAIZwKbUvFiy0WqDXRBaa9UGBaQlee35TqLjeyGjpG7jgusddIZIHw=
+	t=1739932208; cv=none; b=RbggYOTLoVuIPQ30HpoMP7A0rGkXO3KwEGDuBF3zQrG8uPN9RmQjKg66wnpLKELjE8InWva8aZILnV05RJMmyYhpRkAYGjZHet9u/UYz5KTrCaHf/e3ueiEBVRONDJ2qbkz0lTH9VZc37FpMd2rvducAnsZaZ1cdhrT8EwnzKnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739922772; c=relaxed/simple;
-	bh=CIxkQrTbWE8nT2K/yik6nq61S/6+kaB4qKkFL8i5cZc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I7qaMvJd2UW1dH7+qEINg8TzD7uklaKDCw8w+XKHaTKIjZ+ixpF4Z7i+SffTLRb+cPBuH6rhNTuJg8m3ePogU9gpHgLbbEIW13t6feaHsJvD3Ow6H7plzPGgLqYvhWnWlH9XMtvqiBKskW9j/bIbEbcndZO0i/EItaApfSMtVCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjPiqt+U; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AA1C4CEE6;
-	Tue, 18 Feb 2025 23:52:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739922771;
-	bh=CIxkQrTbWE8nT2K/yik6nq61S/6+kaB4qKkFL8i5cZc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cjPiqt+U1T/j59z8SxSYiSlpR+dHd4H4dzQ+F33LQmE7pNzg3FfwsGqwdFIl3Qcxh
-	 8LY2FLB6kWz8tWYwnj2FBY7Sf78bAkBWYnkNJssc8YGQcZWwjj10GfAdri1RGAgcMz
-	 1ueBbfgRpiXzs0xgY8D66GzWrxmE64IBUnenoTBWBmHrW3VnkoPQ6AlKgrGZrotime
-	 AjTq3Uc5LrIVaNE0cozgD8iAMw5lNiyO3AC7lMweXveirPH1n0MLz1BdC7YHK+glgO
-	 1VMYQ/dvQsX327MtSHIs6c1CCZridBP/fzxdek/RqyimUUYnxtpuuIvfY6DWvGGs2t
-	 /EueOD6BAIuFA==
-Date: Wed, 19 Feb 2025 00:53:32 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] man/man3/getcwd.3: say more clear that syscall
- can return "(unreachable)", but modern glibc wrapper cannot
-Message-ID: <cjcvgtiyq4yipanoruv5xg2x7prusrudtgizttj634rrwlgyzl@a7iiwkoezojd>
-References: <20250216061828.2277971-1-safinaskar@zohomail.com>
- <20250217165143.1265542-1-safinaskar@zohomail.com>
- <20250217165143.1265542-2-safinaskar@zohomail.com>
- <88f30f87-0498-4d2a-a9be-27b737ce54a7@redhat.com>
+	s=arc-20240116; t=1739932208; c=relaxed/simple;
+	bh=FPQHp/FPH4/Cb4SQLFIRj14+9wYRpVPN9FRGmXoVT4c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EuU4iEEmSruFd/VdqgY5a2aiAwEVeldX6Suk2OiHVc09Ix8t79BGaw4dPF8DZIhYsaJdDiWxdySxe+5dPTE6z7dXdX8hND6Igx5DL3vpVRqn7lwtP3+gxS3B8NEWEHvfRdw48iByIjsJ6GvZy6LQyxeRlukZSSkp4U/RicmjQDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JFjj19+T; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1739932205;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=vmrECUs6P3ZCv3zXGEib37X9JOyUiXRuRqPeViGWWUQ=;
+	b=JFjj19+T7w5ARu3u3M3TN/7OYWA1VOF9tAtpoy9NJCkb2zHWBtAcwue4mwKUIFyfm088IF
+	ZJ4+3Ney2Wgdg3fz+dDp30exTdhGZmxgdpl4HGSb+8AcnQgnTXzWL5sI28c74wLT4H1hDL
+	2p2kt+pPw++zmryfUFmtd3iUBCVfeEA=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-684-_du3ULanMbGkCb5vReUhhw-1; Tue, 18 Feb 2025 21:30:03 -0500
+X-MC-Unique: _du3ULanMbGkCb5vReUhhw-1
+X-Mimecast-MFC-AGG-ID: _du3ULanMbGkCb5vReUhhw_1739932203
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-727253fa0aeso2600561a34.1
+        for <linux-man@vger.kernel.org>; Tue, 18 Feb 2025 18:30:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739932202; x=1740537002;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vmrECUs6P3ZCv3zXGEib37X9JOyUiXRuRqPeViGWWUQ=;
+        b=lmn7ZQfLIytHu3M3WAFLkfFUH1g32n4ZF08UorgZomBJZGy3FrNz9iSjG2V4iCHb1O
+         RawoB3jLQZh/GwaFS2oy6xDU3PapQWjbrIulJbKHKvcqE03FrwChXeDiEEaEH6qbTprP
+         c2BHWgv8f1ngmVmEPomtar0w0od6QXqMUHEY0sieyXHcc9HFkLIT7QgLJsgk5U1sg7Ju
+         hySkX2tXLI6WRRAbzN7E/zK5y3LaXTnwCwVXn97Z8vlCHw857GbQHDeMJHVQx9kc37hQ
+         Mxk6PWfeouRXVeNN0z6kf+iYzfAVx/jngEHKLoHzkhXIjun0ibBtrVjqujnzgxImoOv3
+         5YYg==
+X-Forwarded-Encrypted: i=1; AJvYcCUINjSKSXA5qlhfcm1hdj2io2Vjzy8UahkRypVdgZ69sWmhjUGm6vNn2rqW+OTzWJqGPeX+3UItg9s=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuFW7FUAhvJwxrVl9mZVaRDw+pXwiKSU1EwpfpF7b8MI8TdRJG
+	zU7rB9zh9eYawD8rHimuhONZGufB/op94OdSlnvLhyy2eQfhnCGVLN9FbEFY5tYCxg/BxCQShw2
+	eHWlOksPh74XMDFtD5dA65EzPl7ZGwIzjTH+v6Jb2l4/oW3XZMeMA2OQi8mPAn2xCbQ==
+X-Gm-Gg: ASbGncuknNonb9jFJ6dyK9nm6WB3JCdob+peDASi2gHQIofehaZTAtNXl7mzuChuSE/
+	kPZatlDCOQ9mDS2TH61G4YiAzTAdm+VHcRvWIQc5V3/qt/S7/SUrmewnOpNmFjpIMjl4WAMhc0E
+	KdCTtd8v4eyWAWOKyxcXSUKT+siB/tE46KVvvebmXksVc++zyKI51StH7aCT2np7VUmUPVBb79G
+	ZrFJvCz6jhP8vOHFXt60FjQvcyThW4YK9oJK3kdBw3zS13pPZTzxH00QG2nesMo6dx2Xn3szbcl
+	smfQOQ==
+X-Received: by 2002:a05:6830:927:b0:71f:bbbd:ab49 with SMTP id 46e09a7af769-7271204fd12mr10871392a34.9.1739932202697;
+        Tue, 18 Feb 2025 18:30:02 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHkr+MlD1qTcq8UdacKdk+U5KhR3oLgX/fQqRxOgwrFGeRIyaTojCDCk1UeyCSlUAaPT5g4nw==
+X-Received: by 2002:a05:6830:927:b0:71f:bbbd:ab49 with SMTP id 46e09a7af769-7271204fd12mr10871379a34.9.1739932202407;
+        Tue, 18 Feb 2025 18:30:02 -0800 (PST)
+Received: from [192.168.0.241] ([198.48.244.52])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7272e96bc2csm1103275a34.54.2025.02.18.18.30.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Feb 2025 18:30:01 -0800 (PST)
+Message-ID: <124fdcc1-6380-49d4-b25d-13046a4693b9@redhat.com>
+Date: Tue, 18 Feb 2025 21:30:00 -0500
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f5vobmcf67i6asbo"
-Content-Disposition: inline
-In-Reply-To: <88f30f87-0498-4d2a-a9be-27b737ce54a7@redhat.com>
-
-
---f5vobmcf67i6asbo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] man/man3/getcwd.3: tfix (pathname => pathnames)
+To: Alejandro Colomar <alx@kernel.org>
 Cc: Askar Safin <safinaskar@zohomail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] man/man3/getcwd.3: say more clear that syscall
- can return "(unreachable)", but modern glibc wrapper cannot
 References: <20250216061828.2277971-1-safinaskar@zohomail.com>
  <20250217165143.1265542-1-safinaskar@zohomail.com>
- <20250217165143.1265542-2-safinaskar@zohomail.com>
- <88f30f87-0498-4d2a-a9be-27b737ce54a7@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <88f30f87-0498-4d2a-a9be-27b737ce54a7@redhat.com>
+ <20250217165143.1265542-3-safinaskar@zohomail.com>
+ <1a4ff544-28d6-45e3-96c9-55097cd6fa4a@redhat.com>
+ <gqpxaoxm3vhe67i3pqa3erbsmovf2i6y5nb7djnqanatfof2ic@2ehts6pa5axu>
+Content-Language: en-US
+From: Carlos O'Donell <carlos@redhat.com>
+Autocrypt: addr=carlos@redhat.com; keydata=
+ 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
+ O0FatDMfJw==
+Organization: Red Hat
+In-Reply-To: <gqpxaoxm3vhe67i3pqa3erbsmovf2i6y5nb7djnqanatfof2ic@2ehts6pa5axu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 18, 2025 at 06:37:09PM -0500, Carlos O'Donell wrote:
-> On 2/17/25 11:51 AM, Askar Safin wrote:
-> > I verified using expirement that modern glibc wrapper getcwd actually n=
-ever returns "(unreachable)".
-> > Also I have read modern glibc sources for all 3 functions documented he=
-re.
-> > All they don't return "(unreachable)".
-> > Also I changed "pathname" to "pathnames".
->=20
-> Commit message is incorrect, but the rest of the change looks good.
->=20
-> Please drop the "Also I changed..." line since you made this change in pa=
-tch 2/2.
->=20
-> You can keep my RB if you drop the line.
->=20
-> Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+On 2/18/25 6:48 PM, Alejandro Colomar wrote:
+> On Tue, Feb 18, 2025 at 06:33:26PM -0500, Carlos O'Donell wrote:
+>> On 2/17/25 11:51 AM, Askar Safin wrote:
+>>> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
+>>
+>> LGTM.
+>>
+>> Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+> 
+> Hi Carlos,
+> 
+> Thanks!  Does this apply to the entire patch set, or to this patch only?
 
-Thanks!
+Only to this patch.
 
->=20
-> >=20
-> > Now let me describe my expirement:
-> >=20
-> > 	d-user@comp:/tmp$ cat getcwd.c
-> > 	#include <unistd.h>
-> > 	#include <stdio.h>
-> > 	#include <sys/syscall.h>
-> >=20
-> > 	int
-> > 	main(void)
-> > 	{
-> > 		char  buf[1000];
-> >=20
-> > 		if (syscall(SYS_getcwd, buf, sizeof(buf)) =3D=3D -1)
-> > 			perror("SYS_getcwd");
-> > 		else
-> > 			printf("SYS_getcwd: %s\n", buf);
-> >=20
-> > 		if (getcwd(buf, sizeof(buf)) =3D=3D NULL)
-> > 			perror("getcwd");
-> > 		else
-> > 			printf("getcwd: %s\n", buf);
-> >=20
-> > 		return 0;
-> > 	}
-> > 	d-user@comp:/tmp$ gcc -Wall -Wextra -o getcwd getcwd.c
-> > 	d-user@comp:/tmp$ sudo unshare --mount bash
-> > 	d-root@comp:/tmp# mkdir /tmp/dir
-> > 	d-root@comp:/tmp# mount -t tmpfs tmpfs /tmp/dir
-> > 	d-root@comp:/tmp# cd /tmp/dir
-> > 	d-root@comp:/tmp/dir# umount -l .
-> > 	d-root@comp:/tmp/dir# /tmp/getcwd
-> > 	SYS_getcwd: (unreachable)/
-> > 	getcwd: No such file or directory
-> > 	d-root@comp:/tmp/dir# exit
-> > 	exit
-> >=20
-> > Cc: Carlos O'Donell <carlos@redhat.com>
-> > Link: <https://sourceware.org/bugzilla/show_bug.cgi?id=3D18203>
-> > Link: <https://sourceware.org/git/gitweb.cgi?p=3Dglibc.git;h=3D52a713fd=
-d0a30e1bd79818e2e3c4ab44ddca1a94>
-> > Signed-off-by: Askar Safin <safinaskar@zohomail.com>
-> > ---
-> >  man/man3/getcwd.3 | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/man/man3/getcwd.3 b/man/man3/getcwd.3
-> > index 685585a60..919ffb08f 100644
-> > --- a/man/man3/getcwd.3
-> > +++ b/man/man3/getcwd.3
-> > @@ -246,7 +246,10 @@ without changing its current directory into the ne=
-w root).
-> >  Such behavior can also be caused by an unprivileged user by changing
-> >  the current directory into another mount namespace.
-> >  When dealing with pathname from untrusted sources, callers of the
-> > -functions described in this page
-> > +functions described in this page (until glibc 2.27)
-> > +or the raw
->=20
-> OK. Includes Alejandro's suggestion.
->=20
-> > +.BR getcwd ()
-> > +system call
-> >  should consider checking whether the returned pathname starts
-> >  with '/' or '(' to avoid misinterpreting an unreachable path
-> >  as a relative pathname.
->=20
->=20
-> --=20
-> Cheers,
-> Carlos.
->=20
+I'll provide Reviewed-by's for individual patches in a series as I make it
+through review of a given series.
 
---=20
-<https://www.alejandro-colomar.es/>
+Does that answer your question?
+ 
+> Have a lovely night!
+> Alex
+> 
+>>
+>>> ---
+>>>  man/man3/getcwd.3 | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/man/man3/getcwd.3 b/man/man3/getcwd.3
+>>> index 919ffb08f..f3da4b5a9 100644
+>>> --- a/man/man3/getcwd.3
+>>> +++ b/man/man3/getcwd.3
+>>> @@ -245,7 +245,7 @@ process (e.g., because the process set a new filesystem root using
+>>>  without changing its current directory into the new root).
+>>>  Such behavior can also be caused by an unprivileged user by changing
+>>>  the current directory into another mount namespace.
+>>> -When dealing with pathname from untrusted sources, callers of the
+>>> +When dealing with pathnames from untrusted sources, callers of the
+>>>  functions described in this page (until glibc 2.27)
+>>>  or the raw
+>>>  .BR getcwd ()
+>>
+>>
+>> -- 
+>> Cheers,
+>> Carlos.
+>>
+>>
+> 
 
---f5vobmcf67i6asbo
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+-- 
+Cheers,
+Carlos.
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAme1HXwACgkQ64mZXMKQ
-wql/cw/9GCjShdKUr6L0xgYNjmds12kyXTrbNNgIwjtcZ7y3sUPLZqgp/LSETYSD
-AS/qPuvGQbyPRTEWKxKxafgqumirpuHE8DZeJXrVTxK3Ou2JE8BWd9Lp4QWhdKQP
-aTA4MbXSXe4DDuKONxtpfVVz9N3H/s3k395cU7HZmOb5FN0fKrqyYyNwqVDHtYsk
-8j20lJHgqgkjYp1exwyqbwHIg0m7q0tKettyOndE31Ca4s4pdiQktpuBJCP53J5D
-IkHM8qLikEAYLPFqD4Npa/qy7pMx3RE+E2z5+gqoxlrofHNu0bwC/k57mNN0vIY9
-UCnrUVpIVO1mzpzGBqneLwCry9pgId/88+gq+WxTPg0xeTRnTMnt3viKiFYnEhdB
-O16dZrw2gXAizJEUUrEY+1lRrpQRl/L+Ou/Vd1jFV0oBVnhbMyrql9228cl55DSQ
-szqZ/+pK6m1yLLzJG5NhkXeoFnJNfy7aX5Fp4SXSA6zCDug53XVdRUeR1UGlSCFl
-yheY7S1thvp3AHS3nPRGzYYPEJxK4uAXFNK9P155IleO+NmFPOpha0GSsBrtlug2
-ULAlDctzc/NUrPhBV6Kzo66UzmImwm0li63cT3aF5Ufsje+hvPUgyWT+LRcBVuNu
-PU3noifBieVMyatr9l8j3s+PRERiUHhZ8IiAlHFwpxe/wwJB/2Y=
-=PEiq
------END PGP SIGNATURE-----
-
---f5vobmcf67i6asbo--
 
