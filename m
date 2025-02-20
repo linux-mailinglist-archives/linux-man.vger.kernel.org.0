@@ -1,156 +1,88 @@
-Return-Path: <linux-man+bounces-2488-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2489-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CFBBA3C6F4
-	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 19:03:28 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 196E0A3D476
+	for <lists+linux-man@lfdr.de>; Thu, 20 Feb 2025 10:20:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 873E23B6769
-	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2025 18:02:37 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 495417A7C80
+	for <lists+linux-man@lfdr.de>; Thu, 20 Feb 2025 09:19:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91D2E2144A0;
-	Wed, 19 Feb 2025 18:02:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6758F1DF24F;
+	Thu, 20 Feb 2025 09:20:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/V87fKk"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="YQkpa0gl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5231C1C173F
-	for <linux-man@vger.kernel.org>; Wed, 19 Feb 2025 18:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739988163; cv=none; b=ut0UnndpnuJQKscxwfeY2DuRslQlMKIDrTQO3I8B6YS0vMIPCYAz1KfMFoFTy8QjUDG34svlX+4Ypp5vfD28XwRgvN2Faqjxy7+9hPrlDn+B66JCVOZPuzVECKRu6w0YIpC/9SykA0ygRgt9ooZFbXUvWNtyvOx16a6eg+8D6YY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739988163; c=relaxed/simple;
-	bh=/2alIY0+ajXQ51GhPy15p194sfvrWpwJVE8BZcAb+sQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YSWCz2cCRrt5kRHILcalj7N++vXtPTn+V4Sl2ZtaVviGL9QQJp4FtslOGFeKaTh3DwaMyBxEuoSNBbBQwPWTBxZdxlEsia7Gem8JLCAr0Fyafsnx9zB9GxDzn2FIxIgr8utSx6cGdEExdoFDTyWXd2LwWW16jbQF2FtDrUu7AB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/V87fKk; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADEB0C4CED1;
-	Wed, 19 Feb 2025 18:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739988162;
-	bh=/2alIY0+ajXQ51GhPy15p194sfvrWpwJVE8BZcAb+sQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=B/V87fKkWFHzPS/7TZfl01YnMs6lVEXMMbT7L5D71zHxYF3tC/yCyw7H9D9VfW4mv
-	 MpclKnB4wrBmS2owLhB9LDnueFY1tfLkdyDLwh92GENsUV7X8S1BjMcgOXActscr55
-	 eHtODFS38DUdHb1CTIQGVEpU6hOz1VtiSXE4WeNJSXUmJZqrx9QzvHZGK/wHZlkabr
-	 uOIdgx7/BpiURpXKBXWjK2HZZnnW0uywOXEJ7peIPjaz8MEi0OqAhr+G7OP4+LXxmR
-	 w5WzNaBDcUoPHmM1AkPX199fFdvbq+ynzG2yCiKqXH55t8hmGZ9vHEnN8ybAdhTiT8
-	 cKq8WJoBVZ/3w==
-Date: Wed, 19 Feb 2025 19:02:13 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] man/man3/getcwd.3: tfix (pathname => pathnames)
-Message-ID: <dp3j7tqranfltdfa5qyqp66jquqc3clfpflmgnyocysye7fgsj@ubhsuqigtodb>
-References: <20250216061828.2277971-1-safinaskar@zohomail.com>
- <20250217165143.1265542-1-safinaskar@zohomail.com>
- <20250217165143.1265542-3-safinaskar@zohomail.com>
- <1a4ff544-28d6-45e3-96c9-55097cd6fa4a@redhat.com>
- <gqpxaoxm3vhe67i3pqa3erbsmovf2i6y5nb7djnqanatfof2ic@2ehts6pa5axu>
- <124fdcc1-6380-49d4-b25d-13046a4693b9@redhat.com>
- <pgfwvmgg2w3ys6tnd7z6jo6tkhud4ndbtnplajwazyope7d4uq@ckgwqx5c4jvu>
- <9f1cf755-d99d-45dc-b171-d3b2232a2146@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7F91C3316
+	for <linux-man@vger.kernel.org>; Thu, 20 Feb 2025 09:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1740043216; cv=pass; b=tGlZgoIjWV4DsjbnaL4fumqjZj5XdcVVHj/InO6t1FK1hiMXQTHo08m6HMD0iZ21gOi+ousUaYVF02lAuAutjVW2r3wbyLmTk0n4H/koNWUSS2oAlDu36RkoowsIY8iivQeZOH7YnfzNMxAYxUYITYV/RsJqbt1ZUKPcAzuyNRY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1740043216; c=relaxed/simple;
+	bh=Edg+bp+QngftuDzlZgpQgfdEOhh/PZe++ivxFn+q2Y0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sWm1diP3YS9BV9w2E5lN4pLPGx/TRzw2bp2kUEs6FjUN3K4vyloQvU+D+4gtPZfRfh9D4hsWB6GvIrxFFxpHfGubSDKEzt11SjBFAYkGQRS5J+KxR/m7YspsAYeQuUMEOXfPCUxQK4T5zjlDsoNtuGaM5Cjn45xWjmPbP4X/ubc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=YQkpa0gl; arc=pass smtp.client-ip=136.143.188.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1740043205; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e3PhsKIsp2n0xQ4LIr5h1go0uOmuk8a96aieyvU/zHQHI1AJklIpjz/WgVLfiIZpCHgWWnFtpK0n+JsWLThY5R8paGRoKLMPAsdus2cW0xwyn9dpEVvoJq61mcvAq2i7ff121UBS7uGyCSc0gDlW7qc4PYao58FOmZyq1TMhiEw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1740043205; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ea/o7aILXnVTIcR906xea9o9oketFssPRMA1/MxDscg=; 
+	b=lUsko6+B44qAxqTpthdeJWLJN5zopS+vbx5MEWBGiaBJomn1tLKHo6bfvkJ9q+1Ke7i/aDxlFIQqdaKxCKL6qdi94xjD1ytAqM/9rmsNLnh7xQV0ZUWqD8P+EnmFrpxCvE4eLzq4fSJFrMw11+87N35D5y1KDYuPazZV96uOoto=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1740043205;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Reply-To;
+	bh=ea/o7aILXnVTIcR906xea9o9oketFssPRMA1/MxDscg=;
+	b=YQkpa0glxc86vwgvR4qXyTaHk4jFKXoGgVcKFAGOYN+IPYaN9nzsOraYea21s6R7
+	FRBdZXxK9W1zlFFisPjJg/zTupjQmQ1z9mgAg+aa0Xbti9Ky2EdwcZD05jYXh+678SA
+	tEusrEoKL0WGExZFk7dspNkaMr3cwCU8vZjq2WHw=
+Received: by mx.zohomail.com with SMTPS id 1740043202605194.13945801115233;
+	Thu, 20 Feb 2025 01:20:02 -0800 (PST)
+From: Askar Safin <safinaskar@zohomail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Carlos O'Donell <carlos@redhat.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v4 0/2] man/man3/getcwd.3: say more clear that syscall can return "(unreachable)", but modern glibc wrapper cannot
+Date: Thu, 20 Feb 2025 09:19:24 +0000
+Message-Id: <20250220091926.3985504-1-safinaskar@zohomail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250217165143.1265542-1-safinaskar@zohomail.com>
+References: <20250217165143.1265542-1-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bbfxglwprmym6yxi"
-Content-Disposition: inline
-In-Reply-To: <9f1cf755-d99d-45dc-b171-d3b2232a2146@redhat.com>
+Content-Transfer-Encoding: 8bit
+Feedback-ID: rr080112272fca05cc3fbaa7edd365e61a000071c370230f6092a721471eeb383dc2446397761bbf592c66b9:zu08011227d021945ae8fe7d77088762890000e32424eae1727e3d23622b8ffc878adbf62c6eebc6de123590:rf0801122ce38f35885567e014d8aeca3f0000ecbef5c56411ebe59471aa74f4fd6e903e9dd0a94b47c459b877da6cc950:ZohoMail
+X-ZohoMailClient: External
 
+changes since v3:
+- small edit to commit message
 
---bbfxglwprmym6yxi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] man/man3/getcwd.3: tfix (pathname => pathnames)
-References: <20250216061828.2277971-1-safinaskar@zohomail.com>
- <20250217165143.1265542-1-safinaskar@zohomail.com>
- <20250217165143.1265542-3-safinaskar@zohomail.com>
- <1a4ff544-28d6-45e3-96c9-55097cd6fa4a@redhat.com>
- <gqpxaoxm3vhe67i3pqa3erbsmovf2i6y5nb7djnqanatfof2ic@2ehts6pa5axu>
- <124fdcc1-6380-49d4-b25d-13046a4693b9@redhat.com>
- <pgfwvmgg2w3ys6tnd7z6jo6tkhud4ndbtnplajwazyope7d4uq@ckgwqx5c4jvu>
- <9f1cf755-d99d-45dc-b171-d3b2232a2146@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <9f1cf755-d99d-45dc-b171-d3b2232a2146@redhat.com>
+Askar Safin (2):
+  man/man3/getcwd.3: say more clear that syscall can return
+    "(unreachable)", but modern glibc wrapper cannot
+  man/man3/getcwd.3: tfix (pathname => pathnames)
 
-On Wed, Feb 19, 2025 at 08:20:49AM -0500, Carlos O'Donell wrote:
-> On 2/19/25 2:59 AM, Alejandro Colomar wrote:
-> > On Tue, Feb 18, 2025 at 09:30:00PM -0500, Carlos O'Donell wrote:
-> >> On 2/18/25 6:48 PM, Alejandro Colomar wrote:
-> >>> On Tue, Feb 18, 2025 at 06:33:26PM -0500, Carlos O'Donell wrote:
-> >>>> On 2/17/25 11:51 AM, Askar Safin wrote:
-> >>>>> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
-> >>>>
-> >>>> LGTM.
-> >>>>
-> >>>> Reviewed-by: Carlos O'Donell <carlos@redhat.com>
-> >>>
-> >>> Hi Carlos,
-> >>>
-> >>> Thanks!  Does this apply to the entire patch set, or to this patch on=
-ly?
-> >>
-> >> Only to this patch.
-> >>
-> >> I'll provide Reviewed-by's for individual patches in a series as I mak=
-e it
-> >> through review of a given series.
-> >>
-> >> Does that answer your question?
-> >=20
-> > Yep.  Since this was a trivial typo I expected you'd only give the RB to
-> > the other one, and I hadn't yet received the other mail.  So I was
-> > wondering if you accidentally replied to the wrong email.  Sorry for the
-> > confusion.  :)
->=20
-> No worries.
->=20
-> I use RB even for trivial stuff, it's simple enough and crosses the item =
-off
-> my todo list that way.
->=20
-> I could probably filter on Subject with "tfix" though.
+ man/man3/getcwd.3 | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-No need to.  It's fine to RB those too, if that's easier for you.  ;)
+-- 
+2.39.5
 
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---bbfxglwprmym6yxi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAme2HKQACgkQ64mZXMKQ
-wqli7Q/9GqnTDVB02B7wg43EAXdUpdpRF9Y42w78PIuuCoHq6rIGlH7UwwjAYvSQ
-C3ATkhj4Rx/2xr0A4dSSkrpVo7G0MMTVjsCigD0+XKDa6SatFbOQBzwTVuCy6P/b
-uPyb2qxMjJd531pMJI7WkzBQo9j7GYHGp6OJquTFJHPIvFJPDjVwl4Jf/xr4j3+C
-fX2vc5yCVUmQgUgRCePGVbbOVwVMc3pOx6bpE3D8GuDX7p96aOZODVXKg1cpbD26
-sTZOebcDXJeWmrmPg0/FDNpyCewzyAGfz6jiTouAl6ILG+C3NqXnPfuNJLakBvFD
-axTy6K1f4ViYWsoAssbCFf9eqKu0XKFA5FYz5507FPYnD3gXfi61bIhEY4UytMC3
-83AtVPmFBHMuPNU2k1Mi2mY2agJHldScxXqusU+XmWGIiSx8CaR1Si2XDpEIo79I
-MlvldBowESz89TGdrf+e94jmfOW9prDZMJqftPPVW9YMdp0bnPwC09GRyWhip49x
-eqaD3KdshJulSssBTILtndyazFs/vwxtsHxslilZ4pKslsEUqLftr4Nbg3WRqWjb
-6b8HK5fWCkWDhPLCuxdAFs/YVYz/lK/Zz19j+gz2Iq3RtHrWu+BKnL67UXNxgVI/
-iFDu4KO0w7i73xvIzcSx2/FMjv+wt0/CkZCTzPsjNy3PXgfiG9w=
-=hcJh
------END PGP SIGNATURE-----
-
---bbfxglwprmym6yxi--
 
