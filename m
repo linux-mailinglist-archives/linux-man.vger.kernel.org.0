@@ -1,132 +1,175 @@
-Return-Path: <linux-man+bounces-2498-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2499-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0153A3EC63
-	for <lists+linux-man@lfdr.de>; Fri, 21 Feb 2025 06:54:35 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B302A3F7F9
+	for <lists+linux-man@lfdr.de>; Fri, 21 Feb 2025 16:05:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2553F189F718
-	for <lists+linux-man@lfdr.de>; Fri, 21 Feb 2025 05:54:36 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8AC2B3BFA56
+	for <lists+linux-man@lfdr.de>; Fri, 21 Feb 2025 15:04:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 23CF21FBEB1;
-	Fri, 21 Feb 2025 05:54:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 725A0208960;
+	Fri, 21 Feb 2025 15:04:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrgkZiBd"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NVBFKwqC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89A01FBEA8
-	for <linux-man@vger.kernel.org>; Fri, 21 Feb 2025 05:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB34C2066C3
+	for <linux-man@vger.kernel.org>; Fri, 21 Feb 2025 15:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740117267; cv=none; b=cl78Mw68Momobe9uj39MfNQxO2i9U5nqM9ehpwtYmRZ9qXVNNujeIHq+WpjoGDK2w0q5bs2miYOcbQlqzOXo4RzTBgIAou0bw/dpOLOxD0Y/nZDfI/WcSO36CnYEWMbOtefoU3sl695yytXJdkzdbHPgWWsnkr6z2Wb6Z8AGaoM=
+	t=1740150262; cv=none; b=hREhvBWFjI2IXaRtS0G0jvyWBrwv0HElqUq9IGs1SnNop90UVDpO44zn0XP9Mtbd3IhhxJmR3b053wqJ5QuOihwNW+iLxw8GnG2l3G8bOoUqTTa56+ZCRH7tosrQ2OL3kBU7ZVxmIuk2rdAlkaF+2rEkpVdNPbDV6Q74hdhpzCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740117267; c=relaxed/simple;
-	bh=CB/cwZ+Qj1S8YiD/qq0OBomzEFFroFNgj/NuLJJVHEg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VxP1I09R5dFttyy5N3TnfUxUfEvfIg3V9+XRKRMmCy7vXIK/AYHMlaZDGNSQ/pcjpGufzW0OWA8klZBRXiWuI5Usp27XyOO2QwNVnObA45i50BHeC1slwKd1WN459h2XStVVAygXY1IWXpHKQ/BdyGybzi1gBzr2V6GvAL+fH6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrgkZiBd; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9E5BC4CEE2;
-	Fri, 21 Feb 2025 05:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740117267;
-	bh=CB/cwZ+Qj1S8YiD/qq0OBomzEFFroFNgj/NuLJJVHEg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PrgkZiBdf4bGykKdOWUQnBNrFZ5Mb2EUUDV3/CQtFKELAlqfVKjfd1CvgMPvR4TLt
-	 6hDM6TmEtdE6CVLqfijnoeMY95VA/IQO+ttb4yhJFn0XJ7OQ8s0rQiP2FmI0jN8hi6
-	 PuUTdhxx+nvy/jFsmuRq14M+d7ODlwAxS8an6HFMW8qWLyA0Gm/jRGrJrivwqn7mAM
-	 d4I3MOPGIJNp4v0iqddEAn9WbxkZjTA02RcbkSrL8uo3a93r9GMj4//ri/u7kDNNal
-	 I/OfOsekftPTBNu3M7VBbZTpxAeR7wRoGEcJmGepfUA1jkTSiBniGgtO6Dj2gN8PCa
-	 Z0rH2NewUBfsw==
-Date: Fri, 21 Feb 2025 06:54:18 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthew Cassell <mcassell411@gmail.com>
-Cc: linux-man@vger.kernel.org, dave.hansen@linux.intel.com
-Subject: Re: [PATCH v0] man/man2/{mbind,set_mempolicy}.2: added mode argument
- MPOL_PREFERRED_MANY
-Message-ID: <2xptkti22ivew2ku7c4lg5m6rof3ewkhylz2s6tethifdtw3t5@osddhf35ha5k>
-References: <20250218161939.1934-1-mcassell411@gmail.com>
- <xpqtms6ebpacvwqitdzktanxvrjdjaxldxqfeybxu6ptqsskv5@g5prxncuni6g>
- <CANiscBAOgt3C3aZTGYpxFcK7qb5fMtPodUbo_Mf88BA0Thcpkg@mail.gmail.com>
+	s=arc-20240116; t=1740150262; c=relaxed/simple;
+	bh=I0aftH0LSrz8xinohNOV+/1W+PrFa9yMoJswLu+u8N0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NgwMN6MShjl4qlXEJ1WmcwgT+g2qADDRCiPL194BhYNVC7RaELrcAQ4itNWuAI4YJGALJoyHNcr6tCOi46VT9K1rH/IQMRCqtJr71DNuPbkuWGbn3T5TURg+kSk9oNdinci5qn8S6FHxV6p+lHDKREcwq/jHQcnumIdDnCMSTGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NVBFKwqC; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-471f16f4b73so18352101cf.1
+        for <linux-man@vger.kernel.org>; Fri, 21 Feb 2025 07:04:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1740150259; x=1740755059; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TeGrvK/EVpvv5+Po9MInDQ8HBmiP0S2Pk4l780CiZHQ=;
+        b=NVBFKwqCkEI/oyq013EaKaf4iYuar9GQCuC5HYQyviBai4W19B0ROIcMEAVV65aKj2
+         9nGiAwxHf8VLPpnQfgCb1fvKVV8XhFxvgKBUgWrnDJ72Ijzsaza8nAeEhF6bxZxkGMDK
+         WCZopOK6rJfSIqIY+0Pfr7AofJFXQURSxX/YeJ8teB3MMzMw2On401tdUCj0YAEpm+L7
+         kyxnoq8jvWHPsiA4RTNlufu9dT/6HnS7c6vDskHW8xjjp+apOdIeD2nx5BAcP/oa1AdG
+         lZEm34QmtD/1exWy3EJj9fV8OQQReqNc5QrhXE/p1Xa5vb9Vx9z76wONttB2lnA+nkjj
+         ToUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740150259; x=1740755059;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TeGrvK/EVpvv5+Po9MInDQ8HBmiP0S2Pk4l780CiZHQ=;
+        b=VP7datsEIrDf+WvfreG8NCEH8qe14NaFsOBeSl+Xqi2TyS8/ZarODVVe+yUJ9WjAhG
+         x9LKGp4gwmJ+bmyUy+SsG4o/fkkKbN2Uk7gf8Yw/n2k+mCFuVXkmaP/HyVRlUceFQqiE
+         e2cqR2XFcMg19NQuDcwF+lN5kAMPmNF+nLXNIuwyAYSagFQRgIMYxHHz+J58gDRRvL29
+         jLI77aAd1zfGMsx48Ws26RXIGFDcg8ZG3ec1z757hpzPH137u8UWTca2cRk9PcQ3p3EB
+         fKcTuZvkn6Gi5ZlSjEYTpd4RIhkLf5RhY1AYyxVHnwCOVIv1/CdU9+5Z6ohgxNdRsndU
+         AU6g==
+X-Gm-Message-State: AOJu0YzDsnYNM0QrnWjUuaVQdXQYgD085irx8W2y/WA+/vX/F8xauvWo
+	tZJhHLeMhFJ4Vumu8/DMiAK5dQnLAhZZ1XsH0Og+k371O0Lu1kGC
+X-Gm-Gg: ASbGncsFxdymaRloTQCIHDfFy+qEij1IGdmUIkamrs8TnpQ/drw2feANKyyy1c063Ap
+	InSo2ABlsTwslnp1oFTIcmNSt3zA/EdoON0kHcMWFrVAc+DrHoEQQwtQaQS7T4EpxGbQ2LdNESu
+	SSWxwZJ8ArtKMXm0QDM9nSF7HDJZF0QlL2OJyv0Ep25IIp1AXu5I2ra+295FiDjI+LHe4GguBI5
+	XT+Q8XP+BKF03icA3xopHeF4dJITE6zNFlPqWDoQ9XOT2WZ4mhjmXot0VF6Cy8Wt3fS6Iw2RBS9
+	FoIbI15yNyTmqd0uGTd8PUkjqJjf637IyNl3+HmgFis56Ufbb7AI1gP/rXIgoJZh7sqC
+X-Google-Smtp-Source: AGHT+IFziGUXgAJn/oKz3CHyYwR6FPxluHVe0D4z01ZOzV/NrM8DMHN8e+P6cjqMVXnFAFN9bhn/DA==
+X-Received: by 2002:ac8:58c3:0:b0:472:744:e26d with SMTP id d75a77b69052e-47222944f84mr51336891cf.39.1740150259544;
+        Fri, 21 Feb 2025 07:04:19 -0800 (PST)
+Received: from localhost.lan (syn-024-171-058-032.res.spectrum.com. [24.171.58.32])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-471f73c89cfsm50662011cf.34.2025.02.21.07.04.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Feb 2025 07:04:18 -0800 (PST)
+From: Matthew Cassell <mcassell411@gmail.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	dave.hansen@linux.intel.com,
+	mcassell411@gmail.com
+Subject: [PATCH v1] man/man2/{mbind,set_mempolicy}.2: added mode argument MPOL_PREFERRED_MANY
+Date: Thu, 20 Feb 2025 16:52:32 -0600
+Message-ID: <20250220225232.2138-1-mcassell411@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a2i4g2yowif7gl7g"
-Content-Disposition: inline
-In-Reply-To: <CANiscBAOgt3C3aZTGYpxFcK7qb5fMtPodUbo_Mf88BA0Thcpkg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Browsing a header file in the kernel source and saw the memory policy
+enum used for mbind() and set_mempolicy() using an entry that I didn't
+recognize.  I man 2'd both system calls and didn't see an entry for
+MPOL_PREFERRED_MANY.  The commit on the enum entry:
 
---a2i4g2yowif7gl7g
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Matthew Cassell <mcassell411@gmail.com>
-Cc: linux-man@vger.kernel.org, dave.hansen@linux.intel.com
-Subject: Re: [PATCH v0] man/man2/{mbind,set_mempolicy}.2: added mode argument
- MPOL_PREFERRED_MANY
-References: <20250218161939.1934-1-mcassell411@gmail.com>
- <xpqtms6ebpacvwqitdzktanxvrjdjaxldxqfeybxu6ptqsskv5@g5prxncuni6g>
- <CANiscBAOgt3C3aZTGYpxFcK7qb5fMtPodUbo_Mf88BA0Thcpkg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CANiscBAOgt3C3aZTGYpxFcK7qb5fMtPodUbo_Mf88BA0Thcpkg@mail.gmail.com>
+linux.git b27abaccf8e8 (2021-09-02; "mm/mempolicy: add
+MPOL_PREFERRED_MANY for multiple preferred nodes")
 
-Hi Matt,
+The commit message gives the rationale as to why the
+MPOL_PREFERRED_MANY mode would be beneficial.  Giving the ability to set
+the memory policy to target different tiers of memory over various
+NUMA nodes.
 
-On Thu, Feb 20, 2025 at 02:57:52PM -0600, Matthew Cassell wrote:
-> Thank you for the feedback Alejandro. I'm writing a revision now to
-> better stay in format.
->=20
-> > Should we refer from one page to the other?  It's hard to keep in sync
-> > two manual pages with the same text.
->=20
-> Do you think that keeping the more descriptive paragraph in
-> set_mempolicy(2) and putting a brief referral in mbind(2) would work:
+v0 -> v1
+- changed text width from 80 to 72 characters
+- added Cc tag for commit author
+- improved source readability with semantic newlines
+- changed mbind() to refer to set_mempolicy() to avoid unnecessary
+  duplication
 
-Sure!
+Cc: "Dave Hansen" <dave.hansen@linux.intel.com>
+Signed-off-by: Matthew Cassell <mcassell411@gmail.com>
+---
+ man/man2/mbind.2         |  6 ++++++
+ man/man2/set_mempolicy.2 | 14 ++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-> MPOL_PREFERRED_MANY (since Linux 5.15)
-> Specifies a set of nodes for allocation; see set_mempolicy(2)
+diff --git a/man/man2/mbind.2 b/man/man2/mbind.2
+index fd1aca4ad..a060e1401 100644
+--- a/man/man2/mbind.2
++++ b/man/man2/mbind.2
+@@ -107,6 +107,7 @@ argument must specify one of
+ .BR MPOL_INTERLEAVE ,
+ .BR MPOL_WEIGHTED_INTERLEAVE ,
+ .BR MPOL_PREFERRED ,
++.BR MPOL_PREFERRED_MANY ,
+ or
+ .B MPOL_LOCAL
+ (which are described in detail below).
+@@ -277,6 +278,11 @@ and
+ arguments specify the empty set, then the memory is allocated on
+ the node of the CPU that triggered the allocation.
+ .TP
++.BR MPOL_PREFERRED_MANY " (since Linux 5.15)"
++.\" commit b27abaccf8e8b012f126da0c2a1ab32723ec8b9f
++Specifies a set of nodes for allocation; see
++.BR set_mempolicy(2)
++.TP
+ .BR MPOL_LOCAL " (since Linux 3.8)"
+ .\" commit 479e2802d09f1e18a97262c4c6f8f17ae5884bd8
+ .\" commit f2a07f40dbc603c15f8b06e6ec7f768af67b424f
+diff --git a/man/man2/set_mempolicy.2 b/man/man2/set_mempolicy.2
+index 2d0b1da19..32c360f22 100644
+--- a/man/man2/set_mempolicy.2
++++ b/man/man2/set_mempolicy.2
+@@ -65,6 +65,7 @@ argument must specify one of
+ .BR MPOL_INTERLEAVE ,
+ .BR MPOL_WEIGHTED_INTERLEAVE ,
+ .BR MPOL_PREFERRED ,
++.BR MPOL_PREFERRED_MANY ,
+ or
+ .B MPOL_LOCAL
+ (which are described in detail below).
+@@ -234,6 +235,19 @@ arguments specify the empty set, then the policy
+ specifies "local allocation"
+ (like the system default policy discussed above).
+ .TP
++.BR MPOL_PREFERRED_MANY " (since Linux 5.15)"
++.\" commit b27abaccf8e8b012f126da0c2a1ab32723ec8b9f
++This mode specifies a preference for nodes
++from which the kernel will try to allocate from.
++This differs from
++.BR MPOL_PREFERRED
++in that it accepts a set of nodes
++versus a single node.
++This policy is intended to benefit page allocations
++where specific memory types
++(i.e. non-volatile, high-bandwidth, or accelerator memory)
++are of greater importance than node location.
++.TP
+ .BR MPOL_LOCAL " (since Linux 3.8)"
+ .\" commit 479e2802d09f1e18a97262c4c6f8f17ae5884bd8
+ .\" commit f2a07f40dbc603c15f8b06e6ec7f768af67b424f
+-- 
+2.39.5 (Apple Git-154)
 
-Yep, this looks good to me.  Thanks!
-
-
-Have a lovely day!
-Alex
-
->=20
->=20
-> -Matt C
-
---=20
-<https://www.alejandro-colomar.es/>
-
---a2i4g2yowif7gl7g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAme4FQkACgkQ64mZXMKQ
-wqlP0w//WEfhu6WZz03FfLhNiJUEa9zZYL42lF0GDhiwE/RpHUMVpLRD+86coxpj
-n7eUbJP4ocMZh9Qhmt1EL7Kh10eqS+TT39Um0+iR3eK/NdhESu8vBW/eg2i8bRPl
-/dLjYIj67kfNvw8ebtgFHcmklXMiicc87bzjAONim8gb+W96tX5sSMcmeEiPbMpp
-Vi/JwkG7TS8oCACSm6KMEInc10Ct3ipxdFLmknqAXfjGQeT24Qkf+FG+RW40Wepz
-UCddU3U9rdoc8CWj0klPC6EiOk4oZhLoot2/MXZytejFCQk54BjO9a5uxj1HUKaV
-ePqNLeN6C7VEf0wtGc5oJ4o2jY4najb/97PDZ5UolUptsvgnPoObOBoBDGyn1KVp
-ThYxoXwg2GZZIpNMNhX2imW/MlssASPJiYpuQMWPMvNqeTDBVgqK4uDzpEVh1lW5
-SlkVQWj7P4Ulcdb7oB9yqdx1M1eDH3WY2lLEOvDvXff1BMWwRLwD82ZhbMce0FhA
-WqmOIRQ53Vrmpe4lyg9SsnENeGNhzRRe7KmQm7LQYWgpsPRe2FK9OWkBIRxi/IFJ
-7HPNdzcEA0/VGygoOnv51ZZpUcWcfdHciLPQdBNLP4Pu/DVN0QzUTyLSTrxCpMxU
-DVYE85z8u2+ssjTNobvlqn1XGSOvID0+sMcaQkV4DPyCVNHv5Ew=
-=YuC8
------END PGP SIGNATURE-----
-
---a2i4g2yowif7gl7g--
 
