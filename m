@@ -1,66 +1,67 @@
-Return-Path: <linux-man+bounces-2489-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2490-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 196E0A3D476
-	for <lists+linux-man@lfdr.de>; Thu, 20 Feb 2025 10:20:21 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85460A3D478
+	for <lists+linux-man@lfdr.de>; Thu, 20 Feb 2025 10:20:40 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 495417A7C80
-	for <lists+linux-man@lfdr.de>; Thu, 20 Feb 2025 09:19:22 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A09D9188DBCA
+	for <lists+linux-man@lfdr.de>; Thu, 20 Feb 2025 09:20:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6758F1DF24F;
-	Thu, 20 Feb 2025 09:20:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 199621BC09A;
+	Thu, 20 Feb 2025 09:20:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="YQkpa0gl"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="dNGXJH/9"
 X-Original-To: linux-man@vger.kernel.org
 Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7F91C3316
-	for <linux-man@vger.kernel.org>; Thu, 20 Feb 2025 09:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F70A1C3C1F
+	for <linux-man@vger.kernel.org>; Thu, 20 Feb 2025 09:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740043216; cv=pass; b=tGlZgoIjWV4DsjbnaL4fumqjZj5XdcVVHj/InO6t1FK1hiMXQTHo08m6HMD0iZ21gOi+ousUaYVF02lAuAutjVW2r3wbyLmTk0n4H/koNWUSS2oAlDu36RkoowsIY8iivQeZOH7YnfzNMxAYxUYITYV/RsJqbt1ZUKPcAzuyNRY=
+	t=1740043235; cv=pass; b=cL4G5mqGX52s3vhA1aVyHGI8SfGEAOB+p6+Xdj5sGpu3p9Vfv3/Szyzj5jq/F+SVXm9dl3I7zwbx4qoshJrT/PznzJbj8d7aTh3LY7gaMjnlWzy/ogkE8gt29W/c0DxZ64f9jiFEWt8nLoJgvs3D6ykSUsecF28m1HrRo01RU0c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740043216; c=relaxed/simple;
-	bh=Edg+bp+QngftuDzlZgpQgfdEOhh/PZe++ivxFn+q2Y0=;
+	s=arc-20240116; t=1740043235; c=relaxed/simple;
+	bh=ygZysRgOGafL6i9kuCWEFjFhcymLkPoS9Ne3D6OFWds=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sWm1diP3YS9BV9w2E5lN4pLPGx/TRzw2bp2kUEs6FjUN3K4vyloQvU+D+4gtPZfRfh9D4hsWB6GvIrxFFxpHfGubSDKEzt11SjBFAYkGQRS5J+KxR/m7YspsAYeQuUMEOXfPCUxQK4T5zjlDsoNtuGaM5Cjn45xWjmPbP4X/ubc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=YQkpa0gl; arc=pass smtp.client-ip=136.143.188.94
+	 MIME-Version; b=muJgI29hU2LpwwDyswglKPp6AZaBedoWrpsNqHpvdLR7KT1pzj81SvqDViBIKG8aJJWHG3gmW0AkDR9u77ewCKvCMF5+ENYlfATrnD9ev9VmJaITU3Xc5tTLBr2bpgMmEzNBrqXRRhOlTHq7aEZsGa6c8iv6nY+wkd9kI9Q+FJA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=dNGXJH/9; arc=pass smtp.client-ip=136.143.188.94
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1740043205; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1740043225; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=e3PhsKIsp2n0xQ4LIr5h1go0uOmuk8a96aieyvU/zHQHI1AJklIpjz/WgVLfiIZpCHgWWnFtpK0n+JsWLThY5R8paGRoKLMPAsdus2cW0xwyn9dpEVvoJq61mcvAq2i7ff121UBS7uGyCSc0gDlW7qc4PYao58FOmZyq1TMhiEw=
+	b=Xcrl+K915W/Iek6Nm1sv/vb8vDVMmZXGqd0dGbvMiqGXkcbH04PBHrLekSaV7OOrtTTqvpfOVHJkT3pWHZWZVHIXmDE5mC3yrq4gduNBPJHVu+Kxr+z5GYOrwXER5qtP+Z0mu2SN3dcAvDMU6s6JytOUelUPjJ3hr45eckugopw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1740043205; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ea/o7aILXnVTIcR906xea9o9oketFssPRMA1/MxDscg=; 
-	b=lUsko6+B44qAxqTpthdeJWLJN5zopS+vbx5MEWBGiaBJomn1tLKHo6bfvkJ9q+1Ke7i/aDxlFIQqdaKxCKL6qdi94xjD1ytAqM/9rmsNLnh7xQV0ZUWqD8P+EnmFrpxCvE4eLzq4fSJFrMw11+87N35D5y1KDYuPazZV96uOoto=
+	t=1740043225; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=no5VGulEdSmtAomi3svm6JdFA3lmfU2jpPnGJlnb2v0=; 
+	b=k9ugvI3xPPxRvP3OO5akj7G4ua591Mnoq+FfsMYaMEsgDYfFDt1dxUPY6sVO7wqocuToen8SUrYG1oYdEv71ycDO0AG2SlOKCD8sWlKYTlUrgknWiXaunUkULTttPzBjfUnvOyAw5MNVH1+UObpnqmVsLdCI5jGJxp7KFGMg7io=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=zohomail.com;
 	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
 	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1740043205;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1740043225;
 	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Reply-To;
-	bh=ea/o7aILXnVTIcR906xea9o9oketFssPRMA1/MxDscg=;
-	b=YQkpa0glxc86vwgvR4qXyTaHk4jFKXoGgVcKFAGOYN+IPYaN9nzsOraYea21s6R7
-	FRBdZXxK9W1zlFFisPjJg/zTupjQmQ1z9mgAg+aa0Xbti9Ky2EdwcZD05jYXh+678SA
-	tEusrEoKL0WGExZFk7dspNkaMr3cwCU8vZjq2WHw=
-Received: by mx.zohomail.com with SMTPS id 1740043202605194.13945801115233;
-	Thu, 20 Feb 2025 01:20:02 -0800 (PST)
+	bh=no5VGulEdSmtAomi3svm6JdFA3lmfU2jpPnGJlnb2v0=;
+	b=dNGXJH/9CxH6qPyqP6liQeIs2qzlFBHLDkFc1k91paFjdw/xbkWxSXp/XtkNtOPl
+	P+6HSJPkpv74rXnu1YlkG70yR5n3BBjhAXkBEsqu6DEEyHAFPPRYJ8c9qTn8/n1Ymi5
+	ErFVVhoDoWWYRHqY8C7Ks6sw2+xR5bkjdMPR2oA0=
+Received: by mx.zohomail.com with SMTPS id 1740043222150890.5766034435235;
+	Thu, 20 Feb 2025 01:20:22 -0800 (PST)
 From: Askar Safin <safinaskar@zohomail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Carlos O'Donell <carlos@redhat.com>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v4 0/2] man/man3/getcwd.3: say more clear that syscall can return "(unreachable)", but modern glibc wrapper cannot
-Date: Thu, 20 Feb 2025 09:19:24 +0000
-Message-Id: <20250220091926.3985504-1-safinaskar@zohomail.com>
+Subject: [PATCH v4 1/2] man/man3/getcwd.3: say more clear that syscall can return "(unreachable)", but modern glibc wrapper cannot
+Date: Thu, 20 Feb 2025 09:19:25 +0000
+Message-Id: <20250220091926.3985504-2-safinaskar@zohomail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250217165143.1265542-1-safinaskar@zohomail.com>
+In-Reply-To: <20250220091926.3985504-1-safinaskar@zohomail.com>
 References: <20250217165143.1265542-1-safinaskar@zohomail.com>
+ <20250220091926.3985504-1-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,20 +69,73 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Feedback-ID: rr080112272fca05cc3fbaa7edd365e61a000071c370230f6092a721471eeb383dc2446397761bbf592c66b9:zu08011227d021945ae8fe7d77088762890000e32424eae1727e3d23622b8ffc878adbf62c6eebc6de123590:rf0801122ce38f35885567e014d8aeca3f0000ecbef5c56411ebe59471aa74f4fd6e903e9dd0a94b47c459b877da6cc950:ZohoMail
+Feedback-ID: rr08011227a86ec3a1926e27e71b5750a2000078bba086c497c9a5ad890d467908feed46a646d1be97059961:zu080112278031a62fb55469b53d89fc7300009ffdd5a74f62dd48f0986c649932be37d8d5cf839b74b162f5:rf0801122d59c47674bf3fe64d0075d7b70000d41ddc9d99d0413394a0754d3c28e9db5d080c6ce2f25354ca8c8c4bf1f693:ZohoMail
 X-ZohoMailClient: External
 
-changes since v3:
-- small edit to commit message
+I verified using expirement that modern glibc wrapper getcwd actually never returns "(unreachable)".
+Also I have read modern glibc sources for all 3 functions documented here.
+All they don't return "(unreachable)".
 
-Askar Safin (2):
-  man/man3/getcwd.3: say more clear that syscall can return
-    "(unreachable)", but modern glibc wrapper cannot
-  man/man3/getcwd.3: tfix (pathname => pathnames)
+Now let me describe my expirement:
 
- man/man3/getcwd.3 | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+	d-user@comp:/tmp$ cat getcwd.c
+	#include <unistd.h>
+	#include <stdio.h>
+	#include <sys/syscall.h>
 
+	int
+	main(void)
+	{
+		char  buf[1000];
+
+		if (syscall(SYS_getcwd, buf, sizeof(buf)) == -1)
+			perror("SYS_getcwd");
+		else
+			printf("SYS_getcwd: %s\n", buf);
+
+		if (getcwd(buf, sizeof(buf)) == NULL)
+			perror("getcwd");
+		else
+			printf("getcwd: %s\n", buf);
+
+		return 0;
+	}
+	d-user@comp:/tmp$ gcc -Wall -Wextra -o getcwd getcwd.c
+	d-user@comp:/tmp$ sudo unshare --mount bash
+	d-root@comp:/tmp# mkdir /tmp/dir
+	d-root@comp:/tmp# mount -t tmpfs tmpfs /tmp/dir
+	d-root@comp:/tmp# cd /tmp/dir
+	d-root@comp:/tmp/dir# umount -l .
+	d-root@comp:/tmp/dir# /tmp/getcwd
+	SYS_getcwd: (unreachable)/
+	getcwd: No such file or directory
+	d-root@comp:/tmp/dir# exit
+	exit
+
+Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+Link: <https://sourceware.org/bugzilla/show_bug.cgi?id=18203>
+Link: <https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=52a713fdd0a30e1bd79818e2e3c4ab44ddca1a94>
+Signed-off-by: Askar Safin <safinaskar@zohomail.com>
+---
+ man/man3/getcwd.3 | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/man/man3/getcwd.3 b/man/man3/getcwd.3
+index 685585a60..919ffb08f 100644
+--- a/man/man3/getcwd.3
++++ b/man/man3/getcwd.3
+@@ -246,7 +246,10 @@ without changing its current directory into the new root).
+ Such behavior can also be caused by an unprivileged user by changing
+ the current directory into another mount namespace.
+ When dealing with pathname from untrusted sources, callers of the
+-functions described in this page
++functions described in this page (until glibc 2.27)
++or the raw
++.BR getcwd ()
++system call
+ should consider checking whether the returned pathname starts
+ with '/' or '(' to avoid misinterpreting an unreachable path
+ as a relative pathname.
 -- 
 2.39.5
 
