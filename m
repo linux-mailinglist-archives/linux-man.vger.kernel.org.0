@@ -1,163 +1,212 @@
-Return-Path: <linux-man+bounces-2505-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2506-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA925A41144
-	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2025 20:15:12 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 91AC0A4114B
+	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2025 20:36:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7C6F8168E3E
-	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2025 19:15:11 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 637B71710CC
+	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2025 19:36:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0255718F2CF;
-	Sun, 23 Feb 2025 19:15:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7128A15667B;
+	Sun, 23 Feb 2025 19:36:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dRT6FOSp"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfo+1q/u"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EBC189912
-	for <linux-man@vger.kernel.org>; Sun, 23 Feb 2025 19:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF421419A9
+	for <linux-man@vger.kernel.org>; Sun, 23 Feb 2025 19:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740338108; cv=none; b=H3o33XLYtEFPoBdIp50txAZJmAi8s+BmqeZYMFXambI1nJ0GwUBTGCehM6qPJz/hiyUWW2qv2rgHWgzNtF2QvBlQ94+xh7uq2KePUrE7oI50s9K8dO/I2R/ztuKF22E1aCk7f9PSMPeqHwsXegPhQtAmgewL9X63chh1YlFk4xY=
+	t=1740339399; cv=none; b=WJ0ClBrnomqr7tfO/NzJtHLuyFO/mskB3yBw8kYuoVrDiaX4rebKHzwws/sh2aguJpHFXiTKT/KKIByks+s9HXkAV4igcBoio3tPMaMuTPc+kyxdIMpwPIxBkk3glAOFO2gPzzUqe0WEyuwU4azcvnVs8GZUkzJcMTCR1PZQiR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740338108; c=relaxed/simple;
-	bh=PLjqw8jogChqNwjOJdvYxjP0cb93hvu0btHdzuxy75w=;
+	s=arc-20240116; t=1740339399; c=relaxed/simple;
+	bh=j5UJPVDo7xlQdYMau7Cs5A2nglBfU4uesitnU0MF9/Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qLCfpLeR/WDkAPepBbStQ8qcQ6xOl3/hChNwLljTEdJFX/vvK/0zH9CkY6/e877tOJC/bBDxznqbAMy0wNsYKqh6cS3gSVnHR2B3w5bTX16KOiU0itI+bc0G5KHgF7zf0MPjdkCsrkk3PUqK9H+TyKM1lVbrbSXcj67zI45GztQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dRT6FOSp; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-38f378498c9so3457970f8f.1
-        for <linux-man@vger.kernel.org>; Sun, 23 Feb 2025 11:15:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740338105; x=1740942905; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6Vyp/3jsj8utL/jM7I00J/lVp9r/B2qms8VzbeqhhUE=;
-        b=dRT6FOSp9F7QifgBtj3FOnRyqMHadldBrzFeJrJGLFl7CjwGkM3IjGmzZUFtv0p+Hd
-         +Tcea0qyw2mKBF6NTztlwhKroftKIRbITtLv6XsOEMIk2tNNsFKnH2YIX5KIMcvmmafW
-         XiYZoDcdzpNr8QztCwXRsPLY7Je3QDcE0ot59RfN9fu45NQsjAaJkAFj+I7xNvmceh2L
-         nEhPE0BaSegcHXRRVANaKWjt5naRFVHAv0t5tAaZVwJGEf3AXWgFlIb4Ya66MQls+peD
-         l9bFSYfm2DQV0ycSh3lH1h+yxW2SKdwICKM5hxmsmbgmZ4/clyweP4N7FohDQJAW8pjN
-         3zSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740338105; x=1740942905;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6Vyp/3jsj8utL/jM7I00J/lVp9r/B2qms8VzbeqhhUE=;
-        b=uKLrPZlillqjFkAzSL65OjGVMY644PYlVFVVxsAoBdR2iqDH1o6uLfcRkKfm1JFtaq
-         QZy8aGDDVK9JHbA9+QdmK7rSQhfCDA84NaoTyiZHUiJCp5Qtt7JVcAmRyOH+032FETn7
-         KkRoFmPrDAoK44mo2bp33/y0jwo7ZJMX0l3I5Mt6r381dI66e3gMKM4TERHMuWog2HDS
-         65wv6SKUgX/O3rig4fFVPYGt8VqWLKEweGF9+H582FYJOTxnlDS5d0/CoPm9m1Etes5U
-         e4Tc2uZGLljHaeelnvsNqKqzURp6m91duErbjk8BfiEv9N0pbqhShv9JE3PWoA27l588
-         bCJA==
-X-Forwarded-Encrypted: i=1; AJvYcCV5tLyVHJQc8qDaoUXnrBnMb03cC+pqsizCObGRME3WBaMXbk1msk6b4i+VZbu8kJPwibskq0W/v/I=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/+vanykVJhv4Fb6kqs9T+WprdCD8iUWz7lA7ItN9nnIja53Uh
-	J4LXBjpUKCpfXpxyMUIeVe6mhWWbsoZTUhlrVAYMyD11I4SLxoFG
-X-Gm-Gg: ASbGncvEbLWKd3cou7rui0IjBedbfL/8IB8cSR5z2H4uX0ugv4YhOC4O283cMIOZ6ci
-	j57VjCB87DR6EsZKvlf09VsIq4AZi3B86moUf8ipCExDu3JARUrgJ4BbVXulOjBJ9Gs2cSTrzNk
-	51H9HEDyGu5nKca/Fobla1mCjZ579l6Ju5b+oq/eRMV3W3eQuoT7IP8637uQBzTDP5jfIDd4rCc
-	Y3Uh+Iwd/c7P6oTwSik6/HDf1wpBZy+wcjCTnq8ERW8oqFtFf62bU9RbSiRzWc7tf0PFsYF9ibF
-	ObSRMcAnziStyk/AvBbI4/A=
-X-Google-Smtp-Source: AGHT+IE34gvKc+ATFlZX1alVK8i/GCOw5hJXIq60hRIXEGpjoAa4eNmhMTO5oV+Dar3L7HG6vFXBnQ==
-X-Received: by 2002:a5d:5987:0:b0:38d:e33d:d0eb with SMTP id ffacd0b85a97d-38f7d1ff431mr4169653f8f.9.1740338105022;
-        Sun, 23 Feb 2025 11:15:05 -0800 (PST)
-Received: from localhost ([2a02:168:59f0:1:b0ab:dd5e:5c82:86b0])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-439b0371c51sm85388495e9.35.2025.02.23.11.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Feb 2025 11:15:04 -0800 (PST)
-Date: Sun, 23 Feb 2025 20:15:00 +0100
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: Jared Finder <jared@finder.org>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org,
-	Hanno =?iso-8859-1?Q?B=F6ck?= <hanno@hboeck.de>,
-	Jann Horn <jannh@google.com>, Jiri Slaby <jirislaby@kernel.org>,
-	jwilk@jwilk.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=GhgexNqSGyjQg4t1efCRHR+W33pFqKaUxEK5oue/OKWveZAasKBU6gD7Lxz90In4t+TiXhCbggy5Vf2Qqky1uBI9reoOzVHAuhaDJ+RI3lisZ2zJjRuRFWVYrXXqj5vYUq8/LjGVPIFE5RfyoA80WfyOPAUaWsTju0Y8miczV1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfo+1q/u; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF917C4CEDD;
+	Sun, 23 Feb 2025 19:36:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1740339398;
+	bh=j5UJPVDo7xlQdYMau7Cs5A2nglBfU4uesitnU0MF9/Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mfo+1q/uxorZ69u4vYJzGpchSJS2pDVDffA6Bxvavis3qwpjOO54TmU+n4bdsAAyC
+	 GdUn0aECjO50x8y379OuJxYiu65REkJi0MnW3P5GdyjSjj12N3m6GbD9dxDtMBG20J
+	 Jgq8BbnTK0xIY7KlnyNbmK3o7sHhTNUqcq11CgZv66QgyB4Le+DtxaHSFNhoStkh8u
+	 Xcn27uKsaMiT5GZakAsTyQFNK0C6B9jELFDaPSigwTriC+mKEZ0YkWViUHvuSLyMh2
+	 s36NXwq4+HXfpiGIZdmWPpIn2n8XLYsH8BPOCRY2NIk2+Z+WbB17EBMFj+GZBjTVNj
+	 L6YTPSsiZGNXg==
+Date: Sun, 23 Feb 2025 20:36:33 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org, 
+	Jared Finder <jared@finder.org>, Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>, 
+	Jann Horn <jannh@google.com>, Jiri Slaby <jirislaby@kernel.org>, jwilk@jwilk.net
 Subject: Re: [PATCH man 1/1] TIOCLINUX.2const: Document TIOCL_SETSEL
  selection modes
-Message-ID: <20250223.63620ae43aca@gnoack.org>
+Message-ID: <753ynh2ta45wtmrfttuxqo76cx5itzvvlsovacdrekt6go3ats@v6jg4xuomrp7>
 References: <20250223091342.35523-1-gnoack3000@gmail.com>
  <20250223091342.35523-2-gnoack3000@gmail.com>
- <11238d813065baceaf2a8b84e24eedb8@finder.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pge4fmubgiltbaff"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <11238d813065baceaf2a8b84e24eedb8@finder.org>
+In-Reply-To: <20250223091342.35523-2-gnoack3000@gmail.com>
+
+
+--pge4fmubgiltbaff
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org, 
+	Jared Finder <jared@finder.org>, Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>, 
+	Jann Horn <jannh@google.com>, Jiri Slaby <jirislaby@kernel.org>, jwilk@jwilk.net
+Subject: Re: [PATCH man 1/1] TIOCLINUX.2const: Document TIOCL_SETSEL
+ selection modes
+References: <20250223091342.35523-1-gnoack3000@gmail.com>
+ <20250223091342.35523-2-gnoack3000@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20250223091342.35523-2-gnoack3000@gmail.com>
 
 Hi!
 
-Thanks for the review!
+On Sun, Feb 23, 2025 at 10:13:42AM +0100, G=C3=BCnther Noack wrote:
+> These previously undocumented selection modes for the Linux console
+> are implemented in drivers/tty/vt/selection.c.
+>=20
+> Cc: Jared Finder <jared@finder.org>
+> Cc: Hanno B=C3=B6ck <hanno@hboeck.de>
+> Cc: Jann Horn <jannh@google.com>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: jwilk@jwilk.net
+> Signed-off-by: G=C3=BCnther Noack <gnoack3000@gmail.com>
+> ---
+>  man/man2const/TIOCLINUX.2const | 48 ++++++++++++++++++++++++++++++----
+>  1 file changed, 43 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/man/man2const/TIOCLINUX.2const b/man/man2const/TIOCLINUX.2co=
+nst
+> index c0acdd0ea..27758584e 100644
+> --- a/man/man2const/TIOCLINUX.2const
+> +++ b/man/man2const/TIOCLINUX.2const
+> @@ -65,11 +65,49 @@ are the ending
+>  column and row.
+>  (Upper left corner is row=3Dcolumn=3D1.)
+>  .I sel_mode
+> -is 0 for character-by-character selection,
+> -1 for word-by-word selection,
+> -or 2 for line-by-line selection.
+> -The indicated screen characters are highlighted and saved
+> -in a kernel buffer.
+> +may be one of the following operations:
+> +.RS
+> +.TP
+> +.B TIOCL_SELCHAR
+> +Select character-by-character.
+> +The indicated screen characters are highlighted
+> +and saved in a kernel buffer.
+> +.TP
+> +.B TIOCL_SELWORD
+> +Select word-by-word.
+> +The indicated screen characters are highlighted
+> +and saved in a kernel buffer.
+> +.TP
+> +.B TIOCL_SELLINE
+> +Select line-by-line.
+> +The indicated screen characters are highlighted
+> +and saved in a kernel buffer.
 
-On Sun, Feb 23, 2025 at 08:35:16AM -0800, Jared Finder wrote:
-> On 2025-02-23 01:13, Günther Noack wrote:
-> > diff --git a/man/man2const/TIOCLINUX.2const
-> > b/man/man2const/TIOCLINUX.2const
-> > index c0acdd0ea..27758584e 100644
-> > --- a/man/man2const/TIOCLINUX.2const
-> > +++ b/man/man2const/TIOCLINUX.2const
-> > @@ -65,11 +65,49 @@ are the ending
-> >  column and row.
-> >  (Upper left corner is row=column=1.)
-> >  .I sel_mode
-> > -is 0 for character-by-character selection,
-> > -1 for word-by-word selection,
-> > -or 2 for line-by-line selection.
-> > -The indicated screen characters are highlighted and saved
-> > -in a kernel buffer.
-> > +may be one of the following operations:
-> > +.RS
-> > +.TP
-> > +.B TIOCL_SELCHAR
-> > +Select character-by-character.
-> > +The indicated screen characters are highlighted
-> > +and saved in a kernel buffer.
-> > +.TP
-> > +.B TIOCL_SELWORD
-> > +Select word-by-word.
-> > +The indicated screen characters are highlighted
-> > +and saved in a kernel buffer.
-> > +.TP
-> > +.B TIOCL_SELLINE
-> > +Select line-by-line.
-> > +The indicated screen characters are highlighted
-> > +and saved in a kernel buffer.
-> > +.TP
-> > +.B TIOCL_SELPOINTER
-> > +Show the pointer at position
-> > +.RI ( xe ", " ye ).
-> > +.TP
-> 
-> Wouldn't it be appropriate to call out here that this specific code is not
-> intended to be protected by CAP_SYS_ADMIN?
+It might be interesting to split this into two patches:
 
-Yes, it would, and that's the intention and what this change is
-preparing for.  This commit describes the "selection modes" (without
-touching on the CAP_SYS_ADMIN topic) and a follow-up commit should
-move the CAP_SYS_ADMIN remark into the sections for the individual
-selection modes.
+1)  A first one that fixes existing wording, line breaks, etc, and gives
+    names to the values 0,1,2.
 
-I intentionally postponed the CAP_SYS_ADMIN part of the change until
-the time when the semantics are finalized in the kernel, because I did
-not want to risk calling the slightly broken intermediate logic to
-anyone's attention (where TIOCL_SELMOUSEREPORT requires CAP_SYS_ADMIN,
-but only as long as one of the lower four bits of the sel_mode are
-set) - that behavior was unintentional and I don't want to promote
-that further than necessary. ;-)
+2)  And a second one that adds new documentation.
 
-So yes, I'll send another small patch once we have a fix on the kernel
-side which is merged.
+> +.TP
+> +.B TIOCL_SELPOINTER
+> +Show the pointer at position
+> +.RI ( xe ", " ye ).
 
-–Günther
+I'd use a non-breaking space \~, which also has the benefit of not
+needing quotes:
+
+	.RI ( xe ,\~ ye ).
+
+> +.TP
+> +.B TIOCL_SELCLEAR
+> +Remove the current selection highlight, if any,
+> +from the console holding the selection.
+> +.TP
+> +.B TIOCL_SELMOUSEREPORT
+> +Report
+> +.RI ( xs ", " ys )
+
+=2E
+
+> +as the current mouse location.
+> +In this selection mode,
+> +the lower 4 bits of
+> +.I sel_mode
+> +.RB ( TIOCL_SELBUTTONMASK )
+> +may additionally be set to indicate the desired button press and
+> +modifier key information for the mouse event.
+> +.\" https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Normal-tr=
+acking-mode
+
+Please always enclose URIs in <>.  (See uri(7).)
+
+> +.IP
+> +If mouse reporting is not enabled for the terminal,
+> +this operation yields an
+> +.B EINVAL
+> +error.
+> +.RE
+
+Have a lovely night!
+Alex
+
+>  .IP
+>  Since Linux 6.7, using this subcode requires the
+>  .B CAP_SYS_ADMIN
+> --=20
+> 2.48.1
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--pge4fmubgiltbaff
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAme7eLIACgkQ64mZXMKQ
+wqmI1Q//RB1rtH+wrocNK3CQzBEtwFpMAwQIc1dQVushdMJrxCQO9IGoVXbRT/b7
+6u9XFm+7AhMALL/Y/0Fjr33ubK2OYgm5QdFiQKA2QvaZO0Nb+sTYJ8F2YBd6Z7p7
+cpM16qz0k+miR1OlCnlGjT4U2JXjJw6WdB2bDQ/5LDoxRRbTHa1v4T5f6Rf7gjbx
+33GoYUC6A1wnAkC6+W2XSzNQnjSv7hD6213JbPVolsURpdSEI7Tl926djlaevzuk
+kiS/Z+1PKhLW39K2b0MyxeXAwrE5X2RSxzpVyo0+5YmYzVE+yngmksTcxJBn768O
+wMYeVkMM0epfOxC3RzVMtYUcdzhDH8PXJEqBn6gUUS7RCaRzL5ZY9lOssxkR4tRB
+ZRdSzfDOINamorUQnOYOGUkr0n9HISO6Vvv+J2oIhOOT5by6knlMNoUWR06O9ndX
+2+x7eAQDlJQW0pwGAdNwmwTOx0XXmkDKqcLfJeDMoSmwJUCUTnr0s5rMrfq57DAe
+FDp98SnGLCdq+l3ZYNwQQr5VY2tJCmlmH5Pco/vp5zRsSCjO/HgFo95CNnBC1Ffy
+Mt5u5DZ9apdrdLNp4Q13kvWhq4SpDBJ+BAx5aokHkbRLerUbYmHow0FhM+bU6KmV
+hjbjVg36JI5ZE0SoHVJi8bTic292Pw/Jym+ScQ7xpOew34rrOkA=
+=1vOm
+-----END PGP SIGNATURE-----
+
+--pge4fmubgiltbaff--
 
