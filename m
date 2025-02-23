@@ -1,206 +1,122 @@
-Return-Path: <linux-man+bounces-2501-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2502-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A904A3FF52
-	for <lists+linux-man@lfdr.de>; Fri, 21 Feb 2025 20:08:22 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id C451AA40D92
+	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2025 10:14:01 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CE31D704D48
-	for <lists+linux-man@lfdr.de>; Fri, 21 Feb 2025 19:08:11 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id F004B188F606
+	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2025 09:14:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D6991FBCB9;
-	Fri, 21 Feb 2025 19:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9EEB1FF60F;
+	Sun, 23 Feb 2025 09:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IwN0L+KB"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b7Fryez8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6792C1F2365
-	for <linux-man@vger.kernel.org>; Fri, 21 Feb 2025 19:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94D92F3B
+	for <linux-man@vger.kernel.org>; Sun, 23 Feb 2025 09:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740164897; cv=none; b=OPCYImujc/eM2CBHyqKSWuGtsA2xUXdQ5xlRQ86/AM/9+HZU8WvQ9dMmWE3FVHP3sTDcxNsvXkFcJS24OVPz+6bpWauFhIgpwe5D0+WFEAUl01CZOWRSNhbWCM+kC/liQhJiIQ2KXhIA8ilPFESdSwO6VI2ZLEOIJdQqb20h/Us=
+	t=1740302034; cv=none; b=LUHgwfK/lLxpaBHguBUgViF+pGs6ix9JN9i6FgMoDcRXVDNX2TOP7AlceuKuxvTJNyP5Q14nvAzV/Z+J0L+oif7B8RxOOpfoiBLzK549Z8YZpMFpINjoVJ5v9pVjwinNi/xB6A6qBNp6cl/ZsrOSkRRJK18QuNSQ9XvjEao9GK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740164897; c=relaxed/simple;
-	bh=8NmWg8LE1SGOo+wLC0bX+/HThjj7pObxahhXxYP0hIs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LcgsPcnE/fTIX0M0CENKxdh0dabbJkq5fevk+YvRYi6Wf87xvbO8IHlo5r6L4e+UV7UMqPmNHpvrguVF58AdOIvI6f8daSmZTbPCr1CUTaFk4vHZg8q4b7eLGXhngvC2WFmcEKx1efLffjKxhdeZjNt4uxh36JBQwqry1XnSQCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IwN0L+KB; arc=none smtp.client-ip=209.85.218.46
+	s=arc-20240116; t=1740302034; c=relaxed/simple;
+	bh=zm24JoX1NccGGXOTy3cdbfgcOwl0WBchTYIoN118AE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eg5b7h6md81PZ8/FB9Kj7ozgJ1qv/ACsEj2OAKgQcZ29Wbm3OSGklqDa0y98a08dru7W4Jf88/KmZ8rxyDQdiOS9p0/AykurWfyjcEjJUM2EPgh2EenipDk/ycU5YZ4pPjSVofELxIrMajYakRueyEA55grLXCcswWR3g0+dxQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b7Fryez8; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-abbc38adeb1so429227066b.1
-        for <linux-man@vger.kernel.org>; Fri, 21 Feb 2025 11:08:15 -0800 (PST)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-38f5fc33602so1865255f8f.0
+        for <linux-man@vger.kernel.org>; Sun, 23 Feb 2025 01:13:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740164894; x=1740769694; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wM/81W9qwcfJoaU0nVCfY3zDubd+Nbifr3+vUCqNf3E=;
-        b=IwN0L+KBu99vOX7NnuR5sLbePJzvRxJvll8vQxd0K7ufkUwkRKUsj6iLSy5k9jky3s
-         Aq4ILeyxWqEj960r/4/sa7vSICOWa+VF2rAFV07eO0Bhk5rl6nHzBpk9kGxk+pbyYJWJ
-         YyftcxOlxanXPKM6EUiiE7kiI4ZkSwr7gLrPqZAlMrmyd2p0o/Wt00udVE/Mvpy6mkoS
-         /QlUtWttd0BD+D02JqMQipKEndybziuviVMy6xHksDkbjEAMgHGaDuxRNAwrwHGBWe5T
-         s5YMjLOUHHGlH8SU90FijO4TbW7OrnexGjcpSd9tw4czW2eNx7Mvi0V1XRWQmp2itApc
-         vTLQ==
+        d=gmail.com; s=20230601; t=1740302031; x=1740906831; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dt28dB/fRUmzpL6wnmUCoaVWhq9+1z0bqrbFHou0m3Y=;
+        b=b7Fryez8HIUVS4okzVQOj/91Qkr664Qa5coht+o/42I8+OfAm8Amx5zRju9CxU6A0b
+         oEwT0bRMRDyJWL4glXN5+79Ns2mLR6tvNZA395GZ41ZbHaRhjZ5w686DSE9WKCQ4r88J
+         pUknVIzih3Yli0kQaztfFrwzNBx4gd0sxoglY0jwR6/l8aEI11uanT9utQ0ZRkvBNs68
+         IqZzQadXRAJnrKzYXRH41leEn/zDK57f26jzpTyJHM541+bff6FQVvexWsZTxrgtmkoo
+         LwSs7UFC7aCljGOi5j8qIzUGnVDII4GxukacZ5MGbC0iSnGeAgwWpl2VdOxesXIjyTPa
+         LObg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740164894; x=1740769694;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wM/81W9qwcfJoaU0nVCfY3zDubd+Nbifr3+vUCqNf3E=;
-        b=AMYvB23WgdNXdpXKGAbKaUHnnpqN3Bj/ly0natVcDZxJB8MVq+tMppOUkGAVbDOflQ
-         nWOKQ2BXI2AskVBedAubbq7z1Er6FgdjoKMD3XF06a9gKSB6GqBbVoawisiuHKRxiws2
-         c8YS5Nh5KvwnT0/Sn9VJAMltQ8MX6uaCPBTdOU9z5UM/PoqGhhtAVsl2zEM8NcGQpmHx
-         PscOb1ovZ5fJQ/f2ok2/6VsGbpQqK4HDI2yUa7ZSn5vxhX+39/RykI8mfur6wAcsGipS
-         fFB1DiWhN1MqMnpCf56CBJlBGS4zk6LrQiU2MdnNNw0O8smpEfNInzoi/Jeh6YZigLAs
-         FMyw==
-X-Gm-Message-State: AOJu0YwuuUKws0YMhOmfXm2+YIwjiwody2Faps/jynXsJ4+ymFxKrCtz
-	BidL2DVsYrsVks0ZZ+Xj/SMxHUrr9KTOoiVmZVsa3bLZI5f158Z3QAHgcblKJIQov7QC6R6Gzp2
-	9pcD2tLD2mPd/VzvOT1n6naS60FUIuA==
-X-Gm-Gg: ASbGnctAzp4IWgmJZmQIKr5wI8GbaKrJt/P0cAc2Erc7HdDOawnCA4yVQluWwSM+3sx
-	QRdoqdREy2H+4OC0GniK8RchKyU1P9ULpoQxzvh9CSRjofRbwtgf7ok6JcFeH3UF8eaVTXaiugj
-	V+i0Hfow==
-X-Google-Smtp-Source: AGHT+IHc/+1jB0XjDGo7doCmJ+mIc+If7VCXLH5SPguevTyAYJULGRIzJEdWIHBRXyImAvYFkqrjvkLNUJoAEp5YRLk=
-X-Received: by 2002:a17:907:3d91:b0:abb:9d27:290e with SMTP id
- a640c23a62f3a-abc09c26176mr448062166b.41.1740164893231; Fri, 21 Feb 2025
- 11:08:13 -0800 (PST)
+        d=1e100.net; s=20230601; t=1740302031; x=1740906831;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dt28dB/fRUmzpL6wnmUCoaVWhq9+1z0bqrbFHou0m3Y=;
+        b=TEf3UYdM7cDfuhrsZIHKtBRsrMu3r7fQwzHBS2JE3wfA+BPvU1Sgw/+jbRjkstaoJU
+         hJKQ+SIO9+7QKmoxM4O0v4gHZsN+iaz3ysGaYdgxRdRJMfoyP39CuCRgDvjveLAwW+k7
+         EW/4Cik2H6bUFy66OMwR6I87Z2zf7m822nqnOen+hNDbaeV5ZA9KMhkoOU9QhpbQSIpk
+         dPgfpx4S0LG0HXJ5EhLDqr5qc2VJCtfcGEilhgOD1JJtyBh/EtMOMFdH6I4Kma0UNXxP
+         akjFp1SqWdZQ4mVtcjGYxpGg8lAu+Rq5b5oGYGUlTDiX0jMj9UylXLIZR+Yw4xGCpXwf
+         pprg==
+X-Gm-Message-State: AOJu0YwiyXVL+C/nvm9VNE9skENuUjD1gF1HYeFr+ugoYLu5K0usNA3/
+	PXYHXEUHHBXNFsMTNEgyIkffBZTVFHNwOi/Q0cR0e1Pn9MOGjYVU
+X-Gm-Gg: ASbGncu0ULoFSnk/rNuXpJZYHdULjvNmprwsPYIiLv1XzRRfKTPQXcnAwpXk6zoy/Hb
+	wmQvKepSbcvmMKf35y+DquvJuJTB8Brk15JufzOc7CDay/wzcEPkBDv0pLmZnDi7v+GIskGK9es
+	UBOdBMJcm0gK8i58L0JQ7FnbbcbWOQbyMAz9TBZo5qftDujuItfz0N+B/tKBjh6VgSkznLjzN/S
+	mo8eWJ68Z5yZ8/oPJd3Su7HvvZPT7dlyO0RfbjRVwhXbBuWh30xtImUEn73I3uAW2z+IdKG7LFM
+	7tEQwuyR0RQuuRk45kE7NpU=
+X-Google-Smtp-Source: AGHT+IGNhWfCl5eWDo+92Tyxe0x+4/AgleYwdsohSOG5KcznQxJ0bmBdGW8WDTktV+5c5axVPyy7/A==
+X-Received: by 2002:a05:6000:1f87:b0:38d:ae4e:2267 with SMTP id ffacd0b85a97d-38f6f3cd3cbmr7259182f8f.11.1740302030830;
+        Sun, 23 Feb 2025 01:13:50 -0800 (PST)
+Received: from localhost ([2a02:168:59f0:1:b0ab:dd5e:5c82:86b0])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-38f25914d73sm28891970f8f.54.2025.02.23.01.13.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Feb 2025 01:13:50 -0800 (PST)
+From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: linux-man@vger.kernel.org,
+	Jared Finder <jared@finder.org>,
+	=?UTF-8?q?Hanno=20B=C3=B6ck?= <hanno@hboeck.de>,
+	Jann Horn <jannh@google.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	jwilk@jwilk.net,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Subject: [PATCH man 0/1] TIOCLINUX.2const: Document TIOCL_SETSEL selection modes
+Date: Sun, 23 Feb 2025 10:13:41 +0100
+Message-ID: <20250223091342.35523-1-gnoack3000@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250220225232.2138-1-mcassell411@gmail.com> <36pxpegcnyah5w4skvntcjeeb4rm6wmvwcq4lugslg65dtu4sq@5zkd2dmvbshu>
-In-Reply-To: <36pxpegcnyah5w4skvntcjeeb4rm6wmvwcq4lugslg65dtu4sq@5zkd2dmvbshu>
-From: Matthew Cassell <mcassell411@gmail.com>
-Date: Fri, 21 Feb 2025 13:08:02 -0600
-X-Gm-Features: AWEUYZnQ0aYffYiAAkXR1Yfy5GY_LwmsYH4U9kqqWw1PIpl_W1n46nCW3IPmR-U
-Message-ID: <CANiscBCqo=R97oD4XmgdK=C84X11X3fX3-RjfSMiK0NsO9A0yA@mail.gmail.com>
-Subject: Re: [PATCH v1] man/man2/{mbind,set_mempolicy}.2: added mode argument MPOL_PREFERRED_MANY
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, dave.hansen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you Alejandro. Have a good one.
+Hi!
 
--Matt C
+For context:
 
-On Fri, Feb 21, 2025 at 12:11=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
->
-> Hi Matthew,
->
-> On Thu, Feb 20, 2025 at 04:52:32PM -0600, Matthew Cassell wrote:
-> > Browsing a header file in the kernel source and saw the memory policy
-> > enum used for mbind() and set_mempolicy() using an entry that I didn't
-> > recognize.  I man 2'd both system calls and didn't see an entry for
-> > MPOL_PREFERRED_MANY.  The commit on the enum entry:
-> >
-> > linux.git b27abaccf8e8 (2021-09-02; "mm/mempolicy: add
-> > MPOL_PREFERRED_MANY for multiple preferred nodes")
-> >
-> > The commit message gives the rationale as to why the
-> > MPOL_PREFERRED_MANY mode would be beneficial.  Giving the ability to se=
-t
-> > the memory policy to target different tiers of memory over various
-> > NUMA nodes.
-> >
-> > v0 -> v1
-> > - changed text width from 80 to 72 characters
-> > - added Cc tag for commit author
-> > - improved source readability with semantic newlines
-> > - changed mbind() to refer to set_mempolicy() to avoid unnecessary
-> >   duplication
-> >
-> > Cc: "Dave Hansen" <dave.hansen@linux.intel.com>
-> > Signed-off-by: Matthew Cassell <mcassell411@gmail.com>
->
-> Thanks!  I've applied the patch, and amended it with some minor tweaks
-> that the CI reminded me (see comments below).  Here's the final path
-> applied:
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
-ommit/?h=3Dcontrib&id=3Dfe7e094e78139a4ac5ee31b2321b77041c725794>
->
-> > ---
-> >  man/man2/mbind.2         |  6 ++++++
-> >  man/man2/set_mempolicy.2 | 14 ++++++++++++++
-> >  2 files changed, 20 insertions(+)
-> >
-> > diff --git a/man/man2/mbind.2 b/man/man2/mbind.2
-> > index fd1aca4ad..a060e1401 100644
-> > --- a/man/man2/mbind.2
-> > +++ b/man/man2/mbind.2
-> > @@ -107,6 +107,7 @@ argument must specify one of
-> >  .BR MPOL_INTERLEAVE ,
-> >  .BR MPOL_WEIGHTED_INTERLEAVE ,
-> >  .BR MPOL_PREFERRED ,
-> > +.BR MPOL_PREFERRED_MANY ,
-> >  or
-> >  .B MPOL_LOCAL
-> >  (which are described in detail below).
-> > @@ -277,6 +278,11 @@ and
-> >  arguments specify the empty set, then the memory is allocated on
-> >  the node of the CPU that triggered the allocation.
-> >  .TP
-> > +.BR MPOL_PREFERRED_MANY " (since Linux 5.15)"
-> > +.\" commit b27abaccf8e8b012f126da0c2a1ab32723ec8b9f
-> > +Specifies a set of nodes for allocation; see
-> > +.BR set_mempolicy(2)
->
-> You missed a space before the (2).
->
-> > +.TP
-> >  .BR MPOL_LOCAL " (since Linux 3.8)"
-> >  .\" commit 479e2802d09f1e18a97262c4c6f8f17ae5884bd8
-> >  .\" commit f2a07f40dbc603c15f8b06e6ec7f768af67b424f
-> > diff --git a/man/man2/set_mempolicy.2 b/man/man2/set_mempolicy.2
-> > index 2d0b1da19..32c360f22 100644
-> > --- a/man/man2/set_mempolicy.2
-> > +++ b/man/man2/set_mempolicy.2
-> > @@ -65,6 +65,7 @@ argument must specify one of
-> >  .BR MPOL_INTERLEAVE ,
-> >  .BR MPOL_WEIGHTED_INTERLEAVE ,
-> >  .BR MPOL_PREFERRED ,
-> > +.BR MPOL_PREFERRED_MANY ,
-> >  or
-> >  .B MPOL_LOCAL
-> >  (which are described in detail below).
-> > @@ -234,6 +235,19 @@ arguments specify the empty set, then the policy
-> >  specifies "local allocation"
-> >  (like the system default policy discussed above).
-> >  .TP
-> > +.BR MPOL_PREFERRED_MANY " (since Linux 5.15)"
-> > +.\" commit b27abaccf8e8b012f126da0c2a1ab32723ec8b9f
-> > +This mode specifies a preference for nodes
-> > +from which the kernel will try to allocate from.
-> > +This differs from
-> > +.BR MPOL_PREFERRED
->
-> This should be s/BR/B/
->
->
-> Have a lovely night!
-> Alex
->
-> > +in that it accepts a set of nodes
-> > +versus a single node.
-> > +This policy is intended to benefit page allocations
-> > +where specific memory types
-> > +(i.e. non-volatile, high-bandwidth, or accelerator memory)
-> > +are of greater importance than node location.
-> > +.TP
-> >  .BR MPOL_LOCAL " (since Linux 3.8)"
-> >  .\" commit 479e2802d09f1e18a97262c4c6f8f17ae5884bd8
-> >  .\" commit f2a07f40dbc603c15f8b06e6ec7f768af67b424f
-> > --
-> > 2.39.5 (Apple Git-154)
-> >
-> >
->
-> --
-> <https://www.alejandro-colomar.es/>
+TIOCLINUX's TIOCL_SETSEL sub-code has another layer of sub-operations,
+called "selection modes" (even though not all of them actually deal
+with the mouse selection).
+
+Going forward, the CAP_SYS_ADMIN requirement will be different for
+some of these selection modes, which promted me to at least list the
+different selection modes with a short description.  I am leaving
+CAP_SYS_ADMIN documentation as it is for now and will send another
+patch once these semantics are finalized [1].
+
+Thanks,
+–Günther
+
+[1] https://lore.kernel.org/all/20250221.0a947528d8f3@gnoack.org/
+
+Günther Noack (1):
+  TIOCLINUX.2const: Document TIOCL_SETSEL selection modes
+
+ man/man2const/TIOCLINUX.2const | 48 ++++++++++++++++++++++++++++++----
+ 1 file changed, 43 insertions(+), 5 deletions(-)
+
+-- 
+2.48.1
+
 
