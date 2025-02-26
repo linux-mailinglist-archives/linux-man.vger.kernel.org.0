@@ -1,213 +1,152 @@
-Return-Path: <linux-man+bounces-2512-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2513-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E1F8A417D1
-	for <lists+linux-man@lfdr.de>; Mon, 24 Feb 2025 09:52:06 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E2BDA463A1
+	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 15:50:21 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 954D416ACBD
-	for <lists+linux-man@lfdr.de>; Mon, 24 Feb 2025 08:52:05 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D50FF3B6457
+	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 14:49:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BDC0323CEFF;
-	Mon, 24 Feb 2025 08:52:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1BFF222565;
+	Wed, 26 Feb 2025 14:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bX3mneWv"
+	dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b="XcFrMcGr";
+	dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b="ciVYDLDT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from haruka.juszkiewicz.com.pl (haruka.juszkiewicz.com.pl [185.243.53.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766DB23C393;
-	Mon, 24 Feb 2025 08:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF370221703
+	for <linux-man@vger.kernel.org>; Wed, 26 Feb 2025 14:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.243.53.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740387122; cv=none; b=gaz7fKJ9QtWH5SlWI4Rf6O/cxM0LnsKebtA6LgiDkwMeWcQ8X5nrTuBSp0jFqSrFeSZtbewpXbGIR+B9mQb517IYR42fLs/fa6fk5DlGbVwKgC7/3GGP+SKQU48+AjQGfd7yEoxHJXl4+zwul93ypI7kbAUoRMuhQhAAXr4MeJM=
+	t=1740581312; cv=none; b=KKyT4rXsVb/5F0gXd4uAkn+rOI6XOX2NZavrCGp6w54XDqHYPru1RHBDtNpJNOwOwzljQjdtwK3qn4Q6MZAlnIh0C+1wNnt9zpq42es6nxEpa9Vq9DtraiHxsweE/Y1XGYMipHOvxkrfZTRpCODDPFDOWEVaAbGxIiY8U6k3t6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740387122; c=relaxed/simple;
-	bh=YdATLbxhN6SeLn/k0sFLkaEqhB8IiyEZ0ZPVriwPRzk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=R9rPoNh4uOFETHGjPswvvVGFNqlbIsgemCbNNEPl8OE3mCAMajuFPj1BpeQyaXipMZFwMmBk7jXq9qxBL9kEy2+nLAXgU3YPQ6RUrgiyqzX4NbPkfaEvX+i8PEKK3lXq0oNTWk9+H5JHNv+mxyl2qCSquclTEpCt41WfrEd4DxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bX3mneWv; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C1CC4CED6;
-	Mon, 24 Feb 2025 08:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740387122;
-	bh=YdATLbxhN6SeLn/k0sFLkaEqhB8IiyEZ0ZPVriwPRzk=;
-	h=Date:From:To:Cc:Subject:From;
-	b=bX3mneWv3VHyTuqIjRJ28cW+GSVDzT7N9YOc9/PrXMxx6ya9MnS+ATjPzQ8eFIE6K
-	 gwIW04bXMeazHzmsVCjCU8QCgAuYDucab6iLsAhHLTe0hznbIIJs7TuVkIlOVAMcGG
-	 dMKPSnAwdPdgtI8zzb3PRg8+pBt+UWxTnNrWHtgaGzjdraxuaP3DNnIOsd/IwNJMVa
-	 iI1s5QtvMH/B4LjJjxWdyjfDekambbKmrGpZA3hq3ZwCOyA0eeKTLuYawodWdo5RHc
-	 /E3i5iC6KMtkEXFO0Y3Pt2QnQ/QHLTGYVlikYQGz5DLYEtqobzMR4EWXmuHcusR29s
-	 hkwrGPULkjNxQ==
-Date: Mon, 24 Feb 2025 09:51:53 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: man-pages-6.12 released
-Message-ID: <ta6s4sbtejf7urbz6s74s6yycv3gqngv43dyen3cdyt4c254zl@uapykbw3wodv>
+	s=arc-20240116; t=1740581312; c=relaxed/simple;
+	bh=6CpuAUV+4ZXkPy8tKUC/fxUy2PpBDu/rDS7QyfO+QgE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UXPK6tF7qJtYxertYilrAUNp+FV8WkcQFSHI0dr3zx1EUUbyJvLsVNVbdVISl5TGbA78DRO6/cSpW0ObNna53W3dTrBCTYeW4cFykD7cyVvANGgmZwucbN7LTM6N9k9dimpfkFzbYbST+anESswPUPN797f5FlYkluTUThNfTUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juszkiewicz.com.pl; spf=pass smtp.mailfrom=juszkiewicz.com.pl; dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b=XcFrMcGr; dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b=ciVYDLDT; arc=none smtp.client-ip=185.243.53.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juszkiewicz.com.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=juszkiewicz.com.pl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=juszkiewicz.com.pl;
+	s=mail; t=1740581303;
+	bh=6CpuAUV+4ZXkPy8tKUC/fxUy2PpBDu/rDS7QyfO+QgE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XcFrMcGrSXgYoNU3xj9uaFPB1Xhj1OOY6t8Csg4815vTeI9J9heqpoQx8nmD4l4iY
+	 EybySfWVtbgbqPKTbSmWpEjdTl5lKJmsNXWpiAbnzAfRv3OwUJYcU4aEMNfE6ZvgIq
+	 DaH0wLyKcT6jsUVlOGUB21U7y8fm90A8W0Z5S16kJtHnKso7S2UghkYuQWsLLrH48o
+	 GMray11sEk9UIh4eCvOmPiF5Hff1truMFXI7LWZWgu7MGqyWi0KXK58k0pDSUsb69p
+	 vbqaj7E/LOuovWpkFrxl8CKqu89PBrzAEkYMI13uYtjZQ/6qcKbrHrqrtsyig4IOaA
+	 J6hSFRBG6qcuw==
+Received: from utena.juszkiewicz.com.pl (utena.juszkiewicz.com.pl [158.101.208.177])
+	by haruka.juszkiewicz.com.pl (Postfix) with ESMTPSA id 579FD22ABA;
+	Wed, 26 Feb 2025 15:48:23 +0100 (CET)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D5DFF4203B;
+	Wed, 26 Feb 2025 15:48:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=juszkiewicz.com.pl;
+	s=mail; t=1740581302;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sus/Vwnn7cLFuyPN6d9XFA/6niZLyWTQ3tPcruE54Po=;
+	b=ciVYDLDTbj7dmDKQyJVBZQkahHU5DBCIwwq7fTRPUjtj9QzdoYoYI5QZgakPy2iMqQcPxK
+	VyIg2YbQBstMIsmt1byLZtGWOvJp6MoSSSg+v0tssR7CTjpxDhJyrtkAz7X3z7lGz8/n2u
+	tq+GhHzxOQsH/I7TlYGoDCROkNDZZRFZlVERLDV86qd6yMa22/mDBrbWqSgmy2PpOOJeGk
+	vW1mAOcwmCxesgnxXwfKFW2QQnWW2FV+lUSZVa0Vtj35yh3i18AUmaLmJw5fA9dLGCHvIw
+	AHy1WRmL1jJMi4e1GKtN8ecOaVGAwmrfD0fHWiBwSM81fTEtx26UWJeI4pFdog==
+Message-ID: <e2496012-6e25-4e85-ad27-0104dad7463a@juszkiewicz.com.pl>
+Date: Wed, 26 Feb 2025 15:48:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="exqob6wmqhi6n3ex"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] add time64 copies of system calls
+To: Carlos O'Donell <carlos@redhat.com>, Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
+ <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
+ <20241118225148.fgrvxxg2p6on4nl3@devuan>
+ <5778beee-a1c0-45cf-93fa-8d36501911f9@juszkiewicz.com.pl>
+ <fb5d9a20-9937-4cf7-b8e0-99710d88f4bc@redhat.com>
+From: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <fb5d9a20-9937-4cf7-b8e0-99710d88f4bc@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+
+W dniu 20.11.2024 o 23:40, Carlos O'Donell pisze:
+> On 11/19/24 3:23 AM, Marcin Juszkiewicz wrote:
+>> W dniu 18.11.2024 o 23:51, Alejandro Colomar pisze:
+>>> Hi Marcin,
+>>>
+>>> On Mon, Nov 18, 2024 at 08:16:24PM +0100, Marcin Juszkiewicz wrote:
+>>>> During work on y2038 problem several time related system calls got "64"
+>>>> or "_time64" copies. It happened only on 32-bit architectures as there
+>>>> was no problem on 64-bit ones.
+>>>>
+>>>> Signed-off-by: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
+>>>
+>>> This only adds link pages, but doesn't add any documentation for them.
+>>> Should we add anything?  Maybe to the SYNOPSIS and VERSIONS (or HISTORY)?
+>>
+>> Will look into it.
+>   
+> We absolutely can and should add documentation for the kernel syscalls since they are
+> unique syscalls that take 64-bit time_t variants for a 32-bit userspace.
+> 
+> These syscalls are the 64-bit time_t variants to allow userspace to build 32-bit targets
+> that have 64-bit time_t e.g. alternate ABI i686 with 64-bit time_t.
+> 
+> The userspace interfaces are hidden behind a 64-bit time_t though and shouldn't change
+> (though the ABI changes).
+
+I started looking at it - wondering how much info should be there. 
+Simple like patch below or more complex one?
 
 
---exqob6wmqhi6n3ex
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: man-pages-6.12 released
-MIME-Version: 1.0
-
-Gidday!
-
-I'm proud to announce:
-
-	man-pages-6.12 - manual pages for GNU/Linux
+troff is awful...
 
 
-Tarball download:
-<https://www.kernel.org/pub/linux/docs/man-pages/>
-Git repository:
-<https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
-Online PDF book:
-<https://www.kernel.org/pub/linux/docs/man-pages/book/>
-
-Thanks to all the contributors to this release (in BCC)!
-And thanks to our sponsors!
-
-	-  Adfinis		<https://adfinis.com/>
-	-  Google		<https://opensource.google/>
-	-  Hudson River Trading	<https://www.hudsonrivertrading.com/>
-	-  Meta			<https://www.meta.com/>
-	-  Red Hat		<https://www.redhat.com/>
-
-Have a lovely day!
-Alex
-
-
-You are receiving this message either because:
-
-        a)  (BCC) You contributed to this release.
-
-        b)  You are subscribed to <linux-man@vger.kernel.org>,
-            <linux-kernel@vger.kernel.org>, or
-            <libc-alpha@sourceware.org>.
-
-        c)  (BCC) I have information (possibly inaccurate) that you are
-            the maintainer of a translation of the manual pages, or are
-            the maintainer of the manual pages set in a particular
-            distribution, or have expressed interest in helping with
-            man-pages maintenance, or have otherwise expressed interest
-            in being notified about man-pages releases.
-            If you don't want to receive such messages from me, or you
-            know of some other translator or maintainer who may want to
-            receive such notifications, send me a message.
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Changes in man=
--pages-6.12 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Released: 2025-02-22, Venezia
-
-	(Due to bad internet while traveling, there's been a 2-day delay
-	 between the release date and the actual distribution of the
-	 release.)
-
-
-New and rewritten pages
------------------------
-
-
-Newly documented interfaces in existing pages
----------------------------------------------
-
-man2/
-	mbind.2
-		MPOL_PREFERRED_MANY
-	set_mempolicy.2
-		MPOL_PREFERRED_MANY
-
-
-New and changed links
----------------------
-
-
-Removed pages
--------------
-
-
-Removed links
--------------
-
-
-Global changes
---------------
-
--  Build system:
-   -  Use ifndef and :=3D instead of ?=3D (fixes regression introduced in
-      6.11, which affected at least the version string).
-
-
-Changes to individual files
----------------------------
-
-The manual pages and other files in the repository have been improved
-beyond what this changelog covers.  To learn more about changes applied
-to individual pages, or the authors of changes, use git(1).
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Linux Software=
- Map =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
-
-Begin4
-Title:          Linux man-pages
-Version:        6.12
-Entered-date:   2025-02-24
-Description:    Manual pages for GNU/Linux.  This package contains
-                manual pages for sections 2, 3, 4, 5, and 7, and
-                subsections of those.  Only a few pages are provided in
-                sections 1, 6, and 8, and none in 9.
-Keywords:       man pages
-Maintained-by:  Alejandro Colomar <alx@kernel.org>
-Primary-site:   http://www.kernel.org/pub/linux/docs/man-pages
-                2.7M  man-pages-6.12.tar.gz
-Copying-policy: several; the pages are all freely distributable as long as
-                nroff source is provided
-End
-
---=20
-<https://www.alejandro-colomar.es/>
-
---exqob6wmqhi6n3ex
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAme8MykACgkQ64mZXMKQ
-wqmPGRAApq5SfjV+bQUyWSPZ5cBGSztsdfPyNvFhGh8JOkdAxZiRuLQzZhYLHlL0
-PmzXPMejvC0YmxYSDDlt8IOYK5Vp4QTP765WxArJSJDErZnDuHkmaafBaknzBkZ5
-+kZB4zA0zN312GIcIu+3GpMCHYMyX8pyc4KnpYO2Bl/6x8dqvQBpDUoVUi9hayWy
-T8evLlcaLZp2Ubepk8RUck3l5RrbKKu0/SW8ukU6t7XF1f2O3BJz5wt9ma2hSSf2
-UDtEoaIzmAPYzM0xxFOTrv8/rAWy97Oo1uE/rt/+n7Nk4JcX1DfHcF6eVEgt91g1
-13Q1yZlNXzPC+qth6DZZ9XmwK5j6c4JVZ6FJv++iJdmPcjfkqEV0oR/wemPuQA5I
-1MkOAQ7taxRLOhNyBe1NXqYtQ0d8j+/uQvPTd+uecrC93myVc+OZDyJ7AG/Zy/Zl
-kgi6JbC1z8H2bE9wwMLkeydOnig55NNvkcZUcPI3oDXNUPsOePE+4ZxBIzKBI2FK
-H81uZpefVFG6Zy40hl84D4Dwptrgqy9a3irG2za95Wp9/kcGL5T41PJXCwohqByc
-NV9oAgOyWAT4twg9uzctM/nwg39K8ajX3cbARGAbydSTlsNL1jSOXQBQLzvhIFtY
-myBxPHs/z9QuDCOSb9YkgwhtYusZrR7Rp5SI8oae5wiAYqLm8sc=
-=1F2B
------END PGP SIGNATURE-----
-
---exqob6wmqhi6n3ex--
+diff --git a/man/man2/adjtimex.2 b/man/man2/adjtimex.2
+index 7a87ac654..6dde493aa 100644
+--- a/man/man2/adjtimex.2
++++ b/man/man2/adjtimex.2
+@@ -10,7 +10,7 @@
+  .\"
+  .TH adjtimex 2 (date) "Linux man-pages (unreleased)"
+  .SH NAME
+-adjtimex, clock_adjtime, ntp_adjtime \- tune kernel clock
++adjtimex, clock_adjtime, clock_adjtime64, ntp_adjtime \- tune kernel clock
+  .SH LIBRARY
+  Standard C library
+  .RI ( libc ,\~ \-lc )
+@@ -22,6 +22,8 @@ .SH SYNOPSIS
+  .P
+  .BI "int clock_adjtime(clockid_t " clk_id, " struct timex *" "buf" );
+  .P
++.BI "int clock_adjtime64(clockid_t " clk_id, " struct timex *" "buf" );
++.P
+  .BI "int ntp_adjtime(struct timex *" buf );
+  .fi
+  .SH DESCRIPTION
+@@ -557,6 +559,10 @@ .SH STANDARDS
+  .P
+  The preferred API for the NTP daemon is
+  .BR ntp_adjtime ().
++.SH HISTORY
++Linux 5.1 added
++.BR clock_adjtime64()
++call on 32-bit architectures as part of handling Y2038 problem.
+  .SH NOTES
+  In struct
+  .IR timex ,
 
