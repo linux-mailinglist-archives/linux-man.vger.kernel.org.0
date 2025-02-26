@@ -1,122 +1,182 @@
-Return-Path: <linux-man+bounces-2516-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2517-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B6CCA46C4A
-	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 21:24:51 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A28CA46CC2
+	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 21:52:14 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 757303ACF56
-	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 20:24:40 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 403D1165E7A
+	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 20:52:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 676342745E;
-	Wed, 26 Feb 2025 20:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4046627560B;
+	Wed, 26 Feb 2025 20:52:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="0QgPtlq+"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bb6rcsi4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f73.google.com (mail-ed1-f73.google.com [209.85.208.73])
+Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com [209.85.218.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E7D2528EF
-	for <linux-man@vger.kernel.org>; Wed, 26 Feb 2025 20:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF9D239561
+	for <linux-man@vger.kernel.org>; Wed, 26 Feb 2025 20:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740601469; cv=none; b=BSrnfre5oJXvtjENwYFMkpJkQzWB5MNPyonIZnsHONGDdwqAKVidrIYqd8pX7U2Rf/+S3dN/d6Sn7aSRvLtC2D/QPNW5zFpoFY2abN1hwhs7x2VLMox9OJKoq0FXgL0+rFP3j8pdhBjtut5cOVGt3i9WGEPVovVCdVJV+6xJAjI=
+	t=1740603129; cv=none; b=LJZFoyb/kcP2WBugTOFAkVNYEIeMQGSEe9INHHEzgQTMgs9z90NvF+Lw1hY4BpKijH1YGWrHq6mPAXdQuGk/9LVHwSj3WvtQmzLtiY63rvUFCQMJuXbCSpm8007N3ea5Bx1uV96bd+2JTcgDtwdSaxLIseaY+HDdx/q+vJFCKRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740601469; c=relaxed/simple;
-	bh=iFWhRPyJmvvsiybpf94Dpp37+uigPtTulNHGuHIzrH4=;
+	s=arc-20240116; t=1740603129; c=relaxed/simple;
+	bh=qLeNzGiffa3FQiNPh+WMIQvPoNGqN5UQ8vdCJV/ZsBo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=RuYNKQ22UgIAeZo8qtFdXCWalfN3M02h1gDq8680AZJA+kdaXTrvU6CjcdY3eBGTNF2AkqcKJKdWYnLzr95ac9WfcQa88OXpPgly0mxNip+NJz1U1jqWuMZaiqN/0DvKV71jtOldDR28CzFN2s1qcrOXSP6Oxaijh3FqBIOv484=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=0QgPtlq+; arc=none smtp.client-ip=209.85.208.73
+	 To:Cc:Content-Type; b=TDbrzO+BYb0BDnaV7aCQ5K6Yf7McCM2CPmqj1jcjvyzdygecqvqpf19BVCf5ebf3lPwosREANnuYvWVHzDwv1Wv8ki1639ecEN7Pnm0FpmW29ehkq1dwf8YPVMi1hRJg3J1v1eVC1CbK76y8btFM4VcUxpauEtDn/RWNCmQcAxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bb6rcsi4; arc=none smtp.client-ip=209.85.218.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com
-Received: by mail-ed1-f73.google.com with SMTP id 4fb4d7f45d1cf-5e058037b27so139620a12.1
-        for <linux-man@vger.kernel.org>; Wed, 26 Feb 2025 12:24:27 -0800 (PST)
+Received: by mail-ej1-f74.google.com with SMTP id a640c23a62f3a-abbe5ac36a9so17540966b.2
+        for <linux-man@vger.kernel.org>; Wed, 26 Feb 2025 12:52:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1740601466; x=1741206266; darn=vger.kernel.org;
+        d=google.com; s=20230601; t=1740603125; x=1741207925; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:from:subject:message-id:references
          :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=j5HjEmf6zI3uVsACPtj0IDjnQzDbyRsoOFTng7ArnK4=;
-        b=0QgPtlq+1UdG1JnAIh9hqFwBlpM2kCzoX+08VRt1+6CNUxV/F/wWJOj3b2Ufh5mQAz
-         L5vTiFlOuMVvRRs8iF3hRRITPemKT/AB1reBKFezUIAL8jM3NzwmP3i6LhRSLO1+MKbB
-         64nervXaaYp6eJL+JYncsi65VMzU7bNzhDem1gOolkKaQD9SzoDvrOgO+9Xuu3FSRILY
-         c+NbWIjUBe2K9WCGB8P4aUpODHq1l0VIHCHdz0+wxzydjdSieezEAYp6v51HClyTXoTs
-         2NrHi8+a8/FSChtNFCuiVBUdeIQtCIXGI2+vpik1+CnG93wZol07rAUt2CSmhoaHYzDG
-         ASJw==
+        bh=Nfo6LOVIBgaxVEOIiwKzecjyhsJ5Uqb27G7+Hmwtfv8=;
+        b=Bb6rcsi4ceTJE/rsFADysXNjLXJHsM4fquasOpWoBJkJ4+F4PuHxwKthcogJtFlMKd
+         4THbqHyXX1rHl6v0si1Lba+GIy6JTqzhMGiUB0IXUaJv07wHu5eM9jeA/RXEkGt9jyDC
+         KPVg0KKiVfJ2UotRC36705VyLzVQRctJ0jKXScfV/iXLU/OdInJoI14U1IJfHPz4ZVqm
+         E4fzIAFrps1zWj77yjNqdIV4sS3aMK6a+gdJaneG9rLgv1IaP/gxuIJ6STfU5p8Nz5ij
+         Dxxsi1/gGrum7BGTzyvCr4rS0pOHrscI2p8INRLK2bPntVsVDndeBmcxivSTZ2TVjfFC
+         ac+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740601466; x=1741206266;
+        d=1e100.net; s=20230601; t=1740603125; x=1741207925;
         h=content-transfer-encoding:cc:to:from:subject:message-id:references
          :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=j5HjEmf6zI3uVsACPtj0IDjnQzDbyRsoOFTng7ArnK4=;
-        b=qEUglb/8T/7HSyA+UzL5H0Bu+foj3fFroevmeaoEfROXCYgWexqaRyBOP05gyxnF+d
-         BRK9W7fhDzoLwyclcHXKbkkcVf6t84LGsAjOj8MvgmJNpB2yCHah15dIfQVB6HgRF8Pt
-         2wGgvASXV8bjCnbhzErhXBk8zYU04LTKYkn688PojRn1oj7oVkaD9gjtPwvr6jjs5jNt
-         zIGXzfLBu3RMVHe9Civw27heBzmKkmi3PVK7ZQ1G9h/PzPOmrJz34lQKPg0HOUpWI7Lw
-         CUfNt9IUGSimpedAX/NLDcV5FcKzYVGLauCZ/PgF61EAhYyLSphc+lFHCTM/MEGOdcxJ
-         lC5w==
-X-Forwarded-Encrypted: i=1; AJvYcCWgB7fZJV3/6PCmri9ZyBVW4E09Acji2mC+PG/6FFy2cBAf6oEJB3iLeyNYxfdgSffdh6gPzEUpdLk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz374/AQce9uQBjiQQ/f3EJCE6IvA9P0M8LsuKQSC0crLSg/mOx
-	kBfEsHVKsPbSHHNXgsVhfZfwnz8cChARCCw+k6KTehd+blOkCSU95NCr3mICIjcN85MADXZ0PJL
-	t/w==
-X-Google-Smtp-Source: AGHT+IFrxoll1MD7UHqls7EiRvzGp8NMB0IfiuwW4ozw145cHL5lQA37kDHTx8jx1EQOGS0Jj44sXGKknIY=
-X-Received: from edben26.prod.google.com ([2002:a05:6402:529a:b0:5e0:40e5:1607])
- (user=gnoack job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:40ce:b0:5de:dc08:9cc5
- with SMTP id 4fb4d7f45d1cf-5e4a0d46bccmr6357700a12.7.1740601465988; Wed, 26
- Feb 2025 12:24:25 -0800 (PST)
-Date: Wed, 26 Feb 2025 20:24:22 +0000
-In-Reply-To: <7vl6uylhzgkokl42bz36d5g3krcusqf7mdy4bd7tblcjckatrw@ullu2kblovji>
+        bh=Nfo6LOVIBgaxVEOIiwKzecjyhsJ5Uqb27G7+Hmwtfv8=;
+        b=Yk7IMZqKKC6FlZS05JF0laIiasVGfjLEWNGYvfQocgSDrEnDS35yYIOga+ECUlpsTN
+         0A1KO1+eRDq4UOzEAxoPYLw8dAVwx+v/4GbH3rrJu5ZG52XTfTXvWzywI8675YUFSC7L
+         d9p/UwIBGtsenRz58yiYNPRvddoHAEu/t2Cm7n/1Ei1R7YjZAoA5hTlAd+qLU+GdjGGV
+         ChLWW9wVYCA40fk47fqYrJRUOYfwxK3bRrMmPxzYRd4yxSRjuDu1YWnHzee3QnuV2yp0
+         mherIaQPGJiQDK00szvMWHgNGIlW4LLK7KeD1RdKHlaFwYHgr6W48FFo4wSkpXJV4Pze
+         o0Ig==
+X-Forwarded-Encrypted: i=1; AJvYcCVWnbzT2jiyrhckxIOa0PSvLULRZxXy+9uQLUaKESmJkuPwk4vFlPzewl5OKsheucKfecL+dyFZqv0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyULdm6q5zgASeKtbiL3CBTnK5qs6NgDCE+k2aDFaNWKk2i+EJ+
+	ATRxmyQdi9zIQDkpleqldq8SFtLNgFN38F32Tiw1ZHNl0XZiRxnurq+j7xaNpBqReyfPD6b4IDt
+	6ow==
+X-Google-Smtp-Source: AGHT+IEw51xQGb3kVX2bWPS9Yd6yv9U50vQX32a6s3TTn3NTtwUzePxM2yNlhDPbwDzeYycc677lIdrCANA=
+X-Received: from ejbps3.prod.google.com ([2002:a17:906:bf43:b0:aba:fab7:ee3a])
+ (user=gnoack job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:970c:b0:abc:b96:7bd2
+ with SMTP id a640c23a62f3a-abc0d97d421mr2451975666b.11.1740603125355; Wed, 26
+ Feb 2025 12:52:05 -0800 (PST)
+Date: Wed, 26 Feb 2025 20:52:03 +0000
+In-Reply-To: <erjborzfvlvlczeahjt7esghr4v3slgxdht6efftekofxljhiq@mkw2ibzvpvsx>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20250124154445.162841-1-gnoack@google.com> <20250211.Ree5bu6Eph2p@digikod.net>
- <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
- <20250211.ieSoo7Phe5oh@digikod.net> <3unkhxarmiddobfjvojx4sdpgitjld26udcagka2ocgrb6c2jc@dcg4w5yk5mut>
- <20250211.oavooPhap9OX@digikod.net> <7vl6uylhzgkokl42bz36d5g3krcusqf7mdy4bd7tblcjckatrw@ullu2kblovji>
-Message-ID: <Z794dm_xmViQ_lFF@google.com>
-Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC scoping documentation
+References: <20250124154445.162841-1-gnoack@google.com> <20250124154445.162841-2-gnoack@google.com>
+ <Z5O44dxg8y-QZV62@google.com> <erjborzfvlvlczeahjt7esghr4v3slgxdht6efftekofxljhiq@mkw2ibzvpvsx>
+Message-ID: <Z79-87HoTPM94HWf@google.com>
+Subject: Re: [PATCH 2/2] landlock: Clarify IPC scoping documentation
 From: "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: "=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?=" <mic@digikod.net>, linux-security-module@vger.kernel.org, 
+Cc: linux-security-module@vger.kernel.org, "Micka??l Sala??n" <mic@digikod.net>, 
 	Tahera Fahimi <fahimitahera@gmail.com>, Tanya Agarwal <tanyaagarwal25699@gmail.com>, 
-	Daniel Burgener <dburgener@linux.microsoft.com>, tools@kernel.org, linux-doc@vger.kernel.org, 
 	linux-man@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello!
+Hello Alejandro!
 
-On Wed, Feb 12, 2025 at 04:06:06PM +0100, Alejandro Colomar wrote:
-> So you could really use man9 for internal Landlock stuff.  Even if I
-> think generated documentation isn't ideal, it's better than nothing.
-> Being able to use man(1) for reading kernel documentation would still be
-> a nice feature.
+On Sun, Feb 02, 2025 at 01:51:54PM +0100, Alejandro Colomar wrote:
+> On Fri, Jan 24, 2025 at 04:59:29PM +0100, G??nther Noack wrote:
+> > On Fri, Jan 24, 2025 at 03:44:45PM +0000, G??nther Noack wrote:
+> > > -IPC scoping does not support exceptions, so if a domain is scoped, n=
+o rules can
+> > > -be added to allow access to resources or processes outside of the sc=
+ope.
+> > > +interactions between sandboxes.  Therefore, at ruleset creation time=
+, each
+> > > +Landlock domain can restrict the scope for certain operations, so th=
+at these
+> > > +operations can only reach out to processes within the same Landlock =
+domain or in
+> > > +a nested Landlock domain (the "scope").
+> > > +
+> > > +The operations which can be scoped are:
+> > > +
+> > > +``LANDLOCK_SCOPE_SIGNAL``
+> > > +    When set,
 >=20
-> And while I can't run all the linters that I run on hand-written docs on
-> generated pages (because generated source necessarily triggers many
-> false positives), I could still run some, which would trigger some
-> accidents in the docs, and would also detect bugs in the software
-> translating the docs from one language to another.
+> Do we need to say when set?  I'd say that's redundant (of course if you
+> don't set a flag, its effects don't apply).
+
+Removed, thanks!
+
+
+> > > this limits the sending of signals to target processes which run
+> > > +    within the same or a nested Landlock domain.
+> > > +
+> > > +``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
+> > > +    When set, this limits the set of abstract :manpage:`unix(7)` soc=
+kets we can
+> > > +    :manpage:`connect(2)` to to socket addresses which were created =
+by a process
+> > > +    in the same or a nested Landlock domain.
+> > > +
+> > > +    A :manpage:`send(2)` on a non-connected datagram socket is treat=
+ed like an
+> > > +    implicit :manpage:`connect(2)` and will be blocked when the remo=
+te end does
 >=20
-> So, I'd still recommend you considering man9.
+> I think *if* would be more appropriate than *when* here.
+>=20
+> > > +    not stem from the same or a nested Landlock domain.
+>=20
+> This could be read such that send(2) is replaced by connect(2) on a
+> non-connected datagram socket.  But you want to say that a connect(2)
+> is implicitly executed before the actual send(2) (which is still
+> executed, if connect(2) succeeds).
 
-This is different to the BPF helpers; Landlock's existing man pages documen=
-t
-user space APIs, and the largest part of the kernel-side .rst documentation=
- for
-Landlock also covers only user space. Only a small part of the .rst
-documentation is about kernel internals.
+Thanks, that can indeed be misunderstood.
 
-If I understood that correctly, section 9 is supposed to be document things=
- that
-are relevant to kernel developers, right?  So it doesn't sound like the rig=
-ht
-place for the documentation that we have?
+> How about this wording?
+>=20
+> 	If send(2) is used on a non-connected datagram socket, an
+> 	implicit connect(2) is executed first, and will be blocked when
+> 	the remote end does not ....
+
+I think this would be misleading as well, because the send(2) on the
+non-connected datagram socket does *not* actually perform an implicit
+connect(2).  (If it were doing that, the socket would be connected afterwar=
+ds,
+but it isn't.)  But we *do* initiate a communication with a previously unkn=
+own
+remote address, just like connect(2), so we enforce the same Landlock polic=
+y as
+for connect(2).
+
+(Remark, connected datagram sockets sound absurd, because there is no conne=
+ction
+at the network layer. On datagram sockets, connect(2) only fixes the destin=
+ation
+address so that it can be omitted in subsequent send(2) calls.).
+
+Rewording it to:
+
+  A sendto(2) on a non-connected datagram socket is treated as if
+  it were doing an implicit connect(2) and will be blocked if the
+  remote end does not stem from the same or a nested Landlock domain.
+
+(P.S. I also replaced send(2) with sendto(2), which is a bit more appropria=
+te in
+the middle paragraph - you can not actually pass the destination address wi=
+th
+send(2), that only works with sendto(2).  I replaced it in the third paragr=
+aph
+as well for consistency. It still makes sense IMHO considering that send(2)=
+ is a
+special case of sendto(2).)
 
 =E2=80=94G=C3=BCnther
 
