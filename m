@@ -1,157 +1,225 @@
-Return-Path: <linux-man+bounces-2527-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2528-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907B5A4798C
-	for <lists+linux-man@lfdr.de>; Thu, 27 Feb 2025 10:52:49 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BDABA47A4B
+	for <lists+linux-man@lfdr.de>; Thu, 27 Feb 2025 11:27:29 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 45D917A1474
-	for <lists+linux-man@lfdr.de>; Thu, 27 Feb 2025 09:51:30 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 5A9677A41AE
+	for <lists+linux-man@lfdr.de>; Thu, 27 Feb 2025 10:24:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 526C5227E9B;
-	Thu, 27 Feb 2025 09:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1939821C18F;
+	Thu, 27 Feb 2025 10:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b="20YDhTF/";
-	dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b="Bj0DkJ1s"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQqaOU5d"
 X-Original-To: linux-man@vger.kernel.org
-Received: from haruka.juszkiewicz.com.pl (haruka.juszkiewicz.com.pl [185.243.53.191])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B82270024
-	for <linux-man@vger.kernel.org>; Thu, 27 Feb 2025 09:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.243.53.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCECE22A7F6
+	for <linux-man@vger.kernel.org>; Thu, 27 Feb 2025 10:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740649943; cv=none; b=Dq7Is0+nH1pkNcTX1Ts9j8/zbecv8e3W36hzdsqihYZ4L6Ei/YogIIQypvBhW5eC4eiEDmwd3OCXZp1yglNu+1qa826YOgNp24zrofORmN+8A51P/g+h1v2xaI0aLTqfME0kOtIn0SyVhrXli1q5YgL+4mMoDV8gCSx+I/GRaAQ=
+	t=1740651830; cv=none; b=h4J8/mu9JTkEv4ybT6Rm9RdNWxQQLcF162961DXdC9Lj4/2BI2kA0zJfotsfWMoI2zb9ndEp7XpNjOQaIhn0r15lkOX1Uv50otnpxMir6FM0o7QGFjGPFWcH0KtLN7CoJsxQuEyTgUziFcwRPuEH7JrEMvI8zk0SwBbqDZVFIKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740649943; c=relaxed/simple;
-	bh=6znyGCVk3E9eUqlxFTwXiuErz+RYTkjE9keIcg5ZG8g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nms24QYNVSG7/9uvW5jL8tY7PuKL/aCnZkfgDYtizf+3CCFxNZ7bbKlna4Uej1amsTPfcQjgw8dZyF6BR/wwLRtXavPYLp25QQu1IbqzzEYLClH8awyYZak36WLQMEyiY+h3JQEy0BuuFBDrURdowv7LAJi/Q8VkDsHeTSsPUcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juszkiewicz.com.pl; spf=pass smtp.mailfrom=juszkiewicz.com.pl; dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b=20YDhTF/; dkim=pass (2048-bit key) header.d=juszkiewicz.com.pl header.i=@juszkiewicz.com.pl header.b=Bj0DkJ1s; arc=none smtp.client-ip=185.243.53.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juszkiewicz.com.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=juszkiewicz.com.pl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=juszkiewicz.com.pl;
-	s=mail; t=1740649939;
-	bh=6znyGCVk3E9eUqlxFTwXiuErz+RYTkjE9keIcg5ZG8g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=20YDhTF/SsRmBgTX+Su6Rmd3h2mc5R64R+DfppoD8xXdf+QhhBcLBhiU19qwarHVf
-	 KmIzjYlUnnsyhw6yenbF+vfaE6IN6+81MT6Picf/tiaJfpSGeHkfj1nFH51WSVWCOo
-	 CexC3EKxoLnaVYl22dB+75gdO7qsCGDa1ACDQXnMAEWrGQEts0Y/RVxdsYPuaI10+y
-	 pGS99XCAZeUoQcmUfL1vhe5Y39sGUBGe+rySRmIRg3e2ln3vuRTsgwbdSkEdMpfoVX
-	 O26Lix4M5dp+ps5ScHvSq2JcdY4d1JEt9FwCQNoyPIl8BHLMWitB+f5C6KE4KkMSj+
-	 5wSBWNbw8VLyA==
-Received: from utena.juszkiewicz.com.pl (utena.juszkiewicz.com.pl [158.101.208.177])
-	by haruka.juszkiewicz.com.pl (Postfix) with ESMTPSA id 421FD22ABB;
-	Thu, 27 Feb 2025 10:52:19 +0100 (CET)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F4239420F5;
-	Thu, 27 Feb 2025 10:52:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=juszkiewicz.com.pl;
-	s=mail; t=1740649938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+jGFsewu6ooeAJ9leLVHc/HpopN62EVUo24rtd53cMo=;
-	b=Bj0DkJ1syV3NI2+vs7APow4eqXQ1JBLIwelR1dskq/Kc26YhGUE34CQrZlOGs+ltqN7jlO
-	0De/PsrSaGpZQ6K74s0T8moGUlZeCeuhN3Sc5db5b2NJCRtrI/0w8PKaIuuk5HykVk4JvK
-	OQCAhJQaZm0o7w8aHTl1IErc3fiTnh1s9VAp1Wgm3sAITIQBREsYY2UmZ7MyliaWNNya6j
-	5OaCK2el5FD2qXI6yHXZyzUD5e5m7FTNYQN3s0sQVn74FhDEpgNQzGDHcepN6GlMxsFau4
-	gG8jp/GOYShAwx6jf+7Slegcalzwohs+tqZPa3ui/o/SIUWb5Lm/fuRyepW5Bg==
-Message-ID: <31a9437f-3a30-410c-8456-10e19e0674f9@juszkiewicz.com.pl>
-Date: Thu, 27 Feb 2025 10:52:16 +0100
+	s=arc-20240116; t=1740651830; c=relaxed/simple;
+	bh=1dUopjtmVPpfU48p2wgbI1oa9mglJSbqkzG2wEO442M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M5E3KcXvpR3DnGsyFWIYmfoZZUsvvMKHs2tJlIelqJdIFvCPFCkiQsM4wo9zPurl7D6vDYNu38Ssb7gqCwC1jVUoiBCZBmUcKxGbd0d2tFykXQZJ66kIMlyG/TRuaQ2YMdj+h+Vt+k2pPKJ5xXRz7/eGt6L/B9ba04I6sey3Wak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQqaOU5d; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F02FC4CEE4;
+	Thu, 27 Feb 2025 10:23:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1740651830;
+	bh=1dUopjtmVPpfU48p2wgbI1oa9mglJSbqkzG2wEO442M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dQqaOU5df6omFPvKwRSxCObnLJelHcC32152XZTdV1uMu30JB/0PVufNdILpG2wKJ
+	 PgdtWeNVxQtEJoAveaGjLh3pbxnh43UlrH4vBflBIHnF/4py+oXDj30ELR+hWZbfC6
+	 ucdnrYdYIpKe8sAt+wGYQ9FbkeYzPnYqYmwsIZWG3IujywvGAafxW6RwNnmUKpqI0n
+	 RMWJFiafMHxlzZUyjU5Astb/ZlMW9NlZFT43j+CFPI8zO3MD4ABxOxQPwIns15ab/t
+	 eTmcDQgawVwE4rPWx2eJ/TOQF1laQeEhglReqaduAG0iI2K/E2wvmnXyiAqX4m+9wC
+	 NbLPZpGMrAMJg==
+Date: Thu, 27 Feb 2025 11:23:46 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Sergei Trofimovich <slyich@gmail.com>
+Cc: linux-man@vger.kernel.org, Boris Pigin <boris.pigin@gmail.com>
+Subject: Re: [PATCH] mk: don't escape '#' for `grep`
+Message-ID: <5s43rvskakybdll44oj5d5x7xmxjhlindgdokxyjqzqtgkipxl@hbfuwiyish4r>
+References: <20250227092142.1822609-1-slyich@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] add time64 copies of system calls
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org
-References: <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
- <fb722cc1be40a2f74e204a23d5c11944c167d55c.1731957032.git.marcin@juszkiewicz.com.pl>
- <20241118225148.fgrvxxg2p6on4nl3@devuan>
- <5778beee-a1c0-45cf-93fa-8d36501911f9@juszkiewicz.com.pl>
- <fb5d9a20-9937-4cf7-b8e0-99710d88f4bc@redhat.com>
- <e2496012-6e25-4e85-ad27-0104dad7463a@juszkiewicz.com.pl>
- <spyqfjxpxqpg5uotsadzacxsxwret4topf6nrmzcfakpujabbv@k5n3cjbo74qm>
-From: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <spyqfjxpxqpg5uotsadzacxsxwret4topf6nrmzcfakpujabbv@k5n3cjbo74qm>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uxqzr7kxc644dawz"
+Content-Disposition: inline
+In-Reply-To: <20250227092142.1822609-1-slyich@gmail.com>
 
-W dniu 26.02.2025 o 16:23, Alejandro Colomar pisze:
-> On Wed, Feb 26, 2025 at 03:48:19PM +0100, Marcin Juszkiewicz wrote:
 
->> diff --git a/man/man2/adjtimex.2 b/man/man2/adjtimex.2
->> index 7a87ac654..6dde493aa 100644
->> --- a/man/man2/adjtimex.2
->> +++ b/man/man2/adjtimex.2
->> @@ -10,7 +10,7 @@
->>   .\"
->>   .TH adjtimex 2 (date) "Linux man-pages (unreleased)"
->>   .SH NAME
->> -adjtimex, clock_adjtime, ntp_adjtime \- tune kernel clock
->> +adjtimex, clock_adjtime, clock_adjtime64, ntp_adjtime \- tune kernel clock
->>   .SH LIBRARY
->>   Standard C library
->>   .RI ( libc ,\~ \-lc )
->> @@ -22,6 +22,8 @@ .SH SYNOPSIS
->>   .P
->>   .BI "int clock_adjtime(clockid_t " clk_id, " struct timex *" "buf" );
->>   .P
->> +.BI "int clock_adjtime64(clockid_t " clk_id, " struct timex *" "buf" );
->> +.P
-> 
-> I'd move it to the bottom of the SYNOPSYS, and add a comment above
-> saying it's only available on 32-bit systems (if there are exact macros
-> that define those platforms, it would be interesting to use that):
+--uxqzr7kxc644dawz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Sergei Trofimovich <slyich@gmail.com>
+Cc: linux-man@vger.kernel.org, Boris Pigin <boris.pigin@gmail.com>
+Subject: Re: [PATCH] mk: don't escape '#' for `grep`
+References: <20250227092142.1822609-1-slyich@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20250227092142.1822609-1-slyich@gmail.com>
 
-It is on all 32-bit architectures supported by Linux 5.1+ so probably 
-there is no point in listing them in man page.
+Hi Sergei,
 
-Now they are: arm/armoabi, i386, powerpc, s390, arc, csky, hexagon, 
-m68k, microblaze, mips64n32/mipso32, nios2, openrisc, parisc, riscv32, 
-sh, sparc and xtensa.
+I'm CCing Boris, since he had the opposite problem, which triggered
+adding the stray '\'.
 
-https://gpages.juszkiewicz.com.pl/syscalls-table/syscalls.html shows all 
-system calls and allows to disable/reorder columns. Everything from 
-'avr32' to the right is no longer present in Linux kernel.
+On Thu, Feb 27, 2025 at 09:21:42AM +0000, Sergei Trofimovich wrote:
+> Without the change build process complains
+>=20
+>     $ LANG=3DC make -R help
+>     grep: warning: stray \ before #
+>     grep: warning: stray \ before #
 
-> 	// Only in 32-bit systems:
-> 	...;
-> 
-> or
-> 
-> 	#if (...)
-> 	...;
-> 	#endif
-> 
->>   .BI "int ntp_adjtime(struct timex *" buf );
->>   .fi
->>   .SH DESCRIPTION
->> @@ -557,6 +559,10 @@ .SH STANDARDS
->>   .P
->>   The preferred API for the NTP daemon is
->>   .BR ntp_adjtime ().
->> +.SH HISTORY
->> +Linux 5.1 added
->> +.BR clock_adjtime64()
->> +call on 32-bit architectures as part of handling Y2038 problem.
-> 
-> For a start, this should be enough.  We can later add some more details
-> if needed.  I also don't want to waste much space in the manual pages
-> about these.  Maybe we could have a generic description for xxx64() APIs
-> elsewhere, which clarifies what all of these are. 
+I can't reproduce.  What's your version of grep(1) and your version of
+make(1)?
 
-Thanks.
+	alx@debian:~/src/linux/man-pages/man-pages/contrib$ make -R help
+	make: warning: undefined variable 'GNUMAKEFLAGS'
+	To see a list of targets, run:
+		$ make -R -p nothing \
+		| grep '^\.PHONY:' \
+		| tr ' ' '\n' \
+		| grep -v '^\.PHONY:' \
+		| sort;
 
- > Maybe a new Y2038(7) manual page would be a good place for that.
+	To see a list of variables, run:
+		$ find GNUmakefile share/mk/configure -type f \
+		| sort \
+		| xargs grep '^[^[:space:]].*?=3D' \
+		| sed 's/=3D.*/=3D/';
 
-Good idea.
+	To see a list of dependencies (package/program), run:
+		$ find share/mk/configure/build-depends -type f \
+		| sed 's,share/mk/configure/build-depends/,,' \
+		| sed 's,\.mk,,' \
+		| sort;
+
+	alx@debian:~/src/linux/man-pages/man-pages/contrib$ LANG=3DC make -R help
+	make: warning: undefined variable 'GNUMAKEFLAGS'
+	To see a list of targets, run:
+		$ make -R -p nothing \
+		| grep '^\.PHONY:' \
+		| tr ' ' '\n' \
+		| grep -v '^\.PHONY:' \
+		| sort;
+
+	To see a list of variables, run:
+		$ find GNUmakefile share/mk/configure -type f \
+		| sort \
+		| xargs grep '^[^[:space:]].*?=3D' \
+		| sed 's/=3D.*/=3D/';
+
+	To see a list of dependencies (package/program), run:
+		$ find share/mk/configure/build-depends -type f \
+		| sed 's,share/mk/configure/build-depends/,,' \
+		| sed 's,\.mk,,' \
+		| sort;
+
+	alx@debian:~/src/linux/man-pages/man-pages/contrib$ make --version
+	GNU Make 4.4.1
+	Built for x86_64-pc-linux-gnu
+	Copyright (C) 1988-2023 Free Software Foundation, Inc.
+	License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.h=
+tml>
+	This is free software: you are free to change and redistribute it.
+	There is NO WARRANTY, to the extent permitted by law.
+	alx@debian:~/src/linux/man-pages/man-pages/contrib$ grep --version
+	grep (GNU grep) 3.11
+	Copyright (C) 2023 Free Software Foundation, Inc.
+	License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.h=
+tml>.
+	This is free software: you are free to change and redistribute it.
+	There is NO WARRANTY, to the extent permitted by law.
+
+	Written by Mike Haertel and others; see
+	<https://git.savannah.gnu.org/cgit/grep.git/tree/AUTHORS>.
+
+	grep -P uses PCRE2 10.45 2025-02-05
+
+>=20
+> Signed-off-by: Sergei Trofimovich <slyich@gmail.com>
+
+Please add a tag mentioning that it reverts a certain commit:
+
+	Fixes: 76f12e3fd3ea (2025-02-10; "share/mk/: Escape '#' in regexes")
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  share/mk/configure/build-depends/cpp/cpp.mk | 2 +-
+>  share/mk/src/sh.mk                          | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/share/mk/configure/build-depends/cpp/cpp.mk b/share/mk/confi=
+gure/build-depends/cpp/cpp.mk
+> index ef12a848a..8a4ccc442 100644
+> --- a/share/mk/configure/build-depends/cpp/cpp.mk
+> +++ b/share/mk/configure/build-depends/cpp/cpp.mk
+> @@ -21,7 +21,7 @@ endif
+>  CPP_HAS_ALREADY_D_FORTIFY_SOURCE :=3D \
+>  	$(shell \
+>  		$(CPP) -dM - -Wno-error </dev/null \
+> -		| $(GREP) '\#define _FORTIFY_SOURCE ' >/dev/null \
+> +		| $(GREP) '#define _FORTIFY_SOURCE ' >/dev/null \
+>  		&& $(ECHO) yes \
+>  		|| $(ECHO) no; \
+>  	)
+> diff --git a/share/mk/src/sh.mk b/share/mk/src/sh.mk
+> index 05c9e0449..487eaf14d 100644
+> --- a/share/mk/src/sh.mk
+> +++ b/share/mk/src/sh.mk
+> @@ -14,7 +14,7 @@ include $(MAKEFILEDIR)/configure/directory_variables/sr=
+c.mk
+> =20
+> =20
+>  BIN_sh :=3D $(shell $(FIND) $(SRCBINDIR) -type f \
+> -		| $(XARGS) $(GREP) -l '^\#!/bin/\(sh\|bash\)\>' \
+> +		| $(XARGS) $(GREP) -l '^#!/bin/\(sh\|bash\)\>' \
+>  		| $(SORT))
+> =20
+> =20
+> --=20
+> 2.48.1
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--uxqzr7kxc644dawz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfAPSsACgkQ64mZXMKQ
+wqmpWA/+PMgVhPmmwBgdZ/Pko1jjyynplwJy3z36N3SeR7u3c5GuOM7k3JN/9fKw
+BK5U//GjRpworo/APmOiCW+WetJMC6Sq91QA0zGUHfCwEPFYFOgNoV0MDZ+IY9Zp
+FHalWNvZrHxFpZmDOM3pIK7ci7HKJBslCuTxrGPA768fZHHP3ty0DnHgjCgammhW
+8aTH/1eOwdIN6OVtNF5k1YhUAkJ76Bv0KzHfmrFU7s1WkI2H727122QhVe6133f2
+U6nlz+GunXSRWnVSyetWVeNF8786XMZ0ywEGJ8k85Md6JMf++v5UTgrCpFKfxc7H
+/NxbSqY+IUhgF4Ehl4OqheznlerPgODdJlN8jksLkEIJjTBC3WyNO8rsyNdOPUFj
+GU84/GPEMrbM4LpMvr+N78w0c2DDewC2LiFvHKEujuf6N95S2IEhillA/x3211l8
+rhq7s3bxUIN+JHKsa7xG/Ix6idlPULdJidZwIbZWQqtaD73AOG+8jeb8AaV1Xt2g
+anWKvQzeGJTJiZmsYhsQjWxrfUk6OFWB+TtdwmqW+0joG6Ct9aUaf1lPzrzwq4vD
+HqirbbhvkaqQ4W5503DDejh82b6LPmKUk15JFgAHfvRclj54Ii0sIdNCnv8FGoGO
+vPWWdhwEtk7pRVAUUYVHosZKE7r/9IAE0RVB2xqU4fNDUF1+97k=
+=e8Yt
+-----END PGP SIGNATURE-----
+
+--uxqzr7kxc644dawz--
 
