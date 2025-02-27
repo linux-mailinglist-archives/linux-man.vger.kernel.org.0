@@ -1,164 +1,131 @@
-Return-Path: <linux-man+bounces-2525-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2526-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7000CA46DEF
-	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 22:51:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13BC6A478F5
+	for <lists+linux-man@lfdr.de>; Thu, 27 Feb 2025 10:22:26 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 69F7916CFB5
-	for <lists+linux-man@lfdr.de>; Wed, 26 Feb 2025 21:51:34 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1ADB216B1DD
+	for <lists+linux-man@lfdr.de>; Thu, 27 Feb 2025 09:22:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4376C25B66D;
-	Wed, 26 Feb 2025 21:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E83EA227B95;
+	Thu, 27 Feb 2025 09:22:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TVFB/wb7"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="azEfSBhK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF2C2566FB;
-	Wed, 26 Feb 2025 21:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C97F15DBB3
+	for <linux-man@vger.kernel.org>; Thu, 27 Feb 2025 09:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740606690; cv=none; b=SHnefT25KopmAtE2Yf/ha2M/VssUTjsFuSmSXWfUMeHWPrUiR11n28efeEsJkQLlgF31z2gZ/JmcM4rPcWwokT70Zbsh6//BVPXtk3awd5IEjCN1iGKSvyO6dUIZ9BLhOVFFYkzec71FcwDJFytXc3opQW9AhNOx5QnIl58Cnr4=
+	t=1740648129; cv=none; b=KIJJdsbUagN4Mo7s4CTB161qvBdXEuwhMovkkhjkDAET9GehHbIVowGZz1eDlh4TTLBAReS+mGunq+uATVPTHMHXwRNCKAPAbqgPjznggKy3WCTdZq8PF75AuZpBHTLyyg3lJZMB5cWb7+s6XBrkvSip5Y/oakwHcPq3qUb+04I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740606690; c=relaxed/simple;
-	bh=6K67pLBrn/YSsRyl9yF6Ujvkl7wj/4gfRckCg/PzINw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n63xabZfS5KFyvONP+WX4+Xl45AobRhCcxS0Y2PlCEc3DLewYRpU0SKLNQ3h90GfWEVbuY9GA6VHtGcGv1ctjU/zx8y9lJyBvpaFRYGWejT6QXDMY2LaS9JPgkXoG4yc8NGpplNseotMomGnznbcctB3O5aiqHocTHwutuwxwqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TVFB/wb7; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06F8C4CED6;
-	Wed, 26 Feb 2025 21:51:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740606689;
-	bh=6K67pLBrn/YSsRyl9yF6Ujvkl7wj/4gfRckCg/PzINw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TVFB/wb7jb8FtK4eqJjE337jIPwfp2/UVz/Urx3Wrydd4eAjA2CFe2J4Si5btpUbk
-	 vgp9DdL1UoqCW6SJfOBTj3qVpDq5O5FRi2g0kxekuZHRKqBmSLkI4rE2Cz0I/yB4gp
-	 /cZvsqQPusOOb9kOjAhPs88uRO5gYY8vZipho7DZFzecYE8QFehsYS+VHFHlTW0PFu
-	 2i4vlnETsrQYCj4d9M+4hY4lnT5gbcIgGfK836tcv8lD0ca8JKpquOFfzolYT2fqRX
-	 8UBMe4gUMfppH44Fik0n6Dk8zByGZGJrjIL9xlz44S4yf9Tu1Yru3TdQpXHl7bcE61
-	 RiN64xQSr5A7Q==
-Date: Wed, 26 Feb 2025 22:51:24 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	linux-security-module@vger.kernel.org, Tahera Fahimi <fahimitahera@gmail.com>, 
-	Tanya Agarwal <tanyaagarwal25699@gmail.com>, Daniel Burgener <dburgener@linux.microsoft.com>, 
-	tools@kernel.org, linux-doc@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
- scoping documentation
-Message-ID: <7ce2w6p5smgreajaosq7cv23oovzzzrlb3csmkdpo2vbbngnif@du7paargkerx>
-References: <20250124154445.162841-1-gnoack@google.com>
- <20250211.Ree5bu6Eph2p@digikod.net>
- <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
- <20250211.ieSoo7Phe5oh@digikod.net>
- <3unkhxarmiddobfjvojx4sdpgitjld26udcagka2ocgrb6c2jc@dcg4w5yk5mut>
- <20250211.oavooPhap9OX@digikod.net>
- <7vl6uylhzgkokl42bz36d5g3krcusqf7mdy4bd7tblcjckatrw@ullu2kblovji>
- <Z794dm_xmViQ_lFF@google.com>
- <5xijgm2hkedx2tu6fjt67ozf2rmvjz6z4zvvcvokymc3hlc6of@xqpnvf23ia2s>
- <Z7-JvY4DP-CswCyF@google.com>
+	s=arc-20240116; t=1740648129; c=relaxed/simple;
+	bh=Jg5ApV9f8P9X/jz9ObiJ7rL+1FhJpLdd+ZHAp0ewXWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MpTiu9qvI0Y8AQD/xn7Bj5ADULBuChXKyc7+vqziYz2FHOIIluHPTMvpkTrluGvd8sstAyyGUesxaKT7RR3ypmS74IOorWawMTCCDL0FM0Cw4Jz0njRyWDuAtEg6a9n1PYNY4vhjuLMVhG4qrY4Y+/excFhpVMRVCGJV9PLw0+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=azEfSBhK; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-38f6475f747so297999f8f.3
+        for <linux-man@vger.kernel.org>; Thu, 27 Feb 2025 01:22:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1740648126; x=1741252926; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wZE1PwaMDwa1O7L5KygrMilRDEYD8jeRk5r+WS8+mzs=;
+        b=azEfSBhK+PDLfXIQo845BU83qfODACpyqpA5O9qoaVzAH8iRNQYuWIC2k3rkRhGcOs
+         Az+IVdH6bMgPrNpngmCM7EV7XyicJ1yvlyUCumGsh1TWhSntgPHHh1YtYWZtS+Ugw+yT
+         nrOydZNGMViX938Yfx70YiIu2rnkkgs6luwY6NQZYM5Kyh1GFldmOrZNxASCtB/37Wkc
+         kY3G8XHV7foMYgQ+xQgI/D8JK3fCgY90532gtW/9vQT0HBuf7ntoydTQy73cYggQD272
+         HcjyFEBb64c+2D80elHyyo0iY43KMBaJeW1AAf7zNFsyVw3+wgdCnI8lQdjW+aXT0vTo
+         QQ3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740648126; x=1741252926;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wZE1PwaMDwa1O7L5KygrMilRDEYD8jeRk5r+WS8+mzs=;
+        b=uFog/gdJpk+zLV8ER4lbs2pOxh7G9Os1yv10+gjii7Un/gg6oheu13dUf7c9n31HxL
+         2gMzXyIf4pP/ILINHtOi/J21Te9MBbGg4RRiGdsQfK5zP3DGDicGzHruPufOeLY6vW1t
+         Q7D+hYYlGcmHhBRenQkKTZH2VBOwqIWtkmYeXxlqn3mLu4Sp4ePooi2HhnXY0vnzxJF/
+         9V53PRiFfqgnmJuvQFp8/kPMCqQeaPQPghYm5kcXPvqxTeUqadpZn7wchfPZLX5cMrKQ
+         T1RToN5SPv8MfQgs3k1H9uPUaIv4Cc4LbK4hEZjj9OKNpW6c/HzSolnmSKuWiMp43V+v
+         QQwg==
+X-Gm-Message-State: AOJu0YzNOZmBnmwsE51HLMiDDvkUFekqZ8Lt38LB3JTLIHmvLF4EjM1h
+	ClkFOYIrE93dvXc6gtBcl3p4nY2vXxBPOdY3e3TZVd1baubgzJOH
+X-Gm-Gg: ASbGncv0o+EZ8yye0FPbi9rmy7Yi6VMAtQE3gZtwKusAnQy40gdhF/udlQP8NuRMSgS
+	JL4O93SU8hN1AY6iD64KNRD8D8pny1gYr1N5xLcdeNJ9KgdIBZK8AypfbI6S5+6vfyGs8m8R0yc
+	BT8U6ArIbvv/v+HkS9aYqHrW0ui4vjnfN88h7aVwPw1xtkR/O2L2rforabrQApLV+XIixgQcAUf
+	+JqeaywdG3qhL9AV4rUHZinPHbfRbjvjop/EwPqBSDYSzNXPj2icB831tGIfivu8oui75Khva8/
+	PhmMLcRJozmH2ZBs
+X-Google-Smtp-Source: AGHT+IENXabPWYTrOffiPmcnu81bMlei9MPelTrmiF8on3JuFudOpRnCRuNE7RN+1ELAqQBLxhVi2Q==
+X-Received: by 2002:a05:6000:1a87:b0:390:dfe9:1866 with SMTP id ffacd0b85a97d-390dfe91c49mr2013840f8f.4.1740648126057;
+        Thu, 27 Feb 2025 01:22:06 -0800 (PST)
+Received: from nz.home ([2a00:23c8:a613:101:2204:db8d:4c76:9ba])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-390e4844a16sm1397585f8f.79.2025.02.27.01.22.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Feb 2025 01:22:05 -0800 (PST)
+Received: by nz.home (Postfix, from userid 1000)
+	id 03DCD29B25AE1A; Thu, 27 Feb 2025 09:22:04 +0000 (GMT)
+From: Sergei Trofimovich <slyich@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+	Sergei Trofimovich <slyich@gmail.com>
+Subject: [PATCH] mk: don't escape '#' for `grep`
+Date: Thu, 27 Feb 2025 09:21:42 +0000
+Message-ID: <20250227092142.1822609-1-slyich@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lhn2yxdv4o5zdxcp"
-Content-Disposition: inline
-In-Reply-To: <Z7-JvY4DP-CswCyF@google.com>
+Content-Transfer-Encoding: 8bit
 
+Without the change build process complains
 
---lhn2yxdv4o5zdxcp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	linux-security-module@vger.kernel.org, Tahera Fahimi <fahimitahera@gmail.com>, 
-	Tanya Agarwal <tanyaagarwal25699@gmail.com>, Daniel Burgener <dburgener@linux.microsoft.com>, 
-	tools@kernel.org, linux-doc@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] landlock: Minor typo and grammar fixes in IPC
- scoping documentation
-References: <20250124154445.162841-1-gnoack@google.com>
- <20250211.Ree5bu6Eph2p@digikod.net>
- <22olfm76rcgjfs4vrr3adtbznsnz47kaehlr3ljn6e5jkc6waq@ue7azstxlwfv>
- <20250211.ieSoo7Phe5oh@digikod.net>
- <3unkhxarmiddobfjvojx4sdpgitjld26udcagka2ocgrb6c2jc@dcg4w5yk5mut>
- <20250211.oavooPhap9OX@digikod.net>
- <7vl6uylhzgkokl42bz36d5g3krcusqf7mdy4bd7tblcjckatrw@ullu2kblovji>
- <Z794dm_xmViQ_lFF@google.com>
- <5xijgm2hkedx2tu6fjt67ozf2rmvjz6z4zvvcvokymc3hlc6of@xqpnvf23ia2s>
- <Z7-JvY4DP-CswCyF@google.com>
-MIME-Version: 1.0
-In-Reply-To: <Z7-JvY4DP-CswCyF@google.com>
+    $ LANG=C make -R help
+    grep: warning: stray \ before #
+    grep: warning: stray \ before #
 
-Hello!
+Signed-off-by: Sergei Trofimovich <slyich@gmail.com>
+---
+ share/mk/configure/build-depends/cpp/cpp.mk | 2 +-
+ share/mk/src/sh.mk                          | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-On Wed, Feb 26, 2025 at 10:38:05PM +0100, G=C3=BCnther Noack wrote:
-> That duplication is *precisely* the problem we have in Landlock. :)
->=20
-> (If you look at the patch series I've been sending with both the patches =
-sent to
-> linux-security-modules@ and linux-man@, you'll see the duplication,
-> e.g. https://lore.kernel.org/all/20250226211814.31420-2-gnoack@google.com=
-/)
+diff --git a/share/mk/configure/build-depends/cpp/cpp.mk b/share/mk/configure/build-depends/cpp/cpp.mk
+index ef12a848a..8a4ccc442 100644
+--- a/share/mk/configure/build-depends/cpp/cpp.mk
++++ b/share/mk/configure/build-depends/cpp/cpp.mk
+@@ -21,7 +21,7 @@ endif
+ CPP_HAS_ALREADY_D_FORTIFY_SOURCE := \
+ 	$(shell \
+ 		$(CPP) -dM - -Wno-error </dev/null \
+-		| $(GREP) '\#define _FORTIFY_SOURCE ' >/dev/null \
++		| $(GREP) '#define _FORTIFY_SOURCE ' >/dev/null \
+ 		&& $(ECHO) yes \
+ 		|| $(ECHO) no; \
+ 	)
+diff --git a/share/mk/src/sh.mk b/share/mk/src/sh.mk
+index 05c9e0449..487eaf14d 100644
+--- a/share/mk/src/sh.mk
++++ b/share/mk/src/sh.mk
+@@ -14,7 +14,7 @@ include $(MAKEFILEDIR)/configure/directory_variables/src.mk
+ 
+ 
+ BIN_sh := $(shell $(FIND) $(SRCBINDIR) -type f \
+-		| $(XARGS) $(GREP) -l '^\#!/bin/\(sh\|bash\)\>' \
++		| $(XARGS) $(GREP) -l '^#!/bin/\(sh\|bash\)\>' \
+ 		| $(SORT))
+ 
+ 
+-- 
+2.48.1
 
-Yeah, I've been looking at those that you've CCd me.  I just thought
-that the user-space part of the documentation was minoritary, and that
-it was part of a much larger documentation that would include many
-internals.  But if most .rst docs are UAPI, then I think it should all
-be burnt down to flames.  :-)
-
-> Documentation of user space APIs is not unusual in the kernel documentati=
-on,
-> there is the entire subdirectory Documentation/userspace-api for it.
-
-Huh!  You're indeed right.  A great percentage of Documentation/ is the
-UAPI.
-
-	alx@debian:~/.../Documentation$ find * -type f \
-					| xargs wc | tail -n1;
-	 110625  453670 3990219 total
-	alx@debian:~/.../Documentation$ find userspace-api/ -type f \
-					| xargs wc | tail -n1;
-	  96501  368382 3411766 total
-
-
-If anyone wants to burn that and send the parts that are missing form
-the manual pages, you're invited.  :-)
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---lhn2yxdv4o5zdxcp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAme/jNUACgkQ64mZXMKQ
-wqlkYQ//VsBlsNKCIsKe5bTf4U3A9mbEm5xQSqJxA7illvfj3konXqRYruxh2nOL
-o+dDzfquukNBkB1R2domugVJY2gQsmnSIMJfdo7KrMMnOpI4ysCH5fVlqWEZ0HPy
-dC5Sd0F25VO5820RojtuOs1DB7714N15bekz78uHD7MIk2CJYhPTQsmD7ElPzLly
-+NTAGMB6CXtIEw5HoKGvWK1xLmJYKlejD5fAtUSHMbSYCoHxdJx6NPtKwVAztTtG
-CPawpYGJ/JVJkTHyXIKHdKrepxA2yi6nL3mjRoM8mhA8wR+g/mPIenUTOOpzvjCj
-BpYQIWyEBWv9+05LM9nn9Mayb20UtpNYa3j3zqKVF0X2GLSDxrX+IKPbBWVFI9z1
-TdWGS/SaevxslWnd0FAgqSVDv5yPTdP0nus1v6aG1rKZgpIXyjIy6ENwkNPpoJ9e
-ulyVOSy/0c1ctmBHZukSfWzhBvAcaC5STYSIIixcyia7gUdpakl2iJwoWwSendL3
-p085uqp2fRr8ZtwPKKrhVU7HunALTvvHWAovp2xJzIgHtVxYpOYLvJ/VYPwvwW4Y
-et7BHgcdyXXYzL2SI3hJTuFW5udGEnWhjXIdOeE30OJY1da2s2PZjMG41qEz14rt
-8I+VhcG8zBzGP2y35Zlnf51HELfvgxTypnb2IWKzscGXb8nDljA=
-=wf07
------END PGP SIGNATURE-----
-
---lhn2yxdv4o5zdxcp--
 
