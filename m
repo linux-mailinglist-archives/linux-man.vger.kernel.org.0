@@ -1,138 +1,180 @@
-Return-Path: <linux-man+bounces-2556-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2557-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 305BCA4AEA0
-	for <lists+linux-man@lfdr.de>; Sun,  2 Mar 2025 02:08:09 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A615A4B044
+	for <lists+linux-man@lfdr.de>; Sun,  2 Mar 2025 08:25:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7B44516F12B
-	for <lists+linux-man@lfdr.de>; Sun,  2 Mar 2025 01:08:05 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9E36C17479B
+	for <lists+linux-man@lfdr.de>; Sun,  2 Mar 2025 07:20:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57C078494;
-	Sun,  2 Mar 2025 01:08:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 776BE198A2F;
+	Sun,  2 Mar 2025 07:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDo+e4IS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.openworlds.info (mail.openworlds.info [54.38.32.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02194322E
-	for <linux-man@vger.kernel.org>; Sun,  2 Mar 2025 01:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.38.32.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353BE2940F
+	for <linux-man@vger.kernel.org>; Sun,  2 Mar 2025 07:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740877681; cv=none; b=HHmpasR9oNMLnXT0UcOTr/RFgu0XtplzneB+FMTQyqXiixReBWmg5LSxsaaP1OFzMzL15TbMk/oG2W4RwVxWvccqnAZ/K1kal1/QmgP4G4G8hUBK/SCdoBA/Pk3v4WkshMMbr/1QGeT8L3LjZ2HvAgO2MWc0Uj/r3hF8apE9ywc=
+	t=1740899190; cv=none; b=i5H4NO0IPT8CBMw8vWV3Ex1L49TaY7MaK5jQ9S8kxvYdlnh14spUQsoQ+QQ3+D30z3hCukOU2Y5FgYUbCIZ6G51dT9a+MPeHyZeUdKODdf+9kovN3K10cVSxkAlka9et+B/BiPOjb7qFUWpLJzlHcovPSgHHIc/idKFrF/yhQUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740877681; c=relaxed/simple;
-	bh=CMHtVDIB89vhJZIwdcXLRBybHsiDxLS6dq0/jJBzyKs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=aMyMAiRmoP+ElSbU2RotwL8tUsNA4KUd4ovymk+o36iGNqYm1mLNASQ4p7wDcN+AWU15qiKHE3KXeOFdODG6L7KXIwhuKkURwkCHxrAHrsR82Q8FPt8yWSJo2BRyqd6InBj1fxcT3Tgn7FY8d8wCw9hf/KXNRi+NS2nl6hfwoo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everwhe.re; spf=pass smtp.mailfrom=everwhe.re; arc=none smtp.client-ip=54.38.32.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everwhe.re
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everwhe.re
-Received: 
-	by openworlds.info (OpenSMTPD) with ESMTPSA id 94cd3166 (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO);
-	Sun, 2 Mar 2025 02:07:55 +0100 (CET)
-Date: Sun, 02 Mar 2025 01:07:47 +0000
-From: rahl <rahl@everwhe.re>
-To: Jonathan Wakely <jwakely.gcc@gmail.com>, Alejandro Colomar <alx@kernel.org>
-CC: linux-man@vger.kernel.org, gcc-help@gcc.gnu.org
-Subject: Re: Incorrect const in futex(2) example code
-In-Reply-To: <CAH6eHdQRwcDTQXKo5JvYwy5-nD4GpNsaxjD1Zbfr6Ui16D_gqw@mail.gmail.com>
-References: <64CE143F-78B6-4A90-A6DF-2D1C8361902D@everwhe.re> <mvkhetitsgpcyces7ctq6vvkp5ma2jni7j2ybl6sdrmyme2dxh@qhuw576ud7v6> <05F97E03-03EF-4B21-88B3-7F94018CCF6F@everwhe.re> <CAH6eHdRT4mUPyE-SDSBUbEY0WAuQX8b5VK=sVXN+=tNdSPsahQ@mail.gmail.com> <cjjkh27rfpgq24b3e5k7o2gk6dbnnqyn2g5fhdoonr464tgbbs@exq64el5yph5> <CAH6eHdQRwcDTQXKo5JvYwy5-nD4GpNsaxjD1Zbfr6Ui16D_gqw@mail.gmail.com>
-Message-ID: <87CA201A-A03B-4214-81F0-4F045BD08D30@everwhe.re>
-Autocrypt: addr=rahl@everwhe.re; prefer-encrypt=mutual; keydata=
- mDMEZ8LTKRYJKwYBBAHaRw8BAQdAnF2sox8dD7X4iF/Sxskh4FkNri1MhpPZOelVJit7RPG0D3Jh
- aGxAZXZlcndoZS5yZYhyBBMWCAAaBAsJCAcCFQgCFgECGQAFgmfC0ykCngECmwMACgkQ9qZ8dWWC
- jfDaewD+Pll8wQhyYplibiKHBV79sjKHGeVp1SVYVRTIUpvHb9YBAMp2w3gNPLyysGXxMeFAxtEC
- 3EPiZb1KXXmUqyTwu5QDuDgEZ8LTKRIKKwYBBAGXVQEFAQEHQCZ/Tz3sKB0ZD4cVVwHRVnxY3KcN
- oPyDtpiQAtn2GmAUAwEIB4hhBBgWCAAJBYJnwtMpApsMAAoJEPamfHVlgo3w09cA+gK8hPLCu0Sj
- rvdavukaVlmZr5mfCWbEALiT8Ri3gOm/AQCSRqAgr0/YnpSZ14UyE5q9ibLkPWs11I8gksUbXuZG
- Ag==
+	s=arc-20240116; t=1740899190; c=relaxed/simple;
+	bh=3q5+igUP7KTOI0w1b+vlsgiNEFQYNgwMtFLhhUnMJew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G2Onhsik0Zok807w++Zqzr1sdnd6xY9cTQOXh8c/XtQ/DLEoc1OU9mtzAGoeGWhGyb5mDU2Qswekei2W1paIGMY/FPiHICRl65wft7aMPvY9vAToi8MGerBrnik3zr2e6xY7SeMiFux8eklt7Buzt2pCIvDsXR+UzYP9aL+OLs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDo+e4IS; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1ACBC4CEE4;
+	Sun,  2 Mar 2025 07:06:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1740899189;
+	bh=3q5+igUP7KTOI0w1b+vlsgiNEFQYNgwMtFLhhUnMJew=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oDo+e4ISzD3Br3jQ8kHYp2rbQmbQm4uJKjg7gggeNmeaYFcfuba5lwQJGKRCSPzup
+	 KsTvFm8qvC4SPFM6NEu4HXyKV5kZow80qTYrm/HNqdT3oOPF0yWLj+JWWe18n6GLse
+	 7UPq62DeVLYuANfMrSus8HtlStsT4GGdPdg9EDPL2c7gA4VEi1EPTeVQR8gonl18Jc
+	 h4itx3ZXlo+qlH4gbbNa9wMj0UiBTmG1spBDBexK0eVoR9Z1l7cjkzVyEdZbLDTswy
+	 27MfROM221iKwdiTA3M1ecYTbRMFXHTKmLHNS7utZgjDw3jgogtbmmB6VbdmDR7OOs
+	 Gy0F0R1mA4+5Q==
+Date: Sun, 2 Mar 2025 08:06:26 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Jared Finder <jared@finder.org>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH man v2 1/2] TIOCLINUX.2const: Restructure documentation
+ for TIOCL_SETSEL selection modes
+Message-ID: <db5oeclvwmoegfzcrz2w7nfdk552cuyuvu6tkn67h3bojyvhqr@xcrwp3ayfgag>
+References: <20250223213642.10042-1-gnoack3000@gmail.com>
+ <20250223213642.10042-2-gnoack3000@gmail.com>
+ <1094ef00ff08bbede90c01f7a36df293@finder.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: multipart/signed; boundary="----KOOK89VGRUHP4PYGWLVB1BMSNE56FN";
-  protocol="application/pgp-signature"; micalg="pgp-sha256"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hfe666gcjg4x7spb"
+Content-Disposition: inline
+In-Reply-To: <1094ef00ff08bbede90c01f7a36df293@finder.org>
 
-------KOOK89VGRUHP4PYGWLVB1BMSNE56FN
+
+--hfe666gcjg4x7spb
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
- charset=utf-8
+From: Alejandro Colomar <alx@kernel.org>
+To: Jared Finder <jared@finder.org>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH man v2 1/2] TIOCLINUX.2const: Restructure documentation
+ for TIOCL_SETSEL selection modes
+References: <20250223213642.10042-1-gnoack3000@gmail.com>
+ <20250223213642.10042-2-gnoack3000@gmail.com>
+ <1094ef00ff08bbede90c01f7a36df293@finder.org>
+MIME-Version: 1.0
+In-Reply-To: <1094ef00ff08bbede90c01f7a36df293@finder.org>
 
-On 1 March 2025 21:06:22 UTC, Jonathan Wakely <jwakely=2Egcc@gmail=2Ecom> w=
-rote:
->> > > It turns out these calls could be replaced with a compiler built-in=
- (__atomic_compare_exchange_n) both for clang and gcc, which wouldn't have =
-the above problem, and would also allow for the removal of 'stdatomic=2Eh'=
-=2E However, this didn't feel too in keeping with manpage example code=2E
->> >
->> > Well the example already relies on Linux-specific details of
->> > syscall(2) and futex(2), and only GCC-compatible compilers are really
->> > usable on Linux=2E So the GCC extensions could probably be assumed to
->> > exist=2E
->> >
->> > If you were writing pure C11 code intended to be portable, you
->> > wouldn't be using SYS_futex anyway=2E
->>
->> *Iff* C11 atomics were something we understand, maybe even just having
->> a working example that uses it would be worth it, even if Linux-only
->> stuff can do the same=2E
->
->I understand the C11 atomics fine, I don't understand how they
->interact with syscall(2)=2E
->
->>
->> However=2E=2E=2E
->>
->> > > The gcc docs are here:
->> > > <https://gcc=2Egnu=2Eorg/onlinedocs/gcc/_005f_005fatomic-Builtins=
-=2Ehtml>
->> >
->> > The patch assumes that you can pass _Atomic int* to the futex syscall=
-,
->> > but I'm not sure if that's correct=2E The syscall expects an int=2E
->>
->> Hmmm=2E
->>
->> >
->> > The C standard says "NOTE The representation of atomic integer types
->> > need not have the same size as their corresponding regular types=2E"
->> >
->> > With GCC and Clang, _Atomic uint32_t does have the same representatio=
-n
->> > as unsigned, so it should work=2E I'm not an expert here though=2E
->>
->> Considering that the example has been broken for a long time, and I've
->> asked for help in the glibc-help@ mailing list and nobody answered, and
->> you don't feel comfortable with it either, the best course of action is
->> to revert that commit=2E
->
->The __sync_xxx built-ins are documented as legacy and not to be used
->in new code:
->https://gcc=2Egnu=2Eorg/onlinedocs/gcc/_005f_005fsync-Builtins=2Ehtml
->So while reverting it seems better than having broken examples, it
->would be better to not use the legacy APIs=2E
+Hi G=C3=BCnther, Jared,
 
-Ok, so we should probably improve the situation rather than just revert=2E
+On Sun, Feb 23, 2025 at 03:13:35PM -0800, Jared Finder wrote:
+> I'm not a regular kernel developer, so feel free to ignore my
+> recommendations if they are not aligned with the level of documentation
+> usually provided.
+>=20
+> On 2025-02-23 13:36, G=C3=BCnther Noack wrote:
+> > * Indent the documented selection modes into tagged paragraphs.
+> > * Document constants from the header file (tiocl.h) instead of numbers.
+> >=20
+> > Signed-off-by: G=C3=BCnther Noack <gnoack3000@gmail.com>
 
-Perhaps using __atomic_compare_exchange_n would have been a more suitable =
-approach than I had earlier realised=2E
+I have no comments of my own.  What do you want to do about the ones
+=66rom Jared?
 
-------KOOK89VGRUHP4PYGWLVB1BMSNE56FN
+
+Have a lovely day!
+Alex
+
+> > ---
+> >  man/man2const/TIOCLINUX.2const | 23 ++++++++++++++++++-----
+> >  1 file changed, 18 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/man/man2const/TIOCLINUX.2const
+> > b/man/man2const/TIOCLINUX.2const
+> > index c0acdd0ea..5db3f6ea6 100644
+> > --- a/man/man2const/TIOCLINUX.2const
+> > +++ b/man/man2const/TIOCLINUX.2const
+> > @@ -65,11 +65,24 @@ are the ending
+> >  column and row.
+> >  (Upper left corner is row=3Dcolumn=3D1.)
+> >  .I sel_mode
+> > -is 0 for character-by-character selection,
+> > -1 for word-by-word selection,
+> > -or 2 for line-by-line selection.
+> > -The indicated screen characters are highlighted and saved
+> > -in a kernel buffer.
+> > +may be one of the following operations:
+> > +.RS
+> > +.TP
+> > +.B TIOCL_SELCHAR
+> > +Select character-by-character.
+> > +The indicated screen characters are highlighted
+> > +and saved in a kernel buffer.
+>=20
+> I would recommend also saying
+>=20
+> > +.TP
+> > +.B TIOCL_SELWORD
+> > +Select word-by-word.
+> > +The indicated screen characters are highlighted
+> > +and saved in a kernel buffer.
+>=20
+> I would recommend also saying something like "The start is expanded backw=
+ard
+> and the end is expanded forwards to select entire words."
+>=20
+> > +.TP
+> > +.B TIOCL_SELLINE
+> > +Select line-by-line.
+> > +The indicated screen characters are highlighted
+> > +and saved in a kernel buffer.
+> > +.RE
+>=20
+> Similarly, mention how the start / end is expanded here too.
+>=20
+> >  .IP
+> >  Since Linux 6.7, using this subcode requires the
+> >  .B CAP_SYS_ADMIN
+>=20
+>   -- MJF
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--hfe666gcjg4x7spb
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iG8EABYIABcQHHJhaGxAZXZlcndoZS5yZQUCZ8OvYwAKCRD2pnx1ZYKN8BPzAP9Y
-ug7ww8sRTL7Z7m4K3YhhwdVxBBspdTyGxH/u5fJ57AD/f51cAKDJdBjOq7zrZqdu
-PcFaNOBct5a+tH22SQF7vA0=
-=3LHa
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfEA2sACgkQ64mZXMKQ
+wqlcHw//W9XBCmv3mfRC/wHUwaxNWWOUaRVVhMAPZGepcyZI1UCvHHB3T5aqfXS5
+OuCxk07O9jTdMAXJm3WBF2DDC2brI8PUYIyBwFvmNO3Splfarximc7tW0SthfocH
+D4PP1d27U2fZrfXkOTkKQ/dWyiA3ziHxF2i98aWZOe63vfcvdmQgmSzhTcgL8XAv
+k4VykVyxbIsJVuNhtep02NwkfTFOLmmMJtEBMZdZVyemJ0z8iFUADaMVGZATWxQA
+sWcxqh2erGjIvrGk8nVf734DN0sM96+3ZMViSD/KUKzvTb4WNY2tzwcHABxa7yEn
+PmXowkE86a7JhttqB/FXyX4nOR3MM+hQJ/bPF0sVfbqc4tIneYxKaeE8GYyhpdk0
+IxTnHJyQ0g+vRq19z1UsDsx5Ta72A19RpMik34UpKas7bM8oOkoN4lLbWvsZifgn
+bdiZw4yrrBNFSHYyzK8ls6IZgIT8LYu+VH9dwwbqDx3wZCKIhVfjSsofL3hdLjy8
+QldabAorXyubUot4e1iO8k8ZAi6cIG2JgQs4FN5kAXx1thdSoJn3ntdbSMk13zQX
++erjVAQ03Qj+wLtjQMwOpfYaKYOl0Qsjo00oPNLpB7XHtVFFGo1q88cx0yCeJLUQ
+ETadM1rOXjST4easphq2veLK9OOZV/dOUWaG4wtNG/5MlepEopE=
+=R2P7
 -----END PGP SIGNATURE-----
 
-------KOOK89VGRUHP4PYGWLVB1BMSNE56FN--
+--hfe666gcjg4x7spb--
 
