@@ -1,122 +1,119 @@
-Return-Path: <linux-man+bounces-2566-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2567-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85FBDA4B93F
-	for <lists+linux-man@lfdr.de>; Mon,  3 Mar 2025 09:28:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53CA3A4BB15
+	for <lists+linux-man@lfdr.de>; Mon,  3 Mar 2025 10:46:18 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id ECD4C1701F2
-	for <lists+linux-man@lfdr.de>; Mon,  3 Mar 2025 08:27:10 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 776551710FC
+	for <lists+linux-man@lfdr.de>; Mon,  3 Mar 2025 09:46:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC96A1EF094;
-	Mon,  3 Mar 2025 08:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EEAC1F131C;
+	Mon,  3 Mar 2025 09:46:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3/yv7Hu"
+	dkim=pass (2048-bit key) header.d=uni-hamburg.de header.i=@uni-hamburg.de header.b="VSQlMi+m"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mxchg03.rrz.uni-hamburg.de (mxchg03.rrz.uni-hamburg.de [134.100.38.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2351EF080
-	for <linux-man@vger.kernel.org>; Mon,  3 Mar 2025 08:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E6E1EB1AF
+	for <linux-man@vger.kernel.org>; Mon,  3 Mar 2025 09:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.100.38.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740990423; cv=none; b=ihtsffOGNv/KrsUcUKzDQY9jTUfZzx3UjPJ3Qt87w5dHlwmpZH0Ejtt/8K55UcCCsfALJLjJeeajjw/xmDScp30PH2+PmHJKm5pKyDNUh2Tq1Wo+aIU2w5+uVJWN0KZ0nvEatLsanSUv5eQf7OCICx14blpNzDlZgfVAaeJf9Tc=
+	t=1740995168; cv=none; b=GbGd8i2moz6h99tojtJdTklui1h1tosBuyzZxACsF7ViwD64jL8/xOtltphVgSOPGdjHzqNy+D4Rv9iXFhSlxtjs98aSjF2+cF1AOelhDkcLQjfEXNTPrRkzs869OguyvdAORcIeNhfXpwL3GebDlE2kMjTZ5u3CNAPmcaa3HOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740990423; c=relaxed/simple;
-	bh=7+rs1Y7Qm23lb6g9TiK0qXnk0sVRR5BaeSYDCF2Vz/M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SIxAiCz/2wYEMO3OFcK8SrNfrzNb0u/orbi/7+q3GdVe7SnXsHsqm1TrGkcXBLB18+1eg6o/i7PK95YkHFvvmWrwS2Vx+NVVnvKp9ncd+yt0LcKYjGPBXWgCi9wC9hdmVJz4Qjh1ntRTXWktncjeU/Gd9D9vQBRCu+wKwsq+1wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3/yv7Hu; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDD0C4CED6;
-	Mon,  3 Mar 2025 08:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740990423;
-	bh=7+rs1Y7Qm23lb6g9TiK0qXnk0sVRR5BaeSYDCF2Vz/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=W3/yv7HuDA9LpFhdWHN66jRts7ow974kD3kSd038/mNvZTfb7p7FtUVEV+U9g2d5R
-	 c2hh1J9K6n80jKM7i8FpesOQfhCa97WYXeAawvwtSNOaltsgqMjk0lEdGWdPtOBzkm
-	 O3uRLlAK1jF9yPp+5CETSJbB2Kt8KblXWjVpBLchZZk3edEtmJDs7G8+DA34+z9JWV
-	 Xvd1bikNN/nAVYMxERCbSHak8IQjS4CAAC6f3tw98PrOnjeMFywmUsYNWyV0zQBxmh
-	 Lat/lWag0HZta+UvoHSC7MZ7obAv9zGpNjWD2lSOBgLnK5uJAmDg/SdYBIbETPQ/eM
-	 8F8DDnymRM6VA==
-Date: Mon, 3 Mar 2025 09:26:59 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Jared Finder <jared@finder.org>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
-	linux-man@vger.kernel.org, Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH man v3 1/2] TIOCLINUX.2const: Restructure documentation
- for TIOCL_SETSEL selection modes
-Message-ID: <vtwhqbnk4fzbeeluc64eif4pyq4qqsjxzpeiir7p5kvggsbocn@je3ctydavolk>
-References: <20250302194331.5135-3-gnoack3000@gmail.com>
- <20250302194331.5135-5-gnoack3000@gmail.com>
- <a8b66420ad75307c2c0a8803df021920@finder.org>
+	s=arc-20240116; t=1740995168; c=relaxed/simple;
+	bh=gKUOQNmolvlIdIXvdDT4Qk8I064g9qL3fUuSVEBYnlM=;
+	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jQv90NNPNc2VSuFZUoKwMIqY27ltHzVIepV78YLROGXaz3MbV0r43bi9teamNbirQVdWjtY1yT6Pep+lZKNsv7QT4FzVR3FKpf4NakkgzGyywp6OXh6Cn+qHCF356gRh8AyGXNv4XC0NQ5um6haAPlarSuhGhpd8WgzZOPV1JCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uni-hamburg.de; spf=pass smtp.mailfrom=uni-hamburg.de; dkim=pass (2048-bit key) header.d=uni-hamburg.de header.i=@uni-hamburg.de header.b=VSQlMi+m; arc=none smtp.client-ip=134.100.38.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uni-hamburg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uni-hamburg.de
+Received: from mxchg03.rrz.uni-hamburg.de (mxchg03.rrz.uni-hamburg.de [134.100.38.113])
+	by mxchg03.rrz.uni-hamburg.de (Postfix) with ESMTPS id 4Z5twq1cSqz2xCg;
+	Mon,  3 Mar 2025 10:36:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uni-hamburg.de;
+	s=rrzs003; t=1740994571;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w1ZG1NtmcJZISSvbsG9bijz/L/nZ/qxJ29YVVy+f4L0=;
+	b=VSQlMi+m3BA1RhMFvcq1eC8elQo+DCgR5YMWRcvw+QJv9syb6L0HYBJZ9J7fLsgbTRjc1G
+	cxsbFNqE2Gyw8RDZTo5lQ1DauFvUz8vU5wnGImCSuUb1qnTy1QE6/aQfzA8S6AgG1/gj2z
+	shYEI8ceqe2TzHQQPbcOFJrRltRH+UAL6QPu5LNMNVyIKm35I1s+twZrzE2FOTculxLN+T
+	48cxWAd4xm0BYhNd+AyzmPahFHRBaDql8IjHhvgILHQMiadp/s60IXkO4pOF//Pq/8Lymh
+	vp/P8RYx6gPvZ15jBMZqRVgOZ7pWGFms32DrmHX+pxQEhxQNX4ZZbn+eD1eptA==
+Received: from exchange.uni-hamburg.de (EX-S-MR06.uni-hamburg.de [134.100.84.89])
+	by mxchg03.rrz.uni-hamburg.de (Postfix) with ESMTPS id 4Z5twq0773z2xDv;
+	Mon,  3 Mar 2025 10:36:10 +0100 (CET)
+Received: from cortex.rrz.uni-hamburg.de (134.100.3.33) by
+ EX-S-MR06.uni-hamburg.de (134.100.84.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 3 Mar 2025 10:36:10 +0100
+Date: Mon, 3 Mar 2025 10:31:01 +0100
+From: "Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>
+To: Alejandro Colomar <alx@kernel.org>
+CC: <linux-man@vger.kernel.org>, Adhemerval Zanella
+	<adhemerval.zanella@linaro.org>, Florian Weimer <fweimer@redhat.com>
+Subject: Re: mismatch of type of ut_tv.tv_sec between glibc-2.41 and utmp(5)
+Message-ID: <20250303103101.09e47815@cortex.rrz.uni-hamburg.de>
+In-Reply-To: <o7qulyh2a6x5o7g3lehxpgnt63ptbfxn5mdjozxxjsyhz5ljeg@vb4fx5a6ex5b>
+References: <20250228103610.6c908004@plasteblaster>
+	<o7qulyh2a6x5o7g3lehxpgnt63ptbfxn5mdjozxxjsyhz5ljeg@vb4fx5a6ex5b>
+Organization: =?UTF-8?B?VW5pdmVyc2l0w6R0?= Hamburg
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ntzmdi6iqu5t4zyu"
-Content-Disposition: inline
-In-Reply-To: <a8b66420ad75307c2c0a8803df021920@finder.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: EX-S-MR01.uni-hamburg.de (134.100.84.80) To
+ EX-S-MR06.uni-hamburg.de (134.100.84.89)
+X-Rspamd-UID: 69003f
+X-Rspamd-UID: a48994
+
+Am Fri, 28 Feb 2025 15:06:33 +0100
+schrieb Alejandro Colomar <alx@kernel.org>:
+
+> It seems your suspicion was right.  Someone decided to borrow some time,
+> according to the commit message that changed that code in glibc:
+
+> We should document the change.  If anyone wants to send a patch, I'll
+> review it.  I won't write it myself, because I'm not an expert in
+> compatibility code between 32 and 64 bits, so I prefer if someone more
+> expert makes sure the documentation is correct.
+
+Florian? Seems to be the best qualified. As a user, a question for me
+is if the specific macros deciding for the 32 bit field should be in
+the man page or not, as they seem to be an implementation detail that
+one cannot rely on. I guess I need to do a check like sizeof(time_t) >
+sizeof(tv_sec)? And then just assume unsigned type? It is a hack, I
+understand. So any use will be hacky.
+
+> If you show some code, we can have a look at it.  :)
+
+Not much to show. It is semi-abandoned code in simpleinit-msb that
+called time() directly on tv_sec. I switched that to gettimeofday() and
+kept the same level of error handling … which is none. My function
+detects if the assignment to tv_sec changed the time_t value and
+returns an error, but the caller code is inside void functions and
+doesn't have an error handling path.
+
+The effect will be broken lastlog entries in a few decades. The
+unsigned int extension moves that a bit further back.
 
 
---ntzmdi6iqu5t4zyu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Jared Finder <jared@finder.org>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
-	linux-man@vger.kernel.org, Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH man v3 1/2] TIOCLINUX.2const: Restructure documentation
- for TIOCL_SETSEL selection modes
-References: <20250302194331.5135-3-gnoack3000@gmail.com>
- <20250302194331.5135-5-gnoack3000@gmail.com>
- <a8b66420ad75307c2c0a8803df021920@finder.org>
-MIME-Version: 1.0
-In-Reply-To: <a8b66420ad75307c2c0a8803df021920@finder.org>
+Alrighty then,
 
-Hi Jared,
+Thomas
 
-On Sun, Mar 02, 2025 at 02:50:09PM -0800, Jared Finder wrote:
->=20
-> No additional comments from me, this looks good.
-
-Do you want to send an explicit Acked-by, or Reviewed-by?
-
-
-Have a lovely day!
-Alex
-
->=20
->   -- MJF
-
---=20
-<https://www.alejandro-colomar.es/>
-
---ntzmdi6iqu5t4zyu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfFZ9IACgkQ64mZXMKQ
-wqkZZQ//fmQMI6vaRy+CMOuQJWkf7OWkkLGbYzJ3Yfn/yJOcjdr3A7eCKI2dELXU
-TfdpSxwvb4CoV1euKWH+USqoWp1J5BsiWj6NvH/TasgluthssgEyk2pSr/EgkRDh
-D2LFnOHjbGXDsVXcUDygVkQeEThL2ryG5urr7YdSiN8smJ1VEUIIozoKPQ8kdnYf
-r6LmJ5WrQqcsvPqdJffR/s723caCDusdw3Tss40J1AsecRD2BIfgmA6al5mPuPP7
-IINYXnGquqT1X1ipLqvIfqNFQhfvhUXmozAKAojsbUve2uOmOC6ChWaTwpuHudkT
-ch2J2M33dJjfdsg4PNTYlI3oObwTWo/19OAoiqJcM/ksQQA+PsgLedbQk20qUDg9
-XoRHI+iBSCRK5C9vTSzWNc5eFvDbQDlJX0zS8HtYfNTWP5rFxIQt+j6UBq1q09yI
-gHkKbCHh4rj/0C2iPYf46iPd/65anwsYrXyRk/dOuYX3Qx7befx+NUw1tYiQRO1v
-6go2IBdb1RqB+nXcfw3sqOiHWBpibE7yKqwKiJQMyzPiMiFdFpH+O3Ens/Kjv0bJ
-he4htP1ub+u3rk4TLVYzPqZvvCe0cZJLvJw8i0rtXBKDhUYfePuBabJuYk/DvKbi
-JQ3lzc+QneB1GowFpGlnIV1Ji3GDYb1Pstwag4tv7EwliGFR1Js=
-=CVGJ
------END PGP SIGNATURE-----
-
---ntzmdi6iqu5t4zyu--
+-- 
+Dr. Thomas Orgis
+HPC @ Universität Hamburg
 
