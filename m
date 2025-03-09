@@ -1,53 +1,54 @@
-Return-Path: <linux-man+bounces-2586-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2587-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2C4A57FEA
-	for <lists+linux-man@lfdr.de>; Sun,  9 Mar 2025 01:01:57 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B46A9A58512
+	for <lists+linux-man@lfdr.de>; Sun,  9 Mar 2025 15:50:16 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id B503D7A3BF9
-	for <lists+linux-man@lfdr.de>; Sun,  9 Mar 2025 00:00:54 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6A0C83AE837
+	for <lists+linux-man@lfdr.de>; Sun,  9 Mar 2025 14:49:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFDC5380;
-	Sun,  9 Mar 2025 00:01:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9C2F1DE89C;
+	Sun,  9 Mar 2025 14:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqR9wtnC"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAGHC4e+"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1917E1
-	for <linux-man@vger.kernel.org>; Sun,  9 Mar 2025 00:01:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AB61DE899
+	for <linux-man@vger.kernel.org>; Sun,  9 Mar 2025 14:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741478510; cv=none; b=lzuGf2c1+nkNR47mIw6PGdSMWlVVqnRLxyOCXk/nYDEBzn+YlRIsTDtKTDzXRCabOWYb5uP1BXFY3f3RSE5a/ouQib2jbhCk1SNqdeDac7usSSIRRE7je9muTLSHJpzkRMpGVT61urJ+x0MlFvBhVIO4LXDFAZ37cG+gQquEsVo=
+	t=1741531678; cv=none; b=srjhw4KSdnypls5/3P4Rji3NroHUIPk+FDvooMVEQm/28JJ2A32/DgTkpSV6a1F1zjxClyb+0dr9LoPK/z/Tx9Xe46Wrpe6HaM48XpNelcnkZd8WNHxu3L1oLmlyZMLOyJn5lw7/DX+/E8hh0p6Fmsl/8JEm16XdTzMdEKn7bAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741478510; c=relaxed/simple;
-	bh=LGm7wEK7xo539lM+D23+kPWFEfI5l/M/Yn6VFTPLMUk=;
+	s=arc-20240116; t=1741531678; c=relaxed/simple;
+	bh=S/QmUQBoVSKswKPirAXCfRSetGWpd8prQZXkuWHLIwI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l2mVB2Jh//odDGKFZ0EfxxR2XVh3QI0RZapYsbOGZ99EICh+Zn7Jm1guURbWYtDpgTNWMO6FdgN/6s9Wzlse6xbTmSKfF0GeVRw7gHETy3oMIkYT4Z5LLTPyXFBcbJT6R4lk87jVBkiO5eUKQ+8Isu2vJvG1CByDGhbjy6EYMA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqR9wtnC; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C80C4CEE0;
-	Sun,  9 Mar 2025 00:01:49 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=kCAyPbmeLKP5mrjxVo5tIA4FAuDpij7ntp1cAzC4WmZWr9d9DvuGXmK3DplY6Nq0z4jCporlATSPIJjUnylghikOL1kCO8V4qIDnjVScXNT1u9o95sLttnaM7gNtxo9ZTqGoxTNEGb4frWPZLwBB6YGl7bYcaT+a8jP3rUBUUa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAGHC4e+; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D37C4CEE5;
+	Sun,  9 Mar 2025 14:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741478509;
-	bh=LGm7wEK7xo539lM+D23+kPWFEfI5l/M/Yn6VFTPLMUk=;
+	s=k20201202; t=1741531678;
+	bh=S/QmUQBoVSKswKPirAXCfRSetGWpd8prQZXkuWHLIwI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QqR9wtnCnZCJKHXshTIaPbyBe9nyiLvB8ln/GVQmj+Aivl3kaFtb3Ili4EWdwHawx
-	 FygOx3LdGwIu3gNq1dC+LaAHI2wCNEqgbVDl1FfOdglgDI8cmn7lR+q0VcNzlv3P8E
-	 7hczfONF7nnYgVHjkDSrrjWUjDDTewEAJMS5+FR6Tp4cEXD1VTIoN2sk2pQ0G337wF
-	 Su9zAaMcS8Q1wSRYwebbRyjRImYeaI14tLS3/gAMM8Z4FO3tb3qx6LPLri50EV0asX
-	 DQnD1Norb83gUGBSvVmh7tBunlYFOD0ttN5jLVh31IWeIA4y+HSkEvFwlrqFea2yEp
-	 JlGREys4lzagQ==
-Date: Sun, 9 Mar 2025 01:03:00 +0100
+	b=CAGHC4e+txf1fIfMCJGtFt5h2rZaivLJpcuDwrnQIuu+UyoKLXrRROlidMBwQbony
+	 e8To2+hCv+r9SVP/oyuqaLBiEZkHGhmWUt/RBsRzeFj8ic6SNCk3SpCFusPiSNYBD4
+	 eDnBLA++ur+nhaRqPmEaPc48YCQd8Iu9wRe1rkjxh9bRzRGNViA5QSaD3126mSW7NQ
+	 vOdg8ujxUEAZgR7vvG4VDDonLYps0nyoalY0UVY/73IUlD7eNZc5ntTi36MJfxkE3h
+	 mTcd9Aa54Sb5d79mthrzwSEB6nFno/Bk6WE1xKtc49v8FTx3iPcPs1LqqtQ9YUbAci
+	 LYo4C//GURYAg==
+Date: Sun, 9 Mar 2025 15:49:10 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Matthieu Buffet <matthieu@buffet.re>
+To: Deri <deri@chuzzlewit.myzen.co.uk>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man7/ip.7 Document capabilities to use IP_TRANSPARENT
-Message-ID: <ieh6lpakyfyetvu5i63fhp55knwq6qolyixdkcdmq6jxzs4q5k@742ymdofppsi>
-References: <20250307222244.597006-1-matthieu@buffet.re>
+Subject: Re: man-pages-6.13 released
+Message-ID: <ccadtuzssuamek537trppkkustbxn6vxhwcvd6tlzsqkkhfcvt@irm3bx5k5z53>
+References: <ft2zbwghk6hbnhlawjigckegrk3yekyeiudp43gafoububm5ma@mbkqcvh4idyf>
+ <7911697.yEr3mM9iWp@pip>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,89 +56,86 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3innu36g4nw7k2sx"
+	protocol="application/pgp-signature"; boundary="6aa4rdjszsgmztsy"
 Content-Disposition: inline
-In-Reply-To: <20250307222244.597006-1-matthieu@buffet.re>
+In-Reply-To: <7911697.yEr3mM9iWp@pip>
 
 
---3innu36g4nw7k2sx
+--6aa4rdjszsgmztsy
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Matthieu Buffet <matthieu@buffet.re>
+To: Deri <deri@chuzzlewit.myzen.co.uk>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man7/ip.7 Document capabilities to use IP_TRANSPARENT
-References: <20250307222244.597006-1-matthieu@buffet.re>
+Subject: Re: man-pages-6.13 released
+References: <ft2zbwghk6hbnhlawjigckegrk3yekyeiudp43gafoububm5ma@mbkqcvh4idyf>
+ <7911697.yEr3mM9iWp@pip>
 MIME-Version: 1.0
-In-Reply-To: <20250307222244.597006-1-matthieu@buffet.re>
+In-Reply-To: <7911697.yEr3mM9iWp@pip>
 
-Hi Matthieu,
+Hi Deri,
 
-On Fri, Mar 07, 2025 at 11:22:44PM +0100, Matthieu Buffet wrote:
-> CAP_NET_ADMIN has been overkill to use setsockopt(IP_TRANSPARENT)
-> since a discussion on LKML[1] and a patch[2] in 2011. All that is
-> left to do is to let devs know they don't need CAP_NET_ADMIN.
+On Sun, Mar 09, 2025 at 01:12:40PM +0000, Deri wrote:
+> I'm wondering why you switched from using a more "up to date" groff back =
+to=20
+> the 1.23.0 version.
+
+I bought a new drive for my computer, and reinstalled the OS.  That was
+when.  :)
+
+I haven't built groff from source since then yet.
+
+> You may remember when I developed the software to generate=20
+> the input to groff for the LinuxManBook.pdf, it used a custom an.tmac whi=
+ch=20
+> included fixes to make it work properly with the current groff at the tim=
+e.=20
+> Gradually, these were incorporated into the groff git, and as you started=
+=20
+> using git compiled groff, you could drop my custom an.tmac.
 >=20
-> [1] <https://lore.kernel.org/netdev/20111020.182214.629562655202957174.da=
-vem@davemloft.net/T/>
-> [2] linux.git 6cc7a765c2987f03ba278dac03c7cc759ee198e7
->     ("IP_TRANSPARENT requires CAP_NET_ADMIN - why?")
+> The biggest visible issue is that all the overview panel bookmarks are "o=
+pen"=20
+> because the 1.23.0 version of an.tmac does not honour the setting of=20
+> an*bookmark-base-level. Also the pdfs produced by the 1.23.0 gropdf are 6=
+6%=20
+> larger than those produced by the current gropdf.
 >=20
-> Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
+> Just wondering if you found a problem with the current git version which =
+meant=20
+> you had to revert?
 
-I've applied the patch.  Thanks!
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D0c1e05eb27abb5e8ed2aafca1af064e13867165a>
+Nah, just fresh OS install.  I will eventually build it again from
+source.  I was hoping that groff might release soonish and I wouldn't
+have to do it, but I think it will not happen any soon.
 
-Have a lovely night!
+
+Have a lovely day!
 Alex
-
-> ---
->  man/man7/ip.7 | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/man/man7/ip.7 b/man/man7/ip.7
-> index e75aa7ca40a4..00e5274c552a 100644
-> --- a/man/man7/ip.7
-> +++ b/man/man7/ip.7
-> @@ -1088,6 +1088,8 @@ socket option).
->  Enabling this socket option requires superuser privileges
->  (the
->  .B CAP_NET_ADMIN
-> +or
-> +.B CAP_NET_RAW
->  capability).
->  .IP
->  TProxy redirection with the iptables TPROXY target also requires that
->=20
-> base-commit: 64199c5bf76806f13a78b9fd5792ccfcb28a5551
-> --=20
-> 2.39.5
->=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---3innu36g4nw7k2sx
+--6aa4rdjszsgmztsy
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfM2rQACgkQ64mZXMKQ
-wqkh8RAAqe2K3DbaIyFhi+x4uFMQIA3C3csEER0VbRQkw4EzvnpAosxoSB0bHMOZ
-1BTgAzQM6BTkYUDxtnrRbRVE93Tpx6ryD34ffUK7J8bSQbQw5vQ13c5mRNyPUHRf
-vrG+Oh1CE8rJLCZu1EuRGZLsDV3m3PbYiNEE16E5ZPeNwGooVfabmeRkuXAOhvHs
-U2EWdmupehWcC1hepAiDLS8/z4CR86Z+9djyHByVSk1bIWySw++0EKeoFU+pfuZQ
-T1752oAsL9iwhmFie7Fd0YIPWX5z/417ZCK4iUOVKNed9tGs/59oueeJn3gjuMpg
-Z66leK08aAYNCT61thiqXqWD2DDhPr7rH0Frrd2V3CNrdUU/WaK1AcvofOwnI3pC
-bY1ARcwg6eIPOKTVMzpC9aojEKbO3eWtX+ovlwHawB+ZzBU9FPzGGi+FaBQxUK/x
-mmRqtVK7vVrW89Zf2g0UZwcy1Mw0hJNMVpCaFOEOOX7gY1vQTckSSf2pldP3CBmh
-bdNSqaO93yN3YtRKg7oO27GESsMG5D8TLoRVMjA3XdmFk1IN9zhcUuYiqGzon7QP
-gaFLJcKEIcCKNfI0WHUwRkBjaulllnRHdcuWcTeMsh4RSLT1Mc8eCcL6daJ5UU0j
-XYizbWR7wlmei7vEbu4eafOVZ7yG4bCY+9ynskoTaFjcMLZF/NQ=
-=4TIC
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfNql8ACgkQ64mZXMKQ
+wqkwhxAAm9QLXz3L9zhfy/XCLfWwqmzFvlnn1OaNtTOI2zap10kZV8Dd4ArW49zM
+frFldrdQONgx7vRowGRRvpj/7jvH/l2puFKLJtp6WiTzkFS1Gz4CGMRV+rxSEB6L
+CdbT4ULUQ0hJ/zeCrCAZuDv8Om21j6x6HkDo/SoF6PGNzApTBOIE9ViZQk2X/rsH
+fSISW8Rehx86y/9Lxvztx8RGaPA1c7FlGpDEb6kiivSzJeIgpxxQvEpRmr++Z7AE
+hCDZ0VjFyEfIgF8HqhdCCKGkgaIZ6Pic/dQhcj+GNgPm8YDd4taXtwO2CUz+LyiR
+VCmrvLntV0jFy3+KY6Aqyv5lxVCw51tKRyOweiVC1fRoHwwwyV8LIR+dfLpUb/r/
+nIoTQSpt9W/V+684boK/Kl4taUfLg9T7Pw21uJNIESmxry9F9qp6nvyzKjFbrbSk
+lR+Kf+mv9y46ruaMUkV9wK4h01R3lb5YHo98pCaNIUUrJkXavuNQnV5cnu6mD24Z
+Uuit4amCvd+oyDC8z/4gFrpQtAsWLrZvkGkVXMW/VO4+Hvq9HUJg6f5hg9uyU7PP
+Mu+AWM7+lH17S/dwMnDzVZrhYAWvYXxrmajbSeOcsgTTAYye0W6Zw+Tg1XB23SVC
+OoQGWry3G9Gl3pOoDLTd6Vgo//Q1Z26bppQiQWRDwHtR8IUwEFs=
+=q3l4
 -----END PGP SIGNATURE-----
 
---3innu36g4nw7k2sx--
+--6aa4rdjszsgmztsy--
 
