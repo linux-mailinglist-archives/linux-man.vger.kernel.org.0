@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-2597-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2598-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE89A611BF
-	for <lists+linux-man@lfdr.de>; Fri, 14 Mar 2025 13:50:32 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF73AA6126E
+	for <lists+linux-man@lfdr.de>; Fri, 14 Mar 2025 14:19:30 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 402F21B61E94
-	for <lists+linux-man@lfdr.de>; Fri, 14 Mar 2025 12:50:40 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id A9AC31B62D2F
+	for <lists+linux-man@lfdr.de>; Fri, 14 Mar 2025 13:19:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 513E11FECBB;
-	Fri, 14 Mar 2025 12:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF3EC1FF1D2;
+	Fri, 14 Mar 2025 13:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRj2wK+t"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3Zr7niQ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0701FE45C
-	for <linux-man@vger.kernel.org>; Fri, 14 Mar 2025 12:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEE11FF1B3
+	for <linux-man@vger.kernel.org>; Fri, 14 Mar 2025 13:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741956628; cv=none; b=RRR9m1eUx9SBREkuuNUiBRgOn5BsHwvrCdDCDy2U23EQksoHtamXtanh+xnpz3Cbg80/djlevV+6Ingn7N0fWVg/IB0Xq3j9lFr7a5CZYWfp0sllqV+PtjjXFTDXlHu1TRUUx1jJIlZpzVMZzpy4HoQXyI07I9s9sHbOCnYTPA0=
+	t=1741958365; cv=none; b=CnQEXO3zwfjHHsDLnJTGIF0lfZbkH7Sf6YaZ6MfDt3CS/GG7g+k8JuypfGaOcfLK+mBQmizSHHrOfDsO1J3qv3jGxcD8XXWX1KCL75rmGRwOQ+tdPFRTeSfKpFnlNEQsmNJen/W6Y2rr6hYW5Fw9mgXYQsYyb8q8ZImP43hPtRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741956628; c=relaxed/simple;
-	bh=cgTle/GxbD/cfHHU8GcNjth5jVWjFeHpv4T/D8/fjBA=;
+	s=arc-20240116; t=1741958365; c=relaxed/simple;
+	bh=Xq7EInWCHzreZIihzM9AyVpSCj86MZp/scc4XAkW5dU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UCw5ev8lmRigJno2qb4+O3rOtuzFmWi0v/xBR4Zv7rCUI9MXSHQUA/eZyD/bcTOlgxsbNRpgnUBVaS8Gah+xAbrV8zXOKyFOGJoV6QZemUzrrq2DoMFF+m55V8E4g8KFibQCRmLfJWEaTgPodBoo3qjdpG7FrZhh1dY9Zrh9Ev8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRj2wK+t; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712D5C4CEE3;
-	Fri, 14 Mar 2025 12:50:26 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=RLWB0M+A+IkEKEqc8h9lHxEHo0XsIzkcATz5FTQqFZMygAy1gIQT4qqM0rpXvGKjrDbWPQZReUy7PEeacFrRS5k7iBnsZp4L4JwfflbIyKAekW0Eht6bLWsLy0QhYd8l1x8brx0hOB9iDa+bEAnq7iBF9169GsHLJOZQBF2er98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3Zr7niQ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC27C4CEE9;
+	Fri, 14 Mar 2025 13:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741956627;
-	bh=cgTle/GxbD/cfHHU8GcNjth5jVWjFeHpv4T/D8/fjBA=;
+	s=k20201202; t=1741958364;
+	bh=Xq7EInWCHzreZIihzM9AyVpSCj86MZp/scc4XAkW5dU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cRj2wK+tg3ECLwwctdKi1K4WWRx3hrs/vN4XJj5RPgSJwQ0wI9xi+LBwlFUNUbCXM
-	 KVBnmEo0gjIkFaUuRcrHcEy5ZhlR00JQ33jglwwS31c44OPXOKBCE+ide/1D9KCkoL
-	 b+2jPT87/fbbBo5RBJzcalxzWUcqzGsM6KqVAOdXb5cRewm2/rz/tFBsehZ6L+2PN8
-	 tRAnPj0ss2EFMd91mLEbaB2QHvq7/7+jCLY7b7AZwL5zJ03M64h+NHikgWefZ8RF09
-	 u+NZRgFFbMtFkK3uOo37GYeyw2KKdFqct9r+S8p/EvbSXOxlv+KAfiFwbGfZNZ6l7q
-	 kbuw/Lx5neGzA==
-Date: Fri, 14 Mar 2025 13:50:24 +0100
+	b=G3Zr7niQspifyGbPxxlCt1ovWWp/Cgj+xmSubzukn7y99m/2LQacbFew9ptXds/6y
+	 5NIKWU3wh8qzBsGy7E6U6bP0laNEuw4jx4JHU1dv5JzuOrH4fU0XC6+axhB3XwrlrM
+	 HWWfkr68iQxDCE4Tr8aTpGxfGWGtskUXtYLWdOAgF4Hca7hl7AuOqBCDUxT02lMYAS
+	 4gU3KHlWUgOEslBvtXMzGfghTrW+Z84VNEWIS503I/WvFTaHUsZanjgBGXLceeASdD
+	 n/zZ+Jd8YlUh+37chbE+VhiADjcAzfN4LCCyEZzeXkWUgvpKZerqNV5n5FImMTNLM9
+	 JWYHhEKeS4jNQ==
+Date: Fri, 14 Mar 2025 14:19:21 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Chris Bazley <Chris.Bazley@arm.com>, Martin Uecker <muecker@tugraz.at>, 
+To: Chris Bazley <Chris.Bazley@arm.com>, Martin Uecker <uecker@tugraz.at>, 
 	Joseph Myers <josmyers@redhat.com>
 Cc: linux-man@vger.kernel.org
 Subject: Re: Qualifiers on forward-declared function parameters
-Message-ID: <feewumb24clwwajp26z2wgmjgw5bum5eiazuatv364dfrfa5s5@fujm757h3cgu>
+Message-ID: <did66hlzbdr625igsoyqp6qhthfxmrtkzp5cba4h24bkt7wfal@qxupoveu5eyk>
 References: <7ompngc3nmu2lsvk5svydr7tadmrbw3lrx26empdb4bdnh6iim@66bytwwnt7zl>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -56,17 +56,17 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6tqrpnjrdpjkssd2"
+	protocol="application/pgp-signature"; boundary="s4lxtgjk2euypzek"
 Content-Disposition: inline
 In-Reply-To: <7ompngc3nmu2lsvk5svydr7tadmrbw3lrx26empdb4bdnh6iim@66bytwwnt7zl>
 
 
---6tqrpnjrdpjkssd2
+--s4lxtgjk2euypzek
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Chris Bazley <Chris.Bazley@arm.com>, Martin Uecker <muecker@tugraz.at>, 
+To: Chris Bazley <Chris.Bazley@arm.com>, Martin Uecker <uecker@tugraz.at>, 
 	Joseph Myers <josmyers@redhat.com>
 Cc: linux-man@vger.kernel.org
 Subject: Re: Qualifiers on forward-declared function parameters
@@ -74,7 +74,9 @@ References: <7ompngc3nmu2lsvk5svydr7tadmrbw3lrx26empdb4bdnh6iim@66bytwwnt7zl>
 MIME-Version: 1.0
 In-Reply-To: <7ompngc3nmu2lsvk5svydr7tadmrbw3lrx26empdb4bdnh6iim@66bytwwnt7zl>
 
-On Fri, Mar 14, 2025 at 01:49:32PM +0100, Alejandro Colomar wrote:
+[Oops; I had a typo in Martin's address]
+
+On Fri, Mar 14, 2025 at 01:49:29PM +0100, Alejandro Colomar wrote:
 > Hi Chris, Martin, Joseph,
 >=20
 > I'm patching the Linux man-pages project to use forward-declaration
@@ -83,9 +85,6 @@ On Fri, Mar 14, 2025 at 01:49:32PM +0100, Alejandro Colomar wrote:
 >=20
 > I've come up with some pages that need special attention, to make sure
 > that the standard wording supports them.  I think it doesn, but we
-
-s/doesn/does/
-
 > better make sure.
 >=20
 > getsockopt(2) needs to forward declare a pointer, because the function
@@ -317,25 +316,25 @@ ame(3)
 --=20
 <https://www.alejandro-colomar.es/>
 
---6tqrpnjrdpjkssd2
+--s4lxtgjk2euypzek
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfUJg8ACgkQ64mZXMKQ
-wqlV8A//TLc2vbTlmlf8pAvQbkIQhZqgEHaGCfut0G08xBSyBX2cpIImu+oS7Z7L
-Aeyll8BV0ZtKIW/IzTOTnPsAwKAro3wwOFyRe6PYcT2Xjt+R6B3NbEKdBn8AqSIP
-1DAXnVg90jX0JGrDeW7CtY7isb8NHhrgyyvWHFjstUrQy4BGluua7XFrqDVKh4M8
-hzniOyZN3pp972YoIamSviIgvke3RRAuh7aXtNI2+pd36X4x8ZQnHxk14xa+A2xc
-s+eUmahgegc8B4/pYtYH8USoLBq42hxul+t2oOZLzHCPMIv8YOV99nyJQ2mXZRtO
-RvPp0A2hME73kjcFwE/893G6yNw4bn+6570TA4KPUUdxQz+uD7xCWRLPB0nlzCKO
-g1z6QxS9YLp+ExEhbO3LmBE4xeGf4oSZFlEO04Pey6TkosJ4nnOocmr616Qtc/lx
-AhyoApFLKm+Gdt07r2nsyDf95I3VfVDhYuf1WJBJFl1augUyo+kHnZm0A8PKzn0Y
-ucCtZRVJVUSeTrpEYPuB+s0x9e5mQURtbBOrAWcHJ9OGrBi8L1cM1EEW93/fCRZo
-oVVFoynq3aSO5XVqZDWZBL/CczDxBD3HrQf2jZWjYWgNhegBn6ZxGYSYEKdIT+uj
-9qR0ty+cHfOZeQWzlP0tf/aS830O+wJlIPuxtHjIpiq9Y2dthCQ=
-=omxG
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfULNMACgkQ64mZXMKQ
+wqnozQ/+P1Q8en0gdFkQOGx+eOUJRZ7L7X/bzNl5G2cvAnODSWNhuu6HGfRtJMH0
+SEZM3Li+T4+DAB5CNEJOy+ef1xTceo//7VNNbocbgPW8SUVQRT3MtyYnw4ANPMzm
+UvXdFIKRu7iGccR07M6ssWtvz8EGN8y6NkCNK3LWh/UkAv2j1FuVYQB+w4wEhRUX
+xYsAKsuhpYNbZFLADIQRCMC9xMZyFKsltKsExEEEx5fAuATtb+ZMNdVGVvoKQt/A
+NSmuNcT29jbP9Y/Wm9WbKzaxuBtqxfswxKCXiaG7HmYTna3afwa8umh8B0WloRQX
+slYgzdGbiw2XUpTlZl6pb8SZbKFLiXIwAK+T8ph//SHCUHJHTPkC/awJ7Zz0EcfH
+yjtT7xC+0J9Ahouq4clwRStaMHT8oIAzu6qB/ibwEPrG4dXRONh3wRj2IJZr96aH
+IsB1LEpBo9SbxtH9iWpHyAyvl7e/3hvVZgHPr8Uuvc4GVT3kyrSziz7zohbKD3Gx
+sAWsiBS1U1Nb+UbtGhZqXrxC40Yha6+FojTcfwzD99ZY9WqHD8FHHWQbpmRd8U5f
+GhPd6zA89UrD4LzBIjqm9fvFb+XfwLAzrPNrc2/UQcRKbaPZ4PSAyjPC8PWEX9+2
+nhmDvFVo07LYoflMl03yCUX17yatyxoZwlqmbY9vKgrNftryIdQ=
+=8DkS
 -----END PGP SIGNATURE-----
 
---6tqrpnjrdpjkssd2--
+--s4lxtgjk2euypzek--
 
