@@ -1,57 +1,55 @@
-Return-Path: <linux-man+bounces-2607-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2608-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 287A0A63749
-	for <lists+linux-man@lfdr.de>; Sun, 16 Mar 2025 20:49:51 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42D57A650BE
+	for <lists+linux-man@lfdr.de>; Mon, 17 Mar 2025 14:23:27 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 6C3A27A55E8
-	for <lists+linux-man@lfdr.de>; Sun, 16 Mar 2025 19:48:47 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4EC64189779E
+	for <lists+linux-man@lfdr.de>; Mon, 17 Mar 2025 13:23:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8AB351A23B8;
-	Sun, 16 Mar 2025 19:49:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5E7223F37C;
+	Mon, 17 Mar 2025 13:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="soCvESqT"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V43OWKvb"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AE61898F8
-	for <linux-man@vger.kernel.org>; Sun, 16 Mar 2025 19:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8671B23F28D
+	for <linux-man@vger.kernel.org>; Mon, 17 Mar 2025 13:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742154584; cv=none; b=XB9/3ARcczlrFP08G+Ki5qboOUpg2kAkE5Qm1YhVbsq87HaMe3iVlNv0wy/cooITH4sSX53bVgAQAHhVDcbp5RUNNVL6I3n44FUCc//4fDIt5jbaW6gRC7Tn+eNipxfjzRSiLe1TLTHfcCv5JmDaVuqK9VNM70+LGV65YgXQjO0=
+	t=1742217793; cv=none; b=QRDKRhoBGk8CvBcOIZYqw4fECzSKTP/7BTx/0dYeQifwxLOptEjZKiF++FSBBRsoGx+fV1cJnbn/qjT2rpCMwHQqkPIUqXJFi+FXiCFpdKyR3T5NIxTKVWl6wmfxiksWct0yPIdJg2zEjFA3VKuZEAj8ExVywajYaFLCCBFME9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742154584; c=relaxed/simple;
-	bh=vacAWfB/tU8NQrGh/TBQBcCFjTVENACdg6Msw2giTSk=;
+	s=arc-20240116; t=1742217793; c=relaxed/simple;
+	bh=Ejl0AiCbMVE9dGt5vods9/FkNJWyQoa/cfEAnmoYGyQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sNPwV5Mt1PO4hO+Aj5HMGtMRyAiiEI22dHsBzVnWN94XkfznKck9RD2jLFc2L8d/MgtUZtldcEUZDztzsdbcy+F4f19yWC8kezr7CfymCRnyHlDk+vefU3TtkSOavhFKNJ9oyEYtf0qAsSGJ2dfGFf3Td/mQaVQiQ3ouCimm2ZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=soCvESqT; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1D4C4CEDD;
-	Sun, 16 Mar 2025 19:49:42 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=DrYvdQ6Ws9jeh8L18WfJ7HQ3g0m3Uoc023M7xj+pbtsdov4TCTca0L1C1+/uKHaXtpNTEeoCErZWtNglVyEdz9tN+f8geOeq+CW1hW812eoXNwyvjWJiLRJPI/tlyoKok7jVRdtd/LD850ueHxU+OMxGMA79UL8jf+9mDRH5YvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V43OWKvb; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62DAC4CEE9;
+	Mon, 17 Mar 2025 13:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742154583;
-	bh=vacAWfB/tU8NQrGh/TBQBcCFjTVENACdg6Msw2giTSk=;
+	s=k20201202; t=1742217792;
+	bh=Ejl0AiCbMVE9dGt5vods9/FkNJWyQoa/cfEAnmoYGyQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=soCvESqT2ZwYyOzGQZoAKawa7zJFC21BHX+eJjbirSooUJaI3sqVYhpvLd69+MxIk
-	 aCuITAjqX/Fm1pQTw3F2WntmwmTkaSjw3hyn5h9UmLIW3dxB+qoLq0BmqMrGDcNPmy
-	 eeMuwE5uWSb1/4AsrR4wIh/YhOWB8NHXjR8VhJSf2ZTYrimuKSQ9IIOLedpQhZDeBP
-	 Pqp2CeG9vowythazY0un/EduaEjGsKP27vtUgKpg7c6ruxg90dPT9FNP5qrdQEpul4
-	 O5KxdXA0zl8sixigN3RElfqTdl3Qx7NRUdolKiOHFgtzREjkH84RptB1IQ3TKueu8V
-	 gVQ7jNw4GcpOw==
-Date: Sun, 16 Mar 2025 20:49:40 +0100
+	b=V43OWKvbEQgXJdjnWJmKAePOwSjJ1vu60DDR34S4wGpv8t1E7hhcujejjxBeBJLRn
+	 1QbM1c8YDBlwIapb7EvHE8ufj/3bO6piMP+i/tVpDzwbOowCeT/Yq+W/mb8I2mobZw
+	 pQan6e3bEKVI/GUdzThUKrqt4MkXERclCXs5OiSfJDb5nPc/M/pZY20tWcUy46/oha
+	 m8hek5WXp+0f6neSqpetLvL2RCY1zMyn5TSe3VLodEpLi7IKxDrRRhkFTw2c4N5ZiG
+	 +PxNOPJdu2oh2cOMq4avQ2v7zTP2y+jt+fuxQnea/uSt72MWRKJ8DIJCePyzILUjvt
+	 LW+bpD0kWvL6w==
+Date: Mon, 17 Mar 2025 14:23:09 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: Kang-Che Sung <explorer09@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: [PATCH v2] man/man3/wc{,r}tomb.3: Rewording to MB_CUR_MAX
-Message-ID: <fah7wr2xvhyhb2fpxouz2azqycvxrh5hrfabxbo72ph6oj4jjt@zzktz24ygtx7>
-References: <CADDzAfM1HVMkyQY-zhv81NKS4X-neCTGETQec-f9X4acgpZApw@mail.gmail.com>
- <CADDzAfMq3X=u7+Sk_gTxOKA0O+4OgXw8XD3KifnQKSNFwGtG0Q@mail.gmail.com>
- <CADDzAfMfQ0Tg+Xy_0Moe2oQ6SC5BgXhCa8oBDPgrmMRb2RPnUA@mail.gmail.com>
- <uxualrxjgtb4cld44fvt7lr6blpltiflnjzertpkctk3s2jwx7@ei4h74ueqzc4>
- <CADDzAfN7_kdv4iQtH=OpgSWtRuqOZXYhxsBiz_OF8Zqf-zy4_Q@mail.gmail.com>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: linux-man@vger.kernel.org, Jared Finder <jared@finder.org>, 
+	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
+Subject: Re: [PATCH man v3 0/2] TIOCLINUX.2const: Document TIOCL_SETSEL
+ selection modes
+Message-ID: <iv4zzsll7vbdkn7heborockwvxtv5y3ulld7za3hjvwkq2rccv@hj77rb65y355>
+References: <20250302194331.5135-3-gnoack3000@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,116 +57,86 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5ool3owhvzsgjhqz"
+	protocol="application/pgp-signature"; boundary="ul3swnfw7432guxs"
 Content-Disposition: inline
-In-Reply-To: <CADDzAfN7_kdv4iQtH=OpgSWtRuqOZXYhxsBiz_OF8Zqf-zy4_Q@mail.gmail.com>
+In-Reply-To: <20250302194331.5135-3-gnoack3000@gmail.com>
 
 
---5ool3owhvzsgjhqz
+--ul3swnfw7432guxs
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Kang-Che Sung <explorer09@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: [PATCH v2] man/man3/wc{,r}tomb.3: Rewording to MB_CUR_MAX
-References: <CADDzAfM1HVMkyQY-zhv81NKS4X-neCTGETQec-f9X4acgpZApw@mail.gmail.com>
- <CADDzAfMq3X=u7+Sk_gTxOKA0O+4OgXw8XD3KifnQKSNFwGtG0Q@mail.gmail.com>
- <CADDzAfMfQ0Tg+Xy_0Moe2oQ6SC5BgXhCa8oBDPgrmMRb2RPnUA@mail.gmail.com>
- <uxualrxjgtb4cld44fvt7lr6blpltiflnjzertpkctk3s2jwx7@ei4h74ueqzc4>
- <CADDzAfN7_kdv4iQtH=OpgSWtRuqOZXYhxsBiz_OF8Zqf-zy4_Q@mail.gmail.com>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
+Cc: linux-man@vger.kernel.org, Jared Finder <jared@finder.org>, 
+	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
+Subject: Re: [PATCH man v3 0/2] TIOCLINUX.2const: Document TIOCL_SETSEL
+ selection modes
+References: <20250302194331.5135-3-gnoack3000@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CADDzAfN7_kdv4iQtH=OpgSWtRuqOZXYhxsBiz_OF8Zqf-zy4_Q@mail.gmail.com>
+In-Reply-To: <20250302194331.5135-3-gnoack3000@gmail.com>
 
-Hi!
+Hi G=C3=BCnther,
 
-On Mon, Mar 17, 2025 at 02:32:13AM +0800, Kang-Che Sung wrote:
-> Add the missing length requirement about MB_CUR_MAX to wcrtomb(3).
->=20
-> Change the wording on the MB_CUR_MAX requirement in wctomb(3). If
-> programmers know the wide character to convert beforehand, they are
-> allowed to use a buffer smaller than MB_CUR_MAX bytes, as long as it
-> "fits" the sequence.
->=20
-> Signed-off-by: Kang-Che Sung <explorer09@gmail.com>
+On Sun, Mar 02, 2025 at 08:43:31PM +0100, G=C3=BCnther Noack wrote:
+>     -@@ man/man2const/TIOCLINUX.2const: and saved in a kernel buffer.
+>     - Select line-by-line.
+>     +@@ man/man2const/TIOCLINUX.2const: Select line-by-line,
+>     + expanding the selection outwards to select full lines.
+>       The indicated screen characters are highlighted
+>       and saved in a kernel buffer.
+>      +.TP
+>      +.B TIOCL_SELPOINTER
+>      +Show the pointer at position
+>     -+.RI ( xe ,\~ ye ).
+>     ++.RI ( xs ,\~ ys )
+>     ++or
+>     ++.RI ( xe ,\~ ye ),
+>     ++whichever is greater.
 
-Thanks!  I've applied the patch.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D03f0a95096ac8a95124bad3b65fc4d92bfb2d0c1>
+Everything else looks good to me.  But,
+
+What's "greater" when you have two dimensions?
 
 
 Have a lovely day!
 Alex
 
-> ---
->  man/man3/wcrtomb.3 | 8 ++++++++
->  man/man3/wctomb.3  | 8 +++++---
->  2 files changed, 13 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man/man3/wcrtomb.3 b/man/man3/wcrtomb.3
-> index 967a1a0f6..162d97df8 100644
-> --- a/man/man3/wcrtomb.3
-> +++ b/man/man3/wcrtomb.3
-> @@ -94,6 +94,14 @@ is NULL, a static anonymous
->  state known only to the
->  .BR wcrtomb ()
->  function is used instead.
-> +.P
-> +At most
-> +.B MB_CUR_MAX
-> +bytes will be written at
-> +.IR s .
-> +The programmer must ensure that there is enough room to store the
-> +multibyte sequence at
-> +.IR s .
->  .SH RETURN VALUE
->  The
->  .BR wcrtomb ()
-> diff --git a/man/man3/wctomb.3 b/man/man3/wctomb.3
-> index fce54cb4b..643e2e677 100644
-> --- a/man/man3/wctomb.3
-> +++ b/man/man3/wctomb.3
-> @@ -42,10 +42,12 @@ that is, the number of
->  bytes written at
->  .IR s .
->  .P
-> -The programmer must ensure that there is
-> -room for at least
-> +At most
->  .B MB_CUR_MAX
-> -bytes at
-> +bytes will be written at
-> +.IR s .
-> +The programmer must ensure that there is enough room to store the
-> +multibyte sequence at
->  .IR s .
->  .P
->  If
+>      +.TP
+>      +.B TIOCL_SELCLEAR
+>      +Remove the current selection highlight, if any,
+>      +from the console holding the selection.
+>     ++.IP
+>     ++This does not affect the stored selected text.
+>      +.TP
+>      +.B TIOCL_SELMOUSEREPORT
+>      +Make the terminal report
 > --=20
-> 2.49.0
+> 2.48.1
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---5ool3owhvzsgjhqz
+--ul3swnfw7432guxs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfXK1QACgkQ64mZXMKQ
-wqmh0BAAu2jsr3vIyNzAGyhRCTHuQ9d8aKctntgvnCwEZ0faqK0j5jCWziE98n/D
-+zxItRpE8N34ksJZW5ZrbSpZfJh5+QFN/CUya6aK8UantdZMr6qPP8ntG6ihx2ES
-sSuSGWxZNIvGcQAnFYSfPOym096OLRRkZLAh6E3RsJPcic2rILeAXAIOlv+fzN0H
-voXkjL0FDE7xJi9v8eqvc65XbPe/EjinS88X+Hp2KdwuLKynZuGUfBgUMYyTx3Ue
-V7agfCnHESlJybOR3bP6Qc8KraB2GjveKtvqq17oxtOr/lxPCi6NMbgvgHJNzOvJ
-qwrWSnra7FciJjbttvJk8sWnYFgH81BEAU6Rs7d0JfZDrEGbiU/NL/qZqzpaGQrg
-1Epn2Cb0KfDRt+0vqjhG8g6MYqhwIT5Vni10LOfhpDRveXFvwybt7fNa9ygvgdOi
-//qJdVsPQUzwhCncthq5Hnq2HT/FKjb/Roz7qbG62a40JdEBjPoBcPsrl1ohB1mA
-aqUYFCOWZzDVsUiaDiDlpJus8GapkrcIsGA0uVr9yvtFyrs3zRI3TDAS0T/pAv/M
-7/bL1eWeRQuSwaCppWGdD34HtKVAVMsPodCKeu1WQXyzSjHyeiF69eS/uGuZ3cEc
-ZUsHK0PEldtZKIfgFZJU4IIOcre2Bxk6kElb67c9KWQNoHXWNCM=
-=4jIb
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfYIjcACgkQ64mZXMKQ
+wqks2g/9ERtD3Nq/wJHRXwB24Bx7lgYK2g/FTq49Bukc3zYiih2bi1hHaA/fpPTp
+IfNArmOLdPKU4v6yoyAjHxM+rzD8o/ua1UkAzchdw4FWyN2gyLtx65K4sAerhbbf
+8Q8lNlCro+RjmRHyGXNjGQOUcd8YpfUTCZYfxr2BuFsxFX6kNERyyteBW3gbThse
+19z9ubeaheyhKxlkUGoOgwz2/yJ2JQ1piBaZfnrjImHAbmyx5kY0aTWrC4nllRHf
+3jQKFzs0xIjZbqST2IQfc0ltNt2d9ic1MZrRs7qIUIfnwSEB9z+OEeLfcwv4QrE9
+mZukcn9cDc4Qh6E6u+qZxdJ2nsmF3WDaYanV6wkDFtTpIQq0kLEMVma6fih5evkv
+d+YGbRB1OOPVh6ObOtQyLhTSeOnDvKbHO7u1JyOFOW3d4Tk9uoTpSSeK86vepfjt
+jUnLnf4+rAvHSiFj3z8yl2MF+yRyy4ehrjLehAXEW9eT3meMv8Vf4jFgA7iV1X61
+0Fc4mdS10lyrQeO3nqg/EjxR24iR4o2C4frBTJ/8BGbcJcMtzKcZ5Ip5ylY2M266
+0bJx8Gwt7uXACCms7j/kyZ2C8YmfVA5hubB32miM8lPU2RO2AmqexWZuH6ThWeWz
+H0h7vNb2/q8vMWXj3RIKJQ+ZJnqQmtZDPkN7O00s1P/qtcsQjps=
+=qqP7
 -----END PGP SIGNATURE-----
 
---5ool3owhvzsgjhqz--
+--ul3swnfw7432guxs--
 
