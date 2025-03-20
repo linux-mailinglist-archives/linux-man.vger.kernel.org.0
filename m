@@ -1,75 +1,100 @@
-Return-Path: <linux-man+bounces-2615-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2616-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDAB3A6A83D
-	for <lists+linux-man@lfdr.de>; Thu, 20 Mar 2025 15:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C99D8A6AB21
+	for <lists+linux-man@lfdr.de>; Thu, 20 Mar 2025 17:33:32 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A4B621881C68
-	for <lists+linux-man@lfdr.de>; Thu, 20 Mar 2025 14:12:23 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3E914188D022
+	for <lists+linux-man@lfdr.de>; Thu, 20 Mar 2025 16:33:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71B712222A3;
-	Thu, 20 Mar 2025 14:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 592371EC013;
+	Thu, 20 Mar 2025 16:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l6GcR5jS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AA923A6;
-	Thu, 20 Mar 2025 14:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7461B422A
+	for <linux-man@vger.kernel.org>; Thu, 20 Mar 2025 16:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742479929; cv=none; b=fnJoAkOpyCChlX7wUjumTx5dJPvWmfA5uUv+ZD5a7IdISsjFdm44WzadN6+kDCS0tk7EiyFqhY/MQTJbMrzCZ2yWpwQAkm1R0LNvJFbS4VfsZhPtFPrpU3us+iyeBfcDukSCOjdF+MaQUpeHWC89qbOQRgnKtI5YV1zXmojS9dg=
+	t=1742488406; cv=none; b=AuI+PrVDmEpajqGRN6JTSrK4WqO9kmArSScy2bPcwipROZuzatzUODqFIwhYdBs+mODQ7qIulIZ6w0uYE+3847HvNb62xfcrhWii3juNx4P0adhPpanSN1o41zgbAnjTZSbYDoNqbY6Dj0CU1nkcDrAxGxakuyYuTXzWN4ryVcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742479929; c=relaxed/simple;
-	bh=46cyrVALgIwl5K4rEkc+kbFDQZxmipOxlZOKz2dY5HA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=snHy4u00/xLj3lBm5GP+PW+FyDwSIW1P7I5SZCqK+79OH0IQwrb+t1Qk/vUVEPuufKiSTpRka8pyAOLhXkynRunM7+WbyFTnx0sfZWsszGkZkwJ6LoeGe1fK2WHyuvrvgBZ5JPaODoOD1ywa6fmq9REhx1vO8YoGMv+4nGcKKAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 4A83568BFE; Thu, 20 Mar 2025 15:12:01 +0100 (CET)
-Date: Thu, 20 Mar 2025 15:12:00 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: John Garry <john.g.garry@oracle.com>
-Cc: Christoph Hellwig <hch@lst.de>, alx@kernel.org, brauner@kernel.org,
-	djwong@kernel.org, dchinner@redhat.com, linux-man@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com, martin.petersen@oracle.com
-Subject: Re: [PATCH RFC] statx.2: Add stx_atomic_write_unit_max_opt
-Message-ID: <20250320141200.GC10939@lst.de>
-References: <20250319114402.3757248-1-john.g.garry@oracle.com> <20250320070048.GA14099@lst.de> <c656fa4d-eb76-4caa-8a71-a8d8a2ba6206@oracle.com>
+	s=arc-20240116; t=1742488406; c=relaxed/simple;
+	bh=MWJU9KUAoo9l9XboRxbKlZXoeU1q4XPCmIuGxA1igZw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M0ImDdlsWlHnuGg1z99jdERjWUuBnuoFK52vCEaF6avghx6yEedTxP+hD+s+ngrZvCI/WSuWwjqszFh/4VZBUZv8lizVY94oK30L6hEFmVz8QFc1Afo5ysC/hi/q7rweOo5s5TFQhuZtsSuKPSmcvM420FMsL+4UWhlvOfz/DBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l6GcR5jS; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1742488405; x=1774024405;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=MWJU9KUAoo9l9XboRxbKlZXoeU1q4XPCmIuGxA1igZw=;
+  b=l6GcR5jSExQ1GQsEuMXPcpQYWJlJlBPTeD/g/MyZuc3ZL2OoI5P2K28B
+   ortv6d5g3g7H0jHT2RwrgdRCrrw30/IGmYbrpZYVzL/kr2gVpNX3MGPFy
+   ARFrPkEfyUtdmek/HinGx/QEw29RQi7JgrWQTtRsCEAL1pD9lwUz7PkOO
+   vA9FzKCQ2kPYIXEE8Ln/DKtc6GZ8Kye2KOm00wN29i9u9wkt7i/kfkbse
+   3QbEOba2K0af1pabCJmb88mbHk3oHUtUaG1AzMruNORsCt9ac6IkPLSg0
+   8WZvV3lSkK+c6Veof/CRQFDd1YaeMbK8Nplicc5B41tqNl9SB6/dAW7UG
+   g==;
+X-CSE-ConnectionGUID: vq99XWx2QCiVT9In7ng9Nw==
+X-CSE-MsgGUID: rJ2pYrscSpWSgOQ65Pb4gA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11379"; a="47389636"
+X-IronPort-AV: E=Sophos;i="6.14,262,1736841600"; 
+   d="scan'208";a="47389636"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2025 09:33:25 -0700
+X-CSE-ConnectionGUID: CelTre5rRqOyuaNFrP4ggw==
+X-CSE-MsgGUID: h/2lkLIcQbCPjtum6g1eSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,262,1736841600"; 
+   d="scan'208";a="160375543"
+Received: from jbkonnobray003.jf.intel.com ([10.54.30.37])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2025 09:33:24 -0700
+From: Joe Konno <joe.konno@intel.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] man/man2/get_mempolicy.2: nodemask param is a pointer
+Date: Thu, 20 Mar 2025 16:33:19 +0000
+Message-ID: <20250320163319.808000-1-joe.konno@intel.com>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c656fa4d-eb76-4caa-8a71-a8d8a2ba6206@oracle.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Thu, Mar 20, 2025 at 09:19:40AM +0000, John Garry wrote:
-> But is there value in reporting this limit? I am not sure. I am not sure 
-> what the user would do with this info.
+Checked, and nodemask parameter for this syscall has been a pointer
+since v2.6.7 (near as I can tell).
 
-Align their data structures to it, e.g. size the log buffers to it.
+Fixes: 77f31ff920bc ("get_mempolicy.2, mbind.2: SYNOPSIS: Use VLA syntax in function parameters")
+Signed-off-by: Joe Konno <joe.konno@intel.com>
+---
+ man/man2/get_mempolicy.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Maybe, for example, they want to write 1K consecutive 16K pages, each 
-> atomically, and decide to do a big 16M atomic write but find that it is 
-> slow as bdev atomic limit is < 16M.
->
-> Maybe I should just update the documentation to mention that for XFS they 
-> should check the mounted bdev atomic limits.
-
-For something working on files having to figure out the underlying
-block device (which is non-trivial given the various methods of
-multi-device support) and then looking into block sysfs is a no-go.
-
-So if we have any sort of use case for it we should expose the limit.
+diff --git a/man/man2/get_mempolicy.2 b/man/man2/get_mempolicy.2
+index 526acc0c9a17..d6a8eca9564b 100644
+--- a/man/man2/get_mempolicy.2
++++ b/man/man2/get_mempolicy.2
+@@ -18,7 +18,7 @@ NUMA (Non-Uniform Memory Access) policy library
+ .nf
+ .P
+ .BI "long get_mempolicy(int *" mode ,
+-.BI "                   unsigned long " nodemask [(. maxnode " + ULONG_WIDTH \- 1)"
++.BI "                   unsigned long *" nodemask [(. maxnode " + ULONG_WIDTH \- 1)"
+ .B "                                          / ULONG_WIDTH],"
+ .BI "                   unsigned long " maxnode ", void *" addr ,
+ .BI "                   unsigned long " flags );
+-- 
+2.49.0
 
 
