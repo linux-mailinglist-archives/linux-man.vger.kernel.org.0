@@ -1,58 +1,54 @@
-Return-Path: <linux-man+bounces-2629-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2630-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1AFA6CC04
-	for <lists+linux-man@lfdr.de>; Sat, 22 Mar 2025 20:37:18 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 423B7A6CD91
+	for <lists+linux-man@lfdr.de>; Sun, 23 Mar 2025 01:30:39 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 60B9C163ED2
-	for <lists+linux-man@lfdr.de>; Sat, 22 Mar 2025 19:37:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 79FB13BA916
+	for <lists+linux-man@lfdr.de>; Sun, 23 Mar 2025 00:30:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6961F233715;
-	Sat, 22 Mar 2025 19:37:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 43AAC1DB154;
+	Sun, 23 Mar 2025 00:30:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iib7UxhS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na6z6ACA"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A1F233120
-	for <linux-man@vger.kernel.org>; Sat, 22 Mar 2025 19:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020471D514A
+	for <linux-man@vger.kernel.org>; Sun, 23 Mar 2025 00:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742672237; cv=none; b=N1TtK/1Y5E1C1D1GzgKsMl7ID6tjO6wymkGJ6dl8Ho3F6YIYj7txOpSgaCmQLEvilnhWtdXVmpm8jsGMcvNTWP6S5FoTXWZ8dymH5tUEkmAkuVmYJi0zIsCR+AOhq1nAW0I+9u0IUqhChTjogG2JcNLReQnVG8++jWx8h32GHIU=
+	t=1742689834; cv=none; b=pL0SGe4yD4vPrB7vP8ubOzM9W9zwMivLgKObZckcqqR1ybnW8i0TfYSSHQqM69STNa4aE/TISC+iNdOt7eyWCuBxz3RSsqMwg4taDQvkgd12bS6RsWe1P59vk8O92YpTd6vO8GwTZNOVHrWg3zNVg8p67YvCmWypF7BCRm9hiMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742672237; c=relaxed/simple;
-	bh=eTPYRUAWD/3StTBoZdT5M0aRKB4wGqlmduGVaSr8jb8=;
+	s=arc-20240116; t=1742689834; c=relaxed/simple;
+	bh=OofAqGVOmHxalerp7S9E3X3DZPaZT/PKxDJ+ZAHndNY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M+qM9wkaaw/XiXFrLZ93N3r8RZobNq1hk7OqFpXVfy2W9t0Xlx9BVvmg1zzz+QgkbYA7SC6/SF2AG34AkqAVDAYq2I63I/GMmfOMtJlrYPS0KtX43nNC7bgjXD0zvTjPtwPgnbxsyik/EpB+wh8C5E6bhtT+tix07iKb7AO0Ots=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iib7UxhS; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B53C4CEDD;
-	Sat, 22 Mar 2025 19:37:15 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=s6wJw/TBVaH4noLzC5EoVRb9VOIMXJdI+XitugF6LEbnobDN+ZCqllXsXcs6IdIUgtRQxfKj6fJM6U9hXtq9VwA35FZavaHcgbbgSW6XRl0S7VdZiDrVNhC7XiXpHsn3CUZmO1QpychNTPK3pfnh7sdcFHpQ/Q94obbEZ5sAscg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na6z6ACA; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB46DC4CEEC;
+	Sun, 23 Mar 2025 00:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742672236;
-	bh=eTPYRUAWD/3StTBoZdT5M0aRKB4wGqlmduGVaSr8jb8=;
+	s=k20201202; t=1742689833;
+	bh=OofAqGVOmHxalerp7S9E3X3DZPaZT/PKxDJ+ZAHndNY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Iib7UxhSDP88Nomc172RSIgWm+JQzvqghYwhDNmk6jN8GaDub3+7LCZFoN33hFp5k
-	 zOYlwo4vpRQzP1GQNIE50tyKSGQ+HCGo+gGuVcC0hqSyqxatG1LGx7x3d2S4VGgq2P
-	 uU6StHK4Ex07Oyc0fTo7IcatPV9xxfDPTyJl/GNvZxHztRXegWuKiNyKMA4EKk/3vv
-	 bz2AQV5GUtfxQ3HHkxhD4qFjl1jsZEQrwFf+KcVe02quL2vYR49vzPd3Yo62LvQ9HJ
-	 jZQnjGf266P8C/D1IuE6GwlBnjZE2/5NBSZvlrgyI2/x/Lutj9cZ7NZF6F7GfbsVkN
-	 FtJylDLDsb91g==
-Date: Sat, 22 Mar 2025 20:37:13 +0100
+	b=na6z6ACAOJ3qBU/QFK0rGocIPZ9oqx7TwcMn27HnwrN8SipQYTDErP8pSNnEPB2+P
+	 9r7O/aDgx86+k8Use4sYLKqY30QbYUFPt0UYoHKH1mTBrg3K4xWSpqJGH0gIT9Pgew
+	 MM6qnyeoIrwaavoLa/zRV2vQgZR8UNVZHg1zTHzu8u+ROHMrG/cXZXng1uiM0gn6HK
+	 cid52P+DnWNUVYRpZ3heGzZ8iuL0ku3ShuF74iPmnFYV0qD4TEa3glZ5srGg9MCWe/
+	 ppMstVFdnri/peAI3k6irMiLrqCfVBPGMqoJhl4DOObpfTs5uftYHZy9kfX0d8gNXI
+	 Nx75Rq37WqJ/Q==
+Date: Sun, 23 Mar 2025 01:30:30 +0100
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
-	linux-man@vger.kernel.org, Jared Finder <jared@finder.org>, 
-	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH man v3 0/2] TIOCLINUX.2const: Document TIOCL_SETSEL
- selection modes
-Message-ID: <csv25wv52i4pfwcovr33rocjei7eql5qtuwtpul44e33tuudxf@7buicn6quvd6>
-References: <20250302194331.5135-3-gnoack3000@gmail.com>
- <iv4zzsll7vbdkn7heborockwvxtv5y3ulld7za3hjvwkq2rccv@hj77rb65y355>
- <20250317174340.ig4cavquacmiuxxb@illithid>
+To: linux-man@vger.kernel.org, Bruno Haible <bruno@clisp.org>
+Cc: Alejandro Colomar <alx@kernel.org>
+Subject: [PATCH v3 0/2] strto[u]l.3: BUGS and CAVEATS
+Message-ID: <cover.1742689797.git.alx@kernel.org>
+X-Mailer: git-send-email 2.47.2
+References: <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,94 +56,102 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xdlfnylx5uuv3u6j"
+	protocol="application/pgp-signature"; boundary="mlqewsdnbqbi3pfi"
 Content-Disposition: inline
-In-Reply-To: <20250317174340.ig4cavquacmiuxxb@illithid>
+In-Reply-To: <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
 
 
---xdlfnylx5uuv3u6j
+--mlqewsdnbqbi3pfi
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
-	linux-man@vger.kernel.org, Jared Finder <jared@finder.org>, 
-	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH man v3 0/2] TIOCLINUX.2const: Document TIOCL_SETSEL
- selection modes
-References: <20250302194331.5135-3-gnoack3000@gmail.com>
- <iv4zzsll7vbdkn7heborockwvxtv5y3ulld7za3hjvwkq2rccv@hj77rb65y355>
- <20250317174340.ig4cavquacmiuxxb@illithid>
+To: linux-man@vger.kernel.org, Bruno Haible <bruno@clisp.org>
+Cc: Alejandro Colomar <alx@kernel.org>
+Subject: [PATCH v3 0/2] strto[u]l.3: BUGS and CAVEATS
+References: <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20250317174340.ig4cavquacmiuxxb@illithid>
+In-Reply-To: <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
 
-Hi all,
+Hi!
 
-On Mon, Mar 17, 2025 at 12:43:40PM -0500, G. Branden Robinson wrote:
-> [somewhat whimsical]
->=20
-> At 2025-03-17T14:23:09+0100, Alejandro Colomar wrote:
-> > On Sun, Mar 02, 2025 at 08:43:31PM +0100, G=C3=BCnther Noack wrote:
-> > >      +.TP
-> > >      +.B TIOCL_SELPOINTER
-> > >      +Show the pointer at position
-> > >     -+.RI ( xe ,\~ ye ).
-> > >     ++.RI ( xs ,\~ ys )
-> > >     ++or
-> > >     ++.RI ( xe ,\~ ye ),
-> > >     ++whichever is greater.
-> >=20
-> > Everything else looks good to me.  But,
-> >=20
-> > What's "greater" when you have two dimensions?
->=20
-> Since we can model the terminal display as an inner product space,
-> the terminal driver can compute an orthographic projection of the
-> plane onto a line and from there use routine arithmetic inequality
-> operators.
-
-In any case, this is going to be confusing.  Can we get some wording
-that is obvious to a school student?
+Here's v3, suggesting alnum(3) instead of isxdigit(3), and also making
+the wording slightly more precise, since not all negative numbers are
+accepted; only some (I don't feel like explaining it with details; it's
+easier to just say it's a bug to be workarounded).  Add a link.
 
 
-Have a lovely night!
+Cheers,
 Alex
 
->=20
-> The problem with the Linux kernel's terminal driver's lack of developer
-> attention over the years is obviously a result of it presenting
-> insufficient features of interest to the linear algebraist.
->=20
-> ;-)
->=20
-> Regards,
-> Branden
+Alejandro Colomar (2):
+  man/man3/strto[u]l.3: BUGS: Signed numbers and white space are not
+    rejected
+  man/man3/strtol.3: CAVEATS: Clarify how to perform range checks
 
+ man/man3/strtol.3  | 20 ++++++++++++++++++++
+ man/man3/strtoul.3 | 19 ++++++++++++++-----
+ 2 files changed, 34 insertions(+), 5 deletions(-)
 
+Range-diff against v2:
+1:  8faa6a809 ! 1:  3c456a1a0 man/man3/strto[u]l.3: BUGS: Signed numbers an=
+d white space are not rejected
+    @@ Metadata
+      ## Commit message ##
+         man/man3/strto[u]l.3: BUGS: Signed numbers and white space are not=
+ rejected
+    =20
+    +    Link: <https://stackoverflow.com/questions/60955490/strtoul-what-i=
+s-the-correct-return-value-for-very-negative-strings>
+         Reported-by: Bruno Haible <bruno@clisp.org>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+    @@ man/man3/strtoul.3: .SH CAVEATS
+     -value.
+     +.SH BUGS
+     +.SS Signed numbers
+    -+Negative values
+    ++Some negative values
+     +are considered valid input and
+     +are silently converted to
+     +.IR "\%unsigned\ long" .
+     +.SS White space
+     +These functions silently accept leading whitespace.
+    -+.SS isxdigit(3)
+    ++.SS isalnum(3)
+     +One should call
+    -+.BR isxdigit (3)
+    ++.BR isalnum (3)
+     +before
+     +.BR strtoul ()
+     +to reject white space and/or a sign.
+2:  b5244e62c =3D 2:  020b468a3 man/man3/strtol.3: CAVEATS: Clarify how to =
+perform range checks
 
+base-commit: e921861a3d30cfc5f9263747a4e64a68e488288c
 --=20
-<https://www.alejandro-colomar.es/>
+2.47.2
 
---xdlfnylx5uuv3u6j
+
+--mlqewsdnbqbi3pfi
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmffEWIACgkQ64mZXMKQ
-wqlVLw//f2IM9zyL+bgsyCPx9a0sOsiPI/mrTdVYKwl6fZ2Egkx/UB0io3/KmFPd
-kLaWskMlwxxXagDVEpFOd5F3cSqoXrBfJyN0x0v8JQTS8Y97P6VBitxUHgubD0ou
-LAfQ6aQfSqg811m1yBKqZwE/qG4hvcteR9+lP5WiE+NpY0NDuhLW3DVz51kF7u/F
-Of7O8+7mDlPdOyY9SsYVV7lD6Gt4ig980ltu1BgcMxpHK2Cp74top0aHKl+ZSdIb
-yuTJeYyjQGM9TUAl4IfTcyRq5d1UaRJREA4sbyvak8iopSqOVS738M0TxkiC0+wy
-Q4Yym9Kb9cYlOWEM3e5fJDQoj2k9xieQ2Cn4+0TI4jjczsttnye9sf2+S/mrqIcg
-KiPlYwytcVQN8kMkjYdWdJeEf8lJSByrgOBtGj17chc/8+LAfFwwH5ztZV5/593I
-Yc/wBNnWaP7IuYOsrKPoLlr1JBijbfz9+bmvJKaIkgMkqtxT3F4/dVN3TOhnWdt1
-UF8R8lhFgpMxTvqgq49WwRhdoPoEMvEyvlD/nDyGK0KQnZaQRiAb9DNPtyOo0lCJ
-TG5tg8kJvXM/V9DJz5OMpK3zNAGcfctWJJe6guZHJV9P88pB6KfuJqdDHHHmw4cl
-U82BqoSwgKYLshmQC+bcjxmNnzPbrgE16o0ou5+y53DQqeobj4E=
-=aXIj
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmffViYACgkQ64mZXMKQ
+wqmdTRAAlQ2X+COK8/ZDYRfJSHqUwtAQKc9YalQop4daB5nLvIcrAncP6lSf27Gj
+YYOhBYYNrPFkrb8S1lfVsFFtu0ATg8KF2PyEbCdFFmud4ffM9eCGp7+2fPt5LIpF
+yRzJvmPRR48pfof6uA5t9CB3Tp+5baq1VLEc2zRRHeChjGXq4Y376U15MRnJYjkq
+274k8j2jmK8aS3beSbGpaeyLNsQ6wVSVNqWq3LJSMXOkHFfGorb/4acrBYQzl7Lg
+NZuACDCZbp4GCBvRUJMVlsL/aCj+evtchuve5FvG2TEztX94hzSD/P5DrvgQUN24
+TqTT8Yf7ykxWt2aecrdlkDylO4hKNYOdzhDnAijl32mm8fSZf9pZBx1JyvchdWL6
+dLHLXRlCgh51zXMASVMx9Ou4t/C6yN6BHn4SPncwU/oQcveRYv/qx0qdZPk9U8jW
+BvikYxv5QcxScnWMnliin/RGpYQag+wfZFnAQV+KArYiwaoK2rbzJlgd55tCKN2S
+zpLK6fMUmZnKaMtJZVQaaS7Ps6fmsRQ4NK+z0MJaWw23Cfe7GjMfRUjHPxzMSD1/
+f/A2n6s6c0hclriBwMZx6OHu+SLm+C6oJtiiXbS2HDVNfvcWlAkF7aOGO7rsHO0/
+lrzQ/YdrBLbW8XNKOiDSHCSIVCkXx+jJGJuCr4cex5H6K3GrdvQ=
+=9p9a
 -----END PGP SIGNATURE-----
 
---xdlfnylx5uuv3u6j--
+--mlqewsdnbqbi3pfi--
 
