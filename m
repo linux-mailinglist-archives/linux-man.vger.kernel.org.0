@@ -1,124 +1,157 @@
-Return-Path: <linux-man+bounces-2640-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2641-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCB0DA6CF87
-	for <lists+linux-man@lfdr.de>; Sun, 23 Mar 2025 15:00:26 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C6D4A6CFEB
+	for <lists+linux-man@lfdr.de>; Sun, 23 Mar 2025 16:52:29 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3B6F616E2DE
-	for <lists+linux-man@lfdr.de>; Sun, 23 Mar 2025 14:00:26 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id E93047A6C5F
+	for <lists+linux-man@lfdr.de>; Sun, 23 Mar 2025 15:51:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A18628E7;
-	Sun, 23 Mar 2025 14:00:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C554F78C9C;
+	Sun, 23 Mar 2025 15:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eeq1stwp"
+	dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b="C/ZUqVpy";
+	dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b="XLmDFI63"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC9F2E3367
-	for <linux-man@vger.kernel.org>; Sun, 23 Mar 2025 14:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742738423; cv=none; b=RPZeeeFSc1jcGz8jvE1MbdYyJlmcI1KB9Kd3ipJcIfHymeLRYBURyQi9sngambxx1ds1uwj/5VhbGt9d8tsR5P7s1vNFGfiJ3jiq6OSVMumuCFwyoV0zjH9bWiBV/TEM7i818qw1hZMzM7XeITh387WppvqywFrt72Tm9cPBAP0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742738423; c=relaxed/simple;
-	bh=dFrWHtStorBs4uIP4pNjO6dDmAyn9XQMlcSG0yMX/jI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D08ua2eX8Si8kvq9B1c7TPgCPsyQDuKiTiXcXZ+IJi+jpAY/1dgZwbyltue4OPXt5uTziklP5Sl4MLpXqxNcXLEOY6wFruvy8hXQj/7YTy8fkztbB2o6R5mjg4t46EzbjYMkANNk7KiDxFbU5ek8ACDf1cLZhraoCsg26QYJkjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eeq1stwp; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A1DC4CEE2;
-	Sun, 23 Mar 2025 14:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742738422;
-	bh=dFrWHtStorBs4uIP4pNjO6dDmAyn9XQMlcSG0yMX/jI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Eeq1stwps1R+65GvBIvk+pJKz+br+DwsrKK0dgi3snposlJlOVEph16/2WE5bS9kP
-	 bB7X61w0PILR4yYi3p9L1Bnug9DaIIKxG0BE55Dv5lEjcRVNqIJV4kH9tOskn0mJkm
-	 L4tFYy9UPm97OiCgYMW/ZwgYUp78UF6X+diaqimYA1jj29cghq+HxleIKddf0kw9Le
-	 7mmmfnoAwQSR3hwHJb7agmDI3KgDgqjwbtXTRdb2htMHWM1QjLY6Py0yKdAswnZWPC
-	 HfXhvn9wiMevlh+BWDuUlMDll0zu9+xk2NHFtKQee0RP/HeAfLsN0A6Hldr+zrvMIX
-	 65CBBRTsT8HGw==
-Date: Sun, 23 Mar 2025 15:00:19 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Bruno Haible <bruno@clisp.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFADD17E
+	for <linux-man@vger.kernel.org>; Sun, 23 Mar 2025 15:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.217
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1742745142; cv=pass; b=Ej6sC6fhweRJBr+pqVR8xMruaTICDbHWzGZuLLiMC7mKbjwGy6M4IFs9FW6KmA1AKqn0KXWg+l1bvUXCq1njLJgnY5L4f/LV/3344BXqmtHifvEAfnm2nkWb2gOYAIlGJJHy9JSveQsxfydVDh1wrVIc/ClUJeu6T8vAjsWSmvM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1742745142; c=relaxed/simple;
+	bh=3j36SlwtZiPCtEoB5zOblbIAHGYcnUN6unY6rjSgKno=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QVwi6Jui1LHk+JEV11pf42apUbQbCcS7GGOjAyRUnKN2suPkYAqnI3zTpHp3OHtISxW3u6FloSz/hA6F64TvjBqtXMhuyxw6rwaKbGYA2dGRoiwylvlsoaG777WXwnLzSKI6LtnrJ4+92NF45DnUoBcu7iyS8DBMjmTRX7f6qc8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=clisp.org; spf=none smtp.mailfrom=clisp.org; dkim=pass (2048-bit key) header.d=clisp.org header.i=@clisp.org header.b=C/ZUqVpy; dkim=permerror (0-bit key) header.d=clisp.org header.i=@clisp.org header.b=XLmDFI63; arc=pass smtp.client-ip=81.169.146.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=clisp.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=clisp.org
+ARC-Seal: i=1; a=rsa-sha256; t=1742745135; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=N2A/d8oy/MElycuSWyAZ8SrGKgusj+6koz/8w0hVGiRLb6adXEq3bZbu9Eb+kmEwrG
+    Ev/JZnEYmfKCv089vsPeNN8HhNQuhfN+VxR2dzQ7hCW8nyJZT8ALkVVX/cW8PuCmBEOh
+    6O7ByS9geLskHG96wVK4rmsObyJDbN8dXp/1M71ebSU6h/RSLskYrUFTXKDNQVfVHv49
+    aQq+NHYdzJJP3KL6vx8mQOQm9o93u6dD/MXqaGHeOXhGhBxNCNVXITKEImDylnWMf+Nr
+    pva8Nirmb8dXFGclNTTLsKcUXXPm29rKEGzzD313N3IzEHGDC1lmMyz/zbCC//LPb49l
+    c2mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1742745135;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=TDB6lbzhcqLLOxc3kRHxOOtS3rRv85hF0a11PxtEiQk=;
+    b=svu9SMfeD2ZQ6F44k7/sdKsYEx+UxJTfXyR/9lWMsvoTjcu2p3P2lNGRsQFbOyiQSg
+    v7GhrntPrfG3zFu5BJyChpK/JudjK6P9J2+iCntEfcf/2w8ng5MhMPOwCQO9G1uMP9Il
+    zmkBWRjgtDNnNWlvoAvxoT3wIeQY1YMBoUs+pZke3iK0JriF6CcbagSOx7pODScNBBo/
+    AcdPYMKMQqdfA4WJ/pwh5dxfAe4UMN5a6w5tw0hdTleYmK4CBbMRC22BtqZC3PCX3Ehc
+    ImMU9TV/e7H2gVTiu0vC/1864htDlf9jdLG+g9+x2Tby8kRLcSePfsQpOXDANNsf50G9
+    BINQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1742745135;
+    s=strato-dkim-0002; d=clisp.org;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=TDB6lbzhcqLLOxc3kRHxOOtS3rRv85hF0a11PxtEiQk=;
+    b=C/ZUqVpytyKx+XQgOHbA/ldPWVbeCojSQUqR+VjpBKGStGvLGReVAirRMnrJTMfoSK
+    RpxBJ0LIhpxTTzna1Y7mncTip2KqjsFESve3kDmF8HPN5P046aiy/CEJhKXUhrc7C1qu
+    blo81+OAXfW+fagEzKGs+3fLPj224eUdjYPVwckjzJOHOOrVk+8CYGjLbEwmuOHXMwsz
+    9SXab2OXxsZNjXu6Perb1f7vlGqjJKOnK7QPBDQTB2v0D03PUzdTF0d3c5MdC0yuHTi0
+    h55rXlXcwLondylHoxhqq5/bzpZn1ZHyG5i5Bd7HA3F6Lyu6xDjFWVbMfV/mpw7dyCCm
+    tnpA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1742745135;
+    s=strato-dkim-0003; d=clisp.org;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=TDB6lbzhcqLLOxc3kRHxOOtS3rRv85hF0a11PxtEiQk=;
+    b=XLmDFI63OTnoYOtUxvWfDIsv9lJu2Odqk9QujzNtyk+pwAZnjsdO4HwxaFTjDPk906
+    KOdNSMIamo2lleIM4SCw==
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlLnY4jECd2hdUURIbZgL8PX2QiTuZ3cdB8X/nqj+QRTyyQYtrOvJLmqiCHcfbcJjf"
+Received: from nimes.localnet
+    by smtp.strato.de (RZmta 51.3.0 AUTH)
+    with ESMTPSA id N7dcf812NFqFLOi
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 23 Mar 2025 16:52:15 +0100 (CET)
+From: Bruno Haible <bruno@clisp.org>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] man/man3/strto[u]l.3: BUGS: Signed numbers and
- white space are not rejected
-Message-ID: <xifkkmguez6zsugoxbcz4bukqnnxjidrlw3qmds5wkwb6swq5k@rqj7gtgdvrtt>
-References: <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
- <cover.1742730109.git.alx@kernel.org>
- <4a1de398dce8303ce6a3d729f8afcf73fb487e5f.1742730109.git.alx@kernel.org>
+Subject:
+ Re: [PATCH v4 1/2] man/man3/strto[u]l.3: BUGS: Signed numbers and white space
+ are not rejected
+Date: Sun, 23 Mar 2025 16:52:15 +0100
+Message-ID: <2092070.kUgFBCI4xA@nimes>
+Organization: GNU
+In-Reply-To: <xifkkmguez6zsugoxbcz4bukqnnxjidrlw3qmds5wkwb6swq5k@rqj7gtgdvrtt>
+References:
+ <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
  <29050551.czjnFlTdjD@nimes>
+ <xifkkmguez6zsugoxbcz4bukqnnxjidrlw3qmds5wkwb6swq5k@rqj7gtgdvrtt>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="knmjlzrzohfomt6q"
-Content-Disposition: inline
-In-Reply-To: <29050551.czjnFlTdjD@nimes>
-
-
---knmjlzrzohfomt6q
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Bruno Haible <bruno@clisp.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] man/man3/strto[u]l.3: BUGS: Signed numbers and
- white space are not rejected
-References: <939641570ee1c36bfd2ef8788789b54357ed5971.1742589662.git.alx@kernel.org>
- <cover.1742730109.git.alx@kernel.org>
- <4a1de398dce8303ce6a3d729f8afcf73fb487e5f.1742730109.git.alx@kernel.org>
- <29050551.czjnFlTdjD@nimes>
-MIME-Version: 1.0
-In-Reply-To: <29050551.czjnFlTdjD@nimes>
+Content-Type: text/plain; charset="iso-8859-1"
 
-Hi Bruno,
+Alejandro Colomar wrote:
+> Is patch 2/2 also good to you?
 
-On Sun, Mar 23, 2025 at 02:20:28PM +0100, Bruno Haible wrote:
-> Looks all good to me.
->=20
-> Signed-off-by: Bruno Haible <bruno@clisp.org>
+I couldn't tell without looking at the entire page
+("groff -Tutf8 -mandoc strtol.3 | less -R"). But now...
 
-Thanks!  I've applied this patch:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dcbcf76d19f864da8c54e41b600ff5661b195b58e>
+> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
+ommit/?h=3Dcontrib&id=3Dcbcf76d19f864da8c54e41b600ff5661b195b58e>
 
-Is patch 2/2 also good to you?
+you gave me the information where to look at your work-in-progress tree.
+
+Here are my findings on these two pages:
+
+* In strtol.3, the example has three mistakes:
+  - Missing semicolon at the end of the second line.
+  - If LONG_MIN < min < LONG_MAX, the condition (errno =3D=3D ERANGE && n =
+=3D=3D min)
+    will never be true.
+    If LONG_MIN < max < LONG_MAX, the condition (errno =3D=3D ERANGE && n =
+=3D=3D max)
+    will never be true.
+  - It does not distinguish success with value 0 from failure due to
+    no digits. (This matters when min <=3D 0 <=3D max.) Since errno is not
+    guaranteed to be set in this case, the caller needs to look at *endptr.
+    The example thus becomes:
+
+           char *end;
+           errno =3D 0;
+           n =3D strtol(s, &end, base);
+           if (end =3D=3D s)
+                goto no_number;
+           if ((errno =3D=3D ERANGE && n =3D=3D LONG_MIN) || n < min)
+                goto too_low;
+           if ((errno =3D=3D ERANGE && n =3D=3D LONG_MAX) || n > max)
+                goto too_high;
+
+* strtol.3 and strtoul.3 mention
+  "If base is zero or 16, the string may then include a "0x" or "0X" prefix,
+   and the number will be read in base 16"
+  They should also mention:
+  "If base is zero or 2, the string may then include a "0b" or "0B" prefix,
+   and the number will be read in base 2"
+  References:
+  - ISO C 23 =A7 7.24.1.7.(3)
+  - https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3D64924422a9=
+9690d147a166b4de3103f3bf3eaf6c
+
+Bruno
 
 
-Have a lovely day!
-Alex
 
---=20
-<https://www.alejandro-colomar.es/>
-
---knmjlzrzohfomt6q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfgE/MACgkQ64mZXMKQ
-wqmh9BAAlDPHuBKbhTxZlHff4eKSZsWPmnoqcNsLPxfY+EaHJ4JMjR0IEFLP99of
-eQtiGcjodvTe5HXx2VZAE+Nmw+jbXImkm5Bf/CBPJPCWURBVN62X0w6hxWm6+Lik
-1sIXBhNm1lGkHDSUt8XBt2R0FVcK5Y+g6l1FOfb6kPyOpiqu1lJgQ2oSadR1szgn
-KuK8+vQCOr5QI12WteYzIMwtoKMkU3HPIpKiKDI+haFBERn7vAM1gTdiVoHAkqLM
-oap57jwedRmP+vPajLuQ3h0Zglf6DFDPirGim25a3lDtm2eh4v6B3FUjqXkbW7uE
-Ldku8/1HpUV6LoTbP2IL15xghZc57vXye8uHVL87wEYDhIWGwlZsIOdH/fUqPpLa
-J0OtBblYRRDAYk3zTfCIe8R6Xx7IJGm6z16c+iFIjrhl//2fUqxVv1it50DdlXZ6
-PI83qYiSVs7SdXZy8tS7aZKD5xs/Ha08nAktyjpDtYStJXb7hm8y6VMyS8sjvJGp
-c78/c9QPi7jYvjZOYP5xDpIlleF5FOWy4O/OWXiut5r1/YJozqwIxSGYtADZQqjR
-mWd3/z0DlvQlFlXpZvjqjrwntdz9CdwjzeUuXct9XcljUYU/7cT4OKr1TxVOVLP0
-0DWJaEJsbKqhD+d448ur45xS9PTg8+Z76uM3IYn5EjDX7lER7do=
-=RXCp
------END PGP SIGNATURE-----
-
---knmjlzrzohfomt6q--
 
