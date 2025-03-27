@@ -1,56 +1,54 @@
-Return-Path: <linux-man+bounces-2658-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2659-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47E7A73CB1
-	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 18:48:02 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4713A73D9A
+	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 18:55:23 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B0EEA3B2EA2
-	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 17:47:44 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 54BFB188EAC7
+	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 17:54:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F61B1A3150;
-	Thu, 27 Mar 2025 17:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 105E02192FD;
+	Thu, 27 Mar 2025 17:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b="FNzOKkxm"
+	dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b="DBqJ1iT6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from mout.web.de (mout.web.de [212.227.17.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68339433B1
-	for <linux-man@vger.kernel.org>; Thu, 27 Mar 2025 17:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8871FF613
+	for <linux-man@vger.kernel.org>; Thu, 27 Mar 2025 17:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743097675; cv=none; b=ZQSkojaYeIAs40G5AGAVgBhPBk1537Z1+3jnmFYCV4al9trJAdl87PZrjcJM4z7rIcxz0TUYCb+4jQWMWKIXRRRB3XJSTOdkAyT4EkvGZPcbDrajGIwWsL+wizjnttDjQhzqkadLMnjVy8O/g8azORAu0ZRgYOqwMwJIoRrQSAY=
+	t=1743098045; cv=none; b=ipr9BGgFJDcLFtm8Dj1tnuAdTvlmEomrC4dyAMa+PXFzODV6LvQhEcotfc5i26IHP6x/KHLzrM4Z+P6cp7KHeO5r3XrI2HknynYIBbJy6IKCdIi9QDwxzXtRNMtmtE+0tEkgquVv1nlFs3+OMbH8qnaFyZfiWKtFlUHjuKr28wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743097675; c=relaxed/simple;
-	bh=LxDrwCORP5aAPcoQ3L28tGnNrp8DNJkgruFBiYvYv7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g7uN991JCNse03S81vnkOdvizpV/d6RnFHnt58SwXIyQo8N00DDDowFG25Z3qHKfdjBw31lOCggx65B32gXWHj3j0aOLKPBNBR/5LLbG36pLKAxTli6gnANC+od1winH+t7GFI0EDkId/VYofDfk9/lgix6vey24FW66pPDRjtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b=FNzOKkxm; arc=none smtp.client-ip=217.72.192.78
+	s=arc-20240116; t=1743098045; c=relaxed/simple;
+	bh=eIMZuLTQ6CMNjiclfR6L//lzfnlUbfIkFNj6udIdacM=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=k6GKwt6Np9eH2x3tGz4VhdtpMUhCGqfK3l9U78Qy87GbXLdtg12YMwK6/5Ka9iwlRDSO6h7oSmgcXtlINvQN7CJZeIW57s4fq/35jxrzeuKPUFTa0Q+Xj6lTZXyfLp2BVNcigllgb3VS42luNASdbYC7wJdjxM56FlJhYJNu4lU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b=DBqJ1iT6; arc=none smtp.client-ip=212.227.17.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1743097665; x=1743702465; i=radisson97@web.de;
-	bh=Tqlj+dwJCezC1Z0DuovUbFWfR9opxwXfssWGFr2lxaY=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=FNzOKkxmPBDqegc+SibkaN3nATqd8rOAi9LhYutMZUXkGpZ/keqGxgVX6eqpCAEW
-	 Ri8crIHzLu0AQftdOgZTR35p/naHVcKAw2W+F7k5b1kCHjJDpZagLzXg2PdduGM2N
-	 DkYZmyg7eQw1eF2hyi862yYNmV+0BKh2qCl2jThkOqfYMIxiOgwF0VIywzJN4jJw3
-	 5s83Ele376Fmic8mWsOvXLZjq8mnva9sh9D5n/AhUtW28t+Y+MpGHWgP/dWVJiU6y
-	 2+hRsQ+FrzpP5FmbOubJUcpADFA1VB47tKYcK48Q/f7gMykp/A16y0KX7cHv1/ckq
-	 bW6htIg3qBC5anvHZw==
+	s=s29768273; t=1743098041; x=1743702841; i=radisson97@web.de;
+	bh=/pEXnTQMoJD6EvaYaeVpxt19bPioB3OCbqxFxp+RX58=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:From:Subject:
+	 Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=DBqJ1iT6rEzYPsuf6UCbbjGyYsCXM5C4Ty8p7+atQuiVzHr0qfDTC+gmxPNDyOY3
+	 J5PZa239iTSF7mXlA9PxWB2A7aTUtW/lgnWkIU7RzkIuzdqrQ7g1Y/oDRQCmH6QTB
+	 PCIkOi5IGJ2PtjM6AYyNJxX2XEt5B0oFRapcbeJucGiwmNv79g5mC2onsm1bnDO4J
+	 BjgKhsuSZeVC5f4zbf66xIGb/pU+oQSMTEvgWz7MxNKrNh13d5SaDn9i1phzEuvuu
+	 68UKBXmH2+FT2SkmiD9VAnvXygLInztDFgTN7cUCQaGxYbAnuZUF5lcvvqRz3C7lO
+	 daSZHc4N+nAOmwIyrQ==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.40] ([90.153.82.83]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MsJSy-1t9jWF1AqI-00u5wt; Thu, 27
- Mar 2025 18:47:45 +0100
-Message-ID: <977a59f6-4e1e-4f7d-996d-8dbcd7a46794@web.de>
-Date: Thu, 27 Mar 2025 18:47:44 +0100
+Received: from [192.168.178.40] ([90.153.82.83]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MTOha-1tYg7x0Png-00NbuL; Thu, 27
+ Mar 2025 18:54:01 +0100
+Message-ID: <189ef077-18f4-43a3-9008-286a75e7bd91@web.de>
+Date: Thu, 27 Mar 2025 18:54:00 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,122 +56,61 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: fix: recvfrom() error handling
 Content-Language: en-US
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
+To: linux-man@vger.kernel.org,
  "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
- <ryuuydac7ybjw4pxiqzrjokcwvds3a6ezbjdi6h5fbz7zbr5d7@cqk5eio4lyrh>
- <86f7516b-ba85-4737-9a63-951aabf3f681@web.de>
- <7cf47smc7ntz2k4rkekbuzehzymi3fnvwybsrn42pqgptm75wg@6s5b6mrwkhfv>
 From: Peter Radisson <radisson97@web.de>
-In-Reply-To: <7cf47smc7ntz2k4rkekbuzehzymi3fnvwybsrn42pqgptm75wg@6s5b6mrwkhfv>
+Subject: [PATCH] make consistent example in recv.2
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:D4VM1oHOetwYFvvcQGxLacRZOe5+2b/cJGxjzCEEM8JrUvaO0FS
- MFv1D0Oy5hq4sLM7iGZNS8Oy0o60MUfLxboRBfEIEVASThnZ75ey7bLVgU5rlC792Gu959d
- SgTZ1OuZGXCXkonZ72bi1gf7uUczrMPo2X+Ni/235rZj5cdlj7Sh5FbNET878kCgBsaKyQf
- Kw2Ed7zdIL8SG0bozvbWQ==
+X-Provags-ID: V03:K1:mHubkfT+e4t/yCalbpXEX/zrapipROCFAnbwW3dg6WR1SjvFIBG
+ IiWBTMMLORv/fjRgKm/hNZnDaTZQx7P2OskjntjO1wP8jlKhyUgyhR+XV31rsR8KZz4CIJv
+ Bi4s6k7vmF8TQfw3sMOGWBzTsl3+eQSnOXG2VW/pz49t6uS8EY2zGTrgjybY/LAbRqWTLND
+ f7jF64YLf2BmN/+qKrXrA==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:HPaa3J+jwPg=;xs+oSXCj4eWywFr9dFaHjBE/ibB
- gkjk9oFsbTKKD86QuyWUDqpYMDGrjCccCeBaYCBnlRndB+JNG463jflbDdMq7ssatjcXhSSg8
- v/1RlUfDWKhr/gyclaPBPGmyRkKhf3MOhuraUhWrEWv2sF74RnRHSbmoPCDCEebifAiM/Icx2
- yDm1el6GyR+naNKf8zPBFYgcWRj3YxdYPeNvB+37eKkfVPZLRGbbg2MuwkAGQQ/HXQNzLIgFr
- g4wmA3AuSc4ruKkSXlvp8AMiAvHPO7V83Vkf0k3Vt1t5Ez8sP9rnRQjrH5U2MXZjcoW9XSFgn
- zTR1mMTyhr2q79PE2QEvotNnwQ+Q8G+Kij6gW9dMD6fQJ8kd+POwri/tUpji9J2hYjJDXGZ78
- 9B+9xOufJhgVQJsc0vfAdRBr1x1Oq7r8+d9EzLpuXvtUikKqGaKWAZHEvSxZPZdBmfvPX3WwX
- iZE2ctqVIgPBDELc+43OL2p1T0PtreeADclTziLVyRDqAp4VtkYMfSD64y6nBRyY1N6KoBeHD
- 41+naB8U8/o4WsXr+nOBgLVbbG/VZl9bKW5q9pXan4CW6H5zDMPPuj8sazzZF+Lu8cKxnpuTz
- U4mGgXhBQSt9dUWMXO6ptUOMzy+MoYdm/ic/vikA98wvX+krI8KdlsoNHtJZpWrtGr3JSK8lV
- GBXlqOtTLEQ5PGCsa/5W9LhBsMiUEnKZl9OcRtLGxHJR5qbT0TSiFMR2NdFdWE5uEbXQncLUU
- MsdH8iHfXCkmsEE7QHlLZmBkajKDaP1he5XEYSdh84MjHsoyq54dzEwpr801iUXf7cz1bDlq0
- BJrgvEw9j44EaPlV9RK5IHaCpbk+lU2yWEISIgwTedcCXzpSJOfLOb1KGgCsdwJSaYivAspe8
- dKrL2xDyhK7Gxm/Z65i1FPcck1yCqZffTPQuJwU1Sx2jg3FmKt5/ziPW/B0CmVOdWb0SY/buH
- XMgsNsKR3ij5UmbBcKWzfTUVyZO4xoJWGDlGVb86ZXntHf4BR0UClG2Shso4Glc2ph32eb4XR
- VXf1v1lPR0k6iEcKKaJs/dZTA0uO6Ogrt8bu4uSI2TZiVYodPOvBb9ERIHv0FjtkPt+gz4mu8
- jk2eZsSOl6VIKu07FvrQKcvJdUI871NMvMmUTQBoogc9QLukmn9w8Q9DlKQgvtMMP0DIw1ia6
- qFA8BMyO3tYEBNjczwyoOGITkYD+TcKGTdxjSwCXc/ZniO6XKfy/9Yk8UshWuMsin9A+2ieHw
- hZNd8TZZmOqqQ8phcSoJR8znWFQq3MPtGaRYbIjnxtyHzdUZ8c8P+jz6kEdUwWn3M2q/nbMjk
- DvAyKrwab2IBgrRGIRRaQm2rhi8T/B2ZhBFc1Wr0BRiMraqOpbjUBSUUSxBm8wWh/IarYa01u
- //NwCIJFAgBgllBtXXqod6TiT5bplF5gvi8hZEgDj/O6sYxEXQVP+nq+dDX8cfMSD9k9OLPPd
- jnAGZyw==
+UI-OutboundReport: notjunk:1;M01:P0:2WJZYNYeFt8=;YW/8dYHH3+OZwPa2KQXNbMJBcaZ
+ EKJtUodp5BL+UaGAgyEtnXsqyV8hB9Qg6XGwy3K/69hQ+1yMR5vIDAAWEXLb8WlDGmnlhkPt4
+ tiXLU7KY90cR5+2m/fMbNxmxFFVl4l2u3+Lp6GUOqpqyWAXOjhiohAdsU9AMUAZrxHnUBdTvb
+ edeHhkwKmZ8MaC6vA6cAnDk/6asMllp+O+xni4R9QkocWrPTuDLEOXno23JbFfIdTTAfPEv90
+ gJudbuh+Yr4HwsL+GcnbLlTGq9YrldCLuHe2XP3BPE+FbSFfyZ64ShlLXc9TSW2luoMZdtIAg
+ ++tQ0zf3WGt7y+kKijgj/v3AMVSUCwBkcR7SBwtbhGb9RyGOi9VSV6Z3Rewu5vXxYKI8z6ysm
+ G3MFcihLBDiFJfMJvUsm0mPfIp3x4s7RwXHnu7AwKRQfbqs0T//gPncGr0Fo3rP62X97r28Rx
+ hS9LIuN31sR8nAJPkbYV6sTA3V3tR4/LmLwe3k9JrH6HvL5rKV1DKPY7hrpOvivFNWTKEAyt4
+ Tx0tu1PrVQBzmdKRkM3ZpndZI1cIazJm2Wf8uZA5YCFJ9ASVjO/M+jtbgM93ZpSnIweeAnflt
+ 7aPb7q9KtbdrL4mwGmU+l4d2TN9QQRUgrEOsVAyU6Gz/u94F4ykRj1m3Ea/Ye/GooQtuubLpE
+ v36MD3CDd5okNz3EocTzm2ban+L+n18NXWpcs3wBFNfwTogvMAwFmy1YpAwVGNP3NiQd7QNRv
+ yA0jvYs5n+E4dMMHevxZhdLFlwD6FtIjs158wzLDJbTH5rWpFLpQ0hWjV0zX8f36J1Hjm7ShY
+ K616m+mcLLubUo5F83W0xNunM6XsbT3FgcKxgo4AJNkGomklU7rub40KY75LZByRhVefdsJsr
+ 3x+rKU9/O2EaqWWXc6g6LQv/7qritE5lZ520HqU3x1cv4nMwnMjw5yvn90P1tay3+zoT/Q6O9
+ z8LKT7vREOr3EavChzs2C4mMGfurclazr0ADKnVnfcpEDKrboCgEN9ukcCO4TeE5NpXCCGsX6
+ uY28DOxZtKGMK05ZX1m781vj36kXajkjWTluZNLJ6AHLuL3U+Nt+WOJfYwmg9ataZUWGiBDG7
+ 3PxYhM0IDfpBbmeb1uhwR7gJuICjqvIoEoxSqITwHmcp/eDOZMKAp6UbzRM1RgnnQdgF7dBvN
+ pn/Y0zNdRLRhB5O3k3I6bixC+wioiphfhZxRUCAu5QAc5KWX+kPti9gS+1YaO4HUQVpo8FAZF
+ 4yTn3ZLzVW/5QokFOeH+lqQOi7uaSR44m+opW1gRf2fnASCW6xeOsiLXJFgyVz0VVv5Ax244p
+ SJ2wxfJw4oy9S8JP8rhMhoek7aYoogIv3vk22sFrJkOS9Y9YbbKRwzKqiTeFlXuGb6ah0i2b9
+ j9aaePClB+duvWlXaC8UPcWOyVz2yDp/QinzVN419FHNb+7GTVZm0QFVvdAM4Rrp4ysYREVJA
+ esvWoHo5mEO+u91MhlkhZsl5KBvI=
 
 
-
-Am 27.03.25 um 18:28 schrieb Alejandro Colomar:
-> On Thu, Mar 27, 2025 at 05:35:21PM +0100, Peter Radisson wrote:
->> V2:
->> * removed 1 empty line
->> * and changed wording to "content of" to make clear *addrlen is used.
-
-V3:
-* changed wording:
-less that null -> negativ
-
-thx for fast reply, unfortunately i noticed an other problem with the
-page. I will report in an other mail.
-
->> To replicate the problem:
->>
->> // intended use
->> struct sockaddr_in  sock_out;
->> int slen=3Dsizeof(sock_out); //socklen_t
->> recv_len =3D recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_out,
->> &slen);
->>
->> // error case
->> struct sockaddr_in  sock_out;
->> int slen=3D1;
->> recv_len =3D recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_out,
->> &slen);
->>
->> funfact: this escapes the error handling in the linux kernel (no crash)
->> set slen=3D-1 and you get EINVAL.
->>
->> hope that helps.
->>
-
- From 9f464fde8dd168b71430ca29f631153e3e3fb2e5 Mon Sep 17 00:00:00 2001
-From: Peter Radisson <--show-origin>
-Date: Thu, 27 Mar 2025 18:39:29 +0100
-Subject: [PATCH] Be more verbose about recvfrom(2) error handling
-
-Signed-off-by: Peter Radisson <--show-origin>
+Replace 0 with NULL als in the example a few lines above
 =2D--
-  man2/recv.2 | 16 ++++++++++++++++
-  1 file changed, 16 insertions(+)
+  man2/recv.2 | 2 +-
+  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/man2/recv.2 b/man2/recv.2
-index 2659957a6..ba17d03a3 100644
+index ba17d03a3..21f65e86f 100644
 =2D-- a/man2/recv.2
 +++ b/man2/recv.2
-@@ -293,6 +293,22 @@ The returned address is truncated if the buffer
-provided is too small;
-  in this case,
-  .I addrlen
-  will return a value greater than was supplied to the call.
-+If
-+.I src_addr
-+is NULL
-+.I addrlen
-+will be ignored.
-+If
-+.I src_addr
-+is not NULL and the content of
-+.I addrlen
-+is negativ the call will return with
-+.IR EINVAL .
-+If
-+.I addrlen
-+is less than sizeof struct sockaddr_in the src_addr will
-+not be modified.
-+
+@@ -325,7 +325,7 @@ socket (see
+  .BR connect (2)).
+  It is equivalent to the call:
   .PP
-  If the caller is not interested in the source address,
-  .I src_addr
+-    recvfrom(fd, buf, len, flags, NULL, 0);
++    recvfrom(fd, buf, len, flags, NULL, NULL);
+  .\"
+  .SS recvmsg()
+  The
 =2D-
 2.35.3
-
 
 
