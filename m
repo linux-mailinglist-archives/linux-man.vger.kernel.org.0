@@ -1,172 +1,166 @@
-Return-Path: <linux-man+bounces-2655-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2656-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA60DA73236
-	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 13:29:40 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA70A736E5
+	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 17:35:43 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C2B953B69B8
-	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 12:29:26 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 013D91894374
+	for <lists+linux-man@lfdr.de>; Thu, 27 Mar 2025 16:35:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 011272135BB;
-	Thu, 27 Mar 2025 12:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4A5B1991BF;
+	Thu, 27 Mar 2025 16:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZ4de205"
+	dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b="mfEfo60O"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout.web.de (mout.web.de [217.72.192.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45844A21
-	for <linux-man@vger.kernel.org>; Thu, 27 Mar 2025 12:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F59E19ADBA
+	for <linux-man@vger.kernel.org>; Thu, 27 Mar 2025 16:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743078576; cv=none; b=NzTnkQg1Itkh3c0wJXnz5I12F1bIN87oPzCp8mrOSoKswB+zhADOEPSz0nHlRaSxkLQjeNyYifQeJ0hrTnv3s8oaut402aasmn2rGjeJqg/qUg4NhqgbIEiXdU5VnZI/4C6nWAmTlY2V4I+M1bXXiGj2/g73jBBt5PO0sLSX8tw=
+	t=1743093337; cv=none; b=pJjR6IludQE7vOuNWWxY+5BZjYsxqem/PqbMp/OHnBH1nfuZBUsJypp1YB7HBtTkzjsVFHeZSZ0zQoaOME7T8BgoDcmYe54fSSlm4hF0jw/mezWl4PG0C1WG8AXcERjfkN6KyngPfFtxn9VNj1W9s2kEotXegfR8ztiqo/p3Wmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743078576; c=relaxed/simple;
-	bh=6ZiBkMiLsZv/k7FFTx9k5Bw5+oP6qErMN6fOJE/T/Go=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U0fkfRJz+4+SrVatf2bi7l1f5gIhllxSiFnR6xL+ujWmnjsppv2ekBZ0/8R4+P99twfYlJmgirh8s5EDWWHzGQ15uGpV6sa7GPRFCfLsdWwmVcL9hK+SlqUs39mzvZxzOxCqrd4eCBhI1dqFUGOSdcqLxAkbmbZE6tZXDUwyPhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZ4de205; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F55C4CEDD;
-	Thu, 27 Mar 2025 12:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743078576;
-	bh=6ZiBkMiLsZv/k7FFTx9k5Bw5+oP6qErMN6fOJE/T/Go=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kZ4de205k0DdpWpt9Rg7gd/QUfvGimObNoArde4rEydNnttxdGAuZ4RazcfYIUC95
-	 HJrnWUyRO5R0KBuKuGywR1MzqiqrIbk9maCzSm/LFIxNYvUjX8mr81hYbURJ5R2TM2
-	 KTZlv12yqHpTwr6Gr76SE7vdv6l/HpCXqZG//YtdylNHziWozx2prLhhXLSEPJaHGp
-	 7m1vR+3QaPsNoVLlAPXWQ+kQ/unHTIWaagj3iTHf2A/nmOvYhV/1UpAlW+JdIKDsnG
-	 7gshrTzMzPRjS/0nC7T65cwMcDkH3XxbH3Cq0W5CttBAR9WpY/ClhEVvnLcAiX04Ub
-	 EB1tj4+TuVWww==
-Date: Thu, 27 Mar 2025 13:29:32 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: Peter Radisson <radisson97@web.de>
-Cc: linux-man@vger.kernel.org, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: Re: fix: recvfrom() error handling
-Message-ID: <ryuuydac7ybjw4pxiqzrjokcwvds3a6ezbjdi6h5fbz7zbr5d7@cqk5eio4lyrh>
-References: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
+	s=arc-20240116; t=1743093337; c=relaxed/simple;
+	bh=ZwbgT+Ev0vbDlN5lCBa/eGBPAtw3M+s0bpg86AtihMo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FSMhCPPle9b8sA3q/Ic4kT6qYdB+OiFlMOtShrzmVyXEbA537M7xxE9iMp4ehjzNbw4CMnMl1x2WvgxaCgiyWcFoxhQOH33y2Ts+QWN1Wn+BXLaihn+gcA2SasrfZFPYf1EcW58DpwXNukg4uM1HB0VQyI8f7lm1X81dSLOnj+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b=mfEfo60O; arc=none smtp.client-ip=217.72.192.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1743093322; x=1743698122; i=radisson97@web.de;
+	bh=Cc94sF2vWNljg22InbksnuNo0pGb0Zrx5tznozgJg6k=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=mfEfo60OD+eW8ZGUARlodzKQU+VkpXTSjf3M0g6D1u4+3CEA1Iuh15vFbVZwNp3n
+	 XvABOZqUZhuOIzphurHPmGHeOK5aE3t2WqLILkxuIYRZknsSPOJS19qkIyHiiXLgQ
+	 foz7NMCxxDN4IG8rjph5iV4Lx/KfSTOEUefzg3AT36inhLbmc7gkiBZUo4PZzipVy
+	 WXPKiKPZz7eqjcontrznK66Mt+AfAHLRg9QUfqMV4NG9YTHpqNuJ7GydBieGq1Z0R
+	 G5urN39qwnR65ym1GwUDb+JPGRLwS4E/YNaP3pwMgiB3w5i2/n6XHeSpw0FL8W2tQ
+	 V7rJkhHivT6nadHRkA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.40] ([90.153.82.83]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MpU1u-1tLPvR46BQ-00q7J9; Thu, 27
+ Mar 2025 17:35:22 +0100
+Message-ID: <86f7516b-ba85-4737-9a63-951aabf3f681@web.de>
+Date: Thu, 27 Mar 2025 17:35:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xmj4vorb2xofquba"
-Content-Disposition: inline
-In-Reply-To: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
-
-
---xmj4vorb2xofquba
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Peter Radisson <radisson97@web.de>
-Cc: linux-man@vger.kernel.org, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+User-Agent: Mozilla Thunderbird
 Subject: Re: fix: recvfrom() error handling
+Content-Language: en-US
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+ "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 References: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
-MIME-Version: 1.0
-In-Reply-To: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
+ <ryuuydac7ybjw4pxiqzrjokcwvds3a6ezbjdi6h5fbz7zbr5d7@cqk5eio4lyrh>
+From: Peter Radisson <radisson97@web.de>
+In-Reply-To: <ryuuydac7ybjw4pxiqzrjokcwvds3a6ezbjdi6h5fbz7zbr5d7@cqk5eio4lyrh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:jIM17DP8Lq+fdrLxkB7aBXr2NGjnT6x11uaaly/DzQnwJqtc0cS
+ OpUF9AR/V+5+6TQVKO8jkQsIrhM1UVMQLtdiIpJly2L0eziYnJoq4sv1BFLORHciyw0S1hJ
+ WqzX50Q748GxzJN4D/pk/tBPKAcZHToxw1pXypBN1RhIWVwqDKbCQb0jySBeRpvwiFQnXfZ
+ WGvHR1hnhcguYE8j17lcA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:uIkW+6w8d5w=;3chqSJNqJAJiFPY5iQwNudJGrrh
+ OnZB/rwe7Lw6F7mDA/7sufIVNaIFelNQ6xIDCXOBDKQsg6tMuCZdQKzm60TVVNEd9bXqbRZjg
+ W9bVkONPQxbKnc99vJ7yzGi2ZvZohl2dtxaK6QHtx/YPxeB/KuwWE2TxVPCQ5fmWgog9htO6b
+ VsKt91dnhW/dTuGUwTdHYyKFPJKsAmYczWE5AWZaLoY7D6u4ACFOUytFsKqlUQA5Jc1n1eyRs
+ 5Z0eg1+15EZJqnZGq0saKTxO42VUSmdruClYD7ytIXV4X+f890L70WTVK3WdqWRMw1VhdUymQ
+ Y1NVawQtQ9kuuLJ8941Fu2gA3oGH8HvODmtVBcuy7ILcFDlq8S+XhFZg4YF/W05sHdhUw/TgT
+ KNEheSf0NOPFH4HQlWGOM3gJJFgjoABbI4yFs2Eeb+GuNdR+P6a4SIIUgglNQ4h0yPKWnjlzb
+ 5DC4HecnQCS22aKJ1JOGYNI5+Yy7BvqV+yN3SiOTA/AsfAjpFpdJyYeo54OHdbdC5nNAi3s6j
+ mx/IGKhqeCnmQtrwxrU+QT4943KDi/ZBXPjkCarv6ff6G3koW0alxeYtXPsSBYzQAW/pn+r/I
+ R6UrnVaDyvyuz3cL6pGEDR3XNZrPqmGncDG+6f05S3FTxdUdPrIdAFtfNMT9crSJNd5isf17M
+ SZsCatjDDIhUnjvYdcKyHvR1K/WAdZRkN/BWKMatVAuTDA8yfeoTenAPvv2wJRodYCgobPEAc
+ Wg/PMqKsZFRxKhcZc3ONBt4+++1yraFka6EGuxyBWVSTsspgYKV7YvzMeOT4J1K6wU0tcKHJ+
+ BbniC4Kb3KpzR5kB/7SShmkTB2nAzNQRCJ0AgNpWMXrNkKs7E7rcCq9lTzulMEQfuHJ9OtQcC
+ gBt6jKahcrMxA7vabsLP5t1ubYTnOlyXYVNtY7SCkMcVc+zEjiRMky+hiwwlDCMOcZqc1K4Qh
+ Y+hWLQPprN/v0dk54nbrGkGpwIJbuCdconoccIUi/TsCwLTfdDzyH1bfp6pVi+RNGtI4W/t+U
+ 61Z2mBJl+nsZnNBTjaV6zn6QhjoAoitTln/dOwuROjv92Gl6TSMvD+5kbkv5zDMfHas99tg8S
+ jHcucEUg9uTubBJbwJ0+Xl2CN33p5HHbrQ2oQVlqZqFOyW2xJ3QzKPR57vjrqan7hbYwcY5+L
+ gWd6ecJDYPl3H4oglDM5ZDydZY++jQI7mJmOCRkZu542xz7OBrquEV7eEZx3DvKr8uV0jTVqd
+ g/vY6f6ZhMc77mUDWQT4bsBmtowLeaqzYO0CPx+LKrbdI59NdU9cDlyLYLG9QmiCzvdA3ap2/
+ 7ULJHLpwFkoR0C911LhL0oBZ24pU/pGo+fE4cRAWSuOKwYxtGSn5wptuK5q+jZCOJNS3WC/Xu
+ Vr3g0+kgdE631FlSpajECW2+WCpvOr3I9TLFIok6ek7tkp0QgFq4qBTW9RGCSG/pFW3ioszlP
+ b7mvL0w==
 
-Hi Peter,
+V2:
+* removed 1 empty line
+* and changed wording to "content of" to make clear *addrlen is used.
 
-On Thu, Mar 27, 2025 at 11:55:43AM +0100, Peter Radisson wrote:
-> Hello List,
-> while chasing an unrelated bug i found the description of recvfrom()
-> was missing some error description. I would suggest to add a few lines
-> to make this confusing state more clear.
->=20
-> CU
->=20
-> --- recv.2.org	2025-03-25 21:55:10.914273000 +0100
-> +++ recv.2	2025-03-25 22:55:18.843789307 +0100
+To replicate the problem:
 
-Could you please use git-format-patch(1)?
+// intended use
+struct sockaddr_in  sock_out;
+int slen=3Dsizeof(sock_out); //socklen_t
+recv_len =3D recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_out,
+&slen);
 
-> @@ -299,6 +299,23 @@
->  and
->  .I addrlen
->  should be specified as NULL.
-> +If
-> +.I src_addr
-> +is NULL
-> +.I addrlen
-> +will be ignored.
-> +
+// error case
+struct sockaddr_in  sock_out;
+int slen=3D1;
+recv_len =3D recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_out,
+&slen);
 
-Please don't use blank lines in man(7) source.  Use paragraphing macros
-(.P is for a normal paragraph, and .IP is an indented paragraph).
+funfact: this escapes the error handling in the linux kernel (no crash)
+set slen=3D-1 and you get EINVAL.
 
-> +If
-> +.I src_addr
-> +is not NULL and
-> +.I addrlen
-> +is less than null the call will return with
+hope that helps.
 
-What do you mean by "less than null"?  Pointers don't have a sign, so
-it's not possible to have a pointer be less than null.
+ From 056b50b50dca9f08d203d1d56fdcb6e84d228dba Mon Sep 17 00:00:00 2001
+From: Peter Radisson <--show-origin>
+Date: Thu, 27 Mar 2025 17:05:51 +0100
+Subject: [PATCH] Be more verbose about recvfrom(2) error handling
 
-	alx@devuan:~/tmp$ cat p.c=20
-	int
-	main(void)
-	{
-		void *p =3D (void *) -1;
+Signed-off-by: Peter Radisson <--show-origin>
+=2D--
+  man2/recv.2 | 16 ++++++++++++++++
+  1 file changed, 16 insertions(+)
 
-		return p < (void *) 0;
-	}
-	alx@devuan:~/tmp$ gcc -Wall -Wextra -Wtautological-compare p.c=20
-	p.c: In function =E2=80=98main=E2=80=99:
-	p.c:6:18: warning: ordered comparison of pointer with null pointer [-Wextr=
-a]
-	    6 |         return p < (void *) 0;
-	      |                  ^
-	alx@devuan:~/tmp$ ./a.out=20
-	alx@devuan:~/tmp$ echo $?
-	0
+diff --git a/man2/recv.2 b/man2/recv.2
+index 2659957a6..413c42271 100644
+=2D-- a/man2/recv.2
++++ b/man2/recv.2
+@@ -293,6 +293,22 @@ The returned address is truncated if the buffer
+provided is too small;
+  in this case,
+  .I addrlen
+  will return a value greater than was supplied to the call.
++If
++.I src_addr
++is NULL
++.I addrlen
++will be ignored.
++If
++.I src_addr
++is not NULL and the content of
++.I addrlen
++is less than null the call will return with
++.IR EINVAL .
++If
++.I addrlen
++is less than sizeof struct sockaddr_in the src_addr will
++not be modified.
++
+  .PP
+  If the caller is not interested in the source address,
+  .I src_addr
+=2D-
+2.35.3
 
 
-Have a lovely day!
-Alex
 
-> +.IR EINVAL .
-> +If
-> +.I addrlen
-> +is less than sizeof struct sockaddr_in the src_addr will
-> +not be modified.
-> +
->  .\"
->  .SS recv()
->  The
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---xmj4vorb2xofquba
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmflRKwACgkQ64mZXMKQ
-wqmNhhAAsi0ThHBNiRoel2RxmAHjeqHj5WXAH/SSD2AaYJKfTYoGBoj/Gaefjlwu
-QI/dRI2xR23UKbW2SziD8nxmxLRXwcLk5Vj+DEN0EHTknhsfmilIGt3jcMGUYjyn
-ju3n8KsGqvABiotSZUxq0v9nEjcCSviqSE4KVatJ0x2yxfVPaD2HNNa+WWBsKFlj
-+uiDWPCsvJwtpUNQbgKom/Cghzi5VCSWxkxXPQyisASVhUcxbpY2tXP1smCFh0yW
-oeOkA8hR78e7oy3O8PUTwMhWPOq4f3ZCTfwxhho1PrFTwoIMvQBVFTE0c3pme+dC
-ZH1GCXvRBN2hYZzs3xPaJbRyx1blI4q6TgigLoT5af4OGRZGzmEQ52/VWGa1KkL6
-22uCeooGY/Cbtk7NGbQZ6rZ/0o33MUNl+wCqmjbeSHg+EbEz6L2pdBhgGdkeKDOJ
-oSpG59pWO2ZazOyWtB6Rj6/NwwOmujiiohxepzdI0pZIGc9eo2BrbUS/N/yx8UfB
-cWNOsXup0xzZnkhspijygt5l9camTF1mK/JlM74+Q1Kvm4fNpOVntRwO7N4vRVVV
-W1XkYiA/EgLNHOyFSX6sv3po5u6nb+Smp/5X2lYypk/m7rsOIPAz+NfoGWhDSYl4
-mdEXaHXJ1BZz8IKK9RLZaGInfkYmyHKPu1ifjBhFNcCb/gVJmvY=
-=yOLV
------END PGP SIGNATURE-----
-
---xmj4vorb2xofquba--
 
