@@ -1,86 +1,87 @@
-Return-Path: <linux-man+bounces-2665-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2666-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58600A75286
-	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 23:45:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC50CA7529E
+	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 23:54:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D7C5516DCD9
-	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 22:45:36 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 71666169EB3
+	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 22:54:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 56B4E55E69;
-	Fri, 28 Mar 2025 22:45:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A53011F180C;
+	Fri, 28 Mar 2025 22:53:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UJHTX3mX"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lvx4Havo"
 X-Original-To: linux-man@vger.kernel.org
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BC02F3B
-	for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 22:45:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7AC1F09AE
+	for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 22:53:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743201932; cv=none; b=UCN8/75lfxtOeM/a4mu7J4HWRgccECEwAzYqL6lpsBKu/8AFnle6eqjJuewF3SlgqbRLHWVGYmGpSDufiSGSI6P9Mv0JBGxbPicFOrfzY/T+8+VedeYmCGanGZX038znUJuBH0lgNAz5HjgyksWcCfiWubO84gzOjppewM1UrtM=
+	t=1743202439; cv=none; b=mRRp7k3DUqGj9vquv2/efCfHYZnlnuR89meINvrFBIDKbg7QRaE9j5b93RgFOzmdaRNLqIyxLIapLUQijRPUmKJe1KuHG6KNk57nOoj7GRPFuxUI/2yuVOa8IdFhiompcGZholYIfLjHQexGLgGGrBOoFPDXpDeMBthtJUx9Hgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743201932; c=relaxed/simple;
-	bh=E8XS3tvlK9IcRKJrjLxqAiC1LS3kAtvCMkMsnh3kXMg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J6xD97SEEu7/FeZ5skIoacPBRFq6YtpqVXdo2BmVxtcN/HAxf+BSUWctELs3cUUyfgZuqDCjp6Ll0gtb79SB5gvOGbqfH/kAKcmttJn81Kg/HB+YE7u/u8M3WUJsk+PioHvrlVkIFSEr3E3OHP/gjQDDkgfXwk+ommXPYZUHtHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UJHTX3mX; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1743202439; c=relaxed/simple;
+	bh=t+jqoamvoJv8WrhEDecHA+mXsPElv9DzgRDohvAusj0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=OyvxiGHmqjjdGuFAZbXnm1rateH+kCDlePMa1DxCgbzOta8hVkVwiV4N6E3NJ8B53L3xtwBIv0RJ3EKmtEPI7s3rgmudM0apndEhVX8Wn2KsWaJAr4DuPt4kjxZ+zc/wVX8seWzT0ouEQvwzmuXHgWRePeBBw85Wqz18Wizw7s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lvx4Havo; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743201929;
+	s=mimecast20190719; t=1743202436;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=o/3RsSK+VA3FmfnERHdMXbHUOGSgfw/lYbDvf9pauQY=;
-	b=UJHTX3mXkP8g5mMyUB9NG0WUl8exvjjsJLPVI3XJsgM1u18gzWBTeOrRC935/VYn9MimCm
-	opRpdkjlsN3BW8lOGv0GEfViag0U9mNEsepXvZqQyY9qeAn2JY5WACvtSDBbbt/EzgGlN0
-	oLRj2jVdgvOyFgkG40hEGTLzzor9vM4=
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
- [209.85.166.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=NhBpaNhy6jWf2Hz0ZP6CYPf122KUmYnNmpjpKKc9MbE=;
+	b=Lvx4Havoun4ARiQl5E6bnjMcM4wLN4P9IG/UnRxyun9/FuivP+szwWPmc61CJTh4uCbPD7
+	LuQj8iS6NKqoy8laohNISAbHBvprHz+5uhf4kggHPpq7Y0v2MUAeD+JD7eTMyGK1fvvWbs
+	+e6uEaWlFfqHnrQDfhWZ6EB2kwFzy3E=
+Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
+ [209.85.166.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-653-JjL-ugy4OpCasEmTtT8eHg-1; Fri, 28 Mar 2025 18:45:27 -0400
-X-MC-Unique: JjL-ugy4OpCasEmTtT8eHg-1
-X-Mimecast-MFC-AGG-ID: JjL-ugy4OpCasEmTtT8eHg_1743201927
-Received: by mail-io1-f70.google.com with SMTP id ca18e2360f4ac-85b402f69d4so275077839f.3
-        for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 15:45:27 -0700 (PDT)
+ us-mta-43-mdrSdzHiM7ORLyMjlge1WQ-1; Fri, 28 Mar 2025 18:53:55 -0400
+X-MC-Unique: mdrSdzHiM7ORLyMjlge1WQ-1
+X-Mimecast-MFC-AGG-ID: mdrSdzHiM7ORLyMjlge1WQ_1743202434
+Received: by mail-il1-f198.google.com with SMTP id e9e14a558f8ab-3d43c0dbe6aso45562375ab.1
+        for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 15:53:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743201927; x=1743806727;
+        d=1e100.net; s=20230601; t=1743202434; x=1743807234;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=o/3RsSK+VA3FmfnERHdMXbHUOGSgfw/lYbDvf9pauQY=;
-        b=VIXPj3gcZwmZE18HYCwIB9BK6IFM10r2PYkntYZrHlmpanxYRkL6EGxlLF5iJbBnbj
-         62td0Ux1eIm49ze6RYH/hNuoVRiAJZAfXmyb3cYTnYXGAWllPzHYlCDQ31tMif5FUAe9
-         G/1XT2OV9bUmQava8escpYkQJf9+r36Hxl70KD5w8IzoL4KT2v/KiY6oS3t4eXaSUUW7
-         P32StRgmDB5JvVe0+mW7tmDLLPBq4LQV2cHyLdSpkP9jCxuCVxzDSuMz+SXgEHC1iuWF
-         rlRzR5rGA3pbXzMifWwnCMN7o3JH911CDBzb+Zf+HCtYsLxHVX6Y5UqTqwkOoxrLyg1i
-         ryMA==
-X-Gm-Message-State: AOJu0Yzlh+DUOWcBETWyj203rZDdzBxFrNW46mRB/7jDBtQSJkH21HdY
-	H1CXfAXr65EyH+2jwBLxYuGpi71xqlDyh46ynmluN1s2ukktSu9L9j+hn093pa7oZKEbKET8AXR
-	WaKQYuAlTtxM5YhgFoHh3ZiGuzVC9HuOwkwJE9BCUNPDRd04vVVgpsBk9ZQ==
-X-Gm-Gg: ASbGncuv8Y06r3hdeTQmaBBAg6rMVdBZZx7LAEQbX1iaW62WNrShwGJCI6a8C4eSWPJ
-	vRMoYVf0YHFAk+/VBpTO+MNPQvP9bURj4t5j2KW3I40gWqM0ZWuwfrfsUoLIZt0mTqEz4oX5aux
-	vF/vPCLTuZr98ffumpgERIz09MwxqGutiy0yyaVSPc/WEixZA4Wncvz7bdIzTJ8FBUbYVoj/toH
-	aY1zpOtzPr7Ef/ljf/0a6tisWnt/TZMe7/l4d6RCsu9CP7LRM7w2TuJelSmqR50MxYddooSSqdA
-	OxjTsTEH39/toM9X
-X-Received: by 2002:a05:6e02:3108:b0:3d3:deee:de2f with SMTP id e9e14a558f8ab-3d5e0908c92mr13812835ab.7.1743201926796;
-        Fri, 28 Mar 2025 15:45:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGTgm4y4Ngr+KeAZCiIh1i+A8Nnf32GGcaN6pn1PPHQlBa3db0WX1OHN2uL+35MjkwllbsaQg==
-X-Received: by 2002:a05:6e02:3108:b0:3d3:deee:de2f with SMTP id e9e14a558f8ab-3d5e0908c92mr13812605ab.7.1743201926298;
-        Fri, 28 Mar 2025 15:45:26 -0700 (PDT)
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NhBpaNhy6jWf2Hz0ZP6CYPf122KUmYnNmpjpKKc9MbE=;
+        b=s9M+LbaWqDbdHaLPHq6ROKsKCvFYI5E9bl5UysaCzmxGAhBvNwZ0BjHh2ip14PIcGO
+         vf/RcN5wdZ+D77KYWQi9fQPc7EZ+PjhYJN4jD8kYTnZZGxfyGQDsmZpU7ExX8ekZZozr
+         NfP2NH6PZc2oMFinF3xztJLeKCcNTesGdTqIitiel69X8SRwlkJXTdB6u22e7EzSPGi7
+         kEekf8c9Gnf7L0RxoL0mRkmpQm7pAQUhBZ9lg6woswOJNl0ANi/qIFWb8qINcIJ/jJ5O
+         zcPlu9sRDHA6qsNBS8gdvauoS+2sosdCJEPuMDGFj4CnjOLFD2jwjerKXz9otIPyqP5o
+         TIeA==
+X-Forwarded-Encrypted: i=1; AJvYcCWoRSgBZmhNeLCzbQv4SMVwrcY33ZEODhv9RELKLvspOzmFBO1lTn/QmVJzbO+ytlmnwOl/S05UC1M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfpZeo54s9a6Av03tsnmeoHiMKwb+TAsPQqtI7GAFJRGrGXd1e
+	45J93NPY6JhA4vXNJVKsddQlmiDBRTlWBGbeWIB9AKOrFGSBTDxZ5J7RuWnkTV8onHhWFhp0ygz
+	1FsTKKrX3byUrR2KPV+R7Tlhs1Afzmj86u2wHWOuSUXAXG7WK8Y6C9pM0uw==
+X-Gm-Gg: ASbGncuQq+j6DN8axfqwbyqNtvyKbmzXrxNEGBCfD6+IgINfFNfD+d/djfIVSddUrvL
+	NvJDM616ZLB2e+GyZ+EX2c269MGPNn2/L/f63VQ88ByquFp0L5+wICvHUBdZ0REwgaDuip/KjRw
+	zgFcAcfxXrZoYnr4NBCn1SdOU+4ex81Ojcxi87qdo0DPgQsp+/kIr0OcdfrNthW9hSW9XnRkYB2
+	q7LZKTvwB4xAspfsxlcCIs6hKRN4v0nDjBUrg4w9xAF4kya/aXrA4ZzWeBKGsCgDRM+KXEiEk5a
+	FxzilhjdnaL21pK/
+X-Received: by 2002:a05:6e02:3a82:b0:3d4:3d5d:cf7e with SMTP id e9e14a558f8ab-3d5e09edfcfmr14400385ab.16.1743202434089;
+        Fri, 28 Mar 2025 15:53:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEGBqZU774BGoBr6lbzimu45XhHdtcDNd4snqXy7IEtvn1AmvirwTEQz0iKa3+r0Phnm6JJ2w==
+X-Received: by 2002:a05:6e02:3a82:b0:3d4:3d5d:cf7e with SMTP id e9e14a558f8ab-3d5e09edfcfmr14400295ab.16.1743202433718;
+        Fri, 28 Mar 2025 15:53:53 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id e9e14a558f8ab-3d5d5ae2636sm7027855ab.46.2025.03.28.15.45.25
+        by smtp.gmail.com with ESMTPSA id e9e14a558f8ab-3d5d5a632e5sm6838825ab.14.2025.03.28.15.53.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Mar 2025 15:45:25 -0700 (PDT)
-Message-ID: <4fee13e3-d3d6-47be-87b8-d4303918cbaa@redhat.com>
-Date: Fri, 28 Mar 2025 18:45:24 -0400
+        Fri, 28 Mar 2025 15:53:53 -0700 (PDT)
+Message-ID: <292e1d29-48f3-43e8-9177-0238d0d91cb8@redhat.com>
+Date: Fri, 28 Mar 2025 18:53:52 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -88,15 +89,10 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: fix: recvfrom() error handling
-To: Peter Radisson <radisson97@web.de>, Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
+Subject: Re: [PATCH] make consistent example in recv.2
+To: Peter Radisson <radisson97@web.de>, linux-man@vger.kernel.org,
  "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
- <ryuuydac7ybjw4pxiqzrjokcwvds3a6ezbjdi6h5fbz7zbr5d7@cqk5eio4lyrh>
- <86f7516b-ba85-4737-9a63-951aabf3f681@web.de>
- <7cf47smc7ntz2k4rkekbuzehzymi3fnvwybsrn42pqgptm75wg@6s5b6mrwkhfv>
- <977a59f6-4e1e-4f7d-996d-8dbcd7a46794@web.de>
+References: <189ef077-18f4-43a3-9008-286a75e7bd91@web.de>
 Content-Language: en-US
 From: Carlos O'Donell <carlos@redhat.com>
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -144,103 +140,39 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O4uRThl5mMDx8MXQz6M9qQ5anYwre+/TudTfCzcTpgXod1wEqi2ErJ5jNgh18DRlSQ3tbDvG
  O0FatDMfJw==
 Organization: Red Hat
-In-Reply-To: <977a59f6-4e1e-4f7d-996d-8dbcd7a46794@web.de>
+In-Reply-To: <189ef077-18f4-43a3-9008-286a75e7bd91@web.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 3/27/25 1:47 PM, Peter Radisson wrote:
-> Am 27.03.25 um 18:28 schrieb Alejandro Colomar:
->> On Thu, Mar 27, 2025 at 05:35:21PM +0100, Peter Radisson wrote:
->>> V2:
->>> * removed 1 empty line
->>> * and changed wording to "content of" to make clear *addrlen is used.
+On 3/27/25 1:54 PM, Peter Radisson wrote:
 > 
-> V3:
-> * changed wording:
-> less that null -> negativ
-
-s/negativ/negative/g
-
-> 
-> thx for fast reply, unfortunately i noticed an other problem with the
-> page. I will report in an other mail.
-> 
->>> To replicate the problem:
->>>
->>> // intended use
->>> struct sockaddr_in  sock_out;
->>> int slen=sizeof(sock_out); //socklen_t
->>> recv_len = recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_out,
->>> &slen);
->>>
->>> // error case
->>> struct sockaddr_in  sock_out;
->>> int slen=1;
->>> recv_len = recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_out,
->>> &slen);
->>>
->>> funfact: this escapes the error handling in the linux kernel (no crash)
->>> set slen=-1 and you get EINVAL.
->>>
->>> hope that helps.
->>>
-> 
->  From 9f464fde8dd168b71430ca29f631153e3e3fb2e5 Mon Sep 17 00:00:00 2001
-> From: Peter Radisson <--show-origin>
-> Date: Thu, 27 Mar 2025 18:39:29 +0100
-> Subject: [PATCH] Be more verbose about recvfrom(2) error handling
-> 
-> Signed-off-by: Peter Radisson <--show-origin>
+> Replace 0 with NULL als in the example a few lines above
 > ---
->   man2/recv.2 | 16 ++++++++++++++++
->   1 file changed, 16 insertions(+)
+>   man2/recv.2 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/man2/recv.2 b/man2/recv.2
-> index 2659957a6..ba17d03a3 100644
+> index ba17d03a3..21f65e86f 100644
 > --- a/man2/recv.2
 > +++ b/man2/recv.2
-> @@ -293,6 +293,22 @@ The returned address is truncated if the buffer
-> provided is too small;
->   in this case,
->   .I addrlen
->   will return a value greater than was supplied to the call.
-> +If
-> +.I src_addr
-> +is NULL
-> +.I addrlen
-> +will be ignored.
-> +If
-> +.I src_addr
-> +is not NULL and the content of
-> +.I addrlen
-> +is negativ the call will return with
-
-s/negativ/negative/g
-
-> +.IR EINVAL .
-> +If
-> +.I addrlen
-> +is less than sizeof struct sockaddr_in the src_addr will
-> +not be modified.
-
-My suggestion would be to place this as an entry under ERRORS
-for EINVAL.
-
-Adding all of this conditional text under recvfrom() seems overly
-complicated.
-
-We should document the success case and how it work for truncation.
-
-> +
+> @@ -325,7 +325,7 @@ socket (see
+>   .BR connect (2)).
+>   It is equivalent to the call:
 >   .PP
->   If the caller is not interested in the source address,
->   .I src_addr
+> -    recvfrom(fd, buf, len, flags, NULL, 0);
+> +    recvfrom(fd, buf, len, flags, NULL, NULL);
+>   .\"
+>   .SS recvmsg()
+>   The
 > -- 
 > 2.35.3
-> 
-> 
-> 
 
+Agreed. They are both pointers. It should be "NULL, NULL".
+It should also match the text under DESCRIPTION.
+
+LGTM.
+
+Reviewed-by: Carlos O'Donell <carlos@redhat.com>
 
 -- 
 Cheers,
