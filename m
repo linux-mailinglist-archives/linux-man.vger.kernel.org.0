@@ -1,87 +1,56 @@
-Return-Path: <linux-man+bounces-2666-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2667-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC50CA7529E
-	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 23:54:03 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id F1157A75350
+	for <lists+linux-man@lfdr.de>; Sat, 29 Mar 2025 00:27:53 +0100 (CET)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 71666169EB3
-	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 22:54:03 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8917C172BF5
+	for <lists+linux-man@lfdr.de>; Fri, 28 Mar 2025 23:27:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A53011F180C;
-	Fri, 28 Mar 2025 22:53:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5E2A1F3BBF;
+	Fri, 28 Mar 2025 23:27:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lvx4Havo"
+	dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b="VIHNF2vn"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mout.web.de (mout.web.de [212.227.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7AC1F09AE
-	for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 22:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3B91F4C8C
+	for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 23:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743202439; cv=none; b=mRRp7k3DUqGj9vquv2/efCfHYZnlnuR89meINvrFBIDKbg7QRaE9j5b93RgFOzmdaRNLqIyxLIapLUQijRPUmKJe1KuHG6KNk57nOoj7GRPFuxUI/2yuVOa8IdFhiompcGZholYIfLjHQexGLgGGrBOoFPDXpDeMBthtJUx9Hgc=
+	t=1743204434; cv=none; b=A4KIhzqSJ5fp4pCQzeIsNIh1jzdQcofZO7YLbgw9Unn5Opvh0tOtLhBjr3prQrR8MN3FVXo/zWIo4P6XNMUhA/G0anMuvwD3ehi5eoGjqkNsOz8uSWvCy9ASwhrekWY4PF1l90cHkkjFiEXUzdtfBve2YQitlxy4D9oSF8y+e8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743202439; c=relaxed/simple;
-	bh=t+jqoamvoJv8WrhEDecHA+mXsPElv9DzgRDohvAusj0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=OyvxiGHmqjjdGuFAZbXnm1rateH+kCDlePMa1DxCgbzOta8hVkVwiV4N6E3NJ8B53L3xtwBIv0RJ3EKmtEPI7s3rgmudM0apndEhVX8Wn2KsWaJAr4DuPt4kjxZ+zc/wVX8seWzT0ouEQvwzmuXHgWRePeBBw85Wqz18Wizw7s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lvx4Havo; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743202436;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NhBpaNhy6jWf2Hz0ZP6CYPf122KUmYnNmpjpKKc9MbE=;
-	b=Lvx4Havoun4ARiQl5E6bnjMcM4wLN4P9IG/UnRxyun9/FuivP+szwWPmc61CJTh4uCbPD7
-	LuQj8iS6NKqoy8laohNISAbHBvprHz+5uhf4kggHPpq7Y0v2MUAeD+JD7eTMyGK1fvvWbs
-	+e6uEaWlFfqHnrQDfhWZ6EB2kwFzy3E=
-Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
- [209.85.166.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-43-mdrSdzHiM7ORLyMjlge1WQ-1; Fri, 28 Mar 2025 18:53:55 -0400
-X-MC-Unique: mdrSdzHiM7ORLyMjlge1WQ-1
-X-Mimecast-MFC-AGG-ID: mdrSdzHiM7ORLyMjlge1WQ_1743202434
-Received: by mail-il1-f198.google.com with SMTP id e9e14a558f8ab-3d43c0dbe6aso45562375ab.1
-        for <linux-man@vger.kernel.org>; Fri, 28 Mar 2025 15:53:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743202434; x=1743807234;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NhBpaNhy6jWf2Hz0ZP6CYPf122KUmYnNmpjpKKc9MbE=;
-        b=s9M+LbaWqDbdHaLPHq6ROKsKCvFYI5E9bl5UysaCzmxGAhBvNwZ0BjHh2ip14PIcGO
-         vf/RcN5wdZ+D77KYWQi9fQPc7EZ+PjhYJN4jD8kYTnZZGxfyGQDsmZpU7ExX8ekZZozr
-         NfP2NH6PZc2oMFinF3xztJLeKCcNTesGdTqIitiel69X8SRwlkJXTdB6u22e7EzSPGi7
-         kEekf8c9Gnf7L0RxoL0mRkmpQm7pAQUhBZ9lg6woswOJNl0ANi/qIFWb8qINcIJ/jJ5O
-         zcPlu9sRDHA6qsNBS8gdvauoS+2sosdCJEPuMDGFj4CnjOLFD2jwjerKXz9otIPyqP5o
-         TIeA==
-X-Forwarded-Encrypted: i=1; AJvYcCWoRSgBZmhNeLCzbQv4SMVwrcY33ZEODhv9RELKLvspOzmFBO1lTn/QmVJzbO+ytlmnwOl/S05UC1M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfpZeo54s9a6Av03tsnmeoHiMKwb+TAsPQqtI7GAFJRGrGXd1e
-	45J93NPY6JhA4vXNJVKsddQlmiDBRTlWBGbeWIB9AKOrFGSBTDxZ5J7RuWnkTV8onHhWFhp0ygz
-	1FsTKKrX3byUrR2KPV+R7Tlhs1Afzmj86u2wHWOuSUXAXG7WK8Y6C9pM0uw==
-X-Gm-Gg: ASbGncuQq+j6DN8axfqwbyqNtvyKbmzXrxNEGBCfD6+IgINfFNfD+d/djfIVSddUrvL
-	NvJDM616ZLB2e+GyZ+EX2c269MGPNn2/L/f63VQ88ByquFp0L5+wICvHUBdZ0REwgaDuip/KjRw
-	zgFcAcfxXrZoYnr4NBCn1SdOU+4ex81Ojcxi87qdo0DPgQsp+/kIr0OcdfrNthW9hSW9XnRkYB2
-	q7LZKTvwB4xAspfsxlcCIs6hKRN4v0nDjBUrg4w9xAF4kya/aXrA4ZzWeBKGsCgDRM+KXEiEk5a
-	FxzilhjdnaL21pK/
-X-Received: by 2002:a05:6e02:3a82:b0:3d4:3d5d:cf7e with SMTP id e9e14a558f8ab-3d5e09edfcfmr14400385ab.16.1743202434089;
-        Fri, 28 Mar 2025 15:53:54 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEGBqZU774BGoBr6lbzimu45XhHdtcDNd4snqXy7IEtvn1AmvirwTEQz0iKa3+r0Phnm6JJ2w==
-X-Received: by 2002:a05:6e02:3a82:b0:3d4:3d5d:cf7e with SMTP id e9e14a558f8ab-3d5e09edfcfmr14400295ab.16.1743202433718;
-        Fri, 28 Mar 2025 15:53:53 -0700 (PDT)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id e9e14a558f8ab-3d5d5a632e5sm6838825ab.14.2025.03.28.15.53.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Mar 2025 15:53:53 -0700 (PDT)
-Message-ID: <292e1d29-48f3-43e8-9177-0238d0d91cb8@redhat.com>
-Date: Fri, 28 Mar 2025 18:53:52 -0400
+	s=arc-20240116; t=1743204434; c=relaxed/simple;
+	bh=o9PmH46L4mHakKJ3EKP3kjlYnqkVVmE9o+VNBkqzciY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m0y/w7BMaGmHDBShBFhvWM3rdhbdSGt4U29IIjeDMOkvNVes7xfiBWAiJqJOZNhjetfQSqKXBXlSX75Z/y6jn1OAFLsc8jbhgJl/ozqRN1JilzfLIvIp3ybwjMag6aa2vVSBrLEdbQr0r4b3dfjU9WO+crrt9dINje9xU/qkYqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=radisson97@web.de header.b=VIHNF2vn; arc=none smtp.client-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1743204409; x=1743809209; i=radisson97@web.de;
+	bh=o9PmH46L4mHakKJ3EKP3kjlYnqkVVmE9o+VNBkqzciY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=VIHNF2vnFzSWnPs4wpUbMM93PeTnCSPawfsfoG9SVskYU9TlCy373YUSJ4VgiybU
+	 9Wey4errr9djGdKm5pAiT1VJkyGwNZfb2Rl6gpyFKV1z/Yo74o2fAkkBEKiBZAmJT
+	 9fb87YwjsTUdiDieDO7VslR1AAHzgDZAD/G7c4msrpb06D/SSOvkD5lkW0sAPbYrj
+	 9liWVHkfK8+GCoyBbqgkmueRZgmj3JvirtAs6cn2KJ2rLgsk6CO58aQu1rd/l3B4A
+	 ekteQnYsMjJCKuEOpmGesmgjoK0sLPSKCZxewYeR0JJJPE0QDonWe1nyqYkyy1MWa
+	 0kWAop4GQ0UBKQVWcQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.40] ([91.96.44.44]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mt8kN-1t9eU42bsn-0147xP; Sat, 29
+ Mar 2025 00:26:49 +0100
+Message-ID: <3f5eaef3-5751-4ff3-9d30-b67f11e9457f@web.de>
+Date: Sat, 29 Mar 2025 00:26:49 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -89,93 +58,157 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] make consistent example in recv.2
-To: Peter Radisson <radisson97@web.de>, linux-man@vger.kernel.org,
- "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <189ef077-18f4-43a3-9008-286a75e7bd91@web.de>
+Subject: Re: fix: recvfrom() error handling
 Content-Language: en-US
-From: Carlos O'Donell <carlos@redhat.com>
-Autocrypt: addr=carlos@redhat.com; keydata=
- xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
- QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
- 85ZfAhArWf5m5Tl0CktZ8yoG8g9dM4SgdvdSdzZUaWBVHc6TjdAb9YEQ1/jpyfHsQp+PWLuQ
- ZI8nZUm+I3IBDLkbbuJVQklKzpT1b8yxVSsHCyIPFRqDDUjPL5G4WnUVy529OzfrciBvHdxG
- sYYDV8FX7fv6V/S3eL6qmZbObivIbLD2NbeDqw6vNpr+aehEwgwNbMVuVfH1PVHJV8Qkgxg4
- PqPgQC7GbIhxxYroGbLJCQ41j25M+oqCO/XW/FUu/9x0vY5w0RsZFhlmSP5lBDcaiy3SUgp3
- MSTePGuxpPlLVMePxKvabSS7EErLKlrAEmDgnUYYdPqGCefA+5N9Rn2JPfP7SoQEp2pHhEyM
- 6Xg9x7TJ+JNuDowQCgwussmeDt2ZUeMl3s1f6/XePfTd3l8c8Yn5Fc8reRa28dFANU6oXiZf
- 7/h3iQXPg81BsLMJK3aA/nyajRrNxL8dHIx7BjKX0/gxpOozlUHZHl73KhAvrBRaqLrr2tIP
- LkKrf3d7wdz4llg4NAGIU4ERdTTne1QAwS6x2tNa9GO9tXGPawARAQABzSpDYXJsb3MgTydE
- b25lbGwgKFdvcmspIDxjYXJsb3NAcmVkaGF0LmNvbT7CwZUEEwEIAD8CGwMGCwkIBwMCBhUI
- AgkKCwQWAgMBAh4BAheAFiEEcnNUKzmWLfeymZMUFnkrTqJTQPgFAmagDwgFCRDhXm4ACgkQ
- FnkrTqJTQPgLlw/+JD7l4tj8l8hAMUlszrlIT6IhKSODzjrGO+6d9Y6T9vyE2kk4Xbn+kdJf
- uBl+wj2+U15MsQe9Z4RwowIB3YHHXgj53M2OjqOAY/sRWXZVDfmVj03hqW8D7zFxjc0SZ9cI
- TI0MwrDWc+Fr3naXeo7HhgjUmULfPndxb8NHVV4Ds2DTkZoUMwB8l3dboD+nKi5GbfVBf3Q5
- cBw0CPkxPl0hxD9sr5IMgWIKVLtvztMIXv2xWAavqk8pQjk0zCYd46GcA8d9pZuac24e9NbM
- ZzTxu6cP0sKhub1JFIadyBHtJnEV/8Auc8nXJ63QY3h0QVCJYV35gQeejEdMD94in2XTkxk0
- A/xCp32bmSZv5flsmdAIv5LK4jTKLvzd6BSy/v7qlpgQ7sNaxQ/JRd+8YuBIiUVIp/kgGezD
- qtGZSpvPCFuG3LxsdvAu7JAzBY3sfBd2lSGOeHX/JK0nQ6s97j4HlSuXIabSOdsCI5UGSOq5
- thbIqfK3ewUSUB0yGvWf7EyuZugtCZOaFGpvcT3ix9/sP1fTRlJl+bNjMcO8GwedDoy85oeg
- yLCEV9gejCr+NijLfPYtb1s8o0hYu13uBojFyBv+bkUI5hTQaVLacq7VglA/QLOy/3mtM2v5
- 4OEotiNXbKypHFKnoks/MFpP4xdwxGX5jU4MgFg80aPFGr0oZVXOwU0EV5/kGgEQAKvTJke+
- QSjATmz11ALKle/SSEpUwL5QOpt3xomEATcYAamww0HADfGTKdUR+aWgOK3vqu6Sicr1zbuZ
- jHCs2GaIgRoqh1HKVgCmaJYjizvidHluqrox6qqc9PG0bWb0f5xGQw+X2z+bEinzv4qaep1G
- 1OuYgvG49OpHTgZMiJq9ncHCxkD2VEJKgMywGJ4Agdl+NWVn0T7w6J+/5QmBIE8hh4NzpYfr
- xzWCJ9iZ3skG4zBGB4YEacc3+oeEoybc10h6tqhQNrtIiSRJH+SUJvOiNH8oMXPLAjfFVy3d
- 4BOgyxJhE0UhmQIQHMJxCBw81fQD10d0dcru0rAIEldEpt2UXqOr0rOALDievMF/2BKQiOA7
- PbMC3/dwuNHDlClQzdjil8O7UsIgf3IMFaIbQoUEvjlgf5cm9a94gWABcfI1xadAq9vcIB5v
- +9fM71xDgdELnZThTd8LByrG99ExVMcG2PZYXJllVDQDZqYA1PjD9e0yHq5whJi3BrZgwDaL
- 5vYZEb1EMyH+BQLO3Zw/Caj8W6mooGHgNveRQ1g9FYn3NUp7UvS22Zt/KW4pCpbgkQZefxup
- KO6QVNwwggV44cTQ37z5onGbNPD8+2k2mmC0OEtGBkj+VH39tRk+uLOcuXlGNSVk3xOyxni0
- Nk9M0GvTvPKoah9gkvL/+AofN/31ABEBAAHCwXwEGAEIACYCGwwWIQRyc1QrOZYt97KZkxQW
- eStOolNA+AUCZqAPEAUJEOFedgAKCRAWeStOolNA+D38D/9WnZY9fUmPhZVwpDnhIXvlXgqX
- cspZJEBWNS5ArFn8CLcje7z9hzX3+86lqkEeohTmlgtTg4ctZzM+XKyWSiqHCRCR+FX5SKaa
- 1VveBtwvjTSVmtV1m0rNHEvUZ5x47A8NadWqYi6uOQ22FhEqUOiwJ7EHzk4w9W3gT1913XT1
- vmkCn6FtQcrQvJT7pP+oA0YIVs8ADayJcqWHM+Ez7L2fpfAzBDhIS7dq2MYU8LQOQAsx1y7H
- 6njp5dN/OI/aN/RL6XeX1Kxl4Xe+hc+tq457fLAUnmaevUldvKThuj+5/Cd4DW25MxaqinfY
- m/U6pBQ4ZwQPGWA0f+GKiJcLosSRXxIuEdZAl82ht+KgT3zhV/BvQRmrD6wX3ywPkJap8h4K
- ibwz3r6NbHKdCX22ok58oE8NAWtmTRTKXDhh8oWOKdIYjX6jJzdb/F8rPNoEY3UiYbaNTxt5
- TE9VD+yWilYO796HMXjXenCOlghy3HFmZbsQ4N+FlG6LQD7cnwm56kcrJk1IlnQXOSOd2BA2
- qNbM1Ohry3B+1F4Oaee+ZKH2C5y7Kx0y3m1b5X7Wpx76H5BeUAp6dQi6nNYeqM9PglZIMvSe
- O4uRThl5mMDx8MXQz6M9qQ5anYwre+/TudTfCzcTpgXod1wEqi2ErJ5jNgh18DRlSQ3tbDvG
- O0FatDMfJw==
-Organization: Red Hat
-In-Reply-To: <189ef077-18f4-43a3-9008-286a75e7bd91@web.de>
+To: Carlos O'Donell <carlos@redhat.com>, Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,
+ "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <5449c846-e9ff-4c4c-b161-485da08a578b@web.de>
+ <ryuuydac7ybjw4pxiqzrjokcwvds3a6ezbjdi6h5fbz7zbr5d7@cqk5eio4lyrh>
+ <86f7516b-ba85-4737-9a63-951aabf3f681@web.de>
+ <7cf47smc7ntz2k4rkekbuzehzymi3fnvwybsrn42pqgptm75wg@6s5b6mrwkhfv>
+ <977a59f6-4e1e-4f7d-996d-8dbcd7a46794@web.de>
+ <4fee13e3-d3d6-47be-87b8-d4303918cbaa@redhat.com>
+From: Peter Radisson <radisson97@web.de>
+In-Reply-To: <4fee13e3-d3d6-47be-87b8-d4303918cbaa@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:qCnPw1UAsI7qVDe7jOsoVy0VaeZThIOysbPFx7UF34S66J/Ik98
+ wBVa775MM43TN07Utz5Ot8tOlz3gF49Wd7FFrwMW2hFa53P6mGL+DShPuvd/6r74QMfCxDO
+ yiKY2qd80B472RltWlOrEWE0D5AVkeuHEY59kjy6uIpUMijMNEj+mVexWddZmm9XIzJwJtq
+ b3onljz2raOiGFUk5nKEw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:ptXCuWPZT8E=;t/BkMQYxfLEPXZsKrElN4E9o0mW
+ p8/Pdjjp7DUVIhF4sdU6S6+RqpjpXMCk91PhCrCcCImR1N1Luze/q/Hx2XFAblM9a0VDhlEqJ
+ 72sGk0BfjBMRsCN+lQOKsIOrF/MFSkJc7NswJHvc7hHTwMgjCnQcYz/1hu0667ZeTKAcOJWy1
+ OaDTwQmqIg16Z5gOnOVWX6Qea6V/WSMz7ov4nFdLOkG47Cz75Q+KBJ+ihsK6XZX+ZASRXxJre
+ 2TdgvQE4HLO0dTQq/Gcg/EDPFWnIUQeWG2ff5DgaYkrto8z3pwfqkiTNZ2lZOeQzIxhMjzyCt
+ L08cxmTT3XypOnOUxB+EJ1KUXC8xzaHzon6XyDyj6zsgy4QfL7cBK77m97d3tNeNHBCbgIJlS
+ UVrL8kKF/5AY67CBuT2bqpLQjx3pKL56ghYLNway8fbsRJ+UDJIAS4VsvALbbdv7ukaObI/RU
+ san6PyFqCZOx8eMf6x08+Qhl8zyKDzu1ElcfMxGHZHlSG4Z2yyRp3KjBckwOxyvN2FAvyq9ig
+ SBcGjB3SaQCS1SPbw8GuovRoiMoPMr/MQS7utIj88x1durNqLFMRsIq1LEOFHrEJm7ZTLrCCr
+ sh47FgP9qDC7kKzJaiK7MIvqv+fJ8oEZQ0OCC+Ws/ThGyuVg16TFcIK7VFIbR231y0qPusC6i
+ 0KWD8bLnc4cYrzMhnsq9i0SspwOEO2nqLi0NhrOcAgtxRvcivwP2A28tCGFg1YCGES1VFT50j
+ WoVxOV/7MJts6/TXcrghGfba0VK5p3IfqG1HmkHCB65S/agvYGjaxXul1sIfrysAuj02C0uRY
+ gjJW3qze5NSD30hxSOInmvx9VXKRkBQ+KYBRXPKIpjBGYF6whZaTBRgvjPngjRaRm1vhhjqxy
+ XyKqhKOvpxVxeu6QZwON2yyJ8BSOc+ZH7Hjkd5A33f25eaUhDW/Xwgg3hnWbNdpTMEBW8LvY6
+ bG5tuEaI2d9GCzQ7cvd6Qd0uzUPDxm5qr3fUzAPMzqMZm/iCaAh4hZ3KYHuB7Dfovlz/k/Znq
+ JWcgaG+jPnJQvbteqKbCXu7YTk/hl0jxIs02h5Bzgp4yG1g2nBJVPK46JLV8gQ48+QKTR9t0J
+ Ja5eGgTX7fnN0w4bEuwXyRoNKhfqO/rRrxX347QdXgBDv4XXmXxSWtdfRT1iCEq72naZ9Wi39
+ yoWJfH6cyA1lyVgMFW0Ai/KQGtPvpqQD00+iFwLk5DwTPh6w/DT8yUFdEb/XsTx7K+WGVVCNx
+ 1sXBKWVkT8wS/vVbhPW68t+GZPeEsEWM1NTZd+GO8YC/8z3oDRFoDUdrXyAZtm1GJKbfJuUlH
+ trj1f3rPEq2Jwh6miX9zDIjgA5qJ0TuLxBMMBiRlN3B71jQU5vvOdII56QHDmQBDNO3j4SfJ1
+ RBGaICh8OsohzfqZInc7bGQLwQVkZje8S2zHa9P4L2f3tjqBX78eUjUQNc+bdHqPKhmaE+USq
+ 6Daf9FQ==
 
-On 3/27/25 1:54 PM, Peter Radisson wrote:
-> 
-> Replace 0 with NULL als in the example a few lines above
-> ---
->   man2/recv.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/recv.2 b/man2/recv.2
-> index ba17d03a3..21f65e86f 100644
-> --- a/man2/recv.2
-> +++ b/man2/recv.2
-> @@ -325,7 +325,7 @@ socket (see
->   .BR connect (2)).
->   It is equivalent to the call:
->   .PP
-> -    recvfrom(fd, buf, len, flags, NULL, 0);
-> +    recvfrom(fd, buf, len, flags, NULL, NULL);
->   .\"
->   .SS recvmsg()
->   The
-> -- 
-> 2.35.3
 
-Agreed. They are both pointers. It should be "NULL, NULL".
-It should also match the text under DESCRIPTION.
 
-LGTM.
+Am 28.03.25 um 23:45 schrieb Carlos O'Donell:
+> On 3/27/25 1:47 PM, Peter Radisson wrote:
+>> Am 27.03.25 um 18:28 schrieb Alejandro Colomar:
+>>> On Thu, Mar 27, 2025 at 05:35:21PM +0100, Peter Radisson wrote:
+>>>> V2:
+>>>> * removed 1 empty line
+>>>> * and changed wording to "content of" to make clear *addrlen is used.
+>>
+>> V3:
+>> * changed wording:
+>> less that null -> negativ
+>
+> s/negativ/negative/g
+>
+>>
+>> thx for fast reply, unfortunately i noticed an other problem with the
+>> page. I will report in an other mail.
+>>
+>>>> To replicate the problem:
+>>>>
+>>>> // intended use
+>>>> struct sockaddr_in=C2=A0 sock_out;
+>>>> int slen=3Dsizeof(sock_out); //socklen_t
+>>>> recv_len =3D recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_ou=
+t,
+>>>> &slen);
+>>>>
+>>>> // error case
+>>>> struct sockaddr_in=C2=A0 sock_out;
+>>>> int slen=3D1;
+>>>> recv_len =3D recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &sock_ou=
+t,
+>>>> &slen);
+>>>>
+>>>> funfact: this escapes the error handling in the linux kernel (no cras=
+h)
+>>>> set slen=3D-1 and you get EINVAL.
+>>>>
+>>>> hope that helps.
+>>>>
+>>
+>> =C2=A0From 9f464fde8dd168b71430ca29f631153e3e3fb2e5 Mon Sep 17 00:00:00=
+ 2001
+>> From: Peter Radisson <--show-origin>
+>> Date: Thu, 27 Mar 2025 18:39:29 +0100
+>> Subject: [PATCH] Be more verbose about recvfrom(2) error handling
+>>
+>> Signed-off-by: Peter Radisson <--show-origin>
+>> ---
+>> =C2=A0=C2=A0man2/recv.2 | 16 ++++++++++++++++
+>> =C2=A0=C2=A01 file changed, 16 insertions(+)
+>>
+>> diff --git a/man2/recv.2 b/man2/recv.2
+>> index 2659957a6..ba17d03a3 100644
+>> --- a/man2/recv.2
+>> +++ b/man2/recv.2
+>> @@ -293,6 +293,22 @@ The returned address is truncated if the buffer
+>> provided is too small;
+>> =C2=A0=C2=A0in this case,
+>> =C2=A0=C2=A0.I addrlen
+>> =C2=A0=C2=A0will return a value greater than was supplied to the call.
+>> +If
+>> +.I src_addr
+>> +is NULL
+>> +.I addrlen
+>> +will be ignored.
+>> +If
+>> +.I src_addr
+>> +is not NULL and the content of
+>> +.I addrlen
+>> +is negativ the call will return with
+>
+> s/negativ/negative/g
+>
+>> +.IR EINVAL .
+>> +If
+>> +.I addrlen
+>> +is less than sizeof struct sockaddr_in the src_addr will
+>> +not be modified.
+>
+> My suggestion would be to place this as an entry under ERRORS
+> for EINVAL.
+>
+> Adding all of this conditional text under recvfrom() seems overly
+> complicated.
+>
+> We should document the success case and how it work for truncation.
+>
 
-Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+IMHO is the error handling broken. Anything less that sizeof(struct
+sockaddr_in) should cause an error. It does not so this behavier should
+be documented here so everybody is aware about it.
+(second thought: BUGS section ?)
 
--- 
-Cheers,
-Carlos.
+ym2c
+
+>> +
+>> =C2=A0=C2=A0.PP
+>> =C2=A0=C2=A0If the caller is not interested in the source address,
+>> =C2=A0=C2=A0.I src_addr
+>> --
+>> 2.35.3
+>>
+>>
+>>
+>
+>
 
 
