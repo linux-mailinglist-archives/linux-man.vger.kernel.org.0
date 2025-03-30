@@ -1,161 +1,276 @@
-Return-Path: <linux-man+bounces-2685-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2686-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB0FA75BE5
-	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 21:21:17 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id C58B9A75C00
+	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 21:53:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0DD6A3A8946
-	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 19:21:03 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 1B2A97A37B1
+	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 19:52:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6E5FC1D79A3;
-	Sun, 30 Mar 2025 19:21:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E56A1D79A3;
+	Sun, 30 Mar 2025 19:53:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRJoVu3l"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="If+z/APb"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F1780C02;
-	Sun, 30 Mar 2025 19:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5096520E6;
+	Sun, 30 Mar 2025 19:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743362472; cv=none; b=mFQtR34Y6SNMFD5P++rstzXr0aVo0czL9vRSScCcK7dYPrjE1tkdrxCdfUoLz3yDVPlDNA3pD12CzvMG4Zbk6uEKRzbCMnJMRbbKPrH+2RNNxnlptDQ+qqet1jKEoREsrEy1jjooLf2yKrLAVrbJB+/YTn8tRTCq+jC7K9cqr8A=
+	t=1743364432; cv=none; b=HbTcaKgJj4jsp+EeH4HylkGM4VjKxFXPH0ZKG6Tu196JIFMnZXLE3Zaq7U9Bs+3mhnLDnqAP2hRowbq+8M0CMm5IMRva8bi+GckXgNDwzV9CiU/wt9+xw7aRLPDx7lK38n/JVpVE38rtefiA1hy1S2FyawRlmGZDrTiS5F/cR+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743362472; c=relaxed/simple;
-	bh=fRh1n733+fnnlBOjs18gAeRa/FnY9qSV0Dxz8Zd1Wbw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LvgiGBiGT7xNlPiGWs+ze4NSVH2SgTrlTzvMACgGVaMrKnyJA5C301aBy5mj5if9GbBxnBQQ+XeJgknM/6TLlHxcDzkTCASJwhmb9y1IAom0muFeobbDSf1kozIjGwSTxEek0z5F67Eb+ermPSw1SMEvUjaRfwQb+Y5TitpS4zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRJoVu3l; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7255C4CEDD;
-	Sun, 30 Mar 2025 19:21:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743362471;
-	bh=fRh1n733+fnnlBOjs18gAeRa/FnY9qSV0Dxz8Zd1Wbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SRJoVu3lIg4aI/zMyT6/57bzFWJIx6bHeYuYafkt1twQlScQvO3QOOyQuM9phR3wU
-	 1fVtpue2xSFlZU0tgSIBhAmgZn+n3QXP5hSVNa8vqzaaow3xNIkIQgcI+lSz/vSofI
-	 FkWPtpYMnJDkvlcSqJw6QjEd/ckJ54iapw9zP15JRE7GO+0mLWeEIxqZuSck3gm3qJ
-	 Dultd0Q4ukGnCf5LZv7JRcQTvBlcfjVm+0I2lu1ogXlS2BY+hUaIJ/m2HkR1TE2gOS
-	 wzjBDQHXmVyRvF3paDL+t3utoTrRp+X0wr+As0RxREAbL6fWAs5xJM5QZpHeYGezfT
-	 jRhMsGfTTscTA==
-Date: Sun, 30 Mar 2025 21:21:07 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>, 
-	Jeff Layton <jlayton@poochiereds.net>, Aleksa Sarai <cyphar@cyphar.com>
-Subject: Re: [PATCH v2] name_to_handle_at.2: Document the
- AT_HANDLE_CONNECTABLE flag
-Message-ID: <esepirxum5w6k3au4fapm6sksjy6bl5ypapvy5rflmqw2g3cjv@iij2nzq7i3uk>
-References: <20250330163502.1415011-1-amir73il@gmail.com>
- <mu6nhfyv77ptgvsvr6n23dc5if3sr6ymjmv3bq7bfnvcas66nu@b7nrofzezhil>
- <CAOQ4uxj48SHB+8m0r50YhdqYZB2964+aK=BxdoW_yuWzZUgzGw@mail.gmail.com>
+	s=arc-20240116; t=1743364432; c=relaxed/simple;
+	bh=7HpLjDz9dUnhNLN/QwJLNG9jgC+bqhBpXxAQHMmNtA8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=etqB4I3D2UoUczmxGAci4I+Iz0jgNGuVubzOmG0W0xPCgmWRy0hBuf803lqMdYVG+mazsykpynVtQdrhWYHuVCdurdr3hdI5Asf69OrDBS2DE+sK7SXLBXAr33l3JZv6i1CkH4IjQ2GbhnOez8CEzBAZOL3aKXBpJZ45IumuIN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=If+z/APb; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-ac2963dc379so607134066b.2;
+        Sun, 30 Mar 2025 12:53:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1743364428; x=1743969228; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GANVDERgqCuub7VKCOKeL96xzXZKAMBgd57H2S6wL50=;
+        b=If+z/APb0NW3BxHDwciaKNIb4TI9keDcIc5Cql6b6No6p96o7TdqW81jBLDOCDJq70
+         aY05HU68PC9LVYlac9D0UJnjCfS70eo2b2bhUhrztA2DiAugiQRrDwUzypKT0rUMKJso
+         fRPGnkr42Bc+gBTNA8pWS+k3S8BxM/AJaSU13UB4th1mc14tjsVmUUz9L2pKLKBSRMsT
+         JFi4PWYGQUZpcgDxwFVDqBXx9hF9aOqiFDBFY6oKTvZVY/zcOv6zXC0ay0X9IUjudr3W
+         PbKe0mu01rMoKwEPCpS1e9nUjDv+iO5wwGMhSLdoLfM5ty3cnKLK5RGbmgqUzUiAgNZk
+         M+Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743364428; x=1743969228;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GANVDERgqCuub7VKCOKeL96xzXZKAMBgd57H2S6wL50=;
+        b=qH2V9ij/Ljy/xtwfvpzuUHisKpz1Flpf+FeqCLzGqDYYOBzXuMb+bOcX62mJV4EUZQ
+         Enc6joyiVN4So0RWKsSlVl43OpqXmee/8ySCFtcObx+uxlK/TcDFUYxmW39l2dkw9L7D
+         L2iRmLCBzTRFWQeskcoJ32GW5DQm9r4POPtrZyp+/YGBp2B2NG+U0CMTDceMOY1YayhD
+         GXCHWdYtARuYJwrv7F84gJBGHZjqRySXkRL3WGxYaLVMhN3IQ1BD8irxL0txUruUt8Re
+         fEwfk6NGgaTqOcN/B4iWI4hyws1qtJWRXHY5oiQlHvuOoaezFL58sYGULb6K4pxkllYd
+         3vvw==
+X-Forwarded-Encrypted: i=1; AJvYcCVVffkB+vo5YoRfjrtqUQdx83tpuJHUBzrUMpDNdXhJ/TJoV2+dN7HYsALs5tNBhuYq4pEwqIjj3aow2Mgy@vger.kernel.org, AJvYcCWPNbvVjiERG6Tv7F6AdL5ThSt+hJCUUFWf9N897EV8wvO8/0SuPp8PIXA4gJj/ryJFC4xd6TtERhYk@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHe9NBBd1hiLBd9TmuMfRb3VcV1MGRZzprOG10+0Bsh93wrHx4
+	8yMtejMslZqJeDUELupJSWRLOFc2VCyGWn+srQ5AZeLzfipX/w2aX7JCYoAB9OrjFmF9hJGHLTv
+	4HG1bMB1bHb9LOhbYoeg2fVqBrgw=
+X-Gm-Gg: ASbGncuKz0Hxz+W7HPsg3+0+CTU3uOctRRETXWBI62z//jWMJUYmPJmzhHoy3c+CKWF
+	ol256CaqlO1uk6ngJ2RKI3pJjpe0WkQ5f8CWMHR7t8eQ0fVYlfawsOeNUdPHoG9KAm7mwLh4Pku
+	rgrc9Ou0SrTcWXNj0Z0QN2Okb5Lg==
+X-Google-Smtp-Source: AGHT+IEINPaNrE3VO9H9O6ZudGcHTzRBsaVLT+wZh+9gS98CCOacLC3PFA0JKa4O9h3P4dSUklFgBEzXwhAvQQWgdAA=
+X-Received: by 2002:a17:907:7e82:b0:abf:5f3c:58e7 with SMTP id
+ a640c23a62f3a-ac73892d4b4mr726217166b.3.1743364428098; Sun, 30 Mar 2025
+ 12:53:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="z7m2cmnlnnznmxep"
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxj48SHB+8m0r50YhdqYZB2964+aK=BxdoW_yuWzZUgzGw@mail.gmail.com>
-
-
---z7m2cmnlnnznmxep
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20250330153326.1412509-1-amir73il@gmail.com> <mwttu4y4pvussz2zug6dlmgioqcfwgqsup3fqhyfa437mi2k2p@bl5orpxlsa4z>
+In-Reply-To: <mwttu4y4pvussz2zug6dlmgioqcfwgqsup3fqhyfa437mi2k2p@bl5orpxlsa4z>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sun, 30 Mar 2025 21:53:36 +0200
+X-Gm-Features: AQ5f1JqGbYU1uhyHXQPDbF6qTJyEj42f3bszBcrzGFjPd1TqyV3T5mq8WQeSbVw
+Message-ID: <CAOQ4uxjppaLhRnWvm_Q7EwRYA9rDTE57xY7_DO0KJKLJngM+xw@mail.gmail.com>
+Subject: Re: [PATCH] fanotify.7: Document extended response to permission events
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, Richard Guy Briggs <rgb@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>, 
-	Jeff Layton <jlayton@poochiereds.net>, Aleksa Sarai <cyphar@cyphar.com>
-Subject: Re: [PATCH v2] name_to_handle_at.2: Document the
- AT_HANDLE_CONNECTABLE flag
-References: <20250330163502.1415011-1-amir73il@gmail.com>
- <mu6nhfyv77ptgvsvr6n23dc5if3sr6ymjmv3bq7bfnvcas66nu@b7nrofzezhil>
- <CAOQ4uxj48SHB+8m0r50YhdqYZB2964+aK=BxdoW_yuWzZUgzGw@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAOQ4uxj48SHB+8m0r50YhdqYZB2964+aK=BxdoW_yuWzZUgzGw@mail.gmail.com>
 
-Hi Amir,
-
-On Sun, Mar 30, 2025 at 09:17:51PM +0200, Amir Goldstein wrote:
-> On Sun, Mar 30, 2025 at 7:56=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
-> wrote:
+On Sun, Mar 30, 2025 at 7:52=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Amir,
+>
+> On Sun, Mar 30, 2025 at 05:33:26PM +0200, Amir Goldstein wrote:
+> > Document FAN_DENY_ERRNO(), that was added in v6.13 and the
+> > FAN_RESPONSE_INFO_AUDIT_RULE extended response info record
+> > that was added in v6.3.
 > >
-> > Hi Amir,
+> > Cc: Richard Guy Briggs <rgb@redhat.com>
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> > ---
 > >
-> > On Sun, Mar 30, 2025 at 06:35:02PM +0200, Amir Goldstein wrote:
-> > > A flag since v6.13 to indicate that the requested file_handle is
-> > > intended to be used for open_by_handle_at(2) to obtain an open file
-> > > with a known path.
-> > >
-> > > Cc: Chuck Lever <chuck.lever@oracle.com>
-> > > Cc: Jeff Layton <jlayton@poochiereds.net>
-> > > Cc: Christian Brauner <brauner@kernel.org>
-> > > Cc: Jan Kara <jack@suse.cz>
-> > > Cc: Aleksa Sarai <cyphar@cyphar.com>
-> > > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> > > ---
-> > >
-> > > Alejandro,
-> > >
-> > > Addressed your comments from v1 and added missing documentation for
-> > > AT_HANDLE_MNT_ID_UNIQUE from v6.12.
+> > Alejandro,
 > >
-> > Please split AT_HANDLE_MNT_ID_UNIQUE into a separate patch, possibly in
-> > the same patch set.  Other than that, it LGTM.  Thanks!
+> > I was working on man page updates to fanotify features that landed
+> > in v6.14 and found a few bits from v6.3 that were out of date, so
+> > I added them along with this change.
 > >
->=20
-> I pushed the separate patches to
-> https://github.com/amir73il/man-pages/commits/connectable-fh/
->=20
-> Do you mind taking them from there?
->=20
-> Most of the reviewers that I CC-ed would care about the text
-> of the man page and less about formatting and patch separation,
-> and I would rather not spam the reviewers more than have to,
-> but if you insist, I can post the patches.
+> > If you want me to split them out I can, but I did not see much point.
+>
+> I prefer them in two patches.  You can send them in the same patch set,
+> though.
 
-Could you please send with git-send-email(1) --suppress-cc=3Dall?
+ok
+
+I pushed the two patches to
+https://github.com/amir73il/man-pages/commits/fan_deny_errno
+
+Let me know if you want me to re-post them
+
+>
+> > This change to the documentation of fanotify permission event response
+> > is independent of the previous patches I posted to document the new
+> > FAN_PRE_ACCESS event (also v6.14) and the fanotify_init(2) flag
+> > FAN_REPORT_FD_ERROR (v6.13).
+> >
+> > There is another fanotify feature in v6.14 (mount events).
+> > I will try to catch up on documenting that one as well.
+> >
+> > Thanks,
+> > Amir.
+> >
+> >  man/man7/fanotify.7 | 60 ++++++++++++++++++++++++++++++++++++++++++++-
+> >  1 file changed, 59 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
+> > index 6f3a9496e..c7b53901a 100644
+> > --- a/man/man7/fanotify.7
+> > +++ b/man/man7/fanotify.7
+> > @@ -820,7 +820,7 @@ This is the file descriptor from the structure
+> >  .TP
+> >  .I response
+> >  This field indicates whether or not the permission is to be granted.
+> > -Its value must be either
+> > +Its value must contain either the flag
+>
+> This seems unrelated.  Please keep it out of the patches.  If you want
+> to do it, please have a third trivial patch with "wfix" in the subject.
+
+what does wfix stand for?
+
+this is not a typo fix, this is a semantic fix.
+
+It is not true that the value of response is either FAN_ALLOW or FAN_DENY
+those are flags in a bitset and the correct statement is that exactly
+one of them needs to be set.
+
+>
+> >  .B FAN_ALLOW
+> >  to allow the file operation or
+> >  .B FAN_DENY
+> > @@ -829,6 +829,24 @@ to deny the file operation.
+> >  If access is denied, the requesting application call will receive an
+> >  .B EPERM
+> >  error.
+> > +Since Linux 6.14,
+> > +.\" commit b4b2ff4f61ded819bfa22e50fdec7693f51cbbee
+> > +if a notification group is initialized with class
+> > +.BR FAN_CLASS_PRE_CONTENT ,
+> > +the following error values could be returned to the application
+> > +by setting the
+> > +.I response
+> > +value using the
+> > +.BR FAN_DENY_ERRNO(err)
+>
+> This formatting is incorrect.  BR means alternating Bold and Roman, but
+> this only has one token.
+>
+
+ok I added a space
+
+> > +macro:
+> > +.BR EPERM ,
+> > +.BR EIO ,
+> > +.BR EBUSY ,
+> > +.BR ETXTBSY ,
+> > +.BR EAGAIN ,
+> > +.BR ENOSPC ,
+> > +.BR EDQUOT .
+>
+> Should we have a manual page for FAN_DENY_ERRNO()?  (I think we should.)
+> I don't understand how it's supposed to work from this paragraph.
+>
 
 
-Cheers,
-Alex
+#define FAN_DENY_ERRNO(err) (FAN_DENY | (((err) & 0xff) << 24))
 
->=20
-> Thanks,
-> Amir.
+combined FAN_DENY with a specific error, but I see no
+reason to expose the internals of this macro
 
---=20
-<https://www.alejandro-colomar.es/>
+This does not deserve a man page of its own IMO.
 
---z7m2cmnlnnznmxep
-Content-Type: application/pgp-signature; name="signature.asc"
+If you have a suggested for better formatting, please suggest it
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfpmZwACgkQ64mZXMKQ
-wqmPBxAAtx+dnnjlgwAY8W4i/a3lEExpUwyoATae7fT3i5N4Bh1WSllY38T3icCu
-8JaFZvmZ8tFwXWlQTFH5iiJHHFaAXV8ltrMt9RL+bZ8T6UGF8o1yL08HrR5fwtqb
-4ANC0m8NsGWmt06IlGhCaDZD9o0cYgFqVy9tByiwVoJwQYLycoGjmJTTCeSOQTUN
-RDjfk9z0Kf8HiU0WaTX8/deo6Vfv5OdurD6XW4uKe4VjEiKOVdvIBgUs2BXtieG1
-hYgD8i2rM76SNDTkzONSbx+gAPh0hkB6NSzU4+iZ3QBbdyTi79DZu8FtTLikPcdc
-ag9vC/TdFxivq14tVGzUgHtz955l9GhqDKmAIybrx/Ki78SyedfUEG6jUxPmwrRu
-7XOw1reSU47aBvdhQskr7yi/NQWktAYxhw3IN2Pdj7WUYZZKtl6hBHWSvasyZN8R
-yZgApzPgGcv5AFWmDwFUwFaRdmI+Vgp2t6cCF1iF+XJQsEc4Z6SGUv+TGCWE3OBh
-OJwF1WUjvFTwu9GucsoIXPkREGT5cqte+3rR5LtTpbb1P44XTlJlvC0fRBgotwpX
-w1bDkYyJxe2WU10o4f2iV3TVOUkxvROC4at5qVcc7bPaB00yq9Sd9/1S/UMbqh1/
-LKVVsyX4i/RdH6xfGjCHmIIdCX//bmvAdvqCGMM1e5ngSZ7XA7M=
-=QvrJ
------END PGP SIGNATURE-----
+> > +.P
+> >  Additionally, if the notification group has been created with the
+> >  .B FAN_ENABLE_AUDIT
+> >  flag, then the
+> > @@ -838,6 +856,46 @@ flag can be set in the
+> >  field.
+> >  In that case, the audit subsystem will log information about the acces=
+s
+> >  decision to the audit logs.
+>
+> Do we want to start a new paragraph maybe?
+>
 
---z7m2cmnlnnznmxep--
+ok
+
+> > +Since Linux 6.3,
+> > +.\" commit 70529a199574c15a40f46b14256633b02ba10ca2
+> > +the
+> > +.B FAN_INFO
+> > +flag can be set in the
+> > +.I response
+> > +to indicate that extra variable length response record follows struct
+>
+> s/variable length/variable-length/
+>
+> And we usually say 'XXX structure' instead of 'struct XXX'.
+>
+
+ok
+
+> > +.IR fanotify_response .
+>
+> The above sentence is too long.  I'd split it into two:
+>
+> Since Linux 6.3, the FAN_INFO flag can be set in the response field.  It
+> indicates that an extra variable-length response record follows the
+> fanotify_response structure.
+>
+
+ok
+
+> > +Extra response records start with a common header:
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +struct fanotify_response_info_header {
+> > +    __u8 type;
+> > +    __u8 pad;
+> > +    __u16 len;
+> > +};
+> > +.EE
+> > +.in
+> > +.P
+> > +The value of
+> > +.I type
+>
+> I'd say '.type' instead of 'type'.  I know there's no consistency about
+> it, but I'm going to globally fix that eventually.  Let's do it good for
+> new documentation.  The '.' allows one to easily know that we're talking
+> about a struct or union member.
+>
+
+Sounds like a good change to me.
+
+pushed requested fixes to github.
+
+Thanks,
+Amir.
 
