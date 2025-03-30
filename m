@@ -1,159 +1,169 @@
-Return-Path: <linux-man+bounces-2672-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2673-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 433A9A759B4
-	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 13:07:39 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E5CA759C4
+	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 13:16:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9F7B03A6066
-	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 11:07:24 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id ABAB516924F
+	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 11:16:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2E4A1C3BEE;
-	Sun, 30 Mar 2025 11:07:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E61B157A72;
+	Sun, 30 Mar 2025 11:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZ75gCyO"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="goiExD4+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4997149C55
-	for <linux-man@vger.kernel.org>; Sun, 30 Mar 2025 11:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22584A05;
+	Sun, 30 Mar 2025 11:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743332854; cv=none; b=RmU2R3JzrjoMaK9mqAODoit1AbKnDcPAOrDQ+RrGQgXXGeCVhY3E5nyYmPQ+smqs+eKwRUUm8pPZbggxFuau5fRHcL/vfMkr8AXr2uPlWA1ZYw+N5Ml4MspniLdh3NLNwuIWnF0iyxf9HgY1fbjxxTAbY89YyvnspuDPIAhi/Ic=
+	t=1743333412; cv=none; b=TC6bf8rfnGjzLsoIhQ+bO8eYSAEOwfJS0M1dLADSzjSnYFvw3pnYy6MLyEkbPqgatruE1+6i0T0tr/zNXMfnT30CUBLO8jE/Rqh5I2WoiHGFupxKYYsrOxAhq57tfOvCAqvYc6Pnea7t5HgUMyHQj2x16HKN6FpNh4qnAOTGcos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743332854; c=relaxed/simple;
-	bh=ChUWq8xVp7DGMAd30F5Ueca+DSOkNkzaohZK+rA7Nkk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VhM7H1lm8jOlGgiAD+UO2Z1pKg2N+UZuItNKm2mRTjwdCEKReu7/zWBXJPbWUELSbUeVOtZOrbzqpX6jRsaeCdEoBRNxxXxfmt7w39zgEy1xZFds6apOLqYBn/WGQ9grBJ/br/lcite2h6JFpC/cu36akWDjuAW8g7/0olTZ5cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZ75gCyO; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66C0C4CEE8;
-	Sun, 30 Mar 2025 11:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743332854;
-	bh=ChUWq8xVp7DGMAd30F5Ueca+DSOkNkzaohZK+rA7Nkk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JZ75gCyO4+QRasTjrDFJ2YlIS64GZSdXqv1KATp27u5EeCakkhTwgNHhzg+wNbowD
-	 6reufC3y6Dji0css8EI1DWpV41QCGtUkehv9YCQYZM6wqH0D/KTt8o0V6/f+peyGQl
-	 7ZPQviR0x6iHQg3zmWCZM/xo9XMepiM64193+mNKekWySw1EbkwBQKqxttkOEhOtRr
-	 VThBL+lfAPfV7ouX9DktQH8wpjbbtIIQIlbRyFcqP/mRfxOEBxLI+dx++2LF5DMAa3
-	 kyUr00h24+PPsXR2UDCpMqrtzuhk/IY02xR9EI7QkpSuEBFqOzk3MdgS5L6gMx+oPK
-	 E/YEu6Q9vbO4g==
-Date: Sun, 30 Mar 2025 13:07:30 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: Jared Finder <jared@finder.org>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, 
-	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH man v3 0/2] TIOCLINUX.2const: Document TIOCL_SETSEL
- selection modes
-Message-ID: <kdrwwtdyb55w7j4gvoj5p2cljdrflzc3dzax4szhilcwix2tuf@zo7yhvlkwj5d>
-References: <20250302194331.5135-3-gnoack3000@gmail.com>
- <iv4zzsll7vbdkn7heborockwvxtv5y3ulld7za3hjvwkq2rccv@hj77rb65y355>
- <20250317174340.ig4cavquacmiuxxb@illithid>
- <csv25wv52i4pfwcovr33rocjei7eql5qtuwtpul44e33tuudxf@7buicn6quvd6>
- <d329ffb92f3e9bb22aeefb25df02a9cf@finder.org>
- <srbsuwx4ou3wrlr7shxz5gz6qp42af3azyx6c4vfkpupboifgy@7m7dtlshxraz>
- <20250330.8aeb7bdcfced@gnoack.org>
+	s=arc-20240116; t=1743333412; c=relaxed/simple;
+	bh=1kOwCR5E85BD2rqeLFbvUCWNEaTfRWM8YWNYqRzWeVE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IPJKj3daxLpXMHadjD13/5Fm7SmMeIrqRWl2XZiJRoSmyi8JoOZkpjn3HloGVwKDVzIU8wKaE+19eeMSvMFw5BRLoFjCsvHvxg6JeyWOxldNZ/0K4xUm3RiwDgBta2OE4t7HXY+M8O4JNg74dAt4YdO+wxAz621cYdutWsArFXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=goiExD4+; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-5e5e0caa151so6862685a12.0;
+        Sun, 30 Mar 2025 04:16:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1743333409; x=1743938209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VgZH5L9lFrqomJIPiJeUyW+pbC1ukrLQGaub52yc6ZQ=;
+        b=goiExD4+l1jseSwKMqGMjul2+KIKE2E+DpF3gHkJEV4TJhUxvoSipMWvHmdGrvCFhP
+         LjklaPMdww7C9O4dL61aMbrCVQwq4ob1I6k/eeYaHsdbVmeg6GXCB823Qf++ZDmB5lRB
+         SGFIe5YAPe9zmC8VPLrmDrwO3HMEQXMzC7ygHTv1QOU2w6w+wRwPKxKzJkiq10M7grtb
+         EQ2vbjQA2zdoNJeRx4rFfdBGPsVzl1As2o/eEhmnckIx0UaaPFnxh9RTtA6D5/34N14B
+         9x0TnG46a0lTp/CCJY5evP0FXJI84HLcKRWCn+GhBxndlAulWYd9ZdRh/6YnY2s8HKN0
+         vPHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743333409; x=1743938209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VgZH5L9lFrqomJIPiJeUyW+pbC1ukrLQGaub52yc6ZQ=;
+        b=XA5qmyiM7IvCW2P31QTkWNANYvBW6YBd81Hhyejmgq7Vy3GwI3Po+OEX2NjcEr5z1K
+         3D6jhOVkSS18OnzxHKsUBNZDY9+XQ3EQuh5/6gTcDrd5nfXHWV5KbFbF/njhEIeauY41
+         p+V5fZlONFW4BYqNUpxIU6e+9/1OQs9+KrMoV7ZEvqMpmKAkr/TJEUq/Os03ClsWf18j
+         Z2ZY+BTG5LCjhXAnXLsl8Gr5/l2dwwJx8RKeVqPEue17wPHQrJTzd83O3A/AIYijJDwq
+         WgSOG92tTe9LC7twJRm7z2rbR5xFr3ugHhXTavf/BYt6z1gSwETXM8SGvJ+vODzybHjz
+         /7Yw==
+X-Forwarded-Encrypted: i=1; AJvYcCVA1QlytoKrQbUfL1v4P/9QF2InShXXWXxdmS+tDB21httJl6UPGfAuoNtesGpRrCV8wabAIFSyAWAhy1Zd@vger.kernel.org, AJvYcCWHJw0QIb9Jt+4rrZ0XftxRhbD+PKOdpQGi3sWGDMC0lfVXuxTcRPA0qfiwzi2ykvkSEYSLb5yH0VAc@vger.kernel.org
+X-Gm-Message-State: AOJu0YxT9U7odmJUaB5QuJAM0gcVEA09MC3n5sDGar8b+rUKjnDaQOyc
+	xEMdXjfxEPiE/3i+k0naHUAkHKcld/VePrx2/5JpJnpVhieh5wOH
+X-Gm-Gg: ASbGncseVGi6BCYMYo8Ounm22CSMLeu2Zv+49P/jFU/25RcXoeNYHijU6LWWq8l4ule
+	uYiW4mLXp+4r9oFdpodud9PiK1oXzLMycqLDYd0OGAgvp1GIv5D8D72uKSQKQZeRgJcnd//Np1y
+	X0mRxrJpjfbhBrIbDKVA9FmgsadOB3HQvRB2/Wh5G065H47iYsVKzF7B1EP/DrURpuR6RMXbDIt
+	3uhsHK7C9SDsh+TQ6ZmdWCdzsu6TN3LnczjxS74HyzjyW6xaMrc1GsqoII14iiNowxB/tk4ukyF
+	jAR4cs2u/FhEhDKjrPGvnKVL4aG12vL2aDa3Vysnd2rCH3A0uxq167jbh1HJodIRwqulnIIXVO8
+	JvWrxXao2MN8Z713bibjrgS880uAZsDI8QJCMRXWvYA==
+X-Google-Smtp-Source: AGHT+IFZ9Bq+WdkHnKM1l3YwdpwU+U1iG1R9tz7Ih7ctraO+lCAJs5LRIJLkuDC71lF3vvwtRor+GA==
+X-Received: by 2002:a05:6402:13d1:b0:5e5:dbcd:185e with SMTP id 4fb4d7f45d1cf-5edfce76db3mr4755592a12.13.1743333408499;
+        Sun, 30 Mar 2025 04:16:48 -0700 (PDT)
+Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5edc17b2abesm4136014a12.60.2025.03.30.04.16.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Mar 2025 04:16:47 -0700 (PDT)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@poochiereds.net>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-man@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH] name_to_handle_at.2: Document the AT_HANDLE_CONNECTABLE flag
+Date: Sun, 30 Mar 2025 13:16:43 +0200
+Message-Id: <20250330111643.1405265-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vzccdyfbldrwsur3"
-Content-Disposition: inline
-In-Reply-To: <20250330.8aeb7bdcfced@gnoack.org>
+Content-Transfer-Encoding: 8bit
 
+A flag since v6.13 to indicate that the requested file_handle is
+intended to be used for open_by_handle_at(2) to obtain an open file
+with a known path.
 
---vzccdyfbldrwsur3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: Jared Finder <jared@finder.org>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, 
-	Hanno =?utf-8?B?QsO2Y2s=?= <hanno@hboeck.de>
-Subject: Re: [PATCH man v3 0/2] TIOCLINUX.2const: Document TIOCL_SETSEL
- selection modes
-References: <20250302194331.5135-3-gnoack3000@gmail.com>
- <iv4zzsll7vbdkn7heborockwvxtv5y3ulld7za3hjvwkq2rccv@hj77rb65y355>
- <20250317174340.ig4cavquacmiuxxb@illithid>
- <csv25wv52i4pfwcovr33rocjei7eql5qtuwtpul44e33tuudxf@7buicn6quvd6>
- <d329ffb92f3e9bb22aeefb25df02a9cf@finder.org>
- <srbsuwx4ou3wrlr7shxz5gz6qp42af3azyx6c4vfkpupboifgy@7m7dtlshxraz>
- <20250330.8aeb7bdcfced@gnoack.org>
-MIME-Version: 1.0
-In-Reply-To: <20250330.8aeb7bdcfced@gnoack.org>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ man/man2/open_by_handle_at.2 | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-Hi G=C3=BCnther!
+diff --git a/man/man2/open_by_handle_at.2 b/man/man2/open_by_handle_at.2
+index 6b9758d42..ce3a2cec8 100644
+--- a/man/man2/open_by_handle_at.2
++++ b/man/man2/open_by_handle_at.2
+@@ -127,6 +127,7 @@ The
+ .I flags
+ argument is a bit mask constructed by ORing together zero or more of
+ .BR AT_HANDLE_FID ,
++.BR AT_HANDLE_CONNECTABLE,
+ .BR AT_EMPTY_PATH ,
+ and
+ .BR AT_SYMLINK_FOLLOW ,
+@@ -147,6 +148,29 @@ with the returned
+ .I file_handle
+ may fail.
+ .P
++When
++.I flags
++contain the
++.BR AT_HANDLE_CONNECTABLE " (since Linux 6.13)"
++.\" commit a20853ab8296d4a8754482cb5e9adde8ab426a25
++flag, the caller indicates that the returned
++.I file_handle
++is needed to open a file with known path later,
++so it should be expected that a subsequent call to
++.BR open_by_handle_at ()
++with the returned
++.I file_handle
++may fail if the file was moved,
++but otherwise,
++the path of the opened file is expected to be visible
++from the
++.IR /proc/ pid /fd/*
++magic link.
++This flag can not be used in combination with the flags
++.BR AT_HANDLE_FID ,
++and
++.BR AT_EMPTY_PATH .
++.P
+ Together, the
+ .I pathname
+ and
+@@ -311,7 +335,7 @@ points outside your accessible address space.
+ .TP
+ .B EINVAL
+ .I flags
+-includes an invalid bit value.
++includes an invalid bit value or an invalid bit combination.
+ .TP
+ .B EINVAL
+ .I handle\->handle_bytes
+@@ -398,6 +422,11 @@ was acquired using the
+ .B AT_HANDLE_FID
+ flag and the filesystem does not support
+ .BR open_by_handle_at ().
++This error can also occur if the
++.I handle
++was acquired using the
++.B AT_HANDLE_CONNECTABLE
++flag and the file was moved to a different parent.
+ .SH VERSIONS
+ FreeBSD has a broadly similar pair of system calls in the form of
+ .BR getfh ()
+-- 
+2.34.1
 
-On Sun, Mar 30, 2025 at 12:58:07PM +0200, G=C3=BCnther Noack wrote:
-> Thanks for your input!  You are correct that saying "bigger" is
-> unclear.  The alternatives are entertaining in a nerdy way ;-) but I'm
-> not sure that being mathematically exact here helps the purpose of
-> this man page. ;-)
->=20
-> The elephant in the room is that in the big scheme of things, this API
-> is pretty absurd: The API draws the mouse pointer at *one* position,
-> but there are *two* places where users can specify the coordinates.
->=20
-> Noone in their right mind would actually pass two coordinates and
-> would try to rely on the exact ordering semantics here.  The only
-> reasonable thing to do is to pass the coordinate in one of the two
-> places and leave the other place blank (0, 0).  The only ordering that
-> *actually* matters to callers is that their passed coordinate is
-> "bigger" than (0, 0).
->=20
-> These API semantics look like they happened by accident rather than by
-> intentional planning.  If the goal is to describe how an API *should*
-> get used, then spending too many words on ordering semantics here
-> would IMHO be distracting from the real thing that callers should do,
-> which I think should be *to fill one of the two coordinates and leave
-> the other blank*. :)
->=20
-> So if we describe this, I would like to make it as succinct as
-> possible and not draw unnecessary attention to it.
->=20
-> To make a constructive proposal, how about this phrasing:
->=20
->   Show the pointer at position (xs, ys) or (xe, ye),
->   whichever is later in text flow order.
->=20
-> ?  Does that sound reasonable?
-
-Yep, that sounds much better.  Thanks!
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---vzccdyfbldrwsur3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfpJesACgkQ64mZXMKQ
-wqlV1BAAgczyLY3S6Izg3z2Ikd8SmOQPfVk28Nn2NJ5fQtQlkHMOhjdLeK4pKpet
-lmX5GMUeKzeFllH5ZGrVCq6b6lt+JH96Dnb7rNCV6cffToBavYjGvnQWo8IAz0hG
-9W5pYnabRDXsNVAnVuuMKWF2Ec5ftXXDPnm4fqxqjh09Cr5ty7FHJGghVjN4nwQt
-PQRCdHELLZba2x35zp9lF2RtHXlMeaYJX4OV+0UdzDeothIxlz9ZZ6HcuWwIsxcv
-a5n+OlPxd7x4Kl8lR4HdQqKoIvd5qsMHH3VxkgirYo4enim2jjsK5Q6wCOa2KAax
-Lb6i3vtPOUOj3QhCBkH9XB8i3wkOV8d79eaYyQ2+iVCUsrcv6pONY5n2pvc1xWly
-eZ8t1pV6OGyKDU1EG/7q3j6QPEZMFEdVUxEmuIsBtB1dEDYgFP9HuNOCv+HpYBZQ
-t/cJcujfdqmDTrsY6XX+knrP87QQakOG3ouG8goH0n5l6oW+LHVs9WvGkGVkB70a
-mrpI1aIawTW2QtcMAxAOubSMK8jPutTH4qCc/85SbbWKrV+KiiqgnX76esNhdpDW
-Rd2af5ktCMJoPC8EgVbVFpNsNVrVmiLeHzA+PyoQa1UdkllLW3mv70uWDHJsAqLg
-FSQUY1tHVeqxr/uFMilr8MsCHTC0VU/qmcll+R49BGk7yW71WOo=
-=z/ox
------END PGP SIGNATURE-----
-
---vzccdyfbldrwsur3--
 
