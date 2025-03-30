@@ -1,171 +1,212 @@
-Return-Path: <linux-man+bounces-2679-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2680-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67089A75A57
-	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 16:31:40 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 269BAA75AA5
+	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 17:33:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 92E4318882C6
-	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 14:31:49 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A094B165962
+	for <lists+linux-man@lfdr.de>; Sun, 30 Mar 2025 15:33:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5955F288D2;
-	Sun, 30 Mar 2025 14:31:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 903561D61B7;
+	Sun, 30 Mar 2025 15:33:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F3nd61sd"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WTPvvIGL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663D846B5
-	for <linux-man@vger.kernel.org>; Sun, 30 Mar 2025 14:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E8C10785;
+	Sun, 30 Mar 2025 15:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743345096; cv=none; b=qMnOanCAqfvAYPqUQ3DHbhXptL12eSahunVz9WwbsNE6eo35WVzktj2z/ynKsIbLW1ue89umKavbRKJAa10K4gRZq82zGyfH1BQPJB0fh0/lRaeExYL7dZNbD4zy8lKWNwUomKQ+NZrg0riKoaz2gQBMDk165M1VyTWu5T/wB/o=
+	t=1743348814; cv=none; b=ErSNG1tH/jNiN/Zv8UA13PbpnI22iembRK9GxW93+38n+0lBUfZUxpGPu1ISsGdPrU4tBrkVcZV+FSTN37OK+5ZgzxXKTZpxUjOF6j7x6PTbyEiiaphv/MaVHARy1VhsQEfT3Akxig6wCIfcje4dWDaSe1LGwXCtGmG2Bvb+A28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743345096; c=relaxed/simple;
-	bh=cI8KeSbeuHGnU1xynNJ/4UjhJHemS20Bby6nADRju90=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bwCwI6d/Of5CQ2rIS7LjyMQ9MtxP63YncI0ArjVnPTpeoE8FU2i9t8++Sq2CSzBwWKdwsqgBlw87VYauHvJvkHNWR691ZfbLk2YZ4VaS+0RrNyS6LXCtWE9o+4zvYkgHZ82afE4KNdtQCq5LiIjO9NTVzfOGpdyK3McBA3VNSeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F3nd61sd; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1743348814; c=relaxed/simple;
+	bh=9QlWzno58XyR1h/zLxeQ2QMHS9b7ewxFun4RrKzC+rU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZwRxDTsZ8rRhhrvOJEP8jyPjRcMrBnxRVlkw+SNr2VhQaBMaMrrxcrbep6V++ijtaGrBoPtGGAFT1MfXtvsERYzsXiD6esA0fEic8Euh+RKDkyj1PCQDspsVLD7p1W80fjB7xoR2Gz0iVXD1Smsw4nLRNtU+BU6dnMYyjsvH0+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WTPvvIGL; arc=none smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-43cf848528aso32955125e9.2
-        for <linux-man@vger.kernel.org>; Sun, 30 Mar 2025 07:31:34 -0700 (PDT)
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-5e61d91a087so5938923a12.0;
+        Sun, 30 Mar 2025 08:33:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743345093; x=1743949893; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h/lYKji7/33oPEoQK9pL9J/c4CIWcMLQMxpupUwkxoc=;
-        b=F3nd61sdYm3wW8O29gmad3UDX7vpKCQ+xd43ZeHN2YbNfoLbf7mYnyc41XdBaaP9nO
-         waw/JxlqD4zz1Rkm3AQwc9fKTXdwi4dvDs4dgIXYx49Yv+49Xv1uIqZ555Si29eSeVUs
-         jwKp9KCaVLk1SHX7vjJXKv+tbZHKDYRNcX5wN/n1791v16jD9gsI+TCrtzklVoEe9AcH
-         jvrupWV596s/CYHRqCqHaRauqye11qkR32cTvasC60G/KX3RjzjYlhZK9UTV2NFeZ01f
-         QzJZOQUFHMzBo69dySP9Spz4AorZrY8vQhgFzmIpEUjixzePFnQ4P/frJ7dEEOl8Lpjy
-         JbXA==
+        d=gmail.com; s=20230601; t=1743348811; x=1743953611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LJYTkW7Lvyl2uH8anCEoiKEqzHmNJog1UdReBZaulNU=;
+        b=WTPvvIGLt63jNdXE+7eSuKMQFmGeuOPGhl3OSO48AxhsIMgmaYPLRgHsF5jsZD4wK5
+         mgLie8Qko4OHrLT7dbMurvp0nDLLQrQ5xZh3AmHbmMKyzzv+gQzaL5IKI9sy/ZloRxpB
+         DFunfRdWxYFD3tTzMjxaS1YQM4EYi0CtEyL6r3Oz2mqMhN2A4a1rGPY/DEr/MBd5/Kdm
+         vmDPbsUfsocegEHz4uCNwvdAkoaCj8YSD0LnvDUpEOc0V1+nlc/gr+NNEV6SWwNfLaY/
+         4phZNX12al1gljLQ7U6UFN0L5mBkYoYxBdk4+sqLejTbMMqSWbSiTfkfk/Mwb7WnjUIa
+         6iNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743345093; x=1743949893;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=h/lYKji7/33oPEoQK9pL9J/c4CIWcMLQMxpupUwkxoc=;
-        b=VM/N0k2ZmDVRj+nYZpADNDVTPAmfWD9QE2WZh2EXPwzqwb3G7Lvl9TFQBU2EFMs2vg
-         KOqTMpG4d+xjq/Tyg1ehVFhji/rdaVgZJ884p0MEpwtjjl3PzP3mYERGn+WpTYPdkOaY
-         Ilw2ZlWPfab/nci+YQCNoFQJ38joJ34VvUgcH/gW+6CF4OtKzU8Qq55xEbiKsrfoBsI9
-         iyDDSVb20DvcQ1QNRYcZJWf8gQlYrq8llVojNF5XTgYMbkCDu+ZxNBNt1EULjLEkoNem
-         tC5xn22IQT6n/xtYOdrOF6BvMHnTjs8yxHwUYrv9/f2vM5Dp2Mexlc9TIxt/Hqdgyw54
-         80yw==
-X-Forwarded-Encrypted: i=1; AJvYcCXAkENAPuL8pcRMn4HHfJ0EpMQaivvMP4lMVwXKZcQIucdYLl7ksjFK1TUFLaHed+3ltpXP18y0pdg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxsht0wygqSsNy5QIHUAif5RPDQazjnOugPGz0MxbSyln/FtwKf
-	T2kwbWDWlkWxJyHdt+rosKdgVHVTurkHXJq6mLxpCAMzKwao42A5
-X-Gm-Gg: ASbGncvCYGScWWk1SaS1lQWmyZr3rw06qgIhh/Rju+Oy7kRvj1pox+EXPvT+D2G5NGN
-	fdEumdl3AKAvC8MCJpdy8a8btoUOzwrXhsKgyy4NlB0Jtp32ch5/IA5utwxTC9yJNHNuEQIKhNE
-	pAJ0Otbww4/E71drtn4rmGJuGKpAvT3ef6b+HTu5qyyTqjWxmwRHsRcqvGvOqMwLp3EfgMszG7C
-	yM9NNMiaABne+N9hP76bqwiF/lUcfbvVqchoirFcfiHNu3dfvK7/rNaTUFeCOgjNOQ8aDu6CYBA
-	x2EYRubRdMu74wTpGdMf0uscSkNJ5YuvxJ5vRMRzy7VVHMcjlfQAvWDqw1PS9PVov3BkCPE=
-X-Google-Smtp-Source: AGHT+IG6djfJunZDoFyZJTbtbnzt1Rf+6Tx1tWg0ZWHidsA5uYv4bPpacNbl/xHen9UKAmZzuNUgVw==
-X-Received: by 2002:a05:600c:3b9d:b0:43c:f64c:44a4 with SMTP id 5b1f17b1804b1-43db6227411mr47730275e9.8.1743345092381;
-        Sun, 30 Mar 2025 07:31:32 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-43d900008d8sm91786615e9.33.2025.03.30.07.31.32
+        d=1e100.net; s=20230601; t=1743348811; x=1743953611;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LJYTkW7Lvyl2uH8anCEoiKEqzHmNJog1UdReBZaulNU=;
+        b=LeoXUh0ajMk4Su72kKu3POO2QINnQ/vFoaucy+YT+an1jeEqEe0OZ3P32oDehR+pn/
+         iuB8JUtAtOsKfeMuGjwAnTQX/v80W39PtsKjA5kLMvmnYzAU1soGcLBeXvI0gyliz167
+         MDbynXzqDURkFuBGrSZbd4LGdO/meM6LHBXdWgkanMvIa8KrMkFQoMzh6s+EqQQStwb+
+         V9eZyCJBu3oMa119geE1aca9g9g9Kg+vG1b1k3HYrQwmFLIxu+3FSG6WFgoi1olX74ng
+         TRU0LZN4F/9rzboOic7RixRWI2vJPcuC4B3X36RBtCtyoRhfr9e0AF5wFcw+LV9imhvv
+         QmgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0ua6w9eRYghmMq+6NuAxuRxs4g4tEcaDiuYNN0U5/8lQ4bs8XooPV4pP8oaJOFUd709Da9CjkPzkX@vger.kernel.org, AJvYcCX59E6FqGIz1rCPe0M/Y0I2wmZe3xUj+dMK2JgW/6Noc5IU3tKLr6TSfh7/WMEQ4Ldta/SOwkB2C0K8tvbB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/ybLbyFyPBcgT2gB5mgVtvo2vMRfPcXyX7dEry52jD8sTLZSe
+	E6HcSX7LdXetXYRYVagY5tXNdVdqVXIutst2Hahkas2An/93jle6
+X-Gm-Gg: ASbGncsseaML3HWhJD0La7bYciQgeeRCsSmwD0+8YnMP8D/Livjfb1CwByyvJXdqCkY
+	Mw7lCn/hyNQsIvw8FCzeRNll45SnIF+US9tQzmDj7QT61jwtm44KoSKnoSOppnU58hlFgTS0F46
+	/y4mT0kinFWPHKICSUZl1PPVv4E2eEEil1FmbWbOQ9m8nAqZgREzuml0yRBlae6eKPdOUuSksZ2
+	gvAeONJKekpQKCzkwS5peJ9ZYc3ftWIolbdUfWWAvHEeqZY3fx8nBdYGyW2oain8KB1J6bqN4/r
+	tQKrH31O2GY59ptBSQHw8yZNcf6WyTVt6eLxcG5fxihTms4ZOz9bH3SRjJz3N/g/4Vf2KX5uOlN
+	vVDpp/fkDY03pcltTFTWckD3SY/fkRIvILSI2A+ssHw==
+X-Google-Smtp-Source: AGHT+IG5IijeJ2G4lFlSbYr1vhIZCCimFZzJGcyibs2brNXwUSb9ktr6h3dazrHHNJy841O8SINcpA==
+X-Received: by 2002:a05:6402:5254:b0:5e4:92ca:34d0 with SMTP id 4fb4d7f45d1cf-5edfdaf9104mr5167195a12.20.1743348810263;
+        Sun, 30 Mar 2025 08:33:30 -0700 (PDT)
+Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5edc17b2034sm4365575a12.51.2025.03.30.08.33.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Mar 2025 07:31:32 -0700 (PDT)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Jared Finder <jared@finder.org>,
-	"G . Branden Robinson" <g.branden.robinson@gmail.com>,
+        Sun, 30 Mar 2025 08:33:29 -0700 (PDT)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Jan Kara <jack@suse.cz>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Christian Brauner <brauner@kernel.org>,
 	linux-man@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
-	=?UTF-8?q?Hanno=20B=C3=B6ck?= <hanno@hboeck.de>,
-	Jann Horn <jannh@google.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	jwilk@jwilk.net
-Subject: [PATCH v4 2/2] TIOCLINUX.2const: Document missing TIOCL_SETSEL selection modes
-Date: Sun, 30 Mar 2025 16:30:40 +0200
-Message-ID: <20250330143038.4184-5-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250330143038.4184-2-gnoack3000@gmail.com>
-References: <20250330143038.4184-2-gnoack3000@gmail.com>
+	linux-fsdevel@vger.kernel.org,
+	Richard Guy Briggs <rgb@redhat.com>
+Subject: [PATCH] fanotify.7: Document extended response to permission events
+Date: Sun, 30 Mar 2025 17:33:26 +0200
+Message-Id: <20250330153326.1412509-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Documents the following TIOCL_SETSEL sub-operations:
+Document FAN_DENY_ERRNO(), that was added in v6.13 and the
+FAN_RESPONSE_INFO_AUDIT_RULE extended response info record
+that was added in v6.3.
 
-* TIOCL_SELPOINTER
-* TIOCL_SELCLEAR
-* TIOCL_SELMOUSEREPORT
-
-These previously undocumented selection modes for the Linux console
-are implemented in drivers/tty/vt/selection.c.  The name "selection
-mode" is slightly misleading as not all of them actually manipulate
-the kernel's mouse selection buffer.
-
-Includes clarified semantics pointed out by Jared Finder.
-
-Cc: Jared Finder <jared@finder.org>
-Cc: Hanno Böck <hanno@hboeck.de>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: jwilk@jwilk.net
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+Cc: Richard Guy Briggs <rgb@redhat.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- man/man2const/TIOCLINUX.2const | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
 
-diff --git a/man/man2const/TIOCLINUX.2const b/man/man2const/TIOCLINUX.2const
-index f2c8d0720..61f1c596d 100644
---- a/man/man2const/TIOCLINUX.2const
-+++ b/man/man2const/TIOCLINUX.2const
-@@ -84,6 +84,40 @@ Select line-by-line,
- expanding the selection outwards to select full lines.
- The indicated screen characters are highlighted
- and saved in a kernel buffer.
-+.TP
-+.B TIOCL_SELPOINTER
-+Show the pointer at position
-+.RI ( xs ,\~ ys )
-+or
-+.RI ( xe ,\~ ye ),
-+whichever is later in text flow order.
-+.TP
-+.B TIOCL_SELCLEAR
-+Remove the current selection highlight, if any,
-+from the console holding the selection.
-+.IP
-+This does not affect the stored selected text.
-+.TP
-+.B TIOCL_SELMOUSEREPORT
-+Make the terminal report
-+.RI ( xs ,\~ ys )
-+as the current mouse location
-+using the
-+.BR xterm (1)
-+mouse tracking protocol
-+(see
-+.BR console_codes (4)).
-+The lower 4 bits of
-+.I sel_mode
-+.RB ( TIOCL_SELBUTTONMASK )
-+indicate the desired button press and
-+modifier key information for the mouse event.
-+.\" <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Normal-tracking-mode>
-+.IP
-+If mouse reporting is not enabled for the terminal,
-+this operation yields an
-+.B EINVAL
-+error.
- .RE
- .IP
- Since Linux 6.7, using this subcode requires the
+Alejandro,
+
+I was working on man page updates to fanotify features that landed
+in v6.14 and found a few bits from v6.3 that were out of date, so
+I added them along with this change.
+
+If you want me to split them out I can, but I did not see much point.
+
+This change to the documentation of fanotify permission event response
+is independent of the previous patches I posted to document the new
+FAN_PRE_ACCESS event (also v6.14) and the fanotify_init(2) flag
+FAN_REPORT_FD_ERROR (v6.13).
+
+There is another fanotify feature in v6.14 (mount events).
+I will try to catch up on documenting that one as well.
+
+Thanks,
+Amir.
+
+ man/man7/fanotify.7 | 60 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 59 insertions(+), 1 deletion(-)
+
+diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
+index 6f3a9496e..c7b53901a 100644
+--- a/man/man7/fanotify.7
++++ b/man/man7/fanotify.7
+@@ -820,7 +820,7 @@ This is the file descriptor from the structure
+ .TP
+ .I response
+ This field indicates whether or not the permission is to be granted.
+-Its value must be either
++Its value must contain either the flag
+ .B FAN_ALLOW
+ to allow the file operation or
+ .B FAN_DENY
+@@ -829,6 +829,24 @@ to deny the file operation.
+ If access is denied, the requesting application call will receive an
+ .B EPERM
+ error.
++Since Linux 6.14,
++.\" commit b4b2ff4f61ded819bfa22e50fdec7693f51cbbee
++if a notification group is initialized with class
++.BR FAN_CLASS_PRE_CONTENT ,
++the following error values could be returned to the application
++by setting the
++.I response
++value using the
++.BR FAN_DENY_ERRNO(err)
++macro:
++.BR EPERM ,
++.BR EIO ,
++.BR EBUSY ,
++.BR ETXTBSY ,
++.BR EAGAIN ,
++.BR ENOSPC ,
++.BR EDQUOT .
++.P
+ Additionally, if the notification group has been created with the
+ .B FAN_ENABLE_AUDIT
+ flag, then the
+@@ -838,6 +856,46 @@ flag can be set in the
+ field.
+ In that case, the audit subsystem will log information about the access
+ decision to the audit logs.
++Since Linux 6.3,
++.\" commit 70529a199574c15a40f46b14256633b02ba10ca2
++the
++.B FAN_INFO
++flag can be set in the
++.I response
++to indicate that extra variable length response record follows struct
++.IR fanotify_response .
++Extra response records start with a common header:
++.P
++.in +4n
++.EX
++struct fanotify_response_info_header {
++    __u8 type;
++    __u8 pad;
++    __u16 len;
++};
++.EE
++.in
++.P
++The value of
++.I type
++determines the format of the extra response record.
++In case the value of
++.I type
++is
++.BR FAN_RESPONSE_INFO_AUDIT_RULE ,
++the following response record is expected
++with extra details for the audit log:
++.P
++.in +4n
++.EX
++struct fanotify_response_info_audit_rule {
++    struct fanotify_response_info_header hdr;
++    __u32 rule_number;
++    __u32 subj_trust;
++    __u32 obj_trust;
++};
++.EE
++.in
+ .\"
+ .SS Monitoring filesystems for errors
+ A single
 -- 
-2.49.0
+2.34.1
 
 
