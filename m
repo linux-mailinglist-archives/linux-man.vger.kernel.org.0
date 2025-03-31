@@ -1,138 +1,116 @@
-Return-Path: <linux-man+bounces-2693-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2694-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7836EA76137
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:18:04 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE19CA76257
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:33:01 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D04CB3A6AE8
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:17:49 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A6C3B167EC2
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:33:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28925157A5A;
-	Mon, 31 Mar 2025 08:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F26B1DE2DF;
+	Mon, 31 Mar 2025 08:28:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1ONHfwH"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O8dUKQFu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF0641AAC
-	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D61CAA87
+	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743409079; cv=none; b=U7c5QJFghTmQF8TXBii8lzRRlct50tpzK8yRPGBa7CYw3SbN9JxiOpwNpyfu85qi1Aj2LuYvgZ/E/Y+Ss64UN134u3KmxXNCSqU81EGmRVU3v8YJb/5LPpfeBtGnjo2zRiUYPIo0jr1PxMepHCKLNO+FvbQ0F77yu2sGW82fTQI=
+	t=1743409687; cv=none; b=UdpTSb0MgZnOBnfwO8E9pjvYlvyf4XIDZ8S5Mfzas1KhKMQtaK/8LIR+VVGXiH8eBp9QloErmMGrAGR3FeUaSFqWYBzF2yqRt4FDSJBbky7oy4Nume3vBjXD4AA9aHi47tj8Tqupv/OXr6QIgvPKVVMKGCf4b9BHFf8y0/6LnP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743409079; c=relaxed/simple;
-	bh=momboR6IJBOFrgulpgN4ThYr043e60J1xE/W1yC1fxE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RxPoIwOQbcAhOEqMJjFB2pDoorgTrq+zUwegfpvVGaekNuMadBNGEdeTbJ5i3p5Vvb/bjDrpK1Wbv7EFCouYIEPKyVipyXG42llrJpb8VsXvZP4qWUkIjU1ER5eOXXMlryqk5h1ig9H8GWCb15ksIwsSnUS9O2pnEF9rDSfBsTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1ONHfwH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4924DC4CEED
-	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:17:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743409079;
-	bh=momboR6IJBOFrgulpgN4ThYr043e60J1xE/W1yC1fxE=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=P1ONHfwHdPcbIOIdjcNKwwXXOSkO2tEgr8rhDeMOGFTH1lS5PL3w5llEgPj9yJaEV
-	 SVYebCisolwUr5fabRdqeMHSEPIbZkDczpi36BwdbTVtYkYK49cxjl+XNmDBXI/EjT
-	 5klHqQFmOX3LKPt+Rb+gV3l1J7OanfzRVuvhbfA1n1g1KeGAGwt+0F1ekXCY7DJpu1
-	 0qc0GSFSzoBfibwf1SB0IUZRKhK52TFxCOBmXx4uqN0hd4rdvvpJjXW2dGw4eAAvb+
-	 pR2p5Rcnjn25l3A5FNsMJr5TuFuDR9iGs8FmmLwHa/UMwUlabTMzHMkY9lnpBWNWzd
-	 yt5YeG9UOQZ8A==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id 366ABC53BC9; Mon, 31 Mar 2025 08:17:59 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: linux-man@vger.kernel.org
-Subject: [Bug 219822] mount option lazytime is independent of
- strictatime/relatime/noatime
-Date: Mon, 31 Mar 2025 08:17:58 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-219822-11311-9Lr79Eh4eI@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-219822-11311@https.bugzilla.kernel.org/>
-References: <bug-219822-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+	s=arc-20240116; t=1743409687; c=relaxed/simple;
+	bh=Mcn8HmETSPHz6jnAPEQx9XYIHJGTshzs/AIQAvuq1Io=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=merScxeSGSh54Vti7m+os9OM2789ivB3Tf5kRT0UxA6+NyfKIpXKhs+sDlpShiHaoKfZ/Kq11GzQmVhst77pmP+xkac72lIs6No/TXW6XyL5YaX6nVv4j4FSq5x4Qc/6VqacbESUGtB0mGMLhzptU9kcjfCWZMzd8yJLffIgOV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O8dUKQFu; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-5e61da95244so7793025a12.2
+        for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 01:28:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1743409684; x=1744014484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dVPgKjzHo6+Ai0m13cpzq/P86SV9TJzv2obIhU5Y8K4=;
+        b=O8dUKQFufMsrxIyt1D7nNEb+QNIvdeqLvX46Fk2nsmkhR/L/KZ4h2WZ6HczhE+107H
+         BJiDRaPA3cSVJvGrA/EqpGHKbf8xd7KC4AaMiDjYLnEG8grfBecmApjwicr/7/Y6l05s
+         xPRx2ulQswbu46D7lH8cFyQAjlq3p5DuWsOpYqNuCKc/F/Y4aR40PDZfMC0tMwVrru5o
+         qhOTcnlvqvb/ulR1AotW7pICypD9LWa11+Flw7HdtCo+OoUZpOGvlVSNAyfmat/o/MU4
+         H+OCwvQpwsliO2NHvlBZLvPSZZKc9Ywpp7CdUjeV3wVaO5WJTLayeaWuAKsZL0dDYouP
+         Haow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743409684; x=1744014484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dVPgKjzHo6+Ai0m13cpzq/P86SV9TJzv2obIhU5Y8K4=;
+        b=b6TveueARbNjxvbpD9lHoQuBXcorLyucd3UPSjPAMIoGsp0PUrg9ZMjJiS1y2Z3w1w
+         6IMLQWAcMzJ2yV6EcsDRIhFoGyQ2ULcYeMIpwIfAYSQE6HL0OoOB8xV38wzhonAHf4Fr
+         naElCU7Wokwbe5ftaWBM+coioKVWehcwKC1oy5hABd//n/Z/x1fkbOArPztb0W5R7nL+
+         2UijLEDHmG0jyMPWPK+j4og8IgrAWu4wJmej6tr+51qioJNFquTMeZxNyI0wAgygt4SO
+         Cp1Ul9QQaairCrD4p4lJnhi+PFGWl+FB+cSbNdYJilUu2H4KT6QB3CPuj1tOYIunXcxT
+         ZqYA==
+X-Forwarded-Encrypted: i=1; AJvYcCVoOBEmkM2+fJ0QLXX9ZthTxqIQpjsilV7lVFVSzifu9PjJNT6LQalduAV4u4VM3/vzMR6aYEg98VE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOqVmkuuTOSJSplX/4FkpZaNFJoE3fsjWh8ItaO91hldNAXHSS
+	0p/WMD6k45L7qoa6iGRFAiu9APi5i4psg5a/J9EObBZvh8c1V0TC
+X-Gm-Gg: ASbGnctQuC0qpHcRVWcY8PmHVSVRa8PLhDXQkkE7UXOpkbiOlb6doi6J4fkmnuqOJ2q
+	nZpZC/jpmIPGn33BDb2Q4bnTl/POGfn327TU6WDUKyg+8QjEj2ku3qRJ40Xr8MAxuhXCan7TAJW
+	Jo4oZFbMgWUMiZ8FQTMZiNQTItBiolQQjmI7su9fXWVMicRWYF/mU8qdDWKaHx5ZcyxAA/UZPae
+	jZbnjTblISK+Pww7gpy2S4suauAzQmrNo/0fQ2HZn6gq1sAN61rXJjHNV6nQOSh4LtH5D53EHdT
+	nFYx2geTQY9ksG6OmDrDK/FB9KmUAUz1nBBYAtHWYiO3iib/P3B2MldEQyBGCnLeWELUCHqJtLa
+	z1Rv/j3j7PQkrD8Nqi5ZrFkLpeNKCJWUQ1NdnAn58JAEA9MISCCZi
+X-Google-Smtp-Source: AGHT+IFbrp6eU1gZjrQcgWzq9Neyzpe3E2f/jvfhx7adD2x9gtkSLhAQpss6z3noO0+zDQJszd4XHA==
+X-Received: by 2002:a05:6402:274e:b0:5ed:764f:dd73 with SMTP id 4fb4d7f45d1cf-5edfdafb4damr6633179a12.20.1743409683504;
+        Mon, 31 Mar 2025 01:28:03 -0700 (PDT)
+Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5edc16ef7a7sm5468722a12.36.2025.03.31.01.28.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Mar 2025 01:28:03 -0700 (PDT)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Jan Kara <jack@suse.cz>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v2 1/3] fanotify.7: wfix
+Date: Mon, 31 Mar 2025 10:27:57 +0200
+Message-Id: <20250331082759.1424401-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D219822
+Since the introduction of the FAN_AUDIT response flag,
+the response field of fanotify_response is no longer an enum
+it is now a bitmask, so fix the wording around FAN_ALLOW and
+FAN_DENY.
 
---- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
-Hi,
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ man/man7/fanotify.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Feb 26, 2025 at 04:55:40PM +0000, bugzilla-daemon@kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D219822
->=20
->             Bug ID: 219822
->            Summary: mount option lazytime is independent of
->                     strictatime/relatime/noatime
->            Product: Documentation
->            Version: unspecified
->           Hardware: All
->                 OS: Linux
->             Status: NEW
->           Severity: normal
->           Priority: P3
->          Component: man-pages
->           Assignee: documentation_man-pages@kernel-bugs.osdl.org
->           Reporter: cquike@arcor.de
->         Regression: No
->=20
-> According to a message from Theodore Ts'o ([1]) the lazytime option in mo=
-unt
-> is
-> "independent" of the other atime behaviours.
->=20
-> I see that the man page explains what lazytime does but it is not clearly
-> stated that it can be combined with other options like strictatime or
-> relatime.
->=20
->=20
-> [1] https://www.spinics.net/lists/linux-fsdevel/msg86233.html
+diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
+index a5ddf1df0..ad864b762 100644
+--- a/man/man7/fanotify.7
++++ b/man/man7/fanotify.7
+@@ -769,7 +769,7 @@ This is the file descriptor from the structure
+ .TP
+ .I response
+ This field indicates whether or not the permission is to be granted.
+-Its value must be either
++Its value must contain either the flag
+ .B FAN_ALLOW
+ to allow the file operation or
+ .B FAN_DENY
+-- 
+2.34.1
 
-Would you mind sending a patch to the mailing list and CCing Ted and any
-one (or any list) else that would be interested?
-See also:
-<https://web.git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTR=
-IBUTING>
-
-
-Have a lovely day!
-Alex
-
->=20
-> --=20
-> You may reply to this email to add a comment.
->=20
-> You are receiving this mail because:
-> You are watching the assignee of the bug.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
 
