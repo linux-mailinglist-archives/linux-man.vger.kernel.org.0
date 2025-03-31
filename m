@@ -1,84 +1,88 @@
-Return-Path: <linux-man+bounces-2710-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2709-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 914BBA76703
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 15:40:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D05A8A76702
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 15:40:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4E18218893A1
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 13:40:24 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 88FA6188A46F
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 13:40:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27730212B04;
-	Mon, 31 Mar 2025 13:40:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A72C7212B1B;
+	Mon, 31 Mar 2025 13:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ct/yzjAx"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8JOndRA"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9D2211A3C
-	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 13:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5D21DED56
+	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 13:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743428407; cv=none; b=ugZwAEruaHp6kW7tz+y8fVxntpeshTTLWNcuIA8+6a8CletNlbMQML71fGIxgSN6mSB92Bv+UHnh3RHMzlxldKEDZ0K4RQxV1R7+8EniTlcSgO1BUEvGekydi6w/pJ1wpXemMwQL8FNFwlC3VvQ1VVl3vO1rqR/rlxi5h+x6Ggg=
+	t=1743428407; cv=none; b=G6lqFK/xdLJpgC5ptxin2aPsFDanb1WkE1ODIj5+LytogcIIvL000cYHY5t3rHkjsVnEggJJwtk1o7j4gELaBviNHX0cxGdBjdJPkmcWwSb7KUgPNcGz5XhXLsU/UloiAknRiNTqItXxEtMW/Xy7ZyY5Rea9HqMs4iqgB9P2/NI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1743428407; c=relaxed/simple;
-	bh=U6YSSM9g4G1Ty8/5UG4VBMaeBJi3HzW179X+q7HDjms=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KXEkO3L4gwGXRhk3LDlwaIv1lWnts6YxaSHxeyM7GfzrnjogukFTIdq7tIRVD/xAFetTTS8WQi5ClKqoWfsg15ZJ3iKSKY6JRtDcOmdl6ERQaeSyA143xxkOhcqG7aQreJZJjpvymtfJOxNNpXhOREhphjyFSJHAZFc9eKVOFSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ct/yzjAx; arc=none smtp.client-ip=209.85.221.52
+	bh=QFb2cjzAtDnZ24uEHdAK0NI1bGSCXO1MNR+W+/6K5yc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QCDqEoF2ldm0let97EKaSedUZ6+rkvi5hkcoEf7A93OXXLuliOMAUVZd0lLIl0WRl/gLFHsDYb5PrK8vRPQNFZKoM8bovLPI08nEViRRHKWQoeGHCuUumk+Yk/28gIor1ElMC7pMZ6hctIJN43V8bY/JjUs8ZvZIAjA+E3sbW8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8JOndRA; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-39ac56756f6so3826115f8f.2
-        for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 06:40:04 -0700 (PDT)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-39c1ee0fd43so433523f8f.0
+        for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 06:40:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743428403; x=1744033203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ryAYAxtXD0Kut+PiZa+cegX+UfZlq1bRRiL5JR1He0g=;
-        b=ct/yzjAxpc+u4X1nIxKOG+m4wKd9h1G0U0+lFWZlTSdv9L84RKq4LN49GiI8vPCk+G
-         5MV8h92UBp6gA4F3PR5ji1xXRI+pdVdzLSufzfD8KEzqsZ7A7xxda2JwBkWl6aUcGZNC
-         DYpGUeMIlJQUmUtrerYTnpBs+aj+DIrZXlWQY4vQ7YFWfwq+NGqm3r/XGkhYIeDrpUGD
-         Z6nK7k/84iM2Vo78WjIG+6pPGmTlq+0GN1fVSDqIIJcA83cfUz6VS516c08LQh4TAJIa
-         xPIWUGVTGlpjPKyLt0rSPzy3ww5DCTRAdr5G0UG6rX2bDnCWz5hG5MpjUiI8al1RPMTW
-         9kxQ==
+        d=gmail.com; s=20230601; t=1743428404; x=1744033204; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ICvjY9epGUUckKQEJkNZAZFI+uyzFSGVayDZJ9Egd/E=;
+        b=Y8JOndRAJRCwY+r1E5bv3wPVUK+uVLgZP1UnXQs+GFkGaSxEmS9pWsUpo9cXfKDFaW
+         FsWGHTh5iWFMKlEUO3ZhFiu9euad4N6q0wRhzICeKdymW+PCiZwfeMj3W1us/R2TbzmP
+         YWBEELO0L4uArcEgL1225HBqYbhvXQXfdxQLilLy2ccqkZiZ6OdL/H89FtNYhKmtRnV9
+         vU3swsbDtlQVtT04SWXzx4rJIMPb6VnDuHqyTI1lce4grso3aZSMO1nWL/yUskkILZwY
+         W27MzABFl8uZmKb7b3/SDxjniS85HRyVjI6BiZt88aPLLRSxJ201Dic1fHCl1/O5YsSu
+         bRGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743428403; x=1744033203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ryAYAxtXD0Kut+PiZa+cegX+UfZlq1bRRiL5JR1He0g=;
-        b=m4qED42hXsx5R9NvDyAtw539q0SHJ53uzoF5xGgkcLjevjUABv6rXO1WM7D/bOtDrj
-         iKynBUjGZ96iv3EBXxEbFdP/BcvteeEDdeVR9aT5bG8Tib5IDCM2wzsQPFheU2/Y4zSM
-         0MMbrd6J4dTLlSF3ZQeKpJo58PxRqKVfEHnuhf1F/9B65CUljQWcxh5YMLTKYT19PKWR
-         l0wS37JSvDnInoAaFEWXTnE1E54n3C4FSBqK5pxqioTy4R4I9CvmtHZYCL159z/ND1+K
-         Py4HW8nz6XJihfqHjJBk3yr9eWHbTqm6OVjPTgJO0M+hi1xAhuKyvTduW72NLCQxL+Nf
-         cx2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWf36+uf4KTsY8Bmz7RZKlJTm994huntO86kbJA1cap64S3PRBejtkkNCsu6Qd0rhiPX6CVTN0Khx8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzm4BaFMLeeNle5EjLMIZkZqv6EspT0SbERYBBO98jQb9tZeF56
-	YhXnWdoyjNnkZ6iFPwBLOsRhA8xR/qFDPnC9I4rXaQAjqVIJWLACGHOF1M7x
-X-Gm-Gg: ASbGnct6feK0M3w9o2Rv2ne+2Q4SldyaKGxp9+wXW3nxe5WThvM1vaQNgwGmG5TkS3D
-	NLTgOt3pmdFiITbwBmpk5MyWRvSDFqZQcAU/aVjJqu+ug+dbv533p+Rf3HwkEIZTyIk+W1xwm1+
-	h0FyjlunIe0qUvaOVGfqbQDHWlX0W7rZQ5JcKAaIFy0fKK6h+mqFt08Qiw7HeWx3Rp/vylToZ6H
-	f1vfMOQXBt0hXaKVRGLx1DjdVynbtp4of/DtGEqMkqRBx9nEbHavxVOD0E2ZRVqRa36nHTJpWWo
-	CTZV8kb096B5bnHKkPhnDDkQM/hDCk+EbhQy+GePXkErSa4MdDS0Bhwx2d7Df+ZMRco4nOvpbR4
-	GDZREjIM5ApERMuWsqIF8e28as3H0tADmEsajNzthEQ==
-X-Google-Smtp-Source: AGHT+IEOFnmJhcBZWjnXGDmYBnBPvm7l6Aj9GkCmj90Udb7JR9puR4GvAXkyAFpbSJlmIDmJUZYJZQ==
-X-Received: by 2002:a05:6000:1acd:b0:391:3124:f287 with SMTP id ffacd0b85a97d-39c120de782mr6654773f8f.16.1743428403064;
+        d=1e100.net; s=20230601; t=1743428404; x=1744033204;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ICvjY9epGUUckKQEJkNZAZFI+uyzFSGVayDZJ9Egd/E=;
+        b=s1bjsAaJwrpbwj7OYWMprzitHtD4BMnh016S/GmuO3eT+oBMeyPaS0h2A0MBAMeCNG
+         Rzj5wrqunUOUn+zAb/jhmz43St/iuoefR4qMj/Eq39a1CHDbAAsbpVqUTi43c2gbXjun
+         MnNHRugU20NDBnjPeM6ZB0wXIIXsoEbpkS9EMtILdZr0mVsGPCm1LYRYqwxGRSaIjaW8
+         Oa8aBxuQEYvHYUVPUKrHwZtlMJed+f0tjnSSpt2mXbYy1QLj6/jBvJYBGp2Pz7I+S2dG
+         aHvAQIvqUaRofSRQjtbOmdmRZPmhmk9YMZp7O5rE3uYEHx9Pm6f/Ok9F+vBmt1bh9nWh
+         Gphg==
+X-Forwarded-Encrypted: i=1; AJvYcCXFZidPQXtG6VRpur41SQBP1USBwHJpk/iNSjshsQ6HZiUSO9MgW/D+kEk0qe2cTyGE4sjafo74kOQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzB6zAVjTGO59JVQGZJP9EV5LDurcDjqTu2bOJQ1HMQQ9dGchTW
+	LE9f8DHWB99QVZyQ5zyEhcm7n2NZgDmY2oUtE27Qn1rauTdZqdwG
+X-Gm-Gg: ASbGnctj7LxSJZzTC0cDfE5VG/OtQLxe0DdpJ+uiDluKvWgl/lLuQ/Ki+UsHeggDe7G
+	759UQXhUHEhKQYjQw5irQxbkkEXwXSLcMbcydwZXkv3SdLOgI3d/pM5hJ3tdS3Mnm0wSBr788o9
+	vvaiUiL0OsDLWBgUeoXB6vl0vNor7vuN/OI7jRZPyHjC8QqWGpdPTC/vYd4CeEO1oUmUzQjP5yQ
+	V7MIOKczNdNK8pzEmbEOMmdIdeD4M8kMmp4QOYqtsi8+aAQKsBNZbxg3LjpvIcUlqLRFX04NiIx
+	qPVH+443aplVdUtpW5nCgjwQzZp2x6lRuvbfmaSGR5i62W+MNAd+qEZxwr0Fhd9rpRW4SXMcjce
+	N0j2c4M1MGiB3nWFk9eK0VT09VZRgEMRp/Emgf06wKw==
+X-Google-Smtp-Source: AGHT+IEf4spPTSx7xPamAKN3O10Wi88tFHGwQNK0Qlp6sDkuTa5xAIJ+eIM4GtNzHAQb7BJSnX4vYA==
+X-Received: by 2002:a05:6000:184e:b0:39c:12ce:8f4 with SMTP id ffacd0b85a97d-39c12ce0e08mr6721900f8f.18.1743428403681;
         Mon, 31 Mar 2025 06:40:03 -0700 (PDT)
 Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39c0b7a41e8sm11498823f8f.92.2025.03.31.06.40.02
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39c0b7a41e8sm11498823f8f.92.2025.03.31.06.40.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Mar 2025 06:40:02 -0700 (PDT)
+        Mon, 31 Mar 2025 06:40:03 -0700 (PDT)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Jan Kara <jack@suse.cz>,
 	linux-man@vger.kernel.org
-Subject: [PATCH v2 1/3] fanotify: Document FAN_REPORT_FD_ERROR
-Date: Mon, 31 Mar 2025 15:39:57 +0200
-Message-Id: <20250331133959.1436376-1-amir73il@gmail.com>
+Subject: [PATCH v2 2/3] fanotify: Fixes for documentation of FAN_FS_ERROR
+Date: Mon, 31 Mar 2025 15:39:58 +0200
+Message-Id: <20250331133959.1436376-2-amir73il@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250331133959.1436376-1-amir73il@gmail.com>
+References: <20250331133959.1436376-1-amir73il@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -87,95 +91,132 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This flag from v6.13 allows reporting detailed errors on failure to
-open a file descriptor for an event.
+FAN_EVENT_INFO_TYPE_ERROR was missing from the list of info types.
 
-This API was backported to LTS kernels v6.12.4 and v6.6.66.
+The order of FAN_FS_ERROR entry in the event section was rather
+arbitrary inside the group of fid info events.
 
-Cc: Krishna Vivek Vitta <kvitta@microsoft.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
+FAN_FS_ERROR is a special event with error info, so place its entry
+after the entries for fid info events and before the entries for
+permission events.
+
+Reduce unneeded newlines in the FAN_FS_ERROR entry.
+
+Cc: Jan Kara <jack@suse.cz>
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
 
-Changes from v1:
-- Added RVB
-- typo and format fixes
+Alejandro,
 
- man/man2/fanotify_init.2 | 28 ++++++++++++++++++++++++++++
- man/man7/fanotify.7      | 14 ++++++++++++++
- 2 files changed, 42 insertions(+)
+This unrelated cleanup was plit out of the FAN_PRE_ACCESS
+patch and I have also added some extra cleanup in preparation for
+adding mount events.
 
-diff --git a/man/man2/fanotify_init.2 b/man/man2/fanotify_init.2
-index fa4ae9125..bf573c6fa 100644
---- a/man/man2/fanotify_init.2
-+++ b/man/man2/fanotify_init.2
-@@ -364,6 +364,34 @@ so this restriction may eventually be lifted.
- For more details on information records,
- see
- .BR fanotify (7).
+If you were going to re-organize the section describing the different
+extra event info types, maybe better doing this after merging the new
+types from v6.14: FAN_EVENT_INFO_TYPE_RANGE and FAN_EVENT_INFO_TYPE_MNT.
+
+Thanks,
+Amir.
+
+ man/man2/fanotify_mark.2 | 44 +++++++++++++++++++---------------------
+ man/man7/fanotify.7      |  7 ++++---
+ 2 files changed, 25 insertions(+), 26 deletions(-)
+
+diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
+index 47cafb21c..1d132fa1a 100644
+--- a/man/man2/fanotify_mark.2
++++ b/man/man2/fanotify_mark.2
+@@ -362,29 +362,6 @@ Create an event when a marked file or directory itself is deleted.
+ An fanotify group that identifies filesystem objects by file handles
+ is required.
+ .TP
+-.BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
+-.\" commit 9709bd548f11a092d124698118013f66e1740f9b
+-Create an event when a filesystem error
+-leading to inconsistent filesystem metadata is detected.
+-An additional information record of type
+-.B FAN_EVENT_INFO_TYPE_ERROR
+-is returned for each event in the read buffer.
+-An fanotify group that identifies filesystem objects by file handles
+-is required.
+-.IP
+-Events of such type are dependent on support
+-from the underlying filesystem.
+-At the time of writing,
+-only the
+-.B ext4
+-filesystem reports
+-.B FAN_FS_ERROR
+-events.
+-.IP
+-See
+-.BR fanotify (7)
+-for additional details.
+-.TP
+ .BR FAN_MOVED_FROM " (since Linux 5.1)"
+ .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
+ Create an event when a file or directory has been moved from a marked
+@@ -418,6 +395,27 @@ Create an event when a marked file or directory itself has been moved.
+ An fanotify group that identifies filesystem objects by file handles
+ is required.
+ .TP
++.BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
++.\" commit 9709bd548f11a092d124698118013f66e1740f9b
++Create an event when a filesystem error
++leading to inconsistent filesystem metadata is detected.
++An additional information record of type
++.B FAN_EVENT_INFO_TYPE_ERROR
++is returned for each event in the read buffer.
++An fanotify group that identifies filesystem objects by file handles
++is required.
++Events of such type are dependent on support
++from the underlying filesystem.
++At the time of writing,
++only the
++.B ext4
++filesystem reports
++.B FAN_FS_ERROR
++events.
++See
++.BR fanotify (7)
++for additional details.
 +.TP
-+.BR FAN_REPORT_FD_ERROR " (since Linux 6.13 and 6.12.4 and 6.6.66)"
-+.\" commit 522249f05c5551aec9ec0ba9b6438f1ec19c138d
-+Events for fanotify groups initialized with this flag may contain
-+an error code that explains the reason for failure to open a file descriptor.
-+The
-+.I .fd
-+member of the
-+.I fanotify_event_metadata
-+structure normally contains
-+an open file descriptor associated with the object of the event
-+or FAN_NOFD in case a file descriptor could not be opened.
-+For a group initialized with this flag, instead of FAN_NOFD,
-+the
-+.I .fd
-+member of the
-+.I fanotify_event_metadata
-+structure will contain a negative error value.
-+When the group is also initialized with flag
-+.BR FAN_REPORT_PIDFD ,
-+in case a process file descriptor could not be opened,
-+the
-+.I .pidfd
-+member of the
-+.I fanotify_event_info_pidfd
-+structure will also contain a negative error value.
-+For more details, see
-+.BR fanotify (7).
- .P
- The
- .I event_f_flags
+ .B FAN_OPEN_PERM
+ Create an event when a permission to open a file or directory is requested.
+ An fanotify file descriptor created with
 diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-index a532a963a..fd16bf294 100644
+index fd16bf294..614410cd9 100644
 --- a/man/man7/fanotify.7
 +++ b/man/man7/fanotify.7
-@@ -335,6 +335,13 @@ file status flag is set on the open file description.
- This flag suppresses fanotify event generation.
- Hence, when the receiver of the fanotify event accesses the notified file or
- directory using this file descriptor, no additional events will be created.
-+.IP
-+When an fanotify group is initialized using
-+.BR FAN_REPORT_FD_ERROR ,
-+this field will contain a negative error value in case a file descriptor
-+could not be opened and
-+in case of a queue overflow, the value will be
-+.BR \-EBADF .
+@@ -395,9 +395,6 @@ A child file or directory was deleted in a watched parent.
+ .B FAN_DELETE_SELF
+ A watched file or directory was deleted.
  .TP
- .I pid
- If flag
-@@ -679,6 +686,13 @@ Once the event listener has dealt with an event
- and the pidfd is no longer required,
- the pidfd should be closed via
- .BR close (2).
-+.IP
-+When an fanotify group is initialized using
-+.BR FAN_REPORT_FD_ERROR ,
-+this field will contain a negative error value
-+in case a pidfd creation failure and
-+in case of a terminated process, the value will be
-+.BR \-ESRCH .
- .P
- The fields of the
- .I fanotify_event_info_error
+-.B FAN_FS_ERROR
+-A filesystem error was detected.
+-.TP
+ .B FAN_RENAME
+ A file or directory has been moved to or from a watched parent directory.
+ .TP
+@@ -425,6 +422,9 @@ A file or directory that was opened read-only
+ .RB ( O_RDONLY )
+ was closed.
+ .TP
++.B FAN_FS_ERROR
++A filesystem error was detected.
++.TP
+ .B FAN_Q_OVERFLOW
+ The event queue exceeded the limit on number of events.
+ This limit can be overridden by specifying the
+@@ -510,6 +510,7 @@ The value of this field can be set to one of the following:
+ .BR FAN_EVENT_INFO_TYPE_FID ,
+ .BR FAN_EVENT_INFO_TYPE_DFID ,
+ .BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
++.BR FAN_EVENT_INFO_TYPE_ERROR ,
+ or
+ .BR FAN_EVENT_INFO_TYPE_PIDFD .
+ The value set for this field
 -- 
 2.34.1
 
