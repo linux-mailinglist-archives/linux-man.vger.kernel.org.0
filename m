@@ -1,55 +1,53 @@
-Return-Path: <linux-man+bounces-2698-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2699-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA759A762AD
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:45:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90A98A762CB
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:55:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6EFD0168164
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:45:34 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 51D1F16650A
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:55:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A27EA1DB12C;
-	Mon, 31 Mar 2025 08:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 671B11CEEBB;
+	Mon, 31 Mar 2025 08:55:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GT9TJ+E0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJHrEj1h"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B8D1D516A
-	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:45:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2818413D8A4
+	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:55:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743410714; cv=none; b=nOoaKp3WXaX52WWQ7nfSOr6A8RAD19flb040qTd3+Bnl1O5ZxsiAhYyNHpcoGLLMBbwG6gxQKoSMx8U/O6GVYHC6CpFXwBhRWcxpLDo7G9LqaTsuqF9fflWsybxE+cxD6iWBgOe0JL6tjmpy7R7g65qhOxWZuB2RERloYPU2Yec=
+	t=1743411333; cv=none; b=BKjQ3sQ3PIErGFXEyEC/8Nkt4JCppfY33J+S2O1iPed/DBr5gWiCdUoUCO/3Ow8pEb5WiGFdWGrHUSpNvrx5QoOfNEWLBjIyG5C4KTt7IWodKSsPRuq5WuR7aeAFHF/5PHXDYkbIQaYQ6NT/6hIL5dpUNUGosxk/kQvgXfvC6E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743410714; c=relaxed/simple;
-	bh=HvmL7vT1PZNHUaI+KOKEN/qYWKU16Am6NEy/AsfX23c=;
+	s=arc-20240116; t=1743411333; c=relaxed/simple;
+	bh=PDKfw8BdncjJjkODvcF6Ysu4JgScox802qeIfiqV76M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eHk6rX9a4gxYPoUzyU+AQzeF4OhJ5I4ggqFnfzoWXxCsSSVvJIYgB+CPsgn8Um8uJ5w6dcA7b7rtfzoaRmayoLfc2seALy8pKXOdjYe24jRmHrhMsRh6gLp+Zpewd3gMAEzXNlMeqFOeSzqa0kln7gUKdGPUwNseq92QF6O8NDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GT9TJ+E0; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097B2C4CEE5;
-	Mon, 31 Mar 2025 08:45:12 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=JdPT88spM6JNBKZP+V/nvRRhguEfGZfigz/+9j/d8P+Fl9qJ5ceBWZ/dvgsI7LMW4pP5k1Hhni5XE1u9K7fD+l+n+d6cvdSV1aBh8TqJUZr9rMTByf2TIx9ZOIErjvsgFo4L+QdzgOxofbo+AuhQ0mvZByTw0ZjHZvZSQy4C5u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJHrEj1h; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C558FC4CEE3;
+	Mon, 31 Mar 2025 08:55:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743410713;
-	bh=HvmL7vT1PZNHUaI+KOKEN/qYWKU16Am6NEy/AsfX23c=;
+	s=k20201202; t=1743411332;
+	bh=PDKfw8BdncjJjkODvcF6Ysu4JgScox802qeIfiqV76M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GT9TJ+E0cusqLdPWNNc9wR6Vp4qqjftQBn0UYnz+P7Rj3VyKgprEwo8r7TRFL3wRM
-	 R/gssSPkfQbLAc2XUlDwpMCvgEAIp3ENKkixuU7TnlDgiUVRDpXK4DXjWMIwHyScjQ
-	 ZAKDkan1zGkTCMgfUcwBhADfQsJAwOwqqeeT8An8qhwcWoEJL786J8MeyhXKfsHXdc
-	 zs75GxagSW1dJReb2l63QbHKSN3Wsy96QyP1+H8RnfbURqojwH7IZcY+KrXWBysGdh
-	 /n/ux34me+z7cQ3evcwKCHfvhQkzoUaSCPDEw2hSgb0u61zk9bpA7yzQ9XWtZUxmEC
-	 k58iXbHiCZwCA==
-Date: Mon, 31 Mar 2025 10:45:10 +0200
+	b=MJHrEj1hG0hqIz9oXSCLPeXwggwDB9rnkapnCOD7rZqA7WYkgqWLVl4k3nkHkqXMk
+	 /963qPTHuNdTD5Y28VasZAwffKt/43lU0qxP86wwcTCxjeiyaa/Ej/XNd6raHIlsPy
+	 oWStKatq09vvP3eCO6Y5eDE6w48Qb8XDUd/zFnA2oiPoL5fHwbMRmcbiCbGibnWVW8
+	 pMEwabUCi68TR0ie4nZCMBJyqHLFuSHL5FwfXxTA9IJ75rDvOh4b7yPtBv2aTFT8Mx
+	 /QG83RBIJYSOvypcgY0QgeYe5pkGaiKKMvSRzx425eOco1Jjzbs4Y0nGoZp4DZs6Jv
+	 bWmbmhs7v0eGw==
+Date: Mon, 31 Mar 2025 10:55:29 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] name_to_handle_at.2: Document the
- AT_HANDLE_CONNECTABLE flag
-Message-ID: <illia4j47ysk2d2ea55n4sw36lyhe7wftebileuo7h2q7ldzij@kbxmnq37wixq>
-References: <20250331081642.1423812-1-amir73il@gmail.com>
- <20250331081642.1423812-2-amir73il@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] fanotify.7: wfix
+Message-ID: <kges2dgabyhanoqbbxzx22mqf7valp3offxugrxeip4cbcqh7f@uth44hjeg7jp>
+References: <20250331082759.1424401-1-amir73il@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,114 +55,59 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vfobmoklihoshybc"
+	protocol="application/pgp-signature"; boundary="unhbpqybc3t5yzxv"
 Content-Disposition: inline
-In-Reply-To: <20250331081642.1423812-2-amir73il@gmail.com>
+In-Reply-To: <20250331082759.1424401-1-amir73il@gmail.com>
 
 
---vfobmoklihoshybc
+--unhbpqybc3t5yzxv
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] name_to_handle_at.2: Document the
- AT_HANDLE_CONNECTABLE flag
-References: <20250331081642.1423812-1-amir73il@gmail.com>
- <20250331081642.1423812-2-amir73il@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] fanotify.7: wfix
+References: <20250331082759.1424401-1-amir73il@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20250331081642.1423812-2-amir73il@gmail.com>
+In-Reply-To: <20250331082759.1424401-1-amir73il@gmail.com>
 
 Hi Amir,
 
-On Mon, Mar 31, 2025 at 10:16:42AM +0200, Amir Goldstein wrote:
-> A flag since v6.13 to indicate that the requested file_handle is
-> intended to be used for open_by_handle_at(2) to obtain an open file
-> with a known path.
+On Mon, Mar 31, 2025 at 10:27:57AM +0200, Amir Goldstein wrote:
+> Since the introduction of the FAN_AUDIT response flag,
+> the response field of fanotify_response is no longer an enum
+> it is now a bitmask, so fix the wording around FAN_ALLOW and
+> FAN_DENY.
 >=20
-> Cc: Chuck Lever <chuck.lever@oracle.com>
-> Cc: Jeff Layton <jlayton@poochiereds.net>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Jan Kara <jack@suse.cz>
 > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-Thanks!  I've applied the patch.
+Thanks!  I've applied the patch.  BTW, I've reworded the subject:
 
-> ---
->  man/man2/open_by_handle_at.2 | 31 ++++++++++++++++++++++++++++++-
->  1 file changed, 30 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/open_by_handle_at.2 b/man/man2/open_by_handle_at.2
-> index e3ec70dd5..f808ea933 100644
-> --- a/man/man2/open_by_handle_at.2
-> +++ b/man/man2/open_by_handle_at.2
-> @@ -128,6 +128,7 @@ The
->  argument is a bit mask constructed by ORing together zero or more of
->  .BR AT_HANDLE_FID ,
->  .BR AT_HANDLE_MNT_ID_UNIQUE,
-> +.BR AT_HANDLE_CONNECTABLE,
-
-I amended here the missing space.
+	man/man7/fanotify.7: The response field is now a bit mask instead of an en=
+um
 
 
 Cheers,
 Alex
 
->  .BR AT_EMPTY_PATH ,
->  and
->  .BR AT_SYMLINK_FOLLOW ,
-> @@ -163,6 +164,29 @@ with the
->  .BR STATX_MNT_ID_UNIQUE
->  flag.
->  .P
-> +When
-> +.I flags
-> +contain the
-> +.BR AT_HANDLE_CONNECTABLE " (since Linux 6.13)"
-> +.\" commit a20853ab8296d4a8754482cb5e9adde8ab426a25
-> +flag, the caller indicates that the returned
-> +.I file_handle
-> +is needed to open a file with known path later,
-> +so it should be expected that a subsequent call to
-> +.BR open_by_handle_at ()
-> +with the returned
-> +.I file_handle
-> +may fail if the file was moved,
-> +but otherwise,
-> +the path of the opened file is expected to be visible
-> +from the
-> +.IR /proc/ pid /fd/ *
-> +magic link.
-> +This flag can not be used in combination with the flags
-> +.B AT_HANDLE_FID
-> +and/or
-> +.BR AT_EMPTY_PATH .
-> +.P
->  Together, the
->  .I pathname
->  and
-> @@ -327,7 +351,7 @@ points outside your accessible address space.
+> ---
+>  man/man7/fanotify.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
+> index a5ddf1df0..ad864b762 100644
+> --- a/man/man7/fanotify.7
+> +++ b/man/man7/fanotify.7
+> @@ -769,7 +769,7 @@ This is the file descriptor from the structure
 >  .TP
->  .B EINVAL
->  .I flags
-> -includes an invalid bit value.
-> +includes an invalid bit value or an invalid bit combination.
->  .TP
->  .B EINVAL
->  .I handle\->handle_bytes
-> @@ -414,6 +438,11 @@ was acquired using the
->  .B AT_HANDLE_FID
->  flag and the filesystem does not support
->  .BR open_by_handle_at ().
-> +This error can also occur if the
-> +.I handle
-> +was acquired using the
-> +.B AT_HANDLE_CONNECTABLE
-> +flag and the file was moved to a different parent.
->  .SH VERSIONS
->  FreeBSD has a broadly similar pair of system calls in the form of
->  .BR getfh ()
+>  .I response
+>  This field indicates whether or not the permission is to be granted.
+> -Its value must be either
+> +Its value must contain either the flag
+>  .B FAN_ALLOW
+>  to allow the file operation or
+>  .B FAN_DENY
 > --=20
 > 2.34.1
 >=20
@@ -172,25 +115,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---vfobmoklihoshybc
+--unhbpqybc3t5yzxv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfqVhYACgkQ64mZXMKQ
-wqkeiQ/9EBp/Xiio2kDxioel5X4972jzl0Fojt0/CW+kPMfpf0AuNaf9xdqwWlV8
-iZoUTUOR29hTolDdYsvwNeIsuTxRI2UEOQfVCDYIfTLEKmt23pw+IINfWb5lZtmN
-usTrIaZGoIypvuUfZ/H0tx3090mJXUjBPnBushyGm5jnVSVlMMrFHofCwAgt9RSH
-UXgzhSOOhzdBMal4xeKIkPOUMgZgRwnJ09dXDaNoEOqD0bNHHWtVs+mK1UaCfmol
-/CDHk2Ujy8+HgNwucjXvtLnFzmkvNlP9DT3gm86jM0Ea7KNYzqK4vWyZrXH872Rm
-h5eLSevNq5PQ8fMpquv/g7cHpdqFE3xDj4nTtoyHKJZxttMrm9poWWUbhctvapio
-VbQN9VKJtPMzUd5wH4HCz+6hIQHnqSt3LrKUT5smWGK0a0/BNdkzMzWwz60ed6Xz
-qAzcliVBzfu3cby6VPMI4UpiGTRg2MKF0xXQIrtGa2TKkdL1WvInOErMBpVwzT/K
-+uAU6Vh27bXTaQXJQts9UlZ2Ou6uKrEFb6SvC3GUZZcZ+xdXTTrwmB/Cx0Bb1VXT
-ZqX7+FDGXeYiq09N1BjvCljBwCyYRdzZuwatrM/UOaVRQulbTEQ0TW0cm9btKguD
-TWURpYqaKgxWuszpmHKYSXaLGcI+WpFrUovxYF3X77X1HMluKnI=
-=9QCh
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfqWIEACgkQ64mZXMKQ
+wqngbw/+MJ9ka0PlTQTdK7gn8v8ocKy+q+WKKWMhCVT3p/lgRDzB6Szx1oqc/Gsg
+c1AfrqgCo6gtvEcDnB9ndZasE9A/hUdENCqrbAtk+IaUEGaSxuj3P9DbEh4erHrU
+nH5faFCI9u4djoE3YuFJn6Xpy11rLWQzKDyDc9mXqQB9oh6utrHOEiS2yZi/NtHS
+38JhoSUlEQkoCOVVJIAZEhZXq5LIuz4jByEa5XQ4hgkTVMgqSfh1qjNKbnnmHBXs
+1jh4A8O56iSmNGR/0JU+NBFnsYVrwRwAvQLK+RDtOzhBEN9n5X6ekEzA+Zx71oiB
+IolYgoWyI/37GRidrsKyc318HWSdZuFuiDEKcZ8twfQI2v3tv78j1Ob0frlwj9Ip
+PdGuaQe+qhapKy6DoFJ0vHEWR/Mg1qHcUIydi8XOgIFVctWgXCsVg8NJuZBpKXBC
+HJKtdYH6uQEMqnlXDu5K5TmysVE+5ntGIT/fRIidt/XlmDc5VuZZK05ofUbyW7ju
+54c5xtqYd9WfokV/G2Mqwg98Z2WJNX1c2KyI2l7UzfAmu6L6Z4D2ZFiKj6rjem3s
+jAEVg5frPe9i7l0eCudjhIsd5Kglt+6ZPA9ax5cix1wfBRWm6SZxQfp7+b7jNK1n
+Bh1Oaz+BfZ8rhIxcxZZb5C/4sRk1PXdFDuon7DUDBX9Qz+mzjCc=
+=nsOY
 -----END PGP SIGNATURE-----
 
---vfobmoklihoshybc--
+--unhbpqybc3t5yzxv--
 
