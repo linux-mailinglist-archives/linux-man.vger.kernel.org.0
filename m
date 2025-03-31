@@ -1,171 +1,138 @@
-Return-Path: <linux-man+bounces-2692-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2693-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33E2AA7612C
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:17:03 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7836EA76137
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:18:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 947A1167A85
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:17:02 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D04CB3A6AE8
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:17:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D502E1D63DD;
-	Mon, 31 Mar 2025 08:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28925157A5A;
+	Mon, 31 Mar 2025 08:18:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="By+2t5CW"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1ONHfwH"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB92E1D63F7
-	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF0641AAC
+	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743409009; cv=none; b=LsAIV+VZcbW5otIU0vSh9kA3o7Mzta2c9OZpJ5zQKlcFguwp2O1PNF7NDF3QdPisxAojXUxHpCzrWB2OrkjWHIG3rQcnfe7hOiiTab5I2eLw+Dy/bmP7/FLsWzcDhs87DzrnqkNmz2zzyynjZW82M+LUcoZRx8s/cQOKuUQBYok=
+	t=1743409079; cv=none; b=U7c5QJFghTmQF8TXBii8lzRRlct50tpzK8yRPGBa7CYw3SbN9JxiOpwNpyfu85qi1Aj2LuYvgZ/E/Y+Ss64UN134u3KmxXNCSqU81EGmRVU3v8YJb/5LPpfeBtGnjo2zRiUYPIo0jr1PxMepHCKLNO+FvbQ0F77yu2sGW82fTQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743409009; c=relaxed/simple;
-	bh=jmvIrSzrlLC9LnJF0JIcY8MEwebAz+ctgth4GG/l6aA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qpb2G+5mcaaC6XtM2IVAV8rbB7nbCunRZn8uU6M8Tzo32UMu2e6U8GNEZyfXcPgoZf3eDQazlNp36pHgbX1j24IgILgPYdFpbqb7mqJf3z9j1x5Hfzjl8qayszXVWjDw1fqgf4NIf1mfECGY28WfSOz2lJ4IrD1DRbtet5sXXvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=By+2t5CW; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-5e5cd420781so8264701a12.2
-        for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 01:16:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743409006; x=1744013806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gUUlPAVZjdxyxF6v2tj2D+r9Rzu6dggJpnbaS470t6c=;
-        b=By+2t5CWFQOFJvUUdRl1XFmaNK2HiAn1jcmQe3Z4BPM8yi2nfwNRwpC6lN2Km+hU5v
-         xDwVH8nRBpY/kinGk9CChCpB65VlA02ThMEa+yebtRPnmftXlzeX+yWR3zWtVr0wY+SA
-         ajnSm9l/tyENoA9SSukndSib/SsMX2lRQrKrbQrde+ajfgvAtsOZ21HCvkTeL9l+QhCh
-         Pg/gAg5XZS0YrqXMT9f4hUmhgkueVmMmAR27QYpet3ZqK0knd5uEOmDEWO9+uAgd9oVs
-         FIrBlZjvlAW7FOt87lTo0dkwP+EoMxrQ//119djeNVLBt40yC5qka12bJoBSmlrTx9bn
-         epiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743409006; x=1744013806;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gUUlPAVZjdxyxF6v2tj2D+r9Rzu6dggJpnbaS470t6c=;
-        b=HAsMs01al2ly1oS/v6LjD+lNYU/hcx0/VahRjxdx0hUl4M/34ZOr9a2pDohrWY2Y5H
-         yNcFE1F8wfYUSnBniF5W5YPtzWn4J4BgBWqmQ1XJ2cYgnr0fKRsrMHRjz4M45x97dGB0
-         7wnryl/ktgOvTl2dO4OTmCcTHc9D02ErFF4fmuS0ci/99hyu37E54v5OA2hXUvCnK5E5
-         U8sRLt1v2rVgf6pEtMXS+Kl8KDMPS2h9CT9jNaqb5K405B+ML2V7sKUYGCuH/zA6DLm9
-         3NGj1XqN6xIdsvF+OvivR3gJZPzwUy9Ukc89BW6p8PqBS0+sjW5XdE3oJyK/8kF1wLvb
-         iCBQ==
-X-Gm-Message-State: AOJu0YztvZ97ePm0IELB9GNJ4gaVXGAzxa/gg8bYoDpY2jI1gO3Icxwm
-	377gVuAlvQ16QnFE96uGelF7Z8VCq6ApMACUDF6xBflPSgLSyL/e
-X-Gm-Gg: ASbGncspSVUoUkwFN3lTKbSihjuozuWRYlsABfjGeNEcTp48xK5Lzw6q4CbIoEpPfHS
-	AKEtU7+GQPRaQICcR6bzQlBRZZqLuDgQs81rFSGeohVOhfpi4ZKIugjdJu48PPXPkiErQJ3J9aG
-	Y44nE5hMQPkHCng9RQlsrFSLXEgOyzt6QoDtuH5qEpsqHxudaKynaOzNFIhAs/FSyiWiByvE0xa
-	QGVix71jedLwx5VD1UKJWtqUsVag54uvaklp3/nepPznEyl5sfUltCZ6tC3sv/iJ4uGtzQhcXW/
-	WAESJoxHxl1Y3u9JwcHtUYLi7Dm9gLVZEC6srzlG9sd0TlCIGW8ApVCMv6UjnRQIzkTpW9KE5W9
-	/01NYr2n+Q3kHrT28lNbu7g3t4tkLTk7FHsZzRE6a3w==
-X-Google-Smtp-Source: AGHT+IF5E73QiFWd46IEQyS4tMIMXymHzpKHLpp4/FGMdVsgQ0hrZ6jI3hZ6FoK5eLLX+XPJE/2ByQ==
-X-Received: by 2002:a05:6402:2b97:b0:5ed:76b0:a688 with SMTP id 4fb4d7f45d1cf-5edfd70362amr6413186a12.21.1743409006101;
-        Mon, 31 Mar 2025 01:16:46 -0700 (PDT)
-Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5edc16f1b73sm5466528a12.46.2025.03.31.01.16.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Mar 2025 01:16:45 -0700 (PDT)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Alejandro Colomar <alx.manpages@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH v3 2/2] name_to_handle_at.2: Document the AT_HANDLE_CONNECTABLE flag
-Date: Mon, 31 Mar 2025 10:16:42 +0200
-Message-Id: <20250331081642.1423812-2-amir73il@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250331081642.1423812-1-amir73il@gmail.com>
-References: <20250331081642.1423812-1-amir73il@gmail.com>
+	s=arc-20240116; t=1743409079; c=relaxed/simple;
+	bh=momboR6IJBOFrgulpgN4ThYr043e60J1xE/W1yC1fxE=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RxPoIwOQbcAhOEqMJjFB2pDoorgTrq+zUwegfpvVGaekNuMadBNGEdeTbJ5i3p5Vvb/bjDrpK1Wbv7EFCouYIEPKyVipyXG42llrJpb8VsXvZP4qWUkIjU1ER5eOXXMlryqk5h1ig9H8GWCb15ksIwsSnUS9O2pnEF9rDSfBsTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1ONHfwH; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4924DC4CEED
+	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:17:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1743409079;
+	bh=momboR6IJBOFrgulpgN4ThYr043e60J1xE/W1yC1fxE=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=P1ONHfwHdPcbIOIdjcNKwwXXOSkO2tEgr8rhDeMOGFTH1lS5PL3w5llEgPj9yJaEV
+	 SVYebCisolwUr5fabRdqeMHSEPIbZkDczpi36BwdbTVtYkYK49cxjl+XNmDBXI/EjT
+	 5klHqQFmOX3LKPt+Rb+gV3l1J7OanfzRVuvhbfA1n1g1KeGAGwt+0F1ekXCY7DJpu1
+	 0qc0GSFSzoBfibwf1SB0IUZRKhK52TFxCOBmXx4uqN0hd4rdvvpJjXW2dGw4eAAvb+
+	 pR2p5Rcnjn25l3A5FNsMJr5TuFuDR9iGs8FmmLwHa/UMwUlabTMzHMkY9lnpBWNWzd
+	 yt5YeG9UOQZ8A==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 366ABC53BC9; Mon, 31 Mar 2025 08:17:59 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 219822] mount option lazytime is independent of
+ strictatime/relatime/noatime
+Date: Mon, 31 Mar 2025 08:17:58 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-219822-11311-9Lr79Eh4eI@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-219822-11311@https.bugzilla.kernel.org/>
+References: <bug-219822-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-A flag since v6.13 to indicate that the requested file_handle is
-intended to be used for open_by_handle_at(2) to obtain an open file
-with a known path.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D219822
 
-Cc: Chuck Lever <chuck.lever@oracle.com>
-Cc: Jeff Layton <jlayton@poochiereds.net>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
- man/man2/open_by_handle_at.2 | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+--- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
+Hi,
 
-diff --git a/man/man2/open_by_handle_at.2 b/man/man2/open_by_handle_at.2
-index e3ec70dd5..f808ea933 100644
---- a/man/man2/open_by_handle_at.2
-+++ b/man/man2/open_by_handle_at.2
-@@ -128,6 +128,7 @@ The
- argument is a bit mask constructed by ORing together zero or more of
- .BR AT_HANDLE_FID ,
- .BR AT_HANDLE_MNT_ID_UNIQUE,
-+.BR AT_HANDLE_CONNECTABLE,
- .BR AT_EMPTY_PATH ,
- and
- .BR AT_SYMLINK_FOLLOW ,
-@@ -163,6 +164,29 @@ with the
- .BR STATX_MNT_ID_UNIQUE
- flag.
- .P
-+When
-+.I flags
-+contain the
-+.BR AT_HANDLE_CONNECTABLE " (since Linux 6.13)"
-+.\" commit a20853ab8296d4a8754482cb5e9adde8ab426a25
-+flag, the caller indicates that the returned
-+.I file_handle
-+is needed to open a file with known path later,
-+so it should be expected that a subsequent call to
-+.BR open_by_handle_at ()
-+with the returned
-+.I file_handle
-+may fail if the file was moved,
-+but otherwise,
-+the path of the opened file is expected to be visible
-+from the
-+.IR /proc/ pid /fd/ *
-+magic link.
-+This flag can not be used in combination with the flags
-+.B AT_HANDLE_FID
-+and/or
-+.BR AT_EMPTY_PATH .
-+.P
- Together, the
- .I pathname
- and
-@@ -327,7 +351,7 @@ points outside your accessible address space.
- .TP
- .B EINVAL
- .I flags
--includes an invalid bit value.
-+includes an invalid bit value or an invalid bit combination.
- .TP
- .B EINVAL
- .I handle\->handle_bytes
-@@ -414,6 +438,11 @@ was acquired using the
- .B AT_HANDLE_FID
- flag and the filesystem does not support
- .BR open_by_handle_at ().
-+This error can also occur if the
-+.I handle
-+was acquired using the
-+.B AT_HANDLE_CONNECTABLE
-+flag and the file was moved to a different parent.
- .SH VERSIONS
- FreeBSD has a broadly similar pair of system calls in the form of
- .BR getfh ()
--- 
-2.34.1
+On Wed, Feb 26, 2025 at 04:55:40PM +0000, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D219822
+>=20
+>             Bug ID: 219822
+>            Summary: mount option lazytime is independent of
+>                     strictatime/relatime/noatime
+>            Product: Documentation
+>            Version: unspecified
+>           Hardware: All
+>                 OS: Linux
+>             Status: NEW
+>           Severity: normal
+>           Priority: P3
+>          Component: man-pages
+>           Assignee: documentation_man-pages@kernel-bugs.osdl.org
+>           Reporter: cquike@arcor.de
+>         Regression: No
+>=20
+> According to a message from Theodore Ts'o ([1]) the lazytime option in mo=
+unt
+> is
+> "independent" of the other atime behaviours.
+>=20
+> I see that the man page explains what lazytime does but it is not clearly
+> stated that it can be combined with other options like strictatime or
+> relatime.
+>=20
+>=20
+> [1] https://www.spinics.net/lists/linux-fsdevel/msg86233.html
 
+Would you mind sending a patch to the mailing list and CCing Ted and any
+one (or any list) else that would be interested?
+See also:
+<https://web.git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTR=
+IBUTING>
+
+
+Have a lovely day!
+Alex
+
+>=20
+> --=20
+> You may reply to this email to add a comment.
+>=20
+> You are receiving this mail because:
+> You are watching the assignee of the bug.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
