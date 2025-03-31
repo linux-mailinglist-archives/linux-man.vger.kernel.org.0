@@ -1,73 +1,73 @@
-Return-Path: <linux-man+bounces-2716-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2717-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B70C9A76962
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 17:08:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8C5A76AF4
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 17:44:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F03FB3B0DDF
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 14:58:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 244673B629A
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 15:30:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 666D7222593;
-	Mon, 31 Mar 2025 14:49:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 583ED21859F;
+	Mon, 31 Mar 2025 14:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVG0/U00"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PqV92YgJ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A45C22257F;
-	Mon, 31 Mar 2025 14:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D762144B7;
+	Mon, 31 Mar 2025 14:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743432568; cv=none; b=eI9Y72F3Hqhd8eZ791m7LHDkfr1K3M4Tsmdp5x0W2PioNqVv+4O17Fpc6h3zha9ORXpPmfUROf9ahFvYNt3Hln0TxdmgTgGB2fRc6SABfpgYS5pw+uKY9cg8SX272MNXIXCVfZWIJeGVnR0d4ScNb6KX+7kxd3UhoX1lanc5YzQ=
+	t=1743433136; cv=none; b=iuU8/MNBvhEBY8KUxpG7Pvm5yPlBMq8bJkDRVKAet2re7QjoZjgCAyj3Mta55OFiYFE9YT0cTN2rre7rN9aKAo7c3jbLnZg5HAlxdWtHlGyQUuimLn+E0351OzK8AsApoUWwL7ZlfObYaGm74qzxOk0wgagyjOhtYPYVcq0DKAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743432568; c=relaxed/simple;
-	bh=xy6ASadLcy7iPKCYVjCqFOj5CZnNzcJHzloczxF8uoI=;
+	s=arc-20240116; t=1743433136; c=relaxed/simple;
+	bh=el2X5wXllOd8pabLEXON7pKxksOCnyhI7k1tAyVFbno=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MTPJkel9U7Mkv8pNsoVCWpTkK8o+2n1Ynb7qEOM0OnEOcr464t6sazaWTc8xcdHSYgGFmdiRfYDrK4N1KoUPfYvC5naw2TZNtiTyW+VkoJitYLfdlmyZVTqvgiF1pyR4hmY6giJwBRG9nopwmu5MvZzQ4NRtU2lIG0h13VuJRUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVG0/U00; arc=none smtp.client-ip=209.85.208.49
+	 To:Cc:Content-Type; b=uC+uhaPLi4ubAMmqHMrnYGn6gZ7MYdtf6/ymYXBE4vDaoWQEyiuYg56h2eNDo+JqFze6XqiWxpC6mhIuMJfdDeyjiOvpGkiS4RHCQYiSgMg6KdiQ6FaEFMA78wkZbk1OWAgeCvZeEICNg5DwjUj1PLYkPr+AIZ74dAL+5NicSZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PqV92YgJ; arc=none smtp.client-ip=209.85.208.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-5eb5ecf3217so8496433a12.3;
-        Mon, 31 Mar 2025 07:49:26 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-5e686d39ba2so4053408a12.2;
+        Mon, 31 Mar 2025 07:58:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743432565; x=1744037365; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1743433132; x=1744037932; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+Du0r8c7U7aw4hguA8FfybRKzKw7DX4Xixhsc7YxFzU=;
-        b=lVG0/U00w2RT9ze3izZWuSwpqpdNsyPZrgZUiLz2QVGaIvNMnirO3if6YtVJEaXCVs
-         RKAAEzy7+wyXFN4dGOW3xGyEd4KzfPYpsKa8pHAPU2W0/ZP2xXQ7fJ9HCHJ2BWpHiKHI
-         DjZx+SPDQl743c2sh94EwmetVQidKBCeDgxpDCS2dCO9VORQq1cE0AkmBD3SZX9+7xPw
-         YVI97eS9EBmcTbjLiMOLd5Z4zuw8aPRz4Q6xRwSdCrdXk1ykw5c598Q97jGh5jJvigNS
-         PsE4LKW5Xu4b1QolpqyWhorYRqW4r09LJGJuIQxokZFu0fmY+0bdBX4/qv27XO738Adr
-         q8cQ==
+        bh=AhFgfAj2RMpqpppmwK+eL/xEA40IhXM5Ujl4Qrl+JY4=;
+        b=PqV92YgJI4bFhpGVAB5XGScZGRhryJboYjc9VU8T8qNEtFxz5SvT5xwCQIHGQFr3b3
+         qKWBNaSrJlIVUi97nAXAP+HDF9gJVcMyt9IlV0vrKRFjwSgzss7c6GNrk7IjhWjwqBb1
+         rnbEb5QC7SDWszhK/HVOv8Fh7J6pwpiuLA3gQ/5+Jn+KutUXgJUWsIMcbhR3Z9x1IB9O
+         0TddfhpzIzMqZdf8UQlIN+233k6bQi2PR3XDv5MjEOMCqo0FPHuwv1fJg7fSA2MgHCOE
+         XBxMnkTL6rDbu4aDIDH0SioBugfGoh/Kyi4DNgrn9pr9N0WcmXkmvtyK8p1KrH73xfRu
+         TymQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743432565; x=1744037365;
+        d=1e100.net; s=20230601; t=1743433132; x=1744037932;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=+Du0r8c7U7aw4hguA8FfybRKzKw7DX4Xixhsc7YxFzU=;
-        b=n2oqEace2dcDDEYwrys9DNhZHpQ6l4fbbiAFaAjILGM55EnGQBD27bN2MyzPds+Kg4
-         6eodxMXBard46is5pW7XC9IkMcvtHxKCpo0jueGeURhKsHYb/Xe5BUKmPVKblQzKrGJj
-         LuKIXOVPNMThaYALHF5VyqQTgN7uMXE0j+1DPLuW22HWosjLe1NX8OHninrv+PIOjdXo
-         LYLlHVtRdrbMz6dofPbIRJTN/VBnKfQBfK56T8FdaaoMAq3662Aq+P0rtvWFVNxEydKr
-         gE2Tyy48RjGfquFzeTzpJ6/SAe0BDvLyfRcCfl3q7NN1kESS+B1HA86mUX/j4dXcjdsX
-         LJfA==
-X-Forwarded-Encrypted: i=1; AJvYcCVFvp6+rec+EJOFPg3aPtPHJaokxWOIZo7o1fCFOR4lbvKGmT2hatTPXADyzcZFERfF84QUL6DqGcLRIj7c@vger.kernel.org, AJvYcCVGCXqDra4bGcjfkbQDfgokr3Uz0wfTjaK3V1GkY+eu+jvb1Dap4UbgmpDgV9Sa7lVS8XbFbTirQUSU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yydlwk947Z+kRiivwMPHuA5fKK30ka/lGzK1a7WRIMEsrWBJJcU
-	/z5HhdTwx0Pbpy/34jjsVm3xtnC3coLZqc8mlXr4jKUpp0U+p0ncy2k9AY+28xWvxFc2lMi2zSy
-	54eZ7wa0U9RkS22EOtBVXdccB+4g=
-X-Gm-Gg: ASbGncuAGvUsbVmgA9AJeS5NK/A96Qm3qbbsKcJGHC1RUG0s0FnVMrrxdMfmG/OQ7eu
-	tpyGNyC3+CJXUAmXR7sJhas3eCzmtbjmPnKRgrX75OF83hFfCL0MhaHjd3gk9MELPQPxaYrPT7P
-	fE0bCtkmTf8p0RKQRTE5GbXTKnIQ==
-X-Google-Smtp-Source: AGHT+IFnf9ETZSnEGm4xUkVE8kkNLLUe2JlGC1fXAOu9CPupgBZThN//sqDEXZ87u/MXtcQYHQeZ0adk+bKlKdwOGO4=
-X-Received: by 2002:a05:6402:84d:b0:5e5:e78a:c4d7 with SMTP id
- 4fb4d7f45d1cf-5edfcd4b272mr6808307a12.12.1743432564322; Mon, 31 Mar 2025
- 07:49:24 -0700 (PDT)
+        bh=AhFgfAj2RMpqpppmwK+eL/xEA40IhXM5Ujl4Qrl+JY4=;
+        b=NLw87tTGAcww2pSAbFzCRCXs4EtzRUle/M7tHyJnzOK/q+1QE5Wv0zXgZ/lqp6MnOm
+         NOAXfU8vn5DBZkWoQ7yL3ZBA090ALSR6PayBAMJ8yGWn/a3VTHGqmjMihmUVEdNxTZP7
+         OW7DG90Apkw0svYOREAVIP/49EI9/LzKB2GnynmIfULwDw1INpDIGPrbSaI1oPyucgQS
+         bwyUaLN52lmJgfC/r7KaPn3FgzML2T2090TJ5ZKTu4KkVGObQOmahnBHNr94ZLCIbc50
+         Zy4cQ1IhBeZu2T3I4MUzAvLmW3/0LbYlFj+TotqS0PILz7H26avZLaay+oavG4aWkp/2
+         j18w==
+X-Forwarded-Encrypted: i=1; AJvYcCWNAVyLhPC1p6YeS4lw193qSNA8zIWLC3sc51qSoGZDqnVIUydyh2fFbqmoFk+EFX0zYqBh4U4WUuCX08m5@vger.kernel.org, AJvYcCXMRdiA2XZbB+R4wFEihFun+Vda7+7TPsMN8h5J3hUN7nvfOdg2W9hvQsYJCAATvu8zoQ5ptBe80knj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9GwJk8TskEu22NdwEthGKCgkwGKSVeph8TXWUhq33AGYfZfGx
+	MGtqmDz/RKyobaYLpXgvTMYYQlIj08DmCSqf/RvCOnv1k4pDRgOMoSI527pWQp7B/PECqfWLtf+
+	NzG0XCWHT4Xo3rxQ9f5knoEG7xTekFznCpsg=
+X-Gm-Gg: ASbGncvOFVY6WlWiHqbZzIUZwnYo8FDM393sxtAN8XMaVNe684qG3teXyq6cpTkYW5x
+	TP/bq82F3atg4GIS/BW/e8NSUPxydx57aJj1oN/a5DqOy2dwgK5E0+tJ+3l0ue5TVvzeZLQEVjQ
+	58ji9kfivtKV8uzLC6gdtbDX5u2Q==
+X-Google-Smtp-Source: AGHT+IHcWWTr4lpkIFp3BNS2vWEgN2KpumiVNpOLEelM8W5+9Pu1b97vEQs3G5DVAACYv/fFGgnwL/KHaMOMXi8/duE=
+X-Received: by 2002:a05:6402:84f:b0:5ee:497:89fc with SMTP id
+ 4fb4d7f45d1cf-5ee04978ca2mr6583442a12.33.1743433131442; Mon, 31 Mar 2025
+ 07:58:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -75,11 +75,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20250331135101.1436770-1-amir73il@gmail.com> <CAJfpegsXBvQuJO29ESrED1CnccKSrcWrQw0Dk0XnuxoGOygwjQ@mail.gmail.com>
-In-Reply-To: <CAJfpegsXBvQuJO29ESrED1CnccKSrcWrQw0Dk0XnuxoGOygwjQ@mail.gmail.com>
+ <CAOQ4uxh9f7E0AWvf-vS7HOuZf6jhU_QfjnQFx7jr4E595y-9CQ@mail.gmail.com>
+In-Reply-To: <CAOQ4uxh9f7E0AWvf-vS7HOuZf6jhU_QfjnQFx7jr4E595y-9CQ@mail.gmail.com>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 31 Mar 2025 16:49:13 +0200
-X-Gm-Features: AQ5f1Jr8S1dz-i3HWEAc-frKf8TQuzkaH0amOfyugJSrfvXXfrkbJ6Hw_A9a8JI
-Message-ID: <CAOQ4uxh9f7E0AWvf-vS7HOuZf6jhU_QfjnQFx7jr4E595y-9CQ@mail.gmail.com>
+Date: Mon, 31 Mar 2025 16:58:40 +0200
+X-Gm-Features: AQ5f1JouBnhIBOsAIwFpLd7JfGP3-th3EX2paD7JeWcOu1m5rp9hIxX7cx-IJg4
+Message-ID: <CAOQ4uxiF27q+-3On0RYz_5bP_rPuKbBhDABeu480hWPQG2i1jg@mail.gmail.com>
 Subject: Re: [PATCH] fanotify: Document mount namespace events
 To: Miklos Szeredi <miklos@szeredi.hu>
 Cc: Alejandro Colomar <alx@kernel.org>, Miklos Szeredi <mszeredi@redhat.com>, Jan Kara <jack@suse.cz>, 
@@ -88,31 +89,51 @@ Cc: Alejandro Colomar <alx@kernel.org>, Miklos Szeredi <mszeredi@redhat.com>, Ja
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 31, 2025 at 4:37=E2=80=AFPM Miklos Szeredi <miklos@szeredi.hu> =
-wrote:
+On Mon, Mar 31, 2025 at 4:49=E2=80=AFPM Amir Goldstein <amir73il@gmail.com>=
+ wrote:
 >
-> On Mon, 31 Mar 2025 at 15:51, Amir Goldstein <amir73il@gmail.com> wrote:
+> On Mon, Mar 31, 2025 at 4:37=E2=80=AFPM Miklos Szeredi <miklos@szeredi.hu=
+> wrote:
+> >
+> > On Mon, 31 Mar 2025 at 15:51, Amir Goldstein <amir73il@gmail.com> wrote=
+:
+> >
+> > > @@ -99,6 +100,20 @@ If the filesystem object to be marked is not a di=
+rectory, the error
+> > >  .B ENOTDIR
+> > >  shall be raised.
+> > >  .TP
+> > > +.BR FAN_MARK_MNTNS " (since Linux 6.14)"
+> > > +.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
+> > > +Mark the mount namespace of the path specified by
+> > > +.IR pathname .
+> > > +If
+> > > +.I pathname
+> > > +is not itself a mount point,
+> > > +the mount namespace of the mount containing
+> > > +.I pathname
+> > > +will be marked.
+> >
+> > This was the original version, but it was changed to take an nsfs path
+> > (/proc/$PID/ns/mnt) instead.
 >
-> > @@ -99,6 +100,20 @@ If the filesystem object to be marked is not a dire=
-ctory, the error
-> >  .B ENOTDIR
-> >  shall be raised.
-> >  .TP
-> > +.BR FAN_MARK_MNTNS " (since Linux 6.14)"
-> > +.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
-> > +Mark the mount namespace of the path specified by
-> > +.IR pathname .
-> > +If
-> > +.I pathname
-> > +is not itself a mount point,
-> > +the mount namespace of the mount containing
-> > +.I pathname
-> > +will be marked.
->
-> This was the original version, but it was changed to take an nsfs path
-> (/proc/$PID/ns/mnt) instead.
 
-Oh right :)
+Revised as:
+
+.BR FAN_MARK_MNTNS " (since Linux 6.14)"
+.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
+Mark the mount namespace specified by
+.IR pathname .
+If the
+.I pathname
+is not a path that represents a mount namespace (e.g.
+.BR /proc/ pid /ns/mnt ),
+the call fails with the error
+.BR EINVAL .
+An fanotify group that is initialized with flag
+.B FAN_REPORT_MNT
+is required.
+.TP
 
 Thanks,
 Amir.
