@@ -1,145 +1,205 @@
-Return-Path: <linux-man+bounces-2696-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2697-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 372F0A76259
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:33:03 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA52CA76291
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 10:38:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DD7CD1689D3
-	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:33:02 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2CB4C188A6E9
+	for <lists+linux-man@lfdr.de>; Mon, 31 Mar 2025 08:38:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E229B1DF269;
-	Mon, 31 Mar 2025 08:28:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E1331D90C8;
+	Mon, 31 Mar 2025 08:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqCZ7Nxg"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cg6poftB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA491DED56
-	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1F527726
+	for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 08:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743409688; cv=none; b=rm+YujLKgIp/+hBSc3XUAHZ1e9rlKEshI4UDDzo6vuXjb+AOvJxIA68WMTJAsPqPimP//cYOvI4WWgDD1cKl+zXEFyoqLC5cEg+fZdtREXmrZMpMn0PJl+1R6VxY0YW7oPi5k6CjsKErgQIJgyHOaJiOPBRhrgQvFAEtXXMnRKI=
+	t=1743410308; cv=none; b=avCqJqohULQMxxH2R+LBnkk34Yb/QuOr8pulEZPnMjc2Uk01d1WrWdn23Kw9llGdV8K4G3hNQP/EvRthnLDw00sCKWbWIOc3iKyAlcLf35/Som3aV06D0ehu695PbyiaZtspOItttj9CtM8jUBwq1i3tLIv6P8LuHTYMinV+b/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743409688; c=relaxed/simple;
-	bh=95dGzQXS01VYBMK04waCviQd2TeqEXEbcn/bz4l/QhA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Xxg/AB8miABRDSi6nNlK+V0zoyqXhByAeTMCVKwUS1TZpAXcGgGKT+0h5j7RphHIgrILyXkTaMysqsB7NVMiqkaCoIQ36YrQ92f8/XGAxR13ndxwW2V12L/DsgwYcFvSs7s3cHWnVL49rNOtuPglRqXU+8LBfQCkHi1uvyDahOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqCZ7Nxg; arc=none smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-5e6ff035e9aso3379447a12.0
-        for <linux-man@vger.kernel.org>; Mon, 31 Mar 2025 01:28:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743409685; x=1744014485; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D+9+momBShBC04V/bh+hQalj7c3XWXaMOAckgBod5DM=;
-        b=iqCZ7NxgyJjzBcDcAUvZCp0ybI1p7XDvwh53rL6EXmO0wTiH2UzHQuKYRH8wnxkt5c
-         gozWEqxC4WQhdPSJpz3USzRVQWBLvbWt72oeIWEoOG8I4yWt61/AMX0MI40FnnpnmiMz
-         UaLY4FWEgkR4sQacGoOMU+0hxM0s1W9fReK6Sfv51q2v+zDnKgaWKChnMsDywiMdk/gD
-         eP4IbJEUU1+u/eyVB6TEBUxtmwLJMDlBWbLKAexxYxINhT8YCrwnJNYmaogx5z73DVxc
-         RbC1xSG8hoajlS75MvZlb+fYDVhe8PmPnAtD9dD5OXVrx6HMCZJLpBskzl6qtvAFl7Gv
-         OFbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743409685; x=1744014485;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=D+9+momBShBC04V/bh+hQalj7c3XWXaMOAckgBod5DM=;
-        b=jQ1i24zinIYWKmYozZsKOgMEkq6y/kxwbSu7Z5KRTQngyba+c5J8s0icoGQr1sWNBe
-         sbdyGpOD7P1BwkHRsgg6ng5JOOxzqcIUu4VuswcU9dHsLUov8c56jxwjjAeV/5LC5ibn
-         qB6LC7fnZRpaguIDc8Pq+yn2T066R0f7MhHjRjfEjEvRiC/bDRknN1/i37GeRTuVtrxM
-         TDtRi6LF5mWWSQ4AGckNI/mDNJx++m3zfVVrP4rbnfWOcLS39qNzkU6O/5WJymCYhRym
-         AAYg4B4geKWXNuHmILBtHQ+RwDzViuF1UWOpfZx+xh7oye3XYwNFjnocRWGrUG9aW5aX
-         EfyA==
-X-Forwarded-Encrypted: i=1; AJvYcCXgdvCUsSZ5AKod2gTWH9hUI0IRVRmHnzkBFkOjERzVqR/GM52+IuIgs9LzRTs20Vk4AF8tvjESwm8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXQJ1/BbMDdjJ1xWt4NazJYVpBE1ULm6FZgfT05SdPbXan4REK
-	0NWsseMfD6CIVkQAT53hjngBeunXnL0rK3xoNYKeXP7A8lIV9CB1
-X-Gm-Gg: ASbGnctLtJPaGB7ZZ4faJxp5d/KKEJXLEiobro7RQl+fb6TZlozK/S2ISpLMfu74umm
-	YD0x9V6+mAYgPDOCqVYHfP9tgKlCsnFrO5wTkl9rsNkTUoaLeWqa7XNiIzftpMy/CCpq49PZP7T
-	fMHHjNDAfXg7Pg0cevVTxIkU/tkQMm9Hq8y/pEwrFPMH6i4DScVpY+x6uoqzYyo99cxgjr+8IGu
-	GYwLjujNo1UpA5STcMZMeUg7Y+FCn/CPkoYwxY7KQbmlClB/OmSk+NeWoELZsEzxTkA75IZULj+
-	Pwe3VlUtPWg7Y3zmeqVO0QBtZpAHNQEvst2nwLFkTBD5WJcFYa9Af7FANhi1bqhvzUVrddhoS2f
-	5xkXSavtSpZJc6Bycr+zL8DCZ/5t1mKTdHiNw69xv4A==
-X-Google-Smtp-Source: AGHT+IFhbmw6fQpo2Ypj36lHo1DJbDTgPZib1INmvQeid+sk0IJRJ1jRo1Jj5ZjLhbdQM5dJHBz9Fg==
-X-Received: by 2002:a05:6402:2693:b0:5e4:a1e8:3f04 with SMTP id 4fb4d7f45d1cf-5edfce94debmr7013447a12.8.1743409684918;
-        Mon, 31 Mar 2025 01:28:04 -0700 (PDT)
-Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5edc16ef7a7sm5468722a12.36.2025.03.31.01.28.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Mar 2025 01:28:04 -0700 (PDT)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Alejandro Colomar <alx.manpages@gmail.com>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-man@vger.kernel.org
-Subject: [PATCH v2 3/3] fanotify.7: Document FAN_DENY_ERRNO()
-Date: Mon, 31 Mar 2025 10:27:59 +0200
-Message-Id: <20250331082759.1424401-3-amir73il@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250331082759.1424401-1-amir73il@gmail.com>
-References: <20250331082759.1424401-1-amir73il@gmail.com>
+	s=arc-20240116; t=1743410308; c=relaxed/simple;
+	bh=YTv2wvkawqwRg9YXiveP93RLsNErkOr7d4QB60o2efY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U3v1oFPpLD1mh4tHCTi0AbcK8wPY7uhGGVS8ZgrEYNiA8A7pbwWsma9R9ZDw1qm++FmviVOUvf7zHWj5QBOI9G52YU/Sr1EVzLlVN8Q6B9uxZ/svQ+eQJwJHwRtuqVxdSWE2nCeo/Z7z8wp0dkDKilWvy36o/WF7OUQL1ND746s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cg6poftB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB32CC4CEE5;
+	Mon, 31 Mar 2025 08:38:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1743410307;
+	bh=YTv2wvkawqwRg9YXiveP93RLsNErkOr7d4QB60o2efY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cg6poftBiyOIoPOhpn3VkXsznojne6L9LTWW/fBwS01gpZk55Ee1OWycJqW3rbfq9
+	 3ByOUqXiJSleo0MU8jym6Jl3Z9mggxd/DxwEWR8U2tvxs8bfWiWxTqpX7NHtnWxu2M
+	 d7EidVt3UAuDW9dAHuI0KAmt/gwOG1JE2I/ZOkwbpd0vzY1uyyN58yh337qKYgnKQE
+	 uIIwIFNGbFxHVsCDy+P0ey0faIFnh292a+b1EjYJ/K8c6eBsovdFtcma8lbiDSH62k
+	 FrSQVDClEyH0Q0rOgF5mP2ueZqi4P6BQdZGtaXIvoKdedukkyG8hQo/71Pqv5gIqis
+	 XW0vDtDthWPDQ==
+Date: Mon, 31 Mar 2025 10:38:24 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] name_to_handle_at.2: Document the
+ AT_HANDLE_MNT_ID_UNIQUE flag
+Message-ID: <as3iyfw75ptjp6facwtrr2hou2r2l3oxsbl7ylxzi3ipolcs2j@l4j5dnclusxu>
+References: <20250331081642.1423812-1-amir73il@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e7k7wtoygxzb3kt2"
+Content-Disposition: inline
+In-Reply-To: <20250331081642.1423812-1-amir73il@gmail.com>
 
-Document FAN_DENY_ERRNO(), that was added in v6.13 to
-report specific errors on file access.
 
-Cc: Jan Kara <jack@suse.cz>
-Cc: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
+--e7k7wtoygxzb3kt2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] name_to_handle_at.2: Document the
+ AT_HANDLE_MNT_ID_UNIQUE flag
+References: <20250331081642.1423812-1-amir73il@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20250331081642.1423812-1-amir73il@gmail.com>
 
-Changes since v1:
-- Split out to 3 patches
-- Add example of FAN_DENY_ERRNO
+Hi Amir,
 
- man/man7/fanotify.7 | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+On Mon, Mar 31, 2025 at 10:16:41AM +0200, Amir Goldstein wrote:
+> A flag since v6.12 to indicate that the requested mount_id is
+> a 64bit unique id.
+>=20
+> Cc: Chuck Lever <chuck.lever@oracle.com>
+> Cc: Jeff Layton <jlayton@poochiereds.net>
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Aleksa Sarai <cyphar@cyphar.com>
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-index 863578bd7..a532a963a 100644
---- a/man/man7/fanotify.7
-+++ b/man/man7/fanotify.7
-@@ -778,6 +778,28 @@ to deny the file operation.
- If access is denied, the requesting application call will receive an
- .B EPERM
- error.
-+Since Linux 6.13,
-+.\" commit b4b2ff4f61ded819bfa22e50fdec7693f51cbbee
-+if a notification group is initialized with class
-+.BR FAN_CLASS_PRE_CONTENT ,
-+the file operation can be denied with errors other than
-+.BR EPERM .
-+For example, for the requesting application to get the
-+.B EIO
-+error, the event listener can write the response
-+.BR FAN_DENY_ERRNO ( EIO ).
-+At the time of writing,
-+only the following error values could be returned to the application with
-+.BR FAN_DENY_ERRNO
-+macro:
-+.BR EPERM ,
-+.BR EIO ,
-+.BR EBUSY ,
-+.BR ETXTBSY ,
-+.BR EAGAIN ,
-+.BR ENOSPC ,
-+.BR EDQUOT .
-+.P
- Additionally, if the notification group has been created with the
- .B FAN_ENABLE_AUDIT
- flag, then the
--- 
-2.34.1
+Thanks!  I've applied the patch, with some minor amendments:
 
+	diff --git i/man/man2/open_by_handle_at.2 w/man/man2/open_by_handle_at.2
+	index da0129dee..47405b118 100644
+	--- i/man/man2/open_by_handle_at.2
+	+++ w/man/man2/open_by_handle_at.2
+	@@ -127,7 +127,7 @@ .SS name_to_handle_at()
+	 .I flags
+	 argument is a bit mask constructed by ORing together zero or more of
+	 .BR AT_HANDLE_FID ,
+	-.BR AT_HANDLE_MNT_ID_UNIQUE,
+	+.BR AT_HANDLE_MNT_ID_UNIQUE ,
+	 .BR AT_EMPTY_PATH ,
+	 and
+	 .BR AT_SYMLINK_FOLLOW ,
+	@@ -153,11 +153,11 @@ .SS name_to_handle_at()
+	 contain the
+	 .BR AT_HANDLE_MNT_ID_UNIQUE " (since Linux 6.12)"
+	 .\" commit 4356d575ef0f39a3e8e0ce0c40d84ce900ac3b61
+	-flag, the caller indicates that the size of the
+	+flag, the caller indicates that the width of the
+	 .I mount_id
+	-buffer is at least 64bit
+	+buffer is at least 64 bits,
+	 and then the mount id returned in that buffer
+	-is the unique mount id as the one returned by
+	+is the unique mount id as returned by
+	 .BR statx (2)
+	 with the
+	 .BR STATX_MNT_ID_UNIQUE
+
+The most notable one is s/size/width/.  In C23 there are the concepts of
+the width of a type and the size of a type.  The width is measured in
+bits, and the size is measured in bytes.  Let's be consistent with that.
+
+I have also proposed a new set of operators for ISO C2y, which are
+_Minof, _Maxof, and _Widthof, which yield the minimum and maximum values
+of a type, and its width in bits.
+<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3518.txt>
+The C Committee seems in favour of that proposal, and I expect it will
+be accepted in August.
+
+
+Have a lovely day!
+Alex
+
+P.S.:  I'm not using my @gmail account anymore.  Please use
+       <alx@kernel.org>.
+
+> ---
+>  man/man2/open_by_handle_at.2 | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>=20
+> diff --git a/man/man2/open_by_handle_at.2 b/man/man2/open_by_handle_at.2
+> index 6b9758d42..e3ec70dd5 100644
+> --- a/man/man2/open_by_handle_at.2
+> +++ b/man/man2/open_by_handle_at.2
+> @@ -127,6 +127,7 @@ The
+>  .I flags
+>  argument is a bit mask constructed by ORing together zero or more of
+>  .BR AT_HANDLE_FID ,
+> +.BR AT_HANDLE_MNT_ID_UNIQUE,
+>  .BR AT_EMPTY_PATH ,
+>  and
+>  .BR AT_SYMLINK_FOLLOW ,
+> @@ -147,6 +148,21 @@ with the returned
+>  .I file_handle
+>  may fail.
+>  .P
+> +When
+> +.I flags
+> +contain the
+> +.BR AT_HANDLE_MNT_ID_UNIQUE " (since Linux 6.12)"
+> +.\" commit 4356d575ef0f39a3e8e0ce0c40d84ce900ac3b61
+> +flag, the caller indicates that the size of the
+> +.I mount_id
+> +buffer is at least 64bit
+> +and then the mount id returned in that buffer
+> +is the unique mount id as the one returned by
+> +.BR statx (2)
+> +with the
+> +.BR STATX_MNT_ID_UNIQUE
+> +flag.
+> +.P
+>  Together, the
+>  .I pathname
+>  and
+> --=20
+> 2.34.1
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--e7k7wtoygxzb3kt2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfqVIAACgkQ64mZXMKQ
+wqk59xAAh9xvFhfyxeuCXzHjFtG97R+oC0mfJptatwiRUM9Qo2Ud5iqXkM9CAqgy
+8ppCxH2j83V2ilx5wN3degbi5y+uj2PCAzHzw8IzhmZbJyTSvtsTfraU4rG+YElk
+lfWCk02yUZEHWWMVRZXNhVcwJQb3ohZDIgk1yKIRj9DQH8HU3kQXsyBTgfQzx+7X
+ZE4WVQ1oTOF3tobRuhMkuk7v8ohxCwp7ITwkDMDrcKzndn6ytlqUjGgzlxlJopdH
+H1YQTCYAPKoNqSC7rYj9oaTPvEgwU/AUHwWaWwlXYW2Irrz54fECzEgiSE1QiqvK
+b3GMnK76m1Ls8UhoFs+VcOE61LvzhsPmxW/7tvWEN05l2iSOwl+y9i6N6l8HWplT
+Q8ou8D1i9BrzHJsfOgKQgj0wxyC4uSsftx2sCA9LV6/CXca9GkOTJIMzqGO9wz6B
+vE+KKzmcGOy8+4E1EfPp0S9k/Vddp2SdVqJ015ZQFpRp5+07HBS/pvbN80n1XhBs
+pQLhdP5T9fveI/z/sWfte9jW0pt1JIpkeLLLWOyeiW31jbEmOhEYTNwU+x7HVTBG
+cnMQfycYKciNE4WIZMwyWnpARaJRMRLawEbeQUtAXdWrdESb5v6my5tjXkYd9D3d
+aZrXVMAgcWlFVlky66vXVAsdx5uXVXQGFXEvuETpt1ewQdOUlpw=
+=un9R
+-----END PGP SIGNATURE-----
+
+--e7k7wtoygxzb3kt2--
 
