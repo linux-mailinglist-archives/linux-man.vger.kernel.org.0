@@ -1,54 +1,55 @@
-Return-Path: <linux-man+bounces-2727-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2728-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D673A796E4
-	for <lists+linux-man@lfdr.de>; Wed,  2 Apr 2025 22:54:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E80ABA796FC
+	for <lists+linux-man@lfdr.de>; Wed,  2 Apr 2025 22:59:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 5FD103B125F
-	for <lists+linux-man@lfdr.de>; Wed,  2 Apr 2025 20:53:56 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id EA1493B268B
+	for <lists+linux-man@lfdr.de>; Wed,  2 Apr 2025 20:58:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E1E61F130E;
-	Wed,  2 Apr 2025 20:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B0951F2B8D;
+	Wed,  2 Apr 2025 20:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGAgMKdG"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpEz5LSe"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9E3193436
-	for <linux-man@vger.kernel.org>; Wed,  2 Apr 2025 20:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4710E193436;
+	Wed,  2 Apr 2025 20:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743627246; cv=none; b=d41kUi3khsgWPxr1ra0JMJSV8VVXNcKHA3Y6i0RlZ8wLY3Ngx9QbYSENcgsj9dIRTrCPfHW7Ai2h/Ey/DVGF+mkK6cr15kYwtvlcsjJ6blPrq1cbTpNvhvrmU625M+nmmdlJXN2Dg/dpV6h4QrQ4ZLLy5MsiCR3fOR6BucTBr0c=
+	t=1743627502; cv=none; b=rDRDQp2gDdUyv3bPHsgMsjfpC8HegGV7o9S366v/0Ns5/ekTTh44jjz9qjh/6xyCIEmM3i5TFNFlyjoVFgWtORtQ/prRGT4SkFo7vB0IDG8nXcaC/KgiVMGUX3J5yllNW8XLdLGuNEY2nrGohObG/myroQfOMOhcrZa5JOe16Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743627246; c=relaxed/simple;
-	bh=3tgLWQTeAP0Zq8NeONgmx4TcYIg5xTWLCdoaiuH1bIs=;
+	s=arc-20240116; t=1743627502; c=relaxed/simple;
+	bh=LS8lzPuSVwy6U6TgTLTTjZjd5YvFHYJurAtikdh5Zf0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sFZQv+6+Rc+CXfdF5dJmSmjRPhCHwqk9rbJNG9L491DbVZDRZdb5Nn4d9o0hdlxJSgpg33R17DDcaUrWIfpNq+ViY3GiB+NirzX/o9KonoDToTXqfg27ZsKkTG16yk0qSjbZ8rUJ4lUdBc9ySqyRMa/NXS/WpuSKMhDfOc4peE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGAgMKdG; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5E5C4CEDD;
-	Wed,  2 Apr 2025 20:54:04 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=QZ27StBbbtjF3JRLx/gevjbkD8Xmzh4s2Dhf5cpL9mKz/HLDcpk/FHsPKFGDdGHSUkLzIupSx5GMdTJ5y1hweZBIz2JGSFuXnK/Wjm7Jg3wSLhEHCMYUbhzWBq5QVgqXCXPUBXwv4gqeH0v6VIboimTHi5cPPfR8PrJAx0J1Z0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpEz5LSe; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393F8C4CEDD;
+	Wed,  2 Apr 2025 20:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743627245;
-	bh=3tgLWQTeAP0Zq8NeONgmx4TcYIg5xTWLCdoaiuH1bIs=;
+	s=k20201202; t=1743627501;
+	bh=LS8lzPuSVwy6U6TgTLTTjZjd5YvFHYJurAtikdh5Zf0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RGAgMKdGGBhBkbndcikM4GM6NjWjnHV5JUmOPQX32jR0O/nH7ImxNEVgI25IW3oER
-	 hKgqBSVgm32jWTqCZKL+KxLXhLwOzB7NE+baTuEcDOWOWSgGLMEMlcSk8w75hFxWKW
-	 LBQsHWKW02fNOz2rNOzrI7NiKzgPAecWaL7pbs3fL4Yt+9NMNH46tpHwjTpqj4Ba7o
-	 dpxOHXX5mvaRnot/JDpTAjZZDfyNfqNIsUXca9a/+cHPh49gXDj/HGPW3q0ozai/zO
-	 SOgKuxaj3fNd2/9d3/i8ZAEBd4E7VSHh1w4diVbhox8asr8AAf82vw2ii+wq8KK0PZ
-	 Tu4k9Bu3f+v1g==
-Date: Wed, 2 Apr 2025 22:54:02 +0200
+	b=WpEz5LSe3zK2P1+s3bvr9He6kGU8WGtTbJuycJ6AFl4Vw8xQTWpKq+KjR3g0FxIQh
+	 hGfQa71VfING6ReA23S/t2vkVlO4zhCSBe8SHUBDnGJubJyLlBc9Q8/d18tklah8uE
+	 z8Cul559z+Xf2nt9jQX7gK7x5c5ezXrtQH9E4dtne7SnsmH0OjtwDmz8oNAg2dMUpt
+	 +mPYZ/2MZNIiYtVGaQpA4V8rD7eKzEQlqN09g3PHgwmadQORGAq75qakd1LXEbqwG3
+	 tnKIVRb3x3+tFwkm8yv4Soin7XZDm0obSvLtsNd7hX66wV3YLFUMaCesl+fgkVSVQW
+	 ybwX3W2wDwCrA==
+Date: Wed, 2 Apr 2025 22:58:17 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Amir Goldstein <amir73il@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] fanotify: Fixes for documentation of FAN_FS_ERROR
-Message-ID: <rylfwmbs4prqtctgpvex7d7p3efqtxmexyzbnyjcbtyo5pqrer@33rylwxb7zes>
-References: <20250331133959.1436376-1-amir73il@gmail.com>
- <20250331133959.1436376-2-amir73il@gmail.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>, 
+	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] fanotify: Document FAN_PRE_ACCESS event
+Message-ID: <de54ad3do3vz3mi7swdojhwzrpssxk6rzqrfzlrmjaxz4pud6r@ha64lyrespvy>
+References: <20250330125536.1408939-1-amir73il@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,165 +57,159 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nnhmz5i26qpopjkq"
+	protocol="application/pgp-signature"; boundary="2wrlxfpkdvy6jait"
 Content-Disposition: inline
-In-Reply-To: <20250331133959.1436376-2-amir73il@gmail.com>
+In-Reply-To: <20250330125536.1408939-1-amir73il@gmail.com>
 
 
---nnhmz5i26qpopjkq
+--2wrlxfpkdvy6jait
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Amir Goldstein <amir73il@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] fanotify: Fixes for documentation of FAN_FS_ERROR
-References: <20250331133959.1436376-1-amir73il@gmail.com>
- <20250331133959.1436376-2-amir73il@gmail.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Christian Brauner <brauner@kernel.org>, 
+	linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] fanotify: Document FAN_PRE_ACCESS event
+References: <20250330125536.1408939-1-amir73il@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20250331133959.1436376-2-amir73il@gmail.com>
+In-Reply-To: <20250330125536.1408939-1-amir73il@gmail.com>
 
 Hi Amir,
 
-On Mon, Mar 31, 2025 at 03:39:58PM +0200, Amir Goldstein wrote:
-> FAN_EVENT_INFO_TYPE_ERROR was missing from the list of info types.
+On Sun, Mar 30, 2025 at 02:55:36PM +0200, Amir Goldstein wrote:
+> The new FAN_PRE_ACCESS events are created before access to a file range,
+> to provides an opportunity for the event listener to modify the content
+> of the object before the user can accesss it.
 >=20
-> The order of FAN_FS_ERROR entry in the event section was rather
-> arbitrary inside the group of fid info events.
+> Those events are available for group in class FAN_CLASS_PRE_CONTENT
+> They are reported with FAN_EVENT_INFO_TYPE_RANGE info record.
 >=20
-> FAN_FS_ERROR is a special event with error info, so place its entry
-> after the entries for fid info events and before the entries for
-> permission events.
->=20
-> Reduce unneeded newlines in the FAN_FS_ERROR entry.
->=20
-> Cc: Jan Kara <jack@suse.cz>
 > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 > ---
+>  man/man2/fanotify_init.2 |  4 ++--
+>  man/man2/fanotify_mark.2 | 14 +++++++++++++
+>  man/man7/fanotify.7      | 43 ++++++++++++++++++++++++++++++++++++++--
+>  3 files changed, 57 insertions(+), 4 deletions(-)
 >=20
-> Alejandro,
->=20
-> This unrelated cleanup was plit out of the FAN_PRE_ACCESS
-> patch and I have also added some extra cleanup in preparation for
-> adding mount events.
->=20
-> If you were going to re-organize the section describing the different
-> extra event info types, maybe better doing this after merging the new
-> types from v6.14: FAN_EVENT_INFO_TYPE_RANGE and FAN_EVENT_INFO_TYPE_MNT.
->=20
-> Thanks,
-> Amir.
->=20
->  man/man2/fanotify_mark.2 | 44 +++++++++++++++++++---------------------
->  man/man7/fanotify.7      |  7 ++++---
->  2 files changed, 25 insertions(+), 26 deletions(-)
->=20
+> diff --git a/man/man2/fanotify_init.2 b/man/man2/fanotify_init.2
+> index 23fbe126f..b1ef8018c 100644
+> --- a/man/man2/fanotify_init.2
+> +++ b/man/man2/fanotify_init.2
+> @@ -57,8 +57,8 @@ Only one of the following notification classes may be s=
+pecified in
+>  .B FAN_CLASS_PRE_CONTENT
+>  This value allows the receipt of events notifying that a file has been
+>  accessed and events for permission decisions if a file may be accessed.
+> -It is intended for event listeners that need to access files before they
+> -contain their final data.
+> +It is intended for event listeners that may need to write data to files
+> +before their final data can be accessed.
+>  This notification class might be used by hierarchical storage managers,
+>  for example.
+>  Use of this flag requires the
 > diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-> index 47cafb21c..1d132fa1a 100644
+> index 47cafb21c..edbcdc592 100644
 > --- a/man/man2/fanotify_mark.2
 > +++ b/man/man2/fanotify_mark.2
-> @@ -362,29 +362,6 @@ Create an event when a marked file or directory itse=
-lf is deleted.
->  An fanotify group that identifies filesystem objects by file handles
+> @@ -445,6 +445,20 @@ or
+>  .B FAN_CLASS_CONTENT
 >  is required.
 >  .TP
-> -.BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
-> -.\" commit 9709bd548f11a092d124698118013f66e1740f9b
-> -Create an event when a filesystem error
-> -leading to inconsistent filesystem metadata is detected.
-> -An additional information record of type
-> -.B FAN_EVENT_INFO_TYPE_ERROR
-> -is returned for each event in the read buffer.
-> -An fanotify group that identifies filesystem objects by file handles
-> -is required.
-> -.IP
+> +.BR FAN_PRE_ACCESS " (since Linux 6.14)"
+> +.\" commit 4f8afa33817a6420398d1c177c6e220a05081f51
+> +Create an event before read or write access to a file range,
+> +that provides an opportunity for the event listener
+> +to modify the content of the file
+> +before access to the content
+> +in the specified range.
+> +An additional information record of type
+> +.B FAN_EVENT_INFO_TYPE_RANGE
+> +is returned for each event in the read buffer.
+> +An fanotify file descriptor created with
+> +.B FAN_CLASS_PRE_CONTENT
+> +is required.
+> +.TP
+>  .B FAN_ONDIR
+>  Create events for directories\[em]for example, when
+>  .BR opendir (3),
+> diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
+> index 7844f52f6..6f3a9496e 100644
+> --- a/man/man7/fanotify.7
+> +++ b/man/man7/fanotify.7
+> @@ -247,6 +247,26 @@ struct fanotify_event_info_error {
+>  .EE
+>  .in
+>  .P
+> +In case of
+> +.B FAN_PRE_ACCESS
+> +events,
+> +an additional information record describing the access range
+> +is returned alongside the generic
+> +.I fanotify_event_metadata
+> +structure within the read buffer.
+> +This structure is defined as follows:
+> +.P
+> +.in +4n
+> +.EX
+> +struct fanotify_event_info_range {
+> +    struct fanotify_event_info_header hdr;
+> +    __u32 pad;
+> +    __u64 offset;
+> +    __u64 count;
+> +};
+> +.EE
+> +.in
+> +.P
+>  All information records contain a nested structure of type
+>  .IR fanotify_event_info_header .
+>  This structure holds meta-information about the information record
+> @@ -509,8 +529,9 @@ The value of this field can be set to one of the foll=
+owing:
+>  .BR FAN_EVENT_INFO_TYPE_FID ,
+>  .BR FAN_EVENT_INFO_TYPE_DFID ,
+>  .BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
+> -or
+> -.BR FAN_EVENT_INFO_TYPE_PIDFD .
+> +.BR FAN_EVENT_INFO_TYPE_PIDFD ,
+> +.BR FAN_EVENT_INFO_TYPE_ERROR ,
+> +.BR FAN_EVENT_INFO_TYPE_RANGE .
+>  The value set for this field
+>  is dependent on the flags that have been supplied to
+>  .BR fanotify_init (2).
+> @@ -711,6 +732,24 @@ Identifies the type of error that occurred.
+>  This is a counter of the number of errors suppressed
+>  since the last error was read.
+>  .P
+> +The fields of the
+> +.I fanotify_event_info_range
+> +structure are as follows:
+> +.TP
+> +.I hdr
 
-You forgot the .IP in the moved text.
+We should use .hdr here too (and in the fields below, '.' too), right?
 
 
 Cheers,
 Alex
 
-> -Events of such type are dependent on support
-> -from the underlying filesystem.
-> -At the time of writing,
-> -only the
-> -.B ext4
-> -filesystem reports
-> -.B FAN_FS_ERROR
-> -events.
-> -.IP
-> -See
-> -.BR fanotify (7)
-> -for additional details.
-> -.TP
->  .BR FAN_MOVED_FROM " (since Linux 5.1)"
->  .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
->  Create an event when a file or directory has been moved from a marked
-> @@ -418,6 +395,27 @@ Create an event when a marked file or directory itse=
-lf has been moved.
->  An fanotify group that identifies filesystem objects by file handles
->  is required.
->  .TP
-> +.BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
-> +.\" commit 9709bd548f11a092d124698118013f66e1740f9b
-> +Create an event when a filesystem error
-> +leading to inconsistent filesystem metadata is detected.
-> +An additional information record of type
-> +.B FAN_EVENT_INFO_TYPE_ERROR
-> +is returned for each event in the read buffer.
-> +An fanotify group that identifies filesystem objects by file handles
-> +is required.
-> +Events of such type are dependent on support
-> +from the underlying filesystem.
-> +At the time of writing,
-> +only the
-> +.B ext4
-> +filesystem reports
-> +.B FAN_FS_ERROR
-> +events.
-> +See
-> +.BR fanotify (7)
-> +for additional details.
+> +This is a structure of type
+> +.IR fanotify_event_info_header .
+> +The
+> +.I info_type
+> +field is set to
+> +.BR FAN_EVENT_INFO_TYPE_RANGE .
 > +.TP
->  .B FAN_OPEN_PERM
->  Create an event when a permission to open a file or directory is request=
-ed.
->  An fanotify file descriptor created with
-> diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-> index fd16bf294..614410cd9 100644
-> --- a/man/man7/fanotify.7
-> +++ b/man/man7/fanotify.7
-> @@ -395,9 +395,6 @@ A child file or directory was deleted in a watched pa=
-rent.
->  .B FAN_DELETE_SELF
->  A watched file or directory was deleted.
->  .TP
-> -.B FAN_FS_ERROR
-> -A filesystem error was detected.
-> -.TP
->  .B FAN_RENAME
->  A file or directory has been moved to or from a watched parent directory.
->  .TP
-> @@ -425,6 +422,9 @@ A file or directory that was opened read-only
->  .RB ( O_RDONLY )
->  was closed.
->  .TP
-> +.B FAN_FS_ERROR
-> +A filesystem error was detected.
+> +.I count
+> +The number of bytes being read or written to the file.
 > +.TP
->  .B FAN_Q_OVERFLOW
->  The event queue exceeded the limit on number of events.
->  This limit can be overridden by specifying the
-> @@ -510,6 +510,7 @@ The value of this field can be set to one of the foll=
-owing:
->  .BR FAN_EVENT_INFO_TYPE_FID ,
->  .BR FAN_EVENT_INFO_TYPE_DFID ,
->  .BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
-> +.BR FAN_EVENT_INFO_TYPE_ERROR ,
->  or
->  .BR FAN_EVENT_INFO_TYPE_PIDFD .
->  The value set for this field
+> +.I offset
+> +The offset from which bytes are read or written to the file.
+> +.P
+>  The following macros are provided to iterate over a buffer containing
+>  fanotify event metadata returned by a
+>  .BR read (2)
 > --=20
 > 2.34.1
 >=20
@@ -224,25 +219,25 @@ owing:
 <https://www.alejandro-colomar.es:8443/>
 <http://www.alejandro-colomar.es:8080/>
 
---nnhmz5i26qpopjkq
+--2wrlxfpkdvy6jait
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfto+oACgkQ64mZXMKQ
-wqkGjw//SDgu5h6gB/DOL77xOEOuVTVc3Ca5JCNCIXPIAIix2iDcJTIkB0UEeRDS
-OUQvHz6gjlK3dwftzHRkxziWfUzc5iY34E9VBLyLNCbQcvY00xeJgJMj9z/wXCDj
-Nl7o6Ty5lDsRIBDsYRc5Ok4d3zBLDg1s0PseOHZkzhb0SvZfT84ACDqYpwezY4g5
-BSmsvFAOigs8vuC6NlTH/iGn6ugiLkE7rOlUfWWa7RgmnO2KjNy6UDs7w7nb9yU/
-HO0H4C/+35gdd3o4mvpMZ/XK2KFsYXCZ6mLcgo6LGORAI95ke0C/88Hb3iLnEtHX
-cKMSShD9gpjTUUd7FUfdavzbgUoYBx5E5YH39oq9I5s3mZlAoCVauvEQ8QtB3E8D
-IDymNvscdSKgjOZ02H/3q2G0gUgS2xzF+j64RgLFLUykNxFxxu1m4z2Cgsv7MNZX
-8fPVNgPJDAD9sLYrEDBjqBF6n6M3ev2jglevanB3/0UgDtFYr27jsF4ewTMEdkS7
-3sTz3DD9NRyAaLwOoAysiJcLqNqGs/d1RbSO63gVjbokq8NU6vMMff5tFolCZgnK
-NVBSYL1EJEwn29kEf3exEv30nfcutqH6IAjpYwT8ERZHOOKueKzHDy0svdRRE1OH
-enSl9+hpn1aJCVbBSgSwP0YihdVjzZt7yQ2PH11w8X901TrMbaw=
-=bab2
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmftpOkACgkQ64mZXMKQ
+wqmidhAAiT4GKNxVG6x2KKMPRhXSusiwpH1jGmwC+yeKVvLpK7cH6REeQUUrmBRk
+QhdEIQzoLtwubV6QWMm+ahltMfJRVWx52kBCRiHMb1o0xpue4X7XOnb6lsWVPhum
+H70bkyHe9MH1UiAASTuNl7yJYM2496rNk9KBYRXr+BgWVv1spU6HCO09v0StYr2l
+NPXkdJY0pdYCC2SiOqwPtNqBORTOGPnvQN1PseEV+OP9DqVP+cP/hT4GISoCAz9+
+nVbSB370EmOj//0CZSery0GrVomTVt0Skrl9Wz87h1tyHcHnJC6AQ1EG2uRW+ZQ9
+bd2vBrWEHAyrVtoJA+WPH6yTKrkMrhFwP+wvncewBoCAdzZUbUCgS+JI/AhLgAXz
+iXoehT+woXFXhawG6Y64uwTIfCHosBu0EVS0q/nqmK9HB5ug28KV8O3WdQG0J2OX
+9A4VjVzr2chlSCRYxML/TAdpjAebkI7rdRsemKzFIi0u5D9wwa0hX9juH6tuCk8L
+hcCdU8XT2w+moa9qmFXs7sTMfMWES4W2/VY6XDl0YkWnY9Dm86FknwWUyMKdlaR4
+/SNVjIdS6fk8JsgVjquOPzyQtHzGZUyh7kFSDFM+pKIUWC9fXDfo1Ir7tXQ/13G3
+1DcVwWNEWs+4Wz0RSP3lb/CIOkLxk0yxNgD9JDgYgcU2BkT6gkk=
+=lx52
 -----END PGP SIGNATURE-----
 
---nnhmz5i26qpopjkq--
+--2wrlxfpkdvy6jait--
 
