@@ -1,261 +1,160 @@
-Return-Path: <linux-man+bounces-2729-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2730-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 675ABA79764
-	for <lists+linux-man@lfdr.de>; Wed,  2 Apr 2025 23:14:28 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 184E6A7A094
+	for <lists+linux-man@lfdr.de>; Thu,  3 Apr 2025 12:01:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B1BC21893982
-	for <lists+linux-man@lfdr.de>; Wed,  2 Apr 2025 21:14:37 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 664D9189678B
+	for <lists+linux-man@lfdr.de>; Thu,  3 Apr 2025 10:01:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC6CE1F3FDC;
-	Wed,  2 Apr 2025 21:14:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 184BFCA64;
+	Thu,  3 Apr 2025 10:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Icg1BWSQ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZfIIVRb"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8C842A87
-	for <linux-man@vger.kernel.org>; Wed,  2 Apr 2025 21:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C35023ED76
+	for <linux-man@vger.kernel.org>; Thu,  3 Apr 2025 10:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743628461; cv=none; b=ufbowtvwd/OhoNSrUbknme6E5CHuVfJaYHxnnbMKbxDHbhC1mUt0AkVev2HQ9Ax9Q/Fd/DXm2uwpyenu1BuO7fgILr/iOSG40ttUfPjggL1Ct6mNfbyaBNcUqzbOBjknHFRGLgWjA9W1JdplQjEm/yz6YvbjQJlQn68fC6v4Mt4=
+	t=1743674476; cv=none; b=bsWcjDi7mHOCsYTbYlkcerNCU6MTqey/EHEmI16kmtpPa7BE5X0kwBB+Z4vMxtBuNgOrUGEPcSqbGgGQ0a80uWsgPo54w254hQxjOR6ymxnKAvyRCLByf6nlfY9PO1AfqBf95w0Vo+z1DNAPkgAoDGU5NaYLGfPeyMg4iOjpwx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743628461; c=relaxed/simple;
-	bh=SvcCjmEC58T7qU55vGcafA4DnvdGb2S6Qn1wK/AFa10=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P38Tkc4f+sWTvHooG65kG2hWBfQ3GKSUp6L61YKZwI/y9mUF2YUtmf4OhUeZUDytooK99LZH1MkHPM1d4KllSxrHUk3EBVJV8wbaORdqGMcd2WfdTGdmCY7FJ/EsFqK97jrok4va0BFhtvL+I/ZFtUViHlCzYNaxSJBXBMAnNio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Icg1BWSQ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 253C0C4CEDD;
-	Wed,  2 Apr 2025 21:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743628461;
-	bh=SvcCjmEC58T7qU55vGcafA4DnvdGb2S6Qn1wK/AFa10=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Icg1BWSQuFpy5t9dJsQRa8j7id7/KRRWnfUs1E58KVYf8Nim3WZ5zeIwKp85xI86w
-	 ruxbaDMVJnXelwuP6HKB2tTZWA82e34sOM45/Pz56PxwSLst8eklzGmpOsdth5/Lqx
-	 2F+Zeteoe4cpCxX+vUtZCJ6xJnDKv6hAUWh1qeL+6roSzM9p/+6o90u5dT/53CFvbv
-	 fc35HAu9CX9kAkJtcyMLVyZvDtFnkA9tnO8ZHh6bzFarr14xURQHbZWlJvWMoJDZnR
-	 93MKQ9ObvkKJdsn9ebbwfnY0gqXAQ9bGtPNtjhDyK6b1qq/2fTIlMO8d2N2W+P5V99
-	 MmnLZNPxdxc8w==
-Date: Wed, 2 Apr 2025 23:14:17 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, Jan Kara <jack@suse.cz>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] fanotify.7: Document FAN_RESPONSE_INFO_AUDIT_RULE
-Message-ID: <w353fxq7kesaau5ft7jfjg2zi5yetqfglgbh2joyk3rghdzkqn@i3aykxqgrbpz>
-References: <20250331082759.1424401-1-amir73il@gmail.com>
- <20250331082759.1424401-2-amir73il@gmail.com>
- <ecb3r3iw7c6efbl5dagb7jy7sailmdpmil3qg76lm7s3ub3qua@e55vmngsboyq>
- <CAOQ4uxgPdWXqaLN9PmgnWaPHDsisZJTLpV-GYmtY_mgPKyMYcQ@mail.gmail.com>
+	s=arc-20240116; t=1743674476; c=relaxed/simple;
+	bh=DL9ZbdhnB/jYDFmFv4HP4Dwvm4RhjCuQgtJXBZQowYU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jEhUtY5Rj/bGZfME3FA0y+MnjHTVIZKP0gIl+dw67HmZI23Y8ltr5I4hTZ4oijjUAGqW3ofxaEOstMZg9wsn1C6E4nAWJbg58aBT5VibZ39FfiWesUX58jvn1fYJj4dm2TvY5K8IX98Yglv6EpGTfKeRaoJJ8zpz27PV/U3T7MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZfIIVRb; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-5e5e22e6ed2so1112540a12.3
+        for <linux-man@vger.kernel.org>; Thu, 03 Apr 2025 03:01:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1743674473; x=1744279273; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e6Q0FGcgO8EtGd92egueWxNi9K01ILJ7rFGNJzlxfpE=;
+        b=dZfIIVRb1nDZCR3TBcuu04TZdZ4RaaDfpFi2utjaqudEMGbODi1fMEkeRCOP5jcLb5
+         BQuIyMecCsKh8/FC7GjXBjeAKXxDf3gQeK5voKU/JpPgmXcUPPWrDc7RRfYWqWH41SGO
+         3vCVPqG9/I9CH7w3TiM6QX3ali/JjxUmuYplPv6fJY89hTX+qi5BllyrooHSQizWLOzN
+         SXnIBQ25o1RvqJZTNI3VFQ+xPuIB0HoqLxYhjSn1UxYJvdPTm/rcz5i/KK0ZEwUGLsrT
+         dMz4W8tdaKeYLOUmr8TmhY70ERtZSgTRGwqTOaovcsXBZhmVeb6I/cC1gsa9Ap596se8
+         AqOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743674473; x=1744279273;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=e6Q0FGcgO8EtGd92egueWxNi9K01ILJ7rFGNJzlxfpE=;
+        b=S0TYAyLwISB5q8QLlYZlcDXgVz5rXCVhBGGmS7vWJNiNLxjMXzJo7M6KMoCNNq9HFw
+         /LSDptjA4i+FCHkVv5mAO9KYGJNXQDYvM+/YjEdfwNTymOKR+oTjI8BhLHhQBi0KWly1
+         0YHCMRpVaquNf8mwPMrOJbN8/Pn8s42XiMp2s+jXyGp5LTnFqZEtXvJ5HFpU5Ah9BD7G
+         /eSyRZdKP1Wf/tXi9/pOc89cF+Q1/ZtEbius8ZOMlLb7baCWJf0sIIJYlO71zSLn/Y4H
+         1lYwPOAz4VuUb1t0KOpImRIK+Q8b+U6a6PJHdxVGEfXP48fuzjFFdPMzqch/Wymooto0
+         fL4A==
+X-Forwarded-Encrypted: i=1; AJvYcCWabzTyq3gHmKHZHGSevIUCQKDru2FZMhfKEH+ce/ylCUxlTaYRtxpgT5fwmuLXDkZ+9pPP1b9vmBs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWOeBpe+czncVnSOdQe6kKKIjBUtu/YggZMePfNfnjhG7JZzt1
+	he/1RwIjc2Do2XUHAb7y5471MwuBhK9AEQD18GFEs9itFXtAACuLQ4RWffRDf/IaEnqDfGGkqK7
+	QSa6YiavUtp+BREI9HWovLOJFU9w=
+X-Gm-Gg: ASbGncsL4ooq6ZFg13vTGBQJnJ5iFNAO8+3gfOaM7GOE0YL6sOnDsiKya7LCotld6X8
+	5ZONMXYwk/jlTV8dETykjyehgbo8XXhizejEFH5vMmKg+VQrQMdJP9l3eA+1NWTz4pjqEHTSFNM
+	S63sE+3CzI1D8b1HHjZ6dPTBpkxw==
+X-Google-Smtp-Source: AGHT+IFi6b50P+K/vL8uBuedo6SoQZ/tFXtyXSYaBRhR2HQUHcYzQCHsNOCsoupK5PdnmNzctZ21K6SwJmtU9+0kfi4=
+X-Received: by 2002:a05:6402:3488:b0:5e5:bfab:51f with SMTP id
+ 4fb4d7f45d1cf-5edfb467613mr17404455a12.0.1743674472681; Thu, 03 Apr 2025
+ 03:01:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3sds5vgyp2fbmwvh"
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxgPdWXqaLN9PmgnWaPHDsisZJTLpV-GYmtY_mgPKyMYcQ@mail.gmail.com>
-
-
---3sds5vgyp2fbmwvh
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20250331133959.1436376-1-amir73il@gmail.com> <20250331133959.1436376-2-amir73il@gmail.com>
+ <rylfwmbs4prqtctgpvex7d7p3efqtxmexyzbnyjcbtyo5pqrer@33rylwxb7zes>
+In-Reply-To: <rylfwmbs4prqtctgpvex7d7p3efqtxmexyzbnyjcbtyo5pqrer@33rylwxb7zes>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 3 Apr 2025 12:01:01 +0200
+X-Gm-Features: ATxdqUGP6cQgRYOl3BP-OwNdNl0IIymxK9WyREHJs5hcPVFdGbLqIu-mkKhQnfY
+Message-ID: <CAOQ4uxj3iJbGYsCZ0shGXZJQpFU6A2FnT=846361SRW0vtn_nQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] fanotify: Fixes for documentation of FAN_FS_ERROR
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, Jan Kara <jack@suse.cz>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] fanotify.7: Document FAN_RESPONSE_INFO_AUDIT_RULE
-References: <20250331082759.1424401-1-amir73il@gmail.com>
- <20250331082759.1424401-2-amir73il@gmail.com>
- <ecb3r3iw7c6efbl5dagb7jy7sailmdpmil3qg76lm7s3ub3qua@e55vmngsboyq>
- <CAOQ4uxgPdWXqaLN9PmgnWaPHDsisZJTLpV-GYmtY_mgPKyMYcQ@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAOQ4uxgPdWXqaLN9PmgnWaPHDsisZJTLpV-GYmtY_mgPKyMYcQ@mail.gmail.com>
 
-Hi Amir,
-
-On Mon, Mar 31, 2025 at 11:46:33AM +0200, Amir Goldstein wrote:
-> On Mon, Mar 31, 2025 at 11:01=E2=80=AFAM Alejandro Colomar <alx@kernel.or=
-g> wrote:
+On Wed, Apr 2, 2025 at 10:54=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Amir,
+>
+> On Mon, Mar 31, 2025 at 03:39:58PM +0200, Amir Goldstein wrote:
+> > FAN_EVENT_INFO_TYPE_ERROR was missing from the list of info types.
 > >
-> > Hi Amir,
+> > The order of FAN_FS_ERROR entry in the event section was rather
+> > arbitrary inside the group of fid info events.
 > >
-> > On Mon, Mar 31, 2025 at 10:27:58AM +0200, Amir Goldstein wrote:
-> > > Document FAN_RESPONSE_INFO_AUDIT_RULE extended response info record
-> > > that was added in v6.3.
-> > >
-> > > Cc: Jan Kara <jack@suse.cz>
-> > > Cc: Richard Guy Briggs <rgb@redhat.com>
-> > > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> > > ---
-> > >  man/man7/fanotify.7 | 43 +++++++++++++++++++++++++++++++++++++++++++
-> > >  1 file changed, 43 insertions(+)
-> > >
-> > > diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-> > > index ad864b762..863578bd7 100644
-> > > --- a/man/man7/fanotify.7
-> > > +++ b/man/man7/fanotify.7
-> > > @@ -787,6 +787,49 @@ flag can be set in the
-> > >  field.
-> > >  In that case, the audit subsystem will log information about the acc=
-ess
-> > >  decision to the audit logs.
-> > > +.P
-> > > +Since Linux 6.3,
-> > > +.\" commit 70529a199574c15a40f46b14256633b02ba10ca2
-> > > +the
-> > > +.B FAN_INFO
-> > > +flag can be set in the
-> > > +.I .response
-> > > +field.
-> > > +It indicates that an extra variable-length response record follows t=
-he
-> > > +.I fanotify_response
-> > > +structure.
-> > > +Extra response records start with a common header:
-> > > +.P
-> > > +.in +4n
-> > > +.EX
-> > > +struct fanotify_response_info_header {
-> > > +    __u8 type;
-> > > +    __u8 pad;
-> > > +    __u16 len;
-> > > +};
-> > > +.EE
-> > > +.in
-> > > +.P
-> > > +The value of
-> > > +.I .type
-> > > +determines the format of the extra response record.
-> > > +In case the value of
-> > > +.I .type
-> > > +is
-> > > +.BR FAN_RESPONSE_INFO_AUDIT_RULE ,
+> > FAN_FS_ERROR is a special event with error info, so place its entry
+> > after the entries for fid info events and before the entries for
+> > permission events.
 > >
-> > How about making this more schematic?  I'm thinking of the following
-> > (see diff for both the source code and the rendered page).
+> > Reduce unneeded newlines in the FAN_FS_ERROR entry.
 > >
+> > Cc: Jan Kara <jack@suse.cz>
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> > ---
 > >
-> > Cheers,
-> > Alex
+> > Alejandro,
 > >
-> > $ git diff
-> > diff --git i/man/man7/fanotify.7 w/man/man7/fanotify.7
-> > index 863578bd7..4b1e2c215 100644
-> > --- i/man/man7/fanotify.7
-> > +++ w/man/man7/fanotify.7
-> > @@ -813,13 +813,11 @@ .SS Dealing with permission events
-> >  The value of
-> >  .I .type
-> >  determines the format of the extra response record.
-> > -In case the value of
-> > -.I .type
-> > -is
-> > -.BR FAN_RESPONSE_INFO_AUDIT_RULE ,
-> > -the following response record is expected
-> > +.TP
-> > +.BR FAN_RESPONSE_INFO_AUDIT_RULE
-> > +The following response record is expected
-> >  with extra details for the audit log:
-> > -.P
-> > +.IP
-> >  .in +4n
-> >  .EX
-> >  struct fanotify_response_info_audit_rule {
-> > $ MANWIDTH=3D72 diffman-git
-> > --- HEAD:man/man7/fanotify.7
-> > +++ ./man/man7/fanotify.7
-> > @@ -539,16 +539,18 @@
-> >           };
+> > This unrelated cleanup was plit out of the FAN_PRE_ACCESS
+> > patch and I have also added some extra cleanup in preparation for
+> > adding mount events.
 > >
-> >       The value of .type determines the format  of  the  extra  response
-> > -     record.   In  case  the  value  of  .type is FAN_RESPONSE_INFO_AU=
-=E2=80=90
-> > -     DIT_RULE, the following response record is expected with extra de=
-=E2=80=90
-> > -     tails for the audit log:
-> > +     record.
+> > If you were going to re-organize the section describing the different
+> > extra event info types, maybe better doing this after merging the new
+> > types from v6.14: FAN_EVENT_INFO_TYPE_RANGE and FAN_EVENT_INFO_TYPE_MNT=
+.
 > >
-> > -         struct fanotify_response_info_audit_rule {
-> > -             struct fanotify_response_info_header hdr;
-> > -             __u32 rule_number;
-> > -             __u32 subj_trust;
-> > -             __u32 obj_trust;
-> > -         };
-> > +     FAN_RESPONSE_INFO_AUDIT_RULE
-> > +            The  following  response  record is expected with extra de=
-=E2=80=90
-> > +            tails for the audit log:
-> > +
-> > +                struct fanotify_response_info_audit_rule {
-> > +                    struct fanotify_response_info_header hdr;
-> > +                    __u32 rule_number;
-> > +                    __u32 subj_trust;
-> > +                    __u32 obj_trust;
-> > +                };
+> > Thanks,
+> > Amir.
 > >
-> >     Monitoring filesystems for errors
-> >       A single FAN_FS_ERROR event is stored per filesystem at once.  Ex=
-=E2=80=90
+> >  man/man2/fanotify_mark.2 | 44 +++++++++++++++++++---------------------
+> >  man/man7/fanotify.7      |  7 ++++---
+> >  2 files changed, 25 insertions(+), 26 deletions(-)
 > >
->=20
-> I think this is nicer.
-> Feel free to apply your version.
+> > diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
+> > index 47cafb21c..1d132fa1a 100644
+> > --- a/man/man2/fanotify_mark.2
+> > +++ b/man/man2/fanotify_mark.2
+> > @@ -362,29 +362,6 @@ Create an event when a marked file or directory it=
+self is deleted.
+> >  An fanotify group that identifies filesystem objects by file handles
+> >  is required.
+> >  .TP
+> > -.BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
+> > -.\" commit 9709bd548f11a092d124698118013f66e1740f9b
+> > -Create an event when a filesystem error
+> > -leading to inconsistent filesystem metadata is detected.
+> > -An additional information record of type
+> > -.B FAN_EVENT_INFO_TYPE_ERROR
+> > -is returned for each event in the read buffer.
+> > -An fanotify group that identifies filesystem objects by file handles
+> > -is required.
+> > -.IP
+>
+> You forgot the .IP in the moved text.
+>
 
-I have applied your patch amended with my diff.
+I wrote "Reduce unneeded newlines in the FAN_FS_ERROR entry."
+The newlines seem unneeded IMO and inconsistent with other
+entries.
 
+But it's not a big deal.
 
-Cheers,
-Alex
-
->=20
-> While at it, you may want to consider a similar reformatting
-> to the section describing the extra information records in events
-> starting with:
->=20
-> "Information  records  are supplemental pieces of information..."
->=20
-> and then with:
->=20
-> "Information records that are supplied alongside..."
->=20
-> I know making an order in this would be too much for me...
->=20
-> Thanks,
-> Amir.
-
---=20
-<https://www.alejandro-colomar.es/>
-<https://www.alejandro-colomar.es:8443/>
-<http://www.alejandro-colomar.es:8080/>
-
---3sds5vgyp2fbmwvh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmftqKkACgkQ64mZXMKQ
-wqkZBA/+KtOhZwOcgw1JovO5y/29WwRzXNwlYk0ct3WdsSuyFu36dmoa/wTo+Y+k
-1LaEHEbcQNh/0ZsKB6gRQC/aas6jJGlCR3S/jFN7fgzjzgRzJXvoHpbEzdqyqn2c
-I5sJdqaQv4QlZYoVkViLe/yjbf19aOzA9XOLTN5FGevdpzt3vLvd9GZLvllTx3vL
-hN9UN7uogwGkQAgQLqmLBftF87vbpHx7nT6nh6NointD+mrpvP6k5FzKlK6gUcdJ
-W0i+iImhq0Eiwz7LwBg3BKPmNt1IoDy0koEmiz5MgZZSUZyOSSHV/yQ1JGrLWhLF
-5YJTyMxja0jWMMg4ISEKd6+fh8Y7YwcFIKsJY+1yTZpmC/Yt/aAq5c7CNG4Lt7Ix
-4BedIA5eXztQs7zKvpNIQBsbvXlk24C+naFnBAJDZsXlsnXmsW0cXDCPlNYToo6i
-cTUbjXZ1j4oBUD+vFeBD/GcD9sctvMQ0tvD1awBrFNi+5wDKPmTdXx/A54TAR6KT
-WhhrfqCkO3zqwJLHD1tKJQoW+axggBN4W3KdeMNiJcf5RwnRxhkEKf9JkBNlUpiX
-cjgZP5pV76nnI4tm0/c1wENDJQx1ZOYVZEGdzABwGnnKClK+3ZxIVqjKLg1t22Si
-+uLB/K1oXkqwC+B3QDwARt+h76+dYKCpOICfrEQ8K07pmtgtd3Q=
-=qAP0
------END PGP SIGNATURE-----
-
---3sds5vgyp2fbmwvh--
+Thanks,
+Amir.
 
