@@ -1,280 +1,131 @@
-Return-Path: <linux-man+bounces-2742-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2743-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61D4A7BB2A
-	for <lists+linux-man@lfdr.de>; Fri,  4 Apr 2025 12:47:38 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F3FA7BB36
+	for <lists+linux-man@lfdr.de>; Fri,  4 Apr 2025 12:53:08 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 22EF9189BBDC
-	for <lists+linux-man@lfdr.de>; Fri,  4 Apr 2025 10:47:48 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C4A9E17B6D4
+	for <lists+linux-man@lfdr.de>; Fri,  4 Apr 2025 10:53:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ADB61A8403;
-	Fri,  4 Apr 2025 10:47:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DA531BEF87;
+	Fri,  4 Apr 2025 10:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k+CNpUba"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJLwUf6k"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E01F4315C
-	for <linux-man@vger.kernel.org>; Fri,  4 Apr 2025 10:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F68033997;
+	Fri,  4 Apr 2025 10:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743763654; cv=none; b=mUhty30jDyjv3dwaw+uIg5rorHGkRFaCM/FQGpYvnHM7GGe2C7s7mo7XSNYTEeWrQo/3qkAh9SxXzZyTYm4SWijhKTWl8SNCPSa47BexLojXcj1aUTrJdVJJtBC1NXoFxpQajSQ29IFAaXlQVGVKTJDAduThOZ/obzTSEfzSyG4=
+	t=1743763983; cv=none; b=Kw4AgrzeIpD1ZpPWPI79njTtMQ6B7qhEyDOwSEUWBFFEG73CGb3Cxc2hN5SE2l8s/Jr/6+3Nxt21bpirOgLXIUWu0hRzkOFKNFF50Rs943y327US5loNdamS8XgLZqT87ZsIt279vl+hOAnFqBk+pMIdfZMjNvxZWOyF5OSc6N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743763654; c=relaxed/simple;
-	bh=yITk8e8sju1wWq0D7CiW2oSUbbrCQbjOh8QnFCWvKtE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MvuWabYVIJ02sTP3p+fS5biqQkjqlZFDpbFMa2MJ6TKmW1fxMOktHgzTKX9laszO/QxSrZ9tvO4pWnjWVgNxDDUZ5Rg3JKF4ob+BLjLw2jklCZiJePe1bF3Lz+BuBbnSTbK+fg3H4abJ4ruZxtPiG1R7dQT7u+Qng5/Xw0vMqO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k+CNpUba; arc=none smtp.client-ip=209.85.208.54
+	s=arc-20240116; t=1743763983; c=relaxed/simple;
+	bh=SB8iXEHklqw3Ir2r/jz0VNhUWj35TBEE6tiMCyrRF80=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BMAd0K66Fw0RfyVvORc8tYw+eMfcQFfY6ve0iWPoRfUZy0dDlXHPaFasWqIYGusFEYTI6zThql/j/qZQnvNsISd020b7ATQvJJSNt/+7IVvDJSIYljcLDMawklUJr/PCLBm3vwb7hqMwYKlbSucBEAEt6vfH3vGIqtss1FNLJw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJLwUf6k; arc=none smtp.client-ip=209.85.218.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-5e5e63162a0so3021504a12.3
-        for <linux-man@vger.kernel.org>; Fri, 04 Apr 2025 03:47:31 -0700 (PDT)
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-abf3d64849dso290042866b.3;
+        Fri, 04 Apr 2025 03:53:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743763650; x=1744368450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1743763980; x=1744368780; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1G8poufHZUfSxum5VMyDIgtcVoddGHO0/jQCP9y8X7g=;
-        b=k+CNpUbagt4aBbSgmKgKNUQ8rUQG2WQQLaiXAnvre5+N4M9R8ZhoeE7CE+p/Ud1Co7
-         Rq8lZX4f3XUCjLc8nKuxvGCHBknp/WRyBbmffS4OAQFdkarNRjGNZ7FqcZ76o2yZ3bFG
-         8ppcaUBQ+4VEegAoZ+kmpnaBWYrzgqRSEjVV8OQ9VvdAErFbFr1mDhK6ucWa18csDqI/
-         vzXWqEMYpmpUMOS1Dqcl1Nh/d30qhSSAezZyqXIevHshv1snMz/N3Dq2ssmm8SvZ5z5T
-         NoSxDoBSB0YwxknJampgOHb1xmafYpols4XwdF2tXijZqcMlsMKbor2EaOfv5j8WcdVY
-         HxFg==
+        bh=SB8iXEHklqw3Ir2r/jz0VNhUWj35TBEE6tiMCyrRF80=;
+        b=OJLwUf6kI6wrJ1DrpDmqPHmBcncJJUksMyULqs37b6yUKqHaiGciQ7Fy1+VWrjKF1X
+         uNg8wJ8ogjxZAZ7JrkTcrQUgbut4syv6bNZ/ebd67ZUxpJf7IObQylce3mvfzh5eD6Zd
+         qQFtGnQ/aYlLiOJ90hb1oF/COFFfs6sw4RFa010sA+T/bqrocXGratj+Cmk+sJdREogW
+         WsdJTlWGDHrV+fKh7KhvUdvYRdry90qZQk6v8FL3wOP0CpgYPw6DZEIXm0JtmPOwRGbw
+         MwNmcYZhWsLEKZDQ9xfU3V2dYiFYB9ZBilmm4diXqj8Euvc1J66LC1UjSffzgaJPecRq
+         vVfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743763650; x=1744368450;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1743763980; x=1744368780;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1G8poufHZUfSxum5VMyDIgtcVoddGHO0/jQCP9y8X7g=;
-        b=Y7T8d5oSL0CpKkIgeb893OEWuADG6NnlCcfId28OfO2DPLVp/RRKZllcGtQlVYNAzM
-         tFNG6/R0sRgxJyEASFVfX3mr1HzkGaelsGbcQHwEAyA313wEl+vUL4reZ3QBj5siTJ0O
-         q2xK7Rcf1L5kh7IEFM9JBtHF4QLdNYDscRDLbcfVa0fpZLK5ETOUaHQJECeZpRG0IZjs
-         TrmvvqLArUIPqt2HoDSWD08tk1uUzITXlOjHn8leJ0FHIzukVQYt3FdxaYz63W7SPAjo
-         9vcZRBnSAHTbDehObLOSDut8E1YznJS2xEtxp/EyvNhfZWnQSG/DuQPrXrGoPNTFK6v0
-         vlNg==
-X-Forwarded-Encrypted: i=1; AJvYcCUkUYCYmgTRrQErxwg2VN+nfl3EuXa0U0vbnSa695Q1Fsc64Xra+tjEtyzS4XSguXY7bF5QSxc8Biw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyeH/wx3f87briWKWAdwo0I5buFHbQiDtTz4sbsdOmLNjsQ0/UN
-	PBnDD2ShlKE6cO5wiSFuT+85ULNaYLBU8sTiBVepXKgnafaOCEhD/iTVCGTC
-X-Gm-Gg: ASbGncteyQ7B8j97N65EiR/YkUQl6yaaVpTyLmWLc7nB7TLKXq+ejSkXglAH+C6mOBT
-	9gejIqi+gXHta21TMWD5Om2mgxm19qN6GDne0yLfwaMSLMUxlVJWSjDJwWImERXyij9Ug2ZVUUZ
-	h+vk6PfD/amWVBkRIXSY9RwTQ+9Sb2jG54O0EC1HsPH78vLS+u9suQ5q1P01mb3jpXX3YXUqSiN
-	c5kkSQy710n0Zg1oEjxHQZhUbi00GeO3dhIBZSzroyc9s/YoUGLvLXunUP+KO+VQx0p2s8YH46x
-	dlOW5LgN+5+ug5n4Cr+W+/QEA9X6RBbs8n7lj0VDVi2fdUKrNz5utYP1oQgajoXc+YE+NKkJT8m
-	oL9Dhcdqoph99jRf6F1NwAWBs9QKI6DeJRrYem/pQHz8Uve2st3tz
-X-Google-Smtp-Source: AGHT+IFXKwFQkycZpINf0OJMrVIfaha++/MWUtg731C3oyjdNfPWCwmyfhKCCqD5Jxqr/jXdpPlwbw==
-X-Received: by 2002:a05:6402:524b:b0:5ed:3228:d005 with SMTP id 4fb4d7f45d1cf-5f0b3b5ff34mr1823935a12.6.1743763650151;
-        Fri, 04 Apr 2025 03:47:30 -0700 (PDT)
-Received: from amir-ThinkPad-T480.arnhem.chello.nl (92-109-99-123.cable.dynamic.v4.ziggo.nl. [92.109.99.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5f087714df0sm2119530a12.14.2025.04.04.03.47.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Apr 2025 03:47:29 -0700 (PDT)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-man@vger.kernel.org
-Subject: [RESEND PATCH v3 2/2] fanotify: Document mount namespace events
-Date: Fri,  4 Apr 2025 12:47:23 +0200
-Message-Id: <20250404104723.1709188-2-amir73il@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250404104723.1709188-1-amir73il@gmail.com>
-References: <20250404104723.1709188-1-amir73il@gmail.com>
+        bh=SB8iXEHklqw3Ir2r/jz0VNhUWj35TBEE6tiMCyrRF80=;
+        b=eBZpyik09ARLG9sm8AjXDyU/ErZ8LdG/CPGQazUZGjQyXI8V8rAVq5w9VY4b4ZH437
+         YWBOiV0rS6ZkSx52GBbol4+AIsRWFLxSiOMRPd7lN+VSivPShtT7h+mV6YTlZHIwKJvr
+         kHxRASY78aNpGtyCbH7vl6pobksfJdhbtPxnSmGJi4QvwLYSaG8pyYQBwqjf+/59wDmM
+         ILyhU+/d4G1emGxL5GteyGRh4V/7sJU50Ej6BflWjNf9gaW0zct2XIcJMxz7erv+vN3T
+         DN8TTnAquuwy4CAEOGCq5sC4H8M0q9sr0WnQh0Ikj5ksqL3UatYJasVEw3/S7qCB5Z3e
+         7IvA==
+X-Forwarded-Encrypted: i=1; AJvYcCUsZnDbL+JFmP/0Li6JJyhk2+MnM5Pd5Hl+HPLvwLGBkBbAa4atsJZxDU507mv6HLYy2LmJALhPhkia@vger.kernel.org, AJvYcCWFrvlJg8PXTgear3mwBIvvKlQZKkn315Us3c11De4XNFV0yVhwGbwdFFLPRvIurH9ottS77qZQLSrlj/8x@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeLFBYvmudXuLokinxFnNVCuFg64xHILizmS0H5X66qHiBD0PS
+	VqYL9JVX4+yW6DrpVE+giC4+edaXinQJmYcxI67KL4A3UWyrZu3sCsKrZNEe3EC3IF8PTW7kDVY
+	+Ki1T+uWtuw4bXMPZNGq8FJvLYzw=
+X-Gm-Gg: ASbGnct4AZxmdVhtzU7LO/ekTNVd64oY6DBTpXFGKf5Gy4vq5VemxnS5S74xEIUuKin
+	9XlY+lfiFFtDGQF+d5ZQW0mLrfG2pIWUZ5z/7AdX1GXSOxb/c3zcIkXzb87Wt/GnbCkri3pEk0x
+	CmArYQJJCCGcrmtYBvHnMsmD8QGI91url1d5Wg
+X-Google-Smtp-Source: AGHT+IEsbsIotXgJRtSW8MerLng1NyKdNjzX8eyJ9oIkv5i1NpYIMUazwlW5wBLxBgnKdkS5DqY1etrKFXyQ/H5VLZA=
+X-Received: by 2002:a17:907:1ca7:b0:ac4:85b:f973 with SMTP id
+ a640c23a62f3a-ac7d1819306mr212769266b.34.1743763980164; Fri, 04 Apr 2025
+ 03:53:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250404075624.1700284-1-amir73il@gmail.com> <wrrbbdfca6j7bxbtyghf56cjjgwir6slf25s2amha7uxp3zgxc@6jicin3vldaw>
+In-Reply-To: <wrrbbdfca6j7bxbtyghf56cjjgwir6slf25s2amha7uxp3zgxc@6jicin3vldaw>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 4 Apr 2025 12:52:49 +0200
+X-Gm-Features: ATxdqUFKrJQFa2_yObjXSbO7Z46vpXW99L0SVHdn6Q54-hljYUAfAzAkRhJ9rdk
+Message-ID: <CAOQ4uxivA1BRLfTbPLN9Qm6bi-aaBm8WT_55rWcuuyihCtrd-g@mail.gmail.com>
+Subject: Re: [PATCH v3] fanotify: Document mount namespace events
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Miklos Szeredi <mszeredi@redhat.com>, Jan Kara <jack@suse.cz>, 
+	Christian Brauner <brauner@kernel.org>, linux-man@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Used to subscribe for notifications for when mounts
-are attached/detached from a mount namespace.
+On Fri, Apr 4, 2025 at 12:21=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Amir,
+>
+> On Fri, Apr 04, 2025 at 09:56:24AM +0200, Amir Goldstein wrote:
+> > Used to subscribe for notifications for when mounts
+> > are attached/detached from a mount namespace.
+> >
+> > Reviewed-by: Jan Kara <jack@suse.cz>
+> > Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
+> > Reviewed-by: Christian Brauner <brauner@kernel.org>
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> > ---
+>
+> The patches don't apply, and there are so many that I lost track of in
+> which order I should apply them.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
-Reviewed-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
- man/man2/fanotify_init.2 | 20 ++++++++++++++++++
- man/man2/fanotify_mark.2 | 37 ++++++++++++++++++++++++++++++++-
- man/man7/fanotify.7      | 45 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 101 insertions(+), 1 deletion(-)
+It depends only on the patch that moves the FAN_FS_ERROR entry
+and that's the only patch left to merge besides this one.
 
-diff --git a/man/man2/fanotify_init.2 b/man/man2/fanotify_init.2
-index b90e91707..93887b875 100644
---- a/man/man2/fanotify_init.2
-+++ b/man/man2/fanotify_init.2
-@@ -331,6 +331,26 @@ that the directory entry is referring to.
- This is a synonym for
- .RB ( FAN_REPORT_DFID_NAME | FAN_REPORT_FID | FAN_REPORT_TARGET_FID ).
- .TP
-+.BR FAN_REPORT_MNT " (since Linux 6.14)"
-+.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
-+This value allows the receipt of events which contain additional information
-+about the underlying mount correlated to an event.
-+An additional record of type
-+.B FAN_EVENT_INFO_TYPE_MNT
-+encapsulates the information about the mount and is included alongside the
-+generic event metadata structure.
-+The use of
-+.BR FAN_CLASS_CONTENT ,
-+.BR FAN_CLASS_PRE_CONTENT,
-+or any of the
-+.B FAN_REPORT_DFID_NAME_TARGET
-+flags along with this flag is not permitted
-+and will result in the error
-+.BR EINVAL .
-+See
-+.BR fanotify (7)
-+for additional details.
-+.TP
- .BR FAN_REPORT_PIDFD " (since Linux 5.15 and 5.10.220)"
- .\" commit af579beb666aefb17e9a335c12c788c92932baf1
- Events for fanotify groups initialized with this flag will contain
-diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-index a6d80ad68..2c9d6e9b9 100644
---- a/man/man2/fanotify_mark.2
-+++ b/man/man2/fanotify_mark.2
-@@ -67,7 +67,8 @@ contains
- all marks for filesystems are removed from the group.
- Otherwise, all marks for directories and files are removed.
- No flag other than, and at most one of, the flags
--.B FAN_MARK_MOUNT
-+.BR FAN_MARK_MNTNS ,
-+.BR FAN_MARK_MOUNT ,
- or
- .B FAN_MARK_FILESYSTEM
- can be used in conjunction with
-@@ -99,6 +100,20 @@ If the filesystem object to be marked is not a directory, the error
- .B ENOTDIR
- shall be raised.
- .TP
-+.BR FAN_MARK_MNTNS " (since Linux 6.14)"
-+.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
-+Mark the mount namespace specified by
-+.IR pathname .
-+If the
-+.I pathname
-+is not a path that represents a mount namespace (e.g.
-+.IR /proc/ pid /ns/mnt ),
-+the call fails with the error
-+.BR EINVAL .
-+An fanotify group that was initialized with flag
-+.B FAN_REPORT_MNT
-+is required.
-+.TP
- .B FAN_MARK_MOUNT
- Mark the mount specified by
- .IR path .
-@@ -395,6 +410,26 @@ Create an event when a marked file or directory itself has been moved.
- An fanotify group that identifies filesystem objects by file handles
- is required.
- .TP
-+.B FAN_MNT_ATTACH
-+.TQ
-+.BR FAN_MNT_DETACH " (both since Linux 6.14)"
-+.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
-+Create an event when a mount was attached to or detached from a marked mount namespace, respectively.
-+An attempt to set this flag on an inode, mount, or filesystem mark
-+will result in the error
-+.BR EINVAL .
-+An fanotify group that was initialized with flag
-+.B FAN_REPORT_MNT
-+and the mark flag
-+.B FAN_MARK_MNTNS
-+are required.
-+An additional information record of type
-+.B FAN_EVENT_INFO_TYPE_MNT
-+is returned with the event.
-+See
-+.BR fanotify (7)
-+for additional details.
-+.TP
- .BR FAN_FS_ERROR " (since Linux 5.16, 5.15.154, and 5.10.220)"
- .\" commit 9709bd548f11a092d124698118013f66e1740f9b
- Create an event when a filesystem error
-diff --git a/man/man7/fanotify.7 b/man/man7/fanotify.7
-index 68e930930..de0ea8e55 100644
---- a/man/man7/fanotify.7
-+++ b/man/man7/fanotify.7
-@@ -228,6 +228,23 @@ struct fanotify_event_info_pidfd {
- .EE
- .in
- .P
-+In cases where an fanotify group is initialized with
-+.BR FAN_REPORT_MNT ,
-+event listeners should expect to receive the below
-+information record object alongside the generic
-+.I fanotify_event_metadata
-+structure within the read buffer.
-+This structure is defined as follows:
-+.P
-+.in +4n
-+.EX
-+struct fanotify_event_info_mnt {
-+    struct fanotify_event_info_header hdr;
-+    __u64 mnt_id;
-+};
-+.EE
-+.in
-+.P
- In case of a
- .B FAN_FS_ERROR
- event,
-@@ -442,6 +459,12 @@ A file or directory that was opened read-only
- .RB ( O_RDONLY )
- was closed.
- .TP
-+.BR FAN_MNT_ATTACH
-+A mount was attached to mount namespace.
-+.TP
-+.BR FAN_MNT_DETACH
-+A mount was detached from mount namespace.
-+.TP
- .B FAN_FS_ERROR
- A filesystem error was detected.
- .TP
-@@ -540,6 +563,8 @@ The value of this field can be set to one of the following.
- .B FAN_EVENT_INFO_TYPE_ERROR
- .TQ
- .B FAN_EVENT_INFO_TYPE_RANGE
-+.TQ
-+.B FAN_EVENT_INFO_TYPE_MNT
- .RE
- .IP
- The value set for this field
-@@ -725,6 +750,26 @@ in case of a terminated process, the value will be
- .BR \-ESRCH .
- .P
- The fields of the
-+.I fanotify_event_info_mnt
-+structure are as follows:
-+.TP
-+.I .hdr
-+This is a structure of type
-+.IR fanotify_event_info_header .
-+The
-+.I .info_type
-+field is set to
-+.BR FAN_EVENT_INFO_TYPE_MNT .
-+.TP
-+.I .mnt_id
-+Identifies the mount associated with the event.
-+It is a 64-bit unique mount id as the one returned by
-+.BR statx (2)
-+with the
-+.B STATX_MNT_ID_UNIQUE
-+flag.
-+.P
-+The fields of the
- .I fanotify_event_info_error
- structure are as follows:
- .TP
--- 
-2.34.1
+Note that my original FAN_FS_ERROR patch said:
+"FAN_EVENT_INFO_TYPE_ERROR was missing from the list of info types"
 
+But you've already added this missing value in an unrelated patch
+that you merged. Nevermind.
+
+> Could you please rebase everything you
+> have on top of current master, and resend everything in the order in
+> which I should apply?
+
+Done.
+
+> Sorry for the inconveniences!
+>
+
+No worries.
+
+Thanks,
+Amir.
 
