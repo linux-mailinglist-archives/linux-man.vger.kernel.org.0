@@ -1,56 +1,54 @@
-Return-Path: <linux-man+bounces-2747-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2748-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573CBA7C504
-	for <lists+linux-man@lfdr.de>; Fri,  4 Apr 2025 22:36:55 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5902A7C8EE
+	for <lists+linux-man@lfdr.de>; Sat,  5 Apr 2025 13:38:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2C9F03B232E
-	for <lists+linux-man@lfdr.de>; Fri,  4 Apr 2025 20:36:40 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8F248188AFCF
+	for <lists+linux-man@lfdr.de>; Sat,  5 Apr 2025 11:38:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DBC4219A95;
-	Fri,  4 Apr 2025 20:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 799F01A23AD;
+	Sat,  5 Apr 2025 11:38:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1ji5Jnr"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C9HrgAe9"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25CB13B2BB
-	for <linux-man@vger.kernel.org>; Fri,  4 Apr 2025 20:36:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3918E18027
+	for <linux-man@vger.kernel.org>; Sat,  5 Apr 2025 11:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743799000; cv=none; b=l72DtS5Xk7afkpWpV1dwz6AsHsTQ3uBP+bRA5jc3VjfHLjqM3Wp9K/KsvBWaSyhU7e26qZ5r+qtE2Q44V4NakJbtCsWWiCUNUZ6yqrsDMQHOkqQ85HA+GAYaKww+TcEEL8IM8z5JN+YanmMBfJw4z3xwaw0ktG3DQFFY4pMk9ns=
+	t=1743853096; cv=none; b=CDcEXyqMGKMHz169sW1zU+ofz5nW7hmuhMemgDG8ihwcyRFE5TtsVLIy1592ru9TEiBNGxPk0/t4rJXAK/HEn4k3X3cTsQNCb5FrLZEdSsGSxgIqq/cJKWdA10mYsu0OUP+piI7gSJpcdCGLOC6P4EBarUD2UPZSsqudS7gDX1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743799000; c=relaxed/simple;
-	bh=6a7/lhGEKz0uvrgCwgtn+JnBXcYTxULTxU27qKJI924=;
+	s=arc-20240116; t=1743853096; c=relaxed/simple;
+	bh=GD+gmcJs7jtbH70/hbE7cR/CtMhFQpQvgYhS3RCisfw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mX2xfdM9RTDjluwCV4qzKHwJOpX9HWGmE6bN57ZJrNZSdcIGqCLsdewy8cvgmvqB1M4HmCxMkGgLcftgYXjuieyUfTNGctMkZMNKXqpSj92/+0Y+l8gtC7r4WFvW62HggyRLKybpVFJAUJWdmoDtuzEegzj9IrSeq9+yVEQlxoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1ji5Jnr; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A86C4CEEB;
-	Fri,  4 Apr 2025 20:36:39 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=ayMqTIBwLywqD58VxVPiU7g7730/3BCBXSeXA9HI3PHoxAUcJK04xYdJHB7cDCAfXPSVEm0FiQGLFESXt3f62qYwGhi5RDfbsBifhY308+YMkQKvNEqy2ZyCDVAfE3+mweTVAOyMty27pCd2dECbQN0ZOTbdahOSAdOKFTgXX4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C9HrgAe9; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA020C4CEE8;
+	Sat,  5 Apr 2025 11:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743799000;
-	bh=6a7/lhGEKz0uvrgCwgtn+JnBXcYTxULTxU27qKJI924=;
+	s=k20201202; t=1743853094;
+	bh=GD+gmcJs7jtbH70/hbE7cR/CtMhFQpQvgYhS3RCisfw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c1ji5JnrZWSLzi9KyO1vmmkeuWGPCSm1O+jxTZOnQodlEON5sb+S74eqUJcXyl7Z0
-	 vF80I8xC8rGIZhIjhqeBEvxc5qd3yjpCJ3Bclmf2KJu0BoXoPhJTbIpDRbJPQrWcXe
-	 HefvGuObYvlYfvrNinz6BR+srJHUsQAR/YDxxaThjD3N2D82NryLEDIXSfBRfGEVTC
-	 gYnvX8NquyBXky0EujZfvHWupQG/byvwHne5SzSK+cXnhafD6UBqAhCiRhW31SjZGX
-	 napGHnnelDhc3/N9IjsqIf/qqyOu4P9dnDq5uu8NpLeWsYWLKaC1Np3hb3zF7svaVf
-	 boJmwGoI60AOQ==
-Date: Fri, 4 Apr 2025 22:36:37 +0200
+	b=C9HrgAe9nJbWH5zBjNapfjt7SFAfADlncVpIdf1+Me98vZIQ/4HpqG2gLfNvTR2fa
+	 73TXsydjrj1nKhRIEgbkz8Ww4iJYBPjkaHyiUyaP18S1FZri2MKhU2upEcW+7pKisN
+	 AIYDM6poqHkwH10rBNifAjTA81uw0VMv6QtezsTxMN1x0bfpYljpZ+TzCodWJyjHlF
+	 +gtgVeOLKSOdpzcCbT+SHETV2kS2zS18oO2JpFRJ0I3TKO7VGqOSfQiGG59zOyh0z1
+	 cqAbtgArV+X3EA/5ecVmMCCYNj/ZeGEQsrcg8vzon6uNONiUiUIIgoJWt96mQesmCv
+	 +iWsAE8+IZ5YA==
+Date: Sat, 5 Apr 2025 13:38:11 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Amir Goldstein <amir73il@gmail.com>
 Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
 Subject: Re: [RESEND PATCH v3 2/2] fanotify: Document mount namespace events
-Message-ID: <r2hnf64fxm7nbw437kqpo5szmatsmbsgbqkorfcefzygz5xg5e@x724wrtlfuyb>
+Message-ID: <h7g7jiwesfucsqs4rswkj3yhqs6bjfpf6epzowl3xx5isde7yu@2x2ubqb3eixy>
 References: <20250404104723.1709188-1-amir73il@gmail.com>
  <20250404104723.1709188-2-amir73il@gmail.com>
- <j7tvkh7zng66klagg6zz5sbsvqbmzpcnkub6vcniqrudlzli67@n2xkv4wjvzp5>
- <CAOQ4uxj0W8KctDedwz+6WDOqvjezh0CbroERk-Cdx-P5zYWnxg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,12 +56,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bp3ug4w57jw6i4ig"
+	protocol="application/pgp-signature"; boundary="iejc5jfcxauejlyn"
 Content-Disposition: inline
-In-Reply-To: <CAOQ4uxj0W8KctDedwz+6WDOqvjezh0CbroERk-Cdx-P5zYWnxg@mail.gmail.com>
+In-Reply-To: <20250404104723.1709188-2-amir73il@gmail.com>
 
 
---bp3ug4w57jw6i4ig
+--iejc5jfcxauejlyn
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -73,88 +71,69 @@ Cc: Jan Kara <jack@suse.cz>, linux-man@vger.kernel.org
 Subject: Re: [RESEND PATCH v3 2/2] fanotify: Document mount namespace events
 References: <20250404104723.1709188-1-amir73il@gmail.com>
  <20250404104723.1709188-2-amir73il@gmail.com>
- <j7tvkh7zng66klagg6zz5sbsvqbmzpcnkub6vcniqrudlzli67@n2xkv4wjvzp5>
- <CAOQ4uxj0W8KctDedwz+6WDOqvjezh0CbroERk-Cdx-P5zYWnxg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAOQ4uxj0W8KctDedwz+6WDOqvjezh0CbroERk-Cdx-P5zYWnxg@mail.gmail.com>
+In-Reply-To: <20250404104723.1709188-2-amir73il@gmail.com>
 
 Hi Amir,
 
-On Fri, Apr 04, 2025 at 04:58:19PM +0200, Amir Goldstein wrote:
-> > Should we use wording more consistent with other paragraphs introducing
-> > FAN_REPORT_* flags?
->=20
-> No, I think that is fine as is.
->=20
-> FAN_REPORT_MNT and FAN_REPORT_FID are special because
-> they "allows the receipt of events..."
-> You cannot request FAN_MNT_* events if not initializing group with
-> FAN_REPORT_MNT.
-> You cannot request FAN_CREATE/RENAME/DELETE if you did
-> not initialize the group with FAN_REPORT_FID.
->=20
-> Other FAN_REPORT_ flags do not impact the set events that
-> can be requested but add more info to existing events.
-> Some add more information (FAN_REPORT_PIDFD),
-> some replace existing information with other information
-> (FAN_REPORT_TID) and some change semantics of existing
-> information fields (FAN_REPORT_FD_ERROR).
->=20
-> This is why I used the phrasing from FAN_REPORT_FID
-> and why I think this is fine that the phrasing of different
-> FAN_REPOT_ flags are slightly different.
+A small doubt below.
 
-Makes sense.  Thanks!
+On Fri, Apr 04, 2025 at 12:47:23PM +0200, Amir Goldstein wrote:
+> @@ -99,6 +100,20 @@ If the filesystem object to be marked is not a direct=
+ory, the error
+>  .B ENOTDIR
+>  shall be raised.
+>  .TP
+> +.BR FAN_MARK_MNTNS " (since Linux 6.14)"
+> +.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
+> +Mark the mount namespace specified by
+> +.IR pathname .
+> +If the
+> +.I pathname
+> +is not a path that represents a mount namespace (e.g.
+> +.IR /proc/ pid /ns/mnt ),
 
-> > >  .TP
-> > > +.B FAN_MNT_ATTACH
-> > > +.TQ
-> > > +.BR FAN_MNT_DETACH " (both since Linux 6.14)"
-> > > +.\" commit 0f46d81f2bce970b1c562aa3c944a271bbec2729
-> > > +Create an event when a mount was attached to or detached from a mark=
-ed mount namespace, respectively.
-> >
-> > Lines should be shorter than 80 columns.
-> >
->=20
-> Sorry.
-> Could you fix that on commit?
-
-Yep, no problem.  I was going to amend it myself, until I asked the
-question from above.  I'll amend.
+Are there any other paths that may represent a mount namespace?  Maybe
+we should change s/e.g./i.e./?
 
 
-Have a lovely night!
+Have a lovely day!
 Alex
 
->=20
-> Thanks,
-> Amir.
+> +the call fails with the error
+> +.BR EINVAL .
+> +An fanotify group that was initialized with flag
+> +.B FAN_REPORT_MNT
+> +is required.
+> +.TP
+>  .B FAN_MARK_MOUNT
+>  Mark the mount specified by
+>  .IR path .
 
 --=20
 <https://www.alejandro-colomar.es/>
 <https://www.alejandro-colomar.es:8443/>
 <http://www.alejandro-colomar.es:8080/>
 
---bp3ug4w57jw6i4ig
+--iejc5jfcxauejlyn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfwQs4ACgkQ64mZXMKQ
-wqn7iBAAre6tX9nvTNVJiOYtYu0IPxXBGhmHNw8FAntcj7dbKe8lgFmeDdLq+j7d
-WMvcaMGTXJdW3WUumWRuzywKIMjZ3mV1AUosxBHJvshHx+XMX7rgxanqCDDyJ1Px
-+ASMC3jYIB2NfOB+pUyq+8iHJTs0ZdkE8LvVjoPjRoQMseKT/PVTq1uxP1T9u6hA
-LSjRSdj/Tn0nWh9hPW16QB4uRHc96iPBW08WWmy6nlskHCMVcp7eZ2V/74nlhR74
-udw67OqFp4OSJwvEl4m1/b9xmFkcPNEPAd92/JkrlI9A2UtswUS7D+GNa3rFwd8T
-bArAdHpD+63b5TYVwQeDzTXqEyxd3E3Ffedvo1JHXLQV56u64CMkKizgG/PaGx1p
-aw00ZG5tgV7Z64ux32FbyDttj3aCMQuUwO5iY1hiL8eDs9v1PBIJ7Ei2IPyX7fmg
-Q28kHtnxlbfFLKNCHWcgqoLwx6fo7kbMqYLCnBlK3voDyROyAZngQ0b2rLfhUUx9
-+R45EsruTRJxAj+VG7VEDhNnS8WpfAVm7bw2HCm1Jt4GZaKykw6FTpJu8Yse3YSY
-LF0+KC19uuspCQMyce2Tdvy6AC0xJ95pu4fhLC3TJpZQFH7LqrzTez2/kx0Ko2of
-zJ8XNtc0NIYbYvUk8pjvl0yLB3eYeyQybP/Ey/95jT/X8EkV1QQ=
-=oOAa
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmfxFiMACgkQ64mZXMKQ
+wqngnA//RW+mnmBnOeH7kIhunaCP8xQGyQBB70gfW6k62SA2eoRwTT7AiACW48lJ
+kFjOTC3ieliMJeIpHMtp6o3rrVztvlw8NXTUGJH07DOzZzJe0nDtaFCZOl03m1uG
+e76V6N2jsv/VrMroER5xp5oCfaeVpUMz3kCxnZG0+rFolCgFl9q1VNs6RcsVpMVU
+qQpULODKYxpF/Mo3LDFrm4CfjhUAbSEaqMKWRBAa0u2qiGDL7Lfw3dKj3a98WEP5
+n5iHr1P6Kg+buGaoQlf/y8u0DS/aS7tt9yDgOw2GFXyvPkHEqyYay7GKgaB2uYdh
+f2WsX83PV4WIyDRhoqz/ZrsaXtc4IxHcBiaguSKtDWydTRL/ClvHcsMkkwH0Uw07
+ZUv/W70nPZyAulSspnd+E20gMgVOU3l3K9fopiPPNciZVGPqyQWE3IIdCgOWg/3X
+osGg9fcWhynXiC1LffXV+hH3qezLSLyLIp7gpOpJGSd21etBYrC5wGf28vslmyoR
++WU2aWviLuvaLl+bz/QlUhU3orZqrqM4w7qqtO9ToigZW0+93lRmO6RhBREx7UBY
+SEqzuaBVp66UN+Ai9xLkxbjtOV5DVc10URNuAVdjNarclZxGuiseQ8SPYcmMZBO1
+dgcu5AvbmVSb1mcRZMdulmk4v7IFYJIZYBw68+UYRiQS/Cf9k9s=
+=YKZg
 -----END PGP SIGNATURE-----
 
---bp3ug4w57jw6i4ig--
+--iejc5jfcxauejlyn--
 
