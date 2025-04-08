@@ -1,167 +1,161 @@
-Return-Path: <linux-man+bounces-2752-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2753-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A509CA8084F
-	for <lists+linux-man@lfdr.de>; Tue,  8 Apr 2025 14:44:06 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47368A80978
+	for <lists+linux-man@lfdr.de>; Tue,  8 Apr 2025 14:54:45 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2E9118C0215
-	for <lists+linux-man@lfdr.de>; Tue,  8 Apr 2025 12:34:34 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 940CA8C6BE9
+	for <lists+linux-man@lfdr.de>; Tue,  8 Apr 2025 12:47:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9B4726F465;
-	Tue,  8 Apr 2025 12:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1330C26E151;
+	Tue,  8 Apr 2025 12:42:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="draRJwaV"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OOQ0GEFl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B41326F466
-	for <linux-man@vger.kernel.org>; Tue,  8 Apr 2025 12:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B5E26E158
+	for <linux-man@vger.kernel.org>; Tue,  8 Apr 2025 12:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744115502; cv=none; b=QXOx3hiWYMvZ6F8+0Tlce5Og1z9u5KLY9KDJMbsPsZnkoaDWAz0LIBDWvPjmgTOK4JSYsu3Cwb1J9BPBZx6a1/gJmWtCTIpnX0+n7esZwywZ1TeS+Z8pPWJRH8UhuW/iRK/kPXM5H//kLBbFAAYEoXAXIOUClUpkuJo3MBJ0nPg=
+	t=1744116163; cv=none; b=Ffr4lykSuesZHC2wzbP+g+a+ZpEEg+6uzoiQ6oN+r9cNHKcEzsa4nD+on+04fe2fF63SHNN4PDyle1Tb4SgsMsYpXpKDWRv3UE/GukuSeY8rYaTsRTv/Wuh2dlZJJ3wbaZ8gg5/+81mQydy4SRDZ66wWMt8IZaHV3uZR3/Apl9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744115502; c=relaxed/simple;
-	bh=T7NYCLluJ8kqyuhHXC0gHCq8CUzkXNsUW9V+NuLbEAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=kTDwY5JlxEPJ/ukRayyUiD8Pjg5uRIoCbukMCzdd32lQpCipPMSrK/f46VMFqoNcQxujl6+hRF0CpTc3wxGHmB48s1R8KsKYlkCze0QYU2zYj+At8dQaCdHpZxjvvwj6PF9Vuw9EJUf8cuom4ppMe8Mx22Pf95yiZShoRLOWreA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=draRJwaV; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB77DC4CEE5;
-	Tue,  8 Apr 2025 12:31:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744115502;
-	bh=T7NYCLluJ8kqyuhHXC0gHCq8CUzkXNsUW9V+NuLbEAo=;
-	h=Date:From:To:Cc:Subject:From;
-	b=draRJwaVP1wZIGquRH9NUaWOm9FNGYQbf4iE0bTI5zNnhBlXyrVTdQshYUVoLQMMu
-	 Kd82iVAKrDGcsv5RMa6q5IRtIzVgPnx9cTcAOobKsmDIF6FsTl7AalRwA+YsMBsAjm
-	 7CMssgxu6ZB7R05QU5fjXyM/bzr8NIqffM8ARC6gKWVgoq4vmvOQLi0aHWTZhKjFNg
-	 hNFdLdCR5Bwyjhl3V3msHjQbImyi4Hfnkn/q4GCoPFDGVUSu0h3HSSKCXloB3kUP7J
-	 JOOT2KGKR/j98RLHp5nlbr9GztncvN4bZ5UAle2iUv9lS+JGy7BfUcgFpDmeg6FQ/b
-	 68ersfBnWI/3Q==
-Date: Tue, 8 Apr 2025 14:31:37 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, shadow <~hallyn/shadow@lists.sr.ht>, 
-	neomutt-devel@neomutt.org
-Cc: Iker Pedrosa <ipedrosa@redhat.com>, Serge Hallyn <serge@hallyn.com>, 
-	Michael Kerrisk <mtk.manpages@gmail.com>, Richard Russon <rich@flatcap.org>, 
-	Todd Benzies <tbenzies@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>
-Subject: spear phishing attack on me
-Message-ID: <kmmxxicgr7mwai6rffhbqtfrs77gcbhdj5qfqmfuu33a6nafgd@xurecmxd3mup>
+	s=arc-20240116; t=1744116163; c=relaxed/simple;
+	bh=wC4ukLnfMeydAuqCL9/n59ZVGHDD61UEViILxfIPHds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PPgGRUN9LN3uW2OPGsNzR3nLa5PU/i/+Xh5+te9agqb19Uuhm6kkZih55lRDZ2ZjvEtsJmmc3ARY6sp4Gj1U+DQDyCMWwY5xfCisHZA2vMNP7y+G6Q0TjMvmCFX6HUStilAC5mhqf/7M6Gx6y/Kzg/4PJfAiDw81x+bMlVcwYD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OOQ0GEFl; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-72bbc03d436so3377239a34.3
+        for <linux-man@vger.kernel.org>; Tue, 08 Apr 2025 05:42:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744116161; x=1744720961; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=S5TMaxhbhII1vC8bmSEvEmCyi9FrKzqNbXNg9BZHTSk=;
+        b=OOQ0GEFlytaTXwhGDAZazdqq4dYztrYlT7onud3T8j8vj7ouQdl+6mKXZRiJoFa2dZ
+         lcKkBHsfcv3LoLiJrjbEnhPSD4glf6xorSaEVNihoelQYgmm4XfFYRXtUYIGSH8yyRId
+         1Ff+nALjuPYKPiGgZzxfHTVegGMbK1ZC4Qzl3ZhEMzoDNfUJmJ2KEgc/VpAB9qg6w0L6
+         S6jZitL9YRKqc/ScROXgCgtF/S6BPXvw0xaz9F3z3FE9cVpORUSDmKz5r0EyIKiFUql2
+         6NKFfPLYwq1mf9jZKZXLHWspau0pe1HEDVocXxq4dHSvYxPB4uRmWqQ1sHmCoyyCAQ9H
+         uFlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744116161; x=1744720961;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S5TMaxhbhII1vC8bmSEvEmCyi9FrKzqNbXNg9BZHTSk=;
+        b=c5Yv9LkxXKte3P9cYlvDHPfmHAAQ4WAI9cLb1Wdp3E92SKxHUFcnbG8aO0l6YODcjo
+         G9XUyJODenL0o/4okvA2OnXgnJuNaMfPCElX4qBrb+0dQlzdvzHY2B1Jt/PvyFvrr5sC
+         h6dm0NW2cyLw3BsYRXhRcjOsoTVhViUFU20E+ne2V+EiH3PDB8FbIwUF1yKXNG3WGEMw
+         OiNqoyKghPqddEwAxlD9PC9CjruXO/gCNfXYABGb9x50zmXHydlBgciY1ekJtMQDQMTq
+         Hq8Yuo491+uFR1mWnoiZXZmuxky7PFk7PPeAlu4gOHLLB9WLorDN/h+XkOTBHJ4garCa
+         Y88Q==
+X-Gm-Message-State: AOJu0YwfQQRxHqnkGQ9pieHzQg58fYNCeGEHryTfvTCG3XwkU4YpPcp8
+	lj4uRJXWTfQEgA3yjXpoCQM9ElfL2m95sIFCfzredF37j7nPUsBteKBnLg==
+X-Gm-Gg: ASbGnctI0LDjQqMZagBxzlw1ZHTG3D0xTNJVQ1AfgAmI+fPIrjt0jWqJE8qpD7BSInW
+	BNE8njhVyqBTi7nAWCjoPYDHTixq8RoC5DkIMMVSnngGG60GmB1pchUKSjrFAgMvLWpvWGRXpMs
+	hlYqidlrGffsFQxT6n+nzp8Co5nJrNpGefERQpCcWz3iPQIHkeEfzW0V4Vc6rJM1432QwqKy5JU
+	gs79SnlbBBG6iIhplUyU9OM3q+3hjjYjOnip0kL5PBWhoL4Lw2pxJQKN4H/sVeB8R4PVDPmIeJ9
+	t1yZkjVFhHPa3cxV12YSuqsmMdCJWkBKEho=
+X-Google-Smtp-Source: AGHT+IF+SHAUVGLxL4nBTGs8pP/9LYe1cYWSsWSyIGRZXK3xMTcL7kdVdWGAdgcZEGNsCOcx36VCjg==
+X-Received: by 2002:a05:6808:201c:b0:3f8:b73b:682d with SMTP id 5614622812f47-40045648e7dmr10815805b6e.32.1744116161084;
+        Tue, 08 Apr 2025 05:42:41 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::48])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-40069105b97sm423433b6e.13.2025.04.08.05.42.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Apr 2025 05:42:40 -0700 (PDT)
+Date: Tue, 8 Apr 2025 07:42:38 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Removing in-source contribution records contributer
+Message-ID: <20250408124238.2gbis6jq5pdz7yoi@illithid>
+References: <cover.1739389071.git.amitpinhass@gmail.com>
+ <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+ <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
+ <20250212230210.3kkixsk7bi3cdc4d@illithid>
+ <lvhwk4czikqmx4acydi5t5q3nshvgdipedz6xkt7auvz5mnmwp@auuzri4hvsrn>
+ <gatqfsr5gvyy5iuq7gmlpibawerkcmbg4dl4ahzswbe5bgbec6@xyfht7yewjfv>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kk5oneitt7fyohsb"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fiqbv5gbfnb4qe2o"
 Content-Disposition: inline
+In-Reply-To: <gatqfsr5gvyy5iuq7gmlpibawerkcmbg4dl4ahzswbe5bgbec6@xyfht7yewjfv>
 
 
---kk5oneitt7fyohsb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--fiqbv5gbfnb4qe2o
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, shadow <~hallyn/shadow@lists.sr.ht>, 
-	neomutt-devel@neomutt.org
-Cc: Iker Pedrosa <ipedrosa@redhat.com>, Serge Hallyn <serge@hallyn.com>, 
-	Michael Kerrisk <mtk.manpages@gmail.com>, Richard Russon <rich@flatcap.org>, 
-	Todd Benzies <tbenzies@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>
-Subject: spear phishing attack on me
+Subject: Re: Removing in-source contribution records contributer
 MIME-Version: 1.0
 
-Hi everyone,
+Hi Alex,
 
-I'm writing to the mailing lists of every project in which I have write
-permissions: shadow, linux-man, and neomutt.  I also CCed maintainers,
-LWN, and my contact in the Linux foundation.  In BCC is my contact from
-Google for my sponsorship, which might be of help, and also another
-friend from Google.
+At 2025-04-08T01:05:02+0200, Alejandro Colomar wrote:
+> On Thu, Feb 13, 2025 at 12:20:58AM +0100, Alejandro Colomar wrote:
+> > On Wed, Feb 12, 2025 at 05:02:10PM -0600, G. Branden Robinson wrote:
+> > > If you do this, I suggest you replace these lines with something
+> > > like:
+> > >=20
+> > > .\" See the Git revision history at
+> > > .\"   $URL
+> > > .\" for records of changes and contributors to this file.
+> >=20
+> > Good idea.
+>=20
+> I'm thinking I won't do that.  I don't want to add that overhead to
+> each page.  People interested in the history of a page will already
+> have a look at the git history, and there they'll find the old states
+> of a page, in which they'll find this information.
+>=20
+> And it would require some non-trivial work to add this note
+> consistently.  I'll go with a removal without replacement, I think.
 
-Last week someone reported to me a vulnerability in shadow utils.  It
-was a real vulnerability, although something relatively unimportant
-(needs physical presence of the attacker, or a way to read memory of a
-setuid-root program --which means they probably already own the
-system--).  In fact, we kind of knew its existence already, and I've
-been working on mitigating it, and we've discussed it in the project.
+Acknowledged.  It's been a whole 7 weeks for so, so I don't clearly
+remember my reasoning from February, but my suggestion may have been at
+attempt to find a "conservative" alteration to file content or the
+expressed meaning of the comments.
 
-The report seemed legitimate in the begining, although I was suspicious
-that it was only sent to me (I'm involved in the project, and am the
-main contributor by number of commits, but Serge and Iker are the
-maintainers (I maintain the stable branches only), and the guidelines
-say they should have been CCd), but that's something that could happen,
-so I continued discussing the vulnerability with this person.  In my
-responses, I added to CC the co-maintainers.  When this person replied
-to me, it removed the co-maintainers from CC, which again is suspicious,
-but is something that could happen.
+But, what's conservative in one dimension often is not in another, such
+as "labor required".
 
-This person tried me to open a couple of PNG files, supposedly showing
-an exploit for the vulnerability.  Of course I didn't open any of them.
-I replied asking for a text-based alternative, because it would be
-ironic that talking about vulnerabilities I would have to open
-"unnamed.png" and "unnamed-1.png".  The person didn't reply again, which
-to me was the confirmation that it was an attack, and they realized they
-got caught.
+I also agree that while Git is a complex suite of tools, "git log" is
+not among its deeper magicks.  At least not when run without arguments.
 
-I don't know why exactly they targeted me, but I assume it's because of
-my involvement in one of these projects, so maintainers of these
-projects should be especially careful these days, in case they try
-another vector.
+Regards,
+Branden
 
-As for me, if anyone tries to impersonate me, please make sure it's me.
-I almost always sign my email and *always* sign my git commits with my
-PGP key.  If in doubt, please verify it's me.  I have never changed my
-PGP master key, and keep it almost always offline, so that should
-ultimately be the way to know it's me.  The key was certified by Michael
-Kerrisk, and he knows me physically, in case we ever need to verify (say
-if my master key ever is stolen and I need to revoke it).  This attack
-was unsuccessful, but if I'm a target of interest, they might succeed in
-another attack.  Don't trust me too much.
-
-As for the attacker, I've reported to Google via
-<https://support.google.com/mail/contact/abuse>, although I'm not sure
-if they'll do much.  It would be interesting to learn the IP of the
-owner of the account, and if it used a VPN to connect to gmail, if it
-tried to attack any other people, and any other patterns that might be
-useful to learn who is interested in this attack.  Maybe my contact at
-Google can talk to people within Google to investigate this further.  Or
-maybe some of you know someone at Google that can help investigate this.
-The attacker is "Mahdi Hamedani Nezhad <hamedaninezhadmahdi@gmail.com>".
-I presume this is a false name, trying to impersonate someone; I assume
-noone would try to attack someone else using their real name.  There's a
-real person with that name --or so it seems in LinkedIn--, and is a
-security researcher in Iran.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---kk5oneitt7fyohsb
+--fiqbv5gbfnb4qe2o
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmf1FyMACgkQ64mZXMKQ
-wqm1lQ/+J+oWvCyJwNoua9NXeB4N3+5iwq3TkfCl2xQMEm8KxJDzHwz8DlaZVM41
-ByAjIBRsUmjvQbe1ZFRAP5ztDt4LSu8esVlgGmucENJ8GcxYBsUSUguK4jWrSJOi
-0nS+C80W1XY6t0SH5sbVgmx7V9gfwH92iu7PRX0uXxA60hqnBabnXop6cS4HnRFR
-wntAO31EiZCuUY+jJJRUZ40wfeMfK7aitnTTaXmJGn4D9YdYqKuR3W4QwCRLH0A/
-0XckFw33v8i3DO9fVZ62GZtlVg4N00mbfiHto/rizRWKwwxFNnvc17mwCvZ/2Vwi
-ocgr5bdXGOEBx+SVyL8DlwSywmgypw4X3f71m6zHo6Nm8Akk9P6ikWmRzEouDYNT
-ogYyx7z006BZy+KiSMldMjr6fMqyyZu760owsCJF7eoDui9idJ5xDxX+RKze1MPi
-Qftv+lJ8yKSNMiTGaSKiP1cUHQf1VvphQYjPKk4SO6CCCZFeCwSu9tDDbUwYsY1U
-YjiuLB8ud4xw19SjPqc7xtj7bPiWOgy2EpO/HWh4PtzyZGVlKXGXWsUeD/u9LPhr
-IhZRklvYLPWXa0OJxMsAaI01zJIbYSPUj1Srk2wsypWG86OORS6KNAVXJ7SJOTjY
-ejVln6MGb32xsEGmgvcc86PnpQoDMoWGtxay9izCv1TiWiFAqqs=
-=Wrtb
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmf1GbYACgkQ0Z6cfXEm
+bc7UuA//evXlaDn2fcz4QVy3aiuaYNZE6L7JQq1EOQnZTGDNcVbk3DgeRdU5cao9
+nwpFotRuTD8vyKtihj5iQdIVK3ogGXJXEmZXRItbQRy9ViQe/AnLtDAGl1REaQkC
+jPpjWfYDeZjsVgPjBtpNoarLLXRt7jnm+uTfX0bM2ST3nWKiTcjcjM3YjxuCSPDt
+ygyiqhXwWO6YPMnXSt/OKk+nfw4IeIBGpSDommfkw08lUB8R9+ULTZKM1sfZENFJ
+zRbj9hL1qAf+wwsn+JBwkcS3lXFqtA/c3G5fPfylHkUEtwJM7XsHsXEenxYMd9D1
+4m8jlADNaXs+IPLTNfU1Mvw/ahr2RCjt3qRsndOML4nFkrq2jbEhSl3nz0G2V/F/
+3Me/8H2ll91mLAfFbbX0+Rb0HgOXfHz2346DY9IUEEqEXjZvM+AaTdmqSidjTcuS
+Rxz1hpVLIfvPI7uuDQrN/7gT0c7PENIAB8908p8PKly1MnkxesDb5CtQFxpTSnEt
+odL5pjvOFHCuIsgZaugaEHGCrcf0SuTlBqhXxk9pDa7987HR92Xo0wOdaknql0ws
+PXilPdupXdEhfyoljOvl9EOtCNFkiwuuCDODfwrGJW7FXgn3fpywfR9zAmdzQxh2
+N4mK+9CXhdLdUFhUdyW/PNcQJJ4gYuigOegQk13551vLaiXY9Gs=
+=u0Kz
 -----END PGP SIGNATURE-----
 
---kk5oneitt7fyohsb--
+--fiqbv5gbfnb4qe2o--
 
