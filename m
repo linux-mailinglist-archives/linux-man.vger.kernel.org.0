@@ -1,144 +1,93 @@
-Return-Path: <linux-man+bounces-2761-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2764-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05C11A83199
-	for <lists+linux-man@lfdr.de>; Wed,  9 Apr 2025 22:07:53 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89FC8A83388
+	for <lists+linux-man@lfdr.de>; Wed,  9 Apr 2025 23:42:53 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 849F03AB27F
-	for <lists+linux-man@lfdr.de>; Wed,  9 Apr 2025 20:03:16 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DE54D7AEA2F
+	for <lists+linux-man@lfdr.de>; Wed,  9 Apr 2025 21:41:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8A47202C44;
-	Wed,  9 Apr 2025 20:03:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF8BD21481E;
+	Wed,  9 Apr 2025 21:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="zV71S9FN"
+	dkim=pass (2048-bit key) header.d=jwilk.net header.i=@jwilk.net header.b="KUpVLlNE"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 10.mo533.mail-out.ovh.net (10.mo533.mail-out.ovh.net [46.105.72.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA7C143748
-	for <linux-man@vger.kernel.org>; Wed,  9 Apr 2025 20:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3102AC17
+	for <linux-man@vger.kernel.org>; Wed,  9 Apr 2025 21:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.72.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744229007; cv=none; b=PzIkV1OdiUyYwM1FH7E1Z2u1GeXdJ9XfOYZVyz+n7EyNQglgcHz0G2Wk6Le0cNOvKYPvjGzPGIocPWBruWE7rwafSd8I5L9vF9QN0rQgQfX1+BGe50dvaGLJ5R/A/qo3WFWIZ2gRczT0bfMpMbXRwNVFBXyurAhCG77v1k0FA5Q=
+	t=1744234968; cv=none; b=ktEC1kO8zxfqXBrU9SBG3p95RPoTPnnna3g0mao5LyBvCsIYXPGtkjz1SmtFzL5gdNr4z4yrUEuvkcgQdma+cil2f0lsyEqHGQa8n7xA6BKhixWtb41ram/2mQY7jCYiWPbo+869bEmTjkoDcvZJ+fP51EbdUXKRrZXjm46mydE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744229007; c=relaxed/simple;
-	bh=2q8RemfWk+iqHKKYxGihb6hG4Sg1PwqdaIhIoRf5TSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C5jtIa5nTGqx1AD2G3tswHfbXjgewXsp1zppZdQUyqL81HmdUBE2K2EFhXfz2irLpq1misvLG8bxEf3WPSF5rDj2APngrWfiKbrtHXgR2rfqHnxR2Lg/Ea5/HqXeMjmllyC51rEwk3zr14XHin/sA22mm7h431wpClxQ8k/f1nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=zV71S9FN; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-43ef83a6bfaso1485e9.1
-        for <linux-man@vger.kernel.org>; Wed, 09 Apr 2025 13:03:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1744229004; x=1744833804; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ibP2CU6RAFJSeqUSlrkOvkOcHxqYPK+98gOWakQDC6c=;
-        b=zV71S9FN4s/kalw5hWFvZJeqpIErv4Db7oMo9v5CbODqtJdhbQEeaASJEhm2p9vjMo
-         Ovi1MfEV8+dklMop5vrZHTZ2rmWUfokVBcr3Kd0tngWlq2jUy7YMnpXVGAe5KyK7UtoD
-         zYzmucM9fDOxHjiW2wcdgzeU5XAMPP+qilF7TMVLDGM19KuJvzH3DfwOfmN3DsEPoLBe
-         Ihu80MzWS/v0ZP7lZeAVWRVoG1c3eLT2w85yFo621ZZkNwvaERbYn7/Sgv2wYpaEjrhW
-         JK+JnylixDqTIqLhrHwoFtxQ9bmXTzgJfWL67n4FkiD4486fUakm1slOQ9IzSoxMSHH5
-         nhHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744229004; x=1744833804;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ibP2CU6RAFJSeqUSlrkOvkOcHxqYPK+98gOWakQDC6c=;
-        b=nILk+nqhONbuGRF8Ah94ji/x5O8WpHpQ8hklt3KUWvuOAI5dSEwYnxCUS7bNDDaoLG
-         xwRNJR6ivKmLHz3W5Mk3CwF3+QkQQpDqj/1CQSvhBULRHkOcqOAzDnh78jA4GLXEHEcr
-         +pSRvb1mvDR0IFaGmIPv6KMdYmA3cA69XxYpB29c4lrgXqDeIemutK6JmVOIRwSZGexy
-         Vt+XF0EoPVdx1qKDG2D1vdvpcGmOv6/mgGcU6kirnpkHwKbCNplHx9mU32cjsFi44F8v
-         MiFpDZnwNGfyItDuPJBfwU4Id3Z1kkgpPfvZbAcdkL3dFrvLD/U5DSrCR3Gi/JZhQAFa
-         JrZw==
-X-Gm-Message-State: AOJu0YyDEanSeUCAV6WbbG7aPO57BdKQfagIClw1s9AB71/XR9+QMhQM
-	V45GxNho+OXmxpD4eKnN4TK3Ie8Y/nhf8SuwRe4jbqEJCxC2TQq8dyAD0Cp1OA==
-X-Gm-Gg: ASbGncvYjrQKXvg62fQs6D+FLNcPTwDFuozv3rNJT3ETe0CxTEeySqE2qh8ZQl9mlRs
-	5srGeM6sr5UQElY06VxgUP7krEplOKm07QcZuc2t43b4qSa7QmqBW2kjXAQdYhByR+n5pd6Px8G
-	MGYOYOgErAtZaUBBgVVv1yJfXuL1BAMxS85MCoy+Xi+pPG5Tl2jlIA+ygTMfkeYPA3bpiL587BS
-	BFqBpwJ6C+EAbP1GywdHs5GBDo7Pvm+C5IgqvrJD32CsVrB5U3dTKjj4xZCpRkNBT8z+QAekzGK
-	srPhrucfGhJPO9kbzItPv0VsCCvK3A==
-X-Google-Smtp-Source: AGHT+IG6niI2hvwR6UeodCm2LxQ33raWiJJ1zWlTTycqnhO+IaVHjMAPiCodW4wIumoymwLCneEXbw==
-X-Received: by 2002:a05:600c:3b09:b0:43b:bf3f:9664 with SMTP id 5b1f17b1804b1-43f2e2df5a2mr114045e9.5.1744229003612;
-        Wed, 09 Apr 2025 13:03:23 -0700 (PDT)
-Received: from localhost ([2a00:79e0:9d:4:3a4a:b867:2c16:399f])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-43f2338d757sm26436995e9.5.2025.04.09.13.03.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Apr 2025 13:03:22 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
+	s=arc-20240116; t=1744234968; c=relaxed/simple;
+	bh=eFO1zOrl6BTSNrNDw0EU+j/Sk6LOd9HAGG1jivhbR2g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UZIaW4N26qPRqFDU1vg9sGViABJNnyf3/gi6AkvrgjyuWQ8huI+6UKrSKGJJgFcqaKAnepu//wLKKaOzMonzezZA0jTTpmaT4BNdlKpqro0TA1KTSUfRowXzvhJ3dBAuQoCBOSddzquPzQyLA6IyF4xIwPsrfg24+6vigjfAqqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jwilk.net; spf=pass smtp.mailfrom=jwilk.net; dkim=pass (2048-bit key) header.d=jwilk.net header.i=@jwilk.net header.b=KUpVLlNE; arc=none smtp.client-ip=46.105.72.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jwilk.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jwilk.net
+Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net [79.137.60.36])
+	by mo533.mail-out.ovh.net (Postfix) with ESMTPS id 4ZXvbP3zSGz1Tj1;
+	Wed,  9 Apr 2025 20:25:53 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net. [127.0.0.1])
+        by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <jannh@google.com>; Wed,  9 Apr 2025 20:25:53 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.113.158])
+	by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4ZXvbP2cN0zyFY;
+	Wed,  9 Apr 2025 20:25:53 +0000 (UTC)
+Received: from jwilk.net (unknown [10.1.6.7])
+	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 9F5B5D43CC9;
+	Wed,  9 Apr 2025 20:25:51 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-111S0055da57c81-5475-4f80-97fb-45673ac00651,
+                    C2CDD821AA5C8083AD722228536C98132DCF5F8A) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp:31.0.176.58
+Date: Wed, 9 Apr 2025 22:25:48 +0200
+From: Jakub Wilk <jwilk@jwilk.net>
+To: Jann Horn <jannh@google.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
 	"Liam R . Howlett" <Liam.Howlett@oracle.com>,
 	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	linux-mm@kvack.org
-Subject: [PATCH man] mmap.2: Document danger of mappings larger than PTRDIFF_MAX
-Date: Wed,  9 Apr 2025 22:03:16 +0200
-Message-ID: <20250409200316.1555164-1-jannh@google.com>
-X-Mailer: git-send-email 2.49.0.504.g3bcea36a83-goog
+	Vlastimil Babka <vbabka@suse.cz>, linux-mm@kvack.org
+Subject: Re: [PATCH man] mmap.2: Document danger of mappings larger than
+ PTRDIFF_MAX
+Message-ID: <20250409202548.unp4btmb7ktq2igk@jwilk.net>
+References: <20250409200316.1555164-1-jannh@google.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20250409200316.1555164-1-jannh@google.com>
+X-Ovh-Tracer-Id: 15551210988846066793
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtdeileeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepudeftefhleekkeelvddvgfeiieegffefgeejhefhgfefiedvudeujeekkeekgfffnecuffhomhgrihhnpehsohhurhgtvgifrghrvgdrohhrghenucfkphepuddvjedrtddrtddruddpfedurddtrddujeeirdehkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdpnhgspghrtghpthhtohepkedprhgtphhtthhopehjrghnnhhhsehgohhoghhlvgdrtghomhdprhgtphhtthhopegrlhigsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhmmheskhhvrggtkhdrohhrghdprhgtphhtthhopegrkhhpmheslhhinhhugidqfhhouhhnuggrthhiohhnrdhorhhgpdhrtghpthhtohepnfhirghmrdfjohiflhgvthhtsehorhgrtghlvgdrtghomhdprhgtphhtthhopehlohhrvghniihordhsthhorghkvghssehorhgrtghlvgdrtghomh
+ dprhgtphhtthhopehvsggrsghkrgesshhushgvrdgtiidprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehfeefmgdpmhhouggvpehsmhhtphhouhht
+DKIM-Signature: a=rsa-sha256; bh=PlSb+3ER9DX08ffcuHcb/SKT+kBQGPDkv39kOiQ23O0=;
+ c=relaxed/relaxed; d=jwilk.net; h=From; s=ovhmo917968-selector1;
+ t=1744230354; v=1;
+ b=KUpVLlNE/09Vt21bjO5cgh/LgRVyL2UvAic0yS0u/J4tw8rD6WUKpNHDKjsc6k0gBA0VAadP
+ xFFuh3PN3VXGIYsTHLwqFBPkx4B4CdJh54jOYbZiLU0i+PPH39POZ8ru19ouKHzy2wCsZY8FXWi
+ +/7TPB6dEwkWcJnSoDWRMPOmcOCKiFmL27TiFk4nd1DI1VQPSWSs8NYyyQScN/uZCe2HWVuJk1n
+ BEh5PGdQaC+hgx4FHjN4AsqDtCkx7fEFvh1hbHE4AP8lWCv7bm1Lh023Qq44KYHWwiqZbHYLH3P
+ N30X+69vFme1LG4zQcEKrlvbEXa008omQsmZI9h03AGYA==
 
-References:
- - C99 draft: https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1124.pdf
-   section "6.5.6 Additive operators", paragraph 9
- - object size restriction in GCC:
-   https://gcc.gnu.org/legacy-ml/gcc/2011-08/msg00221.html
- - glibc malloc restricts object size to <=PTRDIFF_MAX in
-   checked_request2size()
----
-I'm not sure if we can reasonably do anything about this in the kernel,
-given that the kernel does not really have any idea of what userspace
-object sizes look like, or whether userspace even wants C semantics.
-But we can at least document it...
+* Jann Horn <jannh@google.com>, 2025-04-09 22:03:
+> - glibc malloc restricts object size to <=PTRDIFF_MAX in
+>   checked_request2size()
 
-@man-pages maintainer: Please wait a few days before applying this;
-I imagine there might be some discussion about this.
+FWIW, this is done only since glibc v2.30 (released in 2019):
+https://sourceware.org/cgit/glibc/commit/?id=9bf8e29ca136094f
 
- man/man2/mmap.2 | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
-index caf822103..9cb7dacf3 100644
---- a/man/man2/mmap.2
-+++ b/man/man2/mmap.2
-@@ -785,6 +785,23 @@ correspond to added or removed regions of the file is unspecified.
- An application can determine which pages of a mapping are
- currently resident in the buffer/page cache using
- .BR mincore (2).
-+.P
-+Unlike typical
-+.BR malloc (3)
-+implementations,
-+.BR mmap ()
-+does not prevent creating objects larger than
-+.B PTRDIFF_MAX.
-+Objects that are larger than
-+.B PTRDIFF_MAX
-+only work in limited ways in standard C (in particular, pointer subtraction
-+results in undefined behavior if the result would be bigger than
-+.B PTRDIFF_MAX).
-+On top of that, GCC also assumes that no object is bigger than
-+.B PTRDIFF_MAX.
-+.B PTRDIFF_MAX
-+is usually half of the address space size; so for 32-bit processes, it is
-+usually 0x7fffffff (almost 2 GiB).
- .\"
- .SS Using MAP_FIXED safely
- The only safe use for
-
-base-commit: 4c4d9f0f5148caf1271394018d0f7381c1b8b400
 -- 
-2.49.0.504.g3bcea36a83-goog
-
+Jakub Wilk
 
