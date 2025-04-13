@@ -1,163 +1,252 @@
-Return-Path: <linux-man+bounces-2767-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2768-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00747A84E3E
-	for <lists+linux-man@lfdr.de>; Thu, 10 Apr 2025 22:30:10 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99BB0A8732D
+	for <lists+linux-man@lfdr.de>; Sun, 13 Apr 2025 20:39:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 0EDB01B874B4
-	for <lists+linux-man@lfdr.de>; Thu, 10 Apr 2025 20:30:21 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id B967818917B3
+	for <lists+linux-man@lfdr.de>; Sun, 13 Apr 2025 18:39:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B369A1E47B0;
-	Thu, 10 Apr 2025 20:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9389B19E833;
+	Sun, 13 Apr 2025 18:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/Cu22zu"
+	dkim=pass (2048-bit key) header.d=ascz.de header.i=@ascz.de header.b="G27LR7Ea"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vwp12212.webpack.hosteurope.de (vwp12212.webpack.hosteurope.de [5.35.232.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F3628F920
-	for <linux-man@vger.kernel.org>; Thu, 10 Apr 2025 20:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440CB8635D
+	for <linux-man@vger.kernel.org>; Sun, 13 Apr 2025 18:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.35.232.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744317007; cv=none; b=aIvHcNNI/MO22/Ljyux+u68BGwlZ0bZPZhptoVxXejJrkwiOn5b58ZGlO4bTUldeOpg/leYPpI0v0WszXEGCI267tXtoPcAb0vDC3xv8kD9GrC3b4Lj966S52wRt56/ICDcyTKBt5joOzyfZ9InI9ehMekk7MD7nsI6TFnpMQyM=
+	t=1744569567; cv=none; b=B7TrlqahMup8tuulngyrmAXLI5/h+fDI4KgapiBFKLl1vw9xa4X9zolyM4lIAxceGEXvuyNshhGb1y7Shi2Njv9hM1hBPQcdSc+lz0yYOu5TkP2xuPG1rbTkJrQRSo/7KG3/k+0t2bY8nZSm5xBWWZr2jm4J39Lr/sUqwJ8XvLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744317007; c=relaxed/simple;
-	bh=fOp5RNjWuuBVHTSQWBBULcoYbNHRcj9Top7zNAyBT50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RpnKOeEmCXEj+Q34h8xuTX2WtLhfzy6ws77YlFyAxXWfmtfeUB4pW7o4VHgB3V5YYVw65ogHJcDiQYXmXNIoB0Area1EH/dcY6fN9ByGntdCDMo7r8ebIPnPJXXcOlIDr4O7yUNyxWqtNCdRCycsgjkfqBy8JkNiDEBM0uchjDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/Cu22zu; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532BCC4CEDD;
-	Thu, 10 Apr 2025 20:30:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744317006;
-	bh=fOp5RNjWuuBVHTSQWBBULcoYbNHRcj9Top7zNAyBT50=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h/Cu22zutTBC30DIMf4EKWXFDqGizyXKUEC+Y7k9P61mITbHOe5R9ZqZL6BH61MSY
-	 bxfGo0HMV62WXrQYrOJM2g7nkQrs29YKTubaDgOQZxO87vDPBJd7na8pRj6OQI1A4c
-	 mkEM6aD/cvm1asKIZ8YLG799Pr2re8r4bn/Ui6bEAugu+AbjrZt3wKu8Y67KlFlSOU
-	 1Gkh2KU8mX8Xpg3ybrUXz5LlV8yTAbCckJD4sXTo+Jf5IzXYDvLm4mVuocJXTxLCp5
-	 TP1YFXOE0vh6DxsLdasyQfzhvNtZUEvlDxnqvztYaPU2sIk6BmKAxd5po0M3f3B6+n
-	 jkfSwqmFVGpFg==
-Date: Thu, 10 Apr 2025 22:30:02 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Vlastimil Babka <vbabka@suse.cz>, linux-mm@kvack.org
-Subject: Re: [PATCH man] mmap.2: Document danger of mappings larger than
- PTRDIFF_MAX
-Message-ID: <7eipszjbpwa6hpmhidggt5pclbwrck6zmch6cahbs6mdbt5csg@ho4hux3avpdf>
-References: <20250409200316.1555164-1-jannh@google.com>
- <eou3zcpvohbtr3ixeibqec4grb5jdf35ss7xi5fy5qjgpxysde@fenpacxwsnqb>
- <CAG48ez2Ox6YudW9iOS=0PvM3_NZr0fvJTda1z8eC+uybYYPANA@mail.gmail.com>
+	s=arc-20240116; t=1744569567; c=relaxed/simple;
+	bh=7BJExZlKpjrZBVtZ5BNYebkg7QsgSFl1tLbi3vdJ+6E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fEUoUh+CfaVylA3O3biOe2CSiRrbEzQy1NxgFYcrsXxhkuO3qkTJetsWgkGRrX3Sd/XLRRW1hVOkZhJmt3/DblqrO3fbS6ilZiUF03etjOUDe4KpmlCL7/OmeLg5w9rgouM92ziihkKvrXGofnuZmfOamxh1Ztdn/weiSQa1hzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ascz.de; spf=pass smtp.mailfrom=ascz.de; dkim=pass (2048-bit key) header.d=ascz.de header.i=@ascz.de header.b=G27LR7Ea; arc=none smtp.client-ip=5.35.232.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ascz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ascz.de
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=ascz.de;
+	s=he169026; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+	In-Reply-To:References; bh=oVJLwXwBBL7PoAng7nQu13mEdmEUSoa6tExoAPgrsDM=;
+	t=1744569565; x=1745001565; b=G27LR7EaoYPWESuai+/KBJFMdkiA3CQ5E7t7ZyUUisfvTpH
+	hKTWat0/7K14eK8B973BOspTEcDwLhEElEBAlQLzDX5Zmx0JxylmB3JsnVAzjKwP497udT6Mw/NdZ
+	fyIdWlWYfVZCA2Amv2Tv2qw3+LHIWbOLmV1c5dcYUEpQD3Fp+IjSStJ2NJkhvstojiIOz1xFmLjLe
+	uAoD9TLHY9WYm6619MSvVqsLr2yN6XHjDxaREtVBAis+7Qfpv72ctCbLYIv36vWsbk9LEZPS2QoiS
+	vEP+gsA2FZuEheIMv+fK7h0kQpmJKgnr9cvKk4CMBndlr4kPQjxn34DnRnzHAt4g==;
+Received: from p200300c0df0945162f6a90c04ec6e8e2.dip0.t-ipconnect.de ([2003:c0:df09:4516:2f6a:90c0:4ec6:e8e2] helo=localhost.localdomain); authenticated
+	by vwp12212.webpack.hosteurope.de running ExIM with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	id 1u41ft-0051Po-1M;
+	Sun, 13 Apr 2025 20:03:21 +0200
+From: Anton Zellerhoff <wg14@ascz.de>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Anton Zellerhoff <wg14@ascz.de>,
+	linux-man@vger.kernel.org,
+	Lenard Mollenkopf <glibc@lenardmollenkopf.de>,
+	Jakub Jelinek <jakub@redhat.com>
+Subject: [PATCH] man/man3/abs.3: Document u{,l,ll,imax}abs()
+Date: Sun, 13 Apr 2025 19:50:11 +0200
+Message-ID: <28a36070fe18707ab9fa26b91c88e6fd87a72097.1744566285.git.wg14@ascz.de>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6nebur4azoszr7qh"
-Content-Disposition: inline
-In-Reply-To: <CAG48ez2Ox6YudW9iOS=0PvM3_NZr0fvJTda1z8eC+uybYYPANA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de;wg14@ascz.de;1744569565;5f6b3eee;
+X-HE-SMSGID: 1u41ft-0051Po-1M
 
+C2Y adds unsigned versions of the abs functions (see C2Y draft N3467 and
+proposal N3349).  Support for these functions will be included in GCC 15
+and glibc 2.42.
 
---6nebur4azoszr7qh
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Vlastimil Babka <vbabka@suse.cz>, linux-mm@kvack.org
-Subject: Re: [PATCH man] mmap.2: Document danger of mappings larger than
- PTRDIFF_MAX
-References: <20250409200316.1555164-1-jannh@google.com>
- <eou3zcpvohbtr3ixeibqec4grb5jdf35ss7xi5fy5qjgpxysde@fenpacxwsnqb>
- <CAG48ez2Ox6YudW9iOS=0PvM3_NZr0fvJTda1z8eC+uybYYPANA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAG48ez2Ox6YudW9iOS=0PvM3_NZr0fvJTda1z8eC+uybYYPANA@mail.gmail.com>
+Link: <https://www.open-std.org/JTC1/SC22/WG14/www/docs/n3467.pdf>
+Link: <https://www.open-std.org/JTC1/SC22/WG14/www/docs/n3349.pdf>
+Link: <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117024>
+Link: <https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=5b132ec2b7712dbc055838b3b538b83ad1196414>
+Signed-off-by: Anton Zellerhoff <wg14@ascz.de>
+---
+I am a co-author of N3349.
 
-Hi Jann,
+I was unsure waht to do with the current standards. As the functions did
+not change from C99 to C11 I deleted them.
 
-On Thu, Apr 10, 2025 at 08:08:41PM +0200, Jann Horn wrote:
-> > Hmmm.  Maybe it could reject PTRDIFF_MAX within the kernel, which would
-> > at least work for cases where user-space ptrdiff_t matches the kernel's
-> > ptrdiff_t?  Then only users where they don't match would be unprotected,
-> > but those are hopefully extra careful.
->=20
-> Perhaps. But then some tricky things are:
->=20
-> 1. How many existing users would we be breaking with such a change?
-> Probably _someone_ out there is deliberately mapping files over 2G
-> into 32-bit processes and it sorta worked until now...
-> 2. We don't really have a concept of object size in the kernel, and it
-> might be hard to reason about whether mmap() is used logically to
-> create a new object or extend an existing object. I guess we could
-> limit VMA sizes for 32-bit userspace to 0x7ffff000 and enforce a
-> 1-page gap around mappings that are at least half that size, or
-> something like that, but that would probably get a bit ugly on the
-> kernel side...
->=20
-> The first point is really the main concern for me - we might end up
-> breaking existing users.
+ man/man3/abs.3      | 63 ++++++++++++++++++++++++++++++++++++++-------
+ man/man3/uabs.3     |  1 +
+ man/man3/uimaxabs.3 |  1 +
+ man/man3/ulabs.3    |  1 +
+ man/man3/ullabs.3   |  1 +
+ 5 files changed, 57 insertions(+), 10 deletions(-)
+ create mode 100644 man/man3/uabs.3
+ create mode 100644 man/man3/uimaxabs.3
+ create mode 100644 man/man3/ulabs.3
+ create mode 100644 man/man3/ullabs.3
 
-Hmmm, okay.  If it ends up being too complex, it also would be bad.
-It's easier for careful programmers to just check the size before the
-call.  So it's fine to not do the check in the kernel.
+diff --git a/man/man3/abs.3 b/man/man3/abs.3
+index 6a9780019..fbd546cdf 100644
+--- a/man/man3/abs.3
++++ b/man/man3/abs.3
+@@ -14,7 +14,7 @@
+ .\"
+ .TH abs 3 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+-abs, labs, llabs, imaxabs \- compute the absolute value of an integer
++abs, labs, llabs, imaxabs, uabs, ulabs, ullabs, uimaxabs \- compute the absolute value of an integer
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ,\~ \-lc )
+@@ -26,9 +26,14 @@ .SH SYNOPSIS
+ .BI "long labs(long " j );
+ .BI "long long llabs(long long " j );
+ .P
++.BI "unsigned int uabs(int " j );
++.BI "unsigned long ulabs(long " j );
++.BI "unsigned long long ullabs(long long " j );
++.P
+ .B #include <inttypes.h>
+ .P
+ .BI "intmax_t imaxabs(intmax_t " j );
++.BI "uintmax_t uimaxabs(intmax_t " j );
+ .fi
+ .P
+ .RS -4
+@@ -40,17 +45,25 @@ .SH SYNOPSIS
+ .nf
+     _ISOC99_SOURCE || _POSIX_C_SOURCE >= 200112L
+ .fi
++.P
++.BR uabs (),
++.BR ulabs (),
++.BR ullabs (),
++.BR uimaxabs ():
++.nf
++    _ISOC2Y_SOURCE
++.fi
+ .SH DESCRIPTION
+ The
+-.BR abs ()
+-function computes the absolute value of the integer
+-argument
+-.IR j .
+-The
++.BR abs (),
+ .BR labs (),
+ .BR llabs (),
++.BR imaxabs (),
++.BR uabs (),
++.BR ulabs (),
++.BR \%ullabs (),
+ and
+-.BR imaxabs ()
++.BR \%uimaxabs ()
+ functions compute the absolute value of the argument
+ .I j
+ of the
+@@ -72,11 +85,15 @@ .SH ATTRIBUTES
+ .BR abs (),
+ .BR labs (),
+ .BR llabs (),
+-.BR imaxabs ()
++.BR imaxabs (),
++.BR uabs (),
++.BR ulabs (),
++.BR \%ullabs (),
++.BR \%uimaxabs ()
+ T}	Thread safety	MT-Safe
+ .TE
+ .SH STANDARDS
+-C11, POSIX.1-2008.
++C2Y.
+ .SH HISTORY
+ POSIX.1-2001, C99, SVr4, 4.3BSD.
+ .\" POSIX.1 (1996 edition) requires only the
+@@ -93,8 +110,21 @@ .SH HISTORY
+ and
+ .BR imaxabs ()
+ were added in C99.
++The functions
++.BR uabs (),
++.BR ulabs (),
++.BR \%ullabs (),
++and
++.BR \%uimaxabs ()
++were added in C2Y.
+ .SH NOTES
+-Trying to take the absolute value of the most negative integer
++For
++.BR abs (),
++.BR labs (),
++.BR llabs (),
++and
++.BR imaxabs ()
++trying to take the absolute value of the most negative integer
+ is not defined.
+ .P
+ The
+@@ -103,6 +133,13 @@ .SH NOTES
+ The
+ .BR imaxabs ()
+ function is included since glibc 2.1.1.
++The
++.BR uabs (),
++.BR ulabs (),
++.BR \%ullabs (),
++and
++.BR \%uimaxabs ()
++functions are included since glibc 2.42.
+ .P
+ For
+ .BR llabs ()
+@@ -121,6 +158,12 @@ .SH NOTES
+ .BR llabs ()
+ and
+ .BR imaxabs ()
++and (since GCC 15.0)
++.BR uabs (),
++.BR ulabs (),
++.BR \%ullabs (),
++and
++.BR \%uimaxabs ()
+ as built-in functions.
+ .SH SEE ALSO
+ .BR cabs (3),
+diff --git a/man/man3/uabs.3 b/man/man3/uabs.3
+new file mode 100644
+index 000000000..97db8d2b6
+--- /dev/null
++++ b/man/man3/uabs.3
+@@ -0,0 +1 @@
++.so man3/abs.3
+diff --git a/man/man3/uimaxabs.3 b/man/man3/uimaxabs.3
+new file mode 100644
+index 000000000..97db8d2b6
+--- /dev/null
++++ b/man/man3/uimaxabs.3
+@@ -0,0 +1 @@
++.so man3/abs.3
+diff --git a/man/man3/ulabs.3 b/man/man3/ulabs.3
+new file mode 100644
+index 000000000..97db8d2b6
+--- /dev/null
++++ b/man/man3/ulabs.3
+@@ -0,0 +1 @@
++.so man3/abs.3
+diff --git a/man/man3/ullabs.3 b/man/man3/ullabs.3
+new file mode 100644
+index 000000000..97db8d2b6
+--- /dev/null
++++ b/man/man3/ullabs.3
+@@ -0,0 +1 @@
++.so man3/abs.3
+-- 
+2.49.0
 
-> > > or whether userspace even wants C semantics.
-> >
-> > I guess any language will have to link to C at some point, or have
-> > inherent limitations similar to those of C.
->=20
-> This limitation is really a result of deciding to make pointer
-> subtraction return a signed value, so that you can subtract a bigger
-> pointer from a smaller pointer. I don't know whether other languages
-> do that.
->
-> > > But we can at least document it...
-> >
-> > Yep.  Most people are unaware of this, and believe they can get
-> > SIZE_MAX.
-> >
-> > >
-> > > @man-pages maintainer: Please wait a few days before applying this;
-> > > I imagine there might be some discussion about this.
-> >
-> > Okay; see some minor comments below.
->=20
-> Thanks. (I'll probably be out for the next two weeks or so, I'll
-> probably get back to this afterwards.)
-
-Okay, no problem
-
---=20
-<https://www.alejandro-colomar.es/>
-
---6nebur4azoszr7qh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmf4KkoACgkQ64mZXMKQ
-wqlkGQ/7BPW2gWy+SJtfbHhElzuSA/LPvzN5dGOCPtdtwSCV1GfZ3Px0PxzeTQWb
-8NPMlqaScu0YhexSUj92KWw+h1lz33OlwmoFB0XRsnd8QM5cwuiRSlpGzkJ/v3WZ
-TmETa/VpVJiSQe+eKHYdGar4RWSwDfE3grUAMze4WXfuk0VbtsEHseGOUqZqq25W
-y1UDBmXkYEFxiebzTM0EfB1eRjofKIbCAtjFXKZhMkd4OZK5qC19AFR2DEmTgzW+
-K55vd44qPUiXWhYkh9A4+L6xmoIaHv7flDgY36VCS+6mjXWBIyIq2evwuyGf07qz
-Ws5iVEnoBuovt5WYyzYdAtl4Ai67eVIweDh57uFk5ABUTzijlcA1VNAiDjyDubG9
-1W79GGaLOFPQ9esA8klHyHwbBEcCQIpzZkBskgpOgS4t+Ii+zHBVmn1fzDejmRL5
-0M+EeUHo9JQAjh0h4FyS8ImIiZ8WNUIS7evUarCSGFEd7+VLEu5r00J1LiP7Z365
-9fACzYWhc2jxGZ9ARj1MG0oPjXhJwFdmqxf0kKoqgCd/slHUhyRAI+AT8kJ9MDeo
-YCQsyoBqa1zyvcW9QTqDq5DOT3/L5QSF9KIys4d5zwfYzAZUQSDstu1OQh/sQL2e
-/GBPYt9tAMiMfBg8RGFvWK9OZUhGIn0QwUnq/bOHsnv0nm2WaEE=
-=Eku0
------END PGP SIGNATURE-----
-
---6nebur4azoszr7qh--
 
