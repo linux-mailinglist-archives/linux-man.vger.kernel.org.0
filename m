@@ -1,129 +1,104 @@
-Return-Path: <linux-man+bounces-2772-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2773-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0393CA88CF4
-	for <lists+linux-man@lfdr.de>; Mon, 14 Apr 2025 22:20:26 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B49FA89C91
+	for <lists+linux-man@lfdr.de>; Tue, 15 Apr 2025 13:37:28 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1A4A81747C9
-	for <lists+linux-man@lfdr.de>; Mon, 14 Apr 2025 20:20:26 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B869D3B0035
+	for <lists+linux-man@lfdr.de>; Tue, 15 Apr 2025 11:34:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F0071D5CDD;
-	Mon, 14 Apr 2025 20:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8401528DEE2;
+	Tue, 15 Apr 2025 11:34:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2kpukO/"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dn/bBpNR"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BB51C1F12
-	for <linux-man@vger.kernel.org>; Mon, 14 Apr 2025 20:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AF128A1E3
+	for <linux-man@vger.kernel.org>; Tue, 15 Apr 2025 11:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744662022; cv=none; b=YoycAA2t75m5Mx3/KH22j3jzpmHtLNOCU0srwb6EKg1wYhg1yT9bujhvdKQ/JGA30SloxhHYXW6dLDcqC6Rv5/PC3tVdqIk4FpuzrJSIN2/RmchvkYxdktNTza0TdTfMu0kyqWkDKae+nDR0YhNln+5JCdpRvhq+qJ26K9CaLw0=
+	t=1744716868; cv=none; b=gz75h/AHDFD4I7bl2yAk3/uCmoQ07jyLkIdYZnaYUFwa0tGvv0wt3EFjHyFYjS1tVsEwM19KVgw2Taf9v9jc1d8x7aU2bB/k8ac0grvylr11+ul373hLwnHckOcbAhembTDeDzkFDWNVnOyvdCJ2aouM4ricJOtkm/GaO7MeAHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744662022; c=relaxed/simple;
-	bh=dE3b0pPdVbpF0/SQZC9n3EP+ZJPi/o5Yme3yyZYKH5I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JmKWd3IEjrccjOVJDE5dLfDprQBECHjYRzHj9v1fCWthI0XpkaOMTtB2XgQPNJx+65YqtJ/TD/nZMxMKr9cFZjIJBximfiYx/2iJB39o+wIMuikCzHnCx8E7xsnnESVsnQmAj49bn1jsfLE0vIBdHTe3BRtFvvPWurukxxh5HeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2kpukO/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA68CC4CEE5;
-	Mon, 14 Apr 2025 20:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744662021;
-	bh=dE3b0pPdVbpF0/SQZC9n3EP+ZJPi/o5Yme3yyZYKH5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K2kpukO/NseLSEU4/y5KoBfq5HJDxGL+uMQCDkDzytijGFbZ8BGONhUI28lP8Ttlc
-	 mbdXs5xukZQFcphRdKNzA2TxIn0IJGnrLMcFjwJXtw+82d6DTLhiM+Cy2EVAPX2D9F
-	 1bdt2nsOkFw4IWZ2rCx5vgu2NFDFdR5DkpR6wB15zJ/v5Gy71UlfyuncECiY+DGd3x
-	 ny6BKZypMIC0O/OrYF+FcqugSTquEzswwGcUtVPhqlv4RYo7HKJVd1VZZs/SaTnO/O
-	 cLBI712A9q/VYeibT/JN1x/QqC8ylZDV1rNz0dGtzDXCngWVGQZ2FlTwmoONVdgIRS
-	 grVFfWa6pqZaw==
-Date: Mon, 14 Apr 2025 22:20:16 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: Eric Blake <eblake@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: fchown(3posix) changes in Issue 8
-Message-ID: <fjedxywjjgxknliruus3yeet4altmoaxsoa3i5wkbxzr22pu6d@5x5gnlzwxigc>
-References: <oohdlh2a5ab4z3exlwzdt64p43jr4h3q7envtpu22k76is3zix@rnct3c3mktor>
- <CAMdZqKHh60oVCbZWvftzc7mCc6_candr8e7T7Vnaq9G2z=WrYg@mail.gmail.com>
+	s=arc-20240116; t=1744716868; c=relaxed/simple;
+	bh=FkoqHaRGX+tC2aaQlA6acPbDRrIH0DumyXSvzvU+Jr4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=HcctFtwfYFCljMqciD7AfcRmhZB5/CvdiZhaRY2YSkXZgNRjIeoxX3zN9XRPi4o946EI0gfEWHR0cRgIBkQg2JXr/yU5I+MSS+AG5qvBRa7BVwbc6+SEjkyTS94U0KGwyALRZMVY9G+yacD0Lc8kYGd3dYpHMz4r6dyiMScwrzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dn/bBpNR; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-6fece18b3c8so52111747b3.3
+        for <linux-man@vger.kernel.org>; Tue, 15 Apr 2025 04:34:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744716866; x=1745321666; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FkoqHaRGX+tC2aaQlA6acPbDRrIH0DumyXSvzvU+Jr4=;
+        b=dn/bBpNRfcSfWsDetLPP+pIpo6+sfUD3a6uf3dhioNVNzlh5RjL62iAyHQv6qm8Pqt
+         i5wwGvTYSSBu9zGI+UiB7bHpoikREX+TOp8oWLHF2Il34zSLQ1Kwz68Oe2DAO48JR/w0
+         o2HyhNKrJIY+f6PHJ6nbSHjued0rNwPPi7luM/BQEz+1Ak0g259o6Bzy4uYFfTuqjJb+
+         jnmLCW8PCDDWj6Rpr91HFIxP5Nt0rwfAK+j3Sg8oVu/e/0BMXF0LsvhX6QD06lfFmnpf
+         Xe0ukRwy4p6jZ3YqVqPr2d4K5/LGNndJXtjNBhap3Mz0Z40tVtt7U85+3+8UErADpmhX
+         V4QA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744716866; x=1745321666;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FkoqHaRGX+tC2aaQlA6acPbDRrIH0DumyXSvzvU+Jr4=;
+        b=gSg00LFo62j5hF/NTb4OMhw9fGWBiMX2r5bHGFtiILh9KlLUOdrWv3JLNjca21ItRz
+         nqqtLWUzefNO6MPjXpqCMIl8V15Bcd0unJBUhwxl3r4AObd0PkrFYro1romn+pPeN+Mu
+         XE6KfgYTNjg1bMJ9byciAcnjcfMOf1ZdLDNUOy9QrCnI08U+YVltGRIwQC0uXg8bH1oi
+         kyJYRdddS2xswPXsXcCANIJCoupUWNhH8juMNtOyKYQBCmBsT9O65pSiNkDZcZ1B0CFs
+         SYGOZbNBOAXqltGO1z6SYUCj/FUrRKeGrHjvksNs3NcGlGShPj0WLpdt48RlZalKsKqz
+         hCcg==
+X-Gm-Message-State: AOJu0Yw4YM9zTkpwO1lPoX9wUqvuLk17LOSWs7XIJut27lBL6fZBx0aB
+	hUNcuw9Y6mFO92lVHuhN3EroMd2NpfeTgmMkeHN+QMPRHzM0mUFuxDMqcQtzew/ZDi+wEBVzWRC
+	GtrJCbbVcqAGs3vgBjiLw7Ufme6j6WfXH
+X-Gm-Gg: ASbGncvSx96FLyKp08dJwa9H96YkkmRX18Lc1GM+PU15WN3GxZx/DjmiVLL5DLjg2ft
+	pIs3eQpa/8dN7X7Uci+l8LwtFlZcO6dzGjNc8Yv3d/1tmewgvOQXd5U92LU/UGC59iILk9x4xwH
+	s/7jOTI3C7wT0FA3pmhTNHgg+d
+X-Google-Smtp-Source: AGHT+IGXX+jMQrrq8qau9myWrn/ZEM1EyN8TyBenbk5TkyBaR6HQJg6E61U31YsPYM+8Wc2zLln9VpWLgvgKTJiCBsA=
+X-Received: by 2002:a05:690c:3347:b0:6fd:3743:1e31 with SMTP id
+ 00721157ae682-705599e254emr266484247b3.18.1744716865835; Tue, 15 Apr 2025
+ 04:34:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3qehscpfw67v2gkg"
-Content-Disposition: inline
-In-Reply-To: <CAMdZqKHh60oVCbZWvftzc7mCc6_candr8e7T7Vnaq9G2z=WrYg@mail.gmail.com>
+From: hoodit dev <devhoodit@gmail.com>
+Date: Tue, 15 Apr 2025 20:34:16 +0900
+X-Gm-Features: ATxdqUFY9mq_7Ynb4kJk3Pa4yvbE-1mAMih6z4hIk2avO8IgPuARHlHcQhyWDAA
+Message-ID: <CAFvyz31Em4f7AQRDNJ6gtVBoUj1kQA8WZCGcs0EZngCZosf_0w@mail.gmail.com>
+Subject: clone(2) man page CLONE_NEWPID and CLONE_PARENT can be specified at
+ the same time, also CLONE_NEWUSER and CLONE_PARENT
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi
 
---3qehscpfw67v2gkg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: Eric Blake <eblake@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: fchown(3posix) changes in Issue 8
-References: <oohdlh2a5ab4z3exlwzdt64p43jr4h3q7envtpu22k76is3zix@rnct3c3mktor>
- <CAMdZqKHh60oVCbZWvftzc7mCc6_candr8e7T7Vnaq9G2z=WrYg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMdZqKHh60oVCbZWvftzc7mCc6_candr8e7T7Vnaq9G2z=WrYg@mail.gmail.com>
+In clone(2) man page ERRORS section said EINVAL occur when set
+CLONE_NEWPID and one (or both) of CLONE_THREAD or CLONE_PARENT were
+specified in the flags mask
+but in my test code, it can be specified CLONE_NEWPID and CLONE_PARENT
+at the same time and works well (not in CLONE_THREAD)
+In DESCRIPTION > the flags mask > CLONE_NEWPID, it says that it can't
+be used with CLONE_THREAD only
+So, I search linux github to find really CLONE_PARENT can't be used
+with CLONE_NEWPID but there is no logic like that
+(but I found CLONE_THREAD can't be used with CLONE_NEWUSER,
+https://github.com/torvalds/linux/blob/219d54332a09e8d8741c1e1982f5eae56099de85/kernel/fork.c#L1815)
 
-Hi Mark,
+Similarly, in CLONE_NEWUSER, it says that "This flag can't be
+specified in conjunction with CLONE_THREAD or CLONE_PARENT." but it
+works on my test code with CLONE_PARENT
+Also, in ERROR section only mentioned when CLONE_NEWUSER used with CLONE_THREAD
 
-On Mon, Apr 14, 2025 at 12:50:41PM -0700, Mark Harris wrote:
-> Alejandro Colomar <alx@kernel.org> wrote:
-> >
-> > Hi Eric,
-> >
-> > I'm updating the manual pages' STANDARDS sections for POSIX.1-2024, and
-> > I noticed something weird in POSIX's fchown() specification.
-> >
-> > <https://pubs.opengroup.org/onlinepubs/9799919799/functions/fchown.html>
-> >
-> > The CHANGE HISTORY section says Issue 8 has applied Austin Group Defect
-> > 1330, but that defect doesn't seem to have anything to do with fchown(),
-> > and by visually comparing the specification between Issue 7 and 8 they
-> > seem identical.  Am I missing anything, or was that changelog entry a
-> > copy-paste mistake from POSIX?
->=20
-> The difference is in the description of the EINVAL error.  The text
-> "or an fattach()-ed STREAM" was removed, because STREAMS was removed
-> from POSIX.
-
-Ahh, thanks!
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---3qehscpfw67v2gkg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmf9bgAACgkQ64mZXMKQ
-wqkAnQ/+O6ke2tX/Ndih/roZ5LMTyZgid61RhK0mrD63Mz/7ymIEy06CsysSPche
-LYk+f4cBAOV+HHE92z3Vngrl+tWsaI4KFbCVQrSNqMwxEXQ/wPFoPw6kRvE3MYBi
-hBmgd/zgmUkQ35LAsQOK5Vic2aS2+e1ZQ4C8Y1igJRN+5Uu3ieoZgjBGjgh7YKPa
-jJMTsNptf1KrNtQGy0ScS4J4x1MJXlBf+OwMPGB0xsGmilXYiZ9SQHTWi2cmpr52
-vmBSYsuB9DgvRAB0AA6zjIFtdyvf26DMld9hvLfGfz7d3z0WQxHH7m9ahOe9NOYG
-GUDcsW8BBALhF8Lgrpp9velW6/oDXOnSomln/Kw367tddq3ZiFGBIGqnOCmI59Zo
-1z01QBLedCnUBPxh2YZ5rLKgWt5Oh8LURHDN9LsEOswW93r6Rb5kYcint+LVNZgO
-BP7SLt+mT0TMalX+F5Tr2A5Ag8iBVibPoPcHNwsp5ZUjemZJF/CI1LsGR2tBlm+r
-6pvckPp1RrPSWS/pUP6zSBtqHYC0zBD4ck2vj40r4S4fdGJOfLxnBD5tPcMcsauH
-8ZGdfdcH8nL6A+MLITto2ZShPGnY6Y+1jXTi38cFqO1kda3i661edqhF4/BjADmO
-Wfr+fRhopdeAzd3AOi+QFUSeWGGjborQwWNxn3nsEGpce5eUbz4=
-=qICe
------END PGP SIGNATURE-----
-
---3qehscpfw67v2gkg--
+I think CLONE_NEWPID and CLONE_NEWUSER can't be used with CLONE_THREAD only.
+If you think my opinion is reasonable, please let me know. I'll make a patch
 
