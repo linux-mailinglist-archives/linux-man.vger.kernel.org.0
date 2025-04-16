@@ -1,51 +1,52 @@
-Return-Path: <linux-man+bounces-2775-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2776-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA111A907F2
-	for <lists+linux-man@lfdr.de>; Wed, 16 Apr 2025 17:47:06 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 77120A90957
+	for <lists+linux-man@lfdr.de>; Wed, 16 Apr 2025 18:50:10 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 61BC45A1197
-	for <lists+linux-man@lfdr.de>; Wed, 16 Apr 2025 15:46:50 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F2BED5A0644
+	for <lists+linux-man@lfdr.de>; Wed, 16 Apr 2025 16:49:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A5241C5D4C;
-	Wed, 16 Apr 2025 15:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D20EA211497;
+	Wed, 16 Apr 2025 16:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DERMJM7b"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9VhNfAS"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D0B19AD89
-	for <linux-man@vger.kernel.org>; Wed, 16 Apr 2025 15:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1B818870C;
+	Wed, 16 Apr 2025 16:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744818423; cv=none; b=pvxl41MNLbDsLHeJdVxdfS/maqFQiILaDpyyC2crtTylGTsPs+miiLiXl/s7yxZNbf1sYEi5SX8V54yNjXAm+60U1R+Q9nWGdAgRMo3PsFTeZL/Wmr/KsVBd1OSVB1/Q+RTz8NZOLtyL+9RST73G4HtaEvEUYy3UG+o8cNu2UxI=
+	t=1744822205; cv=none; b=DCtXqbk85ZkDWWzHON4LvLAkFYsbmvReYtCXjt/S3Jny2IjgKna5TUz7gFBLYBiD151rmXkeT8VD0srCY9stGqMCxA/YIJdRKOwqHSVIkgPHccHl0zP0BIOnVnN8x97Z1cyzD6Pc8Y4/AoKOVkdtZuJErMC2+TWSpUEs/qvxz9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744818423; c=relaxed/simple;
-	bh=1sRuNSppZMS8COSzyLuXRoNaJI5WILyVPGAbeGqX23w=;
+	s=arc-20240116; t=1744822205; c=relaxed/simple;
+	bh=1+ifTZyI53YM2GlAgIO+mtfpNgSWUgqm+FdbCehVshk=;
 	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=bs2xI72oPdjKWfiQqYN2fiiuJ6fzTK3+srNT3wEXGKajSi1GB0+UDgXescXSA5QLXNiI7k+7JROgPDhM/SXOq/oBFvcVPsHD3bWNW0t8Ps9nS7lKOb+oSrbdcUgxNTXl3+eCtyaAEqAPmdZz7U/dHAFCZcRCr7dI/XTMW/PFr44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DERMJM7b; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9793EC4CEE2;
-	Wed, 16 Apr 2025 15:47:01 +0000 (UTC)
+	 Content-Disposition; b=j/xUFgQf2CVWmiEX38N8FNSXSCkW6GVcffxw8vA/b0E+OIBrFdAoQ+DeSG/VfcSnXJ09JPYihkWFnMksy41/szJ20+fvULvhZf/m2dqeVDZmTHSOjrOyZSbBUtDAGdw0vaXPT2h1JXFPmpqeizoX+j9QBhfRJ90CA/0pJg/pPXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9VhNfAS; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6212C4CEE9;
+	Wed, 16 Apr 2025 16:50:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744818422;
-	bh=1sRuNSppZMS8COSzyLuXRoNaJI5WILyVPGAbeGqX23w=;
+	s=k20201202; t=1744822205;
+	bh=1+ifTZyI53YM2GlAgIO+mtfpNgSWUgqm+FdbCehVshk=;
 	h=Date:From:To:Subject:From;
-	b=DERMJM7bRpGQ2U7mQi5u5c45qWg2Fh3+2OJzBihG3j02B2f3taOsCtj62mpQHdgjj
-	 X1d98bXKA/CiMkOL+r+NHUF2fJXvzoaGUwGRtmhSrnpghm5/BZNFgnNHdjBje3eb65
-	 42bcdFA2PXaqNgYyz9AuV/o1Pg1wY0TeQkQ38zK6G3xxodHG2vJF+1bKWhjEvoR1B/
-	 xNFy7m3IkAsE41vaYDAwb20j7CkARxa8xLHqmFlJ/z+QM8keMvb0nPbJIPLPhgpHQS
-	 q9Nh2TrahIhOwtgyXnXFzOuutN46REuOcK9RJs7m8c/RSW4Z8M4BTV5kmr1MYZVcHz
-	 +OF6LieaYfVmQ==
-Date: Wed, 16 Apr 2025 17:46:58 +0200
+	b=W9VhNfASEB7fM/Cz84q841fLePLdO4yeUm58f2tNIwFtXAy64jxI5wuaRlZmrgMUI
+	 rRgUNNOd8oxAMPtjlnZQaT6ga1ioDt9O78txcbxVLbPTYPEIC5coUjT9GPbSHNLKse
+	 IJaidwvybajxom7lq2j9wplvZUVRb27g5GHt0ZwjG5g2JesE62flY7er1cwYm9DZVF
+	 NL79wvwwF9fxBSVwTuWfKMZPIYPcviJRuD+Oa1gg/MVlOSAyTOKXCnM6rNvv/BEKcr
+	 a8Cn6Tx1+lfFGTbSQqzZfqc9ZB+5TbeUzLi3806lkDnqj0aea3NEZBnSMEcFUfbFYI
+	 0pUb0uxEJ098w==
+Date: Wed, 16 Apr 2025 18:50:00 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, libc-help@sourceware.org
-Subject: POSIX issue 308: stdio function EFBIG errors and SIGXFSZ
-Message-ID: <yfrf3qmz4thtpn36quqmrx742outmlsi7wzeo32lbefiqt7u6b@gnf4wpe3vi5s>
+To: linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-man@vger.kernel.org
+Subject: newlines in filenames; POSIX.1-2024
+Message-ID: <iezzxq25mqdcapusb32euu3fgvz7djtrn5n66emb72jb3bqltx@lr2545vnc55k>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -53,23 +54,39 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lsudkzxwp4uzjgzn"
+	protocol="application/pgp-signature"; boundary="2lojv22jhdhxnsjb"
 Content-Disposition: inline
 
 
---lsudkzxwp4uzjgzn
+--2lojv22jhdhxnsjb
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org, libc-help@sourceware.org
-Subject: POSIX issue 308: stdio function EFBIG errors and SIGXFSZ
+To: linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-man@vger.kernel.org
+Subject: newlines in filenames; POSIX.1-2024
 MIME-Version: 1.0
 
-Hi!
+Hi,
 
-Does anyone know if GNU and/or Linux are conforming to POSIX.1-2024
-regarding <https://www.austingroupbugs.net/view.php?id=3D308>?
+I'm updating the manual pages for POSIX.1-2024.  One of the changes in
+this revision is that POSIX now encourages implementations to disallow
+using new-line characters in file names.
+
+Historically, Linux (and maybe all existing POSIX systems?) has allowed
+new-line characters in file names.
+
+I guess there's no intention to change that behavior.  But I should ask.
+I thought of adding this paragraph to all pages that create file names:
+
+	+.SH CAVEATS
+	+POSIX.1-2024 encourages implementations to
+	+disallow creation of filenames containing new-line characters.
+	+Linux doesn't follow this,
+	+and allows using new-line characters.
+
+Are there any comments?
 
 
 Have a lovely day!
@@ -78,25 +95,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---lsudkzxwp4uzjgzn
+--2lojv22jhdhxnsjb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmf/0OsACgkQ64mZXMKQ
-wqkRaxAAjg/rfq3cvoiNES0LJ3qeylcj5RaOOheojIvs6PXgeeCfCrqKr+8GGGnM
-cEvOb1H/aDQILo4FxHxvsCWKh2swUJdlTT9ynxY+hYP1FQnxXzLURjXxkaNh/lUX
-3rF8RaY8Pcls4jKNZEiX19my+sx+QyQ+VWSh82SbBQmJKep24KMr1lwCtjxzHFT/
-chtOVLHNmXRaormCNoNY/Eb12w8mBlIr6mbO/Cs1bx6QS3aCNp+pWE4BMOgi0Ij2
-a2dZuHhiYEcTXcOhuJKIm9DnHbFKHRfBsthRcwfb68qKYpaN4u3Ya3WfN6rAH8yM
-Z/70wojQlhIRAswrs/AHFXPUMlbHkKU9WeaLTlYAk6iaW8nEZTBTJ6JXvD39aIoq
-gaBH/QH1bYeiaNoNDei+7+ePNCcz42j04o/O8rt1R/42pqemETiB9fGMLZrwE2FJ
-g+f5B4UbaMp9by68fd8yjyYgsr4KeBtCqfcT2tjm/DWS1f4Yuul1+sw/ZE0gd0o0
-JuvgKqwra8ixS1J9fNPVE/noUjuu/0+OFUJuuIEpBJM3V96601qeOW2ZolIvuyub
-HPr2ecCb3ocugeRa/xasl1ezq0nrGi92yp2O8JiXVwEtdr1fMW30t3LXp00IeDxK
-NXlzEeVs+mg8IT6Y8VCA7I2X9Yk0YRHzf/NLpEaQf2R+dJgQkpA=
-=d71/
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmf/37AACgkQ64mZXMKQ
+wqm0oA//XdtiN62u+4Hl1dowNTe1wL3mQ4PkoRlVX8HZZ6bKn2veSSENQScZtFRd
+yTmH0XKcz0a7lgbllIX8TwS1ROdCNTwuFBITB/+s8CP4x9vqC0ufEI8l/Ebn9OwG
+acsQ3Jg1sdFdvbHg7997uSMsi1NV+QxzK7DKdP4L5QQGkyohw6PJelYoL7NHeEZr
+HIU84cvqeiihkPoQtXelYCdD5JCC2BJdAtQJOprKEANTH5+Ko9z/yhWKWQ0HsHIe
+IV9PMpnILwtbnh0/n2QtKX1/vTowj8mP3paMm5ov0Uc5mRVUEpe7YIk3MrEHyQj7
+lpyEXF02auuCR2zhLziOdakpuHhxZsxqhdkKJkcskKjdKkMWTLtc/VVwlXyUAT+Z
+01p9LvZMVKwA75BQu6vUnZnSMa7v7HxSuik6M0GqKkfLjUvcPeCGpbdFG8vEeGgl
+KmnRmK6oq57R2myBRLtl+C/qzM7IttO2iBjiE600vk1zHpAzYA28qEn2o9TtsKRK
+kAZhFK9fC9JhbozT2cSNwEBCO3JQ26tnSLBWRiOnFpcaPN8eTpTvyGdxyjCwWecs
+ZDJjt5Ja6enGtDwChmbMYa2WNhdrTNveboHj1um4aD8qONUF3guyV96OBOIw/0Mu
+mTp0CPwj4pNLpMdT4Ah64wox+uduLZ0Cfh8jXoCdQ85c4OCbJfg=
+=7SQM
 -----END PGP SIGNATURE-----
 
---lsudkzxwp4uzjgzn--
+--2lojv22jhdhxnsjb--
 
