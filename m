@@ -1,150 +1,322 @@
-Return-Path: <linux-man+bounces-2778-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2779-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D900A90D5D
-	for <lists+linux-man@lfdr.de>; Wed, 16 Apr 2025 22:45:49 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A164A911C5
+	for <lists+linux-man@lfdr.de>; Thu, 17 Apr 2025 04:50:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id CE9731908388
-	for <lists+linux-man@lfdr.de>; Wed, 16 Apr 2025 20:45:59 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 27BC27A9DF5
+	for <lists+linux-man@lfdr.de>; Thu, 17 Apr 2025 02:49:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 128D923BD00;
-	Wed, 16 Apr 2025 20:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0B2519F133;
+	Thu, 17 Apr 2025 02:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GuDl6WSE"
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="TasaAYQU"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C699F233703
-	for <linux-man@vger.kernel.org>; Wed, 16 Apr 2025 20:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05A42AE6A
+	for <linux-man@vger.kernel.org>; Thu, 17 Apr 2025 02:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744836230; cv=none; b=EjLfbUnQaJrPlDyEsjZ2/nySaCXFkb6X7qaCNpaujsX9MPHWXcw8pMS13XgMo6XPgcukFwYRObVUIbRnyf5dfIUMoz2n+ySlpcjExmN1lMqFD3bnIbywR3KdpWwBA5KIN1KwElIEHDU3Wu5QAJbVs/3WvhcJeQNHTAitV5RKiwg=
+	t=1744858235; cv=none; b=LRvmnEsvDL9/FtNBo+Ub+N8aEcRWuR2Rp05Jtt04pcosLLq9GvoH4on3JtXkZQV6kZPIgndp+v4zvlj0aIX579DhE3KkeFUN5XrWB5+052nDY2nwdaFuPOyVGmdbauz8XXsmfpY1w1WqH/6H7SidUDwnuM0SL/hgFqq8EN5PBaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744836230; c=relaxed/simple;
-	bh=IKGbzsqKZqOx+pWg9fX8u2ec/k9pDhQsviY+K8ovzG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByBXMfbvOMKUXE9vxOF6U1xQwjA0HVjT5VUiDwHRMU/G2OHOCwabLtQpnigT5sSMf/mKeJVncHVFw1LABX7zklt9vcIH2ac3FgGhs0jZoPcxoIIIcaJ771/YIyG8VGnDR1MiieGhKDWxCBpTnsdmB8lV0nKTbP5qM6UjYvSOLyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GuDl6WSE; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF8DC4CEE2;
-	Wed, 16 Apr 2025 20:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744836230;
-	bh=IKGbzsqKZqOx+pWg9fX8u2ec/k9pDhQsviY+K8ovzG8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GuDl6WSE5Djw8EJnQDNdEUumgBtEW8dqQO+nHVBXcdaVpK2yMKn4mEdO9HDJbc2Wc
-	 VXzhgWtAABFWAfRXyZxsHnN5kreKn5lmtDHcfAga19IUlgjFs5uJ769yBSWCSv7ADl
-	 cFrv3i8P18dCLXh++TNOY25zz3gAvlnZqDKjIzjgheUWCt87oY9Jnqz5gdZFt8bvSg
-	 mWAFQxa1OoGO7SjAFJkIDC0rMiiRb9Z15bHyR/R3G76kyF4wtYdsnKC40gWfALqeST
-	 BWneYLbQKoyYuHMq/avuZgPIpe4OBT/UZtoLPryIU9oRlIeEwhjrriDI42eDN4jsUZ
-	 OlnlRSuRIY3oA==
-Date: Wed, 16 Apr 2025 22:43:45 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Anton Zellerhoff <wg14@ascz.de>
-Cc: linux-man@vger.kernel.org, 
-	Lenard Mollenkopf <glibc@lenardmollenkopf.de>, Jakub Jelinek <jakub@redhat.com>
-Subject: Re: [PATCH] man/man3/abs.3: Document u{,l,ll,imax}abs()
-Message-ID: <jolaxbo3odckiuhte7km2zhsq2kbgdgoljzaxu6btyxrt5tgid@mujwelv5n3un>
-References: <28a36070fe18707ab9fa26b91c88e6fd87a72097.1744566285.git.wg14@ascz.de>
- <g3dj7mhsl2mlaf3srsvz3oocjmfv2db4d6d2y2aartwz7t4mol@5vzkhothrry4>
- <b6978007-3408-4008-82d8-20a4713c42b7@ascz.de>
+	s=arc-20240116; t=1744858235; c=relaxed/simple;
+	bh=g5AQe3IndEFSb/dLi4N0XEdQ5+Vv1xynA51kowd8Cyc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QpGqvgNrDmbNPxSgnR7u82+liZ8439RkLJLSkh4x0MTbRvuBdo7Lv+CRPG/L9xeZFrEIof1Y/DojIor70U/FNudjGJ6QmdyiBrBgZ8T435Lzu5msaTQkLB8HXbEU+Zewxc5zHeHlf4hUeVRpBODj8lMeCs5KzXHApFeOcUcinSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=TasaAYQU; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1744858230;
+	bh=8yKcia1EWMY1U8pymZXmzc/6fql8VmEfFwG975R9q7s=;
+	h=From:Date:Subject:To:Cc;
+	b=TasaAYQU+vJe3xQYmjd6VMJgybMSmZPXyXydgLO3b/GSbEr9pb8IqEnYchRyH54i4
+	 4k9mR3ccTJdcKP3QvytbOBdjoI7vfqhTdENyjC1Skd2foDanCf39NaNWuIYzUcR5D9
+	 PG+TEvWOdD496N0G6HZBB7918GfpYuFEazMQWDqKq+bF7EA8cMqF6vCUTqGKSh0eJI
+	 kT0YuX99fBb03OI0VfCHuxGtncsaKAyyUDn972SuAThWPoJjytYzVNYwS8b4mH+aq/
+	 Yan59CS5irymdt5YxbRjs72fok+2mqoeFfg0X/jsjfRQ8PVD6jawtuaMq69iNVh7C4
+	 N69jghppGj7dg==
+Received: by codeconstruct.com.au (Postfix, from userid 10000)
+	id 6AF517E556; Thu, 17 Apr 2025 10:50:30 +0800 (AWST)
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+Date: Thu, 17 Apr 2025 10:50:07 +0800
+Subject: [PATCH v3] man/man7/mctp.7: Add man page for Linux MCTP support
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n5xk72xtbpuwdntk"
-Content-Disposition: inline
-In-Reply-To: <b6978007-3408-4008-82d8-20a4713c42b7@ascz.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250417-mctp-v3-1-07fff4d26f73@codeconstruct.com.au>
+X-B4-Tracking: v=1; b=H4sIAF5sAGgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDE0Nz3dzkkgJdU0MTQ4Nk40RLi6Q0JaDSgqLUtMwKsDHRsbW1ACxFacJ
+ WAAAA
+X-Change-ID: 20250417-mctp-51410c3a98bf
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+X-Mailer: b4 0.14.2
 
+This change adds a brief description for the new Management Component
+Transport Protocol (MCTP) support added to Linux as of bc49d8169.
 
---n5xk72xtbpuwdntk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Anton Zellerhoff <wg14@ascz.de>
-Cc: linux-man@vger.kernel.org, 
-	Lenard Mollenkopf <glibc@lenardmollenkopf.de>, Jakub Jelinek <jakub@redhat.com>
-Subject: Re: [PATCH] man/man3/abs.3: Document u{,l,ll,imax}abs()
-References: <28a36070fe18707ab9fa26b91c88e6fd87a72097.1744566285.git.wg14@ascz.de>
- <g3dj7mhsl2mlaf3srsvz3oocjmfv2db4d6d2y2aartwz7t4mol@5vzkhothrry4>
- <b6978007-3408-4008-82d8-20a4713c42b7@ascz.de>
-MIME-Version: 1.0
-In-Reply-To: <b6978007-3408-4008-82d8-20a4713c42b7@ascz.de>
+This is a fairly regular sockets-API implementation, so we're just
+describing the semantics of socket, bind, sendto and recvfrom for the
+new protocol.
 
-Hi Anton,
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+---
+This change picks up on an incomplete submission from way back in 2021,
+adding mctp.7.
 
-On Wed, Apr 16, 2025 at 09:51:01PM +0200, Anton Zellerhoff wrote:
-> Hi Alex,
->=20
-> On Mon, 14 Apr 2025 09:51:03 +0200, Alejandro Colomar wrote:
-> > Thanks!  I've applied the patch.  There are some things I don't like
-> > about the layout of the page, but since they are pre-existing or based
-> > on pre-existing text, I'll amend them myself afterwards.
->=20
-> Thank you! :-)
+I have updated form some feedback on v2, and updated to some conventions
+since that change was first submitted, but let me know if there is
+anything I may have missed in that time, or if submission requirements
+have changed too.
 
-:-)
+I have some follow-up patches to add newer functions of the kernel mctp
+stack, but am planning to send those once the base page structure is
+defined, and any general feedback incorporated.
 
-> > >   For
-> > >   .BR llabs ()
-> > > @@ -121,6 +158,12 @@ .SH NOTES
-> > >   .BR llabs ()
-> > >   and
-> > >   .BR imaxabs ()
-> > > +and (since GCC 15.0)
-> > > +.BR uabs (),
-> > > +.BR ulabs (),
-> > > +.BR \%ullabs (),
-> > > +and
-> > > +.BR \%uimaxabs ()
-> >=20
-> > Should I just remove this entire paragraph?  Who cares about it being
-> > a built-in or not?  Of course GCC optimizes many library calls,
-> > including memcpy(3), and we don't say so for each one.
->=20
-> A quick grep yields that abs(3) was the only page that (still?) had
-> information about GCC built in support.  I also do not see a need to
-> document this.
->=20
-> Have a lovely night!
+Of course, comments, questions etc are most welcome.
+---
+Changes in v3:
+- rebase for new file structure
+- more fine-grained semantic newlines
+- update headers and .TH to match newer formats
+- add #include comments
+- adjust URI breakpoints
+- Link to v2: https://lore.kernel.org/r/20211111015323.3542313-1-jk@codeconstruct.com.au/
 
-Thanks!  I've applied those changes already.
+Changes in v2:
+- Fix synopsis variable formatting
+- Semantic newlines
+- remove unnecessary escape
+- make custom constants more obvious
+- Add URI breakpoints
+- fix sockaddr_mctp misuse
+- Link to v1: https://lore.kernel.org/r/20211014070519.2037226-1-jk@codeconstruct.com.au/
+---
+ man/man7/address_families.7 |   7 ++
+ man/man7/mctp.7             | 180 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 187 insertions(+)
 
-Have a lovely night!
-Alex
+diff --git a/man/man7/address_families.7 b/man/man7/address_families.7
+index 3c2400820627035d2fced0d9e49d61aa01e2d3f3..4e29e0bfb88447c64d53d44c3fae27ccc435e241 100644
+--- a/man/man7/address_families.7
++++ b/man/man7/address_families.7
+@@ -387,6 +387,13 @@ XDP (express data path) interface (since Linux 4.18).
+ See
+ .I Documentation/networking/af_xdp.rst
+ in the Linux kernel source tree for details.
++.TP
++.B AF_MCTP
++.\" commit: bc49d8169aa72295104f1558830c568efb946315
++MCTP (Management Component Transport Protocol) interface (since Linux 5.15),
++as defined by the DMTF specification DSP0236.
++For further information, see
++.BR mctp (7).
+ .SH SEE ALSO
+ .BR socket (2),
+ .BR socket (7)
+diff --git a/man/man7/mctp.7 b/man/man7/mctp.7
+new file mode 100644
+index 0000000000000000000000000000000000000000..e58a03e1063086fa8758c3b096db044b01c3c277
+--- /dev/null
++++ b/man/man7/mctp.7
+@@ -0,0 +1,180 @@
++.\" Copyright (c) 2021,2025 Jeremy Kerr <jk@codeconstruct.com.au>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH mctp 7 (date) "Linux man-pages (unreleased)"
++.SH NAME
++mctp \- Management Component Transport Protocol
++.SH SYNOPSIS
++.nf
++.BR "#include <linux/mctp.h>" \
++"  /* MCTP address type and protocol constants */"
++.BR "#include <sys/socket.h>" \
++"  /* Definition of " socket() ", " AF_* " and " SOCK_* " */"
++.PP
++.IB mctp_socket " = socket(AF_MCTP, SOCK_DGRAM, 0);"
++.fi
++.SH DESCRIPTION
++Linux implements the Management Component Transport Protocol (MCTP),
++specified by DMTF spec DSP0236,
++currently at version 1.
++This is a connectionless protocol,
++typically used between devices within a server system.
++Message reliability and ordering are not guaranteed,
++but message boundaries are preserved.
++.PP
++The API for MCTP messaging uses a standard sockets interface,
++using the
++.BR sendto (2)
++and
++.BR recvfrom (2)
++classes of system calls to transfer messages.
++Messages may be fragmented into packets before transmission,
++and reassembled at the remote endpoint.
++This fragmentation and reassembly is transparent to userspace.
++.SS Address format
++MCTP addresses (also referred to as EIDs, or Endpoint Identifiers) are
++single-byte values,
++typed as
++.IR mctp_eid_t .
++Packets between a local and remote endpoint are identified by
++the source and destination EIDs,
++plus a three-bit tag value.
++.PP
++Addressing data is passed in socket system calls through
++.I struct sockaddr_mctp
++defined as:
++.PP
++.in +4n
++.EX
++typedef uint8_t        mctp_eid_t;
++
++struct mctp_addr {
++    mctp_eid_t         s_addr;
++};
++
++struct sockaddr_mctp {
++    unsigned short     smctp_family;  /* = AF_MCTP */
++    uint16_t           __smctp_pad0;
++    int                smctp_network; /* local network identifier */
++    struct mctp_addr   smctp_addr;    /* EID */
++    uint8_t            smctp_type;    /* message type byte */
++    uint8_t            smctp_tag;     /* tag value & owner */
++    uint8_t            __smctp_pad1;
++};
++.EE
++.in
++.SS Sending messages
++Messages can be transmitted using the
++.BR sendto (2)
++and
++.BR sendmsg (2)
++system calls, by providing a
++.I struct sockaddr_mctp
++describing the addressing parameters.
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++ssize_t len;
++char *buf;
++
++/* unused fields must be zero */
++memset(&addr, 0, sizeof(addr));
++
++/* set message destination */
++addr.smctp_family = AF_MCTP;
++addr.smctp_network = 0;
++addr.smctp_addr.s_addr = 8; /* remote EID */
++addr.smctp_tag = MCTP_TAG_OWNER;
++addr.smctp_type = MYPROGRAM_MCTP_TYPE_ECHO; /* example type */
++
++buf = "hello, world!"
++
++len = sendto(sd, buf, 13, 0,
++             (struct sockaddr *)&addr, sizeof(addr));
++.EE
++.in
++.PP
++Here, the sender owns the message tag; so
++.B MCTP_TAG_OWNER
++is used as the tag data.
++The kernel will allocate a specific tag value for this message.
++If no tag is available,
++.BR sendto (2)
++will return an error,
++with errno set to
++.BR EBUSY .
++This allocated tag remains associated with the socket,
++so that any replies to the sent message will be received by the same socket.
++.PP
++Sending a MCTP message requires the
++.B CAP_NET_RAW
++capability.
++.SS Receiving messages
++Messages can be received using the
++.BR recvfrom (2)
++and
++.BR recvmsg (2)
++system calls.
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++socklen_t addrlen;
++char buf[13];
++
++addrlen = sizeof(addr);
++
++len = recvfrom(sd, buf, sizeof(buf), 0,
++               (struct sockaddr *)&addr, &addrlen);
++.EE
++.in
++.PP
++In order to receive an incoming message,
++the receiver will need to either have previously sent a message to the same
++endpoint,
++or performed a
++.BR bind (2)
++to receive all messages of a certain type:
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++
++addr.smctp_family = AF_MCTP;
++addr.smctp_network = MCTP_NET_ANY;
++addr.smctp_addr.s_addr = MCTP_ADDR_ANY;
++addr.smctp_type = MYPROGRAM_MCTP_TYPE_ECHO; /* our 'echo' type */
++
++int rc = bind(sd, (struct sockaddr *)&addr, sizeof(addr));
++.EE
++.in
++.PP
++This call requires the
++.B CAP_NET_BIND_SERVICE
++capability,
++and will result in the socket receiving all messages sent to
++locally-assigned EIDs,
++for the specified message type.
++.PP
++After a
++.BR recvfrom (2)
++or
++.BR recvmsg (2)
++returns a success condition,
++the provided address argument will be populated with the sender's network and
++EID,
++as well as the tag value used for the message.
++Any reply to this message should pass the same address and tag value
++(with the TO bit cleared)
++to indicate that is is directed to the same remote endpoint.
++.SH SEE ALSO
++.BR socket (7)
++.PP
++The kernel source file
++.IR Documentation/networking/mctp.rst .
++.PP
++The DSP0236 specification, at
++.UR https://www.dmtf.org/\:standards/\:pmci
++.UE .
 
->=20
-> Anton
+---
+base-commit: 4c4d9f0f5148caf1271394018d0f7381c1b8b400
+change-id: 20250417-mctp-51410c3a98bf
 
---=20
-<https://www.alejandro-colomar.es/>
+Best regards,
+-- 
+Jeremy Kerr <jk@codeconstruct.com.au>
 
---n5xk72xtbpuwdntk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgAFnoACgkQ64mZXMKQ
-wqmKIBAAlSgrOUeEbWYWxKbL/EWVYnrenYYUL1vVn8aLaRq8c5tOa+nA36hh9XvB
-ZJsKFKOdLWh1WH5E3UVQCbBaWF7hIU+CPW9MLXQsVUOUIVb8t8dXLNT2zsXT/qpB
-zGqwYVB7S4eD+Ft1y6viVRI27OwtQxYxnORkJRtWSt/uV/Nsxt99z6EQDE2rCDA9
-nKFi5BAcG0Df7dzydisilZ7iBj8ivP5/98mT9YSEIAkSxxzG2MZLDpRIs5zhSEpx
-rZQsXLDGsQAfsoqoUAciWWVMOZpfead695LMain+gTxJVCW9Pefy5HtYKctzGtoZ
-9MBcF407he+aeNlW3fCMPyLQDliyB46vQbzBuWCGCgBZmaADSjxpDhbqA2L/EHeU
-ID1uQmbyV4rZaHo7wHpsR83hklKWvwBu4ppk7I0wHLE1Fe3ulAN83KkzepbIQYX2
-2b0L1BFhD5mMR4eYqIqBMOHEEg/jBqqsIOZTq8O149YNsLwRwisvshGuFpqq3kNY
-CM90dgNqP2l2MEE9yx8QjZ8DqfmpK4XwD1xaRELa0ErPxY9FZVVT0FWYgGmdX/nz
-yFQv3XhZXF8q9KNuqfAEeGJ6G1bQlop5H3CC4Su2A4tt0hYUkyLUNZPnMPOTrUTv
-ej8Hvsq3NEwqpU2hxdTiQDYbWfCC6vWR7iXmIitjcuTJojHx2D4=
-=I+gP
------END PGP SIGNATURE-----
-
---n5xk72xtbpuwdntk--
 
