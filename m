@@ -1,171 +1,230 @@
-Return-Path: <linux-man+bounces-2780-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2781-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 133A1A9453F
-	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 21:26:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C5ABA94557
+	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 21:54:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 10BA63BE656
-	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 19:25:50 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 43D403BEB26
+	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 19:54:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76C4A1E1A20;
-	Sat, 19 Apr 2025 19:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 348F61E2853;
+	Sat, 19 Apr 2025 19:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShVq+JRF"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxthK5z9"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com [209.85.219.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220DE8F54;
-	Sat, 19 Apr 2025 19:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6448014AD2D
+	for <linux-man@vger.kernel.org>; Sat, 19 Apr 2025 19:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745090761; cv=none; b=dqF0NB5ldD9GiVWFgTIvlE9tm1MKnufnTI+D5kcnMO8dbLiBqL09rW5Nwwgu59vBQ9WMxiRZW8+eSy4qeAtt2BYPaJaZk4e/uRbSpzMjorJRObj/UF6Bgv4kgst8h1kTpWF/L8nODpLakFS2CNKiERoDBR4xJk/3umDL3KO0a5k=
+	t=1745092474; cv=none; b=pfZ3ST6ccBUmsdXUKtdPgvhl+rEnmgfiejMwC+XdqDvDiuBX4/mNRejSBKg2MPrjxtVyk0oGGFXDYiXCTv08kzNn0TCR5WGe7YV4qvT+EgvyEWfpCYNIwcUBvho9ynseLG9c4r6XLMcSOTdXINophFlJww6aYlybQZ6E5A70ytk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745090761; c=relaxed/simple;
-	bh=tOhwqVfySjcWHIL3neB7Q+6oiJ+utj9Oxn8O8KYI0Mg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bUGKFt2c8jt8f9IlkoTHry6/PMj3HtvMLzNi/7CPPOcrDe9Tkx2hPQ2yWoCcbRlqGdFByc1DsyrVQdlUBEo/sQfhfz+XtF2igr/6+RJkrrkQ91P2rALRCs8QQRfFGDGzht+dsTF2Qjhnq9c5dAUiBEhB5v8C4tl0K/3Ysievefo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShVq+JRF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F0E0C4CEE7;
-	Sat, 19 Apr 2025 19:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745090760;
-	bh=tOhwqVfySjcWHIL3neB7Q+6oiJ+utj9Oxn8O8KYI0Mg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ShVq+JRFEXyx1IZCDO3usclodqiMqiChOPFBW83LMMiPxmNQp+IoAVibL4ZBOSj7g
-	 JRtB0Zw1l9h3CJLqH5nRrFGaiv5N2vv/jID1O1QokwnPfXKMH93KNgSsTFOVYrI+Uy
-	 C7Mh1Z6hc6Y/mLAcwffWjUF43nwxyJmH4okPqpApLt+/sWEwGMfTLU6AY55MlAmSKp
-	 uw8Lv3xVA//PVQXb21/wIQsBnEokpu5jt5KCRHOrPBmLMJKlR+QLCK0EUWLyFqvrNR
-	 GQrmgaJpYBBeFgc1Zw078ZTS/cXm+fn9nEvpE2fBxqVGFdt1NGqYUwpjRhKA00Zvg8
-	 lsar/JXJYU02Q==
-Date: Sat, 19 Apr 2025 21:25:46 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Suren Baghdasaryan <surenb@google.com>, aarcange@redhat.com
-Cc: linux-man@vger.kernel.org, akpm@linux-foundation.org, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, shuah@kernel.org, lokeshgidra@google.com, 
-	peterx@redhat.com, david@redhat.com, ryan.roberts@arm.com, hughd@google.com, 
-	mhocko@suse.com, axelrasmussen@google.com, rppt@kernel.org, willy@infradead.org, 
-	Liam.Howlett@oracle.com, jannh@google.com, zhangpeng362@huawei.com, bgeffon@google.com, 
-	kaleshsingh@google.com, ngeoffray@google.com, jdduke@google.com, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	kernel-team@android.com
-Subject: Re: [PATCH v6 2/5] userfaultfd: UFFDIO_MOVE uABI
-Message-ID: <rns3bplwlxhdkueowpehtrej6avjbmh6mauwl33pfvr4qptmlg@swctg52xpyya>
-References: <20231206103702.3873743-1-surenb@google.com>
- <20231206103702.3873743-3-surenb@google.com>
- <8bcb7e5f-3c05-4d92-98f7-b62afa17e2fb@lucifer.local>
+	s=arc-20240116; t=1745092474; c=relaxed/simple;
+	bh=B0QJnla8LqudpFX+4urQujsa0AYHW3H6v3zMqsLlLpg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aRY/+SyXAYj+tlEgS6IkBQjs4DiLPCoFAnth5nZHwDOSqRFWBSrmeIkK0oAi22DbYFxouTKcMJ1yXp8/gCWK0cWHawPJzh3jMBEDt5Fol24A54LMMK1ccxZsZEDAumDIUA0REhsAwwFSUdt8+phvwBCIx0qb8pXPfS14PlxfrRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxthK5z9; arc=none smtp.client-ip=209.85.219.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yb1-f172.google.com with SMTP id 3f1490d57ef6-e7297da3ef2so1337616276.0
+        for <linux-man@vger.kernel.org>; Sat, 19 Apr 2025 12:54:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1745092471; x=1745697271; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aG7bbhVXGLkRS0vpsFqikB+180Jt0U68KGKYN6KNpyw=;
+        b=KxthK5z9crdOPejUwPJH0E64sDBwV8BdfiCmxSugIhVhbtYppN7zv3rOeqGxU9Q15E
+         85h53gMP8SzS5dBMAHJ7kFHzE/N0ELm2dbQ3nYbAsEIxmkVIBIQ6W6QBbJPuu6e6dHTg
+         Y5QMcqIdK2OA1Ne5qAaoES/UF1V63050zkOazSUJX2fmiWoR4MNm+JbMtRCZ5AOod6wu
+         /AFloviMw5HANp2r1oGNye2oTwugTCGt1K1wugn3wGQ18mMzv6ufIGTnqQMg4QmepdMP
+         7BJEboUplnKT5rADaFwx9xwneCriB/JXcTtMbpIwt0OYfW5FuRYP/SL82w5oDGp6n1Rh
+         e6Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745092471; x=1745697271;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aG7bbhVXGLkRS0vpsFqikB+180Jt0U68KGKYN6KNpyw=;
+        b=XBWMSfiB6IIehrZBWevlubVTBHX1WPz4r1g9/aBMM1nJQbbOFEddWr1LCqRky/GWJL
+         ZWApH0ueIgtP3f8xokop7VzFxy1xQd1yYfVgdXezFzNGDAKY3yAc3LWoW7LLrXOxCmof
+         nsd6rGb8rnDmBFrIvZV5IWOAhtI3sBRAQz+hY5pU+KZynT5AZQWTwVG7suj0NIU0eBw+
+         kld1cNhJLUvab+3WNF1FocH2VckOvVqraUmWiOTUidPLsesNCAGRCed8auovporqqSco
+         bfa7lkWvILih2c/h1W8PGPx2mT4hj1rUAy7E/f05v4gsx2JAM24dYD8V05dD/91PM//p
+         +ltg==
+X-Gm-Message-State: AOJu0Yz8xW+vG7cqSI7EK2pHbPsnAezMeueSjHqpR2e87cOb1MEnv4Yi
+	+K2DXNL+FdnzxnpJjIfMSmqoq2GyxzXlLVUNEBWlTzhC9a2NDsHCiZIEao9l7HmRiPqjVhQ2m/L
+	kqfoLaqXsOa1ltNdzf75MB0bFhfo=
+X-Gm-Gg: ASbGncuOsxiQvefVy02szFjtpykbv/4kOhIbBtU33domVFpbhnqBYcykI3Za2g1761G
+	AvwJ60mGlJuoSirrs8NIOzOMI8o/sK0PHnpmrNYSLwO/axrj0Wqg+uYvw4ikupypEf67Xte1PyF
+	vKNg4uxWOSPnItHB3ezR7dzozx
+X-Google-Smtp-Source: AGHT+IHHmU3vuTbjqguQukVHF6ndaEdj1RGXtI3dZvWjkl2pKROntTE4jamwhpc3TxTUBgou2MvHcKoKpzad6kHdS1U=
+X-Received: by 2002:a05:6902:2006:b0:e72:8e65:5513 with SMTP id
+ 3f1490d57ef6-e7297e101f2mr10898229276.28.1745092471225; Sat, 19 Apr 2025
+ 12:54:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cps3uvezotjpoism"
-Content-Disposition: inline
-In-Reply-To: <8bcb7e5f-3c05-4d92-98f7-b62afa17e2fb@lucifer.local>
-
-
---cps3uvezotjpoism
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <CAFvyz31Em4f7AQRDNJ6gtVBoUj1kQA8WZCGcs0EZngCZosf_0w@mail.gmail.com>
+ <06febfb3-e2e2-4363-bc34-83a07692144f@redhat.com>
+In-Reply-To: <06febfb3-e2e2-4363-bc34-83a07692144f@redhat.com>
+From: hoodit dev <devhoodit@gmail.com>
+Date: Sun, 20 Apr 2025 04:54:20 +0900
+X-Gm-Features: ATxdqUGpt6n7Ribi9MUoJm6s5FW6iOOM-dvey9pPo82ie1Y4Y0CHoeT1EXrWKP8
+Message-ID: <CAFvyz32q1Uc4t5RjWWOMf3NiNWsyYjXeZ6xqdd8Tj8P-z6XBzQ@mail.gmail.com>
+Subject: Cc: clone(2) man page CLONE_NEWPID and CLONE_PARENT can be specified
+ at the same time, also CLONE_NEWUSER and CLONE_PARENT
+To: "Carlos O'Donell" <carlos@redhat.com>, Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Suren Baghdasaryan <surenb@google.com>, aarcange@redhat.com
-Cc: linux-man@vger.kernel.org, akpm@linux-foundation.org, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, shuah@kernel.org, lokeshgidra@google.com, 
-	peterx@redhat.com, david@redhat.com, ryan.roberts@arm.com, hughd@google.com, 
-	mhocko@suse.com, axelrasmussen@google.com, rppt@kernel.org, willy@infradead.org, 
-	Liam.Howlett@oracle.com, jannh@google.com, zhangpeng362@huawei.com, bgeffon@google.com, 
-	kaleshsingh@google.com, ngeoffray@google.com, jdduke@google.com, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	kernel-team@android.com
-Subject: Re: [PATCH v6 2/5] userfaultfd: UFFDIO_MOVE uABI
-References: <20231206103702.3873743-1-surenb@google.com>
- <20231206103702.3873743-3-surenb@google.com>
- <8bcb7e5f-3c05-4d92-98f7-b62afa17e2fb@lucifer.local>
-MIME-Version: 1.0
-In-Reply-To: <8bcb7e5f-3c05-4d92-98f7-b62afa17e2fb@lucifer.local>
 
-Hi Lorenzo, Suren, Andrea,
-
-On Sat, Apr 19, 2025 at 07:57:36PM +0100, Lorenzo Stoakes wrote:
-> +cc Alejandro
-
-Thanks!
-
-> On Wed, Dec 06, 2023 at 02:36:56AM -0800, Suren Baghdasaryan wrote:
-> > From: Andrea Arcangeli <aarcange@redhat.com>
-> >
-> > Implement the uABI of UFFDIO_MOVE ioctl.
-
-[...]
-
-> >
-> > [1] https://lore.kernel.org/all/1425575884-2574-1-git-send-email-aarcan=
-ge@redhat.com/
-> > [2] https://lore.kernel.org/linux-mm/CA+EESO4uO84SSnBhArH4HvLNhaUQ5nZKN=
-KXqxRCyjniNVjp0Aw@mail.gmail.com/
-> >
-> > Update for the ioctl_userfaultfd(2)  manpage:
->=20
-> Sorry to resurrect an old thread but... I don't think this update was ever
-> propagated anywhere?
->=20
-> If you did send separately to man-pages list or whatnot maybe worth nudgi=
-ng
-> again?
->=20
-> I don't see anything at [0].
->=20
-> [0]: https://man7.org/linux/man-pages/man2/ioctl_userfaultfd.2.html
->=20
-> Thanks!
->=20
-> >
-> >    UFFDIO_MOVE
-> >        (Since Linux xxx)  Move a continuous memory chunk into the
-
-Nope, it seems this was never sent to linux-man@.
-<https://lore.kernel.org/linux-man/?q=3DUFFDIO_MOVE>:
-
-	[No results found]
-
-Please re-send including linux-man@ in CC, as specified in
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING>
+I missed cc=E2=80=99ing earlier. Here=E2=80=99s a summary of what=E2=80=99s=
+ been discussed.
 
 
-Have a lovely night!
-Alex
+From: hoodit dev
+To: Carlos O'Donell
+
+Thanks for your explanation, I learn some insight
+
+I understand this reply that CLONE_PARENT and CLONE_NEWUSER can be
+used together but I get little confusion about this
+
+> >Similarly, in CLONE_NEWUSER, it says that "This flag can't be
+> >specified in conjunction with CLONE_THREAD or CLONE_PARENT." but it
+> >works on my test code with CLONE_PARENT
+> >Also, in ERROR section only mentioned when CLONE_NEWUSER used with CLONE=
+_THREAD
+
+>Just because it works, which might be a bug, doesn't mean that we should
+>document that it works.
+
+These 2 lines confused me. I mean, the description section and the
+error section seem to have different content, and I tested it.
+
+
+My statement
+CLONE_NEWPID + CLONE_PARENT          ok
+CLONE_NEWPID + CLONE_THREAD         no
+CLONE_NEWUSER + CLONE_PARENT      ok
+CLONE_NEWUSER + CLONE_THREAD     no
+
+
+--------
+
+From: Carlos O'Donell
+To: hoodit dev
+
+On 4/15/25 9:27 AM, hoodit dev wrote:
+> My statement
+> CLONE_NEWPID + CLONE_PARENT          ok
+> CLONE_NEWPID + CLONE_THREAD         no
+> CLONE_NEWUSER + CLONE_PARENT      ok
+> CLONE_NEWUSER + CLONE_THREAD     no
+
+Thank you.
+
+I see what you were trying to describe.
+
+I agree that the permutations you descirbe as "OK" make sense.
+
+I also agree that CLONE_NEWUSER should be possible to use with CLONE_PARENT
+because it doesn't violate any constraints, it simply declares the current
+callers parent as the parent of the newly created task.
+
+I agree that the man page for clone.2 should get changed to either explain
+why CLONE_NEWUSER + CLONE_PARENT can't be used, or remove the restriction.
 
 --=20
-<https://www.alejandro-colomar.es/>
+Cheers,
+Carlos.
 
---cps3uvezotjpoism
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+--------
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgD+LIACgkQ64mZXMKQ
-wqnKzw//TF2X0nYP43skdra2n4YASVKPsOpD7qLs3rwbT9acdN64Lvu8ecfTfGxr
-H5F1Ju/JmRyXmC726dgzGO+1K6pHnz3ONQ+VKnj8nMYbyGN0rE3bd93i6Fxtfiyu
-Vb04Al1xzJ6hF8YDLF5mQvawYJzHhkTxrlZ02r5Kqrmdp3qHUuFK/lrLX/asY0h8
-4By12faaY59gYGuCajneNJC3ADCVzjtra76C5RbGxUK5qOgjEfxlz7jmrxyXpFkm
-PeR0h2QbimLRtBAvzuYrE5n5+c/999r/GY7Xm+1fmDoV37e7Un3SZRxdfMMKwzvx
-6iiTKfOjv2UmfVv7oQOknofyQNTDeckW/yHrgBS/TOvy8OF7qIkIcHI9A5Krpuz8
-PaJco2eqRqlgoMp0rAacT1xGoj07bLMMWbqFi6dEBz6snpkM3Hi/O1W8mt1YNSLz
-9IvMa2ipwCQa4Xddo2+E16qMDxG6QtWWz8eve8XgueL4U2ucAnrPOmdcMXX6TXFB
-ZM1QlLo6Wk9N+X+ZmxjLWDRbQF3F8rks97pR8W9xZGwGTytpaUqa5qH560YCh0oy
-wYKSSmMO2ZMYkpfMEZDihiOEvM+r6qOwzkwUouS56TSRIx7+B7HWyNI4PAo9y0DD
-2pJ1F1Bl67dSTdieL7iwt0o0kT+YOXLpKhAtGTgpXbXuSCbuEFc=
-=UOsZ
------END PGP SIGNATURE-----
+From: hoodit dev
+To: Carlos O'Donell
 
---cps3uvezotjpoism--
+Thank you for your help
+I was quite confused because this was my first time in this situation,
+but the kind explanation helped me a lot.
+
+I will check man page and I'm gonna trying to patch it
+The revision direction is same as I mentioned
+
+> CLONE_NEWPID + CLONE_PARENT          ok
+> CLONE_NEWPID + CLONE_THREAD         no
+> CLONE_NEWUSER + CLONE_PARENT      ok
+> CLONE_NEWUSER + CLONE_THREAD     no
+
+Also,
+
+> I agree that the man page for clone.2 should get changed to either explai=
+n
+> why CLONE_NEWUSER + CLONE_PARENT can't be used, or remove the restriction=
+.
+
+I will remove restriction CLONE_NEWUSER + CLONE_PARENT (I still have
+confusion about why you mention "either explain why CLONE_NEWUSER +
+CLONE_PARENT can't be used, or remove the restriction.", is it ok to
+just remove restriction only? because CLONE_NEWUSER + CLONE_PARENT can
+be used so I can't explain why CLONE_NEWUSER + CLONE_PARENT can't be
+used)
+
+
+--------
+
+From: Carlos O'Donell
+To: hoodit dev
+
+On 4/15/25 10:41 AM, hoodit dev wrote:
+>> I agree that the man page for clone.2 should get changed to either expla=
+in
+>> why CLONE_NEWUSER + CLONE_PARENT can't be used, or remove the restrictio=
+n.
+>
+> I will remove restriction CLONE_NEWUSER + CLONE_PARENT (I still have
+> confusion about why you mention "either explain why CLONE_NEWUSER +
+> CLONE_PARENT can't be used, or remove the restriction.", is it ok to
+> just remove restriction only? because CLONE_NEWUSER + CLONE_PARENT can
+> be used so I can't explain why CLONE_NEWUSER + CLONE_PARENT can't be
+> used)
+
+Removing the restriction is an acceptable path forward in my opinion
+and it makes sense from first principles.
+
+The question here is if there are any CLONE_NEWUSER interactions with
+CLONE_PARENT that we are unaware of that need to be accounted for.
+
+To discover those we would need to ask upstream and gather broader
+consensus.
+
+
+--------
+
+From: hoodit dev
+To: Carlos O'Donell
+
+Thank you for your precise content arrangement.
+
+As far as I checked, it has nothing to do with the flag part in the
+code, but it is not accurate. Therefore, I think this part needs to be
+checked.
+
+> To discover those we would need to ask upstream and gather broader
+> consensus.
+
+How should I handle this?
+
+Also, I wasn't referring to these email replies in Alejandro Colomar
+and linux-man@vger.kernel.org , how can I solve this?
 
