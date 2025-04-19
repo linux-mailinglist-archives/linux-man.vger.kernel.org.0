@@ -1,230 +1,675 @@
-Return-Path: <linux-man+bounces-2781-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2782-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C5ABA94557
-	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 21:54:39 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 674E6A94567
+	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 22:23:55 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 43D403BEB26
-	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 19:54:22 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 73D0C16A720
+	for <lists+linux-man@lfdr.de>; Sat, 19 Apr 2025 20:23:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 348F61E2853;
-	Sat, 19 Apr 2025 19:54:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61BAA1E0E1A;
+	Sat, 19 Apr 2025 20:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxthK5z9"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNIi6vHd"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com [209.85.219.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6448014AD2D
-	for <linux-man@vger.kernel.org>; Sat, 19 Apr 2025 19:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2320519ADB0
+	for <linux-man@vger.kernel.org>; Sat, 19 Apr 2025 20:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745092474; cv=none; b=pfZ3ST6ccBUmsdXUKtdPgvhl+rEnmgfiejMwC+XdqDvDiuBX4/mNRejSBKg2MPrjxtVyk0oGGFXDYiXCTv08kzNn0TCR5WGe7YV4qvT+EgvyEWfpCYNIwcUBvho9ynseLG9c4r6XLMcSOTdXINophFlJww6aYlybQZ6E5A70ytk=
+	t=1745094231; cv=none; b=HTci2mRz6ggNnmqcHLyfVmwOM0fsdQ6Sm6NqMKYEc9kYwQVQPmmER8L5oNhrhBFmubNAWJL0HJdR+Dc9jZ9WaoLjy7RYe//CfrmHTzqt/qKtp7trTaeir2EbopP7bru+TtK+hqjSH2vGqK8Q/PqOoGqUKANGPhckGsLs0Ov6Z58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745092474; c=relaxed/simple;
-	bh=B0QJnla8LqudpFX+4urQujsa0AYHW3H6v3zMqsLlLpg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aRY/+SyXAYj+tlEgS6IkBQjs4DiLPCoFAnth5nZHwDOSqRFWBSrmeIkK0oAi22DbYFxouTKcMJ1yXp8/gCWK0cWHawPJzh3jMBEDt5Fol24A54LMMK1ccxZsZEDAumDIUA0REhsAwwFSUdt8+phvwBCIx0qb8pXPfS14PlxfrRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxthK5z9; arc=none smtp.client-ip=209.85.219.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yb1-f172.google.com with SMTP id 3f1490d57ef6-e7297da3ef2so1337616276.0
-        for <linux-man@vger.kernel.org>; Sat, 19 Apr 2025 12:54:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745092471; x=1745697271; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aG7bbhVXGLkRS0vpsFqikB+180Jt0U68KGKYN6KNpyw=;
-        b=KxthK5z9crdOPejUwPJH0E64sDBwV8BdfiCmxSugIhVhbtYppN7zv3rOeqGxU9Q15E
-         85h53gMP8SzS5dBMAHJ7kFHzE/N0ELm2dbQ3nYbAsEIxmkVIBIQ6W6QBbJPuu6e6dHTg
-         Y5QMcqIdK2OA1Ne5qAaoES/UF1V63050zkOazSUJX2fmiWoR4MNm+JbMtRCZ5AOod6wu
-         /AFloviMw5HANp2r1oGNye2oTwugTCGt1K1wugn3wGQ18mMzv6ufIGTnqQMg4QmepdMP
-         7BJEboUplnKT5rADaFwx9xwneCriB/JXcTtMbpIwt0OYfW5FuRYP/SL82w5oDGp6n1Rh
-         e6Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745092471; x=1745697271;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aG7bbhVXGLkRS0vpsFqikB+180Jt0U68KGKYN6KNpyw=;
-        b=XBWMSfiB6IIehrZBWevlubVTBHX1WPz4r1g9/aBMM1nJQbbOFEddWr1LCqRky/GWJL
-         ZWApH0ueIgtP3f8xokop7VzFxy1xQd1yYfVgdXezFzNGDAKY3yAc3LWoW7LLrXOxCmof
-         nsd6rGb8rnDmBFrIvZV5IWOAhtI3sBRAQz+hY5pU+KZynT5AZQWTwVG7suj0NIU0eBw+
-         kld1cNhJLUvab+3WNF1FocH2VckOvVqraUmWiOTUidPLsesNCAGRCed8auovporqqSco
-         bfa7lkWvILih2c/h1W8PGPx2mT4hj1rUAy7E/f05v4gsx2JAM24dYD8V05dD/91PM//p
-         +ltg==
-X-Gm-Message-State: AOJu0Yz8xW+vG7cqSI7EK2pHbPsnAezMeueSjHqpR2e87cOb1MEnv4Yi
-	+K2DXNL+FdnzxnpJjIfMSmqoq2GyxzXlLVUNEBWlTzhC9a2NDsHCiZIEao9l7HmRiPqjVhQ2m/L
-	kqfoLaqXsOa1ltNdzf75MB0bFhfo=
-X-Gm-Gg: ASbGncuOsxiQvefVy02szFjtpykbv/4kOhIbBtU33domVFpbhnqBYcykI3Za2g1761G
-	AvwJ60mGlJuoSirrs8NIOzOMI8o/sK0PHnpmrNYSLwO/axrj0Wqg+uYvw4ikupypEf67Xte1PyF
-	vKNg4uxWOSPnItHB3ezR7dzozx
-X-Google-Smtp-Source: AGHT+IHHmU3vuTbjqguQukVHF6ndaEdj1RGXtI3dZvWjkl2pKROntTE4jamwhpc3TxTUBgou2MvHcKoKpzad6kHdS1U=
-X-Received: by 2002:a05:6902:2006:b0:e72:8e65:5513 with SMTP id
- 3f1490d57ef6-e7297e101f2mr10898229276.28.1745092471225; Sat, 19 Apr 2025
- 12:54:31 -0700 (PDT)
+	s=arc-20240116; t=1745094231; c=relaxed/simple;
+	bh=C15d71JewQfSgWLIxkresS8okSKm0bR6xSFu1GAR020=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I3JFAhh5kO5lHNxq1CG+Yv+bnHjjE9gteB0HXCZBehAmpceGVpTrUn4ZPilVb1yoosur2/wBF2knoVjI6KZD1AERVQFfsSoOQU5e2BnbuAv75s3hRsmSKVkJEYu33dri52XsWtibOh/pVC/Wfkcw2y7np0thWGIBghmpXuCJHu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNIi6vHd; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568A5C4CEEA;
+	Sat, 19 Apr 2025 20:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1745094230;
+	bh=C15d71JewQfSgWLIxkresS8okSKm0bR6xSFu1GAR020=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cNIi6vHdD6SkG0fIYKLD54ED3v2591X0Ukgld0CtMWDZNmNfwqJlpaZuNIpiqKkI4
+	 p04OpsBIjF730qqJvHEN/44lNVy5qj2YfSY51pUfCeykL+zU6TC3rtEJD9JHH9ANOj
+	 +eEL3iVm9vnLaXhIfg+Si7Wy6G8Nmx8GSF18xcJCLTqvBr+nMUix6nfqYcJLKR52xX
+	 aM3cqz0z/cRyJ4NjM4+c81rPW08pLpavYSwoTnnhzRUsFSHInjnaaEv+Mi9qAcD2y7
+	 RXX9MEvplINpTD4w5dPwSc39u1d4v32pIMQL721rIs+uZ4STfwECajWw70THBlyYiw
+	 Q6kbqH399BuRQ==
+Date: Sat, 19 Apr 2025 22:23:46 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3] man/man7/mctp.7: Add man page for Linux MCTP support
+Message-ID: <zll3y3orzq5vkwkujzc35sogc6tbbmxqkkmiivnp34qca6hf4l@d35ookjfz26k>
+References: <20250417-mctp-v3-1-07fff4d26f73@codeconstruct.com.au>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAFvyz31Em4f7AQRDNJ6gtVBoUj1kQA8WZCGcs0EZngCZosf_0w@mail.gmail.com>
- <06febfb3-e2e2-4363-bc34-83a07692144f@redhat.com>
-In-Reply-To: <06febfb3-e2e2-4363-bc34-83a07692144f@redhat.com>
-From: hoodit dev <devhoodit@gmail.com>
-Date: Sun, 20 Apr 2025 04:54:20 +0900
-X-Gm-Features: ATxdqUGpt6n7Ribi9MUoJm6s5FW6iOOM-dvey9pPo82ie1Y4Y0CHoeT1EXrWKP8
-Message-ID: <CAFvyz32q1Uc4t5RjWWOMf3NiNWsyYjXeZ6xqdd8Tj8P-z6XBzQ@mail.gmail.com>
-Subject: Cc: clone(2) man page CLONE_NEWPID and CLONE_PARENT can be specified
- at the same time, also CLONE_NEWUSER and CLONE_PARENT
-To: "Carlos O'Donell" <carlos@redhat.com>, Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dpt3krqmuose53mw"
+Content-Disposition: inline
+In-Reply-To: <20250417-mctp-v3-1-07fff4d26f73@codeconstruct.com.au>
+
+
+--dpt3krqmuose53mw
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v3] man/man7/mctp.7: Add man page for Linux MCTP support
+References: <20250417-mctp-v3-1-07fff4d26f73@codeconstruct.com.au>
+MIME-Version: 1.0
+In-Reply-To: <20250417-mctp-v3-1-07fff4d26f73@codeconstruct.com.au>
 
-I missed cc=E2=80=99ing earlier. Here=E2=80=99s a summary of what=E2=80=99s=
- been discussed.
+Hi Jeremy,
+
+On Thu, Apr 17, 2025 at 10:50:07AM +0800, Jeremy Kerr wrote:
+> This change adds a brief description for the new Management Component
+> Transport Protocol (MCTP) support added to Linux as of bc49d8169.
+>=20
+> This is a fairly regular sockets-API implementation, so we're just
+> describing the semantics of socket, bind, sendto and recvfrom for the
+> new protocol.
+>=20
+> Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+> ---
+> This change picks up on an incomplete submission from way back in 2021,
+> adding mctp.7.
+
+Thanks a lot!
+
+> I have updated form some feedback on v2, and updated to some conventions
+> since that change was first submitted, but let me know if there is
+> anything I may have missed in that time, or if submission requirements
+> have changed too.
+
+Some have changed, but since this patch is old, and it LGTM except for
+some minor things, I've done the amends myself.  I don't want to push
+back on the patch again.  :-)
+
+I propose the following diff to amend your patch, if it looks good to
+you.  Let me know, and I'll amend and push.  Feel free to ask any doubts
+about it.
+
+	diff --git i/man/man7/mctp.7 w/man/man7/mctp.7
+	index e58a03e10..47aea9b1d 100644
+	--- i/man/man7/mctp.7
+	+++ w/man/man7/mctp.7
+	@@ -1,4 +1,4 @@
+	-.\" Copyright (c) 2021,2025 Jeremy Kerr <jk@codeconstruct.com.au>
+	+.\" Copyright 2021,2025, Jeremy Kerr <jk@codeconstruct.com.au>
+	 .\"
+	 .\" SPDX-License-Identifier: Linux-man-pages-copyleft
+	 .\"
+	@@ -9,9 +9,8 @@ .SH SYNOPSIS
+	 .nf
+	 .BR "#include <linux/mctp.h>" \
+	 "  /* MCTP address type and protocol constants */"
+	-.BR "#include <sys/socket.h>" \
+	-"  /* Definition of " socket() ", " AF_* " and " SOCK_* " */"
+	-.PP
+	+.B #include <sys/socket.h>
+	+.P
+	 .IB mctp_socket " =3D socket(AF_MCTP, SOCK_DGRAM, 0);"
+	 .fi
+	 .SH DESCRIPTION
+	@@ -22,7 +21,7 @@ .SH DESCRIPTION
+	 typically used between devices within a server system.
+	 Message reliability and ordering are not guaranteed,
+	 but message boundaries are preserved.
+	-.PP
+	+.P
+	 The API for MCTP messaging uses a standard sockets interface,
+	 using the
+	 .BR sendto (2)
+	@@ -31,28 +30,31 @@ .SH DESCRIPTION
+	 classes of system calls to transfer messages.
+	 Messages may be fragmented into packets before transmission,
+	 and reassembled at the remote endpoint.
+	-This fragmentation and reassembly is transparent to userspace.
+	+This fragmentation and reassembly is transparent to user space.
+	 .SS Address format
+	-MCTP addresses (also referred to as EIDs, or Endpoint Identifiers) are
+	-single-byte values,
+	+MCTP addresses
+	+(also referred to as EIDs, or Endpoint Identifiers)
+	+are single-byte values,
+	 typed as
+	 .IR mctp_eid_t .
+	-Packets between a local and remote endpoint are identified by
+	+Packets between a local and remote endpoint
+	+are identified by
+	 the source and destination EIDs,
+	 plus a three-bit tag value.
+	-.PP
+	-Addressing data is passed in socket system calls through
+	-.I struct sockaddr_mctp
+	+.P
+	+Addressing data is passed in socket system calls through a
+	+.I sockaddr_mctp
+	+structure,
+	 defined as:
+	-.PP
+	+.P
+	 .in +4n
+	 .EX
+	 typedef uint8_t        mctp_eid_t;
+	-
+	+\&
+	 struct mctp_addr {
+	     mctp_eid_t         s_addr;
+	 };
+	-
+	+\&
+	 struct sockaddr_mctp {
+	     unsigned short     smctp_family;  /* =3D AF_MCTP */
+	     uint16_t           __smctp_pad0;
+	@@ -69,33 +71,35 @@ .SS Sending messages
+	 .BR sendto (2)
+	 and
+	 .BR sendmsg (2)
+	-system calls, by providing a
+	-.I struct sockaddr_mctp
+	+system calls,
+	+by providing a
+	+.I sockaddr_mctp
+	+structure
+	 describing the addressing parameters.
+	-.PP
+	+.P
+	 .in +4n
+	 .EX
+	-struct sockaddr_mctp addr;
+	-ssize_t len;
+	-char *buf;
+	-
+	+ssize_t               n;
+	+const char            *buf;
+	+struct sockaddr_mctp  addr;
+	+\&
+	 /* unused fields must be zero */
+	 memset(&addr, 0, sizeof(addr));
+	-
+	+\&
+	 /* set message destination */
+	 addr.smctp_family =3D AF_MCTP;
+	 addr.smctp_network =3D 0;
+	 addr.smctp_addr.s_addr =3D 8; /* remote EID */
+	 addr.smctp_tag =3D MCTP_TAG_OWNER;
+	 addr.smctp_type =3D MYPROGRAM_MCTP_TYPE_ECHO; /* example type */
+	-
+	+\&
+	 buf =3D "hello, world!"
+	-
+	-len =3D sendto(sd, buf, 13, 0,
+	-             (struct sockaddr *)&addr, sizeof(addr));
+	+\&
+	+n =3D sendto(sd, buf, 13, 0,
+	+           (struct sockaddr *) &addr, sizeof(addr));
+	 .EE
+	 .in
+	-.PP
+	+.P
+	 Here, the sender owns the message tag; so
+	 .B MCTP_TAG_OWNER
+	 is used as the tag data.
+	@@ -107,7 +111,7 @@ .SS Sending messages
+	 .BR EBUSY .
+	 This allocated tag remains associated with the socket,
+	 so that any replies to the sent message will be received by the same sock=
+et.
+	-.PP
+	+.P
+	 Sending a MCTP message requires the
+	 .B CAP_NET_RAW
+	 capability.
+	@@ -117,64 +121,63 @@ .SS Receiving messages
+	 and
+	 .BR recvmsg (2)
+	 system calls.
+	-.PP
+	+.P
+	 .in +4n
+	 .EX
+	-struct sockaddr_mctp addr;
+	-socklen_t addrlen;
+	-char buf[13];
+	-
+	+char                  buf[13];
+	+socklen_t             addrlen;
+	+struct sockaddr_mctp  addr;
+	+\&
+	 addrlen =3D sizeof(addr);
+	-
+	-len =3D recvfrom(sd, buf, sizeof(buf), 0,
+	-               (struct sockaddr *)&addr, &addrlen);
+	+\&
+	+n =3D recvfrom(sd, buf, sizeof(buf), 0,
+	+             (struct sockaddr *) &addr, &addrlen);
+	 .EE
+	 .in
+	-.PP
+	+.P
+	 In order to receive an incoming message,
+	-the receiver will need to either have previously sent a message to the sa=
+me
+	-endpoint,
+	+the receiver will need to
+	+either have previously sent a message to the same endpoint,
+	 or performed a
+	 .BR bind (2)
+	 to receive all messages of a certain type:
+	-.PP
+	+.P
+	 .in +4n
+	 .EX
+	-struct sockaddr_mctp addr;
+	-
+	+struct sockaddr_mctp  addr;
+	+\&
+	 addr.smctp_family =3D AF_MCTP;
+	 addr.smctp_network =3D MCTP_NET_ANY;
+	 addr.smctp_addr.s_addr =3D MCTP_ADDR_ANY;
+	 addr.smctp_type =3D MYPROGRAM_MCTP_TYPE_ECHO; /* our 'echo' type */
+	-
+	-int rc =3D bind(sd, (struct sockaddr *)&addr, sizeof(addr));
+	+\&
+	+int rc =3D bind(sd, (struct sockaddr *) &addr, sizeof(addr));
+	 .EE
+	 .in
+	-.PP
+	+.P
+	 This call requires the
+	 .B CAP_NET_BIND_SERVICE
+	 capability,
+	-and will result in the socket receiving all messages sent to
+	-locally-assigned EIDs,
+	+and will result in
+	+the socket receiving all messages sent to locally-assigned EIDs,
+	 for the specified message type.
+	-.PP
+	+.P
+	 After a
+	 .BR recvfrom (2)
+	 or
+	 .BR recvmsg (2)
+	 returns a success condition,
+	-the provided address argument will be populated with the sender's network=
+ and
+	-EID,
+	+the provided address argument
+	+will be populated with the sender's network and EID,
+	 as well as the tag value used for the message.
+	 Any reply to this message should pass the same address and tag value
+	 (with the TO bit cleared)
+	 to indicate that is is directed to the same remote endpoint.
+	 .SH SEE ALSO
+	 .BR socket (7)
+	-.PP
+	-The kernel source file
+	-.IR Documentation/networking/mctp.rst .
+	-.PP
+	-The DSP0236 specification, at
+	+.P
+	+.I linux.git/Documentation/networking/mctp.rst
+	+.P
+	 .UR https://www.dmtf.org/\:standards/\:pmci
+	+The DSP0236 specification
+	 .UE .
+
+> I have some follow-up patches to add newer functions of the kernel mctp
+> stack, but am planning to send those once the base page structure is
+> defined, and any general feedback incorporated.
+>=20
+> Of course, comments, questions etc are most welcome.
+
+I'll comment a few things below, but they're covered by the diff from
+above.  It's just to let you know about them.
+
+> ---
+> Changes in v3:
+> - rebase for new file structure
+> - more fine-grained semantic newlines
+> - update headers and .TH to match newer formats
+> - add #include comments
+> - adjust URI breakpoints
+> - Link to v2: https://lore.kernel.org/r/20211111015323.3542313-1-jk@codec=
+onstruct.com.au/
+>=20
+> Changes in v2:
+> - Fix synopsis variable formatting
+> - Semantic newlines
+> - remove unnecessary escape
+> - make custom constants more obvious
+> - Add URI breakpoints
+> - fix sockaddr_mctp misuse
+> - Link to v1: https://lore.kernel.org/r/20211014070519.2037226-1-jk@codec=
+onstruct.com.au/
+> ---
+>  man/man7/address_families.7 |   7 ++
+>  man/man7/mctp.7             | 180 ++++++++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 187 insertions(+)
+>=20
+> diff --git a/man/man7/address_families.7 b/man/man7/address_families.7
+> index 3c2400820627035d2fced0d9e49d61aa01e2d3f3..4e29e0bfb88447c64d53d44c3=
+fae27ccc435e241 100644
+> --- a/man/man7/address_families.7
+> +++ b/man/man7/address_families.7
+> @@ -387,6 +387,13 @@ XDP (express data path) interface (since Linux 4.18).
+>  See
+>  .I Documentation/networking/af_xdp.rst
+>  in the Linux kernel source tree for details.
+> +.TP
+> +.B AF_MCTP
+> +.\" commit: bc49d8169aa72295104f1558830c568efb946315
+> +MCTP (Management Component Transport Protocol) interface (since Linux 5.=
+15),
+> +as defined by the DMTF specification DSP0236.
+> +For further information, see
+> +.BR mctp (7).
+>  .SH SEE ALSO
+>  .BR socket (2),
+>  .BR socket (7)
+> diff --git a/man/man7/mctp.7 b/man/man7/mctp.7
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..e58a03e1063086fa8758c3b09=
+6db044b01c3c277
+> --- /dev/null
+> +++ b/man/man7/mctp.7
+> @@ -0,0 +1,180 @@
+> +.\" Copyright (c) 2021,2025 Jeremy Kerr <jk@codeconstruct.com.au>
+
+I will soon change all copyright lines to something generic like
+
+	Copyright, the contributors to the Linux man-pages project
+
+and then a CREDITS file that lists every contributor.
+
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.TH mctp 7 (date) "Linux man-pages (unreleased)"
+> +.SH NAME
+> +mctp \- Management Component Transport Protocol
+> +.SH SYNOPSIS
+> +.nf
+> +.BR "#include <linux/mctp.h>" \
+> +"  /* MCTP address type and protocol constants */"
+> +.BR "#include <sys/socket.h>" \
+> +"  /* Definition of " socket() ", " AF_* " and " SOCK_* " */"
+
+For the include that provides the function (socket() in this case), we
+don't have comment.
+
+> +.PP
+
+We switched from .PP to .P some time ago.  They are synonyms.  .P is
+shorter, and is what groff(1) recommends.
+
+> +.IB mctp_socket " =3D socket(AF_MCTP, SOCK_DGRAM, 0);"
+> +.fi
+> +.SH DESCRIPTION
+> +Linux implements the Management Component Transport Protocol (MCTP),
+> +specified by DMTF spec DSP0236,
+> +currently at version 1.
+> +This is a connectionless protocol,
+> +typically used between devices within a server system.
+> +Message reliability and ordering are not guaranteed,
+> +but message boundaries are preserved.
+> +.PP
+> +The API for MCTP messaging uses a standard sockets interface,
+> +using the
+> +.BR sendto (2)
+> +and
+> +.BR recvfrom (2)
+> +classes of system calls to transfer messages.
+> +Messages may be fragmented into packets before transmission,
+> +and reassembled at the remote endpoint.
+> +This fragmentation and reassembly is transparent to userspace.
+
+We say "user space", not userspace.  This is documented in man-pages(7).
+
+> +.SS Address format
+> +MCTP addresses (also referred to as EIDs, or Endpoint Identifiers) are
+> +single-byte values,
+
+Phrasal semantic newlines can be improved here a little bit.
+
+> +typed as
+> +.IR mctp_eid_t .
+> +Packets between a local and remote endpoint are identified by
+> +the source and destination EIDs,
+> +plus a three-bit tag value.
+> +.PP
+> +Addressing data is passed in socket system calls through
+> +.I struct sockaddr_mctp
+
+We usually say 'foo structure' instead of 'struct foo' in the manual
+pages.
+
+> +defined as:
+> +.PP
+> +.in +4n
+> +.EX
+> +typedef uint8_t        mctp_eid_t;
+> +
+
+Blank lines produce a diagnostic from groff(1).  In this case, we do
+want them, so we use the dummy character \&, which acts as a no-op, but
+avoids having an empty line (so avoids the diagnostic).
+
+> +struct mctp_addr {
+> +    mctp_eid_t         s_addr;
+> +};
+> +
+> +struct sockaddr_mctp {
+> +    unsigned short     smctp_family;  /* =3D AF_MCTP */
+> +    uint16_t           __smctp_pad0;
+> +    int                smctp_network; /* local network identifier */
+> +    struct mctp_addr   smctp_addr;    /* EID */
+> +    uint8_t            smctp_type;    /* message type byte */
+> +    uint8_t            smctp_tag;     /* tag value & owner */
+> +    uint8_t            __smctp_pad1;
+> +};
+> +.EE
+> +.in
+> +.SS Sending messages
+> +Messages can be transmitted using the
+> +.BR sendto (2)
+> +and
+> +.BR sendmsg (2)
+> +system calls, by providing a
+> +.I struct sockaddr_mctp
+> +describing the addressing parameters.
+> +.PP
+> +.in +4n
+> +.EX
+> +struct sockaddr_mctp addr;
+> +ssize_t len;
+
+I don't like using length to refer to this, because length in C usually
+refers to the number of non-zero characters in a string, while size
+refers to the number of bytes in a buffer.  Thus, I'd use size here, but
+for simplicity, I use 'n' for the return of send or write or similar
+APIs.
+
+> +char *buf;
+
+This is missing const, since you assign a string literal.
+
+> +
+> +/* unused fields must be zero */
+> +memset(&addr, 0, sizeof(addr));
+> +
+> +/* set message destination */
+> +addr.smctp_family =3D AF_MCTP;
+> +addr.smctp_network =3D 0;
+> +addr.smctp_addr.s_addr =3D 8; /* remote EID */
+> +addr.smctp_tag =3D MCTP_TAG_OWNER;
+> +addr.smctp_type =3D MYPROGRAM_MCTP_TYPE_ECHO; /* example type */
+> +
+> +buf =3D "hello, world!"
+> +
+> +len =3D sendto(sd, buf, 13, 0,
+> +             (struct sockaddr *)&addr, sizeof(addr));
+
+We use a space between a cast and what it converts.
+
+> +.EE
+> +.in
+> +.PP
+> +Here, the sender owns the message tag; so
+> +.B MCTP_TAG_OWNER
+> +is used as the tag data.
+> +The kernel will allocate a specific tag value for this message.
+> +If no tag is available,
+> +.BR sendto (2)
+> +will return an error,
+> +with errno set to
+> +.BR EBUSY .
+> +This allocated tag remains associated with the socket,
+> +so that any replies to the sent message will be received by the same soc=
+ket.
+> +.PP
+> +Sending a MCTP message requires the
+> +.B CAP_NET_RAW
+> +capability.
+> +.SS Receiving messages
+> +Messages can be received using the
+> +.BR recvfrom (2)
+> +and
+> +.BR recvmsg (2)
+> +system calls.
+> +.PP
+> +.in +4n
+> +.EX
+> +struct sockaddr_mctp addr;
+> +socklen_t addrlen;
+> +char buf[13];
+> +
+> +addrlen =3D sizeof(addr);
+> +
+> +len =3D recvfrom(sd, buf, sizeof(buf), 0,
+> +               (struct sockaddr *)&addr, &addrlen);
+> +.EE
+> +.in
+> +.PP
+> +In order to receive an incoming message,
+> +the receiver will need to either have previously sent a message to the s=
+ame
+> +endpoint,
+> +or performed a
+> +.BR bind (2)
+> +to receive all messages of a certain type:
+> +.PP
+> +.in +4n
+> +.EX
+> +struct sockaddr_mctp addr;
+> +
+> +addr.smctp_family =3D AF_MCTP;
+> +addr.smctp_network =3D MCTP_NET_ANY;
+> +addr.smctp_addr.s_addr =3D MCTP_ADDR_ANY;
+> +addr.smctp_type =3D MYPROGRAM_MCTP_TYPE_ECHO; /* our 'echo' type */
+> +
+> +int rc =3D bind(sd, (struct sockaddr *)&addr, sizeof(addr));
+> +.EE
+> +.in
+> +.PP
+> +This call requires the
+> +.B CAP_NET_BIND_SERVICE
+> +capability,
+> +and will result in the socket receiving all messages sent to
+> +locally-assigned EIDs,
+> +for the specified message type.
+> +.PP
+> +After a
+> +.BR recvfrom (2)
+> +or
+> +.BR recvmsg (2)
+> +returns a success condition,
+> +the provided address argument will be populated with the sender's networ=
+k and
+> +EID,
+> +as well as the tag value used for the message.
+> +Any reply to this message should pass the same address and tag value
+> +(with the TO bit cleared)
+> +to indicate that is is directed to the same remote endpoint.
+> +.SH SEE ALSO
+> +.BR socket (7)
+> +.PP
+> +The kernel source file
+> +.IR Documentation/networking/mctp.rst .
+
+I have in mind a global replacement in the manual pages to use
+
+	linux.git/Documentation/...
+
+in every reference to kernel source files.  It's simpler, I think.
+
+> +.PP
+> +The DSP0236 specification, at
+> +.UR https://www.dmtf.org/\:standards/\:pmci
+> +.UE .
+
+UR/UE can contain text within them, which is precisely for that.
+See groff_man(7):
+
+       .UR uri
+       .UE [trailing=E2=80=90text]
+              Identify uri as an RFC 3986 URI hyperlink with  the  text
+              between  the  two macro calls as the link text.  An argu=E2=
+=80=90
+              ment to .UE is placed after the link text without  inter=E2=
+=80=90
+              vening  space.   uri  may  not be visible in the rendered
+              document if hyperlinks are enabled and supported  by  the
+              output  driver.   If  they  are  not, uri is set in angle
+              brackets after the link text  and  before  trailing=E2=80=90t=
+ext.
+              If hyperlinking is enabled but there is no link text, uri
+              is formatted and hyperlinked without angle brackets.
 
 
-From: hoodit dev
-To: Carlos O'Donell
-
-Thanks for your explanation, I learn some insight
-
-I understand this reply that CLONE_PARENT and CLONE_NEWUSER can be
-used together but I get little confusion about this
-
-> >Similarly, in CLONE_NEWUSER, it says that "This flag can't be
-> >specified in conjunction with CLONE_THREAD or CLONE_PARENT." but it
-> >works on my test code with CLONE_PARENT
-> >Also, in ERROR section only mentioned when CLONE_NEWUSER used with CLONE=
-_THREAD
-
->Just because it works, which might be a bug, doesn't mean that we should
->document that it works.
-
-These 2 lines confused me. I mean, the description section and the
-error section seem to have different content, and I tested it.
+If you confirm, I'll amend and push.
 
 
-My statement
-CLONE_NEWPID + CLONE_PARENT          ok
-CLONE_NEWPID + CLONE_THREAD         no
-CLONE_NEWUSER + CLONE_PARENT      ok
-CLONE_NEWUSER + CLONE_THREAD     no
-
-
---------
-
-From: Carlos O'Donell
-To: hoodit dev
-
-On 4/15/25 9:27 AM, hoodit dev wrote:
-> My statement
-> CLONE_NEWPID + CLONE_PARENT          ok
-> CLONE_NEWPID + CLONE_THREAD         no
-> CLONE_NEWUSER + CLONE_PARENT      ok
-> CLONE_NEWUSER + CLONE_THREAD     no
-
-Thank you.
-
-I see what you were trying to describe.
-
-I agree that the permutations you descirbe as "OK" make sense.
-
-I also agree that CLONE_NEWUSER should be possible to use with CLONE_PARENT
-because it doesn't violate any constraints, it simply declares the current
-callers parent as the parent of the newly created task.
-
-I agree that the man page for clone.2 should get changed to either explain
-why CLONE_NEWUSER + CLONE_PARENT can't be used, or remove the restriction.
+Have a lovely night!
+Alex
 
 --=20
-Cheers,
-Carlos.
+<https://www.alejandro-colomar.es/>
 
+--dpt3krqmuose53mw
+Content-Type: application/pgp-signature; name="signature.asc"
 
---------
+-----BEGIN PGP SIGNATURE-----
 
-From: hoodit dev
-To: Carlos O'Donell
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgEBksACgkQ64mZXMKQ
+wqn06g//aJwxMv5NlEL18kNxT7LRpHPzmw8wO2v/e5mnrWnBM66xmW8O0VWJXfcd
+wXAMVpM50NmU1xZDGvIZcvttAlKjiDVRAcwUk0F5gYN/FPXFUk9g6066SuHGOMwZ
+ZyXFYeWbxguX5WfE2A9U5PrLi82SfnXxFNIKk/sprrJSfqcWranPcdOBriscgOAC
+WVo9OlolTiZBQlx8FqRQar0VByMwgmbxSa5+ywE0PTd6E73i9QTxjW716ZG8LUwx
+S8lDu3e7S/Zab/BcFHoCP3pgPmaQMfbvqZ/VCy8nvVOznur7vLPc9lqMojRm2ub5
+RJiH29kEhgTkN3cwTcSoCE2lqmYzcy4bVEnJVq0Va9TPsNUXPdilYQP114fblnI5
+CDDUck0dei1Nlvpu8cJvkwRsQhiNq4jWaUr5MrRVeoN3G5lp9/aewd9gdR9zUGU+
+1HXLy74BAMN61BsC3lzdzEXhgBulFawHXuAF+3m1SadpseZRa/HUOe61ir+lcxZx
+V/j4JFJroJROKgxV+DXB7mELxkPrrsvHj7fR5vKRUvtDgO4RojimDYXQgSJiJBIl
+nO6VoxE/WtWoeIRx5EpMN5wWyInctznYY4XpemvK5DifrOIceCgtix2ekDd8ZCUd
+/uKbvjJZsUvYHdCJjkhN0/KytVbuF6SMDp/JbopVoaTnJ4WW3E8=
+=gglR
+-----END PGP SIGNATURE-----
 
-Thank you for your help
-I was quite confused because this was my first time in this situation,
-but the kind explanation helped me a lot.
-
-I will check man page and I'm gonna trying to patch it
-The revision direction is same as I mentioned
-
-> CLONE_NEWPID + CLONE_PARENT          ok
-> CLONE_NEWPID + CLONE_THREAD         no
-> CLONE_NEWUSER + CLONE_PARENT      ok
-> CLONE_NEWUSER + CLONE_THREAD     no
-
-Also,
-
-> I agree that the man page for clone.2 should get changed to either explai=
-n
-> why CLONE_NEWUSER + CLONE_PARENT can't be used, or remove the restriction=
-.
-
-I will remove restriction CLONE_NEWUSER + CLONE_PARENT (I still have
-confusion about why you mention "either explain why CLONE_NEWUSER +
-CLONE_PARENT can't be used, or remove the restriction.", is it ok to
-just remove restriction only? because CLONE_NEWUSER + CLONE_PARENT can
-be used so I can't explain why CLONE_NEWUSER + CLONE_PARENT can't be
-used)
-
-
---------
-
-From: Carlos O'Donell
-To: hoodit dev
-
-On 4/15/25 10:41 AM, hoodit dev wrote:
->> I agree that the man page for clone.2 should get changed to either expla=
-in
->> why CLONE_NEWUSER + CLONE_PARENT can't be used, or remove the restrictio=
-n.
->
-> I will remove restriction CLONE_NEWUSER + CLONE_PARENT (I still have
-> confusion about why you mention "either explain why CLONE_NEWUSER +
-> CLONE_PARENT can't be used, or remove the restriction.", is it ok to
-> just remove restriction only? because CLONE_NEWUSER + CLONE_PARENT can
-> be used so I can't explain why CLONE_NEWUSER + CLONE_PARENT can't be
-> used)
-
-Removing the restriction is an acceptable path forward in my opinion
-and it makes sense from first principles.
-
-The question here is if there are any CLONE_NEWUSER interactions with
-CLONE_PARENT that we are unaware of that need to be accounted for.
-
-To discover those we would need to ask upstream and gather broader
-consensus.
-
-
---------
-
-From: hoodit dev
-To: Carlos O'Donell
-
-Thank you for your precise content arrangement.
-
-As far as I checked, it has nothing to do with the flag part in the
-code, but it is not accurate. Therefore, I think this part needs to be
-checked.
-
-> To discover those we would need to ask upstream and gather broader
-> consensus.
-
-How should I handle this?
-
-Also, I wasn't referring to these email replies in Alejandro Colomar
-and linux-man@vger.kernel.org , how can I solve this?
+--dpt3krqmuose53mw--
 
