@@ -1,151 +1,148 @@
-Return-Path: <linux-man+bounces-2785-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2786-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA3CA9478A
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 12:56:28 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DE90A94794
+	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 13:37:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3FDFE3AF37F
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 10:56:11 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id C78191894873
+	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 11:38:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 923D31E377F;
-	Sun, 20 Apr 2025 10:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D22D71E1A16;
+	Sun, 20 Apr 2025 11:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFrr5Hw4"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="SKe/Alrz"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from outbound.pv.icloud.com (p-west1-cluster4-host9-snip4-4.eps.apple.com [57.103.65.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528801E1E10
-	for <linux-man@vger.kernel.org>; Sun, 20 Apr 2025 10:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA34CA4B
+	for <linux-man@vger.kernel.org>; Sun, 20 Apr 2025 11:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.65.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745146586; cv=none; b=iV+EB54vSBouuLi/bhhcv0omZgW6I2o/YTIQ5A58FVcwLwzAzmH+9Qu+XH3PYS6YBSmOu2tgGOFxPhWU8deYnJCjYbdJy2LBUgUxDmaJ0z2aPWsau2s8DOKPY2cIITfstlOCJoEE5KwbByVy8AwoSjyhaGUvi4OJAHN0WnFoJVs=
+	t=1745149074; cv=none; b=Jsb87nicq1NjoEwaGH+lnVrt1RHiCDeaWgjFL11tT+YAdM2zFZSPRqZ6MtW30M9lG1hN+e6zcJZ4Ls3KHvnaD2/HHEy2iFrYguLIFj7inHqcdl1fJl/Ji7Uu96oVvGALXP0narnRLNdWFUqP21nLuQDUDzziD+yX1VuPTcrA3mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745146586; c=relaxed/simple;
-	bh=Tj9r5zCmFgzc1gQqp/meOxrvCBdRnZmMK04FwZMLCjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k8YgrDBcxvcBEhpj5wcaOUjBxqZUxHfbY3wOQsH7Wf95omrdZMhW9vFtZ4GHlOOobGurYm9gWg2FxNQbYAaeS9SxxsYV5oYG/5+MeMPo9X5B2j6zEwMrQ77I5wu6CkqO9REE509FP7tisQT4jkWN0Aa3ghJzElHWT8BDl/ua0sM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFrr5Hw4; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92656C4CEE2;
-	Sun, 20 Apr 2025 10:56:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745146585;
-	bh=Tj9r5zCmFgzc1gQqp/meOxrvCBdRnZmMK04FwZMLCjY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OFrr5Hw4kG6eo1Xs7s6Ffo2nb7jn5w9RQpSEsMWW/7uxIMTFlO0QMxTG/SQJaSYmP
-	 84TZ92L6g+cSsKRC6yAfa3bXMDUGOWdEyOOnIbmpHYHvemLmoGYw9XLzZ0G/9MkdTY
-	 5k0lNLlwV95vkDK1wwNqowyK0RuaZlQ2yrz3F4bRq1rHObgJ1HkD2GWX/vi/TXdEfJ
-	 gjclLWcqcBL2IsrI3e+1wfrUuh65YDBrBpMNJIMep2yLL7CiKmPBmF4dSgXYI/YqrB
-	 yOc0iUfJkURljRStBu6JLb3dkV4LCagQo/WtNT26/Eoivo9giMzBCrdqRUY7j78z7i
-	 A5inWfSHyGl1Q==
-Date: Sun, 20 Apr 2025 12:56:21 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Solomon Tan <wjsota@icloud.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: SLIST_REMOVAL number of arguments
-Message-ID: <tzx7sgns2uopu75s5gipw2yxkpg6drun2esl5feoazulkqjnqd@hoayn3jqoe5p>
-References: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
+	s=arc-20240116; t=1745149074; c=relaxed/simple;
+	bh=LFDyyTTUMvjdd2NacLEO/cRaZRr+MJslK7yX7t6Xt+s=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=W4HMNjJi/HDnAmCXg4qEQWeza5r0x95wUOGhHaqbgHC79x/KVA6wHWMfUHyIhm5GIGGTE8F7ITMi8PJcxtoUP9/GI7iACPX4jI/s4L5929bdNbCyrYjcbA+aZEM7gNvp+bQupqAvtLhSNBtZUMKCiQ5HF8iBa3aMnWYBZtFo0NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=SKe/Alrz; arc=none smtp.client-ip=57.103.65.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
+	s=1a1hai; bh=ayCOZOgCXhAI05puQWGVYziGmxNg7ZytE1/JHPub4rU=;
+	h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme;
+	b=SKe/AlrzEurfjBQm9ir9Dc8kJNu26lCcRRXFzjVQNbiM8SIkZ0FnJNRA0gCqouqRR
+	 NYzUcOI9lE4ZhffCR9hkf09t2dWdsNdk5WBcNj0jKjifEEL8X65WCuDW+3KQUuI1MZ
+	 w34e9CUK/poptV9P2zx15QE71dtxhutNljMJBE1hhJ6nR21m//8jzYpGIQy6PnJTRW
+	 wd6nNaYSI9uo+k++IVZi4jrrhOJr40P6UYE2EY5+nKWYbwCJ7f+mUr009h4kkpqndx
+	 2fncp2SCOnABeKejHAN2CJvTMvpK9j1UI8gRQcEHuFJ5hcqYHnO2vPYJK6zVHml5sv
+	 tO529hofaXbUw==
+Received: from smtpclient.apple (pv-asmtp-me-k8s.p00.prod.me.com [17.56.9.36])
+	by outbound.pv.icloud.com (Postfix) with ESMTPSA id C0DF11800603;
+	Sun, 20 Apr 2025 11:37:50 +0000 (UTC)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6ojynqbqnhjamxq2"
-Content-Disposition: inline
-In-Reply-To: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
-
-
---6ojynqbqnhjamxq2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Solomon Tan <wjsota@icloud.com>
-Cc: linux-man@vger.kernel.org
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
 Subject: Re: SLIST_REMOVAL number of arguments
+From: Solomon Tan <wjsota@icloud.com>
+In-Reply-To: <tzx7sgns2uopu75s5gipw2yxkpg6drun2esl5feoazulkqjnqd@hoayn3jqoe5p>
+Date: Sun, 20 Apr 2025 19:37:37 +0800
+Cc: linux-man@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <70A926BE-9E8F-426A-BE5A-4D073FD9C5AF@icloud.com>
 References: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
-MIME-Version: 1.0
-In-Reply-To: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
+ <tzx7sgns2uopu75s5gipw2yxkpg6drun2esl5feoazulkqjnqd@hoayn3jqoe5p>
+To: Alejandro Colomar <alx@kernel.org>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-Proofpoint-ORIG-GUID: uSDcRcYYZU447ysA7TEjrcZLi985m9Qj
+X-Proofpoint-GUID: uSDcRcYYZU447ysA7TEjrcZLi985m9Qj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-20_05,2025-04-17_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ mlxlogscore=999 spamscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2503100000 definitions=main-2504200095
 
-Hi Solomon!
 
-On Sun, Apr 20, 2025 at 06:07:32PM +0800, Solomon Tan wrote:
-> Kindly forgive me if I'm mistaken, but might there be an error in the
-> man pages on the number of arguments in `SLIST_REMOVE`?
+
+> On 20 Apr 2025, at 18:56, Alejandro Colomar <alx@kernel.org> wrote:
 >=20
-> The SYNOPSIS in https://man7.org/linux/man-pages/man3/slist.3.html states=
- that there are three arguments.
-> ```
->        void SLIST_REMOVE(SLIST_HEAD *head, struct TYPE *elm,
->                                SLIST_ENTRY NAME);
-> ```
+> Hi Solomon!
 >=20
-> However, the EXAMPLE and the source indicate that there should be four. Q=
-uoting the source:
+> On Sun, Apr 20, 2025 at 06:07:32PM +0800, Solomon Tan wrote:
+>> Kindly forgive me if I'm mistaken, but might there be an error in the
+>> man pages on the number of arguments in `SLIST_REMOVE`?
+>>=20
+>> The SYNOPSIS in https://man7.org/linux/man-pages/man3/slist.3.html =
+states that there are three arguments.
+>> ```
+>>       void SLIST_REMOVE(SLIST_HEAD *head, struct TYPE *elm,
+>>                               SLIST_ENTRY NAME);
+>> ```
+>>=20
+>> However, the EXAMPLE and the source indicate that there should be =
+four. Quoting the source:
+>>=20
+>> ```
+>> #define    SLIST_REMOVE(head, elm, type, field) do {            \
+>> ```
 >=20
-> ```
-> #define    SLIST_REMOVE(head, elm, type, field) do {            \
-> ```
+> 	alx@debian:~/src/gnu/glibc/master$ grepc SLIST_REMOVE .
+> 	./misc/sys/queue.h:#define	SLIST_REMOVE(head, elm, type, =
+field) do {	\
+> 		if ((head)->slh_first =3D=3D (elm)) {				=
+\
+> 			SLIST_REMOVE_HEAD((head), field);			=
+\
+> 		}								=
+\
+> 		else {								=
+\
+> 			struct type *curelm =3D (head)->slh_first;		=
+\
+> 			while(curelm->field.sle_next !=3D (elm))		=
+	\
+> 				curelm =3D curelm->field.sle_next;		=
+\
+> 			curelm->field.sle_next =3D				=
+\
+> 			    curelm->field.sle_next->field.sle_next;		=
+\
+> 		}								=
+\
+> 	} while (/*CONSTCOND*/0)
+>=20
+>> Should the SYNOPSIS be the following instead?
+>> ```
+>>       void SLIST_REMOVE(SLIST_HEAD *head, struct TYPE *elm, TYPE,
+>>                               SLIST_ENTRY NAME);
+>> ```
+>=20
+> Yep, this seems a mistake I made in 2020.  A fix should include the
+> following tag:
+>=20
+> Fixes: bb8164dec0c4 (2020-10-22; "slist.3: ffix: Use man markup")
+>=20
+>=20
+> Do you want to send a patch, or should I do it?
+>=20
 
-	alx@debian:~/src/gnu/glibc/master$ grepc SLIST_REMOVE .
-	./misc/sys/queue.h:#define	SLIST_REMOVE(head, elm, type, field) do {	\
-		if ((head)->slh_first =3D=3D (elm)) {				\
-			SLIST_REMOVE_HEAD((head), field);			\
-		}								\
-		else {								\
-			struct type *curelm =3D (head)->slh_first;		\
-			while(curelm->field.sle_next !=3D (elm))			\
-				curelm =3D curelm->field.sle_next;		\
-			curelm->field.sle_next =3D				\
-			    curelm->field.sle_next->field.sle_next;		\
-		}								\
-	} while (/*CONSTCOND*/0)
+I would like to send a patch, please. :D I will do it in another email.
 
-> Should the SYNOPSIS be the following instead?
-> ```
->        void SLIST_REMOVE(SLIST_HEAD *head, struct TYPE *elm, TYPE,
->                                SLIST_ENTRY NAME);
-> ```
+>=20
+> Have a lovely day!
+> Alex
+>=20
+> --=20
+> <https://www.alejandro-colomar.es/>
 
-Yep, this seems a mistake I made in 2020.  A fix should include the
-following tag:
-
-Fixes: bb8164dec0c4 (2020-10-22; "slist.3: ffix: Use man markup")
-
-
-Do you want to send a patch, or should I do it?
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---6ojynqbqnhjamxq2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgE0tUACgkQ64mZXMKQ
-wqmJAw/+IyHkkv2HibOC51HP+04WgCI5t0Fr4HOXRPCXj1fExmqad709HkJTfr6E
-lxL4E5mfoE59+jGFmgaYefZpwJkL/zZx5SsHJiyHF+7gjwPNQTEc0p8pONoAQHCq
-qohr0+R9f6wbUt9e7D6NcHBMolrXu6eLAHoRy0hDTkA3QT9818xRVpIYl0ArFOp6
-sBDgkmzrGauATY6AWk9jh0pzP7WE2XNJb7dna5UsW4/mmDgostejGqCJNuuMzPEc
-FOlL/G0TI+Zz9Bam6qJVuGiRKgH6XJSjMVNxa01unVa1SE6Rjk45aEtuFsJ2rDdV
-G3Hq4r/l/2lCL0IYnBOUIg+lhWT585K0JQruaM0zRPSFgqJGl4BCjM4fuELl4MAC
-bg5L3xU/iMd5x/ry4RBOM86Ez1+hq9fAS9sBf4JS6BNjRcFH+SxBLb3CMSF8YjrZ
-yfVQ25IVOhi3PfpAhuFj7nCzx2zo6Ewu117wkxrcEyOcE9iFtyZZMU8LqavuVGkX
-SBuzyMOOgls3giru106CRBZ92XRido/HASzuKRZVoPGeW7dVoVd46YnX7kOpUHuy
-fL9tBuXCV/1zpbMuFhDynZtPnyjbfsj4svh0Z/eJ7ukbl7fZB2JtWachZxyQpXZz
-Vqmyq3Vsg85eWTZZp/47ktn2pk+WaidV+HAmAu3C3F8M54n0u2Y=
-=1Jna
------END PGP SIGNATURE-----
-
---6ojynqbqnhjamxq2--
 
