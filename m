@@ -1,141 +1,135 @@
-Return-Path: <linux-man+bounces-2789-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2790-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9646EA947FF
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 15:38:22 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C753BA948FC
+	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 21:17:01 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6EB801891BE3
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 13:38:33 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CB32E3ADD68
+	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 19:16:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D3EE1E9916;
-	Sun, 20 Apr 2025 13:38:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C0C720CCCC;
+	Sun, 20 Apr 2025 19:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n2iGUC9x"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVWROH4M"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com [209.85.215.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD51262A6
-	for <linux-man@vger.kernel.org>; Sun, 20 Apr 2025 13:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC33F19B5B8;
+	Sun, 20 Apr 2025 19:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745156298; cv=none; b=h0pqb4KKIcje+PPpB+c+4YAZKay6ObSiJ+khNKZZL3ixHuJYEPBvYZZ7c71TNlsnOj6f9by75pOW9RVtGFnsfxS9kP+2uO9AjFZ2YrxPu86S9O8MQ6mRBTPDHm6VEma++1i38FcWAALRgd/yJGRE8kC+GIN4wEyaNh9qtILdIws=
+	t=1745176617; cv=none; b=S1/5NrLGYQgUSkSz7pfr90wGlUw5UwP0KROeJvb+bNFYCUrzeEo3PmINnaZUqYzWS2Yp3QQUGX9jmJsPP3ezHoEiHADOtuUclyY6tP09cxWYW60RBIQIwiVgozkq4GzOUYGYmDTWPKyYcTOE2zQ9R1M3pq4/wRCXljJ+ZTfLbak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745156298; c=relaxed/simple;
-	bh=ZiG7OPNICvixWvfab4KSloBr25XdiPdqFwGqSI+mJ+0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNniAm96pxaR58TtRwq5HLfS1dGs7ttPrOZDf/5pa7m5gP4r364cm2LRdLateDtEcrW8/5DGJi6RTpDhVM6w4ENBmrS2E6M6FGm7Rcqlf40Ac4Tu2128l5H3y3XbzoAvZukjkIloOrQvMQlJDPIB+oQ0wLRYf5IoGJ3clfOorC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n2iGUC9x; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62344C4CEE2;
-	Sun, 20 Apr 2025 13:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745156296;
-	bh=ZiG7OPNICvixWvfab4KSloBr25XdiPdqFwGqSI+mJ+0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=n2iGUC9x+SVXZjf+7sazw4yrzUpGb3DRSOd1DUQ7bEudzG0k7VoVpROhOrzDgeoyH
-	 Ie32eATW3oWB6LwDY91BjcyjuVbkgBEnSBHzWgzKl2HXEuvrtlkMGrZx4coZUA2m/6
-	 pKL2xZQCsuJiZL8/aNlfUbsZ40PaF7JgiB65nzUkQYUttqILViGKm/ayNEgRS01JtV
-	 pxeQFz8MqjsHNMgcVI0oUFCIrdnB3/lTfmPr/UJL1Sy9WdZyLvL18gYTGN3w5L88ga
-	 qQ/W5w38NXFxjdbaX2ZL/rMKGD6qoCwoUzHGsWHJWyTla3CL1i4S3Ue73907b8R8Yl
-	 dPdPf1vPqfUmg==
-Date: Sun, 20 Apr 2025 15:38:11 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Solomon T <wjsota@icloud.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/slist.3: Add missing argument
-Message-ID: <lzdxt7kwzn7yxexjrqmlghm5t77j4hlhfe65y533bbmbokl5y5@zqggv2durlcd>
-References: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
- <20250420124447.1552510-2-wjsota@icloud.com>
+	s=arc-20240116; t=1745176617; c=relaxed/simple;
+	bh=bhJ3YWrCT+v6YJ1pnpPZRiRNVL+HYKAjRaKngCmTWVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OWjN0YOX38ZvXIR/W7R92MrWJnjZ2F6Qtk4VwLG1ASw6CLtONTFJZBuzUUY5a/65acyBVB6jYiiYEcGuLkVnI82dBB6PV2WT/7bXwjUfGO30TMtocUXM2ZGDIC2p6X5dNO3yr8oJIELaBjG4qpT0rde6DVeQkJlSqQF5i8Q9NXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OVWROH4M; arc=none smtp.client-ip=209.85.215.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f196.google.com with SMTP id 41be03b00d2f7-af548cb1f83so3293566a12.3;
+        Sun, 20 Apr 2025 12:16:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1745176614; x=1745781414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LPV63PL8/TxpXvMaz1I5ZEE6LMusimG3NpoJZlCfiyg=;
+        b=OVWROH4MEweKcttDOBz5SBtJsoIF21+CfXQTxyhKe6K86OD4EYoAyuCKzT9j+5GGb0
+         lzwl4ltgdoGaAi8fqPaT+TTF8xyyOtBK3AR+byo7+WxubCXMvyMsfyLCOZ9ucJHIuYxE
+         /eTpUf9ZhdO9UQPqQz+egDTFVc1K4koinOiiGNOQpopeH0MLR2Ay4LBoW0gRt8+6MGne
+         +DWq6l3TEP8pL7MfPdCeOv3GVRmK6CUF5sQViU3UOxw080RQL35u3RHsZMsn/i175Tk/
+         XIEECCpbjL6S3fLzUpd5PGTQciVRvFwOxZwe7nafTpGjLamsYwlOaiaVxkFnj91jsdnf
+         5vzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745176614; x=1745781414;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LPV63PL8/TxpXvMaz1I5ZEE6LMusimG3NpoJZlCfiyg=;
+        b=xSzEyDGWCAjyXwJb8uI/diMcsfZPwnsTyqIXXzcWBWgSh4vkLwDSON+OzZ31mBk7px
+         PNbEOv3FnFKQfUBKVnIZbBayn2pHNUgWUXmCZaYoo+JzAV3u3TyimbAiaNo0ZpWDJ6eP
+         eXaos4CN3IW0nwmIysxACdKMZEagIV3qdazbwGRTrmil9petfivkC+2nv6981kbb54qw
+         d0wfp06PHy6tuYYQrUm1ETMQK5P917nxnEB1TlKt9S82a2Hpccm5uTZYE8bHLf7/m9qo
+         s31uMhogY1NdfrWaKy/BBoAOs5HtjwdW+hfvsA+FLJKWTAddepjJrWaEOmJF8Yen7iog
+         xq0w==
+X-Forwarded-Encrypted: i=1; AJvYcCVynUxyPecZXCISaqLUg3BL0G9Rf8SGBzH+coDjKlDpLLuAYGNHmToDdZ3uN2lp4tMd+0v84gOJ5lg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFwD3OQMicSN1kgyX9zAVUNm6Pehab5xefFwG1ICIEKZPNutGh
+	ztM0K3X79XQNsD79NalOpXtj/b4PWlIuKPpKRvDrHSNXhj3o9BAY
+X-Gm-Gg: ASbGnctT0tnafHmRmUsz5veAtMBPFwU8DjIawhmH7eeXGNzts8oobeUUkdazPtCM2V2
+	PrqxZV9tWTulwCTF9OV7uUWDS6c2CHBfYZEDYwdRrFk0GDCFGLjtrmUVYY57hEhNP4nVpoSP4Ph
+	FGg/kc84NNRjczIgBzNNSGXMSDjP+8zSSPmSaYYHMTW1fOAyDIj6mS/u283Y9lSksrZA/QoVSbK
+	IJujU1fawxtk0N2XpxcfIY95aKNafF9KtgnplOXT9jpwGz6dPBe2tG+XtcGaBG+hyOvckWyKpVm
+	3mrQpMu8/6t4bnVgHDtdCt9CpyF6H3U4calpqS9m8PylQRBD8d9jGkE=
+X-Google-Smtp-Source: AGHT+IGnR7hgaghygtJs6vKtnNOpzDkaKShg7ztYy8QA3/llrsiMnapfAu1K779wyAELBd5PlVLOhw==
+X-Received: by 2002:a17:902:d545:b0:22c:33b2:e420 with SMTP id d9443c01a7336-22c53285a12mr121863515ad.7.1745176613899;
+        Sun, 20 Apr 2025 12:16:53 -0700 (PDT)
+Received: from localhost.localdomain ([121.171.113.106])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-22c50eb48ebsm50944015ad.122.2025.04.20.12.16.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Apr 2025 12:16:53 -0700 (PDT)
+From: devhoodit <devhoodit@gmail.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	devhoodit <devhoodit@gmail.com>,
+	Carlos O'Donell <carlos@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and CLONE_NEWUSER flag
+Date: Mon, 21 Apr 2025 04:16:03 +0900
+Message-ID: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lmuyh5jcrstycpdj"
-Content-Disposition: inline
-In-Reply-To: <20250420124447.1552510-2-wjsota@icloud.com>
+Content-Transfer-Encoding: 7bit
 
+CLONE_NEWPID and CLONE_PARENT can be used together, but not CLONE_THREAD.  Similarly, CLONE_NEWUSER and CLONE_PARENT can be used together, but not CLONE_THREAD.
+This was discussed here: <https://lore.kernel.org/linux-man/06febfb3-e2e2-4363-bc34-83a07692144f@redhat.com/T/>
+Relevant code: <https://github.com/torvalds/linux/blob/219d54332a09e8d8741c1e1982f5eae56099de85/kernel/fork.c#L1815>
 
---lmuyh5jcrstycpdj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Solomon T <wjsota@icloud.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/slist.3: Add missing argument
-References: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
- <20250420124447.1552510-2-wjsota@icloud.com>
-MIME-Version: 1.0
-In-Reply-To: <20250420124447.1552510-2-wjsota@icloud.com>
+Cc: Carlos O'Donell <carlos@redhat.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: devhoodit <devhoodit@gmail.com>
+---
+ man/man2/clone.2 | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-Hi Solomon,
+diff --git a/man/man2/clone.2 b/man/man2/clone.2
+index 1b74e4c92..b9561125a 100644
+--- a/man/man2/clone.2
++++ b/man/man2/clone.2
+@@ -776,9 +776,7 @@ .SS The flags mask
+ no privileges are needed to create a user namespace.
+ .IP
+ This flag can't be specified in conjunction with
+-.B CLONE_THREAD
+-or
+-.BR CLONE_PARENT .
++.BR CLONE_THREAD .
+ For security reasons,
+ .\" commit e66eded8309ebf679d3d3c1f5820d1f2ca332c71
+ .\" https://lwn.net/Articles/543273/
+@@ -1319,11 +1317,10 @@ .SH ERRORS
+ mask.
+ .TP
+ .B EINVAL
++Both
+ .B CLONE_NEWPID
+-and one (or both) of
++and
+ .B CLONE_THREAD
+-or
+-.B CLONE_PARENT
+ were specified in the
+ .I flags
+ mask.
+-- 
+2.49.0
 
-On Sun, Apr 20, 2025 at 12:44:48PM +0000, Solomon T wrote:
-> `SLIST_REMOVAL` has four arguments. This commit adds in the missing argum=
-ent.
->=20
-> Fixes: bb8164dec0c4 (2020-10-22; "slist.3: ffix: Use man markup")
->=20
-> Signed-off-by: Solomon T <wjsota@icloud.com>
-
-Patch applied.  Thanks!
-
-
-Cheers,
-Alex
-
-> ---
->  man/man3/slist.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man/man3/slist.3 b/man/man3/slist.3
-> index 50cd1d452..ff68e72d6 100644
-> --- a/man/man3/slist.3
-> +++ b/man/man3/slist.3
-> @@ -57,7 +57,7 @@ Standard C library
->  .\" .BI "SLIST_FOREACH_FROM_SAFE(struct TYPE *" var ", SLIST_HEAD *" hea=
-d ,
->  .\" .BI "                        SLIST_ENTRY " NAME ", struct TYPE *" te=
-mp_var );
->  .P
-> -.BI "void SLIST_REMOVE(SLIST_HEAD *" head ", struct TYPE *" elm ,
-> +.BI "void SLIST_REMOVE(SLIST_HEAD *" head ", struct TYPE *" elm ", TYPE,
->  .BI "                        SLIST_ENTRY " NAME );
->  .BI "void SLIST_REMOVE_HEAD(SLIST_HEAD *" head ,
->  .BI "                        SLIST_ENTRY " NAME );
-> --=20
-> 2.43.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---lmuyh5jcrstycpdj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgE+MMACgkQ64mZXMKQ
-wqlhfBAAm78mxbGq5ASbVIBMw54zrfolpAttAo1sWeaGUEzQsN7vcG8nLy+8suuv
-8lsUiL9V9pq8o0Gf6DqzgUo2FzfhLdqfFTgT8ixxyXh0yYqTmiDzaRoRxYQvPfq/
-imh2qVYv41Agemnde1tUB0bCPYbDkWNRaNQrQKoDBbHrz1vapyBEyMoAnk0yxwXl
-7IZ4WFxppCT5mkWJkqpjDxYUc4HOZnB2M7rhItgpy+lPeJ0pzrd3JukmgpEikX6A
-8V8QtqZpYlqyM8mKiY/lr+9WCoc1EFiiEs+v+q40GaLvLRfpzkgSeG80b1pdIVbk
-BUzlU8FUCNpB8/4GDTV/MkKJ/ZJ5diahjLTt8vODx9xKWgbCWWK2XgbFbsc65qsc
-U+SzJYH1u3QYDUP1VdUo/qNBKd+hvOP81dlaI+SVKOUv4UkRnL1SLyFSaOEjG3ci
-hOyb8ZMfewdsXKyfxAuBWKjxtir6yt10lYl1jjk5QLPjwN6//1ibAe5J+vb9eX4N
-m8WmMSh/0Agvq+J+gHTYqmpS6IoL2bqfHZPLGpLalhTq6A98GVdpJlw2bJTAJfo9
-5SzxvJ92qZprM0tRhGRDgAx8gDQQY+VB6AOioSGLsMQ5xq1qlj1u6ARWNvzqxDdT
-L5AJL6veGK8+i0kNlZ3JBtpHCAKcOrc0adY2SFhqMoKS9I5ZCws=
-=bFQQ
------END PGP SIGNATURE-----
-
---lmuyh5jcrstycpdj--
 
