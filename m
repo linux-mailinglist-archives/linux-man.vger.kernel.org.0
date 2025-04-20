@@ -1,120 +1,98 @@
-Return-Path: <linux-man+bounces-2787-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2788-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 709AAA94795
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 13:46:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE25A947EA
+	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 14:47:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 74D407A8A12
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 11:45:32 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6EE3E18941A3
+	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 12:48:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 136AD19259E;
-	Sun, 20 Apr 2025 11:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B64B1925A2;
+	Sun, 20 Apr 2025 12:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSYDEFwH"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="r69ukjq1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from outbound.pv.icloud.com (p-west1-cluster5-host3-snip4-4.eps.apple.com [57.103.66.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5483194A45
-	for <linux-man@vger.kernel.org>; Sun, 20 Apr 2025 11:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CA81FDA
+	for <linux-man@vger.kernel.org>; Sun, 20 Apr 2025 12:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.66.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745149596; cv=none; b=tZMsf7HiWD/QJ7Oj+mcI/oe6Soi50DLVpnLZ3lt0Cxj4k4qt31yLBwrpFpf691OUShej85qR3VJMYtucmiI08nZmazStiBW7Vhb8I3Rx55dp50OtpymyMvNy9qjwfzWiE+gNSuCAj+efho1PzUDQqflIyKRiOG0wjAFqAmJCS6w=
+	t=1745153266; cv=none; b=AOEaFGsfp/IuD0AI4dE5Ram+w0AhEvEm9JbQvtIcTOS39BCtov9LzxsMDp5IGPSwrUmQDx5MPuhyRc50U8jffYjedN+FdmbKuo2RlRSDBSGziP/ikB0C7maCxcmQ2DTCXTfvzhYV94wxGqUtRhD+fBMy5UQRrrOesuJZd4u2TP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745149596; c=relaxed/simple;
-	bh=/spfGJatE+KhfNKWgnehrpvmYryqPCsruKduQkAibJw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EC7pTSEtf3SiZQ1L4n6C+q5O+aImSAB9rrY8f5qtje8qwqkDfHfx+v0LA6gXYbPkrx9ZUGlllnvUNpUiNG3uf8Hnq3gclIKrRQTybn7lc/nq2aDIvyrbNCvztEbJfNGyz0iFn0YyGDZZfWTRPAPh0Hm/y3C+MKuJhumNUlNc64I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSYDEFwH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21EF2C4CEE2;
-	Sun, 20 Apr 2025 11:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745149596;
-	bh=/spfGJatE+KhfNKWgnehrpvmYryqPCsruKduQkAibJw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LSYDEFwH+q+cjDfYunRRqrQaKFsTJ8Ne9a3yYzXKPHqiTkYSep/IZx/orANY8knVV
-	 mcgBzJb9eIeqs6Q83yTox2n3p7cihPPz6jlHnDG4Gt/FHwH+0JmN7vKtuwHMRag4I+
-	 YQQ5UbAlpxFk0y+GC/guxywtHFNM/fslC8Hs5pMtGwofmF3WZvZxGuknwzmIeOAZJz
-	 yaAuJL94tERgG+c2hng3PPnUR6nUaysh3E4M1yRkrGOZIfCSLKdemxI1LwmsIbBHFR
-	 yMbXi4eDv08IbIdI6r9cKIVpeSIo9bc7tbzkyePZcO+/KiQ6bQyp45IWLpreFaFjch
-	 DtYpc9JnJm81w==
-Date: Sun, 20 Apr 2025 13:46:31 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Solomon Tan <wjsota@icloud.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: SLIST_REMOVAL number of arguments
-Message-ID: <fahpbnjyzgx3xfkfexnv4lrv7c2smstosxiafenujepzhmgmrg@pibzktpkv2yk>
+	s=arc-20240116; t=1745153266; c=relaxed/simple;
+	bh=UHXOfGOVG9E5/oU3WXzXrrULV5c9BjWuXp8jyuHePmY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j2gplmoLKBKrO30flIRmN/Owi6b47JWeKW329lHk9is2g4+SM6RlzbnYAiSFPPi94HgEU+P4t2hlTtooA/I1I2QwPV+E7NOYpBglcsyBXwPWtmHUESjlpv3gxdW88hIHGEbKNeyD36sh3ExMqv05wgBodl16NqQyqBkVoxyFk58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=r69ukjq1; arc=none smtp.client-ip=57.103.66.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
+	s=1a1hai; bh=XBkFPWGlyH1P9X6TtMuo9mBggXkeBQJLrs52GONBJxs=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
+	b=r69ukjq1P3eH7hLq2iYgxPjHuFXZFxZM7D6LezBIEQ2xxMZaqZmeJKCAyFo0YflXr
+	 WaWJea+S7eSxeApzSgo295sn0KT4AD1tduA7C8zeM30vbeXVWBFwgCjgPaC4aeru71
+	 Gjsc5Vbi6fwheNA60jb8xKuDr+4aSoDP1p+e2fOfcp57uo4iThXyfja+Y/X5S1GKxR
+	 5tiQ7pySfLmYF2Kfs+am+Al43mWF/qJtVOG2orXY7myezBV1eqWX48rXxFF/fXhM0T
+	 U1mABPbEqdN08KVVxcUWP2X0tpp/Sn3D6CURxso55qYiUYCy1YoLzQMa6Qv8Q0RgAV
+	 UXh6x38Z6TC2A==
+Received: from localhost.localdomain (pv-asmtp-me-k8s.p00.prod.me.com [17.56.9.36])
+	by outbound.pv.icloud.com (Postfix) with ESMTPSA id E1A4318004A2;
+	Sun, 20 Apr 2025 12:47:40 +0000 (UTC)
+From: Solomon T <wjsota@icloud.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Solomon T <wjsota@icloud.com>
+Subject: [PATCH] man/man3/slist.3: Add missing argument
+Date: Sun, 20 Apr 2025 12:44:48 +0000
+Message-ID: <20250420124447.1552510-2-wjsota@icloud.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
 References: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
- <tzx7sgns2uopu75s5gipw2yxkpg6drun2esl5feoazulkqjnqd@hoayn3jqoe5p>
- <70A926BE-9E8F-426A-BE5A-4D073FD9C5AF@icloud.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2dfkjcfhapptyozc"
-Content-Disposition: inline
-In-Reply-To: <70A926BE-9E8F-426A-BE5A-4D073FD9C5AF@icloud.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 2F7VYIp0BtaoSVUqhflsprXra5f3u9F_
+X-Proofpoint-ORIG-GUID: 2F7VYIp0BtaoSVUqhflsprXra5f3u9F_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-20_05,2025-04-17_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 clxscore=1015
+ mlxlogscore=877 phishscore=0 bulkscore=0 malwarescore=0 mlxscore=0
+ adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2308100000 definitions=main-2504200105
 
+`SLIST_REMOVAL` has four arguments. This commit adds in the missing argument.
 
---2dfkjcfhapptyozc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Solomon Tan <wjsota@icloud.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: SLIST_REMOVAL number of arguments
-References: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
- <tzx7sgns2uopu75s5gipw2yxkpg6drun2esl5feoazulkqjnqd@hoayn3jqoe5p>
- <70A926BE-9E8F-426A-BE5A-4D073FD9C5AF@icloud.com>
-MIME-Version: 1.0
-In-Reply-To: <70A926BE-9E8F-426A-BE5A-4D073FD9C5AF@icloud.com>
+Fixes: bb8164dec0c4 (2020-10-22; "slist.3: ffix: Use man markup")
 
-Hi Solomon,
+Signed-off-by: Solomon T <wjsota@icloud.com>
+---
+ man/man3/slist.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Sun, Apr 20, 2025 at 07:37:37PM +0800, Solomon Tan wrote:
-> > Do you want to send a patch, or should I do it?
-> >=20
->=20
-> I would like to send a patch, please. :D I will do it in another email.
+diff --git a/man/man3/slist.3 b/man/man3/slist.3
+index 50cd1d452..ff68e72d6 100644
+--- a/man/man3/slist.3
++++ b/man/man3/slist.3
+@@ -57,7 +57,7 @@ Standard C library
+ .\" .BI "SLIST_FOREACH_FROM_SAFE(struct TYPE *" var ", SLIST_HEAD *" head ,
+ .\" .BI "                        SLIST_ENTRY " NAME ", struct TYPE *" temp_var );
+ .P
+-.BI "void SLIST_REMOVE(SLIST_HEAD *" head ", struct TYPE *" elm ,
++.BI "void SLIST_REMOVE(SLIST_HEAD *" head ", struct TYPE *" elm ", TYPE,
+ .BI "                        SLIST_ENTRY " NAME );
+ .BI "void SLIST_REMOVE_HEAD(SLIST_HEAD *" head ,
+ .BI "                        SLIST_ENTRY " NAME );
+-- 
+2.43.0
 
-Great!  Please send the patch with this header field, so that it's
-threaded under this conversation.
-
-	In-Reply-To: <1E1258C7-25AD-4BA1-B82C-6CDFC9DB9887@icloud.com>
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---2dfkjcfhapptyozc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgE3pcACgkQ64mZXMKQ
-wqnz7hAAh8EmHgbS8RlfOaDqWeOa9WFf3MqOJIMDN4y4vHpdBZYDMopSzsh5Scv6
-ATtr/62jY3+1oP5LkLxnDJjAh3ybVvrqC1hnuJT7HL3rjIPfvLdys/xalQVoaNMX
-cULp11iMoCYxzYOc1yg0OMQiyJKn6x2PfdLgPJQMiBbDvzD6x2zUfpnQMILrCwDt
-Rw1ySSZa14S60bNB+2NjN0BkRPvRsya7MtSSSStHGSNJxdBkfxITuJRl1pP5qANB
-RAzeAfjEcQAXX4jcXVXlE6rI9RC+MQ/Jq+RbmF4ox6Spj34v5zWEsqmayZGsnjO8
-nTiS2grq9U5Inlqd0ETqCkGhiFAgyUnQst89+19e2eJbZuj9anRoJyv4v1l4MdRn
-FQOLjFSQqnwXwxGd/5O7GVe3eqCRPCxz9BBsHVIM1q+VitgmB1Yj3sg0FNS3Q1yt
-IoztJ9vTFr5KIj3dFXhuVloyYeHez8bb84u7fegjEOkHC8B1FWUMwgecDhIZxVDD
-Vev/L7zQlCJke+gmVDTH6OcGnN6l3zeS3xicAGiUzV940LzjnC1NbDP44gAgiMid
-kv9TBYABxhMLZv9GeQB0z/EUK1tEW9mlk58imWjoepraaXBIe2tszQsG+WVKIMYb
-54atAnnfHvy8HfvqJsSv5g57AWZLrMQnzEffzBbXUv3RXmzGuQo=
-=O98L
------END PGP SIGNATURE-----
-
---2dfkjcfhapptyozc--
 
