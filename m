@@ -1,53 +1,52 @@
-Return-Path: <linux-man+bounces-2792-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2793-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00ECCA95748
-	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 22:21:37 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E728A9575D
+	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 22:30:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DD06C3B1C7F
-	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 20:21:19 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0F3B53A95EA
+	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 20:30:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFB0E1F0996;
-	Mon, 21 Apr 2025 20:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB5791E5B72;
+	Mon, 21 Apr 2025 20:30:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5wAK1qF"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJxV2OGh"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53AF1F03FD;
-	Mon, 21 Apr 2025 20:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8AF1E32D9
+	for <linux-man@vger.kernel.org>; Mon, 21 Apr 2025 20:30:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745266891; cv=none; b=hhLJhn+m1o5ZPapOxvzCI+0R0O9nRnPIsMLMGwP2rXNyZrnMM5Pv5sXyTbdtc0dGRLL/ib1ai0U+n4MUmTGuL0r/HJ9D3hFTDZ1td6ScD1pqitaC7FrdhNvwSWD9orJrD+BBifh/L3XorEQc3x94MHybNvnDKusLLX+XHznL2Us=
+	t=1745267431; cv=none; b=uaALMMcKA3GCb76xw4BSJvH44WwnuRaw4YvRUsGMCKO29K5jRs52xLBmDen6lFfpKm7OQDKYXLSQMasEucIhjZ2FyMpEP99fUNASMmE1poH1Bt94lGaQLVTlS6dKEzvSChgeAoPeRbcj5II8Ndc/pgnBbU96Xzomfdz8AxSftb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745266891; c=relaxed/simple;
-	bh=a/uy4obNcdi0tq9zv4uHUvXvxyb3WKWOb8RycThBiX4=;
+	s=arc-20240116; t=1745267431; c=relaxed/simple;
+	bh=8VHobLVLUPafFGjFmiQWz2evjzAo3vYAHlMgo4Rhr4M=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=iVCtZtdx5OHBtJ2um+ythCK12E1AH0AkBIPvWD8efB3UtM+leVZS/rQIQVMdeHyzGfj/QcVGHA7bJFL41b06Q9l2tz0mLs27e1gsgSRFaJ97N19sKGqXzjzmdbZlLJAB3qhJ8B/bWxl0yFQYlaua9WiY007UJGqpStD4GrnEwe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5wAK1qF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB02C4CEE4;
-	Mon, 21 Apr 2025 20:21:29 +0000 (UTC)
+	 Content-Disposition; b=Esz84mdGomAAQaP1VLH0yeBtk6A1Ke1dHLRMcg2upYJ/WBcmyNFVWk+zpvYGucH2FYMEvw5qwqc8g7SjOakAYRKiJRZd2j8gji4cIuNfZg1DGrNgDKYol1zrvoHIQwnbmPwW68+J3V34P0XpKjrW4jIENeMjUiAt5mqPEQm3iAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJxV2OGh; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A38C4CEE4;
+	Mon, 21 Apr 2025 20:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745266891;
-	bh=a/uy4obNcdi0tq9zv4uHUvXvxyb3WKWOb8RycThBiX4=;
+	s=k20201202; t=1745267431;
+	bh=8VHobLVLUPafFGjFmiQWz2evjzAo3vYAHlMgo4Rhr4M=;
 	h=Date:From:To:Cc:Subject:From;
-	b=D5wAK1qFnQcOfSzdhe1l469qJ5vtW8aV6tjcbs+gpdYZXRZvUPgy5yjn4QkFWTvHF
-	 MCxtCuRpB5MkAXB9FPm+j8eckiItRsry2u8m8DxfyhJ2RYiM2Tol3Buwqq5YavqTj8
-	 8bb5sX5xG6RTKuJr5bz0steg12hcfQvlKdPgOlb9ekgpH95+bVXTHq+4ETbXVg23CI
-	 KIie7ww1MKOn/4Qrk+vsuYlm6Fs1ctB6bsFAMCj7SQJhI8yMmVkcmLAtdZaFD/aEHk
-	 Ir6cJxaV60kkH7kpcj/VekA66SbkKj/4Wwm8aXNYgBKySyc36PZCm+dejST/J8klJS
-	 dLMA6ebmdl29w==
-Date: Mon, 21 Apr 2025 22:21:26 +0200
+	b=LJxV2OGhoEJ6ehyZ1T9lpNN9N4nn7ihbaDoztjUZHHzsifIUHJPGI33+tZkvq3mOn
+	 qc68NTfEN/6gXEwgW2+oSFp9iMdQU0SV0UmQHYSP1DdMq6bU9EF/xvtQMyZvrB9hOS
+	 MsUD+lIKzdmVGjXFMaYD8hzePfTmTZ41azFbJ9kQPu7Sh5A+HKDURbqw31rdlGJlMC
+	 QmnXv7T7t2bV2mu3wQF1mLjTyV7Dtgw7Zng+gqqtbpqI1RtuE1O0uSA1Gfx1FgLbe8
+	 OI6spMdJtJn2+4K4Q/J69ceZ0uMLRCFZYyw42ae6tl9jNk6kDli8djNJn0dBSzdsuX
+	 CnWY1M6YotT1Q==
+Date: Mon, 21 Apr 2025 22:30:26 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>, Chuck Lever <chuck.lever@oracle.com>, 
-	linux-fsdevel@vger.kernel.org
+To: libc-alpha@sourceware.org
 Cc: linux-man@vger.kernel.org
-Subject: {FD,O,...}_CLOFORK have been added by POSIX.1-2024
-Message-ID: <e2t4obcqeflajygu365ktxnsha5okemawuwl32mximp5ovdo53@2pq2f46wfdkg>
+Subject: dup3(2) now specified by POSIX.1-2024
+Message-ID: <edcoajvvdnxi6e2rwbz2zfhj7lysbrhy4rafkew7wu2e3s36gv@rw2jkot3eqvh>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,29 +54,25 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="64c45ak4bbihape7"
+	protocol="application/pgp-signature"; boundary="gqmev4z7m4vgwkyx"
 Content-Disposition: inline
 
 
---64c45ak4bbihape7
+--gqmev4z7m4vgwkyx
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>, Chuck Lever <chuck.lever@oracle.com>, 
-	linux-fsdevel@vger.kernel.org
+To: libc-alpha@sourceware.org
 Cc: linux-man@vger.kernel.org
-Subject: {FD,O,...}_CLOFORK have been added by POSIX.1-2024
+Subject: dup3(2) now specified by POSIX.1-2024
 MIME-Version: 1.0
 
-Hi Jeff, Chuck,
+Hi!
 
-I'm updating the Linux man-pages for POSIX.1-2024, and I noticed that
-POSIX.1-2024 has added *_CLOFORK flags (with the obvious behavior).
-This is just to let you know about it, and also ask if there's any work
-in adding these flags.  I'll note something about the existence of
-these flags, and that they're unsupported by Linux, at least for now.
-Is that okay?
+dup3(2) is now specified by POSIX.1-2024.  It should be provided when
+the POSIX feature test macros are used.  Are there any POSIX.1-2024
+macros yet, or is there any ongoing work for that?
 
 
 Have a lovely night!
@@ -86,25 +81,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---64c45ak4bbihape7
+--gqmev4z7m4vgwkyx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgGqMAACgkQ64mZXMKQ
-wqm/lA/+IrtjmbravQWb+VVO5fKSNiMZi3IbTHLzTY5nkDfFxpC+AxrQGU0N2aC7
-sLyp8LA2PE881WLKKOmnMjlf81lHYUq5Aygl6e8d5i56hi+8E916kaa+Oo1EaY5/
-KD8fYNMzfzepdgkmS3naThGolNCmfedWRILOFJKCAZrGaymFf3OWC0tdlVyF9hHe
-e+U+wMNWl3dgTO/IxJZ+vbRNzkW+JMaW+btVbL15iNA8FUVXMdoKuRGzQmlfhZs3
-NrAaqC6N0HWGk7k2RJKrciMy+vuQ0AqPyRpNTE1VMjVEsRJAIm58IHspnl/ijotd
-hIhbcuqcm+964I62hxOYadgeFA+MbuiKwz1iZHqdxTtsWU0Ia1gUUCQI8Z5XnFHi
-O/OKP8nD0b+48FuSIphhnbK6Jmx5ughoKUG8VSuEqzLHUc4U39fw1UZCkPvthecI
-Sk6qhHujU1uNNO2X9cbI0dRbL/XFX2a8cHouPHiZPEjQW8M2p4NLco0HQu9sq5PK
-KUnWkV/5uXLgWTBCy/sD1cYdQI3eQMGutxObMEiPvbVeQGwG40nzFNCoanMeC0f5
-fs3FD7t34o0fNDeCaG5NOwmlOp9MvSYnRiaE0Eugv2vMaInj0jjiIRuYdh6JxXFo
-H7EZXZ+MJOvqAzEWPeB3szBbbMKEEGoBT5cPf64LNpimxqgLZck=
-=RwXv
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgGquIACgkQ64mZXMKQ
+wqkw3A//aOfRch4uVT6Bpl+PscpWYfEvUHuAYyYYV2eiN2l9r64OBkNxHdAC4EWp
+d3iXgq1NOwYcS3ZCpo4NrboAdy5kFTIjzbbLJvGwiTBiWq3aKa+1iNIpdl+L6gke
+atxifdzuUpPAoRayK/wAfpm4E7cja4rNH23VVsNo8KibwM3BFCnv0i0WupCz7LBy
+kWX/uiqs+hwqHxS5z6q80HlvSL9BUw9nJig3HRZtklYmhDO3poRuTjlOjvAMLci3
+yUr9gyCKkx/X7/J6DpJxBYWNQr573Rw7d2Cq08xfv7GcTwaVGmRgtF4mltkIAYoY
+sIZIUBQkLDihMGSQV/aX/Xg4PK5wqOoBxi4P9dsr5xVb+Z/M/C5GanhTju/k9lwO
+x7AB9FEpsLO57rJ6SC1DbfJcdsR7jxWfuX7ZKfpSvpk2Rvr+OUSuDMvBVH52FP24
+hd4f9QdoN12Q+3NmA3QhbD7HizmCl5WrnErkxKhL7UoCWTkJR/3+eZms6NtdufmG
+SHW32A7Cs8mBFL3XZAbiI2EKHP0+k5MFRPO0M3YdwNolqxp9FMQnLh43w3v26vcw
+v5113G2eX43ZjMh6ZxRVd7Auya80SKiPE8ycGec3mn7x77YWo9q6YZcmgk7FP8gy
+sK9CxHKqNA486hp2pvYP477MJ9S/O3JOfjz0uB+yk7sEuLV6RjE=
+=Oh2x
 -----END PGP SIGNATURE-----
 
---64c45ak4bbihape7--
+--gqmev4z7m4vgwkyx--
 
