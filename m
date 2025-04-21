@@ -1,135 +1,168 @@
-Return-Path: <linux-man+bounces-2790-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2791-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C753BA948FC
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 21:17:01 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D40F8A95513
+	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 19:16:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CB32E3ADD68
-	for <lists+linux-man@lfdr.de>; Sun, 20 Apr 2025 19:16:44 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 176CA16CD14
+	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 17:16:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C0C720CCCC;
-	Sun, 20 Apr 2025 19:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A3FF19DFA2;
+	Mon, 21 Apr 2025 17:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVWROH4M"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="25UioA/J"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com [209.85.215.196])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC33F19B5B8;
-	Sun, 20 Apr 2025 19:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDC8171CD
+	for <linux-man@vger.kernel.org>; Mon, 21 Apr 2025 17:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745176617; cv=none; b=S1/5NrLGYQgUSkSz7pfr90wGlUw5UwP0KROeJvb+bNFYCUrzeEo3PmINnaZUqYzWS2Yp3QQUGX9jmJsPP3ezHoEiHADOtuUclyY6tP09cxWYW60RBIQIwiVgozkq4GzOUYGYmDTWPKyYcTOE2zQ9R1M3pq4/wRCXljJ+ZTfLbak=
+	t=1745255801; cv=none; b=uGkEKJErJqAMPhYN76RQIhexsINWTMbv82tWZEHS6owDJae/nd0CsanMsx5KU3+7UaIuxqY7MfmR1qkBhUKNWLlAPXtaadzLGPxFHCi1QOC+j2QOc0IlC9GQc7GJkco1CTjLLok0nZgdWcbRcH1AtpBz24JwTP2TOvlkwNMVUv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745176617; c=relaxed/simple;
-	bh=bhJ3YWrCT+v6YJ1pnpPZRiRNVL+HYKAjRaKngCmTWVE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OWjN0YOX38ZvXIR/W7R92MrWJnjZ2F6Qtk4VwLG1ASw6CLtONTFJZBuzUUY5a/65acyBVB6jYiiYEcGuLkVnI82dBB6PV2WT/7bXwjUfGO30TMtocUXM2ZGDIC2p6X5dNO3yr8oJIELaBjG4qpT0rde6DVeQkJlSqQF5i8Q9NXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OVWROH4M; arc=none smtp.client-ip=209.85.215.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f196.google.com with SMTP id 41be03b00d2f7-af548cb1f83so3293566a12.3;
-        Sun, 20 Apr 2025 12:16:54 -0700 (PDT)
+	s=arc-20240116; t=1745255801; c=relaxed/simple;
+	bh=ZFCSLHiDysg927Y/Nr3V/lVaKcJ7uAxp7qwb1bHSUZA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mGRCLZUwmJ6hjNhFy/vg5G/p641juW/kG3fJ+BJanvb9hxxAJXbVlN1qiU42Ojwff/BwuolKImRJEj6eR8TjxHoZlieIhdJWJOF87vEcjMOESDI5KXEdv0/KVS4f6yDbIGKHTEWALYje/b5Y4MuX26SzNpW7lBuzluwEsKnt/gE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=25UioA/J; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-4769e30af66so1294341cf.1
+        for <linux-man@vger.kernel.org>; Mon, 21 Apr 2025 10:16:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745176614; x=1745781414; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LPV63PL8/TxpXvMaz1I5ZEE6LMusimG3NpoJZlCfiyg=;
-        b=OVWROH4MEweKcttDOBz5SBtJsoIF21+CfXQTxyhKe6K86OD4EYoAyuCKzT9j+5GGb0
-         lzwl4ltgdoGaAi8fqPaT+TTF8xyyOtBK3AR+byo7+WxubCXMvyMsfyLCOZ9ucJHIuYxE
-         /eTpUf9ZhdO9UQPqQz+egDTFVc1K4koinOiiGNOQpopeH0MLR2Ay4LBoW0gRt8+6MGne
-         +DWq6l3TEP8pL7MfPdCeOv3GVRmK6CUF5sQViU3UOxw080RQL35u3RHsZMsn/i175Tk/
-         XIEECCpbjL6S3fLzUpd5PGTQciVRvFwOxZwe7nafTpGjLamsYwlOaiaVxkFnj91jsdnf
-         5vzg==
+        d=google.com; s=20230601; t=1745255798; x=1745860598; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RuURjUDWNXAz9lMXw8+fH47R9FvQohgPWajg37i/laE=;
+        b=25UioA/JF//XcrrCf2YEFIbTMNAOw2KZwYl2luCH5vkxjKxcHR5Jm/9gdcE4nI1p68
+         0+E3WoCZf7BH8kbW+AaFM2kdfiF6+vlxDVi69voKguVa4TVs9CVLcjadXmZSx2MvaHt5
+         weLVhD9tV7SQ7LHKthoscEIAZC4a/6iR54PHmiMaexmhRJXOki5FgjcIsVamA65czAbT
+         J/yV/Xpj4m2CckscQU2ExVE4OPfC7jH+oMGEPDRDY7Ov0p/QMVtHC1bLvFwCIuLbcrya
+         2V71Sy3P5bBgUKTpZeCIV8FdfYAkZX64BHhUH9gaGkWXUqvHqV9GXywArBtOU68YWCno
+         whgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745176614; x=1745781414;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LPV63PL8/TxpXvMaz1I5ZEE6LMusimG3NpoJZlCfiyg=;
-        b=xSzEyDGWCAjyXwJb8uI/diMcsfZPwnsTyqIXXzcWBWgSh4vkLwDSON+OzZ31mBk7px
-         PNbEOv3FnFKQfUBKVnIZbBayn2pHNUgWUXmCZaYoo+JzAV3u3TyimbAiaNo0ZpWDJ6eP
-         eXaos4CN3IW0nwmIysxACdKMZEagIV3qdazbwGRTrmil9petfivkC+2nv6981kbb54qw
-         d0wfp06PHy6tuYYQrUm1ETMQK5P917nxnEB1TlKt9S82a2Hpccm5uTZYE8bHLf7/m9qo
-         s31uMhogY1NdfrWaKy/BBoAOs5HtjwdW+hfvsA+FLJKWTAddepjJrWaEOmJF8Yen7iog
-         xq0w==
-X-Forwarded-Encrypted: i=1; AJvYcCVynUxyPecZXCISaqLUg3BL0G9Rf8SGBzH+coDjKlDpLLuAYGNHmToDdZ3uN2lp4tMd+0v84gOJ5lg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFwD3OQMicSN1kgyX9zAVUNm6Pehab5xefFwG1ICIEKZPNutGh
-	ztM0K3X79XQNsD79NalOpXtj/b4PWlIuKPpKRvDrHSNXhj3o9BAY
-X-Gm-Gg: ASbGnctT0tnafHmRmUsz5veAtMBPFwU8DjIawhmH7eeXGNzts8oobeUUkdazPtCM2V2
-	PrqxZV9tWTulwCTF9OV7uUWDS6c2CHBfYZEDYwdRrFk0GDCFGLjtrmUVYY57hEhNP4nVpoSP4Ph
-	FGg/kc84NNRjczIgBzNNSGXMSDjP+8zSSPmSaYYHMTW1fOAyDIj6mS/u283Y9lSksrZA/QoVSbK
-	IJujU1fawxtk0N2XpxcfIY95aKNafF9KtgnplOXT9jpwGz6dPBe2tG+XtcGaBG+hyOvckWyKpVm
-	3mrQpMu8/6t4bnVgHDtdCt9CpyF6H3U4calpqS9m8PylQRBD8d9jGkE=
-X-Google-Smtp-Source: AGHT+IGnR7hgaghygtJs6vKtnNOpzDkaKShg7ztYy8QA3/llrsiMnapfAu1K779wyAELBd5PlVLOhw==
-X-Received: by 2002:a17:902:d545:b0:22c:33b2:e420 with SMTP id d9443c01a7336-22c53285a12mr121863515ad.7.1745176613899;
-        Sun, 20 Apr 2025 12:16:53 -0700 (PDT)
-Received: from localhost.localdomain ([121.171.113.106])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-22c50eb48ebsm50944015ad.122.2025.04.20.12.16.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Apr 2025 12:16:53 -0700 (PDT)
-From: devhoodit <devhoodit@gmail.com>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	devhoodit <devhoodit@gmail.com>,
-	Carlos O'Donell <carlos@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH] man/man2/clone.2: Document CLONE_NEWPID and CLONE_NEWUSER flag
-Date: Mon, 21 Apr 2025 04:16:03 +0900
-Message-ID: <b959eedd02cbc0066e4375c9e1ca2855b6daeeca.1745176438.git.devhoodit@gmail.com>
-X-Mailer: git-send-email 2.49.0
+        d=1e100.net; s=20230601; t=1745255798; x=1745860598;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RuURjUDWNXAz9lMXw8+fH47R9FvQohgPWajg37i/laE=;
+        b=X2eM/e/GlERv2UrS+wMIWnZGxMHhqfQRkBgOIwSSw8Y6xebJSIAAqNnNzuoOPfP2Ok
+         xzTkUGqt9tIkt/h4KHDplVTY4juhTI2OHJ7tSW+tK/wa+NphAFe9p+QaMYnH2pivq2ZZ
+         dG2sP9dLQcspv4UY18ZmT7ol35h5W1PNC5orpqn02Ov9OwMaG1RoI+OSnUHQqYqiaxHY
+         xb2Iavi/omfclu4kntO6efkpLWWbpXfHocl7RAkLUf4e/0ZyQn2YXTPkyrzucX2Mdkdg
+         EnPOmLqaeW8pdhkcoFZzyRYXDMnAevZqSjkVSltRKDRzWsq3YDJqz+QN6AmfzdDFTtuB
+         JRcA==
+X-Forwarded-Encrypted: i=1; AJvYcCXg9LOjMQM+koIZQ5jY8ljwUWG2qRPxQOlzU229GCv6pNgudFFjbuZMKNsXeQc7ahT/DvFta2V1wKo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZpSGs3s7VTQTouYjZulrDXwESn3YIHpRsejdJ1q8gxlxwNGGg
+	TkU5USapslTnZqQ+9luMW5qDZ/p/uy8cEiO6JLPehACx33Fh0/3455IUuIn+Vp1Oee/3k3xinBg
+	WF0LGTqm/jY7NgOoWZ2sghOHSx0TmuMZ3bdOR
+X-Gm-Gg: ASbGncsIhnckXA3/tHNjlbkMcuB2zD9fjl5dBWKeehA+kT+++kT/acn4/fR6XemI2ty
+	C6eheV1l6cyvFO37PT/gR9uqIa/3OHEeqlzrR/FHKEv18UyVKFf9XJ2FOK1yuDkUT9xi53xH/ZN
+	1lvb7pIaimG9eHVaW9ZDj2
+X-Google-Smtp-Source: AGHT+IEe07pf382BuG5t+h0cxkhNonB9S2hb+4NBUwiHHOIgvisi/X1Rvk0m70CnMe3Yxh9IFdbEwfSfBL+DkDE8WEU=
+X-Received: by 2002:ac8:5901:0:b0:467:84a1:df08 with SMTP id
+ d75a77b69052e-47aecc928f3mr9502881cf.23.1745255797522; Mon, 21 Apr 2025
+ 10:16:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+References: <20231206103702.3873743-1-surenb@google.com> <20231206103702.3873743-3-surenb@google.com>
+ <8bcb7e5f-3c05-4d92-98f7-b62afa17e2fb@lucifer.local> <rns3bplwlxhdkueowpehtrej6avjbmh6mauwl33pfvr4qptmlg@swctg52xpyya>
+In-Reply-To: <rns3bplwlxhdkueowpehtrej6avjbmh6mauwl33pfvr4qptmlg@swctg52xpyya>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 21 Apr 2025 10:16:26 -0700
+X-Gm-Features: ATxdqUH-V1xozHecneL38ihhUBup30dXmnQSZc7psqoLu7St8-YIj64ka4pAWwg
+Message-ID: <CAJuCfpFjx2NB8X8zVSGyrcaOfwMApZRfGfuia3ERBKj0XaPgaw@mail.gmail.com>
+Subject: Re: [PATCH v6 2/5] userfaultfd: UFFDIO_MOVE uABI
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, aarcange@redhat.com, 
+	linux-man@vger.kernel.org, akpm@linux-foundation.org, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, shuah@kernel.org, lokeshgidra@google.com, 
+	peterx@redhat.com, david@redhat.com, ryan.roberts@arm.com, hughd@google.com, 
+	mhocko@suse.com, axelrasmussen@google.com, rppt@kernel.org, 
+	willy@infradead.org, Liam.Howlett@oracle.com, jannh@google.com, 
+	zhangpeng362@huawei.com, bgeffon@google.com, kaleshsingh@google.com, 
+	ngeoffray@google.com, jdduke@google.com, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kernel-team@android.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CLONE_NEWPID and CLONE_PARENT can be used together, but not CLONE_THREAD.  Similarly, CLONE_NEWUSER and CLONE_PARENT can be used together, but not CLONE_THREAD.
-This was discussed here: <https://lore.kernel.org/linux-man/06febfb3-e2e2-4363-bc34-83a07692144f@redhat.com/T/>
-Relevant code: <https://github.com/torvalds/linux/blob/219d54332a09e8d8741c1e1982f5eae56099de85/kernel/fork.c#L1815>
+On Sat, Apr 19, 2025 at 12:26=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
+ wrote:
+>
+> Hi Lorenzo, Suren, Andrea,
+>
+> On Sat, Apr 19, 2025 at 07:57:36PM +0100, Lorenzo Stoakes wrote:
+> > +cc Alejandro
+>
+> Thanks!
+>
+> > On Wed, Dec 06, 2023 at 02:36:56AM -0800, Suren Baghdasaryan wrote:
+> > > From: Andrea Arcangeli <aarcange@redhat.com>
+> > >
+> > > Implement the uABI of UFFDIO_MOVE ioctl.
+>
+> [...]
+>
+> > >
+> > > [1] https://lore.kernel.org/all/1425575884-2574-1-git-send-email-aarc=
+ange@redhat.com/
+> > > [2] https://lore.kernel.org/linux-mm/CA+EESO4uO84SSnBhArH4HvLNhaUQ5nZ=
+KNKXqxRCyjniNVjp0Aw@mail.gmail.com/
+> > >
+> > > Update for the ioctl_userfaultfd(2)  manpage:
+> >
+> > Sorry to resurrect an old thread but... I don't think this update was e=
+ver
+> > propagated anywhere?
+> >
+> > If you did send separately to man-pages list or whatnot maybe worth nud=
+ging
+> > again?
+> >
+> > I don't see anything at [0].
 
-Cc: Carlos O'Donell <carlos@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: devhoodit <devhoodit@gmail.com>
----
- man/man2/clone.2 | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+Thanks for bringing it up! This must have slipped from my attention.
 
-diff --git a/man/man2/clone.2 b/man/man2/clone.2
-index 1b74e4c92..b9561125a 100644
---- a/man/man2/clone.2
-+++ b/man/man2/clone.2
-@@ -776,9 +776,7 @@ .SS The flags mask
- no privileges are needed to create a user namespace.
- .IP
- This flag can't be specified in conjunction with
--.B CLONE_THREAD
--or
--.BR CLONE_PARENT .
-+.BR CLONE_THREAD .
- For security reasons,
- .\" commit e66eded8309ebf679d3d3c1f5820d1f2ca332c71
- .\" https://lwn.net/Articles/543273/
-@@ -1319,11 +1317,10 @@ .SH ERRORS
- mask.
- .TP
- .B EINVAL
-+Both
- .B CLONE_NEWPID
--and one (or both) of
-+and
- .B CLONE_THREAD
--or
--.B CLONE_PARENT
- were specified in the
- .I flags
- mask.
--- 
-2.49.0
+> >
+> > [0]: https://man7.org/linux/man-pages/man2/ioctl_userfaultfd.2.html
+> >
+> > Thanks!
+> >
+> > >
+> > >    UFFDIO_MOVE
+> > >        (Since Linux xxx)  Move a continuous memory chunk into the
+>
+> Nope, it seems this was never sent to linux-man@.
+> <https://lore.kernel.org/linux-man/?q=3DUFFDIO_MOVE>:
 
+Sorry for missing that part.
+
+>
+>         [No results found]
+>
+> Please re-send including linux-man@ in CC, as specified in
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIB=
+UTING>
+
+Thanks for the reference. Will post the documentation update later today.
+Thanks,
+Suren.
+
+>
+>
+> Have a lovely night!
+> Alex
+>
+> --
+> <https://www.alejandro-colomar.es/>
 
