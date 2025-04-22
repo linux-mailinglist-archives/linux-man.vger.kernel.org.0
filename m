@@ -1,129 +1,87 @@
-Return-Path: <linux-man+bounces-2797-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2798-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327C6A9579F
-	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 22:57:19 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B14A95A76
+	for <lists+linux-man@lfdr.de>; Tue, 22 Apr 2025 03:24:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 194E23A65B3
-	for <lists+linux-man@lfdr.de>; Mon, 21 Apr 2025 20:57:02 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BFD8F170BAE
+	for <lists+linux-man@lfdr.de>; Tue, 22 Apr 2025 01:24:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69FE61F09A8;
-	Mon, 21 Apr 2025 20:57:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10B3842AB4;
+	Tue, 22 Apr 2025 01:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A92mKsUj"
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="Jeoo+vmP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1071D89F0;
-	Mon, 21 Apr 2025 20:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FE4125DF
+	for <linux-man@vger.kernel.org>; Tue, 22 Apr 2025 01:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745269032; cv=none; b=B1+96IQHdqAl1rrentru/Ju3fipmF7xMUnVBBO1aRYGqtJCRnnn0K8276ll5/QYeTyZlYS+hYJ8AmBBCosicEgQhXvir3L0dhtehIpxmq+4ezSVndCycinIhOCxZwyRwK1cFaplUoW7fI98D5Qr8tvK4eBLGi7OvNuzsbGZ6GIU=
+	t=1745285055; cv=none; b=KReiQ09kARY7GgAWFqdb+kA/LhGUk8AWBBnPuhwHyX0De6zOJsLgIvzjTa8DrWve417lKDQfZNhBYRirqTVR3TUlKi9U1UtpY8Euwzv/ftO/6BupZvHwKpt7RQNcCiudyCBzZ5oGanY/dPTqmgymgEOeQ7CIKe12TYTkbeBaT5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745269032; c=relaxed/simple;
-	bh=Ggc+RzH/TUWrQ1IJBDbxdan5l/yWILcuRFuQso+vSsk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNpR8ipXz69oB/w5PAa3u1syQveH+E50UIluctRRU+eLU79tdsQOoHDRrHYq46ZIinkWGIVTGmEAdjP4UmgmkzQ8/1cwYkQL0nN9GPOqm+kaPXk0jFHGayvSIYEyFeueQsQnvM0IzKa7nPB3t2OyyTR7RUtrwKDQyDKoBygWGOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A92mKsUj; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922F3C4CEE4;
-	Mon, 21 Apr 2025 20:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745269030;
-	bh=Ggc+RzH/TUWrQ1IJBDbxdan5l/yWILcuRFuQso+vSsk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A92mKsUjlMTGviZK9Hn6NLba8Ci9svOBrQlwv6imOZHkIe/QkH60mqs90zmmVZ5z+
-	 AM/J0aQgho+Ko14r6iYVf47bvBPWO1FwXBbx8y+5ntIMJdiFstp5IAQ7Xc2BVdv3Sj
-	 ad4a/KpMADmJ5te4hkhv+iVX6FHt3PtHt8eCsUP9g0xx9lFmjmAMU8XUhLHh+39Wy0
-	 qNICuYrhYyVIviTzeU97nPE6zK8p3qg774ES6rrlfkNPqohV3ypZVMqjDI51T+ifAd
-	 TIcQKQ8TwrYJw4X3BdZoWs6vyLMaKNsZsXZhQR6+ZQ/iADf+w3w6wmiPuYo0KBRHyW
-	 ZbvFofloWk3ug==
-Date: Mon, 21 Apr 2025 22:57:05 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Jeff Layton <jlayton@kernel.org>, Chuck Lever <chuck.lever@oracle.com>, 
-	linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: {FD,O,...}_CLOFORK have been added by POSIX.1-2024
-Message-ID: <xrhmhkna3mnggfizcb3z6q3ee3pxuskcbilf6k3h73g2jliyac@vbty3psge326>
-References: <e2t4obcqeflajygu365ktxnsha5okemawuwl32mximp5ovdo53@2pq2f46wfdkg>
- <4taakq3b6l6lr26qg4rhj6whwkzrgxv77cxgqeoj2edmuot4u6@5yxesrgwzhsp>
+	s=arc-20240116; t=1745285055; c=relaxed/simple;
+	bh=I4T05vNkQe3DY9AMIRF0PMF5uSxcF6kcUkT1FCxbBxo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XJ29cR8WSGhkRuFBDV1WPeoklBJsu9w4SbHy/P7nC46v0wFGdXniRM8zPjdpMK9TfQmj0kWfzYKXInAWH4aml/CJ0NVfMF/Khg4/6RG7zXCMPxBSHTKe30MVmaYwONs+nl4Cx3ia6MIapifuAkcxIylm20BKvlDF09xXhllfDrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=Jeoo+vmP; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1745285045;
+	bh=I4T05vNkQe3DY9AMIRF0PMF5uSxcF6kcUkT1FCxbBxo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Jeoo+vmP/XdKohwrj3+fCYhFVwzaNhrnS/OkTueTwvwPSgxa3y84FnDEtZIhu9I3j
+	 9M06mOlPZFLEiZr/8f6AdXTjsVWGhqtW1kcTU6mc2bznAK3BKn+96WGT/dTXoqt932
+	 J6tVOICcOXDYceB/LXwJFZIbcaHXY+hU4TClc1KLO/cm/h5BRuuqyvDUEYxWzK3/TI
+	 j7NlTlVTSvkgIqT0bKYTV9q7XI9vjqzwq9beIyeRhruZZEQ9kNgjMXntNWNohCSyxi
+	 dHdlmzR6SYKQU8n0tby7i6EnMI4Vs8pW0+sG4pV3gdktUNtz6piToaXhVdLDAmIw+/
+	 QcXQDwP8uSIqw==
+Received: from pecola.lan (unknown [159.196.93.152])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2672B64473;
+	Tue, 22 Apr 2025 09:24:05 +0800 (AWST)
+Message-ID: <c20f592759d857e9415f5d8a7f2be9a93b1ba034.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v3] man/man7/mctp.7: Add man page for Linux MCTP support
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Date: Tue, 22 Apr 2025 09:24:04 +0800
+In-Reply-To: <zll3y3orzq5vkwkujzc35sogc6tbbmxqkkmiivnp34qca6hf4l@d35ookjfz26k>
+References: <20250417-mctp-v3-1-07fff4d26f73@codeconstruct.com.au>
+	 <zll3y3orzq5vkwkujzc35sogc6tbbmxqkkmiivnp34qca6hf4l@d35ookjfz26k>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fltnz4w75r3iwd2v"
-Content-Disposition: inline
-In-Reply-To: <4taakq3b6l6lr26qg4rhj6whwkzrgxv77cxgqeoj2edmuot4u6@5yxesrgwzhsp>
 
+Hi Alejandro,
 
---fltnz4w75r3iwd2v
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Jeff Layton <jlayton@kernel.org>, Chuck Lever <chuck.lever@oracle.com>, 
-	linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: {FD,O,...}_CLOFORK have been added by POSIX.1-2024
-References: <e2t4obcqeflajygu365ktxnsha5okemawuwl32mximp5ovdo53@2pq2f46wfdkg>
- <4taakq3b6l6lr26qg4rhj6whwkzrgxv77cxgqeoj2edmuot4u6@5yxesrgwzhsp>
-MIME-Version: 1.0
-In-Reply-To: <4taakq3b6l6lr26qg4rhj6whwkzrgxv77cxgqeoj2edmuot4u6@5yxesrgwzhsp>
+Thanks for the review!
 
-Hi Mateusz,
-
-On Mon, Apr 21, 2025 at 10:44:38PM +0200, Mateusz Guzik wrote:
-> On Mon, Apr 21, 2025 at 10:21:26PM +0200, Alejandro Colomar wrote:
-> > Hi Jeff, Chuck,
-> >=20
-> > I'm updating the Linux man-pages for POSIX.1-2024, and I noticed that
-> > POSIX.1-2024 has added *_CLOFORK flags (with the obvious behavior).
-> > This is just to let you know about it, and also ask if there's any work
-> > in adding these flags.  I'll note something about the existence of
-> > these flags, and that they're unsupported by Linux, at least for now.
-> > Is that okay?
-> >=20
+> Some have changed, but since this patch is old, and it LGTM except for
+> some minor things, I've done the amends myself.=C2=A0 I don't want to pus=
+h
+> back on the patch again.=C2=A0 :-)
 >=20
-> There was an attempt to add them and the idea itself got NAKed, for
-> example:
->=20
-> https://lore.kernel.org/all/20200515160342.GE23230@ZenIV.linux.org.uk/
+> I propose the following diff to amend your patch, if it looks good to
+> you.=C2=A0 Let me know, and I'll amend and push.=C2=A0 Feel free to ask a=
+ny
+> doubts about it.
 
-Makes sense.  Thanks for the link!  I'll document that POSIX.1-2024 is
-purposefully ignored here.
+That diff all looks good to me. Thanks for the explanations too, that
+will help for the follow-ups.
+
+Cheers,
 
 
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---fltnz4w75r3iwd2v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgGsSEACgkQ64mZXMKQ
-wqkH4BAAtPgIUG+iWUQX268+CCfVGNPEQDPgi2DtX86tNHZ/Ob5ZyXbIJ+RjyihM
-LEmUPtF8ME+ZAWgEzqklsNVsIRWJ76yRr1yJHWRWGMADe+BOpBYDtVY8ggdWwD+/
-3FUAmsT5gt+jz9XgBWzwU/WBX2euUNSCIUsO/z5r3AO7mHELfOUR6QD0nDM8EJtz
-BC6S0q1DcOWJZcKNhl6Ne0ZoJs9IJshwKrAYtS+7oF48Ipi4uQk1ym2iCYxNAr/P
-TMs8y1ZH8X1QjDYfna5ehGfBFtYz0VTETEd5eVvVqZiH/pb2JGNcrS55V8zMldiv
-CMK1gAlGivTTba4xEsR01M4nDWSG4nOTPL7NzXav0IkvzZxo/3n/KzJRxcdia4If
-AfP8GoWdNDN9guLuPhmxQwBxzogG2bcQ8i/PP/Hz9IWa4uHAGswvFslLl4fdxYOq
-Am2A7FKv2UIY2KSnQ8V6bemcSrM4BQBAU3mtNUkz8Gyi/skRIzQr2T87734x9XNV
-MReWSOzVL+G9ujXvNw1Yr5MN4/Oqtsd9TWd+4NHC5atfcppw0K2CN8R0LC+4UUUD
-XCkR2tdM43SMRuKcPsCslPEjNcDu8gSMU8cyNfOfSxl0v3fjqmicTqNuHuFpIPa8
-eEOqU86GF/9RHOMZtpUxUmygoOvSixDTs29p0+OcpqpnL4oDRzY=
-=YDuS
------END PGP SIGNATURE-----
-
---fltnz4w75r3iwd2v--
+Jeremy
 
