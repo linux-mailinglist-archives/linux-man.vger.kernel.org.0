@@ -1,270 +1,163 @@
-Return-Path: <linux-man+bounces-2803-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2804-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id B963DA97C07
-	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 03:12:13 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42EB8A97C0A
+	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 03:16:23 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E911117A659
-	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 01:12:13 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 83C4817F125
+	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 01:16:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D678257AFB;
-	Wed, 23 Apr 2025 01:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 382C42580FD;
+	Wed, 23 Apr 2025 01:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="N1IK0vyN"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KBhF7lv6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-f201.google.com (mail-pg1-f201.google.com [209.85.215.201])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C169979D0
-	for <linux-man@vger.kernel.org>; Wed, 23 Apr 2025 01:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C886214A7D
+	for <linux-man@vger.kernel.org>; Wed, 23 Apr 2025 01:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745370729; cv=none; b=rdzJ+hFyoqlMsaPYtN9jsX9KEW8Jr4F0c1HJOl7o4oAKoKXljAVR313JPsqKSQkfn6p3Rtit78c1iZnRS3seNdnjRuMsQLXWZ6vzQOq6rdLH+g8dlHnUPhas0mBCkEzYQgo+oi2f0RTJ8nB08+hk0e0Wg8IauQXcgkF3AlsxirE=
+	t=1745370967; cv=none; b=jOIl0ih+LcPE8i/O3tAuNVCmkvN61w1SHpHR/6JIJbm8Kwi63njEhPkxHeHeeAlPkUlcSBxkFmTDV/CxmFJCxc9KdpWmM1wO4dOL90zVE72zQXYxyxrwtRV8iL7pbl86O9WNPIxB1N/XcxLDV/dodNr7cuHClo5w42CLuzO4nKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745370729; c=relaxed/simple;
-	bh=ZOp5karTUHKk0WQ0pfGwdeQVsmZETwPhZ1MdSL7xUjU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ULF2WVFut7sb7ZoUcrgdkZ351LdfyD8rGpjIyr6k5qEsq9mgnQnBers8ZSLqxP9ZOQYCqyfcssuarzpPQ+fiAON2nE8kS0qGmXzffM2Y9ZURO4sQGkYBaZZPTOMM7EXDbYujqfijgFt8z0YJOz2iF10mS280I41qVNWzHdwpq5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=N1IK0vyN; arc=none smtp.client-ip=209.85.215.201
+	s=arc-20240116; t=1745370967; c=relaxed/simple;
+	bh=BXEvwpncN5O7EkLN13AdUk98rvfh4Ju4eZYY2vVAM1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n4ypoQhSfPtx4XwxfBaneCjQ56B3xgcnP7JU6n8etjGKegD4wXVOaN0LtnaaAvA/EKB1azYuiX2uTgbQ65L14efAmF3JSWKtNrimX3sCKU7SoN2isvwmG8YSFX9KhLjmiTDM2elxCh6uPn1H8vtWcOy0OUfb6/WjKjFLM8knqJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KBhF7lv6; arc=none smtp.client-ip=209.85.160.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
-Received: by mail-pg1-f201.google.com with SMTP id 41be03b00d2f7-af570998077so4633916a12.0
-        for <linux-man@vger.kernel.org>; Tue, 22 Apr 2025 18:12:07 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-4769e30af66so114441cf.1
+        for <linux-man@vger.kernel.org>; Tue, 22 Apr 2025 18:16:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1745370727; x=1745975527; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=N6X0yJ+1tr6nd8cb5b2Uw7pevJu1KMurLqJaaGadHK8=;
-        b=N1IK0vyNO+l8cu5PxpfLhh2kTH0XndinPQY0Q9vyggSd41Y6T9EbjnkG8g7bnDJuV3
-         h+rMRundMGPjlKv9milmH66/A4FJGorawkfd9JPIRkKXyyN80LBaxCRsVh/ON+aqBEOT
-         o/bHuOt3rNwx0Y3DyCMAYDJAxMvhJBeT+krASWjI0zLqkJhADQWuCiErcmYtMfdLQ4iK
-         TcyuM8h4ESnVExWgHD4WkN4A7Q8wEUHITcsceOqqiDN9o9J4HNOMlig45DotIOTbw5qj
-         IASEl1+N/VDDrJzSQUBDpswVUqeSd7AAu4EXLkna4dslrSCMD8YgHbNo4etT9eSpBJWb
-         XBgQ==
+        d=google.com; s=20230601; t=1745370963; x=1745975763; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zhRaiFa49yEjS7XMAEA0pqmJ6/VdWziZXZon8TG+B0I=;
+        b=KBhF7lv6PcVEJJE25TaDKoXU5nvQYnMgaWVOFsmGIj08jJiXsxN4gw1ITY2Uc3oNle
+         XriSIWM8lfnUInhOZgegHdrAhEQzVzroNB3IhvnOERy+pznEegsOYf/0dhnDdXXNTn0l
+         e9hBqNvJH5FcAf9tilSr555Go0J5zqBgz73qtwkS332++H9ya5ij+f6WcvJf8vAldg4R
+         11j5UzKMfiFAXMepwCW0qKHRbywt0MgJYwpsMMCLrBZ97Hvr1375zkRkblUPadfMCzNJ
+         8mCoRIepu8dKFiHaUTwqzsMe2inRjjEIdp334NRLWoYvuArvPLIWRPWSuYnNoV7aPaau
+         h0JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745370727; x=1745975527;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=N6X0yJ+1tr6nd8cb5b2Uw7pevJu1KMurLqJaaGadHK8=;
-        b=lpoF8NWiAUwBYrjinDsI19lVlPlJ/8SlwLWsMRY5O84FpA7AaCQeRV2fEQdsG3U/d/
-         6BPCoRVamOBgayVKP/pHVvC/WgFrtscCW17HS2XwWoGLEQ/f4h+YktrDsCtwIAW2ZTSA
-         enOtm2zJxP7veCKDFv9rx1Ih+pxvC2uaRVGgCLKJkmGrCxXSRy/g/bu/inbCHy9RrTqJ
-         rGszDPc3EDVqwFNxwQrOWOzc6o6114aZ4gIxycPIWEwb1ysG1BL7SYLp0Mr5py50j6mQ
-         xQ5Y8de4e5LR8suNq1iv5i4YNcZPUKdrxz6qr2gryC+BNwdKxMki7Lk3ZYCX2/Sh9MES
-         8DvQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXk2ofSiD84AOh+sMjI0E55ilhNMrbZQueq/y3DvSWvEnZ8iD+AK2i9WpZqDzWe4koeIKc44l64A0o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzjqrsz/u9vGHrl/uCsBD4oI2bQiSH78pZJrVFmoH5im/zy7Lo9
-	yGKYh688whptv2GIPLliStOIwqThaTOIgD4XdIqT29ArF/berQD62acFva1ZyL/zpnP0VJfjf+h
-	vmg==
-X-Google-Smtp-Source: AGHT+IE3S5KFo8W44ihe4PFjjqIFHz8A0TSTdhT73+ZhDIZfFQ7PKfnO2n3LutJxCeUewf7ii6C4W6VcApI=
-X-Received: from plbkx3.prod.google.com ([2002:a17:902:f943:b0:220:da6b:5d08])
- (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:98c:b0:224:76f:9e45
- with SMTP id d9443c01a7336-22c535838abmr264440465ad.21.1745370726990; Tue, 22
- Apr 2025 18:12:06 -0700 (PDT)
-Date: Tue, 22 Apr 2025 18:12:03 -0700
+        d=1e100.net; s=20230601; t=1745370963; x=1745975763;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zhRaiFa49yEjS7XMAEA0pqmJ6/VdWziZXZon8TG+B0I=;
+        b=kG4c0JDZeVigeEXPEZ1xO5KPfjAc+u2/NIesxF6NT6iVu9jOaN/JUHUkWcDxnaSMHQ
+         9JV/arU1efKNufafEqRDwe5XBPs/GQ1Xrz23VS0rsvdFpmJLq2AoJbPXspITehdvXzad
+         hCy0JLo3Yr1O/7K9pK+AvxJr486Xx04XyEMLCncbI5bQf1k9GGZdbjZZRrmzKBN5mCpT
+         +Wc3S6wvW8eU973Tqo861U/vVmatew72qGwZjglSuB38idf5xZIAwzP7thFG8bq3Dr0a
+         L71KDMJ8WAzsKmVpNM4+FiPsMo1VuzVX7rxFDQlKJC/TYXyXkQOT6TEE4SmW35GDr/Iv
+         1mpg==
+X-Forwarded-Encrypted: i=1; AJvYcCWHFqVZCVleLrokuhYFsd8B7gcbbgFwFFA92CML911GZFLkxBB6wApWCi8mZ2sKlSiluq7EGJni4C4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKqWseHBgs+4DKUWgdsVGhYBeu/xohyCcqUg5S/PumXVRtVHqY
+	kor6FkFSYqmxcxsKOAtlhyG/PylWuVe361u6RGT1IkTPAOzI+g35xfT2TgQ9SSVdOEN0zR96i70
+	LJAKKWw5IwrIsPiucgcgSfuBxoPJZk8Z3gkHO
+X-Gm-Gg: ASbGnctNACW+MvFU8Xt2wJbeFhEeadgDyA7giRMB5TyC57dJH8ryCWCIOZZnJQzIHiV
+	YzCuykvDFY9R3YpxJGs/gzYXzsiCmWtwMJPnJd0wyClC4JgMjcIIWTjms9FjLjN9Yv85TpxruiW
+	gf9UXmxHwk5gp3lLGLc/GdcnXkGua+mdFEq7PD2dhnDjIOnbFgwJBppeMewojR0sQ=
+X-Google-Smtp-Source: AGHT+IEUXBruOYK9xJLY5TxjTNRmIkg5ccc2dUsC7FO2joRBTQXoTvy35paTIjKrhKWBSAk6EgOGJ3DQQXksC84x6AE=
+X-Received: by 2002:a05:622a:2290:b0:476:d668:fd1c with SMTP id
+ d75a77b69052e-47d11ce1d9bmr2253491cf.2.1745370962631; Tue, 22 Apr 2025
+ 18:16:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.49.0.805.g082f7c87e0-goog
-Message-ID: <20250423011203.2559210-1-surenb@google.com>
-Subject: [PATCH 1/1] man/man2/ioctl_userfaultfd.2, UFFDIO_MOVE.2const: Add
- UFFDIO_MOVE page
+MIME-Version: 1.0
+References: <20231206103702.3873743-1-surenb@google.com> <20231206103702.3873743-3-surenb@google.com>
+ <8bcb7e5f-3c05-4d92-98f7-b62afa17e2fb@lucifer.local> <rns3bplwlxhdkueowpehtrej6avjbmh6mauwl33pfvr4qptmlg@swctg52xpyya>
+ <CAJuCfpFjx2NB8X8zVSGyrcaOfwMApZRfGfuia3ERBKj0XaPgaw@mail.gmail.com>
+ <CAJuCfpHpdAn6yNVq1HXqO0qspj6DLb4qa_QufT+Z9RLTTa-N9Q@mail.gmail.com> <cbppxyb7pe3yhmru226db5zt3v67sxsvfzjvg4jn62gzltutbl@vipuebrhjgpj>
+In-Reply-To: <cbppxyb7pe3yhmru226db5zt3v67sxsvfzjvg4jn62gzltutbl@vipuebrhjgpj>
 From: Suren Baghdasaryan <surenb@google.com>
-To: alx@kernel.org
-Cc: aarcange@redhat.com, lorenzo.stoakes@oracle.com, david@redhat.com, 
-	peterx@redhat.com, lokeshgidra@google.com, linux-man@vger.kernel.org, 
-	linux-mm@kvack.org, Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 22 Apr 2025 18:15:51 -0700
+X-Gm-Features: ATxdqUF4NmV98WtGDJWZ4I3RN7_zTDrRsHxHJXV0LiqF1O2h8MZ7XjyQt8_P6zE
+Message-ID: <CAJuCfpHD1N+xn6ZMnvLM5g7NLBd6AHSDhnrDqdR+ceZRM+=qUg@mail.gmail.com>
+Subject: Re: [PATCH v6 2/5] userfaultfd: UFFDIO_MOVE uABI
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, aarcange@redhat.com, 
+	linux-man@vger.kernel.org, akpm@linux-foundation.org, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, shuah@kernel.org, lokeshgidra@google.com, 
+	peterx@redhat.com, david@redhat.com, ryan.roberts@arm.com, hughd@google.com, 
+	mhocko@suse.com, axelrasmussen@google.com, rppt@kernel.org, 
+	willy@infradead.org, Liam.Howlett@oracle.com, jannh@google.com, 
+	zhangpeng362@huawei.com, bgeffon@google.com, kaleshsingh@google.com, 
+	ngeoffray@google.com, jdduke@google.com, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kernel-team@android.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Documentation was extracted from the original patch written by Andrea
-Arcangeli and upstreamed in [1]. Minor edits were made to maintain
-the same documentation style as other userfaultfd ioctl commands.
+On Tue, Apr 22, 2025 at 12:20=E2=80=AFAM Alejandro Colomar <alx@kernel.org>=
+ wrote:
+>
+> Hi Suren,
+>
+> On Mon, Apr 21, 2025 at 08:58:22PM -0700, Suren Baghdasaryan wrote:
+> > > > Please re-send including linux-man@ in CC, as specified in
+> > > > <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/C=
+ONTRIBUTING>
+> > >
+> > > Thanks for the reference. Will post the documentation update later to=
+day.
+> >
+> > Was planning to post today but I'm a bit rusty with the syntax.
+> > Will try to send it out tomorrow
+>
+> No problem.
+>
+> > after verifying the results.
+>
+> For verifying, you might want to try diffman-git(1).  It's provided in
+> the man-pages repo.  If the version of the man-pages package provided by
+> your distro is >=3D6.10, you may already have it in your system, and if
+> not, you can find it as <src/bin/diffman-git> in the repo.
+> It's documented in a manual page in the same repo, of course.
+>
+> I don't know if you know about the build system, which also checks a few
+> common issues in the pages.  You can check <CONTRIBUTING.d/lint>.
+> TL;DR:
+>
+>         $ make -R -j8 -k lint-man build-all check;
+>
+> (You can ignore anything that's not about the page you're modifying.  At
+>  the moment, I see a few issues that I'll need to investigate in a few
+>  pages.  For seeing a clean list of what's failing, you can ignore
+>  stderr; see below.)
+>
+>         $ make -R -j24 -k lint-man build-all check 2>/dev/null
+>         TROFF           .tmp/man/man2/statx.2.cat.set
+>         TROFF           .tmp/man/man2const/KEYCTL_SETPERM.2const.html.set
+>         TROFF           .tmp/man/man2const/KEYCTL_SETPERM.2const.pdf.set
+>         TROFF           .tmp/man/man2const/KEYCTL_SETPERM.2const.ps.set
+>         GREP            .tmp/man/man2/pipe.2.check-catman.touch
+>         GREP            .tmp/man/man3/ctime.3.check-catman.touch
+>         GREP            .tmp/man/man7/landlock.7.check-catman.touch
+>         GREP            .tmp/man/man7/rtnetlink.7.check-catman.touch
+>
 
-[1] <https://lore.kernel.org/all/20231206103702.3873743-3-surenb@google.com/>
+Thanks for the detailed instructions, Alex!
+Posted the patch at
+https://lore.kernel.org/all/20250423011203.2559210-1-surenb@google.com/
+and hopefully I did not miss something important.
+Cheers,
+Suren.
 
-Signed-off-by: Suren Baghdasaryan <surenb@google.com>
----
- man/man2/ioctl_userfaultfd.2     |   2 +
- man/man2const/UFFDIO_MOVE.2const | 149 +++++++++++++++++++++++++++++++
- 2 files changed, 151 insertions(+)
- create mode 100644 man/man2const/UFFDIO_MOVE.2const
 
-diff --git a/man/man2/ioctl_userfaultfd.2 b/man/man2/ioctl_userfaultfd.2
-index 3cb1b8305..5ec08ca55 100644
---- a/man/man2/ioctl_userfaultfd.2
-+++ b/man/man2/ioctl_userfaultfd.2
-@@ -69,6 +69,8 @@ events.
- .TQ
- .BR UFFDIO_COPY (2const)
- .TQ
-+.BR UFFDIO_MOVE (2const)
-+.TQ
- .BR UFFDIO_ZEROPAGE (2const)
- .TQ
- .BR UFFDIO_WAKE (2const)
-diff --git a/man/man2const/UFFDIO_MOVE.2const b/man/man2const/UFFDIO_MOVE.2const
-new file mode 100644
-index 000000000..ebeefde22
---- /dev/null
-+++ b/man/man2const/UFFDIO_MOVE.2const
-@@ -0,0 +1,149 @@
-+'\" t
-+.\" Written by Andrea Arcangeli <aarcange@redhat.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH UFFDIO_MOVE 2const (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+UFFDIO_MOVE
-+\-
-+atomically move a continuous memory chunk into the userfault registered range
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc ,\~ \-lc )
-+.SH SYNOPSIS
-+.nf
-+.BR "#include <linux/userfaultfd.h>" "  /* Definition of " UFFD* " constants */"
-+.B #include <sys/ioctl.h>
-+.P
-+.BI "int ioctl(int " fd ", UFFDIO_MOVE, struct uffdio_move *" argp );
-+.P
-+.B #include <linux/userfaultfd.h>
-+.P
-+.fi
-+.EX
-+.B struct uffdio_move {
-+.BR "    __u64  dst;" "   /* Destination of move */"
-+.BR "    __u64  src;" "   /* Source of move */"
-+.BR "    __u64  len;" "   /* Number of bytes to move */"
-+.BR "    __u64  mode;" "  /* Flags controlling behavior of move */"
-+.BR "    __s64  move;" "  /* Number of bytes moved, or negated error */"
-+.B };
-+.EE
-+.SH DESCRIPTION
-+Atomically move a continuous memory chunk into the userfault registered
-+range and optionally wake up the blocked thread.
-+.P
-+The following value may be bitwise ORed in
-+.I mode
-+to change the behavior of the
-+.B UFFDIO_MOVE
-+operation:
-+.TP
-+.B UFFDIO_MOVE_MODE_DONTWAKE
-+Do not wake up the thread that waits for page-fault resolution
-+.TP
-+.B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
-+Allow holes in the source virtual range that is being moved.
-+When not specified, the holes will result in
-+.B ENOENT
-+error.
-+When specified, the holes will be accounted as successfully
-+moved memory. This is mostly useful to move hugepage aligned
-+virtual regions without knowing if there are transparent
-+hugepages in the regions or not, but preventing the risk of
-+having to split the hugepage during the operation.
-+.P
-+The
-+.I move
-+field is used by the kernel to return the number of bytes
-+that was actually moved, or an error (a negated
-+.IR errno -style
-+value). The
-+.I move
-+field is output-only;
-+it is not read by the
-+.B UFFDIO_MOVE
-+operation.
-+.P
-+The operation may fail for various reasons. Usually, remapping of
-+pages that are not exclusive to the given process fail; once KSM
-+might deduplicate pages or fork() COW-shares pages during fork()
-+with child processes, they are no longer exclusive. Further, the
-+kernel might only perform lightweight checks for detecting whether
-+the pages are exclusive, and return -EBUSY in case that check fails.
-+To make the operation more likely to succeed, KSM should be
-+disabled, fork() should be avoided or MADV_DONTFORK should be
-+configured for the source VMA before fork().
-+.SH RETURN VALUE
-+On success,
-+0 is returned.
-+In this case, the entire area was moved.
-+.P
-+On error, \-1 is returned and
-+.I errno
-+is set to indicate the error.
-+.SH ERRORS
-+.TP
-+.B EAGAIN
-+The number of bytes moved (i.e., the value returned in the
-+.I move
-+field)
-+does not equal the value that was specified in the
-+.I len
-+field.
-+.TP
-+.B EINVAL
-+Either
-+.I dst
-+or
-+.I len
-+was not a multiple of the system page size, or the range specified by
-+.I src
-+and
-+.I len
-+or
-+.I dst
-+and
-+.I len
-+was invalid.
-+.TP
-+.B EINVAL
-+An invalid bit was specified in the
-+.I mode
-+field.
-+.TP
-+.BR ENOENT
-+The source virtual memory range has unmapped holes and
-+.B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
-+is not set.
-+.TP
-+.BR EEXIST
-+The destination virtual memory range is fully or partially
-+mapped.
-+.TP
-+.BR EBUSY
-+The pages in the source virtual memory range are either
-+pinned or not exclusive to the process. The kernel might
-+only perform lightweight checks for detecting whether the
-+pages are exclusive. To make the operation more likely to
-+succeed, KSM should be disabled, fork() should be avoided
-+or MADV_DONTFORK should be configured for the source virtual
-+memory area before fork().
-+.TP
-+.BR ENOMEM
-+Allocating memory needed for the operation failed.
-+.TP
-+.BR ESRCH
-+The target process has exited at the time of a UFFDIO_MOVE
-+operation.
-+.SH STANDARDS
-+Linux.
-+.SH HISTORY
-+Linux 6.8.
-+.SH SEE ALSO
-+.BR ioctl (2),
-+.BR ioctl_userfaultfd (2),
-+.BR userfaultfd (2)
-+.P
-+.I linux.git/\:Documentation/\:admin\-guide/\:mm/\:userfaultfd.rst
-
-base-commit: 80e2715270fc05d5627c26f88e4c1ba8b093f510
--- 
-2.49.0.805.g082f7c87e0-goog
-
+>
+> Have a lovely day!
+> Alex
+>
+> --
+> <https://www.alejandro-colomar.es/>
 
