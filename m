@@ -1,210 +1,270 @@
-Return-Path: <linux-man+bounces-2802-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2803-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D4AA97AD8
-	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 01:02:29 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id B963DA97C07
+	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 03:12:13 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 968D95A135C
-	for <lists+linux-man@lfdr.de>; Tue, 22 Apr 2025 23:02:12 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E911117A659
+	for <lists+linux-man@lfdr.de>; Wed, 23 Apr 2025 01:12:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF9261D63DF;
-	Tue, 22 Apr 2025 23:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D678257AFB;
+	Wed, 23 Apr 2025 01:12:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etorok.net header.i=@etorok.net header.b="IH/EfBmY"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="N1IK0vyN"
 X-Original-To: linux-man@vger.kernel.org
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f201.google.com (mail-pg1-f201.google.com [209.85.215.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC5F1D61A3
-	for <linux-man@vger.kernel.org>; Tue, 22 Apr 2025 23:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C169979D0
+	for <linux-man@vger.kernel.org>; Wed, 23 Apr 2025 01:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745362944; cv=none; b=EsovHjJWqh5l4SVCiZBrSoVKSE5T79bVtt+VGluZXc7JtNEy9fWynQ9Si4KM6gu/yc0ePavhO8PGCQI/3LBW/H1IaxOVh3QgvtzUj+PGLumXDvgneSn5mwdoCE88dBj2vL+IHnwtnT/z028s6QOpY7pXgArHbP0VByrvOTawve4=
+	t=1745370729; cv=none; b=rdzJ+hFyoqlMsaPYtN9jsX9KEW8Jr4F0c1HJOl7o4oAKoKXljAVR313JPsqKSQkfn6p3Rtit78c1iZnRS3seNdnjRuMsQLXWZ6vzQOq6rdLH+g8dlHnUPhas0mBCkEzYQgo+oi2f0RTJ8nB08+hk0e0Wg8IauQXcgkF3AlsxirE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745362944; c=relaxed/simple;
-	bh=IbNvUTLKDT10Pn7zHvzOL6l8IpyFP1HyPrI3p431eIw=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=nUlxoYXFoccJWwA1SfV9cIP/AX4q1/l8jRcPtBOIryl8/P+IogTGW7pgf8Asiu8oukHkcmX9SRKcKXlNVfz4Ubm0Gp4CjCaWW3OAXgizZsAztQY5Vq+s8lch/iSna9RPBcv2c64KpARHr/VSovriPlifyIB6k6B41A6989ovpsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etorok.net; spf=pass smtp.mailfrom=etorok.net; dkim=pass (2048-bit key) header.d=etorok.net header.i=@etorok.net header.b=IH/EfBmY; arc=none smtp.client-ip=217.70.183.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etorok.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etorok.net
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 1B3AC1FCE9;
-	Tue, 22 Apr 2025 23:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etorok.net; s=gm1;
-	t=1745362939;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
-	bh=4gWhYQWrOps6nekAtAxu67yM/7YjHa0HrQwMponRnpI=;
-	b=IH/EfBmYVWd+LjJkbRiFI/mgWMxlwAE4JN01Uqlkj4PKdhMGJmzj0rFgTXBuYffG5T6i8b
-	rNXEgKrFTfFUH0Jys75Tn14gUv5QO/pDlvAGnw+478jr7d16UbhcK6DlplzyppV+ErS4xQ
-	1k9pQOmFjLdI9A5eP9nuDKWJD2dOmVcDZUtuDbYaOkrJDU3vtKcoxal3b55VjrfTyW1jPH
-	VSvRzifNMtY9Gw9ziQiBjSa78nKdFu5dp/gI7axe9LghYlwmnP7JWQMsxBbX5V4Yk6E4MD
-	zA4iUyB+BGujRQ0fvlmzx8L2IWGyO4wDRmLLHDJyh1nUCdNgsjmzwV0KQTceTA==
-Message-ID: <666f7e00a28f4dec59f02cdd4c9d63d493215674.camel@etorok.net>
-Subject: puts sets errno, but manpage doesn't mention it
-From: Edwin =?ISO-8859-1?Q?T=F6r=F6k?= <edwin@etorok.net>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Date: Wed, 23 Apr 2025 00:02:18 +0100
-Autocrypt: addr=edwin@etorok.net; prefer-encrypt=mutual;
- keydata=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
- 4wQMRM/LRp6oSFr8MQsCLM=
-Disposition-Notification-To: edwin@etorok.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.1 (3.56.1-1.fc42) 
+	s=arc-20240116; t=1745370729; c=relaxed/simple;
+	bh=ZOp5karTUHKk0WQ0pfGwdeQVsmZETwPhZ1MdSL7xUjU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ULF2WVFut7sb7ZoUcrgdkZ351LdfyD8rGpjIyr6k5qEsq9mgnQnBers8ZSLqxP9ZOQYCqyfcssuarzpPQ+fiAON2nE8kS0qGmXzffM2Y9ZURO4sQGkYBaZZPTOMM7EXDbYujqfijgFt8z0YJOz2iF10mS280I41qVNWzHdwpq5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=N1IK0vyN; arc=none smtp.client-ip=209.85.215.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
+Received: by mail-pg1-f201.google.com with SMTP id 41be03b00d2f7-af570998077so4633916a12.0
+        for <linux-man@vger.kernel.org>; Tue, 22 Apr 2025 18:12:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1745370727; x=1745975527; darn=vger.kernel.org;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=N6X0yJ+1tr6nd8cb5b2Uw7pevJu1KMurLqJaaGadHK8=;
+        b=N1IK0vyNO+l8cu5PxpfLhh2kTH0XndinPQY0Q9vyggSd41Y6T9EbjnkG8g7bnDJuV3
+         h+rMRundMGPjlKv9milmH66/A4FJGorawkfd9JPIRkKXyyN80LBaxCRsVh/ON+aqBEOT
+         o/bHuOt3rNwx0Y3DyCMAYDJAxMvhJBeT+krASWjI0zLqkJhADQWuCiErcmYtMfdLQ4iK
+         TcyuM8h4ESnVExWgHD4WkN4A7Q8wEUHITcsceOqqiDN9o9J4HNOMlig45DotIOTbw5qj
+         IASEl1+N/VDDrJzSQUBDpswVUqeSd7AAu4EXLkna4dslrSCMD8YgHbNo4etT9eSpBJWb
+         XBgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745370727; x=1745975527;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N6X0yJ+1tr6nd8cb5b2Uw7pevJu1KMurLqJaaGadHK8=;
+        b=lpoF8NWiAUwBYrjinDsI19lVlPlJ/8SlwLWsMRY5O84FpA7AaCQeRV2fEQdsG3U/d/
+         6BPCoRVamOBgayVKP/pHVvC/WgFrtscCW17HS2XwWoGLEQ/f4h+YktrDsCtwIAW2ZTSA
+         enOtm2zJxP7veCKDFv9rx1Ih+pxvC2uaRVGgCLKJkmGrCxXSRy/g/bu/inbCHy9RrTqJ
+         rGszDPc3EDVqwFNxwQrOWOzc6o6114aZ4gIxycPIWEwb1ysG1BL7SYLp0Mr5py50j6mQ
+         xQ5Y8de4e5LR8suNq1iv5i4YNcZPUKdrxz6qr2gryC+BNwdKxMki7Lk3ZYCX2/Sh9MES
+         8DvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXk2ofSiD84AOh+sMjI0E55ilhNMrbZQueq/y3DvSWvEnZ8iD+AK2i9WpZqDzWe4koeIKc44l64A0o=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzjqrsz/u9vGHrl/uCsBD4oI2bQiSH78pZJrVFmoH5im/zy7Lo9
+	yGKYh688whptv2GIPLliStOIwqThaTOIgD4XdIqT29ArF/berQD62acFva1ZyL/zpnP0VJfjf+h
+	vmg==
+X-Google-Smtp-Source: AGHT+IE3S5KFo8W44ihe4PFjjqIFHz8A0TSTdhT73+ZhDIZfFQ7PKfnO2n3LutJxCeUewf7ii6C4W6VcApI=
+X-Received: from plbkx3.prod.google.com ([2002:a17:902:f943:b0:220:da6b:5d08])
+ (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:98c:b0:224:76f:9e45
+ with SMTP id d9443c01a7336-22c535838abmr264440465ad.21.1745370726990; Tue, 22
+ Apr 2025 18:12:06 -0700 (PDT)
+Date: Tue, 22 Apr 2025 18:12:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeehtddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecunecujfgurhepkffuhffvveffpfgtgfgfggesthhqredttderjeenucfhrhhomhepgfgufihinhcuvfpnrhpnkhcuoegvugifihhnsegvthhorhhokhdrnhgvtheqnecuggftrfgrthhtvghrnhepleefvefggfekieegtdehfedutdfgleehheehleehiefhueejieduhfdtfeefteegnecuffhomhgrihhnpehinhhrihgrrdhfrhdpmhgrnhejrdhorhhgpdhophgvnhdqshhtugdrohhrghdptgdqlhgrnhhguhgrghgvrdhorhhgpdhophgvnhhgrhhouhhprdhorhhgpdhfrhgvvggsshgurdhorhhgnecukfhppedvudejrdduheehrddujeehrdduiedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvddujedrudehhedrudejhedrudeiuddphhgvlhhopegludelvddrudeikedrvddrudeikegnpdhmrghilhhfrhhomhepvggufihinhesvghtohhrohhkrdhnvghtpdhnsggprhgtphhtthhopedvpdhrtghpthhtoheprghlgieskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
-X-GND-Sasl: edwin@etorok.net
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.49.0.805.g082f7c87e0-goog
+Message-ID: <20250423011203.2559210-1-surenb@google.com>
+Subject: [PATCH 1/1] man/man2/ioctl_userfaultfd.2, UFFDIO_MOVE.2const: Add
+ UFFDIO_MOVE page
+From: Suren Baghdasaryan <surenb@google.com>
+To: alx@kernel.org
+Cc: aarcange@redhat.com, lorenzo.stoakes@oracle.com, david@redhat.com, 
+	peterx@redhat.com, lokeshgidra@google.com, linux-man@vger.kernel.org, 
+	linux-mm@kvack.org, Suren Baghdasaryan <surenb@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Documentation was extracted from the original patch written by Andrea
+Arcangeli and upstreamed in [1]. Minor edits were made to maintain
+the same documentation style as other userfaultfd ioctl commands.
 
-The manpage for puts [1] doesn't mention errno.
+[1] <https://lore.kernel.org/all/20231206103702.3873743-3-surenb@google.com/>
 
-Therefore for a long time I've avoided looking at errno when any of the
-stdio functions fail (errno could've been leftover from a previous
-call, or some internal, potentially unrelated and handled error).
+Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+---
+ man/man2/ioctl_userfaultfd.2     |   2 +
+ man/man2const/UFFDIO_MOVE.2const | 149 +++++++++++++++++++++++++++++++
+ 2 files changed, 151 insertions(+)
+ create mode 100644 man/man2const/UFFDIO_MOVE.2const
 
-What the manpage says is accurate when looking at the C23 standard [2],
-however on POSIX systems one can do better!
+diff --git a/man/man2/ioctl_userfaultfd.2 b/man/man2/ioctl_userfaultfd.2
+index 3cb1b8305..5ec08ca55 100644
+--- a/man/man2/ioctl_userfaultfd.2
++++ b/man/man2/ioctl_userfaultfd.2
+@@ -69,6 +69,8 @@ events.
+ .TQ
+ .BR UFFDIO_COPY (2const)
+ .TQ
++.BR UFFDIO_MOVE (2const)
++.TQ
+ .BR UFFDIO_ZEROPAGE (2const)
+ .TQ
+ .BR UFFDIO_WAKE (2const)
+diff --git a/man/man2const/UFFDIO_MOVE.2const b/man/man2const/UFFDIO_MOVE.2const
+new file mode 100644
+index 000000000..ebeefde22
+--- /dev/null
++++ b/man/man2const/UFFDIO_MOVE.2const
+@@ -0,0 +1,149 @@
++'\" t
++.\" Written by Andrea Arcangeli <aarcange@redhat.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH UFFDIO_MOVE 2const (date) "Linux man-pages (unreleased)"
++.SH NAME
++UFFDIO_MOVE
++\-
++atomically move a continuous memory chunk into the userfault registered range
++.SH LIBRARY
++Standard C library
++.RI ( libc ,\~ \-lc )
++.SH SYNOPSIS
++.nf
++.BR "#include <linux/userfaultfd.h>" "  /* Definition of " UFFD* " constants */"
++.B #include <sys/ioctl.h>
++.P
++.BI "int ioctl(int " fd ", UFFDIO_MOVE, struct uffdio_move *" argp );
++.P
++.B #include <linux/userfaultfd.h>
++.P
++.fi
++.EX
++.B struct uffdio_move {
++.BR "    __u64  dst;" "   /* Destination of move */"
++.BR "    __u64  src;" "   /* Source of move */"
++.BR "    __u64  len;" "   /* Number of bytes to move */"
++.BR "    __u64  mode;" "  /* Flags controlling behavior of move */"
++.BR "    __s64  move;" "  /* Number of bytes moved, or negated error */"
++.B };
++.EE
++.SH DESCRIPTION
++Atomically move a continuous memory chunk into the userfault registered
++range and optionally wake up the blocked thread.
++.P
++The following value may be bitwise ORed in
++.I mode
++to change the behavior of the
++.B UFFDIO_MOVE
++operation:
++.TP
++.B UFFDIO_MOVE_MODE_DONTWAKE
++Do not wake up the thread that waits for page-fault resolution
++.TP
++.B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
++Allow holes in the source virtual range that is being moved.
++When not specified, the holes will result in
++.B ENOENT
++error.
++When specified, the holes will be accounted as successfully
++moved memory. This is mostly useful to move hugepage aligned
++virtual regions without knowing if there are transparent
++hugepages in the regions or not, but preventing the risk of
++having to split the hugepage during the operation.
++.P
++The
++.I move
++field is used by the kernel to return the number of bytes
++that was actually moved, or an error (a negated
++.IR errno -style
++value). The
++.I move
++field is output-only;
++it is not read by the
++.B UFFDIO_MOVE
++operation.
++.P
++The operation may fail for various reasons. Usually, remapping of
++pages that are not exclusive to the given process fail; once KSM
++might deduplicate pages or fork() COW-shares pages during fork()
++with child processes, they are no longer exclusive. Further, the
++kernel might only perform lightweight checks for detecting whether
++the pages are exclusive, and return -EBUSY in case that check fails.
++To make the operation more likely to succeed, KSM should be
++disabled, fork() should be avoided or MADV_DONTFORK should be
++configured for the source VMA before fork().
++.SH RETURN VALUE
++On success,
++0 is returned.
++In this case, the entire area was moved.
++.P
++On error, \-1 is returned and
++.I errno
++is set to indicate the error.
++.SH ERRORS
++.TP
++.B EAGAIN
++The number of bytes moved (i.e., the value returned in the
++.I move
++field)
++does not equal the value that was specified in the
++.I len
++field.
++.TP
++.B EINVAL
++Either
++.I dst
++or
++.I len
++was not a multiple of the system page size, or the range specified by
++.I src
++and
++.I len
++or
++.I dst
++and
++.I len
++was invalid.
++.TP
++.B EINVAL
++An invalid bit was specified in the
++.I mode
++field.
++.TP
++.BR ENOENT
++The source virtual memory range has unmapped holes and
++.B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
++is not set.
++.TP
++.BR EEXIST
++The destination virtual memory range is fully or partially
++mapped.
++.TP
++.BR EBUSY
++The pages in the source virtual memory range are either
++pinned or not exclusive to the process. The kernel might
++only perform lightweight checks for detecting whether the
++pages are exclusive. To make the operation more likely to
++succeed, KSM should be disabled, fork() should be avoided
++or MADV_DONTFORK should be configured for the source virtual
++memory area before fork().
++.TP
++.BR ENOMEM
++Allocating memory needed for the operation failed.
++.TP
++.BR ESRCH
++The target process has exited at the time of a UFFDIO_MOVE
++operation.
++.SH STANDARDS
++Linux.
++.SH HISTORY
++Linux 6.8.
++.SH SEE ALSO
++.BR ioctl (2),
++.BR ioctl_userfaultfd (2),
++.BR userfaultfd (2)
++.P
++.I linux.git/\:Documentation/\:admin\-guide/\:mm/\:userfaultfd.rst
 
-Both POSIX 2008 [3] and POSIX 2024 [4] say that 'puts' sets 'errno',
-and that this is an extension to the C standard.=20
+base-commit: 80e2715270fc05d5627c26f88e4c1ba8b093f510
+-- 
+2.49.0.805.g082f7c87e0-goog
 
-The FreeBSD manpage says this too [5], although it doesn't mention that
-this is an extension.
-
-It would be useful if the Linux manpages got updated with information
-about which stdio functions set errno, and that setting errno is a
-POSIX extension (I'm hoping that POSIX is consistent and all stdio
-functions would set errno, but I haven't checked in detail).
-
-Should I send a patch that attempts to update the manpages, or do we=20
-need to check with the libc mailing list whether this is in fact
-guaranteed? (e.g. if they've implemented it according to the Linux
-manpage, instead of the POSIX standard, then errno may not be set in
-all cases that it should...)
-
-I've also tested whether this is true in practice, and the following
-program prints a 'Broken pipe' message on 3 libc implementations on
-Fedora 42: GNU libc 2.41, musl-libc 1.2.5, dietlibc 0.34, when run as
-'./x | dd count=3D5 of=3D/dev/null'
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-
-int main(void)
-{
-  signal(SIGPIPE, SIG_IGN);
-  while(puts("foo") !=3D EOF);
-  perror("puts");
-  return EXIT_FAILURE;
-}
-
-Or perhaps even simpler, this prints 'No such file or directory':
-
-#include <stdio.h>
-#include <stdlib.h>
-int main(void)
-{
-  FILE *f =3D fopen("/nonexistent", "r");
-  if (!f) {
-    perror("fopen");
-    return EXIT_FAILURE;
-  }
-  fclose(f);
-  return EXIT_SUCCESS;
-}
-
-P.S. I discovered the possibility that puts may set errno while reading
-(the excellent!) book=C2=A0"Modern C"
-https://gustedt.gitlabpages.inria.fr/modern-c/
-
-[1]: https://www.man7.org/linux/man-pages/man3/puts.3.html
-[2]:=C2=A0https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf from
-https://www.c-language.org/
-[3]:
-=C2=A0https://pubs.opengroup.org/onlinepubs/9699919799/functions/puts.html
-[4]:
-https://pubs.opengroup.org/onlinepubs/9799919799/functions/puts.html
-[5]: https://man.freebsd.org/cgi/man.cgi?fputs
-
-
-Best regards,
---Edwin
 
