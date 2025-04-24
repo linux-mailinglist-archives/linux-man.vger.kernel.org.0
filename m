@@ -1,95 +1,119 @@
-Return-Path: <linux-man+bounces-2815-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2816-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id B29D0A99C81
-	for <lists+linux-man@lfdr.de>; Thu, 24 Apr 2025 02:06:56 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E586EA99ECA
+	for <lists+linux-man@lfdr.de>; Thu, 24 Apr 2025 04:26:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 99C11188A086
-	for <lists+linux-man@lfdr.de>; Thu, 24 Apr 2025 00:07:06 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 36AFD4474ED
+	for <lists+linux-man@lfdr.de>; Thu, 24 Apr 2025 02:26:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B60FA380;
-	Thu, 24 Apr 2025 00:06:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C486148827;
+	Thu, 24 Apr 2025 02:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EnaIiq/+"
 X-Original-To: linux-man@vger.kernel.org
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f201.google.com (mail-pg1-f201.google.com [209.85.215.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0713C3FE7
-	for <linux-man@vger.kernel.org>; Thu, 24 Apr 2025 00:06:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9B714F70
+	for <linux-man@vger.kernel.org>; Thu, 24 Apr 2025 02:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745453201; cv=none; b=dlI4khXHamKR9OMJquVvv2F6sgyJmQOf2gSrOHeLuUN2G0YSTgJ/n/pWIk/YM3ns305zZ7iL6xjG78deA+LIxpSCMNC6ViB6kAkcPs0gXypFo/exP76ycwBHP2oJyfKS/0zQKPbTaJYEU0YmKBjeZEtKKDl9W8OmDLiM1nkhKSo=
+	t=1745461588; cv=none; b=FVQASyADYMgsIYrThF+fyLewDXQnbbuALufYysPXF6e8ClYUuMoCHoef9xqBux/R90QlbKVI9kT2E3XlYZ1yJ32jbzDohTqmWh7Y2oev4N2aVD0003O61pqrlPXiucrqkFbejSeHziS/Kw+pmI/sjxVURF7btYG9O7p9zI53njA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745453201; c=relaxed/simple;
-	bh=uYeUPhaJO0VFRnUYEiHGuqeBCchIBnETBBTTmOK0m+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=egKaR3T214ThNOwH+Qp2zTgj4+WlbOhY+ufR2R59ppf2CSZzf40G0nD2i4QZiQMGJQ/VDtWIDltUnnbRcg0PBr8WlJxcbBejdFAF/qV8zSn/dkO+NEm7o+sGrV40DIZaY9md/hGwIJg66ThPepGL0ERtCzTUkbp2eTqHsFi/J1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
-Received: from macsyma.thunk.org ([204.26.30.8])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 53O06J30011107
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Apr 2025 20:06:20 -0400
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 79619345A1E; Wed, 23 Apr 2025 19:05:34 -0500 (CDT)
-Date: Wed, 23 Apr 2025 19:05:34 -0500
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org
-Subject: Re: newlines in filenames; POSIX.1-2024
-Message-ID: <20250424000534.GB765145@mit.edu>
-References: <iezzxq25mqdcapusb32euu3fgvz7djtrn5n66emb72jb3bqltx@lr2545vnc55k>
- <20250422222131.GE569616@mit.edu>
- <3wpydsib5maytq4m4ve4b7wfbfkxwzd5m6u5woqr43qr6mickk@gw4ww6vvgyo5>
+	s=arc-20240116; t=1745461588; c=relaxed/simple;
+	bh=ZCeDLdrtCrCxfrhaDmrCz0i0Q4hDAVlH6/PI2MI1pB4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=lbR2r2XGQRIwf+UE4YXYgHzB9TSpU3IYoqDf3hYKwiG4iPhzP92sedS+D/VPV9ZavCqure3ZdVlhIIB+33NHmvthx1Xnu8mJc8atnvjYw3QjHPWhLilBrnvqyXxzFjY6tXLtMe2vD7DaDy1n43zNVGq85gTN/NIkhqybLMog7/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EnaIiq/+; arc=none smtp.client-ip=209.85.215.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com
+Received: by mail-pg1-f201.google.com with SMTP id 41be03b00d2f7-b1442e039eeso266162a12.0
+        for <linux-man@vger.kernel.org>; Wed, 23 Apr 2025 19:26:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1745461586; x=1746066386; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id
+         :mime-version:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZCeDLdrtCrCxfrhaDmrCz0i0Q4hDAVlH6/PI2MI1pB4=;
+        b=EnaIiq/+Ys5rL3fA4pU/rLq4JJjGGMFSDJ0spL7UGbzPJvZJBXFKpvhugSyLDFhtWL
+         0UoMfypc3oTfFUZH4EZdZDOGLQ79e/2PsNc/CAnKl4q5dSwALCZEWQz3P33+55cmA+27
+         26R1TfdGwb+dkulnOMNbywCKaTY6K3g/2o+ytq+S+GV4k5CvHRcQrzbWTSJvRNYDsOex
+         DhqZVmxkLbBOILPqrtxLOVKLhbcOxxDOMB+tQx1349pN5hQLOha99l/w6bmsncmeMNxO
+         auUOHI7wWJeqW+ExU4LDv2PYK4cwYVSUWNkV4r64jagyOVgXzpTbAQ+vYV6Y22FG2iMK
+         Hhvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745461586; x=1746066386;
+        h=content-transfer-encoding:cc:to:from:subject:message-id
+         :mime-version:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZCeDLdrtCrCxfrhaDmrCz0i0Q4hDAVlH6/PI2MI1pB4=;
+        b=SySfrkrT3RvHrLLuK5KoB6xCFwCKe6S12q3QB2+Lgf7C0mE8hd/oOJ0g95i9g3OaDd
+         ALHPcQvEnGr2J7R2Endl/XE+TK1/G2lPe+7Zg0Ipjc4+7oQijmXXGkWJt9XLeOJuPG+M
+         RjfVerAf8opCUgnL6WINjonx7fOH8EMxbg6ZgNoMC9pLBtZjXYnS0mLVlliQEEQeqlue
+         5M1ukV29Zo3zsUWQdzKlAmawKBLqOyhJoSM8X/i5OCyCd7df/IhaHYkD80Yt+ry9EbwF
+         cEsEjaDXY/CiDWP5sMQa7wmlUh5PCeWCXU8BnrjcJg6mZv4rl4HFB+c3g0TdtXLXk3Mw
+         I2Zw==
+X-Gm-Message-State: AOJu0Yz00fYTIE9FHxQePEVPoBSvfCUKP8SZ3JUsrDI5ET6yoyH9yj3c
+	pYNMpQRGlV1Gz3Oyftj13Niv9ME3ffVGTxDQ4MbXI4jixDNR3sUxgGBTzK5TEO/71S9tm8rttw=
+	=
+X-Google-Smtp-Source: AGHT+IFF9cDzZFV3RWcQTxbYQqGrmneamhs4tCXUe0Fo+F9s0HDfOG2MCvn8Qp0H71H02XcRv/LayrXNWg==
+X-Received: from pjyp14.prod.google.com ([2002:a17:90a:e70e:b0:2fa:15aa:4d1e])
+ (user=tweek job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3a05:b0:2ff:5a9d:9390
+ with SMTP id 98e67ed59e1d1-309ed2704b5mr1376872a91.8.1745461585924; Wed, 23
+ Apr 2025 19:26:25 -0700 (PDT)
+Date: Thu, 24 Apr 2025 12:26:05 +1000
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3wpydsib5maytq4m4ve4b7wfbfkxwzd5m6u5woqr43qr6mickk@gw4ww6vvgyo5>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.49.0.805.g082f7c87e0-goog
+Message-ID: <20250424022605.10485-1-tweek@google.com>
+Subject: [PATCH] man/man2/memfd_secret.2: Update default state
+From: "=?UTF-8?q?Thi=C3=A9baud=20Weksteen?=" <tweek@google.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, 
+	"=?UTF-8?q?Thi=C3=A9baud=20Weksteen?=" <tweek@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 23, 2025 at 09:31:42AM +0200, Alejandro Colomar wrote:
-> 
-> <http://austingroupbugs.net/view.php?id=251>
+In commit b758fe6df50 ("mm/secretmem: make it on by default"),
+memfd_secret was updated to be enabled by default.
 
-Ugh.  Reading through that bug, despite the fact that the original
-proposal was *significantly* bared down, has greatly reduced my
-respect for the Austin Group.
+Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
+---
+ man/man2/memfd_secret.2 | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-One of the people in that bug argued unironically that using pipes
-should be deprecated.  i.e., that somehow "find . ... -print0 | xargs
--0 ..." was a security problem.
+diff --git a/man/man2/memfd_secret.2 b/man/man2/memfd_secret.2
+index 322d67a41..2eb6db599 100644
+--- a/man/man2/memfd_secret.2
++++ b/man/man2/memfd_secret.2
+@@ -182,12 +182,15 @@ or spawn a new privileged user-space process to perfo=
+rm
+ secrets exfiltration using
+ .BR ptrace (2).
+ .P
+-The way
++Before Linux 6.5,
++.\" commit b758fe6df50daf68fef089d8f3c1cd49fc794ed2
++there was some concern that
+ .BR memfd_secret ()
+-allocates and locks the memory may impact overall system performance,
+-therefore the system call is disabled by default and only available
++allocations and memory locking had an impact on system performance,
++therefore the system call was disabled by default and only available
+ if the system administrator turned it on using
+-"secretmem.enable=3Dy" kernel parameter.
++"secretmem.enable=3Dy" kernel parameter. Since Linux 6.5, the system
++call is enabled by default.
+ .P
+ To prevent potential data leaks of memory regions backed by
+ .BR memfd_secret ()
+--=20
+2.49.0.805.g082f7c87e0-goog
 
-<<Sigh>>
-
-Other people pointed out that creating proscriptions that were not
-implemented by many/most historical implementations would fragment the
-standard and decrease the respect people would have towards the POSIX
-specification.  That was the "toilet paper" comment which you
-referenced.
-
-Well, they got that right.
-
-> I think a mode for disallowing _any control characters_ (aka
-> [:cntrl:], aka 0-31) would be a good choice.
-
-As the Austin Group Bug pointed out, the problem is that the control
-characters can be printable characters, depending on the code page
-that you might be using.  The example that was given was cp437.
-
-The problem is that historically speaking, the kernel does *not* know
-about what locale that is in use.  We made an exception to handle case
-folding, where we added Unicode tables into the kernel.  Some would
-say that was a major mistake, and it's certainly been a headache.
-
-    	       	     	      	       - Ted
 
