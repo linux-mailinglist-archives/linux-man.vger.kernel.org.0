@@ -1,164 +1,138 @@
-Return-Path: <linux-man+bounces-2828-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2829-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FDAAAA5D78
-	for <lists+linux-man@lfdr.de>; Thu,  1 May 2025 13:01:33 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE1DEAA5DA2
+	for <lists+linux-man@lfdr.de>; Thu,  1 May 2025 13:15:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BD835172C44
-	for <lists+linux-man@lfdr.de>; Thu,  1 May 2025 11:01:33 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5DABD4C067D
+	for <lists+linux-man@lfdr.de>; Thu,  1 May 2025 11:15:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 525B82E401;
-	Thu,  1 May 2025 11:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3FBB1A38E1;
+	Thu,  1 May 2025 11:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L2mZTMF7"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YH2JMEkJ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F9B79FD
-	for <linux-man@vger.kernel.org>; Thu,  1 May 2025 11:01:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C1D222563
+	for <linux-man@vger.kernel.org>; Thu,  1 May 2025 11:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746097288; cv=none; b=UrzTYnvAjLtakFl4u8phOPgPj1MkOf7ZMtvLnugIUEhySq4YcGMSLXB7z+JGkgeayzwRavL6WdlxcEWI+06ChqZ1fwDPCENG0nGdADei+7z6xNoZjQgxdkehjsymGfTOOnfONIIX9XmqSGFP1div7rYhNOhf+/s4h3e9NApBg2k=
+	t=1746098104; cv=none; b=sfToB2gug6xuE00q+eehcfAzVIW24w4hSWpXxkmZ7RgLCrlHui/+7V1KZp1B3V4QfKIJ9lKxUU3HOF+vakF3k7oSJam/z8WBDUf5OJ7dtLwNPFq6L0fI3xj04d8b0UKkK26BOQqkaZECQf6+8qjifCfAUr3KLJBsk4pnlIK8GiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746097288; c=relaxed/simple;
-	bh=dzAEicZE375gbYioXx62EnyCa8dB6gERU52PzU++Rok=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MSzUTeHiLN/URznTHQPvl1/n/Qtw4DTnGeABgY16SbcrOo7hN8TIoK6mwlxAbdsMlHxokMHJrFSNV7tgLJWABI0IJ/Vnp2sZRCnXcn2MtVgyVrsbPoIT0DfbyiudyiRfWR/gFM2mHsrh0I4oR6RIpD/KJECs6QqgTtrP5swMivY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L2mZTMF7; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-43690d4605dso5486655e9.0
-        for <linux-man@vger.kernel.org>; Thu, 01 May 2025 04:01:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746097285; x=1746702085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=woGkcLdj5dNZeUoCWbw087HJ16FDyTn1zRmNSXV1sUY=;
-        b=L2mZTMF7foPFXhN8BMYDAOBQExYM1XyTcUoAw1ACPbWMN0N3/saDvmLnxfziBxznRO
-         9Pm/JjB1knIsqIW099dF07cM5de/7Rk18H9+Z5EfkrMcJ8BqNpLT7U0WjGfTm38/4Fwt
-         BSKVllGb4eLlgHFG4qMmUVjmSdAI/5/qsYZOfy3AG5Q0R/iMsdvkcEHoOPqiT2fOv8qb
-         FlPouGcaAKdO2oCdDGsZaiMGVNyqMUBQQY1mlbuFtMvpgbKn2WW4Z8wKEE0C3MO8YaKl
-         7FXJj/gHLKbcKCbmWgGemaohzd875XA+Xa4w/ang3FpCAVuz6ceO4xkpgQgW5MmAxP0i
-         CgEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746097285; x=1746702085;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=woGkcLdj5dNZeUoCWbw087HJ16FDyTn1zRmNSXV1sUY=;
-        b=pcN4QuoSZXGbs74TqWELENl1V2G+IzL50eRIobDdSAK+7E3MVHUZaZ95X11GxIAbIh
-         h/95SJIzjhAdcIsosGc1ukhPB+G4OCGASX8rdy+I4oSJApsbRVU6Urjv2jW6qQ66ggQ1
-         IOX96/q3y89HUKyYcW8F2gloEUDrN40NJAzGEbxVjsR1nQQWcJIlPYmGXFtUbVVBteIy
-         w5Y0C1nBhwfPjf+iPX04f2OsbRg+aSyTvyf1Kx/UiingPe+aCjSDAjuMIO8OXtpGMNBP
-         7BLrMO96jsHZg5jDrXkuswN+SNp34KkQExmTcq5gH5w5Yz8giW4qrVdqrGgGNn9er/k+
-         W+GA==
-X-Forwarded-Encrypted: i=1; AJvYcCUM08yJLp+TRenkiT4a4POf5Utm4NiM6A78fmTg1y6ZHQDhI5R423uH1nj5UzkENP0TWeEPtcljjl8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwP8qavoxP1oabYjtTetRoH/FVLSRGpGg0Xb1iNvFMOhbVIyiG4
-	+nC4kbKg/97GunkCyTVcLoyK2in9fYXWQLslYH9OlxN18CT/IxFn
-X-Gm-Gg: ASbGnctSy2dtMf/G5fvOrIqtPgwxRiK4bVH5yASeQ+JpekAoTxYtwLf6pt3O6cbuXz7
-	r0BZMbFZRtkyF/+AXtamORnNt6WjoxuMZpDRVqkFv8IGJZ64pJ7lpaVk0j/BowtA1jTKuATy6s4
-	I5RLwdkoc7DVLM9FHVhWPil0XZWK2Yd0/ardjEe5AXEH1CLBYBz7HoIRSMmDAOp1TxcTfVil5aP
-	/Mjk2rP3JSCtF8NjV2MBQgrcmUtKEhJWczOb8jnhW1mobcwDqmHFvmEHHm1rNk7XYYjbiMtEm7l
-	91VTRPSrjCuM4kA7j8YqM3wyozrSlpboz8gpUr408nLLB7reuE6eo/vRWv+Ror/6SEY=
-X-Google-Smtp-Source: AGHT+IHtPFwp5eR9fmdlDNqyYTfXLgbyeRfDaPUi9VRkxycxdqwueIfNCxabzaTXYflvrPX/6OJCXw==
-X-Received: by 2002:a05:600c:548d:b0:440:6a1a:d8a0 with SMTP id 5b1f17b1804b1-441b64ed8f1mr21208445e9.7.1746097284385;
-        Thu, 01 May 2025 04:01:24 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-441b2b20a57sm54406505e9.26.2025.05.01.04.01.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 May 2025 04:01:24 -0700 (PDT)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jared Finder <jared@finder.org>,
-	Jann Horn <jannh@google.com>,
-	=?UTF-8?q?Hanno=20B=C3=B6ck?= <hanno@hboeck.de>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	linux-man@vger.kernel.org
-Subject: [PATCH] man/man2const/TIOCLINUX.2const: Document CAP_SYS_ADMIN requirement for TIOCL_SETSEL modes
-Date: Thu,  1 May 2025 13:00:23 +0200
-Message-ID: <20250501110024.9225-2-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.49.0
+	s=arc-20240116; t=1746098104; c=relaxed/simple;
+	bh=DMfWhSHpGgu0tqTfyjYE2vkyjSY70ngebPhkxCxe8aQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bWkRjtGNDy67mdg5wLTwslGlMNScpDqCoMWow8XDyQq8SiPEhPUypSMC9KDIvGgID8i1IwzNCe5c/AF5SZ6d/mPWZD7mxJ0S3qHgCV74QuMuXZ4aOljTqC7CuDIBzbw2DT2TG0XqxXvr9yyxpm1po+j5GeWKoZFCIe/sBZLuyuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YH2JMEkJ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EEE7C4CEE3;
+	Thu,  1 May 2025 11:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1746098104;
+	bh=DMfWhSHpGgu0tqTfyjYE2vkyjSY70ngebPhkxCxe8aQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YH2JMEkJwzysGOHGZODMuCgip1A2+/LXCgEIvAfVZ43bF9LL2dbpUYwjrw/JNG1iC
+	 fbagzu8LUFI9wCutALaMeNGF2avtRJBhA5TSii6Pwo38Sa6y0fIuIIHbxpYN9mTsHK
+	 4urDxdKvxDn4AuZ0+qvcqIsovD6ySl7OKakddnOL5ah3FQbyn9oOzAL+aCPuFXiMje
+	 P9R0xRACoZjC8m3MbtLpWSxYWGCLELaMEDu2sB30LBB1pKFlJzmOSi29MzZZSkTPpE
+	 kkOH9fNu5ydtHfdPjWBi8CE6wxL+7SLTG9uzPE97Wf+1DDSgjkD/kaqeuuVdwZxU26
+	 7WH2/k2aSg5jw==
+Date: Thu, 1 May 2025 13:14:59 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Matthew Wilcox <willy@infradead.org>, 
+	Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, linux-mm@kvack.org
+Subject: Re: [PATCH v2] madvise.2: update MADV_GUARD_INSTALL,
+ MADV_GUARD_REMOVE description
+Message-ID: <xj5qzwiz6rknq46iyxit6plkpemt6ch5foiskept37xcjhuf3a@vdpgwbdiyugk>
+References: <20250423183105.116978-1-lorenzo.stoakes@oracle.com>
+ <3472d46d-3a93-4de3-8ec4-14f972d06da3@lucifer.local>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cejtro3qmrfmy47u"
+Content-Disposition: inline
+In-Reply-To: <3472d46d-3a93-4de3-8ec4-14f972d06da3@lucifer.local>
 
-CAP_SYS_ADMIN was previously required for the entire TIOCL_SETSEL
-subcode, but is now only needed for a subset of the selection modes,
-since linux.git 2f83e38a095f ("tty: Permit some TIOCL_SETSEL modes
-without CAP_SYS_ADMIN").
 
-The CAP_SYS_ADMIN requirement for TIOCL_SELMOUSEREPORT was further
-corrected in linux.git ee6a44da3c87 ("tty: Require CAP_SYS_ADMIN for
-all usages of TIOCL_SELMOUSEREPORT").
+--cejtro3qmrfmy47u
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Matthew Wilcox <willy@infradead.org>, 
+	Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, linux-mm@kvack.org
+Subject: Re: [PATCH v2] madvise.2: update MADV_GUARD_INSTALL,
+ MADV_GUARD_REMOVE description
+References: <20250423183105.116978-1-lorenzo.stoakes@oracle.com>
+ <3472d46d-3a93-4de3-8ec4-14f972d06da3@lucifer.local>
+MIME-Version: 1.0
+In-Reply-To: <3472d46d-3a93-4de3-8ec4-14f972d06da3@lucifer.local>
 
-Link: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=2f83e38a095f8bf7c6029883d894668b03b9bd93>
-Link: <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=ee6a44da3c87cf64d67dd02be8c0127a5bf56175>
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- man/man2const/TIOCLINUX.2const | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+Hey Lorenzo!
 
-diff --git a/man/man2const/TIOCLINUX.2const b/man/man2const/TIOCLINUX.2const
-index 61f1c596d..f48132ea1 100644
---- a/man/man2const/TIOCLINUX.2const
-+++ b/man/man2const/TIOCLINUX.2const
-@@ -72,18 +72,30 @@ may be one of the following operations:
- Select character-by-character.
- The indicated screen characters are highlighted
- and saved in a kernel buffer.
-+.IP
-+Since Linux 6.7, using this selection mode requires the
-+.B CAP_SYS_ADMIN
-+capability.
- .TP
- .B TIOCL_SELWORD
- Select word-by-word,
- expanding the selection outwards to align with word boundaries.
- The indicated screen characters are highlighted
- and saved in a kernel buffer.
-+.IP
-+Since Linux 6.7, using this selection mode requires the
-+.B CAP_SYS_ADMIN
-+capability.
- .TP
- .B TIOCL_SELLINE
- Select line-by-line,
- expanding the selection outwards to select full lines.
- The indicated screen characters are highlighted
- and saved in a kernel buffer.
-+.IP
-+Since Linux 6.7, using this selection mode requires the
-+.B CAP_SYS_ADMIN
-+capability.
- .TP
- .B TIOCL_SELPOINTER
- Show the pointer at position
-@@ -118,11 +130,11 @@ If mouse reporting is not enabled for the terminal,
- this operation yields an
- .B EINVAL
- error.
--.RE
- .IP
--Since Linux 6.7, using this subcode requires the
-+Since Linux 6.12.26, using this selection mode requires the
- .B CAP_SYS_ADMIN
- capability.
-+.RE
- .TP
- .BR subcode = TIOCL_PASTESEL
- Paste selection.
--- 
-2.49.0
+On Thu, May 01, 2025 at 10:53:51AM +0100, Lorenzo Stoakes wrote:
+> Hey Alejandro,
+>=20
+> Just a gentle ping on this :) Let me know if you need me to do anything
+> else on this!
 
+Sorry for being slow; I was on a family trip.  :-)
+
+
+I've applied your patch.  It was all good.  I've only slightly tweaked
+the commit message subject line:
+
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D9ee66d0b01dfc797c57b4735fd48c138f97a66d2>
+
+	man/man2/madvise.2: Update MADV_GUARD_INSTALL, MADV_GUARD_REMOVE for Linux=
+ 6.15
+
+I added the info that it's about Linux 6.15, to see it without having to
+read the entire message, and also used the full path of the page (I
+changed that recently for all commits).  (Plus also start with uppercase
+after the ':'.)
+
+> Cheers, Lorenzo
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--cejtro3qmrfmy47u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgTV7MACgkQ64mZXMKQ
+wqnH7w//TJwXdfM/ld33mEoz7Dr7mQE7VOTgmd0J45VTGU2qsWDPY6OO5Jnm6/pL
+BEdswAgRA1bM4MaYsuZbYDYFc7a6CDqzPdvWd/nggjj6riUa3k3bDW2SJHJdkmi1
+W1GJ010Bcsrk1p/uyF8Bg0PW9s4GpI6NHzxy87zxDplAq/mp++x7wCfD1fP0XBHp
+u8MlCn2Ob2eqdmXmkmQG3qpvLEoQ2kjtGKQ8yc/t3rclNW1ftlO20nv+9RPG+twA
+QnKco2nFr+VhKX1z67AGY0wesHS3a9blWnaRYh3FUnJKcm/1FQQzrI/GVHzRvdmU
+2Yehe6z5kcvmUIksPJ2q+zc7BawesYVKuigw93lnohpyUmAE9fIYZHvDh5DC8lxe
+hWCfM6S0H4IN40k+C8fYixlkPrKJWQGFObfNAd6hYhPhP+az74AQ57+JtF48Sbh5
+qOYzyw9Wr0+mj8wYf3JNg0NoR5b8xgfBFivou2gu6vw/bGm3JZwh9oU/OLu/nR/Z
+SnxRA+g1rC/EO6sQYJ9KaXj0Xm6YjvYRkbuOFoauwwZsGaTJsk9AUo2M4JL9MtJm
+U9swVChebpx3ZolbNfx0Z5TCwSDtoHwqAVj9AfJbVYO/9BZHulT+Sc1PMEgOALi2
+mojRYwoQrba367n284sFYjVk5kz5K7FNqaDtIlWxc/NtOZZSHpA=
+=22mD
+-----END PGP SIGNATURE-----
+
+--cejtro3qmrfmy47u--
 
