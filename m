@@ -1,384 +1,178 @@
-Return-Path: <linux-man+bounces-2840-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2841-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FF53AA6660
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 00:47:24 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9162CAA673F
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 01:08:00 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B2FBD980E95
-	for <lists+linux-man@lfdr.de>; Thu,  1 May 2025 22:47:05 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 781631890098
+	for <lists+linux-man@lfdr.de>; Thu,  1 May 2025 23:07:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28B441EA7FF;
-	Thu,  1 May 2025 22:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 905B6265CCF;
+	Thu,  1 May 2025 23:04:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T432Eh59"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UdVOT7ci"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F84919F12D
-	for <linux-man@vger.kernel.org>; Thu,  1 May 2025 22:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B82B257443
+	for <linux-man@vger.kernel.org>; Thu,  1 May 2025 23:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746139638; cv=none; b=DIm5hR88owXRsheGCHzKksgScHGkeqCMUdnFpmVyLf1dHsw8KvsyPl9ZMAn7F78gQM+Bua6mfG/0vLh77f2uUAJKi0Emcv3mJhoB7d4+YzoSHQKW7pmIFWlPLOS+iJPYwBfkxSsZegy4dOv/6wkMZVOQ/cSKf/aPXXy3FvLOpDY=
+	t=1746140646; cv=none; b=AxQSosOWBwKkBCfIWQ5sO8g5sQS+GiSgmXUgQZ4caDO3bF+ebUStUeWViE7/66I7QUDX2BGxx/UMWvY0faNBaPYmkJUgqn9V8Yk9GOJ3r8yuA4PZnzxaNHoEmNE5VWYB3uH71XLJeAzOmtQUYy5vDVdco+pAWnGYn5oSKNaATZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746139638; c=relaxed/simple;
-	bh=iqsOvv6iaydbtBYBgE9q0mGd1QvB53PPls/wkjUptn4=;
+	s=arc-20240116; t=1746140646; c=relaxed/simple;
+	bh=pFMgcu0bhGr45GF+1KuvGeIEWd+s4tBjWzSwcqq8ato=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Acvvrq17B7mIL23V9ntIu8tjE/seDt5x73Vi9zKGw9Y3lHAGDntqQ1cRgQHUI2HaS54MbedpEB29qlkFT9jJSVLmJ5TVv4PTeGjjQ461yxn4gp27uDI9gYE/dBZ00YqeND0wHkwdGxbNMJMUTqEFwGNDrvpOW3mFBVftxgzJfNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T432Eh59; arc=none smtp.client-ip=209.85.160.169
+	 To:Cc:Content-Type; b=pcYJQ2xFkRBrsuakShAUqW4Yakn6kogDJpq0vNQvSSfxgde7Kj3JVmjJyoxqTYMGYdDDOzLB0mxFnt1RR7iNvcHnqb27oFq7ZvJgZOz0uDDCQkQwobIWUnyzusvxSYAkuzkLmN4mxRW1K+FVHTQWbVipAQYqVRlGNrfcirUvnqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UdVOT7ci; arc=none smtp.client-ip=209.85.167.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-4774611d40bso96021cf.0
-        for <linux-man@vger.kernel.org>; Thu, 01 May 2025 15:47:15 -0700 (PDT)
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-54d689c0741so1249e87.1
+        for <linux-man@vger.kernel.org>; Thu, 01 May 2025 16:04:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1746139635; x=1746744435; darn=vger.kernel.org;
+        d=google.com; s=20230601; t=1746140643; x=1746745443; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=O6fwaerzl3Bg0sf5oeWuRn0ChzTq7tOiRIWWTq3nzwY=;
-        b=T432Eh59TLKvL2dx2GVZlTHeGKd6wWhdZRibk3K8S0FZUwuZzl2q2YgZOJ0H7YFFPJ
-         agqChU8fM8G4+DQCYHvmO734EF1+XO5nP8aoOzUgluDdKl0hEzxo2x/PJPok57KKcpWT
-         +fjbQruUnUbCFutjKuZ3dbAIdpjcMy+mjUvcAXprFq6e7fkY1G+hUQUl8wFfopa0RLyk
-         wmGbm0Ow2oPaT3p7w7xRiTMDLA6GlsxMjhEhuyPj1Tn+6rk0A1IYEL17lSLlEmBadLyu
-         RkdCTx6znc59+SczvOqRYv3t1XzD6JKR4LHR+/A6wCEBaIju00IXInHuWDOSaDBIN2Q0
-         ik/A==
+        bh=arPApI7hInEUpf9bA3wVp4jPaSmDGM4yssCw4EUnQ6c=;
+        b=UdVOT7ciFjKfIS2LBwcdTDF3mMeFlkCa26X7XTT/vqvETKcJSgtnq4LjuALQuwb3gp
+         cUDFX8RVG45pf8Bgs6eS7bVipVFxrijCW6/HgxxQHyfIR1iYzuyoc9Re32Zh/KMr9TAO
+         MvA0KKOQQzscLJ4MYO8CG3ZEN4wcDZ+pFYSn1NHIAF1ErZgcWW8x2vY5uOpL3hWI1DbV
+         ScJukrejEYOjPFDGKE4H/4pQsiBngoWI/oRt34IWvA9xYaaXTcNElaY9ltj49pMCja/C
+         VdZJqjD2prmEOqWr3bp3fns4/WWomaK1S8uDt9OTdpnxQJrrbveXHsIwtUK/TeNrIPCk
+         41yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746139635; x=1746744435;
+        d=1e100.net; s=20230601; t=1746140643; x=1746745443;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=O6fwaerzl3Bg0sf5oeWuRn0ChzTq7tOiRIWWTq3nzwY=;
-        b=PAgd4sDhcs4U0nwyBtYWJqZCTPELG51HBmLLMTX7UoXcLTegJqGYlccUnpGcYtaKDL
-         kRzV7RsDaaZEAaHK2DI1sSA3T8ofd6NW0Y62zughdY7GrykZfvJN5Y5w9mMx6OVOukmy
-         +HN8b1O749HShUkW3ZJxBnFBxfPVUlQSl7yllTTfaIJG+VZkDs5AXsCxqYYCcFVHeQpH
-         cbNvQolyXJ4CQoCS9H8lFC+cOnfjFqviqyDu+T7OZAv4wSpi7RfmSUOWvIrKBcAI5ADl
-         7VSpNoU87JiHszrDa3NGPcpDmGCOcfSCLGZCATlpPAv02DUJY871/sjm1o1it22DVDU9
-         et7g==
-X-Forwarded-Encrypted: i=1; AJvYcCWSsiiu1Id3a4dGMZkSD5DKqleh8xNfvkPZ4UHZNoM0ZqjGRDZSDzu6D0KVH0Kq+p9mIC74U5YO62c=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKGB5NfQvfFqfgfZ5L6mHiqEGOnTj7nMRnlIAQC0UFhq6il+Qh
-	360A8Ek0ZTHRF/zOyrbXQTDfMhDkV5izBjnTaWn8C1/cAL9q7l3nE7ETyqUva0LTXASEdNNIB8W
-	Pz3TV+LR2kchHF/9aoT187U8tKjkv4WICxwiE
-X-Gm-Gg: ASbGncthekFCOHjAfVZsjGcVN1tQ9u9Zdk+TSOf4gDgGFzpsV+buvTAisPqbQ0ykdAD
-	Zgcek+OUGQ8yKoAzgfdVQN91sNPdSrRkXCnNla3GTVctiGha/Gn7TeLfZMUGxcVmlokaBVXIbjC
-	XU14pQbpokXCCXLy3mjy74
-X-Google-Smtp-Source: AGHT+IFZI002Sla3uvwR1rluxQsLjbMAG9CGpRQ6CtR5RfgdNfT+dEP/11g/kteOQpKWLbA1/vj6iYeLrkz2QlOUBRA=
-X-Received: by 2002:ac8:5a0c:0:b0:47b:840:7f5b with SMTP id
- d75a77b69052e-48b0dfe09a8mr4973961cf.29.1746139634530; Thu, 01 May 2025
- 15:47:14 -0700 (PDT)
+        bh=arPApI7hInEUpf9bA3wVp4jPaSmDGM4yssCw4EUnQ6c=;
+        b=HqYEUOtkem2dUWmZWYnA2CPPWeRVIaonBKMj4xqE9hDkGaIeEhMUuZ/kAq5gT2QmEs
+         PYcvMLMPWIUAuvgHIU/y4QUlewhG7YaDnMlnHekZdcgBf+8jSxZssaaWSRMSxQ5pOSyi
+         WHWslxhxZu3fd8XcatGpHzqnh9vscyNhsO83a9X+LS20yykaU7LGNq/tRJEz4F2kvwN7
+         xbay5RXOh2rwbB4Zzr0CfsdNQHTvLpqNB1HUGOmR+88ApPHJgRadeB4dKACjKMzBkPqT
+         Rih5IrKhQEtbHLZbCAoWgRv9Ijl5PNdR8m7mm2f7bS6eM+odxjrDRzyv+BjRU0i9XpwS
+         YRwQ==
+X-Gm-Message-State: AOJu0YytX+quWutjp6f5iUmUvGM7klInjB2+1ESLoYvjcpF9uH8XckaH
+	xk+H7WGJRV6NjjICTBEb4ifysPfI+RMtDjgq8thfZGjfsOPLHN4ECgW+igtqqx1qXvuwfMbg88k
+	Q8/886v5Mtd3/Q8JRe4Nzi5bPdDt5hJ5qXd7qN6I81IJtNaKg5UTqIgs=
+X-Gm-Gg: ASbGncv1NQDk2599Sv78U6NIC8YbpoY8iTy9/riDyvqWygj+/zyRcBYrApr2qGBQBLk
+	QJs7MdSFJJsQ2xAwW2Zf13XkUrqOLKKwDWmKxjoGgURS8u1ZvrGAGAJw8gsVWuZIGVpgyFDgEV+
+	dmpUMDuMjcb8idGEu2wU+hPg==
+X-Google-Smtp-Source: AGHT+IF/nABH5D/E5jNVLqBxBdBWaPKxYVX2Oa8hQlpZ8SCGuPePYS2fjyPCdvyWaeWHljmSX23TV3O+6yHmMzAZ6Kg=
+X-Received: by 2002:a19:8c4e:0:b0:543:e3c3:5a5e with SMTP id
+ 2adb3069b0e04-54ea711d9c7mr341448e87.4.1746140642442; Thu, 01 May 2025
+ 16:04:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250423195309.2841410-1-surenb@google.com> <iez4k4xdfxnbc6nvo6rxfoqd4argcx3adsmtaxjr4q4ra46324@tvo5pbno6n7i>
-In-Reply-To: <iez4k4xdfxnbc6nvo6rxfoqd4argcx3adsmtaxjr4q4ra46324@tvo5pbno6n7i>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 1 May 2025 15:47:03 -0700
-X-Gm-Features: ATxdqUFMVjVkF21Xxk3-g1aoMywqpskLyRu2fbWvlDJpBxC8WUbsWZulycaGZGQ
-Message-ID: <CAJuCfpERT1MUeY1iCxXCYAp8KxZcnDfStn3+fXm_C=nx_8LMAA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] man/man2/ioctl_userfaultfd.2, UFFDIO_MOVE.2const:
- Add UFFDIO_MOVE page
+References: <20250428020252.1569621-1-tweek@google.com> <noapvznvijxtvybcap6qso3r2wv54cvbwpqj4y3fxgh7gmzvah@tzposocmmuzp>
+In-Reply-To: <noapvznvijxtvybcap6qso3r2wv54cvbwpqj4y3fxgh7gmzvah@tzposocmmuzp>
+From: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>
+Date: Fri, 2 May 2025 09:03:43 +1000
+X-Gm-Features: ATxdqUFCmpWmpFBNd43X_w6gzVIjR0ZOxpQdHR3lyXWuv8cxYhxY4rXE_zxjlUo
+Message-ID: <CA+zpnLfzODK6q5ni89QiTnRid15FtHACvyjaoGfx3PcYGmuBuQ@mail.gmail.com>
+Subject: Re: [PATCH v2] man/man2/memfd_secret.2: Update default state
 To: Alejandro Colomar <alx@kernel.org>
-Cc: aarcange@redhat.com, lorenzo.stoakes@oracle.com, david@redhat.com, 
-	peterx@redhat.com, lokeshgidra@google.com, linux-man@vger.kernel.org, 
-	linux-mm@kvack.org
+Cc: linux-man@vger.kernel.org, Mike Rapoport <rppt@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 1, 2025 at 6:12=E2=80=AFAM Alejandro Colomar <alx@kernel.org> w=
+On Fri, May 2, 2025 at 7:21=E2=80=AFAM Alejandro Colomar <alx@kernel.org> w=
 rote:
 >
-> Hi Suren,
+> Hi
 >
-> On Wed, Apr 23, 2025 at 12:53:09PM -0700, Suren Baghdasaryan wrote:
-> > Documentation was extracted from the original patch written by Andrea
-> > Arcangeli and upstreamed in [1]. Minor edits were made to maintain
-> > the same documentation style as other userfaultfd ioctl commands.
+> On Mon, Apr 28, 2025 at 12:02:52PM +1000, Thi=C3=A9baud Weksteen wrote:
+> > In commit b758fe6df50 ("mm/secretmem: make it on by default"),
+> > memfd_secret was updated to be enabled by default.
 > >
-> > [1] <https://lore.kernel.org/all/20231206103702.3873743-3-surenb@google=
-.com/>
-> >
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
 >
-> I've formatted references to fork(2).  I also fixed a few places with
-> s/BR/B/.  Other than that, the patch was fine; I've applied it.  Thanks!
+> Thanks!  I've applied the patch.  I've amended with some tweaks to line
+> breaks to reduce the diff:
+
+
+Great, thanks for the review!
+
+>
+>
+>         diff --git c/man/man2/memfd_secret.2 w/man/man2/memfd_secret.2
+>         index b3896b12d..30853d65b 100644
+>         --- c/man/man2/memfd_secret.2
+>         +++ w/man/man2/memfd_secret.2
+>         @@ -140,9 +140,9 @@ .SH HISTORY
+>          Before Linux 6.5,
+>          .\" commit b758fe6df50daf68fef089d8f3c1cd49fc794ed2
+>          .BR memfd_secret ()
+>         -was disabled by default and only available if the system
+>         -administrator turned it on using "secretmem.enable=3Dy" kernel
+>         -parameter.
+>         +was disabled by default and only available
+>         +if the system administrator turned it on using
+>         +"secretmem.enable=3Dy" kernel parameter.
+>          .SH NOTES
+>          The
+>          .BR memfd_secret ()
+>
 > <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/c=
-ommit/?h=3Dcontrib&id=3Dd7dec35a3b197d499c0bb2b078117478fe6382d1>
-> Below is the diff with which I amended the patch.
-
-Hi Alex,
-Your changes look good. Thank you and Lorenzo for helping to sort this out.
-Cheers,
-Suren.
-
+ommit/?h=3Dcontrib&id=3D84521911eab71ce5ff83365c75dfce846d12ce97>
 >
 >
-> Have a lovely day!
+> Have a lovely night!
 > Alex
 >
->
-> diff --git i/man/man2const/UFFDIO_MOVE.2const w/man/man2const/UFFDIO_MOVE=
-.2const
-> index 77b0ca781..daa122b30 100644
-> --- i/man/man2const/UFFDIO_MOVE.2const
-> +++ w/man/man2const/UFFDIO_MOVE.2const
-> @@ -108,36 +108,42 @@ .SH ERRORS
->  .I .mode
->  field.
->  .TP
-> -.BR ENOENT
-> +.B ENOENT
->  The source virtual memory range has unmapped holes and
->  .B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
->  is not set.
->  .TP
-> -.BR EEXIST
-> +.B EEXIST
->  The destination virtual memory range is fully or partially
->  mapped.
->  .TP
-> -.BR EBUSY
-> +.B EBUSY
->  The pages in the source virtual memory range are either
->  pinned or not exclusive to the process.
->  Once KSM deduplicates pages
-> -or fork() COW-shares pages during fork() with child processes,
-> +or
-> +.BR fork (2)
-> +COW-shares pages during
-> +.BR fork (2)
-> +with child processes,
->  they are no longer exclusive.
->  The kernel might only perform lightweight checks
->  for detecting whether the pages are exclusive.
->  To make the operation more likely to succeed,
->  KSM should be disabled,
-> -fork() should be avoided
-> +.BR fork (2)
-> +should be avoided
->  or
->  .B MADV_DONTFORK
->  should be configured
->  for the source virtual memory area
-> -before fork().
-> +before
-> +.BR fork (2).
->  .TP
-> -.BR ENOMEM
-> +.B ENOMEM
->  Allocating memory needed for the operation failed.
->  .TP
-> -.BR ESRCH
-> +.B ESRCH
->  The target process has exited at the time of a
->  .B UFFDIO_MOVE
->  operation.
->
->
 > > ---
-> > Changes since v1[1]
-> > - removed '\" t, per Alejandro Colomar
-> > - reformated sentences to use semantic newlines, per Alejandro Colomar
-> > - changed field names to use '.' prefix, per Alejandro Colomar
-> > - changed EBUSY, UFFDIO_MOVE and MADV_DONTFORK to be bold,
-> > per Alejandro Colomar
-> > - folded duplicate information into EBUSY error description,
-> > per Alejandro Colomar
+> > Changes since v1:
+> > - Move the paragraph to the HISTORY section.
+> > - Drop reference to the performance concern.
+> > - Follow semantic newlines rule.
+> >  man/man2/memfd_secret.2 | 14 +++++++-------
+> >  1 file changed, 7 insertions(+), 7 deletions(-)
 > >
-> > [1] https://lore.kernel.org/all/20250423011203.2559210-1-surenb@google.=
-com/
-> >
-> >  man/man2/ioctl_userfaultfd.2     |   2 +
-> >  man/man2const/UFFDIO_MOVE.2const | 153 +++++++++++++++++++++++++++++++
-> >  2 files changed, 155 insertions(+)
-> >  create mode 100644 man/man2const/UFFDIO_MOVE.2const
-> >
-> > diff --git a/man/man2/ioctl_userfaultfd.2 b/man/man2/ioctl_userfaultfd.=
-2
-> > index 3cb1b8305..5ec08ca55 100644
-> > --- a/man/man2/ioctl_userfaultfd.2
-> > +++ b/man/man2/ioctl_userfaultfd.2
-> > @@ -69,6 +69,8 @@ events.
-> >  .TQ
-> >  .BR UFFDIO_COPY (2const)
-> >  .TQ
-> > +.BR UFFDIO_MOVE (2const)
-> > +.TQ
-> >  .BR UFFDIO_ZEROPAGE (2const)
-> >  .TQ
-> >  .BR UFFDIO_WAKE (2const)
-> > diff --git a/man/man2const/UFFDIO_MOVE.2const b/man/man2const/UFFDIO_MO=
-VE.2const
-> > new file mode 100644
-> > index 000000000..77b0ca781
-> > --- /dev/null
-> > +++ b/man/man2const/UFFDIO_MOVE.2const
-> > @@ -0,0 +1,153 @@
-> > +.\" Written by Andrea Arcangeli <aarcange@redhat.com>
-> > +.\"
-> > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> > +.\"
-> > +.TH UFFDIO_MOVE 2const (date) "Linux man-pages (unreleased)"
-> > +.SH NAME
-> > +UFFDIO_MOVE
-> > +\-
-> > +atomically move a continuous memory chunk into the userfault registere=
-d range
-> > +.SH LIBRARY
-> > +Standard C library
-> > +.RI ( libc ,\~ \-lc )
-> > +.SH SYNOPSIS
-> > +.nf
-> > +.BR "#include <linux/userfaultfd.h>" "  /* Definition of " UFFD* " con=
-stants */"
-> > +.B #include <sys/ioctl.h>
+> > diff --git a/man/man2/memfd_secret.2 b/man/man2/memfd_secret.2
+> > index 322d67a41..b3896b12d 100644
+> > --- a/man/man2/memfd_secret.2
+> > +++ b/man/man2/memfd_secret.2
+> > @@ -136,6 +136,13 @@ or has not been enabled on the kernel command-line=
+ with
+> >  Linux.
+> >  .SH HISTORY
+> >  Linux 5.14.
 > > +.P
-> > +.BI "int ioctl(int " fd ", UFFDIO_MOVE, struct uffdio_move *" argp );
-> > +.P
-> > +.B #include <linux/userfaultfd.h>
-> > +.P
-> > +.fi
-> > +.EX
-> > +.B struct uffdio_move {
-> > +.BR "    __u64  dst;" "   /* Destination of move */"
-> > +.BR "    __u64  src;" "   /* Source of move */"
-> > +.BR "    __u64  len;" "   /* Number of bytes to move */"
-> > +.BR "    __u64  mode;" "  /* Flags controlling behavior of move */"
-> > +.BR "    __s64  move;" "  /* Number of bytes moved, or negated error *=
-/"
-> > +.B };
-> > +.EE
-> > +.SH DESCRIPTION
-> > +Atomically move a continuous memory chunk
-> > +into the userfault registered range
-> > +and optionally wake up the blocked thread.
-> > +.P
-> > +The following value may be bitwise ORed in
-> > +.I .mode
-> > +to change the behavior of the
-> > +.B UFFDIO_MOVE
-> > +operation:
-> > +.TP
-> > +.B UFFDIO_MOVE_MODE_DONTWAKE
-> > +Do not wake up the thread that waits for page-fault resolution
-> > +.TP
-> > +.B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
-> > +Allow holes in the source virtual range that is being moved.
-> > +When not specified, the holes will result in
-> > +.B ENOENT
-> > +error.
-> > +When specified,
-> > +the holes will be accounted as successfully moved memory.
-> > +This is mostly useful
-> > +to move hugepage aligned virtual regions
-> > +without knowing if there are transparent hugepages in the regions or n=
-ot,
-> > +but preventing the risk of
-> > +having to split the hugepage during the operation.
-> > +.P
-> > +The
-> > +.I .move
-> > +field is used by the kernel
-> > +to return the number of bytes that was actually moved,
-> > +or an error
-> > +(a negated
-> > +.IR errno -style
-> > +value).
-> > +The
-> > +.I .move
-> > +field is output-only;
-> > +it is not read by the
-> > +.B UFFDIO_MOVE
-> > +operation.
-> > +.SH RETURN VALUE
-> > +On success,
-> > +0 is returned.
-> > +In this case, the entire area was moved.
-> > +.P
-> > +On error, \-1 is returned and
-> > +.I errno
-> > +is set to indicate the error.
-> > +.SH ERRORS
-> > +.TP
-> > +.B EAGAIN
-> > +The number of bytes moved (i.e., the value returned in the
-> > +.I .move
-> > +field)
-> > +does not equal the value that was specified in the
-> > +.I .len
-> > +field.
-> > +.TP
-> > +.B EINVAL
-> > +Either
-> > +.I .dst
-> > +or
-> > +.I .len
-> > +was not a multiple of the system page size, or the range specified by
-> > +.I .src
-> > +and
-> > +.I .len
-> > +or
-> > +.I .dst
-> > +and
-> > +.I .len
-> > +was invalid.
-> > +.TP
-> > +.B EINVAL
-> > +An invalid bit was specified in the
-> > +.I .mode
-> > +field.
-> > +.TP
-> > +.BR ENOENT
-> > +The source virtual memory range has unmapped holes and
-> > +.B UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES
-> > +is not set.
-> > +.TP
-> > +.BR EEXIST
-> > +The destination virtual memory range is fully or partially
-> > +mapped.
-> > +.TP
-> > +.BR EBUSY
-> > +The pages in the source virtual memory range are either
-> > +pinned or not exclusive to the process.
-> > +Once KSM deduplicates pages
-> > +or fork() COW-shares pages during fork() with child processes,
-> > +they are no longer exclusive.
-> > +The kernel might only perform lightweight checks
-> > +for detecting whether the pages are exclusive.
-> > +To make the operation more likely to succeed,
-> > +KSM should be disabled,
-> > +fork() should be avoided
-> > +or
-> > +.B MADV_DONTFORK
-> > +should be configured
-> > +for the source virtual memory area
-> > +before fork().
-> > +.TP
-> > +.BR ENOMEM
-> > +Allocating memory needed for the operation failed.
-> > +.TP
-> > +.BR ESRCH
-> > +The target process has exited at the time of a
-> > +.B UFFDIO_MOVE
-> > +operation.
-> > +.SH STANDARDS
-> > +Linux.
-> > +.SH HISTORY
-> > +Linux 6.8.
-> > +.SH SEE ALSO
-> > +.BR ioctl (2),
-> > +.BR ioctl_userfaultfd (2),
-> > +.BR userfaultfd (2)
-> > +.P
-> > +.I linux.git/\:Documentation/\:admin\-guide/\:mm/\:userfaultfd.rst
-> >
-> > base-commit: 80e2715270fc05d5627c26f88e4c1ba8b093f510
+> > +Before Linux 6.5,
+> > +.\" commit b758fe6df50daf68fef089d8f3c1cd49fc794ed2
+> > +.BR memfd_secret ()
+> > +was disabled by default and only available if the system
+> > +administrator turned it on using "secretmem.enable=3Dy" kernel
+> > +parameter.
+> >  .SH NOTES
+> >  The
+> >  .BR memfd_secret ()
+> > @@ -182,13 +189,6 @@ or spawn a new privileged user-space process to pe=
+rform
+> >  secrets exfiltration using
+> >  .BR ptrace (2).
+> >  .P
+> > -The way
+> > -.BR memfd_secret ()
+> > -allocates and locks the memory may impact overall system performance,
+> > -therefore the system call is disabled by default and only available
+> > -if the system administrator turned it on using
+> > -"secretmem.enable=3Dy" kernel parameter.
+> > -.P
+> >  To prevent potential data leaks of memory regions backed by
+> >  .BR memfd_secret ()
+> >  from a hybernation image,
 > > --
-> > 2.49.0.805.g082f7c87e0-goog
+> > 2.49.0.850.g28803427d3-goog
 > >
 >
 > --
