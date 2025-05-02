@@ -1,105 +1,126 @@
-Return-Path: <linux-man+bounces-2857-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2858-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D179AA78C7
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 19:42:51 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C9CAA7D5B
+	for <lists+linux-man@lfdr.de>; Sat,  3 May 2025 01:40:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 472581BC0150
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 17:43:03 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id B5640175990
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 23:40:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D388A2566DE;
-	Fri,  2 May 2025 17:42:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFF97226CE4;
+	Fri,  2 May 2025 23:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOmrFvXS"
+	dkim=pass (2048-bit key) header.d=martinlemaire.fr header.i=@martinlemaire.fr header.b="fZUqPAHA"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 3.mo575.mail-out.ovh.net (3.mo575.mail-out.ovh.net [46.105.58.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A38255E30
-	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 17:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4AA21C195
+	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 23:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.58.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746207765; cv=none; b=LdYE+wfx+YhD5/rqgp/JqQ6SXl6d9SBNPTe/UAL6Us1w6SMUKZsrxWZmtyF34EViEjTq1O/GET7gsRtuascfAGG4zowKulmoh9Sqg9Aiz+rs9SjLfQ7OtzOeHBDCjoYKYthk3+E3sRF9SyhoW9UtgKR8gOneQ9sBXjRkh+3vego=
+	t=1746228842; cv=none; b=FFo7k+z3UqaDUpHv6nAASjX4ChVskBZDi+aEaZTBaWLTcmAEVtzqrgtEIpa7oiLfvpAm9NBYela1g8u2Ev8TuCZ3nJSb2pjDDtHmNs/2t2o134BrlLCI9o6QRH3vaH0xzeEWflQ+CufTUScgUPVVZR4odxxeMI+V/fVYh2sCC9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746207765; c=relaxed/simple;
-	bh=IfbGUZdFUgFsAung9ns2Llx1RMom+l0iTgko/JU5Swk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GSjm+bBPYS/2M0/fKn4dD5+vY1KNl5PPl5JwNuaNojD84g5+SlM57CZ96rbEYPnfzizncQtTk8vlby986Y0x53gZzUKfph6BgJlxbvjCXwKpfvKZv0GP2dgRAz62FUUS0vdFPGNvSc29V4SAiYJwN16xamK0BpSYBZOhbwyg/18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOmrFvXS; arc=none smtp.client-ip=209.85.161.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6064d4c14ebso574486eaf.2
-        for <linux-man@vger.kernel.org>; Fri, 02 May 2025 10:42:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746207762; x=1746812562; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/cZyFueKKE42V0XFTLBB+vMnwgWyNkwvMwZRRZWUnw4=;
-        b=QOmrFvXSSXejj4DF/kdAtbVw0CFqeZygqKbLsTOFAq0PTkck0YEiMH6reWd0b1fh4x
-         Q5k8OsMDOdjEMHoUYVjcioqy4rlrYQxjzBHpdOB3NIWQqqHHCnSjvSNuiL6rbEC55KLB
-         hmf5fL16e4vXxXqIWe5oOJsVpfmwzT4CXMcHnuVBr6L4/aCOMHnGjqZs5OyCWgN1iwqV
-         FqvVI6eJ06+WcG2dkwAQeatPLKjGWc09FkVmxtdW416f4jfERRMyKFmFqikhXZFo6X1o
-         VsBNfg1FLx0VM/sKmz6L87Obqjp8uI1lrgRq1MBNJvysCAAYoejQkolNL2si2VbsrLeD
-         bZUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746207762; x=1746812562;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/cZyFueKKE42V0XFTLBB+vMnwgWyNkwvMwZRRZWUnw4=;
-        b=M3ylXzPGoDSxIxBMuJtMsghSMUzx8D5ltGGXEFVEse+b7vina/Vqff6T9UN47XHDYI
-         euImlk7QxrPb+JLy867DJZkmaJ4zC7EdJxOsjdRHa+xgDWtGW6hu6vlcJfvpLwQFIjmC
-         ED10WKTDRfq8fcQyD0jodZrKGcfkvimALeDsYlJDznAvsM85lABoHw9dkSa8MnJAq30H
-         SVjD1jFDVQ0UCwkONoT/DK8pUfKBIiUJD/tvboe/AwC4bpukqGEI5oteO3Ss9snH74ub
-         G66jPB/vFyiAjSBjvveWw+4+oQHxCvLigzVF8dKTTvPkguFNj727Lj6Y6WFKZoF4V4/m
-         L7Cw==
-X-Forwarded-Encrypted: i=1; AJvYcCVY/0xIHcvaL8Gv4u/pYt1GO+p4pfCprQtU+medDcpzHNtG0U9PIohjjW7gAhaDfs2V3mt+D/PeF0Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5ClvaimYP2dlM1Z8l9wWOBxL/qCg09xgoxVjMi0Za6WwAL8rJ
-	uc/moSgP1Aq612bRY5BleX7OiQ79i71mKNk9VerulFhOo4SEMupmMC00QZLAHtuiEHkoly/8ITH
-	TepkdNcOHy/K0jE4z8ktsXxzp4Vg=
-X-Gm-Gg: ASbGnctIIKFFjD2n9NCK1QW+qUL9xesMjfMTFKrPxvCsgHvXhkX4uHe9NNjjyijecnw
-	4Lepl/M0OqjvuOTikmMSkgUob6wOW7xaTBAmlcraTHcChCxe1oyJQ7lzI42tGZYZ3IDSnxEKAmT
-	dpMWFGsQUBiT3/2wKOSVmL8bFzOsw39IugnG3Imxv6gPMa2tQHaSQb8Fyr
-X-Google-Smtp-Source: AGHT+IHi7423dvoKYqylr5tnxPY2FUSlGwOzVCtTLs8wCRhUycD3icJNCkwqJofwDfal29YvoHZAdyLKnwjqtdNVpzI=
-X-Received: by 2002:a05:6820:3088:b0:607:cc1a:572f with SMTP id
- 006d021491bc7-607ee83667amr2212800eaf.6.1746207762089; Fri, 02 May 2025
- 10:42:42 -0700 (PDT)
+	s=arc-20240116; t=1746228842; c=relaxed/simple;
+	bh=iBmeaA1ZRx/q/mBKrMNIwUiynul2BSlEH3jK6ww2Lkk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=exeqUhFWLxxi7LveO6rMJemE+Ierx9ue6xX2KgVV3QMKdhAcrXQxBZrY05nqyyFesfK8zbh2C1Ux6suZ/ymhUTuZjwZIx+2QHje6R+xuAGxbyjsP4l+OPQwdX8pnIzDaaqtHOQsliMcd1kAEwxo4/psVPmtqtB/977o8uNglZac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=martinlemaire.fr; spf=pass smtp.mailfrom=martinlemaire.fr; dkim=pass (2048-bit key) header.d=martinlemaire.fr header.i=@martinlemaire.fr header.b=fZUqPAHA; arc=none smtp.client-ip=46.105.58.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=martinlemaire.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=martinlemaire.fr
+Received: from director5.ghost.mail-out.ovh.net (unknown [10.108.17.59])
+	by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4Zq0Jc3z5kz1qbS
+	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 18:46:56 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-2f7zk (unknown [10.111.174.98])
+	by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 31EF91FD1F;
+	Fri,  2 May 2025 18:46:53 +0000 (UTC)
+Received: from martinlemaire.fr ([37.59.142.114])
+	by ghost-submission-5b5ff79f4f-2f7zk with ESMTPSA
+	id qQT0EhsTFWhxlwEAoynk+A
+	(envelope-from <contact@martinlemaire.fr>); Fri, 02 May 2025 18:46:53 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-114S008d9b244d0-dd7e-4d30-82d3-38e66b6a5f1f,
+                    3B2BB2785341758176629FC674206738387415D9) smtp.auth=contact@martinlemaire.fr
+X-OVh-ClientIp:92.184.108.75
+Date: Fri, 2 May 2025 20:46:47 +0200
+From: Martin Lemaire <contact@martinlemaire.fr>
+To: Dave Kemper <saint.snit@gmail.com>
+Cc: Groff <groff@gnu.org>, linux-man@vger.kernel.org
+Subject: Re: Paragraphs formatted differently depending on previous ones
+Message-ID: <aBUTF6SphOspqAKT@starship>
+References: <dbczpry2ukcht3d2pw4b2l7yla63eetfprfpblhvhwj2dpalvv@ba4itgqked3d>
+ <20250502120139.yqstcq32hdtagozl@illithid>
+ <aBTDZiUVotN_80RM@starship>
+ <CACRhBXOPUdngLptS-oGqkeCZ=R=as8Fhkf6jSuznC+TMbbQx0w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <dbczpry2ukcht3d2pw4b2l7yla63eetfprfpblhvhwj2dpalvv@ba4itgqked3d>
- <20250502120139.yqstcq32hdtagozl@illithid> <aBTDZiUVotN_80RM@starship>
-In-Reply-To: <aBTDZiUVotN_80RM@starship>
-From: Dave Kemper <saint.snit@gmail.com>
-Date: Fri, 2 May 2025 12:42:30 -0500
-X-Gm-Features: ATxdqUE5AjEeUZCIRwc8FT8ZzW2aWjaJtP7t9MhlrvPf6WFbaFSD_MVEutGZCIg
-Message-ID: <CACRhBXOPUdngLptS-oGqkeCZ=R=as8Fhkf6jSuznC+TMbbQx0w@mail.gmail.com>
-Subject: Re: Paragraphs formatted differently depending on previous ones
-To: Martin Lemaire <contact@martinlemaire.fr>
-Cc: Groff <groff@gnu.org>, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACRhBXOPUdngLptS-oGqkeCZ=R=as8Fhkf6jSuznC+TMbbQx0w@mail.gmail.com>
+X-Ovh-Tracer-Id: 1378101489251392873
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvjeefvddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtjeenucfhrhhomhepofgrrhhtihhnucfnvghmrghirhgvuceotghonhhtrggtthesmhgrrhhtihhnlhgvmhgrihhrvgdrfhhrqeenucggtffrrghtthgvrhhnpeffjeejkeevudeigeeljeehffevjeeileetkeefteffvedvhedtieehiefggefgkeenucffohhmrghinhepihguphdrsghlrdhukhdpfihikhhiphgvughirgdrohhrghdpghgrmhgvshhpohhtrdgtohhmpdhmrghrthhinhhlvghmrghirhgvrdhfrhdpghhnuhdrohhrghenucfkphepuddvjedrtddrtddruddpledvrddukeegrddutdekrdejhedpfeejrdehledrudegvddruddugeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomheptghonhhtrggtthesmhgrrhhtihhnlhgvmhgrihhrvgdrfhhrpdhnsggprhgtphhtthhopedupdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdpoffvtefjohhsthepmhhoheejhegmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=3xHGTEGjjS8JSuzLftd5DvuSTr5qiRThy4GmOSxjYN0=;
+ c=relaxed/relaxed; d=martinlemaire.fr; h=From; s=ovhmo3189267-selector1;
+ t=1746211616; v=1;
+ b=fZUqPAHAOW/XveWl4c1Ip/0Qos7w9BImlVaLi/9bTcJTz0ESrOwFsLCG+SBcViBQvpL9fL4w
+ 2FWE63Mcpz1xCLZRBf/Rs5ekkFblcIbQ4CAo1VEVmX3bNQ7mXCGXqnR8rpDjoiQ6YUr3GI680Sq
+ hZFFbsJjHmnAH57Rjhf7oogYNLxOqB2OkMtsILokpKHApl3K6lLqgLzK9vkUOqheQH4L88eibh/
+ MeGDokCaH5b63s+vuLSCDdwLR7BNvRaTCEdq6kXG5pueeO5yaWueIvDlVe+XYAW+5FQ7Pe2lMYI
+ Y16fvSG7hxeSWbvMF0ptNbzOqtkWcDSiiTxFzUCUi5czg==
 
-On Fri, May 2, 2025 at 8:07=E2=80=AFAM Martin Lemaire <contact@martinlemair=
-e.fr> wrote:
-> Off-topic to Alejandro's initial question but related to the subject of
-> justifying text set in monospace, do we owe this typographic gesture to
-> the early *roff formaters or was it already a thing in previous
-> publication tool, either software or hardware ?
+Although Gutenberg had a major impact on printing in the 15th century,
+there are traces in Asia of xylogprahy[1] as early as the 6th century. 
+It is argued that western educations give the guy too much credit. 
+His contribution to the craft was more about crafting inks allowing the
+printing on both side of the sheet.
+Earlier than that – and closer to the practice that is printing
+characters in a monospaced grid – there has been stoichedon[2], a style
+of stone engraving where letters are aligned vertically and
+horizontally. Words seem to be separated by a spaceless sign between
+them. I assume this absence of spaces produced the most uniform and
+pleasing grayness.
+To my knowledge, we have to wait for the year 2000 for someone called
+rs1n to produce a perfectly justified monospaced document[3] without adding or
+removing between-word space, writing and typesetting at the same time.
 
-Branden addressed the conceptual basis for such adjustment.  The
-origin of the specific algorithm used for monospace fonts was revealed
-by its inventor in a post a few years ago:
+How does *roff monospace justification algorithm relate to its sibling
+justifying proportional letters ?
+Are the two vaguely related or it's another approach ?
 
-http://lists.gnu.org/r/groff/2018-06/msg00044.html
+Martin
 
-Other than starting with a different adjustment "direction," this
-algorithm remains unchanged in groff today.
+
+[1] Printed copy of the Vajracchedikaprajnaparamitasutra, 868 https://idp.bl.uk/collection/51FDAEAFB4A24E2E9981692A98130BC8/
+
+[2] Stoichedon https://en.wikipedia.org/wiki/Stoichedon
+
+[3] Super Metroid – FAQ/Speed Guide, rs1n, 2000 https://gamefaqs.gamespot.com/snes/588741-super-metroid/faqs/10114
+mirrored here https://www.martinlemaire.fr/metroid.html
+
+
+Le Fri, May 02, 2025 at 12:42:30PM -0500, Dave Kemper a écrit :
+> On Fri, May 2, 2025 at 8:07 AM Martin Lemaire <contact@martinlemaire.fr> wrote:
+> > Off-topic to Alejandro's initial question but related to the subject of
+> > justifying text set in monospace, do we owe this typographic gesture to
+> > the early *roff formaters or was it already a thing in previous
+> > publication tool, either software or hardware ?
+> 
+> Branden addressed the conceptual basis for such adjustment.  The
+> origin of the specific algorithm used for monospace fonts was revealed
+> by its inventor in a post a few years ago:
+> 
+> http://lists.gnu.org/r/groff/2018-06/msg00044.html
+> 
+> Other than starting with a different adjustment "direction," this
+> algorithm remains unchanged in groff today.
+> 
 
