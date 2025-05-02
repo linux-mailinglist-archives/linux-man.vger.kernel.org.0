@@ -1,212 +1,184 @@
-Return-Path: <linux-man+bounces-2853-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2854-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC8DAAA7557
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 16:51:42 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30391AA756C
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 17:00:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 824AB3AD1BF
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 14:51:00 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id E4CB81C06054
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 15:00:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A71A2561C7;
-	Fri,  2 May 2025 14:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F82D256C81;
+	Fri,  2 May 2025 15:00:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPfZ9Uy1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9ikomDI"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978E8223DFD
-	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 14:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538E0156C63
+	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 15:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746197472; cv=none; b=uq4aHc+ZIHez3FUpvWNoZADhM0FgS0M323NCZ8WvwqUV0BNZNdQQDALUacsCrHSRrXn1k8NYPv8XNxvn3+aa9kkdby2hirD3RFE5RQSY1a5xc4Xlm8MmhPClQJcQcMy90IPwTX8DZ6IpvLkZZhHOXYi/UAquFQqlWDB9CbrQHNM=
+	t=1746198001; cv=none; b=u9dAURKv9LThwYQt7GoDJeVAnTxKixzpyvci38RGrlIBwKzjjq14xbMPt47zJjt4eu8msEj3ef/FkKpJtGYsq1g+P4PmxJPeUWaFHr/MOChBFL+AJn19YAhpwDizDzsS3MTCSdljG8IBeYv6NXx+0oy7dH6U5B1rXX+SXfTv4DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746197472; c=relaxed/simple;
-	bh=UU0+3YS854tsyTLjyuSDT5OQZZp5iCNX7/QqKWz+W2E=;
+	s=arc-20240116; t=1746198001; c=relaxed/simple;
+	bh=U5Bz1HqMnfnM3qFNqw2S6FkrBa4EMfPm+zm720Z0DXI=;
 	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DBvpOQLhuNmRfdo30jWg/5ZIxnVBaFSEcIpCuOFWtAeVN+hIjZFVGDb/4jA61SWTrq55szyGZtLoBQJ5PV0toAublkuKiUsA0WxWjRT5ggfF76SIpA2I8peGmGOTiugmb+oK6/2VTH0dcJ1L+HFzOc7T6nDD6wMf8CmGLH3xCEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPfZ9Uy1; arc=none smtp.client-ip=209.85.167.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-3f7f7b70aebso1539664b6e.2
-        for <linux-man@vger.kernel.org>; Fri, 02 May 2025 07:51:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746197468; x=1746802268; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SpMPO21dStueuexm57RtnlebuGnncy39n3F3Fsp+5yE=;
-        b=HPfZ9Uy13OmqSmKIN1Fx/EMalTMlj1gjWTJRK0ZUJFRJCf4cudCB+rQmpd4Km2Oh7F
-         lhuZlJ2sBE9dnWy3iMyXp1kYzqmxBw3NQAO3+GDTUKo2JPc+T9JBiMzcEjDJaSbcdJJJ
-         ffAK9V344fAtZe0+sBT0OZzZHVzg4Ok7WJZE806sjawSZRQUG2WJo+S2+XRatVN9Sikr
-         ZGfa1vSRvAK2HRWC+LjFZ7IpOwslXOCm+MWPH2BlAx/JKQE4wML7whfm0Vk3/K5eVybG
-         x8V/cAEz17mmYrkZwu/Ad2tiB3ivHSRj/JrgSeV8ULqaiew9soR3QV3N220dO15c9ctI
-         r7fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746197468; x=1746802268;
-        h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SpMPO21dStueuexm57RtnlebuGnncy39n3F3Fsp+5yE=;
-        b=bt0qD1RiKW0W/sabe6k5HGLad2eiGEGlEjhu4S61Rep9+MfK9mC2hIwkU3/Ta1NKny
-         YUH6KHGNIzI+OmScpdJttbk3kh+LNWKx28YlSSqp7gwBu5Kg9ItVIolmo09/IsyPpl5h
-         gqa+UGvVvT8g0UEwn/yvjM8/Q5xDu0p3mEnJy8e7K+WUTtXQfIHCtJzRhikjXRhb9SsI
-         sgfNgO1Yf96LQXz9RiFUInqPwdEAJmhiQEXR/v26l6UtB18t5PYNGneRJ2+FJvJhVDL2
-         jpKT36XkAutJ8w8EGcioLrIdw8CerIlbeao4/k3JCQ4a8WNX4NUZ3PyfO81FiTtHSXr0
-         w9Iw==
-X-Forwarded-Encrypted: i=1; AJvYcCXcfJ1pffmyCiXst+ohkdOGYEDqEy2W8KBqLZOBJvmDIlkUJqa20aESoLl5Hu0JuxVHP8S0rRjytkU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwiQeLhT7hQILaWvf5zH3couRvt8nIMYSXTt2IUe9eXx0J1T/vB
-	ZVj4JgWVm/K+g09NHuZVZNo1firSwyhqEo4rvkzTzZtvPdCozj466tKlNQ==
-X-Gm-Gg: ASbGncv/m/7SV2R79xzYtoAQgko+jWy0hpN+inEfJjNWgLpOF/fsZCF0VZ6O5x4/iOt
-	bz27lEhJv/gK7XgRXTeHRnwn5s9vAVUelSsWpAK/pKqAcN9fGqd6kVLKS2gcy76UOVu6A+/XQ7r
-	4G68trNabiJiICktH4t2AnNpQ7uZfiI67Qpnpp9XDqtBJ82b4r4yheTYOby2aBLqgEHBAoqyN2Y
-	li3fB6wt5jPZNhvA/TiNm5TWo4WD2tNJoq0CKGoOtD7R7qtrG6gUw/6NB0cjhhmldbe7HQ3Rze/
-	6LnAJoa/tBxjm8btCgQ1Z35PrmmEfWI=
-X-Google-Smtp-Source: AGHT+IH0oCNXrPc5hIeE67kswlSobiXHQRk4EKDuy8BhtIaLtW+AhyGLXbUak/I30Mq3t712I9St1g==
-X-Received: by 2002:a05:6808:1985:b0:402:10da:f76e with SMTP id 5614622812f47-403413834e7mr1846335b6e.13.1746197468411;
-        Fri, 02 May 2025 07:51:08 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4033d9c21d9sm603299b6e.14.2025.05.02.07.51.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 May 2025 07:51:06 -0700 (PDT)
-Date: Fri, 2 May 2025 09:51:04 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=XLd8XKX+PhA1JKrYe6v6bgvDl9LvVBfHq4ZDaA5pJjweVPHkT2dT+OVnFKl2PLNiDaYUSt5+2PeDJbm/clLHYiNQfWJvqW7GzWaUVuDtECsd8vf4YwnYmj3M/3c3+Y3Li6MPEv4IBKo7RDV1K9Oh5edPeX88pJIWeuw9leQPRRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9ikomDI; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C28C4CEE4;
+	Fri,  2 May 2025 15:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1746198000;
+	bh=U5Bz1HqMnfnM3qFNqw2S6FkrBa4EMfPm+zm720Z0DXI=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=D9ikomDI4MAKQFK9EIAlL/cKXE7Tk05ELCkcwFVuluWQYg0kNkK1G395KCrgjzqqI
+	 TLxlQhHA8W0uPgy3qdJi0xDDNjM+9j7JXrLiOFrryURlwy7ykY7JBOVGCt5DAdUNCM
+	 fPYbjti0gLJzhnwig7CGG8kL9R8ff3nl9UC4J32v9/TRTZ4Fgag/+FbfvEaoHQIFjU
+	 +IVbUaFdh7WUDKdMkQA659+Z/Ci0vBZYzvhgTiNvpD7g3FFlaQqicuD5ntJ0k0C9NK
+	 qZXyXwalcW0oRZwL8xZQrM/srneFBj3qSkIzz6ClZ39DRymtnK7B991NVZViQsaAyC
+	 e6uIbr5adTVOQ==
+Date: Fri, 2 May 2025 16:59:58 +0200
+From: Alejandro Colomar <alx@kernel.org>
 To: groff@gnu.org, linux-man@vger.kernel.org
-Subject: Re: Paragraphs formatted differently depending on previous ones
-Message-ID: <20250502145104.uouytem5fpxfjc3s@illithid>
-Reply-To: groff@gnu.org, linux-man@vger.kernel.org
+Subject: Re: grof --run
+Message-ID: <ina3kzpisr62v4dcrzrneae6mo5vlaoosgmlhaewpeqhusv6u6@xy33kozxiknz>
 References: <dbczpry2ukcht3d2pw4b2l7yla63eetfprfpblhvhwj2dpalvv@ba4itgqked3d>
  <20250502120139.yqstcq32hdtagozl@illithid>
- <aBTDZiUVotN_80RM@starship>
+ <fg6yru6cwn4itrn55mmnpt2eerjeph3z3ow3asowf2dhkq5iwv@qewmi2xgqgf6>
+ <20250502141948.bszoef7vvhnuworm@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7ahtoaytbkvpvase"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="u62rka2eycjoslth"
 Content-Disposition: inline
-In-Reply-To: <aBTDZiUVotN_80RM@starship>
+In-Reply-To: <20250502141948.bszoef7vvhnuworm@illithid>
 
 
---7ahtoaytbkvpvase
-Content-Type: text/plain; charset=utf-8; protected-headers=v1
+--u62rka2eycjoslth
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: Paragraphs formatted differently depending on previous ones
+From: Alejandro Colomar <alx@kernel.org>
+To: groff@gnu.org, linux-man@vger.kernel.org
+Subject: Re: grof --run
+References: <dbczpry2ukcht3d2pw4b2l7yla63eetfprfpblhvhwj2dpalvv@ba4itgqked3d>
+ <20250502120139.yqstcq32hdtagozl@illithid>
+ <fg6yru6cwn4itrn55mmnpt2eerjeph3z3ow3asowf2dhkq5iwv@qewmi2xgqgf6>
+ <20250502141948.bszoef7vvhnuworm@illithid>
 MIME-Version: 1.0
+In-Reply-To: <20250502141948.bszoef7vvhnuworm@illithid>
 
-At 2025-05-02T15:06:46+0200, Martin Lemaire wrote:
-> Thank you Branden for those historical insights.=20
-> Off-topic to Alejandro's initial question but related to the subject of
-> justifying text set in monospace, do we owe this typographic gesture to
-> the early *roff formaters or was it already a thing in previous
-> publication tool, either software or hardware ?
+Hi Branden,
 
-It dates back at least to "old" roff, which is one of the first Unix
-programs ever to exist.  It is older than the C language.
+On Fri, May 02, 2025 at 09:19:48AM -0500, G. Branden Robinson wrote:
+> Hi Alex,
+>=20
+> At 2025-05-02T14:26:23+0200, Alejandro Colomar wrote:
+> > On Fri, May 02, 2025 at 07:01:39AM -0500, G. Branden Robinson wrote:
+> > > [2] $ type mailman
+> > > mailman is a function
+> > > mailman ()
+> > > {
+> > >     local cmd=3D;
+> > >     case "$1" in
+> > >         -*)
+> > >             opts=3D"$opts $1";
+> > >             shift
+> > >         ;;
+> > >     esac;
+> > >     set -- $(man -w "$@");
+> > >     cmd=3D$(zcat --force "$@" | grog -Tutf8 -b -ww -P -cbou -rU0 -rLL=
+=3D72n -rHY=3D0 -dAD=3Dl $opts);
+> > >     zcat --force "$@" | $cmd | less
+> > > }
+> >=20
+> > I was trying to simplify your mailman() function to the following pipe
+> > (after parsing the options):
+> >=20
+> > 	man -w "$@" \
+> > 	| xargs zcat --force \
+> > 	| grog --run \
+> > 		-Tutf8 -b -ww -P -cbou -rU0 -rLL=3D72n -rHY=3D0 -dAD=3Dl \
+> > 		$opts \
+> > 		2>/dev/null \
+> > 	| less;
+> >=20
+> > And I found out that grog(1) seems to be not accepting a documented
+> > option: --run. [1]  Am I doing something incorrectly?  I never used
+> > grog(1) before, so it might very well be.
+>=20
+> Your grog executable may be out of sync with the man page you're
+> reading.
+>=20
+> Compare `type grog` with `man -w grog`.
 
-roff(7):
+Hmmmm.
 
-History
-     Computer=E2=80=90driven document formatting dates back to the 1960s.  =
-The
-     roff system is intimately connected with Unix, but its origins lie
-     with the earlier operating systems CTSS, GECOS, and Multics.
-=2E..
-   Unix and roff
-     McIlroy=E2=80=99s roff was one of the first Unix programs.  In Ritchie=
-=E2=80=99s
-     term, it was =E2=80=9Ctransliterated=E2=80=9D from BCPL to DEC PDP=E2=
-=80=907 assembly
-     language for the fledgling Unix operating system.  Automatic
-     hyphenation was managed with .hc and .hy requests, line spacing
-     control was generalized with the .ls request, and what later roffs
-     would call diversions were available via =E2=80=9Cfootnote=E2=80=9D re=
-quests.  This
-     roff indirectly funded operating systems research at Murray Hill;
-     AT&T prepared patent applications to the U.S. government with it.
-     This arrangement enabled the group to acquire a PDP=E2=80=9011; roff
-     promptly proved equal to the task of formatting the manual for what
-     would become known as =E2=80=9CFirst Edition Unix=E2=80=9D, dated Nove=
-mber 1971.
+alx@devuan:~$ which grog
+/usr/local/bin/grog
+alx@devuan:~$ grog --version
+GNU grog (groff) 1.23.0.2695-49927
+alx@devuan:~$ man grog | tail -n1
+groff 1.23.0                    26 December 2024                        gro=
+g(1)
 
-And, sure enough, it performed adjustment.  We can observe its behavior
-in Seventh Edition Unix (1979), which while much later chronologically,
-also documents roff(1) as "utterly frozen".  Joe Ossanna's nroff(1),
-"new roff", appeared in Second Edition Unix (1972) and immediately
-sucked up all the oxygen available for document formatting work at the
-Bell Labs CSRC.
+> > alx@devuan:~$ grog --run
+> > grog: error: unrecognized grog option '--run'; ignored
+>=20
+> grog's `--run` option has been removed in the forthcoming groff 1.24.0
+> release, so if you're running groff Git's master branch, that could
+> explain it.
+>=20
+> NEWS:
+>=20
+> *  grog(1) no longer supports the `--ligatures` and `--run` options.
+>    Simulate the former (which was specific to the "pdf" output device)
+>    with the option sequence "-P -U -P y", and the latter by using the
+>    command substitution feature of your shell; see section "Examples" of
+>    groff(1).
 
----snip---
-PDP-11 simulator V3.8-1
-Disabling XQ
-@boot
-New Boot, known devices are hp ht rk rl rp tm vt
-: rl(0,0)rl2unix
-mem =3D 177856
-# Restricted rights: Use, duplication, or disclosure
-is subject to restrictions stated in your contract with
-Western Electric Company, Inc.
-Thu Sep 22 23:33:03 EDT 1988
+Okay, this complicates things a bit.  :)
 
-login: dmr
-$ cat lemaire
-Off-topic to Alejandro's initial question but related to the subject of
-justifying text set in monospace, do we owe this typographic gesture to
-the early *roff formaters or was it already a thing in previous
-publication tool, either software or hardware?
-$ roff lemaire | sed '/^$/d'
-Off-topic to Alejandro's initial question but related to the sub-
-ject of justifying text set in monospace, do we owe this typogra-
-phic gesture to the early *roff formaters or  was  it  already  a
-thing in previous publication tool, either software or hardware?
----end snip---
 
-> Are you aware of theory or paper on the subject ?
+Cheers,
+Alex
 
-The practice of adjusting lines of text to be all the same length when
-typesetting is an old one.  It appears to be the practice in at least
-some late-medieval illuminated manuscripts, and images of the pages of
-the Gutenberg Bible that I can find online suggest to me that the
-practice goes back to the dawn of the printing press.
+>=20
+> Regards,
+> Branden
 
-Since monospaced typefaces are a straightforward application of movable
-type, the concept of "adjusting" printed lines thereof could not have
-been novel.  It was simply too tedious a practice to expect of
-typewriter operators who composed text on the fly while drafting.
-Computers, however, are perfect for automation of tedium.
 
-But I'm far from a subject matter expert.  And a bit too young to opine
-authoritatively on life at the CSRC.  Fortunately, some groff list
-subscribers have first-hand knowledge.  :)
 
-Regards,
-Branden
+--=20
+<https://www.alejandro-colomar.es/>
 
---7ahtoaytbkvpvase
+--u62rka2eycjoslth
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgU29IACgkQ0Z6cfXEm
-bc6prg//de7hfPhk3tZoPODsRt9hPofnWkmUl91NWpPOJZpt3OJxM4lBJ8QPY/75
-vkc1fQ6qOq4oAVaI9kxhd916TvoTEa7IRW61tprNEuxhpHndN+dyXqdMpbrbTbxz
-f2kuzbJIMv68eelWn/qAxD693xbV/rkz7MmBt8sianLhn42DPnEVjy0KlOlIXfrF
-ZbMsiAP/1L98VqHk+kabZwXkCU868swALHWugf36b0iDaM/ErvsBaFJz0rIyp9ZO
-saVO6UT/jxcYufx2MasXCmB5feMW20Wv7y4qe2yTyIFONiGs2X4IlmwfIpb0ESVS
-uTMa3HeLY1ZTpKckxbsZA52fbgIhl03s37EzD7OdWr+Jt+gtLJ1oHYOSfDhhpYeC
-idH9qJDTpoZzrO4UbTAZ39KMmOetu4L9jDAf/tLIS1LMR98iaj/iChexdXCyYRBO
-WJOtkBq+sSJUgwSNUgwRlP/Jn227YiCsHuZl4mRignJltLEBV1Hu8LfwzUbYPQ2D
-F5+bfvfOxCjyAcPBAYwQgcLRBn2wAzDMWs/onT4INLyr2Wmy1kHBavplNxnnbrcS
-uPaNTTeq4lhRfCWlABGiymlYVikBPu+zWo+bkaoal9bUBbOuXqld3MwMoSelUtV7
-lEO2pj/9UEVyvEURjcbA8bYSfR5V5xT5hpa5UQu3nBIkWyK0gfc=
-=ZRIU
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgU3ecACgkQ64mZXMKQ
+wqlXVQ//S/r8lhMFzWkZVIp+S0jDXi1GYN9pXj1AY5gTwtegppme/dSJZeUxza4c
+rc2g98kzhLC9bwXPTHflIorRNAXCPFMyCkthTtHPEFiIIdOue8msz9BGmbMZGJZs
+z88skVQXD57hSQFXfPV16l6+qX8LpDCkKkSyoh0K+uS8o3pfDfIbpg+SJs0vFXdR
+SOHqgs5MDNl+Gsnyyl/WBNPL1jKpgWPe27BqVfEDu0T4lsHQwpfbYcGebS1tF2pf
+CtUiFI8Y+IIB32f2gY6DTSQQTClFsonK9psyEnVlViX6WNunRzfFY9UKmVftcHuP
+U6vPvPFkA1qw58jcWsI1rz+T6jJG2ph0RB36WKbn/4SoPvyzROBIVYAtdHQuNIu/
+lRFTMe2Fu83mSHmyhVOtMudzXcXfnAJi5CUcIuKAgD+viJz5qg3Tzy4sUgZvCuqa
+yn7rpcV0Bu5ZnEeFmEZCPRtvOMRf9gqjDQSKRSlxmnl1iGWcKNIHcc7nFSCr7FEZ
+l8W4pUk8DM7I+VVg9zMl7mnrJ718Sm8R1tzw9MgZcPHIYhuCNOfbuGH5qoiPazTI
+rV/banyF2WbEwPIlhnDzbaAFlWiFbsAzrNh8sjnjkrMsBzuan863HXtFhoe1E+sj
+aZcgsNxBA8hB7bF2iLfj7+4U5Xe2+KtKEsULUgAQi/tKcDmWvTo=
+=mLt+
 -----END PGP SIGNATURE-----
 
---7ahtoaytbkvpvase--
+--u62rka2eycjoslth--
 
