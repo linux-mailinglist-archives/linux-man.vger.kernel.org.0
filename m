@@ -1,87 +1,86 @@
-Return-Path: <linux-man+bounces-2852-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2853-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B18AAA74F9
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 16:29:17 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC8DAAA7557
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 16:51:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 661341757EB
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 14:29:17 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 824AB3AD1BF
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 14:51:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F087F2561CE;
-	Fri,  2 May 2025 14:29:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A71A2561C7;
+	Fri,  2 May 2025 14:51:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VHXvE/h0"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPfZ9Uy1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1265A42A8B
-	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 14:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978E8223DFD
+	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 14:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746196152; cv=none; b=ZlBmcmHFvhkQxi3dnfh4Zc2RSYaCzmSKD6bNscjnZ7ns7F2zTMr2ZtOnNYntKXmun/rbYKo7YG2prFiXsJp8yZNrfFhmqgpl++bMlJx3QLk56unn+ekBcaYjRpk0LCT7TBO+RM4JMS48i+EvO+vY2UA9kVvDZDJelHwmsqDFOVk=
+	t=1746197472; cv=none; b=uq4aHc+ZIHez3FUpvWNoZADhM0FgS0M323NCZ8WvwqUV0BNZNdQQDALUacsCrHSRrXn1k8NYPv8XNxvn3+aa9kkdby2hirD3RFE5RQSY1a5xc4Xlm8MmhPClQJcQcMy90IPwTX8DZ6IpvLkZZhHOXYi/UAquFQqlWDB9CbrQHNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746196152; c=relaxed/simple;
-	bh=/BITAUqa8K2RZCNhvDQVT+u565bcijqwlEO/7W/FLzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VWO+/D2QnXvRpTt+dJNucDGBU7qCDTTpZzD7qXtNdxZvoIRblrE4PeU8P9ArD/ycjITPrS+iY9rtfPQdHN3OO2qzh/fNzsQz+M54GLItcUCAGjSZ0zjQDkuGbtIRCISInq+HxO/i2an654aaIq1+6nMgfJ7KHXrULLuRe92WdVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VHXvE/h0; arc=none smtp.client-ip=209.85.210.47
+	s=arc-20240116; t=1746197472; c=relaxed/simple;
+	bh=UU0+3YS854tsyTLjyuSDT5OQZZp5iCNX7/QqKWz+W2E=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DBvpOQLhuNmRfdo30jWg/5ZIxnVBaFSEcIpCuOFWtAeVN+hIjZFVGDb/4jA61SWTrq55szyGZtLoBQJ5PV0toAublkuKiUsA0WxWjRT5ggfF76SIpA2I8peGmGOTiugmb+oK6/2VTH0dcJ1L+HFzOc7T6nDD6wMf8CmGLH3xCEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPfZ9Uy1; arc=none smtp.client-ip=209.85.167.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-72c13802133so502091a34.3
-        for <linux-man@vger.kernel.org>; Fri, 02 May 2025 07:29:10 -0700 (PDT)
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-3f7f7b70aebso1539664b6e.2
+        for <linux-man@vger.kernel.org>; Fri, 02 May 2025 07:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746196150; x=1746800950; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1746197468; x=1746802268; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZS3RaeLN3H35JMTi7zUqyqxhGCNpcoUYRt0qbg9Vp7I=;
-        b=VHXvE/h0IJsPJi+RcJJ2nP5/wvXbry9pDrUaYy6z1tXLsFKSctGg4cU5Q/2yhrzxY+
-         U6ISdgMk9xkbEcN7jcPttq8E9eMs96TvMs3WESfOeD2DlSb4cnF8MtHTc1U5Y+K+W2La
-         +UflnhJRRaYHNNPEbzEvQUIcacHSKOVEJvHxFjVE1TJN7hVxODNljFYe9qBXMCNdgfeP
-         Gi3YUGU0JbTZUF9EfHghTqUzMVhdc82DoRI26gVNJh30anjtW8UCMsx1BPAdeb/C8a8I
-         /nFzYs3+IADogfoNLK8cuqmSL9nGol2WYvu1ryqh+G3bkj0yVR61IfDnD3vdFMuVKydi
-         /Niw==
+         :message-id:subject:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SpMPO21dStueuexm57RtnlebuGnncy39n3F3Fsp+5yE=;
+        b=HPfZ9Uy13OmqSmKIN1Fx/EMalTMlj1gjWTJRK0ZUJFRJCf4cudCB+rQmpd4Km2Oh7F
+         lhuZlJ2sBE9dnWy3iMyXp1kYzqmxBw3NQAO3+GDTUKo2JPc+T9JBiMzcEjDJaSbcdJJJ
+         ffAK9V344fAtZe0+sBT0OZzZHVzg4Ok7WJZE806sjawSZRQUG2WJo+S2+XRatVN9Sikr
+         ZGfa1vSRvAK2HRWC+LjFZ7IpOwslXOCm+MWPH2BlAx/JKQE4wML7whfm0Vk3/K5eVybG
+         x8V/cAEz17mmYrkZwu/Ad2tiB3ivHSRj/JrgSeV8ULqaiew9soR3QV3N220dO15c9ctI
+         r7fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746196150; x=1746800950;
+        d=1e100.net; s=20230601; t=1746197468; x=1746802268;
         h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :message-id:subject:to:from:date:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ZS3RaeLN3H35JMTi7zUqyqxhGCNpcoUYRt0qbg9Vp7I=;
-        b=GmzKOyNKJfm9BIfEMNagtSvq8VK9WbqOQsmtxT2eijJevpTEPRW8yBcDsxn7tbymGh
-         FTQwWM6/YFB3OCvf/BNdGOuYpyYbD8Gdn0Avmj6tYbWNR64MODOJ9+H+c98JkJ/FrkKK
-         ysWGmzVV65OxtO5oXqZF8+rnH5UywCHdeoFErjgxcHWAZZ04txrbOBP09N9ZERM4MPld
-         5exg+iBnTa7allp3pZhr/u9q3svkOf3uS85JNwI4R3k8c6gGm88j7ay/xFCQDE8HNi9F
-         iYmi4IEMx5BRBmIhbRDiOMf2HKbKWl9NaIjpM/xzVNwBfJxIUPDDbyYpkp1aOrvldWZW
-         OCTg==
-X-Forwarded-Encrypted: i=1; AJvYcCXTlF3W+C08NN9xAP7uwvu2Ba2qKOjhjB2rOzvhLTm5FgzvTn2uiY3dZvUUxlunhDM5h3zJaJ52PSg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAxD13GjSOzFhIVrEG6hgXXNx1o3AJDdlURrWA/CdMX53wrFg2
-	8Lxzl5w/FdR5zv88dWd9J5lP4nkumEmI6QsvjJztSNgEKyR2bifC
-X-Gm-Gg: ASbGncv4pRfHYoTHgJKVkBlg2HddeXdhzdEATMQYr1WOVwnpo8owsW4SEuTHS/934Wy
-	zdGDlA1rNO5lf37iTZAJwGvUeW9QazsDHY/FG2QX/AT2NI79WAkBR/a4SciYaRqNU1q7blsMqcP
-	SS8IZU163FVj4weyEysS7JEaBnG4Xh5mqRcVOV/1kOjvrCNZIrcTMyBU5uHUE8budSgLRJ6IJrZ
-	uvTSf/IiiSMjdOLLUodMuEGWcYsuzrWCME2v8prlOaFGQAQS95QQjbHw1WYlWDo1uCKizV/AH4Y
-	dKQSex0Z83rrsjwhWaTdhuybu+eaOCM=
-X-Google-Smtp-Source: AGHT+IEELn8RXtyZ39Vf5wruA0Rk2ILV1pi3jjjjHIPYMKHhvJ4QvBeWqBopYaof/UOpj6gJTkUoKw==
-X-Received: by 2002:a05:6830:470a:b0:727:4356:9f07 with SMTP id 46e09a7af769-731da17b13dmr1694768a34.14.1746196149882;
-        Fri, 02 May 2025 07:29:09 -0700 (PDT)
+        bh=SpMPO21dStueuexm57RtnlebuGnncy39n3F3Fsp+5yE=;
+        b=bt0qD1RiKW0W/sabe6k5HGLad2eiGEGlEjhu4S61Rep9+MfK9mC2hIwkU3/Ta1NKny
+         YUH6KHGNIzI+OmScpdJttbk3kh+LNWKx28YlSSqp7gwBu5Kg9ItVIolmo09/IsyPpl5h
+         gqa+UGvVvT8g0UEwn/yvjM8/Q5xDu0p3mEnJy8e7K+WUTtXQfIHCtJzRhikjXRhb9SsI
+         sgfNgO1Yf96LQXz9RiFUInqPwdEAJmhiQEXR/v26l6UtB18t5PYNGneRJ2+FJvJhVDL2
+         jpKT36XkAutJ8w8EGcioLrIdw8CerIlbeao4/k3JCQ4a8WNX4NUZ3PyfO81FiTtHSXr0
+         w9Iw==
+X-Forwarded-Encrypted: i=1; AJvYcCXcfJ1pffmyCiXst+ohkdOGYEDqEy2W8KBqLZOBJvmDIlkUJqa20aESoLl5Hu0JuxVHP8S0rRjytkU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwiQeLhT7hQILaWvf5zH3couRvt8nIMYSXTt2IUe9eXx0J1T/vB
+	ZVj4JgWVm/K+g09NHuZVZNo1firSwyhqEo4rvkzTzZtvPdCozj466tKlNQ==
+X-Gm-Gg: ASbGncv/m/7SV2R79xzYtoAQgko+jWy0hpN+inEfJjNWgLpOF/fsZCF0VZ6O5x4/iOt
+	bz27lEhJv/gK7XgRXTeHRnwn5s9vAVUelSsWpAK/pKqAcN9fGqd6kVLKS2gcy76UOVu6A+/XQ7r
+	4G68trNabiJiICktH4t2AnNpQ7uZfiI67Qpnpp9XDqtBJ82b4r4yheTYOby2aBLqgEHBAoqyN2Y
+	li3fB6wt5jPZNhvA/TiNm5TWo4WD2tNJoq0CKGoOtD7R7qtrG6gUw/6NB0cjhhmldbe7HQ3Rze/
+	6LnAJoa/tBxjm8btCgQ1Z35PrmmEfWI=
+X-Google-Smtp-Source: AGHT+IH0oCNXrPc5hIeE67kswlSobiXHQRk4EKDuy8BhtIaLtW+AhyGLXbUak/I30Mq3t712I9St1g==
+X-Received: by 2002:a05:6808:1985:b0:402:10da:f76e with SMTP id 5614622812f47-403413834e7mr1846335b6e.13.1746197468411;
+        Fri, 02 May 2025 07:51:08 -0700 (PDT)
 Received: from illithid ([2600:1702:7cd0:e980::49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-731d31a2839sm510375a34.6.2025.05.02.07.29.09
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4033d9c21d9sm603299b6e.14.2025.05.02.07.51.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 May 2025 07:29:09 -0700 (PDT)
-Date: Fri, 2 May 2025 09:29:07 -0500
+        Fri, 02 May 2025 07:51:06 -0700 (PDT)
+Date: Fri, 2 May 2025 09:51:04 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: groff@gnu.org, linux-man@vger.kernel.org
+To: groff@gnu.org, linux-man@vger.kernel.org
 Subject: Re: Paragraphs formatted differently depending on previous ones
-Message-ID: <20250502142907.yjzcdv6cdhryg2l5@illithid>
+Message-ID: <20250502145104.uouytem5fpxfjc3s@illithid>
 Reply-To: groff@gnu.org, linux-man@vger.kernel.org
 References: <dbczpry2ukcht3d2pw4b2l7yla63eetfprfpblhvhwj2dpalvv@ba4itgqked3d>
  <20250502120139.yqstcq32hdtagozl@illithid>
- <n5coqz6wcslpxfj7l32b5m765xwzn53zlcqi7hgreefe3r5l4h@3o6auzkcijud>
+ <aBTDZiUVotN_80RM@starship>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -89,307 +88,125 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="fqxpfdeh57t3fhmq"
+	protocol="application/pgp-signature"; boundary="7ahtoaytbkvpvase"
 Content-Disposition: inline
-In-Reply-To: <n5coqz6wcslpxfj7l32b5m765xwzn53zlcqi7hgreefe3r5l4h@3o6auzkcijud>
+In-Reply-To: <aBTDZiUVotN_80RM@starship>
 
 
---fqxpfdeh57t3fhmq
-Content-Type: multipart/mixed; protected-headers=v1;
-	boundary="6e2lh67a6gnxwxw7"
+--7ahtoaytbkvpvase
+Content-Type: text/plain; charset=utf-8; protected-headers=v1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 Subject: Re: Paragraphs formatted differently depending on previous ones
 MIME-Version: 1.0
 
+At 2025-05-02T15:06:46+0200, Martin Lemaire wrote:
+> Thank you Branden for those historical insights.=20
+> Off-topic to Alejandro's initial question but related to the subject of
+> justifying text set in monospace, do we owe this typographic gesture to
+> the early *roff formaters or was it already a thing in previous
+> publication tool, either software or hardware ?
 
---6e2lh67a6gnxwxw7
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It dates back at least to "old" roff, which is one of the first Unix
+programs ever to exist.  It is older than the C language.
 
-Hi Alex,
+roff(7):
 
-At 2025-05-02T14:42:12+0200, Alejandro Colomar wrote:
-> By default, I prefer keeping adjustment.  Often, I want to see changes
-> in adjustment too as part fo the diff.  Maybe I should add an option to
-> disable adjustment optionally, which could be useful in those cases
-> where the diff is a bit hard to understand.
-
-For myself, I found that editorial changes to recast wording or
-otherwise add and remove material led to cascading reports of
-differences _only_ to spaces in adjusted lines, which usually aren't of
-interest to me.
-
-> > for P in *.[157]
-> > do
-> >     if [ "$P" =3D groff_mmse.7 ]
-> >     then
-> >       LOCALE=3D-msv
-> >     else
-> >       LOCALE=3D
-> >     fi
->=20
-> What's -msv?
-
-groff_tmac(5):
-
-   Localization packages
-     For Western languages, an auxiliary package for localization sets
-     the hyphenation mode and loads hyphenation patterns and exceptions.
-     Localization files can also adjust the date format and provide
-     translations of strings used by some of the full=E2=80=90service macro
-     packages; alter the input encoding (see the next section); and
-     change the amount of additional inter=E2=80=90sentence space.  For Eas=
-tern
-     languages, the localization file defines character classes and sets
-     flags on them.  By default, troffrc loads the localization file for
-     English.
+History
+     Computer=E2=80=90driven document formatting dates back to the 1960s.  =
+The
+     roff system is intimately connected with Unix, but its origins lie
+     with the earlier operating systems CTSS, GECOS, and Multics.
 =2E..
-     sv     Swedish; localizes man, me, mm, mom, and ms.  Sets the input
-            encoding to Latin=E2=80=901 by loading latin1.tmac.  Some of the
-            localization of the mm package is handled separately; see
-            groff_mmse(7).
+   Unix and roff
+     McIlroy=E2=80=99s roff was one of the first Unix programs.  In Ritchie=
+=E2=80=99s
+     term, it was =E2=80=9Ctransliterated=E2=80=9D from BCPL to DEC PDP=E2=
+=80=907 assembly
+     language for the fledgling Unix operating system.  Automatic
+     hyphenation was managed with .hc and .hy requests, line spacing
+     control was generalized with the .ls request, and what later roffs
+     would call diversions were available via =E2=80=9Cfootnote=E2=80=9D re=
+quests.  This
+     roff indirectly funded operating systems research at Murray Hill;
+     AT&T prepared patent applications to the U.S. government with it.
+     This arrangement enabled the group to acquire a PDP=E2=80=9011; roff
+     promptly proved equal to the task of formatting the manual for what
+     would become known as =E2=80=9CFirst Edition Unix=E2=80=9D, dated Nove=
+mber 1971.
 
-> >     echo $0: $P >&2
-> >     echo "groff $ARGS $LOCALE $P" > "$P.cR.txt"
-> >     groff $ARGS $LOCALE "$P" >> "$P.cR.txt"
-> > ...
-> > done
->=20
-> Would you mind sharing the entire script?  I might get ideas for
-> improving diffman-git(1).
+And, sure enough, it performed adjustment.  We can observe its behavior
+in Seventh Edition Unix (1979), which while much later chronologically,
+also documents roff(1) as "utterly frozen".  Joe Ossanna's nroff(1),
+"new roff", appeared in Second Edition Unix (1972) and immediately
+sucked up all the oxygen available for document formatting work at the
+Bell Labs CSRC.
 
-Sure; it's crude and dumb (like its author?)--I don't generally spend a
-lot of software engineering effort on stuff I produce only for my own
-consumption.  I've attached it.  The script name is revealing of some of
-my music listening habits.
+---snip---
+PDP-11 simulator V3.8-1
+Disabling XQ
+@boot
+New Boot, known devices are hp ht rk rl rp tm vt
+: rl(0,0)rl2unix
+mem =3D 177856
+# Restricted rights: Use, duplication, or disclosure
+is subject to restrictions stated in your contract with
+Western Electric Company, Inc.
+Thu Sep 22 23:33:03 EDT 1988
 
-> (And maybe you can drop your script if
-> diffman-git(1) would be good-enough for you.)
+login: dmr
+$ cat lemaire
+Off-topic to Alejandro's initial question but related to the subject of
+justifying text set in monospace, do we owe this typographic gesture to
+the early *roff formaters or was it already a thing in previous
+publication tool, either software or hardware?
+$ roff lemaire | sed '/^$/d'
+Off-topic to Alejandro's initial question but related to the sub-
+ject of justifying text set in monospace, do we owe this typogra-
+phic gesture to the early *roff formaters or  was  it  already  a
+thing in previous publication tool, either software or hardware?
+---end snip---
 
-If it stops working for the limited purpose I require it, I may look
-into alternatives.  :)
+> Are you aware of theory or paper on the subject ?
 
-> The RE movement is intended to indent the "Since Linux 6.7," para.
+The practice of adjusting lines of text to be all the same length when
+typesetting is an old one.  It appears to be the practice in at least
+some late-medieval illuminated manuscripts, and images of the pages of
+the Gutenberg Bible that I can find online suggest to me that the
+practice goes back to the dawn of the printing press.
 
-I'd need to look at more context, and haven't, but `IP` already does
-that.  The interaction of `RS` and `RE` with `IP`, and the erstwhile
-lack of documentation thereof, is in fact the proximate cause of my
-involvement with groff development.
+Since monospaced typefaces are a straightforward application of movable
+type, the concept of "adjusting" printed lines thereof could not have
+been novel.  It was simply too tedious a practice to expect of
+typewriter operators who composed text on the fly while drafting.
+Computers, however, are perfect for automation of tedium.
 
-groff_man_style(7):
-
-Notes
-     Some tips on composing and troubleshooting your man pages follow.
-=2E..
-     =E2=80=A2 RS doesn=E2=80=99t indent relative to my indented paragraph.
-
-       The RS macro determines the inset amount, the position at which
-       an ordinary paragraph (P and its synonyms) is set; the value of
-       the IN register determines its default amount.  This register
-       also determines the default indentation used by IP, TP, and the
-       deprecated HP.  To create an inset relative to an indented
-       paragraph, call RS repeatedly until an acceptable indentation is
-       achieved, or give RS an indentation argument that is at least as
-       much as the paragraph=E2=80=99s indentation amount relative to an
-       adjacent ordinary (P) paragraph.
-
-       Another approach to tagged paragraphs places an RS call
-       immediately after the tag; this also forces a break regardless of
-       the tag=E2=80=99s width, which some authors prefer.  Follow=E2=80=90=
-up paragraphs
-       under the tag can then be set with P instead of IP.  Remember to
-       use RE to end the indented region before starting the next tagged
-       paragraph (at the appropriate nesting level).
+But I'm far from a subject matter expert.  And a bit too young to opine
+authoritatively on life at the CSRC.  Fortunately, some groff list
+subscribers have first-hand knowledge.  :)
 
 Regards,
 Branden
 
---6e2lh67a6gnxwxw7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename=harry-manback
-
-#!/bin/bash
-
-set -e
-
-if [ $# -ne 1 ]
-then
-    echo "need a directory argument (e.g., \"old\", \"new\")" >&2
-    exit 1
-fi
-
-if ! [ -x ./build/test-groff ]
-then
-    echo "./build/test-groff does not exist or is not executable" >&2
-    exit 2
-fi
-
-groff () {
-    ../build/test-groff "$@"
-}
-
-BFLAG=
-#BFLAG=-b
-DIR=$1
-
-MANS=(
-./src/utils/lkbib/lkbib.1.man
-./src/utils/tfmtodit/tfmtodit.1.man
-./src/utils/hpftodit/hpftodit.1.man
-./src/utils/pfbtops/pfbtops.1.man
-./src/utils/afmtodit/afmtodit.1.man
-./src/utils/lookbib/lookbib.1.man
-./src/utils/addftinfo/addftinfo.1.man
-./src/utils/xtotroff/xtotroff.1.man
-./src/utils/indxbib/indxbib.1.man
-./src/roff/nroff/nroff.1.man
-./src/roff/troff/troff.1.man
-./src/roff/groff/groff.1.man
-./src/utils/grog/grog.1.man
-./src/devices/grodvi/grodvi.1.man
-./src/devices/grolbp/grolbp.1.man
-./src/devices/grops/grops.1.man
-./src/devices/grohtml/grohtml.1.man
-./src/devices/grolj4/grolj4.1.man
-./src/devices/grotty/grotty.1.man
-./src/devices/gropdf/gropdf.1.man
-./src/devices/gropdf/pdfmom.1.man
-./src/devices/xditview/gxditview.1.man
-./src/preproc/preconv/preconv.1.man
-./src/preproc/tbl/tbl.1.man
-./src/preproc/soelim/soelim.1.man
-./src/preproc/eqn/eqn.1.man
-./src/preproc/eqn/neqn.1.man
-./src/preproc/pic/pic.1.man
-./src/preproc/refer/refer.1.man
-./src/preproc/grn/grn.1.man
-./contrib/pic2graph/pic2graph.1.man
-./contrib/hdtbl/groff_hdtbl.7.man
-./contrib/mm/groff_mm.7.man
-./contrib/mm/mmroff.1.man
-./contrib/grap2graph/grap2graph.1.man
-./contrib/rfc1345/groff_rfc1345.7.man
-./contrib/eqn2graph/eqn2graph.1.man
-./contrib/gpinyin/gpinyin.1.man
-./contrib/mom/groff_mom.7.man
-./contrib/gdiffmk/gdiffmk.1.man
-./contrib/glilypond/glilypond.1.man
-./contrib/chem/chem.1.man
-./contrib/gperl/gperl.1.man
-./man/groff_tmac.5.man
-./man/groff_out.5.man
-./man/groff_diff.7.man
-./man/groff_char.7.man
-./man/groff.7.man
-./man/roff.7.man
-./man/groff_font.5.man
-./tmac/groff_trace.7.man
-./tmac/groff_me.7.man
-./tmac/groff_ms.7.man
-./tmac/groff_man.7.man
-./tmac/groff_man_style.7.man
-./tmac/groff_mdoc.7.man
-./tmac/groff_www.7.man
-)
-
-MANS_SV=(
-./contrib/mm/groff_mmse.7.man
-)
-
-mkdir "$DIR"
-pushd "$DIR" >/dev/null
-
-# the change logs, so we know approximately where we are
-cp ../ChangeLog .
-
-for d in chem gdiffmk glilypond gperl gpinyin hdtbl mm mom rfc1345 sboxes
-do
-	cp ../contrib/$d/ChangeLog ./ChangeLog.$d
-done
-
-# our Texinfo manual
-cp ../build/doc/groff.txt .
-
-# our Texinfo manual via HTML
-cp ../build/doc/groff.html .
-lynx -dump groff.html > groff.html.txt
-
-# our ms manuals
-groff $BFLAG -ww -Tutf8 -ept -ms ../doc/ms.ms > ms.txt
-
-# our me manuals
-#groff $BFLAG -ww -Tutf8 -me ../doc/meintro.me > meintro.txt
-#groff $BFLAG -ww -Tutf8 -kt -me -mfr ../doc/meintro_fr.me > meintro_fr.txt
-#groff $BFLAG -ww -Tutf8 -me ../doc/meref.me > meref.txt
-me_pre=../ATTIC/my.me
-groff $BFLAG -ww -Tutf8 -me $me_pre ../build/doc/meintro.me > meintro.txt
-groff $BFLAG -ww -Tutf8 -kt -me -mfr $me_pre ../build/doc/meintro_fr.me \
-    > meintro_fr.txt
-groff $BFLAG -ww -Tutf8 -me $me_pre ../build/doc/meref.me > meref.txt
-
-for F in ${MANS[*]} ${MANS_SV[*]}
-do
-    G=../build/${F%.man}
-    if [ -f "$G" ]
-    then
-        cp "$G" .
-    else
-        echo "warning: \"$G\" missing" >&2
-    fi
-done
-
-: ${AD:=l}
-
-ARGS="$BFLAG -ww -dAD=$AD -rCHECKSTYLE=3 -rU1 -Tutf8 -e -t -mandoc"
-NOCR=-rcR=0
-LOCALE=
-ARGS_HTML="$BFLAG -ww -rCHECKSTYLE=3 -Thtml -e -t -mandoc -P-C -P-G"
-
-for P in *.[157]
-do
-    if [ "$P" = groff_mmse.7 ]
-    then
-      LOCALE=-msv
-    else
-      LOCALE=
-    fi
-
-    echo $0: $P >&2
-    echo "groff $ARGS $LOCALE $P" > "$P.cR.txt"
-    groff $ARGS $LOCALE "$P" >> "$P.cR.txt"
-    echo "groff $ARGS $LOCALE $NOCR $P" > "$P.no-cR.txt"
-    groff $ARGS $LOCALE $NOCR "$P" >> "$P.no-cR.txt"
-    echo "<!-- groff $ARGS_HTML $LOCALE -P-I$P $P -->" > "$P.html"
-    groff $ARGS_HTML $LOCALE -P-I$P $P >> "$P.html"
-    rm "$P"
-done
-
-popd >/dev/null
-
-# vim:set ai et sw=4 ts=4 tw=80:
-
---6e2lh67a6gnxwxw7--
-
---fqxpfdeh57t3fhmq
+--7ahtoaytbkvpvase
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgU1rMACgkQ0Z6cfXEm
-bc4/2BAAp8U/u9TWqFym4chVzgIqw+80GE4HK4MHaUVq+YA0SHfmRwIGSB1ixcTN
-ERtYR6VldOf3tHpMZnSn+ADsu6hap40VbBCGavZL7j0OsAOH3iGfRmBojrpTgzRL
-ofxCVbTxjmqDPejzRJaUzYCN9zbdCTk2IBZ2pY/3PqbeN8TmVmq36Q+05e6SLzqm
-eB47aqe28G4PJtABm8+CZynQa1pjMQxKMxSSzzdgt0hXY9dIw2ReVG1l1O2k8F+O
-+zeDpXJgPVUpk1U0VXQjrutoIpPgdoOc2SQ34u7jF3uTXrGI77u58k60lWZb8yce
-tU2uY0t7EwU9u05YoWrcOpylyXeszsgFpjVpMletQBP4ZLbOiiJliArvXe3E2ZDi
-tT/v9bJxrO0OcxSYcdY1zjXQwTcUBdmoVfPu4aPxiqQsI8yP4dhv46BRG2MZ8CxO
-V5hU5SDwqaYqfzX8HKO5LXLJ5o94SAV1mN4nsGjTrGSmMvTwWGwEUgTpUiNTfmrj
-OJqMuMC5IMm4JzsAA3XQ+e0/7Fmc7RmbvhkvihPGXvyATRUFXwpuGhzBvcWBw0cL
-LCkqKaXpaiR9UpXsij+uwjutgVxeVFLZgcBx61c54z74ZbUwGLMyriKqNxpMay0h
-eeCcMiL8eHdX5OjXT5mezhUG0voTv+gbpeOviryv7B6zYXoHvVg=
-=ci8Z
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgU29IACgkQ0Z6cfXEm
+bc6prg//de7hfPhk3tZoPODsRt9hPofnWkmUl91NWpPOJZpt3OJxM4lBJ8QPY/75
+vkc1fQ6qOq4oAVaI9kxhd916TvoTEa7IRW61tprNEuxhpHndN+dyXqdMpbrbTbxz
+f2kuzbJIMv68eelWn/qAxD693xbV/rkz7MmBt8sianLhn42DPnEVjy0KlOlIXfrF
+ZbMsiAP/1L98VqHk+kabZwXkCU868swALHWugf36b0iDaM/ErvsBaFJz0rIyp9ZO
+saVO6UT/jxcYufx2MasXCmB5feMW20Wv7y4qe2yTyIFONiGs2X4IlmwfIpb0ESVS
+uTMa3HeLY1ZTpKckxbsZA52fbgIhl03s37EzD7OdWr+Jt+gtLJ1oHYOSfDhhpYeC
+idH9qJDTpoZzrO4UbTAZ39KMmOetu4L9jDAf/tLIS1LMR98iaj/iChexdXCyYRBO
+WJOtkBq+sSJUgwSNUgwRlP/Jn227YiCsHuZl4mRignJltLEBV1Hu8LfwzUbYPQ2D
+F5+bfvfOxCjyAcPBAYwQgcLRBn2wAzDMWs/onT4INLyr2Wmy1kHBavplNxnnbrcS
+uPaNTTeq4lhRfCWlABGiymlYVikBPu+zWo+bkaoal9bUBbOuXqld3MwMoSelUtV7
+lEO2pj/9UEVyvEURjcbA8bYSfR5V5xT5hpa5UQu3nBIkWyK0gfc=
+=ZRIU
 -----END PGP SIGNATURE-----
 
---fqxpfdeh57t3fhmq--
+--7ahtoaytbkvpvase--
 
