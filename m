@@ -1,304 +1,184 @@
-Return-Path: <linux-man+bounces-2850-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2851-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A37AA73CC
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 15:34:41 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 316DFAA74C4
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 16:19:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 09A9A188E72F
-	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 13:32:20 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 898614A737C
+	for <lists+linux-man@lfdr.de>; Fri,  2 May 2025 14:19:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF98322094;
-	Fri,  2 May 2025 13:32:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70E7123E359;
+	Fri,  2 May 2025 14:19:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=martinlemaire.fr header.i=@martinlemaire.fr header.b="UV5k8Myw"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mm8zryTS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from 15.mo581.mail-out.ovh.net (15.mo581.mail-out.ovh.net [87.98.180.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B353115E90
-	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 13:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.180.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45B719E97B
+	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 14:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746192723; cv=none; b=Rlp30crhU8OCjnoahA7Fg4zt2P9UUv2smQK7x6wCusISWXxTbVHh3Mpwwxhi0UeXx9y3C2UuIX5nH4FH3jOGAc2HtwK11uDYPsjy+jUWe0kK+hIjO3uyAQlGVtsG3YD6coVLZXCkjveihl/lqiffqBjJ+mYvkplGvQnqgodSkFc=
+	t=1746195593; cv=none; b=rTkQxBhlO82AZAJRDAhlGJ5mFoFm9HuPZqzHXLhfa0jN9PGVbNV7d7i5DkCJhZxLpTf0gvsmd1qsW7VJvyIveSXHWER+3+5dpdXVrMGlh6cFKzUNr4hj0TpojZ9+ciZe3kiwt2H6CJTwNPJnMEOq//Z89DprkiS2a01sgURJLfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746192723; c=relaxed/simple;
-	bh=TMi0hQjP7/ejEEFdBm2H9ml2JTLiuLK0lGGl89uU5xQ=;
+	s=arc-20240116; t=1746195593; c=relaxed/simple;
+	bh=pvRgzK8SxfSpMMiyMdbi+v4dZw/aDQUXyX35a3gUjys=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uM8qpkyBmpAWAi/XbJDdnT8Uigco8EWOjvyBm8t6Txd/QnzSTJH4qzg9QmLGGbMaaJHx0SCnrfnxY7fPwFu+cg8snuys178EqAj316vNDE5Mt7BZKBmD9rlpvBJspYj6vtQfLNFpbpHkK0ni/UgZX06OxjTcYKSq2XTY5RgICqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=martinlemaire.fr; spf=pass smtp.mailfrom=martinlemaire.fr; dkim=pass (2048-bit key) header.d=martinlemaire.fr header.i=@martinlemaire.fr header.b=UV5k8Myw; arc=none smtp.client-ip=87.98.180.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=martinlemaire.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=martinlemaire.fr
-Received: from director2.ghost.mail-out.ovh.net (unknown [10.108.17.234])
-	by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4Zprm93Dhpz1C3g
-	for <linux-man@vger.kernel.org>; Fri,  2 May 2025 13:06:49 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-lpp9r (unknown [10.111.182.122])
-	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 742F51FEBF;
-	Fri,  2 May 2025 13:06:48 +0000 (UTC)
-Received: from martinlemaire.fr ([37.59.142.114])
-	by ghost-submission-5b5ff79f4f-lpp9r with ESMTPSA
-	id GSxAA2jDFGjQkQEAhf+FNA
-	(envelope-from <contact@martinlemaire.fr>); Fri, 02 May 2025 13:06:48 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-114S0085e4b5089-f12c-4dcf-8d28-1a13230442fb,
-                    3B2BB2785341758176629FC674206738387415D9) smtp.auth=contact@martinlemaire.fr
-X-OVh-ClientIp:92.184.108.75
-Date: Fri, 2 May 2025 15:06:46 +0200
-From: Martin Lemaire <contact@martinlemaire.fr>
-To: groff@gnu.org, linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>
-Subject: Re: Paragraphs formatted differently depending on previous ones
-Message-ID: <aBTDZiUVotN_80RM@starship>
+	 Content-Type:Content-Disposition:In-Reply-To; b=bjh5wlw7M0LpSrieHNwfCTVXzFhqumJpLU0b46JoaXKmyYJhlT2Xfq+fHz5VBltjiLaoBXcuhxLDImE8mc4R/CYubOG+lRftvOOWHGSCSr51fXDjQBAhcgSuJoypnIP6T2eydSIRtAa18uYWIH5YPeowK4OBljKYAgLzumk67Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mm8zryTS; arc=none smtp.client-ip=209.85.160.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-2c6ed7efb1dso1419339fac.2
+        for <linux-man@vger.kernel.org>; Fri, 02 May 2025 07:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1746195591; x=1746800391; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lWDnTbfbpRir6nb2ZQ/DKZixsP8d5MrT1BTV87Maz+I=;
+        b=mm8zryTS9nIW4Dk0zSJaOLs4gnaRQw7Kn9AbI0miLRVa1ZmORGCi0o0shEjZSL/VWy
+         MepxbOjRgts04rlpDcTSdXVDRTqe7mrIhKIlkL+bw1wAGUifS+Nj+xqenCX33ua1I86z
+         6TNhgn6n+YTQ1SdX116LibhC/O2VtpBjKlfQmIbpVzYIQUjR/UDvwNwFALN2uyJcdt7r
+         KmgY1PpbPuZhals5ojOAGELm6iY1jtjxLm8hhjhf4noDW2fDy5PgPadSCVe3fuSEnGcK
+         ZJtBGCLhj+Ai/X9duBP2Axkt4/23F+vET7BWex4MuOSrA8mRlWRkC+Akec3BULE9rjrB
+         XTCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746195591; x=1746800391;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lWDnTbfbpRir6nb2ZQ/DKZixsP8d5MrT1BTV87Maz+I=;
+        b=Yu6JrLw+hMgDY7kMVtyfZwEdd1K+01/7JbFdAuauz7gINBqa7BciliYME27Tx/Ma2o
+         kg/yo7lNd27ppL0ooOjZbCiDSxfCAiJv5FWvrwSbK0EVyzN31sg1l0pfvfY+tlYvPXsP
+         zR0bVwrJJjgp6l8LZUxolaqTBjNwlyzV26CzrLTesnT/FuKntlc86fys88EZ2XVlDDBQ
+         Jj1J8qd1uigoL2/EW+97XvLiKBr8zIaD3z65cW+/ktRyinlz/Lfghp61Sr+XDp7oJBqx
+         pz9r4v1eJcOiZMgdtHKbGA+QuZ872g2ktBXBQbOobRLE/3hCNxljvgxgmEjJOXL3ympD
+         VvIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUWdeK3v4OkqtNwhOCCmSfUEPQ63k+Fe7UtEqoNWahgoZHM/zi9RILxkThoad7t0u11G409gPt2U0g=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzk59uX+Qbk4y1uAR0feTq5SBpqRU+KvZZ09Yc8Yw0KOvSqvyez
+	KmM1wqRZees5yatEw9KgQzUCfVwf9WDP0Uap3pG3KbS/lkbowldfcQ8GtA==
+X-Gm-Gg: ASbGncvP+5tAlY15tUJ7Q6M5JOXMXPlZSsxcG1TuddTeO1cZV10djQmanK5HkYXJ+qr
+	OUdgrvzkqe8P5jK13q7h56E2R8sf1iaZ8t/h0AiN3DiUTLdlC7nPPmcqewqTlomS/OeRPo+ekvQ
+	blQ5F2neRin9m5k5LWveJHD7WJvmiKBlOvfPECB3zPGme16Fn2N71A7r8jvSE6jE+b4eoFQ1XnK
+	T1B3ipyIQcPpqTBFO2ev5AkQ3n+ZrjXCFg2rdStYfetpmPN7s61HjdTrJ9iaf3nABS+WO42HF9B
+	gl40i8ykokXOS0YHB5nL7RnfRGjN/9o=
+X-Google-Smtp-Source: AGHT+IH2JzCbDYy34E1hYHQ0yso9Wp9UTajG+PCJW9T9bsVTXx2H9QNX1r5+ReU/GLmvCrnrQfWb9A==
+X-Received: by 2002:a05:6870:e40a:b0:2c1:b4ce:e43c with SMTP id 586e51a60fabf-2dab30bfab6mr1186801fac.21.1746195590711;
+        Fri, 02 May 2025 07:19:50 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-731d31a2839sm506566a34.6.2025.05.02.07.19.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 May 2025 07:19:50 -0700 (PDT)
+Date: Fri, 2 May 2025 09:19:48 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: groff@gnu.org, linux-man@vger.kernel.org
+Subject: Re: grof --run
+Message-ID: <20250502141948.bszoef7vvhnuworm@illithid>
+Reply-To: groff@gnu.org, linux-man@vger.kernel.org
 References: <dbczpry2ukcht3d2pw4b2l7yla63eetfprfpblhvhwj2dpalvv@ba4itgqked3d>
  <20250502120139.yqstcq32hdtagozl@illithid>
+ <fg6yru6cwn4itrn55mmnpt2eerjeph3z3ow3asowf2dhkq5iwv@qewmi2xgqgf6>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pwdihnbjydmvporn"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250502120139.yqstcq32hdtagozl@illithid>
-X-Ovh-Tracer-Id: 14080785710452907418
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvjedvheefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtjeenucfhrhhomhepofgrrhhtihhnucfnvghmrghirhgvuceotghonhhtrggtthesmhgrrhhtihhnlhgvmhgrihhrvgdrfhhrqeenucggtffrrghtthgvrhhnpeehffelfeelgeegtdejueduffeuieehheeggeekleeludekkeeitdegueeigedtueenucffohhmrghinhepghhnuhdrohhrghdpthhuhhhsrdhorhhgnecukfhppeduvdejrddtrddtrddupdelvddrudekgedruddtkedrjeehpdefjedrheelrddugedvrdduudegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpegtohhnthgrtghtsehmrghrthhinhhlvghmrghirhgvrdhfrhdpnhgspghrtghpthhtohepuddprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehkedumgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=Vzpdn+IfmtcLT4ySFnli+rfAMBpH2crVqY03/CstUlA=;
- c=relaxed/relaxed; d=martinlemaire.fr; h=From; s=ovhmo3189267-selector1;
- t=1746191209; v=1;
- b=UV5k8MywmGu4KKfAmk0Qsi6+H/AkxvQXYGiYsWEyq2rvDy7e1SVrCDkwK9Fr2hM7E7CbQOvA
- 3LgqM6ZbhvBOAKSINmjUqrAcPakkJyKOuoiJCWkTc799ClJj1FTW6Y7yHN2hH+1d/y7D2jI6NZK
- AKa7IB/t7kGxj5WvvfnmOWA9tkK9/0Fc4cq22GEJHb2PeVTkrEEa5C9bVVTzSZuXOe/X7AXhFZM
- nUoZWVeu+gyURvz/ebCa3vIL/zQPKLarfgw/QM5gqoaaqxc1HEzR/pTX0IZEK66BA3DclF6cju2
- nTcrk5Gj6tLXdn8JZRV/JvJU9/3qHQJmSsbav2sU/zqLQ==
-
-Thank you Branden for those historical insights. 
-Off-topic to Alejandro's initial question but related to the subject of
-justifying text set in monospace, do we owe this typographic gesture to
-the early *roff formaters or was it already a thing in previous
-publication tool, either software or hardware ?
-Are you aware of theory or paper on the subject ?
-
-Martin
+In-Reply-To: <fg6yru6cwn4itrn55mmnpt2eerjeph3z3ow3asowf2dhkq5iwv@qewmi2xgqgf6>
 
 
-Le Fri, May 02, 2025 at 07:01:39AM -0500, G. Branden Robinson a écrit :
-> Hi Alex,
-> 
-> At 2025-05-02T12:56:51+0200, Alejandro Colomar wrote:
-> > I'd like to understand why groff(1) formats differently a paragraph
-> > depending on the previous ones.  I sometimes experience different
-> > placement of spaces for an unchanged paragraph.  I use a script to
-> > diff manual pages at different commits, which is useful to quickly see
-> > the effects of a commit in a formatted page.  That script sometimes
-> > shows suprious space changes (produced by groff(1)) for parts of the
-> > page that haven't been changed, and which one would expect should not
-> > be formatted differently.
-> 
-> What you're observing is an artifact of the adjustment process that pads
-> out filled text lines to a consistent width.  It's a feature of *roff
-> formatters going back essentially forever--as in, to the early 1970s.
-> 
-> And it is indeed not a man page-specific phenomenon.
-> 
-> groff_diff(7) briefly mentions it:
-> 
->      When adjusting output lines to both margins, AT&T troff at first
->      adjusts spaces starting from the right; GNU troff begins from the
->      left.  Both implementations adjust spaces from opposite ends on
->      alternating output lines in this adjustment mode to prevent
->      “rivers” in the text.
-> 
-> Some typography people refer to this practice as achieving "uniform
-> grayness".  Imagine your eyes defocused so that the text of a printed
-> page is a smear of gray--if every line were supplemented with space
-> favoring either the left or right side, you would perceive the opposite
-> side as being "blacker".  As far as I understand the concept, not being
-> a trained typographer, it's the same thing, or tautologically related.
-> Rivers create anisotropies in your grayness.
-> 
-> I have proposed the term "adjustment parity", a property that tells you
-> whether an output line requiring adjustment gets adjusted from the left
-> or the right.  Roughly, if you change filled text in a *roff document
-> that uses adjustment such that you add or delete an _even_ number of
-> lines, the adjustment of subsequent lines won't change.  If you add or
-> delete an odd number of lines, it will.  However, that's a *truly* rough
-> statement because a change prior to groff 1.23.0 made GNU troff ignore,
-> for purposes of adjustment parity, lines that don't get adjusted at all.
-> I'll put some more background in a footnote.[1]
-> 
-> When diffing changes to man pages for the groff and ncurses projects
-> (and occasional others to which I contribute), I disable adjustment when
-> rendering the pages before and after, using the `-d AD=l` option.
-> 
-> groff_man(7):
-> 
-> Options
->      The following groff options set registers (with -r) and strings
->      (with -d) recognized and used by the man macro package.  To ensure
->      rendering consistent with output device capabilities and reader
->      preferences, man pages should never manipulate them.
-> 
->      -dAD=adjustment‐mode
->               Set line adjustment to adjustment‐mode, which is typically
->               “b” for adjustment to both margins (the default), or “l”
->               for left alignment (ragged right margin).  Any valid
->               argument to groff’s “.ad” request may be used.  See
->               groff(7) for less‐common choices.
-> 
-> As you can see, I turn off adjustment when pasting man page contents
-> into emails as well.[2]
-> 
-> For example, the script I use to diff groff man pages before pushing a
-> set of commits has this stuff in it.
-> 
-> BFLAG=
-> #BFLAG=-b
-> ...
-> : ${AD:=l}
-> ...
-> ARGS="$BFLAG -ww -dAD=$AD -rCHECKSTYLE=3 -rU1 -Tutf8 -e -t -mandoc"
-> ...
-> for P in *.[157]
-> do
->     if [ "$P" = groff_mmse.7 ]
->     then
->       LOCALE=-msv
->     else
->       LOCALE=
->     fi
-> 
->     echo $0: $P >&2
->     echo "groff $ARGS $LOCALE $P" > "$P.cR.txt"
->     groff $ARGS $LOCALE "$P" >> "$P.cR.txt"
-> ...
-> done
-> 
-> I then diff(1) the ".cR.txt" file I saved from my last push
-> (corresponding to "origin/master") to the tip of the trunk.
-> 
-> I will point out something about your diff, though.
-> 
-> > 	@@ -118,11 +130,11 @@ .SH DESCRIPTION
-> > 	 this operation yields an
-> > 	 .B EINVAL
-> > 	 error.
-> > 	-.RE
-> > 	 .IP
-> > 	-Since Linux 6.7, using this subcode requires the
-> > 	+Since Linux 6.7, using this selection mode requires the
-> > 	 .B CAP_SYS_ADMIN
-> > 	 capability.
-> > 	+.RE
-> > 	 .TP
-> > 	 .BR subcode = TIOCL_PASTESEL
-> > 	 Paste selection.
-> 
-> This change involving movement of the `RE` macro call can potentially
-> change the output as well.
-> 
-> > There are several paragraphs which shouldn't report changes: every
-> > paragraph that doesn't start with "Since Linux 6.7," should be
-> > unchanged.
-> 
-> ...unless the moved `RE` call creates a surprise.
-> 
-> > Is this a bug?  Is it a feature?
-> 
-> It's a feature.  Some people do hate adjustment of nroff output, though,
-> which is why I added a feature to groff man(7) to support disabling it.
-> 
-> The history of this practice is inconsistent.  Seventh Edition Unix
-> (1979) disabled adjustment of man pages when rendering in nroff mode,[3]
-> and BSD retained that disablement until death.  SunOS commented it as
-> early as SunOS 2.0 (1985), thus restoring adjustment in nroff mode, and
-> retained that all the way through Solaris 10 (2005).  When James Clark
-> wrote groff starting in about 1989, his man(7) implementation closely
-> emulated SunOS.  With the Solaris 11 release in 2010, Oracle discarded
-> its AT&T-descended troff in favor of the then-current groff release.
-> They're still on groff 1.22.2 (2013) today, and so they've been
-> adjusting their man pages in nroff mode for at least 40 years, as has
-> groff for about 35).  I don't know what other System V Unices did.
-> 
-> Some people have lobbied me to turn the default for adjustment off in
-> nroff mode for man pages, but I've resisted, in part for consistency
-> with groff's own entire history and the expectations of the once large
-> (but now aging) population of Sun Unix users, but also because I feel
-> that groff's defaults in nroff mode should be as similar to troff mode
-> as practical, to minimize surprises when switching among output devices.
-> 
-> As of groff 1.23.0 (2023) the default adjustment setting in groff man(7)
-> (and mdoc(7)) is completely under user control.
-> 
-> Regards,
-> Branden
-> 
-> [1]
-> 
-> commit 69efbe0a69a8e7de8904d78e3de8c7e8a58a8b92
-> Author: G. Branden Robinson <g.branden.robinson@gmail.com>
-> Date:   Sat Sep 4 23:20:54 2021 +1000
-> 
->     [troff]: Don't adjust nonadjustable lines.
-> 
->     This means that the direction from which an output line in adjustment
->     mode "b" (or its "n" synonym) is filled with supplemental space is not
->     changed if that output line does not require adjustment.  This will
->     result in whitespace changes to documents using that adjustment mode,
->     and these changes will be plainly visible on low-resolution output
->     devices like terminals.
-> 
->     To illustrate, in the following "A" means an output line requiring
->     adjustment; "F" a line that is "full" and does not; and "L" and "R"
->     indicate distribution of adjustment spaces from the left and right,
->     respectively.
-> 
->     groff 1.22.4    groff 1.23.0
->     ------------    ------------
->     A    L          A    L
->     A    R          A    R
->     F    L          F    R
->     A    R          A    L
-> 
->     * src/roff/troff/env.cpp (distribute_space): Return early if either the
->       amount of desired space to be distributed or the count of space nodes
->       in the output line to distribute it among is zero.
-> 
->     * tmac/tests/an_TH-repairs-ad-damage.sh: Update test to expect space to
->       be distributed differently.
-> 
->     Fixes <https://savannah.gnu.org/bugs/?61089> and
->     <https://savannah.gnu.org/bugs/index.php?60673>.
-> 
-> [2] $ type mailman
-> mailman is a function
-> mailman ()
-> {
->     local cmd=;
->     case "$1" in
->         -*)
->             opts="$opts $1";
->             shift
->         ;;
->     esac;
->     set -- $(man -w "$@");
->     cmd=$(zcat --force "$@" | grog -Tutf8 -b -ww -P -cbou -rU0 -rLL=72n -rHY=0 -dAD=l $opts);
->     zcat --force "$@" | $cmd | less
-> }
-> 
-> [3] https://minnie.tuhs.org/cgi-bin/utree.pl?file=V7/usr/lib/tmac/tmac.an
-> 
->     Also see variously:
-> 
->     https://minnie.tuhs.org/cgi-bin/utree.pl?file=32V/usr/lib/tmac/tmac.an
->     https://minnie.tuhs.org/cgi-bin/utree.pl?file=3BSD/usr/lib/tmac/tmac.an.new
->     https://minnie.tuhs.org/cgi-bin/utree.pl?file=4BSD/usr/lib/tmac/tmac.an.new
->     https://minnie.tuhs.org/cgi-bin/utree.pl?file=4.3BSD/usr/lib/tmac/tmac.an.new
->     https://minnie.tuhs.org/cgi-bin/utree.pl?file=4.3BSD-Tahoe/usr/lib/tmac/tmac.an.new
->     https://minnie.tuhs.org/cgi-bin/utree.pl?file=4.4BSD/usr/share/tmac/tmac.groff_an
+--pwdihnbjydmvporn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: grof --run
+MIME-Version: 1.0
 
+Hi Alex,
 
+At 2025-05-02T14:26:23+0200, Alejandro Colomar wrote:
+> On Fri, May 02, 2025 at 07:01:39AM -0500, G. Branden Robinson wrote:
+> > [2] $ type mailman
+> > mailman is a function
+> > mailman ()
+> > {
+> >     local cmd=3D;
+> >     case "$1" in
+> >         -*)
+> >             opts=3D"$opts $1";
+> >             shift
+> >         ;;
+> >     esac;
+> >     set -- $(man -w "$@");
+> >     cmd=3D$(zcat --force "$@" | grog -Tutf8 -b -ww -P -cbou -rU0 -rLL=
+=3D72n -rHY=3D0 -dAD=3Dl $opts);
+> >     zcat --force "$@" | $cmd | less
+> > }
+>=20
+> I was trying to simplify your mailman() function to the following pipe
+> (after parsing the options):
+>=20
+> 	man -w "$@" \
+> 	| xargs zcat --force \
+> 	| grog --run \
+> 		-Tutf8 -b -ww -P -cbou -rU0 -rLL=3D72n -rHY=3D0 -dAD=3Dl \
+> 		$opts \
+> 		2>/dev/null \
+> 	| less;
+>=20
+> And I found out that grog(1) seems to be not accepting a documented
+> option: --run. [1]  Am I doing something incorrectly?  I never used
+> grog(1) before, so it might very well be.
+
+Your grog executable may be out of sync with the man page you're
+reading.
+
+Compare `type grog` with `man -w grog`.
+
+> alx@devuan:~$ grog --run
+> grog: error: unrecognized grog option '--run'; ignored
+
+grog's `--run` option has been removed in the forthcoming groff 1.24.0
+release, so if you're running groff Git's master branch, that could
+explain it.
+
+NEWS:
+
+*  grog(1) no longer supports the `--ligatures` and `--run` options.
+   Simulate the former (which was specific to the "pdf" output device)
+   with the option sequence "-P -U -P y", and the latter by using the
+   command substitution feature of your shell; see section "Examples" of
+   groff(1).
+
+Regards,
+Branden
+
+--pwdihnbjydmvporn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgU1HwACgkQ0Z6cfXEm
+bc7RIQ//aVYCWAA5nhPAmq6LEaIUO0ZtAXBLgRqGmL17qeyON/WeFK7rNaLKjC0X
+z7s0cp5/MZtrwHikM811TvzUfwRl9k0nPQ6JILXCF9FRIvRy7E89SVrLdRIH1so2
+CTq0O1I++onZeUR/2dkYI/Ebxz/VESQFgJeV9Y+xB7nXJ9HCiC7uU5uO1cdWPU5j
+uwTNJ4cmlHk1WswqARFTbSdQdTEKv+D6wauB6E/0mnen0OVPlrVj2j5XrfWVQ8Dt
+0BttX21FOArpYoJ19isuv+FcQ3R0ti67z+6u10tA3ffL29uEORCDkPwLy9HUTzxc
+HISm2r7h6qxCh0SlKbnW0TcvjA5jmgNplAWPp+ZN0bZh7xa5klVkJrVJBTLcfCfv
+hE9wbhQqYw5TNBwmlYekD3cpPL4jWPQlavnhQxAxX/IJn2RAEM4K0jTUNLL3lXmL
+5Q12HwRpOcbg07IDXHK9Fx3gvoAMrf5G0Gi7AknH/Mfg5o4MF8qZcerWMT9t7ddW
+jzUxNRTkqqx+WaD0ghwYUTEP44MmVW2Y/oKB8+7maHvoM9vgCog77dqlEK9TxGe5
+hnv5/JuDr2EnNGimjDSIhQ9airNgWT2/4w+YkC+zy7cnvHeNRqnndny1tQfCiypK
+sag+Z9VHOuql8faN12vPPlFWgmm0STJrd0e32kWMKagUSbuHJGg=
+=McHD
+-----END PGP SIGNATURE-----
+
+--pwdihnbjydmvporn--
 
