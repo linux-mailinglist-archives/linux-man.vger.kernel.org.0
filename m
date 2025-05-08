@@ -1,162 +1,256 @@
-Return-Path: <linux-man+bounces-2868-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2869-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9F9AAE886
-	for <lists+linux-man@lfdr.de>; Wed,  7 May 2025 20:11:09 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B26AB066E
+	for <lists+linux-man@lfdr.de>; Fri,  9 May 2025 01:15:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 1FAD11C27574
-	for <lists+linux-man@lfdr.de>; Wed,  7 May 2025 18:11:21 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 455AC9E72DA
+	for <lists+linux-man@lfdr.de>; Thu,  8 May 2025 23:15:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06E5628C5A0;
-	Wed,  7 May 2025 18:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 56CE222A4F4;
+	Thu,  8 May 2025 23:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gf9gjeik"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5A2yn3u"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59ECD42A83
-	for <linux-man@vger.kernel.org>; Wed,  7 May 2025 18:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA90215160;
+	Thu,  8 May 2025 23:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746641464; cv=none; b=CW2GQ2/3YT2lfZ98lhb4KrIHha3gY+4m9zH24QEY1qZJuAvZjKdPon0Kj4zQ3Cv+cAl96rZ2YlJFTh2LGk7n/AdocZOs5zWVvNwXrTBfpCPHMaNMFxxZULlRVnJP3aCGkSgQDqnilCqhTERpGRFqhtNVCZFNgQxK6livuEQp/FI=
+	t=1746746119; cv=none; b=bTrKyHotukT1NGvogd19qPQhekYxgORZWqPdHSJbAYeEg8tUQuVctBKru+7whtYfkCVGeuRv1AHoYM2dhNWB5iclTWURqgP2ui0C4pqFc58o+31WY1rJCgfQMUmknt0vvm7N/7slGRT55Pq5QSHY8+F8GASN8pwFg6D8SLwE2l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746641464; c=relaxed/simple;
-	bh=ejGkfjwX7D3YCy/eaj5xIZWwNnL3WzPzj+xZScM/xLA=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=GcpPZtvte9KoCYzsC60WsA8nWVmZz+2AWOae50wPl9nYNb520JUPV94Gnd9FpvU0GYvH9KME+dJZr5M0oGLHv+MVrIzX2IHbJkBhG83xM0SiYUrP/c4HDpB4JCeiP3y3vkjyBelW2hTaLEIcLfXSsxZ06l1UJ/FXDrjHuDh8Lrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gf9gjeik; arc=none smtp.client-ip=209.85.167.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-40331f302f1so140452b6e.2
-        for <linux-man@vger.kernel.org>; Wed, 07 May 2025 11:11:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746641462; x=1747246262; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:to
-         :from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pAqt4OXWNvK1TuAaNC17riX8mdTeXEBSwcS9MCZ0Ibg=;
-        b=gf9gjeikaxWoFMtO2VdgXhOPmRzCqMD7qKJAclN/7Aa+cJs4mS6HbG5qUqoKxCwLH+
-         TtJP9RjR1+V/OOs4Jax/QqpB8nR4U022cueBV6/TGF98F9PjNPi2ofrUTlLk9/f3e/6w
-         bXZ85vQI1hspcmuPGxihjh3xZLNXopTwgqDAdjf3D29VcxAGfpfT/1iVsEcNRzuPHguX
-         sJ4JjH2/tdtri6nsGOtmbdnrCF2WEo6Ud/ohlexPECeI+m8I9A8heGaJY0PaTlvy3SXN
-         fAtvCnqrdqGpiiVZJM/BrC8jK6NZ+8cjLK8IIFATeD01rjWShpfwYuI7GllW2uE7qWjp
-         InHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746641462; x=1747246262;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:to
-         :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pAqt4OXWNvK1TuAaNC17riX8mdTeXEBSwcS9MCZ0Ibg=;
-        b=T0YhYu1u6Yp+o9qIUQOQCGLgxtpzZgW2K5wsGBtxYVtjCJpCNuIWpm+qi87DrD2P5L
-         Rq3rLjzken5ve2X9xJrBilrQZ4zwJNDgCQ/GP13Z52nbDjP8rWvyf6sxembpeZXDr1Bk
-         UC3Vk+xgcEqoQAj0cOHIujB0LX+Ut5O+8kyVhxkzp2we8h/Fk1t9Pc8kAQf/8ZmUwfJW
-         Fo4L+8DWInz0OOs8njciYeLjD5Kk+bLiSJYAABcjO+y2YtjXv27QyYjQmOG1YwYYutRP
-         OwRnCkF0XDRHIx1v9dV2P5+n/ENreBmk70u4MZv1y+laKlcrfTLP3ZQsG86TWbJVHRt2
-         QErA==
-X-Forwarded-Encrypted: i=1; AJvYcCVGUj1bUa+xeAOBwBGuHa+dk3GM4sqoYAPxrnLkybRgBcNvmWxyseZx2xfpJd6S6l8otoGOWxjl41E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMBasKeLJ5jOlCJIOdGhcWY3QCiYNwa/agKV910p02AhePbGWa
-	cdSmIQUPwNN+kfcWHjsx3DAKLQALTZqZvlNX6y3gMd8Ov3dTwZ1hZxHSLg==
-X-Gm-Gg: ASbGncvmuI1TaRqN5dm+7QlQbQ5MOIkpuScVsTk/t55RM2aOfspuJSfe8qTbO+THb35
-	mmhtdfq7WvW7XEuAZf02dzgXsaZbuoD0f6/AJfZpc3lwJPGdRh3Pgi9HjCwtZKnDARLP3NYT5Lt
-	W1teMxugcI0Yh/hm8z6Tyw3R4/ZJoXkaBCSx6W1G8SUWqgXk1p79e188+ow28Yk90vU2wF4hZ7Y
-	R5q1xE4MqjWFvwtcthhr6LbCGsE9UbvkqlISFRyxBJqezFokpdYihMyw4LjWrHJsPpw4btMx/PO
-	oeLu49XKuKt1/68i6aJNsv8VwxeMsb/sBMAWFQNm+g==
-X-Google-Smtp-Source: AGHT+IHBr52Y0mT5bYUzCG5Qkr1GJcSy7sTxFmVwjkiAqz4cgfSVSfYl9yNNeVM3/nmHf2XJhaN3Lw==
-X-Received: by 2002:a05:6808:1525:b0:401:e61b:5f76 with SMTP id 5614622812f47-4036f0d01f2mr2740162b6e.33.1746641462121;
-        Wed, 07 May 2025 11:11:02 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4036f3871c3sm666346b6e.37.2025.05.07.11.11.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 May 2025 11:11:00 -0700 (PDT)
-Date: Wed, 7 May 2025 13:10:59 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: groff@gnu.org, linux-man@vger.kernel.org
-Subject: Re: grof --run
-Message-ID: <20250507181059.hjmdgp3bukckqc5x@illithid>
+	s=arc-20240116; t=1746746119; c=relaxed/simple;
+	bh=j/J5G2M4Tjpz0KLbEjIWvq8j4Ttv4JwvO/ZUttkD/cM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=FSudbYEZsoIDN3j0ZORUK7rHu/dIsYqMhHOO5r/Fbrf3VZi5sVQnH6Av0AUgShXKB8aYaj6YVGgSy8BRtjjjVzkqw2lH+cbTTfg/54BZ5WHSLVdBRGv4z8y2A8I8zOh+NwVFuzqy/OTOSB7uX/xhIhorKP9ih4F7qysCgXzAabg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5A2yn3u; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B1FC4CEE7;
+	Thu,  8 May 2025 23:15:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1746746118;
+	bh=j/J5G2M4Tjpz0KLbEjIWvq8j4Ttv4JwvO/ZUttkD/cM=;
+	h=Date:From:To:Cc:Subject:From;
+	b=C5A2yn3uP2/RSDnGxuvK2149R1tsa9hyTSJqH8t+EEOqDLRWsbk6+MRfgXwr2aFn2
+	 Btcml9N8kOLUCDn41gQcQvzTHgD7yD4XWvW3hZ19N0tSp5c+gB0JcMRuiBZvvlpaaq
+	 1nI5yX+UqJKoPIV3wgP0aCl6yxrsvHrOmNkCKMCj2bUd6DZVMIgLmIQT8HS6savv0G
+	 0BBfhaSGR6zuVZ7jGZviI/jWWXMnqLgCF91/qCJIPVUv0y7cdNiGo4pH816M9b9hNm
+	 ZHAt94Fz5G/ZQSA13WmcfSq6JTo4fYIagNn+kMi1BPsTIAGHcA4d3fJq4JFZ+FTHy9
+	 1YvVCa/y+2JSA==
+Date: Fri, 9 May 2025 01:15:06 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
+Subject: man-pages-6.14 released
+Message-ID: <uidtufql6ftz72im7w6zggeihwhuwgnpxwb7j46fbp6ryvzv4i@cwyp6ewepeob>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="jyfftmnmebbhb3yl"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="te6szl43obedd5tr"
 Content-Disposition: inline
-In-Reply-To: <aBiX4joChgpehn0B@riva.ucam.org>
- <aBjcPH9OU6BTgDCX@isnote.usta.de>
 
 
---jyfftmnmebbhb3yl
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--te6szl43obedd5tr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: grof --run
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
+Subject: man-pages-6.14 released
 MIME-Version: 1.0
 
-Hi Colin and Ingo,
+Gidday!
 
-At 2025-05-05T11:50:10+0100, Colin Watson wrote:
-> FWIW, with man-db, it's usually best for most people not to set
-> MANPATH at all unless manual pages are somewhere that can't be
-> straightforwardly derived from PATH.  man-db will normally work it out
-> based on PATH, and that way it's harder for them to get out of sync.
+I'm proud to announce:
 
-At 2025-05-05T17:41:48+0200, Ingo Schwarze wrote:
-> Actually, mandoc(1) does not really recommend setting MANPATH either.
->=20
-> I consider it the job of the maintainer of the mandoc package on each
-> operating system to set MANPATH_DEFAULT to a value that is reasonable
-> for the operating system, as documented in configure.local.example.
-[...]
-> So even a highly specialized developer who spends about half his time
-> on manual page development barely needs MANPATH at all.  The thought
-> that ordinary users might feel compelled to use it is rather
-> surprising.
+	man-pages-6.14 - manual pages for GNU/Linux
 
-I can't be sure because I haven't kept my dot files under version
-control for sufficiently long, but I think I figured out why I've
-carried $MANPATH construction logic in my .bashrc for so long.
 
-About 18 years ago when taking a job at $FIRM, I had the option to be
-issued either an Intel-based Macintosh laptop (the choice of all the
-cool turtleneck kids) or one with a GNU/Linux distro officially
-supported by the firm's IT department...but it was an RPM-based distro.
-It might have been CentOS and not a fresh spin thereof.
+Tarball download:
+<https://www.kernel.org/pub/linux/docs/man-pages/>
+Git repository:
+<https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
+Online PDF book:
+<https://www.kernel.org/pub/linux/docs/man-pages/book/>
 
-In other words the distro might have been so old that the man(1) in use
-was Brouwer/Lucifredi man, of which I did not have a high opinion.
-Having to manage my own $MANPATH was likely a major reason I was annoyed
-with it.  But as I noted later in a groff commit message, that program
-"as of this writing [2020] saw its last release in 2011 (1.6g)."
+Thanks to all the contributors to this release (in BCC)!
+And thanks to our sponsors!
 
-So thanks for the pointing the opportunity I can take to kick some cruft
-out of shell startup files.  :)
+	-  Adfinis		<https://adfinis.com/>
+	-  Google		<https://opensource.google/>
+	-  Hudson River Trading	<https://www.hudsonrivertrading.com/>
+	-  Meta			<https://www.meta.com/>
+	-  Red Hat		<https://www.redhat.com/>
 
-Regards,
-Branden
 
---jyfftmnmebbhb3yl
+Have a lovely night!
+Alex
+
+
+You are receiving this message either because:
+
+        a)  (BCC) You contributed to this release.
+
+        b)  You are subscribed to <linux-man@vger.kernel.org>,
+            <linux-kernel@vger.kernel.org>, or
+            <libc-alpha@sourceware.org>.
+
+        c)  (BCC) I have information (possibly inaccurate) that you are
+            the maintainer of a translation of the manual pages, or are
+            the maintainer of the manual pages set in a particular
+            distribution, or have expressed interest in helping with
+            man-pages maintenance, or have otherwise expressed interest
+            in being notified about man-pages releases.
+            If you don't want to receive such messages from me, or you
+            know of some other translator or maintainer who may want to
+            receive such notifications, send me a message.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Changes in man=
+-pages-6.14 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Released: 2025-05-09, Aldaya
+
+
+New and rewritten pages
+-----------------------
+
+man2const/
+	UFFDIO_MOVE.2const
+
+man7/
+	mctp.7
+
+
+Newly documented interfaces in existing pages
+---------------------------------------------
+
+man2/
+	fanotify_init.2
+		FAN_REPORT_FD_ERROR
+		FAN_REPORT_MNT
+	fanotify_mark.2
+		FAN_PRE_ACCESS
+		FAN_MARK_MNTNS
+		FAN_MNT_ATTACH, FAN_MNT_DETACH
+	open_by_handle_at.2
+		AT_HANDLE_CONNECTABLE
+		AT_HANDLE_MNT_ID_UNIQUE
+
+man2const/
+	TIOCLINUX.2const
+		TIOCL_SELCHAR
+		TIOCL_SELWORD
+		TIOCL_SELLINE
+		TIOCL_SELPOINTER
+		TIOCL_SELCLEAR
+		TIOCL_SELMOUSEREPORT
+
+man3/
+	abs.3
+		uabs(3)
+		ulabs(3)
+		ullabs(3)
+		uimaxabs(3)
+
+man7/
+	fanotify.7
+		FAN_DENY_ERRNO()
+		FAN_REPORT_FD_ERROR
+		FAN_PRE_ACCESS
+		FAN_RESPONSE_INFO_AUDIT_RULE
+		FAN_REPORT_MNT
+		FAN_MNT_ATTACH, FAN_MNT_DETACH
+		FAN_EVENT_INFO_TYPE_MNT
+
+
+New and changed links
+---------------------
+
+man3/
+	uabs.3					(abs(3))
+	ulabs.3					(abs(3))
+	ullabs.3				(abs(3))
+	uimaxabs.3				(abs(3))
+
+
+Global changes
+--------------
+
+-  CREDITS, *
+   -  Move in-source contribution records to a new CREDITS file, and
+      update copyright notices to be uniform across the project.
+
+-  man/
+   -  Use GNU forward declarations of parameters for sizes of array
+      parameters.
+   -  \fX =3D> \f[X]
+   -  Use 'path' instead of 'pathname' for parameters.
+
+-  Release tarball
+   -  The size of the release tarball is around 0.1 MiB smaller, thanks
+      to having moved contribution records to the new CREDITS file, and
+      having simplified (and unified) copyright notices.
+
+
+Changes to individual files
+---------------------------
+
+The manual pages and other files in the repository have been improved
+beyond what this changelog covers.  To learn more about changes applied
+to individual pages, or the authors of changes, use git(1).
+
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Linux Software=
+ Map =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+
+Begin4
+Title:          Linux man-pages
+Version:        6.14
+Entered-date:   2025-05-09
+Description:    Manual pages for GNU/Linux.  This package contains
+                manual pages for sections 2, 3, 4, 5, and 7, and
+                subsections of those.  Only a few pages are provided in
+                sections 1, 6, and 8, and none in 9.
+Keywords:       man pages
+Maintained-by:  Alejandro Colomar <alx@kernel.org>
+Primary-site:   http://www.kernel.org/pub/linux/docs/man-pages
+                2.6M  man-pages-6.14.tar.gz
+Copying-policy: several; the pages are all freely distributable as long as
+                nroff source is provided
+End
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--te6szl43obedd5tr
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgboisACgkQ0Z6cfXEm
-bc5evg/+O6ja5OaDt3CpNvSqa4mQiSmcZqkS/3RLFADLoavqZ4uGIlYtN5P8rQBT
-jtg9FBtJ11BLpP9cfE/v0m/qy3q9hJZCuyAsDWKMVmjPq/VWhzYJug9CZ1fvXuxJ
-YX732YkV00c/ACabtTBta3LCciIveEt4ztU0YBxGSK4feumBF2aAOHhKa78w2iF7
-HgB9JPzLrDGCpn2hF029/7O5UQV56WGJaDcfRFtu/cxkSJic7ld6u3WItT5VFMZh
-6RgfXm8IBBj73jWX0q4EYTdWQqJINHKCOCb9zteFp62aXIlQeifaC2o5vrRq92Jd
-9MbL+gF8PIqm08lo8XynUH3GOp0wyZSLSwdtDpsvwUdTf8UbdHe+tHXcQlGdQKuz
-jZV8eRYUzPjSF5gGvYV2+L1/GMu/50EALRxlj4OtX849iE5/s7vtP2pEYslF5Fmm
-hQqPMDypXaGoPTj1XBJYJGwdRQxCODk4J82UORGsOQaswSYdl69qU3kW2/wdZnWs
-2Tni+gVNo5W0FFeCavTasqB2/8ZXBFBqY5jT1N71AtZ7+ouVoifXQEWAL0jEQCuE
-EtARFrl1fMZilTKHguqi6+4khZ2Y9Dv7clN8hy3X/JrkURFFjpIQ+ToPmk6rTaDe
-+sTQjc+I4luB8zLLHQhfQz4bAeNcz3jzoPoyK298L38Pg0hSWww=
-=IWPv
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgdOvkACgkQ64mZXMKQ
+wqkkxA/+JZrLdSANw8DeuKRS9+CHwslImCVUokCQGmLMqSDNjffhOzThZVewKm7Q
+Ul8SaqO4ZhfzRMMlwz9tjqQRMIZ1DEQOcfBNFM+8wCMBP1VgdTj8dFuVbpqMnwGB
+jQrZF3JMank6DntQ97lXPiBceLFbg+vAdUKCAK9dDcrvQFpjWlXq7cQQiDhvgxhc
+e0lVcZ5boWLP0HNAaiZJjVb/CG92t6mT+ccHlC4NbTzYTAjPnoJcqubmYNB6+RGw
+Sc1uquT14I3qIOLnzMlkMzJI3lGepI6SIjb8cv43nepVYL6Ayo876E1eo9Crsl/f
+fbq66f0mkf2CHfJ2ijOEsAyursvIUQDqDLxutCK0YeCFGCeiLjwJhDnXvStTNcmE
+W9p4CDgKWk7K9vM1MMHJ4ACcfiM468c7GWL6ifo3yvmsbIR+uiDY+/JaKPExNLne
+7bOS9uHBdqjcMWYQUQyc5aSXD1eoPTtqxaJiYBTb97G+NlcF8b93ZOlnV5+Mjth9
+viibLSXLIY4+8qpe4uiXC7mklIeB/WE+gaPxBQu7Z16plAAsTg8CCjZTkiJNEW6I
+YHgE1jwLSSjgDqCg9fBknZTc6NXKr9G1vr5l39xv5JcyCnFLT+t48Li+opJQK0gr
+xe/INyZvty19uMCCwIZOdjnq0mR9uYqkwduPUG7rlv22FaV+Fn8=
+=2u16
 -----END PGP SIGNATURE-----
 
---jyfftmnmebbhb3yl--
+--te6szl43obedd5tr--
 
