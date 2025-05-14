@@ -1,60 +1,59 @@
-Return-Path: <linux-man+bounces-2923-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2924-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9C5AB7467
-	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 20:34:38 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17D86AB7471
+	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 20:36:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AF8958C17AF
-	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 18:34:17 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A4FF61755DE
+	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 18:36:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFF5D286D7C;
-	Wed, 14 May 2025 18:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD56A286D50;
+	Wed, 14 May 2025 18:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s6iu+8sL"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RFEyPEPy"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A920628689C;
-	Wed, 14 May 2025 18:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794E92868AC;
+	Wed, 14 May 2025 18:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747247669; cv=none; b=HaIiW/z2woOt4LTnjKvblD82jmCeQ6BK3zdTSgH8AFV1EQVNebO9U0bYRwKMj7LpIzezuBwwmOR6p/Jei7V67MrO9KRhavF5CdXSH9d65RD9ViTPXbXlTqD6Q+ar0xPgSAlt/hx4063eOadBwls3g5bH62ltLHS4Wu+zZrS97DU=
+	t=1747247763; cv=none; b=S17kghtk7RpugArzYKHOExKJlPCtNIFHtExT8r/0ZlmzxGkbZ+GjGHzAeYW7Yyx2dUl+N0hRe2b81TXhPA9WGfIIZ5/NclKGMU7drvzT4dgAAlpKdefaPUJkXkI3QTc8iP8EjVI+R42P/Br5G4UM4YWJ0+sykW7LgEX1Oa8EjaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747247669; c=relaxed/simple;
-	bh=US4aMCr9h+WIzJSiaRZrpBVDIR14dmQ8/DnZa3W4o7Y=;
+	s=arc-20240116; t=1747247763; c=relaxed/simple;
+	bh=GI6GV8zDIzVOjtLbHyquzeknCcpj5W9CpPsYjq4PvkU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PIUNosbzNoDE1T+g0JJ8SYkF7OaysblQvzV1X1INU7j4KU2JCZKQfmEevs/xQcmoe8CdeUqZ4Dk1JAYtYdo2aVAWdu4QBOrbP4Nabbo1HACtWB/0qWLo0Qa6VN+E8PA7lrW4btIhemNaFKNqeYcGS6zhtn0fIX5kmoBTS53+vfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s6iu+8sL; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E432C4CEE3;
-	Wed, 14 May 2025 18:34:25 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=HrIB1na04J92ItdPTdDj2LGKueeZ9pmH83tYrmj3WS+IYEfWrcSw1RQS/Kc3bo/8qQtCMKRhGeICN7cslzru9en5IXYSrl7ZicUL77yErzoBiwimICN0i4nXTXEJbSyfrYi1hNz9oNMr8u8Pp1Mr4Y+HTwB54sS8S76jAcKlvuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RFEyPEPy; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082F6C4CEE3;
+	Wed, 14 May 2025 18:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747247669;
-	bh=US4aMCr9h+WIzJSiaRZrpBVDIR14dmQ8/DnZa3W4o7Y=;
+	s=k20201202; t=1747247763;
+	bh=GI6GV8zDIzVOjtLbHyquzeknCcpj5W9CpPsYjq4PvkU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s6iu+8sL2/BvGbxTQIOVB8zGB5TvpCCK0h08Ln2eKbgBZXeRgyQS/fiY8VZ6JUJNB
-	 7MfklHG2YVDenP+Q8257867VjrJqTYVol+1cnVKlgx1+qSIRVLG+hslyDd9WKG8YfZ
-	 25Tb2XJfKLemZ8DPZroh24tSFpe6mZVPwhSBmEdJjuAs4dHnS+3XmgbuAgALQh33gS
-	 vGcryxCXqQvbCjE1M1wAdjL4W2XJeQ2CJjsfotSgzht32JdS5srZcah+5GBsf1zkm9
-	 rm9SoNd3wYDik0EXcvnuMbQuYUbxwkuktRwLCXqI3fZlQVqEayt1WYC2ihKExdmZr1
-	 XVEscTve40cVg==
-Date: Wed, 14 May 2025 20:34:22 +0200
+	b=RFEyPEPyPQShQEyw7OO65b7wRiCkFyPD4qO5J8476xB+ZF0W8QcKubvwS8mlCXBA1
+	 nym/QsVGIx6lSZJ+cfzCdtBIULFlX1MxgFiynWX3+CiRY5D08w9WEhS5a/6vhnkH22
+	 1JEm8Zdl3werjDFztltg+n/5Uc5xZPZa7ueA6F23db7KK4Pq5KlIi/61Qutf7zkJ3S
+	 I0dmaSeswWLd7QjUg236A/nrPoyTaSld8gzTCVTrcz4jHg4NtuwLoRV835fbFyKSfa
+	 vpVx/RQikuLb5ASnnmm70sXM9E9x4cWWBot4f8gfykVoUoLx+F/rElm62yIEeo9aTk
+	 SwN1OJz73t3Hg==
+Date: Wed, 14 May 2025 20:35:57 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Peter Xu <peterx@redhat.com>
 Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Andrea Arcangeli <aarcange@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
 	Axel Rasmussen <axelrasmussen@google.com>, Kyle Huey <me@kylehuey.com>, linux-mm@kvack.org, 
 	Robert O'Callahan <robert@ocallahan.org>, Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH 1/2] UFFDIO_API.2const: Update userfaultfd handshake and
- feature probe
-Message-ID: <5ttjhxdolfulke72aqi25tv5gfww7jl2cwtwgp6lu4zp66hl3d@kwowsvdhuju7>
+Subject: Re: [PATCH 2/2] UFFDIO_API.2const: Add an entry for UFFDIO_MOVE
+Message-ID: <vieccowqkugkj3zmeamlcwzbw6k4ezektgvpwinnc3cok3wjch@e6xx2momytki>
 References: <20250512171922.356408-1-peterx@redhat.com>
- <20250512171922.356408-2-peterx@redhat.com>
- <6eobuzkwm6xhpis4s52dtit55fws37elv5d7zygaf64czcjag6@brz2nrc6qptu>
- <aCTRDSCSiRrswEXP@x1.local>
+ <20250512171922.356408-3-peterx@redhat.com>
+ <sxwdi5itwngdermj4w77ycwgyes4x7yyfl7v66mxj7co4xm6xm@27aqjwxvh4qk>
+ <aCTRaebpHZjVJHut@x1.local>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,12 +61,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hqfungowftzawdun"
+	protocol="application/pgp-signature"; boundary="7aocn3ddjkiyj4pl"
 Content-Disposition: inline
-In-Reply-To: <aCTRDSCSiRrswEXP@x1.local>
+In-Reply-To: <aCTRaebpHZjVJHut@x1.local>
 
 
---hqfungowftzawdun
+--7aocn3ddjkiyj4pl
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -77,66 +76,53 @@ Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Andrea Arcangeli <aarcange@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
 	Axel Rasmussen <axelrasmussen@google.com>, Kyle Huey <me@kylehuey.com>, linux-mm@kvack.org, 
 	Robert O'Callahan <robert@ocallahan.org>, Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH 1/2] UFFDIO_API.2const: Update userfaultfd handshake and
- feature probe
+Subject: Re: [PATCH 2/2] UFFDIO_API.2const: Add an entry for UFFDIO_MOVE
 References: <20250512171922.356408-1-peterx@redhat.com>
- <20250512171922.356408-2-peterx@redhat.com>
- <6eobuzkwm6xhpis4s52dtit55fws37elv5d7zygaf64czcjag6@brz2nrc6qptu>
- <aCTRDSCSiRrswEXP@x1.local>
+ <20250512171922.356408-3-peterx@redhat.com>
+ <sxwdi5itwngdermj4w77ycwgyes4x7yyfl7v66mxj7co4xm6xm@27aqjwxvh4qk>
+ <aCTRaebpHZjVJHut@x1.local>
 MIME-Version: 1.0
-In-Reply-To: <aCTRDSCSiRrswEXP@x1.local>
+In-Reply-To: <aCTRaebpHZjVJHut@x1.local>
 
 Hi Peter,
 
-On Wed, May 14, 2025 at 01:21:17PM -0400, Peter Xu wrote:
-> On Wed, May 14, 2025 at 05:59:48PM +0200, Alejandro Colomar wrote:
-> > > +.P
-> > > +For historical reasons,
-> > > +a temporary userfaultfd is needed to probe
-> > > +what userfaultfd features the kernel supports.
-> > > +The application needs to create a temporary userfaultfd,
-> > > +issue an
-> > > +.B UFFDIO_API
-> > > +ioctl with
-> > > +.I features
-> > > +set to 0. After the
+On Wed, May 14, 2025 at 01:22:49PM -0400, Peter Xu wrote:
+> On Wed, May 14, 2025 at 05:02:57PM +0200, Alejandro Colomar wrote:
+> > Hi Peter,
 > >=20
-> > Please use semantic newlines.  Break the line after the '.'.
+> > On Mon, May 12, 2025 at 01:19:22PM -0400, Peter Xu wrote:
+> > > Add the entry for UFFDIO_MOVE in UFFDIO_API.
+> > >=20
+> > > Signed-off-by: Peter Xu <peterx@redhat.com>
+> >=20
+> > Should we add the following tag?
+> >=20
+> > Fixes: d7dec35a3b19 (2025-05-01; "man/man2/ioctl_userfaultfd.2, man/man=
+2const/UFFDIO_MOVE.2const: Document UFFDIO_MOVE")
 >=20
-> This one was overlooked indeed, will fix it.
+> Sure.
+>=20
+> >=20
+> > Also, I think the subject should mention UFFD_FEATURE_MOVE, or at least
+> > somewhere in the commit message.
+>=20
+> I'll rename the subject to:
+>=20
+>   UFFDIO_API.2const: Add an entry for UFFDIO_FEATURE_MOVE
+>=20
+> I didn't know we need Fixes for man pages.
+
+We don't *need* it (as you don't technically need it in any projects),
+but it's nice to have.  :)
+
+>  I'll also attach a fixes for
+> the first patch for commit a252b3345 ("ioctl_userfaultfd.2: Describe
+> two-step feature handshake").
 
 Thanks!
-=20
-> >=20
-> > $ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
-> >    Use semantic newlines
-> >        In the source of a manual page, new sentences should be  started
-> >        on  new  lines,  long  sentences  should  be split into lines at
-> >        clause breaks (commas, semicolons, colons, and so on), and  long
-> >        clauses  should be split at phrase boundaries.  This convention,
-> >        sometimes known as "semantic newlines", makes it easier  to  see
-> >        the effect of patches, which often operate at the level of indi=
-=E2=80=90
-> >        vidual sentences, clauses, or phrases.
-> >=20
-> > Also, please say "zero" instead of "0", as was in the old paragraph.
-> > That will allow git-diff(1) --color-moved to detect some movement of
-> > text.
->=20
-> This was not part of the old text, but sure, will do.
-
-I know you've completely rewritten the paragraph, but even then, parts
-of the old text remain (maybe because however you write it, some parts
-need to be said).
-
-	-.I features
-	-field set to zero.
-
-This part is kept in the new text, even if just by chance, and it might
-be interesting to see that in git-diff(1) --color-moved.
 
 
-Have a lovely day!
+Cheers,
 Alex
 
 >=20
@@ -149,25 +135,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---hqfungowftzawdun
+--7aocn3ddjkiyj4pl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgk4igACgkQ64mZXMKQ
-wqmj4hAAgRxz4rSoq+wezhJH20C+of2dSCloeCFk8LaEAOXal4mFZADa8ndeCKVj
-tw3RuzzmFvValDlaVVM3R6jI8ujsGSjE+ZVdT5Xye+WDScCh438QryjHPtTZp9b6
-Lq21mXgrjg63uC8GhJ/LUNu3O/Uksik5mOOvDV5RBZYVsm2hpUKlrAl9RtwzRXQA
-5npMzCZbMlZBH7LxahktaErX7X4YsGwp9KnuUWQqPdQb6P5APN2mNqjA5nJlUYQ0
-XovB3N3mVNjZ7YnTF/dbIiGKvWYg2K2W9U5oarVIZ0Gv73K77lGOxiagIEL8y98i
-kDXkMztKrHbYV0lLLLM+X4enQ+cK0/USpHtKMrdbPtdhGlN7gWyzw+IgXwOr/mUl
-Jh0nUGmC0PWbP7xSCCsEvk3dr3H/zTw7o/335yrchPv5KwUK24ozReLHqxFVLvpI
-dqh9Si43Ro1MCFbRpp5hUd7KbsdMY75C+MZYeDCF+ouYF2+WdJAOXGSJkWqEfG6H
-lhkCuihV6JedgvB+7q19jMhve09CrObIrQ0PdAyqZqi3F/hdsqfR1FwvNtf3GU47
-aQQAn/IxXSr5lDEzkhLdYid32++oWbg0053wgf28bej0Ckg6mzJ3jZVUgzvpOwhJ
-3139n4woCcVUTfMh8Pwoi6IuWhbgZAfXB6uFOkE9MLHfdnMPwbA=
-=nCgI
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgk4owACgkQ64mZXMKQ
+wql+Ug/9GTYACgiGC27vbkTq4/4Q6Kz/RK3llG4BN7VYlq/YvIYRyY7zyP5JV3H2
+EtTF7EQrzUFUvLeJvTnOmOjUvevApLL9t9uBRoWLpnLnW/YfERgaXNymQmAVdDIb
+ZM/09aw4w/cStT1OkjJtcoHhVKhTDkYiF7kvhYHeHhUB+HcvcsRoET3eoPG6k5cd
+Xhe3r8LeHVbfyo2IAg4Ivhum9aPFcC2EN5vqLj8S2xLzWGEEoACYm4pnx3MMzRZL
+SDTjtgfcjv+zo72C8l6Iyci7J9TZyG7KG/pRHEOtmX9BIKD2GYdVjpRe8Y+WJVgU
+Tcz3ZQ3dl7/KzWnmPqZnoReYabK45hrkNtUA5cGlqttcqlUg8WmEgHo/x1aZUxuY
+BEFzkC1bkHneD62uttkEBcyOfCqussJE9QbhgOqk2qgmgJ47VrJfqugRRL8V0yMD
+5rTgexJ6awlt424LqP9yYFAPIm2SCoCLIzFuPwqdxiIS6RCjS+9yEKcgVlKkSFIz
+8LiJPaS5HOxTiTX6WPeJ5UpiwXZeBL+881qphqWs5Gxj9k3G7DS5N6D4B/Ln+us5
+qHdowcT8muY4eHY5JY3+4P/JXM68L3i33YFZUYegnUdEhsG+FMl9HUlaG2c4Hh2z
+GpXhV8X7USFJX7ZHRJYRRer2YnynRa8m3Y5clFcZ9W1bBKW0OtU=
+=StKk
 -----END PGP SIGNATURE-----
 
---hqfungowftzawdun--
+--7aocn3ddjkiyj4pl--
 
