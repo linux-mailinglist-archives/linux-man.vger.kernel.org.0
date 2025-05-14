@@ -1,136 +1,173 @@
-Return-Path: <linux-man+bounces-2921-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2923-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48DF6AB72BB
-	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 19:27:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9C5AB7467
+	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 20:34:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A1F8F862D89
-	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 17:26:35 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AF8958C17AF
+	for <lists+linux-man@lfdr.de>; Wed, 14 May 2025 18:34:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A7EE28151B;
-	Wed, 14 May 2025 17:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFF5D286D7C;
+	Wed, 14 May 2025 18:34:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ChVVsHZI"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s6iu+8sL"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8447328032A
-	for <linux-man@vger.kernel.org>; Wed, 14 May 2025 17:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A920628689C;
+	Wed, 14 May 2025 18:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747243602; cv=none; b=WLiddmRKO3WQZBgXyP8jIiLR+Io2eYU7J667Tgo0pUqaefRg9Yxq/Lq0SdVnkZmCe0A8EAsT66Y24inGJyQSC8ZQlH0TjG0N2WLZnleBbySS685OrGt4N9J6CAFuxrb1pgNikz0jWPPZQX3LdVTnV4e4wAQeNrwuckD5OKVCSOQ=
+	t=1747247669; cv=none; b=HaIiW/z2woOt4LTnjKvblD82jmCeQ6BK3zdTSgH8AFV1EQVNebO9U0bYRwKMj7LpIzezuBwwmOR6p/Jei7V67MrO9KRhavF5CdXSH9d65RD9ViTPXbXlTqD6Q+ar0xPgSAlt/hx4063eOadBwls3g5bH62ltLHS4Wu+zZrS97DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747243602; c=relaxed/simple;
-	bh=1yRC1XwpYKzFcM/zrcrcVhqTKiQ7uUmPQ8b9lkxNl1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N97AMtgxxf00VixhKo5HXguOs1G7SCOu/CnyogMKzbdug587GrV5CkAZKXSNqRSgnbhf7x+gyFJPBqaqC0lHNKmCtAbjDFxeT1t4DWGguCsYmQZoL3VZslgoahSaUyaSr51oRxyGv/MtDJ8QbvKkTNRENrTzcCRZnzBjWVok7B4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ChVVsHZI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1747243599;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WTtJTQLrX3gO9Dfm9nEWJ3K40sqpMSzaDV8/6FruRKM=;
-	b=ChVVsHZIn8Cr6JkfSufsXzYtelyy4b+wfBf9UTcqL2UslzEW7ZJfmbNkxZLGMZUSqm7zAp
-	LkYpw8/2LBVasRyC9/eJbci+KXgvuz+LJ9yaGvOZW9lEHPpU3m9vooo15j738/TdhbQ9jX
-	MvkkEhyRr4nABDvS2f3KQcJtPYvrK50=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-28-YfM4x5c1NfejJ_c5qSnG9A-1; Wed, 14 May 2025 13:26:38 -0400
-X-MC-Unique: YfM4x5c1NfejJ_c5qSnG9A-1
-X-Mimecast-MFC-AGG-ID: YfM4x5c1NfejJ_c5qSnG9A_1747243598
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-6f54e2cb26aso1305966d6.2
-        for <linux-man@vger.kernel.org>; Wed, 14 May 2025 10:26:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747243597; x=1747848397;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WTtJTQLrX3gO9Dfm9nEWJ3K40sqpMSzaDV8/6FruRKM=;
-        b=fDT72NfipPmeLkmEMbPEb8A0MA+OpFLr2+Rh8fTmll6XT/GpYa8b8hs6loRgIT4YV1
-         RwInpwRA0/PI6vfNB0PuwBdi6cBW5JKeVxmkuxwsUII/faiqjZo+NtSK+GPPDITreY06
-         H0lnGMDRUkcjL472bobt2YuOQXo3kkq4TylJ7f6o5jcb37IYbIOUhj3k3LZ6mk15jFL/
-         mR0L8PF5KPO64G3/8lN0Bcju4jwAEZgmvhwA+itK7GzP1Qy0U3iIIQ4TCXqh9VmbORUk
-         ruz4A+nOdFxK8Dy8IH5C1Y/Avfw09Czn4+Ho+mSmCymSezw7OamT9wsEz2onPk9FFy7C
-         p9ow==
-X-Forwarded-Encrypted: i=1; AJvYcCXPaVs0yipHWrgQysYc1GRlu6dQ/AayY+BYiV396MclyGbJMMUnqhss5KZSSYBWMHR0zUz3GZj1/RU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyxhq4DHbCBrI7F29G1IL9Z/UJ1RbYJz/wE8GvQACV6aoUEGCXe
-	74zUz5eRizUXTcjXoupysUv8A0kU+7NO4pCSn6Lw0H8Bc+YLsfpMlMy2kOozZfzn5X/U/b+U/7x
-	UAGwo6LN411zqhmgT0uU+TcBhzKLqW7A6x2na7QMR7Q5Kzfowwfcbh8Y8X1+brjyqiA==
-X-Gm-Gg: ASbGncsrSMwYMqECwyxX+67hohhMIUSFWbTKpf3uhm2gZZZgeGdmFMtm1Bp/ygCQbMs
-	XRyY2d2zs5fxuH4nCopRdWcPZohMCfUUjm3rSFeiOiFRhBP18EaNNoHYDB8AHaIjdP26tUn36IN
-	Vt8ePazKQ/E2MOKqWJLd9dAblyTndGiGNLXVn+KLvGDEjpOJ7qaR2gyJHkE5zgxuKjeDn9qM2sr
-	eCwOBhE2JcLwH4IpH5eKgDGrsghxPNPbQZ2ENQSNZhfiIq3EmWsjQy1CusB63s/kRp6d6ZRP4ck
-X-Received: by 2002:a05:6214:2525:b0:6ed:15ce:e33e with SMTP id 6a1803df08f44-6f896e373c0mr69565486d6.27.1747243597636;
-        Wed, 14 May 2025 10:26:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFo+aoJaRipKfbPRvzEAPWK/mJOEEvFX4RboJQouXsr67VEYSkJ4Jcr3wp/VF7VWUSVEMZUzw==
-X-Received: by 2002:a05:6214:2525:b0:6ed:15ce:e33e with SMTP id 6a1803df08f44-6f896e373c0mr69565086d6.27.1747243597244;
-        Wed, 14 May 2025 10:26:37 -0700 (PDT)
-Received: from x1.com ([85.131.185.92])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6f6e39f4795sm83590536d6.30.2025.05.14.10.26.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 May 2025 10:26:36 -0700 (PDT)
-From: Peter Xu <peterx@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	Kyle Huey <me@kylehuey.com>,
-	Robert O'Callahan <robert@ocallahan.org>,
-	peterx@redhat.com,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Axel Rasmussen <axelrasmussen@google.com>
-Subject: [PATCH v2 2/2] UFFDIO_API.2const: Add an entry for UFFDIO_FEATURE_MOVE
-Date: Wed, 14 May 2025 13:26:30 -0400
-Message-ID: <20250514172630.569788-3-peterx@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250514172630.569788-1-peterx@redhat.com>
-References: <20250514172630.569788-1-peterx@redhat.com>
+	s=arc-20240116; t=1747247669; c=relaxed/simple;
+	bh=US4aMCr9h+WIzJSiaRZrpBVDIR14dmQ8/DnZa3W4o7Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PIUNosbzNoDE1T+g0JJ8SYkF7OaysblQvzV1X1INU7j4KU2JCZKQfmEevs/xQcmoe8CdeUqZ4Dk1JAYtYdo2aVAWdu4QBOrbP4Nabbo1HACtWB/0qWLo0Qa6VN+E8PA7lrW4btIhemNaFKNqeYcGS6zhtn0fIX5kmoBTS53+vfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s6iu+8sL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E432C4CEE3;
+	Wed, 14 May 2025 18:34:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1747247669;
+	bh=US4aMCr9h+WIzJSiaRZrpBVDIR14dmQ8/DnZa3W4o7Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=s6iu+8sL2/BvGbxTQIOVB8zGB5TvpCCK0h08Ln2eKbgBZXeRgyQS/fiY8VZ6JUJNB
+	 7MfklHG2YVDenP+Q8257867VjrJqTYVol+1cnVKlgx1+qSIRVLG+hslyDd9WKG8YfZ
+	 25Tb2XJfKLemZ8DPZroh24tSFpe6mZVPwhSBmEdJjuAs4dHnS+3XmgbuAgALQh33gS
+	 vGcryxCXqQvbCjE1M1wAdjL4W2XJeQ2CJjsfotSgzht32JdS5srZcah+5GBsf1zkm9
+	 rm9SoNd3wYDik0EXcvnuMbQuYUbxwkuktRwLCXqI3fZlQVqEayt1WYC2ihKExdmZr1
+	 XVEscTve40cVg==
+Date: Wed, 14 May 2025 20:34:22 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Peter Xu <peterx@redhat.com>
+Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Andrea Arcangeli <aarcange@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Kyle Huey <me@kylehuey.com>, linux-mm@kvack.org, 
+	Robert O'Callahan <robert@ocallahan.org>, Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH 1/2] UFFDIO_API.2const: Update userfaultfd handshake and
+ feature probe
+Message-ID: <5ttjhxdolfulke72aqi25tv5gfww7jl2cwtwgp6lu4zp66hl3d@kwowsvdhuju7>
+References: <20250512171922.356408-1-peterx@redhat.com>
+ <20250512171922.356408-2-peterx@redhat.com>
+ <6eobuzkwm6xhpis4s52dtit55fws37elv5d7zygaf64czcjag6@brz2nrc6qptu>
+ <aCTRDSCSiRrswEXP@x1.local>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hqfungowftzawdun"
+Content-Disposition: inline
+In-Reply-To: <aCTRDSCSiRrswEXP@x1.local>
 
-Add the entry for UFFDIO_MOVE ioctl in UFFDIO_API man page.
 
-Fixes: d7dec35a3b19 ("man/man2/ioctl_userfaultfd.2, man/man2const/UFFDIO_MOVE.2const: Document UFFDIO_MOVE")
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Peter Xu <peterx@redhat.com>
----
- man/man2const/UFFDIO_API.2const | 6 ++++++
- 1 file changed, 6 insertions(+)
+--hqfungowftzawdun
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Peter Xu <peterx@redhat.com>
+Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Andrea Arcangeli <aarcange@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Kyle Huey <me@kylehuey.com>, linux-mm@kvack.org, 
+	Robert O'Callahan <robert@ocallahan.org>, Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH 1/2] UFFDIO_API.2const: Update userfaultfd handshake and
+ feature probe
+References: <20250512171922.356408-1-peterx@redhat.com>
+ <20250512171922.356408-2-peterx@redhat.com>
+ <6eobuzkwm6xhpis4s52dtit55fws37elv5d7zygaf64czcjag6@brz2nrc6qptu>
+ <aCTRDSCSiRrswEXP@x1.local>
+MIME-Version: 1.0
+In-Reply-To: <aCTRDSCSiRrswEXP@x1.local>
 
-diff --git a/man/man2const/UFFDIO_API.2const b/man/man2const/UFFDIO_API.2const
-index aca27dc5c..682df4316 100644
---- a/man/man2const/UFFDIO_API.2const
-+++ b/man/man2const/UFFDIO_API.2const
-@@ -205,6 +205,12 @@ ioctl.
- If this feature bit is set,
- the write protection faults would be asynchronously resolved
- by the kernel.
-+.TP
-+.BR UFFD_FEATURE_MOVE " (since Linux 6.8)"
-+If this feature bit is set,
-+the kernel supports resolving faults with the
-+.B UFFDIO_MOVE
-+ioctl.
- .P
- The returned
- .I argp->ioctls
--- 
-2.49.0
+Hi Peter,
 
+On Wed, May 14, 2025 at 01:21:17PM -0400, Peter Xu wrote:
+> On Wed, May 14, 2025 at 05:59:48PM +0200, Alejandro Colomar wrote:
+> > > +.P
+> > > +For historical reasons,
+> > > +a temporary userfaultfd is needed to probe
+> > > +what userfaultfd features the kernel supports.
+> > > +The application needs to create a temporary userfaultfd,
+> > > +issue an
+> > > +.B UFFDIO_API
+> > > +ioctl with
+> > > +.I features
+> > > +set to 0. After the
+> >=20
+> > Please use semantic newlines.  Break the line after the '.'.
+>=20
+> This one was overlooked indeed, will fix it.
+
+Thanks!
+=20
+> >=20
+> > $ MANWIDTH=3D72 man man-pages | sed -n '/Use semantic newlines/,/^$/p'
+> >    Use semantic newlines
+> >        In the source of a manual page, new sentences should be  started
+> >        on  new  lines,  long  sentences  should  be split into lines at
+> >        clause breaks (commas, semicolons, colons, and so on), and  long
+> >        clauses  should be split at phrase boundaries.  This convention,
+> >        sometimes known as "semantic newlines", makes it easier  to  see
+> >        the effect of patches, which often operate at the level of indi=
+=E2=80=90
+> >        vidual sentences, clauses, or phrases.
+> >=20
+> > Also, please say "zero" instead of "0", as was in the old paragraph.
+> > That will allow git-diff(1) --color-moved to detect some movement of
+> > text.
+>=20
+> This was not part of the old text, but sure, will do.
+
+I know you've completely rewritten the paragraph, but even then, parts
+of the old text remain (maybe because however you write it, some parts
+need to be said).
+
+	-.I features
+	-field set to zero.
+
+This part is kept in the new text, even if just by chance, and it might
+be interesting to see that in git-diff(1) --color-moved.
+
+
+Have a lovely day!
+Alex
+
+>=20
+> Thanks,
+>=20
+> --=20
+> Peter Xu
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--hqfungowftzawdun
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgk4igACgkQ64mZXMKQ
+wqmj4hAAgRxz4rSoq+wezhJH20C+of2dSCloeCFk8LaEAOXal4mFZADa8ndeCKVj
+tw3RuzzmFvValDlaVVM3R6jI8ujsGSjE+ZVdT5Xye+WDScCh438QryjHPtTZp9b6
+Lq21mXgrjg63uC8GhJ/LUNu3O/Uksik5mOOvDV5RBZYVsm2hpUKlrAl9RtwzRXQA
+5npMzCZbMlZBH7LxahktaErX7X4YsGwp9KnuUWQqPdQb6P5APN2mNqjA5nJlUYQ0
+XovB3N3mVNjZ7YnTF/dbIiGKvWYg2K2W9U5oarVIZ0Gv73K77lGOxiagIEL8y98i
+kDXkMztKrHbYV0lLLLM+X4enQ+cK0/USpHtKMrdbPtdhGlN7gWyzw+IgXwOr/mUl
+Jh0nUGmC0PWbP7xSCCsEvk3dr3H/zTw7o/335yrchPv5KwUK24ozReLHqxFVLvpI
+dqh9Si43Ro1MCFbRpp5hUd7KbsdMY75C+MZYeDCF+ouYF2+WdJAOXGSJkWqEfG6H
+lhkCuihV6JedgvB+7q19jMhve09CrObIrQ0PdAyqZqi3F/hdsqfR1FwvNtf3GU47
+aQQAn/IxXSr5lDEzkhLdYid32++oWbg0053wgf28bej0Ckg6mzJ3jZVUgzvpOwhJ
+3139n4woCcVUTfMh8Pwoi6IuWhbgZAfXB6uFOkE9MLHfdnMPwbA=
+=nCgI
+-----END PGP SIGNATURE-----
+
+--hqfungowftzawdun--
 
