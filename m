@@ -1,54 +1,53 @@
-Return-Path: <linux-man+bounces-2926-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2927-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 919C5AB91CD
-	for <lists+linux-man@lfdr.de>; Thu, 15 May 2025 23:33:36 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C528AB9215
+	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 00:02:13 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 802C77AA941
-	for <lists+linux-man@lfdr.de>; Thu, 15 May 2025 21:32:20 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 3D1193B1F82
+	for <lists+linux-man@lfdr.de>; Thu, 15 May 2025 22:01:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7ADC62153D8;
-	Thu, 15 May 2025 21:33:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E02E628C5DF;
+	Thu, 15 May 2025 22:01:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlHedDjl"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvnChh9T"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4784B1E5A;
-	Thu, 15 May 2025 21:33:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07A728C5B5
+	for <linux-man@vger.kernel.org>; Thu, 15 May 2025 22:01:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747344809; cv=none; b=e1afDAIURZp5XiFaOPOhtm9k3xSqR6HHgdLT47wcWy9WvRuKfogbuU+RigsoDuBYm4+Of3b++M33m2u+TYWdLuEiPXQ6bAdURJpTZ5TLcCt1li60V4Wk7WI11gTDSBV0Yu8dGWFWGS94I3lUQPzwEnLXlPQswZsiJmHgs647Bek=
+	t=1747346469; cv=none; b=p/Yxp9keSBd0T1HNxmtCp0bupdl9Ve7LUxJQ3Cv53CS3noUkyjq4T6tsIHigPFba1nQ47hZZYQislGPbeQLi1qdH/LlgMhkDPg54dtKfBe/bi+tkB9t6f2O4wbDxhQRyt101Sw+a7LSXurj6u3KTUsTzJN0vnTsSQarFxSg87/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747344809; c=relaxed/simple;
-	bh=HS6+w7E1NcZ6wrFcfiMyTkG1om6UBuFGHI+0QFDjUPY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=t04gX9QgaSqySOKw7F4WBVvJP4S1yIFCiiYvhFf6FBFJMM2V00JUpc8iMc5+ubE9gWm4NryQ0DBeSYOeMy2Uzen0K3P228CywBkW3168kwmVTSbbRlniThRkR8nXTY2ShkzcjqUEihzu0ZkBtLRyJTisYLVHDZqPHXVZW19wgIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlHedDjl; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B07BC4CEE7;
-	Thu, 15 May 2025 21:33:26 +0000 (UTC)
+	s=arc-20240116; t=1747346469; c=relaxed/simple;
+	bh=7cz8NTffqd6qLnBIh/LHKyrRue5KBcDqc+ognGLX4SM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AFzltLPNvc6hMijhAaE4UE5zHQOTT/V3ejmTm+8iyHxRLHYr2IrTD+QrNYZL72GYeYf+iccBWEZxG/HZkmLeK1q6GfUo2ZWla6KOMjWdsua8PFpKlzIcsuvCGkvknmXS/4cUOFE0U8YxKfgqHwsQD3EqJGt4WJZGoi4BriVcl78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvnChh9T; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09C14C4CEF0;
+	Thu, 15 May 2025 22:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747344808;
-	bh=HS6+w7E1NcZ6wrFcfiMyTkG1om6UBuFGHI+0QFDjUPY=;
-	h=Date:From:To:Cc:Subject:From;
-	b=QlHedDjlakDAp1gn8VaRbKJMCQzo5/XaCmWPp6eLMfteoHVFsYFprtXgO+TmEtppK
-	 kW2QLv8PxaHYVUIkqyI6m4GYhqc0JPBvtAhczjvKFC3WrLlFfdU2RaLvJ9XWXpKgWJ
-	 IvU2MRJueGqcfNX4lnJTpZFXbklFM12yIXE14BGa4DJn/H8NMTj4N54/swrKabo/kf
-	 yBNw2USqExQe9xvSKkRSoKxkZjEtbW8Y1RR8v/qDBMEpFJnD/O15bi5U0TiL1mT6W+
-	 GC/XKev/ycXYx0gWumHLF1MEiNCyKExIuC7gp2awZvjZf+t1I7wuReWGJh0K4K1ShN
-	 8DTZu6alzd75g==
-Date: Thu, 15 May 2025 23:33:22 +0200
+	s=k20201202; t=1747346469;
+	bh=7cz8NTffqd6qLnBIh/LHKyrRue5KBcDqc+ognGLX4SM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DvnChh9T/LKU9zEdwnIQ7Vnx5CljXEezsROOOBqWvzucdmI30zbWrH4tr4iW1J9M4
+	 W/GRh+hQULFX2cCbRavg87UN6+10OVrT3DZ8mIeaJ0JCYU+xb4GK3hIH6bqnU6xD8p
+	 7mhSlvHOVwHTAGEelAuiOm3VesaYnvmIqywe6PHUdZDNqfLuhxBs1ovrE8HRUhVeCO
+	 eg77Yh5+We8xLXKgRyJ6b6DEVkjd5IonC3abNs06roGMGy2KwqJU12SAb18zhPOIaA
+	 gWuB5Cf3o8GohRKBvNh1D/AcIk/2frQNyiMdgeu+UI9pOu28dU2hlQTHHtARCjtWYM
+	 rLzEyRN1l2ixg==
+Date: Fri, 16 May 2025 00:01:04 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-api@vger.kernel.org
+To: bruh momentum <mondeendeguise@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: close(2) with EINTR has been changed by POSIX.1-2024
-Message-ID: <fskxqmcszalz6dmoak6de4c7bxt4juvc5zrpboae4dqw4y6aih@lskezjrbnsws>
+Subject: Re: PROBLEM: fread.3 SYNOPSIS - inaccurate function declarations
+Message-ID: <4to5qmurlmoilbtbwyoyh7zvjf4ukz626tlku46a5hapxwre3f@nm4xstq3kyvw>
+References: <CAGFZsbMJTcyHhDgAEKkSJ9xW1Cd--D_suYbyrjFcXGPV_VNetw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,100 +55,85 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rjbv536r22wip45e"
+	protocol="application/pgp-signature"; boundary="bveadeltdjuxkcah"
 Content-Disposition: inline
+In-Reply-To: <CAGFZsbMJTcyHhDgAEKkSJ9xW1Cd--D_suYbyrjFcXGPV_VNetw@mail.gmail.com>
 
 
---rjbv536r22wip45e
+--bveadeltdjuxkcah
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-api@vger.kernel.org
+To: bruh momentum <mondeendeguise@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: close(2) with EINTR has been changed by POSIX.1-2024
+Subject: Re: PROBLEM: fread.3 SYNOPSIS - inaccurate function declarations
+References: <CAGFZsbMJTcyHhDgAEKkSJ9xW1Cd--D_suYbyrjFcXGPV_VNetw@mail.gmail.com>
 MIME-Version: 1.0
+In-Reply-To: <CAGFZsbMJTcyHhDgAEKkSJ9xW1Cd--D_suYbyrjFcXGPV_VNetw@mail.gmail.com>
 
-Hi,
+Hi Bruh,
 
-I'm updating the manual pages for POSIX.1-2024, and have some doubts
-about close(2).  The manual page for close(2) says (conforming to
-POSIX.1-2008):
+On Thu, May 15, 2025 at 03:22:02PM -0600, bruh momentum wrote:
+> The SYNOPSIS of fread(3) has two inaccurate function declarations:
+>=20
+> size_t fread(size_t size, size_t n;
+>              void ptr[restrict size * n],
+>              size_t size, size_t n,
+>              FILE *restrict stream);
+>=20
+> should be:
 
-       The EINTR error is a somewhat special case.  Regarding the EINTR
-       error, POSIX.1=E2=80=902008 says:
-
-              If close() is interrupted by  a  signal  that  is  to  be
-              caught,  it  shall  return -1 with errno set to EINTR and
-              the state of fildes is unspecified.
-
-       This permits the behavior that occurs on Linux  and  many  other
-       implementations,  where,  as  with  other errors that may be re=E2=
-=80=90
-       ported by close(), the  file  descriptor  is  guaranteed  to  be
-       closed.   However, it also permits another possibility: that the
-       implementation returns an EINTR error and  keeps  the  file  de=E2=
-=80=90
-       scriptor open.  (According to its documentation, HP=E2=80=90UX=E2=80=
-=99s close()
-       does this.)  The caller must then once more use close() to close
-       the  file  descriptor, to avoid file descriptor leaks.  This di=E2=
-=80=90
-       vergence in implementation behaviors provides a difficult hurdle
-       for  portable  applications,  since  on  many   implementations,
-       close() must not be called again after an EINTR error, and on at
-       least one, close() must be called again.  There are plans to ad=E2=
-=80=90
-       dress  this  conundrum for the next major release of the POSIX.1
-       standard.
-
-TL;DR: close(2) with EINTR is allowed to either leave the fd open or
-closed, and Linux leaves it closed, while others (HP-UX only?) leaves it
-open.
-
-Now, POSIX.1-2024 says:
-
-	If close() is interrupted by a signal that is to be caught, then
-	it is unspecified whether it returns -1 with errno set to
-	[EINTR] and fildes remaining open, or returns -1 with errno set
-	to [EINPROGRESS] and fildes being closed, or returns 0 to
-	indicate successful completion; [...]
-
-<https://pubs.opengroup.org/onlinepubs/9799919799/functions/close.html>
-
-Which seems to bless HP-UX and screw all the others, requiring them to
-report EINPROGRESS.
-
-Was there any discussion about what to do in the Linux kernel?
+Nope, it's using GNU C's forward declaration of function parameters.
+<https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html>
 
 
-Have a lovely night!
+Cheers,
 Alex
+
+>=20
+> size_t fread(void ptr[restrict size * n],
+>              size_t size, size_t n,
+>              FILE *restrict stream);
+>=20
+> and
+>=20
+> size_t fwrite(size_t size, size_t n;
+>              const void ptr[restrict size * n],
+>              size_t size, size_t n,
+>              FILE *restrict stream);
+>=20
+> should be:
+>=20
+> size_t fwrite(const void ptr[restrict size * n],
+>              size_t size, size_t n,
+>              FILE *restrict stream);
+>=20
+> bug was introduced in commit d2c2db8830f8fcbb736bdea52b398257447bef6b
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---rjbv536r22wip45e
+--bveadeltdjuxkcah
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgmXZsACgkQ64mZXMKQ
-wqkFJA//ck5GgMwRVyLAlSvDmZF+tGq++Oe7v/RnDABRbD3UyW/LpSubY0DmlqzO
-nQZaW1LvrTthvAsljMxyR7MjEG7udyIjuuxUjOFU8U0HC9qQ6qJQB3ea/LLu3urs
-xSsDjz7UKgGR24S8QyuINuVD5Wt6lFE/gA2rT9/U7dahbyN95ftOcXZHsCzbC84X
-jNgEzLgVB1clfaMRGRSs/+BxZeHUNXv+Yq6VixywYmIkz0sQqdsbjH4N/Uf+5A9b
-iAoOsEw/BFj1XkvjbjqVZrDaX7ESunz4+UJ0YbxVhwO3Ym1906RhLW3i3iksfPr5
-bDIPVD92GXG3YGc60CjcQY6HfGqP89+zszrUUVywd+H3LaObKcFD+cMHPzVhLAeP
-OnK/oYam0xzXtLYdgIimXUMv4NUCSQIrMNQPM9q86Bi05BysHkNkEVdXrtHwK91w
-GhKq3l+fMecr4m+xVl26Un9DzT50ZTUn84/YZx4aDMG+H8+QHGyjmuwlfyi8Z4MQ
-59P2n0SSTLemJbFA4f0oRixx34+CU0toysahWTO5j8pKPNWME6QcL07wFBXIS8Xd
-yQk+u5fhOIoM5I67iNNd68LnpTutaZumLkMGnKilyzv6L7PftERshJCShYE2m6U4
-Dci6+XaBHu+FsS3b6qhVwQuk/4AqTQS+fQkTi+tVaQr3RUaKnwE=
-=Wf+k
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgmZBkACgkQ64mZXMKQ
+wqn1IhAAr6UPot3lRdp5sH1REB/NIulmHxaR+hKUAGuNUkVx2MBDZDpUSKOExJCt
+8AMxQa7Rqt2ApEKwqbt2ekzM+1HiHTfhPpP6705SCX++bdVIsxXoKbllTITPFKwW
+89fnFCvEH3iCYzRtQHCqTEb0Xh4wN2x+z5XZf8xodJ8SApTXn429b1KUwRcJ3Ez/
+DwmWgznlQvR6+oypNLriYqLzyuQLOZEklPD9lCm/u7nLJhCD6i2VvcoqEYTvxYDv
+j8HiaFGmDtlUNGtEb7h0xMSORIbw7byQH+2NKFuqjciRcvakM2S60k/aP/MN+Bjg
+nhBvVK/NgHAUUX89bAzC32Tt30UabfjIQZ42qbbQ+nGXJzB6q4FD5AeDe6x6GR7o
+gvtF3OybNTTeoW4FlNhsOEKymp/vlM2buj8AOSfOqwVKVFMNX6ss4aJKJXNaXPJf
+DGQvJRSH/2k26+7bgMMVpiwDuhKF190j/JikUZy3bfDjqkNDg7uU8aS8L6qfqlt6
+gPAKBOsR/nSqHBVq+k6QeNyJDYUZC0IpdmSZtsrwRdpl2Z7FEZpQYYbSDgfULxKa
+2RgOWtvHcoljvCCk+IbM03puIILNsBf+0RWHWO+0fmEAkQwGsKJbpDTT1RJfBPS5
+Hv1NACk8hI/W+FNx0Iy4EKAROjSwciCtnOGRjnzlY2DLmPMyjqs=
+=/H/Y
 -----END PGP SIGNATURE-----
 
---rjbv536r22wip45e--
+--bveadeltdjuxkcah--
 
