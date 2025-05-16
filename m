@@ -1,206 +1,225 @@
-Return-Path: <linux-man+bounces-2933-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2934-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E443ABA0A1
-	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 18:09:08 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9146ABA0A9
+	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 18:14:33 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A155216AF55
-	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 16:09:07 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A75F8A03065
+	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 16:14:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FCBF7DA6C;
-	Fri, 16 May 2025 16:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B92DB1A256B;
+	Fri, 16 May 2025 16:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stoeckmann.org header.i=tobias@stoeckmann.org header.b="ZbWcSxcO"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="H6zMPEOi";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PK3nj3Ko"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D293323D
-	for <linux-man@vger.kernel.org>; Fri, 16 May 2025 16:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8C9323D;
+	Fri, 16 May 2025 16:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747411742; cv=none; b=J085eP/k9oiXQl+kaJ01Pa33+e9Eocfhv9HcQs0qj3VXO9589fijV+MF7QrEfQVATjRk17anI/5jS/RnrRcTQxMJZ41vhLgUs85M+Ek9IQyKZFB8MbmA7vHpsBer4TQ94nWn1uQiL63RbFpTpEjTwlOhytDkCRC9FHpGASYYgX4=
+	t=1747412068; cv=none; b=kFxnmU8Ecu3H/MCrPhVR8f4NwyiAsMtO0OMLJbHCKcDQN/XjnIT+BGv0/yF1LzdaIHYh+L2qArrrlZS1UvN0rtwzunbFM58DAn03PO5xRa33WbeiU0ikdo5j0Dcy++jTiP/QnaTc2mBGSFL2UsHFZCQgMNfb/NYyPOIyC8285+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747411742; c=relaxed/simple;
-	bh=IPz9sQfc0xzsCru2jYzsctoqj+xL9IjdDa+ItgeI59c=;
+	s=arc-20240116; t=1747412068; c=relaxed/simple;
+	bh=TQwoIsavedMixi6HIUcBuliBMSH+GXXDpKFXeS611+A=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cqaXDHGWiygkFJy8887ge94moI/zOgMKjEwTk3tmZBJBTrsXfAClW/xpLg+tmPBAEwmD8ZYE8t6LhAyckKkwraAqhfF0LYonOwZqPc7KfiVjGWPIUBZPWR4+IuKdYI+In8BkZ8DNF+k9uK64i1+k1a98SKGpcneAoIx3H4aqAAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stoeckmann.org; spf=pass smtp.mailfrom=stoeckmann.org; dkim=pass (2048-bit key) header.d=stoeckmann.org header.i=tobias@stoeckmann.org header.b=ZbWcSxcO; arc=none smtp.client-ip=217.72.192.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stoeckmann.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stoeckmann.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stoeckmann.org;
-	s=s1-ionos; t=1747411737; x=1748016537; i=tobias@stoeckmann.org;
-	bh=g3FTPF0C1QwiLqD8iyxjlW9RELIODHb7rnqVsIBPXSQ=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ZbWcSxcO6092lP94NLVjInyJ9xE+7qntrVEJhST8FdK8YoOZirXebA7Tmc/nM4+O
-	 mIpnhJhpbtYe68S9hTh9aMfzI4+pGXVHt630sbxX6L3e5qmKsNLtsBcquPiPNOsAw
-	 IcWcd2ACXDMXO3D+UWU/hBOmOiNDCHtehC0yK5Ki01qqeXi9DgJJHmp3FTtfdqxCp
-	 VHIDDGJYlvd5jn1+R0/jgqlR6DkffyZ6reyYDWcHRBVDgNqtdTYFacgE2cNi03P4l
-	 aBXzHFj0m/JTWR3Ei+IyM3SlmgEQC8R7wzTcLNLk4N50W2A1hxnr3jj60Ua0AFskH
-	 zjlzTjMbJpsv6IKIcA==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from localhost ([93.225.58.209]) by mrelayeu.kundenserver.de
- (mreue106 [213.165.67.113]) with ESMTPSA (Nemesis) id
- 1My3Mv-1vBWoI15aR-016o3V; Fri, 16 May 2025 18:08:57 +0200
-Date: Fri, 16 May 2025 18:08:54 +0200
-From: Tobias Stoeckmann <tobias@stoeckmann.org>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org
-Subject: [PATCH] man3/*printf.3: Add errors section
-Message-ID: <vdno2j6via73xybrbtb23k2ptqejtdio2yqh7c4qijmtzhy4yt@gfp5j4bmsfe2>
+	 Content-Disposition; b=QuGMe01nqav3e80QBGiyjQ4Ot9/YgzL8vSYzTS5UBa7NdNGE4/mgovr5aYzwAIKD3hr491/UvB5xltZ99Iq2fmicv6AKw94U4hYrOvE7JCn1GR5t2a+Agf4yXqH6UDR1dd1iIC/DJcqCrfBYAUhP4JkDOdeIWmtqBwHVDFBZJkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=H6zMPEOi; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PK3nj3Ko; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Date: Fri, 16 May 2025 18:14:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1747412064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=RiZabCUJ9teCjROosFErp6pWxnyNRbJPG8vV5rKTy3g=;
+	b=H6zMPEOi2H8B5t4AjHjWP4/QMg5HudewWW+saulj9ZLVVDneXHXUQ5Iw9MaF9lHfDYe+K+
+	f6ox8UQxmlvWy/JZX3tj+dz9ZOPtUUZkU1qLUkX+3gBf1VRmIRe+Xuh8gUyBnFTKb2Bg3X
+	daiZpwYD0XBb5nfoHThZQ6kxiejRRwapEo9bG9fcqC5qiwtzB86u8/I+8sEcVKW1evVV8S
+	hNi4ZIkIBjzyBwYDTtYdKh1k4bkZCOiNSyK8WyIPsVcLEFIzccYHf1NUfKaYoAbXsECvwx
+	j4bkqFsjCUhBdhs2gRgMhIeJ633T3RXAqKxwhYOt8j9QNWUk1PSC2vuwmxRnrg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1747412064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=RiZabCUJ9teCjROosFErp6pWxnyNRbJPG8vV5rKTy3g=;
+	b=PK3nj3KoAupU5WVxA3Q1pnN85CFlCBPLAEdUWCbu7+8/xjA8qMI1Hh+bbihcmgp6vh0PbK
+	CF6wV4ccsJJ7MuCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH] prctl: Add documentation for PR_FUTEX_HASH
+Message-ID: <20250516161422.BqmdlxlF@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-X-Provags-ID: V03:K1:D+UmcY7+aQIfMzqHcAe/x8vIoYSk6CeNkRBXMglqPjFoIMql+Cf
- KQMRgILv7+2Ewgs+Ye57NXeusJNm2wU8/2hYgO7GJ6yLOXnZ4QUxeCGj7ou4rJEVfdZ2xSY
- Y2OkedeNo09hBd3bLbKFkx+/jOIZDn9bw9oiZ8qyY1uxGkmsFuRu6WFvxkkGeKGrS2SeO/t
- j32xYm9HX7XCAPileJFPg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:/M5IluiRcKc=;COj5d7uPtACKfKmQQ1RLtleW7gY
- RT9CNXtvKagEhbCV0oJV3Zgq984LJK8736QyNfuMA6WnXOsz+42UmU9HQGiqfuFDZcBqV172p
- veIK06D74ZvPvr9jO+F8qilt0oJ+MtGeI+D/X4RpS7OaM6DynaA8MWpgc7lub9VgorFNRlOSQ
- pyku+X8NQZBn3sYx4raKofYwX8iD0rnfzZPRv9ypID6HmohULsS39b4eZF9edC704qBI2Y/pE
- 4ysYPgCkvrVfmzn9k4VQIq+IxtkgbvkQ28dS9tNGc/G4umpGbrv/gIedmTBmGWmUdK1BWH2lR
- xcCimci4nx45h7YfTqe6LatBBnJePypHVbCtEcshP5XvPUjne9kzTWCoTnUmBB7pGvUuf0Ek5
- 3JqI/fw73tfykP1YN+4/cZu5LE84aI8NubFD8/nn9HWFUjHFeVt+JDwq04FIahVtD+mmNPwIj
- /qw18q3LsjP8WmOVkaDSxAhmqojhl2U70/kaHuxjaeOw++us1YAT0b02vqeOEbrR7WoHmSBJw
- voCidaWFCoeTq8MV0fTkNuH4sUsnCHhwUyW8V1QstfE7wYuyOXtokiIPgKYsZzkovt1Er6AXE
- QKVw8/Ruyd5EIAlf147GUC18m/Urd/nRSYLkHx3lhvikRE1+obS0BFBdUZkJH4GTLYkAo3UG/
- aq4TMG4kbQVNah9zA972ogH6H5BC2QmwnhikBjgwJHUiH7PqyVhOBPgygVzvHEDN9W80x+FiO
- eQK17je52SLSLy4tYAWYKvWxO5XRdbXouNO55sZDIEHC6SD1u6ZxwxNJVLywsgZi7BGSZVuaC
- jmGeNWXbeF8NgbrNp+WTJcas/ywKIhDaKJ2utv2I0JcVzz8Jj+/TREamucyHBO3FV77VL3Ir6
- 2gEr22xBPxbD0oRlJ4J4jVYIf1vz7nIjmVeNa8YJ4w+jeenuYaMbD+ofOv6tQRM+n/OTJXV6V
- 0jC6BVvJX9kKaNNKg51osD9Le5uZTybWdmxJqG0uzFWTFXSrY5LO0BcaGdC93em/gJcixgvHf
- qwlw305gsgrDchc+cn9l+kbexF57XW6rRS4siifVbMNejw9nNSI1SJYcItreD8t1XjpaMwQtM
- lMiezjTSiBjKXSMHzQ9Dw2I1hyTqFP+kuLWeTu/Ruu2qDQBx3YYvyazdIsDzT/BfK+kILV6s3
- t0OwOBnaGrLS9ci24OvcdI1ed+DKsbKBmh9CzSeYHib6yjBwMKIxIJhXWR/tgq/gvPFgdg4wr
- xU1+FgYDq9ZGXtSlRsEGvnumE+ICjJFUXsqotFBziFaZBX+ENAlDkmXKwtDGwa/18rVJE+cT5
- xMEq7jlzlI1OQQhenkZLV2ig4CTTOchcaRkb0cX5SAJQUbFJBcjfu4wxBDrc/v5bKebwAhV5l
- 6W/1wnjAV+g5jRkQMZ1WlhAKY1H+2AKfu6i/I8BpkY0XiEQjWEE86sHriV
-Content-Transfer-Encoding: quoted-printable
 
-The printf family of functions set errno if a negative value is returned.
+The prctl(PR_FUTEX_HASH) is queued for the v6.16 merge window.
+Add some documentation of the interface.
 
-Source is POSIX.1-2024, see
-<https://pubs.opengroup.org/onlinepubs/9799919799/functions/fprintf.html>
-<https://pubs.opengroup.org/onlinepubs/9799919799/functions/fwprintf.html>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
+ man/man2/prctl.2                   |   3 +
+ man/man2const/PR_FUTEX_HASH.2const | 112 +++++++++++++++++++++++++++++
+ 2 files changed, 115 insertions(+)
+ create mode 100644 man/man2const/PR_FUTEX_HASH.2const
 
-Also see manual pages of FreeBSD and OpenBSD.
-
-Signed-off-by: Tobias Stoeckmann <tobias@stoeckmann.org>
-=2D--
- man/man3/asprintf.3 | 10 +++++++++-
- man/man3/printf.3   | 25 ++++++++++++++++++++++++-
- man/man3/wprintf.3  | 24 +++++++++++++++++++++++-
- 3 files changed, 56 insertions(+), 3 deletions(-)
-
-diff --git a/man/man3/asprintf.3 b/man/man3/asprintf.3
-index 319382c3a..8340d7798 100644
-=2D-- a/man/man3/asprintf.3
-+++ b/man/man3/asprintf.3
-@@ -38,9 +38,17 @@ When successful, these functions return the number of b=
-ytes printed,
- just like
- .BR sprintf (3).
- If memory allocation wasn't possible, or some other error occurs,
--these functions will return \-1, and the contents of
-+these functions will return \-1, set errno, and the contents of
- .I strp
- are undefined.
-+.SH ERRORS
-+These functions may fail and set errno for any of the errors
-+specified for the library call
-+.BR sprintf (3).
-+In addition, the following error may occur:
-+.TP
-+.B ENOMEM
-+Insufficient storage space is available.
- .SH ATTRIBUTES
- For an explanation of the terms used in this section, see
- .BR attributes (7).
-diff --git a/man/man3/printf.3 b/man/man3/printf.3
-index b6e4f38b9..2c47368ff 100644
-=2D-- a/man/man3/printf.3
-+++ b/man/man3/printf.3
-@@ -904,7 +904,30 @@ Thus, a return value of
- or more means that the output was truncated.
- (See also below under CAVEATS.)
- .P
--If an output error is encountered, a negative value is returned.
-+If an output error is encountered, a negative value is returned and
-+errno is set.
-+.SH ERRORS
-+These functions may fail and set errno for any of the errors specified
-+for the system call
-+.BR write (2).
-+In addition, the following errors may occur:
-+.TP 10
-+.B EILSEQ
-+A wide-character code that does not correspond to a valid character
-+has been detected.
-+.TP
-+.B EOVERFLOW
-+The value to be returned is greater than
-+.BR INT_MAX .
+diff --git a/man/man2/prctl.2 b/man/man2/prctl.2
+index 7a6b73e25e7a8..30c868d051a0c 100644
+--- a/man/man2/prctl.2
++++ b/man/man2/prctl.2
+@@ -150,6 +150,8 @@ with a significance depending on the first one.
+ .B PR_GET_MDWE
+ .TQ
+ .B PR_RISCV_SET_ICACHE_FLUSH_CTX
++.TQ
++.B PR_FUTEX_HASH
+ .SH RETURN VALUE
+ On success,
+ a nonnegative value is returned.
+@@ -262,4 +264,5 @@ so these operations should be used with care.
+ .BR PR_SET_MDWE (2const),
+ .BR PR_GET_MDWE (2const),
+ .BR PR_RISCV_SET_ICACHE_FLUSH_CTX (2const),
++.BR PR_FUTEX_HASH (2const),
+ .BR core (5)
+diff --git a/man/man2const/PR_FUTEX_HASH.2const b/man/man2const/PR_FUTEX_HASH.2const
+new file mode 100644
+index 0000000000000..c6a6396729770
+--- /dev/null
++++ b/man/man2const/PR_FUTEX_HASH.2const
+@@ -0,0 +1,112 @@
++.\" Copyright, The contributors to the Linux man-pages project
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH PR_FUTEX_HASH 2const (date) "Linux man-pages (unreleased)"
++.SH NAME
++PR_FUTEX_HASH
++\-
++configure the private futex hash
++.SH LIBRARY
++Standard C library
++.RI ( libc ,\~ \-lc )
++.SH SYNOPSIS
++.nf
++.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
++.B #include <sys/prctl.h>
 +.P
-+The
-+.BR dprintf ()
-+function may fail additionally if:
-+.TP
-+.B EBADF
-+The
-+.IR fd
-+argument is not a valid file descriptor.
- .SH ATTRIBUTES
- For an explanation of the terms used in this section, see
- .BR attributes (7).
-diff --git a/man/man3/wprintf.3 b/man/man3/wprintf.3
-index 59a6cfe07..55cfe8223 100644
-=2D-- a/man/man3/wprintf.3
-+++ b/man/man3/wprintf.3
-@@ -198,7 +198,29 @@ case of the functions
- .BR swprintf ()
- and
- .BR vswprintf ().
--They return \-1 when an error occurs.
-+They return \-1 when an error occurs and set errno.
-+.SH ERRORS
-+These functions may fail and set errno for any of the errors specified
-+for the system call
-+.BR write (2).
-+In addition, the following errors may occur:
-+.TP 10
-+.B EILSEQ
-+A wide-character code that does not correspond to a valid character
-+has been detected.
-+.TP
-+.B EOVERFLOW
-+The value to be returned is greater than
-+.BR INT_MAX .
++.BI "int prctl(PR_FUTEX_HASH, long " op ", ...);"
++.fi
++.SH DESCRIPTION
++Configure the attributes for the underlying hash used by the
++.BR futex (2)
++family of operations. The Linux kernel uses a hash to distributes the
++.BR futex (2)
++users on different data structures. The data structure holds the in-kernel
++representation of the operation and keeps track of the current users which are
++enqueued and wait for a wake up and those who perform a wake up. The size of
++the global hash is determined at boot time and is based on the number of CPUs
++in the system. Since the mapping from the provided
++.I uaddr
++value to the in-kernel representation is based on a hash, two unrelated tasks
++in the system can share the same hash bucket. This in turn can lead to delays
++of the due
++.BR futex (2)
++operation due to to lock contention of the data structure. These delays can be
++problematic on a PREEMPT_RT system since random tasks can share in-kernel locks
++and it is not deterministic which tasks will be involved.
 +.P
-+The
-+.BR fwprintf ()
-+and
-+.BR wprintf ()
-+functions may fail additionally if:
++Linux v6.16 implements a process wide private hash which is used by all
++.BR futex (2)
++operations which specify the
++.B FUTEX_PRIVATE_FLAG
++as part of the operation.
++Without any configuration the kernel will allocate 16 hash slots once the first
++thread has been created. If the process continues to create threads, the kernel
++will try to resize the private hash based on the number of threads and
++available CPUs in the system. The kernel will only increase the size and will
++make sure it does not exceed the size of the global hash.
++.P
++The user can configure the size of the private hash which will also disable the
++automatic resize provided by the kernel.
++.P
++The following values for
++.I op
++can be specified:
 +.TP
-+.B ENOMEM
-+Insufficient storage space is available.
- .SH ATTRIBUTES
- For an explanation of the terms used in this section, see
- .BR attributes (7).
-=2D-=20
++.BI "int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, " hash_size ", " hash_flags ");
++Set the number of slots to use for the private hash.
++.P
++.RS
++.TP
++.I hash_size
++Specifies the size of private hash to allocate. Possible values are:
++.RS
++.TP
++.I 0
++Use the global hash. This is the behaviour used before v6.16. The operation can
++not be undone.
++.TP
++.I >0
++Specifies the number of slots to allocate. The value must be power of two and
++lowest possible value is 2. The upper limit depends on available memory in
++the system. Each slot requires 64bytes of memory. Kernels compiled with
++.I CONFIG_PROVE_LOCKING
++will consume more than that.
++.RE
++.TP
++.I hash_flags
++.RS
++The following flags can be specified:
++.TP
++.I FH_FLAG_IMMUTABLE
++The private hash can no longer be changed. By using an immutable privat hash
++the kernel can avoid some accounting for the data structure. This accounting
++is visible in benchmarks if many
++.BR futex (2)
++operations are invoked in parallel on different CPUs.
++.RE
++.RE
++.TP
++.BI "int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS);
++Returns the current size of the the private hash. A value of 0 means that a
++private has not been allocated or the global hash is used. A value >0 specifies
++the size of the private hash.
++.TP
++.BI "int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_IMMUTABLE);
++Return 1 if the hash has been made immutable and not be changed. Otherwise 0.
++
++.SH RETURN VALUE
++On success,
++these calls return a value >=0.
++On error, \-1 is returned, and
++.I errno
++is set to indicate the error.
++.SH STANDARDS
++Linux.
++.SH HISTORY
++Linux 6.16.
++.SH SEE ALSO
++.BR prctl (2) ,
++.BR futex (2) ,
++.BR futex (7)
+-- 
 2.49.0
 
 
