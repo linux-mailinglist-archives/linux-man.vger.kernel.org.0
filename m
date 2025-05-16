@@ -1,156 +1,206 @@
-Return-Path: <linux-man+bounces-2928-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2929-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B966AB9216
-	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 00:02:36 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF66AB9A70
+	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 12:49:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 05F46504177
-	for <lists+linux-man@lfdr.de>; Thu, 15 May 2025 22:02:37 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7348C1758E2
+	for <lists+linux-man@lfdr.de>; Fri, 16 May 2025 10:49:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C87C0270552;
-	Thu, 15 May 2025 22:02:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C855523371A;
+	Fri, 16 May 2025 10:49:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKB7eq4d"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ez9ZDUix";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Zanfp+N7";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ez9ZDUix";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Zanfp+N7"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E402192EB
-	for <linux-man@vger.kernel.org>; Thu, 15 May 2025 22:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198A521B9D8
+	for <linux-man@vger.kernel.org>; Fri, 16 May 2025 10:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747346551; cv=none; b=qudlItlzlUSiLaap6Ly3u3Ko2m14J+ZIk/kvwooXgdCFgxh739+67CdKVIKWoOtbI0zglPL3+0edJA0lc+GDEyBjK7D2ikP2YUnGKRQ172uvU+GR/PvVeZH8Qp+2guSgVBVlksrnoS4oq9gi6scSVjcduSfOE+obz8fw2PvwTI4=
+	t=1747392540; cv=none; b=kF2ok0JkGP0EVOKEJ1tzsOrahY4BbDX3Et6sVdfFtnfLJl4yN+qdkzfJzuE0Df9IjZoroXZSuA6BiUjVpUARG/uZXGRLprOPUVj8a8xOG6PQroBz+MHZ0ZJHTEtRm3+XYQs2vmF6QG/T/JIXZdipThtKffpyrXMb9YuBShZHG1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747346551; c=relaxed/simple;
-	bh=L9b29zEe79ueGvGjtzbYa3i/UXdd1j2s/x3oUjGB5y4=;
+	s=arc-20240116; t=1747392540; c=relaxed/simple;
+	bh=jtSQOtiBkRadjEHGnGW8RamryfImQf2toeem0y47AMo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hm7QIXCQh8Zz2I1BV7LHrrJtasDrroO7mq2w7Z8QsQ3k+Jq7+yLyHgA9Z6zrOdRjae/n7rQHjVBFiW+bph8t6C20fFoSRVKh0DuJgJ5qwtONkJTu5NoJd6bp+zkrprl55fLdNf8rARC42hxwqkq5HEw+RMeStEGEaecnOOzQsNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKB7eq4d; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFA4EC4CEE7;
-	Thu, 15 May 2025 22:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747346550;
-	bh=L9b29zEe79ueGvGjtzbYa3i/UXdd1j2s/x3oUjGB5y4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kKB7eq4dA5Lt5rQ3T1ULUfgSZkL+d+q/iQ92hKdGB+5n7PxaiYCxJgqyfQfSM5Hm0
-	 K4krDPQZc9OkHv0sQqBaFhKYX9l0kK9Q6w88QWzU9hLYHbu0d1+SQVy7pfA9Om7uTe
-	 D8vNPJbyJWciRt8+f+MzGO50ForM0ot/KVJ3rDCGU2G1gCO96zBn1DMfCGdpCk0oKc
-	 GsOWTjdjJnElnUaMwKJ/2IbDTRphp+zp44FL0coWNJCvqCw+2pTlDv3pDic1hsez8x
-	 Fur0YF9VB4e/+oZGJihe07/kF5FjxPf17u2t+NLCkskjebrI9Mi7eTm/cIIbmDcng4
-	 9hp/Hf5xjBQSg==
-Date: Fri, 16 May 2025 00:02:26 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: bruh momentum <mondeendeguise@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: PROBLEM: fread.3 SYNOPSIS - inaccurate function declarations
-Message-ID: <7vjnoipnt6y75qc22spoxnilct7eg4agkwmejnhvxje7egtfwt@6n2qcj7ngtae>
-References: <CAGFZsbMJTcyHhDgAEKkSJ9xW1Cd--D_suYbyrjFcXGPV_VNetw@mail.gmail.com>
- <4to5qmurlmoilbtbwyoyh7zvjf4ukz626tlku46a5hapxwre3f@nm4xstq3kyvw>
+	 Content-Type:Content-Disposition:In-Reply-To; b=fkcFlOhnQyf5JrV+LQs79k6LuhX6By+az5EP9PV48aS3UUTXX4NoCDi6RUiuDRRU20rtC4i8E4fGe7utjZDD4O2sZIYLt5g0gASAXadyV8YmQmANLckG43LHJuAXinMAbkaxXh7zaDepg8TRiuLnuypHlC07J0R8WbOnz3y9Stc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ez9ZDUix; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Zanfp+N7; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ez9ZDUix; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Zanfp+N7; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 221EF21157;
+	Fri, 16 May 2025 10:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1747392537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbmbiYOGSWRWflc6yo7eC7zTr1id3DCSc9ugruKhpO8=;
+	b=ez9ZDUixSMrVTALNNlixTbx5Snbsi0PEG+vdGAFllzQPa+9f7UyFutCI4fEm2W0d0Lb3+m
+	oN1Fcp3O+zE/Pdcl6NjGsxd1jZAUm5SKP6r08BqPleRZp85kpYuEYXI4dAu0P/m6QImXwo
+	6omAD3uVakoKfVFAhcBozXnGU2zddiQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1747392537;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbmbiYOGSWRWflc6yo7eC7zTr1id3DCSc9ugruKhpO8=;
+	b=Zanfp+N7sCmfoVbW9yT4oEpstlU7IAPH0uLUPseuMPHBAq/hTqe48nckvkFT9BEqwn8vXw
+	4NNY7fp/UGo9a4Cg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ez9ZDUix;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Zanfp+N7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1747392537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbmbiYOGSWRWflc6yo7eC7zTr1id3DCSc9ugruKhpO8=;
+	b=ez9ZDUixSMrVTALNNlixTbx5Snbsi0PEG+vdGAFllzQPa+9f7UyFutCI4fEm2W0d0Lb3+m
+	oN1Fcp3O+zE/Pdcl6NjGsxd1jZAUm5SKP6r08BqPleRZp85kpYuEYXI4dAu0P/m6QImXwo
+	6omAD3uVakoKfVFAhcBozXnGU2zddiQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1747392537;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbmbiYOGSWRWflc6yo7eC7zTr1id3DCSc9ugruKhpO8=;
+	b=Zanfp+N7sCmfoVbW9yT4oEpstlU7IAPH0uLUPseuMPHBAq/hTqe48nckvkFT9BEqwn8vXw
+	4NNY7fp/UGo9a4Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 08BBC13411;
+	Fri, 16 May 2025 10:48:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6m3YARkYJ2gPCAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 16 May 2025 10:48:57 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id B5148A09DD; Fri, 16 May 2025 12:48:56 +0200 (CEST)
+Date: Fri, 16 May 2025 12:48:56 +0200
+From: Jan Kara <jack@suse.cz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-api@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: close(2) with EINTR has been changed by POSIX.1-2024
+Message-ID: <ddqmhjc2rpzk2jjvunbt3l3eukcn4xzkocqzdg3j4msihdhzko@fizekvxndg2d>
+References: <fskxqmcszalz6dmoak6de4c7bxt4juvc5zrpboae4dqw4y6aih@lskezjrbnsws>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ixax6prylw7lrjf4"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <4to5qmurlmoilbtbwyoyh7zvjf4ukz626tlku46a5hapxwre3f@nm4xstq3kyvw>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fskxqmcszalz6dmoak6de4c7bxt4juvc5zrpboae4dqw4y6aih@lskezjrbnsws>
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: 221EF21157
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim]
+X-Spam-Score: -4.01
 
+Hi!
 
---ixax6prylw7lrjf4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: bruh momentum <mondeendeguise@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: PROBLEM: fread.3 SYNOPSIS - inaccurate function declarations
-References: <CAGFZsbMJTcyHhDgAEKkSJ9xW1Cd--D_suYbyrjFcXGPV_VNetw@mail.gmail.com>
- <4to5qmurlmoilbtbwyoyh7zvjf4ukz626tlku46a5hapxwre3f@nm4xstq3kyvw>
-MIME-Version: 1.0
-In-Reply-To: <4to5qmurlmoilbtbwyoyh7zvjf4ukz626tlku46a5hapxwre3f@nm4xstq3kyvw>
+On Thu 15-05-25 23:33:22, Alejandro Colomar wrote:
+> I'm updating the manual pages for POSIX.1-2024, and have some doubts
+> about close(2).  The manual page for close(2) says (conforming to
+> POSIX.1-2008):
+> 
+>        The EINTR error is a somewhat special case.  Regarding the EINTR
+>        error, POSIX.1‐2008 says:
+> 
+>               If close() is interrupted by  a  signal  that  is  to  be
+>               caught,  it  shall  return -1 with errno set to EINTR and
+>               the state of fildes is unspecified.
+> 
+>        This permits the behavior that occurs on Linux  and  many  other
+>        implementations,  where,  as  with  other errors that may be re‐
+>        ported by close(), the  file  descriptor  is  guaranteed  to  be
+>        closed.   However, it also permits another possibility: that the
+>        implementation returns an EINTR error and  keeps  the  file  de‐
+>        scriptor open.  (According to its documentation, HP‐UX’s close()
+>        does this.)  The caller must then once more use close() to close
+>        the  file  descriptor, to avoid file descriptor leaks.  This di‐
+>        vergence in implementation behaviors provides a difficult hurdle
+>        for  portable  applications,  since  on  many   implementations,
+>        close() must not be called again after an EINTR error, and on at
+>        least one, close() must be called again.  There are plans to ad‐
+>        dress  this  conundrum for the next major release of the POSIX.1
+>        standard.
+> 
+> TL;DR: close(2) with EINTR is allowed to either leave the fd open or
+> closed, and Linux leaves it closed, while others (HP-UX only?) leaves it
+> open.
+> 
+> Now, POSIX.1-2024 says:
+> 
+> 	If close() is interrupted by a signal that is to be caught, then
+> 	it is unspecified whether it returns -1 with errno set to
+> 	[EINTR] and fildes remaining open, or returns -1 with errno set
+> 	to [EINPROGRESS] and fildes being closed, or returns 0 to
+> 	indicate successful completion; [...]
+> 
+> <https://pubs.opengroup.org/onlinepubs/9799919799/functions/close.html>
+> 
+> Which seems to bless HP-UX and screw all the others, requiring them to
+> report EINPROGRESS.
+> 
+> Was there any discussion about what to do in the Linux kernel?
 
-On Fri, May 16, 2025 at 12:01:09AM +0200, Alejandro Colomar wrote:
-> Hi Bruh,
->=20
-> On Thu, May 15, 2025 at 03:22:02PM -0600, bruh momentum wrote:
-> > The SYNOPSIS of fread(3) has two inaccurate function declarations:
-> >=20
-> > size_t fread(size_t size, size_t n;
-> >              void ptr[restrict size * n],
-> >              size_t size, size_t n,
-> >              FILE *restrict stream);
-> >=20
-> > should be:
->=20
-> Nope, it's using GNU C's forward declaration of function parameters.
-> <https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html>
->=20
->=20
-> Cheers,
-> Alex
->=20
-> >=20
-> > size_t fread(void ptr[restrict size * n],
-> >              size_t size, size_t n,
-> >              FILE *restrict stream);
-> >=20
-> > and
-> >=20
-> > size_t fwrite(size_t size, size_t n;
-> >              const void ptr[restrict size * n],
-> >              size_t size, size_t n,
-> >              FILE *restrict stream);
-> >=20
-> > should be:
-> >=20
-> > size_t fwrite(const void ptr[restrict size * n],
-> >              size_t size, size_t n,
-> >              FILE *restrict stream);
-> >=20
-> > bug was introduced in commit d2c2db8830f8fcbb736bdea52b398257447bef6b
+I'm not aware of any discussions but indeed we are returning EINTR while
+closing the fd. Frankly, changing the error code we return in that case is
+really asking for userspace regressions so I'm of the opinion we just
+ignore the standard as in my opinion it goes against a long established
+reality.
 
-commit d2c2db8830f8fcbb736bdea52b398257447bef6b
-Author: Alejandro Colomar <alx@kernel.org>
-Date:   Fri Mar 14 18:33:41 2025 +0100
-
-    man/: SYNOPSIS: Use GNU forward-declarations of parameters for sizes of=
- array parameters
-   =20
-    This syntax has been proposed for standardization in N3433.
-   =20
-    Link: <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3433.pdf>
-    Cc: Christopher Bazley <chris.bazley.wg14@gmail.com>
-    Cc: Martin Uecker <uecker@tugraz.at>
-    Cc: Joseph Myers <josmyers@redhat.com>
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
---=20
-<https://www.alejandro-colomar.es/>
-
---ixax6prylw7lrjf4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgmZHIACgkQ64mZXMKQ
-wqm0jg/6A/3w/1ReTLi5CYgPjvTjF/6pGn1MokEWlthSMadEVPLRtZFbQdgA3BlJ
-8wrUr8JaXA/fMbEA45P0D5xfLaaR4ir43pKjJnYKlJ2YcAuUCCgN9T2xqDZg7omQ
-jYBeuGUTT/v89zFb+PxR+3nK3Smk6O6zTOeumBhb6Quy4lGkSZAKeglcjNfXN0wr
-VfddmJOq/hZyYdGL1nGHgwOKJ05nLxetva9Z4HZBh3ES9sF/b3o+Qq5XI1BlW+3V
-6c/nyQvB2RSLKNFUYJWpgnCin2keNxnYM12YLXy0ruzCH1UuwPyyoVNdyclJZM/s
-p0qu7s/3zPXqhRvX3F6Izf9N8DsHMqQG0Dl+YTdYqDMfDZMawl9gl8N5a8l+2mYo
-i4cFZ0gQsKaLEFigsztaIVT6u0bY4Zv+nAyJUSa15ajLODQpG9x2aR3cwXjY73Rr
-kVUIrOZqpPsCc4I5UCXlT/XrIYDNqjxiwoDZyuxCXQS+zQce/qLMuxQHbOwTHD4v
-MqRK7AjgxuvxaEms6EMU6so9HKUa6hwVVo6TZ2n1yz5pNowR70uL3GbAUpT6erO/
-lTaKzkdc91u1eBn9qChbW0bjlv7SEbkFqMLsD0AGjaIwyNLVmpBzJgP4tDD3C3Ga
-vbNdSEcDza8nvmjw5Pj8hQnxDXr+PZln3sk50Bnq3vIVG4vMS5Y=
-=pfMs
------END PGP SIGNATURE-----
-
---ixax6prylw7lrjf4--
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
