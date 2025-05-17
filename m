@@ -1,143 +1,123 @@
-Return-Path: <linux-man+bounces-2951-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2952-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB309ABAC9E
-	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 23:44:06 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8869ABACC2
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 00:11:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7AFF41656E4
-	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 21:44:07 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id F36D67ADFB1
+	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 22:09:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB29D20C46F;
-	Sat, 17 May 2025 21:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82D271F1510;
+	Sat, 17 May 2025 22:10:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIoKM6PS"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BwiTFIm5"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3D44B1E73
-	for <linux-man@vger.kernel.org>; Sat, 17 May 2025 21:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEF884A35
+	for <linux-man@vger.kernel.org>; Sat, 17 May 2025 22:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747518242; cv=none; b=LRfE5XMOvUIviDJ8D14+wWj16QgDS2Gt6JXpYS9upbYdQv6LC3r0VwlR8a4WCuZJ9jsEaTUa9X/ItFDizERMgFBEGG32OmNgereCjprkhumLK2Bm+Ve05Gs/ylLEqj55lLgw64exU4GTzJQJFs0kNHCP5kVxbJe9pwMa/hWAW+w=
+	t=1747519852; cv=none; b=AbU6cHYhqy8m1wKSvkUT2p9eRJtz66DRH0eRtm7LI9ncgG2kNQNdOmLEKjtxsz6Eoz4czxCwRWlfeNXbr222EcF2MGhz25Cix4fGfhFOBcq7Rq5z0XxT2979uRfz5U5m9gvB1Lt05v2HHZ54pea3GQqn9QsWhpSwZoAh89uxV6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747518242; c=relaxed/simple;
-	bh=5o+tRu3Y77P3uT+wVmdwPxEvuo2mvtoR2B+I9Pc5Klo=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=siodtn3Q47s4ZvEYLopwH7Eqolrjc17bn0t54ojmrQ0LwZLUHqn0W527QftNtxrH260+aRj0dJTFQpGacd22AXTLqfk2akMahIiFEQoIwcnmJXRPH+oWzx6J21AJCAzOd9CfhTa9rXxu/BDYd2n7s12PZQc5GtZkYCP+TzKvI9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIoKM6PS; arc=none smtp.client-ip=209.85.160.51
+	s=arc-20240116; t=1747519852; c=relaxed/simple;
+	bh=wC7sVNOkRiO7DRmNgxiAWM2n9f2o28WxabwtYd+Li94=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uSwubNCGL3GS7pt6Petdmu+rRH3gS0YVZXWugD/WvVtJ74KgsPYQgfAtRtBxqMSc+6SHiMkqAgNca8Trn+9sn9YXNm0rO8/XCYzg3yFeAM0kUFEmu/snE3ML13qbxBmASpK4OJYsGzxeWoXO54+mszLfy5jHd8iGmF6fcoYDbcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BwiTFIm5; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-2c6ed7efb1dso970455fac.2
-        for <linux-man@vger.kernel.org>; Sat, 17 May 2025 14:44:00 -0700 (PDT)
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-7390d21bb1cso3002148b3a.2
+        for <linux-man@vger.kernel.org>; Sat, 17 May 2025 15:10:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747518239; x=1748123039; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+/Iy1cgvgK1RS/c6Xxm9W9ruzqUi/dqf+Jdr1msS9Sg=;
-        b=EIoKM6PSfWNLsn1bSrxMB24jtg8Tn1JotnXHqH0EMgF9Req8pjwBP85ux2Mq/HVXDf
-         seVxDCKLzUGmrrUse/sZcS34gIbiqX5eVX5LSAzLdWQbrwnH05LpEe4ZKlKjjh3CkhXI
-         l0dxlxXxVioYB/ec+h4vE+/BP+RGzh1fMaIISuZLolxrUuoWPFG6QQxhQsHK7W2Eq31O
-         Di5uq7wuTN2rGvPM7YgFK7bgdN39X5EcHAs46ElFMre0q68GKkqBGpQ69jPKVB7J/rRT
-         LWWM7pyfwHADHl106Si/QTBs6TSOYWd+u6BJU+5BRGH8A0E7eERZmmtNARU9Hns+zGXs
-         4Wgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747518239; x=1748123039;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1747519850; x=1748124650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+/Iy1cgvgK1RS/c6Xxm9W9ruzqUi/dqf+Jdr1msS9Sg=;
-        b=hopRKFd1KHP5xnqKlMiT7ND3JMel52uT9xaNpR3bLVnZTnA0A6D3ixuw7rwwAeg5BV
-         KyXY70GHWKwvIAkYlvViyabhp9/pLdxO0pNvjrN8WT0AuxjhxXu16j1cwahx0uC7perH
-         oOhAWdUEgVYPNMDGVW3qg91ryaTDofg0F5MpC8NIMlQ3Ln947xoRfWmQGRUH/vEs6wjU
-         SfQDsTW2UOZnlAVEja1r/TmQPxOTWv8KYy6hX46JNCw1tVWdGXNeI4zxlj2Un4rlHONu
-         Sk6N8vVtm16CK9/qkvxJ8XIA2HmXhC30Ib3Fj2+s3HtL24HqZ4U5wy03Bk1qj4VpIN2M
-         5eIw==
-X-Gm-Message-State: AOJu0Ywe8aI3GlB0snynTHegWDlDbU4OJUwQ1Ta8tCF1JwmJtnT35TH0
-	oExhIzUIglLgPqr4eLcwz0izDN7wpW2qoDNLqjm1fbvTdnnKlA4HTrAos4z/Dw==
-X-Gm-Gg: ASbGnctrWkhACVubEcXnX2o6RzzAmIXwfjnCiUJEbZVrSIfsjYsPS47cHR/YUIQHRWi
-	ReXF/Y8lxyi5IO6JVb7vpRgBifLFEcvNbOYJjGNMfM/FvqkRkYIoexElRXe+j3Lk0G6AL1ycSIp
-	FhHw4Mo4ap56fJxoNCvRsZucNNM14mz6dwMyNi9KXicoCHo4rZlVv8p3z4rWsfEf2lDtBVmvc81
-	28odE1crqbacRPDBSqZN4xSTfd1VZucSMmiU2ruAhq9hXVOObCm08qG6pN0/JyBL8Zjoo22A5+C
-	943K0MXC59bofKcUPz2qZLyidH/YpdidSZRFT6Ih3A==
-X-Google-Smtp-Source: AGHT+IGYyaO3LCsSrxH7XMyhGi6VaIANxjtc2gg0b5eHfm+3zb2pxIPAOdzdR0+07du8/2BiaefYsQ==
-X-Received: by 2002:a05:6870:ce03:b0:2bc:716c:4622 with SMTP id 586e51a60fabf-2e3c1f4623emr4673263fac.38.1747518239425;
-        Sat, 17 May 2025 14:43:59 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-734f6b3a9b3sm855888a34.52.2025.05.17.14.43.57
-        for <linux-man@vger.kernel.org>
+        bh=zy9COtFUklSMXSuyfv2YNbezG5gFM6QWq9GYC33LQms=;
+        b=BwiTFIm5GtOQboyUmi0zsEzNNZe1avt+kTnawPn3fEc6YUjC5FL3/1lqNSgoi/+fwP
+         atbrtFt/E2HzuB6ugr6SUs+HCpLCTtiExtkEX2ZSmstl43yAMdWftEJ2p2G1Yu2AbInK
+         9DvxJGSsyralCIqYSnHm3lvvURZFe7FsLUQVqs+1U4sYPrb9SptMTlnyJWpVwE6GDYQe
+         iYsWqYDk4Yq/bTKIIwSbE1dRPdAHiHYodcx2Tr0bELGxKT8J0nlPQfNHb0LmYK16f79A
+         FZ3mh3JisjhSU3+vs7ZnVWHihzhGTbkwTVQiivu5wOHkjPauOpMMZ4BaJBJLpFIODHq9
+         ODCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747519850; x=1748124650;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zy9COtFUklSMXSuyfv2YNbezG5gFM6QWq9GYC33LQms=;
+        b=GsrLc9jtbr0P0TtVHduGBMolQsLMJf2F6jlPrAkV1RhcByzdLaRJ7KYD/fBMpCWzGh
+         3psSNPFliotq21xkkApVdYoDCuonx4SiSxF5oilh2ELkO8wFuQIsVvJkHcCICpW3i0eB
+         fDnvTDTbdMbCBB0/2ANysvGMiClHS+QQabRczUtadCfFKXe70KfmpC2wPuEdQFIecy7p
+         f9EGYF7ZoPeKv5sFoSM/mXaXF5PDXBjmZjCILU4+6BkMkQ307j2a14orhOp6NXsFj94B
+         TotD3q9Z94oHO1BySEDmv3EJ18oIkwx0lE6aRnjXtKOCYdwd0gkBVyvyl9whgEhXKP2V
+         1BfA==
+X-Forwarded-Encrypted: i=1; AJvYcCVijikEoqpXX0Qn2olx2Tlp19gDhB3TwxZjoUXHgD4+3h77pBW2Ug4ThRTOox61QkXQ9UM//J3uHOA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxa1F4IoFmigvUZHYSftQwEgjDSOOPRaxH5X6r/tQW+woRlyI9y
+	ORVAtbgmFO7SsCjGx58s4Rh3GEnjpCvNvo8iyxRA68F7YBdBgSQApnJFizEfSw==
+X-Gm-Gg: ASbGncuTBszLLNf79HrKjr4DkXlX6KtDAj+LaRS7NtKRzRqTX/h7CmPsBwzOnXDIlY3
+	zWEoqLnjWQhQ/NpHAk20q2monWQfS813/o6aHXiNdljb5dvBhQgHIpovFQDjyBHcxREzmkMXUe4
+	YziHPtYqy7wt/ZNuhstp92y4IwJ3YkAPqSfbUShkOYRTjYqHjYrAfcXAzS4Hku6ONQBCLHzlH2D
+	OTDAKuf8ajvSFKFx+ysg9VaHAKxJeTkksH8dGgxqN1JYI2dXAbHj5JZqCJgAqrfarfHhBsM/ahq
+	8ZmCHBMmrJud5R8C7BqOM/gniv8bnC2Zsg==
+X-Google-Smtp-Source: AGHT+IFIylUPcpSqXaDqS+xfib3vnhEavYy04al/XUP95JC42Fm5EY6R0d/E8R2OxqGN2/bVsJNVJg==
+X-Received: by 2002:aa7:9f1e:0:b0:742:aecc:c46b with SMTP id d2e1a72fcca58-742aeccc5dbmr7009288b3a.15.1747519850006;
+        Sat, 17 May 2025 15:10:50 -0700 (PDT)
+Received: from fedora.. ([2601:646:8081:3770::9eb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-742a98771cdsm3757766b3a.144.2025.05.17.15.10.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 May 2025 14:43:58 -0700 (PDT)
-Date: Sat, 17 May 2025 16:43:56 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: linux-man@vger.kernel.org
-Subject: the correct way to say "POSIX 2024"
-Message-ID: <20250517214356.cpueutlfgi6t2enl@illithid>
+        Sat, 17 May 2025 15:10:49 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Collin Funk <collin.funk1@gmail.com>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v2 1/2] man/man7/signal.7: Mention SIGWINCH was standardized in POSIX-1.2024
+Date: Sat, 17 May 2025 15:10:40 -0700
+Message-ID: <bae6bc16f9ab6bd3e5c30dc8e11bd83566b06a6f.1747519811.git.collin.funk1@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
 References: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
- <dfcy75vkqhlitfddrvbtaufcir3mour2g6cczxstpp32fhkedn@wj7k34u2rk6l>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="m3464y2yxvr7rzzj"
-Content-Disposition: inline
-In-Reply-To: <dfcy75vkqhlitfddrvbtaufcir3mour2g6cczxstpp32fhkedn@wj7k34u2rk6l>
+Content-Transfer-Encoding: 8bit
 
+Signed-off-by: Collin Funk <collin.funk1@gmail.com>
+---
+ man/man7/signal.7 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
---m3464y2yxvr7rzzj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: the correct way to say "POSIX 2024"
-MIME-Version: 1.0
+diff --git a/man/man7/signal.7 b/man/man7/signal.7
+index 72d4aae47..3e21286ed 100644
+--- a/man/man7/signal.7
++++ b/man/man7/signal.7
+@@ -342,6 +342,8 @@ .SS Standard signals
+ in the original POSIX.1-1990 standard;
+ "P2001" indicates that the signal was added or its definition changed
+ in SUSv2 and POSIX.1-2001.
++"P2024" indicates that the signal was added or its definition changed in
++POSIX.1-2024.
+ .TS
+ l c c l
+ ____
+@@ -390,7 +392,7 @@ .SS Standard signals
+ 			see \f[B]setrlimit\f[](2)
+ SIGXFSZ	P2001	Core	File size limit exceeded (4.2BSD);
+ 			see \f[B]setrlimit\f[](2)
+-SIGWINCH	\-	Ign	Window resize signal (4.3BSD, Sun)
++SIGWINCH	P2024	Ign	Window resize signal (4.3BSD, Sun)
+ .TE
+ .P
+ The signals
+-- 
+2.49.0
 
-Hi Alex,
-
-At 2025-05-17T23:16:20+0200, Alejandro Colomar wrote:
-> On Sat, May 17, 2025 at 01:53:02PM -0700, Collin Funk wrote:
-> > +"P2024" indicates that the signal was added or its definition changed =
-in
-> > +POSIX 2024.
->=20
-> This should be "POSIX.1-2024", not "POSIX 2024".
-
-Do you have a supporting reference for this?  I thought that since the
-POSIX standard was no longer organized into subdivisions in the way it
-was historically (with POSIX.1, POSIX.2, POSIX.4a, and so on), that
-"POSIX.1-2004" was something of a misnomer.
-
-I checked <https://www.opengroup.org/austin/>, but that page seems
-careful not to use _either_ formulation!  (It instead refers only to
-IEEE Std 1003.1-2024.)
-
-Regards,
-Branden
-
---m3464y2yxvr7rzzj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgpAxQACgkQ0Z6cfXEm
-bc61DRAAn7rkTmNxycsxnqBG8QseJBmggY1bPD/w/CEdVIQzl9K1t0dg+uYj0LyV
-eZfNIVvz55yAHx4Ea3CX6yEljN2MJKtOt/QjWTxT96G8+Us1+ynHE23MBsp+PKiV
-N4XqpossSMoAXn4U83kXAbDNVhFsLeFhtlUJZEJCknraGSiwBRjMqI21hBXD1AMS
-KZs9m4Xyb4ukpBEj/HHjXwG36wvyaWjfoTPjEodGynyAyhea3uPzPqllAmd3a9Gu
-FKW5SLaGtPkU9CwKRFzjY0J4ZpxRWTah/vwJMzcNlpbqAu240AhdzgO/0in6aW/x
-NKaZkHrtlhWptnHT/JROhQ+riPta8o1mx9tlTjXt4/j8Ic3m0UfcKl6vKtjgTpom
-/nDA2Ejq2fcszUjxefrHaxSiu2Tm7uftfH+bT+j23Wwa2dwjflp9dqALbxetxDTo
-ndU9LCmoUTBKc41RuanGcvfQZw5+11+VXvD30s/GxHv+8DhJNpFbt3wWObhumvMh
-uwHukhU3Zlbka3pWwou90x2mpQ4OGNVuIcStnSObdlDaCTHgbCQ93MCJmDmExnUY
-0QU3jBybC/fccwGt8k0IpocwhoFibDb8R1XM1XpRHRUFuSsnd0iSNy0AcfOz5fu3
-1BSpaua4nqcvj2Hi8ixBQAvxK/Mqefdw9qBkNyHlrmrOUfgeNdw=
-=s8i5
------END PGP SIGNATURE-----
-
---m3464y2yxvr7rzzj--
 
