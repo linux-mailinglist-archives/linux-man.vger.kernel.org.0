@@ -1,148 +1,143 @@
-Return-Path: <linux-man+bounces-2950-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2951-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 006C4ABAC97
-	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 23:34:34 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB309ABAC9E
+	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 23:44:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id F336E189B275
-	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 21:34:47 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 7AFF41656E4
+	for <lists+linux-man@lfdr.de>; Sat, 17 May 2025 21:44:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 617BF2066F7;
-	Sat, 17 May 2025 21:34:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB29D20C46F;
+	Sat, 17 May 2025 21:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u6aFOFgI"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIoKM6PS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E94E747F
-	for <linux-man@vger.kernel.org>; Sat, 17 May 2025 21:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3D44B1E73
+	for <linux-man@vger.kernel.org>; Sat, 17 May 2025 21:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747517671; cv=none; b=I6YxaBYHJb3Zfrar+YF+4MOI/dFX/mC9MtJILGEInE+fsfNbnmH+HBytIdVoDLYSqJPG0RuIcaDYKnb73ZmlOC/8HPsy4bmaWO3n71fWdAblVZzi4uNks0BYL7VvKoupgN0o1EZWUCveRrHy5RbqmLUxdgXlFcDOwnJK9KSGXso=
+	t=1747518242; cv=none; b=LRfE5XMOvUIviDJ8D14+wWj16QgDS2Gt6JXpYS9upbYdQv6LC3r0VwlR8a4WCuZJ9jsEaTUa9X/ItFDizERMgFBEGG32OmNgereCjprkhumLK2Bm+Ve05Gs/ylLEqj55lLgw64exU4GTzJQJFs0kNHCP5kVxbJe9pwMa/hWAW+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747517671; c=relaxed/simple;
-	bh=kZsgK7/YJuQW/rpYwOqG3awwbfg+HyoybYoCuDQjH5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BivNaf/chcAnzQFTsbHyEfikoY2al3dEr8z7Pf4E1qb/soU98wTaTzfJsy7Je1AWw0l6ZlWl6wTF2VNCnHuVqGXo24uy9/bGjG8w/b3TAyc9cgNBMtimBeGr4bLn2Qtd/91XBr8Qx5CxSVq5cQYhVjjBIMJp7LrheWlmp/pqpaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u6aFOFgI; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0F4C4CEE3;
-	Sat, 17 May 2025 21:34:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747517670;
-	bh=kZsgK7/YJuQW/rpYwOqG3awwbfg+HyoybYoCuDQjH5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u6aFOFgIHrPL12MPiy5ViRx1tX3fN7tpBR+lwkCH6mXpC8mp2MPihJZDTD07e+1nk
-	 dCsapCucu1JhRxw9vqhcs8vlu+H1uG30yR8BAy8IkI0N50aJC7b1c+Gqp/wF2CANme
-	 mWFFBiyYxQcyGTQ1jqhowmEAUpfukyzaQ5/Lnmw3aMbdTH0YbYkuU1vuQUykAp5Zv5
-	 S5gn3xKMLpKpFJnKg4nz/SusyfqLs9Bfg72zquzV8C1GDaNNOYMGn9SXHRhr6Afi6j
-	 BoJ8bCIbrGysdWoQjQMZQLdEcmOBwyVFubH+xmZ/qCdSO8Ti4hqdlkovXXp4iHRCsr
-	 7SYaAMr6FGN2A==
-Date: Sat, 17 May 2025 23:34:25 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/3] man/man3/getenv.3: Mention secure_getenv was
- standardized in POSIX-1.2024
-Message-ID: <aqq7gag27u7kwnltq4zumzjk2wvlsevbevm5lkgr3m2x5rhowf@hdufz4pmli3q>
+	s=arc-20240116; t=1747518242; c=relaxed/simple;
+	bh=5o+tRu3Y77P3uT+wVmdwPxEvuo2mvtoR2B+I9Pc5Klo=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=siodtn3Q47s4ZvEYLopwH7Eqolrjc17bn0t54ojmrQ0LwZLUHqn0W527QftNtxrH260+aRj0dJTFQpGacd22AXTLqfk2akMahIiFEQoIwcnmJXRPH+oWzx6J21AJCAzOd9CfhTa9rXxu/BDYd2n7s12PZQc5GtZkYCP+TzKvI9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIoKM6PS; arc=none smtp.client-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-2c6ed7efb1dso970455fac.2
+        for <linux-man@vger.kernel.org>; Sat, 17 May 2025 14:44:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747518239; x=1748123039; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+/Iy1cgvgK1RS/c6Xxm9W9ruzqUi/dqf+Jdr1msS9Sg=;
+        b=EIoKM6PSfWNLsn1bSrxMB24jtg8Tn1JotnXHqH0EMgF9Req8pjwBP85ux2Mq/HVXDf
+         seVxDCKLzUGmrrUse/sZcS34gIbiqX5eVX5LSAzLdWQbrwnH05LpEe4ZKlKjjh3CkhXI
+         l0dxlxXxVioYB/ec+h4vE+/BP+RGzh1fMaIISuZLolxrUuoWPFG6QQxhQsHK7W2Eq31O
+         Di5uq7wuTN2rGvPM7YgFK7bgdN39X5EcHAs46ElFMre0q68GKkqBGpQ69jPKVB7J/rRT
+         LWWM7pyfwHADHl106Si/QTBs6TSOYWd+u6BJU+5BRGH8A0E7eERZmmtNARU9Hns+zGXs
+         4Wgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747518239; x=1748123039;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+/Iy1cgvgK1RS/c6Xxm9W9ruzqUi/dqf+Jdr1msS9Sg=;
+        b=hopRKFd1KHP5xnqKlMiT7ND3JMel52uT9xaNpR3bLVnZTnA0A6D3ixuw7rwwAeg5BV
+         KyXY70GHWKwvIAkYlvViyabhp9/pLdxO0pNvjrN8WT0AuxjhxXu16j1cwahx0uC7perH
+         oOhAWdUEgVYPNMDGVW3qg91ryaTDofg0F5MpC8NIMlQ3Ln947xoRfWmQGRUH/vEs6wjU
+         SfQDsTW2UOZnlAVEja1r/TmQPxOTWv8KYy6hX46JNCw1tVWdGXNeI4zxlj2Un4rlHONu
+         Sk6N8vVtm16CK9/qkvxJ8XIA2HmXhC30Ib3Fj2+s3HtL24HqZ4U5wy03Bk1qj4VpIN2M
+         5eIw==
+X-Gm-Message-State: AOJu0Ywe8aI3GlB0snynTHegWDlDbU4OJUwQ1Ta8tCF1JwmJtnT35TH0
+	oExhIzUIglLgPqr4eLcwz0izDN7wpW2qoDNLqjm1fbvTdnnKlA4HTrAos4z/Dw==
+X-Gm-Gg: ASbGnctrWkhACVubEcXnX2o6RzzAmIXwfjnCiUJEbZVrSIfsjYsPS47cHR/YUIQHRWi
+	ReXF/Y8lxyi5IO6JVb7vpRgBifLFEcvNbOYJjGNMfM/FvqkRkYIoexElRXe+j3Lk0G6AL1ycSIp
+	FhHw4Mo4ap56fJxoNCvRsZucNNM14mz6dwMyNi9KXicoCHo4rZlVv8p3z4rWsfEf2lDtBVmvc81
+	28odE1crqbacRPDBSqZN4xSTfd1VZucSMmiU2ruAhq9hXVOObCm08qG6pN0/JyBL8Zjoo22A5+C
+	943K0MXC59bofKcUPz2qZLyidH/YpdidSZRFT6Ih3A==
+X-Google-Smtp-Source: AGHT+IGYyaO3LCsSrxH7XMyhGi6VaIANxjtc2gg0b5eHfm+3zb2pxIPAOdzdR0+07du8/2BiaefYsQ==
+X-Received: by 2002:a05:6870:ce03:b0:2bc:716c:4622 with SMTP id 586e51a60fabf-2e3c1f4623emr4673263fac.38.1747518239425;
+        Sat, 17 May 2025 14:43:59 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-734f6b3a9b3sm855888a34.52.2025.05.17.14.43.57
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 May 2025 14:43:58 -0700 (PDT)
+Date: Sat, 17 May 2025 16:43:56 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: linux-man@vger.kernel.org
+Subject: the correct way to say "POSIX 2024"
+Message-ID: <20250517214356.cpueutlfgi6t2enl@illithid>
 References: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
- <f1cc4b34bb42b09ae9c0820df8fdece6fcebfcd8.1747515178.git.collin.funk1@gmail.com>
- <ationx4kn5f2d5b76ayyufnjakuy5q3pkgmgq7fagwgakfitar@5l6ty5ftdsrg>
- <87v7pznd4a.fsf@gmail.com>
+ <dfcy75vkqhlitfddrvbtaufcir3mour2g6cczxstpp32fhkedn@wj7k34u2rk6l>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="msttzavp4vlo6qwf"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="m3464y2yxvr7rzzj"
 Content-Disposition: inline
-In-Reply-To: <87v7pznd4a.fsf@gmail.com>
+In-Reply-To: <dfcy75vkqhlitfddrvbtaufcir3mour2g6cczxstpp32fhkedn@wj7k34u2rk6l>
 
 
---msttzavp4vlo6qwf
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--m3464y2yxvr7rzzj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/3] man/man3/getenv.3: Mention secure_getenv was
- standardized in POSIX-1.2024
-References: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
- <f1cc4b34bb42b09ae9c0820df8fdece6fcebfcd8.1747515178.git.collin.funk1@gmail.com>
- <ationx4kn5f2d5b76ayyufnjakuy5q3pkgmgq7fagwgakfitar@5l6ty5ftdsrg>
- <87v7pznd4a.fsf@gmail.com>
+Subject: the correct way to say "POSIX 2024"
 MIME-Version: 1.0
-In-Reply-To: <87v7pznd4a.fsf@gmail.com>
 
-Hi Collin,
+Hi Alex,
 
-On Sat, May 17, 2025 at 02:25:41PM -0700, Collin Funk wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
+At 2025-05-17T23:16:20+0200, Alejandro Colomar wrote:
+> On Sat, May 17, 2025 at 01:53:02PM -0700, Collin Funk wrote:
+> > +"P2024" indicates that the signal was added or its definition changed =
+in
+> > +POSIX 2024.
 >=20
-> > In HISTORY, I tend to not remove any details about versions.  The glibc
-> > version where it was introduced might be useful for someone, so let's
-> > keep it.  Other than that, LGTM.  Thanks!
->=20
-> I thought the same, but I based my patch on getline which was GNU before
-> POSIX. It has:
+> This should be "POSIX.1-2024", not "POSIX 2024".
 
-Thanks for checking!
+Do you have a supporting reference for this?  I thought that since the
+POSIX standard was no longer organized into subdivisions in the way it
+was historically (with POSIX.1, POSIX.2, POSIX.4a, and so on), that
+"POSIX.1-2004" was something of a misnomer.
 
->     GNU, POSIX.1-2008.
->=20
-> What would it be better to do:
->=20
->    glibc 2.17, POSIX.1-2024
+I checked <https://www.opengroup.org/austin/>, but that page seems
+careful not to use _either_ formulation!  (It instead refers only to
+IEEE Std 1003.1-2024.)
 
-This is the better.  Actually, I tend to put POSIX before glibc:
+Regards,
+Branden
 
-	POSIX.1-2024, glibc 2.17.
-
-I'll check the existing pages to try to put a consistent order.  For new
-ones, let's do POSIX first (and ISO C before POSIX).
-
-> or should it be:
->=20
->    GNU (glibc 2.17), POSIX.1-2024
-
-I use glibc and version if I know the version, or just GNU if I don't
-know it.
-
-> I would check other examples, but my memory for other functions POSIX
-> adopted from GNU isn't working well...
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---msttzavp4vlo6qwf
+--m3464y2yxvr7rzzj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgpAOEACgkQ64mZXMKQ
-wqn0Xw//S06IvEKXu16hoKLD0rpX4P6qzVu3go8fotH/nRWnnbvF/xCZxT9x2Fw9
-H9BrA2rNV5SfIAWockcnZU85KUvDr4GHPqu+6RzHgXA4kmY6sm0nOM+P3UJFlsYa
-aI8Xr8aBMYaET2mElTf46VG8ddo/U0Tn78uhd1CM5QbhxZZfNZWe39Cbr+r097cK
-w7KqiHLmHsF3gt/FWSEG+YCGNuKZuk8YRlTC9Wu6df1YNmnpuSF4Js7jL7/WvELE
-equRpmxBIAwPvEp41cBw8bN1Zy1ZsLWJWkmtqEnLkx7vZgfI7hBXEskjehjI0FBt
-hW2CdzQlsGoHy3mBdlCjNB6Ew79sWR+x9uQXmtYtRuVSfI2c5lfwI4y7ge9QGJED
-Z18MtnrfV8A/Qg+mI1dBfDLyqpOhsyEFG61prxt9JVIP6gMLpNNBhAQdKZARfKYl
-VcUwwcrImeGMpDT86ec+jK7ALdnZSVYTdFJ9gFGS+aqQa/qk4uX30P5T6aDUint4
-7DrbU3bF2DH9rdGZxOzzc5jHBMrTTjXqVEIYS+QR03N/X/fCxy8V9rVX4LeObpwC
-xpj7QxpBDBfLgtvfC3q2XEeWWZ89CjnkL1iRai9F9iRLwhBWr2ILLI8vuc1gwv+8
-OAnEw0MvM3W8/kolzQqal1VC2KaTS4sUBbbxymiY1KbpTFfN+jQ=
-=uHeA
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmgpAxQACgkQ0Z6cfXEm
+bc61DRAAn7rkTmNxycsxnqBG8QseJBmggY1bPD/w/CEdVIQzl9K1t0dg+uYj0LyV
+eZfNIVvz55yAHx4Ea3CX6yEljN2MJKtOt/QjWTxT96G8+Us1+ynHE23MBsp+PKiV
+N4XqpossSMoAXn4U83kXAbDNVhFsLeFhtlUJZEJCknraGSiwBRjMqI21hBXD1AMS
+KZs9m4Xyb4ukpBEj/HHjXwG36wvyaWjfoTPjEodGynyAyhea3uPzPqllAmd3a9Gu
+FKW5SLaGtPkU9CwKRFzjY0J4ZpxRWTah/vwJMzcNlpbqAu240AhdzgO/0in6aW/x
+NKaZkHrtlhWptnHT/JROhQ+riPta8o1mx9tlTjXt4/j8Ic3m0UfcKl6vKtjgTpom
+/nDA2Ejq2fcszUjxefrHaxSiu2Tm7uftfH+bT+j23Wwa2dwjflp9dqALbxetxDTo
+ndU9LCmoUTBKc41RuanGcvfQZw5+11+VXvD30s/GxHv+8DhJNpFbt3wWObhumvMh
+uwHukhU3Zlbka3pWwou90x2mpQ4OGNVuIcStnSObdlDaCTHgbCQ93MCJmDmExnUY
+0QU3jBybC/fccwGt8k0IpocwhoFibDb8R1XM1XpRHRUFuSsnd0iSNy0AcfOz5fu3
+1BSpaua4nqcvj2Hi8ixBQAvxK/Mqefdw9qBkNyHlrmrOUfgeNdw=
+=s8i5
 -----END PGP SIGNATURE-----
 
---msttzavp4vlo6qwf--
+--m3464y2yxvr7rzzj--
 
