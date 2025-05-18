@@ -1,109 +1,124 @@
-Return-Path: <linux-man+bounces-2976-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2977-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id BACD6ABB248
-	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 00:46:09 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D3B4ABB287
+	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 01:45:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6431817305C
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 22:46:10 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 013261714D7
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 23:45:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BBBC1FFC41;
-	Sun, 18 May 2025 22:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF1181B4223;
+	Sun, 18 May 2025 23:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kpL/eDtb"
+	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="E3lLKNic"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC72E17E4
-	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 22:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811721519BF
+	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 23:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747608365; cv=none; b=R3d2rfOokGFgtuHj2wLMkC48rZrk/KEidxEWQw3evvMT+ILb4o8bbjsGh8ArLYtqCcKuojt8Qd4fcoa6uW27pFX3rmHhqjva6qyag4n0/yakVHYH5Dbc9IkpG7rL8lvrs3HQ+R7fzH1h/jGM4jRV154tVnmu3uW/k/whfrZSOKM=
+	t=1747611916; cv=none; b=W6A7Ew1SiKLcIYXzoNf7u1eLDnOUVJQaowg9EFqtc/W+U1GyJiv8wI7T1OBpzr+H2BZtY9l9xMw0uZtWMhttlPcebLb0WEsK8nRdmI/Zn8g8Qc4237HNESSd3EAOTN9nb5LV5pJTT8AJltXYI8IEzfZktGZ8C9TURihW+PbDUm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747608365; c=relaxed/simple;
-	bh=+Eva8qcuv9Odnfccma4fuDfWxccgGNoaBVubVH7o2xw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lSU3XwF6oODj0uPuqwGM/D/StlZavHUSXFvuTxkA+XoworMn20dY3H7B+fuI9fOsclKoq+FOVcX1WGMFXvl+8c6OP1NhlyqdbqvBliAsQyRkBR1EwrrKbOGHo46fX1pQMfVzrwkxl23sRu17ncD75PtoOhQVA8TlwSCQ6WJ/7HA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kpL/eDtb; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-74264d1832eso4980138b3a.0
-        for <linux-man@vger.kernel.org>; Sun, 18 May 2025 15:46:03 -0700 (PDT)
+	s=arc-20240116; t=1747611916; c=relaxed/simple;
+	bh=uS7NWKRK/HgzLbbZs1e1jjOgFpGcmSx7lku1Hox+MNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZ/oA/6GwliK+cqOYVDCwxl9ACu8y8WYrMeAJAa/1BzxZ37uSM5/7drL9iG7CSRSo/vGus6fNfkY+FKw8YoSkmCNP2ZvrRI0O0DTBWGaFaXzD91v4LCgnsU5jxXG+Wg94BDY92n0CWV87dUNwL/TlxBWrjduct/HL1bx3H3H0KY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=E3lLKNic; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-7c5e39d1db2so236657685a.3
+        for <linux-man@vger.kernel.org>; Sun, 18 May 2025 16:45:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747608363; x=1748213163; darn=vger.kernel.org;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+jH/OaWPmnKLqoW4XHuh6PaUDdbtM3dsR3vAh/uQ/3M=;
-        b=kpL/eDtbmGEINb0+Z3u/nUcuYmkIRiNMzadbGa8tF99eExItrt3s8KHevHpXIp63xD
-         cuuY48+K/dP99afk5q96Q4HumrTgJDct7BlpMS1pU/DeeZbipWhQEo/Kfza8l1wapC1O
-         aq9acB0QMejRMqSPXxKwg8IVBWyi0YJyU0nqpU0P9QKDt/gca+71zLbX5XvtTAoMo8ZX
-         NnnIesq8i8xoXt4rML82c9t74mmYr3nAynlr4/BJqc3pZMpQwkJWEWxIUCEXnL4t9TDt
-         yrC+7c0yr6H2s7nk1WpfmNBtxCWn6EJ/GJpT6mi4VrRV9fz3EGNt/TYfUQwQFuqeCwjW
-         gQ7Q==
+        d=dartmouth.edu; s=google1; t=1747611913; x=1748216713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RnoxYDBJYpucUfV+v7cPcU1rdqjUjAgcUKA9/N4GjU8=;
+        b=E3lLKNicLamtVMQpUixfh9JI1zJviTWRURdZ440clli7pWDsA+rnWMz3WASolk+GqO
+         2itU2N54mIejgNKxyz7UCjDdEAYUM6izMlrweZZ9QPbU1IS+tmq2YHwxYEEhWt0Bwwvh
+         PZ5RWFIJbd1hs9EOF8TLf3PL3a0GoBgfTuGO3KZZGRjwmv64dd/WrWqIT6zo7RI/bApp
+         dL/sKTw6ap1dThnBij8CBcv5K1ZTJNc0N5kUJbj8cdlPDD9s/bO3vfUG356TlUdaOnP9
+         IdPPBh+EkdXa/0NiX+5eVoJPrPfWke5/h+RFvXK3Z2GyKSPyHKSuLhBvs5O88fnawwxw
+         zEIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747608363; x=1748213163;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+jH/OaWPmnKLqoW4XHuh6PaUDdbtM3dsR3vAh/uQ/3M=;
-        b=pgCfwTloQPgUMao1okXuB3R4kLH0lnjZsSoYFt2Fe+boeKF+BOixqkSM8nGXEqPoZo
-         bUkg1FOaEpDTqcIK0WQO5lpJMw/rWf2R0WqN+wgO9ec64eld6V7JCEyDZRQSWvPuQBvM
-         VesBQRXVYQmUpSHQ0JEY9Ed7OjJdwSmgsNueT1iGe2OYtN5QKQAFabuERlFDx2wNTra9
-         JqP9mLZ5TU1do57cMZ8BKWugctRXmgt3xhIczRUXSr4QmnFGt1XtGe6lGAlWM7GPdk82
-         2EdOVSWVDym1meYvd6Qj7Z+jSoxhHOEmg6QDLlnLAHDc5N4VdTZo5U3LW13pj7UjJ8HR
-         8rtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUOgy+pyZ7O8CIVUEL+gcJo49kBEeARFVJf7mUV00p5XdAroI2xcoWUhDGF540qjXCHOb18wgWmuT4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNDqX/4J4InCY9FidnFBxErrpZ/Ms8x4qBI0fxS88zyvJeSfvz
-	aLZ2uj91fiOflRr2EhEHnhpohUN1RyYwC9fn0mtggv2UgCHYfTu+krn1dT+png==
-X-Gm-Gg: ASbGncsiDbZ46KtelCBWLsxzpTE6+6UZBhlu4wmNUmrQlhbcd9jU9YAMo73mk5B6uc+
-	yVUYVXuysLTi6oVz7NffRTBUXrEOsCV7x9xNPQs3Tynm1f8lPCne7s/ZB2egmtKPL30+Ht3jRXo
-	FkZ0HJvyOT0tsypcU88mGz6cg69mTdSXK11s+eLqtZvke3a8BupFWioq4ypC2ffFnM/q6VGAgJ7
-	Dt7qazKMq+dBbnmr1KVNH9jhBctCYIEmcv8enSKleZb0jq/QR/gHJhUsgD7UznqqVZRzFHjEW0v
-	3ZcKoxSdOdI3LmD2RcqKk+4nHlj9JIg=
-X-Google-Smtp-Source: AGHT+IHxPIr/9XbEAEVgml2fmGxsqD8oUz4R0Hd82qkt1y7pSpc68K44uD9Ug8xu3QN1DN2u/Mqcdg==
-X-Received: by 2002:a05:6a00:a86:b0:736:a8db:93b4 with SMTP id d2e1a72fcca58-742a97a71d6mr14364743b3a.2.1747608363000;
-        Sun, 18 May 2025 15:46:03 -0700 (PDT)
-Received: from fedora ([2601:646:8081:3770::9eb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-742a9871517sm5090792b3a.135.2025.05.18.15.46.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 May 2025 15:46:02 -0700 (PDT)
-From: Collin Funk <collin.funk1@gmail.com>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>,  linux-man@vger.kernel.org,
-  libc-alpha@sourceware.org
-Subject: Re: POSIX.1-2024 requires 64-bit time_t
-In-Reply-To: <CAMdZqKFyc=cNh-aQVLZ6ovEZurzqSREhY1gx8L0m27f2uS=smw@mail.gmail.com>
-References: <zagbrxifsyor6bxzkqi7b66ixw3q67vez2nng7aqjpykkohph3@plmaq4pfz3yf>
-	<87plg5hnb4.fsf@gmail.com>
-	<CAMdZqKFyc=cNh-aQVLZ6ovEZurzqSREhY1gx8L0m27f2uS=smw@mail.gmail.com>
-Date: Sun, 18 May 2025 15:46:01 -0700
-Message-ID: <87iklxy1ue.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+        d=1e100.net; s=20230601; t=1747611913; x=1748216713;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RnoxYDBJYpucUfV+v7cPcU1rdqjUjAgcUKA9/N4GjU8=;
+        b=krGh+0Ho+kzUAjBkdj7gFqIa8+K5s8SNvsTgp9FBbq/isJIEo0Otczh4P7J2xwoM6h
+         HwsVnRU1ghkKbALAxydX0v69nmF5pB6YxoCmw7j2zQdm88R+R+w+z9hQ/Cf2AKj8AFty
+         pUAXjDeiUWd0nK1YhqVLyFX2Y7TA6I0cnkI2jgtBclxmzg16ItvlT02fpXs1uejRGYuS
+         y7ahRhvq4+sKjIlwpWjBbCnEU76wytWjoENoCSf8IEwV45zBuSj6N1G6xKwBrWAMahMG
+         qvTxOAenHMJY9XEtD5JpnQjye5Kf9kpJPJX7ouuOj665JkXExuzCndhJheuQdpOcmQuW
+         jOhw==
+X-Gm-Message-State: AOJu0YwHu/bh0j/9Jf0XgTI6KhZGogXlm6x8Tan5NS3he2Zye+7FQPFq
+	zRn+JcBRg8r5hI7jM070Q2Y0SR4loIUfb5YsOiF3Ud7aRXmHVfp/J2AzUzDe/ixGh8Q=
+X-Gm-Gg: ASbGncv0nXpIsg6VzGQ0vFeaCKVIJrDCR9qvH8sCcTbJrJQxzMz4h+g/nlsYxNVgjS2
+	vTuz1YAH3jhei1B9U9J10ivb7QY/YR7LIFoE3vFRW81jt+9u6Ew1CkYn70h7bEym+bBVKM1dr5F
+	KVPMSX9NfySRA7KOLVppDW1VIp173QYvHrMBIEgMK3+W3cgOgJHj2O8FEnGMf/lv2hQ4XP2lnsQ
+	dS7SimVTTiVgp1D9bzJdON/D1r7YPeA8+YibM6rLQleO42/Tr6f7noMOtHKkAm+a416w/kBsDt0
+	Cj3gG0VJ4UUbVY3Ph+KtCzr7j6Sukf09wLOggC+IUBlCSkbemDIRqV/srcRF8TP8hDYrcU2cSX0
+	zEoEFSQ5TdbwQlMVq
+X-Google-Smtp-Source: AGHT+IFTE+nDP9M52odN6rj9UU0j00J6dIUeePhEL1VxX4Ujwly/o+SWd3JYiXC6NPKHZVivXJQ0xQ==
+X-Received: by 2002:a05:620a:4620:b0:7cd:92:9f48 with SMTP id af79cd13be357-7cd467aedc0mr1591804285a.52.1747611913294;
+        Sun, 18 May 2025 16:45:13 -0700 (PDT)
+Received: from localhost ([129.170.197.122])
+        by smtp.gmail.com with UTF8SMTPSA id af79cd13be357-7cd467bec16sm490346585a.9.2025.05.18.16.45.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 May 2025 16:45:12 -0700 (PDT)
+From: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+Subject: [PATCH] man/man2/syscall.2: x86-64 + x32 syscall numbers go in eax
+Date: Sun, 18 May 2025 19:45:07 -0400
+Message-ID: <20250518234507.404608-1-benjamin.p.kallus.gr@dartmouth.edu>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Mark Harris <mark.hsj@gmail.com> writes:
+The kernel sign-extends eax before dispatching syscalls.
+From arch/x86/entry/entry_64.S:
+>	movslq	%eax, %rsi
+>	IBRS_ENTER
+>	UNTRAIN_RET
+>	CLEAR_BRANCH_HISTORY
+>
+>	call	do_syscall_64		/* returns with IRQs disabled */
 
-> For glibc, all 64-bit platforms, and the most recently added 32-bit
-> platforms (arc, riscv32, or1k), use 64-bit time_t.  All older but
-> still-supported 32-bit platforms (arm, csky, hppa, m68k, microblaze,
-> mips, powerpc, s390, sh, sparc, x86) currently use 32-bit time_t by
-> default but can use 64-bit time_t with -D_TIME_BITS=64.  For musl, all
-> platforms use 64-bit time_t.
+This patch updates syscall.2 to document this. ARM64 exhibits a
+similar behavior (w8 is extended), which is already documented.
 
-Thanks for the details.
+Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+---
+ man/man2/syscall.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I had looked into it and it seemed that time_t was 32-bits where
-__WORD_SIZE == 32.  But it seems I missed the newer 32-bit platforms.
+diff --git a/man/man2/syscall.2 b/man/man2/syscall.2
+index a6b93699c..b946dcc41 100644
+--- a/man/man2/syscall.2
++++ b/man/man2/syscall.2
+@@ -190,8 +190,8 @@ superh	trapa #31	r3	r0	r1	-	4, 6
+ sparc/32	t 0x10	g1	o0	o1	psr/csr	1, 6
+ sparc/64	t 0x6d	g1	o0	o1	psr/csr	1, 6
+ tile	swint1	R10	R00	-	R01	1
+-x86-64	syscall	rax	rax	rdx	-	5
+-x32	syscall	rax	rax	rdx	-	5
++x86-64	syscall	eax	rax	rdx	-	5
++x32	syscall	eax	rax	rdx	-	5
+ xtensa	syscall	a2	a2	-	-
+ .TE
+ .P
+-- 
+2.49.0
 
-Collin
 
