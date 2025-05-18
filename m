@@ -1,369 +1,141 @@
-Return-Path: <linux-man+bounces-2970-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2971-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50319ABB09E
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 17:03:36 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9963EABB0F9
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 18:54:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id F059D3B91D4
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 15:03:15 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id AE33B18921F4
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 16:54:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A984A1DC988;
-	Sun, 18 May 2025 15:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4159B202969;
+	Sun, 18 May 2025 16:54:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3NcYPZ1"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jv5BjixB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F0C72635
-	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 15:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E020142E83
+	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 16:54:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747580611; cv=none; b=XK318J/X5OKMBofyyvM65FQuJinoFYPMDsyTSLgTDdKC9k2EsaCccj+74m0I88IsbJy1Nq5bEBUXHd3ul0orGwLZ1qD6o2xGxBSSI86xdI8HUNqTJLBUs2JJtig0oAn8Q63z5yFi8sDgm5i9+P+wsc6gLATn/edcE4KdId7Q0kM=
+	t=1747587267; cv=none; b=e260JbMViXRfHhyyYtqj+2AauEAvZi9tLy3Vcmr4stYYTi9H7RY/N+1UKotAFaAa+RtIsw49RzqmziRiU3sVgjSxESdd4+d/BHpy7RF9Lq+lBYFnFAcH9ixIWdJtAf+4LWKunRQfk39WzrQedQmur5q+SmqTjRIR6CVVjArDzTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747580611; c=relaxed/simple;
-	bh=3Pf+K98D4F+NX5rSzDyg86zLTqRHSB3rS4gsD8Cz/Ag=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k7uKV74eYaOl4jr6hUirG2KwM7WZRyWVGNaen8/Ntn0g6nIId7wC9/5FBpo0fY+fMhD4apRJRNzUmY2i8CKbb4kwQQj+DZ5ujVPgEW6qKrYhEdOsY8yMnZy7eV5UabaHiiX0o9mVCmDP0P7TyKvS0CdCE4TzAZSYnHWi9gdwSPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3NcYPZ1; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8919AC4CEE7;
-	Sun, 18 May 2025 15:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747580610;
-	bh=3Pf+K98D4F+NX5rSzDyg86zLTqRHSB3rS4gsD8Cz/Ag=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I3NcYPZ1SbCvyfXB9BRx7tBswRsk//vANEXSq7+RaFUQADUEaGebmcmAs1IC5m4Hy
-	 ETNW3GXBkXkgefsWPoix0bKQ7tSacfi/RTauMfclADdOaghT6nd8KoyibwcNukQvGV
-	 M+TRPkKUeP607c27cGMdVESzFI5CvdrUJ5lJ4sNGGHL9CxSl8WF6Ctl6/w3i2dG5LU
-	 76xYbXESESc0QiSn8XV3QaDRN/ruZ7TmJwI6/v4I+RUWcO3KQzqQ/dM8JdvZ31/xPV
-	 aeDL/8XU8yRl491lm8+2RsRmmyzFfxCaPo419Zt/9zompN6USCYkwVoWEEzQt2O5Rh
-	 5yxcG5tH7ej4A==
-Date: Sun, 18 May 2025 17:03:25 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Tobias Stoeckmann <tobias@stoeckmann.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man3/*printf.3: Add errors section
-Message-ID: <qzgr5ql2f6cn7vcxccfiqqicbqfbjtqdgd5ie6bbnyz47nqzj2@uubfpced7dmx>
-References: <vdno2j6via73xybrbtb23k2ptqejtdio2yqh7c4qijmtzhy4yt@gfp5j4bmsfe2>
- <tfyxxmci3xhe4a4vssgk576hy5c4xfm3dcfpsq4odi6pl5obds@jjti3wfzepld>
- <34octlcodbwm3kfqlouvrvhriiftmlzzobbohgzivlkgi53nfs@7gxajeb56klz>
+	s=arc-20240116; t=1747587267; c=relaxed/simple;
+	bh=+/bv3nt3Gf5oeUNgtLCegi7XAWsxCNA58ywYLxrdFUg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YWXZ0gs8pQkeSvGvEAsNL1Av7+TogWLN7/yGrk85bZ8hPGSYHkSOdtLZ3mD+TPLx01qUXzgecg4GE7MgFEh42KbuGHtbV6yICH9SQEQz20zKdPV2Uo42SkDJR4JrSFnZAppnsO+ueRXrhsV/vdmKySYBQm8BD5bDiQILg0jrpmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jv5BjixB; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-879d2e419b9so3052342a12.2
+        for <linux-man@vger.kernel.org>; Sun, 18 May 2025 09:54:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747587265; x=1748192065; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qTaqNmYwLOi4Bk9ssKD9c6QO/cmmchZaD5rqvZ2gzKw=;
+        b=Jv5BjixBd0Y5o5E+arFb245oVvqB4+k/30D+WbdCs9oH8hNczktSnies7W07AODO2e
+         RbFugFQKQz9Lws1peCSOJlGYQhPSkxXVu+zqzwaXiOzCAZayCaZSc2a1cBHN9r5jzboy
+         xctZcihpDg+4IirS4q+SPZOiGKl9cTV18/dMUNn6ESBfq1pVsluKD9fQJ/cR/8+Hj4kZ
+         yutfEGxvgGbdxTgQqe1VhbWc7kh66ZZG+PYohR0g82PD3yoI7Z0vZODMJUHuDiOoeiL+
+         MQ/rAFbVtgv7GaPsUh2Jz/zp/1DCxwN99VKegGZ6js5VTfFDDrl06/nDRMOnJk32sQRA
+         d7jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747587265; x=1748192065;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qTaqNmYwLOi4Bk9ssKD9c6QO/cmmchZaD5rqvZ2gzKw=;
+        b=Sz0lxdo4iRW5ynRnjQyrTsAVOtZXCPJB8NAlb8Jq5tvmAqZo6JruMvK2uOsfDU/WZ1
+         /pyqtAnbYtF3OJxIBn5mtOj5aNK1T2mnIUjRxev+5QBPQRPoNwxyG5X1zZqD54Kfp4Aa
+         clz5mIZbMV3Hp+RJK58Ejhi9kz67MxMV6yfxTPVk5h/j+8d6DXdGyAQWHqVlccpkX6Ru
+         qOaQlb5w+YBEiFNH/m1LT/MBW2A4gfto9Kxspm8p0Dn6lCpXhAJqRyCYo9i3fBxUxn8d
+         DlFOez0diDdW1sLSOlaSy+JmPKIwZoz50wmiMyht83m9du8MWEUQa/1dl2RX0kDc1LG7
+         IRtA==
+X-Gm-Message-State: AOJu0YyxVdI03ebslhkRqM2URr81Dazve7xS/7kzOFN9hNiC3XL+2p0S
+	eKirFO5bIFokHmvI9DSyf/rA9Sc7elJ3Q6a+S5pHG9IoDvkDU1nfwWnl
+X-Gm-Gg: ASbGncv2VzeaAhhf9PBph+DZ14YIwnNVXRLdC+EhJn2GyJdJj08PGUG1iXUgTIAeZyZ
+	qzghRSjh6YwA53qMLcjpVP3wJ6sdkJFdHWny6LfYC0GvfFni/Q8cA+YSXz3SIsWhMvtlh9TWXIf
+	uRd4rf3eMdp/vIPmQpZ1pZl/cfvaUPR+3jBe9o6qIRQkPw1b0bLGSDjEn2HhWsRQ7SA8Mnk6b4C
+	ES0z56c4VlTFTgpqo7RAl+NTXG47ZSB/myi8yKXCe0I2b0PqhE88ObAkwvA3xGEHhCf+xJk7W+6
+	5yHWrrMqXFUBqiFX5GslZpXfto0Ka9ddxoMfZ3kAxeYGTd6w4qzNXwcIFgtjl3lneR6UJnW6x+4
+	X84wc5l4=
+X-Google-Smtp-Source: AGHT+IGU5d7c19HRVS8gahkWfNL2CMrLE46aNtt0uuLlYRInil97f/iD6XAcd3FL7lqBt7tkAW17rg==
+X-Received: by 2002:a17:903:1987:b0:223:5e76:637a with SMTP id d9443c01a7336-231d451906dmr156754735ad.23.1747587264677;
+        Sun, 18 May 2025 09:54:24 -0700 (PDT)
+Received: from fedora (static-23-234-80-63.cust.tzulo.com. [23.234.80.63])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-231d4eb9fc1sm45286445ad.160.2025.05.18.09.54.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 May 2025 09:54:24 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org,  libc-alpha@sourceware.org
+Subject: Re: POSIX.1-2024 requires 64-bit time_t
+In-Reply-To: <zagbrxifsyor6bxzkqi7b66ixw3q67vez2nng7aqjpykkohph3@plmaq4pfz3yf>
+References: <zagbrxifsyor6bxzkqi7b66ixw3q67vez2nng7aqjpykkohph3@plmaq4pfz3yf>
+Date: Sun, 18 May 2025 09:54:23 -0700
+Message-ID: <87plg5hnb4.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fguoe6ye4t2frq4g"
-Content-Disposition: inline
-In-Reply-To: <34octlcodbwm3kfqlouvrvhriiftmlzzobbohgzivlkgi53nfs@7gxajeb56klz>
+Content-Type: text/plain
 
+Hi Alejandro,
 
---fguoe6ye4t2frq4g
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Tobias Stoeckmann <tobias@stoeckmann.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man3/*printf.3: Add errors section
-References: <vdno2j6via73xybrbtb23k2ptqejtdio2yqh7c4qijmtzhy4yt@gfp5j4bmsfe2>
- <tfyxxmci3xhe4a4vssgk576hy5c4xfm3dcfpsq4odi6pl5obds@jjti3wfzepld>
- <34octlcodbwm3kfqlouvrvhriiftmlzzobbohgzivlkgi53nfs@7gxajeb56klz>
-MIME-Version: 1.0
-In-Reply-To: <34octlcodbwm3kfqlouvrvhriiftmlzzobbohgzivlkgi53nfs@7gxajeb56klz>
+Alejandro Colomar <alx@kernel.org> writes:
 
-Hi Tobias,
+> POSIX.1-2024 seems to require a 64-bit (or wider) time_t.  I don't know
+> how's the state of things as of now in glibc, so would you mind checking
+> the time_t(3type) manual page and letting me know if anything needs to
+> be updated or moved to history?
+>
+> At first glancce, I see
+>
+> DESCRIPTION
+>        time_t Used for time in seconds.  According to POSIX,
+>               it is an integer type.
+>
+> where I'll have to append "of at least 64 bits".  Then, there's
+>
+> NOTES
+>        On some architectures, the width  of  time_t  can  be
+>        controlled  with  the  feature test macro _TIME_BITS.
+>        See feature_test_macros(7).
+>
+> Which sounds redundant with the new requirements.  That sounds like it's
+> for architectures that are non-conforming only, right?  In the
+> conforming ones, it wouldn't make sense.  So, we'll need to clarify
+> which architectures are conforming and which are not.  Please let me
+> know.
 
-On Sun, May 18, 2025 at 03:41:59PM +0200, Tobias Stoeckmann wrote:
-> The printf family of functions set errno if a negative value is returned.
+I documented this in glibc in commit
+363bbdbd2aeaae1e00f3872f2ba19a4a3c17bdf1:
 
-Thanks!  I've applied the patch.  I did appply a few amendments; see
-below.
+    manual: Mention POSIX-1.2024 requires time_t to be 64 bit or wider.
+    
+    * manual/time.texi (Time Types): Mention POSIX-1.2024 requires 64 bit
+    time_t.
+    
+    Signed-off-by: Collin Funk <collin.funk1@gmail.com>
+    Reviewed-by: Adhemerval Zanella  <adhemerval.zanella@linaro.org>
 
-> Subject: Re: [PATCH] man3/*printf.3: Add errors section
+But as you mention and as documented in the manual, some older platforms
+default to 32-bits unless _TIME_BITS is set to 64:
 
-I've added man/ before man3/ (for consistency with the other commit
-messages).
+    Currently the @code{time_t} type is 64 bits wide on all platforms
+    supported by @theglibc{}, except that it is 32 bits wide on a few
+    older platforms unless you define @code{_TIME_BITS} to 64.
 
-> Souce is POSIX.1-2024, see
+I'll have to investigate the full list of architectures which that is
+the case.
 
-I've changed to mention POSIX.1 instead of POSIX.1-2024, as this is not
-something new from -2024.  By saying POSIX.1, it more clearly states
-that all versions of POSIX (at least that I know) have specified this.
-
-> <https://pubs.opengroup.org/onlinepubs/9799919799/functions/fprintf.html>
-> <https://pubs.opengroup.org/onlinepubs/9799919799/functions/fwprintf.html>
->=20
-> Also see manual pages of FreeBSD and OpenBSD.
->=20
-> Signed-off-by: Tobias Stoeckmann <tobias@stoeckmann.org>
-> ---
-> On Sun, May 18, 2025 at 10:15:54AM +0200, Alejandro Colomar wrote:
-> > So, how about this?
-> >=20
-> > 	ERRORS
-> > 		See sprintf(3) and malloc(3).
->=20
-> Adjusted.
->=20
-> > > +.B EILSEQ
-> > > +A wide-character code that does not correspond to a valid character
-> > > +has been detected.
-> >=20
-> > I think this is because of "as-if" putwc(3).  If so, I prefer deferring
-> > to it.
-> >=20
-> > Also, I see that POSIX documents this error, but why is that?  These
-> > APIs don't handle wide-characters, do they?
->=20
-> Shortened here and in wprintf.3 as well.
->=20
-> The EILSEQ can occur with %ls or %S modifier, e.g.
->=20
-> printf("%ls\n", "\xFF")
->=20
-> or any other invalid sequence.
-> ---
->  man/man3/asprintf.3 |  7 ++++++-
->  man/man3/printf.3   | 22 +++++++++++++++++++++-
->  man/man3/wprintf.3  | 21 ++++++++++++++++++++-
->  3 files changed, 47 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man/man3/asprintf.3 b/man/man3/asprintf.3
-> index 319382c3a..e175306f6 100644
-> --- a/man/man3/asprintf.3
-> +++ b/man/man3/asprintf.3
-> @@ -38,9 +38,14 @@ When successful, these functions return the number of =
-bytes printed,
->  just like
->  .BR sprintf (3).
->  If memory allocation wasn't possible, or some other error occurs,
-> -these functions will return \-1, and the contents of
-> +these functions will return \-1, set errno, and the contents of
-
-We use italics for errno.  So it would be
-
-	.I errno
-
-Also, we have some more-or-less consistent way of saying that "errno is
-set to indicate the error", so I've adjusted it for consistency with
-other pages.  (See membarrier(2) for example; most pages look like that
-one.  That was one of the last things Michael did.)  :)
-
->  .I strp
->  are undefined.
-> +.SH ERRORS
-> +See
-> +.BR sprintf (3)
-> +and
-> +.BR malloc (3).
->  .SH ATTRIBUTES
->  For an explanation of the terms used in this section, see
->  .BR attributes (7).
-> diff --git a/man/man3/printf.3 b/man/man3/printf.3
-> index b6e4f38b9..09737fd23 100644
-> --- a/man/man3/printf.3
-> +++ b/man/man3/printf.3
-> @@ -904,7 +904,27 @@ Thus, a return value of
->  or more means that the output was truncated.
->  (See also below under CAVEATS.)
->  .P
-> -If an output error is encountered, a negative value is returned.
-> +If an output error is encountered, a negative value is returned and
-
-I've rephrased this, because I think "an output error" is incorrect.
-There are also input errors (EILSEQ is one).
-
-> +errno is set.
-> +.SH ERRORS
-> +See
-> +.BR write (2)
-> +and
-> +.BR putwc (3).
-> +In addition, the following error may occur:
-> +.TP 10
-
-We don't specify the indentation of tagged paragraphs.  I've removed
-the '10'.
-
-> +.B EOVERFLOW
-> +The value to be returned is greater than
-> +.BR INT_MAX .
-> +.P
-> +The
-> +.BR dprintf ()
-> +function may fail additionally if:
-> +.TP
-> +.B EBADF
-> +The
-> +.IR fd
-
-This should be '.I'.  The IR is for alternating italics and roman (see
-groff_man(3)).  It produces a diagnostic, BTW (see CONTRIBUTING.d/lint):
-
-	TROFF		.tmp/man/man3/printf.3.cat.set
-	an.tmac:.tmp/man/man3/printf.3:926: style: .IR expects at least 2 argument=
-s, got 1
-
-I've removed the 'R'.
-
-> +argument is not a valid file descriptor.
->  .SH ATTRIBUTES
->  For an explanation of the terms used in this section, see
->  .BR attributes (7).
-> diff --git a/man/man3/wprintf.3 b/man/man3/wprintf.3
-> index 59a6cfe07..583089e94 100644
-> --- a/man/man3/wprintf.3
-> +++ b/man/man3/wprintf.3
-> @@ -198,7 +198,26 @@ case of the functions
->  .BR swprintf ()
->  and
->  .BR vswprintf ().
-> -They return \-1 when an error occurs.
-> +They return \-1 when an error occurs and set errno.
-> +.SH ERRORS
-> +See
-> +.BR write (2)
-> +and
-> +.BR putwc (3).
-> +In addition, the following error may occur:
-> +.TP 10
-> +.B EOVERFLOW
-> +The value to be returned is greater than
-> +.BR INT_MAX .
-> +.P
-> +The
-> +.BR fwprintf ()
-> +and
-> +.BR wprintf ()
-> +functions may fail additionally if:
-> +.TP
-> +.B ENOMEM
-> +Insufficient storage space is available.
->  .SH ATTRIBUTES
->  For an explanation of the terms used in this section, see
->  .BR attributes (7).
-> --=20
-> 2.49.0
->=20
-
-Apart from the commit message changes, I applied the following diff (see
-at the bottom).
-
-Here's the patch I pushed:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D58bebd4ab85fda6d3b68a51b1650301b526335ba>
-
-
-Have a lovely day!
-Alex
-
-diff --git i/man/man3/asprintf.3 w/man/man3/asprintf.3
-index 9e2f56bb9..68c372ed8 100644
---- i/man/man3/asprintf.3
-+++ w/man/man3/asprintf.3
-@@ -37,8 +37,11 @@ .SH RETURN VALUE
- When successful, these functions return the number of bytes printed,
- just like
- .BR sprintf (3).
--If memory allocation wasn't possible, or some other error occurs,
--these functions will return \-1, set errno, and the contents of
-+On error,
-+\-1 is returned,
-+.I errno
-+is set to indicate the error,
-+and the contents of
- .I strp
- are undefined.
- .SH ERRORS
-diff --git i/man/man3/printf.3 w/man/man3/printf.3
-index 7e7a464dd..759539381 100644
---- i/man/man3/printf.3
-+++ w/man/man3/printf.3
-@@ -904,15 +904,18 @@ .SH RETURN VALUE
- or more means that the output was truncated.
- (See also below under CAVEATS.)
- .P
--If an output error is encountered, a negative value is returned and
--errno is set.
-+On error,
-+a negative value is returned,
-+and
-+.I errno
-+is set to indicate the error.
- .SH ERRORS
- See
- .BR write (2)
- and
- .BR putwc (3).
- In addition, the following error may occur:
--.TP 10
-+.TP
- .B EOVERFLOW
- The value to be returned is greater than
- .BR INT_MAX .
-@@ -923,7 +926,7 @@ .SH ERRORS
- .TP
- .B EBADF
- The
--.IR fd
-+.I fd
- argument is not a valid file descriptor.
- .SH ATTRIBUTES
- For an explanation of the terms used in this section, see
-diff --git i/man/man3/wprintf.3 w/man/man3/wprintf.3
-index 9dc43347f..a7324426b 100644
---- i/man/man3/wprintf.3
-+++ w/man/man3/wprintf.3
-@@ -198,14 +198,18 @@ .SH RETURN VALUE
- .BR swprintf ()
- and
- .BR vswprintf ().
--They return \-1 when an error occurs and set errno.
-+On error,
-+\-1 is returned,
-+and
-+.I errno
-+is set to indicate the error.
- .SH ERRORS
- See
- .BR write (2)
- and
- .BR putwc (3).
- In addition, the following error may occur:
--.TP 10
-+.TP
- .B EOVERFLOW
- The value to be returned is greater than
- .BR INT_MAX .
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---fguoe6ye4t2frq4g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgp9r0ACgkQ64mZXMKQ
-wqmy7hAAj/WYwLPuTKn6Xm+gY0F2aIHGZf6kLotrIyJbu0NOCFHh9AQ+1VtvjK1l
-grpesWzpvOmKohVq+iRBcX17aeM4CoORh58+D1pqzlI4FERAf/G4QWtNaOLpprn+
-3tf74gu/qYVaVNROKkrWclZ6DKzwn1TvBHuSmpW4ufiV2SXJ/35yuAElJYyPJ3Z5
-sTUpUR0a4jSypRLQ5FC+ggem57OVctVDOD5JOVbyOr/torlHsNoBeh20rqGJMHvi
-FznfWZYEhZXBBUyHKmVxA5PHqiYihbF7mYpEzSH8WfqTcJNarEjM/ct4Iq8GcqwV
-TbXqAd7fynS0HABizGfIPiKuP5S+tHDZMh38hauU3CNh9Fzm1v7s6mMIRFT9TjT+
-Plksps9qmjCb/Mk4S6Zz/a+5/qD01UwJd9n3Z8VmSKCOO34Yj2OlbkgK3yDSjUsU
-/h/QjFTfG/G6mfyBXe94l60Dq7WHAn5s9yvGYVBqXwwJ5uU0iLK6leAZSrbPK8WD
-snGkwLxEux2bnQM+bz8lA4BwDlKcXC26OmhXWamBfplpzwLs4fyXTAe6GPWT0Zfs
-vGKYvYMILfLWeA+ubqGbL1gyXjFskA8Jf+L4qAjvNcL0waRL42uh4ouvz725txmE
-QbkmNqgEvm3/6YF2plxLW4PIA8a+F7VbMVSif2WzdxOh+D2clWY=
-=gpMI
------END PGP SIGNATURE-----
-
---fguoe6ye4t2frq4g--
+Collin
 
