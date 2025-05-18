@@ -1,179 +1,109 @@
-Return-Path: <linux-man+bounces-2975-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2976-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4EBABB21E
-	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 00:13:41 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id BACD6ABB248
+	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 00:46:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E608E1895C39
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 22:13:54 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6431817305C
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 22:46:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 099961F463E;
-	Sun, 18 May 2025 22:13:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BBBC1FFC41;
+	Sun, 18 May 2025 22:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbvxPs1o"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kpL/eDtb"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D4582866
-	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 22:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC72E17E4
+	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 22:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747606416; cv=none; b=c1eJXu0lPO+UylNrB45EU+o+rf/z4/WobqnA+FflVMj2CsYUWSz8TOOQaHaibLapxoEbubywcZG89pt5kyUXDvH+fkaeQyBGK30CdngdKmkU+I+hp7/tfKV8N6xPi2MwTxJ0P8axj9O9BXoJBzVXLBdHkTIuB/5JHi/eHoLB8kE=
+	t=1747608365; cv=none; b=R3d2rfOokGFgtuHj2wLMkC48rZrk/KEidxEWQw3evvMT+ILb4o8bbjsGh8ArLYtqCcKuojt8Qd4fcoa6uW27pFX3rmHhqjva6qyag4n0/yakVHYH5Dbc9IkpG7rL8lvrs3HQ+R7fzH1h/jGM4jRV154tVnmu3uW/k/whfrZSOKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747606416; c=relaxed/simple;
-	bh=9VA9yZsOhLgjzh/eI447sP0sIZZ/WIPMacM7fwoyrAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Utn7rJp+NNSTdJpWrMF3vKsQjpvaA92NwTWR9YkKN6j7UoRMHX86ExwzCc8lQ0HCYcQIX3QGJhmrMPlDeMTlC4hmObIta+fPUX2Z3Zu3OUR1rNaYdDmbedOjy5Lr2vNGKeN2/BMvi1DDixraf8nQQQkTdbOnFv37ztbSHI1ytiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbvxPs1o; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33216C4CEE7;
-	Sun, 18 May 2025 22:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747606416;
-	bh=9VA9yZsOhLgjzh/eI447sP0sIZZ/WIPMacM7fwoyrAc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IbvxPs1oHBaBvmGIoS1n/I0yEVrwgxnfo2azver/FEdq69yYfID8e8afJRu4zk8Eo
-	 iGhaUARU0iGyyXbyCLyFu/g1cHIR3SMVDxord5kj5kQ4Vt5SEn9gF3GpjCQNweSj4T
-	 jNi2Sr03sgru+HMu5z6VBWnK0IOXpncvK3okgrR+tyOmUKWq84yP+i7WMv2S4emwYg
-	 XSu3zKABPLu6Erf3mOcLEtQVoHKaXFrCn7i4sGE6AlSxM5IjoQ+CwIHW9AbjZsoVcP
-	 INMP/j4MvJ+Y2nUxIQmayvQdx1hBB5O1TX5ptoYA1MyKeyM2C4EAI152RcXE2bF5pJ
-	 frUXOFd/EJf0A==
-Date: Mon, 19 May 2025 00:13:32 +0200
-From: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1747608365; c=relaxed/simple;
+	bh=+Eva8qcuv9Odnfccma4fuDfWxccgGNoaBVubVH7o2xw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lSU3XwF6oODj0uPuqwGM/D/StlZavHUSXFvuTxkA+XoworMn20dY3H7B+fuI9fOsclKoq+FOVcX1WGMFXvl+8c6OP1NhlyqdbqvBliAsQyRkBR1EwrrKbOGHo46fX1pQMfVzrwkxl23sRu17ncD75PtoOhQVA8TlwSCQ6WJ/7HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kpL/eDtb; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-74264d1832eso4980138b3a.0
+        for <linux-man@vger.kernel.org>; Sun, 18 May 2025 15:46:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747608363; x=1748213163; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+jH/OaWPmnKLqoW4XHuh6PaUDdbtM3dsR3vAh/uQ/3M=;
+        b=kpL/eDtbmGEINb0+Z3u/nUcuYmkIRiNMzadbGa8tF99eExItrt3s8KHevHpXIp63xD
+         cuuY48+K/dP99afk5q96Q4HumrTgJDct7BlpMS1pU/DeeZbipWhQEo/Kfza8l1wapC1O
+         aq9acB0QMejRMqSPXxKwg8IVBWyi0YJyU0nqpU0P9QKDt/gca+71zLbX5XvtTAoMo8ZX
+         NnnIesq8i8xoXt4rML82c9t74mmYr3nAynlr4/BJqc3pZMpQwkJWEWxIUCEXnL4t9TDt
+         yrC+7c0yr6H2s7nk1WpfmNBtxCWn6EJ/GJpT6mi4VrRV9fz3EGNt/TYfUQwQFuqeCwjW
+         gQ7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747608363; x=1748213163;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+jH/OaWPmnKLqoW4XHuh6PaUDdbtM3dsR3vAh/uQ/3M=;
+        b=pgCfwTloQPgUMao1okXuB3R4kLH0lnjZsSoYFt2Fe+boeKF+BOixqkSM8nGXEqPoZo
+         bUkg1FOaEpDTqcIK0WQO5lpJMw/rWf2R0WqN+wgO9ec64eld6V7JCEyDZRQSWvPuQBvM
+         VesBQRXVYQmUpSHQ0JEY9Ed7OjJdwSmgsNueT1iGe2OYtN5QKQAFabuERlFDx2wNTra9
+         JqP9mLZ5TU1do57cMZ8BKWugctRXmgt3xhIczRUXSr4QmnFGt1XtGe6lGAlWM7GPdk82
+         2EdOVSWVDym1meYvd6Qj7Z+jSoxhHOEmg6QDLlnLAHDc5N4VdTZo5U3LW13pj7UjJ8HR
+         8rtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUOgy+pyZ7O8CIVUEL+gcJo49kBEeARFVJf7mUV00p5XdAroI2xcoWUhDGF540qjXCHOb18wgWmuT4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNDqX/4J4InCY9FidnFBxErrpZ/Ms8x4qBI0fxS88zyvJeSfvz
+	aLZ2uj91fiOflRr2EhEHnhpohUN1RyYwC9fn0mtggv2UgCHYfTu+krn1dT+png==
+X-Gm-Gg: ASbGncsiDbZ46KtelCBWLsxzpTE6+6UZBhlu4wmNUmrQlhbcd9jU9YAMo73mk5B6uc+
+	yVUYVXuysLTi6oVz7NffRTBUXrEOsCV7x9xNPQs3Tynm1f8lPCne7s/ZB2egmtKPL30+Ht3jRXo
+	FkZ0HJvyOT0tsypcU88mGz6cg69mTdSXK11s+eLqtZvke3a8BupFWioq4ypC2ffFnM/q6VGAgJ7
+	Dt7qazKMq+dBbnmr1KVNH9jhBctCYIEmcv8enSKleZb0jq/QR/gHJhUsgD7UznqqVZRzFHjEW0v
+	3ZcKoxSdOdI3LmD2RcqKk+4nHlj9JIg=
+X-Google-Smtp-Source: AGHT+IHxPIr/9XbEAEVgml2fmGxsqD8oUz4R0Hd82qkt1y7pSpc68K44uD9Ug8xu3QN1DN2u/Mqcdg==
+X-Received: by 2002:a05:6a00:a86:b0:736:a8db:93b4 with SMTP id d2e1a72fcca58-742a97a71d6mr14364743b3a.2.1747608363000;
+        Sun, 18 May 2025 15:46:03 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::9eb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-742a9871517sm5090792b3a.135.2025.05.18.15.46.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 May 2025 15:46:02 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
 To: Mark Harris <mark.hsj@gmail.com>
-Cc: Collin Funk <collin.funk1@gmail.com>, linux-man@vger.kernel.org, 
-	libc-alpha@sourceware.org
+Cc: Alejandro Colomar <alx@kernel.org>,  linux-man@vger.kernel.org,
+  libc-alpha@sourceware.org
 Subject: Re: POSIX.1-2024 requires 64-bit time_t
-Message-ID: <yjoqs5ewvkw73ahznuai5oytla5lfwbrlix46nt5oq5d57pyev@n5gnlojewevo>
+In-Reply-To: <CAMdZqKFyc=cNh-aQVLZ6ovEZurzqSREhY1gx8L0m27f2uS=smw@mail.gmail.com>
 References: <zagbrxifsyor6bxzkqi7b66ixw3q67vez2nng7aqjpykkohph3@plmaq4pfz3yf>
- <87plg5hnb4.fsf@gmail.com>
- <CAMdZqKFyc=cNh-aQVLZ6ovEZurzqSREhY1gx8L0m27f2uS=smw@mail.gmail.com>
- <6ipmw5huiygdt3yhcsahlufnsnm7xfifxlrmlqj5fpjtzi7fvl@bq4ikhcvyqde>
- <CAMdZqKEgXzBKQ6hgHC0Qip1a+h4BthVJ2W_78-TdnnUzbzQO2g@mail.gmail.com>
+	<87plg5hnb4.fsf@gmail.com>
+	<CAMdZqKFyc=cNh-aQVLZ6ovEZurzqSREhY1gx8L0m27f2uS=smw@mail.gmail.com>
+Date: Sun, 18 May 2025 15:46:01 -0700
+Message-ID: <87iklxy1ue.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zebc65lxrak5j3xl"
-Content-Disposition: inline
-In-Reply-To: <CAMdZqKEgXzBKQ6hgHC0Qip1a+h4BthVJ2W_78-TdnnUzbzQO2g@mail.gmail.com>
+Content-Type: text/plain
 
+Mark Harris <mark.hsj@gmail.com> writes:
 
---zebc65lxrak5j3xl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: Collin Funk <collin.funk1@gmail.com>, linux-man@vger.kernel.org, 
-	libc-alpha@sourceware.org
-Subject: Re: POSIX.1-2024 requires 64-bit time_t
-References: <zagbrxifsyor6bxzkqi7b66ixw3q67vez2nng7aqjpykkohph3@plmaq4pfz3yf>
- <87plg5hnb4.fsf@gmail.com>
- <CAMdZqKFyc=cNh-aQVLZ6ovEZurzqSREhY1gx8L0m27f2uS=smw@mail.gmail.com>
- <6ipmw5huiygdt3yhcsahlufnsnm7xfifxlrmlqj5fpjtzi7fvl@bq4ikhcvyqde>
- <CAMdZqKEgXzBKQ6hgHC0Qip1a+h4BthVJ2W_78-TdnnUzbzQO2g@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMdZqKEgXzBKQ6hgHC0Qip1a+h4BthVJ2W_78-TdnnUzbzQO2g@mail.gmail.com>
+> For glibc, all 64-bit platforms, and the most recently added 32-bit
+> platforms (arc, riscv32, or1k), use 64-bit time_t.  All older but
+> still-supported 32-bit platforms (arm, csky, hppa, m68k, microblaze,
+> mips, powerpc, s390, sh, sparc, x86) currently use 32-bit time_t by
+> default but can use 64-bit time_t with -D_TIME_BITS=64.  For musl, all
+> platforms use 64-bit time_t.
 
-On Sun, May 18, 2025 at 03:09:07PM -0700, Mark Harris wrote:
-> On Sun, May 18, 2025 at 3:06=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
-> wrote:
-> >
-> > Hi Mark,
-> >
-> > On Sun, May 18, 2025 at 02:52:30PM -0700, Mark Harris wrote:
-> > > For glibc, all 64-bit platforms, and the most recently added 32-bit
-> > > platforms (arc, riscv32, or1k), use 64-bit time_t.  All older but
-> > > still-supported 32-bit platforms (arm, csky, hppa, m68k, microblaze,
-> > > mips, powerpc, s390, sh, sparc, x86) currently use 32-bit time_t by
-> > > default but can use 64-bit time_t with -D_TIME_BITS=3D64.  For musl, =
-all
-> > > platforms use 64-bit time_t.
-> >
-> > Thanks!
-> >
-> > > POSIX.1-2024 requires that an implementation offer a conforming
-> > > environment that supports 64-bit time_t, but it is also free to offer
-> > > other non-conforming environments that use 32-bit time_t.
-> >
-> > Are you sure?  That's not what I read from the standard.
-> >
-> > POSIX.1-2024 says something like that for other types; for example:
-> >
-> >         The implementation shall support one or more programming
-> >         environments in which the widths of blksize_t, pid_t, size_t,
-> >         ssize_t, and suseconds_t are no greater than the width of type
-> >         long.
-> >
-> > But for time_t it is very strict:
-> >
-> >         time_t shall be an integer type with a width (see <stdint.h>) of
-> >         at least 64 bits.
-> >
-> > It doesn't seem to support such alternate environments for time_t.  Of
-> > course, an implementation is free to not conform, but then it's a non-
-> > conforming implementation.
-> >
-> >
-> > Have a lovely night!
-> > Alex
-> >
-> > --
-> > <https://www.alejandro-colomar.es/>
->=20
-> https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/unistd.h.html
->=20
-> "Implementations may support multiple programming environments with
-> some of them conforming to this standard and some not conforming. The
-> _POSIX_Vn_ILP* and _POSIX_Vn_LP* constants, and corresponding
-> sysconf() and getconf calls, only indicate whether each programming
-> environment is supported; they do not indicate anything about
-> conformance of the environments that are supported. For example, an
-> implementation may support the ILP32_OFF32 environment for legacy
-> reasons with a 32-bit time_t, whereas in a conforming environment
-> time_t is required to have a width of at least 64 bits. Application
-> writers should consult an implementation's POSIX Conformance Document
-> for information about the conformance of each supported programming
-> environment."
+Thanks for the details.
 
-Thanks!  Makes sense.
+I had looked into it and it seemed that time_t was 32-bits where
+__WORD_SIZE == 32.  But it seems I missed the newer 32-bit platforms.
 
-
-Cheers,
-Alex
-
->=20
->  - Mark
-
---=20
-<https://www.alejandro-colomar.es/>
-
---zebc65lxrak5j3xl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgqW4wACgkQ64mZXMKQ
-wqmZzw/+NRI0gqZs6qKEE0CCOsDVIdZHlGtuek76sKwnUUnW8eD0D3bouMdM/tWc
-2vWarViMooC/a3fNqQAi/GXR35/Kj+rCnGVt2h0MheguhRfzM0yqCv5ZUuEad7MT
-z3wnSeZQzlx6QAMRtbfCL173tR0vHy4HU2m1VTqzxDZWnoiJIMCpD3aVf3w2i+iM
-TtIm2klUhg9o4NBH9Iob+oQn0VAAdXy0Aeg7KmT5UBzf7AghaeaNznk46DNmOHRP
-WEs0o6FOM9GwTo8wWEc+kHJalqDnBvxPtIYTCb/ox3+cqCpwUo7cfaa0+493M8ZE
-6JpqyCNjz0bsUIOHu95TGg+icOIF18mLSZBYU7NrXtvdYvcHy3qnQIQlC8yyYdMh
-XSygatyqeRsIKpyxmsuQG0vvjUEw6gfMPqEcNr3K6LP9/KlfW/l+wbHhpB26kKSU
-MmMxOxhidV9dL4E0QRnDqxrgP4k4IYowyerRpfGVN+Ew/QCwgNG+xryoNtSo4XyD
-hUBrXwlA39EBynstpxQ0kGzl4xjnT5499gTNw0g1ZJzNZP/CSYUUip0cam61JfrU
-a/lHHAp4el/ltDry5PVD2MVDvL+LfJGjujg8MlRF+NV4W4v6YMaS5aJwZsfjpm9E
-Ct/Rx5fP+RdzAokb3BMN0C7zisLtaPBnUM4AnLpiZenP+WDdax4=
-=qg2d
------END PGP SIGNATURE-----
-
---zebc65lxrak5j3xl--
+Collin
 
