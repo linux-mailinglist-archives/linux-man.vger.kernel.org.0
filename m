@@ -1,56 +1,59 @@
-Return-Path: <linux-man+bounces-2960-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2961-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2BBAABAE84
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 09:52:38 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA1EEABAE90
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 09:59:00 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8B3663B7D7A
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 07:52:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 81EDD3AAC4C
+	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 07:58:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB5EB1CCEE0;
-	Sun, 18 May 2025 07:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A1B420469E;
+	Sun, 18 May 2025 07:58:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sGiht5n/"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nxGijVnL"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEEE3C30
-	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 07:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3A3204090
+	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 07:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747554754; cv=none; b=M+kaswwdWpGFEkaMMTHGwU8pTkYPxBLochi2SB4tYSpO6CgSwXQCsokdazO8nJjdTpX5fmRNINGbsdWIUW3G3D6s5USEBPtRpquqCdfs1HU9H1LHtrpiQaChtnyGUNQytNNaIeebMSF7bEcl7J/cSmmQnwIc18O7JoH/9YCtYOQ=
+	t=1747555137; cv=none; b=SyRAmJiuVCeSx8gmWrNn5g1ke6I7QBymB04r/I5DWocMnYM5U2KoGpIej4fzkuVekDObByjWYuLSFBCC3cSs3wgKi1npma7u3yL8s4sqHI/TdlvM5PhmFqsZ9Ek97CUOzmJVDGywr8Un2jZ9tK5Sba48emCvnfoiumqEpkX8yqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747554754; c=relaxed/simple;
-	bh=I7cVL7QnPOLRk7Nc9aOSzTmjTggZNTt3Hv9Kli6uMuE=;
+	s=arc-20240116; t=1747555137; c=relaxed/simple;
+	bh=bpx8bUUKXUWIeIh/16pbM3/aL2sbAJfZ8e50uVaQ9h4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VgU7ac6XYHLrdgF5cCyBliQbtgPGfxXDVU/AcOQKoQ77czXmRP70LV2kU3+S8UWifFubnGrAXkHUGydXosJgrMJDq1KSlR2HrMVjXt9uj5q89//0SthThp5ZhSXAPQwbmoUGGDcVrvUbb9PljcwtkHJCqWkI84r8b8sgAKeyrZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sGiht5n/; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBB3C4CEE7;
-	Sun, 18 May 2025 07:52:32 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q27q3HvWwe7CVPF+Y7uOnfsNUMXvztWTd9r0MpnoQxLXKhl7qjKVf2qO1DBlZ7QgRcHeMO8rBt1LWWTUI3TGgvCF9lvadC+yNVe+jV/rgmKCxpbKeAjPQAqtzurhKgzB3pbJk7f+/EnkpAI+YnJHctsqcjDzPAzAP1zhnUNErEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nxGijVnL; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F7EC4CEE7;
+	Sun, 18 May 2025 07:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747554754;
-	bh=I7cVL7QnPOLRk7Nc9aOSzTmjTggZNTt3Hv9Kli6uMuE=;
+	s=k20201202; t=1747555135;
+	bh=bpx8bUUKXUWIeIh/16pbM3/aL2sbAJfZ8e50uVaQ9h4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sGiht5n/L7YPyqcP9sXWCK7+0z/Bf+6l7ttTV/lq4Ku/zJ0VHl+s06bYUFL4uccxt
-	 N1aFL55EnkG1bJ7gzMqy4F7YEtx3cuIUAcQYnQ0f/akjrQISOU9CXKzZiYWMGvMTlg
-	 iB7SXNGf5znrNIaqcIAryQIHQ8he9Fph+Lb+YMxd596bqojznPNCsPhI+dLI2zEVSl
-	 SXITpKhCUsn4zRP3cNJHVFBLcYt8c3kLZKF/tFpqNCV1lVJxPexnrrX8OaF2wWeNg+
-	 LHqyX3pJb5R+EjTsrNIIRyk/TTGBa7UCDmR3TjT1bdqIjm9ElRwEOJHBVByd1OdELU
-	 pNWoq6tD4wmng==
-Date: Sun, 18 May 2025 09:52:29 +0200
+	b=nxGijVnLNzIKdXMz+1/W4ngXms6tSMyo79kDpHqG1sF3Y9FvOdTN8Lvp7gWTimO8l
+	 0UxmBCl5HwX7bgkOkn2U8adqNywDdXelwCsNeKx7R9Lcy7ACRGUHTUYr7Z6m5/vTRh
+	 SQlYlrqlH9oBivB7qLCmYthR47DZmCLztMdNLQ2CMKJdXSdyDtSYrQZovDo6vK81ns
+	 FHik0qjKA4VcvNsUri2gFMcBUHaYCK3+bpru2TDUQzu40Q+F4kI08sq4IFm2GEOc9j
+	 o0h1/PItTAiG6mryIjXPTQ+gHbAj52Px92CP8qxB/Zshq+HeeWHs38ibkTsgLkL/C0
+	 tHwcSQf5iZ4gg==
+Date: Sun, 18 May 2025 09:58:51 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Collin Funk <collin.funk1@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: the correct way to say "POSIX 2024"
-Message-ID: <pdpbbdtjuok3ymbm45sy652gcmokpkci2pfx2mwl2mrcrh34dv@vdiasi2xnlrr>
+Subject: Re: [PATCH 2/3] man/man3/getenv.3: Mention secure_getenv was
+ standardized in POSIX-1.2024
+Message-ID: <cvljded6h7v7vqpu23hdx2f4wl5smsbqsvbkrxjg6nf5sikwhs@42plwr5rowkx>
 References: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
- <dfcy75vkqhlitfddrvbtaufcir3mour2g6cczxstpp32fhkedn@wj7k34u2rk6l>
- <20250517214356.cpueutlfgi6t2enl@illithid>
- <vwkqpnktj54fyu4nligdwcb2pgq6rovxaix6zm23ymcw4awcmt@4t6exody7zlu>
+ <f1cc4b34bb42b09ae9c0820df8fdece6fcebfcd8.1747515178.git.collin.funk1@gmail.com>
+ <ationx4kn5f2d5b76ayyufnjakuy5q3pkgmgq7fagwgakfitar@5l6ty5ftdsrg>
+ <87v7pznd4a.fsf@gmail.com>
+ <aqq7gag27u7kwnltq4zumzjk2wvlsevbevm5lkgr3m2x5rhowf@hdufz4pmli3q>
+ <87msbaop79.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,121 +61,79 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5rtzwncfsonnkeho"
+	protocol="application/pgp-signature"; boundary="xmnpfgtrriqutdp6"
 Content-Disposition: inline
-In-Reply-To: <vwkqpnktj54fyu4nligdwcb2pgq6rovxaix6zm23ymcw4awcmt@4t6exody7zlu>
+In-Reply-To: <87msbaop79.fsf@gmail.com>
 
 
---5rtzwncfsonnkeho
+--xmnpfgtrriqutdp6
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Collin Funk <collin.funk1@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: the correct way to say "POSIX 2024"
+Subject: Re: [PATCH 2/3] man/man3/getenv.3: Mention secure_getenv was
+ standardized in POSIX-1.2024
 References: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
- <dfcy75vkqhlitfddrvbtaufcir3mour2g6cczxstpp32fhkedn@wj7k34u2rk6l>
- <20250517214356.cpueutlfgi6t2enl@illithid>
- <vwkqpnktj54fyu4nligdwcb2pgq6rovxaix6zm23ymcw4awcmt@4t6exody7zlu>
+ <f1cc4b34bb42b09ae9c0820df8fdece6fcebfcd8.1747515178.git.collin.funk1@gmail.com>
+ <ationx4kn5f2d5b76ayyufnjakuy5q3pkgmgq7fagwgakfitar@5l6ty5ftdsrg>
+ <87v7pznd4a.fsf@gmail.com>
+ <aqq7gag27u7kwnltq4zumzjk2wvlsevbevm5lkgr3m2x5rhowf@hdufz4pmli3q>
+ <87msbaop79.fsf@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <vwkqpnktj54fyu4nligdwcb2pgq6rovxaix6zm23ymcw4awcmt@4t6exody7zlu>
+In-Reply-To: <87msbaop79.fsf@gmail.com>
 
-On Sun, May 18, 2025 at 09:12:25AM +0200, Alejandro Colomar wrote:
-> Hi Branden,
->=20
-> On Sat, May 17, 2025 at 04:43:56PM -0500, G. Branden Robinson wrote:
-> > Hi Alex,
-> >=20
-> > At 2025-05-17T23:16:20+0200, Alejandro Colomar wrote:
-> > > On Sat, May 17, 2025 at 01:53:02PM -0700, Collin Funk wrote:
-> > > > +"P2024" indicates that the signal was added or its definition chan=
-ged in
-> > > > +POSIX 2024.
-> > >=20
-> > > This should be "POSIX.1-2024", not "POSIX 2024".
-> >=20
-> > Do you have a supporting reference for this?
->=20
-> Yep.  POSIX itself; see below.
->=20
-> >  I thought that since the
-> > POSIX standard was no longer organized into subdivisions in the way it
-> > was historically (with POSIX.1, POSIX.2, POSIX.4a, and so on), that
-> > "POSIX.1-2004" was something of a misnomer.
-> >=20
-> > I checked <https://www.opengroup.org/austin/>, but that page seems
-> > careful not to use _either_ formulation!  (It instead refers only to
-> > IEEE Std 1003.1-2024.)
->=20
-> In a few places, they use POSIX.1-2024.  They don't do it often, because
-> most of the time they use either IEEE... or just Issue 8, but yesterday
-> while reviewing POSIX to update the manual pages, I remember having seen
-> a mention of "This volume of POSIX.1-2024", and it did indeed surprise
-> me, because I had never seen before POSIX using that term itself before.
-> I can't find it now (don't remember which page it was, and their search
-> engine isn't very useful).  I'll try to download and grep later the HTML
-> sources for that, 'cause I'm curious.
+Hi Collin,
 
-Uhh, it's actually quite common:
+On Sat, May 17, 2025 at 03:19:22PM -0700, Collin Funk wrote:
+> FYI, I left the documentation that ptsname_r returns -1 on Tru64 and
+> HP-UX. I just remembered that this is also the case on FreeBSD where I
+> reported it and it was documented 2 years ago [1]. But it still hasn't
+> been changed [2].
+>=20
+> Do you think that is worth documenting? We have to work around this in
+> Gnulib, for example, so applications can be portable.
 
-	$ grep -rl 'This volume of POSIX.1-2024' \
-	| grep ^functions/ \
-	| wc -l;
-	658
+Do you mean mentioning FreeBSD in VERSIONS?  If so, yes, I think that
+would be useful.
+
+
+Cheers,
+Alex
 
 >=20
-> But trying to find it, I found another page where they use it even more,
-> and it's an introductory one, so it clearly is not something they
-> introduced by accident (which could have been the case of the one I saw
-> yesterday).  See:
+> Collin
 >=20
-> <https://pubs.opengroup.org/onlinepubs/9799919799/mindex.html>
->=20
-> Quoting:
->=20
-> | POSIX.1-2024 is simultaneously IEEE Std 1003.1=E2=84=A2-2024 and The Op=
-en
-> | Group Standard Base Specifications, Issue 8.
-> |
-> | POSIX.1-2024 defines a standard operating system interface and
-> | environment, including a command interpreter (or "shell"), and common
-> | utility programs to support applications portability at the source
-> | code level.  POSIX.1-2024 is intended to be used by both application
-> | developers and system implementors and comprises four major components
-> | (each in an associated volume):
->=20
->=20
-> Have a lovely day!
-> Alex
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
+> [1] https://github.com/freebsd/freebsd-src/commit/a5ed6a815e38d6c622cd97a=
+6020592ded579cf7a
+> [2] https://github.com/freebsd/freebsd-src/blob/6b8222793fbb4c0e162232716=
+bc454dad31b709f/lib/libc/stdlib/ptsname.c#L74
 
 
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---5rtzwncfsonnkeho
+--xmnpfgtrriqutdp6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgpkbUACgkQ64mZXMKQ
-wqmVQhAAix3TDc0jPzehhnpEGNxRjdz3lrXrp1YLpgXwR6KzNNbGg3yMDZuoZWAm
-wDIfNdjb1EZq6y+IHFH5juzlyZA6rPZa6eJviRjM4feUUssjmbKiiiXIc5Ie0GsK
-8PLCcjJFsBVWyyItXwgRqrUE/uhIV1B2fzAXyn5fbMIsexaKDfxwaWPQa49TdLOz
-1yEeSO60K1mXMX6EbgRYkWeSnTI2mJAvQUglY3NjKZ5EkAroU4zaw8Ndwi8gf2b2
-1PtPHb0mXqRTXqsnoaW9be+IsVRPVdhxYL1N8qNTBV9AiSZNboCKMWVmcAX58aDZ
-rG3tCR0IAZZuKbE51T9njzkqLu2YN+2yhZmjfifPq0TTxhBHGTsa9eXzmK6BHqbf
-0esVuDKGocIOSNS86BJhuJL21wMyBQcGqrl7y4C3i5STChZKemvlfbUkrTrMb33h
-Un4aeknKnnvTy8QzNkru9DlcUTufsmQCWM3IB0K464FQ7BAVpLUPMLCcALcMmLAp
-LcEx88LWgIn+97BQ//4cN0sNToAE7KRAEx0OAK8hUdaH4T6Mr2JZKZgDk11VsDpS
-/qBfEKLQQVRB2fNVTHks9B7VlHHmmK8FFb2mSzv3DwZFoJ/Xm6ikrMYq4COaMP1e
-bGQl2FxO/tqGFK54fu5pLjOf2aRMLiwkyBN4osgbjm70+sgX/ZE=
-=UAwc
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgpkzsACgkQ64mZXMKQ
+wqmDIBAAnkchaiWBGPRMx4gPlexdnXegupGNaeVGYF+aA6dnjis1qPQpsda2rY5r
+IRBl8Sui9+f084hEAYdiNShyH1C+TC1Ad72dGiIVqgAX+Ut4cAhlDyo8oQRhLN1Z
+HQMzLY7RVRj/Z+wY5OmigEIIwtwDpGL7kA+2W/TY4Davowot/liH8qFg2eoPR//g
+vmO57J6h1x7J69ldqQ1l+tflLX6SQkBtt2aScJ0wdprUW6dXTxnE6hDQwj4xz6qr
++UThKE/lz7Vn1X8eRkceI5g2Mo+KQ/y9nSLiI9DNIFlQEKV0hrbPnE0+hAXBQvsG
+NraYoxeqKkACDX++IgYQCYnScYlOd631fC0tGirn9rS0BUWQGLdmXe/gluwehhz4
+FIxPs8G5dM+Z5WvOgooNhOUkX4E5znffI5XK0LEVf15Y83kF84YQLGNI1og4kdjK
+xwNLtWBkphXJh1TlQ723uldnMVATqxqrT34PQ1F1/wOeSbhGpI612OOKPaNcQGIM
+bmWhJ8apnr5BP5dc8lnryATdmQLHH45OL9YXBO0xkZywS6LJg4i6NkxUM6qSg/+j
+U3wbdjwvYkDxtOYZntZYstHmI+p8G40ySVGkPPnaZY4esrQMS5utsuIYwffaD4JU
+FekliAm3BrWyLUHRFx8PY4Hf7Ii6/weSdgoPn3IAsFjZkRYmmTM=
+=3yVg
 -----END PGP SIGNATURE-----
 
---5rtzwncfsonnkeho--
+--xmnpfgtrriqutdp6--
 
