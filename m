@@ -1,124 +1,239 @@
-Return-Path: <linux-man+bounces-2977-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2978-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D3B4ABB287
-	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 01:45:21 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0277AABB654
+	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 09:41:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 013261714D7
-	for <lists+linux-man@lfdr.de>; Sun, 18 May 2025 23:45:22 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 965C93B28EF
+	for <lists+linux-man@lfdr.de>; Mon, 19 May 2025 07:40:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF1181B4223;
-	Sun, 18 May 2025 23:45:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24BF7267B71;
+	Mon, 19 May 2025 07:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b="E3lLKNic"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="N6e2NHm2"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811721519BF
-	for <linux-man@vger.kernel.org>; Sun, 18 May 2025 23:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412B0267B86
+	for <linux-man@vger.kernel.org>; Mon, 19 May 2025 07:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747611916; cv=none; b=W6A7Ew1SiKLcIYXzoNf7u1eLDnOUVJQaowg9EFqtc/W+U1GyJiv8wI7T1OBpzr+H2BZtY9l9xMw0uZtWMhttlPcebLb0WEsK8nRdmI/Zn8g8Qc4237HNESSd3EAOTN9nb5LV5pJTT8AJltXYI8IEzfZktGZ8C9TURihW+PbDUm8=
+	t=1747640462; cv=none; b=NLBPJ6B1LrmCS99a1r6Zt7GQhk/QeOsx4gqnH7mwOEVWkD3UlNCTr8jd4v0FmJiMXjLA1KyImn5xpHjFRSnRTpVSK4w9ZnGtrYOwzH55+bSsbKTSIHuTg/KXDljAs4Hg0BnS4KhVyoAlTwKlpvhIFdXFVFtfSfXDSWLuZGtbsVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747611916; c=relaxed/simple;
-	bh=uS7NWKRK/HgzLbbZs1e1jjOgFpGcmSx7lku1Hox+MNg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZ/oA/6GwliK+cqOYVDCwxl9ACu8y8WYrMeAJAa/1BzxZ37uSM5/7drL9iG7CSRSo/vGus6fNfkY+FKw8YoSkmCNP2ZvrRI0O0DTBWGaFaXzD91v4LCgnsU5jxXG+Wg94BDY92n0CWV87dUNwL/TlxBWrjduct/HL1bx3H3H0KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu; spf=pass smtp.mailfrom=dartmouth.edu; dkim=pass (2048-bit key) header.d=dartmouth.edu header.i=@dartmouth.edu header.b=E3lLKNic; arc=none smtp.client-ip=209.85.222.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dartmouth.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dartmouth.edu
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-7c5e39d1db2so236657685a.3
-        for <linux-man@vger.kernel.org>; Sun, 18 May 2025 16:45:14 -0700 (PDT)
+	s=arc-20240116; t=1747640462; c=relaxed/simple;
+	bh=NpOyUU20WfRVbtAi1h7KZf/y5b0OoKizrxrH4IyHq48=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Se1Hrm+KXf9dKl9tAkHAfVn7JXqVGRV+PUm/x4dyZNNou24kNO4ssA/lwRMEgyhyWX1q21NH5+//uDvkdHVnr9ftt/pTGxGRDzCmJ2MtVPz/8ScE+lKkiXkb1lupy4lqvdPGXxDjIadT+T5vuFqprl8RBMn5yszYF/PterJTYBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=N6e2NHm2; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-72c73b2558eso504844a34.3
+        for <linux-man@vger.kernel.org>; Mon, 19 May 2025 00:41:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dartmouth.edu; s=google1; t=1747611913; x=1748216713; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RnoxYDBJYpucUfV+v7cPcU1rdqjUjAgcUKA9/N4GjU8=;
-        b=E3lLKNicLamtVMQpUixfh9JI1zJviTWRURdZ440clli7pWDsA+rnWMz3WASolk+GqO
-         2itU2N54mIejgNKxyz7UCjDdEAYUM6izMlrweZZ9QPbU1IS+tmq2YHwxYEEhWt0Bwwvh
-         PZ5RWFIJbd1hs9EOF8TLf3PL3a0GoBgfTuGO3KZZGRjwmv64dd/WrWqIT6zo7RI/bApp
-         dL/sKTw6ap1dThnBij8CBcv5K1ZTJNc0N5kUJbj8cdlPDD9s/bO3vfUG356TlUdaOnP9
-         IdPPBh+EkdXa/0NiX+5eVoJPrPfWke5/h+RFvXK3Z2GyKSPyHKSuLhBvs5O88fnawwxw
-         zEIg==
+        d=chromium.org; s=google; t=1747640460; x=1748245260; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4mU9qseezHOMRVEvMx1KP+9IVWXwCK5iE9VrQQh+fNE=;
+        b=N6e2NHm2OrUYuyHLOQhtTXwznE6vKbaJb288goeSU7JtSfb+QcRMkXwkTSvHg2iquc
+         0RGJvMd8PAB8CGMM1bGyT97P/NWl0KE0f4CR28R1BpOW1+ghyHwbrG7vMYQjy2PWGKWp
+         Ef3n7aqlnE0s4uHcSi7zi1Vd+cNEHLLMqZuIs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747611913; x=1748216713;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RnoxYDBJYpucUfV+v7cPcU1rdqjUjAgcUKA9/N4GjU8=;
-        b=krGh+0Ho+kzUAjBkdj7gFqIa8+K5s8SNvsTgp9FBbq/isJIEo0Otczh4P7J2xwoM6h
-         HwsVnRU1ghkKbALAxydX0v69nmF5pB6YxoCmw7j2zQdm88R+R+w+z9hQ/Cf2AKj8AFty
-         pUAXjDeiUWd0nK1YhqVLyFX2Y7TA6I0cnkI2jgtBclxmzg16ItvlT02fpXs1uejRGYuS
-         y7ahRhvq4+sKjIlwpWjBbCnEU76wytWjoENoCSf8IEwV45zBuSj6N1G6xKwBrWAMahMG
-         qvTxOAenHMJY9XEtD5JpnQjye5Kf9kpJPJX7ouuOj665JkXExuzCndhJheuQdpOcmQuW
-         jOhw==
-X-Gm-Message-State: AOJu0YwHu/bh0j/9Jf0XgTI6KhZGogXlm6x8Tan5NS3he2Zye+7FQPFq
-	zRn+JcBRg8r5hI7jM070Q2Y0SR4loIUfb5YsOiF3Ud7aRXmHVfp/J2AzUzDe/ixGh8Q=
-X-Gm-Gg: ASbGncv0nXpIsg6VzGQ0vFeaCKVIJrDCR9qvH8sCcTbJrJQxzMz4h+g/nlsYxNVgjS2
-	vTuz1YAH3jhei1B9U9J10ivb7QY/YR7LIFoE3vFRW81jt+9u6Ew1CkYn70h7bEym+bBVKM1dr5F
-	KVPMSX9NfySRA7KOLVppDW1VIp173QYvHrMBIEgMK3+W3cgOgJHj2O8FEnGMf/lv2hQ4XP2lnsQ
-	dS7SimVTTiVgp1D9bzJdON/D1r7YPeA8+YibM6rLQleO42/Tr6f7noMOtHKkAm+a416w/kBsDt0
-	Cj3gG0VJ4UUbVY3Ph+KtCzr7j6Sukf09wLOggC+IUBlCSkbemDIRqV/srcRF8TP8hDYrcU2cSX0
-	zEoEFSQ5TdbwQlMVq
-X-Google-Smtp-Source: AGHT+IFTE+nDP9M52odN6rj9UU0j00J6dIUeePhEL1VxX4Ujwly/o+SWd3JYiXC6NPKHZVivXJQ0xQ==
-X-Received: by 2002:a05:620a:4620:b0:7cd:92:9f48 with SMTP id af79cd13be357-7cd467aedc0mr1591804285a.52.1747611913294;
-        Sun, 18 May 2025 16:45:13 -0700 (PDT)
-Received: from localhost ([129.170.197.122])
-        by smtp.gmail.com with UTF8SMTPSA id af79cd13be357-7cd467bec16sm490346585a.9.2025.05.18.16.45.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 May 2025 16:45:12 -0700 (PDT)
-From: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Subject: [PATCH] man/man2/syscall.2: x86-64 + x32 syscall numbers go in eax
-Date: Sun, 18 May 2025 19:45:07 -0400
-Message-ID: <20250518234507.404608-1-benjamin.p.kallus.gr@dartmouth.edu>
-X-Mailer: git-send-email 2.49.0
+        d=1e100.net; s=20230601; t=1747640460; x=1748245260;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4mU9qseezHOMRVEvMx1KP+9IVWXwCK5iE9VrQQh+fNE=;
+        b=MrbJbf+eEpnFG+twVVU9NrPz7G3ivsCY1yVlVDdwbraVaBa2pmxwnTJn+yy1wxhoNq
+         pPovBqI13ZvrVQxF+I30/suBBQd1jYuIjv1MPyQ3W0XlmspH5YNxC70zTBfVx7v2UTlZ
+         y0pqBY9eGsOp4blHZU3sa4wVoWR7+kq558JF6m4+FWnCSruowX+H9RjtKSFMsgBXrNUf
+         dWzdpC9QwpF+UjtHF7ZtQxBTrqrSEC04PiAq0c9y+sWjr/fdIOc/UdL/Ov3eWt/02IDy
+         9vyPWfZisT5msbUj9X25DkFbLv5FkzUfvDCJ1pNgwSozajyBZ1DoKJ0gHH/XsYttNJWI
+         xtYg==
+X-Gm-Message-State: AOJu0Yy82X0ouKPzgJgKfEyvpx4xpM8pOCUx7qHBd7my7vlsqcdohYFc
+	cqR0xCDSgOwgHgoKp35DjWumjmkr0g9AhiQCj0HRyfSToiRHUJ1bDdBYTy/TwljWbfQE1XdzsKM
+	oDRH+GiL/EBWxxDd0tQAJrWdDwy12cgy1XfOJk+uy
+X-Gm-Gg: ASbGncvVsuL3DmzRjbVqqGRziKZwOekpDxZJa783ttb7U5wO8siz1k/ZNPLEIZJ5dFo
+	dNJvBNfU3NJUj1oekkAhomQHnj1TfxC4h3zLQpzAUMfEJeFRiwepX4X+9RL1XJZYwahX3rShXbM
+	9kim+236+xkfe3snAKJKGFolIGSSRoGNmu3vWt5ZWRHJCzoktHX75vy4RwKmib
+X-Google-Smtp-Source: AGHT+IGZAMf6woFz/p0SXNoKTnpCYOyHjMO1I+1/dThTbiKkv7/4PTgnx9FH/1ig8egydbA5H/2e1mz1qa2voQbOll8=
+X-Received: by 2002:a05:6870:8310:b0:29a:ec04:aa18 with SMTP id
+ 586e51a60fabf-2e3c1c2e2acmr2504129fac.5.1747640460033; Mon, 19 May 2025
+ 00:41:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1739389071.git.amitpinhass@gmail.com> <c45f3d934ec20ec5fc813400a4a56079c2241ed1.1739389071.git.amitpinhass@gmail.com>
+ <wwjzzwjpbh2ayydhorwgs4jhycjgwhxfzlk5tfym7dxx4w7kll@yaspehl62eik>
+ <20250212230210.3kkixsk7bi3cdc4d@illithid> <lvhwk4czikqmx4acydi5t5q3nshvgdipedz6xkt7auvz5mnmwp@auuzri4hvsrn>
+ <gatqfsr5gvyy5iuq7gmlpibawerkcmbg4dl4ahzswbe5bgbec6@xyfht7yewjfv>
+ <20250408124238.2gbis6jq5pdz7yoi@illithid> <7a09c8a5-6329-412e-be41-9950a758e55e@redhat.com>
+ <nfwircxzu43boe5tme6loarzsq2rcecazpuox6eujeqjj6a7rv@nhzkijkx4lix> <2tmwbk6ennuamcvjdqnialvh4ez3zen666qatcklevasimlihu@n7o5hp6aejqp>
+In-Reply-To: <2tmwbk6ennuamcvjdqnialvh4ez3zen666qatcklevasimlihu@n7o5hp6aejqp>
+From: Florent Revest <revest@chromium.org>
+Date: Mon, 19 May 2025 09:40:49 +0200
+X-Gm-Features: AX0GCFvQxEvQJIegmqcu_TSUBnd1SXUV8bUtaenqHJtSvkust9y4dVyzM37R8Zw
+Message-ID: <CABRcYmLmW32ErsaxsYEikbdPEa4UtHLP6RdUD+6CimFcvMV3rw@mail.gmail.com>
+Subject: Re: Removing in-source contribution records contributer
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, "Carlos O'Donell" <carlos@redhat.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The kernel sign-extends eax before dispatching syscalls.
-From arch/x86/entry/entry_64.S:
->	movslq	%eax, %rsi
->	IBRS_ENTER
->	UNTRAIN_RET
->	CLEAR_BRANCH_HISTORY
+On Fri, May 9, 2025 at 2:55=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
+rote:
 >
->	call	do_syscall_64		/* returns with IRQs disabled */
+> Hi all,
+>
+> I've added to BCC everyone whose copyright notices have been removed
+> (those that noted an email).  The full thread for this discussion can be
+> found here:
+> <https://lore.kernel.org/linux-man/jpin2dbnp5vpitnh7l4qmvkamzq3h3xljzsznr=
+udgioox3nn72@57uybxbe3h4p/T/#u>
+>
+> Please let me know if it's okay to you to transform your copyright
+> notices to make them uniform?  That is, do you approve
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=
+=3D9f2986c34166085225bb5606ebfd4952054e1657>
+> in what affects you?
 
-This patch updates syscall.2 to document this. ARM64 exhibits a
-similar behavior (w8 is extended), which is already documented.
+Yes. Thank you!
 
-Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
----
- man/man2/syscall.2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/man/man2/syscall.2 b/man/man2/syscall.2
-index a6b93699c..b946dcc41 100644
---- a/man/man2/syscall.2
-+++ b/man/man2/syscall.2
-@@ -190,8 +190,8 @@ superh	trapa #31	r3	r0	r1	-	4, 6
- sparc/32	t 0x10	g1	o0	o1	psr/csr	1, 6
- sparc/64	t 0x6d	g1	o0	o1	psr/csr	1, 6
- tile	swint1	R10	R00	-	R01	1
--x86-64	syscall	rax	rax	rdx	-	5
--x32	syscall	rax	rax	rdx	-	5
-+x86-64	syscall	eax	rax	rdx	-	5
-+x32	syscall	eax	rax	rdx	-	5
- xtensa	syscall	a2	a2	-	-
- .TE
- .P
--- 
-2.49.0
-
+> I've generated the BCC with
+>
+>         $ git show 9f2986c34166085225bb5606ebfd4952054e1657 -- man \
+>         | grep '^-[^-]' \
+>         | grep @ \
+>         | grep -o '[^     ]*@[^ ]*' \
+>         | sed 's/,//g' \
+>         | sed 's/\.$//' \
+>         | sed 's/.*(//' \
+>         | sed 's/<//' \
+>         | sed 's/>//' \
+>         | sed 's/\.)//' \
+>         | sed 's/)//' \
+>         | sort \
+>         | uniq \
+>         | sed 's/^/Bcc: /';
+>
+>
+> Have a lovely day!
+> Alex
+>
+> On Tue, Apr 08, 2025 at 11:28:29PM +0200, Alejandro Colomar wrote:
+> > Hi Carlos,
+> >
+> > On Tue, Apr 08, 2025 at 04:18:35PM -0400, Carlos O'Donell wrote:
+> > > On 4/8/25 8:42 AM, G. Branden Robinson wrote:
+> > > > Hi Alex,
+> > > >
+> > > > At 2025-04-08T01:05:02+0200, Alejandro Colomar wrote:
+> > > > > On Thu, Feb 13, 2025 at 12:20:58AM +0100, Alejandro Colomar wrote=
+:
+> > > > > > On Wed, Feb 12, 2025 at 05:02:10PM -0600, G. Branden Robinson w=
+rote:
+> > > > > > > If you do this, I suggest you replace these lines with someth=
+ing
+> > > > > > > like:
+> > > > > > >
+> > > > > > > .\" See the Git revision history at
+> > > > > > > .\"   $URL
+> > > > > > > .\" for records of changes and contributors to this file.
+> > > > > >
+> > > > > > Good idea.
+> > > > >
+> > > > > I'm thinking I won't do that.  I don't want to add that overhead =
+to
+> > > > > each page.  People interested in the history of a page will alrea=
+dy
+> > > > > have a look at the git history, and there they'll find the old st=
+ates
+> > > > > of a page, in which they'll find this information.
+> > > > >
+> > > > > And it would require some non-trivial work to add this note
+> > > > > consistently.  I'll go with a removal without replacement, I thin=
+k.
+> > > >
+> > > > Acknowledged.  It's been a whole 7 weeks for so, so I don't clearly
+> > > > remember my reasoning from February, but my suggestion may have bee=
+n at
+> > > > attempt to find a "conservative" alteration to file content or the
+> > > > expressed meaning of the comments.
+> > > >
+> > > > But, what's conservative in one dimension often is not in another, =
+such
+> > > > as "labor required".
+> > > >
+> > > > I also agree that while Git is a complex suite of tools, "git log" =
+is
+> > > > not among its deeper magicks.  At least not when run without argume=
+nts.
+> > >
+> > > We did something similar in glibc and created a CONTRIBUTED-BY file a=
+t the
+> > > top-level and moved all contribution lines out of the respective
+> > > files into the top-level file.
+> >
+> > Yep, a CREDITS file would be interesting.  I wouldn't keep info about
+> > which specific files were written by each contributor.  That seems
+> > something more appripriate for git-log(1).  The pre-git contributions
+> > will be visible in old versions of the pages (i.e., if one sees
+> > Jane Random Developer in CREDITS and wonders which pages she contribute=
+d
+> > to, they can `git log -S 'Jane Random Developer'` and similar commands
+> > to find out.
+> >
+> > Thanks!
+> >
+> >
+> > Have a lovely night!
+> > Alex
+> >
+> > >
+> > > e.g.
+> > > ~~~
+> > > The glibc project stopped adding "Contributed by" lines to source fil=
+es in 2012
+> > > in favour of acknowledging contributors in the glibc manual and throu=
+gh the git
+> > > log.  The record of existing "Contributed by" lines have now been mov=
+ed to this
+> > > file to acknowledge contributions by these developers to glibc.
+> > >
+> > > argp/argp-test.c:
+> > >     Written by Miles Bader <miles@gnu.ai.mit.edu>.
+> > >
+> > > argp/tst-argp1.c:
+> > >     Contributed by Ulrich Drepper <drepper@redhat.com>, 2002.
+> > > ...
+> > > ~~~
+> > > The top-level CONTRIBUTED-BY has ~3,000 Contributed/Written by lines.
+> > >
+> > > Sme of the authors predated the use of git and so it was simpler to k=
+eep the
+> > > lines somewhere as part of the transition away from "Contributed by"-=
+style
+> > > lines.
+> > >
+> > > --
+> > > Cheers,
+> > > Carlos.
+> > >
+> > >
+> >
+> > --
+> > <https://www.alejandro-colomar.es/>
+>
+>
+>
+> --
+> <https://www.alejandro-colomar.es/>
 
