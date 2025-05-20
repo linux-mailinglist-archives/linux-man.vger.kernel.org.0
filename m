@@ -1,82 +1,83 @@
-Return-Path: <linux-man+bounces-2992-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2993-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86811ABE7D2
-	for <lists+linux-man@lfdr.de>; Wed, 21 May 2025 00:59:52 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 868C1ABE7F2
+	for <lists+linux-man@lfdr.de>; Wed, 21 May 2025 01:16:34 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 77E861887319
-	for <lists+linux-man@lfdr.de>; Tue, 20 May 2025 22:59:49 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E402F3A60DC
+	for <lists+linux-man@lfdr.de>; Tue, 20 May 2025 23:16:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 850BE2571A0;
-	Tue, 20 May 2025 22:58:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89FD6219313;
+	Tue, 20 May 2025 23:16:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b="iDCIBznc";
-	dkim=permerror (0-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b="zeWlJxcA"
+	dkim=pass (2048-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b="ZYqUEjMA";
+	dkim=permerror (0-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b="VsFxMocB"
 X-Original-To: linux-man@vger.kernel.org
 Received: from sdaoden.eu (sdaoden.eu [217.144.132.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DA71DB124
-	for <linux-man@vger.kernel.org>; Tue, 20 May 2025 22:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3996BFC0;
+	Tue, 20 May 2025 23:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.144.132.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747781938; cv=none; b=r1ZW/0AUVKTd++SO9++uFzOiSRmIjOT5oByOxVvc4p9uQV+iKFEQCmppw/455Vh+f7EpeXXcjD5CCHB2aIGJZjSOgWw1GEosinsRkgxuNI8pItvQqV7KhGba3oW+0MgTE7mO3nPZMh/S+ptRKW5tAstGrgEiOh3HzbLEDmkkMXI=
+	t=1747782987; cv=none; b=q7+XmipXqvu2aPF/Nh8in5tZTS1lCg1wwAEozlolw2E8J8usQOybp2KZdMJkwpAV92y7rnsmnaFJItQbL98S86RSzETWdWqH+diIHvG5VOV0GTYAw+3osmcve2HGT/+fqQNjUKCKVEIAPtCrQILgPtkd5vXf03m8EWwToDAiZBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747781938; c=relaxed/simple;
-	bh=0ULCelGQYKfLnZxeoya8N4FgOdlb1KlLpVlMJ2rlLAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fJGFx8kPWI4zqMffWgkSMwSub693VcIuoQpYuuwW2Q4ZC/d4ZdpC4LVBNprt5WbW6j3S5pzthaTYGa/tQJLIkveKgKd0tDXoeKwJI0uVpr8CPv/M/mICKkd3EkqROajiGcOR3XZehJwVoG2oOR0GaRkzpYSmG+FESDKMGT8ExaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdaoden.eu; spf=pass smtp.mailfrom=sdaoden.eu; dkim=pass (2048-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b=iDCIBznc; dkim=permerror (0-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b=zeWlJxcA; arc=none smtp.client-ip=217.144.132.164
+	s=arc-20240116; t=1747782987; c=relaxed/simple;
+	bh=MK/VpZWJfqBCuW7H1eVz8cGLKQOA2oawcBTKOaRsW5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References; b=OKAmYRaHELTeHX4VgVZPnSOhLyWUdpas2EXlCZR43/XHr+Y01Dwd8GqRhD4+uRFDSzO654BI0IYEecpkY26zSn/20ZmkrChC7g+wLdnfE0XMWJ/uJQpmuIHlxpZllZ+Ay3qNZnLmsrG/wUDDXKF6WqL5SRgvfkfE3Zecc2Sos5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdaoden.eu; spf=pass smtp.mailfrom=sdaoden.eu; dkim=pass (2048-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b=ZYqUEjMA; dkim=permerror (0-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b=VsFxMocB; arc=none smtp.client-ip=217.144.132.164
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdaoden.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sdaoden.eu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sdaoden.eu;
- s=citron; t=1747781925; x=1748448591; h=date:author:from:to:cc:subject:
+ s=citron; t=1747782982; x=1748449648; h=date:author:from:to:cc:subject:
   message-id:in-reply-to:references:mail-followup-to:openpgp:blahblahblah:
-  mime-version:content-type:content-transfer-encoding:author:from:subject:
-  date:to:cc:resent-author:resent-date:resent-from:resent-sender:resent-to:
-  resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
-  mime-version:content-type:content-transfer-encoding:content-disposition:
-  content-id:content-description:message-id:mail-followup-to:openpgp:
-  blahblahblah; bh=P25C+P4aFs2wfLYokObCtzCKdKpepzEvZcQmKSXxjkw=;
- b=iDCIBzncmnAz+6KbDQrDpO7YO9nchJHag5AFHHU6quZdrQJqWBbXFy3Gogluu26Fkj4d1dPL
-  Ftxyq/q38BJQJ/d/oSW/vNWrCijplccHHPMI6o5jeMTU2K/96bAYvPcgt6Er0dInAuU1j/MQ7R
-  Yd+CN6WAoNc0sEfkNkh1QtzyetuHc0e/PPY1t6JoFCCmtrgIa8R4eTX4oqrdY5L6q1kvxh3FUQ
-  111rcjRCeQUzIu92+Hjpl4OUNEGrxUYHUKGsPtoRpLKRwOb4yo63bWTz7KyWLQz+8KKxystfkN
-  HKULo6xNvOGMQNv1prNnL8MEy32FnV3+IF1dRYq9+jENY+eg==
+  author:from:subject:date:to:cc:resent-author:resent-date:resent-from:
+  resent-sender:resent-to:resent-cc:resent-reply-to:resent-message-id:
+  in-reply-to:references:mime-version:content-type:
+  content-transfer-encoding:content-disposition:content-id:
+  content-description:message-id:mail-followup-to:openpgp:blahblahblah;
+ bh=UZNlL0lcrAivMwkKPqW6s8kNByEqDFqjggCA6UmPnhE=;
+ b=ZYqUEjMAZLD3lEZHKABkG86KxUroPOUNsyLsL7uqPOAsdacKgEbXISL8ipOSdsaHAZS8p14M
+  kBrbFbMI+gCum031i84JR3D7y6qzehfLaEVFE1WX6l0FwMZeVMhLjj4cx/NI9RLyx9oCDqW9L9
+  UM28C2nHXyUo35nO66ZKjvE91itof4a1IkBtEu1vAnZw40bzJ+cGzTueeCbgD8KOsqPLpHj0H5
+  CgcTJA83h8D8lAupfNf7Wz4pKRt4ahZF5JyOKDZhiXZ7PvpGOvMYIR6yGLZTIjZK4sWhdjpIJK
+  Pq4taqKP0cicrbZZ+aeUMPC4vmIGvKMXQ42+NUhVL+odsS7A==
 DKIM-Signature: v=1; a=adaed25519-sha256; c=relaxed/relaxed; d=sdaoden.eu;
- s=orange; t=1747781925; x=1748448591; h=date:author:from:to:cc:subject:
+ s=orange; t=1747782982; x=1748449648; h=date:author:from:to:cc:subject:
   message-id:in-reply-to:references:mail-followup-to:openpgp:blahblahblah:
-  mime-version:content-type:content-transfer-encoding:author:from:subject:
-  date:to:cc:resent-author:resent-date:resent-from:resent-sender:resent-to:
-  resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
-  mime-version:content-type:content-transfer-encoding:content-disposition:
-  content-id:content-description:message-id:mail-followup-to:openpgp:
-  blahblahblah; bh=P25C+P4aFs2wfLYokObCtzCKdKpepzEvZcQmKSXxjkw=;
- b=zeWlJxcAb8ArHtf3Woj0jqqsKNo/pUpJPoYBb3ySZWe1CUVkYFGRACYebLYcJmmUgHZ5bieZ
-  kMlV7rWCknMjCQ==
-Date: Wed, 21 May 2025 00:58:43 +0200
+  author:from:subject:date:to:cc:resent-author:resent-date:resent-from:
+  resent-sender:resent-to:resent-cc:resent-reply-to:resent-message-id:
+  in-reply-to:references:mime-version:content-type:
+  content-transfer-encoding:content-disposition:content-id:
+  content-description:message-id:mail-followup-to:openpgp:blahblahblah;
+ bh=UZNlL0lcrAivMwkKPqW6s8kNByEqDFqjggCA6UmPnhE=;
+ b=VsFxMocBzJ8B6ZiIHzPbhYZDBUauv6elnWKGqJWpn5sIrX5W2zHWWPsF9RY6ZV3noOKtnMFN
+  W9UWrUTeC8O4DA==
+Date: Wed, 21 May 2025 01:16:20 +0200
 Author: Steffen Nurpmeso <steffen@sdaoden.eu>
 From: Steffen Nurpmeso <steffen@sdaoden.eu>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
- Christopher Bazley <chris.bazley.wg14@gmail.com>,
- Martin Uecker <uecker@tugraz.at>, Steffen Nurpmeso <steffen@sdaoden.eu>
-Subject: Re: man-pages: mbrtowc: misleading
-Message-ID: <20250520225843.9iNAs_t5@steffen%sdaoden.eu>
-In-Reply-To: <o4cono3dihpf42xr2je6qxjkc4tgp52sgo2ckcrthm3466s73g@2eqwyp3qlskl>
-References: <20250518013401.seThfADR@steffen%sdaoden.eu>
- <atdny7g2j5caim4oz2qgcqfpt43y5th2vuoyyy2qlqgdpivxez@y2bjsgm3jttt>
- <20250519135221.5a48Joxu@steffen%sdaoden.eu>
- <gxghgfhmtz2w6sen7c3gl5or624wkrb5gluafjt77otrpzxh2u@tkqkqs6fjizd>
- <20250519222653.8aL97Par@steffen%sdaoden.eu>
- <o4cono3dihpf42xr2je6qxjkc4tgp52sgo2ckcrthm3466s73g@2eqwyp3qlskl>
-Mail-Followup-To: Alejandro Colomar <alx@kernel.org>,
- linux-man@vger.kernel.org,
- Christopher Bazley <chris.bazley.wg14@gmail.com>,
- Martin Uecker <uecker@tugraz.at>, Steffen Nurpmeso <steffen@sdaoden.eu>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: Jan Kara <jack@suse.cz>, Alejandro Colomar <alx@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+ Steffen Nurpmeso <steffen@sdaoden.eu>
+Subject: Re: close(2) with EINTR has been changed by POSIX.1-2024
+Message-ID: <20250520231620.EN4cjagk@steffen%sdaoden.eu>
+In-Reply-To: <20250520133705.GE38098@mit.edu>
+References: <fskxqmcszalz6dmoak6de4c7bxt4juvc5zrpboae4dqw4y6aih@lskezjrbnsws>
+ <ddqmhjc2rpzk2jjvunbt3l3eukcn4xzkocqzdg3j4msihdhzko@fizekvxndg2d>
+ <20250516124147.GB7158@mit.edu> <20250519231919.StJ5Lkhr@steffen%sdaoden.eu>
+ <20250520133705.GE38098@mit.edu>
+Mail-Followup-To: "Theodore Ts'o" <tytso@mit.edu>,
+ Jan Kara <jack@suse.cz>, Alejandro Colomar <alx@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+ Steffen Nurpmeso <steffen@sdaoden.eu>
 User-Agent: s-nail v14.9.25-653-gb160e2cb86
 OpenPGP: id=EE19E1C1F2F7054F8D3954D8308964B51883A0DD;
  url=https://ftp.sdaoden.eu/steffen.asc; preference=signencrypt
@@ -87,110 +88,74 @@ X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hello Alejandro, all,
-
-Alejandro Colomar wrote in
- <o4cono3dihpf42xr2je6qxjkc4tgp52sgo2ckcrthm3466s73g@2eqwyp3qlskl>:
- |On Tue, May 20, 2025 at 12:26:53AM +0200, Steffen Nurpmeso wrote:
- |> Alejandro Colomar wrote in
- |>  <gxghgfhmtz2w6sen7c3gl5or624wkrb5gluafjt77otrpzxh2u@tkqkqs6fjizd>:
- |>|On Mon, May 19, 2025 at 03:52:21PM +0200, Steffen Nurpmeso wrote:
- |>|> Alejandro Colomar wrote in
- |>|>  <atdny7g2j5caim4oz2qgcqfpt43y5th2vuoyyy2qlqgdpivxez@y2bjsgm3jttt>:
- |>|>|On Sun, May 18, 2025 at 03:34:01AM +0200, Steffen Nurpmeso wrote:
- |>|>|> "man 3p mbrtowc" is great, but "man 3 mbrtowc" says for the -2
- |>|>|> return that "meaning that n should be increased".  However, "n"
- |>|>|> bytes were consumed; more data is needed, that is true.
-
-[shortening this]
-
-  ..
- |> -.BI "size_t mbrtowc(size_t " n ;
- |> -.BI "               wchar_t *restrict " pwc ", const char " s "[restri=
-c\
- |> t " n ],
- |> +.BI "size_t mbrtowc(wchar_t *restrict " pwc ", const char " s "[restri=
-c\
- |> t " n ],
- |>  .BI "               size_t " n ", mbstate_t *restrict " ps );
+Theodore Ts'o wrote in
+ <20250520133705.GE38098@mit.edu>:
+ |On Tue, May 20, 2025 at 01:19:19AM +0200, Steffen Nurpmeso wrote:
+ |> They could not do otherwise than talking the status quo, i think.
+ |> They have explicitly added posix_close() which overcomes the
+ |> problem (for those operating systems which actually act like
+ |> that).  There is a long RATIONALE on this, it starts on page 747 :)
  |
- |You can't use 'n' before declaration.
+ |They could have just added posix_close() which provided well-defined
+ |semantics without demanding that existing implementations make
+ |non-backwards compatible changes to close(2).  Personally, while they
+ |were adding posix_close(2) they could have also fixed the disaster
+ |which is the semantics around close(2) [.]
 
-..if you want the prototype from the manual to be compileable ..
+Well it was a lot of trouble, not only in bug 529[1], with
+follow-ups like a thread started by Michael Kerrisk, with an
+interesting response by Rich Felker of Musl[2].
+In [1] Erik Blake of RedHat/libvirt said for example
 
- | alx@devuan:~$ cat << __EOF__ | gcc -S -x c /dev/stdin
- | #include <wchar.h>
- | #include <stddef.h>
- |      size_t mbrtowc(size_t n;
- |       wchar_t *restrict pwc, const char s[restrict n],
- |       size_t n, mbstate_t *restrict ps);
- | __EOF__
- | alx@devuan:~$ cat << __EOF__ | gcc -S -x c /dev/stdin
- | #include <wchar.h>
- | #include <stddef.h>
- |      size_t mbrtowc(=20
- |       wchar_t *restrict pwc, const char s[restrict n],
- |       size_t n, mbstate_t *restrict ps);
- | __EOF__
- | /dev/stdin:4:66: error: =E2=80=98n=E2=80=99 undeclared here (not in a fu=
-nction)
+  The Linux kernel currently always frees the file descriptor (no
+  chance for a retry; the filedes can immediately be reused by
+  another open()), for both EINTR and EIO. Maybe it is safer to
+  state that the fd is _always_ closed, even if failure is
+  reported?
 
-You want to.  To remark that i mostly work with tcc(1) during
-development, and was used to use pcc(1) once that still worked
-(and was developed).
+etc, but Geoff Clare then (this also was in 2012, where one
+possibly could have hoped that more operating systems survive /
+continue with money/manpower backing by serious companies; just
+in case that mattered) came via
 
-  x.c:3: error: ',' expected (got ";")
+  HP got it right with HP-UX; AIX and Linux do the wrong thing.
 
-This extension totally escaped not only me alone.
-It .. seems it could be made backward portable with some macro
-compatibility shims.  (Like PARAMFWD() and PARAMUSE() or what.)
+and he has quite some reasoning for descriptors like ttys etc,
+where close can linger, which resulted in Erik Blake quoting
 
-How is this actually implemented?  To me that "s" is a pointer,
-and i am thus used to not use [] syntax for myself.  In fact
-i always got angry if i did write xy[SOME_NAMED_CONSTANT], and
-then that meant nothing to the compiler!  Ie if constant is 10 and
-i pass a stack buffer of 4 .. no warning and nothing.  I hope the
-above is not implemented as requiring exact match lenghts.  Well.
+  Let me make it very, very clear - no matter how many times these
+  guys assert HP-UX insane behaviour correct, no "fixes" to Linux
+  one are going to be accepted.  Consider it vetoed.  By me, in
+  role of Linux VFS maintainer.  And I'm _very_ certain that
+  getting Linus to agree will be a matter of minutes.
 
- |>  .fi
- |>  .SH DESCRIPTION
- |> @@ -161,10 +160,10 @@ if an invalid multibyte sequence was
- |>  encountered.
- |>  It returns
- |>  .I "(size_t)\ \-2"
- |> -if it couldn't parse a complete multibyte
- |> -character, meaning that
- |> +if the consumed
- |>  .I n
- |> -should be increased.
- |> +bytes form a valid partial character sequence:
+  [1] https://www.austingroupbugs.net/view.php?id=529
+  [2] https://www.mail-archive.com/austin-group-l@opengroup.org/msg00579.html
+
+ |[.] and how advisory locks get
+ |released that were held by other file descriptors and add a profound
+ |apologies over the insane semantics demanded by POSIX[1].
+
+The new standard added the Linux-style F_OFD_* fcntl(2) locks!
+They are yet Linux-only, but NetBSD at least has an issue by
+a major contributor (bug 59241):
+
+  NetBSD seems to lack the following:
+
+  3.237 OFD-Owned File Lock
+  ...
+  https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html#tag_03_237
+  >How-To-Repeat:
+  standards inspection
+  >Fix:
+  Yes, please!  (That or write down a reason why we eschew it.)
+
+ |[1] "POSIX advisory locks are broken by design."
+ |    https://www.sqlite.org/src/artifact/c230a7a24?ln=994-1081
  |
- |I think ';' is more appropriate than ':'.  What do you think?
-
-Sure!
-
-diff --git a/man/man3/mbrtowc.3 b/man/man3/mbrtowc.3
-index bdd26af64f..68c66efaaa 100644
---- a/man/man3/mbrtowc.3
-+++ b/man/man3/mbrtowc.3
-@@ -161,10 +161,10 @@ if an invalid multibyte sequence was
- encountered.
- It returns
- .I "(size_t)\ \-2"
--if it couldn't parse a complete multibyte
--character, meaning that
-+if the consumed
- .I n
--should be increased.
-+bytes form a valid partial character sequence;
-+more subsequent data needs to be fed in.
- .SH ATTRIBUTES
- For an explanation of the terms used in this section, see
- .BR attributes (7).
+ |     - Ted
+ --End of <20250520133705.GE38098@mit.edu>
 
 --steffen
 |
