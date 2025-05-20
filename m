@@ -1,166 +1,259 @@
-Return-Path: <linux-man+bounces-2993-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2994-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 868C1ABE7F2
-	for <lists+linux-man@lfdr.de>; Wed, 21 May 2025 01:16:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9BD5ABE80F
+	for <lists+linux-man@lfdr.de>; Wed, 21 May 2025 01:31:53 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E402F3A60DC
-	for <lists+linux-man@lfdr.de>; Tue, 20 May 2025 23:16:13 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 57D543B16D0
+	for <lists+linux-man@lfdr.de>; Tue, 20 May 2025 23:31:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89FD6219313;
-	Tue, 20 May 2025 23:16:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D52D2219301;
+	Tue, 20 May 2025 23:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b="ZYqUEjMA";
-	dkim=permerror (0-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b="VsFxMocB"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUHbR7At"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sdaoden.eu (sdaoden.eu [217.144.132.164])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3996BFC0;
-	Tue, 20 May 2025 23:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.144.132.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92848BA36
+	for <linux-man@vger.kernel.org>; Tue, 20 May 2025 23:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747782987; cv=none; b=q7+XmipXqvu2aPF/Nh8in5tZTS1lCg1wwAEozlolw2E8J8usQOybp2KZdMJkwpAV92y7rnsmnaFJItQbL98S86RSzETWdWqH+diIHvG5VOV0GTYAw+3osmcve2HGT/+fqQNjUKCKVEIAPtCrQILgPtkd5vXf03m8EWwToDAiZBY=
+	t=1747783909; cv=none; b=QVH5qMW1Fv5RC64hL/NlapIc5Q0nN7D4tKtaW0TMlb4RdmtoDlQr5R/BmOyaK71WZYTkEh7oAEbYo2Hizqp3ibxh3/V8g7GhiSQrIIwLiDtWq2SNXWN5dOhRY+q+g7K9n17nPS9UQap8P099wZHn75Jqz6oytu5HNCAvi1uUgVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747782987; c=relaxed/simple;
-	bh=MK/VpZWJfqBCuW7H1eVz8cGLKQOA2oawcBTKOaRsW5Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References; b=OKAmYRaHELTeHX4VgVZPnSOhLyWUdpas2EXlCZR43/XHr+Y01Dwd8GqRhD4+uRFDSzO654BI0IYEecpkY26zSn/20ZmkrChC7g+wLdnfE0XMWJ/uJQpmuIHlxpZllZ+Ay3qNZnLmsrG/wUDDXKF6WqL5SRgvfkfE3Zecc2Sos5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdaoden.eu; spf=pass smtp.mailfrom=sdaoden.eu; dkim=pass (2048-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b=ZYqUEjMA; dkim=permerror (0-bit key) header.d=sdaoden.eu header.i=@sdaoden.eu header.b=VsFxMocB; arc=none smtp.client-ip=217.144.132.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sdaoden.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sdaoden.eu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sdaoden.eu;
- s=citron; t=1747782982; x=1748449648; h=date:author:from:to:cc:subject:
-  message-id:in-reply-to:references:mail-followup-to:openpgp:blahblahblah:
-  author:from:subject:date:to:cc:resent-author:resent-date:resent-from:
-  resent-sender:resent-to:resent-cc:resent-reply-to:resent-message-id:
-  in-reply-to:references:mime-version:content-type:
-  content-transfer-encoding:content-disposition:content-id:
-  content-description:message-id:mail-followup-to:openpgp:blahblahblah;
- bh=UZNlL0lcrAivMwkKPqW6s8kNByEqDFqjggCA6UmPnhE=;
- b=ZYqUEjMAZLD3lEZHKABkG86KxUroPOUNsyLsL7uqPOAsdacKgEbXISL8ipOSdsaHAZS8p14M
-  kBrbFbMI+gCum031i84JR3D7y6qzehfLaEVFE1WX6l0FwMZeVMhLjj4cx/NI9RLyx9oCDqW9L9
-  UM28C2nHXyUo35nO66ZKjvE91itof4a1IkBtEu1vAnZw40bzJ+cGzTueeCbgD8KOsqPLpHj0H5
-  CgcTJA83h8D8lAupfNf7Wz4pKRt4ahZF5JyOKDZhiXZ7PvpGOvMYIR6yGLZTIjZK4sWhdjpIJK
-  Pq4taqKP0cicrbZZ+aeUMPC4vmIGvKMXQ42+NUhVL+odsS7A==
-DKIM-Signature: v=1; a=adaed25519-sha256; c=relaxed/relaxed; d=sdaoden.eu;
- s=orange; t=1747782982; x=1748449648; h=date:author:from:to:cc:subject:
-  message-id:in-reply-to:references:mail-followup-to:openpgp:blahblahblah:
-  author:from:subject:date:to:cc:resent-author:resent-date:resent-from:
-  resent-sender:resent-to:resent-cc:resent-reply-to:resent-message-id:
-  in-reply-to:references:mime-version:content-type:
-  content-transfer-encoding:content-disposition:content-id:
-  content-description:message-id:mail-followup-to:openpgp:blahblahblah;
- bh=UZNlL0lcrAivMwkKPqW6s8kNByEqDFqjggCA6UmPnhE=;
- b=VsFxMocBzJ8B6ZiIHzPbhYZDBUauv6elnWKGqJWpn5sIrX5W2zHWWPsF9RY6ZV3noOKtnMFN
-  W9UWrUTeC8O4DA==
-Date: Wed, 21 May 2025 01:16:20 +0200
-Author: Steffen Nurpmeso <steffen@sdaoden.eu>
-From: Steffen Nurpmeso <steffen@sdaoden.eu>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: Jan Kara <jack@suse.cz>, Alejandro Colomar <alx@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-api@vger.kernel.org, linux-man@vger.kernel.org,
- Steffen Nurpmeso <steffen@sdaoden.eu>
-Subject: Re: close(2) with EINTR has been changed by POSIX.1-2024
-Message-ID: <20250520231620.EN4cjagk@steffen%sdaoden.eu>
-In-Reply-To: <20250520133705.GE38098@mit.edu>
-References: <fskxqmcszalz6dmoak6de4c7bxt4juvc5zrpboae4dqw4y6aih@lskezjrbnsws>
- <ddqmhjc2rpzk2jjvunbt3l3eukcn4xzkocqzdg3j4msihdhzko@fizekvxndg2d>
- <20250516124147.GB7158@mit.edu> <20250519231919.StJ5Lkhr@steffen%sdaoden.eu>
- <20250520133705.GE38098@mit.edu>
-Mail-Followup-To: "Theodore Ts'o" <tytso@mit.edu>,
- Jan Kara <jack@suse.cz>, Alejandro Colomar <alx@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-api@vger.kernel.org, linux-man@vger.kernel.org,
- Steffen Nurpmeso <steffen@sdaoden.eu>
-User-Agent: s-nail v14.9.25-653-gb160e2cb86
-OpenPGP: id=EE19E1C1F2F7054F8D3954D8308964B51883A0DD;
- url=https://ftp.sdaoden.eu/steffen.asc; preference=signencrypt
-BlahBlahBlah: Any stupid boy can crush a beetle. But all the professors in
- the world can make no bugs.
+	s=arc-20240116; t=1747783909; c=relaxed/simple;
+	bh=Sso6VbnwDMljVPwiqNfcAkF/mxksDC+3nQ0oNZVMGEI=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZKfZQMk/hMUYg+y/DsDmfadcjPxmn331mB/TpuwvOJOftH90HyH5oFXH1BAWTH4qepE7Mp+tl/X9edm+m2jiUn1LqmhELHpeXFukmCW+9jmL5S15YsuWJVWpUsvf3k8bP/fgRvwYo+RrlIjMHfDdhdoaf2h0UXBg+U3JA+bQvDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUHbR7At; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147E9C4CEE9;
+	Tue, 20 May 2025 23:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1747783909;
+	bh=Sso6VbnwDMljVPwiqNfcAkF/mxksDC+3nQ0oNZVMGEI=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=ZUHbR7AtIahjP2SWsZaUwrmdky+bhCVczkLEzpp/U20l37wpve49T/XnWbZupdWzm
+	 pUuRx9UKAioexMrr5ogFcUaE6ueJkeg7CJXmUrw8xz/HzraCnqmv3euHQv7RyiHJKa
+	 An9L/vN3cTctH8mRzW6b0MT25z+lMoggqo3gSgswcb9ZFeJMJ9rkpotUVR5D6u+lpB
+	 IA+iaRPbLR0tVtjFGUd68x5IKOk34hMwc5/8c3SYncA9Kbfzj5xzfggBqZf6kCJWOg
+	 u+2o5edfe5FS3JfYL0U4UYLzrIsdC6cZh5ncPc/aLP6r2yzFMYDYWyD+ptKG7BsCPx
+	 kGhJjFNCmq54w==
+Date: Wed, 21 May 2025 01:31:45 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org, 
+	Christopher Bazley <chris.bazley.wg14@gmail.com>, Martin Uecker <uecker@tugraz.at>, 
+	Steffen Nurpmeso <steffen@sdaoden.eu>
+Subject: Re: man-pages: mbrtowc: misleading
+Message-ID: <7qtghvrlhi2n43swmagyjvmzogvmzybhv2hty5tia6gqvr67oz@w6qu46fcn34h>
+References: <20250518013401.seThfADR@steffen%sdaoden.eu>
+ <atdny7g2j5caim4oz2qgcqfpt43y5th2vuoyyy2qlqgdpivxez@y2bjsgm3jttt>
+ <20250519135221.5a48Joxu@steffen%sdaoden.eu>
+ <gxghgfhmtz2w6sen7c3gl5or624wkrb5gluafjt77otrpzxh2u@tkqkqs6fjizd>
+ <20250519222653.8aL97Par@steffen%sdaoden.eu>
+ <o4cono3dihpf42xr2je6qxjkc4tgp52sgo2ckcrthm3466s73g@2eqwyp3qlskl>
+ <20250520225843.9iNAs_t5@steffen%sdaoden.eu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xhggpfue44s4bt4a"
+Content-Disposition: inline
+In-Reply-To: <20250520225843.9iNAs_t5@steffen%sdaoden.eu>
 
-Theodore Ts'o wrote in
- <20250520133705.GE38098@mit.edu>:
- |On Tue, May 20, 2025 at 01:19:19AM +0200, Steffen Nurpmeso wrote:
- |> They could not do otherwise than talking the status quo, i think.
- |> They have explicitly added posix_close() which overcomes the
- |> problem (for those operating systems which actually act like
- |> that).  There is a long RATIONALE on this, it starts on page 747 :)
- |
- |They could have just added posix_close() which provided well-defined
- |semantics without demanding that existing implementations make
- |non-backwards compatible changes to close(2).  Personally, while they
- |were adding posix_close(2) they could have also fixed the disaster
- |which is the semantics around close(2) [.]
 
-Well it was a lot of trouble, not only in bug 529[1], with
-follow-ups like a thread started by Michael Kerrisk, with an
-interesting response by Rich Felker of Musl[2].
-In [1] Erik Blake of RedHat/libvirt said for example
+--xhggpfue44s4bt4a
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org, 
+	Christopher Bazley <chris.bazley.wg14@gmail.com>, Martin Uecker <uecker@tugraz.at>, 
+	Steffen Nurpmeso <steffen@sdaoden.eu>
+Subject: Re: man-pages: mbrtowc: misleading
+References: <20250518013401.seThfADR@steffen%sdaoden.eu>
+ <atdny7g2j5caim4oz2qgcqfpt43y5th2vuoyyy2qlqgdpivxez@y2bjsgm3jttt>
+ <20250519135221.5a48Joxu@steffen%sdaoden.eu>
+ <gxghgfhmtz2w6sen7c3gl5or624wkrb5gluafjt77otrpzxh2u@tkqkqs6fjizd>
+ <20250519222653.8aL97Par@steffen%sdaoden.eu>
+ <o4cono3dihpf42xr2je6qxjkc4tgp52sgo2ckcrthm3466s73g@2eqwyp3qlskl>
+ <20250520225843.9iNAs_t5@steffen%sdaoden.eu>
+MIME-Version: 1.0
+In-Reply-To: <20250520225843.9iNAs_t5@steffen%sdaoden.eu>
 
-  The Linux kernel currently always frees the file descriptor (no
-  chance for a retry; the filedes can immediately be reused by
-  another open()), for both EINTR and EIO. Maybe it is safer to
-  state that the fd is _always_ closed, even if failure is
-  reported?
+Hello Steffen,
 
-etc, but Geoff Clare then (this also was in 2012, where one
-possibly could have hoped that more operating systems survive /
-continue with money/manpower backing by serious companies; just
-in case that mattered) came via
+On Wed, May 21, 2025 at 12:58:43AM +0200, Steffen Nurpmeso wrote:
+>   ..
+>  |> -.BI "size_t mbrtowc(size_t " n ;
+>  |> -.BI "               wchar_t *restrict " pwc ", const char " s "[rest=
+ric\
+>  |> t " n ],
+>  |> +.BI "size_t mbrtowc(wchar_t *restrict " pwc ", const char " s "[rest=
+ric\
+>  |> t " n ],
+>  |>  .BI "               size_t " n ", mbstate_t *restrict " ps );
+>  |
+>  |You can't use 'n' before declaration.
+>=20
+> ..if you want the prototype from the manual to be compileable ..
 
-  HP got it right with HP-UX; AIX and Linux do the wrong thing.
+It's not so much that I want it to be compileable, but I'm worried that
+if I use parameters before declaration, some people might be fooled to
+think that this is legal C, and they may use it in their code.  And if
+they're unlucky, that might even work (if they have a global variable
+with that name), which might be problematic.
 
-and he has quite some reasoning for descriptors like ttys etc,
-where close can linger, which resulted in Erik Blake quoting
+With the GNU extension, we get either something that works (if the
+reader uses GCC/Clang), or something that clearly errors out.
 
-  Let me make it very, very clear - no matter how many times these
-  guys assert HP-UX insane behaviour correct, no "fixes" to Linux
-  one are going to be accepted.  Consider it vetoed.  By me, in
-  role of Linux VFS maintainer.  And I'm _very_ certain that
-  getting Linus to agree will be a matter of minutes.
+>=20
+>  | alx@devuan:~$ cat << __EOF__ | gcc -S -x c /dev/stdin
+>  | #include <wchar.h>
+>  | #include <stddef.h>
+>  |      size_t mbrtowc(size_t n;
+>  |       wchar_t *restrict pwc, const char s[restrict n],
+>  |       size_t n, mbstate_t *restrict ps);
+>  | __EOF__
+>  | alx@devuan:~$ cat << __EOF__ | gcc -S -x c /dev/stdin
+>  | #include <wchar.h>
+>  | #include <stddef.h>
+>  |      size_t mbrtowc(=20
+>  |       wchar_t *restrict pwc, const char s[restrict n],
+>  |       size_t n, mbstate_t *restrict ps);
+>  | __EOF__
+>  | /dev/stdin:4:66: error: =E2=80=98n=E2=80=99 undeclared here (not in a =
+function)
+>=20
+> You want to.  To remark that i mostly work with tcc(1) during
+> development, and was used to use pcc(1) once that still worked
+> (and was developed).
+>=20
+>   x.c:3: error: ',' expected (got ";")
+>=20
+> This extension totally escaped not only me alone.
+> It .. seems it could be made backward portable with some macro
+> compatibility shims.  (Like PARAMFWD() and PARAMUSE() or what.)
 
-  [1] https://www.austingroupbugs.net/view.php?id=529
-  [2] https://www.mail-archive.com/austin-group-l@opengroup.org/msg00579.html
+Yep, macros should allow this.  On the other hand, I'm personally find
+such code to be totally backwards.  The fwd declarations are for
+improving the readability, but with those, the readability is lost, and
+I'd rather use plain pointer notation.
 
- |[.] and how advisory locks get
- |released that were held by other file descriptors and add a profound
- |apologies over the insane semantics demanded by POSIX[1].
+> How is this actually implemented?  To me that "s" is a pointer,
+> and i am thus used to not use [] syntax for myself.  In fact
+> i always got angry if i did write xy[SOME_NAMED_CONSTANT], and
+> then that meant nothing to the compiler!
 
-The new standard added the Linux-style F_OFD_* fcntl(2) locks!
-They are yet Linux-only, but NetBSD at least has an issue by
-a major contributor (bug 59241):
+Then you might be happy to learn that we're working on adding meaning to
+it.
 
-  NetBSD seems to lack the following:
+>  Ie if constant is 10 and
+> i pass a stack buffer of 4 .. no warning and nothing.
 
-  3.237 OFD-Owned File Lock
-  ...
-  https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html#tag_03_237
-  >How-To-Repeat:
-  standards inspection
-  >Fix:
-  Yes, please!  (That or write down a reason why we eschew it.)
+Martin is working on adding diagnostics for that in GCC.  Currently, we
+have nothing here:
 
- |[1] "POSIX advisory locks are broken by design."
- |    https://www.sqlite.org/src/artifact/c230a7a24?ln=994-1081
- |
- |     - Ted
- --End of <20250520133705.GE38098@mit.edu>
+	alx@devuan:~/tmp$ cat cnt.c=20
+	void
+	f(int a[3])
+	{
+		a[1] =3D 0;
+		a[9] =3D 0;
+	}
+	alx@devuan:~/tmp$ gcc -Wall -Wextra -S cnt.c=20
+	alx@devuan:~/tmp$=20
 
---steffen
-|
-|Der Kragenbaer,                The moon bear,
-|der holt sich munter           he cheerfully and one by one
-|einen nach dem anderen runter  wa.ks himself off
-|(By Robert Gernhardt)
+But this should change soon-ish.
+
+I'm also working on another related feature:
+
+	alx@devuan:~/tmp$ cat cnt2.c=20
+	void
+	f(int a[3])
+	{
+		for (int i; i < _Countof(a); i++)
+			a =3D 0;
+	}
+	alx@devuan:~/tmp$ /opt/local/gnu/gcc/countof/bin/gcc cnt2.c=20
+	cnt2.c: In function =E2=80=98f=E2=80=99:
+	cnt2.c:4:33: error: invalid application of =E2=80=98_Countof=E2=80=99 to t=
+ype =E2=80=98int *=E2=80=99
+	    4 |         for (int i; i < _Countof(a); i++)
+	      |                                 ^
+
+This code doesn't compile at the moment, but I want to make it work with
+the obvious meaning soon.  Hopefully for GCC 17 (or maybe 18).
+
+>  I hope the
+> above is not implemented as requiring exact match lenghts.  Well.
+
+Nope, of course that would mean the minimum array that you can pass to
+the function.  The way to express exact number of elements of an array
+is to use a pointer to an array.
+
+> diff --git a/man/man3/mbrtowc.3 b/man/man3/mbrtowc.3
+
+Would you mind sending a patch, with a commit message?
+(git-format-patch(1))
+
+
+Have a lovely night!
+Alex
+
+> index bdd26af64f..68c66efaaa 100644
+> --- a/man/man3/mbrtowc.3
+> +++ b/man/man3/mbrtowc.3
+> @@ -161,10 +161,10 @@ if an invalid multibyte sequence was
+>  encountered.
+>  It returns
+>  .I "(size_t)\ \-2"
+> -if it couldn't parse a complete multibyte
+> -character, meaning that
+> +if the consumed
+>  .I n
+> -should be increased.
+> +bytes form a valid partial character sequence;
+> +more subsequent data needs to be fed in.
+>  .SH ATTRIBUTES
+>  For an explanation of the terms used in this section, see
+>  .BR attributes (7).
+>=20
+> --steffen
+> |
+> |Der Kragenbaer,                The moon bear,
+> |der holt sich munter           he cheerfully and one by one
+> |einen nach dem anderen runter  wa.ks himself off
+> |(By Robert Gernhardt)
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--xhggpfue44s4bt4a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgtENoACgkQ64mZXMKQ
+wqk08Q//RINTDbDVYf2z1UPGKh2bYYGXJsC6QMra0kJw8msA3fhP3b86sfDktz93
++vtaAdOW+PWndwkAQvFKj65i+AhfhVSzRBwsW0JQlqJCEedikJGyDI/2mxbLLZtN
+7nMw/YmsRiKnXoQ+wZUkbcHgvqEBHrf3P9xlNGj0HHk/FvYHW1dql+F7ecruMEiX
+qXSPv7fEkNwgaYu8AKjTBMKb8SCkB7ZsIwDDUYrDSOIvPYdEocFRm2Ov3TNFDg02
+SkEeqMsJXWKt1WLzx4gG57u4GClH9kSNyjmgpmjm6sW8qmq0C0nBqrx+9CgDurOP
+0i9/VnYO5wxwevLgLa/HGollp1yerVWiy/KuV0m8Yr13Fb9JKrStSjE37Y6VxXXo
+odXLKLO9lgnd/iKOC1U4P0pdkaX9GTRK15U4OXUyRFNuO2YrXkTACWY9Yxed9icX
+aBQSuv1oQEhyGhB0YIMoku8hn5yGSN0HI5ykTX/3LcBZ9QshTPLIeXgUtLJI7gVR
+CoqWO7gAMFEjANK1d4/A3B4SRByR9U44nkIZkpICM/neMJu2c6aICqH6VS4agizW
+su0eRchfyaPqk8pZmuM2RV3gGM2g83SZsLD58E0b7744LoU2UfZimjT+mHraXuGe
+36ANZdUfcWF3rJPMM85j0+ROna6HMTykluW63Hn3v5NwxJZrNgo=
+=t8ez
+-----END PGP SIGNATURE-----
+
+--xhggpfue44s4bt4a--
 
