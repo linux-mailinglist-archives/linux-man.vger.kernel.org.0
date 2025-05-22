@@ -1,149 +1,221 @@
-Return-Path: <linux-man+bounces-2998-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-2999-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA615AC0BA0
-	for <lists+linux-man@lfdr.de>; Thu, 22 May 2025 14:33:44 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id F088DAC15D9
+	for <lists+linux-man@lfdr.de>; Thu, 22 May 2025 23:22:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 29B8FA25FC7
-	for <lists+linux-man@lfdr.de>; Thu, 22 May 2025 12:33:24 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 28534A22E02
+	for <lists+linux-man@lfdr.de>; Thu, 22 May 2025 21:21:47 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3598428A3FC;
-	Thu, 22 May 2025 12:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32525254B13;
+	Thu, 22 May 2025 21:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eyczp+tP"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aP79uLif"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EF9381BA
-	for <linux-man@vger.kernel.org>; Thu, 22 May 2025 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D94B241697
+	for <linux-man@vger.kernel.org>; Thu, 22 May 2025 21:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747917220; cv=none; b=qzRk5sbyjrXacJ4L8CvCWk3V9+0hTKmlN97Ul0XQ+nOVFlMYmvTyMvR5X1/jue4LwA76lm80EiWmVZDS8gmSQI79ysNC3IobNUhvPHvcIMUdviCwdI0bq2zqO62iylUXYqgCs+EgMay2zXDm8GX9ycJkBu/NarS+5dOMeuPjTa8=
+	t=1747948924; cv=none; b=htkj24f1qukgbMTeEB59fU0ZuKKxD2itQsPRTHk4SkXcWpi1Vg8ZFGmov8FloWIKhu3l1xVhXbf+qPuHflCPRrBdyCDkjYhVe8c6AGzY0Uhaz3mj1hlm32Z4bynVVSUhUzn/Cmdvg//XyL1uzm4KcQ78DBrkIMbUZ628g0KUYug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747917220; c=relaxed/simple;
-	bh=cj4VnhsvLNo5n30B3m3QIJFNqbk+PNiLdy+QqSgMlzg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G9huvP9Q7iNWiuN4FtOkmZCaV/J8ydrJWL5erfL/saVOCtMoimp8p4XJnBQdZWuukePGVy5Lvxq7pH5/0HtiX8LkdnyoUjXoUPIXHyNrj+HMwJZlEI8Em2Hm018D5aDMukdwXzgj5z860L8QhpcTGaoXjdasNvr6MB292VrZiHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eyczp+tP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA557C4CEE4;
-	Thu, 22 May 2025 12:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747917219;
-	bh=cj4VnhsvLNo5n30B3m3QIJFNqbk+PNiLdy+QqSgMlzg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Eyczp+tP5yuJDDs5PrY8H9PbVCwoFCEgxS0BLsIOk42tCecUURymXjRzEbFx8JMaX
-	 Is/4EQ4DFvTwW5BAv01C7xgpOy+DRQjY3HsqhpiNlrjpAcAOVHLlKm5h0vy0T/F/vT
-	 aEC9080xIZ2807lPgLLESgRYdkXd5cJOueL4MSxiMRr5Emh4VSUv6f8lPin6bQbG4j
-	 GbWqLXWGuKpmi9NjFNIsJpEPuFkS8jJECo8YV9zMgKpr4qw0dzvdcF3AS9/5rA7Vda
-	 y3H9n55z7cnKyjM9z9It0hUH33TQBrCw1AS2ZH/Z8dEQoxOeEcMsa02+CokfRBSn/k
-	 kAEAFOP8vw4EA==
-Date: Thu, 22 May 2025 14:33:36 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/syscall.2: x86-64 + x32 syscall numbers go in
- eax
-Message-ID: <5xv352dejlorj4umghas2lgstwfhwwied3i4lsvdftvdedwrwz@7xj6ryxkbd3t>
-References: <20250518234507.404608-1-benjamin.p.kallus.gr@dartmouth.edu>
+	s=arc-20240116; t=1747948924; c=relaxed/simple;
+	bh=OuwLszocgvPUEAoBg9jnY2j/eNClynwiuyXyx9IIUkk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=owkn3GMOeUpg22ZHuPoMF0cPf9vE/Eo9zZZe0iZcd00tfHbQoKgjmb7nykgKN4fuZtwpMAB2x3QE+96p0EGcE+zlZ+w8wSW1JjPZRe9VPHNCBs5eB2vDNRUbUWvLMMle152DVW9OEeuWhCjijXa/QwBKMFpcKVD0trFpraplV6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aP79uLif; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-7c59e7039eeso1272952585a.2
+        for <linux-man@vger.kernel.org>; Thu, 22 May 2025 14:22:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747948920; x=1748553720; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=r4wnURsYRlh7Y2K/Oo+nvuz5vB+xzPgvW2VhBu4NC78=;
+        b=aP79uLifrJSruhekaHOUNSqO4zctx9LrwJcnpvkR8IygRSPvcASDgGfqV2MXSSZQ8h
+         SdNX7sPscA/5BD/nb8Y89JSLCHg8qH7eiQGmQrZDthgyAQnJ2AjSijcSNh7/vkw+L7Vf
+         5JjDXrRVtODp/QokG7lJmXZe2Xnpc+OzxTzCDFIZ2Aj+tUen2lXVmGsboh7bRQ+cFObb
+         V28eG5W1nlzHNw5+G5bTLBhiQOp4/1YrkIxkHaPrTPljyMnomYODqSqva0DT1PlFfRX4
+         9tZBtgcV3q13pduy9q7eb60/nIfJG/RIEapu8DCecLI5im+q7dSP83TkZ9Tl9c3UJofK
+         gNZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747948920; x=1748553720;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=r4wnURsYRlh7Y2K/Oo+nvuz5vB+xzPgvW2VhBu4NC78=;
+        b=We4tatjDHbhhuu+auNM/47CTDXq0pxMBzZO6mIAN0vt4Efb1WN6sv07W4ecLCgdv80
+         dRpU70dhxXnqj4U10eVZAPSWJx47vSuWLULSrbP1INxVQlkRypyFaDoq5115gsYLs9ib
+         AEC4aIyDWSh9gfwRkTxB6NMZnd2K6faKUs7KQ45gzFSox9xB4XMO28XaJEkDqnV4Zamw
+         PgE3+/wTjMsXCg9izoIPFcryJc407kUSKBHu9ltEQYjnzsHabWtj7uSCFwYUU4551dr3
+         CzZjAvM0e43Twr9aJ/lVs7SywQqyFHMWZdCPuOfY3STIy7jCnp/hMX2Op6Z+Os0HjHor
+         A86w==
+X-Gm-Message-State: AOJu0YxF5XhQQmkO8rOOJEZ56DQRAKyGnhNR//rJHrmbT6gp12JAcOCO
+	9IV5ceJU02JfGHcbRQw9un4oR1jzBLDeOMzhjBhL17paqt+9eGPwItbPXkg4ACAHYhE=
+X-Gm-Gg: ASbGncsnazjgvz3+c6a6AOCGLvfc67Gza8kDqJrpgzkvMZgIQCMAoRytjj8j9y4qtrj
+	RKJ2pIBJ+OnpI7xsasLOixWbvhZdRiviSBqTiHF7Bnxv/Y2mTPzDwiEwZC1Kvhl2BjFLdZJAnNg
+	/R0owRiCQEy7Pqd/Qj/Fsa7Inc+FCIgCiLIBKhMfoIGJ0wc3gTuI6ReHsBBD8fmENZLT5nHYw5J
+	PtBpvl8pdgJIuyLlYi/mpUtipjewRkCbJLyogAyyHW5R6RW4RKBG/s3FVownYjzlvv6tA1QbPdM
+	LW+XPmSRWxUCohIf/H3KOv15oVxK0s7HO80cqoeyEUXkAGhMYp7U5pbeuzelKVPtlwcN/N9zcbg
+	X0BdxAtGRgbaOwa/NNg==
+X-Google-Smtp-Source: AGHT+IHYNfdKvejJOIWwQboA5iN2tx5VyVNidNdEj7nCHFav6fJhIAgbPNU6Vvenp+T3tN2wZ7flVA==
+X-Received: by 2002:a05:620a:4515:b0:7c7:b60f:ebd8 with SMTP id af79cd13be357-7cd47f1c95bmr3194226485a.24.1747948920022;
+        Thu, 22 May 2025 14:22:00 -0700 (PDT)
+Received: from localhost.localdomain ([50.234.104.165])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7cd467d8140sm1074304485a.37.2025.05.22.14.21.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 22 May 2025 14:21:59 -0700 (PDT)
+From: Matteo Croce <technoboy85@gmail.com>
+To: linux-man@vger.kernel.org
+Cc: Nhat Pham <nphamcs@gmail.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Matteo Croce <teknoraver@meta.com>
+Subject: [PATCH] man/man2/cachestat.2: add a man page for cachestat()
+Date: Thu, 22 May 2025 17:21:49 -0400
+Message-ID: <20250522212149.36049-1-technoboy85@gmail.com>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kwdnmsk6m5zneecy"
-Content-Disposition: inline
-In-Reply-To: <20250518234507.404608-1-benjamin.p.kallus.gr@dartmouth.edu>
+Content-Transfer-Encoding: 8bit
 
+From: Matteo Croce <teknoraver@meta.com>
 
---kwdnmsk6m5zneecy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/syscall.2: x86-64 + x32 syscall numbers go in
- eax
-References: <20250518234507.404608-1-benjamin.p.kallus.gr@dartmouth.edu>
-MIME-Version: 1.0
-In-Reply-To: <20250518234507.404608-1-benjamin.p.kallus.gr@dartmouth.edu>
+Add a missing man page for cachestat().
+The text was converted from the commit message:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cf264e1329fb0307e044f7675849f9f38b44c11a
 
-Hi Ben,
+Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Signed-off-by: Matteo Croce <teknoraver@meta.com>
+---
+ man/man2/cachestat.2 | 109 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 109 insertions(+)
+ create mode 100644 man/man2/cachestat.2
 
-On Sun, May 18, 2025 at 07:45:07PM -0400, Ben Kallus wrote:
-> The kernel sign-extends eax before dispatching syscalls.
-> From arch/x86/entry/entry_64.S:
-> >	movslq	%eax, %rsi
-> >	IBRS_ENTER
-> >	UNTRAIN_RET
-> >	CLEAR_BRANCH_HISTORY
-> >
-> >	call	do_syscall_64		/* returns with IRQs disabled */
->=20
-> This patch updates syscall.2 to document this. ARM64 exhibits a
-> similar behavior (w8 is extended), which is already documented.
->=20
-> Signed-off-by: Ben Kallus <benjamin.p.kallus.gr@dartmouth.edu>
+diff --git a/man/man2/cachestat.2 b/man/man2/cachestat.2
+new file mode 100644
+index 000000000..f741e3695
+--- /dev/null
++++ b/man/man2/cachestat.2
+@@ -0,0 +1,109 @@
++.\" Copyright, the authors of the Linux man-pages project
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH CACHESTAT 2 (date) "Linux man-pages (unreleased)"
++.SH NAME
++cachestat \- query the page cache statistics of a file
++.SH SYNOPSIS
++.B #include <sys/mman.h>
++.PP
++.B struct cachestat_range {
++.br
++.RS
++__u64 off;
++.br
++__u64 len;
++.RE
++.B };
++.PP
++.B struct cachestat {
++.br
++.RS
++__u64 nr_cache;
++.br
++__u64 nr_dirty;
++.br
++__u64 nr_writeback;
++.br
++__u64 nr_evicted;
++.br
++__u64 nr_recently_evicted;
++.RE
++.B };
++.PP
++.BI "int cachestat(unsigned int " fd ", struct cachestat_range *" cstat_range ","
++.br
++.BI "              struct cachestat *" cstat ", unsigned int " flags ");"
++.SH DESCRIPTION
++.B cachestat()
++queries the number of cached pages, dirty pages, pages marked for writeback, evicted pages, and recently evicted pages in the byte range specified by
++.I off
++and
++.I len
++in the
++.B cachestat_range
++structure.
++.PP
++An evicted page is one that was previously in the page cache but has since been evicted.
++A page is considered recently evicted if its reentry into the cache would indicate active usage under memory pressure.
++.PP
++The results are returned in a
++.B cachestat
++structure, pointed to by the
++.I cstat
++argument.
++.PP
++The
++.I off
++and
++.I len
++fields must be non-negative. If
++.I len > 0
++, the queried range is
++.B [off, off + len]
++. If
++.I len == 0
++, the range is from
++.I off
++to the end of the file.
++.PP
++The
++.I flags
++argument is reserved for future use and must be set to
++.B 0
++.
++.PP
++Currently,
++.B hugetlbfs
++files are not supported.
++.PP
++Note that the status of a page may change after
++.B cachestat()
++retrieves it but before the values are returned to the application; thus, the values may be slightly outdated.
++.SH RETURN VALUE
++On success,
++.B cachestat()
++returns 0. On error, \-1 is returned and
++.I errno
++is set appropriately.
++.SH ERRORS
++.TP
++.B EFAULT
++.I cstat
++or
++.I cstat_range
++points to an invalid address.
++.TP
++.B EINVAL
++Invalid
++.I flags
++value.
++.TP
++.B EBADF
++Invalid file descriptor.
++.TP
++.B EOPNOTSUPP
++The file descriptor refers to a
++.B hugetlbfs
++file, which is unsupported.
+-- 
+2.49.0
 
-Thanks!  I've applied the patch.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D125f3b3c3ee3b99f94e08214f610bde06a9bb754>
-
-
-Have a lovely day!
-Alex
-
-> ---
->  man/man2/syscall.2 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man/man2/syscall.2 b/man/man2/syscall.2
-> index a6b93699c..b946dcc41 100644
-> --- a/man/man2/syscall.2
-> +++ b/man/man2/syscall.2
-> @@ -190,8 +190,8 @@ superh	trapa #31	r3	r0	r1	-	4, 6
->  sparc/32	t 0x10	g1	o0	o1	psr/csr	1, 6
->  sparc/64	t 0x6d	g1	o0	o1	psr/csr	1, 6
->  tile	swint1	R10	R00	-	R01	1
-> -x86-64	syscall	rax	rax	rdx	-	5
-> -x32	syscall	rax	rax	rdx	-	5
-> +x86-64	syscall	eax	rax	rdx	-	5
-> +x32	syscall	eax	rax	rdx	-	5
->  xtensa	syscall	a2	a2	-	-
->  .TE
->  .P
-> --=20
-> 2.49.0
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---kwdnmsk6m5zneecy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgvGaAACgkQ64mZXMKQ
-wqn0qRAAlEL9mRtoNVxtduGxdQhlByAiERSuXO9CKNnUdjiCcqTJs1FEMOW8/KBT
-1Djq6pCOrwDjGwDFTyAxhRn0ezCedTx7ncrB50nVwzZK3wO+F/1EYmDzuEihwPIj
-xdugVfIe6z5r88yPV8VxtCyQcfFSCpqvCjbvNiJS3I7nhJpWyGIym5jIeHRNLiTl
-6U92tfb2SDSKdyzIwHICYMloDP/qnbWg4v11b6HApDmWhRFZuAs5GfosyoC5KUaz
-GvppCx6e3A2ALWRBImVftna6chJYZacqjMVVwj4x3/bQ6z3ki8Ucd9xYYuo32Ctp
-NGjp246gt2UMnh/dOFBqZhqjD1XVatnTTvoE5YL2I4jKXcnVAQmEx03YFPL7EyuZ
-HW4bKDY+WLiehZHb+qNmJE7XpVNG3cpJz5gT1wXRCflJ4Cr56+UyC9OShI6L5UH+
-i44SqICb4sBY6R+Ozf3Ck7Yq+7678YGlq2DgZ3JX4m9SKwujuBzfiXFRT5kFVUYi
-FCYT3QJLJDXdDvkw7Df7KHlwQhtJ5Yqa3lOoSy1anwfXpaoi5PF3dn5rsSjgVDqV
-56j6Wo6J87lMfev0kkCc5zWHe3BqfI7R5qZ/M+WH9aG/fbRJcfjewlgd331oj2pQ
-YLXTijWK3MtxEKqjGH8KhLkpnoTveq1WdIvrVa14XbF8hcKD8N4=
-=+B/J
------END PGP SIGNATURE-----
-
---kwdnmsk6m5zneecy--
 
