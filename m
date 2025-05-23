@@ -1,221 +1,136 @@
-Return-Path: <linux-man+bounces-2999-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3000-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id F088DAC15D9
-	for <lists+linux-man@lfdr.de>; Thu, 22 May 2025 23:22:07 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 780EFAC1A5D
+	for <lists+linux-man@lfdr.de>; Fri, 23 May 2025 05:18:40 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 28534A22E02
-	for <lists+linux-man@lfdr.de>; Thu, 22 May 2025 21:21:47 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 829FE4A0E65
+	for <lists+linux-man@lfdr.de>; Fri, 23 May 2025 03:18:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32525254B13;
-	Thu, 22 May 2025 21:22:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7639019DF66;
+	Fri, 23 May 2025 03:18:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aP79uLif"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XLSdy/hF"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D94B241697
-	for <linux-man@vger.kernel.org>; Thu, 22 May 2025 21:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E621F2DCBE7
+	for <linux-man@vger.kernel.org>; Fri, 23 May 2025 03:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747948924; cv=none; b=htkj24f1qukgbMTeEB59fU0ZuKKxD2itQsPRTHk4SkXcWpi1Vg8ZFGmov8FloWIKhu3l1xVhXbf+qPuHflCPRrBdyCDkjYhVe8c6AGzY0Uhaz3mj1hlm32Z4bynVVSUhUzn/Cmdvg//XyL1uzm4KcQ78DBrkIMbUZ628g0KUYug=
+	t=1747970292; cv=none; b=a/5od5p99mxHJ8IGlRDBs3XeGQlQPfuLu4ipAdk7H/jWrDHyRp3DQxxWi21HxkxD4P1jAHnXzCDIlgwGGV/l95JM7mcZf5+gImLsWsgFn3GjjOcxUXg+Ko2HwHBwRFBKSuumucT4tQNqd/mEWKv2nqPc5B6jmQyf18WJ5Avx8SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747948924; c=relaxed/simple;
-	bh=OuwLszocgvPUEAoBg9jnY2j/eNClynwiuyXyx9IIUkk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=owkn3GMOeUpg22ZHuPoMF0cPf9vE/Eo9zZZe0iZcd00tfHbQoKgjmb7nykgKN4fuZtwpMAB2x3QE+96p0EGcE+zlZ+w8wSW1JjPZRe9VPHNCBs5eB2vDNRUbUWvLMMle152DVW9OEeuWhCjijXa/QwBKMFpcKVD0trFpraplV6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aP79uLif; arc=none smtp.client-ip=209.85.222.172
+	s=arc-20240116; t=1747970292; c=relaxed/simple;
+	bh=CwCIP7dX1KGkfKWGUHJqI0ddzc7B3Tc6L377+Op6i7k=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EBqkmH9FJrwmf5cmIkYpQ6X5n94/n6xr5/Q4nsadTFPU7ECAnJk4ZGgvjhtlDc0tRXP0zD8ylBt2MrnocK5Jd50lrkyY9JUPCDSOHYm/yiWA/2NLQwZYLM/6r4SCC4CLtNWHafSE9N+x0jBvfyZmmX9lZPhWcos3Iqwxzbp1eaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XLSdy/hF; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-7c59e7039eeso1272952585a.2
-        for <linux-man@vger.kernel.org>; Thu, 22 May 2025 14:22:01 -0700 (PDT)
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-30ea559c18aso7397408a91.2
+        for <linux-man@vger.kernel.org>; Thu, 22 May 2025 20:18:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747948920; x=1748553720; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=r4wnURsYRlh7Y2K/Oo+nvuz5vB+xzPgvW2VhBu4NC78=;
-        b=aP79uLifrJSruhekaHOUNSqO4zctx9LrwJcnpvkR8IygRSPvcASDgGfqV2MXSSZQ8h
-         SdNX7sPscA/5BD/nb8Y89JSLCHg8qH7eiQGmQrZDthgyAQnJ2AjSijcSNh7/vkw+L7Vf
-         5JjDXrRVtODp/QokG7lJmXZe2Xnpc+OzxTzCDFIZ2Aj+tUen2lXVmGsboh7bRQ+cFObb
-         V28eG5W1nlzHNw5+G5bTLBhiQOp4/1YrkIxkHaPrTPljyMnomYODqSqva0DT1PlFfRX4
-         9tZBtgcV3q13pduy9q7eb60/nIfJG/RIEapu8DCecLI5im+q7dSP83TkZ9Tl9c3UJofK
-         gNZQ==
+        d=gmail.com; s=20230601; t=1747970290; x=1748575090; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rITTnweYE2BiK42kPh/Yz1Rtfu/ht1mruaiaXrAbimI=;
+        b=XLSdy/hFwamO4loQGfcXgRFlmELwTXS5SI4ObLHqso4XR0HAon0+372Shc0mGNb61t
+         iro1R6ZFPOEjMdZ9DdqdWLwWttB88qw4OhFade1q1mj9XjUi8UeB32xZ1MktkUB7sgdy
+         CmyQSSgy1194VjrZq49+PgVCmnNf990X6+sLHq04/SEyFf5ndrdxa1GwMNnG7Y+2qo2R
+         lZuMoEoei/QzDbngZCY+4oL4OMYwyrO2avCjkSc7yZZzW8tI8X/R6jN5HcU7u/YxL7/V
+         zDJF9lpwvpP6wenrgSUBsGvjuvaTrf71eiZt5T01SRWzs94uZSaFhbWtDdZZKUmMSQqz
+         D36A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747948920; x=1748553720;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=r4wnURsYRlh7Y2K/Oo+nvuz5vB+xzPgvW2VhBu4NC78=;
-        b=We4tatjDHbhhuu+auNM/47CTDXq0pxMBzZO6mIAN0vt4Efb1WN6sv07W4ecLCgdv80
-         dRpU70dhxXnqj4U10eVZAPSWJx47vSuWLULSrbP1INxVQlkRypyFaDoq5115gsYLs9ib
-         AEC4aIyDWSh9gfwRkTxB6NMZnd2K6faKUs7KQ45gzFSox9xB4XMO28XaJEkDqnV4Zamw
-         PgE3+/wTjMsXCg9izoIPFcryJc407kUSKBHu9ltEQYjnzsHabWtj7uSCFwYUU4551dr3
-         CzZjAvM0e43Twr9aJ/lVs7SywQqyFHMWZdCPuOfY3STIy7jCnp/hMX2Op6Z+Os0HjHor
-         A86w==
-X-Gm-Message-State: AOJu0YxF5XhQQmkO8rOOJEZ56DQRAKyGnhNR//rJHrmbT6gp12JAcOCO
-	9IV5ceJU02JfGHcbRQw9un4oR1jzBLDeOMzhjBhL17paqt+9eGPwItbPXkg4ACAHYhE=
-X-Gm-Gg: ASbGncsnazjgvz3+c6a6AOCGLvfc67Gza8kDqJrpgzkvMZgIQCMAoRytjj8j9y4qtrj
-	RKJ2pIBJ+OnpI7xsasLOixWbvhZdRiviSBqTiHF7Bnxv/Y2mTPzDwiEwZC1Kvhl2BjFLdZJAnNg
-	/R0owRiCQEy7Pqd/Qj/Fsa7Inc+FCIgCiLIBKhMfoIGJ0wc3gTuI6ReHsBBD8fmENZLT5nHYw5J
-	PtBpvl8pdgJIuyLlYi/mpUtipjewRkCbJLyogAyyHW5R6RW4RKBG/s3FVownYjzlvv6tA1QbPdM
-	LW+XPmSRWxUCohIf/H3KOv15oVxK0s7HO80cqoeyEUXkAGhMYp7U5pbeuzelKVPtlwcN/N9zcbg
-	X0BdxAtGRgbaOwa/NNg==
-X-Google-Smtp-Source: AGHT+IHYNfdKvejJOIWwQboA5iN2tx5VyVNidNdEj7nCHFav6fJhIAgbPNU6Vvenp+T3tN2wZ7flVA==
-X-Received: by 2002:a05:620a:4515:b0:7c7:b60f:ebd8 with SMTP id af79cd13be357-7cd47f1c95bmr3194226485a.24.1747948920022;
-        Thu, 22 May 2025 14:22:00 -0700 (PDT)
-Received: from localhost.localdomain ([50.234.104.165])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7cd467d8140sm1074304485a.37.2025.05.22.14.21.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 May 2025 14:21:59 -0700 (PDT)
-From: Matteo Croce <technoboy85@gmail.com>
-To: linux-man@vger.kernel.org
-Cc: Nhat Pham <nphamcs@gmail.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Matteo Croce <teknoraver@meta.com>
-Subject: [PATCH] man/man2/cachestat.2: add a man page for cachestat()
-Date: Thu, 22 May 2025 17:21:49 -0400
-Message-ID: <20250522212149.36049-1-technoboy85@gmail.com>
-X-Mailer: git-send-email 2.49.0
+        d=1e100.net; s=20230601; t=1747970290; x=1748575090;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rITTnweYE2BiK42kPh/Yz1Rtfu/ht1mruaiaXrAbimI=;
+        b=MS96OCWoN+h28oqN4m+T6FVKRIKzrhO4/rdghmBbj/GMyldmA1u8PoKSQY9hRLF4CI
+         QwMlfVmnQMVIGMEdJTb+7L7LAdXF5s7HRTQDiIkCq1t6Em4l5SOVcMh6k6cF35e1R4fQ
+         EAtj6mS2d+vGOE/mk1D6mPmr3kcbaKPVBbUWhuf17SmvUA5d4yEmT17ovH30d5Mux5UR
+         SaAbd8YdiVdQJhcU5Ywtp9UlUkdykS3OTqLFddH5ZgPTS4pkxu0iqxD+UOOHeuP9/QOy
+         tPBEzw0+mNrnrRGgiiFmvW4ucinIfLVUZlRJ8+Zymq2MU6XD0bjdJPp4NKrbDCpYRYiq
+         IxWg==
+X-Gm-Message-State: AOJu0YwvTqweXt1LfZR9xY/FCv/h8pbBi/OtnYBfUFeSvh1FQ2obT/As
+	5Sl1D9zYoTfGvHkGoQNPhctlxoOIrLDxr1e/hcFeZjCKyAolM3yibHkX+1//iQ==
+X-Gm-Gg: ASbGnctkKfRaOgG8ghO5Wy1vkVw0sHrUgaXgnPxSAg2GwQQxOY2gOmChR/esZMs/kMq
+	QS3Ojp1Lx6no8GhhPN+KOySjDZ24thPwPFMZNLsgzOHFMSLoiY/bx3bEi28F8Mac2MHE94upc2L
+	0en4YXx2bi+I7Cn0V81No2NGh2h2N7IdGu1rXvjrBlhWidnm/rp65PlKR8AuuE28l3UmfBObj1r
+	CdMF2aBkW/JvYsrs61ndW7iVGwSv7/gQ98o6ok7NzHCietvybqCHZP6H40uF1DQIVmQuI+ePxoA
+	jWkPlF0Da8YX1keGuzzzXXRXJqQMR6Lz
+X-Google-Smtp-Source: AGHT+IGGWTLn8Tt5daKQY6HDYL8j8eWJMGBxTsfLYVb7Bi/qqyOXcY0PcaFLwLXZoFRQsYKoI7XCkg==
+X-Received: by 2002:a17:90b:3b8d:b0:2ff:5c4e:5acd with SMTP id 98e67ed59e1d1-310e9740a23mr2265160a91.35.1747970290057;
+        Thu, 22 May 2025 20:18:10 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::eef5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-30ee9f34a59sm5106148a91.1.2025.05.22.20.18.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 May 2025 20:18:09 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/3] man/man3/getenv.3: Mention secure_getenv was
+ standardized in POSIX-1.2024
+In-Reply-To: <cvljded6h7v7vqpu23hdx2f4wl5smsbqsvbkrxjg6nf5sikwhs@42plwr5rowkx>
+References: <6abbe99f5e8710202650bfee5d41e6fceaff4d1c.1747515178.git.collin.funk1@gmail.com>
+	<f1cc4b34bb42b09ae9c0820df8fdece6fcebfcd8.1747515178.git.collin.funk1@gmail.com>
+	<ationx4kn5f2d5b76ayyufnjakuy5q3pkgmgq7fagwgakfitar@5l6ty5ftdsrg>
+	<87v7pznd4a.fsf@gmail.com>
+	<aqq7gag27u7kwnltq4zumzjk2wvlsevbevm5lkgr3m2x5rhowf@hdufz4pmli3q>
+	<87msbaop79.fsf@gmail.com>
+	<cvljded6h7v7vqpu23hdx2f4wl5smsbqsvbkrxjg6nf5sikwhs@42plwr5rowkx>
+Date: Thu, 22 May 2025 20:18:02 -0700
+Message-ID: <87v7pskob9.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-From: Matteo Croce <teknoraver@meta.com>
+--=-=-=
+Content-Type: text/plain
 
-Add a missing man page for cachestat().
-The text was converted from the commit message:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cf264e1329fb0307e044f7675849f9f38b44c11a
+Hi Alejandro,
 
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
-Signed-off-by: Matteo Croce <teknoraver@meta.com>
----
- man/man2/cachestat.2 | 109 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 109 insertions(+)
- create mode 100644 man/man2/cachestat.2
+Alejandro Colomar <alx@kernel.org> writes:
 
-diff --git a/man/man2/cachestat.2 b/man/man2/cachestat.2
-new file mode 100644
-index 000000000..f741e3695
---- /dev/null
-+++ b/man/man2/cachestat.2
-@@ -0,0 +1,109 @@
-+.\" Copyright, the authors of the Linux man-pages project
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH CACHESTAT 2 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+cachestat \- query the page cache statistics of a file
-+.SH SYNOPSIS
-+.B #include <sys/mman.h>
-+.PP
-+.B struct cachestat_range {
-+.br
-+.RS
-+__u64 off;
-+.br
-+__u64 len;
-+.RE
-+.B };
-+.PP
-+.B struct cachestat {
-+.br
-+.RS
-+__u64 nr_cache;
-+.br
-+__u64 nr_dirty;
-+.br
-+__u64 nr_writeback;
-+.br
-+__u64 nr_evicted;
-+.br
-+__u64 nr_recently_evicted;
-+.RE
-+.B };
-+.PP
-+.BI "int cachestat(unsigned int " fd ", struct cachestat_range *" cstat_range ","
-+.br
-+.BI "              struct cachestat *" cstat ", unsigned int " flags ");"
-+.SH DESCRIPTION
-+.B cachestat()
-+queries the number of cached pages, dirty pages, pages marked for writeback, evicted pages, and recently evicted pages in the byte range specified by
-+.I off
-+and
-+.I len
-+in the
-+.B cachestat_range
-+structure.
-+.PP
-+An evicted page is one that was previously in the page cache but has since been evicted.
-+A page is considered recently evicted if its reentry into the cache would indicate active usage under memory pressure.
-+.PP
-+The results are returned in a
-+.B cachestat
-+structure, pointed to by the
-+.I cstat
-+argument.
-+.PP
-+The
-+.I off
-+and
-+.I len
-+fields must be non-negative. If
-+.I len > 0
-+, the queried range is
-+.B [off, off + len]
-+. If
-+.I len == 0
-+, the range is from
-+.I off
-+to the end of the file.
-+.PP
-+The
-+.I flags
-+argument is reserved for future use and must be set to
-+.B 0
-+.
-+.PP
-+Currently,
-+.B hugetlbfs
-+files are not supported.
-+.PP
-+Note that the status of a page may change after
-+.B cachestat()
-+retrieves it but before the values are returned to the application; thus, the values may be slightly outdated.
-+.SH RETURN VALUE
-+On success,
-+.B cachestat()
-+returns 0. On error, \-1 is returned and
-+.I errno
-+is set appropriately.
-+.SH ERRORS
-+.TP
-+.B EFAULT
-+.I cstat
-+or
-+.I cstat_range
-+points to an invalid address.
-+.TP
-+.B EINVAL
-+Invalid
-+.I flags
-+value.
-+.TP
-+.B EBADF
-+Invalid file descriptor.
-+.TP
-+.B EOPNOTSUPP
-+The file descriptor refers to a
-+.B hugetlbfs
-+file, which is unsupported.
--- 
-2.49.0
+> Do you mean mentioning FreeBSD in VERSIONS?  If so, yes, I think that
+> would be useful.
 
+Yes, that is what I meant. I'll write a patch for it then.
+
+By the way, I don't see my other patches on the master branch. Is there
+another branch I should be writing my changes for?
+
+Thanks,
+Collin
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmgv6OoACgkQjOZJGuMN
+fXXXUA/5AXwSJ+h94bfxyUdtIE6gF/n/PhPApx1cwZqDoIchJzRHYnHKZZXME7FL
+IeSzeQ4Al3Ol4Yier7s8hRT0YLzlVT0rZD0BN5rHHwhXpvyl0XcU50NP5qBWdgPK
+1h1fqlqUZPV5ZI463ZeRhj/zSrEdYyua5Byg5cyvnQqX4Jt3ilX7n0GRjmKxJTd/
+Gt9O/wvfg93kdYHnpUww5PY6y6ZwsmBtzX6XVDFRl8/5ZL44OEjcowgEXxStt/cs
+/7jZ+tynplfFLPgEoORtW6Ha3G19Uo6bkB5d5sG/9q0LnocsDAfCc0sAGbYUxkRe
+V3UcsG+LUFetKRPTJTUNDi+EDUli8q1qUgvEs0IhJ2pYeS13MSQoF4oqhT6SY/hh
+ON70Mxphe48mXX/fn4wt63Hm18IzKnG1n00OY5lQX+qiwgdlxTRNkhm1nmY3gYD9
+ik6JG9HK5f3FAivjNcz+65Su27W4ptaccsUjqB/ViVQim/VOSLbJN7Ip/3567ZsW
+/BA/mMjlYXbx5vGh9BoqJHmoy3j/D6OyPqc1vkXEijifSE1mizBcOoqB7vV76VB9
+D9dP96bI1TNlwoJcyW8xUg5xYYDOuJ45DOe0jYSA6T822zS8bei3l4UopeNDYhA7
+IeFMNQR6oiM5rW9Jt9QORq/DWOgcC6ZwAXzgnaS46YtBXUz0J/Q=
+=IC4U
+-----END PGP SIGNATURE-----
+--=-=-=--
 
