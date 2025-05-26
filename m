@@ -1,149 +1,118 @@
-Return-Path: <linux-man+bounces-3014-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3015-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344C1AC3761
-	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 01:30:54 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 093B1AC42A4
+	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 17:55:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id A43237A924C
-	for <lists+linux-man@lfdr.de>; Sun, 25 May 2025 23:29:35 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E30403B3B29
+	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 15:55:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 680731A5B95;
-	Sun, 25 May 2025 23:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1049E215043;
+	Mon, 26 May 2025 15:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o4RMEFoV"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="O/mdelKY";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0cWyXiF8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A19E1991D2
-	for <linux-man@vger.kernel.org>; Sun, 25 May 2025 23:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D4E2147F6;
+	Mon, 26 May 2025 15:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748215847; cv=none; b=ubHngtX7NjJuj+xFiIDu5oZXNd3f5AG+r/rKVEJZvYL9PpC9GGV38fsEzRWjgLU+CWldKODoDY/F3kKBTn5zH7D1/zmNLi6QzsI7647CA+FT6OgRRkhLf7cVDghCBopYTQwStpTcu6sRjmJbbf57D8VmQg2/mVMZCGn/tqLwK0Q=
+	t=1748274934; cv=none; b=MyiDB9X51ZcMzpdF2xoroxberACPwvNSnDcB8arSZrLwz9DPFplYtOS8TWiQkERpeqWfQ/TrTVXeMdGxmoBOFGivNiE5+9Y6M6qxmcWTjlb30bNMl2AtBHDtKXTj0smt45diJLyWEkSa4vngzSnxoTmD/hv4Yp/f1Y2Ic3uLtgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748215847; c=relaxed/simple;
-	bh=iQew38bdgEVdxif1DAHaW2gQR5K6F6UeUfL+bU/j3/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ig1+/JtiRqjimhhVoqBaAeYQC0pn1k+JL0GcOAWPbGN2WE/6ZFtABWortOdFjmqPDhdRft0FHg9XnklkK0ANe1R8/u4w5GXssAg8eLxOdvQYptufbHv/ibf86b71ogZiwYz8vLpCN2L+O18q9R75F4xUG7CuwubtJ/FfIHn6WEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o4RMEFoV; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A23C4CEEA;
-	Sun, 25 May 2025 23:30:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748215846;
-	bh=iQew38bdgEVdxif1DAHaW2gQR5K6F6UeUfL+bU/j3/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=o4RMEFoV+MAoxFpAagZjnTBfa0ArUUv7T35H9jquTLn3gxSWTHk/YkUrB72vdmmAd
-	 G4/npQeZF0upv4/s3YJ9EGM1k8Y+a4LAUACkwd8Z1XL6+oFNP93DzoCXLGaiBIb925
-	 ztc29D3zhezAa8W7PDrsf2GfQjm9UmB6JDFtRCONmUKrowh0+TXaNwz4dR1Fdgelh0
-	 D639SPkUA/36SpFcAku1OT5IihueB9ziwoY9e+mHjPbWiohIMNj3NViF4HLQd5lIzq
-	 K+uu6xmJ+UpKAhGjR1kfgZ+XAIensHXA+AmR/16hjMd5jjog1u4Xfm8dKqk3dhDNyT
-	 O4OJPTIWj/JDg==
-Date: Mon, 26 May 2025 01:30:43 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Improving inode number documentation
-Message-ID: <juxbjjsnt5mvtyctd72fcnc4o2u5wamqz7yd5occuor4clzkhx@zvob6krj6sq3>
-References: <20250525103344.fe27ugiytfyoadz5@pali>
+	s=arc-20240116; t=1748274934; c=relaxed/simple;
+	bh=pRkavSSrKLELLYEyxG8VOAx6a1OSCKlwEsUsa/rhHXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lKiasH1rstXPYdEqHKKYlKWxvD6QN2oyKpEv6o/98AsWYIHWvOPt/iei7iGw/DTManIg/8eykbbSh5eYIfzDrULLSKdIp5SwybWLzVskWwzc+9Ysdw00T3FBnF7cYilqoVjGVYLz3xZizUZrunamRGdLIrqZekPazMHuhyz/N7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=O/mdelKY; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0cWyXiF8; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1748274931;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UJlE224RmBYGNDbS+Mw+IYOqU6oo4BkO2oGnbjLwdYM=;
+	b=O/mdelKYDkGlnypUkTTSDHGnbK0Py4y55Wqu6Ug1AkXXuARsVU2RNGQg1Bw9xMk3mXwQmg
+	iGjGFywpxRZjkKujG3E0IeesXOIxC+g+V0q7HceO84QOJX+Aj9Ecv8tYVyAlbP239DDZo4
+	9AN+dKdUhL7gGE80pFzm4wHCziCd1tVbi/aJPM8f2ujyAYYzCumnjXK+NNq1hsC4cK/rGP
+	Esuv2WImjcFTgCUKg65uDxyTveJU0BFgvDv1uYu8rU8+HL8+2/7M9op4dHTATPSEGcy0rc
+	+SVfhPwhmjWgDT8Alq15uUHu+fVtuNd04alTOw5Y1150c7+2vi/wqkrNrJihrg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1748274931;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UJlE224RmBYGNDbS+Mw+IYOqU6oo4BkO2oGnbjLwdYM=;
+	b=0cWyXiF8ZdUYWma/Dl1MrsuO4uYAiJjtpHI4qfAG95e/JdN+d2GfeAjTUrnubq7IMzn0xY
+	kkAB6Yjsl2Rga5Ag==
+To: linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [[PATCH v3] 0/4] Add documentation for PR_FUTEX_HASH
+Date: Mon, 26 May 2025 17:55:19 +0200
+Message-ID: <20250526155523.1382465-1-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dsn5gaafn5o6i3kq"
-Content-Disposition: inline
-In-Reply-To: <20250525103344.fe27ugiytfyoadz5@pali>
-
-
---dsn5gaafn5o6i3kq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: Improving inode number documentation
-References: <20250525103344.fe27ugiytfyoadz5@pali>
-MIME-Version: 1.0
-In-Reply-To: <20250525103344.fe27ugiytfyoadz5@pali>
 
-Hi Pali!
+Add some documentation of the prctl(PR_FUTEX_HASH, =E2=80=A6) interface.
 
-On Sun, May 25, 2025 at 12:33:44PM +0200, Pali Roh=C3=A1r wrote:
-> Hello Alex,
->=20
-> I would like to ask you, could you improve documentation about inode
-> numbers returned by readdir()/getdents() and stat()/statx() functions?
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
+v2=E2=80=A6v3: https://lore.kernel.org/all/20250520104247.S-gVcgxM@linutron=
+ix.de/
+  - Split the individual PR_FUTEX_HASH ops into their own man page.
+  - Reword a sentence referring to uaddr in order to link to futex(2).
+  - Address remaining review feedback such the semantic new line.
 
-I'd love to do that.  I do not feel experienced enough in this matter to
-write the text myself, but I could try to learn about it.  On the other
-hand, if you want to send patches yourself, we can go much faster.
-Would you mind sending some patches?
+v1=E2=80=A6v2: https://lore.kernel.org/all/20250516161422.BqmdlxlF@linutron=
+ix.de/
+  - Partly reword
+  - Use "semantic newlines"
 
+Sebastian Andrzej Siewior (4):
+  man/man2/prctl.2, man/man2const/PR_FUTEX_HASH.2const: Document
+    PR_FUTEX_HASH
+  man/man2/prctl.2, PR_FUTEX_HASH_SET_SLOTS.2const: Document
+    PR_FUTEX_HASH_SET_SLOTS
+  man/man2/prctl.2, PR_FUTEX_HASH_GET_SLOTS.2const: Document
+    PR_FUTEX_HASH_GET_SLOTS
+  man/man2/prctl.2, PR_FUTEX_HASH_GET_IMMUTABLE.2const: Document
+    PR_FUTEX_HASH_GET_IMMUTABLE
 
-Have a lovely night!
-Alex
-
-> https://man7.org/linux/man-pages/man3/readdir.3.html
-> https://man7.org/linux/man-pages/man2/readdir.2.html
-> https://man7.org/linux/man-pages/man2/getdents.2.html
-> https://man7.org/linux/man-pages/man2/stat.2.html
-> https://man7.org/linux/man-pages/man2/statx.2.html
-> https://man7.org/linux/man-pages/man3/stat.3type.html
-> https://man7.org/linux/man-pages/man7/inode.7.html
->=20
-> The missing information in those documentations is the fact that the
-> dirent.d_ino does not have to be same as stat.st_ino/statx.stx_ino for
-> the same file or dir.
->=20
-> stat.st_ino number belongs to the stat.st_dev but dirent.d_ino belongs
-> to the st_dev of the directory on which was called opendir().
->=20
-> So for the mount points these two numbers are different. readdir()
-> returns the inode number of the underlying directory (which belongs to
-> the parent filesystem), but the stat() returns the inode number of the
-> root directory of the upper/mounted filesystem.
->=20
-> And I think same applies for mount-binded files, not just for mounted
-> directories.
->=20
-> Note that this Linux behavior (when readdir and stat returns different
-> inode numbers) is in POSIX readdir() specification called "historical"
-> and is described in RATIONALE section of POSIX readdir:
-> https://pubs.opengroup.org/onlinepubs/9799919799/functions/readdir.html
->=20
-> Therefore it would be nice to mention the fact in Linux readdir(3)
-> documentation, that Linux conforms to POSIX "historical implementation".
->=20
-> Pali
+ man/man2/prctl.2                              |  3 +
+ man/man2const/PR_FUTEX_HASH.2const            | 92 +++++++++++++++++++
+ .../PR_FUTEX_HASH_GET_IMMUTABLE.2const        | 37 ++++++++
+ man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const  | 37 ++++++++
+ man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const  | 83 +++++++++++++++++
+ 5 files changed, 252 insertions(+)
+ create mode 100644 man/man2const/PR_FUTEX_HASH.2const
+ create mode 100644 man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const
+ create mode 100644 man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
+ create mode 100644 man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
 
 --=20
-<https://www.alejandro-colomar.es/>
+2.49.0
 
---dsn5gaafn5o6i3kq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmgzqCMACgkQ64mZXMKQ
-wqlecw/8CBtIVCA0rx751P+VyByxnOXsN16P6AfvV2UvMFX9RnrNc+cibFOo7NxF
-k11n6B+220oUubN5rtZhJdb9EGObmIa/SOoZNMDIiTeZM0WEwGz9rNWYBcd/9TNe
-O8XNi1P6w0vxV9rQMGie7fzUwTmCsv5mUiydFoGInnMZLNskX6ygqd2qraZg49M7
-jzTkJbzvEd2lOgsh+e8mJaY4QsCYO7kVbNtaTXDquaM5sCb65Ka61IbqfaMoYJix
-iXzF0M5aMekKlZCBCriGarmvAqwG2nrelnHge7yzBm/SUaLKa15ab07QDF2KLZiQ
-NfEpRKyZBXsXZWsiKTSXChNEuhTx2c8Oxx5DO4G26fbM5io8KWmkvE9RwVQdihWl
-wgFV1ThK3YRrKAsJTE2X3kxZKVfHwm03O1265/BX+l1ZijY98592SeHAA+BMeR7k
-vm5MYA+mlG7JrqTezVEfl/82VBOd8FM6mn4+IfdbbQArfHnNvrG0MoXiYprt4gpw
-2ZGeydV+Ktu/BahfhFc9D74Rl3V32JO/vd6gWuKuOxLNPbUqok9allAQHYpJpMXn
-j+xWOgJfrvBgJPgvoSgXyKqPQZxHAf1z1/5NQhsJy1MbxX4g25QuMpNR0d8MYK8M
-EJ21LvsQVX6f4ExNi6n4/rT3Zxw4RExM4FuClWsprXZHA/rypO4=
-=TcG3
------END PGP SIGNATURE-----
-
---dsn5gaafn5o6i3kq--
 
