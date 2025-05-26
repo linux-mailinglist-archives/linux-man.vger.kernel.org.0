@@ -1,35 +1,35 @@
-Return-Path: <linux-man+bounces-3018-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3019-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A9D6AC42A9
-	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 17:55:59 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7112DAC42AA
+	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 17:56:12 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BF9771763CF
-	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 15:55:53 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id F1D57189BAE0
+	for <lists+linux-man@lfdr.de>; Mon, 26 May 2025 15:56:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47940214A64;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 837302144A2;
 	Mon, 26 May 2025 15:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RO4ttSoh";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mdB1nHJ5"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wfwGRsPe";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+VxzvDku"
 X-Original-To: linux-man@vger.kernel.org
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5912D214A69;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB10F288DB;
 	Mon, 26 May 2025 15:55:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748274936; cv=none; b=FQ6C7IwuOufCo1j+wyzfpqB0ORMRau9TIBekWykjhvrUHCArkiPRAd4T2umcGE+bnqovJ/fYhHwxSkXAdz9I3KjKzlmadRcdaIsIsB4TTtXS7x2skFj3sFI8bOVgaBiEfqNCmwmtwGgfc5eCfakhWqIq15mch3npbKIsuFQiBE8=
+	t=1748274936; cv=none; b=Vid0/aD+pH0mbDnyt2NJP6dEJkI7AVspo4RGeKtY6muSHZkX4rrvqF9MSfQdHBlIDTOHlV6Aj6cqZn0HM/4LVkWKsj0bTPrWBDJYMJ7Rq9LwVudmJ45qFMzWUHUOwL27wXXDS95CPiOhGnDQwhRhm7LH7Wn0BiUJsUpVJ8xHgrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1748274936; c=relaxed/simple;
-	bh=M0u8lVHfk86RCl8jnWhZS9vpqkeG8OWSljXRHiE5MvI=;
+	bh=Kp2EooeiiHbY/lTF4xNyTkRSbNYmGegsoOcvHjcGhMk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a1l1TndnUMs+DlPoQEZoaXsUQdmYR3JCjYspWhzpf2lWR1ijFLb5TDp2mRd+Us4JDf/l+7AHvukNWoWpBSwsne8V8oX37rmj9AQj8NNqqRtvYM5voCoJnxHdB+I4zKRrCK2Oa90lHNUpPBHIpB6fL5iSThbgHB8Q8O2JnZELMzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RO4ttSoh; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=mdB1nHJ5; arc=none smtp.client-ip=193.142.43.55
+	 MIME-Version; b=kYdcsL7yxCoD+fuEAEBBW9bpnjAVc0Qo+txHB+jgL9CsprwKCD2vv9Sn3Ha7O4oU0lGPZaQe7fU6/6Ge4VjDaADiiWR7Cz1eUFlMqGwwIfb269PYwC+iv9B1vIvM2PTTpDL/J1EfvGTqcheT6h8tiYnApFLq6HhW+h1d2hauCJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wfwGRsPe; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+VxzvDku; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
@@ -39,21 +39,21 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AHUrfwTUHlnHY0MYxACneOEKDSyBg+c5GdC7Ae+wMH8=;
-	b=RO4ttSohTHX00mK3J4Spqj3xTPfu2ADmlf1AGxb+LZmGEeO5kg1V/rO9g/ZSTju8u4HwKw
-	1kSXZLoo/Fo/BzeJnTdDLwt3k64FKYZXGh0ZUIOu+wdi5B0CXjyoVF4fCJ+0q/GK4Tssf6
-	BM1RYYLl6nHzNsK2LdMvS2LKzrkd8Df5AjR1t4efmKeKB2lN2vnQY4kN1rDmDCMUzepGlW
-	yx8sJTj/hweTl71warLG6SIPrdxamcSOBpIWBjBEAjd4EeP74PMadVD6vI+wknPjW1jIqi
-	fbMNdeKQ3WzBmCKwP8geyyImvHdhaVKqvtON/IAFzI+uttC1/2wSmXfNVAAKVQ==
+	bh=rXXLDNTh6XheffVJ6lgr3mTwIxPbFH4H/p3u0s2IGPU=;
+	b=wfwGRsPexIxqINfzY7EASuygtKrsz5Cpk1O4l+zGnC/qqSliCDJ55lLhpK94aNuHadQvtm
+	+X7lCj4zv/sl9ItTRccCQ8Wf8eLh+mc9CJjzQEUCV1iG/CvfB7EMKCDddcKfa2nSiipZov
+	AIjifCVDLhRK6a64tQEw86DUvL9c2cjRoyc4stj6QQKgyeS+B7W12M7x/R5Y+IIPKtGRGy
+	qbF36dGsKXCAGnLe5Rm9PpWgv4ebAUdedHYdbRXF7AOZ+LIA+I2qh/QQXjvzgUr8Z702mM
+	oeGfSlsVpdzPetLF0Y8JOowgpVwUucsisDiea0BG3fl+wUyLqdhspWAPqKnoxg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1748274932;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AHUrfwTUHlnHY0MYxACneOEKDSyBg+c5GdC7Ae+wMH8=;
-	b=mdB1nHJ5rQ6GVLA1XQ7DlDfQAYc7pH/8zN7h6hy6MObIYaeRW2CaTWWROb1J5LMUedOUk2
-	oDqVqCymvIZgcdDg==
+	bh=rXXLDNTh6XheffVJ6lgr3mTwIxPbFH4H/p3u0s2IGPU=;
+	b=+VxzvDkuoGjTK8dIiDB+z+oVeF+jbfNj1WJPRBN/7Al8KzgXWn07jjJ2h/5Vf9ySTCKpvB
+	weaSNSkudxK8x5Ag==
 To: linux-kernel@vger.kernel.org,
 	linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>,
@@ -67,9 +67,9 @@ Cc: Alejandro Colomar <alx@kernel.org>,
 	Valentin Schneider <vschneid@redhat.com>,
 	Waiman Long <longman@redhat.com>,
 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [[PATCH v3] 3/4] man/man2/prctl.2, PR_FUTEX_HASH_GET_SLOTS.2const: Document PR_FUTEX_HASH_GET_SLOTS
-Date: Mon, 26 May 2025 17:55:22 +0200
-Message-ID: <20250526155523.1382465-4-bigeasy@linutronix.de>
+Subject: [[PATCH v3] 4/4] man/man2/prctl.2, PR_FUTEX_HASH_GET_IMMUTABLE.2const: Document PR_FUTEX_HASH_GET_IMMUTABLE
+Date: Mon, 26 May 2025 17:55:23 +0200
+Message-ID: <20250526155523.1382465-5-bigeasy@linutronix.de>
 In-Reply-To: <20250526155523.1382465-1-bigeasy@linutronix.de>
 References: <20250526155523.1382465-1-bigeasy@linutronix.de>
 Precedence: bulk
@@ -82,26 +82,27 @@ Content-Transfer-Encoding: quoted-printable
 
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const | 37 ++++++++++++++++++++
+ .../PR_FUTEX_HASH_GET_IMMUTABLE.2const        | 37 +++++++++++++++++++
  1 file changed, 37 insertions(+)
- create mode 100644 man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
+ create mode 100644 man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const
 
-diff --git a/man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const b/man/man2const/P=
-R_FUTEX_HASH_GET_SLOTS.2const
+diff --git a/man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const b/man/man2con=
+st/PR_FUTEX_HASH_GET_IMMUTABLE.2const
 new file mode 100644
-index 0000000000000..f5c6380ef1fe7
+index 0000000000000..be5f457f0dcb6
 --- /dev/null
-+++ b/man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
++++ b/man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const
 @@ -0,0 +1,37 @@
 +.\" Copyright, the authors of the Linux man-pages project
 +.\"
 +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
 +.\"
-+.TH PR_FUTEX_HASH_GET_SLOTS 2const (date) "Linux man-pages (unreleased)"
++.TH PR_FUTEX_HASH_GET_IMMUTABLE 2const (date) "Linux man-pages (unreleased=
+)"
 +.SH NAME
-+PR_FUTEX_HASH_GET_SLOTS
++PR_FUTEX_HASH_GET_IMMUTABLE
 +\-
-+return the size of the private hash
++check if the private hash is immutable.
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ,\~ \-lc )
@@ -110,14 +111,14 @@ index 0000000000000..f5c6380ef1fe7
 +.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
 +.B #include <sys/prctl.h>
 +.P
-+.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS);
++.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_IMMUTABLE);
 +.fi
 +.SH DESCRIPTION
-+Return the current size of the private hash.
++Check if the private hash is immutable.
 +.SH RETURN VALUE
-+A value of 0 means that a private hash has not been allocated
-+and the global hash is in use.
-+A value >0 specifies the size of the private hash.
++A value of 1 means that a the hash has been made immutable
++and not be changed.
++Otherwise 0.
 +On error, \-1 is returned, and
 +.I errno
 +is set to indicate the error.
@@ -128,7 +129,7 @@ index 0000000000000..f5c6380ef1fe7
 +.SH SEE ALSO
 +.BR prctl (2),
 +.BR PR_FUTEX_HASH (2const),
-+.BR PR_FUTEX_HASH_GET_IMMUTABLE (2const),
++.BR PR_FUTEX_HASH_GET_SLOTS (2const),
 +.BR PR_FUTEX_HASH_SET_SLOTS (2const)
 --=20
 2.49.0
