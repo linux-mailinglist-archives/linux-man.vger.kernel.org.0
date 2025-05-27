@@ -1,87 +1,87 @@
-Return-Path: <linux-man+bounces-3032-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3033-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E5DAC4EC1
-	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 14:35:31 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC71FAC4EC7
+	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 14:37:31 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5DE9D17D07F
-	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 12:35:32 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 985B517D8EE
+	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 12:37:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15B71253F15;
-	Tue, 27 May 2025 12:35:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76CB32561AA;
+	Tue, 27 May 2025 12:37:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OBDU2Jgk"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bvozfrtv"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C57240604
-	for <linux-man@vger.kernel.org>; Tue, 27 May 2025 12:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A64C2ED
+	for <linux-man@vger.kernel.org>; Tue, 27 May 2025 12:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748349321; cv=none; b=gbUt2jYz68yZkku/T8Va5MwA9WAAvhiKuLrm443HayseuriesU9bJjjdIojyQvCZQx0+ir/Oj6+DL8jaMxtlam+jCOdZuONrZj6hG+vrQnUP9n03Xy0mJFgpLpWQaIuo4LZ3jJw/8zcDYZBf0cn69LQ++Iinb2xQMbfyQXw9NjE=
+	t=1748349447; cv=none; b=mCrNEa1gxX/B9fDJQlPACtjjuASq85gLT435SvxdUxl4xghtAuHSMHKCm8Y8AiejfkS1OvcDYgqnUKoo3eSJEHeq1VNBrxV0rbIWkiRIV80CjegXkVwPIYLlzKXbTJiwqT9l1/pbHqvhPz8pfAdrSKRGDV8EDboR5iaBiIdILr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748349321; c=relaxed/simple;
-	bh=DbjWLsC7xAW5nz1iCjHEO6hXJ6++6oVqpv9yw/9rmSc=;
+	s=arc-20240116; t=1748349447; c=relaxed/simple;
+	bh=481EDfX8TnMPTPr/DsgRAVVXOnYi08UC+JO4XWZG77Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A7hqfxM0sEBqX8M7Ak+ho43Itl5wIeYOXlq/iwfQ2/7F8JQxuz+4TIa+vofTSmnkAMsFJzAOqMgrxK4yP7j4qUAxpryVWqHBbYkqJmY1HshF5+bTfNxWPSEHT6MJ9fAQdWnaPKTwmDnqox7ZLmD4QrfMO4M9XKcIDUX2Ayjxup4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OBDU2Jgk; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=N5BBn4iHdKXkhTiTGeQs+L5DBC6JshB3b8XkeEJE2ZxyFQJ9HUjlmv92Od/eE/rkFiTWGYkbpTo2MSiV+oRhn3GAO/UIlcbOl6djj5TPiwQezAsPHHA3aH2sxo24dVkfOSbXsuKXpPH+yjwxtvTn4xdLmkMP1jq8agTlql0xHC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bvozfrtv; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1748349316;
+	s=mimecast20190719; t=1748349444;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=YK4ZskRAwQVpMv6l91Sv1yPuIYmCJmGb199AIrUpoOs=;
-	b=OBDU2JgkABgQlg04eZcsQrwEkrq/SiLtDJ14ryN1t5D5kj6UnUiNY+bEZ6v+iD55dyVtJo
-	93EhjG58xGHc7x8wXbeJ/iKsNjOpsSpMvQy/w+yYg3U3M997Mrg282Dh8KKuv5I2y1c8Wt
-	KkjWTCTA3MuH5flPxr9Obe/r1BFuwhs=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=VAGW/zJKvtf1Chat5NrEIIga+jAS60CZ2Glooy7WkVk=;
+	b=bvozfrtvL4ignS4xivVPo0tKaYUSRNWi5oF+HioaM6+cqFTN9e2NVVYhdb6ln+lfrxKloH
+	m58JIPFlEmBQm/PxO2zvxm10YMqal7nHpLrFz2QHbYHCclTvpsqHhBD6Xn5Y47FpxKbg5D
+	LukiuoommIsj3lYYu4oBzw6ke+K9rTo=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-63-9YgMBBLhPm2H4DFuQjDtBA-1; Tue, 27 May 2025 08:35:14 -0400
-X-MC-Unique: 9YgMBBLhPm2H4DFuQjDtBA-1
-X-Mimecast-MFC-AGG-ID: 9YgMBBLhPm2H4DFuQjDtBA_1748349314
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-7c579d37eeeso423335485a.0
-        for <linux-man@vger.kernel.org>; Tue, 27 May 2025 05:35:14 -0700 (PDT)
+ us-mta-480-mBfl_gbFP5OAZBpKE0zoRA-1; Tue, 27 May 2025 08:37:23 -0400
+X-MC-Unique: mBfl_gbFP5OAZBpKE0zoRA-1
+X-Mimecast-MFC-AGG-ID: mBfl_gbFP5OAZBpKE0zoRA_1748349443
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-6faabeb105fso25112176d6.2
+        for <linux-man@vger.kernel.org>; Tue, 27 May 2025 05:37:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748349314; x=1748954114;
+        d=1e100.net; s=20230601; t=1748349443; x=1748954243;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YK4ZskRAwQVpMv6l91Sv1yPuIYmCJmGb199AIrUpoOs=;
-        b=lNdZBhXPRkJ16zZoPUxZHN5oBHmHHb7huGx1I4CcPTiPa2chth2yc7Q4MyZUdexnpt
-         wzpiwsQnJhGYn6jPYgzL0wzyLr7nPasOzxgl1wAdk57ehaE4A5Lw98bQrtvqG1jGjSk6
-         73E3Oxu4Ry5GrPsXAlTc39e0UXA5KxFBE8ZuqwqVxxu6v3slE517WlmzgUjUamB1Haz4
-         8d6SJm7ZSKYy+adMOGrGVX/hJbXsqfaQ/Ofsxqcaq0/CWW+SliBjPVN13MSBd8R1cAmm
-         so7pU8mm8sFVugY9NqVjXq+c1TxWpJUq2fj+mEwa8rJnmW0arHdX3WU5HknFJDQCFl3Q
-         5Vzw==
-X-Forwarded-Encrypted: i=1; AJvYcCVz2LE6yN9KpX0JYZ+VPci2osdkTsnWzNANS4+9pvEg9H9O81Q1csc0lQ3G7Leqptk4ewDm9kFC/Rg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBWwgutTFSv02sYyR9b4jqtic3jO027yOdnYNWVrH/ueVtv6AS
-	aaImsPxGGDKDLBu/pK9fo7e/yBwfnOGzflfUoDnAjQoeAn5lmIdoHBw37rd7J9M0ZF8lNN4hfsr
-	x7kQKP+tByRL41irH8cghGPrmVf/XVRzeIYOd1yMDk0XPDcnWmxUDx90XSyZGnA==
-X-Gm-Gg: ASbGncsQ/O6BfV7WoWm39H0MvtEu+w0GTPWMgxmIJ04nPY4xnLAG6H4FYEumXqw5Hys
-	6azxcDwF+aOt6eZWwXVNewn/dAn9YAbgVPZugNfwJNOFP7I7g+szhUxyGHgqpi8edFCmTj5pQ+9
-	3d+LbL63DQFbF0Luz13T7TAHqZgkrfN1TYnlgIw+Mo8DE72c1svk9sHGKcqmQk3F0LUPaAcsTd/
-	Q3cBCn/Oke0IEvnY/7dB4IGehp9bBAX9rHW2xFZoxzhef4DOyIZaQXYEcIt5+Iz1X7TsWC0u2Lt
-	r/wzR2jk6jsK
-X-Received: by 2002:a05:620a:1707:b0:7c5:54d7:d744 with SMTP id af79cd13be357-7ceecbd02dbmr1707538285a.23.1748349314192;
-        Tue, 27 May 2025 05:35:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHpLjTUxiBHxZRAOxCLTdSh5+7qqdSsPB2sN74hUSZ3uh1WvHeoQ0LA28kiVPupzbX42ouy7Q==
-X-Received: by 2002:a05:620a:1707:b0:7c5:54d7:d744 with SMTP id af79cd13be357-7ceecbd02dbmr1707535985a.23.1748349313895;
-        Tue, 27 May 2025 05:35:13 -0700 (PDT)
+        bh=VAGW/zJKvtf1Chat5NrEIIga+jAS60CZ2Glooy7WkVk=;
+        b=BivXEox6iWLmdQ7uUmP3zEB9XWMiQuSs5EY3kPv9iNmr4LAMSB9K85aTb6dNKb31hK
+         69GOHvYcG+gakN9Qm+taBbQOMm5s3y/tomO656kBya3Ghg/rOmMNZeyMVFnV4jy5rU/6
+         MXpUXM2fjCCGXFYXDhZ5ZkdQdIrrYV13RkfbESNLu8GQz9xPXzLH3pOeoPjz5FYLggX5
+         FNzaEKie7aZzrWewqOMxq3Yc1EmhuyUiVGH1gqF35OmZ+6XomlqPzMbx+KJOghXVe+Qq
+         Y/iCfgltIqBR11/QRTAevLiA4yhmiJ5sDN8M8HiKS5cxdRc7DlINvJ5mp+NYOG4Z4qeh
+         03Pw==
+X-Forwarded-Encrypted: i=1; AJvYcCXt/lheIhHc7sxsmsmeH7IgEB2LONR8VhHDnmvLUHcwX5dqNo0tsNMn8D3UF3ML+vM8OzIrZCP3dNc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YybSthAOdbSuavZMHeqc061gHKtfyBtCwKHSRMcNMGm2NPCgzKe
+	tGmMsjpOWc0lXz3zoq8glV7nzoaUkPy/uSpSk15eHE2FCMZjCyg4qZS8pjcxyWSd26HG80OuLQs
+	FqyE0ebx9Mmpy9UnMho1NjK/bJojotF9esWiaoQhcBU4l05IrAjETfarZsx4Tew==
+X-Gm-Gg: ASbGncsp36oU+R9YjkyPaGI7jydV1DrYblBf4rlW+aFp1CS8EiSPgyBeHZRYqE7+wno
+	7P6cVuN1zutKnOxz/XXu+nKM8udwZfDcvh+gyPIT1H0Nz3qtN6YxeA2/NpT3+KmM6+BzpKuP/3R
+	5VBQuJJw8WmISEos+M8WySu2XfcQ/HZBqc/jzxveYOe6xjCfBkRZvpP+/AvIJUhawzA4StBxYZy
+	EG2E+mGsBqfMeJlqaQhiXQDLR4HVtp3evPaIf0CxkcjV9fap7sK/RuRRen8l8w/aSQBZIJTKb54
+	cuocKxjMYMhe
+X-Received: by 2002:a05:6214:f04:b0:6f8:d223:3c32 with SMTP id 6a1803df08f44-6fa9cff5fdbmr197749376d6.10.1748349441094;
+        Tue, 27 May 2025 05:37:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHn6rM7zIhBWM0ojcYjLo5FHgIgcDP8rE8HvzJc8io8/Nf+ie+HCkUB/7kL77Xg4EQAKkG6fQ==
+X-Received: by 2002:a05:6214:f04:b0:6f8:d223:3c32 with SMTP id 6a1803df08f44-6fa9cff5fdbmr197747306d6.10.1748349437832;
+        Tue, 27 May 2025 05:37:17 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7cd468eea94sm1715852885a.117.2025.05.27.05.35.13
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6fab8831927sm3469376d6.104.2025.05.27.05.37.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 May 2025 05:35:13 -0700 (PDT)
-Message-ID: <a8506c35-4226-48e6-925d-38c43983ed42@redhat.com>
-Date: Tue, 27 May 2025 08:35:12 -0400
+        Tue, 27 May 2025 05:37:17 -0700 (PDT)
+Message-ID: <3a1f14f3-f2d7-405e-a6c8-6f19893358cf@redhat.com>
+Date: Tue, 27 May 2025 08:37:16 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -90,12 +90,15 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: bug in futex.2, FUTEX_CMP_REQUEUE
-To: Alejandro Colomar <alx@kernel.org>
-Cc: =?UTF-8?B?SuKCkeKCmeKCmyBHdXN0ZWR0?= <jens.gustedt@inria.fr>,
- linux-man@vger.kernel.org
+To: =?UTF-8?B?SuKCkeKCmeKCmyBHdXN0ZWR0?= <jens.gustedt@inria.fr>
+Cc: Alejandro Colomar <alx@kernel.org>,
+ Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org,
+ Ulrich Drepper <drepper@redhat.com>, Ingo Molnar <mingo@kernel.org>,
+ Todd Lewis <todd.lewis@gs.com>, Alexandre Oliva <aoliva@redhat.com>
 References: <20250527115303.3304206e@inria.fr>
- <8b77ea67-2662-411a-83c8-e0e23755244f@redhat.com>
- <xea5hgyrqs7uktyp7awn4d7l7nn64k7jprrzcuwohe4iixxglx@fmyt2rav6myd>
+ <s5ec3atfffzxdetxbkjgkdiarnuk2yucnpi5j3h3ppqr72mxna@ml6zpucwnbz6>
+ <7d4c29a5-6836-48bd-a6c8-009264be000c@redhat.com>
+ <20250527142812.51ee1c30@inria.fr>
 Content-Language: en-US
 From: Carlos O'Donell <carlos@redhat.com>
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -143,79 +146,46 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O4uRThl5mMDx8MXQz6M9qQ5anYwre+/TudTfCzcTpgXod1wEqi2ErJ5jNgh18DRlSQ3tbDvG
  O0FatDMfJw==
 Organization: Red Hat
-In-Reply-To: <xea5hgyrqs7uktyp7awn4d7l7nn64k7jprrzcuwohe4iixxglx@fmyt2rav6myd>
+In-Reply-To: <20250527142812.51ee1c30@inria.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 5/27/25 8:23 AM, Alejandro Colomar wrote:
-> On Tue, May 27, 2025 at 07:30:09AM -0400, Carlos O'Donell wrote:
->> On 5/27/25 5:53 AM, Jₑₙₛ Gustedt wrote:
->>> Hello Alex and everybody,
->>> I stumbled upon this confusing text in the futex man page
+On 5/27/25 8:28 AM, Jₑₙₛ Gustedt wrote:
+> Hello again,
+> 
+> On Tue, 27 May 2025 08:12:41 -0400, Carlos O'Donell wrote:
+> 
+>>> 	    Fixes: 3dfcc11d4630 (2015-12-15; "futex.2: Expand
+>>> description of FUTEX_CMP_REQUEUE") Fixes: 8297383e9eeb (2015-12-15;
+>>> "futex.2: Clean-ups and FIXME removeal after feedback from Thomas
+>>> Gleixner") Reported-by: Jens Gustedt <jens.gustedt@inria.fr>
+>>> Signed-off-by: Alejandro Colomar <alx@kernel.org>
 >>>
->>>     Typical values to specify for `val` are `0` or `1`.  (Specifying
->>>     `INT_MAX` is not useful, because it would make the
->>>     `FUTEX_CMP_REQUEUE` operation equivalent to `FUTEX_WAKE`.)  The
->>>     limit value specified via `val2` is typically either `1` or
->>>     `INT_MAX`.  (Specifying the argument as `0` is not useful, because
->>>     it would make the `FUTEX_CMP_REQUEUE` operation equivalent to
->>>     `FUTEX_WAIT`.)
->>>
->>>     The `FUTEX_CMP_REQUEUE` operation was added as a replacement for the
->>>     earlier `FUTEX_REQUEUE`.  The difference is that the check of the
->>>     value at `uaddr` can be used to ensure that requeueing happens only
->>>     under certain conditions, which allows race conditions to be avoided
->>>     in certain use cases.
->>>
->>>
->>> This has several issues, the most severe beeing the word `FUTEX_WAIT`.
->>>
->>> - How can an operation that only does wakes, ever be equivalent to a
->>>     wait?
+>>> 	diff --git a/man/man2/futex.2 b/man/man2/futex.2
+>>> 	index 128612ee1..9a15a0fdb 100644
+>>> 	--- a/man/man2/futex.2
+>>> 	+++ b/man/man2/futex.2
+>>> 	@@ -501,7 +501,7 @@ .SS Futex operations
+>>> 	 (Specifying the argument as 0 is not useful, because it
+>>> would make the .B FUTEX_CMP_REQUEUE
+>>> 	 operation equivalent to
+>>> 	-.BR FUTEX_WAIT .)
+>>> 	+.BR FUTEX_WAKE .)
 >>
->> My opinion is that the text is correct.
+>> This is incorrect.
+>>
+>> A value of zero means no tasks are woken.
 > 
-> Hi Carlos,
-> 
-> I disagree.  Let's see FUTEX_WAKE and FUTEX_REQUEUE side-by-side (to
-> ignore the check of FUTEX_CMP_REQUEUE).
-> 
-> 
-> 	FUTEX_WAKE:
-> 
-> 		long syscall(SYS_futex, uint32_t *uaddr, FUTEX_WAKE,
-> 		             uint32_t val);
-> 
-> 		Wakes up to 'val' waiters.
-> 
-> 
-> 	FUTEX_REQUEUE:
-> 
-> 		long syscall(SYS_futex, uint32_t *uaddr, FUTEX_REQUEUE,
-> 		             uint32_t val,
-> 		             uint32_t val2, uint32_t *uaddr2);
-> 
-> 		Wakes up to 'val' waiters,
-> 		and then requeues up to 'val2' more waiters to wait for
-> 		something else.
-> 
-> If val2 is 0, then FUTEX_REQUEUE is equivalent to FUTEX_WAKE, as Jens
-> said.
+> No, `val2 == 0` means that as many as specified in `val` are woken,
+> and that no task additionally is queued on `uaddr2`. So this is
+> definitively a wake operation.
 
-I see the confusion.
+I think we are talking past each other.
 
-The parenthetical does not clarify if it is talking about val or val2,
-though they follow on from such comments.
+Since the parenthetical is not clear about val vs. val2, it can be
+read in two different ways.
 
-I interpreted the parentheicals to carry on a set of comments about
-val==0 and val2==1||INT_MAX.
-
-I agree that if it is a parenthetical about val2 alone, then it *might*
-be equivalent to FUTEX_WAKE, but it also might not be... and depends
-on the value of val.
-
-The clarification here should be about the value of val and val2 in the
-parenthetical.
+See my comments downthread about how to improve this.
 
 -- 
 Cheers,
