@@ -1,223 +1,225 @@
-Return-Path: <linux-man+bounces-3024-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3025-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C1AAC4D61
-	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 13:30:24 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 698AAAC4E14
+	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 14:01:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D001C3A5DB8
-	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 11:30:02 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id F09791BA0843
+	for <lists+linux-man@lfdr.de>; Tue, 27 May 2025 12:01:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2134919C546;
-	Tue, 27 May 2025 11:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B9C57260E;
+	Tue, 27 May 2025 12:01:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MmvcdorA"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWwqcSXA"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4196617B418
-	for <linux-man@vger.kernel.org>; Tue, 27 May 2025 11:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC791EA91
+	for <linux-man@vger.kernel.org>; Tue, 27 May 2025 12:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748345418; cv=none; b=VlpPiqciVVu9GR8K3O4JVezpdkTMvUxgXUQWSY2GL63lSKHA08d23NBlUjPtRDxRrqBS9iuG2jySJIoqrcMGVtFDUt4cHDhRDHeIFr3XdE/hpY+L3NUjYEsOCBh0q+NGz7eWFg6jhaKCwX1Krk+iDwCl+GXSrhNjIYXGvjMTi2c=
+	t=1748347274; cv=none; b=dcZn5nzJp7797xnKV4TSZ/sJxgBkPxwKUM+s7Bw1qOTVHpTq0tethCMw918oI0mXVa0r+wLIUY5DG0rd5Dqh58KS1+QRDsSL7NWbnzrmcRnkXETSOrNFj1e8Cr+JurlQAt64m10dW9PyymU+kiklJhKEL0l53A1dMezUGhLoqpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748345418; c=relaxed/simple;
-	bh=RbmRL8Ub7pRv5XeUP3gX1vW0BwkREFMp+oEyCdY7ldA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hLLKGrJlbTwzNoRgvF+rN+CGwMwYTWfjDGCjRcd4sTPUz9iC9BOAitT7DNI5YfmMmh4CacP3k++G6ImMQjj4qeydAetPs8NOcZy4S1ej7f/x6IxgtEjpAIRcGQLHUKSdcuW9PB26PWMi6xO1LlwksWrtSjwP29ZfLMD29J5O1ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MmvcdorA; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1748345415;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Ey5bzigfqHsu3QQz21O2obiIk6jtjpNk90kWid0bYlQ=;
-	b=MmvcdorAtQZLH/RHn3YxaC+Bt0d0gcgSdgE04QhEY5TaiuJLhC7XAMJBzBJIRCMA1T9Wbs
-	Q1sVQY6MeiByALSOsm9DlWEIX+DtIRZZre4i6p2ROQXaoc0UTIJbsfuHdnu+UrLmcQTriR
-	so/SDhmD+ScGQzV86tBU9KhOvXMGlNc=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-649-wbCAc4yTOrGLkeTMsitNUQ-1; Tue, 27 May 2025 07:30:13 -0400
-X-MC-Unique: wbCAc4yTOrGLkeTMsitNUQ-1
-X-Mimecast-MFC-AGG-ID: wbCAc4yTOrGLkeTMsitNUQ_1748345413
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6faa443fb86so25654346d6.3
-        for <linux-man@vger.kernel.org>; Tue, 27 May 2025 04:30:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748345413; x=1748950213;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ey5bzigfqHsu3QQz21O2obiIk6jtjpNk90kWid0bYlQ=;
-        b=P+JkrZQTb/ccyrzqrBFRd9uibtqn9CarF6l2Ffrha4j0rcCF1gG3oSngm/8rIF6rRh
-         5f3e+ROjsXYMGmM/UDRq+e/e7c61ONjbNrZZYOaMb5Cj+GQDDkjVrS56hlz1T+M6S+sQ
-         Mh3wUSOaSvQrtw3srvR3hpplrjIIQO92LYGFEjgQrXAyhkHc1no/ssX9YJ6zD/skqoT9
-         Itiw3kbrdDw7f44SdkqDr2Wja/g3h6UKSUusEAceZwMyimbyhVUy4K3j7NzP+P2hBjrB
-         jKFH9p8OaPagIi76BdsK5lqAx9ELR0v4RdhVCSg1Z6l6N1qT2uPvw0G/KOrbvG7LIWdQ
-         rIfg==
-X-Gm-Message-State: AOJu0Yyzn0yyhSVVwH669bBivYLVaGzzXhQ/lqFyunS3hBkmjEy5go1B
-	QLztglh3pyPbjTbx01lvYfCdFvucJmEWTVr3pKuhL0zdGenyWpIBIrgFbpcLhETamXVcn0eGBe6
-	5yessbRSIzCU1g/Xd/6ntWLXtYqXPjwwc2ZuyBIX3TINcMOmzOFI60gtvgSPeJg==
-X-Gm-Gg: ASbGncvn5T/Lz8u0aEYkezTI06Rkw5i47qD9Rfk1kvJklMtybzef2VdyD4hwcllEVfN
-	nYfxyrM75ZtoS+pVc5AKYu0eCI22DnDatk3xFL6J51IpCRej4P4RFJsHgEBnK1HrJ3Y4ej6YvYH
-	EFqY0W/aZ88g6J2w9PA/csaR1+5Lv1P4XMmzSN/L2WjM29P+3oT8BBTzLSt0l7dOKRUL4yZc8ye
-	eNlXxE7P4cEsbfdoSeAQlLDjpdC5H5522u3b2yUtTasiW/bzsLcn0LSX9NyaAma7ehgZ+q1IX4p
-	PTpFSdhx4AHa
-X-Received: by 2002:a05:6214:21a3:b0:6f4:cfb3:9de1 with SMTP id 6a1803df08f44-6fa9d2b4a7bmr231151566d6.40.1748345413192;
-        Tue, 27 May 2025 04:30:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFDp134piW4I2Vn+3DzCGl7Rw3k/L1qTxXb59wpYaDTah1XKtQ8QWzgP/FVysdv81Y/tynODA==
-X-Received: by 2002:a05:6214:21a3:b0:6f4:cfb3:9de1 with SMTP id 6a1803df08f44-6fa9d2b4a7bmr231150946d6.40.1748345412760;
-        Tue, 27 May 2025 04:30:12 -0700 (PDT)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6faa80b98e9sm30839196d6.125.2025.05.27.04.30.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 May 2025 04:30:12 -0700 (PDT)
-Message-ID: <8b77ea67-2662-411a-83c8-e0e23755244f@redhat.com>
-Date: Tue, 27 May 2025 07:30:09 -0400
+	s=arc-20240116; t=1748347274; c=relaxed/simple;
+	bh=5WPMacY9T9HxmO09lgRN67YacPUX9pQJ0CI/Seacpgg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KFAwQwM4r0wqQ8kWzLUa6hJwKIHb/wqRrBOdhgNdNzL0oiXHFh0VgnMHFNuyfTVKJbNV2usJSehzGcWHYLbyMjofxHcvzawDaHqNCv6DjlAA44FAcvf15VtdmRFmxOCBmQcZPXNg2pkJDNuBaeLS4+CoBc9eAsKLoY3t21FOe10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWwqcSXA; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A5DC4CEE9;
+	Tue, 27 May 2025 12:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1748347273;
+	bh=5WPMacY9T9HxmO09lgRN67YacPUX9pQJ0CI/Seacpgg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RWwqcSXAgnUF4lI5kqSlMQmH4o8DBJk5phPVDkp3iyWmGi9qbU4GIYuvzqWJabONN
+	 I24fDmenUAzBorHK6tNTNHUwMcKaa62wEhnW24yRk3ni4L/FO/1xlxXeZsP6pu3tSi
+	 SwfpqpAlZf+L0dQBauneRddsV0bNsiFMcbk9GPAQX1miggjF3+2oh15bBsjdqi9wvm
+	 eUBGVWL9k1A0DE6J2/1uQKCPXizMXDHDPPLEEqMwuiMb9BKeuTke1wJAUDwOGqgDEQ
+	 KQHg08C26UrGqRjy1fiHpmLfZjbqnggycjoJSYS5US7RsqFLWA9me5efd7acKXeqyV
+	 YWC3Xf4+rLzmg==
+Date: Tue, 27 May 2025 14:01:09 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?SuKCkeKCmeKCmw==?= Gustedt <jens.gustedt@inria.fr>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org, 
+	Ulrich Drepper <drepper@redhat.com>, Ingo Molnar <mingo@kernel.org>, Todd Lewis <todd.lewis@gs.com>, 
+	Alexandre Oliva <aoliva@redhat.com>
+Subject: Re: bug in futex.2, FUTEX_CMP_REQUEUE
+Message-ID: <s5ec3atfffzxdetxbkjgkdiarnuk2yucnpi5j3h3ppqr72mxna@ml6zpucwnbz6>
+References: <20250527115303.3304206e@inria.fr>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: bug in futex.2, FUTEX_CMP_REQUEUE
-To: =?UTF-8?B?SuKCkeKCmeKCmyBHdXN0ZWR0?= <jens.gustedt@inria.fr>,
- Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-References: <20250527115303.3304206e@inria.fr>
-Content-Language: en-US
-From: Carlos O'Donell <carlos@redhat.com>
-Autocrypt: addr=carlos@redhat.com; keydata=
- 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
- O0FatDMfJw==
-Organization: Red Hat
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p4xe2pdicb572o6a"
+Content-Disposition: inline
 In-Reply-To: <20250527115303.3304206e@inria.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 5/27/25 5:53 AM, Jₑₙₛ Gustedt wrote:
+
+--p4xe2pdicb572o6a
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?B?SuKCkeKCmeKCmw==?= Gustedt <jens.gustedt@inria.fr>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org, 
+	Ulrich Drepper <drepper@redhat.com>, Ingo Molnar <mingo@kernel.org>, Todd Lewis <todd.lewis@gs.com>, 
+	Alexandre Oliva <aoliva@redhat.com>
+Subject: Re: bug in futex.2, FUTEX_CMP_REQUEUE
+References: <20250527115303.3304206e@inria.fr>
+MIME-Version: 1.0
+In-Reply-To: <20250527115303.3304206e@inria.fr>
+
+[Added a few people to CC]
+
+Hi Jens,
+
+On Tue, May 27, 2025 at 11:53:03AM +0200, J=E2=82=91=E2=82=99=E2=82=9B Gust=
+edt wrote:
 > Hello Alex and everybody,
 > I stumbled upon this confusing text in the futex man page
-> 
->    Typical values to specify for `val` are `0` or `1`.  (Specifying
->    `INT_MAX` is not useful, because it would make the
->    `FUTEX_CMP_REQUEUE` operation equivalent to `FUTEX_WAKE`.)  The
->    limit value specified via `val2` is typically either `1` or
->    `INT_MAX`.  (Specifying the argument as `0` is not useful, because
->    it would make the `FUTEX_CMP_REQUEUE` operation equivalent to
->    `FUTEX_WAIT`.)
-> 
->    The `FUTEX_CMP_REQUEUE` operation was added as a replacement for the
->    earlier `FUTEX_REQUEUE`.  The difference is that the check of the
->    value at `uaddr` can be used to ensure that requeueing happens only
->    under certain conditions, which allows race conditions to be avoided
->    in certain use cases.
-> 
-> 
+>=20
+>   Typical values to specify for `val` are `0` or `1`.  (Specifying
+>   `INT_MAX` is not useful, because it would make the
+>   `FUTEX_CMP_REQUEUE` operation equivalent to `FUTEX_WAKE`.)  The
+>   limit value specified via `val2` is typically either `1` or
+>   `INT_MAX`.  (Specifying the argument as `0` is not useful, because
+>   it would make the `FUTEX_CMP_REQUEUE` operation equivalent to
+>   `FUTEX_WAIT`.)
+>=20
+>   The `FUTEX_CMP_REQUEUE` operation was added as a replacement for the
+>   earlier `FUTEX_REQUEUE`.  The difference is that the check of the
+>   value at `uaddr` can be used to ensure that requeueing happens only
+>   under certain conditions, which allows race conditions to be avoided
+>   in certain use cases.
+>=20
+>=20
 > This has several issues, the most severe beeing the word `FUTEX_WAIT`.
-> 
+>=20
 > - How can an operation that only does wakes, ever be equivalent to a
->    wait?
+>   wait?
 
-My opinion is that the text is correct.
+That seems to be a typo.  It seems to me that it would be equivalent to
+FUTEX_WAKE (just like a few sentences before).
 
-The operation can WAKE tasks.
-
-The operation can also cause tasks to WAIT in a *different* queue.
-
-If zero tasks are woken (val==0), and all tasks moved to WAIT on a
-different queue, then the operation has WAIT semantics on the
-new and distinct queue.
-
-Since there is no concept of MOVING in the futex, you could
-conceptually discuss this as a linked WAKE/WAIT sequence i.e.
-REQUEUE, which is what the operation does.
-
+>=20
 > But then, even if we assume that both subphrases mean to talk about
-> `FUTEX_WAKE`, the assumption that this can ever be equivalent is
+> `FUTEX_WAKE`,
+
+Yep.
+
+I've applied this patch:
+
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D74aa7971e5148f67d5def9977ed87cced638016a>
+
+	commit 74aa7971e5148f67d5def9977ed87cced638016a
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Tue May 27 13:07:19 2025 +0200
+
+	    man/man2/futex.2: tfix
+	   =20
+	    Fixes: 3dfcc11d4630 (2015-12-15; "futex.2: Expand description of FUTEX=
+_CMP_REQUEUE")
+	    Fixes: 8297383e9eeb (2015-12-15; "futex.2: Clean-ups and FIXME removea=
+l after feedback from Thomas Gleixner")
+	    Reported-by: Jens Gustedt <jens.gustedt@inria.fr>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man2/futex.2 b/man/man2/futex.2
+	index 128612ee1..9a15a0fdb 100644
+	--- a/man/man2/futex.2
+	+++ b/man/man2/futex.2
+	@@ -501,7 +501,7 @@ .SS Futex operations
+	 (Specifying the argument as 0 is not useful, because it would make the
+	 .B FUTEX_CMP_REQUEUE
+	 operation equivalent to
+	-.BR FUTEX_WAIT .)
+	+.BR FUTEX_WAKE .)
+	 .IP
+	 The
+	 .B FUTEX_CMP_REQUEUE
+
+> the assumption that this can ever be equivalent is
 > bogus. In fact `FUTEX_CMP_REQUEUE` checks for `val3` still being
 > pressent in the memory location, which `FUTEX_WAKE` doesn't.
 
-Both subphrases are not meant to talk about FUTEX_WAKE.
+Yep, we should document that.
 
 > So I think that specifying any of the values that are pointed out in
 > this paragraph can make sense, because of the added comparison to
 > `val3`.
-> 
+>=20
 > I suggest to change to something along
-> 
->    The limit value specified via `val2` is typically either `1` or
->    `INT_MAX`. Specifying the argument as `0` makes the
->    `FUTEX_CMP_REQUEUE` operation equivalent to `FUTEX_WAKE`, only that
->    the operation then also ensures an atomic check for `*uaddr ==
->    val3`.  Typical values to specify for `val` are `0`, `1` or
->    `INT_MAX`.
-> 
-> 
->    The `FUTEX_CMP_REQUEUE` operation was added as a replacement for the
->    earlier `FUTEX_REQUEUE`.  The difference is that the check of the
->    value at `uaddr` can be used to ensure that requeueing happens only
->    under certain conditions, which allows race conditions to be avoided
->    in certain use cases.  In particular, a combination of `val == 1`
->    and `val2 == 0` is similar to the operation of `pthread_cond_signal`
->    with an additional check for `val3`; `val == 1` and `val2 ==
->    INT_MAX` is similar to `pthread_cond_broadcast` with such a check.
+>=20
+>   The limit value specified via `val2` is typically either `1` or
+>   `INT_MAX`. Specifying the argument as `0` makes the
+>   `FUTEX_CMP_REQUEUE` operation equivalent to `FUTEX_WAKE`, only that
+>   the operation then also ensures an atomic check for `*uaddr =3D=3D
+>   val3`.  Typical values to specify for `val` are `0`, `1` or
+>   `INT_MAX`.
+>=20
+>=20
+>   The `FUTEX_CMP_REQUEUE` operation was added as a replacement for the
+>   earlier `FUTEX_REQUEUE`.  The difference is that the check of the
+>   value at `uaddr` can be used to ensure that requeueing happens only
+>   under certain conditions, which allows race conditions to be avoided
+>   in certain use cases.  In particular, a combination of `val =3D=3D 1`
+>   and `val2 =3D=3D 0` is similar to the operation of `pthread_cond_signal`
+>   with an additional check for `val3`; `val =3D=3D 1` and `val2 =3D=3D
+>   INT_MAX` is similar to `pthread_cond_broadcast` with such a check.
 
-Does my clarification above obviate the need to make any changes?
+I'll wait a little bit before doing anything to see if someone else
+wants to chime in.  I never used futex(2), so can't comment much.  It
+sounds more or less reasonable.
 
-Or do you think the text needs further clarification?
+In the meantime, I see some other things that need updates regarding
+futex(2), so I'll work on that (e.g., the futex_requeue() system call).
 
--- 
-Cheers,
-Carlos.
 
+Have a lovely day!
+Alex
+
+>=20
+> Thanks
+> J=E2=82=91=E2=82=99=E2=82=9B
+>=20
+> --=20
+> :: ICube :::::::::::::::::::::::::::::: deputy director ::
+> :: Universit=C3=A9 de Strasbourg :::::::::::::::::::::: ICPS ::
+> :: INRIA antenne de Strasbourg :::::::::::::::::: Camus ::
+> :: INRIA PIQ program Strasbourg :::::::::: piq.inria.fr ::
+> :: :::::::::::::::::::::::::::::::::::: =E2=98=8E +33 368854536 ::
+> :: https://icube-icps.unistra.fr/index.php/Jens_Gustedt ::
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--p4xe2pdicb572o6a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmg1qX4ACgkQ64mZXMKQ
+wqll5g//a5pxnsKxqf767Rf+6gLfrYVftlShS8RA3UF4Yu/utoC20haYdhjhvXSI
+7TlNV/O73Mo+CphjmlHaQVgylG4HrUKY73VCrf0pM6F60eXdG5ScPP9FnQHmX5rS
+xZicsUFSL87it50vqYWjVd82Sg8Fii9+ZTGvaHfY3HyLxptgJO9ZnhaKHgtddjxm
+OGG6ByZDuwLD932av/V6H2BT9wrGvRSuvGmfxCYESdEf5HWmdtX42KfSfZVlPlVm
+hK4LzepQLwBgA5DiKdn2JMLbv7laJcAWf28uFWdKzqYU41RGk7Ng1ftX3Hnt/neS
+D9DYfyz1hHLUQDP99m+GSp3opcZ1NNlVBq3eRY3vCsx0YKWB+wze0GN4x78fChIF
+P6U1OrSo2S1Uy6lFdlmNUo7n7+s60ADfdHaP278+WwgwzpwbjyfVrR/aofUuhgTx
+w8R9dli0P9mzlHrbDSbHezZcArEt5QHpFuglN/D4h7Kt73VHsOXYY+CTvQgztBX6
+FBuAyqMlakptMSZJIhP5JEqx3195A6Akn/7L+eWMeFwT+pyD3XuaETzGe5mvNMHT
+Sbu1BystmNmfGTVvOeABvrxQa+MgsHBZq8JqdkL1zKhtTWoFhjbZ9Kz9HxkdvUcL
+6BRK2iyc/1ukoto1t6e4SkWA9wTct3Jar2eOx2AIZyyX/VD4do4=
+=eZo1
+-----END PGP SIGNATURE-----
+
+--p4xe2pdicb572o6a--
 
