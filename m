@@ -1,139 +1,180 @@
-Return-Path: <linux-man+bounces-3049-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3050-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 723D9AC72C6
-	for <lists+linux-man@lfdr.de>; Wed, 28 May 2025 23:31:41 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02390AC7439
+	for <lists+linux-man@lfdr.de>; Thu, 29 May 2025 00:54:48 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id ABFAB7B2EC8
-	for <lists+linux-man@lfdr.de>; Wed, 28 May 2025 21:30:22 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 98C6B1C01E17
+	for <lists+linux-man@lfdr.de>; Wed, 28 May 2025 22:55:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B9C47F7FC;
-	Wed, 28 May 2025 21:31:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBE9E220F2B;
+	Wed, 28 May 2025 22:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="klv6YtmP"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XdShdbQj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2952DCC07;
-	Wed, 28 May 2025 21:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3742B4A28;
+	Wed, 28 May 2025 22:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748467893; cv=none; b=ELJEjuHw2Q2Huk1g7zYEYG+E7k3+ocBxGU3FfcDK3sx/P772a/BcsByUrMtNS24rNSa3tFOxaMOHCeVCKhrcvpbkKqrD8+gPvqkSzA6/10XvOWbWf25MWE8yxZbQGT97TuZ6MnpkzeDh/24xfeYbGIwwQlbpkgAS6Jrk3Qr7VjI=
+	t=1748472882; cv=none; b=QtMa1GAjKZFiyglnk+kzMSy/FQL+ddZXgcXvLepFdY8PDS16ABLdtlncGnG5RoV1IUyEZOWhfCFPNOZL+XRJ3u8jPUEdGkhl8ELWSfsbWXyjPUCTzIgI7Ee/+kpdiM6Mmfs19mRjYaCr5yflRFL6KPJVLZ5GDOscqiRh5ZgB0so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748467893; c=relaxed/simple;
-	bh=ZA5HvC3hy8Qskc4kZk5N8Frhfc23RTxU/kKzGnUmLps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OxYU3mJID52os9PQ0krg8zW2a+olI5TcWK7wD6tO/sI8d9Ph4neqIoYZwyHd3P8Zo9a3U08l1AEBGSQKn61jQ074Y75b2xskwJgtKq8RtxLVa/BuMmwUmR3Xwq/NBYoCwntB+ZatA5Qxsr9llb8SzTVIxes5kXmw9YsS55QPZZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=klv6YtmP; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F1FC4CEE3;
-	Wed, 28 May 2025 21:31:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748467892;
-	bh=ZA5HvC3hy8Qskc4kZk5N8Frhfc23RTxU/kKzGnUmLps=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=klv6YtmPLUFX91rd9RdzwmbO1/sSi0Yj2Tjyq66t916O62G+xgvbFbFWhwqW4TNUs
-	 nweoB+vl0wiUNxy4Hs0ViVZAtHkO+zCeGUGBTn1SIcEUqx1g4yI1Oi8/fHVvcC8RVA
-	 9wkr4NaY6gFk0CSEZ+bY6eaRkGzj2T/T1Cp/+fZGJPB6NX7GnQxrVdC1VmQo3njwzV
-	 72YuU8ZdXzBPDqgQJ2jBkr8+LnuXgBIF4owWpigNYdv37xK1wYGSLei8VlNvXNsHlG
-	 gIX+4lZJuU41Zoo1o4UW70nSOMa7PShaDPQPgVlkfsnud2On0pKa8Kk3mPjFB1eulo
-	 c62N14Y+tozWQ==
-Date: Wed, 28 May 2025 23:31:29 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-Subject: [RFC v1] man/man3/readdir.3, man/man3type/stat.3type: Improve
+	s=arc-20240116; t=1748472882; c=relaxed/simple;
+	bh=3cGkQkoWTuBKfIQIbDcC/g/dQymUkZHxWrRjIjYv1Io=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FDSMYnKW4nWjRUZ/ZKrDGuunxNi74opf+947wQorhbqXLYkcpjLNoNx57svHIZ7twcWna3WwmCdK1Nt+CmsevXZXG7FEyDp9/ZManF28u89fpH4Y8Hemb4RxoDEoam83WBY3jQ8PklJT4TVwHBZkUIP0N25nE9tImEqc4xLNddA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XdShdbQj; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-23278ce78efso3595585ad.2;
+        Wed, 28 May 2025 15:54:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1748472880; x=1749077680; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=W+JpffenepplKhyFKZp/OfkJ5wiK8oE9uBddYOW1nd8=;
+        b=XdShdbQjqvlpCdr1PGZSWC8BWBrOhlkpiyx0Uiab8WK4A2l3dJW6etI8nEOUBqLW0x
+         kbP/eYt664/3Y7HO95h85+/0EdvSTJpNEKztTxb+toyOAMg/yJmKnj1qtW9j9tyOR4M/
+         cWqEpNaGrjdk3/0aSOW+Y8fKj0o5y6ddTyOw7tXmv4W4+/HLxfzvQZoDdI7p66BbyEq4
+         kCsdCdQcpiREWAoqR6AEjts4HtfFpv7JoxBqNLhRLgreJVavCMkGZxDPGPVeqhEITEbn
+         2LYVwi0BG//Ai/C0TptnWFCKTbOeTwvDQQO0b311Xc8eW5MOXYXKic5VTk+tTykRIzGz
+         SRrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748472880; x=1749077680;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W+JpffenepplKhyFKZp/OfkJ5wiK8oE9uBddYOW1nd8=;
+        b=tk3sra4Y53eoxx8DeCBqVIrkYFCTpOisHdRwrMAz65tpIgHkkzulas4Hp7OrgIEix7
+         837JhNSleoofW4/w/6Rl9E+mWJD7otmhMyPfXvnJ1xrbpysIXOdyDoeAuD9Af2yB+Nx8
+         tTmcsGxIO5aDKRLY9O4L3ZVvHMuFnDHVPc8eMLvmTyVojJo8LAFaw5v0lyBdK+lhDqf9
+         /legIJ1moAp95OJkIuvEEz8PDpu/FVJeOVJps5ci0/9PY2n4m5nzP74A2qyjHKOtFHhi
+         gVT/gdH47+FnwcQ9VAjfRxxrcwhX56HXph3LN6+/1Zqom6W39kuaKCZO8a/qufpe71nH
+         fwWA==
+X-Forwarded-Encrypted: i=1; AJvYcCVUl+rWcf8aQzcZXEzjUbVc5ecqt12FMqvNeNjlwYIZVQb5tyXPc4sKThz8pLQQ9h+C6d8RJlwzSIvVVnUL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzt9j1Qu7wSzOzFYiee5qjYhJYX7m1quafiAafvTiT1F/qHWnO5
+	+Dc5kn3/YSpz544+/NH6Lwp3znYfl0w1PQYSrRgEAzRhZD0/UXqHFy4ACR+iBbKF
+X-Gm-Gg: ASbGncvigT9D2k4qXe/S5vXtVelbs393CgURARN0uOmNF9RIS0jaGNihiEdtJT35pbx
+	IVy90OkILuc7nQUnovqATmPbal0/L+sqX+MDT4ByewJwBlM5b4Vf/wyhvrbB2yGIKg0KlXhUhHz
+	1b7DmdkBo1dsc+ATWi9aaoGT+1YWSoy4U310c4z0zPKIN2aacZJZiotb99dnVNao0Q6U5F7vW9R
+	RA0reSJcBT+VNCz/X+rDPlfhGv01y0/76cWWbRbaoRNpLjKa+vU0PGW5sxPgFTTZL13j1KNS/UC
+	Y3MD/fP7k/fS81EWn+6oxM2VHbQIUrTwquGg5WBmLPFxKfvXxbk8obVZ4tkbpd3g5jFFeg36n73
+	ghwPLLhZv9cNRGTqB7ia3GMBth5FzgCD0td1+q43awg==
+X-Google-Smtp-Source: AGHT+IGR6BI/Gxhy1LdJ653yYgomJNo6233qnb6GdrchmwyC0/aOkF58+BXjwzrgYaafQGjXpAaRgw==
+X-Received: by 2002:a17:903:3a86:b0:224:23ab:b88b with SMTP id d9443c01a7336-23414f48ec8mr253313805ad.8.1748472879938;
+        Wed, 28 May 2025 15:54:39 -0700 (PDT)
+Received: from illithid (59-100-175-234.cust.static-ipl.aapt.com.au. [59.100.175.234])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-23506bd8e2dsm1081885ad.56.2025.05.28.15.54.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 May 2025 15:54:39 -0700 (PDT)
+Date: Wed, 28 May 2025 17:54:35 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [RFC v1] man/man3/readdir.3, man/man3type/stat.3type: Improve
  documentation about .d_ino and .st_ino
-Message-ID: <c27a2d7f80c7824918abe5958be6b5eb2dbe8278.1748467845.git.alx@kernel.org>
-X-Mailer: git-send-email 2.49.0
+Message-ID: <20250528225435.cj2agonqjkqqowwg@illithid>
 References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
+ <c27a2d7f80c7824918abe5958be6b5eb2dbe8278.1748467845.git.alx@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ck4oisobixdbkry7"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
+In-Reply-To: <c27a2d7f80c7824918abe5958be6b5eb2dbe8278.1748467845.git.alx@kernel.org>
 
-Suggested-by: Pali Rohár <pali@kernel.org>
-Co-authored-by: Pali Rohár <pali@kernel.org>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man/man3/readdir.3      | 22 +++++++++++++++++++++-
- man/man3type/stat.3type | 16 +++++++++++++++-
- 2 files changed, 36 insertions(+), 2 deletions(-)
 
-diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
-index b9150160b..ad9c76595 100644
---- a/man/man3/readdir.3
-+++ b/man/man3/readdir.3
-@@ -58,7 +58,27 @@ .SH DESCRIPTION
- structure are as follows:
- .TP
- .I .d_ino
--This is the inode number of the file.
-+This is the inode number of the file,
-+which belongs to the filesystem
-+.I .st_dev
-+(see
-+.BR stat (3type))
-+of the directory on which
-+.BR readdir ()
-+was called.
-+If the directory entry is the mount point,
-+then
-+.I .d_ino
-+differs from
-+.IR .st_ino :
-+.I .d_ino
-+is the inode number of the underlying mount point,
-+while
-+.I .st_ino
-+is the inode number of the mounted file system.
-+According to POSIX,
-+this Linux behavior is considered to be a bug,
-+but is nevertheless conforming.
- .TP
- .I .d_off
- The value returned in
-diff --git a/man/man3type/stat.3type b/man/man3type/stat.3type
-index ee801bcec..835626775 100644
---- a/man/man3type/stat.3type
-+++ b/man/man3type/stat.3type
-@@ -66,7 +66,21 @@ .SH DESCRIPTION
- macros may be useful to decompose the device ID in this field.)
- .TP
- .I .st_ino
--This field contains the file's inode number.
-+This field contains the file's inode number,
-+which belongs to the
-+.IR .st_dev .
-+If
-+.BR stat (2)
-+was called on the mount point,
-+then
-+.I .d_ino
-+differs from
-+.IR .st_ino :
-+.I .d_ino
-+is the inode number of the underlying mount point,
-+while
-+.I .st_ino
-+is the inode number of the mounted file system.
- .TP
- .I .st_mode
- This field contains the file type and mode.
+--ck4oisobixdbkry7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [RFC v1] man/man3/readdir.3, man/man3type/stat.3type: Improve
+ documentation about .d_ino and .st_ino
+MIME-Version: 1.0
 
-Range-diff against v0:
--:  --------- > 1:  c27a2d7f8 man/man3/readdir.3, man/man3type/stat.3type: Improve documentation about .d_ino and .st_ino
--- 
-2.49.0
+At 2025-05-28T23:31:29+0200, Alejandro Colomar wrote:
+[snip]
+> diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
+[snip]
+> +If the directory entry is the mount point,
+> +then
+> +.I .d_ino
+> +differs from
+> +.IR .st_ino :
+> +.I .d_ino
+> +is the inode number of the underlying mount point,
+> +while
+> +.I .st_ino
+> +is the inode number of the mounted file system.
+> +According to POSIX,
+> +this Linux behavior is considered to be a bug,
+> +but is nevertheless conforming.
+>  .TP
+>  .I .d_off
+>  The value returned in
 
+Can someone add a *roff comment supporting the claim in the second
+sentence?  For example, could we have a citation to an Austin Group
+mailing list post or a ticket in the group's Mantis bug tracker?
+
+I've followed the Austin Group mailing list for years and, to me, it
+sounds uncharacteristic of the POSIX developers to decree an
+implementation as "conforming but buggy".
+
+I've checked Draft 4 (the final draft) of the 2024 standard, and see
+nothing to support this claim in its dirent.h or readdir() pages.
+Typically, if an implementation is "getting away with" something that
+the Austin Group finds objectionable, they anticipate and give notice of
+a potential change in semantics or of a planned interface removal in the
+"Future Directions" sections of their entries.
+
+It's possible I overlooked something.  I used text search rather than
+reading all 4,101 pages of the standard at a sitting.  (I count only 9
+total matches for `d_ino`; all are in the aforementioned 2 entries, or
+[new to Issue 8] posix_getdents().)
+
+There may be something analogous to the mount point situation in the
+case of symbolic links, which the standard _does_ contemplate:
+
+"The value of the [dirent] structure's _d_ino_ member shall be set to
+the file serial number of the file named by the _d_name_ member.  If the
+_d_name_ member names a symbolic link, the value of the _d_ino_ member
+shall be set to the file serial number of the symbolic link itself."
+(p. 1858, lines 61297-61299)
+
+...which leads me to wonder what an implementation--Linux,
+specifically--decides the right thing is when one readdir()s a symbolic
+link to a mount point.
+
+Regards,
+Branden
+
+--ck4oisobixdbkry7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmg3lCMACgkQ0Z6cfXEm
+bc7rSA/9HrLDFuBBPBmGGNGHkfpe+cJMIKNV8elLpnaKR/0FqVt4Pv8vbd08r3P+
+pdDGxselDbCfGJjxoCQnvANTrtaJfn/eaSzfUpMBhrjClVhum1+Gp+QG5h75+t0I
+/Jlk+ideprid+BnIXiK38X5VPDVuVhgkNOjX01DX1f7u4T7q7xetG2eWO9zT9etf
+sc1eidtpAotuE/S1JHgL+dPwOHnU+zEJGdG18xq1q7K/GkEouKn9sQITbwAkMV+E
+Y+55fvGxfPJ6qUw6lqlvbtjDxrV/kzN6SutepQ6LB7CVHazUFUsSQ6uTsolbs9pN
+UKynavDLotUwcGKfHO6RuenfNLkUMiwspyarYQDYImW3/XAhhNHVp/7Ntm6/1yI5
+zTQxM9wEIlmVMaAQwUgJw8Wjk8pkHyK5u87MrtrTtaoDvOlo4d/2l1INqjaHotr0
+/owrZbZeEAF5Uy1JbzkQlpQ7In0Kx5rhZRaNV+AZNZIKfPk4K4fCjVVdo/ImEABM
+RdbRsd2n0MdRLiRgG16mj93gqIBCR5tdrhd6HnwaoSIdABF0YJWg05dWOdA7vL8o
+SyKLjsg+3TFHfOlAAORil/MONpmvzG04C04Uwfb5o91dimW6YBV9GVcg8bg1Ne2i
+htrRA+3YPEXd2YM7dHOsgBtBBqh4GC9DfUD5CN0hcWuHp4uTio0=
+=kYM3
+-----END PGP SIGNATURE-----
+
+--ck4oisobixdbkry7--
 
