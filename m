@@ -1,180 +1,124 @@
-Return-Path: <linux-man+bounces-3050-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3051-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02390AC7439
-	for <lists+linux-man@lfdr.de>; Thu, 29 May 2025 00:54:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C71C8AC821E
+	for <lists+linux-man@lfdr.de>; Thu, 29 May 2025 20:23:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 98C6B1C01E17
-	for <lists+linux-man@lfdr.de>; Wed, 28 May 2025 22:55:02 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 444501BC7103
+	for <lists+linux-man@lfdr.de>; Thu, 29 May 2025 18:23:43 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBE9E220F2B;
-	Wed, 28 May 2025 22:54:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC802231827;
+	Thu, 29 May 2025 18:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XdShdbQj"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="hpZlvUMV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3742B4A28;
-	Wed, 28 May 2025 22:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D76E218EBA
+	for <linux-man@vger.kernel.org>; Thu, 29 May 2025 18:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748472882; cv=none; b=QtMa1GAjKZFiyglnk+kzMSy/FQL+ddZXgcXvLepFdY8PDS16ABLdtlncGnG5RoV1IUyEZOWhfCFPNOZL+XRJ3u8jPUEdGkhl8ELWSfsbWXyjPUCTzIgI7Ee/+kpdiM6Mmfs19mRjYaCr5yflRFL6KPJVLZ5GDOscqiRh5ZgB0so=
+	t=1748542999; cv=none; b=Lf9Z88mSqKHYm86Owk3WOVfaLBmeecQTjBA0gPaAtBKzFPWRDQAhuIh0ang4fTESx/mEmBDuqwVp8UsTEXm7+wa85tl+VgCZmgQwTIz3+xUcgDtH9jGHLU/88DlJwpE/wLhyiLiC4rCe+EsYF4qaHEvjTbsVdUJw7f5X95t0k8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748472882; c=relaxed/simple;
-	bh=3cGkQkoWTuBKfIQIbDcC/g/dQymUkZHxWrRjIjYv1Io=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FDSMYnKW4nWjRUZ/ZKrDGuunxNi74opf+947wQorhbqXLYkcpjLNoNx57svHIZ7twcWna3WwmCdK1Nt+CmsevXZXG7FEyDp9/ZManF28u89fpH4Y8Hemb4RxoDEoam83WBY3jQ8PklJT4TVwHBZkUIP0N25nE9tImEqc4xLNddA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XdShdbQj; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-23278ce78efso3595585ad.2;
-        Wed, 28 May 2025 15:54:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748472880; x=1749077680; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=W+JpffenepplKhyFKZp/OfkJ5wiK8oE9uBddYOW1nd8=;
-        b=XdShdbQjqvlpCdr1PGZSWC8BWBrOhlkpiyx0Uiab8WK4A2l3dJW6etI8nEOUBqLW0x
-         kbP/eYt664/3Y7HO95h85+/0EdvSTJpNEKztTxb+toyOAMg/yJmKnj1qtW9j9tyOR4M/
-         cWqEpNaGrjdk3/0aSOW+Y8fKj0o5y6ddTyOw7tXmv4W4+/HLxfzvQZoDdI7p66BbyEq4
-         kCsdCdQcpiREWAoqR6AEjts4HtfFpv7JoxBqNLhRLgreJVavCMkGZxDPGPVeqhEITEbn
-         2LYVwi0BG//Ai/C0TptnWFCKTbOeTwvDQQO0b311Xc8eW5MOXYXKic5VTk+tTykRIzGz
-         SRrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748472880; x=1749077680;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W+JpffenepplKhyFKZp/OfkJ5wiK8oE9uBddYOW1nd8=;
-        b=tk3sra4Y53eoxx8DeCBqVIrkYFCTpOisHdRwrMAz65tpIgHkkzulas4Hp7OrgIEix7
-         837JhNSleoofW4/w/6Rl9E+mWJD7otmhMyPfXvnJ1xrbpysIXOdyDoeAuD9Af2yB+Nx8
-         tTmcsGxIO5aDKRLY9O4L3ZVvHMuFnDHVPc8eMLvmTyVojJo8LAFaw5v0lyBdK+lhDqf9
-         /legIJ1moAp95OJkIuvEEz8PDpu/FVJeOVJps5ci0/9PY2n4m5nzP74A2qyjHKOtFHhi
-         gVT/gdH47+FnwcQ9VAjfRxxrcwhX56HXph3LN6+/1Zqom6W39kuaKCZO8a/qufpe71nH
-         fwWA==
-X-Forwarded-Encrypted: i=1; AJvYcCVUl+rWcf8aQzcZXEzjUbVc5ecqt12FMqvNeNjlwYIZVQb5tyXPc4sKThz8pLQQ9h+C6d8RJlwzSIvVVnUL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt9j1Qu7wSzOzFYiee5qjYhJYX7m1quafiAafvTiT1F/qHWnO5
-	+Dc5kn3/YSpz544+/NH6Lwp3znYfl0w1PQYSrRgEAzRhZD0/UXqHFy4ACR+iBbKF
-X-Gm-Gg: ASbGncvigT9D2k4qXe/S5vXtVelbs393CgURARN0uOmNF9RIS0jaGNihiEdtJT35pbx
-	IVy90OkILuc7nQUnovqATmPbal0/L+sqX+MDT4ByewJwBlM5b4Vf/wyhvrbB2yGIKg0KlXhUhHz
-	1b7DmdkBo1dsc+ATWi9aaoGT+1YWSoy4U310c4z0zPKIN2aacZJZiotb99dnVNao0Q6U5F7vW9R
-	RA0reSJcBT+VNCz/X+rDPlfhGv01y0/76cWWbRbaoRNpLjKa+vU0PGW5sxPgFTTZL13j1KNS/UC
-	Y3MD/fP7k/fS81EWn+6oxM2VHbQIUrTwquGg5WBmLPFxKfvXxbk8obVZ4tkbpd3g5jFFeg36n73
-	ghwPLLhZv9cNRGTqB7ia3GMBth5FzgCD0td1+q43awg==
-X-Google-Smtp-Source: AGHT+IGR6BI/Gxhy1LdJ653yYgomJNo6233qnb6GdrchmwyC0/aOkF58+BXjwzrgYaafQGjXpAaRgw==
-X-Received: by 2002:a17:903:3a86:b0:224:23ab:b88b with SMTP id d9443c01a7336-23414f48ec8mr253313805ad.8.1748472879938;
-        Wed, 28 May 2025 15:54:39 -0700 (PDT)
-Received: from illithid (59-100-175-234.cust.static-ipl.aapt.com.au. [59.100.175.234])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-23506bd8e2dsm1081885ad.56.2025.05.28.15.54.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 May 2025 15:54:39 -0700 (PDT)
-Date: Wed, 28 May 2025 17:54:35 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [RFC v1] man/man3/readdir.3, man/man3type/stat.3type: Improve
- documentation about .d_ino and .st_ino
-Message-ID: <20250528225435.cj2agonqjkqqowwg@illithid>
-References: <h7mdd3ecjwbxjlrj2wdmoq4zw4ugwqclzonli5vslh6hob543w@hbay377rxnjd>
- <c27a2d7f80c7824918abe5958be6b5eb2dbe8278.1748467845.git.alx@kernel.org>
+	s=arc-20240116; t=1748542999; c=relaxed/simple;
+	bh=LTIZDfl4ThkrBzuXrEXz/LvOzYXxgNd3dbq85m0FK/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=ey1g3h7pmWZCyvaT0ROQWkh09wVvDyiIYQUv4MfdUP60YfMFTrPKw82xCQAFmJjB5zno/WJqMTybhHDoDzg9lnLLZLa8VLHR0frPy5QNiV3CttNeME/2miEGHIZSKjhDOJzwHf/svt/RYeKx0irLQB2WcbSiZ0epUK2e7B8Wqb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=hpZlvUMV; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202505; t=1748542383;
+	bh=LTIZDfl4ThkrBzuXrEXz/LvOzYXxgNd3dbq85m0FK/k=;
+	h=Date:From:To:Cc:Subject:From;
+	b=hpZlvUMVwM2/8ppW8sAFAGfidlSVB0M1CFTCNjJPrpgUvY5e1kZiF4vm5AbNDj5hf
+	 v5qbwjs2rlkoTIZUfLjZdPGL3GY3Ff5NLvxuPuqItI2lKXXrFJNfxbGPFb9F8yZFlW
+	 lfU64jIJ+9f92ebuC79p3Zb/f9foQ03TRbvRz6KNvy6FsvY1SHYesH+jafY/o0C7S0
+	 SEtHDJgu0h7EodQkRYoMQd3FnR0PKT5nc5BaTLKf5N5jru/En03pHnRqMGQtoM/fV9
+	 3rFUD8HpeoJfF0BD/W3sPnmagRbIyStXxmvtMarVZgkvp+RfXbow3Z0K3kCuKErnY7
+	 7k8QAkwgrLzoA==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 94DC72196;
+	Thu, 29 May 2025 20:13:03 +0200 (CEST)
+Date: Thu, 29 May 2025 20:13:03 +0200
+From: 
+	Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] sched_setaffinity.2: use 0 instead of getpid() in example
+Message-ID: <v5p4zfqrepnrorszmuie47aiulivcykicxuhtxfkqhrq5t3cis@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ck4oisobixdbkry7"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fhuzwvgcg22q2ane"
 Content-Disposition: inline
-In-Reply-To: <c27a2d7f80c7824918abe5958be6b5eb2dbe8278.1748467845.git.alx@kernel.org>
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
---ck4oisobixdbkry7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--fhuzwvgcg22q2ane
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Subject: Re: [RFC v1] man/man3/readdir.3, man/man3type/stat.3type: Improve
- documentation about .d_ino and .st_ino
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-At 2025-05-28T23:31:29+0200, Alejandro Colomar wrote:
-[snip]
-> diff --git a/man/man3/readdir.3 b/man/man3/readdir.3
-[snip]
-> +If the directory entry is the mount point,
-> +then
-> +.I .d_ino
-> +differs from
-> +.IR .st_ino :
-> +.I .d_ino
-> +is the inode number of the underlying mount point,
-> +while
-> +.I .st_ino
-> +is the inode number of the mounted file system.
-> +According to POSIX,
-> +this Linux behavior is considered to be a bug,
-> +but is nevertheless conforming.
->  .TP
->  .I .d_off
->  The value returned in
+getpid() is superfluous here.
 
-Can someone add a *roff comment supporting the claim in the second
-sentence?  For example, could we have a citation to an Austin Group
-mailing list post or a ticket in the group's Mantis bug tracker?
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man/man2/sched_setaffinity.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I've followed the Austin Group mailing list for years and, to me, it
-sounds uncharacteristic of the POSIX developers to decree an
-implementation as "conforming but buggy".
+diff --git a/man/man2/sched_setaffinity.2 b/man/man2/sched_setaffinity.2
+index 1bdfa4e63..fa49c716d 100644
+--- a/man/man2/sched_setaffinity.2
++++ b/man/man2/sched_setaffinity.2
+@@ -370,7 +370,7 @@ .SS Program source
+     case 0:             /* Child */
+         CPU_SET(childCPU, &set);
+ \&
+-        if (sched_setaffinity(getpid(), sizeof(set), &set) =3D=3D \-1)
++        if (sched_setaffinity(0, sizeof(set), &set) =3D=3D \-1)
+             err(EXIT_FAILURE, "sched_setaffinity");
+ \&
+         for (unsigned int j =3D 0; j < nloops; j++)
+@@ -381,7 +381,7 @@ .SS Program source
+     default:            /* Parent */
+         CPU_SET(parentCPU, &set);
+ \&
+-        if (sched_setaffinity(getpid(), sizeof(set), &set) =3D=3D \-1)
++        if (sched_setaffinity(0, sizeof(set), &set) =3D=3D \-1)
+             err(EXIT_FAILURE, "sched_setaffinity");
+ \&
+         for (unsigned int j =3D 0; j < nloops; j++)
+--=20
+2.39.5
 
-I've checked Draft 4 (the final draft) of the 2024 standard, and see
-nothing to support this claim in its dirent.h or readdir() pages.
-Typically, if an implementation is "getting away with" something that
-the Austin Group finds objectionable, they anticipate and give notice of
-a potential change in semantics or of a planned interface removal in the
-"Future Directions" sections of their entries.
-
-It's possible I overlooked something.  I used text search rather than
-reading all 4,101 pages of the standard at a sitting.  (I count only 9
-total matches for `d_ino`; all are in the aforementioned 2 entries, or
-[new to Issue 8] posix_getdents().)
-
-There may be something analogous to the mount point situation in the
-case of symbolic links, which the standard _does_ contemplate:
-
-"The value of the [dirent] structure's _d_ino_ member shall be set to
-the file serial number of the file named by the _d_name_ member.  If the
-_d_name_ member names a symbolic link, the value of the _d_ino_ member
-shall be set to the file serial number of the symbolic link itself."
-(p. 1858, lines 61297-61299)
-
-...which leads me to wonder what an implementation--Linux,
-specifically--decides the right thing is when one readdir()s a symbolic
-link to a mount point.
-
-Regards,
-Branden
-
---ck4oisobixdbkry7
+--fhuzwvgcg22q2ane
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmg3lCMACgkQ0Z6cfXEm
-bc7rSA/9HrLDFuBBPBmGGNGHkfpe+cJMIKNV8elLpnaKR/0FqVt4Pv8vbd08r3P+
-pdDGxselDbCfGJjxoCQnvANTrtaJfn/eaSzfUpMBhrjClVhum1+Gp+QG5h75+t0I
-/Jlk+ideprid+BnIXiK38X5VPDVuVhgkNOjX01DX1f7u4T7q7xetG2eWO9zT9etf
-sc1eidtpAotuE/S1JHgL+dPwOHnU+zEJGdG18xq1q7K/GkEouKn9sQITbwAkMV+E
-Y+55fvGxfPJ6qUw6lqlvbtjDxrV/kzN6SutepQ6LB7CVHazUFUsSQ6uTsolbs9pN
-UKynavDLotUwcGKfHO6RuenfNLkUMiwspyarYQDYImW3/XAhhNHVp/7Ntm6/1yI5
-zTQxM9wEIlmVMaAQwUgJw8Wjk8pkHyK5u87MrtrTtaoDvOlo4d/2l1INqjaHotr0
-/owrZbZeEAF5Uy1JbzkQlpQ7In0Kx5rhZRaNV+AZNZIKfPk4K4fCjVVdo/ImEABM
-RdbRsd2n0MdRLiRgG16mj93gqIBCR5tdrhd6HnwaoSIdABF0YJWg05dWOdA7vL8o
-SyKLjsg+3TFHfOlAAORil/MONpmvzG04C04Uwfb5o91dimW6YBV9GVcg8bg1Ne2i
-htrRA+3YPEXd2YM7dHOsgBtBBqh4GC9DfUD5CN0hcWuHp4uTio0=
-=kYM3
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmg4o68ACgkQvP0LAY0m
+WPEYDw/8DXo6lyIxTrUPtrFw9tC73xQR4xsveAJMHT1qilnYDs7dM9exEeMr/6Xt
+mgS0hrRo143l7p1liprzYpLIOSaFjfjt4za7C6AdB16DRt/IiDkf1HqLseIceYbX
+6cc1n9bsuvq/75hnBJOahVrVhO1l7hresetnKHnlT7+tzcrQdKvksj/pVF+TuA9a
+aG4jUm6+1dfsYBqK8teTKKA9PnHoUTWwlg8rBMf/oON3IiCo/IxIEPLRgFHhdZnl
+ODqEDKlsAuj084sQG27sLxrKYDSxHcagFpuQB+eAA0PxaX5wRYyIqvN4RKOB9jyC
+wwvvNPLMQRtyjqVX/NYbvD5YuNFCv+QC9ye6PbZ+hK3Z4Z47uCNwyjiU2nMlgcu0
+fQZtFwY+5F3R6dw+6MLve/lWcC28XtNfhR9ZMnMj5Cm3VBmfyV1Or1b7UWa2BmmA
+p7avzx0HRCC3/kramG8A3OCjXmRZ9l9yyggWcR/w9tn/4B/wxHuENgod8epYr61N
+ImuWeG2C8tBtYJ2CuVIXdRk4AzWpN/JUmDLzvkgZyouN8g7ZtXkK7ZLushsWCCrL
+fobj3BErPylJ03Onnl6UnQUfIiA9NHFlRXa2m263pGKB3elcZ6vclAzx1Y0PM+jw
+ez1zk+LpBCIQfAbfPde5hi/deFAFF0b+6b/T74pSy5bTbZj2IH0=
+=HFnm
 -----END PGP SIGNATURE-----
 
---ck4oisobixdbkry7--
+--fhuzwvgcg22q2ane--
 
