@@ -1,125 +1,135 @@
-Return-Path: <linux-man+bounces-3063-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3064-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89888AC91E2
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 16:54:03 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27775AC944D
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 19:03:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6480A188342A
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 14:54:13 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 40CCC3ADD1F
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 17:01:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9DF4423182E;
-	Fri, 30 May 2025 14:53:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5779823644D;
+	Fri, 30 May 2025 16:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nfa1kO4N"
+	dkim=pass (2048-bit key) header.d=locrian.net header.i=@locrian.net header.b="RoFMQxtS";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GpG1OI8d"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5EF2288F7
-	for <linux-man@vger.kernel.org>; Fri, 30 May 2025 14:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E563239E89
+	for <linux-man@vger.kernel.org>; Fri, 30 May 2025 16:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748616833; cv=none; b=EXLfdl/V7tr+Qltn1YoqpyFlb0M9K3UOpvELMaAFtVpcM3NDoTnDIy2VaXmALzegeU+Vyk/7gmGDszYEWkTE4PVq8ytbdHTNUFztAPscCTvk5k4WYkCvbij4bzyKsBLzFBR/uhYBMKyyoBZKnU/ratS3uVZdqkm5V5dpngJ6kRE=
+	t=1748624376; cv=none; b=lD3JIXv+J+ZaGrYILHSyNrDOomRjR166FJo8PZqHGQ7aSmBcDUSjr+LgvZfdfFrizJqK4IbL4kzdYzZ3QzkojvXddFQ7lXFXItGebkwZAqPd4x+WAk5G4PawJNiaZIgvGUIskWnVZPVO4ic0CN19vxqfHDfjUwq7XXwy6DoTLEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748616833; c=relaxed/simple;
-	bh=rqGDQytsPf+lhxXOzRKNHtMTPANFGk7tIdvY/FJF6sM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=HR2wGmbF1Ml+5TiXmZcu3Ngxb2mBnGasmAo14y7s6dfcR8eNqjtDYo58bdnxR7RI/RGQE8nTFLCyLDohb2Wyn6xxXntHYBh+luOrWYRz4t28shbgJfByTvCYVi6aNJidbpddOwSGteIPKGGzwmHucXQC1dHKVuJpfva9zixx1jU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nfa1kO4N; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-43cfba466b2so25601135e9.3
-        for <linux-man@vger.kernel.org>; Fri, 30 May 2025 07:53:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748616830; x=1749221630; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=G4t21FT2oIGVFnQjnNXepK0aXa53tVp0qokyWg1uzDg=;
-        b=Nfa1kO4NTdjnlLP7pKeAf0gj/ddzjC/FlRW4tVQy0OnBrw2MqWUCru32ZG1OT1Co2G
-         P0XnZJ5/yulWg5BO2H5G+p54K/ycr0suXfPuzdL5GgEa3aWvfG1mIm1jj24fwSAXZPRB
-         iAB1ZJCb2SqjN4JnM9/xDWiIgUGkXH5x9rQi/rg3b+k7ChgplmQVp0DHV3sO/oIHbzF2
-         u4JLfED/Ui4FnjWcL1MgN096x6V4QWfUb110MGZ5fDapikKyyTjHoBuKL0vyg6Uqs4Xg
-         heaA6kwmrRnGarBa1LggsDUguptAm2HDbvvfDUGY8A5ZYaVW0h5UaxDRDmJi15SjSxLF
-         GxyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748616830; x=1749221630;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=G4t21FT2oIGVFnQjnNXepK0aXa53tVp0qokyWg1uzDg=;
-        b=MTzVpt3/5Ohu3PWu/K4AKtwGepOi8v8S3Pz0rV8/wbs27zMoDqLFTzOk+I+iPO/gAs
-         CyMhyPu51Pf/0kTc2CTwCaeePEfEinAie49SWIYljpHwnO1xgkCAmO4JYbQJbKul3o7b
-         e31VKslyoESmoeE5wqRCqTTPVaujpafLlGEhmRPnfEKrLKqmH6GVlLpqLSenBSrEI69/
-         NIm3oX/QedSUiyZUpT/YqRh6kYgbEKgJCmD4XfCss3h9tFm4GnlvD7PZmPmC6Yzb3B41
-         e7OBLP6sgWBYumzNVfZBnjXkjFHjWZPmiGDPQevNX4zLA8xusrUG3sNR1akyv0I4/ew8
-         MZ2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWERqIVFzDXc66zEKrbqjMenQ9yHfpcfLy0JD0IrZYSQgC+K5S0ZqrspQBgmgyHGc27GzRR33Q+ghQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWBZNaTcbJ+A2VY5JVVNldfmeVNDNOLTly22U25TpFa+WHFVq6
-	wN02uphUArtTIEPKnnm/8HQmhCWUmi3u7lbHBHT8dkYzwJXv2BLVFXa4
-X-Gm-Gg: ASbGncuT3CkMXcinkqd1YJSWxBbaePjOnAhRpOueHNi3pat+6mHZYCc3HgUup+DnJm9
-	UvKoKD/9KTvyyjkAkjBe1UxW4y813dCc7Zbh+QDw9RPvfxSSOIwFLJyjfRuUmEuI+K3nsizZKXX
-	rLhNd0MyiEREXf2EZjwaidsTXDle8qEOysBTC88NL6CJAipluosMf2j2yqhfIjrLDdOfPIv1bxD
-	O/1uh1LtSKtlNccRFjuxROllyicZzFmSkjt2l4Jgf9PGsAegyFu5RHSyT4cirFwRSzcuihhay7D
-	aZCkNQ7n6EL5D3EPa3dHQaLEY/Aan/Py/f9J4PyFkRpE2mfm4iM=
-X-Google-Smtp-Source: AGHT+IEuw4+wCIr5QuRngoZpBwUXK+6ExwPg2Kvlcf4pLzB2iZSECV96tX7aSQoLI0z/Pkdo93Ev0A==
-X-Received: by 2002:a05:600c:1910:b0:450:d3c6:84d8 with SMTP id 5b1f17b1804b1-450d880ce23mr25269305e9.14.1748616829607;
-        Fri, 30 May 2025 07:53:49 -0700 (PDT)
-Received: from localhost ([188.27.170.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-450d80136ffsm20702145e9.40.2025.05.30.07.53.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 May 2025 07:53:48 -0700 (PDT)
-Date: Fri, 30 May 2025 17:53:47 +0300
-From: Dacian Pascu <pascu.dacian@gmail.com>
+	s=arc-20240116; t=1748624376; c=relaxed/simple;
+	bh=4VURWnhWrFBA/zz29roZ9la11Xvg4EuxRc8EwsEgjZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aPSbjpLYO6Mbl0K9t93g0aflyK8DIJG6LsfFjrHm4vW2LOnghGZEUKynVraeYOl+BcH2m7r88PAAfc8kDHmdmmYY9eLQp3lQADmQ//C93yhAlqPaWONeLnzw/cZS2AsEpNU2KpwjxUjcELGfRg8COFLTezZIlwpAytSM0m4o/1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=locrian.net; spf=pass smtp.mailfrom=locrian.net; dkim=pass (2048-bit key) header.d=locrian.net header.i=@locrian.net header.b=RoFMQxtS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GpG1OI8d; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=locrian.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=locrian.net
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id EA16C1140178;
+	Fri, 30 May 2025 12:59:32 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Fri, 30 May 2025 12:59:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=locrian.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1748624372; x=1748710772; bh=Xm/eCk0rwD5k6uNbXYk3d
+	e4vhv8OutfyMQGrgdAG/ww=; b=RoFMQxtSCLaoehmLyly/DCNgGl62Sc/egsCls
+	T8euKoUaLL0barlNuLRmOtfNtC8w2CQee5S6vWqaKPHb8t6LoSPt47/LyV3LGl8m
+	QlxUfGFMe+xNJ0rb0QxrK3x3GAAsy9gbNijEdeiNXpOfGVgVpRr0ZUe9zrB4zo/U
+	9zsRK1us4T5bfOSfK0BngwX0bTWE07VLggqpSWKZgw0v80RnpQq/VFiieeErHbSC
+	pvE12qRoAaYrk8IQOUTqFWiGOlQJpf4v30JOx5XyVv1xjW5o3Zf1FJ5PxgyyN6Qz
+	C9fQwxp43aOZzWX6FadDxtdMLVDploU2OuA5qGUU0t48kWm1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1748624372; x=1748710772; bh=Xm/eCk0rwD5k6uNbXYk3de4vhv8OutfyMQG
+	rgdAG/ww=; b=GpG1OI8drQc40fzb9u5l1crOumsAwQ5KHXs0MiPSzvag0Ua9aum
+	xdQ/skjInHSZ1NQAaFhuTiBKn0HQ7tRzoJWG4sm03KGpqGhTUv5yOKiTJ57uePC8
+	2DcfAjlhaWCau6X1olJG9a/zaV/y20sYfN+0xZ7sykzthJ6MPxVrPCdeAZQLVjIB
+	gIlOBP3Pw6e+FDCSiFuzaPQaDl7luNUGT31FnvIFxKhz7+sFtIcoP0UYpJX8CO8L
+	Sqqs2n1peey6MF8u9xmTy7s5rjllO1G7ArZvxhLCZ6F/iw+E6uZwe6vfVYuVcrVx
+	QdJ6ItvYro3J92ObWua18dEsGEWfT+0g/Kg==
+X-ME-Sender: <xms:9OM5aKsot76bX-I6ODCzbY5Ya8Cyn2K48H3U9UtQjuAVYKlcZsrigw>
+    <xme:9OM5aPcOINIMVfZ8bIP3JBy2XTuFU3teJxX7LdkEU3F7owsfH8eC8UIY6AdGeLDkL
+    5BWIAs3OXbfqhBzmA>
+X-ME-Received: <xmr:9OM5aFyhLDopymys7GIPCWQtcKSTiD_2PBKiHrNgWvHMKdTfzIzdn8aIDt9dD3EytP6i-8-LVj2kfyCJCKbatFKhUS4cbKr0OqWI_uvUvxUcPt_TBaJTpSHO1Miy>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleehheculddtuddrgeefvddrtd
+    dtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggft
+    fghnshhusghstghrihgsvgdpuffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftd
+    dtnecunecujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepuegv
+    nhhjrghmihhnucfrvghtvghrshhonhcuoegsvghnjhgrmhhinheslhhotghrihgrnhdrnh
+    gvtheqnecuggftrfgrthhtvghrnhepjefhudfhtdeltedvueefgfdvgeeiteehffevffet
+    veegiedvgedtteejleegfeejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+    hmrghilhhfrhhomhepsggvnhhjrghmihhnsehlohgtrhhirghnrdhnvghtpdhnsggprhgt
+    phhtthhopeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrlhigsehkvghrnh
+    gvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghl
+    rdhorhhgpdhrtghpthhtohepsggvnhhjrghmihhnsehlohgtrhhirghnrdhnvght
+X-ME-Proxy: <xmx:9OM5aFPIrKvINvpgamB4sg7SPqYHbUvY4x40ETf7N2q7ZNsfNComzQ>
+    <xmx:9OM5aK-hUzeOLFtlmNX9cei3z7Jq0VU_UcqyiRfIB3-1k8lVrWZRFw>
+    <xmx:9OM5aNWtGQI6Uace8-zDuzaG4746QvXISlxI1_0q5vFOVhZU8zP5eg>
+    <xmx:9OM5aDfzFWDIRGQ76duGGVp6kIeD9wAgi44xM0oDA9gudhVGcCZ5Ww>
+    <xmx:9OM5aPOzWrv9VzuGNaoruM9WfV32NuLsTGmcwE_ViUofU0SDFnk-HGQo>
+Feedback-ID: icec1443c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 May 2025 12:59:32 -0400 (EDT)
+From: Benjamin Peterson <benjamin@locrian.net>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Dacian Pascu <pascu.dacian@gmail.com>, linux-man@vger.kernel.org
-Subject: [PATCH v1] man5/elf.5: clarify string table reference for SHT_SYMTAB
- sections
-Message-ID: <7cab0feb03d8256490b107867c45c78cea121260.1748616470.git.pascu.dacian@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Cc: linux-man@vger.kernel.org,
+	Benjamin Peterson <benjamin@locrian.net>
+Subject: [PATCH v1] man/man2/chmod.2: Document AT_SYMLINK_NOFOLLOW support
+Date: Fri, 30 May 2025 09:59:30 -0700
+Message-ID: <20250530165930.46548-1-benjamin@locrian.net>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Add clarification that for SHT_SYMTAB sections, the associated string
-table section index can be found in the sh_link member, following the
-same pattern documented for section header string tables.
+Historically, Linux systems did not support the AT_SYMLINK_NOFOLLOW flag to fchmodat.  glibc added userspace emulation support in version 2.32, and Linux gained native support in 6.5.  See glibc.git 6b89c385d8bd0700b25bac2c2d0bebe68d5cc05d ("io: Implement lchmod using fchmodat [BZ #14578]") and linux.git 09da082b07bbae1c11d9560c8502800039aebcea ("fs: Add fchmodat2()").
 
-This was discovered while writing an ELF parser, where the sh_link
-field is needed to locate the string table for symbol name lookups
-in SHT_SYMTAB sections.
-
-Signed-off-by: Dacian Pascu <pascu.dacian@gmail.com>
+Signed-off-by: Benjamin Peterson <benjamin@locrian.net>
 ---
+ man/man2/chmod.2 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/man/man2/chmod.2 b/man/man2/chmod.2
+index 307589481..76dbfc6b2 100644
+--- a/man/man2/chmod.2
++++ b/man/man2/chmod.2
+@@ -197,7 +197,6 @@ If
+ .I path
+ is a symbolic link, do not dereference it:
+ instead operate on the link itself.
+-This flag is not currently implemented.
+ .P
+ See
+ .BR openat (2)
+@@ -329,6 +328,9 @@ POSIX.1-2008.
+ POSIX.1-2008.
+ Linux 2.6.16,
+ glibc 2.4.
++.BR AT_SYMLINK_NOFOLLOW
++glibc 2.32,
++Linux 6.5.
+ .SH SEE ALSO
+ .BR chmod (1),
+ .BR chown (2),
+
 Range-diff against v0:
--:  --------- > 1:  7cab0feb0 man5/elf.5: clarify string table reference for SHT_SYMTAB sections
-
- man/man5/elf.5 | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/man/man5/elf.5 b/man/man5/elf.5
-index aacbb558f..76bd62a12 100644
---- a/man/man5/elf.5
-+++ b/man/man5/elf.5
-@@ -941,7 +941,10 @@ .SS Section header (Shdr)
- An object file can
- also contain a
- .B SHT_DYNSYM
--section.
-+section. The index of the associated string table section
-+can be found in the
-+.I sh_link
-+member.
- .TP
- .B SHT_STRTAB
- This section holds a string table.
+-:  --------- > 1:  6a1171eb1 man/man2/chmod.2: Document AT_SYMLINK_NOFOLLOW support
 -- 
-2.34.1
+2.48.1
 
 
