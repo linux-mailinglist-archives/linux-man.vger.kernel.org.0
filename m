@@ -1,223 +1,125 @@
-Return-Path: <linux-man+bounces-3062-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3063-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 691C6AC8F64
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 15:12:27 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89888AC91E2
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 16:54:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 431C1503CEA
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 13:11:49 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6480A188342A
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 14:54:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05EB422D780;
-	Fri, 30 May 2025 12:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9DF4423182E;
+	Fri, 30 May 2025 14:53:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jVNEcTXx"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nfa1kO4N"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8891D220F2A
-	for <linux-man@vger.kernel.org>; Fri, 30 May 2025 12:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5EF2288F7
+	for <linux-man@vger.kernel.org>; Fri, 30 May 2025 14:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748609318; cv=none; b=mNI0C4Kyvf/RdsIxEhy+DgymifRXG1Je7dvaG0HxQUjyDUBydtXLUwrbDashOumRRKB0NeQ8we8AlDfTy1Gr5Qtqi2IWeY0YkcFYac2Hm1WUBNvK8ZrnOaGwQ1wOmT/qFKIyt+IA8UoJ4HEig9OP/F6ytub3J48WQ1Ac/MG6SVk=
+	t=1748616833; cv=none; b=EXLfdl/V7tr+Qltn1YoqpyFlb0M9K3UOpvELMaAFtVpcM3NDoTnDIy2VaXmALzegeU+Vyk/7gmGDszYEWkTE4PVq8ytbdHTNUFztAPscCTvk5k4WYkCvbij4bzyKsBLzFBR/uhYBMKyyoBZKnU/ratS3uVZdqkm5V5dpngJ6kRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748609318; c=relaxed/simple;
-	bh=XPBwNADP2V4X0jig67dFxI/FETKXK/2xOyD75GUEpN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cAN0x1McFQeX6CdoSvp4BVVM+z82e+uOFq/5w1ZrBVVKCg8o9hRfHuyoQjMap9CyXM3RCw1O6A7tae+UvL8Kea3E0RCpBazKrFGxlLa7U/MKFlQdiad6r1Y5ck3QG20aW1Yelaq6e2ITkTYMMZf6we4Oiw+lfDMPHb476blqZRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jVNEcTXx; arc=none smtp.client-ip=209.85.218.48
+	s=arc-20240116; t=1748616833; c=relaxed/simple;
+	bh=rqGDQytsPf+lhxXOzRKNHtMTPANFGk7tIdvY/FJF6sM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=HR2wGmbF1Ml+5TiXmZcu3Ngxb2mBnGasmAo14y7s6dfcR8eNqjtDYo58bdnxR7RI/RGQE8nTFLCyLDohb2Wyn6xxXntHYBh+luOrWYRz4t28shbgJfByTvCYVi6aNJidbpddOwSGteIPKGGzwmHucXQC1dHKVuJpfva9zixx1jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nfa1kO4N; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-ad88105874aso305310266b.1
-        for <linux-man@vger.kernel.org>; Fri, 30 May 2025 05:48:36 -0700 (PDT)
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-43cfba466b2so25601135e9.3
+        for <linux-man@vger.kernel.org>; Fri, 30 May 2025 07:53:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748609315; x=1749214115; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kKuFlmAbOe38p2l21ZfuGZOUQLIi7LRuEhEB5wriDGM=;
-        b=jVNEcTXxIoy2fynpgMbWj8vXBVdnU6vUJddZI5uL/0bgIq3j5ENjrk8yz82ZyNpp1X
-         MMfyzxPjA0RpmTMdTYsJI6dcpUE8nHIymd17eywHF4fP4OeJrehlMjk8WlUw+sALwmk+
-         SOdPhjbnPVPX+R5rN0vcNRjP7laXknCqYYh5yEhLaDrZXim9p/q4LbO3AYzhoKgRKkUz
-         N4JWx1KNb3cBOgBPsXw2Dq2FIFfiQF5uwUgAiFjOqSUG0HRebzxKr3IHWV2cqokH2LKE
-         phcGV9qb3dFSin3eZOzyej5yIT09SIqdNv4c5wjKY0A2Ttr6yFEs4fggupiV4YyKjx8e
-         2djg==
+        d=gmail.com; s=20230601; t=1748616830; x=1749221630; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G4t21FT2oIGVFnQjnNXepK0aXa53tVp0qokyWg1uzDg=;
+        b=Nfa1kO4NTdjnlLP7pKeAf0gj/ddzjC/FlRW4tVQy0OnBrw2MqWUCru32ZG1OT1Co2G
+         P0XnZJ5/yulWg5BO2H5G+p54K/ycr0suXfPuzdL5GgEa3aWvfG1mIm1jj24fwSAXZPRB
+         iAB1ZJCb2SqjN4JnM9/xDWiIgUGkXH5x9rQi/rg3b+k7ChgplmQVp0DHV3sO/oIHbzF2
+         u4JLfED/Ui4FnjWcL1MgN096x6V4QWfUb110MGZ5fDapikKyyTjHoBuKL0vyg6Uqs4Xg
+         heaA6kwmrRnGarBa1LggsDUguptAm2HDbvvfDUGY8A5ZYaVW0h5UaxDRDmJi15SjSxLF
+         GxyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748609315; x=1749214115;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kKuFlmAbOe38p2l21ZfuGZOUQLIi7LRuEhEB5wriDGM=;
-        b=DPqbEAb+wMCoqWypvB+eN/6aAsS9cveaLAUsdYd5m225fuWn/Llfa/M7oXSsq1fzw0
-         Bp5HuJLdrzGrus/51J/+Hev83F/eW1O5heyaP6+1mn6KQGQjdcAv7EAuingM6d8wa546
-         mrGeCjT9t7ZaV6qF37gAw3iksSjHicP48F0Q/bt+Em89uNI6wp5zOVypiNNW2o19XB+N
-         B/FZGjtwlANYP/zDVCW1TSnrZm10K35Q5MnHaQZ3ArEyJISdEieHfr8GBohpjGvHPnuy
-         7lDSn9VjtdphRnT+7Isrq1s+ZWlNDsJQZEqvJTGbzRew1UIZ31W9ypVncHFvQ+jaxPFd
-         fYYw==
-X-Gm-Message-State: AOJu0Yz3adg4+4xtJbUWTPRmvbkpGSFhhRncur14jN2fSHAz8efOBfVA
-	2OOnVxzzyQsoHaflbaiae3cxWi1NVETaZUb28DOw8NZOVmK0HEhK5VuJkZL6bQ==
-X-Gm-Gg: ASbGncscI6YNg0qr2C6+m/roQHDJH0Xlm1CS3ifv++PbJOPZcM+ZiZ6mCAu0rsQfbtC
-	NKaTQ27u1EzB7cFPV3FntedoiBcYII3arBdIW3HePAGyQvUIO7DqfaAp2toiEQqhSwM73ggNxt8
-	fAwe8qA5rgb8ZqNWK8Z+bc9x4Ys7BhUX5O9Kt3dngEVWCTGlJWHUR0BgbRh8olvYdxtJ/og6UgK
-	2DBZjdKilKZoOCAVZv5z9c1JoXNLHOErSWuHL1Wf3PDffkvq6O6Tlwc0VHmmtzN3uTujzQdfm1Z
-	ld+CyTjj070fOn3rLck61i3XnD27WO4+TRC+XQNVPMlMPEwFTHir3f1Jdit4qAN76Bk6yhcBM0M
-	ok7nEhvr5s4bFn9Rmx+CJag==
-X-Google-Smtp-Source: AGHT+IECt11hnFgPekVxzCCyEvIDXJqkYM+Bv2eKdvX8y87VsNj4x1USvJStueh5rkco74SAJyE9oA==
-X-Received: by 2002:a17:906:4719:b0:ad8:9e80:6bc1 with SMTP id a640c23a62f3a-adb322d8bb8mr221118566b.18.1748609314464;
-        Fri, 30 May 2025 05:48:34 -0700 (PDT)
-Received: from fedorarm.. (mob-176-242-53-27.net.vodafone.it. [176.242.53.27])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ada5d7ff06asm325784966b.15.2025.05.30.05.48.33
+        d=1e100.net; s=20230601; t=1748616830; x=1749221630;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=G4t21FT2oIGVFnQjnNXepK0aXa53tVp0qokyWg1uzDg=;
+        b=MTzVpt3/5Ohu3PWu/K4AKtwGepOi8v8S3Pz0rV8/wbs27zMoDqLFTzOk+I+iPO/gAs
+         CyMhyPu51Pf/0kTc2CTwCaeePEfEinAie49SWIYljpHwnO1xgkCAmO4JYbQJbKul3o7b
+         e31VKslyoESmoeE5wqRCqTTPVaujpafLlGEhmRPnfEKrLKqmH6GVlLpqLSenBSrEI69/
+         NIm3oX/QedSUiyZUpT/YqRh6kYgbEKgJCmD4XfCss3h9tFm4GnlvD7PZmPmC6Yzb3B41
+         e7OBLP6sgWBYumzNVfZBnjXkjFHjWZPmiGDPQevNX4zLA8xusrUG3sNR1akyv0I4/ew8
+         MZ2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWERqIVFzDXc66zEKrbqjMenQ9yHfpcfLy0JD0IrZYSQgC+K5S0ZqrspQBgmgyHGc27GzRR33Q+ghQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWBZNaTcbJ+A2VY5JVVNldfmeVNDNOLTly22U25TpFa+WHFVq6
+	wN02uphUArtTIEPKnnm/8HQmhCWUmi3u7lbHBHT8dkYzwJXv2BLVFXa4
+X-Gm-Gg: ASbGncuT3CkMXcinkqd1YJSWxBbaePjOnAhRpOueHNi3pat+6mHZYCc3HgUup+DnJm9
+	UvKoKD/9KTvyyjkAkjBe1UxW4y813dCc7Zbh+QDw9RPvfxSSOIwFLJyjfRuUmEuI+K3nsizZKXX
+	rLhNd0MyiEREXf2EZjwaidsTXDle8qEOysBTC88NL6CJAipluosMf2j2yqhfIjrLDdOfPIv1bxD
+	O/1uh1LtSKtlNccRFjuxROllyicZzFmSkjt2l4Jgf9PGsAegyFu5RHSyT4cirFwRSzcuihhay7D
+	aZCkNQ7n6EL5D3EPa3dHQaLEY/Aan/Py/f9J4PyFkRpE2mfm4iM=
+X-Google-Smtp-Source: AGHT+IEuw4+wCIr5QuRngoZpBwUXK+6ExwPg2Kvlcf4pLzB2iZSECV96tX7aSQoLI0z/Pkdo93Ev0A==
+X-Received: by 2002:a05:600c:1910:b0:450:d3c6:84d8 with SMTP id 5b1f17b1804b1-450d880ce23mr25269305e9.14.1748616829607;
+        Fri, 30 May 2025 07:53:49 -0700 (PDT)
+Received: from localhost ([188.27.170.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-450d80136ffsm20702145e9.40.2025.05.30.07.53.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 May 2025 05:48:33 -0700 (PDT)
-From: Matteo Croce <technoboy85@gmail.com>
-To: linux-man@vger.kernel.org
-Cc: Nhat Pham <nphamcs@gmail.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Matteo Croce <teknoraver@meta.com>
-Subject: [PATCH v3] man/man2/cachestat.2: add a man page for cachestat()
-Date: Fri, 30 May 2025 14:48:29 +0200
-Message-ID: <20250530124829.214375-1-technoboy85@gmail.com>
-X-Mailer: git-send-email 2.49.0
+        Fri, 30 May 2025 07:53:48 -0700 (PDT)
+Date: Fri, 30 May 2025 17:53:47 +0300
+From: Dacian Pascu <pascu.dacian@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Dacian Pascu <pascu.dacian@gmail.com>, linux-man@vger.kernel.org
+Subject: [PATCH v1] man5/elf.5: clarify string table reference for SHT_SYMTAB
+ sections
+Message-ID: <7cab0feb03d8256490b107867c45c78cea121260.1748616470.git.pascu.dacian@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Matteo Croce <teknoraver@meta.com>
+Add clarification that for SHT_SYMTAB sections, the associated string
+table section index can be found in the sh_link member, following the
+same pattern documented for section header string tables.
 
-Add a missing man page for cachestat().
-The text was converted from the commit message:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cf264e1329fb0307e044f7675849f9f38b44c11a
+This was discovered while writing an ELF parser, where the sh_link
+field is needed to locate the string table for symbol name lookups
+in SHT_SYMTAB sections.
 
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
-Signed-off-by: Matteo Croce <teknoraver@meta.com>
+Signed-off-by: Dacian Pascu <pascu.dacian@gmail.com>
 ---
- man/man2/cachestat.2 | 111 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 111 insertions(+)
- create mode 100644 man/man2/cachestat.2
+Range-diff against v0:
+-:  --------- > 1:  7cab0feb0 man5/elf.5: clarify string table reference for SHT_SYMTAB sections
 
-diff --git a/man/man2/cachestat.2 b/man/man2/cachestat.2
-new file mode 100644
-index 000000000..12dbd900d
---- /dev/null
-+++ b/man/man2/cachestat.2
-@@ -0,0 +1,111 @@
-+.\" Copyright, the authors of the Linux man-pages project
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH cachestat 2 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+cachestat \- query the page cache statistics of a file
-+.SH SYNOPSIS
-+.nf
-+.B #include <sys/mman.h>
-+.P
-+.B struct cachestat_range {
-+.B "    __u64 off;"
-+.B "    __u64 len;"
-+.B };
-+.P
-+.B struct cachestat {
-+.B "    __u64 nr_cache;"
-+.B "    __u64 nr_dirty;"
-+.B "    __u64 nr_writeback;"
-+.B "    __u64 nr_evicted;"
-+.B "    __u64 nr_recently_evicted;"
-+.B };
-+.P
-+.BI "int cachestat(unsigned int " fd ", struct cachestat_range *" cstat_range ","
-+.BI "              struct cachestat *" cstat ", unsigned int " flags ");"
-+.nf
-+.SH DESCRIPTION
-+.B cachestat()
-+queries the number of cached pages, dirty pages,
-+pages marked for writeback, evicted pages,
-+and recently evicted pages in the byte range specified by
-+.I .off
-+and
-+.I .len
-+in the
-+.B cachestat_range
-+structure.
-+.P
-+An evicted page is one that was previously in the page cache
-+but has since been evicted.
-+A page is considered recently evicted if its reentry into the cache
-+would indicate active usage under memory pressure.
-+.P
-+The results are returned in a
-+.B cachestat
-+structure, pointed to by the
-+.I cstat
-+argument.
-+.P
-+The
-+.I .off
-+and
-+.I .len
-+fields must be non-negative.
-+If
-+.IR .len\~>\~0 ,
-+the queried range is
-+.RI [ .off ,\~ .off+.len ]
-+. If
-+.IR len\~==\~0 ,
-+the range is from
-+.I .off
-+to the end of the file.
-+.P
-+The
-+.I flags
-+argument is reserved for future use and must be set to
-+.BR 0 .
-+.
-+.P
-+Currently,
-+.B hugetlbfs
-+files are not supported.
-+.SH RETURN VALUE
-+On success,
-+.B cachestat()
-+returns 0.
-+On error, \-1 is returned,
-+and
-+.I errno
-+is set appropriately.
-+.SH ERRORS
-+.TP
-+.B EFAULT
-+.I cstat
-+or
-+.I cstat_range
-+point to an invalid address.
-+.TP
-+.B EINVAL
-+Invalid
-+.I flags
-+value.
-+.TP
-+.B EBADF
-+Invalid file descriptor.
-+.TP
-+.B EOPNOTSUPP
-+The file descriptor refers to a
-+.B hugetlbfs
-+file, which is unsupported.
-+.SH STANDARDS
-+Linux.
-+.SH HISTORY
-+Linux 6.5.
-+.SH CAVEATS
-+Note that the status of a page may change after
-+.B cachestat()
-+retrieves it but before the values are returned to the application;
-+thus, the values may be slightly outdated.
+ man/man5/elf.5 | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/man/man5/elf.5 b/man/man5/elf.5
+index aacbb558f..76bd62a12 100644
+--- a/man/man5/elf.5
++++ b/man/man5/elf.5
+@@ -941,7 +941,10 @@ .SS Section header (Shdr)
+ An object file can
+ also contain a
+ .B SHT_DYNSYM
+-section.
++section. The index of the associated string table section
++can be found in the
++.I sh_link
++member.
+ .TP
+ .B SHT_STRTAB
+ This section holds a string table.
 -- 
-2.49.0
+2.34.1
 
 
