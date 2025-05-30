@@ -1,47 +1,47 @@
-Return-Path: <linux-man+bounces-3058-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3059-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F360AC8B8B
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 11:59:42 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id F32DCAC8BD0
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 12:04:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5A7371689E7
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 09:59:43 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0944C17FA44
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 10:04:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F70C221287;
-	Fri, 30 May 2025 09:59:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C14C9221566;
+	Fri, 30 May 2025 10:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2g+y9QM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnuGjPnW"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFB221CA0A;
-	Fri, 30 May 2025 09:59:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EAF21CA04;
+	Fri, 30 May 2025 10:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748599177; cv=none; b=GqAaei+rM2x31HSdR64O6wwj4nZGMBUrAc3JRLuQ0Vg4YWS4/MUitxmRl5ZnhNtmMY2XGlY7jIpab4125GtdfEN/JPhK6kJm5oV4bNagtdpG0mNkzYtzU3qvXwUr367afrcBvTpPKdhJnFsdPcLeUHUu5iY8SFyAkAUnSHNUK2M=
+	t=1748599403; cv=none; b=ol5UgQUw8p9KRYADBip/gic6W7Qpr4lz5Zr+y9VKSZ8dUm/XtlgUh9s58K7CXQ/g8k7rOIliYy5MC1aWa6Yq3rmdONcXIHWjSOYWfzLXi/Vwz21YmD47gRoA5uRha31lLTW+ROKbc1CCqV1vGIB1sGZZQSoOpAMAi5jVu4b255Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748599177; c=relaxed/simple;
-	bh=c/wRfGUo7994mtTfsIZ5fqiWUV3tX/nCuwbClp8Qolc=;
+	s=arc-20240116; t=1748599403; c=relaxed/simple;
+	bh=u+nTd3xfKrjFwrar8NjW54gsKZHDKaBEN6i8+8wX8Tk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rVG3wp728cVWLGZLtVvFR68ltFx40TjZtP2DXZdbZPAphmCihYzFPBlvkYp8nexgvWA0LwH+n+toJxoQUDDmMW0oA8Ht2HxfHWzJGFh9jg5Q26JCrSxBI+umT4RL2uOL9oVFVvm4am8j1q2eFrCDiipfnXROQ77/sl4lVcyOpKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2g+y9QM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0C8C4CEE9;
-	Fri, 30 May 2025 09:59:33 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=VAAhtiMXH418Cn3xwTGLGB44J/JS8lIkEC349ZFP5b016/+okuK4iv1TnzkBDMZ+W6tklPt2it3stCfiT48VtoMkhZj7HlJnpiuOzWHkmkGuB5geHjbKcTVql6YZUYDunrIetnNEvxyn7y9SE9fdgWvjFY8nq42BMYAxTesB5hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnuGjPnW; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A17C4CEEA;
+	Fri, 30 May 2025 10:03:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748599176;
-	bh=c/wRfGUo7994mtTfsIZ5fqiWUV3tX/nCuwbClp8Qolc=;
+	s=k20201202; t=1748599402;
+	bh=u+nTd3xfKrjFwrar8NjW54gsKZHDKaBEN6i8+8wX8Tk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M2g+y9QMSUwwV5gOYFDPMTYwih4zxS2n4UFjrQl4OS50ONKxVB/HTzu0uNUQR90zn
-	 5TC/VCAlTmw7XUOAK3c6QSOdTqiq4Nmj+UjRKidvOafeFSJcrmD7LE4bePr9d8VgGz
-	 t9p6Pe1cen9Cyg6te4IM5yo6YOb4IleMnjJQOM59Zznilje1Cf/GYMc45pPa2SHMMF
-	 qP4w/CDeTHN3E+/skV/qzy+E3+kIJsx5aARmM21P2J56os1lfB7MudHr1GMXSmUieh
-	 fL1YNaffFXSeAyyRGxMa4dt6V+aD+swshRcJ1JzlC92vHayW003he/4sTAqhn2i2hr
-	 XqhGSM+iQVAmQ==
-Date: Fri, 30 May 2025 11:59:31 +0200
+	b=DnuGjPnWdWsvxqQdUjTYxJfrxDxPK+qpfaxOuSWF1G3yCDXZbmlg40J7IACtp+6u1
+	 neDI3mEiga+GJh4MswNKpG368AFrxLp5n8O8Md48DbmP+5IwCf09EULmqTmaxJ3L/e
+	 6CSq2d6tbnx+Y6NKfBHg+Gs+tw5tuPeAt8vlv+MLMbp+dNSmg85hSCA7+9isWB+X4c
+	 hnNBaS4QsDYXGWbox84+FiwL/OIaO4j6md58aa8ooQjWQA6U8f2HTnRZ7UUilpP9+J
+	 smKEYnQb6QMNllQKBiYwn+8+xiLvbfbBASXcz32PMv12FcXTaice8CJbzd/mMwLhON
+	 b1GmLhoI+xZcQ==
+Date: Fri, 30 May 2025 12:03:18 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
@@ -50,11 +50,11 @@ Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
 	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
 	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
 	Waiman Long <longman@redhat.com>
-Subject: Re: [[PATCH v3] 2/4] man/man2/prctl.2,
- PR_FUTEX_HASH_SET_SLOTS.2const: Document PR_FUTEX_HASH_SET_SLOTS
-Message-ID: <b6sst5trs54mco6ah4wnk3ntnj6wi7diskothhell7yc4ppph4@5pugtx4mzljx>
+Subject: Re: [[PATCH v3] 3/4] man/man2/prctl.2,
+ PR_FUTEX_HASH_GET_SLOTS.2const: Document PR_FUTEX_HASH_GET_SLOTS
+Message-ID: <ltof7edtili2ozjdlyslpcdckeoccvhtjt6hh5hsdz5smtqvyu@4ryc6myy4dwa>
 References: <20250526155523.1382465-1-bigeasy@linutronix.de>
- <20250526155523.1382465-3-bigeasy@linutronix.de>
+ <20250526155523.1382465-4-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,12 +62,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vm2mjwvobsfgp52t"
+	protocol="application/pgp-signature"; boundary="7h4r2p6mgkxqsicv"
 Content-Disposition: inline
-In-Reply-To: <20250526155523.1382465-3-bigeasy@linutronix.de>
+In-Reply-To: <20250526155523.1382465-4-bigeasy@linutronix.de>
 
 
---vm2mjwvobsfgp52t
+--7h4r2p6mgkxqsicv
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -79,38 +79,48 @@ Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
 	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
 	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
 	Waiman Long <longman@redhat.com>
-Subject: Re: [[PATCH v3] 2/4] man/man2/prctl.2,
- PR_FUTEX_HASH_SET_SLOTS.2const: Document PR_FUTEX_HASH_SET_SLOTS
+Subject: Re: [[PATCH v3] 3/4] man/man2/prctl.2,
+ PR_FUTEX_HASH_GET_SLOTS.2const: Document PR_FUTEX_HASH_GET_SLOTS
 References: <20250526155523.1382465-1-bigeasy@linutronix.de>
- <20250526155523.1382465-3-bigeasy@linutronix.de>
+ <20250526155523.1382465-4-bigeasy@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20250526155523.1382465-3-bigeasy@linutronix.de>
+In-Reply-To: <20250526155523.1382465-4-bigeasy@linutronix.de>
 
 Hi Sebastian,
 
-On Mon, May 26, 2025 at 05:55:21PM +0200, Sebastian Andrzej Siewior wrote:
+On Mon, May 26, 2025 at 05:55:22PM +0200, Sebastian Andrzej Siewior wrote:
 > Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+This page LGTM.  Thanks!  Please resend when this is merged into Linus's
+tree.
+
+Reviewed-by: Alejandro Colomar <alx@kernel.org>
+
+
+Have a lovely day!
+Alex
+
 > ---
->  man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const | 83 ++++++++++++++++++++
->  1 file changed, 83 insertions(+)
->  create mode 100644 man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
+>  man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const | 37 ++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+>  create mode 100644 man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
 >=20
-> diff --git a/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const b/man/man2const=
-/PR_FUTEX_HASH_SET_SLOTS.2const
+> diff --git a/man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const b/man/man2const=
+/PR_FUTEX_HASH_GET_SLOTS.2const
 > new file mode 100644
-> index 0000000000000..1f08d1bb30485
+> index 0000000000000..f5c6380ef1fe7
 > --- /dev/null
-> +++ b/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
-> @@ -0,0 +1,83 @@
+> +++ b/man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
+> @@ -0,0 +1,37 @@
 > +.\" Copyright, the authors of the Linux man-pages project
 > +.\"
 > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
 > +.\"
-> +.TH PR_FUTEX_HASH_SET_SLOTS 2const (date) "Linux man-pages (unreleased)"
+> +.TH PR_FUTEX_HASH_GET_SLOTS 2const (date) "Linux man-pages (unreleased)"
 > +.SH NAME
-> +PR_FUTEX_HASH_SET_SLOTS
+> +PR_FUTEX_HASH_GET_SLOTS
 > +\-
-> +set the size of the private hash
+> +return the size of the private hash
 > +.SH LIBRARY
 > +Standard C library
 > +.RI ( libc ,\~ \-lc )
@@ -119,80 +129,17 @@ On Mon, May 26, 2025 at 05:55:21PM +0200, Sebastian Andrzej Siewior wrote:
 > +.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
 > +.B #include <sys/prctl.h>
 > +.P
-> +.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS,
-> +.BI "          unsigned long " hash_size ", unsigned long " hash_flags "=
-);
+> +.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS);
 > +.fi
 > +.SH DESCRIPTION
-> +Set the number of slots to use for the private hash.
-> +.TP
-> +.I hash_size
-> +Specifies the size of private hash to allocate.
-> +.RS
-> +.TP
-> +.I 0
-> +Use the global hash.
-> +This is the behaviour used before 6.16.
-> +The operation implies the
-> +.I FH_FLAG_IMMUTABLE
-
-We format constants in bold.  See man-pages(7):
-
-   Formatting conventions (general)
-[...]
-     Special macros, which are usually in uppercase, are in bold (e.g.,
-     MAXINT).  Exception: don=E2=80=99t boldface NULL.
-[...]
-     Expressions, if not written on a separate indented line, should be
-     specified in italics.  Again, the use of nonbreaking spaces may be
-     appropriate if the expression is inlined with normal text.
-
-
-> +flag.
-> +.TP
-> +.I >0
-> +Specifies the number of slots to allocate.
-> +The value must be power of two and the lowest possible value is 2.
-> +The upper limit depends on the available memory in the system.
-> +Each slot requires 64bytes of memory.
-> +Kernels compiled with
-> +.I CONFIG_PROVE_LOCKING
-> +will consume more than that.
-> +.RE
-> +.TP
-> +.I hash_flags
-> +.RS
-> +The following flags can be specified:
-> +.TP
-> +.I FH_FLAG_IMMUTABLE
-> +The private hash can no longer be changed.
-> +By using an immutable private hash
-> +the kernel can avoid some accounting for the data structure.
-> +This accounting is visible in benchmarks if many
-> +.BR futex (2)
-> +operations are invoked in parallel on different CPUs.
-> +.RE
-> +.RE
-
-I think the second RE does not match any previous RS.
-
+> +Return the current size of the private hash.
 > +.SH RETURN VALUE
-> +On success,
-> +0 is returned.
+> +A value of 0 means that a private hash has not been allocated
+> +and the global hash is in use.
+> +A value >0 specifies the size of the private hash.
 > +On error, \-1 is returned, and
 > +.I errno
 > +is set to indicate the error.
-> +.SH ERRORS
-> +.TP
-> +.B EINVAL
-> +One of the supplied argument is invalid.
-> +.TP
-> +.B ENOMEM
-> +Failed to allocate memory.
-> +.TP
-> +.B EBUSY
-> +An immutable hash is already in use
-> +and can not be changed.
 > +.SH STANDARDS
 > +Linux.
 > +.SH HISTORY
@@ -201,35 +148,33 @@ I think the second RE does not match any previous RS.
 > +.BR prctl (2),
 > +.BR PR_FUTEX_HASH (2const),
 > +.BR PR_FUTEX_HASH_GET_IMMUTABLE (2const),
-> +.BR PR_FUTEX_HASH_GET_SLOTS (2const)
+> +.BR PR_FUTEX_HASH_SET_SLOTS (2const)
 > --=20
 > 2.49.0
-
-Have a lovely day!
-Alex
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---vm2mjwvobsfgp52t
+--7h4r2p6mgkxqsicv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmg5gYMACgkQ64mZXMKQ
-wqk67RAAoeHoJfOs/w2XFmZRdQIG8Lwz9nY+fyBnai12ndpzM//1hLdqQPZhRD/c
-6uJBtTIxw6k//mRbDHcmd5ko9itNoXSJsolvClqCaPpm11zwWuz0U5GlOhmGTeOa
-KxPDgaJHCbZHUo5mv+1AG+clNd3Aw8vuuhSxOS/m5wAJkBMxNfLnk0cqxav51JHh
-DmLGFdGbK0UeHAJZxM3K9V5dzDk+cY459qeBcm/5/jKlLUv4389+ka2Sc6sfEFJe
-KhRx8wwjSDXbKWstQ8K0AA8zOGSLZq5MmTuCrU42FpH4ECY7GK0D125AeQw9ploz
-Y/OfF02P2MK8CEDQjtfix1mbn6fL2EaBlOWbgpmi3Uu6UUuOdqOyXXzXSg8jGMid
-u22gBcDL+lOVYA/XLcXDvUVmWNfY427HfLdaNfRYkAMjlrOWg0i7jJsd+KhAYRQO
-myHxKC5BGRLz59l/4XO5j/Dzhicup+9kwelm8LJKe25RwsITwzXpESz2Z2kOp/6A
-E3oQYNS5tfIZmfOAkfl+pgeEFrQ/Ip2j/D9OheTB1796oAyxCgsKnraEHqhVTlQ1
-Y+SUayifrfn1X2TxHgUXOHRYO0mph7rHpUrQN6MAdKu5XWfaHgwrIDRbO22kzK85
-z0TYERkG4kNiv+gAV0X5kv5nXhMkmguflqx5D+gGfLt+YwpuZMs=
-=EnRj
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmg5gmUACgkQ64mZXMKQ
+wqnK5w/7BKXZ++Q4DsPCNx4byiGSZK+HCrloeLfTQmgk/wkvwpy/fWlYkKljR9S/
+kxe2F1hTZzBg6cFZEcgLvy+GeYpNgGVva5v6O6oFG7ti5Jk6YItoO0o+1+1aA8cR
+x/GZAUZjIwRz+Dm0GjFBrrZ+SAaWKydko6j51Te7y18O6SoNAzZNo/edfU6HfT0R
+A2cWgNLGEqbCu9aMW+itYVx7byGVyCCR9kCIcqa4l+xXVoEotlLL9b5FZLB4Wp6n
+k8lt43YiSjPc3AUCpsppSFOeGqU0GEBbGwP661NO+lDE510Spr08GQAX/Y6AVlX7
+q3Mao7HfZs3idCc/L22ZgttsR93n+sTLE7Jo/b7sVG9KVSOIAGSq1vIuQCsHN+wN
+j0Nmc4CzqUDKW9rG3IG925G9yo3w9o8LWguq67yAOMou0+ijtgiKdtvwqYisslKF
+/ckHPwPiaTLIWD6EHorxbXeKyVIMZhPDx0QKBac4LjA5cvVi119UBv+bPQRZ/Gqe
+zC5bjx2cTA84wN2reFKDbUsdVlMDzPBtGyLt/kMisLI0Zy0KaKuBG2rJT8LlGG85
+AV08x7j+IU5VRd+cptARsiI6FgPZBwUXxvrqvl8+4wk9cqJSYZbTQt4tR9pXLrds
+HBcbHOx4bSzkGWQcGvcEmd0dqn91NFSKrudtSJ1tyraWm4Ch2ZA=
+=h4wj
 -----END PGP SIGNATURE-----
 
---vm2mjwvobsfgp52t--
+--7h4r2p6mgkxqsicv--
 
