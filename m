@@ -1,185 +1,133 @@
-Return-Path: <linux-man+bounces-3060-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3061-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F093AC8BDF
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 12:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 964FCAC8BE6
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 12:09:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9D0CC500BCF
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 10:06:35 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 58C964A6433
+	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 10:09:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F316224AFE;
-	Fri, 30 May 2025 10:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03B7921D5AA;
+	Fri, 30 May 2025 10:09:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pR7yAkIN"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="BPJmYrLW";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="8Auf3AxE"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DC322489A;
-	Fri, 30 May 2025 10:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA631C2334;
+	Fri, 30 May 2025 10:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748599556; cv=none; b=cBHee4O/D0GltfezleLjX9HuM0T0NPgZux+RMaKPA7HjxLrUrq4MnFhSqQFLzwFx60IOIdLeNPdbnyZmkGdj0q0d/i1YtKIqQr8rNSKlvXr1bwUVYaLM47FrAG8nFefZrceSAw3aIhuEfVk/RvPOACs1EnZFlsSAhWbZXmuFoUc=
+	t=1748599767; cv=none; b=fEnDIS7DWIR8jBuAu3WehzckyHoh7FKLPddSpOeLRSD7x+W24osER0wg6DY6kdFO/XDZfK3+g+FgUNG8SNiOz44tvKHF+aXyKIFzIPOYbJN0Bh0rB2hbvFNmAULhD8EGphg98m0g/XygpbPDSihy9PBHUxZ4sXaWKQ8YIZiLZQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748599556; c=relaxed/simple;
-	bh=D1WgvYUKW8ksaG5Pikj6zSs+drhugqX9qh4QXjNVoFU=;
+	s=arc-20240116; t=1748599767; c=relaxed/simple;
+	bh=7+vncWVhgGu9hOTNBYzlfvyQxnA1QRVtNUr78fBBxJQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lnRbu5i3zWagWJbrIsrpjFHeoenPxDvKN0KVi+c/P9BZE4MUyuE5gY59BNCPLBcxZZ6c2+xHQgrKhmWX3zgYAcAcKaEqQISbOFqm/cgyGPt/e7yRU+TrFvonHQ5A9P2fOIvt26AeQcGb+z3rVA7fX9Y6Bh9WgzSA4eDAf5G9Ft0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pR7yAkIN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66646C4CEE9;
-	Fri, 30 May 2025 10:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748599555;
-	bh=D1WgvYUKW8ksaG5Pikj6zSs+drhugqX9qh4QXjNVoFU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pR7yAkIN7ZdmvG8Cv2p/pXio7xoNSW2GBm8hc5ehHlo4uEAXQDqIH4ttRnYDLEuv0
-	 VePQrM0fU3vD+mx3nfbBJXbmH+BvskVWH1/ePIp8svO/yD0vEcmfe+orWnpM5fcxce
-	 1S0sN2K4aSDh/VvgxJ7+AA4v3MKJ0tyG+IVrV3SQGOd0f6prjMoSSRwIbhAXVoU8i2
-	 hRvtJrcBJjN11lceUr/6ztiMF8RhUgoWsr5sSsM1HjWZT8vgXE7p3XpUdyrZCecC8u
-	 ha6Ln6CatOn46R1Jy9bg6iMoo70b9XXiwfbtNtPN5yG6wEsyERgosBPbFUQ8xnIGil
-	 mrLyDulnaktJg==
-Date: Fri, 30 May 2025 12:05:51 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
+	 Content-Type:Content-Disposition:In-Reply-To; b=gwc3Y7bpd4siPa7N65g6aqkZ/yqp9YLQ9LaIMCH7wS5wWR+q4114kQQ+4MsujbmvkTkNDiSodDFl9AplCuU/c7C47ovJpZEXuaWSiiGqXiSEdrNDyHz3ywr1r/twJiuV4KEJKimyF6TxwcwT4lSzMWrLrUV0IUlOKDOkgUlYnmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=BPJmYrLW; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=8Auf3AxE; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Date: Fri, 30 May 2025 12:09:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1748599758;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Iz0P0ciC0BCOwyUfUHYHmHAGOomd9UFVXAEuM70LZcc=;
+	b=BPJmYrLWT1FGZGISXGEloh42Q2s8bkQFvZHtf7/ksrQIP9NWggEcQwbS2l3ALHmhze2zuZ
+	xr81rPkknZR8lb2PZ5icKXSyRjt07FHj0QHWmwHwBuGteQSWvE4jXPz6wDHlL7zeV5hfQ3
+	rtHxr1tBvaXnaBKUSfpH1YIU9SV6zSbXtcpPO8Yx/PeRBQeR5Y+7sxLgeQUAeDjvkHYBz9
+	aFJeqzGlQKcphBE9X7/1/N25jYjZNE3/PvFLKqxy7bxQJS0BZfsbdbfzfcwgT185HMrkHe
+	kab/6qEcPjvjBAtljzbTsihlT6E0+/GQknpv1HatD7qk6+tJi5HmKLUCof/mOQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1748599758;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Iz0P0ciC0BCOwyUfUHYHmHAGOomd9UFVXAEuM70LZcc=;
+	b=8Auf3AxETh6l/DYurfr+WF69RCJYFiVQi4wRfl5Uu2r+bhndw8G16qMGSk2G+Gn3FM+uw0
+	Y3KfOUHFD8DECRDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
 	Waiman Long <longman@redhat.com>
-Subject: Re: [[PATCH v3] 4/4] man/man2/prctl.2,
- PR_FUTEX_HASH_GET_IMMUTABLE.2const: Document PR_FUTEX_HASH_GET_IMMUTABLE
-Message-ID: <2fbxkgkyvvldnux3w7sjcfmkf5t5aaalx7yd2kuoyk36ptvs6g@75m75juu4nd7>
+Subject: Re: [[PATCH v3] 1/4] man/man2/prctl.2,
+ man/man2const/PR_FUTEX_HASH.2const: Document PR_FUTEX_HASH
+Message-ID: <20250530100916._unhdZoo@linutronix.de>
 References: <20250526155523.1382465-1-bigeasy@linutronix.de>
- <20250526155523.1382465-5-bigeasy@linutronix.de>
+ <20250526155523.1382465-2-bigeasy@linutronix.de>
+ <fs57mucg3z5ay5ga7gqr6kdhlddydtmspwfkbm3rjtpjp57b6y@opvhf34v5xq4>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="im2srhjtfbbf4ziv"
-Content-Disposition: inline
-In-Reply-To: <20250526155523.1382465-5-bigeasy@linutronix.de>
-
-
---im2srhjtfbbf4ziv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
-	Waiman Long <longman@redhat.com>
-Subject: Re: [[PATCH v3] 4/4] man/man2/prctl.2,
- PR_FUTEX_HASH_GET_IMMUTABLE.2const: Document PR_FUTEX_HASH_GET_IMMUTABLE
-References: <20250526155523.1382465-1-bigeasy@linutronix.de>
- <20250526155523.1382465-5-bigeasy@linutronix.de>
-MIME-Version: 1.0
-In-Reply-To: <20250526155523.1382465-5-bigeasy@linutronix.de>
+In-Reply-To: <fs57mucg3z5ay5ga7gqr6kdhlddydtmspwfkbm3rjtpjp57b6y@opvhf34v5xq4>
 
-Hi Sebastian,
+On 2025-05-30 11:51:58 [+0200], Alejandro Colomar wrote:
+> Hi Sebastian,
+Hi Alejandro,
 
-On Mon, May 26, 2025 at 05:55:23PM +0200, Sebastian Andrzej Siewior wrote:
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
->  .../PR_FUTEX_HASH_GET_IMMUTABLE.2const        | 37 +++++++++++++++++++
->  1 file changed, 37 insertions(+)
->  create mode 100644 man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const
+> > diff --git a/man/man2const/PR_FUTEX_HASH.2const b/man/man2const/PR_FUTE=
+X_HASH.2const
+> > new file mode 100644
+> > index 0000000000000..c27adcb73d079
+> > --- /dev/null
+> > +++ b/man/man2const/PR_FUTEX_HASH.2const
+=E2=80=A6
+> > +Unrelated requests are requests which are not related to one another
+> > +because they use a different
+> > +.I uaddr
+> > +value of the syscall or the requests are issued by different processes
 >=20
-> diff --git a/man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const b/man/man2c=
-onst/PR_FUTEX_HASH_GET_IMMUTABLE.2const
-> new file mode 100644
-> index 0000000000000..be5f457f0dcb6
-> --- /dev/null
-> +++ b/man/man2const/PR_FUTEX_HASH_GET_IMMUTABLE.2const
-> @@ -0,0 +1,37 @@
-> +.\" Copyright, the authors of the Linux man-pages project
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.\"
-> +.TH PR_FUTEX_HASH_GET_IMMUTABLE 2const (date) "Linux man-pages (unreleas=
-ed)"
-> +.SH NAME
-> +PR_FUTEX_HASH_GET_IMMUTABLE
-> +\-
-> +check if the private hash is immutable.
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ,\~ \-lc )
-> +.SH SYNOPSIS
-> +.nf
-> +.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
-> +.B #include <sys/prctl.h>
-> +.P
-> +.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_IMMUTABLE);
-> +.fi
-> +.SH DESCRIPTION
-> +Check if the private hash is immutable.
-> +.SH RETURN VALUE
-> +A value of 1 means that a the hash has been made immutable
-> +and not be changed.
-> +Otherwise 0.
+> I think 'use a different uaddr value of the syscall' is technically
+> incorrect, because two processes may have a different address for the
+> same futex word, as their address space is different, right?
 
-I'd reword this paragraph:
+A shared futex over shared memory. Yes.
+=20
+> See futex(2):
+>=20
+> $ MANWIDTH=3D72 man futex | grep -B7 -A5 different.v
+>=20
+>      A futex is a 32=E2=80=90bit value=E2=80=94=E2=80=94referred to below=
+  as  a  futex  word=E2=80=94=E2=80=94
+>      whose  address  is  supplied to the futex() system call.  (Futexes
+>      are 32 bits in size on all platforms, including  64=E2=80=90bit  sys=
+tems.)
+>      All  futex  operations  are  governed  by this value.  In order to
+>      share a futex between processes, the futex is placed in  a  region
+>      of shared memory, created using (for example) mmap(2) or shmat(2).
+>      (Thus, the futex word may have different virtual addresses in dif=E2=
+=80=90
+>      ferent  processes, but these addresses all refer to the same loca=E2=
+=80=90
+>      tion in physical memory.)  In a multithreaded program, it is  suf=E2=
+=80=90
+>      ficient to place the futex word in a global variable shared by all
+>      threads.
+>=20
+> Maybe say 'use a different futex word'?
 
-	If the hash is immutable,
-	it returns 1;
-	otherwise,
-	it returns 0.
+Oh yes, this would make it simpler to express.
 
-And I'd put the following on a separate paragraph:
-
-	.P
-
-> +On error, \-1 is returned, and
-> +.I errno
-> +is set to indicate the error.
-> +.SH STANDARDS
-> +Linux.
-> +.SH HISTORY
-> +Linux 6.16.
-> +.SH SEE ALSO
-> +.BR prctl (2),
-> +.BR PR_FUTEX_HASH (2const),
-> +.BR PR_FUTEX_HASH_GET_SLOTS (2const),
-> +.BR PR_FUTEX_HASH_SET_SLOTS (2const)
-> --=20
-> 2.49.0
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---im2srhjtfbbf4ziv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmg5gv4ACgkQ64mZXMKQ
-wql/fQ/+PAvfe1BFCs06Zt2PqfEVLywfFlmf+N72CJuySPMKBek2Kas2pFh2RCcr
-FIpU8NmE0tuy4fvymgvRFdSIf1LYmm7PK/F928ThEZIU3jFUIOT8pgHf0IPlYcZ7
-RUP2khOu2o/2qTCFedQkvLkrtUJBzVyIU8x9PCPGo4RlyYkwuTJB7BsNjXp0zRAm
-SJ3e9OUyvQrxE3pxWaM7bZA4KY0qiNLaKhv2dRgL7WBNyc9mOBAPMZogejaNdc4N
-2ZA8SxR8f6Y8SYtkmd2jmZtz6qew4QGH4gDiQdene6h+gx2CWHMYK2xw1mkAKPxT
-0Lq0HArtgwxqLlTcrtVPm2mxl/MHdwyg++FcwWAM32sX3p2XfADpegYWt6jK5b1O
-eWBahMTEiPNDQmZ3y0mEj9gf/oK1nts2tuxBEavn4TDK2VIZX/EH+MUTLrOgBoWm
-l7FW01IhFe1Pu8V29z4PJWTjAPe5khyxdVQ5fPCpLXqkoZi+zOM5N08Lhe8PUz9Z
-Sq9jvluaOd/oHD7Q/JUpywTaG/qio3Owqh54fSawmvvEK1Vz6QvvSBrGQ6SKv6sl
-AhMs2lyovIKMSMXI1JbBMa5+UYc6QNQjZY+EC6k0Jby04v8/JcqAoF0pINRhgps/
-HxCL5ej7JyW/E2KR0SCnc+5Qs5MWLzeKJsgaq4eNE+Te/ollA84=
-=qlCe
------END PGP SIGNATURE-----
-
---im2srhjtfbbf4ziv--
+Sebastian
 
