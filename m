@@ -1,54 +1,55 @@
-Return-Path: <linux-man+bounces-3074-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3075-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A174AC9CC3
-	for <lists+linux-man@lfdr.de>; Sat, 31 May 2025 22:52:06 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C47AC9CC4
+	for <lists+linux-man@lfdr.de>; Sat, 31 May 2025 22:52:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 57A1617A981
-	for <lists+linux-man@lfdr.de>; Sat, 31 May 2025 20:52:07 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 683EC1892CB1
+	for <lists+linux-man@lfdr.de>; Sat, 31 May 2025 20:52:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C3C218B47C;
-	Sat, 31 May 2025 20:52:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 631BA18B47C;
+	Sat, 31 May 2025 20:52:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KiMs871U"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KT1Mq1st"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBF672608
-	for <linux-man@vger.kernel.org>; Sat, 31 May 2025 20:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DB872608
+	for <linux-man@vger.kernel.org>; Sat, 31 May 2025 20:52:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748724722; cv=none; b=Reeymu/1UZ3EKiN7CrW9yxxLuKdNZX4hH8osTuJuARGDqRkDctA6HfcdnEXigwQOxfsyzvgVpvUZ1OHwYlnjWUnUfifAJp9QIFG7JD5YkSW1s47gF5tYZQj7ajcIv/u6DVG4HYW7QK2+krbAuYJnnxpvRkKhHjyF7vSyxtX65+g=
+	t=1748724741; cv=none; b=byNO/F8o/M5gBh18cLuVZDBBQFkRFWvuXxhNu0IMpvgbcdYVXmlmXNnR3LIowrllAsutL90WWTtTULL/mH4Hg6R8KX/6JsU5FZKz4jsogKDZzBzdlSd59zuA8vvoDw0iWnxAwXFEmFg/ckBM5fRZ3e4orbJP9I5b+N3VTi1/8Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748724722; c=relaxed/simple;
-	bh=FOt0xipp/75t/itiUaoskTOt4O863eZiaw/zIHuBKEE=;
+	s=arc-20240116; t=1748724741; c=relaxed/simple;
+	bh=uh6MeHUClkmBpZ/YpXGwctbNNhXoCnQXC2/syAZN+S8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j/Gm4R5SYnaOzO+vv9tsjQQJZJIzCgfaQZg9YdHURN19C5Aaf8LnBMXs0fpbuENXsxlmyxxuwNsYBXKrPNFZ3eENu9J9iPEB3207wWM8x/WcZT+PkavpJIe3V048+UuA+OLDlF7EGUBO1SWPW0xyHtz13O55Coqjels16+2IGZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KiMs871U; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9595C4CEE3;
-	Sat, 31 May 2025 20:52:00 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=iMD4zT4CNiSnTZJsOFjhSIQvQNaff4lkFKHpgGVPqC8ZDN3P9soj3Qvuh9y8P6+uoukPwVQ2MuB4taP/6h+nxia8g2iG3VezNr4jUoRV7brfFs96LJhlI6P/7D3EvHZyGFcRTgLouMwsnz+aQYQghskjN44yQPtPCt251TLSHK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KT1Mq1st; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0237C4CEE3;
+	Sat, 31 May 2025 20:52:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748724721;
-	bh=FOt0xipp/75t/itiUaoskTOt4O863eZiaw/zIHuBKEE=;
+	s=k20201202; t=1748724740;
+	bh=uh6MeHUClkmBpZ/YpXGwctbNNhXoCnQXC2/syAZN+S8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KiMs871UNTKJ6o0jBH2a7rHE5r9CkuM+HGk+/aym7QChe7cowdAPbpUSmAr7BByla
-	 iBCY3QnbzADJtpUFMgufCERTxJNp27xzposGFEHJ8a+Xruf9JDQ91mfZhM9HOecyb7
-	 8u1zbeqe2wAPuF0PeFqv9lYklfWM7PE/3LU8NyUwO/mMhx8OF3Vpbar676asdxjGG8
-	 +w3eziP8gepNidsLqRxQoiGUaOyKQhYXl2v55feR0cc+THXkA+Vpto6Hcxc8xU1fTd
-	 IthL6dEuNmDIkMusN2YEiIVSYvbuT9qiaVUidYcdS9BIFlWjz9zEYsxAdI+pYGQLfK
-	 rUZLQBjplKjMw==
-Date: Sat, 31 May 2025 22:51:58 +0200
+	b=KT1Mq1st+zo/sbNLdF18lkyIecMuTMBcd0zAO6VBUYP5uX94qVRcJYLkFMkEjO67W
+	 iCh4OenPNSLUJAjfwxqHV9K3qtLU8fODXu2xF+C5kC+hA4l7lBVc0Q6CRVU2wZTHql
+	 Fuu3Lh2OLR/ixWdteDPnYCIh7HiBf8k+gellyySgxO017tRQFgg1htLLRLhomGUuZw
+	 ewlkbP2PQdyeWfdKsVUhMDOiiDWsvcI8YEd5aLqIl9jmAJXwvhWFms6Vxkp+QQf1qb
+	 1jfNI6WK5Zc3Nx/sCorB1gCq2lX+WNpptUjMyYbyTCtwfsgt/mOOWnJxZGtpCv2bqv
+	 8yq6K8PussNVA==
+Date: Sat, 31 May 2025 22:52:17 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] man/: Fix name of vm.hugetlb_shm_group
-Message-ID: <rrlb4jg4tso5w6sqqqotxnq4p55x3pddab3n2ijjmrmdvlrjie@6tenuwfcyamz>
+Subject: Re: [PATCH v3 2/2] memfd_create.2, mmap.2: fix missing references to
+ proc_sys_vm(5)
+Message-ID: <7mxzuqpkgdz5ij7qltwymmcd4gbwh4onzooyd5ei6sugybkotw@p2kplto2gi5g>
 References: <t67f5vgjqhm7zariy3phlva4lohzchvskkaxeo6qweoaiyifuy@h5dwlwfuzbsr>
- <22436441b7bac0177213c99c55187c4af085d4ca.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
+ <c28f98b90ff40c3944aaa3189627d795e0c2d9f6.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,139 +57,104 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="erzj5z6lpivts3xf"
+	protocol="application/pgp-signature"; boundary="wkzg4jtx2nxr5bim"
 Content-Disposition: inline
-In-Reply-To: <22436441b7bac0177213c99c55187c4af085d4ca.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <c28f98b90ff40c3944aaa3189627d795e0c2d9f6.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
 
 
---erzj5z6lpivts3xf
+--wkzg4jtx2nxr5bim
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] man/: Fix name of vm.hugetlb_shm_group
+Subject: Re: [PATCH v3 2/2] memfd_create.2, mmap.2: fix missing references to
+ proc_sys_vm(5)
 References: <t67f5vgjqhm7zariy3phlva4lohzchvskkaxeo6qweoaiyifuy@h5dwlwfuzbsr>
- <22436441b7bac0177213c99c55187c4af085d4ca.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
+ <c28f98b90ff40c3944aaa3189627d795e0c2d9f6.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <22436441b7bac0177213c99c55187c4af085d4ca.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <c28f98b90ff40c3944aaa3189627d795e0c2d9f6.1748714599.git.nabijaczleweli@nabijaczleweli.xyz>
 
-Hi!
-
-On Sat, May 31, 2025 at 08:03:26PM +0200, Ahelenia Ziemia=C5=84ska wrote:
-> sysctl_hugetlb_shm_group is the name of the variable(!) in mm/hugetlb.c
->=20
-> Fixes: 090fdddb4342 (2021-05-17; "memfd_create.2, mmap.2, shmget.2: Docum=
-ent the EPERM for huge page allocations")
-> Fixes: 6cee0ddeb414 (2021-05-17; "proc.5: Document /proc/sys/vm/sysctl_hu=
-getlb_shm_group")
+On Sat, May 31, 2025 at 08:03:28PM +0200, Ahelenia Ziemia=C5=84ska wrote:
 > Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xy=
 z>
 
-Thanks!  I've applied the patch.
+Thanks!  PAtch applied.
 <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D3f727aab6e5f29e756ce9f7a89019869c7b07c61>
+mit/?h=3Dcontrib&id=3D3c2e9ebe2d5ea15a47c1669f75b280cea42a6f8b>
 
-Have a lovely night!
+
+Cheers,
 Alex
 
 > ---
->  man/man2/memfd_create.2 | 4 ++--
+>  man/man2/memfd_create.2 | 2 +-
 >  man/man2/mmap.2         | 4 ++--
->  man/man2/shmget.2       | 4 ++--
->  man/man5/proc_sys_vm.5  | 2 +-
->  4 files changed, 7 insertions(+), 7 deletions(-)
+>  2 files changed, 3 insertions(+), 3 deletions(-)
 >=20
 > diff --git a/man/man2/memfd_create.2 b/man/man2/memfd_create.2
-> index 4cf30c157..29a110ef7 100644
+> index 29a110ef7..487fc0311 100644
 > --- a/man/man2/memfd_create.2
 > +++ b/man/man2/memfd_create.2
-> @@ -195,9 +195,9 @@ .SH ERRORS
->  .B CAP_IPC_LOCK
->  capability)
->  and is not a member of the
-> -.I sysctl_hugetlb_shm_group
-> +.I hugetlb_shm_group
+> @@ -199,7 +199,7 @@ .SH ERRORS
 >  group; see the description of
-> -.I /proc/sys/vm/sysctl_hugetlb_shm_group
-> +.I /proc/sys/vm/hugetlb_shm_group
+>  .I /proc/sys/vm/hugetlb_shm_group
 >  in
->  .BR proc (5).
+> -.BR proc (5).
+> +.BR proc_sys_vm (5).
 >  .SH STANDARDS
+>  Linux.
+>  .SH HISTORY
 > diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
-> index 255fa2353..cf110dad9 100644
+> index cf110dad9..036610f9d 100644
 > --- a/man/man2/mmap.2
 > +++ b/man/man2/mmap.2
-> @@ -614,9 +614,9 @@ .SH ERRORS
->  .B CAP_IPC_LOCK
->  capability)
->  and is not a member of the
-> -.I sysctl_hugetlb_shm_group
-> +.I hugetlb_shm_group
->  group; see the description of
-> -.I /proc/sys/vm/sysctl_hugetlb_shm_group
-> +.I /proc/sys/vm/hugetlb_shm_group
+> @@ -365,7 +365,7 @@ .SS The flags argument
+>  See also the discussion of the file
+>  .I /proc/sys/vm/overcommit_memory
 >  in
->  .BR proc_sys (5).
+> -.BR proc (5).
+> +.BR proc_sys_vm (5).
+>  Before Linux 2.6, this flag had effect only for
+>  private writable mappings.
 >  .TP
-> diff --git a/man/man2/shmget.2 b/man/man2/shmget.2
-> index 8101dbb50..d273966a9 100644
-> --- a/man/man2/shmget.2
-> +++ b/man/man2/shmget.2
-> @@ -251,9 +251,9 @@ .SH ERRORS
->  .B CAP_IPC_LOCK
->  capability)
->  and is not a member of the
-> -.I sysctl_hugetlb_shm_group
-> +.I hugetlb_shm_group
+> @@ -618,7 +618,7 @@ .SH ERRORS
 >  group; see the description of
-> -.I /proc/sys/vm/sysctl_hugetlb_shm_group
-> +.I /proc/sys/vm/hugetlb_shm_group
+>  .I /proc/sys/vm/hugetlb_shm_group
 >  in
->  .BR proc (5).
->  .SH STANDARDS
-> diff --git a/man/man5/proc_sys_vm.5 b/man/man5/proc_sys_vm.5
-> index 4ee50a54f..1ed32b8ff 100644
-> --- a/man/man5/proc_sys_vm.5
-> +++ b/man/man5/proc_sys_vm.5
-> @@ -85,7 +85,7 @@ .SH DESCRIPTION
->  .BR sync (1)
->  first.
+> -.BR proc_sys (5).
+> +.BR proc_sys_vm (5).
 >  .TP
-> -.IR  /proc/sys/vm/sysctl_hugetlb_shm_group " (since Linux 2.6.7)"
-> +.IR  /proc/sys/vm/hugetlb_shm_group " (since Linux 2.6.7)"
->  This writable file contains a group ID that is allowed
->  to allocate memory using huge pages.
->  If a process has a filesystem group ID or any supplementary group ID that
+>  .B ETXTBSY
+>  .B MAP_DENYWRITE
 > --=20
 > 2.39.5
->=20
 
 
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---erzj5z6lpivts3xf
+--wkzg4jtx2nxr5bim
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmg7a+0ACgkQ64mZXMKQ
-wql++A//ZxomRTHmhREI+zUlY8OcpNqVhIXokfGqwavJPLoREkHmK/hP0xWqGqN0
-+fFAY1S7FQND/x13a2pRFBDjfCGdZ0604mJeS6btp5ZPtNguDGsqtCLbZ1amR3Ve
-2fmTevat8HdKpKruNu2uI9SysWA/BECMSEneZNBP1OL+6Ter7sy1gcQ/2jv+4351
-YOWCXR4Hc1DI3uglrGYvlMwgmetboddZ/lnIEtv/TBFYJrGWPwgARq2l8Ys1tv1R
-0Z4XajJNsdCb+TZe7Pf/C0zK9jAsxrYDPjDL2IrdOYH1wS3YGS1YVIM7wGpTE66G
-m5Il/kuMUPolgaRJtmnzWk6z34epXqw5zX6jQEMEBmOh55LzHDbqQlQJke4RvYQj
-TAfOrK7qcuiR+GRdpDAwaG62VCOjCQIx0eiZwwvPqOREbFTCxia3dpBjrpBUrXuy
-GFFmGOtILw0UQq5pH0vc1PjQHRM+LKmaJRyfM10pFD7M3jmruKqzo7F5f2bwBy0+
-Og+W2HWMO42/cNAEK8U0nKiWiMZaGTQHtZZzhT0AXOZkfTLcX75B4dPDB6+RJO50
-fuqlKDhj2BRXfcUrEhE34Ch1pNcASd/hPZ0XsthkyFq15rIOl6xWtfescF+VVzNY
-7AEx2IxWq2M9hPOIehLbC9wXQAtFmkEEoQQ2/+ehffpEJJyZ5zY=
-=tl0K
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmg7bAEACgkQ64mZXMKQ
+wqkF2w//R9lIxWbajT552Qo8FTlD+sY/KwmkFEDoI5GGDjcdV8cffXaRHatrRks2
+i7g/JbyUjHJ3tOwBH/AQ5pJYrBDen33vwkE2mV2+i6OvbK2cyGm0Ku2ZsAuiOvND
+5qeS6f0JJU+eaIqj6kUjMzdRk83EEfaXhHNdAl3GhYSHDtg4V71JZEoNLsblj5mQ
+yRW4RQkXWpwS5CBdI6q7O2OBo8r8MYNUYsFk2stCH/RCIECEV+8TZSC7cv2kEDF2
+UlV+PxAcHxPgSRjww22JPJCQJ3Cm6d20gDGbqmhfPUJSWBx6bxAtMZLzfQv8AKVQ
+j2diH/qmr92rwS8c33mf1dkgrU5NkdAodi5ZoBWGS5mHaLy8NpigBkCtoVtNe6Ud
+RF3kEZusbJGgQ7UQW0/bl5zkclQ4oFJ6v3XfPwP6ph3r+1/CitzTDnh5Yc66lvRU
+O2b1fS/ZtHA/w83C5zcHaov2CBRHUxiGTMVqpBDb07vHBuubRyjGEAwMlXrVpfYD
+RpJ7e4mToQ+99ahYjXIkhTXHhFnZI4zKv3o87XvMHAP6nPfGr2yv5j4lqjV/tmsv
+mKb8Hw5ucYYZNusMD1wR/I+CemrmdKcpJcIkXyMZsm166Rq7YUuW0Lx+3Dq46KA+
+DcTExwh7+9y11O4Qf+x7D+GaCDv7SxGreQgdt1HKU6CqS3dHm4U=
+=QmEW
 -----END PGP SIGNATURE-----
 
---erzj5z6lpivts3xf--
+--wkzg4jtx2nxr5bim--
 
