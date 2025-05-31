@@ -1,125 +1,167 @@
-Return-Path: <linux-man+bounces-3065-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3066-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46A59AC959A
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 20:27:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B1EAC9BCA
+	for <lists+linux-man@lfdr.de>; Sat, 31 May 2025 18:49:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7ECB43B1C9A
-	for <lists+linux-man@lfdr.de>; Fri, 30 May 2025 18:26:55 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E59449E4B16
+	for <lists+linux-man@lfdr.de>; Sat, 31 May 2025 16:48:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F08AE275862;
-	Fri, 30 May 2025 18:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E31231714B2;
+	Sat, 31 May 2025 16:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=maine.edu header.i=@maine.edu header.b="aa1DdjtV"
+	dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b="Dx6eYkel"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04F11A239D
-	for <linux-man@vger.kernel.org>; Fri, 30 May 2025 18:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEF417597
+	for <linux-man@vger.kernel.org>; Sat, 31 May 2025 16:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.28.40.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748629632; cv=none; b=UhilUXZGEsWwJe/j0O+RrFfILHT2hIfFtvuSBTKoQ5ZsLwotObTTF0kAR7iJHwUkO9ULagwycajijH1lBclRK1XpyY64EZ9cE8HVmrcqX/0HNIMA50CpOdGt7W95oKkyv/vIyIJtEAMGq8czn76quhw1htrVRRRzezOmkAlERbQ=
+	t=1748710137; cv=none; b=ENsUbhY+EFOqi/klho5vKzcHhEXEsRJITl22/fQQpNOKWR3YNoyTumv3YA0xm6w5mmXR6lAY0Ci2Jfbu3R+o+b2Um4HEywyD3vpPaALN8m3wn0zym5l+ETKD3fqTPPt8QJ+TD9syC1MVNy/K5fhcRM01BlQ7DvDpDczxFwb+lEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748629632; c=relaxed/simple;
-	bh=FmpB/Aj1Ep3EyzFrvNC812JhYkt927FYrpNQlAAsRys=;
-	h=From:Date:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=HNzDHVfqXY/tdTQ/13lb2fpxGmmmrB4Jh5RJPd6EW2xA5GWBInJ8rmkduQ8qtUExU6Su2+/Sxvx2DVT7YRsNFYsLVzndQk0DVRH9mFay0W/DXDkZYk7Gz/SOVZKUQlG0BVVnWVXNJ2Qfg7/CoDjW2D+dX2GqaiT2Pmx/zO3LLXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maine.edu; spf=pass smtp.mailfrom=maine.edu; dkim=pass (1024-bit key) header.d=maine.edu header.i=@maine.edu header.b=aa1DdjtV; arc=none smtp.client-ip=209.85.222.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maine.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maine.edu
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-7d09d4c8543so219016085a.1
-        for <linux-man@vger.kernel.org>; Fri, 30 May 2025 11:27:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=maine.edu; s=google; t=1748629629; x=1749234429; darn=vger.kernel.org;
-        h=mime-version:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=n7N5OIs33hnZwEtGFnfa67C72SZU8AYKnH8/Etext+4=;
-        b=aa1DdjtVwZRuAWum2srJIkenZiQNwWVuGC5abaQqwjZfQHGFdifIJGCtYRgLtuZJZv
-         7Uz2HxziQvm5qY/Y7BMwO6REBNH/L84hZPQYGajcG260TF15fEuQ5Vd/AErDbTbj95K7
-         23Qxe8dHioLzQim5+HnUFBORCaAOSgXWXyPRk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748629629; x=1749234429;
-        h=mime-version:message-id:subject:cc:to:date:from:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=n7N5OIs33hnZwEtGFnfa67C72SZU8AYKnH8/Etext+4=;
-        b=vsyFvLG8T0WA3EeESVJZpzhUUP2YVhtxe5zpdiiYtMg0Cnh1dwWDislBS6dLUWZFJ6
-         ox74tMn3mfZzQRIouG+r6IBtBm+KN24TRq2hiNngce7xRaDEXrDdvJyF+Duhio2tgMlO
-         TJq4MkSqP6mn3BHfVxxGfI2ii/A3/ImVsdXRXhg+OWOkZzp2kyklkn11BHBmkG1c0gf5
-         5NB+tGNMN6sNXGQ6SakxWLfD3dWSH5mY+KU+ShzxNZRvjvTJAXCeVtSRflQ4kUbDqAQS
-         8UGLuK88H09DjmIUjCMcWKZpgkG0m20ED7uG6Zi/h01xXJ1OQosgQy26CWI8pkt86uDB
-         8clA==
-X-Gm-Message-State: AOJu0Yzax2NnuMfJSsI3YoacmwNoi4+O+gtKMNunDIUc8CHQk0PG99+G
-	+I6kEzk80vggs67zRZlnB79bEAOl5l/nRPp8RXQd41UPUstyTtTH6wPxyeMiUfmdmAB/KHy26fX
-	kmR4=
-X-Gm-Gg: ASbGncvGhsK4UQU3CMSCuz4joKgfRTtGjJB/AzC/zmCyBdTlmbpoWgoWmBnRrU1zI+W
-	/yMKE62/OPGEz73S0BDo8e7CEXshoiq/2L8/lJGyGbIbX8Uhi4cVM9cYG2+Jf63k+oF7b2fXLhI
-	DI8g4XFvmPcBVt6EpUyZTGDzXKpprbc2ueCSCmFdMalBk+xRD09hAGjmFNQPcJnD1+fpRZqHPdQ
-	r36HOm6oKltfCWwvuPl1aobKw67a9tGpSyfJgYEw0uRBcoub+AQexP52CyYkmOCeQ5bOPthA2WC
-	BrJU/fFNz8R4jRJ2uW8FvNlakYs431DddPAjXzTLERul3hKlVeNMyFlMKu4iML9j/fhKGdo=
-X-Google-Smtp-Source: AGHT+IHU9Fftl1ZBUH4vMLCeQlyY6XeuDu0dM7+fXoEL/pOI0bqlHFLAFP3y2uRHTKDAS1Htp7eo5w==
-X-Received: by 2002:a05:620a:1a26:b0:7cf:518:755a with SMTP id af79cd13be357-7d0a20252a8mr697318785a.53.1748629629480;
-        Fri, 30 May 2025 11:27:09 -0700 (PDT)
-Received: from [192.168.8.146] (weaver.eece.maine.edu. [130.111.218.23])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d09a1bb2desm273369785a.117.2025.05.30.11.27.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 May 2025 11:27:08 -0700 (PDT)
-From: Vince Weaver <vincent.weaver@maine.edu>
-X-Google-Original-From: Vince Weaver <vince@maine.edu>
-Date: Fri, 30 May 2025 14:27:07 -0400 (EDT)
+	s=arc-20240116; t=1748710137; c=relaxed/simple;
+	bh=D67ZfbatFhapTRXRDm/0WGBdfKgUAqpLzmIApj8ZVv8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=hrTpMJf309d58qM2zQu0Eog4pgdsfo2nWrtYiX0cifhug9H12AQpeQeHSrll89twhohrQxfih40J8Wu5OacFrkuwF7HmqOdlCxcJVRAH2aPrrhY/quQhVRcyG6DoSzQt52C6GCLoqG8DlqCuCRjFZmKxRkDdPs+O4NTcB6xLEpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz; spf=pass smtp.mailfrom=nabijaczleweli.xyz; dkim=pass (2048-bit key) header.d=nabijaczleweli.xyz header.i=@nabijaczleweli.xyz header.b=Dx6eYkel; arc=none smtp.client-ip=139.28.40.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nabijaczleweli.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabijaczleweli.xyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+	s=202505; t=1748710124;
+	bh=D67ZfbatFhapTRXRDm/0WGBdfKgUAqpLzmIApj8ZVv8=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Dx6eYkelDw4JCS5sVfEdJtT+FDV4sWS3CwIhCIC2VZUFXlhNKKLlHB76lwmpskN+F
+	 7tICBiMCEl1wLMyI3OGXF31zY5lZ96bAmFb8r1LLsF3oHAyzj8ShA+5CM4iVMZ+Sln
+	 /S4pLGQHuJ8sFbLTrF/WhYGutLXF6jLbQnrwW2qt7C7epPzg25tSZzaJwrZwRUU2Kj
+	 4Lckb9TdE1BPXiy9Pezr2JD2/vtHldyLicJO9EtL2ksOlnI9WW1yQ2E18qgWy3hyrx
+	 UGy62xLSCh2T4jjfqUS4nmtSBCMG70+EynRlY8pHW3e3M7tkOWRAPhSUfsQpnDFRQ4
+	 TEFeSWrGdd6xA==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+	by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 14EAB25F8;
+	Sat, 31 May 2025 18:48:44 +0200 (CEST)
+Date: Sat, 31 May 2025 18:48:43 +0200
+From: 
+	Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= <nabijaczleweli@nabijaczleweli.xyz>
 To: Alejandro Colomar <alx@kernel.org>
-cc: linux-man@vger.kernel.org
-Subject: popen.3 return value
-Message-ID: <a07f79ff-a659-d54b-ea4c-d5cafad58e54@maine.edu>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH] memfd_create.2, mmap.2, shmget.2, proc_sys_vm.5: fix name of
+ vm.hugetlb_shm_group
+Message-ID: <z5nrhnaa3omgagh73lzwywq5555x5qleyjopns7otalqvgxpwm@tarta.nabijaczleweli.xyz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-Hello
-
-I came across a situation where I feel the popen.3 manpage is a bit 
-misleading.  If you run a command such as
-	result=popen("/usr/bin/aplay","w");
-on a system where /usr/bin/aplay does not exist, the manpage seems to 
-imply that you'd get a NULL return value.  However you do not, since the 
-shell itself forked properly you get a valid FILE * return value.  However 
-the first time you write to that FILE * your program crashes with SIGPIPE 
-(assuming you don't have a handler for it).
-
-I don't know if there's a way to clarify things.  I was thinking something 
-like the below patch, though it's probably not the right section to put 
-the info.
-
-Vince Weaver
-vincent.weaver@maine.edu
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p2a6s7khranghwlj"
+Content-Disposition: inline
+User-Agent: NeoMutt/20231221-2-4202cf-dirty
 
 
-diff --git a/man/man3/popen.3 b/man/man3/popen.3
-index 7c665a342..810f7e631 100644
---- a/man/man3/popen.3
-+++ b/man/man3/popen.3
-@@ -115,6 +115,17 @@ returns an error, or some other error is detected,
- On failure, both functions set
- .I errno
- to indicate the error.
-+.P
-+NOTE:
-+.BR popen ()
-+will only return NULL if there is a failure starting the shell itself.
-+If the shell is forked successfully but the command inside the shell
-+fails to run (for example, if the executable is not found) NULL will
-+not be returned.
-+Instead a
-+.BR FILE *
-+will be returned, but any read or write to that will generate a
-+SIGPIPE signal.
- .SH ERRORS
- The
- .BR popen ()
+--p2a6s7khranghwlj
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+sysctl_hugetlb_shm_group is the name of the variable(!) in mm/hugetlb.c
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man/man2/memfd_create.2 | 4 ++--
+ man/man2/mmap.2         | 4 ++--
+ man/man2/shmget.2       | 4 ++--
+ man/man5/proc_sys_vm.5  | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/man/man2/memfd_create.2 b/man/man2/memfd_create.2
+index 4cf30c157..29a110ef7 100644
+--- a/man/man2/memfd_create.2
++++ b/man/man2/memfd_create.2
+@@ -195,9 +195,9 @@ .SH ERRORS
+ .B CAP_IPC_LOCK
+ capability)
+ and is not a member of the
+-.I sysctl_hugetlb_shm_group
++.I hugetlb_shm_group
+ group; see the description of
+-.I /proc/sys/vm/sysctl_hugetlb_shm_group
++.I /proc/sys/vm/hugetlb_shm_group
+ in
+ .BR proc (5).
+ .SH STANDARDS
+diff --git a/man/man2/mmap.2 b/man/man2/mmap.2
+index 255fa2353..cf110dad9 100644
+--- a/man/man2/mmap.2
++++ b/man/man2/mmap.2
+@@ -614,9 +614,9 @@ .SH ERRORS
+ .B CAP_IPC_LOCK
+ capability)
+ and is not a member of the
+-.I sysctl_hugetlb_shm_group
++.I hugetlb_shm_group
+ group; see the description of
+-.I /proc/sys/vm/sysctl_hugetlb_shm_group
++.I /proc/sys/vm/hugetlb_shm_group
+ in
+ .BR proc_sys (5).
+ .TP
+diff --git a/man/man2/shmget.2 b/man/man2/shmget.2
+index 8101dbb50..d273966a9 100644
+--- a/man/man2/shmget.2
++++ b/man/man2/shmget.2
+@@ -251,9 +251,9 @@ .SH ERRORS
+ .B CAP_IPC_LOCK
+ capability)
+ and is not a member of the
+-.I sysctl_hugetlb_shm_group
++.I hugetlb_shm_group
+ group; see the description of
+-.I /proc/sys/vm/sysctl_hugetlb_shm_group
++.I /proc/sys/vm/hugetlb_shm_group
+ in
+ .BR proc (5).
+ .SH STANDARDS
+diff --git a/man/man5/proc_sys_vm.5 b/man/man5/proc_sys_vm.5
+index 4ee50a54f..1ed32b8ff 100644
+--- a/man/man5/proc_sys_vm.5
++++ b/man/man5/proc_sys_vm.5
+@@ -85,7 +85,7 @@ .SH DESCRIPTION
+ .BR sync (1)
+ first.
+ .TP
+-.IR  /proc/sys/vm/sysctl_hugetlb_shm_group " (since Linux 2.6.7)"
++.IR  /proc/sys/vm/hugetlb_shm_group " (since Linux 2.6.7)"
+ This writable file contains a group ID that is allowed
+ to allocate memory using huge pages.
+ If a process has a filesystem group ID or any supplementary group ID that
+--=20
+2.39.5
+
+--p2a6s7khranghwlj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmg7MusACgkQvP0LAY0m
+WPF3ABAAnJ2uN8SNzwrgvsG+rftD+gEiYZGDq669zuFyBTFWC8Q8PEpbJwTsnRuz
+DQp/2Kt6R9exWfnaJB16AMRi+tSz751SfGsTZWaKb2+BAso3z6+CI0BLCwYOZQxA
+bktAxXZjd0YcpGr73BxUBUACQ2qi1i/HpWdBAefsHeC19VBJaRuH3e3CYrhlCbtk
+kPg3PutpnT9pGgV4dbGC7ffdLxgc/E2iB07JkhPpqVO62R91OSYx13lHW8Tzwxbo
+l9eWuduhaRY8+ns9pjeQOT+TizExDiE+0FWuO3f3pEDU/cD/uxjVtzrN1UKvsZcp
+zAmdXBO+ddPvecPb6HDrPxUttSFgnEA38oS1W/Y3N9s0mecClJNSHN0LXeLoWABJ
+/RQ8rvRhGlyrcnWIm/Nblw2bSBi5MpM12VsWWp0mxyRImYHJQ01gQnr27zpB8xVR
+/44whXgTugJ9ROqT1AMIS5vFZUK0bNJ8dYbF6KhvKVEdunLSAI3OZQCI+EznQR18
+cWj5yQFOgD4PetXlJ+JoRNR6okvCCNNKs9J/IPACtt+LOs1k/UdMLd1yZJQTaU4g
+lUmnPf7T5/zcyxk7q2wSbn43kuEH76wqHFFgrcYmzPY61Evt2TK5oBRcoMxxm8/d
+gWdO9qZX2B133UzOvgOCBpFyrYI59H1hK0Er94IQPLuLaL/qwrs=
+=A/hE
+-----END PGP SIGNATURE-----
+
+--p2a6s7khranghwlj--
 
