@@ -1,194 +1,204 @@
-Return-Path: <linux-man+bounces-3105-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3106-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E4D7ACEFB1
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jun 2025 14:56:35 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2868ACF23F
+	for <lists+linux-man@lfdr.de>; Thu,  5 Jun 2025 16:42:10 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6A9C01897A8E
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jun 2025 12:56:49 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 01C31188E726
+	for <lists+linux-man@lfdr.de>; Thu,  5 Jun 2025 14:42:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AFF62066CF;
-	Thu,  5 Jun 2025 12:56:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EFD51917FB;
+	Thu,  5 Jun 2025 14:42:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f8W6JazU"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="htSicnz4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6331853
-	for <linux-man@vger.kernel.org>; Thu,  5 Jun 2025 12:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60011184524
+	for <linux-man@vger.kernel.org>; Thu,  5 Jun 2025 14:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749128189; cv=none; b=Qet7tMsVEcmL5m7zAIEigyhq29HwabPI9V8I4LwovVgpd55PsDQwkq+hNs9h5DhoHrYCAHWo2nrBhNtvhlt+2ijkEeUfsWIxBgl+/zCBtVmbNjFVwu7ksg0JPicjqBu0MTKCn3SdkF5uctB6DGTFgxb+WLCUbiQPNrcXtyUWX7g=
+	t=1749134526; cv=none; b=DGv5uPpmIHqGiNOYJh9HD3Ie3jsiZXYEwLx08zT+FTTQo/4aCZU3kbUtItUMccoXs9SVdMlJbEm38EM8vG27EDyugSMLS+8GlQvQ0U+5Nu+gpyzXk9tA8ZkPHzLNq8fQwqYDpe7ricFibkhKBVB01156Bc43MwV66CDiATk/58w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749128189; c=relaxed/simple;
-	bh=+JsvbfXgMSe9zY/scf9yuXqB4k1dqdscaIeRDlTUZKQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P0py8S9oSMzvyUjsDDFyaG9YVbxf1V7OXOvyH03imH//mOu45kt2AL66K7IJIouIp3XIOVlDy27cDgbSLdyUNcuddwTmk+WyImW9SoRi46z2S3tY4XhdFzs9A/l5XQzOCwVH2O4ihQt5Yraa9rv8PKjj7B09uwh7ohjg38BC528=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f8W6JazU; arc=none smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-7080dd5fe92so9002917b3.3
-        for <linux-man@vger.kernel.org>; Thu, 05 Jun 2025 05:56:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1749128186; x=1749732986; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fihl4G9i8CwCIAa7IYlPLpRqRX6wOA0kDh7yPMDqnMA=;
-        b=f8W6JazUFX/L3PEAOeoX+TmHWcQhnFBDGISM9SWxIB63OqtZ2qM9HJttLId4BICeJf
-         TDzSy/k9kV7iv4r65vqgEMKkMJDStSblO8cKZTHFIZfd667TE4c9wRGEuOO6bp2pDrpj
-         DHGZm4E5BWxEYl0oz/mv5Er61XP7EJwf+YgkM=
+	s=arc-20240116; t=1749134526; c=relaxed/simple;
+	bh=q0mpL1+hUUritQDD1U8G5m/EeeOGsC4cofpwF7fZT9Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fS68iaApTcWVkJE9kN0sWoFiYUkdS4eR7Hragk72ZRbBU0udVh0xgQd1tN+4jr2s1mTSQA6oCBbitST8S4zb5azRp3tskexU5TWWKWU4+PlYxvcjxfGVn06ZPHeXfxEVyd6PJOI/JbPuLhkInAVHNoWJsPlpexO1dC+85n0stB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=htSicnz4; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1749134523;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=AZ3Y//3o9ts/OOAzI7feJbR5TjfvW5KrWdW45zpG0tU=;
+	b=htSicnz4Z59Wa7/SNTO9W/M1q54V9H46muyad+Hv9LvF+SPJY3fe1Lrdn8opz18U0JgY/v
+	bRioj4ydwvgeIY9SIqwlavbkkqqr8ALWmqtniKCDcz2yaZU932ILDUPXg29aVQpHhaqi3n
+	2D5ZWAsQ8gN6IJ5q9UbTh5fV7jviJvY=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-227-9ydwFuuvM3K8iRZVDEwp8Q-1; Thu, 05 Jun 2025 10:42:02 -0400
+X-MC-Unique: 9ydwFuuvM3K8iRZVDEwp8Q-1
+X-Mimecast-MFC-AGG-ID: 9ydwFuuvM3K8iRZVDEwp8Q_1749134521
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-7cd06c31ad6so335138085a.0
+        for <linux-man@vger.kernel.org>; Thu, 05 Jun 2025 07:42:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749128186; x=1749732986;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fihl4G9i8CwCIAa7IYlPLpRqRX6wOA0kDh7yPMDqnMA=;
-        b=YAhLqxJbo7eZVxdjOaaIrjTPvfaZ90VsEBC8FMhbGcqpVHf1uBaxDsQx0qauvtQJjW
-         aR7ZSqz7h62qNLHvk1dr2ShR1kC7EAUr4z9zNQ7nEeNVgxu31JFt9ylLG1zwCuVlg6Tq
-         bSrQ4KnCOzouphQXEEAIg0eKEFJ9xvzKw9B6Pin3a565mvsOfyncdUuVWNLPwnwwp+1l
-         kRZH2sxFCGfRDn3YHYYM4BltDjlW6e43CWirFhV8efQTDgt+CfWdHGvwvmiIzrvnWwLY
-         /3P0GKHSQ0RnQt2hQ2Hr6xHKFJ8wOHKzuhEH6HrgbTm98t2CYAMS8EpxUU3st6kUxZPb
-         Ireg==
-X-Forwarded-Encrypted: i=1; AJvYcCUwmuadbY7JsBV0OULT/9XtCyzdjaat7zPWWodgrqGQrt+Yv+EypySzdM3LIhNnRMG3f7LQgQrIvaU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz60Cnn+RwqBmo2nb5/e8R5bSdbyzA6RBX7+IR67Ozj7c4sw7wX
-	PpAethzTkMzHATHnuxs9u13mNg0qol1bQkNwq5Rhe6eghXcgOL6rJcbjV+zdMuxwI3DSqZZE+tS
-	eFlWeihutdN9QyDUoUTRz5FpE1K5eIOIe06oH8r9wSg==
-X-Gm-Gg: ASbGncshVDr8gSaW3VzYnCFPiDkuSHr2Pm4D7IDxTcVgfiaVg1/gOM44r0uTmvUltwZ
-	STRP1SLEYxKsPUhHYFewGLee9SFmZJotPozr+F9PIqxHYvfQeuzdvEpd7Ov3HMbdy9/nPxAXtSo
-	cNeLwBaPlkYwOVWmYqZZ8xu9Y5N6xq9iFdcA5+Vn4PbT8QZRaAlJixHiDrMmE4Nis=
-X-Google-Smtp-Source: AGHT+IHqjPxMW77E8asKhY5mJFAL/eobox/W6z3Vkj3fT1bDBMS1mDRDaTUaagG+g8z0TJ/7RRDRSiJOmdp0FLPo1qA=
-X-Received: by 2002:a05:690c:dc8:b0:70d:f237:6a5a with SMTP id
- 00721157ae682-710d99fd4f8mr84036997b3.8.1749128186396; Thu, 05 Jun 2025
- 05:56:26 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1749134521; x=1749739321;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AZ3Y//3o9ts/OOAzI7feJbR5TjfvW5KrWdW45zpG0tU=;
+        b=fC/q9lCeLG6q6Y6ao/HeNf8pFVAgTrXiz0wMUUMUpTPP0l4hZEWHS56IAfm9K6xTtR
+         Ou2gGUQBwQ5rRD7Iv3tUdk0D0R7ntbIEpFyPnKD/eHJRNLowllUtS1jiQ1Llx1PD4C5p
+         1gHd6XOJ4ys23QpuJY+vmZIJ3mECi2HHfBvi3k9VARZxvWWcEztRPUHFhn5Oo55vJAgb
+         cZFXujwoW3CE6orVopvJBgjvu6gCvpzTdAaoBn3ctd3+0452JpS5mb9tou2yZ82uiYI3
+         kibfmPhQxqLNdcJu46XaxHD1rlFjQEAU4xETJprz273uqkQ+BVHRea4xlTnD0LK03qqt
+         ouJA==
+X-Gm-Message-State: AOJu0Yxgg5wFPpU6RcmpS6LMHtrYKFmp8zlWzOLSptETRAKMG5H25iRm
+	ifyF86/hMc72WcUKNmxxi2BXBSpa2G5CQ1NCYHtQEY8a2a938quEEbhk2dlBZmKXh+CjTfgLdFY
+	W7bwFeWBOVdN7zniweng5PoafwifcwbR8dG6ayYhK1Rf4hQjMon+WJ/ySGAqZQw==
+X-Gm-Gg: ASbGncutljo/6ZXmuyDnWtiEslr/v9NhQ9myjPFLCDgSLofrwUe0TiAsm+C3Ihx+kjL
+	dLxQ7vDgJSVn+isIISlEjYsoCz+pF4WlGkioUaGTGIP+yXLsG+GFyXTeIF2Te0tkSu9EEaFrHOT
+	WqkeGEL14y+XoAiD1N6rri7GPPgN1E+/aNKCeZ3X9zxyQQRKAaiH7VzNICJoC/fXUAPgQ1njxlR
+	M8vfHV6AN2L5oN6N68Tdu+/E06GghN11Vt+B6r5hyRhonTxznSw1tg0QjcmSBDGWy0E54XksWdA
+	7F1qv3oYLudM
+X-Received: by 2002:a05:620a:2894:b0:7ce:e8d6:37d7 with SMTP id af79cd13be357-7d2223a6ea4mr593131485a.4.1749134521412;
+        Thu, 05 Jun 2025 07:42:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHl8SfcwJ69Y1SNMC5aBgorJlg3LWxRM5fO0ODSUYcUSP0NSA8533xp4XSuXN1PbsKbAv64rg==
+X-Received: by 2002:a05:620a:2894:b0:7ce:e8d6:37d7 with SMTP id af79cd13be357-7d2223a6ea4mr593127885a.4.1749134521050;
+        Thu, 05 Jun 2025 07:42:01 -0700 (PDT)
+Received: from [192.168.0.241] ([198.48.244.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d09a1bb2desm1268104785a.117.2025.06.05.07.42.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Jun 2025 07:42:00 -0700 (PDT)
+Message-ID: <fc73559f-e6bb-49b6-8ba1-b431b31d542d@redhat.com>
+Date: Thu, 5 Jun 2025 10:41:59 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <bug-220118-11311@https.bugzilla.kernel.org/> <3b0a1af1121f498b816715bc4ce04170@bfs.de>
- <rry23vclpqpekjoffa2frotdoi7h6cftrb6mfgjiim53y2hido@qhgxipwqqbi4>
- <0b18cb6e571d4ac28b8e38a1bf40db02@bfs.de> <uxkrzr4wrrj66jamcu5iy4u6nszsah6k5znxqsixjwzxhm3iaz@tmu5aq5kgear>
-In-Reply-To: <uxkrzr4wrrj66jamcu5iy4u6nszsah6k5znxqsixjwzxhm3iaz@tmu5aq5kgear>
-From: Christopher Hoy Poy <choypoy@linuxfoundation.org>
-Date: Thu, 5 Jun 2025 20:56:15 +0800
-X-Gm-Features: AX0GCFtG53yasTHWYHkXGrM_s1hEbYPG9ZX8lJy4eOSY05M1vfwPg0j6vpCPk64
-Message-ID: <CAKkv+gxk19HV=DHKXcjqZ7w3=Zzsi70Uka4agbwW4kDM+FH5Jg@mail.gmail.com>
-Subject: =?UTF-8?B?UmU6IEFXOiBBVzogW0J1ZyAyMjAxMThdIE5ldzogTOG6rXAgdOG7qWM=?=
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Walter Harms <wharms@bfs.de>, "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, helpdesk@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] man/man1/iconv.1: Mention that -c does not change exit
+ status
+To: Florian Weimer <fweimer@redhat.com>, Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <87msamxso9.fsf@oldenburg.str.redhat.com>
+Content-Language: en-US
+From: Carlos O'Donell <carlos@redhat.com>
+Autocrypt: addr=carlos@redhat.com; keydata=
+ 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
+ O0FatDMfJw==
+Organization: Red Hat
+In-Reply-To: <87msamxso9.fsf@oldenburg.str.redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 5, 2025 at 4:12=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
-rote:
->
-> [CC +=3D helpdesk@]
->
-> Hi Walter,
->
-> On Thu, Jun 05, 2025 at 07:36:40AM +0000, Walter Harms wrote:
-> > Even if this is spam, the message is confusing. It that case it should =
-read "removed" "banned" or you name it.
-> >
-> > NTL i tried bug 220119 with the same result.
-> >
-> >  For now i would say it is not possible to read a bug/msg without a log=
-in.
->
-> I guess you can contact <helpdesk@kernel.org> for reporting a bug.  I've
-> CCed them already, so they can comment.  I'm not involved in bugzilla
-> management, so I don't know what has happened and if there's any better
-> way of handling this.
->
->
-> Have a lovely day!
-> Alex
->
-> > ________________________________________
-> > Von: Alejandro Colomar <alx@kernel.org>
-> > Gesendet: Mittwoch, 28. Mai 2025 11:55:49
-> > An: Walter Harms
-> > Cc: linux-man@vger.kernel.org; bugzilla-daemon@kernel.org
-> > Betreff: Re: AW: [Bug 220118] New: L=E1=BA=ADp t=E1=BB=A9c
-> >
-> > Hi Walter,
-> >
-> > On Wed, May 28, 2025 at 08:52:19AM +0000, Walter Harms wrote:
-> > > Hi,
-> > > i was curiousabout that bug and got an Access Denied just reading the=
- page.
-> > > Is is possible to get info without having a login ?
-> > >
-> > > full msg here:
-> > > "You are not authorized to access bug #220118. To see this bug, you m=
-ust first log in to an account with the appropriate permissions. "
-> >
-> > It was spam, so I guess the admins made it hidden.  When I log in, I se=
-e
-> >
-> >         You are not authorized to access bug #220118.
-> >
-> >
-> > Have a lovely day!
-> > Alex
-> >
-> > > ________________________________________
-> > > Von: bugzilla-daemon@kernel.org <bugzilla-daemon@kernel.org>
-> > > Gesendet: Mittwoch, 14. Mai 2025 05:15:56
-> > > An: linux-man@vger.kernel.org
-> > > Betreff: [Bug 220118] New: L=E1=BA=ADp t=E1=BB=A9c
-> > >
-> > > https://bugzilla.kernel.org/show_bug.cgi?id=3D220118
-> > >
-> > >             Bug ID: 220118
-> > >            Summary: L=E1=BA=ADp t=E1=BB=A9c
-> > >            Product: Documentation
-> > >            Version: unspecified
-> > >           Hardware: Intel
-> > >                 OS: Linux
-> > >             Status: NEW
-> > >           Severity: normal
-> > >           Priority: P3
-> > >          Component: man-pages
-> > >           Assignee: documentation_man-pages@kernel-bugs.osdl.org
-> > >           Reporter: tracpham2210@gmail.com
-> > >         Regression: No
-> > >
-> > > L=E1=BB=97i g=C3=AC =C4=91=C3=B3
-> > >
-> > > --
-> > > You may reply to this email to add a comment.
-> > >
-> > > You are receiving this mail because:
-> > > You are watching the assignee of the bug.
-> >
-> > --
-> > <https://www.alejandro-colomar.es/>
->
-> --
-> <https://www.alejandro-colomar.es/>
+On 6/5/25 8:46 AM, Florian Weimer wrote:
+> And that input decoding failures are treated as errors.
+> 
+> Exiting with status 0 is a POSIX conformance issue that was fixed
+> in glibc 2.41.
+> 
+> Signed-off-by: Florian Weimer <fweimer@redhat.com>
+
+Confirmed 6cbf845fcdc76131d0e674cee454fe738b69c69d is the correct glibc
+git commit for this fix.
+
+Confirmed it was fixed in glibc 2.41 along with several other iconv fixes.
+
+Confirmed issue 8 contains the same language for -c and exit status must not change.
+
+Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+
+> ---
+>   man/man1/iconv.1 | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man/man1/iconv.1 b/man/man1/iconv.1
+> index 2c8ae0d29..111ff9e89 100644
+> --- a/man/man1/iconv.1
+> +++ b/man/man1/iconv.1
+> @@ -55,6 +55,8 @@ is appended to
+>   .IR to-encoding ,
+>   characters that cannot be converted are discarded and an error is
+>   printed after conversion.
+> +(Characters that cannot be decoded are treated as an error with
+> +or without this flag.)
+>   .IP
+>   If the string
+>   .B //TRANSLIT
+> @@ -73,8 +75,11 @@ transliterated are replaced with a question mark (?) in the output.
+>   List all known character set encodings.
+>   .TP
+>   .B \-c
+> -Silently discard characters that cannot be converted instead of
+> +Discard characters that cannot be converted instead of
+>   terminating when encountering such characters.
+> +.\" glibc commit 6cbf845fcdc76131d0e674cee454fe738b69c69d
+> +POSIX requires that this option does not change
+> +the exit status of the program.
+>   .TP
+>   .BI \-\-output= outputfile
+>   .TQ
+> 
+> base-commit: 3c2e9ebe2d5ea15a47c1669f75b280cea42a6f8b
+> 
+> 
 
 
+-- 
+Cheers,
+Carlos.
 
-Hi,
-
-The issue is with some anti-bot / anti-spam measures we had to
-implement (it was taking bugzilla offline), and later versions of
-firefox appear to identify their OS as "Windows NT". I am currently
-working on this issue and hope to have a workaround in place soon - as
-part of an upgrade process for bugzilla.kernel.org in general. Thank
-you for your patience in this process.
-
-cheers
---=20
-Chris Hoy Poy
-Systems Operations Engineer
-IT Core Projects
-The Linux Foundation
 
