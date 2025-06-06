@@ -1,63 +1,59 @@
-Return-Path: <linux-man+bounces-3110-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3111-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68857ACF31D
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jun 2025 17:33:35 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 616EBAD02C7
+	for <lists+linux-man@lfdr.de>; Fri,  6 Jun 2025 15:05:46 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id DE3C41894AE3
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jun 2025 15:33:49 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A54B63AA1D4
+	for <lists+linux-man@lfdr.de>; Fri,  6 Jun 2025 13:05:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA38018A6B0;
-	Thu,  5 Jun 2025 15:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BACA288CBE;
+	Fri,  6 Jun 2025 13:05:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KM/H+PqS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X47nhj+e"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FE7D2FB
-	for <linux-man@vger.kernel.org>; Thu,  5 Jun 2025 15:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0806E288CA2
+	for <linux-man@vger.kernel.org>; Fri,  6 Jun 2025 13:05:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749137611; cv=none; b=i2KTOgShtqTGReUKoK1j3N9fWo34hjcyhXQGfU+9mHL7kO6pT6NYgekdinDreRlLORpGkMlJ9pB574X3Tk8zaLODyzcdbl9r9KPLwKSR4EPH0aebUm4+j0PnL2fnV0stPb+roqICbSX0eS8oSckXz7xIS+bDelnfa0tllFwyFw0=
+	t=1749215122; cv=none; b=HRPSksIL9n6q8oKwaIG0uln3ZF3nJRfZ7CeVapT4HnxwWuZSDq2Qz5cNucF8gZ3gzPRklp0x00B60pSNm7CiNChOyM8BiMkmds9xenTOdl6CZ4UuNWI+gYwbiSy7gIWz4n6KaTNQR8zMVVdQoYqAnDcH3pewnuo8ydEKJbMXW0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749137611; c=relaxed/simple;
-	bh=I0Wxvun3rpTSaRWPrw42xy/kSnMZ7xDYGItcD32YqVg=;
+	s=arc-20240116; t=1749215122; c=relaxed/simple;
+	bh=WH7dKSxw2LyX40NO6lR3KJfF3LSSOnyxWZ3p6ZLqLNE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdD6j/HPjNSFoggpSpUkVoe7AVurbaOaS+0dwRIxtkCx/rdko9kfqsgT+5l918PVfDW8qYD5TWTpX3keptZONsIxN4fwUUj3tTq0cHm6wIlljVa3AWS0q8zX81aDSNkEZf/M/rAxeESY1RWfEB3VgNkcoz1nqTphLkM4DDooc9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KM/H+PqS; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6D45C4CEEB;
-	Thu,  5 Jun 2025 15:33:29 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=GdS8/P8zvBHxg/FV1p+NbkEv7q2f+df7Xy1wo8GolwFP3rp1+TGm1vjuMGGPC92t3z/RxYCeUhVB4l5vgHccpe00cUczoic9/vRA9DtOyw9sBGTWDmxZIZf9hQks4+bnUaoyR4MN2fGzRtto1n35QOVjTmeBN/4qCLHFutdi3/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X47nhj+e; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825DCC4CEEB;
+	Fri,  6 Jun 2025 13:05:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749137610;
-	bh=I0Wxvun3rpTSaRWPrw42xy/kSnMZ7xDYGItcD32YqVg=;
+	s=k20201202; t=1749215120;
+	bh=WH7dKSxw2LyX40NO6lR3KJfF3LSSOnyxWZ3p6ZLqLNE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KM/H+PqShVTrJs0/a/ocCzSwYSTmHIwsJ5AbIB++A+4wQVrEGHZmVM1MLvI4vXdZk
-	 zDRdHzts7u3zWww6ZvwPiQwcfvltFaKePw9GGnEb0XA0zwpu3w8KM6e/297MJ9wLFY
-	 X9PgDzTuO0QAE+bb4wvpxWm3b9HoWt7GoSu6khzYzn/8vugKbWQB7iycbHyhE9YguQ
-	 TxKgurMCQLflQxIb2UJlho/19e6ZhO094YfJQsh2Igb480tDNf9ZMDgLR0kDxOyMzY
-	 7r7ljckO/da80V7zmKYAjLvuyFiQW7BJft0i++F48wuqiGeKdsScTyBmfG2R3mc8D7
-	 m6TYQIfOaIwiw==
-Date: Thu, 5 Jun 2025 17:33:27 +0200
+	b=X47nhj+e+lwJFIZadXKmLtRoYQQryap5l7Xl5uYU4RtspMEA/Ayj3w1oC+i4iuGPz
+	 kOTP8Y6ohXm4cVh1hOOtRRe5QY6Nrl0CyGnwZx+EzzRoj4kuEG7Fkydt6t4ctogd4z
+	 0WsJNFNpt+kUqrARpwWjk5AC8pkFVWRwnTv58tPSsqQEUHlJhvF3KYczNj3hXM+88L
+	 9/6yeLASmKw2syH1TA+CVlejyGl97Gc2ko3SZKdPw5uOxuOEuZj/YKe12MaDBfWHb3
+	 rxDlNj0bXt1r09lwI5YG6Bg6iqzqRJX52wCrD6vyxxf8IeWXIWelNtsooyo8POJhzZ
+	 14aDSpzzgUzHw==
+Date: Fri, 6 Jun 2025 15:05:17 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: Mark Naughton <mnaughto@redhat.com>, Mark Harris <mark.hsj@gmail.com>, 
-	linux-man@vger.kernel.org, Joseph Myers <josmyers@redhat.com>
-Subject: Re: strncmp(3) in the SYNOPSIS
-Message-ID: <5mfvvwtthfzgjb3m7d4bzwcn3vc4jmpsktk43vjcfjg5vkeyug@7aqiiz5fwgfn>
+To: Mark Naughton <mnaughto@redhat.com>
+Cc: Mark Harris <mark.hsj@gmail.com>, linux-man@vger.kernel.org, 
+	Joseph Myers <josmyers@redhat.com>
+Subject: Re: Forward Deceleration Changes
+Message-ID: <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
 References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
  <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
  <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
  <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
  <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
  <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
- <movtjbigtmqu5qwwijxng7pc62bvfxhqf5fhf36rd5wq67c4yy@wnpjvmfuti2i>
- <87a56mxmsx.fsf@oldenburg.str.redhat.com>
- <hkyvvyqkhbseev7cyqkdjvknur6tghu6xt7ekjfhjsfyicwsm2@awrjajnvugz5>
- <874iwuxl60.fsf@oldenburg.str.redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,82 +61,244 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="voyqvv4b7yocepey"
+	protocol="application/pgp-signature"; boundary="57yk2y2a47y4rg7q"
 Content-Disposition: inline
-In-Reply-To: <874iwuxl60.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
 
 
---voyqvv4b7yocepey
+--57yk2y2a47y4rg7q
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: Mark Naughton <mnaughto@redhat.com>, Mark Harris <mark.hsj@gmail.com>, 
-	linux-man@vger.kernel.org, Joseph Myers <josmyers@redhat.com>
-Subject: Re: strncmp(3) in the SYNOPSIS
+To: Mark Naughton <mnaughto@redhat.com>
+Cc: Mark Harris <mark.hsj@gmail.com>, linux-man@vger.kernel.org, 
+	Joseph Myers <josmyers@redhat.com>
+Subject: Re: Forward Deceleration Changes
 References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
  <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
  <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
  <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
  <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
  <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
- <movtjbigtmqu5qwwijxng7pc62bvfxhqf5fhf36rd5wq67c4yy@wnpjvmfuti2i>
- <87a56mxmsx.fsf@oldenburg.str.redhat.com>
- <hkyvvyqkhbseev7cyqkdjvknur6tghu6xt7ekjfhjsfyicwsm2@awrjajnvugz5>
- <874iwuxl60.fsf@oldenburg.str.redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <874iwuxl60.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
 
-Hi Florian,
 
-On Thu, Jun 05, 2025 at 05:28:23PM +0200, Florian Weimer wrote:
-> My point is that *if* it is a string, it can be arbitrary long.  It does
-> not have to contain at least five characters, it can be shorter.  These
-> two choices are valid:
+Hi Marks,
+
+On Tue, Jun 03, 2025 at 03:52:59PM +0100, Mark Naughton wrote:
+> Agreed, Mark.
 >=20
->   subject is a string
->   subject is an array that is at least six bytes long
+> Mark
 >=20
-> They overlap, but both options are needed.  For example, "?" is not an
-> array that is at least six bytes long.
+> On Tue, Jun 3, 2025 at 3:48=E2=80=AFPM Mark Harris <mark.hsj@gmail.com> w=
+rote:
+> >
+> > > > When I open a man page I want to see "what arguments do I pass and =
+in
+> > > > what order". With this change you have to parse the prototype for t=
+he
+> > > > semi-colon
+> > > > to see the start of the args.
+> > >
+> > > I tried to use a style that makes the ';' stand out more, by breaking
+> > > the line after it.  But I agree that the first times you look at it, =
+it
+> > > can be a bit confusing and hard to distinguish.
+> >
+> > The main issue with the forward declaration syntax is that it is easy
+> > to mistake the forward declarations for arguments, especially when
+> > just quickly checking the man page to remind yourself which argument
+> > is first.  If you want to retain this syntax, what might help is to
+> > remove the bold font style from the forward declarations, or change
+> > their formatting in some other way to be different than that of the
+> > arguments.
 
-Yep, that's correct.  Hmmm, I don't know; maybe for consistency I could
-remove those [n] and just use [].  We'll see.  Please remind me in a
-month or so; possibly with a patch, if you want.
+I've pushed a change to my branch.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dfda4e7b0c420f42f704dedd71733d6766a8eb41c>
+
+You can check the PDF online with the new formatting:
+<https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-H=
+EAD.pdf#fread.3>
+
+Here's an excerpt of the commit showing just the changes in fread(3):
+
+	$ git show -- man/man3/fread.3
+	commit fda4e7b0c420f42f704dedd71733d6766a8eb41c (HEAD -> main, alx/main, a=
+lx/contrib, alx/HEAD, contrib)
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Fri Jun 6 13:27:02 2025 +0200
+
+	    man/: Don't highlight forward declarations of function parameters
+	   =20
+	    Previously, many people confused these for actual parameters, since it=
+'s
+	    hard to distinguish a ',' from ';'.  By removing bold/italics from
+	    these, it will be easier to distinguish them.
+	   =20
+	    The cases have been found with a script:
+	   =20
+		    $ find -type f \
+		    | xargs grep -l '^\.TH ' \
+		    | sort \
+		    | xargs mansect SYNOPSIS \
+		    | man /dev/stdin \
+		    | grep -e '^[^ ]' -e '[^ ]( [^ )].*[^)];' \
+		    | less;
+	   =20
+	    Reported-by: Mark Naughton <mnaughto@redhat.com>
+	    Suggested-by: Mark Harris <mark.hsj@gmail.com>
+	    Acked-by: Mark Naughton <mnaughto@redhat.com>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man3/fread.3 b/man/man3/fread.3
+	index cb259224b..a1eb2e791 100644
+	--- a/man/man3/fread.3
+	+++ b/man/man3/fread.3
+	@@ -16,8 +16,8 @@ .SH SYNOPSIS
+	 .fi
+	 .P
+	 .SY size_t\~fread(
+	-.BI size_t\~ size ,
+	-.BI size_t\~ n ;
+	+size_t\~size,
+	+size_t\~n;
+	 .br
+	 .BI void\~ ptr [restrict\~ size \~*\~ n ],
+	 .br
+	@@ -27,8 +27,8 @@ .SH SYNOPSIS
+	 .BI FILE\~*restrict\~ stream );
+	 .YS .
+	 .SY size_t\~fwrite(
+	-.BI size_t\~ size ,
+	-.BI size_t\~ n ;
+	+size_t\~size,
+	+size_t\~n;
+	 .br
+	 .BI const\~void\~ ptr [restrict\~ size \~*\~ n ],
+	 .br
 
 
-Cheers,
+This is based on another commit which I've been working on these days,
+which makes use of SY/YS for formatting function prototypes.
+
+	$ git show fc3664f9e80d -- man/man3/fread.3
+	commit fc3664f9e80d84731424cbf4cfe9dd50298cbfba
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Sun Nov 24 21:40:41 2024 +0100
+
+	    man/: SYNOPSIS: Use SY/YS
+	   =20
+	    This makes it easier to write the SYNOPSIS, which will reduce the
+	    learning curve for contributors.
+	   =20
+	    Another benefit is that the prototypes are wrapped correctly for the
+	    terminal width that the reader is using, so it's not hardcoded at 80.
+	    It also removes the need for carefully aligning the prototypes by the
+	    author of a page.
+	   =20
+	    It causes a small unwanted problem: a white space is added after the
+	    opening parenthesis.  That's a minor trade-off for the benefits it
+	    brings.  Once groff 1.24.0 is released, we'll be able to use an
+	    extension that it provides, which allows us to remove that space, by
+	    using the second argument to SY.
+	   =20
+	    Use it even in functions that don't need it (0 or 1 parameters), for
+	    consistency.  This will make it easier to grep for function prototypes
+	    in the source code.
+	   =20
+	    The cases have been found with a script:
+	   =20
+		    $ find -type f \
+		    | xargs grep -l '^\.TH ' \
+		    | sort \
+		    | xargs mansect SYNOPSIS \
+		    | man /dev/stdin \
+		    | grep -e '^[^ ]' -e '[^ ]([^ )].*\(,\|;\)' \
+		    | less;
+	   =20
+	    Suggested-by: "G. Branden Robinson" <branden@debian.org>
+	    Cc: Ingo Schwarze <schwarze@openbsd.org>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man3/fread.3 b/man/man3/fread.3
+	index 55b74b93a..cb259224b 100644
+	--- a/man/man3/fread.3
+	+++ b/man/man3/fread.3
+	@@ -13,16 +13,30 @@ .SH LIBRARY
+	 .SH SYNOPSIS
+	 .nf
+	 .B #include <stdio.h>
+	-.P
+	-.BI "size_t fread(size_t " size ", size_t " n ;
+	-.BI "             void " ptr "[restrict " size " * " n ],
+	-.BI "             size_t " size ", size_t " n ,
+	-.BI "             FILE *restrict " stream );
+	-.BI "size_t fwrite(size_t " size ", size_t " n ;
+	-.BI "             const void " ptr "[restrict " size " * " n ],
+	-.BI "             size_t " size ", size_t " n ,
+	-.BI "             FILE *restrict " stream );
+	 .fi
+	+.P
+	+.SY size_t\~fread(
+	+.BI size_t\~ size ,
+	+.BI size_t\~ n ;
+	+.br
+	+.BI void\~ ptr [restrict\~ size \~*\~ n ],
+	+.br
+	+.BI size_t\~ size ,
+	+.BI size_t\~ n ,
+	+.br
+	+.BI FILE\~*restrict\~ stream );
+	+.YS .
+	+.SY size_t\~fwrite(
+	+.BI size_t\~ size ,
+	+.BI size_t\~ n ;
+	+.br
+	+.BI const\~void\~ ptr [restrict\~ size \~*\~ n ],
+	+.br
+	+.BI size_t\~ size ,
+	+.BI size_t\~ n ,
+	+.br
+	+.BI FILE\~*restrict\~ stream );
+	+.YS
+	 .SH DESCRIPTION
+	 The function
+	 .BR fread ()
+
+
+I'm not going to release these changes soon, though.  They cause some
+minor temporary regressions, so I'm considering when I should do it.
+But eventually, these changes will be released.
+
+
+Have a lovely day!
 Alex
-
->=20
-> Thanks,
-> Florian
->=20
->=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---voyqvv4b7yocepey
+--57yk2y2a47y4rg7q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhBuMYACgkQ64mZXMKQ
-wqlRmA/+NmQpegHapPHUJxAUTbpHMVHrd+prP4u1mbUJwCNU9ms0in3htLVUVjxV
-rY3XRnpWZrUCsceRKdMVtKmFH41+SHz5ZnM0K5bOwzx9JgM5rm5mw1vk9lJopubk
-Rt5wMacm8+EyQn260Npgwzvqm0SlnujgXuO0hUpQLGwULuEtKStaNQAdFbrHeah3
-6Og4eAw2QWUYx7fxw8YE8mgh2KLOQoDyMWkwbRKbMTWdxkehd1NyRJMmCRQZN+tI
-ih0TO4PPkahnlrlpRkMuxB6kHTQRfhL/RzK5OkvB0dGIagUW75Rjbspy76EmQQ7K
-1BDQ3RZdCa3z8Cqz0V1lnL12F9j/NhNKXLvED0XHskDKsjxxO27+EAuESZ2DXL/d
-DlAMeTptSMUm8uzBOQd/5A8oPn/urc5j5upEvPhg43xYVBXcNKsYn+sg9a6JQHA2
-qbmb8Fn5GJ/E/nyuvE7ZQYr/UI4k927iVe+y/8VSvGdj64N3hNCmMELK9gPpvRb8
-Zbd1Q5Quu8K9DaSkW5aB7KGzh1xqtR9hy8su6e7Nku6pNxJ4y/EsCSRuecXdUMlP
-oORn6XefpxIqaEzHt66+apwomESINnLwsMuiNiNfgH9LffCwxm+45991RqJFJy2N
-3LEnPDAo/sQ5fBVnH88ddgg3GI9ZnO6ibY0Pd43Qvy1qB4E5WTk=
-=dWaZ
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhC54wACgkQ64mZXMKQ
+wqmLGg/+PHynvYuS5zVgtQ+u9385UAT2JlU3WxfVmt3sEfFhvcsq/X8xUb12VeI0
+NyQT4H+B26SPXwxOTPVCfvrAABAGDqmF9dEudE4CCKVbmmJM7cOuRgbbvV08lSbH
+CN/xG2bXr1GnKATlRRMI26baDK+RphrEmF+AGaiku8D87ujBCeGt3ATfuTemUT+J
+F2nicGo4M8ViBd7XrL42TT5IhB+NqzcV2fh6rWkRpJXZmdCsLgT1+VjA5EL6+Npe
+8FjwgLhTCPKP8ACJ1ZE92GYkFLovKPrUDnfbNn1AVV58D90Y+O90pH65b6qvuako
+15tGimYC9tGCJocpbTY2Xe39NmjQsYLoMEURuC7aCZ6NEXtp26erRYMNm7RSeZqU
+tHOY0uOgxQnVrl+KoaycOX+1wcKDUbhoc+RhXmdGoIsjjqbMlrfadYpDToClmLX7
+ontbv5kpg9BM3B7KR0uRiSe+9lHjDNkCw6qi+8Rl1vvAE6Xwlju0h1UAWk6YVuhI
+WKsJ+7WxG2GuJz4jM77wc5IA8l6QPbck1hmkA8nHSmwus+X4GDHle2o+Z7c9nPp/
+XmiZhyaq3qBVRfk9Ottm4QXaoh0WZlhHbG935dFjLyYfaU5XLrk8gvOZnwMPhg0D
+nPvHhKAnZKMlUO74XaWVBXPi15vP4qNpbkhAnHwtCub2YdkCpT4=
+=C2hj
 -----END PGP SIGNATURE-----
 
---voyqvv4b7yocepey--
+--57yk2y2a47y4rg7q--
 
