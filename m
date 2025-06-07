@@ -1,82 +1,81 @@
-Return-Path: <linux-man+bounces-3114-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3115-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D7E1AD0F3A
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 21:59:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A986AD0F3C
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 22:02:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AFAA53ABBEB
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 19:59:20 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id AF3E8188DBCC
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 20:02:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64F8A1F1527;
-	Sat,  7 Jun 2025 19:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3C571E8322;
+	Sat,  7 Jun 2025 20:01:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="1JwvhpRl"
+	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="Hdm40KBK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1FB156C40
-	for <linux-man@vger.kernel.org>; Sat,  7 Jun 2025 19:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B8133E4
+	for <linux-man@vger.kernel.org>; Sat,  7 Jun 2025 20:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749326379; cv=none; b=rybuMIR3ZQnu4T8ASOedURLrHxpTVB+BaAJjsyk65hb3pATExDAUj4N5HikclCM4Fsx4oNF1gwsE4Q0oiBMAveZr7tnAMd/T9vzZzdqE+gYrgOOH/ISx/UW9CvKVs6J2E/NHvSxvZ/jjQVsJvDFttKcMDnP03ZT65Fmt+E5MBcU=
+	t=1749326517; cv=none; b=AgnXHmyNptKUQY+TB+Y7d9mLu865Mfvc1Q1SeiWKYyYtwjj/GQH7zLKG33+DwmfsxKCtg8DArRH1PcMR7rx3dbc9l4gjP7RfFExEss1HdBldyAQsAXyFdtz+chXPG2/i3YP9BAWHU+ysuThD/DW9I2/Ufbv0zrXU7rQnWSTWx4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749326379; c=relaxed/simple;
-	bh=u6uvnEVjoT6SGSvgXmki9H28oMUCvW7qbEZ8f++80jA=;
-	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZgEk5m4n5HX7uvDvv9LYIYPbWAsyjiND7fx0SwTtHkakg7fS2nkOBm8mFBTH+17/+dAN5otAvx0rnvMOiZiUB4MoiFkFIcsF1hT2oVMPPMG0nkXNa9ZENirZnaLQWXvOxRUiqtryCrHmmHSzAmntRloQb9dpaEZ55t8qLjnNzF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=1JwvhpRl; arc=none smtp.client-ip=209.85.222.173
+	s=arc-20240116; t=1749326517; c=relaxed/simple;
+	bh=ArnpmSo/mLzBgtvbI5TdZ9DbJMyL18l73A5Pt6a64Hs=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=eL5qEn+/6YW2qHycvZ92TPkozpThEZMDFrGbMtPc4lLiKG2jPTO37aozKeGd49h0jdkl1DUpYlF/uE+dXcdssRpB61FN4qndRqrRdEHMY6vttcxex8tYOSyw0RZrt0tymolZHA3fRsK+H13Z9Dwmyanv+CSt6VaqyiZmJPJaYSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=Hdm40KBK; arc=none smtp.client-ip=209.85.219.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-7c5b8d13f73so346245385a.0
-        for <linux-man@vger.kernel.org>; Sat, 07 Jun 2025 12:59:36 -0700 (PDT)
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-6f8a70fe146so60482906d6.0
+        for <linux-man@vger.kernel.org>; Sat, 07 Jun 2025 13:01:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749326376; x=1749931176; darn=vger.kernel.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749326513; x=1749931313; darn=vger.kernel.org;
         h=mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=+j6ykiamQVETk6xR7IgcnaW6IFMvITd8TMi9d3Q+I6w=;
-        b=1JwvhpRlRY2zT2cqorFGaoS2a7lvdDISufs2WhADgyfh/Z4c6CuUz5BawDAgtpIUut
-         4Z6f2Zdnzc79Zuz6zEZ3u7qF/RvOKRoiFinrDSvEy0i6R/71CtdOKJF2NI/I1AXqNslD
-         B3rYbPPLE2hwMfmjQdyp6TAa+SXrhu+OoW3RE+J1MGXJRXfcInJP4up+LMDVmjPy+se2
-         n6Xeq7V7tfYUAjHnoo1HxrFmRaxhwaeJQZhDeIfQ9fSPoQWOl5vGTjwMyCuzwA96+OMH
-         gLOaMCxIfasnC9LSHB8BQ+pJQNaiP9Tm7H0l2/xs+ge3ohLLO5zXhRwx78EBNwppbUUz
-         jTOA==
+        bh=TRpk4sM+wyKnS9Hf4pUIO97pr/KBToBJzhbHdNyHRa0=;
+        b=Hdm40KBKubiOeuCbSi4D+Q6rVHCYw51fORBVONaSKASy3XzgCdh9j/KRUz0YOxRaf+
+         2YuKYufia3QNaEQSWMqJx6oCuCpkoPjI9qS+gHJi67hxMfQPUNHwlxzluYFuAP/ERiuS
+         /uvTUlYg965J4au8yfWUxJu5p0wAVcj87LySflbFwyJzw7SCaMh0YMpeR4DIlnkxa+yc
+         WRycJ8cEnuEXmV1nLgovcpu0SJiynCnUdXCx4xGYLk4NzLruLQ1XkyYcN/MZwocNgQGS
+         ozgLLMy3Gc3CSwraIv/7Zx9SMDYOxuJIjV1kj+cXWOAynAFR7gm9zOjTGiCSEotgiRmU
+         OHcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749326376; x=1749931176;
+        d=1e100.net; s=20230601; t=1749326513; x=1749931313;
         h=mime-version:message-id:subject:cc:to:from:date:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+j6ykiamQVETk6xR7IgcnaW6IFMvITd8TMi9d3Q+I6w=;
-        b=WH+4aNM3hSMEWW34KCYEao0rCdYfoqS8JRYTQUAGMhymvbT6YAeXLB7fhwuP6Pgl2N
-         xYLGY+4imvopXbtlqMTRwIZ3cHEEcAuiiQLu7pEnIXMhxNkXNrE6PLgrkyAi1E2rtBdH
-         BuzKlwX2oNDeGLjNPQPDe99spFj+MYakpmlvxyF4zGIj9kwhDw3PxKJu+CV0O/QpFNJn
-         rQ/aAq/hsfpQHtBO5kHgpDbQPyAJEyXe7JYzUAkHbHWb9Eq5tbF/AIbNAjM64GKbNNjJ
-         P0OP69zl2JZ1j5ei0KpqONbKsvsMHRyCRWrUnZkyCfgzWj7C3QTkdTtEUgVdBTV8Xa+O
-         +QXg==
-X-Gm-Message-State: AOJu0Yxhehg6+jvptvWDvqzsXah05lYDksRSCL4b7LgDsBE+YasF1Kcd
-	agI1fXSu8CvI5cBOa/LotoOtVMkSAwKw+mMcM5j+igaYYe52cWMFvSzOMLIdD7Lo/VEXdvt27D5
-	h4h+2
-X-Gm-Gg: ASbGncv5Lgug6Nbj5S48FIPDcaybxrPR7QXx4MvQAg6WvQ07muhoDaPVejrH4WACgd4
-	hLhpsNwICqXD/AKKq/QVIPUkCOuXWtB7JCqx24YuSqqmWHYW08IIC3UcDKbANtV01lz1RTUu1R1
-	h+YUnC6ekAIkHKDyxOmITXLnWkojP32272EHvHwvHyD10HFcK9GYQAlhZX17kPVOKVeXUyrCG7r
-	s0WgzygNFAUNYcP6vQYbIW5qpsTN7uF0ji5OEWHLHtOgUKUDZyLYRJRC35ahT6GNA7KfCgGh7Lr
-	ZTJhfZDiAHzI1DkEMU1ctBKg5HpCN13p1GRqk4AEIQDt/qFWStufwBcKYPbaHZq2k9T1FkK1Wy4
-	h0LwYAdoz/wLxFMgtI0pRdrOv
-X-Google-Smtp-Source: AGHT+IF7EWBC1vTRnG7fZmd/ZJK1QMWb4ht5UW8uSoLf0nJ05AX9fSwWCK4DuhyeBG1GKA1W/utt0A==
-X-Received: by 2002:a05:620a:2608:b0:7c5:6a35:81c1 with SMTP id af79cd13be357-7d229932cbamr1287308185a.48.1749326375778;
-        Sat, 07 Jun 2025 12:59:35 -0700 (PDT)
+        bh=TRpk4sM+wyKnS9Hf4pUIO97pr/KBToBJzhbHdNyHRa0=;
+        b=kLcxM9pFmxX0qADJvYJQSX2oGwl/yNlwLbF4PR6nlm6udzRe4nv6qMeBB5/dqYjcoz
+         A0PEEpvjU4HV1R8aB7bSZETRQUxGTPi67yYG0inmcuEvWbXINpkt8QBATWNhtUFvU1ZU
+         p3hjVyNK2v5ttYcYMKUSc+cmjJf60PnkonbJjSxVOmcang1hbtX6exF4DWdNjisuWS+B
+         4EPoSO7wfh9fm9cxMOGyPDQ6SOCntSQTKZe56JYLV/DgpwxmWpAPyLxeI0L89aLxadF/
+         xwo8RoqNO9tEbTDmceWudB7YuMEuRXW1Sqaps/zKtA43hqs30Cu0v2Qs65oQ7SZ4CE7u
+         Jxcg==
+X-Gm-Message-State: AOJu0YyUglvdLXrIBoR4+yymZVRmVrlhsrHV0BUvvrJlCNEPuFI6h9ij
+	QPfzzezW8zwykPRz0mF4WnNZ4zX7PqYWUdzxD7+VR6o62s5jNotLCfetjW0E3b9YrIznD+1pEfd
+	W/j3z
+X-Gm-Gg: ASbGncua0ysHgFT+txnFAwpzx6gVB6YB5NcVfBLToxk4E8q/rozwq6M4Jey/Qb9rr/v
+	16kAkN29Pr6d7OvfLuZp6R4nptHUK/vmbaoPpGBCkcnueW3xCUhXS3n+Xaz5cFkhehkbHFi4z0i
+	z8FSXUYXA7R5awWLZGvHFwG33Di7IYsxC03EcyeyQ0aTVFZwmRH/fp7M2EZcO6f808Xd6uDM0Ul
+	5SpDmuv1Ikx+SPGMjjDrV3qUtNCmtrIDwN6tk/cqVwPw8exfu7zmubRqRZ7wcsWSslxTSM296OZ
+	7yweQxsaD71hrIN4np0PyZxedAPeoybWRzOvYa2rAq2yBvsdprImJdx05tPpxdAjvtujpDxs1AE
+	kD88+EfSWAsVA24GCQdfS7AY6
+X-Google-Smtp-Source: AGHT+IFY+EO670EJdXdesKbs2NcTGFlXyDR5DSfzdKOAtiHVL1yhK6HFxgStCGB+qyeyHuq16Z1vaA==
+X-Received: by 2002:a05:6214:2aac:b0:6fa:9ab7:3861 with SMTP id 6a1803df08f44-6fb08fd9ab6mr120138176d6.3.1749326513155;
+        Sat, 07 Jun 2025 13:01:53 -0700 (PDT)
 Received: from xanadu (modemcable179.17-162-184.mc.videotron.ca. [184.162.17.179])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d39054acaesm21634785a.92.2025.06.07.12.59.34
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d25a609f00sm338671785a.62.2025.06.07.13.01.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Jun 2025 12:59:34 -0700 (PDT)
-Date: Sat, 7 Jun 2025 15:59:33 -0400 (EDT)
+        Sat, 07 Jun 2025 13:01:52 -0700 (PDT)
+Date: Sat, 7 Jun 2025 16:01:51 -0400 (EDT)
 From: Nicolas Pitre <npitre@baylibre.com>
 To: Alejandro Colomar <alx@kernel.org>
 cc: linux-man@vger.kernel.org
-Subject: [PATCH] man/man2const/TIOCLINUX.2const: document
- TIOCL_GETBRACKETEDPASTE
-Message-ID: <o5p79351-1ops-on58-3o20-rp142r6s4o21@onlyvoer.pbz>
+Subject: [PATCH] man/man2/ioctl_vt.2: document VT_GETCONSIZECSRPOS
+Message-ID: <4n723o1q-pr52-319q-nsr7-6442387s12s2@onlyvoer.pbz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -85,33 +84,52 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Corresponding code is in drivers/tty/vt/vt.c:tioclinux().
+Corresponding code is in drivers/tty/vt/vt_ioctl.c.
 New in Linux v6.16.
 
 Signed-off-by: Nicolas Pitre <npitre@baylibre.com>
 ---
- man/man2const/TIOCLINUX.2const | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ man/man2/ioctl_vt.2                      | 18 ++++++++++++++++++
+ man/man2const/VT_GETCONSIZECSRPOS.2const |  1 +
+ 2 files changed, 19 insertions(+)
+ create mode 100644 man/man2const/VT_GETCONSIZECSRPOS.2const
 
-diff --git a/man/man2const/TIOCLINUX.2const b/man/man2const/TIOCLINUX.2const
-index 90984e6b4..86e9ac105 100644
---- a/man/man2const/TIOCLINUX.2const
-+++ b/man/man2const/TIOCLINUX.2const
-@@ -271,6 +271,14 @@ Never used.
- .BR subcode = TIOCL_GETKMSGREDIRECT
- Returns target of kernel messages.
- (Since Linux 2.6.17.)
+diff --git a/man/man2/ioctl_vt.2 b/man/man2/ioctl_vt.2
+index afce12936..05b4637f1 100644
+--- a/man/man2/ioctl_vt.2
++++ b/man/man2/ioctl_vt.2
+@@ -156,6 +156,24 @@ Note that this does not change the videomode.
+ See
+ .BR resizecons (8).
+ (Since Linux 1.3.3.)
 +.TP
-+.BR subcode = TIOCL_GETBRACKETEDPASTE
-+Returns
-+.B 1
-+if the application advertised bracketed paste compatibility to the terminal,
-+.B 0
-+otherwise.
++.B VT_GETCONSIZECSRPOS
++Get console size and cursor position.
++.I argp
++points to a
++.IP
++.in +4n
++.EX
++struct vt_consizecsrpos {
++    __u16 con_rows;  /* number of console rows */
++    __u16 con_cols;  /* number of console columns */
++    __u16 csr_row;   /* current cursor's row */
++    __u16 csr_col;   /* current cursor's column */
++};
++.EE
++.in
++.IP
 +(Since Linux 6.16.)
  .SH RETURN VALUE
  On success, 0 is returned (except where indicated).
  On failure, \-1 is returned, and
+diff --git a/man/man2const/VT_GETCONSIZECSRPOS.2const b/man/man2const/VT_GETCONSIZECSRPOS.2const
+new file mode 100644
+index 000000000..5c2119543
+--- /dev/null
++++ b/man/man2const/VT_GETCONSIZECSRPOS.2const
+@@ -0,0 +1 @@
++.so man2/ioctl_vt.2
 -- 
 2.49.0
 
