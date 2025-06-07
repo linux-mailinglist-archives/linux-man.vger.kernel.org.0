@@ -1,304 +1,142 @@
-Return-Path: <linux-man+bounces-3111-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3112-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616EBAD02C7
-	for <lists+linux-man@lfdr.de>; Fri,  6 Jun 2025 15:05:46 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59A26AD0F38
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 21:55:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A54B63AA1D4
-	for <lists+linux-man@lfdr.de>; Fri,  6 Jun 2025 13:05:23 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1541216BF08
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 19:55:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BACA288CBE;
-	Fri,  6 Jun 2025 13:05:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B56DA202965;
+	Sat,  7 Jun 2025 19:55:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X47nhj+e"
+	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="CpJbpxzj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0806E288CA2
-	for <linux-man@vger.kernel.org>; Fri,  6 Jun 2025 13:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4936A145B25
+	for <linux-man@vger.kernel.org>; Sat,  7 Jun 2025 19:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749215122; cv=none; b=HRPSksIL9n6q8oKwaIG0uln3ZF3nJRfZ7CeVapT4HnxwWuZSDq2Qz5cNucF8gZ3gzPRklp0x00B60pSNm7CiNChOyM8BiMkmds9xenTOdl6CZ4UuNWI+gYwbiSy7gIWz4n6KaTNQR8zMVVdQoYqAnDcH3pewnuo8ydEKJbMXW0Q=
+	t=1749326116; cv=none; b=BeuaPlR8fy21ICEA7s1JbgchB2qz7LW8vagYNTQQji1qlzl4iqaGdZ70r7TOQ4yXa+zrtViM0CE7na3z7Mxgg55WG6KMxVWqeK5ke/l9LDrOYa90ZIcJ5K5njl8j43XPAGoXberiKwwz0yZwIVyLmDAoi2s7QGkC/wvEVSYSm+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749215122; c=relaxed/simple;
-	bh=WH7dKSxw2LyX40NO6lR3KJfF3LSSOnyxWZ3p6ZLqLNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GdS8/P8zvBHxg/FV1p+NbkEv7q2f+df7Xy1wo8GolwFP3rp1+TGm1vjuMGGPC92t3z/RxYCeUhVB4l5vgHccpe00cUczoic9/vRA9DtOyw9sBGTWDmxZIZf9hQks4+bnUaoyR4MN2fGzRtto1n35QOVjTmeBN/4qCLHFutdi3/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X47nhj+e; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825DCC4CEEB;
-	Fri,  6 Jun 2025 13:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749215120;
-	bh=WH7dKSxw2LyX40NO6lR3KJfF3LSSOnyxWZ3p6ZLqLNE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=X47nhj+e+lwJFIZadXKmLtRoYQQryap5l7Xl5uYU4RtspMEA/Ayj3w1oC+i4iuGPz
-	 kOTP8Y6ohXm4cVh1hOOtRRe5QY6Nrl0CyGnwZx+EzzRoj4kuEG7Fkydt6t4ctogd4z
-	 0WsJNFNpt+kUqrARpwWjk5AC8pkFVWRwnTv58tPSsqQEUHlJhvF3KYczNj3hXM+88L
-	 9/6yeLASmKw2syH1TA+CVlejyGl97Gc2ko3SZKdPw5uOxuOEuZj/YKe12MaDBfWHb3
-	 rxDlNj0bXt1r09lwI5YG6Bg6iqzqRJX52wCrD6vyxxf8IeWXIWelNtsooyo8POJhzZ
-	 14aDSpzzgUzHw==
-Date: Fri, 6 Jun 2025 15:05:17 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Naughton <mnaughto@redhat.com>
-Cc: Mark Harris <mark.hsj@gmail.com>, linux-man@vger.kernel.org, 
-	Joseph Myers <josmyers@redhat.com>
-Subject: Re: Forward Deceleration Changes
-Message-ID: <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
-References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
- <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
- <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
- <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
- <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
- <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
+	s=arc-20240116; t=1749326116; c=relaxed/simple;
+	bh=7ZvEG3pH63mOLBUv+00qt6xfHfx6VkhnGrdLFyKP1k8=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=hyJNdzVD2e4Gb8ULDvJh3yUkKsVcI2g5hkeZPD+WxPb/hGreJT06ejnghhcQHcCfYw6VthbuUVGepUkThnN/mwND+QAD2DqV96lYEengy8+dCiN2hXTrcMTC6x7fqFnqnNMA+FJza3Bt1tdZaADC2Q/hWOcAuOht28YBSd33VJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=CpJbpxzj; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-7c56a3def84so291395285a.0
+        for <linux-man@vger.kernel.org>; Sat, 07 Jun 2025 12:55:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749326112; x=1749930912; darn=vger.kernel.org;
+        h=mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=LLEK/BsJG0bfSQs2G+7SbRkPXqAq30zuZYMBWhAz73Y=;
+        b=CpJbpxzjY8vhL7AjbtESJnsW5GsU8mhJ16DHWTq3QiqlHRSHQnLZHa+1zWWgotgSSQ
+         1jIJ0r9YPUxXGncmgm/LF0CLK3pY0WQ+v5oc6GrGIWjNCc8yqjq00r7TaRvmhaUmxbTJ
+         4zYtf6KCK1K2PRCr+OFdgziq/JGaMr3fp0bDnvemfLrpW6JJ/ups7zi1GE0TRiGRuR34
+         A/fcj2yahkbT21wKUgVgm9b7aq/V6zCGsvV8sB4w4QVreesv3bppPgbBGiAvnDijSodn
+         prTlmyzgGJDsFjjOblY7X8BfkbOB1dWIBE5FxvFAwmBVu0Z3lGA5LO138D9dvflxd3lH
+         YxnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749326112; x=1749930912;
+        h=mime-version:message-id:subject:cc:to:from:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LLEK/BsJG0bfSQs2G+7SbRkPXqAq30zuZYMBWhAz73Y=;
+        b=iMDMT1UPyNdjc5D+exIO1RewaK5FC+oVeQ7wC53vkVZ2yXVRjhxp+5p7xPZkYyaX+6
+         41J+/DpmlBserCLTooeWagbnbHPrUE+9iJvkJhBp5FC0rkPgtG4a7hLkUJ8jqy4096Fo
+         NlMVa526P9C9A6qf+EFv/JV9n2OR3rGMURrV2puMDsdfausxcTcKj5IfD51B8rgci2Qc
+         BP9m2iaCqtKYjlCzWq1j4giD0mebG2liYgGGOjk5dRjuIr/iZ2dwCkWHEoXkf5aRBaUz
+         L7dnfsQ9oWdvrHPf9dtsTNOjm2SbmHCJgNGFIjiyDoSF8xwh4gc/T85ABcUdpeWMOohe
+         NtUQ==
+X-Gm-Message-State: AOJu0Ywi3CwLJ6mucu3npazz/H2aK9JNsGuo6kb8tlakaCOqrpg9vg64
+	SfV42p2lmLmy1y8nH1DplbuKSGBJ5l+HfJKgec29ZtOQAuSNr5e0BUsDFIiJeHeyCbg=
+X-Gm-Gg: ASbGncu+Ue8Nen4zsIaFo+pD8RYyyutQINOoBf/T4JEh5B83ZCTCHV6uKJKIx5zdu1a
+	vudGD3ee8AsGzh6pfk2SiEihtQAJKzwVTV2Fx1gcC/VrwCF0CoRK2PbLFIQafgOD0nRZGd4USaR
+	l0W6+2dmWSmqdpPwwNtkGLQTMzK2CI0gzEUqXUQ4PknrwsfxlHjB0idkAqOVNjbNO3sROeD96/P
+	kfVPIZa6sCNVAue33gKtrwTMj/6YOFW58D74GJuhY/h4OTC6iGIKVRMSdewUZsUbHyFF2qe8uYF
+	w2OotZ/n2lCk1IrkX67qWsmY7XlR/1+3/7y+gNf9dJjLGG0136GHzRCYDM+VeOYxA+mmyuS4kLk
+	44jLEFuWLXPpgcEc2t6IyBCHi
+X-Google-Smtp-Source: AGHT+IFewo4WUwcBRTdYkMe9zYdF5QT2bljBu0G1U5gR9o+BhfffdmqtQYXgbuwmju4TkaEsiCVTfw==
+X-Received: by 2002:a05:620a:1127:b0:7ce:bb40:11f0 with SMTP id af79cd13be357-7d2298a6e4amr846018985a.34.1749326111782;
+        Sat, 07 Jun 2025 12:55:11 -0700 (PDT)
+Received: from xanadu (modemcable179.17-162-184.mc.videotron.ca. [184.162.17.179])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d25a535889sm342456285a.28.2025.06.07.12.55.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Jun 2025 12:55:11 -0700 (PDT)
+Date: Sat, 7 Jun 2025 15:55:10 -0400 (EDT)
+From: Nicolas Pitre <npitre@baylibre.com>
+To: Alejandro Colomar <alx@kernel.org>
+cc: linux-man@vger.kernel.org
+Subject: [PATCH] man/man2const/TIOCLINUX.2const: missing info about
+ TIOCL_SETSEL
+Message-ID: <rssn5o07-prr9-2ssp-566q-n7rs5rr60719@onlyvoer.pbz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="57yk2y2a47y4rg7q"
-Content-Disposition: inline
-In-Reply-To: <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 
+Structure members are assumed to be all contiguous in memory by the kernel.
+It starts with drivers/tty/vt/vt.c:tioclinux() where we have:
 
---57yk2y2a47y4rg7q
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Naughton <mnaughto@redhat.com>
-Cc: Mark Harris <mark.hsj@gmail.com>, linux-man@vger.kernel.org, 
-	Joseph Myers <josmyers@redhat.com>
-Subject: Re: Forward Deceleration Changes
-References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
- <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
- <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
- <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
- <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
- <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
+	void __user *param = (void __user *)arg + 1;
 
+	case TIOCL_SETSEL:
+		return set_selection_user(param, tty);
 
-Hi Marks,
+And in drivers/tty/vt/selection.c:
 
-On Tue, Jun 03, 2025 at 03:52:59PM +0100, Mark Naughton wrote:
-> Agreed, Mark.
->=20
-> Mark
->=20
-> On Tue, Jun 3, 2025 at 3:48=E2=80=AFPM Mark Harris <mark.hsj@gmail.com> w=
-rote:
-> >
-> > > > When I open a man page I want to see "what arguments do I pass and =
-in
-> > > > what order". With this change you have to parse the prototype for t=
-he
-> > > > semi-colon
-> > > > to see the start of the args.
-> > >
-> > > I tried to use a style that makes the ';' stand out more, by breaking
-> > > the line after it.  But I agree that the first times you look at it, =
-it
-> > > can be a bit confusing and hard to distinguish.
-> >
-> > The main issue with the forward declaration syntax is that it is easy
-> > to mistake the forward declarations for arguments, especially when
-> > just quickly checking the man page to remind yourself which argument
-> > is first.  If you want to retain this syntax, what might help is to
-> > remove the bold font style from the forward declarations, or change
-> > their formatting in some other way to be different than that of the
-> > arguments.
+int set_selection_user(const struct tiocl_selection __user *sel,
+                       struct tty_struct *tty)
+{
+	...
 
-I've pushed a change to my branch.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3Dfda4e7b0c420f42f704dedd71733d6766a8eb41c>
+Finally, struct tiocl_selection is defined without the subcode field as:
 
-You can check the PDF online with the new formatting:
-<https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man-pages-H=
-EAD.pdf#fread.3>
+struct tiocl_selection {
+	unsigned short xs;	/* X start */
+	unsigned short ys;	/* Y start */
+	unsigned short xe;	/* X end */
+	unsigned short ye;	/* Y end */
+	unsigned short sel_mode; /* selection mode */
+};
 
-Here's an excerpt of the commit showing just the changes in fread(3):
+The subcode field is initially skipped with the `arg + 1` and therefore
+struct tiocl_selection is expected right next to it without the usual
+alignment gap.
 
-	$ git show -- man/man3/fread.3
-	commit fda4e7b0c420f42f704dedd71733d6766a8eb41c (HEAD -> main, alx/main, a=
-lx/contrib, alx/HEAD, contrib)
-	Author: Alejandro Colomar <alx@kernel.org>
-	Date:   Fri Jun 6 13:27:02 2025 +0200
+Signed-off-by: Nicolas Pitre <npitre@baylibre.com>
+---
+ man/man2const/TIOCLINUX.2const | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-	    man/: Don't highlight forward declarations of function parameters
-	   =20
-	    Previously, many people confused these for actual parameters, since it=
-'s
-	    hard to distinguish a ',' from ';'.  By removing bold/italics from
-	    these, it will be easier to distinguish them.
-	   =20
-	    The cases have been found with a script:
-	   =20
-		    $ find -type f \
-		    | xargs grep -l '^\.TH ' \
-		    | sort \
-		    | xargs mansect SYNOPSIS \
-		    | man /dev/stdin \
-		    | grep -e '^[^ ]' -e '[^ ]( [^ )].*[^)];' \
-		    | less;
-	   =20
-	    Reported-by: Mark Naughton <mnaughto@redhat.com>
-	    Suggested-by: Mark Harris <mark.hsj@gmail.com>
-	    Acked-by: Mark Naughton <mnaughto@redhat.com>
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+diff --git a/man/man2const/TIOCLINUX.2const b/man/man2const/TIOCLINUX.2const
+index 1172ec431..98c6cf54e 100644
+--- a/man/man2const/TIOCLINUX.2const
++++ b/man/man2const/TIOCLINUX.2const
+@@ -131,6 +131,13 @@ Since Linux 6.7, using this selection mode requires the
+ .B CAP_SYS_ADMIN
+ capability.
+ .RE
++.IP
++Note: The kernel expects all structure fields to be contiguous.
++In particular, no alignment padding may exist between
++.I subcode
++and subsequent fields. It may be necessary to add
++.I __attribute__((packed))
++to the structure declaration.
+ .TP
+ .BR subcode = TIOCL_PASTESEL
+ Paste selection.
+-- 
+2.49.0
 
-	diff --git a/man/man3/fread.3 b/man/man3/fread.3
-	index cb259224b..a1eb2e791 100644
-	--- a/man/man3/fread.3
-	+++ b/man/man3/fread.3
-	@@ -16,8 +16,8 @@ .SH SYNOPSIS
-	 .fi
-	 .P
-	 .SY size_t\~fread(
-	-.BI size_t\~ size ,
-	-.BI size_t\~ n ;
-	+size_t\~size,
-	+size_t\~n;
-	 .br
-	 .BI void\~ ptr [restrict\~ size \~*\~ n ],
-	 .br
-	@@ -27,8 +27,8 @@ .SH SYNOPSIS
-	 .BI FILE\~*restrict\~ stream );
-	 .YS .
-	 .SY size_t\~fwrite(
-	-.BI size_t\~ size ,
-	-.BI size_t\~ n ;
-	+size_t\~size,
-	+size_t\~n;
-	 .br
-	 .BI const\~void\~ ptr [restrict\~ size \~*\~ n ],
-	 .br
-
-
-This is based on another commit which I've been working on these days,
-which makes use of SY/YS for formatting function prototypes.
-
-	$ git show fc3664f9e80d -- man/man3/fread.3
-	commit fc3664f9e80d84731424cbf4cfe9dd50298cbfba
-	Author: Alejandro Colomar <alx@kernel.org>
-	Date:   Sun Nov 24 21:40:41 2024 +0100
-
-	    man/: SYNOPSIS: Use SY/YS
-	   =20
-	    This makes it easier to write the SYNOPSIS, which will reduce the
-	    learning curve for contributors.
-	   =20
-	    Another benefit is that the prototypes are wrapped correctly for the
-	    terminal width that the reader is using, so it's not hardcoded at 80.
-	    It also removes the need for carefully aligning the prototypes by the
-	    author of a page.
-	   =20
-	    It causes a small unwanted problem: a white space is added after the
-	    opening parenthesis.  That's a minor trade-off for the benefits it
-	    brings.  Once groff 1.24.0 is released, we'll be able to use an
-	    extension that it provides, which allows us to remove that space, by
-	    using the second argument to SY.
-	   =20
-	    Use it even in functions that don't need it (0 or 1 parameters), for
-	    consistency.  This will make it easier to grep for function prototypes
-	    in the source code.
-	   =20
-	    The cases have been found with a script:
-	   =20
-		    $ find -type f \
-		    | xargs grep -l '^\.TH ' \
-		    | sort \
-		    | xargs mansect SYNOPSIS \
-		    | man /dev/stdin \
-		    | grep -e '^[^ ]' -e '[^ ]([^ )].*\(,\|;\)' \
-		    | less;
-	   =20
-	    Suggested-by: "G. Branden Robinson" <branden@debian.org>
-	    Cc: Ingo Schwarze <schwarze@openbsd.org>
-	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-	diff --git a/man/man3/fread.3 b/man/man3/fread.3
-	index 55b74b93a..cb259224b 100644
-	--- a/man/man3/fread.3
-	+++ b/man/man3/fread.3
-	@@ -13,16 +13,30 @@ .SH LIBRARY
-	 .SH SYNOPSIS
-	 .nf
-	 .B #include <stdio.h>
-	-.P
-	-.BI "size_t fread(size_t " size ", size_t " n ;
-	-.BI "             void " ptr "[restrict " size " * " n ],
-	-.BI "             size_t " size ", size_t " n ,
-	-.BI "             FILE *restrict " stream );
-	-.BI "size_t fwrite(size_t " size ", size_t " n ;
-	-.BI "             const void " ptr "[restrict " size " * " n ],
-	-.BI "             size_t " size ", size_t " n ,
-	-.BI "             FILE *restrict " stream );
-	 .fi
-	+.P
-	+.SY size_t\~fread(
-	+.BI size_t\~ size ,
-	+.BI size_t\~ n ;
-	+.br
-	+.BI void\~ ptr [restrict\~ size \~*\~ n ],
-	+.br
-	+.BI size_t\~ size ,
-	+.BI size_t\~ n ,
-	+.br
-	+.BI FILE\~*restrict\~ stream );
-	+.YS .
-	+.SY size_t\~fwrite(
-	+.BI size_t\~ size ,
-	+.BI size_t\~ n ;
-	+.br
-	+.BI const\~void\~ ptr [restrict\~ size \~*\~ n ],
-	+.br
-	+.BI size_t\~ size ,
-	+.BI size_t\~ n ,
-	+.br
-	+.BI FILE\~*restrict\~ stream );
-	+.YS
-	 .SH DESCRIPTION
-	 The function
-	 .BR fread ()
-
-
-I'm not going to release these changes soon, though.  They cause some
-minor temporary regressions, so I'm considering when I should do it.
-But eventually, these changes will be released.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---57yk2y2a47y4rg7q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhC54wACgkQ64mZXMKQ
-wqmLGg/+PHynvYuS5zVgtQ+u9385UAT2JlU3WxfVmt3sEfFhvcsq/X8xUb12VeI0
-NyQT4H+B26SPXwxOTPVCfvrAABAGDqmF9dEudE4CCKVbmmJM7cOuRgbbvV08lSbH
-CN/xG2bXr1GnKATlRRMI26baDK+RphrEmF+AGaiku8D87ujBCeGt3ATfuTemUT+J
-F2nicGo4M8ViBd7XrL42TT5IhB+NqzcV2fh6rWkRpJXZmdCsLgT1+VjA5EL6+Npe
-8FjwgLhTCPKP8ACJ1ZE92GYkFLovKPrUDnfbNn1AVV58D90Y+O90pH65b6qvuako
-15tGimYC9tGCJocpbTY2Xe39NmjQsYLoMEURuC7aCZ6NEXtp26erRYMNm7RSeZqU
-tHOY0uOgxQnVrl+KoaycOX+1wcKDUbhoc+RhXmdGoIsjjqbMlrfadYpDToClmLX7
-ontbv5kpg9BM3B7KR0uRiSe+9lHjDNkCw6qi+8Rl1vvAE6Xwlju0h1UAWk6YVuhI
-WKsJ+7WxG2GuJz4jM77wc5IA8l6QPbck1hmkA8nHSmwus+X4GDHle2o+Z7c9nPp/
-XmiZhyaq3qBVRfk9Ottm4QXaoh0WZlhHbG935dFjLyYfaU5XLrk8gvOZnwMPhg0D
-nPvHhKAnZKMlUO74XaWVBXPi15vP4qNpbkhAnHwtCub2YdkCpT4=
-=C2hj
------END PGP SIGNATURE-----
-
---57yk2y2a47y4rg7q--
 
