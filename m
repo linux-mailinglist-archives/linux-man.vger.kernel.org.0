@@ -1,81 +1,82 @@
-Return-Path: <linux-man+bounces-3112-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3113-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59A26AD0F38
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 21:55:20 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id A419AAD0F39
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 21:56:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1541216BF08
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 19:55:21 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4BF9F188ED98
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jun 2025 19:57:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B56DA202965;
-	Sat,  7 Jun 2025 19:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA4BE202965;
+	Sat,  7 Jun 2025 19:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="CpJbpxzj"
+	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="xDtYfVAu"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4936A145B25
-	for <linux-man@vger.kernel.org>; Sat,  7 Jun 2025 19:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C20145B25
+	for <linux-man@vger.kernel.org>; Sat,  7 Jun 2025 19:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749326116; cv=none; b=BeuaPlR8fy21ICEA7s1JbgchB2qz7LW8vagYNTQQji1qlzl4iqaGdZ70r7TOQ4yXa+zrtViM0CE7na3z7Mxgg55WG6KMxVWqeK5ke/l9LDrOYa90ZIcJ5K5njl8j43XPAGoXberiKwwz0yZwIVyLmDAoi2s7QGkC/wvEVSYSm+k=
+	t=1749326213; cv=none; b=bjKYNnoqChWTXgEUGT1SnFogT24slI+W72tWcY7aCg5nfW5N394vfzY7U6wh2L0pkJCzPftkwhpuH/39XuPKKQPL07+vpRbf/O088Ux7+aM3qgogpOYFEnDt0crdylWlhiGn9JmiGcOFBIqptWF10OEFBnEZ/we3oEmYAe/zuOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749326116; c=relaxed/simple;
-	bh=7ZvEG3pH63mOLBUv+00qt6xfHfx6VkhnGrdLFyKP1k8=;
-	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=hyJNdzVD2e4Gb8ULDvJh3yUkKsVcI2g5hkeZPD+WxPb/hGreJT06ejnghhcQHcCfYw6VthbuUVGepUkThnN/mwND+QAD2DqV96lYEengy8+dCiN2hXTrcMTC6x7fqFnqnNMA+FJza3Bt1tdZaADC2Q/hWOcAuOht28YBSd33VJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=CpJbpxzj; arc=none smtp.client-ip=209.85.222.173
+	s=arc-20240116; t=1749326213; c=relaxed/simple;
+	bh=IA7cYl8w9LN8ZMdmJLPdDeoGN+nZKAAl826f4UuIaBg=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=TLqdY0fwwM8HcSkxsRE17IFOYdX53YeaORTzmp5gyNSLTlGGhbpHTSoubi25CCb0AcQ2Szg8lyYJfUi3fa5kVlal19sPiJJ95L4bnn3a8IGAtNDVCWG/MalZuxNtoKRSYvOAbTqBtmBLix7JZ1Ac3N/5GNj2TQDvIef/ekvBfgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=xDtYfVAu; arc=none smtp.client-ip=209.85.219.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-7c56a3def84so291395285a.0
-        for <linux-man@vger.kernel.org>; Sat, 07 Jun 2025 12:55:12 -0700 (PDT)
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-6fafdd322d3so36272006d6.3
+        for <linux-man@vger.kernel.org>; Sat, 07 Jun 2025 12:56:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749326112; x=1749930912; darn=vger.kernel.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749326210; x=1749931010; darn=vger.kernel.org;
         h=mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=LLEK/BsJG0bfSQs2G+7SbRkPXqAq30zuZYMBWhAz73Y=;
-        b=CpJbpxzjY8vhL7AjbtESJnsW5GsU8mhJ16DHWTq3QiqlHRSHQnLZHa+1zWWgotgSSQ
-         1jIJ0r9YPUxXGncmgm/LF0CLK3pY0WQ+v5oc6GrGIWjNCc8yqjq00r7TaRvmhaUmxbTJ
-         4zYtf6KCK1K2PRCr+OFdgziq/JGaMr3fp0bDnvemfLrpW6JJ/ups7zi1GE0TRiGRuR34
-         A/fcj2yahkbT21wKUgVgm9b7aq/V6zCGsvV8sB4w4QVreesv3bppPgbBGiAvnDijSodn
-         prTlmyzgGJDsFjjOblY7X8BfkbOB1dWIBE5FxvFAwmBVu0Z3lGA5LO138D9dvflxd3lH
-         YxnQ==
+        bh=nfHssHVOLc95I7UMpBgT8Ez6lPI4UnyF+s1eHFtxZo0=;
+        b=xDtYfVAuhbn5WBofqn6sE9S5r7msOHgriVguUbDHTICL5CXZRwdNQBNOcmEzx7lXQj
+         9JRRsMp4VqvtWI0HSjrrKdhqY8I0a37xSgs4SUdxql650sKVFq+izYonBwasGMHmskzK
+         JMaW1ESxELQ19gsOd6XFE17ZyafEXHUyeba1pkznhpqomIEWaX2xo8oSEcZ+jPeg0FKD
+         8SHMdSqiFUfRKq8IRwFbJuwnADRul/MpQDdBC4vZDHhG+Nu7FpuU3C+QaR/AjrjKeneG
+         JSiL2KRq70lKLoAeYFo86Itt61wuj4Pl3Id7ABIt8kN/WlWRjswz/eihtrzHn4FN8xsR
+         1gmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749326112; x=1749930912;
+        d=1e100.net; s=20230601; t=1749326210; x=1749931010;
         h=mime-version:message-id:subject:cc:to:from:date:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=LLEK/BsJG0bfSQs2G+7SbRkPXqAq30zuZYMBWhAz73Y=;
-        b=iMDMT1UPyNdjc5D+exIO1RewaK5FC+oVeQ7wC53vkVZ2yXVRjhxp+5p7xPZkYyaX+6
-         41J+/DpmlBserCLTooeWagbnbHPrUE+9iJvkJhBp5FC0rkPgtG4a7hLkUJ8jqy4096Fo
-         NlMVa526P9C9A6qf+EFv/JV9n2OR3rGMURrV2puMDsdfausxcTcKj5IfD51B8rgci2Qc
-         BP9m2iaCqtKYjlCzWq1j4giD0mebG2liYgGGOjk5dRjuIr/iZ2dwCkWHEoXkf5aRBaUz
-         L7dnfsQ9oWdvrHPf9dtsTNOjm2SbmHCJgNGFIjiyDoSF8xwh4gc/T85ABcUdpeWMOohe
-         NtUQ==
-X-Gm-Message-State: AOJu0Ywi3CwLJ6mucu3npazz/H2aK9JNsGuo6kb8tlakaCOqrpg9vg64
-	SfV42p2lmLmy1y8nH1DplbuKSGBJ5l+HfJKgec29ZtOQAuSNr5e0BUsDFIiJeHeyCbg=
-X-Gm-Gg: ASbGncu+Ue8Nen4zsIaFo+pD8RYyyutQINOoBf/T4JEh5B83ZCTCHV6uKJKIx5zdu1a
-	vudGD3ee8AsGzh6pfk2SiEihtQAJKzwVTV2Fx1gcC/VrwCF0CoRK2PbLFIQafgOD0nRZGd4USaR
-	l0W6+2dmWSmqdpPwwNtkGLQTMzK2CI0gzEUqXUQ4PknrwsfxlHjB0idkAqOVNjbNO3sROeD96/P
-	kfVPIZa6sCNVAue33gKtrwTMj/6YOFW58D74GJuhY/h4OTC6iGIKVRMSdewUZsUbHyFF2qe8uYF
-	w2OotZ/n2lCk1IrkX67qWsmY7XlR/1+3/7y+gNf9dJjLGG0136GHzRCYDM+VeOYxA+mmyuS4kLk
-	44jLEFuWLXPpgcEc2t6IyBCHi
-X-Google-Smtp-Source: AGHT+IFewo4WUwcBRTdYkMe9zYdF5QT2bljBu0G1U5gR9o+BhfffdmqtQYXgbuwmju4TkaEsiCVTfw==
-X-Received: by 2002:a05:620a:1127:b0:7ce:bb40:11f0 with SMTP id af79cd13be357-7d2298a6e4amr846018985a.34.1749326111782;
-        Sat, 07 Jun 2025 12:55:11 -0700 (PDT)
+        bh=nfHssHVOLc95I7UMpBgT8Ez6lPI4UnyF+s1eHFtxZo0=;
+        b=tkr+evqmMUjZIIZaqV5CyMPHUec8v47WBJCAtH4FsUtRgf4P6oZGlO3Y3/JFpeUrKv
+         Pa/JRTx4w2/rxMyRB2EPzjNRyIBL/FSKcunVDjhKCKTgA1olLPVqH5EZEmcl8KA7ZH0M
+         zWVHJhETQQgcF/85qxDPtCvcPk0AmafmxjPNDriyf598Xc1/o0rwry1TKnDslvERIaLE
+         fZLCvmzkVuQP8nDDuxuU9Mzr1I+x9uJfT+4J2eQvqERsB152DrqXjAnZesr2sz2RyzKB
+         caohWmquVW5iOLwWIEJPRwbaB2Xaix3ANCPuRoLO1lynN3MLwHrbZjVXAuVlcrjJejSC
+         CVRA==
+X-Gm-Message-State: AOJu0Yxc9kxZGOrPnnksIy25RRg0O9h7G+7OMPED/onV4kVYrB3hPgfG
+	EuwuAhUgcqv64u0JHVMwGUZ2BYR2/RKBn5FviIUkFPzPa/0/Mj39t99O+f8K0i2sdqao5kRprxy
+	zXy0F
+X-Gm-Gg: ASbGncsdyDyl1eo1oVKPqU0lOJYNA6eG0+Jiak1BtLRpl167yc8ihAVMqS7rb0qhgak
+	aaZxCZiMrRez8q2lMNiDpdqNWxbJIvXtyNtIuw5ld8IYzC4mn7s35QqckwYDMbGrzIWKJQe9zsD
+	EqI0Vf9FFg+yOWeQl95wl2VIvPQmls+qL8KjZL5UkUvh1zgjV3uoJ9cHIvVSpdb1brsQrOAC0XX
+	WTdQwWc72pC84rCl0FCly7g0mO8CNYNX0jfYm80Dcm60O/zhA6YXcIeqt6AOWYuaMOW546Wh5K5
+	22cDolD4lSjvKjZwCdNUVtPRLvnaucd6Iv9XCtYOFwZ/JuqHNry9YONBDjZn1wGXG7gHu7tg4in
+	hqgV8wgILTmXDsw==
+X-Google-Smtp-Source: AGHT+IHg/sgoNtf3W3/4a8FZuh7cQ79riYLdip7ZDb1rKQHKIJQDITz04ASTRtq5yrMteoByi/3EnQ==
+X-Received: by 2002:a05:6214:29ee:b0:6fa:fe02:8229 with SMTP id 6a1803df08f44-6fb08f89fcdmr112570906d6.30.1749326210229;
+        Sat, 07 Jun 2025 12:56:50 -0700 (PDT)
 Received: from xanadu (modemcable179.17-162-184.mc.videotron.ca. [184.162.17.179])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d25a535889sm342456285a.28.2025.06.07.12.55.11
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6fb09ac95e5sm32409506d6.43.2025.06.07.12.56.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Jun 2025 12:55:11 -0700 (PDT)
-Date: Sat, 7 Jun 2025 15:55:10 -0400 (EDT)
+        Sat, 07 Jun 2025 12:56:49 -0700 (PDT)
+Date: Sat, 7 Jun 2025 15:56:49 -0400 (EDT)
 From: Nicolas Pitre <npitre@baylibre.com>
 To: Alejandro Colomar <alx@kernel.org>
 cc: linux-man@vger.kernel.org
-Subject: [PATCH] man/man2const/TIOCLINUX.2const: missing info about
- TIOCL_SETSEL
-Message-ID: <rssn5o07-prr9-2ssp-566q-n7rs5rr60719@onlyvoer.pbz>
+Subject: [PATCH] man/man2const/TIOCLINUX.2const: fix TIOCL_GETFGCONSOLE
+ details
+Message-ID: <qrrs083o-sn51-4172-46n1-s8359o543p69@onlyvoer.pbz>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -84,58 +85,33 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Structure members are assumed to be all contiguous in memory by the kernel.
-It starts with drivers/tty/vt/vt.c:tioclinux() where we have:
-
-	void __user *param = (void __user *)arg + 1;
-
-	case TIOCL_SETSEL:
-		return set_selection_user(param, tty);
-
-And in drivers/tty/vt/selection.c:
-
-int set_selection_user(const struct tiocl_selection __user *sel,
-                       struct tty_struct *tty)
-{
-	...
-
-Finally, struct tiocl_selection is defined without the subcode field as:
-
-struct tiocl_selection {
-	unsigned short xs;	/* X start */
-	unsigned short ys;	/* Y start */
-	unsigned short xe;	/* X end */
-	unsigned short ye;	/* Y end */
-	unsigned short sel_mode; /* selection mode */
-};
-
-The subcode field is initially skipped with the `arg + 1` and therefore
-struct tiocl_selection is expected right next to it without the usual
-alignment gap.
+The returned value is the console number starting from 0.
+Corresponding code is in drivers/tty/vt/vt.c:tioclinux().
 
 Signed-off-by: Nicolas Pitre <npitre@baylibre.com>
 ---
- man/man2const/TIOCLINUX.2const | 7 +++++++
- 1 file changed, 7 insertions(+)
+ man/man2const/TIOCLINUX.2const | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/man/man2const/TIOCLINUX.2const b/man/man2const/TIOCLINUX.2const
-index 1172ec431..98c6cf54e 100644
+index 98c6cf54e..013344eba 100644
 --- a/man/man2const/TIOCLINUX.2const
 +++ b/man/man2const/TIOCLINUX.2const
-@@ -131,6 +131,13 @@ Since Linux 6.7, using this selection mode requires the
- .B CAP_SYS_ADMIN
- capability.
- .RE
-+.IP
-+Note: The kernel expects all structure fields to be contiguous.
-+In particular, no alignment padding may exist between
-+.I subcode
-+and subsequent fields. It may be necessary to add
-+.I __attribute__((packed))
-+to the structure declaration.
+@@ -233,7 +233,13 @@ The VT to write to is a single byte following
+ (Since Linux 2.5.36.)
  .TP
- .BR subcode = TIOCL_PASTESEL
- Paste selection.
+ .BR subcode = TIOCL_GETFGCONSOLE
+-Returns the number of VT currently in foreground.
++Returns the foreground VT number minus
++.B 1
++(VT
++.B 1
++returns
++.B 0
++etc.)
+ (Since Linux 2.5.36.)
+ .TP
+ .BR subcode = TIOCL_SCROLLCONSOLE
 -- 
 2.49.0
 
