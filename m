@@ -1,108 +1,111 @@
-Return-Path: <linux-man+bounces-3118-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3119-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C48FAD13BA
-	for <lists+linux-man@lfdr.de>; Sun,  8 Jun 2025 20:19:32 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A41AAD4627
+	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 00:57:12 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id EC43A168FE0
-	for <lists+linux-man@lfdr.de>; Sun,  8 Jun 2025 18:19:32 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8C1143A3E73
+	for <lists+linux-man@lfdr.de>; Tue, 10 Jun 2025 22:56:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3210F193402;
-	Sun,  8 Jun 2025 18:19:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5D7A248F74;
+	Tue, 10 Jun 2025 22:57:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjY92vEt"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2asayRa"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C3713B58A
-	for <linux-man@vger.kernel.org>; Sun,  8 Jun 2025 18:19:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38C078F34
+	for <linux-man@vger.kernel.org>; Tue, 10 Jun 2025 22:57:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749406768; cv=none; b=Dwg5lGWq6BdDGswoMhjfAmldkaijMJ8FLJWC8S/qAtA3ny2MLbGwbaHX7SwPWBSE47PhVdAKF9f6jESIRVD9XzFyXUUJLvTg5wZ8NqfW23lIosSQ3kQ6A1H0487OIPrivchmHxzQysbMeP8dAK9iG8Y1J2eYOcN/X80Fpm1BuXk=
+	t=1749596227; cv=none; b=IzUniJVQL1YjGVJ+4z5Nqs32YoEgmdgiKvXjhkOxNCBhuc2JooXp/TrTC3tMNgD2WK/+jqqMbYuPLjsED+nhg9nHfHaTdbA05TTQB2kvT7Caiy4C0eHg/sogXMbjO4cxaBUC5w8b53QNIvLzv+OqJyqGhuimThIrXXpWcRG0/t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749406768; c=relaxed/simple;
-	bh=Zhm7SCSlREG4OXcoXjYLCUKxDIfBvlvXGIDwU+tWQ7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=df9MPQa38XGnboVS2LZ9lmIgXH+6laQfHJyUPe4Uv/KPvGKOsCym0ZIM83Bw98Nk+1O4MljGfGrxboObnzxAWPlar1Ps8pohx6RKrEvhFSWyNPTnUZsl1CevbnmZ6F45CVdX6ZUA31/2JXDzw1jF+XHoCLv0c4HtYRtYQR8AZhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjY92vEt; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97F80C4CEEE;
-	Sun,  8 Jun 2025 18:19:26 +0000 (UTC)
+	s=arc-20240116; t=1749596227; c=relaxed/simple;
+	bh=DHhnC+mXP/mHf+E/4tOO+X8rCo8m1TYKLTJk4oiO0+U=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WzKxIbT7us7CzqoGp5nc+X7qj4gf/7B5ogJpfFFdHo0cKGPEAFO2HP+PwLNhqHCBv/KKh72gyGg/RrQi3Vlc2l24a/yP8SRuBz7RpxSgnVr/cigPV3e25ALXZLSzqEAzI4IH78667Elntp2QVjPywPK/h+eg+S2PkRp8ixcOgWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2asayRa; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37D0C4CEED
+	for <linux-man@vger.kernel.org>; Tue, 10 Jun 2025 22:57:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749406767;
-	bh=Zhm7SCSlREG4OXcoXjYLCUKxDIfBvlvXGIDwU+tWQ7U=;
-	h=Date:From:To:Cc:Subject:From;
-	b=cjY92vEtCRdCMFIAp+CP8W7wzMCpeYrtgg+N8v3Ka0be8PkZJA/TzWgC5dp1ZM6Qq
-	 3YuiRDs4FCrYU4mDaNPXHFykTnWrhOsMOwwufClYnBupTRiFH77BHwPJ2Ust//4Jrs
-	 7UFkjxg9Nu0Qp5sU79LwyZDys9a5J6cvLtwMMTAidB2V/WTIyOoc9UNrtlP6aAXf+R
-	 Fi9AFNRJZ4LCllFhK+/3K9LGZX6B9PHn39l3V1wAAAiAWdEUYEJiwVEg7/zoprNeAK
-	 NPgorjkav8v3k5/D8kwH3cQzKPkFjkLkoKDySIXof1lRj8X5u0tmm3SK0xWfjxUqOX
-	 Io5uMXk0vCcDg==
-Date: Sun, 8 Jun 2025 20:19:24 +0200
+	s=k20201202; t=1749596227;
+	bh=DHhnC+mXP/mHf+E/4tOO+X8rCo8m1TYKLTJk4oiO0+U=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=f2asayRaz463LP31fVSMYJn1GcrszR75MUOjFgahq01nLjLP6uu+RObN13xnmuDyL
+	 HPQfJi5nCOPkpt34oLzXipoWaLKoqVM+gWapfo2fK775/N04j+SNzfp04RLtasI2pz
+	 QWzSHrCEqnx5iurP0JAxVJ07LoLFFsoElwr98V7oUoxPO4IlBwdyyGL+DSE/SmbaxL
+	 HFbGM7EL4AEhJjrejCvd9LqBnByUZQWUfAo2htaHamrvOGckpziCuBxiM2YpFnBQRP
+	 bDn7ZGLLjwEiVnb9u+02imJGpy0Cq/mIDTXGGUq19IebFqQ1e8nt0eLa37oby7Gd5P
+	 wAy1AvQlyKfrw==
+Date: Wed, 11 Jun 2025 00:57:04 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Alex Celeste <alexg.nvfp@gmail.com>, Jorenar <dev@jorenar.com>, "Fred J. Tydeman" <tydeman@tybor.com>
-Subject: [PATCH v1] man/man3/scalb*.3: NAME: Document the meaning of the name
- of these functions
-Message-ID: <8e5d4e0bc1e47fa819c3f5c0dd3f7a9fe0b7c699.1749406724.git.alx@kernel.org>
-X-Mailer: git-send-email 2.49.0
+Subject: OSS NA 2025 - Unconference session
+Message-ID: <qzyk4zayjeqfikp43y3ojow2lnlsfd2opogliiloiv6gmvj277@nwiajqle3xcm>
+References: <CAHihL+410WXHU6jhPnHFNOiZMgUCdZp9-whJiQyJ4w3Qi4ya9A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nszd3i3dozhdozkm"
 Content-Disposition: inline
+In-Reply-To: <CAHihL+410WXHU6jhPnHFNOiZMgUCdZp9-whJiQyJ4w3Qi4ya9A@mail.gmail.com>
 
-Cc: Alex Celeste <alexg.nvfp@gmail.com>
-Reported-by: Jorenar <dev@jorenar.com>
-Suggested-by: "Fred J. Tydeman" <tydeman@tybor.com>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man/man3/scalb.3   | 5 +++--
- man/man3/scalbln.3 | 2 +-
- 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/man/man3/scalb.3 b/man/man3/scalb.3
-index 408a9f830..6cae50f7a 100644
---- a/man/man3/scalb.3
-+++ b/man/man3/scalb.3
-@@ -5,8 +5,9 @@
- .\"
- .TH scalb 3 (date) "Linux man-pages (unreleased)"
- .SH NAME
--scalb, scalbf, scalbl \- multiply floating-point number
--by integral power of radix (OBSOLETE)
-+scalb, scalbf, scalbl
-+\-
-+scale by an integer power of radix (OBSOLETE)
- .SH LIBRARY
- Math library
- .RI ( libm ,\~ \-lm )
-diff --git a/man/man3/scalbln.3 b/man/man3/scalbln.3
-index 0a6c132fd..e8a4c74f0 100644
---- a/man/man3/scalbln.3
-+++ b/man/man3/scalbln.3
-@@ -6,7 +6,7 @@
- .TH scalbln 3 (date) "Linux man-pages (unreleased)"
- .SH NAME
- scalbn, scalbnf, scalbnl, scalbln, scalblnf, scalblnl \-
--multiply floating-point number by integral power of radix
-+scale by an integer power of radix
- .SH LIBRARY
- Math library
- .RI ( libm ,\~ \-lm )
+--nszd3i3dozhdozkm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Subject: OSS NA 2025 - Unconference session
+References: <CAHihL+410WXHU6jhPnHFNOiZMgUCdZp9-whJiQyJ4w3Qi4ya9A@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHihL+410WXHU6jhPnHFNOiZMgUCdZp9-whJiQyJ4w3Qi4ya9A@mail.gmail.com>
 
-Range-diff against v0:
--:  --------- > 1:  8e5d4e0bc man/man3/scalb*.3: NAME: Document the meaning of the name of these functions
+Hi,
 
-base-commit: fda4e7b0c420f42f704dedd71733d6766a8eb41c
--- 
-2.49.0
+I'll be in the Open Source Summit and Linux Security Summit in Denver
+later this month.  If anyone wants to meet me there, I'll be around.
+I have reserved an "unconference session" for talking about writing
+manual pages and documentation in general, on Monday 23, at 11:20 until
+12:00 (local time).  It will be in the Bluebird Ballroom 2H.
 
+<https://ossna2025.sched.com/event/264rQ?iframe=3Dno>
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--nszd3i3dozhdozkm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhIuDkACgkQ64mZXMKQ
+wqlsBhAAkqNWXjPohc6pwxnJGinoXulceB0PbX3HXHQpHZchFgNLWLv9sfLvE32+
+PC729UeYSgX0ixcLL5LRp3yywQju1uwwnzDCeROTt+wZkBFulfwtNdKaCvovsM4F
+g4aBjfukBlvJi6roVsXC1T8IRJoVhzIO30bVaTOEtGk6lydq584TmyrsokXadwtX
+weJl1YWH6tWEbnOUdBrYlnqdr8T8DV7xunA/Dgk1h7y7EDhT//NMHlc1hxnba80a
+uoQtqL24I66mqftACyIsrdgYeWhvimR43GYJe27MbAHOOn9ohhI5XJhloSfU8msz
+u+i3WPT5crsdeyFgfseRGRCxcfo5oRT69HFiRRMbTiSwSdLj/mR/FA4lboe1FMsf
+4B4keECTxCN0YD3ssthO/69pmMe3AZrTdcyegqOU7zbMQNnp1WtER/fGZwcmn7S9
+yTmGW8aEmHJmQEUxFafxHWWMfSZpnDqkMEi1DxEwolWjogCRKmR5PN0nfKRjF3V/
+4pAjzk0gqZLt0QKE3QE8GkF/0MPLlAQLpk8BzB7TGwr0WZQg6zehMnYU3NTVVCb7
+2cfSxHxpdcb6RlX9iydI2qfiXA4MxMEOQxAVncARnNeyb8r0QS3kAdDouJwLsJDu
+CH9LwnNIZBikWjDKPUnU+it2UbAJuvxv5NEPYhMrHKLzhy/+1TI=
+=/MKj
+-----END PGP SIGNATURE-----
+
+--nszd3i3dozhdozkm--
 
