@@ -1,177 +1,207 @@
-Return-Path: <linux-man+bounces-3133-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3134-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F67FAD534B
-	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 13:11:54 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E51BAD583D
+	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 16:13:48 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B9BB21889AF5
-	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 11:06:24 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B9EF73A65EB
+	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 14:12:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FA09278162;
-	Wed, 11 Jun 2025 10:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A572E29ACC6;
+	Wed, 11 Jun 2025 14:12:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ancd-us.20230601.gappssmtp.com header.i=@ancd-us.20230601.gappssmtp.com header.b="XdlDcFl7"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2gvuwWZ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f59.google.com (mail-ot1-f59.google.com [209.85.210.59])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7634328750B
-	for <linux-man@vger.kernel.org>; Wed, 11 Jun 2025 10:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6AF294A0A
+	for <linux-man@vger.kernel.org>; Wed, 11 Jun 2025 14:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749639353; cv=none; b=WQ4okM38euAf8sa7nU+fRV52OVg79bZVvuKkcxALJWEt3dUEvAy4Lr2hYhN0XflZw+4c2NIMlG1qSw/Ylzil9NgZ7tI977vWB3PAn9IERG4lv5tuwTmo3fuOxalJput+54iNKgx/oHDZJ/+ucQDSxnlrX/agal4w1m4xnlP/h1Q=
+	t=1749651139; cv=none; b=sJbiv8y8dKx4SFKgfUttTqpBYMxIs0N290CzRivcn26/URWprwYhUlNRj8j/QFYGIJ7eNqz0wjl0e6+y8ZalYv2oIiDbCmWEpKD082RFwNZbwYcAnRgZLD/FtgOTdAFsmYNmDV/xTxVqjxPnyDLQbCJ+XX7RHwrEzA5zXSc6Avg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749639353; c=relaxed/simple;
-	bh=s9dH4d4wID85rr7nBWz/0U1tEvSdSLBo8wbijvG5lFI=;
-	h=Date:From:To:Cc:Message-Id:Subject:MIME-Version:Content-Type; b=UYtgkaEZ21FSgLCbFEJC0VcSuMhd45B39XAAVXuhb6Kjrr7D2+LAGydn3INuOi8oGCMxaVg0aRLrOOASEBABzo1rAdePCudl3OD6xyngR4X0WAFURiAi5+zbYaZLEmjsYEKxUAW1g2xLfssbuMZiU5ubxO/k94ahIJsS+ne5wTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ancd.us; spf=none smtp.mailfrom=ancd.us; dkim=pass (2048-bit key) header.d=ancd-us.20230601.gappssmtp.com header.i=@ancd-us.20230601.gappssmtp.com header.b=XdlDcFl7; arc=none smtp.client-ip=209.85.210.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ancd.us
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ancd.us
-Received: by mail-ot1-f59.google.com with SMTP id 46e09a7af769-735a86e8e0eso5907043a34.1
-        for <linux-man@vger.kernel.org>; Wed, 11 Jun 2025 03:55:51 -0700 (PDT)
+	s=arc-20240116; t=1749651139; c=relaxed/simple;
+	bh=U1rsLem0NigR1mbHvLaw8hE23XRW4GdBKrRBUSBfhkA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PR/kEhWVBEbd3BX8D3YMUzs3bUWye6FVoUvboEc1iQWNHkWH1o45+50YqRdf6iZs3If/YvHcAK1dsBTcgRadS6FbRZ87E9/LE+Ba6JZIoEIp5xEXOIzRVU9zyl3ok42Umi8gwPASsJP/eqXVnd6p8BP3IuIKqfosWMvZSAbUwYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2gvuwWZ; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-60179d8e65fso7356557a12.0
+        for <linux-man@vger.kernel.org>; Wed, 11 Jun 2025 07:12:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ancd-us.20230601.gappssmtp.com; s=20230601; t=1749639350; x=1750244150; darn=vger.kernel.org;
-        h=mime-version:subject:message-id:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=fqClKO7G9rmlflUwOP/tZjvq7nmShVOaFeGBaLSbBzI=;
-        b=XdlDcFl7E52+EJ4CLHw5GBiXFBJC+l5rO/qSC+sNjYJhUh10oSd0RrXk97/GSuiT7f
-         xIUAo6SC9HiBiPu/HS9z1WJN43lbXes1kGf0YWCVxDQTlM0DfVR7T9rUMK0FsdHCbAT2
-         I9W8KhLAo+uhWEuQi+CHYVQdhTCkP31XoH5GNbsnYLUZDb6DohqrmxKEKrOAwqZSHSy1
-         6yEuj+bdcyjYLUIQiKMlDe0KBogaTJChoDPz1tmLs9vIXFvYA0ND3ojhXsGZTRJm52gJ
-         uLW4NEsHTLuoud9QrueSqrQkVQS7+YnNwpN3+nyxwSmFbuIJUozLCOtAKa09kwzWWbg9
-         f/rg==
+        d=gmail.com; s=20230601; t=1749651136; x=1750255936; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=W3kZbWBck7V+AmEc3kNNgK0nuUdmqQfleOgbaJFJzoI=;
+        b=V2gvuwWZxvhDlYJLCjeYqXJ0w1Sf99yQRTHteQnrzodR4z50/r7QoBQKxvkc6EEN0W
+         iH/x2Y8pEY7O/E1vXN1PNmovhlIt3cN+vXb04tG+jlplBVeP8V6jVheUpm+LLFSFmU8/
+         9TLmlauXx6ywUPVfxysNr7TDudAwakC/hO3NtZ2mIankYAQ8TlkrKvWc471+nS6nsJNG
+         0+a6dTq3eopSzH5FswbJ0oK97qyHB0h6iU+UX5Toa2kARUSENNIu3fJJmsTX5mzrdYa0
+         o6wfOh2xFQH/GsNUGa/nFo+nIS9qy4b7PpLJWEYSWdXc74ypNqCzus90hwYR2CxD4Ocl
+         bdgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749639350; x=1750244150;
-        h=mime-version:subject:message-id:cc:to:from:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fqClKO7G9rmlflUwOP/tZjvq7nmShVOaFeGBaLSbBzI=;
-        b=R21HjK7ChrmLSZAO9ZEXrX2GjTuN6IS5fj4bxvHcWh7tEz1c4qMSarAqBg92I0m75L
-         E3fVSNKNs3DF1nVcHjqqOt5Bk/NUIg/NqB3aN3Lj521Wi3etzv3KAipxHwwksPF4YXgG
-         6YueUT1zno8u8/zhc5zZcZLihNhRvOpdtNr9990rmaytOvHVrFl2jrsSUZE4/ekODM1O
-         pg6lkSyO1Xxb2NZX5jSKSFrAcIVINOz/YgMkAQdyHPyb2ClDi3E6IsgRiNagPYdY82Zr
-         b7ezlxldpYyXsNXxD+Ik8vLmfNuAsrCTk8rCp2ZXm9tLBGZ0twTuYdLXwz5XjOX+I6mO
-         JGSg==
-X-Forwarded-Encrypted: i=1; AJvYcCXltzlTcjJsjCO0U8AaNCy5pNAWkBrWGMfPexmAK7nBi1ifuahQ0KtXYOI3hLAd786KQqpexU800Gs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxxq1flswSfcP3e9f+abhM2yMBP2OFyduopVKj2urgfrs2qDdf1
-	zEQKG9fuzbzniUKM402iniQpco/DHJ5tiNyCMQxQ8nIF1pe/BtTrpv9JJxqLXrWtNsNFhNX/QNS
-	ogjtAruCrbLk0hw==
-X-Google-Smtp-Source: AGHT+IEYZs+j905meCNm+UXqKJdmaTWi+TlbwmjoxVwp2NjqrNUzeU/xA5IP4Dc/uCxrRWyX7GTr/cQQDw==
-X-Received: by 2002:a05:622a:5a90:b0:4a4:3be3:6d65 with SMTP id d75a77b69052e-4a713c2b1a5mr53578331cf.33.1749639338862;
-        Wed, 11 Jun 2025 03:55:38 -0700 (PDT)
-X-Google-Already-Archived: Yes
-X-Google-Already-Archived-Group-Id: 79e1017eed
-X-Google-Doc-Id: 3e27c48c35cce
-X-Google-Thread-Id: 2830fe78daeac842
-X-Google-Message-Url: http://groups.google.com/a/ancd.us/group/albiontaj/msg/3e27c48c35cce
-X-Google-Thread-Url: http://groups.google.com/a/ancd.us/group/albiontaj/t/2830fe78daeac842
-X-Google-Web-Client: true
-Date: Wed, 11 Jun 2025 03:55:38 -0700 (PDT)
-From: Email Marketing software <albiontaj@ancd.us>
-To: Email Marketing software <albiontaj@ancd.us>
-Cc: mtagliaferri@speronispa.com, ahmedabad@squarefoot.co.in,
-	officials@britishbaseball.org.uk, info@mediaireland.org,
-	info@insidehr.com.au, janice.boylan@dublincity.ie,
-	paul@bishopsboats.com, linux-man@vger.kernel.org,
-	samantha.king@db.com, helpline@gutscharity.org.uk,
-	jakub@iamdetailing.com, aisha.sada@arcticnet.ulaval.ca,
-	mariness@vsnl.com, jktrip@yahoo.com, info@barharborwhales.com,
-	alfred.yu@uwaterloo.ca, success@patriotsoftware.com,
-	employment@madonnainn.com, clinic@resiliencemedicine.co.uk,
-	nick.whittingham@kcalc.org.uk, davew@ping.com,
-	janet@gmhazards.org.uk,  <info@kidopia.ca>
-Message-Id: <74df5dbd-5197-4bc8-b672-c08ab2166914n@ancd.us>
-Subject: =?UTF-8?Q?High-speed,_Bulk,_Multi-th?=
- =?UTF-8?Q?readed,_Built-in_Proxies_=EF=BC=8E=EF=BC=8E?=
+        d=1e100.net; s=20230601; t=1749651136; x=1750255936;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W3kZbWBck7V+AmEc3kNNgK0nuUdmqQfleOgbaJFJzoI=;
+        b=wkM3BMpYmlHSVAg1bfBMe4qkG7tDLT0iZgiLtBNgL9wWPlRoxCxMfBzaw74+t5YDbx
+         BqY7DrpLPTfcma+n6KaGyymQSbi+CFZByna8usgZmhW1v4aYs2QubyXDZ2LRvcmWJ3hT
+         SKx1QQu2mq03lnGF9hgIrJ6115g8/t+A0jigfN9EGS8QFBEZSLY26azlJnifILdi5SUF
+         LmZAPK8paVBeu9Q+IGWGZMA4JqFGoUVU/aWYg+PVhL7ly0Ivbu7RON+zA0kgWf0UZArT
+         aK/9+C90vrK6axf8gARvi/M+r6YZEUMN8kGIujltcD36BPSZpypLlc3/N2cU1t6tPWpl
+         Bcgg==
+X-Gm-Message-State: AOJu0YxKDE2xxk2++7z3fjA8qECbJSAge0lATZ3/OdcEi9UBfKAWkgj0
+	mbdZtkvSm5j+mPEgxcqHmSthUqZB+qxuC6huo5eVCq35bNBYt4RNHZ7wBl+Nuspfxwkq5qd1OgJ
+	GGpZ9D6r9lR5vt9FgZSmFNKFzhnzBGuY=
+X-Gm-Gg: ASbGnctYItlSoqthxuQUwPsuQxE7GwAxObBl4cE/mNcMz6cRLrlvlPQlQlD04NoRl3j
+	grgie1bCLuRRWSRQXTyvzU96PhiVbeapg60MSNU5x4ymHGJXGeeB0OUC9vtKahV7QmPCUx2Ai7u
+	kT5irU+fDIi7J7Hk5VQs03LcfqWGBU0Ro7a7BQ8QUrQlk=
+X-Google-Smtp-Source: AGHT+IE6/eOTEfHXhwt0RgsOe2nlmOMKzpgvYlgCxwbBr5vnTnMeiaDo0ZkSDB90odMTC42zBWZ1+No8Vv1VHPDv/8c=
+X-Received: by 2002:a17:907:3ea9:b0:add:f191:d851 with SMTP id
+ a640c23a62f3a-ade8971b404mr330695666b.32.1749651135652; Wed, 11 Jun 2025
+ 07:12:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_78562_1708633720.1749639338166"
+References: <20250530124829.214375-1-technoboy85@gmail.com> <4b6ceu47mb26wrxpbwlrhtduosvmbtu7uyw4urp6y2kw2bptey@zmi66ue4vsgl>
+In-Reply-To: <4b6ceu47mb26wrxpbwlrhtduosvmbtu7uyw4urp6y2kw2bptey@zmi66ue4vsgl>
+From: Matteo Croce <technoboy85@gmail.com>
+Date: Wed, 11 Jun 2025 16:11:37 +0200
+X-Gm-Features: AX0GCFv5Zb9JVfMZmN9N9Alja32LWnR2kWYDUT-kEeMg-yMUMUETwIy5N43xjjk
+Message-ID: <CAFnufp2h6Z7DpDHWyrCxJ++7hA8qce8ADNLEsYRq8jf3TSodfw@mail.gmail.com>
+Subject: Re: [PATCH v3] man/man2/cachestat.2: add a man page for cachestat()
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Matteo Croce <teknoraver@meta.com>
+Content-Type: text/plain; charset="UTF-8"
 
-------=_Part_78562_1708633720.1749639338166
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_78563_1830218007.1749639338166"
+Il giorno mer 11 giu 2025 alle ore 11:09 Alejandro Colomar
+<alx@kernel.org> ha scritto:
+>
+> Hi Matteo,
+>
+> On Fri, May 30, 2025 at 02:48:29PM +0200, Matteo Croce wrote:
+> > From: Matteo Croce <teknoraver@meta.com>
+> >
+> > Add a missing man page for cachestat().
+> > The text was converted from the commit message:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cf264e1329fb0307e044f7675849f9f38b44c11a
+> >
+> > Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+> > Signed-off-by: Matteo Croce <teknoraver@meta.com>
+>
+> Thanks!  The patch looks good.  I was going to push it, when CI reported
+> some issues:
+>
+>         MANDOC          .tmp/man/man2/cachestat.2.lint-man.mandoc.touch
+>         mandoc: .tmp/man/man2/cachestat.2:60:3: ERROR: skipping unknown macro:  If
+>         mandoc: .tmp/man/man2/cachestat.2:27:2: STYLE: fill mode already disabled, skipping: nf
+>
 
-------=_Part_78563_1830218007.1749639338166
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Oh nice, didn't know about mandoc. I'm using it to validate the man page with:
 
+mandoc -W base,stop man/man2/cachestat.2
 
+thanks!
 
-=E2=9C=94. Thousands to hundreds of thousands of emails sent per day.=20
-=E2=9C=94. The only software on the market that uses Web mode + Http protoc=
-ol to=20
-send mail. It completely simulates the manual login and sending of Chrome=
-=20
-browser.=20
+> See comments about that below.
+>
+> > ---
+> >  man/man2/cachestat.2 | 111 +++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 111 insertions(+)
+> >  create mode 100644 man/man2/cachestat.2
+> >
+> > diff --git a/man/man2/cachestat.2 b/man/man2/cachestat.2
+> > new file mode 100644
+> > index 000000000..12dbd900d
+> > --- /dev/null
+> > +++ b/man/man2/cachestat.2
+> > @@ -0,0 +1,111 @@
+> > +.\" Copyright, the authors of the Linux man-pages project
+> > +.\"
+> > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> > +.\"
+> > +.TH cachestat 2 (date) "Linux man-pages (unreleased)"
+> > +.SH NAME
+> > +cachestat \- query the page cache statistics of a file
+> > +.SH SYNOPSIS
+> > +.nf
+> > +.B #include <sys/mman.h>
+> > +.P
+> > +.B struct cachestat_range {
+> > +.B "    __u64 off;"
+> > +.B "    __u64 len;"
+> > +.B };
+> > +.P
+> > +.B struct cachestat {
+> > +.B "    __u64 nr_cache;"
+> > +.B "    __u64 nr_dirty;"
+> > +.B "    __u64 nr_writeback;"
+> > +.B "    __u64 nr_evicted;"
+> > +.B "    __u64 nr_recently_evicted;"
+> > +.B };
+> > +.P
+> > +.BI "int cachestat(unsigned int " fd ", struct cachestat_range *" cstat_range ","
+> > +.BI "              struct cachestat *" cstat ", unsigned int " flags ");"
+> > +.nf
+>
+> This should be .fi  (.nf is no-fill mode, while .fi ends that --it
+> starts fill mode again--)
+>
+> > +.SH DESCRIPTION
+> > +.B cachestat()
+> > +queries the number of cached pages, dirty pages,
+> > +pages marked for writeback, evicted pages,
+> > +and recently evicted pages in the byte range specified by
+> > +.I .off
+> > +and
+> > +.I .len
+> > +in the
+> > +.B cachestat_range
+> > +structure.
+> > +.P
+> > +An evicted page is one that was previously in the page cache
+> > +but has since been evicted.
+> > +A page is considered recently evicted if its reentry into the cache
+> > +would indicate active usage under memory pressure.
+> > +.P
+> > +The results are returned in a
+> > +.B cachestat
+> > +structure, pointed to by the
+> > +.I cstat
+> > +argument.
+> > +.P
+> > +The
+> > +.I .off
+> > +and
+> > +.I .len
+> > +fields must be non-negative.
+> > +If
+> > +.IR .len\~>\~0 ,
+> > +the queried range is
+> > +.RI [ .off ,\~ .off+.len ]
+> > +. If
+>
+> The '.' should go in the previous line.
+>
+>
+> Have a lovely day!
+> Alex
+>
 
-=E2=9C=94. One-click start, Http protocol,Fully Automated, High-speed, Bulk=
-,=20
-Multi-threaded,Built-in Proxies.
+I'm fixing these errors now, have a lovely day too!
 
-=E2=9C=94. Free full-featured trial for 3 days.
+-- 
+Matteo Croce
 
-SITE: psce.pw/softcenter
-
-TG: wowofrom2008
-
-=20
-
-*wade theoryconvene theoryintention theorycade theory.*
-
-------=_Part_78563_1830218007.1749639338166
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<p><font color=3D"#800000"><font size=3D"5"><span style=3D'text-align: left=
-; color: rgb(0, 102, 0); text-transform: none; text-indent: 0px; letter-spa=
-cing: normal; font-family: "Microsoft YaHei"; font-size: medium; font-style=
-: normal; font-weight: 400; word-spacing: 0px; float: none; display: inline=
- !important; white-space: normal; orphans: 2; widows: 2; font-variant-ligat=
-ures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px; te=
-xt-decoration-thickness: initial; text-decoration-style: initial; text-deco=
-ration-color: initial;'>=E2=9C=94. </span>Thousands to hundreds of thousand=
-s of emails sent per day. </font></font></p><font color=3D"#800000"><font s=
-ize=3D"5"><span style=3D'text-align: left; color: rgb(0, 102, 0); text-tran=
-sform: none; text-indent: 0px; letter-spacing: normal; font-family: "Micros=
-oft YaHei"; font-size: medium; font-style: normal; font-weight: 400; word-s=
-pacing: 0px; float: none; display: inline !important; white-space: normal; =
-orphans: 2; widows: 2; font-variant-ligatures: normal; font-variant-caps: n=
-ormal; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; =
-text-decoration-style: initial; text-decoration-color: initial;'>=E2=9C=94.=
- </span>The only software on the market that uses Web mode + Http protocol =
-to send mail. It completely simulates the manual login and sending of Chrom=
-e browser. </font></font><p><font color=3D"#800000"><font size=3D"5"><span =
-style=3D'text-align: left; color: rgb(0, 102, 0); text-transform: none; tex=
-t-indent: 0px; letter-spacing: normal; font-family: "Microsoft YaHei"; font=
--size: medium; font-style: normal; font-weight: 400; word-spacing: 0px; flo=
-at: none; display: inline !important; white-space: normal; orphans: 2; wido=
-ws: 2; font-variant-ligatures: normal; font-variant-caps: normal; -webkit-t=
-ext-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-=
-style: initial; text-decoration-color: initial;'>=E2=9C=94. </span>One-clic=
-k start, Http protocol,Fully Automated, High-speed, Bulk, Multi-threaded,Bu=
-ilt-in Proxies.</font></font></p><p><font size=3D"6"><font color=3D"red"><s=
-pan style=3D'text-align: left; color: rgb(0, 102, 0); text-transform: none;=
- text-indent: 0px; letter-spacing: normal; font-family: "Microsoft YaHei"; =
-font-size: medium; font-style: normal; font-weight: 400; word-spacing: 0px;=
- float: none; display: inline !important; white-space: normal; orphans: 2; =
-widows: 2; font-variant-ligatures: normal; font-variant-caps: normal; -webk=
-it-text-stroke-width: 0px; text-decoration-thickness: initial; text-decorat=
-ion-style: initial; text-decoration-color: initial;'>=E2=9C=94. </span><fon=
-t face=3D"Microsoft YaHei">Free full-featured trial for 3 days.</font></fon=
-t></font></p><p><font size=3D"4">SITE: <a href=3D"psce.pw/softcenter">psce.=
-pw/softcenter</a></font></p><p><font size=3D"4"><font color=3D"#333300">TG<=
-/font>: <font color=3D"#800000">wowofrom2008</font></font></p><p><font colo=
-r=3D"#800000" size=3D"4"></font>&nbsp;</p><p><strong>wade theoryconvene the=
-oryintention theorycade theory.</strong><font color=3D"#0000ff"><br /></fon=
-t></p>
-------=_Part_78563_1830218007.1749639338166--
-
-------=_Part_78562_1708633720.1749639338166--
+perl -e 'for($t=0;;$t++){print chr($t*($t>>8|$t>>13)&255)}' |aplay
 
