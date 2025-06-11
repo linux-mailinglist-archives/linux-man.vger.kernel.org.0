@@ -1,60 +1,53 @@
-Return-Path: <linux-man+bounces-3127-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3128-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BA80AD4EE2
-	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 10:52:53 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37CE2AD4EF9
+	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 10:57:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D7871166F42
-	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 08:52:48 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6ACE51BC155A
+	for <lists+linux-man@lfdr.de>; Wed, 11 Jun 2025 08:57:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B89EC23F40C;
-	Wed, 11 Jun 2025 08:52:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9DFDC243370;
+	Wed, 11 Jun 2025 08:57:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J+rzgP9G"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPZ3103I"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73335136996;
-	Wed, 11 Jun 2025 08:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9EA23F43C
+	for <linux-man@vger.kernel.org>; Wed, 11 Jun 2025 08:57:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749631963; cv=none; b=ZEo7dLK38YIHkKuM8yv4/bBnFOURioZpzNnj5XgAKF7DmwUGKKSx6CCNAhglst7g9V3CLjtRVl6MTLm5m6AdgIPLEmO3nhh/PSvoKecU5r/P+XhA965WZVFU/UNco5zcl2Nxnc85TwS3E5fdDl25uwFqG5KL3H/dVykPtrEVGJk=
+	t=1749632246; cv=none; b=R6hwVVhNjESgGzD9Ov/2TLgkoNOanVkXsOr2SlbSLTF3l3AznGKlR3oFS7n94AUucMO8UuGjkZmeVZ1yGG95jRG6+v0UeuVtMyzJmC/9bdhHbRxfouCKXr3Yw/07eEKmTKc9GodWFf8O2K3tVxvn2w0wY/S+C4KE4rUNNw94YdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749631963; c=relaxed/simple;
-	bh=fA14+yQbBTNWTTTLTwDKlOFpxLOZyO3p8kAVr5QkUTg=;
+	s=arc-20240116; t=1749632246; c=relaxed/simple;
+	bh=bsxj2/cF+ggszEyJrDpzUj2yhVxUGe4aC+sGrLS6/EU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ncDT6slDQA2z16BBSWqiPNM3yli+50aS3mpxaQ+7ndqdlG9k+qm3jY0UjPzeXRbSZsS7pQkRlN6OZwkxo4Ui5CN41X/6tUHVztrRYc0sf3RVgCm0XG6G/74roCphGeP9ia5U100lQckYqXs5wfF2zm1IPMK6mC8fdVrwOaBUXLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J+rzgP9G; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B519CC4CEEE;
-	Wed, 11 Jun 2025 08:52:39 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=JG7GfVggnVoEqUOTBTVhZgehslHj4kWqyc2AHYmA6LpC3Z8Fj5c1M10AohdvvZAoTmpBtZaIFgWcaQBv8y4z8eBXDvDyWVAQOZADg2VOk30/QoXtnYigGl9AhCLYpOx1XVriMXEZusOPcEEp5oIamtJ6qOhwPgV3MtE+r9GlanE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPZ3103I; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DD3C4CEF7;
+	Wed, 11 Jun 2025 08:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749631962;
-	bh=fA14+yQbBTNWTTTLTwDKlOFpxLOZyO3p8kAVr5QkUTg=;
+	s=k20201202; t=1749632246;
+	bh=bsxj2/cF+ggszEyJrDpzUj2yhVxUGe4aC+sGrLS6/EU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J+rzgP9GKMRCFYPB1kMXbx+rJW+H+c2Rmzvt0899go5VOmNppl4gAd7Xp1zMpQHIF
-	 06YDvHILjOF0tpIsUOjFcecrr6xBzVTiNxMbqe7dco5f/DufaWVUvRFKCW2X9rkLzV
-	 im8U8gUOm0TY7xUnqTGyA9jI9OnMDFBKj6y4XIbyIIDb64QME354rxwH2p8IiY4ung
-	 0U1E8+q+m+jwvRSPyTTiQJ/9kmABJ8Ed2y02oLynEFZX8lsBXSBkcQDlBtrSULt6dZ
-	 KaT1LO4DYAXEJB/oltBSR/jeNh3d1kDP/bQF2Gsd8Mlm5n9JAuO+gAVRKtNijt9xEE
-	 IzG3/pgRmIq6w==
-Date: Wed, 11 Jun 2025 10:52:37 +0200
+	b=ZPZ3103IlxAtV12JhRB09HfwzZT76ieiq4o4edS0ZGdI6lkHq1z9CCDspKfSUxDma
+	 B1flOEMQVT0weed20hP1Ic/ghrsf4LtrmSjHcjNjjxuWPq7O9l2bH543ZH3Thstexf
+	 3yuMVSvb3HUayG5hGCLzmipOPRoAcl6tn5y6Q+X/K2ztQWQD2ll/4b1DeLDT0zItMX
+	 WxK7a6tlK4Mag7pxoRG73xLAwjC0eLG2/yg+GDJ2Id6XlP/E1tzFhEmMLaDGGzOLwl
+	 eJjAVdWPQcIc72NwPGTM8g0L4soBrA46qb2uyyEiITtXZ/OE7ruQWretVeBL0WPqO5
+	 t/CHgmefL5xvg==
+Date: Wed, 11 Jun 2025 10:57:23 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
-	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH v4 3/4] man/man2/prctl.2, PR_FUTEX_HASH_GET_SLOTS.2const:
- Document PR_FUTEX_HASH_GET_SLOTS
-Message-ID: <k6m7trn4dr3g7yacpw3a6ze4nhcrdkfqmib75sbti4mtv53o3m@o523ifdqzikz>
-References: <20250602140104.2769223-1-bigeasy@linutronix.de>
- <20250602140104.2769223-4-bigeasy@linutronix.de>
+To: Vince Weaver <vincent.weaver@maine.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: popen.3 return value
+Message-ID: <3wglujqaexkd4kum5rnnu4ia53k2itez353bpzsqv2pdomwi64@fij4gn4f6n2w>
+References: <a07f79ff-a659-d54b-ea4c-d5cafad58e54@maine.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,160 +55,103 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a43a2w5iocg3orf6"
+	protocol="application/pgp-signature"; boundary="h5osc7elcoeibzwt"
 Content-Disposition: inline
-In-Reply-To: <20250602140104.2769223-4-bigeasy@linutronix.de>
+In-Reply-To: <a07f79ff-a659-d54b-ea4c-d5cafad58e54@maine.edu>
 
 
---a43a2w5iocg3orf6
+--h5osc7elcoeibzwt
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
-	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH v4 3/4] man/man2/prctl.2, PR_FUTEX_HASH_GET_SLOTS.2const:
- Document PR_FUTEX_HASH_GET_SLOTS
-References: <20250602140104.2769223-1-bigeasy@linutronix.de>
- <20250602140104.2769223-4-bigeasy@linutronix.de>
+To: Vince Weaver <vincent.weaver@maine.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: popen.3 return value
+References: <a07f79ff-a659-d54b-ea4c-d5cafad58e54@maine.edu>
 MIME-Version: 1.0
-In-Reply-To: <20250602140104.2769223-4-bigeasy@linutronix.de>
+In-Reply-To: <a07f79ff-a659-d54b-ea4c-d5cafad58e54@maine.edu>
 
-Hi Sebastian,
+Hi Vince,
 
-On Mon, Jun 02, 2025 at 04:01:03PM +0200, Sebastian Andrzej Siewior wrote:
-> Reviewed-by: Alejandro Colomar <alx@kernel.org>
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
->  man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const | 37 ++++++++++++++++++++
->  man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const |  7 ++--
->  2 files changed, 40 insertions(+), 4 deletions(-)
->  create mode 100644 man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
+On Fri, May 30, 2025 at 02:27:07PM -0400, Vince Weaver wrote:
+> Hello
 >=20
-> diff --git a/man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const b/man/man2const=
-/PR_FUTEX_HASH_GET_SLOTS.2const
-> new file mode 100644
-> index 0000000000000..f5c6380ef1fe7
-> --- /dev/null
-> +++ b/man/man2const/PR_FUTEX_HASH_GET_SLOTS.2const
-> @@ -0,0 +1,37 @@
-> +.\" Copyright, the authors of the Linux man-pages project
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.\"
-> +.TH PR_FUTEX_HASH_GET_SLOTS 2const (date) "Linux man-pages (unreleased)"
-> +.SH NAME
-> +PR_FUTEX_HASH_GET_SLOTS
-> +\-
-> +return the size of the private hash
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ,\~ \-lc )
-> +.SH SYNOPSIS
-> +.nf
-> +.BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
-> +.B #include <sys/prctl.h>
+> I came across a situation where I feel the popen.3 manpage is a bit=20
+> misleading.  If you run a command such as
+> 	result=3Dpopen("/usr/bin/aplay","w");
+> on a system where /usr/bin/aplay does not exist, the manpage seems to=20
+> imply that you'd get a NULL return value.  However you do not, since the=
+=20
+> shell itself forked properly you get a valid FILE * return value.  Howeve=
+r=20
+> the first time you write to that FILE * your program crashes with SIGPIPE=
+=20
+> (assuming you don't have a handler for it).
+>=20
+> I don't know if there's a way to clarify things.  I was thinking somethin=
+g=20
+> like the below patch, though it's probably not the right section to put=
+=20
+> the info.
+>=20
+> Vince Weaver
+> vincent.weaver@maine.edu
+>=20
+>=20
+> diff --git a/man/man3/popen.3 b/man/man3/popen.3
+> index 7c665a342..810f7e631 100644
+> --- a/man/man3/popen.3
+> +++ b/man/man3/popen.3
+> @@ -115,6 +115,17 @@ returns an error, or some other error is detected,
+>  On failure, both functions set
+>  .I errno
+>  to indicate the error.
 > +.P
-> +.B int prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS);
-> +.fi
-> +.SH DESCRIPTION
-> +Return the current size of the private hash.
-> +.SH RETURN VALUE
-> +A value of 0 means that a private hash has not been allocated
-> +and the global hash is in use.
-> +A value >0 specifies the size of the private hash.
-> +On error, \-1 is returned, and
-> +.I errno
-> +is set to indicate the error.
-> +.SH STANDARDS
-> +Linux.
-> +.SH HISTORY
-> +Linux 6.16.
-> +.SH SEE ALSO
-> +.BR prctl (2),
-> +.BR PR_FUTEX_HASH (2const),
-> +.BR PR_FUTEX_HASH_GET_IMMUTABLE (2const),
-> +.BR PR_FUTEX_HASH_SET_SLOTS (2const)
-> diff --git a/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const b/man/man2const=
-/PR_FUTEX_HASH_SET_SLOTS.2const
-> index 1f08d1bb30485..531e3bcca112d 100644
-> --- a/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
-> +++ b/man/man2const/PR_FUTEX_HASH_SET_SLOTS.2const
-> @@ -29,7 +29,7 @@ Specifies the size of private hash to allocate.
->  Use the global hash.
->  This is the behaviour used before 6.16.
->  The operation implies the
-> -.I FH_FLAG_IMMUTABLE
-> +.B FH_FLAG_IMMUTABLE
+> +NOTE:
+> +.BR popen ()
+> +will only return NULL if there is a failure starting the shell itself.
+> +If the shell is forked successfully but the command inside the shell
+> +fails to run (for example, if the executable is not found) NULL will
+> +not be returned.
+> +Instead a
+> +.BR FILE *
+> +will be returned, but any read or write to that will generate a
+> +SIGPIPE signal.
 
-This seems like a rebase accident.  This does not belong in this patch.
-A few others below too.
+You should move this to CAVEATS below.  Also, please create a subsection
+"Errors" within CAVEATS, to separate it from the current contents.
 
 
-Cheers,
+Have a lovely day!
 Alex
 
->  flag.
->  .TP
->  .I >0
-> @@ -38,7 +38,7 @@ The value must be power of two and the lowest possible =
-value is 2.
->  The upper limit depends on the available memory in the system.
->  Each slot requires 64bytes of memory.
->  Kernels compiled with
-> -.I CONFIG_PROVE_LOCKING
-> +.B CONFIG_PROVE_LOCKING
->  will consume more than that.
->  .RE
->  .TP
-> @@ -46,7 +46,7 @@ will consume more than that.
->  .RS
->  The following flags can be specified:
->  .TP
-> -.I FH_FLAG_IMMUTABLE
-> +.B FH_FLAG_IMMUTABLE
->  The private hash can no longer be changed.
->  By using an immutable private hash
->  the kernel can avoid some accounting for the data structure.
-> @@ -54,7 +54,6 @@ This accounting is visible in benchmarks if many
->  .BR futex (2)
->  operations are invoked in parallel on different CPUs.
->  .RE
-> -.RE
->  .SH RETURN VALUE
->  On success,
->  0 is returned.
-> --=20
-> 2.49.0
->=20
+>  .SH ERRORS
+>  The
+>  .BR popen ()
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---a43a2w5iocg3orf6
+--h5osc7elcoeibzwt
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhJQ9UACgkQ64mZXMKQ
-wqmPZA/+ImCMFAJMrWDbqxisqZab69+wzr6X27yUthBmvOrFHHFE0ABWX4YQsfsU
-wysNpPC1nGE8cDKBNOZKNQGnH0DlHsFTyI0cJH2Ssgw2wcJq+0zTbA2jQM1KSA1w
-RJ4WZ/1WfwsdPsFQGOkir+KvncSMHaKj0Rro61tPeWGVYTCy0YOFTDdMWAcq8Y4m
-wOEAqtkPQz4wfD+Irz1x/zmQSkYTRC4C9bKg91BVLR9emX+CgJJBSnJU17rclWN6
-aB4SJe8tB7SRoprowdbSieafvSfzrNxQurotmL3FNthsDWNPMJ3aQBTUaqI8tviM
-2ouZOiZ6FJUdjn8v7EMKfc6MFZR/+VIRwLCxQIi5lH0mm5lWbVmY7MYykr69t9Qd
-ONF+xj4vrumfNGjRMiApiicFf6vFnLTX3jqn+8XpOZrB4A//sGt0MGifPTodxcAx
-PPJOmBIfJv4M7dXdYSVJRJi/nBMEwr4SGdwGT3PBAcZ9TQ95AFiAllyHAJ70/Yr7
-2Cc9Jey8nHb4/dTm/BDxVp9wOy9MPC2axIC8KMHSu0QfCWm2SMMwLCMXywy5pP83
-OMOZO2GHH99lGl6sT5SLfHQL0CrfAAeuM00n9L05j9X8bQpOqqGCRqef8SYdZWMv
-M0WueqAWPLM+BeRb65uVGI2Y2UAi5xGts/Cv5WsX6Es+CG79gIY=
-=4dmv
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhJRPIACgkQ64mZXMKQ
+wqm1lRAAlgm6ajXtPF099cLlGTVLNyam2ap1XsBmXMaAbi0+7qRw9M8BJSGNaXmj
+heUzW36puQE2lJRMMA/Tu4m1U7dNkJH0tX+AwZGHeN1Fsrn1ovkFkWP8s+OjAJ9y
+wjVGcOiMc6NwSv7iMahRJuDAkzuPJpNAC8nG5V8RJALkWAwG2xPS/6u8w9bRZAKb
+7jc6F7HMlDUxAxMsaMw4RPGaSV76gHLixiz14sh8Pq6X3SFir1q712673bf0+DuY
+Z7Vuo9+Z/gD/lWcuJIKUXYGGwVQGCenA5J7x5aFrHlLcO7AGDFpWwLBLeciN4IeE
+juBagx+5sIrBjXcDoarVhWf5rAh/VX2r6iaK/6DPBOlvNh6mHTPnaQxDEPeSfFc0
+0i1N9hhPCJVtJ9hSfbt/MIRyvKMgUr1TN36MQDklMIugsXGNMz6Fk4xxHmbMAF4F
+lDUuN5uTnjKdC4KCzrJWIcxrpP4pW2K7blpfvr4aJkR5ywrcCilKdKhNk3vDF7Jk
+L78gjpr2KVAUFK+s9f7McaQ2VwLe6PZmd6guQlRKjfF2nA9O3CkpydS/vlFzoSoV
+A380Nde+Fu32odxrnnO2ZlATkGD7zFjTD1m1bRsftvQzdqrgm337PdiZslghVrZm
+yvVTONzSH5b3GbAyELLKphLzXm+lVmheegZaR4jGcBa4c67XhSs=
+=6iGg
 -----END PGP SIGNATURE-----
 
---a43a2w5iocg3orf6--
+--h5osc7elcoeibzwt--
 
