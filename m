@@ -1,144 +1,101 @@
-Return-Path: <linux-man+bounces-3150-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3151-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E2C6AD9FC0
-	for <lists+linux-man@lfdr.de>; Sat, 14 Jun 2025 22:40:18 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E366ADB231
+	for <lists+linux-man@lfdr.de>; Mon, 16 Jun 2025 15:39:27 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 92AF6189848B
-	for <lists+linux-man@lfdr.de>; Sat, 14 Jun 2025 20:40:33 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A20823BB21B
+	for <lists+linux-man@lfdr.de>; Mon, 16 Jun 2025 13:35:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 17CE72DA77E;
-	Sat, 14 Jun 2025 20:40:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2FE22ECEBD;
+	Mon, 16 Jun 2025 13:33:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oio1UY8m"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gl1Fy/Zr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB4A78F2B
-	for <linux-man@vger.kernel.org>; Sat, 14 Jun 2025 20:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56632EACE3
+	for <linux-man@vger.kernel.org>; Mon, 16 Jun 2025 13:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749933613; cv=none; b=L2z+WOg2lSBDAvtCpr99TQ3zWa4AJgmVKNBvOTawNbF6grqhRu62Py6DtoLigm6C5sz9Y4owygT7LBg77mKY6sFyBQOLIc5vaL0wvXzf0cjOtDFvb3kcstMZqFcPbDPT87Y4e6DblpJ4TNs3dUE7+shAGXgKFnIwMlh1Z4In78c=
+	t=1750080808; cv=none; b=QCyns/5cl0Bs0RssomoLBsEXF7iokcf1AxuqVcfHjGCiQcwKI1GovQsNT+I7mA+hUEvMGoHFCxVe9Rq4ygJT7TTngA+3UM56hevwZXB0fxBjVNBQo/LbOFGgcA4UzCnM7EJ/MsILuzPqb4WbJBqr2f47YG/ZFC8Jy4R/WvHwhXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749933613; c=relaxed/simple;
-	bh=/6lpW1ctLxd1H13lfvutdCLzH8D/9p0IMfszx77QsvQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DuBw1HLZn4LjNOK2A1ENZ2KahXEOk7hNDsYEFb/qqwXOgdl29mI4catwN7hiNwcMJq4BtI1FmsN8/FMaAZJu0V2f//WpNw2cre2PfsW5omAEgO63rcnw6exogD568IvlmHFQT9+oAZ17eRH04+lrhbUQwfDSVWzCMjERENKN61w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oio1UY8m; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C19C4CEEB;
-	Sat, 14 Jun 2025 20:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749933613;
-	bh=/6lpW1ctLxd1H13lfvutdCLzH8D/9p0IMfszx77QsvQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oio1UY8mPCssCcIp03wyP/EJYUp1poQQd1LgK/ULSjt6zpCnzf8SF5lIyOuFSOD8I
-	 DnKsZ7prMhPlzMcegomJJAt6TTfoCEdXqFl1QrqfbZFKiFDAsocdUh4nKBWNCeURO2
-	 +2lFjCBHt38JKsOaPBIU6xQgE39jr+0ZerC8QdFyd5m9DFmsXhyHtvwP4sfFQiAtXH
-	 DHZj2DBfPv3Ypeu70iFTDowo5Ht+fmH2lyvXBM3MZ3RiCVmmemTaNcCqtRAAf1XDQr
-	 1huUbQ4XsHoltDb8+aPvfBavXCVPbTzE/NhsJ0jfOYjvYXFl6FEvcbO1Y/60A+avJi
-	 u3Fh4Y2Aotycw==
-Date: Sat, 14 Jun 2025 22:40:08 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] INSTALL: Adjust file names to match current build system
- organization.
-Message-ID: <pkorsesntdo5bbtzpooedzmtwkb2bng756mmquualmkgit7o66@czanarvsxdgv>
-References: <1cd0d5aa80cdc10a6c03dc8f3f2827d38bc86767.1749795252.git.collin.funk1@gmail.com>
- <3rgmfiajpc6lumg2zeos6bek5wtnd457cizex275aauayferec@44fw2hvwww6r>
- <87a56bs5ug.fsf@gmail.com>
- <tbaqdh5b7t3ri4n7b5y3kuxkxucs2rpdv56f3ou25wrv4gaj6n@354pxmwl6fat>
- <87o6uqjc5c.fsf@gmail.com>
+	s=arc-20240116; t=1750080808; c=relaxed/simple;
+	bh=pQ5M6yZIOF0fuzALcr0q2v5yMMzx93bZkkMPyAg0uuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YfgbUTUH2a/RX7mx7K3pQno4IoS3qRAW0e3oujkb3dfpruRg8OM+ibie4AuBJZdWftwTsoTqchvw4cyKeED3p4JHlM+25JZl1criLw5KbQqYrWhg+HxR4TMxUNqndUCCVYL7bfKmGxgn/tA5BeEUjV5Vg8lsLjJxXnEH4vLObP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gl1Fy/Zr; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1750080805;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ZO8wI2H+EZujF13dRgeWUxHdzGwdYW7n3+myBMoLgSc=;
+	b=gl1Fy/Zr9aVkCUpnL4GoLpOQmXsgi7vek+omXiq1jmRXqwqO8lxBk2pImbPpV3qlIpEiwM
+	G11JBbYwOuYePugyTw3LX5R7tAHePGzF0K0suwmNzbpxT+dABsgruKtLYltUGU2XN8P5eY
+	whZ7f/aHBsCByTlCe1tAYukIGoFgTQ4=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-675-b4f6fpvYN9m9bP-vM4zrow-1; Mon,
+ 16 Jun 2025 09:33:20 -0400
+X-MC-Unique: b4f6fpvYN9m9bP-vM4zrow-1
+X-Mimecast-MFC-AGG-ID: b4f6fpvYN9m9bP-vM4zrow_1750080799
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EF2E2195609F;
+	Mon, 16 Jun 2025 13:33:18 +0000 (UTC)
+Received: from carbon.redhat.com (unknown [10.45.225.108])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 183B219560A3;
+	Mon, 16 Jun 2025 13:33:16 +0000 (UTC)
+From: Jelle van der Waa <jvanderwaa@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Jelle van der Waa <jvanderw@redhat.com>,
+	linux-man@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>
+Subject: [PATCH] man/man5/core.5: document the new %F identifier in core_pattern
+Date: Mon, 16 Jun 2025 15:32:09 +0200
+Message-ID: <20250616133212.131064-1-jvanderwaa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="75grhqu6fhpcgicm"
-Content-Disposition: inline
-In-Reply-To: <87o6uqjc5c.fsf@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
+From: Jelle van der Waa <jvanderw@redhat.com>
 
---75grhqu6fhpcgicm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] INSTALL: Adjust file names to match current build system
- organization.
-References: <1cd0d5aa80cdc10a6c03dc8f3f2827d38bc86767.1749795252.git.collin.funk1@gmail.com>
- <3rgmfiajpc6lumg2zeos6bek5wtnd457cizex275aauayferec@44fw2hvwww6r>
- <87a56bs5ug.fsf@gmail.com>
- <tbaqdh5b7t3ri4n7b5y3kuxkxucs2rpdv56f3ou25wrv4gaj6n@354pxmwl6fat>
- <87o6uqjc5c.fsf@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <87o6uqjc5c.fsf@gmail.com>
+Signed-off-by: Jelle van der Waa <jvanderw@redhat.com>
+---
+ man/man5/core.5 | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Hi Collin,
+diff --git a/man/man5/core.5 b/man/man5/core.5
+index 556502214..b1361eea0 100644
+--- a/man/man5/core.5
++++ b/man/man5/core.5
+@@ -174,6 +174,11 @@ Pathname of executable,
+ with slashes (\[aq]/\[aq]) replaced by exclamation marks (\[aq]!\[aq])
+ (since Linux 3.0).
+ .TP
++%F
++PIDFD of dumped process
++.\" commit b5325b2a270fcaf7b2a9a0f23d422ca8a5a8bdea
++(since Linux 6.16).
++.TP
+ %g
+ Numeric real GID of dumped process.
+ .TP
+-- 
+2.49.0
 
-On Sat, Jun 14, 2025 at 01:34:07PM -0700, Collin Funk wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
->=20
-> > Yup, it must have been some blackout.  They're becoming too frequent
-> > here, sadly.  I'm out of home this weekend, so I'll fix it on Monday.  =
-:(
-> >
-> > Thanks!
->=20
-> No problem! I remember the recent Iberian Peninsula Blackout, but didn't
-> know there were issues outside of that event. Hopefully the situation
-> improves soon.
-
-:)
-
-Yeah, there are "replicas".  The reason for it seems to be that solar
-energy is displacing nuclear, and the system is less stable.
-
-Also, the villages near valencia have had many smaller blackouts since
-the flooding of October.  I have a battery that lasts for an hour or
-so, and that was enough in the past, but blackouts now last more than
-that.
-
-
-Have a lovely night!
-Alex
-
->=20
-> Collin
->=20
-
-
-
---=20
-<https://www.alejandro-colomar.es/>
-
---75grhqu6fhpcgicm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhN3iEACgkQ64mZXMKQ
-wqlUSQ//buNUmNxzx8bzspZW+La7lfpB9lzds09dBxfdxj9BGd6NtlPBqi3RL5EW
-/wF7BECuDrVOip9RlRpk+tQKN0iEYDCMsQPyxqGmPb6uLTKM/jXlZ9iaJ2Iswkg6
-gtk503dDO/lurQFngcaVHcY8kTMzFsXkMlXbtJUpqTZYLu/HXKEHKsGFyqjuOr+i
-hm3YU8HOhMoKDNWbkltvnKk9ILh3uwGy7KqD90U5so3l6uDmRUpk3HqpfUqfC245
-CQSJNH1rdwN+3FzatZ/ROS/+B0n6G0cNb0xvTkijTH8PYiyHZoGMoBIqZG6JL+fr
-vcNiYeqxPHwxJfBY9+ueribi7CE/fr7wGEYk6YjKuilLmFdZjwv10J5SczFf2g2W
-M73mVtnSIIg7Qx93eao5QaRENrY3aP91yTJCBKQttG3BRDgKbYK5yPITCT71qJ+v
-IAZFQ/gsqpNiYSOjeJg1AIxcByYqRSjtHs5jy1lAE8tVoQpFxJIb6M3q/l4W+WSH
-LNQaxeZuBd/R2GvQCM0cUH6CRsZropSivOslMtJMwAv2Vn3KC2B5+oGro9jL48Vy
-Tw2uYxGL5zeXIBRIPbsPOSqfSd9LcwbL4Hd6T3eZ1R37z2rcM1CIRxzy2M9TTiYQ
-kgQqq7HZWVXSkP7jaU3/4pN553YvkmQksoHxFPaMcfIAU5eZ6I0=
-=I/QV
------END PGP SIGNATURE-----
-
---75grhqu6fhpcgicm--
 
