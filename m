@@ -1,83 +1,87 @@
-Return-Path: <linux-man+bounces-3161-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3162-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id F06FAADFC54
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 06:22:35 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E6AADFC55
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 06:22:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9C98417CA82
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 04:22:36 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AB83E3B9AAB
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 04:22:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1B37818D643;
-	Thu, 19 Jun 2025 04:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2E681ADC98;
+	Thu, 19 Jun 2025 04:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UTR3eaio"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djKhFEcx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B9E3085D4
-	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 04:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595EF3085D4
+	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 04:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750306950; cv=none; b=ign0csniDIInFRyr+bpHjfvaN6MhP73DvaRUq15zrgXttT0+MYJGK/f5VUVNt0ScBTzYjWkcUYF96w4I2uUvmvxyVEojr/P85yQWXpD7WtSxxRlQuM8dDih2/x2BP4j94HY37BmB0vJKMDve9eMloL0yf3Zeoa7NMXomK3NxaiI=
+	t=1750306952; cv=none; b=dS4oNEnnJlR/jvaU5vuqCDaf+c6si7f6UEvBdfTSiGn6ALpBbQ1dWvlJ4M8KPtkcueBjnTXAWFs66f1UDQNTWirFCuUn71y4B3h3Z0ENnxR28kuDpNIqnYpqa/rnaksHF5uEzULyUcxAzTe7u373zoSF9xlyDe2j6/X5ccsj/u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750306950; c=relaxed/simple;
-	bh=Vj8ep6WisuHWQOgwIOPve3Bxl93IENX13CSfoTRvTtk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L436fHc16rlQWFW4muUQ/W/Mf9g+K/yoQrh+w45uJS9OJoUP8bEqV94CF2YgRkIwI95kQ7PoGGNJEB/igyOKBXyuRsyHuETFpQ0r3U+gTgmKRxlctDILs1spGRgYlkta/iNU9YXITNUoLny7V5pYVrgjMVcMXWUjNGg/AlFn1B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UTR3eaio; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1750306952; c=relaxed/simple;
+	bh=PkUqahq4LxCycYAy9wy2Mgzn8bGlpEK9VlcEK1OdQbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J5QFEQmvuLO52K+SSl9mUhEd9dyLployxo2KJGgKe30/8gYyMVlWzbjaTsHSguRa3z7WksRo28xCsN1pYjCT/Vu8+5QRvSd61CX7ePIWtxuLe2SwRZ6Zy4UdN7uIm8SThy60dL5BhZT18mkfaBvIi8yuzyL0AE0UqBkwCUGuPK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djKhFEcx; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-313910f392dso179531a91.2
-        for <linux-man@vger.kernel.org>; Wed, 18 Jun 2025 21:22:29 -0700 (PDT)
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3122368d7cfso184467a91.1
+        for <linux-man@vger.kernel.org>; Wed, 18 Jun 2025 21:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750306949; x=1750911749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dWZgFypYseBIsi0MkQ3gOOo9EzpCqbuWwGo23VDuZM0=;
-        b=UTR3eaioUyZO4G4o3UIt4xg0UFgwi8SL/60Pmn04weRBUhd+IKiha8IJemcUIcB1m1
-         Xgd9Vy3gvtM1TLfkqfUq738UoXv598iG/USIsBfBrs01VbUUWUWP30DwixXQcAzxK/5S
-         Z6+XwwXIQgkA7n2fJYIry66atgLJ7XAj3gTrdAwjl0GwQPoG4FfEiZ79ROo9VOXHzdgz
-         ywHimFMwa6VQkr7Onqmgo62tbFT6Js6ZmUx7FCrS7VGsGgw2MuBeLuyBy0ybHvNwrhW1
-         jL+/IgDhREg4IM2UrFUH4rnoibORknpl4pD/vAGt611/OFDxoMmLlUtdcGMIO3NKJmoE
-         JS+g==
+        d=gmail.com; s=20230601; t=1750306951; x=1750911751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gtp67R2MHXCeWlaHFlxolNukY3XlKdZP0TYAKH2CfAY=;
+        b=djKhFEcxv0YanlRRng3sCoHBVx5jZzM/U20hrNBn+roD+qlbCBlLdRkHYuk3Xv+Mjk
+         SbmCxH0qTOhH0qYwd6oSuoqjSRjOu8bnN3YXdj9K907P8PEuBfkSLZNKjS9vvfbVK1Lz
+         w8PLtNAmcmMeSQE+dKfFhVia9PZ13jgQtNe4/O4SQf8Q8QfcgZ4q3b2yfcuOuK9lKthS
+         9SITnn8JT7xPxiofx7nBmS2eTcQYzPniVChPR9vdNzMU2gqsDX3h8nmwfUOy1CyNMRIr
+         GlbqYfBUwxC4fp4a7cOqDfJmb1/RVrmZnH9170ffUrX1HfTF6v3vHA6EDzciyZPjvm0/
+         uxfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750306949; x=1750911749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dWZgFypYseBIsi0MkQ3gOOo9EzpCqbuWwGo23VDuZM0=;
-        b=F5Hl8fMaXNIce4yjyXq3gEdg0df7YM29EZ+5QlKQzC5tvZd7eI2ureDr5lxXkFQOUC
-         F/4fqxMdvBQv+rbbnjKsKjpJSfxnp8mNRx/FNLb2PkVtt5FkR3gIRyq8sGuIYNf+iRvc
-         tEHSuJvrnkGpmiobRFY0XhK45CSzjGBYbzQWHDRJFVYxsmEc7uPjXBHWy9FVFg8l3NJI
-         WXMvPfMq/LjLTVZsI6W2yIKiMBeNP5Ik0oy68Kvm0HVTSLSJAI9F+W7l80xw7pmW54qW
-         qbgb5Eny+yKe85+5a7T8Q/a2RzNlQMyPBMhUtPZ/A4k14SwsZ8VlHioUDsqIIdrsQzs6
-         wshg==
-X-Forwarded-Encrypted: i=1; AJvYcCWo1QUE+8QXKWYIrSQYwl7/2uAib57crBGpWG4/AB+5h5ynWom2usgi8N1ola7oiinME5cUXfyXXf4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyScXmlrD/XII7fgGfKeDeoBZzr2/1pzfuJlV1Gm3+cimqHyTQr
-	rfkL+P4176l2gKkGKGea+9MUCSp6B/WYKB5YHl7QWvxTI1f7JQtzP+6R
-X-Gm-Gg: ASbGncv6O6TEDmeTUnNdmbLze/HWME08xiZErM5gNQJtL85+4TndSWfl9QBNPN2LPV6
-	k1A2MAoz+FKFSjB95T8yN3Wc13zTGoWzIe8q9YkPODdyLZN5kiF6GPiac2YS/ocUhAqe6ARA9NG
-	3+J1/RlTLIvX0E5hUy/rXBm9Yys/y8RcJmngazoWq9PuVr3Xmu6X7U56pSY9O5FRQPfzTfgX/Ps
-	2WIs1O7cQCJhzfoX2SW20TC0hZurc9l0L6qpoO5l7zoooXTVGT+hC3wRyj5YqrHMRPU8RWihfRl
-	aHfaFcbxYn/VYbWh5ZUb5k4hwI6iOOV8o0LDJEGoBNoioQ==
-X-Google-Smtp-Source: AGHT+IElwgH8YdScy9xxCpZnzqvEdrjWe7SQNA6iMEEAlEE2U5bH+9u0VHWTHqS8IoZz2LgN5D+CyA==
-X-Received: by 2002:a17:90b:28c8:b0:314:2bae:97d7 with SMTP id 98e67ed59e1d1-3142bae98admr13737078a91.15.1750306948722;
-        Wed, 18 Jun 2025 21:22:28 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1750306951; x=1750911751;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gtp67R2MHXCeWlaHFlxolNukY3XlKdZP0TYAKH2CfAY=;
+        b=XpFAa3lm0bRx0k1GTGLvEErgX+KchCwY9a3192PiXLEsRNN1ne0Heqf5rzOOEtj8jq
+         AHbkCmhKB9I6aA2kYETIhJa3Gy7A13fA4Msia43KjN8f4qglL7a+Neo6zZd/WxrxoCxe
+         k5xttbx7VtDErhd0nUtldKA8aXyi72CYlWRAroHdaJODif9lWSV6xXfCbC0awlUWv+v0
+         UBbNKKYXekIE3zl359ycMBkHb9Z2Nme4YnV5S0Aa1Ml6OB993EZ3I5pm9pjP86z6MRA0
+         V1boeze3LntEdf6pHC8eaxni6xYsw8deRXUb+aAHWk/NZJWsl3C9xkb1WmJ8mUePJSWr
+         +Dow==
+X-Forwarded-Encrypted: i=1; AJvYcCWfwN3cbf8BznP4Sf+TEvc98UroBkkGubKl8OhXqh+NauCFBpdLBPYzSMdj1Aqw24yUOTb4uvrh3J4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKIyDgb1Gzmpko/i3UXHrzVH3jJ6TpHgkrhb4Rhjv327SeuZdN
+	zUnbnmzxvKXYkXJfQTslAgIZUDOrvjnTbE5gGG2j6Jv+JAZVnBpxs+uv9HgFcQ==
+X-Gm-Gg: ASbGnctOPdPedZQcbEvf8MQ84kHjKJkNTbDO4ghLKoCGLRGEsiA+H48Z7bUpLbb9fk/
+	QfJ95uVzUcSBLTUbC78YorygFWLXNFM9QBfsoAVVLKAoAG3v3zRiSvQlcrgaA1Vym4HgoCmg1FW
+	eDI4PtEi7hb8K8rCyyK6s8NbMXprQOgIWO+mLNcwPbZCN+zqKH8Vza35+5881s7d14WdTXoFFPC
+	Iv2aLI1gOlAQ5MaNNy+CGLSBZqXK+9HnwYcwfuFv39I+FQSoPR2bj+Ylw9+oloJE8qsPmY7tGyY
+	hvx65k+5hxlZpUKt8R0wGAKs3Cy6VMYMudBFfg440Bh3Iw==
+X-Google-Smtp-Source: AGHT+IG8G+nMtxAF54nHnW9+avDhIacOngjZ0tqKY9ei5YJPvvstO3zXluypYuItDuXW1YiIHQdh+g==
+X-Received: by 2002:a17:90b:4a4a:b0:311:eb85:96f0 with SMTP id 98e67ed59e1d1-313f1deb681mr28086803a91.29.1750306950601;
+        Wed, 18 Jun 2025 21:22:30 -0700 (PDT)
 Received: from fedora.. ([2601:646:8081:3770::de7b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3158a24377fsm1007495a91.20.2025.06.18.21.22.27
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3158a24377fsm1007495a91.20.2025.06.18.21.22.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Jun 2025 21:22:28 -0700 (PDT)
+        Wed, 18 Jun 2025 21:22:30 -0700 (PDT)
 From: Collin Funk <collin.funk1@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: Collin Funk <collin.funk1@gmail.com>,
 	linux-man@vger.kernel.org
-Subject: [PATCH 1/3] man/man2/gettimeofday.2: Declare gettimeofday with [[deprecated]].
-Date: Wed, 18 Jun 2025 21:22:09 -0700
-Message-ID: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
+Subject: [PATCH 2/3] man/man3/ftime.3: Declare ftime with [[deprecated]].
+Date: Wed, 18 Jun 2025 21:22:10 -0700
+Message-ID: <5924c3b09d8e373be6ac1b5ca663b8ad7d106d93.1750306917.git.collin.funk1@gmail.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
+References: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -86,31 +90,27 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As documented in the STANDARDS section gettimeofday was deprecated in
-POSIX.1-2008 and removed in POSIX.1-2024. Mark the function as
-[[deprecated]] since most systems still have it for comparability, along
-with a more modern alternative (e.g. clock_gettime).
+This function was marked as legacy in POSIX.1-2001 and has been removed
+from many systems, including glibc.
 
 Signed-off-by: Collin Funk <collin.funk1@gmail.com>
 ---
- man/man2/gettimeofday.2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ man/man3/ftime.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man/man2/gettimeofday.2 b/man/man2/gettimeofday.2
-index d954a253f..bdb2b0bd3 100644
---- a/man/man2/gettimeofday.2
-+++ b/man/man2/gettimeofday.2
-@@ -12,8 +12,8 @@ .SH SYNOPSIS
+diff --git a/man/man3/ftime.3 b/man/man3/ftime.3
+index a34b15888..8ae808ec2 100644
+--- a/man/man3/ftime.3
++++ b/man/man3/ftime.3
+@@ -13,7 +13,7 @@ .SH SYNOPSIS
  .nf
- .B #include <sys/time.h>
+ .B "#include <sys/timeb.h>"
  .P
--.BI "int gettimeofday(struct timeval *restrict " tv ,
--.BI "                 struct timezone *_Nullable restrict " tz );
-+.BI "[[deprecated]] int gettimeofday(struct timeval *restrict " tv ,
-+.BI "                                struct timezone *_Nullable restrict " tz );
- .BI "int settimeofday(const struct timeval *" tv ,
- .BI "                 const struct timezone *_Nullable " tz );
+-.BI "int ftime(struct timeb *" tp );
++.BI "[[deprecated]] int ftime(struct timeb *" tp );
  .fi
+ .SH DESCRIPTION
+ .BR NOTE :
 -- 
 2.49.0
 
