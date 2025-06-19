@@ -1,56 +1,54 @@
-Return-Path: <linux-man+bounces-3178-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3179-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E00AE07AF
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 15:46:16 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2CA1AE0811
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 15:58:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 3C8D17A9F12
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 13:44:53 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2F9811889943
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 13:58:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4A28235360;
-	Thu, 19 Jun 2025 13:46:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 879F91917CD;
+	Thu, 19 Jun 2025 13:57:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1COMrMp"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ogl3yQXt"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6743D1EDA2A;
-	Thu, 19 Jun 2025 13:46:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9D722618F
+	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 13:57:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750340766; cv=none; b=VU2W6rUC561cAiG9QkA07mKOQsuhNW2Ibypius3EPyEWrmZxPNIqFqfDke9Da/BCLvLZ7K4OXcJKO88hi68QTf9LipM/FBhf7/28wdoUaYQRi7PV4UtZ9hs07IFn/UzV/JX64Hzw9rvMIMYwAfM4VQWY278jl6I3ifgVtkaJ/JA=
+	t=1750341476; cv=none; b=X+WXiZ6EkmvA9+OVF5SYtkuZNNhBrgTgIHFRV2RKdVHxe23ZsWJOAiDQULn7QQEwQriNYo6qiXehZrIQ10sE6rOS3TgR5VRGcwAKeaeVtMKbTwG3A9gQMlD8pIgfuncASutwpXsN5+N2nAf26zNSro5QBbv82T3TnvlxKtxozgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750340766; c=relaxed/simple;
-	bh=jQ60UVw4HG69D0KBeaVFSM+MumIBCIoxGLIakI84zyw=;
+	s=arc-20240116; t=1750341476; c=relaxed/simple;
+	bh=qAC2VBHs914MAMmFc1xo3TlaVrYN+I+6bJh/wLkz/C4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cZs8pEpLgSVwYfKtoYL+NrS/sByrVpHdOh2996w6Uqykp+FcjRMcBwvF9HE+eKPlUGpP6yhKQAwhuNeuLyv2H05vCOuk1lgKebn0bQhG3ZZVJ4y/66UwzshB2UO7cm9dpor6DQyyRSf/NkdeMSRrw3oDtYqm5twBlSciw3wrsWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1COMrMp; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D551C4CEEA;
-	Thu, 19 Jun 2025 13:45:57 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=kwEndZzyNvIuHXi4cHGW238TOZqsP3wqxixTv7lOYDf0uxrh9sfL3W/SMiH8zTDXRm6DMrKt7TRuGr2h+bSeG7JlbgXgCQl5forY+cjqVYwECgL0xa+ZlTo+nmsQe+mwBkREr59AAFVOob3Q+Czed1G8XtfX2uUeqAJ9cNhnprc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ogl3yQXt; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED51C4CEEA;
+	Thu, 19 Jun 2025 13:57:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750340765;
-	bh=jQ60UVw4HG69D0KBeaVFSM+MumIBCIoxGLIakI84zyw=;
+	s=k20201202; t=1750341475;
+	bh=qAC2VBHs914MAMmFc1xo3TlaVrYN+I+6bJh/wLkz/C4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=B1COMrMpBtgzzt7fRduma97+P3q5Fy8SjhjUeZjw0h4TiY/gLFiwkiQXJYU6/fdPq
-	 WkjvpgWB8VjNCjEkMLuKwFA62oz19YmGapoX8qz6YqU7tAxP1lMUnICboALAoLXW2L
-	 ayh15G/6wfqh9q6FUlrDDpSG8z89zjE31atPCRJusQuwDNjsegIBwbQQGglMAF5aUu
-	 iXiwVYJt9/KQfGtaGEGULT2PeaIaslbLtHjGpsSVjumpbJhPxO/gaJ34SQZ9NKXlxk
-	 FkRsRoVIx26xXaXNE/xFb9PGDye0GeogozdVPEHxgTPrAtJV7Nb92Q4E4M/bTKa34z
-	 1cX74zbBFMC1g==
-Date: Thu, 19 Jun 2025 15:45:52 +0200
+	b=Ogl3yQXtHVCaJECXTxR2Zb7Qn8gl5mUaR8j2wYvo0YCfvzh3pJjQ4l20e5FTI1+2k
+	 ha4ebkC1G0sFa+z1zO47q+4cThJz0d21O1jSMKve7xiCuP7ExzvmZl4ojnwnlaRxeP
+	 4wzikdZqLjvrmKxY9YrVYG5x3dX73d0DX3TrNTnCQ85tDQTnpMqrqNxakq2HM0iizB
+	 DI70ToWkq7ZMGb04GBgapNrYld/xdfQJnk8qVUkrPLOiCy/+3JL3E7G6eQh/1D7jq1
+	 iR3iIEK+rUpcojVBe4lR60bzqpLGqs5StH11HqQj0weNL4EAu4FGT94X7RzzoZmEmr
+	 dq9sIl0YjlPUg==
+Date: Thu, 19 Jun 2025 15:57:47 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: John Garry <john.g.garry@oracle.com>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, hch@lst.de, 
-	djwong@kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH v2] statx.2: Add stx_atomic_write_unit_max_opt
-Message-ID: <gemmte63lftx2izscj7jjt7yzo746gfkjywnz2il66b4loht23@3ihpa3i4sudt>
-References: <20250619090510.229114-1-john.g.garry@oracle.com>
- <7ret5bl5nbtolpdu2muaoeaheu6klrrfm2pvp3vkdfvfw7jxbr@zwsz2dpx7vxz>
- <e27668ac-5134-4a37-8b50-290e3f04edec@oracle.com>
+To: linux-man@vger.kernel.org
+Cc: musl@lists.openwall.com, libc-alpha@sourceware.org, 
+	Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, bug-gnulib@gnu.org
+Subject: [v2] malloc.3: Clarify realloc(3) standards conformance
+Message-ID: <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
+References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,79 +56,135 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2gfnqqkq3ig6qvt3"
+	protocol="application/pgp-signature"; boundary="3gu54uzphxglq22u"
 Content-Disposition: inline
-In-Reply-To: <e27668ac-5134-4a37-8b50-290e3f04edec@oracle.com>
+In-Reply-To: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
 
 
---2gfnqqkq3ig6qvt3
+--3gu54uzphxglq22u
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: John Garry <john.g.garry@oracle.com>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, hch@lst.de, 
-	djwong@kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH v2] statx.2: Add stx_atomic_write_unit_max_opt
-References: <20250619090510.229114-1-john.g.garry@oracle.com>
- <7ret5bl5nbtolpdu2muaoeaheu6klrrfm2pvp3vkdfvfw7jxbr@zwsz2dpx7vxz>
- <e27668ac-5134-4a37-8b50-290e3f04edec@oracle.com>
+To: linux-man@vger.kernel.org
+Cc: musl@lists.openwall.com, libc-alpha@sourceware.org, 
+	Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, bug-gnulib@gnu.org
+Subject: [v2] malloc.3: Clarify realloc(3) standards conformance
+References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
 MIME-Version: 1.0
-In-Reply-To: <e27668ac-5134-4a37-8b50-290e3f04edec@oracle.com>
+In-Reply-To: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
 
-Hi John,
+Hi,
 
-On Thu, Jun 19, 2025 at 02:10:27PM +0100, John Garry wrote:
-> On 19/06/2025 12:05, Alejandro Colomar wrote:
-> >> @@ -74,6 +74,9 @@ struct statx {
-> >>   \&
-> >>       /* File offset alignment for direct I/O reads */
-> >>       __u32   stx_dio_read_offset_align;
-> >> +\&
-> >> +    /* Direct I/O atomic write max opt limit */
-> >> +    __u32 stx_atomic_write_unit_max_opt;
-> > Please align the member with the one above.
->=20
-> stx_dio_read_offset_align is actually misaligned (to the member above it):
->=20
->                /* Direct I/O atomic write limits */
->                __u32 stx_atomic_write_unit_min;
->                __u32 stx_atomic_write_unit_max;
->                __u32 stx_atomic_write_segments_max;
->=20
->                /* File offset alignment for direct I/O reads */
->                __u32   stx_dio_read_offset_align;
->=20
-> I'll just fix that separately.
-
-Ahh, thanks!  I couldn't see that from the context.  Makes sense.  :)
+Here's a revision of this change, addressing some concerns.  I'm only
+showing the formatted changes, since the patch itself is unimportant.
 
 
-Cheers,
+Have a lovely day!
 Alex
+
+---
+$ MANWIDTH=3D72 diffman-git HEAD
+--- HEAD^:man/man3/malloc.3
++++ HEAD:man/man3/malloc.3
+@@ -126,15 +126,32 @@
+        =E2=94=82 realloc()                          =E2=94=82             =
+  =E2=94=82         =E2=94=82
+        =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
+=20
++VERSIONS
++       The behavior of realloc(p, 0) in glibc doesn=E2=80=99t conform to a=
+ny of
++       C99, C11, POSIX.1=E2=80=902001, POSIX.1=E2=80=902008, POSIX.1=E2=80=
+=902017, or
++       POSIX.1=E2=80=902024.  The C17 specification was changed to make it=
+ con=E2=80=90
++       forming, but that specification was broken =E2=80=94it is impossibl=
+e to
++       write code that works portably=E2=80=94, and C23 changed it again to
++       make this undefined behavior, acknowledging that the C17 speci=E2=
+=80=90
++       fication was broad enough that undefined behavior wasn=E2=80=99t wo=
+rse
++       than that.
++
++       musl libc conforms to all versions of ISO C and POSIX.1.
++
++       gnulib provides the realloc=E2=80=90posix module, which provides a =
+wrap=E2=80=90
++       per realloc() that conforms to POSIX.1=E2=80=902024.
++
++       reallocarray() suffers the same issues in glibc.
++
+ STANDARDS
+        malloc()
+        free()
+        calloc()
+        realloc()
+-              C11, POSIX.1=E2=80=902008.
++              C23, POSIX.1=E2=80=902024.
+=20
+        reallocarray()
+-              None.
++              POSIX.1=E2=80=902024.
+=20
+ HISTORY
+        malloc()
+@@ -214,6 +231,22 @@
+        POSIX and the C standard do not allow replacement of malloc(),
+        free(), calloc(), and realloc().
+=20
++BUGS
++       Programmers would naturally expect that realloc(p, size) is con=E2=
+=80=90
++       sistent with free(p) and malloc(size).  This is not explicitly
++       required by POSIX.1=E2=80=902024 or C11, but all conforming impleme=
+nta=E2=80=90
++       tions are consistent with that.
++
++       The glibc implementation of realloc() is not consistent with
++       that, and as a consequence, it is dangerous to call
++       realloc(p, 0) in glibc.
++
++       A trivial workaround for glibc is calling it as
++       realloc(p, size?size:1).
++
++       The workaround for reallocarray() in glibc =E2=80=94which shares the
++       same bug=E2=80=94 would be reallocarray(p, n?n:1, size?size:1).
++
+ EXAMPLES
+        #include <err.h>
+        #include <stddef.h>
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---2gfnqqkq3ig6qvt3
+--3gu54uzphxglq22u
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhUFIkACgkQ64mZXMKQ
-wqlAhg/8D/zZ7BG5rLdsS+wKxsy09XNmbXVw3531SdRJ2e/UNHoC6GjBN2EJcah1
-81o6IqMOHsR+iJuiS0WuBwEEU7StRl0N2LXGihsLOB5N8nX+JEf7fyJCNxEmVHfd
-d2ZRZEksL5lbnrjMoAKQFtjTIWbFWXJUwdeNqQlTP3/wFipsXGuw9jb+QporZvVU
-QCgLWi/nMob2x9yNYCoHxO+vZhK1t1IutV/y7m9dOUgvNL/fvZbXVoqJIRt542zd
-DjZPXGKSctfdw3uganjB5M1IdF1ZovMecMQXian/CaZpMp+cx7IU3oA6VFNbUUOc
-iYB2p3og99Pnu1MLRRuDkr9eBa5zyZmOxwABGSm/PlXXAK2j/+cj0ptb525OK7wA
-vidUfY5qnoucd2RV5EiC21Im+6A9p1oaUbHJZHteTzAar41Idj5scEGOONC3Bj3r
-2HEIeOYkywOwMSCi80aGRk7k1QSstWpPCx1JE35lODntRTKZ+L/qROZXHKfnZmtY
-Ymmh1O4HWLlig0K6tEvQy4TsZ23oeWmy45GEFC3r7qY5lrXl9QXerqlTZ9bLwDKn
-5jJtNdGzb19Cn0Bzohcr64VD8JwwtHTxKu5Oxe5hVVoFhQm+HaaTdW3yQWzsehzo
-whtbtO1F4OuRefF22+xfHoHyFxZ8QGHXmR2zyDCFejM/dg7Jinc=
-=gGd5
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhUF1sACgkQ64mZXMKQ
+wqlDaxAAsaZkgVOqZrBSiUHEOa8Nlx3jgcGUxD5uFRlLAr4EJvUi5L1m81izZedt
+WPGYH6dyJ+zTtHcP+qPJBjMpjejEj/958Kh7X2yxVD2lMg1pm9DYxJIMmFcNby0e
+OuZ2xqYjgPqO+IeSkxAndYvk+zbLUgo/+mGzC85tzZbc4F4HmOEw79K+/V5PqDc7
+Bv3/c2PqTF8oXWQ0bm0W4cu9ElyK56H6WgUjSnisFWp2hYbjhPN4jZZL+2vK8YJX
+gBKmAw5LxKxQ5dRnvjYD6fzdGtxL5r0DuSLBa6ptqJ2FNmpgsXwCf9FiRo1kR5ac
+9mSA7ZCj7iYnz+TbhK61zfKArb5AbUb5/3r6qBB7u139EtZJKhRv3Pquu1qz//jY
+T3B7D/91HcLkBNjNRsakB3fvurTcu+HGiUZ6KSAoCs9dyhvAoMgom1RfjQtqHjnB
+glHCKZf+BOwg7mDYj8s8Zc7in3EowltAb8FbdRjduEdrIHbVFVaLWuuELm/hH75l
+RFmtMmJmgKB2Q8grlymT4q7XemZLy5x/q5fnMfzlF9RIgvw8YSmyQ4EOWZR4k5PU
+IA2/j8A7BI5rcKZ5FvsfsDqz1hwKeb0cZl5VgWX3nSARS2YKvRy0iGZbp8xCaLiM
+t8rDE6bqmCbBjbqgUnhHTP6pCIq1VmnunCjGiwA0SachznzUW/c=
+=s2Fw
 -----END PGP SIGNATURE-----
 
---2gfnqqkq3ig6qvt3--
+--3gu54uzphxglq22u--
 
