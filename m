@@ -1,152 +1,192 @@
-Return-Path: <linux-man+bounces-3185-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3186-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9538AE0C26
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 19:54:44 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EF7DAE0D1E
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 20:42:58 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id BC1023B5AA5
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 17:54:19 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A29A6164AC5
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 18:42:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0610C28B7E2;
-	Thu, 19 Jun 2025 17:54:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F42023CB;
+	Thu, 19 Jun 2025 18:42:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V0tu53HP"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="G7fWL4BT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6845819D8BE
-	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 17:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D670530E820
+	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 18:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750355678; cv=none; b=Qi7p344ND8z2qt2Aa2QZJAVpdCOwb9IDisO71hEczzWenmxZsxyLWYmJRrmasAzjRK0LUwljW51u8RMaT2V1Y+pSK74/NL6i3fA1x5ns4wcITRoop4bB6k0Ubvu1CfX+smAeOpMs0NyVlLn4KPqMVIP6OmFqouYKjvQEy3bGq5s=
+	t=1750358572; cv=none; b=lDpxBC8NBbBgnPo1r07O5fMv2gf6LbJe+3KwGdQVxoX+Pn9YXnJLpnycwlW8acRG59d0mYSJEZbCx4i8vBAtR3sSUIBo7vvBX4OxkJHPI4p5VleVeOnXaektRe6b8vbWFQNhIDDhuBpqTGa2goC36gBAC2/m7mvqL7i8pmK6/ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750355678; c=relaxed/simple;
-	bh=xuhILc91Ls6PUHLOTG97xKIAlkQ0+LU8zk02T2aHvTw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NG/wzwqxUsEigQcbwGs6SVLnBn720OP4HwgXlnpokEklNmU6Gpdq8cFwfyRonoTOoXbMcM53TpIpL5Z7vfp7AfPZaKcLSnZ0pcXJEWQjLyN1JwUenR8yumxBzxHd54I5kQqmRj12ttl2vuVmzzo+JDGqTe5SwRAB0DY99znSSag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V0tu53HP; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-7fd35b301bdso1239642a12.2
-        for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 10:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750355676; x=1750960476; darn=vger.kernel.org;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PzeVj31dvzUppdcz/GOrDGLpFu2vPFrZP7/nLnn5ErE=;
-        b=V0tu53HP4yl4CQvmkIjwE/Z/cfsE+YgdkYahrVKdioFUlryIZl05Q4792U/Mm3qOLL
-         1rZOncGsvJRPxDx6zrf5MTK3HzTZarWbfWW6hZxUMhHnB/EegjmTIqpaqOVgElDlnogD
-         l2ZzQcCmnKQ/bh26lCA1GsYCVvoDBKYe8WEVUl1B5UUOgRY6FroAksgvgVXX7xxVRnnM
-         Z3qB4e5beT9VCYs3yet3aZvDwX7TytzIGOIA8zB1S4l+Y4P0aGpfzWWhpYujdEGKPr87
-         xmAYKl5t46TtRs8HV7w61BMKt5IFcbL6PnnCua9g6MDsdeXlg2LJ65Hi2m+85uSv5mL8
-         9Ukw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750355676; x=1750960476;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PzeVj31dvzUppdcz/GOrDGLpFu2vPFrZP7/nLnn5ErE=;
-        b=JMCJLpNaj8PTvkcTrUETtrNm5VVicVsYyWmJ0RLcVUBceUE9b1TJv0TyVoDF0ltmRq
-         QwBw34Umfkcj6dATvT8JmveLik0FczEoULHZw/XCDKwHlKHQuz0o0B6WQXLsKrGpzJ8I
-         j6SoPEYreOox3NlGD2nkiSAMjdmU/fOToRj7kie5DYYetGLJIP2h8j4CnH1aOQ4Bu+Nt
-         zWlTmgFq/wErwKomp6+J6z2Ie2SCF1AlxCKWmXzQop6RUgI2FvC+6YN6XWVO0ljoYR4/
-         EU7KZs96qDW5xs74GQ6F+nfZRJSCSPSyvTEVZxzXbpmz9rrCk8OHDCNVAzi6YD3QS4nl
-         z9pg==
-X-Gm-Message-State: AOJu0YzfFIectDnhJiJkaRaMQVoEnLNuBFTfvK+wzi3kncTcBvn/R4x+
-	1cbcsQWXDulHrekUlkn/N/JE2poF8AIWVsLXSGSq53m1VBmcATCf+GMXCkmRkA==
-X-Gm-Gg: ASbGncttX/mjId3vnqMl3QYcdQwHegfvdYw6guRKE2J3F9uaoBgeBwNebPZBjZ9pNj7
-	bm/oz9i805zVxNr2O+uRw0rflZapuFoNGOiJtx2Uc6oBzURm+UHRCe5ycBGLBW0aILu3QeC42Ju
-	OPm/FiLvyVHpTAZBWi4XivLjbvxpSO1rfx5FD5ow73pUvb/7kDn0YahDYg2rgLn2FnkbpvV8EWy
-	qanmSKmgw8W6SPKBIp+VGO6rEOufbv1iw9569aKxjEH5lepCowL8NbCEDu4r3F+2sBC4jxchJUg
-	+R1m/ypUb9xMBZVxakUolChaU7QP6IB2O7QBVYWayGg=
-X-Google-Smtp-Source: AGHT+IGAGJMbDcupro0NrmuPC3fbqnD2XmnYNudNNrnmY7XEoNIvnMZUFMGklHJjb80LoSHtjXO9yw==
-X-Received: by 2002:a17:90b:2dd0:b0:312:1c83:58f7 with SMTP id 98e67ed59e1d1-3159d56e343mr381702a91.0.1750355676347;
-        Thu, 19 Jun 2025 10:54:36 -0700 (PDT)
-Received: from fedora ([2601:646:8081:3770::53de])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3158a2f4c23sm2541561a91.29.2025.06.19.10.54.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Jun 2025 10:54:35 -0700 (PDT)
-From: Collin Funk <collin.funk1@gmail.com>
+	s=arc-20240116; t=1750358572; c=relaxed/simple;
+	bh=4swje+uvAcCq0VCtkhiNwDqFu0DaFMgIl/LsP2CQtPU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kEsMyKlORHIuFMDw9MW1KTX8/766+NUIr9xryRzBf7Kedd7E4cDj78/9SnCq+Ft2/dumiTQGZkDF97Hsrd/c+kCn175kvt+rAFyY+UTRGgdH+9pfIyUBPyQ0Y14eAyB3lY5SBPYm/akJ7MwqTCr8LrX20n2/IO7mn5JTYwyyK/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=G7fWL4BT; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1750358569;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nDmxv41wUXLcqMq++E76wF2t0j8YXjsRegNxWXyBAoQ=;
+	b=G7fWL4BT4TI027KiuklorUI2+DrS3LpO+m07SCOfotgRZpBisgUhXpJdod7JQK6MjhGGED
+	kWyx3Pa/m/cioES+XYEJR3b1WeMpsaODXPyE8Vtq9AWP46emqyF/G0wnXiMC3pude3CS3/
+	ZV6ExTX2dcRRLujdBMLAzz4nHl6q6s8=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-661-1U8fci6fNr6fAkeHlQbxnQ-1; Thu,
+ 19 Jun 2025 14:42:46 -0400
+X-MC-Unique: 1U8fci6fNr6fAkeHlQbxnQ-1
+X-Mimecast-MFC-AGG-ID: 1U8fci6fNr6fAkeHlQbxnQ_1750358564
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5D71E1956087;
+	Thu, 19 Jun 2025 18:42:44 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.23])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9BFAC180045B;
+	Thu, 19 Jun 2025 18:42:41 +0000 (UTC)
+Date: Thu, 19 Jun 2025 13:42:38 -0500
+From: Eric Blake <eblake@redhat.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] man/man2/gettimeofday.2: Declare gettimeofday with
- [[deprecated]].
-In-Reply-To: <tc6b4trkpv5sow3pxgul7i3rc6bjnz7iupryyqzx7a7hxkdnou@65zruztgsi5c>
-References: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
-	<tc6b4trkpv5sow3pxgul7i3rc6bjnz7iupryyqzx7a7hxkdnou@65zruztgsi5c>
-Date: Thu, 19 Jun 2025 10:54:32 -0700
-Message-ID: <877c17liqv.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+Cc: linux-man@vger.kernel.org, musl@lists.openwall.com, 
+	libc-alpha@sourceware.org, Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, 
+	bug-gnulib@gnu.org
+Subject: Re: [v2] malloc.3: Clarify realloc(3) standards conformance
+Message-ID: <nd62th7wphcfw7k2grg2a6y4rbet53d4mljmwhkoelrg43dtpm@rpjskrdvlpw6>
+References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
+ <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
+User-Agent: NeoMutt/20250510
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
---=-=-=
-Content-Type: text/plain
+On Thu, Jun 19, 2025 at 03:57:47PM +0200, Alejandro Colomar wrote:
+> Hi,
+> 
+> Here's a revision of this change, addressing some concerns.  I'm only
+> showing the formatted changes, since the patch itself is unimportant.
+> 
+> 
+> Have a lovely day!
+> Alex
+> 
+> ---
+> $ MANWIDTH=72 diffman-git HEAD
+> --- HEAD^:man/man3/malloc.3
+> +++ HEAD:man/man3/malloc.3
+> @@ -126,15 +126,32 @@
+>         │ realloc()                          │               │         │
+>         └────────────────────────────────────┴───────────────┴─────────┘
+>  
+> +VERSIONS
+> +       The behavior of realloc(p, 0) in glibc doesn’t conform to any of
+> +       C99, C11, POSIX.1‐2001, POSIX.1‐2008, POSIX.1‐2017, or
+> +       POSIX.1‐2024.
 
-Hi Alex,
+See my other (lengthy!) email about how I'm not yet convinced that you
+have succesfully proven non-conformance to C99, C11, POSIX 2001, POSIX
+2008, or POSIX 2017.  However, I agree that from my initial reading,
+glibc appears to be non-conforming to POSIX 2024, _except that_ it may
+have been an unintentional bug in POSIX 2024, and in today's Austin
+Group call, a request was made to open a bug against POSIX if we think
+the standard is wrong for having declared glibc non-conforming.
 
-Alejandro Colomar <alx@kernel.org> writes:
+>   The C17 specification was changed to make it con‐
+> +       forming, but that specification was broken —it is impossible to
+> +       write code that works portably—, and C23 changed it again to
+> +       make this undefined behavior, acknowledging that the C17 speci‐
+> +       fication was broad enough that undefined behavior wasn’t worse
+> +       than that.
 
->> -.BI "int gettimeofday(struct timeval *restrict " tv ,
->> -.BI "                 struct timezone *_Nullable restrict " tz );
->> +.BI "[[deprecated]] int gettimeofday(struct timeval *restrict " tv ,
->
-> Please put the attribute in a separate line, to avoid bad alignment.
+In addition to the other feedback you've been given (avoid the word
+"broken" - that's a judgement call), I want to reiterate that it is
+more important to focus on facts.  It's not enough to say "glibc is
+non-compliant"; better would be to state "standard XYZ states
+realloc(non_null,0) must do ABC but glibc does DEF instead".
 
-I thought my patch had lines that were too long, but I wasn't sure of a
-better way to format it. If I understand correctly, you suggest:
+Remember, there are users who LIKE the glibc behavior and don't care
+whether the standard says otherwise; but there are ALSO users who are
+surprised to learn glibc does not follow what the standard says.  But
+Knowing only the vague assertion that "glibc is non-compliant" does
+not help me judge what seems to be the problem.  It is more important
+that I know that "my code is non-portable if I use this specific
+construct", at which point I am in a better position to judge "well I
+only run on glibc so who cares", or "oh, to make my code less risky
+during porting, I can do something about it", whether by importing
+gnulib modules, rewriting my code to avoid realloc(XXX,0), upgrading
+to a newer glibc (if glibc ever agrees to change behavior), using an
+alternative malloc library, or something else altogether.
 
-    .BI "[[deprecated]]"
-    .BI "int gettimeofday(struct timeval *restrict " tv ,
-    .BI "                 struct timezone *_Nullable restrict " tz );
+> +
+> +       musl libc conforms to all versions of ISO C and POSIX.1.
+> +
+> +       gnulib provides the realloc‐posix module, which provides a wrap‐
+> +       per realloc() that conforms to POSIX.1‐2024.
+> +
+> +       reallocarray() suffers the same issues in glibc.
+> +
+>  STANDARDS
+>         malloc()
+>         free()
+>         calloc()
+>         realloc()
+> -              C11, POSIX.1‐2008.
+> +              C23, POSIX.1‐2024.
+>  
+>         reallocarray()
+> -              None.
+> +              POSIX.1‐2024.
+>  
+>  HISTORY
+>         malloc()
+> @@ -214,6 +231,22 @@
+>         POSIX and the C standard do not allow replacement of malloc(),
+>         free(), calloc(), and realloc().
+>  
+> +BUGS
+> +       Programmers would naturally expect that realloc(p, size) is con‐
+> +       sistent with free(p) and malloc(size).  This is not explicitly
+> +       required by POSIX.1‐2024 or C11, but all conforming implementa‐
+> +       tions are consistent with that.
 
-But I think the [[deprecated]] looks a bit strange alone on that line.
-Maybe the return type 'int' should be placed on the line with it. What
-do you think?
+You may also want to be more precise on realloc(NULL, 0) (which IS
+required to behave like "malloc(0)") and realloc(non_null, 0) (where
+things have varied over the years in the standards, even if glibc
+behavior has been constant through that time).
 
->>  .BI "int settimeofday(const struct timeval *" tv ,
->>  .BI "                 const struct timezone *_Nullable " tz );
->
-> Should settimeofday(2) be considered deprecated too, even if it was
-> never standard?  It doesn't seem to make much sense to keep it intact if
-> the get*() one is deprecated.
+> +
+> +       The glibc implementation of realloc() is not consistent with
+> +       that, and as a consequence, it is dangerous to call
+> +       realloc(p, 0) in glibc.
 
-Sure, it seems pretty uncontroversial to deprecate it ourselves. In V2 I
-can also add the [[deprecated]] there and recommend 'clock_settime'
-instead in HISTORY.
+More importantly, with C23 making it undefined behavior, it is
+dangerous to call realloc(non_null, 0) in ANY libc, ever.  Regardless
+of whether glibc documents semantics that comply (or don't comply)
+with older standards.
 
-I will wait for your input on the declaration formatting first though.
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
 
-Collin
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIyBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmhUTtgACgkQjOZJGuMN
-fXVJig/3ZRlprKwAZadmkO3RRzkujhT1rx9+yMBynyoMWNiA0VBjJQtGGkWak9LC
-FE0JNT9+Gs77fnLzf1JMi+eNxY2lCqzfBbO303u2f6txMzRI5bqF9qa8Ha8RwJU8
-xb8e9IxnTmTlNmP+4qfuZyNhTk2lOpia2dtA5Arrc+QwHJlIDt0FCTXl1cdDDVLY
-w7gxs/IPo9pi2aMYsCUBTImflT2h+xVbwics/mmMJREzWq/bI78PSnKFX98iu5U2
-UFseepRL1dndhAT7J/25jJcJbLmjMBcrj8tJsHqE1PdP+LhmW3/knAYDvhFYAa5C
-s8gl9zcJA4jzYyhSRbh5LYc0STVPYzM06dy5jv6i2aE3GkYYjswj3lIUxA25ydcc
-YjTM+dKpyFP6gFRL+TSb4ld6qTHgQQHo+Y4ikqiVohwXq0ormrpk4cWmE9VhATvN
-Tx3xMcjluUb5jewkskn9CsYX9M/nc7VIiTyYjuP8EGKRuntN86R5k1Yh2D8tkXF5
-LeCPcueUM3eiDWrljVQpFQlY1IQwk6w+8Eea5tRAjZYd+DHQq0luG/BkaxqIC6lg
-AvFgkDk3VRCopYSMzNWpHiJ0dH9rb2uylhSoxnLaTZHBG0rQs4FxpWcOgZ8dLvbg
-u746x02cx2WE0XD0zuN368+fX5B5stcEVVMbBwmCWWPVoy2/yw==
-=I3OG
------END PGP SIGNATURE-----
---=-=-=--
 
