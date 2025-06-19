@@ -1,95 +1,91 @@
-Return-Path: <linux-man+bounces-3189-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3190-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B699AE0F13
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 23:40:39 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 40EFBAE0F1F
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 23:52:27 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id EB5521BC11CA
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 21:40:54 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E02D04A1F6E
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 21:52:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A74525F78E;
-	Thu, 19 Jun 2025 21:40:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF5F4220F26;
+	Thu, 19 Jun 2025 21:52:23 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [104.156.224.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from evolvis.org (evolvis.org [217.144.135.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA0830E852
-	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 21:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.156.224.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E525D30E85D
+	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 21:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.144.135.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750369235; cv=none; b=bUbXcs2htdewCmyH9iwXmcppZl2uQzOdFWWAHGDt0FHn1u34j7vJjRdiGwq+KZuFGzThPheRBn0pl4VDh+PjabWJNpxnTtAoiQcVLGnZULdDmOn5OrlwJU+RohQXnlVhqKNmk9fY/f+EpPe08Nhq5BV4tcFIma3EAEwXO0PXM50=
+	t=1750369943; cv=none; b=rwf0upIjEt35p1RERqZZYtUufUq/mZ6WzyoWdlPOFVRM7xNfMXwG8YMiN1zct2D464JqlkkvI1WpDRdZzdjxxSUIek1c8jPJqneqiCYn6t/Ks+cR4IAiVue1k1N77QPYVdTv7PsMs/oUKpI3X4O4ybB4kLZpgdwNFkYefoYoz7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750369235; c=relaxed/simple;
-	bh=qt8HNMyQi4Wu1N7JanfJ1EDmThrsWRl6JX+7E2uUxlE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lIbkehjj3W4DO5XudLb92pc1l2tc6qfF6OB1hLqUTdRSLvkM7arBQU2szEco6KUmvSDfEyZUMlN6wq60Tbq1TegO/UqnocKsmFv0jeJFGDtNCEmYsY9uuyZFeSfrQMX5beY3IUkKdGH6a+h2mYafVIoZrjVlCX5fR+2e7JgEDKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libc.org; spf=pass smtp.mailfrom=aerifal.cx; arc=none smtp.client-ip=104.156.224.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libc.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aerifal.cx
-Date: Thu, 19 Jun 2025 17:40:30 -0400
-From: Rich Felker <dalias@libc.org>
-To: Thorsten Glaser <tg@mirbsd.de>
-Cc: musl@lists.openwall.com, Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-	Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>,
-	bug-gnulib@gnu.org
+	s=arc-20240116; t=1750369943; c=relaxed/simple;
+	bh=/HP563b2hulsudegWRus/469iQFV3NHRJB9PASL7aqA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=a646x1E7ltyEbrWWd8XiCRuPh45x6bvnQHp/Ys8Dq9/Xu1JGxa2bMGC7tUtozro+r/HcGmVBiuerYKuCO2bi7UneorKE+mAlWFvTYu+JvYccZ/gYUxQ207RI3CSZHubcA41nkkiA1TQOftQYXHp6Ou4eAX/5OV9bGCnxnwyepkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mirbsd.de; spf=pass smtp.mailfrom=mirbsd.de; arc=none smtp.client-ip=217.144.135.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mirbsd.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mirbsd.de
+Received: from x61p.mirbsd.org (xdsl-78-35-212-149.nc.de [78.35.212.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X448 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: x61p@relay.evolvis.org)
+	by evolvis.org (Postfix) with ESMTPSA id 54C521000A7;
+	Thu, 19 Jun 2025 21:52:16 +0000 (UTC)
+Received: by x61p.mirbsd.org (Postfix, from userid 1000)
+	id DD4E91450FC; Thu, 19 Jun 2025 23:52:15 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by x61p.mirbsd.org (Postfix) with ESMTP id D8BC51450C9;
+	Thu, 19 Jun 2025 23:52:15 +0200 (CEST)
+Date: Thu, 19 Jun 2025 23:52:15 +0200 (CEST)
+From: Thorsten Glaser <tg@mirbsd.de>
+To: Rich Felker <dalias@libc.org>
+cc: musl@lists.openwall.com, Alejandro Colomar <alx@kernel.org>, 
+    linux-man@vger.kernel.org, libc-alpha@sourceware.org, 
+    Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, 
+    bug-gnulib@gnu.org
 Subject: Re: [musl] [v2] malloc.3: Clarify realloc(3) standards conformance
-Message-ID: <20250619214030.GH1827@brightrain.aerifal.cx>
-References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
- <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
- <20250619153209.GG1827@brightrain.aerifal.cx>
- <65bc2156-fb06-49b8-29f1-b6df8d98ed6d@mirbsd.de>
+In-Reply-To: <20250619214030.GH1827@brightrain.aerifal.cx>
+Message-ID: <d145f0b6-03be-65c8-2248-20db25f56fea@mirbsd.de>
+References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv> <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5> <20250619153209.GG1827@brightrain.aerifal.cx> <65bc2156-fb06-49b8-29f1-b6df8d98ed6d@mirbsd.de>
+ <20250619214030.GH1827@brightrain.aerifal.cx>
+Content-Language: de-Zsym-DE-1901-u-em-text-rg-denw-tz-utc, en-Zsym-GB-u-cu-eur-em-text-fw-mon-hc-h23-ms-metric-mu-celsius-rg-denw-tz-utc-va-posix
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <65bc2156-fb06-49b8-29f1-b6df8d98ed6d@mirbsd.de>
-User-Agent: Mutt/1.9.5 (2018-04-13)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On Thu, Jun 19, 2025 at 05:38:15PM +0200, Thorsten Glaser wrote:
-> On Thu, 19 Jun 2025, Rich Felker wrote:
-> 
-> >> +       The glibc implementation of realloc() is not consistent with
-> >> +       that, and as a consequence, it is dangerous to call
-> >> +       realloc(p, 0) in glibc.
-> >
-> >It's not dangerous if you know what it's doing. Rather it's
-> >non-portable.
-> 
-> Nope.
-> 
-> It’s actually dangerous in all libcs.
-> 
-> GCC is a repeat offender of taking things that are Undefined
-> Behaviour in C (and GCC 15 even defaults to C23) and optimising
-> in a way that breaks programs and libraries that depend on the
-> behaviour of the respektive system and libc, which they even
-> guarantee.
-> 
-> This is an unperiodic reminder that GCC lacks a -std=posix2024
-> and similar.
-> 
-> This is also why I was a bit angry that C23 made it UB. Had
-> they made it unspecified (POSIX verbiage) / IB (C verbiage),
-> implementations could actually do things and compilers would
-> not be allowed to break things that rely on it, i.e. it would
-> merely have been unportable. But when ISO C says UB it’s not
-> unportable, it’s dangerous.
+On Thu, 19 Jun 2025, Rich Felker wrote:
 
-OK, this is a legitimate point in support of "dangerous", but it only
-applies with -std=c23 or similar. When targeting an older version of
-the language standard, the UB does not apply. It would be interesting
-to know if GCC and/or LLVM have any particular intent on this yet. My
-hope would be that they wait to react until a better consensus is
-achieved.
+>When targeting an older version of
+>the language standard, the UB does not apply. It would be interesting
 
-Rich
+Right, but=E2=80=A6
+
+>OK, this is a legitimate point in support of "dangerous", but it only
+>applies with -std=3Dc23 or similar.
+
+=E2=80=A6 GCC now defaults to that.
+
+And even if not, it would still be a timebomb=E2=80=A6
+
+bye,
+//mirabilos
+--=20
+18:47=E2=8E=9C<mirabilos:#!/bin/mksh> well channels=E2=80=A6 you see, I see=
+ everything in the
+same window anyway      18:48=E2=8E=9C<xpt:#!/bin/mksh> i know, you have so=
+me kind of
+telnet with automatic pong         18:48=E2=8E=9C<mirabilos:#!/bin/mksh> ha=
+ha, yes :D
+18:49=E2=8E=9C<mirabilos:#!/bin/mksh> though that's more tinyirc =E2=80=93 =
+sirc is more comfy
 
