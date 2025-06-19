@@ -1,151 +1,95 @@
-Return-Path: <linux-man+bounces-3188-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3189-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706A0AE0F09
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 23:34:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B699AE0F13
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 23:40:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0C423178F6B
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 21:34:44 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id EB5521BC11CA
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 21:40:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 289BE2459ED;
-	Thu, 19 Jun 2025 21:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZEGEDSU6"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A74525F78E;
+	Thu, 19 Jun 2025 21:40:35 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [104.156.224.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8516830E843
-	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 21:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA0830E852
+	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 21:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.156.224.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750368878; cv=none; b=GEjGK07XQLI8H10DIzDxuBr+0VaPnRX0FVreYY+vhBA32Dacb1VTIPGlKBqJKZQN4Li+DQ1ouCb/OIj2+AJ3WnuNAr1uBBj27up8fHzaNt498b4ham9hAbIF7hoq+aPYDQ+i2f102vc0FltLyhC09QBCBSy54sPQbkO4Li7qeAY=
+	t=1750369235; cv=none; b=bUbXcs2htdewCmyH9iwXmcppZl2uQzOdFWWAHGDt0FHn1u34j7vJjRdiGwq+KZuFGzThPheRBn0pl4VDh+PjabWJNpxnTtAoiQcVLGnZULdDmOn5OrlwJU+RohQXnlVhqKNmk9fY/f+EpPe08Nhq5BV4tcFIma3EAEwXO0PXM50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750368878; c=relaxed/simple;
-	bh=4K7pRAA/nsjHCWQcdxWSz5BsILhw0IH3hmWeW5Nb6hw=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=souiO2tIVvC9IZQ8fheuoT+lf9rKOiWS7AmKEtOvD4I+kq+UAEyY8xPi53EXz3AELxqVS9SyBXaOmuJtC1r8Y2E9A+2AcB+USeUzJ3xfvFtalcoLNkixcBCdagKgVo8XO8EWKkEgD7TZ5dhh+kRr6nd/mQ0hl+8sWm1v3LPXgXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZEGEDSU6; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-739f2508ffaso986401a34.2
-        for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 14:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750368875; x=1750973675; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=OQaRHX6XgImxlwbmjdiE+BvZDAoNMTCJ3Ep2e0/2kqA=;
-        b=ZEGEDSU6jLMDWLYRb8BIOSoYVQ1VTwKje9iuH1z9l2l6gAPnYM5xQ5mcv3++iyzAj5
-         PU/Z1OaSFvBWt4gTxoFFQTVCJk4/QArrZh3IkGV5hb0eoJH51xWtxPKBNBlIyr88MZ49
-         lMOvV/fRL/LBJTeccfMn/wDP9D35+ICZFveCblYAK/f90qHSJNvv/mLgWCJPld1qI0AV
-         Rhxe57E3HcAX7hjnve5L2/tQq/ar5dOMk1Oy1GHRad5ehULrbVjCscl9kwW7ZLSw0SiS
-         g/yyjj4cb8KDf9WWX/eOsnbGaPigWVcnZ2alEBzat4s/Cp7nn9F4NewQZ4wDf4uTHbrL
-         KsNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750368875; x=1750973675;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OQaRHX6XgImxlwbmjdiE+BvZDAoNMTCJ3Ep2e0/2kqA=;
-        b=SEg+O5anBRZjXCg4UQeL8LY6eLy/kE0byxNsEXKxNtUOn1pYqgP4K7we+PJrF3Evx+
-         QJNC4Of7hIDiF94p+9AkUNrIcgi9q1SFIrY6xkXIdUE4NxIn8e2hqvuFYt8/Dq2wkG3O
-         ITCscP7m9oophBsPNRnwbVhLkmxRqJ4TE9K6HzkDnPO4PojIhhBI/K+zBb91vVcledBa
-         i2ke1hikyylgsiP2MHV9uZV2yP+oxqnJoPWHkvRCppbNDsc3vuIOtbqR5JpTKXpP/hEo
-         2r/sbG+jtv76QpfCoDB2bJax4ybHZIkjL4FtJK1AJ5CxxAIy6A30Oh08q+x10nijvHer
-         gmZA==
-X-Gm-Message-State: AOJu0YwK1sEPpP3MkShrLlFqDPYF4rMi4PyHvA8esBmydwxSJ16ZXkWS
-	MrApT8DPdpYWQwstTTIkptAEvLqJ5AI00TYDPrIUt1IqWI6y0EyOBwXuBYdufg==
-X-Gm-Gg: ASbGncsSToXlgnIPf66kc1HUrZtpydx5gL+y9aXyWSBhG2By1AwYOilPUYMloT5iXPl
-	ZWm/DPuyH6WY/e27PPyuNdqEED26W5wYYHNhcubuHuPo6gRSAj2agO03uLMTZPHu8/Fcq4HjRfN
-	PtWkU5OQqRaQA7vo8bhbKYUvBA9as4jntubNwTgaanLMcyJ1mwtTUxysydUjZU+6znBy3RNDOtS
-	JK0lDo+THwfIDGTYARlggMuO9U7DCLSwIfKn0pGeZxrCAeeaez9xhHgk4+csO5Srw9UcWaYMMfW
-	wDDzLNgEmdkwsvVzPLveDkkKWM4WQNC+t3+hf00pl6PbdCr0kz94
-X-Google-Smtp-Source: AGHT+IEKsVhziuGNzai4xudRPApfJeR1m90Bjt8/jbq4ztFJdLPyQHTYAc/Yds3ep7lzyzQOj5I4Xw==
-X-Received: by 2002:a05:6830:6489:b0:72b:872f:efc8 with SMTP id 46e09a7af769-73a91da171bmr270969a34.24.1750368874971;
-        Thu, 19 Jun 2025 14:34:34 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::41])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-73a90c9218bsm72752a34.33.2025.06.19.14.34.33
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Jun 2025 14:34:34 -0700 (PDT)
-Date: Thu, 19 Jun 2025 16:34:32 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] statx.2: Add stx_atomic_write_unit_max_opt
-Message-ID: <20250619213432.447iad5445dfmo4b@illithid>
-References: <20250619090510.229114-1-john.g.garry@oracle.com>
- <7ret5bl5nbtolpdu2muaoeaheu6klrrfm2pvp3vkdfvfw7jxbr@zwsz2dpx7vxz>
+	s=arc-20240116; t=1750369235; c=relaxed/simple;
+	bh=qt8HNMyQi4Wu1N7JanfJ1EDmThrsWRl6JX+7E2uUxlE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lIbkehjj3W4DO5XudLb92pc1l2tc6qfF6OB1hLqUTdRSLvkM7arBQU2szEco6KUmvSDfEyZUMlN6wq60Tbq1TegO/UqnocKsmFv0jeJFGDtNCEmYsY9uuyZFeSfrQMX5beY3IUkKdGH6a+h2mYafVIoZrjVlCX5fR+2e7JgEDKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libc.org; spf=pass smtp.mailfrom=aerifal.cx; arc=none smtp.client-ip=104.156.224.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libc.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aerifal.cx
+Date: Thu, 19 Jun 2025 17:40:30 -0400
+From: Rich Felker <dalias@libc.org>
+To: Thorsten Glaser <tg@mirbsd.de>
+Cc: musl@lists.openwall.com, Alejandro Colomar <alx@kernel.org>,
+	linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+	Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>,
+	bug-gnulib@gnu.org
+Subject: Re: [musl] [v2] malloc.3: Clarify realloc(3) standards conformance
+Message-ID: <20250619214030.GH1827@brightrain.aerifal.cx>
+References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
+ <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
+ <20250619153209.GG1827@brightrain.aerifal.cx>
+ <65bc2156-fb06-49b8-29f1-b6df8d98ed6d@mirbsd.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ak7dsvz5mzo3yvtr"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <7ret5bl5nbtolpdu2muaoeaheu6klrrfm2pvp3vkdfvfw7jxbr@zwsz2dpx7vxz>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <65bc2156-fb06-49b8-29f1-b6df8d98ed6d@mirbsd.de>
+User-Agent: Mutt/1.9.5 (2018-04-13)
 
+On Thu, Jun 19, 2025 at 05:38:15PM +0200, Thorsten Glaser wrote:
+> On Thu, 19 Jun 2025, Rich Felker wrote:
+> 
+> >> +       The glibc implementation of realloc() is not consistent with
+> >> +       that, and as a consequence, it is dangerous to call
+> >> +       realloc(p, 0) in glibc.
+> >
+> >It's not dangerous if you know what it's doing. Rather it's
+> >non-portable.
+> 
+> Nope.
+> 
+> It’s actually dangerous in all libcs.
+> 
+> GCC is a repeat offender of taking things that are Undefined
+> Behaviour in C (and GCC 15 even defaults to C23) and optimising
+> in a way that breaks programs and libraries that depend on the
+> behaviour of the respektive system and libc, which they even
+> guarantee.
+> 
+> This is an unperiodic reminder that GCC lacks a -std=posix2024
+> and similar.
+> 
+> This is also why I was a bit angry that C23 made it UB. Had
+> they made it unspecified (POSIX verbiage) / IB (C verbiage),
+> implementations could actually do things and compilers would
+> not be allowed to break things that rely on it, i.e. it would
+> merely have been unportable. But when ISO C says UB it’s not
+> unportable, it’s dangerous.
 
---ak7dsvz5mzo3yvtr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] statx.2: Add stx_atomic_write_unit_max_opt
-MIME-Version: 1.0
+OK, this is a legitimate point in support of "dangerous", but it only
+applies with -std=c23 or similar. When targeting an older version of
+the language standard, the UB does not apply. It would be interesting
+to know if GCC and/or LLVM have any particular intent on this yet. My
+hope would be that they wait to react until a better consensus is
+achieved.
 
-[dropping all but linux-man@ since I'm addressing only a point of
-typographical style]
-
-Hi Alex,
-
-At 2025-06-19T13:05:30+0200, Alejandro Colomar wrote:
-> > +.I stx_atomic_write_unit_max
-> > +and will not be less than the value in
-> > +.I stx_atomic_write_unit_min.
->=20
-> This should be IR, and the '.' separated by a space, so that the '.'
-> is not in italics.
-
-I recommend documenting your preference in this matter as a
-linux-man-specific style convention.
-
-To many eyes, having an italic correction between the slanted text and a
-period looks bad when typeset.  Including to me, although I admit when
-viewing *roff terminal output where underlining is used to substitute
-for italics, having a comma or period underlined _also_ looks weird/bad.
-On the bright side, more and more terminal emulators are coming to
-support slanted faces.
-
-Further, since italics are (also) used for things that are not
-necessarily literals, it's not necessarily the case that, grammatically,
-the trailing punctuation should be set in a different face.
-
-Regards,
-Branden
-
---ak7dsvz5mzo3yvtr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmhUgmEACgkQ0Z6cfXEm
-bc56OQ/8C+pvA9dZ8vu2vup7LT6v3sVDbS7DeI1M4bTxS1ghS7nf+cYCZd+XCtmQ
-oZxATkq1h0PFgrqzBfpgogjEvhkO8FXpJKCaOqRKElZ1ibTVRA+GJ2FYpCtIsyaD
-d3YmQftQ9b3FdqZfPDPc7lsDwsTOdDJW4wSLMQjH4fURP930evpC3+CbqkzAsXDB
-B7PZjrAzhLqQEjSd/Awiw7P/vDRlRpBq18mOYJipundtYsd5AxWLlxAeA9DRIv1h
-AL5qou/Sz2jNdtLnc0s64wahwSr0cb814mCcY5ijx+XSJ+dzguwvYci9i7mPKyig
-7QaRekic4UdcMNKEE05fwQ1Bg6WLUusM+l0/9ZTO34nu7vpc+xXYQqca1HjUtYxz
-ckv3t4K0ySYqfW+Bzcghs5a2jWTaPR2W3cGee/PqefxuumzAmGxJfb+lUFkZxDVG
-K+Qe1dQIPAHn7kO12Hf0WVHvYdbzw/QXBh3DYAhRQMQ4iuRTBBFzBdDHQJb88yXo
-UdTe3AX4rFme8zTmbftk/KJZqFga4newbsZ8A3BOe3IaHkEZTqbq3ZfLi0bR/qQp
-v6zridungjJXAvnOGLFmKlWnK2Jhs9pEvMRfE/W74o0gitLwrXmdXfVcfbvrXk/M
-vgibsxPboeuEWmzYA2ZoelupnPMhmpy8SnlGqGd9IlxvimLVEQ0=
-=lIZA
------END PGP SIGNATURE-----
-
---ak7dsvz5mzo3yvtr--
+Rich
 
