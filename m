@@ -1,190 +1,145 @@
-Return-Path: <linux-man+bounces-3179-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3180-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2CA1AE0811
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 15:58:26 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFBE4AE0A7E
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 17:32:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2F9811889943
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 13:58:17 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6BBBB17A72E
+	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 15:32:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 879F91917CD;
-	Thu, 19 Jun 2025 13:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ogl3yQXt"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D56C119CCFC;
+	Thu, 19 Jun 2025 15:32:14 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [104.156.224.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9D722618F
-	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 13:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25581E47A5
+	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 15:32:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.156.224.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750341476; cv=none; b=X+WXiZ6EkmvA9+OVF5SYtkuZNNhBrgTgIHFRV2RKdVHxe23ZsWJOAiDQULn7QQEwQriNYo6qiXehZrIQ10sE6rOS3TgR5VRGcwAKeaeVtMKbTwG3A9gQMlD8pIgfuncASutwpXsN5+N2nAf26zNSro5QBbv82T3TnvlxKtxozgU=
+	t=1750347134; cv=none; b=TSj6lMzBossF5DNcXGL06U0ZOTPZLieRHGbY0mCORqrIfutHGnm894ZpFH9CCZsdgOaFhp3AtLdUticbdhnX4twxb9E66ndQ+tZU0E96oSeKWLl3w9Yr4+fmUK/MyorazpuH5oRaMtmO0MrxHW/3Y/3Jtok34BJvTm32m5xcDdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750341476; c=relaxed/simple;
-	bh=qAC2VBHs914MAMmFc1xo3TlaVrYN+I+6bJh/wLkz/C4=;
+	s=arc-20240116; t=1750347134; c=relaxed/simple;
+	bh=9lflZyOyXfRf8lSVa3dXs56co/uF5WFovJv//r6TB2g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kwEndZzyNvIuHXi4cHGW238TOZqsP3wqxixTv7lOYDf0uxrh9sfL3W/SMiH8zTDXRm6DMrKt7TRuGr2h+bSeG7JlbgXgCQl5forY+cjqVYwECgL0xa+ZlTo+nmsQe+mwBkREr59AAFVOob3Q+Czed1G8XtfX2uUeqAJ9cNhnprc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ogl3yQXt; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED51C4CEEA;
-	Thu, 19 Jun 2025 13:57:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750341475;
-	bh=qAC2VBHs914MAMmFc1xo3TlaVrYN+I+6bJh/wLkz/C4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ogl3yQXtHVCaJECXTxR2Zb7Qn8gl5mUaR8j2wYvo0YCfvzh3pJjQ4l20e5FTI1+2k
-	 ha4ebkC1G0sFa+z1zO47q+4cThJz0d21O1jSMKve7xiCuP7ExzvmZl4ojnwnlaRxeP
-	 4wzikdZqLjvrmKxY9YrVYG5x3dX73d0DX3TrNTnCQ85tDQTnpMqrqNxakq2HM0iizB
-	 DI70ToWkq7ZMGb04GBgapNrYld/xdfQJnk8qVUkrPLOiCy/+3JL3E7G6eQh/1D7jq1
-	 iR3iIEK+rUpcojVBe4lR60bzqpLGqs5StH11HqQj0weNL4EAu4FGT94X7RzzoZmEmr
-	 dq9sIl0YjlPUg==
-Date: Thu, 19 Jun 2025 15:57:47 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: musl@lists.openwall.com, libc-alpha@sourceware.org, 
-	Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, bug-gnulib@gnu.org
-Subject: [v2] malloc.3: Clarify realloc(3) standards conformance
-Message-ID: <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
+	 Content-Type:Content-Disposition:In-Reply-To; b=A9URH8/xYG7H/xkuO8g/2Cki4B+3HrgaeFB8b/XVvAndmXb6n7npsTZaCBVTUo8IXtHJaoqkHg/PxT5r9N2d8751Z2A1+yfujE4VFoRnoHkbV4E1RdpOBporvSnoswPA4TT4ZMada3qFJ44jmfqKB42iALcDj9vtxwSA2xVLye8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libc.org; spf=pass smtp.mailfrom=aerifal.cx; arc=none smtp.client-ip=104.156.224.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libc.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aerifal.cx
+Date: Thu, 19 Jun 2025 11:32:09 -0400
+From: Rich Felker <dalias@libc.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, musl@lists.openwall.com,
+	libc-alpha@sourceware.org, Paul Eggert <eggert@cs.ucla.edu>,
+	Bruno Haible <bruno@clisp.org>, bug-gnulib@gnu.org
+Subject: Re: [musl] [v2] malloc.3: Clarify realloc(3) standards conformance
+Message-ID: <20250619153209.GG1827@brightrain.aerifal.cx>
 References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
+ <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3gu54uzphxglq22u"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
+User-Agent: Mutt/1.9.5 (2018-04-13)
 
+On Thu, Jun 19, 2025 at 03:57:47PM +0200, Alejandro Colomar wrote:
+> Hi,
+> 
+> Here's a revision of this change, addressing some concerns.  I'm only
+> showing the formatted changes, since the patch itself is unimportant.
+> 
+> 
+> Have a lovely day!
+> Alex
+> 
+> ---
+> $ MANWIDTH=72 diffman-git HEAD
+> --- HEAD^:man/man3/malloc.3
+> +++ HEAD:man/man3/malloc.3
+> @@ -126,15 +126,32 @@
+>         │ realloc()                          │               │         │
+>         └────────────────────────────────────┴───────────────┴─────────┘
+>  
+> +VERSIONS
+> +       The behavior of realloc(p, 0) in glibc doesn’t conform to any of
+> +       C99, C11, POSIX.1‐2001, POSIX.1‐2008, POSIX.1‐2017, or
+> +       POSIX.1‐2024.  The C17 specification was changed to make it con‐
+> +       forming, but that specification was broken —it is impossible to
+> +       write code that works portably—, and C23 changed it again to
+> +       make this undefined behavior, acknowledging that the C17 speci‐
+> +       fication was broad enough that undefined behavior wasn’t worse
+> +       than that.
 
---3gu54uzphxglq22u
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: musl@lists.openwall.com, libc-alpha@sourceware.org, 
-	Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, bug-gnulib@gnu.org
-Subject: [v2] malloc.3: Clarify realloc(3) standards conformance
-References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
-MIME-Version: 1.0
-In-Reply-To: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
+This is still full of your polemics. The word "broken" generally
+belongs in personal blog posts, not a manual that's supposed to be
+documenting the facts of an interface. In fact it is very possible to
+write code which works portably: by refraining from passing 0.
+Regardless of what action is taken here on the standards or
+documentation, that's already been necessary for a long time, and will
+continue to be necessary for a long time, because of the existence of
+implementations on which passing 0 has inconsistent results.
 
-Hi,
+I would suggest something more like:
 
-Here's a revision of this change, addressing some concerns.  I'm only
-showing the formatted changes, since the patch itself is unimportant.
+      The behavior of realloc(p, 0) in glibc doesn’t conform to any of
+      C99, C11, POSIX.1‐2001, POSIX.1‐2008, POSIX.1‐2017, or
+      POSIX.1‐2024. C11 was amended in 2017 to allow the glibc
+      behavior [insert description of exactly how that was done, I
+      forget] and C23 followed up by making the behavior explicitly
+      undefined.
 
+In particular, this text is purely matters of fact, no statement of
+your or my preferred future outcome or disagreement with what
+happened.
 
-Have a lovely day!
-Alex
+I would also move it to CONFORMANCE rather than VERSIONS since
+VERSIONS is normally about differences between versions of the
+implementation being described, not conformance requirement
+differences between versions of the standard.
 
----
-$ MANWIDTH=3D72 diffman-git HEAD
---- HEAD^:man/man3/malloc.3
-+++ HEAD:man/man3/malloc.3
-@@ -126,15 +126,32 @@
-        =E2=94=82 realloc()                          =E2=94=82             =
-  =E2=94=82         =E2=94=82
-        =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
-=20
-+VERSIONS
-+       The behavior of realloc(p, 0) in glibc doesn=E2=80=99t conform to a=
-ny of
-+       C99, C11, POSIX.1=E2=80=902001, POSIX.1=E2=80=902008, POSIX.1=E2=80=
-=902017, or
-+       POSIX.1=E2=80=902024.  The C17 specification was changed to make it=
- con=E2=80=90
-+       forming, but that specification was broken =E2=80=94it is impossibl=
-e to
-+       write code that works portably=E2=80=94, and C23 changed it again to
-+       make this undefined behavior, acknowledging that the C17 speci=E2=
-=80=90
-+       fication was broad enough that undefined behavior wasn=E2=80=99t wo=
-rse
-+       than that.
-+
-+       musl libc conforms to all versions of ISO C and POSIX.1.
-+
-+       gnulib provides the realloc=E2=80=90posix module, which provides a =
-wrap=E2=80=90
-+       per realloc() that conforms to POSIX.1=E2=80=902024.
-+
-+       reallocarray() suffers the same issues in glibc.
-+
- STANDARDS
-        malloc()
-        free()
-        calloc()
-        realloc()
--              C11, POSIX.1=E2=80=902008.
-+              C23, POSIX.1=E2=80=902024.
-=20
-        reallocarray()
--              None.
-+              POSIX.1=E2=80=902024.
-=20
- HISTORY
-        malloc()
-@@ -214,6 +231,22 @@
-        POSIX and the C standard do not allow replacement of malloc(),
-        free(), calloc(), and realloc().
-=20
-+BUGS
-+       Programmers would naturally expect that realloc(p, size) is con=E2=
-=80=90
-+       sistent with free(p) and malloc(size).  This is not explicitly
-+       required by POSIX.1=E2=80=902024 or C11, but all conforming impleme=
-nta=E2=80=90
-+       tions are consistent with that.
-+
-+       The glibc implementation of realloc() is not consistent with
-+       that, and as a consequence, it is dangerous to call
-+       realloc(p, 0) in glibc.
-+
-+       A trivial workaround for glibc is calling it as
-+       realloc(p, size?size:1).
-+
-+       The workaround for reallocarray() in glibc =E2=80=94which shares the
-+       same bug=E2=80=94 would be reallocarray(p, n?n:1, size?size:1).
-+
- EXAMPLES
-        #include <err.h>
-        #include <stddef.h>
+> +BUGS
+> +       Programmers would naturally expect that realloc(p, size) is con‐
+> +       sistent with free(p) and malloc(size).  This is not explicitly
+> +       required by POSIX.1‐2024 or C11, but all conforming implementa‐
+> +       tions are consistent with that.
 
---=20
-<https://www.alejandro-colomar.es/>
+This has not historically been a conformance requirement and it is not
+one now. Because the behavior is undefined, arbitrarily-inconsistent
+behavior is conforming.
 
---3gu54uzphxglq22u
-Content-Type: application/pgp-signature; name="signature.asc"
+It's possible to read this as not stating a conformance requirement,
+just a matter of fact that all implementations which conform(ed to
+past versions of the standard) happened to also be consistent here.
+But in that case I would very much prefer if you make it clear by just
+saying that they're consistent on [some explicit list or description
+of the class of implementations you've reviewed to have this
+property].
 
------BEGIN PGP SIGNATURE-----
+> +       The glibc implementation of realloc() is not consistent with
+> +       that, and as a consequence, it is dangerous to call
+> +       realloc(p, 0) in glibc.
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhUF1sACgkQ64mZXMKQ
-wqlDaxAAsaZkgVOqZrBSiUHEOa8Nlx3jgcGUxD5uFRlLAr4EJvUi5L1m81izZedt
-WPGYH6dyJ+zTtHcP+qPJBjMpjejEj/958Kh7X2yxVD2lMg1pm9DYxJIMmFcNby0e
-OuZ2xqYjgPqO+IeSkxAndYvk+zbLUgo/+mGzC85tzZbc4F4HmOEw79K+/V5PqDc7
-Bv3/c2PqTF8oXWQ0bm0W4cu9ElyK56H6WgUjSnisFWp2hYbjhPN4jZZL+2vK8YJX
-gBKmAw5LxKxQ5dRnvjYD6fzdGtxL5r0DuSLBa6ptqJ2FNmpgsXwCf9FiRo1kR5ac
-9mSA7ZCj7iYnz+TbhK61zfKArb5AbUb5/3r6qBB7u139EtZJKhRv3Pquu1qz//jY
-T3B7D/91HcLkBNjNRsakB3fvurTcu+HGiUZ6KSAoCs9dyhvAoMgom1RfjQtqHjnB
-glHCKZf+BOwg7mDYj8s8Zc7in3EowltAb8FbdRjduEdrIHbVFVaLWuuELm/hH75l
-RFmtMmJmgKB2Q8grlymT4q7XemZLy5x/q5fnMfzlF9RIgvw8YSmyQ4EOWZR4k5PU
-IA2/j8A7BI5rcKZ5FvsfsDqz1hwKeb0cZl5VgWX3nSARS2YKvRy0iGZbp8xCaLiM
-t8rDE6bqmCbBjbqgUnhHTP6pCIq1VmnunCjGiwA0SachznzUW/c=
-=s2Fw
------END PGP SIGNATURE-----
+It's not dangerous if you know what it's doing. Rather it's
+non-portable. It does something predictable that you can use safely,
+but the way you use it safely is different from other, more consistent
+implementations in a way that can be a footgun.
 
---3gu54uzphxglq22u--
+> +       A trivial workaround for glibc is calling it as
+> +       realloc(p, size?size:1).
+
+It should probably be noted that use of such a workaround sacrifices
+the ability to diagnose logic errors (via sanitizers, valgrind, etc.)
+where 1 byte is written to allocated memory that was not intended to
+have any accessible bytes of storage.
+
+Rich
 
