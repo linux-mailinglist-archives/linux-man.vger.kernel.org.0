@@ -1,164 +1,148 @@
-Return-Path: <linux-man+bounces-3193-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3194-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E7EAE0FCB
-	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 00:55:38 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B266AE102B
+	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 02:01:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6B95417DFDE
-	for <lists+linux-man@lfdr.de>; Thu, 19 Jun 2025 22:55:39 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B74503B73E0
+	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 00:00:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA88B2673AA;
-	Thu, 19 Jun 2025 22:55:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4ACD2EC4;
+	Fri, 20 Jun 2025 00:01:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dzwjfmow"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tJ5HhVaB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B8328B51F
-	for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 22:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F7617E
+	for <linux-man@vger.kernel.org>; Fri, 20 Jun 2025 00:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750373736; cv=none; b=SV0oHbrAbRURfQpIvVaie9CpN6zObYGc+t29Lo6QnvJzwSsp9H7VK8MjSc3Cs5UnKh99+MCgzNCM85F64yjsgXPd01AsCZDDJScb3tB7w/YJg1WECG1bpBi1yxswd66fq/p2Nn6XxrW7PQKM6puwDE9Bi5TO7wuQ7fY94LffADk=
+	t=1750377664; cv=none; b=OUZTbeon8VTWCs/BrOkYgu7TZkbKpbYdxaaMUEowhg9/yV46lgyNxJRxlJm4Njp11q8laDiB25zEllyn+/KFtn5Q9auHt9GKL1AjR1g1CMYq3wkQz87yS6DtEy3amPjpg63hUl4P+cARoDwtnMr0R6+mJE0avuaVP6rEq+ZLIZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750373736; c=relaxed/simple;
-	bh=O+U8p/5w9NzfkgD8xPxlnIJeXAwXeNUHxZAjIAo0Psc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ibR7+QsgHic1ppI1r6NWHeJBIRB1e5p8E660MTdcqf4pwRIsMmruV8yyLSZVe9XrU1Ym29TWcN2DmIa5bjdO+Mmy8nQHEMH/0P7hsG+FJYcuHH5wMJt56qN4wpEhitI5wU89o8ug7raiD3QkiMljubruDKxSsuB2qjwTw0I6SGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dzwjfmow; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-234fcadde3eso16542835ad.0
-        for <linux-man@vger.kernel.org>; Thu, 19 Jun 2025 15:55:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750373734; x=1750978534; darn=vger.kernel.org;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=98UDt2wpGUoAru6IrYb4GL9DMP7iskYJ7zyClmvIPsA=;
-        b=DzwjfmowZ2gcJKjumK5PMjZpMaYm61jquUi7PqtBDSamrfQAkNsWLspDWst6eeRNlp
-         aVvMRRBqJBXVAqZ4Olb9Xal4nLVdzsU+xvbZD7iDi677mVheuEwiY0PqfInzfZ/b8coR
-         mmD79NZRrKq3Mk8BtF1ve39K9n0ATHhCnn80SRZD2unaiqZbX16zy5GX7I+MSgjbhuiL
-         Me8Oa2d2JWFgIjnBIE8fIp7Sl+LkyDEfmzuP9Yv/k4vSaMfYRXJoIhoU8/59zf10f6dR
-         NVFesTbtfBRYDH4KG2BYjKjsF3xCFCdOQ7/Mw2l58IA4WuCuNuBBxOOd7bmjXifPQOiQ
-         b8bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750373734; x=1750978534;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=98UDt2wpGUoAru6IrYb4GL9DMP7iskYJ7zyClmvIPsA=;
-        b=qKjLcL7GSTVrArYGLxWUFIAebFC5/SxC/dZmAz0gpZs2PuCg5I/tm17Tik+5uMzhWB
-         Z8XJCskOj66hI2FgdOEN5mRotpfROJXth70C+JVsSSeXEvy9BoYg7UK+RZjOmTe1HLXr
-         Gpg97KU324izWzE6ZSAlEuWZP89hpsjxjzhBZg2XOSWyIoCfPqN0qJoOUvV+o23J7SOI
-         ffLPtO4RTBOXpv9MhKokgB5TR4IteEWckQwdGFTe7vn4I8nusmRr0q25Igk6P5bBfZMv
-         j70vIzx95V2YFR12PdLlw+iHPp2ue5UQld12osS48BrCiT/oxKPXWNavfVPdu++Y6ixd
-         54VA==
-X-Gm-Message-State: AOJu0YxNtkS3SmuqtkrKYxZxnh4CtKARjWMXTJBKMP6zy66k8q1pXIoy
-	geTXKJdd4iOPkJ4KM4VVfuWLaTY7bYrkPcyiPuyDSZuwAaogI202Ef3AwNyNCw==
-X-Gm-Gg: ASbGncva+9qDiiPrd4HPVaryQwjDdavsaUfOO5QkeijhqMC58tOaiFp+ERMY+JUzgJp
-	RS8vHB6w1ZVHihO+nQ/puueI+d5reEzLyKzF6+Af+Jc2bud+BQlwInXrHjCzShF1IPb1fKO7mV+
-	OznES9Lh05eiOXY6Jm8uu9C5VmZOUQkx2gVFp7H/aj3k+qlKBIKmdMuAm455rG8DOUfb8gHEPnV
-	2oiuOrI2nGHTEQ+4c/evyBlp+V6uKJw2o3wmkr3kSsGf2A+4kUhIbjn1d5s/hWXu9hJX9huucql
-	QwaSKAU8IOV4G+Ob369+RRZg6nQQAmjKu4YAiFql7Oc=
-X-Google-Smtp-Source: AGHT+IHfpGjE+U0dd0XJrKoleo4xG31bsNDXW8Fl2OzftVWGFhTHMnrthYPG33w4BST9ODFwf47pPw==
-X-Received: by 2002:a17:903:2345:b0:234:e7aa:5d9b with SMTP id d9443c01a7336-237d98721a7mr7609965ad.23.1750373734150;
-        Thu, 19 Jun 2025 15:55:34 -0700 (PDT)
-Received: from fedora ([2601:646:8081:3770::15bd])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-237d866b5b7sm3436075ad.161.2025.06.19.15.55.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Jun 2025 15:55:33 -0700 (PDT)
-From: Collin Funk <collin.funk1@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1750377664; c=relaxed/simple;
+	bh=VeKaaVBFM2wWus6JSoQMx6WkagP919UuaxKdk+rpwBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P4WAd/Ronz1RSrjDM9OXstXMJufaxUqQbR0pxD/NbwNjt6bagbZfTJeoXh+3yQ7qqlU7Qwf9VamgPNXF1bfrxykhN+V19RKrJaX5LHfXRlz0JFr0xV+hBy3afjuRZLdzQoXfKERFGeUFxmrk47E8F8wEEhD/NCRGxLy1XuQPXYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tJ5HhVaB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E68C4CEEA;
+	Fri, 20 Jun 2025 00:01:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1750377663;
+	bh=VeKaaVBFM2wWus6JSoQMx6WkagP919UuaxKdk+rpwBI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tJ5HhVaBr8ikjCJKfjhss8gamx3CUtNNSvqBT5/laC0JEP0R0PYOEM3SLb1cPndZE
+	 gywhDdJejVi6wrPN1Ksgz0WpnBM6HLLvBr/gp50gpW1N6Q3sapLLp5R0P6ChtCakhi
+	 sR6wTgGBFwk60VVof2MGrc3nsFMIgAyN4r/Ufq+nl77ZIRwxrSHVNud334gwSqlRwh
+	 KyXVJjwsH7XupEfaI9ZfrE1fTaqWgryFYELTzfMT9ZCeRIM5u3meiTcE4NKuIxjqud
+	 qEysvxABQw+JEEJaYz+nnrX8VkBPOL26lDLX3dIMdeIZsIrL+9q+t0S1aKl5f2p7Lj
+	 T5cIM0Wyb5Zwg==
+Date: Fri, 20 Jun 2025 02:00:58 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] man/man2/gettimeofday.2: Declare gettimeofday with
- [[deprecated]].
-In-Reply-To: <c5sve7xkoc6cjs62dgevxqr2snxbmyehomtqvyxeetbpu4uipg@34i47s3a5adb>
-References: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
-	<tc6b4trkpv5sow3pxgul7i3rc6bjnz7iupryyqzx7a7hxkdnou@65zruztgsi5c>
-	<877c17liqv.fsf@gmail.com>
-	<c5sve7xkoc6cjs62dgevxqr2snxbmyehomtqvyxeetbpu4uipg@34i47s3a5adb>
-Date: Thu, 19 Jun 2025 15:55:30 -0700
-Message-ID: <878qlnqr31.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+Subject: Re: [PATCH v2] statx.2: Add stx_atomic_write_unit_max_opt
+Message-ID: <ooxbbapwdjxdpcjls73q7yceglnkrasup7hljkyg2g5vai3mcq@6fm3vefehhn3>
+References: <20250619090510.229114-1-john.g.garry@oracle.com>
+ <7ret5bl5nbtolpdu2muaoeaheu6klrrfm2pvp3vkdfvfw7jxbr@zwsz2dpx7vxz>
+ <20250619213432.447iad5445dfmo4b@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t6pluh7grjfwc4ir"
+Content-Disposition: inline
+In-Reply-To: <20250619213432.447iad5445dfmo4b@illithid>
 
---=-=-=
-Content-Type: text/plain
 
-Hi Alex,
+--t6pluh7grjfwc4ir
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] statx.2: Add stx_atomic_write_unit_max_opt
+References: <20250619090510.229114-1-john.g.garry@oracle.com>
+ <7ret5bl5nbtolpdu2muaoeaheu6klrrfm2pvp3vkdfvfw7jxbr@zwsz2dpx7vxz>
+ <20250619213432.447iad5445dfmo4b@illithid>
+MIME-Version: 1.0
+In-Reply-To: <20250619213432.447iad5445dfmo4b@illithid>
 
-Alejandro Colomar <alx@kernel.org> writes:
+Hi Branden,
 
-> No, I don't like that.  The type on its own line is fine IMO, but in the
-> same line as the attribute looks weird.
->
-> To me, OK:
->
-> 	[[attr]] int foo(void);
->
-> 	[[attr]]
-> 	int foo(void);
->
-> 	[[attr]]
-> 	int
-> 	foo(void); // I use this style when writing function definitions
->
-> To me, not OK:
->
-> 	[[attr]] int
-> 	foo(void);
+On Thu, Jun 19, 2025 at 04:34:32PM -0500, G. Branden Robinson wrote:
+> [dropping all but linux-man@ since I'm addressing only a point of
+> typographical style]
+>=20
+> Hi Alex,
+>=20
+> At 2025-06-19T13:05:30+0200, Alejandro Colomar wrote:
+> > > +.I stx_atomic_write_unit_max
+> > > +and will not be less than the value in
+> > > +.I stx_atomic_write_unit_min.
+> >=20
+> > This should be IR, and the '.' separated by a space, so that the '.'
+> > is not in italics.
+>=20
+> I recommend documenting your preference in this matter as a
+> linux-man-specific style convention.
+>=20
+> To many eyes, having an italic correction between the slanted text and a
+> period looks bad when typeset.  Including to me, although I admit when
+> viewing *roff terminal output where underlining is used to substitute
+> for italics, having a comma or period underlined _also_ looks weird/bad.
+> On the bright side, more and more terminal emulators are coming to
+> support slanted faces.
+>=20
+> Further, since italics are (also) used for things that are not
+> necessarily literals, it's not necessarily the case that, grammatically,
+> the trailing punctuation should be set in a different face.
 
-Okay, good to know the conventions. Thanks.
+I never liked the american typography by which punctuation is put within
+the quotes even if it's extraneous to them, and this seems the same kind
+of thing.  I confirm I want the period to be not part of quotes and also
+not part of preceding formatting, regardless of being replaceable text
+or anything else.
 
-> Thanks!  It might be good to CC libc-alpha@ and linux-api@ in such a
-> patch.  Or maybe it's overkill.
+I guess I'll have to document this.  I'll probably forget, so please
+remind me again if I repeat this.  :)
 
-I will avoid it. I don't expect the syscalls to be removed as many old
-programs still use them. And they work fine in most programs where
-nanosecond resolution does not matter.
 
-Also, currently glibc does not mark them as
-[[deprecated]]/__attribute__ ((__deprecated__)) and I hope that it stays
-that way for the foreseeable future. Apple, for example, marks functions
-that are fine and used safely with deprecated and it causes many
-annoying warnings when building programs. Specifically, any file that
-uses sprintf or vfork will cause a warning on MacOS.
+Have a lovely day!
+Alex
 
-Anyways, submitted a v2 for patch 1/3 [1]. The other patches don't
-depend on it. Just other things I have noticed.
+P.S.:  I'm in Colorado for 3 weeks.  Are you around?  :)
 
-Collin
+--=20
+<https://www.alejandro-colomar.es/>
 
-[1] https://lore.kernel.org/linux-man/2d37d5a9251af3c1d25cf8e73e3585a9955d5772.1750373011.git.collin.funk1@gmail.com/T/#u
-
---=-=-=
+--t6pluh7grjfwc4ir
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmhUlWIACgkQjOZJGuMN
-fXUuBg/+LUtkkcvZ6YPrZOgvi1CJ+/e3qaEEwWBYqBkghKXlv2n9VG90DXFBl70c
-yeS6iw9A5fsWoVss9zNxzH1bu66zO/I9dnxnO/kQZwky2jLvWsYL2/YnRFJ/rl66
-cs+LQzUK3NXrXwwDhOq71a9TTlkVc/Sgl7rOgBeEKs5YLPBnZ9h7kelu+TH/cnib
-rbG5xbRNjqLXw6eWr0tohV7JwWhZo2EkHs/ZC9EzHCrYxMNR1vcqJbxbc5eTuVSt
-KDwosFs1el9mR5bQcb9NEKgoi0wY9zzwxrpz7K8wOn1Pqfa4GDJUjhmozZgDh9rk
-qua8hWccGgzQKqf68GoXRx0a6T70ywt9G+zTxpLxpagk2gPkVaBlaQ68UwHJGEXy
-JWzkHWet8S7ppufTLwIefDuyYlnizQsVte1h0zT1O7HdxWb360Ag9+W+nR12ObMF
-cFKahTaK1M+z+CV9zZCBmItYTIqhkUne/21TD36WVPvTYf7WuFPS7h5wkEnflYb9
-1q+d5khpeZPVR3+SWasYIcc4v41lTeTh0aDAndCmxNHY9YU8lkF3asB8cO+rMKCe
-jQFFLfMV0RzsQ76+YngmOopcgPgVXoVfpU3UQnWRz4Tdd17zemAzBSnCA614BojO
-potQOj4IKW+n92GDc7KUVK8B7an5B1ud+bD4xgLiFvFIzluZ+Hc=
-=7zfA
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhUpLkACgkQ64mZXMKQ
+wqmQiQ//UbP2GqT4koXJp0n9svSxtvsxz9ZT9EfL10yDuA2G/cnsQDp/rW1HcG6V
+X4ux5sJ3uxTLUP2qsLFaThQXl72QArZSars6ibi/r4j7sN2nrjd8j3st0i8StTtS
+6ZYJ3fJjK+M3tiN1nelBj694GGar/rm/AQCB8AJ4WTaMyCnbZe14UvpGyw0bJvEW
+BQEa/FSjoEYtIuRm/XESKLZyTuqdJQtAjKPL3YuWQqunTOq+zyBpRgR6reK151WE
+7kSJJqu8SmaGTvTWvo8kW4rAa4HOwgvHyKB+yxIim4LeH/a+81+4X158neL8ibgM
+EZ1ErbdW2zMml4ysNYsjR1hL0gyl1AgrrxGC/yLtO7VcJ47plxVGAQofF94cz0BI
+vE/naY/IDMg9oLnuzJq+Eiv5+s3qv7ClE/OwsZ44yCtoUCfVgHMbM9jcWL2Geff6
+6CeIkn1m2+fyZuUCX1IA+sv8fW8UuA3lwKXHEuCnH4afeHipNYQRhk4zRT2Y75qB
+nGwvFza503MN78whFf3wCLM2g1rqgnVSVsi0R4Gyt7XYLLprtqgkKufR2BUFuJTQ
+G594bDdGnxGyraiQ9Xdzb0L77YuUvC+RhK7oJT0oWGNn4wuMk59x8nzjcekTnsHa
+cF9CraWkqlbuWpeZfb6Vll8/GnhgyABJ03V5JQbtGFsGPC3haHc=
+=BLoF
 -----END PGP SIGNATURE-----
---=-=-=--
+
+--t6pluh7grjfwc4ir--
 
