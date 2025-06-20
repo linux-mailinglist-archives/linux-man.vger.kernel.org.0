@@ -1,296 +1,151 @@
-Return-Path: <linux-man+bounces-3195-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3196-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id E603BAE105C
-	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 02:23:03 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02A29AE1CF7
+	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 16:00:24 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 755363BE29A
-	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 00:22:39 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9A0C6169767
+	for <lists+linux-man@lfdr.de>; Fri, 20 Jun 2025 14:00:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F55E15A8;
-	Fri, 20 Jun 2025 00:22:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F325A28A418;
+	Fri, 20 Jun 2025 14:00:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="unYAcPu6"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ciZSaw+O"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF47184E
-	for <linux-man@vger.kernel.org>; Fri, 20 Jun 2025 00:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0EA28B7C6
+	for <linux-man@vger.kernel.org>; Fri, 20 Jun 2025 14:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750378979; cv=none; b=E6MsvE+7qzHoXqu2m4R5MMraCpRWcATM7V/2U9T0A4aCZqvNtdCTop4nMQAaEICIAgbruJ7lJyfYtarZUbgCoyYk7HolWamXIfZgY3JhkDz/AOj7dscCGmTuqXhnNEtguJLPvRuN6iuAWJYUku3OtYNVLmiB8fwYZOPtw+6OY2c=
+	t=1750428019; cv=none; b=ZLCjnMNo777evp7QBZU/KFSEqToCmtG3Gp39eDOP4lKidRUfOjJ06Hb2NWZKYT9w25Rkb3BC0vAfwhn5Od3E239FA4vnXcTcJAeyZIIt8v2zzGlzuYamBq1XHYIGmmMZe0irNDSd9c4yKyGL3OD9PtNSry3hrK3jKinK3iEa9qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750378979; c=relaxed/simple;
-	bh=0IzmIEC3tienTJkfkHjwvYWZ8BN4KX3y1E3JbPyvSZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MMQIqS5sGh56IcTB/F2hXmKl42b2xi3zfxgeR20xpI9/eobaL3ytxThFMviSx/9k4zI8VLZP5P1zGKifKsvnqxzI38ie0IQaODP3QQxYYBrkXXg/IZwVw9HSMeUKxP6YvLYvnCkPPPWDg4j2JKQh6M6QjAj/qm/dYL/GXRNNtKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=unYAcPu6; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB0AC4CEEA;
-	Fri, 20 Jun 2025 00:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750378978;
-	bh=0IzmIEC3tienTJkfkHjwvYWZ8BN4KX3y1E3JbPyvSZM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=unYAcPu6B2hdZu+gkhzSnxJ05vOEa3w2ZeeOJ9H9FTffatJjpr1unLmceYP+FWfWb
-	 p5eP/OTWqCTG0knnu9PjJkeUnZMKDuLg7eDESs7rBqb4q2zCSrJA1aIdYj523kbzvN
-	 A9ZbB6w7mF+sJBR6LgjdWcdX9ixVKBMaRMVaYaUTFDe8MEPVdb/UYwXoi/2590aY7U
-	 aZtA5UoKAGt3M4GYyw2nEi2O75VzF+whX77nVwZmSApoXPBlQMEGELO+PtOqRSCJ/I
-	 O/uElX/eZHoiFUhnIbisdrwJdC/KSVI7RKlMndduDp3DbSLazEeCX4OwoOyt1JalAz
-	 dyuQOd0qxqL2g==
-Date: Fri, 20 Jun 2025 02:22:49 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Rich Felker <dalias@libc.org>
-Cc: linux-man@vger.kernel.org, musl@lists.openwall.com, 
-	libc-alpha@sourceware.org, Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, 
-	bug-gnulib@gnu.org
-Subject: Re: [musl] [v2] malloc.3: Clarify realloc(3) standards conformance
-Message-ID: <5q3avwhziavvc5qgny5wbmof2hk2bf6cl2t5l5lmksuyeftewf@hfp4ifxz56qk>
-References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
- <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
- <20250619153209.GG1827@brightrain.aerifal.cx>
+	s=arc-20240116; t=1750428019; c=relaxed/simple;
+	bh=5/+vPx/nBgT7BSo54PAi+vjINR6Ir1xNox/AMqzNJg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=NhEcocWHC092L5zaAtMVKS/g0XjNYqnhhxBnByq7VnmDZADobcBFLR23/x5ARLwncVi82UMFV8sSkPDUZIBBVNKOyjnvkg0oZfZio2clBSuw6d06xwZa+ZD5DE/QgVX8DKXURzM7moZ+EvQ3BLsnYnTvgyqii4AM+j2YFTtOr2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ciZSaw+O; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-3a54690d369so1676931f8f.3
+        for <linux-man@vger.kernel.org>; Fri, 20 Jun 2025 07:00:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750428014; x=1751032814; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5/+vPx/nBgT7BSo54PAi+vjINR6Ir1xNox/AMqzNJg8=;
+        b=ciZSaw+Oz95p/w6WjmNB3cALEi4npGYGEk4dWTdXRYN7rMVfhBhzkMtWePeHzhhbUS
+         fBIedh6Fx3QqH4P9vVZlc8e4uEoKzMawkN9+sIlVDJqQnc8lWGAC1fWYFw6lwqaq1d7P
+         7ovqn5TBKKiOeqkehnDCUXYOl0z/eYLBQRZZ6pVkgwNwbZEk33SszNHwbHRcEbQcRZX5
+         FslV2PZSO4VtwgHwOEq4inthbF34iLmS+Gx53Dbwfs2BvEQvCVEMyWrakepImS3AmCMv
+         KYJ8Pgzx5PB9TE+icgFbAUlKBTFeu8GkOYrWiV1r0wJZmH8lc0GXyZhMO4Bqnsw2gunr
+         P+/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750428014; x=1751032814;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5/+vPx/nBgT7BSo54PAi+vjINR6Ir1xNox/AMqzNJg8=;
+        b=LWLOLeih8Xj+NSb53ktCNeLsBeElfPwEEr9wqFtjBvJkHoK2uzLCnxDlGfmtJI0kER
+         q8d5e8rpCK0rLW+n0oGOautH0hs5Gxw5Lg91Gr/MBsZ4/w6xmJiuxi3V0DXaihv6BuIT
+         dpQd1zHzh/OrvJmt0lzdbADyNurv+mf7LTRYuQWLJF0bqrkDBtXScKH7HfO53G15Myhq
+         EIeKQ1iZmtZv4tHnVev8gSoNv0WahwsFR8I8wk7Tm61Qf5+c8UvBvCcKHVk8UTyUqL8c
+         lBPUadZ6EZ4b+h0qzfKJnm8qEaH51158QcEMLZPJ0W2kgQLf00Ii6qWGaXFb+aAgSoTk
+         jFXg==
+X-Gm-Message-State: AOJu0Ywmw3SbtFGct3e8weDR5HzXDaQ7THCXDgJwe38N8tm5+B+a0kro
+	96Q9n4Z2CTDN9POnFEhYHCTlOUKZWRnKNS8NF7iNM9Q0WMJxQPeczkJ7QA3f+o2D
+X-Gm-Gg: ASbGncuWvjohwzrBoNiOcw+f/9LP/WrrGaa2zf81MJi8azi0ABx7Xg6cxfGT4khp8kc
+	hdEg4xPOa77N0QHbsfwxHC06Z/hqNRrILIo9Nm8PqC7LYJgfOZuLgM7bf7vcCLRwpvOYAbQsknr
+	LIsIc8IfVd5AIWPM5nFnnZKIBhxuhFRlZiH++464r9xOb7A4r4EP+7uWbyTOvXnz+PepVKRAXj3
+	1ieL1tGmyo+Q2AjlDzU4BKMYxZD6KN2GVi+D1hxhCKxQ7F88IxK21yw9kbrjhk9tf5SE/QZPE07
+	vKMNaLhaPHp1XVkaEk2C/oJTgcqQBwi0r5cWM7LJcvPPqZfcZYEIlpNVYZ1ynN4=
+X-Google-Smtp-Source: AGHT+IFuDikhboIiaYMvaptiCaVLWgHTd7PytIpVkwPBirQs+MehfXaG5BOis3agxS8fc6qHJ6mb4Q==
+X-Received: by 2002:a5d:6f1d:0:b0:3a4:cfbf:5199 with SMTP id ffacd0b85a97d-3a6d128a528mr2493432f8f.9.1750428014205;
+        Fri, 20 Jun 2025 07:00:14 -0700 (PDT)
+Received: from localhost ([188.27.170.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4535ead2a27sm59854095e9.31.2025.06.20.07.00.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Jun 2025 07:00:13 -0700 (PDT)
+Date: Fri, 20 Jun 2025 17:00:11 +0300
+From: Dacian Pascu <pascu.dacian@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: [PATCH v2] man5/elf.5: clarify string table reference for SHT_SYMTAB
+ sections
+Message-ID: <78e41dade449bafddfb730b39226f8d9cb3fefdb.1750427945.git.pascu.dacian@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tep3rebhc76phyv4"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="kmxfzmg3zv5vyhs3"
 Content-Disposition: inline
-In-Reply-To: <20250619153209.GG1827@brightrain.aerifal.cx>
 
 
---tep3rebhc76phyv4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--kmxfzmg3zv5vyhs3
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Rich Felker <dalias@libc.org>
-Cc: linux-man@vger.kernel.org, musl@lists.openwall.com, 
-	libc-alpha@sourceware.org, Paul Eggert <eggert@cs.ucla.edu>, Bruno Haible <bruno@clisp.org>, 
-	bug-gnulib@gnu.org
-Subject: Re: [musl] [v2] malloc.3: Clarify realloc(3) standards conformance
-References: <hndkzd4b5ajt2yvrflar36ddfdftc2irr5enprn5737spwarwf@mhs3xde6kruv>
- <3cx3oylv6hid2eunibcre7c5oqncuxkrk25x2plme2fqzmdpsf@sh7tmopzzgd5>
- <20250619153209.GG1827@brightrain.aerifal.cx>
+Subject: [PATCH v2] man5/elf.5: clarify string table reference for SHT_SYMTAB
+ sections
 MIME-Version: 1.0
-In-Reply-To: <20250619153209.GG1827@brightrain.aerifal.cx>
 
-Hi Rich,
+Add clarification that for SHT_SYMTAB sections, the associated string
+table section index can be found in the sh_link member, following the
+same pattern documented for section header string tables.
 
-On Thu, Jun 19, 2025 at 11:32:09AM -0400, Rich Felker wrote:
-> On Thu, Jun 19, 2025 at 03:57:47PM +0200, Alejandro Colomar wrote:
-> > Hi,
-> >=20
-> > Here's a revision of this change, addressing some concerns.  I'm only
-> > showing the formatted changes, since the patch itself is unimportant.
-> >=20
-> >=20
-> > Have a lovely day!
-> > Alex
-> >=20
-> > ---
-> > $ MANWIDTH=3D72 diffman-git HEAD
-> > --- HEAD^:man/man3/malloc.3
-> > +++ HEAD:man/man3/malloc.3
-> > @@ -126,15 +126,32 @@
-> >         =E2=94=82 realloc()                          =E2=94=82         =
-      =E2=94=82         =E2=94=82
-> >         =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
-> > =20
-> > +VERSIONS
-> > +       The behavior of realloc(p, 0) in glibc doesn=E2=80=99t conform =
-to any of
-> > +       C99, C11, POSIX.1=E2=80=902001, POSIX.1=E2=80=902008, POSIX.1=
-=E2=80=902017, or
-> > +       POSIX.1=E2=80=902024.  The C17 specification was changed to mak=
-e it con=E2=80=90
-> > +       forming, but that specification was broken =E2=80=94it is impos=
-sible to
-> > +       write code that works portably=E2=80=94, and C23 changed it aga=
-in to
-> > +       make this undefined behavior, acknowledging that the C17 speci=
-=E2=80=90
-> > +       fication was broad enough that undefined behavior wasn=E2=80=99=
-t worse
-> > +       than that.
->=20
-> This is still full of your polemics. The word "broken" generally
-> belongs in personal blog posts, not a manual that's supposed to be
-> documenting the facts of an interface.
+This was discovered while writing an ELF parser, where the sh_link
+field is needed to locate the string table for symbol name lookups
+in SHT_SYMTAB sections.
 
-Hmmm, agree.  I've changed the wording:
+Signed-off-by: Dacian Pascu <pascu.dacian@gmail.com>
+Message-Id: <7cab0feb03d8256490b107867c45c78cea121260.1748616470.git.pascu.=
+dacian@gmail.com>
+---
+ man/man5/elf.5 | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-@@ -252,8 +265,10 @@ .SH VERSIONS
- POSIX.1-2017,
- or POSIX.1-2024.
- The C17 specification was changed to make it conforming,
--but that specification was broken
--\[em]it is impossible to write code that works portably\[em],
-+but that specification made it
-+impossible to write code that
-+reliably determines if the input pointer is freed after
-+.IR realloc(p,\~0) ,
- and C23 changed it again to make this undefined behavior,
- acknowledging that the C17 specification was broad enough that
- undefined behavior wasn't worse than that.
-
-
-> In fact it is very possible to
-> write code which works portably: by refraining from passing 0.
-
-But that entire paragraph is talking about the impossibility to call
-realloc(p,0) portably.  Of course if you call realloc(p,n?:1) it works,
-because you've avoided the case altogether.
-
-> Regardless of what action is taken here on the standards or
-> documentation, that's already been necessary for a long time, and will
-> continue to be necessary for a long time, because of the existence of
-> implementations on which passing 0 has inconsistent results.
->=20
-> I would suggest something more like:
->=20
->       The behavior of realloc(p, 0) in glibc doesn=E2=80=99t conform to a=
-ny of
->       C99, C11, POSIX.1=E2=80=902001, POSIX.1=E2=80=902008, POSIX.1=E2=80=
-=902017, or
->       POSIX.1=E2=80=902024. C11 was amended in 2017 to allow the glibc
->       behavior [insert description of exactly how that was done, I
->       forget] and C23 followed up by making the behavior explicitly
->       undefined.
->=20
-> In particular, this text is purely matters of fact, no statement of
-> your or my preferred future outcome or disagreement with what
-> happened.
->=20
-> I would also move it to CONFORMANCE rather than VERSIONS since
-> VERSIONS is normally about differences between versions of the
-> implementation being described, not conformance requirement
-> differences between versions of the standard.
-
-Agree.  I've moved it to STANDARDS.
-
-> > +BUGS
-> > +       Programmers would naturally expect that realloc(p, size) is con=
-=E2=80=90
-> > +       sistent with free(p) and malloc(size).  This is not explicitly
-> > +       required by POSIX.1=E2=80=902024 or C11, but all conforming imp=
-lementa=E2=80=90
-> > +       tions are consistent with that.
->=20
-> This has not historically been a conformance requirement and it is not
-> one now. Because the behavior is undefined, arbitrarily-inconsistent
-> behavior is conforming.
-
-This section is about bugs, not about standards.  The expectation of
-programmers is what matters.  Since programmers do
-
-	new =3D realloc(old, size);
-	if (new =3D=3D NULL)
-		goto fail;
-
-the glibc implementation is causing bugs in user programs, and thus has
-a bogus implementation.  Especially, when it deviates from common
-historical implementations, which supported the idiom shown above.
-
-This is enough to claim it's a bug in glibc.
-
-> It's possible to read this as not stating a conformance requirement,
-> just a matter of fact that all implementations which conform(ed to
-> past versions of the standard) happened to also be consistent here.
-
-Yes.
-
-> But in that case I would very much prefer if you make it clear by just
-> saying that they're consistent on [some explicit list or description
-> of the class of implementations you've reviewed to have this
-> property].
-
-I don't fully understand this suggestion.  Please clarify.
-
->=20
-> > +       The glibc implementation of realloc() is not consistent with
-> > +       that, and as a consequence, it is dangerous to call
-> > +       realloc(p, 0) in glibc.
->=20
-> It's not dangerous if you know what it's doing. Rather it's
-> non-portable. It does something predictable that you can use safely,
-> but the way you use it safely is different from other, more consistent
-> implementations in a way that can be a footgun.
-
-It is dangerous, because programmers don't expect the glibc behavior.
-
-Please show me a piece of code calling realloc(3) from glibc that does
-something like this:
-
-	new =3D realloc(old, size);
-	if (new =3D=3D NULL) {
-		if (errno =3D=3D ENOMEM)
-			free(old);
-		goto fail;
-	}
-
-	free(new);
-
-It is only unnecessary if you know for sure 'size' won't ever be 0, but
-I bet there's code out there where size might be 0 and they're not doing
-this.  If they're freeing 'old' on NULL without checking for ENOMEM,
-they're causing a double-free.  If they're using old on NULL without
-checking for ENOMEM, they're causing a use-after-free.
-
-That *is* dangerous.
-
->=20
-> > +       A trivial workaround for glibc is calling it as
-> > +       realloc(p, size?size:1).
->=20
-> It should probably be noted that use of such a workaround sacrifices
-> the ability to diagnose logic errors (via sanitizers, valgrind, etc.)
-> where 1 byte is written to allocated memory that was not intended to
-> have any accessible bytes of storage.
-
-I would note it for n+1, but since n?n:1 would only hide them for the
-case where size is 0, I find it less problematic.  I think adding such
-text might put off programmers from using this, which would be
-counterproductive.  So, I hope they realize about it without writing it.
-
-
-Have a lovely day!
-Alex
-
+diff --git a/man/man5/elf.5 b/man/man5/elf.5
+index aacbb558f..c7b9a7cf8 100644
+--- a/man/man5/elf.5
++++ b/man/man5/elf.5
+@@ -942,6 +942,10 @@ .SS Section header (Shdr)
+ also contain a
+ .B SHT_DYNSYM
+ section.
++The index of the associated string table section
++can be found in the
++.I sh_link
++member.
+ .TP
+ .B SHT_STRTAB
+ This section holds a string table.
 --=20
-<https://www.alejandro-colomar.es/>
+2.34.1
 
---tep3rebhc76phyv4
+
+--kmxfzmg3zv5vyhs3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhUqdIACgkQ64mZXMKQ
-wqmp7BAAlzEiTWzFPtsmGxz9oIPXA9ZE9UZvq75fMNa5NX3FIApCaoHWB3BN0rUZ
-xXlq/UljVBaqt+US2bE9R4/Gn7bWM1mrL09yTgHwWgxVYVAT+Il7OJc0UyVDpH/G
-mzv7TF9IQw5KvNb233N5yCcZ9LOtN8spXd4TJpFLRb8l4Zuw5xlysru8joG9lGlE
-o9D0t1jwM57n/7YtaTGW5s4IR2y0lpKojKB14Gwf8Ri2c5Ff+l4b5PseRwAjlLss
-abDlP5Y8o+TF7XmqDNM+O//F3HDf9HXuiWmOThfbQ7+OlhOy98QFE9OX3gYcT+n5
-OMlD5xtTh3ET91WjiJ4wCis/ti3lO6oZcy/oJz349+0kocjQd/9g2RK5k4cKkog8
-HJsRO2T7+USfoX9acV4Yh4xhyxysMeNCXMcA9b0u8zJnUMQMysmBXWhjQm0P9hAE
-YZnxGhb0MwAs8h8kWmip0xxBwuBQUFfyQYpHBDncUQMSsKHTrYjZr+yE1mgXxiP+
-EthJo+7evSbFXM8/28VMjuOoEjHNqSsowf58OFIS11roJD/JM/L0qH6uwixAh1It
-bMI/yXQrZdMfJQeYln9WvEAutSMQPXZSX4nXKGBhtBerQnJjBZWP8WJ5nyD//rfH
-zSfj02z5PhPes/PV43R1sGVrv8H6G+/xNv1zaDb7Hl+cuzA4tVg=
-=3qLg
+iQGzBAABCAAdFiEEJ0wpbBnaFZnrChkPqiPz/mq/jw0FAmhVaWsACgkQqiPz/mq/
+jw3Z7wv/Yw8KdR8IBZsYkUJHbaciXPuNlO9VgI4wzQZu2QbYHM95lZWBQSviwWYZ
+02t8tOGyMjy3A/lgFHx59G8pItn3a/0/b1yO7BYbrcd6bmpxVEaOQ8L3t0PGpzja
+mPF5IG60Hkn/WyXLIVaSen2aZguQ1E0Q2bj26Z/R2YLkzQYbLn87BQaQEUgJ0YrI
+s8WBr9//TwqlxyeXv54EAeSo/ly6SuCizvyNeesxM/QUbn/RfyVOlg274VLB5dBg
+rj5q6615r9MnRq9SysEv5opR6rE2DnUBR8IIFBd2d3Uxmlo2zDFoo5te4T4jjurh
+PYXUiOWPJse4OoZSVZYTu8bxqNGRMkgT5uMGgMdYRmZePgRJxPNPwRUliNHmD9wS
+ZCvXSXeq/BepAdxqo0katMN3II8VFfPMpUhhIZ+/1kztAGtnNnhpsZMgaVQ5iXoj
+ZwGXj2xE4MKyCnW4WsEfoTgaEXEJVwufT+/CNbFCzOGtAeMIVFrxNhpLkaO7tocF
+9KAwzzfD
+=lKHa
 -----END PGP SIGNATURE-----
 
---tep3rebhc76phyv4--
+--kmxfzmg3zv5vyhs3--
 
