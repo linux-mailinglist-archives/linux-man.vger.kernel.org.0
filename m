@@ -1,54 +1,55 @@
-Return-Path: <linux-man+bounces-3200-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3201-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6109BAE332F
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jun 2025 02:53:15 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 656DBAE3331
+	for <lists+linux-man@lfdr.de>; Mon, 23 Jun 2025 02:56:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8CA553AF8DA
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jun 2025 00:52:50 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F300516BC0C
+	for <lists+linux-man@lfdr.de>; Mon, 23 Jun 2025 00:56:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C52B4409;
-	Mon, 23 Jun 2025 00:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45D8453BE;
+	Mon, 23 Jun 2025 00:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnMDFJrR"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFJC0H2C"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D2C1853
-	for <linux-man@vger.kernel.org>; Mon, 23 Jun 2025 00:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92AE1853;
+	Mon, 23 Jun 2025 00:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750639991; cv=none; b=rYYtnD1Itg9raHQJkQnPhm8CsWQu2t/84sayI0l2SYhVw6ngia1wjzParRaD0xbOPmdV9ufI2//2vhBUa9GWfAroydjdUOZpApf056NgC26u4oZtbxUaRaZJ9P8cmKtBOxiZ4Ok23YEJxdB1s6NidhP/GkYe5VAdGPPds44/nWU=
+	t=1750640160; cv=none; b=c2xObI8/Fl1lgKEcAVtpP626cKoQFIWMUU4ASqtBWQxdJbj1TK5vqh3kPWjUeVc9IfgoFnoXtORKTxHz3DVsqyVNWeISd+yCAIbR5hxwPn33oaWZPZJuQ2x54pEJpsq1SVodoefX/W+/7YFeWrva2VVsPOzyv4KU3Ree6Ix8FFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750639991; c=relaxed/simple;
-	bh=WTHDF6IbW0S+UPeRffCQZ+kN7Bl6D6gkHgGbwheqtY4=;
+	s=arc-20240116; t=1750640160; c=relaxed/simple;
+	bh=vcABYOkqq14g+eIUIf5QSuzIa5WGou1ACb34ZXbcWMU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MEIiKnx57YrtVe/yocbv0xjtgQ2YK2A04iTWInThF6gWkiconHF0prEuQDcyXCcsh+ckkvugyUjzesA5KG/l13Y2tJod+gO+pcozOGJWMHOL8hRs86KKnpzEvlRhCty7mKlJxeG7tuarmcXpUlW3hIuTFTkhzSAHQWABo6F5p4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnMDFJrR; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF36C4CEE3;
-	Mon, 23 Jun 2025 00:53:08 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=TSnCG6h12HlBC4Gfk0doQsXJZyKcvNsh7hYORGWAslKXEumap2Px+IOpb63G3s0fozaFta7NA18jarfMXVQhbd8h+cnv4FpEyA0UnamU0Yrk2XlKJ/HEsJN9r3GhxiVBlc6iGUGdHZq2rOEcoFPO7BmJBk2tMjb+Ha2iva46/N8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFJC0H2C; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334A7C4CEE3;
+	Mon, 23 Jun 2025 00:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750639990;
-	bh=WTHDF6IbW0S+UPeRffCQZ+kN7Bl6D6gkHgGbwheqtY4=;
+	s=k20201202; t=1750640159;
+	bh=vcABYOkqq14g+eIUIf5QSuzIa5WGou1ACb34ZXbcWMU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CnMDFJrRMNtg7EKvyhyEYFJZXcIBZBiwdJJoRyvBnUbeXFgI/ODUelTWstGuVj02B
-	 OsDm+fT6ViPRPjLEx920vw/5fwZ6D2Qekx6X7ukEAbsdPMttGkPcSB9MYl8FeRz0Ah
-	 SWDoHYOsFe/qBPgdTads7+qYQiZHojvtArWYebPQOdPNGMccf18Qs/9PaVCtHSpufl
-	 XpaoW0R0YEFTqIr/EPu6Cus4OSWeLP2NbiJKFqodvshdKFReDKJ6O4IIAovI3RjJH+
-	 bVI5cabU5MPoyMsCxMzU+M2ZGnx6YiIth2fTC7KhPC9PoBF5zxoi3uUJBECXjgyZlL
-	 pAT63KHR2Pg4g==
-Date: Mon, 23 Jun 2025 02:53:03 +0200
+	b=OFJC0H2Cd1jWpt4llw/3kqfljf/eymIjMOd6+6Sltgh7EyStjfN6KD7HKp6W3r14M
+	 HbUSj2uf75tNXzTvCivdLmxfUTINteTLaP+iWpO3FY2MH61IA7SGWwoeyvWAkvxeBq
+	 ZN6sYuP4lUe0bYKt9WZ05PkOfwVxmOa8uHn0JNIuFeVd+FFF3TLJ/phx8nX6e64TJk
+	 j9xS/eDLjYHxYOOSH06WaUUy2eibHTywlazrSeoTLznhpbeKGvx6/R2Qxn7hB4prN2
+	 CCGmSQOVhPzREWaRe+K5ng0IiRtqi4zbe+KcPN3S0j8/0+prl505srVzCDBIGTmDE0
+	 h//o+7r/08dlQ==
+Date: Mon, 23 Jun 2025 02:55:50 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] man/man3/ftime.3: Correct POSIX standards in HISTORY.
-Message-ID: <ah3tltckbeelmrxwfmjkctjzolybkb7uqhvrvirm4d3oxupmww@7eiekyd6tq23>
-References: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
- <830f11e40cabf6a3c77d2d12273fd8a399ba5ff6.1750306917.git.collin.funk1@gmail.com>
+To: John Garry <john.g.garry@oracle.com>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, hch@lst.de, 
+	djwong@kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] statx.2: properly align stx_dio_read_offset_align
+Message-ID: <kup2hb4ffghnxc3ceed5qtf4wqgizmjmaika72fhgv55gum25j@fgjqslihhopw>
+References: <20250619154455.321848-1-john.g.garry@oracle.com>
+ <20250619154455.321848-2-john.g.garry@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,108 +57,83 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sye4ifi2e6u6e5t7"
+	protocol="application/pgp-signature"; boundary="x3pfq6gjwi44iubs"
 Content-Disposition: inline
-In-Reply-To: <830f11e40cabf6a3c77d2d12273fd8a399ba5ff6.1750306917.git.collin.funk1@gmail.com>
+In-Reply-To: <20250619154455.321848-2-john.g.garry@oracle.com>
 
 
---sye4ifi2e6u6e5t7
+--x3pfq6gjwi44iubs
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] man/man3/ftime.3: Correct POSIX standards in HISTORY.
-References: <c9251b002761c8c5756780432e5fccd2bc58e67b.1750306917.git.collin.funk1@gmail.com>
- <830f11e40cabf6a3c77d2d12273fd8a399ba5ff6.1750306917.git.collin.funk1@gmail.com>
+To: John Garry <john.g.garry@oracle.com>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, hch@lst.de, 
+	djwong@kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] statx.2: properly align stx_dio_read_offset_align
+References: <20250619154455.321848-1-john.g.garry@oracle.com>
+ <20250619154455.321848-2-john.g.garry@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <830f11e40cabf6a3c77d2d12273fd8a399ba5ff6.1750306917.git.collin.funk1@gmail.com>
+In-Reply-To: <20250619154455.321848-2-john.g.garry@oracle.com>
 
-Hi Collin,
+Hi John,
 
-On Wed, Jun 18, 2025 at 09:22:11PM -0700, Collin Funk wrote:
-> This function was incorrectly marked as removed in POSIX-1.2001, but
-> that standard contained this function marked as LEGACY. It was then
-> removed in POSIX.1-2008.
+On Thu, Jun 19, 2025 at 03:44:54PM +0000, John Garry wrote:
+> Align this member in struct statx with the members above it.
+>=20
+> Signed-off-by: John Garry <john.g.garry@oracle.com>
 
-The old page didn't say it was removed in POSIX.1-2001.
-
-	$ man -w ftime \
-	| xargs mansect HISTORY \
-	| MANWIDTH=3D64 man /dev/stdin \
-	| cat;
-	ftime(3)            Library Functions Manual           ftime(3)
-
-	HISTORY
-	       Removed  in  glibc 2.33.  4.2BSD, POSIX.1=E2=80=902001.  Removed
-	       in POSIX.1=E2=80=902008.
-
-	       This function is obsolete.  Don=E2=80=99t use it.  If  the  time
-	       in  seconds  suffices,  time(2)  can be used; gettimeof=E2=80=90
-	       day(2)  gives   microseconds;   clock_gettime(2)   gives
-	       nanoseconds but is not as widely available.
-
-	Linux man=E2=80=90pages 6.14=E2=80=9018... 2025=E2=80=9005=E2=80=9017     =
-             ftime(3)
-
-However, I agree that the order of the text could be confusing.  I like
-yours better, but how about moving 4.2BSD to the begining to improve it
-further?
+Thanks!  I've applied the patch.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D6006fe8bf74e400e060ff70f62ac03d911af13c5>
 
 
-Cheers,
+Have a lovely day!
 Alex
 
->=20
-> Signed-off-by: Collin Funk <collin.funk1@gmail.com>
 > ---
->  man/man3/ftime.3 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  man/man2/statx.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/man/man3/ftime.3 b/man/man3/ftime.3
-> index 8ae808ec2..5cdaf3e70 100644
-> --- a/man/man3/ftime.3
-> +++ b/man/man3/ftime.3
-> @@ -83,9 +83,10 @@ .SH ATTRIBUTES
->  .SH STANDARDS
->  None.
->  .SH HISTORY
-> +Marked as LEGACY in POSIX.1-2001;
-> +removed in POSIX.1-2008.
->  Removed in glibc 2.33.
-> -4.2BSD, POSIX.1-2001.
-> -Removed in POSIX.1-2008.
-> +4.2BSD.
->  .P
->  This function is obsolete.
->  Don't use it.
+> diff --git a/man/man2/statx.2 b/man/man2/statx.2
+> index ef7dbbcf9..273d80711 100644
+> --- a/man/man2/statx.2
+> +++ b/man/man2/statx.2
+> @@ -73,7 +73,7 @@ struct statx {
+>      __u32 stx_atomic_write_segments_max;
+>  \&
+>      /* File offset alignment for direct I/O reads */
+> -    __u32   stx_dio_read_offset_align;
+> +    __u32 stx_dio_read_offset_align;
+>  };
+>  .EE
+>  .in
 > --=20
-> 2.49.0
+> 2.31.1
 >=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---sye4ifi2e6u6e5t7
+--x3pfq6gjwi44iubs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhYpW8ACgkQ64mZXMKQ
-wqn9Cg/6AikKpbXuDTu/V7GU9sBWxzg9MQ0Mx0jd5+F8Z/9tkktOZEeJZB74YIxI
-3+951cteiCifX/85MFc0/OM0ao9aZjH6vtWtTLId3FqVdTvsVD6MS3HBmBBBBLrP
-lNcXfX56SwxvfOfK6KK3nu+a8l40KHebq+zjilJ6sgrvOXv6QDQZnQ5yjH1bHaT+
-DYLdYhI2I1kV6Tx8ss5fsG6AQ3mdiO9+rqx+8nNZUm54Ama5RrBtFOhfMC/EgRbn
-MuyDTo3d5a650YlRA1KCG4w1kqrOcx3HpBrR9HHuYbfJlsWTS4sfCriHluiYLR0A
-Vd91DPbpPpJRwG/+ysPt8mqPEVUlioNEA+ZdeZVWUHEQKAltRMq5HOdxFH7yF9tG
-xa/A30xbi3Iua/ll3SqmBMuMEVu4lvwLZT1vad4D8/nF+Ua6fEtzMI5kA+WtTVbr
-W6ghcNElB0cKHw2aZI7shV/YiWXt+qeQbQE/mV4lmWxU7VWfAkGr/BbZYhK05KS5
-XM2L8I/lLSgbCt6IxV1co+BhUxGeGynTsVAbelCTOC5tXmbAt1rUVAbIQ5ebwFji
-KvSF+DZN4mQJ+f3GbJxCkYw6Jsf4FvOjm/bv/OLs9w848YdelASJZ1JqeLNw/Dc6
-SjdWcYdRWykUP7jPCJ+Psv8o3RhGzzGlONH981wqqRUPX0RSNGw=
-=SGP2
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhYphUACgkQ64mZXMKQ
+wqkFthAAq2tmV1O+v/i0SGWBkOuvAIyAJJrCosjtR9WLmtByFV8veF4ZMYHIz9P+
+3+V/1hovEdNTkx48JitK4Ye0RoGEmU4/lgpDFokBqN0zSVNfOJenayAgiTS+24WY
+FMFKUUeO6ZT60h/8SpRDgq1njlPjyq8/19yhqZVuwr3nb+lEzDCHIDrzyCxPd/Px
+T9IGJ66pNnWR2UryFK+p32g3H8Rd9qebXVgS2AON1lCHlAAut/7LEEpBfCzv+hcS
+Dh9RtoEwOe5ix/vKY2Sx5ZR1K8IB9TzoxcmwX9bVCfOIRochX1P/C84v2IVyKtXj
+9mHe9lDszZ0jamjJaAZZR88pXO3QG9y3l8NZuVJoFgHfudCJ5EtEoy1iD0YJCfj8
+fO4AaIP4xSfHXH4YdDY/0n+ag3tp5QfclK2q3eIjrUXmScQZap5VkuHds1925ZKU
+9ac55J1v+mGV0wQkMQypJJQqkuYWTh3QCmi6kj/aGqczMdJQxaIx59fKdmzIqzLe
+x6mXxPaY1GF8kHl/+X74zejZh379aYUigivHgiBZceCHyziZKT9VNM+veLeq8QkD
+qOx9zg1k6gcJ3J1EoYjum5TJgpOWJBq1sfTxGZP3aC3hkvFRkN1poD2l3YAe0n/r
+4ZAJFHJcSJjsq5T/mItL4u0p7dDDDo4XiilFWwnWOFJI7MkDThg=
+=fmra
 -----END PGP SIGNATURE-----
 
---sye4ifi2e6u6e5t7--
+--x3pfq6gjwi44iubs--
 
