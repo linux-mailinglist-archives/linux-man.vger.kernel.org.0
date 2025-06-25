@@ -1,215 +1,140 @@
-Return-Path: <linux-man+bounces-3209-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3210-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E36AE4737
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jun 2025 16:45:09 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF61FAE75A2
+	for <lists+linux-man@lfdr.de>; Wed, 25 Jun 2025 06:03:43 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E6CBB445A9E
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jun 2025 14:36:57 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CC5BB3BFCC4
+	for <lists+linux-man@lfdr.de>; Wed, 25 Jun 2025 04:03:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 470842609D5;
-	Mon, 23 Jun 2025 14:37:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F80D1D5160;
+	Wed, 25 Jun 2025 04:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HWSFXAPJ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgQ1VBlK"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072432609C7
-	for <linux-man@vger.kernel.org>; Mon, 23 Jun 2025 14:37:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F35DAD58
+	for <linux-man@vger.kernel.org>; Wed, 25 Jun 2025 04:03:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750689425; cv=none; b=gJNspeoQZvlUuUcfhs0qgW12H7kqONfO8uvSolifZFTH2LhSAA97jYRxvjeyTO96cG/eTlwsrJN6AvWtFAuLHwAZhfNZMHAOaByyultMXIORIWlK3edOAwBkOg9dMOVzs8I+Ki1AgbnLT8LQROKMMZ5mmmfwvaaQutKzzeUnD/o=
+	t=1750824219; cv=none; b=HULzqCAJi+HkJhHXJB2dBcyo9ZzrQGMlVg5bLqe7ARjvVUEXr2djQNy+2oRf7/WXtYYwk99jiYWsUBfdnAyRqADhs0ej1sh2hYxbBmhzI2Pk6dAuZqCdavyz88gyNMKasLAaDKVSA5UMBwg0UJ+7bOLkBXSJ+osmmA7L/swrgUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750689425; c=relaxed/simple;
-	bh=edTwGCDIbiLQ3kRl0TYCKditkoKsaH+unqfLQrAYdZ8=;
+	s=arc-20240116; t=1750824219; c=relaxed/simple;
+	bh=PevUfFr0WZpl8UOicVGHJdgFoEimNyCrUeiosT1X7/k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cOImKR6NTTkS0QKZhQQm8eOUJkAixIP24AH78ZsoX7Zct1Mrd1g9/oravAQXECKAQF1qcnSCsGNJyZT3wpqPFpoqYcldclvqddFjQKu0mGuQj9sLO6iSlkNqkjG1ARBUe2Pw41lhndekaVv00LwWKpIArUIdDoyAATVnBYa/mD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HWSFXAPJ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D471C4CEEA;
-	Mon, 23 Jun 2025 14:36:59 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tb2zrMv/ZdUNPaRhMjnXGkMpN7TC2L9TB0KBfg7NUxwKejh0T/TwxdMF0uUXJaA5bPddV1iaKML9dt67DfgNCX/HwB/s0rhJPkplcCEYLjtmWx34s5rVCe/an5pvwS8QoO7ZR7hwFXD+A8fb8l9UxenSQb9EEIWfih3AB6EFZy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GgQ1VBlK; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF29FC4CEEA;
+	Wed, 25 Jun 2025 04:03:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750689424;
-	bh=edTwGCDIbiLQ3kRl0TYCKditkoKsaH+unqfLQrAYdZ8=;
+	s=k20201202; t=1750824215;
+	bh=PevUfFr0WZpl8UOicVGHJdgFoEimNyCrUeiosT1X7/k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HWSFXAPJoxu6QJikPz+pOBfWreorWZnG1J6GtLH9x2xS1VHAdd1fqAGy0PR0DpeKG
-	 W7KCC0eeur7B5/65wqg6sw6hMa2s+0eGrtadX3y5FuX9CV9Y9tiQbIO73JNBSDtq4F
-	 L60mac5Y0mLMrpY10JC7RoGGBQnQGTN6ZyQJ3CKZDu+h+pRntyvmnBKfeLYskVjlD7
-	 WgYzIMmlkDRbqFhgy59sSh9kMlRyVlRrZUtozgCILmnwoBYiJ/Yi7j27blxSJEdteF
-	 xYIj19O5W6s3bXVNMqo41mHsUytOusTdW9/HX27hrll/5z0yHG/g3ulVzTMl/qZplG
-	 rbG+phrG4OpAQ==
-Date: Mon, 23 Jun 2025 16:36:54 +0200
+	b=GgQ1VBlKkv1eFy4vayByFzwywR6P/u5y581UHauPI+TLQno7OFc5wcoJdyq/aaqxP
+	 zIVqvTMaw3fJPq5tciWSyPsoS7fxyHkA+S/6DKgUUx1kols7bo/MV+sXoDZiIEGddz
+	 VSedmLSGU7vgSxBAWuSpbGXyV1+IoD4MhYo0RPN6X9BA/K0g2Hw5wRh7TbGmxTmRb9
+	 DvQFNguRNbxdxZ0JCEslLOaLw5z78e1wMxNK/IgUvwZKFdkhquHG2G4i/aTw/uFd6y
+	 M8mygyuNB4tntNJdR8e8qUbRV6NN9iaWN0RL+sUVmNmiZyWvYJxd9kYd6mrNZbh0MV
+	 ECejQ+7kRx5mg==
+Date: Wed, 25 Jun 2025 06:03:28 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, aaron@aaronballman.com, 
-	gcc@gcc.gnu.org
-Subject: [PATCH v2] man/man3attr/gnu::aligned.3: Add page
-Message-ID: <f5e12aca5900e46798f60749ea0c31b0ac18b74a.1750689191.git.alx@kernel.org>
-X-Mailer: git-send-email 2.49.0
-References: <17e951d8dbf4c6a40bedb4f0831c7193aa726dc4.1750643425.git.alx@kernel.org>
+To: Collin Funk <collin.funk1@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man3/ftime.3: Reorder and clarify STANDARDS.
+Message-ID: <yppwfmtnbv5agqrpbmwp6xlts2q3ppheaqxscxrwbxh66ub2ap@wy2zdsb25jhl>
+References: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="doujpgg7ukza34un"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <17e951d8dbf4c6a40bedb4f0831c7193aa726dc4.1750643425.git.alx@kernel.org>
+In-Reply-To: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
 
-Hi!
+--doujpgg7ukza34un
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Collin Funk <collin.funk1@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man3/ftime.3: Reorder and clarify STANDARDS.
+References: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
 
-Here's a second revision, with some slight improvements, plus more
-detailed HISTORY, thanks to Aaron's feedback.
+Hi Collin,
 
-(I took "always" as meaning since 1.0 --assuming 1.0 existed and was
- called like that--.)
+On Sun, Jun 22, 2025 at 07:44:56PM -0700, Collin Funk wrote:
+> Put 4.2BSD first and mention that POSIX.1-2001 marked this function as
+> LEGACY.
+>=20
+> Signed-off-by: Collin Funk <collin.funk1@gmail.com>
 
-The formatted page looks like this:
+Thanks!  I've applied the patch.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D4a039a8c029da3a5abd7be04abb21867403a380f>
 
-	$ MANWIDTH=64 diffman-git HEAD 2>/dev/null
-	--- HEAD^:man/man3attr/gnu::aligned.3
-	+++ HEAD:man/man3attr/gnu::aligned.3
-	@@ -0,0 +1,48 @@
-	+gnu::aligned(3attr)                         gnu::aligned(3attr)
-	+
-	+NAME
-	+       gnu::aligned - set alignment of an object
-	+
-	+SYNOPSIS
-	+       [[gnu::aligned(alignment)]]
-	+       [[gnu::aligned]]
-	+
-	+DESCRIPTION
-	+       This attribute can be applied to a type or a variable,
-	+       and sets its alignment in bytes.
-	+
-	+       If the alignment is not specified, the maximum alignment
-	+       is used.  This is equivalent to
-	+
-	+           [[gnu::aligned(alignof(max_align_t))]]
-	+
-	+VERSIONS
-	+       Different dialects provide similar attributes.
-	+
-	+           __attribute__((aligned(alignment)))  // GNU
-	+           __declspec(align(alignment))         // MSVC
-	+
-	+       There’s also the alignas() type specifier since C23.
-	+
-	+STANDARDS
-	+       GNU.
-	+
-	+HISTORY
-	+       [[gnu::aligned(alignment)]]
-	+              gcc X.X, clang 11, clang++ 2.8.0.
-	+
-	+       __attribute__((aligned(alignment)))
-	+              gcc Y.Y, clang 1.0, clang++ 1.0.
-	+
-	+       __declspec(align(alignment))
-	+              clang Z.Z, clang++ A.A.
-	+
-	+CAVEATS
-	+       This attribute can increase the natural alignment of a
-	+       type, but it can’t decrease it.
-	+
-	+       The linker may limit the maximum alignment that can be
-	+       applied.
-	+
-	+EXAMPLES
-	+Linux man‐pages (unreleased) (date)         gnu::aligned(3attr)
 
-Have a lovely day!
+Have a lovely night!
 Alex
 
+> ---
+>  man/man3/ftime.3 | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/man/man3/ftime.3 b/man/man3/ftime.3
+> index 8ae808ec2..11ebeceea 100644
+> --- a/man/man3/ftime.3
+> +++ b/man/man3/ftime.3
+> @@ -83,9 +83,10 @@ .SH ATTRIBUTES
+>  .SH STANDARDS
+>  None.
+>  .SH HISTORY
+> +4.2BSD.
+> +Marked as LEGACY in POSIX.1-2001;
+> +removed in POSIX.1-2008.
+>  Removed in glibc 2.33.
+> -4.2BSD, POSIX.1-2001.
+> -Removed in POSIX.1-2008.
+>  .P
+>  This function is obsolete.
+>  Don't use it.
+> --=20
+> 2.49.0
+>=20
 
- man/man3attr/gnu::aligned.3 | 65 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 man/man3attr/gnu::aligned.3
+--=20
+<https://www.alejandro-colomar.es/>
 
-diff --git a/man/man3attr/gnu::aligned.3 b/man/man3attr/gnu::aligned.3
-new file mode 100644
-index 000000000..cfdf254a2
---- /dev/null
-+++ b/man/man3attr/gnu::aligned.3
-@@ -0,0 +1,65 @@
-+.\" Copyright, the authors of the Linux man-pages project
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH gnu::aligned 3attr (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+gnu::aligned \- set alignment of an object
-+.SH SYNOPSIS
-+.nf
-+.BI [[gnu::aligned( alignment )]]
-+.BI [[gnu::aligned]]
-+.fi
-+.SH DESCRIPTION
-+This attribute can be applied to a type or a variable,
-+and sets its
-+.I alignment
-+in bytes.
-+.P
-+If the
-+.I alignment
-+is not specified,
-+the maximum alignment is used.
-+This is equivalent to
-+.P
-+.in +4n
-+.EX
-+[[gnu::aligned(alignof(max_align_t))]]
-+.EE
-+.in
-+.SH VERSIONS
-+Different dialects provide similar attributes.
-+.P
-+.in +4n
-+.nf
-+.BI __attribute__((aligned( alignment ))) "  \f[R]// GNU\f[]"
-+.BI __declspec(align( alignment )) "         \f[R]// MSVC\f[]"
-+.fi
-+.in
-+.P
-+There's also the
-+.BR alignas ()
-+type specifier since C23.
-+.SH STANDARDS
-+GNU.
-+.SH HISTORY
-+.TP
-+.BI [[gnu::aligned( alignment )]]
-+gcc X.X,
-+clang 11,
-+clang++ 2.8.0.
-+.TP
-+.BI __attribute__((aligned( alignment )))
-+gcc Y.Y,
-+clang 1.0,
-+clang++ 1.0.
-+.TP
-+.BI __declspec(align( alignment ))
-+clang Z.Z,
-+clang++ A.A.
-+.SH CAVEATS
-+This attribute can increase the natural alignment of a type,
-+but it can't decrease it.
-+.P
-+The linker may limit the maximum alignment that can be applied.
-+.SH EXAMPLES
+--doujpgg7ukza34un
+Content-Type: application/pgp-signature; name="signature.asc"
 
-base-commit: 4044e31a053f6c370b2188deba583797018f04a2
-prerequisite-patch-id: 9baedc3d2399d2f8d54d96511dac415f0d0ff04f
--- 
-2.49.0
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhbdQ8ACgkQ64mZXMKQ
+wqkIBA//VBh3miKycfFwesfet73dGuqhGVrmIzohkYSR2RFYDmk+CBSqBUXUgsQj
+nVn5W4F+JHakrnRPGVdx1RUJ3fb3XVHRq3sWj8aIDSGGw25/o6fNPd2iz4GoWUHo
+CXNDeqQKQPA/Yz4JHs0+pGpYbbsg0Wh2DS9SzxrcVYrqQbGEmCyZciuXIoExUHJj
+uOKMnMPt/eBtYe53BrJap4ReP4qdOeZQDZ6jRC+01sxhH2qFPA3QgCIz6MxlmFnH
+cjiLYm+nCMBN8B1Jc+7Lbtu8t3Ee3NljfUgqqlsg1WWnmtr6dCyGlP4UtCbyNHGf
+Z4vlrqm0rJqhFAxv7r7J9podFQez71q8HdXd90sEcLtZhpALOxdHAvDjqMfZM8La
+8jKHpN2s9Dt9qYMjX8wNKC6eZT06/8+3hSVe3VKQsWqKKZiGG4p8rIR1+lMtP2tN
+ODjQV8OF3Bf7ZMgbXti5DJEUlpR7Q7xg9/NR3lb1+PxEBJU3eCvFDSqsc4bzrwJ8
+ByS/OnjtxSDSMqfvPxKV0CJM+ymOeRWB11egaB8tTBZAuweGT7s6q10QVVKtxELP
+MVXFCQxyeEXxTY0uFpASeaQ4xsIL7n05wH/BogxlFsc9TtD6LgNp19CsX9ZNFDIT
+OsJugulGDtmtNmB3nHW/1/6BfAj0EqUpTl9cm3rOJZtQews0VAI=
+=NlLi
+-----END PGP SIGNATURE-----
+
+--doujpgg7ukza34un--
 
