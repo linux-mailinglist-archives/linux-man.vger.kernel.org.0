@@ -1,140 +1,126 @@
-Return-Path: <linux-man+bounces-3210-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3211-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF61FAE75A2
-	for <lists+linux-man@lfdr.de>; Wed, 25 Jun 2025 06:03:43 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 21692AEA1D5
+	for <lists+linux-man@lfdr.de>; Thu, 26 Jun 2025 17:04:17 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CC5BB3BFCC4
-	for <lists+linux-man@lfdr.de>; Wed, 25 Jun 2025 04:03:18 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 46B4D7B3FDE
+	for <lists+linux-man@lfdr.de>; Thu, 26 Jun 2025 15:02:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F80D1D5160;
-	Wed, 25 Jun 2025 04:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D28492ED150;
+	Thu, 26 Jun 2025 14:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgQ1VBlK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5IK7W2v"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F35DAD58
-	for <linux-man@vger.kernel.org>; Wed, 25 Jun 2025 04:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AA32E7F3A
+	for <linux-man@vger.kernel.org>; Thu, 26 Jun 2025 14:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750824219; cv=none; b=HULzqCAJi+HkJhHXJB2dBcyo9ZzrQGMlVg5bLqe7ARjvVUEXr2djQNy+2oRf7/WXtYYwk99jiYWsUBfdnAyRqADhs0ej1sh2hYxbBmhzI2Pk6dAuZqCdavyz88gyNMKasLAaDKVSA5UMBwg0UJ+7bOLkBXSJ+osmmA7L/swrgUM=
+	t=1750949700; cv=none; b=LGcV5LabkV8cJDtF9OHAwwZl6s+R1eGf2P0A/qizxXMbN7QMGFShYA7PYQijr9T6Mvo85m4PJBCMMLu4ZtOs5N2c0k27XXQkQeKu/RDNETu0I+4Ud5sAIilMTmk+GanY79Dd9zoPiRvbzNwIiDvs98o3rZrpL/G2cxfDinmgRHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750824219; c=relaxed/simple;
-	bh=PevUfFr0WZpl8UOicVGHJdgFoEimNyCrUeiosT1X7/k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tb2zrMv/ZdUNPaRhMjnXGkMpN7TC2L9TB0KBfg7NUxwKejh0T/TwxdMF0uUXJaA5bPddV1iaKML9dt67DfgNCX/HwB/s0rhJPkplcCEYLjtmWx34s5rVCe/an5pvwS8QoO7ZR7hwFXD+A8fb8l9UxenSQb9EEIWfih3AB6EFZy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GgQ1VBlK; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF29FC4CEEA;
-	Wed, 25 Jun 2025 04:03:33 +0000 (UTC)
+	s=arc-20240116; t=1750949700; c=relaxed/simple;
+	bh=itHphjxkXBBmLEO5ke1Y9BLjiGt2mQWy7CkbTcXhMH8=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=t9WTOo51ql+UOUAbkR5W9HmFiGK4bS+b1u0BbW0/w/jvBtKpeUQI7DssnWNI/kHnp91Jso5JgY+zpTT1vrljI+9NSQ3ycjHtyqABYf/x+rLteZnjdQAqh9LWf73apUCx0zpB+BsPCzG3y53cgx8iH9ynAPWzz9Sm4wHBuKrLx94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5IK7W2v; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 18A17C4CEEE
+	for <linux-man@vger.kernel.org>; Thu, 26 Jun 2025 14:55:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750824215;
-	bh=PevUfFr0WZpl8UOicVGHJdgFoEimNyCrUeiosT1X7/k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GgQ1VBlKkv1eFy4vayByFzwywR6P/u5y581UHauPI+TLQno7OFc5wcoJdyq/aaqxP
-	 zIVqvTMaw3fJPq5tciWSyPsoS7fxyHkA+S/6DKgUUx1kols7bo/MV+sXoDZiIEGddz
-	 VSedmLSGU7vgSxBAWuSpbGXyV1+IoD4MhYo0RPN6X9BA/K0g2Hw5wRh7TbGmxTmRb9
-	 DvQFNguRNbxdxZ0JCEslLOaLw5z78e1wMxNK/IgUvwZKFdkhquHG2G4i/aTw/uFd6y
-	 M8mygyuNB4tntNJdR8e8qUbRV6NN9iaWN0RL+sUVmNmiZyWvYJxd9kYd6mrNZbh0MV
-	 ECejQ+7kRx5mg==
-Date: Wed, 25 Jun 2025 06:03:28 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/ftime.3: Reorder and clarify STANDARDS.
-Message-ID: <yppwfmtnbv5agqrpbmwp6xlts2q3ppheaqxscxrwbxh66ub2ap@wy2zdsb25jhl>
-References: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
+	s=k20201202; t=1750949700;
+	bh=itHphjxkXBBmLEO5ke1Y9BLjiGt2mQWy7CkbTcXhMH8=;
+	h=From:To:Subject:Date:From;
+	b=A5IK7W2vz6yOiPtZSmmwGUaWb1mnZ5ptGFZDJj3UtIX5pc4Tzi/lERw0yhIp0n2P3
+	 Vm2y6Ai0psFomUDw1/dQz1bI1GsKfUD36+DGbjNVktz3mC2BA0un39puSrSOs0IZtA
+	 kzTQIW020wN9iMCePJvp+uW8OpSphFEyO3RLPcFS5Ucxk7l5pEJURyHfUQ35aJUcqv
+	 t75034lKdkiMVDpH6S9T+1Y2Ei3uYa1rpiJpRQIYB/gEgPhxdW5l74ZZhyxGX8NtR9
+	 ScS3BKob8r5fgoUvDhCPObnWmB9obVKX8PfebWca3oTgu6oQE2YQk1C4K7Yr4ziQtJ
+	 6hcntSktafXsg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id 0BE30C4160E; Thu, 26 Jun 2025 14:55:00 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 220273] New: syslog(2): conflict between "The symbolic names
+ [...] are not exported to user space" and "Definition of SYSLOG_* constants"?
+Date: Thu, 26 Jun 2025 14:54:59 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: nathaniel@google.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-220273-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="doujpgg7ukza34un"
-Content-Disposition: inline
-In-Reply-To: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D220273
 
---doujpgg7ukza34un
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/ftime.3: Reorder and clarify STANDARDS.
-References: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <fcc66f4d8694f933a71688ad529e6f4f43024658.1750646692.git.collin.funk1@gmail.com>
+            Bug ID: 220273
+           Summary: syslog(2): conflict between "The symbolic names [...]
+                    are not exported to user space" and "Definition of
+                    SYSLOG_* constants"?
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: nathaniel@google.com
+        Regression: No
 
-Hi Collin,
+Over at syslog(2) we see both
 
-On Sun, Jun 22, 2025 at 07:44:56PM -0700, Collin Funk wrote:
-> Put 4.2BSD first and mention that POSIX.1-2001 marked this function as
-> LEGACY.
->=20
-> Signed-off-by: Collin Funk <collin.funk1@gmail.com>
+```
+#include <sys/klog.h>        /* Definition of SYSLOG_* constants */
+```
 
-Thanks!  I've applied the patch.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D4a039a8c029da3a5abd7be04abb21867403a380f>
+and
 
+```
+The symbolic names
+are defined in the kernel source, but are not exported to user
+space; you will either need to use the numbers, or define the
+names yourself.
+```
 
-Have a lovely night!
-Alex
+Is there a conflict between these two? After reading the first one I spent a
+while trying to figure out why I wasn't able to use the constants in my code
+despite having the include; only much later did I notice the second one.
 
-> ---
->  man/man3/ftime.3 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man/man3/ftime.3 b/man/man3/ftime.3
-> index 8ae808ec2..11ebeceea 100644
-> --- a/man/man3/ftime.3
-> +++ b/man/man3/ftime.3
-> @@ -83,9 +83,10 @@ .SH ATTRIBUTES
->  .SH STANDARDS
->  None.
->  .SH HISTORY
-> +4.2BSD.
-> +Marked as LEGACY in POSIX.1-2001;
-> +removed in POSIX.1-2008.
->  Removed in glibc 2.33.
-> -4.2BSD, POSIX.1-2001.
-> -Removed in POSIX.1-2008.
->  .P
->  This function is obsolete.
->  Don't use it.
-> --=20
-> 2.49.0
->=20
+If there's no conflict between the two, what might I be misunderstanding ab=
+out
+the first one?
 
 --=20
-<https://www.alejandro-colomar.es/>
+You may reply to this email to add a comment.
 
---doujpgg7ukza34un
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhbdQ8ACgkQ64mZXMKQ
-wqkIBA//VBh3miKycfFwesfet73dGuqhGVrmIzohkYSR2RFYDmk+CBSqBUXUgsQj
-nVn5W4F+JHakrnRPGVdx1RUJ3fb3XVHRq3sWj8aIDSGGw25/o6fNPd2iz4GoWUHo
-CXNDeqQKQPA/Yz4JHs0+pGpYbbsg0Wh2DS9SzxrcVYrqQbGEmCyZciuXIoExUHJj
-uOKMnMPt/eBtYe53BrJap4ReP4qdOeZQDZ6jRC+01sxhH2qFPA3QgCIz6MxlmFnH
-cjiLYm+nCMBN8B1Jc+7Lbtu8t3Ee3NljfUgqqlsg1WWnmtr6dCyGlP4UtCbyNHGf
-Z4vlrqm0rJqhFAxv7r7J9podFQez71q8HdXd90sEcLtZhpALOxdHAvDjqMfZM8La
-8jKHpN2s9Dt9qYMjX8wNKC6eZT06/8+3hSVe3VKQsWqKKZiGG4p8rIR1+lMtP2tN
-ODjQV8OF3Bf7ZMgbXti5DJEUlpR7Q7xg9/NR3lb1+PxEBJU3eCvFDSqsc4bzrwJ8
-ByS/OnjtxSDSMqfvPxKV0CJM+ymOeRWB11egaB8tTBZAuweGT7s6q10QVVKtxELP
-MVXFCQxyeEXxTY0uFpASeaQ4xsIL7n05wH/BogxlFsc9TtD6LgNp19CsX9ZNFDIT
-OsJugulGDtmtNmB3nHW/1/6BfAj0EqUpTl9cm3rOJZtQews0VAI=
-=NlLi
------END PGP SIGNATURE-----
-
---doujpgg7ukza34un--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
