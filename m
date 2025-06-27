@@ -1,62 +1,52 @@
-Return-Path: <linux-man+bounces-3218-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3219-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E3B1AEABD7
-	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 02:45:52 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id F307DAEAD3B
+	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 05:18:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B0B0C1C409A8
-	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 00:46:08 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id F08431C211E3
+	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 03:18:42 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F276E2F1FE6;
-	Fri, 27 Jun 2025 00:45:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0824519882B;
+	Fri, 27 Jun 2025 03:18:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pxHaxNfk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7Qn4Lk3"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3412F1FC1;
-	Fri, 27 Jun 2025 00:45:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC10B38FB9
+	for <linux-man@vger.kernel.org>; Fri, 27 Jun 2025 03:18:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750985147; cv=none; b=ShXtQKtJWGV4dFaojba8hFRqsK5bpylw4dMTlAW1F/swH855Od9rgup1k64KMlTWDBkqhpSclwyH7YHo8gGelYN7uRVo6gMlFPJEDhzvJ2pxBu7QzqBTdtggGqvJdpKK9HRWxxR8qiHtmHHUwrcWXRXoWqYGcu00tMmqltgOx2I=
+	t=1750994302; cv=none; b=jE9lAixbfW/mPw6z0PZje8NlE0cVs67PQPUhJje+G6tCGI9uJGeH27982zW6nl5UPYLZmQFAjG6SH2PnSgPbSEkL3LQrA/GfOuqBWIWlVDgGGr+pmk1jpTwFws6DMGE40YiawHyJSt3SqPZP9ek4T4BwWtAzzdnvIJmFpxj7m0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750985147; c=relaxed/simple;
-	bh=0d7zSdiWDxj52Khjnl8t4cnST6/6FsP5+bkMDLS95zw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T7zF68lsxS31rDaUk09uS6Oj2nA9HtrWmRiG5Buyk+g8Qt2eCxK+n/+bt/tvWK/nobFkvS5nXc9AmuTzuMThOIikg5PPMXXU5QgzyzampcS/XoDQuhWdGz7e/QoUJx689N6p28WDSxijzALEBGBjlTusAFdhcxulnJ5sT4tI7iY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pxHaxNfk; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE8FC4CEEB;
-	Fri, 27 Jun 2025 00:45:41 +0000 (UTC)
+	s=arc-20240116; t=1750994302; c=relaxed/simple;
+	bh=6wIV8TQThHCYgMxsQsdvbTAFH3OtagjToweIc7dYF6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=NOJXgGpSVJ5le5kC3t/uLh8PFFhHnAMlSuOO186QXBF6XtIoTXn43o/+AreLfDGUeFvH6OwvL6xIwltUdQOGvFtM/9kjRV81ywq0UWIIXSzFc65uEeXDi4xnyK7HY26lZTFhGFIVdtNa2XFNZPNxep5mgrkfQDVuCRAVgotFFHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7Qn4Lk3; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C18CC4CEE3;
+	Fri, 27 Jun 2025 03:18:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750985147;
-	bh=0d7zSdiWDxj52Khjnl8t4cnST6/6FsP5+bkMDLS95zw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pxHaxNfks8Z01xdx5Xz26Bt+5sz1nIRT2lwRxMOeG2h9qfpatlTxZI6eDX0Sqpc43
-	 6XXXEbhV0h4HpDQPgxavpBIgUbCfzg5QUQ2Z+Xb99sBPezxbtW5jIdffly0ZHmhHTI
-	 g2qo5H6MDavv4ZAThH3nYqUV9TiokSX1leUfdEm8JCx0fXzFhB2pgpLFMv/MiRWlto
-	 TFneY4AYJcYpskrgGRpRL3mt8Hu9EdghyWxeYQghqqIITOTa6YFoH0B6cOkJFXrtdF
-	 HRWjtRxRICRVErf4gaYJLqz/sqLZd/em09FaMBdQ6mr0hDAuH2c0bgv/7H4EaC2CX7
-	 IOwxj7ftyNlUQ==
-Date: Fri, 27 Jun 2025 02:45:36 +0200
+	s=k20201202; t=1750994302;
+	bh=6wIV8TQThHCYgMxsQsdvbTAFH3OtagjToweIc7dYF6A=;
+	h=Date:From:To:Cc:Subject:From;
+	b=c7Qn4Lk3FSMU4xtVvx7LYRXA9/116ewIE12c5DRnkJ6AopElBOOfVOxU2vHYeMRL7
+	 SDn9ZqiQURUvWWIhKIORkK/Fcszal49aq26mdXIo2DHpX06mMp35YFBx87FJG/JXPL
+	 b7+m4RAUKmfZMcNo+vj5mqDnDMVe2JNYs/UZCWco/+P5L3d6YJG1l4FWITufEZeRjN
+	 m51fIXKcA6fLJLgfktg706BJBUZnZ+nUtuBdE1EIXnT+EKX5Wvtujh02QL2BYqDxyS
+	 yKMoD9JJ2WF5QOF9VsIiEEK2J/ztSY7xaNYXt1+SFivo3gU69flIOoSDmU+7a5yT/7
+	 bWImQw04AfVhA==
+Date: Fri, 27 Jun 2025 05:18:14 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "Andries E. Brouwer" <aeb@cwi.nl>
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: man-pages-6.14 released
-Message-ID: <7jhaxqzku6dy3fnhvpyfihp6t7fis33xqv2oibprtqlvqeppcq@xiwwfl3jm65h>
-References: <uidtufql6ftz72im7w6zggeihwhuwgnpxwb7j46fbp6ryvzv4i@cwyp6ewepeob>
- <20250509112627.GA924923@if>
- <bn2rs76dkhejmthy2wvul4ho26zzlwtkfg474ztiwggkxz7f3d@g25omktsd3ug>
- <20250509121454.GA952723@if>
- <3e82680d-149c-4a67-b838-bc73c0be3e4e@redhat.com>
- <e363mzanav4inu3wtk5pmyzfwlquxr5kwh7ytk5emtayizi7qi@dqxritlnl22g>
- <42dad79f-e0f2-4731-ac14-0189f5d278a0@redhat.com>
- <u2ogua4573d2xm2p2oiuna67kydkr3e26pt6lixeidezdw34dg@nvn64na3cptt>
- <20250627000811.GB1598947@if>
+To: Aaron Ballman <aaron@aaronballman.com>
+Cc: linux-man@vger.kernel.org
+Subject: man3attr/intro.3attr: Add intro page for this subsection
+Message-ID: <7sl3u2alzj64sre5fxpmwnc2u3r2uhmszqmggo5qbng232fwnc@uoupwcqtwb7m>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -64,71 +54,67 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2sazc2dqtikszgx3"
+	protocol="application/pgp-signature"; boundary="7l4z5fom6fiipz2h"
 Content-Disposition: inline
-In-Reply-To: <20250627000811.GB1598947@if>
 
 
---2sazc2dqtikszgx3
+--7l4z5fom6fiipz2h
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "Andries E. Brouwer" <aeb@cwi.nl>
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-man@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: man-pages-6.14 released
-References: <uidtufql6ftz72im7w6zggeihwhuwgnpxwb7j46fbp6ryvzv4i@cwyp6ewepeob>
- <20250509112627.GA924923@if>
- <bn2rs76dkhejmthy2wvul4ho26zzlwtkfg474ztiwggkxz7f3d@g25omktsd3ug>
- <20250509121454.GA952723@if>
- <3e82680d-149c-4a67-b838-bc73c0be3e4e@redhat.com>
- <e363mzanav4inu3wtk5pmyzfwlquxr5kwh7ytk5emtayizi7qi@dqxritlnl22g>
- <42dad79f-e0f2-4731-ac14-0189f5d278a0@redhat.com>
- <u2ogua4573d2xm2p2oiuna67kydkr3e26pt6lixeidezdw34dg@nvn64na3cptt>
- <20250627000811.GB1598947@if>
+To: Aaron Ballman <aaron@aaronballman.com>
+Cc: linux-man@vger.kernel.org
+Subject: man3attr/intro.3attr: Add intro page for this subsection
 MIME-Version: 1.0
-In-Reply-To: <20250627000811.GB1598947@if>
 
-Hi Andries,
+Hi Aaron,
 
-On Fri, Jun 27, 2025 at 02:08:11AM +0200, Andries E. Brouwer wrote:
-> I think you are too sloppy.
+I've added an intro(3attr) page introducing C/C++ attributes:
 
-Anyone's welcome to send a patch if they have more time for that.  I'm
-rather busy, and don't think this is priority #1.  It is important, I
-don't say it's not; I've taken a long time to make the change, indeed;
-I need a long time to partially revert it too.
+	$ MANWIDTH=3D64 man 3attr intro | cat;
+	intro(3attr)                                       intro(3attr)
 
-> Do you not recall the SCO saga?
-> There a big legal conflict arose over copyright ownership.
-> Something is still visible on https://en.wikipedia.org/wiki/SCO=E2=80=93L=
-inux_disputes
-> Maybe this ancient matter has still not been completely settled.
->=20
-> Copyright is a legal matter, not something where convenience plays a role.
-> In principle you need permission of everyone involved, and not only that,
-> but you must be able to prove in court that everyone did give this permis=
-sion.
-> So one needs written permission.
+	NAME
+	       intro - C/C++ attributes
 
-I do have written permission from around a third of the contributors.
-Of course, I'll ask Michael to reply in written too.
+	SYNOPSIS
+	       [[attr]]
+	       [[vendor::attr]]
 
-> (And in what jurisdiction? Copyright details differ between countries.)
-> Some original copyright holders are no longer alive, and the rights
-> have been inherited.
-> Life is much easier if you regard those copyright sentences as fossils
-> carried over from earlier to later versions. And leave them verbatim.
+	DESCRIPTION
+	       Attributes  modify the properties of a source construct,
+	       such as a type, a variable, or a function.
 
-Well, hopefully we can minimize the amount of fossils.  Which I've
-achieved, as I managed to get written permission from about a third of
-the contributors.  So, I'm happy about the results.  Even if some of
-those fossil lines will be put back, I've removed a large part of them
-forever.
+	       The standard syntax allows specifying a vendor for  non=E2=80=90
+	       standard attributes.
 
->=20
-> Andries
+	VERSIONS
+	       C  and  C++  dialects have provided various forms of at=E2=80=90
+	       tributes before standardization.
+
+	       __attribute__((attr))
+		      This is the GNU syntax  for  attributes.   It  is
+		      supported by both GCC and Clang.
+
+	       __declspec(attr)
+		      This  is  the  MSVC syntax for attributes.  It is
+		      supported by Clang.
+
+	STANDARDS
+	       C23, C++23.
+
+	HISTORY
+	       C23, C++11.
+
+	Linux man=E2=80=90pages 6.14=E2=80=9084... 2025=E2=80=9006=E2=80=9027     =
+         intro(3attr)
+
+This page will go as the first one in the 3attr section in the PDF book
+of the manual.
+
+Please let me know if you find any imprecissions in it.
+
 
 Have a lovely day!
 Alex
@@ -136,25 +122,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---2sazc2dqtikszgx3
+--7l4z5fom6fiipz2h
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhd6agACgkQ64mZXMKQ
-wqlDHw/9EHDWCpawhuk4L5r81EEyGEu3hrPaSr1TjEFgkWH8EaJzP/PkmB8pIjLz
-p8x4AO8vptPVG8VSJp5Nc9lyRx+1lEeqoL3okFaSwTLm1WmOGgwVgXpyeMhXZM/c
-LHXIcFr9fDrfTe7S8qF0QjHMIq1Qc8kZs79GoVcSgCT75PTi3DViGT36TM4yVJZl
-gWy/zXfhYEPxD2t0D5kisPq9kPT0CRoNYuo3jsVEyuuDqxJXPHXc3IfO7xdkSvOn
-YBykjAbURW/H4gJONA8AljR37NINVWq4Nz27Snci8XwiwBiXzoRa4zANsbpAEl8K
-RzFnJTjW90K2Uvse9xY6wc6XG3Wmlpyl6LOk3ZXATKXKFY6ACpcB7uN09JwvQPvv
-9NJ9p62t7dWXaqCGYI6Id/rR1pfUI08fJP5GLDH8VTuu77VgnlF8xRPwAK0psUxY
-0ojd5zakQHexYiXIO1pOEOd+aMVmZ8Uz+StUe5br4B0mmwwl8WBxOaR7Oy+KCouI
-0+UcHLgnnSdB5gVXdromMx3QRqIHMbUbXybsBuwHVRowt70KEPtVdPws9YTMe2XR
-HgWTttJJbrhDDlm3gaKDSWP8Xf6p2TJRayOXlwT6XSPij5EIBzRXsaDTdDuteTn9
-LESRQ7nY3GpMZc5F30PFG2XdImKZNu54obFWwZ9l20ciUUHtNQU=
-=EC1A
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmheDXYACgkQ64mZXMKQ
+wqk1sxAAgGmvgK1lJWPD1C1/cpvZne8u3EBHnV1+yDhiQ6DVu6Dcj2/twm1DyKND
+DP8wp8GMpXpfUg6TRm26G0WGVRuIlebvbXm/Ne2momsGdh7pfdkGXUcnAezn9Rqr
+L4FntJdqMvtVhxbs6IJuAH8JZf3i+MCOJHSdagBZkgS/lvTaZi+kFvSBdWSm9XeG
+lgcBlNy38JITRTDGV1IbSBW0c5UV7GuH1+GcQ4l5O1TOUHqVvacrLzJj43gz5+vh
+xOAKAQtNj1HzmZUCqXeewM/53TL/9nlQJgWsDHFhabrdXpBD6t99H60qG7p7HMZ7
+IS8gLAuY7Xm1Co19jNSAK1VBkpowz0qSDz9UWYWpkZQkUqU8OHZFKXFMlmYG90nb
+MgfjzK27BlmLVPdiLnn7z9nw01QKlaCInaboFByM8xNUq69D9ykLQWiZEcjBaHWN
+Gqg4tKCCbxtS/AUeSaTCyjFsv0V2iKRYpLe3OwSCNKcb8llAN+TfBeBZhUVA6VU0
+wx8/i2AwKvkaWwWBwXUgYVT1qlmwAT3Bg/1Y59TiWoL4wV4gum9Ju2Agpncs3HJj
+oteQ2YGyS0l2c2EaDBtplL+mqYsdoMu+SmUdiJctjf1V9FJbZ/nONexEGwaNSlg3
+3loCtXoSrmbHdl68XAhWXX5X8QTQBgHB/uiDR9sasWZlGHzeaXo=
+=KT3a
 -----END PGP SIGNATURE-----
 
---2sazc2dqtikszgx3--
+--7l4z5fom6fiipz2h--
 
