@@ -1,55 +1,52 @@
-Return-Path: <linux-man+bounces-3216-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3217-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDEC3AEAB9D
-	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 02:12:02 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AB8BAEABB9
+	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 02:23:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 29E47169217
-	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 00:12:03 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2431917D59E
+	for <lists+linux-man@lfdr.de>; Fri, 27 Jun 2025 00:23:12 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D57B410FD;
-	Fri, 27 Jun 2025 00:11:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=cwi.nl header.i=@cwi.nl header.b="qAiggwjh"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A575AC2EF;
+	Fri, 27 Jun 2025 00:23:07 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from fester.cwi.nl (fester.cwi.nl [192.16.191.27])
+Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4889F1362;
-	Fri, 27 Jun 2025 00:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.16.191.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B55212E5B;
+	Fri, 27 Jun 2025 00:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750983118; cv=none; b=uhJpjs55B6ct3JIdJrBWyB6SulGWXgGdOzGES2yqLzk7JRZYjVSuo0cAfw3RNkQ78de2lIn4LeTgEubHwnXwNEy/OcyhZDuQIyKX2dP70AvznoLij4hQHLbq5HIXxpMiTCuVke1TADgcEKbBqN70hYtWM7XXxnfOyU8BhLnHL94=
+	t=1750983787; cv=none; b=R9nYon1UpAdhzVg8PoAmv6Ba1hOg7/IYgEtJVjbsB9trqtMcnHztF/Jm5rrXJW6u3Ys3bK0HVuY+sbjbRdRWIvor7a9A1vockf4pmYUCgrSjIZUVNCxpzmoB8ymZJH0e6dVt2VCtKs0MKGPWZEiE1Lm2267OcWD/gJODRbrkRPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750983118; c=relaxed/simple;
-	bh=kIm8aXdacfqFY41xmjMNEfsCStCcPXinUrGP10cCRN4=;
+	s=arc-20240116; t=1750983787; c=relaxed/simple;
+	bh=ARQyf+w3iW4Di+uKWvsWr3VefT5lXktN5+Vu3+WI1r0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bK9j4uZskDrh1PORZHqdXXfiAqx7gcgFWKBClC/dgw6EN4KxFXrTuY6H/xzeaxlQmDKL6IhBS/+I7WYhlI0FvWEyikDoE/898IOOp1zPy2rFTmByeDAhkrpRH70SJSuePlXbD8ZFDzH1Twrprg762rgyzK3WNHNsHih4j8j046Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cwi.nl; spf=pass smtp.mailfrom=cwi.nl; dkim=fail (1024-bit key) header.d=cwi.nl header.i=@cwi.nl header.b=qAiggwjh reason="signature verification failed"; arc=none smtp.client-ip=192.16.191.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cwi.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cwi.nl
-Received: from localhost (37-251-114-171.fixed.kpn.net [37.251.114.171])
-	(authenticated bits=0)
-	by fester.cwi.nl (8.15.2/8.15.2/Debian-14~deb10u1) with ESMTPSA id 55R08BcK024285
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 27 Jun 2025 02:08:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cwi.nl; s=default;
-	t=1750982891; bh=kIm8aXdacfqFY41xmjMNEfsCStCcPXinUrGP10cCRN4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qAiggwjhNOADTkarcWjUJqW4BOpmBnYPtzMIMXsBipH388u+p84rWwscV0WlEJ/nk
-	 MhtVh6ilHrIkPB66zDXbWdMdXWys2N2DTt8CTPgilEbFPLcoasKjK6fqLyoue981jN
-	 S9pMcUagOzlFa5T1TSFIIIoZu7ZCXbgD+547wNsc=
-Date: Fri, 27 Jun 2025 02:08:11 +0200
-From: "Andries E. Brouwer" <aeb@cwi.nl>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: "Carlos O'Donell" <carlos@redhat.com>, "Andries E. Brouwer" <aeb@cwi.nl>,
-        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
-        libc-alpha@sourceware.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=rsOv/esJAgYEqdRi6yaas+Q1HxtjhkDyufTuDJ8ImZdNDkD8BFt6dMoWSvCx5jqcFNasr5RP3Z6v82aVaTaGzEr/1J5xvXn9uW7JnZAjLA1PQwNrk5H9/tkbTnwf7pdDKLopwHP1eFY2x2yeu+Hm4HLsCHT1QEpcenjLp3nhheQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
+Received: from smtp-qaa.vinc17.net (2a02-8428-1b1d-4d01-96a9-491d-7b48-ba31.rev.sfr.net [IPv6:2a02:8428:1b1d:4d01:96a9:491d:7b48:ba31])
+	by joooj.vinc17.net (Postfix) with ESMTPSA id 0E6285CF;
+	Fri, 27 Jun 2025 02:20:13 +0200 (CEST)
+Received: by qaa.vinc17.org (Postfix, from userid 1000)
+	id 4A6E5CA045B; Fri, 27 Jun 2025 02:20:11 +0200 (CEST)
+Date: Fri, 27 Jun 2025 02:20:11 +0200
+From: Vincent Lefevre <vincent@vinc17.net>
+To: Carlos O'Donell <carlos@redhat.com>
+Cc: Alejandro Colomar <alx@kernel.org>, "Andries E. Brouwer" <aeb@cwi.nl>,
+	linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
+	libc-alpha@sourceware.org
 Subject: Re: man-pages-6.14 released
-Message-ID: <20250627000811.GB1598947@if>
+Message-ID: <20250627002011.GA431181@qaa.vinc17.org>
+Mail-Followup-To: Vincent Lefevre <vincent@vinc17.net>,
+	Carlos O'Donell <carlos@redhat.com>,
+	Alejandro Colomar <alx@kernel.org>,
+	"Andries E. Brouwer" <aeb@cwi.nl>, linux-man@vger.kernel.org,
+	linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
 References: <uidtufql6ftz72im7w6zggeihwhuwgnpxwb7j46fbp6ryvzv4i@cwyp6ewepeob>
  <20250509112627.GA924923@if>
  <bn2rs76dkhejmthy2wvul4ho26zzlwtkfg474ztiwggkxz7f3d@g25omktsd3ug>
@@ -57,57 +54,45 @@ References: <uidtufql6ftz72im7w6zggeihwhuwgnpxwb7j46fbp6ryvzv4i@cwyp6ewepeob>
  <3e82680d-149c-4a67-b838-bc73c0be3e4e@redhat.com>
  <e363mzanav4inu3wtk5pmyzfwlquxr5kwh7ytk5emtayizi7qi@dqxritlnl22g>
  <42dad79f-e0f2-4731-ac14-0189f5d278a0@redhat.com>
- <u2ogua4573d2xm2p2oiuna67kydkr3e26pt6lixeidezdw34dg@nvn64na3cptt>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <u2ogua4573d2xm2p2oiuna67kydkr3e26pt6lixeidezdw34dg@nvn64na3cptt>
+In-Reply-To: <42dad79f-e0f2-4731-ac14-0189f5d278a0@redhat.com>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+86 (bb2064ae) vl-169878 (2025-02-08)
 
-On Fri, Jun 27, 2025 at 01:14:46AM +0200, Alejandro Colomar wrote:
+On 2025-06-26 19:01:24 -0400, Carlos O'Donell wrote:
+> On 6/26/25 5:04 PM, Alejandro Colomar wrote:
+> > The thing is, as someone else mentioned, removals happen also implicitly
 
-> On Thu, Jun 26, 2025 at 07:01:24PM -0400, Carlos O'Donell wrote:
+This was me, there:
 
-> > you need permission from the authors.
-> > 
-> > I disagree that man-pages should go forward with the current changes.
-> > 
-> > May you please restore the copyright notices and cut a new release?
+https://lore.kernel.org/linux-man/u2ogua4573d2xm2p2oiuna67kydkr3e26pt6lixeidezdw34dg@nvn64na3cptt/T/#me71349fc15520d5c183311dfaf85667903c07d9d
+
+> > by moving text from one page to another and not copying copyright
+> > notices, so how much does it matter an intentional rewrite of the
+> > copyright notices into a different form (but which keeps their
+> > copyright, as part of the AUTHORS file), compared to an unintentional
+> > removal of copyright by moving the text (these do actually remove
+> > copyright, so these are the problematic ones).
 > 
-> Hmmm, it'll take some time.  I need to stop and compare the both lists,
-> which are rather long.  I don't promise it will happen soon, but I'll
-> keep it in a TODO list.  I'll also try to do it at least after
-> September, when I'll be meeting Michael in person, where I'll ask him
-> about his copyright notices (which represent a huge percentage of the
-> copyright notice lines).  That will reduce the work significantly.
-> So, it might happen around the end of this year.
-> 
-> Once I start doing that, I'll do another round of asking the remaining
-> people about their copyright notices.  Hopefully, there'l l be few of
-> them.
+> Both are legally mistakes.
 
+Mistakes, yes (as long as copyright notices are per-file).
+But legally? Why?
 
-I think you are too sloppy.
+I've always heard that a copyright notice was optional and only
+informative (so, in particular, there are no requirements to have
+per-file copyright notices instead of a single one for the work).
 
-Do you not recall the SCO saga?
-There a big legal conflict arose over copyright ownership.
-Something is still visible on https://en.wikipedia.org/wiki/SCOâ€“Linux_disputes
-Maybe this ancient matter has still not been completely settled.
-
-Copyright is a legal matter, not something where convenience plays a role.
-In principle you need permission of everyone involved, and not only that,
-but you must be able to prove in court that everyone did give this permission.
-So one needs written permission.
-(And in what jurisdiction? Copyright details differ between countries.)
-Some original copyright holders are no longer alive, and the rights
-have been inherited.
-Life is much easier if you regard those copyright sentences as fossils
-carried over from earlier to later versions. And leave them verbatim.
-
-Andries
+-- 
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / Pascaline project (LIP, ENS-Lyon)
 
