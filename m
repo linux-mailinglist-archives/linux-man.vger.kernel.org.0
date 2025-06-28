@@ -1,169 +1,148 @@
-Return-Path: <linux-man+bounces-3227-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3228-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA16AECAC2
-	for <lists+linux-man@lfdr.de>; Sun, 29 Jun 2025 01:23:07 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC687AECAC6
+	for <lists+linux-man@lfdr.de>; Sun, 29 Jun 2025 01:38:52 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E08AA189AE34
-	for <lists+linux-man@lfdr.de>; Sat, 28 Jun 2025 23:23:22 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 806ED175BB0
+	for <lists+linux-man@lfdr.de>; Sat, 28 Jun 2025 23:38:52 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B230C239573;
-	Sat, 28 Jun 2025 23:23:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A39AD2367B0;
+	Sat, 28 Jun 2025 23:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRAS47Hz"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ATUhrVlf"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BC223B631
-	for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 23:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F4513BC3F
+	for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 23:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751152981; cv=none; b=BKAPCD/aAMbLoeaIDoqXcWQND+sw6JNerx46O7HI6zi+iuBhdCJpilJiVazkNN4czzAIOHSRGiekWsOWbIZoGi+Wjt/PkCQSBzmoKFtNZ2SiRE5aNRbU4aI4LEq4v6sN9AHFIRF5NlhOMAJ75BnXay/MC4FxK9YGdysuCs6q9wQ=
+	t=1751153927; cv=none; b=oOG3Dbmvq9T9KvsfY5IOuJbezbfHNaugsu+l21VGa/CRTnMi5ILT45iOcAY5/ypdOx8hX+sHxBkP6hWWm+Pqma7bYwC9YdVUuKvlPz8sC3Hgr7sPX1msuns70mG8QpKDCEeiRGQMtH6d/IMJlCF/ZjO+YYiWV61O2obw0yZn0Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751152981; c=relaxed/simple;
-	bh=Gzz3+RoCTyTi/y6jmpQ1dln7mX82fS/2tAnLQTYWO5g=;
+	s=arc-20240116; t=1751153927; c=relaxed/simple;
+	bh=kkrRa/eW3qhJNZzwv2EFHWuQogZF72OzR9zVaUFV6QQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PD8fpikb6WtS/njpo2cGuDfnitAmZeNb7vArr71jM1wTOuMLU73XLVOmbNpv6Np8HPjNm1SeRkS4l1mXZsW8RloPaMDAI/gvht5eT4Rsjxuy7efo6mVfARr8/2Z45NbWJswwYs6WQkOCIEbg7aHtK2985Omekq25fx8ApimEPHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRAS47Hz; arc=none smtp.client-ip=209.85.216.53
+	 To:Cc:Content-Type; b=cUPXrciz8yCR39upRE+COtqC2CiHNSb1aeLukRMMkl2azEMf0muzhej6JeX/1QfQlIHGBueXm+8cxi0ebwlJdS7r4osTgP5xHzKnBYpZIDTt01OX4PeFvWBT/NuhGZdCVmEstt0338xFH82t+EEba5v5msVjXRTSncmSm1Gadwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ATUhrVlf; arc=none smtp.client-ip=209.85.167.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-313336f8438so814718a91.0
-        for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 16:22:58 -0700 (PDT)
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-54b09cb06b0so924707e87.1
+        for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 16:38:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751152978; x=1751757778; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1751153924; x=1751758724; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=SzpejIZH2cTS6HkVkTsLPQQipIvxxx/I4fNsz9oqxds=;
-        b=FRAS47HzmLxU7VkBvLA6PyXIxmzb0vvZxBACnTdp7ng9yc1N4OfmYvdkrF5tIOtYyi
-         othh9m3d0osxb/x9mA3LHqcpBW4v2txMAg2mECL7cq1BdcADfVj1E0tcedRNcKf/2g2H
-         wUJGLk5KSgpr57lbnUnKKFv37/F3hsO2PsDTHboD2HZAnuGfuxPDsJZX66ATIrNDuS/j
-         EOJ2nT9Cfp1bdUw5UYkttWF14k8m1W5Nmk/UGf3mdvxXGQAZCj/65tnY8yC2EBL8l2Qc
-         PGB+evHTZll8ZGhJ+CyF74cm8pZpHHGdbXBRCrGKC/dseUX74eWqWem5b4XQ6avbZcwp
-         ClWA==
+        bh=pi8HAlD0Pcb03p2r+z/BSxAMGB5+8O9FPwBLnVgfF8w=;
+        b=ATUhrVlfuKFE00P2BxmlodoPIBKZUmawab7/woToJftD/0xM+3zuh9VZvp6YmgBBvK
+         touw1M+OUt0KMhloslhA2isJKKoeTG5U4qVw9uu/KxJjFA5I76jCcIzMp69SJ2ro9vlr
+         Ca5B+yWMpIv5slDlK90HsRfq/mahWdZkyYZdfXwutsuJPLWcCRrHfO4m91D6Ub82KSl0
+         3kJPF7ZLCBji6ZErfS4nQ6MgKb5l5BrrCYfUboY76tehh2oEC2UUeiUv9G+pIYMD3Jw8
+         ODmUhByZIPc360Ik7AMgrAY1sDHohaA890Q3eio8mh41vDYFm+zKOIBLtjzdZFUVyGBl
+         6fNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751152978; x=1751757778;
+        d=1e100.net; s=20230601; t=1751153924; x=1751758724;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=SzpejIZH2cTS6HkVkTsLPQQipIvxxx/I4fNsz9oqxds=;
-        b=NwqBibpDLlGLtH5MnJ2CxdSswFLKpjiBYY/aZVXKvzNW5QOyiNhscapcfLNdm3FbYi
-         5dAb22vlj8A+nLVjQG/DbZNWeY1w/n4yHx9mSQwvvx7LDAP2hjF7wdj83ETPIr4qBSM5
-         888n8ThJHCPNplRiGUU3hjbLagN0bLkHXTXxqflKCWh/aXZcZQ+9YSj1sEA+bee6kJRw
-         k5D1aIvHbdUmbxHpJkvq/9xrdyNGuu507HE+KgCYFz46mJJvKYmXvvnOxTxhkrCaRl5a
-         3QR6FmNmBfHeBcUpMOod44CN6AfaD5LDtA3ox4I9Lrkagewn1qHQ6WQGkIndE6UgVcIz
-         QPOA==
-X-Gm-Message-State: AOJu0YzEoMITuxTkpgQHT1dX9NjB2c83kC0M58jm0dMKQGJY4YS8gB9g
-	R52nkzZ0Z7ONrBGp5ZZR0arCXSWsyc/4HrQ9QXKDBuN2MJCDISuNPMI+xSyUI1cZp3PNrJ/syRr
-	6Swjx3qWhQAWJrWEa2O9LPSViR1lmzVg=
-X-Gm-Gg: ASbGnctbFqqefeL5NfGdC6c0c8nmHnGb79yPpB44wdOZyJZqrepn2p1beUmNqrjUUcx
-	Dk2R3s/xIcPe/D0/v1uj7wUpHYc9O9DqaRaRBVBQ+csPYxUb6tCVAFoiaZ3XCR6dubG1e8iiOVO
-	H4rm9zSqfZG+BDfOUem3EZ/spqVoMjsUix2sqic2QZI+rnms08bEXe5PffFWVPMjTarDQvNvs4t
-	KCYXg==
-X-Google-Smtp-Source: AGHT+IHJjqtmZ2FhqPiVmg8kLDglZrUWDFlIjbn1wNf06UbuxZ+9iow9ulf6DVcWxGLg0NOeJfxPPz2avRwIQSN8JPY=
-X-Received: by 2002:a17:902:d4cf:b0:235:737:7bf with SMTP id
- d9443c01a7336-23ae88d7e56mr28204115ad.3.1751152978201; Sat, 28 Jun 2025
- 16:22:58 -0700 (PDT)
+        bh=pi8HAlD0Pcb03p2r+z/BSxAMGB5+8O9FPwBLnVgfF8w=;
+        b=HZIkrN/vppPqiUNNbyOSyEDAG6Mp9S7XTZE0kyzQWQsh2dvSodiO3MHvrzZsHfVAey
+         m1INlO3uiJINS/G8rSZc18pKQKjghbFm4ixXhSZArVm3ko4w7diMQcOC9Cu+I3wTjVVY
+         Ac8CYVdYk+iRugmKLDmAM7kjmanG/xcYax1JJKw7w0RuYxmf1zwQhEK6rjRi/PekbKsU
+         83N0AO+bkiAirLEDoDj60AH96669J5d9Z2LKu2xk4OIvdR1e1rGJLivhbbE7yilaeOUL
+         +/q/rPOv+FlQ6QdbsbeB0ufWQHZjybHUkRKox+5IyTgEtJCHq3phEjLQuj0X3gEmL/3R
+         m5WA==
+X-Forwarded-Encrypted: i=1; AJvYcCV4ye0Ly9hfOphqAn+xExtVbmyieYYTrOnMJMZ0ixobhJR4Kwy8TcipKVekpPwfde/RDtkdzRvVhvA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdNbfX/RSi/Bn4rT658MVs0ENU1t/umnVDRgrUm2nd0x1LGhn1
+	m4GVQHL7iCOWIBCM/jzlP80uFcN1k/YC8vKJNpWbzOiNSn5qplng52gsAJbvFZ5Cr+EIgIsz+Bf
+	X/1M/JOrPuAFD6MgUC0Nq/wVT1jNzrbnrnA==
+X-Gm-Gg: ASbGncsRSNo6M9YdIvu/KFoskSHQfjzJaaBSfgvU+aZcdSkzu1j0lIgydX5/WCjgPaq
+	kkZy/f03+ngZ3PJi+uvUoAbnkctMaXS+5uslFICHZe6kB9fWyr8szz5B7ShAD2ojJNEXDuQkDy+
+	Ih3wvsUvG3lb4gR+s6ZeKn7ibOCV7y/UBL3f03VAV+xXItcOFi29NTQtsH2YiQ1DsoP+qGBg9Ao
+	w==
+X-Google-Smtp-Source: AGHT+IE5697CXb1bx+JJg1O4bd7K+SJ1T2eWzHRIM6r/XTQLySgL2l123iTMXox+uL36eo5H7XdYkVa/4yaUCIHloVA=
+X-Received: by 2002:a05:6512:31c9:b0:553:a4a8:b860 with SMTP id
+ 2adb3069b0e04-5550b74b8fdmr2893188e87.0.1751153923477; Sat, 28 Jun 2025
+ 16:38:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CACbk2c9mr7-jHodA=0P73RCDXep6Bvpq8snh5zD-Gze+4NgGLg@mail.gmail.com>
- <blbpv2wtlyy6ofkbeyymgkgsza245ekipe37ggldcv6j7jaqa3@f4fsnkllnjpi>
-In-Reply-To: <blbpv2wtlyy6ofkbeyymgkgsza245ekipe37ggldcv6j7jaqa3@f4fsnkllnjpi>
-From: Brian Beuning <bbeuning@gmail.com>
-Date: Sat, 28 Jun 2025 19:22:45 -0400
-X-Gm-Features: Ac12FXxAeHjQpjHJj7j34yqBAtOR9YziWvWMJVjkLXUWEebDF__OxnJ1ZjUDYT8
-Message-ID: <CACbk2c-7AC5vWuFmsev+3XDOt6v_dH43WBW=ejpkJm=TYcNeOQ@mail.gmail.com>
-Subject: Re: add_key(2) missing error ENODEV
+References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
+ <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
+ <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
+ <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
+ <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
+ <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
+ <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d> <y3yu5sod6yietgrfyjiypid57ljoafrhfhhz4evqfxuwbyhvvx@g6oqdjarywgo>
+In-Reply-To: <y3yu5sod6yietgrfyjiypid57ljoafrhfhhz4evqfxuwbyhvvx@g6oqdjarywgo>
+From: Mark Harris <mark.hsj@gmail.com>
+Date: Sat, 28 Jun 2025 16:38:31 -0700
+X-Gm-Features: Ac12FXyvzr2nI4687hterJLh4b3Xb2ucDA2Xv3LIulkZhCZBHzRXQRGVHyzHVAk
+Message-ID: <CAMdZqKF7NeUfRCxW2rj4KuJXGOx-cRqXsk9qTcrcWKdKnoY_UA@mail.gmail.com>
+Subject: Re: Forward Deceleration Changes
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Content-Type: multipart/mixed; boundary="00000000000036b48a0638aa1349"
-
---00000000000036b48a0638aa1349
+Cc: Mark Naughton <mnaughto@redhat.com>, linux-man@vger.kernel.org, 
+	Joseph Myers <josmyers@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Here is a patch and a 30 line test program to demonstrate the problem.
-There are comments at the top of the program showing how to compile it
-and the expected output.
+Alejandro Colomar wrote:
+>
+> Hi Mark & Mark,
+>
+> On Fri, Jun 06, 2025 at 03:05:20PM +0200, Alejandro Colomar wrote:
+> > I'm not going to release these changes soon, though.  They cause some
+> > minor temporary regressions, so I'm considering when I should do it.
+> > But eventually, these changes will be released.
+>
+> I found a way to do this without a regression.  I've pushed the change
+> already to master.  Please check that you like the pages now.  I find
+> them much nicer.  I'll try to have a release soon.
 
-Brian Beuning
+This does look better than the bolded forward declarations; thanks for
+doing this.
 
-P.S.  This is my first time making a patch.
+Honestly, though, I think it would be even better without the forward
+declarations at all, which are just repeating information that is
+already present shortly afterwards.  It may not follow the proposed C
+declaration syntax, but the Synopsis section already does not match
+what you would write in C.  That is, you wouldn't write:
+
+       #include <stdio.h>
+
+       size_t fread(size_t size, size_t n;
+                    void ptr[restrict size * n],
+                    size_t size, size_t n,
+                    FILE *restrict stream);
+
+as stated in the Synopsis section.  Not only is an array of void
+invalid, but at best that would declare the function twice.
+
+What the reader needs to know is how to call the function, not how to
+declare it.  In fact, users are discouraged from declaring the
+function, which is already taken care of by the header file.  It's
+just that the C function call syntax doesn't include the types, so the
+types are added using the same syntax that is used in declarations,
+even though the reader has no need for another function declaration.
+The syntax without the forward declarations is closer to the function
+call syntax that is needed, while also providing the necessary type
+information.
 
 
 
-On Fri, Jun 27, 2025 at 11:51=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
->
-> Hi Brian,
->
-> On Fri, Jun 27, 2025 at 11:24:01PM -0400, Brian Beuning wrote:
-> > The man page for add_key(2) does not list ENODEV as an error code.
-> > It happens when the "type" argument is invalid.
-> >
-> > I spent about 6 hours figuring this out.
-> > I looked at enabling TPM and UKI.
-> > Then got the kernel source code documentation which explained it.
->
-> Would you mind sending a patch?  Please include links to those sources
-> in the commit message.  Please have a look at
-> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIB=
-UTING>
-> if you'll prepare a patch.
->
-> >
-> > Brian Beuning
-> >
-> > P.S.  This is the second sending of this message.  The first had HTML.
->
-> Thanks!
+ - Mark
+
 >
 >
-> Have a lovely night!
+> Have a lovely day!
 > Alex
 >
 > --
 > <https://www.alejandro-colomar.es/>
-
---00000000000036b48a0638aa1349
-Content-Type: text/plain; charset="US-ASCII"; name="test_add_key_ENODEV.c"
-Content-Disposition: attachment; filename="test_add_key_ENODEV.c"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mcgv726c1>
-X-Attachment-Id: f_mcgv726c1
-
-Ly8gU3lzdGVtOiBVYnVudHUgMjQuMDQKLy8gTGludXgga2VybmVsOiA2LjguMC02MgovLyBDb21w
-aWxlciB2ZXJzaW9uOiAxMy4zLjAKCi8vIENvbXBpbGU6IGdjYyB0ZXN0X2FkZF9rZXlfRU5PREVW
-LmMgLWxrZXl1dGlscwoKLy8gT3V0cHV0OgovLyAgICB0eXBlIEtNUyBrZXlfc2VyaWFsIC0xIGVy
-cm5vIDE5IEVOT0RFViAxOQovLyAgICB0eXBlIHVzZXIga2V5X3NlcmlhbCAxMDk4OTQ0OTIgZXJy
-bm8gMCBFTk9ERVYgMTkKLy8KCiNpbmNsdWRlIDxlcnJuby5oPgojaW5jbHVkZSA8a2V5dXRpbHMu
-aD4KI2luY2x1ZGUgPHN0ZGlvLmg+Cgp2b2lkCm1haW4oKQp7Cgljb25zdCBjaGFyICogdHlwZSA9
-ICJLTVMiOwoJY29uc3QgY2hhciAqIGRlc2NyaXB0aW9uID0gIjAiOwoJY2hhciBwYXlsb2FkW10g
-PSAiYWJjIjsKCXNpemVfdCBzaXplID0gc2l6ZW9mKHBheWxvYWQpLTE7CglrZXlfc2VyaWFsX3Qg
-a2V5cmluZyA9IEtFWV9TUEVDX1BST0NFU1NfS0VZUklORzsKCglmb3IoIGludCBpID0gMDsgaSA8
-IDI7IGkrKyApIHsKCQllcnJubyA9IDA7CgkJa2V5X3NlcmlhbF90IGtzID0gYWRkX2tleSggdHlw
-ZSwgZGVzY3JpcHRpb24sIHBheWxvYWQsIHNpemUsIGtleXJpbmcgKTsKCQlwcmludGYoICJ0eXBl
-ICVzIGtleV9zZXJpYWwgJWQgZXJybm8gJWQgRU5PREVWICVkXG4iLCB0eXBlLCBrcywgZXJybm8s
-IEVOT0RFViApOwoJCXR5cGUgPSAidXNlciI7Cgl9Cn0K
---00000000000036b48a0638aa1349
-Content-Type: application/octet-stream; name="add_key.patch"
-Content-Disposition: attachment; filename="add_key.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mcgv6xwl0>
-X-Attachment-Id: f_mcgv6xwl0
-
-ZGlmZiAtTmF1ciBvbGQvYWRkX2tleS4yIG5ldy9hZGRfa2V5LjIKLS0tIG9sZC9hZGRfa2V5LjIJ
-MjAyNS0wNi0yOCAxMjozOTozOS4wMDAwMDAwMDAgKzAwMDAKKysrIG5ldy9hZGRfa2V5LjIJMjAy
-NS0wNi0yOCAxMjo1NTo1OC43MTM3NTk0MDAgKzAwMDAKQEAgLTE4Nyw2ICsxODcsMTAgQEAKIC5C
-IEVLRVlSRVZPS0VECiBUaGUga2V5cmluZyBoYXMgYmVlbiByZXZva2VkLgogLlRQCisuQiBFTk9E
-RVYKKy5JIHR5cGUKK2lzIG5vdCBvbmUgb2YgdGhlIHN1cHBvcnRlZCB2YWx1ZXMuCisuVFAKIC5C
-IEVOT0tFWQogVGhlIGtleXJpbmcgZG9lc24ndCBleGlzdC4KIC5UUAo=
---00000000000036b48a0638aa1349--
 
