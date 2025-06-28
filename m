@@ -1,53 +1,60 @@
-Return-Path: <linux-man+bounces-3225-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3226-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAA66AEC4B8
-	for <lists+linux-man@lfdr.de>; Sat, 28 Jun 2025 05:51:10 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB13AEC80A
+	for <lists+linux-man@lfdr.de>; Sat, 28 Jun 2025 16:59:11 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id E2E211BC7B74
-	for <lists+linux-man@lfdr.de>; Sat, 28 Jun 2025 03:51:26 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 48EB017CFF4
+	for <lists+linux-man@lfdr.de>; Sat, 28 Jun 2025 14:59:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CB361F4192;
-	Sat, 28 Jun 2025 03:51:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8759A22FF35;
+	Sat, 28 Jun 2025 14:59:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KuUOuYmX"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSgYFXOW"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE9B43ABC
-	for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 03:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AED2110
+	for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 14:59:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751082666; cv=none; b=E8E5xNrScBD7/Wi0f48XJjfg0JZCOZmAK9C3htq50ZZX1hZBj//51LhNeN9QD88eSi+cgnj6FkkqxbFfCEF7hN3MH0lNSx+BtfJjH3LlAq7UiBdIe/u7meha8FV0vHGJE9KvxByDBNL2++JbWgn+Qu1bej0ICD3XCYj9ipYdnwU=
+	t=1751122745; cv=none; b=RIXC6faGQ+LaOLf6D3VeeW2QRzoSQxMzVY/sZkcKnT4+OAYr/KptD0o4iSAedEdpVrjww8J14dhDSYya+vGq19JEOO2fSowLRDfieGiJD4eiS8MRZLD85LU1oBrYEPSkUS036PwM++4depy1rTyj5bPzcjDaklDpkh7TTggDl70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751082666; c=relaxed/simple;
-	bh=qvvfHzo/r1E7oaBbtNvSUoBL5zWeMs28OacG9TeagPE=;
+	s=arc-20240116; t=1751122745; c=relaxed/simple;
+	bh=XK7W++AeZKWVaWbOVvpdVe/9/0f6O4yMWE53QK4eEcU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AKKP2wZZwTOypKuNMb8LYSpbIrFG0pHQa6iPfK2L9yVXNxgAEgCAP5X2kKTVQb4aaGuzUNAODEXR7ELRpVC0u8GZPI6QI0nXJoecjQ1CISjZPNPj8NuLj9Kdm4FHM1c4AxkA9vcbSJHOx72fRu314u8MqhWRJiMyIX+vnp2qxOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KuUOuYmX; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2C5C4CEEA;
-	Sat, 28 Jun 2025 03:51:03 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=VAZ+RUEm3UhoQ2DMETlqdJuBXSkAaI2htdU9iFSCrADS9aRWJvS9Mt87rq2jPEGjbsJuwWkB/3VPBHAfGZoSw8sFBVAsvEZkDAd42D/6LIdthprGhkPDjk5HQWgmwcCLHmshN98o3KyrBIxNX+Cr+pXnum1gD7w8R++J9GdB5+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSgYFXOW; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AA1C4CEEA;
+	Sat, 28 Jun 2025 14:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751082665;
-	bh=qvvfHzo/r1E7oaBbtNvSUoBL5zWeMs28OacG9TeagPE=;
+	s=k20201202; t=1751122744;
+	bh=XK7W++AeZKWVaWbOVvpdVe/9/0f6O4yMWE53QK4eEcU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KuUOuYmXZVFXMNZhTbyLi/jrLKhohN2YyzfbNXH+OyMWRvhcuz+ILzE1Q8lSmy5zy
-	 gWanHOzWQd//kyT8DJN661CpGFQktRBQMK5MD1EGCWmJ8EjVY0gyQ9M1DJ1XX9t7+Z
-	 SdpWvKdfdvZAg1K5HMET3nykL1jlkIwUz40CKzrAthHBhtqURIgxblOq1XpVf80cMU
-	 MQdo5Zubrp/XQnP+cLnXV/OBhq8M+pEBdha3o1wXweQjw82HuUER4yuJFBdZUOadI3
-	 Nr05Uh+2nczMr4GlqGzAncSCVYujER1eIIT3qROW3SI3nbELj7D5vK25SU9hpMkApj
-	 s2KD44eRHfDbg==
-Date: Sat, 28 Jun 2025 05:50:58 +0200
+	b=hSgYFXOWRwcrh+DvgFncTGPIv41qlULrDZVgSIyS+H++vhcQc0XLrjt9AVdYslsw3
+	 zUhpyBdH2d/J7AG+iRM8rJR2pKXzVQlo7JQ8js3wRX14Y3KqGOLSQHFohWUVe1+00s
+	 D1zK/rHLk2TH0a0sSEL2b04W1Zu8OBCifD6tw66C0y75xgKNQTi4nWPTGEedwQfOaM
+	 kNXypTS/U1KfGOUOKmJ53UN+a39paUJWIJGsxNFFzLH3FW2U4Lykk//aqwrHb2G3tL
+	 EVg7kkbRlgmdTs2KCmOqK2vYz8/6hYFKiE6zROGYCk7BH/Y8LK4+4IuNMJoq9TAmQl
+	 BgsBf2Jr+Szsw==
+Date: Sat, 28 Jun 2025 16:58:56 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Brian Beuning <bbeuning@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: add_key(2) missing error ENODEV
-Message-ID: <blbpv2wtlyy6ofkbeyymgkgsza245ekipe37ggldcv6j7jaqa3@f4fsnkllnjpi>
-References: <CACbk2c9mr7-jHodA=0P73RCDXep6Bvpq8snh5zD-Gze+4NgGLg@mail.gmail.com>
+To: Mark Naughton <mnaughto@redhat.com>
+Cc: Mark Harris <mark.hsj@gmail.com>, linux-man@vger.kernel.org, 
+	Joseph Myers <josmyers@redhat.com>
+Subject: Re: Forward Deceleration Changes
+Message-ID: <y3yu5sod6yietgrfyjiypid57ljoafrhfhhz4evqfxuwbyhvvx@g6oqdjarywgo>
+References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
+ <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
+ <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
+ <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
+ <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
+ <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
+ <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,72 +62,67 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4sppb66voxgqimg4"
+	protocol="application/pgp-signature"; boundary="y66ey5npzfup77c2"
 Content-Disposition: inline
-In-Reply-To: <CACbk2c9mr7-jHodA=0P73RCDXep6Bvpq8snh5zD-Gze+4NgGLg@mail.gmail.com>
+In-Reply-To: <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
 
 
---4sppb66voxgqimg4
+--y66ey5npzfup77c2
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Brian Beuning <bbeuning@gmail.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: add_key(2) missing error ENODEV
-References: <CACbk2c9mr7-jHodA=0P73RCDXep6Bvpq8snh5zD-Gze+4NgGLg@mail.gmail.com>
+To: Mark Naughton <mnaughto@redhat.com>
+Cc: Mark Harris <mark.hsj@gmail.com>, linux-man@vger.kernel.org, 
+	Joseph Myers <josmyers@redhat.com>
+Subject: Re: Forward Deceleration Changes
+References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
+ <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
+ <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
+ <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
+ <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
+ <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
+ <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
 MIME-Version: 1.0
-In-Reply-To: <CACbk2c9mr7-jHodA=0P73RCDXep6Bvpq8snh5zD-Gze+4NgGLg@mail.gmail.com>
+In-Reply-To: <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
 
-Hi Brian,
+Hi Mark & Mark,
 
-On Fri, Jun 27, 2025 at 11:24:01PM -0400, Brian Beuning wrote:
-> The man page for add_key(2) does not list ENODEV as an error code.
-> It happens when the "type" argument is invalid.
->=20
-> I spent about 6 hours figuring this out.
-> I looked at enabling TPM and UKI.
-> Then got the kernel source code documentation which explained it.
+On Fri, Jun 06, 2025 at 03:05:20PM +0200, Alejandro Colomar wrote:
+> I'm not going to release these changes soon, though.  They cause some
+> minor temporary regressions, so I'm considering when I should do it.
+> But eventually, these changes will be released.
 
-Would you mind sending a patch?  Please include links to those sources
-in the commit message.  Please have a look at
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIBUT=
-ING>
-if you'll prepare a patch.
-
->=20
-> Brian Beuning
->=20
-> P.S.  This is the second sending of this message.  The first had HTML.
-
-Thanks!
+I found a way to do this without a regression.  I've pushed the change
+already to master.  Please check that you like the pages now.  I find
+them much nicer.  I'll try to have a release soon.
 
 
-Have a lovely night!
+Have a lovely day!
 Alex
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---4sppb66voxgqimg4
+--y66ey5npzfup77c2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhfZpsACgkQ64mZXMKQ
-wqmDMg/8DqKg0d2Vsre3Lr75docR6pw59WPFoab8v+VOv1dnebygrYfiqqVoYfKw
-C84oooqjUFmYnxThh20I4g1kVlVgdvOsk9sAMVgPQnfgDsUT5fleds3mtnBUgwRO
-nPczm1U1DXvUKxD++DiXrbMUDDCbTRT/Wp+HHp3dlpOJKiwbLMdyeIRUvRAeQLlU
-fo3fusRn1APGBYHmpBGGJT2MGoqjqgE5TVCZ2b9m0kROSOdvsiMg6cguR94bsLRQ
-IaepvbJQMGLx8M7WuvApotGgDxQPmRm7DIFUlWCAFQaihqExFT2OCEEyWIMSFi73
-uzeAfSZNr0BE9weUPSYmnI97vYOPYu6TnVC9Lp6BBlNEYFMkvXnujVq4sitQM1PN
-wKQi9XoP2wuBMknojICeAsmd+bLLdpJQyi9DbkcWEzKR+05J/AWJxAboo1CPHOKH
-PKT2soOuvL/5Z3V4DR++i6rX3owwELyCVf2T7nUbdNhR5sQoayK6RtPCrj2rKqwH
-/ETYJciCCVdM+YkDAt87UoK7xouJM2CeI8Fb9jgRNcZAASfNFNhbAcS55iKhxU34
-HIXPgdUaQoRnXX8u7L9G5K6m7f+PFuyIfV9O2McwEEwl5JnefldNAPHcxgXgcFD1
-QMFp+dVYSCN3oU1lK+qoXKRcNdXltT4oxxABmL0zxJbSolJ2XOA=
-=9T6+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhgAzAACgkQ64mZXMKQ
+wqmt6A/9FDZmsB+5q4PGLrtYzkecJjdWSkP137EEQY5auRVCh8QaegQZeyuZW+nb
+Q7gmMHeTSRJHbnHOU/BXojADeCIdjrwJOn4GLEws7SdY5OAe8wXu3dMhASG1HOvy
+4gRyarHe/BX5K9kp6NIYt+SSjAzZyCatfadjVKYlnV9RxFDWzLI/voq3okJkM+5k
+GUJUHmPJ9Nh9yR9DnHZZw1xjdjIjEwEl54ZVrBUrIWBSmD2MtuQovWWABfg/Yht2
+ElH+5n4fnPHu6JOyQFbRqyGRHIRZqokOH5YeEvfkaUA2ElSBjbcElaMs0SqLjh05
+/e4G9f+zNaXKW1IryYEWCuuSj50Gax9u+uElbqeLv826p8SiRYgxMTDBx+q7m0ue
+kZT+U8xyYiYp1rr9MdCVWnMqOcQDu1M97C2InxUUU0w3evHcoFo4GoybAOywbFJs
+iYB9tAxHRl8xOq2LGmgNTNMdl/vdXogEhZGTSGSLCPoshB/AUjSnby65mGt5bKQM
+90wAySGzyBAzXJ+P3k31+3hvS5zCTce8LZCYTlPBfgWzj00nhNGlK2Zeo1qJn2cc
+agzX6Y7npqDRn4ISUD14eifdpLRO+0BEweRG520QX+KBF88WwAZB57Zdzuc7LhXC
+hDScnWhE0FxbJGJTbKqn1M6Imh1aMX870rgacQiXVyjbdu7mT4c=
+=ZPdh
 -----END PGP SIGNATURE-----
 
---4sppb66voxgqimg4--
+--y66ey5npzfup77c2--
 
