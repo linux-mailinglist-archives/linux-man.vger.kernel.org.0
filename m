@@ -1,179 +1,139 @@
-Return-Path: <linux-man+bounces-3230-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3231-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6BA4AECAD1
-	for <lists+linux-man@lfdr.de>; Sun, 29 Jun 2025 02:10:55 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C528EAECADF
+	for <lists+linux-man@lfdr.de>; Sun, 29 Jun 2025 03:23:35 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 7E598189838E
-	for <lists+linux-man@lfdr.de>; Sun, 29 Jun 2025 00:11:11 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D5EE57ABA55
+	for <lists+linux-man@lfdr.de>; Sun, 29 Jun 2025 01:22:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C8DC801;
-	Sun, 29 Jun 2025 00:10:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95AF31BC41;
+	Sun, 29 Jun 2025 01:23:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awuXJOz+"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GJ1sX9p6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5167017E
-	for <linux-man@vger.kernel.org>; Sun, 29 Jun 2025 00:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31FC28FD
+	for <linux-man@vger.kernel.org>; Sun, 29 Jun 2025 01:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751155850; cv=none; b=szi4FGcc5EZ5/22/feNMcCRt3UuKWnuaQdbUDMWOb6heZMpP7DWh6sNsy5/b0t6os4U/FY9PcmfM89FEXYHd7QaOEseVPqHrpr3+bkgcSFrvySZvGRJbI67dvpe6IeDoV7C93Ss0HE7AqtvueL+bs+CBhhm7acfYZK0OX28sMEY=
+	t=1751160208; cv=none; b=cd05r4W2G7p1NcNy+MUOJMYj2Z8okkIc+qAkYH2SiZksGLEbw3WAs1NMSE5vbd5ypbS46Y289v6ijB0PBr2X0YtHu2ReJt7le6OQwC1StVeet5NDzGPrKiYi2XInax/AXKFviv2d5ZHT0rqxYLBrgtP+q6U/+a9U+xg/+MpPpN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751155850; c=relaxed/simple;
-	bh=Djo4CunTPXHUWRytrlo41s0j761ieYF5VWcJSrubsUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g7QVqJkGRAOcbw91mNd1LhIks1bdmZi18XykVd9YG3OrzzXv6F1FBKw3J2yUnpHt8O9cM836MU5AQONyxA8ces5hS0n2vbaxgFpuMx2sejZHfevIjWUdJ/qO5toIeMwks0JOCn3ljn4YgF1ul0M4gJVwsCCBFDLE3oyxtMP8Pyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awuXJOz+; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FCDC4CEEA;
-	Sun, 29 Jun 2025 00:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751155849;
-	bh=Djo4CunTPXHUWRytrlo41s0j761ieYF5VWcJSrubsUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=awuXJOz+vrnS0HOJKGAJm5ACkQUHXPWTbUmM2rqbNutaDLswJTiWcbbBCOJTBVgns
-	 BGnQw+vTqOjmYpywBxH0iLkdXGKD8vQe+DMaGYfI40yafKWSNLTURY3WbvEbqxo2Sz
-	 xUQ48Vj+2ysXTqakXHerYqZBAETKvv5kQpYjd9M3q9dVODPz+/fEylsAGh5E46A2Us
-	 cO42dLhpAEcH+VRzeiIMlp0lMA0GyINCw6a6q2pT/iPMS/mw8Nd8vfbSrBxRdO4bHP
-	 GmAFIMKA8PR/jyZSIuUdII8WrvnQuCJ3SYeZVNFW0koZWLFtjFStUk284W9GUlvHR5
-	 4Y233Opc33fJQ==
-Date: Sun, 29 Jun 2025 02:10:48 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: Mark Naughton <mnaughto@redhat.com>, linux-man@vger.kernel.org, 
-	Joseph Myers <josmyers@redhat.com>
-Subject: Re: Forward Deceleration Changes
-Message-ID: <bbkjrttmhtvrlcvnhghshca6425nirnkais4dhottmtaqa2pyt@fojrpplhruc5>
-References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
- <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
- <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
- <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
- <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
- <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
- <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
- <y3yu5sod6yietgrfyjiypid57ljoafrhfhhz4evqfxuwbyhvvx@g6oqdjarywgo>
- <CAMdZqKF7NeUfRCxW2rj4KuJXGOx-cRqXsk9qTcrcWKdKnoY_UA@mail.gmail.com>
+	s=arc-20240116; t=1751160208; c=relaxed/simple;
+	bh=7nfPNNQuLVBvzOGKk7L6C46olpDEO/mcz8TfkW4qg3w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kx4YDh9vUdu9/qhkVSIObHLrCai3mhiB+3Sw1sqKJouvSr6iGtE28aMg5cfc8DfB+NOkekpIYs3E6IaWFmhnIxEgXOyK3OudsUchcKmEO3PiIjuSSbabyGS+coSIl4SGswPQb2TvHc2Q7PvgGfeUIiYOX9ppV9tG5xffxGP3MVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GJ1sX9p6; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2353a2bc210so5985275ad.2
+        for <linux-man@vger.kernel.org>; Sat, 28 Jun 2025 18:23:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1751160206; x=1751765006; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aQ+660R0FeaPYBebPgJ0ItS0wy3i5xQlqrUBGUe00xc=;
+        b=GJ1sX9p6l8owuwNnJwogMeNGCaJ//6L0vqyzY0LM5+4t4U44TAhvps0+sm4dviiPPt
+         8OUn5Ko9Y9OXl+D6qiFwDr6HMMdRlLbOHRt7N9W9T1XE++FQhDfPUl5uh5PtjMrzFTVO
+         7wvelxMIZOU1uDYNYIhB4vA+T8euwbHZuB+Ajtg6BaujkClzjKjghka1Gz87AAKfdc5h
+         ri394qv8dpZt9YYVdk/sJDl2v9pAqWQWPVhFps6UiRItcHfIPPGyoKLWMgeH5JLkS+Od
+         8HVrf2UMe0bOu76WJMF/MOJ2S27V11BfpcjCDGJkxm/pqseTCkhkp71uuTCN6KtWKCsp
+         MP6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751160206; x=1751765006;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aQ+660R0FeaPYBebPgJ0ItS0wy3i5xQlqrUBGUe00xc=;
+        b=gb3duYkczbz0Xs06SDlY4gz8AH0F3/HQ8EJC0JBCprNXBchWri1cfc+znafDDR3kKv
+         ygL5oHVe7kkb4TyETG5/bm1lxmIi8prCAHxd88b4LaUj2d/TYQ+v1edSJ1y26O/hPSwQ
+         iyrYpdCvrZ6UKbYJjmZxWr21o0WwuvqoqSxkPPviVq0o2USpViZJ5J3KyRfnotnAOf3R
+         62MJq30PmbbLXYJAX4ctvuUC7+LM7Tdic9+O15lNMQZcRfJIb/4QizNMjTS1EKlapFZd
+         jmx+b7dm6GePf8kgx/uEhLZOq5V4H6o/PkMAukE9dTkJjbijhTJ3zOoL3w5PGs9UIFpo
+         qJsQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXlmFJxbI/pe+I39cqswG4LyIkMX2o2LHE2yhwkxTdVst9b6tXFBHtoXDerH2ANcO/1HuB8VkL+ZQY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOGW/jSTAc3Tp7z5+bcZFTtUr6louBTxQ66hwgJCQaSV19JRYE
+	ODfby3kZrrvT9vttp5uhGBizOvTuH+5+ecuiBvE8jz+4t7iTs94jyjq+FdZD/U7n
+X-Gm-Gg: ASbGncuFYiBnC/OYSzXOVCYfUNi4oZ6hEKucNCSpYKycMaWn0UwbF4nKjx4H8y8Nl9Z
+	MIHKe+ajsfBa975/BVUO1Yh9g24a+PmKO4cxuA/MoLVZkjI+WhlgNylc+7RgjqwVnQ9++7BQR5k
+	NKWrgM9u9qW0M9GRjmmpRYJMYCgnthA42UaypfSq/S6gkHuoImxCQbUaIacEzR/QHwvZba+P3Wk
+	9mW2x/X1m2eJUxoxhPzuEQX4bnu4U94Jw1erm4u1D28Q9Jho1uxdRMFvarY9gYRe4ED13/pzHgG
+	SugR6cg5qPNpSwo0j+nid5YfUkvh9Q4g0GbFxg62+a0=
+X-Google-Smtp-Source: AGHT+IEIAOzMGGn0KMnnTdfgA9M7kGpk0hAdxn7fJxpuJIWhqJ8C2/nAypKKs5oWGAUuckMid2jIXw==
+X-Received: by 2002:a17:902:f545:b0:235:ed02:288b with SMTP id d9443c01a7336-23ac460523bmr113911925ad.30.1751160205751;
+        Sat, 28 Jun 2025 18:23:25 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::5ef2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-23acb3b833bsm50778985ad.180.2025.06.28.18.23.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Jun 2025 18:23:25 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Brian Beuning <bbeuning@gmail.com>,  linux-man@vger.kernel.org
+Subject: Re: add_key(2) missing error ENODEV
+In-Reply-To: <gujq6ijk5kmci3n6rykbzpamb3k3ckn7ac4xzy7i5svcsxfkyl@crbjc5zamglu>
+References: <CACbk2c9mr7-jHodA=0P73RCDXep6Bvpq8snh5zD-Gze+4NgGLg@mail.gmail.com>
+	<blbpv2wtlyy6ofkbeyymgkgsza245ekipe37ggldcv6j7jaqa3@f4fsnkllnjpi>
+	<CACbk2c-7AC5vWuFmsev+3XDOt6v_dH43WBW=ejpkJm=TYcNeOQ@mail.gmail.com>
+	<gujq6ijk5kmci3n6rykbzpamb3k3ckn7ac4xzy7i5svcsxfkyl@crbjc5zamglu>
+Date: Sat, 28 Jun 2025 18:23:21 -0700
+Message-ID: <871pr3s5me.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="juswhx5w7shyt5ok"
-Content-Disposition: inline
-In-Reply-To: <CAMdZqKF7NeUfRCxW2rj4KuJXGOx-cRqXsk9qTcrcWKdKnoY_UA@mail.gmail.com>
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
+--=-=-=
+Content-Type: text/plain
 
---juswhx5w7shyt5ok
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: Mark Naughton <mnaughto@redhat.com>, linux-man@vger.kernel.org, 
-	Joseph Myers <josmyers@redhat.com>
-Subject: Re: Forward Deceleration Changes
-References: <CACdZg2UAkDE2KZ=0tCN+pV+-mjupeY=qdGALYPshS3Q0BrHnzw@mail.gmail.com>
- <7zkvtkaafxycu2si3r4jl6qaynzfkedvphhh26rfjibq3kbxc7@56katuftwykv>
- <CACdZg2XOB9gmH0aJRLZVn4gfsd8xHyn78ohB7=wwo2ppzsXzig@mail.gmail.com>
- <kghzj5sfvb7dmkdg5iqtt2l25unqw4voxps3jcy6s7wcznr4gx@e2dn6h3geupq>
- <CAMdZqKFhcNgH-xWSUZa=N6X0kkpH=XqtZNxnBCmgoCT+XY=7Bg@mail.gmail.com>
- <CACdZg2W6+EuYn+GJYUAr+6OdU7M886GChn1+uMUC-iNxCsV7pA@mail.gmail.com>
- <6pl7yzeeeecjl6oifcynye5gkhc4hr3vnvt4xtqasgvjx2sndv@64rgybogzm3d>
- <y3yu5sod6yietgrfyjiypid57ljoafrhfhhz4evqfxuwbyhvvx@g6oqdjarywgo>
- <CAMdZqKF7NeUfRCxW2rj4KuJXGOx-cRqXsk9qTcrcWKdKnoY_UA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMdZqKF7NeUfRCxW2rj4KuJXGOx-cRqXsk9qTcrcWKdKnoY_UA@mail.gmail.com>
+Alejandro Colomar <alx@kernel.org> writes:
 
-Hi Mark,
+>> void
+>> main()
+>
+> main() must return int.  See the standard:
+> <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf#paragraph.5.1.2.3.2>
+>
+> Also, the () syntax is rather problematic, and I'd recommend to always
+> use (void).
 
-On Sat, Jun 28, 2025 at 04:38:31PM -0700, Mark Harris wrote:
-> Alejandro Colomar wrote:
-> >
-> > Hi Mark & Mark,
-> >
-> > On Fri, Jun 06, 2025 at 03:05:20PM +0200, Alejandro Colomar wrote:
-> > > I'm not going to release these changes soon, though.  They cause some
-> > > minor temporary regressions, so I'm considering when I should do it.
-> > > But eventually, these changes will be released.
-> >
-> > I found a way to do this without a regression.  I've pushed the change
-> > already to master.  Please check that you like the pages now.  I find
-> > them much nicer.  I'll try to have a release soon.
->=20
-> This does look better than the bolded forward declarations; thanks for
-> doing this.
+The '()' is not problematic when it means '(void)' as intended here. The
+problematic usage is when trying to use 'int foo ()' to declare 'foo'
+with no parameter type information. That is valid for all standards
+before C23, which changed it to mean only '(void)'.
 
-You're welcome!
+But like you, I prefer just using '(void)' anyways since I find it more
+clear.
 
-> Honestly, though, I think it would be even better without the forward
-> declarations at all, which are just repeating information that is
-> already present shortly afterwards.  It may not follow the proposed C
-> declaration syntax, but the Synopsis section already does not match
-> what you would write in C.  That is, you wouldn't write:
->=20
->        #include <stdio.h>
->=20
->        size_t fread(size_t size, size_t n;
->                     void ptr[restrict size * n],
->                     size_t size, size_t n,
->                     FILE *restrict stream);
->=20
-> as stated in the Synopsis section.  Not only is an array of void
-> invalid, but at best that would declare the function twice.
->=20
-> What the reader needs to know is how to call the function, not how to
-> declare it.  In fact, users are discouraged from declaring the
-> function, which is already taken care of by the header file.  It's
-> just that the C function call syntax doesn't include the types, so the
-> types are added using the same syntax that is used in declarations,
-> even though the reader has no need for another function declaration.
-> The syntax without the forward declarations is closer to the function
-> call syntax that is needed, while also providing the necessary type
-> information.
+Collin
 
-I've had people complain in the opposite direction too, so I guess we
-can say the current way is a compromise that works for both.
-
-About arrays of void, I'm not as worried as I'd be if we used the
-parameters without a forward declaration.  If programmers try to declare
-their functions using arrays of void, their compiler will tell them they
-can't.  However, if someone tries the same thing with undeclared
-parameters, it might "work", which would be rather dangerous.
-
-So, I'll keep the standard syntax in that regard.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---juswhx5w7shyt5ok
+--=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhghIEACgkQ64mZXMKQ
-wqkkXA/9HMWZT88rzji+GzmxcXoW/F+Drj3il8bD9IuXzSw4qiKzPR6dISh78EY3
-er7zsBCieWCS2+X9A8M13E/LWsXj56K8vpjO/4n6GcxfcjVjVkFyYfwaRyLfrcxU
-GlS/nVW3Dhi1iFfyCjfIX7QBMn1oMud64DXCBHpPJRcZ6Ctg3ivIHMqw2f9qvizU
-B+MDIc9Ai4ujMaZERs3BzLuKkmG8sSAAAXCVIetiasLte2gpYnNB3IEtD8b4TZ9p
-2TnUYmalKcLmhjEKqKmhJBX8Iimp1Sr5NCUee+5BosoKLpLfAbeXz4HLeV3fVJ0N
-dgwmpPWyjadJIKYZgVac5m+WSwCiYsVbBZ66ulvSy79Tw2iJSa8zCSKF0m3F0ACm
-LfRd8ZreonkWHwvsAIBG4m9AOcVC7DT2V6yZ+H+48lHxTEYAnidMLWjUuMJNVs7O
-n272WVD4dKt0YJC77OmveUnaSnvi5UYKxaPg11vZ606WVj3Z/dF0yFRJkRk5FFkz
-YrCampx50bPQiKymsEUkETuiQSV92J0ReeV6My0Ad4rENIlSOObW0ZD7nGQONmza
-A0Rg63FSaDVN9EQ3eyaJPuhJaAQi6BO2mQfmjnq/CcCbEUOFIX4OIeuMy1l/VkKt
-RA2cMdxomeg4/sOCmOnCamhgXpfno8jZSOnowtB29LWMpg7stkE=
-=KG3T
+iQIzBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmhglYkACgkQjOZJGuMN
+fXVvjA/9E7ovC8rDHMincynzay8DOXxFnw3zg/dzG2SBVOYaKMJTW74a+eQ+oBZj
+NpeskxTEVia9iEPkm+ZHyMkKUtb8ZbL/DDG/DqTTO80qdMl100K07mlVdSu/ocbC
+xb9TmTDgsnA49n9H+NDyZbPxVn3ANHM/NBe/OX6BfnZ7RBWgLwBoy4rcxyfwOBP5
+l7WF9UlPVIxekc3xMWROMB7VZV/RH37nyopdXgLezGthlNBgT+kDws2TsPsCOQDd
+BpS9zcbJZmsX2cNCRbe2XUiUB9FEUN65vl6Ml/qxr6r/8xrt8p3AmacnYBaN4vH6
+Pu2fVMCiC3SE4aix2dRQoxoGcpO35jv/pznQEb3PkuUwpLErIcpwoDTuxN7Pt4pg
+rSdkJKveKOkGIQy+FlMMazCNRFMQLShZwIR3dSNI4vQSm+1Tnf6Ip2V2xXhsffr6
+h5D0EtUxUhZgKMBVrca34NYJlUi2jzNqYvLHmsdhxzn6Je+miOxWlJuCotxmhGtl
+LZAJVSvFhhS7fkXgDoQPGnOnDFzkaquJSlPnzE9C6p4WhB+DQVwwqHc0WnC9h+J6
+GpECCUrXNbpJKZNHf9SUd0oEsJp8RVcxdBMGhbIpfAwOY8bbSQTOL6n9ij9cIOlt
+iXx5iA8v3PwAP7DN14GM8VQNGUL4MvUgp3yT7fzmOkopFkQNsMs=
+=OmlA
 -----END PGP SIGNATURE-----
-
---juswhx5w7shyt5ok--
+--=-=-=--
 
