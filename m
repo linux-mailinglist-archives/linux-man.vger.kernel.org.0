@@ -1,431 +1,137 @@
-Return-Path: <linux-man+bounces-3236-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3237-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57BB5AF5B63
-	for <lists+linux-man@lfdr.de>; Wed,  2 Jul 2025 16:42:13 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF74EAF5F64
+	for <lists+linux-man@lfdr.de>; Wed,  2 Jul 2025 19:04:35 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6380B1C429E2
-	for <lists+linux-man@lfdr.de>; Wed,  2 Jul 2025 14:42:27 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6466E4462FA
+	for <lists+linux-man@lfdr.de>; Wed,  2 Jul 2025 17:04:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0A1A3093D2;
-	Wed,  2 Jul 2025 14:41:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7263B2F50A6;
+	Wed,  2 Jul 2025 17:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OHqRnnse"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BeMBuk9w"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11AF307AD2
-	for <linux-man@vger.kernel.org>; Wed,  2 Jul 2025 14:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D693A289E14
+	for <linux-man@vger.kernel.org>; Wed,  2 Jul 2025 17:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751467291; cv=none; b=kRithVwSaijLukVz7JoztPNAJ2blh0wZm7jTUk4K27IAiYzkfQYUfVhy97AxHMeQak34qGuCngJfjwfXWPIMlIXnNoEdhSH/3GLtAZEbknjuwaMVjBEMhbPD4wMKIX55S7GF06ltxYMY91M/9KzrglqeyxRfZLzk5bdZx79Xn1s=
+	t=1751475872; cv=none; b=X3Krtst1xr1fqkshq1s5Nat4xQjBOiAkSnjkmtd33wdUWWv4fyiRzxzI7mrV0VVG1ae2OEKvLSOAAX7DibrpWmmzFU0exw4GaIr4AJxF9Xl5aNAfkHENczeL6uEp125NA0sokgDRPH9qxGD92/BrP5S6T1XdMT2e/0d8YnqCr/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751467291; c=relaxed/simple;
-	bh=rXZg5gcU/th41CnYa1RRRZRmUhhJPqXoPFT6hai1CLc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dyet+YNE3Dn+5wzzuu8fgbs5Un0vCQ25+/r5QJyw/BWZpQNSSe6h/lYImqD4/ApLQrbb9NkrE15M0EIWJhHXjy4V9W80LfAjFFdKflHO434q1Z5dfaMFGH/haR5aMPZV0LWzkL/MQZuy2ShYnYJcEhLQRnIbYskRAl3ji7kpsz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OHqRnnse; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FEAC4CEEF;
-	Wed,  2 Jul 2025 14:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751467291;
-	bh=rXZg5gcU/th41CnYa1RRRZRmUhhJPqXoPFT6hai1CLc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OHqRnnseO7sLY9KsnDIuhe6hIEUaNNI3PWWzHfesOTGh5wQfzFwJXDMvTntsmQPOE
-	 jVCRyRWXD7iQKdkCAjGbhQm76pYMsFnW31wE3U/YtlbD/J7eX/bfKKaKUE+rblQsOR
-	 rnTz7eC1jtY+P5IHhuSEX2uvaJzdX9KVfvOuIJJ4fDePi3D/TD25Wmay5NrvyEhdRY
-	 +SpDFxygb3TIBpM4KZ+04A5jJ0xoIRR8ttEsjQU8DeUVs1mccA7oRMb1QrNQmOiKSN
-	 9Edvydrrc4vpwoTem0fONDPSJJ9CB9YnVpIbgZEu7D8vViuG2uLxU/yIQufXHQdxKF
-	 nK4buYe8kH33w==
-Date: Wed, 2 Jul 2025 16:41:28 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/: Replaced reserved exp identifier
-Message-ID: <hg3uyynudxq2bm2cl2spcm6nshjewbcoaxoxjzamtuzevcwyyw@d2ituhdydzmw>
-References: <20250702092516.GA2328014@cventin.lip.ens-lyon.fr>
+	s=arc-20240116; t=1751475872; c=relaxed/simple;
+	bh=sGA7SvYTabY/bW/5DolKKGoH9IDQis4sj/kLPHE48mE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=bmbjxqxceIhBpS06pgylBSQs4atbJ3is03cWKPfGcKMK87EJrw/235lhCkHsnMdFwRCJlGr16zUry5q4EzAaAdzpIMJnsB+W1DpKFREyLxnGMgXMQu7ln45YTnXw/IFlGuVCSG/M0VA447SFCqEhPq/Qb5HybqDC90dh3Moyo6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BeMBuk9w; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-23c76ed4a7fso4738995ad.1
+        for <linux-man@vger.kernel.org>; Wed, 02 Jul 2025 10:04:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1751475870; x=1752080670; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=4ih9hTW0vvQMfHw9fIyo9CahNGQZ85ZTEcicTl2EZhQ=;
+        b=BeMBuk9wLLPoGivGZA+O/sjtrRwRzMLql4yTvJB52ilH5JaNlZBJ58fpaA+b1GTbqK
+         IJ0+G6F3aJOvw/8pOPSOuYSvL5JH7LXHobpN+oM5QQB8wJq4m/eFzFeUtjO0pw8pLA0q
+         R6PFl9lk+eFfqFR1TvePbroK/S7D+vmM856/li75QpflX/SEMbuVwhYYwPPXaX5vhV7l
+         JKfOfZ33NBCkutyCGOD0RbPhnfrEbhmI0SKuD0Eu94SokgcSnPJlmo7C1zKMEJClzJPD
+         MTX0Y8FESGjMpf6ELsGgZJ4A22J2kCxNCqUIaJuc4Y2f9rOG0jdgEaqm5I3zZcE6PI3D
+         eTQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751475870; x=1752080670;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4ih9hTW0vvQMfHw9fIyo9CahNGQZ85ZTEcicTl2EZhQ=;
+        b=iq+NUVQa0Z9sa6gh52aRVJjnzVkKJ0IqbH6sAhhGENMFbFaEO6WGy1Ue7+ymDUWXdj
+         /7inbzglvQnpaNseLBiJp9sLxYva8vmsyyOdE+9SIXMiib50jjkhNTqJb7di7wriCoY/
+         oHAYBRyGELYNNcEKPbNey/fcQXSP104I9pHo1bo9LADiexEoPvYuwtna+LEM54QEPaLt
+         pGyQRLIn5KrSX5rIf34ZVjWWwHGorgfK36pd4DhbF53+ByhvDv9n/p4U1xK5Ozw5TiRh
+         NovLITSEZsC7kt1ibh37cFxnNySDuSwrM0mZlXpfcF6d9TSqjjkEA8pQouwkd/f9+Nfb
+         0j+g==
+X-Gm-Message-State: AOJu0YyrEOkSNMtEMdaRWRZfXloaZExxFO5B1YfRn7T4fW7CDf7h7luM
+	KHrz32YXE0rLmcoj7VwpHiaapig3Y2hX1aRDvdRdcc+si2yp9+tayUAx8TIpuY9VqwG5B//i0R6
+	ZwMEN8ZufKxs4s1G2oq6//TaX5ry4FbPHZPIbrniLbJNPfHAvnVxJdpLcRjc=
+X-Gm-Gg: ASbGnctP51yg87jsx3VX4S4oqt/lw/gjiX3w6tnJkmHLWQ6D4UIRT6zGVTCU+fKIdKd
+	sNqHDqVt0hJrNnqE0RAtDneCkpPHq8+H3vSEnq4KCv6ALOBrduQ9YtWUUAzf6zcCAy8w8/oxENh
+	mCeFpOv5CSkvSHm7liesSB17X3g95hgu7zkwWeskboKW51iEhVwRs=
+X-Google-Smtp-Source: AGHT+IGz+wivRcI16rz6g2J2NWXhhQ74f257CwNc5OuqM0pj2rOIM8xh71njYyZxnOd2nC7YQAMyxypK9Nxyf1+g6I4=
+X-Received: by 2002:a17:903:32c5:b0:235:f3e6:4680 with SMTP id
+ d9443c01a7336-23c6e491221mr64108795ad.21.1751475869472; Wed, 02 Jul 2025
+ 10:04:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gt2a2zqjkrhwkaen"
-Content-Disposition: inline
-In-Reply-To: <20250702092516.GA2328014@cventin.lip.ens-lyon.fr>
+From: enh <enh@google.com>
+Date: Wed, 2 Jul 2025 13:04:15 -0400
+X-Gm-Features: Ac12FXx6zDuvXkLsFQbtpWxm0nYkaqA2KnROaeXkn0-DtX3IBy8Rir-SFM5gSj0
+Message-ID: <CAJgzZoq0AvK8EDicLk7ZMVbWS8MmoqW0Nv4U9HCFUXnNw+yUGw@mail.gmail.com>
+Subject: [PATCH] wcpncpy.3: fix incorrect return value.
+To: linux-man <linux-man@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="00000000000009ced50638f541b5"
 
+--00000000000009ced50638f541b5
+Content-Type: text/plain; charset="UTF-8"
 
---gt2a2zqjkrhwkaen
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/: Replaced reserved exp identifier
-References: <20250702092516.GA2328014@cventin.lip.ens-lyon.fr>
-MIME-Version: 1.0
-In-Reply-To: <20250702092516.GA2328014@cventin.lip.ens-lyon.fr>
+---
+ man/man3/wcpncpy.3 | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Hi Vincent,
+diff --git a/man/man3/wcpncpy.3 b/man/man3/wcpncpy.3
+index 636c1cdac..b1752ab52 100644
+--- a/man/man3/wcpncpy.3
++++ b/man/man3/wcpncpy.3
+@@ -79,8 +79,12 @@ .SH DESCRIPTION
+ .IR dest .
+ .SH RETURN VALUE
+ .BR wcpncpy ()
+-returns a pointer to the last wide character written, that is,
+-.IR dest + n \-1.
++returns a pointer to the end of the wide-character string
++.IR dest ,
++that is, a pointer to the first terminating null wide character
++if any were written, or a pointer to
++.IR dest[n]
++if no null wide character was written.
+ .SH ATTRIBUTES
+ For an explanation of the terms used in this section, see
+ .BR attributes (7).
+-- 
+2.50.0.727.gbf7dc18ff4-goog
 
-On Wed, Jul 02, 2025 at 11:25:16AM +0200, Vincent Lefevre wrote:
-> Since exp is a library function, this is a reserved identifier, which
-> should not be used as a variable name / parameter.
->=20
-> For some of the replacements:
->=20
-> Like in ISO C23 (new in this revision), for the frexp* and ldexp*
-> functions, exp is replaced by p, and for the scalb[l]n* functions,
-> exp is replaced by n (thus ditto for the deprecated scalb* functions).
->=20
-> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
-> ---
->  man/man2/timerfd_create.2 | 16 ++++++++--------
->  man/man3/frexp.3          | 20 ++++++++++----------
->  man/man3/ldexp.3          | 12 ++++++------
->  man/man3/scalb.3          | 26 +++++++++++++-------------
->  man/man3/scalbln.3        | 18 +++++++++---------
->  5 files changed, 46 insertions(+), 46 deletions(-)
->=20
-> diff --git a/man/man2/timerfd_create.2 b/man/man2/timerfd_create.2
-> index bcab72f37..a58b3ddfb 100644
-> --- a/man/man2/timerfd_create.2
-> +++ b/man/man2/timerfd_create.2
-> @@ -639,12 +639,12 @@ main(int argc, char *argv[])
->  {
->      int                fd;
->      ssize_t            s;
-> -    uint64_t           exp, tot_exp, max_exp;
-> +    uint64_t           ex, tot_ex, max_ex;
+--00000000000009ced50638f541b5
+Content-Type: application/octet-stream; 
+	name="0001-wcpncpy.3-fix-incorrect-return-value.patch"
+Content-Disposition: attachment; 
+	filename="0001-wcpncpy.3-fix-incorrect-return-value.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mcm7hul40>
+X-Attachment-Id: f_mcm7hul40
 
-How about using 'to' for timeout?  Do you think it makes sense?
-
->      struct timespec    now;
->      struct itimerspec  new_value;
->  \&
->      if (argc !=3D 2 && argc !=3D 4) {
-> -        fprintf(stderr, "%s init\-secs [interval\-secs max\-exp]\[rs]n",
-> +        fprintf(stderr, "%s init\-secs [interval\-secs max\-ex]\[rs]n",
-
-And here saying max\-timeout.
-
->                  argv[0]);
->          exit(EXIT_FAILURE);
->      }
-> @@ -659,10 +659,10 @@ main(int argc, char *argv[])
->      new_value.it_value.tv_nsec =3D now.tv_nsec;
->      if (argc =3D=3D 2) {
->          new_value.it_interval.tv_sec =3D 0;
-> -        max_exp =3D 1;
-> +        max_ex =3D 1;
->      } else {
->          new_value.it_interval.tv_sec =3D atoi(argv[2]);
-> -        max_exp =3D atoi(argv[3]);
-> +        max_ex =3D atoi(argv[3]);
->      }
->      new_value.it_interval.tv_nsec =3D 0;
->  \&
-> @@ -676,14 +676,14 @@ main(int argc, char *argv[])
->      print_elapsed_time();
->      printf("timer started\[rs]n");
->  \&
-> -    for (tot_exp =3D 0; tot_exp < max_exp;) {
-> -        s =3D read(fd, &exp, sizeof(uint64_t));
-> +    for (tot_ex =3D 0; tot_ex < max_ex;) {
-> +        s =3D read(fd, &ex, sizeof(uint64_t));
->          if (s !=3D sizeof(uint64_t))
->              err(EXIT_FAILURE, "read");
->  \&
-> -        tot_exp +=3D exp;
-> +        tot_ex +=3D ex;
->          print_elapsed_time();
-> -        printf("read: %" PRIu64 "; total=3D%" PRIu64 "\[rs]n", exp, tot_=
-exp);
-> +        printf("read: %" PRIu64 "; total=3D%" PRIu64 "\[rs]n", ex, tot_e=
-x);
->      }
->  \&
->      exit(EXIT_SUCCESS);
-> diff --git a/man/man3/frexp.3 b/man/man3/frexp.3
-> index a741137c2..2812798c3 100644
-> --- a/man/man3/frexp.3
-> +++ b/man/man3/frexp.3
-> @@ -14,9 +14,9 @@ Math library
->  .nf
->  .B #include <math.h>
->  .P
-> -.BI "double frexp(double " x ", int *" exp );
-> -.BI "float frexpf(float " x ", int *" exp );
-> -.BI "long double frexpl(long double " x ", int *" exp );
-> +.BI "double frexp(double " x ", int *" p );
-> +.BI "float frexpf(float " x ", int *" p );
-> +.BI "long double frexpl(long double " x ", int *" p );
-
-Here I think I'd use 'e' for exponent.  What do you think?
-
-
-Have a lovely day!
-Alex
-
->  .fi
->  .P
->  .RS -4
-> @@ -36,7 +36,7 @@ These functions are used to split the number
->  .I x
->  into a
->  normalized fraction and an exponent which is stored in
-> -.IR exp .
-> +.IR p .
->  .SH RETURN VALUE
->  These functions return the normalized fraction.
->  If the argument
-> @@ -52,20 +52,20 @@ If
->  .I x
->  is zero, then the normalized fraction is
->  zero and zero is stored in
-> -.IR exp .
-> +.IR p .
->  .P
->  If
->  .I x
->  is a NaN,
->  a NaN is returned, and the value of
-> -.I *exp
-> +.I *p
->  is unspecified.
->  .P
->  If
->  .I x
->  is positive infinity (negative infinity),
->  positive infinity (negative infinity) is returned, and the value of
-> -.I *exp
-> +.I *p
->  is unspecified.
->  .SH ERRORS
->  No errors occur.
-> @@ -118,12 +118,12 @@ int
->  main(int argc, char *argv[])
->  {
->      double x, r;
-> -    int exp;
-> +    int p;
->  \&
->      x =3D strtod(argv[1], NULL);
-> -    r =3D frexp(x, &exp);
-> +    r =3D frexp(x, &p);
->  \&
-> -    printf("frexp(%g, &e) =3D %g: %g * %d\[ha]%d =3D %g\[rs]n", x, r, r,=
- 2, exp, x);
-> +    printf("frexp(%g, &e) =3D %g: %g * %d\[ha]%d =3D %g\[rs]n", x, r, r,=
- 2, p, x);
->      exit(EXIT_SUCCESS);
->  }
->  .EE
-> diff --git a/man/man3/ldexp.3 b/man/man3/ldexp.3
-> index c2f5289f3..daa1290f5 100644
-> --- a/man/man3/ldexp.3
-> +++ b/man/man3/ldexp.3
-> @@ -13,9 +13,9 @@ Math library
->  .nf
->  .B #include <math.h>
->  .P
-> -.BI "double ldexp(double " x ", int " exp );
-> -.BI "float ldexpf(float " x ", int " exp );
-> -.BI "long double ldexpl(long double " x ", int " exp );
-> +.BI "double ldexp(double " x ", int " p );
-> +.BI "float ldexpf(float " x ", int " p );
-> +.BI "long double ldexpl(long double " x ", int " p );
->  .fi
->  .P
->  .RS -4
-> @@ -34,13 +34,13 @@ Feature Test Macro Requirements for glibc (see
->  These functions return the result of multiplying the floating-point numb=
-er
->  .I x
->  by 2 raised to the power
-> -.IR exp .
-> +.IR p .
->  .SH RETURN VALUE
->  On success, these functions return
-> -.IR "x * (2\[ha]exp)" .
-> +.IR "x * (2\[ha]p)" .
->  .P
->  If
-> -.I exp
-> +.I p
->  is zero, then
->  .I x
->  is returned.
-> diff --git a/man/man3/scalb.3 b/man/man3/scalb.3
-> index 6968931ba..bfa3a1f59 100644
-> --- a/man/man3/scalb.3
-> +++ b/man/man3/scalb.3
-> @@ -15,9 +15,9 @@ Math library
->  .nf
->  .B #include <math.h>
->  .P
-> -.BI "[[deprecated]] double scalb(double " x ", double " exp );
-> -.BI "[[deprecated]] float scalbf(float " x ", float " exp );
-> -.BI "[[deprecated]] long double scalbl(long double " x ", long double " =
-exp );
-> +.BI "[[deprecated]] double scalb(double " x ", double " n );
-> +.BI "[[deprecated]] float scalbf(float " x ", float " n );
-> +.BI "[[deprecated]] long double scalbl(long double " x ", long double " =
-n );
->  .fi
->  .P
->  .RS -4
-> @@ -47,11 +47,11 @@ by
->  .B FLT_RADIX
->  (probably 2)
->  to the power of
-> -.IR exp ,
-> +.IR n ,
->  that is:
->  .P
->  .nf
-> -    x * FLT_RADIX ** exp
-> +    x * FLT_RADIX ** n
->  .fi
->  .P
->  The definition of
-> @@ -65,32 +65,32 @@ On success, these functions return
->  *
->  .B FLT_RADIX
->  **
-> -.IR exp .
-> +.IR n .
->  .P
->  If
->  .I x
->  or
-> -.I exp
-> +.I n
->  is a NaN, a NaN is returned.
->  .P
->  If
->  .I x
->  is positive infinity (negative infinity),
->  and
-> -.I exp
-> +.I n
->  is not negative infinity,
->  positive infinity (negative infinity) is returned.
->  .P
->  If
->  .I x
->  is +0 (\-0), and
-> -.I exp
-> +.I n
->  is not positive infinity, +0 (\-0) is returned.
->  .P
->  If
->  .I x
->  is zero, and
-> -.I exp
-> +.I n
->  is positive infinity,
->  a domain error occurs, and
->  a NaN is returned.
-> @@ -99,7 +99,7 @@ If
->  .I x
->  is an infinity,
->  and
-> -.I exp
-> +.I n
->  is negative infinity,
->  a domain error occurs, and
->  a NaN is returned.
-> @@ -126,8 +126,8 @@ when calling these functions.
->  .P
->  The following errors can occur:
->  .TP
-> -Domain error: \f[I]x\f[] is 0, and \f[I]exp\f[] is positive infinity, \
-> -or \f[I]x\f[] is positive infinity and \f[I]exp\f[] is negative infinity=
- \
-> +Domain error: \f[I]x\f[] is 0, and \f[I]n\f[] is positive infinity, \
-> +or \f[I]x\f[] is positive infinity and \f[I]n\f[] is negative infinity \
->  and the other argument is not a NaN
->  .I errno
->  is set to
-> diff --git a/man/man3/scalbln.3 b/man/man3/scalbln.3
-> index e14c1be25..fbda8f4e7 100644
-> --- a/man/man3/scalbln.3
-> +++ b/man/man3/scalbln.3
-> @@ -14,13 +14,13 @@ Math library
->  .nf
->  .B #include <math.h>
->  .P
-> -.BI "double scalbln(double " x ", long " exp );
-> -.BI "float scalblnf(float " x ", long " exp );
-> -.BI "long double scalblnl(long double " x ", long " exp );
-> +.BI "double scalbln(double " x ", long " n );
-> +.BI "float scalblnf(float " x ", long " n );
-> +.BI "long double scalblnl(long double " x ", long " n );
->  .P
-> -.BI "double scalbn(double " x ", int " exp );
-> -.BI "float scalbnf(float " x ", int " exp );
-> -.BI "long double scalbnl(long double " x ", int " exp );
-> +.BI "double scalbn(double " x ", int " n );
-> +.BI "float scalbnf(float " x ", int " n );
-> +.BI "long double scalbnl(long double " x ", int " n );
->  .fi
->  .P
->  .RS -4
-> @@ -51,11 +51,11 @@ by
->  .B FLT_RADIX
->  (probably 2)
->  to the power of
-> -.IR exp ,
-> +.IR n ,
->  that is:
->  .P
->  .nf
-> -    x * FLT_RADIX ** exp
-> +    x * FLT_RADIX ** n
->  .fi
->  .P
->  The definition of
-> @@ -69,7 +69,7 @@ On success, these functions return
->  *
->  .B FLT_RADIX
->  **
-> -.IR exp .
-> +.IR n .
->  .P
->  If
->  .I x
-> --=20
-> 2.50.0
-
---=20
-<https://www.alejandro-colomar.es/>
-
---gt2a2zqjkrhwkaen
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhlRRgACgkQ64mZXMKQ
-wqlYcw/9Gfa1+q0FPm96egcxUB9ZeKHXllNiekJ9RNZVWoGxXp9zvGPw66ufuh33
-ngdKf7WS42/K3eZXyxmWBOEOvV9fD5LwlBt/S3V5nhBshgfbRkovG9jspdGe8E1y
-YORZ9ADtbbiQmRc2BGWXKFroWdhBAjHF+kDOpbCcOoglMleubDcUGOrK9g05b3Kv
-ULoYEq5aKDBD86VmRIKfy/bKvwbaXJevULZSmtV2MtgWbnuLuRAsFin2K60HSktL
-/U//tqwHbOOj369ogs/rord+E5Mf4ttL78S2rJdpXJrE4cwqk3xezYTpwD9O9lMb
-u0nhJULRtNsSZvc3FlqlfP3Xt5MR6JhsRzRuo9PDfE6MXTIfjXLVRPIQ37oCYsdw
-BQZ/q0W3AE0kioaruZpr1bZ9Zy8aa8sTai8C5R1vU+Pi5h7mWz8BWQgXjCdR9+3S
-9630HrH0kC1HG1ycACD+bUxFo7hGfVeVNrVpHYbhNVSZFoOnloLXl8D7FUmSrNzP
-jWhzkgJJeeyLDVpl5R9S4MYLLAChvFUPnkREl+Jwx9wxKidkSyOESwR6vYt8aQGC
-uLt9S0929stv7QMoKxoZM1lbKyrYEKKGCd9MYFGWsYWjeY3hacdXMMdBvNuUCsB4
-IhRtOTFdagrm5oCGr9Z+Y95EYXvCzt520FnZEd+IMIoo2fgYRMo=
-=/VLk
------END PGP SIGNATURE-----
-
---gt2a2zqjkrhwkaen--
+RnJvbSA0ZGJlOTJiMmUyMzk0ODc2NzM5Y2RmZDNjNzIxMDJkNWE3ZmIyNGNiIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBFbGxpb3R0IEh1Z2hlcyA8ZW5oQGdvb2dsZS5jb20+CkRhdGU6
+IFdlZCwgMiBKdWwgMjAyNSAxNzowMTozOSArMDAwMApTdWJqZWN0OiBbUEFUQ0hdIHdjcG5jcHku
+MzogZml4IGluY29ycmVjdCByZXR1cm4gdmFsdWUuCgotLS0KIG1hbi9tYW4zL3djcG5jcHkuMyB8
+IDggKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
+KC0pCgpkaWZmIC0tZ2l0IGEvbWFuL21hbjMvd2NwbmNweS4zIGIvbWFuL21hbjMvd2NwbmNweS4z
+CmluZGV4IDYzNmMxY2RhYy4uYjE3NTJhYjUyIDEwMDY0NAotLS0gYS9tYW4vbWFuMy93Y3BuY3B5
+LjMKKysrIGIvbWFuL21hbjMvd2NwbmNweS4zCkBAIC03OSw4ICs3OSwxMiBAQCAuU0ggREVTQ1JJ
+UFRJT04KIC5JUiBkZXN0IC4KIC5TSCBSRVRVUk4gVkFMVUUKIC5CUiB3Y3BuY3B5ICgpCi1yZXR1
+cm5zIGEgcG9pbnRlciB0byB0aGUgbGFzdCB3aWRlIGNoYXJhY3RlciB3cml0dGVuLCB0aGF0IGlz
+LAotLklSIGRlc3QgKyBuIFwtMS4KK3JldHVybnMgYSBwb2ludGVyIHRvIHRoZSBlbmQgb2YgdGhl
+IHdpZGUtY2hhcmFjdGVyIHN0cmluZworLklSIGRlc3QgLAordGhhdCBpcywgYSBwb2ludGVyIHRv
+IHRoZSBmaXJzdCB0ZXJtaW5hdGluZyBudWxsIHdpZGUgY2hhcmFjdGVyCitpZiBhbnkgd2VyZSB3
+cml0dGVuLCBvciBhIHBvaW50ZXIgdG8KKy5JUiBkZXN0W25dCitpZiBubyBudWxsIHdpZGUgY2hh
+cmFjdGVyIHdhcyB3cml0dGVuLgogLlNIIEFUVFJJQlVURVMKIEZvciBhbiBleHBsYW5hdGlvbiBv
+ZiB0aGUgdGVybXMgdXNlZCBpbiB0aGlzIHNlY3Rpb24sIHNlZQogLkJSIGF0dHJpYnV0ZXMgKDcp
+LgotLSAKMi41MC4wLjcyNy5nYmY3ZGMxOGZmNC1nb29nCgo=
+--00000000000009ced50638f541b5--
 
