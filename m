@@ -1,132 +1,77 @@
-Return-Path: <linux-man+bounces-3247-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3248-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DC0AF9CCE
-	for <lists+linux-man@lfdr.de>; Sat,  5 Jul 2025 01:47:12 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CD76AFF691
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jul 2025 03:58:56 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 19689486241
-	for <lists+linux-man@lfdr.de>; Fri,  4 Jul 2025 23:46:46 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 76CC11C47CF4
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jul 2025 01:59:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BB3A2045B7;
-	Fri,  4 Jul 2025 23:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVzKyPXx"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C9E727E7EA;
+	Thu, 10 Jul 2025 01:58:52 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from newman.eecs.umich.edu (newman.eecs.umich.edu [141.212.113.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4927154723
-	for <linux-man@vger.kernel.org>; Fri,  4 Jul 2025 23:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A5642AB4
+	for <linux-man@vger.kernel.org>; Thu, 10 Jul 2025 01:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.212.113.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751672827; cv=none; b=fVtuRDyyUiqSR9MrrhHCcULLRkQJwY0F9tuR6wjUrWjv1FSvX8TCDVwH9Xezjz3GK9Llno2Z9FRCFcqkDMeHbqEMHHfhmnLsGyDqYaa7egOw6ISnQxnx1ahe80V9lDB5ofCbsQ66C2fvVoGG6xCmwYTZUhiCYRDISMbs19qVnho=
+	t=1752112732; cv=none; b=K6g9rNLQeBNmPIJBRslplbAr/r9GVKCDj+N6oK44/8byiY78YBsDIkYboRkpvkU/8MXXBSOe9WUZ/jhQsPkrwUKmgZ3uYy099p1QKvJrTFvqsv+aHO0av+HAyCqZjZ6P5A1a7Sbj+OlkKbZEcroYtPljW5VxK6BocwY2BfE6sfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751672827; c=relaxed/simple;
-	bh=+V2hB/oCgg5bYcl93ULV3soVoM9M95zofklj0d0OGRk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VYpeGY4XNBCj+lxGPl4nyjPnePx4efkZPVFK+rGyqeE/J1/qyNZXN8Dip+xaPQx9hy+6SfzsKS1vYUCTaiInjIvpF1LMJRrKoYjau4w3kzk+/cuvbyFTUodLeUph5USyXAc+VzDoqEsTmQcZ3jpGixhaIHA0dnmXLzwi61HjNxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVzKyPXx; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50509C4CEE3;
-	Fri,  4 Jul 2025 23:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751672825;
-	bh=+V2hB/oCgg5bYcl93ULV3soVoM9M95zofklj0d0OGRk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PVzKyPXxwjo1xNLTOXllcGG423WZL2nlJ6GtoNkGhijPpPPt3OjOVGWCJOEtkPXng
-	 TYv5aCw/G1pTEnpfS+Tuvi+QNTz/LOCYt1ryichYu9YROvU9DeFXdZmW5xqaXAcJY/
-	 1ZZHdWocMowI9I8aB35x8ts8VEBgmYqkHi75dxCMGagByoKQ1Xje/4/cPMa2vDwrN1
-	 SmON3Zwov34YOFb9MW9ZoYOaCHNzNLRuUWLCZtJhjybilep3wBmRSTsYev/j8Ys1vZ
-	 saNIO6hCtSoO/d1gX68NeoA00xr1p34TrgMaktPGdgGpYCFTviVz5xgF+AlGkrmqus
-	 ns1jtcN6b4mQg==
-Date: Sat, 5 Jul 2025 01:46:57 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Florian Schmaus <flo@geekplace.eu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] PR_GET_TIMING2.const: Fix typo: s/SET_TIMING/GET_TIMING
-Message-ID: <2xhqxi3a36t47myonkt7bwtuoofl3gab6rjwk52iggijnhtspu@f2wdvrqg7xmo>
-References: <20250704153630.1236769-1-flo@geekplace.eu>
+	s=arc-20240116; t=1752112732; c=relaxed/simple;
+	bh=QWQJVMc3iN4aDLqI0VW6L7DG/UsYv4yjbnthu9PAzLQ=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=m1H42YQSGuAfD1S+Dl9/KoZ1DRjsCYkmi+ctXbTWjJqF/LDPQcgZlgY84dQr+RBebsVXm8YbZcFL/To8XTTjWlG2q4YNJT0Q11/O9wsJuQkTb6oLywC0yxL2Mutz1wsQxDHeAZ11DrCmHlu3NrJ3oXpp9G4u035m6BcP9A2MzZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eecs.umich.edu; spf=pass smtp.mailfrom=eecs.umich.edu; arc=none smtp.client-ip=141.212.113.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eecs.umich.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eecs.umich.edu
+Received: from email.eecs.umich.edu (email.eecs.umich.edu [141.212.113.194] (may be forged))
+	by newman.eecs.umich.edu (8.15.2/8.14.4) with ESMTPS id 56A1toTs1511843
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Wed, 9 Jul 2025 21:55:50 -0400
+Received: by email.eecs.umich.edu (Postfix, from userid 36916)
+	id 99C7112A0546; Wed,  9 Jul 2025 21:55:50 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by email.eecs.umich.edu (Postfix) with ESMTP id 98FE912A025C;
+	Wed,  9 Jul 2025 21:55:50 -0400 (EDT)
+Date: Wed, 9 Jul 2025 21:55:50 -0400 (EDT)
+From: Terence Kelly <tpkelly@eecs.umich.edu>
+Reply-To: Terence Kelly <tpkelly@eecs.umich.edu>
+To: linux-man@vger.kernel.org
+cc: Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: for man seccomp
+Message-ID: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7pm5ak7wu33attwx"
-Content-Disposition: inline
-In-Reply-To: <20250704153630.1236769-1-flo@geekplace.eu>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
 
---7pm5ak7wu33attwx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Florian Schmaus <flo@geekplace.eu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] PR_GET_TIMING2.const: Fix typo: s/SET_TIMING/GET_TIMING
-References: <20250704153630.1236769-1-flo@geekplace.eu>
-MIME-Version: 1.0
-In-Reply-To: <20250704153630.1236769-1-flo@geekplace.eu>
+[forwarding to linux-man@vger.kernel.org per Alejandro Colomar]
 
-Hi Florian,
+I'm writing to recommend that a pointer to a recent paper be added to the 
+"SEE ALSO" section of the manpage for seccomp.
 
-On Fri, Jul 04, 2025 at 05:36:30PM +0200, Florian Schmaus wrote:
-> Signed-off-by: Florian Schmaus <flo@geekplace.eu>
+The paper shows how to construct a MODE_STRICT sandbox for "filter" 
+software such as compression libraries --- a limited but important special 
+case.  It also describes several potential weaknesses with seccomp-based 
+confinement.  Both the paper and its code are permanently archived in the 
+ACM Digital Library, and both were reviewed meticulously by experts 
+including a Google Android seccomp specialist.
 
-Thanks!  I've applied the patch.
+https://dl.acm.org/doi/10.1145/3733699
 
+Enjoy!
 
-Have a lovely day!
-Alex
+Terence Kelly
+tpkelly @ { acm.org, cs.princeton.edu, eecs.umich.edu }
+https://dl.acm.org/profile/81100523747
 
-> ---
->  man/man2const/PR_GET_TIMING.2const | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man/man2const/PR_GET_TIMING.2const b/man/man2const/PR_GET_TI=
-MING.2const
-> index fa62b2fe2c94..0fc0f6c0ed41 100644
-> --- a/man/man2const/PR_GET_TIMING.2const
-> +++ b/man/man2const/PR_GET_TIMING.2const
-> @@ -15,7 +15,7 @@ Standard C library
->  .BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
->  .B #include <sys/prctl.h>
->  .P
-> -.B int prctl(PR_SET_TIMING);
-> +.B int prctl(PR_GET_TIMING);
->  .fi
->  .SH DESCRIPTION
->  Return which process timing method is currently
-> --=20
-> 2.49.0
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---7pm5ak7wu33attwx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhoZ/EACgkQ64mZXMKQ
-wqnB5BAAhd7ylwADty9LoEJyatOoXbZnaTMkYdhhnCoCFXDqNpTflxjC8QxGvjRX
-vMGmZVIGKVP7jM7NRI+8HxCcy9rnlLVlqltw3AT45yCNfkwmzVDUx5yzUMf5p+jR
-2D+Cti5eJsD+38K9I8ew8nE8vJCx+ByMCXjlCs1maE5s1ghXkgfYeJBL9entOeDT
-LcyXC/JwwpNSZngQWocbug+EgHpXjggkifZJkQyzZNFJa1c1wy77oVlnvcyqmCFf
-vtt0Mg4pmFhC9VBXOv/RQoAq+tF/UOBWt374knuG5nJyiE88/h6tcc3XPqz/5FA/
-NNbvn909y2DLdpHqZKpY+ce/V2x8TclheOd5uHz/PvfY+sEqU3dnJU7jYg2uzfNk
-ZTxznF+zkncDawZPrI68EPEJr9UBwD8cehQiP5nBXSTOm4kB6BsR7Xq62/EimV5D
-pnQhylf5BCZJ91Mj3hXgtQlTIj2/ocKYxKirtnHz1TvxNKFJ73tFLaGtrVVh+/Tz
-6ugYhrDMYtv2Lnay9wwUxO7afj3/QHuBWpu7kVRU2/QGFudtXyZtsEtQCQEyMdVk
-GpvyMardsOK+yhJk21ukZGLyCKHi3ChsptandBJtVkkU4Y9OZT4E+dfPu+c445uC
-1viNrJMJsea+2mDDjnXumj+/3/gEPRjRBCo6O3bkH74yyYDLdw8=
-=QH0w
------END PGP SIGNATURE-----
-
---7pm5ak7wu33attwx--
 
