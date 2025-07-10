@@ -1,128 +1,124 @@
-Return-Path: <linux-man+bounces-3251-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3253-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6DA2B00817
-	for <lists+linux-man@lfdr.de>; Thu, 10 Jul 2025 18:07:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 786EAB00B77
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jul 2025 20:34:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C30E9162198
-	for <lists+linux-man@lfdr.de>; Thu, 10 Jul 2025 16:03:40 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8C47216C9E8
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jul 2025 18:34:16 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED86B2857FF;
-	Thu, 10 Jul 2025 16:03:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 062C12FCFE4;
+	Thu, 10 Jul 2025 18:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ah4KTt8M"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o9DcLrXy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4630D198E9B;
-	Thu, 10 Jul 2025 16:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52C92FCFD6;
+	Thu, 10 Jul 2025 18:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752163414; cv=none; b=TJYB3KbijZ8vp9XTv7pwlo2PaAenVc+c7RNuCJSFZe++Rc0mEM97DMWd3zyIahC0Bc8cFFYeKcaSy85j0WYskdSbmiClDdJNXZE9OZT+gBxpyGy/PzOLzn0bNMBykX5qwZevNI+baIksecq6HT7Q6V/tJaNXlZhv25FzvoffM+A=
+	t=1752172441; cv=none; b=Du4qU5ZAXorxu4gyHWNJbgz59KieoE0wCtF8ViTYWb6actcoeYOIdnU4hKX8GeTF1IKW0oLr1YL3uzoD1foyKLySyRCm6dHuXaUBkunxRgnWAQWrBDzaZ1/AfTfY1QlqgfwLvZuvo1+YKeFW2E24HjTpddEC+66Yc4TWnSAE+y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752163414; c=relaxed/simple;
-	bh=OrcGscQIecHgEJe2ZrYi9mg25D9dSHmjzwyP98IEYCQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=onM/13zjlvYtAFFfnM0H2A4dbUYmO1patpfEG4RkNbt0NIBFbyYbnB8yXqClnqnl++d/N/ZDkh1oKjGM0gsyIXRFp2lu3nG3+xCWzKiYG+WmMpVYDyK6ucoIxhp8CREqOlDClcG+nSiiQmvArKWcUP3KI+4D7xfISDzHL+Qx7mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ah4KTt8M; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-6fadd3ad18eso10599736d6.2;
-        Thu, 10 Jul 2025 09:03:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752163412; x=1752768212; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6CNBdR675+4dtocjN9Sp335vjQ1icRoCsxmzij+vhoU=;
-        b=ah4KTt8MhQ6shi27tlVMbd947OaGcdu/4tgwQ/s4MvDfBYRokwVInoFHNNScvNe/xg
-         qGpIGjI5LOLbqJxzu8Fw6ooW8MYubjL5fXwm5Ysz1Y6bPVUyQkAFWWRm/zMDk+Ia6ui5
-         00mbvX6QKj12Kgx9XmwpGraV5AvFdr14LmwzY9erJGMlEnsTlj5J5V9pDu7u+cPshA78
-         SqdJy3HVbHUrJm7WLXct/yLhK/kbA1x0UPOj8ECLApU6JOP8gIaB2kYLR0+ClD3GU0RL
-         Yd5RhNzBAzqYL6O4J6xJ+3HMIBS70x0cpX7a+8MNAIEDfe0W2jE3YUYcsndVInr03bmO
-         LvFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752163412; x=1752768212;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6CNBdR675+4dtocjN9Sp335vjQ1icRoCsxmzij+vhoU=;
-        b=hDmoGJrLNcPBXSUsxJ/e00CiMvbqHbJzkHM56TO3l0CnLIigXrIbUvXHATV1kGBDbM
-         4EgpkSLxH2S7O55qsENzJoljtvYLYuHYQ91PQO3b2Cf3jIRQM8eMRzwYrJpoDvaHcSb+
-         cIfSRhckwMXpoaoeWrqnUVMJCMY6JUNSJJTVEUea/XO2OI/+iEmdBLNvNtc1F90kRm20
-         g3oc4UPwGujAuaxO9BLdFAxnn0MRVsvtaxwQRZTZie4zvRHnZQiNU6o5/07oangi5YF2
-         DKn8YBgFceV8y62iH7ROTE/xRpYe3EBB9vM5MMCyfBJQ3wpJvOdXaccnkqoMfgEDen6h
-         H6ZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV2CPmKQk2YnHAweGJ57bCtNpNxQzy59pjWS+d7zlayqJS0TjAo9NDghM0i9r+p/7XO3oFVPh1xZSC3@vger.kernel.org, AJvYcCXUT0QQbD8B749Um8SeO7AwQnSAcgEx8c6bbWESHxzdZsnoWvMnkZnFzyBMypwjugXnex8GwQ84oDZ7@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvMFnjanhwtGlJEvyrdC+jaPQY1UpKn07eNDhsxBsPh7XqGbQj
-	pRbtwZTro2jWm+t51Ud6S+twCNwFdjD1tAJ1CmfH9vyjMCpRUDjvBXY0h5++O2IBfyB6VqKg69Y
-	1Vrj9LHrGdBgEUkEbJIAuLLVZa86k7HNdVKk2CzU=
-X-Gm-Gg: ASbGncujjLaG+5CU3cS36j7zdquyIl4yLmdbK8tZwwwgcQVbsZmXOyDPT1JHR16yf6L
-	Xybwb2TOel5R1Gkew9R5/ZAE9QiBlunxem1/QOaS2aNRj8XzN5DjEetQfTGSUIPBTss0aWBeV5F
-	YN4g4WgPGK0NvFJai/hnA8Jf51Ikmj2ktNhWmauK3g8RTINgocMDVIJLBmVUDC6/6eFweQFaylq
-	PQDLFKOzSQEPA==
-X-Google-Smtp-Source: AGHT+IHmYyL/+JY0UvfI9kp7qwQUTaGrCKnbBVkp09rDCjBz15CFnxSjwkozDg0w23mTJIpWlD9q+WSW/LJjtpA/lt8=
-X-Received: by 2002:a05:6214:5249:b0:702:d836:6591 with SMTP id
- 6a1803df08f44-7048b904e66mr149906986d6.32.1752163412037; Thu, 10 Jul 2025
- 09:03:32 -0700 (PDT)
+	s=arc-20240116; t=1752172441; c=relaxed/simple;
+	bh=hApaLe0URwixjO0PNgZUeYN+POlXa8WoyAVmhkLUchk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GXMWhfM95fzJeqHrq6sl5CZZa14MbDZrvBOV5UGDDNSHhuBuDDmaxYA92fx0FePcWZobYQ/p6BQreZpHgkivn/jeoPKdeIUnW7A1WfXNIwqL8AvkqYDRjF+2k/vrxqDg4nWZu1J/pjIsUMz4JniUAjxgpKKd3cvpJWOS2JFyImk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o9DcLrXy; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B785C4CEE3;
+	Thu, 10 Jul 2025 18:34:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752172441;
+	bh=hApaLe0URwixjO0PNgZUeYN+POlXa8WoyAVmhkLUchk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=o9DcLrXymxm9+mwbwXQ0ULoaKLv/W18QZ73bADfz3qSYuL6JIoFIr95oFX3LqlUyf
+	 /TJcS8/uhIo9kg5yMsxVSdqyXjXWjpbo8IG8Rh7a+XzY3EFeKWOBF7A1dTsuuRTCX5
+	 ZMhVdDHiEm4oAnNcbmFz8dEByaILXNVcCg5eIflrHBKVEyYJ3KWXYaUw8DoLHH+Kdd
+	 BFzOC0874Up70wA+wGO5zcX0gapj+o/LzPAAuwS2Ub71sju1YMA847sMnPVkZF2kl/
+	 rT9sDbfFxubMy4qCpVp8fGfa0bIWXL6ZNVm45aQvO6Ivab4Z8s76vQrRHDTgAXM23H
+	 wEnY68gf9AZPg==
+Date: Thu, 10 Jul 2025 20:33:57 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Steve French <smfrench@gmail.com>
+Cc: CIFS <linux-cifs@vger.kernel.org>, 
+	linux-man <linux-man@vger.kernel.org>, Bharath SM <bharathsm.hsk@gmail.com>
+Subject: Re: Missing man pages
+Message-ID: <pc25uvlyhotfhkriafqzr5jmemuyz3brobznxja46cq264usob@rmn76t5warxf>
+References: <CAH2r5mtwv16LtkbXywgA=LMe71=jY64j6qUr38nqV=mKgOUTgg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAH2r5mtwv16LtkbXywgA=LMe71=jY64j6qUr38nqV=mKgOUTgg@mail.gmail.com>
- <d37b4e97-bac7-44c0-901b-e7b686c985b2@redhat.com>
-In-Reply-To: <d37b4e97-bac7-44c0-901b-e7b686c985b2@redhat.com>
-From: Steve French <smfrench@gmail.com>
-Date: Thu, 10 Jul 2025 11:03:19 -0500
-X-Gm-Features: Ac12FXxi2Nv0vGNpVwD3koha8236u-STNofMmzFu8_Jyl4dlM9T4OoXuK_kE7KA
-Message-ID: <CAH2r5mukt1NVVo+qT=cpeB-bmSh_vRgqhkGhF8g1E4+R8W5vHQ@mail.gmail.com>
-Subject: Re: Missing man pages
-To: "Carlos O'Donell" <carlos@redhat.com>
-Cc: Alejandro Colomar <alx@kernel.org>, CIFS <linux-cifs@vger.kernel.org>, 
-	linux-man <linux-man@vger.kernel.org>, Bharath SM <bharathsm.hsk@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vh46mslw2r4uj2wv"
+Content-Disposition: inline
+In-Reply-To: <CAH2r5mtwv16LtkbXywgA=LMe71=jY64j6qUr38nqV=mKgOUTgg@mail.gmail.com>
+
+
+--vh46mslw2r4uj2wv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Steve French <smfrench@gmail.com>
+Cc: CIFS <linux-cifs@vger.kernel.org>, 
+	linux-man <linux-man@vger.kernel.org>, Bharath SM <bharathsm.hsk@gmail.com>
+Subject: Re: Missing man pages
+References: <CAH2r5mtwv16LtkbXywgA=LMe71=jY64j6qUr38nqV=mKgOUTgg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAH2r5mtwv16LtkbXywgA=LMe71=jY64j6qUr38nqV=mKgOUTgg@mail.gmail.com>
 
-On Thu, Jul 10, 2025 at 10:55=E2=80=AFAM Carlos O'Donell <carlos@redhat.com=
-> wrote:
->
-> On 7/10/25 11:07 AM, Steve French wrote:
-> > How can we get missing man page (mount.cifs) added to man7.org?
-> >
-> > https://git.samba.org/?p=3Dcifs-utils.git;a=3Dblob;f=3Dmount.cifs.rst;h=
+Hi Steve,
+
+On Thu, Jul 10, 2025 at 10:07:05AM -0500, Steve French wrote:
+> How can we get missing man page (mount.cifs) added to man7.org?
+>=20
+> https://git.samba.org/?p=3Dcifs-utils.git;a=3Dblob;f=3Dmount.cifs.rst;h=
 =3Dd4890706a0fed73f05b3a228971756b57efcb9ba;hb=3Drefs/heads/master
-> >
-> > I noticed today that mount.cifs man page is missing from your site
-> > (and presumably the user space tools man pages are also missing
-> > cifscreds.rst   cifs.upcall.rst  idmapwb.rst     pam_cifscreds.rst
-> > smb2-quota.rst cifs.idmap.rst  getcifsacl.rst  setcifsacl.rst
-> > smbinfo.rst)
->
-> Since Michael started adding a curated set of man pages to man7.org
-> from other projects in 2013... how are those sources kept up to date?
->
-> Is man7.org a part of the Linux Man Pages project or just Michael's
-> own published collection of man pages?
 
-That is a good question.   Google search for Linux man pages (ie
-"where is a web site with latest linux man pages") pulled up an AI
-generated answer that indicated that man7.org is where to get web
-pages with current man pages for Linux, but I would be curious if
-better site.  The other ones I found were even more out of date.
+<man7.org> is not my/our site.  It is property of Michael Kerrisk.  You
+should find contact information within <man7.org>.
 
-"The Linux man-pages project website, hosted at man7.org, is the most
-up-to-date source for Linux man pages online. It offers HTML
-renderings of the man pages from the project and a curated collection
-from various other free software projects."
+<https://man7.org/linux/man-pages/index.html>
+
+> I noticed today that mount.cifs man page is missing from your site
+> (and presumably the user space tools man pages are also missing
+> cifscreds.rst   cifs.upcall.rst  idmapwb.rst     pam_cifscreds.rst
+> smb2-quota.rst cifs.idmap.rst  getcifsacl.rst  setcifsacl.rst
+> smbinfo.rst)
+
+
+Have a lovely day!
+Alex
 
 --=20
-Thanks,
+<https://www.alejandro-colomar.es/>
 
-Steve
+--vh46mslw2r4uj2wv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhwB5UACgkQ64mZXMKQ
+wqlMJA//bRMI3tHXNoTFGihr8SJKWnKMSfvax6Pfbi5a7aSlV+I/RGG/zQsdJ+yw
+2zRMfAYRafthRiHy1+O+xwft5NQBvIx8hh4wo1SgBjxrH9vQvG8Du5lbY5T2Qnt0
+Hg1Z7ku/2v8vbtYBteSZyq/tkKB/tFCYJb60x1XyHD3UA5SZX1SDT+aSGmjMYjEC
+hYsMLJSSw/l4rB6r2fPbCtRzTNW2ZeZASYQ5DbJjcmy6vbVs+ZCAlhmOs7Of6yhu
+VmXOk2BXeKe8VCgdNyvvMF9eZAqsu+/CTtIAKliuFXFkJEmFz6r+60A/eASZLJSM
+msBP9nBb7slaHmdhQLpFWJ5Fyv/a3YFgMdsbDiEPz5/GPrhi03CfPxEGGpP8EhXx
+6v6ym7T8Ut1B1uT74o6qCuN1XbLYro0XikoESRpsGfDwoUlAxYN05pbVWeU/6+5h
+MC1n2tu879Qf6FQ+Kd+7zbcXUu2J+H+t0ZdHi+rMTPxcLKJEhdDoe9uPaU17+bWr
+XP0dSZqJkvxBLVwKJ79SRkFaNk3XgWU2yrdRRwz+obUGX77rLNZjs/S9+MfSHvSu
+wZhcOyEr1ZEEB9SvZXmpo/Jd5RVOqeqhZzzMnhWjCzjlw4N78rwQ/L+w8enufsda
+qr/sBYYcSg1NyQejG7WFnzb3dScyui328b16Zd+kdanDVnxJyvc=
+=7FIz
+-----END PGP SIGNATURE-----
+
+--vh46mslw2r4uj2wv--
 
