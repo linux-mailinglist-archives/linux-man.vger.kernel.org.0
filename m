@@ -1,53 +1,56 @@
-Return-Path: <linux-man+bounces-3255-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3256-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5036B01C21
-	for <lists+linux-man@lfdr.de>; Fri, 11 Jul 2025 14:35:32 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 28BD7B01DDE
+	for <lists+linux-man@lfdr.de>; Fri, 11 Jul 2025 15:39:10 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 858D33A83F1
-	for <lists+linux-man@lfdr.de>; Fri, 11 Jul 2025 12:35:05 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8ACD818855F2
+	for <lists+linux-man@lfdr.de>; Fri, 11 Jul 2025 13:39:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BA0C28B3F6;
-	Fri, 11 Jul 2025 12:35:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24BE82D3EDB;
+	Fri, 11 Jul 2025 13:37:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UB5SBp4b"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OI2S1KJv"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B49D4A24
-	for <linux-man@vger.kernel.org>; Fri, 11 Jul 2025 12:35:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D871A3A1CD
+	for <linux-man@vger.kernel.org>; Fri, 11 Jul 2025 13:37:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752237328; cv=none; b=eVHCAgI1D6wxx2k3Q9pbChK9C8e+4IuW1io4iz0eNm5ZQObygT2nOXRjFR1gzeQ1moppm6TJEmtU/wbNmUqbwqCtZRuCj0SjjnwOlVdew/rf4Dq1bCwms+royYWCvevpVQ8tiieS1R4qCc5VhTxKiSZQsKr2Qs9BWxrFYX73ph0=
+	t=1752241077; cv=none; b=U8JJoGC7niYmTjSGWVWN9sE4IxAo2USjmAgO+TY4VCWILQKR/DuitGte8lYY7D6Zlp06DPl0KVz62QFn6kFQO3IJrb9GH9ee71n7bPvGa4bpvw5u9HbM4SUeCE/zSdDJKbE71EztXvGxGJ7aAYQvR9eYRI7yXBZNsQ3ZN5ot2sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752237328; c=relaxed/simple;
-	bh=gOizkzca55JM0cFppTPg/xgiwGl6EZimKuoZ9pXfq5U=;
+	s=arc-20240116; t=1752241077; c=relaxed/simple;
+	bh=aAPQRn14RFt2qLsqeYN+PWvhegN6M3asHc+eksWI15M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TG7lY2406etNV2J+8JVr6Uvmv9v5MlCkVzTha3Jl6jRNXkogyJWiXcUIQx4Mp5s6nN8UzhKE3pSHexj1Np7pUVq1qY5TH2P1GtHmLvURUxgDNLakycn0RUGtXqlMixQ+xLXpChUjBKBJ7k8QaFLhKarGb9FFQegr/vaMr1lKUq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UB5SBp4b; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B49C4CEED;
-	Fri, 11 Jul 2025 12:35:27 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=VTbVN6RhHFPb/gBBcE3rAIe1PrMeAeIieDYrP8gEiHiiRDaeJtz+2/sMl3FmcduvaihgPCxUXIuxPUN0yjsfRBpcgE/Uk6eSdQAau9YQp40+6+eAzgha6ckw2LAa3fA5bKpe5aLCjUFvsiBjQyT1HoIPvXfjWzsnHxuhTpuNPwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OI2S1KJv; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DB7C4CEED;
+	Fri, 11 Jul 2025 13:37:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752237327;
-	bh=gOizkzca55JM0cFppTPg/xgiwGl6EZimKuoZ9pXfq5U=;
+	s=k20201202; t=1752241077;
+	bh=aAPQRn14RFt2qLsqeYN+PWvhegN6M3asHc+eksWI15M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UB5SBp4b60wcvhjVzp3Y8MpiN1Zz2uiu7Wf3mSsl24hTVwzGMTJdTSxi3OkSczf3C
-	 tIRljoilyFz2TWETNjLmgHgYFF6FphhaQdl3MpxdGM2r+/qu9XNH/7Uc+7tlKav0oo
-	 eci61cVwHXALAO/NB09doeREoG8IPICPw6qMTwcRDDa4JCFi0uCkmUrVheiX0EpS1B
-	 iaeqhwt6IaVbJWhZEfmlPZP7/xmIsIrDDiKxQpQlb+d2J1pj4iQlped5nrN+BebTsH
-	 TJC9/98jw0DUfz9y4Cs+HkdX+/c+z19qukum2cg8C1uHhoiIpSMaZ+J8IjKrGGNLoP
-	 V2rjOSMq+i3Hg==
-Date: Fri, 11 Jul 2025 14:35:24 +0200
+	b=OI2S1KJvIqAjZ/sIOdM9zyLWExNXy2MEG9uWdYMOSsyDD/kbnBOiTpIUwm3h/IbJm
+	 gndBs9WG1a/LxQDgF6yRxC3fiInsO/KYtQrc9yw1+oOJqP7WVgORvMyvsFVp+rTeO5
+	 bfrtaZFMMbQ/8nFk3ts5ZhxF/66pr+CuH0lDt6vzjO7nXBMIrswTjF+bu5xnfR95X6
+	 7jo9WOI4JCKgYfLiZEGyu5QMbuYZ+QfFqnPSNN0xJcsW8upKe6EM45rZ9KZ1mskIhP
+	 hbdd0LAlypukeN9SwN+c1EfUn3NWdusqbw8yiz6MzZKef1ULW6RNpCa42E6Mz+ZabL
+	 OZVQBv4Qf5NGQ==
+Date: Fri, 11 Jul 2025 15:37:54 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Terence Kelly <tpkelly@eecs.umich.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: for man seccomp
-Message-ID: <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
-References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] wcpncpy.3: fix incorrect return value.
+Message-ID: <ijc2bqonmqeqbbl5lg2qsucoltoq5atkepfp62aipmjjnc6egt@aw2l6zclt35c>
+References: <CAJgzZoq0AvK8EDicLk7ZMVbWS8MmoqW0Nv4U9HCFUXnNw+yUGw@mail.gmail.com>
+ <7low246gskvwm5sxyepqz6io2qdvpctxsi4pnzmb52na2ynt45@s6gghy7pcq76>
+ <CAJgzZooxTPz0BQh8NoG+osQCG36KJ3rGD0dbMhN493cnTqSWFQ@mail.gmail.com>
+ <tjgvyarabwcwk3l552tiligv6z25xmkxwy42a224u32u3kwfoj@um4uxiy6tbie>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,168 +58,98 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jzjphkvahfvyljto"
+	protocol="application/pgp-signature"; boundary="q7illinjwn7kl3ny"
 Content-Disposition: inline
-In-Reply-To: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
+In-Reply-To: <tjgvyarabwcwk3l552tiligv6z25xmkxwy42a224u32u3kwfoj@um4uxiy6tbie>
 
 
---jzjphkvahfvyljto
+--q7illinjwn7kl3ny
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Terence Kelly <tpkelly@eecs.umich.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: for man seccomp
-References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
+To: enh <enh@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] wcpncpy.3: fix incorrect return value.
+References: <CAJgzZoq0AvK8EDicLk7ZMVbWS8MmoqW0Nv4U9HCFUXnNw+yUGw@mail.gmail.com>
+ <7low246gskvwm5sxyepqz6io2qdvpctxsi4pnzmb52na2ynt45@s6gghy7pcq76>
+ <CAJgzZooxTPz0BQh8NoG+osQCG36KJ3rGD0dbMhN493cnTqSWFQ@mail.gmail.com>
+ <tjgvyarabwcwk3l552tiligv6z25xmkxwy42a224u32u3kwfoj@um4uxiy6tbie>
 MIME-Version: 1.0
-In-Reply-To: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
+In-Reply-To: <tjgvyarabwcwk3l552tiligv6z25xmkxwy42a224u32u3kwfoj@um4uxiy6tbie>
 
-Hi Terence,
+Hi Elliott,
 
-On Wed, Jul 09, 2025 at 09:55:50PM -0400, Terence Kelly wrote:
+On Thu, Jul 03, 2025 at 12:12:49AM +0200, Alejandro Colomar wrote:
+> On Wed, Jul 02, 2025 at 04:40:31PM -0400, enh wrote:
+> > > Hmmm, yup, that's quite incorrect.
+> > > We should add this to the commit message:
+> > >
+> > >         Fixes: d91506f8faa4 (1999-08-24, 2022-12-19; "man-pages 1.26")
+> > >
+> > > > +returns a pointer to the end of the wide-character string
+> > > > +.IR dest ,
+> > >
+> > > I don't like this wording.  It gives the impression that this function
+> > > is appropriate to create wide strings, while it's not.
+> >=20
+> > i actually didn't come up with that: i looked to see what wcsncpy()
+> > said and copied that :-)
 >=20
-> [forwarding to linux-man@vger.kernel.org per Alejandro Colomar]
+> Hmmm, I should rewrite wcsncpy(3) then.  (And st[rp]ncpy(3) maybe too.)  =
+:-)
+
+I didn't find any text in wcsncpy(3) similar to this.  Maybe you read it
+elsewhere?  It would be interesting to find the source, if it needs to
+be fixed.
+
+[...]
+
+> > > How about this:
+> > >
+> > >         returns a pointer to
+> > >         one past the last non-null wide character written,
+> > >         that is,
+> > >         .IR dest\~+\~wcsnlen(src,\~n).
+> >=20
+> > yeah, that's a good way to avoid having to describe both cases
+> > separately
 >=20
-> I'm writing to recommend that a pointer to a recent paper be added to the
-> "SEE ALSO" section of the manpage for seccomp.
->=20
-> The paper shows how to construct a MODE_STRICT sandbox for "filter" softw=
-are
-> such as compression libraries --- a limited but important special case.  =
-It
-> also describes several potential weaknesses with seccomp-based confinemen=
-t.
-> Both the paper and its code are permanently archived in the ACM Digital
-> Library, and both were reviewed meticulously by experts including a Google
-> Android seccomp specialist.
->=20
-> https://dl.acm.org/doi/10.1145/3733699
+> Thanks!  I'll use that.
 
-Why is SANDBOX_ERASE_ENVARS defined in such a weird way, when it can be
-a normal function?
+I've applied these two commits:
 
-	char *
-	strzero_explicit(char *s)
-	{
-		return memset_explicit(s, '\0', strlen(s));
-	}
-
-	void
-	sandbox_erase_envvars(void)
-	{
-		for (char **p =3D environ; *p !=3D NULL; p++) {
-			strzero_explicit(*p);
-			*p =3D NULL;
-		}
-		environ =3D NULL;
-	}
-
-Why do you cast the first argument to syscall(2)?
-You're not supposed to do that.
-
-	syscall(SYS_seccomp, SECCOMP_SET_MODE_STRING, 0, NULL);
-
-Why do you call _exit(2) through syscall(2)?  There's _exit(2).
-
-Why is CHK() defined in such a weird way when it can be a normal
-do-while(0) macro:
-
-	#define CHK(e)  do                                            \
-	{                                                             \
-		if (!(e)) {                                           \
-			MSG("check failed:  '" #e "'");               \
-			_exit(1);                                     \
-		}                                                     \
-	} while (0)
-
-What is 'erongi'?  Why do you write the output of write(2) to an
-undefined variable, if you don't even use that value?
-
-	#define MSG(m)  ((void) write(STDERR_FILENO, Z(m), strlen(Z(m))))
-
-I recommend checking syscall errors as -1.  It's more readable.  It also
-avoids multiple evaluation of arguments in DUP2().  Also, we don't need
-to check that a=3D=3Db.  dup2(2) succeeds on such case too.
-
-	#define DUP2(a, b)  do                                        \
-	{                                                             \
-		CHK(dup2((a), (b)) !=3D -1);                            \
-		CHK(close(a) !=3D -1);                                  \
-	} while (0)
-
-See how dup2(2) succeeds for a=3D=3Db:
-
-	alx@devuan:~/tmp$ cat dup2.c=20
-	#include <unistd.h>
-	#include <stdio.h>
-
-	int
-	main(void)
-	{
-		int x =3D dup2(1, 1);
-
-		printf("%d\n", x);
-		perror("dup2");
-	}
-	alx@devuan:~/tmp$ gcc -Wall -Wextra dup2.c=20
-	alx@devuan:~/tmp$ ./a.out=20
-	1
-	dup2: Success
-
-Why is SANBOX_DISCOURAGE_CORE_DUMPS defined in such a weird way when it
-can be a function-like macro?
-
-	#define SANBOX_DISCOURAGE_CORE_DUMPS()  do                    \
-	{                                                             \
-		struct rlimit  rlim =3D {};                             \
-	                                                              \
-		CHK(setrlimit(RLIMIT_CODE, &rlim) !=3D -1);             \
-	} while (0)
-
-Why is SANDBOX_CREATE_STRICT defined in such a weird way, when it can be
-a function-like macro?
-
-	#define SANDBOX_CREATE_STRICT()  do                           \
-	{                                                             \
-		CHK(syscall(SYS_seccomp, SECCOMP_SET_MODE_STRICT, 0, NULL) !=3D -1); \
-	} while (0)
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D53783e73e482042cff0db76762d808b2f73305a1>
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D7e4e9222e90d11ee0f7ad35004eb00c3d56b3574>
 
 
 Have a lovely day!
 Alex
 
->=20
-> Enjoy!
->=20
-> Terence Kelly
-> tpkelly @ { acm.org, cs.princeton.edu, eecs.umich.edu }
-> https://dl.acm.org/profile/81100523747
->=20
-
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---jzjphkvahfvyljto
+--q7illinjwn7kl3ny
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhxBQYACgkQ64mZXMKQ
-wqmjtQ//TeVtpsKNkJwbJwBm3AAEHhYS6sJCbHfQvvtXyhiqOejL9Sr4YDUyRGsr
-55yPS/5O+1jSB9YJ193UlBZ+yKJdIkI/uPYx3mQKyHz5g4NGh/VUAZIDhR1r8lWU
-wBlaqRHv/vVYFZtKdUHWM2BS+OQxggkfuKt3uUyRUHQaIgJaz+7is7zjeh89TExj
-9pX0Gn4YHRWQ0Nu24EBdq5WsrW+qmuaX8WVaJxBbc5ZlimR7C3XndcHgwHTsxJCp
-lJjuNgRlsxohQtuacDCjXea0axXL5t8YKzUgUc1g2b7R19Du3Ov7XCQZ83kNExHp
-0dQNb/OBXKMZDOvO2LK6B4eWaEFUyo+GS09P4ot/ycE3tgYVcoOhUfo1wHgO9Fcy
-y/cS2N+gwCjjfME+zRbmLKbBs3NFepczW/ZDbXHbjdvOhdJGVc0QgdHtFYhwUNwS
-7E2NQIeNUx2Oz2sANbhK6juPSA1ztv+xLrcsTKDlbMeVVaLlGL4N3OGrokjOsoWA
-F9BQaKVpp04GcV+3mCt4pHYq+CBiu5oekC00HOaQBrv6Yi+0lVrUMWEtF2UGxtvo
-awHOpMmxMDngFEL6tmYPXgOwI73QRq5hdEad6L+fbpHQ7DbeiFl7VRjGr82Poa5c
-oQ2XL6cyR6tzL88vAPpeMb6dlsaRvsxPzyLjKhqM8dETcIF+0Q0=
-=ZbUC
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhxE7IACgkQ64mZXMKQ
+wqmHfQ/5ATzyTdpOwC7W5AgSclS1Uy0Do6WC0pv9qTrhZLdWAWPXDwjloONbEf6c
+ysb18Xqtp6iPArLdjOfjZZzmyF2in+CQwV38qAfzRXK4Bht9+7A0iw19Afk75Ply
+wp7hJqyqTkCedy+91X8cjDcppxMd52F68BGmuB6isUcopyYJHSBcCFE6kPnH03Ij
+EqE/knD/n6k8WEr1rX9nVCcmyfIzu4VRe7wwtZsrvoRIyAnDfUvdoiMwHLE9WRto
+abhFw4OZWJcaHqBnRBRcfR5vs/+pHhCuqUkL9LneP6oXr0eBtVSTEn55wK74yV/K
+m944dI+ol1+1SWqX65dlqXMC5l6XIduouFlS8hw7z7BGeUI5uqtEj5Rvw4J1UuiG
+yr/xq82j1nvN0DP4hpTUb1u4EL0Mz9est5C8OjWzFwOQz2fK5nWTjJQBrYP9I4st
+R1WOs3df54/J/Rj9g1KqH6H/GcCOJSyV1dqSHuM3DGNHCC4GPfAkCTtlnQU2MMAT
+D13ek6vxkOSKFtxt0YSpZvgjSHwWiK7EgRmWuRKcWKQfgDdRieGnelW7VYxYULlK
+7q0C9ggjZHVFR2EpnkYVIGKv9faLecWOMNYn0PyD4IIZuz5GeYPVS1VcFDYYSEV8
+v4qNXalUUp5cC6JWczq+h50Cw3OC8FfC4Q2bt2wyBb7Yd+o94BI=
+=WYOp
 -----END PGP SIGNATURE-----
 
---jzjphkvahfvyljto--
+--q7illinjwn7kl3ny--
 
