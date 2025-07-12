@@ -1,399 +1,416 @@
-Return-Path: <linux-man+bounces-3260-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3261-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3303EB02AC2
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jul 2025 14:14:42 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50777B02D34
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jul 2025 23:26:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B5627A455E4
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jul 2025 12:14:14 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4EA781AA1D3F
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jul 2025 21:26:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4C2D275872;
-	Sat, 12 Jul 2025 12:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QfQ62GW5"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF76B2153CB;
+	Sat, 12 Jul 2025 21:26:23 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2D086348
-	for <linux-man@vger.kernel.org>; Sat, 12 Jul 2025 12:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022171EEE0
+	for <linux-man@vger.kernel.org>; Sat, 12 Jul 2025 21:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752322477; cv=none; b=Fvkt8DT79Fm8DnSbBjSl0MmkEO+8XfXSo0aEY4tpn2afqaavNmH6RyA4lKMx1NZ0QSlxtM01XjFbAF376qXuIAV1IGvTiXeMt5NIeQTLGWPLVm2VDraJg7xjquzKsZrpT8J4BU0zIvVuwpQpIim0/MHZ1+u6i1LAFImH0jYA678=
+	t=1752355583; cv=none; b=fGzankeUpxUk72+fbwZt1vNTIHypImCPMviCEE3IJ9S+2vu/kQ2ORLaHXe2xR+keZBs8dP6kah7i32zMvwXc8wLYw5ly4vn9MV61K1kzZJ3HYX2I+c19GIjHCT5reGDXKkDfGPyuq/Bsnc/mFeQkoe4+oV4k3Wh+UBROLRNIEYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752322477; c=relaxed/simple;
-	bh=u87upr5nIWin1asPmArnkLckiKqs2IR7QvMwy8r5hbA=;
+	s=arc-20240116; t=1752355583; c=relaxed/simple;
+	bh=YZqlU1x0FQI1McG8gnwes/b8ts9HuzMjsDyG9bjqvrU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tN4aTDOzrWJkTjs8NEY3augiZXdV9zyR2WrBAfWhDj7C6jtcUnphvAm9oWGODhCfqZvrCoBhQkl65njy0/da0ommJc/YrBqa+VOv9QgYcrMtRhtF0q5Q+RdgXz0nOJP9XuTk3GCyVQWpW7kmyDyIPi51XMJL1k2GIBsJRJ2mEMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QfQ62GW5; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9E5C4CEEF;
-	Sat, 12 Jul 2025 12:14:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752322477;
-	bh=u87upr5nIWin1asPmArnkLckiKqs2IR7QvMwy8r5hbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QfQ62GW5OB7iJ10/a3iw7ePSkwHu+5zZHNDuyAned4DKREALE/d9c/8yK8zwc94zz
-	 mZVD5+4WqUCIyVgTUubYgyq4mDADybEsEREl1c8t08eKERL3/Qr3l8IL1WkOuDIhV6
-	 /4mX/RiuFV2y+oW9y4JNncnDaxEooRTgKnsWbbko6v2qmBP5Gv8QB33c+wK/kN0GT9
-	 u8Zm4keYtmrkC+bCCH55JB72ygQg2OEDM3xEjszoznBjbGwCEzVfOuXv8XFnX5Plyl
-	 4Y1oKB9jGuUJo/OvtpX+8ebtsqcVYJGFneLQ3J5QJZAj7X+PPPSVcrm9vznryAEZEQ
-	 Jb1qYxhz+KmTw==
-Date: Sat, 12 Jul 2025 14:14:33 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Terence Kelly <tpkelly@eecs.umich.edu>
+	 Content-Type:Content-Disposition:In-Reply-To; b=XObtxi5gsQail5SXfaGmBK77H02T258Iy59Uw+wCaPHfRcA3dG+x7Qp2ePcbdfIuqhpkKffGAi0qKt3HQaDmsrMupb8xOKJMuEbmmsXCJ+h8XJodnMHJ8jcWH/yVpOWDVwTTPclBa8jWrn7iAzg3eoX6olWXy8thKQVtFTYp70Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
+Received: from smtp-qaa.vinc17.net (2a02-8428-1b1d-4d01-96a9-491d-7b48-ba31.rev.sfr.net [IPv6:2a02:8428:1b1d:4d01:96a9:491d:7b48:ba31])
+	by joooj.vinc17.net (Postfix) with ESMTPSA id 9231E483;
+	Sat, 12 Jul 2025 23:23:24 +0200 (CEST)
+Received: by qaa.vinc17.org (Postfix, from userid 1000)
+	id 891CCCA0166; Sat, 12 Jul 2025 23:23:22 +0200 (CEST)
+Date: Sat, 12 Jul 2025 23:23:22 +0200
+From: Vincent Lefevre <vincent@vinc17.net>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Subject: Re: for man seccomp
-Message-ID: <ima6z2tqxkogu4zevqd2dww6oglouienk26qa25nk2sjere5h5@3ve4lzz2utgv>
-References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
- <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
- <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
+Subject: Re: [PATCH] man/: Replaced reserved exp identifier
+Message-ID: <20250712212322.GE2629@qaa.vinc17.org>
+References: <20250702092516.GA2328014@cventin.lip.ens-lyon.fr>
+ <hg3uyynudxq2bm2cl2spcm6nshjewbcoaxoxjzamtuzevcwyyw@d2ituhdydzmw>
+ <20250703023451.GJ12583@qaa.vinc17.org>
+ <awi6dk4jfrdbwizjn63c3j32ibll4exy2tdnqgimz64tdjsn3c@gstmeshesm4r>
+ <20250703081717.GK12583@qaa.vinc17.org>
+ <yyj5l3eyeppjexobe3mo7m4d3gx75uijklcem5x27e5oda76a7@scxrpc7su4v7>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f6obnfol5quk6uvd"
+Content-Type: multipart/mixed; boundary="sN1LAe/QpUHUmbl1"
 Content-Disposition: inline
-In-Reply-To: <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <yyj5l3eyeppjexobe3mo7m4d3gx75uijklcem5x27e5oda76a7@scxrpc7su4v7>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+86 (bb2064ae) vl-169878 (2025-02-08)
 
 
---f6obnfol5quk6uvd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--sN1LAe/QpUHUmbl1
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Terence Kelly <tpkelly@eecs.umich.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: for man seccomp
-References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
- <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
- <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
-MIME-Version: 1.0
-In-Reply-To: <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
-
-Hi Terence,
-
-On Fri, Jul 11, 2025 at 10:33:33PM -0400, Terence Kelly wrote:
-> Hi Alejandro,
->=20
-> To be clear, my suggestion is simply to include a citation/reference to t=
-he
-> sandboxing paper at the bottom of the seccomp man page, in the "SEE ALSO"
-> section.  If McCanne & Jacobson's BPF paper from 1992 is worth a two-line
-> mention, perhaps a 2025 paper on MODE_STRICT is also worthy.
-
-I know.  I just try to make sure citations are of high quality.  :)
-
-I'll add a reference to it, since the ideas it talks about are good and
-useful, even if I don't necessarily agree with all of what it says
-(expecially the code).
-
-I've pushed this commit to my repo:
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D2351c7c0a472e31b601855f4b4d843d3f37cbfa0>
-
-[...]
-
-> Finally, if you read all the way to the end below, that means you're an
-> exceptionally diligent programmer.  I have a special offer for you.  :)
->=20
-> Thanks.  More inline....
->=20
-> -- Terence
-
-[...]
-
-> > > https://dl.acm.org/doi/10.1145/3733699
-> >=20
-> > Why is SANDBOX_ERASE_ENVARS defined in such a weird way, when it can be
-> > a normal function?
->=20
-> A code reviewer sugggested that all preparatory code be consolidated into=
- a
-> single header file, "sandbox.h".  In a header file it's unconventional to
-> have ordinary functions, therefore function-like macros are used.
-
-'static inline' is common there.
-
-> Also:  An author of magazine articles faces many constraints involving pa=
-ge
-> limits, figure size, font size, etc.  Programming styles and
-> code-layout/indentation styles that are profligate with vertical space and
-> whitespace, for example, don't work well in ACM magazines such as Queue.
-
-Makes sense.
-
-> As the text of the paper explains, memset_explicit is preferable to memse=
-t,
-> but the example code uses the latter because the former is not yet availa=
-ble
-> on all popular Linux distributions.  One of my machines didn't have it.
->=20
-> > Why do you cast the first argument to syscall(2)?  You're not supposed
-> > to do that.
->=20
-> syscall(2) takes a long and SYS_seccomp expands into an int, which I susp=
-ect
-> triggered a compiler warning.  I'm guessing, relying on memory from months
-> ago.  If this is truly important I could do some digging and reconstruct =
-the
-> rationale.
-
-I've never seen any diagnostics from that.  It's a fine implicit
-widening conversion.
-
-	alx@devuan:~/tmp$ cat cast.c=20
-	#include <sys/syscall.h>
-	#include <unistd.h>
-
-	int
-	main(void)
-	{
-		syscall(42);
-	}
-	alx@devuan:~/tmp$ clang -Weverything cast.c=20
-	alx@devuan:~/tmp$=20
-
-> Why do you say "you're not supposed to do that"?  Is the cast positively
-> *harmful*?  Does syscall *not* take a long?
-
-Yup, almost all casts are harmful, as they turn off a large propotrion
-of compiler diagnostics.
-
-In this case, the cast is correct, but if it were incorrect (and that
-happens quite often), that could be very dangerous.
-
-> > Why do you call _exit(2) through syscall(2)?  There's _exit(2).
->=20
-> Try calling _exit(your_favorite_exit_value) from within a sandbox, after
-> SANDBOX_CREATE_STRICT, on a late-vintage Ubuntu and Fedora box.  I'm pret=
-ty
-> sure we tried doing it the obvious way and seccomp didn't like it. If
-> necessary I could dig up the details.
-
-Yes, those details would be very interesting.  I expect _exit(2) or
-_Exit(2) to be fine everywhere, since _Exit(2) was standardized in C99,
-and _exit(2) was standardized in POSIX.1-2001.
-
-There are some differences between the system call (using syscall(2))
-and the library function:
-
-   C library/kernel differences
-     The  text above in DESCRIPTION describes the traditional effect of
-     _exit(), which is to terminate a process, and these are the seman=E2=
-=80=90
-     tics specified by POSIX.1 and implemented by the C library wrapper
-     function.  On  modern  systems,  this  means  termination  of  all
-     threads in the process.
-
-     By  contrast  with  the  C library wrapper function, the raw Linux
-     _exit() system call terminates only the calling  thread,  and  ac=E2=
-=80=90
-     tions  such  as  reparenting child processes or sending SIGCHLD to
-     the parent process are performed only if this is the  last  thread
-     in the thread group.
-
-     Up  to  glibc 2.3, the _exit() wrapper function invoked the kernel
-     system call of the same name.  Since glibc 2.3, the wrapper  func=E2=
-=80=90
-     tion  invokes  exit_group(2),  in  order  to  terminate all of the
-     threads in a process.
-
-But I don't expect they would be meaningful here, and anyway, you
-probably prefer the semantics from the library call.
-
-> If I recall correctly this was one of several instances where seccomp's
-> behavior surprised us and made the code more weird.
-
-This would be interesting to note somewhere.
-
-> > Why is CHK() defined in such a weird way when it can be a normal
-> > do-while(0) macro:
-> >=20
-> > 	#define CHK(e)  do                                            \
-> > 	{                                                             \
-> > 		if (!(e)) {                                           \
-> > 			MSG("check failed:  '" #e "'");               \
-> > 			_exit(1);                                     \
-> > 		}                                                     \
-> > 	} while (0)
->=20
-> See my remarks above about the constraints of ACM magazine page layout.
-
-You could reformat it in a more compact way that keeps it conventional:
-
-#define CHK(e)  do { if (!(e)) { MSG("check failed:  '" #e "'"); \
-                                 _exit(1); } } while (0)
-
-You get rid of XMSG(), so you use the same amount of lines.
-And if _exit(2) doesn't give you problems, you'd also get rid of the
-EXIT() definition, so you'd gain one line.
-
-> I totally understand why you'd rather do it your way in, say, a manpage, =
-or
-> in ordinary production code.  Code listings in a magazine must obey
-> different rules, and those rules aren't made by authors like me.  If it w=
-ere
-> up to me, magazines would be printed on wide and very long *scrolls* of
-> paper.  :)
->=20
-> > What is 'erongi'?  Why do you write the output of write(2) to an
-> > undefined variable, if you don't even use that value?
-> >=20
-> > 	#define MSG(m)  ((void) write(STDERR_FILENO, Z(m), strlen(Z(m))))
->=20
-> Line 1 of Figure 2 explains that
-
-Ahh, I missed that line.  It's a bit bad that I can't search (or use any
-text) within the code examples.  On the other hand, maybe it's a good
-thing that people can't blindly paste from there.
-
-> "erongi" --- "ignore" spelled backwards ---
-> squelches a compiler warning about ignoring the return value of write(). =
- I
-> always compile example code with *all* gcc warnings enabled, not just the
-> subset enabled by "-Wall -Wextra"; see the "warnflags" file in the example
-> code tarball.  Sometimes the warning flags yield false alarms, and someti=
-mes
-> squelching those false alarms leads to weird code.
-
-I think it's a compiler bug that you don't get a diagnostic there:
-<https://github.com/llvm/llvm-project/issues/148361>
-
--Wunused-but-set-variable should be triggered by that.
-
-Why not just cast to void, which is the usual convention for ignoring
-return values?
-
-> I find that insisting on a perfectly spotless build --- no compiler warni=
-ngs
-> of any kind, ever --- reduces my fatigue and makes it harder for warnings
-> about serious problems to slip by unnoticed.
-
-Agree.
-
-> > I recommend checking syscall errors as -1.  It's more readable.
->=20
-> In cases where zero indicates success, I prefer to gripe/bail on nonzero.
-> The logic is roughly, "if everything is not completely perfect and
-> unsurprising, fall on sword with loud scream."
-
-The thing is, 0 can mean many things, and it's not easy to see at first
-glance that it means success; you need to read more carefully.
-
-But a -1 is almost always an error code.
-
-And, most syscalls never return outside the range [-1, 0].
-
-> > It also avoids multiple evaluation of arguments in DUP2().  Also, we
-> > don't need to check that a=3D=3Db.  dup2(2) succeeds on such case too.
->=20
-> Okay, I see that dup2 correctly handles a=3D=3Db in the manpage.  I suspe=
-ct that
-> I got the a=3D=3Db check from Stevens & Rago.
-
-[...]
-
-> The two macros above are also "weird" partly due to the magazine constrai=
-nts
-> mentioned earlier.  Also, a function-like macro that takes no arguments
-> seems less natural to me than a simple macro.  But I'm willing to be
-> persuaded that function-like macros are somehow more appropriate in
-> situations such as this.
-
-Object-like macros are not expected to perform actions, but rather
-substitute by a value.  Whenever I see
-
-	foo;
-
-I expect that some value is discarded (which is weird).  But if I see:
-
-	foo();
-
-I expect some function is called for its side effects, which is
-precisely what you're doing here.  Basically, actions are represented by
-functions in C.
-
-> > Have a lovely day!
-> > Alex
->=20
-> And you also.
-
-:-)
-
-> If you've made it this far, you're more diligent than most coders.
->=20
-> Would you like to write for Communications of the ACM (CACM)?  I'm co-cha=
-ir
-> of a newly rebooted "Practice" section of CACM, and we're looking for
-> writers.  Here's our new Call for Papers:
->=20
-> https://cacm.acm.org/practice/call-for-papers-cacm-practice-section/
->=20
-> If you maintain the Linux manpages, I could imagine a cool article about
-> that.  Or any other topic that (a) you know well, and (b) would interest
-> many other programmers.
->=20
-> Your writing is good, you're clearly very knowledgeable, and you care abo=
-ut
-> both small details and the big picture.  That's the kind of author we're
-> looking for.  If you have any ideas, let's start a separate thread.
-
-Hmmm, I do have things to write about.  String handling is one of them.
-Memory allocation is another one.
-
-I'll talk to you after the next C Committee meeting, where I hope to
-convince the committee to improve a few things in these two fronts, and
-then I can write about those.
-
-> CACM is a good instrument for enlightening a segment of the world's coders
-> who might otherwise miss your message.  CACM reaches 100K ACM members in
-> hard copy via postal mail, and the open-access (no paywall) web site reac=
-hes
-> hundreds of thousands more.  If you've go a powerful message, I've got a =
-way
-> to broadcast it to people who might otherwise not hear it.
->=20
-> Furthermore if you know anyone who ought to write for CACM, I'd be gratef=
-ul
-> for an intro.
->=20
-> Thanks for your volunteer work on Linux documentation!  It's great to see
-> that the man pages are in capable hands.
-
-Thanks!  I enjoy doing it.  :-)
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---f6obnfol5quk6uvd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmhyUakACgkQ64mZXMKQ
-wqkcsA//VDxMdDBQRDgAIWAD7axCa9C6xY6pTCX0CWfNnJf2NCzoEVT6/192RGV0
-qY2Qh4B7kh9DgXbxGoPlMLAH90c+VEqpKlYy7WNiCmIZ8C6Me7x0Bd1brZiDJwmz
-cvWJygN3MGjTtOhzRyBK1RoVvOyehEY/h2c49XKQdleY8AWcvDbl/5BsCzv6PRKO
-k1pxi9zYcYX58PgecUzHcMu85ilueqrVPKXjBShFW8Zi9sd3MlUQW0lrWjQHwV3J
-e6xP/DvMZypGPcIk3amkwkSU6adR38It1UQNqL4U3/K/rfVQzviG4Seyvh7Ij4EW
-ZdxfoYQ53tGRXyWhVCf3jtGNhOG4QS/JqImmpHu4Lqj9CWGuw8IXJKxmHIrVK4ls
-P11fKC+nFi1AX3/hIgBCOTA09qkfY3ljHyL1mjBKDIl1EnEdXIWGnBC+wvL/Afjb
-xrsL7aDvJqqHRBNs1AU6Jxodq9Vhncc3O5yCkAsYejkE3NmsLd6nWy8bbo+OIU/R
-rlon5GsZa4L5NHcudcj98ZOEWQw5ybqmsLiWKzOnnDKDMfk8OqSjn8IWGQSjKi4n
-4OEBoi0pwP7m3my1LmPmWch+hIoyns/ybKncd5KtYMwuRuCUSMerW3QPFa1LZcen
-jcXN9DQxYJdYHGPxo96jJyc61iQdvTFYYWqsMyw2eiFNSdxUMCM=
-=k8w3
------END PGP SIGNATURE-----
-
---f6obnfol5quk6uvd--
+Content-Transfer-Encoding: 8bit
+
+Hi Alejandro,
+
+On 2025-07-03 18:28:49 +0200, Alejandro Colomar wrote:
+> On Thu, Jul 03, 2025 at 10:17:17AM +0200, Vincent Lefevre wrote:
+> > The use of "max" in the name is important as there are several
+> > timer expirations and one gives here the maximum number of such
+> > expirations. It could also be "max\-expir" or "max\-#expir"[*].
+> > What do you think?
+> 
+> How about max-num-expir?
+
+OK.
+
+I've attached a new version of my patch.
+
+> > > > One could do that (this was more or less my initial idea,
+> > > > and I'm wondering why the committee chose p).
+> > > 
+> > > The committee has chosen many bad names.  Let's not follow them.
+> > > Indeed, now that I'm member of the committee, I'm trying to fix that
+> > > among other things.
+> > 
+> > Great. FYI, here's what I sent to the CFP list yesterday, as there
+> > are also remaining "exp" in the standard:
+> 
+> Do you want me to write a proposal?  Or will the CFP write one?
+
+There hasn't been any reaction to my mail in the CFP list.
+So perhaps you could write a proposal.
+
+-- 
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / Pascaline project (LIP, ENS-Lyon)
+
+--sN1LAe/QpUHUmbl1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename=reserved-exp-2.patch
+
+From d5c365eb0a5c3c14655467e6e528c7360dd5c0a5 Mon Sep 17 00:00:00 2001
+From: Vincent Lefevre <vincent@vinc17.net>
+Date: Sat, 12 Jul 2025 23:05:00 +0200
+Subject: [PATCH] man/: Replaced reserved exp identifier
+
+Since exp is a library function, this is a reserved identifier, which
+should not be used as a variable name / parameter.
+
+Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
+---
+ man/man2/timerfd_create.2 | 17 +++++++++--------
+ man/man3/frexp.3          | 20 ++++++++++----------
+ man/man3/ldexp.3          | 12 ++++++------
+ man/man3/scalb.3          | 26 +++++++++++++-------------
+ man/man3/scalbln.3        | 18 +++++++++---------
+ 5 files changed, 47 insertions(+), 46 deletions(-)
+
+diff --git a/man/man2/timerfd_create.2 b/man/man2/timerfd_create.2
+index bcab72f37..7f9d0f039 100644
+--- a/man/man2/timerfd_create.2
++++ b/man/man2/timerfd_create.2
+@@ -639,12 +639,12 @@ main(int argc, char *argv[])
+ {
+     int                fd;
+     ssize_t            s;
+-    uint64_t           exp, tot_exp, max_exp;
++    uint64_t           expir, tot_expir, max_expir;
+     struct timespec    now;
+     struct itimerspec  new_value;
+ \&
+     if (argc != 2 && argc != 4) {
+-        fprintf(stderr, "%s init\-secs [interval\-secs max\-exp]\[rs]n",
++        fprintf(stderr, "%s init\-secs [interval\-secs max\-num\-expir]\[rs]n",
+                 argv[0]);
+         exit(EXIT_FAILURE);
+     }
+@@ -659,10 +659,10 @@ main(int argc, char *argv[])
+     new_value.it_value.tv_nsec = now.tv_nsec;
+     if (argc == 2) {
+         new_value.it_interval.tv_sec = 0;
+-        max_exp = 1;
++        max_expir = 1;
+     } else {
+         new_value.it_interval.tv_sec = atoi(argv[2]);
+-        max_exp = atoi(argv[3]);
++        max_expir = atoi(argv[3]);
+     }
+     new_value.it_interval.tv_nsec = 0;
+ \&
+@@ -676,14 +676,15 @@ main(int argc, char *argv[])
+     print_elapsed_time();
+     printf("timer started\[rs]n");
+ \&
+-    for (tot_exp = 0; tot_exp < max_exp;) {
+-        s = read(fd, &exp, sizeof(uint64_t));
++    for (tot_expir = 0; tot_expir < max_expir;) {
++        s = read(fd, &expir, sizeof(uint64_t));
+         if (s != sizeof(uint64_t))
+             err(EXIT_FAILURE, "read");
+ \&
+-        tot_exp += exp;
++        tot_expir += expir;
+         print_elapsed_time();
+-        printf("read: %" PRIu64 "; total=%" PRIu64 "\[rs]n", exp, tot_exp);
++        printf("read: %" PRIu64 "; total=%" PRIu64 "\[rs]n",
++               expir, tot_expir);
+     }
+ \&
+     exit(EXIT_SUCCESS);
+diff --git a/man/man3/frexp.3 b/man/man3/frexp.3
+index a741137c2..304095d2b 100644
+--- a/man/man3/frexp.3
++++ b/man/man3/frexp.3
+@@ -14,9 +14,9 @@ Math library
+ .nf
+ .B #include <math.h>
+ .P
+-.BI "double frexp(double " x ", int *" exp );
+-.BI "float frexpf(float " x ", int *" exp );
+-.BI "long double frexpl(long double " x ", int *" exp );
++.BI "double frexp(double " x ", int *" e );
++.BI "float frexpf(float " x ", int *" e );
++.BI "long double frexpl(long double " x ", int *" e );
+ .fi
+ .P
+ .RS -4
+@@ -36,7 +36,7 @@ These functions are used to split the number
+ .I x
+ into a
+ normalized fraction and an exponent which is stored in
+-.IR exp .
++.IR e .
+ .SH RETURN VALUE
+ These functions return the normalized fraction.
+ If the argument
+@@ -52,20 +52,20 @@ If
+ .I x
+ is zero, then the normalized fraction is
+ zero and zero is stored in
+-.IR exp .
++.IR e .
+ .P
+ If
+ .I x
+ is a NaN,
+ a NaN is returned, and the value of
+-.I *exp
++.I *e
+ is unspecified.
+ .P
+ If
+ .I x
+ is positive infinity (negative infinity),
+ positive infinity (negative infinity) is returned, and the value of
+-.I *exp
++.I *e
+ is unspecified.
+ .SH ERRORS
+ No errors occur.
+@@ -118,12 +118,12 @@ int
+ main(int argc, char *argv[])
+ {
+     double x, r;
+-    int exp;
++    int e;
+ \&
+     x = strtod(argv[1], NULL);
+-    r = frexp(x, &exp);
++    r = frexp(x, &e);
+ \&
+-    printf("frexp(%g, &e) = %g: %g * %d\[ha]%d = %g\[rs]n", x, r, r, 2, exp, x);
++    printf("frexp(%g, &e) = %g: %g * %d\[ha]%d = %g\[rs]n", x, r, r, 2, e, x);
+     exit(EXIT_SUCCESS);
+ }
+ .EE
+diff --git a/man/man3/ldexp.3 b/man/man3/ldexp.3
+index c2f5289f3..6bae52c80 100644
+--- a/man/man3/ldexp.3
++++ b/man/man3/ldexp.3
+@@ -13,9 +13,9 @@ Math library
+ .nf
+ .B #include <math.h>
+ .P
+-.BI "double ldexp(double " x ", int " exp );
+-.BI "float ldexpf(float " x ", int " exp );
+-.BI "long double ldexpl(long double " x ", int " exp );
++.BI "double ldexp(double " x ", int " e );
++.BI "float ldexpf(float " x ", int " e );
++.BI "long double ldexpl(long double " x ", int " e );
+ .fi
+ .P
+ .RS -4
+@@ -34,13 +34,13 @@ Feature Test Macro Requirements for glibc (see
+ These functions return the result of multiplying the floating-point number
+ .I x
+ by 2 raised to the power
+-.IR exp .
++.IR e .
+ .SH RETURN VALUE
+ On success, these functions return
+-.IR "x * (2\[ha]exp)" .
++.IR "x * (2\[ha]e)" .
+ .P
+ If
+-.I exp
++.I e
+ is zero, then
+ .I x
+ is returned.
+diff --git a/man/man3/scalb.3 b/man/man3/scalb.3
+index 6968931ba..2d1ed17c6 100644
+--- a/man/man3/scalb.3
++++ b/man/man3/scalb.3
+@@ -15,9 +15,9 @@ Math library
+ .nf
+ .B #include <math.h>
+ .P
+-.BI "[[deprecated]] double scalb(double " x ", double " exp );
+-.BI "[[deprecated]] float scalbf(float " x ", float " exp );
+-.BI "[[deprecated]] long double scalbl(long double " x ", long double " exp );
++.BI "[[deprecated]] double scalb(double " x ", double " e );
++.BI "[[deprecated]] float scalbf(float " x ", float " e );
++.BI "[[deprecated]] long double scalbl(long double " x ", long double " e );
+ .fi
+ .P
+ .RS -4
+@@ -47,11 +47,11 @@ by
+ .B FLT_RADIX
+ (probably 2)
+ to the power of
+-.IR exp ,
++.IR e ,
+ that is:
+ .P
+ .nf
+-    x * FLT_RADIX ** exp
++    x * FLT_RADIX ** e
+ .fi
+ .P
+ The definition of
+@@ -65,32 +65,32 @@ On success, these functions return
+ *
+ .B FLT_RADIX
+ **
+-.IR exp .
++.IR e .
+ .P
+ If
+ .I x
+ or
+-.I exp
++.I e
+ is a NaN, a NaN is returned.
+ .P
+ If
+ .I x
+ is positive infinity (negative infinity),
+ and
+-.I exp
++.I e
+ is not negative infinity,
+ positive infinity (negative infinity) is returned.
+ .P
+ If
+ .I x
+ is +0 (\-0), and
+-.I exp
++.I e
+ is not positive infinity, +0 (\-0) is returned.
+ .P
+ If
+ .I x
+ is zero, and
+-.I exp
++.I e
+ is positive infinity,
+ a domain error occurs, and
+ a NaN is returned.
+@@ -99,7 +99,7 @@ If
+ .I x
+ is an infinity,
+ and
+-.I exp
++.I e
+ is negative infinity,
+ a domain error occurs, and
+ a NaN is returned.
+@@ -126,8 +126,8 @@ when calling these functions.
+ .P
+ The following errors can occur:
+ .TP
+-Domain error: \f[I]x\f[] is 0, and \f[I]exp\f[] is positive infinity, \
+-or \f[I]x\f[] is positive infinity and \f[I]exp\f[] is negative infinity \
++Domain error: \f[I]x\f[] is 0, and \f[I]e\f[] is positive infinity, \
++or \f[I]x\f[] is positive infinity and \f[I]e\f[] is negative infinity \
+ and the other argument is not a NaN
+ .I errno
+ is set to
+diff --git a/man/man3/scalbln.3 b/man/man3/scalbln.3
+index e14c1be25..1981fdb40 100644
+--- a/man/man3/scalbln.3
++++ b/man/man3/scalbln.3
+@@ -14,13 +14,13 @@ Math library
+ .nf
+ .B #include <math.h>
+ .P
+-.BI "double scalbln(double " x ", long " exp );
+-.BI "float scalblnf(float " x ", long " exp );
+-.BI "long double scalblnl(long double " x ", long " exp );
++.BI "double scalbln(double " x ", long " e );
++.BI "float scalblnf(float " x ", long " e );
++.BI "long double scalblnl(long double " x ", long " e );
+ .P
+-.BI "double scalbn(double " x ", int " exp );
+-.BI "float scalbnf(float " x ", int " exp );
+-.BI "long double scalbnl(long double " x ", int " exp );
++.BI "double scalbn(double " x ", int " e );
++.BI "float scalbnf(float " x ", int " e );
++.BI "long double scalbnl(long double " x ", int " e );
+ .fi
+ .P
+ .RS -4
+@@ -51,11 +51,11 @@ by
+ .B FLT_RADIX
+ (probably 2)
+ to the power of
+-.IR exp ,
++.IR e ,
+ that is:
+ .P
+ .nf
+-    x * FLT_RADIX ** exp
++    x * FLT_RADIX ** e
+ .fi
+ .P
+ The definition of
+@@ -69,7 +69,7 @@ On success, these functions return
+ *
+ .B FLT_RADIX
+ **
+-.IR exp .
++.IR e .
+ .P
+ If
+ .I x
+-- 
+2.50.0
+
+--sN1LAe/QpUHUmbl1--
 
