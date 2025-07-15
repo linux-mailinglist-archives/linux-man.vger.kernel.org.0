@@ -1,166 +1,166 @@
-Return-Path: <linux-man+bounces-3270-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3271-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D614B06841
-	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 23:05:03 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13814B0693B
+	for <lists+linux-man@lfdr.de>; Wed, 16 Jul 2025 00:27:05 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A406118917BD
-	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 21:05:20 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 1AA1D3AE971
+	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 22:26:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 954EC274B5A;
-	Tue, 15 Jul 2025 21:04:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CD772C15AB;
+	Tue, 15 Jul 2025 22:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="4NZNqEWM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3/JANiA"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FA82741A3
-	for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 21:04:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8662C15A2
+	for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 22:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752613498; cv=none; b=DwuLA0JqzC0nCx61aXLn2nsJPyhlVwscn3PJwvtz/uuFomc/HPm/erRFpZ5C3HNa2MqOrk/qpmfGWdqXmv0aSNmrEUMdILhkfSr+kUI2WHXyixqofxqHObrbwA1RgPnSZvWPrsIaVjiIifOL9hEcUiBrM6vFMgnJAKvvfvBiHyI=
+	t=1752618420; cv=none; b=LVWi4BfN6XTM1Az3a0Tm4aIfMNMLntl7ZuZaPjMc0mlB5pl1Qqj18pAVOJUd4ARf7YkYcA94tXIki+i+ksE95mgE0IfLyd/gnvC4QjsN21Urp35p8Z3aWm8qAGCNRj0Lb/6ZkT9dwEemSoJAj3dc/18GfL0kEgpyFWN3oF6px7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752613498; c=relaxed/simple;
-	bh=EgDA8yeZeshwwc9vXtZhaMIbgx8h7O3HS4aVw31ujwA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YsxcGgTL5dhcgf//T4NhDcBlmU/kJVxQlmklphV8qKH9wPFv6snB5J9cK3axuI3dhpejza5hSCA6pjoBzSlVwdsoqgqX/IslcA0qmFfNaayezjeMltjAfooPje0t6iTWmY4SQOrQ6GdIJ7C+SDIk/wvHP2pVG6F5myt7hF4m1LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=4NZNqEWM; arc=none smtp.client-ip=209.85.161.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6159466e80aso606854eaf.1
-        for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 14:04:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1752613496; x=1753218296; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=jf+c0al7tduX2smP6zeajKnx8Kd9NoJcCrys1VvPe2c=;
-        b=4NZNqEWM4kOHmThHS+hqrcbEZNYaQuGMsc4j+sAjRZfhOsvoxvnenwdkKZAL9RnRDB
-         f+F0KsbV/dVn0SIPwNE44qzJwPNJmnexFWO09Rz2Vt+DNDiTJYJAirU9VHljULxbCKKk
-         b7fiu9HMfsg5+TaPHMp9PXGQ+5c/hnbFRV7/ftnZt3thivhtaCeTt179eU+tQjE/nUZ6
-         Ff/Iv1UYZLAgLSG3RnbdkuvuhDhcpYpowaH17R23apkxciD9e0m5qxz5wEniSYFtOkE8
-         zQnfxZGp8AZ5XngR4wiVZ+lLORYMyFcbKQ0p/X62dAng0u8VWFJHBfinlYBO3oeAqWhP
-         Nyww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752613496; x=1753218296;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jf+c0al7tduX2smP6zeajKnx8Kd9NoJcCrys1VvPe2c=;
-        b=aaBsBnL7+7OXfULGBVLQxr/aXE8U9cPhfjRQkdpR4SguhFIINKOnHGBL/djIlzGbmg
-         u4AoFOFZyFsWKicvgZ/dE1JZvPoIZEMg+iRTKNIxyG+XdlZqHK4Ppxrcl0liyxwA+lnu
-         EBa9kFcavnW0oXNu9MbFoHFd8g9b/wVpjW3kh5OaZ2gIDfPg/1nTQtPxZ/fz0egYvlEH
-         /zja/tt1FBSZdhEr9V3SLOPw30a3c//slX8x3BkrU7g2ty/lei/wjIBtDFedas9Xo3xF
-         nee1LhprUqUqRMiYsWkmIkZMM6Pn3uFrDwLw4iGWcPo71EcU/2gS1wJ9yRDhFihj7/gW
-         iTqg==
-X-Forwarded-Encrypted: i=1; AJvYcCXMfzO2PBBsXKpQBICCv66eVmxSGN+N1aiX6cGsOk1pm3dUU7XchDwC23yYBc9yTcsSCBVwzJNwQsQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9eMXDDonvsCl/NC6TTK0XvFqKspAv0HVXVWiMnPSAMhpqXDJ5
-	py9KiI21JWmu9ByBgznsPjvzZkdVTqoDLrU+UwZ/oPL1z3mmDVzfYTVF7TEj7dnZFLmBvM4C4it
-	XN9J/MisxZxurBvdMkhhvVTxkgOOT4YTgi+LKHKjulAHbf0DSkXgW3Wag
-X-Gm-Gg: ASbGncvvG9CvvOahF/d2kwqeubhsI4ZHt3jMCidd6cBRWzqpoumOL6GdgVTaOUMhHO4
-	iFIpkl+velw4jMIUEAnNDU6fFIy0bmMQfomIbHsO+BQh/mzbeNWOS4/xKWXGl4T1Y88NGoOLQPe
-	Qny8YNpUgSWyc0LlWQ9zwazeQrpSMUqVR84aGEbI7Ch0qQ6e43kTMKTvfMncoM5TVbBHtHJ9lcB
-	vOQ
-X-Google-Smtp-Source: AGHT+IHF638dA2BJIhfRjFaXZzQ95royloU27Yg5C1cNoxiJFOYAQ15P6o8WIQomjPEtoKSFdZxS1ne/eYD4rSkRxg8=
-X-Received: by 2002:a05:6870:9585:b0:2ea:7d72:23f7 with SMTP id
- 586e51a60fabf-2ffb22614aemr280308fac.16.1752613495642; Tue, 15 Jul 2025
- 14:04:55 -0700 (PDT)
+	s=arc-20240116; t=1752618420; c=relaxed/simple;
+	bh=Au3lWlaw0bLuy1iHqgT9w5EWkoHA+NNt/iY9xz5eDiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p9EhMFLfFTY9X2Q7vpwSr+dh6gKFG6ATsI1DlVcPhQpT18mwOdA0hSG0a0AsjmDGDpz9cWVGFWXC44PDozyuiwaVyG8D4DxFnFsYNzYt7e1mu6O8ceyI2uTyrbu5CWwUgTj/s9KHoKOsfuTWfBRMnInjiBGNFuezh/GVrlT/kGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3/JANiA; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7BFC4CEE3;
+	Tue, 15 Jul 2025 22:26:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752618418;
+	bh=Au3lWlaw0bLuy1iHqgT9w5EWkoHA+NNt/iY9xz5eDiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e3/JANiAofg5iZzsfx5i4e9WyQXA2dPC346ENmbCltSHDoXLWNCW71MfN+5yeYAFv
+	 CgUX5244tCWRIpXae/2Lkg9wU3xvWelvOnAjaXmOPe+mTYSehX065+OGTNiSa0kx1v
+	 nVj2kGxdZhJceoI5ftPG+sy1ZCwQ3Bc8gRFnR4wHNqLkXPp1Ds408L3hyzP1G9XDoV
+	 oPrJcZVA3CcFakHZ0LvXrDjAR6hKIFpBTG4W0h0SNlKl0fC/KCckY+pk9dtbGC7+0K
+	 xRERXhfdnAIL/mVY2AeQZoVKdmRY1/23Z/Be58tSYcM6w+p2mVIjX1P0xXCujmMR5o
+	 fIN19tpHqDn1A==
+Date: Wed, 16 Jul 2025 00:26:55 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: enh <enh@google.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
+	linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] printf.3: mention Android's %m support.
+Message-ID: <cfyjj5fpvoowasfqy3c4xyxm64vqxx6b6vw3ez6anlxrwwj5le@b7whzrldtxtt>
+References: <CAJgzZopjpJJY8F7khF6SN=-UuYPiR70vqOE4voaQz79U_HqhAQ@mail.gmail.com>
+ <uxmsabvotuwrcv5xmobyzakdfxibmkvet5f55idux2peyeto3k@zz7wo32lk4cr>
+ <forno7r2gzmghoj5tr2ze2eehjfni6xcxatvqeuvuxoppypnqw@mmcrxxnlb6kw>
+ <CAJgzZoq_352z=YNOOCe+G3fq2xAuZQU=r16p22XC4euhaidKDg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAJgzZopjpJJY8F7khF6SN=-UuYPiR70vqOE4voaQz79U_HqhAQ@mail.gmail.com>
- <uxmsabvotuwrcv5xmobyzakdfxibmkvet5f55idux2peyeto3k@zz7wo32lk4cr> <forno7r2gzmghoj5tr2ze2eehjfni6xcxatvqeuvuxoppypnqw@mmcrxxnlb6kw>
-In-Reply-To: <forno7r2gzmghoj5tr2ze2eehjfni6xcxatvqeuvuxoppypnqw@mmcrxxnlb6kw>
-From: enh <enh@google.com>
-Date: Tue, 15 Jul 2025 17:04:44 -0400
-X-Gm-Features: Ac12FXx1ngHOMUfnmqB0xZupD-OgCFB4t7NIlK77BGVpdfOOz_SnFJ_9eus6tuc
-Message-ID: <CAJgzZoq_352z=YNOOCe+G3fq2xAuZQU=r16p22XC4euhaidKDg@mail.gmail.com>
-Subject: Re: [PATCH] printf.3: mention Android's %m support.
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Alejandro Colomar <alx.manpages@gmail.com>, linux-man <linux-man@vger.kernel.org>
-Content-Type: multipart/mixed; boundary="000000000000d7345f0639fe2041"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zhzcyc2remisnu4w"
+Content-Disposition: inline
+In-Reply-To: <CAJgzZoq_352z=YNOOCe+G3fq2xAuZQU=r16p22XC4euhaidKDg@mail.gmail.com>
 
---000000000000d7345f0639fe2041
-Content-Type: text/plain; charset="UTF-8"
+
+--zhzcyc2remisnu4w
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: enh <enh@google.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>, 
+	linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] printf.3: mention Android's %m support.
+References: <CAJgzZopjpJJY8F7khF6SN=-UuYPiR70vqOE4voaQz79U_HqhAQ@mail.gmail.com>
+ <uxmsabvotuwrcv5xmobyzakdfxibmkvet5f55idux2peyeto3k@zz7wo32lk4cr>
+ <forno7r2gzmghoj5tr2ze2eehjfni6xcxatvqeuvuxoppypnqw@mmcrxxnlb6kw>
+ <CAJgzZoq_352z=YNOOCe+G3fq2xAuZQU=r16p22XC4euhaidKDg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAJgzZoq_352z=YNOOCe+G3fq2xAuZQU=r16p22XC4euhaidKDg@mail.gmail.com>
 
-(moved the API 29 note to the man page and reworded the commit message
-text about the BSDs.)
+Hi Elliott,
 
-On Tue, Jul 15, 2025 at 4:50=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
-wrote:
->
-> On Tue, Jul 15, 2025 at 09:48:50PM +0200, Alejandro Colomar wrote:
-> > Hi Elliott,
+On Tue, Jul 15, 2025 at 05:04:44PM -0400, enh wrote:
+> (moved the API 29 note to the man page and reworded the commit message
+> text about the BSDs.)
+
+Did you actually forget the 29 detail?  I don't see it in the patch.
+
+
+Have a lovely night!
+Alex
+
+>=20
+> On Tue, Jul 15, 2025 at 4:50=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
+> wrote:
 > >
-> > On Tue, Jul 15, 2025 at 02:50:06PM -0400, enh wrote:
-> > > Unclear to me whether it would be useful to explicitly mention that i=
-t's
-> > > _not_ available on iOS/macOS and the BSDs, since that's the caveat I
-> > > usually give when recommending %m to people.
+> > On Tue, Jul 15, 2025 at 09:48:50PM +0200, Alejandro Colomar wrote:
+> > > Hi Elliott,
+> > >
+> > > On Tue, Jul 15, 2025 at 02:50:06PM -0400, enh wrote:
+> > > > Unclear to me whether it would be useful to explicitly mention that=
+ it's
+> > > > _not_ available on iOS/macOS and the BSDs, since that's the caveat I
+> > > > usually give when recommending %m to people.
+> > >
+> > > We can omit that for now, but please not it in the commit message.
 > >
-> > We can omit that for now, but please not it in the commit message.
->
-> s/not/note/
->
+> > s/not/note/
 > >
 > > >
-> > > Technically this is available on Android from API level 29, if we wan=
-ted
-> > > to be more specific.
-> >
-> > Yep, that might be useful.
-> >
-> > Thanks!
-> >
-> >
-> > Have a lovely day!
-> > Alex
-> >
-> > > ---
-> > >  man/man3/printf.3 | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >
+> > > > Technically this is available on Android from API level 29, if we w=
+anted
+> > > > to be more specific.
+> > >
+> > > Yep, that might be useful.
+> > >
+> > > Thanks!
+> > >
+> > >
+> > > Have a lovely day!
+> > > Alex
+> > >
+> > > > ---
+> > > >  man/man3/printf.3 | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > >
+> > >
+> > > --
+> > > <https://www.alejandro-colomar.es/>
 > >
 > >
 > >
 > > --
 > > <https://www.alejandro-colomar.es/>
->
->
->
-> --
-> <https://www.alejandro-colomar.es/>
 
---000000000000d7345f0639fe2041
-Content-Type: application/octet-stream; 
-	name="0001-printf.3-mention-Android-s-m-support.patch"
-Content-Disposition: attachment; 
-	filename="0001-printf.3-mention-Android-s-m-support.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_md50sul20>
-X-Attachment-Id: f_md50sul20
 
-RnJvbSA3NTcyZDQ4ODczMjQ4MTJiNTViYmUxNzI5YzdiMjc3ZGM0NTYxMGU3IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBFbGxpb3R0IEh1Z2hlcyA8ZW5oQGdvb2dsZS5jb20+CkRhdGU6
-IFR1ZSwgMTUgSnVsIDIwMjUgMTg6NDI6NTYgKzAwMDAKU3ViamVjdDogW1BBVENIXSBwcmludGYu
-MzogbWVudGlvbiBBbmRyb2lkJ3MgJW0gc3VwcG9ydC4KCkluIGZ1dHVyZSB3ZSBtaWdodCB3YW50
-IHRvIG5vdGUgdGhhdCBpdCdzIF9ub3RfIGF2YWlsYWJsZSBvbiBpT1MvbWFjT1MKYW5kIHRoZSBC
-U0RzLCBzaW5jZSB0aGF0J3MgdGhlIGNhdmVhdCBJIHVzdWFsbHkgZ2l2ZSB3aGVuIHJlY29tbWVu
-ZGluZwp0aGUgdXNlIG9mICVtLgotLS0KIG1hbi9tYW4zL3ByaW50Zi4zIHwgMiArLQogMSBmaWxl
-IGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFu
-L21hbjMvcHJpbnRmLjMgYi9tYW4vbWFuMy9wcmludGYuMwppbmRleCAyMmZlMDY1NzYuLjhjNDU1
-NDJiMiAxMDA2NDQKLS0tIGEvbWFuL21hbjMvcHJpbnRmLjMKKysrIGIvbWFuL21hbjMvcHJpbnRm
-LjMKQEAgLTg3MSw3ICs4NzEsNyBAQCAuU1MgQ29udmVyc2lvbiBzcGVjaWZpZXJzCiBhbnkgZmxh
-Z3MsIGEgZmllbGQgd2lkdGgsIG9yIGEgcHJlY2lzaW9uLgogLlRQCiAuQiBtCi0oZ2xpYmMgZXh0
-ZW5zaW9uOyBzdXBwb3J0ZWQgYnkgdUNsaWJjIGFuZCBtdXNsLikKKyhnbGliYyBleHRlbnNpb247
-IHN1cHBvcnRlZCBieSB1Q2xpYmMgYW5kIG11c2wsIGFuZCBvbiBBbmRyb2lkLikKIFByaW50IG91
-dHB1dCBvZgogLkkgc3RyZXJyb3IoZXJybm8pCiAob3IKLS0gCjIuNTAuMC43MjcuZ2JmN2RjMThm
-ZjQtZ29vZwoK
---000000000000d7345f0639fe2041--
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--zhzcyc2remisnu4w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmh21a8ACgkQ64mZXMKQ
+wqmRmg//WK1nq9BEHuqxIIOY6b/ngxtaEVOJVQ0IQZBZGc68fa4bmnnuQPtD0/8S
+iun3xeGVVmbVECKTHawqPjhJhfGnlsdeFOrm7CChwovnUW4bQs3eJXByJuriCcUL
+r8qTFI6BFbLi438N+Hax/zS8eCjSVKfB6txDqBc7UTEYnlvDfE5TQH77i/S/VfoY
+6vMM/M/qbZqEq2FdWKASt/QIAqwSB3Fxnvgeg/tyecOUfB4IfpGRLTSDRPc4fSxU
+r4vkLASZ3KSya6XF2axGUE3+8N5ag4L5ZMDTlQh7XjGZxxj2sJMqIlIdgIy2+fzv
+vjnonnTUJC6+2qNGNME3zgduje1lPCD6OLS6+V4ljnYVaBTyk0MU+DEapLeU4+cH
+M4L88ARI2u6my0NUkKmKNgXwZaYeYctM7hwF9z15uNJYHHFl7ITwxhDyYZUGSbXq
+R/93xdvro0/ruYeAjHBU2sCkxfWjnEGBzel89Bn3T/uogWc52yfIHcj0DbNr2+T4
+ZDXyiPvqIsBflw348hIjjafAJ5fE0yCWz8rOXm+KYpRrGnsRx5RRaJ22EkMnTi+a
+PW9zXGXxvN+fqI0lHqIGpQYYfmEvz/HeqsqQIHJmcbC18agz2I9q3U+596U+8C6m
+efeqhObadQSOXYr4feHfP/8maoX+5WiRkqmyeY2rpTo/gF0NkAc=
+=/OX3
+-----END PGP SIGNATURE-----
+
+--zhzcyc2remisnu4w--
 
