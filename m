@@ -1,139 +1,124 @@
-Return-Path: <linux-man+bounces-3266-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3267-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D22B0536C
-	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 09:38:14 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C047B06649
+	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 20:50:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 75D967B30DF
-	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 07:32:22 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6E3265610EF
+	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 18:50:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B51DD6BB5B;
-	Tue, 15 Jul 2025 07:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13E712BE649;
+	Tue, 15 Jul 2025 18:50:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ocw9ib96"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PQMiF8xB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C76A27147F
-	for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 07:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D23E7261D
+	for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 18:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752564759; cv=none; b=OD+6X0YcCYSl3+FrSpHPA+F2buqjD23SqBQc70Tiuxq8u+jQCXYxWOCEFuse50M7rA6YebOiHXU3/wNOOyWjoVLwrF9ictz3KpQUr+UZ4qpHJQw5en5O4Zabq+++uY8F+x224+8PoAeR1jgQ2mQuaVSgtg0+ziADgsne58wjZ9Q=
+	t=1752605420; cv=none; b=P3i7/cOnTexsjcAKP7VMf2WBAbhtGt5o4m/DNFA/TZYCYv+GZ8sF/BMqz1hguQ23GFgtKBkivhKaovDyAsDZeM4SGJW3o1NBj7qWP+SYdTVhbyLn931PigepwOO9WTK2KEdGTBJJmiysdEhA6SU9/88Y04jP7utkpUn4ITJ6y0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752564759; c=relaxed/simple;
-	bh=o9wPAtirXZ/CUOLkmqwAKzMO8aBp2CB2Bs75lv2aBvw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByrdGWntUUjc0boRZY1Ejs8zsPjcm/iZ85qerXcs/MDwjm9QZaCu6M3yLOzL4XlonNoIsgXXmHsUDkj0Z/f/bIWsOIHNVPokok7zDtT7tu1abmgnixeYbG0/NLUqNz8nUHzUkSHiZmjDgYAzGc+jk0fuPQOSD8U+0lDxaoj9g+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ocw9ib96; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044A1C4CEE3;
-	Tue, 15 Jul 2025 07:32:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752564755;
-	bh=o9wPAtirXZ/CUOLkmqwAKzMO8aBp2CB2Bs75lv2aBvw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ocw9ib96SYznsMA8isk7dC8oXB+FTusto0+zBaJwq7skeFeYnCgYb/3KdMBcumyqe
-	 C+wo4/7KddI7rHKfDGxl4hMRXBba+YdGo3HGwF7V/y8IR5hbB6JcQJIE8AqyfMsWpp
-	 b3bUvxy3qIFtTBn+AVnKOjloMEVQl1/qfwNnjvJKvmXhic1fb224SOGCOxUQgIWC1V
-	 sSYfVjfqXZjJtpyKSqCI8olgHR2khj6eowBdf9AY2pKUGFxkIz1ytSdo3o9gZ3OJHc
-	 wDLeBHVtANmqyEnv5fufWsaum+Ou60sYqyamNcZ0tPvT7iqAhN7ZJoYJQDE1yS4X9B
-	 yi/YQ4Z8f9d4Q==
-Date: Tue, 15 Jul 2025 09:32:32 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Terence Kelly <tpkelly@eecs.umich.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: _exit(2) vs. syscall(SYS_exit)  (was: Re: for man seccomp)
-Message-ID: <454tvrymgu64ftaapnog2e5xzrgtpuqfpdq4iyinybjo6fjpuf@q6zthgfcbpli>
-References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
- <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
- <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
- <ima6z2tqxkogu4zevqd2dww6oglouienk26qa25nk2sjere5h5@3ve4lzz2utgv>
- <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
+	s=arc-20240116; t=1752605420; c=relaxed/simple;
+	bh=wDDNu6Z3+MmmMsu9FNBHVF+v63/sohBirbpH5uZIdC0=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=nCC7MAXiw5rn7nIPDmFtDoj90OhQEuemXofOZ80K2d0JhznI3c5bt99YSBmhlGJVj3Q+R2mqcmfHr5qW4xfQpGhL/0Ys1bfg4hRrfv8dRQsARGGM+ZLHcNlkGbLlrOodOjBX0qNlGjU+4TCgSzORsJQO2EJNjEzwqjTPR6GG0kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PQMiF8xB; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-73e650f3c31so30552a34.3
+        for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 11:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1752605418; x=1753210218; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=CGtrnErjBN/tKKYreTfr4s1xxmw8Q52MT02s+zh21JY=;
+        b=PQMiF8xB2N6Os8mdaq9XtWhF9LIPnBShguwEnYbzK4/4/txKNmE60ERmBTh2U93sop
+         1L1O5OLbNbZFr/1jUuEBm28eS6nOBBfNsj/StlsADYHmvDQIZnwuWBjKoWW9fAxTibpc
+         aE/xaZSlHpAF+AqyF7fR7LgB9Z6PbGOceFe2DB+VpGBTxc9qX1E6nN4nWvJogtCN0H2m
+         UOzkKa9ceTUNLd9R6F0Tj5IXToIu4CLV+aB7NH+KSWCtbPfC/kAmTk/lvSuwyrlsGyNn
+         WDTNRX3+Z1xydmGYS857GC4Xrua6opKjaKWKildLciahow9p4mz5yKfxOo83JLhqv972
+         9rIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752605418; x=1753210218;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CGtrnErjBN/tKKYreTfr4s1xxmw8Q52MT02s+zh21JY=;
+        b=JZoO49yWS9cqVQLbPiD3RAXGFnqJ+IGE0IqU11bDBIYVmrcaW4SzpUuwzVwbnENyUi
+         m66IITynkXHvNgYFSXTs2FwCUkqdEPMdiSyRc4DkB5fhilep+nPtmXW0KGiII/CcFzHY
+         xEFVbMqVlxwmwGASmWa0Yyaqr036h2DqLwrBWWvKnLVQMWXBOtjH/ZP19qCt5xJTI4TB
+         A3FvMasUM7orO3KbWseyscO7H8jlEocViyg7O0VZmFy7rxnCTGL1giGNq7oojZHK8i4n
+         HllLz/bWxKFdQP8l75TZbEHOe744IsYAJt+L4mpxLCKQMY11/B6bLcFGFv/Bo6EKufK6
+         G7qg==
+X-Gm-Message-State: AOJu0Yzu0SIJ5pl55kx4w848augyAd8gx6/9gi2OFJj2MJLyN386xNGB
+	MMnP6214gbkYgaJFIoNwEQpzne6jjThho8zYLBfuSSlWpSFYfPKdRBKcd6TJx5EwBK0GFbq1Lgb
+	Votk9QIP0XOvcMCcch9Y1MUsEMAEOtUFGG9H/mr3VM5xvQ3tNI5JbLV9Jwbg=
+X-Gm-Gg: ASbGncsWIQnNN9TuFYUdOR5iQUmXFYIueWJO4dYai8PlzyYCHECF0GoxPzHXw/1zC++
+	AljbCgJUJXd2/qVbuNUWc/gpkgVPF9zFpNVRrHhNy4G9E5wcYyk1p3/OAEeTV6oFNaGtdqD27ww
+	9lCd+lR9/+EkDenDMXRFUz+Bdc8cN7PAXQvoB18atk2/Wg6QJ8dEFyVqwVkWqv0FRRTAfMFZ7s9
+	oHO
+X-Google-Smtp-Source: AGHT+IFAATaBTYHbnIYE0+bXD5WSvQkeH5kLYHoS/WRQtZWkMIS7aive/YvsITUa94kAKTWwKeiHNdVFN11GRYHRNsU=
+X-Received: by 2002:a05:6870:cb95:b0:2f3:e087:6aff with SMTP id
+ 586e51a60fabf-2ffaf4dcc78mr502352fac.24.1752605418247; Tue, 15 Jul 2025
+ 11:50:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wlppaiesli26kbhw"
-Content-Disposition: inline
-In-Reply-To: <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
+From: enh <enh@google.com>
+Date: Tue, 15 Jul 2025 14:50:06 -0400
+X-Gm-Features: Ac12FXy1Az9cI4828Ehe0czuUHsenMJw51F_8IlD5KSyJKgrs7UHQjQuTgbNa9I
+Message-ID: <CAJgzZopjpJJY8F7khF6SN=-UuYPiR70vqOE4voaQz79U_HqhAQ@mail.gmail.com>
+Subject: [PATCH] printf.3: mention Android's %m support.
+To: linux-man <linux-man@vger.kernel.org>, 
+	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Content-Type: multipart/mixed; boundary="000000000000636e100639fc3ff0"
 
+--000000000000636e100639fc3ff0
+Content-Type: text/plain; charset="UTF-8"
 
---wlppaiesli26kbhw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Terence Kelly <tpkelly@eecs.umich.edu>
-Cc: linux-man@vger.kernel.org
-Subject: Re: _exit(2) vs. syscall(SYS_exit)  (was: Re: for man seccomp)
-References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
- <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
- <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
- <ima6z2tqxkogu4zevqd2dww6oglouienk26qa25nk2sjere5h5@3ve4lzz2utgv>
- <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
-MIME-Version: 1.0
-In-Reply-To: <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
+Unclear to me whether it would be useful to explicitly mention that it's
+_not_ available on iOS/macOS and the BSDs, since that's the caveat I
+usually give when recommending %m to people.
 
-Hi Terence,
+Technically this is available on Android from API level 29, if we wanted
+to be more specific.
+---
+ man/man3/printf.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Mon, Jul 14, 2025 at 07:46:00PM -0400, Terence Kelly wrote:
-> Hi Alejandro,
->=20
-> [separating out different sub-threads of the conversation]
->=20
-> The attached tarball "exit_example.tar.gz" shows why I don't use "_exit(2=
-)"
-> per your suggesion.  On a late-vintage Ubuntu 24.04, it doesn't do what I
-> expect, but my way does: Compile and run both my way and yours with
-> "run.csh" and look at the output I get from that script in "run.csh.out".
->=20
-> I'm not sure I ever figured out why this happens.  Any idea what's going =
-on?
-> Maybe the C wrapper function is making a syscall that seccomp bans.
+--000000000000636e100639fc3ff0
+Content-Type: application/octet-stream; 
+	name="0001-printf.3-mention-Android-s-m-support.patch"
+Content-Disposition: attachment; 
+	filename="0001-printf.3-mention-Android-s-m-support.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_md4vzra60>
+X-Attachment-Id: f_md4vzra60
 
-Ahhh, I see why it happens.  It's in the seccomp(2) manual page:
-
-     SECCOMP_SET_MODE_STRICT
-            The  only system calls that the calling thread is permitted
-            to  make  are  read(2),   write(2),   _exit(2)   (but   not
-            exit_group(2)),  and  sigreturn(2).
-
-The libc wrapper _exit() calls exit_group(2), so indeed, it is necessary
-to use SYS_exit.  Well, since filters are usually single-threaded
-programs, it's fine to use SYS_exit, I guess.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---wlppaiesli26kbhw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmh2BAoACgkQ64mZXMKQ
-wqmpqw//TBJbXNKCuF+gEeqNnYXGm0tVtrpzfVsndH9LxP+FD7hPrAUrhDlyQb0q
-Hnb/csvwWlPnD72fHWf2/qaT1UwQ3G8xLI7HQ0valN1IkZOLr+ow5CM5vs55gUU5
-HCJmFkTJk6ZYGCqohn97bpjwqPRkfRmG68FqBHhQwRSFQvt8lGUHh7t1zL4BdRNc
-2kUvCZ8XguM+Krgc16KDT1PmhLci8CXTGSs/zttGBdAywucIcomvz/lRUO0DkbSv
-0egFYt64FqzTlQBS5KlEtAAOR+t0uv5/oMMEYCvEgAVSHISaCn/FQMVLV9Nh+Psf
-fCBfhdCWNLtYQip6LgXPzhZKDCUnbvSN7Z3vpuwXhcfoJaIdBq1ba163ut9LfLNP
-GBp+/pqdYBwB9xoE/dEtRoD9NxogzCg0guCG3OgbDksk+jysxoZzfCSAbzxXaWKv
-GPLY5pPfnDSnUhfLshCT36oMq29REsTA1IHT13gNRnWY4W2d9ADJaFqp+uFJZzWo
-d2A7SZZhzgWzXvdMWd19JEsxwBiy8rLL9wOB9cFlDBTPVIc2g0r+YMirQq/Tg21H
-sSuoHYuaVHYl8ru/fsgFLMDbMYMqYKdAAV4ViZZbFTPP+sItTVU5sJOS/788FIsp
-gDP5FY3psW4ph56+JtyQ53rg18FQd6jjTIZfbFWcNMA24oObXTY=
-=sYjP
------END PGP SIGNATURE-----
-
---wlppaiesli26kbhw--
+RnJvbSAzNWQ4ZGMwNDk1YTZjMDgwNTEyOTQ5ZTEyMmUxY2M2NThmMTZjNTgwIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBFbGxpb3R0IEh1Z2hlcyA8ZW5oQGdvb2dsZS5jb20+CkRhdGU6
+IFR1ZSwgMTUgSnVsIDIwMjUgMTg6NDI6NTYgKzAwMDAKU3ViamVjdDogW1BBVENIXSBwcmludGYu
+MzogbWVudGlvbiBBbmRyb2lkJ3MgJW0gc3VwcG9ydC4KClVuY2xlYXIgdG8gbWUgd2hldGhlciBp
+dCB3b3VsZCBiZSB1c2VmdWwgdG8gZXhwbGljaXRseSBtZW50aW9uIHRoYXQgaXQncwpfbm90XyBh
+dmFpbGFibGUgb24gaU9TL21hY09TIGFuZCB0aGUgQlNEcywgc2luY2UgdGhhdCdzIHRoZSBjYXZl
+YXQgSQp1c3VhbGx5IGdpdmUgd2hlbiByZWNvbW1lbmRpbmcgJW0gdG8gcGVvcGxlLgoKVGVjaG5p
+Y2FsbHkgdGhpcyBpcyBhdmFpbGFibGUgb24gQW5kcm9pZCBmcm9tIEFQSSBsZXZlbCAyOSwgaWYg
+d2Ugd2FudGVkCnRvIGJlIG1vcmUgc3BlY2lmaWMuCi0tLQogbWFuL21hbjMvcHJpbnRmLjMgfCAy
+ICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYg
+LS1naXQgYS9tYW4vbWFuMy9wcmludGYuMyBiL21hbi9tYW4zL3ByaW50Zi4zCmluZGV4IDIyZmUw
+NjU3Ni4uOGM0NTU0MmIyIDEwMDY0NAotLS0gYS9tYW4vbWFuMy9wcmludGYuMworKysgYi9tYW4v
+bWFuMy9wcmludGYuMwpAQCAtODcxLDcgKzg3MSw3IEBAIC5TUyBDb252ZXJzaW9uIHNwZWNpZmll
+cnMKIGFueSBmbGFncywgYSBmaWVsZCB3aWR0aCwgb3IgYSBwcmVjaXNpb24uCiAuVFAKIC5CIG0K
+LShnbGliYyBleHRlbnNpb247IHN1cHBvcnRlZCBieSB1Q2xpYmMgYW5kIG11c2wuKQorKGdsaWJj
+IGV4dGVuc2lvbjsgc3VwcG9ydGVkIGJ5IHVDbGliYyBhbmQgbXVzbCwgYW5kIG9uIEFuZHJvaWQu
+KQogUHJpbnQgb3V0cHV0IG9mCiAuSSBzdHJlcnJvcihlcnJubykKIChvcgotLSAKMi41MC4wLjcy
+Ny5nYmY3ZGMxOGZmNC1nb29nCgo=
+--000000000000636e100639fc3ff0--
 
