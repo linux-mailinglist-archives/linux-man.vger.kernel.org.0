@@ -1,180 +1,139 @@
-Return-Path: <linux-man+bounces-3265-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3266-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9651B04E81
-	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 05:08:31 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D22B0536C
+	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 09:38:14 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 604431705FD
-	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 03:08:27 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 75D967B30DF
+	for <lists+linux-man@lfdr.de>; Tue, 15 Jul 2025 07:32:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC7392C3773;
-	Tue, 15 Jul 2025 03:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B51DD6BB5B;
+	Tue, 15 Jul 2025 07:32:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ancd-us.20230601.gappssmtp.com header.i=@ancd-us.20230601.gappssmtp.com header.b="kHMMpcpk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ocw9ib96"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oi1-f185.google.com (mail-oi1-f185.google.com [209.85.167.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F204B2C3268
-	for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 03:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C76A27147F
+	for <linux-man@vger.kernel.org>; Tue, 15 Jul 2025 07:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752548901; cv=none; b=sYxD67zPPAdfOdFq3brnNcnyU9wcyJQb6mYGDyAIOBKQLsJ7RmNGqB1QtkmbqnmPb7dvXLWvK9UiqRGoV8lYEnJAUj82yV5zKwWGM1Cv32WbGQfcrmAj8MQ3d1gg6VQI+5koz9v6AoO3P74fWZrbNNgz1HuUslIYGH0M+SxMH5A=
+	t=1752564759; cv=none; b=OD+6X0YcCYSl3+FrSpHPA+F2buqjD23SqBQc70Tiuxq8u+jQCXYxWOCEFuse50M7rA6YebOiHXU3/wNOOyWjoVLwrF9ictz3KpQUr+UZ4qpHJQw5en5O4Zabq+++uY8F+x224+8PoAeR1jgQ2mQuaVSgtg0+ziADgsne58wjZ9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752548901; c=relaxed/simple;
-	bh=2i3DKmE0N0KBAlhaIE0W6hLh1KOD6ZpTs2tPV1z6LvE=;
-	h=Date:From:To:Cc:Message-Id:Subject:MIME-Version:Content-Type; b=LXs0oo8r43dVZmgtEG3updl+ZlJ9U6Hy7pdTYmK0Lj+KtSFrwlk9Vvcqn9ykpRCPzY6aRcRqz2doUXxbiicODdLGVfRMPYJ4Jkz9JP7n0m2LwMIqx0SpzP9QEA36MCnF5IlEItryymR25n27DidX/lWEJY+6xjLU99HX8acNROM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ancd.us; spf=none smtp.mailfrom=ancd.us; dkim=pass (2048-bit key) header.d=ancd-us.20230601.gappssmtp.com header.i=@ancd-us.20230601.gappssmtp.com header.b=kHMMpcpk; arc=none smtp.client-ip=209.85.167.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ancd.us
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ancd.us
-Received: by mail-oi1-f185.google.com with SMTP id 5614622812f47-41bd295b429so66826b6e.3
-        for <linux-man@vger.kernel.org>; Mon, 14 Jul 2025 20:08:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ancd-us.20230601.gappssmtp.com; s=20230601; t=1752548897; x=1753153697; darn=vger.kernel.org;
-        h=mime-version:subject:message-id:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=SwltAV7xU4FlKkadneUa3siAwIDHF2xR5/QDLNZviUc=;
-        b=kHMMpcpkrTsv8wpnNB8U1NpQqZuMLeyxuqS19+y6ATt3W2oHbTYruMIPkAew5HLWzW
-         4Wiv8votvFTz7bmcnWewbod3XCeLS4GB4yXncDIgkOzP/PGGAXpyyk4Bpy0YH85QKjZk
-         XqTO1d+2CMAng+9aMc5IT0p5kuCKVFS/oWcx6C9lMnAVsspTisiByZKtvTfKJioAGd2s
-         MFAHGwEqgzcm69INImLQQCdpSzDBmWnhY30Etdmndoptl3Tel01kRxbmWBQZ0jxi+GlW
-         sf3Kg6Lcpttej9pRgQdD0BuPyWeVO7COIC2WHEF5w6hOjI9jEqBujcQL2DfxMB+8S8nb
-         TvLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752548897; x=1753153697;
-        h=mime-version:subject:message-id:cc:to:from:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SwltAV7xU4FlKkadneUa3siAwIDHF2xR5/QDLNZviUc=;
-        b=QAwjcG4FkUkzDoiijYpWQj5aDvXQVOqx2OL2E8O61BjUrIGtugTNAJslmHDIf4WO/f
-         mWFhHX3vLCbmNnZg5zhCRjeXEJUHxTKttva3KcEM2K+1OgrXY7K2N2yWTMMXXCA65xjp
-         M3ZUZ9RzBTssqS3FknRmgsT7FD48ENuse/YUVGfKQ1EK/MZW+HFzJNJvnHgFr2Rf69WG
-         3e6XTc3+PW7P+/kv8Y+DRDgqH3tYj5CQA7vWcB3LS+o2SZsMClN+K7+lRXNH5S7Brojb
-         /Vjr0rv98edNtSXuQzHs3yT6PE+3b80KbL/HNI+ZBqBiukEMl9c8bzyO/gbYBCSg0W1x
-         Gf5g==
-X-Forwarded-Encrypted: i=1; AJvYcCVhG5NBkGQqnSZd41zjSUJ91M9Kpxz/83tjgyuQjXxv3mTMe+ThfRHx56KBzOmYYpS9EWdNdH4EBKw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrhIoSLqWWVdwO2gSa3hy1LXZKdLU7huIPL4SJKytISAkFsyIj
-	SUpTRTgH7tnbhP/MVdy1+Gk7S72oK3P3+DxGF03ibR48zaYquHhVfYt8EUJFGz4WZOggBRwqkNn
-	deIy0/fGYERndpg==
-X-Google-Smtp-Source: AGHT+IHFNj6UHBzogwDsF1QocwSSfFCF7OSqUhMjgJI7l9uBf1KDluw7kOKOrnYcnXBzJSzjlqByUcqrWw==
-X-Received: by 2002:a05:6808:e8c:b0:406:7769:d351 with SMTP id 5614622812f47-415116183d1mr9985407b6e.23.1752548896741;
-        Mon, 14 Jul 2025 20:08:16 -0700 (PDT)
-X-Google-Already-Archived: Yes
-X-Google-Already-Archived-Group-Id: 28631296f7
-X-Google-Doc-Id: dd3ad2c302499
-X-Google-Thread-Id: 78f31fa5a868a7eb
-X-Google-Message-Url: http://groups.google.com/a/ancd.us/group/jeremyamo/msg/dd3ad2c302499
-X-Google-Thread-Url: http://groups.google.com/a/ancd.us/group/jeremyamo/t/78f31fa5a868a7eb
-X-Google-Web-Client: true
-Date: Mon, 14 Jul 2025 20:08:16 -0700 (PDT)
-From: "Email Marketing software ." <jeremyamo@ancd.us>
-To: "Email Marketing software ." <jeremyamo@ancd.us>
-Cc: info@insidehr.com.au, janice.boylan@dublincity.ie,
-	linux-man@vger.kernel.org, helpline@gutscharity.org.uk,
-	jakub@iamdetailing.com, aisha.sada@arcticnet.ulaval.ca,
-	mariness@vsnl.com, jktrip@yahoo.com, info@barharborwhales.com,
-	alfred.yu@uwaterloo.ca, success@patriotsoftware.com,
-	employment@madonnainn.com, clinic@resiliencemedicine.co.uk,
-	nick.whittingham@kcalc.org.uk, octaviawalters@googlemail.com,
-	Foundation@sunnybrook.ca, barsukov@tenzor.net, wlcc@wlcc.org.uk,
-	utah@tnc.org, sharonr@bcgsc.ca, ambermare@westnet.com.au,
-	 <desiree.sorrentino@humber.ca>
-Message-Id: <6b3cedc0-53b1-40f1-9b57-62921c1e960bn@ancd.us>
-Subject: =?UTF-8?Q?High-speed_email_sending_software_=EF=BC=8E=EF=BC=8E?=
+	s=arc-20240116; t=1752564759; c=relaxed/simple;
+	bh=o9wPAtirXZ/CUOLkmqwAKzMO8aBp2CB2Bs75lv2aBvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ByrdGWntUUjc0boRZY1Ejs8zsPjcm/iZ85qerXcs/MDwjm9QZaCu6M3yLOzL4XlonNoIsgXXmHsUDkj0Z/f/bIWsOIHNVPokok7zDtT7tu1abmgnixeYbG0/NLUqNz8nUHzUkSHiZmjDgYAzGc+jk0fuPQOSD8U+0lDxaoj9g+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ocw9ib96; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044A1C4CEE3;
+	Tue, 15 Jul 2025 07:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752564755;
+	bh=o9wPAtirXZ/CUOLkmqwAKzMO8aBp2CB2Bs75lv2aBvw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ocw9ib96SYznsMA8isk7dC8oXB+FTusto0+zBaJwq7skeFeYnCgYb/3KdMBcumyqe
+	 C+wo4/7KddI7rHKfDGxl4hMRXBba+YdGo3HGwF7V/y8IR5hbB6JcQJIE8AqyfMsWpp
+	 b3bUvxy3qIFtTBn+AVnKOjloMEVQl1/qfwNnjvJKvmXhic1fb224SOGCOxUQgIWC1V
+	 sSYfVjfqXZjJtpyKSqCI8olgHR2khj6eowBdf9AY2pKUGFxkIz1ytSdo3o9gZ3OJHc
+	 wDLeBHVtANmqyEnv5fufWsaum+Ou60sYqyamNcZ0tPvT7iqAhN7ZJoYJQDE1yS4X9B
+	 yi/YQ4Z8f9d4Q==
+Date: Tue, 15 Jul 2025 09:32:32 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Terence Kelly <tpkelly@eecs.umich.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: _exit(2) vs. syscall(SYS_exit)  (was: Re: for man seccomp)
+Message-ID: <454tvrymgu64ftaapnog2e5xzrgtpuqfpdq4iyinybjo6fjpuf@q6zthgfcbpli>
+References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
+ <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
+ <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
+ <ima6z2tqxkogu4zevqd2dww6oglouienk26qa25nk2sjere5h5@3ve4lzz2utgv>
+ <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_661816_1141155028.1752548896133"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wlppaiesli26kbhw"
+Content-Disposition: inline
+In-Reply-To: <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
 
-------=_Part_661816_1141155028.1752548896133
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_661817_1651020859.1752548896133"
 
-------=_Part_661817_1651020859.1752548896133
-Content-Type: text/plain; charset=UTF-8
+--wlppaiesli26kbhw
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Terence Kelly <tpkelly@eecs.umich.edu>
+Cc: linux-man@vger.kernel.org
+Subject: Re: _exit(2) vs. syscall(SYS_exit)  (was: Re: for man seccomp)
+References: <45c2afdf-729d-d137-e15a-074123f5c87b@eecs.umich.edu>
+ <4oxc4pfspkqg3v7exajv42lw7s6tgy7xcji2yjyx2bi6b3pcya@sl7bllkflzcg>
+ <259aabe5-aa71-5165-8ec1-f55baa04036e@eecs.umich.edu>
+ <ima6z2tqxkogu4zevqd2dww6oglouienk26qa25nk2sjere5h5@3ve4lzz2utgv>
+ <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
+MIME-Version: 1.0
+In-Reply-To: <37dc9e2f-e478-9573-bbd6-2987ac6809aa@eecs.umich.edu>
+
+Hi Terence,
+
+On Mon, Jul 14, 2025 at 07:46:00PM -0400, Terence Kelly wrote:
+> Hi Alejandro,
+>=20
+> [separating out different sub-threads of the conversation]
+>=20
+> The attached tarball "exit_example.tar.gz" shows why I don't use "_exit(2=
+)"
+> per your suggesion.  On a late-vintage Ubuntu 24.04, it doesn't do what I
+> expect, but my way does: Compile and run both my way and yours with
+> "run.csh" and look at the output I get from that script in "run.csh.out".
+>=20
+> I'm not sure I ever figured out why this happens.  Any idea what's going =
+on?
+> Maybe the C wrapper function is making a syscall that seccomp bans.
+
+Ahhh, I see why it happens.  It's in the seccomp(2) manual page:
+
+     SECCOMP_SET_MODE_STRICT
+            The  only system calls that the calling thread is permitted
+            to  make  are  read(2),   write(2),   _exit(2)   (but   not
+            exit_group(2)),  and  sigreturn(2).
+
+The libc wrapper _exit() calls exit_group(2), so indeed, it is necessary
+to use SYS_exit.  Well, since filters are usually single-threaded
+programs, it's fine to use SYS_exit, I guess.
 
 
+Have a lovely day!
+Alex
 
-=E2=9C=94. Thousands to hundreds of thousands of emails sent per day.=20
-=E2=9C=94. The only software on the market that uses Web mode + Http protoc=
-ol to=20
-send mail. It completely simulates the manual login and sending of Chrome=
-=20
-browser.=20
+--=20
+<https://www.alejandro-colomar.es/>
 
-=E2=9C=94. One-click start, Http protocol,Fully Automated, High-speed, Bulk=
-,=20
-Multi-threaded,Built-in Proxies.
+--wlppaiesli26kbhw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-=E2=9C=94. Free full-featured trial for 3 days.
+-----BEGIN PGP SIGNATURE-----
 
-DEMO: youtu.be/vGpfyP18VLA
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmh2BAoACgkQ64mZXMKQ
+wqmpqw//TBJbXNKCuF+gEeqNnYXGm0tVtrpzfVsndH9LxP+FD7hPrAUrhDlyQb0q
+Hnb/csvwWlPnD72fHWf2/qaT1UwQ3G8xLI7HQ0valN1IkZOLr+ow5CM5vs55gUU5
+HCJmFkTJk6ZYGCqohn97bpjwqPRkfRmG68FqBHhQwRSFQvt8lGUHh7t1zL4BdRNc
+2kUvCZ8XguM+Krgc16KDT1PmhLci8CXTGSs/zttGBdAywucIcomvz/lRUO0DkbSv
+0egFYt64FqzTlQBS5KlEtAAOR+t0uv5/oMMEYCvEgAVSHISaCn/FQMVLV9Nh+Psf
+fCBfhdCWNLtYQip6LgXPzhZKDCUnbvSN7Z3vpuwXhcfoJaIdBq1ba163ut9LfLNP
+GBp+/pqdYBwB9xoE/dEtRoD9NxogzCg0guCG3OgbDksk+jysxoZzfCSAbzxXaWKv
+GPLY5pPfnDSnUhfLshCT36oMq29REsTA1IHT13gNRnWY4W2d9ADJaFqp+uFJZzWo
+d2A7SZZhzgWzXvdMWd19JEsxwBiy8rLL9wOB9cFlDBTPVIc2g0r+YMirQq/Tg21H
+sSuoHYuaVHYl8ru/fsgFLMDbMYMqYKdAAV4ViZZbFTPP+sItTVU5sJOS/788FIsp
+gDP5FY3psW4ph56+JtyQ53rg18FQd6jjTIZfbFWcNMA24oObXTY=
+=sYjP
+-----END PGP SIGNATURE-----
 
-TG: wowofrom2008
-
-=20
-
-*phenomenon fossilpercival fossilsniff fossil.*
-
-------=_Part_661817_1651020859.1752548896133
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<p><font color=3D"#800000"><font size=3D"5"><span style=3D'text-align: left=
-; color: rgb(0, 102, 0); text-transform: none; text-indent: 0px; letter-spa=
-cing: normal; font-family: "Microsoft YaHei"; font-size: medium; font-style=
-: normal; font-weight: 400; word-spacing: 0px; float: none; display: inline=
- !important; white-space: normal; orphans: 2; widows: 2; font-variant-ligat=
-ures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px; te=
-xt-decoration-thickness: initial; text-decoration-style: initial; text-deco=
-ration-color: initial;'>=E2=9C=94. </span>Thousands to hundreds of thousand=
-s of emails sent per day. </font></font></p><font color=3D"#800000"><font s=
-ize=3D"5"><span style=3D'text-align: left; color: rgb(0, 102, 0); text-tran=
-sform: none; text-indent: 0px; letter-spacing: normal; font-family: "Micros=
-oft YaHei"; font-size: medium; font-style: normal; font-weight: 400; word-s=
-pacing: 0px; float: none; display: inline !important; white-space: normal; =
-orphans: 2; widows: 2; font-variant-ligatures: normal; font-variant-caps: n=
-ormal; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; =
-text-decoration-style: initial; text-decoration-color: initial;'>=E2=9C=94.=
- </span>The only software on the market that uses Web mode + Http protocol =
-to send mail. It completely simulates the manual login and sending of Chrom=
-e browser. </font></font><p><font color=3D"#800000"><font size=3D"5"><span =
-style=3D'text-align: left; color: rgb(0, 102, 0); text-transform: none; tex=
-t-indent: 0px; letter-spacing: normal; font-family: "Microsoft YaHei"; font=
--size: medium; font-style: normal; font-weight: 400; word-spacing: 0px; flo=
-at: none; display: inline !important; white-space: normal; orphans: 2; wido=
-ws: 2; font-variant-ligatures: normal; font-variant-caps: normal; -webkit-t=
-ext-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-=
-style: initial; text-decoration-color: initial;'>=E2=9C=94. </span>One-clic=
-k start, Http protocol,Fully Automated, High-speed, Bulk, Multi-threaded,Bu=
-ilt-in Proxies.</font></font></p><p><font size=3D"6"><font color=3D"red"><s=
-pan style=3D'text-align: left; color: rgb(0, 102, 0); text-transform: none;=
- text-indent: 0px; letter-spacing: normal; font-family: "Microsoft YaHei"; =
-font-size: medium; font-style: normal; font-weight: 400; word-spacing: 0px;=
- float: none; display: inline !important; white-space: normal; orphans: 2; =
-widows: 2; font-variant-ligatures: normal; font-variant-caps: normal; -webk=
-it-text-stroke-width: 0px; text-decoration-thickness: initial; text-decorat=
-ion-style: initial; text-decoration-color: initial;'>=E2=9C=94. </span><fon=
-t face=3D"Microsoft YaHei">Free full-featured trial for 3 days.</font></fon=
-t></font></p><p><font size=3D"4">DEMO: <a style=3D'text-align: left; text-t=
-ransform: none; text-indent: 0px; letter-spacing: normal; font-family: "Mic=
-rosoft YaHei"; font-size: medium; font-style: normal; font-weight: 400; wor=
-d-spacing: 0px; white-space: normal; orphans: 2; widows: 2; background-colo=
-r: rgb(255, 255, 255); font-variant-ligatures: normal; font-variant-caps: n=
-ormal; -webkit-text-stroke-width: 0px;' href=3D"youtu.be/vGpfyP18VLA" targe=
-t=3D"_blank">youtu.be/vGpfyP18VLA</a></font></p><p><font size=3D"4"><font c=
-olor=3D"#333300">TG</font>: <font color=3D"#800000">wowofrom2008</font></fo=
-nt></p><p><font color=3D"#800000" size=3D"4"></font>&nbsp;</p><p><strong>ph=
-enomenon fossilpercival fossilsniff fossil.</strong><font color=3D"#0000ff"=
-><br /></font></p>
-------=_Part_661817_1651020859.1752548896133--
-
-------=_Part_661816_1141155028.1752548896133--
+--wlppaiesli26kbhw--
 
