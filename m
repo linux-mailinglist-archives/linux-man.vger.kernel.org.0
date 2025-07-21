@@ -1,140 +1,209 @@
-Return-Path: <linux-man+bounces-3286-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3287-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0AEFB0B9D9
-	for <lists+linux-man@lfdr.de>; Mon, 21 Jul 2025 03:56:00 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33479B0C0B3
+	for <lists+linux-man@lfdr.de>; Mon, 21 Jul 2025 11:52:23 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 71AE31899122
-	for <lists+linux-man@lfdr.de>; Mon, 21 Jul 2025 01:56:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 73D8D3AE542
+	for <lists+linux-man@lfdr.de>; Mon, 21 Jul 2025 09:51:54 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 347891552E0;
-	Mon, 21 Jul 2025 01:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57D93288CBC;
+	Mon, 21 Jul 2025 09:52:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="OtZ+xECl"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVLUBORC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6F98F40;
-	Mon, 21 Jul 2025 01:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1338C3C30;
+	Mon, 21 Jul 2025 09:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1753062953; cv=none; b=NSDhRalSXiKYMGL5CyYG1T5A+w4lyLnIBYaX8rBvMVHK7fIACPgfIw7vPeV0RnRjFXtsEHpfOwgKAx+2MHmcpEKLDmLLcHJBTO+IvwejT6U/DBiEGJLq0m9jHmIvRnd8A5fPDkxKHhbyu4ebd5k2iR/rJnW3vaWN7f+28gaWE3g=
+	t=1753091538; cv=none; b=IqITqAq/8c6ZvNpH7nJ00dRXOdOheG8lF+JyPGP06418pc772DwKfDkOPGJU5i2COr8A3Kh2h99wHCn6CQ22tr7QzrDe00EXVCz0k5t7MLLNaOHa2/vxdeyFKwU8MvGBnZnVdLj5Uu13yNE7fTY0vZZKxXuZeixaDFH+HqDUpMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1753062953; c=relaxed/simple;
-	bh=VAKaSJmtNmzgSVuSIxO04Qedewfp7qeQAq6n5kMBBVk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qKvQxaMeeYFNbFzsZTs6ZOUwyZRYZFXk0XB0jeqngDWQ/PLcM3HnBmUdJplaI9/lExANPttTm8YmWNbqX0Nigdl+f3lwlj+YOtAWyIwrO6KMbFlzZeGfQ6HTqNizzOeEINLPKTiVsjEeKAelCZWlvgAqb3vQyWXxlgkXEVmKtVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=OtZ+xECl; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4blk4y70qSz9ssn;
-	Mon, 21 Jul 2025 03:55:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1753062947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=EEI9/Md4eBKhgsbhNrEczfjHWuVAnYhWLgaDPG7L3mM=;
-	b=OtZ+xEClrgggEL2GJWGMT/1tXSqI7U0/ntdPZyf7jWd+sULr0SDOdr9qSw3PDG1eex2LHX
-	il+hU/JAXyZX1uUU9U093LgZz1fKc/pzXPN1HKq0l/RZsRpvg/k672+wr8+0qa7AcIwdbQ
-	ulTEhrzeabr0D8WAso3OlOWifSKcp5ovEZHbJxqZMSQJaLg3QXS24+aub2dUJn4XyhQSCL
-	/asqtfhGQbS/hRd26QS6lfxRZHPdMP7DiLH86S2YTrqOsvPBwfvzs9u2jL7PvE/ZaneysQ
-	Petc19SYDfXQhjyn2Cpt6PcMyGG59rtUEzouWHaTrOa8qo7y+ztBcwktcrEktg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
-From: Aleksa Sarai <cyphar@cyphar.com>
-Date: Mon, 21 Jul 2025 11:55:36 +1000
-Subject: [PATCH] openat2.2: update HISTORY to include epilogue about
+	s=arc-20240116; t=1753091538; c=relaxed/simple;
+	bh=KT5dNaobRFhxmKwg3aOEGWuaGGHNaN8k9ozAO0yytG0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AVH6KnbRklXBP1spaKlz6u5Ew52/lqghgv2ZBV39iEVZK+/+c2ptze3KhYA77ETCKfrnNG6SiTQoqsMOhgjZoNN1U8WmI5fC9J5BR5zZzq0jf4g6Lb6oR8sQoXwbvYl0mZ7q8JiWjW+L9quBCFvxMLQxNPV2c36+2MPBUrnci1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVLUBORC; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64E6C4CEED;
+	Mon, 21 Jul 2025 09:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1753091537;
+	bh=KT5dNaobRFhxmKwg3aOEGWuaGGHNaN8k9ozAO0yytG0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HVLUBORCXbjFfnEj/eN8bIQyiT+nu4wqrLVIuqs3iHCpCwD9olfVyxJWwXkPnq5Ik
+	 Lj8qeMctcw1eHuNKDL7OAw2CKO93vE+0lIAYCNF4si79i8O1eN7cZSzQLnPS386tls
+	 6w4WOLEO9V5lcjAlTyI0F2XDkPsVl1pez4HIAC5t0XRfmV8twbjFR1ff3x5l/qYq8r
+	 pNbjCzoCUKdqFmCp3yAzfN8v106TB70Sa1DV6uazHGTZbUD0dDeg08dGCjx7MLE6j6
+	 b5aWjpQ46UzfSC+vXBT1fLmwPGQq/qPGE5kTQ/k5rIgwG0eAF4qe51oHHCIQzGmMlW
+	 6NfExBKRLczIA==
+Date: Mon, 21 Jul 2025 11:52:14 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] openat2.2: update HISTORY to include epilogue about
  FreeBSD
+Message-ID: <ixqohvedvsiytcoxiizsutzwlwgcy337jqvzyspkeetbss4q23@3kxmvfjwt6hz>
+References: <20250721-openat2-history-v1-1-994936dd224a@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250721-openat2-history-v1-1-994936dd224a@cyphar.com>
-X-B4-Tracking: v=1; b=H4sIABeefWgC/x3MQQqAIBBA0avIrBN0IqyuEi3MppyNhkYU4d2Tl
- m/x/wuZElOGUbyQ6OLMMVToRoDzNuwkea0GVNgpg1rGg4I9UXrOZ0yPRNtvRruB2kVBrY5EG9/
- /cZpL+QBIhgYmYQAAAA==
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Aleksa Sarai <cyphar@cyphar.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1980; i=cyphar@cyphar.com;
- h=from:subject:message-id; bh=VAKaSJmtNmzgSVuSIxO04Qedewfp7qeQAq6n5kMBBVk=;
- b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWTUzpN1uBqj+PnQPt8MGbtX6+K5d4WsPbx30ZVX2VUML
- p+uvdm3t6OUhUGMi0FWTJFlm59n6Kb5i68kf1rJBjOHlQlkCAMXpwBMZP8shr+CxpJyp56cWNE2
- ++5f40WSJu+zEjU6NiZpiPx1b6vpDudl+J/8lDdZXIVh2hr3e2zPa3u7anuumU/IfqjZl7i/Ydb
- OWg4A
-X-Developer-Key: i=cyphar@cyphar.com; a=openpgp;
- fpr=C9C370B246B09F6DBCFC744C34401015D1D2D386
-X-Rspamd-Queue-Id: 4blk4y70qSz9ssn
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c6d5ms25ptvphquo"
+Content-Disposition: inline
+In-Reply-To: <20250721-openat2-history-v1-1-994936dd224a@cyphar.com>
 
-While RESOLVE_BENEATH was based on FreeBSD's O_BENEATH, there was a
-well-known safety issue in O_BENEATH that we explicitly avoided
-replicating -- FreeBSD would only verify whether the lookup escaped the
-dirfd *at the end of the path lookup*.
 
-This meant that even with O_BENEATH, an attacker could gain information
-about the structure of the filesystem outside of the dirfd through
-timing attacks or other side-channels.
+--c6d5ms25ptvphquo
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] openat2.2: update HISTORY to include epilogue about
+ FreeBSD
+References: <20250721-openat2-history-v1-1-994936dd224a@cyphar.com>
+MIME-Version: 1.0
+In-Reply-To: <20250721-openat2-history-v1-1-994936dd224a@cyphar.com>
 
-Once Linux had RESOLVE_BENEATH, FreeBSD implemented O_RESOLVE_BENEATH to
-mimic the same behaviour[1] and eventually removed O_BENEATH entirely
-from their system[2]. It seems prudent to provide this epilogue in the
-HISTORY section of the openat2(2) man page (the FreeBSD man page does
-for open(2) not reference this historical connection with Linux at all,
-as far as I can tell).
+Hi Aleksa,
 
-[1]: https://reviews.freebsd.org/D25886
-[2]: https://reviews.freebsd.org/D28907
+On Mon, Jul 21, 2025 at 11:55:36AM +1000, Aleksa Sarai wrote:
+> While RESOLVE_BENEATH was based on FreeBSD's O_BENEATH, there was a
+> well-known safety issue in O_BENEATH that we explicitly avoided
+> replicating -- FreeBSD would only verify whether the lookup escaped the
+> dirfd *at the end of the path lookup*.
+>=20
+> This meant that even with O_BENEATH, an attacker could gain information
+> about the structure of the filesystem outside of the dirfd through
+> timing attacks or other side-channels.
+>=20
+> Once Linux had RESOLVE_BENEATH, FreeBSD implemented O_RESOLVE_BENEATH to
+> mimic the same behaviour[1] and eventually removed O_BENEATH entirely
+> from their system[2]. It seems prudent to provide this epilogue in the
+> HISTORY section of the openat2(2) man page (the FreeBSD man page does
+> for open(2) not reference this historical connection with Linux at all,
+> as far as I can tell).
+>=20
+> [1]: https://reviews.freebsd.org/D25886
+> [2]: https://reviews.freebsd.org/D28907
+>=20
+> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
 
-Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
----
- man/man2/openat2.2 | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Thanks!  CI detected a few minor issues:
 
-diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
-index e7d400920049..53687e676ae5 100644
---- a/man/man2/openat2.2
-+++ b/man/man2/openat2.2
-@@ -478,7 +478,20 @@ Linux 5.6.
- The semantics of
- .B RESOLVE_BENEATH
- were modeled after FreeBSD's
-+.BR O_BENEATH ,
-+but avoided a well-known correctness bug in FreeBSD's implementation that
-+rendered it effectively insecure.
-+Later, FreeBSD 13 introduced
-+.BR O_RESOLVE_BENEATH
-+to replace the insecure
- .BR O_BENEATH .
-+.\" https://reviews.freebsd.org/D25886
-+.\" https://reviews.freebsd.org/D28907
-+FreeBSD's
-+.BR O_RESOLVE_BENEATH
-+semantics are based on Linux's
-+.BR RESOLVE_BENEATH
-+and the two are now functionally equivalent.
- .SH NOTES
- .SS Extensibility
- In order to allow for future extensibility,
+	remote: an.tmac:.tmp/man/man2/openat2.2:485: style: .BR expects at least 2=
+ arguments, got 1
+	remote: an.tmac:.tmp/man/man2/openat2.2:491: style: .BR expects at least 2=
+ arguments, got 1
+	remote: an.tmac:.tmp/man/man2/openat2.2:493: style: .BR expects at least 2=
+ arguments, got 1
 
----
-base-commit: 5d53969e60c484673745ed47d6015a1f09c8641e
-change-id: 20250721-openat2-history-2a8f71c9e3b0
+I've fixed them with the following amendment:
 
-Best regards,
--- 
-Aleksa Sarai <cyphar@cyphar.com>
+	diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
+	index 53687e676..9d0b58777 100644
+	--- a/man/man2/openat2.2
+	+++ b/man/man2/openat2.2
+	@@ -482,15 +482,15 @@ .SH HISTORY
+	 but avoided a well-known correctness bug in FreeBSD's implementation that
+	 rendered it effectively insecure.
+	 Later, FreeBSD 13 introduced
+	-.BR O_RESOLVE_BENEATH
+	+.B O_RESOLVE_BENEATH
+	 to replace the insecure
+	 .BR O_BENEATH .
+	 .\" https://reviews.freebsd.org/D25886
+	 .\" https://reviews.freebsd.org/D28907
+	 FreeBSD's
+	-.BR O_RESOLVE_BENEATH
+	+.B O_RESOLVE_BENEATH
+	 semantics are based on Linux's
+	-.BR RESOLVE_BENEATH
+	+.B RESOLVE_BENEATH
+	 and the two are now functionally equivalent.
+	 .SH NOTES
+	 .SS Extensibility
 
+I've applied the amended commit (which also includes some tweaks in the
+commit message):
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D671e1b8cbeee5e81ff1e10d10586521e0ce82cf9>
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man2/openat2.2 | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>=20
+> diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
+> index e7d400920049..53687e676ae5 100644
+> --- a/man/man2/openat2.2
+> +++ b/man/man2/openat2.2
+> @@ -478,7 +478,20 @@ Linux 5.6.
+>  The semantics of
+>  .B RESOLVE_BENEATH
+>  were modeled after FreeBSD's
+> +.BR O_BENEATH ,
+> +but avoided a well-known correctness bug in FreeBSD's implementation that
+> +rendered it effectively insecure.
+> +Later, FreeBSD 13 introduced
+> +.BR O_RESOLVE_BENEATH
+> +to replace the insecure
+>  .BR O_BENEATH .
+> +.\" https://reviews.freebsd.org/D25886
+> +.\" https://reviews.freebsd.org/D28907
+> +FreeBSD's
+> +.BR O_RESOLVE_BENEATH
+> +semantics are based on Linux's
+> +.BR RESOLVE_BENEATH
+> +and the two are now functionally equivalent.
+>  .SH NOTES
+>  .SS Extensibility
+>  In order to allow for future extensibility,
+>=20
+> ---
+> base-commit: 5d53969e60c484673745ed47d6015a1f09c8641e
+> change-id: 20250721-openat2-history-2a8f71c9e3b0
+>=20
+> Best regards,
+> --=20
+> Aleksa Sarai <cyphar@cyphar.com>
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--c6d5ms25ptvphquo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmh+Dc0ACgkQ64mZXMKQ
+wqmW3BAAsBfmf5MHowxilQ/9MO5s82/uJ8TPoXpBFcgxP84D1LdEt35AWXtvnxau
+mhRuNcRg1zk/tjt8ttiFjMMP0Eb3+7IH4kwFIfbLd876jgmb8YXUtlTPmnaY8/xS
+E8yvagSiY1DfWRoRIoGYuzjH8oHoTpXVozdoQRuiIYtoN2O4PtH0j8gAP4MAtw/A
+cLZ4dOiaJX/M/R94rlcmOBRqw7pQ19JScKGDathr+nAdQaU/V0TG5WcZ7WNbDoXN
+dYMy4k/ikHLKOuBzFA+DJTpA8ic9bcPRPaFNBXpcwY/sNAGfPTc2oooDw1bFZMar
+bDIram/suRNDfMx+96ehy1HUJucYWz0tDKdmI0TjZuCDcgRV6fhJyY89VbzLpQil
+bCZpuBo2jwdMT4cz1Hy5NR1QOjOCwauLoBIaRAfmal71Wggi/Bxfm315czypMDVh
+uaxCh1mScKzPTHL/REJMdkbKtXx3jW9JcNF97Wv04m4400bS01oBetJ3rs49upOi
+g2ofJsqeQINseef3cHk6jXww2uegjYKu2XQMkxzwx+Srtsu8djIGu+jYuWYPTKs5
+ThIVhXeLEfZHaCwfZH19Yv/fiGaRTdThR4A3IHX34YF/X5ykzooDOlhvxg+8qNt+
+tYFCil1QfFxRNWybkRK5sPW3igBxykcGndKQ2R6nuauzp/3z6jc=
+=Bn4p
+-----END PGP SIGNATURE-----
+
+--c6d5ms25ptvphquo--
 
