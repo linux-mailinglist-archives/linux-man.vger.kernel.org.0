@@ -1,99 +1,108 @@
-Return-Path: <linux-man+bounces-3291-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3292-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7D6B0FB27
-	for <lists+linux-man@lfdr.de>; Wed, 23 Jul 2025 21:53:02 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id BBA2EB0FFC5
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 06:58:44 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id CE0711CC08EA
-	for <lists+linux-man@lfdr.de>; Wed, 23 Jul 2025 19:53:20 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E166656445B
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 04:58:44 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31A88230270;
-	Wed, 23 Jul 2025 19:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9186A1F37A1;
+	Thu, 24 Jul 2025 04:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WVe8sEt5"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="OM6PyxmO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805B9230BE3
-	for <linux-man@vger.kernel.org>; Wed, 23 Jul 2025 19:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DBB10E0
+	for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 04:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1753300352; cv=none; b=mgUE9v5lYZF1irF2bE7nV6A+OyOtmeaBX4H1//tZH20ZWmrItSA8crDW90AUjD6pyJIhZVgiRzW4g8TTWsZ7jxiOK6DYnYICCmL5Ga58fHHWudqZJ9sRzrap2HWN9ipXG2i3KDRfEf9taOwLu9nJUNgalB9iPZzXMg39ZatcGG8=
+	t=1753333120; cv=none; b=NdI3ZV7gHue2JlqqNrpHzNXZhB2WrwDOd5o2OCEvPaJESP+KkSFjbJLQQ3nvzlRmTBjDAcDhiJ4Pg0MhgJl7989uEoyhxouBE0yibWpw7vUliuOOlMrfG3bWlH82JXavUaZqU+UlVf0p3pmED0XXefi2maVvzmtpEL8PwXiWsIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1753300352; c=relaxed/simple;
-	bh=4KDIys7N68YGshLsw/0o49hZypW1/g6xxhF/G3EmGmA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=aj+2ju3DxiNCq+aQp4EtFRMiR+d7wkaNOcpcuskBh4gT3tHt00XknIu8IT1UryO6yVlNgs/52kDmnaeKGKG5tIhw2fcOGirTkjachXrL28EqbuUuBshmcrrFL/fArHfRt6OJqyYO4++uowPtYonOUZkQF/dk1lgWXWBpP4VT82A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WVe8sEt5; arc=none smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-2e95ab2704fso276898fac.3
-        for <linux-man@vger.kernel.org>; Wed, 23 Jul 2025 12:52:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1753300349; x=1753905149; darn=vger.kernel.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HLWFawuckWLXmBH1JPiGbkviaFzhA0eduozzSZUvFHU=;
-        b=WVe8sEt50Z2sJT8iIOmzwGIG3qvcPM+rmTNX0QGtS571x8ndMjZm7XzshxtQayd7M3
-         61KLh0othG1Jb4aQxA1WtqqSpoQvm82RaDV7AK+GRJLcByWG0xT4+noY9qY858JNeUcb
-         tU0n0BOAtEidcLppCa8WKux5nv9sHm1eAwkfefwCiR2vogieHufcZBCspxSJWGeEyx7+
-         nj2iyqAJzWPAgiObzq/X/wX25lfAIR2hPG3oLwrv7dI2GLZ9LHYXtvxhvLorv3uAKZfp
-         3lA5AwBZMBEtC9BhWHKpPtTr2Ko1ohHJbfpG6ahXMb3TdqVEY3D8TGRyZGaMi+V+ZpRt
-         wa4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753300349; x=1753905149;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HLWFawuckWLXmBH1JPiGbkviaFzhA0eduozzSZUvFHU=;
-        b=l3CMzOYJRe0OhIahtvN6Pm5/b0sk+WxCeKKt6njRnWXhMy3X+UOCiTfRknXmvIE+o7
-         gLc3tAuZ6/7aCdRv3qVbMrZZWDggTgr6VJVxsfvh32sYM8XeMkNNhaIaQvzUICtUNCt1
-         WNFnPQyVZQHJHH7uEYeLIgR+K8DLhjt70hLen914KBSxDZkrxUJk6JHsSXwyz2CSRuPn
-         kbrlLBbkcG8n/ZAe0DjYnApopF/ciifvV2ILA4nJqN1kLaBNqcVcsw764OfTv8HnIjCy
-         aYCxI/IZCHf6utvkogFyQNE5RrEvAvB0vncoP/17Pzt1j1+bdN60Az1UKELqsgJvgwgh
-         616A==
-X-Gm-Message-State: AOJu0YzV6EreoFat7nAquxIW0oqi1f+M13lgHo0Vt+KPOZl/7gZZNavO
-	QhFS7CfrOZS1teJopG+R7+4ehf0oPORJK8a5xGqLdaTjGJrNl8csVAanf17lo7NvN5ZNdBbOJYT
-	NPqogcKTtdWtHi9n6osqZdXH/3RKAaXvKkbqyqr9diEtNn46CIXqWdM2H
-X-Gm-Gg: ASbGncvwiHg3bWXbf742Z1ojAU1rZAUMrdSGaBfHodioEHmCsY8UVupTDIoNuz0Eki/
-	teeCNpFoBj2XJwdvuNpN2Ge7dz0cULJ1wrMxq0yn9yECojJ/ZyUQQPN2QHHYWC2esHLueoITgTi
-	tJcpQZAAXsD1ZacTlDa6ivcSCeGqVaJGDDxT58zYr+s2Wo+sQXQk/DJmUYcTZze2Q8a84GTzpWv
-	tPC
-X-Google-Smtp-Source: AGHT+IHufJDt6JKZZFN/CEzgX6YX3CfNJzYtP2sSPfDGoUHPNxiQ0UdujHZfiyDPFFSn/toyXpuRtX9+mAA1bSnVp+w=
-X-Received: by 2002:a05:6870:a113:b0:301:db6b:45dc with SMTP id
- 586e51a60fabf-306c6fdce8cmr2915959fac.11.1753300349317; Wed, 23 Jul 2025
- 12:52:29 -0700 (PDT)
+	s=arc-20240116; t=1753333120; c=relaxed/simple;
+	bh=r8htvO4tw1vaE8ciuk2nG/uFyHFfFLIIU62x3//FH5U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gLbDi5+xKqlSXM+pQfVfCo2k5Cl5XY0jn1aM+jHLu+KuG+X8X4qANecu+0WP5pgV0OLocQvDTdHBuRT9uhdj2LFItiYHkltDA2mEZjYLLdoGN6y+0oOp+6pllHPgd2LkNlal3+DOUqO0YdHMLn8KF9f7JIZynEr+AZvA8eucn3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=OM6PyxmO; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4bnf0V6fNzz9sqh;
+	Thu, 24 Jul 2025 06:58:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1753333115;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dG9EE+Nj55pYoQjiOb5hla/XJA9547TBg3kdvfkcHMI=;
+	b=OM6PyxmOR3OQ1SGjkZOWCekam4ENmHyZ1ay3uKoZc373XkQ3SwA0w8M7W3ZlG/x1YZWZ98
+	t1R6cn7ezt5V0Jvd2QjNBUH7NvZv9Vx+k8AI1KQ/X8dKm/1Gerv8fB0olTVsiVQplnGvab
+	FhiwlxlRdtUNsaPD/V5iZwQXMz7zWqfQX5nKLlsnn8djvfHspgjr+ZU7RC85l/gYensi73
+	8vFcAgWRESwM1ToVfNnrm8ZJbwI6iiIgnOIRPbFTAju0LJqRJ+2vgw8PXsoYDX1MT8uI9A
+	lBiHUxTNFRP3If58bJ4dGl91rwOBkzT1ROzIKrYB53j043KzypWyGlBTLfsY8Q==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
+From: Aleksa Sarai <cyphar@cyphar.com>
+Date: Thu, 24 Jul 2025 14:58:25 +1000
+Subject: [PATCH] openat2.2: update RESOLVE_CACHED to mention kernel version
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAJgzZorPGQh1KB0aaW+E=+CBX_YoeOVP_uctxCwWQPNOb0uUNg@mail.gmail.com>
-In-Reply-To: <CAJgzZorPGQh1KB0aaW+E=+CBX_YoeOVP_uctxCwWQPNOb0uUNg@mail.gmail.com>
-From: enh <enh@google.com>
-Date: Wed, 23 Jul 2025 15:52:18 -0400
-X-Gm-Features: Ac12FXwe6NI2ZwpZs8wMP1R9SAZvc9A4wOErk79rsKfMxSFzOqj2brkZNNGtAtU
-Message-ID: <CAJgzZoqmOfQtrU+yrEG-Jj=FFfP0RjX9W3FRFmgDqWs7JqOYvQ@mail.gmail.com>
-Subject: Re: [PATCH] strcpy.3: simplify stpcpy().
-To: linux-man <linux-man@vger.kernel.org>, 
-	"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250724-openat2-cached-note-v1-1-037e7398f797@cyphar.com>
+X-B4-Tracking: v=1; b=H4sIAHC9gWgC/x3MQQqAIBBA0avIrBswM6yuEi1Mp5qNhkoE0d2Tl
+ m/x/wOZElOGSTyQ6OLMMVS0jQB32LATsq8GJVUvjdIYTwq2KHTWHeQxxEKo9di51sh1sAPU8ky
+ 08f1f5+V9P/WSZzVlAAAA
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org, Aleksa Sarai <cyphar@cyphar.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=938; i=cyphar@cyphar.com;
+ h=from:subject:message-id; bh=r8htvO4tw1vaE8ciuk2nG/uFyHFfFLIIU62x3//FH5U=;
+ b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWQ07i0zX352lbTds4uun/MYtIzaf8WxXA0PdXNsXVK0u
+ PnfbaXUjlIWBjEuBlkxRZZtfp6hm+YvvpL8aSUbzBxWJpAhDFycAjCR2A2MDKuj8r/X/vdrFZmt
+ +e2u/I7js15dfytyOurRzva8Y9MePKxg+Cv4ReSaWtmR7W7mjGKPPfo6bd7abCk/9SSX31UmqPb
+ zQ14A
+X-Developer-Key: i=cyphar@cyphar.com; a=openpgp;
+ fpr=C9C370B246B09F6DBCFC744C34401015D1D2D386
+X-Rspamd-Queue-Id: 4bnf0V6fNzz9sqh
 
-ah, no, stpcpy() returns a pointer to the NUL, but mempcpy() returns a
-pointer _past_ the last copied byte. so if you add the cast and the
-subtraction to fix that, this is probably worse than what's already
-checked in...
+Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+---
+ man/man2/openat2.2 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On Wed, Jul 23, 2025 at 12:26=E2=80=AFPM enh <enh@google.com> wrote:
->
-> ---
->  man/man3/strcpy.3 | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
+diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
+index e7d400920049..ab296b9cd0d6 100644
+--- a/man/man2/openat2.2
++++ b/man/man2/openat2.2
+@@ -371,7 +371,8 @@ a system pathname that is used by an application is modified
+ (e.g., in a new distribution release)
+ so that a pathname component (now) contains a bind mount.
+ .TP
+-.B RESOLVE_CACHED
++.BR RESOLVE_CACHED " (since Linux 5.12)"
++.\" commit 99668f618062816ca7ba639b007eb145b9d3d41e
+ Make the open operation fail unless all path components are already present
+ in the kernel's lookup cache.
+ If any kind of revalidation or I/O is needed to satisfy the lookup,
+
+---
+base-commit: 5d53969e60c484673745ed47d6015a1f09c8641e
+change-id: 20250724-openat2-cached-note-4493c170b8a8
+
+Best regards,
+-- 
+Aleksa Sarai <cyphar@cyphar.com>
+
 
