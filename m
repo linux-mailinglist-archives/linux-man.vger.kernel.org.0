@@ -1,145 +1,128 @@
-Return-Path: <linux-man+bounces-3293-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3294-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0CBAB105CB
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 11:25:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBEF2B110F1
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 20:34:01 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 5017F1CE1310
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 09:25:23 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id CB21C1898697
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 18:34:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AADB7277CA3;
-	Thu, 24 Jul 2025 09:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 245741FE461;
+	Thu, 24 Jul 2025 18:33:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FayWEI46"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PDf4OyED"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3C8277CBF
-	for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 09:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64940148830
+	for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 18:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1753349085; cv=none; b=iuopvUpjuyB2ysmf0QBQtT639rpbVsyk/bY36vTbnzL6xahcK85cOL2Tp/0UG4N/9L2ymM6C9UVwmItan/uak1LUYKG4nt9FFpk68oBUMJm2BqMBZByPrday/ti3BlBp6pK0qgiwnqoQ/rfNtEx0HUgQpp6fDJxwczWQ9kywCak=
+	t=1753382036; cv=none; b=fFCfZVuV8QO7i7W3EAfk/BTsoxVuBsYga1TCoFQZyLVWyAskYFxrRTdCleQk4KQmyrRAleXWIN6Ox26CLCZJHgghTolnRnrqdA7JlzukeqsRm6ecXDNVxBSydVSQhCIpV3snE6/9hUgUoaYTwR+S1VVTwDoYKIUGmkPCGpaxPzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1753349085; c=relaxed/simple;
-	bh=zG9LkKugoRDQJjDiOmzUfUs3WoPmQxc7TU6qOSserv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KeuE5MiYZ57hJ/s3QxaWVe9d/kMuIi82NJdLWau/Qhao6l60ggJVPIfoTn0wRTf+XnMNUazW5C6EhAMSque3dw/937ugrDHiFTE+Fa+isaf0PZlvdu3frelCP+YKRmATyjWwXyL80PVLDY9CWEd+Rzdge0IdL8Jg0ibE0nmrmz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FayWEI46; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7725C4CEFF;
-	Thu, 24 Jul 2025 09:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753349084;
-	bh=zG9LkKugoRDQJjDiOmzUfUs3WoPmQxc7TU6qOSserv0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FayWEI46pSdSeMC87WsiQbYOMQYFaw9b19LBVdN3kbPRY3C7/v1c1fzL2IZIl72tq
-	 vTKQ0+oPXDf7Mwh3GCcSd52Sb8PF7+oN15+KrwcvwhTH4rxVd6deQenLZS874aPivm
-	 l5+93yYWMYeTODT1bQzZmSebrsAQd2ui9J4lUN7CXex7wMctRNE+ReRuIaGstRcvmV
-	 /ltA9D4Pe21hyuahkmIzHUXooQwcjzF0nXNuseC5MWB4A05QK8uyXqII86NkvjQibN
-	 vKI7nzg0KQ3X4l8xnGVTciRxdUAZTv3WMudUxTPkcBf9JOkkf6ZsMRdkvQ1W0Q13F7
-	 vcqUdY1VkY5Rg==
-Date: Thu, 24 Jul 2025 11:24:41 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] openat2.2: update RESOLVE_CACHED to mention kernel
- version
-Message-ID: <pqy5aqum4tzqgjxxu5tjqyxrqane4uwn7ovpad2pm2h7iwug3r@u7ly7eu6q2je>
-References: <20250724-openat2-cached-note-v1-1-037e7398f797@cyphar.com>
+	s=arc-20240116; t=1753382036; c=relaxed/simple;
+	bh=285X/5Sr0xC50XeNsbkMXbHaXZgp8VwgajvGBQaTcvI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=L0p99LmYjjo9hvslIUg3hHcqnj6diFZluSR9iEFKXlULNZLM6MT66Kuc7FfsMWY3Me5jSKjQaR/YFHdC37dBG1cq7tfSeBhnkHxjW1llcrFg6Y5OBrbe4yVOgRV+QTf5AMT2OszSwtMndYDu8kW4KnN/1TDD5Q6CtKvRGD5OexQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PDf4OyED; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1753382034;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMwg+9XtvShkaugoQ6ndkOKqwUFU0sqD8rrsJI8qGjA=;
+	b=PDf4OyEDBJvHQCBuSnOaaxlK+uAjVb2zxbVVBcf8vqAacF3XzNNeekoeY1o/4125y+Y5qa
+	gdxT+yl+8JTHjH957EOF5t71Au/+uHDt6bI7RpoX+d6XXq4HSMsC5u5DRLlEUAvOZL3ydT
+	OaErbH+WIJIGjjUWYSGaiJaqtWO921o=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-117-bBbxWAivMl-nUmeNfhMaCA-1; Thu, 24 Jul 2025 14:33:50 -0400
+X-MC-Unique: bBbxWAivMl-nUmeNfhMaCA-1
+X-Mimecast-MFC-AGG-ID: bBbxWAivMl-nUmeNfhMaCA_1753382029
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4561dbbcc7eso4807785e9.2
+        for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 11:33:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753382029; x=1753986829;
+        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UMwg+9XtvShkaugoQ6ndkOKqwUFU0sqD8rrsJI8qGjA=;
+        b=mnVkUlv4hmVhunTCg/q09yNQGyZ2oaKp3U5scVbz1UorzzvUGSVa3g+Siqx1xzmnht
+         VoXgGcvz3PxfXVAb6xk+W/uTCoBgKddjybUlJF/3FP9Tz50l382pJmsyI5WhfAT/LYTc
+         cQB93xMwcPoRLvpJL1UMj+hLf0fXIOI6xeJqkEwtAHVKusyHl8+e3n6VNq0rap7qHy4f
+         a4tpirCUX0NGo1TQpM/dopnwljNekhMnGwhHjDEkOv1uUqHAJs9pBWXaYYXwRl+VBKV+
+         mXB8iIXyTT9+gURbFImK5p4yB/6r7Su+L/tZ+5BgRNL/Wbd/cwSEC9dGUjJo4IUlELs9
+         DsUg==
+X-Forwarded-Encrypted: i=1; AJvYcCVYj8y/QnISTMVgsMkvLM6UnQOsc+66Smogzrti/H4WqERGgTgZgqTqMjG7UV+qIDq+4aEesN7KmhA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEptEhW0y0kptQSwvKBuMqoJie1R9DMl+UHX7ZMol9imhaupwD
+	56sAB8pSOZCJvrssFdJ9N580SIeXOuKlrLDKrs3w8roVK622Xjwzu1dM+mflEbKMSFXWxETT50z
+	2xe80kvFotouatKLz/YZSYqaANh5JPRzlPS7xFK6IzZWdtT88MwlmIIdqsQ7lrA==
+X-Gm-Gg: ASbGncsEE7BFx4ALP3x3ca9615NxTq9f0/jD0eCxlqRQeLqvVS03EQdb+f2GuOMO5J2
+	MKI1U5lH9siesfrFSa0feKX8hF9bt09mspXdZ7h3NM7MQgavA4OtYADXeEJ/J7+Y1hLo4lpKuBm
+	J3w1GXLVIgrksD0casda0bQAkBq1v9WBrABD2RB/Y2b4lT2sntJmHYWmy3aozzlGyhATB8SfeMY
+	2D3Fs6qFqdvy0g4oPPh5eGMHnTL7gSwTRR6QDuLVUJR7XVJ3E1/3kTdA69zIt5zuiQ1u0cFNmKF
+	g7CSDOHpyOoUfco6YxgKzGrk0ld4n4cuBsRi4R8eVQhY0veGDSrUAMUqIBVCTOjPekBh1Ro=
+X-Received: by 2002:a05:600c:1e29:b0:456:1752:2b43 with SMTP id 5b1f17b1804b1-45868cfb59bmr63978915e9.21.1753382029508;
+        Thu, 24 Jul 2025 11:33:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEFJTccHUD1SFkZhsEpx58t9kAN6lKzlTax1P/srcSQrxrZd2LEwIFD3FoShceKKin2i/fl1Q==
+X-Received: by 2002:a05:600c:1e29:b0:456:1752:2b43 with SMTP id 5b1f17b1804b1-45868cfb59bmr63978775e9.21.1753382029130;
+        Thu, 24 Jul 2025 11:33:49 -0700 (PDT)
+Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-458705c4cacsm28005015e9.24.2025.07.24.11.33.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Jul 2025 11:33:48 -0700 (PDT)
+Received: from jsm28 (helo=localhost)
+	by digraph.polyomino.org.uk with local-esmtp (Exim 4.97)
+	(envelope-from <josmyers@redhat.com>)
+	id 1uf0lH-000000011oL-0QNP;
+	Thu, 24 Jul 2025 18:33:47 +0000
+Date: Thu, 24 Jul 2025 18:33:47 +0000 (UTC)
+From: Joseph Myers <josmyers@redhat.com>
+To: Alejandro Colomar <une+c@alejandro-colomar.es>
+cc: C Committee <sc22wg14@open-std.org>, Vincent Lefevre <vincent@vinc17.net>, 
+    linux-man@vger.kernel.org, alx@kernel.org
+Subject: Re: [SC22WG14.32341] alx-0051r0 - don't misuse reserved identifier
+ 'exp'
+In-Reply-To: <20250714222434.4D926356820@www.open-std.org>
+Message-ID: <dddf118f-942d-328a-6a0c-e8e67a9f5c17@redhat.com>
+References: <20250714222434.4D926356820@www.open-std.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hl7ds5o5v2alt5rl"
-Content-Disposition: inline
-In-Reply-To: <20250724-openat2-cached-note-v1-1-037e7398f797@cyphar.com>
+Content-Type: text/plain; charset=US-ASCII
 
+On Tue, 15 Jul 2025, Alejandro Colomar wrote:
 
---hl7ds5o5v2alt5rl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] openat2.2: update RESOLVE_CACHED to mention kernel
- version
-References: <20250724-openat2-cached-note-v1-1-037e7398f797@cyphar.com>
-MIME-Version: 1.0
-In-Reply-To: <20250724-openat2-cached-note-v1-1-037e7398f797@cyphar.com>
+> Rationale
+> 	Since 'exp' is a library function, it is a reserved identifier,
+> 	which should not be used as a variable / parameter name.
 
-Hi Aleksa,
+It's only reserved with external linkage and file scope, and as a macro 
+name.  (It might still be less confusing to avoid usage in these other 
+contexts.)
 
-On Thu, Jul 24, 2025 at 02:58:25PM +1000, Aleksa Sarai wrote:
-> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+> 	7.1.3p1 says
+> 
+> 		All potentially reserved identifiers (...) that are
+> 		provided by an implementation with an external
+> 		definition are reserved for any use.
 
-I've applied the patch.  Thanks!
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D2d9d6deeb4dccc4f46e7aa29878fe65b6642682c>
+It's not "potentially reserved", but indeed "any use" seems too broad in 
+that wording compared to the wording for actually reserved identifiers, 
+which is more specific depending on the precise nature of how the 
+identifier is defined.
 
+-- 
+Joseph S. Myers
+josmyers@redhat.com
 
-Have a lovely day!
-Alex
-
-> ---
->  man/man2/openat2.2 | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man/man2/openat2.2 b/man/man2/openat2.2
-> index e7d400920049..ab296b9cd0d6 100644
-> --- a/man/man2/openat2.2
-> +++ b/man/man2/openat2.2
-> @@ -371,7 +371,8 @@ a system pathname that is used by an application is m=
-odified
->  (e.g., in a new distribution release)
->  so that a pathname component (now) contains a bind mount.
->  .TP
-> -.B RESOLVE_CACHED
-> +.BR RESOLVE_CACHED " (since Linux 5.12)"
-> +.\" commit 99668f618062816ca7ba639b007eb145b9d3d41e
->  Make the open operation fail unless all path components are already pres=
-ent
->  in the kernel's lookup cache.
->  If any kind of revalidation or I/O is needed to satisfy the lookup,
->=20
-> ---
-> base-commit: 5d53969e60c484673745ed47d6015a1f09c8641e
-> change-id: 20250724-openat2-cached-note-4493c170b8a8
->=20
-> Best regards,
-> --=20
-> Aleksa Sarai <cyphar@cyphar.com>
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---hl7ds5o5v2alt5rl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiB+9gACgkQ64mZXMKQ
-wqk2LRAAvDLpGx+Kvv73E1/KJAME+Pfe/A/umOhSSUixK1zTExVgfMnbH0CfdNis
-OCRjhYgLeIcm4KTrYo7rgXEHe3/JgiME7h1X89foPdkEu5isro8nf1MiLxT9HfrN
-pqtNzbeOskYXQjsraP0hHRVVgQ+C7cWK37tpvI4IViLcvo28o7jDzB4h6cJpqcBr
-qeqJcRdaNhxr4X+GUjpNF3VRzPhcZQZUB8XZUgvFEGF9bdD8gtdD3J5ANyeB1aD3
-xwHI11Cub22HwMMoO9Uo81UWIYb00oDFy8gTNQNS/dn2PqavNsuVqQNaebvKdidd
-68Vh6jq6aGhyjrj0jDQCs7mOEYcC1y/7r036b/crbZ4gIQH5rt67Z0zddJNl5h2D
-MIzGDnUIW1qCFmHo4RCTmyOVA7jcY+kW7PHf3ykcWsuR5pX7NSF/G5ZONZnOsG6V
-mzzl/xrSsq0KYT0Ey+1EKPGfiFI9pE8oq8S4CpUNFD/4Dw9arGInXbclsmQaGK/1
-gbIe9VNIiGfpqZxptQkFuoNpY5cOmVzIzSUEHqBpZi56e2G+eeBD44gZiqFW+oAz
-Nh1+NODXPT3Usze+tMH4JdRjSmSNQmQf9c9LB2Kc0e92KjjT9VYs3WrEFQXqObmU
-sLZynWNzqs9KPVhNXVWM03sB9WO0oYZBBUu1tKrlEYFMWnXSBrw=
-=/dip
------END PGP SIGNATURE-----
-
---hl7ds5o5v2alt5rl--
 
