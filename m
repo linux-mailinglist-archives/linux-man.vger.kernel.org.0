@@ -1,170 +1,122 @@
-Return-Path: <linux-man+bounces-3296-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3297-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA535B11219
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 22:20:04 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 758E1B1137D
+	for <lists+linux-man@lfdr.de>; Fri, 25 Jul 2025 00:00:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CA915AC2A89
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 20:19:35 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3625F1786FF
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 22:00:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84DAA22F767;
-	Thu, 24 Jul 2025 20:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DA2524A066;
+	Thu, 24 Jul 2025 21:59:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b="UeQvGfOR"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L/kH0rLC"
 X-Original-To: linux-man@vger.kernel.org
-Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3D59443
-	for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 20:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCAC2441B4
+	for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 21:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1753388400; cv=none; b=Pno9dTMcE3zKLS/XGxXKZuMJ0YY42Hyr62Vz9geh/Gyu0JrtvxGWjdGWwCRyAqtCP2/zDOhQ8IpOy1rIfKtBGw4qc/p6sjLD1DTZvwczJKYgNtcBkf5dlqWjWkISEs2KfSOCoK4DPP0dFLUoSNc2ewje4pWcLUAmdDqejIH3j30=
+	t=1753394397; cv=none; b=RkrQsfrf68nPPCuKMsgK1nWzaPbAUIf6DDYXCCGppReWVtr+O1jhAbSVq94C0IKixHB5eS5OMHRJIu8kibZJPQZv2Ji3gTEDV1+ajLNoxdg9K9FqQvlgdv8I5UAmvYAiSwINCucPMdta6RvOeUaO7SEh1uBh0JkJf33nc4+YG0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1753388400; c=relaxed/simple;
-	bh=grGh7rHfGBM1X6gH9Pah8ssy3n1xrIzWxxQQMWLBnq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DE1NqJa9Fy86xafstLur40vRT3z6+O0p9zuKTACpdQEmZs4ElFSH1GUx6zHZtHXO9bbD1pRHPgO27BK9lo97f0UOv/XUsBf4DhHeV++LIDQ/f0aml7cehMKxCtWt4QfSIezHqZekiebcav8PYIwVJsqGlFD4djdk7MLwmhI5xEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es; spf=pass smtp.mailfrom=alejandro-colomar.es; dkim=pass (2048-bit key) header.d=alejandro-colomar.es header.i=@alejandro-colomar.es header.b=UeQvGfOR; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alejandro-colomar.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alejandro-colomar.es
-Date: Thu, 24 Jul 2025 22:19:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alejandro-colomar.es;
-	s=key1; t=1753388395;
+	s=arc-20240116; t=1753394397; c=relaxed/simple;
+	bh=zM7Oqn7desp4vEoLMxOYOu/CTb78VBNE4cgWoUfeOOg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=EbU0gUO3Kq/g6Os5BtvRmwEJwqXXuOGORSUWppktNCEYrLGWb3/hrMfJf1dZj8uIBe87pumcxw7AjQeNZm81Kp5D/4TbwmE/9iJ75mAcbhwQvsg/Z+l7ip2i/J5rTI48iGiIzLUXB5DZKKujtbIdj10dzMDaQbfWq/uws59lg5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L/kH0rLC; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1753394394;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7aYpZKiL3hNnMHDJyqCan9iWEsYe1jop3SDdRAlx4k0=;
-	b=UeQvGfORMkTopQHFe1N18AMK1X5WUwEhMhweZ3fpqoiRAy3tJ74QB4Z8EY107N/x1n93GW
-	SWVoWGtzioZkdKWsVEaOQiNAinmXNvlaXPB5N6TNbijB0d+4K5Hm+4xNKx5AsOHBUJz/jV
-	SO2a+jkMHDCUWM1AJpjOF1JHj41gMmFmh1BwVKn1cGxacGmpDR0otRXjo84x2VzE93DjLm
-	43XSS97en2/e7cZ5bCgta74qbqkFj0GocUfQ2LhaSuk0bOapLnQTFTuL78dCrQLpkm4Qwz
-	+wSAyLQTu1Bq0pEkTsw725Sp2uwDFtBxfy6jci2/M74k7EflpvzZ7BHcmJan/A==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Alejandro Colomar <une+c@alejandro-colomar.es>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: Joseph Myers <josmyers@redhat.com>, 
-	C Committee <sc22wg14@open-std.org>, linux-man@vger.kernel.org, alx@kernel.org
-Subject: Re: [SC22WG14.32341] alx-0051r0 - don't misuse reserved identifier
+	bh=g2K3ePECGYE13UwvvdboOdefeDGu4KiWBFOjW7lV8cU=;
+	b=L/kH0rLCUJo9OjrwWCyG6ZBc9AiHpS/qLWZ2zL4aLdyV4PYf50CPGfLNW09hsiea749okW
+	jXPv1cEMyUrQa/gzs4b/3+wplL9W5M+bDjjhV1Cpu87VaDWcxJJkMNOSXtIDY0GUh5qgWj
+	+X1SLWiCnaxzlEcl0H7Tm0frK9QEBDk=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-186-TT_4V6jKMZid5qEut1KHAQ-1; Thu, 24 Jul 2025 17:59:52 -0400
+X-MC-Unique: TT_4V6jKMZid5qEut1KHAQ-1
+X-Mimecast-MFC-AGG-ID: TT_4V6jKMZid5qEut1KHAQ_1753394391
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4560a30a793so5537055e9.3
+        for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 14:59:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753394391; x=1753999191;
+        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=g2K3ePECGYE13UwvvdboOdefeDGu4KiWBFOjW7lV8cU=;
+        b=VWrcDn9S/wQwDNB8IegwoIWzMexm3IxZL5lEEJa/lmjhPaG5D+Jok60miNyFePExqf
+         XaAk6KqqRbE6Ba1XW8AUG55/Ea7aKFsYCfaOK3mIepGo8Iprb77cZWdLRaSM2tld1mJy
+         myePWVMrHM+9WX3nXcKVjUXz3o0siFhR5xcFwvDeNf+oliS3XzPTmskhuyOFQQkhwU4Z
+         Z4jRBO1sxMm5R4PtFMzQNhzo1rBcCCXRaWldBxvJCMdt1k8ucQlVch1ElYDQCwPGjoYt
+         +N1ky/IH8Kg56UXWwBxfC+cTZwl5+SSvfTEYEMlN/PCAQyihIQEEqFzavX9BCzpbvvF+
+         oZfg==
+X-Forwarded-Encrypted: i=1; AJvYcCUa/rLp9osXG/zKDeTErV1Ohfu++Mk4lqqoV95gv+xyVeJgIzwmvJeVuzuUJYNeT61l2+VHqMFgNXg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZXDSLHI4JjKzfB+BnPnkG8+NLf5fXyxowQMLP728T0dzBtQrO
+	6lySC0gunmGBiHkDKZpOGskCKSt7Z9q/0oMtJm9xRBVfaFkv9coNihdr7JIUAM2qebUblMbRsxD
+	2Nvj4XeJGQEzk6KK6S0INEwLf5vdrdrfEowFUyt/OM4kg1jLg+kEUbpqEiRMoUX0MSzPO1A==
+X-Gm-Gg: ASbGnct83IGupiQVsO/g4vVY3CHOinNycWdw/B4AT85N1Tgj2+wM9wDLIDxoXePsSv6
+	CZB9IErW7qa8AiotAAJVWFYAF/ZZkFkhlYZwN9FQtnXxkwWGq3OiHobv3SPEONkqOEAE/KG2VNV
+	k9K7pydYbrJ/u2T/u8k0Ht2LkIewqsVz0SngDC4imPLuHOr8GnqRZ6hg68cwT/gvnjZlLTG2aow
+	Nz6/Se01s7K5Vu/B/sjYSGL4yiu74FLsVdeG/8iagEAkEpd4pErLI6pi2criAL2Py1zrYSmbWGN
+	66wVeL13TCpQaTtPnhImKKgn7fTPTHTklLG4L0L5iYR+cIZKoOKwIYq6v0Mq0Qu9z0yW56M=
+X-Received: by 2002:a05:600c:a08e:b0:455:f6cd:8703 with SMTP id 5b1f17b1804b1-45868d5326cmr76313935e9.31.1753394391238;
+        Thu, 24 Jul 2025 14:59:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHVo6aGDfb/5pSQr4Mxuk+bcHz6aJ7ARvQjdn7c0nFz6/wz5nRSKSISSve+Ke9SSy0RQoJn9A==
+X-Received: by 2002:a05:600c:a08e:b0:455:f6cd:8703 with SMTP id 5b1f17b1804b1-45868d5326cmr76313825e9.31.1753394390805;
+        Thu, 24 Jul 2025 14:59:50 -0700 (PDT)
+Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-458705c4fa5sm33453105e9.26.2025.07.24.14.59.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Jul 2025 14:59:50 -0700 (PDT)
+Received: from jsm28 (helo=localhost)
+	by digraph.polyomino.org.uk with local-esmtp (Exim 4.97)
+	(envelope-from <josmyers@redhat.com>)
+	id 1uf3ye-000000013vF-2QZI;
+	Thu, 24 Jul 2025 21:59:48 +0000
+Date: Thu, 24 Jul 2025 21:59:48 +0000 (UTC)
+From: Joseph Myers <josmyers@redhat.com>
+To: Alejandro Colomar <une+c@alejandro-colomar.es>
+cc: Vincent Lefevre <vincent@vinc17.net>, C Committee <sc22wg14@open-std.org>, 
+    linux-man@vger.kernel.org, alx@kernel.org
+Subject: Re: [SC22WG14.32615] alx-0051r0 - don't misuse reserved identifier
  'exp'
-Message-ID: <b6t3222gk43gvmubgewabutzzr24vceg6bbpnlyr7mvgwje5qz@s7y6vec2wixo>
-References: <20250714222434.4D926356820@www.open-std.org>
- <dddf118f-942d-328a-6a0c-e8e67a9f5c17@redhat.com>
- <20250724191011.GL4912@qaa.vinc17.org>
+In-Reply-To: <20250724201957.0D806356A06@www.open-std.org>
+Message-ID: <d2c61bb8-40bb-1457-12b6-9c751cc78404@redhat.com>
+References: <20250714222434.4D926356820@www.open-std.org> <dddf118f-942d-328a-6a0c-e8e67a9f5c17@redhat.com> <20250724191011.GL4912@qaa.vinc17.org> <20250724201957.0D806356A06@www.open-std.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e4sjz5rx7qbxulgh"
-Content-Disposition: inline
-In-Reply-To: <20250724191011.GL4912@qaa.vinc17.org>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=US-ASCII
 
+On Thu, 24 Jul 2025, Alejandro Colomar wrote:
 
---e4sjz5rx7qbxulgh
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <une+c@alejandro-colomar.es>
-To: Vincent Lefevre <vincent@vinc17.net>
-Cc: Joseph Myers <josmyers@redhat.com>, 
-	C Committee <sc22wg14@open-std.org>, linux-man@vger.kernel.org, alx@kernel.org
-Subject: Re: [SC22WG14.32341] alx-0051r0 - don't misuse reserved identifier
- 'exp'
-References: <20250714222434.4D926356820@www.open-std.org>
- <dddf118f-942d-328a-6a0c-e8e67a9f5c17@redhat.com>
- <20250724191011.GL4912@qaa.vinc17.org>
-MIME-Version: 1.0
-In-Reply-To: <20250724191011.GL4912@qaa.vinc17.org>
+> > It is not too broad. A compiler may define the identifier as
+> > a builtin. For instance... GCC! The following program fails
+> > to compile (note that I do not even include <math.h>):
+> > 
+> > static int exp (void)
+> > {
+> >   return 1;
+> > }
 
-[Just forwarding to the committee list]
+That's file scope, which is a context in which exp is reserved.  The 
+proposed change was about function prototype scope, in which it's not 
+reserved.
 
-On Thu, Jul 24, 2025 at 09:10:11PM +0200, Vincent Lefevre wrote:
-> On 2025-07-24 18:33:47 +0000, Joseph Myers wrote:
-> > On Tue, 15 Jul 2025, Alejandro Colomar wrote:
-> >=20
-> > > Rationale
-> > > 	Since 'exp' is a library function, it is a reserved identifier,
-> > > 	which should not be used as a variable / parameter name.
-> >=20
-> > It's only reserved with external linkage and file scope, and as a macro=
-=20
-> > name.  (It might still be less confusing to avoid usage in these other=
-=20
-> > contexts.)
->=20
-> The important point is:
->=20
-> > > 	7.1.3p1 says
-> > >=20
-> > > 		All potentially reserved identifiers (...) that are
-> > > 		provided by an implementation with an external
-> > > 		definition are reserved for any use.
-> >=20
-> > It's not "potentially reserved", but indeed "any use" seems too broad i=
-n=20
-> > that wording compared to the wording for actually reserved identifiers,=
-=20
-> > which is more specific depending on the precise nature of how the=20
-> > identifier is defined.
->=20
-> It is not too broad. A compiler may define the identifier as
-> a builtin. For instance... GCC! The following program fails
-> to compile (note that I do not even include <math.h>):
->=20
-> static int exp (void)
-> {
->   return 1;
-> }
->=20
-> int foo (void)
-> {
->   return exp ();
-> }
->=20
-> tst.c:1:12: warning: conflicting types for built-in function =E2=80=98exp=
-=E2=80=99; expected =E2=80=98double(double)=E2=80=99 [-Wbuiltin-declaration=
--mismatch]
->     1 | static int exp (void)
->       |            ^~~
-> tst.c:1:1: note: =E2=80=98exp=E2=80=99 is declared in header =E2=80=98<ma=
-th.h>=E2=80=99
->   +++ |+#include <math.h>
->     1 | static int exp (void)
->=20
-> --=20
-> Vincent Lef=C3=A8vre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
-> 100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
-> Work: CR INRIA - computer arithmetic / Pascaline project (LIP, ENS-Lyon)
+-- 
+Joseph S. Myers
+josmyers@redhat.com
 
---=20
-<https://www.alejandro-colomar.es/>
-
---e4sjz5rx7qbxulgh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiClWIACgkQ64mZXMKQ
-wqnk3g/+LgUwCbEei/jDRxk5FoaM6p3FTzk8KJL0ht40pTle6EJSRa9j91vfdyti
-0ykBLGMcOwi7tQ5aIoCG4vhZkyp5RWZsjNIIcoE2NRUiXlNFHs8jhfSsxQ9gEngC
-8DyPGYHKOgRRP2T4YIz1ZtVpZ/GBMAEtTyZA8n9I70Ih+BX46TU1wL43AyhSyHHr
-SY4S6KqPT16zfeQroGLQQvUQ5pMMZRksXsYUL7NhKbtULRoz51qB9Rk1hBRLig2W
-GlPrdwdS5bTdLbxON5QvF2F0ttnHsAeMgcKLkMuXLJR3HrOc1JQRGGSUQOb0ILTr
-W+22QzSDrV8L6XourIPV3GeXUouNWo8uUVwv9hnt0lm8fUzzeFnkzMkeuH6xZIjC
-30+sa7G6aToJTnWHcstv190Vznu9pLaggHd+Affje6w530gkuQeVM7liYarDTOMo
-xyE9b+QPhByKWXbKekssWglup3KL7m18vkq7fThSDY+rV3ktx0lj2ZwTF22F2EO+
-JxF/9UAhe0w0Y5Pyf3Og3J5HhBprbsdne5XE362iq3LNnJ5PS4zDSGcqgoUy4mkz
-zGD2jPilB4kawQtzuyB1Fg4+l98FP1gQ2jtJfvgLE9M/KBy7vgA2ENoEM2zowz2r
-j6oXWV/QoH6XoF2LSjGWC//8uG8dnLzJ74VkqyL8tLnwiqAiqD0=
-=U3De
------END PGP SIGNATURE-----
-
---e4sjz5rx7qbxulgh--
 
