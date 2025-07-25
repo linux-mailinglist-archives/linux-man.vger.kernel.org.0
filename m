@@ -1,122 +1,84 @@
-Return-Path: <linux-man+bounces-3297-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3298-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 758E1B1137D
-	for <lists+linux-man@lfdr.de>; Fri, 25 Jul 2025 00:00:15 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C989B11555
+	for <lists+linux-man@lfdr.de>; Fri, 25 Jul 2025 02:40:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3625F1786FF
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jul 2025 22:00:15 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D54BF3A7BFB
+	for <lists+linux-man@lfdr.de>; Fri, 25 Jul 2025 00:39:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DA2524A066;
-	Thu, 24 Jul 2025 21:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L/kH0rLC"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 078021428E7;
+	Fri, 25 Jul 2025 00:40:22 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from joooj.vinc17.net (joooj.vinc17.net [155.133.131.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCAC2441B4
-	for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 21:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D02F11CA9
+	for <linux-man@vger.kernel.org>; Fri, 25 Jul 2025 00:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=155.133.131.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1753394397; cv=none; b=RkrQsfrf68nPPCuKMsgK1nWzaPbAUIf6DDYXCCGppReWVtr+O1jhAbSVq94C0IKixHB5eS5OMHRJIu8kibZJPQZv2Ji3gTEDV1+ajLNoxdg9K9FqQvlgdv8I5UAmvYAiSwINCucPMdta6RvOeUaO7SEh1uBh0JkJf33nc4+YG0A=
+	t=1753404021; cv=none; b=XjBLYSA01/BPHLlc3N7X+/VyH+K3xyAifVi+DhFOytsOtriAhxVtHUzbHzSbx+givV0+zmx6A2Pew6FEipi6ri/W2DPaXBMebIij44VtnhMc9FC3Q8MRVk4VTjkh7R2AZw5YkgYtT8h36VAgtac6p5/3y70Igc91qGDnVf4HS74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1753394397; c=relaxed/simple;
-	bh=zM7Oqn7desp4vEoLMxOYOu/CTb78VBNE4cgWoUfeOOg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=EbU0gUO3Kq/g6Os5BtvRmwEJwqXXuOGORSUWppktNCEYrLGWb3/hrMfJf1dZj8uIBe87pumcxw7AjQeNZm81Kp5D/4TbwmE/9iJ75mAcbhwQvsg/Z+l7ip2i/J5rTI48iGiIzLUXB5DZKKujtbIdj10dzMDaQbfWq/uws59lg5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L/kH0rLC; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1753394394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g2K3ePECGYE13UwvvdboOdefeDGu4KiWBFOjW7lV8cU=;
-	b=L/kH0rLCUJo9OjrwWCyG6ZBc9AiHpS/qLWZ2zL4aLdyV4PYf50CPGfLNW09hsiea749okW
-	jXPv1cEMyUrQa/gzs4b/3+wplL9W5M+bDjjhV1Cpu87VaDWcxJJkMNOSXtIDY0GUh5qgWj
-	+X1SLWiCnaxzlEcl0H7Tm0frK9QEBDk=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-186-TT_4V6jKMZid5qEut1KHAQ-1; Thu, 24 Jul 2025 17:59:52 -0400
-X-MC-Unique: TT_4V6jKMZid5qEut1KHAQ-1
-X-Mimecast-MFC-AGG-ID: TT_4V6jKMZid5qEut1KHAQ_1753394391
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4560a30a793so5537055e9.3
-        for <linux-man@vger.kernel.org>; Thu, 24 Jul 2025 14:59:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753394391; x=1753999191;
-        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g2K3ePECGYE13UwvvdboOdefeDGu4KiWBFOjW7lV8cU=;
-        b=VWrcDn9S/wQwDNB8IegwoIWzMexm3IxZL5lEEJa/lmjhPaG5D+Jok60miNyFePExqf
-         XaAk6KqqRbE6Ba1XW8AUG55/Ea7aKFsYCfaOK3mIepGo8Iprb77cZWdLRaSM2tld1mJy
-         myePWVMrHM+9WX3nXcKVjUXz3o0siFhR5xcFwvDeNf+oliS3XzPTmskhuyOFQQkhwU4Z
-         Z4jRBO1sxMm5R4PtFMzQNhzo1rBcCCXRaWldBxvJCMdt1k8ucQlVch1ElYDQCwPGjoYt
-         +N1ky/IH8Kg56UXWwBxfC+cTZwl5+SSvfTEYEMlN/PCAQyihIQEEqFzavX9BCzpbvvF+
-         oZfg==
-X-Forwarded-Encrypted: i=1; AJvYcCUa/rLp9osXG/zKDeTErV1Ohfu++Mk4lqqoV95gv+xyVeJgIzwmvJeVuzuUJYNeT61l2+VHqMFgNXg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZXDSLHI4JjKzfB+BnPnkG8+NLf5fXyxowQMLP728T0dzBtQrO
-	6lySC0gunmGBiHkDKZpOGskCKSt7Z9q/0oMtJm9xRBVfaFkv9coNihdr7JIUAM2qebUblMbRsxD
-	2Nvj4XeJGQEzk6KK6S0INEwLf5vdrdrfEowFUyt/OM4kg1jLg+kEUbpqEiRMoUX0MSzPO1A==
-X-Gm-Gg: ASbGnct83IGupiQVsO/g4vVY3CHOinNycWdw/B4AT85N1Tgj2+wM9wDLIDxoXePsSv6
-	CZB9IErW7qa8AiotAAJVWFYAF/ZZkFkhlYZwN9FQtnXxkwWGq3OiHobv3SPEONkqOEAE/KG2VNV
-	k9K7pydYbrJ/u2T/u8k0Ht2LkIewqsVz0SngDC4imPLuHOr8GnqRZ6hg68cwT/gvnjZlLTG2aow
-	Nz6/Se01s7K5Vu/B/sjYSGL4yiu74FLsVdeG/8iagEAkEpd4pErLI6pi2criAL2Py1zrYSmbWGN
-	66wVeL13TCpQaTtPnhImKKgn7fTPTHTklLG4L0L5iYR+cIZKoOKwIYq6v0Mq0Qu9z0yW56M=
-X-Received: by 2002:a05:600c:a08e:b0:455:f6cd:8703 with SMTP id 5b1f17b1804b1-45868d5326cmr76313935e9.31.1753394391238;
-        Thu, 24 Jul 2025 14:59:51 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHVo6aGDfb/5pSQr4Mxuk+bcHz6aJ7ARvQjdn7c0nFz6/wz5nRSKSISSve+Ke9SSy0RQoJn9A==
-X-Received: by 2002:a05:600c:a08e:b0:455:f6cd:8703 with SMTP id 5b1f17b1804b1-45868d5326cmr76313825e9.31.1753394390805;
-        Thu, 24 Jul 2025 14:59:50 -0700 (PDT)
-Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-458705c4fa5sm33453105e9.26.2025.07.24.14.59.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Jul 2025 14:59:50 -0700 (PDT)
-Received: from jsm28 (helo=localhost)
-	by digraph.polyomino.org.uk with local-esmtp (Exim 4.97)
-	(envelope-from <josmyers@redhat.com>)
-	id 1uf3ye-000000013vF-2QZI;
-	Thu, 24 Jul 2025 21:59:48 +0000
-Date: Thu, 24 Jul 2025 21:59:48 +0000 (UTC)
-From: Joseph Myers <josmyers@redhat.com>
-To: Alejandro Colomar <une+c@alejandro-colomar.es>
-cc: Vincent Lefevre <vincent@vinc17.net>, C Committee <sc22wg14@open-std.org>, 
-    linux-man@vger.kernel.org, alx@kernel.org
+	s=arc-20240116; t=1753404021; c=relaxed/simple;
+	bh=4tPwe3w+lmH9jWUiozEK6qO4uGNgJSWg+wIoWBV0Yko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j8efrUV52i5nHdokTck9Ms4e/WXQLZHQUIFZ2srar2nF9uK7XvF9AnLBPB0IggArNQjZGuw9njVeshptoVWXKsaMUh6DbMfB3IWmqPT+jjITiTYbqCYCrSIlyEPnbkIu/E3QP5V7FLV2DCsJQvTjwaDF7s0YtlzH7gsSoJvcsrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net; spf=pass smtp.mailfrom=vinc17.net; arc=none smtp.client-ip=155.133.131.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=vinc17.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinc17.net
+Received: by joooj.vinc17.net (Postfix, from userid 1000)
+	id 7226E3B9; Fri, 25 Jul 2025 02:40:18 +0200 (CEST)
+Date: Fri, 25 Jul 2025 02:40:18 +0200
+From: Vincent Lefevre <vincent@vinc17.net>
+To: Joseph Myers <josmyers@redhat.com>
+Cc: Alejandro Colomar <une+c@alejandro-colomar.es>,
+	C Committee <sc22wg14@open-std.org>, linux-man@vger.kernel.org,
+	alx@kernel.org
 Subject: Re: [SC22WG14.32615] alx-0051r0 - don't misuse reserved identifier
  'exp'
-In-Reply-To: <20250724201957.0D806356A06@www.open-std.org>
-Message-ID: <d2c61bb8-40bb-1457-12b6-9c751cc78404@redhat.com>
-References: <20250714222434.4D926356820@www.open-std.org> <dddf118f-942d-328a-6a0c-e8e67a9f5c17@redhat.com> <20250724191011.GL4912@qaa.vinc17.org> <20250724201957.0D806356A06@www.open-std.org>
+Message-ID: <20250725004018.GA10840@joooj.vinc17.net>
+References: <20250714222434.4D926356820@www.open-std.org>
+ <dddf118f-942d-328a-6a0c-e8e67a9f5c17@redhat.com>
+ <20250724191011.GL4912@qaa.vinc17.org>
+ <20250724201957.0D806356A06@www.open-std.org>
+ <d2c61bb8-40bb-1457-12b6-9c751cc78404@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d2c61bb8-40bb-1457-12b6-9c751cc78404@redhat.com>
+X-Mailer-Info: https://www.vinc17.net/mutt/
+User-Agent: Mutt/2.2.13+86 (bb2064ae) vl-169878 (2025-02-08)
 
-On Thu, 24 Jul 2025, Alejandro Colomar wrote:
+On 2025-07-24 21:59:48 +0000, Joseph Myers wrote:
+> On Thu, 24 Jul 2025, Alejandro Colomar wrote:
+> 
+> > > It is not too broad. A compiler may define the identifier as
+> > > a builtin. For instance... GCC! The following program fails
+> > > to compile (note that I do not even include <math.h>):
+> > > 
+> > > static int exp (void)
+> > > {
+> > >   return 1;
+> > > }
+> 
+> That's file scope, which is a context in which exp is reserved.  The 
+> proposed change was about function prototype scope, in which it's not 
+> reserved.
 
-> > It is not too broad. A compiler may define the identifier as
-> > a builtin. For instance... GCC! The following program fails
-> > to compile (note that I do not even include <math.h>):
-> > 
-> > static int exp (void)
-> > {
-> >   return 1;
-> > }
-
-That's file scope, which is a context in which exp is reserved.  The 
-proposed change was about function prototype scope, in which it's not 
-reserved.
+I don't see what you mean. But in any case the user's code will
+be in files.
 
 -- 
-Joseph S. Myers
-josmyers@redhat.com
-
+Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
+100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
+Work: CR INRIA - computer arithmetic / Pascaline project (LIP, ENS-Lyon)
 
