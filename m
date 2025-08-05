@@ -1,57 +1,57 @@
-Return-Path: <linux-man+bounces-3327-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3326-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961F6B1B876
-	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 18:26:59 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A941B1B875
+	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 18:26:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3B29818A6FC4
-	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 16:27:18 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0A4A33A42D0
+	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 16:26:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA0CB291C0F;
-	Tue,  5 Aug 2025 16:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F37692566E9;
+	Tue,  5 Aug 2025 16:26:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="dt2HqL2y"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="HRqj3BaU"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C43A28BABC
-	for <linux-man@vger.kernel.org>; Tue,  5 Aug 2025 16:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DF6291C0F
+	for <linux-man@vger.kernel.org>; Tue,  5 Aug 2025 16:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754411217; cv=none; b=l9cCtRZOGpUpheibrp5r2pFGm+VFPY/QqYek/363iCxGjX/2btkAIoc2et5h6PGB0S0PAnGlOyU4IKer5KAmYDIsjd2UfLQcKI0wSpPMaDTZ7A/jz1A42XU3Tps6fhZRX0oj8h0hlZfdLdtBx9LYfd7L6Oa/HGhcBNT59zqszAo=
+	t=1754411214; cv=none; b=CgMrUWhihqqwtc2c+JT0S8Rk+w+U6r2cvD83iP1B7F+NCPiirg7DNsOiBLSRwjAfWVMm75eT8upa9tdIrZGnKJOnlvbnLkN7Eb5NWYclP69mC4p2WoRkvzwuRxGgqPMjsR/PcUT5M0abawDUCREhVLILk2aITnDz+hFrfSBUA40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754411217; c=relaxed/simple;
-	bh=ragubQ2UQnUxEzTvXd3D4mJIf7O1GqJFAqV+LC/kHvY=;
+	s=arc-20240116; t=1754411214; c=relaxed/simple;
+	bh=XW3ZgsV3ZaNtSEcAeK3m9yWi8EZ99I2T+4cTfYTVvPw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q2tTkVI7mOUmcwe6fSzst6T1sg/ru6NmZYc4cc7lVB5H0mxC0PT76j+WiTl+HPQ1NA6SZTgjXEgTeTypLRhdu+eMYhkLK47JMlMwyVGPKwLTii0qoPDNM2eBYUkzXN+0Sqx/pizudxF4dAYew6mhtnmqyJHwoxY6B9zxPIWGyGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=dt2HqL2y; arc=none smtp.client-ip=80.241.56.151
+	 In-Reply-To:To:Cc; b=F356xQeuFiIMh5urzb8ZKm91zyNfpN6eBz5l/7fC15gstc11BKkrgcyHRPK6ntffvYy9+6D1oVdkadSHDCzxCJQTIFIkWSkvnYTGnFkujIJmiM9kDgwao+QtKBk0nphzr4MroEBwl2D8bXWDGkw96P8NW/CjusIPEEFPtf7ozQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=HRqj3BaU; arc=none smtp.client-ip=80.241.56.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
 Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4bxJj135Jqz9tHc;
-	Tue,  5 Aug 2025 18:26:45 +0200 (CEST)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bxJj53Hhjz9tPJ;
+	Tue,  5 Aug 2025 18:26:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754411205;
+	t=1754411209;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IXC9Kocz2lqf58jRhnShX7ilujdB8VSPORvs0lVY/qE=;
-	b=dt2HqL2yp/lnGfJpsuhPwnZGp038sZiAxlll1aUFsEReIP0lKVnZQNhZ+KCreJzO9mkFNL
-	o4yc5CEfJ2Hn0ebCs+etvuMm2JKAoUTvQnfpq4L5PeD7nqTyBQ4yxLSIhtiplvSQd0MY8O
-	6ZpqXjawxQG/6iRfnjpzuOgr4R/+hvG2d4hmzzFFeYW1bARr3a6EMNugoA7W4ZbF8wmJfH
-	A59D8+aZNWDNlZ8r+7B9uRX1ooTnbkb5zMFvK/VK9I2rETKxmGGALBnoiVlulurG3zTGWi
-	Cq3aO6SVFjILE4y7sTlNLLQtG0w4UdTcmyLx7o4LFePUdBkGZBHhDA1eYMUKLw==
+	bh=FdKSMCACtaBvFC+l1scxQD9Xd0IB0qIAn3lXtPayOtM=;
+	b=HRqj3BaUbqEWpc/S9ckU0WeGTlkazvq0FfqkmPejIHq2m/uf/Qz+1yyPxLmSJ83D4n+x+S
+	nebBKE62vtl2WfsMfuUgjJNJ7GHCC9kQ8M8OlPXYv1LkkR4GmQ+fw3pGauukxz42VwQ+sO
+	6ro8iI4ftIduyX0nynFhDSrZxAT+6p0BSU4DXzG+ZNWzJ7Pmx2L+RYpDdd7GfnQtpttVd9
+	DYsSzQ5jGhy+XIZaFPUDOn49EzOj0mMvLxADMQz8m95EasRtzoKUie7qCdfSGTf3DeFzcg
+	cEEks2KzNs1pel/pMwAtKoKz9WzMGo6O1zz+Mt+XsAs9EjIJvM19KOp18PQqsg==
 From: Aleksa Sarai <cyphar@cyphar.com>
-Date: Wed, 06 Aug 2025 02:25:52 +1000
-Subject: [PATCH 07/10] move_mount.2: document 'new' mount api
+Date: Wed, 06 Aug 2025 02:25:53 +1000
+Subject: [PATCH 08/10] open_tree.2: document 'new' mount api
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,7 +60,7 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250806-new-mount-api-v1-7-8678f56c6ee0@cyphar.com>
+Message-Id: <20250806-new-mount-api-v1-8-8678f56c6ee0@cyphar.com>
 References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
 In-Reply-To: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
 To: Alejandro Colomar <alx@kernel.org>
@@ -68,12 +68,12 @@ Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>,
  linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
  Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
  Christian Brauner <brauner@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14641; i=cyphar@cyphar.com;
- h=from:subject:message-id; bh=ragubQ2UQnUxEzTvXd3D4mJIf7O1GqJFAqV+LC/kHvY=;
- b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWRMMli0XVlqdjf/dznnS1N47fST9x893LQ1KFfgmeFUo
- XNePj8yOkpZGMS4GGTFFFm2+XmGbpq/+Eryp5VsMHNYmUCGMHBxCsBE9G8zMnzY/cfJ8ejvTYci
- ijcXLXjawbF3m7l1scD+DdOS3gf9VQlh+Kdy8/J3t23yhuYyedyHzsVaNTkV+V7MmJzat9FgWdK
- VIH4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10499; i=cyphar@cyphar.com;
+ h=from:subject:message-id; bh=XW3ZgsV3ZaNtSEcAeK3m9yWi8EZ99I2T+4cTfYTVvPw=;
+ b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWRMMlj0gt13b82RAqXmW2pFD64XpIjNNrNrbO95xB3+X
+ XSv8zfrjlIWBjEuBlkxRZZtfp6hm+YvvpL8aSUbzBxWJpAhDFycAjARRU5Ghp5JRxWmX5LdlrUz
+ 3aSpRC/vgoWczG/WnBB22aWa2VLXgxkZbi1ttvXPEFvZfkOkqM8u92WFTLJAv3NoyUknqcSvOhF
+ cAA==
 X-Developer-Key: i=cyphar@cyphar.com; a=openpgp;
  fpr=C9C370B246B09F6DBCFC744C34401015D1D2D386
 
@@ -86,22 +86,22 @@ Co-developed-by: David Howells <dhowells@redhat.com>
 Co-developed-by: Christian Brauner <brauner@kernel.org>
 Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
 ---
- man/man2/move_mount.2 | 470 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 470 insertions(+)
+ man/man2/open_tree.2 | 365 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 365 insertions(+)
 
-diff --git a/man/man2/move_mount.2 b/man/man2/move_mount.2
+diff --git a/man/man2/open_tree.2 b/man/man2/open_tree.2
 new file mode 100644
-index 000000000000..439eb6a5b018
+index 000000000000..d58f43d96b20
 --- /dev/null
-+++ b/man/man2/move_mount.2
-@@ -0,0 +1,470 @@
++++ b/man/man2/open_tree.2
+@@ -0,0 +1,365 @@
 +.\" Copyright, the authors of the Linux man-pages project
 +.\"
 +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
 +.\"
-+.TH move_mount 2 (date) "Linux man-pages (unreleased)"
++.TH open_tree 2 (date) "Linux man-pages (unreleased)"
 +.SH NAME
-+move_mount \- move or attach mount object to filesystem
++open_tree \- open path or create detached mount object and attach to fd
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ,\~ \-lc )
@@ -113,77 +113,93 @@ index 000000000000..439eb6a5b018
 +.BR "#include <fcntl.h>" \
 +"          /* Definition of " AT_* " constants */"
 +.P
-+.BI "int move_mount(int " from_dirfd ", const char *" from_pathname ",
-+.BI "               int " to_dirfd ", const char *" to_pathname ",
-+.BI "               unsigned int " flags ");
++.BI "int open_tree(int " dirfd ", const char *" pathname ", unsigned int " flags ");
 +.fi
 +.SH DESCRIPTION
 +The
-+.BR move_mount ()
++.BR open_tree ()
 +system call is part of the suite of file descriptor based mount facilities in
 +Linux.
 +.P
-+.BR move_mount ()
-+moves the mount object indicated by
-+.IR from_dirfd " and " from_pathname
-+to the path indicated by
-+.IR to_dirfd " and " to_pathname .
-+The mount object being moved could be an existing mount point in the current
-+mount namespace, or it could be a detached mount object created by
-+.BR fsmount (2)
-+or
-+.BR open_tree (2)
++If
++.I flags
++contains
++.BR OPEN_TREE_CLONE ", " open_tree ()
++creates a detached mount object consisting of a bind-mount of the pathname
++specified by the
++.IR pathname ,
++and attaches it to a new file descriptor.
++The mount object is equivalent to a bind-mount that would be created by
++.BR mount (2)
++called with
++.BR MS_BIND ,
++except that it is tied to a file descriptor and is not mounted onto the
++filesystem.
++.P
++As with file descriptors returned from
++.BR fsmount (2),
++the resultant file descriptor can then be used with
++.BR move_mount (2),
++.BR mount_setattr (2),
++or other such system calls to do further mount operations.
++This mount object will be unmounted and destroyed when the file descriptor is
++closed if it was not otherwise attached to a mount point by calling
++.BR move_mount (2).
++.P
++If
++.I flags
++does not contain
++.BR OPEN_TREE_CLONE ", " open_tree ()
++produces a file descriptor that is functionally equivalent to one returned from
++.BR open (2).
++.P
++In either case, the resultant file descriptor acts the same as one produced by
++.BR open (2)
 +with
-+.BR OPEN_TREE_CLONE .
-+.P
-+To access the source mount object or the destination mount point, no permissions
-+are required on the object itself, but if either pathname is supplied, execute
-+(search) permission is required on all of the directories specified in
-+.IR from_pathname " or " to_pathname .
-+.P
-+The calling process must have the
-+.BR CAP_SYS_ADMIN
-+capability in order to attach or move a mount object.
++.BR O_PATH ,
++meaning it can be used as a
++.I dirfd
++argument to
++other "*at()" system calls.
 +.P
 +As with most "*at()" system calls,
-+.BR move_mount ()
++.BR open_tree ()
 +uses the
-+.IR from_dirfd " and " to_dirfd
-+arguments in conjunction with the
-+.IR from_pathname " and " to_pathname
-+argument to determine the source and destination objects to operate on
-+(respectively), as follows:
++.I dirfd
++argument in conjunction with the
++.I pathname
++argument to determine the path to operate on, as follows:
 +.RS
 +.IP \[bu] 3
 +If the pathname given in
-+.IR *_pathname
-+is absolute, then the corresponding
-+.I *_dirfd
++.I pathname
++is absolute, then
++.I dirfd
 +is ignored.
 +.IP \[bu]
 +If the pathname given in
-+.I *_pathname
-+is relative and the corresponding
-+.I *_dirfd
++.I pathname
++is relative and
++.I dirfd
 +is the special value
 +.BR AT_FDCWD ,
-+then the
-+.I *_pathname
++then
++.I pathname
 +is interpreted relative to the current working
 +directory of the calling process (like
 +.BR open ()).
 +.IP \[bu]
 +If the pathname given in
-+.I *_pathname
++.I pathname
 +is relative, then it is interpreted relative to the directory
-+referred to by the corresponding
-+.I *_dirfd
-+file descriptor (rather than relative to the current working directory of the
-+calling process, as is done by
++referred to by the file descriptor
++.I dirfd
++(rather than relative to the current working directory of
++the calling process, as is done by
 +.BR open ()
 +for a relative pathname).
-+In this case, the
-+.I *_dirfd
++In this case,
++.I dirfd
 +must be a directory that was opened for reading
 +.RB ( O_RDONLY )
 +or using the
@@ -191,178 +207,94 @@ index 000000000000..439eb6a5b018
 +flag.
 +.IP \[bu]
 +If
-+.I *_pathname
++.I pathname
 +is an empty string, and
 +.I flags
-+contains the appropriate
-+.BR MOVE_MOUNT_*_EMPTY_PATH
-+flag, then the file descriptor referenced by the corresponding
-+.I *_dirfd
++contains
++.BR AT_EMPTY_PATH ,
++then the file descriptor referenced by
++.I dirfd
 +is operated on directly.
 +In this case,
-+.I *_dirfd
++.I dirfd
 +can refer to any type of file, not just a directory.
-+.IP
-+This is the most common mechanism used to attach detached mount objects to a
-+mount point target.
 +.RE
 +.P
 +.I flags
-+can be used to control aspects of the path lookup for both the source and
-+destination objects, as well as other properties of the mount operation.
++can be used to control aspects of the path lookup and properties of the
++returned file descriptor.
 +A value for
 +.I flags
 +is constructed by OR'ing together zero or more of the following constants:
 +.RS
 +.TP
-+.B MOVE_MOUNT_F_EMPTY_PATH
++.B AT_EMPTY_PATH
 +If
-+.I from_pathname
++.I pathname
 +is an empty string, operate on the file referred to by
-+.I from_dirfd
++.I dirfd
 +(which may have been obtained from
-+.BR open "(2), " fsmount "(2), or " open_tree "(2).)"
++.BR open "(2), from " fsmount "(2), or from another " open_tree "() call.)"
 +In this case,
-+.I from_dirfd
++.I dirfd
 +can refer to any type of file, not just a directory.
 +If
-+.I from_dirfd
++.I dirfd
 +is
 +.BR AT_FDCWD ,
 +the call operates on the current working directory.
++This flag is Linux-specific; define
++.B _GNU_SOURCE
++to obtain its definition.
 +.TP
-+.B MOVE_MOUNT_T_EMPTY_PATH
-+As with
-+.BR MOVE_MOUNT_F_EMPTY_PATH ,
-+except operating on
-+.IR to_dirfd " and " to_pathname .
-+.TP
-+.B MOVE_MOUNT_F_SYMLINKS
-+If
-+.IR from_pathname
-+references a symbolic link, then dereference it.
-+The default behaviour for
-+.BR move_mount ()
-+is to
-+.I not follow
-+symbolic links.
-+.TP
-+.B MOVE_MOUNT_T_SYMLINKS
-+As with
-+.BR MOVE_MOUNT_F_SYMLINKS ,
-+except operating on
-+.IR to_dirfd " and " to_pathname .
-+.TP
-+.B MOVE_MOUNT_F_NO_AUTOMOUNT
++.B AT_NO_AUTOMOUNT
 +Don't automount the terminal ("basename") component of
-+.I from_pathname
++.I pathname
 +if it is a directory that is an automount point.
-+This allows a mount object that has an automount point at its root to be moved
-+and prevents unintended triggering of an automount point.
-+This flag has no effect if the automount point has already been mounted over.
++This allows the caller to gather attributes of an automount point
++(rather than the location it would mount).
++This flag has no effect if the mount point has already been mounted over.
++This flag is Linux-specific; define
++.B _GNU_SOURCE
++to obtain its definition.
 +.TP
-+.B MOVE_MOUNT_T_NO_AUTOMOUNT
-+As with
-+.BR MOVE_MOUNT_F_NO_AUTOMOUNT ,
-+except operating on
-+.IR to_dirfd " and " to_pathname .
-+This allows an automount point to be manually mounted over.
-+.TP
-+.BR MOVE_MOUNT_SET_GROUP " (since Linux 5.15)"
-+Add the attached (private) mount indicated by
-+.IR to_dirfd " and " to_pathname
-+into the mount propagation "peer group" of the attached (non-private) mount
-+indicated by
-+.IR from_dirfd " and " from_pathname .
-+.IP
-+Unlike other
-+.BR move_mount ()
-+operations, this operation does not move any actual mount objects.
-+Instead, it only updates the metadata of existing (attached) mount objects.
-+.IP
-+This makes it possible to first create a mount tree consisting only of private
-+mounts and then configuring the desired propagation layout afterwards.
-+(See the "SHARED SUBTREES" section of
-+.BR mount_namespaces (7)
-+for more information about mount propagation and peer groups.)
-+.TP
-+.BR MOVE_MOUNT_BENEATH " (since Linux 6.5)"
-+If the path indicated by
-+.IR to_dirfd " and " to_pathname
-+is an existing mount object, rather than placing the mount object indicated by
-+.IR from_dirfd " and " from_pathname
-+on top of the mount stack, place it below the current top mount on the mount
-+stack.
-+.IP
-+After using
-+.BR MOVE_MOUNT_BENEATH ,
-+it is possible to
-+.BR umount (2)
-+the top mount in order to reveal the mount which was moved beneath it earlier.
-+This allows for the seamless (and atomic) replacement of complex mount trees,
-+which can be used to "upgrade" a mount tree with a newer version.
-+.IP
-+This operation has several restrictions:
-+.RS
-+.IP \[bu] 3
-+Mounts cannot be moved beneath the rootfs, including the rootfs as configured
-+by
-+.BR chroot "(2) and " pivot_root (2).
-+To mount beneath the rootfs,
-+.BR pivot_root (2)
-+must be used.
-+.IP \[bu]
-+The target path indicated by
-+.IR to_dirfd " and " to_pathname
-+must be an attached mount object.
-+It must not be a detached mount given by
-+.BR open_tree (2)
-+with
-+.BR OPEN_TREE_CLONE.
-+.IP \[bu]
-+The current top mount of the target path's mount stack and its parent mount
-+must be in the calling process's mount namespace.
-+.IP \[bu]
-+The caller must have sufficient privileges to unmount the top mount of the
-+target path's mount stack, to prove they have privileges to reveal the
-+underlying mount.
-+.IP \[bu]
-+Mount propagation events triggered by this
-+.BR move_mount ()
-+operation are calculated based on the parent mount of the current top mount of
-+the target path's mount stack.
-+.IP \[bu]
-+The target path's mount cannot be a parent mount of the source mount object.
-+.IP \[bu]
-+The source mount object must not have any overmounts, otherwise it would be
-+possible to create "shadow mounts" (i.e. two mounts mounted on the same parent
-+mount at the same mount point).
-+.IP \[bu]
-+It is not possible to move a mount beneath a top mount if the parent mount of
-+the current top mount propagates to the top mount itself.
-+Otherwise,
-+.B MOVE_MOUNT_BENEATH
-+would cause the mount object to be propagated to the top mount from the parent
-+mount, defeating the purpose of using
-+.BR MOVE_MOUNT_BENEATH .
-+.IP \[bu]
-+It is not possible to move a mount beneath a top mount if the parent mount of
-+the current top mount propagates to the mount object being mounted beneath.
-+Otherwise, this would cause a similar propagation issue to the previous point,
-+also defeating the purpose of using
-+.BR MOVE_MOUNT_BENEATH .
-+.RE
-+.RE
-+.P
++.B AT_SYMLINK_NOFOLLOW
 +If
-+.BR move_mount ()
-+is called repeatedly with a file descriptor that refers to a mount object, then
-+the object will be attached (or moved) the first time and then moved again and
-+again, detaching it from the previous mount point each time.
++.I pathname
++is a symbolic link, do not dereference it; instead, create either a handle to
++the link itself or a bind-mount of it.
++The resultant file descriptor is indistinguishable from one produced by
++.BR openat (2)
++with
++.BR O_PATH | O_NOFOLLLOW .
++.TP
++.B OPEN_TREE_CLOEXEC
++Set the close-on-exec
++.RB ( FD_CLOEXEC )
++flag on the new file descriptor.
++See the description of the
++.B O_CLOEXEC
++flag in
++.BR open (2)
++for reasons why this may be useful.
++.TP
++.B OPEN_TREE_CLONE
++Rather than opening the path as a regular file
++.RB "(a-la " openat (2)),
++create a detached bind-mount mount object and attach it to the file descriptor.
++In order to do this operation,
++the calling process must have the
++.BR CAP_SYS_ADMIN
++capability.
++.TP
++.B AT_RECURSIVE
++Create a recursive bind-mount of the path
++.RB "(a-la " mount "(2) with " MS_BIND | MS_REC ),
++and attach it to the file descriptor.
++This flag is only permitted in conjunction with
++.BR OPEN_TREE_CLONE .
 +.SH RETURN VALUE
-+On success,
-+.BR move_mount ()
-+returns 0.
++On success, a new file descriptor is returned.
 +On error, \-1 is returned, and
 +.I errno
 +is set to indicate the error.
@@ -370,19 +302,29 @@ index 000000000000..439eb6a5b018
 +.TP
 +.B EACCES
 +Search permission is denied for one of the directories
-+in the path prefix of one of
-+.IR from_pathname " or " to_pathname .
++in the path prefix of
++.IR pathname .
 +(See also
 +.BR path_resolution (7).)
 +.TP
++.B EPERM
++.I flags
++contains
++.B OPEN_TREE_CLONE
++but the calling process does not have the required
++.B CAP_SYS_ADMIN
++capability.
++.TP
 +.B EBADF
-+One of
-+.IR from_dirfd " or " to_dirfd
-+is not a valid file descriptor.
++.I pathname
++is relative but
++.I dirfd
++is neither
++.B AT_FDCWD
++nor a valid file descriptor.
 +.TP
 +.B EFAULT
-+One of
-+.IR from_pathname " or " to_pathname
++.I pathname
 +is NULL or a pointer to a location outside the calling process's accessible
 +address space.
 +.TP
@@ -390,169 +332,123 @@ index 000000000000..439eb6a5b018
 +Invalid flag specified in
 +.IR flags .
 +.TP
-+.B EINVAL
-+The path indicated by
-+.IR from_dirfd " and " from_pathname
-+is not a mount object.
-+.TP
-+.B EINVAL
-+The mount object type of the source mount object and target inode are not
-+compatible (i.e. the source is a file but the target is a directory, or
-+vice-versa).
-+.TP
-+.B EINVAL
-+The source mount object or target path are not in the calling process's mount
-+namespace (or an anonymous mount namespace of the calling process).
-+.TP
-+.B EINVAL
-+The source mount object's parent mount has shared mount propagation, and thus
-+cannot be moved (as described in
-+.BR mount_namespaces (7)).
-+.TP
-+.B EINVAL
-+The source mount has
-+.B MS_UNBINDABLE
-+child mounts but the target path resides on a mount with shared mount
-+propagation, which would otherwise cause the unbindable mounts to be
-+propagated (as described in
-+.BR mount_namespaces (7)).
-+.TP
-+.B EINVAL
-+.B MOVE_MOUNT_BENEATH
-+was attempted, but one of the listed restrictions was violated.
-+.TP
 +.B ELOOP
-+Too many symbolic links encountered when resolving one of
-+.IR from_pathname " or " to_pathname .
++Too many symbolic links encountered when resolving
++.IR pathname .
 +.TP
 +.B ENAMETOOLONG
-+One of
-+.IR from_pathname " or " to_pathname
++.I pathname
 +is longer than
 +.BR PATH_MAX .
 +.TP
 +.B ENOENT
-+A component of one of
-+.IR from_pathname " or " to_pathname
-+does not exist.
++A component of
++.I pathname
++does not exist, or is a dangling symbolic link.
 +.TP
 +.B ENOENT
-+One of
-+.IR from_pathname " or " to_pathname
-+is an empty string, but the corresponding
-+.B MOVE_MOUNT_*_EMPTY_PATH
-+flag is not specified in
++.I pathname
++is an empty string, but
++.B AT_EMPTY_PATH
++is not specified in
 +.IR flags .
 +.TP
 +.B ENOTDIR
-+A component of the path prefix of one of
-+.IR from_pathname " or " to_pathname
-+is not a directory, or one of
-+.IR from_pathname " or " to_pathname
-+is relative and the corresponding
-+.IR from_dirfd " or " to_dirfd
++A component of the path prefix of
++.I pathname
++is not a directory, or
++.I pathname
++is relative and
++.I dirfd
 +is a file descriptor referring to a file other than a directory.
++.TP
++.B ENOSPC
++The "anonymous" mount namespace necessary to contain the
++.B OPEN_TREE_CLONE
++detached bind-mount mount object could not be allocated, as doing so would
++exceed the configured per-user limit on the number of mount namespaces in the
++current user namespace.
++(See also
++.BR namespaces (7).)
 +.TP
 +.B ENOMEM
 +The kernel could not allocate sufficient memory to complete the operation.
 +.TP
-+.B EPERM
-+The calling process does not have the required
-+.B CAP_SYS_ADMIN
-+capability.
++.B EMFILE
++The calling process has too many open files to create more.
++.TP
++.B ENFILE
++The system has too many open files to create more.
 +.SH STANDARDS
 +Linux.
 +.SH HISTORY
 +Linux 5.2.
-+.\" commit 2db154b3ea8e14b04fee23e3fdfd5e9d17fbc6ae
++.\" commit a07b20004793d8926f78d63eb5980559f7813404
 +Glibc 2.36.
-+.SH EXAMPLES
-+.BR move_mount ()
-+can be used to move attached mounts like the following:
-+.P
-+.in +4n
-+.EX
-+move_mount(AT_FDCWD, "/a", AT_FDCWD, "/b", 0);
-+.EE
-+.in
-+.P
-+This would move the mount object mounted on "/a" to "/b".
-+The above procedure is functionally equivalent to the following mount operation
-+using
-+.BR mount (2):
-+.P
-+.in +4n
-+.EX
-+mount("/a", "/b", NULL, MS_MOVE, NULL);
-+.EE
-+.in
-+.P
-+.BR move_mount ()
-+can also be used in conjunction with file descriptors returned from
-+.BR open_tree "(2) or " open (2):
-+.P
-+.in +4n
-+.EX
-+int fd = open_tree(AT_FDCWD, "/mnt", 0); /* or open("/mnt", O_PATH); */
-+move_mount(fd, "", AT_FDCWD, "/mnt2", MOVE_MOUNT_F_EMPTY_PATH);
-+move_mount(fd, "", AT_FDCWD, "/mnt3", MOVE_MOUNT_F_EMPTY_PATH);
-+move_mount(fd, "", AT_FDCWD, "/mnt4", MOVE_MOUNT_F_EMPTY_PATH);
-+.EE
-+.in
-+.P
-+This would move the mount object mounted at "/mnt" to "/mnt2", then "/mnt3",
-+then "/mnt4".
-+.P
-+If the source mount object indicated by
-+.IR from_dirfd " and " from_pathname
-+is a detached mount object,
-+.BR move_mount ()
-+can be used to attach it to the filesystem:
-+.P
-+.in +4n
-+.EX
-+int sfd = fsopen("ext4", FSOPEN_CLOEXEC);
-+fsconfig(sfd, FSCONFIG_SET_STRING, "source", "/dev/sda1", 0);
-+fsconfig(sfd, FSCONFIG_SET_FLAG, "user_xattr", NULL, 0);
-+fsconfig(sfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0);
-+int mfd = fsmount(sfd, FSMOUNT_CLOEXEC, MOUNT_ATTR_NODEV);
-+move_mount(mfd, "", AT_FDCWD, "/home", MOVE_MOUNT_F_EMPTY_PATH);
-+.EE
-+.in
-+.P
-+This creates a new filesystem configuration context for ext4, configures it,
-+creates a mount object, and then attaches it to "/home".
-+The above procedure is functionally equivalent to the following mount operation
-+using
-+.BR mount (2):
-+.P
-+.in +4n
-+.EX
-+mount("/dev/sda1", "/home", "ext4", MS_NODEV, "user_xattr");
-+.EE
-+.in
-+.P
-+This also works with detached bind-mounts created with
-+.BR open_tree (2)
++.SH NOTES
++.SS Anonymous Mount Namespaces
++The bind-mount mount objects created by
++.BR open_tree ()
 +with
-+.BR OPEN_TREE_CLONE :
++.B OPEN_TREE_CLONE
++are not attached to the mount namespace of the calling process.
++Instead, each mount object is attached to a newly allocated "anonymous" mount
++namespace associated with the calling process.
++.P
++One of the side-effects of this is that (unlike bind-mounts created with
++.BR mount (2)),
++mount propagation (as described in
++.BR mount_namespaces (7))
++will not be applied to bind-mounts created by
++.BR open_tree ()
++until the bind-mount is attached with
++.BR move_mount (2),
++at which point the mount will be associated with the mount namespace where it
++was mounted and mount propagation will resume.
++.SH EXAMPLES
++The following examples show how
++.BR open_tree ()
++can be used in place of more traditional
++.BR mount (2)
++calls with
++.BR MS_BIND .
 +.P
 +.in +4n
 +.EX
-+int mfd = open_tree(AT_FDCWD, "/home/cyphar", OPEN_TREE_CLONE);
-+move_mount(mfd, "", AT_FDCWD, "/root", MOVE_MOUNT_F_EMPTY_PATH);
++/* mount --bind /var /mnt */
++int err = mount("/var", "/mnt", NULL, MS_BIND, NULL);
++/* ... is equivalent to ... */
++int srcfd = open_tree(AT_FDCWD, "/var", OPEN_TREE_CLONE);
++int err = move_mount(srcfd, "", AT_FDCWD, "/mnt", MOVE_MOUNT_F_EMPTY_PATH);
++\&
++/* mount --rbind /var /mnt */
++int err = mount("/var", "/mnt", NULL, MS_BIND|MS_REC, NULL);
++/* ... is equivalent to ... */
++int srcfd = open_tree(AT_FDCWD, "/var", OPEN_TREE_CLONE | AT_RECURSIVE);
++int err = move_mount(srcfd, "", AT_FDCWD, "/mnt", MOVE_MOUNT_F_EMPTY_PATH);
++\&
++/* mount --bind /proc/self/fd/100 /proc/self/fd/200/foo */
++int err = mount("/proc/self/fd/100", "/proc/self/fd/200/foo", NULL, MS_BIND, NULL);
++/* ... is equivalent to ... */
++int srcfd = open_tree(100, "", AT_EMPTY_PATH | OPEN_TREE_CLONE);
++int err = move_mount(srcfd, "", 200, "foo", MOVE_MOUNT_F_EMPTY_PATH);
 +.EE
 +.in
 +.P
-+This creates a new detached bind-mount mount object of "/home/cyphar", and then
-+attaches it to "/root".
-+The above procedure is functionally equivalent to the following mount operation
-+using
-+.BR mount (2):
++In addition, you can use the file descriptor returned by
++.BR open_tree ()
++as the
++.I dirfd
++argument to any "*at()" system calls:
 +.P
 +.in +4n
 +.EX
-+mount("/home/cyphar", "/root", NULL, MS_BIND, NULL);
++int dirfd = open_tree(AT_FDCWD, "/etc", OPEN_TREE_CLONE);
++int fd = openat(dirfd, "passwd", O_RDONLY);
++int err = fchmodat(dirfd, "shadow", 0000, 0);
++close(dirfd);
++close(fd);
++/* The bind-mount is now destroyed. */
 +.EE
 +.in
 +.SH SEE ALSO
@@ -561,10 +457,9 @@ index 000000000000..439eb6a5b018
 +.BR fsconfig (2),
 +.BR fsmount (2),
 +.BR fspick (2),
-+.BR open_tree (2),
++.BR move_mount (2),
 +.BR mount_setattr (2),
 +.BR mount_namespaces (7)
-+
 
 -- 
 2.50.1
