@@ -1,93 +1,243 @@
-Return-Path: <linux-man+bounces-3330-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3331-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F0DB1B8BC
-	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 18:45:35 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98040B1B8D2
+	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 18:54:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 352681814E0
-	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 16:45:36 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3B44E1893626
+	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 16:55:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9511D200127;
-	Tue,  5 Aug 2025 16:45:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5AA5421A928;
+	Tue,  5 Aug 2025 16:54:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="roDjajwj"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWtaaKTi"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0B119D092;
-	Tue,  5 Aug 2025 16:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195A91DD525
+	for <linux-man@vger.kernel.org>; Tue,  5 Aug 2025 16:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754412330; cv=none; b=d38NtF5SnaoII4UoEnxdjqUqOBaTF33Gb32bmVqBbRnXirh/qdeqoohqzmsSVEfP+D1l5KUExX+jEWBJ7Sp1doc7pt97361vq2QlnM7Na/X1b62sTHa466OKkPaWebk5+bsDpMI6OIT6VkIB4aZLKBYn7bC3c/15C4kh0G2+BjQ=
+	t=1754412884; cv=none; b=t1FIdNoQlg9zY+ukdpL5rsFjBRgBfsa7RTGOviXkQyxzTth1nPwvsKEV04j8HIyEYdlIUD5bqg2GDtoNm1QeHEKluL8Qr6Cys0HtdIC+T1IiZ2xmognLq3rE94kywmpoo4X/f0dGpPt9TLqtbxMGv4GIcOJz5dPXebP7RsUN/n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754412330; c=relaxed/simple;
-	bh=LFg7MFcO0J0LZb/wEhiYWa4wNLbYTp0vBBrkKJI+3ZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lqFRSXHKSG2Dz/z4MYNwGIwmdm+1qznv7IDCKIf8Ta7aOB20WuJF59HdSvMmSMBeJ4WGIYri8udoiZ/YC5F1A7OKdCfZ/TyjW4CZ/6kjZ/qdnIx919Kv38F9aLxZOQ4NmuMxgcQ45I+B10Vj1rmSHixAQ5dEJolNHsHN7O+85qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=roDjajwj; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bxK6X5ck1z9sdC;
-	Tue,  5 Aug 2025 18:45:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754412324;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=poZwT6MblsVSRVpERcjhs5+NftgumjYF35dZqBxHGO8=;
-	b=roDjajwjxXKIMJil0XdOl9b4ozggpon82xjydVUtx4IOopOMhsTZssDGKgwqqk1YTURTMa
-	JAmzsckHUMC4XyAAGzLbWtNRn9QtxGs65Yh98kpnoXnaR9hEFbezMn1OV8bt3/BVPSJeDP
-	ZY6ymsqbESsyZa3wQFzCG0zVWqexoVQaw4VZSunzclHOsjmAA7gysdAGVQ5vHY2NXT3CU0
-	uncLyannIsWEuzhYdLgrAg8z0tb+4eeW3BhGQ5ElxnQwB/V9m6IE6bzEPITqabeQhDZS19
-	oq9t4m5rJWaXBFlnscxNDcB8ye2DhkMxZJcZU9QHL+r23z93jGuJtOIobIhkWQ==
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Askar Safin <safinaskar@zohomail.com>
-Cc: Aleksa Sarai <cyphar@cyphar.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-api@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/5] Add manpage for open_tree(2)
-Date: Wed,  6 Aug 2025 02:45:01 +1000
-Message-ID: <2025-08-05.1754412136-new-crusaders-selfless-clones-granite-belches-fVzACz@cyphar.com>
-In-Reply-To: <20250201024322.2625842-1-safinaskar@zohomail.com>
-References: <20250201024322.2625842-1-safinaskar@zohomail.com>, <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk>
+	s=arc-20240116; t=1754412884; c=relaxed/simple;
+	bh=5iryrhveG0V0TPmFdbEb2DoNUgZGYP8J8hqm3mOVCFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mfd8V5VrLSNdmpO3qOP2k2lodIsrc6CIwSnfkp+s7I/P11qYsX/KofscOlyuc3AhcDG3W1WWq9C9//erPTMqQI7o52SEXm704lkOJrKwshB91uwDLDENpKTFBXHGFJsaLLVS8dMpcRn4CR/OuPXuKIvk2JEU4yBjxZQt9iBp7DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWtaaKTi; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732F2C4CEF6;
+	Tue,  5 Aug 2025 16:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1754412883;
+	bh=5iryrhveG0V0TPmFdbEb2DoNUgZGYP8J8hqm3mOVCFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NWtaaKTiius+uLCbqlM6hHr6VSYeIY701gz3kLOnzjWbLI4TwJcA5XnbSS9/tOK/I
+	 MpUUtiTJbp0YfBcmzhCf6dgOaiYcVEUo3qJw9iSkVRVHMVPV/1+LR+xuTRaoRK+Z+v
+	 iO9ugY6cvG7ShqVw7l5rO5juHMTiBStpWdpqsGpb/Rl1PcJMIbxfXqId/AKUryDi1Y
+	 LEV/GlpB7D2s5DG5hfms/kStzqjx3TVe3THH6luzZTUIrNvXmPRKaK7Ip1c3WV0x3B
+	 OrClmtutRTW6j5lsNj50pbbtyTruvC6asviLGuGXOVUGaDVGYCny4a1bny8cxfzM4Q
+	 lS+xTJVo/HRKw==
+Date: Tue, 5 Aug 2025 18:54:36 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 01/10] mount_setattr.2: document glibc >= 2.36 syscall
+ wrappers
+Message-ID: <3bzyha2suimaoub2buy3epy2awxde75tpmnsbtgbshigngbi56@pgan2jq3eic5>
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-1-8678f56c6ee0@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jngfdnm3ggj4enag"
+Content-Disposition: inline
+In-Reply-To: <20250806-new-mount-api-v1-1-8678f56c6ee0@cyphar.com>
 
-On 2025-02-01, Askar Safin said:
-> David Howells, ping! You still didn't add all these manpages.
 
-In case you're interested, Christian Brauner maintained these man pages
-in a markdown format from 2024[1]. I sat down this last weekend and
-rewrote them mostly from scratch as man pages, and resubmitted them to
-man-pages again today[2].
+--jngfdnm3ggj4enag
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 01/10] mount_setattr.2: document glibc >= 2.36 syscall
+ wrappers
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-1-8678f56c6ee0@cyphar.com>
+MIME-Version: 1.0
+In-Reply-To: <20250806-new-mount-api-v1-1-8678f56c6ee0@cyphar.com>
 
-PTAL.
+Hi Aleksa,
 
-[1]: https://github.com/brauner/man-pages-md
-[2]: https://lore.kernel.org/all/20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com/
+On Wed, Aug 06, 2025 at 02:25:46AM +1000, Aleksa Sarai wrote:
+> Glibc 2.36 added syscall wrappers for the entire family of fd-based
+> mount syscalls, including mount_setattr(2). Thus it's no longer
+> necessary to instruct users to do raw syscall(2) operations.
 
--- 
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
+Thanks!
+
+>=20
+> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+> ---
+>  man/man2/mount_setattr.2 | 45 ++++++++----------------------------------=
+---
+>  1 file changed, 8 insertions(+), 37 deletions(-)
+>=20
+> diff --git a/man/man2/mount_setattr.2 b/man/man2/mount_setattr.2
+> index 60d9cf9de8aa..b8ddc3e22aef 100644
+> --- a/man/man2/mount_setattr.2
+> +++ b/man/man2/mount_setattr.2
+> @@ -10,21 +10,14 @@ Standard C library
+>  .RI ( libc ,\~ \-lc )
+>  .SH SYNOPSIS
+>  .nf
+> -.BR "#include <linux/fcntl.h>" " /* Definition of " AT_* " constants */"
+> -.BR "#include <linux/mount.h>" " /* Definition of " MOUNT_ATTR_* " const=
+ants */"
+> -.BR "#include <sys/syscall.h>" " /* Definition of " SYS_* " constants */"
+> +.B #define _GNU_SOURCE
+> +.B #include <sys/mount.h>
+>  .B #include <unistd.h>
+> +.BR "#include <fcntl.h>" "       /* Definition of " AT_* " constants */"
+
+Please keep the include that provides the function prototype last.
+
+And document with a comment the rationale for including all other
+headers.
+
+>  .P
+> -.BI "int syscall(SYS_mount_setattr, int " dirfd ", const char *" path ,
+> -.BI "            unsigned int " flags ", struct mount_attr *" attr \
+> -", size_t " size );
+> +.BI "int mount_setattr(int " dirfd ", const char *" path ", unsigned int=
+ " flags ",
+> +.BI "                  struct mount_attr *" attr ", size_t " size );
+
+Please use array notation if you can.  Have a look at, for example,
+strncpy(3), for how it's done in source code.
+
+>  .fi
+> -.P
+> -.IR Note :
+> -glibc provides no wrapper for
+> -.BR mount_setattr (),
+> -necessitating the use of
+> -.BR syscall (2).
+>  .SH DESCRIPTION
+>  The
+>  .BR mount_setattr ()
+> @@ -586,6 +579,7 @@ Linux 5.12.
+
+This hunk context is a bit useless.  Would you mind having a look at
+this?
+
+$ cat ./CONTRIBUTING.d/git | sed -n '/git-diff.*gitattributes/,+8p'
+   git-diff(1), gitattributes(5)
+       To produce useful hunk contexts in manual pages, we need to hack
+       git(1)'s idea of a function name, and also to tell git what is a
+       manual page.
+
+           $ git config --global diff.man.xfuncname '^\.S[SHsh] .*$';
+           $ mkdir -p ~/.config/git/;
+           $ echo '*.[0-9]* diff=3Dman' >>~/.config/git/attributes;
+
+>  .\" commit 7d6beb71da3cc033649d641e1e608713b8220290
+>  .\" commit 2a1867219c7b27f928e2545782b86daaf9ad50bd
+>  .\" commit 9caccd41541a6f7d6279928d9f971f6642c361af
+> +Glibc 2.36.
+
+We say 'glibc' even when it starts a sentence.  It's a name.
+
+
+Have a lovely day!
+Alex
+
+>  .SH NOTES
+>  .SS ID-mapped mounts
+>  Creating an ID-mapped mount makes it possible to
+> @@ -914,37 +908,14 @@ with a structure which has every byte nonzero
+>  #include <err.h>
+>  #include <fcntl.h>
+>  #include <getopt.h>
+> -#include <linux/mount.h>
+> -#include <linux/types.h>
+> +#include <sys/mount.h>
+> +#include <sys/types.h>
+>  #include <stdbool.h>
+>  #include <stdio.h>
+>  #include <stdlib.h>
+>  #include <string.h>
+> -#include <sys/syscall.h>
+>  #include <unistd.h>
+>  \&
+> -static inline int
+> -mount_setattr(int dirfd, const char *path, unsigned int flags,
+> -              struct mount_attr *attr, size_t size)
+> -{
+> -    return syscall(SYS_mount_setattr, dirfd, path, flags,
+> -                   attr, size);
+> -}
+> -\&
+> -static inline int
+> -open_tree(int dirfd, const char *filename, unsigned int flags)
+> -{
+> -    return syscall(SYS_open_tree, dirfd, filename, flags);
+> -}
+> -\&
+> -static inline int
+> -move_mount(int from_dirfd, const char *from_path,
+> -           int to_dirfd, const char *to_path, unsigned int flags)
+> -{
+> -    return syscall(SYS_move_mount, from_dirfd, from_path,
+> -                   to_dirfd, to_path, flags);
+> -}
+> -\&
+>  static const struct option longopts[] =3D {
+>      {"map\-mount",       required_argument,  NULL,  \[aq]a\[aq]},
+>      {"recursive",       no_argument,        NULL,  \[aq]b\[aq]},
+>=20
+> --=20
+> 2.50.1
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--jngfdnm3ggj4enag
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiSN0UACgkQ64mZXMKQ
+wqk1fBAAtaUtHPfOpb0ASBt0NrHMsh4G8vRWmncih5Fza8XliCXCdGhdbEjtVdA2
+W1GtEBiE51X1rKIaxAff2Prs6DutA5KaQxoA3X0NGkTnuidojyDo97ugs8OiMlwX
+vsVOi0Xu9GSpteKmZFoooo4imRqh3AnXGr6vUAnWeb7b0AJ1ryisLHf7m9OC9z5l
+pchuTiXvN3a2MgA6ExNrOJuKSSQfBYkZVxoyROkx9k8gbYcYrBeuuzTX3x0ZSazb
+KouG8NTLcBLMBD5CHuTzI8f6Qr/SSHuJ72UAzFJVfg0Z6gVlJUkvyp666IOEr3z7
+pzMVeU2Rk16Zg+lVk/3DUU18gOLGKmOah/j3P7Kl+y2CVGkR3lETrxgTMAgvOhdh
+tuqVnCujhqh6tmIZry/tR4PWtkWHbutCMtxXlg8MVbeAxwXOJdxvyfLU2YX+h2Fz
+M0mfxUz5z0BScBo0UQ0gCx15V+L+dYbjdDFabwM5jx52VsTXr/k5XEkjh8J3J53s
+QcteugxN7iv47SxkzY2S0AJ2tS3dCuUbVgdh7BY8R8D8KqpW/XfbnCqGCdaxxWl1
+znuYWa/56JIzuwGgAEriJyED2Pl6t1LK+mMOmomZWXRbHPKT8uGHGv98db/tauCr
+RDsyZzoahfSh32qguJfVtVbA6zRGrt7sA7OmOGMAXmSoAK+w5l4=
+=aYtI
+-----END PGP SIGNATURE-----
+
+--jngfdnm3ggj4enag--
 
