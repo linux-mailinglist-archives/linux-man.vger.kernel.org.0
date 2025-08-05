@@ -1,59 +1,58 @@
-Return-Path: <linux-man+bounces-3319-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3320-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55B60B1B86D
-	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 18:26:28 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 405A1B1B86E
+	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 18:26:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 361AB4E071A
-	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 16:26:27 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 6E269177BD8
+	for <lists+linux-man@lfdr.de>; Tue,  5 Aug 2025 16:26:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D38DB28BABC;
-	Tue,  5 Aug 2025 16:26:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7487E291C1F;
+	Tue,  5 Aug 2025 16:26:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="d0YxmF6L"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="LPofB23n"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EAA72630
-	for <linux-man@vger.kernel.org>; Tue,  5 Aug 2025 16:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA3A72630
+	for <linux-man@vger.kernel.org>; Tue,  5 Aug 2025 16:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754411183; cv=none; b=ZM/2dspIACeJVtbGCAIGEiORO4d8wngAMKEbmlJgRCPzX821gI7xcf0tCiPTue4wvlqkRoXbXYOdopSEMaDxu/srKkDZ7MkXYCQqNyocI3WW3YCbVGO9R4Pl0XiZ7YkByUB1lFhY9TWYMph+sSO9vigRasNpXtTZeD5IR9i+IuY=
+	t=1754411187; cv=none; b=eGOJeH+XRvKXVjCGyk13H6igzpHLPWfuQvWAhUp9DstvksWDDJ3QE8ZldI6uKrC1YNcZDP5Mlqfz35PZwQ1YnCwePfdx8thX3HCWqGjW4uydPLNHLJTLks32UeE+Lnf7eb92RfpPpgN4otIaiYKcfGFAjROgvoSkTi4UWwVQG+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754411183; c=relaxed/simple;
-	bh=6PnhgoWUl7BXuPZlY7jTKchGncsIatf8H99KMLdi68Q=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tEQRVPBcvvmvvf3cxZC5N1ayDPDZRkYCdU4rOsaDesm0z/Hvd2cgitTcX7Ua4cF/6gGRVAV8XqLPEf3oDpP2aF9/9KZlSz1j3hbcSeW69uwz8RBGIbABL1Rktkh+gkSojg0Nt4xThF5Dta+k4NCEaYtQFgAsdvPuiFWxbW1Wvt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=d0YxmF6L; arc=none smtp.client-ip=80.241.56.161
+	s=arc-20240116; t=1754411187; c=relaxed/simple;
+	bh=PHhH0peF3cSMpBXyr1kS3KF8DOFNjjbf/86tp0Lf2JI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kv2CFgPGevkpJL16zkj1CW1DB9DJ3YAzI5s5VimRvz2/tzo9Ix4a3IPU+ROUiIK8MOD+EbvAszcRiae5XOj+ryyzBXMMBUY9s9lvoyBdS08kuIbzpzbpU6901gNI37Rsy6n+UVkGZu9lwNS9ZhaSTIu3ajflLD2MUxZy0ZGpW9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=LPofB23n; arc=none smtp.client-ip=80.241.56.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4bxJhT4Bbmz9t6N;
-	Tue,  5 Aug 2025 18:26:17 +0200 (CEST)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4bxJhY2WMTz9tJN;
+	Tue,  5 Aug 2025 18:26:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754411177;
+	t=1754411181;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WEhgzro1oTZNM2JIg/DnbNtQ6soDhl6Tm/QX4BndLu8=;
-	b=d0YxmF6LPQYQGLpdYn66B20RPstN1E5SC6xgO0+EK5bs49N5tKmUTG2bjVxmm/gP1PKKFm
-	1SxMiptZdjAIpeTuFDvgLfGzjiFpYDbRVAv2qaTEHjzQBVW8QIYB/iQDpYbimr9tx5aiP2
-	Uw7tFbvvT/i3FXrYjb/K2tqFxSfm7M5RpHx5ac71XPqCC2iJHOwbVuoU/IHyLWIVDFuB7V
-	KTXueMw4BfY7bzd3QfmlYw10Y9tvjcHMBVizD9rjDu6dphctvgKegmaXs1V4YLCEVTmyHd
-	j+LPScJRo8rDhq7FnIIZps5Ix9iX6m4QpexdqkXvoW3QtIjVBJVCHuSDogHQjQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TT9JrujwxwC2BZockqfwCLD05+Pk2UvEBRsaHh9VrOU=;
+	b=LPofB23nDU9cge5BunDw3vRD+c5kl1oVpHKEV5I130xF4T86wTnwi9vxvQbeBZTcjCKHu9
+	8ZaFSsYZdAzhcRTKvSAvs1Y7n7TLrXfjO4l1h6yywR1A+WqBSwn7wOwUbmjJJAv02l0q36
+	q2zW0/VAmqz9QFx63Nj/NzFAvcc6lnm+oh2BDpjc1iB8rK8UnkDWIFHr8ilpjGWnxP0a51
+	BwfNCOaPeFcxJ7SHQ87oP51Q1SlSWqcJatLfxUeW3e879pwknqCQTc6dVYj1Go926FtAPX
+	NFM6rjSKURD6cJ9hRH8m/mpnS8NQ/Qh7zDOYk6/DuCq87yJd8k7MNHkvh4cuIw==
 From: Aleksa Sarai <cyphar@cyphar.com>
-Subject: [PATCH 00/10] man2: add man pages for 'new' mount API
-Date: Wed, 06 Aug 2025 02:25:45 +1000
-Message-Id: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+Date: Wed, 06 Aug 2025 02:25:46 +1000
+Subject: [PATCH 01/10] mount_setattr.2: document glibc >= 2.36 syscall
+ wrappers
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -62,110 +61,113 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIkwkmgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDCwMj3bzUct3c/NK8Et3EgkxdE2OzlCRLC5M0E2MjJaCegqLUtMwKsHn
- RsbW1AF36cE9fAAAA
+Message-Id: <20250806-new-mount-api-v1-1-8678f56c6ee0@cyphar.com>
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+In-Reply-To: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
 To: Alejandro Colomar <alx@kernel.org>
 Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
  linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
  Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
  Christian Brauner <brauner@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4315; i=cyphar@cyphar.com;
- h=from:subject:message-id; bh=6PnhgoWUl7BXuPZlY7jTKchGncsIatf8H99KMLdi68Q=;
- b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWRMMlggun7C3Dv/+RSqbFTPfAm7o/doZ+KcvcZK9z33z
- C86fvXc5o5SFgYxLgZZMUWWbX6eoZvmL76S/GklG8wcViaQIQxcnAIwkYICRoZjiy5yd+tV3z3o
- fU8myfsNc22QW+X0FKsdP++uiVg56a43I8PFY79vBRwrMp/ckbfTYOcV41sSZu+9z8UHv/0aJb9
- z5j0WAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3060; i=cyphar@cyphar.com;
+ h=from:subject:message-id; bh=PHhH0peF3cSMpBXyr1kS3KF8DOFNjjbf/86tp0Lf2JI=;
+ b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWRMMljo/1t4A89Bxz3HomumbCnT2S97IlI678lVobe93
+ 1ma9/6b11HKwiDGxSArpsiyzc8zdNP8xVeSP61kg5nDygQyhIGLUwAmsqCJkWFJjFbzWjcGq4Zt
+ vCUzvJm33vXu7M4wXfXtlfHkBGtm1skM/91kuUQ/3kxhOK9TcfmDvmXj5A6L7ijue72C2cf5e5c
+ KcQAA
 X-Developer-Key: i=cyphar@cyphar.com; a=openpgp;
  fpr=C9C370B246B09F6DBCFC744C34401015D1D2D386
-X-Rspamd-Queue-Id: 4bxJhT4Bbmz9t6N
 
-Back in 2019, the new mount API was merged into mainline[1]. David Howells
-then set about writing man pages for these new APIs, and sent some
-patches back in 2020[2]. Unfortunately, these patches were never merged,
-which meant that these APIs were practically undocumented for many
-years -- arguably this may have been a contributing factor to the
-relatively slow adoption of these new (far better) APIs. I have often
-discovered that many folks are unaware of the read(2)-based message
-retrieval interface provided by filesystem context file descriptors.
+Glibc 2.36 added syscall wrappers for the entire family of fd-based
+mount syscalls, including mount_setattr(2). Thus it's no longer
+necessary to instruct users to do raw syscall(2) operations.
 
-In 2024, Christian Brauner set aside some time to provide some
-documentation of these new APIs and so adapted David Howell's original
-man pages into the easier-to-edit Markdown format and published them on
-GitHub[3]. These have been maintained since, including updated
-information on new features added since David Howells's 2020 draft pages
-(such as MOVE_MOUNT_BENEATH).
-
-While this was a welcome improvement to the previous status quo (that
-had lasted over 6 years), speaking personally my experience is that not
-having access to these man pages from the terminal has been a fairly
-common painpoint.
-
-So, this is a modern version of the man pages for these APIs, in the hopes
-that we can finally (7 years later) get proper documentation for these
-APIs in the man-pages project.
-
-One important thing to note is that most of these were re-written by me,
-with very minimal copying from the versions available from Christian[2].
-The reasons for this are two-fold:
-
- * Both Howells's original version and Christian's maintained versions
-   contain crucial mistakes that I have been bitten by in the past (the
-   most obvious being that all of these APIs were merged in Linux 5.2,
-   but the man pages all claim they were merged in different versions.)
-
- * As the man pages appear to have been written from Howells's
-   perspective while implementing them, some of the wording is a little
-   too tied to the implementation (or appears to describe features that
-   don't really exist in the merged versions of these APIs).
-
-I decided that the best way to resolve these issues is to rewrite them
-from the perspective of an actual user of these APIs (me), and check
-that we do not repeat the mistakes I found in the originals.
-
-I have also done my best to resolve the issues raised by Michael Kerrisk
-on the original patchset sent by Howells[1].
-
-In addition, I have also included a man page for open_tree_attr(2) (as a
-subsection of the new open_tree(2) man page), which was merged in Linux
-6.15.
-
-[1]: https://lore.kernel.org/all/20190507204921.GL23075@ZenIV.linux.org.uk/
-[2]: https://lore.kernel.org/linux-man/159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk/
-[3]: https://github.com/brauner/man-pages-md
-
-Co-developed-by: David Howells <dhowells@redhat.com>
-Co-developed-by: Christian Brauner <brauner@kernel.org>
 Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
 ---
-Aleksa Sarai (10):
-      mount_setattr.2: document glibc >= 2.36 syscall wrappers
-      mount_setattr.2: move mount_attr struct to mount_attr.2type
-      fsopen.2: document 'new' mount api
-      fspick.2: document 'new' mount api
-      fsconfig.2: document 'new' mount api
-      fsmount.2: document 'new' mount api
-      move_mount.2: document 'new' mount api
-      open_tree.2: document 'new' mount api
-      mount_setattr.2: mirror opening sentence from fsopen(2)
-      open_tree_attr.2, open_tree.2: document new open_tree_attr() api
+ man/man2/mount_setattr.2 | 45 ++++++++-------------------------------------
+ 1 file changed, 8 insertions(+), 37 deletions(-)
 
- man/man2/fsconfig.2           | 446 +++++++++++++++++++++++++++++++++++++++
- man/man2/fsmount.2            | 185 +++++++++++++++++
- man/man2/fsopen.2             | 275 ++++++++++++++++++++++++
- man/man2/fspick.2             | 274 ++++++++++++++++++++++++
- man/man2/mount_setattr.2      |  67 ++----
- man/man2/move_mount.2         | 470 ++++++++++++++++++++++++++++++++++++++++++
- man/man2/open_tree.2          | 440 +++++++++++++++++++++++++++++++++++++++
- man/man2/open_tree_attr.2     |   1 +
- man/man2type/mount_attr.2type |  58 ++++++
- 9 files changed, 2166 insertions(+), 50 deletions(-)
----
-base-commit: f23e8249a6dcf695d38055483802779c36aedbba
-change-id: 20250802-new-mount-api-436db984f432
+diff --git a/man/man2/mount_setattr.2 b/man/man2/mount_setattr.2
+index 60d9cf9de8aa..b8ddc3e22aef 100644
+--- a/man/man2/mount_setattr.2
++++ b/man/man2/mount_setattr.2
+@@ -10,21 +10,14 @@ Standard C library
+ .RI ( libc ,\~ \-lc )
+ .SH SYNOPSIS
+ .nf
+-.BR "#include <linux/fcntl.h>" " /* Definition of " AT_* " constants */"
+-.BR "#include <linux/mount.h>" " /* Definition of " MOUNT_ATTR_* " constants */"
+-.BR "#include <sys/syscall.h>" " /* Definition of " SYS_* " constants */"
++.B #define _GNU_SOURCE
++.B #include <sys/mount.h>
+ .B #include <unistd.h>
++.BR "#include <fcntl.h>" "       /* Definition of " AT_* " constants */"
+ .P
+-.BI "int syscall(SYS_mount_setattr, int " dirfd ", const char *" path ,
+-.BI "            unsigned int " flags ", struct mount_attr *" attr \
+-", size_t " size );
++.BI "int mount_setattr(int " dirfd ", const char *" path ", unsigned int " flags ",
++.BI "                  struct mount_attr *" attr ", size_t " size );
+ .fi
+-.P
+-.IR Note :
+-glibc provides no wrapper for
+-.BR mount_setattr (),
+-necessitating the use of
+-.BR syscall (2).
+ .SH DESCRIPTION
+ The
+ .BR mount_setattr ()
+@@ -586,6 +579,7 @@ Linux 5.12.
+ .\" commit 7d6beb71da3cc033649d641e1e608713b8220290
+ .\" commit 2a1867219c7b27f928e2545782b86daaf9ad50bd
+ .\" commit 9caccd41541a6f7d6279928d9f971f6642c361af
++Glibc 2.36.
+ .SH NOTES
+ .SS ID-mapped mounts
+ Creating an ID-mapped mount makes it possible to
+@@ -914,37 +908,14 @@ with a structure which has every byte nonzero
+ #include <err.h>
+ #include <fcntl.h>
+ #include <getopt.h>
+-#include <linux/mount.h>
+-#include <linux/types.h>
++#include <sys/mount.h>
++#include <sys/types.h>
+ #include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <sys/syscall.h>
+ #include <unistd.h>
+ \&
+-static inline int
+-mount_setattr(int dirfd, const char *path, unsigned int flags,
+-              struct mount_attr *attr, size_t size)
+-{
+-    return syscall(SYS_mount_setattr, dirfd, path, flags,
+-                   attr, size);
+-}
+-\&
+-static inline int
+-open_tree(int dirfd, const char *filename, unsigned int flags)
+-{
+-    return syscall(SYS_open_tree, dirfd, filename, flags);
+-}
+-\&
+-static inline int
+-move_mount(int from_dirfd, const char *from_path,
+-           int to_dirfd, const char *to_path, unsigned int flags)
+-{
+-    return syscall(SYS_move_mount, from_dirfd, from_path,
+-                   to_dirfd, to_path, flags);
+-}
+-\&
+ static const struct option longopts[] = {
+     {"map\-mount",       required_argument,  NULL,  \[aq]a\[aq]},
+     {"recursive",       no_argument,        NULL,  \[aq]b\[aq]},
 
-Best regards,
 -- 
-Aleksa Sarai <cyphar@cyphar.com>
+2.50.1
 
 
