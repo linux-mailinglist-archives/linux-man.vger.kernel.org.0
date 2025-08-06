@@ -1,147 +1,106 @@
-Return-Path: <linux-man+bounces-3356-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3357-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B22B1C752
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 16:07:29 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4507B1C79E
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 16:30:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D14C63BBF27
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 14:07:25 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 00734561FA9
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 14:30:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB4D128CF44;
-	Wed,  6 Aug 2025 14:07:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 522EA28D8C8;
+	Wed,  6 Aug 2025 14:30:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="Iu3MXqIg"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="H8hJO8Yg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89777215F42
-	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 14:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754489239; cv=none; b=ZWCRcuShBNWV3/tDYRsmzSWlZxVmzljq0QYNvrBvdtpsjUNMXR9X8yu2/KM6yCWfR9tdLkOKd5NFakXFIBXzJSHX/16KWUszYeRl/SiMRnNxaCNWX0bB7TPYRBogoAhqOW/WQqQbYaosjbKsZN3NwCcSKlTvYPWr0su2aEo/9RE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754489239; c=relaxed/simple;
-	bh=/rDtMl7DM2oCYXOm5PM1EzixopaMoFBNQf83nFkrJw8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r7CI0ybdqTEIBxRTn7w8pNkIx4y+UHjXKiQr8t9ni+s9eBjRGA9rHfOo5Ngamw2rHNP/oaucDizy+4tZfOkJyux44UDiYfIL24Nq/hT8AA1+k9RcJf8iFD4qEJI9G2jldUvfeGDJg3AyBBm9fHs1RyU4EB5nAqeDN+K5iZvid8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=Iu3MXqIg; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bxsYY3K1Sz9sxp;
-	Wed,  6 Aug 2025 16:07:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754489233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/rDtMl7DM2oCYXOm5PM1EzixopaMoFBNQf83nFkrJw8=;
-	b=Iu3MXqIgJfkzjovldhqlGpMzRo9V1oQ2+97A51bvN7Uhe8udXVSJJExvbNdMEhdnLNLUDu
-	U+QQfYJdjVBGMrxTLHxzIwVL79wah/Z3quoihLVrszlh7n5xphSJ9b53Pee+2WqOD9ts3K
-	PE80Ic6x+ZGUGCwYSMowBWhYckkRpWWkulLPFzqOu4+A44adhIu3qtWQlbvbGmN86Z85H5
-	29LArvZmKqC8CAWcYObvcH403lSu2RDN7j54obAwRn3oENklpZsHThIwTu2/N4PtiIyQT6
-	+LtQRSgrjrsN3luLJuW5rTcL563vfu0KTTlF9JaT8mFHWB16KycRE9osFW0TMg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
-Date: Thu, 7 Aug 2025 00:07:01 +1000
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Askar Safin <safinaskar@zohomail.com>
-Cc: alx@kernel.org, brauner@kernel.org, dhowells@redhat.com, jack@suse.cz, 
-	linux-man@vger.kernel.org, mtk.manpages@gmail.com, viro@zeniv.linux.org.uk
-Subject: Re: [PATCH 06/10] fsmount.2: document 'new' mount api
-Message-ID: <2025-08-06.1754488782-endless-dots-niche-snooze-unloved-bishops-EH5hxK@cyphar.com>
-References: <20250806-new-mount-api-v1-6-8678f56c6ee0@cyphar.com>
- <20250806120438.83633-1-safinaskar@zohomail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE50428C864
+	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 14:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1754490614; cv=pass; b=ohE1y8nCgIyZba2bl+5NVaKQHEt/oMxLQtfMC9Q2zrO8ENihgeBUZDwy5HR3zAS6rW9Q0gxM361eKH9srbv8a0m6LEEdk2zcmE8o0yofawsVXUKkBk4Hs2mG6lD92v5oLkxFKja1fqPsqfUABS/4BRO8i4M0t66PJjwmhI/qlwI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1754490614; c=relaxed/simple;
+	bh=+Pp99mv0THz6pXREXnosFkgL1ZYeQf1oY7lRwoLgOYY=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=N/zfIwzkMZPY+54y5UapykYZ2omWu6Iz+iKXm2x7pVPw3sqPi/mDNaIENRJqtEJY7pvDG01Q+5NYF3Kd1J/Pkbof7WpXU2K5lGNhtNjCorATyhUutkweTlKdEirg+ykh5eAOxWaMpDemDI8z2hEo2m8BpyU3mvpqbp7+/5j7MKM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=H8hJO8Yg; arc=pass smtp.client-ip=136.143.188.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1754490581; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CvOG9sApl95ZuK4ks6oSkXJ34k53KPMbmPXl7RmdjvyT0833bC7NI5O4TiwSpjeu3F1H7y8RxkncZZ3EAyMtDMIW/8o4gBhtjfMd07JxqbkeO5hS28qDgU8YhkMOvukx4WTkhOkNu2B1lqDhyLNlU0GQB9g3XYse8JjFbUEp5xE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1754490581; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3VMiNePRXlcunVlXYZ0yPOJDo1blZTMkBLbzX/ACqy8=; 
+	b=n8dbT6bT2/7ILCqgw15P3vzs05PgN8Dtx2bHuDM09VUeKkWokv1R3RXpRv3TswSilfROYZoJ5TKthKeezUbVyme1ZoF3/MQ/IvVBKzPx844SB6wefPnBcBMH/4OHByt3/gOnunsGQPJNXjRjPSrqF+q5+Z9VG4zZcP+Jqxo2+UU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1754490581;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=3VMiNePRXlcunVlXYZ0yPOJDo1blZTMkBLbzX/ACqy8=;
+	b=H8hJO8Yg+/f92+KPVCNMZSOEuxSSbW0awBua56med0o+Yw+CihjUezkMh6avpjwb
+	ThUmjpL6cUeM20IxmXJgddsAOJSgK8u7Ag3+wOZBw+EQu5w9a0HiAdNcR1EaDltKMQv
+	jJiDnab8aKTaS8mKig8z8QDMDrj+DS+1A9Kd5SOw=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1754490580222672.9296114076902; Wed, 6 Aug 2025 07:29:40 -0700 (PDT)
+Received: from  [212.73.77.104] by mail.zoho.com
+	with HTTP;Wed, 6 Aug 2025 07:29:40 -0700 (PDT)
+Date: Wed, 06 Aug 2025 18:29:40 +0400
+From: Askar Safin <safinaskar@zohomail.com>
+To: "Alejandro Colomar" <alx@kernel.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	"Aleksa Sarai" <cyphar@cyphar.com>, "brauner" <brauner@kernel.org>,
+	"dhowells" <dhowells@redhat.com>, "jack" <jack@suse.cz>,
+	"linux-man" <linux-man@vger.kernel.org>,
+	"mtk.manpages" <mtk.manpages@gmail.com>,
+	"viro" <viro@zeniv.linux.org.uk>
+Message-ID: <1987fc9ace9.ad1bf95b21215.9089923989658816796@zohomail.com>
+In-Reply-To: <k34wjawrqcq2aqohsovkca2kad3ba3kmg57zwvrzw4wujq62dg@rittgebtd6ev>
+References: <20250806-new-mount-api-v1-5-8678f56c6ee0@cyphar.com>
+ <20250806074619.59685-1-safinaskar@zohomail.com>
+ <20250806075021.ndodyx44xsyzxcu6@illithid>
+ <2025-08-06.1754469395-mega-bleep-potent-sharpie-prepaid-quiz-2a9Vy3@cyphar.com>
+ <20250806091157.ldpnbcbtik4eudjh@illithid> <k34wjawrqcq2aqohsovkca2kad3ba3kmg57zwvrzw4wujq62dg@rittgebtd6ev>
+Subject: Re: How and when to control hyphenation (was: [PATCH 05/10]
+ fsconfig.2: document 'new' mount api)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="z2gebgfnu37v5w62"
-Content-Disposition: inline
-In-Reply-To: <20250806120438.83633-1-safinaskar@zohomail.com>
-X-Rspamd-Queue-Id: 4bxsYY3K1Sz9sxp
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
+Feedback-ID: rr080112273cdcead92a0f6727434a9164000001624355893c7a47c6b33c0f5f174dbda740dfc5611638c307:zu0801122701d08c4efa22fdbaceeeb8d40000a1e0bdaa93d7c40ecea1a83e6b5a89ab30f5a34463f2d59c11:rf0801122b7c107413f6327b75814e521400008fb2511ae143cfbf7752840479783705cf8f44d2c7a947ad7ec9d7dc51:ZohoMail
 
+ ---- On Wed, 06 Aug 2025 15:45:46 +0400  Alejandro Colomar <alx@kernel.org> wrote --- 
+> I personally never use it, unless I read the page and find some line
+> break ugly.  And *never* use it in manual page references (BR), with the
+> rationale being that we'll eventually replace them with MR, which does
+> that for us.
 
---z2gebgfnu37v5w62
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 06/10] fsmount.2: document 'new' mount api
-MIME-Version: 1.0
+Aaaaaaah! I hate all these quirks. I hate all these roff quirks, mentioned in this thread.
 
-On 2025-08-06, Askar Safin <safinaskar@zohomail.com> wrote:
-> > The resultant file descriptor acts the same as one produced by open(2) =
-with O_PATH,
-> > meaning it can also be used as a dirfd argument to other "*at()" system=
- calls.
->=20
-> This may be interpreted by somebody that fsmount returns exactly same fd =
-as open(2) with O_PATH returns.
-> This is not true, because, for example, you can use move_mount with fd, r=
-eturned by fsmount,
-> but cannot use move_mount with fd, returned by open with O_PATH.
->=20
-> So, please replace "acts the same as one" with "can be used as one" or so=
-mething.
+It seems we did not get manpages for "new" mount API earlier, because Brauner gave up on roff.
+He said: "Years of writing groff have made me tired" here: https://github.com/brauner/man-pages-md .
 
-Well, the slightly odd thing is that technically it _is_ just an O_PATH
-file descriptor (ditto for open_tree(2), even with OPEN_TREE_CLONE) --
-they are constructed with dentry_open(O_PATH). You can also use regular
-file descriptors with move_mount(2) to move around (attached) mount
-objects.
+So I propose to convert manpages to some other format. For example, to reStructuredText.
+This is what kernel uses. This will help attract kernel developers. So, please, convert.
+At least mans in man2. reStructuredText can be converted to roff: https://docutils.sourceforge.io/docs/user/manpage.html .
 
-The only thing that is special about fsmount(2) and OPEN_TREE_CLONE file
-descriptors is that they are the root of a mount *in an anonymous mount
-namespace* and the mount infrastructure has special handling for that
-(on close(2) the mount gets unmounted because of FMODE_NEED_UNMOUNT, and
-move_mount(2) permits cross-namespace mounts but only for anonymous
-mount namespaces).
+--
+Askar Safin
+https://types.pl/@safinaskar
 
-I am not sure what is the best way of expressing this -- "can be used
-as" doesn't quite convey the fact that they really are almost identical.
-(Also, I guess you'd like the text in open_tree(2) to also be adjusted.)
-
-> Also, please, replace 'to other "*at()"' with 'to "*at()"'. No at-syscall=
-s were
-> mentioned in this paragraph before, so "other" is not needed here.
-
-Fair enough.
-
-> > /* Create a new file without attaching the mount object. */
-> > int tmpfd =3D openat(sfd, "tmpfile", O_CREAT | O_EXCL | O_RDWR, 0600);
-> > unlinkat(sfd, "tmpfile", 0);
->=20
-> You meant mfd here, not sfd.
-
-:facepalm:
-
---=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
-
---z2gebgfnu37v5w62
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaJNhhQAKCRAol/rSt+lE
-b7v4AQD9171JP3+XJLEGOjZ6TI1Ylq9oSg9ubj0qIsHe5gwPvgD/eCQnNKoGFK8C
-CkmLV762+gubRdsu6FklHlhLrUqVZgI=
-=qgR0
------END PGP SIGNATURE-----
-
---z2gebgfnu37v5w62--
 
