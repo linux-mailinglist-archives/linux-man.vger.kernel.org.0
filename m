@@ -1,65 +1,60 @@
-Return-Path: <linux-man+bounces-3375-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3376-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 132FBB1CEC1
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 23:57:52 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBB5B1CEC2
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 23:58:45 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 19225163E41
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 21:57:52 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3AC8118C5D78
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 21:59:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C16622A4E9;
-	Wed,  6 Aug 2025 21:57:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44DEA22A4E9;
+	Wed,  6 Aug 2025 21:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwcCgKg8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tUVfuLGZ"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DF92E36E7
-	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 21:57:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0438B2E36E7
+	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 21:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754517467; cv=none; b=gZOSmB60T8GoY2ac0dMYnErkwn4jaxwgI12zcQJGVjYjtSMPMasgsHnh8X+ShEZHLfuZSrBFFtjAIzasXPkHoIBlZ16HhMFRjg623GVIunOM6XfVmkVcxXUOSGr1wpCf0Jr8SKwv39m6qMjYpXqSH/jG7k7emSi03L3Rd7LYxBc=
+	t=1754517520; cv=none; b=XgxOZpk021Tv7QZ92NgWdjH/+1RzU8UPHqG7ZgD2ubTt6913uCGFrG7g2Z/RsMSGq2vTNs2dflBAdPLHZ/F1duhiGlPQaPWh90/Re3TvbYL4QZLcalwhGCKeo7jhC51lyteys1gMOJSFYrJki3akTsG8jl1hkzP84YvyQdDRGI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754517467; c=relaxed/simple;
-	bh=Mku0ma3XOhHHiSCSp0cSn/dVJbJH8Nt0Zry4kw91qdY=;
+	s=arc-20240116; t=1754517520; c=relaxed/simple;
+	bh=DLX7EPgleajxZzC9axBSczWZ3Y/JHXfJSZW1Ewrk01I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xk6rvpzFdie2uRtNYO6QcVXu6qJOM2uepknotIfQtqaVWtunhWsqYodUpdJLzFQ8gKLeMDN+QTkUsOlvYAvMyMh1YhM+hqVO5TcqNw5mpfAITEAE0ngzVO9IgsfNvJiyAEdhqINDGz9BvKhYiNTmbBsdM6P9N1cVSxawnXZ5r7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwcCgKg8; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69E5C4CEF7;
-	Wed,  6 Aug 2025 21:57:42 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=EiAlOcxMPxeoKEQhZtrnp/+nZTptqrg0AqgspM297Qbh0oROGTHN0m0oszPDDt8T/+/CeDAjOAUXl4xt10KN9XJA0yVexRl4w7AZYkaKKP7BQSMpSS3O0jAn6WGH17x9HNpBvVF0wGiIcMGqUU8iCl8T8bx1lFr6hS1BUL4Ahh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tUVfuLGZ; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5515BC4CEEB;
+	Wed,  6 Aug 2025 21:58:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1754517466;
-	bh=Mku0ma3XOhHHiSCSp0cSn/dVJbJH8Nt0Zry4kw91qdY=;
+	s=k20201202; t=1754517519;
+	bh=DLX7EPgleajxZzC9axBSczWZ3Y/JHXfJSZW1Ewrk01I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GwcCgKg88UM74LMi7blgowQ/zE8SjX5yKuZQqcvVW1qO5k3Mz8ws5aiiAKCv2poB7
-	 NZH21JxogJUI2fuOKDoMhmqTb4/fs7aP1gS9Wr2u3FsP9Y1A5d55tEvaPiJR5aiu2e
-	 NqDfzzvf+fUjzNyv7NZYySPH90IaoH8Sj27otpXGxr2o6EJzEmkxIag1lL5cdnQ11M
-	 Q/Vq+BKJ+X6fQ+8FZoDFvpUG3HT35WU9eQQK1F8YBhB9NyIf7Pfg+fgD3cG4JzJ3l0
-	 goHcnJMS1AIGFqvPV5YOmxjHiwN1jWP9wWQfhBrum7Ti85nbNIdjfrUqjeGMvx6WCv
-	 HgyNESVSVHHoA==
-Date: Wed, 6 Aug 2025 23:57:38 +0200
+	b=tUVfuLGZdFwqayaHU3IKp2Ua6iFbhFt/UH3VlmRzwwpZ0+st+4haMHLUQ2FvBvuBZ
+	 JdupQGJcQa72fYuOVymuOj7E9jGJLqCnBd96FDxyd3EvMFLtThn5rzCjHa/LdxagHg
+	 b5ODjS6HqG0vVFOfMDtcGolw17OFHv2tU3EaR8qyZixWSPJQMy5ZfHUlhHyZt6WmJt
+	 ljp7gve9AgvQ44Rf4pCn8t1rh3zGnf3US8F9DFVBhQE6L+WQczyeRk8UiqTS2rJD3X
+	 U07ZHgh9g9g6vAEtpM1YmlVQgGki45NQjY6pL9RSQ4Qa914VIen18f0vG+rQf0s7yF
+	 7Ibke6X+bTKWQ==
+Date: Wed, 6 Aug 2025 23:58:32 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, brauner <brauner@kernel.org>, dhowells <dhowells@redhat.com>, 
-	jack <jack@suse.cz>, linux-man <linux-man@vger.kernel.org>, 
-	"mtk.manpages" <mtk.manpages@gmail.com>, viro <viro@zeniv.linux.org.uk>
-Subject: Re: How and when to control hyphenation (was: [PATCH 05/10]
- fsconfig.2: document 'new' mount api)
-Message-ID: <wdqayj3fchloe63ihmc2xfraa6fluwj62pnpa2z3b3pl2suaaj@av63luwddd6i>
-References: <20250806-new-mount-api-v1-5-8678f56c6ee0@cyphar.com>
- <20250806074619.59685-1-safinaskar@zohomail.com>
- <20250806075021.ndodyx44xsyzxcu6@illithid>
- <2025-08-06.1754469395-mega-bleep-potent-sharpie-prepaid-quiz-2a9Vy3@cyphar.com>
- <20250806091157.ldpnbcbtik4eudjh@illithid>
- <k34wjawrqcq2aqohsovkca2kad3ba3kmg57zwvrzw4wujq62dg@rittgebtd6ev>
- <1987fc9ace9.ad1bf95b21215.9089923989658816796@zohomail.com>
- <nrs5g7ftfyft5oxyywxpfvqfzp2pz7aevpp2j3s2rlohg2cedi@ahriex4sfjbk>
- <2025-08-06.1754495159-milky-sorcerer-initial-handbook-chief-sabers-600j6C@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 02/10] mount_setattr.2: move mount_attr struct to
+ mount_attr.2type
+Message-ID: <a6mfkenxducyucezlcsvddsnq6enhgrodbsqhgdwpxs3uhuqco@oyknen2yilq3>
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-2-8678f56c6ee0@cyphar.com>
+ <lt47z3kplkm7g2stof7vey4fnh2r3eqr4o5vkmjep5fppcrdzs@nx2r24g4mdsj>
+ <2025-08-06.1754495787-noble-trunk-meaty-crawlers-oval-sleds-U5vKos@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -67,188 +62,99 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pnhaq3e2ey6mghzs"
+	protocol="application/pgp-signature"; boundary="krhic5qbxgjbyvhh"
 Content-Disposition: inline
-In-Reply-To: <2025-08-06.1754495159-milky-sorcerer-initial-handbook-chief-sabers-600j6C@cyphar.com>
+In-Reply-To: <2025-08-06.1754495787-noble-trunk-meaty-crawlers-oval-sleds-U5vKos@cyphar.com>
 
 
---pnhaq3e2ey6mghzs
+--krhic5qbxgjbyvhh
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, brauner <brauner@kernel.org>, dhowells <dhowells@redhat.com>, 
-	jack <jack@suse.cz>, linux-man <linux-man@vger.kernel.org>, 
-	"mtk.manpages" <mtk.manpages@gmail.com>, viro <viro@zeniv.linux.org.uk>
-Subject: Re: How and when to control hyphenation (was: [PATCH 05/10]
- fsconfig.2: document 'new' mount api)
-References: <20250806-new-mount-api-v1-5-8678f56c6ee0@cyphar.com>
- <20250806074619.59685-1-safinaskar@zohomail.com>
- <20250806075021.ndodyx44xsyzxcu6@illithid>
- <2025-08-06.1754469395-mega-bleep-potent-sharpie-prepaid-quiz-2a9Vy3@cyphar.com>
- <20250806091157.ldpnbcbtik4eudjh@illithid>
- <k34wjawrqcq2aqohsovkca2kad3ba3kmg57zwvrzw4wujq62dg@rittgebtd6ev>
- <1987fc9ace9.ad1bf95b21215.9089923989658816796@zohomail.com>
- <nrs5g7ftfyft5oxyywxpfvqfzp2pz7aevpp2j3s2rlohg2cedi@ahriex4sfjbk>
- <2025-08-06.1754495159-milky-sorcerer-initial-handbook-chief-sabers-600j6C@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 02/10] mount_setattr.2: move mount_attr struct to
+ mount_attr.2type
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-2-8678f56c6ee0@cyphar.com>
+ <lt47z3kplkm7g2stof7vey4fnh2r3eqr4o5vkmjep5fppcrdzs@nx2r24g4mdsj>
+ <2025-08-06.1754495787-noble-trunk-meaty-crawlers-oval-sleds-U5vKos@cyphar.com>
 MIME-Version: 1.0
-In-Reply-To: <2025-08-06.1754495159-milky-sorcerer-initial-handbook-chief-sabers-600j6C@cyphar.com>
+In-Reply-To: <2025-08-06.1754495787-noble-trunk-meaty-crawlers-oval-sleds-U5vKos@cyphar.com>
 
 Hi Aleksa,
 
-On Thu, Aug 07, 2025 at 01:56:03AM +1000, Aleksa Sarai wrote:
-> On 2025-08-06, Alejandro Colomar <alx@kernel.org> wrote:
-> > I've also worked on a build system that will help you with diagnostics
-> > if you make mistakes.  Please run 'make -R help' to see what it has to
-> > offer.  'make -R lint-man' is the most obvious thing one should run to
-> > verify their manual-page patches.
+On Thu, Aug 07, 2025 at 01:58:47AM +1000, Aleksa Sarai wrote:
+> On 2025-08-05, Alejandro Colomar <alx@kernel.org> wrote:
+> > > +This field specifies which
+> > > +.B MOUNT_ATTR_*
+> >=20
+> > Please use
+> >=20
+> > 	.BI MOUNT_ATTR_ *
+> >=20
+> > The variable part should be in italics.
 >=20
-> Maybe it's just me, but I was confused by the output of "make -R help".
-> It wasn't clear to me the first few times I read it that the output is
-> telling me to run
+> I have changed this, but I took a quick look and it seems that
 >=20
->   $ make -R -p nothing \
->           | grep '^\.PHONY:' \
->           | tr ' ' '\n' \
->           | grep -v '^\.PHONY:' \
->           | sort;
+>   .B FOO_*
 >=20
-> in order to get a list of make targets (and is actually a generic way of
-> getting a list of make targets).
+> usage far outweighs
+>=20
+>   .BI FOO_ *
+>=20
+> usage in the repo (before these patches, the latter is only used in 5
+> man pages). I guess this is still being worked on?
 
-Yup; if you add a 'nothing' target to any Makefile, this should work
-(if they use .PHONY correctly).  (I just tried it with the Linux
-Makefile just to see, and it did a good job.  The names of the targets
-are a bit weird, and I don't know what most of them are for, but at
-least we can list them.)
-
-I developed that script when I got tired of updating the hard-coded
-help, as it always got out of sync with the real Makefile.  :)
-
-> Would it be possible for "make -R help"
-> to have a pre-defined list of the most common commands to run, like the
-> kernel makefile does?
-
-Yep, I could list and explain these:
-
-	all
-	build
-	build-all
-	check
-	clean
-	dist
-	distcheck
-	help
-	install
-	install-all
-	lint
-	nothing
-	uninstall
-
-And tell the user to run the command for the complete list.
-Sounds reasonable to me.
-
-How about this?
-
-	diff --git i/GNUmakefile w/GNUmakefile
-	index 9530a66f5..e1cc44bbb 100644
-	--- i/GNUmakefile
-	+++ w/GNUmakefile
-	@@ -46,7 +46,22 @@ nothing:;
-	=20
-	 .PHONY: help
-	 help:
-	-       $(info  $(INFO_)To see a list of targets, run:)
-	+       $(info  $(INFO_)Common targets:)
-	+       $(info  $(INFO_)        all             Synonym of 'build')
-	+       $(info  $(INFO_)        build           Build the usual stuff)
-	+       $(info  $(INFO_)        build-all       Build everything)
-	+       $(info  $(INFO_)        check           Check the results of the b=
-uild)
-	+       $(info  $(INFO_)        clean           Remove all temporary files)
-	+       $(info  $(INFO_)        dist            Produce the release tarbal=
-l)
-	+       $(info  $(INFO_)        distcheck       Check the release tarball)
-	+       $(info  $(INFO_)        help            Print this help)
-	+       $(info  $(INFO_)        install         Install the usual stuff)
-	+       $(info  $(INFO_)        install-all     Install everything)
-	+       $(info  $(INFO_)        lint            Lint the source code)
-	+       $(info  $(INFO_)        nothing         Do nothing; useful for deb=
-ugging)
-	+       $(info  $(INFO_)        uninstall       Uninstall everything (migh=
-t leave traces))
-	+       $(info  )
-	+       $(info  $(INFO_)To see the full list of targets, run:)
-		$(info  $(INFO_)        $$ make -R -p nothing \)
-		$(info  $(INFO_)        | grep '^\.PHONY:' \)
-		$(info  $(INFO_)        | tr ' ' '\n' \)
-
-Here's the output:
-
-	$ make -R help
-	Common targets:
-		all		Synonym of 'build'
-		build		Build the usual stuff
-		build-all	Build everything
-		check		Check the results of the build
-		clean		Remove all temporary files
-		dist		Produce the release tarball
-		distcheck	Check the release tarball
-		help		Print this help
-		install		Install the usual stuff
-		install-all	Install everything
-		lint		Lint the source code
-		nothing		Do nothing; useful for debugging
-		uninstall	Uninstall everything (might leave traces)
-
-	To see the full list of targets, run:
-		$ make -R -p nothing \
-		| grep '^\.PHONY:' \
-		| tr ' ' '\n' \
-		| grep -v '^\.PHONY:' \
-		| sort;
-
-	To see a list of variables, run:
-		$ find GNUmakefile share/mk/configure -type f \
-		| sort \
-		| xargs grep '^[^[:space:]].*=3D' \
-		| sed 's/=3D.*/=3D/' \
-		| grep -v -e ':DEFAULT_.*=3D' -e ':MAKEFILE_.*INCLUDED :=3D';
-
-	To see a list of dependencies (package/program), run:
-		$ find share/mk/configure/build-depends -type f \
-		| sed 's,share/mk/configure/build-depends/,,' \
-		| sed 's,\.mk,,' \
-		| sort;
+Yup, I'm working on that.  :)
 
 
-Have a lovely night!
+Cheers,
 Alex
+
+>=20
+> > > +attribute flags to set.
+> > > +.TP
+> > > +.I attr_clr
+> > > +This fields specifies which
+> > > +.B MOUNT_ATTR_*
+> >=20
+> > Same here.
+>=20
+> --=20
+> Aleksa Sarai
+> Senior Software Engineer (Containers)
+> SUSE Linux GmbH
+> https://www.cyphar.com/
+
+
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---pnhaq3e2ey6mghzs
+--krhic5qbxgjbyvhh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiTz8oACgkQ64mZXMKQ
-wqmm6BAAq+hbMZUSmhk7PNeYAO/ZqDnKVutLP2ao/eNKGMJfWeU5yAQcagsF5qq/
-0oe54RO1k8MjUTwxf/o9rBvMRsyG3T2wow8T3M1jXRUqUz7SlSeWhZJWIo444oKm
-wwSkk8eL0xiKWk4N6B/DgrMtQHl19FncQ2A4ryUI5a6VK4AsNET/XkMKQFEd6kkM
-+AMYPTY5xpvLaxZy1Hsqb0LaFwSKsFyTFV8WYVl/5mBkFMfZzRZqiMOApv/biOKj
-lIGpMnaQ07/EptS9AGzbO+G2ikUdwZtuJAAb6uvLqW4kjZtpdJIBl2Se4pcHVbnw
-vkqi7NcjUtkxJ7M2MJZX9g5Dm2JISfA2B/twVmlhe446Y8PiwyBSS6j7lRzJhmpr
-UcMhVpYB7jOaWFBi1H09MbiK+PcaYfJmeqCTHdCwBgS85YOWvci+TAQrZHEXJe+0
-rfcK1iPLvsFw3COvxnOhXn70y50iNUdgAXFw7gO3XNNsOUuejl/NpQ/lb2uLaJRA
-+x9E8oWKSgp9+e8dZZpE1k9Gvy7zotpEvgV/jACpmXyjy/+BeHjDqu60X1xckKYK
-Zq6aY1Sj/y5AvpmFayGLiK5EwzILdrhSI461JzFDfhehYKW1RFAUUsdaF+IUEWK1
-mM+WHxC0LbRt6a/yzN9+XzPlDinfhh8C/yd3UC/c+Ljn5dWlbRk=
-=NpPp
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiT0AcACgkQ64mZXMKQ
+wqnt9g/9Gfp1KLOwKTD13LDHaHVdejj8ensV96EjDVICOfpZ1C3Pz3fd805cl3q6
++MFPXzdx5HidPTTylqeGAbAs2DYkKC8DwrHiwpcElQjy4nqiddYEgdEpekDJ/1gN
+QOpsR5k9AwCQNI1Gmet1RYkuLCZWtmQmKSOp5XCc/twwdAv6N1P1DT9tUqUAy7hI
+htvUjp+WAPHQDe6cWg5Cs1k9Igzwi25HUJ6pPKedguQ9BQPNsMgJjZWtoqpNQnrY
+yNksOo2sRw4PMxJHRNZJ06TVAvUVHpYJNWo6QIdpDItBP7Df7aWdRzIrBzraew48
+cGJ+ip8zfmOE/tgHrBdG34YgaNsBq+6UTrWyKYo5e5tWdn5eZ74G1B9/ldQedcl+
+VMDsNOsvQ4p23iav6thjR+ni+Mvgq7myV/8tPkZWCOKyaZGzjJj9vZUgseInBszi
+SiBQE7hFq09Mp/yLj16SQbjyZ4Pxz38sbJz82+eVJmswKyE33Dss+h/CtrO3QR+9
+lVa5jE77JB+uOYy9oqXWi7txk00mxXoCRvD9KkLfhpONw+DH0vDc3SlXGJUg6FeG
+sCyGW8tKyXg5iBcttCIOG7lsAlhydRt8QvnB9cplS2cIPsmNxw5EEyYceD0rISt4
+63MoLDaXHKWjVSUZv5g+Dc7w622lzOP25vnfe7QNZkCHc0d/xbE=
+=pAbR
 -----END PGP SIGNATURE-----
 
---pnhaq3e2ey6mghzs--
+--krhic5qbxgjbyvhh--
 
