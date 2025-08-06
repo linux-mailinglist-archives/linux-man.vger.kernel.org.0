@@ -1,74 +1,66 @@
-Return-Path: <linux-man+bounces-3361-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3362-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357A0B1C961
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 17:56:26 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CEEBB1C971
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 17:59:10 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 0E35F189A235
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 15:56:45 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id BE17E3A6CFE
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 15:59:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77E6F28D85D;
-	Wed,  6 Aug 2025 15:56:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47AA4292B3F;
+	Wed,  6 Aug 2025 15:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="Is1dhqOW"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="jT2IA0Bh"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CDC3AC1C
-	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 15:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D42292B35
+	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 15:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754495781; cv=none; b=mFB5vuIhIFmjzhvWssby27L63VnY8q+4nZbVXQgozREYHZLmm5VXaT8dUSQ8UxOqrXVgmJZIewxbUrHFZV6G3xw4K5cLC2y/edfhIsSS9jY+7w4isH1ZjlEri5YC+jFiugrn7FJvLn6S3GLkytYIoSvYekvWLOE8Gv5H1/iH/vk=
+	t=1754495941; cv=none; b=GJpCz3L3UXht4fRvk5k3wd5GFb961ub8WLDeQvYgdpyKxXX57Xx5s+BRAkTOe9GsMWZ9OMWlI2iinoVx7QhOafeSMhFmOBm7Xd8Ij3kV4P2lavrtHjJmMR0Aq3KpUuMD0Zqg8pUjyhQSvDqGtJwi36OwAk1dTI4IYpWc1iPiWfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754495781; c=relaxed/simple;
-	bh=ozHmFLF1+XbRJGr2c6Aoou2w93JCGjsmg6sZzPpKkb4=;
+	s=arc-20240116; t=1754495941; c=relaxed/simple;
+	bh=pnQyahKcRcTVAT29MinvyyLd6T9cX/VaRHKHUp3FYkE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xr8ljAYtpJM/0uCoy1QjVQs16lVf8Fs1OwVlL3aJgv8s3dYBzu5+vc5G7MOY0Im+F6o0RcUcyNPIQtWNhNy3TVEwwONN5IPB9mddMr6NQYgxGI1JW+TplzPF/7fXjVUAVWQ8gE2YU1Hfygbtds8IdtQQxXjNgQ36cDr4QOHbwVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=Is1dhqOW; arc=none smtp.client-ip=80.241.56.152
+	 Content-Type:Content-Disposition:In-Reply-To; b=pN1s3PoOs59EpJDZlmB8KnbFmqqTqZ8s4rwx3jQGX6ca3Jh3CeYJxxZ3jbXZ8XOd8YfXl5KAHYpESbtTd9L4IM9l1LPbdGve9PVCQxlrLHDGWlvp0NIkoMmieQR7N5wKLebrQQAfZlZNlGmA37pH6+6GcuJwrEJdNFFZnjSiZaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=jT2IA0Bh; arc=none smtp.client-ip=80.241.56.152
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bxvzM2cdYz9tcl;
-	Wed,  6 Aug 2025 17:56:15 +0200 (CEST)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4bxw2R4WFRz9tnW;
+	Wed,  6 Aug 2025 17:58:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754495775;
+	t=1754495935;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wI/ftpZ0ppqxIBwyEhC638zucgqYJKu4XPbrwfMNgNU=;
-	b=Is1dhqOWgk/yqfLYSqrYFiWlU2imHkL3/LXOgPjlwdkl/bqBIYuGlwn9bnFiLNQoysWshf
-	veTIJJbundNdhMh42dFYPUU9cEVAEa5LsBR83gRsq7U1P9PCyY52EYj5NzwF3ShDbosv0h
-	eXov88Aij2NTyTIzL61qXarKo74waQANxGG3PJr5AELkNpKgDXQeOV/FKK2wGXPtRAb8VH
-	hV+T9fbOANr/smoD2uNFOlSESoplraqi0sMfOeuAJKqpQUABpw56k/YGmbt8j8rYe2xJpz
-	lNRjm3F6Rky24xWERUZp+zaMKIjK+FdPyKJhRuUjci8GxKHcabh2Rc2/PpAUMw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
-Date: Thu, 7 Aug 2025 01:56:03 +1000
+	bh=WUGXjy8W2Gbll5ZKFmIFK9Hp1UA3nx+IPXUwdQqrmmg=;
+	b=jT2IA0BhpdHlje9WdeQWLIz2Jyw7sZabbLrF3fwYCifMGwasMaAkeMXCiOC+3mW9yAD3Uw
+	Nxgxxv85hKAQR/k9AtfdISe9v8tMOmfTUD/L/KiGiIuZQilc5N7b3mU6QMAwjhlNfViIZ2
+	cNK2ygRG+pfq5F8LZLpEu6O3RTsg9eAXQrYMuf1h/j4ooDzGcyKLPUAMPxNyJmqChDi6uS
+	4fK185cSnjaBD5pOV9cVpOIJJNzARs+kq6AaYepx47mCrXi0uy8uzE3OOXipw0aDR2uA2b
+	oo/iue/D1R7dm/OU64uXyb8BKudLAj91TCOAwEn2iO2fnis7Gl36KjctHrMwig==
+Date: Thu, 7 Aug 2025 01:58:47 +1000
 From: Aleksa Sarai <cyphar@cyphar.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, brauner <brauner@kernel.org>, dhowells <dhowells@redhat.com>, 
-	jack <jack@suse.cz>, linux-man <linux-man@vger.kernel.org>, 
-	"mtk.manpages" <mtk.manpages@gmail.com>, viro <viro@zeniv.linux.org.uk>
-Subject: Re: How and when to control hyphenation (was: [PATCH 05/10]
- fsconfig.2: document 'new' mount api)
-Message-ID: <2025-08-06.1754495159-milky-sorcerer-initial-handbook-chief-sabers-600j6C@cyphar.com>
-References: <20250806-new-mount-api-v1-5-8678f56c6ee0@cyphar.com>
- <20250806074619.59685-1-safinaskar@zohomail.com>
- <20250806075021.ndodyx44xsyzxcu6@illithid>
- <2025-08-06.1754469395-mega-bleep-potent-sharpie-prepaid-quiz-2a9Vy3@cyphar.com>
- <20250806091157.ldpnbcbtik4eudjh@illithid>
- <k34wjawrqcq2aqohsovkca2kad3ba3kmg57zwvrzw4wujq62dg@rittgebtd6ev>
- <1987fc9ace9.ad1bf95b21215.9089923989658816796@zohomail.com>
- <nrs5g7ftfyft5oxyywxpfvqfzp2pz7aevpp2j3s2rlohg2cedi@ahriex4sfjbk>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 02/10] mount_setattr.2: move mount_attr struct to
+ mount_attr.2type
+Message-ID: <2025-08-06.1754495787-noble-trunk-meaty-crawlers-oval-sleds-U5vKos@cyphar.com>
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-2-8678f56c6ee0@cyphar.com>
+ <lt47z3kplkm7g2stof7vey4fnh2r3eqr4o5vkmjep5fppcrdzs@nx2r24g4mdsj>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -76,40 +68,47 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aoyomrpitjqwsgqs"
+	protocol="application/pgp-signature"; boundary="axm7oyfdx7olvzoc"
 Content-Disposition: inline
-In-Reply-To: <nrs5g7ftfyft5oxyywxpfvqfzp2pz7aevpp2j3s2rlohg2cedi@ahriex4sfjbk>
-X-Rspamd-Queue-Id: 4bxvzM2cdYz9tcl
+In-Reply-To: <lt47z3kplkm7g2stof7vey4fnh2r3eqr4o5vkmjep5fppcrdzs@nx2r24g4mdsj>
 
 
---aoyomrpitjqwsgqs
+--axm7oyfdx7olvzoc
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: How and when to control hyphenation (was: [PATCH 05/10]
- fsconfig.2: document 'new' mount api)
+Subject: Re: [PATCH 02/10] mount_setattr.2: move mount_attr struct to
+ mount_attr.2type
 MIME-Version: 1.0
 
-On 2025-08-06, Alejandro Colomar <alx@kernel.org> wrote:
-> I've also worked on a build system that will help you with diagnostics
-> if you make mistakes.  Please run 'make -R help' to see what it has to
-> offer.  'make -R lint-man' is the most obvious thing one should run to
-> verify their manual-page patches.
+On 2025-08-05, Alejandro Colomar <alx@kernel.org> wrote:
+> > +This field specifies which
+> > +.B MOUNT_ATTR_*
+>=20
+> Please use
+>=20
+> 	.BI MOUNT_ATTR_ *
+>=20
+> The variable part should be in italics.
 
-Maybe it's just me, but I was confused by the output of "make -R help".
-It wasn't clear to me the first few times I read it that the output is
-telling me to run
+I have changed this, but I took a quick look and it seems that
 
-  $ make -R -p nothing \
-          | grep '^\.PHONY:' \
-          | tr ' ' '\n' \
-          | grep -v '^\.PHONY:' \
-          | sort;
+  .B FOO_*
 
-in order to get a list of make targets (and is actually a generic way of
-getting a list of make targets). Would it be possible for "make -R help"
-to have a pre-defined list of the most common commands to run, like the
-kernel makefile does?
+usage far outweighs
+
+  .BI FOO_ *
+
+usage in the repo (before these patches, the latter is only used in 5
+man pages). I guess this is still being worked on?
+
+> > +attribute flags to set.
+> > +.TP
+> > +.I attr_clr
+> > +This fields specifies which
+> > +.B MOUNT_ATTR_*
+>=20
+> Same here.
 
 --=20
 Aleksa Sarai
@@ -117,16 +116,16 @@ Senior Software Engineer (Containers)
 SUSE Linux GmbH
 https://www.cyphar.com/
 
---aoyomrpitjqwsgqs
+--axm7oyfdx7olvzoc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaJN7EgAKCRAol/rSt+lE
-b6zKAQDLUAzGvWXg3DqSxPBs2M6qfeVhrtAjkIRFAgxMNYISeQD8D4hytzZLzCrP
-QQjxtnfiEv5Rn0tDFkRVbbkzCgpZTwk=
-=jc8U
+iHUEABYKAB0WIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaJN7twAKCRAol/rSt+lE
+b8vnAP9USyIv4zXUXEHeZVZLmmALZzoYUpRL2fXRuwC9qfOlugEApNYCuzl0s4Em
+P6Vmmq5hFMCrsgHBhhr3ulfjxnKaXQ8=
+=cv5s
 -----END PGP SIGNATURE-----
 
---aoyomrpitjqwsgqs--
+--axm7oyfdx7olvzoc--
 
