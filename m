@@ -1,105 +1,148 @@
-Return-Path: <linux-man+bounces-3341-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3342-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9FCB1C18A
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 09:46:58 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A573AB1C18D
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 09:48:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id A4DF77A9C3A
-	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 07:45:26 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DA899185E3C
+	for <lists+linux-man@lfdr.de>; Wed,  6 Aug 2025 07:48:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 328971C8631;
-	Wed,  6 Aug 2025 07:46:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0C661FF7B4;
+	Wed,  6 Aug 2025 07:48:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="eIMNsS3H"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFZBhtj4"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620FF3595C
-	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 07:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754466410; cv=pass; b=Pxcn532e7QXo2ouyYYtWqeo20jtmfQidS5mS2oVNARHKc91+e7bAT/XuHRTBHwWI8vDpjNqgonHPp/cMcTlfjnwfZVBe1Rer37eCvzbzAfOKKy9Ptacewq8zEwcIu9L2JXp8du7+mr+o0ob/aG2GgSrNO/+GDm7lRBC7ZdkKLZ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754466410; c=relaxed/simple;
-	bh=PCAA+81oUdQQYCBrbpoeBOsdjnepyaDvYkC02d11QAc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hGAZoU1J9PY34g6rgillKNaPDQjYVhmW++gzh26r9w0+qvfmgWaU+aoobQbGBqc4AvjRY+kVDibbJEHWCESBdqCbQ4LbZVFwLQHXcsNGqFA8Ugh/u+PzP6ObvMOnC/vMES5N38KQsvJZyFSjAENabaza6Igiv6Rn9sFukdY64k4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=eIMNsS3H; arc=pass smtp.client-ip=136.143.188.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1754466388; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bTCaswmMda8u7UG33wAX0zH5xY9a5mF7+m5+6OgXfvq0H1PV/kur0rxk5tQwDGSMnoEtjVoZVvOcFJdvE4LeZtkrmDHfwapcXD2fBuwZfcTn1YyI2YF6H2MwZ0g1RBu9cz9hUm5XUrQAMmyI7DYyVDRBvrDU6/BnOSCiEnZLe+w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1754466388; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YHm61e4nFTfe2GC8F7V97qfQTpZeTL3iG8ln/3AXbAw=; 
-	b=B/O09Eqa/Bed+QcTOEB8ZTSRZeS7qjEL+6xSCj+7vYXHLCQZM8qWoW/kxLeru1095HDwwhVEdPbl6O4cYemIyUrnI19RGbfpLJSIE/ArSc7EURtfv60zCy95X/gxvYl3m0p892XSA5EpEQutRF4gP9QSl5/ma7VaE0CfqvzpuXg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
-	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1754466388;
-	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=YHm61e4nFTfe2GC8F7V97qfQTpZeTL3iG8ln/3AXbAw=;
-	b=eIMNsS3H7E+aJZhPaVNpjouWRr7GfD5NqkqyeD+YB6ziqIrdutbBBHY4Fm61a43Y
-	Kh0fq+3NHPyMTEEqlzgBU5Wl6Ub2td5JDnfD9VEVeTOTd4Q4vDeqOdQGj01od6L1hGx
-	qbAR7ggUtbJ1ZBkm6G3VJt0tPy3wBAoTFYhlhX3Y=
-Received: by mx.zohomail.com with SMTPS id 175446638489474.94223613614383;
-	Wed, 6 Aug 2025 00:46:24 -0700 (PDT)
-From: Askar Safin <safinaskar@zohomail.com>
-To: cyphar@cyphar.com
-Cc: alx@kernel.org,
-	brauner@kernel.org,
-	dhowells@redhat.com,
-	jack@suse.cz,
-	linux-man@vger.kernel.org,
-	mtk.manpages@gmail.com,
-	viro@zeniv.linux.org.uk
-Subject: Re: [PATCH 05/10] fsconfig.2: document 'new' mount api
-Date: Wed,  6 Aug 2025 10:45:03 +0300
-Message-ID: <20250806074619.59685-1-safinaskar@zohomail.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250806-new-mount-api-v1-5-8678f56c6ee0@cyphar.com>
-References: <20250806-new-mount-api-v1-5-8678f56c6ee0@cyphar.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE9E189
+	for <linux-man@vger.kernel.org>; Wed,  6 Aug 2025 07:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1754466524; cv=none; b=PoI5ix+Sil5+SIKiOyYVC9OR+v4NebW8d5jrLvUdu3g+cO4R3Q/+WQGQR7ai4LBC8PVSrg4N852noX6GLem6WSTDO6l001McKEqE4COycm6p09T1NErRPh4U3THUjI5QsicvefU0b4/ft6Vv/kM+Vc5nZ56Q4P2StpzDsleZIKo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1754466524; c=relaxed/simple;
+	bh=A5IzvXze7rlRndjVqCrxBGxD3SWpCziQjf/TFpa7cX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EUGsjphE78i8biFMqgbCVmNeF5AemPO2r41+vasVz3gsnkXjjyKC+6/t8HPHHEHPuWIzm3BIZZYoAHX8O31OlPMTeq3+cjeig7k2Qs+CQApqHPnEPkNKhDv+PQ3OsO39BMP+61VFoAGyihOp6TKTP7ac6hQBTwtLHqy/Ww9j6ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFZBhtj4; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC11BC4CEE7;
+	Wed,  6 Aug 2025 07:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1754466521;
+	bh=A5IzvXze7rlRndjVqCrxBGxD3SWpCziQjf/TFpa7cX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hFZBhtj4mHSgMCfgt457ktQPpGbxjhWyPQ1SJwj5JhtxURaL6MBhxxdnuDQU2xa4i
+	 JQRMcyuPv5oJQVwPhKLzgpvMBydAt1HE6gQmXLQPOFBaaK9zKq4Yz/whRTDAA4pScQ
+	 JJ9NtSqqDpJDuYJQ+Ic2Sg2NYjQfPrKLmIPxywyw+z4KAwGvUcfoKUzFD0RmS986/B
+	 XiQ2fp94RNY4hbP9YQ2WpuqOfBrN6WSjBURKB6UlYbEU0S18TR48uWKmLN5gxmjIe/
+	 Y3by0qcTrC6vkBu/b12ZUs0OXitIl3rhxJnhW0kYuMmke0jZrreFfe3bfq8getoHpy
+	 u7t2fDBZk5jOQ==
+Date: Wed, 6 Aug 2025 09:48:35 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 04/10] fspick.2: document 'new' mount api
+Message-ID: <4casrnafrwi2ar56reyno3h6jq7ci7pvcna72it4x7acrrqtuy@tggjg4z22sr4>
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-4-8678f56c6ee0@cyphar.com>
+ <3c5w3tlfg6qrwxospp674ctytxgpeg5mnt2pil7twpfqsiu6n3@omnvbjjyyzxd>
+ <2025-08-06.1754447905-bouncing-virtue-musky-captains-married-souls-wZ7bdy@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Feedback-ID: rr08011227016edf6e511616bb63fa218e00007e895704185ff29b9278e49c3f036b78ae758e27457a8efb17:zu080112271e97750aa0860e19783e9d400000dc878aef42a179012c8e2b1c7f264d2b9c6ea69a4d5811eb35:rf0801122cf7ec0ff3cbade935716c53db000013044f2c1b58c0efc8e04cb91acdf96650d2fd4dccbe46c9fc92715b69df:ZohoMail
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rfifa6fzhaz24evf"
+Content-Disposition: inline
+In-Reply-To: <2025-08-06.1754447905-bouncing-virtue-musky-captains-married-souls-wZ7bdy@cyphar.com>
 
-> and so a parameter that accepts FSCONFIG_SET_FD may not work with FSCONFIG_SET_PATH (or vice-versa).
 
-You probably meant FSCONFIG_SET_PATH_EMPTY here.
+--rfifa6fzhaz24evf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	linux-man@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, David Howells <dhowells@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH 04/10] fspick.2: document 'new' mount api
+References: <20250806-new-mount-api-v1-0-8678f56c6ee0@cyphar.com>
+ <20250806-new-mount-api-v1-4-8678f56c6ee0@cyphar.com>
+ <3c5w3tlfg6qrwxospp674ctytxgpeg5mnt2pil7twpfqsiu6n3@omnvbjjyyzxd>
+ <2025-08-06.1754447905-bouncing-virtue-musky-captains-married-souls-wZ7bdy@cyphar.com>
+MIME-Version: 1.0
+In-Reply-To: <2025-08-06.1754447905-bouncing-virtue-musky-captains-married-souls-wZ7bdy@cyphar.com>
 
-Also, when I render this manpage using "man", I see this:
+Hi Aleksa,
 
-> that the  underlying  file  for  the  file  descriptor  aux  should  be  used  as  the  parameter  value  directly;  FSCON‐
-> FIG_SET_PATH_EMPTY  indicates  that  the  underlying file for the file descriptor aux should be re-opened by the filesystem
+On Wed, Aug 06, 2025 at 12:46:46PM +1000, Aleksa Sarai wrote:
+> > > +.TP
+> > > +.B EFAULT
+> > > +.I pathname
+> > > +is NULL or a pointer to a location outside the calling process's acc=
+essible
+> > > +address space.
+> >=20
+> > In a lot of places, please use semantic newlines.  See man-pages(7).
+>=20
+> In this particular case, where would you want a newline inserted? I
+> do somewhat understand wanting a newline after commas, but I don't see
+> which clause you would want to be split. Something like this?
+>=20
+> .B EFAULT
+> .I pathname
+> is NULL
+> or a pointer
+> to a location outside the calling process's accessible address space?
 
-As you can see, "man" breaks word "FSCONFIG_SET_PATH_EMPTY": "FSCON" appears on one line and "FIG_SET_PATH_EMPTY" on another line.
-Can you somehow prevent this? I. e. to prevent breaking of API names. This is very annoying.
+I would have done
 
-> And here is an example of how fspick(2) can be used with fsconfig() to reconfigure the parameters of an existing mount
+	.TP
+	.B EFAULT
+	.I pathname
+	is NULL
+	or a pointer to a location
+	outside the calling process's accessible address space.
 
-As well as I understand, you meant filesystem (i. e. superblock) here, not mount. Please, re-read all your manpages and double-check
-that you use terms "mount" and "filesystem/superblock" correctly everywhere. As well as I understand, clear separation
-between superblocks and mounts was one of original motivations for creating "new" mount API. So, this is very important.
+Your version isn't bad either.
 
-So, it makes sense to write definitions of "filesystem/superblock" and "mount" somewhere (for example, to the top of manpage for
-"fsopen") and then to use these terms consistently.
 
-Also, thank you, thank you and again big thank you for this big work! We waited for these manpages for many years!
+Have a lovely day!
+Alex
 
---
-Askar Safin
+--=20
+<https://www.alejandro-colomar.es/>
+
+--rfifa6fzhaz24evf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiTCNMACgkQ64mZXMKQ
+wqlNCg//VlHrJa4tvTXgMkD6e5HxlwbaqHdBOJhRUsgkQG9tm2gtSQLyW+A8rBLw
+lP1ulc3El0t5Z+SCKx+1RNmgS5ENPp3CJo4Tg4NT81FkMNdT55Lks5aUhDbjNAQa
+d0+r+yD1zcNndXflAiVCICxbMsoElZTKtHVU3zf1IIwscJX1LLZ4QcaOWuI3LqV3
+jJFUY37QRMW/wqda2aig9QmorYfNVZg/7HTlkc5qLAIrAIIoIFlJ3/9Ibyc2bXRy
+9rnzBX7cAJdyzWmqBtn/LsB48t5bzSYwP9actAIlxJD5jc9kgx6JsI3i2CgGGL8k
+TwWOJc+pasI70i60F+wF649pWUxoI92PC68UQe6F8jzuhRYyP74IXisZ/YFwPz5w
+hZx/HBDEijWX6qd9R/Nrpm8a85UivPZQE7IT8gBtSy1NWZXwVtodW2Na2OGnNNq4
+DyybnrCvo8eP2FVkixTltys4ahM+ERFabKiZoG6rZhGqA2KWLv6K4ymRzL0YspnA
+0iAZoS7SjKJDi1tZJR3h2dUTT2dITh0WINsXaVuKq3HVNICS35aYigZIvgNNw3ym
+yUsAu9NkbHuCJdeJlCKnqawexGsCOehFnmkkiSY0lsT9CtdB5Phss3Bf6vC3Mjqb
++YlUbmgHB4OESA9tSfnXr/uDYVD9J2CpF3O9n4JEgZHknpx+Xcc=
+=ARAs
+-----END PGP SIGNATURE-----
+
+--rfifa6fzhaz24evf--
 
