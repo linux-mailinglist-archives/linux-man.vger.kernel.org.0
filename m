@@ -1,169 +1,84 @@
-Return-Path: <linux-man+bounces-3415-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3416-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57222B1EFCF
-	for <lists+linux-man@lfdr.de>; Fri,  8 Aug 2025 22:44:03 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id E83A2B1F33B
+	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 10:20:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 528F47AE12F
-	for <lists+linux-man@lfdr.de>; Fri,  8 Aug 2025 20:42:23 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 196B35614C0
+	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 08:20:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B46628A1F8;
-	Fri,  8 Aug 2025 20:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7508414F125;
+	Sat,  9 Aug 2025 08:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="nfmdhOZO"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="BkvjNQw0"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9826289E3C;
-	Fri,  8 Aug 2025 20:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754685685; cv=none; b=o8Y6sNlQhDakdCu/L96E+wab7RgmVyOx/IRNkNebZSO1K98SOMBGpG2xzzX8iSutFlUccs2Q9aasFbPduXUr1OThIPQLOWIkQN1XAgyHdxw9d9Wt/AaP0bjr4L6hFcvNm3VxiJcWQzUsDVmNEH/1RxFoSPBDyucoxMt4R9jrbdM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754685685; c=relaxed/simple;
-	bh=kYsKPddX805RzOw4SP5aC06jULGnc9Yib7S66nFHI4k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Qj5GID6pGIikJLOVg62Urub12QEW1M9JKu6k55MTOnhPZ/Ic7riZDN61A+VsezsaS/fzpQr0Slisp/3XYC6KMGqX99a/m6DW0vyyVTzSZ8vW/xl0AaXw/1e4xJLgWk1dkSBjL5VaUoU+ftsyqyKOQ//OezD/NSVEDJk29ZmRuZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=nfmdhOZO; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bzGCM1f4lz9sc4;
-	Fri,  8 Aug 2025 22:41:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754685679;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bGPumx2Rqm3p1S+Eay5H6awP7U7X//hs66pgfwkfArc=;
-	b=nfmdhOZONZIqDdp2LMPb/i11Lmd7BC5zLRjXgy7cdKTk+PfUT+nNdMnwA0DYGSsoUtg4Ng
-	EJWmJp7VLE4GetNpIwiS68Xf5E3x8BQAS5/UjpCGsMws+quTJe2nBuIimRRhjqk0fLynYA
-	/Uir3/CIU207a2mMOKpVgNZYAoQoEgf6iS6VrEAfajgaD5iGZjVmmXTSvrbjvxpv/bZtrN
-	UpLRU/6LWMhxpMAObWDBxUS2ottC22sh5k7BCLpV9zeHQeiNdysLjBcZBPFNbj1iE8eD29
-	YEvna1o6ttRk47daFZpxxj7NuWc6lUahSsg7oi1feEodBxAyh+eCDWF8+qhbZA==
-From: Aleksa Sarai <cyphar@cyphar.com>
-Date: Sat, 09 Aug 2025 06:39:56 +1000
-Subject: [PATCH v3 12/12] man/man2/{fsconfig,mount_setattr}.2: add note
- about attribute-parameter distinction
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0F2376F1
+	for <linux-man@vger.kernel.org>; Sat,  9 Aug 2025 08:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1754727615; cv=pass; b=SM9MVOfyIclxl7dWWP//iml+LcnD7DGFFZlCenn4h330xG0fOMQUeNmiJLTEOOFz4BMig/MnXZYeG8JWJdaU0DTybh8OrT5FDxzHiMBUBV7U524rSzoN9JDEX5jAJytnAIsjBe5v9/138EG3mQ5okGPs/DNKj4+fW2N7nOA/xdQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1754727615; c=relaxed/simple;
+	bh=ezxuaZgEIfw0pB9QEl3UcjdbsabSRkqy3ehLnhJeLN4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dqrfruo4smYSKdg0jwthQTYMat91wtBdji1EpaUNuEUpDwo6rmBE98cOinOnWMFFAiBzRyeZ59BPoFDh4pywpYoTDP8NK1Ghs37dYV8rgSWcSgbnmGhARippw2dPk0zryVq6MZ+ke/nyWbCFWOcWnUJA+lHLI5ElQPWEI06/VIQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=BkvjNQw0; arc=pass smtp.client-ip=136.143.188.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1754727600; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=OnzCkXnwOXnaJL2URWgs9vekZENjJIAIZaKLbryg5F9M7tI3jq2+UZbxSs/sD5h5HY8WTvaF1l0QhX9Dx+/Mx8B3SDSnNjRgOtEZNtYUCfdXybNVj3RJljMGGBKZyp9jWLdRS7/tD6exkSp6Gdut6g6oUa0Xl3Bj6UgeJ3prwrM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1754727600; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ezxuaZgEIfw0pB9QEl3UcjdbsabSRkqy3ehLnhJeLN4=; 
+	b=LozMbIIcaYk/1YkEB0RNuQ1lVj+9fQLp5dNjQGHpAcK7CBpwe4qIE+8jcaw5VkgtfMveNxL4O5HKse/1igigM6+I8p2ifnG6cTq+JQ3+EWmTeksvLd34YRTpjzdjC6a8Qdjr5EuwlPSOpi3niHyrsQF8STxNGKgoCld4lRTOuEs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1754727600;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=ezxuaZgEIfw0pB9QEl3UcjdbsabSRkqy3ehLnhJeLN4=;
+	b=BkvjNQw0syCOoybaO8AVzN0jDaLVldPswzl1HY+49yaCuRG9rb4z7m8MMznghuZH
+	vMZqwYqX9rsSCvfeBI58l7C4SK1EbqetlnrBgtnMkVh7fe6OapkWfnd4un5Td8asYio
+	M0mKt5DGnjIcOIAzpEJEyE/FsfJTlcz0kt98doo4=
+Received: by mx.zohomail.com with SMTPS id 175472759814552.31890322347033;
+	Sat, 9 Aug 2025 01:19:58 -0700 (PDT)
+From: Askar Safin <safinaskar@zohomail.com>
+To: alx@kernel.org
+Cc: carlos@redhat.com,
+	enh@google.com,
+	evgsyr@gmail.com,
+	linux-man@vger.kernel.org,
+	wharms@bfs.de
+Subject: Re: AW: drop ia64 from man pages?
+Date: Sat,  9 Aug 2025 11:19:53 +0300
+Message-ID: <20250809081953.972960-1-safinaskar@zohomail.com>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
+References: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250809-new-mount-api-v3-12-f61405c80f34@cyphar.com>
-References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
-In-Reply-To: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Askar Safin <safinaskar@zohomail.com>, 
- "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
- linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>, 
- Aleksa Sarai <cyphar@cyphar.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2776; i=cyphar@cyphar.com;
- h=from:subject:message-id; bh=kYsKPddX805RzOw4SP5aC06jULGnc9Yib7S66nFHI4k=;
- b=owGbwMvMwCWmMf3Xpe0vXfIZT6slMWRMS5hxnHdanKCNzTLp9dW6i3QShXrV9rXotXxZE9wZ9
- /jD9RT5jlIWBjEuBlkxRZZtfp6hm+YvvpL8aSUbzBxWJpAhDFycAjCRcgFGhj3v50lNnc4+SW65
- qMPpBaE+K/NOt2X0nXrUaGKwrc3D/BzDf5+ICYGL2Tm+eE6+mL+7/ry5x8frldXMfLs2Nwfefiq
- nxwMA
-X-Developer-Key: i=cyphar@cyphar.com; a=openpgp;
- fpr=C9C370B246B09F6DBCFC744C34401015D1D2D386
+Content-Transfer-Encoding: 8bit
+Feedback-ID: rr0801122799c6c06caf516e075cc6b7d50000dd3722a2bc96765b9c0f7a823f1bf0b724aa7913738ab6ff2e:zu080112275d273fd1ffc1686fc8042e4700009c9e9fd0b43e9a13188d452cdc726725264653c71401b08fc0:rf0801122cb0faf32cff853a3dfefc86d80000274dec6f31833579c9334803bbe314b9183ed49d9a9cd988741ffd9bb75c:ZohoMail
+X-ZohoMailClient: External
 
-This was not particularly well documented in mount(8) nor mount(2), and
-since this is a fairly notable aspect of the new mount API, we should
-probably add some words about it.
+> I've pushed this commit to my branch:
+> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=c0e5ca37b2a562b9e7b9e39fc9091ea7f2693d62>
 
-Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
----
- man/man2/fsconfig.2      | 11 +++++++++++
- man/man2/mount_setattr.2 | 37 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+The link is broken. I get connection timeout.
 
-diff --git a/man/man2/fsconfig.2 b/man/man2/fsconfig.2
-index 97c9aff0e0c195e6028e1c7bd70e40905ba9f994..a7642e1633541bf8f5cd537db22987a4ec70da06 100644
---- a/man/man2/fsconfig.2
-+++ b/man/man2/fsconfig.2
-@@ -522,6 +522,17 @@ .SS Generic filesystem parameters
- Linux Security Modules (LSMs)
- are also generic with respect to the underlying filesystem.
- See the documentation for the LSM you wish to configure for more details.
-+.SS Mount attributes and filesystem parameters
-+Some filesystem parameters
-+(traditionally associated with
-+.BR mount (8)-style
-+options)
-+are also mount attributes.
-+.P
-+For a description of the distinction between
-+mount attributes and filesystem parameters,
-+see the "Mount attributes and filesystem parameters" subsection of
-+.BR mount_setattr (2).
- .SH CAVEATS
- .SS Filesystem parameter types
- As a result of
-diff --git a/man/man2/mount_setattr.2 b/man/man2/mount_setattr.2
-index d98e7d70870c082144dfa47e31ddf091c8545e4f..2927b012eed1569e0d78a2fb91815f364fca124d 100644
---- a/man/man2/mount_setattr.2
-+++ b/man/man2/mount_setattr.2
-@@ -790,6 +790,43 @@ .SS ID-mapped mounts
- .BR chown (2)
- system call changes the ownership globally and permanently.
- .\"
-+.SS Mount attributes and filesystem parameters
-+Some mount attributes
-+(traditionally associated with
-+.BR mount (8)-style
-+options)
-+are also filesystem parameters.
-+For example, the
-+.I -o ro
-+option to
-+.BR mount (8)
-+can refer to the
-+"read-only" filesystem parameter,
-+or the "read-only" mount attribute.
-+.P
-+The distinction between these two kinds of option is that
-+mount object attributes are applied per-mount-object
-+(allowing different mount objects
-+derived from a given filesystem instance
-+to have different attributes),
-+while filesystem instance parameters
-+("superblock flags" in kernel-developer parlance)
-+apply to all mount objects
-+derived from the same filesystem instance.
-+.P
-+When using
-+.BR mount (2),
-+the line between these two types of mount options was blurred.
-+However, with
-+.BR mount_setattr ()
-+and
-+.BR fsconfig (2),
-+the distinction is made much clearer.
-+Mount attributes are configured with
-+.BR mount_setattr (),
-+while filesystem parameters can be configured using
-+.BR fsconfig (2).
-+.\"
- .SS Extensibility
- In order to allow for future extensibility,
- .BR mount_setattr ()
-
--- 
-2.50.1
-
+--
+Askar Safin
 
