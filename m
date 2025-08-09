@@ -1,84 +1,166 @@
-Return-Path: <linux-man+bounces-3416-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3417-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83A2B1F33B
-	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 10:20:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4470B1F437
+	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 12:43:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 196B35614C0
-	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 08:20:19 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 05E8F560359
+	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 10:43:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7508414F125;
-	Sat,  9 Aug 2025 08:20:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3B6126529A;
+	Sat,  9 Aug 2025 10:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="BkvjNQw0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YDqKTywn"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0F2376F1
-	for <linux-man@vger.kernel.org>; Sat,  9 Aug 2025 08:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754727615; cv=pass; b=SM9MVOfyIclxl7dWWP//iml+LcnD7DGFFZlCenn4h330xG0fOMQUeNmiJLTEOOFz4BMig/MnXZYeG8JWJdaU0DTybh8OrT5FDxzHiMBUBV7U524rSzoN9JDEX5jAJytnAIsjBe5v9/138EG3mQ5okGPs/DNKj4+fW2N7nOA/xdQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754727615; c=relaxed/simple;
-	bh=ezxuaZgEIfw0pB9QEl3UcjdbsabSRkqy3ehLnhJeLN4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dqrfruo4smYSKdg0jwthQTYMat91wtBdji1EpaUNuEUpDwo6rmBE98cOinOnWMFFAiBzRyeZ59BPoFDh4pywpYoTDP8NK1Ghs37dYV8rgSWcSgbnmGhARippw2dPk0zryVq6MZ+ke/nyWbCFWOcWnUJA+lHLI5ElQPWEI06/VIQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=BkvjNQw0; arc=pass smtp.client-ip=136.143.188.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1754727600; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OnzCkXnwOXnaJL2URWgs9vekZENjJIAIZaKLbryg5F9M7tI3jq2+UZbxSs/sD5h5HY8WTvaF1l0QhX9Dx+/Mx8B3SDSnNjRgOtEZNtYUCfdXybNVj3RJljMGGBKZyp9jWLdRS7/tD6exkSp6Gdut6g6oUa0Xl3Bj6UgeJ3prwrM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1754727600; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ezxuaZgEIfw0pB9QEl3UcjdbsabSRkqy3ehLnhJeLN4=; 
-	b=LozMbIIcaYk/1YkEB0RNuQ1lVj+9fQLp5dNjQGHpAcK7CBpwe4qIE+8jcaw5VkgtfMveNxL4O5HKse/1igigM6+I8p2ifnG6cTq+JQ3+EWmTeksvLd34YRTpjzdjC6a8Qdjr5EuwlPSOpi3niHyrsQF8STxNGKgoCld4lRTOuEs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
-	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1754727600;
-	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=ezxuaZgEIfw0pB9QEl3UcjdbsabSRkqy3ehLnhJeLN4=;
-	b=BkvjNQw0syCOoybaO8AVzN0jDaLVldPswzl1HY+49yaCuRG9rb4z7m8MMznghuZH
-	vMZqwYqX9rsSCvfeBI58l7C4SK1EbqetlnrBgtnMkVh7fe6OapkWfnd4un5Td8asYio
-	M0mKt5DGnjIcOIAzpEJEyE/FsfJTlcz0kt98doo4=
-Received: by mx.zohomail.com with SMTPS id 175472759814552.31890322347033;
-	Sat, 9 Aug 2025 01:19:58 -0700 (PDT)
-From: Askar Safin <safinaskar@zohomail.com>
-To: alx@kernel.org
-Cc: carlos@redhat.com,
-	enh@google.com,
-	evgsyr@gmail.com,
-	linux-man@vger.kernel.org,
-	wharms@bfs.de
-Subject: Re: AW: drop ia64 from man pages?
-Date: Sat,  9 Aug 2025 11:19:53 +0300
-Message-ID: <20250809081953.972960-1-safinaskar@zohomail.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
-References: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EC41D5ACE;
+	Sat,  9 Aug 2025 10:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1754736178; cv=none; b=PEeV4fHjIDwDzoDxt03vmFj7s0Eee/kRWC0jzfKDv8mzoz5lxPxpvmgmjLTt8ESx2VVRWz6ocQK4zW/ml+7PhdcFe0Qp/Wrk/o/HBpk1Pb+bEiR/xlay4NcAi9/UG9AiWH8aIYVfCEIPaibM7yKvQtHnkCPMhwZOhNJG8vlLMbM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1754736178; c=relaxed/simple;
+	bh=a8+UN8/ZSBO/sg2c/xViTOsohY3HngjC+LoJbCHsVEM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pfNd/JCBQ6PzTSuYILtEmkJPYgJvgMHvMu/LEOFQMUZ3K6Cbk+uQvm1ADTzJfBTNL/H8huenSm2xAU7XGs5nJTA40tIHcg2HT/DU/3TOg1yo0Ko23Psmwi1J/3qxcCwRvs7YFgO3rahYkzKkmh9TjhywzaQ8EDnyeW/VR4XD6xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YDqKTywn; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F15C4CEE7;
+	Sat,  9 Aug 2025 10:42:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1754736178;
+	bh=a8+UN8/ZSBO/sg2c/xViTOsohY3HngjC+LoJbCHsVEM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YDqKTywnRc8WgKFRX1w9DZ3/NL4s3ZkX6W5/rlg/5WFN87tXrkrpeIVLb+hfnoGeC
+	 7B4znkqz0L4jJkvotDRFDR8Roi+O9GruyarmlJRoadFPSzcBKpR+J22EJA0127pcVC
+	 mchr+wxMc4WgE+32mw1HTdV3G1eVrWq0r4isB81lIDonS3lxt6ipVG9mrt1PlYm4Ji
+	 R9MTZ3HwBWHSrGy5Gvp3noLR5btNMKi1BLVtu2K87kLmtVjybFAz+pYCL1Kftg72Nm
+	 96NhX8jTpot1/TkbKYoEP1HzmhJ47NDk+elNKPWbaUWDzi8IpoYmH/95YpDERMqtz2
+	 ttnAiY2zK2SjQ==
+Date: Sat, 9 Aug 2025 12:42:47 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: Askar Safin <safinaskar@zohomail.com>, 
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
+	linux-man <linux-man@vger.kernel.org>, linux-api <linux-api@vger.kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v2 01/11] mount_setattr.2: document glibc >= 2.36 syscall
+ wrappers
+Message-ID: <j57inuu7wzzh2tm7sxfnhdogg4u7f4gf3vktmla4qlafuknh3p@ypu3peu3g5k6>
+References: <20250807-new-mount-api-v2-0-558a27b8068c@cyphar.com>
+ <20250807-new-mount-api-v2-1-558a27b8068c@cyphar.com>
+ <19888fe1066.fcb132d640137.7051727418921685299@zohomail.com>
+ <2025-08-08.1754653930-iffy-pickled-agencies-mother-K0e7Hn@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: rr0801122799c6c06caf516e075cc6b7d50000dd3722a2bc96765b9c0f7a823f1bf0b724aa7913738ab6ff2e:zu080112275d273fd1ffc1686fc8042e4700009c9e9fd0b43e9a13188d452cdc726725264653c71401b08fc0:rf0801122cb0faf32cff853a3dfefc86d80000274dec6f31833579c9334803bbe314b9183ed49d9a9cd988741ffd9bb75c:ZohoMail
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ad66n3krjtkx2hx6"
+Content-Disposition: inline
+In-Reply-To: <2025-08-08.1754653930-iffy-pickled-agencies-mother-K0e7Hn@cyphar.com>
 
-> I've pushed this commit to my branch:
-> <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib&id=c0e5ca37b2a562b9e7b9e39fc9091ea7f2693d62>
 
-The link is broken. I get connection timeout.
+--ad66n3krjtkx2hx6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: Askar Safin <safinaskar@zohomail.com>, 
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
+	linux-man <linux-man@vger.kernel.org>, linux-api <linux-api@vger.kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v2 01/11] mount_setattr.2: document glibc >= 2.36 syscall
+ wrappers
+References: <20250807-new-mount-api-v2-0-558a27b8068c@cyphar.com>
+ <20250807-new-mount-api-v2-1-558a27b8068c@cyphar.com>
+ <19888fe1066.fcb132d640137.7051727418921685299@zohomail.com>
+ <2025-08-08.1754653930-iffy-pickled-agencies-mother-K0e7Hn@cyphar.com>
+MIME-Version: 1.0
+In-Reply-To: <2025-08-08.1754653930-iffy-pickled-agencies-mother-K0e7Hn@cyphar.com>
 
---
-Askar Safin
+Hi Aleksa, Askar,
+
+On Fri, Aug 08, 2025 at 09:55:10PM +1000, Aleksa Sarai wrote:
+> On 2025-08-08, Askar Safin <safinaskar@zohomail.com> wrote:
+> > When I render "mount_setattr" from this (v2) pathset, I see weird quote=
+ mark. I. e.:
+> >=20
+> > $ MANWIDTH=3D10000 man /path/to/mount_setattr.2
+> > ...
+> > SYNOPSIS
+> >        #include <fcntl.h>       /* Definition of AT_* constants */
+> >        #include <sys/mount.h>
+> >=20
+> >        int mount_setattr(int dirfd, const char *path, unsigned int flag=
+s,
+> >                          struct mount_attr *attr, size_t size);"
+> > ...
+>=20
+> Ah, my bad. "make -R lint-man" told me to put end quotes on the synopsis
+> lines, but I missed that there was a separate quote missing. This should
+> fix it:
+>=20
+> diff --git a/man/man2/mount_setattr.2 b/man/man2/mount_setattr.2
+> index d44fafc93a20..46fcba927dd8 100644
+> --- a/man/man2/mount_setattr.2
+> +++ b/man/man2/mount_setattr.2
+> @@ -14,7 +14,7 @@ .SH SYNOPSIS
+>  .B #include <sys/mount.h>
+>  .P
+>  .BI "int mount_setattr(int " dirfd ", const char *" path ", unsigned int=
+ " flags ","
+> -.BI "                  struct mount_attr *" attr ", size_t " size );"
+> +.BI "                  struct mount_attr *" attr ", size_t " size ");"
+
+Actually, I'd use
+
+=2EBI "                  struct mount_attr *" attr ", size_t " size );
+
+>  .fi
+>  .SH DESCRIPTION
+>  The
+
+Hmmm, thanks for the catch!  My CI server is down until I come back home
+and have a chance to fix it.
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--ad66n3krjtkx2hx6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiXJicACgkQ64mZXMKQ
+wqnnbw//WMHggmA4jUE/nRABMPtJLZDCGULhgMy1N4WDcF/+TKjDOt0ExRzUDVru
+ItgtH8RM8Pp3sDxwaq3BonhA6gzg/JHKIJ8jxVJy5jpEOD+ovNOpCYbD7n1KCnAy
+efvU3E27J4t4liHsA05PPqugb0Ndu20snWa7eaVPKnBWVTAEzTYl6NNgjvE5K7i1
+noOwofQZt8wzNtAZzQyOfTh3RnamwJ0G/f9r15KiFOZ7Sq+ZVJJkhY18QS6lQVOO
+VjNft+KwyOXGF+vHnFVkDBUr8sRe2UiFbQkS+jB12Rp0YGGjk+eirsLMRSqTxlLo
+MBEq16FTOD8HPEgTn9Unvuml09SSluevUQlMOa8Hbnu62148zqL9ApGa0JS8ButU
+JRXrJCZOwqRtOgNlusc4e5Xhej7Gpvw5tbl+2AJpxRrnZGOxTXkRZFv4pRp6mOcz
+8kgMMZuZwuYyHYn5W3R5MXLHs/mkCLkcJXQXU0PwHiDDH/6RIwChUTJ2qha61Fqa
+Wkfln9v94TDWVVGCBKNy7A9TPS8+mAK8cVfYn/iqdWm5NpL18223l32qjw5rQt3Y
+0R+WgxjLdpjRRjcV4b1wGN5raLE7/yKUB0y3MR71q+oS7s8hj7t21LgZaxE4TiI3
+iN15mSC7sAns/N56Ig3367Hm9b8xr4/eZWfN0zVCWqzYg2Z4Cdk=
+=TkZt
+-----END PGP SIGNATURE-----
+
+--ad66n3krjtkx2hx6--
 
