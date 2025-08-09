@@ -1,63 +1,55 @@
-Return-Path: <linux-man+bounces-3418-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3419-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51E40B1F43B
-	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 12:45:09 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFD48B1F443
+	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 12:49:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 61B0B5604D5
-	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 10:45:09 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C91F516F1BD
+	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 10:49:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1E2A926D4E6;
-	Sat,  9 Aug 2025 10:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 458131EBA1E;
+	Sat,  9 Aug 2025 10:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pNvvh5Q6"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wu0dXpCB"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C475D265CA2;
-	Sat,  9 Aug 2025 10:45:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CF73C17
+	for <linux-man@vger.kernel.org>; Sat,  9 Aug 2025 10:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754736303; cv=none; b=oKrXQDMTasvSPS+oYqyxvM9yNyeU/5BItsSL9waYWzdqL0x6qcavnMA5UQU6qNSBbqY0t3Ms+OWuTtDEhpoXeYi2/Jpo27Lq+D8oGfDKlFEEQKiMJGAs7/dbLke03R7nWCYsTmIsl98zkWjtLgw9Ijaf14Tvz0EgeobHGOgVMtY=
+	t=1754736593; cv=none; b=iA1JFhcGVNQ4sxIyf8ICtsCshwhZmSkxs7Ihlf3OuAXAEUWatsesZlCScQVA9objCwuMP0cHm8hkEPYJh+vY3p15I8XoDimVmDu9yUbCjr8lBGoODcs4fKD47/uv017ay6XpgC83Q+zvhKMe0Bfpnn24pF8v6stVuedONoldxx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754736303; c=relaxed/simple;
-	bh=ED/zM7QV6/6pRcc4YG3dIuZ5nk7Fu/DxU1B3KbZxxSo=;
+	s=arc-20240116; t=1754736593; c=relaxed/simple;
+	bh=c6wqqAF0VlCbTcUtPIf9ijTb8KwfURF7szXZVetNJGM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f1JMcN9PZEuwzPVs9e4RO63PcyR/roYfSsAizO5fqguMMBJA9SsomQq5HST7CaoFJjkjoCM8eKRKbZeNw/BCd+V770sNiUaVGl7YQ9KqPFZPa+LyX9TtXyXfF/2EL5l9qblEM/3RB/mQlD6tL3QBBv84e74pesMN3na0M7j/qfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pNvvh5Q6; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04595C4CEE7;
-	Sat,  9 Aug 2025 10:44:58 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=qT9wtpq9q35YbhdY+qffWCj+1xoUgCkRxfA7d/PZxE5lRIBma/PBVEOvhh9bi0485IxC9LRWS7aSpqkyQHHrWOeaS9STDJNyMEjmHxFP/1KKfS0iu8vGxXUOxdFZfo4RNLct08DQqZ0y8lRoyi5CUqIucQIvWtJw6qmVBaJ6msk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wu0dXpCB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EA1C4CEE7;
+	Sat,  9 Aug 2025 10:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1754736303;
-	bh=ED/zM7QV6/6pRcc4YG3dIuZ5nk7Fu/DxU1B3KbZxxSo=;
+	s=k20201202; t=1754736592;
+	bh=c6wqqAF0VlCbTcUtPIf9ijTb8KwfURF7szXZVetNJGM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pNvvh5Q6RHaXOFIyPqTM0FhqtPKd0M0isMqACUmPhNqp6x5UP+GE1TwiZs9WrsaY8
-	 f3zjEPJGNMUr9r49UVDRqTJkswFMjo7ze+ghISo8lD2iziRsF2YFIDIgLMVHmWO1cm
-	 il2HAK74IxgxlUi427Yt85rv71ADvPsPkZTIw67aqa7w8VHeclZPEpnyp6Pzmxpf1o
-	 wva46sI+fvEiZ/9IkvIwNSfflgMFsXdgsCuaSlCzA+M7P1zdGqYk/Cl+j+hUWXuHYX
-	 /toQ7fM4CB9cWrUBoU6hy4HNFDx9XA/AoF6VSD+4tA/6WMuuwIFkqPRmXzZeceWaTC
-	 PcFrDpHfe+Nuw==
-Date: Sat, 9 Aug 2025 12:44:54 +0200
+	b=Wu0dXpCBhzxscMBanka38q7nDDf197RYQi5JQv9LQCmi1J1257Zab1vOGPVYcC4sY
+	 2TpsM3juVZNTHbMuZxg1krEWAybcFlUkXS4XY2Gmo3D/cMDuFp9OUirPzWXW7fuFsG
+	 JOsRovewP6y1yoPU1yFE1Lx6D3MoU1bFPlpU9Y52gT4hYc07tQvLojiVGsf5tITkA6
+	 nYC4pUGLJEYBazUipTD9yUx6F86PQVDFeK/yZ0jesJhWyFjBdOIqlJrWyHb9NQApv2
+	 i0hcm3K2QnQkRjJDFlbBMnorJRIS6gdK/WnrlTNFe348+g7PIp3yQ1JSkQs+Tr98aN
+	 +nYkV0JtBYk6Q==
+Date: Sat, 9 Aug 2025 12:49:45 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, 
-	"Michael T. Kerrisk" <mtk.manpages@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	linux-man <linux-man@vger.kernel.org>, linux-api <linux-api@vger.kernel.org>, 
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v2 01/11] mount_setattr.2: document glibc >= 2.36 syscall
- wrappers
-Message-ID: <ri2ne3rb5wgb2aqkaafgrsdvrlbs6ijwbfpnjq3pno7tdtn44h@jzyzjtbvzw6c>
-References: <20250807-new-mount-api-v2-0-558a27b8068c@cyphar.com>
- <20250807-new-mount-api-v2-1-558a27b8068c@cyphar.com>
- <19888fe1066.fcb132d640137.7051727418921685299@zohomail.com>
- <2025-08-08.1754653930-iffy-pickled-agencies-mother-K0e7Hn@cyphar.com>
- <j57inuu7wzzh2tm7sxfnhdogg4u7f4gf3vktmla4qlafuknh3p@ypu3peu3g5k6>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: carlos@redhat.com, enh@google.com, evgsyr@gmail.com, 
+	linux-man@vger.kernel.org, wharms@bfs.de
+Subject: Re: AW: drop ia64 from man pages?
+Message-ID: <6n5kia24vp7gbofbzzt2gm2owixe4f72azygr2fxangrbvr567@qeyje3k5cknx>
+References: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
+ <20250809081953.972960-1-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,132 +57,63 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4lybdadnu2eyvh5j"
+	protocol="application/pgp-signature"; boundary="cphtaqqnahx4kk7j"
 Content-Disposition: inline
-In-Reply-To: <j57inuu7wzzh2tm7sxfnhdogg4u7f4gf3vktmla4qlafuknh3p@ypu3peu3g5k6>
+In-Reply-To: <20250809081953.972960-1-safinaskar@zohomail.com>
 
 
---4lybdadnu2eyvh5j
+--cphtaqqnahx4kk7j
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: Askar Safin <safinaskar@zohomail.com>, 
-	"Michael T. Kerrisk" <mtk.manpages@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	linux-man <linux-man@vger.kernel.org>, linux-api <linux-api@vger.kernel.org>, 
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v2 01/11] mount_setattr.2: document glibc >= 2.36 syscall
- wrappers
-References: <20250807-new-mount-api-v2-0-558a27b8068c@cyphar.com>
- <20250807-new-mount-api-v2-1-558a27b8068c@cyphar.com>
- <19888fe1066.fcb132d640137.7051727418921685299@zohomail.com>
- <2025-08-08.1754653930-iffy-pickled-agencies-mother-K0e7Hn@cyphar.com>
- <j57inuu7wzzh2tm7sxfnhdogg4u7f4gf3vktmla4qlafuknh3p@ypu3peu3g5k6>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: carlos@redhat.com, enh@google.com, evgsyr@gmail.com, 
+	linux-man@vger.kernel.org, wharms@bfs.de
+Subject: Re: AW: drop ia64 from man pages?
+References: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
+ <20250809081953.972960-1-safinaskar@zohomail.com>
 MIME-Version: 1.0
-In-Reply-To: <j57inuu7wzzh2tm7sxfnhdogg4u7f4gf3vktmla4qlafuknh3p@ypu3peu3g5k6>
+In-Reply-To: <20250809081953.972960-1-safinaskar@zohomail.com>
 
-Hi Aleksa, Askar,
+Hi Askar,
 
-On Sat, Aug 09, 2025 at 12:42:58PM +0200, Alejandro Colomar wrote:
-> Hi Aleksa, Askar,
+On Sat, Aug 09, 2025 at 11:19:53AM +0300, Askar Safin wrote:
+> > I've pushed this commit to my branch:
+> > <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git=
+/commit/?h=3Dcontrib&id=3Dc0e5ca37b2a562b9e7b9e39fc9091ea7f2693d62>
 >=20
-> On Fri, Aug 08, 2025 at 09:55:10PM +1000, Aleksa Sarai wrote:
-> > On 2025-08-08, Askar Safin <safinaskar@zohomail.com> wrote:
-> > > When I render "mount_setattr" from this (v2) pathset, I see weird quo=
-te mark. I. e.:
-> > >=20
-> > > $ MANWIDTH=3D10000 man /path/to/mount_setattr.2
-> > > ...
-> > > SYNOPSIS
-> > >        #include <fcntl.h>       /* Definition of AT_* constants */
-> > >        #include <sys/mount.h>
-> > >=20
-> > >        int mount_setattr(int dirfd, const char *path, unsigned int fl=
-ags,
-> > >                          struct mount_attr *attr, size_t size);"
-> > > ...
-> >=20
-> > Ah, my bad. "make -R lint-man" told me to put end quotes on the synopsis
-> > lines, but I missed that there was a separate quote missing. This should
-> > fix it:
-> >=20
-> > diff --git a/man/man2/mount_setattr.2 b/man/man2/mount_setattr.2
-> > index d44fafc93a20..46fcba927dd8 100644
-> > --- a/man/man2/mount_setattr.2
-> > +++ b/man/man2/mount_setattr.2
-> > @@ -14,7 +14,7 @@ .SH SYNOPSIS
-> >  .B #include <sys/mount.h>
-> >  .P
-> >  .BI "int mount_setattr(int " dirfd ", const char *" path ", unsigned i=
-nt " flags ","
-> > -.BI "                  struct mount_attr *" attr ", size_t " size );"
-> > +.BI "                  struct mount_attr *" attr ", size_t " size ");"
->=20
-> Actually, I'd use
->=20
-> .BI "                  struct mount_attr *" attr ", size_t " size );
+> The link is broken. I get connection timeout.
 
-I've pushed this as a fix.  As a sanity check:
-
-	$ diffman-git HEAD
-	--- HEAD^:man/man2/mount_setattr.2
-	+++ HEAD:man/man2/mount_setattr.2
-	@@ -11,7 +11,7 @@
-		#include <sys/mount.h>
-	=20
-		int mount_setattr(int dirfd, const char *path, unsigned int flags,
-	-                         struct mount_attr *attr, size_t size);"
-	+                         struct mount_attr *attr, size_t size);
-	=20
-	 DESCRIPTION
-		The mount_setattr() system call changes the mount properties of a mount
+Yep, I suspect another blackout in my town.  I'm traveling, so I won't
+be able to turn it back on until Monday.  :(
 
 
 Have a lovely day!
 Alex
 
->=20
-> >  .fi
-> >  .SH DESCRIPTION
-> >  The
->=20
-> Hmmm, thanks for the catch!  My CI server is down until I come back home
-> and have a chance to fix it.
->=20
->=20
-> Have a lovely day!
-> Alex
->=20
-> --=20
-> <https://www.alejandro-colomar.es/>
-
-
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---4lybdadnu2eyvh5j
+--cphtaqqnahx4kk7j
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiXJqYACgkQ64mZXMKQ
-wqlYqRAAqvtVsdzcdKCyhcFcywlUmBc9uvKJzG/nIFAecepnz3yGZ3LaqTErRbo2
-UXCA1zEHqQUH94LXOuwIVsx1iFq+BHhGTjtfoifrZ30aL3PqvBf5nuqamyeVvm0d
-SzXzTis0pr6DbzHWk2nSnadcJ0gOvT04BhQoQ0RABr5z1VhXZgRTsKKrCPoEwR/w
-41cRY6xAonDkJ4ngYagU6XsUlqxxuHCX4AcXbLPN9l3dF8aGx6FQrmhUEKBbreFA
-A+3KisY+wmfa5lqDloZJ/V7divj/Tlo0m/TWGRtpcGIDG4p4lbk7HEabTsboQV0w
-KwY6yjGlnGijlxwTnb9E+oGMlGim5sLDh2JCIadZ1QZADtoRVAq1ObNeYLhk5+8X
-PM0ga40WY3D4A9qmQlNoBsIaZEz6nfEZ0tT3MCshd6cvqKiFByxmHaa/gTaScM2X
-qayK4l1CKQ2mNG6W7Zr0fOOdoOhApjrZxzye9jXVylH/smgQSnagjANPMqcTM83t
-IHBQItAt5QqC/MUbHENbejCP04WI6HVprekFLSa97f/moXU68AufwcPq3GVdNIdx
-ukAH9mt1BPbPTVoruLxYhMXN+vT4kPkuqRdUs50UqAQ3FHLeR6e0809yXpxPYrVH
-Jyqpf++bqP9Tw+msxxGu8dgKhsy9oLWb1JCi5PwG7QdgRDJwIsc=
-=YGPD
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiXJ8gACgkQ64mZXMKQ
+wqkPHRAAvRR3eCn1LAL/sXunrFKnEczY6uScEXMbiEbjR1GxpTwZ949Xpfeskb8c
+lFQRdgpalI+hCR8byyTKW1Ph3wKG0Ze44R7MaNd1yxAuTnqy9BZSj8V1TpdswUtV
+tp6aOHVI2Z1h+YXBAn0ffgmASTRRG53Wf4+HQ/jkYvIklpn8PDKLMvzioUcaMknj
+6STya7XzGWR9oytGK0o5elKQLP7HvvalXBGt6J5ttYOh06OpK7pKetXnC16/XdVG
+5Akr3qYJB8mMusPwwqnpjt685OqMlDLhB/XWUFhvsrLm/pL1HWHvzWXBzPq20Mxr
+sJug4kEwDysf6sfAs7Bhzqf/T174IZBEhfVrY6KOhhNjTC20EFFUnq/i9tEPgcs7
+7w+UXnKEEpdvb7tHXncZJjJ11PWmC+fbkZuNRB8zk8aEZhrAzsJoAff1Bx5jsAgd
+Mzsm+l+jtKyxV4YMin+fz3kg9cVXrakjiX/NaH1xc9P19um3Zq0U3WowqRCIZy6s
+gZ40Z8/UPp71xFmHbeGmylZi++ICCLfhVfWzoQlE8sce8FFfsceAEJ020bth9gL0
+9h0XVUaSwToH8emPWVLmD21rlm0e0hRnFLYnGmwHv4+NLEKHFjhQa6IMeCzHDY2w
+Arnz7vKG9OKHo4hAVfQSxVMIm4jwkrDOV+ZtUIbvRsE7q2x+pU4=
+=T+4B
 -----END PGP SIGNATURE-----
 
---4lybdadnu2eyvh5j--
+--cphtaqqnahx4kk7j--
 
