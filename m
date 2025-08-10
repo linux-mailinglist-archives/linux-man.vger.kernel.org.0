@@ -1,130 +1,110 @@
-Return-Path: <linux-man+bounces-3424-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3425-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62BFB1F5A5
-	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 19:32:51 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1EC9B1FB05
+	for <lists+linux-man@lfdr.de>; Sun, 10 Aug 2025 18:31:55 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 9E56662208A
-	for <lists+linux-man@lfdr.de>; Sat,  9 Aug 2025 17:32:50 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id CD27118964A5
+	for <lists+linux-man@lfdr.de>; Sun, 10 Aug 2025 16:32:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0B2E2BEFE0;
-	Sat,  9 Aug 2025 17:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1F2D335C7;
+	Sun, 10 Aug 2025 16:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="VX6Bma1I"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9Edly+j"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E712D24728C;
-	Sat,  9 Aug 2025 17:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F991AF4C1
+	for <linux-man@vger.kernel.org>; Sun, 10 Aug 2025 16:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754760765; cv=none; b=o7pF20sN+uvTx5Nx+rDS4FXFZARC0DkZkFUox6bhfTQm097A/s7Xbp2Mzb0GiqygQZVwsYhPprojz9a/aE40F2Jw6L5n/OcaDPUuqD/nAF86uj12GYNQk/OtSkpfvV+8b2XDKi9YLiiRI3dbPseID3ZrkkDHGczYiU274NhNBuQ=
+	t=1754843510; cv=none; b=NPAjH9JhUS/UYllTI1H6fftUARUlzXLmgcjS+av2fvgRODTo5tD+Rx2AwCPth5HTVGhEej4h/ruFCP3dncOWDK4mp/71O8lZ5cS8GFyRG0GnM2jgKa32cAx/Ye2y7hQ3hEWF7GA2kKcdxecF3+AyFFLJRrpTSv7ZSbu/d+Tyh4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754760765; c=relaxed/simple;
-	bh=kP/J6dc5UQ2tJiEMSuWAfFTCklbsx5KCW70FjT+a/u0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DbkF84SwRuUseV6AYpCJ3ybr0rS+55UIc+npJ4QjzLLzDrF0kmGm/qKWUc8Kjh3x1NS9FU9R0tA4aeQmCdl531LDA6uJWQxMnynxwHzg6pVU3f9mRje5tdB6PqWB8oAbY75kriPWMjvBQdPcpUhyi5s7I07U04RMzC1HjOuudZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=VX6Bma1I; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bznzC6qwKz9stg;
-	Sat,  9 Aug 2025 19:32:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1754760760;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kP/J6dc5UQ2tJiEMSuWAfFTCklbsx5KCW70FjT+a/u0=;
-	b=VX6Bma1IBx4ug8hkRPZe7cdvcW0YEaqMVkpKQBKZAEb/KUsLkkIKZNyKtTh1QUooYlJn1s
-	pi+zrBBghzqMJntFkZy5uFSm/WinP/UCAFob4iuGXYsvGYkRa5PVOZRY7cgkA4/uRcAeHO
-	C6RNVcvlMTew/zao5AMa+kCpdN3k/tWcp366DHgWNjF1DBqqSybGxA91GtUqW2mAl6ID22
-	01LnVflUsrojkd7PdXlFM+WIRE/renLynwjNRA/o7SzpcoHwMfR2UHO6rBsZ+CMFU+cCrH
-	Rl6I4mB0UM/zTLSoPjx7/P6RsF3su419KQryyxaXlfEreKRQOdCL40mE5ulBmg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
-Date: Sun, 10 Aug 2025 03:32:25 +1000
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Askar Safin <safinaskar@zohomail.com>
+	s=arc-20240116; t=1754843510; c=relaxed/simple;
+	bh=XlP72RGv3MAsDru64gdCBWwoDXFiMPfzAlSloCADU9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Y52FHNC52Pwzcw5mLQvg4Oza5zJP5P6WZplG5nh3CeLYF0slsl4u1TcGo/Xi0zHOp37kKOK8GzqDgyfDpexuH24wO440ZOOpfi5m86xfoU+fA3bzHN/O/R7vS6xEXqUt05J3z9k2wopKEVl1rPhom4duyc4e297IJKzqMq26hLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9Edly+j; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FCAC4CEEB;
+	Sun, 10 Aug 2025 16:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1754843510;
+	bh=XlP72RGv3MAsDru64gdCBWwoDXFiMPfzAlSloCADU9o=;
+	h=Date:From:To:Cc:Subject:From;
+	b=G9Edly+jsMtjZpgi3xVGaG3a6w6xT6wjdurotGK+xVICBjdo0xPHwuHDjF7ohBsgI
+	 m4UyZnVNaSk+/i28mtINGu1xZdpmOasJJ5+5StcdqbApTWI5huObu5vPDPJEBsbIiB
+	 4irpc0/hWncsFEpIz5DT+A246mKGmQk1r0X+KveduD3KoM+c9TH57d0rjAU2U/WII5
+	 XEF6YX/vj+Au7Z5rc41h9bKtTAzHmsAZvOe+Jt15k1xbdIrIT0zKvcIMXm/vtMg21c
+	 QHjZbJseA2vrYx2dEZ9u+ZC2P24gUxKZsuN3A7534d1/1pjmc8Gg5HUOwxf+ZfaPZc
+	 42yEzpJC2v0wA==
+Date: Sun, 10 Aug 2025 18:31:45 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
 Cc: Alejandro Colomar <alx@kernel.org>, 
-	"Michael T. Kerrisk" <mtk.manpages@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	linux-man <linux-man@vger.kernel.org>, linux-api <linux-api@vger.kernel.org>, 
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v3 00/12] man2: document "new" mount API
-Message-ID: <2025-08-09.1754760145-silky-magic-obituary-sting-3OnpC7@cyphar.com>
-References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
- <1988f5c48ef.e4a6fe4950444.5375980219736330538@zohomail.com>
+	Christopher Bazley <chris.bazley.wg14@gmail.com>
+Subject: [PATCH] man/man2/getgroups.2: setgroups(2): Don't use NULL as a
+ 0-length array
+Message-ID: <4e5e85f923b2e31af2b19a866af1324459248603.1754843358.git.alx@kernel.org>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yfw6iade575frhla"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1988f5c48ef.e4a6fe4950444.5375980219736330538@zohomail.com>
-X-Rspamd-Queue-Id: 4bznzC6qwKz9stg
+
+Reported-by: Christopher Bazley <chris.bazley.wg14@gmail.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+
+Hi Chris,
+
+I've fixed the manual page to stop recommending the use of NULL with
+setgroups(2), as I agree that this is very much the same case as the
+dreaded memcpy(0,0,0), and is unsafe.
+
+I'll maintain the _Nullable pseudo-attribute in getgroups(2), as that's
+a different case (it overloads a completely different meaning).
 
 
---yfw6iade575frhla
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/12] man2: document "new" mount API
-MIME-Version: 1.0
+Have a lovely day!
+Alex
 
-On 2025-08-09, Askar Safin <safinaskar@zohomail.com> wrote:
-> I plan to do a lot of testing of "new" mount API on my computer.
-> It is quiet possible that I will find some bugs in these manpages during =
-testing.
-> (I already found some, but I'm not sure.)
-> I think this will take 3-7 days.
-> So, Alejandro Colomar, please, don't merge this patchset until then.
 
-I don't plan to work on this again for the next week at least (I've
-already spent over a week on these docs -- writing, rewriting, and then
-rewriting once more for good measure; I've started seeing groff in my
-nightmares...), so I will go through review comments after you're done.
+ man/man2/getgroups.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-There are some rough edges on these APIs I found while writing these
-docs, so I plan to fix those this cycle if possible (hopefully those
-aren't the bugs you said you found in the docs). Two of the fixes have
-already been merged in the vfs tree for 6.18 (the -ENODATA handling bug,
-as well as a bug in open_tree_attr() that would've let userspace trigger
-UAFs). (Once 6.18 is out, I will send a follow-up patchset to document
-the fixes.)
+diff --git a/man/man2/getgroups.2 b/man/man2/getgroups.2
+index 635158282..cdda43992 100644
+--- a/man/man2/getgroups.2
++++ b/man/man2/getgroups.2
+@@ -16,7 +16,7 @@ .SH SYNOPSIS
+ .P
+ .B #include <grp.h>
+ .P
+-.BI "int setgroups(size_t " size ", const gid_t " list "[_Nullable " size ]);
++.BI "int setgroups(size_t " size ", const gid_t " list [ size ]);
+ .fi
+ .P
+ .RS -4
+@@ -75,7 +75,7 @@ .SH DESCRIPTION
+ .P
+ .in +4n
+ .EX
+-setgroups(0, NULL);
++setgroups(0, (gid_t [0]){});
+ .EE
+ .in
+ .SH RETURN VALUE
 
-FYI, I've already fixed the few ".BR \% FOO" typos. (My terminal font
-doesn't have a bold typeface, so when reviewing the rendered man-pages,
-mistakes involving .B are hard to spot.)
+base-commit: 0ffeac3f71295732c4040595e5ab35680825fb91
+-- 
+2.50.1
 
---=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
-
---yfw6iade575frhla
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaJeGKQAKCRAol/rSt+lE
-b+/XAQCK8HwtD6JpUiaORCrGprHu9pstb/CQ7XKzFG4j2laqbQD+OYm2okSCqq/+
-MB9+U84vJuUdkAreA+36Wsn3t6aBhwU=
-=5iQM
------END PGP SIGNATURE-----
-
---yfw6iade575frhla--
 
