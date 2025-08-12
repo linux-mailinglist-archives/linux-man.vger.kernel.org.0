@@ -1,57 +1,70 @@
-Return-Path: <linux-man+bounces-3441-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3442-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id D98D0B22501
-	for <lists+linux-man@lfdr.de>; Tue, 12 Aug 2025 12:54:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D79B22AC3
+	for <lists+linux-man@lfdr.de>; Tue, 12 Aug 2025 16:37:51 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C99851889EC3
-	for <lists+linux-man@lfdr.de>; Tue, 12 Aug 2025 10:54:27 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 993CC1895AE9
+	for <lists+linux-man@lfdr.de>; Tue, 12 Aug 2025 14:33:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DF562E2F01;
-	Tue, 12 Aug 2025 10:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C91A2EBB89;
+	Tue, 12 Aug 2025 14:33:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfX2LLJN"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="hEGmOT2F"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC4E264A7C
-	for <linux-man@vger.kernel.org>; Tue, 12 Aug 2025 10:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEEB2EACE2;
+	Tue, 12 Aug 2025 14:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1754996046; cv=none; b=N40v+o6a480k2JdgVtVXRye0Oe3us9Wqzm4RoOZQlb+1GP3nRLeng16swpk/2exFkhNk5g0eMK0WxG91jCb8+RW0mV9CmM6JVGDqBVTDBWCFSne6IKgzcVwHrBY8JnjfknM+0UzIaqkZO2i4avgWrq0FLNwXl1lNw4TSEeVW5GY=
+	t=1755009205; cv=none; b=RtMJ0TJTu1xcRf+aSNjcHNHvGZEH7YJXiytuXuCzkJ8uNuXBsEFhsSa6849i75mDc5e+n9DfPemvt5342hDWEJC/i0dekIUSjeCkbaJ/868tj+RUfj8mnbHWVwfZE+WG/WMdvlqMfgFB3MisVbSeKXdIl3eIq7CTI8Kd/fEWrHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1754996046; c=relaxed/simple;
-	bh=TtF4APNHWPn9iD7PXKv4Ti6P2TlUEumMFrwKWj3oQwM=;
+	s=arc-20240116; t=1755009205; c=relaxed/simple;
+	bh=Z4YpjWDFsTisTYRrs6dwdNxnd1Rfd901xv2zPPVlSzc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Eaz0whCvd9DB7fDz3lIvTi1q8DMfNBP56ZbHh+XsiIwQIQArk839av4e3jzDgF6fZtlr5uSWBB0hc0Vh2lUIe/SHr+hJey1M2nzo16AtdUimwmBDT2+d3I9PFRPnsD4ZmxIDN5LTxK9ILnirfCcU/bfvK4W+4M+C2gy3a5NNwFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfX2LLJN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931B1C4CEF0;
-	Tue, 12 Aug 2025 10:54:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1754996045;
-	bh=TtF4APNHWPn9iD7PXKv4Ti6P2TlUEumMFrwKWj3oQwM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WfX2LLJNH6dTdm259mt2uueA/O1IiSRzOZNmk65cqHMacnTuQdw5RfBjllqlZOEcu
-	 Ri99bvF6fyyBbgNrgsS4KEIlz+KJ5Y/q5KOcb7UdePwgWMBKimoaB6z7JQoqasZMxu
-	 9vb6qCS2rx79YKrc18vOV0Le7g6H5a104QnLpVIBbdVt7Fqem8eQ/tdOYJqmGKEycO
-	 JL+IbGdbS+ZQ3bfBo/Ghq8scUwSPE/BqsocVbzV6ndjl6zz3OBXVT+Pkw7xkSq1ob4
-	 zbi/nAssh59fztwz0Qkiaqek/WZ4T9ITAEpqLv70m0CZM2cl/UNOslrFIGv8VoE+Ab
-	 52YizodAtP9Gg==
-Date: Tue, 12 Aug 2025 12:54:02 +0200
-From: Alejandro Colomar <alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xw967hWEcJ63ngk8JW8hyZ+aV3sM6/2c796MqUlFdiyUkJB5ADBO3kqKFjgy6b/tBJWJPPdYwUV6coS3mNxmeXGpuhWwXI7DkXmpOvDzd1uryeh1wHFY5k4ATIZOQBRtGsegJ/Ov6Cd8QJluvfV6F2EDcRuGZ/5+fCah2COETUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=hEGmOT2F; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4c1Yrt6cZ5z9t89;
+	Tue, 12 Aug 2025 16:33:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1755009199;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G85S6yN/jpAxYJYn22nLde2onQJqpGZG2EjZVAKSCR0=;
+	b=hEGmOT2FM06uSJI210uoGwYT8ijebX66XoYQNfd/oNGtB/w9zAZAxcoOnwZMmcBUrUtSAu
+	ZK4YCfAPOX/nML2b3iCyiEJhrXE+MVtaUN/VW8vnpQlqfTte4bts9Gzixp8VJqI9BqxLVe
+	MNfaTgwl1ApZXQrQowjWIy9eLjD61dFs4J4zYZwPxmAs1E2u1t1bKtYJaHemd+FcmtpWtd
+	PRxqo5sHx527p8Kl4mA+Hfue5WIBEucH7Nf/Tfhf0Gz+AVmKMvs31uU8h3K11EFEOumR5E
+	BD1ZipHmbK4jOrC9k0s22kri0Uq2hUNYaGVUpATd7VIz8tWEBANMJF7LmtlIRA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
+Date: Wed, 13 Aug 2025 00:33:04 +1000
+From: Aleksa Sarai <cyphar@cyphar.com>
 To: Askar Safin <safinaskar@zohomail.com>
-Cc: carlos <carlos@redhat.com>, enh <enh@google.com>, 
-	evgsyr <evgsyr@gmail.com>, linux-man <linux-man@vger.kernel.org>, wharms <wharms@bfs.de>
-Subject: Re: AW: drop ia64 from man pages?
-Message-ID: <e2sgc2ccpvk4hmr544p43xncgur4v4c7tqza56aq57o5jj4f5u@ysixg2coldvm>
-References: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
- <20250809081953.972960-1-safinaskar@zohomail.com>
- <6n5kia24vp7gbofbzzt2gm2owixe4f72azygr2fxangrbvr567@qeyje3k5cknx>
- <1989ddb2277.12853400273841.3494748395747199197@zohomail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
+	linux-man <linux-man@vger.kernel.org>, linux-api <linux-api@vger.kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v3 07/12] man/man2/fsmount.2: document "new" mount API
+Message-ID: <2025-08-12.1755007445-rural-feudal-spacebar-forehead-28QkCN@cyphar.com>
+References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
+ <20250809-new-mount-api-v3-7-f61405c80f34@cyphar.com>
+ <1989d90de76.d3b8b3cc73065.2447955224950374755@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -59,70 +72,85 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jvhzjebua7agfujt"
+	protocol="application/pgp-signature"; boundary="b2zuzbzu2rwnxtze"
 Content-Disposition: inline
-In-Reply-To: <1989ddb2277.12853400273841.3494748395747199197@zohomail.com>
+In-Reply-To: <1989d90de76.d3b8b3cc73065.2447955224950374755@zohomail.com>
+X-Rspamd-Queue-Id: 4c1Yrt6cZ5z9t89
 
 
---jvhzjebua7agfujt
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--b2zuzbzu2rwnxtze
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Askar Safin <safinaskar@zohomail.com>
-Cc: carlos <carlos@redhat.com>, enh <enh@google.com>, 
-	evgsyr <evgsyr@gmail.com>, linux-man <linux-man@vger.kernel.org>, wharms <wharms@bfs.de>
-Subject: Re: AW: drop ia64 from man pages?
-References: <m4f5nimdaa3u2atbebzdrlc23m7udtcxnm3fvh4gkf5lqxjkz3@d5l2muzr62kd>
- <20250809081953.972960-1-safinaskar@zohomail.com>
- <6n5kia24vp7gbofbzzt2gm2owixe4f72azygr2fxangrbvr567@qeyje3k5cknx>
- <1989ddb2277.12853400273841.3494748395747199197@zohomail.com>
+Subject: Re: [PATCH v3 07/12] man/man2/fsmount.2: document "new" mount API
 MIME-Version: 1.0
-In-Reply-To: <1989ddb2277.12853400273841.3494748395747199197@zohomail.com>
 
-Hi Askar,
-
-On Tue, Aug 12, 2025 at 02:37:20PM +0400, Askar Safin wrote:
->  ---- On Sat, 09 Aug 2025 14:49:45 +0400  Alejandro Colomar <alx@kernel.o=
-rg> wrote ---=20
->  > Yep, I suspect another blackout in my town.  I'm traveling, so I won't
->  > be able to turn it back on until Monday.  :(
+On 2025-08-12, Askar Safin <safinaskar@zohomail.com> wrote:
+> fsmount:
+> > Unlike open_tree(2) with OPEN_TREE_CLONE, fsmount() can only be called =
+once in the lifetime of a filesystem instance to produce a mount object.
+>
+> I don't understand what you meant here. This phrase in its current form i=
+s wrong.
+> Consider this scenario: we did this:
+> fsopen(...)
+> fsconfig(..., FSCONFIG_SET_STRING, "source", ...)
+> fsconfig(..., FSCONFIG_CMD_CREATE, ...)
+> fsmount(...)
+> fsopen(...)
+> fsconfig(..., FSCONFIG_SET_STRING, "source", ...)
+> fsconfig(..., FSCONFIG_CMD_CREATE, ...)
+> fsmount(...)
 >=20
-> I see that you don't want to remove all ia64 mentions from clone(2).
-> But is it okay to at least remove mentions of archs, which were removed m=
-ore than 5 years ago, such as blackfin?
-> If you okay with that, I can author a patch.
+> We used FSCONFIG_CMD_CREATE here as opposed to FSCONFIG_CMD_CREATE_EXCL, =
+thus
+> it is possible that second fsmount will return mount for the same superbl=
+ock.
+> Thus that statement "fsmount() can only be called once in the lifetime of=
+ a filesystem instance to produce a mount object"
+> is not true.
 
-If you send a patch with concrete removals, I can tell you if I agree
-with them.  In principle, I could agree with some removals.  It also
-depends on the feedback from other contributors; it's not just me.
+Yeah, the superblock reuse behaviour makes this description less
+coherent than what I was going for. My thinking was that a reused
+superblock is (to userspace) conceptually a new filesystem instance
+because they create it the same way as any other filesystem instance.
+(In fact, the rest of the VFS treats them the same way too -- only
+sget_fc() knows about superblock reuse.)
 
+But yeah, "filesystem context" is more accurate here, so probably just:
 
-Have a lovely day!
-Alex
+  Unlike open_tree(2) with OPEN_TREE_CLONE, fsmount() can only be called
+  once in the lifetime of a filesystem context.
+
+Though maybe we should mention that it's fsopen(2)-only (even though
+it's mentioned earlier in the DESCRIPTION)? If you read the sentence in
+isolation you might get the wrong impression. Do you have any
+alternative suggestions?
+
+FWIW, superblock reuse is one of those things that is a fairly hairy
+implementation detail of the VFS, and as such it has quite odd
+semantics. I probably wouldn't have documented it as heavily if it
+wasn't for the addition of FSCONFIG_CMD_CREATE_EXCL (maybe an entry in
+BUGS or CAVEATS at most -- this behaviour has an even worse impact on
+mount(2) but it's completely undocumented there).
 
 --=20
-<https://www.alejandro-colomar.es/>
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+https://www.cyphar.com/
 
---jvhzjebua7agfujt
+--b2zuzbzu2rwnxtze
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmibHUMACgkQ64mZXMKQ
-wqkgww/8CYuTCyY+SxYR4QgLMd7jC+hNDOVLwtEm+hJuXpxdtKrjkrO4D52zDS3g
-rVQyNWW+9zd3spz5X0T0BxZmtslCFFlqD2p3lzihkQDWkphHl5Q1PT3IzbceeE/e
-ZRAJadMK5EiXvkD0LokmkDEcYWTscxafQFv12iNywtA4k3DPxcYbuUYldZgWdGOb
-xlI30aPZ3nFQVIjfJo/12Maek4xHab5vbR9BSCburpfJODGEvTWnjBxZ/HkQanlx
-Kl15s/KaUpLhIxc17YpVUgkYxLiPMDZ6wQlYU64TkgpU/dSvRXHH+zUCMjKzl6TP
-sIN1gSJxF0E32y/ObJC2UvxlmIjGgkDRx/MF9EbClmcZtPkVnAGjokAa3SdFnl7m
-LLy6T32hNbNvNlR2BpORaf9SBj+D7rXuceHNg9PwzOk6ufrPZm0MwvCdhIorWAY1
-veXkdrwVafRebgvM8T4GchYSAinuzMCq6igkxPpaz/Qg+ga8/JNNzqVMmlYjkwmi
-nX0fU6JHjWz+9krKirirc/dLPcjh9bpqdAtzgQRwwv2OS0UQlNZMs5REhjCPWNGq
-BjaXQJN+JiSVDoodRmFxtIyH+gjXH+CEXx3iEOLqdcUSN0Tve5fnYMdjqBxK8POs
-mnK+3ZNRuakpoYuu5X+IEuE+W2tJELQSxckFazX/7NXguYiBVDQ=
-=iZ9Y
+iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaJtQmRsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG/UwAD+MwnSuB2nUpF6VN+lG6Sk
+ahtWU9Ut5x9w1cljgw+oql0BAPzwUVFsh5FWVEt9gyvDxhFsVMHokKdK4FubSZ9L
+TmEO
+=CcEX
 -----END PGP SIGNATURE-----
 
---jvhzjebua7agfujt--
+--b2zuzbzu2rwnxtze--
 
