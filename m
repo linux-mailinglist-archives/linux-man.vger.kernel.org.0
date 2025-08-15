@@ -1,55 +1,60 @@
-Return-Path: <linux-man+bounces-3450-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3451-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F156B27DD0
-	for <lists+linux-man@lfdr.de>; Fri, 15 Aug 2025 12:04:45 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E689B27DEF
+	for <lists+linux-man@lfdr.de>; Fri, 15 Aug 2025 12:09:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 81010AA5A74
-	for <lists+linux-man@lfdr.de>; Fri, 15 Aug 2025 10:01:02 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id E72E818871BF
+	for <lists+linux-man@lfdr.de>; Fri, 15 Aug 2025 10:06:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC6B02FDC38;
-	Fri, 15 Aug 2025 10:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8EA2F2FCC15;
+	Fri, 15 Aug 2025 10:06:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ope/PsNc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sy2rO7FD"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0762FE046
-	for <linux-man@vger.kernel.org>; Fri, 15 Aug 2025 10:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA852E06D7;
+	Fri, 15 Aug 2025 10:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755252011; cv=none; b=bP0RdlOQho7gwLZ2XDkbWdYhhgGvxr21pmeJqmhmNEqAeF6kphvowSRRLStmFARYn3qeaCSk50qhzkvj+gzTbPkmc1mM7wWbw1WoMyHEvs1afH2IDF/v1QxcJDYu5dMVaqBu/lvBivS5R9wAcERjqpfgMnCScBa9jJ7+0REW9n8=
+	t=1755252360; cv=none; b=S4sNR4h0NyrNioX06MYTgzgR3QUo/6q459aUd56Q7+mWF5S31tha7mjn65qTiGeqqaCSX4Yt9sB7riRiTH9kup5b+sYSopuZg2g/0lyX4OyAawjpUK9P5/Xfx319Z2/h1uZb9PEodNa6+fL34z/W/3WFxpIyxdntz5uJBkzMlz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755252011; c=relaxed/simple;
-	bh=e66fgyk04zCSMX6QuLYosJ7CQho1yMOb+15I/yas7OA=;
+	s=arc-20240116; t=1755252360; c=relaxed/simple;
+	bh=4kAPBiqBZAxCxAWIqIT+vr/yijIk5oAl7mKqqrCIIPY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ElH0RjmKOggFQ8YUKJnmoDPCbI36UMTH/gGMWIIqjYGJZtakHqAXSjgXFDrtguInrb/ncuq2hex5rYxpRujlvCmZLBro426B4mUjzIUiJRLW9JQH3vkA6uXxcVL2F9RN4HcG6dt1zhPOwWUu5ry00TVKV7quJA6iwnJRJ6UkTfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ope/PsNc; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E650C4CEEB;
-	Fri, 15 Aug 2025 10:00:10 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZYDWyISbHu5E/ATNmXqjoCLRLQMwLgG3kSwpCQRDGSFRlav/UonthHNYuUD+uME0SLLBePDmpPrUeQ5gmDlWbxzEKI0mEiOQZWUac5lAf03y+BWAnhJSdP3f8ESAsD2LCw9q+kNHY85gPpKoLagGedBSY8keHwiwivgUdMsf/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sy2rO7FD; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87455C4CEEB;
+	Fri, 15 Aug 2025 10:05:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755252011;
-	bh=e66fgyk04zCSMX6QuLYosJ7CQho1yMOb+15I/yas7OA=;
+	s=k20201202; t=1755252359;
+	bh=4kAPBiqBZAxCxAWIqIT+vr/yijIk5oAl7mKqqrCIIPY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ope/PsNcH6WmXVnU17MqBEvE71/4O6wP0IMgTIyhHfGnbRNu2IJAlHYDxsnNWTS1X
-	 VNP0P8vKNV08YZWOf+3tX/9eUCx2t3kfe+JIl+YLdYlNnfTiG90bRjl3MrGhObXqGj
-	 I+4mNzgKGaL/RZcsbkD/1XUe5q+Z5TRhkwD5BhJEiC5YGcqobN6uApKLtyila+N0Yu
-	 g+Vj2BhtbaQvFkPhKbJtmu5LpL70+flpsz1Ai0D+SOBICmCdPtG9SzaKhCrG/UL5s9
-	 gXmcFwoUKzkxrXn7iJpiN+Mm6zTn5liASWE/VrP+4GAJ1y7izgPgAFGz01XbR0TK1G
-	 HUOfd7PB8da+w==
-Date: Fri, 15 Aug 2025 12:00:07 +0200
+	b=sy2rO7FDDu4llpFz5072JU6C/cgszHciODCkbRki++0+gQXvb6MFUExZ/dQrs6ag6
+	 xS0K9396Iwmi7UJDbF0JBapKbPwhSlDQUapEhgjpef6asPhzyGrWw0USjgTARyRYON
+	 vnzB1oHb337Dakjv27VeTywsm25dbCNT2sRFR9jZaYCWc1bSTXz+lwMCxhc8RzQEmt
+	 jVcjMQL0BTwBbTR1AB9Ny/WC615OibK5ZGrPYvLs6sGjvLRIYova+z3PDX3EhStElz
+	 1r06W6OcXZPHBd7FtEwivxo4bqd0OKhRLvSI3JLsWqO50k6sKHunnbSQZhUlBDtHLg
+	 RnOu/SY4MRCCA==
+Date: Fri, 15 Aug 2025 12:05:54 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "Klebsch, Mario" <Mario.Klebsch@ime-actia.de>
-Cc: Radek Pazdera <rpazdera@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: AW: bug report: sendto(2) is missing EADDRNOTAVAIL
-Message-ID: <43fewkvkd4vpovblgqzvusqclrl3o6dfpqasfu7ydmgmjos2x6@bnjmj3wwawhi>
-References: <e885aaf5f35b44ceb76703067cc82639@ime-actia.de>
- <ozouxtgdqrp4ojymhcbd3hh337uuxvo3s2rzg5soa7lapibj4o@nlh4sqc2znui>
- <644bcb89d0714531b37ae6edb04102b8@ime-actia.de>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Peter Xu <peterx@redhat.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] man/man2/mremap.2: explicitly document the simple
+ move operation
+Message-ID: <hxbuhtkuorfe5d5lr7wi5cny7vx6bt3kc2xaoknfz4h6vk6djv@kpgaur7636rl>
+References: <cover.1754924278.git.lorenzo.stoakes@oracle.com>
+ <0a5d0d6e9f75e8e2de05506f73c41b069d77de36.1754924278.git.lorenzo.stoakes@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,118 +62,103 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w4gz7zjgcmpayivq"
+	protocol="application/pgp-signature"; boundary="74b6lswjh7fvdbms"
 Content-Disposition: inline
-In-Reply-To: <644bcb89d0714531b37ae6edb04102b8@ime-actia.de>
+In-Reply-To: <0a5d0d6e9f75e8e2de05506f73c41b069d77de36.1754924278.git.lorenzo.stoakes@oracle.com>
 
 
---w4gz7zjgcmpayivq
+--74b6lswjh7fvdbms
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "Klebsch, Mario" <Mario.Klebsch@ime-actia.de>
-Cc: Radek Pazdera <rpazdera@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: AW: bug report: sendto(2) is missing EADDRNOTAVAIL
-References: <e885aaf5f35b44ceb76703067cc82639@ime-actia.de>
- <ozouxtgdqrp4ojymhcbd3hh337uuxvo3s2rzg5soa7lapibj4o@nlh4sqc2znui>
- <644bcb89d0714531b37ae6edb04102b8@ime-actia.de>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: linux-man@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Peter Xu <peterx@redhat.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] man/man2/mremap.2: explicitly document the simple
+ move operation
+References: <cover.1754924278.git.lorenzo.stoakes@oracle.com>
+ <0a5d0d6e9f75e8e2de05506f73c41b069d77de36.1754924278.git.lorenzo.stoakes@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <644bcb89d0714531b37ae6edb04102b8@ime-actia.de>
+In-Reply-To: <0a5d0d6e9f75e8e2de05506f73c41b069d77de36.1754924278.git.lorenzo.stoakes@oracle.com>
 
-[CC +=3D linux-man@, Radek]
+Hi Lorenzo,
 
-Hi Mario,
-
-Please don't remove the mailing list.
-
-On Fri, Aug 15, 2025 at 09:43:36AM +0000, Klebsch, Mario wrote:
-> Hello Alex,
+On Mon, Aug 11, 2025 at 03:59:37PM +0100, Lorenzo Stoakes wrote:
+> In preparation for discussing newly introduced mremap() behaviour to perm=
+it
+> the move of multiple mappings at once, add a section to the mremap.2 man
+> page to describe these operations in general.
 >=20
-> >	ERRORS
-> >	     These  are  some  standard  errors generated by the socket
-> >	     layer.  Additional errors may be  generated  and  returned
-> >	     from the underlying protocol modules; see their respective
-> >	     manual pages.
->=20
-> The man page of ip(7) in deed lists EADDRNOTAVAIL:
->=20
-> >        EADDRNOTAVAIL
-> >              A nonexistent interface was requested or the
-> >              requested source address was not local.
->=20
-> So it is not missing (as I thought) and my bug report can be rejected.
+> Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-Thanks!
+Thanks!  I've applied this patch.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D6ba37b9e14f6565d0cccecb634100d7fe11d22fb>
 
-> But his explanation does not really help. The sddr parameter of the
-> failed sendto() call is not a local address, but this is normal, when usi=
-ng sendto(). Sendto()s intended usage is sending messages to remote systems.
-
-I also found
-
-     IP_UNBLOCK_SOURCE (since Linux 2.4.22 / 2.5.68)
-            Unblock previously blocked multicast source.  Returns  EAD=E2=
-=80=90
-            DRNOTAVAIL when given source is not being blocked.
-
-            Argument  is an ip_mreq_source structure as described under
-            IP_ADD_SOURCE_MEMBERSHIP.
-
-Maybe this helps?  I think this should be mentioned in ERRORS too.
-I found it with the following:
-
-	$ git blame -- man/man7/ip.7 | grep EADDRNOTAVAIL
-	1ae6b2c7b8 man7/ip.7     (Alejandro Colomar      2022-03-18 20:25:09 +0100=
- 1103) .B EADDRNOTAVAIL
-	77117f4fc5 man7/ip.7     (Michael Kerrisk        2008-08-08 16:41:48 +0000=
- 1351) .B EADDRNOTAVAIL
-	$ git show 1ae6b2c7b8 -- man7/ip.7 | grep EADDRNOTAVAIL
-	-.BR EADDRNOTAVAIL
-	+.B EADDRNOTAVAIL
-	$ git blame 1ae6b2c7b8^ -- man7/ip.7 | grep EADDRNOTAVAIL
-	2a98c8e66d (Radek Pazdera          2013-02-10 03:33:27 +0100 1007) .BR EAD=
-DRNOTAVAIL
-	77117f4fc5 (Michael Kerrisk        2008-08-08 16:41:48 +0000 1253) .B EADD=
-RNOTAVAIL
-
-I've CCed Radek, who added the paragraph from above.
-
-> To me it seems, the author of the description of EADDRNOTAVAIL had
-> bind(2) failures in mind, when he wrote the descrition of this error
-> code.
->=20
-> > If it's an error of sendto(2) itself, would you mind sending a patch?
->=20
-> I am unable to make a patch for you, because I do not know, what I
-> shoud document. I read the man page just to find out, what the cause
-> of the EADDRNOTAVAIL might be and how to halde this situation.
 
 Have a lovely day!
 Alex
 
+> ---
+>  man/man2/mremap.2 | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>=20
+> diff --git a/man/man2/mremap.2 b/man/man2/mremap.2
+> index 2168ca728..4e3c8e54e 100644
+> --- a/man/man2/mremap.2
+> +++ b/man/man2/mremap.2
+> @@ -25,6 +25,20 @@ moving it at the same time (controlled by the
+>  argument and
+>  the available virtual address space).
+>  .P
+> +Mappings can also simply be moved
+> +(without any resizing)
+> +by specifying equal
+> +.I old_size
+> +and
+> +.I new_size
+> +and using the
+> +.B MREMAP_FIXED
+> +flag
+> +(see below).
+> +The
+> +.B MREMAP_DONTUNMAP
+> +flag may also be specified.
+> +.P
+>  .I old_address
+>  is the old address of the virtual memory block that you
+>  want to expand (or shrink).
+> --=20
+> 2.50.1
+>=20
+
 --=20
 <https://www.alejandro-colomar.es/>
 
---w4gz7zjgcmpayivq
+--74b6lswjh7fvdbms
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmifBSEACgkQ64mZXMKQ
-wqljaRAAiHKE29hUX1qBy8uuPx3atzqak7ToTI6n/oINYEUj67TiBL3R+VWnX305
-ti5UEt3AbMe3I1QsedJyAFN/xW1mnLmUSayoTik9pYxYtYotjIol7FtjgU9pzwON
-5gdeM/Tbr1hsqajtlPBV2phJ4DYpuj7OeUk2HTMNsgFGGB/B/gjFEpmHNY4WfCft
-VtJy8/mFv4lUGSs4j3xhPaUpMKxLCPeH+CzheUhroLTEqQvoontySmQkm0/eIP8v
-onjU43jRhi9Ho0gz9uAJMm5wBc42B50HKCTU1v7/RnJrViV63HWa8Ff3IQllbW4+
-DVbYiFKgiDw/IVnI2+USD+ndubMMd6LmK+ik8tD81rt994fTw1Et0wFyY2mTORx9
-OI1lfFTUe5KJkqZgZEtixSzFqvE8qhlfZV+HzSpkbLfz392jqYwfqu71dmmi8Bao
-B1Mh3YYXIejOmSpgzbATqEicG+NZKD7NJllrv6I8+McARDQ9ZRzR1Vv/YVOxMPYA
-0FeCRN9rIaS/HlbfNSMmUnZ5LKt7DF5pdzbtjLDbsxMtTuCPmeOnn9LdFfxluFXe
-mDILj5IYldYsOchdpnK1E7bgAZe81xeSaWcJ/NMwWenolX7kQQI7vnI2jzGW3k8v
-2MBfub2YwkuhtG3EkieM0lu+glP3canIi/9Bc/FVbwnT57Aprbo=
-=zLbW
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmifBoEACgkQ64mZXMKQ
+wqk7Dw//WsFue4bgugB0w/7GXyXlaPczRfrhaf0n+tv2SeXMcBgc86x8YoLB4O5g
+6WGu+m2Eei9AjViA6W0UlnBIXGsWnUQHgv+8tqA1vfEcHDSfnh26kh0gMTlMPKuq
+wPC+o3X6F6srlbiY2/l6YbvpgNn/V1/23h6LaiA4jBcilL5nB5lcHOInkcc4y7W3
+BFnXclPsmRQGFnWrRqNJoE07RH1g0muQvpexqVi+rcaxwtW6nO7agU0BF6whMpzy
+wP2dVSETSUWMBBa1pKpcsnPdE+6R84TKNFFYj6xIICN/fTWwnuVst9SOdiqUKN6+
+NhPp7Vo47d73nH8levpw0VrkNY6+8kLq2Fm6bOnyqf5Xff0w7FoHJx0D3QlSqWPN
+efKViQY+D2uu8tvT2PF3/goFNUH/08EE/TUjxIUbqTFzi2H314yyEWX0YNIqpZJw
+/7EBDvp/yoH+GPbzol7Onz7Y/G537Z2RG+MEbazZsV7IUOVcXkrFvcVq7KR4/TlN
+NgipluT+5TEClK6gyp58v4RbJm4SFeSRl3tlx6vXfK4cS3WF8QpsT6K8arwTEFnF
+sLx3IpEP8cbUrxISi+hGt8VyxqkL6kFatKsWfF8pRsD2Njwe7yNBzYuG8+9SJ8dD
+PZtV69UE04m/D2yfesaNy+eYsIYEtV5mlNOHMMIUZy68hv68XTQ=
+=hIne
 -----END PGP SIGNATURE-----
 
---w4gz7zjgcmpayivq--
+--74b6lswjh7fvdbms--
 
