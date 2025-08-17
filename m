@@ -1,281 +1,160 @@
-Return-Path: <linux-man+bounces-3456-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3457-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F65B29215
-	for <lists+linux-man@lfdr.de>; Sun, 17 Aug 2025 09:53:49 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A884B2941E
+	for <lists+linux-man@lfdr.de>; Sun, 17 Aug 2025 18:22:35 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4DD782A1606
-	for <lists+linux-man@lfdr.de>; Sun, 17 Aug 2025 07:53:49 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0CB6D3AFE2F
+	for <lists+linux-man@lfdr.de>; Sun, 17 Aug 2025 16:22:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC480202F9F;
-	Sun, 17 Aug 2025 07:53:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BE122FD7DF;
+	Sun, 17 Aug 2025 16:22:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="GloQMCCj"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="O1MSsZkS"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B7147F4A;
-	Sun, 17 Aug 2025 07:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755417221; cv=pass; b=YZCHfnaLAE/3/xWhi8NI+3Baq6b0nRvGqLBwu4kl1q+ImpjJHi3JJJDhFSO1LwnC/IbdmO+D8uoA1/DAXTaYfs/zKK9PBi/Yx2APqq5r30Oba6l4De/wHLX2v+hqCqcSFuSU4qb9vnah8gLW3/xDiXONI4Z5OLTrp8DVtegsqfo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755417221; c=relaxed/simple;
-	bh=+A/lL2Vivktg9Fcjb1RlmK8N9LuyWC8xYg1ZWXsLqfs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VXIByBQcIWAzUZRWDCwEtZx9eRaNlU7p28NT6ZKX3CW6n8YBvGqiebEsBF6vlq5xaCSgAFotJ61Yz9Mae78IFn/TZKIu8cYErCKjJnzSVcHPjfWW7sDxqNyqwJKU5txythi5rXlTjx0imflzQQP3KLYiUhHVjCcvm7AUCuCfWjA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=GloQMCCj; arc=pass smtp.client-ip=136.143.188.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1755417184; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XK9TUXUIImJ+S6YxKYji5AxuTW5lGuY8dd+ySQD4ic6g5ZDtTft9jYBjdCI+5FyosXuofqwB+nCkpkEFM7W0VGmSf64na/FokUFLwYLOw5pTk6sGkTREJJjB/90VsWUZY8fPbZpHUGm8gM9nJzXErl01GzxCs1romYVAWmn77p8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1755417184; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=FxEUlubSzS/ImSmy9LZfYIWs7jCDlWOHoKLlk40PBY4=; 
-	b=E3FC664HU6sv2FfICrC6I2ocZIAHg3Wu62IZIDTidy3mS2+MG1I3wEDbngmIia/DSK2HopvDaZ9jY3obHlBApOMooPia9WscG77uG5ocWMZA8nem5XD5Us05VqOe3NYJiDapox1BupcV2oO9IG3dVufo5gOJYs9VwxVdPpJSWiY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
-	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1755417183;
-	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=FxEUlubSzS/ImSmy9LZfYIWs7jCDlWOHoKLlk40PBY4=;
-	b=GloQMCCjcT4dXCZ2G2ZJdEWJgRqPoJbiEklJhtk+J8XF2yYPEtvD98cparmnXsgN
-	GmDKDhQAdViSTL2lCQvyUXpHTq5nS2FyQ0+J+mIVX6Ic8VAZDDHBjG3CHfUszRZ6nhv
-	WTsEmeuP54CPO+LOSkL33GMaBolI2yELwHnt6t0U=
-Received: by mx.zohomail.com with SMTPS id 1755417180137848.3990767083374;
-	Sun, 17 Aug 2025 00:53:00 -0700 (PDT)
-From: Askar Safin <safinaskar@zohomail.com>
-To: cyphar@cyphar.com
-Cc: alx@kernel.org,
-	brauner@kernel.org,
-	dhowells@redhat.com,
-	g.branden.robinson@gmail.com,
-	jack@suse.cz,
-	linux-api@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-man@vger.kernel.org,
-	mtk.manpages@gmail.com,
-	safinaskar@zohomail.com,
-	viro@zeniv.linux.org.uk,
-	Ian Kent <raven@themaw.net>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C25B29A33E;
+	Sun, 17 Aug 2025 16:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1755447747; cv=none; b=kVIwfhA5/hS8tlzmD5Pfl4FAnWNVOYuV3pXPPf0uxPKzvL7FsK7lwYa6eSAdbQ2lGF0sUmhLXjsarrb2nno5JeFMY8CZnL7mEhXgoCqjBGpIBY3EkWrPZhMvP7iQiNCj/hMGks0WH9bTE4Lr5D6+298X32Ihi6rSh5uufecnByQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1755447747; c=relaxed/simple;
+	bh=KIM5YXLmotqsp0FR3cUm3XbYsaPEk8+1QkaPNR5E0GA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fEQmYXlAgXRrN7g2tB4zYOmKD9wDbngYpI1YsNe42VK8PySx2oigzH/vt2YSq/9xqDeaiMVYF67Pt/HDDFSrirV3gbumV6T0wVd/WGjBQZKjqgzljR6aeGaggHddQ5RDU86v6clNwcxFos2J4/bzkcf3s2J9ag2wTuY0P9iTakc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=O1MSsZkS; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4c4gvS3406z9t3Y;
+	Sun, 17 Aug 2025 18:16:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1755447380;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KIM5YXLmotqsp0FR3cUm3XbYsaPEk8+1QkaPNR5E0GA=;
+	b=O1MSsZkSUZfACH72wpUGYxZutyQe9dz2sfXAI4BXZt9+AYKMGMydcHQEiUpe5iy5am055B
+	4zgZA+DqY1GctKXuUKZ4KBruHHPiDt6w5YNCNKE+9AiTtaC5kT4FDPQ2Q83PLtVokoP4eU
+	rZoN4fhipKKIi7KXtSjZmHD3xHc2RCwBGOtsJs1f8biXdydccijLV0s2kep1XLcgLaFZ2e
+	319KHV1wdEJSxj+WAJt2mb6qsPPTIQfP7jjdzoKAaXdrRaEfqTsThfvQsmAwbaiKNxLNPa
+	lXKeq/lKBFsRg8GzaYNVO2P2ozo2MDBW1z/5PZOn0SYVXVQD5arjGkzzMl8GPA==
+Date: Mon, 18 Aug 2025 02:16:04 +1000
+From: Aleksa Sarai <cyphar@cyphar.com>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: alx@kernel.org, brauner@kernel.org, dhowells@redhat.com, 
+	g.branden.robinson@gmail.com, jack@suse.cz, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	mtk.manpages@gmail.com, viro@zeniv.linux.org.uk, Ian Kent <raven@themaw.net>, 
 	autofs mailing list <autofs@vger.kernel.org>
 Subject: Re: [PATCH v3 00/12] man2: document "new" mount API
-Date: Sun, 17 Aug 2025 10:52:52 +0300
-Message-ID: <20250817075252.4137628-1-safinaskar@zohomail.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
+Message-ID: <2025-08-17.1755446479-rotten-curled-charms-robe-vWOBH5@cyphar.com>
 References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
+ <20250817075252.4137628-1-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: rr0801122748e966da49482809fcfa4ba9000041892980e08522db2c57f7da5fd32461398966667a65ec4920:zu0801122761e17a577db9357d25cc90f1000019da1d41d054edff11faa48fb5cc9ad3192d1c4f5edfc9c349:rf0801122b16bfbc0e5b8ba3441d3450190000fa2c120cde899195b935c940a75f78d1882c67a53c1470cea4170e57be:ZohoMail
-X-ZohoMailClient: External
-
-I noticed that you changed docs for automounts.
-So I dig into automounts implementation.
-And I found a bug in openat2.
-If RESOLVE_NO_XDEV is specified, then name resolution
-doesn't cross automount points (i. e. we get EXDEV),
-but automounts still happen!
-I think this is a bug.
-Bug is reproduced in 6.17-rc1.
-In the end of this mail you will find reproducer.
-And miniconfig.
-
-If you send patches for this bug, please, CC me.
-
-Are automounts actually used? Is it possible to deprecate or
-remove them? It seems for me automounts are rarely tested obscure
-feature, which affects core namei code.
-
-This reproducer is based on "tracing" automount, which
-actually *IS* already deprecated. But automount mechanism
-itself is not deprecated, as well as I know.
-
-Also, I did read namei code, and I think that
-options AT_NO_AUTOMOUNT, FSPICK_NO_AUTOMOUNT, etc affect
-last component only, not all of them. I didn't test this yet.
-I plan to test this within next days.
-
-Also, I still didn't finish my experiments. Hopefully I will
-finish them in 7 days. :)
-
-Askar Safin
-
-====
-
-miniconfig:
-
-CONFIG_64BIT=y
-
-CONFIG_EXPERT=y
-
-CONFIG_PRINTK=y
-CONFIG_PRINTK_TIME=y
-
-CONFIG_TTY=y
-CONFIG_VT=y
-CONFIG_VT_CONSOLE=y
-CONFIG_FRAMEBUFFER_CONSOLE=y
-
-CONFIG_PROC_FS=y
-CONFIG_DEVTMPFS=y
-CONFIG_SYSFS=y
-CONFIG_TMPFS=y
-CONFIG_DEBUG_FS=y
-CONFIG_USER_EVENTS=y
-CONFIG_FTRACE=y
-CONFIG_MULTIUSER=y
-CONFIG_NAMESPACES=y
-CONFIG_USER_NS=y
-CONFIG_PID_NS=y
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3ehbyzqii53i3kbg"
+Content-Disposition: inline
+In-Reply-To: <20250817075252.4137628-1-safinaskar@zohomail.com>
 
 
-CONFIG_SERIAL_8250=y
-CONFIG_SERIAL_8250_CONSOLE=y
+--3ehbyzqii53i3kbg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 00/12] man2: document "new" mount API
+MIME-Version: 1.0
 
-CONFIG_BLK_DEV_INITRD=y
-CONFIG_RD_GZIP=y
+On 2025-08-17, Askar Safin <safinaskar@zohomail.com> wrote:
+> I noticed that you changed docs for automounts. So I dig into
+> automounts implementation. And I found a bug in openat2. If
+> RESOLVE_NO_XDEV is specified, then name resolution doesn't cross
+> automount points (i. e. we get EXDEV), but automounts still happen! I
+> think this is a bug. Bug is reproduced in 6.17-rc1. In the end of this
+> mail you will find reproducer. And miniconfig.
 
-CONFIG_BINFMT_ELF=y
-CONFIG_BINFMT_SCRIPT=y
+Yes, this is a bug -- we check LOOKUP_NO_XDEV after traverse_mounts()
+because we want to error out if we actually jumped to a different mount.
+We should probably be erroring out in follow_automount() as well, and I
+missed this when I wrote openat2().
 
-CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED=y
+openat2() also really needs RESOLVE_NO_AUTOMOUNT (and probably
+RESOLVE_NO_DOTDOT as well as some other small features). I'll try to
+send something soon.
 
-CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+> Are automounts actually used? Is it possible to deprecate or
+> remove them? It seems for me automounts are rarely tested obscure
+> feature, which affects core namei code.
 
-====
+I use them for auto-mounting NFS shares on my laptop, and I'm sure there
+are plenty of other users. They are little bit funky but I highly doubt
+they are "unused". Howells probably disagrees in even stronger terms.
+Most distributions provide autofs as a supported package (I think it
+even comes pre-installed for some distros).
 
-/*
-Author: Askar Safin
-Public domain
+They are not tested by fstests AFAICS, but that's more of a flaw in
+fstests (automount requires you to have a running autofs daemon, which
+probably makes testing it in fstests or selftests impractical) not the
+feature itself.
 
-Make sure your kernel is compiled with CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED=y
+> This reproducer is based on "tracing" automount, which
+> actually *IS* already deprecated. But automount mechanism
+> itself is not deprecated, as well as I know.
 
-If that openat2 bug reproduces, then this program will
-print "BUG REPRODUCED". If openat2 is fixed, then
-the program will print "BUG NOT REPRODUCED".
-Any other output means that something gone wrong,
-i. e. results are indeterminate.
+The automount behaviour of tracefs is different to the general automount
+mechanism which is managed by userspace with the autofs daemon. I don't
+know the history behind the deprecation, but I expect that it was
+deprecated in favour of configuring it with autofs (or just enabling it
+by default).
 
-This program requires root in initial user namespace
-*/
+> Also, I did read namei code, and I think that
+> options AT_NO_AUTOMOUNT, FSPICK_NO_AUTOMOUNT, etc affect
+> last component only, not all of them. I didn't test this yet.
+> I plan to test this within next days.
 
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sched.h>
-#include <errno.h>
-#include <sys/stat.h>
-#include <sys/mount.h>
-#include <sys/syscall.h>
-#include <linux/openat2.h>
+No, LOOKUP_AUTOMOUNT affects all components. I double-checked this with
+Christian.
 
-int
-main (void)
-{
-    if (unshare (CLONE_NEWNS) != 0)
-        {
-            perror ("unshare");
-            return 1;
-        }
-    if (mount (NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) != 0)
-        {
-            perror ("mount(NULL, /, NULL, MS_REC | MS_PRIVATE, NULL)");
-            return 1;
-        }
-    if (mount (NULL, "/tmp", "tmpfs", 0, NULL) != 0)
-        {
-            perror ("mount tmpfs");
-            return 1;
-        }
-    if (mkdir ("/tmp/debugfs", 0777) != 0)
-        {
-            perror ("mkdir(/tmp/debugfs)");
-            return 1;
-        }
-    if (mount (NULL, "/tmp/debugfs", "debugfs", 0, NULL) != 0)
-        {
-            perror ("mount debugfs");
-            return 1;
-        }
-    {
-        struct statx tracing;
-        if (statx (AT_FDCWD, "/tmp/debugfs/tracing", AT_NO_AUTOMOUNT, 0, &tracing) != 0)
-            {
-                perror ("statx tracing");
-                return 1;
-            }
-        if (!(tracing.stx_attributes_mask & STATX_ATTR_MOUNT_ROOT))
-            {
-                fprintf (stderr, "???\n");
-                return 1;
-            }
-        // Let's check that nothing is mounted at /tmp/debugfs/tracing yet
-        if (tracing.stx_attributes & STATX_ATTR_MOUNT_ROOT)
-            {
-                fprintf (stderr, "Something already mounted at /tmp/debugfs/tracing\n");
-                return 1;
-            }
-    }
-    if (chdir ("/tmp/debugfs") != 0)
-        {
-            perror ("chdir");
-            return 1;
-        }
-    {
-        struct open_how how;
-        memset (&how, 0, sizeof how);
-        how.flags = O_DIRECTORY;
-        how.mode = 0;
-        how.resolve = RESOLVE_NO_XDEV | RESOLVE_NO_MAGICLINKS | RESOLVE_NO_SYMLINKS;
-        if (syscall (SYS_openat2, AT_FDCWD, "tracing", &how, sizeof how) != -1)
-            {
-                fprintf (stderr, "openat2 crossed automount point");
-                return 1;
-            }
-        if (errno != EXDEV)
-            {
-                fprintf (stderr, "wrong errno");
-                return 1;
-            }
-    }
-    {
-        struct statx tracing;
-        if (statx (AT_FDCWD, "/tmp/debugfs/tracing", AT_NO_AUTOMOUNT, 0, &tracing) != 0)
-            {
-                perror ("statx tracing (2)");
-                return 1;
-            }
-        if (!(tracing.stx_attributes_mask & STATX_ATTR_MOUNT_ROOT))
-            {
-                fprintf (stderr, "???\n");
-                return 1;
-            }
-        if (tracing.stx_attributes & STATX_ATTR_MOUNT_ROOT)
-            {
-                fprintf (stderr, "BUG REPRODUCED. Something mounted at /tmp/debugfs/tracing\n");
-                return 0;
-            }
-        else
-            {
-                fprintf (stderr, "BUG NOT REPRODUCED\n");
-                return 0;
-            }
-    }
-}
+You would think that it's only the last component (like O_DIRECTORY,
+O_NOFOLLOW, AT_SYMLINK_{,NO}FOLLOW) but follow_automount() is called for
+all components (i.e., as part of step_into()). It hooks into the regular
+lookup flow for mountpoints.
+
+Yes, it is quite funky that AT_NO_AUTOMOUNT is the only AT_* flag that
+works this way -- hence why I went with a different RESOLVE_* namespace
+for openat2() (which _always_ act on _all_ components).
+
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+https://www.cyphar.com/
+
+--3ehbyzqii53i3kbg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaKIARBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG+6jAD8D/4PVcL1t2EdmyrkWIjh
+tZdIr+KBTQShh2El79nxd/kBAI86sq1SaVvAQXne/CgcAKpQU02tGwiNbAgNEi3f
+hNMH
+=jA3t
+-----END PGP SIGNATURE-----
+
+--3ehbyzqii53i3kbg--
 
