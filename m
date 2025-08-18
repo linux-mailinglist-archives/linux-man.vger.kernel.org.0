@@ -1,70 +1,74 @@
-Return-Path: <linux-man+bounces-3472-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3473-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9031BB29B72
-	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 09:59:41 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAB33B29BE3
+	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 10:20:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3B1F716B0BB
-	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 07:59:40 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E73603AD268
+	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 08:19:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C1602BDC34;
-	Mon, 18 Aug 2025 07:59:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5EF902C17B2;
+	Mon, 18 Aug 2025 08:19:30 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2382BDC14
-	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 07:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB65C283FC4
+	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 08:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755503961; cv=none; b=PfyrrTMNvHBocKDO98TDOjinCv46g1KQ6FqhdbVziee0KonpygexyHpz73j+EsZAwIqrPU/jvGgvTWFkBdfdZpIc1Y6f+SO7qtvcR4kZ82Da8PVl/4omWZVM1S+VbfBVAcwHw/SP79mL8UnDMrnAOPQQohjA+5/v9gmnJ/NYI+s=
+	t=1755505170; cv=none; b=uo6DTKAztao+UnGeqtn5haBVQIDPpHf88/n+WUNdHYEZBT+B2mx10kFRHLj7jHiPSL83s57TIBgFIR59sc2Bs3I9tP2WUSohgGlyxbBtzBAu1aZH4h7R2DGw3Y4L4Cw/sNyuCRjpnulxUjfF4WYAx2ZNRnp0IX02AVHrS5eAZOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755503961; c=relaxed/simple;
-	bh=VSHk1qlHQTVl5TQH8mkAr1QXQ8Dj/v2WhVak2vkSq6s=;
+	s=arc-20240116; t=1755505170; c=relaxed/simple;
+	bh=3f+F4t+xC7KLlQNin4S4Ra2QneYyqrwflXznURcJzFI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FbuNTv28ndBsQZI02WEh3f8E8PnqiN+dgaikS4OGbtcNRb5N3FuJHtgFdWJ/Wcrr6+8Y/NsUTgc5An4U5Ds3K+z0ZDjuG6FLFOip717W8r5TqE7Seo/sUtja4MKG5VGjd9qUwsuvyQv6JO3pbd1qNUb5PJyQhTWvCv1eglLF7oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.180
+	 MIME-Version; b=ZWCcpEFpuIq5mjxQLVvSYYBJyYAmImefrw1QdUNIPzKR9pLefuItlvGvS5Sjkb4za9wqcFk48VtUoifcBFMznCX/rba0tvXR33zEBEFMwcwV6KYrT2yXFIRBPDy7VqKaZTz0RjiX0z1G8UQ0zFanX5wuwVYuEQ079lUHl4chhxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-24457f581aeso28282085ad.0
-        for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 00:59:19 -0700 (PDT)
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-76e2e8e2d2dso2278808b3a.1
+        for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 01:19:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755503959; x=1756108759;
+        d=1e100.net; s=20230601; t=1755505168; x=1756109968;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=B9ftRcTxS1Ij23Fto0synt0xYpBy08GzhvLvsEFgAbQ=;
-        b=E4Cl4hJbPaXspk/zCuVJCGa0xGjsjt2n2xiy7XrxRBo2u2Z8CppfaeyeiG0bVVWPDJ
-         mLqEe4rsxt4aeNCj+fhkqtLWuXf5uRjxUhApQhdc67krz8kJ5hHO08zk8NhmguzJcRgN
-         p6/4V1+BihNFoa9fZsr/Dua0jaBM8pgOH2IKqAvA5ilGLhZ0jtjI0xhkiPsnLYCas0lv
-         ovsY29urJ0stKJ/megNoDyH2j8+NFwTqmLlIkW3RUuUVuPzDV3+SSBMlSbY4Zbra1YJ+
-         d7bvc6uf4f3jxklx11CWImR43TcR7u/LxGP9ENn9x7tAGsmZ3/R7V4RJDRb5mVKJTbkt
-         z8JQ==
-X-Gm-Message-State: AOJu0YzrIfkACSydGJbLrTXRebz95TUA+24vDEpEWZKZD3kEhje5VUuT
-	Aa/9m7Zda0FAZlR2Tn0IIm7+NNW621ifMhngFcu7MuOcaVSP8Nw3stg8
-X-Gm-Gg: ASbGncuj+2fZHEYYf2njelioivzaiISx1YHKjxNM/NfpwVRKIMHly8KOrBoZT8AOQhX
-	sfgnwcRbf26+VLdfBJatnXejYCebz47nKi72UoUpMKQeo5JZ+iFauJNv8wFa8kbayi6wdRDKnfX
-	2tey1gx8QMS4FoI6qmHCkw3xayN10YTPHGr+HFY221ZMc8X2lGHWsy21+Iosqq2IGiBIG9K816A
-	RMPxmMf41pR6AfpteI8Qs5+JjBo5M4dOXHwBV9KpwJL4e/ZFc/TJ6lQdlFwBRpozaEiV1OLEjlO
-	6wsRQ/Af2kt9G6a08nSPYhSp1dYugMBw/o5YHI8oJWa5Tvpe+lEhLbnx74I/9OoB4FzluHiTZSO
-	yc3J6AyddDPrQhlUUa6VA3HcaMmWCmsf52Nncjt7NdhCcCIzVeRIlw7YXB0Bd+fR8r2qI9A==
-X-Google-Smtp-Source: AGHT+IGIZq8EWMW7nM7piisEmv0Lq257lmETTvaklxlubbANZI9RlMZxFudnH52qgFDTIK0nA58GSw==
-X-Received: by 2002:a17:903:2f10:b0:235:c9a7:d5f5 with SMTP id d9443c01a7336-24478f347afmr105792285ad.13.1755503958770;
-        Mon, 18 Aug 2025 00:59:18 -0700 (PDT)
+        bh=3f+F4t+xC7KLlQNin4S4Ra2QneYyqrwflXznURcJzFI=;
+        b=YEsyvahNBsAY3DZyTTfbemPnQg2HjHlIlJxUXVw19nKfwQljGYfY21/9+cU8KKPwMf
+         CuLo8dtacZe+GU3wE0fvgLbODTsrNwuDLo4ZRqZ9i4iA0a2+c84jz8nFHytDd+Kk6JB9
+         Ku4l4fPn1LSEf1MJ4G0YW8rQ39us33m2fts0uqgJ1LH0S5TW80rNkojGXIBEzzPzlGvD
+         2UKCQgeba4PT6wXZWRec5eYsL9QHwUOMBhBwPC2kSNPNSx745j/oMsq6EXIU4YwIj16u
+         Hq9xbR4hDq5DIm4G3ScW12rgKFMWJDxJhvG/YqUvjBZLNim1OstCu9aRhxZHdK+suKF9
+         L+9g==
+X-Forwarded-Encrypted: i=1; AJvYcCU00X7tAh6Yrv43K4jfl6Srzn0BrU5wnr5HqDZKStdCvS0jDF+FatvBUAtaPa2PlAZqrU9qkfhV18U=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzClQ8tZn7EJo7G8IuFsdg+7EaWdmJjXuPyo/8kaNfT4PA6GWJB
+	GdZjPUKagr5NgJ/oGRJ8OACbOKDbtLcJCsigUGPg+EedkiAjqGlYCu7u
+X-Gm-Gg: ASbGncvaTvAjo2kjVsb7fSsploVn/VPhd/eddn32dhcLpndYhzgevEsCauNfj4mSyKb
+	P/pJCNDiFGeRuqBoCbmBvmoqjnwMjB5VzlnEk4xKLk2Da64GUxtlTNbO44qLIjQVJ4XXeO/KgK4
+	TisRPlhfl3abLUJMPBU4TzgyZOFd5wX+jvXkuZhidaigzZARZkWkwHmvIfX1bHAfv5StDbcaJjw
+	/bnbDsUgOIcwU0+GyLzI7u64HqD3PrSRLixbq9xn5OeOrbnLZ1gYRD8/6QH4udzlVbP65fHZxIy
+	0sSK9FTbuIaWjoxa1YRDug8jLNhQ2IatWMihOVsPKKrFCJv0c4mHLCwNeUPq7PTTH03nBFKps9E
+	oaNrmxfwZPxzNhR3R46JCh6jT3G+3frUpGJQMHgvGyUNlXZe913e6yaRgl8Z5R1+i3aY7lKWcpN
+	4Of78h
+X-Google-Smtp-Source: AGHT+IESgpYyJu5Won4uAZpfGFoNqMBl3wu+wYDuneUCY20SiKAFlJyeSisqTAezVPYMficxH0180w==
+X-Received: by 2002:a05:6a00:2353:b0:76b:f0ac:e798 with SMTP id d2e1a72fcca58-76e515645d1mr12807234b3a.7.1755505168044;
+        Mon, 18 Aug 2025 01:19:28 -0700 (PDT)
 Received: from localhost.localdomain ([2600:382:7610:1712:989a:f101:bdd0:5b1a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-32343995da0sm7196917a91.12.2025.08.18.00.59.17
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-76e4528c7a2sm6488924b3a.39.2025.08.18.01.19.26
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 18 Aug 2025 00:59:18 -0700 (PDT)
+        Mon, 18 Aug 2025 01:19:27 -0700 (PDT)
 From: Alex Yang <himself65@outlook.com>
 To: alx@kernel.org
-Cc: linux-man@vger.kernel.org,
-	Alex Yang <himself65@outlook.com>
-Subject: [PATCH] man/man2/getrusage.2: clarify ru_maxrss unit as KiB
-Date: Mon, 18 Aug 2025 00:59:05 -0700
-Message-ID: <20250818075905.40146-1-himself65@outlook.com>
+Cc: collin.funk1@gmail.com,
+	himself6565@gmail.com,
+	himself65@outlook.com,
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/getrusage.2: clarify ru_maxrss unit as KiB
+Date: Mon, 18 Aug 2025 01:19:22 -0700
+Message-ID: <20250818081922.43305-1-himself65@outlook.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <jclco3uxvj7drormblgik6fsa36aemanyxqaf44mhaqgbwszye@nuhauaulbrlg>
 References: <jclco3uxvj7drormblgik6fsa36aemanyxqaf44mhaqgbwszye@nuhauaulbrlg>
@@ -76,25 +80,8 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ru_maxrss field was previously documented as using "kilobytes" as its unit. However, the value is actually in multiples of 1024 bytes, which is correctly referred to as "kibibytes" (KiB) according to the IEC standard. This change updates the documentation to use the precise term.
----
- man/man2/getrusage.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes, I think the related code is from getrusage in sys.c:
+https://github.com/torvalds/linux/blob/c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9/kernel/sys.c#L1911
 
-diff --git a/man/man2/getrusage.2 b/man/man2/getrusage.2
-index 34e81f540..a1b30e5b5 100644
---- a/man/man2/getrusage.2
-+++ b/man/man2/getrusage.2
-@@ -88,7 +88,7 @@ expressed in a
- structure (seconds plus microseconds).
- .TP
- .IR ru_maxrss " (since Linux 2.6.32)"
--This is the maximum resident set size used (in kilobytes).
-+This is the maximum resident set size used (in KiB).
- For
- .BR RUSAGE_CHILDREN ,
- this is the resident set size of the largest child, not the maximum
--- 
-2.50.1
-
+This code shows that ru_maxrss is reported in units of 1024 bytes, which means it is in kibibytes (KiB), not kilobytes (KB).
 
