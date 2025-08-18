@@ -1,87 +1,137 @@
-Return-Path: <linux-man+bounces-3473-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3474-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAB33B29BE3
-	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 10:20:50 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id E549BB29E14
+	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 11:36:42 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E73603AD268
-	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 08:19:33 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 17D7B3A937B
+	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 09:36:23 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5EF902C17B2;
-	Mon, 18 Aug 2025 08:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3006B30E0F4;
+	Mon, 18 Aug 2025 09:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="roAAUBAO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB65C283FC4
-	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 08:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BED30E843
+	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 09:36:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755505170; cv=none; b=uo6DTKAztao+UnGeqtn5haBVQIDPpHf88/n+WUNdHYEZBT+B2mx10kFRHLj7jHiPSL83s57TIBgFIR59sc2Bs3I9tP2WUSohgGlyxbBtzBAu1aZH4h7R2DGw3Y4L4Cw/sNyuCRjpnulxUjfF4WYAx2ZNRnp0IX02AVHrS5eAZOU=
+	t=1755509775; cv=none; b=FtLIxzhD3GGbe/9gXlnwFVEK/e+sHYZOp2I5WXgKEWeh7CleNupDMC86QljL1GRtgpops6RWEdhSBxBcG5sxgvgEodm45USzSvqIWjDQNmD+h6ClP/CTEncsJHIUBPAj+GoVEiyBhCcXrRpS3/3z7hOsjULRfTx0wxEUvBBxz3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755505170; c=relaxed/simple;
-	bh=3f+F4t+xC7KLlQNin4S4Ra2QneYyqrwflXznURcJzFI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZWCcpEFpuIq5mjxQLVvSYYBJyYAmImefrw1QdUNIPzKR9pLefuItlvGvS5Sjkb4za9wqcFk48VtUoifcBFMznCX/rba0tvXR33zEBEFMwcwV6KYrT2yXFIRBPDy7VqKaZTz0RjiX0z1G8UQ0zFanX5wuwVYuEQ079lUHl4chhxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-76e2e8e2d2dso2278808b3a.1
-        for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 01:19:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755505168; x=1756109968;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3f+F4t+xC7KLlQNin4S4Ra2QneYyqrwflXznURcJzFI=;
-        b=YEsyvahNBsAY3DZyTTfbemPnQg2HjHlIlJxUXVw19nKfwQljGYfY21/9+cU8KKPwMf
-         CuLo8dtacZe+GU3wE0fvgLbODTsrNwuDLo4ZRqZ9i4iA0a2+c84jz8nFHytDd+Kk6JB9
-         Ku4l4fPn1LSEf1MJ4G0YW8rQ39us33m2fts0uqgJ1LH0S5TW80rNkojGXIBEzzPzlGvD
-         2UKCQgeba4PT6wXZWRec5eYsL9QHwUOMBhBwPC2kSNPNSx745j/oMsq6EXIU4YwIj16u
-         Hq9xbR4hDq5DIm4G3ScW12rgKFMWJDxJhvG/YqUvjBZLNim1OstCu9aRhxZHdK+suKF9
-         L+9g==
-X-Forwarded-Encrypted: i=1; AJvYcCU00X7tAh6Yrv43K4jfl6Srzn0BrU5wnr5HqDZKStdCvS0jDF+FatvBUAtaPa2PlAZqrU9qkfhV18U=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzClQ8tZn7EJo7G8IuFsdg+7EaWdmJjXuPyo/8kaNfT4PA6GWJB
-	GdZjPUKagr5NgJ/oGRJ8OACbOKDbtLcJCsigUGPg+EedkiAjqGlYCu7u
-X-Gm-Gg: ASbGncvaTvAjo2kjVsb7fSsploVn/VPhd/eddn32dhcLpndYhzgevEsCauNfj4mSyKb
-	P/pJCNDiFGeRuqBoCbmBvmoqjnwMjB5VzlnEk4xKLk2Da64GUxtlTNbO44qLIjQVJ4XXeO/KgK4
-	TisRPlhfl3abLUJMPBU4TzgyZOFd5wX+jvXkuZhidaigzZARZkWkwHmvIfX1bHAfv5StDbcaJjw
-	/bnbDsUgOIcwU0+GyLzI7u64HqD3PrSRLixbq9xn5OeOrbnLZ1gYRD8/6QH4udzlVbP65fHZxIy
-	0sSK9FTbuIaWjoxa1YRDug8jLNhQ2IatWMihOVsPKKrFCJv0c4mHLCwNeUPq7PTTH03nBFKps9E
-	oaNrmxfwZPxzNhR3R46JCh6jT3G+3frUpGJQMHgvGyUNlXZe913e6yaRgl8Z5R1+i3aY7lKWcpN
-	4Of78h
-X-Google-Smtp-Source: AGHT+IESgpYyJu5Won4uAZpfGFoNqMBl3wu+wYDuneUCY20SiKAFlJyeSisqTAezVPYMficxH0180w==
-X-Received: by 2002:a05:6a00:2353:b0:76b:f0ac:e798 with SMTP id d2e1a72fcca58-76e515645d1mr12807234b3a.7.1755505168044;
-        Mon, 18 Aug 2025 01:19:28 -0700 (PDT)
-Received: from localhost.localdomain ([2600:382:7610:1712:989a:f101:bdd0:5b1a])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-76e4528c7a2sm6488924b3a.39.2025.08.18.01.19.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 18 Aug 2025 01:19:27 -0700 (PDT)
-From: Alex Yang <himself65@outlook.com>
-To: alx@kernel.org
-Cc: collin.funk1@gmail.com,
-	himself6565@gmail.com,
-	himself65@outlook.com,
-	linux-man@vger.kernel.org
+	s=arc-20240116; t=1755509775; c=relaxed/simple;
+	bh=cb+mBMHI8deHAzCdrq7tnTaMdgF73ZmvQVsigMH6T9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O/jgYSTCw1Ehilo+SwHkKEhLHbyIPN5uBibZilASeGo8n5D6+eCKdfKD3vr2X/un+6BMly4xkAaXaDFR4zX7aMRYBUxtb/HEWH9hlC/5BKOcKZdxVr2xN/gEhOaSkJtZiRg8FMZQBHqcd1EqRYyqSVtJRULdDCo4JDJ1zVPwBac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=roAAUBAO; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2B53C4CEEB;
+	Mon, 18 Aug 2025 09:36:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755509774;
+	bh=cb+mBMHI8deHAzCdrq7tnTaMdgF73ZmvQVsigMH6T9Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=roAAUBAO4jb7W+mCiMMFHbB+Ma79IaR12WXMivkx/kipp3z6iB756sjGRd6WdN6Ap
+	 X2Qq/tLfqZI/7JKipNZsP1Bt8MpfHj2WK/D4k6/wuumr79AB4IajHX4NTKuzamcM+t
+	 buKXhTntxTwOpy7kATKCApuSDWHS/dfBzWtmtuk2kwpIj66U/HkIDzJtSSr4Y0WZpV
+	 VKvJrv6lJEz3k9o/d5QMIapWW2TblkEmsjgClSJcQqm5WkSKrHz0OZsD/aY2dSQVCR
+	 ulZN9UW+KoQRAC7rS41/Q/Z9cGTCZsDc0ezZvsF/Yl3U7CmhplJbuEq3PdBAksEiAa
+	 qrWH0f1dRUF4Q==
+Date: Mon, 18 Aug 2025 11:36:09 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Alex Yang <himself65@outlook.com>
+Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] man/man2/getrusage.2: clarify ru_maxrss unit as KiB
-Date: Mon, 18 Aug 2025 01:19:22 -0700
-Message-ID: <20250818081922.43305-1-himself65@outlook.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <jclco3uxvj7drormblgik6fsa36aemanyxqaf44mhaqgbwszye@nuhauaulbrlg>
+Message-ID: <lu7bod4jnnjmtndreufy7ptbg5qysysxvdeqnqtr7s5g2bozk3@agvzaj2svg6a>
 References: <jclco3uxvj7drormblgik6fsa36aemanyxqaf44mhaqgbwszye@nuhauaulbrlg>
+ <20250818075905.40146-1-himself65@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hyzzwuwasljxkz2l"
+Content-Disposition: inline
+In-Reply-To: <20250818075905.40146-1-himself65@outlook.com>
 
-Yes, I think the related code is from getrusage in sys.c:
-https://github.com/torvalds/linux/blob/c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9/kernel/sys.c#L1911
 
-This code shows that ru_maxrss is reported in units of 1024 bytes, which means it is in kibibytes (KiB), not kilobytes (KB).
+--hyzzwuwasljxkz2l
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Alex Yang <himself65@outlook.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/getrusage.2: clarify ru_maxrss unit as KiB
+References: <jclco3uxvj7drormblgik6fsa36aemanyxqaf44mhaqgbwszye@nuhauaulbrlg>
+ <20250818075905.40146-1-himself65@outlook.com>
+MIME-Version: 1.0
+In-Reply-To: <20250818075905.40146-1-himself65@outlook.com>
+
+Hi Alex,
+
+On Mon, Aug 18, 2025 at 12:59:05AM -0700, Alex Yang wrote:
+> The ru_maxrss field was previously documented as using "kilobytes" as its=
+ unit. However, the value is actually in multiples of 1024 bytes, which is =
+correctly referred to as "kibibytes" (KiB) according to the IEC standard. T=
+his change updates the documentation to use the precise term.
+
+Thanks!  I have applied the patch.
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man2/getrusage.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/getrusage.2 b/man/man2/getrusage.2
+> index 34e81f540..a1b30e5b5 100644
+> --- a/man/man2/getrusage.2
+> +++ b/man/man2/getrusage.2
+> @@ -88,7 +88,7 @@ expressed in a
+>  structure (seconds plus microseconds).
+>  .TP
+>  .IR ru_maxrss " (since Linux 2.6.32)"
+> -This is the maximum resident set size used (in kilobytes).
+> +This is the maximum resident set size used (in KiB).
+>  For
+>  .BR RUSAGE_CHILDREN ,
+>  this is the resident set size of the largest child, not the maximum
+> --=20
+> 2.50.1
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es/>
+
+--hyzzwuwasljxkz2l
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmii9AkACgkQ64mZXMKQ
+wqktzw//ZdGRD8rORik3ekH7NQOxz9mjM2Znv+CE6wPR/S5N062hmCRlA7rhj31v
+06aYb/ggxCv/WCSainpbnUnORfq7+PCrFS4jkGWDvUB2ewq26wotMO+8Gu0kN3md
+YBGVu7ghF5mlVGaggj/uNfJbyvJte1nOskXN2SZRKBkx78O5NAmU1YbcsviHMdm0
+0EAj0alMv27bwpZEySBa2mwBS4rUPBlWQ3e5HGoY9LCJI9A2xmgW7A6+/sLb7Xgc
+imfrKMMy4/Mek8wXr6IrlWkHjij2AGbM7CPWLoHCDi7FMmdXI46/jEhgn1VALNd0
+0BMff4AFXVr1wIrFFdiWfnoM9gDp7zdOpHn+uiO4H1hGa5NqqYjDyeEK6yONO6zf
+gve+CAgp/C9DAQk5mw+TwraEWg8OJbKhk7cNaQ8ehXvu0y20PkAaSuJxj5Ig5HpR
+Qyi2F0o07Ql7WpR4OfabbWHUznLcpAcHJHRzcXcgs5HU3hcZP25hDk2glIL/bf87
+pEOhpRySUO6bEKNNCpszWlRlyLahNhIpcmHSyvC7q0FERh0bFE677CVnJSQyXQau
+B8mI2b66lJrtykiay68sp3qJvKEI+oZPcTlNOqx7z0AcJYWRaOZ7YWHl4+Gs8uwH
+0sn7TQZWwMrXOTCmzBOKZ2C++Q1sy2L8iyX1OGCi3oaX5M01nFs=
+=balx
+-----END PGP SIGNATURE-----
+
+--hyzzwuwasljxkz2l--
 
