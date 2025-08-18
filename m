@@ -1,149 +1,159 @@
-Return-Path: <linux-man+bounces-3468-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3469-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A29B299B0
-	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 08:31:02 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E628B299F2
+	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 08:44:43 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B31323BF2ED
-	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 06:31:01 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 9040C7A4CC8
+	for <lists+linux-man@lfdr.de>; Mon, 18 Aug 2025 06:42:41 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB0BF272E57;
-	Mon, 18 Aug 2025 06:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37DA5276026;
+	Mon, 18 Aug 2025 06:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJzDeFNS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvtgSvUO"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA69223DF9
-	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 06:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B31274B2C
+	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 06:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755498657; cv=none; b=GEQ7BBAckCwkmfTaRb3k/ghphww2B7SM6BCl2Thd2goIJkjJShIxbZe2sbX9BGL00WJwfMC6fdecBV21ZQoVWaKmtGwWI62jwdI/9J2kkXbd28imFq8676NDz7XLMrHb/N/nbsMvEiPfiThBeApOnPgbK8e8+WIawGFCsI14nYw=
+	t=1755499451; cv=none; b=CS0rP+KzR0Zczm06LZZvz99e8G4ZR3K3KWPjFNMtFdu47RjmJDdCTqUUl9rgQ+8KgXukWy5QsM0pSKFY+PcTOssU4VcSqe1gGHVh7lfVVTRkjslafJ46m8lPuZgY47kqL7t0JmO8jbjl1XLanV4jmbB2t++R3MlLphd2ZTsLx34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755498657; c=relaxed/simple;
-	bh=RoC6A39LxTFdpl5130yysw1ZxznvoZprxtTtFbBJgyw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ds8FKJLQFyYgqxQWQlUgcW9pUx6hp1joLfwvzPFAGpaIZ5bYUB0z2plZA2+2z1LKEHXGsfnEP4fORwM92a0cyVAdqLO3lt2xTBk3wKmvI9u48ADVv5TP+6bEJdGrgZMyw5VbAhoxQBIBJLAv7ea6WngtH4HBMYVFsMms7V/KRo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJzDeFNS; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3F8C4CEEB;
-	Mon, 18 Aug 2025 06:30:55 +0000 (UTC)
+	s=arc-20240116; t=1755499451; c=relaxed/simple;
+	bh=IKSbclZ9xptK6Av461TVIXNvfXkJWHsnXdgMlUfTEuI=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pFtRFjQGWihKCByY8buySs+OoC2iV7lvIlWgmA6HaLnpySnu8gg3zYFcn1EAilDp8FdQsUxA67aHTnzFrDkbiN+KXcaglznHErFt+pBykmeGKqjD2a51fEmTh8erHZCGiw9KvsqPyAqBSoWUrUpQvLKm8LfB+coKr/L4CiF+cQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvtgSvUO; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BFE75C116C6
+	for <linux-man@vger.kernel.org>; Mon, 18 Aug 2025 06:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755498657;
-	bh=RoC6A39LxTFdpl5130yysw1ZxznvoZprxtTtFbBJgyw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aJzDeFNSEeZW/EmApcCONItqvU+TqmDd25YfQJ+HJWRbDCB0nShynkt0yLl9AHYAn
-	 XvQKn5jH9MMFvXznBvTJlc4j68ZjZPf985IMASNHmPLWfuJ23yiiZlYTgQbIYsjpGJ
-	 xJvDRmbZzNwncJozpyU02LofbOTujIr59Tj3DtmzPkLzJeBUwp5lQSSFd+5shSlpOT
-	 VSbswOZY65feBmjQWl8YkN9EectDIpzclIqTsd9GCInJC8ekdbIuTsovaIXm75kWTO
-	 7RhjQN9kaAtOJPbw9+wOpmA0EimwFe+CdpN5Id2jLhsOKCxP9kgpdYertdd9T7dFSH
-	 2qkjl0DWyIAqA==
-Date: Mon, 18 Aug 2025 08:30:53 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Alex Yang <himself6565@gmail.com>
-Cc: linux-man@vger.kernel.org, Alex Yang <himself65@outlook.com>
-Subject: Re: [PATCH] man/man2/getrusage.2: clarify ru_maxrss unit as
- kibibytes (KiB)
-Message-ID: <iutkhvhpxre54i6a5zt4s3xt6khpmignznhg6wdzue5efbhbhh@hgdvsivvg2km>
-References: <20250818061203.33211-1-himself6565@gmail.com>
+	s=k20201202; t=1755499450;
+	bh=IKSbclZ9xptK6Av461TVIXNvfXkJWHsnXdgMlUfTEuI=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=hvtgSvUOSEvkRTikodxN420rphcXWxENQjOjYRx+dP7RuIHN7Ud/cf3qHHWPo6kGt
+	 nWFCeZqKBDiMJ9QL3EGPYx/aSsRtb7JIKr1SD2tuc58bw0AEQewfC+k2CvlOb7Z1uC
+	 VXA+HDo9JeLjibEMykYsxu/rt9mVuZ8zfpEg0SJ2bFK9y95HTD8TlkI/RcyZxEyxmb
+	 Z5B5se7NjSxFcULlXuiYROVGmmZIrEYqxIyTBae3DdAiUnH18Uj8AgrjYSm87eQBwi
+	 dbXtzfNfAX6c04JaC7DTt/obCCMNN2mv8lbEsbuawH9QfWpWDkCRHjQVFR11DEoR4K
+	 h+7MPLY77hLHw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id B643AC41616; Mon, 18 Aug 2025 06:44:10 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 220273] syslog(2): conflict between "The symbolic names [...]
+ are not exported to user space" and "Definition of SYSLOG_* constants"?
+Date: Mon, 18 Aug 2025 06:44:10 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-220273-11311-JAHru6dHix@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-220273-11311@https.bugzilla.kernel.org/>
+References: <bug-220273-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ydiauhe4sj7j4bhq"
-Content-Disposition: inline
-In-Reply-To: <20250818061203.33211-1-himself6565@gmail.com>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D220273
 
---ydiauhe4sj7j4bhq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Alex Yang <himself6565@gmail.com>
-Cc: linux-man@vger.kernel.org, Alex Yang <himself65@outlook.com>
-Subject: Re: [PATCH] man/man2/getrusage.2: clarify ru_maxrss unit as
- kibibytes (KiB)
-References: <20250818061203.33211-1-himself6565@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20250818061203.33211-1-himself6565@gmail.com>
+--- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
+Hi Nathaniel,
 
-Hi Alex,
-
-On Sun, Aug 17, 2025 at 11:12:03PM -0700, Your Name wrote:
-> From: Alex Yang <himself65@outlook.com>
+On Thu, Jun 26, 2025 at 02:54:59PM +0000, bugzilla-daemon@kernel.org wrote:
+> Over at syslog(2) we see both
 >=20
-> The ru_maxrss field was previously documented as using "kilobytes" as its=
- unit. However, the value is actually in multiples of 1024 bytes, which is =
-correctly referred to as "kibibytes" (KiB) according to the IEC standard. T=
-his change updates the documentation to use the precise term.
+> ```
+> #include <sys/klog.h>        /* Definition of SYSLOG_* constants */
+> ```
 >=20
-> Reference:
-> https://en.wikipedia.org/wiki/Kibibyte
-> ---
->  man/man2/getrusage.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> and
 >=20
-> diff --git a/man/man2/getrusage.2 b/man/man2/getrusage.2
-> index 34e81f540..13c405d0e 100644
-> --- a/man/man2/getrusage.2
-> +++ b/man/man2/getrusage.2
-> @@ -88,7 +88,7 @@ expressed in a
->  structure (seconds plus microseconds).
->  .TP
->  .IR ru_maxrss " (since Linux 2.6.32)"
-> -This is the maximum resident set size used (in kilobytes).
-> +This is the maximum resident set size used (in kibibytes).
+> ```
+> The symbolic names
+> are defined in the kernel source, but are not exported to user
+> space; you will either need to use the numbers, or define the
+> names yourself.
+> ```
+>=20
+> Is there a conflict between these two? After reading the first one I spen=
+t a
+> while trying to figure out why I wasn't able to use the constants in my c=
+ode
+> despite having the include; only much later did I notice the second one.
+>=20
+> If there's no conflict between the two, what might I be misunderstanding
+> about
+> the first one?
 
-Should we maybe say this?
+The first one is a mistake introduced by me.  Sorry!  I've fixed it with
+this commit:
 
-	(in KiB).
+        commit 3d3ffae8774c89d9e0b099dba18441c459fec2c2
+        Author: Alejandro Colomar <alx@kernel.org>
+        Date:   Mon Aug 18 08:39:51 2025 +0200
 
-I personally am fine with kibibytes (it's even documented in units(7)).
-However, in the past, I've met many people that didn't know the term
-existed.  KiB is more widely known.
+            man/man2/syslog.2: SYNOPSIS: Remove incorrect include
 
-What do you think?
+            It doesn't provide any macros, as said later in the page.  The
+            programmer must either define the macros itself, or use the raw
+values.
+
+            Fixes: e5a173829179 (2021-06-20; "syslog.2: Use syscall(SYS_...=
+);
+for raw system calls")
+            Closes: <https://bugzilla.kernel.org/show_bug.cgi?id=3D220273>
+            Reported-by: Nathaniel Manista <nathaniel@google.com>
+            Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+        diff --git a/man/man2/syslog.2 b/man/man2/syslog.2
+        index ad15f4942..1b3ba8926 100644
+        --- a/man/man2/syslog.2
+        +++ b/man/man2/syslog.2
+        @@ -12,7 +12,6 @@ .SH LIBRARY
+         .RI ( libc ,\~ \-lc )
+         .SH SYNOPSIS
+         .nf
+        -.BR "#include <sys/klog.h>" "        /* Definition of " SYSLOG_* "
+constants */"
+         .BR "#include <sys/syscall.h>" "     /* Definition of " SYS_* "
+constants */"
+         .B #include <unistd.h>
+         .P
+
+
+Thanks for the report!
 
 
 Have a lovely day!
 Alex
 
->  For
->  .BR RUSAGE_CHILDREN ,
->  this is the resident set size of the largest child, not the maximum
-> --=20
-> 2.39.5 (Apple Git-154)
->=20
-
 --=20
-<https://www.alejandro-colomar.es/>
+You may reply to this email to add a comment.
 
---ydiauhe4sj7j4bhq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiiyJ0ACgkQ64mZXMKQ
-wqkxDg/+PIxgW+RAf+vfuNs8moj5wa/8jRFFjBsNN1slerjE0sPzyDA0eNJjKA0+
-0lUuBHIQ/YlXok9idDPXdieQNAGMaUWysSY9jybjtVhf6PfEMd4zQ0VqXNnFqXgw
-dOxLFZvAxVq08UbfpC3K2NzHxli7ldDcfzq9jgKVtZ7X0ED7UJBdcJSFgxUM6Act
-JT90eQHpUl97CegWKW6qjGCRhJ02lX63sHHUh7anGBs6N8IIjeCJhkPS1Hh5uWiE
-x/7nSCdSsedaCHzA7A1GNrOjS3MwOLYJFmFNi0/HHTn3RzRQvraprVxFUJvGA9Js
-eZQyHIe2VeiDeHAlPt6EN/QrwgJacc16ziD3XT9ns7if4lkptDkoymG1XPe0xoYr
-mAOpzWxvNoL7s8CgM31T477W9Nj/fIPA8xNlsjTpEMq/SeCXEGF4WJr6m3y6XKxn
-uoe3KQYvDiuVlHz/sRz8iKYEr/u91qVfnq55apv4IrddNdtR6Ddlaz6YUb99SQPR
-cIT8jeiyJVNXM7iJ/gAc9U87sIYtLUxpZbpvy9lKmq516MvvuMbusC/W5pIB9EJw
-itU6m0bg7Eu/XLPJwOXP9vWPOEkAO/Shx2bfzBk25iKPOaG+5yo9YPtmOOR/7EoB
-L2bAEsiAsUTKSXIZCiJxf4rFBz9Ohp5zEhthmlb/f7D7zD9jv+c=
-=EJzS
------END PGP SIGNATURE-----
-
---ydiauhe4sj7j4bhq--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
