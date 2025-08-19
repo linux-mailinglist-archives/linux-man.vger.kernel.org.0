@@ -1,70 +1,54 @@
-Return-Path: <linux-man+bounces-3486-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3487-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id F08E8B2BC31
-	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 10:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6CBEB2BF56
+	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 12:49:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D500416526B
-	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 08:51:03 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 259095A0378
+	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 10:49:36 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E507C311C19;
-	Tue, 19 Aug 2025 08:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CFBE322DC7;
+	Tue, 19 Aug 2025 10:49:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="RicbzZWT"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gg0LXPlo"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A328B1E98EF;
-	Tue, 19 Aug 2025 08:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0438322DC1
+	for <linux-man@vger.kernel.org>; Tue, 19 Aug 2025 10:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755593458; cv=none; b=X37fqK5kl42I87toVDwE2k4YlQPwYoZNjrWd+s714B0igqtmsdrGa4xntj2J9I2OA4vxOGrWV+iCwzoP/sHCVn1TpCYs4mdKdXpa5va5QCkcanXPmLgwc0mEPP+E2C68ultjwN7okEouvwfGUyHE5qI6PWmdiDmR5Q7Atd+hxJY=
+	t=1755600565; cv=none; b=PbwSZCjxLYHXc4yB6Gw+P3X/GfRToTcPIo6zUEstEUAH4SyvyHRjYrzXnnIi1B3I5aiHv5eFElvF8WPDZgqP2HmNTGCGQuagwbsDyssgOMcbzIRqosHEk7c1X67+rtR4m3V4gWF/ekVYfP4o3LMkc49+m58qzDXoPUp/pXC/G0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755593458; c=relaxed/simple;
-	bh=s4tkw0agwNjoZbMEvc5Aube6vc6jbp2vPgiUvx0ojac=;
+	s=arc-20240116; t=1755600565; c=relaxed/simple;
+	bh=g8SVprNlC5siiVk6BKqdR3LkxUAyk9rpBMJkJhY5Kxw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g+S157NMTxAfsDlCt6jkADlRBWyBjaksGgNGPeIFA32UOEMweL1X/Edh2Ot6TCuBRK8i2wWv/M9lBd2MY2gJS7dxAGKTOdkLXZEo+IHez+CTkuKssFPISNC2eQIhnNmxUkMPJ4QytkIIVqYNL58zSvQ3+rQOmg6+jWilh63LkHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=RicbzZWT; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4c5jwQ6SDDz9sdD;
-	Tue, 19 Aug 2025 10:50:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1755593446;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s4tkw0agwNjoZbMEvc5Aube6vc6jbp2vPgiUvx0ojac=;
-	b=RicbzZWTrhdND/IB6LktMwM2bHb9SNceUOR1HugqfrOVbjaT7EEwoYahgdXjiFv9lnaC9O
-	kFFArJKEhM88Q8nO9o9qJvp9hEXzCPvYt7y/EOVzVhPPjUDByRVD7FOqHcrwWiPNY9NEwR
-	mGj2xmSVGYV++vmtiHd2s/s0Y/xpuszB/SeivMtGiqLfY0cS5y+MRjEUvpztv/Sctmstk/
-	s5GNiM3D5vHEtNjEcL8rI3vXa5ZOtIGEkHT4KW2DuzE287qAqckLZ+IhGEsKmbKE4dDE6K
-	DgEW802cfS3NOk9uj4XoILSonoXY5XMm4ANAo3E4gTxBdPdQA83dvJJYZ04MKw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
-Date: Tue, 19 Aug 2025 18:50:31 +1000
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Askar Safin <safinaskar@zohomail.com>, alx@kernel.org, 
-	dhowells@redhat.com, g.branden.robinson@gmail.com, jack@suse.cz, 
-	linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-man@vger.kernel.org, mtk.manpages@gmail.com, viro@zeniv.linux.org.uk, 
-	Ian Kent <raven@themaw.net>, autofs mailing list <autofs@vger.kernel.org>
-Subject: Re: [PATCH v3 00/12] man2: document "new" mount API
-Message-ID: <2025-08-19.1755593370-twitchy-liquid-houses-wink-kqgdBL@cyphar.com>
-References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
- <20250817075252.4137628-1-safinaskar@zohomail.com>
- <2025-08-17.1755446479-rotten-curled-charms-robe-vWOBH5@cyphar.com>
- <20250819-erhitzen-knacken-e4d52248ca3e@brauner>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ph1Awdejp1L9nScQWrdZztSHlsCtu4cbVsTaKA8eqimHU8bHr0WBaglGOaU9/8Cg2QLQSTrxL4shNz++gnZH4i9ZV/WvpmNGaP+hrrZMIa8BcRRIza9RqkwnsBx1GweboJqZKKbj/sDuAp/m6l3OnABdS4pTkuCLRj8uvFlAOZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gg0LXPlo; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468CBC116B1;
+	Tue, 19 Aug 2025 10:49:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755600564;
+	bh=g8SVprNlC5siiVk6BKqdR3LkxUAyk9rpBMJkJhY5Kxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Gg0LXPloq1UQ0/n+6GQnERd+LLlCdq0uRs1uzwiK+OrDumMbflLjUiPf1WXx9H5WM
+	 2eZzMHpoB4WYtIsK6S1d8fzb8bTl9VmwjY6XBa0j4ooNQPUM+E4h8OFKeev3XMXMFe
+	 ZabQBdaSz/HbCXserpm0TqsqEXAz6646MNO4KMwgro0Z0SZAIhy6yLZgmtEwftV/no
+	 cNqZ2CVQazzv4kgNE4hja+tzSghks1+669R+sD3l5rIVJdXv0uUtl/ujAT0AfPETj6
+	 FiG5vFk+lxGL9+9n9Xsxjlk1lLvdd6PGU/W/e7LimdYbLAsd7IW2wpDmbH3jCPsrZk
+	 lnqrAeUShX/hw==
+Date: Tue, 19 Aug 2025 12:49:19 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: dave@treblig.org
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man3/posix_spawn.3: Check for executable name in
+ example
+Message-ID: <i5vll7olkoowngvxzv5iv746o37hhbsbrz2a4tugmfacrjlbxl@udezzdjypuyq>
+References: <20250818225910.101238-1-dave@treblig.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -72,112 +56,88 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mmwkuzmuzol2efok"
+	protocol="application/pgp-signature"; boundary="quaxthnnqpf3k3kf"
 Content-Disposition: inline
-In-Reply-To: <20250819-erhitzen-knacken-e4d52248ca3e@brauner>
-X-Rspamd-Queue-Id: 4c5jwQ6SDDz9sdD
+In-Reply-To: <20250818225910.101238-1-dave@treblig.org>
 
 
---mmwkuzmuzol2efok
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--quaxthnnqpf3k3kf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/12] man2: document "new" mount API
+From: Alejandro Colomar <alx@kernel.org>
+To: dave@treblig.org
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man3/posix_spawn.3: Check for executable name in
+ example
+References: <20250818225910.101238-1-dave@treblig.org>
 MIME-Version: 1.0
+In-Reply-To: <20250818225910.101238-1-dave@treblig.org>
 
-On 2025-08-19, Christian Brauner <brauner@kernel.org> wrote:
-> On Mon, Aug 18, 2025 at 02:16:04AM +1000, Aleksa Sarai wrote:
-> > On 2025-08-17, Askar Safin <safinaskar@zohomail.com> wrote:
-> > > I noticed that you changed docs for automounts. So I dig into
-> > > automounts implementation. And I found a bug in openat2. If
-> > > RESOLVE_NO_XDEV is specified, then name resolution doesn't cross
-> > > automount points (i. e. we get EXDEV), but automounts still happen! I
-> > > think this is a bug. Bug is reproduced in 6.17-rc1. In the end of this
-> > > mail you will find reproducer. And miniconfig.
-> >=20
-> > Yes, this is a bug -- we check LOOKUP_NO_XDEV after traverse_mounts()
-> > because we want to error out if we actually jumped to a different mount.
-> > We should probably be erroring out in follow_automount() as well, and I
-> > missed this when I wrote openat2().
-> >=20
-> > openat2() also really needs RESOLVE_NO_AUTOMOUNT (and probably
-> > RESOLVE_NO_DOTDOT as well as some other small features). I'll try to
-> > send something soon.
-> >=20
-> > > Are automounts actually used? Is it possible to deprecate or
-> > > remove them? It seems for me automounts are rarely tested obscure
-> > > feature, which affects core namei code.
-> >=20
-> > I use them for auto-mounting NFS shares on my laptop, and I'm sure there
-> > are plenty of other users. They are little bit funky but I highly doubt
-> > they are "unused". Howells probably disagrees in even stronger terms.
-> > Most distributions provide autofs as a supported package (I think it
-> > even comes pre-installed for some distros).
-> >=20
-> > They are not tested by fstests AFAICS, but that's more of a flaw in
-> > fstests (automount requires you to have a running autofs daemon, which
-> > probably makes testing it in fstests or selftests impractical) not the
-> > feature itself.
-> >=20
-> > > This reproducer is based on "tracing" automount, which
-> > > actually *IS* already deprecated. But automount mechanism
-> > > itself is not deprecated, as well as I know.
-> >=20
-> > The automount behaviour of tracefs is different to the general automount
-> > mechanism which is managed by userspace with the autofs daemon. I don't
-> > know the history behind the deprecation, but I expect that it was
-> > deprecated in favour of configuring it with autofs (or just enabling it
-> > by default).
-> >=20
-> > > Also, I did read namei code, and I think that
-> > > options AT_NO_AUTOMOUNT, FSPICK_NO_AUTOMOUNT, etc affect
-> > > last component only, not all of them. I didn't test this yet.
-> > > I plan to test this within next days.
-> >=20
-> > No, LOOKUP_AUTOMOUNT affects all components. I double-checked this with
-> > Christian.
+Hi Dave,
+
+On Mon, Aug 18, 2025 at 11:59:10PM +0100, dave@treblig.org wrote:
+> From: "Dr. David Alan Gilbert" <dave@treblig.org>
 >=20
-> Hm? I was asking the question in the chat because I was unsure and not
-> in front of a computer you then said that it does affect all components. =
-:)
+> Make the example check for an executable name on the command line
+> rather than segfaulting in the child.
+>=20
+> Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
 
-Yeah I misunderstood what you said -- didn't mean to throw you under the
-bus, sorry about that!
+Thanks!  I've applied the patch.
 
-> > You would think that it's only the last component (like O_DIRECTORY,
-> > O_NOFOLLOW, AT_SYMLINK_{,NO}FOLLOW) but follow_automount() is called for
-> > all components (i.e., as part of step_into()). It hooks into the regular
-> > lookup flow for mountpoints.
-> >=20
-> > Yes, it is quite funky that AT_NO_AUTOMOUNT is the only AT_* flag that
-> > works this way -- hence why I went with a different RESOLVE_* namespace
-> > for openat2() (which _always_ act on _all_ components).
-> >=20
-> > --=20
-> > Aleksa Sarai
-> > Senior Software Engineer (Containers)
-> > SUSE Linux GmbH
-> > https://www.cyphar.com/
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man3/posix_spawn.3 | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/man/man3/posix_spawn.3 b/man/man3/posix_spawn.3
+> index 3aaf3873e..0d238f51c 100644
+> --- a/man/man3/posix_spawn.3
+> +++ b/man/man3/posix_spawn.3
+> @@ -730,6 +730,11 @@ .SS Program source
+>              break;
+>          }
+>      }
+> +\&
+> +    if (!argv[optind]) {
+> +        fprintf(stderr, "Usage: %s [\-cs] executable [args]\[rs]n", argv=
+[0]);
+> +        exit(EXIT_FAILURE);
+> +    }
+>  \&
+>      /* Spawn the child. The name of the program to execute and the
+>         command\-line arguments are taken from the command\-line arguments
+> --=20
+> 2.50.1
 >=20
 >=20
 
 --=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
+<https://www.alejandro-colomar.es/>
 
---mmwkuzmuzol2efok
+--quaxthnnqpf3k3kf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaKQ61xsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG+T+wEAlSeMmOrEV2wl+utJcEEb
-qpQ16Td0Br0wrJGYcTw/IfgA/2UtFxJ9pT6LUkwX14HPqUCCpRZipLkUkxiN3Nda
-9XsP
-=88Ba
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmikVq8ACgkQ64mZXMKQ
+wqmYMhAAt7+zGZbHvMpopeP5dvbI66XbBLQgfhb6qr/i9ktGgIXBLvH8w5cwqOba
+KB7K1z+kOn+8NgHY6NT82tZe4FgUiAiTc7nG39b9XILQEnVVQmmU86/h1Pw94hr+
+pAPRzCLMY1x0LCVx/+PcKFYcQnNPgmF7dU7n4yu4sqlnCoRcG5MqU7Mt8P1KR4b0
+YoXkjDBJP5ZZG9AV+2ry8LAOHPL3GOoIpWjv+UumOSIkC4+WLx3IYDHEMe97hpon
+4cBsODt2Lnpmm+Oc1P1fyG0+ToHs0208q21tXnvHpZve0DWp/Nrtiq+gWO1irIsp
+19eftWnuZBbwuaIH+LIEFj4u0QVONliJCzO1VyuL6OcSe6j8r/xsjM1AFrNZ4n5P
+P6RF2whEQ8DRzYFGjhCoZdUdc7CpdQt9x5NIlPmsfu3W6TZ1oGkMjugTPmjOS9NL
+a00CM08WslKfecUyvj0ZHt/FWSiZ8qHAO3mMw+aeEJ1cSWrSg37lSeHzzq++cY+W
+tnR46xqYT0rdPFqiHlUZlXKgedvg/GGisaEy3/cgoNS5V6XklbxK+8RAgrCK5g6/
+iVq7FZ8FTFlKzhuB7LwOtA9SZcd92B8Eu2xE7izOOdTMtWWPeQ2wwImTs/5JXKxL
+086vqdCQl6p2HbwtdghSn47t3tdsL5SY+leCI+H1u7ZylMpISOs=
+=1iVH
 -----END PGP SIGNATURE-----
 
---mmwkuzmuzol2efok--
+--quaxthnnqpf3k3kf--
 
