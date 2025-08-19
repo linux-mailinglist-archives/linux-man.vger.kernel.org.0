@@ -1,92 +1,201 @@
-Return-Path: <linux-man+bounces-3505-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3506-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F39EB2CA84
-	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 19:26:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 769DAB2CB98
+	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 20:03:27 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2D0A4A04058
-	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 17:23:37 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 371AB3BB4B7
+	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 18:03:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2E48302777;
-	Tue, 19 Aug 2025 17:23:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE56C30EF7B;
+	Tue, 19 Aug 2025 18:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="HSawT/dY"
+	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="PDmIKTOs"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B80A30275E
-	for <linux-man@vger.kernel.org>; Tue, 19 Aug 2025 17:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755624215; cv=pass; b=tXIQP7sSmCXzUiubUay9GINOYivWmGPm+3Op/eBmHuIzcXUIIGgpaV3uh17q/jH1ilTaBgGakUM89LCQmYmR9MxlgYh7yIJC5Y5cJXMULyaF0wIrapphPp/CP1KHNyPggkks94gt7GLWo8EEc1yePoUtxFv72tb6ORTxRp3rU5M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755624215; c=relaxed/simple;
-	bh=Yp3hYrgIuYGdxsr1WsNnwv1vhd+w1tLtFbRVInQgnD0=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=oSu6Z4svPp6IfdnqpMhqDKziXSJcgO0iq9ktAcceKcAolQQUlxxSAMljtuwtL9qjcuQwGlpT6/MR8gOZrVYxtONOhWWAX4mQRynOb4ngpcdXBb9CSbRiRDJ7fM7dS0jQkrJJLQpwXBKZKHy+LacOApK+x8HQE02KJ18uFyA+mmg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=HSawT/dY; arc=pass smtp.client-ip=136.143.188.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1755624203; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=EKJ3VlD8DdshBk452j5brPeHUzX95iDBoPB+rrGtRITXm4kPr9dwb6QhW/nOj7FlHKjcsXNW4tliq22eGY9GXRkpe8fLJtinpYV0OQQQVNPbuKj+RPVVOACfzQdxiPobLkm9WSzOA74JEgg0vX6lmQco1i5oyerWlz91MPt1fLw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1755624203; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NLT0pJLtv0Nk4azSra1iqnDo2if407OjFN8o4JQyuCU=; 
-	b=HPt3rY2+IYEbv6m54DAgvECyc1uqcR1bnYzsQEWP5C5lBKInalj/qYBIG9cKPScSqhOoPIiwDrK2JUF1Pkt7ihUNmJB1rySF3+HtKvAEFGRJ76Q145dAqgt8iNr2EZcsg25TV+fpw+fVKqLH33ws/j3W25gDaRk5ziFBc+HFvbs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
-	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1755624203;
-	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=NLT0pJLtv0Nk4azSra1iqnDo2if407OjFN8o4JQyuCU=;
-	b=HSawT/dY9DLTIl6gWpXGvqLF+4Ge21SfVjQ9ruAR8qbhO5MB7dTiLgiu+/sZS13k
-	lXEz8/GJ82AO4OYPI+L2hG4NbZv5FnPhw+N+vdqtlDcbSGnOD2OxFETYuHJzKQX7pPI
-	kOp4ALn1l65gpg1C9RZPUNaYEfJfw5DDXpDUCRQs=
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1755624201262205.17591383697254; Tue, 19 Aug 2025 10:23:21 -0700 (PDT)
-Received: from  [212.73.77.104] by mail.zoho.com
-	with HTTP;Tue, 19 Aug 2025 10:23:21 -0700 (PDT)
-Date: Tue, 19 Aug 2025 21:23:21 +0400
-From: Askar Safin <safinaskar@zohomail.com>
-To: "Alejandro Colomar" <alx@kernel.org>
-Cc: "linux-man" <linux-man@vger.kernel.org>,
-	"Elliott Hughes" <enh@google.com>,
-	"Carlos O'Donell" <carlos@redhat.com>,
-	"Eugene Syromyatnikov" <evgsyr@gmail.com>,
-	"Walter Harms" <wharms@bfs.de>
-Message-ID: <198c35b5c21.c02d153b66955.8725148587562575251@zohomail.com>
-In-Reply-To: <gg5piu7jl4uozo7h7yasl6kezo34mddatk4w2g2pmplakj2ctl@bb5sko4gsenj>
-References: <20250819155400.763253-1-safinaskar@zohomail.com>
- <20250819155400.763253-2-safinaskar@zohomail.com>
- <jqw7baa3nx7vkbramdnlpdybfesgc34gwfdeo2l6otue2bglmr@m54n6nmbtush>
- <198c3264442.125c4d18f66475.7936052978788713808@zohomail.com> <gg5piu7jl4uozo7h7yasl6kezo34mddatk4w2g2pmplakj2ctl@bb5sko4gsenj>
-Subject: Re: [PATCH 1/2] Remove all mentions of blackfin architecture
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DECD30E0C7
+	for <linux-man@vger.kernel.org>; Tue, 19 Aug 2025 18:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1755626603; cv=none; b=JAyFKNzVNbEgF8uJs4EehVTihAscX9FCJriUyYWEh8wTFKJt+MuZRrcs6HITMtvtMz30ioAnOkBhwJBDuR3SM5Pv4nEyAPVUjfceALgQ1jzIIfgbXNmGIYOKjjnH0h1Kj7Phf7jtr0aBbbqGaRgrCEqNQZciMcmlGXxra5ZCnRg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1755626603; c=relaxed/simple;
+	bh=yaLfM0BDs/wStbeqlWblGWaIdjSZPuukGigRC3r8Xns=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jY60YZ2pzxZK1AvR/mkF6YklTeFxg6eEDvPiB0mdvMejRnI2BvcfwgjVR/Fe8bpyUycbP2S+JWme11hKn8xjPK0rj59ruYS3B8FBuF0+nOj/uoZuos65qIwk8cNQJoVTanWCUDinbsj5/HCvDV68F3phRS6sh7mqaRxMqv9c0j8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=PDmIKTOs; arc=none smtp.client-ip=46.235.229.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+	:Subject; bh=o3bEGj/vX7WuxT25yjeSvjTPaFt6jY8mFQp20Jure9U=; b=PDmIKTOsurxeSJl4
+	iF20QtWslXdjcUIfwHzhgjRBgZXLnLtSNtHvlQoP/CFYHRVsfd7uKcoSY/G0ZVYYmGliRaxjlrGeP
+	U8W7+fh3Lj4yMzQlRbMohxFc6zVqtErWfXDTq5/fyxKmQnMlkwuL9URhcB+Ksa8RBIF1ryv6620/o
+	L5XWoX1ecfcYCMtUk6XYkDOAs2x3wZ9KMufcVbe5jvGgS6zkH/lLgmoMmXGCYjMINQ4zSyfK89Y01
+	YARPhYZ6KcV4yuLX7tyI9XAOHsr+hNZQwCW075+nPUrVchUkUIZQy4IWgundBIQJXvRfNsCVfUguU
+	+ryG5v4aKpRxx6jnBA==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+	(envelope-from <dg@treblig.org>)
+	id 1uoQfy-0053Bv-16;
+	Tue, 19 Aug 2025 18:03:14 +0000
+Date: Tue, 19 Aug 2025 18:03:14 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] man/man3/strftime.3: Check parameter
+Message-ID: <aKS8YhvnXbQeyyEh@gallifrey>
+References: <20250818174553.70132-1-dave@treblig.org>
+ <sa3mkaxgskcwrma3g7chd6d2bokswwk6i32bn74ueca3qr7f63@tn4ddlmihqon>
+ <aKRj_-jnlO_BxWHr@gallifrey>
+ <cj4pybbqz74oxknh3fh44ejvwsxus5spmsvwsjdlg7xfw4t7d3@bynwkotgfzw5>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
-Feedback-ID: rr08011227f884de41239e1e0208b5de750000dd0f860e099bf915aded3c5e54feed5a11f74f5cca0d566565:zu08011227a328132c4c2d4961333fbcd10000ce427010c85c574262cf248d9e452a1a17b9b9ff9e610e42f9:rf0801122c4fb2c0ee00e417a349e26f81000047fc4d479029442d3c60f6f994b90caaa44a3a913005b4fcfa714907f61f:ZohoMail
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+In-Reply-To: <cj4pybbqz74oxknh3fh44ejvwsxus5spmsvwsjdlg7xfw4t7d3@bynwkotgfzw5>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-34-amd64 (x86_64)
+X-Uptime: 18:02:54 up 114 days,  2:16,  1 user,  load average: 0.00, 0.01,
+ 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
 
- ---- On Tue, 19 Aug 2025 21:06:46 +0400  Alejandro Colomar <alx@kernel.org> wrote --- 
- > BTW, I guess I should still take the second patch, right?
-Yes, please, take second patch from v2. Thank you!
+* Alejandro Colomar (alx@kernel.org) wrote:
+> Hi Dave,
+> 
+> On Tue, Aug 19, 2025 at 11:46:07AM +0000, Dr. David Alan Gilbert wrote:
+> > * Alejandro Colomar (alx@kernel.org) wrote:
+> > > Hi Dave,
+> > > 
+> > > On Mon, Aug 18, 2025 at 06:45:53PM +0100, dave@treblig.org wrote:
+> > > > From: "Dr. David Alan Gilbert" <dave@treblig.org>
+> > > > 
+> > > > The strftime example requires a format paramter.  If you don't
+> > > > pass one it crashes.
+> > > > Check for the parameter.
+> > > > 
+> > > > Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
+> > > 
+> > > Thanks!  I've applied the patch.  (But see some minor comment below.)
+> > 
+> > Thanks!
+> > Is that something that I can spot locally?
+> > Since I seem to be working my way through the set checking most of the
+> > examples, I'm probably going to be posting some more so I should
+> > get the checks running.
+> 
+> Yes, you can.
+> 
+> > I'm trying to run:
+> >    make -R lint build-all check
+> 
+> This is essentially what it does.  Here's the full script I use in my
+> server (the linters are run on pushes to refs/heads/contrib):
+> 
+> 	alx@www:/srv/src/alx/linux/man-pages/man-pages.git$ cat hooks/post-update;
+> 	#!/bin/bash
+> 
+> 	set -uo pipefail;
+> 
+> 	cd /home/alx/src/linux/man-pages/man-pages/.bare.git/;
+> 
+> 	unset $(git rev-parse --local-env-vars);
+> 	git fetch srv >/dev/null;
+> 
+> 	export LANG=C.utf8;
+> 
+> 	test "$1" = "refs/heads/main" \
+> 	&& (
+> 		cd /home/alx/src/linux/man-pages/man-pages/main/;
+> 
+> 		git reset srv/main --hard >/dev/null;
+> 
+> 		export pdfdir="/srv/www/share/dist/man-pages/git/HEAD";
+> 		export DISTNAME="man-pages-HEAD";
+> 
+> 		make -R install-pdf-book 2>&1 \
+> 		| sed '/bashrc.*PS1/d';
+> 		echo '$?: '"$?";
+> 	)
+> 
+> 	test "$1" = "refs/heads/contrib" \
+> 	&& (
+> 		set -Ee;
+> 
+> 		export PS1=;
+> 		cd /home/alx/src/linux/man-pages/man-pages/contrib/;
+> 
+> 		old="$(git rev-parse HEAD)";
+> 
+> 		git reset srv/contrib --hard >/dev/null;
+> 
+> 		make_opts='';
+> 		make_opts="$make_opts -R";
+> 		make_opts="$make_opts -j4";
+> 		make_opts="$make_opts -Otarget";
+> 		make_opts="$make_opts --no-print-directory";
+> 
+> 		export VERSION=contrib;
+> 		#export GROFFBINDIR=/opt/local/gnu/groff/deri-gropdf-ng/bin;
+> 		#export PRECONV=$GROFFBINDIR/preconv;
+> 		#export PIC=$GROFFBINDIR/pic;
+> 		#export TBL=$GROFFBINDIR/tbl;
+> 		#export EQN=$GROFFBINDIR/eqn;
+> 		#export TROFF=$GROFFBINDIR/troff;
+> 		#export GROPDF=$GROFFBINDIR/gropdf;
+> 
+> 		make_target()
+> 		{
+> 			make $make_opts "$@" 2>&1 \
+> 			| sed '/bashrc.*PS1/d';
+> 		}
+> 
+> 		make_target lint;
+> 		make_target build-pdf-book;
+> 		make_target build-all;
+> 		make_target check;
+> 		make_target dist;
+> 		echo '$?: '"$?";
+> 
+> 		echo 'URI:';
+> 		git rev-list "$old..HEAD" \
+> 		| sed 's,.*,https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?h=contrib\&id=&,';
+> 	)
+> 
+> > but it seems to be missing 'checkpatch' and I'm not sure which checkpatch
+> > that is. (I'm on Fedora 42).
+> 
+> Yup, checkpatch is the one you can't run.  I have a fork of the kernel's
+> checkpatch, which I want to eventually package.  I need to find some
+> time to do it.
+> 
+> For now, you should be able to do what CONTRIBUTING.d/lint says about
+> make's -t and -k options, which will allow you to ignore those failures.
+> Let me know if that doesn't work.
 
---
-Askar Safin
-https://types.pl/@safinaskar
+OK great, I'll give those a go and hopefully you'll see some more patches!
 
+Dave
+
+> 
+> Have a lovely day!
+> Alex
+> 
+> -- 
+> <https://www.alejandro-colomar.es/>
+
+
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
 
