@@ -1,151 +1,144 @@
-Return-Path: <linux-man+bounces-3492-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3493-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B8BB2C04B
-	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 13:27:17 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FDB7B2C10B
+	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 13:49:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4640A5A510F
-	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 11:24:58 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D782A726DC8
+	for <lists+linux-man@lfdr.de>; Tue, 19 Aug 2025 11:46:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFED9322C92;
-	Tue, 19 Aug 2025 11:24:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1113632C330;
+	Tue, 19 Aug 2025 11:46:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYPDqqwJ"
+	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="iq8LfMxp"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBA5319844
-	for <linux-man@vger.kernel.org>; Tue, 19 Aug 2025 11:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C336232C302
+	for <linux-man@vger.kernel.org>; Tue, 19 Aug 2025 11:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755602694; cv=none; b=Ut+9XkBMv8u64SL0MwQMnX1iwdYrMizUhQ4ObqgSINQc0KR7MIEHJfM8IOPWbb10xAIIKpkFt2tWpcrUDwOq2R0hNeDFI2Dwra9m9mkU2zxD0B6UfG8h3gA8Q2WBdmZkSFbNryr7E+0wYnK9bFEaeBeTIsOZfFnRzdpevt1PAiE=
+	t=1755603972; cv=none; b=bX5JoeChd1E3ojpn29ztJ3uCsglBOYi132gmpASy3IKKruGR8pis0Kw9K3PSTVRuHeN748sAm1bEL77JtElnHOD8yGk/TSXve9M0taSNhZZTkzuoZRd3BOLJ8UIY2bGlaEkzmGaie32OYXRsrSFtwF5xpp/Ec0CJEpdPijfTaH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755602694; c=relaxed/simple;
-	bh=h/jfD958PNA+uYD7I1sj7iE6n0vByNxV9rLlRErIzds=;
+	s=arc-20240116; t=1755603972; c=relaxed/simple;
+	bh=zwG6TYcONn62VNuuzejojCif7yI9ouZbteiUH733KxU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ukoPg/S4by+mGrR3CiDSh/WpLbqEGA5gGnTAOVwBVwVOod0WXaabNL1ymQOiU0WVdlP1Ek9bQT6OPXJTQknh5uWrlAu3Zg/FZ7adbpLcv7gZqUkqieZ2tsAY27A1lqNUFwEfVgyidAApnJbjdDMH/WG2eLkHk0ydK3F4bX+Y+po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYPDqqwJ; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17EAC4CEF1;
-	Tue, 19 Aug 2025 11:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755602694;
-	bh=h/jfD958PNA+uYD7I1sj7iE6n0vByNxV9rLlRErIzds=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EYPDqqwJF+Pj1wnC6bIBnL3RebBx3NTGyO6Gfjewwtbf2KoXrlUSI1iCGeW3aYRc+
-	 IthbRelSdhdca2M+RnyY7fJ3IIU6nytr38i4/c1cuvCE78UYbtZg+rKnn8ld1IY3Cu
-	 U7qY21W0QWh/Jb238Z2h8LVN39Ov1nIzrhmMUMfWQGftCvUhD1+CgVDe+Rk3EX18W8
-	 +PD9Wh6EO0KVZLtiKvpztjH99x6inZx94YISW0uMl3opabxewyeLWlYSu+O8kGDF+i
-	 O4Z2rDMGYliXSfgzJtHDkkv3huts9CdyYFn32yq5KkK4BTQZcLhLsRkLkHYyGS/J3b
-	 ZaMAF/gbyUV6Q==
-Date: Tue, 19 Aug 2025 13:24:49 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: dave@treblig.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZLmZ93foSf9IaZ8LsO7UsYXoQYth6zXdyPNZg/ow7hQ3/y5cCFBZRVPAiwgcvDnZ5rZI/kKa3t5CgWRaJ1JOff2KKSDMrJplNI1SETAe1yLxBppIgq+UHzSkQ4SsDRrECbu0ZkFJYO8PbUR6ru4M+rABXuzFYbhu1alJhekzPCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=iq8LfMxp; arc=none smtp.client-ip=46.235.229.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+	:Subject; bh=AVPq94WOEf8PFZ3xNLzknAa3Qbs78KACnfgAsPDKp54=; b=iq8LfMxpVUMfb3HD
+	TgtSMGd/w0/LSEM0OeZ55reE5rnCbPFJCBLC5x4Ca3JySHH9F415AYaNk17Ir27mHwW44jjPoBi2d
+	m6vVt5sgEc1jviAyzCd83ENjFALdn1axphSNw6+1JCzZENtwJx0GdHn6pYGZa4bnUs03C1lRKbDBd
+	mke1/bL0EgMVWInS6n/otOQsFw+JKqyHxVM4LszsUxH84G3V5PkWxn1mfCgMOWjVBJQcSXmm56LLq
+	D7kEOlhECUP/eDLfL41ngM0uqg958Hvux8719I7DzuJlfRJYwWQZn7uuJ4kMqlNjCr1y73NUKWSOX
+	QKE/jAWAIlC8kuMwsg==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+	(envelope-from <dg@treblig.org>)
+	id 1uoKn1-004wnq-3C;
+	Tue, 19 Aug 2025 11:46:07 +0000
+Date: Tue, 19 Aug 2025 11:46:07 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH v2] man/man3/strftime.3: Check parameter
-Message-ID: <sa3mkaxgskcwrma3g7chd6d2bokswwk6i32bn74ueca3qr7f63@tn4ddlmihqon>
+Message-ID: <aKRj_-jnlO_BxWHr@gallifrey>
 References: <20250818174553.70132-1-dave@treblig.org>
+ <sa3mkaxgskcwrma3g7chd6d2bokswwk6i32bn74ueca3qr7f63@tn4ddlmihqon>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="amk4yjb5rvl4akbz"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20250818174553.70132-1-dave@treblig.org>
+In-Reply-To: <sa3mkaxgskcwrma3g7chd6d2bokswwk6i32bn74ueca3qr7f63@tn4ddlmihqon>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-34-amd64 (x86_64)
+X-Uptime: 11:43:20 up 113 days, 19:56,  1 user,  load average: 0.00, 0.00,
+ 0.01
+User-Agent: Mutt/2.2.12 (2023-09-09)
+
+* Alejandro Colomar (alx@kernel.org) wrote:
+> Hi Dave,
+> 
+> On Mon, Aug 18, 2025 at 06:45:53PM +0100, dave@treblig.org wrote:
+> > From: "Dr. David Alan Gilbert" <dave@treblig.org>
+> > 
+> > The strftime example requires a format paramter.  If you don't
+> > pass one it crashes.
+> > Check for the parameter.
+> > 
+> > Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
+> 
+> Thanks!  I've applied the patch.  (But see some minor comment below.)
+
+Thanks!
+Is that something that I can spot locally?
+Since I seem to be working my way through the set checking most of the
+examples, I'm probably going to be posting some more so I should
+get the checks running.
+
+I'm trying to run:
+   make -R lint build-all check
+
+but it seems to be missing 'checkpatch' and I'm not sure which checkpatch
+that is. (I'm on Fedora 42).
+
+Dave
+
+> 
+> Have a lovely day!
+> Alex
+> 
+> > ---
+> >  v2
+> >     Use a more standard Usage: format.
+> > 
+> >  man/man3/strftime.3 | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/man/man3/strftime.3 b/man/man3/strftime.3
+> > index 4a3f805bb..a27dfd01b 100644
+> > --- a/man/man3/strftime.3
+> > +++ b/man/man3/strftime.3
+> > @@ -739,6 +739,11 @@ .SS Program source
+> >      char outstr[200];
+> >      time_t t;
+> >      struct tm *tmp;
+> > +\&
+> > +    if (argc != 2) {
+> > +        fprintf(stderr,"Usage: %s: <format\-string>\[rs]n", argv[0]);
+> 
+> CI detected some issue in this line of code:
+> 
+> 	remote: .tmp/man/man3/strftime.3.d/strftime.c:14:  Missing space after ,  [whitespace/comma] [3]
+> 
+> I've amended it with a space.
+> 
+> > +        exit(EXIT_FAILURE);
+> > +    }
+> >  \&
+> >      t = time(NULL);
+> >      tmp = localtime(&t);
+> > -- 
+> > 2.50.1
+> > 
+> 
+> -- 
+> <https://www.alejandro-colomar.es/>
 
 
---amk4yjb5rvl4akbz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: dave@treblig.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] man/man3/strftime.3: Check parameter
-References: <20250818174553.70132-1-dave@treblig.org>
-MIME-Version: 1.0
-In-Reply-To: <20250818174553.70132-1-dave@treblig.org>
-
-Hi Dave,
-
-On Mon, Aug 18, 2025 at 06:45:53PM +0100, dave@treblig.org wrote:
-> From: "Dr. David Alan Gilbert" <dave@treblig.org>
->=20
-> The strftime example requires a format paramter.  If you don't
-> pass one it crashes.
-> Check for the parameter.
->=20
-> Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
-
-Thanks!  I've applied the patch.  (But see some minor comment below.)
-
-
-Have a lovely day!
-Alex
-
-> ---
->  v2
->     Use a more standard Usage: format.
->=20
->  man/man3/strftime.3 | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/man/man3/strftime.3 b/man/man3/strftime.3
-> index 4a3f805bb..a27dfd01b 100644
-> --- a/man/man3/strftime.3
-> +++ b/man/man3/strftime.3
-> @@ -739,6 +739,11 @@ .SS Program source
->      char outstr[200];
->      time_t t;
->      struct tm *tmp;
-> +\&
-> +    if (argc !=3D 2) {
-> +        fprintf(stderr,"Usage: %s: <format\-string>\[rs]n", argv[0]);
-
-CI detected some issue in this line of code:
-
-	remote: .tmp/man/man3/strftime.3.d/strftime.c:14:  Missing space after ,  =
-[whitespace/comma] [3]
-
-I've amended it with a space.
-
-> +        exit(EXIT_FAILURE);
-> +    }
->  \&
->      t =3D time(NULL);
->      tmp =3D localtime(&t);
-> --=20
-> 2.50.1
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---amk4yjb5rvl4akbz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmikXwEACgkQ64mZXMKQ
-wqkdLA/9GVJ+xkpJVq0hhcs2HrQLHE6l5LvXjovIq3gh6lB1rj7Al/wvWg5T/0u5
-MKMEc5jLoJ+20cfMAKKGcsGnExfpIWb8u+oldj4/u1ubG1WWjBgEixh84C7imU+7
-bRqDvBBYQDp4ucBuJxWSTtMVOoDy8c7rYI1HtdU9I0JZ8N8HMwVKDQCUp+k//x7L
-GNtJYcX6Q/2Eqdo0eL7j6VM0osPenJFsEi/NqlUpU6b1IP+clp+wB02UjmRjlk/A
-u4N579LJGvFtvaMintGHL5X+aQY6RxglBQ3En90AdFPe31eX4FxM/KKroPIWxL9H
-tP3ef8y76mBDLI3DoFmNYC+UW3oNbfH+KmSnN1ZtW3y7xyluOkd/7QLsgnvcH6aH
-WXSW0fjODjfDXaIQ4RF8T0BzT2jQe+YkD1icXp1idpEWB0h6gKF8BLlIVgPI+/AX
-OQ2qj08Hse3Q6OeJbYb9TSo2AQiqfaYLWS67hfEPJgANiFobR70yq3rwvfoUqheM
-95CUtjfcIaWv2g3sr0qSaGBHg/w4R+VpBsgaRzrVTs0HH87XfPEpljk4Z0teRjAR
-yo7Qrf6cVuXgTgJWAzquX3eSv1cIdVEuogEjeL5qcmC+DQ461D18xIzqXmrndP1y
-tJ9GWfaFfvdAFdpSzumKYcHxUE0wwwCd8uV5omrAzpZHF9Wxol4=
-=L0L+
------END PGP SIGNATURE-----
-
---amk4yjb5rvl4akbz--
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
 
