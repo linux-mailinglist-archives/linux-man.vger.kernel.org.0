@@ -1,262 +1,103 @@
-Return-Path: <linux-man+bounces-3509-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3510-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2234AB2D5CB
-	for <lists+linux-man@lfdr.de>; Wed, 20 Aug 2025 10:13:47 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B748B2D970
+	for <lists+linux-man@lfdr.de>; Wed, 20 Aug 2025 11:59:17 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id ABD577AA593
-	for <lists+linux-man@lfdr.de>; Wed, 20 Aug 2025 08:12:09 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id C78911892926
+	for <lists+linux-man@lfdr.de>; Wed, 20 Aug 2025 09:56:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FE312D8763;
-	Wed, 20 Aug 2025 08:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F19002D23B8;
+	Wed, 20 Aug 2025 09:55:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtGFTMP3"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="SCzCHqQO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3CE2C11E8
-	for <linux-man@vger.kernel.org>; Wed, 20 Aug 2025 08:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755677566; cv=none; b=QOIk+9KFUmMj0lB5hu7ktV6BGZtA/yQa8eZvtPZdKAuDr0rGRcIg+oVU3dPHKpK8ifwYv3FEPIftaOpmuuSlHyN0qjlhL1xZCbajN48yiNYtYfIsZmCM/S+cf0gLuYt7HMBt0bjHgdQom8CEwh5r2QABi9Ae7Rd1yWyatxLp3/c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755677566; c=relaxed/simple;
-	bh=NkfbRo4nP/e1fibwIZdlhfhfMG6QFmnaulbSNYxDwlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EMFTwxcJgxakpkbh+X5jW6RsPzfkI56aL3Om5c1yykX1Cg/nCsFz+SyHQooUun/9+uBDnefieIe7eMxVeCmW5fevb6mvd3LdSOxa+gD2+ckPT3lmvt1+eDzHptEINYhgXLj0Dqjb9/1PUgZCDBymSy5mfOQlFFw0JReqlvWZBhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtGFTMP3; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972E6C113D0;
-	Wed, 20 Aug 2025 08:12:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755677565;
-	bh=NkfbRo4nP/e1fibwIZdlhfhfMG6QFmnaulbSNYxDwlI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LtGFTMP3jjvV2ybksb06zIt70nYwTHMuxGB50EpLCs7PyIFoglBpCUEZF52WI9nfA
-	 CMWDZOZmlls0ygTHjblmK0YEE1lBL1/aowet9Gonycpv7Dw1tJ8x9rpKh5hmjW2fsn
-	 FPCuMuucjAX51ZNtYdw0hMp7fOtYRV6rfa8cnq2suKOxxbyvLs3OTYh2o3SvHQl1D0
-	 aFUUKuxitat00dEj00LPSXOC4tKiLAr5LEYAfLnF1GnAo9KPuI6zlv/0vLBbC1wX7n
-	 AuGKJIBs471nJnA1SCljYcF+42q49yPIfM2E9UHESgYV+JJhjoiLOTpkMoxRr39SxY
-	 JPbuGgJ+YyhhQ==
-Date: Wed, 20 Aug 2025 10:12:35 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: dave@treblig.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/pthread_attr_init.3: Replace errc
-Message-ID: <7r2bs3ccxjzex3atdkcutdn6rzqmjsczqucodyk3rgfsnevqun@i3szklptbqjf>
-References: <20250820012725.440625-1-dave@treblig.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2004927781D;
+	Wed, 20 Aug 2025 09:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1755683744; cv=pass; b=DMIcahWzgnuvp3Vrz5e7xus3aaRfI3H58iouPYawdZ+TkRQnOXaRHco8L3LJaPGHU0pqcQxjI1iS+rJcISQnvGSyGYnXI8/OvgcxXHVQwwh6MsaCaopt9G/wc209Rh3G8QN50TpCLrCMqx4n+PuUFIPnt7LpuDkORKxJIq8ORf0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1755683744; c=relaxed/simple;
+	bh=IKpQmKnl94o09xHTfN0Qj4qrIjMXgULlD1i7dOwaeqQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=ntom1PhbT4JmGSfAWFEsVzTnTpo/tkYV6YBDjEEDwOa0mtJKZ0aAPUnPYTYalB+L3nKOFBVOh5+9NoHTiCGqiX5UJ3hO7YlEZWD81Khxbgds3jFwo4/tlwQTKe6Eehlb8e2Khxdx+YlR6VtoWaxRyeH0lTpR+uiTIk4ACmWmmIY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=SCzCHqQO; arc=pass smtp.client-ip=136.143.188.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1755683714; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FF7XtyYZ1iC1yi/0BToMG1xTw7ue//z0f1Nvxmf+q5/EZ+BjTNnJaaWHWFbsD+Z7Rtli8CR0icjj87BiBZ6RvRYMm3aqfgl2vqGnnb5naMWk1WMQEEnGSGjV580fEQcq73b3p6zzItsxbxSOOjb8sL4PxDuu91Mu+27GYIxXJ8o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1755683714; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=BUPX1b+b29tEGwDxGtup37O9TfSUrxsSkkD/2ccJ4RQ=; 
+	b=HTlwjIB7O1lKFyuMn4BDWXBxcTTa8ofQkSpV7fESlsBQhU9GxY+oYdhCBCJkeURd3A7jq7VVeKc3fTk8hNilDHXSjXOPGxMp9vnCR4aX+Bto4k1E0QP81fWC5nZZn+OTwR71hYk9IZVVR61EQnJDDUEVxef51Wx3A2U0JLJMKJo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1755683714;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=BUPX1b+b29tEGwDxGtup37O9TfSUrxsSkkD/2ccJ4RQ=;
+	b=SCzCHqQO/eOp9SQ7wF1v79eZ23Z9t5uCIVtz3wpGnLTmPinoLn0oElvc4vu7rAPw
+	KPFq1DLa3l6mN2VsibDdJJD79imFIhguGRp4lZWTBUE64/rooO33HG6pWCOz2it8bPo
+	pq3PjriF625OJQwOAPudxnhdwG/tD3ogz/WpYj9c=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1755683712335934.369788539951; Wed, 20 Aug 2025 02:55:12 -0700 (PDT)
+Received: from  [212.73.77.104] by mail.zoho.com
+	with HTTP;Wed, 20 Aug 2025 02:55:12 -0700 (PDT)
+Date: Wed, 20 Aug 2025 13:55:12 +0400
+From: Askar Safin <safinaskar@zohomail.com>
+To: "Aleksa Sarai" <cyphar@cyphar.com>
+Cc: "Alejandro Colomar" <alx@kernel.org>,
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>,
+	"Alexander Viro" <viro@zeniv.linux.org.uk>,
+	"Jan Kara" <jack@suse.cz>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	"linux-man" <linux-man@vger.kernel.org>,
+	"linux-api" <linux-api@vger.kernel.org>,
+	"linux-fsdevel" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"David Howells" <dhowells@redhat.com>,
+	"Christian Brauner" <brauner@kernel.org>
+Message-ID: <198c6e76d3e.113f774e874302.5490092759974557634@zohomail.com>
+In-Reply-To: <2025-08-12.1755007445-rural-feudal-spacebar-forehead-28QkCN@cyphar.com>
+References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
+ <20250809-new-mount-api-v3-7-f61405c80f34@cyphar.com>
+ <1989d90de76.d3b8b3cc73065.2447955224950374755@zohomail.com> <2025-08-12.1755007445-rural-feudal-spacebar-forehead-28QkCN@cyphar.com>
+Subject: Re: [PATCH v3 07/12] man/man2/fsmount.2: document "new" mount API
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tyci4lgr5yurc5md"
-Content-Disposition: inline
-In-Reply-To: <20250820012725.440625-1-dave@treblig.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
+Feedback-ID: rr08011227545c51e94901738994e1f5e2000047135d7af27e819aaa01fe2a47021fcd9af6db3fa45b746c76:zu08011227107231d3fae46b62a6258fc10000e8860ecb7f121ef78d2f53533e95725069394e9c0054f229bb:rf0801122caa7c5d6c6320fed86a2713960000dcd6057744201fc24466520d20ac336f526c27f94dab53187a27f20c08a3:ZohoMail
 
+ ---- On Tue, 12 Aug 2025 18:33:04 +0400  Aleksa Sarai <cyphar@cyphar.com> wrote --- 
+ >   Unlike open_tree(2) with OPEN_TREE_CLONE, fsmount() can only be called
+ >   once in the lifetime of a filesystem context.
 
---tyci4lgr5yurc5md
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: dave@treblig.org
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/pthread_attr_init.3: Replace errc
-References: <20250820012725.440625-1-dave@treblig.org>
-MIME-Version: 1.0
-In-Reply-To: <20250820012725.440625-1-dave@treblig.org>
+Weird. open_tree doesn't get filesystem context as argument at all.
+I suggest just this:
 
-Hi Dave,
+  fsmount() can only be called
+  once in the lifetime of a filesystem context.
 
-On Wed, Aug 20, 2025 at 02:27:25AM +0100, dave@treblig.org wrote:
-> From: "Dr. David Alan Gilbert" <dave@treblig.org>
->=20
-> The pthread_attr_init.3 example uses 'errc' to exit on an error
-> printing the error code.  However, 'errc' is a BSDism that Linux
-> doesn't (and has never?) have.
+--
+Askar Safin
+https://types.pl/@safinaskar
 
-Libbsd provides a compatbility layer to provide errc(3bsd) on Linux (and
-many POSIX systems).  libbsd is available in many distros (in Debian,
-you should install libbsd-dev).  BTW, it would be nice if glibc decided
-to pick this API eventually.
-
-
-Have a lovely day!
-Alex
-
-> Replace it by 'errx' with a strerror() call.
->=20
-> Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
-> ---
->  man/man3/pthread_attr_init.3 | 31 ++++++++++++++++---------------
->  1 file changed, 16 insertions(+), 15 deletions(-)
->=20
-> diff --git a/man/man3/pthread_attr_init.3 b/man/man3/pthread_attr_init.3
-> index e9058b8fe..9d0783e54 100644
-> --- a/man/man3/pthread_attr_init.3
-> +++ b/man/man3/pthread_attr_init.3
-> @@ -153,6 +153,7 @@ .SS Program source
->  #include <pthread.h>
->  #include <stdio.h>
->  #include <stdlib.h>
-> +#include <string.h>
->  #include <unistd.h>
->  \&
->  static void
-> @@ -165,7 +166,7 @@ .SS Program source
->  \&
->      s =3D pthread_attr_getdetachstate(attr, &i);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getdetachstate");
-> +        errx(EXIT_FAILURE, "pthread_attr_getdetachstate: %s", strerror(s=
-));
->      printf("%sDetach state        =3D %s\[rs]n", prefix,
->             (i =3D=3D PTHREAD_CREATE_DETACHED) ? "PTHREAD_CREATE_DETACHED=
-" :
->             (i =3D=3D PTHREAD_CREATE_JOINABLE) ? "PTHREAD_CREATE_JOINABLE=
-" :
-> @@ -173,7 +174,7 @@ .SS Program source
->  \&
->      s =3D pthread_attr_getscope(attr, &i);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getscope");
-> +        errx(EXIT_FAILURE, "pthread_attr_getscope: %s", strerror(s));
->      printf("%sScope               =3D %s\[rs]n", prefix,
->             (i =3D=3D PTHREAD_SCOPE_SYSTEM)  ? "PTHREAD_SCOPE_SYSTEM" :
->             (i =3D=3D PTHREAD_SCOPE_PROCESS) ? "PTHREAD_SCOPE_PROCESS" :
-> @@ -181,7 +182,7 @@ .SS Program source
->  \&
->      s =3D pthread_attr_getinheritsched(attr, &i);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getinheritsched");
-> +        errx(EXIT_FAILURE, "pthread_attr_getinheritsched: %s", strerror(=
-s));
->      printf("%sInherit scheduler   =3D %s\[rs]n", prefix,
->             (i =3D=3D PTHREAD_INHERIT_SCHED)  ? "PTHREAD_INHERIT_SCHED" :
->             (i =3D=3D PTHREAD_EXPLICIT_SCHED) ? "PTHREAD_EXPLICIT_SCHED" :
-> @@ -189,7 +190,7 @@ .SS Program source
->  \&
->      s =3D pthread_attr_getschedpolicy(attr, &i);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getschedpolicy");
-> +        errx(EXIT_FAILURE, "pthread_attr_getschedpolicy: %s", strerror(s=
-));
->      printf("%sScheduling policy   =3D %s\[rs]n", prefix,
->             (i =3D=3D SCHED_OTHER) ? "SCHED_OTHER" :
->             (i =3D=3D SCHED_FIFO)  ? "SCHED_FIFO" :
-> @@ -198,17 +199,17 @@ .SS Program source
->  \&
->      s =3D pthread_attr_getschedparam(attr, &sp);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getschedparam");
-> +        errx(EXIT_FAILURE, "pthread_attr_getschedparam: %s", strerror(s)=
-);
->      printf("%sScheduling priority =3D %d\[rs]n", prefix, sp.sched_priori=
-ty);
->  \&
->      s =3D pthread_attr_getguardsize(attr, &v);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getguardsize");
-> +        errx(EXIT_FAILURE, "pthread_attr_getguardsize: %s", strerror(s));
->      printf("%sGuard size          =3D %zu bytes\[rs]n", prefix, v);
->  \&
->      s =3D pthread_attr_getstack(attr, &stkaddr, &v);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_attr_getstack");
-> +        errx(EXIT_FAILURE, "pthread_attr_getstack: %s", strerror(s));
->      printf("%sStack address       =3D %p\[rs]n", prefix, stkaddr);
->      printf("%sStack size          =3D %#zx bytes\[rs]n", prefix, v);
->  }
-> @@ -225,7 +226,7 @@ .SS Program source
->  \&
->      s =3D pthread_getattr_np(pthread_self(), &gattr);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_getattr_np");
-> +        errx(EXIT_FAILURE, "pthread_getattr_np: %s", strerror(s));
->  \&
->      printf("Thread attributes:\[rs]n");
->      display_pthread_attr(&gattr, "\[rs]t");
-> @@ -255,37 +256,37 @@ .SS Program source
->  \&
->          s =3D pthread_attr_init(&attr);
->          if (s !=3D 0)
-> -            errc(EXIT_FAILURE, s, "pthread_attr_init");
-> +            errx(EXIT_FAILURE, "pthread_attr_init: %s", strerror(s));
->  \&
->          s =3D pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED=
-);
->          if (s !=3D 0)
-> -            errc(EXIT_FAILURE, s, "pthread_attr_setdetachstate");
-> +            errx(EXIT_FAILURE, "pthread_attr_setdetachstate: %s", strerr=
-or(s));
->  \&
->          s =3D pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED=
-);
->          if (s !=3D 0)
-> -            errc(EXIT_FAILURE, s, "pthread_attr_setinheritsched");
-> +            errx(EXIT_FAILURE, "pthread_attr_setinheritsched: %s", strer=
-ror(s));
->  \&
->          stack_size =3D strtoul(argv[1], NULL, 0);
->  \&
->          s =3D posix_memalign(&sp, sysconf(_SC_PAGESIZE), stack_size);
->          if (s !=3D 0)
-> -            errc(EXIT_FAILURE, s, "posix_memalign");
-> +            errx(EXIT_FAILURE, "posix_memalign: %s", strerror(s));
->  \&
->          printf("posix_memalign() allocated at %p\[rs]n", sp);
->  \&
->          s =3D pthread_attr_setstack(&attr, sp, stack_size);
->          if (s !=3D 0)
-> -            errc(EXIT_FAILURE, s, "pthread_attr_setstack");
-> +            errx(EXIT_FAILURE, "pthread_attr_setstack: %s", strerror(s));
->      }
->  \&
->      s =3D pthread_create(&thr, attrp, &thread_start, NULL);
->      if (s !=3D 0)
-> -        errc(EXIT_FAILURE, s, "pthread_create");
-> +        errx(EXIT_FAILURE, "pthread_create: %s", strerror(s));
->  \&
->      if (attrp !=3D NULL) {
->          s =3D pthread_attr_destroy(attrp);
->          if (s !=3D 0)
-> -            errc(EXIT_FAILURE, s, "pthread_attr_destroy");
-> +            errx(EXIT_FAILURE, "pthread_attr_destroy: %s", strerror(s));
->      }
->  \&
->      pause();    /* Terminates when other thread calls exit() */
-> --=20
-> 2.50.1
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---tyci4lgr5yurc5md
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmilg3MACgkQ64mZXMKQ
-wqlf2Q/+OIphEhXsLGuX+JlGIjTZ4fh0SooOFg9ZVqWykkxZNXs/yggkXw5bcj7j
-V5pvCffaqSXkqDn4QuxtFbT3FcXIWTMJVClcICkv7N9uzgbTG52mlOsOlvpPK5z7
-Pq/1KW3vJnjBUwibVWHpQrEv3mmLsjQSUdMkamOEWrvUu5BTd4u5IhPBPvvvPQ9J
-MXBf7dHTqdO+WDS0gs/8Evm4YAloHT3M2oK3XYCUHe/G+WCF7uglkXNWEX0+UtTF
-7XX+4R10xeVx8TmK4zt4oj3Xkhns1rqJQ2IyCwPP3bTgXUFZRqqYlZRcL9eytErz
-wvFi3uQ+Q15TFcNWL7Eg4OsEIH/fZydG/Fan3iAEMUj/DZCnjkEDNHHqKYXPtKIl
-dxR9d3CjEvDP8hQpEr52qFIgm8p4FL2cGnGBEmPz3KVFvaClDFCxl/RxmA2Ir2JS
-V69G3Q7xJipHtbVTTW6ZwZnU5jkqSP84+MDe5Zn4iNJS4fVEjC4QboIZ8rRpNXk2
-hsvEBD2hddMZxoyWwkMsUgP6Xz4QKSFL1YPwvtqRfMLVRpPw8y5YZtuYZxiy2cHK
-MVhtE3VDsdM3OLgQECTlAF6NMRlWdi+fb55jN44BJ/MUPTlsR8Er8qyfVoKXlRiW
-IfPifTOMQRdu8Tp6hBZ59P2IfBZbXuKY8G1Fbhxg1a+x72DTVqk=
-=pJ70
------END PGP SIGNATURE-----
-
---tyci4lgr5yurc5md--
 
