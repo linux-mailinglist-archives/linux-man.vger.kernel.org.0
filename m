@@ -1,165 +1,116 @@
-Return-Path: <linux-man+bounces-3519-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3520-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C7AFB2E18F
-	for <lists+linux-man@lfdr.de>; Wed, 20 Aug 2025 17:56:16 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DF20B2F44D
+	for <lists+linux-man@lfdr.de>; Thu, 21 Aug 2025 11:43:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id BE8711BC1DEE
-	for <lists+linux-man@lfdr.de>; Wed, 20 Aug 2025 15:53:05 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 66842189DF2B
+	for <lists+linux-man@lfdr.de>; Thu, 21 Aug 2025 09:43:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EB6E32274E;
-	Wed, 20 Aug 2025 15:52:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0CF32EFD90;
+	Thu, 21 Aug 2025 09:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9UUcVFF"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="dJWh1pCD"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E272C299AB3
-	for <linux-man@vger.kernel.org>; Wed, 20 Aug 2025 15:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755705160; cv=none; b=H4RwZ4emZvIK9H5RIBpxc7G5qaA4n+z0ps2szvEvCUufm+3ynhFZhtlsAxcbgt7SY/FTc94zUeC6tezdspzoEb5J8pmt5QabXXU3czkHRTOKcGVsEtwAtPuTs2ltevSPuChG8J9AZbU7n+QYa3wRxxWwJMR1DQBgYYe2iC34BIk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755705160; c=relaxed/simple;
-	bh=VjTLdVlkRgtkt3NlYAaVAfTGdedDliCWle94BHNNYnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F41911jCjtLVSJIbSyHUfRPX8VEBaRjoGBFFzpsI+I9ms33pmKO+Ztik/9kNwEQBS/qXg2qXq06EqyAk6o0gfpX0sIJ9NIY9EYFfnLdZrGs0zNIkYj4BmeOZR8cV5XsWUBfO72wLj78k+mrzy9YPBBDdrBO6yrXk+r1KbBduyeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9UUcVFF; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40CDCC4CEE7;
-	Wed, 20 Aug 2025 15:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755705159;
-	bh=VjTLdVlkRgtkt3NlYAaVAfTGdedDliCWle94BHNNYnw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b9UUcVFFm6/ucOe+S1vc2e1m1R/rSUtw958Zw/eZZzkbeqD6nxYhXh8sJ0nfqMxAt
-	 gp56cm355EG3mZblCxT32n9UlORcNEMhB14dtF8QMIsarzJb+9GzlcTy3eqGb4MahQ
-	 EZT1MGxNv4suNLEZavAQeGppKdLhgaoWXsfwChuE9Sc8ApiREhZv47MGyQai0iATQi
-	 AIXkelukCBeXj4tRGOIrRBdBZ/OBhNaItnXNzhAZNls9oGakIulYMFczj1xu5rk7fl
-	 hzC6jFWqUxSBDxgEB9+7Hhgz2RcdqVuRpouhzpMqTe45bBaG/odJixWH/1fWitZ9oQ
-	 ItNosxdpHFFSg==
-Date: Wed, 20 Aug 2025 17:52:34 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "Dr. David Alan Gilbert" <dave@treblig.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/pthread_attr_init.3: Replace errc
-Message-ID: <opcd565lih2ibkdfbjgnou2nxbvl3slok6yqcxaw4ftuauynet@blvvmsixj2ge>
-References: <20250820012725.440625-1-dave@treblig.org>
- <7r2bs3ccxjzex3atdkcutdn6rzqmjsczqucodyk3rgfsnevqun@i3szklptbqjf>
- <aKXXVO6VdrhXkidS@gallifrey>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33AE2E7F36;
+	Thu, 21 Aug 2025 09:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1755769390; cv=pass; b=XkkZcctBfehMZRtpgJuvM051zL1MVHEWeaWOR1YJQhU8P4mlu2q92qyqhU8WTTAMzCNQURouLAFUqSDwLl6n0UoocHBg+jvlcNsM+EBC9PvLtPryVPCoA/BHKsTBvLeCKaTpO6mGVGOXlOegPNjvdaXEyPE+2lKk8BgCrFq8/QU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1755769390; c=relaxed/simple;
+	bh=00IT2GFNBj2sojSpzKRrz+QslCt09lqE4RCqCNWAukE=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=To1CJrqezodL+yAjUo4sZoOMGKhP3q4Q08y4EA6XLE5w9nhZad+2tLe1jiDR4uRFuOjlLmQ1Y+JCEXPyQ6FynxSbFbNutxsBI6IoLq+tHAZOtywSbIWv2D2UQVLRGsoJn7TZsIIatDmlnXx77L81Whrl3y8CbL+9+zGwM456to4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=dJWh1pCD; arc=pass smtp.client-ip=136.143.188.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1755769364; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=l79hCeiMG1l+JPmpZCe8qHRC4Hw9jk65n7+Tuc+HGAhrvKMTkrr/zF+7cSSEvNIFEWIDaBdSevBTy4G/U8UB50pxabkBIko7WpiTllcg3eUpCaTprjBSYNUSVrg0J8mxJN8agXQyTvpW9640Oov6MVlET3iplytezyohkuu3rW8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1755769364; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=CLyI4kDf1dViZxhG8N82OEUcewRrHXnbAp3Ib/mYQAc=; 
+	b=iMusWNu/SUzGw0qp5Puhy3vtsa7pq7OcwshQJQcyV7Sb78De6ED6zuKnc33cufbjpNnsCWWBvv0O7AMCSxzfOjpdj7tzcep0OH1YnkifBTs0qBBtzlMFpOoqy7Qxw487bxbq/RFED0+htEQovHN+ppVRSqu7MF1In3ahYOJEtUY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1755769364;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=CLyI4kDf1dViZxhG8N82OEUcewRrHXnbAp3Ib/mYQAc=;
+	b=dJWh1pCDaI/Hgfi3czd40BPYxe8FijbYwjSagzIu3yA54qwK1FudyMjdqbVxavMQ
+	vEtp4mLEsBJrXIdUzQ2mff6km61VevEJarHx9s2SR33/pGr7L4nlvlPieD59aEYqvuV
+	iJX88puT/SItBSlof6u3pg0cB30KDl8pabo07EP4=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 175576936248297.23526332386348; Thu, 21 Aug 2025 02:42:42 -0700 (PDT)
+Received: from  [212.73.77.104] by mail.zoho.com
+	with HTTP;Thu, 21 Aug 2025 02:42:42 -0700 (PDT)
+Date: Thu, 21 Aug 2025 13:42:42 +0400
+From: Askar Safin <safinaskar@zohomail.com>
+To: "Aleksa Sarai" <cyphar@cyphar.com>
+Cc: "Alejandro Colomar" <alx@kernel.org>,
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>,
+	"Alexander Viro" <viro@zeniv.linux.org.uk>,
+	"Jan Kara" <jack@suse.cz>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	"linux-man" <linux-man@vger.kernel.org>,
+	"linux-api" <linux-api@vger.kernel.org>,
+	"linux-fsdevel" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"David Howells" <dhowells@redhat.com>,
+	"Christian Brauner" <brauner@kernel.org>
+Message-ID: <198cc025823.ea44e3f585444.6907980660506284461@zohomail.com>
+In-Reply-To: <2025-08-12.1755022847-yummy-native-bandage-dorm-8U46ME@cyphar.com>
+References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
+ <20250809-new-mount-api-v3-6-f61405c80f34@cyphar.com> <2025-08-12.1755022847-yummy-native-bandage-dorm-8U46ME@cyphar.com>
+Subject: Re: [PATCH v3 06/12] man/man2/fsconfig.2: document "new" mount API
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zq7asptzmijce2zl"
-Content-Disposition: inline
-In-Reply-To: <aKXXVO6VdrhXkidS@gallifrey>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
+Feedback-ID: rr08011227dee011c4ba359fc500e9059100007db79ba7484654c5a5653498434b216f50461561059d32dbf7:zu08011227a5cb7776ba5e89f37adeb9890000f68e1e3f1def807e9a70a6be15172071ba36f84ae63e892f2f:rf0801122cb48f3615ec900817651bd8180000abdc6db1be998902154ea5eec4aa5d2718197cb8c3f3aba5b4253436ffea:ZohoMail
 
+ ---- On Tue, 12 Aug 2025 22:25:40 +0400  Aleksa Sarai <cyphar@cyphar.com> wrote --- 
+ > On 2025-08-09, Aleksa Sarai <cyphar@cyphar.com> wrote:
+ > > +Note that the Linux kernel reuses filesystem instances
+ > > +for many filesystems,
+ > > +so (depending on the filesystem being configured and parameters used)
+ > > +it is possible for the filesystem instance "created" by
+ > > +.B \%FSCONFIG_CMD_CREATE
+ > > +to, in fact, be a reference
+ > > +to an existing filesystem instance in the kernel.
+ > > +The kernel will attempt to merge the specified parameters
+ > > +of this filesystem configuration context
+ > > +with those of the filesystem instance being reused,
+ > > +but some parameters may be
+ > > +.IR "silently ignored" .
+ > 
+ > While looking at this again, I realised this explanation is almost
+ > certainly incorrect in a few places (and was based on a misunderstanding
+ > of how sget_fc() works and how it interacts with vfs_get_tree()).
+ > 
+ > I'll rewrite this in the next version.
 
---zq7asptzmijce2zl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "Dr. David Alan Gilbert" <dave@treblig.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man3/pthread_attr_init.3: Replace errc
-References: <20250820012725.440625-1-dave@treblig.org>
- <7r2bs3ccxjzex3atdkcutdn6rzqmjsczqucodyk3rgfsnevqun@i3szklptbqjf>
- <aKXXVO6VdrhXkidS@gallifrey>
-MIME-Version: 1.0
-In-Reply-To: <aKXXVO6VdrhXkidS@gallifrey>
+This recent patch seems to be relevant:
+https://lore.kernel.org/all/20250816-debugfs-mount-opts-v3-1-d271dad57b5b@posteo.net/
 
-On Wed, Aug 20, 2025 at 02:10:28PM +0000, Dr. David Alan Gilbert wrote:
-> * Alejandro Colomar (alx@kernel.org) wrote:
-> > Hi Dave,
->=20
-> Hi Alex,
+--
+Askar Safin
+https://types.pl/@safinaskar
 
-Hi Dave,
-
-> > On Wed, Aug 20, 2025 at 02:27:25AM +0100, dave@treblig.org wrote:
-> > > From: "Dr. David Alan Gilbert" <dave@treblig.org>
-> > >=20
-> > > The pthread_attr_init.3 example uses 'errc' to exit on an error
-> > > printing the error code.  However, 'errc' is a BSDism that Linux
-> > > doesn't (and has never?) have.
->=20
-> > Libbsd provides a compatbility layer to provide errc(3bsd) on Linux (and
-> > many POSIX systems).  libbsd is available in many distros (in Debian,
-> > you should install libbsd-dev).  BTW, it would be nice if glibc decided
-> > to pick this API eventually.
->=20
-> To use that we'd still need to change to:
->        #include <bsd/err.h>
-
-With `pkgconf --cflags libbsd-overlay` you get it as <err.h>.
-
-	alx@debian:~$ pkgconf --list-package-names | grep libbsd
-	libbsd-overlay
-	libbsd-ctor
-	libbsd
-	alx@debian:~$ pkgconf --cflags libbsd-overlay
-	-isystem /usr/include/x86_64-linux-gnu/bsd -DLIBBSD_OVERLAY=20
-
-It uses some #include_next magic for that.
-
-We could include <bsd/err.h>, although then the examples would
-ironically not be portable to the BSDs.  :-)
-
-> and tell people to link with -lbsd
-
-Yup, we could show the command for compiling the example, which needs
-`pkgconf --cflags --libs libbsd-overlay`.
-
-Maybe...  We could include <bsd/err.h>.  BSD people will know to remove
-that, hopefully.  And for the rest, compilation will be as simple as
--lbsd, instead of the pkgconf(1) command.
-
-Feel free to send patches in any of those directions for errc(3).
-
-> TBH using BSD only things in a Linux manpage with a _GNU_SOURCE define
-> seems odd.  The err()/errc()/errx() family of calls seems to be pretty
-> obscure, most [linux] people I checked with had never used them.
-
-It's sad that these function aren't more known.  They're quite handy.
-
-> But at least err/errx are in normal glibc.
-
-Yup, that's a good thing.  I wish glibc added errc(3) too.
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es/>
-
---zq7asptzmijce2zl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmil7zwACgkQ64mZXMKQ
-wqnDNQ/7B9QPhShFEOu3fJCcQl9AnleDVrW9CvDuxeoEDuplojL2LGG/pcY+dvO2
-BXEfqaDe0B/zWCpxPuZx3i/H9KhU9YFAHxmJCznv6mMqlXataBCRM8jdH5kA7ulu
-GDG0TqD4zc1ohoWVx5IIXf27B8iXoeM2FY0pYtQNBt2MB2ftF0gz8YmC9qXCflXB
-cyWUB6ZwY5Os704JubpXuSHVsWdcrdObTSmCdypXkinbSvu29cWXpkPOj6FrXybg
-gSxo86Zo3z6B1as3mL6Gif2Ku51d1eMWi+l4LSzud65EWwO40m8/CcMPJvuSZb1s
-Prastppz6zT5stfCSttO8YinAW3jIKqZqV0IvCPiDwtfLZvyUD+wTlIFSnmbeNZr
-hFdOSB3zHA/ZBL4lhSueeWJVUiE1t7wkozoHWwMNf1JPuAxGYX6xGHAn1Vyk0TTO
-n454ROd1nKDrOAJom6VU6d69iaTVZfK/B+6XnNaeWDUS+Re3KPNyKWBg2fW5Ki9+
-QaYBzfrd9Mz5ioBfevHWx9UlJSCR721Gf0Fx++i52W0XAqQiiDT3CuQXCOZW2rcf
-+/9vI65uaFojAztTI/IKwa1QU0X+oWUSPpOKT0W9QBizzU4TbQwGiP+zwSLxfc5G
-PtzqSk29FvtsXuzxuuWXZLigtej3dizdAuBB59QDw2a79yeBGjk=
-=hQzL
------END PGP SIGNATURE-----
-
---zq7asptzmijce2zl--
 
