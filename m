@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3575-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3578-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33702B33093
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:00 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42547B33096
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0B016203C03
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:00 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 3367E4E14E3
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8D112DEA7B;
-	Sun, 24 Aug 2025 14:48:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CBF872DEA7E;
+	Sun, 24 Aug 2025 14:48:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="gG7uk+uC"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="QATIv46Q"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FC319ABD8
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF5D19ABD8
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046930; cv=none; b=XdsbYXntQPuPe+4XYum8M65rvEafuZSdnEXKJ0Tk2YDvAoNICx86OyA3+k34S8vIkjysQWhoSjyCxxD4wHa9w7e8MUh15vHiPwxTzJD7s2r7j6B9TJ6NisSYjwkq0QLSxPXZYmqsZepAcWBWFJIkMtqSDQo6rJy3xS13EXE0zDM=
+	t=1756046932; cv=none; b=b9wExTxf6iaTlA/yPSbJTnlPCl/+35iyRTBaNhruYB//SL7McXh1E1dL6w+yDQKlhyOVWtYfVofsp3/FBLhbcx1Pdq830d0xqV2CQva/zITuY1JIU2tk2OMbdzjxzs+orZVpkBN4n7sZwIikFF+Wensulvxbw7UFcGDOz0JpMxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756046930; c=relaxed/simple;
-	bh=NxD0EbBehbPQ9+kQ5BP+YSFf1ugJv5pKWs35iFQrM9E=;
+	s=arc-20240116; t=1756046932; c=relaxed/simple;
+	bh=kmYclmyqCVErdogogFagZti1tIXBIwbVtQI5+tKDZJc=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=mszPrOgmoz1wh985JbbLU+DzNyOu+fQXN3mWQIqmTzkOVYwvkkoYvEgRpFgtjwM9Z3cwW5r/hnn8vAsVnmLyXe0b40ZCl14aVg9n4HH75Ie/iNOs3uziwJAW8s+qeA9IP5+6WPi9ulU3oh1L1cJ1470eR6P9ALSWU11q5iPrZtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=gG7uk+uC; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=D5pcp6oMxffYWpf9VXMgC/cI5HuZluGDabS+XD6+hD3hd6f26VsFY4DywaRrB3wbtZ6Bw/rgaBsIjS3uX1RAxL7hFiiErPmwU8JorCQA23NzFBUPfcmbPBku8uE81kfqNVFUOKfG4Kr1mZrIKEAs0HsiLlggX6nxglQoW1ZkDrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=QATIv46Q; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046916;
-	bh=t6e3GghZKnWgWs4sZx9c1rVtRsRNlKGGYM6+05EIn2E=;
+	bh=tc6ERc+rSJJ6EZA7xJktyXmsDw88Sr0kQS8Civkb8a0=;
 	h=Date:From:To:Cc:Subject;
-	b=gG7uk+uCyTzy42h9vDfZoDxy5UbNsQLYytSej9BQFa4Bl5zz/CxRSNT2DAuzYDXtv
-	 OiSYuVpZBQeTOYPYa3wOkONAPKJpJUD0p8Fph9/2tPHpztThkl6LXl6pz0bVKmkDyR
-	 7pZxQyAiXio2dT2/SSQu5hScy7jjOtHvRiY1dVxXVca0Cs/Wj4LWZw4vnJUB1NTapW
-	 rFj+8MKkQKDw9owL2OXp39hZmbjjGL9loVrw576Oa80OTBs8Yl6A3nITy7nH+6ihAL
-	 wM1IYBESfxyj8OsLYWifB8YZIyjhSpw0SAc43rAUGg85RjrbmAaQpfJadIbIV2X7To
-	 pjao/d6Ax0U3g==
-Original-Subject: Issue in man page wcsncpy.3
+	b=QATIv46QJEqsjDTz9Lz6ci5St0/e7wpdgBGfQLzIDNNSpCa+AsPrinyspaaIOWpsS
+	 x4PxgpDNmAEwpgb/vBJ8Nrl6eVfGhboTCswRKAHcnAZKc6s29vJUecmuDqM4580rBV
+	 5vapLwTsU7BO9K7llsTnfuRqbmIg/zD6lygYnOnX0/1E5sGe01yGDMWELkcvLqLzQF
+	 5X+7I2DUwRoMemIVF4CN4fnWBGsRQ1ucCFXMGjAp+EmchLsx1fp01euy64M9vsN+uX
+	 T6g1vkwqjHbrZz0HrZqtQUsj/ayfRYHEJlkrG79Yj+KtK5AC8JGpLO4G3jbH8pbcLf
+	 EmCrjmx9/IDjA==
+Original-Subject: Issue in man page wcsnrtombs.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000020594.0000000068AB2644.00138E2C; Sun, 24 Aug 2025 14:48:36 +0000
+  id 00000000000216A8.0000000068AB2644.00138E77; Sun, 24 Aug 2025 14:48:36 +0000
 Date: Sun, 24 Aug 2025 14:48:36 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page wcsncpy.3
-Message-ID: <aKsmRBaQOUxYyMer@meinfjell.helgefjelltest.de>
+Subject: Issue in man page wcsnrtombs.3
+Message-ID: <aKsmRKtfTQhIhs-F@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,10 +68,9 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<…>size_t n → B<…size_t> I<n>
+Issue:    B<…>size_t size → B<…size_t> I<size>
 
-"B<wchar_t *wcsncpy(>size_t n;\n"
-"B<                 wchar_t >I<dest>B<[restrict >I<n>B<],>\n"
-"B<                 const wchar_t *restrict >I<src>B<,>\n"
-"B<                 size_t >I<n>B<);>\n"
+"B<size_t wcsnrtombs(>size_t size;\n"
+"B<                  char >I<dest>B<[restrict >I<size>B<], const wchar_t **restrict >I<src>B<,>\n"
+"B<                  size_t >I<nwc>B<, size_t >I<size>B<, mbstate_t *restrict >I<ps>B<);>\n"
 
