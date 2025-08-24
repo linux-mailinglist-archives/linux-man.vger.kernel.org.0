@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-3686-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3687-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44427B33158
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 18:08:43 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2AE6B33166
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 18:14:40 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id AA0CD7A2363
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:07:07 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id BDFE3165DBB
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:14:40 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FFAA275865;
-	Sun, 24 Aug 2025 16:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1235B239570;
+	Sun, 24 Aug 2025 16:14:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UqGMyAAk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKwlCGij"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE9D19C556
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 16:08:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA25514A8B
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 16:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756051716; cv=none; b=CZIaSgVS5h6ZeZvi09D+mv6x1GvX0BtIMakRgZKEYbpCb5//fajF2WP/crmxeW64NncgXR6C34JJ9B9oHtxOukH+Ovk0dw0aYsh11CU7EgcPIMfVlovFMKGwAGS7JEdPvRfySgxAnVP6IFgdMs2LGDElOPxBxH4wfW8I1nR3MBE=
+	t=1756052076; cv=none; b=mcLKdic066Ut5IS1ny973LyrJrtuerOmqf98eJM8DJTYPQfazES8XL6vOuO3d5VeF2NsCFeGZfj53R8XcaslMZe6EF4bR2010V54SL68YTW5c4WDfAIYEK0otWU9lMsHq3G4B3w+5h/cr7S8MDwYwxwxs172aetfZS2VSzliXpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756051716; c=relaxed/simple;
-	bh=/n62pbggOnReOuRQdfUmL8ATRQvqmxTvESHEBLn/QRs=;
+	s=arc-20240116; t=1756052076; c=relaxed/simple;
+	bh=Go7FC1qa5NigQK97NNa1quiZ59W1TWrWG+Ss7vh7928=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WF6AoM3fHNPqsGEn8sR6JlRknXh3VQMkSfVfv+EORg5WZoDhurF2IszJsjMtAxSBEkdROxNpNSvi2Wf1tnw/Rd1wIaBVRlAnk95odgrWatATvEx3RRCSmk2AWCaZbbIMpq/Eds3HjLV2UEhsmWNknVxUcpGAbUTULpE3IoKIbjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UqGMyAAk; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008B5C4CEEB;
-	Sun, 24 Aug 2025 16:08:32 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=fkHyTJ/yNEle5CRzt9f1hDfeF4URBy0J1ynhSaEQIqztUyVr965pRJ/OANwowjN0QxrJI8+v0JW/v7ip+iauk2LyUk/ErVW5hfMvPK0EKaqBzewDxfUSJoP6/Vz4qBtZinsOho/cMSmFpsVn19LfQUq2pEjpItEXrxZ05KN8wIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKwlCGij; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9902C4CEEB;
+	Sun, 24 Aug 2025 16:14:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756051715;
-	bh=/n62pbggOnReOuRQdfUmL8ATRQvqmxTvESHEBLn/QRs=;
+	s=k20201202; t=1756052076;
+	bh=Go7FC1qa5NigQK97NNa1quiZ59W1TWrWG+Ss7vh7928=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UqGMyAAk+oThRI62X8xNJ1+xDHoQxPvhVE0sdYUITcz9WdUzWh3I/kjbPXPTte/1b
-	 hlc1M9aYowDCn9KZ8nyoEz1PjTOjV3iUSEBFnxIymVwEvlqhs5nuQNSzPWZVCitFhp
-	 /xqtr5YGHsII9dQnL5oS/88LC7zqjV/HSWeXRfxHZdLLPnogKi+pBQBw4TpVJLlR6Z
-	 oIwG3c8fUyzKd8LywQ2d0FWNvBTBGhVawjSKbCLY5EY3RPVyR12LEHi0x2MUaVLW8l
-	 Gqn1isnP3xiRIaLpC5yTSEvBN7WT56lS98gkMbH1cZWBqPnmAnQYB2wBhJjOEtpDuH
-	 yCb3GoAJWuHrQ==
-Date: Sun, 24 Aug 2025 18:08:29 +0200
+	b=WKwlCGijrM4nJxntPe04Kfrnl/DMl6VyABxmNkU1uzEEMEczH2KgNHDbdLae4KOr4
+	 rM2Wh8fDzPp1aDl8T3IVFVjhSkEwu1WUJ48HDt3bv2BjlCiQKkAQf3YtnXLTk3Z5rz
+	 aYKThLyU75+AvISD8HeIBIC1ku5bDskMhz0ZUC0cz3nYwq1Eo9GSqJ/8WwUOd438sQ
+	 4K170TdEhF7jbmXMlOdHVCNmHYQosb+juYPs4b2lq/AbUsuvpFPDqgFTPYVisf35gX
+	 LUqRlifq5vgu120oedqK20K1UqxllCYKRekgEQ497RAyj/XE4SczwpBFaH+axC1f1i
+	 9ACkObbNiNbkg==
+Date: Sun, 24 Aug 2025 18:14:31 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page random_r.3
-Message-ID: <px2rcf5nqghsei4szytgl6cpipcdptlltjlxciohcwpcud2lgv@kevsg5j5qigi>
-References: <aKsmUfiIuJ6lehrG@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page pthread_mutexattr_getpshared.3
+Message-ID: <nfop2ecxaej5m4mwfkvpf22kjtnbka262lwo747ge5gjqkkclq@qgcx6v4asoyv>
+References: <aKsmUOXEcLwVhC0D@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,73 +55,63 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hfnck53f6fizf574"
+	protocol="application/pgp-signature"; boundary="tyrpoovt6nml4tu3"
 Content-Disposition: inline
-In-Reply-To: <aKsmUfiIuJ6lehrG@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUOXEcLwVhC0D@meinfjell.helgefjelltest.de>
 
 
---hfnck53f6fizf574
+--tyrpoovt6nml4tu3
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page random_r.3
-References: <aKsmUfiIuJ6lehrG@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page pthread_mutexattr_getpshared.3
+References: <aKsmUOXEcLwVhC0D@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aKsmUfiIuJ6lehrG@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUOXEcLwVhC0D@meinfjell.helgefjelltest.de>
 
 Hi Helge,
 
-On Sun, Aug 24, 2025 at 02:48:49PM +0000, Helge Kreutzmann wrote:
+On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    comma after B<initstate>(3) as in previous paragraph?
+> Issue:    I<pshared is> =E2=86=92 I<pshared> is
 
-Thanks!  I've applied a fix.
+Thanks!  Fixed.
 
 
 Cheers,
 Alex
 
 >=20
-> "The B<initstate_r>()  function is like B<initstate>(3)  except that it "
-> "initializes the state in the object pointed to by I<buf>, rather than "
-> "initializing the global state variable.  Before calling this function, t=
-he "
-> "I<buf.state> field must be initialized to NULL.  The B<initstate_r>()  "
-> "function records a pointer to the I<statebuf> argument inside the struct=
-ure "
-> "pointed to by I<buf>.  Thus, I<statebuf> should not be deallocated so lo=
-ng "
-> "as I<buf> is still in use.  (So, I<statebuf> should typically be allocat=
-ed "
-> "as a static variable, or allocated on the heap using B<malloc>(3)  or "
-> "similar.)"
+> "I<pshared is> B<PTHREAD_PROCESS_SHARED> but the implementation does not "
+> "support process-shared mutexes."
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---hfnck53f6fizf574
+--tyrpoovt6nml4tu3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirOP0ACgkQ64mZXMKQ
-wqlH1Q/9GjtR5oWY9cL6fmIAx+zAfIPwjFAjfs4bSq4LR4+dWIOrSijmXtFm6Pvf
-+X9ebC8Pm66/x3JEerwDqZLWZFpty6TOLAxmdUkgwxSo3/CPF6ywt9rG3KB2orVE
-Zvt1O3CpFnZpk1g1ZgpmOxHwYQQB+YxBsSOn5mdhGgQYVjnvxB/Rw7JDwXCSHVWd
-RBJy9ryCN9m86Z2XXVGiRwLQNguApmWjUvHphM+UgRZKAypmf59mB5QhRlfnF8c2
-bezWRRtz4jColPqeTUcDIRNjrwWkqa4BaKaf/aU89xpbUjfx/iVtCfk26j8aGGIZ
-en65XhZLqiRmVqDCs6UPJzJlZFJyUUEm7S5EUeRPE8M+GqoTQ8pcZJl3uLOIwIgo
-7cGluBZPuyn3if7gIv8sb+PYjsv6O9kDQsrp7hal6t/JBBsnxz0ynHkQQssl6Ka5
-XS7yqK5svZ5vfxegD3UtjG1SAlPqopJSVG7CTKYprzOa+ThpxKKe/UDEeZhGSt8R
-M+CDkaxb/J08CBdMz3Ux/mcPrWUSYJ5uLEuPz/fLnYKullA7AYRJhYWpe631qoVd
-RayeRbIR6cC9j4dOUzQvqYvzNi5ifLsUZTsnsaQicyTLR3CcI6hUTWFaw3dM/BmH
-CacYCw8WVnplEv0goaAQH/uU3vDsSmcV1CafQRZw/u+VkIXAzIw=
-=oDRD
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirOmcACgkQ64mZXMKQ
+wqnp7hAAk4jBwhzE/7NpkofB6L1wFDDmcu0Qi6pfxhB9x39h9tPbE2HQmnXurygX
+yTOj0lAtLIIGxvS9tIl9g+Gn6aONiwRD6lfYt/Dl2nVY0qy8vgTKvCkByTjpEmJI
+HurZKcLF/Qlvs4GQ2hMeiRqZNCeabtneO2TaN7kgeuJEsO7j5OMqBRHgjd7Fyues
+sxkgD/EwQqf5PJIFMfrgnTbN5S89k54xsUnr+emAm76FYfEI4XntQsByC6DPYInP
+8RTqaE/Puzru5n9Y6fsohKwKlW1rC6JB3xTGqHa77ZR4xr6f94m6c8hi5j0xPk4p
+Ki4dLlPMnUQEam19xjeE0PkO0Wsvk8DGKa3HNpMbkoUH9IbXLMxNjmXCVq9PxUV4
+ObbNQkVmIGZw5GOvsSixnL4sYPnM62D5We4g86lwab3r+CU6ldlw6sdpIkwFMpHT
+FRMPJxb6Mb4fPpMDJCPDQhcChNkykdxUnxWaIWEhgbQqc3/dJNlb+vrbaNPRzKxx
+zwRF0hSmhRuuLBOGcNsIYP8J+BAV079HR4Wvv1IEswIuMl62bV3OVn+PNVjtXMiS
+c7wR/tLkofDQwGlgtnjGSW/+y/9XnNCZCVw9jMU5DdipLz+bXZldIHX28s3/70fU
+EVSjqi6Eh+e32ocARBUuaBIMI3ecmDhalFxzP9xZ1IMSkseJ46c=
+=9XK9
 -----END PGP SIGNATURE-----
 
---hfnck53f6fizf574--
+--tyrpoovt6nml4tu3--
 
