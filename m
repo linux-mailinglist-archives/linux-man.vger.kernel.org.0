@@ -1,128 +1,152 @@
-Return-Path: <linux-man+bounces-3705-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3706-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F65BB3328F
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 22:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE61BB332D8
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 23:18:33 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E284A443F8F
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 20:14:27 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 828C6482BCA
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:18:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C5B72264D3;
-	Sun, 24 Aug 2025 20:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 977EC221299;
+	Sun, 24 Aug 2025 21:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rYHMBExD"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZlwZuBjD"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BEF22330F
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 20:14:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72E413AA2F
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 21:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756066465; cv=none; b=HRPtN7F0jB20LvOxbQsPEi404RKIQrXKU6/7xL+IKPzb3UP4r0lJHijPJu63wJGL2GozlnX7tL2Qf0kaiX1gGHNdkwIPv44eH6R2YCq3mJGyapYIiCqp4J0T4x/jKbAPADdTroZQHTKQhIoLkh+Jz1BGmTQP9vKOsr4nyIrCHxM=
+	t=1756070309; cv=none; b=MgvtoLRX04v6dwreG8xw0OEIVGmcadhH6aDRpefa660USbM7RYad/D7rX1eBiosNxmiHYzkIDHnpoqMdmSH/YOLk7XU2IM6RLrLuh3/I/PkO7v+mBKHhmEZBZqk/o7SQyFOs4GIMDrtqTRw/VeORISnSQSPPzkhzor7f4yCFHfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756066465; c=relaxed/simple;
-	bh=4StbF15Ts0LfNe8EiO4VUKCzw/RBD3X7L3bhxPyC5QY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P0dvsXZJcKLAO/vzJFn6ubs6kZhham5vOHmUdoheBA3Tx9Es/nPi79ukYv/UocKW0RFx5SguFUYbVVbtwT+RqhpdiOFFYblJrQkGnvy/GoB1zMpeYXaU5QOON8y4jZAj43Kvw3bQJLAQ6HpWfSPiRpTAps4Vu+Ff1iE/KuqjeWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rYHMBExD; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32213C4CEF4;
-	Sun, 24 Aug 2025 20:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756066464;
-	bh=4StbF15Ts0LfNe8EiO4VUKCzw/RBD3X7L3bhxPyC5QY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rYHMBExD2DtvJe8NsMqGWmSZPplJhhGTFNr241T1O+PtTxxurAP1ElL2TOsf1Qq5z
-	 PJ9JvTYhlcIYB2dGJsJpNRKax9VuZj3FRgaSpVBglnhXAkxkTlXF+wKCR7lV9C8FIO
-	 ktkCzXf0Qr4JN+Z0t9Bz/NXKM2YlLCWAul0eEjcqRUcqBBeAcTuo7M/fCvlthF+O/F
-	 1TyYBWWZBWgtpyQJtjAdY2yU9dnyXnId54J0BRtHEDwr2S2qGTxaORdGwtRRBGMk+t
-	 JTo3186A7FVd755pJk93MSchOFPTLuBoC2mu+g5OAEqEUiGtw5qy8w5Ci8MLHTDICn
-	 smsHGDf7Pny+Q==
-Date: Sun, 24 Aug 2025 22:14:20 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+	s=arc-20240116; t=1756070309; c=relaxed/simple;
+	bh=aGhAUkbjFqUege/wpuZB+0pkAwbDReTaNzg7n7pQ42s=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=FC1Appzx56Rz0+HLj+qKif+h+wUs5w4nXg+n+3wMNXNjRiRUMn8ZsuBwvUCmrZGMp/nLdtvYzIG8gjcKDtrRY9pDlGeendrM4Hlzuwa3IlmVbFeyUq8INSe75xHERQ87PVUsqrV/+3U8s5crVwUn5C5P3uC4uKtfZvUEM70mcWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZlwZuBjD; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3254e80ba08so1680800a91.1
+        for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:18:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756070307; x=1756675107; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rfLhuGaMlWhYVKi+vrctegfnMmWk2YPa94e/CQF4FT4=;
+        b=ZlwZuBjDKFaVOWzaLDaRFMiQhjU/W1cIeiMM84nCoFIyB2eKArRnzAFGw05ztTNJeX
+         4RzGwAXDPf2vqqLJlUc2DX/BYg6lbRZ+XJZBpPVy8s5e/98zEFXzPbtyQXj3zJKtE/91
+         ING4FwOzk/l5kuj64CI0dTa9GLAMGMlMXXYU9ZF0Z2TeO4rjcX1xtIOLI/7pqBSeDY4m
+         ClordhnigKgvRujzBUVZQXdjzZ2mr7/I9qZQROyKSvmHlewOcS3W+t54PaJOCGYwSplJ
+         dUsQXpmdVi61HwIa1vVFrWuAEEQTz8XpqwMWwJb64qC0YhbVtV7A/Uo7CmH3gDUkKTPS
+         gyNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756070307; x=1756675107;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rfLhuGaMlWhYVKi+vrctegfnMmWk2YPa94e/CQF4FT4=;
+        b=HokHAtQYHyYqBd+0Dj7cFLWXHn1N1UxSLkP03vgJRMvTRbkGJ65L3LFYCsUzgTHQ/p
+         mzmY9iyZt7rmS6dIIz8Sk3i1Xhcknny5W6VN80lJ4sqaK6PkEzdH4LCancbFVqKvrH07
+         2UVgculp1Rl8jHwLfe2OUtxCaD9477CTB681UCdYl9X+W4bUs3B7ShG6URrDOjC/GEaJ
+         CM4D4S4ASEv6rKaYlp/uhMWPN9Y+JpZtaNFqinmo7Nx4LLX+wMPCsSDHQqg/qdSGStjo
+         62ViIfHuvka+NzHVvfJRGK1SNVIvxFuWsO7fEwzbssRFrodZ89/OLcxZbubkrKeOCvUc
+         m1cA==
+X-Forwarded-Encrypted: i=1; AJvYcCWHso/aESLqDRwevD79n2u52p3a9+mTlG5y5i14jjKjTNFjsEJ55QWl9rjJwMyz3kpfmAMSSZNleTo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+TDo9kNV4gT4d0QDCEWtYcBVh57/DcsUmwanrc/BHxKB8j5qm
+	sAU+gzaPGG6UXSZjBY7N/wOg2glR1pu1rLbISCXG3s95soUtD6UUVeFlsya8U739
+X-Gm-Gg: ASbGncu7gtFf6NzBZVvzIzdr5VaO+ciy2k6DlT8aIDP50p9VbpS9IhDediyA7jG6wEb
+	UoL1eFm1QpWFcihSt2FxEYpIvv3xIBaHmYY1aAE0VrhhbIOKQv5+ZXbDLpqPZ3ixhGZoCqE6gnS
+	uRpIYvZwsczkuXBzZUDy6TaL48RuOewDyXNz0ua3UruyFFQw+xgz/Qkviop3Ls1XhvPZ+m4P93O
+	kdeUZhiFk/0o3rn8mwlnxd1yNiw2hSq9SdPNM88ry6ic5rHUrFpjd26QIRNj1UJUcHujpKiQUul
+	Wrf4ht9XU1Cen4HGXeK+v47KECADEq/hsMDotOmjlJRwf3jH75p2oNoTUHVnSn5TUM1KFmCMLG1
+	0E/8=
+X-Google-Smtp-Source: AGHT+IHz6cwD+7xOjb4P1gmuJzEfSjat37+jWYRji3vtsa0I42H4HEpvwsZCkWAx3bIkgi0kGPJEgw==
+X-Received: by 2002:a17:90b:2f47:b0:321:9628:ebf5 with SMTP id 98e67ed59e1d1-32517d1ffbcmr12569345a91.30.1756070307016;
+        Sun, 24 Aug 2025 14:18:27 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::9f4a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-770401b17dfsm5445123b3a.68.2025.08.24.14.18.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 24 Aug 2025 14:18:26 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Helge Kreutzmann <debian@helgefjell.de>,  mario.blaettermann@gmail.com,
+  linux-man@vger.kernel.org
 Subject: Re: Issue in man page ioctl.2
-Message-ID: <hmtszsu3j37hc33jkafbc45s32zgdz2twvd6aerwtuvmenuzrx@vr2nhsfciuvr>
+In-Reply-To: <hmtszsu3j37hc33jkafbc45s32zgdz2twvd6aerwtuvmenuzrx@vr2nhsfciuvr>
 References: <aKsmStw-BIV8ppku@meinfjell.helgefjelltest.de>
+	<hmtszsu3j37hc33jkafbc45s32zgdz2twvd6aerwtuvmenuzrx@vr2nhsfciuvr>
+Date: Sun, 24 Aug 2025 14:18:23 -0700
+Message-ID: <871pp0l8ps.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kilw4xiienvabfvx"
-Content-Disposition: inline
-In-Reply-To: <aKsmStw-BIV8ppku@meinfjell.helgefjelltest.de>
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-
---kilw4xiienvabfvx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--=-=-=
+Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page ioctl.2
-References: <aKsmStw-BIV8ppku@meinfjell.helgefjelltest.de>
-MIME-Version: 1.0
-In-Reply-To: <aKsmStw-BIV8ppku@meinfjell.helgefjelltest.de>
 
-Hi Helge,
+Alejandro Colomar <alx@kernel.org> writes:
 
-On Sun, Aug 24, 2025 at 02:48:42PM +0000, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
->=20
-> Issue:    What is fildes?
+> Hi Helge,
+>
+> On Sun, Aug 24, 2025 at 02:48:42PM +0000, Helge Kreutzmann wrote:
+>> Without further ado, the following was found:
+>>=20
+>> Issue:    What is fildes?
+>
+> It seems a weird way of saying file descriptor.  I'll change it to fd.
+>
+> Also present in close(2), where it's a bug, because nothing else calls
+> it 'fildes':
+>
+> 	$ grep -rn \\bfildes\\b
+> 	man2/close.2:219:.I fildes
+> 	man2/ioctl.2:102:.BI "ioctl(int " fildes ", int " op ", struct sgttyb *"=
+ argp );
+> 	man2/ioctl.2:139:.BI "int ioctl(int " fildes ", int " op ", ... /* " arg=
+ " */);"
 
-It seems a weird way of saying file descriptor.  I'll change it to fd.
+Not really a bug, IMO. It is just a common way that POSIX refers to file
+descriptors in function prototypes. See the old ioctl page, close, or
+many others [1] [2].
 
-Also present in close(2), where it's a bug, because nothing else calls
-it 'fildes':
+Or the aio_fildes field of struct aiocb required by POSIX [3].
 
-	$ grep -rn \\bfildes\\b
-	man2/close.2:219:.I fildes
-	man2/ioctl.2:102:.BI "ioctl(int " fildes ", int " op ", struct sgttyb *" a=
-rgp );
-	man2/ioctl.2:139:.BI "int ioctl(int " fildes ", int " op ", ... /* " arg "=
- */);"
+Collin
 
+[1] https://pubs.opengroup.org/onlinepubs/9699919799/functions/ioctl.html
+[2] https://pubs.opengroup.org/onlinepubs/9799919799/functions/close.html
+[3] https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/aio.h.html
 
-Cheers,
-Alex
-
-> "B<ioctl(int >I<fildes>B<, int >I<op>B<, struct sgttyb *>I<argp>B<);>\n"
->=20
-> "B<ioctl(int >I<fildes>B<, int >I<request>B<, struct sgttyb *>I<argp>B<);=
->\n"
->=20
-
---=20
-<https://www.alejandro-colomar.es/>
-
---kilw4xiienvabfvx
+--=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmircpsACgkQ64mZXMKQ
-wqm/uw//aFSR2HeyjJ9OHDcMn13fDT7rQUoKt/zqNpvwRqfG8Yb7jmtiQ/KXPnYb
-CFfnEfeREUt7Bq87Heuxso5YFdkVNBLsBk4nAAEdRFwZphKk9T3pkCEoDCZWnDWJ
-QvgALpc5nUBh5n+CB/PUmJzYlzF8ZZs2rByM8BTT4lCkPAxdf7c/7aV6PKma+Eh/
-HWSJlEFitb7YqrrelC3ttTytV/U5PtSzl4k6pd2WN5DkMUxHHxqf9zjhvu7d5D2T
-9voUnRQeBbfiGp3yBKM6JKbYrGE3RsX6hqBMER0J6qroJDdGhSACvEwdq+QgM2qq
-KZS5CYjpvfaOPW51KGDerlyQI/Wfz147d20hWfpTJSS8ZMITY0zNZabgVkmqQSkx
-vQqZob0HnnxjYBFY6mb6Q3QAcY55rmedE0XjWqtCiWqupxqfEW5bEd+RvrloOySJ
-9NKW7womxE+Tngcx0TsTi9g0QuVByvNahorjasV+kKgoSRj2SzPRXtIDhHw7MrbF
-zijEJ93M2aVnBEyzFhuSieRM9YE4oyFQ9gyMKh+NqWfbXZzJZhJdjD+1+aGTXH9u
-i9WHDSl9/2iLXCPDehqxhP313SyQeq9mqx0e9Fu1Fi9mbomEbMWLsi/i/QcuPrUI
-rgt4moOVoZm/EIBqzyfZtJYj+gJ7YrmZ62PPFM5AdyADXmP+REA=
-=qe1V
+iQIzBAEBCgAdFiEEI3EYVQjRMXvVeOXMjOZJGuMNfXUFAmirgZ8ACgkQjOZJGuMN
+fXWG5hAAm3NKjojGNZ1QelC/NFdO/9Ysyh2EJATCqaQPq1t0o+WRKP2JanAJDqbl
+U4/bmXGLgAwuj4SygNO6ZmLspdiEhIxAompI75zoKrLg+9zyPQwXZpHu9J2YUzmb
+MkrHUm+LgWFT0ZLzyqDOICqKuNlw1peT84Su16KWBTBeDJLmj5FJNffjvk7VJEFc
+Z9awR2FFZ16nGf77sJjmmvoqAt60vg+ristUtYKDC1enkm9c8fMTzAFu4O5UqCe3
+mqb52nnce9YkI0o5wWFrxLA2PhA2kmL6ZrOedR3rl6Zl4ZzjQwkncQBJnyIsT12F
+CmOKkH0NYe8tAXmmgGFKIlKgy0DiWq++umBbkvS1ucDxi3NrZ0dyrv8KwXe+fQcC
+2rhmUmUehfluxyWzJ6oFO5tlJ7pABQxD8csUXLJGYp6SttONLNOMjmu7OfYghmyK
+Fy6t5JtHLIwMLoLeGoRdud7R1cQXUgc5/XjLxXqswWukITzFMwIN8fOrON1Qi72V
+BhGw1EZMvSr0JG7pnZZIwC7HPEB5vRQ29Ly2VfCvEn0/ode+T9BxBT1yv47xIVkb
+4nQjgAg/16MObdc1mm7FEujfzSDfKX9+1SpphQKXhz2UWSb0/7kkuQs/3aOvs1Bg
+TfsYgmwUdordjhCk7NN1tXfDdYVwrtlwLPY3VxVbLODQhwdXFps=
+=BVrj
 -----END PGP SIGNATURE-----
-
---kilw4xiienvabfvx--
+--=-=-=--
 
