@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3612-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3614-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEBF7B330BD
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8EAB330B9
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A327F203B8F
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:24 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0127F203D4F
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41AD92DEA74;
-	Sun, 24 Aug 2025 14:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D3DD2DCC01;
+	Sun, 24 Aug 2025 14:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="LXq19Y2r"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="rd0yO1si"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10CB2DCC01
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E36A2DF6E6
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046949; cv=none; b=N19oNZQyiIIb4Gw8LJWwdqMVoOwLf5cEO8ywBOGgK6pVvRL4+P/xRe9ZlL5ftMBybdWFyY3XuOOA4Is8EanHFOtQC7C+WiV9AMHVXgKySS8mIZEDM2s63mMMXdydiwKItkwX2Vs5qsCkE/IkfLEji1FsOyLOfkuTKTrPV43C3z4=
+	t=1756046950; cv=none; b=BTtvbwX+tMX6aFTQZYL9tLsigmulWsXdXAPsgsn2l7P6moIuu7UY7DcDQjchr7YJEWTA8vk0oIt1+7PQGPQIKG2RVAkGUK5mJ2D9uu7TXAMinDF62YCzUNtCSOkILWaiVXLwJWXTZvwBP5zdiotT0rgzm6/i5hjeOQ7/JGfMhMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756046949; c=relaxed/simple;
-	bh=49QsrHbaNBSJkc6iqFU/eAILjVskzZEayiRb2teshWw=;
+	s=arc-20240116; t=1756046950; c=relaxed/simple;
+	bh=BFgpSiY1L4xpbnEZEuKg5yJAvxb+C6/2FgBaaX+6oyU=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cyWz04KScnJlUSBKFjRXYGJ5bzy1bUhT1gf34FM6KV69W81xw9UkCncv97ZrGjrzehYDT8Bh7ho4RVv7EYirOGr4B8y3Sdbg8iCmZS6xKGdIJwaGDiN28x8eBgErMwFNkT3GfVm553I9rRQOL1zJgv81891pKXso/dgRPLVPApE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=LXq19Y2r; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=a3TNNhcvB2VcGN06qnsrwI+12ujHjHzZyC8ka3OgFFIQ727jIFGMp8Jr+R5srZGFtsl3LnHfgtKoLILRn20ivI5ZdiE5ldz/e2nltilfghrDmdri8WIW9NR3XF+CTXB1QtyBni0p8s71Jcxy86bAXzRwJJ+mkvFZbc/b7CBGX5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=rd0yO1si; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046921;
-	bh=lVZ45mee3cDNa+0cKCzrUcdYtJAZKgfy2Nb06aW9V2E=;
+	bh=8UqTywLT9fN4FVu8SFjPHJJbOjQ7x3P/JuDZz8g5u+Q=;
 	h=Date:From:To:Cc:Subject;
-	b=LXq19Y2rQvo31FXU/xuHU+jGS5JxrMOKL4xnOtuaTtQbrbfvWNeo4fVubL1+YqMqJ
-	 /GOScpqmB+nK7xYXw5O2UqE9YBm9rzwiiTchCR3T1nIdGamai/H6prXhfj4uP0MuBy
-	 snsgbZCEBJUdLdGfsayT6qYSs70f2FNHsXlxq+K378Ji41EcBtrl78xWjvEnxUKUVe
-	 f0mvPDUdDMya1xGWvn0WoTQBZSseovk8POQhicFG/mEkvRUJ/4JeKS8+/OCxkdWjkn
-	 wOmbNS9Oui2cugCVbf4VGi5YzuiPodZVh9ghD9NR+VhrJdCT2r3ecPI2duvSBopZAW
-	 vsx/mn0xc7I+w==
-Original-Subject: Issue in man page getmntent.3
+	b=rd0yO1siALVWwBnzup5751xLoyWYCdUqWi22w2rj+CduKSPQ72F+aeOGnz/nZmPj8
+	 0nridclg8Mz8DhdezXxri4RHPxCDBOKxTTQxK+iGYLZWlN+MQ5rnNAal/3RSnwfDBn
+	 U8rP+F7UMOOVg9Gmw7EEFDeFmj6CPbvRZ940Bsc0V+cAl+SNQGp0kyklou/ztbU7uj
+	 ULtb7RptpDriZw101rwxhex7uWdaJjTuWAVUIUVduIL/ohNpeuNsX4X1ZVqrN+CBZM
+	 vB1f0WW95Mb2cSkMfBEGTucUXI9vQ17s+C7+GB5JQH3Y4VnpZHm1oV3ctlxIMuxVLn
+	 Pk7dIDIYR29xQ==
+Original-Subject: Issue in man page getpt.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 000000000002147D.0000000068AB2649.001391CB; Sun, 24 Aug 2025 14:48:41 +0000
+  id 000000000002170F.0000000068AB2649.001391FD; Sun, 24 Aug 2025 14:48:41 +0000
 Date: Sun, 24 Aug 2025 14:48:41 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page getmntent.3
-Message-ID: <aKsmSWsktdvQ72SK@meinfjell.helgefjelltest.de>
+Subject: Issue in man page getpt.3
+Message-ID: <aKsmSaMGovnInrf4@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,10 +68,12 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<…>int size → B<…int> I<size>
+Issue:    multiplexor → multiplexer
 
-"B<struct mntent *getmntent_r(>int size;\n"
-"B<              FILE *restrict >I<streamp>B<,>\n"
-"B<              struct mntent *restrict >I<mntbuf>B<,>\n"
-"B<              char >I<buf>B<[restrict >I<size>B<], int >I<size>B<);>\n"
+"B<getpt>()  opens a new pseudoterminal device and returns a file descriptor "
+"that refers to that device.  It is equivalent to opening the pseudoterminal "
+"multiplexor device"
+
+"on Linux systems, though the pseudoterminal multiplexor device is located "
+"elsewhere on some systems that use the GNU C library."
 
