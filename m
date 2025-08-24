@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-3695-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3696-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 638F3B33258
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:21:49 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DF04B3325A
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:25:29 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F255D202308
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 19:21:48 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id E57624E1E9B
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 19:25:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AFAC21B9DA;
-	Sun, 24 Aug 2025 19:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27F4C1C8632;
+	Sun, 24 Aug 2025 19:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kt2AzUfg"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0Tz+WoN"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5781F219319
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 19:21:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89BF8F40
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 19:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756063305; cv=none; b=GtFSWLfIsRuhbdLXRT5Nnn5oTK8zZlgIi0DAyGOjUoi4smbSUJk1HbbQQ/B6y6fbwYkq2JF8nbS0jfSZbrlRITEqSnJ/tgf9CmCrsDfQd5vvMJucDWhIqKirj3/+ga5QjVKD2Y5lBUpBhrFG07bJ2OaGDG5f+eayiXNLBDFMNxQ=
+	t=1756063524; cv=none; b=B80aKSE1fl9dSUY1idF89lsu7Rzzp/ah7YQB9b+IE3pZm+EZyZC+sSKjX2qzhR/IrTgXRECjeLDnK6WAOXiLqSOQvH9XZUcy413rA3NqkiQNBcBgTOzLVTwwjowAcTUdoa8RbgXkq7952kKi+pehPf5V4FgNY9umk3XQj71XgLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756063305; c=relaxed/simple;
-	bh=XgEtt2hT35wQ0y3p1C3H5ZvtJYaMF7gEyHoiZe1ylNM=;
+	s=arc-20240116; t=1756063524; c=relaxed/simple;
+	bh=9UQhg9KgbI9DmiBKbv3w2EWnZdFhdYglBNOnWeLt/FU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PZTx8ieMxfy2EJnS6pYcIFQLiQtrE0vtmdt41AfDVQAZo37xoWU/kH+GGP7XkCcT6vnyPdQdeFUVGz+OTleUN/KxQbklL9mGYctrYfpUHM/XNmoOpPWsoWc1xfcB2+H0j0VEzf1iGAXryLzLWvUk+ZH2LXCRWCTJSQcNKG15cxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kt2AzUfg; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB885C4CEEB;
-	Sun, 24 Aug 2025 19:21:42 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ab8MAKQIpoL6EkK/KzIF3ataRBLGnFG91PetNNjgoHpI59iQMQn9n/YJA98q3bAbEcdVOvoavoocCyjGcVBnM8m/V1F/EpHvY3vjdkLkEJtBw8Gtbj+7B6lwGn0PRsVAMQhQHxaEo11bJX8IT//ABK74RwHl5h6IqPcUuR/U2ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0Tz+WoN; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D89C4CEEB;
+	Sun, 24 Aug 2025 19:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756063304;
-	bh=XgEtt2hT35wQ0y3p1C3H5ZvtJYaMF7gEyHoiZe1ylNM=;
+	s=k20201202; t=1756063524;
+	bh=9UQhg9KgbI9DmiBKbv3w2EWnZdFhdYglBNOnWeLt/FU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kt2AzUfgwIpFdk5zwUHMdNJGZpQM6SrEagt7EpEHcq1BxmgkVIfQs7XkZFAnGjgk7
-	 u4uUQyUeNh7KiLVSzfNBq/zaUUBtcM8skZBG0AIFBotmfrYDUQFOj0vZjmbTKd+Je1
-	 eUN0Hk8D6MJVBxzV/JhBuajNEIhKIRaLHGrjbwHwnrvp/1N8Cu4/Nn5+eHskq+jNK7
-	 99Fnbj9aSnwpD6Cr85quC8Z11zC8NAoJbJA6EVCg7RqXK5y5hKH3uxEzuvu86ggYvV
-	 OyYBamjla7OkObFwQZI0r6SDwq5XgrdGYNvGZrqL5NVCmxkIpCY4wXqwC9O1IC+RhO
-	 awF3HBxodZhEg==
-Date: Sun, 24 Aug 2025 21:21:39 +0200
+	b=g0Tz+WoN2BWwamIuVVjPH3IM8nhGugtGWn1cuwVi3rD2XZ0MmV8psZwiWG/Mne01u
+	 f39vsrYrH9BnFxMQVSBkWNW9HcDG6AZstCVpgZrqBbauhIA7odWwm9AGXf//ScKY5A
+	 Hi6B4MusMeXx9cITkuo1ykz37kyCYOYurgrfgendfvoff5/Qo2tsYB48QPXV0smkXS
+	 iYVYo9xhdihAvBRM3e76SogKUHDe7ZoglAIFEhbG06ZUXNGXb5Sjeq/Br9cdyhcRk4
+	 LxKvDJxrAl4ZFQyZ5dlAXRnsITWKK3AS0RpYiixde1c+VOK85Fh/ZSM7rFYkext5C+
+	 zSllsjWOXuwtg==
+Date: Sun, 24 Aug 2025 21:25:19 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
-Message-ID: <lnh4f63q5onlj54wt7qg76unbcvu5apinualih4byiatrfvjpv@5r53xpupbjws>
-References: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
+Message-ID: <2fwmykc2tdqxnq6caavqkvhw5viwoyjo2mm7fws5wkxolzy6j2@cyk2rj2oic4c>
+References: <aKsmUDB9cQY7Qo9P@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,12 +55,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="z4rsmbnxz3nfolzj"
+	protocol="application/pgp-signature"; boundary="eryrdn3b5hoctfss"
 Content-Disposition: inline
-In-Reply-To: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUDB9cQY7Qo9P@meinfjell.helgefjelltest.de>
 
 
---z4rsmbnxz3nfolzj
+--eryrdn3b5hoctfss
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -68,70 +68,83 @@ From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
-References: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
+References: <aKsmUDB9cQY7Qo9P@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUDB9cQY7Qo9P@meinfjell.helgefjelltest.de>
 
 Hi Helge,
-
-> Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
-
-You probably meant PR_SET_THP_DISABLE.2const.  The text you quoted is
-there:
-
-	$ grep -rn THP.disable
-	man/man2const/PR_SET_THP_DISABLE.2const:9:set the state of the "THP disabl=
-e" flag for the calling thread
-	man/man2const/PR_SET_THP_DISABLE.2const:21:Set the state of the "THP disab=
-le" flag for the calling thread.
-	man/man2const/PR_SET_THP_DISABLE.2const:32:The setting of the "THP disable=
-" flag is inherited by a child created via
-	man/man2const/PR_GET_THP_DISABLE.2const:9:get the state of the "THP disabl=
-e" flag for the calling thread
-	man/man2const/PR_GET_THP_DISABLE.2const:22:the "THP disable" flag for the =
-calling thread:
 
 On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    malloc =E2=86=92 B<malloc>(3) ?
+> Issue:    I<op> =E2=86=92 I<flags> ?
+>=20
+> "I<op> is B<PR_SET_SECUREBITS>, and the caller does not have the "
+> "B<CAP_SETPCAP> capability, or tried to unset a \"locked\" flag, or tried=
+ to "
+> "set a flag whose corresponding locked flag was set (see B<capabilities>(=
+7))."
 
-Maybe, but we should probably add a reference to malloc_hook(3) instead?
+Hmmm, this is cruft that I forgot to update after splitting the page.
+I've fixed it with this:
+
+	commit c71d7a2e31c0689d942bc3b030284144bd331f04 (HEAD -> contrib)
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Sun Aug 24 21:23:39 2025 +0200
+
+	    man/man2const/PR_SET_SECUREBITS.2const: wfix
+	   =20
+	    Fixes: 2dcad3cde34e (2024-05-31; "PR_SET_SECUREBITS.2const: Tweak afte=
+r split")
+	    Reported-by: Helge Kreutzmann <debian@helgefjell.de>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man2const/PR_SET_SECUREBITS.2const b/man/man2const/PR_SET=
+_SECUREBITS.2const
+	index ae7268d7d..c80ce0f2e 100644
+	--- a/man/man2const/PR_SET_SECUREBITS.2const
+	+++ b/man/man2const/PR_SET_SECUREBITS.2const
+	@@ -35,10 +35,7 @@ .SH ERRORS
+	 is not a valid value.
+	 .TP
+	 .B EPERM
+	-.I op
+	-is
+	-.BR PR_SET_SECUREBITS ,
+	-and the caller does not have the
+	+The caller does not have the
+	 .B CAP_SETPCAP
+	 capability,
+	 or tried to unset a "locked" flag,
+
+Thanks for the report!
 
 
 Cheers,
 Alex
 
->=20
-> "Setting this flag provides a method for disabling transparent huge pages=
- for "
-> "jobs where the code cannot be modified, and using a malloc hook with "
-> "B<madvise>(2)  is not an option (i.e., statically allocated data).  The "
-> "setting of the \"THP disable\" flag is inherited by a child created via "
-> "B<fork>(2)  and is preserved across B<execve>(2)."
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---z4rsmbnxz3nfolzj
+--eryrdn3b5hoctfss
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirZkMACgkQ64mZXMKQ
-wqn+ZBAAggYtyQDjlqI1e+yVI5qXtNu26xCStDhg7tLsjDMTug6GTrPYKoTVz0n7
-JLvvxbWYCmK5u1U13may8WwphRQOqtKmVdBToWSW/pYEP6zCMse+nuRbmCigmjct
-O4sAhyVDUFW3HNP8fvQprB55RL+sX2y6nlGQ97F7A5FklzoWcimWqyPMax/PhLaU
-Yca9WN5g6ALoxT//handLhQyQaK0RIH2DFHWOEW4wqxekUwywMP+umAqNSj9LU19
-wI5aZBEKyKL0j0a+Da7pVV31MfIZv48Km71VvV4V4HRwBDg8y4aiF0nRwjd7+AjG
-oTyz67sZu8Gaopo0Y5CCnhgI8pTN7aGBPy4KRZGK++UGpHsKG3UQ5Z8/D0JHNDt4
-sOr+/rX7C6llxw5cK5MzeYWypNgZ3a/5qdFppP9RywJsVUPI5UIzkU/y6tm1BA/r
-4jxFW67j2UQO4071S5hzr+YzDdrD8G7lIArVD7NJ4RBwn4TR7o++LFWrbY6LbiZT
-hmOwagYKZ142VMLyRwOGtXY13Rtuf+8zahfU518qXNI+9ntBVIEbe4YV9uIdks74
-3HJjm1LWms6AsQ/7NwoPsthtFz4eTovNmay1VPSKvDtAErE5JT+K7PfsDrwp5e5H
-u6FeVWZbGf2UCzbSxsO6v0zvE83P2ZH7K9+UTv2JSpZdRh6OWXo=
-=an+K
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirZx8ACgkQ64mZXMKQ
+wqljTA/8DsseQ1eEVIGgEUjdgd+PZdNg2oqc4dws92kLY11wLQqXkD0S9a6sGzCa
+q5MWNuHrMRYC3cfgLlpTYsWkBwLIz6owiSNGmdqSjDIHIBCieBn2OJeCo6Yi4H6w
+UqgNoqLrqOZQ8068UebsYue1zsFQmOp1S30eybfQBkX0BYUV41/vdDtLJEczKLIn
+GoyhHfN9Bsk984qDMXUxcVvu2gf+S50pVo8v3r/Bpt/XIyeS3LAL/RTWzT20SVTe
+p1EKElgjlja1COhhUNSs/sqXVpLeEMLe0FEo1XT4ZWg6dyR48EDxmoUa42WAi/zh
+0SENXgefLaatyc7Mm4vbewWOTq4uB35WgYZYGJgoq1y5dEdOIv4RhabIopf5lYHu
+U/w2gzKsoSedefBBFEc86mOPrL9K9zFVZXA1mMGAgOEbPnE781zK/JqrrkEUtR2Z
+aeRNjzv7GbMd1Niw8FtFmaI+A6ZJq9o3SG2wTX2N7ybAa2k8BVFyhsDjjMuinyY+
+t9PYuC5n40Lb7p3TjUhBqxElCHJ204lo0NTzee9kgiyPD8JtV+6MDjwYHXawtRW1
+h0glGhZnqFveq4dDQZiOzh5menWbL6/WKph/Y8+uM4c1IvqxGfWR2/AdoSwYY+9T
+55jDOf5ee/atpCHOZHhQFd85LGNwZVbkBgcGYUQk1aoomXhDgAA=
+=s9U/
 -----END PGP SIGNATURE-----
 
---z4rsmbnxz3nfolzj--
+--eryrdn3b5hoctfss--
 
