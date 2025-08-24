@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3655-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3653-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6445FB330FA
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:51:27 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6037B330E0
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:50:05 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A74333B5ABE
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:50:05 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id A7AB54E1256
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:50:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B6DA2E0409;
-	Sun, 24 Aug 2025 14:49:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 580431DDC1D;
+	Sun, 24 Aug 2025 14:49:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="SqilBnNi"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="r0lFLQQ3"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D752DE6E5
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC682E03E1
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046970; cv=none; b=kIieKUV17wMgyxebwnhWRYTkwCTOrhz9dDGL8Iif0HCQ5egTKZ20vM/gQNb7O8K3U7a4MzxECKnQX/zCpuU6GnoU9WQO8s0CHGR2mbAW0Gr81bVBaCHrOXeo5KYqHZZNpgFx2hqIJcesOE5ynpo6f8XxzpDm7bq6VomJnWxiSCw=
+	t=1756046969; cv=none; b=Td736r8j7IptCD4mCP/YIivH5QR/7QRrZadsRE+8/8KArjiyU5KBfJ6tfj9ipmOqymY/GNa3dw/Cukj/q6KjH8fkTRAjAZ//w9z6+ZwGnVJlcXm9SpSIy95mCb2MR2iyjSkZqPd4bHrGR8leq2DDgkiZznjz3EdzxxvKtfNa/6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756046970; c=relaxed/simple;
-	bh=j1phTuicxjm9DnLtG56g8n9NmVSe5LmIp4E16va8mlk=;
+	s=arc-20240116; t=1756046969; c=relaxed/simple;
+	bh=nbe8MtDr0riqsIr8mJxOlBdgTgIOu1BCj4J8/xVFKZg=;
 	h=Date:From:To:Cc:Subject:Message-ID:Mime-Version:Content-Type:
-	 Content-Disposition; b=U9UaNlNOgFa8a+kL8y5LORbZLnipArc4Zz0Wo6rEOi3uplkfunTRBiZKA8pZ4iFPA9QFkSm1itwAxfmSlMSFpo70lJJSHiNsSRNT6VDFKqSM5Mt8Tg3Pfzmft2S+M+uHyF53gK1aibjlRYaL1uX3klPxQ9xaDTHuO6U8J7GTjFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=SqilBnNi; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=qJnmJ1afrysg4g6CDCfmVEF5Rg6VcTZ9ewO1fhRf56LSjj1Ujs9yTl2wOvqE1lq1QHhtXlzbO1jmbXN0ieoJavQKRU1fd7zDBR/3Ini/asPY2J3A8AfleokZvEbxHndq6WsI6KRVKljJNHI02acnoA/w+OKfoqIhazUQv9AuOqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=r0lFLQQ3; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046926;
-	bh=0R1qED9mPyfxyIituKgVOhsGJDn/XGal/f+GPlMhV0k=;
+	bh=UHcsZj8qsWkN7VLdeYKs9mJvfy+naq4pFM1gzDx3QzE=;
 	h=Date:From:To:Cc:Subject;
-	b=SqilBnNiuf3CVLwPJLrvD0NdsD6fUXikTk9LZkUzoXHPhOw6lHFEUKkGeYDYt7nYF
-	 yPm60CGaBvq9jGrC7+ZnrhGV4Z46sD5iKl0ocOEGInB5tisakV/KEQemX1dgilmdZx
-	 OgFyGYJqqprmxqsVBHmxaFnQfe9XBhykyUptZ3et+tNsnxmZLh6aRNZfBfnN71iNqO
-	 Hkf3jmrjYO9X/PXoHAun7fCaCt9pSNZS2zEPH0pO72Kwg58pTaf8Tbid9KTBv8EEpp
-	 Ani6u23eVqKT3r+T5GF1ismpuX5/xqMova0fX862fcnUQOb043hby680f4QTh6B6iA
-	 kCEy7emEV950w==
-Original-Subject: Issue in man page pathname.7
+	b=r0lFLQQ3M4uPRE9xSlHAwP4ZGoJaSLeK8R5GP0eap8x2x3bq0dKbJctBxRAe+osvH
+	 sL8zzMQlue0/GhnINAfIn6QHMXPMClZ8EO/gnZflscGcO4XPNOTEq6ztOuLuNXd77J
+	 qToHXedbgzcrhdnc6DfEcnhbnicxxb6ySsf/raDldH0xL1ayp472/kc6dfhqUYZ30l
+	 iKVz9nPVjzK5lsU0ViY+LIaSvch8qYLxerUlxPIfIa2uCfRwiNN14zkN1tYO+y5Uxs
+	 Q29FAYdZPCmRveJUm0l3CGUa7ZKHE40bpgIfWy3hgKqUOkHT/GARQNO3UKSgj0X4Ia
+	 EE0n3echuznhg==
+Original-Subject: Issue in man page open.2
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000021622.0000000068AB264E.00139600; Sun, 24 Aug 2025 14:48:46 +0000
+  id 0000000000021603.0000000068AB264E.001395CE; Sun, 24 Aug 2025 14:48:46 +0000
 Date: Sun, 24 Aug 2025 14:48:46 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page pathname.7
-Message-ID: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
+Subject: Issue in man page open.2
+Message-ID: <aKsmTl5FJnqsByS7@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,10 +68,9 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    The URL is invalid
+Issue:    What does like B<open>() refer to? This is the man page for open().
 
-"For maximum interoperability, programs and users should also limit the "
-"characters that they use for their own pathnames to characters in the POSIX "
-"E<.UR https://pubs.opengroup.org/\\:onlinepubs/\\:9799919799/\\:basedefs/"
-"\\:V1_chap03.html#tag_03_265> Portable Filename Character Set E<.UE .>"
+"If the pathname given in I<path> is relative and I<dirfd> is the special "
+"value B<AT_FDCWD>, then I<path> is interpreted relative to the current "
+"working directory of the calling process (like B<open>())."
 
