@@ -1,54 +1,53 @@
-Return-Path: <linux-man+bounces-3692-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3693-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DC00B33247
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:13:38 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id F13CEB3324B
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:15:39 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DD7883B8C40
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 19:13:36 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 1283E7A855C
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 19:14:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5752F221FB6;
-	Sun, 24 Aug 2025 19:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21267194C96;
+	Sun, 24 Aug 2025 19:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCxASrUN"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nuPUYfaK"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034CE72613
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 19:13:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D0D14AD2D
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 19:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756062813; cv=none; b=toMHNSlXTAssERcNO061glOjukAeD9BZGUISJP/i37oUYdt1aucNKNb0vw3fl35qWOOVGiiBUZOoSCsQTWu3H4/UAxAQVf9iG1gsiGsoTajV3qMnL6gZZxRO1wIN+ZQHI0KCX6Wz3bVvjMYr1B6ix8BQv/+U7q8kxSYQB4Zey28=
+	t=1756062932; cv=none; b=rSYIx9MAxU/ARkep82OZNN//8ose4YZDcfehaNlJQEjX/Vi8nkheC0r/WKEdQ/Bn4fu4RCFY9CdJHrFkMWzuDyDllFBhQruNLLBPpJI39j93H1HRBLe55efI+nFbl6RqNRLLd0htzSsJVG4GY/DJl5Csn7DXEikFItGPNSj+oKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756062813; c=relaxed/simple;
-	bh=TvyVqjbLh+dSvi0gu56gSV3e5gnMB6twBQZjPz3Ttc0=;
+	s=arc-20240116; t=1756062932; c=relaxed/simple;
+	bh=AiBiHRD/FIcD9AEQ3XjEFJvSZ5GFkNF7FpQQ7jOA/Vw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VzMFp+hynmMRsteg26EXYZnHLcNIyrxwx+5FOrKygTolfqXVtQ4CDA683bn099YeH0C+OmXu7r0jMyB6Q3eoynebhFhZ2hcj4WLhQjSINV/V+UdyW69VuuD9tU6wzaagwZd7tki9dr9BuuCX3e0+w0Bt08It2xfndWranqvBDLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCxASrUN; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C4FDC4CEEB;
-	Sun, 24 Aug 2025 19:13:30 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jm8MzCrE2ZN+I2FYe28rtcbQQjHcCeRvgSEQE17SEdeQ0Z9QNSZPdloBe6GO8zpaxUOl9jT9GLHreBE0ac6w4KkjqOZHabvEWZ0PP00Hd3rdM1Rm4ggVFJxu2aFk32yRWMJn+5tzcXJgv4zoiEmXQboWDaGFtrXBvS1lwQXKzyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nuPUYfaK; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFE6BC4CEEB;
+	Sun, 24 Aug 2025 19:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756062812;
-	bh=TvyVqjbLh+dSvi0gu56gSV3e5gnMB6twBQZjPz3Ttc0=;
+	s=k20201202; t=1756062932;
+	bh=AiBiHRD/FIcD9AEQ3XjEFJvSZ5GFkNF7FpQQ7jOA/Vw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BCxASrUNi/kz9vFNXNKx5Lp0B86rsshV2a+SoXn79X+NfJtNy1vqcQzQC4jRLjbE+
-	 emtRl7r7FwCcaNkxCKPKXHcZBlv18WN6rJKreVztKkAN5joKvPAs5qwYMDbLVDrk13
-	 dqmnHbKbfAtEaPnPB+Od06xuriv/BXxav/bVha+ztv68pSlHH2klLdzK5VebdyG8+h
-	 7TtT/r18PudJ1SmFmC/JzBg1EnL8x5IMjnRE/3ZdvwLwpbjNwuilL3XjKn0HrdoX/J
-	 AQ1UKlbF4wf/1Ixq/hGW4IUhUcEM6H6LJi1auHwfbR9uTFmrnkJG/lzPZ3AckzFH17
-	 BTuAhTsJfb/Uw==
-Date: Sun, 24 Aug 2025 21:13:27 +0200
+	b=nuPUYfaKdf+Vd/K6iNUQz0JwaR7IdbeokpFpzJTC8E2DHO7SokiKz6z45EnLMPuGn
+	 +RrcnEHsD7AX/7PSqylG4CGYVNw3MladSuV9aLjedQ7QNx0NXjjt2iV3ujRijvVhb9
+	 8OO5ShDW6Lpqc9aOEVQN1s3HY7JZvVmjvrl31HrsG+p7uHJeeuiK7EFIDnuPxFGW5d
+	 znsgESploNEjwM+q3EA/gh92bYIJ/xQIi8ibfh39scKr3Avpo9rQwUxyMpPTUITBqK
+	 QHd+mgY40gtTDPymOEEF1XWIOMSDDLhVmEjv5cgT93SyAj3Ygrh/p/nf/o1Wh+3Wm9
+	 HflV/9F5/CmZw==
+Date: Sun, 24 Aug 2025 21:15:28 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, 
-	Carlos O'Donell <carlos@redhat.com>
-Subject: Re: Issue in man page random_r.3
-Message-ID: <sqszse46berqtvthwwqtcneixhgorshpgt5nxf4cqjvaj43pgr@uw5ifowxcyog>
-References: <aKsmUW6zG4LLte4h@meinfjell.helgefjelltest.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page pthread_attr_setschedpolicy.3
+Message-ID: <5n2mlo4l7kqloztcuruagrkglh23gkqfqckuqf6pajerx6qkwh@b6qqipttn4xy>
+References: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,72 +55,69 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nn46m4f2s44d5itt"
+	protocol="application/pgp-signature"; boundary="pxreqfdbnjo6h63z"
 Content-Disposition: inline
-In-Reply-To: <aKsmUW6zG4LLte4h@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
 
 
---nn46m4f2s44d5itt
+--pxreqfdbnjo6h63z
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, 
-	Carlos O'Donell <carlos@redhat.com>
-Subject: Re: Issue in man page random_r.3
-References: <aKsmUW6zG4LLte4h@meinfjell.helgefjelltest.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page pthread_attr_setschedpolicy.3
+References: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aKsmUW6zG4LLte4h@meinfjell.helgefjelltest.de>
-
-[CC +=3D Carlos]
+In-Reply-To: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
 
 Hi Helge,
 
-On Sun, Aug 24, 2025 at 02:48:49PM +0000, Helge Kreutzmann wrote:
+On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue 1:  comma after B<initstate>(3) as in paragraph two up?
-> Issue 2:  The function prototype above do not mention I<state>?
->=20
-> "The B<setstate_r>()  function is like B<setstate>(3)  except that it "
-> "modifies the state in the object pointed to by I<buf>, rather than modif=
-ying "
-> "the global state variable.  I<state> must first have been initialized us=
-ing "
-> "B<initstate_r>()  or be the result of a previous call of B<setstate_r>()=
-=2E"
+> Issue:    inherit-scheduler =E2=86=92 inherit scheduler
 
-I don't know.  I've never used that API, so we'd need the help of an
-implementor or a user to know what the page intended to say.
-Thanks for the report!
+I think this is correct.
+
+I think it's this:
+<https://www.grammar-monster.com/lessons/hyphens_in_compound_adjectives.htm>
 
 
-Have a lovely night!
+Cheers,
 Alex
+
+> "In order for the policy setting made by B<pthread_attr_setschedpolicy>()=
+  to "
+> "have effect when calling B<pthread_create>(3), the caller must use "
+> "B<pthread_attr_setinheritsched>(3)  to set the inherit-scheduler attribu=
+te "
+> "of the attributes object I<attr> to B<PTHREAD_EXPLICIT_SCHED>."
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---nn46m4f2s44d5itt
+--pxreqfdbnjo6h63z
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirZFYACgkQ64mZXMKQ
-wqmPeA//SvPgFdwvh40QRtdQNtnv5MghP+T+Hk1vUfisj9bLadf4E3cCwBplCJK5
-Q31rhSa62SDcsCHNG1sQC2F7wp1QGU+tmKC/SuAbs5tOz5gtQfO+Zfvt2K8qNjVE
-xZpcyTU7RlnO5/YHEio3oPg6++apWPkA7qKzr5ZpG+v9DYsEhJyqE+siXQNhibAe
-ThbKr0rhsI7r5LefncovT8X2CwYkGkxMrsMXUPWR2fjcUsjFYQiJuuL+nXTMrEUP
-fbojsK6nkriy2yhUneMJlluGXsu2bfH1IxbfXDn22je4EXXxAjF9pPldk7W2xTmG
-2obzRZ+2GMYkcwFJMEsQQ/hya2te4DPg6HfmAFQnWFPjT2SNLq8tHYujDISkinhl
-HqbZ6ZFE3A0kYDCpacE4rg03og8IKDvS1OXgeS9Odk1XhmmfpFc0dZrr3i0Ss3sD
-2DuS5vEM9mi5LViapukdiIF0O8FovbVQVvNx5PO8RTGgNdaQnWfbK3CW9gz1vMKX
-u2ATYytcVItsKrUJePRoTjuy46lSYwcqKwuhPgIUjEI1p+JAUY8GxefWXAVDymn2
-HFG/GfSqQJBnj+W//hxXucTtj3IiRJ/XlcXG9fglp3c1Exajm8mek3ycdSSkxzLx
-+xl/4J9ZFPF3xbvs94dSZTyW2s7c37ZXNmpgk3VpwWBJYkPgV80=
-=4Aea
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirZM8ACgkQ64mZXMKQ
+wqmPBg//XX96DdKXQf0V0KAJc4a60FM54vDN+uGqJw5n1ZhAsgkQKuqcUy9qZwlS
+1AzP4GPYgN3pAMmjB8hMEKxxAPVgpCMG8mSneiRXAkHN71Lly63YvSnTdIkGIhUD
+3bVmozBZn9COED1F1HhhdBDPky1DmaDVbTSxDgXIPxRRhlfU5lTAjo56rFuANxwk
+1424zkr/qVATE1Dp93LdTUKJAzAycr+BUbJ3eCm1ptD6myHl8yVg1ENNw0uFI3Vm
+JO+r9yQbXMhmpURBFUwP5DrqWF/8NcWBO5kJZwK4FffAAcdZyvx9ZGDEChazBOd2
+hN6vY5N1qafBQX0dpQRUCrCfTigbh8kZI1+XyGdzLOSN883L1ol6abWTasLJ83Su
+1WsdMm+vADeut5Iu4rR1G67QQTfciRy/7UizVyTM2IyxNSk41imJ0YqBVm7X8dhJ
+0b24WhwhsY50RburAOKFX0z3jsBxGFTAGMR4DrGZarKdRb/8wL0GYDtNrmoYvx7l
+BuqpnoHqQTSbybKPfsUX8/rbTtw/4yfqBhFuVoRUnMRuxGPko20fNStAztiHwkLl
+d4FGYQRf4LvDDaDVtA8aGSoUuzxAut+H1QRFR8MLQVMB8mrMjPgvapaqDjtzEQfX
+xeM02fY9PGI0fm20YQG8Z23gKWPwMWvmVuRG6qXcauyIVlxowg0=
+=eltU
 -----END PGP SIGNATURE-----
 
---nn46m4f2s44d5itt--
+--pxreqfdbnjo6h63z--
 
