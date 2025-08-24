@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3606-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3605-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 145F6B330B2
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:21 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38474B330B0
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C43EB441E2A
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:19 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0FC6E203C7E
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:20 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5138E2DECB2;
-	Sun, 24 Aug 2025 14:49:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5DBA1F92E;
+	Sun, 24 Aug 2025 14:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="c6Egb7rJ"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="fqUoapkv"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E6B2DF3D1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEA92DEA99
 	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046946; cv=none; b=Sk+Les5OCP4ylcufo4PrGRy4zO93ZV/tZwB2+nXzOqtdY1OGddrz+BIq5PV9HwuLUOsXyvjKU3u3IQx1rMwt5kWZYBEzUhN0OBpL7MuToOfGeIxxlW4CRbfhQj7y/EZz3+t0VeVDw8hBXw0AWm2qZGZ2QdmQOEBIQTwvpVuo5vA=
+	t=1756046945; cv=none; b=UjXFr1TqaiHzkoP4tqMCianE+/0X90thHZVX0Jw1WCZsTiq0jQinDsM/6PVPeOwA60xFX1ZJBUm12k+J/sNcaYa1Jxi/F04EOOkvWjiZ2lyM+ZNtG3TbqVAM0j0zucE9YNvufSoky4cUlK9WyQi2F6PnP+AzMb4slgDTty+44Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756046946; c=relaxed/simple;
-	bh=+1tVHQT15xIv3jKc3qSBEKw/lhqlWzamh8/4sCqHbPM=;
+	s=arc-20240116; t=1756046945; c=relaxed/simple;
+	bh=RBS4VFJH3LNhpZenO70O8QusbAWtcOmkfJZRFkApnZ8=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=AcYWoD22REr/ysWtDN8QcGAfCioKBVF2dXB02cWFJHB6ALCTPDlS7NMoDQVFOoZlfnl0b+J+R77sAe0+RLHHTm4NaxOA/5OMgnZ36sllU7zWa3qI3HflZtQN6YlwhhcWx+B4UVAPK17nSryGckwwdoxYI3XSaY0Kp9HeYuC6Nqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=c6Egb7rJ; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=j8Bm95k4aeoPYo7FJc3QjnT9gzZFu07qTr4WVw/GCou8UEmqpr5CD9UfB0Cj6CbmYzm4j3KAZO5JrSaXHY6kte/81MnbDlumSgb2j7tJCbS/GfpLalRlrkOp5/h1OwzLcGlR4V6vu1cePYFaDIqA9IHVCtZ8o89AIHIx8UVQ2lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=fqUoapkv; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046920;
-	bh=AVEN71CYRbanVLK5mJD03zuLq8LomkfBwNfRVMHWucg=;
+	bh=vP49KfTL43Q/67fzLWXBaOnJ2M/lT6bE7FWKVd8+eao=;
 	h=Date:From:To:Cc:Subject;
-	b=c6Egb7rJBGz8UZIzRn5DlbdoDoQktGQSKWuvzjgXQAVpyYuzGjjAEb7yB/ELRfCs5
-	 SLOU48xbN9xKgoHLCC305E4IY29QMY37BdiXIDUYbVcx/ER2gAHiM0H1o5Oku5qD/a
-	 FzFKP4qou71DRKZlau10eIAwpgMCAGc8NhOqzyfCgGl3XtYP6vPmnKt0Epuh8swPPg
-	 h1TBIQJiolYLXZrTSOaDYRU9bCqpEfoFeYh5Rs0TgZlhkesnYK1MtW2Lyb+YKS8y4Y
-	 0BerrvV7D2xXaHMzSy7HM7MSPcQlFv5CQOtJXen47oiBP9/KdAOFLzNoiHoxqvBXES
-	 8VPvZp2uH+oDQ==
-Original-Subject: Issue in man page getgrnam.3
+	b=fqUoapkv9380NEbdHtx/bg0thjzIOSkYcZu+NOF10aZ/C9endla29UsH0lg1BLTV2
+	 1PhwbmJPPiEGrUD794hl2k4hZjyOZWyy+aG1PVVBL/yzdM8ZEWI+qYWJgQ1guQGlWN
+	 ++YuCM9+Gi9g9efwpMl5m+OkztGwkRYBE7ACZOTH86IpYxGH6EKOT9V9/7JVm46Yef
+	 93qbNiyo3WOLkcD6rJkCmhzjusbdYJqo261ey97lg0iPHxRCkbS7avkV07Y9bTGFzW
+	 pB+ciChARBkQyRAfvD/8Br0KnmYw8O4OSc7BrOx8QDrsWV48OBP0f5Q8M40h9QjvOD
+	 Wa7AYwC6AdAjQ==
+Original-Subject: Issue in man page getdomainname.2
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000021703.0000000068AB2648.00139135; Sun, 24 Aug 2025 14:48:40 +0000
+  id 0000000000021700.0000000068AB2648.0013911C; Sun, 24 Aug 2025 14:48:40 +0000
 Date: Sun, 24 Aug 2025 14:48:40 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page getgrnam.3
-Message-ID: <aKsmSP6HdG2psC-o@meinfjell.helgefjelltest.de>
+Subject: Issue in man page getdomainname.2
+Message-ID: <aKsmSD0OqkD-5wMA@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,14 +68,10 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<…>size_t size → B<…size_t> I<size>
+Issue:    B<int getdomainname(>size_t size → B<int getdomainname(size_t> I<size>    (2x)
 
-"B<int getgrnam_r(>size_t size;\n"
-"B<               const char *restrict >I<name>B<, struct group *restrict >I<grp>B<,>\n"
-"B<               char >I<buf>B<[restrict >I<size>B<], size_t >I<size>B<,>\n"
-"B<               struct group **restrict >I<result>B<);>\n"
-"B<int getgrgid_r(>size_t size;\n"
-"B<               gid_t >I<gid>B<, struct group *restrict >I<grp>B<,>\n"
-"B<               char >I<buf>B<[restrict >I<size>B<], size_t >I<size>B<,>\n"
-"B<               struct group **restrict >I<result>B<);>\n"
+"B<int getdomainname(>size_t size;\n"
+"B<                  char >I<name>B<[>I<size>B<], size_t >I<size>B<);>\n"
+"B<int setdomainname(>size_t size;\n"
+"B<                  const char >I<name>B<[>I<size>B<], size_t >I<size>B<);>\n"
 
