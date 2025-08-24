@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3654-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3656-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DC0B330E2
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:50:06 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8881B330E3
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:50:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F32D4203F4A
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:50:05 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id CEE8A18842C7
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:50:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAC812E040A;
-	Sun, 24 Aug 2025 14:49:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E56642DF6F7;
+	Sun, 24 Aug 2025 14:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="DmOIvyl1"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="dLQ1s94/"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F22B2DECCB
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3C82DA767
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046969; cv=none; b=XOpPXjaGcZx9QhCgkc29skOwBFLg0jSWNByybTDS3Fe2YOO/he7Nu61GirqNPxoMoEphg1z+Y/8eaiUiprajvw8Q8hkWVsmxvi0STwvgdvTZErLUViwdMDETu/VnfjQ0ULNwPyWNtozRJT8dnepjHPNi+xATzmkGEuLVqu9F4QY=
+	t=1756046970; cv=none; b=nN+DXY13Kuxt326tuVC1TxG2ZnplmIaqbUujAouk8bxziQ0yEtubTOFq1iaz7wyNHlCku5NwoN+Cy0Jeu+9womxQytKXzI2jATeGj7piT4CLGKaFsI6LVtADngWGCx0edGdSD/OaXfpemnqRF2zvsLpMBjIaYp9Kgv9xTjgisNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756046969; c=relaxed/simple;
-	bh=0aoKi9yQRaI2zz5oKeL8Ex2l01VbxzcjforGsfylKC8=;
+	s=arc-20240116; t=1756046970; c=relaxed/simple;
+	bh=iUKgVgAAOa26r0KuaM0fnSqqQ36pmxKMJWeHdli4tKM=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=raG3nLn07bXRvCNampTcOypN4+etsZFvFA0vqqAvLJ/IDXUt8nRExUG9gayFmuyjZAL8S0ElanaM6RWtE37vwhHonI2lA7T5ZDT0Nu+OFy0Q8NkOGE7XUsXmqpD4ulF2fZo8xjRTzaxMuFX1Rot/prlz7d9wqvE+OxyGB1SvOMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=DmOIvyl1; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=bWli+bwOq8N5qcDYoq7H5XqGjz/LPvIvXbJwP/KR1CgHx371IAwwjAWH9bsyJLNljyRGZyrZUMB5gN8X2pivJNLWTKtXyOI5YVh/1tHNZRu1IHU8atr+5Cj/iv6BOuOx+JTPhtLR1UCgB8Ur18vC5AvihhLuBGeTUfYogUsiKNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=dLQ1s94/; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046926;
-	bh=UJMrU0PNyljc8GA89Zohc1rq/cY2eMKuZWzqnKCRoZo=;
+	bh=7HsQCYb2NUkr9wwI+84qw2R4a4cSxx3E7cDAw8Fme6Q=;
 	h=Date:From:To:Cc:Subject;
-	b=DmOIvyl1+Wv/Y/Z1YuDpfqlOHZiUfaTtsYcb7UsclBM2mmFYrkRb6fGxunvIUJesr
-	 yeLjPsqeuxaXTaNkWgsWgBronGb90F3Ux3GopUwbJ8JSu5RYYFbW1/CytYCoUWB+8o
-	 Y4Zj6n1vQtjinMErHfclaxsnM3jAJMBKD0dCplqXpcK0omYx0Z1e74rbBb9wNSkPIq
-	 jc47ZJONdDBiy59/t/MZF+zA1wjHWN9Zk2K85mgmvkK9pxhunHjlCC5qWE2bH02ByJ
-	 FzCGxXi0K+xthnN13gT3g8TgmLNm4YdxgNCxtbosh4YJxtXDxvsZmWcOC0EHt/wGwQ
-	 bfXesjwN7qfNg==
-Original-Subject: Issue in man page outb.2
+	b=dLQ1s94/IqhN3vMO1H1u+ijgsoflQ+A/YLqwZP6NXDUdJ8Tr8iVzd3WqUpp46IaLo
+	 6i02z/YKehhRo6mLb2ruI09yiNp0telgtOEHqASMtE6lDuwpDMSFSM47Kc0VmYph7c
+	 1AJDNdjJIpM0kt1ZiwswejM72HzVN+uqMCWiTwZwu0rwzm9vYMcNCiyUfY0ae2LYPj
+	 bH89WP/Rlc6wzSDYj9xnCL/QcV+oB/OIfglPKD36EgT8VFYALeJ1w1+OTLY9pIbiaE
+	 qcbVpIAVVoDSQyvinoxRI5mUp71ibcvg+ipjxqMiiwQxX/NCqSrR7IHB82oFSobzx3
+	 dvQzrjuYC9IxA==
+Original-Subject: Issue in man page pivot_root.2
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 000000000002175C.0000000068AB264E.001395E7; Sun, 24 Aug 2025 14:48:46 +0000
+  id 000000000002175E.0000000068AB264E.00139619; Sun, 24 Aug 2025 14:48:46 +0000
 Date: Sun, 24 Aug 2025 14:48:46 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page outb.2
-Message-ID: <aKsmTrrPq9MBL_en@meinfjell.helgefjelltest.de>
+Subject: Issue in man page pivot_root.2
+Message-ID: <aKsmTgut2boYJqiN@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,24 +68,12 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<…>unsigned long count → B<…unsigned long> I<count>
+Issue:    I<chdir(\"/\")> → B<chdir(\"/\")>
 
-"B<void insb(>unsigned long count;\n"
-"B<           unsigned short >I<port>B<, void >I<addr>B<[>I<count>B<],>\n"
-"B<           unsigned long >I<count>B<);>\n"
-"B<void insw(>unsigned long count;\n"
-"B<           unsigned short >I<port>B<, void >I<addr>B<[>I<count>B<],>\n"
-"B<           unsigned long >I<count>B<);>\n"
-"B<void insl(>unsigned long count;\n"
-"B<           unsigned short >I<port>B<, void >I<addr>B<[>I<count>B<],>\n"
-"B<           unsigned long >I<count>B<);>\n"
-"B<void outsb(>unsigned long count;\n"
-"B<           unsigned short >I<port>B<, const void >I<addr>B<[>I<count>B<],>\n"
-"B<           unsigned long >I<count>B<);>\n"
-"B<void outsw(>unsigned long count;\n"
-"B<           unsigned short >I<port>B<, const void >I<addr>B<[>I<count>B<],>\n"
-"B<           unsigned long >I<count>B<);>\n"
-"B<void outsl(>unsigned long count;\n"
-"B<           unsigned short >I<port>B<, const void >I<addr>B<[>I<count>B<],>\n"
-"B<           unsigned long >I<count>B<);>\n"
+"B<pivot_root>()  changes the root directory and the current working "
+"directory of each process or thread in the same mount namespace to "
+"I<new_root> if they point to the old root directory.  (See also NOTES.)  On "
+"the other hand, B<pivot_root>()  does not change the caller's current "
+"working directory (unless it is on the old root directory), and thus it "
+"should be followed by a I<chdir(\"/\")> call."
 
