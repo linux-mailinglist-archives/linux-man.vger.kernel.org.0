@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3661-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3659-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13845B330E7
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:50:13 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE81DB330E5
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:50:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id B92E67AD444
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:48:37 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 71C27203F0F
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:50:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 299922E0419;
-	Sun, 24 Aug 2025 14:49:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7609C2DECDD;
+	Sun, 24 Aug 2025 14:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="tjx5YhOD"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="h96n0STG"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976202E0415
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB99C2DE6E5
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046972; cv=none; b=HvuqFD/Y7nGacQZqaLxFMX2VDXHC6KUyQLPfje/N/H6qt1c/+FadAjgh7GFTY7X+3pI2/DL+cIzJovz+tVFzBlAPCaf3xo9PAVu5rpz1Bm5swrOAta+VAS5Q88zXHXl4DgMO8wbK5s4cMAp0tvq4D1JForqAO4ypK0KkE1gEDXQ=
+	t=1756046972; cv=none; b=C80Lg9GBsXfNZuzlQ9QgIv0m1stjhuIbxX+0Sp2tJT86svTvo4h+9X/tGG8QlDv812vtbn/sXDky4SaInmgMtANUoHY6AiX69CxOlLe8xVmzGVq3xmqiwMjDoMvDUeCxQcKurjdGwFF45PfG8lChu29E7EZn30/YtqIPMW6Z4bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1756046972; c=relaxed/simple;
-	bh=AOXLYw92ymo7RJkDs6SyTn2qyggN7PpAR8upttJo/Hc=;
+	bh=oxmHwI0Qlu9jKMXrP5Qtxs1f1g1hVeqzJGUsXwFYqhE=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=R81bYr4zIhHK+7Hy1CqD4MapxLyOZlXdlaHN2DR5HU+KYUpo/RHF193q58KPC8fB1SphKdGo+dKfjRsNHK9Bp+3sZm31Phos0MAJ6kE6Zyj5t0M6JRBJ2/lO/cUNcLf91lD1qPG8V2Rlk7ZYyTDPH+swGqAsIpBvNRmwJcbCTaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=tjx5YhOD; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=F8GYh9lvaDn3Xjct/6DLaIUemIz4y5lAc9HJ9HxEbx/s2NDUlWoxzHF3eC3f2uXEu+bfJTOZZ0dR2aBjHlLLT4peBFAQ7wP7A5SHZ+xkQS5aGVjDepl/ZIprdaNy72WfUU237A7wvFMF7tj43/AQ5AwQA+FdijxfhFLR6UyLYss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=h96n0STG; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046927;
-	bh=qeeRu8hzHL8UHANj7sNITSG7as6Y08Q83OapfCHT834=;
+	bh=pYBW2MZEwgKaRG9aP/wafn+sejXhy4LoOdD/ik3wMbE=;
 	h=Date:From:To:Cc:Subject;
-	b=tjx5YhODcFTuMpqKGB29ah0rfss2xwtX6fotQ5SNekIrUONl0feuWrVlBfzUIFqBz
-	 j4O6HfZ0H0FlyHlVEHvcYLat2nUmdzO04hzrXVB5p7nQSI7CWi6TcGgjoxLKU++r8f
-	 S/FSZezgU+gAYeN13/SI57Bhq4J2cWi0/Ilh+ACZoi5h8lS64OhYts+w0DclDq/TRt
-	 HQPzV+bMqnd6EDrtmyVcqX7oS6UGqiy5ZGpCQtWi3KF1rfeWz7ykVBoqwD0exSgp/8
-	 1T4Umme89+oTWnN2BdnK+q4GUjKKxKi3svdNbgl3NLCSX8DokvYr9SIRi29z11PqOh
-	 Z/p8MQex9WEkg==
-Original-Subject: Issue in man page printf.3
+	b=h96n0STGx7glFXwccvXFF4aBmo61koAXMLOXKuI9C+afxvhoupJXjMkFhbyqPkuDI
+	 HnqmuTsmI3rwHGfaVjDZBnxF0cLwykNAa53RwNr8LqMuKJVzxQNoMMW7JV5h4bj5cB
+	 Kxip+D7X2/m7wIhAiiZ7QaKnFsCuNYuHnKsj0c9wa0PER84/WZ2GRiSIQqglgB1ctJ
+	 KfGmByiWYCKefAt+AVtLqvBEdZdbYpP+1NnRRdXNu3Zf5j6MoI2Mo4knU/TNsf7GVD
+	 7Mu/kdLIZvJxGsIgpNbk68vGnADA8DtwLuU/6WALc3NVK3l+NkrAuDbaJ7pd1bw56c
+	 A3GDOMHzCkbFg==
+Original-Subject: Issue in man page PR_GET_ENDIAN.2const
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000021765.0000000068AB264F.00139696; Sun, 24 Aug 2025 14:48:47 +0000
+  id 0000000000021764.0000000068AB264F.00139664; Sun, 24 Aug 2025 14:48:47 +0000
 Date: Sun, 24 Aug 2025 14:48:47 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page printf.3
-Message-ID: <aKsmT_h08Obx12Bc@meinfjell.helgefjelltest.de>
+Subject: Issue in man page PR_GET_ENDIAN.2const
+Message-ID: <aKsmT-lJBqSQAr8f@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,16 +68,10 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<int snprintf(>size_t size → B<int snprintf(size_t> I<size>
+Issue:    endian-ness → endianness
 
-"B<int printf(const char *restrict >I<format>B<, ...);>\n"
-"B<int fprintf(FILE *restrict >I<stream>B<,>\n"
-"B<            const char *restrict >I<format>B<, ...);>\n"
-"B<int dprintf(int >I<fd>B<,>\n"
-"B<            const char *restrict >I<format>B<, ...);>\n"
-"B<int sprintf(char *restrict >I<str>B<,>\n"
-"B<            const char *restrict >I<format>B<, ...);>\n"
-"B<int snprintf(>size_t size;\n"
-"B<            char >I<str>B<[restrict >I<size>B<], size_t >I<size>B<,>\n"
-"B<            const char *restrict >I<format>B<, ...);>\n"
+"PR_GET_ENDIAN - get the endian-ness of the calling process"
+
+"Return the endian-ness of the calling process, in the location pointed to by "
+"I<endianness>."
 
