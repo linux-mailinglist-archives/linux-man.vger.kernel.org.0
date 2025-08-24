@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-3694-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3695-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F714B33250
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:17:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 638F3B33258
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 21:21:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 46DB9200F76
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 19:17:26 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F255D202308
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 19:21:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D7A41EB195;
-	Sun, 24 Aug 2025 19:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AFAC21B9DA;
+	Sun, 24 Aug 2025 19:21:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/v7lY4N"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kt2AzUfg"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4279214A4F9
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 19:17:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5781F219319
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 19:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756063042; cv=none; b=VGcsTYJScR9RxImgmoqQPBgZJAPme8Nj68TVMo/GOnkSES9IFEzkuG/z+OqLUyMH01PLAZJSkRwr9aHHcsCkL3oIuK+L9dEmQw7PIPpn2tYLJSWN8Wgbda9Y43Eeu5WeCYxa6CJLwR8dJ3UhdHPpYfEtw8q21MHeGe6vy3C8+EE=
+	t=1756063305; cv=none; b=GtFSWLfIsRuhbdLXRT5Nnn5oTK8zZlgIi0DAyGOjUoi4smbSUJk1HbbQQ/B6y6fbwYkq2JF8nbS0jfSZbrlRITEqSnJ/tgf9CmCrsDfQd5vvMJucDWhIqKirj3/+ga5QjVKD2Y5lBUpBhrFG07bJ2OaGDG5f+eayiXNLBDFMNxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756063042; c=relaxed/simple;
-	bh=oGYchCFsm7IZyraHxqIdnIanrg1jSaYSDCK5qNc4WQo=;
+	s=arc-20240116; t=1756063305; c=relaxed/simple;
+	bh=XgEtt2hT35wQ0y3p1C3H5ZvtJYaMF7gEyHoiZe1ylNM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F/z3Jp4bCxiXk3Mj6ky4iZXFxyQLwEqfv4lXcAJe/4INUf7Npx9TJMJ2DXPnkM2h3DM2Ti2DAQPLKi+fvtRGa3QmdgeausIPg851G/gIo3UeTISbV6fpedK1TUitoFe0uo5klpIgMRyIlyVDXqLVSNI8JC4pWz9OLV0dZ9ht1kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/v7lY4N; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 376C4C4CEEB;
-	Sun, 24 Aug 2025 19:17:19 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=PZTx8ieMxfy2EJnS6pYcIFQLiQtrE0vtmdt41AfDVQAZo37xoWU/kH+GGP7XkCcT6vnyPdQdeFUVGz+OTleUN/KxQbklL9mGYctrYfpUHM/XNmoOpPWsoWc1xfcB2+H0j0VEzf1iGAXryLzLWvUk+ZH2LXCRWCTJSQcNKG15cxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kt2AzUfg; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB885C4CEEB;
+	Sun, 24 Aug 2025 19:21:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756063041;
-	bh=oGYchCFsm7IZyraHxqIdnIanrg1jSaYSDCK5qNc4WQo=;
+	s=k20201202; t=1756063304;
+	bh=XgEtt2hT35wQ0y3p1C3H5ZvtJYaMF7gEyHoiZe1ylNM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=l/v7lY4NUAxbmBEUnOjMIGR9bVZPxxHkIWxzCE9YAJiP8hlzBsqX6Kj8Bfgih1eNE
-	 I5e3ud8TwWhOJ8NtGqJgPLuAdYexIKgouTP/DpOAvZoxKM6xKPP7eedj+vzFl3wztx
-	 rBN+UiZrMCtX6wDu0tXW6y+NOCJqQwTNd4ApFGxyBU8rdFziGicfpwTPc/udPrUx3i
-	 74VUMB/SjqEgqrxmaaOYVE7QoJb4qGUUt2nzN3opi33SXVpaBBuqzdx06md6r6IcKy
-	 f1PVGmMQVElLoZavj+qsZBdXDjk9619rrSW2EYT5OlCL3cDXYp9rs3zh7kPqcGSfd5
-	 kCgs4TTl8eVig==
-Date: Sun, 24 Aug 2025 21:17:17 +0200
+	b=kt2AzUfgwIpFdk5zwUHMdNJGZpQM6SrEagt7EpEHcq1BxmgkVIfQs7XkZFAnGjgk7
+	 u4uUQyUeNh7KiLVSzfNBq/zaUUBtcM8skZBG0AIFBotmfrYDUQFOj0vZjmbTKd+Je1
+	 eUN0Hk8D6MJVBxzV/JhBuajNEIhKIRaLHGrjbwHwnrvp/1N8Cu4/Nn5+eHskq+jNK7
+	 99Fnbj9aSnwpD6Cr85quC8Z11zC8NAoJbJA6EVCg7RqXK5y5hKH3uxEzuvu86ggYvV
+	 OyYBamjla7OkObFwQZI0r6SDwq5XgrdGYNvGZrqL5NVCmxkIpCY4wXqwC9O1IC+RhO
+	 awF3HBxodZhEg==
+Date: Sun, 24 Aug 2025 21:21:39 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page puts.3
-Message-ID: <x3lv64ggfak356bkfnnar365tfid73c4zi2ccyv62trmknw5sh@fcdakf7cz2bu>
-References: <aKsmUJzsFnD-5WjZ@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
+Message-ID: <lnh4f63q5onlj54wt7qg76unbcvu5apinualih4byiatrfvjpv@5r53xpupbjws>
+References: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,65 +55,83 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qactzb625yiyh5nk"
+	protocol="application/pgp-signature"; boundary="z4rsmbnxz3nfolzj"
 Content-Disposition: inline
-In-Reply-To: <aKsmUJzsFnD-5WjZ@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
 
 
---qactzb625yiyh5nk
+--z4rsmbnxz3nfolzj
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page puts.3
-References: <aKsmUJzsFnD-5WjZ@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
+References: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aKsmUJzsFnD-5WjZ@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
 
 Hi Helge,
+
+> Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
+
+You probably meant PR_SET_THP_DISABLE.2const.  The text you quoted is
+there:
+
+	$ grep -rn THP.disable
+	man/man2const/PR_SET_THP_DISABLE.2const:9:set the state of the "THP disabl=
+e" flag for the calling thread
+	man/man2const/PR_SET_THP_DISABLE.2const:21:Set the state of the "THP disab=
+le" flag for the calling thread.
+	man/man2const/PR_SET_THP_DISABLE.2const:32:The setting of the "THP disable=
+" flag is inherited by a child created via
+	man/man2const/PR_GET_THP_DISABLE.2const:9:get the state of the "THP disabl=
+e" flag for the calling thread
+	man/man2const/PR_GET_THP_DISABLE.2const:22:the "THP disable" flag for the =
+calling thread:
 
 On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue 1:  I<putchar(c)> =E2=86=92 B<putchar(>I<c>B<)>
-> Issue 2:  I<putc(c,\\ stdout)> =E2=86=92 B<putc(>I<c>B<, >I<stdout>B<)>
->=20
-> "I<putchar(c)> is equivalent to I<putc(c,\\ stdout)>."
+> Issue:    malloc =E2=86=92 B<malloc>(3) ?
 
-These are correct.  See man-pages(7):
-
-       Expressions, if not written on a separate indented line,
-       should be specified in italics.
+Maybe, but we should probably add a reference to malloc_hook(3) instead?
 
 
 Cheers,
 Alex
 
+>=20
+> "Setting this flag provides a method for disabling transparent huge pages=
+ for "
+> "jobs where the code cannot be modified, and using a malloc hook with "
+> "B<madvise>(2)  is not an option (i.e., statically allocated data).  The "
+> "setting of the \"THP disable\" flag is inherited by a child created via "
+> "B<fork>(2)  and is preserved across B<execve>(2)."
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---qactzb625yiyh5nk
+--z4rsmbnxz3nfolzj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirZTwACgkQ64mZXMKQ
-wqmvng/+KrYjxOJVYLbKO16Wc2ewQcyXucyoAtz+im9D18ZQZ27/NIO1M0tzgj0S
-gO15dm8EuCkkSSRbL9mEufEV6Ysz5ABjpeSY3kKUzmCY8BMVBMI/KkQLgMkzVFKP
-OESCdkKWC9bzx7X8GNbz9Nbn7auiUfaLgycKjjrMDFXA8q1jyStS0c01t790f0sS
-3MNNlmcWR65W1x5Uyv44zXkDLJz4z1U54CaYlVMesCdZixgpUkbCaE3T3uG3T6oH
-ynKQ8wG7CA+cdHGzCREnTKu7C65H4nJqjQH1TEMFO4Fyh/hyA2mIEFm1zzgYItMs
-2Y4RrvO7sCQIAVVmA9EcTnBKOIXu35FZORnkIq/D6AyudA2n7DVNlvhdhV7Vecwg
-QHlhwQA/CnUSC8J8eJ6nDfSuBgGDtDJef1IxH5driX5DVQEleat+J2U6HuXLy5EF
-0TZvtgBIwAEVOi5qRKv8dV+IXB4edWuDwTIQqaCjbc1ujjC8HQdr4Pb7pindBi3b
-F+Q5ydC6y8f/CuxYdJBjIlkKPddpI06PaX9Epz+n4wiR5zHyEpXCD7Ckp8RuIcu+
-KnAOPASJAfL8yfkdG7/+1Ruqz6JF4/C8r5YxB8Ok0CcPQh8eHxfkZNzc13u7HRKx
-DcIpQCFx0remrUhifpjObpiwlSqRpeBKsG8bPA1UAgyuM8at0pM=
-=Lm1w
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmirZkMACgkQ64mZXMKQ
+wqn+ZBAAggYtyQDjlqI1e+yVI5qXtNu26xCStDhg7tLsjDMTug6GTrPYKoTVz0n7
+JLvvxbWYCmK5u1U13may8WwphRQOqtKmVdBToWSW/pYEP6zCMse+nuRbmCigmjct
+O4sAhyVDUFW3HNP8fvQprB55RL+sX2y6nlGQ97F7A5FklzoWcimWqyPMax/PhLaU
+Yca9WN5g6ALoxT//handLhQyQaK0RIH2DFHWOEW4wqxekUwywMP+umAqNSj9LU19
+wI5aZBEKyKL0j0a+Da7pVV31MfIZv48Km71VvV4V4HRwBDg8y4aiF0nRwjd7+AjG
+oTyz67sZu8Gaopo0Y5CCnhgI8pTN7aGBPy4KRZGK++UGpHsKG3UQ5Z8/D0JHNDt4
+sOr+/rX7C6llxw5cK5MzeYWypNgZ3a/5qdFppP9RywJsVUPI5UIzkU/y6tm1BA/r
+4jxFW67j2UQO4071S5hzr+YzDdrD8G7lIArVD7NJ4RBwn4TR7o++LFWrbY6LbiZT
+hmOwagYKZ142VMLyRwOGtXY13Rtuf+8zahfU518qXNI+9ntBVIEbe4YV9uIdks74
+3HJjm1LWms6AsQ/7NwoPsthtFz4eTovNmay1VPSKvDtAErE5JT+K7PfsDrwp5e5H
+u6FeVWZbGf2UCzbSxsO6v0zvE83P2ZH7K9+UTv2JSpZdRh6OWXo=
+=an+K
 -----END PGP SIGNATURE-----
 
---qactzb625yiyh5nk--
+--z4rsmbnxz3nfolzj--
 
