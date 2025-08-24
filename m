@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3595-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3598-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA3FDB330A8
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B08C9B330A9
 	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:15 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 482DC7A6080
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:47:40 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6BF61441DE4
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E76402DECDD;
-	Sun, 24 Aug 2025 14:49:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6ADE22DEA7E;
+	Sun, 24 Aug 2025 14:49:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="PEnrWKoV"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="gfjfv+3k"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682012DECD3
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B272DECCD
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046940; cv=none; b=Xq2u7ej66O5IZtc9TROOlflv3s2ISTiE43/+kQJ3ASARVCRmymAjsd4A4ijJGHyux4qu0Wpe2KLsminLl/kQ4uDjfMCJ3KDQQ+YCNtLtChHYG9q253lhwMdyTVDZ6VbNq2lyPaYlvlMLBk+a+ZRNDHm0gPcSl0Plulotuk+Xz18=
+	t=1756046942; cv=none; b=Ld1ZhWC5AQVIN3N9sO4TIa0twT5qHqGfKAEZ6D/Xr7LdKs2EtVvNO2ebgHGnPyWSyP4/EJG5HS+EI8KwoQGrwjbyoHbMbJNG6BqanCON6GM6SVvU2rCNp9cwlAgT41atHWj6FzF6Zp8Ejspt1p/+LQBcXILUBKgf5R2a6piW6Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756046940; c=relaxed/simple;
-	bh=9tfHZDcOca66SCArpEdCRVfHF7vPfsBxRjhC7Gd8L/E=;
+	s=arc-20240116; t=1756046942; c=relaxed/simple;
+	bh=3H1uCCMYWBODlfkYNhTWY8ZN36cLkPuEoZ6FU7D5g7Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:Mime-Version:Content-Type:
-	 Content-Disposition; b=qno6SrFvodacdwWwkjIYY77RUwvBeQBrPYDDtBDHYLbx/zIbtcRmGGpb47tfySSRUVz4JURvEWL5EcLsDGrS5Coastrr21GKiEpdlHTNtVf2AhCLO/ZjHG5w9t0s553O0qujjG76rSAxiZ3Vd80VSCW6WP2xZyCkIvM4DcUeUBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=PEnrWKoV; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=Mv+DDrZzHwDtnuWLcCL8OeDn4f1KAWXsAfkrUYhxTSep5vqIi+GG+iXE8Hmdkpum+KyIXr2qr+E8GcEOMAhOmw27HhpLBn1T+oQnqZGAeRRjfHs1nPrpsMxPCbzxxaio+cRgjUqMT5WSiIbSVIUtbXcbYMheQkiGqZrq7icczGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=gfjfv+3k; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046919;
-	bh=2eC2+vHPn7l05s6PFr1HCD+JWQtmLfZ3uVxHKrwAR5I=;
+	bh=4rC4kB5RRPKkheNzgEU+IuUL6qj+Bl1HlwcFctLRyQQ=;
 	h=Date:From:To:Cc:Subject;
-	b=PEnrWKoVSk+QjCBug/zRpKwkTAm/7k+rjnnb13u1hyNgVFm3lictOdMBcSJVVB29Q
-	 ui6t8h2d0TMtxSCXHAt6xrQh/IRAqg11ffbAPKlz1C9DvT8x4EmPeFXzypK1H8XHiW
-	 toDHlI2sDQnF9lTmfL/KogmFq6i1dhLkp818HZepKD9DWydeVmXHncssr5Or7IBoTd
-	 5XmW+OS1gPOOTnzwpvdVG9OUWiQXD7WXmaqi/P2xGsC1Fcr5ZybC/Pf4R8bF/P30O3
-	 XNYOQ2uZMHEwS9iWqCFh1lK3x6WHbgMoIy72YEtvHMZYOfBAx8ggqE/RKKB1S6GMa0
-	 Z9Ag3h/5eQeLw==
-Original-Subject: Issue in man page fgetpwent.3
+	b=gfjfv+3kLai/ITTqYHNoDBwdtgHQb4xtYeaGjz+4B/QsKEfwiVK6YZlUULjjfG7gS
+	 aTZUKyK5nyYa8fRMg2eE1YoFSNIOxot9t3cPyAsbiUpVY8WxCcHtAM8yFg8c9HhhqD
+	 S0ruOX1+7HsAdCM/eNYFirZZJXGIv5ljld6lDgmX/qf6fc392gEmBCWwdEz8fG6KDn
+	 fp+AZPvVDUTynjneZ9SFV2PtmkxVT86CeQi2CIK1FdFHBHpbelt07BqLuBss80HeaR
+	 d0K4350b26Wgj7eEGcXlWfafmMS2a5/pSTAb/sJmc+azG1Hy+sQosiDJM3RjSpLYBt
+	 4c/s2ytcz1dkQ==
+Original-Subject: Issue in man page fma.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000021117.0000000068AB2647.00139022; Sun, 24 Aug 2025 14:48:39 +0000
+  id 00000000000216E9.0000000068AB2647.0013906D; Sun, 24 Aug 2025 14:48:39 +0000
 Date: Sun, 24 Aug 2025 14:48:39 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page fgetpwent.3
-Message-ID: <aKsmR0fBU3ycNnmb@meinfjell.helgefjelltest.de>
+Subject: Issue in man page fma.3
+Message-ID: <aKsmR8KMxEjAmxGL@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,10 +68,9 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    Does this mean, for glibc 2.19 both options are applicable, i.e. _DEFAULT_SOURCE AND _SVID_SOURCE are necessary?
+Issue:    According to above, a domain error also occurs when I<z> is a NaN?
 
-"    Since glibc 2.19:\n"
-"        _DEFAULT_SOURCE\n"
-"    glibc 2.19 and earlier:\n"
-"        _SVID_SOURCE\n"
+"Domain error: \\f[I]x * y + z\\fR, or \\f[I]x * y\\fR is invalid and \\f[I]z\\fR is not a NaN"
+
+"Domain error: I<x> * I<y> + I<z>, or I<x> * I<y> is invalid and I<z> is not a NaN"
 
