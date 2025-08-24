@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3644-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3643-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36588B330DA
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:50:00 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A76DDB330D9
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id B1996188C177
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:50:19 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id A0EF7203E90
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1C9E2DE6F6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7616C2DF6F4;
 	Sun, 24 Aug 2025 14:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="RBT0IlTx"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="WMm9+Rw4"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6703E2DE6FC
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AF62E03EC
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046964; cv=none; b=Eyh2kGw66yZhk9Cm+RQ/TpBNG8pWSXqSV3H8U3Zp/bwBgjh3XruG/DYg1kXVJIpp2519dLPhwmFQ+nlzl5cdq1XI0fgzoYd6xYbVfL+wRbYPmyrgZCP5mdCbGvqkc7rGx+HhNzTrnO2zH/NsV6ZeSCRQA384Cn7rDL0tt3Md66w=
+	t=1756046964; cv=none; b=f6xsha+RF1kqafXua461GnMzqId1dtVyuGlE89njgkwekrUgigalul4x4fsILbg5gi+QQM9WfFWCJ718NKHssZ0hnEbHLduZHJ/AoZLXWJRieZNSs1gWr7zZh/Y06qCd56s96CDCsp6Fxzi/U/8vcgChVkq9mWstE6XdFQOLB2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1756046964; c=relaxed/simple;
-	bh=TAEwq2jnZbUVrFpoHLZl5OXupngZxDmThF/omXVttXw=;
+	bh=QNuvBeQBLXl/AHR76Y9wZ7oacGW7Yd0qoGEAnek5taQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=eMcd4PO3cYQIAIWS93gz3FNy+S56K49ZPCKsgV1bEFDOsA3dDKLx0ko0hztoEMrGx8n6fzQGkVnF2IlayjqtIpz8bkqBJVvUzHyQDbuHBv2r0ptrs3Z8TjXsxbYwqBjAlIBEZSZ5m0uJYdj2VY9GN/L2Yt+X2UZ/zAL7InifSG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=RBT0IlTx; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=jtNB0X/AX7UVFlM2Z5GbJZ1NCbz0MqBFIGJJdVcsj7ERZ5YaaExEnSvlWC12Vv6gexcj+CpHv6wZtaULgGiaewUXpnlTH2R1kR4diFj7ZupJeYwptg1GwHQmcUvODJxd1hP4T4NhOtor1mVZjlRyUhpLo/4WRl1TNvZtJetEwZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=WMm9+Rw4; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
 	s=selector.helgefjell; t=1756046925;
-	bh=HVyUd+aQQbVUO44Ez7WzFleK/hKSeoDdAxti7XZjlXQ=;
+	bh=zNMOqBbfyXkUMqYE8dzLglrKApZYJ2EgNBoMBT3t79w=;
 	h=Date:From:To:Cc:Subject;
-	b=RBT0IlTxcTnpcnt/FndrJ2jbiElrsuxznAmGVghykm+pAgn+DV/EpXBtcQrTwTnZ3
-	 CDeDlXGzsE++iypXJI3zILySIRT31G63Z5HLiuyyZd7hKffKTwpnT41PEw7avcdUvk
-	 +np51iPR4X1UC1HDnA/0DH5iFD7+AELLlWwOjTjY5hdcNIKkug45NlST06Toj3Ojbz
-	 tKJiQ58RlmqZ8yWH5fsBpMgJsZf6ubrYBY/oWoc9s1CxC8hf9c2HOLsaN/nw0wllJk
-	 qM0LSFMY/3dD/4ETucvMcLCeiWNVP4lNmqagM01pyGCN6ZdnQ5AwvDYRVYhPOAdqGZ
-	 IiivKOPQlZfQQ==
-Original-Subject: Issue in man page memset.3
+	b=WMm9+Rw40tleU7BD4FjFWx7+qtEJyyrMQzOpnv7LrQPOaBvMw/H2r3tUWgZkNIXuO
+	 07uiIwwqN75JBaQaBwIfRAc+emlKpsO/g7l/bEqZXASOKpCNFxD/JYBs3Vt2vpUhqE
+	 rNL34A5DQWAAj23Z+QfYXqD+IhXIxbmtChLmIbSpMXlg7n82XQsBqFWOxXYkLQi+4m
+	 DDYSxVYZwUw4WKT8LZSJcxJHx8n8FkGDgQyJ5v/Rn8wlEFuLozGzv25+3+RKUl+Lzj
+	 wGQql/ZKy4CVY6xF0WX2T5tp2KTfUKqdt/ievPsjmQM49gK1FqrhIjt5say2y2/nDH
+	 KasOBB3+RU6Lg==
+Original-Subject: Issue in man page mempcpy.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 00000000000215F9.0000000068AB264D.001394ED; Sun, 24 Aug 2025 14:48:45 +0000
+  id 0000000000021743.0000000068AB264D.001394D4; Sun, 24 Aug 2025 14:48:45 +0000
 Date: Sun, 24 Aug 2025 14:48:45 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page memset.3
-Message-ID: <aKsmTZV6gVRJXVKQ@meinfjell.helgefjelltest.de>
+Subject: Issue in man page mempcpy.3
+Message-ID: <aKsmTfvGCp1ngVvT@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -70,6 +70,11 @@ Without further ado, the following was found:
 
 Issue:    B<…>size_t n → B<…size_t> I<n>
 
-"B<void *memset(>size_t n;\n"
-"B<             void >I<s>B<[>I<n>B<], int >I<c>B<, size_t >I<n>B<);>\n"
+"B<void *mempcpy(>size_t n;\n"
+"B<              void >I<dest>B<[restrict >I<n>B<], const void >I<src>B<[restrict >I<n>B<],>\n"
+"B<              size_t >I<n>B<);>\n"
+
+"B<wchar_t *wmempcpy(>size_t n;\n"
+"B<              wchar_t >I<dest>B<[restrict >I<n>B<], const wchar_t >I<src>B<[restrict >I<n>B<],>\n"
+"B<              size_t >I<n>B<);>\n"
 
