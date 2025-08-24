@@ -1,59 +1,59 @@
-Return-Path: <linux-man+bounces-3642-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3641-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 184EEB330D8
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC02B330D7
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 16:49:58 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id D1044203EFF
-	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:57 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C5BE4203F20
+	for <lists+linux-man@lfdr.de>; Sun, 24 Aug 2025 14:49:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CAD1E2DECD3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AD272E03F2;
 	Sun, 24 Aug 2025 14:49:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="X1gjzvj0"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="tvz3JSeP"
 X-Original-To: linux-man@vger.kernel.org
 Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454182DF3FB
-	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63182E03E1
+	for <linux-man@vger.kernel.org>; Sun, 24 Aug 2025 14:49:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756046963; cv=none; b=fTgovIBuyeU2dDNF7QFIw/bmAJtbh/M4ZsVSWKmJNSDkStrllInZwBhsM6iVf54HXoObTzGcHZLkXdOBKpLSCKD5dSIBphejsJdWswzuL1To4ABqQayl/tWefGjZov3MAU2BaUn27bN4Ge35ys4lS/1DKnmoNWTMC4TUTnNgf54=
+	t=1756046963; cv=none; b=Ts4KQGFyNtG2f1LbgPOSdTjz15jLsbVENOSboWjnr5H1c/uu03GmoQyUMHVxK4J+smNLmNrEsi6KA6TIP4GL/lcxdbzuW7kJMrdlBAlK7RS2TXkgO85LuwFgrxyFUBOhpPZaW/+Z4gxgBfUlNg22sOJ2h42RFSSr0KoG+0ukyG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1756046963; c=relaxed/simple;
-	bh=V8lQC1r3Nv5nXsca/doIV4LNVGJAV01F1kI6CLNQ+yY=;
+	bh=I6f/FvLx4HkGNHqAFFY7yR/GZP3NTHItppMDJk/n3V4=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=dS4a4aDC/w0eKv35TjNLNvvAD68jmKxZ4jVE/yrcAlyDTinN78m+PSY0JHZCsCIVMhpQNG2R9bOpqyKa+0TIqpKBnD4nxKfH+3tSY2CdAiBhEeKGORmAGVM6FZZLpAM3hFEwZUGtMk1wJs9dvyfcAH0eena0sgf8CNiGrvewI9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=X1gjzvj0; arc=none smtp.client-ip=142.132.201.35
+	 Content-Disposition; b=Bw9SNFBDLgzL27j1A+o2CvyO5SMQEPt9siBbrSsUCG4VmcqC2uMEyJeqwM8ZViuTywZc7VQGC/IV0jF3IbE+p9lMMtu66sTn0PuCA+k9VoudlldDA3NZ5g5P8t/RlcmFxeSsOx/dzcWv4jhYGRy+6a7+VM+ezESw87ErHsmvd1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=tvz3JSeP; arc=none smtp.client-ip=142.132.201.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1756046925;
-	bh=HeNwWKREv4XdWuZwysW6fOZpGxyThw0WsIpNHXt7Cjw=;
+	s=selector.helgefjell; t=1756046924;
+	bh=tkUNZq61Q5xLSW6y7pHI7LwxFzTDKpNZpIXyfPNiOXM=;
 	h=Date:From:To:Cc:Subject;
-	b=X1gjzvj0xFdcyWuJJ0W3rVBka9Zs7E6KVidl1kfDqVAIcVUOX+JFnOCQoKOGxnQzr
-	 XNnYMdH+ergCcHdgl11TvJGZxAhGhvkv1IMqIh9M21ysmL7a8gDIALp9UtAxq/oiCq
-	 fgkdoT9Y8vu3m86Wtgu/jOpXSg5TB8YCJ7VFltzKH6s1xHFz7XKEKpk2J8ETobzE3c
-	 GUadZtOZk5J5cHlq4r5+KenMmoCWXpfY/cldqa9HOBK5SwASjrJ/S2QOdTbMZN7ZOX
-	 mCEZnUDRF1gjQ9sbU2fA9s5K4FzUXBUSwd7GBwlsVJ2pz9GSY377sLfj9RQOD8IYXn
-	 j6uxg4Rkbw5jA==
-Original-Subject: Issue in man page memmove.3
+	b=tvz3JSeP4bysgYUeKTzeoURTLDfl9apOKw50Q+Rv30Yx98UVdsJj3Y86kLc8B+H4s
+	 JW2lFlsf1Gy4Z2yaLty4FFw66qhBRziITsfU3TppEDQ72jZIzdgzJaKtqH0VSLM15Q
+	 wlNHLXE6/F9EAnCJk77hAwtEo1e6VGbEw2qGwaRoFPlOr/6kc91Jwu5kpy69xoYnOe
+	 NiDZW86P8hl5wZYDUYkQ6u2hfyulEG2QGegzFJ44V6sCyUm4jWALqJkQJfGvkJgoqo
+	 7n3yrrG6Y4Z6Ckg58lpx694cdLg/Lk1MtR3Jgw7jM+2aiSwcC0tsdeilKf+fkOaf6s
+	 BwQVzZ+PITllQ==
+Original-Subject: Issue in man page memmem.3
 Author: Helge Kreutzmann <debian@helgefjell.de>
 Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Received: from localhost (localhost [127.0.0.1])
   (uid 1002)
   by mail.helgefjell.de with local
-  id 0000000000020405.0000000068AB264C.001394BB; Sun, 24 Aug 2025 14:48:44 +0000
+  id 000000000002011F.0000000068AB264C.001394A2; Sun, 24 Aug 2025 14:48:44 +0000
 Date: Sun, 24 Aug 2025 14:48:44 +0000
 From: Helge Kreutzmann <debian@helgefjell.de>
 To: alx@kernel.org
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page memmove.3
-Message-ID: <aKsmTLXH4pneiZUa@meinfjell.helgefjelltest.de>
+Subject: Issue in man page memmem.3
+Message-ID: <aKsmTL_3I3X_A6rh@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,8 +68,9 @@ X-homepage: http://www.helgefjell.de/debian
 
 Without further ado, the following was found:
 
-Issue:    B<…>size_t n → B<…size_t> I<n>
+Issue:    B<…>size_t hsize, size_t nsize → B<…size_t> I<hsize>, B<size_t> I<nsize>
 
-"B<void *memmove(>size_t n;\n"
-"B<              void >I<dest>B<[>I<n>B<], const void >I<src>B<[>I<n>B<], size_t >I<n>B<);>\n"
+"B<void *memmem(>size_t hsize, size_t nsize;\n"
+"B<             const void >I<haystack>B<[>I<hsize>B<], size_t >I<hsize>B<,>\n"
+"B<             const void >I<needle>B<[>I<nsize>B<], size_t >I<nsize>B<);>\n"
 
