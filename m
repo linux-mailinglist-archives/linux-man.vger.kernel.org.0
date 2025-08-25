@@ -1,55 +1,58 @@
-Return-Path: <linux-man+bounces-3722-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3723-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1978DB34ABF
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 21:03:25 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id EDFEFB34ACB
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 21:13:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A779D5E39E6
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 19:03:23 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id D0C181894605
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 19:13:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 028611C5496;
-	Mon, 25 Aug 2025 19:03:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD14E28151C;
+	Mon, 25 Aug 2025 19:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFRn1lIk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtTXGeKo"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74D829CE1
-	for <linux-man@vger.kernel.org>; Mon, 25 Aug 2025 19:03:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8347E3209;
+	Mon, 25 Aug 2025 19:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756148599; cv=none; b=dZOXC9RTkOaua8nWsj5vJSnBwKed/hPSCaYil2jWPyxpcnPg4cF2+tYcPfdGAbDrcKcCriw7m+br9kehGcYu/zFydgeRGdA2jr/GXrvBe9Pvpj8E/9pdTzn3c5RiNmONtMxQ8iUTA/oIYlT/WyXtkv600/+SBTsTHNldOhI/4Os=
+	t=1756149192; cv=none; b=d30LMHOWZmp8reGE/QWzbxWlEv1rnZ0fXET7QYIb8LynCREVXFlBWea2s/Xa3gMhfdNaXmoisq+2AmjvoUeXnkPR03S5SoQzgIJSHZFh/BzPfsQfj+m90OUv0SAOjciPaY9nuKwbZ1Uqm/vjmTWLeuYX3cq2k/Y/nNK1VRGTxS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756148599; c=relaxed/simple;
-	bh=BBFwYxB5+40y7uzcudASqB4vwUC+K2sq6Lg6/dlBQ/4=;
+	s=arc-20240116; t=1756149192; c=relaxed/simple;
+	bh=XuDh9ToJAetjDDhzGBO+rJdAmv8uxUf247J1DM4Uk8I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NOJx9YQSDoUkySeQeyLBL7QkKzord6lrY6dca5R9mLJgNgOmfXh1U413Bpp2UzrcLs7kfPqxFStRczElQkLw6MExP/fSKn/utNu0eo8UArl/JVn87XF1WOpY7B1VdhlSi/i31ezCPbkgicWVS9waRTFtrlGYwKLKnJWzb3QLBLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFRn1lIk; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB20C4CEED;
-	Mon, 25 Aug 2025 19:03:17 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=E60LNfsyurhbGtvNAmxE5EU9T3gpp/unVdVIwgSPxIXAQzE+I0Q5wDxQqOMwSod6kS5W0YZjTOMllGqi+S5dhThP/I7TL6kL2w+Oucoay+Qc6XBZW/x9LZjLopcXDydEPgtsNR2tycPR8B/vlHaZ9F1/3Jogf82q5w/RHO8Yrws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtTXGeKo; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9A5C4CEED;
+	Mon, 25 Aug 2025 19:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756148599;
-	bh=BBFwYxB5+40y7uzcudASqB4vwUC+K2sq6Lg6/dlBQ/4=;
+	s=k20201202; t=1756149192;
+	bh=XuDh9ToJAetjDDhzGBO+rJdAmv8uxUf247J1DM4Uk8I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mFRn1lIkgLGDWBp/8H7nZc/egS04hQt2KCxWI9HiuViZPwDomslU08AqT8A6pUrV5
-	 zoNPJAHC6ACjUZjHxoNRjv60WaNtuHVTOxUq/t7xbHzSjPzLJQCja6R0XBaNVvqkTO
-	 WW09DWA3KkDC9q7w01ghWYYqrBvRehUe+lrAJdtwYiXVlhNpjT0Pp2BTlasK+aCAqP
-	 O0KjjNqKGrHjpjHQy6m3a7SpsBa6oyqQ1VCNdsADlJB0RtVNbkiYM2yUCiC7f338u3
-	 iFPl5BK72Y/gkmggxHHwFdL4t0mdLuMNwfBZAE90b7u98TNz9cbUku44v7BlvkpOOM
-	 mHXXLK7L/62gw==
-Date: Mon, 25 Aug 2025 21:03:14 +0200
+	b=LtTXGeKoPB5C1PTCI554fJrxkeoPex0235YdMB6cfR4v1DdJIMpaHFtrUstGXcE+i
+	 Zgo+RABFyFEewgdIxfzKpSwfgP3FOR7gIK/LX+d+uov5SOjT2tBXzWqHdW72bUb8+7
+	 od17cvYhjVaq+tEUQOec9X5oxMf7VDDcQXqbkj5v2lhmh7E9PslZCuIGzWCPiEATlV
+	 rne4aU+D3OZHytFxCSFOOYgf7BFblU2ziAc1R/6PIm3MiPRGsxRNGFM/vLmrEpsYzp
+	 lsUWyvWwqeAeKUqXx1dDq2SqgNdLQpeyeLVr6fde7/BPeOsuKht41pMNYWnjzyPAm+
+	 nmuHRnAWDOKRg==
+Date: Mon, 25 Aug 2025 21:13:05 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page puts.3
-Message-ID: <s37goaeyvvbhwmfe72pcwqywqmrbwlufzyrqmjw6cwcrokvtcm@vntmtv2vahed>
-References: <aKsmUJzsFnD-5WjZ@meinfjell.helgefjelltest.de>
- <x3lv64ggfak356bkfnnar365tfid73c4zi2ccyv62trmknw5sh@fcdakf7cz2bu>
- <aKyJ42-Rdy3XoA_b@meinfjell.helgefjelltest.de>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: Aleksa Sarai <cyphar@cyphar.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] man2/mount.2: expand and clarify docs for
+ MS_REMOUNT | MS_BIND
+Message-ID: <rxl7zzllf374j6osujwvpvbvsnrjwikoo5tj2o3pqntfjdmwps@isiyqms4s776>
+References: <20250825154839.2422856-1-safinaskar@zohomail.com>
+ <20250825154839.2422856-2-safinaskar@zohomail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,94 +60,162 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wsfur32uvmve5xee"
+	protocol="application/pgp-signature"; boundary="is57tcmd2h5nvm6o"
 Content-Disposition: inline
-In-Reply-To: <aKyJ42-Rdy3XoA_b@meinfjell.helgefjelltest.de>
+In-Reply-To: <20250825154839.2422856-2-safinaskar@zohomail.com>
 
 
---wsfur32uvmve5xee
+--is57tcmd2h5nvm6o
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page puts.3
-References: <aKsmUJzsFnD-5WjZ@meinfjell.helgefjelltest.de>
- <x3lv64ggfak356bkfnnar365tfid73c4zi2ccyv62trmknw5sh@fcdakf7cz2bu>
- <aKyJ42-Rdy3XoA_b@meinfjell.helgefjelltest.de>
+To: Askar Safin <safinaskar@zohomail.com>
+Cc: Aleksa Sarai <cyphar@cyphar.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] man2/mount.2: expand and clarify docs for
+ MS_REMOUNT | MS_BIND
+References: <20250825154839.2422856-1-safinaskar@zohomail.com>
+ <20250825154839.2422856-2-safinaskar@zohomail.com>
 MIME-Version: 1.0
-In-Reply-To: <aKyJ42-Rdy3XoA_b@meinfjell.helgefjelltest.de>
+In-Reply-To: <20250825154839.2422856-2-safinaskar@zohomail.com>
 
-Hi Helge,
+Hi Askar,
 
-On Mon, Aug 25, 2025 at 04:05:55PM +0000, Helge Kreutzmann wrote:
-> Am Sun, Aug 24, 2025 at 09:17:17PM +0200 schrieb Alejandro Colomar:
-> > Hi Helge,
-> >=20
-> > On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
-> > > Without further ado, the following was found:
-> > >=20
-> > > Issue 1:  I<putchar(c)> =E2=86=92 B<putchar(>I<c>B<)>
-> > > Issue 2:  I<putc(c,\\ stdout)> =E2=86=92 B<putc(>I<c>B<, >I<stdout>B<=
-)>
-> > >=20
-> > > "I<putchar(c)> is equivalent to I<putc(c,\\ stdout)>."
-> >=20
-> > These are correct.  See man-pages(7):
-> >=20
-> >        Expressions, if not written on a separate indented line,
-> >        should be specified in italics.
+On Mon, Aug 25, 2025 at 03:48:39PM +0000, Askar Safin wrote:
+> My edit is based on experiments and reading Linux code
 >=20
-> Thanks for the pointer. I now see that sentence, but it doesn't make
-> sense. I believed the whole idea of this formatting was to give
-> meaning to the content, e.g. put variables in italices and "fixed"
-> strings in bold.
-
-In general, I try to avoid these inlined expressions, and replace them
-by indented ones, which don't go in italics (they have no formatting;
-just monospaced).  I agree with the problem you mentioned, and think
-that the solution is to try to avoid inlined expressions as much as is
-sensible to do.
-
-> Rules like these also make translations harder, because translators
-> are not programmers, and guides like layed out in the previous
-> paragraphs really helped a lot doing good translations.
+> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
+> ---
+>  man/man2/mount.2 | 32 +++++++++++++++++++++++++++++---
+>  1 file changed, 29 insertions(+), 3 deletions(-)
 >=20
-> I guess at least for Linux man pages I stop reporting formatting
-> issues, as the rules are much more complex than I would like them to
-> be / than I tought.
+> diff --git a/man/man2/mount.2 b/man/man2/mount.2
+> index 5d83231f9..47fc2d21f 100644
+> --- a/man/man2/mount.2
+> +++ b/man/man2/mount.2
+> @@ -405,7 +405,30 @@ flag can be used with
+>  to modify only the per-mount-point flags.
+>  .\" See https://lwn.net/Articles/281157/
+>  This is particularly useful for setting or clearing the "read-only"
+> -flag on a mount without changing the underlying filesystem.
+> +flag on a mount without changing the underlying filesystem parameters.
+> +The
+> +.I data
+> +argument is ignored if
+> +.B MS_REMOUNT
+> +and
+> +.B MS_BIND
+> +are specified.
+> +Note that the mountpoint will
 
-No problem; this reports help realize when something is confusing for
-readers.  Please continue reporting issues if you don't understand
-something.
+I would remove "Note that".  Starting with "The" already is equally
+meaningful, and two less meaningless words for the reader.
+
+Should we say "mount point" instead?  Otherwise, it's inconsistent with
+"mount-point flags" below.  Also, see:
+
+alx@debian:~/src/linux/man-pages/man-pages/master/man$ grep -rn 'mount poin=
+t' | wc -l
+98
+alx@debian:~/src/linux/man-pages/man-pages/master/man$ grep -rn 'mountpoint=
+' | wc -l
+3
 
 
-Cheers,
+> +have its existing per-mount-point flags
+> +cleared and replaced with those in
+> +.I mountflags
+> +when
+> +.B MS_REMOUNT
+> +and
+> +.B MS_BIND
+> +are specified.
+
+Maybe reverse the sentence to start with this?
+
+	When
+	.B MS_REMOUNT
+	and
+	.B MS_BIND
+	are specified,
+	the ...
+	will have its existing ...
+	cleared and replaced with those in
+	.IR mountflags .
+
+Having conditionals at the end makes my brain have to reparse the
+previous text to understand it.  If I read the conditional early on,
+my branch predictor kind of knows what to expect.  :)
+
+> +This means that if
+
+I would move the 'if' to the next line.
+
+> +you wish to preserve
+> +any existing per-mount-point flags,
+> +you need to include them in
+> +.IR mountflags ,
+> +along with the per-mount-point flags you wish to set
+> +(or with the flags you wish to clear missing).
+>  Specifying
+>  .I mountflags
+>  as:
+> @@ -416,8 +439,11 @@ MS_REMOUNT | MS_BIND | MS_RDONLY
+>  .EE
+>  .in
+>  .P
+> -will make access through this mountpoint read-only, without affecting
+> -other mounts.
+
+Hmmm, I see this uses 'mountpoint' already.
+
+I guess we should have a clear direction of what term we want to use.
+Since the existing text already uses this, I think we should change it
+in a separate commit.  Do you want to send a second patch to use
+'mount point'?
+
+> +will make access through this mountpoint read-only
+> +(clearing all other per-mount-point flags),
+> +without affecting
+> +other mounts
+> +of this filesystem.
+
+
+Have a lovely night!
 Alex
+
+>  .\"
+>  .SS Creating a bind mount
+>  If
+> --=20
+> 2.47.2
+>=20
 
 --=20
 <https://www.alejandro-colomar.es/>
 
---wsfur32uvmve5xee
+--is57tcmd2h5nvm6o
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiss3EACgkQ64mZXMKQ
-wqmmHw//QU50C0BnXiSIea4z+Eu0wj1HvByGAWJ0Rw1pmfu9CmTfFrTc0bDfhJFK
-AZf3Q9yj5yl1aiDJUEs7qeqHvBlKVX46rNDFOSpUEzQmPuWpvGSa28K8Ah0eV9Ex
-h8JJj3PBajTvj5ibQe+r+DKPGrocyGCWtFzEnsGvhqW0fIbwg9oOEqiNnriJSKNe
-vyQY6qHE7f/EVRMGoymeYVubTIPOywN4dB+T/4jQiF4DFhbbGF2tJ8hr+fDw2wV7
-ahiVTYMg1EhmLhGRt3HJZj3MJURZ8CByzUhWxyHGiWBNyGl/B2Y1pco0xj8dX++9
-3PECfUSdjSMfZmdpzCOYQMCfQwODLPBEZusIFH2fbY41idZZIS3/XoNzsxDTsExJ
-2T/UlcrdAO9PRBC70cLV9ud/YoBZxH4U8d14DPkbeAOlLefJUAz6PBdEr5qg5IVI
-I2zqzMd+DAv67uJUnnMIGLmD11CvcXCqk9JMFcyyz+BUy5QFNHYzAwq8lpTNH8dc
-a9R+oS4127dbBSakas9eD0zQukVWsv+w/tStuxqk7cLRUJ3Z26gXT1FZ9Aq+T5AS
-7wTJaOnfJKD+UxhqaetdMdl92lmGjmX21jGuEiQkUiamIwpImQECKImbpnr0rlIL
-pbdBW4fCzZ//B/0WjELiC4BXkZk2WgLyA2/pw1ZK5PfyAQ0RbG4=
-=tkQT
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmistcEACgkQ64mZXMKQ
+wqlUpg//VPTB1lJJ8kOm1ru8cOvoN2SsoTNM377y26r4IT1jE7YknYYnUYI0GsrT
+/JVqaELk/jCUjwo02P9pC7lRvgA2H4l+/rE6opE33PvcMWSYv9484BjuicSOtEfZ
+WMi++HFGiw4WwJMpecit1wFiWybes+dNizWowDGGbViee9kbpWPu6KVUxn4gPG9s
+MCJ+2Ed2K3QJT28DT6spEf7kpFxlKfMxXmB6zHOdwsNwKvxVb6gBtGho/2V0YxkU
+UBXCwu25hUFgtD4q+XcZhmJqOBjapDJXX5QDzr4A7RNSYz5PxKOe0xLkWVsRBGGq
+bt5ctgy6h5KBfEvTZEjgS+8assySKax8QNy10sITT9JokJgkX+oS3U4z+pcZwCpv
+eBZfbWf0gRcj0fCyqjPpDFn91TtCDDSeTtazH1f4Dmsk6YdWkitKOu4JpZea6JiF
+C4S6P5uCoE9BSYnUNqm5RHIu7ojz/hxeGXSGZKXp6mmPJ8O7gclp5JEnjp/nAM11
+Yhlu4H/WjUV82lMkmUnpi4EMJPxmOzmrRAAgyeoobjVLJlDUf2tNv9QaofHpUKN2
+rXzYtC6cKeVz7H/SL4/Nfv+oW5NQL0W0IBf46tZsthmiGLuOapywia8LrvRPkGx/
+jWBZ8dCAEV3KrF0IX7hyaePHzApqGIgS+WN3HIx9vldOJKtBgKw=
+=tUvE
 -----END PGP SIGNATURE-----
 
---wsfur32uvmve5xee--
+--is57tcmd2h5nvm6o--
 
