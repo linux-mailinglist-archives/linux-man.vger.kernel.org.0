@@ -1,55 +1,55 @@
-Return-Path: <linux-man+bounces-3720-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3721-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 223A2B34AA9
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 20:53:27 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA731B34AB2
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 20:57:41 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 375611B22955
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 18:53:47 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id DFEF04E38E7
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 18:57:30 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0504B27BF93;
-	Mon, 25 Aug 2025 18:53:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F303727E041;
+	Mon, 25 Aug 2025 18:57:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rEWvAWl0"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YC2qyWtH"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B924727AC3E
-	for <linux-man@vger.kernel.org>; Mon, 25 Aug 2025 18:53:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C62272E61
+	for <linux-man@vger.kernel.org>; Mon, 25 Aug 2025 18:57:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756148001; cv=none; b=Q+FEjHqHuK7B0KBnxwND11Q/CSxeUET3X9nCXN+U46jR4+GFB+bXUqNzPQ0LqhvuvWETbM5aQEt5NKhT1LZGWLc3rAsVGQEbSJ3XdGGu4DC53vH4nJKeR6vVfjyq12DcVHrfmnINCnAmF6Vm1CVCs9xAAODhdnKo6hNL+2Zesp4=
+	t=1756148247; cv=none; b=YFftsi65oO5qFSr+chIQEh7PvX8mutqzDdjmzGKwJG1R2VfIcVxv/HElohtvLuuFA+NVd3+PzGDXktrmat9i8y8x8gYHPZ9UYOiDvXfSkBMdZWNpg4dJrIBCxpUR03zgfkdtBepx88/e7s+mMArd23iwhI06LXkIoK/MaAYyrmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756148001; c=relaxed/simple;
-	bh=54upvO85ChRZrAUKko15rue+GwmGYIMGGd7Y8PvxHaQ=;
+	s=arc-20240116; t=1756148247; c=relaxed/simple;
+	bh=THPU+P5jsTYG1DOiM4kIbLvnHqQiVzJ8OxjmeBew+To=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vAchKImsW6qKdn306wIdyLscD/W2e6pe9rtXoBnK8zoa/LV6XMo+pAQ/MN17MMpWctv62kCp5BVCmX9yfzspyoYb8iDXJb/NhTQ8pCLREWo/ETrhpodpLdNgLzRv3OlJ16eF4IEBAE92G+DHBTtKTIdSjqPpfjkn7m8mMSH6GH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rEWvAWl0; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940B1C4CEED;
-	Mon, 25 Aug 2025 18:53:18 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=i+keh5HJWxaT+X4hkfFtjh8wDyEVV1UGAuHbsuDpQkabAH4SsHnR6cRw/VuiOvTijE0cbYi081jH9Iv43XjTsIU5aukRdGEn+mny0SwKRYIqyoz3nWY65h4oyDgAJ0G6GAMZGce1XXGdSYlLERyW39BbX5lSMPIMEy3nTnHnUvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YC2qyWtH; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3F1C4CEED;
+	Mon, 25 Aug 2025 18:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756148000;
-	bh=54upvO85ChRZrAUKko15rue+GwmGYIMGGd7Y8PvxHaQ=;
+	s=k20201202; t=1756148247;
+	bh=THPU+P5jsTYG1DOiM4kIbLvnHqQiVzJ8OxjmeBew+To=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rEWvAWl08Y80KZs+os4QJ3EscdLHQiq10tgahQ1wxlF5rH2pjNTnoJNmt0CTb6VYH
-	 c6cxXANO/4ZhTvt+0pegHyop59jwnp2uXCYXHt/jYlwgR/jMLgXV1DLUFaMSYMLRjl
-	 hEUilmN1jQarINa9LiFJ9vwSFApbxmKt8RJc05T2h1RFDulyhjcfVI0iYLeRhb0A8c
-	 s16cl+OnBzgJ+W5ptKFb+vN5B9H3k82tmZA2X6ph9m+LtuzhiWDDK79xAQ/22mZxx0
-	 lB35/ieI+GWeRxM7f1J5RzpbRAhQI/q1iYfw2KUq/wKCrr02/JaN2+WkctR3/7qzoE
-	 QSls+dG5DYqTw==
-Date: Mon, 25 Aug 2025 20:53:15 +0200
+	b=YC2qyWtHdo9oqw564PqVv6IuRjGwRSvND7hEtfLVwiXDPaIjITgxdfEfkL08Fv2ng
+	 KhLmcC0UO46zUVpUgFflJyGJS+0a5/B24Npk3DHghZG9JOABogXVSAcwOimaco1bct
+	 tCc5P7WzAUnqYKwYglFqnA8Z1DjXs1QBBrPu96l55QiAC0MJVUkKCSN1AqFKExyh5F
+	 avymE0Z0j3plj5ytspHE764cze7CNVWtMITNoLFBezY46Hd0TyMLVZFh5s1LOdiMcR
+	 aIm5rUCvPMcu9IkG6ZfffoGTn3RXe5YdGrSCMV1DGMmXdqGAUEyJuqkda7mnyDkmMH
+	 pnTFGNKWLDAgA==
+Date: Mon, 25 Aug 2025 20:57:22 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page pthread_attr_setschedpolicy.3
-Message-ID: <7pe2qwvkqpd6drn5ql3xld5s7auq7d36thdu6b3oowpf646ppc@mvteqf4f7245>
-References: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
- <5n2mlo4l7kqloztcuruagrkglh23gkqfqckuqf6pajerx6qkwh@b6qqipttn4xy>
- <aKyI4KbJh6LJC_8r@meinfjell.helgefjelltest.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, groff@gnu.org
+Subject: Re: Issue in man page pathname.7
+Message-ID: <67todkk4wpqgskfy3s75uy7cbtahfpcaxymdse7pjzrjk72r7w@25dwgnvj5imm>
+References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
+ <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
+ <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,106 +57,91 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="76prczeqpukb4ogp"
+	protocol="application/pgp-signature"; boundary="42znche4o7j2crup"
 Content-Disposition: inline
-In-Reply-To: <aKyI4KbJh6LJC_8r@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
 
 
---76prczeqpukb4ogp
+--42znche4o7j2crup
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page pthread_attr_setschedpolicy.3
-References: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
- <5n2mlo4l7kqloztcuruagrkglh23gkqfqckuqf6pajerx6qkwh@b6qqipttn4xy>
- <aKyI4KbJh6LJC_8r@meinfjell.helgefjelltest.de>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org, groff@gnu.org
+Subject: Re: Issue in man page pathname.7
+References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
+ <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
+ <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aKyI4KbJh6LJC_8r@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
 
 Hi Helge,
 
-On Mon, Aug 25, 2025 at 04:01:36PM +0000, Helge Kreutzmann wrote:
+On Mon, Aug 25, 2025 at 04:17:32PM +0000, Helge Kreutzmann wrote:
 > Hello Alejandro,
-> Am Sun, Aug 24, 2025 at 09:15:28PM +0200 schrieb Alejandro Colomar:
-> > On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
+> Am Sun, Aug 24, 2025 at 10:04:04PM +0200 schrieb Alejandro Colomar:
+> > On Sun, Aug 24, 2025 at 02:48:46PM +0000, Helge Kreutzmann wrote:
 > > > Without further ado, the following was found:
 > > >=20
-> > > Issue:    inherit-scheduler =E2=86=92 inherit scheduler
+> > > Issue:    The URL is invalid
+> > >=20
+> > > "For maximum interoperability, programs and users should also limit t=
+he "
+> > > "characters that they use for their own pathnames to characters in th=
+e POSIX "
+> > > "E<.UR https://pubs.opengroup.org/\\:onlinepubs/\\:9799919799/\\:base=
+defs/"
+> > > "\\:V1_chap03.html#tag_03_265> Portable Filename Character Set E<.UE =
+=2E>"
 > >=20
-> > I think this is correct.
+> > Hi Helge,
 > >=20
-> > I think it's this:
-> > <https://www.grammar-monster.com/lessons/hyphens_in_compound_adjectives=
-=2Ehtm>
+> > That URI has '\\:' in it, which is correct in roff(7) (and in man(7))
+> > source code.  That is removed by troff(1) when formatting the page.
+> > If you read the formatted page that's not there.
 >=20
-> Thanks for the pointer. I'm not a native speaker, but "scheduler" is
-> not a adjective, isn't it?
+> Yes, then no URL is there :))
 
-Yeah, it's not an adjective, but the rule is similar for this case even
-with a noun.  I'm not sure how they call it; maybe compound noun?  I
-don't know.  But since they modify attribute, and the go together, they
-have a hyphen to denote that they go together, I think.
+Hmmm, that depends on your terminal.  If there's no URL or hyperlink,
+this might be an issue in either the terminal or groff(1).
 
-Someone native please help with the exact rules, if anyone native is
-reading.  :)
+> > The effect of '\\:' is telling troff(1) that those are good points to
+> > break the line if needed.
+>=20
+> Thanks for the explanation. Checking the URL after removing the \\: is
+> a valid URL.
+>=20
+> I'll keep that in mind in the furture when checking URLs.
+>=20
+> Greetings
 
 
 Cheers,
 Alex
 
-> (In German, we would the hyphen between "schedule" and "attribute", so
-> I stumbled about the hyphen betewen the attribute and the noun).
->=20
-> > Cheers,
-> > Alex
-> >=20
-> > > "In order for the policy setting made by B<pthread_attr_setschedpolic=
-y>()  to "
-> > > "have effect when calling B<pthread_create>(3), the caller must use "
-> > > "B<pthread_attr_setinheritsched>(3)  to set the inherit-scheduler att=
-ribute "
-> > > "of the attributes object I<attr> to B<PTHREAD_EXPLICIT_SCHED>."
->=20
->=20
-> Greetings
->=20
->          Helge
->=20
->=20
-> --=20
->       Dr. Helge Kreutzmann                     debian@helgefjell.de
->            Dipl.-Phys.                   http://www.helgefjell.de/debian.=
-php
->         64bit GNU powered                     gpg signed mail preferred
->            Help keep free software "libre": http://www.ffii.de/
-
-
-
 --=20
 <https://www.alejandro-colomar.es/>
 
---76prczeqpukb4ogp
+--42znche4o7j2crup
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmissRsACgkQ64mZXMKQ
-wqma2g//XtAPQGUcHrt2MU2bz42EoN7345dNGO6IM8ZFeF6JYQcbh+i57FzikQDG
-luQeylUMkgHBy01CIaU5OY00CQ2oP8tGe8hQBxFbqn5EO5qvWgzE2SSfdsDtEl9o
-Y5IJQ/f5iF3m3YGnDkGit1bQBiMrSj7P5h9ZTIeE1jdM7sTU+fDNTR4hAGbTRQTD
-9Y9K8jn8Dak9noZJlPxfgcJoWq35ngB0BgbvrIsqGw+aInoQM7W7hnv2Iv8Jz7mB
-ncPumQtDomUfqDFxwT9fqbsn6u/ot01qm1jStCEBNO0W4XUj0iilzBViBGU008Ln
-cwvgs279xv8zH9FN7Yjg3ovSznYe07z3KPNy/vz3iPNCGhKLaPTTZVnvXmvUI4FG
-D9FVzsD6duY2k/EjFQTCsrqMYxgmlB/LQGvzLxIDYPQIoWHeAjw3RT+tRfOy5mg0
-5ZBiJ6qUOyIvx7qeueIbyOR7KrEu2mZq1xgL22aT3wzvQBoBVB+AY94sBXwhDrlW
-dhEy1ncg60yJUa+EDb8Kb5e/Vy3EfwsBl15nP1u3McW5ujwvJIFOrWqDLyNL+qOD
-D6gnLlgKIPFGXfKjNCpHRZiFzqwAKzRW3qk/Fi0VhxR8Wqfv1MxOCoi6AJ9B4Na9
-sKMtDR5JYH4FMQq+J713uiqdjxFtnq5Ei8kYNpeDe5sMmBeO2Ag=
-=7TUD
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmisshEACgkQ64mZXMKQ
+wqnQZBAAn8H0DdTNcLAzlewb4GeoXye/yDd69Hj+/eJjfYXzipCv/P6YnxOq9vKu
+F/PHAVDUTOCc6f3GZY2uvQLssgUTvEAd5j5APaPQS2IVOQznj+oRCla2z1vg7gc3
+M/bCcmQrRwpKqcWaDtrgMP4l7OIGF5yhrRXWip0neO0AiYHXQVdlnjo5pVrlQL9J
+m/KahyJ5BjncguRU5eBwl94h9EQ5MXwFmhGj5jr9LccxK8Oyjezdg/7qDeJ/mUB8
++bbYuQ50LnE1aFGNaI5dxzycrgbXTcFl3OJCFmyWmc5uGTGzyJthAemZuAh2ppEF
+F9+5dcJ7VKbvw5XGDR3y5fjAHMeCFNLjq+5XDXhMXAKXRtIGYSQjMJWGF5zLS2IK
+FCAW/pNfRIYIQNDVsTxFWnUNL6g85sFqNRO9FSKScpg+wruZ/rZH+9ozSM/LEjk1
+TlXqL/04kZc6vrPyAu2xg6kTI5eI9sfcskRum69eY4762aBgeRrxZ2xGi3F0822J
+K60fzvBkhISeRVb2EyYmrzZf1c5bVYAIOBTsA7k1O14iNwvHPfa8UE3P92zUEak+
+ItwID3DcEHUMc31/3szuJAKu1Jqw+iA+BOk7ezF0dxG9F095y2MhiOHxFTCXHT7P
+8/u+FxEw+P3MQpzyxUpfGxp/ZCBLcF3QF6kuoBSxch5lhhDVLLg=
+=G2+7
 -----END PGP SIGNATURE-----
 
---76prczeqpukb4ogp--
+--42znche4o7j2crup--
 
