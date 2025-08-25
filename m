@@ -1,139 +1,118 @@
-Return-Path: <linux-man+bounces-3710-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3711-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55AF6B34647
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 17:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6C99B3464F
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 17:52:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 56E8A3A1F11
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 15:49:53 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 86D533A48E2
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 15:52:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76C822FAC05;
-	Mon, 25 Aug 2025 15:49:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D0E32E7F0A;
+	Mon, 25 Aug 2025 15:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="M7zvo4UJ"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="JHQ6/BRl"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
+Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F8128507F;
-	Mon, 25 Aug 2025 15:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756136988; cv=pass; b=ds6nvzP64z9YFMjApeIwo53asKd1iwi2NF0zJVV9fEeGCm4dfHkteYwov6Pc+ocg6x6DqpbOYH66GCM2P6JHswnp1ZwuZ61AZWERpNwYm1Ld0QrRr8A8dChXGvcwNDLXfmaJRtbqgXf2kFEuD4GAOj8vu471ZQKinmymJhwuFqw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756136988; c=relaxed/simple;
-	bh=I+q1BthxYCk8fgELwI4xkFWQWOTltTq/SzZ3t96PRlc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ODSJBEcpec5lB6an5gCm5lo0CZrgXZ/UeikzGJJ0yR/gTe5kE9Iy1nmYUOSBp4K6qeuvOrpBy5OdoB5k5Y8Dy8P7GTJp7R7sLkWMOVt8aqtzJv2Dz96AQEKHFL7UMDJahTRg9jUlXpw224eIhAEbd5xSfZXRo74x2D6qee7QQ1M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=M7zvo4UJ; arc=pass smtp.client-ip=136.143.188.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
-ARC-Seal: i=1; a=rsa-sha256; t=1756136938; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Ie+n+ZdNIFMSL3ga44UVMraww8zW9ehGjuHX1jCTNShkG9ey13mrkR0kLhG2h3nzxpJg66SmEgeuvM1O5JTL/5Gm0xpcjAuKZmUwQo4KLjtBlSAe40Im84jKhGRn6KQhB1ScEtRmRhSsU5WrcsTbaLvyd/Ya5ER87P2htU1byGQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1756136938; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=UPV8+E4P3p9RhFaxu0y3FWNJCHVVwszDOOXCHLEHtos=; 
-	b=npcqi3Xd/kehHHW1QtIKstDfmSX7TyfxCEQuz0nMc882g8c+uv/KAKDlYGM+o/Xd6eZJn0rAW9gOCMANcN4f5sz2/5Ui8Ib3dDERMWY7UpUIZauyKA02of0CMBDlNJ7vkizmGWFO9Lobz3kpQX5A9qPjukCIgRHKapUgWmsb50k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
-	dmarc=pass header.from=<safinaskar@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1756136938;
-	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=UPV8+E4P3p9RhFaxu0y3FWNJCHVVwszDOOXCHLEHtos=;
-	b=M7zvo4UJB+0A1pMR3y4hiL+6FN+uwfzo+oDyillAhAmSQw85D71hJ0g+9roAVs3P
-	41MizvyNwRIfLkzwhyRKKAkOUsAyRI0n9e1hLiCTs/qCJbMIFh8zejeOIpgMDDeW4B6
-	qeCnGx3rs1O3Gt1+FRqoh20YIDSZ2q7fP8pjyh+I=
-Received: by mx.zohomail.com with SMTPS id 1756136932963249.35841563530198;
-	Mon, 25 Aug 2025 08:48:52 -0700 (PDT)
-From: Askar Safin <safinaskar@zohomail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D534E19066B
+	for <linux-man@vger.kernel.org>; Mon, 25 Aug 2025 15:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1756137121; cv=none; b=LtZq4kasDVFCQUTOs6Wj5FHayPplnuOqwOTVEqoHM7twBnJ1au/8IICT2JuDDQdZw8x9QFnxZZdtfecnGX+Sk7TRbItizkd+I7U5go6FzBLs6tD/S4cmNkZjhGV7GMGBFAttPeLyCo+hEJIwou2hUy2V8qvk2ptDHbPoYSgCkgU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1756137121; c=relaxed/simple;
+	bh=/WKKbLQoRLFl+DN01nua7sYgfi9o3vJcIAD9BxtAVU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3GWbZX1Geo74CWl0il84GQQqmUYjPNQzbu/k2V7Zn/ywpkjcCU4wf5QydrEiGUFzK/00CvKoK7adeZTqQnWAzz7Qu600gv/hI5/As0LFkEZDhLrejFfY7eHndLEQWGWS58WSXF8Uj7MEiU8nc87yViC8DoX+3d16J/1NTJm8RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=JHQ6/BRl; arc=none smtp.client-ip=142.132.201.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
+	s=selector.helgefjell; t=1756137112;
+	bh=q6AxosvI6Shnx0OmWTAbfIY6zvtrQvag3snI0KTzilA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JHQ6/BRlETrfFy/qeLqyotkC5D8jr6y6yRUf4aNWKhRza1JxKfd3K1yJVjYyGNHzN
+	 WAYitzwA9f4NsfBbWkQhbx03DNpaqQiubna5Q1ibItBP/0wDGL/MVQ2PBjHxayfBYy
+	 bejt0AUpomM7SNAw7LKslXDkmkGNs64pp0ZAVZsAJxUVKp2uil1+DFWD1yW8/uO8Iz
+	 Vr2a7A0f6WTkgBxqVZp8SU70nu/pcPxYW6yvYA44bYtWbKeYSl28DO4U46GbOZcHsa
+	 dUxiNY5dr+BB08GXTaYknLrkvp9Xj270Vv5vM3ET1iaVj61iIE2K42SEXpljB8Wrt4
+	 ucl/jNurF3nCQ==
+Original-Subject: Re: Issue in man page resolver.3
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 00000000000200E3.0000000068AC8698.0031D34E; Mon, 25 Aug 2025 15:51:52 +0000
+Date: Mon, 25 Aug 2025 15:51:52 +0000
+From: Helge Kreutzmann <debian@helgefjell.de>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: Aleksa Sarai <cyphar@cyphar.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-api@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	David Howells <dhowells@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-man@vger.kernel.org
-Subject: [PATCH v2 1/1] man2/mount.2: expand and clarify docs for MS_REMOUNT | MS_BIND
-Date: Mon, 25 Aug 2025 15:48:39 +0000
-Message-ID: <20250825154839.2422856-2-safinaskar@zohomail.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250825154839.2422856-1-safinaskar@zohomail.com>
-References: <20250825154839.2422856-1-safinaskar@zohomail.com>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page resolver.3
+Message-ID: <aKyGmOPnZmlZhcgh@meinfjell.helgefjelltest.de>
+References: <aKsmQBB8CZKAhQvH@meinfjell.helgefjelltest.de>
+ <x25fz5cv4jolv37nec5btlbyu7d2ciulxwnb5bipgpzgorehrs@qflc77gpwpne>
+ <aKs8ipbVrLo_fFC-@meinfjell.helgefjelltest.de>
+ <qiswqsy2zq4yxmkblwuw3zxj2ev3utg525bfhst2sthvpecvyb@enfc6paekaj6>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: rr08011227f0fd73cea18eb987789a3de5000052122010156806263eed801299d1ae0e3666c20e45588fe1f4:zu08011227463164dd7fe0a38ceb3917aa000098b4a2dfa54ac34c32b486ad829c8765f4758c9338424edbb2:rf0801122c622da22d229d1c9d3e7f0dfd000062624541cd281dc38de84889689d84d58ca110541451fb174fc3c3c41102:ZohoMail
-X-ZohoMailClient: External
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-3265358-1756137112-0001-2"
+Content-Disposition: inline
+In-Reply-To: <qiswqsy2zq4yxmkblwuw3zxj2ev3utg525bfhst2sthvpecvyb@enfc6paekaj6>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
 
-My edit is based on experiments and reading Linux code
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-Signed-off-by: Askar Safin <safinaskar@zohomail.com>
----
- man/man2/mount.2 | 32 +++++++++++++++++++++++++++++---
- 1 file changed, 29 insertions(+), 3 deletions(-)
+--=_meinfjell-3265358-1756137112-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man/man2/mount.2 b/man/man2/mount.2
-index 5d83231f9..47fc2d21f 100644
---- a/man/man2/mount.2
-+++ b/man/man2/mount.2
-@@ -405,7 +405,30 @@ flag can be used with
- to modify only the per-mount-point flags.
- .\" See https://lwn.net/Articles/281157/
- This is particularly useful for setting or clearing the "read-only"
--flag on a mount without changing the underlying filesystem.
-+flag on a mount without changing the underlying filesystem parameters.
-+The
-+.I data
-+argument is ignored if
-+.B MS_REMOUNT
-+and
-+.B MS_BIND
-+are specified.
-+Note that the mountpoint will
-+have its existing per-mount-point flags
-+cleared and replaced with those in
-+.I mountflags
-+when
-+.B MS_REMOUNT
-+and
-+.B MS_BIND
-+are specified.
-+This means that if
-+you wish to preserve
-+any existing per-mount-point flags,
-+you need to include them in
-+.IR mountflags ,
-+along with the per-mount-point flags you wish to set
-+(or with the flags you wish to clear missing).
- Specifying
- .I mountflags
- as:
-@@ -416,8 +439,11 @@ MS_REMOUNT | MS_BIND | MS_RDONLY
- .EE
- .in
- .P
--will make access through this mountpoint read-only, without affecting
--other mounts.
-+will make access through this mountpoint read-only
-+(clearing all other per-mount-point flags),
-+without affecting
-+other mounts
-+of this filesystem.
- .\"
- .SS Creating a bind mount
- If
--- 
-2.47.2
+Hello Alejandro,
+thanks for the verbose explanation.
 
+On (hoepfully) finale question:
+This new formatting is not (yet?) reflected in man-pages(7)?a
+
+Greetings
+
+         Helge
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_meinfjell-3265358-1756137112-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmishpUACgkQQbqlJmgq
+5nCuKA/+Np/U7UhGiuyI0H0A4iEqL3dZwhyqV2+Q22Lq7mddl6/rS+1LIRPHwdO1
+4GhNQ/1tvGBLZUvv2vfIgkspRQXpWw0XXkSbLsdhm3xJUoNxuDYap3GPt6lvjy3+
+P5b5o1JgnX6lHtHc6ifVNMq0pM47km663NTJl2zTFLZA20JKaL+TBzLAJFXm0NRB
+SvPGdrShbV+XPWxpGRwu6FhRzQjzGAif4l+sIfSCqCZ7UJ7ptn1rYt1fziRPV6A7
+VKJ3fQFftXNBvuWS3jYm2zVFjrAEf68Rg5NSfTaJaakunK547f4CsnilrnEd09g7
+Q8EI7CdI+2TZIIR343mi40ObXonoqMW/+9U1xVUKf3LLFTY4mzf6dVB7geBf62cU
+t2wXjrAx+saGwOfTuBuymBS4T2nbDazxUUGOZQQNZItWRnFWuMO+hDpdnihJZv7c
+Vg/cLnx0jNvol8FDrdd6jnjr/vgjThPE12aFBFyj552MgH4OJzOwx53VE3NquQ/X
+9Y92wDPcYw2Um1aITACgTPd+BglVMl7MTssHAShTrE4ri7oTjmPvq3Z5RdlcRaSL
+k8YLN2mFap9TmG7Am8kxGhyzU3V0QqnB/AfL1g3ZAMMBoApD2X4PSlR9kydIBlug
+vwDVeT78Dnxu1+KIUXxrWj2ujbTM5rEPcGqKOfKZjR7u/BzxEDA=
+=qS2j
+-----END PGP SIGNATURE-----
+
+--=_meinfjell-3265358-1756137112-0001-2--
 
