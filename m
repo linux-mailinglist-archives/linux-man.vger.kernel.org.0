@@ -1,141 +1,110 @@
-Return-Path: <linux-man+bounces-3716-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3717-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6D25B34700
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 18:19:24 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58428B3472F
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 18:23:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 072452A54FA
-	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 16:18:41 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 1506F163E3B
+	for <lists+linux-man@lfdr.de>; Mon, 25 Aug 2025 16:23:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A2452ECE8A;
-	Mon, 25 Aug 2025 16:17:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEBE93009C1;
+	Mon, 25 Aug 2025 16:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="nvbR+Zdi"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="Z2mbH88b"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6C82FFDDA
-	for <linux-man@vger.kernel.org>; Mon, 25 Aug 2025 16:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756138657; cv=none; b=ZsNZ/gjzfb7ilVBCviSjgqBFGm2RPXseoPh+nldaz5hl5ixLTlxMMW9yDdoehDDlhsFEt4lsKM+GRsEnm2rj7DgCO/JUg5JqpQH79nfkYuq5nZnjt3FjI0WbWpUVUjqbcmIL7IlI1jCeLsfgYCcUYS/PYO0nrab546NJ0tSjfdw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756138657; c=relaxed/simple;
-	bh=xiler38aJwkhB9YK2apat/iZKIEIFQ04wbqC5Pe/iR0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S1a9HRFpJLtknaa2gJOESHZlwAH+vVGmrJBpewJwffzEeUeei7gv2FCFcuOYa6ZXIIS11DL5vdJ4GXvlnvJKFSsbc1TUbcugo1qgycalTxpB6FtJlvB19LL8N7Y9/nXtXLlZyolvxNfsFUIOOkwMNUr2vlq8t8i8PuCEEr3N8Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=nvbR+Zdi; arc=none smtp.client-ip=142.132.201.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1756138652;
-	bh=Hi26+DYQkyI4mgmR+hIqi4uP5UaGjFYC7imm3Kjd3Hs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nvbR+Zdi6Cl1fjLvgZypuZKrTAdD0BqFVEPE61Ggtt9yYZCbCio/L9v1WhoxI2VM9
-	 S+XRyfuh2O9AFstYoAWj9AuUiim8OcoLGWkoA9p13VQjJtul5jmB0FAKFmDcXyyunO
-	 O6JWmIEh1Fxzg6f1ti6fg/l1CjNiNnCBsos7tnSKn9EJ9FIoUga2jw54MIdHs3TPRw
-	 kzVdHXFDihsGF5HcgGBuXHJ6fdeY+jCxgDri1KIHxPGApx6jABuhQlEsVQu5Eis/ur
-	 2CmIP43Vl5bQKF5IGKe9CiXyPQekHcnKShcKJCGIokyy7sQtxVWVhVuL/kSRnng6U4
-	 xcoqN3v3FAomw==
-Original-Subject: Re: Issue in man page pathname.7
-Author: Helge Kreutzmann <debian@helgefjell.de>
-Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 0000000000020051.0000000068AC8C9C.0031DA5E; Mon, 25 Aug 2025 16:17:32 +0000
-Date: Mon, 25 Aug 2025 16:17:32 +0000
-From: Helge Kreutzmann <debian@helgefjell.de>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page pathname.7
-Message-ID: <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
-References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
- <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8D22FF643;
+	Mon, 25 Aug 2025 16:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1756139003; cv=pass; b=fg3FraZ3yd8utCAAbOysweTRAkFfQ0LDSAGwRwNW+mV3P6HS4Wlo5fKUn55R2vQTJd+O3W6RNYCwkYhEMs3NGRDFqre3rModsK2MdJ7DLXiHm/uncaxQvgmzJ6pE67ManPJnlWeWhkZxSRswn4CK4vQdxbBKMFmYBeZ+kmTsxW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1756139003; c=relaxed/simple;
+	bh=Ot3Cby7vnWjdS324TAkSDK/FRhMj+hur58Pfr1nvpBE=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=lBuxErxIQhxPsGpy4NUphUxvV59CVbFLTHxhEHkuem09dR3bjfvLrDSnQoAhakGsEaLX1XS1e3fawWyyWZ9hckG5o/RBY4MNfR4R5l4Cvzc0JUbhSv3ItzCpiLpoHuqpWtwwQkJAVYX1seHbjs+VwL5GFGWXpeG2it5v3eSmeD4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=Z2mbH88b; arc=pass smtp.client-ip=136.143.188.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1756138977; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SQtasbswibAJ4WMRqmVEvIJqktnSAoEOL3OpdtSqDA8RGWKfUTEv69NnZ9/WqdCXa9I309MbEdRHunNNvUbWJPLcpczE6g4gQ3k8Rx9MNgliDubxkPbv0e+LLPaYRNGx1Ts8L5ZKCCdA29l0KzHVvujMcdCOrS37Wxa0cj3zdio=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1756138977; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=KM1jORzEtfwKNV4NwQFUqoNRg3Nu+/yOFx85Kkh0vk4=; 
+	b=XrH3esGSyj1Pxkh0V/mLHVfQAPQXJI3OytHNDYG2z1pFPKZ4MvZ1gzCwM9tu3g0qej1YU4LOhaDrjMexjAbT8Eq4wMWjc/l9epaHjwzK4uTtAL2H95CnuV56yuWKCWw2c9gF3QRzcuQUYgC98bmnnsbSQkdQgR1Pw1DfHukAYQk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1756138977;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=KM1jORzEtfwKNV4NwQFUqoNRg3Nu+/yOFx85Kkh0vk4=;
+	b=Z2mbH88bKtxQtN5eXIOoUIoHDQURn9y+gPLlnDT1q9ojFTe5U2Rdp3tIfFHG8s9+
+	eE4YYve7JUxFcN7fS9OTS+ECy/RONyIdolp2dSVlnWGQqXrh8Ezab9JaBbD2KVhuap6
+	fNZ6BDa2KWdpPyEBnD6JUkaJQawOLP5zmN04KoVY=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1756138975381478.39810192964376; Mon, 25 Aug 2025 09:22:55 -0700 (PDT)
+Received: from  [212.73.77.104] by mail.zoho.com
+	with HTTP;Mon, 25 Aug 2025 09:22:55 -0700 (PDT)
+Date: Mon, 25 Aug 2025 20:22:55 +0400
+From: Askar Safin <safinaskar@zohomail.com>
+To: "Aleksa Sarai" <cyphar@cyphar.com>
+Cc: "Alejandro Colomar" <alx@kernel.org>,
+	"Michael T. Kerrisk" <mtk.manpages@gmail.com>,
+	"Alexander Viro" <viro@zeniv.linux.org.uk>,
+	"Jan Kara" <jack@suse.cz>,
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>,
+	"linux-man" <linux-man@vger.kernel.org>,
+	"linux-api" <linux-api@vger.kernel.org>,
+	"linux-fsdevel" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"David Howells" <dhowells@redhat.com>,
+	"Christian Brauner" <brauner@kernel.org>
+Message-ID: <198e20a3088.ef79515d27409.5672203109742133398@zohomail.com>
+In-Reply-To: <2025-08-22.1755869779-quirky-demur-grunts-mace-Hoxz0h@cyphar.com>
+References: <20250809-new-mount-api-v3-0-f61405c80f34@cyphar.com>
+ <20250809-new-mount-api-v3-5-f61405c80f34@cyphar.com>
+ <198d1f2e189.11dbac16b2998.3847935512688537521@zohomail.com> <2025-08-22.1755869779-quirky-demur-grunts-mace-Hoxz0h@cyphar.com>
+Subject: Re: [PATCH v3 05/12] man/man2/fspick.2: document "new" mount API
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-3267166-1756138652-0001-2"
-Content-Disposition: inline
-In-Reply-To: <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
-
---=_meinfjell-3267166-1756138652-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello Alejandro,
-Am Sun, Aug 24, 2025 at 10:04:04PM +0200 schrieb Alejandro Colomar:
-> On Sun, Aug 24, 2025 at 02:48:46PM +0000, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    The URL is invalid
-> >=20
-> > "For maximum interoperability, programs and users should also limit the=
- "
-> > "characters that they use for their own pathnames to characters in the =
-POSIX "
-> > "E<.UR https://pubs.opengroup.org/\\:onlinepubs/\\:9799919799/\\:basede=
-fs/"
-> > "\\:V1_chap03.html#tag_03_265> Portable Filename Character Set E<.UE .>"
->=20
-> Hi Helge,
->=20
-> That URI has '\\:' in it, which is correct in roff(7) (and in man(7))
-> source code.  That is removed by troff(1) when formatting the page.
-> If you read the formatted page that's not there.
-
-Yes, then no URL is there :))
-
-> The effect of '\\:' is telling troff(1) that those are good points to
-> break the line if needed.
-
-Thanks for the explanation. Checking the URL after removing the \\: is
-a valid URL.
-
-I'll keep that in mind in the furture when checking URLs.
-
-Greetings
-
-            Helge
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_meinfjell-3267166-1756138652-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
+Feedback-ID: rr08011227d6e3807cdfc5cfa01b04b0b00000cc4a99c65cf763561414276e55d6c27b40f61f457bd2718012:zu08011227d5b102457715986c01d227670000a0501beb61a5fc231420d02b2f604cf344dc5aabca20522440:rf0801122ce5c664ea73491759ac9acb390000b7dc1f0dc6587399277118a6be2d8a2118936d7af68d3ae4aa4ddff9747e:ZohoMail
 
------BEGIN PGP SIGNATURE-----
+ ---- On Fri, 22 Aug 2025 17:40:18 +0400  Aleksa Sarai <cyphar@cyphar.com> wrote --- 
+ > On 2025-08-22, Askar Safin <safinaskar@zohomail.com> wrote:
+ > >  ---- On Sat, 09 Aug 2025 00:39:49 +0400  Aleksa Sarai <cyphar@cyphar.com> wrote --- 
+ > >  > +The above procedure is functionally equivalent to
+ > >  > +the following mount operation using
+ > >  > +.BR mount (2):
+ > > 
+ > > This is not true.
+ > > 
+ > > fspick adds options to superblock. It doesn't remove existing ones.
+ > 
+ > fspick "copies the existing parameters" would be more accurate. I can
+ > reword this, but it's an example and I don't think it makes sense to add
+ > a large amount of clarifying text for each example.
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmisjJwACgkQQbqlJmgq
-5nAqMw//eJBTbhUUGFriJDif2HeBvEYpvCgR/JxvjOFHjWDjQlk0hj+Y2u2CBuRH
-fC7QOc9XJOLzhTvU+XtriS61EZzDBq/GRdwBXbwaZoU/3R8bEjUBPtuDVGVh+q8J
-2CkoRN09+QHXIDULTKYpyLFbA5Fu4KBjvHDjN8tVtvAToHNiNfKzlUPP11iFbu7S
-gWWXb9Fz8AiSBKHY3vYo/3uCRZ/7nqexIRDZcYbUpc6MKSc1epOpwjF5qtU4NkqM
-MApn6uVueSg/wLbXTpxVo+Osb//k2z77CUmx/WmMs60TmhfFu1IMMIap4FwrK0o+
-EHZFl050LW/BTAYGSr/UOzNasQkgDnMdZ0Yyp1vss7uDtiIY457WVHGEvycMSXtx
-JcIOQKiIb+aZj8PW/KibCfnK7zuDCF1c+i8gWJNBEzYRrahob5HHhhEJti05OXXg
-W036uFQfe+4oZ6Z6lN5x+xH2qe40b/ztWWHAMrNRj8WVEytmu7hAhoLof8qqOnuk
-mIcxGYAmGkZTh8IMgxCErog6TDLNc42VJGPmaB0uRMnARPPUquJUfYzGDb8PdjRW
-vSirmhC1Y+QoSc8mgGOWBkEqH9aYLMK7JjuE0S35HIkfIVGc1vcSYUHfRUWx2FrU
-el3JAh9jsxq0KFHQHiQLIhDQY0Wb64D2NeHCrtIxf5X9XzOHquc=
-=w6iR
------END PGP SIGNATURE-----
+I suggest adding "but mount(2) clears existing parameters here, and fspick/fsconfig doesn't".
 
---=_meinfjell-3267166-1756138652-0001-2--
+--
+Askar Safin
+https://types.pl/@safinaskar
+
 
