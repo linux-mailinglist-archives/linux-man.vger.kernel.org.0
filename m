@@ -1,200 +1,301 @@
-Return-Path: <linux-man+bounces-3732-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3733-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B9FBB352F6
-	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 07:06:01 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A940BB356F6
+	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 10:33:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id F028E240F59
-	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 05:06:00 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 41A5F176358
+	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 08:33:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D242877F0;
-	Tue, 26 Aug 2025 05:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8FD822FC881;
+	Tue, 26 Aug 2025 08:33:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jnlVJA1Q"
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b="XUq9tLH/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com [136.143.188.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AF3235354
-	for <linux-man@vger.kernel.org>; Tue, 26 Aug 2025 05:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756184756; cv=none; b=sCRgacXzSp/38XX8+tqHrSZJewKp783kWxSgkLVCh8cMjAjK7nB/TKVEGpHrqDANDJr5BCemIwZ5yzWkAQxt5xZCpUskN2ZyVc8Dl+SHM3voJ2/36+5y4SJz3LOeHYKxXRmPufO3axCYkwl4xV46b/SyY8fYfXGavBK2WDt8pq4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756184756; c=relaxed/simple;
-	bh=tev6/7xXWZCoHQJYIBLUiVXbLMCCvij7Q5DHTmMaVBY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rxvq+FKG3zwX6n/azKRPxUjj4TqOjV8hbJhO3PM8IJP4CIR8de+/EZ2CPo0+uE3B6zyJMcFTSdAnZxMy6tTgdqMj0qIsSosbqKfQVAjuA3Nc4QitTHcDNmgf8fjsCmxhJ2T0y7K0UpoO4I75tgZBHoAJgts+I7tKO7eGtKOsquM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jnlVJA1Q; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91552C4CEF1;
-	Tue, 26 Aug 2025 05:05:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756184755;
-	bh=tev6/7xXWZCoHQJYIBLUiVXbLMCCvij7Q5DHTmMaVBY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jnlVJA1QYo+hExU2lOqnWYdFyC22udS/N9VJM9HZExL5AVMswgUvV9nIQD93twY1J
-	 hke8FUjL3b1IYl/YkxaNY6F9O3n7aTwdTIzLN/oEbwD3t+PXVlwPpzIW+KHWiWR9AD
-	 eatQJvRa1SEbHhB21MzANCfVbhKEr2CQ52z+6zaKAfHxnvO/RnQO1A1ElFS5r9Vo6Z
-	 aX471j/366nw5Fd2lvFSKHuWC0wCh74RlrBXv4wjbyLdMHVFEdg1Tcn8c7bdnBoWe0
-	 SzU2bTKoDGs+355hiS7nXk2ZtRDpeMKoBiVBy1GP9e8L8aX+2LiQ9N6/gwJsa8mrJr
-	 gRgiQzWYvxOIg==
-Date: Tue, 26 Aug 2025 07:05:49 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, groff@gnu.org, 
-	Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, Colin Watson <cjwatson@debian.org>
-Subject: Re: URL visibility on terminal devices (was: Issue in man page
- pathname.7)
-Message-ID: <tal23nvlrjz4thsc4u2godehn25x6x4uiucky735te5ojsgygj@gga4etjwpo7n>
-References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
- <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
- <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
- <67todkk4wpqgskfy3s75uy7cbtahfpcaxymdse7pjzrjk72r7w@25dwgnvj5imm>
- <aKy3oVSyXS8_Xj5l@meinfjell.helgefjelltest.de>
- <3vzgdnoegfdc7lflbincypzzjl3hitatj3oan5maejqng75kb3@e3enbnrxo4lx>
- <20250825230420.2dl2kkchtmkwjge7@illithid>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA582FABE9;
+	Tue, 26 Aug 2025 08:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1756197193; cv=pass; b=SptHhz/Ub2TXV2CiGMP4NYeXVNvQlkpe+MOFiysKcJ3RmyQLjoAD+D5e+5DAdGKzdYmkiNkE6bay/kVygP1txrboCCq4xqaj8y6enpVmjxr+Cihz/W89RhbJqWxEslmIUPwFBiSzL6zJaqsudwyBYPIplY8ozCnTwTQcBa1MEKQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1756197193; c=relaxed/simple;
+	bh=xDqTWkD413bsRteH6S6sDnUAuRAiBlPVWoHebAitgDQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EodqI8WCOm0GCYiJRs+SxmqELQkb50JOJCIvv6dafjowE044vDpdLH3ZzIPI0EVmQjb++KpWdy5Lum6alH2FWgAuPcHCX2jwve9Hasm2hkq/DxPsioZyWEakk+zlCKGgxx6sQsaz9IAByP5/x65M7TTNJJXoS1kFrqIj7GevRo8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=safinaskar@zohomail.com header.b=XUq9tLH/; arc=pass smtp.client-ip=136.143.188.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1756197160; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Dv1/dujZm9aXLZKXHTyF3A6i1zCSA4AGn3qPMr5XnmJgIuR7jjN3FQFbKSYUkh2I6oLMePwB+tlvyY3ULxAdtwzX0cH/446axTRT3NSfbs0Z17onyXY3uHlALfqyywfHFFvUKlLKFz4jRNrNjmuRZhlVcP82KYr0oZqv15HCs2g=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1756197160; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Cp2VyThOqzXrBZbk4XNMEHOH+F+J4N/dsv21eSWdPtY=; 
+	b=kgxPO6nSJJeweQnEd8VE3W4UnZBXp7aa3K2XCAkMtm74ea/NuKYAXYqqS1GVZSGAynpXu1rQL6aadqwWEOf6K4ORpzs4+LFrSZRNEihOQ/bixKCQIo3eTwuZdPDxx1rJJWyySoo7sjVbldpz8jQwciY9/tsc0M8SjlrDITxpTcw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=safinaskar@zohomail.com;
+	dmarc=pass header.from=<safinaskar@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1756197160;
+	s=zm2022; d=zohomail.com; i=safinaskar@zohomail.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=Cp2VyThOqzXrBZbk4XNMEHOH+F+J4N/dsv21eSWdPtY=;
+	b=XUq9tLH/Gg3l4RbpSkBsuqp4j98bB5ndIG+fch8FEEQhxfWNu8QE93a+57f9oLER
+	JGza/VUQDlofbyzq5tgoYBl1swCDzk5toogP4tz1g0v/dq05JsQpy1xxrJP4cjavXMn
+	NoteOCaA/jiwOQ/7D22K6FlBDfBNoKquSnTtwxDQ=
+Received: by mx.zohomail.com with SMTPS id 1756197155875692.5001218667893;
+	Tue, 26 Aug 2025 01:32:35 -0700 (PDT)
+From: Askar Safin <safinaskar@zohomail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Aleksa Sarai <cyphar@cyphar.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-api@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	David Howells <dhowells@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-man@vger.kernel.org
+Subject: [PATCH v3 0/2] man2/mount.2: expand and clarify docs for MS_REMOUNT | MS_BIND
+Date: Tue, 26 Aug 2025 08:32:25 +0000
+Message-ID: <20250826083227.2611457-1-safinaskar@zohomail.com>
+X-Mailer: git-send-email 2.47.2
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vjdhzis7bhmfyi62"
-Content-Disposition: inline
-In-Reply-To: <20250825230420.2dl2kkchtmkwjge7@illithid>
+Content-Transfer-Encoding: 8bit
+Feedback-ID: rr080112275c7d1f0b67a7d372d8806cca000069fde9dc0235f465eb92954be00398cf4d3a55a784b9e87ad3:zu08011227e44a2f998f1f21c3a23229680000dc9b5be7336c48d656ae2f3aa334d6d5316442fd5bbdf03711:rf0801122c616f448e6235b285e1f2548b00008e7fff8ba25234b7db81b7c9539d9c5ec682dcd78dbf264f29a8aea64106:ZohoMail
+X-ZohoMailClient: External
 
+My edit is based on experiments and reading Linux code
 
---vjdhzis7bhmfyi62
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, groff@gnu.org, 
-	Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, Colin Watson <cjwatson@debian.org>
-Subject: Re: URL visibility on terminal devices (was: Issue in man page
- pathname.7)
-References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
- <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
- <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
- <67todkk4wpqgskfy3s75uy7cbtahfpcaxymdse7pjzrjk72r7w@25dwgnvj5imm>
- <aKy3oVSyXS8_Xj5l@meinfjell.helgefjelltest.de>
- <3vzgdnoegfdc7lflbincypzzjl3hitatj3oan5maejqng75kb3@e3enbnrxo4lx>
- <20250825230420.2dl2kkchtmkwjge7@illithid>
-MIME-Version: 1.0
-In-Reply-To: <20250825230420.2dl2kkchtmkwjge7@illithid>
+You will find C code I used for experiments below
 
-[CC +=3D Colin]
+v1: https://lore.kernel.org/linux-man/20250822114315.1571537-1-safinaskar@zohomail.com/
+v2: https://lore.kernel.org/linux-man/20250825154839.2422856-1-safinaskar@zohomail.com/
 
-Hi Branden,
+Askar Safin (2):
+  man2/mount.2: expand and clarify docs for MS_REMOUNT | MS_BIND
+  man2/mount.2: tfix (mountpoint => mount point)
 
-On Mon, Aug 25, 2025 at 06:04:20PM -0500, G. Branden Robinson wrote:
-> Hi Alex & Helge,
->=20
-> tl;dr: Learn and use the "-rU0" option when your terminal device doesn't
-> support OSC 8 hyperlinks.
->=20
-> groff_man(7):
->      -rU0     Disable generation of URI hyperlinks in output drivers
->               capable of them, making the arguments to MT and UR calls
->               visible as formatted text.  grohtml(1), gropdf(1), and
->               grotty(1) enable hyperlinks by default (the last only if
->               not in its legacy output mode).
->=20
-> If you _never_ use a terminal device that supports hyperlinking...
->=20
-> groff_man(7):
->      /.../share/groff/site-tmac/man.local
->             Put site=E2=80=90local changes and customizations into this f=
-ile.
->=20
-> Thus, Helge might add
->=20
-> .if n .nr U 0 \" Format URLs on terminal devices.
->=20
-> to his system's "man.local" file.
+ man/man2/mount.2 | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-[...]
+-- 
+2.47.2
 
-> > I can confirm.  Branden, is this a bug?  I think the Linux console
-> > should print the URI as in the old days.
->=20
-> I can't reproduce that behavior with groff 1.23.0 but I can with Git.
->=20
-> And that's due to a deliberate change.
->=20
-> NEWS[1]:
-> *  Hyperlink support is now enabled by default on PDF and terminal
->    devices for an (man) and doc (mdoc) documents.  Instructions and
->    commented code for disabling it are in the "man.local" and
->    "mdoc.local" files.
->=20
-> For the moment, groff's hands are kind of tied.  To get this feature to
-> Just Work(TM) with no user involvement requires three things to happen.
->=20
-> 1.  grotty(1) needs to become a terminfo application.  Lennart Jablonka
+// You need to be root in initial user namespace
 
-[...]
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sched.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/mount.h>
+#include <sys/syscall.h>
+#include <sys/sysmacros.h>
+#include <linux/openat2.h>
 
->=20
-> 2.  Once we have a tricked-out, terminfo-aware grotty, we meet another
->     problem:
->=20
->     There is no terminfo capability advertising OSC 8 hyperlink support.
+#define MY_ASSERT(cond) do { \
+    if (!(cond)) { \
+        fprintf (stderr, "%d: %s: assertion failed\n", __LINE__, #cond); \
+        exit (1); \
+    } \
+} while (0)
 
-[...]
+int
+main (void)
+{
+    // Init
+    {
+        MY_ASSERT (chdir ("/") == 0);
+        MY_ASSERT (unshare (CLONE_NEWNS) == 0);
+        MY_ASSERT (mount (NULL, "/", NULL, MS_PRIVATE | MS_REC, NULL) == 0);
+        MY_ASSERT (mount (NULL, "/tmp", "tmpfs", 0, NULL) == 0);
+    }
 
-> 3.  Even once we have a grotty(1) that knows whether the terminal device
->     can render hyperlinks or not, we have yet another problem:
+    MY_ASSERT (mkdir ("/tmp/a", 0777) == 0);
+    MY_ASSERT (mkdir ("/tmp/b", 0777) == 0);
 
-[...]
+    // MS_REMOUNT sets options for superblock
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount ("/tmp/a", "/tmp/b", NULL, MS_BIND, NULL) == 0);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_RDONLY, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mkdir ("/tmp/b/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+        MY_ASSERT (umount ("/tmp/b") == 0);
+    }
 
->     Thus, the formatted content of a document can depend on
->     properties of the output device in a new way, one more, uh,
->     "exciting" than the ~1972 binary choice of "is this an nroff device
->     [~terminal/typewriter]?" or "is this a troff device [typesetter]?",
->     or the ~1980 parameter "what is the name of the output device?"
->     (such as [Kernighan troff] "post", "l202", or [groff] "ps", "pdf",
->     "utf8").
+    // MS_REMOUNT | MS_BIND sets options for vfsmount
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount ("/tmp/a", "/tmp/b", NULL, MS_BIND, NULL) == 0);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_BIND | MS_RDONLY, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mkdir ("/tmp/b/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/b/c") == 0);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+        MY_ASSERT (umount ("/tmp/b") == 0);
+    }
 
+    // fspick sets options for superblock
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount ("/tmp/a", "/tmp/b", NULL, MS_BIND, NULL) == 0);
+        {
+            int fsfd = fspick (AT_FDCWD, "/tmp/a", 0);
+            MY_ASSERT (fsfd >= 0);
+            MY_ASSERT (fsconfig (fsfd, FSCONFIG_SET_FLAG, "ro", NULL, 0) == 0);
+            MY_ASSERT (fsconfig (fsfd, FSCONFIG_CMD_RECONFIGURE, NULL, NULL, 0) == 0);
+            MY_ASSERT (close (fsfd) == 0);
+        }
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mkdir ("/tmp/b/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+        MY_ASSERT (umount ("/tmp/b") == 0);
+    }
 
-Hmmmm, that sounds not good at all.  How about moving this to man(1)?
-That is, man(1) knows whether it is being piped or not, and thus can
-tell groff(1) to do OSC8 or not.  And even for the case of the terminal,
-it is in a better position to pass the information to groff(1); we'd
-still need points 1 (modified for man(1)) and 2, but not 3, which is
-very ugly.
+    // mount_setattr sets options for vfsmount
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount ("/tmp/a", "/tmp/b", NULL, MS_BIND, NULL) == 0);
+        {
+            struct mount_attr attr;
+            memset (&attr, 0, sizeof attr);
+            attr.attr_set = MOUNT_ATTR_RDONLY;
+            MY_ASSERT (mount_setattr (AT_FDCWD, "/tmp/a", 0, &attr, sizeof attr) == 0);
+        }
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mkdir ("/tmp/b/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/b/c") == 0);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+        MY_ASSERT (umount ("/tmp/b") == 0);
+    }
 
+    // "ro" as a string works for MS_REMOUNT
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount ("/tmp/a", "/tmp/b", NULL, MS_BIND, NULL) == 0);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT, "ro") == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mkdir ("/tmp/b/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+        MY_ASSERT (umount ("/tmp/b") == 0);
+    }
 
-Have a lovely day!
-Alex
+    // "ro" as a string doesn't work for MS_REMOUNT | MS_BIND
+    // Option string is ignored
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount ("/tmp/a", "/tmp/b", NULL, MS_BIND, NULL) == 0);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_BIND, "ro") == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/a/c") == 0);
+        MY_ASSERT (mkdir ("/tmp/b/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/b/c") == 0);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+        MY_ASSERT (umount ("/tmp/b") == 0);
+    }
 
---=20
-<https://www.alejandro-colomar.es/>
+    // Removing MS_RDONLY makes mount writable again (in case of MS_REMOUNT | MS_BIND)
+    // Same for other options (not tested, but I did read code)
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_BIND | MS_RDONLY, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_BIND, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+    }
 
---vjdhzis7bhmfyi62
-Content-Type: application/pgp-signature; name="signature.asc"
+    // Removing "ro" from option string makes mount writable again (in case of MS_REMOUNT)
+    // I. e. mount(2) works exactly as documented
+    // This works even if option string is NULL, i. e. NULL works as default option string
+    {
+        typedef const char *c_string;
+        c_string opts[3] = {NULL, "", "rw"};
+        for (int i = 0; i != 3; ++i)
+            {
+                for (int j = 0; j != 3; ++j)
+                    {
+                        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, opts[i]) == 0);
+                        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+                        MY_ASSERT (rmdir ("/tmp/a/c") == 0);
+                        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT, "ro") == 0);
+                        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+                        MY_ASSERT (errno == EROFS);
+                        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT, opts[j]) == 0);
+                        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+                        MY_ASSERT (umount ("/tmp/a") == 0);
+                    }
+            }
+    }
 
------BEGIN PGP SIGNATURE-----
+    // Removing MS_RDONLY makes mount writable again (in case of MS_REMOUNT)
+    // I. e. mount(2) works exactly as documented
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/a/c") == 0);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_RDONLY, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        MY_ASSERT (errno == EROFS);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/a/c") == 0);
+        MY_ASSERT (umount ("/tmp/a") == 0);
+    }
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmitQKYACgkQ64mZXMKQ
-wqmxgxAAt5GFXjDQCPo54nUSfNNYw+USpfMXr4k4J0+3x3vWoThyFon6qM00owM/
-Ir67uyUNUrV/g2yc6RODbs2fJ6KKF+pIHsgjm7dclUwDMUelzhTv0MtAqvXjnXwj
-wGNyfa4UKmmDdwN8nwNtq7L1aVjFt3EEh5imt8L1qzzfAonHFJF2cD7gik+VbmA3
-rz4DxWGYIS6wZ3X2oEGTZuY5c0aIcsNabimqkNIL98fYcxq/yEl+SRTv8RfSQK0P
-Ki4/BFIcG8rlOn9qHOindWRK/x1xed7LoRxEqLNNUooUf+nWx4GY5Nl3Wmj/e6q+
-t7TaZ1N8QLNKt9ferZWhqH0E3nt/fmtLi2koKE1tOrIsuLhQhIAR2WGNPi2nCbvL
-H6PG9cIeKTmNQFF+EKA5/XHvY7fqzxmSoP7ULQHOrNKFgRqx6lIspjhGEf0nph79
-kygKaioUCvi9RJcs+RNbVTfLrzZ50sX+ldTJmf2VU3NZ7LRfWOETnNBTWTivZG4+
-vZZuUzXMF3+RBTUdD8JI1baryE+hwUYxTlI5K2fjlgJpDTlOOwI+rrCimSidQiln
-YCm17eO8pP3bHBPUBn9bzSgmX9qDyfFvngplLfr+fYSyvWIFtZ5kVeeRYGyj2Rex
-nvQrRxafqOFGkLBIsWKzj8jD6Gh/FVUIs7Fu0DHLtDp+xqlZ4As=
-=b4un
------END PGP SIGNATURE-----
+    // Setting MS_RDONLY (without other flags) removes all other flags, such as MS_NODEV (in case of MS_REMOUNT | MS_BIND)
+    {
+        MY_ASSERT (mount (NULL, "/tmp/a", "tmpfs", 0, NULL) == 0);
+        MY_ASSERT (mknod ("/tmp/a/mynull", S_IFCHR | 0666, makedev (1, 3)) == 0);
 
---vjdhzis7bhmfyi62--
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/a/c") == 0);
+        {
+            int fd = open ("/tmp/a/mynull", O_WRONLY);
+            MY_ASSERT (fd >= 0);
+            MY_ASSERT (write (fd, "a", 1) == 1);
+            MY_ASSERT (close (fd) == 0);
+        }
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_BIND | MS_NODEV, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == 0);
+        MY_ASSERT (rmdir ("/tmp/a/c") == 0);
+        MY_ASSERT (open ("/tmp/a/mynull", O_WRONLY) == -1);
+        MY_ASSERT (mount (NULL, "/tmp/a", NULL, MS_REMOUNT | MS_BIND | MS_RDONLY, NULL) == 0);
+        MY_ASSERT (mkdir ("/tmp/a/c", 0777) == -1);
+        {
+            int fd = open ("/tmp/a/mynull", O_WRONLY);
+            MY_ASSERT (fd >= 0);
+            MY_ASSERT (write (fd, "a", 1) == 1);
+            MY_ASSERT (close (fd) == 0);
+        }
+        MY_ASSERT (umount ("/tmp/a") == 0);
+    }
+    printf ("All tests passed\n");
+    exit (0);
+}
 
