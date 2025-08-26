@@ -1,54 +1,54 @@
-Return-Path: <linux-man+bounces-3740-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3741-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3123B373F2
-	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 22:40:59 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA734B3740D
+	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 22:51:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 81F12363CB8
-	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 20:40:59 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id CC2411BA4D27
+	for <lists+linux-man@lfdr.de>; Tue, 26 Aug 2025 20:51:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF1AE334396;
-	Tue, 26 Aug 2025 20:40:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A2F7283128;
+	Tue, 26 Aug 2025 20:51:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VV0ufYiA"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBF+z1Uy"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5FE31A554
-	for <linux-man@vger.kernel.org>; Tue, 26 Aug 2025 20:40:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE642281508
+	for <linux-man@vger.kernel.org>; Tue, 26 Aug 2025 20:51:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756240835; cv=none; b=YtJGBy+ORIP0KvEF3hjVconEdVWpUKzYWiUCJ7Tq70pL3HJzUCEf0r/LoObSSOiSyRlXsxUgMwad0OBmC8c1Pb3jT75CXcrjSqf3Ys8geY9SsU+zFnqquc1TCqlp49bv7Itex3KO+vwgYoF5hStWxIfWQHdv44ADXNRLIezFRcI=
+	t=1756241493; cv=none; b=dCYvfe6DRtfcmEUZaBSKHr52LGHE0WRDCysiMoX6U5bqlMBPSjd40EFVppquu45ewUQDg8iRtzBVmLBV6goPZHfD7BOJDuksi79GC4UR5sbe+HGHjYBbGWh3eBFLVer2PjVuq3KlwetfCTaqsn/WN4KEQQDD2PPcdTThFeJ54K0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756240835; c=relaxed/simple;
-	bh=l0ffjTdLt6MZNcwNqi5gcDrC1CQR/FiMz/yuI6+tNl4=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OCw5iXTcAtfKYgY7MTGdIsG9+fSIJGy9l2HLhk23gZciyteDKCphUGvQfHea9fJ4TlYpOYmbz+Rb8FoZeBAEFxyWZr1vb/mGN+uXOQd6Jf9PAK2CbXSmjdf7RGWQp5yNUymh7pikSUHkEcPz1yaraW2KowlujknwtdtjN3hv5gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VV0ufYiA; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C4AC4CEF4;
-	Tue, 26 Aug 2025 20:40:32 +0000 (UTC)
+	s=arc-20240116; t=1756241493; c=relaxed/simple;
+	bh=HscO72aZ/WCXkLsPvTedWvsx9AE/7EIajPYl3I7FqrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PYNIKh67GdSyk1Oyw7W/RWfgshd3pL6Rfh7MyxtZ98pGrn3ypFDsl1kUthqHh0qaaxF7/zEoBcWVB330WnnW7xJcO6cO7jWbAc15NLMFUTAgv6f5mRodpYhMsCMD3xQI+whaSo6JAlGWIIYmcunC4LDEyj2BKK6YFItFIHE7BvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBF+z1Uy; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB12C4CEF1;
+	Tue, 26 Aug 2025 20:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756240835;
-	bh=l0ffjTdLt6MZNcwNqi5gcDrC1CQR/FiMz/yuI6+tNl4=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=VV0ufYiAUdQAWQSMFh+00iUyft3nW89/MzJUy/ihmQMSDslfui7JYKhtUq3R8qI3W
-	 OIU2/ooZxB0OCVlhJDJD1XINP5kjmpf8EoS2uum+d/9wK0uHHickwR4WqmZev6E04R
-	 5LNqTuMBSkcztZb3zBdiPoJmi4NWlct2iDtBpUkcwxuB/AHOpJSUdD14IoKLCxc5Xs
-	 DWSHMf04GGHpA/cDn37w91YnId2UdKfFP7xF3vlFzq38X2CXh3NYO92BkYvPvkJiBR
-	 K0icXuVdSOH8peP52kC9STGZzm6VHNy3cZ8IMnUfDuO0hqrlTw6EJCU65QUV317Yak
-	 ffVg5CTsbNO/Q==
-Date: Tue, 26 Aug 2025 22:40:29 +0200
+	s=k20201202; t=1756241493;
+	bh=HscO72aZ/WCXkLsPvTedWvsx9AE/7EIajPYl3I7FqrY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DBF+z1UyrJ+hjwMGHYoWPi+jXrn5Qg/sgLHd2+4IlMlP9kSEI9opXomDAFFxf0HAo
+	 tn8tCIUds17VHlJYM0+Rz3Zo3uP21EDrjelcpI3ALI8eXzNyZCmnyfGI/95yhgjthU
+	 soxj/XXhhbeGwebTg84LoYuuGRPGBR2s6unYjuYhudgyOmR6QMm82sKGnj/17sWFQJ
+	 4l97z8CJ5FlgbVP6kqgipaYcOudWS149q0y9wra/IN1pXbDAZZStsrgd0nO9VA9+Bm
+	 swwgN5kRCH1g/bgUv8OJJ9/etEEiFoHv93CMh2EgKzwzoBf24i03KamVHVY/Gwevku
+	 zpt3sHP3uxpfw==
+Date: Tue, 26 Aug 2025 22:51:26 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	linux-man@vger.kernel.org, groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>, 
-	mario.blaettermann@gmail.com, man-db-devel@nongnu.org
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: groff@gnu.org, man-db-devel@nongnu.org, linux-man@vger.kernel.org, 
+	Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com
 Subject: Re: URL visibility on terminal devices (was: Issue in man page
  pathname.7)
-Message-ID: <o3qfmiy2i56vafcelxdxvyrt2h2yekzcdioc4mtz2pdqkd4ou2@yfvledsrepxa>
+Message-ID: <xefutc5fg3cgpsaxfzlj3h4ejaxndxbghznem3hzy3vsvbun4i@tqks7vd2l3zb>
 References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
  <aj3eqcdmjd5rjcs7ng74prcysoumnpaooxxhwklglwyrpvpp3t@vm3rqullggpi>
  <aKyMnL1N6wwD77X7@meinfjell.helgefjelltest.de>
@@ -58,6 +58,7 @@ References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
  <20250825230420.2dl2kkchtmkwjge7@illithid>
  <tal23nvlrjz4thsc4u2godehn25x6x4uiucky735te5ojsgygj@gga4etjwpo7n>
  <aK3v4_PHAtycO4qz@riva.ucam.org>
+ <20250826202309.ygpshcemn4tcv3nq@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,19 +66,19 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qonwz7bl3poonvtb"
+	protocol="application/pgp-signature"; boundary="2sh4sq7cmf3pvwmx"
 Content-Disposition: inline
-In-Reply-To: <aK3v4_PHAtycO4qz@riva.ucam.org>
+In-Reply-To: <20250826202309.ygpshcemn4tcv3nq@illithid>
 
 
---qonwz7bl3poonvtb
+--2sh4sq7cmf3pvwmx
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	linux-man@vger.kernel.org, groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>, 
-	mario.blaettermann@gmail.com, man-db-devel@nongnu.org
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: groff@gnu.org, man-db-devel@nongnu.org, linux-man@vger.kernel.org, 
+	Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com
 Subject: Re: URL visibility on terminal devices (was: Issue in man page
  pathname.7)
 References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
@@ -89,61 +90,46 @@ References: <aKsmTuVSFb93ocPm@meinfjell.helgefjelltest.de>
  <20250825230420.2dl2kkchtmkwjge7@illithid>
  <tal23nvlrjz4thsc4u2godehn25x6x4uiucky735te5ojsgygj@gga4etjwpo7n>
  <aK3v4_PHAtycO4qz@riva.ucam.org>
+ <20250826202309.ygpshcemn4tcv3nq@illithid>
 MIME-Version: 1.0
-In-Reply-To: <aK3v4_PHAtycO4qz@riva.ucam.org>
+In-Reply-To: <20250826202309.ygpshcemn4tcv3nq@illithid>
 
-Hi Colin,
+Hi Branden,
 
-On Tue, Aug 26, 2025 at 06:33:23PM +0100, Colin Watson wrote:
-> > Hmmmm, that sounds not good at all.  How about moving this to man(1)?
-> > That is, man(1) knows whether it is being piped or not, and thus can
-> > tell groff(1) to do OSC8 or not.  And even for the case of the terminal,
-> > it is in a better position to pass the information to groff(1); we'd
-> > still need points 1 (modified for man(1)) and 2, but not 3, which is
-> > very ugly.
+On Tue, Aug 26, 2025 at 03:23:09PM -0500, G. Branden Robinson wrote:
+> Here's a sketch, interpolated into some existing logic.
 >=20
-> Doesn't man(1) have most of the same problem?
+> .\" For most purposes, we treat the nroff devices equivalently.
+> .nr an*is-output-terminal 0
+> .if '\*(.T'ascii'  .nr an*is-output-terminal 1
+> .if '\*(.T'latin1' .nr an*is-output-terminal 1
+> .if '\*(.T'utf8'   .nr an*is-output-terminal 1
+> .
+> .nr an*can-hyperlink 0
+> .if \n[an*is-output-html] \
+> .  nr an*can-hyperlink 1
+> .
+> .if \n[an*is-output-terminal]) \{\
+> .  if '\?\V[TERM]\?'gnome-terminal'       .nr an*can-hyperlink 1
+> .  if '\?\V[TERM]\?'some-other-terminal'  .nr an*can-hyperlink 1
+> .  if '\?\V[TERM]\?'yet-another-terminal' .nr an*can-hyperlink 1
+> .\}
+> .
+> .if '\*[.T]'pdf' \
+> .  nr an*can-hyperlink 1
+> .
+> . \" Later...
+> .\" hyperlinked text desired
+> .if !r U \
+> .  nr U 1
+> .
+> .nr an*do-hyperlink 0
+> .if (\n[U] & \n[an*can-hyperlink]) .nr an*do-hyperlink 1
+>=20
+> (I don't, off the top of my head, actually know of any terminal
+> emulators that implement OSC 8 besides gnome-terminal(1).[2])
 
-The difference in man(1) is that it controls the entire pipeline, while
-in groff, troff(1) doesn't still know which output device you'll be
-using.
-
-So, you don't have problem 3.
-
->  It needs to know whether the
-> terminal emulator supports OSC 8, and I'm not aware of a way that it could
-> discover that at the moment; it's not just a question of whether it's pip=
-ed.
-> I don't think that "put it in man-db's configuration file" or "require a
-> command-line option" would be particularly friendly solutions to that
-> problem.
-
-Yes, you can't currently implement a check to know if the terminal
-supports OSC 8.  But whenever terminals have a way to tell you if they
-support OSC 8, you're in a better position to pass -rU0 to the entire
-groff(1) pipeline.
-
-And at the moment, you can at least already check if stdout is a pipe,
-and pass -rU0 if it is, which would at least improve the output for when
-I do `man foo | cat`, for example.  It doesn't fix terminals, but it
-fixes pipes.  So, maybe call isatty(3), and if it returns 0, pass -rU0
-to groff(1)?
-
-> If points 1 and 2 were handled in groff, then I wouldn't be necessarily
-> opposed to having man(1) tell the formatter that rendered hyperlinks are
-> acceptable, but it's not an area I'm all that familiar with.  I'd be happy
-> to review patches provided that they retain compatibility with reasonably
-> old groff versions (man-db currently supports groff >=3D 1.21).
-
-Thanks!
-
-> I could of course have man(1) unconditionally pass -rU0 to groff until the
-> problem is resolved properly, which would at least preserve existing
-> behaviour for users of unreleased groff 1.24.  I'm not sure whether that
-> would be considered as playing Core War with the manual page system ...
-
-Hmmm, I don't know.  I think that would be more easily fixed in the
-Debian package of groff(1).
+I see hyperlinks in xfce4-terminal.  I suppose it supports them.
 
 
 Have a lovely night!
@@ -152,25 +138,25 @@ Alex
 --=20
 <https://www.alejandro-colomar.es/>
 
---qonwz7bl3poonvtb
+--2sh4sq7cmf3pvwmx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiuG7YACgkQ64mZXMKQ
-wqnj4BAAoyCUox6QST3mQoLXjH3WcSK5S0InuWk3Cc0gleX/sEvr7zj7dQiTYm/p
-o6MjeDy+6nBihZrF85KJJhCO3mvyVKGIaPzyW5K1zV+mNpKWCcvRS/p9Aydfb6mn
-D6uCEzehpN8co0RI86B7RrEhbxOcdhYd0MPGUXJ/lPjaMypu8CuO0LgP8A1PDUmU
-4Fr28Ku/Em+E5eo0vxQCdMImB+kE1oIxxvIs/xEnPLoEqAwCHtxXsVCMWReWXffO
-WrCBZX3sYeAGllqVtc8o9W5RUEA5YCbi0ytAUV5JVX5C32I21qtKU7at9yYL4Z2L
-1s3RwlCa1kHfUt0ZJ4MMh9Z45pWXNnMq6Ca0mPZtitrtyPhybDaAJNLYlq8OcweZ
-CWtOwpVhmCtn62H5YafjsXqhjhLS+vHDGSMHV16lWoxTTRCEegToXJVodXlqlhDG
-qSTRWtfs1h2+IUlCMo6YLVERRwMLiNi5K1NWNEuhyRXLpFih87qstiWpK5vraHBw
-vmFFNzjs/BkHSqZHIbg+k8FlBZ1yh9Rf7eXp7A75RuXl9cWoXs+PbhmUNmeAMmOo
-ZU6TNncRspZtRL01Mjywe7TSxpK39ju161qOgXtwaq+V6toy78M8pZKbf//L84cS
-2o0yiYp7Sw/jDShD6yPkAKgLLLX/hrkNRP+1I/VM+dhqagHxpjU=
-=+td9
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmiuHkcACgkQ64mZXMKQ
+wqnmbw/6A2yqOJIGWGAPl4NHgPCpfnzPdtpECNPk5BQ47C5lblKsOgP6nVZez9fq
+9U/u56fASHfsnsBp2rQqAY+G8XFz/z7TbM2qeJGgdl0zmOCWffgjwxVXCIvlWNFB
+nkIDVZHaagr5BdLv0agDAriA1k/HoX876Q1y+kZsKvT6ZRxssPvth9cL/YAvlJu4
+W58mKQaxutcVsRdbgvb3dcLVlH8q1YTdhW7ySaLeVdf7vO4sKLOqL7UGcy3djcu9
+JXFITUFo1VeXdzoQ66T+AnPQk6MwnMe+r2I6OIpd9GVmxoPm9JNSb+1a2Oh/U20S
+WyjR2pKMxSPxR6vWdAWNRxV6yaRrDZ3036Ik1/ImF0zoy6VQU3Nl6LvD7mf7KiYK
+t+CxQxi0jEM13ctA4ux4EPGQJmy0TkHzP0SruHzRXWG+BZwYtPNcLlWvYTkFSOxA
+Btms02c2P8Hd0Cj/w4yQpzUR9QHPg07PpPq974dXBmsiMWplT3mrMp+D/pf30x1j
+ZxnCBF+ItDqxt2JGekVLjORqjJCwQ6ReWZXVwawJHr267ZNTe29N5lTXl5Nh/EU2
+rkXI8WtmANTxZKa/l6oSuOLCslA9728oH3bL1kco+V+Oux2E+XIhnvDz9fehcclC
+Mjj8toG+qqvIBtW3Hc1OwiD5JUvIavJwenYPsA4hKYjThGrND0Q=
+=iWBW
 -----END PGP SIGNATURE-----
 
---qonwz7bl3poonvtb--
+--2sh4sq7cmf3pvwmx--
 
