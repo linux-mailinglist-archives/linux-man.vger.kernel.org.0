@@ -1,179 +1,107 @@
-Return-Path: <linux-man+bounces-3744-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3745-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2899B37F0A
-	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 11:42:41 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D54B37F8B
+	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 12:12:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id D65101BA49CA
-	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 09:43:01 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B979E3B7093
+	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 10:12:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 979A134A301;
-	Wed, 27 Aug 2025 09:42:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 286F82F1FE6;
+	Wed, 27 Aug 2025 10:12:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="m3NaKM4A"
+	dkim=pass (2048-bit key) header.d=r9.pm header.i=trillian@r9.pm header.b="B22Qr7K1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5E322538F;
-	Wed, 27 Aug 2025 09:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756287746; cv=none; b=GcDC93lCaAr/et1IWCCfX7T5aUpL0CXCSLN6QHohzS6iX61dBQX6Z9IrbdfeueZlfoWSpL0Wh7A1xJtzrZVDcfWvFj6gzvzj7JOJ683YrSlHX5YX9yOdTNBfwUBESLBv10xAsGDPdkYyejs/kPh/w+o53iPvSBVKaMaGTO5pCus=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756287746; c=relaxed/simple;
-	bh=3Sp14yEFgDVi6HC4y65uU9BINjMHODRul02xeNchmKs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MEH0yawtNacJmDckrdFfOXoQnGGbbpoMcWg+UrdmMPKKC4WyKb3IRkZbdMf5JuuJjFbZiRY6lM/oEkL7vlJINRybH0cesEQJmxLLE2ZIdHwLRAM3YXRQvoQfCi9njgxKuK2ZQBsBDrbE9MzXzs+WYZPHwS1GL61S2ANfZZeER/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=m3NaKM4A; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4cBfhD0y8Bz9tWp;
-	Wed, 27 Aug 2025 11:42:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1756287740;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qLSSrJfUM3D43TuPKQAvi2pHl0Zy6+EXtS3y/NARj3o=;
-	b=m3NaKM4AGfs6PR0pCut6gDGdd5SYGRctUC5wQqj+gXl41C778LNeyYpSjwpnqDFLyKMESz
-	VA0l15UaTr7FinyJmD6jNCr0kj9K3TcQ2ixsw/B28ts23vD2W5Hmrfn+PXz5ihN0bAPJ9B
-	9AUyKkXJphYlPuDx4Q0VquByDvu0MBLztm2/O8tL6jW2yJ8s0dHQhKQ7fRhXhOsP+UoiJ8
-	OrpYrWPTGk8SXKFezDAPQCrjYos7k6qN68LaZ9V168CjOPTWio1eupAZn8bkQKC0srFm6K
-	HTcxTfgP61FwcPbmLtpLb+99YoOOokqKcouw2d2KU4br11mfguWtyzSMn4qopw==
-Date: Wed, 27 Aug 2025 19:42:09 +1000
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Askar Safin <safinaskar@zohomail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] man2/mount.2: expand and clarify docs for
- MS_REMOUNT | MS_BIND
-Message-ID: <2025-08-27.1756287489-unsure-quiet-flakes-gymnast-P41YdV@cyphar.com>
-References: <20250826083227.2611457-1-safinaskar@zohomail.com>
- <20250826083227.2611457-2-safinaskar@zohomail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE2423E320
+	for <linux-man@vger.kernel.org>; Wed, 27 Aug 2025 10:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1756289529; cv=pass; b=urZpx/cew7HUa7NEC2tMz1y5+qJ36vPVetB1RV2QzazXvQ45E1AGsCm7CwzNzjU1K+X79sLBSramoJlZtA+rzx0cltXXNIpVx7g6iUU4/bkQUI9NoTf93dwkCgY2EuaCkvNk6ktAEEYq+OGW/xVBGzTf0IZwgf2MClKC2OT1/AM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1756289529; c=relaxed/simple;
+	bh=9ARJwC+xrpUMv62Un6b9O+n12YJdo1LJ/koNonStQMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sNvGYrrWWwNOE5qvojEhztICR0YN81UZzSmKLhfaAfRXrQV/0iLsIJo0uFNpPvqg3F+vT6rOKIxTtT8kt+zjb6e/8DTjoH58EQ3Aai9WUyxKWgghl5aH9lUIpki/ftJxt5jl+A7z7IQSP9hDppZ2p0vWwNOsJlQqpCvHQu7j4/Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r9.pm; spf=pass smtp.mailfrom=r9.pm; dkim=pass (2048-bit key) header.d=r9.pm header.i=trillian@r9.pm header.b=B22Qr7K1; arc=pass smtp.client-ip=136.143.169.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r9.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r9.pm
+ARC-Seal: i=1; a=rsa-sha256; t=1756289519; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=PmZw1+89ZU92tfh3NNY9gnUNyv6SslEK/Bw+Cw0g+m5eISoeqAf/N/NGUfZM68PrZDCR8lKcuNogcAOrVKBgRoQ0ndhcnb+pzCIA/gVZpF79PCVZgZ89LeDh5hJeHxgIF52objlqjCNfKLOjNZRhurcgke7HoJQmSvFDGv0ZbXA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1756289519; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8Ckfub4w8q71qIqmCAB2GLWa5VKG1BrtL/kDKLqne0U=; 
+	b=jZskNe6S0985L+8VC4B2+BujCURW5rTkolOT2lP8ZE49n2hW/qX7R7b4cBeepUq7YEHFzoon8UrhYFMCu9OGNGR9qtL/QpH3S0o7b44jAijFIQVLlGCQqutaYwn2uP8aiWUD2CJgvgpoXXndSfa30z4nBjwN9iXYQv05DwfFn4g=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=r9.pm;
+	spf=pass  smtp.mailfrom=trillian@r9.pm;
+	dmarc=pass header.from=<trillian@r9.pm>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1756289519;
+	s=sel; d=r9.pm; i=trillian@r9.pm;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=8Ckfub4w8q71qIqmCAB2GLWa5VKG1BrtL/kDKLqne0U=;
+	b=B22Qr7K1aua51yWMnDZ7gL4YEOLYt0ioxvoVbu7tpF74BmPxyDoo8Ntxb+F5xbOT
+	JPjCcq/bh972MU1W4hbqtrVE4kFjvoGEjA/QUk00vseZ/73wkZ+zSqCfy2VN+QJE9i4
+	UU8fJsKm9AGTTrGm4J3PnRV7pZkFk4sB0dlh5gbCoYLkzyglNRWTovgbigRfBqBMOUM
+	sLGIzYFZzhf9TTmpHBECa+6rDpyz2tCW9C/28mqrDy2Ip+PtvZdgGmCktHYXss3hwxR
+	NBHak8SLykPUsEJvnWzPBsxPiwki+Ypr0mgQ+NjOrNidJdBEbHBLC49cJoblPmzJ54C
+	Mrhe59VNjg==
+Received: by mx.zoho.eu with SMTPS id 1756289517186414.089452857501;
+	Wed, 27 Aug 2025 12:11:57 +0200 (CEST)
+Message-ID: <2c5786b7-4378-4b2b-9890-4a7c67794977@r9.pm>
+Date: Wed, 27 Aug 2025 13:11:56 +0300
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c3alsljwz3axby77"
-Content-Disposition: inline
-In-Reply-To: <20250826083227.2611457-2-safinaskar@zohomail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: man-pages bug report: missing documentation of quotactl_fd
+ syscall
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+References: <00100b13-bdc4-4a58-a1cd-ef0775644f6e@r9.pm>
+ <7lqjed72kj25osci2h2tl6cqjw2hzrl3ksyrggi6bvkpiypdux@k7eu3rzqwrgc>
+Content-Language: en-US
+From: trillian <trillian@r9.pm>
+In-Reply-To: <7lqjed72kj25osci2h2tl6cqjw2hzrl3ksyrggi6bvkpiypdux@k7eu3rzqwrgc>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
+
+On 27/08/2025 11:11, Alejandro Colomar wrote:
+> I think we should mention why this function is useful instead of
+> quotactl(2).  Why would one prefer to use one or the other?
+
+So, there are two reasons.
+
+The first is that in some cases, there simply isn't a block device file that could be referred to. This is the case for tmpfs (which doesn't have a backing block device at all) and also bcachefs (in which case there might be multiple block devices).
+
+The second is that the API is simpler: in most cases where you want to manipulate quotas on a specific filesystem, especially an already mounted filesystem, you would refer to it by its mount point. Mapping the mount point to a block device file requires manually parsing /proc/mounts, whereas with quotactl_fd you can simply pass in the path of the mount point, opened with O_PATH.
+
+While researching this I noticed some more details that would need to be mentioned.
+
+First, I discovered that the original patch came with some documentation already: <https://lore.kernel.org/all/20210304123541.30749-4-s.hauer@pengutronix.de/>
+
+This is for quotactl_path, which was later replaced by quotactl_fd, see <https://lwn.net/Articles/859679/> for details. I guess the man page changes didn't get merged when quotactl_path was dropped. (Or maybe it was just directed at the wrong place? It seems like it wasn't ever sent to this mailing list. But I don't know the procedures involved here, maybe that was intentional.)
+
+Anyways, the comment added to Q_QUOTAON is still relevant for quotactl_fd. I also saw this comment in a commit message:  "The global Q_SYNC command to sync all filesystems is not supported for this new syscall, otherwise quotactl_path behaves like quotactl." which is also relevant.
+
+> Have a lovely day!
+> Alex
+
+Thanks, you too!
 
 
---c3alsljwz3axby77
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 1/2] man2/mount.2: expand and clarify docs for
- MS_REMOUNT | MS_BIND
-MIME-Version: 1.0
+---
 
-On 2025-08-26, Askar Safin <safinaskar@zohomail.com> wrote:
-> My edit is based on experiments and reading Linux code
->=20
-> Signed-off-by: Askar Safin <safinaskar@zohomail.com>
-> ---
->  man/man2/mount.2 | 27 ++++++++++++++++++++++++---
->  1 file changed, 24 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man/man2/mount.2 b/man/man2/mount.2
-> index 5d83231f9..599c2d6fa 100644
-> --- a/man/man2/mount.2
-> +++ b/man/man2/mount.2
-> @@ -405,7 +405,25 @@ flag can be used with
->  to modify only the per-mount-point flags.
->  .\" See https://lwn.net/Articles/281157/
->  This is particularly useful for setting or clearing the "read-only"
-> -flag on a mount without changing the underlying filesystem.
-> +flag on a mount without changing the underlying filesystem parameters.
+~trillian
 
-When reading the whole sentence, this feels a bit incomplete
-("filesystem parameters ... of what?"). Maybe
-
-  This is particularly useful for setting or clearing the "read-only"
-  flag on a mount without changing the underlying filesystem's
-  filesystem parameters.
-
-or
-
-  This is particularly useful for setting or clearing the "read-only"
-  flag on a mount without changing the filesystem parameters of the
-  underlying filesystem.
-
-would be better?
-
-That one nit aside, feel free to take my
-
-Reviewed-by: Aleksa Sarai <cyphar@cyphar.com>
-
-> +The
-> +.I data
-> +argument is ignored if
-> +.B MS_REMOUNT
-> +and
-> +.B MS_BIND
-> +are specified.
-> +The mount point will
-> +have its existing per-mount-point flags
-> +cleared and replaced with those in
-> +.IR mountflags .
-> +This means that
-> +if you wish to preserve
-> +any existing per-mount-point flags,
-> +you need to include them in
-> +.IR mountflags ,
-> +along with the per-mount-point flags you wish to set
-> +(or with the flags you wish to clear missing).
->  Specifying
->  .I mountflags
->  as:
-> @@ -416,8 +434,11 @@ MS_REMOUNT | MS_BIND | MS_RDONLY
->  .EE
->  .in
->  .P
-> -will make access through this mountpoint read-only, without affecting
-> -other mounts.
-> +will make access through this mount point read-only
-> +(clearing all other per-mount-point flags),
-> +without affecting
-> +other mounts
-> +of this filesystem.
->  .\"
->  .SS Creating a bind mount
->  If
-> --=20
-> 2.47.2
->=20
-
---=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
-
---c3alsljwz3axby77
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaK7S8RsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG9nYAEAopJc+scVnNxW+RnKdodF
-u4ILIeGLNCidv3zPdPn5YvgA/3VhEErR08i6dg18mcboAXWj6HoIIKdK9n602x+7
-G0ML
-=X0pv
------END PGP SIGNATURE-----
-
---c3alsljwz3axby77--
 
