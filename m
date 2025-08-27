@@ -1,107 +1,115 @@
-Return-Path: <linux-man+bounces-3745-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3746-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31D54B37F8B
-	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 12:12:20 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 160F4B38947
+	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 20:08:05 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id B979E3B7093
-	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 10:12:13 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id AAD20207A90
+	for <lists+linux-man@lfdr.de>; Wed, 27 Aug 2025 18:08:04 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 286F82F1FE6;
-	Wed, 27 Aug 2025 10:12:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97DE12773D5;
+	Wed, 27 Aug 2025 18:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r9.pm header.i=trillian@r9.pm header.b="B22Qr7K1"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="geG47H61"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE2423E320
-	for <linux-man@vger.kernel.org>; Wed, 27 Aug 2025 10:12:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756289529; cv=pass; b=urZpx/cew7HUa7NEC2tMz1y5+qJ36vPVetB1RV2QzazXvQ45E1AGsCm7CwzNzjU1K+X79sLBSramoJlZtA+rzx0cltXXNIpVx7g6iUU4/bkQUI9NoTf93dwkCgY2EuaCkvNk6ktAEEYq+OGW/xVBGzTf0IZwgf2MClKC2OT1/AM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756289529; c=relaxed/simple;
-	bh=9ARJwC+xrpUMv62Un6b9O+n12YJdo1LJ/koNonStQMY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sNvGYrrWWwNOE5qvojEhztICR0YN81UZzSmKLhfaAfRXrQV/0iLsIJo0uFNpPvqg3F+vT6rOKIxTtT8kt+zjb6e/8DTjoH58EQ3Aai9WUyxKWgghl5aH9lUIpki/ftJxt5jl+A7z7IQSP9hDppZ2p0vWwNOsJlQqpCvHQu7j4/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r9.pm; spf=pass smtp.mailfrom=r9.pm; dkim=pass (2048-bit key) header.d=r9.pm header.i=trillian@r9.pm header.b=B22Qr7K1; arc=pass smtp.client-ip=136.143.169.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r9.pm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r9.pm
-ARC-Seal: i=1; a=rsa-sha256; t=1756289519; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=PmZw1+89ZU92tfh3NNY9gnUNyv6SslEK/Bw+Cw0g+m5eISoeqAf/N/NGUfZM68PrZDCR8lKcuNogcAOrVKBgRoQ0ndhcnb+pzCIA/gVZpF79PCVZgZ89LeDh5hJeHxgIF52objlqjCNfKLOjNZRhurcgke7HoJQmSvFDGv0ZbXA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1756289519; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=8Ckfub4w8q71qIqmCAB2GLWa5VKG1BrtL/kDKLqne0U=; 
-	b=jZskNe6S0985L+8VC4B2+BujCURW5rTkolOT2lP8ZE49n2hW/qX7R7b4cBeepUq7YEHFzoon8UrhYFMCu9OGNGR9qtL/QpH3S0o7b44jAijFIQVLlGCQqutaYwn2uP8aiWUD2CJgvgpoXXndSfa30z4nBjwN9iXYQv05DwfFn4g=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=r9.pm;
-	spf=pass  smtp.mailfrom=trillian@r9.pm;
-	dmarc=pass header.from=<trillian@r9.pm>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1756289519;
-	s=sel; d=r9.pm; i=trillian@r9.pm;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=8Ckfub4w8q71qIqmCAB2GLWa5VKG1BrtL/kDKLqne0U=;
-	b=B22Qr7K1aua51yWMnDZ7gL4YEOLYt0ioxvoVbu7tpF74BmPxyDoo8Ntxb+F5xbOT
-	JPjCcq/bh972MU1W4hbqtrVE4kFjvoGEjA/QUk00vseZ/73wkZ+zSqCfy2VN+QJE9i4
-	UU8fJsKm9AGTTrGm4J3PnRV7pZkFk4sB0dlh5gbCoYLkzyglNRWTovgbigRfBqBMOUM
-	sLGIzYFZzhf9TTmpHBECa+6rDpyz2tCW9C/28mqrDy2Ip+PtvZdgGmCktHYXss3hwxR
-	NBHak8SLykPUsEJvnWzPBsxPiwki+Ypr0mgQ+NjOrNidJdBEbHBLC49cJoblPmzJ54C
-	Mrhe59VNjg==
-Received: by mx.zoho.eu with SMTPS id 1756289517186414.089452857501;
-	Wed, 27 Aug 2025 12:11:57 +0200 (CEST)
-Message-ID: <2c5786b7-4378-4b2b-9890-4a7c67794977@r9.pm>
-Date: Wed, 27 Aug 2025 13:11:56 +0300
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8732D73B0
+	for <linux-man@vger.kernel.org>; Wed, 27 Aug 2025 18:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1756318074; cv=none; b=iDxLSYQus4d/vm44lUohyqPAU4npqUMNLVprApPouhlOUtDZ+5ND7jmS1yc4nMSk+Pto01alsvaIprUy5T/LAEIXAbtCYdaRuuuJcl2QsdzNrGZKiAvRqmjGcTyrmgDF26D2i+CzAxs6zlJa9X2QHW1B/qcmEu237K4UMt7KgXA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1756318074; c=relaxed/simple;
+	bh=CARVSSi6cwpcGoraqadTcRYaoVeH18LNfplHnI1uOn4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=gAMmUxdOkdwqjHrHVOjA5/WJ7n9gFFU4k4dLHUswyUVvKPgM/VZe7JUEHl4FuYjdF+4dSz2M4IGsF90TQOzRicBqphMRjr0ZQgUFS3O/OCn58tpS99WNNbVv7WsOHTpRDnDlnLv5UVbXlugbMCj0qwbczZoOtsKEWP0F9Y1Uaa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=geG47H61; arc=none smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-30ccec2515dso135023fac.3
+        for <linux-man@vger.kernel.org>; Wed, 27 Aug 2025 11:07:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1756318072; x=1756922872; darn=vger.kernel.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=CfVoTirk83CoaCFLJxRAkCJFDW72CKr8BP+ThRw+ty0=;
+        b=geG47H611w5mIMVopnYKSWrbRMHuChTkqX2lZy8l8ZYucgn5OOQet71trg+Fo6pSxQ
+         tjahI8fcvMp4lPOOontUTRq1xF8wLdKWN2g6o82y4+Xd71iZXtx9FO57S5cElnnIfV6s
+         w+eD1DiYXd8nXs10qgZLqauaQOevfO0uRtjBwaPKZb5YJnf1ANElr9Mby5g2HGNw4CLM
+         y200F0voDB8eKArsvnlCQpIeNDdpZMiI0rzVW+0G5Ir/izSH0cM7IdSkGFwhSL5SChmV
+         l+V1dEgcfGOpchqfZJVko1UuFHB3aiwYkPJuBTiBOCY8wAT62WpiUFkUfjeGRbBVJIP+
+         P7Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756318072; x=1756922872;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CfVoTirk83CoaCFLJxRAkCJFDW72CKr8BP+ThRw+ty0=;
+        b=r28v27mDdJPv4AYha9R6gyQ5aJvuYI3nAGzL4zJK9reGMKDkIhSlTac/YhiAVlj82M
+         9AuxF7hcOnXTpfOJexJXslq63gtEFGaH2E61DSOeVihAPm8crCgy8WV6r6fjYrqPDdMd
+         JfCyF+LNV8BCGkLBHEABjCxY5ZltyC1bECTRGEdwh0NMAs+of1UOHYgN7re6gePiaHtr
+         4DZWCr4VgYCfcdRjlDcnilXW+SfJtMaome8c6N/01pjbw7aEdWg01v9REnL5/lkuKI65
+         0JaCpvJsc3dNTo7q48M1LNGrzCscw5kfOpoeDfGWVpCJN4Ufvah6NGmmT70bJHiXwScX
+         yEYQ==
+X-Gm-Message-State: AOJu0Yz3fUYCjzT5sv9YXSriLS7qNTvnNv3EctCL7E8qC5ISWus3fbVX
+	f+ndfxADo3Dk5PGg9ivWVElhn6ulUaTqm06gfJRNWsMVJ+5jXPgXAeFUQ8sDOaoMbH6Z2w3wzjp
+	kfcSFDL0Xb5nprv9F2yamPmOmfoJdhCWdT+SeUhX8kaOabW/+IIh3ky1D6So=
+X-Gm-Gg: ASbGncuEL16/tTj+0uHMSXYfEQadA7JeTc4Z59SN9d7KCe8je5HJdFZ8iozcV1gVtNk
+	s50jNlQJ8/WRoN2s/vdOf9U6sw57JGHL9V6Z/sKv6Gr6HfnNkMCWOW8NNpiSaEdFEMc9SQdasxV
+	aBb3t1+wJ4mUZULUXSQizzMzCSmTZNwyhu+wbTtMMnUJRJdH4DUYRxczPvr2sb4tXkUCNtlk+SI
+	28CaS0DF0pzaIumqELR/g==
+X-Google-Smtp-Source: AGHT+IFZsfhPYYWmogJlRwfSqouKConZ+Ns6X1jH/TYwNyAGBuKj5rOiS+mIVNlXZew52TZVo6tJjxxtWDmweUVss7c=
+X-Received: by 2002:a05:6870:32d4:b0:30b:8821:aba4 with SMTP id
+ 586e51a60fabf-314dcb56709mr9662612fac.20.1756318071730; Wed, 27 Aug 2025
+ 11:07:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: man-pages bug report: missing documentation of quotactl_fd
- syscall
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-References: <00100b13-bdc4-4a58-a1cd-ef0775644f6e@r9.pm>
- <7lqjed72kj25osci2h2tl6cqjw2hzrl3ksyrggi6bvkpiypdux@k7eu3rzqwrgc>
-Content-Language: en-US
-From: trillian <trillian@r9.pm>
-In-Reply-To: <7lqjed72kj25osci2h2tl6cqjw2hzrl3ksyrggi6bvkpiypdux@k7eu3rzqwrgc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+From: enh <enh@google.com>
+Date: Wed, 27 Aug 2025 14:07:38 -0400
+X-Gm-Features: Ac12FXxkOlAvaNBV_zmcB0Im_L6RpFYwoFHBTz__LKdfjuM6lFpsw7j8ELCEH10
+Message-ID: <CAJgzZooU580iDpcp+gAWFEmzzrYhUFrMgFGY9keUG_Y_x61OyA@mail.gmail.com>
+Subject: [PATCH] random(7): trivial grammar fix.
+To: linux-man <linux-man@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="000000000000c84550063d5caa9d"
 
-On 27/08/2025 11:11, Alejandro Colomar wrote:
-> I think we should mention why this function is useful instead of
-> quotactl(2).  Why would one prefer to use one or the other?
-
-So, there are two reasons.
-
-The first is that in some cases, there simply isn't a block device file that could be referred to. This is the case for tmpfs (which doesn't have a backing block device at all) and also bcachefs (in which case there might be multiple block devices).
-
-The second is that the API is simpler: in most cases where you want to manipulate quotas on a specific filesystem, especially an already mounted filesystem, you would refer to it by its mount point. Mapping the mount point to a block device file requires manually parsing /proc/mounts, whereas with quotactl_fd you can simply pass in the path of the mount point, opened with O_PATH.
-
-While researching this I noticed some more details that would need to be mentioned.
-
-First, I discovered that the original patch came with some documentation already: <https://lore.kernel.org/all/20210304123541.30749-4-s.hauer@pengutronix.de/>
-
-This is for quotactl_path, which was later replaced by quotactl_fd, see <https://lwn.net/Articles/859679/> for details. I guess the man page changes didn't get merged when quotactl_path was dropped. (Or maybe it was just directed at the wrong place? It seems like it wasn't ever sent to this mailing list. But I don't know the procedures involved here, maybe that was intentional.)
-
-Anyways, the comment added to Q_QUOTAON is still relevant for quotactl_fd. I also saw this comment in a commit message:  "The global Q_SYNC command to sync all filesystems is not supported for this new syscall, otherwise quotactl_path behaves like quotactl." which is also relevant.
-
-> Have a lovely day!
-> Alex
-
-Thanks, you too!
-
+--000000000000c84550063d5caa9d
+Content-Type: text/plain; charset="UTF-8"
 
 ---
+ man/man7/random.7 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-~trillian
+--000000000000c84550063d5caa9d
+Content-Type: application/octet-stream; 
+	name="0001-random-7-trivial-grammar-fix.patch"
+Content-Disposition: attachment; 
+	filename="0001-random-7-trivial-grammar-fix.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_meuaf7kf0>
+X-Attachment-Id: f_meuaf7kf0
 
+RnJvbSA5OTQ5NWY5MTJlMTgyNDcwN2FiYTVhMjM0OTJjNDY1M2I5MDkxY2RlIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBFbGxpb3R0IEh1Z2hlcyA8ZW5oQGdvb2dsZS5jb20+CkRhdGU6
+IFdlZCwgMjcgQXVnIDIwMjUgMTQ6MDY6MjkgLTA0MDAKU3ViamVjdDogW1BBVENIXSByYW5kb20o
+Nyk6IHRyaXZpYWwgZ3JhbW1hciBmaXguCgotLS0KIG1hbi9tYW43L3JhbmRvbS43IHwgNCArKy0t
+CiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL21hbi9tYW43L3JhbmRvbS43IGIvbWFuL21hbjcvcmFuZG9tLjcKaW5kZXggZTkwMDI5
+NmU5Li5lNzNlYjgwMWIgMTAwNjQ0Ci0tLSBhL21hbi9tYW43L3JhbmRvbS43CisrKyBiL21hbi9t
+YW43L3JhbmRvbS43CkBAIC0xMzcsNyArMTM3LDcgQEAgLlNTIENvbXBhcmlzb24gYmV0d2VlbiBn
+ZXRyYW5kb20sIC9kZXYvdXJhbmRvbSwgYW5kIC9kZXYvcmFuZG9tCiBTYW1lIGFzCiAuSSAvZGV2
+L3VyYW5kb20KIFR9CVR7Ci1Eb2VzIG5vdCBibG9jayBvbmNlIGlzIHBvb2wgcmVhZHkKK0RvZXMg
+bm90IGJsb2NrIG9uY2UgcG9vbCBpcyByZWFkeQogVH0JVHsKIEJsb2NrcyB1bnRpbCBwb29sIHJl
+YWR5CiBUfQpAQCAtMTU5LDcgKzE1OSw3IEBAIC5TUyBDb21wYXJpc29uIGJldHdlZW4gZ2V0cmFu
+ZG9tLCAvZGV2L3VyYW5kb20sIGFuZCAvZGV2L3JhbmRvbQogU2FtZSBhcwogLkkgL2Rldi91cmFu
+ZG9tCiBUfQlUewotRG9lcyBub3QgYmxvY2sgb25jZSBpcyBwb29sIHJlYWR5CitEb2VzIG5vdCBi
+bG9jayBvbmNlIHBvb2wgaXMgcmVhZHkKIFR9CVR7CiAuQiBFQUdBSU4KIFR9Ci0tIAoyLjUxLjAu
+MjY4Lmc5NTY5ZTE5MmQwLWdvb2cKCg==
+--000000000000c84550063d5caa9d--
 
