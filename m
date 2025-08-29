@@ -1,87 +1,87 @@
-Return-Path: <linux-man+bounces-3757-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3758-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F23FB3C206
-	for <lists+linux-man@lfdr.de>; Fri, 29 Aug 2025 19:46:57 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24513B3C21A
+	for <lists+linux-man@lfdr.de>; Fri, 29 Aug 2025 19:55:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C50141C84B0A
-	for <lists+linux-man@lfdr.de>; Fri, 29 Aug 2025 17:47:17 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DAE3F586247
+	for <lists+linux-man@lfdr.de>; Fri, 29 Aug 2025 17:55:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A0E9343212;
-	Fri, 29 Aug 2025 17:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 749AA340DAD;
+	Fri, 29 Aug 2025 17:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="U/PhXOyL"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hCJJrXud"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833403431FF
-	for <linux-man@vger.kernel.org>; Fri, 29 Aug 2025 17:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBFF33769B
+	for <linux-man@vger.kernel.org>; Fri, 29 Aug 2025 17:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756489588; cv=none; b=ZTAa4r7DOnMm/oVSdTX09YKc7LD+ejsjX/M7ScGLif5m6MhjqVQ//AhxOYYDdWbaABCBDiE38usSGZnWGXEfRYDJOaUZv7XhT/BBV79QxCkGfD6C+w6trOrYMLlrqlsMH92MQZmX0pfeOm4sjuY4a08RldrCrAGNkrW7dlj8z6g=
+	t=1756490111; cv=none; b=OugqKLlQczqFXyKAacRKPX3u0Ee0JkVbDdufwB4f/I5ggb2JJzrmncLLcrxat7/ac8nZWjk2os5M2BW2JcxRGZG9pUUBlL+GfilIRhK6USLeyhp3brZhpWoDQQuot5cn73VkHdkze/WlzjnWMIY5ndZaUcafsLAjm1utLR8+Ix8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756489588; c=relaxed/simple;
-	bh=3G+k0yo5xGqxv8+xokTG3fyHeBHbRPcT0xV/+rZ1TLI=;
+	s=arc-20240116; t=1756490111; c=relaxed/simple;
+	bh=Uwfk0eHlwy8uZBuSLQVz0BnRvrohIY9rbFsbOsDSybo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PJz6bLt8mp5ius+uG3KdcXe40XzifnnZ33osnSIyMFdNXNKHWW02BuTaq7Jmrfuo48oDVjWnUNaAV+dTPUzJwYARaOnx7IwvzRkzQ2/IiRvQzVuIP+oYHYvTtyJa9SCBUCyzQ2NZHLV7NxS1U5VMF/Ps6d+vwfM+aTdA7XHIlmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=U/PhXOyL; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=JUvPZch+fmRQ5QhnyUyXWDr4zau6XchIxewkLJgIFvBUEcDhVr0IB/1ZoAkoQSWUeHeDcve1bRIWlUxky2dogUu6tbzpQpftkC/1Wj4AWNS9eVj7cuuR7jhmXe05nWnoqKYCUsqr4Ma9ma9KaU844v0LYEDhsehLCgv4hvQO6vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hCJJrXud; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1756489585;
+	s=mimecast20190719; t=1756490108;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=xpkyBl6jHkLUOO/9TmMsNVP2LbdDm9cULxNJSm9O18M=;
-	b=U/PhXOyL2Ba7MUqIowb53HLEW+vUWx5liM1VIiohPqpwkOmy8eCzmTnKy+WqEG/u/mJ5fh
-	y+P6G1KpmXrtiac55hIL2APYG2ZEgAbTQkgQUwqBio8HG1x/JHdMNHJft5V92yzw59kEMJ
-	R/VraNs5/3wf0uv5WaBek7Juipk6DJw=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=jyzU+Xmz+mrM28lik6eJAvyGeC0q+6spzdXmD+VryPk=;
+	b=hCJJrXudxA8T+5iGLmLU8MVl/eDqmWPvaTncUE/yunFZDldNn3lP8DJ29n+u0xgpM00u7U
+	r3lT603KqRk/08np8dNC4OLhARNjXAnHomUMgxRNUBytpnGPTgOcYQXrDu9r8MtO92gtu7
+	n1EQBPlfy/T3ofBU797vhqlAuVG2sIE=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-36-MmTEDOBcMEufWM-NtZ4tQQ-1; Fri, 29 Aug 2025 13:46:23 -0400
-X-MC-Unique: MmTEDOBcMEufWM-NtZ4tQQ-1
-X-Mimecast-MFC-AGG-ID: MmTEDOBcMEufWM-NtZ4tQQ_1756489582
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-70ddb4037b2so61694406d6.3
-        for <linux-man@vger.kernel.org>; Fri, 29 Aug 2025 10:46:23 -0700 (PDT)
+ us-mta-591-w6baCgj3OaKCqMJOSWHODA-1; Fri, 29 Aug 2025 13:55:01 -0400
+X-MC-Unique: w6baCgj3OaKCqMJOSWHODA-1
+X-Mimecast-MFC-AGG-ID: w6baCgj3OaKCqMJOSWHODA_1756490101
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-70dd6d25609so56149386d6.0
+        for <linux-man@vger.kernel.org>; Fri, 29 Aug 2025 10:55:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756489582; x=1757094382;
+        d=1e100.net; s=20230601; t=1756490101; x=1757094901;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=xpkyBl6jHkLUOO/9TmMsNVP2LbdDm9cULxNJSm9O18M=;
-        b=EUTh/qrEGbapLYkVxDIvvhT7Ky9i+GkSPQZEywc7BGPARXsWCavr2cFqdeStkNPOm1
-         jc6rgJgkuhoFVO5c63y+Gj88Q0jbxl++SK4Ymv1US/yT+fA/duKqyr2ljrrbM2R4mB37
-         gIz6NfprcTT/58oUPa20oeVBLtfXOufxglfF2TJU7HOjjTChX5Bor6ArspMGCSEuGZKj
-         zOabXDjCnMACcvNUbhynK6Dl+/DJjKerbKaqTputU9LvUqmV6J2RuORioNH1mcUDxQy+
-         zNxSeQ1YC6kGLKEAlDdd8DucpYLPo+hZt4WaORjsHeMxm6AauV8Iyrt7lby0HXBwxl4m
-         UrJw==
-X-Forwarded-Encrypted: i=1; AJvYcCWuGw42xek0HmHYHC+nJm+2Ls/j7gjT6HfDsVt177FbmipcOnMKaxivfOJOyEkoJuQHR91zfvD8KLU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTsluwSkoq2ndR6YZbz1fVhq0+sza4aadpSRcSCy+zwMNlEL94
-	vNZ6I6UmKNx0CK7FVZCaSXxrHdx2sRtQm4YV+kgWLmFyG4Y/X05kGPz20SMIiG5YWqdgzwWr3NG
-	8csAm1CPLdLQmvyLDwYWGmi16+f0IuM/fjWAsIjvqp6y63+biOfGRACWS9RUuOg==
-X-Gm-Gg: ASbGnctycWL2WYFbygUHgvnZdFJJcSXCIPres0DsaBjt3sqEw2trKGkmZgsmt1X9vyu
-	LtnNllrPwxloCS7sh5n9z/7pfpM6370ZCLILQS2lgHA+VKHklJ9xO64Wlq2sS9IOzAcDAt+o7CO
-	QWbqndFY0Ox2UuExzLOieua8rmVGkFFVp+8ymPf6qXuXPyMoLQ6feAs+6iM2j5Zth3pG5uwik3W
-	Qm9j4uV6bX0reIGH6MSf9d8VMLSg3dA8DuQgYD+t+HpdRU3BR7fiMbg/6KMRM7YSCc9C8kJ/OB3
-	peppsvNtLoyLJAwJf/p4xz7k019VxaBXPZ2RN0VA
-X-Received: by 2002:a05:6214:e88:b0:70d:fa79:baeb with SMTP id 6a1803df08f44-70dfa79bd27mr69696676d6.41.1756489582399;
-        Fri, 29 Aug 2025 10:46:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHn+O26Aut48rhtWglM+XHYnVAc3TmADm6Tzi9KKj+8etiso7nPi4wKnrZNKvnKfdyTFd8xhg==
-X-Received: by 2002:a05:6214:e88:b0:70d:fa79:baeb with SMTP id 6a1803df08f44-70dfa79bd27mr69696346d6.41.1756489582004;
-        Fri, 29 Aug 2025 10:46:22 -0700 (PDT)
+        bh=jyzU+Xmz+mrM28lik6eJAvyGeC0q+6spzdXmD+VryPk=;
+        b=C4uNafzmzQyV42pmuTAP8s1dU7skfn60pRe96qv5vwt7QOWr06OKVy0j8OaDCcYhmG
+         9cFrSIDuCoSd8Ct3QeqN5p2SGDNmKnRrPUejN4AENeGJfnTJUeyMWCAj21r9S92pcfND
+         RjKepDoS99xX6ku8CNidfmZJU51gzpyfC/6kLC415+t5LYHRo9u1O//jN/mw3GzxlsyR
+         eqbqrRizAB0iLyrPDEwOIBFZ+8+7hxljON9c2qfICuGjEK/rQi5wrOdPKGF+CklHvDKg
+         ZFmR18VUopDm7rUoSCNsHCCtthCd8HMzyimMyn9a3vkTgA5Ib7+tB1EXOTGp1P2UwIa1
+         ppSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXperbSz0Vwsvjcer2sI/I+b8nGfrOrAomSNe95XeJ0Ltp5plEa4jdWrL6JzI7lJcOfHyvwjqEq694=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuGKLmLSU4+PMB2WztIyo/qhGJ4u0qn/++63KzYIlkHkZwB8+i
+	f4GP9J63cgKJzxEj0rjIbP2vWtTM+yMlBTHYF5/C3dnfjrt+ytMkTbOJ+JsCEoWK/qqjW8Fp2QS
+	SWANFlbxM+8b4O2gEf6S8onNHKfsEbUF7qvGqpVdSY/Nu7hJxKvhIlvpkTGXo8Q==
+X-Gm-Gg: ASbGnctR+eNnjm3g37RcSonVhxY34hLfHQkrT2OL4GX5epuMGGflaExbcmt4huorYUw
+	JjZfqJVEXvR6aHAZ2PWHMc6irzAMXFfXksMikp22sFlsS9h9iUtRry6c9mWFKm35nWH0iuiOpwj
+	20IgvcdWi59x4a5mVg5TwbTWmQpKrcbqLa2x24ZulI0hLGNbPothUPA/aakji02Ufk7DRW6k2H4
+	tZdWSyh3fUUDdtRLLBXXUPa0wWR5AauyX/oY5IdKLNU0h6jf4iDHJfHGfH6Kup2KvYquaKpNZV9
+	29rCWLkquSosOw8CiDJsjIa5uNeLzkSi+Yn/4dxS
+X-Received: by 2002:a05:6214:1c48:b0:70d:c11c:a3db with SMTP id 6a1803df08f44-70dc11ca50bmr198796806d6.40.1756490101028;
+        Fri, 29 Aug 2025 10:55:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGQ60N52NE9MsMKOUYhrxRpFVIMIApl2YHvF2jXFyrCBGlXMOIM4upwu4noHWLIqcnjg2FqRQ==
+X-Received: by 2002:a05:6214:1c48:b0:70d:c11c:a3db with SMTP id 6a1803df08f44-70dc11ca50bmr198796476d6.40.1756490100517;
+        Fri, 29 Aug 2025 10:55:00 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-70e624d041asm20423936d6.48.2025.08.29.10.46.19
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-70e6250cc5dsm19769566d6.54.2025.08.29.10.54.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 Aug 2025 10:46:20 -0700 (PDT)
-Message-ID: <1b4b0a00-3e80-49a9-bee4-2c7a90e85941@redhat.com>
-Date: Fri, 29 Aug 2025 13:46:19 -0400
+        Fri, 29 Aug 2025 10:54:59 -0700 (PDT)
+Message-ID: <710e8f05-b0b3-489a-9e89-8967cf6a9e70@redhat.com>
+Date: Fri, 29 Aug 2025 13:54:58 -0400
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -89,18 +89,19 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] man/man2/futex.2: Add a pointer to Linux'
- memory-barrier
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Almeida?=
+Subject: Re: [PATCH 3/4] man/man2/futex.2: Recycle two gmane URLs
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
+ Alejandro Colomar <alx@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Almeida?=
  <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>,
  Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
  Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Thomas Gleixner <tglx@linutronix.de>,
  Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>
 References: <20250829160200.756194-1-bigeasy@linutronix.de>
- <20250829160200.756194-5-bigeasy@linutronix.de>
+ <20250829160200.756194-4-bigeasy@linutronix.de>
+ <1ced3c16-1534-4e43-8025-2301c134bbdd@redhat.com>
+ <20250829173928.K82VGvOw@linutronix.de>
 From: Carlos O'Donell <carlos@redhat.com>
 Content-Language: en-US
 Autocrypt: addr=carlos@redhat.com; keydata=
@@ -148,65 +149,51 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  6mzR3XVZmF7FAZNTSV+1GCekJlnCSp4M8HItrojuEtrdH8Ba4WWxK+cIKejqzhwKFpQYBLg9
  m/A+1AHg4g==
 Organization: Red Hat
-In-Reply-To: <20250829160200.756194-5-bigeasy@linutronix.de>
+In-Reply-To: <20250829173928.K82VGvOw@linutronix.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/29/25 12:02 PM, Sebastian Andrzej Siewior wrote:
-> The "totally ordered with respect to concurrent operations" part refers
-> to memory ordering/ atomic update and has nothing to do with the inner
-> workings of the FUTEX code. It simply tries to express that the futex
-> operation will compare the supplied argument with that is written in
-> memory.
+On 8/29/25 1:39 PM, Sebastian Andrzej Siewior wrote:
+> On 2025-08-29 12:43:26 [-0400], Carlos O'Donell wrote:
+>>> index 69df4036ada7f..027e91b826bf1 100644
+>>> --- a/man/man2/futex.2
+>>> +++ b/man/man2/futex.2
+>>> @@ -6,10 +6,10 @@
+>>>    .\"
+>>>    .\" FIXME Still to integrate are some points from Torvald Riegel's mail of
+>>>    .\" 2015-01-23:
+>>> -.\"       http://thread.gmane.org/gmane.linux.kernel/1703405/focus=7977
+>>> +.\"       https://lore.kernel.org/lkml/1422037788.29655.0.camel@triegel.csb
+>>
+>> Wrong link?
+>>
+>> Should be this link:
+>> https://lore.kernel.org/lkml/1422037145.27573.0.camel@triegel.csb/
+>>
+>> Where the discussion is about the unresolved constraint to guarantee FIFO order.
 > 
-> This might be a tad too verbose but then there is a fixme asking for
-> details on the sychronisation. Maybe a pointer to the memory barriers is
-> enough in terms of the required synchronisaton. Assuming this is related
-> to the memory value and not the futex internal synchronisation.
-> 
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
->   man/man2/futex.2 | 8 +++-----
->   1 file changed, 3 insertions(+), 5 deletions(-)
-> 
-> diff --git a/man/man2/futex.2 b/man/man2/futex.2
-> index 027e91b826bf1..fe4a239c3812c 100644
-> --- a/man/man2/futex.2
-> +++ b/man/man2/futex.2
-> @@ -84,16 +84,14 @@ on the same futex word.
->   .\"     would be sufficient? Or perhaps for this manual, "serialized" would
->   .\"     be sufficient, with a footnote regarding "totally ordered" and a
->   .\"     pointer to the memory-barrier documentation?
-> +Please see
-> +.IR https://docs.kernel.org/\:next/\:core-api/\:wrappers/\:memory-barriers.html
-> +for the definition of atomic operations and memory ordering.
+> I thought it is the longer email, the second that day, where he made
+> three points. Didn't read it (yet)…
 
-This seems out of place with the flow of the rest of the text.
+Given the dates and the disjoint set of topics, my suggestion is the link above.
 
-I suggest adding this as a foot note.
+> Now FIFO ordering you say. Is it glibc's side or kernel side? The kernel
+> sorts the futex waiters according their (task's) priority. It is not
+> FIFO unless the tasks are of equal priority.
 
->   Thus, the futex word is used to connect the synchronization in user space
->   with the implementation of blocking by the kernel.
->   Analogously to an atomic
->   compare-and-exchange operation that potentially changes shared memory,
->   blocking via a futex is an atomic compare-and-block operation.
-> -.\" FIXME(Torvald Riegel):
-> -.\" Eventually we want to have some text in NOTES to satisfy
-> -.\" the reference in the following sentence
-> -.\"     See NOTES for a detailed specification of
-> -.\"     the synchronization semantics.
+The FIFO order question was a kernel-side question wrt futex semantics.
+At least that's how I read the thread. And the issue was resolved, but possibly
+not documented. Documentation might include stating "FIFO ordering over all
+waiters, or even a subset of waiters (at the same priority level) is not
+guaranteed."
 
-I think it is acceptable to link to Documentation/memory-barriers.rst, but
-the truth is that this document doesn't yet provide all the notes required
-to answer the questions wrt a futex. Fundamentally we use spinlocks for futexes
-(and some arches use more like parisc), and spinlocks are covered in
-"Implicit Kernel Memory Barrires", there isn't any direct connection between
-them in the text (and doing so would create a design requirement).
+Torvald was right that for POSIX condition variables we would naturally want
+a FIFO wake order so earlier sleepers are woken first.
 
->   .P
->   One use of futexes is for implementing locks.
->   The state of the lock (i.e., acquired or not acquired)
+> So a futex requeue will take the task with the highest priority from
+> uaddr1 and move it to uaddr2.
 
+Right.
 
 -- 
 Cheers,
