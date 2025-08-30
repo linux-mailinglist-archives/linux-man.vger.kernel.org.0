@@ -1,202 +1,192 @@
-Return-Path: <linux-man+bounces-3758-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3759-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24513B3C21A
-	for <lists+linux-man@lfdr.de>; Fri, 29 Aug 2025 19:55:22 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C8BB3C8B2
+	for <lists+linux-man@lfdr.de>; Sat, 30 Aug 2025 09:29:10 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id DAE3F586247
-	for <lists+linux-man@lfdr.de>; Fri, 29 Aug 2025 17:55:21 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8677A56782F
+	for <lists+linux-man@lfdr.de>; Sat, 30 Aug 2025 07:29:10 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 749AA340DAD;
-	Fri, 29 Aug 2025 17:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F15F21CC59;
+	Sat, 30 Aug 2025 07:29:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hCJJrXud"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cy/bIS79"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com [209.85.219.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBFF33769B
-	for <linux-man@vger.kernel.org>; Fri, 29 Aug 2025 17:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D796FC5;
+	Sat, 30 Aug 2025 07:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756490111; cv=none; b=OugqKLlQczqFXyKAacRKPX3u0Ee0JkVbDdufwB4f/I5ggb2JJzrmncLLcrxat7/ac8nZWjk2os5M2BW2JcxRGZG9pUUBlL+GfilIRhK6USLeyhp3brZhpWoDQQuot5cn73VkHdkze/WlzjnWMIY5ndZaUcafsLAjm1utLR8+Ix8=
+	t=1756538944; cv=none; b=SCYASVDjzlhY8EZ2sDI/ybXx834bVuaZGN9Cq5ANmzrhip0OqprGCZ6sFncJW3Bmh9QIih2qy5oehG5emHS7rX3qVQC2+/p2/d3xK3k9OhxyfGxnBqFrB6l5MJwZNNKOYEIBPneCko9hvbEMEb+foV9WvT4nyJK4lSlfiZwVh2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756490111; c=relaxed/simple;
-	bh=Uwfk0eHlwy8uZBuSLQVz0BnRvrohIY9rbFsbOsDSybo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JUvPZch+fmRQ5QhnyUyXWDr4zau6XchIxewkLJgIFvBUEcDhVr0IB/1ZoAkoQSWUeHeDcve1bRIWlUxky2dogUu6tbzpQpftkC/1Wj4AWNS9eVj7cuuR7jhmXe05nWnoqKYCUsqr4Ma9ma9KaU844v0LYEDhsehLCgv4hvQO6vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hCJJrXud; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1756490108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=jyzU+Xmz+mrM28lik6eJAvyGeC0q+6spzdXmD+VryPk=;
-	b=hCJJrXudxA8T+5iGLmLU8MVl/eDqmWPvaTncUE/yunFZDldNn3lP8DJ29n+u0xgpM00u7U
-	r3lT603KqRk/08np8dNC4OLhARNjXAnHomUMgxRNUBytpnGPTgOcYQXrDu9r8MtO92gtu7
-	n1EQBPlfy/T3ofBU797vhqlAuVG2sIE=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-591-w6baCgj3OaKCqMJOSWHODA-1; Fri, 29 Aug 2025 13:55:01 -0400
-X-MC-Unique: w6baCgj3OaKCqMJOSWHODA-1
-X-Mimecast-MFC-AGG-ID: w6baCgj3OaKCqMJOSWHODA_1756490101
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-70dd6d25609so56149386d6.0
-        for <linux-man@vger.kernel.org>; Fri, 29 Aug 2025 10:55:01 -0700 (PDT)
+	s=arc-20240116; t=1756538944; c=relaxed/simple;
+	bh=dXBt6ipqJfV2LeJc6A+EHu2ffSzyZTLlyN7LjKzn+Tw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CajEdSvUd+FGuBTzy7gJYTOMcIgDknDFCVmh3paghaA5wmpnrX3UMq4vB3lV9CkMCFlM2BFEFLeL02aV/gcbn+2xvej7ebGT3eeX+WMlbhnfJq5r+n4hYWuPWQDk/RozGpblV7slnyIbS6fZaheK63I2wONlf1r0QXEKbuvQBng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cy/bIS79; arc=none smtp.client-ip=209.85.219.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yb1-f170.google.com with SMTP id 3f1490d57ef6-e96e1c82b01so2149602276.1;
+        Sat, 30 Aug 2025 00:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756538941; x=1757143741; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Tn5paqlyjkwwo7lq1KLyaE3ov7h9Uyq9UjigSmjR0Xw=;
+        b=Cy/bIS79sJsMzuWyz1MwvlbH3eJI1JUGHxEsutOcTTak40X8aGPyQqt6aOiX1Vxb7y
+         09WtKAHmjD+EChOt99obVKm6jgM/brsWg34fbJqZJF+z8DuW9Bikc8ZU6mL7XPSW9Hmz
+         Hiv98KlKN+XNNs4Ahn7d/ahsVhGN+V1jLNAh+Pfyu7CHj0cLF3nZZkZbw6Qhb/4j8sQy
+         OvuenadleOpxpf1vQRweNHBN0wh7hoQgnVJeic/mbZ0rylhv3/Dnb4K2Oi8vyNYMy3FE
+         GSTVOI0N/Ow5no3MU+sL3rzOa89N+qkoeQcPH8Pm64qfTL6E9vzvnkN/WD9YkfQlY7pH
+         iuEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756490101; x=1757094901;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=jyzU+Xmz+mrM28lik6eJAvyGeC0q+6spzdXmD+VryPk=;
-        b=C4uNafzmzQyV42pmuTAP8s1dU7skfn60pRe96qv5vwt7QOWr06OKVy0j8OaDCcYhmG
-         9cFrSIDuCoSd8Ct3QeqN5p2SGDNmKnRrPUejN4AENeGJfnTJUeyMWCAj21r9S92pcfND
-         RjKepDoS99xX6ku8CNidfmZJU51gzpyfC/6kLC415+t5LYHRo9u1O//jN/mw3GzxlsyR
-         eqbqrRizAB0iLyrPDEwOIBFZ+8+7hxljON9c2qfICuGjEK/rQi5wrOdPKGF+CklHvDKg
-         ZFmR18VUopDm7rUoSCNsHCCtthCd8HMzyimMyn9a3vkTgA5Ib7+tB1EXOTGp1P2UwIa1
-         ppSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXperbSz0Vwsvjcer2sI/I+b8nGfrOrAomSNe95XeJ0Ltp5plEa4jdWrL6JzI7lJcOfHyvwjqEq694=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuGKLmLSU4+PMB2WztIyo/qhGJ4u0qn/++63KzYIlkHkZwB8+i
-	f4GP9J63cgKJzxEj0rjIbP2vWtTM+yMlBTHYF5/C3dnfjrt+ytMkTbOJ+JsCEoWK/qqjW8Fp2QS
-	SWANFlbxM+8b4O2gEf6S8onNHKfsEbUF7qvGqpVdSY/Nu7hJxKvhIlvpkTGXo8Q==
-X-Gm-Gg: ASbGnctR+eNnjm3g37RcSonVhxY34hLfHQkrT2OL4GX5epuMGGflaExbcmt4huorYUw
-	JjZfqJVEXvR6aHAZ2PWHMc6irzAMXFfXksMikp22sFlsS9h9iUtRry6c9mWFKm35nWH0iuiOpwj
-	20IgvcdWi59x4a5mVg5TwbTWmQpKrcbqLa2x24ZulI0hLGNbPothUPA/aakji02Ufk7DRW6k2H4
-	tZdWSyh3fUUDdtRLLBXXUPa0wWR5AauyX/oY5IdKLNU0h6jf4iDHJfHGfH6Kup2KvYquaKpNZV9
-	29rCWLkquSosOw8CiDJsjIa5uNeLzkSi+Yn/4dxS
-X-Received: by 2002:a05:6214:1c48:b0:70d:c11c:a3db with SMTP id 6a1803df08f44-70dc11ca50bmr198796806d6.40.1756490101028;
-        Fri, 29 Aug 2025 10:55:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGQ60N52NE9MsMKOUYhrxRpFVIMIApl2YHvF2jXFyrCBGlXMOIM4upwu4noHWLIqcnjg2FqRQ==
-X-Received: by 2002:a05:6214:1c48:b0:70d:c11c:a3db with SMTP id 6a1803df08f44-70dc11ca50bmr198796476d6.40.1756490100517;
-        Fri, 29 Aug 2025 10:55:00 -0700 (PDT)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-70e6250cc5dsm19769566d6.54.2025.08.29.10.54.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 Aug 2025 10:54:59 -0700 (PDT)
-Message-ID: <710e8f05-b0b3-489a-9e89-8967cf6a9e70@redhat.com>
-Date: Fri, 29 Aug 2025 13:54:58 -0400
+        d=1e100.net; s=20230601; t=1756538941; x=1757143741;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Tn5paqlyjkwwo7lq1KLyaE3ov7h9Uyq9UjigSmjR0Xw=;
+        b=sgWFIChczTV8Go12G6CIzyvNspWRd+PhB7ACz0Zwrixuz+kbdhNyKlvWCbEm96iRI/
+         6ccCNwiz9ziseeFHzkY42DRepfKwJFnhmfk9m3bqhgC7lLR+bWcxGV9ZU8Zw0cPV1Sjc
+         U4hTB/62w+hJOz2gQfLnvhnQK7sCFC+Z/jd3tJ/OHuHxXQLG1e8J9m8lL8MFQDPSoE//
+         n1i2oS8VJT3VzkNE5B2r1lp1yFZD/rt0laDPvvoGYJabvrUeNBWBcj1rE9xvsk9s3LwN
+         JBAMI+/Yi0xPCXcUZpHw3kxLb53eGdhR/53H7oO2e4PLXsuPO/ZSXSftuWJ1xd3919O7
+         RfbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU5pFzsylJXjGm0s3e83zppPN7Z4q9/nZBBcx67xiR5ConhCGvYrquMkMo/hI40zKnKJo9OlUSZMlY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywzl4KmP+JUrNenl9JRs7KofwYtEtmUx9LU3ce/sKxpfba2haFs
+	H3IqShrxX7qTncXcEVu0kgXbFhtwzlnELkYEgrycWNpY2oC+G/zn6sDu
+X-Gm-Gg: ASbGncuQD+4aZJTlaZ7Jk8g8EJWKHGT1NBVARJP2sne9CO89Xow9cCFKbX5OrJeNrMk
+	idxkkeX55jqxz3wLVGy/66KwuA6BkUOizZF+C44kfXWzgc7TKrl5tDRe1xUQhi0AaQgnaHtcyXv
+	KE1ci9CgUmWVw4vqwLFyFTr0I7MzNZrHEXKySf2Bip/zjSBOj1OpFhg6nC2eruthP+KLWDy6AOq
+	Ums+Cx9E4mUyjU24AMZZMv3DSgf4ffy1Li6x5ZQRxnSArhLR2m8Sova1DvXW7Ia/WdRDiKXU/Yc
+	uB0P5qXnhHARkHoZzThMI2rEFNWaP01Op5Sdwj0hokdlsCyPFo41svHzFSbEDRwzXlgk+2eNykT
+	k+TdUBZRlh05QGjpVmBmXvOU=
+X-Google-Smtp-Source: AGHT+IENgl3KuVXeaQZ/gjf0Yxqcr7tD/C+L6q8ivQphJB9SpWFM2lhL+IzNhLz5ZSCSoa03j2Bn2g==
+X-Received: by 2002:a05:6902:2747:b0:e96:efc6:837b with SMTP id 3f1490d57ef6-e98a57a1befmr1275445276.23.1756538941398;
+        Sat, 30 Aug 2025 00:29:01 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::41])
+        by smtp.gmail.com with ESMTPSA id 3f1490d57ef6-e98ac580f35sm79785276.27.2025.08.30.00.28.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 Aug 2025 00:29:00 -0700 (PDT)
+Date: Sat, 30 Aug 2025 02:28:57 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
+	Alejandro Colomar <alx@kernel.org>,
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>
+Subject: Re: [PATCH 2/4] man/man7/sched.7: Update the documentation references
+Message-ID: <20250830072857.mw224c532jj5xdlj@illithid>
+References: <20250829160200.756194-1-bigeasy@linutronix.de>
+ <20250829160200.756194-3-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] man/man2/futex.2: Recycle two gmane URLs
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
- Alejandro Colomar <alx@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Almeida?=
- <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>,
- Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
- Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>
-References: <20250829160200.756194-1-bigeasy@linutronix.de>
- <20250829160200.756194-4-bigeasy@linutronix.de>
- <1ced3c16-1534-4e43-8025-2301c134bbdd@redhat.com>
- <20250829173928.K82VGvOw@linutronix.de>
-From: Carlos O'Donell <carlos@redhat.com>
-Content-Language: en-US
-Autocrypt: addr=carlos@redhat.com; keydata=
- xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
- QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
- 85ZfAhArWf5m5Tl0CktZ8yoG8g9dM4SgdvdSdzZUaWBVHc6TjdAb9YEQ1/jpyfHsQp+PWLuQ
- ZI8nZUm+I3IBDLkbbuJVQklKzpT1b8yxVSsHCyIPFRqDDUjPL5G4WnUVy529OzfrciBvHdxG
- sYYDV8FX7fv6V/S3eL6qmZbObivIbLD2NbeDqw6vNpr+aehEwgwNbMVuVfH1PVHJV8Qkgxg4
- PqPgQC7GbIhxxYroGbLJCQ41j25M+oqCO/XW/FUu/9x0vY5w0RsZFhlmSP5lBDcaiy3SUgp3
- MSTePGuxpPlLVMePxKvabSS7EErLKlrAEmDgnUYYdPqGCefA+5N9Rn2JPfP7SoQEp2pHhEyM
- 6Xg9x7TJ+JNuDowQCgwussmeDt2ZUeMl3s1f6/XePfTd3l8c8Yn5Fc8reRa28dFANU6oXiZf
- 7/h3iQXPg81BsLMJK3aA/nyajRrNxL8dHIx7BjKX0/gxpOozlUHZHl73KhAvrBRaqLrr2tIP
- LkKrf3d7wdz4llg4NAGIU4ERdTTne1QAwS6x2tNa9GO9tXGPawARAQABzSpDYXJsb3MgTydE
- b25lbGwgKFdvcmspIDxjYXJsb3NAcmVkaGF0LmNvbT7CwZUEEwEIAD8CGwMGCwkIBwMCBhUI
- AgkKCwQWAgMBAh4BAheAFiEEcnNUKzmWLfeymZMUFnkrTqJTQPgFAmiCl2sFCRLD5s0ACgkQ
- FnkrTqJTQPjADA/9EtX1AuwVtpdGqaAqaW3lrOPSqJk5NiI3LiZQFpgVOrMs9VF1BEOGpv2h
- Cy54VjgUGYX4YnnoocC9FCmUkVqUPPkNJr3iElNJF3oAU/MtLCZCDxeJQY8vRRh4idpc61CO
- EnE4bl7nFnPiK1YzZhN1nvdIqvKXkzfFPdHUyejoFso3qX1eMfBf7GciPwT9gjIDovUwHN6n
- 0qsYPxl/eFKleN2hPLDfrucfs/398zAbL5N0EVwrmtG4OZeV6SyN6HiSy7knLW9bg7TMvN8P
- vvEAJ5CbpgEW90JMGAqb10VAjs2vZehXh+gEqVSAfEjT6rVWZBzUzYCl89eaN+usMDIi7NN0
- CqIVv6NKH0dIswYC8J5hPeeV2q52d2s1g8NzJHL/3s7Hc+ot10DsOeoJA2bXhuH3LCveQHzs
- 7Pi0Pm9olLEVVfoo0E2K+oYzb1t1qHBPiR9zcccW7sCFZhDjVtBbFdXXp+bQ+3tqiveMttUB
- NPKl5AFDoa/0Uc2L7piGQ0fqUaHT24BmOGmlEUUWueqFbln0033t1L02i8lPAMo4Fu1k1akP
- 3s0x/e/TOaKY9qJb7h5rFe130HrNQS2TzOSKCjaKmCvRxlDRz8xYdVnEmlTvIeG38apgTNJ+
- moD6aE3qj81BqD1LaR7Dfw07F1TPKbtzswaB+al/iWsK8uOl6P7OwU0EV5/kGgEQAKvTJke+
- QSjATmz11ALKle/SSEpUwL5QOpt3xomEATcYAamww0HADfGTKdUR+aWgOK3vqu6Sicr1zbuZ
- jHCs2GaIgRoqh1HKVgCmaJYjizvidHluqrox6qqc9PG0bWb0f5xGQw+X2z+bEinzv4qaep1G
- 1OuYgvG49OpHTgZMiJq9ncHCxkD2VEJKgMywGJ4Agdl+NWVn0T7w6J+/5QmBIE8hh4NzpYfr
- xzWCJ9iZ3skG4zBGB4YEacc3+oeEoybc10h6tqhQNrtIiSRJH+SUJvOiNH8oMXPLAjfFVy3d
- 4BOgyxJhE0UhmQIQHMJxCBw81fQD10d0dcru0rAIEldEpt2UXqOr0rOALDievMF/2BKQiOA7
- PbMC3/dwuNHDlClQzdjil8O7UsIgf3IMFaIbQoUEvjlgf5cm9a94gWABcfI1xadAq9vcIB5v
- +9fM71xDgdELnZThTd8LByrG99ExVMcG2PZYXJllVDQDZqYA1PjD9e0yHq5whJi3BrZgwDaL
- 5vYZEb1EMyH+BQLO3Zw/Caj8W6mooGHgNveRQ1g9FYn3NUp7UvS22Zt/KW4pCpbgkQZefxup
- KO6QVNwwggV44cTQ37z5onGbNPD8+2k2mmC0OEtGBkj+VH39tRk+uLOcuXlGNSVk3xOyxni0
- Nk9M0GvTvPKoah9gkvL/+AofN/31ABEBAAHCwXwEGAEIACYCGwwWIQRyc1QrOZYt97KZkxQW
- eStOolNA+AUCaIKXfAUJEsPm4gAKCRAWeStOolNA+B0WEACEIb+2+irwJzvzwVKha7oB5Dub
- GCvnHLvvXShYDoHzvajTnLTULWAepp05NiAxI8cP9QNpmj8PPzh1eJ4A53vXogWftATT9N7V
- WEAqVLo3wYAILfnzIOxr5qro148eY++pLMVxHhqrbol4D0CBG+WSAUZdAhK3hKeuA91sUjGa
- iSpwnihXhegHzeFcRgyaC+NhQsj8EoUpdSQtlmea5FxcV0jxiAdPS/8TvBsalMHNQTqOBr+Q
- eyGauXNrS3wT7qVbwNRVdRPHC61qR6RH1TPHAPorZ5p/XQisuxyLXDOJZR0yCsxvqoRWDTJu
- fb8xLrfLxy/LqtE5JNzG1OJL1Bbu9wwiXTkTyj82Zg1KmrDSdSZUvGa3Q7kk5dG38Iel8LEF
- a/Ri/cYKhk7XjJ8xHBMB6KCJueItjyv2qG7vokhxm8ep0XQNVR+rIKVJH60TKIKonLXNYfK/
- znfxUttwFIjjLso6WPHxRjPr1ot1AbgDbuFspRbG7mR2H20ZLjgLPWWAsiHfjyktQ7Dk0hjv
- r0uSJR1R7X5Cdh3uJCl02Rp1jTZNBDWGVdxA8MSY1ej0yOO+VI8OukA75K0u72wvJD4Dg+Sq
- 6mzR3XVZmF7FAZNTSV+1GCekJlnCSp4M8HItrojuEtrdH8Ba4WWxK+cIKejqzhwKFpQYBLg9
- m/A+1AHg4g==
-Organization: Red Hat
-In-Reply-To: <20250829173928.K82VGvOw@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="lbdsu2yr3pqex6be"
+Content-Disposition: inline
+In-Reply-To: <20250829160200.756194-3-bigeasy@linutronix.de>
 
-On 8/29/25 1:39 PM, Sebastian Andrzej Siewior wrote:
-> On 2025-08-29 12:43:26 [-0400], Carlos O'Donell wrote:
->>> index 69df4036ada7f..027e91b826bf1 100644
->>> --- a/man/man2/futex.2
->>> +++ b/man/man2/futex.2
->>> @@ -6,10 +6,10 @@
->>>    .\"
->>>    .\" FIXME Still to integrate are some points from Torvald Riegel's mail of
->>>    .\" 2015-01-23:
->>> -.\"       http://thread.gmane.org/gmane.linux.kernel/1703405/focus=7977
->>> +.\"       https://lore.kernel.org/lkml/1422037788.29655.0.camel@triegel.csb
->>
->> Wrong link?
->>
->> Should be this link:
->> https://lore.kernel.org/lkml/1422037145.27573.0.camel@triegel.csb/
->>
->> Where the discussion is about the unresolved constraint to guarantee FIFO order.
-> 
-> I thought it is the longer email, the second that day, where he made
-> three points. Didn't read it (yet)…
 
-Given the dates and the disjoint set of topics, my suggestion is the link above.
+--lbdsu2yr3pqex6be
+Content-Type: text/plain; charset=utf-8; protected-headers=v1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/4] man/man7/sched.7: Update the documentation references
+MIME-Version: 1.0
 
-> Now FIFO ordering you say. Is it glibc's side or kernel side? The kernel
-> sorts the futex waiters according their (task's) priority. It is not
-> FIFO unless the tasks are of equal priority.
+Hi Sebastian,
 
-The FIFO order question was a kernel-side question wrt futex semantics.
-At least that's how I read the thread. And the issue was resolved, but possibly
-not documented. Documentation might include stating "FIFO ordering over all
-waiters, or even a subset of waiters (at the same priority level) is not
-guaranteed."
+At 2025-08-29T18:01:58+0200, Sebastian Andrzej Siewior wrote:
+> diff --git a/man/man7/sched.7 b/man/man7/sched.7
+> index 5da631c310636..2f0cb1792d02a 100644
+> --- a/man/man7/sched.7
+> +++ b/man/man7/sched.7
+> @@ -1048,12 +1048,8 @@ was not possible up to Linux 2.6.17.
+>  .I Programming for the real world \- POSIX.4
+>  by Bill O.\& Gallmeister, O'Reilly & Associates, Inc., ISBN 1-56592-074-=
+0.
+>  .P
+> -The Linux kernel source files
+> -.IR \%Documentation/\:scheduler/\:sched\-deadline\:.txt ,
+> -.IR \%Documentation/\:scheduler/\:sched\-rt\-group\:.txt ,
+> -.IR \%Documentation/\:scheduler/\:sched\-design\-CFS\:.txt ,
+> -and
+> -.I \%Documentation/\:scheduler/\:sched\-nice\-design\:.txt
+> +The Linux kernel documentation for the scheduler
+> +.IR https://docs.kernel.org/\:scheduler
+>  .P
+>  Worth looking at:
+>  .UR https://wiki.linuxfoundation.org/\:realtime/\:start
 
-Torvald was right that for POSIX condition variables we would naturally want
-a FIFO wake order so earlier sleepers are woken first.
+This is not a gating/blocking suggestion.
 
-> So a futex requeue will take the task with the highest priority from
-> uaddr1 and move it to uaddr2.
+You might consider adding a real hyperlink similar to the one at the
+bottom of the context.
 
-Right.
+Thus, something like (hand-written diff):
 
--- 
-Cheers,
-Carlos.
+-The Linux kernel source files
+-.IR \%Documentation/\:scheduler/\:sched\-deadline\:.txt ,
+-.IR \%Documentation/\:scheduler/\:sched\-rt\-group\:.txt ,
+-.IR \%Documentation/\:scheduler/\:sched\-design\-CFS\:.txt ,
+-and
+-.I \%Documentation/\:scheduler/\:sched\-nice\-design\:.txt
++.UR https://docs.kernel.org/\:scheduler
++Linux kernel scheduler documentation
++.UE
 
+Here's the description of the UR and UE macros.
+
+groff_man(7):
+     .UR uri
+     .UE [trailing=E2=80=90text]
+            Identify uri as an RFC 3986 URI hyperlink with the text
+            between the two macro calls as the link text.  An argument
+            to UE is placed after the link text without intervening
+            space.  uri may not be visible in the rendered document if
+            hyperlinks are enabled and supported by the output driver.
+            If they are not, uri is set in angle brackets after the link
+            text and before trailing=E2=80=90text.  If hyperlinking is enab=
+led
+            but there is no link text, uri is formatted and hyperlinked
+            without angle brackets.
+
+Regards,
+Branden
+
+--lbdsu2yr3pqex6be
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmiyqDIACgkQ0Z6cfXEm
+bc4jbQ//QpBMdGc16fOkfaYdAQSX0yKYS9jibb0ANs24uB9NiHvS2B04gcT3HH9J
+d1aUxR1/7ueTdRgF5tdPeVvdkNwg39Ff7PYL1FFlZHNN8u5fv3AL6TYcYycQwkNE
+Nvbxxkrp2NM2I48sTeJiXDDNsclfY9EhM6kIGS30i9hY3KqCle1YlBK2JuH+UX6u
+K854W8aeHRkfFr+zavgh4tXSDIc1XPqK4epVkUJYo4YFjYE5fkiZwX3DlEulLlfx
+Xzt0Rilz9YfyuBD+2m+0/fBi4KYp75c4Ze+nxrBa2UhQj5o/zlmqfeAPXIpLQ9O/
+kIYEQcbt0QLDc1dEwGF8O05sEFTpSphfsDX+Krj2GwIXl9XNGB1/mPg2U1atlQv1
+tvItLBkG/hxz3KIr7LyNZNlnXPGbT6+g7xIG73rjx5yRo3MYfR37KKFzk8lp2sAS
+qIDSzTyPWxU0HxkK9Oj1q4CVZj6sBEvqUqHUeScCccrsGsqig0JordD6yJhs7X5c
+LA5bfj9mMEbgLF+CO6V6ulqWhC1n7USWoWIFVXVpagWIqST8U4adwvOb4x5jcxWl
+Oi1qzYwtGnGsJ4ffKPWDmVWrYwwaZCjRUC4/jlrI2Q/59O6IU1Fw6LOHxEHgM7KA
+Ld6IKQnmxLrw1Ah5nYGCGZ+AAdxlL3jp1n/EiRstiqa2Tvx/JuA=
+=SnH8
+-----END PGP SIGNATURE-----
+
+--lbdsu2yr3pqex6be--
 
