@@ -1,58 +1,59 @@
-Return-Path: <linux-man+bounces-3766-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3767-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA1AB3D199
-	for <lists+linux-man@lfdr.de>; Sun, 31 Aug 2025 11:19:41 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6DF8B3D19A
+	for <lists+linux-man@lfdr.de>; Sun, 31 Aug 2025 11:25:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4E58C189C572
-	for <lists+linux-man@lfdr.de>; Sun, 31 Aug 2025 09:20:02 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 87A5217ACE8
+	for <lists+linux-man@lfdr.de>; Sun, 31 Aug 2025 09:25:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6920F239E6C;
-	Sun, 31 Aug 2025 09:19:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E23D24468C;
+	Sun, 31 Aug 2025 09:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dNqgCpcg"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGDNKvIA"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284FD2248B8
-	for <linux-man@vger.kernel.org>; Sun, 31 Aug 2025 09:19:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B77035959
+	for <linux-man@vger.kernel.org>; Sun, 31 Aug 2025 09:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756631977; cv=none; b=NQ82ain/raKSUf9MPEzq+CW16B+X/zjTS2bgrJGse8uhKba5RCa+wvWQIYI3kGBX/4gnT/MvMMmZshMVxyoVsCfa80ki6yW3bCQdPYgd2gdX95qbpPmxnPLKhi4rx2bQA9Uhxzb+EVegSCg233xF+WN7tuBmwgp8PKlsb+obLqI=
+	t=1756632321; cv=none; b=OK2a5qLeX5I+5jdfbeTQ/mqTfqGGyj2MhvXcDy9gE69kLJmmykufdmbaJftJ2nnQPcl5WGQVVKmRqGhQbD3hH9059LTxorHEI9QQOJb8+SBUtuMpEOl0WP/M+GwTUCKsD5VbfBhWDcOe0lmLbRIWe749+eYLkgaTMpD1SwulBAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756631977; c=relaxed/simple;
-	bh=coEzUSqD/GlL8jFo1KVOqJZ3TqpgnFYMH/2BeQbLdKE=;
+	s=arc-20240116; t=1756632321; c=relaxed/simple;
+	bh=rk1UULTkx8z27oR4h04gtABsqsM5Xg3ObB4KID+eJtA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jFywjZ4IuNf26FYrEf7l5drulElHoFnkGd7nNE/ED7+reBcuGh7j/NpFMyzoIqaWpyKYFAOHrU9dgLnymAjS8+RLAU6ZeMGlJpYMV0HV2kRuQTspt4pRPzgE7YAi2qqoVgFB8uqNQvNHa3rGPFpLrY383jdRAN9IAYBmV0kXX2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dNqgCpcg; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45AB5C4CEED;
-	Sun, 31 Aug 2025 09:19:35 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=nuFiAz0UkUYIP/2Rry9n9XKoupLhwSkx7VeznMeJYVNLvD/sNImgfccYcHFTtlHm28B2dKHpUP+i79hgIMBqSC3rlIHxlUKJlHNKJSK8CHDdjKy+6JU+eQ/r2rsz0ySiA49hKKnV2JWAChOtKWwkazngIwmZkNYz4YGxytJ/5QU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGDNKvIA; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0666CC4CEED;
+	Sun, 31 Aug 2025 09:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756631976;
-	bh=coEzUSqD/GlL8jFo1KVOqJZ3TqpgnFYMH/2BeQbLdKE=;
+	s=k20201202; t=1756632320;
+	bh=rk1UULTkx8z27oR4h04gtABsqsM5Xg3ObB4KID+eJtA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dNqgCpcgG46fBkspDcT5o7AGIPfWsWxFnJpFXqX1l/mDzfLv9at0F+rPvEC+OcJS9
-	 xNetiY7iQsTveXAl4EE2iJmhqwLK0bo7Eu61Yvk/38DVu57QQXd/CTMPwgeMUwFoES
-	 txXVsYnWw6khW/4MJCkLtK8+y/6Aj5GbDKJHpG6LEc7Yau37tXmT8Hs7gFaDEupOob
-	 RwaBI/xWxNcXBZMWAtJ6C27PnaEG1Q/xpJYuCofVYfRh13Qkt/EchglC+DXXaWAXRl
-	 ogPZ2/8JtY7fnkkGSbx2PTMN6UezcML8bmviDH212YaVxo6hngXNE6C7DXazGbYFdT
-	 Mmj1EzxzLbgBQ==
-Date: Sun, 31 Aug 2025 11:19:32 +0200
+	b=KGDNKvIA4JKMXtOjnRNj/3dGxudcIf6oL74+r9TwD9ScMeXoiLk5OGjVtkel6LVup
+	 3wghqKtDaaKI6kWi/D8gJzS7x7X0FR2p2JFAFknDNh3EI/ulJFiZ28sDCQvQH3rUBH
+	 Txgxmx0U4lWPr4FU+VFOTUuedSdXTgj1vAekW88SesE6YymkJ733voVWTtnCJorJrv
+	 B0p8M1Fg62BD8n1sYm9FhJVHrgy25trxvIzcOU0BhgiiF6BpzHVgN3/TXZgatRVMQv
+	 e1QD6uuJMURizKl06mP/Yxcv8O2x7DZmZ9cfLO1brMvsTJmNYOIUDJBTcmDahF/VlL
+	 NuPgfMvItHD/A==
+Date: Sun, 31 Aug 2025 11:25:15 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
-Message-ID: <s42tfddj6xxryevfv2j52txms7wtclakulafaho5t7iw4ldez3@a57zcntfy6az>
-References: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
- <lnh4f63q5onlj54wt7qg76unbcvu5apinualih4byiatrfvjpv@5r53xpupbjws>
- <8ed88109-2dd4-4d26-ba5d-32bbf7cb2906@redhat.com>
- <j2ramfsczn2lparyohabohs5lslb2neyxgp73c23bq6vzqsn6w@t7hw5mdvt4q4>
- <f076ae23-e4b2-4294-9038-8a234aa009a8@redhat.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Helge Kreutzmann <debian@helgefjell.de>, 
+	mario.blaettermann@gmail.com
+Subject: Re: hyphenating English phrases (was: Issue in man page
+ pthread_attr_setschedpolicy.3)
+Message-ID: <rt4eeojubbxj3orjodn3c7e7vrgvnw7zmweu2owplfqlefst3u@ymw7cum6r2vo>
+References: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
+ <5n2mlo4l7kqloztcuruagrkglh23gkqfqckuqf6pajerx6qkwh@b6qqipttn4xy>
+ <aKyI4KbJh6LJC_8r@meinfjell.helgefjelltest.de>
+ <7pe2qwvkqpd6drn5ql3xld5s7auq7d36thdu6b3oowpf646ppc@mvteqf4f7245>
+ <20250825194532.hwoasp4prqzkmd4q@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,117 +61,151 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bggiywyypcm3syvg"
+	protocol="application/pgp-signature"; boundary="2jde2m5k3ihltyyi"
 Content-Disposition: inline
-In-Reply-To: <f076ae23-e4b2-4294-9038-8a234aa009a8@redhat.com>
+In-Reply-To: <20250825194532.hwoasp4prqzkmd4q@illithid>
 
 
---bggiywyypcm3syvg
+--2jde2m5k3ihltyyi
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
-References: <aKsmUDWxV2eeCmmT@meinfjell.helgefjelltest.de>
- <lnh4f63q5onlj54wt7qg76unbcvu5apinualih4byiatrfvjpv@5r53xpupbjws>
- <8ed88109-2dd4-4d26-ba5d-32bbf7cb2906@redhat.com>
- <j2ramfsczn2lparyohabohs5lslb2neyxgp73c23bq6vzqsn6w@t7hw5mdvt4q4>
- <f076ae23-e4b2-4294-9038-8a234aa009a8@redhat.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Helge Kreutzmann <debian@helgefjell.de>, 
+	mario.blaettermann@gmail.com
+Subject: Re: hyphenating English phrases (was: Issue in man page
+ pthread_attr_setschedpolicy.3)
+References: <aKsmUGE8mAXnM917@meinfjell.helgefjelltest.de>
+ <5n2mlo4l7kqloztcuruagrkglh23gkqfqckuqf6pajerx6qkwh@b6qqipttn4xy>
+ <aKyI4KbJh6LJC_8r@meinfjell.helgefjelltest.de>
+ <7pe2qwvkqpd6drn5ql3xld5s7auq7d36thdu6b3oowpf646ppc@mvteqf4f7245>
+ <20250825194532.hwoasp4prqzkmd4q@illithid>
 MIME-Version: 1.0
-In-Reply-To: <f076ae23-e4b2-4294-9038-8a234aa009a8@redhat.com>
+In-Reply-To: <20250825194532.hwoasp4prqzkmd4q@illithid>
 
-Hi Carlos, Helge,
+Hi Branden,
 
-On Mon, Aug 25, 2025 at 04:00:58PM -0400, Carlos O'Donell wrote:
-> On 8/25/25 3:41 PM, Alejandro Colomar wrote:
-> > Hi Carlos,
-> >=20
-> > On Mon, Aug 25, 2025 at 01:52:03PM -0400, Carlos O'Donell wrote:
-> > > On 8/24/25 3:21 PM, Alejandro Colomar wrote:
-> > > > Hi Helge,
-> > > >=20
-> > > > > Subject: Re: Issue in man page PR_SET_SECUREBITS.2const
-> > > >=20
-> > > > You probably meant PR_SET_THP_DISABLE.2const.  The text you quoted =
-is
-> > > > there:
-> > > >=20
-> > > > 	$ grep -rn THP.disable
-> > > > 	man/man2const/PR_SET_THP_DISABLE.2const:9:set the state of the "TH=
-P disable" flag for the calling thread
-> > > > 	man/man2const/PR_SET_THP_DISABLE.2const:21:Set the state of the "T=
-HP disable" flag for the calling thread.
-> > > > 	man/man2const/PR_SET_THP_DISABLE.2const:32:The setting of the "THP=
- disable" flag is inherited by a child created via
-> > > > 	man/man2const/PR_GET_THP_DISABLE.2const:9:get the state of the "TH=
-P disable" flag for the calling thread
-> > > > 	man/man2const/PR_GET_THP_DISABLE.2const:22:the "THP disable" flag =
-for the calling thread:
-> > > >=20
+On Mon, Aug 25, 2025 at 02:45:32PM -0500, G. Branden Robinson wrote:
+> At 2025-08-25T20:53:15+0200, Alejandro Colomar wrote:
+> > On Mon, Aug 25, 2025 at 04:01:36PM +0000, Helge Kreutzmann wrote:
+> > > Am Sun, Aug 24, 2025 at 09:15:28PM +0200 schrieb Alejandro Colomar:
 > > > > On Sun, Aug 24, 2025 at 02:48:48PM +0000, Helge Kreutzmann wrote:
 > > > > > Without further ado, the following was found:
 > > > > >=20
-> > > > > Issue:    malloc =E2=86=92 B<malloc>(3) ?
+> > > > > Issue:    inherit-scheduler =E2=86=92 inherit scheduler
 > > > >=20
-> > > > Maybe, but we should probably add a reference to malloc_hook(3) ins=
-tead?
+> > > > I think this is correct.
+> > > >=20
+> > > > I think it's this:
+> > > > <https://www.grammar-monster.com/lessons/hyphens_in_compound_adject=
+ives.htm>
 > > >=20
-> > > In a modern system you care about malloc not malloc_hook.
-> > >=20
-> > > The hooks have been removed and glibc has directly integrated THP usa=
-ge in malloc instead.
-> > >=20
-> > > https://sourceware.org/glibc/manual/2.42/html_node/Memory-Allocation-=
-Tunables.html
+> > > Thanks for the pointer. I'm not a native speaker, but "scheduler" is
+> > > not a adjective, isn't it?
 > >=20
-> > Thanks!  Do we need a more thorough rewrite of this page is needed?
-> > Or just replace malloc by malloc(3)?
+> > Yeah, it's not an adjective, but the rule is similar for this case
+> > even with a noun.  I'm not sure how they call it; maybe compound noun?
+> > I don't know.  But since they modify attribute, and the go together,
+> > they have a hyphen to denote that they go together, I think.
+> >=20
+> > Someone native please help with the exact rules, if anyone native is
+> > reading.  :)
 >=20
-> Yes, the existing text is only correct for < 2.34 glibc system.
+> Several years ago when I began revising and updating groff's
+> documentation, similar questions came up.
 >=20
-> A > 2.34 system has THP support with the tunable to support THP (for lega=
-cy libhugetlbfs users).
+> One resource that proved valuable was the Chicago Manual of Style.
 >=20
-> And a glibc =3D=3D 2.34 system lacks this feature and doesn't support suc=
-h hook + interposer deployments.
->=20
-> The quickest fix is to reference malloc(3) for now.
+> https://web.archive.org/web/20171118013349/https://www.chicagomanualofsty=
+le.org/16/images/ch07_tab01.pdf
 
-Thanks!  I've applied that fix.
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D4de21772d70d210ff9085c65ed380b0463d47a49>
-(use port 80.)
+Thanks!
+
+> About 9 months after I cited it in a commit message,[1] CMoS took the
+> resource down, hence the Wayback Machine link.  I don't remember if
+> that's before or after I immoralized its editor Russell Harper as a
+> black-hatted villain in groff's Texinfo manual.[2]  ;-)
+>=20
+> CMoS is a fine resource; just don't believe its editor's lies about the
+> history of inter-sentence spacing practices in typography.
+
+:-)
+
+> Another rule we (mostly I) observe is that adverbs in attributive
+> phrases _don't_ get hyphenated.[3]
+>=20
+> For example, we would say...
+>=20
+> "Alejandro Colomar is a Spanish-speaking developer."
+>=20
+> ...and...
+>=20
+> "Alejandro Colomar is a highly competent developer."
+>=20
+> ...but not...
+>=20
+> *"Alejandro Colomar is a highly-competent developer.".
+>=20
+> However I must concede immediately that in common usage one often _does_
+> see adverbs hyphenated in attributive phrases.
+>=20
+> "The child of well-heeled parents is born on third base."
+
+I remember to not hyphenate adverbs that end in 'ly', but I hyphenate
+the ones that don't.  The ones that end in 'ly' are easier to remember.
 
 
 Have a lovely day!
 Alex
 
+> At the same time, while the (notoriously permissive, per Charles
+> Harrington Elster) Merriam-Webster dictionary includes "well-heeled" as
+> a headword _with_ the hyphen, the Oxford and Cambridge dictionaries
+> appear not to.
+>=20
+> I like consistency, so this case may be one of the few where I prefer
+> Commonwealth English orthography over my mostly American practices.
+>=20
+> (Observe that I did not write "mostly-American", and I suspect most
+> other experienced writers in the U.S. and Canada also would not.)
+>=20
+> Unless, of course, they wanted to come across like some kind of hoser.
+>=20
+> Regards,
+> Branden
+>=20
+> [1] https://cgit.git.savannah.gnu.org/cgit/groff.git/commit/?id=3Df81a9e3=
+2d0b1f80344d8b4dc39ab505b14151e11
+> [2] https://www.gnu.org/software/groff/manual/groff.html.node/Sentences.h=
+tml
+> [3] https://savannah.gnu.org/bugs/?57618
+
+
+
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---bggiywyypcm3syvg
+--2jde2m5k3ihltyyi
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi0E6QACgkQ64mZXMKQ
-wqmQOA/7BkrIKqdoYPzgS/nBrHQUFdFVgRoJ/ndb8Gn8PEIhGf5YT87MIQHzzccd
-Fwo6iVh0ejsTijqE4rNvr1oCGc6M63FkPA1QcBnJwI1VixxG4Dj9ZE8MPRM/mZHH
-08ECAqSDK3cv2BlujQFSGobJ1SwMi3fdG29SU0+uVsG334p/NZ9WY8l8iz+WzJRV
-FkvXw4zbqknZUUw/OXHKN+imOpob9r2kLE/4uooyxXgiyJ4r5O95cxdL2Xlbs9Na
-0JL7nC6GdaJq2Ec5Yojb9k9SYzqQWjiJZlC1RFpNgCFCE32dGXZI1mUhfvJ8tjiI
-dIOeUsSNevcJbfWS8BfQ+3OUTlgXMfGM9IjrMk39GZ+2OG+Y3eFF+dbG2zI+4T5p
-SoFB32hzN86ffDioHh2Eyeu7/50XFhcguUhhbARBGc1GShRDJFJxLHE3C58/B8JU
-GVIuqCvsFP3ZU3aNMCf3qOJgScH5AylZB0gdWxkFeXW1I3SkLDGFhrHf5jAGSIdi
-2O2Hfxquyn6aVQ/eB/l1Njd9eNlD1ysl0O6x1xjiLqrbBRmZe8gTwXbLsmInHYeC
-j6bLH3yXfQBuhwcLZ+vK1izaCOFCCnYLbpT4hPrHIs/lTmURyAQAd6LAp+MplIrE
-bCbCkwbpS1FiXK4otawNuDzB4RdQB9pyUlaniL1lZsw1eaWY0Vw=
-=NpfM
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi0FPsACgkQ64mZXMKQ
+wqkuyA/+L+rHORT7LAnje+B1DaJSHJslewtyMsQP7mtURXsPSMcsJUwcgrp0Manb
+2+A24K8NOtgbg+O+MVJlJW8bXGxRFiSJLkeA1BV0HHpCiZB3OIUyLBBQwS9FeyJ2
+viGXvZkXXbagRffekDXctI/2Cbbiq33uo4Ev3Zx/gX+Ib6GaNxmaW0nC3b+Bspb6
+uyA//mWUopF0vzfVvCwzeor7YoyPhilDbjNPlrnXRXOzxtpki2Mz60MoplAQzC2m
+3Wv1D84GKFYHNKdd/0LhawgYIdYXJ8vaCGwTaVF43PqMcf5b6WvqcWOmhW+42fE2
+UDz2O9pgJYoQyqvlUl2b19Y2p74EAlbOj7Vg9j4xjsRSRxtqWGe2oC/UIaNtU/v4
+SJVJXYMNJW5RK14nc4hHe8jY/FNhptuUGa09v5rtxKgq3+Kbw+btucdKRU6zkyDQ
+QEBrv2oIkDe3atbyHyWkzb1dgQm4jF3CwNID5bleWsorGf8dPV/vEU/LrCCacPpW
+/jpys6sFj8vrb1oMjGpMCDDZmGRjYdI3WkiAN4eQdN0uzgWmYAglyMxWAgGv8mja
+kJDTc12RtK31ow4bzxaVLkIJz7scBGd3bTvnV+mRj7yN0Wttlh/HC86CnGS+EGmw
+n5bF8ONvVqTqCip/k+LERhiNPZ5eUB2Cwrm1PwWi4pPyJtY7XZ8=
+=RiLp
 -----END PGP SIGNATURE-----
 
---bggiywyypcm3syvg--
+--2jde2m5k3ihltyyi--
 
