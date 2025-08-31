@@ -1,163 +1,159 @@
-Return-Path: <linux-man+bounces-3760-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3761-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B1CBB3C8C4
-	for <lists+linux-man@lfdr.de>; Sat, 30 Aug 2025 09:33:59 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D637B3D170
+	for <lists+linux-man@lfdr.de>; Sun, 31 Aug 2025 10:48:41 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 4559D1C21C77
-	for <lists+linux-man@lfdr.de>; Sat, 30 Aug 2025 07:34:19 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8E4511895752
+	for <lists+linux-man@lfdr.de>; Sun, 31 Aug 2025 08:49:01 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A695722D793;
-	Sat, 30 Aug 2025 07:33:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F0082116F6;
+	Sun, 31 Aug 2025 08:48:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gd1e49hr"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKXwFEjr"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com [209.85.219.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030E316F0FE;
-	Sat, 30 Aug 2025 07:33:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CFB16F265;
+	Sun, 31 Aug 2025 08:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756539232; cv=none; b=SFPYCw3qfASxElEwK5g4IBzEctLLfQ6JNFPEcyPKHLGFsDWEpeRsTmJfhILDH+1uOfxi9q7/MZDFRWRjFr8yYtXKB/eAy+xwPqRyq4cOYQrQIa1hnb6s/LqMpRotZ8ksOlivLNaMh8vsLmc4OhFgYB6t6jhzQ2R+6gooyeb2Sfg=
+	t=1756630115; cv=none; b=ZReYtVHJ6bqW7OBRnZv7aG5N2ngPUjVMmX/2esVX2v65XF3jxoBJkXIbSiTQ5cNVzI4DT9CxECY8cVozKq4CZQ64g9X1whLhWjhVWSSJ/NfkORUPUcaXC2I8zKETL9ouLA1N979cDZNzKt0W8QiSd+zZAFJ/vB+rKNlcsk1kPlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756539232; c=relaxed/simple;
-	bh=yx5WKlUCgfoqGHse0A+UTn42ZESS5T8sisrrMPHWOp4=;
+	s=arc-20240116; t=1756630115; c=relaxed/simple;
+	bh=gsIYtWeJ1fLlCYX0fpKFEK74vbx4/el36wXfoW44tbs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lWitIzwe1YtAl5UTZCQOK+d+rTCKDSuQsDjZ1FUsTQiwcVY4TjwpvfGs6vBKXcv2ha+rfkhUMsxQLdZAT/3QbEX79f1OA2oF4cPmNH1FJw7HpRspTq6VwWWMazMDP+QUlVtfl8wnHAknhHwGQJUIkFbIxUYY9Kci+bBMrGz2V28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gd1e49hr; arc=none smtp.client-ip=209.85.219.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yb1-f175.google.com with SMTP id 3f1490d57ef6-e96dc26dfa2so2340762276.1;
-        Sat, 30 Aug 2025 00:33:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756539230; x=1757144030; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=fZBnJZ74Fu0arWlzftFzjtzGoLDNy7BxofIjGGsbtSk=;
-        b=Gd1e49hrqWj0LkyCKDhWBFZ23QfLkfdWnG/kb2zjaBhlPBydJnfLv9onwMLwJFdviB
-         UGRoBbRsLxosuVyxrfMLHzLJ+3tQGks3CUqpyLR1Sv6Pg/YcnpoQ7mXOTQO9LRWCrUbD
-         UzOWJt1jcp+4B4y9GNsS+/W/JyRf8Lr7LnldpiHJh1ZkJwV08zR8q3ftfLCgpHkpkcwY
-         GIO1iNLS15+vcTq62SxTd32s0b1CTZzOIT1Ow0mUoLNadOWco7rVyDKwd5YkCSw33WBg
-         +odEnGrtJqvPb0Rqfq/ylIQVEmCYFBJ7t3ORxEoTkVphFpZsr8hjZj13rrp5ls0HLbL0
-         /OBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756539230; x=1757144030;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fZBnJZ74Fu0arWlzftFzjtzGoLDNy7BxofIjGGsbtSk=;
-        b=w2M7O5QYsGyjSalVgrlaF5I4DwiRqbXGIN77UrVCpfnyWO++98jvzj2t1x3BF2Uzw4
-         eVGUDQOnjjAMuKQ/0fDrXyCwrZMOZhmRpWnJZS4LbTE+jQ2n1aYgGUTsxJmlNT/llis+
-         9ib29hDwvwHhPdk2pVzz9LV6sHE8/Ip1dToKERczMTIe2+Dwtdrk4T/8seWEY7xK3/Kf
-         YB0edmYYyTRJTEAUlcANWCgu8vdnqJ9EdAJ9WOJt8UILTCtQ9TdaqtwDjOPq0WLQ+Dyd
-         oYayJdOfOjI7phwKy2xKshqPC/gsQgNGldPvUDwYJ1jnLhZeDh/GeHYLg5YMfqUJbdZe
-         3Aig==
-X-Forwarded-Encrypted: i=1; AJvYcCWfnsN1ihsJWbPHM/DfgR9f9ncu9ZXIzQkSd8jjvtyAwFpCp6uAgNDREdjTNxfJo2XmURr5yA+zab4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgYgK5JoYIyO4paRAOvi3KD3Xg5J1IFzpn9NiN5dTjeip6QsJu
-	dxz0tcZX65pe1SbxXcgNdbZ8yW9v45SlqpE9z8VyAHFaHDD2rwsXzIg3MrAc0DSa
-X-Gm-Gg: ASbGncvkxIolNO1rh9IiEbE+x2qs2EqlhUQuCsu8HVAutqBnWhWaKV2tIAuCaqusNT+
-	ULbq5g3+JQffPejEtBsLKlKeZW0NRxsSyFSgixo5Y9UP6s4EvrklcDrMgxKJyqD7F8mtabh/PRD
-	wNJ8tNxim4DGfO7jRvlJ85/U6YgPdP9dF6akGkyOoce4Y/YsbKrOuknI7pnJSYcIv43VWj8l7Yt
-	gx5c83OyZJSS/PcofLQT1EwPyclUq6zKRgkExK1rfqVBxxrm9WE9E0Zn5uFccdVrov/KT8gOpPe
-	tQkabb6+kMZuFh44nGPX+TSQfhUoIe0d+Hnb2gfNDZas3WeMbmGpGGk8buemmj6BoPhHREEnqWH
-	DoBPhqnH8rWpU
-X-Google-Smtp-Source: AGHT+IG16tqDojPL+XeCJmtx1xxJDRJtJG3aJPZ7aW8BzjkhrIBmcu1LO0uFQXtvozcari/BkARnXg==
-X-Received: by 2002:a05:6902:1005:b0:e96:cf40:97f2 with SMTP id 3f1490d57ef6-e98a5876670mr1305889276.50.1756539229870;
-        Sat, 30 Aug 2025 00:33:49 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::41])
-        by smtp.gmail.com with ESMTPSA id 3f1490d57ef6-e98ac57c06dsm80625276.26.2025.08.30.00.33.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 Aug 2025 00:33:48 -0700 (PDT)
-Date: Sat, 30 Aug 2025 02:33:45 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=qKFPPgnP2I4rNRTIHCgPfzflN5Aechb0bG4LvOSlDFuwoVHY6Gc6+BAmuLzP4h2dyI4XlCBBCNoQFkQayjdOvfQnRDRgc41MI0Y3piHb1zRLx1cI8c+JDPlBegLnRH1C5dBh0eR1ryiGezIli9uFPNkGCwS1a1G7K8I8B7zHwyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKXwFEjr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DCC0C4CEED;
+	Sun, 31 Aug 2025 08:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756630114;
+	bh=gsIYtWeJ1fLlCYX0fpKFEK74vbx4/el36wXfoW44tbs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WKXwFEjr2V5PwqZHPrxh/RehA7DoTTJKxmCPhRkhRQgYrhRQzuU0zjnn2v6/6jrqf
+	 PVqWwutm613/6LxaEUaPoqUSPsSrR4td+DYzshEW9xQtX2C3qcTLoG/MNNHw7l/R1e
+	 xTF8dyi/lwG2hue9p7lB5/5EEQKusoIU40x2Iswrjn3qvkigicvA3HfGS3ECzG7LJT
+	 Pq9swnXY3KomS8ZM0ppEpEa+hyYiWVW9x3Gs4+FkBH/Vp1jiS/mhewTuhHK5iBg6jC
+	 Uq1bNjYN0jp+uKQDxqE7fYOsFvMhoMut6cMg+ucnxa4/c2haCMAKPa7rrXUKOQ63IH
+	 K+UfVUDUU37ag==
+Date: Sun, 31 Aug 2025 10:48:27 +0200
+From: Alejandro Colomar <alx@kernel.org>
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-	Alejandro Colomar <alx@kernel.org>,
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Valentin Schneider <vschneid@redhat.com>,
+Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
 	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH 4/4] man/man2/futex.2: Add a pointer to Linux'
- memory-barrier
-Message-ID: <20250830073345.3imuyvaluskxdjnc@illithid>
+Subject: Re: [PATCH 3/4] man/man2/futex.2: Recycle two gmane URLs
+Message-ID: <ak27gmqpgybt5a22ferayom5wdmn6cfvof5fqvwpu2dugloy6e@chomaex4za3n>
 References: <20250829160200.756194-1-bigeasy@linutronix.de>
- <20250829160200.756194-5-bigeasy@linutronix.de>
+ <20250829160200.756194-4-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4x7pcxn567hblx56"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fdismcoyo2tjgiyj"
 Content-Disposition: inline
-In-Reply-To: <20250829160200.756194-5-bigeasy@linutronix.de>
+In-Reply-To: <20250829160200.756194-4-bigeasy@linutronix.de>
 
 
---4x7pcxn567hblx56
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--fdismcoyo2tjgiyj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
-Subject: Re: [PATCH 4/4] man/man2/futex.2: Add a pointer to Linux'
- memory-barrier
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Darren Hart <dvhart@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Valentin Schneider <vschneid@redhat.com>, 
+	Waiman Long <longman@redhat.com>
+Subject: Re: [PATCH 3/4] man/man2/futex.2: Recycle two gmane URLs
+References: <20250829160200.756194-1-bigeasy@linutronix.de>
+ <20250829160200.756194-4-bigeasy@linutronix.de>
 MIME-Version: 1.0
+In-Reply-To: <20250829160200.756194-4-bigeasy@linutronix.de>
 
 Hi Sebastian,
 
-At 2025-08-29T18:02:00+0200, Sebastian Andrzej Siewior wrote:
+On Fri, Aug 29, 2025 at 06:01:59PM +0200, Sebastian Andrzej Siewior wrote:
+> Based on the date in the comment, the here provided URLs should point to
+> the mails that the gmane URL no longer can.
+>=20
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+Thanks!  I've applied the patch.
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D2f5536dd43eaffdcb2bf00addf71aac4596c7f8c>
+(use port 80).
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man2/futex.2 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
 > diff --git a/man/man2/futex.2 b/man/man2/futex.2
-> index 027e91b826bf1..fe4a239c3812c 100644
+> index 69df4036ada7f..027e91b826bf1 100644
 > --- a/man/man2/futex.2
 > +++ b/man/man2/futex.2
-> @@ -84,16 +84,14 @@ on the same futex word.
->  .\"     would be sufficient? Or perhaps for this manual, "serialized" would
->  .\"     be sufficient, with a footnote regarding "totally ordered" and a
->  .\"     pointer to the memory-barrier documentation?
-> +Please see
-> +.IR https://docs.kernel.org/\:next/\:core-api/\:wrappers/\:memory-barriers.html
-> +for the definition of atomic operations and memory ordering.
->  Thus, the futex word is used to connect the synchronization in user space
->  with the implementation of blocking by the kernel.
->  Analogously to an atomic
+> @@ -6,10 +6,10 @@
+>  .\"
+>  .\" FIXME Still to integrate are some points from Torvald Riegel's mail =
+of
+>  .\" 2015-01-23:
+> -.\"       http://thread.gmane.org/gmane.linux.kernel/1703405/focus=3D7977
+> +.\"       https://lore.kernel.org/lkml/1422037788.29655.0.camel@triegel.=
+csb
+>  .\"
+>  .\" FIXME Do we need to add some text regarding Torvald Riegel's 2015-01=
+-24 mail
+> -.\"       http://thread.gmane.org/gmane.linux.kernel/1703405/focus=3D187=
+3242
+> +.\"       https://lore.kernel.org/lkml/1422105142.29655.16.camel@triegel=
+=2Ecsb
+>  .\"
+>  .TH futex 2 (date) "Linux man-pages (unreleased)"
+>  .SH NAME
+> --=20
+> 2.51.0
+>=20
 
-(not a gating/blocking suggestion)
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
 
-As with my previous comment, you might make the new text a hyperlink.
-
-+See the
-+.UR https://docs.kernel.org/\:next/\:core-api/\:wrappers/\:memory-barriers.html
-+Linux kernel's guide to atomic operations and memory ordering
-+.UE .
-
-Regards,
-Branden
-
---4x7pcxn567hblx56
+--fdismcoyo2tjgiyj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmiyqVkACgkQ0Z6cfXEm
-bc4zyg//aDLrwhMav405imVo14OkqNFF5c8VBXKgwUQyCFJr4XLLPNA+/OTOlH96
-mlJ3XDA31e3b8aSx2Nsp7GNy9/UBznTi0jshQ9SWsu6Q7GhAI9vvi+WZYI7QTejf
-KUy6ZBlZvwKI0GHelszKmyScnLoDW+/h3b1oaBQbiklqQYUzR43+MfbikSbLp/wj
-KIbh/lLJ5wW1Fop36dWBRrHyuJhqCHeEYi5tAUXSxjdUyVEzzGTNSMmwjvhbkajO
-VRLutVQ+s52Lnd3izxG9a/tg/y7reMyIOJJjwuKkdEeqZSQlBhtCRTf7ykhvcrjE
-OtVB11CTrDtEImyCsySOHxx2rEg8i0s+Mo6fxAq6K4VdDveICVGBpwLj8/AvN5Ks
-dUOcCiZMeP/7gMrY/m6slE8FgQhpBroKsfXDu9NlX4j9LE2TBPB/8saOIFelMx4O
-ElHfN8rDiJ6rT61Zj93dmQ04mUDgvio1FqnnNYZoRavm53WgKiFZV+BFhu/VnSip
-UmNwf3yH31e7OZEYdyj1fxeNm218gwHQU3s5FwO8/waytTqQddVQ4xsuDuYnqxR+
-jwUHNzueSFCWxd4FJANzTArrcYViYdnQxQGXf2neuOVDz3gSWjXVikTKcF5Z2Eh0
-T9Ho/y2fws/tUGiAZHn1AgCuAb9sde/M38KliUhN6zsLW9pUOZU=
-=pPdK
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi0DFsACgkQ64mZXMKQ
+wqkAFw/+OtyJI74DKQ44/Tq6H5KcDSZ81LVWVgmH72p4i4OwfuPw9G31UzIiOktp
+oVHx4wW+XIo561Env3+NBDXUuWQdTy3XLDD2lPliuIxohzq1liwHsnhbJTYWmRkW
+Tw8+HoesLTyN2403PaXwzRqWFpBjWJlSXQRQZiEpoMs5zTNni9CFA53Rcsw0i4d4
+FblxylfB1Hh2udIEhZJujGtwRVTPor7IX3JbcjGV7+XURaUcgfS+/4Mzt39qzhOv
+ezmA+rM62u5p4YQpmvu+Y/gQW1oIqYme/KWB0olY99yv6MArZn03/O8hV/bgMJy9
+Zjo1N3Xo3PJjfxaZLekd9VjkT3Np2w25sNXwQsqbZHXgJiGPePPUlGVMY6iBxOlt
+KAFROeEGSAgZ/rVcYzVn3eMWXbxFGdhbSGi0u+G0HEbYINPKAetmyJpJQG/7RWXQ
+chfgDyA2VpRZuHuy7H0rfmYvPHPCbHloPf/l/AaRFyIzDGCFkTueFRcSn+XlAw+G
+sm/SZaaVwuMklqfRBVXf2nN1bdYT1ZdcGLzRqOevMshO9BQ6KCboXmyPJc8HP94E
+t0CtxDzHUS6Z10GM4UVGTVS4AL19fSDpc8YvycRMEUr3dmAatqdE6lhQrXtkFFec
+WqyAdlkY61y/6NRSbefjfJaGjQXbbJ1Vji+7VoLFOaCQ+/c1iSw=
+=rE9K
 -----END PGP SIGNATURE-----
 
---4x7pcxn567hblx56--
+--fdismcoyo2tjgiyj--
 
