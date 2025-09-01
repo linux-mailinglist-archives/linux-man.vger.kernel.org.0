@@ -1,81 +1,80 @@
-Return-Path: <linux-man+bounces-3823-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3824-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C1E6B3ECCD
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 18:59:05 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF76B3ECD7
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 19:02:12 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 54FD17A145C
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 16:57:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 2ACED4826FF
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 17:02:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD3CF320A10;
-	Mon,  1 Sep 2025 16:58:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBA68302CB4;
+	Mon,  1 Sep 2025 17:02:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UIvc8I6q"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rr6k88GV"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C15320A02;
-	Mon,  1 Sep 2025 16:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE2E2D5952;
+	Mon,  1 Sep 2025 17:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756745927; cv=none; b=AcRwwYfxYL6kSnwYLnpwR0ZRzUWGRH7GcQslHTFjOrUpHvN5WIvmOsXwd4MONHILTBXcjDwMfLa566MvcIGBfO/LF+xE5/BChDhtXN8K6nhbsdJK00AnBb3/b7rKrVrlkPNwCSTTUjZOX7i+V4L4ZIRF4sQrOCLheBR8b6wOgAE=
+	t=1756746125; cv=none; b=PodBlS47HlxKvDfvZc6M38blKAczbXH5FkRcqWd6rWOGW/iyPAuZt09szC7fAjVa79c2lBGNTkFaYkQYfTqZh797TkN1XMmOGsAHJZpO3UUheUkXi4gIZVsSgfQkDsC7vAKeK1Feavjb4UbEui4OXnwN04LVcjP/gyfDRbjbEnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756745927; c=relaxed/simple;
-	bh=K0zm68GTxov0wXe6y6Y91HQcC6XVs9Mvru10uVvQ5p0=;
+	s=arc-20240116; t=1756746125; c=relaxed/simple;
+	bh=J2L6IOIBS5H88YcjwaA+pmHj6LZlputpHNp8msGnmnc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h34JIMacxsLPoptSC2gBdiKFfHrbb/2wAjdEb3Eip/srIRZYHhq2A9qOgIolTGyq25kPY8Zd91pkVxB7uqY3yz0pRwevjKgrBMT60OhLsRBwI8zuKfPM5wF2R7N1LVjbSQbC0NkrCtZyzjbEcL+rFo+vtkadJq4jBzFCTHb6bbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UIvc8I6q; arc=none smtp.client-ip=209.85.128.47
+	 In-Reply-To:Content-Type; b=eWR/Kf7GccC5ombQomqeldZvS8DCteT2OcaPXsdE5nu4/zVhM6rMGgLbP9NdHaAwNcnSKTlFbRnEI2PjeQJkOB9wu+6ypkPa+ZRdyKp/Aiib5Dtc3ruxNAGmEKcZHNjREWFJDtvl07/+hTPkPaqvIUi08LAKJ2hwJaNcFW0JfTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rr6k88GV; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-45b7d497ab9so39687325e9.0;
-        Mon, 01 Sep 2025 09:58:45 -0700 (PDT)
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-45b88bff3ebso10278755e9.3;
+        Mon, 01 Sep 2025 10:02:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756745924; x=1757350724; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1756746122; x=1757350922; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7JItOdgLR5ewbXV4fusbnqGa1qC5ZXvzXh/D9eLDiYg=;
-        b=UIvc8I6qx7XZxd0bP/Oz7rtAEynKba8+YP9sqfS/TejmrvWzkEmkjyowsXlu89RLIQ
-         rWxpOG+qCUpH5n+jn4ep0K2dLeVwzqCvmZ7iypYLRxzrud45EwK4VeFO6UQeo85QZQ+t
-         PRxa1eXToAsQK1NC6OW+VRtO0V1kyF8raMSV7smcVvNVBwrAqYFBYxmV0IUjBmgwQrkh
-         VRqRa0Xm1bG8jv5UeUHsgs/krVFDrTWtmPsmefHBIPXk2QOBNOEJbS4m1t/MfWLp27cE
-         COzVjj08gVtR5qorXN6QXkDy4RrNtAIKtBKvpvcVqLd6j6ERZ77Usa+XqEi2dDdrnYFX
-         eoIg==
+        bh=FRQt+UBjQqYx5yZNwHJXOb/IQAikJ0bwHOaWGViIuvc=;
+        b=Rr6k88GV7yShDbIeW632W/F95sONyG/CrGlORotBT9fLWUuunUBdByzVmOkHdvqUC9
+         V8Cm5lPdeppazoDf4B8+njGKReFI9ZF9ZzkMxjPDJM3ee0zMhZV4ZDeZ5hxj6fGhrifF
+         6p0b3NHV+08P7ezU2FxPftRbQVDf/jZXzFNIek015338roxRS2H7FUl9ZOfIyDl4Apwr
+         miMi5pj6NMkx5t7ebrqe6/oKk6PQoW9X3JCXBDL57nYrzCvRxWmE7wfc6WzAIQmNsVBP
+         PAOtTuQJhnYxbCqL7rCl4VRG3zXOkLNqKduVRcER49qyAZluzJ0DWPoFykbTp8/Wr5oY
+         eYFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756745924; x=1757350724;
+        d=1e100.net; s=20230601; t=1756746122; x=1757350922;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7JItOdgLR5ewbXV4fusbnqGa1qC5ZXvzXh/D9eLDiYg=;
-        b=v8qUrCbI+pL6MeZX6PtgxN55mt5MwBXXal0S0wkJ1DaHlZFPgzEt1s7EzmdniTmWwh
-         igTfFFJ7jKht3RmKdJGFPAFD82jQ2/lnGZKAUb/g1vqjKzNcWhvbDeDXxIESWTXUH0nG
-         5x8WdqOJCjVwxIhXGOrzzzdgSQ6kTF2a6sPvjHySMfYJHM3PsYwCn5ydK5DcOea9U+Bd
-         2LHFX474Xl0DApZBdQ36EdNTaoiIp9dzvuN6rDLFqtSK8gwcrZmyvarJKDeb0rw1aiNk
-         4J3Cyfc2Yiy79u7yTl9GbqgSO+96PaVHE9trSPTjq0AuKtkWSlBpWwG20E/iJ+PdwAwW
-         wtUA==
-X-Forwarded-Encrypted: i=1; AJvYcCWkZC8t9IcshDGNthVt6yKY3dyAzWlvf0JuIWgtMW+isvEu0dlKWlBqr1xM3PWCeT1Ae+RcNzGxG3QxeyU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcPstXDllrNlW7UrBIZs6iOuSeS9804U9y3i4gilUqiB+pnGvB
-	QYnNSq2Rs2GNrkx0z4Sbhq/R+ExmroGaLvrLu0QK7LQBTzbG8YWzxhJe
-X-Gm-Gg: ASbGncsXq6C4i/Tm5Z8sXKj2BJ3tWhIThuzzRnemRiZhjar/nTdJa7Mc9+yoUwO7Maz
-	Q9cnULVlrK+0UE+nOyM0TNZ8h56oD2rypnvTGnzhWXxmZ58JgnxGSpoJF5wUf4Y6B2bg9UAclGi
-	SkX+pBGhKMkz0ewsdP+RzgLnrODPxKCyG30zRLB0Y8+fv15+GCz/6IB/ZVcGIyCiOD6x0gSjNuJ
-	kpg1L84ue1h8QWmbRg3/WNc1tBzYgAlFY5RmmRr3KCj9DaWKsV/G2ZNtAeqXwI3ldl/CEfVhjpJ
-	jFBD+vYZNA4V0sQBDianbSzTLH0YMcW3bjzvNwjschfwsTUn8Z72PCup9RdaQmTjxpo9V5MjzsO
-	igERqee7J5pbdTiei3RH1lB7GlcmFxE62JnV9fF7fJKfDUnmTfwUd6Arfea50LAFMw/v4kEhkWS
-	sSCRj7YAJGZ20UTBYA
-X-Google-Smtp-Source: AGHT+IGyOhk3e3jN/hGEqPyNnB8EVyFUXlzS1WHqdHefnVTqj+KJFjOBagHkuj7au9j333cI8X+BdA==
-X-Received: by 2002:a05:600c:1914:b0:45b:88d6:8db5 with SMTP id 5b1f17b1804b1-45b88d694d3mr54123665e9.12.1756745923496;
-        Mon, 01 Sep 2025 09:58:43 -0700 (PDT)
+        bh=FRQt+UBjQqYx5yZNwHJXOb/IQAikJ0bwHOaWGViIuvc=;
+        b=PzgPD1BOloKrA50Jyo5DhqL24cHSiOqIr2TxRxM41+KAs7xArTR8T1Gw7IPUaA3n/L
+         D9IRalbHC+NJlB6Il2EhSvIwycwjlpLlEuUF3YOkwpSyU/sNhFwUb7C5Jw24sk+Y0TZe
+         oQmJaPMj8yUSBJEiBNqDjHUbx2lXFMMALOzPkLb0rr0DzZsADSU800DQZpAcL6ACLan/
+         74yu55iomKba724NIRVlpSlWUR5DXDZ+1L8OePaKB1fcuIqP7VOMmDpxVcOQRD1ubGCo
+         Zphzb5xkCHhM11ekXWuTJ/a3BcFiCG01h4VYe0HTtMF6I7H/kGUALc0L+8Z7Q1RhVPhK
+         8FjA==
+X-Forwarded-Encrypted: i=1; AJvYcCWWzNzdjCV/1KCMLJAHnJefxaJnnwyrpwHgnRwEnMk2JNwQdPGjzCW1K9Fnf1mxS0eL3MKg88VpaSknzNA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyY/TO7K7GNRTlLOZ4Wdco+NXxTzvXevIpBnpYZZ1UePeYUOd91
+	yVCOgNyBLIKn/l1t2SoUGjAddf7jNlMfTyR/RtEBUvwZrrlzncrdpEOvF+5oweSQ/5I=
+X-Gm-Gg: ASbGnctD78QhK9ZGnX4GC4zdZv48yQRhS8TvoV2EZGCrYZua85fIlnAiamEovOlyYao
+	26XZfoL5KCyufx8kZIDc74MjoZbjhJK+sdpyhbSw3uZszwWMtJ/D/zqOQ6gbCMdclrlOnptZopg
+	RY5iDj7WO8WCfbuVWbuUnzR7Y18w4Vsf1Mrf92hpiWxWDBY9bmZW1YPk6hk/zSaHUQQRMQwERAH
+	kbzS+r8jijL6APkDIkF9N4of1xzkpSK5lSDvg88XsYnmhaj2/Byn+CkrB+GYRdGue/Ek9McZsO5
+	lVpTdg4eh1XheGfe/g6UFtqgx9OkHVUw+UDV+5q7pvtxjyot8RIGXZlOZMHs6cgglnR/KDqtUn3
+	e3sDlTLtdx+Vlyt5TmZsT2WrLIunD8DjmwWcRSXJjCNae/FOPXaCp9ykEuh0yueKVyegax0I=
+X-Google-Smtp-Source: AGHT+IHf0yGAwvn6kTkWxs2CIz3j2eE7QTqYFeY9RVdyHB7EJ2fftTATOlO8hfqqnwhVRGHdv87Fyg==
+X-Received: by 2002:a05:600c:45c9:b0:458:bbed:a81a with SMTP id 5b1f17b1804b1-45b877be05bmr77481225e9.10.1756746122186;
+        Mon, 01 Sep 2025 10:02:02 -0700 (PDT)
 Received: from ?IPV6:2a03:83e0:1126:4:1449:d619:96c0:8e08? ([2620:10d:c092:500::6:8e4b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3d92d51982bsm1046743f8f.21.2025.09.01.09.58.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-45b6f0d32a2sm265815775e9.9.2025.09.01.10.02.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Sep 2025 09:58:42 -0700 (PDT)
-Message-ID: <97c19219-6055-46ae-865a-2833d8367db0@gmail.com>
-Date: Mon, 1 Sep 2025 17:58:39 +0100
+        Mon, 01 Sep 2025 10:02:01 -0700 (PDT)
+Message-ID: <ba4acf5d-1092-48f3-9c99-b644a0aa96fa@gmail.com>
+Date: Mon, 1 Sep 2025 18:01:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -92,296 +91,39 @@ Cc: linux-man@vger.kernel.org, david@redhat.com, lorenzo.stoakes@oracle.com,
  ziy@nvidia.com, laoar.shao@gmail.com, baolin.wang@linux.alibaba.com,
  Liam.Howlett@oracle.com, linux-kernel@vger.kernel.org, kernel-team@meta.com
 References: <20250901160903.2801339-1-usamaarif642@gmail.com>
- <ejz6kpdn6kxuspktab3m7sjwg3l7eevacoabgroxgsltognb7y@3edyqhpae4vn>
+ <d45bfc2d-91da-4a70-90d2-4e0319c5241c@gmail.com>
+ <hbwmiqb2qjyf4bemcbg2nwil4oceukvevml4jrilm4q4souv6e@hmjk4ubgavg2>
 From: Usama Arif <usamaarif642@gmail.com>
-In-Reply-To: <ejz6kpdn6kxuspktab3m7sjwg3l7eevacoabgroxgsltognb7y@3edyqhpae4vn>
+In-Reply-To: <hbwmiqb2qjyf4bemcbg2nwil4oceukvevml4jrilm4q4souv6e@hmjk4ubgavg2>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 
 
-On 01/09/2025 17:36, Alejandro Colomar wrote:
+On 01/09/2025 17:40, Alejandro Colomar wrote:
 > Hi Usama,
 > 
-> On Mon, Sep 01, 2025 at 05:09:03PM +0100, Usama Arif wrote:
->> PR_THP_DISABLE_EXCEPT_ADVISED extended PR_SET_THP_DISABLE to only provide
->> THPs when advised. IOW, it allows individual processes to opt-out of THP =
->> "always" into THP = "madvise", without affecting other workloads on the
->> system. The series has been merged in [1].
->>
->> This patch documents the changes introduced due to the addition of
->> PR_THP_DISABLE_EXCEPT_ADVISED flag:
->> - PR_GET_THP_DISABLE returns a value whose bits indicate how THP-disable
->>   is configured for the calling thread (with or without
->>   PR_THP_DISABLE_EXCEPT_ADVISED).
->> - PR_SET_THP_DISABLE now uses arg3 to specify whether to disable THP
->>   completely for the process, or disable except madvise
->>   (PR_THP_DISABLE_EXCEPT_ADVISED).
->>
->> [1] https://lore.kernel.org/all/20250815135549.130506-1-usamaarif642@gmail.com/
->>
->> Signed-off-by: Usama Arif <usamaarif642@gmail.com>
+> On Mon, Sep 01, 2025 at 05:18:22PM +0100, Usama Arif wrote:
+>> I am not sure what the right time is to send the mandoc changes.
+>> The patches have been merged into mm-new for more than 2 weeks.
+>> We can still review it and I can resend if needed after the kernel release if that
+>> is a more appropriate time?
 > 
-> Thanks for writing the patch!  Please see some comments below.
-
-
-Thanks for the quick review! Its my first time writing a man page so was apologies
-if there were some basic mistakes in formatting.
-
+> No, this is fine.  Let's refine the patches for now.
 > 
->> ---
->>  man/man2/madvise.2                      |  4 +-
->>  man/man2const/PR_GET_THP_DISABLE.2const | 18 ++++++---
->>  man/man2const/PR_SET_THP_DISABLE.2const | 52 +++++++++++++++++++++----
->>  3 files changed, 61 insertions(+), 13 deletions(-)
->>
->> diff --git a/man/man2/madvise.2 b/man/man2/madvise.2
->> index 10cc21fa4..6a5290f67 100644
->> --- a/man/man2/madvise.2
->> +++ b/man/man2/madvise.2
->> @@ -373,7 +373,9 @@ nor can it be stack memory or backed by a DAX-enabled device
->>  (unless the DAX device is hot-plugged as System RAM).
->>  The process must also not have
->>  .B PR_SET_THP_DISABLE
->> -set (see
->> +set without the
->> +.B PR_THP_DISABLE_EXCEPT_ADVISED
->> +flag (see
->>  .BR prctl (2)).
-> 
-> Double negation is confusing.  Please rephrase to something like
-> 
-> 	The process can have X set
-> 	only if Y is also set.
+> Once we're done, I guess we can either wait until they arrive at Linus's
+> tree, or if you're very confident this will reach a release eventually,
+> we can merge it now here, and eventually fix it if something small
+> changes later.  I don't mind too much.  It's more up to you, and how
+> much you expect this to change before the actual release of Linux.
 > 
 
-Yes, makes sense, will change to belwow in the next revision:
+Thanks!
 
-The process can have
-.B PR_SET_THP_DISABLE
-set only if
-.B PR_THP_DISABLE_EXCEPT_ADVISED
-flag is set (see
-.BR prctl (2)).
-
->>  .IP
->>  The
->> diff --git a/man/man2const/PR_GET_THP_DISABLE.2const b/man/man2const/PR_GET_THP_DISABLE.2const
->> index 38ff3b370..df239700f 100644
->> --- a/man/man2const/PR_GET_THP_DISABLE.2const
->> +++ b/man/man2const/PR_GET_THP_DISABLE.2const
->> @@ -6,7 +6,7 @@
->>  .SH NAME
->>  PR_GET_THP_DISABLE
->>  \-
->> -get the state of the "THP disable" flag for the calling thread
->> +get the state of the "THP disable" flags for the calling thread
->>  .SH LIBRARY
->>  Standard C library
->>  .RI ( libc ,\~ \-lc )
->> @@ -18,13 +18,21 @@ Standard C library
->>  .B int prctl(PR_GET_THP_DISABLE, 0L, 0L, 0L, 0L);
->>  .fi
->>  .SH DESCRIPTION
->> -Return the current setting of
->> -the "THP disable" flag for the calling thread:
->> -either 1, if the flag is set, or 0, if it is not.
->> +Returns a value whose bits indicate how THP-disable is configured
-> 
-> s/Returns/Return/
-> 
-
-ack
-
->> +for the calling thread.
->> +The returned value is interpreted as follows:
->> +.P
->> +.nf
->> +.B "Bits"
->> +.B " 1 0  Value  Description"
->> + 0 0    0    No THP-disable behaviour specified.
->> + 0 1    1    THP is entirely disabled for this process.
->> + 1 1    3    THP-except-advised mode is set for this process.
-> 
-> We should probably use a table with .TS/.TE.  See examples of this in
-> other manual pages for how to use that (or read tbl(1) if you want).
-> 
-> If you don't know how to use that, I can do it myself.  tbl(1) is a bit
-> weird.
-
-
-I tried below, and it seemed to look ok in the output, but please let me know if
-its ok:
-
-.TS
-allbox;
-cb cb cb l
-c c c l.
-Bit 1	Bit 0	Value	Description
-0	0	0	No THP-disable behaviour specified.
-0	1	1	THP is entirely disabled for this process.
-1	1	3	THP-except-advised mode is set for this process.
-.TE
-
-
-> 
->> +.fi
->>  .SH RETURN VALUE
->>  On success,
->>  .BR PR_GET_THP_DISABLE ,
->> -returns the boolean value described above.
->> +returns the value described above.
->>  On error, \-1 is returned, and
->>  .I errno
->>  is set to indicate the error.
->> diff --git a/man/man2const/PR_SET_THP_DISABLE.2const b/man/man2const/PR_SET_THP_DISABLE.2const
->> index 564e005d4..9f0f17702 100644
->> --- a/man/man2const/PR_SET_THP_DISABLE.2const
->> +++ b/man/man2const/PR_SET_THP_DISABLE.2const
->> @@ -6,7 +6,7 @@
->>  .SH NAME
->>  PR_SET_THP_DISABLE
->>  \-
->> -set the state of the "THP disable" flag for the calling thread
->> +set the state of the "THP disable" flags for the calling thread
->>  .SH LIBRARY
->>  Standard C library
->>  .RI ( libc ,\~ \-lc )
->> @@ -15,24 +15,62 @@ Standard C library
->>  .BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
->>  .B #include <sys/prctl.h>
->>  .P
->> -.BI "int prctl(PR_SET_THP_DISABLE, long " flag ", 0L, 0L, 0L);"
->> +.BI "int prctl(PR_SET_THP_DISABLE, long " thp_disable ", unsigned long " flags ", 0L, 0L);"
-> 
-> Hmmm, I'm reading this weirdly.
-> 
-> Old code doing prctl(PR_SET_THP_DIABLE, 1, 0L, 0L, 0L); would be
-> transformed from setting the flag before, to now using 0L as flags?
-> 
-> Or how is backwards compatibility handled?
-> 
-
-
-Its still backwards compatible. The name of the arguments is changed, but the arg values have not.
-Before you could do 2 things:
-
-prctl(PR_SET_THP_DISABLE, 0, 0, 0, 0); // to reset THP setting.
-prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0); // to disable THPs completely.
-
-Now in addition to the 2 calls above, you can do:
-prctl(PR_SET_THP_DISABLE, 1, PR_THP_DISABLE_EXCEPT_ADVISED, 0, 0); // to disable THPs except madvise.
-
-
-Before arg2 was called flags and arg3 was always 0.
-Now arg2 is called thp_disable, and arg3 is called flags.
-
-
->>  .fi
->>  .SH DESCRIPTION
->> -Set the state of the "THP disable" flag for the calling thread.
->> +Set the state of the "THP disable" flags for the calling thread.
->>  If
->> -.I flag
->> -has a nonzero value, the flag is set, otherwise it is cleared.
->> +.I thp_disable
->> +has a nonzero value, the THP disable flag is set according to the value of
-> 
-> Please break the line after the comma.
-> 
-
-ack
-
->> +.I flags,
->> +otherwise it is cleared.
->>  .P
->> -Setting this flag provides a method
->> +This
->> +.BR prctl (2)
->> +provides a method
->>  for disabling transparent huge pages
->>  for jobs where the code cannot be modified,
->>  and using a malloc hook with
->>  .BR madvise (2)
->>  is not an option (i.e., statically allocated data).
->> -The setting of the "THP disable" flag is inherited by a child created via
->> +The setting of the "THP disable" flags is inherited by a child created via
->>  .BR fork (2)
->>  and is preserved across
->>  .BR execve (2).
->> +.P
->> +The behavior depends on the value of
->> +.IR flags:
->> +.TP
->> +.B 0
->> +The
->> +.BR prctl (2)
->> +call will disable THPs completely for the process,
->> +irrespective of global THP controls or
->> +.BR MADV_COLLAPSE .
->> +.TP
->> +.B PR_THP_DISABLE_EXCEPT_ADVISED
->> +The
->> +.BR prctl (2)
->> +call will disable THPs for the process except when the usage of THPs is
->> +advised.
-> 
-> Please break the line before 'except'.  See 'Use semantic newlines'
-> in man-pages(7).
-
-ack> 
->> +Consequently, THPs will only be used when:
->> +.RS
->> +.IP \[bu] 2
-> 
-> s/2/3/
-
-ack
-
-> 
-> See man-pages(7) ("Lists"):
-> 
->        There should always be exactly 2 spaces between the list  symbol
->        and  the  elements.   This doesn't apply to "tagged paragraphs",
->        which use the default indentation rules.
-> 
-> (If you grep(1) around, you'll see that number everywhere.)
-> 
->> +Global THP controls are set to "always" or "madvise" and
->> +.BR madvise (...,
->> +.BR MADV_HUGEPAGE )
-> 
-> I'd say
-> 
-> 	.I madvise(..., MADV_HUGEPAGE)
-> 
-> as an inlined expression, which goes in full italics; that's simpler.
-
-This results in the entire line being underlined, which is probably not what
-not what we want?
-
-> 
->> +or
->> +.BR madvise (...,
->> +.BR MADV_COLLAPSE )
->> +is used.
->> +.IP \[bu]
->> +Global THP controls are set to "never" and
->> +.BR madvise (...,
->> +.BR MADV_COLLAPSE )
->> +is used.
->> +This is the same behavior as if THPs would not be disabled on
->> +a process level.
-> 
-> Please break the line before "as if".
-
-ack
-
-> 
->> +.RE
->>  .SH RETURN VALUE
->>  On success,
->>  0 is returned.
+Yeah I wouldnt expect this to change at all before the release. The patches
+were extensively discussed on the mailing list and were acked by the THP
+maintainers and reviewers, so the possibility of the interface changing
+is extremely low.
 > 
 > Have a lovely day!
 > Alex
