@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-3800-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3801-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C135B3DC0C
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 10:12:25 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D6BB3DC0D
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 10:13:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2586C188A251
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 08:12:46 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 77606174141
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 08:13:25 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 672822EF66E;
-	Mon,  1 Sep 2025 08:12:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C89A92EF66E;
+	Mon,  1 Sep 2025 08:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hXPkPWB4"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bT4thVpw"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279BD246348
-	for <linux-man@vger.kernel.org>; Mon,  1 Sep 2025 08:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2BB246348
+	for <linux-man@vger.kernel.org>; Mon,  1 Sep 2025 08:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756714341; cv=none; b=WOrZVirkjrLCAObXMvQUKapt9pT0UFrcNQvpedjIFvg59DJA4rJwx4SOteHOKItCCk7ygtQx+Dzgm+ojcItj84FzsS5mYUeMaogJpT8JFjv4x5AR+wweBazDkeLq8MfSNK1bJ+nyTxZ1ICC7F20BiPkB9dV04MZQTdVqLUqcq3M=
+	t=1756714401; cv=none; b=anU/mrYWL2FzZlU06n4H93XD2zQo4fDS/zOzAtvYYP0rhiX4WWry5ZI9qXT5b2QkdLTxaBWaRGPbqS3bwgTEPq/JixSbZWZ1xZGfyXudPaJ23AHohsENY5LPJtliSEUZJoOWOymVcJ5gjl1SJvYZFCpHmLnR3atCkkdwT72ENTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756714341; c=relaxed/simple;
-	bh=VzECQOEwWCJ5vCyb1BlVVvk3MaRstS+z1MOqjc0467w=;
+	s=arc-20240116; t=1756714401; c=relaxed/simple;
+	bh=OpKGGF0Isrmevpze9mAhLK83CK3p83pwz055IL8dmKc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aix4DbDtLvL2mFQWK5WP16Irp4rD5/L94jrdHHBF/M+Pb6QHrMlCzU5Z9m3vSQfGYKxLQdYY8uMbCLVgr07aXXY15wKbRibJQ0b3EayCQyed3C6PB8OzXy+Jt2sBqPUvKqOU7RtidGXrckDiaImNmI0AY6oHpSauMdjMJdvM2iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hXPkPWB4; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EF21C4CEF0;
-	Mon,  1 Sep 2025 08:12:19 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=doMMlkoe+fYmektYnh1WDM6EVYrc7gxWLs35XG0Q5WQY7hSQkYwNdST8k1b5EcgNZ0HPJrsFk0YCXQoOWBrBvP1mjqE+74ekzebXT0XCdb9mj8PG2GOGGL0Ha1gKlqNyvLsOx4CoUBHC/VjsvJ3rMYu9xdbTkaflYaw3gQxd1uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bT4thVpw; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C24FC4CEF8;
+	Mon,  1 Sep 2025 08:13:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756714340;
-	bh=VzECQOEwWCJ5vCyb1BlVVvk3MaRstS+z1MOqjc0467w=;
+	s=k20201202; t=1756714401;
+	bh=OpKGGF0Isrmevpze9mAhLK83CK3p83pwz055IL8dmKc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hXPkPWB4hXP9Y0GVxJVuBsrA+xOf+vEjbnGfwK4N1r8hhg/guwkuSF3eMV1NFOudd
-	 wOB9YkKnkXm0ub1WLc3LbU/JlWjQc5Lv1t8GPwq8E0pvKaQWufLUshxji1gst5EXl1
-	 wzKxSyDd065IDDkIQYbaMeHTZsySPmes91SppuFKc5keJtyNzPseTegQO6A7GWN3H/
-	 QgG/CqXJVpxo0PnGKccxGWdioebrnMXtaYF1jtSgeBD1LXyMvqqxzDhKBH5gtdWTVF
-	 +mLEMr2r4XZiawXv/4PfXFnIZGmkpCLgSDevGpDsr2FCcg3kyAjL+fOfqJVT2WWgTN
-	 JxUniLzF7BhGA==
-Date: Mon, 1 Sep 2025 10:12:16 +0200
+	b=bT4thVpwT1w4+sLPoPFpRoaD3fOf/0jJvspFBLSYwrzCV7Es7T9zp3pI6kTMcvv4Y
+	 bFZ8V3zycfFsVj7zNWat4r8msntLCoJFAFZwgs89lDIPgBsDsGWXCPGMLvVpdPq/0k
+	 oAoLWK2hO2wRcYE8eVg0/KN9sagsDuLijMOLaMiciqq4HCnC9E9d3HxYmWL4DnWc6u
+	 JJsP9BEVvyXAh2sK3xQt5GkLgkxf9bzJ81+1tQ+l4cvfGxQeWvom8aAWnW7skLy+E5
+	 AAr3V8jdJBAPGqFKQSmTBhh3L/LPgEZput23yIlT0232CWBBVXWo2kzdKnaNKPSgYs
+	 v3PKDenRhCtPg==
+Date: Mon, 1 Sep 2025 10:13:16 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page suffixes.7
-Message-ID: <hl3jme4w7ktejwe3gfvwongn335bng65uml2d7yqhcgr7k7cnf@a2i4wv6bwtrv>
-References: <aKsmQ4FJIlUvX9uS@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page console_codes.4
+Message-ID: <p57fjozh342dvyfccbyzcb72mokn3miysmyfaeemwwr6xfcxbs@d53qld6xgi4k>
+References: <aKsmQ-CU1ZWBzU0c@meinfjell.helgefjelltest.de>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,65 +55,94 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4mljo7obanx6jhyk"
+	protocol="application/pgp-signature"; boundary="yeoxlo462hua5pmp"
 Content-Disposition: inline
-In-Reply-To: <aKsmQ4FJIlUvX9uS@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmQ-CU1ZWBzU0c@meinfjell.helgefjelltest.de>
 
 
---4mljo7obanx6jhyk
+--yeoxlo462hua5pmp
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page suffixes.7
-References: <aKsmQ4FJIlUvX9uS@meinfjell.helgefjelltest.de>
+Subject: Re: Issue in man page console_codes.4
+References: <aKsmQ-CU1ZWBzU0c@meinfjell.helgefjelltest.de>
 MIME-Version: 1.0
-In-Reply-To: <aKsmQ4FJIlUvX9uS@meinfjell.helgefjelltest.de>
+In-Reply-To: <aKsmQ-CU1ZWBzU0c@meinfjell.helgefjelltest.de>
 
 On Sun, Aug 24, 2025 at 02:48:35PM +0000, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    tar(1) =E2=86=92 \\f[B]tar\\fR(1)
+> Issue:    Why is hard wrapping introduced here?
+>=20
+> "Select user mapping - the map that is loaded by the utility\n"
+> "B<mapscrn>(8)."
 
-Fixed; thanks!
+po4a bug.
 
-
-cheers,
+Cheers,
 Alex
+
 >=20
-> "tar(1) archive compressed with \\f[B]compress\\fR(1)"
+> "Set palette, with parameter given in 7 hexadecimal digits\n"
+> "I<nrrggbb>\n"
+> "after the final P.\n"
+> "Here\n"
+> "I<n>\n"
+> "is the color (0\\[en]15),\n"
+> "and\n"
+> "I<rrggbb>\n"
+> "indicates\n"
+> "the red/green/blue values (0\\[en]255)."
 >=20
-> "tar(1) archive compressed with \\f[B]bzip2\\fR(1)"
+> "Set screen blank timeout to\n"
+> "I<n>\n"
+> "minutes."
 >=20
-> "tar(1) archive compressed with \\f[B]gzip\\fR(1)"
+> "Set icon name and window title to\n"
+> "I<txt>."
 >=20
-> "tar archive compressed with \\f[B]gzip\\fR(1)"
+> "Change log file to\n"
+> "I<name>\n"
+> "(normally disabled by a compile-time option)."
+>=20
+> "Cursor to lower left corner of screen (if enabled\n"
+> "by\n"
+> "B<xterm>(1)'s\n"
+> "B<hpLowerleftBugCompat>\n"
+> "resource)."
+>=20
+> "Cursor to lower left corner of screen (if enabled\n"
+> "by\n"
+> "B<xterm>(1)'s\n"
+> "B<hpLowerleftBugCompat> resource)."
+>=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---4mljo7obanx6jhyk
+--yeoxlo462hua5pmp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi1VWAACgkQ64mZXMKQ
-wqmHTA//YorS/SipbcVzxqQwGAVTi7kFPur/9Nq9/JfGy/GI/bAkM76m+asCjO1c
-SwURgOiS70FdZH2r3yobMyPMb39yeg3+B/PxmoOrK8nRCebgdoJklCM64qyOp9aw
-7Q358fKLviGWx+51JVwMbrwpzU3F4kLD2ApMokc+sW3QqiQULh3GPm4HN42a61z+
-yKSzvvjnG5SnAU7fogLhzEO5kXm2wv1li29W18FTPsSy0YJkmoh1MJygS0is/7xB
-kmSTEXAJER1QKijGauOPHBKRQry9uOOIlq8gln0ByWA8H+hxAbDPpzzSyeqpcdUS
-+D1fKjSP4YpCKF1SkqjNRNCSurfoF6Rx+ANJcioM3AFQJSi+siIVbr1CxM8ExEN4
-obsPglAXjVIy4emS2wMTMWTDIlpT3sMCenfaga2RCgd232Zq0I8QxmRKQrb20BqZ
-+xZgB+0Ou4ukRBTKuMt2sRIsPFjHU08gT5GenLq41thfeS3l3Umfwj67p5wecpRf
-1ajJIb8kbd1gvltYzkKqlG9B0MXQqmlOeWmQKLMriv2wRD4djs2dIuDijIAHfKw6
-cZ/IerA1IpQ9R3PeCyWk+7WEcn06hJH2F5AKu5jXpZFInY8Dlz4KviUeucwgBoac
-04fmCTE5L3K5jDbGGjAAQmqwjr9mBnn11G3NLHir078HUg5X2EU=
-=Smbs
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi1VZsACgkQ64mZXMKQ
+wqkGmw/9H40v2MNeTPMnTEHPUxaMQjz1bFNaDnI4FMftVQCaOMLoTjBS8xvXBPNA
+bR/4BcviaF8akwRp20oIElrMV1uV3aBxX6HxDs8ivDAOTBdV26QFg8gqDqcIojdo
+nN1FO5Zpp+xIrL+H4RBPTeHtqyHfBiR89C9wk4tLfetEnoreSrIWbPx5+oH8GgKw
+PxVA0mPmrf9WNGmNNCCWbIDfEC1uW2XK+YtabpT5aHP5Xo37iUQCBGZ/Ff2cCOVH
+eSdEP1mhLEC6lK/H4AterBh1AUdbgY+PcyO7vDaWMft3nCmODSv2Incery+ikY47
+twdVNcWpV8LNzl2WbdJE2jvf+vNiHDFsOmSxu4dg40GN4KP5IfYfW3ov2aZPCD/l
++AcAkUpxWQBsF8H0eyw/CpmW+tlVFbOBmGIbOpiWjpXfzu8UynB5cYgV5vMuQ5ns
+/xG+cjevrz2suDX4tF50CyfLi7myH1O317bkDQWymUn1GObB2anWmeLECxCOI1Av
+1CuVsuxZKMU6c8VBMEjKf6SYutFGxlEootkeJrQGQY1MiLR4/tyLq+7DZcERMotV
+MjTicQA2exs3YnsjgoFeZi7x5vi70KtQeZFNUfTmG0UCQTy5MuYNB00PujpDMvtc
+74M2zMvsedyo6KuwETkz+zQzD/QhFUmL3yaJs5xIhLwkme/dZ2Y=
+=G3wk
 -----END PGP SIGNATURE-----
 
---4mljo7obanx6jhyk--
+--yeoxlo462hua5pmp--
 
