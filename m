@@ -1,201 +1,263 @@
-Return-Path: <linux-man+bounces-3813-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3814-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDABBB3EAFC
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 17:40:09 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA91FB3EBFD
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 18:12:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 503F8481AEE
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 15:34:45 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 882F01894829
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 16:12:39 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 600A83064A6;
-	Mon,  1 Sep 2025 15:28:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E82A62FB625;
+	Mon,  1 Sep 2025 16:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ryGTtdxa"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="geTNsA+1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5583064A4
-	for <linux-man@vger.kernel.org>; Mon,  1 Sep 2025 15:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084652EFDA0;
+	Mon,  1 Sep 2025 16:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756740516; cv=none; b=uX2pTdR64IJhg9syZLi6m3zCHqshhCD9IfgwRhjQj13+I01V/e8GI3xAYjSLbDCH8BOHLsXW1C7rsyViOYL5dbzZo5mJ9zJK15djxW9vE8ym28H/qZeluVao9aVmo1WbOLlc3mTx26YpYDJTOita145er4XfUMJEWxQ85PBb0Is=
+	t=1756743042; cv=none; b=GGxhL/wjJg91zFX/BZoOJKi6M+3dNZADJNPRIvBeYisJQMZLWXTRU6kSFdwZuG9e9Hdgxyk14qPdHO+YD1ym9AMvRXit/mDO7pp8raSLu9uQeF5uk13cytRLPyDHUrcPmOCcscKSppHmbC1U0G1r4EqllS8PNnq6YzgG7CxgmIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756740516; c=relaxed/simple;
-	bh=W+d+pCp38sU/fWedlV1InY0Cw/Hm67GR/mDKXQeTHAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jolNEBnT6f6qLATiZRoKlU7q7bkvtw4IuNnpasYaAV33qCl2JvDjE2ifTF6UC/OkjThzbBMGKa/mrvrxFGZXciBwRfaITKQIInZD1AgNXn/MlgyB1JcOLnYLGGVvfXkVrQ2Zqhon8DPCGJtK+QlbbL8EuD+Wf6bfFJQvgrfwtF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ryGTtdxa; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1E0FC4CEF1;
-	Mon,  1 Sep 2025 15:28:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756740515;
-	bh=W+d+pCp38sU/fWedlV1InY0Cw/Hm67GR/mDKXQeTHAc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ryGTtdxanRog03cjra5PUknhiDHODttxi6jvFJuMoIBl8a8A+fJcmeC2d74EYQBHY
-	 6JNHw7L7CkgZ2zwkGBpPUu8wD4MehnbnjlaDUclDjulYtYxo4ghOR9f3oKhfdVhABy
-	 3WnaF2DPplTB3RVXZtk8nHxmvF5/V7syCemM7jLx+2wO1yPWY61gphQbGFRNa3OEcT
-	 jJ+EUUzpDeGWLmnU0cxVVLpUn4liuHPecDKRwTtHl2MrZPbhSL35ZFdrkPOjAJH8Lf
-	 sAZphmCACIiC+ZgZEZqaU+Kmq/bZ8QGOqNscvdMc3KNl3dY8AADn90c2b937YiyzUA
-	 Z6WOhxizDrqmA==
-Date: Mon, 1 Sep 2025 17:28:30 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Adam Sampson <ats@offog.org>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page fma.3
-Message-ID: <nevbcbx5kj7ppaubsy6nbcdqotwt4lwh6rldkmk64ojsn66ytl@l64g4mwm6snh>
-References: <aKsmR8KMxEjAmxGL@meinfjell.helgefjelltest.de>
- <cydmigk4amlt62bjeircdfzgjzajlsoaw6pje6z5te7fu4a7bd@upahclev5v3s>
- <y2ajz2ii551.fsf@offog.org>
+	s=arc-20240116; t=1756743042; c=relaxed/simple;
+	bh=7K6o2zszYWNiRVKlGv3YzgED9jhr4TnD0NyMid5UR8Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D0f5E+mp61PH+iHuyxowBKTmGVKJ69QbLytQLDk5Piqy+uJC52PF9HUVys4nFURCqDSlkc9UuDtWU93AQ+RYlkVPGy12vmzvWeAzx1wBxrTAvHvNJANXL464Nc+K9nJzzFMW4csxk7lq8N+HqIUrxZro/xKHHp50fGdIepjMnxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=geTNsA+1; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-7f777836c94so403041685a.2;
+        Mon, 01 Sep 2025 09:10:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756743040; x=1757347840; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=m2nodLcNRZplFTeJWN+CFsT+xl+niXAxoWKtGPtFk90=;
+        b=geTNsA+10NyqX6bcBqHQ5yir0QdTVqLvIXUkBZ4boXqGEV20kl24uiXJz5O5vrSGOk
+         7xiYnylswcX3neJf51JNiPA8j3qjyDZUHsP4/jStBU4cd15Aq4fCha327cg9V+dbR7Qv
+         kevXg1o8FVIJCq8UXjLzQ7XwpyxM1RXWgbHu2ty26ZJC1RGXvhYX9zMkwOo8+WXreL9N
+         lfPZGFelVv/R9FRZTkPChiUIwKs5fAzEREFgcAHxrJr2HZyNXnCURn6XqOKwtOEznwlu
+         X6qTYGRxkYNBG8e6NTrulYH1UFhJj/CDTsd+7IUfDP+7RHQi02KJfkovuGtZgWQyoBUi
+         On9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756743040; x=1757347840;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=m2nodLcNRZplFTeJWN+CFsT+xl+niXAxoWKtGPtFk90=;
+        b=gM1J63UCMYwzV2xFtv734UCm8Wv4YQN38F4Zn2o7lt4c45B5eWVGRClx47q89wuz/u
+         hLsZNPFUg+whHEjibFouAALQwvcdvbMgLOGalm1espzCFVvlR03sLyxFdW6u7PPsK2y7
+         WKIYma3pamocqG8IN8hetb4S/yGSj8LeP1tKGL8Ssd3xCCofIA9vElhQeahoqPF8pi5Z
+         beKoWNr9bHSieVm5Sm4gyEStMiaW+oDBmr0WAT6Q0i6XzIZ4Y0zJpyjPvfbUCxZJLa09
+         VxZuCOusgLeZQJrihzqIkC+ykIlcjMOmjWAWknfeGy8QWnnOlFt5hMs622wwzPg83uJW
+         F1Hg==
+X-Forwarded-Encrypted: i=1; AJvYcCWdb0XDcAP3y4ewmQqGTqbIu3lAmc3zz4aCNMV/h9y9h1EGFMto5bp9IJt5Y/6lg65lR9rxNNw4rVTd5HM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHCHVKG8CytYbCiLc/DrChrPWTkGd+eSu/gaRJLLXWSQzskEmI
+	U9yMNEWUUEZU1bJnDU3CPhonYkvzMJg3kWmMCRIUWT1gh3aWILmwl/nb
+X-Gm-Gg: ASbGncuaqiJ/XHVrHkOmD/gQq+swRPOekPlugf5KSMym7PqJeWfp8+thUnxGqc0NTCN
+	Cv1Gr2rl3nPRHxVYJeaV5lieq/JRWVn+nfeezoYqQzWv2mU9rL4eFgoptMiJWncCGwsYGXWk298
+	b8iKqbGV67pvkE6nG0eY6H3sQSTU9vJtWpjBq6RNQI1iDl3sxY2FU3m1wqCTuhNq/8Q60dimVh2
+	OD/P8dr6m6wCZvI4pU6pSLBysA3yce5ilKnZxNKfIjSUO6nTRbTs37QDG1+YhCO4inJPMooK9dl
+	HreK4N72b1AkN61InClrq24RLrgVe1sgoOYpohtwW4SaAdrY2gy73YhXm0XUAOT2/JZCcy+JeeJ
+	iik3v0B0TVkLYxpdt/Uo=
+X-Google-Smtp-Source: AGHT+IFPhlHihAARuGxCffUXp7rORQs4i4fLcxmCgsymcnF6anq3dMMvQwgBAKmCpT1c7kxCAEIHzg==
+X-Received: by 2002:a05:620a:1a16:b0:7e6:9961:fd27 with SMTP id af79cd13be357-7ff2b97c498mr1088378885a.65.1756743039576;
+        Mon, 01 Sep 2025 09:10:39 -0700 (PDT)
+Received: from localhost ([2a03:2880:20ff:2::])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7fc16341017sm683721285a.63.2025.09.01.09.10.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Sep 2025 09:10:38 -0700 (PDT)
+From: Usama Arif <usamaarif642@gmail.com>
+To: alx@kernel.org
+Cc: linux-man@vger.kernel.org,
+	david@redhat.com,
+	lorenzo.stoakes@oracle.com,
+	hannes@cmpxchg.org,
+	baohua@kernel.org,
+	shakeel.butt@linux.dev,
+	ziy@nvidia.com,
+	laoar.shao@gmail.com,
+	baolin.wang@linux.alibaba.com,
+	Liam.Howlett@oracle.com,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	Usama Arif <usamaarif642@gmail.com>
+Subject: [PATCH] PR_*ET_THP_DISABLE.2const: document addition of PR_THP_DISABLE_EXCEPT_ADVISED
+Date: Mon,  1 Sep 2025 17:09:03 +0100
+Message-ID: <20250901160903.2801339-1-usamaarif642@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wkwasszqnbc3zx3h"
-Content-Disposition: inline
-In-Reply-To: <y2ajz2ii551.fsf@offog.org>
+Content-Transfer-Encoding: 8bit
 
+PR_THP_DISABLE_EXCEPT_ADVISED extended PR_SET_THP_DISABLE to only provide
+THPs when advised. IOW, it allows individual processes to opt-out of THP =
+"always" into THP = "madvise", without affecting other workloads on the
+system. The series has been merged in [1].
 
---wkwasszqnbc3zx3h
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Adam Sampson <ats@offog.org>
-Cc: Helge Kreutzmann <debian@helgefjell.de>, mario.blaettermann@gmail.com, 
-	linux-man@vger.kernel.org
-Subject: Re: Issue in man page fma.3
-References: <aKsmR8KMxEjAmxGL@meinfjell.helgefjelltest.de>
- <cydmigk4amlt62bjeircdfzgjzajlsoaw6pje6z5te7fu4a7bd@upahclev5v3s>
- <y2ajz2ii551.fsf@offog.org>
-MIME-Version: 1.0
-In-Reply-To: <y2ajz2ii551.fsf@offog.org>
+This patch documents the changes introduced due to the addition of
+PR_THP_DISABLE_EXCEPT_ADVISED flag:
+- PR_GET_THP_DISABLE returns a value whose bits indicate how THP-disable
+  is configured for the calling thread (with or without
+  PR_THP_DISABLE_EXCEPT_ADVISED).
+- PR_SET_THP_DISABLE now uses arg3 to specify whether to disable THP
+  completely for the process, or disable except madvise
+  (PR_THP_DISABLE_EXCEPT_ADVISED).
 
-Hi Adam,
+[1] https://lore.kernel.org/all/20250815135549.130506-1-usamaarif642@gmail.com/
 
-On Mon, Sep 01, 2025 at 04:06:34PM +0100, Adam Sampson wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
->=20
-> >> Issue:    According to above, a domain error also occurs when I<z> is =
-a NaN?
-> > According to what exactly?  I don't understand this report.
->=20
-> fma.3's RETURN VALUE section currently says:
->=20
-> | If one of x or y is an infinity, the other is 0, and z is not a NaN, a
-> | domain error occurs, and a NaN is returned.
-> |
-> | If one of x or y is an infinity, and the other is 0, and z is a NaN, a
-> | domain error occurs, and a NaN is returned.
->=20
-> But the ERRORS section only says a domain error occurs in the first
-> case. If I'm understanding the glibc code for _FP_FMA in
-> soft-fp/op-common.h correctly, it looks like it raises the error
-> regardless of the value of z, so in both sections the "and z is ..."
-> part could be removed, making the two sentences above identical?
+Signed-off-by: Usama Arif <usamaarif642@gmail.com>
+---
+ man/man2/madvise.2                      |  4 +-
+ man/man2const/PR_GET_THP_DISABLE.2const | 18 ++++++---
+ man/man2const/PR_SET_THP_DISABLE.2const | 52 +++++++++++++++++++++----
+ 3 files changed, 61 insertions(+), 13 deletions(-)
 
-Ahh, now I see.  The source code of the manual page says:
+diff --git a/man/man2/madvise.2 b/man/man2/madvise.2
+index 10cc21fa4..6a5290f67 100644
+--- a/man/man2/madvise.2
++++ b/man/man2/madvise.2
+@@ -373,7 +373,9 @@ nor can it be stack memory or backed by a DAX-enabled device
+ (unless the DAX device is hot-plugged as System RAM).
+ The process must also not have
+ .B PR_SET_THP_DISABLE
+-set (see
++set without the
++.B PR_THP_DISABLE_EXCEPT_ADVISED
++flag (see
+ .BR prctl (2)).
+ .IP
+ The
+diff --git a/man/man2const/PR_GET_THP_DISABLE.2const b/man/man2const/PR_GET_THP_DISABLE.2const
+index 38ff3b370..df239700f 100644
+--- a/man/man2const/PR_GET_THP_DISABLE.2const
++++ b/man/man2const/PR_GET_THP_DISABLE.2const
+@@ -6,7 +6,7 @@
+ .SH NAME
+ PR_GET_THP_DISABLE
+ \-
+-get the state of the "THP disable" flag for the calling thread
++get the state of the "THP disable" flags for the calling thread
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ,\~ \-lc )
+@@ -18,13 +18,21 @@ Standard C library
+ .B int prctl(PR_GET_THP_DISABLE, 0L, 0L, 0L, 0L);
+ .fi
+ .SH DESCRIPTION
+-Return the current setting of
+-the "THP disable" flag for the calling thread:
+-either 1, if the flag is set, or 0, if it is not.
++Returns a value whose bits indicate how THP-disable is configured
++for the calling thread.
++The returned value is interpreted as follows:
++.P
++.nf
++.B "Bits"
++.B " 1 0  Value  Description"
++ 0 0    0    No THP-disable behaviour specified.
++ 0 1    1    THP is entirely disabled for this process.
++ 1 1    3    THP-except-advised mode is set for this process.
++.fi
+ .SH RETURN VALUE
+ On success,
+ .BR PR_GET_THP_DISABLE ,
+-returns the boolean value described above.
++returns the value described above.
+ On error, \-1 is returned, and
+ .I errno
+ is set to indicate the error.
+diff --git a/man/man2const/PR_SET_THP_DISABLE.2const b/man/man2const/PR_SET_THP_DISABLE.2const
+index 564e005d4..9f0f17702 100644
+--- a/man/man2const/PR_SET_THP_DISABLE.2const
++++ b/man/man2const/PR_SET_THP_DISABLE.2const
+@@ -6,7 +6,7 @@
+ .SH NAME
+ PR_SET_THP_DISABLE
+ \-
+-set the state of the "THP disable" flag for the calling thread
++set the state of the "THP disable" flags for the calling thread
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ,\~ \-lc )
+@@ -15,24 +15,62 @@ Standard C library
+ .BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants */"
+ .B #include <sys/prctl.h>
+ .P
+-.BI "int prctl(PR_SET_THP_DISABLE, long " flag ", 0L, 0L, 0L);"
++.BI "int prctl(PR_SET_THP_DISABLE, long " thp_disable ", unsigned long " flags ", 0L, 0L);"
+ .fi
+ .SH DESCRIPTION
+-Set the state of the "THP disable" flag for the calling thread.
++Set the state of the "THP disable" flags for the calling thread.
+ If
+-.I flag
+-has a nonzero value, the flag is set, otherwise it is cleared.
++.I thp_disable
++has a nonzero value, the THP disable flag is set according to the value of
++.I flags,
++otherwise it is cleared.
+ .P
+-Setting this flag provides a method
++This
++.BR prctl (2)
++provides a method
+ for disabling transparent huge pages
+ for jobs where the code cannot be modified,
+ and using a malloc hook with
+ .BR madvise (2)
+ is not an option (i.e., statically allocated data).
+-The setting of the "THP disable" flag is inherited by a child created via
++The setting of the "THP disable" flags is inherited by a child created via
+ .BR fork (2)
+ and is preserved across
+ .BR execve (2).
++.P
++The behavior depends on the value of
++.IR flags:
++.TP
++.B 0
++The
++.BR prctl (2)
++call will disable THPs completely for the process,
++irrespective of global THP controls or
++.BR MADV_COLLAPSE .
++.TP
++.B PR_THP_DISABLE_EXCEPT_ADVISED
++The
++.BR prctl (2)
++call will disable THPs for the process except when the usage of THPs is
++advised.
++Consequently, THPs will only be used when:
++.RS
++.IP \[bu] 2
++Global THP controls are set to "always" or "madvise" and
++.BR madvise (...,
++.BR MADV_HUGEPAGE )
++or
++.BR madvise (...,
++.BR MADV_COLLAPSE )
++is used.
++.IP \[bu]
++Global THP controls are set to "never" and
++.BR madvise (...,
++.BR MADV_COLLAPSE )
++is used.
++This is the same behavior as if THPs would not be disabled on
++a process level.
++.RE
+ .SH RETURN VALUE
+ On success,
+ 0 is returned.
+-- 
+2.47.3
 
-	.P
-	.\" POSIX.1-2008 allows some possible differences for the following two
-	.\" domain error cases, but on Linux they are treated the same (AFAICS).
-	.\" Nevertheless, we'll mirror POSIX.1 and describe the two cases
-	.\" separately.
-	If one of
-	.I x
-	or
-	.I y
-	is an infinity, the other is 0, and
-	.I z
-	is not a NaN,
-	a domain error occurs, and
-	a NaN is returned.
-	.\" POSIX.1 says that a NaN or an implementation-defined value shall
-	.\" be returned for this case.
-	.P
-	If one of
-	.I x
-	or
-	.I y
-	is an infinity, and the other is 0, and
-	.I z
-	is a NaN,
-	.\" POSIX.1 makes the domain error optional for this case.
-	a domain error occurs, and
-	a NaN is returned.
-
-I think I'll keep that separate, as a reminder that this is weird.  If
-anyone shows that all implementations that one would care about behave
-the same, it would be a case for going to POSIX and asking them to
-simplify the specification.  (And we could also simplify it, of course.)
-
-For now, how about this diff?
-
-	diff --git i/man/man3/fma.3 w/man/man3/fma.3
-	index fa0562858..433f1e2ee 100644
-	--- i/man/man3/fma.3
-	+++ w/man/man3/fma.3
-	@@ -107,8 +107,8 @@ .SH ERRORS
-	 .P
-	 The following errors can occur:
-	 .TP
-	-Domain error: \f[I]x * y + z\f[], \
-	-or \f[I]x * y\f[] is invalid and \f[I]z\f[] is not a NaN
-	+Domain error: \f[I]x * y + z\f[] \
-	+or \f[I]x * y\f[] is invalid.
-	 .\" .I errno
-	 .\" is set to
-	 .\" .BR EDOM .
-
-Which does this:
-
-	$ diffman-git=20
-	--- HEAD:man/man3/fma.3
-	+++ ./man/man3/fma.3
-	@@ -58,8 +58,7 @@ ERRORS
-	=20
-		The following errors can occur:
-	=20
-	-       Domain error: x * y + z, or x * y is invalid and z is
-	-       not a NaN
-	+       Domain error: x * y + z or x * y is invalid.
-		       An invalid floating-point exception (FE_IN=E2=80=90
-		       VALID) is raised.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---wkwasszqnbc3zx3h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi1u5gACgkQ64mZXMKQ
-wqlwVBAAoSHF9cn5COZGka0EzJVZ5MNs8fzRA8ENqn8EqBE5onVrMbycRSwXbqFa
-3+Cruv0jWSAfiWfmruzJvcFPoqct80mVeowHmomQsn81O/PPxZGKC+EaAb5NPK5r
-saE8VqlghoFemqgL3J9SMS7UbJ20OaoP5pI7VZV3rTSB0YdDyYoBz51vNbqa5Jgo
-YtkfOUp8EFbFF+6hwxuP9Gsq5MIJMvsd5lX3CQ7UqxGev6sXLS3viu+cRCsq/zdI
-LEAtPvrCQnkg/pxxnnw/J3y+Sg2DmjjwLSStU840vjHw1Z6GHcF37NQfzoBBI7bY
-mkN5vb1bAICmTKsyd6+NoqNumP4IZsmTFXnKEF0rw04byfWeFJq3h9Owc+kAxask
-7ZEy1yOkWjQiHmrcHMzj9X4ShpjlETgFGzr64B7jTJkWFLFOvms3iXxBymtRcT33
-aFgXLUIexQma4+Q4oC9SxJxoOEIwPL9rJWvI69TuGGsdy/1z+DUdHWW6wFv+mx4I
-Jcm9z/fszCKOR8WVD4yWfa06zUMirjbFCC2ARHpsa2s9WVOi3BhEcK1GykfzXWzQ
-4I4aJWz+Eisywkl9Dgjy1cJQrI3P6BOdGEY2TtMmU/gaWgnV96Q4W9YjheXlwD69
-TQhXOryqW62qQR6S29KkuZgqyjwoW+J9yrlp9yz6c9Yz7Kadcz8=
-=YZuK
------END PGP SIGNATURE-----
-
---wkwasszqnbc3zx3h--
 
