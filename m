@@ -1,133 +1,156 @@
-Return-Path: <linux-man+bounces-3818-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3819-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE8A0B3EC12
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 18:18:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99BF4B3EC30
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 18:25:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 963D02053D5
-	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 16:18:34 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E07D62062C0
+	for <lists+linux-man@lfdr.de>; Mon,  1 Sep 2025 16:25:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39AD92DF13E;
-	Mon,  1 Sep 2025 16:18:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67A9B306485;
+	Mon,  1 Sep 2025 16:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpo0Ru6T"
+	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="HmjOdrYG"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6032D5936;
-	Mon,  1 Sep 2025 16:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD77224B1F
+	for <linux-man@vger.kernel.org>; Mon,  1 Sep 2025 16:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756743510; cv=none; b=ctSmmicMXX4mV8hfYXY6+BlLbZy1HYFzV7YeIoPD6/pzPBUWKmub0LFffoaCYKPEFMR0W8WBefke7lJjiIwu9H0DUA7GXdPZp/Jc4N0h9lleaeCyLtGH4Vgazw5kMn1ZbUebfAlu4rj//0z5esvTxjBCKH2jzH7KNYe/JTYfbsE=
+	t=1756743935; cv=none; b=J90LnefAnzSH4Z3v341vKLaTYfBxQ9/t4TCI+NzXA1I5OkjyNddMPmi347a3cL1hfZbnVqmkBAEJEsaTXaXK8ig2usHEWKuReDCqMyIPJwjzE4mwClGidFpC5NC4MxNkW5F6D7Sp/qRF4JTFoXdMETRFLQRC0pTLonW2xOAT0+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756743510; c=relaxed/simple;
-	bh=UtOCrLxqzamnGb7bO1ATcpwJzcjzTdRVFJYrwOP3Tf0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HbLiy/k1V1n3wKw6lip90dv3Ppw2L+72sKqw6rKb9vDNSJMc2Ami/QHe+HqogD2cGsMPETrAumOYjc1LI+beAwWwvprf1ashPPaJQOiNLM0CLDlgkbssUEHNvCSIN+c8MYgos4JQqgupDpfAfVRCVHlRKY3b2Lianr6uXjVuwDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpo0Ru6T; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-3d48b45f9deso1030318f8f.1;
-        Mon, 01 Sep 2025 09:18:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756743507; x=1757348307; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4T20e8TU6kS3w6Y7quMf/EXjDBpaK6/eQzUTY2kj1Qw=;
-        b=jpo0Ru6TAHZwtkAymp8UulCi2+KcfhGdOSoK2snY6v3IXEIteWS7cINRvzEY56e0CM
-         J8MqcJWUxzb1B6ww0InlHBZ9s0ps+xzvgcu5SZb8VSccHAP7rzJSpyGXjyl06znsebSa
-         n2pLWkbYXrdwNNnPX+/myFI2Z4TVnVThPAKJudsM2/7mRn6tzxQY+5D9FY8BV1Gtul5m
-         InQWf0uZSEqXpvUhPCHXt2cxNZMarpH9L69SRxKA3w/ib/EGdiASAUI+yyTl6/Q8JLRi
-         ftLKG20vu8gM4swWRvahRJK/8JZMq/OqsAXH8yX4m318Jym9tdN7Lii6YsWUErPhXFS4
-         3w+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756743507; x=1757348307;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4T20e8TU6kS3w6Y7quMf/EXjDBpaK6/eQzUTY2kj1Qw=;
-        b=jmYOxsC3fDOSfjhMCTLUa71bpRFn7SM7fEI29SQ0hWYjoz8gRjjRB2Sc+Xj4JXYbUV
-         jPg5gFZpZHZqg5RjNgzjlsvi9Fzb2nahy/Hz2OoByLNBJIRW3x1ggPafsfe5w2DHLZHf
-         Y8hyEFPOlJ5IWh0IiHXTlrYLmXXRYzMblkchZPHWcQqjVFLkic4i8KykIk+nkAc0+rJa
-         ICJkJh2JT1VT+KCwOwKyNz3ZSXShjdEVBe8GoDz0/NKyfpgx3rz197nGm2yfaNN+Qghw
-         +6JI8cFe11tqCoN5Z1QMakPUBhTBKgVTaE6Nsfs8Duwa00JVTGLTxx8ZF48SfjamRCSF
-         C6qA==
-X-Forwarded-Encrypted: i=1; AJvYcCW1/yT2AUw5aaJEZ/viKRR/8pxtx97tN/rEC8NP1+nsSNSSJzakCitQSD4H2mVuldCVMa6VkZVYQy44rJ4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTxREWZ7tZTT0XidXrKrw8fvUOhP+ANQUHptcGc28AATrDbO6a
-	NK+q+AnRrBOiP5nU14nXYs8aFEdBn6kk6ikaZlk0fpmd+5dJVYnfdGJQ
-X-Gm-Gg: ASbGncsDtQtP73bkrEILNZ3kmI++l+9aGw9n2mDtALzYpLChvZQax+ctbZWg37yyTBm
-	P2M0b+Z/AWmAG6mPFjmJTmZZYY5O6xBOEsyBxcXAy7NL26Ad9u42y16m3+LRlCtPVpRcoErrjvB
-	7icLjYJYZKH30GvDflPjmUEsCldZuTRZxgyr447B69vlNB+/l0WPF8MksSP5JDqkivY4vKaukYM
-	km5+T19PxDWJGM35+HOQV4b6Pkb15tDCidki1Yll2tNmFSpdawnqVsYWYoNQOuYqo4F4bgSuQOY
-	dDj7nVfmz+8c0+3M1+/RJSiVnqKX8XwqV3tLBCxXYAwNR76NtephGwBzKV1PDRO+zmCCo92LUEf
-	hbeXFvVNcZ3bO5EY60Jo//TtnvM8isnNLv+AHsWfIbCjYuoHBjvZkq1il9RbAuzolQIalPWw=
-X-Google-Smtp-Source: AGHT+IE4o1X666yM5YK4CWMgLOs9K0BUTaD/qeKFd/cch0hzU4hnLxPKY4JoNDxrEJrrsbDrncdUUQ==
-X-Received: by 2002:a05:6000:1786:b0:3d1:721:31de with SMTP id ffacd0b85a97d-3d1dc5a279fmr6680867f8f.7.1756743506453;
-        Mon, 01 Sep 2025 09:18:26 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1126:4:1449:d619:96c0:8e08? ([2620:10d:c092:500::6:8e4b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3d729a96912sm4104778f8f.8.2025.09.01.09.18.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Sep 2025 09:18:25 -0700 (PDT)
-Message-ID: <d45bfc2d-91da-4a70-90d2-4e0319c5241c@gmail.com>
-Date: Mon, 1 Sep 2025 17:18:22 +0100
+	s=arc-20240116; t=1756743935; c=relaxed/simple;
+	bh=DS8O/9w4X3p5Lu5SqVPuwjN2zB76bKEucyTxvsdTyn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ip6wXfF+F1xNupmnf3S6+Y4E1USkiQ6MTnysFdSBkNGvLe1p8TgBFwyVbn+oJu+F+p3zrPTGCJ9MLXy5Bi73dce/UmurlgujGqLahQl6MysJpL2oB/An2J28x3dF+tf4lrkybStvzArlpEcVlDFgDVazYQ8PYe71O3sHwzLxpXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=HmjOdrYG; arc=none smtp.client-ip=142.132.201.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
+	s=selector.helgefjell; t=1756743931;
+	bh=lvJeduPbZ1rIt3Lkm/tb207EuI11ONqAhr6ayJ16SPg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HmjOdrYG4kGYZUu204f32+p+pVauTFZxFnAihgbjyLYB1lPXHlzqjVFgU6qnQzGUB
+	 t2cmgu1oMSWyBq9EfbPov+7fCE/oX7NdKeCEhRfKBgA/B11VGfNSXkd1A+VXUyhdY/
+	 paSk3xH1xaWbatlPycO4TtfkUzjeuWhvOZGYYEBKvssVBP2Q+HMJF0jH2q1Cm2OXbq
+	 3a27LEeDI5QYWRMCbg9i7mKj0plObEe2ImmcSOvYkseJu1LqKtjL71AGu5Fk9wd0X3
+	 309bs2CjvaFzd1P33SFEfnBS+b6heLe9laZCBtWbRmAIcDOrfErcTbCSkWGRN1oR/X
+	 WitL4iMg9B6Og==
+Original-Subject: Re: Issue in man page sprof.1
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by mail.helgefjell.de with local
+  id 00000000000200F3.0000000068B5C8FB.00038455; Mon, 01 Sep 2025 16:25:31 +0000
+Date: Mon, 1 Sep 2025 16:25:31 +0000
+From: Helge Kreutzmann <debian@helgefjell.de>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page sprof.1
+Message-ID: <aLXI-wm2BCjKko05@meinfjell.helgefjelltest.de>
+References: <aKsmQcxdqf4EnO5i@meinfjell.helgefjelltest.de>
+ <ng3ohykyqc5cpglpviqh7hekvdltyrnpf54pfaqlg6hevkclfu@qjywntzohfxn>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PR_*ET_THP_DISABLE.2const: document addition of
- PR_THP_DISABLE_EXCEPT_ADVISED
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org, david@redhat.com, lorenzo.stoakes@oracle.com,
- hannes@cmpxchg.org, baohua@kernel.org, shakeel.butt@linux.dev,
- ziy@nvidia.com, laoar.shao@gmail.com, baolin.wang@linux.alibaba.com,
- Liam.Howlett@oracle.com, linux-kernel@vger.kernel.org, kernel-team@meta.com
-References: <20250901160903.2801339-1-usamaarif642@gmail.com>
-Content-Language: en-GB
-From: Usama Arif <usamaarif642@gmail.com>
-In-Reply-To: <20250901160903.2801339-1-usamaarif642@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-230485-1756743931-0001-2"
+Content-Disposition: inline
+In-Reply-To: <ng3ohykyqc5cpglpviqh7hekvdltyrnpf54pfaqlg6hevkclfu@qjywntzohfxn>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
+
+--=_meinfjell-230485-1756743931-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Alex,
+Am Mon, Sep 01, 2025 at 03:43:58PM +0200 schrieb Alejandro Colomar:
+> On Sun, Aug 24, 2025 at 02:48:33PM +0000, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
+> >=20
+> > Issue:    Inconsistency detected by ld.so: dl-open.c: 930: _dl_open: As=
+sertion `_dl_debug_update (args.nsid)->r_state =3D=3D RT_CONSISTENT' failed!
+>=20
+> Could you please clarify this report?  Is this something libc-help@
+> should be aware of?
+
+When I tried this out 2023-12-26, I got this message in Debian
+unstable when running this command (after all the previous ones). I
+can retry this on the weekend in Debian Trixie, if this helps.
+
+> Have a lovely day!
+> Alex
+>=20
+> >=20
+> > "$B< sprof -p libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile>;\n"
+> > "Flat profile:\n"
+> > "\\&\n"
+> > "Each sample counts as 0.01 seconds.\n"
+> > "  %   cumulative   self              self     total\n"
+> > " time   seconds   seconds    calls  us/call  us/call  name\n"
+> > " 60.00      0.06     0.06      100   600.00           consumeCpu1\n"
+> > " 40.00      0.10     0.04     1000    40.00           consumeCpu2\n"
+> > "  0.00      0.10     0.00        1     0.00           x1\n"
+> > "  0.00      0.10     0.00        1     0.00           x2\n"
+> >=20
+> > "$ B<sprof -p libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile>\n"
+> > "Flat profile:\n"
+> > "\\&\n"
+> > "Each sample counts as 0.01 seconds.\n"
+> > "  %   cumulative   self              self     total\n"
+> > " time   seconds   seconds    calls  us/call  us/call  name\n"
+> > " 60.00      0.06     0.06      100   600.00           consumeCpu1\n"
+> > " 40.00      0.10     0.04     1000    40.00           consumeCpu2\n"
+> > "  0.00      0.10     0.00        1     0.00           x1\n"
+> > "  0.00      0.10     0.00        1     0.00           x2\n"
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
+> Use port 80 (that is, <...:80/>).
+
+Greetings
+
+         Helge
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_meinfjell-230485-1756743931-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmi1yPsACgkQQbqlJmgq
+5nCNLg//alVI+zPm6lqKQQ/1ghsq4h9ufjRm66EgTd2/WsBd1NQw7fxSdF3dnbW8
+lRBPzv5+bktmbAgofBeu8/wE+0pfryLoEww3Zl8G+MEo4gWwEjtKpyExTtnXbB2z
+MgoWtbpQNiLiK367IGlSzbxzNJLgelLkYIGIGDgYxQF6Ril1MvFACea25tdbDNCZ
+SrIsrIeucxi27wjy7IqXQ+Y+f/ANbrJcDpEhaE+8uxrmZ9bZNcrL7IxNIEu3rb6t
+J7WPRBy3LmuO5aTlsocnE8r7hyRZcaTEHDXOoyekZ97XnS/trQD8jMj6iC02jkmM
+xV2TyJmtANeTVsgCA9uCWTixHNn6BW7gqPl5ZCcWDnFoNch8nINWxQXHbxyBnVgn
+acLf9A3BNBaz2l+qz8uuj8zqaqXvjA4CF4t1bwQyGpP2GLBWacNsIqxSndUUu+mW
+WG6AZhq8dHWMurzcQWSABLFLkH+M4e6T1tFQVVt6UTsBdrW6TxiP/wnuMCXrIca+
+uR+hf0IEnEdNYx3csWnULOX/HFT5YvRqyhRPx/rq2ynep0Gpd8//+cz4XwQgBxh6
+1pKcHg5ETLRjY7Vjbl/uI2kssYuWbWAnq5G6UuJIGA/I4gCkCz7Ib2qlHdR1oNzV
+1kG6WoyyOfnM8fS/xr3Fk5lK/QA3ccAU139+nb7RfG4IsmL+mfU=
+=10z+
+-----END PGP SIGNATURE-----
 
-On 01/09/2025 17:09, Usama Arif wrote:
-> PR_THP_DISABLE_EXCEPT_ADVISED extended PR_SET_THP_DISABLE to only provide
-> THPs when advised. IOW, it allows individual processes to opt-out of THP =
-> "always" into THP = "madvise", without affecting other workloads on the
-> system. The series has been merged in [1].
-> 
-> This patch documents the changes introduced due to the addition of
-> PR_THP_DISABLE_EXCEPT_ADVISED flag:
-> - PR_GET_THP_DISABLE returns a value whose bits indicate how THP-disable
->   is configured for the calling thread (with or without
->   PR_THP_DISABLE_EXCEPT_ADVISED).
-> - PR_SET_THP_DISABLE now uses arg3 to specify whether to disable THP
->   completely for the process, or disable except madvise
->   (PR_THP_DISABLE_EXCEPT_ADVISED).
-> 
-> [1] https://lore.kernel.org/all/20250815135549.130506-1-usamaarif642@gmail.com/
-> 
-> Signed-off-by: Usama Arif <usamaarif642@gmail.com>
-> ---
->  man/man2/madvise.2                      |  4 +-
->  man/man2const/PR_GET_THP_DISABLE.2const | 18 ++++++---
->  man/man2const/PR_SET_THP_DISABLE.2const | 52 +++++++++++++++++++++----
->  3 files changed, 61 insertions(+), 13 deletions(-)
-> 
-
-I am not sure what the right time is to send the mandoc changes.
-The patches have been merged into mm-new for more than 2 weeks.
-We can still review it and I can resend if needed after the kernel release if that
-is a more appropriate time?
-
-Thanks!
-Usama
+--=_meinfjell-230485-1756743931-0001-2--
 
