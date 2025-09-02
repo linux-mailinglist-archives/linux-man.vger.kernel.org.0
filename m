@@ -1,125 +1,288 @@
-Return-Path: <linux-man+bounces-3826-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3827-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1AC4B3F690
-	for <lists+linux-man@lfdr.de>; Tue,  2 Sep 2025 09:24:42 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D36FB3F825
+	for <lists+linux-man@lfdr.de>; Tue,  2 Sep 2025 10:19:56 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8287D3A4228
-	for <lists+linux-man@lfdr.de>; Tue,  2 Sep 2025 07:24:41 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4AB383A7102
+	for <lists+linux-man@lfdr.de>; Tue,  2 Sep 2025 08:19:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9413F1FBC92;
-	Tue,  2 Sep 2025 07:24:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C79F42DE709;
+	Tue,  2 Sep 2025 08:19:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dYEN9dRR"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M15idCzi"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19F6282E1
-	for <linux-man@vger.kernel.org>; Tue,  2 Sep 2025 07:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B79A219E8;
+	Tue,  2 Sep 2025 08:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756797878; cv=none; b=G2fPJLVwLLA9EyAiVE4nSec79N6Pr7nsEcxHjtZYQ7a22JxRPRnMKVS5EIjJ1pjF3XQENfkqfg7ssZ0TD0YvxsWa6h1+VToFaXOsM3LaNpmEzUwvUeqtAZUati7bIuj8pLMI4U+NV4uyFy0w2Q11TASnAaOtdy1lw4o1F33NX4o=
+	t=1756801174; cv=none; b=QRQWVkT7nltLopZozHPMxHtWY43h9+y3bF6JdkV/MMl1Xn2Iv0EfKkArSmme3foMKpbjuXDyhvPkh9tfx/283aYZzckV2xZ7UZ2eIyNK0P9YJY4xuU6+az9HgPDgdXaTCryz8LEgyXCFSjyJFk63g5NEsAY14/iVS+jTxqxXB2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756797878; c=relaxed/simple;
-	bh=eju1T8pCVvx89ZeKHN3PMLyReKD9Trk3dm/ZoDrU3XM=;
+	s=arc-20240116; t=1756801174; c=relaxed/simple;
+	bh=YQhS5YX7+TunJeGo0nhCVLU37f9deS4w/2nmDwjdTCA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByOHxptTYkL31KGnWAXOWEqz9lM8i0ZJY6qm7jmq9bXETCGWl4wVaPuKfjysDBCsrtcK9V8SAX+WVD6TGUQJgIHQFbdyLHUrxRdbjGxbPyngyPqw7CaiARujNHnW+8jRbkTEWXod59m0fNe79zApdxr386Ep5u50XYWHKw4cV5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dYEN9dRR; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1756797876;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eju1T8pCVvx89ZeKHN3PMLyReKD9Trk3dm/ZoDrU3XM=;
-	b=dYEN9dRR/JtkmFjNE72FlKlmXU5jacyRyn2Jnfh1jn0RI32YvnDIEhT9VI7lByO5K7E2a5
-	H+1XiBpxCHliSgaEL6IsOU4Lln9b4B/07xkHQD2bAwrY8TUSy84jPuf4WCf8AdZyYHAA7/
-	XQc7yUieL4rhmkCBV5brxrwCnKD5kMs=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-247-hxgx3bgjP92jSLSYAmY8Fw-1; Tue, 02 Sep 2025 03:24:34 -0400
-X-MC-Unique: hxgx3bgjP92jSLSYAmY8Fw-1
-X-Mimecast-MFC-AGG-ID: hxgx3bgjP92jSLSYAmY8Fw_1756797874
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-7211f13bc24so4570996d6.1
-        for <linux-man@vger.kernel.org>; Tue, 02 Sep 2025 00:24:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756797874; x=1757402674;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eju1T8pCVvx89ZeKHN3PMLyReKD9Trk3dm/ZoDrU3XM=;
-        b=pI6ND4UsvxeuC6L87GoK/msUQF6rKWKhj37pD6iCJ6aX7kvHIVM/SPRJieFKUCOsw9
-         VvyeZy5SWMClA/8WsGlKXAQaMHbuiXH+XsKdXQ5WhxDAASognstoBkMv69rJ5GJN2wWE
-         aqZ8kSao5xctofUA5NwnOb0Yx4WxoNv+/+3O9mjarOpYWbNYetsarn1bFAg/El7HuFUi
-         8evPv+L9P4M1B4dN5AUPSU6RzgQ6CGsnMkuVBs59suIUeE2WluyfwVzepUfIHSqBPPGR
-         NBDOugMwPUMP3cJtqTmXKoLzlqHiABO7X9OtkcObJ/cM6lX9vEnJRMTd2+cz0Pug/RTn
-         wdGA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxhsBW3CVcxpk0aakwztWujOIg60E/eGo/TfJBbbQyhN64aqbe1qkQPpPNBIIfXjk6CktRVhLDIhc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywtq4ejtMAkbsKTqF61GXudX4ZjPUMsIJ/oa96wK0kffbQ+brMG
-	4HKv61JPuv8+f20b4aqnI2Xtmnvdlq6U0CaFMSYt5MnhwFgyZmYa5ZGDkfRiV338vixnVguOM/o
-	LUUGeRwiehNDNUd5APrpz/csJJgONQxmLeQ7Eju4DcWeRLk2UsEHJ7pii7qSNLw==
-X-Gm-Gg: ASbGncu/xO+cAoOYbONsH/3+XoTFnI5NxaJiVsifdpfV8j7qrNzFfJZrN41I+fz0bAE
-	Vu72Nb3Zk7I1FFL4QimBXuNlMbhEaXXrCU4plzj2TLOpkjpE4vHaD7A+9cUzg5l8MClYuWPMTQg
-	lx6GO5qq6JQN6L3fbw6P+wNzIwgH3ijNb9xnZOgWqMkuujutBm2kDk7dbyi8EncPNa8o+AKf6fa
-	1HCTHPLq+hXcwoy8+Y2AwTmFGKGcvmgxhKLlLnjvOYVMzXF19hyi7cQ6RgrTOgIMtGMpnJNz4Ug
-	7z6PjIFmSCb2hd3P3Os9gpFgksvgPeYN9Ov0NQF7RmGXnHdtyKjKezWuyiZUoH9tNmJFrAs=
-X-Received: by 2002:a05:620a:29cc:b0:7e8:23c1:f472 with SMTP id af79cd13be357-7ff26eab1ccmr994506485a.3.1756797873937;
-        Tue, 02 Sep 2025 00:24:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHPg3hdu5JodFozpWkdD4pgt31QG7L5zOYnyAbFPu7ZX/efiTBjunMP1yXYo/JW79MBOL2yLA==
-X-Received: by 2002:a05:620a:29cc:b0:7e8:23c1:f472 with SMTP id af79cd13be357-7ff26eab1ccmr994504685a.3.1756797873553;
-        Tue, 02 Sep 2025 00:24:33 -0700 (PDT)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.70.210])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8069cde2863sm90429085a.58.2025.09.02.00.24.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Sep 2025 00:24:32 -0700 (PDT)
-Date: Tue, 2 Sep 2025 09:24:28 +0200
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-	Alejandro Colomar <alx@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH 1/4] man/man7/sched.7: Update the real-time section
-Message-ID: <aLabrBwH4Mz8seCu@jlelli-thinkpadt14gen4.remote.csb>
-References: <20250829160200.756194-1-bigeasy@linutronix.de>
- <20250829160200.756194-2-bigeasy@linutronix.de>
+	 Content-Type:Content-Disposition:In-Reply-To; b=N7jRYxNleU2nLmOqFjDxNzOfRpivi97ch0gtAmPQBWAiM6jHzQGkhuWq9XO1rUy7FcR6hbiJJZ6Vx32WviXGEVE0NhLsqQ8UdJ0IWbhkaiyvPW04VsCfYi9PAyrkSKKgQNuo20OJCpd5JtUzMcEzqDIACBeyqFRkF/aO4oMSI9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M15idCzi; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1EDC4CEED;
+	Tue,  2 Sep 2025 08:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756801174;
+	bh=YQhS5YX7+TunJeGo0nhCVLU37f9deS4w/2nmDwjdTCA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=M15idCziekmclmlzSsQ+SdXNHthgCtngb+81FtWkG1HT/e6GbwkFH1pU8ATr0cXpQ
+	 bkTNKcztaM/KLifilufOst7bZ6dJG8RY/aJaou3BGvxJoG21BQdQ1OhC5+I06WLFNP
+	 kIofKtnc9R4/NnKagWA4Nxs2rU3enWY9Tjb4UmX13YSRqHuf8yMRpvAOFMjhFc+QMD
+	 HQq0j6ngFhiPbSxIaAL+dA6rbKRO21FMOieNM+OFYdLxjMAAbGSHkqAc3gf3ywZZZO
+	 CDmCDYiyXM4wYAgHo4IMPnE5lsj+3ZxuwfWr2vspjBdKOavcfUAt0RW6nLaFt5d2Ph
+	 DV1w7+mjLxkpA==
+Date: Tue, 2 Sep 2025 10:19:27 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Usama Arif <usamaarif642@gmail.com>
+Cc: linux-man@vger.kernel.org, david@redhat.com, 
+	lorenzo.stoakes@oracle.com, hannes@cmpxchg.org, baohua@kernel.org, shakeel.butt@linux.dev, 
+	ziy@nvidia.com, laoar.shao@gmail.com, baolin.wang@linux.alibaba.com, 
+	Liam.Howlett@oracle.com, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] PR_*ET_THP_DISABLE.2const: document addition of
+ PR_THP_DISABLE_EXCEPT_ADVISED
+Message-ID: <rwnvktudfyagql35wimoeshpghoccv2stbk72uukdlnmr6iagm@xwknjlczowox>
+References: <20250901160903.2801339-1-usamaarif642@gmail.com>
+ <ejz6kpdn6kxuspktab3m7sjwg3l7eevacoabgroxgsltognb7y@3edyqhpae4vn>
+ <97c19219-6055-46ae-865a-2833d8367db0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jc7k4dxmgdocrr7y"
 Content-Disposition: inline
-In-Reply-To: <20250829160200.756194-2-bigeasy@linutronix.de>
+In-Reply-To: <97c19219-6055-46ae-865a-2833d8367db0@gmail.com>
 
-Hi!
 
-On 29/08/25 18:01, Sebastian Andrzej Siewior wrote:
+--jc7k4dxmgdocrr7y
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Usama Arif <usamaarif642@gmail.com>
+Cc: linux-man@vger.kernel.org, david@redhat.com, 
+	lorenzo.stoakes@oracle.com, hannes@cmpxchg.org, baohua@kernel.org, shakeel.butt@linux.dev, 
+	ziy@nvidia.com, laoar.shao@gmail.com, baolin.wang@linux.alibaba.com, 
+	Liam.Howlett@oracle.com, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] PR_*ET_THP_DISABLE.2const: document addition of
+ PR_THP_DISABLE_EXCEPT_ADVISED
+References: <20250901160903.2801339-1-usamaarif642@gmail.com>
+ <ejz6kpdn6kxuspktab3m7sjwg3l7eevacoabgroxgsltognb7y@3edyqhpae4vn>
+ <97c19219-6055-46ae-865a-2833d8367db0@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <97c19219-6055-46ae-865a-2833d8367db0@gmail.com>
 
-...
+Hi Usama,
 
-> -The FIFO and RR scheduling policies are then used to run a thread
-> +The
-> +.BR SCHED_FIFO ,
-> +.BR SCHED_RR ,
-> +and
-> +.B SCHED_DL
+On Mon, Sep 01, 2025 at 05:58:39PM +0100, Usama Arif wrote:
+> Thanks for the quick review! Its my first time writing a man page so was =
+apologies
+> if there were some basic mistakes in formatting.
 
-I believe SCHED_DEADLINE would be more correct?
+No problem.  Formatting issues are usual, and expected.  :)
 
-Thanks,
-Juri
+> >> @@ -373,7 +373,9 @@ nor can it be stack memory or backed by a DAX-enab=
+led device
+> >>  (unless the DAX device is hot-plugged as System RAM).
+> >>  The process must also not have
+> >>  .B PR_SET_THP_DISABLE
+> >> -set (see
+> >> +set without the
+> >> +.B PR_THP_DISABLE_EXCEPT_ADVISED
+> >> +flag (see
+> >>  .BR prctl (2)).
+> >=20
+> > Double negation is confusing.  Please rephrase to something like
+> >=20
+> > 	The process can have X set
+> > 	only if Y is also set.
+> >=20
+>=20
+> Yes, makes sense, will change to belwow in the next revision:
+>=20
+> The process can have
+> .B PR_SET_THP_DISABLE
+> set only if
+> .B PR_THP_DISABLE_EXCEPT_ADVISED
+> flag is set (see
+> .BR prctl (2)).
 
+Sounds good.
+
+> >>  .IP
+> >>  The
+> >> diff --git a/man/man2const/PR_GET_THP_DISABLE.2const b/man/man2const/P=
+R_GET_THP_DISABLE.2const
+> >> index 38ff3b370..df239700f 100644
+> >> --- a/man/man2const/PR_GET_THP_DISABLE.2const
+> >> +++ b/man/man2const/PR_GET_THP_DISABLE.2const
+> >> @@ -6,7 +6,7 @@
+> >>  .SH NAME
+> >>  PR_GET_THP_DISABLE
+> >>  \-
+> >> -get the state of the "THP disable" flag for the calling thread
+> >> +get the state of the "THP disable" flags for the calling thread
+> >>  .SH LIBRARY
+> >>  Standard C library
+> >>  .RI ( libc ,\~ \-lc )
+> >> @@ -18,13 +18,21 @@ Standard C library
+> >>  .B int prctl(PR_GET_THP_DISABLE, 0L, 0L, 0L, 0L);
+> >>  .fi
+> >>  .SH DESCRIPTION
+> >> -Return the current setting of
+> >> -the "THP disable" flag for the calling thread:
+> >> -either 1, if the flag is set, or 0, if it is not.
+> >> +Returns a value whose bits indicate how THP-disable is configured
+> >=20
+> > s/Returns/Return/
+> >=20
+>=20
+> ack
+
+The thing is, if we were writing it from scratch, I wouldn't have a
+preference.  However, given it already uses Return, I don't see strong
+reasons to change it.
+
+If you still prefer to change it, though, feel free to insist.
+
+> >> +for the calling thread.
+> >> +The returned value is interpreted as follows:
+> >> +.P
+> >> +.nf
+> >> +.B "Bits"
+> >> +.B " 1 0  Value  Description"
+> >> + 0 0    0    No THP-disable behaviour specified.
+> >> + 0 1    1    THP is entirely disabled for this process.
+> >> + 1 1    3    THP-except-advised mode is set for this process.
+> >=20
+> > We should probably use a table with .TS/.TE.  See examples of this in
+> > other manual pages for how to use that (or read tbl(1) if you want).
+> >=20
+> > If you don't know how to use that, I can do it myself.  tbl(1) is a bit
+> > weird.
+>=20
+>=20
+> I tried below, and it seemed to look ok in the output, but please let me =
+know if
+> its ok:
+>=20
+> .TS
+> allbox;
+> cb cb cb l
+> c c c l.
+> Bit 1	Bit 0	Value	Description
+> 0	0	0	No THP-disable behaviour specified.
+> 0	1	1	THP is entirely disabled for this process.
+> 1	1	3	THP-except-advised mode is set for this process.
+> .TE
+
+At first glance, looks good.
+
+> >> @@ -15,24 +15,62 @@ Standard C library
+> >>  .BR "#include <linux/prctl.h>" "  /* Definition of " PR_* " constants=
+ */"
+> >>  .B #include <sys/prctl.h>
+> >>  .P
+> >> -.BI "int prctl(PR_SET_THP_DISABLE, long " flag ", 0L, 0L, 0L);"
+> >> +.BI "int prctl(PR_SET_THP_DISABLE, long " thp_disable ", unsigned lon=
+g " flags ", 0L, 0L);"
+> >=20
+> > Hmmm, I'm reading this weirdly.
+> >=20
+> > Old code doing prctl(PR_SET_THP_DIABLE, 1, 0L, 0L, 0L); would be
+> > transformed from setting the flag before, to now using 0L as flags?
+> >=20
+> > Or how is backwards compatibility handled?
+> >=20
+>=20
+>=20
+> Its still backwards compatible. The name of the arguments is changed, but=
+ the arg values have not.
+> Before you could do 2 things:
+>=20
+> prctl(PR_SET_THP_DISABLE, 0, 0, 0, 0); // to reset THP setting.
+> prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0); // to disable THPs completely.
+>=20
+> Now in addition to the 2 calls above, you can do:
+> prctl(PR_SET_THP_DISABLE, 1, PR_THP_DISABLE_EXCEPT_ADVISED, 0, 0); // to =
+disable THPs except madvise.
+
+Thanks!  This helped me understand it.  I think this would be useful in
+the commit message.
+
+> >=20
+> > See man-pages(7) ("Lists"):
+> >=20
+> >        There should always be exactly 2 spaces between the list  symbol
+> >        and  the  elements.   This doesn't apply to "tagged paragraphs",
+> >        which use the default indentation rules.
+> >=20
+> > (If you grep(1) around, you'll see that number everywhere.)
+> >=20
+> >> +Global THP controls are set to "always" or "madvise" and
+> >> +.BR madvise (...,
+> >> +.BR MADV_HUGEPAGE )
+> >=20
+> > I'd say
+> >=20
+> > 	.I madvise(..., MADV_HUGEPAGE)
+> >=20
+> > as an inlined expression, which goes in full italics; that's simpler.
+>=20
+> This results in the entire line being underlined, which is probably not w=
+hat
+> not what we want?
+
+The entire function call is underlined; see man-pages(7):
+
+       Expressions, if not written on a separate indented line,  should
+       be  specified  in italics.  Again, the use of nonbreaking spaces
+       may be appropriate if the  expression  is  inlined  with  normal
+       text.
+
+Which reminds me to prevent the line from breaking at that expression:
+
+	.I \%madvise(...,\~MADV_HUGEPAGE)
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--jc7k4dxmgdocrr7y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmi2qIgACgkQ64mZXMKQ
+wqm2Qg//X9msUvlfpgRzzjcBpL5mkPJ/GFvt21iFqbm8OBfUqvFNjJQQrpdO1QCO
+TsPKS5ITdM9q5V5ejk2dUlLRVY4RL5/NtmnBceo30q06hdQsAix1MVnu9jAMCQxE
+HmKIws89hNBt9iUMYy5fR9vHGT4Mvt6WNt05K/JD6UsqqWgfDvAd1wvrcoVeeru0
+Yfq1twq+HTZevCKX1ep3VCbjvXU0y6Jd1DB4jYkq2xjN9xhl07DXK5AZF9R0yW5k
+H3wA17exI+yNeGvFj8ihO45qXDXcWvaWRqpTT3rfis3s4h7zsokKtnQFulIdD+dh
+gO9speFlXV3bM/IlxF3CR9DBupBMKerwqWRCtqdqmFj/GM/15JuBbb04M0M+vtAP
+cVtNyVH6XiuQlhysE8FVY7Y33cWKsLQLJztfesOBv41Plq3e1Uy+VH3EnrNZNUWm
+kRLWazf7StajHygayEp8uUE2P8BlN6oN+1XdZJ9HCZ5m4qBIvn+9jH2bPmObK4jr
+a+7GPqSdkoIsdJbzGQyCOM+fJfJuBEdSYn2rfaYFaKUZphwh8Yf/mTVPG/sAYdc8
+B1iU+AVw3Y4bU8ZhCM+bwjSf1BsaWcI3sDCLn9zLcGRjucTiTwtbCxV2/Vdz+hi6
+fSa1Z78ec4BGVprIZefLf9NB/+aOiFgMoJt4NbVvJ6POG2Bu5Gc=
+=6vQR
+-----END PGP SIGNATURE-----
+
+--jc7k4dxmgdocrr7y--
 
