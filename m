@@ -1,139 +1,333 @@
-Return-Path: <linux-man+bounces-3835-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3836-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 133B4B458F5
-	for <lists+linux-man@lfdr.de>; Fri,  5 Sep 2025 15:28:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3483DB459A3
+	for <lists+linux-man@lfdr.de>; Fri,  5 Sep 2025 15:53:08 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 5D3FA1CC4158
-	for <lists+linux-man@lfdr.de>; Fri,  5 Sep 2025 13:28:36 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id D2FB91C26E5E
+	for <lists+linux-man@lfdr.de>; Fri,  5 Sep 2025 13:53:28 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2855B350850;
-	Fri,  5 Sep 2025 13:26:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91F8635CED7;
+	Fri,  5 Sep 2025 13:52:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EPMG29dj"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kbuqc6Nb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Yh4caJSP";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kbuqc6Nb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Yh4caJSP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565AF3451AF;
-	Fri,  5 Sep 2025 13:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8863535CEB2
+	for <linux-man@vger.kernel.org>; Fri,  5 Sep 2025 13:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757078796; cv=none; b=AGO/qcmKksPoHOZ2coqN2euuts4pRL9JfAecD2KTcwR9WdFrDt34Ik162k5FGlD2wf9ruInQUsuT8ogv+mZ0mmxlwXP3nbVjyeBuGtqaqEQjH8rNHuJ36FbclPb9+0X9BYK3ti8K8BlzUpnvqk/lIkcZnDQzYmR5uNcJomoaXMs=
+	t=1757080378; cv=none; b=YLB4nQJiLSQFDLqqRI2pBa+EBUkhn3JS+FuqxDwYmqb4dwNL9kG8Pyl9f0PvVWSGKxO5q42SG+ceV1Imd7j99//vfWLARYklTneiJeqRLJZfH6vxaaamObqNqkGf2YINZSwuJdvk9Mia6EgJRXN+GVpqxaIwM+2cFzSn7ghPsEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757078796; c=relaxed/simple;
-	bh=AH1QiUP7NqGjmMOlveGWnNSOEFkmg/5MNNp/5BdcE68=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uzzDsl9cuwHYqxtuezHrKy0NuHBesu+EvlOmQ1ETWg3+WW/GsKitaiiUzYMRKI3bFW0YM47oDIAnmpksiie1icqTMQXTBcxpWzrWaiQIbZfTj8C8qyr2my6PXJQx9FETPBtd8LZflhYD1kz9Y6vRLYYyZ0TVvgmJ0A7UZOAldxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EPMG29dj; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-45b87bc67a4so15581555e9.3;
-        Fri, 05 Sep 2025 06:26:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757078794; x=1757683594; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Eb92Day+yfiw8MwDoCISojU3QFzdrjI3w4w/7hHek5c=;
-        b=EPMG29djZ+prgmuzyDRTg9A2bSO2+wXOLekYoysCG/hSD9bRXMkCsgUTO1l56e9ocu
-         L1SOaDh9AiZgPSBF8MhVv+6w3ppk5eAjoXoZ6RqBFDM2qxwh7kHuhWCsryZ4aRXckVf2
-         xIlwkbni/CK2DoQjfrbq71f7CpOCPhQ13zLa/643iy638s8VKniX1jOv3bmYrkTWp7wP
-         nSl4KQXXJJ/6U0vYi936VYONuFkZ9zZeD60mtG0BTzalM/YF0dH8wMBJmtZk2URfZfhi
-         fWP30JxnQ3qqUWjDZe6lOXu28LmDsQJ0ghCeqFmIR1ETnV4bV5nlCaEzpGMCdkBbgNzv
-         q0dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757078794; x=1757683594;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Eb92Day+yfiw8MwDoCISojU3QFzdrjI3w4w/7hHek5c=;
-        b=s4wJF4FwJsvyYE+Xvox8mWu3TdlHq2aixxFGZf9xo7SUH1DY1UrkceQzlRUo2M/0lE
-         oLKVEu0kkHdCUyqoe1GpNMCuuZBdPV0qJSnOX8PK386pzP6+vTYUCKpPp/LUROEl8YZq
-         pMtiFru8wfLK/lqL2sPkNKbIXsYqOpAbFMUo3WdRo4zD5ihco5r0Cnlt7OvuTjp6+O4d
-         tE2sJQ5gWcjFyeoiFSAwf8BZOCZbdSIsSgJgJwxHs9lEwZebVqRxKLYtFk9uW2xFbuSZ
-         aiDm5ag/V/3oVrZk+D9AeDX4DPHVx7wJ4A4aPRumXjQ/rNkbFW7ctr9u76BWPQQVDJbU
-         yg4g==
-X-Forwarded-Encrypted: i=1; AJvYcCVmY4at+LUcYgw4+4MgkPQPMwtJLKB8lKYPldE02y195TxknqL1AVjMtbDwb1FySVCMMi+0PkPiUku8INs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkZaqfImcyvnF2paKk88VCgKA3vXK8gVk9Da0EVL0MzMdM2h0p
-	NsKgwmEkJJt/17PZBSdZ/Vqv39WDLZFwJBiYAaIlnceh9sEmgCnoixyCWQedSXOOcX8=
-X-Gm-Gg: ASbGncuM1daPCF4p1ppeGQ3DY+XAtZww4ZWbnMducpMOB36/nEh8n6jYuNymS3a+hyD
-	21r0y6xkDNwTd+688Fg26c8LlArfETNR1p/pM72A1MJ5i2DCndi6236elsGDzrC3wsf9uQHLv6f
-	HZIz9a84uVXtr9aN88GMY1dByu//p97F7smeHzWcTFcxdRNFmqs+HHm/LPEmIr2nf5FaIPMXDWW
-	TPSyn5XwIji8yM7eGqTyJ8cD3lsy2LGrRHXIZk0DXnb94C4VHz7L/nN1aGsoLeCbePK9++7hu2/
-	rCkhIB7yrkE4XbHlznz7+CJoJj+yFlboigr0K23HtsoFfMOA6CSVvg1MrRjIGNU9V/4tgC6C1m0
-	69/k95tFFbFfwN6ergQs3tAL6TZ8QQjTtgDfMZ4w3y7IQba9Nzx2XZpjfISeSmTBxN64EPf8=
-X-Google-Smtp-Source: AGHT+IFfdHJ10HzRs7dHi47HmFmAVu5kFk9F5qKE3/3zjLp/MJzZUY0y3giMJSwUpo4hW1JEx9URvg==
-X-Received: by 2002:a05:600c:1d20:b0:45d:2ac9:4240 with SMTP id 5b1f17b1804b1-45d2ac94321mr75395875e9.17.1757078793329;
-        Fri, 05 Sep 2025 06:26:33 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1126:4:1449:d619:96c0:8e08? ([2620:10d:c092:500::4:4f66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-45dcff67787sm80228455e9.16.2025.09.05.06.26.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Sep 2025 06:26:32 -0700 (PDT)
-Message-ID: <02ff9dc0-2ce2-4241-9969-e09f48026f8d@gmail.com>
-Date: Fri, 5 Sep 2025 14:26:28 +0100
+	s=arc-20240116; t=1757080378; c=relaxed/simple;
+	bh=6Q4bXI/nZZF3mbwbpGElgz9gSiz2RP4DQzyPBuh7N30=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PqMRE2NHSS/aPgJ9XiM2lve8OsrUZCijg8nd0CXPwTmzGPR9IJodiATVs2fzeEf0ihWFypyAMNTELRsh0I49/TIwsyliIxmaoUXUQ6i4jtTmtxMCt6Y/4WOnWvBjz0GDo/XJevGYQht1CJHTvthFmRA3YpVTS71UAHbZ0P5zm+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kbuqc6Nb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Yh4caJSP; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kbuqc6Nb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Yh4caJSP; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6FC364E99A;
+	Fri,  5 Sep 2025 13:52:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1757080374; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SOs33he6l7qwg78xkB024PRKEn1LHIwUiukJ6iZ1CAw=;
+	b=kbuqc6NbH57ePcxscfP361w3SMAVB8pIz3xnTqLCAUtzxQBmoTbjVczGaWLJZM/A4Hcupv
+	3lptlvhAplxLmX02jy4zdPXNlmyh4lTUGCQojzAKWyqgnQWr49gvJlou8UWOkBEPfy4VXJ
+	IijU5tK/aQzG2CfXX//XMiS1b3DPsjY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1757080374;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SOs33he6l7qwg78xkB024PRKEn1LHIwUiukJ6iZ1CAw=;
+	b=Yh4caJSPnjqzogilGbWUdFzrg05T0PFw6X9LfQ63dn4gPVH9u5VggDEQgaiJWy6QZdJ2Nh
+	1LizJnG3w1Om+0Ag==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=kbuqc6Nb;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Yh4caJSP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1757080374; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SOs33he6l7qwg78xkB024PRKEn1LHIwUiukJ6iZ1CAw=;
+	b=kbuqc6NbH57ePcxscfP361w3SMAVB8pIz3xnTqLCAUtzxQBmoTbjVczGaWLJZM/A4Hcupv
+	3lptlvhAplxLmX02jy4zdPXNlmyh4lTUGCQojzAKWyqgnQWr49gvJlou8UWOkBEPfy4VXJ
+	IijU5tK/aQzG2CfXX//XMiS1b3DPsjY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1757080374;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SOs33he6l7qwg78xkB024PRKEn1LHIwUiukJ6iZ1CAw=;
+	b=Yh4caJSPnjqzogilGbWUdFzrg05T0PFw6X9LfQ63dn4gPVH9u5VggDEQgaiJWy6QZdJ2Nh
+	1LizJnG3w1Om+0Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 55B79139B9;
+	Fri,  5 Sep 2025 13:52:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rfXhFDbrumhRfAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 05 Sep 2025 13:52:54 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id EED06A0A48; Fri,  5 Sep 2025 15:52:45 +0200 (CEST)
+Date: Fri, 5 Sep 2025 15:52:45 +0200
+From: Jan Kara <jack@suse.cz>
+To: trillian <trillian@r9.pm>
+Cc: Alejandro Colomar <alx@kernel.org>, Jan Kara <jack@suse.com>, 
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/: Document quotactl_fd syscall
+Message-ID: <zlmihxewizebdg6mja45mdxrmusfrrv2q6hoyr5nymuueod6s5@grusn7aizpqf>
+References: <kcgr45epiqdxxfg3wwqvfifudaz23ten3tuwdnn4o5rp2pj7ta@27jsmwb26cze>
+ <22e61e8f6c198c6a6c0468bb97b2d2add1fa0aec.1757076139.git.trillian@r9.pm>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PR_*ET_THP_DISABLE.2const: document addition of
- PR_THP_DISABLE_EXCEPT_ADVISED
-Content-Language: en-GB
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org, david@redhat.com, lorenzo.stoakes@oracle.com,
- hannes@cmpxchg.org, baohua@kernel.org, shakeel.butt@linux.dev,
- ziy@nvidia.com, laoar.shao@gmail.com, baolin.wang@linux.alibaba.com,
- Liam.Howlett@oracle.com, linux-kernel@vger.kernel.org, kernel-team@meta.com
-References: <20250905132536.1998767-1-usamaarif642@gmail.com>
-From: Usama Arif <usamaarif642@gmail.com>
-In-Reply-To: <20250905132536.1998767-1-usamaarif642@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <22e61e8f6c198c6a6c0468bb97b2d2add1fa0aec.1757076139.git.trillian@r9.pm>
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,suse.cz:dkim];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 6FC364E99A
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.01
 
+On Fri 05-09-25 15:42:19, trillian wrote:
+> Based on the earlier discussion in the linux-man list.
+> 
+> A few remaining questions regarding formatting:
+> 
+> is it enough to mention "since Linux 5.14" in the HISTORY section or
+> should it be mentioned elsewhere too?
+> 
+> Does the discussion of quotactl() vs quotactl_fd() belong in NOTES or
+> should it be moved somewhere else?
+> 
+> (Also, I've CC'd Jan Kara as the maintainer of the quota subsystem.
+> Should I be CC'ing anyone else too?)
+> 
+> I based these changes on kernel commits [1], [2]. Man-page wording
+> changes inspired by [3]. Rationale for the syscall itself is from [4].
+> 
+> [1] linux.git 9dfa23c8de925041b7b45637a1a80a98a22f19dd
+> ("quota: Add mountpath based quota support")
+> [2] linux.git 64c2c2c62f92339b176ea24403d8db16db36f9e6
+> ("quota: Change quotactl_path() systcall to an fd-based one")
+> [3] <https://lore.kernel.org/all/20210304123541.30749-4-s.hauer@pengutronix.de/>
+> [4] <https://lwn.net/Articles/859679/>
+> 
+> Signed-off-by: trillian <trillian@r9.pm>
 
+Changes look good to me. Thanks for the writeup! Feel free to add:
 
-On 05/09/2025 14:25, Usama Arif wrote:
-> PR_THP_DISABLE_EXCEPT_ADVISED extended PR_SET_THP_DISABLE to only provide
-> THPs when advised. IOW, it allows individual processes to opt-out of THP =
-> "always" into THP = "madvise", without affecting other workloads on the
-> system. The series has been merged in [1]. Before [1], the following 2
-> calls were allowed with PR_SET_THP_DISABLE:
-> 
-> prctl(PR_SET_THP_DISABLE, 0, 0, 0, 0); // to reset THP setting.
-> prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0); // to disable THPs completely.
-> 
-> Now in addition to the 2 calls above, you can do:
-> 
-> prctl(PR_SET_THP_DISABLE, 1, PR_THP_DISABLE_EXCEPT_ADVISED, 0, 0); // to
-> disable THPs except madvise.
-> 
-> This patch documents the changes introduced due to the addition of
-> PR_THP_DISABLE_EXCEPT_ADVISED flag:
-> - PR_GET_THP_DISABLE returns a value whose bits indicate how THP-disable
->   is configured for the calling thread (with or without
->   PR_THP_DISABLE_EXCEPT_ADVISED).
-> - PR_SET_THP_DISABLE now uses arg3 to specify whether to disable THP
->   completely for the process, or disable except madvise
->   (PR_THP_DISABLE_EXCEPT_ADVISED).
-> 
-> [1] https://lore.kernel.org/all/20250815135549.130506-1-usamaarif642@gmail.com/
-> 
-> Signed-off-by: Usama Arif <usamaarif642@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-> v1 -> v2 (Alejandro Colomar):
-> - Fixed diuble negation on when MADV_HUGEPAGE will succeed
-> - Turn return values of PR_GET_THP_DISABLE into a table
-> - Turn madvise calls into full italics
-> - Use semantic newlines
-> ---
-
-Ah forgot to add "v2" to subject.
-
-
+>  man/man2/quotactl.2    | 76 +++++++++++++++++++++++++++++++++++++++---
+>  man/man2/quotactl_fd.2 |  1 +
+>  2 files changed, 72 insertions(+), 5 deletions(-)
+>  create mode 100644 man/man2/quotactl_fd.2
+> 
+> diff --git a/man/man2/quotactl.2 b/man/man2/quotactl.2
+> index 126426b8a..8e04e93c5 100644
+> --- a/man/man2/quotactl.2
+> +++ b/man/man2/quotactl.2
+> @@ -4,7 +4,7 @@
+>  .\"
+>  .TH quotactl 2 (date) "Linux man-pages (unreleased)"
+>  .SH NAME
+> -quotactl \- manipulate disk quotas
+> +quotactl, quotactl_fd \- manipulate disk quotas
+>  .SH LIBRARY
+>  Standard C library
+>  .RI ( libc ,\~ \-lc )
+> @@ -17,7 +17,19 @@ Standard C library
+>  .P
+>  .BI "int quotactl(int " op ", const char *_Nullable " special ", int " id ,
+>  .BI "             caddr_t " addr );
+> +.P
+> +.BR "#include <sys/syscall.h>" "    /* Definition of " SYS_* " constants */"
+> +.B #include <unistd.h>
+> +.P
+> +.BI "int syscall(SYS_quotactl_fd, int " fd ", int " op ", int " id \
+> +", caddr_t " addr );
+>  .fi
+> +.P
+> +.IR Note :
+> +glibc provides no wrapper for
+> +.BR quotactl_fd (),
+> +necessitating the use of
+> +.BR syscall (2).
+>  .SH DESCRIPTION
+>  The quota system can be used to set per-user, per-group, and per-project limits
+>  on the amount of disk space used on a filesystem.
+> @@ -31,7 +43,13 @@ after this, the soft limit counts as a hard limit.
+>  .P
+>  The
+>  .BR quotactl ()
+> -call manipulates disk quotas.
+> +and
+> +.BR quotactl_fd ()
+> +calls manipulate disk quotas.
+> +The difference between these functions is the way the filesystem being
+> +manipulated is specified, see description of the arguments below.
+> +See NOTES for why one variant might be preferred over the other.
+> +.P
+>  The
+>  .I op
+>  argument indicates an operation to be applied to the user or
+> @@ -56,11 +74,21 @@ The
+>  .I subop
+>  value is described below.
+>  .P
+> -The
+> +For
+> +.BR quotactl (),
+> +the
+>  .I special
+>  argument is a pointer to a null-terminated string containing the pathname
+>  of the (mounted) block special device for the filesystem being manipulated.
+>  .P
+> +For
+> +.BR quotactl_fd (),
+> +the
+> +.I fd
+> +argument is a file descriptor (which may be opened with the
+> +.B O_PATH
+> +flag) referring to a file or directory on the filesystem being manipulated.
+> +.P
+>  The
+>  .I addr
+>  argument is the address of an optional, operation-specific, data structure
+> @@ -118,6 +146,18 @@ field returned by the
+>  .B Q_GETINFO
+>  operation.
+>  .IP
+> +The
+> +.BR quotactl_fd ()
+> +variant of this syscall ignores the
+> +.IR addr
+> +and
+> +.IR id
+> +arguments, so the
+> +.B Q_QUOTAON
+> +operation of
+> +.BR quotactl_fd ()
+> +is only suitable for work with hidden system inodes.
+> +.IP
+>  This operation requires privilege
+>  .RB ( CAP_SYS_ADMIN ).
+>  .TP
+> @@ -350,10 +390,14 @@ where the format number will be stored.
+>  .TP
+>  .B Q_SYNC
+>  Update the on-disk copy of quota usages for a filesystem.
+> -If
+> +For
+> +.BR quotactl (),
+> +if
+>  .I special
+>  is NULL, then all filesystems with active quotas are sync'ed.
+> -The
+> +.RB ( quotactl_fd ()
+> +always sync's only one filesystem.)
+> +In both cases, the
+>  .I addr
+>  and
+>  .I id
+> @@ -770,6 +814,7 @@ but there is no ID greater than or equal to
+>  .I id
+>  that has an active quota.
+>  .SH NOTES
+> +.SS Alternative XFS header
+>  Instead of
+>  .I <xfs/xqm.h>
+>  one can use
+> @@ -797,6 +842,27 @@ constants for the available quota types, but their values are the same as for
+>  constants without the
+>  .B XQM_
+>  prefix.
+> +.SS quotactl() versus quotactl_fd()
+> +The original
+> +.BR quotactl ()
+> +variant of this syscall requires specifying the block device containing the
+> +filesystem to operate on.
+> +This makes it impossible to use in cases where the filesystem has no
+> +backing block device (e.g. tmpfs).
+> +Even when the block device does exist, it might be difficult to locate
+> +(requires scanning
+> +.I /proc/self/mounts
+> +and even some filesystem-specific parsing in the case of e.g. bcachefs).
+> +.BR quotactl_fd ()
+> +instead works on the mount point, which avoids this limitation and is
+> +simpler to use (since the filesystem to manipulate is typically specified
+> +by its mount point anyway).
+> +.SH STANDARDS
+> +Linux.
+> +.SH HISTORY
+> +.TP
+> +.BR quotactl_fd ()
+> +Linux 5.14.
+>  .SH SEE ALSO
+>  .BR quota (1),
+>  .BR getrlimit (2),
+> diff --git a/man/man2/quotactl_fd.2 b/man/man2/quotactl_fd.2
+> new file mode 100644
+> index 000000000..5f63187c6
+> --- /dev/null
+> +++ b/man/man2/quotactl_fd.2
+> @@ -0,0 +1 @@
+> +.so man2/quotactl.2
+> -- 
+> 2.51.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
