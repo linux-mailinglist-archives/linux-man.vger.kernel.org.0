@@ -1,75 +1,67 @@
-Return-Path: <linux-man+bounces-3841-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3842-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A2AB49143
-	for <lists+linux-man@lfdr.de>; Mon,  8 Sep 2025 16:22:35 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F5BB49158
+	for <lists+linux-man@lfdr.de>; Mon,  8 Sep 2025 16:27:08 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 94F0D3401E7
-	for <lists+linux-man@lfdr.de>; Mon,  8 Sep 2025 14:22:12 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 232DA7B1D9D
+	for <lists+linux-man@lfdr.de>; Mon,  8 Sep 2025 14:23:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 892A430DD07;
-	Mon,  8 Sep 2025 14:21:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A13430CD80;
+	Mon,  8 Sep 2025 14:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WSC+Qma6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UeoyFI+Z"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dvN5uYdY";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MBdwMYkX"
 X-Original-To: linux-man@vger.kernel.org
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96EF30C63B;
-	Mon,  8 Sep 2025 14:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498930B52F
+	for <linux-man@vger.kernel.org>; Mon,  8 Sep 2025 14:25:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757341293; cv=none; b=I1laEHwEqWqtZ9oLeXKVqGeHTRPXEWcfD5oDoXuNfnOPQrKD2LWYm9Hp8RaEqThmuXJMEbhNzF9RoK2Cz8L8eGRVmA3GGcqnpOiGAppwrCfcqHX4KnU93vXFsUwudtO2u3OQLnx9cnifix750U4rMRdf+zz7JMXw+Z/r5uFtWII=
+	t=1757341515; cv=none; b=nOXoyUDpgm9QTminc44gisnAExKvXFz2jfopPNHYlicrc4ZIU90gk3nx3AHyJ8eYo2y2GxZbVw9ehPnSGLsRr+Tb/rgF77eFxJFAKpwsJPF5916drSecCxy46WiLtCckI410dEHlgkldo1qqNmeNQTcDQzVvYdjNCLdX2n+6nfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757341293; c=relaxed/simple;
-	bh=ESIQA0nX/DCU8Xslb2ku6ObdT57xdGnh1kp/DXH1dtE=;
+	s=arc-20240116; t=1757341515; c=relaxed/simple;
+	bh=T6ZQ53RCcvNZzichuCGlpfH0TvbJKlqz+WS9KklkauU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e2tLO8ELIrclrmuMK0gflayO9/fCpYc14PyR8tdLduTd/e6l94faXuggcUOC8YS7voE8OriXQKM/nymSc8LR2JdWk0psYZO4+xk/PP0jgIOalfhENIQ+BtjjJWxWr0mjyggoSKLc0OxbQlRoNSfKgQFgSPWC1fjxYkrCE+GttrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WSC+Qma6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UeoyFI+Z; arc=none smtp.client-ip=193.142.43.55
+	 Content-Type:Content-Disposition:In-Reply-To; b=i5fRRLVuQirvJiT4Dpc6s+bm8QNvlXtOMiKDhlp4qWcNHFpCiEK/eY900ZFjjgUTSqCYY7fJPL9noWj0hzMX6Nc4+eWx3GCfONs0lj8UQi9dewpsS3Y/dGUh7JH0lzWzyH9+4JE35U/4JeWGUlXvTtBsAyIkq+sUSZ7/9TCSbbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dvN5uYdY; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MBdwMYkX; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Date: Mon, 8 Sep 2025 16:21:28 +0200
+Date: Mon, 8 Sep 2025 16:25:08 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1757341290;
+	s=2020; t=1757341510;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=M2aXQHgqfK3sE5W83r8THuL/vQNj4SX4a/pKzmta4yA=;
-	b=WSC+Qma67qg6xcfmBxngR0YmE6xvkm/IgiaUGJrkMw3ia1ZdxKOcNNymdue6su7kNZJuJ0
-	XxKfT5G3qSPoR67SlUv2Nn2/tmsYlxNsONCSHe7Jnus6tO1llC8fG2zVqQdkM9WgWG49Ep
-	AULyRVI373Tx5hTfo1ct7RHaLkgWO07T3iwqA2nJqEQahZy3yNku1fpFSWw0lrbiMNVXbE
-	4tHx8SdcnwlL8E15h1gmTd1tlAhHI93IsKiSlUJcm/t5A9ehh7/iOxuF0jXeKz+ZPVJWp8
-	xLtLVhVZYh6YMvNU27HO9dUbMheY34aML0YgKKh4GBUwEplwNpC6I/v/86ZuxQ==
+	bh=dK0xo7wC8myNb+ELHMwA4h9l5K1h5YL+YKNIUjFNonk=;
+	b=dvN5uYdYXIJzk9bTNc6pu4QOrsplGutXRFIc2ZwuoPfkWAf858tHptynRSMpZ7UFa+jqvA
+	3wu6DYg3b503bBjtW2ZtpVz7EQhGOm+380UC8gHnc5HDKrkw8Q56qYu7tbbG9i/wJzFAew
+	m/JInS8WMBA6hhrHj4EOuidGu10ER0m9KkAs3n0Sxz008iLKf2kEWyH0XhRk1qzANCU3Ds
+	GmHBdWDFI+fFmLqTgGG2jK5+026bnlN9+oRz1yJlCjl9frAd2cZTY+fdit9uhsxoqzLZoo
+	eMZ/SmoHo8FrOIVtBxEaKouDAPctnAim0GKE+q09T9q39+roZPSmxcbD6jPZNA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1757341290;
+	s=2020e; t=1757341510;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=M2aXQHgqfK3sE5W83r8THuL/vQNj4SX4a/pKzmta4yA=;
-	b=UeoyFI+ZIu8iCQIUctUeRHL9Ya5s9OklwQUs0ZQf0WHwYLZH3v1S4QHjSpoDYIjTVnQv15
-	Z+j7W93iFX2teRCQ==
+	bh=dK0xo7wC8myNb+ELHMwA4h9l5K1h5YL+YKNIUjFNonk=;
+	b=MBdwMYkXYBI+AoPhiw5u+VOXA+M3Fbfg7mmTBcqPMkWFSam8J2mQT+S7spLdZuNYIpCrxD
+	HaHOzG90BIrVgwAw==
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-	Alejandro Colomar <alx@kernel.org>,
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Waiman Long <longman@redhat.com>
-Subject: Re: [PATCH 4/4] man/man2/futex.2: Add a pointer to Linux'
- memory-barrier
-Message-ID: <20250908142128.nciFBdjQ@linutronix.de>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>
+Subject: Re: [PATCH 2/4] man/man7/sched.7: Update the documentation references
+Message-ID: <20250908142508.QWJtvSuJ@linutronix.de>
 References: <20250829160200.756194-1-bigeasy@linutronix.de>
- <20250829160200.756194-5-bigeasy@linutronix.de>
- <1b4b0a00-3e80-49a9-bee4-2c7a90e85941@redhat.com>
+ <20250829160200.756194-3-bigeasy@linutronix.de>
+ <20250830072857.mw224c532jj5xdlj@illithid>
+ <20250908135134.lMIYucZP@linutronix.de>
+ <20250908141102.ie4yoo5xasiimybe@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -78,67 +70,42 @@ List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1b4b0a00-3e80-49a9-bee4-2c7a90e85941@redhat.com>
+In-Reply-To: <20250908141102.ie4yoo5xasiimybe@illithid>
 
-On 2025-08-29 13:46:19 [-0400], Carlos O'Donell wrote:
-> On 8/29/25 12:02 PM, Sebastian Andrzej Siewior wrote:
-> > The "totally ordered with respect to concurrent operations" part refers
-> > to memory ordering/ atomic update and has nothing to do with the inner
-> > workings of the FUTEX code. It simply tries to express that the futex
-> > operation will compare the supplied argument with that is written in
-> > memory.
-> > 
-> > This might be a tad too verbose but then there is a fixme asking for
-> > details on the sychronisation. Maybe a pointer to the memory barriers is
-> > enough in terms of the required synchronisaton. Assuming this is related
-> > to the memory value and not the futex internal synchronisation.
-> > 
-> > Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> > ---
-> >   man/man2/futex.2 | 8 +++-----
-> >   1 file changed, 3 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/man/man2/futex.2 b/man/man2/futex.2
-> > index 027e91b826bf1..fe4a239c3812c 100644
-> > --- a/man/man2/futex.2
-> > +++ b/man/man2/futex.2
-> > @@ -84,16 +84,14 @@ on the same futex word.
-> >   .\"     would be sufficient? Or perhaps for this manual, "serialized" would
-> >   .\"     be sufficient, with a footnote regarding "totally ordered" and a
-> >   .\"     pointer to the memory-barrier documentation?
-> > +Please see
-> > +.IR https://docs.kernel.org/\:next/\:core-api/\:wrappers/\:memory-barriers.html
-> > +for the definition of atomic operations and memory ordering.
+On 2025-09-08 09:11:02 [-0500], G. Branden Robinson wrote:
+> [CC list pruned heavily]
 > 
-> This seems out of place with the flow of the rest of the text.
-> 
-> I suggest adding this as a foot note.
-> 
-> >   Thus, the futex word is used to connect the synchronization in user space
-> >   with the implementation of blocking by the kernel.
-> >   Analogously to an atomic
-> >   compare-and-exchange operation that potentially changes shared memory,
-> >   blocking via a futex is an atomic compare-and-block operation.
-> > -.\" FIXME(Torvald Riegel):
-> > -.\" Eventually we want to have some text in NOTES to satisfy
-> > -.\" the reference in the following sentence
-> > -.\"     See NOTES for a detailed specification of
-> > -.\"     the synchronization semantics.
-> 
-> I think it is acceptable to link to Documentation/memory-barriers.rst, but
-> the truth is that this document doesn't yet provide all the notes required
-> to answer the questions wrt a futex. Fundamentally we use spinlocks for futexes
-> (and some arches use more like parisc), and spinlocks are covered in
-> "Implicit Kernel Memory Barrires", there isn't any direct connection between
-> them in the text (and doing so would create a design requirement).
+> Hi Sebastian,
+Hi Branden,
 
-There might be two things to it. The spinlocks are used in kernel and
-synchronize the kernel internal state. The memory barriers might be
-important in regard to how the futex word should be updated atomically.
+> Hmm, that sounds like a bug.  What versions of man(1) and groff is your
+> system running?
 
-> >   .P
-> >   One use of futexes is for implementing locks.
-> >   The state of the lock (i.e., acquired or not acquired)
+Just to be clear: The following
+| .P
+| .UR https://docs.kernel.org/\:scheduler
+| The Linux kernel documentation for the scheduler
+| .UE
+| .P
+| Worth looking at:
+| .UR https://wiki.linuxfoundation.org/\:realtime/\:start
+| .UE
+
+rendered via "man $file" as:
+|
+|       The Linux kernel documentation for the scheduler
+|
+|       Worth looking at: https://wiki.linuxfoundation.org/realtime/start
+
+> $ man --version # This will fail if it's mandoc(1)'s "man".
+> $ groff --version
+
+man 2.13.1
+GNU grops (groff) version 1.23.0
+GNU troff (groff) version 1.23.0
+
+> Regards,
+> Branden
 
 Sebastian
 
