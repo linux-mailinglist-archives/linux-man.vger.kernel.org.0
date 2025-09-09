@@ -1,205 +1,123 @@
-Return-Path: <linux-man+bounces-3852-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3853-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 713ECB505F3
-	for <lists+linux-man@lfdr.de>; Tue,  9 Sep 2025 21:14:09 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0FCBB505F7
+	for <lists+linux-man@lfdr.de>; Tue,  9 Sep 2025 21:15:18 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 691201B281D6
-	for <lists+linux-man@lfdr.de>; Tue,  9 Sep 2025 19:14:30 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6241E3AAAFC
+	for <lists+linux-man@lfdr.de>; Tue,  9 Sep 2025 19:15:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D52430499B;
-	Tue,  9 Sep 2025 19:14:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14C162905;
+	Tue,  9 Sep 2025 19:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="EGe8fjC5"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Miyw7hdU"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D4B302CAB
-	for <linux-man@vger.kernel.org>; Tue,  9 Sep 2025 19:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E2233A01B
+	for <linux-man@vger.kernel.org>; Tue,  9 Sep 2025 19:15:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757445243; cv=none; b=Lqa6GMPN6LLCs9SwYa9ifQdImdnUZMPbJFfbrZCM9k5T6w7eQeY4i/GkiLdALr26kjlhEddP/QnzOP/IWy/tAGVQMB+JpPi0XMLQGPwQnQQBfy1LVaGw5nvWfYZmGfGaprY1g04udG4K4tJd2UzgbclPHHp/okM8V6XIK6+qZ0M=
+	t=1757445315; cv=none; b=I4WnYTLj5ZOT3ErFihv9B5SlnnlVfxHeWbJHLcxVrcLq+dHmjT+5T8aIzhZSNyd3kbIZCK+X5uGHd7M6bhqWbEV6ycxFwMmiphtAfm2JBCcj35FVmFpuwM5ARYki8RCtlbYzfO/CoGNuipd6KBWsuivlHe1cSRMPcklqe6QO/g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757445243; c=relaxed/simple;
-	bh=jZP7BXkjMI2nZMMxDN/2ybhb7LlAQCD5If7R7Ap4Y8U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ue53xSmMy6tzM1oS4w+q1GId3FwjmAQMVUV0tRPctbPNxlAbXR2l1sAM6WnMGJzTwIUxTHpioWIcwgw5Wp6DT36HgE+V38MOc0aof4q4iJ2/NrtFpgwJ1+EDuO14bU+E9hoMCeBx8hLJKcPjR9JeYhsYmid1yFoI5j1FxoWhpI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=EGe8fjC5; arc=none smtp.client-ip=209.85.215.171
+	s=arc-20240116; t=1757445315; c=relaxed/simple;
+	bh=vaWrCQwcSd3qwXMDejCcoVQT+cBBfYrMJnOEuwpuKUI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IcYiKom8L5BVpjarfgrtQcBbHfPHDGJZkZnYJw6MTnmY5A3jKk6log8o8EuNVM3rBvS09TvP3KyFBrx/61G/Y2exFhw5Nfq88zlT6QF+Q7SGuLm3sE61i6/c3F4njTOiQlPacTL5TzP5lpdf5XDP0WL0i7bl4A6IBO4QsYUXILU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Miyw7hdU; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-b522fd4d855so2268540a12.1
-        for <linux-man@vger.kernel.org>; Tue, 09 Sep 2025 12:14:01 -0700 (PDT)
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-24b164146baso38817985ad.2
+        for <linux-man@vger.kernel.org>; Tue, 09 Sep 2025 12:15:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1757445240; x=1758050040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/0M5rhS0sQ6J1w8UNhP/CWuuqQcqaUG+qCQP0+A3DUo=;
-        b=EGe8fjC5obu9JZi6jFXjXPJrsIaanweZTpA6m0KGlpuwLX3jGycDeSt3fpYWmsAcql
-         2jR2NhL9SGRWXOh6xXz2EHCxijv83bdwmSlaHVTw5231LGUNvPcUrFl32fpkKyIftDGz
-         dzDIlYrx5xpplXCrMz2Sf/1KxhPrk2zniqKjIzY5bvG7xWaoUh96uuWNNM/4ZYi2IMvB
-         WyJGe7Q4meZqZFtzgP1d0aWr6kQMcw/JamH1ahbhsHbWzrh+HOZ/bVN+M5qaiU2bxNti
-         p2YHLRflQ1tf4zh94plJCJNHNtvGPN2XhNH6VyBCpJ+zJG4NmOChz60x49FQ5nZax7C1
-         Uc9w==
+        d=linaro.org; s=google; t=1757445313; x=1758050113; darn=vger.kernel.org;
+        h=mime-version:message-id:date:user-agent:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vmWJLldGA0ZhmxI2xlD3jEvI42Oog6ZSmMH9ercT9/A=;
+        b=Miyw7hdU2xlfR8NrlMmBzCJGOmzswqTOXH7flisnUMNQtjXRnRowN1gKDsK9Qjs2ga
+         f5V0r/pt4j2STZ+WyPDSs3Qrp4SV4V87o34mYLnAaYUF1+Fuk/qHiu4cfe+XlKRd3QJU
+         3mKaK1ho6dySPs2xjwMf6T/U12AVKR11OUqRNssPPOA3z6JuvkjJqzJW9Psn01EQZ7v/
+         Bc500CQM1YtWGZPfbckt8wRtmNftKoWdwBMmSSltmlko1X17CdCigCS1iV9QJ4GjfU9j
+         i3Lrs62L/xipFht2G4k1eHidIqL6g0ZtF0RRLntzQimU5ggDaedHOdMvdPu7QLNWHG2G
+         vvTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757445240; x=1758050040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/0M5rhS0sQ6J1w8UNhP/CWuuqQcqaUG+qCQP0+A3DUo=;
-        b=EB07QJW53d6J02WDJeWjpqMm2NxaBLGu3n4yEFc3mQj0flHlJxMexi3Ub2AXZqyqyx
-         9PSeC7Ivyah5W9Da6ratRSuMuka5dGdU4qudoeDCOODKCpl86zNG21CXl0RBadBSV1CW
-         kJuW8IOMxy8aZm3lEGdFCewF3dm66Ux/1fKklCNB/+8qYgWeGQ4wOxt84sCLeZFqe48D
-         7eu7oAlqet5X48n7JcqFKEPdxM556Qps2TAjwjSNkqdPl1KsWJkzcDGs9J0IyZ5AuQaE
-         5I9en2g8UpLcUpPZBWHaH5TN+fDwh7gdhdS3rMmztXVk+qSNT5sHyPxLv/BvRSGv8uCI
-         t8CQ==
-X-Gm-Message-State: AOJu0YxfmLFx4HcSyFlQuzs6QNMULGpwKazJBv44AYDG9Gx8DSGdTMls
-	9h3Dj48WtvsnDwaQXwfyqBGweJi7S34NkJuAvYTWzskzUqVU8fjevoiP/dRngRWRkO0=
-X-Gm-Gg: ASbGncuQgUg+DkoWp87mMf/iwv17rg69Bn63at/Qt0wQkx2qdtqWfBzWsUhSMKPsF8j
-	m0AQg1vAVsjCDTgNzSdhPlOBFa8HbU/qtVKigmbtkIpGMIEqFG8l8TS58lbJhrApXSzUVLB19Hc
-	yOOCGiKwawH2Ti0HB5/G8uNzZOWMkEBwTkT2y00eTW5QoiIT42etNqujDlMw0aBp7p66lPwnrew
-	Rvf1ab8jVDpg5ka1zuQx5ao33dKKMtuGLYVnbD6Ie0j+w3RB6wSRDtgned9eNi4CX0zKNCmoRaq
-	KtbXKFGeV57YdeD9Ctee/Ny947ktQAyBqiyegHK1DVHFp+oJwsatcYOPQCm7jduH3rnTGro0gtX
-	M9N32AhDqAWJ2N1oEufCFiVsBAT5u7yY=
-X-Google-Smtp-Source: AGHT+IHmWhrSC2tXnj/p7mkabJXEKxIuMT8tQNItTkse/baKqfc2BhjPFvpJr5up1eNhdGG22nrbsg==
-X-Received: by 2002:a17:90b:28d0:b0:327:7e8b:eba8 with SMTP id 98e67ed59e1d1-32d43f8270emr16024325a91.31.1757445240499;
-        Tue, 09 Sep 2025 12:14:00 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1757445313; x=1758050113;
+        h=mime-version:message-id:date:user-agent:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vmWJLldGA0ZhmxI2xlD3jEvI42Oog6ZSmMH9ercT9/A=;
+        b=bUxoBxpdDIV6uXYq0268sLWZUtyTeOOou2pQvMLBFmwdN4+Zuh8B4scKqlFrRuUK9B
+         yRPpWM+i5r34tXVAoJO7Qqy81iwU1YPzGuKsCqxEa35PeOoKp2HQUanBO8KvIYYXsBi5
+         K05HuuwJkBclv+BIXTDbpGg3KI2WvI+UJzhbpXPfvprDLiSUmHAIaHVFxgOpzfIck7+i
+         DUTa+2L77huhM2j0ZCsoDGNp8fSZ+H3eHXxtgtzWNY73i8rGDzfBs8RueEuLBz3KVf8S
+         8YHwDa2G5nTMGXfCsMnrlyC9BwedVDlhcf2stNoHthTZ2a5OpxO4lKUVw4pHCRZBzpt0
+         QeZw==
+X-Forwarded-Encrypted: i=1; AJvYcCW83Jdej3jW4q4SKYgFDHbdYrv/ra1GN7tJ6UxjgueP64qe7XehWIDjgXog+UnXImkj3HsNkLHqfmU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxwSJB27QTmDzf2/Xr56Mv2vSUC0XKl1bHy6G9ag8+Wj9XvIO33
+	lqZ5bfgo8DjQ+EOYnkyq4PwRZR4r5AZRQ7ksy5RSOtiCPFkYuMqHCGy84ZrCDM5OmuitzxFrmmg
+	D8tGL
+X-Gm-Gg: ASbGncvIJQtFvGOd79YCfedmOx+l2H15AROJ5YClsbqa9JMJoqtgd/TdLWSG18xN2yx
+	yLw0cGj7BePk3bXWFN5J6AgrhXZ7BioFXGe2AqPbBjRXplDaYGANEBaezP8bj2dW/Y0FNhRJ+99
+	u79lfh258ZsUzP69gdvSRN1D8tSUdr8gHJHADMiy6H/Py8JR8toQA948eOuu48rIQEPvY7pgIxW
+	8DuY/cSFJytuksQ63BJ/eVFlkJXfLNaHR+/IgyblXCyX35QWkm7LcQCmRV2brgHYH768GNXqXqa
+	Z5jpW6vKKooP7f7eHEv35G4j8qxwynoxIdxCfu9lUnuP4biBz4ycnf3VdCYnczCShGpdUuJEcg6
+	/adV2a3Tbe8f9kY1WbqsY7ZfLvgSsB3izkGiROAn7T2VRaEo5XVpW
+X-Google-Smtp-Source: AGHT+IFPRAfYJLDKk25+N7iDm8+Hpg6qgVmHdfpyo++Pf1C86ji266a+52NYms6z1shHPH8/RlHEYw==
+X-Received: by 2002:a17:903:2290:b0:24c:d33d:4176 with SMTP id d9443c01a7336-2516e887c82mr188164505ad.15.1757445312681;
+        Tue, 09 Sep 2025 12:15:12 -0700 (PDT)
 Received: from localhost ([2804:14d:7e39:88d6:ba9:6a6e:c9a0:290f])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-774662c39e0sm2828909b3a.69.2025.09.09.12.13.59
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-25a2a344a1bsm4992685ad.65.2025.09.09.12.15.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Sep 2025 12:13:59 -0700 (PDT)
+        Tue, 09 Sep 2025 12:15:11 -0700 (PDT)
 From: Thiago Jung Bauermann <thiago.bauermann@linaro.org>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org,
-	Carlos O'Donell <carlos@redhat.com>
-Subject: [PATCH v2] man/man2/sigaction.2: Update si_code list with Linux v6.16
-Date: Tue,  9 Sep 2025 16:13:57 -0300
-Message-ID: <20250909191357.44951-1-thiago.bauermann@linaro.org>
-X-Mailer: git-send-email 2.51.0
+Cc: Carlos O'Donell <carlos@redhat.com>,  linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/sigaction.2: Update si_code list with Linux v6.16
+In-Reply-To: <jjyin6xofibfjxs46dkhb7jg274tmhpyf37nu77fcuutglv63j@2l6bbcqdyjih>
+	(Alejandro Colomar's message of "Tue, 9 Sep 2025 20:58:29 +0200")
+References: <20250828210752.619435-1-thiago.bauermann@linaro.org>
+	<66a84774-0c5b-4dc1-af25-1e6d35e3e5ef@redhat.com>
+	<87h5xkgrly.fsf@linaro.org>
+	<1131d940-b487-4ce4-8316-533cffbdc173@redhat.com>
+	<87plc071y7.fsf@linaro.org>
+	<pb4yns6tmw5x25tvflkgnyqwfkusthtrnd66il7e22adisk5in@4qzbdyda3ro2>
+	<e42e4ca6-6e3e-4b5a-9028-0ccf578a2d66@redhat.com>
+	<jjyin6xofibfjxs46dkhb7jg274tmhpyf37nu77fcuutglv63j@2l6bbcqdyjih>
+User-Agent: mu4e 1.12.11; emacs 30.1
+Date: Tue, 09 Sep 2025 16:15:09 -0300
+Message-ID: <87a533a14y.fsf@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Update with missing si_code values from Linux v6.16's
-include/uapi/asm-generic/siginfo.h.
+Alejandro Colomar <alx@kernel.org> writes:
 
-Signed-off-by: Thiago Jung Bauermann <thiago.bauermann@linaro.org>
----
+> Hi Carlos,
+>
+> On Tue, Sep 09, 2025 at 02:26:10PM -0400, Carlos O'Donell wrote:
+>> > So, all the things that Carlos said weren't in glibc are now in glibc?
+>> 
+>> Yes. https://sourceware.org/cgit/glibc/commit/?id=6f120faf649f03a261e3e64d5b5991030383c1b3
+>
+> Thanks!
+>
+>> > Would you mind adding "(since glibc X.Y)" to them in the patch?
+>> 
+>> You could write "(since glibc 2.43)" though it won't be released until 2026-02-01.
+>
+> Yep, that will work.  We can fix the page if the final version number
+> ends up being different.
 
-Changes in v2:
-- Make all the entries added by this patch that have parenthesized notes
-  use .BR. Some were erroneously using .B in v1.
-- Add "... and glibc 2.43" note to TRAP_PERF, SYS_SECCOMP and
-  SYS_USER_DISPATCH (suggested by Carlos and Alejandro).
-
- man/man2/sigaction.2 | 51 ++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 49 insertions(+), 2 deletions(-)
-
-diff --git a/man/man2/sigaction.2 b/man/man2/sigaction.2
-index 8d08a8c409d9..d6eced0761d7 100644
---- a/man/man2/sigaction.2
-+++ b/man/man2/sigaction.2
-@@ -652,6 +652,9 @@ or
- .\" SI_DETHREAD is defined in Linux 2.6.9 sources, but isn't implemented
- .\" It appears to have been an idea that was tried during 2.5.6
- .\" through to Linux 2.5.24 and then was backed out.
-+.TP
-+.B SI_ASYNCNL
-+Async name lookup completion.
- .RE
- .P
- The following values can be placed in
-@@ -716,6 +719,12 @@ Floating-point invalid operation.
- .TP
- .B FPE_FLTSUB
- Subscript out of range.
-+.TP
-+.BR FPE_FLTUNK " (since Linux 4.17)"
-+Undiagnosed floating-point exception.
-+.TP
-+.BR FPE_CONDTRAP " (PARISC only)"
-+Trap on condition.
- .RE
- .P
- The following values can be placed in
-@@ -742,6 +751,24 @@ See
- .BR pkeys (7).
- The protection key which applied to this access is available via
- .IR si_pkey .
-+.TP
-+.BR SEGV_ACCADI " (since Linux 4.17, SPARC only)"
-+Application Data Integrity not enabled for mapped object.
-+.TP
-+.BR SEGV_ADIDERR " (since Linux 4.17, SPARC only)"
-+Disrupting Memory Corruption Detection error.
-+.TP
-+.BR SEGV_ADIPERR " (since Linux 4.17, SPARC only)"
-+Precise Memory Corruption Detection exception.
-+.TP
-+.BR SEGV_MTEAERR " (since Linux 5.10, ARM only)"
-+Asynchronous Memory Tagging Extension error.
-+.TP
-+.BR SEGV_MTESERR " (since Linux 5.10, ARM only)"
-+Synchronous Memory Tagging Extension exception.
-+.TP
-+.BR SEGV_CPERR " (since Linux 6.10)"
-+Control protection fault.
- .RE
- .P
- The following values can be placed in
-@@ -785,6 +812,12 @@ Process taken branch trap.
- .TP
- .BR TRAP_HWBKPT " (since Linux 2.4, IA64 only)"
- Hardware breakpoint/watchpoint.
-+.TP
-+.BR TRAP_UNK " (since Linux 4.18)"
-+Undiagnosed trap.
-+.TP
-+.BR TRAP_PERF " (since Linux 5.13 and glibc 2.43)"
-+Perf event with sigtrap=1.
- .RE
- .P
- The following values can be placed in
-@@ -839,17 +872,31 @@ High priority input available.
- Device disconnected.
- .RE
- .P
--The following value can be placed in
-+The following values can be placed in
- .I si_code
- for a
- .B SIGSYS
- signal:
- .RS 4
- .TP
--.BR SYS_SECCOMP " (since Linux 3.5)"
-+.BR SYS_SECCOMP " (since Linux 3.5 and glibc 2.43)"
- Triggered by a
- .BR seccomp (2)
- filter rule.
-+.TP
-+.BR SYS_USER_DISPATCH  " (since Linux 5.11 and glibc 2.43)"
-+Syscall user dispatch triggered.
-+.RE
-+.P
-+The following value can be placed in
-+.I si_code
-+for a
-+.B SIGEMT
-+signal:
-+.RS 4
-+.TP
-+.BR EMT_TAGOVF " (SPARC only)"
-+Tag overflow.
- .RE
- .SS Dynamically probing for flag bit support
- The
-
-base-commit: e86f9fd0c279f593242969a2fbb5ef379272d89d
+Thanks I just sent a v2 with that change, and also a fix to use .BR
+where .B was used incorrectly in v1.
+-- 
+Thiago
 
