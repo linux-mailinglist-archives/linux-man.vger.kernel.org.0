@@ -1,113 +1,206 @@
-Return-Path: <linux-man+bounces-3858-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3859-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEE0B54CD6
-	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 14:13:44 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EBC0B55002
+	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 15:50:05 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id AC5AFAA6DB1
-	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 12:09:24 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2CDC1160FBA
+	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 13:50:05 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D924B30AD16;
-	Fri, 12 Sep 2025 12:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 642B815855E;
+	Fri, 12 Sep 2025 13:50:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bigonbalance.com header.i=@bigonbalance.com header.b="jVwokHqZ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcm/FHYY"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6BB30594E
-	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 12:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E7C14EC62
+	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 13:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757678438; cv=none; b=PYOGae4NfiCp+J6ZlKWtbxy776HcPAzTGs5+EdcxFMAHrKynKhnZjPD6c0yfNFv1eb7RgeTXH+PZ23KcbYvJXje+Bxddi3QWeri+/DyZs+Os5s7xGclaYzMsFrFZnIywTQAu5O8nOpRqbQUT/pUORUjTWVhnLiPei9kVvBdlB40=
+	t=1757685001; cv=none; b=Zr2HiaVlW4Otn7LllKRKx1dGARrHN7Pbj+ddX399RN14meED5q9nnJAN0gnU5PQqavzGyak0eM7eE1OzZG+ylzy2HqgS2xB+kFy2pkcoT5Y7coRd7YX6PdDkLfnUxBKdDjJtXN3yn1kogpA33V6fnc+9WPHEDbC1j2YMxKGS3Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757678438; c=relaxed/simple;
-	bh=B5no2rt07/eqVvAlUvAOilJwnzhP5LWUHbLrHQYNM8M=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=m+aUDH20YyQtMzLyAb5RyuziPKXAhJwNzHAtAg+mI+TwGBffV/nhch0LDtjc+INVZExaW+uWsW7++wQopZHPfhMF5dda7GP/M19dzCLepNQt9g1eHYBbaBYI049MhZd2hVTc+wkgLmw+5GE+wVtxIr8KkDLJRwmi1S0a/vt22so=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bigonbalance.com; spf=pass smtp.mailfrom=bigonbalance.com; dkim=pass (2048-bit key) header.d=bigonbalance.com header.i=@bigonbalance.com header.b=jVwokHqZ; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bigonbalance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bigonbalance.com
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-afcb7ae6ed0so280473266b.3
-        for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 05:00:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bigonbalance.com; s=google; t=1757678435; x=1758283235; darn=vger.kernel.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=B5no2rt07/eqVvAlUvAOilJwnzhP5LWUHbLrHQYNM8M=;
-        b=jVwokHqZ6Hv8NFxxbjLPCTninjvV0E9Zo+emAYs9pg0kEQ7X2idy6yeUItQ/EfgiVF
-         7/g0fg7ubMbiCRahdheb3291K7FEIjHIeq5A78iTdzN2acXgTaso3FBndsPGgFxFmkF/
-         aPDPOX96kK5HkgVBCz88jVAZmiBSoxX2dcOMQRr6bhyDtkdu13FLz/DBRJOKt653BhGg
-         sSLHdkGsfAlpPpK0dt0pA2XAdDEpzpo21A3hbJHpoNqnd3oLRfS+VMk/fHLqi+YcG0Yk
-         i5B1lmBHnJXTw8jVsnRlnhNHlYW6i2XRyl8537guyRFmQVvmOYFICrosR33hoUNOdwHy
-         u1dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757678435; x=1758283235;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=B5no2rt07/eqVvAlUvAOilJwnzhP5LWUHbLrHQYNM8M=;
-        b=gh8hzoAOghgUMi3XcN3J+xAQOtQ5/xfL2jLoMhRJXF6EEYqnUtgBCmfSQ4XM86+/+i
-         pqYbm+YgAu+Kf3IwpwyX5NKoIEi5pWe9UecyRmJroHcS/29oChoNm/Sj4d3MKRQX6aYV
-         nqSfR+oIMGvVrRyBGZ2487A9Ol4+z+DxlXkPSyg/QGQpCRIZZiKNmCW2IWuToY/7pGXd
-         QgtWihy/kFfVyDHpkJRObRCWlpr+JC0Ry6p32bxtfylWBsIfVpxmaNCyjSNFYfxnFqiL
-         ioFMV+zTOJ48iY3JCKqaD8uopFkFFbqabresHSvefqYeBKslQ2wRDhUoijm5/tgVJ/Cx
-         ePwg==
-X-Gm-Message-State: AOJu0YzrPUU9UVVKOD5jpelQ/ORK3d/f6x0WBlhDHA8Av3/kx7CQNlv6
-	yP6Rlqltt/ZfMeZnn6SbPzXWFztrys7rGmAMIDC1DoK6sXkArRsE+8q1JnDDm4nN1LEL9lr2WOO
-	YHIl2kK/rAsYubfTiNTlsXVfg+H9JJMQHu+BqBgtNDfSV1cyA50mZ
-X-Gm-Gg: ASbGncv8jwiam6m2b+n/GVvdfNQGAyvhkXQkPhCfLFAcs8fhOWTMF65UgkxNFNzmI/C
-	2rTfxy2pxHl6V7wcsPHw8bU0BeNSzSDmVlaEe2Vo9HYCT2OVkGgYkXlR3jdVmuAj51dg0JZ0Fj1
-	y0orJlqzT+1zbJuUgvDmFjW3Ky7Dco4V12nhcBonNv5jQXSEPdQpJFOokYiLgbUZX7OXBuqiYzw
-	E5Z4ug=
-X-Google-Smtp-Source: AGHT+IHnA/buJqSDgyPAg+8fJg281uhnRb8JFJiCF9qg7YAZZ/CLVDc9MsKgvA42i93oMdP0fzAlZl8MhR5mmsqX5Ow=
-X-Received: by 2002:a17:907:3d92:b0:b04:3402:393b with SMTP id
- a640c23a62f3a-b07c37fbd37mr266028666b.40.1757678431267; Fri, 12 Sep 2025
- 05:00:31 -0700 (PDT)
-Received: from 23306461726 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 12 Sep 2025 08:00:30 -0400
-Received: from 23306461726 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 12 Sep 2025 08:00:30 -0400
+	s=arc-20240116; t=1757685001; c=relaxed/simple;
+	bh=5CzAzdWseRR9jsSXtmcJp/4ePB5OUuMyUC95/7VSOkg=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=KHMOWB9uB+yP5wO2n2LY2c7969u3cOeys3iPpor1Kd/UBl31cF2xcckHoPGnyL5QxLT1WuZkTOE2mN00HgxHrYuunhKZzZJFgeFEZME+DKPtT3syRH6neU6n13CRSAZu7q5W9+Ievhpk8nI+AiC3jhNofhhXiJ4VeN1CELRGvKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcm/FHYY; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BB350C4CEFA
+	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 13:50:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1757685000;
+	bh=5CzAzdWseRR9jsSXtmcJp/4ePB5OUuMyUC95/7VSOkg=;
+	h=From:To:Subject:Date:From;
+	b=dcm/FHYYfU70vN3a2YxxdldKEzpaQ5byw+VmFyZUgE9exRm7D2yym4mvxs7nahpem
+	 aIC2ek73eCJqU0eIN29YW7rCaijPxRQdh6YWkkhDQZiTgeI0bMEOIDedVc0iA48UV7
+	 1/Ukx64JZmxZFrjpJgZtgyy6JIBHhglNC+ZWS/Ta9JZK/hq0Edzyu+hYgjnwLZ1yn2
+	 QO1H3lbufWzk/thC9HvFn7iSkmkMWmracaC8BNMgXB7YzqBNvIN2Jl1TvPG+Cw7aJm
+	 4yvV6ot1Sn38L+J3p9Jtqbc+nwL4gHSfBIbdPkwnsFZxjngGUa8ylFEWhHRiqJHLPM
+	 cltfJUwrqIBpA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+	id B1668C3279F; Fri, 12 Sep 2025 13:50:00 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: linux-man@vger.kernel.org
+Subject: [Bug 220569] New: [truncate(2) man page] after extending file extra
+ bytes are not always zero
+Date: Fri, 12 Sep 2025 13:50:00 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alanas.00+k@mail.ru
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-220569-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Ian Garza <igarza@bigonbalance.com>
-Date: Fri, 12 Sep 2025 08:00:30 -0400
-X-Gm-Features: AS18NWDYy14Kp-XP1sivqicWOnAhzHS9MVOhhdcOMmrybhfdL7nhiSRGkIN1lr0
-Message-ID: <CAADkYMyNyn2CvwwcwK9+UXLuXscJoTJR1ht0sX3g8b9D-uYUHA@mail.gmail.com>
-Subject: Interested in a guest post?
-To: linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi there,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D220569
 
-Traveling with family is an adventure, but keeping everyone healthy
-and energized along the way? That=E2=80=99s the real challenge! From smart
-packing and nutritious snacks to staying active and well-rested, a
-little planning goes a long way in making every trip fun and
-stress-free.
+            Bug ID: 220569
+           Summary: [truncate(2) man page] after extending file extra
+                    bytes are not always zero
+           Product: Documentation
+           Version: unspecified
+          Hardware: AMD
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: alanas.00+k@mail.ru
+        Regression: No
 
-I=E2=80=99m currently working on an article to help families stay on top of
-their health and wellness while traveling. Would you be open to
-featuring it on your site? Let=E2=80=99s help your readers enjoy their
-journeys to the fullest.
+truncate(2) man page has this sentence:
 
-Can=E2=80=99t wait to hear back from you, and thanks so much for considerin=
-g this!
+If the file previously was shorter, it is extended, and the extended part r=
+eads
+as null bytes ('\0').
 
-Ian Garza
-Bigonbalance.com
+but it's not always true
 
+how to cause truncate to extend file with non-zero bytes (run all commands =
+as
+root):
 
-=E2=80=95If you=E2=80=99re interested in featuring an article but have a di=
-fferent
-topic preference, that=E2=80=99s no problem! Please send your idea over, an=
-d
-we can move forward from there.
+1. change working directory to ramfs mount (tmpfs same result):
+
+mkdir r
+mount -t ramfs asdf r
+cd r
+
+2. make create_weird_file.c file with content:
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+int main(int argc,char**argv){
+        if(argc!=3D2){
+                puts("usage: create_weird_file /path/to/file");
+                return 1;
+        }
+        int fd=3Dopen(argv[1],O_RDWR|O_CLOEXEC|O_CREAT|O_EXCL,0600);
+        if(fd<0){
+                printf("open error: %#m\n");
+                return 1;
+        }
+        if(ftruncate(fd,1)){
+                printf("ftruncate error: %#m\n");
+                return 1;
+        }
+        void*mm=3Dmmap(NULL,4,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+        if(mm=3D=3DMAP_FAILED){
+                printf("mmap error: %#m\n");
+                return 1;
+        }
+        *(int*)mm=3D1717859169;
+}
+
+3. make truncate_4.c file with content:
+
+#include <stdio.h>
+#include <unistd.h>
+int main(int argc,char**argv){
+        if(argc!=3D2){
+                puts("usage: truncate_4 /path/to/file");
+                return 1;
+        }
+        if(truncate(argv[1],4)){
+                printf("truncate error: %#m\n");
+                return 1;
+        }
+}
+
+4. compile create_weird_file.c:
+
+gcc -o create_weird_file create_weird_file.c
+
+5. compile truncate_4.c
+
+gcc -o truncate_4 truncate_4.c
+
+6. create 1 byte file f:
+
+./create_weird_file f
+
+7. see file content and size:
+
+xxd f
+
+output for me is:
+
+00000000: 61                                       a
+
+8. truncate file f to 4 bytes:
+
+./truncate_4 f
+
+9. see file content and size:
+
+xxd f
+
+output for me is:
+
+00000000: 6173 6466                                asdf
+
+extra 3 bytes of file are "sdf" instead of "\0\0\0"
+
+tested on 2 operating systems:
+kde neon unstable, uname -r -v -m -p -i -o: 6.14.0-29-generic
+#29~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Aug 14 16:52:50 UTC 2 x86_64 x86=
+_64
+x86_64 GNU/Linux
+opensuse tumbleweed, uname -r -v -m -p -i -o: 6.16.5-1-default #1 SMP
+PREEMPT_DYNAMIC Thu Sep  4 15:51:43 UTC 2025 (642f24d) x86_64 x86_64 x86_64
+GNU/Linux
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
 
