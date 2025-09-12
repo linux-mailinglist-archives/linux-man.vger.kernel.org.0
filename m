@@ -1,206 +1,132 @@
-Return-Path: <linux-man+bounces-3859-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3860-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EBC0B55002
-	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 15:50:05 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3243EB55591
+	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 19:46:16 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 2CDC1160FBA
-	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 13:50:05 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D140A7C10B1
+	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 17:46:14 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 642B815855E;
-	Fri, 12 Sep 2025 13:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcm/FHYY"
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E9BF1E7660;
+	Fri, 12 Sep 2025 17:46:12 +0000 (UTC)
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from buffalo.tulip.relay.mailchannels.net (buffalo.tulip.relay.mailchannels.net [23.83.218.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E7C14EC62
-	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 13:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757685001; cv=none; b=Zr2HiaVlW4Otn7LllKRKx1dGARrHN7Pbj+ddX399RN14meED5q9nnJAN0gnU5PQqavzGyak0eM7eE1OzZG+ylzy2HqgS2xB+kFy2pkcoT5Y7coRd7YX6PdDkLfnUxBKdDjJtXN3yn1kogpA33V6fnc+9WPHEDbC1j2YMxKGS3Mk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757685001; c=relaxed/simple;
-	bh=5CzAzdWseRR9jsSXtmcJp/4ePB5OUuMyUC95/7VSOkg=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=KHMOWB9uB+yP5wO2n2LY2c7969u3cOeys3iPpor1Kd/UBl31cF2xcckHoPGnyL5QxLT1WuZkTOE2mN00HgxHrYuunhKZzZJFgeFEZME+DKPtT3syRH6neU6n13CRSAZu7q5W9+Ievhpk8nI+AiC3jhNofhhXiJ4VeN1CELRGvKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcm/FHYY; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BB350C4CEFA
-	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 13:50:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1757685000;
-	bh=5CzAzdWseRR9jsSXtmcJp/4ePB5OUuMyUC95/7VSOkg=;
-	h=From:To:Subject:Date:From;
-	b=dcm/FHYYfU70vN3a2YxxdldKEzpaQ5byw+VmFyZUgE9exRm7D2yym4mvxs7nahpem
-	 aIC2ek73eCJqU0eIN29YW7rCaijPxRQdh6YWkkhDQZiTgeI0bMEOIDedVc0iA48UV7
-	 1/Ukx64JZmxZFrjpJgZtgyy6JIBHhglNC+ZWS/Ta9JZK/hq0Edzyu+hYgjnwLZ1yn2
-	 QO1H3lbufWzk/thC9HvFn7iSkmkMWmracaC8BNMgXB7YzqBNvIN2Jl1TvPG+Cw7aJm
-	 4yvV6ot1Sn38L+J3p9Jtqbc+nwL4gHSfBIbdPkwnsFZxjngGUa8ylFEWhHRiqJHLPM
-	 cltfJUwrqIBpA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-	id B1668C3279F; Fri, 12 Sep 2025 13:50:00 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E519004E
+	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 17:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1757699171; cv=pass; b=PDFgJlAM8lpANrJjKWQ7E6SVOXMsL6k2kKtQhVynLbfN2hewnTNiD1jMD3DwzJeQSz8WNChYwnrWulAQzCZSf0SdqEBPdp3FMl5+j6+A8uY0xdSyAl0cGPiu1cJ2PB5s7mo3Oc4rOwkjrqBP45qeNPLyAMYI6/tHIih0rqD83Lw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1757699171; c=relaxed/simple;
+	bh=ArBvGnAnJFTTaIPqDEBqxLb4H+hzUCoyyffgVnrfc+8=;
+	h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version; b=JAEu/e7+3lUk07N/CvjMhhniVMnBrK3qdwI3+iCCcy5/dw+0d62a/C0bQl2hbxbN10we8hXV9NuaNxKwwx7NpscEkLrI6kzutl+WQ3Rj0koCclXcRS9hspho98u/XKoeP15P+O4X2gHVX6FFhw1bb+T8LI0pDL79eZzi+kedRiM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=scientia.org; spf=pass smtp.mailfrom=scientia.org; arc=pass smtp.client-ip=23.83.218.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=scientia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=scientia.org
+X-Sender-Id: instrampxe0y3a|x-authuser|calestyo@scientia.org
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id B50B8167D08;
+	Fri, 12 Sep 2025 17:39:53 +0000 (UTC)
+Received: from cpanel-007-fra.hostingww.com (trex-blue-3.trex.outbound.svc.cluster.local [100.106.207.49])
+	(Authenticated sender: instrampxe0y3a)
+	by relay.mailchannels.net (Postfix) with ESMTPA id B52A3167CD1
+	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 17:39:51 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1757698792; a=rsa-sha256;
+	cv=none;
+	b=9nOZVpXoIqNYZMLJZprPrEdUJ7u4hPyblWO8X/l0wZIA0XC8jvBtxkqmbKsJE4WO+0/DeJ
+	uy9Kj1OFi6Uph2fQOAQ+jZBpQioed5l4RnOdWfq7PR55veuV9QF7LX0XbhedlEFtU4TX4C
+	YJ3M0fFgYVJskrQlyNWnN9k4zjLVF6cxTXtVbwtB4MHd7BzQ/h3kNmVBNz6fiiRFqHq7Yj
+	iNZIW878DoxkJO54W3u49PjKlpJisLlN9w1haCAQQDMELX1CTSOSl1Fst2fKNHATCBU1cz
+	OvvU1bJUAEsazm7bgg6WFGQGPDr+orbU1YkfrlxpBf/fbppWrkBo5ktdJjJ/RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1757698792;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pRkdTehVQEMv4MigDpayFIsV586/jYoAto9L/VuaSUo=;
+	b=BZpNwFYKt4q2ry9I5tmU1Isf9laOwNNwU6+9mLQT/20kZ0B2uAbLjnmiariqgRWvdJVSKw
+	QnLwQy6QLSGmUcEj1p+d70CEQzFOAa3APFTI7b1UArTXfuC4Niy6aD5s/Jl7a+nSRnxb7g
+	oZC67AfguQoX8160lXwI8xvxUxGBc0uJmDTsKaDguC+vdttXyBuk8AJa66xfpGL1HFRMZD
+	/CzK7nYnc75cL+jxyL7aUGCGPrrKkH3QsWHm3fBjPiEpEqzU+GdoOKeDIhsoCGdUd08OIB
+	DA8Ehv+dUk2SPt9gzG/PR+ngBnOpDwt0RqpxcMNVfWwiM5oesNvvsO/c5CTFPw==
+ARC-Authentication-Results: i=1;
+	rspamd-7b5fd646f8-nz2f5;
+	auth=pass smtp.auth=instrampxe0y3a smtp.mailfrom=calestyo@scientia.org
+X-Sender-Id: instrampxe0y3a|x-authuser|calestyo@scientia.org
+X-MC-Relay: Neutral
+X-MC-Copy: stored-urls
+X-MailChannels-SenderId: instrampxe0y3a|x-authuser|calestyo@scientia.org
+X-MailChannels-Auth-Id: instrampxe0y3a
+X-Drop-Share: 3806f3cb43987a22_1757698792409_1598896629
+X-MC-Loop-Signature: 1757698792409:2193929326
+X-MC-Ingress-Time: 1757698792409
+Received: from cpanel-007-fra.hostingww.com (cpanel-007-fra.hostingww.com
+ [3.69.87.180])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.106.207.49 (trex/7.1.3);
+	Fri, 12 Sep 2025 17:39:52 +0000
+Received: from ipbcc0feaa.dynamic.kabel-deutschland.de ([188.192.254.170]:63794 helo=heisenberg.fritz.box)
+	by cpanel-007-fra.hostingww.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <calestyo@scientia.org>)
+	id 1ux7kV-00000007aoG-0JIL
+	for linux-man@vger.kernel.org;
+	Fri, 12 Sep 2025 17:39:50 +0000
+Message-ID: <3b8ab6fa7721a8bedc776bb92f70ad13139a2a5d.camel@scientia.org>
+Subject: locale(5): country_post CERT_MAILCODES?
+From: Christoph Anton Mitterer <calestyo@scientia.org>
 To: linux-man@vger.kernel.org
-Subject: [Bug 220569] New: [truncate(2) man page] after extending file extra
- bytes are not always zero
-Date: Fri, 12 Sep 2025 13:50:00 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alanas.00+k@mail.ru
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-220569-11311@https.bugzilla.kernel.org/>
+Date: Fri, 12 Sep 2025 19:39:47 +0200
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+User-Agent: Evolution 3.56.2-2+b1 
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-AuthUser: calestyo@scientia.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D220569
+Hey.
 
-            Bug ID: 220569
-           Summary: [truncate(2) man page] after extending file extra
-                    bytes are not always zero
-           Product: Documentation
-           Version: unspecified
-          Hardware: AMD
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: alanas.00+k@mail.ru
-        Regression: No
+The manpage says:
+>   country_post
+>     followed by the abbreviation of the country (see CERT_MAILCODES).
 
-truncate(2) man page has this sentence:
 
-If the file previously was shorter, it is extended, and the extended part r=
-eads
-as null bytes ('\0').
+I tried to find what these CERT_MAILCODES should be, but found not
+single reference.
 
-but it's not always true
+ISO/IEC TR 14652[0] on page 59 has:
+> country_post
+> The operand is a string with the abbreviation of the country, used
+> for
+> postal addresses, for example by the CEPT-MAILCODE codes
+> designating countries in Europe. Other abbreviation systems are also
+> allowed, and there is no specific way to identify which abbreviation
+> system is being used.
 
-how to cause truncate to extend file with non-zero bytes (run all commands =
-as
-root):
+And these CEPT mailcodes[1] actually seem to exist.
 
-1. change working directory to ramfs mount (tmpfs same result):
+Maybe the CERT_MAILCODES is just a typo?
+Perhaps one should ask someone from glibc, though.
 
-mkdir r
-mount -t ramfs asdf r
-cd r
 
-2. make create_weird_file.c file with content:
+Also, since the field doesn't seem to be *only* these CEPT codes, at
+least not according to the TR, one should perhaps write: "for example",
+rather than "see")?
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/mman.h>
-int main(int argc,char**argv){
-        if(argc!=3D2){
-                puts("usage: create_weird_file /path/to/file");
-                return 1;
-        }
-        int fd=3Dopen(argv[1],O_RDWR|O_CLOEXEC|O_CREAT|O_EXCL,0600);
-        if(fd<0){
-                printf("open error: %#m\n");
-                return 1;
-        }
-        if(ftruncate(fd,1)){
-                printf("ftruncate error: %#m\n");
-                return 1;
-        }
-        void*mm=3Dmmap(NULL,4,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
-        if(mm=3D=3DMAP_FAILED){
-                printf("mmap error: %#m\n");
-                return 1;
-        }
-        *(int*)mm=3D1717859169;
-}
+Cheers,
+Chris.
 
-3. make truncate_4.c file with content:
 
-#include <stdio.h>
-#include <unistd.h>
-int main(int argc,char**argv){
-        if(argc!=3D2){
-                puts("usage: truncate_4 /path/to/file");
-                return 1;
-        }
-        if(truncate(argv[1],4)){
-                printf("truncate error: %#m\n");
-                return 1;
-        }
-}
-
-4. compile create_weird_file.c:
-
-gcc -o create_weird_file create_weird_file.c
-
-5. compile truncate_4.c
-
-gcc -o truncate_4 truncate_4.c
-
-6. create 1 byte file f:
-
-./create_weird_file f
-
-7. see file content and size:
-
-xxd f
-
-output for me is:
-
-00000000: 61                                       a
-
-8. truncate file f to 4 bytes:
-
-./truncate_4 f
-
-9. see file content and size:
-
-xxd f
-
-output for me is:
-
-00000000: 6173 6466                                asdf
-
-extra 3 bytes of file are "sdf" instead of "\0\0\0"
-
-tested on 2 operating systems:
-kde neon unstable, uname -r -v -m -p -i -o: 6.14.0-29-generic
-#29~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Aug 14 16:52:50 UTC 2 x86_64 x86=
-_64
-x86_64 GNU/Linux
-opensuse tumbleweed, uname -r -v -m -p -i -o: 6.16.5-1-default #1 SMP
-PREEMPT_DYNAMIC Thu Sep  4 15:51:43 UTC 2025 (642f24d) x86_64 x86_64 x86_64
-GNU/Linux
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+[0] https://www.open-std.org/jtc1/sc22/wg20/docs/n972-14652ft.pdf
+[1] https://www.cept.org/cept/cept-country-codes
 
