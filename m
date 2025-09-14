@@ -1,132 +1,146 @@
-Return-Path: <linux-man+bounces-3860-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3861-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3243EB55591
-	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 19:46:16 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A00BB567DE
+	for <lists+linux-man@lfdr.de>; Sun, 14 Sep 2025 13:22:08 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D140A7C10B1
-	for <lists+linux-man@lfdr.de>; Fri, 12 Sep 2025 17:46:14 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id EF996189D748
+	for <lists+linux-man@lfdr.de>; Sun, 14 Sep 2025 11:22:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E9BF1E7660;
-	Fri, 12 Sep 2025 17:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0216247281;
+	Sun, 14 Sep 2025 11:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u6Dc1MC6"
 X-Original-To: linux-man@vger.kernel.org
-Received: from buffalo.tulip.relay.mailchannels.net (buffalo.tulip.relay.mailchannels.net [23.83.218.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E519004E
-	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 17:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757699171; cv=pass; b=PDFgJlAM8lpANrJjKWQ7E6SVOXMsL6k2kKtQhVynLbfN2hewnTNiD1jMD3DwzJeQSz8WNChYwnrWulAQzCZSf0SdqEBPdp3FMl5+j6+A8uY0xdSyAl0cGPiu1cJ2PB5s7mo3Oc4rOwkjrqBP45qeNPLyAMYI6/tHIih0rqD83Lw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757699171; c=relaxed/simple;
-	bh=ArBvGnAnJFTTaIPqDEBqxLb4H+hzUCoyyffgVnrfc+8=;
-	h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version; b=JAEu/e7+3lUk07N/CvjMhhniVMnBrK3qdwI3+iCCcy5/dw+0d62a/C0bQl2hbxbN10we8hXV9NuaNxKwwx7NpscEkLrI6kzutl+WQ3Rj0koCclXcRS9hspho98u/XKoeP15P+O4X2gHVX6FFhw1bb+T8LI0pDL79eZzi+kedRiM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=scientia.org; spf=pass smtp.mailfrom=scientia.org; arc=pass smtp.client-ip=23.83.218.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=scientia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=scientia.org
-X-Sender-Id: instrampxe0y3a|x-authuser|calestyo@scientia.org
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id B50B8167D08;
-	Fri, 12 Sep 2025 17:39:53 +0000 (UTC)
-Received: from cpanel-007-fra.hostingww.com (trex-blue-3.trex.outbound.svc.cluster.local [100.106.207.49])
-	(Authenticated sender: instrampxe0y3a)
-	by relay.mailchannels.net (Postfix) with ESMTPA id B52A3167CD1
-	for <linux-man@vger.kernel.org>; Fri, 12 Sep 2025 17:39:51 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1757698792; a=rsa-sha256;
-	cv=none;
-	b=9nOZVpXoIqNYZMLJZprPrEdUJ7u4hPyblWO8X/l0wZIA0XC8jvBtxkqmbKsJE4WO+0/DeJ
-	uy9Kj1OFi6Uph2fQOAQ+jZBpQioed5l4RnOdWfq7PR55veuV9QF7LX0XbhedlEFtU4TX4C
-	YJ3M0fFgYVJskrQlyNWnN9k4zjLVF6cxTXtVbwtB4MHd7BzQ/h3kNmVBNz6fiiRFqHq7Yj
-	iNZIW878DoxkJO54W3u49PjKlpJisLlN9w1haCAQQDMELX1CTSOSl1Fst2fKNHATCBU1cz
-	OvvU1bJUAEsazm7bgg6WFGQGPDr+orbU1YkfrlxpBf/fbppWrkBo5ktdJjJ/RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1757698792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pRkdTehVQEMv4MigDpayFIsV586/jYoAto9L/VuaSUo=;
-	b=BZpNwFYKt4q2ry9I5tmU1Isf9laOwNNwU6+9mLQT/20kZ0B2uAbLjnmiariqgRWvdJVSKw
-	QnLwQy6QLSGmUcEj1p+d70CEQzFOAa3APFTI7b1UArTXfuC4Niy6aD5s/Jl7a+nSRnxb7g
-	oZC67AfguQoX8160lXwI8xvxUxGBc0uJmDTsKaDguC+vdttXyBuk8AJa66xfpGL1HFRMZD
-	/CzK7nYnc75cL+jxyL7aUGCGPrrKkH3QsWHm3fBjPiEpEqzU+GdoOKeDIhsoCGdUd08OIB
-	DA8Ehv+dUk2SPt9gzG/PR+ngBnOpDwt0RqpxcMNVfWwiM5oesNvvsO/c5CTFPw==
-ARC-Authentication-Results: i=1;
-	rspamd-7b5fd646f8-nz2f5;
-	auth=pass smtp.auth=instrampxe0y3a smtp.mailfrom=calestyo@scientia.org
-X-Sender-Id: instrampxe0y3a|x-authuser|calestyo@scientia.org
-X-MC-Relay: Neutral
-X-MC-Copy: stored-urls
-X-MailChannels-SenderId: instrampxe0y3a|x-authuser|calestyo@scientia.org
-X-MailChannels-Auth-Id: instrampxe0y3a
-X-Drop-Share: 3806f3cb43987a22_1757698792409_1598896629
-X-MC-Loop-Signature: 1757698792409:2193929326
-X-MC-Ingress-Time: 1757698792409
-Received: from cpanel-007-fra.hostingww.com (cpanel-007-fra.hostingww.com
- [3.69.87.180])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.106.207.49 (trex/7.1.3);
-	Fri, 12 Sep 2025 17:39:52 +0000
-Received: from ipbcc0feaa.dynamic.kabel-deutschland.de ([188.192.254.170]:63794 helo=heisenberg.fritz.box)
-	by cpanel-007-fra.hostingww.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <calestyo@scientia.org>)
-	id 1ux7kV-00000007aoG-0JIL
-	for linux-man@vger.kernel.org;
-	Fri, 12 Sep 2025 17:39:50 +0000
-Message-ID: <3b8ab6fa7721a8bedc776bb92f70ad13139a2a5d.camel@scientia.org>
-Subject: locale(5): country_post CERT_MAILCODES?
-From: Christoph Anton Mitterer <calestyo@scientia.org>
-To: linux-man@vger.kernel.org
-Date: Fri, 12 Sep 2025 19:39:47 +0200
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-2+b1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8271CEAA3
+	for <linux-man@vger.kernel.org>; Sun, 14 Sep 2025 11:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1757848923; cv=none; b=nxEbBVRudz0Lxkrz+Nywi4zF6Je9Ez5a7nsu4osX8sm+QDhaPsDTtfURbqKjHgyMKCJ/ZehrMdI7uIFcLi6QvN4kV3Sm7wKI0U0IWwJcIuK35U3c1jQ1HT+qySr4ZkVoJYfhHl6jq2h5dRjk4nJVXEynzxZe3t32AeG1JYF5BTk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1757848923; c=relaxed/simple;
+	bh=vdFEAq24N9SUwbwIXmOnn86Gb6E4w+ncC6l0ozIJMLg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6A6OXhG5KR+tNYliuDlFrAmiOiWFCzygO/AgxoIMJOnjELTFeXX5T3JglEiNhudlwBvtpNUFjRZlBylrO5lgrcSAsgk0bj3fbbO1fOgalc160rI56S3+v9B9aaJ7ZgXNzAr6gFvCT/ro1G5w3KqUT46gVOr9zXio24HfnHfSE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u6Dc1MC6; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8672EC4CEF0;
+	Sun, 14 Sep 2025 11:22:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1757848923;
+	bh=vdFEAq24N9SUwbwIXmOnn86Gb6E4w+ncC6l0ozIJMLg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u6Dc1MC6fsHwMzd+DH2jNyGYwLMVk3uPGLAT4wIyl3rYlnd58Oy5w6BhSsik54+dE
+	 ERyHNFvkuyBZ1cfJXPJyp5ntGvSj4YlGflP+N9QW9FMdxZOMQorwOJOjkqk+yLsPsa
+	 5mPGSllxnJycF2iLIR/o12r9XmhQoM8CHz9q9V6uSZj7zjgDKhK1nIBBb8HfFrvy1o
+	 ChBp/i0BHVg9Rq7jbMpLhs/xE8LbskGiz+5JedhnbutsQfrfEJFN+ON9/x+aih+FhG
+	 QbDWUxIk/j3h3Ta7Y63/2xOVO3YKRFPTiQqKfCE6iMpsg89UXM21qJp+0iqSGuA58U
+	 guU6cFYye5RBw==
+Date: Sun, 14 Sep 2025 13:21:57 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Christoph Anton Mitterer <calestyo@scientia.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: locale(5): country_post CERT_MAILCODES?
+Message-ID: <no2yfcq4fcahoaqtzrvqenat3bsbnilkzyin7zniljeuzbyy76@v7v6mnnfcq7w>
+References: <3b8ab6fa7721a8bedc776bb92f70ad13139a2a5d.camel@scientia.org>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-AuthUser: calestyo@scientia.org
-
-Hey.
-
-The manpage says:
->   country_post
->     followed by the abbreviation of the country (see CERT_MAILCODES).
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wvqxzwypns4si2nw"
+Content-Disposition: inline
+In-Reply-To: <3b8ab6fa7721a8bedc776bb92f70ad13139a2a5d.camel@scientia.org>
 
 
-I tried to find what these CERT_MAILCODES should be, but found not
-single reference.
+--wvqxzwypns4si2nw
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Christoph Anton Mitterer <calestyo@scientia.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: locale(5): country_post CERT_MAILCODES?
+References: <3b8ab6fa7721a8bedc776bb92f70ad13139a2a5d.camel@scientia.org>
+MIME-Version: 1.0
+In-Reply-To: <3b8ab6fa7721a8bedc776bb92f70ad13139a2a5d.camel@scientia.org>
 
-ISO/IEC TR 14652[0] on page 59 has:
-> country_post
-> The operand is a string with the abbreviation of the country, used
-> for
-> postal addresses, for example by the CEPT-MAILCODE codes
-> designating countries in Europe. Other abbreviation systems are also
-> allowed, and there is no specific way to identify which abbreviation
-> system is being used.
+On Fri, Sep 12, 2025 at 07:39:47PM +0200, Christoph Anton Mitterer wrote:
+> Hey.
 
-And these CEPT mailcodes[1] actually seem to exist.
+Hey Chris,
 
-Maybe the CERT_MAILCODES is just a typo?
-Perhaps one should ask someone from glibc, though.
+> The manpage says:
+> >   country_post
+> >     followed by the abbreviation of the country (see CERT_MAILCODES).
+>=20
+>=20
+> I tried to find what these CERT_MAILCODES should be, but found not
+> single reference.
+>=20
+> ISO/IEC TR 14652[0] on page 59 has:
+> > country_post
+> > The operand is a string with the abbreviation of the country, used
+> > for
+> > postal addresses, for example by the CEPT-MAILCODE codes
+> > designating countries in Europe. Other abbreviation systems are also
+> > allowed, and there is no specific way to identify which abbreviation
+> > system is being used.
+>=20
+> And these CEPT mailcodes[1] actually seem to exist.
+>=20
+> Maybe the CERT_MAILCODES is just a typo?
+
+Yep; it seems like a typo.
+
+> Perhaps one should ask someone from glibc, though.
+
+I think we can fix this as a typo.  If we are mistaken, which I find
+unlikely, we would eventually realize, and can fix it then.
+
+> Also, since the field doesn't seem to be *only* these CEPT codes, at
+> least not according to the TR, one should perhaps write: "for example",
+> rather than "see")?
+
+Agree.  I've applied both the typo and the wording fixes.  Thanks!
+
+> [0] https://www.open-std.org/jtc1/sc22/wg20/docs/n972-14652ft.pdf
+> [1] https://www.cept.org/cept/cept-country-codes
 
 
-Also, since the field doesn't seem to be *only* these CEPT codes, at
-least not according to the TR, one should perhaps write: "for example",
-rather than "see")?
+Have a lovely day!
+Alex
 
-Cheers,
-Chris.
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
 
+--wvqxzwypns4si2nw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[0] https://www.open-std.org/jtc1/sc22/wg20/docs/n972-14652ft.pdf
-[1] https://www.cept.org/cept/cept-country-codes
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjGpVUACgkQ64mZXMKQ
+wqkx2Q//UGKG8sZx1UARmCqSr6zHdFKHprcaoQZA3bV4ZXQQtzfjWbBdT4cHHuGu
+z08HmZN6Cp7zr4lDs+Q8N/vhGKTYcVXZkVP2STJMiGb1qsui+iiakiCtvG3y5VpJ
+NX8MReCSjSHzO+Ty9Le2Sf5sEsVP5BubebBsgOxObzbO6WMqxHK7q3fVkRpVE1jS
+fIiCw5qeRBVDyrZepzYaH32qYsC3kUd2qLJjGxgGxVw5omK0vquj/jGrkT9/7YMn
+EmHeihayCpvTvty8pdnh1O2bB/Xnirer/3Yn06zbOelsBpxe8R87DmBvcWFN4GvS
+eD2a+VvsVyyuqriJ3H/PoYfIS/7+xp4gAEOAcU2bIuYDVHFjr4Mzg8/bORadmuZk
+PhMmEJoosS8JcUHEf6CpTPdJS6Wnoiz+WaMahlphYWz9duYjXzVKacMHOm1ly5/q
+MefHj551gElQ2EwtEPQbFe6XaQrpa83utu09aEfOrDP16yrCdadaJorZtKZRsqWO
+T1oYGCbgkIBFeD+B/nX39WaTJrFqWBqmj0eTxZfqwbSqo+73i/486HRnONvwo4A/
+4qY5Vi1HiocGtgb6MVfM4iwyileixHgWe7ApjcUYmzuyuotz9pqBW81fZ7Nwjp1g
+eUa7ygL5urx5NEcdUMy4J2I/vlIlM08WlFQRb3W7ewMqi14B/kw=
+=2HRB
+-----END PGP SIGNATURE-----
+
+--wvqxzwypns4si2nw--
 
