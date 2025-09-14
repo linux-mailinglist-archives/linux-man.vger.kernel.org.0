@@ -1,56 +1,54 @@
-Return-Path: <linux-man+bounces-3862-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3863-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE648B567EF
-	for <lists+linux-man@lfdr.de>; Sun, 14 Sep 2025 13:31:35 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DEC7B567F1
+	for <lists+linux-man@lfdr.de>; Sun, 14 Sep 2025 13:37:28 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3856E1895C66
-	for <lists+linux-man@lfdr.de>; Sun, 14 Sep 2025 11:31:57 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id CA85F161EFB
+	for <lists+linux-man@lfdr.de>; Sun, 14 Sep 2025 11:37:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 587A52745C;
-	Sun, 14 Sep 2025 11:31:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5DF8226D1D;
+	Sun, 14 Sep 2025 11:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="saZBI+Cf"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9V+Bvk5"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D761F8728
-	for <linux-man@vger.kernel.org>; Sun, 14 Sep 2025 11:31:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B2F2745C
+	for <linux-man@vger.kernel.org>; Sun, 14 Sep 2025 11:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757849491; cv=none; b=F5uLmXtbCXk7dzRD5Tbw+0d5gj3na9xMc61G7xj8jb8XARvrLaB0GUN/gDFJ9+g1+nFFxlbV44enZElWygtyWrqAKrWaIdWidk1RPf4IY5dGmBTxtEU4j9c4wYf0ACKmHc20CERip5ebSlWH7BiOXq1Pcb/ub882sGIB3HpB6rw=
+	t=1757849843; cv=none; b=MCrmk7G5KRAAogNJ/1QO08ATDCEe78WWcn2Rem0E1LPHFLAgA9IZN5CJtZFHODvoGiGsFiysYIjSpzgpXzTQ52EDEKVi5jehRNSlCrw0591zVRosr7fwW66b+lBmCLYcELWI8cXiQi6HbYH5Y8x514CbDXCMT5wR59ZVTbDa7i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757849491; c=relaxed/simple;
-	bh=0hbWpPspFdpw+pCqimwdF6DRWoGjBTSXkxTU4CTd9xU=;
+	s=arc-20240116; t=1757849843; c=relaxed/simple;
+	bh=H/KYXa3xRG4R4hft5iCD6qGU2m0G97pf1HAma70OR9I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qt9+p9MzwikwbT8vwYnN7smS6Zl7J3jGPF8IV0wXwTuIjawQ2JagX4p6R2zQCpmtZ8zIJxxA7+s9vlA3Vo8GWlr5YDtN1FfQDadi8LkalBcX82PK7lkh8o2v1eY7A89KD6Jso5ra4Yu7xMVVvkhSyNa3wQW6kBXOS98A3VI4qEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=saZBI+Cf; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30F6C4CEF0;
-	Sun, 14 Sep 2025 11:31:28 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=lUMgcIo06ocp3nSJ1gl2zR/bjB/2bpncbe0jBfdkXrz/hcgb/qswO9x/FUBRTk5/VQVMMTj56Tlo5lmmtjaHxHgiD+oXG5dE2sv9fEKJFfbGV3+U7037FmdE5w4gxCB0Pke9Uflq/JH/TdXYrScvnz5sKwlMlER4f1/ktrc2V/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9V+Bvk5; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9106BC4CEF0;
+	Sun, 14 Sep 2025 11:37:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1757849490;
-	bh=0hbWpPspFdpw+pCqimwdF6DRWoGjBTSXkxTU4CTd9xU=;
+	s=k20201202; t=1757849840;
+	bh=H/KYXa3xRG4R4hft5iCD6qGU2m0G97pf1HAma70OR9I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=saZBI+CfNk1Q9MBr9F/4oZaeXEfFlEYo5poGMQanfHfAONBVjOut6nymSbh+FH8pe
-	 CQdoibCxyBi9p81liselqxHdedHc+S/lf5MKMYSnJ9NmDilvstvSkK8AgvJz9wV9HL
-	 6K4aYEYeJJDpUzAq0wU12rJ0fDNu0XOFgQmrJm+rHU5cK0C9ClCM7o3FY7OpsGgWpy
-	 qdS/7bOCadGIdLQG+X74W/yJscBlCgtHH+6BuxQcd/AidR25xGmj/uh6byJr4Umbwz
-	 XsGLWQYqp/4hR/dPdfb2gP/j7f7XUaZIW/D3MSaSjP3kBsjQhRkCmzfx6vFS6dX5k1
-	 3crJjM8QH/xbw==
-Date: Sun, 14 Sep 2025 13:31:25 +0200
+	b=U9V+Bvk5d9JV7jXU/iApUsjuuqjn+Pl+eR4Alhew6KiNKKT4mwOcogzZXMzh2oUGi
+	 hMwJJsCOV1svXNSlgLxwvsMX5bCfOviDrG1Ju+67yi5X4THBXODj+ziPLEvcxrecc6
+	 lL2SVjBzX6ybQZbfrgkBAvyt0WobQDKaEUAR+AnUMSj5KfVyhg/eA/1ACnlDxVaUhl
+	 UB8Z2+iK289Fe2H4sshqd+gdWgyQjE6OscinQaEaFDfPF+HpzyrhrhetL99Dmn+GFY
+	 nnYpoi7XyxRuiuqz8yJPQKyznkBSWDrvLSDuwfpKWGqdwe0ESUVWzXrrbKHmeVyf8s
+	 CLXegGA2vwQ7w==
+Date: Sun, 14 Sep 2025 13:37:15 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Thiago Jung Bauermann <thiago.bauermann@linaro.org>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] man/man2/sigaction.2: Update si_code list with Linux
- v6.16
-Message-ID: <f6hoajtp2f7szmtbv6fsixrkr3qodc5m6savzkphjsmf5ucll7@l4bu3zqdz6rr>
-References: <20250909191357.44951-1-thiago.bauermann@linaro.org>
- <0dc0e482-1d1d-4a15-aea8-2f24ec7187a4@redhat.com>
+To: trillian <trillian@r9.pm>
+Cc: linux-man@vger.kernel.org, Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH v2] man/man2/: Document quotactl_fd syscall
+Message-ID: <ahc36eabnwhb52pmjsvgxwg4aog5zrmhgs5hycbzf6bqlfbbyy@s7vy3zqkje7e>
+References: <22e61e8f6c198c6a6c0468bb97b2d2add1fa0aec.1757076139.git.trillian@r9.pm>
+ <d89a3f923f2954d161a8d60e3002e1496d3327d5.1757174497.git.trillian@r9.pm>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -58,199 +56,271 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xldqloyty7phebf6"
+	protocol="application/pgp-signature"; boundary="4hd66zxd2jpysb23"
 Content-Disposition: inline
-In-Reply-To: <0dc0e482-1d1d-4a15-aea8-2f24ec7187a4@redhat.com>
+In-Reply-To: <d89a3f923f2954d161a8d60e3002e1496d3327d5.1757174497.git.trillian@r9.pm>
 
 
---xldqloyty7phebf6
+--4hd66zxd2jpysb23
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: Thiago Jung Bauermann <thiago.bauermann@linaro.org>, 
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] man/man2/sigaction.2: Update si_code list with Linux
- v6.16
-References: <20250909191357.44951-1-thiago.bauermann@linaro.org>
- <0dc0e482-1d1d-4a15-aea8-2f24ec7187a4@redhat.com>
+To: trillian <trillian@r9.pm>
+Cc: linux-man@vger.kernel.org, Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH v2] man/man2/: Document quotactl_fd syscall
+References: <22e61e8f6c198c6a6c0468bb97b2d2add1fa0aec.1757076139.git.trillian@r9.pm>
+ <d89a3f923f2954d161a8d60e3002e1496d3327d5.1757174497.git.trillian@r9.pm>
 MIME-Version: 1.0
-In-Reply-To: <0dc0e482-1d1d-4a15-aea8-2f24ec7187a4@redhat.com>
+In-Reply-To: <d89a3f923f2954d161a8d60e3002e1496d3327d5.1757174497.git.trillian@r9.pm>
 
-Hi Carlos, Thiago,
+Hi Trillian,
 
-On Tue, Sep 09, 2025 at 03:44:06PM -0400, Carlos O'Donell wrote:
-> On 9/9/25 3:13 PM, Thiago Jung Bauermann wrote:
-> > Update with missing si_code values from Linux v6.16's
-> > include/uapi/asm-generic/siginfo.h.
+On Sat, Sep 06, 2025 at 07:01:37PM +0300, trillian wrote:
+> I based these changes on kernel commits [1], [2]. Man-page wording
+> changes inspired by [3]. Rationale for the syscall itself is from [4].
 >=20
-> LGTM.
+> [1] linux.git 9dfa23c8de925041b7b45637a1a80a98a22f19dd
+> ("quota: Add mountpath based quota support")
+> [2] linux.git 64c2c2c62f92339b176ea24403d8db16db36f9e6
+> ("quota: Change quotactl_path() systcall to an fd-based one")
+> [3] <https://lore.kernel.org/all/20210304123541.30749-4-s.hauer@pengutron=
+ix.de/>
+> [4] <https://lwn.net/Articles/859679/>
 >=20
-> Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: trillian <trillian@r9.pm>
+> ---
 >=20
-> > Signed-off-by: Thiago Jung Bauermann <thiago.bauermann@linaro.org>
+> Alejandro,
+>=20
+> Changes from previous version:
+> * I tried to make the newlines a bit more semantic, as you requested.
+> * Also, I changed my use of the word "syscall" to "system call", as this
+>   seems to be the wording other manpages use. (Should this perhaps be
+>   added to the "preferred terms" section in man-pages(7)?)
+>=20
+> Regarding your comment on the previous version:
+>=20
+> > > +The
+> > > +.BR quotactl_fd ()
+> > > +variant of this syscall ignores the
+> > > +.IR addr
+> > > +and
+> > > +.IR id
+> > > +arguments, so the
+> >=20
+> > Are these ignored for all operations, or only for this operation?
+> > I guess only for this operation, right?
+>=20
+> Indeed they are only ignored for Q_QUOTAON. I thought it was clear
+> enough from the sentence being in the section about Q_QUOTAON, but if
+> you want, I can try to reword it to be more explicit.
 
-Thanks!  I've applied the patch and the Reviewed-by tag.
+Nah, it was just to confirm.  All's good.
+
+>=20
+> Let me know if there's anything else I should change :)
+> ~trillian
+
+Thanks!  I've applied the patch.
 
 
-Have a lovely day!
+Have a lovely day!  :)
 Alex
 
-> > ---
-> >=20
-> > Changes in v2:
-> > - Make all the entries added by this patch that have parenthesized notes
-> >    use .BR. Some were erroneously using .B in v1.
-> > - Add "... and glibc 2.43" note to TRAP_PERF, SYS_SECCOMP and
-> >    SYS_USER_DISPATCH (suggested by Carlos and Alejandro).
-> >=20
-> >   man/man2/sigaction.2 | 51 ++++++++++++++++++++++++++++++++++++++++++--
-> >   1 file changed, 49 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/man/man2/sigaction.2 b/man/man2/sigaction.2
-> > index 8d08a8c409d9..d6eced0761d7 100644
-> > --- a/man/man2/sigaction.2
-> > +++ b/man/man2/sigaction.2
-> > @@ -652,6 +652,9 @@ or
-> >   .\" SI_DETHREAD is defined in Linux 2.6.9 sources, but isn't implemen=
-ted
-> >   .\" It appears to have been an idea that was tried during 2.5.6
-> >   .\" through to Linux 2.5.24 and then was backed out.
-> > +.TP
-> > +.B SI_ASYNCNL
-> > +Async name lookup completion.
-> >   .RE
-> >   .P
-> >   The following values can be placed in
-> > @@ -716,6 +719,12 @@ Floating-point invalid operation.
-> >   .TP
-> >   .B FPE_FLTSUB
-> >   Subscript out of range.
-> > +.TP
-> > +.BR FPE_FLTUNK " (since Linux 4.17)"
-> > +Undiagnosed floating-point exception.
-> > +.TP
-> > +.BR FPE_CONDTRAP " (PARISC only)"
-> > +Trap on condition.
-> >   .RE
-> >   .P
-> >   The following values can be placed in
-> > @@ -742,6 +751,24 @@ See
-> >   .BR pkeys (7).
-> >   The protection key which applied to this access is available via
-> >   .IR si_pkey .
-> > +.TP
-> > +.BR SEGV_ACCADI " (since Linux 4.17, SPARC only)"
-> > +Application Data Integrity not enabled for mapped object.
-> > +.TP
-> > +.BR SEGV_ADIDERR " (since Linux 4.17, SPARC only)"
-> > +Disrupting Memory Corruption Detection error.
-> > +.TP
-> > +.BR SEGV_ADIPERR " (since Linux 4.17, SPARC only)"
-> > +Precise Memory Corruption Detection exception.
-> > +.TP
-> > +.BR SEGV_MTEAERR " (since Linux 5.10, ARM only)"
-> > +Asynchronous Memory Tagging Extension error.
-> > +.TP
-> > +.BR SEGV_MTESERR " (since Linux 5.10, ARM only)"
-> > +Synchronous Memory Tagging Extension exception.
-> > +.TP
-> > +.BR SEGV_CPERR " (since Linux 6.10)"
-> > +Control protection fault.
-> >   .RE
-> >   .P
-> >   The following values can be placed in
-> > @@ -785,6 +812,12 @@ Process taken branch trap.
-> >   .TP
-> >   .BR TRAP_HWBKPT " (since Linux 2.4, IA64 only)"
-> >   Hardware breakpoint/watchpoint.
-> > +.TP
-> > +.BR TRAP_UNK " (since Linux 4.18)"
-> > +Undiagnosed trap.
-> > +.TP
-> > +.BR TRAP_PERF " (since Linux 5.13 and glibc 2.43)"
-> > +Perf event with sigtrap=3D1.
 >=20
-> OK.
+>  man/man2/quotactl.2    | 78 +++++++++++++++++++++++++++++++++++++++---
+>  man/man2/quotactl_fd.2 |  1 +
+>  2 files changed, 74 insertions(+), 5 deletions(-)
+>  create mode 100644 man/man2/quotactl_fd.2
 >=20
-> >   .RE
-> >   .P
-> >   The following values can be placed in
-> > @@ -839,17 +872,31 @@ High priority input available.
-> >   Device disconnected.
-> >   .RE
-> >   .P
-> > -The following value can be placed in
-> > +The following values can be placed in
-> >   .I si_code
-> >   for a
-> >   .B SIGSYS
-> >   signal:
-> >   .RS 4
-> >   .TP
-> > -.BR SYS_SECCOMP " (since Linux 3.5)"
-> > +.BR SYS_SECCOMP " (since Linux 3.5 and glibc 2.43)"
->=20
-> OK.
->=20
-> >   Triggered by a
-> >   .BR seccomp (2)
-> >   filter rule.
-> > +.TP
-> > +.BR SYS_USER_DISPATCH  " (since Linux 5.11 and glibc 2.43)"
-> > +Syscall user dispatch triggered.
->=20
-> OK.
->=20
-> > +.RE
-> > +.P
-> > +The following value can be placed in
-> > +.I si_code
-> > +for a
-> > +.B SIGEMT
-> > +signal:
-> > +.RS 4
-> > +.TP
-> > +.BR EMT_TAGOVF " (SPARC only)"
-> > +Tag overflow.
-> >   .RE
-> >   .SS Dynamically probing for flag bit support
-> >   The
-> >=20
-> > base-commit: e86f9fd0c279f593242969a2fbb5ef379272d89d
-> >=20
->=20
->=20
+> diff --git a/man/man2/quotactl.2 b/man/man2/quotactl.2
+> index 126426b8a..dcc0aeab9 100644
+> --- a/man/man2/quotactl.2
+> +++ b/man/man2/quotactl.2
+> @@ -4,7 +4,7 @@
+>  .\"
+>  .TH quotactl 2 (date) "Linux man-pages (unreleased)"
+>  .SH NAME
+> -quotactl \- manipulate disk quotas
+> +quotactl, quotactl_fd \- manipulate disk quotas
+>  .SH LIBRARY
+>  Standard C library
+>  .RI ( libc ,\~ \-lc )
+> @@ -17,7 +17,19 @@ Standard C library
+>  .P
+>  .BI "int quotactl(int " op ", const char *_Nullable " special ", int " i=
+d ,
+>  .BI "             caddr_t " addr );
+> +.P
+> +.BR "#include <sys/syscall.h>" "    /* Definition of " SYS_* " constants=
+ */"
+> +.B #include <unistd.h>
+> +.P
+> +.BI "int syscall(SYS_quotactl_fd, int " fd ", int " op ", int " id \
+> +", caddr_t " addr );
+>  .fi
+> +.P
+> +.IR Note :
+> +glibc provides no wrapper for
+> +.BR quotactl_fd (),
+> +necessitating the use of
+> +.BR syscall (2).
+>  .SH DESCRIPTION
+>  The quota system can be used to set per-user, per-group, and per-project=
+ limits
+>  on the amount of disk space used on a filesystem.
+> @@ -31,7 +43,14 @@ after this, the soft limit counts as a hard limit.
+>  .P
+>  The
+>  .BR quotactl ()
+> -call manipulates disk quotas.
+> +and
+> +.BR quotactl_fd ()
+> +calls manipulate disk quotas.
+> +The difference between these functions is
+> +the way the filesystem being manipulated is specified,
+> +see description of the arguments below.
+> +See NOTES for why one variant might be preferred over the other.
+> +.P
+>  The
+>  .I op
+>  argument indicates an operation to be applied to the user or
+> @@ -56,11 +75,21 @@ The
+>  .I subop
+>  value is described below.
+>  .P
+> -The
+> +For
+> +.BR quotactl (),
+> +the
+>  .I special
+>  argument is a pointer to a null-terminated string containing the pathname
+>  of the (mounted) block special device for the filesystem being manipulat=
+ed.
+>  .P
+> +For
+> +.BR quotactl_fd (),
+> +the
+> +.I fd
+> +argument is a file descriptor (which may be opened with the
+> +.B O_PATH
+> +flag) referring to a file or directory on the filesystem being manipulat=
+ed.
+> +.P
+>  The
+>  .I addr
+>  argument is the address of an optional, operation-specific, data structu=
+re
+> @@ -118,6 +147,18 @@ field returned by the
+>  .B Q_GETINFO
+>  operation.
+>  .IP
+> +The
+> +.BR quotactl_fd ()
+> +variant of this system call ignores the
+> +.IR addr
+> +and
+> +.IR id
+> +arguments, so the
+> +.B Q_QUOTAON
+> +operation of
+> +.BR quotactl_fd ()
+> +is only suitable for work with hidden system inodes.
+> +.IP
+>  This operation requires privilege
+>  .RB ( CAP_SYS_ADMIN ).
+>  .TP
+> @@ -350,10 +391,14 @@ where the format number will be stored.
+>  .TP
+>  .B Q_SYNC
+>  Update the on-disk copy of quota usages for a filesystem.
+> -If
+> +For
+> +.BR quotactl (),
+> +if
+>  .I special
+>  is NULL, then all filesystems with active quotas are sync'ed.
+> -The
+> +.RB ( quotactl_fd ()
+> +always sync's only one filesystem.)
+> +In both cases, the
+>  .I addr
+>  and
+>  .I id
+> @@ -770,6 +815,7 @@ but there is no ID greater than or equal to
+>  .I id
+>  that has an active quota.
+>  .SH NOTES
+> +.SS Alternative XFS header
+>  Instead of
+>  .I <xfs/xqm.h>
+>  one can use
+> @@ -797,6 +843,28 @@ constants for the available quota types, but their v=
+alues are the same as for
+>  constants without the
+>  .B XQM_
+>  prefix.
+> +.SS quotactl() versus quotactl_fd()
+> +The original
+> +.BR quotactl ()
+> +variant of this system call requires specifying
+> +the block device containing the filesystem to operate on.
+> +This makes it impossible to use
+> +in cases where the filesystem has no backing block device (e.g. tmpfs).
+> +Even when the block device does exist, it might be difficult to locate
+> +(requires scanning
+> +.I /proc/self/mounts
+> +and even some filesystem-specific parsing in the case of e.g. bcachefs).
+> +.BR quotactl_fd ()
+> +instead works on the mount point,
+> +which avoids this limitation and is simpler to use
+> +(since the filesystem to manipulate is typically specified by its mount
+> +point anyway).
+> +.SH STANDARDS
+> +Linux.
+> +.SH HISTORY
+> +.TP
+> +.BR quotactl_fd ()
+> +Linux 5.14.
+>  .SH SEE ALSO
+>  .BR quota (1),
+>  .BR getrlimit (2),
+> diff --git a/man/man2/quotactl_fd.2 b/man/man2/quotactl_fd.2
+> new file mode 100644
+> index 000000000..5f63187c6
+> --- /dev/null
+> +++ b/man/man2/quotactl_fd.2
+> @@ -0,0 +1 @@
+> +.so man2/quotactl.2
 > --=20
-> Cheers,
-> Carlos.
->=20
+> 2.51.0
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---xldqloyty7phebf6
+--4hd66zxd2jpysb23
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjGp40ACgkQ64mZXMKQ
-wqnZIA/9E2gkfYkeZYLSNTOGxLqCjtPOM1LZo2zDDNEGlrMoExzXZ8bZH6L+hn62
-MjnNxWePVrtuIL7KsOzXTAv6PFYFYDtvIL51RrRvHSWvo2FDDqgcCwatjjihEcnU
-qgx4B9beErl9JwSPwbFFcoxyd5fdviz7zaVbpnlJCRO9u7i9dBKhC3+2SGfmyK+z
-agJUhHtLecdmrpUIGZGnAZtiwOhxWWeUFlfCOL7CBuF3hCU/eEO8ouwF6k1EcVVR
-iNPDYCblYdnHhg+LHodcfa9u+tVME4bybUpM8mHQ0Y4QuP98NyjHQGbO/IO98RCH
-vErC2qAsrCkTJKN3MxOg8pRnRCQy5XRHTK0mVXXYYNusJwq9Qnr/YRSA2DEc4Ky9
-g6y2f5MiPV37UdMZ0L73uQiV/mhw+/Ii6SXW98UwsMrJXCyjmQ3ThrWJuA6vEOH1
-09Ak1EnTCZXEtYDKOr+kDFeVIGjQErPU0VYuJ+7kdfwVA147e302UXT/mweffngD
-Q2djIAns9DeIlcF8PYsnqHacbTwZeP9tqm3FhzfYzhonrgTkASTC7eP9R90G+lBO
-JkYrbGEcEIqNm9bi83jqzuGtpJyMdCJ/fPO8ZNlesiDpXZXG2wGeNwr0qyCrVqww
-X0DK8kFq+U3WmqfMmnO/BdpCtxGimX8fIH2XWsvtT5jM/a2GlCk=
-=A98n
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjGqOsACgkQ64mZXMKQ
+wqm90BAAnvlnEqQnPGMCpK7CZdcGJMJ2koDb66KaB8y/w/lCZXqA1TmzFxAAu6hX
+yjctjwwgSm1UAPGsuksGpUEfxv8AFgELjy9jXFxNGlc3stlyn4N1/DVMYlhHm9lE
+onGXFaLfD4J9dn4J54oVnzGMnKjc2pBrXOQKXDgg/YgJV0QG9fqwsH9w9fGAmSz6
+2VV1sI5kLDzj9NF5/RADhBXIqxE/SQL7MLcwrbyY+RjuksaHY6XhM2iWRC1AjSNU
+ypwpREXWkUT7unh4LwdOo9ZJEd8fODmpfvqYgDokOwYOST9xZEcbxwmuS8jix5TA
+FFonLVRxjX8sgMG50zliGHHe6iqZMdfzSNWGgwdWPhps/MzahHiAY6Yedb6Nq0Rg
+N0TcelJwcmKJ1e89JtL6KViuu6ulm3XVElno6QD1415Fpog6UYZka9qxjKMdTX6J
+8r3oXKBFAkDB/cmbAaciRcT5csB4ZapUl0UGLHvVbFHJAcPTKGPneilL1YUbYxBL
+vcS2k3MxnV+FnvhkehB25vto6TiXGNCtCqCu2o8jeG6uqxbLHrahtRBpXkQiklc+
+2rt5c/gDV2c5Jm88tU8r8hWoNm14caLTLOkKkCZpGgRWF3X/YTQqeOI0cv2fwgcR
+slY27CEaV1KApjd4ybCvAyoOywvxzaPesFPIzmuui6kvGNO0juM=
+=64yy
 -----END PGP SIGNATURE-----
 
---xldqloyty7phebf6--
+--4hd66zxd2jpysb23--
 
