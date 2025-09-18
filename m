@@ -1,118 +1,142 @@
-Return-Path: <linux-man+bounces-3874-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3875-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84059B857D9
-	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 17:14:21 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A667B85D44
+	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 17:58:51 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 806337BF161
-	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 15:11:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6812A7C7FB1
+	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 15:54:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B5C11DB92A;
-	Thu, 18 Sep 2025 15:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D28118BBAE;
+	Thu, 18 Sep 2025 15:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E4qIUWwa"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOLuDxhM"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B976A27735
-	for <linux-man@vger.kernel.org>; Thu, 18 Sep 2025 15:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3C6314D33
+	for <linux-man@vger.kernel.org>; Thu, 18 Sep 2025 15:52:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758208337; cv=none; b=m27RIrF+l7N7neX2aJa9GBpmp8WsTf5CV1mk0QK0rIif5Ua02TCdp/whBni/CeEA25IxqCuzEH3TMk+J5SuxA59uqFqEDGOIaf50bWoBw71ulSk+BxFU2FZamJOR6uRqQ9juX683qAZtpNxoI3dCNiCjNK0ocX5UChNj+4S/RKg=
+	t=1758210753; cv=none; b=EjZ/OZO1jn+22JIIQ+y1MDh7t6F87KwAA3EapaMLzO1Al9dCiHyJFuQ0+kEiPQHlVun8QyHLt1LZUIeCs0M0j1yV0A2BqXiFea8/Db1hBLe2k0P1Am4q2aVlU1SVBMLQkclhPvsi7o0PQUdZS6ApVwQZ7ptbxCvRV924MI+sxQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758208337; c=relaxed/simple;
-	bh=xDwCGyN1S1IF7cDQSPkqfz2eBHD8L5UKEmLsRZPBHZc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=PWLBeUdh8mMTVueghiZkCF4ztOsKmmMmLruF3vccaaylqi38fHoI0IhKjwSLyiM625GJWon+nKG1/DizX+LuyOAkeu8fE46lNaeFxjoaLhYzNgE9LbvB2bI44GSOQm1NwGlXBsAFfQyAae2rhvoBg5nuLTG1rL2CDnCS9xpQiYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E4qIUWwa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758208334;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=ecGZ5dSuz+lcojhHV/DKdsFkCyWgm0YbA/jMM4xgKlQ=;
-	b=E4qIUWwaxhBy+bZmBvggFuI/86sNHC2CEfD3u60D7FJsKtXSICCCtCImCmZ66rJ2A/BPGG
-	89qQfxQ7mCqSd72XY8Vrd5e7FBiyU2KSpYI3FrFvPmtNite9YcGn4oPbY2UWD0tc1/o6wx
-	RybkesSINN2RKw6Ydj+JWlVERTsQhGc=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-315-PsXCDycmOI2kaHLowyjATA-1; Thu, 18 Sep 2025 11:12:13 -0400
-X-MC-Unique: PsXCDycmOI2kaHLowyjATA-1
-X-Mimecast-MFC-AGG-ID: PsXCDycmOI2kaHLowyjATA_1758208331
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-45e037fd142so11901095e9.3
-        for <linux-man@vger.kernel.org>; Thu, 18 Sep 2025 08:12:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758208330; x=1758813130;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ecGZ5dSuz+lcojhHV/DKdsFkCyWgm0YbA/jMM4xgKlQ=;
-        b=gMBUYMVZ4S6/42EYXATySxCsU11VK02e51l9ljMY5pyv619Uh2WXzTg7iU6UcaOioP
-         qif7d1lzQNKBZwkHfkc8J+BOlYLCVZwOqYNLPijP3qG3QhHcqXU9k6ylWuBSyYXb1jTC
-         7H8Oh1zUj+eUG9Rl/AAojm8LbAsZGXm9FshMUyzuiV35mtl95nFEWSRIZ1BstY68GHMM
-         XU+TQzoMV6LcLjepqEZ5bHBUgSt8huRVAHnNYMy5lBuAqhaJSnjY7LPNHOGDu8+XVvqa
-         1B0dTeWDfPYaVny20dYpm0gOGoHQm+qI4gn5BqTnosnRg+5wXY1lTzXDHA9MuxY5Fm6s
-         2F4Q==
-X-Gm-Message-State: AOJu0YyGFyWRvUrAwGq6bZXmW1sAj9PfctOq1DT3YrhdVu7aL5KI9+kJ
-	z9cfLybZO/4O9DNuhsriwUSwecT4r2UieYaphcR0a4xVScIX2YzxcobjBkLIq4+vr+IX7siP12T
-	uNvb8fvPy5PYiFraVCIiMdJu7wTt6clW9U7W0htF8giW0KmfRgEVdCVQFOLkpq/8oRAsLrw==
-X-Gm-Gg: ASbGncs6Gp4ka4El3fArwd7eywbFYBGRWMvUZBMQyvBeF80SfOmw7ygj7m+3mLvj7Lp
-	QZBE/3cVwZzPLoIT171GA/Ub3gYiUDDjl3kqSmz7wp3O1JqXEuiTuhWpWYUz2mg8jeqNOlNtt6+
-	CYUigJGn/cn1HQhl6s0dcOFLpYbj+gHFC/Gt+dmpOggfqndZ9AsvjjK892RGYgy7BqS/i7e6seZ
-	KCR6uPvWlpRC8tJZ3tzJFwXWi49+DmeRyhQJPtXHylkyEYnLyvOcYhiRZAYePWAEuh05dGqiJ5I
-	hNTsQZiVZmBED2vD67A8cmdqm1D8iY9MJRY+Nhq1uAqs4WsgQS0m/Caa3A2UGzRUYWv8h1SE8N8
-	WHkCP8EEwzjs9fcF3MQc=
-X-Received: by 2002:a05:600c:4590:b0:45b:7d24:beac with SMTP id 5b1f17b1804b1-46202bf828bmr70621485e9.10.1758208330587;
-        Thu, 18 Sep 2025 08:12:10 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGAK+EevVK+SFMIg+GefN3KpeGoMh9QgLwF/pFpxYk6TnvAPJ+wHrt4PiWrhJmmkvlL2xJpOA==
-X-Received: by 2002:a05:600c:4590:b0:45b:7d24:beac with SMTP id 5b1f17b1804b1-46202bf828bmr70621205e9.10.1758208330154;
-        Thu, 18 Sep 2025 08:12:10 -0700 (PDT)
-Received: from debian (2a01cb058918ce00a1bb3a6c734ac047.ipv6.abo.wanadoo.fr. [2a01:cb05:8918:ce00:a1bb:3a6c:734a:c047])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3ee0fbc7284sm4096906f8f.33.2025.09.18.08.12.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Sep 2025 08:12:09 -0700 (PDT)
-Date: Thu, 18 Sep 2025 17:12:07 +0200
-From: Guillaume Nault <gnault@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
+	s=arc-20240116; t=1758210753; c=relaxed/simple;
+	bh=7qwxw+MUjPMLQO7ZR2Zp3gqfxMYvJBW5iqGRBIcMlAM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rne7FabH7Hy2yWEtKoBN1knXevIRi26mSilrrwSGqWbQCR5MNM8bEU+An3Bl76xEYTPMcOuU7IIGgADZhFxEtQrmz3ASHRn7IrcrkeYIa0sgHdWvWZwA/RIJh9xeMM5CdpsXVXmDhmPUXNISIFrHYZSJDTY00zShBIhWPWiKLMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOLuDxhM; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C21AC4CEEB;
+	Thu, 18 Sep 2025 15:52:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758210752;
+	bh=7qwxw+MUjPMLQO7ZR2Zp3gqfxMYvJBW5iqGRBIcMlAM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GOLuDxhMsh9L6tOlWbBOGB+SbRMPbflPhKS35Vzo/fhuMs49F7uYG6lvDk64OLjbU
+	 rukqn6xqOaXlW2lZEYZDfDLsvtDOSniOhTdEijeIZQTC3xHy8XnLhPR1bAGr9NRpqi
+	 PcukRNiTWZLPVZGif1nhMxKyrJ+aItUOLrO7LKt69CFTbSEt+EGNnCtHD0B0zxU4QR
+	 rMYzqp1cempUuXvKw2QOWGr6kqp/m/uktohz1jFC2BEZBUSy8wSR+9RbwYuLoW/tpY
+	 kIoXNgC2mYN9C4VRNz6EZlJB4amnER+RC4x8+qDZmzKaXNaF9x+P8yZPlu9rOcoxSl
+	 0PdKhS5MpxCgw==
+Date: Thu, 18 Sep 2025 17:52:29 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Guillaume Nault <gnault@redhat.com>
 Cc: linux-man@vger.kernel.org
-Subject: [PATCH] rtnetlink.7: Fix .br command in RTA_MULTIPATH.
-Message-ID: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
+Subject: Re: [PATCH] rtnetlink.7: Fix .br command in RTA_MULTIPATH.
+Message-ID: <qxbvg6l3e2v7frrhen3pollqz574axnegtbvkdirdcpfbtkt6q@jaaogiz7dbqk>
+References: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3z3e7ijseaika5mh"
 Content-Disposition: inline
+In-Reply-To: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
 
-Add the missing dot before "br", so that the command is properly
-executed instead of printing a spurious "br" in the output.
 
-Signed-off-by: Guillaume Nault <gnault@redhat.com>
----
- man/man7/rtnetlink.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--3z3e7ijseaika5mh
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Guillaume Nault <gnault@redhat.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] rtnetlink.7: Fix .br command in RTA_MULTIPATH.
+Message-ID: <qxbvg6l3e2v7frrhen3pollqz574axnegtbvkdirdcpfbtkt6q@jaaogiz7dbqk>
+References: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
+MIME-Version: 1.0
+In-Reply-To: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
 
-diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-index 46bccef11..cb9f5155f 100644
---- a/man/man7/rtnetlink.7
-+++ b/man/man7/rtnetlink.7
-@@ -345,7 +345,7 @@ RTA_PREFSRC:protocol address:Preferred source address
- RTA_METRICS:int:Route metric
- RTA_MULTIPATH::T{
- Multipath nexthop data
--br
-+.br
- (see below).
- T}
- RTA_PROTOINFO::No longer used
--- 
-2.47.3
+Hi Guillaume,
 
+On Thu, Sep 18, 2025 at 05:12:07PM +0200, Guillaume Nault wrote:
+> Add the missing dot before "br", so that the command is properly
+> executed instead of printing a spurious "br" in the output.
+>=20
+> Signed-off-by: Guillaume Nault <gnault@redhat.com>
+
+Thanks!  I've added a 'Fixes:' tag, and simplified the subject.  I've
+applied the patch.
+
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3D964ef0730697eadfbb9937a21588d694b5557218>
+(Use port 80.)
+
+
+Have a lovely day!
+Alex
+
+> ---
+>  man/man7/rtnetlink.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
+> index 46bccef11..cb9f5155f 100644
+> --- a/man/man7/rtnetlink.7
+> +++ b/man/man7/rtnetlink.7
+> @@ -345,7 +345,7 @@ RTA_PREFSRC:protocol address:Preferred source address
+>  RTA_METRICS:int:Route metric
+>  RTA_MULTIPATH::T{
+>  Multipath nexthop data
+> -br
+> +.br
+>  (see below).
+>  T}
+>  RTA_PROTOINFO::No longer used
+> --=20
+> 2.47.3
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--3z3e7ijseaika5mh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjMKr0ACgkQ64mZXMKQ
+wqmo7RAApyToyQIfQ55dnx82JSjO3PxJ4kO71RWQytruYsBV09jy3KFFcFzy3oJC
+wi444Ucc2jqNx4kMJnbNGZvbpyAVGS3pDWTD8ilXUaZCGagQUZ8HDn1SP5DumJM5
+XxIHr4Q3Drgb1vw3sCJuaodnM8sKW7ZIx744k4XIDkGfbAOZVALXKxmNx/gTfXJB
+sJibqk19f8WaVUULl39EOtVU4NT4CCCJoBVdepxQ9wEqpYor2cQrKZuXQZHOEaJw
+EcOkfUWZsmt5ryl9FpN68M9Q8oCGwSHUu9tnlnEzwY3yre3oTTN3LuWePC/M+lOw
+SK2Zko9v7XRNsABom8WFhtXEvTHP81d9BGH8ui/PjDi3M1xqp1KuwHJEXuj1PIge
+w+aPuYjKHm9owtfaXozMgfGu5j10Ylucj7INmroj8GfcSv9psL8fmXtA1rzv7PdT
+qnt9mh7DgotZjlpHUaP/WQ1PgiLgC3ZSr6G0buthI2KCzelWv/NsLIwyyU44smrQ
+7y/p81fcaez0WqAf1XNs1A6nwfBM9sIrdJWxnS+WzJDl+OctTuMUFN6BnDkgylqf
+ncepWJBxIKrFHXPfXKXseMTzZaLx/j6pLob8Y6IiGnQOQZQMB+e8SC7GrTfFYGmd
+/FK5b6xfhmHblol4avyfnT4T9PMe6/D/XzfwmCUf2XIi9UoKG34=
+=NwLj
+-----END PGP SIGNATURE-----
+
+--3z3e7ijseaika5mh--
 
