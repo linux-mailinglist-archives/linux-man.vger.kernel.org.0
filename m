@@ -1,53 +1,51 @@
-Return-Path: <linux-man+bounces-3875-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3876-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A667B85D44
-	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 17:58:51 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id F30C8B85F34
+	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 18:20:45 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 6812A7C7FB1
-	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 15:54:22 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id AAC724A5C36
+	for <lists+linux-man@lfdr.de>; Thu, 18 Sep 2025 16:20:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D28118BBAE;
-	Thu, 18 Sep 2025 15:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC6C630EF86;
+	Thu, 18 Sep 2025 16:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOLuDxhM"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R6PEzXiz"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3C6314D33
-	for <linux-man@vger.kernel.org>; Thu, 18 Sep 2025 15:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C14C212566
+	for <linux-man@vger.kernel.org>; Thu, 18 Sep 2025 16:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758210753; cv=none; b=EjZ/OZO1jn+22JIIQ+y1MDh7t6F87KwAA3EapaMLzO1Al9dCiHyJFuQ0+kEiPQHlVun8QyHLt1LZUIeCs0M0j1yV0A2BqXiFea8/Db1hBLe2k0P1Am4q2aVlU1SVBMLQkclhPvsi7o0PQUdZS6ApVwQZ7ptbxCvRV924MI+sxQ8=
+	t=1758212426; cv=none; b=myteNfoHAYSHSmvibJ7cJ4vAeTlpA3+m1Hk5JsAqrDP0HazUCu1bJyLZqM3QRYjzb3KU6T4yUOVEJRLr6rDIKGsVapKCuGXyQbcIWwUwvX7cfnt575I6jQCcyQ4ic0ZDlkGpS60dOjLZNyUyHBDWZalxtkebuYW404wUxQVNS0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758210753; c=relaxed/simple;
-	bh=7qwxw+MUjPMLQO7ZR2Zp3gqfxMYvJBW5iqGRBIcMlAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rne7FabH7Hy2yWEtKoBN1knXevIRi26mSilrrwSGqWbQCR5MNM8bEU+An3Bl76xEYTPMcOuU7IIGgADZhFxEtQrmz3ASHRn7IrcrkeYIa0sgHdWvWZwA/RIJh9xeMM5CdpsXVXmDhmPUXNISIFrHYZSJDTY00zShBIhWPWiKLMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOLuDxhM; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C21AC4CEEB;
-	Thu, 18 Sep 2025 15:52:32 +0000 (UTC)
+	s=arc-20240116; t=1758212426; c=relaxed/simple;
+	bh=sMzsQ0he69WATUe4gCxOhaz6mevDnPvL5Cf979YLeu8=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=as0ki+5qK0Zl3RfGefLGFOd2HGipgZUFtoX3zpHTtEtgWeZ0Bm2zB+edWFe0uyxldLCxl+m98Hg3HYKlOExi/IedLtqO899J9Frr3cBg8sF8h0XBAUGao/fS3/uoMVipfpq1ZzUSZGfOF/en6eeFPep3tJPifE5KhMvN7JlGUoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R6PEzXiz; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF7CC116D0
+	for <linux-man@vger.kernel.org>; Thu, 18 Sep 2025 16:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758210752;
-	bh=7qwxw+MUjPMLQO7ZR2Zp3gqfxMYvJBW5iqGRBIcMlAM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GOLuDxhMsh9L6tOlWbBOGB+SbRMPbflPhKS35Vzo/fhuMs49F7uYG6lvDk64OLjbU
-	 rukqn6xqOaXlW2lZEYZDfDLsvtDOSniOhTdEijeIZQTC3xHy8XnLhPR1bAGr9NRpqi
-	 PcukRNiTWZLPVZGif1nhMxKyrJ+aItUOLrO7LKt69CFTbSEt+EGNnCtHD0B0zxU4QR
-	 rMYzqp1cempUuXvKw2QOWGr6kqp/m/uktohz1jFC2BEZBUSy8wSR+9RbwYuLoW/tpY
-	 kIoXNgC2mYN9C4VRNz6EZlJB4amnER+RC4x8+qDZmzKaXNaF9x+P8yZPlu9rOcoxSl
-	 0PdKhS5MpxCgw==
-Date: Thu, 18 Sep 2025 17:52:29 +0200
+	s=k20201202; t=1758212425;
+	bh=sMzsQ0he69WATUe4gCxOhaz6mevDnPvL5Cf979YLeu8=;
+	h=Date:From:To:Subject:From;
+	b=R6PEzXizU9kPL2mruqG5TdOjmUpZUAZnnCpEcZJIzOAIIhIxqheQwDQb3bNglFjos
+	 4WAG0lIAv3I0CxX54lY1jJ15NVp350/8zcJpy1I1vE6eIZJesZehjkcyovhyvW2WBj
+	 sQZjoW6j28FIBR+3ZEUdzW+6QBPEjz2m66DsZB1XIOm4z4W0tEpsMKvnjnsIUU7QXC
+	 6rZ0ksr2+/beN5Fb6uvDvnA/iyfLSEWbO4+QB0XgcLt2/NzMdQS1JL7qY1LmUBJrYF
+	 e0OQzcipYMvR4cQl9My8NNe6Oe6mq+rsUiB1WVNtaWLXykQ/eBNZPbIUdd1bnb6L3R
+	 BOiPXBWISHb5w==
+Date: Thu, 18 Sep 2025 18:20:22 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Guillaume Nault <gnault@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Fix .br command in RTA_MULTIPATH.
-Message-ID: <qxbvg6l3e2v7frrhen3pollqz574axnegtbvkdirdcpfbtkt6q@jaaogiz7dbqk>
-References: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
+To: linux-man@vger.kernel.org
+Subject: New streq(3) and memeq(3) manual pages
+Message-ID: <cuxmb5x5qfc5f5sx2k5ox6qamiakmhngap26u2c3do37tmet6y@juvzxx57hlcb>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,88 +53,191 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3z3e7ijseaika5mh"
+	protocol="application/pgp-signature"; boundary="4oc6rqn4knkx2xlo"
 Content-Disposition: inline
-In-Reply-To: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
 
 
---3z3e7ijseaika5mh
+--4oc6rqn4knkx2xlo
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Guillaume Nault <gnault@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Fix .br command in RTA_MULTIPATH.
-Message-ID: <qxbvg6l3e2v7frrhen3pollqz574axnegtbvkdirdcpfbtkt6q@jaaogiz7dbqk>
-References: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
+To: linux-man@vger.kernel.org
+Subject: New streq(3) and memeq(3) manual pages
+Message-ID: <cuxmb5x5qfc5f5sx2k5ox6qamiakmhngap26u2c3do37tmet6y@juvzxx57hlcb>
 MIME-Version: 1.0
-In-Reply-To: <901f3e9f201e9dad7af3456ec7e21e738dfbd899.1758208304.git.gnault@redhat.com>
 
-Hi Guillaume,
+Hi!
 
-On Thu, Sep 18, 2025 at 05:12:07PM +0200, Guillaume Nault wrote:
-> Add the missing dot before "br", so that the command is properly
-> executed instead of printing a spurious "br" in the output.
->=20
-> Signed-off-by: Guillaume Nault <gnault@redhat.com>
+I've written these two new manual pages to document these functions
+recently implemented in gnulib.  The LIBRARY section documents them as
+being available only in gnulib.  This gives these two APIs some more
+visibility, and hopefully other libc implementations will follow gnulib
+(such as glibc).
 
-Thanks!  I've added a 'Fixes:' tag, and simplified the subject.  I've
-applied the patch.
+Here's how these pages look like:
 
-<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D964ef0730697eadfbb9937a21588d694b5557218>
-(Use port 80.)
+	streq(3)            Library Functions Manual           streq(3)
+
+	NAME
+	     streq - determine whether two strings are equal
+
+	LIBRARY
+	     gnulib - The GNU Portability Library
+
+	SYNOPSIS
+	     #include <string.h>
+
+	     bool streq(const char *s1, const char *s2);
+
+	DESCRIPTION
+	     The streq() function determines whether the strings s1 and
+	     s2 are equal.
+
+	RETURN VALUE
+	     The  streq()  function  returns  true  if  and only if the
+	     strings s1 and s2 are equal.
+
+	ATTRIBUTES
+	     For an explanation of the terms used in this section,  see
+	     attributes(7).
+	     =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=90
+	     =E2=94=82 Interface                    =E2=94=82 Attribute     =E2=94=
+=82 Value   =E2=94=82
+	     =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=A4
+	     =E2=94=82 streq()                      =E2=94=82 Thread safety =E2=94=
+=82 MT=E2=80=90Safe =E2=94=82
+	     =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=98
+
+	STANDARDS
+	     GNU.
+
+	HISTORY
+	     gnulib 202601.
+
+	SEE ALSO
+	     memeq(3), strcmp(3), string(3)
+
+	Linux man=E2=80=90pages 6.15=E2=80=9079... 2025=E2=80=9009=E2=80=9018     =
+             streq(3)
+
+---
+
+	memeq(3)            Library Functions Manual           memeq(3)
+
+	NAME
+	     streq - determine whether two memory areas are equal
+
+	LIBRARY
+	     gnulib - The GNU Portability Library
+
+	SYNOPSIS
+	     #include <string.h>
+
+	     bool memeq(const void *m1, const void *m2, size_t n);
+
+	DESCRIPTION
+	     The  memeq() function determines whether the first n bytes
+	     of the memory areas pointed to by m1 and m2 are equal.
+
+	RETURN VALUE
+	     The memeq() function returns true if and only if the first
+	     n bytes of the memory areas pointed to by m1  and  m2  are
+	     equal.
+
+	ATTRIBUTES
+	     For  an explanation of the terms used in this section, see
+	     attributes(7).
+	     =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=90
+	     =E2=94=82 Interface                    =E2=94=82 Attribute     =E2=94=
+=82 Value   =E2=94=82
+	     =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=A4
+	     =E2=94=82 memeq()                      =E2=94=82 Thread safety =E2=94=
+=82 MT=E2=80=90Safe =E2=94=82
+	     =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=98
+
+	STANDARDS
+	     GNU.
+
+	HISTORY
+	     gnulib 202601.
+
+	SEE ALSO
+	     streq(3), memcmp(3), string(3)
+
+	Linux man=E2=80=90pages 6.15=E2=80=9079... 2025=E2=80=9009=E2=80=9018     =
+             memeq(3)
+
 
 
 Have a lovely day!
 Alex
 
-> ---
->  man/man7/rtnetlink.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-> index 46bccef11..cb9f5155f 100644
-> --- a/man/man7/rtnetlink.7
-> +++ b/man/man7/rtnetlink.7
-> @@ -345,7 +345,7 @@ RTA_PREFSRC:protocol address:Preferred source address
->  RTA_METRICS:int:Route metric
->  RTA_MULTIPATH::T{
->  Multipath nexthop data
-> -br
-> +.br
->  (see below).
->  T}
->  RTA_PROTOINFO::No longer used
-> --=20
-> 2.47.3
->=20
->=20
-
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---3z3e7ijseaika5mh
+--4oc6rqn4knkx2xlo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjMKr0ACgkQ64mZXMKQ
-wqmo7RAApyToyQIfQ55dnx82JSjO3PxJ4kO71RWQytruYsBV09jy3KFFcFzy3oJC
-wi444Ucc2jqNx4kMJnbNGZvbpyAVGS3pDWTD8ilXUaZCGagQUZ8HDn1SP5DumJM5
-XxIHr4Q3Drgb1vw3sCJuaodnM8sKW7ZIx744k4XIDkGfbAOZVALXKxmNx/gTfXJB
-sJibqk19f8WaVUULl39EOtVU4NT4CCCJoBVdepxQ9wEqpYor2cQrKZuXQZHOEaJw
-EcOkfUWZsmt5ryl9FpN68M9Q8oCGwSHUu9tnlnEzwY3yre3oTTN3LuWePC/M+lOw
-SK2Zko9v7XRNsABom8WFhtXEvTHP81d9BGH8ui/PjDi3M1xqp1KuwHJEXuj1PIge
-w+aPuYjKHm9owtfaXozMgfGu5j10Ylucj7INmroj8GfcSv9psL8fmXtA1rzv7PdT
-qnt9mh7DgotZjlpHUaP/WQ1PgiLgC3ZSr6G0buthI2KCzelWv/NsLIwyyU44smrQ
-7y/p81fcaez0WqAf1XNs1A6nwfBM9sIrdJWxnS+WzJDl+OctTuMUFN6BnDkgylqf
-ncepWJBxIKrFHXPfXKXseMTzZaLx/j6pLob8Y6IiGnQOQZQMB+e8SC7GrTfFYGmd
-/FK5b6xfhmHblol4avyfnT4T9PMe6/D/XzfwmCUf2XIi9UoKG34=
-=NwLj
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjMMUYACgkQ64mZXMKQ
+wqnvSQ/+L8/VPl6o7KjhhddDm4rmiRPhX8wYwVlPUZ59YYtnND18oEgtVPygpE6y
+nUwEeHDb7rO1mV6GzRLoGG+nbutN3A9Fd/9VqWFHSlNFcLfrvx9+Jqw4eUwFfAXo
+7SyamMl78JdvnIPy+PgCmubRyp9LCGxbH3vm9Po0NUn4W+XHSeit9bwSMSGns7OB
+RHxQKOYVlBEh4+GnQIhqx22H3IkieHO9a/b8y5ODfDyr0coNk9hikPdaDBCySpaY
+KUSnMMFAX2sCokRVPP5GmK+QijUMPbZtXkRVhSMKNSkw1wR3YNxjNeq08s//ZRO/
+AZJLYgU0Gdufb7i9Asj7yjSIIq4ZLWYwGNLFIVhEjBb8yYb6WRdYzJeu6+0dOdqP
+hGg6EstiAat4i/LRFab8pxKr8vR7ItjGwbcr8KU0ati5XWt44MK3BY3qq3G4lmp7
+poihnW51ppuq6+YB6gwzMPDF4ikfwwlMYLrGuYkmZewynh/srBXPW68joqz9M6R7
+STzLrrlVGiaV5YbEAPp6JW1c1JH9guz0rTCk+QBoKyD4XwmAQXWjxzp/EFnK6J62
+Te9jtsjzykzdbnXA5M5vDYDHC7PCPhjvg6d1i+k/KG6BsWyeImlZ9RdYlCuh8tZT
+IZ8xqm03xAGRWWQ3uN8I8byCWoVYgT6hf5KUdO9oNvqH6+QWsbA=
+=Wzb4
 -----END PGP SIGNATURE-----
 
---3z3e7ijseaika5mh--
+--4oc6rqn4knkx2xlo--
 
