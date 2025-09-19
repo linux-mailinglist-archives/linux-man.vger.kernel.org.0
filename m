@@ -1,66 +1,59 @@
-Return-Path: <linux-man+bounces-3889-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3890-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBA6AB89700
-	for <lists+linux-man@lfdr.de>; Fri, 19 Sep 2025 14:24:29 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 079DDB8A7F0
+	for <lists+linux-man@lfdr.de>; Fri, 19 Sep 2025 18:05:43 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3864E16C7AF
-	for <lists+linux-man@lfdr.de>; Fri, 19 Sep 2025 12:24:28 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 504E03A0492
+	for <lists+linux-man@lfdr.de>; Fri, 19 Sep 2025 16:05:11 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EA05311C05;
-	Fri, 19 Sep 2025 12:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 303B831A7E3;
+	Fri, 19 Sep 2025 16:05:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="KEG8D4RK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPBv3DG/"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDA731079C;
-	Fri, 19 Sep 2025 12:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DC623C4F3;
+	Fri, 19 Sep 2025 16:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758284647; cv=none; b=M8exR3H1hCKCV9Lgv6JpMYpcD4/74jwTDUPr+rfwiKu/HJpComA6pV7ZBrAIa6CSSX/5QalQ3g9U8xddFNDgGZhcEz7UnbUtzGU5obhnaXRBDRRQ6n3jipJwTt9eQM57bNDgdQ7kg5WVZLaR5pB6+v/dXxammwQKDFWULzwjAHI=
+	t=1758297906; cv=none; b=akWUe0npdfMec2LBnpr2V3xGJpPojR/CdKaFQ8XlT2xmOxFCDjt5v1rDyDZIkI/XDaKF/ZtO78gEGiMkLNguD+/IZ9352DGhxExcGzwGrxGRDJpVRGZKeVoEE/Q/g97TL38p/QJe8kTdNPijR+W1b01xKT+UzlmeuHauTp0b4Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758284647; c=relaxed/simple;
-	bh=48XYnCxrzuH16uBlEv1kRze0Jj/p7JOo3IlEZ/mmKos=;
+	s=arc-20240116; t=1758297906; c=relaxed/simple;
+	bh=PMtrmBAyu9kJj4TQ0/QkV3dgRzc5oA5tHBt+BRc/7l0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a2xH6VVSVlb94Q/2BMA2cSNFJPPHvHr4fP8GFti+fqjbgFNLuszvAJqq/6QVoGHdtKRgEATwCF96VWn+uYSTgblSyA/8wt+O0y2u2Y1ezjg222++LCQJMO7TNSLuxvaWiQD+LHAv0+Du8iA7GK6zTUyJcjdjpQ4usrDBN9t5IFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=KEG8D4RK; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cSsB95mHJz9tKf;
-	Fri, 19 Sep 2025 14:24:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1758284641;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rh6Z5Z0CEMmSPdcpAoas408EgFHWJGPGyj0yviBdFn8=;
-	b=KEG8D4RKebUI06Gm9mQZw9ngooUIOQAtlgV5Xkymn4K6M3Qho1aVrId6iVlFhAar/SaMGL
-	VX3VouqWmVxvMPTMX5p+YqdmvOnsRpzhvT5lWEislxA1c86w5XeVuGk0sJ7oIqRqHCtATc
-	fKDNyJjhNNBkEaAYYqwIJqBS0Umdg9fqc6/cL1A1WMV9LlFZyAcQbZhrn7CHxqmnR8GRtf
-	hS/Eg3ui1ZdYh8QEii5K2h7rbPmIY5zp5daGzXnnlsI2+zwJ/ILpfPHauz4nfVmWE8ZkDN
-	JnZZALSIBAqEGyAkUlH9N7qURGAVBoD18se7CX0VEnAZGcQjbSGb04Bsg1cbiQ==
-Date: Fri, 19 Sep 2025 22:23:47 +1000
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Alejandro Colomar <alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=aIgwKqRvLXKDOupIAZp0NgRtD3CF1etFLbM8NVn3pho3U2WG8/wNjwTBvDuveOJd8sY2Q3JhN3Fgi8j2lMnLbH9y0ZSixSFjioRZcRQ6OGKmvz/zq8geytKyomkRbsKexOOjLuVQyeOXZkxypp+6IbR8bC9tdAF7j9zvm68GkKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPBv3DG/; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC783C4CEF0;
+	Fri, 19 Sep 2025 16:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758297905;
+	bh=PMtrmBAyu9kJj4TQ0/QkV3dgRzc5oA5tHBt+BRc/7l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KPBv3DG/SEJExSAlUbMHF1lQpLovcWtBuMrKsfp7T7A0xn5bqwAPjBLgTowk32Mt5
+	 xZUSGMSXvWiL+MUvg6zW/679WPfzkbD3N5DYZk/tPg/woG6dTTtazjF6TSGijniD/G
+	 kPVAgvaoiCQZ1/4odPLFllRnB6jvHOP0De7C9+JgpYThKgXu18ef3sQihx9Ux8AmWa
+	 vt1mSv2jUG2QU7dTtg2yT0quogL2EDXNPuYgg2XceEpEacYzDEOtjNs8lgjIDBJLrO
+	 VXtaEWFMAovdRGVT7vPSEU6zPb2z4e0HA+DJ4+hLzBYBjsXKD2v2df3LryiVqlycHC
+	 IRUYBFZUjUUhg==
+Date: Fri, 19 Sep 2025 18:04:57 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
 Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
 	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
 	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
 	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v4 10/10] man/man2/{fsconfig,mount_setattr}.2: add note
- about attribute-parameter distinction
-Message-ID: <2025-09-19-retro-married-traction-cinch-dgVzgj@cyphar.com>
+Subject: Re: [PATCH v4 01/10] man/man2/mount_setattr.2: move mount_attr
+ struct to mount_attr(2type)
+Message-ID: <r5fqew7m7vfg2mp5mgivxeghotymhzxpdnducp6jejxlbkaphw@7gi63phcgpfd>
 References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
- <20250919-new-mount-api-v4-10-1261201ab562@cyphar.com>
+ <20250919-new-mount-api-v4-1-1261201ab562@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -68,134 +61,178 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="esn6txawyawfxu7d"
+	protocol="application/pgp-signature"; boundary="gsbr7iv2jhmeqccn"
 Content-Disposition: inline
-In-Reply-To: <20250919-new-mount-api-v4-10-1261201ab562@cyphar.com>
+In-Reply-To: <20250919-new-mount-api-v4-1-1261201ab562@cyphar.com>
 
 
---esn6txawyawfxu7d
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--gsbr7iv2jhmeqccn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 10/10] man/man2/{fsconfig,mount_setattr}.2: add note
- about attribute-parameter distinction
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v4 01/10] man/man2/mount_setattr.2: move mount_attr
+ struct to mount_attr(2type)
+References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
+ <20250919-new-mount-api-v4-1-1261201ab562@cyphar.com>
 MIME-Version: 1.0
+In-Reply-To: <20250919-new-mount-api-v4-1-1261201ab562@cyphar.com>
 
-On 2025-09-19, Aleksa Sarai <cyphar@cyphar.com> wrote:
-> This was not particularly well documented in mount(8) nor mount(2), and
-> since this is a fairly notable aspect of the new mount API, we should
-> probably add some words about it.
+On Fri, Sep 19, 2025 at 11:59:42AM +1000, Aleksa Sarai wrote:
+> As with open_how(2type), it makes sense to move this to a separate man
+> page.  In addition, future man pages added in this patchset will want to
+> reference mount_attr(2type).
 >=20
 > Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+
+Hi Aleksa,
+
+Thanks!  I've applied this patch.
+
+
+Have a lovely day!
+Alex
+
 > ---
->  man/man2/fsconfig.2      | 12 ++++++++++++
->  man/man2/mount_setattr.2 | 40 ++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 52 insertions(+)
+>  man/man2/mount_setattr.2      | 17 ++++--------
+>  man/man2type/mount_attr.2type | 61 +++++++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 66 insertions(+), 12 deletions(-)
 >=20
-> diff --git a/man/man2/fsconfig.2 b/man/man2/fsconfig.2
-> index 5a18e08c700ac93aa22c341b4134944ee3c38d0b..d827a7b96e08284fb025f94c3=
-348a4acc4571b7d 100644
-> --- a/man/man2/fsconfig.2
-> +++ b/man/man2/fsconfig.2
-> @@ -579,6 +579,18 @@ .SS Generic filesystem parameters
->  Linux Security Modules (LSMs)
->  are also generic with respect to the underlying filesystem.
->  See the documentation for the LSM you wish to configure for more details.
-> +.SS Mount attributes and filesystem parameters
-> +Some filesystem parameters
-> +(traditionally associated with
-> +.BR mount (8)-style
-> +options)
-> +have a sibling mount attribute
-> +with superficially similar user-facing behaviour.
-> +.P
-> +For a description of the distinction between
-> +mount attributes and filesystem parameters,
-> +see the "Mount attributes and filesystem parameters" subsection of
-> +.BR mount_setattr (2).
->  .SH CAVEATS
->  .SS Filesystem parameter types
->  As a result of
 > diff --git a/man/man2/mount_setattr.2 b/man/man2/mount_setattr.2
-> index b27db5b96665cfb0c387bf5b60776d45e0139956..f7d0b96fddf97698e36cab020=
-f1d695783143025 100644
+> index 586633f48e894bf8f2823aa7755c96adcddea6a6..4b55f6d2e09d00d9bc4b3a085=
+f310b1b459f34e8 100644
 > --- a/man/man2/mount_setattr.2
 > +++ b/man/man2/mount_setattr.2
-> @@ -790,6 +790,46 @@ .SS ID-mapped mounts
->  .BR chown (2)
->  system call changes the ownership globally and permanently.
->  .\"
-> +.SS Mount attributes and filesystem parameters
-> +Some mount attributes
-> +(traditionally associated with
-> +.BR mount (8)-style
-> +options)
-> +have a sibling mount attribute
-> +with superficially similar user-facing behaviour.
-> +For example, the
-> +.I -o ro
-> +option to
-> +.BR mount (8)
-> +can refer to the
-> +"read-only" filesystem parameter,
-> +or the "read-only" mount attribute.
-> +Both of these result in mount objects becoming read-only,
-> +but they do have different behaviour.
-> +.P
-> +The distinction between these two kinds of option is that
-> +mount object attributes are applied per-mount-object
-> +(allowing different mount objects
-> +derived from a given filesystem instance
-> +to have different attributes),
-> +while filesystem instance parameters
-> +("superblock flags" in kernel-developer parlance)
-> +apply to all mount objects
-> +derived from the same filesystem instance.
-> +.P
-> +When using
-> +.BR mount (2),
-> +the line between these two types of mount options was blurred.
-> +However, with
-> +.BR mount_setattr ()
-> +and
-> +.BR fsconfig (2),
-> +the distinction is made much clearer.
-> +Mount attributes are configured with
-> +.BR mount_setattr (),
-> +while filesystem parameters can be configured using
-                               are configured using
-
-probably reads a bit better here. I'll include it in the next version if
-this isn't merged, but I won't resend the whole patchset for a one-word
-change.
-
-> +.BR fsconfig (2).
-> +.\"
->  .SS Extensibility
->  In order to allow for future extensibility,
+> @@ -114,18 +114,11 @@ .SH DESCRIPTION
+>  .I attr
+>  argument of
 >  .BR mount_setattr ()
+> -is a structure of the following form:
+> -.P
+> -.in +4n
+> -.EX
+> -struct mount_attr {
+> -    __u64 attr_set;     /* Mount properties to set */
+> -    __u64 attr_clr;     /* Mount properties to clear */
+> -    __u64 propagation;  /* Mount propagation type */
+> -    __u64 userns_fd;    /* User namespace file descriptor */
+> -};
+> -.EE
+> -.in
+> +is a pointer to a
+> +.I mount_attr
+> +structure,
+> +described in
+> +.BR mount_attr (2type).
+>  .P
+>  The
+>  .I attr_set
+> diff --git a/man/man2type/mount_attr.2type b/man/man2type/mount_attr.2type
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..f5c4f48be46ec1e6c0d3a211b=
+6724a1e95311a41
+> --- /dev/null
+> +++ b/man/man2type/mount_attr.2type
+> @@ -0,0 +1,61 @@
+> +.\" Copyright, the authors of the Linux man-pages project
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.TH mount_attr 2type (date) "Linux man-pages (unreleased)"
+> +.SH NAME
+> +mount_attr \- what mount properties to set and clear
+> +.SH LIBRARY
+> +Linux kernel headers
+> +.SH SYNOPSIS
+> +.EX
+> +.B #include <sys/mount.h>
+> +.P
+> +.B struct mount_attr {
+> +.BR "    u64 attr_set;" "     /* Mount properties to set */"
+> +.BR "    u64 attr_clr;" "     /* Mount properties to clear */"
+> +.BR "    u64 propagation;" "  /* Mount propagation type */"
+> +.BR "    u64 userns_fd;" "    /* User namespace file descriptor */"
+> +    /* ... */
+> +.B };
+> +.EE
+> +.SH DESCRIPTION
+> +Specifies which mount properties should be changed with
+> +.BR mount_setattr (2).
+> +.P
+> +The fields are as follows:
+> +.TP
+> +.I .attr_set
+> +This field specifies which
+> +.BI MOUNT_ATTR_ *
+> +attribute flags to set.
+> +.TP
+> +.I .attr_clr
+> +This field specifies which
+> +.BI MOUNT_ATTR_ *
+> +attribute flags to clear.
+> +.TP
+> +.I .propagation
+> +This field specifies what mount propagation will be applied.
+> +The valid values of this field are the same propagation types described =
+in
+> +.BR mount_namespaces (7).
+> +.TP
+> +.I .userns_fd
+> +This field specifies a file descriptor that indicates which user namespa=
+ce to
+> +use as a reference for ID-mapped mounts with
+> +.BR MOUNT_ATTR_IDMAP .
+> +.SH STANDARDS
+> +Linux.
+> +.SH HISTORY
+> +Linux 5.12.
+> +.\" commit 2a1867219c7b27f928e2545782b86daaf9ad50bd
+> +glibc 2.36.
+> +.P
+> +Extra fields may be appended to the structure,
+> +with a zero value in a new field resulting in
+> +the kernel behaving as though that extension field was not present.
+> +Therefore, a user
+> +.I must
+> +zero-fill this structure on initialization.
+> +.SH SEE ALSO
+> +.BR mount_setattr (2)
 >=20
 > --=20
 > 2.51.0
 >=20
+>=20
 
 --=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
 
---esn6txawyawfxu7d
+--gsbr7iv2jhmeqccn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaM1LUxsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG+KdQEAmB6gnRX4SP/rkb3R9Oan
-CRdJBvXYZpUFgqVlaibiN+IA/jJ7rIeFWwI6HFxhFM0CYosCsidSJxb/tlHaE8Pb
-YRoO
-=Q2XP
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjNfygACgkQ64mZXMKQ
+wqmTIQ/+NHy8YgPxvcmYQgOyqfDHhQiCy83I0LH5TUHrfK7J53AanIHUvdESOaMS
+sciSRRcfcxU9EOO/GNR2tAAyRxYTeYfYM2jXihF0Vvk57+dVHir9oEp7AnrS9pP7
+EA3V7xHskyvNJLfNWnQClSW5l6y6+QdzghOO5Vp3BGi/SjtSfpFcKNWFUUIFID6S
+pNRw9wjRcbQ/MC7AswhXFwbvCgNIEiNCAf6K9uCt8gcr9R1Pg06z31K92BrOQrSg
+dGax1hYFDymM1jRRr98dkF6GkQ/vtxepMlRFlu2F7URNIN+G5cT2yPiJiXCrY5Kx
+oLmM1PmFX02C6uTwTlXunRyI11p7dyy37OKn8fXipJNcIDwxGn/8lsa2beNyLMJu
+n5ZH4L33pZEw2gm1nGz/tfcrOzX9LSnz6RODGxOBYSil3AYT5QC1NeOreCLBH4eu
+kSdPSWyDhd2wSJvOmpcU7ILqgx5lyZnaWAJ1ZV0ECYYlc+f3A40KAqly/838+/8a
+yuyYbh7ZPSzOoh5EhV20O2cutiRYVO1QQOkxppvr1i3YLwYB514e+ojrQWiO5man
+xqlm3GfPBgbq41V2w7V5oxX5xzcQy3glKqEy3ct5/UThJe1+JwAQSAOS1NFqTElj
+RmqqSIB0pPBSYhQ01qYVM9/4rAr20zFbP+ezWaWBMbujmwNT/SI=
+=JcSz
 -----END PGP SIGNATURE-----
 
---esn6txawyawfxu7d--
+--gsbr7iv2jhmeqccn--
 
