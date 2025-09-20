@@ -1,54 +1,52 @@
-Return-Path: <linux-man+bounces-3893-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3894-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A87DB8C3CD
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 10:18:11 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F0BB8CC86
+	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 18:08:46 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 617AA5844DD
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 08:18:11 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 66568189E6E3
+	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 16:09:07 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD57B23E346;
-	Sat, 20 Sep 2025 08:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A6A802877CF;
+	Sat, 20 Sep 2025 16:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5GKnkG2"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jwq0Wgiq"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D81934BA57
-	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 08:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641C41A9FAB
+	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 16:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758356287; cv=none; b=rZY9Hyk25MN9JxC3XjvLuRPf2KjyGeP658qS8TAX4CudJCohn0rscv9QNvd0XLNv2R38R9gc3iFMB/FVsvT8XMv5d0oB6jP6b5ZhtuTtkHNAu+RmyoKB1W7tXP2t7A1ffzb33HE6wR7tS+dbNOCvogHionQKwBNEf16LFRHeqcE=
+	t=1758384520; cv=none; b=Rn4Zcy/sNx4rqq+zZMKONShQZLH8q/Q+iUGVA/PBiz7VnZec90wtvnyoi4nSqU82Uu6w4tBUDONsu9BrhNFRumER1jfq45iSSxdWRWr56Y0H6aGiYNobAIA0Zkedn6kmT1cDsnkjtCivD/XyopJ6/D6ZQ/iD5M17a91jIr/InAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758356287; c=relaxed/simple;
-	bh=gOcvPNCdive6IPPfhAggzc0imESDLgA4GwqKEoKaNGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gw0VM6lueJbSA61q7glZW7iTYkiDZrmdLcIv//g7u2ffODrFBCapiR40szhy69MDe3e5gTmmoaUf8E22oPYonSTW3YN+CstJ8Urhp9XF4yupEj4JlzPSr2n51vTiBXUhHtrJS1sqpjQN9dd7lnHWXCnV65qyz9GOK+KsrwI+OKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5GKnkG2; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A1FC4CEEB;
-	Sat, 20 Sep 2025 08:18:04 +0000 (UTC)
+	s=arc-20240116; t=1758384520; c=relaxed/simple;
+	bh=P/x65/nSVcspFGsgtwmJYF03e1L0N5eyPfchkeX1T5o=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=V0vMVm7az+RLtdjqdG4c+0o96F6isE1LbJ2UjqOjUhNPhm9AA6M2GXFlR2ISZIIGi7ZblJutD9FlfPnoiEqulFYKoKfposQfP5GO79krQR66BVbr6a+cr0y3g1oJ7XycxWxhOGyBj+PC0LhAVt9k43zssL5uYcGCvLaQRoHRxOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jwq0Wgiq; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D62C4CEEB;
+	Sat, 20 Sep 2025 16:08:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758356287;
-	bh=gOcvPNCdive6IPPfhAggzc0imESDLgA4GwqKEoKaNGM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I5GKnkG2XhEq2AjTtp4zpwpXkDRb/G2o/Nrpih9btEcZBnNhv1FtMMpC/xU96BkPX
-	 EDGTTVxwHWanjHRVckVTA15+5g3t7PhC0zGNlD6Ay4lFahrvSOJk8ekW304xeKGjww
-	 QhpPmYl5ZagHhO6MjnjFAhlAVmNJ/+am+46EVimirkQqCLY/H4NHfx+mLxFFS5hNBp
-	 MhWWmfIAEF0E6di+vB06dviJP8RQjyJ3rfK+ZsUHaGBYMLuhICWeApEDWLi0TcNdv2
-	 84oqJR3DtprVJrFOBcYsxhkN/K+SFocFlsFSkgoPa5cwrVt+ra92tZSjDq9A9HcUMK
-	 pi/Shf7VftRDA==
-Date: Sat, 20 Sep 2025 10:18:01 +0200
+	s=k20201202; t=1758384520;
+	bh=P/x65/nSVcspFGsgtwmJYF03e1L0N5eyPfchkeX1T5o=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Jwq0Wgiq/lPqDXChHvzEWGCfRtPhfuzUVsOGrToW1z6um3vAU5uEQUozgEgd3McPI
+	 SbU/1jBf1a/YYEC/5/3ajiQIks/lcxSF0Q83SC6LNj7wKVyGyOwoSFZoy2TxvecW2X
+	 eSpoCxsis98HdDvwCRsbVLfXnHRzrB4Xkdv66LGbReSFu1l+OvREHdgIGdSdetOmwE
+	 dq4GyQvAySpG8O2IJnQw8LZbXfk/PTbYdkTGQafpkEGdoDct+H5KPGTlVm0G2DqIka
+	 ZH4lS0ogn24lstPK8DGuIDKBnnGD/ss6a+uOwnnjKjNn7ZxvgrXlPc1p82A2WHnaXe
+	 PLa0WVOofELHA==
+Date: Sat, 20 Sep 2025 18:08:35 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: lnx-man <linux-man@vger.kernel.org>, Paul Eggert <eggert@cs.ucla.edu>
-Subject: Re: New streq(3) and memeq(3) manual pages
-Message-ID: <mmynjy6nakzh5q653oirj7eoi3j43qqhp2x4tdz3sbg7n46vqx@my2t6thj5gas>
-References: <cuxmb5x5qfc5f5sx2k5ox6qamiakmhngap26u2c3do37tmet6y@juvzxx57hlcb>
- <CACKs7VAJCRNwWxg4nBWhs1raw=iD5469fk11znHK9rYRfondqQ@mail.gmail.com>
+To: coreutils@gnu.org
+Cc: linux-man@vger.kernel.org
+Subject: Move GNU manual pages to the Linux man-pages project
+Message-ID: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -56,60 +54,38 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pftvyvnzjg4htrja"
+	protocol="application/pgp-signature"; boundary="itc7iylw75lt2hvw"
 Content-Disposition: inline
-In-Reply-To: <CACKs7VAJCRNwWxg4nBWhs1raw=iD5469fk11znHK9rYRfondqQ@mail.gmail.com>
 
 
---pftvyvnzjg4htrja
+--itc7iylw75lt2hvw
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Stefan Puiu <stefan.puiu@gmail.com>
-Cc: lnx-man <linux-man@vger.kernel.org>, Paul Eggert <eggert@cs.ucla.edu>
-Subject: Re: New streq(3) and memeq(3) manual pages
-References: <cuxmb5x5qfc5f5sx2k5ox6qamiakmhngap26u2c3do37tmet6y@juvzxx57hlcb>
- <CACKs7VAJCRNwWxg4nBWhs1raw=iD5469fk11znHK9rYRfondqQ@mail.gmail.com>
+To: coreutils@gnu.org
+Cc: linux-man@vger.kernel.org
+Subject: Move GNU manual pages to the Linux man-pages project
+Message-ID: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
 MIME-Version: 1.0
-In-Reply-To: <CACKs7VAJCRNwWxg4nBWhs1raw=iD5469fk11znHK9rYRfondqQ@mail.gmail.com>
 
-Hi Stefan,
+Hi!
 
-On Sat, Sep 20, 2025 at 09:13:20AM +0300, Stefan Puiu wrote:
-> Hi Alex,
->=20
-> >
-> >         memeq(3)            Library Functions Manual           memeq(3)
-> >
-> >         NAME
-> >              streq - determine whether two memory areas are equal
-> >
-> >
-> Shouldn't it say memeq here?
+GNU coreutils manual pages are to some degree incomplete.  I was told
+today that "tsort(1) is a bad joke".  I wonder if you'd be interested in
+moving the maintenance of the manual pages of GNU coreutils to the Linux
+man-pages project, where I could take care of them, and improve their
+contents.
 
-Oops!  Thanks!
+I understand GNU's stance on manual pages, and that you might not be
+interested in improving them much, but maybe you're open to them being
+improved elsewhere.
 
-> >         LIBRARY
-> >              gnulib - The GNU Portability Library
-> >
-> >         SYNOPSIS
-> >              #include <string.h>
-> >
->=20
-> Isn't there another header to include here? Just the system string.h? I
-> would expect a gnulib header here. Same question for streq.
+The Linux man-pages project already documents the GNU C library, so it
+wouldn't be extraneous to also take ownership of the coreutils manual
+pages.
 
-gnulib provides these functions in <string.h>.  gnulib is a bit weird in
-how it's used...  It becomes part of the project source code, and passes
-appropriate flags to the compiler to interpose the system libraries.
-
-One can't use gnulib in the traditional way of using system libraries.
-I wish this was possible, as they have quite interesting APIs that
-aren't provided by glibc or any other library.
-
-> Regards,
-> Stefan.
+What do you think?
 
 
 Have a lovely day!
@@ -119,25 +95,25 @@ Alex
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---pftvyvnzjg4htrja
+--itc7iylw75lt2hvw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjOYzMACgkQ64mZXMKQ
-wqn6tA/+OePhWwoZnubwPFoLzCo/UD4zosD8ORG2rkJPNHYMLcsSZphWZxQXN1h8
-aT6Sr4BVoVOz9/wCNXg14gf72GKs3ScxbteRMaSuk4Iz1JeGGtD4kVBRSZisacA5
-LZzeC8ckf/HQb58FpuEaHdbky3hvIlsrpoy4wPrSe9Oo+gT1zCXh6/KJ/s8cdMd6
-73yVhRELJ8nZOXm1Jh+MmMthx2dp3eT0YN4qh8t41yD2KLaaS/tsFo7hVKAb1gAg
-7iI/6QIYbySyHF6YRVK8dZnMab4Of93pn3u4bzkG37RMqDZu5vazmuj1ycnfTzsI
-9jAX5WdtEh6F7d2iWzp8uu5V4dO1GOWP0ZROhhCBykzyumT7pj2HTxjvaHSJZCCS
-PuxMdl9E7s3AVZhShhOQXLAzQIR+sutIB4d6o/bkJuDuZieQduqU0pz0ygCYK+Gk
-eiwEHTt8rK3RIzuUOm2EGpfNrojST81SIzOrapLbuNRVvZ5PsvJ7rDOj17Rq+/0T
-Gq8In6MHEyDquBku3vJ9phS0n+0k0DkwW7i0uCbgVRQinePJYveUWUYb8ff5tOJL
-0sOqw3OtsiI9o7Ixiy66a5iy2b3oCNhIBMc/C1SFkkQcRPRAf8GYihxNN3i7OPNQ
-C8RSwI7TT2+2GT51MDRXebvpjv8G9EknINAsbOXXdl3c1bH34sc=
-=7as9
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjO0YMACgkQ64mZXMKQ
+wqnZDRAAl4OuRe1Wg2JVPfV+uolth3wopaxdYHAn1AIW0hDRUDGYFkrnxSV32gRZ
+9fnT2V/tsqHrzbmC838O4d+Lm8ULcvCfzNVtiks05e+lDGrrg2Gczcvu/TFn5zsy
+4TKP77nCjPNS+SkdwK/MRpUnckH2hetyXeSxWPaL7xW55FMD477JVxdCzw2kIzJp
+NeZ7cl6w403vKz6eUwxzI7ZXpSkn/L7+2bQmlk4HC8ph568YJDmWttloT17zoW/J
+5Dookgak7YZGe7xB6CGnge82lJvjchHP4EemyaTezKtGz8RWMK6BgIME3/oVsb13
+Um10Ad8Gcw6vTOstPLuZapUOlbS5X/ImLyBpdONaaGKg7Jh64LiimRjezmvaIdBT
++txMqirvpr1+WWdiNZxZIrQK+lYGMhWRmsRcmW+GqC/4Kruy+NfujYTV3HECXP9l
+SUQQYMI6OY66tstrXHQVzzg2TF+KPm0StnmL1H6/8NSVl8l5kW3EVivLPh+whptj
+WWwD846pSjaeYN0EiL/ktCmuozqqeeWxVYAq56nChGkjM2gaE40tSW7il8NxTG91
+TbCskQLsMRRB0ZOnqWO4AKYRzoyzev3isiU4C66Hpk/7yls43ySNotrQg9T0CfxT
+GfZUwz5JOewEPVnenJkPD2AMx+p1qPxCURzT6DIZS7NvkG3lJVM=
+=6If2
 -----END PGP SIGNATURE-----
 
---pftvyvnzjg4htrja--
+--itc7iylw75lt2hvw--
 
