@@ -1,118 +1,131 @@
-Return-Path: <linux-man+bounces-3900-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3901-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4282CB8CD86
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 19:01:31 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33DD3B8CD92
+	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 19:04:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2D6601B260F1
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 17:01:53 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id E7D026271DD
+	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 17:04:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24AE6192598;
-	Sat, 20 Sep 2025 17:01:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59DFA1EB5C2;
+	Sat, 20 Sep 2025 17:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QnviOpSc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwY9rtsa"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292A01CD15
-	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 17:01:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EF31CD15
+	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 17:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758387686; cv=none; b=Uqqfqc6fS2+6p795uK+Tys9fY6MaUdMXa71AQUW6m5nSzNb+n63HTmLXnoZt45DTXSxyohUstPIksCjEzIyIU+yuxNsx1mruq3FAqEOO5c3tG4eGAaRIX8anf6cFYUeGvJnfDjcR/Iq5yxMbFRA1J2mdHKUyyYj31wpkQ8Yrna4=
+	t=1758387857; cv=none; b=V5m2b+jpUUGNGw49G+eE90JM4KCHohbbn+yaIrpmlZFUyFcmT0WpqXqlQ/9lQyYYrr0MuwdrGPfDv0fqKB9XguUDsitT7qb8mt2XqsshfQAPyLqbHCRLEk9vnAw5DR1657554UOWBARIDNbV+b4aB/S/QL8ac84ZVA1YZAbLgBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758387686; c=relaxed/simple;
-	bh=h5+U/U0hrt9StJIlm2TdxM1rCvIx2CtD0wduZY0xEBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zaxwx2fKIAXxChqaZmYS/2xzJXm8jscg/e+1yc7kEyZ7GEQw295yPgAYNwhCrzfVUq7zwJLAKf6gberpO+C8BewD2WxlgIxfwhPeZgPzJSEN2Inya2+nlZsAcjydyWULO5n5I+bytjfIk95sXVNiJqr9I8qqW4znIn4kQas00uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=draigBrady.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QnviOpSc; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=draigBrady.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-45b9a856dc2so20478465e9.0
-        for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 10:01:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758387683; x=1758992483; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=j93FldGBq3CmXdCDr+c3TQcCkVvLo4OSesh5EAqJcWU=;
-        b=QnviOpScR2lDbznq0eoB0uofmBh+70QmcBqWhV1WeR1xrXsdj6GwNpZU34/O2dOLfZ
-         WGAMgqS3VXsTNUCR+LLLtZmHheNLy7GI36M10F9bfwXOatFYW/Qc1LTqAqQzBf8CYuLQ
-         1+pTBpW0Vv0Sjr//4cPU+pq4+Ar7j6CTVOKNJw8PS12Ub1Hrzy9fY8mW9vmjrGW+BZek
-         ejPuoGHSEZz69cjYSW+3dAMEOZZbEH+R2XGJBUkBRyHnYv/mpiuMuCYHkbz1yP6Qzf76
-         zWX4LEj3Ax1+oPBe6lS6Y41iFBtqGMvFlP2QoViiboW8X42BDBZnQzmHpiRyQURPwROQ
-         dRZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758387683; x=1758992483;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=j93FldGBq3CmXdCDr+c3TQcCkVvLo4OSesh5EAqJcWU=;
-        b=PXfjHO3HFFq5yno7UsO7e4d7dFeHoPR5JLLQboSfquTMkSIhgXkbqlROzj6EiDeFVN
-         2j6XNpfQHnh5WepsVjzokVuoemkxitIHaAlKHNduuirEqq3qP7nAmVCNxshWS2ss68ug
-         xT//o06mm4CuT2o/OFQZNgT2wZ+zAWAjZqXzgGwmurGSXeSoMvDE4bjKPbdcQOw7ey7j
-         MMyRcpnVpWSCG/Sx47gERHYhqR6rtd9bX9RrU7nTS/pvu+BLGxJdha4ZFu//iC4OPxVF
-         LQVVL4n3Zw3mRasaFw4yodyapvHwpbbgXveJVhYiVDkPiKvORRkJMqxUubkwrIYhCzOf
-         lt+w==
-X-Forwarded-Encrypted: i=1; AJvYcCVageJUjMjvYwQVjrYaYMlS6fneg08vsEtJkbU83hvdNmlTG7RgCVhPoQmuG7QKAIsiebWXdCWCTMM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXdqmCLSYfILprS4KHuZ044pzY6BCRYykBPTQZ3ucvIiaUVFn6
-	fYuz57KeEOkin/CzLRkAlkCbCDCdZ78T9TfX8qqHnCcFdXBWbuw4zhEO
-X-Gm-Gg: ASbGnctV2POmY/YeqFyrRuWhpoK6xDALDLhdrw5GWMo3TUonDKAmfVgqSB26jc117CA
-	pH8awXfupjJK5xxhlExZBIML7uZWS5EdNQ+80W58RZ5c/VzWNRDC9vYGVKZ5NcK3rhtn0zNqD/z
-	hb5o0t43qigeTufj5WHsWDEYFjZTso/Ad9tKaaeEwDkeoV5OyaA7tPNQlPTT6ll1dntvnPsxxmw
-	hYr37gyUFtLNAFStgBpMS9gwE/u3eD3nOKG3CM+2bQ4mFdYQsQsnbQAScPEJOPihCrmeWH+Ds0o
-	up2ds4I+7/xQBrOBXGyUN83kNzWbQID5ZauQyVrmEWctK3XFSwWrctSyzSpMsbBKZCdCO5s1rT8
-	XrzTTHG4UQVp7/3zKn34JmCVR3dzP3N54/mYQSRz7MtI+zcx5BY/y0tx1pZ8JJ4W1FAZBJhifCZ
-	1rDA==
-X-Google-Smtp-Source: AGHT+IGljI8uO6DkAmCqwBt5gGx868BZ+XVKS0g2GRutwafMnldKALXgDZxMtHHoll/DKF2/WDNJHQ==
-X-Received: by 2002:a05:600c:468a:b0:45d:cfee:7058 with SMTP id 5b1f17b1804b1-467ea89da77mr72629585e9.22.1758387683090;
-        Sat, 20 Sep 2025 10:01:23 -0700 (PDT)
-Received: from [192.168.1.31] (86-44-211-146-dynamic.agg2.lod.rsl-rtd.eircom.net. [86.44.211.146])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-45f3252260csm113497175e9.2.2025.09.20.10.01.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Sep 2025 10:01:22 -0700 (PDT)
-Sender: =?UTF-8?Q?P=C3=A1draig_Brady?= <pixelbeat@gmail.com>
-Message-ID: <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
-Date: Sat, 20 Sep 2025 18:01:21 +0100
+	s=arc-20240116; t=1758387857; c=relaxed/simple;
+	bh=T7jAO90Z/y9tYuhP+QQ1MGCS4QkwiVpOl5QIAjYx9wo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fo4X+aff9QKT7eC2pI/dLjKhfCvVO+V9dO1bYWpdnvCpIIOkZf32l5IkE0Cc0msCJSVTDN4sxTTvOvLTuLPEL0USYkVsj+lIqzYkxZiOjKwXHwq+3GnO1/endHUx7YlOVM2IlNMRHGDMONCneFOMLemx3iiy9uylJcQkA8RDZ6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwY9rtsa; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030FBC4CEF0;
+	Sat, 20 Sep 2025 17:04:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758387855;
+	bh=T7jAO90Z/y9tYuhP+QQ1MGCS4QkwiVpOl5QIAjYx9wo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bwY9rtsagkxUvYaHWKFSdLv4nxqbh6JVcRZwZMNDdbEB7Uh2d4b0KXjp8E8RhOuM3
+	 S1L4DnlIUP+9SQI9ODberqzsdZvMnmIvxHJK7b5ABmxxOYsqovMhyhhXvzAuaaxnuF
+	 rTQi02VaQAVPGv+ia/hRLXza38VYzWzUWwyCQlEFJfSIDo1rKnrSWTvJb/fEFwDBEL
+	 JPKeZPa4scmYWkFVNd83BX8PD6AsAFE/ntT7L4dTLiOa9N2UVvHk5621fFVK/JTrit
+	 8nP4rzxGmNX87SBix4SHJDbG3XTKWfu5aPrCwZZ/55uEOr0NtymnsmiB+P9FEt7Cp7
+	 Xh+LCkkuxY1IQ==
+Date: Sat, 20 Sep 2025 19:04:10 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?P=C3=A1draig?= Brady <P@draigbrady.com>
+Cc: coreutils@gnu.org, linux-man@vger.kernel.org
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+Message-ID: <jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+ <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
+ <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
+ <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-To: Alejandro Colomar <alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="acd5mcxjjznezpbj"
+Content-Disposition: inline
+In-Reply-To: <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+
+
+--acd5mcxjjznezpbj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: =?utf-8?Q?P=C3=A1draig?= Brady <P@draigbrady.com>
 Cc: coreutils@gnu.org, linux-man@vger.kernel.org
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+Message-ID: <jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
 References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
  <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
  <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
-Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A1draig_Brady?= <P@draigBrady.com>
-In-Reply-To: <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+MIME-Version: 1.0
+In-Reply-To: <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
 
-On 20/09/2025 17:55, Alejandro Colomar wrote:
-> Hi Pádraig,
-> 
-> On Sat, Sep 20, 2025 at 05:34:03PM +0100, Pádraig Brady wrote:
->> The man pages are programmatically generated from the sources.
->> I.e. $cmd --help is processed by help2man.
-> 
-> Hmmm.  That's a problem.
-> 
->> All of the man pages have links to the info docs for full documentation.
-> 
-> I know.  However, many users don't enjoy the info docs.
+Hi P=C3=A1draig,
 
-I my experience user don't enjoy the info _reader_, while the docs are fine.
-The full docs are on the web though and also linked from each man page.
+On Sat, Sep 20, 2025 at 06:01:21PM +0100, P=C3=A1draig Brady wrote:
+> > > All of the man pages have links to the info docs for full documentati=
+on.
+> >=20
+> > I know.  However, many users don't enjoy the info docs.
+>=20
+> I my experience user don't enjoy the info _reader_, while the docs are fi=
+ne.
+> The full docs are on the web though and also linked from each man page.
 
-cheers,
-Padraig
+Yeah, the info online docs are much nicer.  However, I (and others)
+don't enjoy going online for documentation, when offline documentation
+is available.
+
+
+Cheers,
+Alex
+
+>=20
+> cheers,
+> Padraig
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--acd5mcxjjznezpbj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjO3ooACgkQ64mZXMKQ
+wqmDBQ//bQOQGY1d9w6ZTSpiGEa5+kDhO3gjcszIU0c7ZeT/3wu8Cmb/0+RdKfPu
+p+z9FRE3GMYPWr4nVm7jLmleqeaWaHMRfE0o/aEAIWpJ/WI/5sQ/wFqFmOyraTyc
+ybRb17rEDXRl3ltjd0PFhU5Enk9lE7G5YsMzoC17591kenMVLJ2Tx6LmrnLWIf9m
+lQpYi59/dPBCoK5sbJnMAYof5zbZeTpfGNXDliZgDFENiyBBf8SwydO33zcVAPWE
+NFr/QZ62IMqfFu01kI8QEnTMqEfkjvrOsHMsPQ9lZRoWl2NH+g41kA1ROd4Dbzgx
+kLiUICYQ5sCrfwL22ciUglnx/Jv7FEK7Ld7QlbOvY5uf8+mSeYhRKq3l/l98OIAC
+UE4rbMeYBFSf3W3y5t6WU54vrnr2pYOfsdKzjT41FlzTW/dGnWO5gMefpFDEKqxc
+5bLOi1n9VqgqHPCqTpGTkXSWRrcmOV1LUw+BNFuS8nvzutn+ccIAK63IhIJd3zb9
+Q2zYohaYU5Ymdx+0+jnSSUIYUSztidQLNNBdhybX35lmDPlX+gAv7u0zuDF6dUEt
+ES5pWUVcDSdec+pnluMzMRi9N6pk9SpAYiVGqcKqqgvyB+6E3Qy7LekYoAtosTum
+mmJi3ps+cb4L3h5XFPWtYmtuvRQlwX6Q41hKsk8lWGHCmT1HLLQ=
+=RG1n
+-----END PGP SIGNATURE-----
+
+--acd5mcxjjznezpbj--
 
