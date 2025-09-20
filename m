@@ -1,131 +1,118 @@
-Return-Path: <linux-man+bounces-3899-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3900-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A085B8CD83
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 19:00:58 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4282CB8CD86
+	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 19:01:31 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 219431B2614F
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 17:01:20 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2D6601B260F1
+	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 17:01:53 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03C5B19309E;
-	Sat, 20 Sep 2025 17:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24AE6192598;
+	Sat, 20 Sep 2025 17:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApFqJiYC"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QnviOpSc"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B4C2AF03
-	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 17:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292A01CD15
+	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 17:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758387653; cv=none; b=M7Sm6lfAc1Lx8T525oxe+SSLJu61i+NHpF+eKYkbK4qvG5LsyIXmwLn4tSWb04rPxWkLfRmMdKMRDZxISGyi6knLUWS2+B43Kx55BNfS2Smd9+C0v6XS59REEAv+lN52JF40xJn3cOu1IAjpBd+uwPTd7PthF43ewGTu6LGcrGY=
+	t=1758387686; cv=none; b=Uqqfqc6fS2+6p795uK+Tys9fY6MaUdMXa71AQUW6m5nSzNb+n63HTmLXnoZt45DTXSxyohUstPIksCjEzIyIU+yuxNsx1mruq3FAqEOO5c3tG4eGAaRIX8anf6cFYUeGvJnfDjcR/Iq5yxMbFRA1J2mdHKUyyYj31wpkQ8Yrna4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758387653; c=relaxed/simple;
-	bh=9r2eEq3Bap01P1QP+hLClL7GkYsOYBh3H/KoqXNHFSU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PWcG6hghn6gN/iB+x9zflkYTMhuJId1zHKn3yOWdpg+OGrXsXo7XyakTzvMYIUvEGakNWMkTbRPs1U3Ur3HRj0Y1002g17gUC4Ow2MxfEguML+DoC8RC+0qbcWOsfVX68Wx7tmZr3ugR4/c2nsJReJaa9dhzLQccSK+0LrlUeGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApFqJiYC; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A5EC4CEEB;
-	Sat, 20 Sep 2025 17:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758387653;
-	bh=9r2eEq3Bap01P1QP+hLClL7GkYsOYBh3H/KoqXNHFSU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ApFqJiYCSejFRtiQeGcy1xOYl24W7XLHu+ESHAcyhHbZDj4npf4ARkIdTvpgoviyo
-	 MX2rs1KyHcgZDFqlYVX1GTbZIsyLB2e/AwoSpifJSGFuxzIixRi4dC1TTPN+KPLcaI
-	 2AEXbwdhNL1YoH6Bvtf24VCrG+Va5JeXNbtAGEpePe2c4bB1aItUGlStTUB4uF0YgV
-	 HW4nwnuC+I2/MfHE0QMzI54nZPKxE3/V2ldTtIOEBmpI8hG3l8MQv2E30l7iTxfm8E
-	 HsBd1XL4UmLpWtR4zWy1z6+lZ9hQ1njHAsIcIVFfX42h7kYrymBCU/XMIX+jsNx6kD
-	 /B0Lvyq6YVngg==
-Date: Sat, 20 Sep 2025 19:00:48 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Sam James <sam@gentoo.org>
-Cc: coreutils@gnu.org, linux-man@vger.kernel.org
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-Message-ID: <g3oz7rydifeslrlbsnhfgy64f25mlsxp3boc56o6nbir2ljhwh@fq6pj3pr4nx5>
-References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
- <87zfap144a.fsf@gentoo.org>
+	s=arc-20240116; t=1758387686; c=relaxed/simple;
+	bh=h5+U/U0hrt9StJIlm2TdxM1rCvIx2CtD0wduZY0xEBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zaxwx2fKIAXxChqaZmYS/2xzJXm8jscg/e+1yc7kEyZ7GEQw295yPgAYNwhCrzfVUq7zwJLAKf6gberpO+C8BewD2WxlgIxfwhPeZgPzJSEN2Inya2+nlZsAcjydyWULO5n5I+bytjfIk95sXVNiJqr9I8qqW4znIn4kQas00uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=draigBrady.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QnviOpSc; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=draigBrady.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-45b9a856dc2so20478465e9.0
+        for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 10:01:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1758387683; x=1758992483; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=j93FldGBq3CmXdCDr+c3TQcCkVvLo4OSesh5EAqJcWU=;
+        b=QnviOpScR2lDbznq0eoB0uofmBh+70QmcBqWhV1WeR1xrXsdj6GwNpZU34/O2dOLfZ
+         WGAMgqS3VXsTNUCR+LLLtZmHheNLy7GI36M10F9bfwXOatFYW/Qc1LTqAqQzBf8CYuLQ
+         1+pTBpW0Vv0Sjr//4cPU+pq4+Ar7j6CTVOKNJw8PS12Ub1Hrzy9fY8mW9vmjrGW+BZek
+         ejPuoGHSEZz69cjYSW+3dAMEOZZbEH+R2XGJBUkBRyHnYv/mpiuMuCYHkbz1yP6Qzf76
+         zWX4LEj3Ax1+oPBe6lS6Y41iFBtqGMvFlP2QoViiboW8X42BDBZnQzmHpiRyQURPwROQ
+         dRZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758387683; x=1758992483;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=j93FldGBq3CmXdCDr+c3TQcCkVvLo4OSesh5EAqJcWU=;
+        b=PXfjHO3HFFq5yno7UsO7e4d7dFeHoPR5JLLQboSfquTMkSIhgXkbqlROzj6EiDeFVN
+         2j6XNpfQHnh5WepsVjzokVuoemkxitIHaAlKHNduuirEqq3qP7nAmVCNxshWS2ss68ug
+         xT//o06mm4CuT2o/OFQZNgT2wZ+zAWAjZqXzgGwmurGSXeSoMvDE4bjKPbdcQOw7ey7j
+         MMyRcpnVpWSCG/Sx47gERHYhqR6rtd9bX9RrU7nTS/pvu+BLGxJdha4ZFu//iC4OPxVF
+         LQVVL4n3Zw3mRasaFw4yodyapvHwpbbgXveJVhYiVDkPiKvORRkJMqxUubkwrIYhCzOf
+         lt+w==
+X-Forwarded-Encrypted: i=1; AJvYcCVageJUjMjvYwQVjrYaYMlS6fneg08vsEtJkbU83hvdNmlTG7RgCVhPoQmuG7QKAIsiebWXdCWCTMM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXdqmCLSYfILprS4KHuZ044pzY6BCRYykBPTQZ3ucvIiaUVFn6
+	fYuz57KeEOkin/CzLRkAlkCbCDCdZ78T9TfX8qqHnCcFdXBWbuw4zhEO
+X-Gm-Gg: ASbGnctV2POmY/YeqFyrRuWhpoK6xDALDLhdrw5GWMo3TUonDKAmfVgqSB26jc117CA
+	pH8awXfupjJK5xxhlExZBIML7uZWS5EdNQ+80W58RZ5c/VzWNRDC9vYGVKZ5NcK3rhtn0zNqD/z
+	hb5o0t43qigeTufj5WHsWDEYFjZTso/Ad9tKaaeEwDkeoV5OyaA7tPNQlPTT6ll1dntvnPsxxmw
+	hYr37gyUFtLNAFStgBpMS9gwE/u3eD3nOKG3CM+2bQ4mFdYQsQsnbQAScPEJOPihCrmeWH+Ds0o
+	up2ds4I+7/xQBrOBXGyUN83kNzWbQID5ZauQyVrmEWctK3XFSwWrctSyzSpMsbBKZCdCO5s1rT8
+	XrzTTHG4UQVp7/3zKn34JmCVR3dzP3N54/mYQSRz7MtI+zcx5BY/y0tx1pZ8JJ4W1FAZBJhifCZ
+	1rDA==
+X-Google-Smtp-Source: AGHT+IGljI8uO6DkAmCqwBt5gGx868BZ+XVKS0g2GRutwafMnldKALXgDZxMtHHoll/DKF2/WDNJHQ==
+X-Received: by 2002:a05:600c:468a:b0:45d:cfee:7058 with SMTP id 5b1f17b1804b1-467ea89da77mr72629585e9.22.1758387683090;
+        Sat, 20 Sep 2025 10:01:23 -0700 (PDT)
+Received: from [192.168.1.31] (86-44-211-146-dynamic.agg2.lod.rsl-rtd.eircom.net. [86.44.211.146])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-45f3252260csm113497175e9.2.2025.09.20.10.01.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 20 Sep 2025 10:01:22 -0700 (PDT)
+Sender: =?UTF-8?Q?P=C3=A1draig_Brady?= <pixelbeat@gmail.com>
+Message-ID: <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+Date: Sat, 20 Sep 2025 18:01:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gfpdbl6l5zo22yk5"
-Content-Disposition: inline
-In-Reply-To: <87zfap144a.fsf@gentoo.org>
-
-
---gfpdbl6l5zo22yk5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Sam James <sam@gentoo.org>
-Cc: coreutils@gnu.org, linux-man@vger.kernel.org
+User-Agent: Mozilla Thunderbird Beta
 Subject: Re: Move GNU manual pages to the Linux man-pages project
-Message-ID: <g3oz7rydifeslrlbsnhfgy64f25mlsxp3boc56o6nbir2ljhwh@fq6pj3pr4nx5>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: coreutils@gnu.org, linux-man@vger.kernel.org
 References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
- <87zfap144a.fsf@gentoo.org>
-MIME-Version: 1.0
-In-Reply-To: <87zfap144a.fsf@gentoo.org>
+ <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
+ <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A1draig_Brady?= <P@draigBrady.com>
+In-Reply-To: <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 20, 2025 at 05:27:17PM +0100, Sam James wrote:
-> Alejandro Colomar <alx@kernel.org> writes:
->=20
-> > Hi!
-> >
-> > GNU coreutils manual pages are to some degree incomplete.  I was told
-> > today that "tsort(1) is a bad joke".  I wonder if you'd be interested in
-> > moving the maintenance of the manual pages of GNU coreutils to the Linux
-> > man-pages project, where I could take care of them, and improve their
-> > contents.
-> >
-> > I understand GNU's stance on manual pages, and that you might not be
-> > interested in improving them much, but maybe you're open to them being
-> > improved elsewhere.
-> >
-> > The Linux man-pages project already documents the GNU C library, so it
-> > wouldn't be extraneous to also take ownership of the coreutils manual
-> > pages.
->=20
-> But GNU coreutils isn't Linux specific.
+On 20/09/2025 17:55, Alejandro Colomar wrote:
+> Hi Pádraig,
+> 
+> On Sat, Sep 20, 2025 at 05:34:03PM +0100, Pádraig Brady wrote:
+>> The man pages are programmatically generated from the sources.
+>> I.e. $cmd --help is processed by help2man.
+> 
+> Hmmm.  That's a problem.
+> 
+>> All of the man pages have links to the info docs for full documentation.
+> 
+> I know.  However, many users don't enjoy the info docs.
 
-(BTW, glibc isn't Linux-specific either.  There's GNU Hurd, and I
- welcome patches for it.)
+I my experience user don't enjoy the info _reader_, while the docs are fine.
+The full docs are on the web though and also linked from each man page.
 
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---gfpdbl6l5zo22yk5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjO3cAACgkQ64mZXMKQ
-wqmuIQ/+ODwDesYO2D8uK9lpSy5+pGCvTY9KABASJVQETszQ1Cbpyn+9cqxWTc9G
-Kf8TztMRkE0jAx7lt5R2bvGd7Ik84Z80L4C71oOPz9iNAPgAw3IaDmZLOtjfZeak
-8moN3+xHAfHAnET39wx/7hU2cScO8WD4gvlECtfYh0BL3rGp71gHUsHNQC5d9Mnk
-yHv3pcoATBn7mykK2WgmeFVjv2GfyBhIGJJ+GljQOoB20uuB8S99GmXjy9v7n4oj
-NoHWerGg7K20BZCxMnGxAXsJkUvjloV003bRYJ5cyZl4YoJ0zYHs3MFqCd3bqTl3
-+odb2Ilq3ojlL840QwmwnGzgSLXpgkznEESqlk8dNVzP5Up+KH48VRWKJWOS/iXV
-vNb/p4glUZMU9Op5eD9metZS0bxPH7xXnkZZWvvhL4pv+jVOMVqx096lM1GO6RXa
-s51fbiZ5Dnl0oVUV+rJH8+dBbighYE3EyhT+YwCO7UTN6MBlYSVaQ1eaxzjcFbqe
-XwLXQi2mau3RQqfBUrwXDLZ6sJZ1i0R1KKgBvXaRCYc+MWXoL5ppk11iDBphj2iG
-dJHNX9BSmLll06GIAVBwmKqPbzrUyC3VwrVKdDyUOV14NoUD8aHUB9c7QDXV31aD
-axkloukcMVHmUGjfpfEc1wYRFnfC8mazPllozE/PfveL/0P3C7I=
-=/u0F
------END PGP SIGNATURE-----
-
---gfpdbl6l5zo22yk5--
+cheers,
+Padraig
 
