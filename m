@@ -1,144 +1,135 @@
-Return-Path: <linux-man+bounces-3924-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3925-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEA2BB8D9AD
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 13:15:41 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id E9759B8DA73
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 14:02:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 898F8179B8D
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 11:15:41 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id C88DD18999F1
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 12:03:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D4851B81D3;
-	Sun, 21 Sep 2025 11:15:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14AA723C4F2;
+	Sun, 21 Sep 2025 12:02:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b="T9tLqt/n"
+	dkim=pass (2048-bit key) header.d=aarsen.me header.i=@aarsen.me header.b="wC61eWQP"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail.helgefjell.de (mail.helgefjell.de [142.132.201.35])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C57AA55
-	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 11:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.201.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8190E34BA39
+	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 12:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758453336; cv=none; b=WK6+rcGNptQcRukkqceQEYCqeW/TU2tln7dg2IHxIgv3iycW7ulI4cilsSNwW8PG4/jA72M5ubQ1IIhd+VQUGWKDzFRUMZFqp8CbUTdV0/l85/I+m37TGgs0diBYh8uUABVHeRTzmxvZgZcG7ooOwA5Dc8lFY0jE7AijCqglyRE=
+	t=1758456154; cv=none; b=nIz9zI5XCXoqrBhvSIhTQvMAArZNxFzndIrcu30zzu8DrmKJfUtZxw8vTxA0aDho1qgGtR9QhsQX7007RPfvDiYnh2vJ5yEMhq8Jn7dJgV1xX1bWZGTRmT+Y/yyvajPcjMHLzsBmWz36ietxsqFWBR/tEKhB/lhDkbkwUgMhkE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758453336; c=relaxed/simple;
-	bh=dCM6gtWscR3Dbd6inTwpLswYYgfXPmBwmnGwKxtz9ck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JMxmpP8rt/4toQHTBlihVleEEFCFhlGndR+PEAptICEdiNOavaS+vz02p50jz5AtEjZGYAQiYIfFNLJGwrDb7wcy6usBV0ZoVT3/bht7UAS4glwC2ewvFq8d/F1lRnjCipuSRF9XDLa0KXo8PpLAXzytPKXN1FDMoM/B96mqKvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de; spf=pass smtp.mailfrom=helgefjell.de; dkim=pass (2048-bit key) header.d=helgefjell.de header.i=@helgefjell.de header.b=T9tLqt/n; arc=none smtp.client-ip=142.132.201.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=helgefjell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=helgefjell.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helgefjell.de;
-	s=selector.helgefjell; t=1758453333;
-	bh=N0IhaScmlX+yvz/XVnomBo0uv+ZnPusdE2s6EDUs5eE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T9tLqt/n3TVi2V4D83flcbf8pWUI1hwW0JB4lMGICMm0JhY9bxVE0RDjbup/6VmAw
-	 9PH6BQGS9lfd3FTbW2hx3fqqXBFF+za86F5n5PX5o44oocYSwrWB9qgDxh4MC4Fu2Q
-	 0/pUq7B/h6A00h3OlV0iXSe+fuJgWpMYT73VzKGZ6SUZVs/ZPYAKjKu0U2k2bQygLd
-	 pwtSbxQkPv+dc11QVO2y60g6qk94o2rCgqDsfUZ49iUXk86qiLMyYTIHVkzbaau7Xx
-	 zoqAVu5XJJoaaLZExwi27V6Aj9ryRwUEBETYgWWRI5Fq/FOL6h8EDi/45G5HIrHEzq
-	 /nib4GX0qMCQQ==
-Original-Subject: Re: Issue in man page crypt.3
-Author: Helge Kreutzmann <debian@helgefjell.de>
-Original-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by mail.helgefjell.de with local
-  id 00000000000201AA.0000000068CFDE55.00087107; Sun, 21 Sep 2025 11:15:33 +0000
-Date: Sun, 21 Sep 2025 11:15:33 +0000
-From: Helge Kreutzmann <debian@helgefjell.de>
+	s=arc-20240116; t=1758456154; c=relaxed/simple;
+	bh=2oyT0cl7brsUNnwSCvlf77AjWN7QcRJr3MWUQ1oslII=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=sIYJlbR3/r/EB4eaiooqOELHQc6kXK3TpwqFIyjeq/yPwcyNBnPEPZMZQnGByh7XDdGWEAlOgDgHF1PSHZMQzUDFjbUovTSTLXZs8s/FlJk4eaBJLyfxgSJ8orjdf5mYTfML2MArEVDNLpaEzglGEVOkH02qQFfC+DoLknx2PlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aarsen.me; spf=pass smtp.mailfrom=aarsen.me; dkim=pass (2048-bit key) header.d=aarsen.me header.i=@aarsen.me header.b=wC61eWQP; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aarsen.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aarsen.me
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cV4cF6Y6Sz9sPx;
+	Sun, 21 Sep 2025 14:02:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aarsen.me; s=MBO0001;
+	t=1758456141;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z+UxFLccvmCCrrjzrf1Inqzggy5QFMTv2QH+8RGnUzQ=;
+	b=wC61eWQPHysmbFGASiD6oAA4Pi9vBn6CnEepzkaLhFmBlpEz1GBjjeMeYFpB4J1KACSNr+
+	dxWhvKMjxp8cyT8JjJj1PH8lgvG7tT8K2n0x3Tz/VeTZ0wR9Ib5YxYDuZUXNkxgZoJOAWM
+	FtEsmAlBQJcqmNjTQcpV2QAloQc7iXbyI4tpPExmkR+29vSbQV2kt7u5EQlNQ+wRFhxCqS
+	zIYveKxDLGiRAfCO2on6aAnd0ZLCitKTdM6NLyTH1kW8T8wUZ1hgF938u3iUtSQw5QZXJS
+	ymotutOf/f+jA3XRJoLj0w8u6KudnkVZdsKZfpmFc1Rf3DPXBZMnthfrA28yqg==
+From: =?utf-8?Q?Arsen_Arsenovi=C4=87?= <arsen@aarsen.me>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page crypt.3
-Message-ID: <aM_eVTUQQsWpunKx@meinfjell.helgefjelltest.de>
-References: <aKsmRSS7QJuxhK0o@meinfjell.helgefjelltest.de>
- <vq3wn54jxttpwmrloroygtizxhzqettwlwsx75efb33b2vz6mr@uu3uhtblkd5r>
+Cc: coreutils@gnu.org,  linux-man@vger.kernel.org
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+In-Reply-To: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+Date: Sun, 21 Sep 2025 14:02:16 +0200
+Message-ID: <87jz1sm2t3.fsf@aarsen.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_meinfjell-553223-1758453333-0001-2"
-Content-Disposition: inline
-In-Reply-To: <vq3wn54jxttpwmrloroygtizxhzqettwlwsx75efb33b2vz6mr@uu3uhtblkd5r>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
-
---=_meinfjell-553223-1758453333-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-=-=
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hello Alex,
-Am Mon, Sep 01, 2025 at 10:01:10AM +0200 schrieb Alejandro Colomar:
-> On Sun, Aug 24, 2025 at 02:48:37PM +0000, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    "fail closed"??
-> >=20
-> > "The behavior of E<.Nm crypt> on errors isn't well standardized.  Some "
-> > "implementations simply can't fail (except by crashing the program), ot=
-hers "
-> > "return a null pointer or a fixed string.  Most implementations don't s=
-et "
-> > "E<.Va errno>, but some do.  POSIX specifies returning a null pointer a=
-nd "
-> > "setting E<.Va errno>, but it defines only one possible error, E<.Er EN=
-OSYS>, "
-> > "in the case where E<.Nm crypt> is not supported at all.  Some older "
-> > "applications are not prepared to handle null pointers returned by E<.N=
-m "
-> > "crypt>.  The behavior described above for this implementation, setting=
- E<.Va "
-> > "errno> and returning an invalid hash different from E<.Fa setting>, is=
- "
-> > "chosen to make these applications fail closed when an error occurs."
->=20
-> I don't see any of this text in this page, nor in its git history.
-> Please check.
+Alejandro Colomar <alx@kernel.org> writes:
 
-Sorry, this is comming from libxcrypt, i.e.
-https://github.com/besser82/libxcrypt
+> [[PGP Signed Part:No public key for EB89995CC290C2A9 created at 2025-09-2=
+0T18:08:35+0200 using RSA]]
+> Hi!
+>
+> GNU coreutils manual pages are to some degree incomplete.  I was told
+> today that "tsort(1) is a bad joke".  I wonder if you'd be interested in
+> moving the maintenance of the manual pages of GNU coreutils to the Linux
+> man-pages project, where I could take care of them, and improve their
+> contents.
 
-So please ignore this report, I fixed our internal assignement.
+IMO, docs should not be outsourced from the project they correspond to.
+Doing so makes them harder to install and keep accurate to the installed
+version of what they target.
 
-Greetings
+> I understand GNU's stance on manual pages, and that you might not be
+> interested in improving them much, but maybe you're open to them being
+> improved elsewhere.
 
-         Helge
+It's frankly better to improve them inline.  But I'd rather see us move
+past the woefully inadequate 'man' documentation system, for instance by
+providing an info viewer users are more likely to find usable (though, I
+struggle to see why the current standalone info viewer is so
+problematic, especially since I taught multiple people who got the hang
+of it fairly easily).  Installing pages with a richer markup (HTML
+perhaps, or a new format that can be easily rendered on-the-fly to
+reflowable text or HTML) would also be nice.  The current format is one
+of lightly marked up catfiles, and so isn't great in modern
+environments.
 
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
+Given that coreutils manpages are generated from help text, adding a
+paragraph to the tsort help text would probably suffice (see sort for an
+example).
 
---=_meinfjell-553223-1758453333-0001-2
+> The Linux man-pages project already documents the GNU C library, so it
+> wouldn't be extraneous to also take ownership of the coreutils manual
+> pages.
+
+And it's a source of problems; they don't always correspond to the
+installed version of the libc, don't get installed with libc, and have
+lead to the actual manual being somewhat forgotten.
+
+> What do you think?
+>
+>
+> Have a lovely day!
+> Alex
+
+=2D-=20
+Arsen Arsenovi=C4=87
+
+--=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIyBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmjP3lIACgkQQbqlJmgq
-5nA63Q/3Ta9wufYLZxmHZFUSwx0qv/Bs4gyOo8KfaHx0jHOOajiO2rAuLTs5MRed
-FRCMP3wv/kHw3MAaz95ytNsl6/Ql6yhb+pP2EPo4EGbBvQaY/06NNAejQfUIZb7A
-zlXmIEm625l1fY0a5uu8bN1I5fCM3apC6YvGDQAyBHfzrJ3S0DJrSzpLZ3jS3Nyf
-uhzVgIDoFQ8py/irUYjY99/AIY4qNg0FPfBqwmriFCxN2iC8q5Bq2kSEbxxGwIat
-FU9Sgl8JZ2JMbkPXSLMIiuY6yITaNcfOoB2NvCwchbo8uTcPp8TAlx78WnlXjmRi
-q/oRfY7nmxTZ3hvvYPGwuZLcThVWrTJCpNj3ASjEazY4o4+xCHKzMSCBf5T+kf/4
-iCDXwZLpVW+MHJoC1QX3+TNaIBUCpKhVxQ+A55nJjWSC0s3DEA20OUr/YKQd9ujY
-5bsNur4XFIlY+cQIZDOq5hUf2iofAd3M75ICI/PDJ8C+sO6/JePXulptXmKnmkjA
-B772mjdSxfBv2xw8AAKBgY10ESfCoiDm8wY6kwoN72ymGy4ofKSrs51HQ1E+Z4ba
-2T5UM3Cx04feP4+2OUwg15pkv1AJMPRJNSaykvY/IuG0KP9ej1oZbpv51RUMEYxT
-JpqLIiKkh5FCWzSeZSPKb2TIB4b7UDTPxhMe0RAT9vkPJvgblg==
-=QH/p
+iIYEARYKAC4WIQT+4rPRE/wAoxYtYGFSwpQwHqLEkwUCaM/pSBAcYXJzZW5AYWFy
+c2VuLm1lAAoJEFLClDAeosSTFdoA/1Pc+T8MINMoT+VUIqCYJ1mJrfZNkMc2io2p
+Bu+T6pGKAQD9RC7zrlfy8prTRdqlKWjn3yoAKVMeSUaFfsdExc6SAw==
+=1i3k
 -----END PGP SIGNATURE-----
-
---=_meinfjell-553223-1758453333-0001-2--
+--=-=-=--
 
