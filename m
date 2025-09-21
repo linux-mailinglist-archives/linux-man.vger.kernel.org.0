@@ -1,124 +1,188 @@
-Return-Path: <linux-man+bounces-3911-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3912-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B556B8D766
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 10:28:47 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B91B8D79F
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 10:37:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id ED8FD7A1319
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 08:27:02 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id AFA27189BB13
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 08:37:26 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 127BF242D90;
-	Sun, 21 Sep 2025 08:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AF1324336D;
+	Sun, 21 Sep 2025 08:36:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bernhard-voelker.de header.i=mail@bernhard-voelker.de header.b="L3wsE408"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciG89hfB"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EE623D7E8
-	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 08:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE157246763
+	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 08:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758443316; cv=none; b=n482NxaplG8C6iYCDiPTJLXK9ViNhPkcud48jMZuFAchkZnqEbNabTLeqG893GTRLau0KQJ42/Zjtt1gDMilnct7JFrwxEk/eqacJw8/o+YAsKRt09mEuUJDMghdv1oJdm8Pbw8Tatvqx+oC5+rIW/oeXZSkaCGURub+QxUNwOw=
+	t=1758443805; cv=none; b=UgwLYZEGMGWrOUGC217GUf+pBOb4VEiAKpJ33GNhXAXt1AKwUsJVWHU4r6J5djO85qoxmGqzuMGIpNI+u1rAmKJ/1lvt//gvy2TeciDaPFhAiBq0xsHcxBECann3ZpSBKDH78R133jqpM7kFHqRPh0EmASdxtFGmeYlMc8OPNQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758443316; c=relaxed/simple;
-	bh=s8MFkypTB7PyoFaAEOMKvE/STPYFvQOb1VyCeyvuuN8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JvJCdxO8oYGzC/58gc0WASM5p/TO707yAG5hZbxQ3llvLiyoSm6rZjcnHzndnNbuzZPgTQth/Mqb0QAwSFy/BUnvqKbMN9uwKg6b2aS39AXdhd3vOd+AirVd/LEhzNujhN2357HRCQ/aB62S8HyqIjqCxQK9RnlXV6icSIDypbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bernhard-voelker.de; spf=pass smtp.mailfrom=bernhard-voelker.de; dkim=pass (2048-bit key) header.d=bernhard-voelker.de header.i=mail@bernhard-voelker.de header.b=L3wsE408; arc=none smtp.client-ip=212.227.126.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bernhard-voelker.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bernhard-voelker.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=bernhard-voelker.de; s=s1-ionos; t=1758443298; x=1759048098;
-	i=mail@bernhard-voelker.de;
-	bh=okexiTnExNAPZ+r0Wd+NoGYOHJNv7ykK03+alDVrX7E=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=L3wsE408LMmdFUYNMX4ujnJ2kDAJQQVjYYQsq/yUOeUBWI4EO1SuDQDx2ZOLOuIR
-	 XnEz6bPTj/F/MXKlwfhSTkxCNOHVUx2REbmBhF5ruMk+OCmlohqmE1HHPiFrt48ue
-	 THc7rD7RnIL0Zh6I+AyIf7GDmWQrkUvdVM1TE6d9Cy+c+zX0D0WMF338B14MWq3/i
-	 lJyK0VOaa2Inu192X/M1kceQdWEh/G2KH+TetWf7cJ6w9mSF7vTXFcU8YBWsvcvE0
-	 73YEi+0GH3t3Rg6AEjZenB6Vlf/kMcRvqOX8v0bff2gqUVd640gTdfxiDQjqEzOhS
-	 Vtp81l5YKjv5eIzsqg==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from [10.0.2.15] ([62.93.14.149]) by mrelayeu.kundenserver.de
- (mreue009 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MQMm9-1umpBT2cNt-00MORg; Sun, 21 Sep 2025 10:28:18 +0200
-Message-ID: <b392d936-137e-4e37-82e2-8a4fe4fced18@bernhard-voelker.de>
-Date: Sun, 21 Sep 2025 10:28:13 +0200
+	s=arc-20240116; t=1758443805; c=relaxed/simple;
+	bh=7dSZ/7nmht6ndZGG8ZxZniPV2IeqnxVaWh9k+4pCMNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KRsDh8NPCYVmPZkcYZ1k9mBSLPvuBppAYUyZz0zb43i6ACEERuRSQm4W6oT4/1DxQV1GhjTrMgf+yWv+mzoUSkH/z4BO284KxoZw6pkP/zfXGEWYHm/8TtrRbezwCiavtuhH5QZaM75nuzsyNovvHjOAiU9vZ35iQACKhzw887c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciG89hfB; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8F4C4CEE7;
+	Sun, 21 Sep 2025 08:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758443805;
+	bh=7dSZ/7nmht6ndZGG8ZxZniPV2IeqnxVaWh9k+4pCMNY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ciG89hfBjGWYetVRx/tFydqalXvYePBw0cXfoQ/D5vxJgmIgcH5mngX6HIin7iDKi
+	 F7OSmP1xHAbIdqI4T4LPNHHnefTT9jKogmcOXvAaqpa5xJV2M98ehmllz3DdEy78GA
+	 dVUox52H6/dOsF8BmA/nx+x2phw5fxI013zLpdjaL5Yz3RbskdKaVizQKbiCTjDMKe
+	 Um3prQ3nyx7+U0+LZKW/IbJW5ML/GIm6CdoK1iiLbDhppd8/Y3aT62RZG1dnpIXak5
+	 +nRX7KamE3SDcB3sdYFjCV7GVueF4dsyGmQs6TcOHGFI9yhqq22j6W/So38YlW/ZKm
+	 n+H1ziCuzLKrA==
+Date: Sun, 21 Sep 2025 10:36:41 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Collin Funk <collin.funk1@gmail.com>
+Cc: =?utf-8?Q?P=C3=A1draig?= Brady <P@draigbrady.com>, coreutils@gnu.org, 
+	linux-man@vger.kernel.org
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+Message-ID: <bj4r4qq2xznfcr355p3fyyovswrbepco7rwyrgzlps3hezskw6@zrriag3wpau7>
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+ <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
+ <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
+ <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+ <jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
+ <87o6r4zy73.fsf@gmail.com>
+ <nry5d4nhpdnujv63wyzxvuwkowzladgeqvjcqpm5yubd6p6xn2@qhce56dl465s>
+ <87tt0w7mnv.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wxzcwx636qkxdvm4"
+Content-Disposition: inline
+In-Reply-To: <87tt0w7mnv.fsf@gmail.com>
+
+
+--wxzcwx636qkxdvm4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Collin Funk <collin.funk1@gmail.com>
+Cc: =?utf-8?Q?P=C3=A1draig?= Brady <P@draigbrady.com>, coreutils@gnu.org, 
+	linux-man@vger.kernel.org
 Subject: Re: Move GNU manual pages to the Linux man-pages project
-To: Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org
-Cc: coreutils@gnu.org
+Message-ID: <bj4r4qq2xznfcr355p3fyyovswrbepco7rwyrgzlps3hezskw6@zrriag3wpau7>
 References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
  <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
  <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
  <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
- <20250920174022.zjqt6fiv4vxo6vh2@jwilk.net>
-Content-Language: en-US
-From: Bernhard Voelker <mail@bernhard-voelker.de>
-In-Reply-To: <20250920174022.zjqt6fiv4vxo6vh2@jwilk.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:hmWzydoxTEol8+zesIICLrQrWMwktl3YwT/PzjrBZ3pnc4g94A2
- x/blTuDndQuuzb5pfmtvmyC3k/a6u1DsNM4ziaNzlS1igMUuQJFnr7WswXMEp0GMsfeje7a
- IJH7GjNGTm6bfJ98zEG1lQdkYsor3aC2nK5SyNjlEnAhyBtctmdP7feR4iJk1ulOQM2iIai
- hVp6oiLrwtOHJRlo7fJqA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:jGiRzlx01W0=;EeYECA5R567Cx1pxy+83bt4XGsG
- YsWa+PJose5gPwrauLiMxaKPGkTmq1yN9V9Z+NcFNSaKqo+9P7P+VTQ1oYDL8ZqOz11JVcFkT
- qGPiK0T8n1Zc1wP9q+7BAww51OkcE1larAkYFvfaKJs2Pk2yvGLUN5/bB40M0mimyz4kAjWBL
- iPPGBmigxYyNjFzF8xqigoH9cVQTQpryNbYjYHqxJLUx75mMDn6Ap4ZwlrawMWsNgiIFPvH/2
- BZJaRQrsQJQ+9gRrVgScAn+IcbXHLfHeJS1GSDDiyMu8/cMJvnv/tZOWrIdKOmzWek6ZlI+5U
- A3Djf5u5a0W1UDP6zBh4LgtjnkH/ByjtOV499/kcUNVdS36KN7Hp55obtW+xKyAGM71ztHVBw
- RhuHtVn3bvLvCpzSkl33TQDa6GaTAKhr4CkmvNqESiF3jlp2vaEYgElZChXKdG8uxcgWC8nOY
- K0tFH225IRWdc0oYu04qxQTu+/4G5OpADskj5lSDmMUXy4Kwu5n8w8D6U/FYPWGUEa5JogNNx
- ccUVYkzzVe/883r0VzzrFhhPI6B6JJNcY6ERqZatUKYcXPmB+AIUz3OM2zzYfz3UseWZr/99y
- cOOSsIZo93guO5Oy2tKEYhR/ssx6nUtjhvPzWZVS0JP4SXnPsdcrcLQDrT4JtqPDNEazQEu4M
- Pn7m66XdA9OncgX/z5tXAQx2xL+Xms9xoQV+ghdWPDn7l0oEFPDTZCRBQGvQD28r1SyMFpFJZ
- 9QLcVvp34P5GcUEDF1Jn2p74eejJ/gKtsCRbC9cROn1POPnCjP0jgvhFS23qvWoYTr+W2DrTU
- 9PB0L8qRosfbXEAwGITI7OdcfviEO5r4HuEpZND4M+8oD0VeIBJS7QfE0P4rnVYjmzgXxGr8W
- ZwGLdf8PPgIAq2LdussyTuMXWH/IB0JcjGfTRcZRLXCl1r53UIlhyGv+NFPZWtRPCKj7yo064
- HlGgDMkVjfUXEi14H8QTXQsMAWAAXmewx/OlDxbFehS9y4y5uXQD+wlfcq4k7N9fSEt7HNtjl
- mTQsEExyfAsbBW8aDQtHXT+nPkkRBoXjooUwcJW+yc9e7nHNzon2SP8diaacYW0JQIJ6QwP4s
- 8/caSDeundlRUKcmIBtVSAmQZnblOBvZJ4iyvzZYPzMUplnu3wo1Fr2bZ9F6vsaFAwWZ+12ky
- T9mQWw3CFrKrcI3xYZs+bepLNwI/nYHZ/NBfSjYMLFg9VNqIvRunQZ1V+yPIxBLZc0YPILNuv
- yOXPp41er5FpnBx00CzotN7CbT/R+PJyf4E8WBy0J8XRX1RhMJTQAU5GTvMdQqlzMsXE8Qlur
- hUtm6AB2wxbCZLg07I5fMBHwhEIvQo7SzBWfZaThvZxjZ2xwHLrjlvoQXccnuBAV8XhEaSiwt
- TODWbZo4d+ZNES2GblJd2Q3KT47W0Wk3/xZw+HQBik9NA02JPJsukks/jL+vVOmuxCNrm0csh
- v1nDt2B+QUHm34K7DBERKEFVO16MUEBnXFSsrrUy9H5G6P60MrQIhmuU2ru8m22C722FxtoEM
- nDkxF20SaemYhsyNXh7UY5yZnpGp52ao4na1Bgn/K4CnCx47PHIupuDLcbUKc+MDt35T3oqzk
- B/+cDrlEmnuHZQdWYc6pZnepT1cQQ8e47PVfKnEwOeN6wgkSIRKRKuxCnA/bT3q3X49xErCOB
- 76qpwPwC+HpUen/e41g9OzKgvNgZFQz82MDd/mNJzxcN5Lz2bw1U84uNXAyxsYqO1jGvN17Ez
- rXc3bjxPGSIwb
+ <jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
+ <87o6r4zy73.fsf@gmail.com>
+ <nry5d4nhpdnujv63wyzxvuwkowzladgeqvjcqpm5yubd6p6xn2@qhce56dl465s>
+ <87tt0w7mnv.fsf@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <87tt0w7mnv.fsf@gmail.com>
 
+Hi Collin,
 
-
-On 9/20/25 7:42 PM, Jakub Wilk wrote:
-> * P=C3=A1draig Brady <P@draigBrady.com>, 2025-09-20 18:01:
->> I my experience user don't enjoy the info _reader_, while the docs are =
-fine.
+On Sat, Sep 20, 2025 at 04:02:28PM -0700, Collin Funk wrote:
+> > This is what I'd use in a command:
+> >
+> > 	Usage: foo [OPTIONS] FILE
 >=20
-> If you've been avoiding info docs because of the horrors of the info(1) =
-user interface (like I had been doing for 20 years or so), you should give=
- https://github.com/jwilk/informan a try.
+> Interesting, I like the documentation in --help. Regardless, it is part
+> of the GNU Coding Standards [1]:
+>=20
+>     The standard --help option should output brief documentation for how
+>     to invoke the program, on standard output, then exit successfully.
+>     Other options and arguments should be ignored once this is seen, and
+>     the program should not perform its normal function.
+>=20
+> My reading is that the mention of "documentation" implies more than a
+> usage line. One can try to change the standards through the
+> bug-standards@gnu.org, but I do not think you will have much luck in
+> this case.
+
+Yup, I don't intend to change that.  It's just my personal preference.
+
+> >> Writing all of that in groff would be a pain. More of my time would be
+> >> spent understanding the syntax than it would be focusing on the conten=
+t.
+> >> Texinfo's syntax is much more readable and easy to remember. And the
+> >> HTML and PDF output look nice to read.
+> >
+> > I volunteer to maintain the man(7) source.  To me it's quite
+> > comfortable.  When you get used to it, it's not bad.  The syntax is
+> > actually quite simple.  You don't need to learn the full roff(7)
+> > language; the man(7) macros are quite small compared to it.  mdoc(7) is
+> > much more complex than man(7), for comparison.
+>=20
+> mdoc is the format mandoc uses for the different BSD man pages, correct?
+
+Yes, the BSDs use mdoc(7) instead of man(7).  Some Linux projects also
+use it (for example, nginx), but they're minoritary.
+
+> > The PDF output of man(7) also looks nice.  Please have a look at the
+> > PDF book of the Linux manual pages:
+> > <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/man-page=
+s-6.15.pdf>
+> >
+> > Or you can read single-page PDFs by running pdfman(1), which some
+> > distros already package, or you can find pdfman(1) in the man-pages.git
+> > repo (it's a shell script).
+>=20
+> It looks good,
+
+I'm glad you like them.  :)
+
+> but I still prefer the Texinfo PDFs.
+
+Makes sense.  I don't intend to replace that.  I think it would be nice
+to provide both.  Some details might not be necessary in the manual
+pages, I agree, so they can be a short version of the info manual, but
+the current ones are too lacking, IMO, and having them tied to --help
+makes it hard to make them useful, since I also wouldn't want to expand
+--help much more than what it currently is, and also maintaining
+generated manual pages is less than ideal.
 
 
-My distro has 'pinfo' installed.  I like that better than raw 'info'.
+Have a lovely day!
+Alex
 
-Have a nice day,
-Berny
+>=20
+> Collin
+>=20
+> [1] https://www.gnu.org/prep/standards/standards.html#g_t_002d_002dhelp
 
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--wxzcwx636qkxdvm4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjPuRIACgkQ64mZXMKQ
+wqkd0RAAkkPUEbclKihH38+fmAsnQ8ETN90ii62JL7Qm1+mauvbpmqSq6exWsui6
+tlNtP3MLQoJg9978GXk4TWJdkTvTuzboojM6HSTwPIeHvyvBwXFZWvvyTwK/y73n
+pEBGBwAprkG2LhJUm9kGrxqLTJ44+mxOZaO2n1ovoQS8SHSTI1Lrtr6M50Tkh+aG
+DGrgrDKwbVSSWAW5T/vniA/h4h/km/E1/SfgToWvg42zUDrZACrS8NUSFZhLpACo
+eOCjwU/AaemcAjVUne2APE9eXECq6JDswJBdXjLCdfET+s4rHbL23PQuMKOJ5FWx
+utQTB5k5TVevR1LhMMLNTKopwxM6m2+Yt8B3sBFuzm2GdbDXdMKTUnFw9MqZAAXx
+vCQLffzM3n2cppIf2Nf+tzwrWM6thPq6b0UX0Nz3nUEgPBp86rUMA3V1a97J9mPu
+rduYVEn2oriBvNpYIs0Vpvrpd3AXdqPy5aBTppcoHVPrj8Q58nyaT54bMugx90pI
+nBvRbmuYRY5TUDrVr9rGdqshad1PTgXVRgNBVx0iJm/ozhhCvkNcg/Wjhj786rCa
+pNLy/kuM+u+c9OGTP2o4cXR/8fo6wvZVzzNINlhmSsJsDrxbX1f7zLODd1INMSQk
+IfQY9D6Epk5+MvDxpak4uYlCOWEzLO8qRehjRoeP2vyMmNr7/HU=
+=yoSS
+-----END PGP SIGNATURE-----
+
+--wxzcwx636qkxdvm4--
 
