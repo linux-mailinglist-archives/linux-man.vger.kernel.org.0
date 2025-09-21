@@ -1,179 +1,134 @@
-Return-Path: <linux-man+bounces-3928-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3929-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB29BB8DD4A
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 17:17:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C3BB8E48E
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 22:00:45 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id BECFD7A203B
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 15:15:55 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 77ED57A3A77
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 19:58:49 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 041FB1B043C;
-	Sun, 21 Sep 2025 15:17:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B70F1A5B8D;
+	Sun, 21 Sep 2025 20:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/qP71uH"
+	dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b="L2YZc2+j";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JiZrb4sO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AEF846F;
-	Sun, 21 Sep 2025 15:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAE61EB5C2
+	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 20:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758467848; cv=none; b=PSIjQ+y+ZzGGtmTAMIGVaoCmKRBUsnhQ0e2dF2B9a+pa53mswBhlU9Jdz2oy92LiCs8TNNrbrYk2SyrmbeNXM1rBcAiZb0+2lmZkBAMn0KNOaC7+xY/7LBgqnfPwDWdOsvhfv+FrsdSd73NpUUL176OCPfDe80ajNzdldGo2KbE=
+	t=1758484822; cv=none; b=f/12EdpsJpXYRliZSF98WEij1mEpzuNTDf2FTwliKAtnvjvCNhwaGq2nCleKgTovjT0LeKs4f0RAGQ7ds/SEHSARSmYK5C/3Jv35U5uDsbGLYt4JK/mjpI2Mn5qNrS1KgHmF0d7Vdes/2BaFLSlkbSw4GEmoLdUGeWk4A/+ZEH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758467848; c=relaxed/simple;
-	bh=wB6t+PXCW9xWp0M7SlgE39OvB5IKHEMkH6szH1iq7o8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OUNMZuo9Daw+iGncvqzwjWsGmYFc7UpafZl5lu54T5/WxUY5jWj+3ObhNnZx4/9ZljmlcDcoOzC+24Qlph+NnTcIgem3+TbCi11nCQ3EyyeAw4NrwDZ9tVYSr/CYPPdu6tX6uamUX6SSOX+URPpKU3yi4vP467f/KOlHNNO6IXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/qP71uH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1BA3C4CEE7;
-	Sun, 21 Sep 2025 15:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758467848;
-	bh=wB6t+PXCW9xWp0M7SlgE39OvB5IKHEMkH6szH1iq7o8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i/qP71uH939/px8WS9ORSXfpsmn6bSVJSbLh8vMm3hYpGip1hxDmk14qjfpymPFeV
-	 gtXzDCZwDXo1kElLvYuU07on20lScurvRvB7bNq4k8RhMxmaxAVpiUWe1t9djd+bkG
-	 LqW9CcE3TSMQMjThx+OAwYMpMAhAA9Q4HjWhFDPqHc/GShQFerZ7lyszwao5d2VP01
-	 yw1/QKjTZ8V5vNUwUg8ezLxxZ+vcOGpi1lCL5F5Dh5LbQq7BVZMUhwF4ORkf73/LOB
-	 TPVNaCVDt3r275sm4Vl12OoM1rKEBh3SKiEWd2xeqZ9x1bdUadV5+5mWBWLpe3ms/x
-	 aajlUckXAyiCg==
-Date: Sun, 21 Sep 2025 17:17:20 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v4 03/10] man/man2/fspick.2: document "new" mount API
-Message-ID: <5mty7i4v7ygpbedhjevg2fvdlm26rmxeatar7a2u675ulacfyh@ljjjc4za4nl6>
-References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
- <20250919-new-mount-api-v4-3-1261201ab562@cyphar.com>
- <y77zyujsduf5furdf2biphuszil63kftb44cs74ed2d2hf2gdr@hci7mzt6yh7b>
- <2025-09-21-petite-busy-mucus-rite-01PHer@cyphar.com>
+	s=arc-20240116; t=1758484822; c=relaxed/simple;
+	bh=gAl4fIOnpPzEIw6hQmBxSxx3dOjU8wYLpa9YRW1m/R4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=WVcZaePdyssBXS/icHRpUqHJ38UUa/UjK62QQO1MaS/XVu1rD5Spyfd+h1ngWSrCI4XEIx7Zl9dXGpk8uo9RQ9TBwYcc0Qbd+cstGvCqwp/dzobHHYgXkRE4sbVI4lX2FytnwW68odMV6o0QUHr+YbahRhDmP+37CjkKeDecGs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net; spf=pass smtp.mailfrom=wolber.net; dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b=L2YZc2+j; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JiZrb4sO; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolber.net
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 9287AEC0109;
+	Sun, 21 Sep 2025 16:00:18 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-02.internal (MEProxy); Sun, 21 Sep 2025 16:00:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolber.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1758484818;
+	 x=1758571218; bh=BdPFU9lpp21uSemThmTQ0B16KhiUZUhDGffIgbA3eyM=; b=
+	L2YZc2+jTRcRanyGlhQktsjqBIfTtboll6536DcW2oZdGKEhea82fbH3LyU1tVz9
+	JePzud+wbhuVh+TNS+zuFhT1OG4GY9DInywVYwGOmkbmZMKuxuIufj+z9kjjkPI2
+	DzbI+gTGJa3JwMqebvOayM+UGaOtF2zTZU45bmaphFYIkiPoMCqFer+0BSAF3lgy
+	QKK9jyMjOeP1Wfp0Di4p2AqvcossApzsPUko+++caJUxopzC8RxmvpxFUIZp2Tkx
+	NFb3SIr3xOWv7G+AeWs2e+SYD71CAFcsLSIOAg8oX9jOoKzK5b8YwNJa9A6eB6Pi
+	fsrydglOyutErgCqQTRrbA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1758484818; x=
+	1758571218; bh=BdPFU9lpp21uSemThmTQ0B16KhiUZUhDGffIgbA3eyM=; b=J
+	iZrb4sOA3Rv30kXenYjSRqOtT31lAyUKCgkCTdaHjl5POopWsr2VGb50JROPAa2O
+	HqajnYHWvNoe6Rq/daXJP/uaJk54FYjvFIATkwcmRZZiWP56oNoAgkCoi+DSJQma
+	6XFuu0Y+REX8kL2E3djRnIUZQsFXea4eCr7yJYidwfNc0Ls7CHzeoNM7KYjAYK/V
+	Fhyo0Tsm+wKuDn4BKxpdw5QsBWq2z1SSu+WGBPF5y1WKvkiRjsKQS95L86/d/EJg
+	pRYkT7Lv22+t9WNM1eyMrTFyzz66C1i419BVjILPLfh45zZ3YxoR/WiO0w82i8GF
+	ilkId/GRS5Wd+KnFcuSFQ==
+X-ME-Sender: <xms:UlnQaHELVvpHThPxVHrI0ye7h2KD1arKIB72u3D0ykm1BtAAC200rw>
+    <xme:UlnQaEWBDLd_yW02KkL-mautiqaLSZSTvAie0K_alYomu9Ec0PgGIhzSkB5OSskTK
+    17mI2Td9-o9UyfVXTA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdehheekjecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecunecujfgurhepofgggfgtfffkvefuhffvofhfjgesthhqre
+    dtredtjeenucfhrhhomhepfdevhhhutghkucghohhlsggvrhdfuceotghhuhgtkhesfiho
+    lhgsvghrrdhnvghtqeenucggtffrrghtthgvrhhnpeeghfeiledvgfevvdffgfduheeuue
+    ekgfeffefhiedujeeiveehkefghfdttdduteenucevlhhushhtvghrufhiiigvpedtnecu
+    rfgrrhgrmhepmhgrihhlfhhrohhmpegthhhutghkseifohhlsggvrhdrnhgvthdpnhgspg
+    hrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepphesughrrghi
+    ghgsrhgrugihrdgtohhmpdhrtghpthhtoheptghorhgvuhhtihhlshesghhnuhdrohhrgh
+    dprhgtphhtthhopegrlhigsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhig
+    qdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:UlnQaEZPWd2cxN7O6R8poqOb1IEYgkSjoxrBBZvgXRQ7xhNQNcCgBg>
+    <xmx:UlnQaK3yXZNKtXF4rySqWQhtncovyqVLCbev_yJGkHvGRmuRiU4yLQ>
+    <xmx:UlnQaCfVbmzuLudbOgLioRUqeRaEgb8kFeOuSo_hn0_iXbF1HsK-zg>
+    <xmx:UlnQaDGy0ivwKe6SkEl8cEwJ4kqxpt7KA5pswGkElbpH_y4qel_0RQ>
+    <xmx:UlnQaNjRkzCb76WvblW0hxtVA6gh7U42f8rMoulbObl9V96m7ETVL8wh>
+Feedback-ID: i5cf64821:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 2732818E0069; Sun, 21 Sep 2025 16:00:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uoobs7joup3kfhd6"
-Content-Disposition: inline
-In-Reply-To: <2025-09-21-petite-busy-mucus-rite-01PHer@cyphar.com>
-
-
---uoobs7joup3kfhd6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v4 03/10] man/man2/fspick.2: document "new" mount API
-Message-ID: <5mty7i4v7ygpbedhjevg2fvdlm26rmxeatar7a2u675ulacfyh@ljjjc4za4nl6>
-References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
- <20250919-new-mount-api-v4-3-1261201ab562@cyphar.com>
- <y77zyujsduf5furdf2biphuszil63kftb44cs74ed2d2hf2gdr@hci7mzt6yh7b>
- <2025-09-21-petite-busy-mucus-rite-01PHer@cyphar.com>
-MIME-Version: 1.0
-In-Reply-To: <2025-09-21-petite-busy-mucus-rite-01PHer@cyphar.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 21 Sep 2025 20:00:15 +0000
+Message-Id: <DCYQUC1K8JYG.PT86UCKZWIHR@wolber.net>
+Cc: <coreutils@gnu.org>, <linux-man@vger.kernel.org>
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+From: "Chuck Wolber" <chuck@wolber.net>
+To: =?utf-8?q?P=C3=A1draig_Brady?= <P@draigbrady.com>, "Alejandro Colomar"
+ <alx@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757> <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com> <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb> <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+In-Reply-To: <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
 
-Hi Aleksa,
+On Sat Sep 20, 2025 at 5:01 PM UTC, P=C3=A1draig Brady wrote:
+> On 20/09/2025 17:55, Alejandro Colomar wrote:
+>>=20
+>> I know.  However, many users don't enjoy the info docs.
+>
+> I my experience user don't enjoy the info _reader_, while the docs are fi=
+ne.
 
-On Mon, Sep 22, 2025 at 12:55:13AM +1000, Aleksa Sarai wrote:
-> > This should use '.B. (Bold).  BR means alternating Bold and Roman, but
-> > this only has one token, so it can't alternate.
-> >=20
-> > If you run `make -R build-catman-troff`, this will trigger a diagnostic:
-> >=20
-> > 	an.tmac: <page>:<line>: style: .BR expects at least 2 arguments, got 1
->=20
-> Grr, I thought I fixed all of these. I must've changed it in a rework
-> and forgot to fix it.
+And that is all it takes to kill the value.
 
-No problem; mistakes happen.  :)
+Perhaps I am unusual, but I typically only pull up documentation when I am =
+deep
+into a problem and need a specific answer. My brain is already full of prob=
+lem
+details and I have little left for an interface that requires more than a t=
+oken
+amount of navigation effort.
 
-> > > +Please note that\[em]in contrast to
-> > > +the behaviour of
-> > > +.B MS_REMOUNT
-> > > +with
-> > > +.BR mount (2)\[em] fspick ()
-> >=20
-> > Only have one important keyword per macro call.  In this case, I prefer
-> > em dashes to only be attached to one side, as if they were parentheses,
-> > so we don't need any tricks:
-> >=20
-> > 	Please note that
-> > 	\[em]in contrast to
-> > 	...
-> > 	.BR mount (2)\[em]
-> > 	.BR fspick ()
->=20
-> Based on my testing, doing it that way adds whitespace to one side of
-> the em dash
+Man pages are great this way. Like any documentation, they almost never con=
+tain
+_exactly_ what I need, but they are good enough, and navigation is trivial.
 
-You're correct; this adds whitespace on one side of the em dash.
+Anytime I hit the bottom of a man page and there is a reference to addition=
+al
+detail in an info page, my next step is a search engine.
 
-> and typographically em dashes should not have whitespace on
-> either side AFAIK.
+..Ch:W..
 
-This rule differs for different style guides, and different languages.
-In Spanish, the most common style is having spaces as if the dashes
-were parentheses; very much in a logical style, like quotes not having
-extraneous punctuation inside them.
-
-I very much prefer the Spanish conventions, and dislike the more common
-used conventions for English.  I don't know if Branden can illustrate us
-with some history about em dashes.
-
-> If there is a way to get the layout right without
-> breaking the "one macro per line" rule, I'd love to know! :D
-
-There's a way.  I'll show it just for your curiosity.  :D
-
-
-	.BR mount (2)\[em]\c
-	.BR fspick ()
-
-(I hope it works, because I haven't tested it.  Accidental typos might
- break my untested examples.)  :)
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---uoobs7joup3kfhd6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjQFwAACgkQ64mZXMKQ
-wqkV5w/9GcRWolkmcFLp9q+F29lEA747+yi0l2yW0atOOQNVEFNbVX5o1+S7jZDH
-RS2pTsM9YAhA4i4RgxMBMYOtNcDB+mdqX2kjMNkORoMqxC1ePROibQz2MQCuJlJp
-Ok8OA3M/5NrctrshMfuMRf0weY+BJWIMfryhMz5zYByXQW6Gi6RMubBCs1Awc8It
-PYpueQJpIk18PZ1Jpxf4RR2FUidcNNJ/QR6ETW63COgBYoByZuAnm7guSHWdi1wQ
-r0f9rAXwO2ll3FcgRo0f3YJIARx/Xk4Kto03B8YZ903llyNlhsFcBqqQsKnIKmxl
-dDuj92J04t3dNhST4H5X4cuFwsHJjDND43OVfwAWi4lmE0p7uMXWVfxMhYFqFg8J
-4J/l0v7HcJ//aZ1qR1MCskp8++YUUE7RlGxsvwTlVKSxtSJ7NLS5X2fCUCCo92aJ
-6NfilDOr54bqz59ks06SX0sAoiXIuPZ5SN2Wpa7WYD1B4N4HWkEmQssiMCa0hJi9
-fYkCs613XPasoqJLYewClhekxmeTVk6/d1rWb5kNcoPUmw8SynE6Ui9qQaNyqCgX
-/kU6XyAtMqvILhHQ7Df9+KxILEHxOa6GLLG+Pyc+hDHbfIhM/JUTkOxPohNGw+ut
-AoRyXT70bkFOaa2T8dxOR+AEarlP6ec7Tla9kG9CSZSDPLyvMNk=
-=WeB5
------END PGP SIGNATURE-----
-
---uoobs7joup3kfhd6--
 
