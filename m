@@ -1,134 +1,111 @@
-Return-Path: <linux-man+bounces-3929-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3930-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C3BB8E48E
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 22:00:45 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8196FB8E95E
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 01:08:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 77ED57A3A77
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 19:58:49 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 459253B845D
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 23:08:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B70F1A5B8D;
-	Sun, 21 Sep 2025 20:00:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 257A6275B16;
+	Sun, 21 Sep 2025 23:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b="L2YZc2+j";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JiZrb4sO"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TpBxzyam"
 X-Original-To: linux-man@vger.kernel.org
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAE61EB5C2
-	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 20:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D501245005
+	for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 23:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758484822; cv=none; b=f/12EdpsJpXYRliZSF98WEij1mEpzuNTDf2FTwliKAtnvjvCNhwaGq2nCleKgTovjT0LeKs4f0RAGQ7ds/SEHSARSmYK5C/3Jv35U5uDsbGLYt4JK/mjpI2Mn5qNrS1KgHmF0d7Vdes/2BaFLSlkbSw4GEmoLdUGeWk4A/+ZEH8=
+	t=1758496111; cv=none; b=nxoc9TXZM/Sukt9NYIQVzLoHPe4i1AVrEtZGa0f2icGKTowyGU4Mg8CFNTM1qSKwwj++b1FzY+m5+TA0ybf7QNDj8CXwzHvhZfmVlMxDDC45aOn7tt5QtNtUdj32GVc71mdLL0GX9B+yO79V3q90LYqahzFi4PpXMpMq6z91sbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758484822; c=relaxed/simple;
-	bh=gAl4fIOnpPzEIw6hQmBxSxx3dOjU8wYLpa9YRW1m/R4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=WVcZaePdyssBXS/icHRpUqHJ38UUa/UjK62QQO1MaS/XVu1rD5Spyfd+h1ngWSrCI4XEIx7Zl9dXGpk8uo9RQ9TBwYcc0Qbd+cstGvCqwp/dzobHHYgXkRE4sbVI4lX2FytnwW68odMV6o0QUHr+YbahRhDmP+37CjkKeDecGs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net; spf=pass smtp.mailfrom=wolber.net; dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b=L2YZc2+j; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JiZrb4sO; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolber.net
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9287AEC0109;
-	Sun, 21 Sep 2025 16:00:18 -0400 (EDT)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-02.internal (MEProxy); Sun, 21 Sep 2025 16:00:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolber.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1758484818;
-	 x=1758571218; bh=BdPFU9lpp21uSemThmTQ0B16KhiUZUhDGffIgbA3eyM=; b=
-	L2YZc2+jTRcRanyGlhQktsjqBIfTtboll6536DcW2oZdGKEhea82fbH3LyU1tVz9
-	JePzud+wbhuVh+TNS+zuFhT1OG4GY9DInywVYwGOmkbmZMKuxuIufj+z9kjjkPI2
-	DzbI+gTGJa3JwMqebvOayM+UGaOtF2zTZU45bmaphFYIkiPoMCqFer+0BSAF3lgy
-	QKK9jyMjOeP1Wfp0Di4p2AqvcossApzsPUko+++caJUxopzC8RxmvpxFUIZp2Tkx
-	NFb3SIr3xOWv7G+AeWs2e+SYD71CAFcsLSIOAg8oX9jOoKzK5b8YwNJa9A6eB6Pi
-	fsrydglOyutErgCqQTRrbA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1758484818; x=
-	1758571218; bh=BdPFU9lpp21uSemThmTQ0B16KhiUZUhDGffIgbA3eyM=; b=J
-	iZrb4sOA3Rv30kXenYjSRqOtT31lAyUKCgkCTdaHjl5POopWsr2VGb50JROPAa2O
-	HqajnYHWvNoe6Rq/daXJP/uaJk54FYjvFIATkwcmRZZiWP56oNoAgkCoi+DSJQma
-	6XFuu0Y+REX8kL2E3djRnIUZQsFXea4eCr7yJYidwfNc0Ls7CHzeoNM7KYjAYK/V
-	Fhyo0Tsm+wKuDn4BKxpdw5QsBWq2z1SSu+WGBPF5y1WKvkiRjsKQS95L86/d/EJg
-	pRYkT7Lv22+t9WNM1eyMrTFyzz66C1i419BVjILPLfh45zZ3YxoR/WiO0w82i8GF
-	ilkId/GRS5Wd+KnFcuSFQ==
-X-ME-Sender: <xms:UlnQaHELVvpHThPxVHrI0ye7h2KD1arKIB72u3D0ykm1BtAAC200rw>
-    <xme:UlnQaEWBDLd_yW02KkL-mautiqaLSZSTvAie0K_alYomu9Ec0PgGIhzSkB5OSskTK
-    17mI2Td9-o9UyfVXTA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdehheekjecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecunecujfgurhepofgggfgtfffkvefuhffvofhfjgesthhqre
-    dtredtjeenucfhrhhomhepfdevhhhutghkucghohhlsggvrhdfuceotghhuhgtkhesfiho
-    lhgsvghrrdhnvghtqeenucggtffrrghtthgvrhhnpeeghfeiledvgfevvdffgfduheeuue
-    ekgfeffefhiedujeeiveehkefghfdttdduteenucevlhhushhtvghrufhiiigvpedtnecu
-    rfgrrhgrmhepmhgrihhlfhhrohhmpegthhhutghkseifohhlsggvrhdrnhgvthdpnhgspg
-    hrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepphesughrrghi
-    ghgsrhgrugihrdgtohhmpdhrtghpthhtoheptghorhgvuhhtihhlshesghhnuhdrohhrgh
-    dprhgtphhtthhopegrlhigsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhig
-    qdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:UlnQaEZPWd2cxN7O6R8poqOb1IEYgkSjoxrBBZvgXRQ7xhNQNcCgBg>
-    <xmx:UlnQaK3yXZNKtXF4rySqWQhtncovyqVLCbev_yJGkHvGRmuRiU4yLQ>
-    <xmx:UlnQaCfVbmzuLudbOgLioRUqeRaEgb8kFeOuSo_hn0_iXbF1HsK-zg>
-    <xmx:UlnQaDGy0ivwKe6SkEl8cEwJ4kqxpt7KA5pswGkElbpH_y4qel_0RQ>
-    <xmx:UlnQaNjRkzCb76WvblW0hxtVA6gh7U42f8rMoulbObl9V96m7ETVL8wh>
-Feedback-ID: i5cf64821:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 2732818E0069; Sun, 21 Sep 2025 16:00:18 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1758496111; c=relaxed/simple;
+	bh=kp7sTRbvQCXDyuEv7lCMhx18j8NoJQstWz5bEdlO6i0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h7wzzObZmqpwUvax//7NGT+FeedWAFuHnCBwy9wQZYRZKGrbugJxQBKZfjnaagsis/Wu4f3FMez6IgU9VTNToEQqrz33AIECvZBvZd74LzvCjz9yRhTTMQ4ijrqnY6dDhsq/fJRz2m9+8dseSV4qS5iRma1jmEOvJJ5iTgsEOJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TpBxzyam; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-b0473327e70so712744466b.3
+        for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 16:08:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1758496109; x=1759100909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6tuSy0V0l07vFSFy9Q6h9CIcImr/SidadizJrDYoMvw=;
+        b=TpBxzyamd3UoBsYuC7Kxvt8fyDLb5JWbAeYqjsLW+uE1kscQ8YDM0fE39a+IZJDj4p
+         6FvQ6J3Y9eySk9poPZpSf5HrlBLc7dNhHUKSdTp8xGK/btqZtp8G55HthLKgzS3ivoJj
+         CzHvMqA5TGUHWXoUCxHUAo7gse9eaK607GuXpAJ9SQijVj9/jvG8RbYJOe1v71Yrc+0s
+         /VUNWWm8Pvn/qO7nNYSnXwK77iVE04NvWL/q5uJlMBRDVx8CA/t/StpdpYT2Wr1iuaGV
+         W3fpq3NRoVVvKT5BzBBS2z/Nyj0SOCRRJ21eckXkrz59rmoZQdEjRDqadKWlgOkQg8ny
+         lpgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758496109; x=1759100909;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6tuSy0V0l07vFSFy9Q6h9CIcImr/SidadizJrDYoMvw=;
+        b=j/s+bhzwncnpupPu4pGrks60sMptsthf1sVf1uNKBdsxI04pY4+vsJRj5AvanzNTq0
+         tw5RCaUr1zyWXkRJeVrsm3xL0EIq6eDnvteKNNIIVwFmA3rpXEepY9A3C/EAlgqDEbQY
+         l9c76p1xsGgM38b24YOp3BcZtbq3fQ0w2Q/Kt/FGuHZVaqgjvkelcW4bqGkKilzsi2KB
+         Iex8lMCwckUd+H4Q6nfSi1HIod2fInR/ehY+Hog5Nip9v98h3UJ3Hjy8sHTXhmElNdS5
+         OqKRi60ZKruQRABzvZsXL4n36FbQIC10F1Cw5l/ppRa/pvXm9CxjyACUllyu9Iva9AO4
+         irIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUmh+/q0TEv/pTECCK+sLtQMdWBB8Q22NoDdZxm+FvCJk60boL5k+OniTX38671r63Mwg8sHWW+7Rs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yziljpe4t6uPC/mqL4OE/+LUSsRqjbLm18A826j7/NVq4oif/FD
+	jnKn8Lox1e0FENbZD8oCoOlxzeSVdYJyfaSjXALbRWcFsS5+3H91RoFX
+X-Gm-Gg: ASbGncvznrprZXl26Z7pvGsg/Ri2gbAW/mb50eyrRIxdyc1h4J/kiJXkGvMQmjBzvAd
+	xqH6sAM+p/vULKot/9jTvQ5DEuEY10XDbOfEKQ7cvMs4zaLSn03zjXNlJmbE3g2QUA34Ifpd/XL
+	xeDmYp4Xdts1TGu+JtxsTnFkBAXiioS4tzrMGIRzbS0k30scfJDUQFz0jsUnMaxW4grVk5C6Vb5
+	PRUU7ET7FOexath7f+2/SBYjAIDOufBnn/wj6w3p9EOxdkTBvPaK3sWqU8XG5vxmXjAPvDp2KOI
+	RXUI3pZ3gJWibVWaQVCgtuWxq1GAuO+JgXXjPEKzSOOuI+NgaCN+Vdz1Cd44EhYXK8fAuMlNVE1
+	4w317vTc60gUDJ9VNNKI=
+X-Google-Smtp-Source: AGHT+IGaYL0rZYaG01O9JWNyxpX9QMFT7dX6PEZPc8o/39RX71pF0AyzIyHiFTeTuo7PDhxHHUV32g==
+X-Received: by 2002:a17:906:6a19:b0:b2c:b12f:429b with SMTP id a640c23a62f3a-b2cb12f63f9mr126937766b.62.1758496108686;
+        Sun, 21 Sep 2025 16:08:28 -0700 (PDT)
+Received: from localhost ([212.73.77.104])
+        by smtp.gmail.com with UTF8SMTPSA id a640c23a62f3a-b1fcfe88badsm941730566b.52.2025.09.21.16.08.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 21 Sep 2025 16:08:28 -0700 (PDT)
+From: Askar Safin <safinaskar@gmail.com>
+To: cyphar@cyphar.com
+Cc: alx@kernel.org,
+	brauner@kernel.org,
+	dhowells@redhat.com,
+	g.branden.robinson@gmail.com,
+	jack@suse.cz,
+	linux-api@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-man@vger.kernel.org,
+	mtk.manpages@gmail.com,
+	safinaskar@zohomail.com,
+	viro@zeniv.linux.org.uk
+Subject: Re: [PATCH v4 05/10] man/man2/fsmount.2: document "new" mount API
+Date: Mon, 22 Sep 2025 02:08:18 +0300
+Message-ID: <20250921230824.92612-1-safinaskar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20250919-new-mount-api-v4-5-1261201ab562@cyphar.com>
+References: <20250919-new-mount-api-v4-5-1261201ab562@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 21 Sep 2025 20:00:15 +0000
-Message-Id: <DCYQUC1K8JYG.PT86UCKZWIHR@wolber.net>
-Cc: <coreutils@gnu.org>, <linux-man@vger.kernel.org>
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-From: "Chuck Wolber" <chuck@wolber.net>
-To: =?utf-8?q?P=C3=A1draig_Brady?= <P@draigbrady.com>, "Alejandro Colomar"
- <alx@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757> <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com> <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb> <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
-In-Reply-To: <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat Sep 20, 2025 at 5:01 PM UTC, P=C3=A1draig Brady wrote:
-> On 20/09/2025 17:55, Alejandro Colomar wrote:
->>=20
->> I know.  However, many users don't enjoy the info docs.
->
-> I my experience user don't enjoy the info _reader_, while the docs are fi=
-ne.
+> Note that the unmount operation on close(2) is lazy—akin to calling umount2(2) with MOUNT_DETACH
 
-And that is all it takes to kill the value.
+MNT_DETACH, not MOUNT_DETACH
 
-Perhaps I am unusual, but I typically only pull up documentation when I am =
-deep
-into a problem and need a specific answer. My brain is already full of prob=
-lem
-details and I have little left for an interface that requires more than a t=
-oken
-amount of navigation effort.
-
-Man pages are great this way. Like any documentation, they almost never con=
-tain
-_exactly_ what I need, but they are good enough, and navigation is trivial.
-
-Anytime I hit the bottom of a man page and there is a reference to addition=
-al
-detail in an info page, my next step is a search engine.
-
-..Ch:W..
-
+-- 
+Askar Safin
 
