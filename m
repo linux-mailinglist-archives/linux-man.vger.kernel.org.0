@@ -1,129 +1,162 @@
-Return-Path: <linux-man+bounces-3908-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3909-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D4DFB8D23C
-	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 01:18:36 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0B17B8D318
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 03:34:06 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id D707B3A6B07
-	for <lists+linux-man@lfdr.de>; Sat, 20 Sep 2025 23:18:34 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 63962189DDE5
+	for <lists+linux-man@lfdr.de>; Sun, 21 Sep 2025 01:34:28 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E788F285419;
-	Sat, 20 Sep 2025 23:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1FB31547EE;
+	Sun, 21 Sep 2025 01:33:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aGvbwj3l"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="f8b1ZJl1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474AC272E6E
-	for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 23:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960BD2F4A;
+	Sun, 21 Sep 2025 01:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758410308; cv=none; b=TXbigOCBioYV7ztuMMJncrb5KCoCvfdbNMPmh/uQjloK2iusPhYppPV1d5nJKwj+MbkGzlFy5rsy3TqKOf4/xpxqL6h/wX2sgCk/OgehPdN0ILkAyAOtuMXZSfhEauVhzVFVWM8mX+D4hEp0eB503w2KktKvfFVq5ZoEnb9wKak=
+	t=1758418439; cv=none; b=F/bZunO7pI2q2VChU0Rzzxl9RcukueToe5iF5yjUXxzdx3phlg79+lSgsRvwlcv9WZeF7yS4F+uZSHRH+N8Jru/NRbWH6ZJuo/xbw/qht09rLiC7htzsPRqiZBKIGUdt0bf5u2C5Xgl2rLrJdGnn3mxwJSbpgrtvW1aW51C381U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758410308; c=relaxed/simple;
-	bh=Qf2N/W9iKqqJwjm1Y0EJHd6gWo0u0bSYPDmnHUXJX6k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=End0Rrm4McY/Kfm17BAfO/1kKAJSxqKkFEGa1tY6SOyGLKKNr5wBwmMvlBy9odkKXUdTourGffo+v7l/ReG9YJM3vsQkbebwPzVGJfJR02Hk6JTAoNYxRJzBYunmYRiu/TLYXSizuL1a3KahfRqO+JVYQ4T8okcJzRWa2MwZ2zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aGvbwj3l; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-77ddfe29cccso2034040b3a.2
-        for <linux-man@vger.kernel.org>; Sat, 20 Sep 2025 16:18:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758410306; x=1759015106; darn=vger.kernel.org;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qf2N/W9iKqqJwjm1Y0EJHd6gWo0u0bSYPDmnHUXJX6k=;
-        b=aGvbwj3l9KtyBIE3rR3+vY0uAxvl2I/9GOaLq770yZxEs2PsGcNO2RRvQI5rPJ6KBb
-         mxUuDIsuboYhkdChXTZkHmaCA9nKvUiF0lbz17l959Qkn7F0AxtPUyxhaxXJUCfSj5iC
-         wgxjx6YYn8OhjDsxdxGCq3FzoHO9KwS7zoJj0fqWwNACNpPWR1NC3R+WiRfXMWCQw5cc
-         IHxNATxY8kJ11o209RFHlM5Fy3oejmT6+CIMecgQgzMhBEcYavnZROTWQ1fF5PRzjF5Y
-         4k52p0nUSKDK8HxqrRejsOyWyemX3psAXc49FrRTOT52y0o38m8hV7JBE1qnoTONg743
-         PK8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758410306; x=1759015106;
-        h=mime-version:user-agent:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Qf2N/W9iKqqJwjm1Y0EJHd6gWo0u0bSYPDmnHUXJX6k=;
-        b=q8BLViS/Cs+XZb8vTkkAZAX0v3kxFD3JD24hfdcjaVbmfB8F1ueDd9M72bIHLHozch
-         El419RtXqoO0xFHIOuoe7MXJSQ/02qsD+uMGdyKYH1uW9hrAwfT8/lp+l1H7+DVhIZz5
-         lT7cBocyRwBF3b9LOrAf8lkhl08ghJKn6vSHgDejPY1uEWUsQcJm57Rt6sIlPdfkBpJB
-         Hs8T4caVvofNbILFeg3is2DgTnpcVGeCi9E74n++jlmyRDT4PUHsTdVSvrUX5YZWdF6d
-         cv+ZO52/OqJPuf7aK6CVHPd7W4e8AuR2qcTrlgD+U3rJ4HzAeE7Ws3tRTpPDOf5UxPz8
-         7vTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXbG+h5ew0mBP7YxuBnEe2+gX6VL3j7i0E3x5gk1AzuE9i6vejKuWUHBPaa96OEM0BIuzYBjLuf4qU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4p+C2nnnw8vjCdNo45sqjLxuCRUSannfHLd2SAEJhP9iX3lJC
-	p/Fg0j79m4BaLiigt+u0UAYrX6KbkWB5ClAGioiWvQrZEsEeClSdxa1uUbEVzg==
-X-Gm-Gg: ASbGnctQHEUDOMIDSsHmZxNwnmTSI6isQs9HbQmD0kjUrE//ClZCMsErwrjzrNck5+s
-	B0FlbHZvaKr1SQGAp3UvQ+7sitPDv9rmExJtJisg4Hm00BXwRJIxCfB+IvQq6/ZvpdY0O+Yvnew
-	0F5IzBi1t8zqS5rjz3q1byLFPykLoD5PmkUuQb37ukFHBgqZklAVd06CIPtZjUMgaOtxfREEh8B
-	VKTdEvP2bpykSEcPfuSA8Th2DCP0Bd2IEQcchzZ13+wNi9dz3/Gf7/bt6g5TfZEbzA2isMkReyk
-	UHGjt1EpbqyiOS9vvFHmm1p6jMdzm8yoieHqeHduhSwUclYMvoFT2Wk625tN10uLjMHLYdJAxqG
-	FRflKt1TzJYo95Nk=
-X-Google-Smtp-Source: AGHT+IGZk2/QC0U1c1xAO5aqZWV3PoD6NO461okdP9pnp/s8ptFxWGVGjff6ZyZTPIYikInHvQJNaw==
-X-Received: by 2002:a05:6a00:21cb:b0:772:50c6:47d6 with SMTP id d2e1a72fcca58-77e4cd3584fmr10110178b3a.2.1758410306335;
-        Sat, 20 Sep 2025 16:18:26 -0700 (PDT)
-Received: from fedora ([2601:646:8081:3770::641b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-77f2f02c0d7sm114228b3a.93.2025.09.20.16.18.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Sep 2025 16:18:26 -0700 (PDT)
-From: Collin Funk <collin.funk1@gmail.com>
-To: William Bader <williambader@hotmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>,  =?utf-8?Q?P=C3=A1draig?= Brady
- <P@draigbrady.com>,
-  "coreutils@gnu.org" <coreutils@gnu.org>,  "linux-man@vger.kernel.org"
- <linux-man@vger.kernel.org>, 
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-In-Reply-To: <PA3P190MB24382227EA61EC2758D5AA11C410A@PA3P190MB2438.EURP190.PROD.OUTLOOK.COM>
-References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
-	<e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
-	<53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
-	<4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
-	<jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
-	<87o6r4zy73.fsf@gmail.com>
-	<PA3P190MB24382227EA61EC2758D5AA11C410A@PA3P190MB2438.EURP190.PROD.OUTLOOK.COM>
-Date: Sat, 20 Sep 2025 16:18:25 -0700
-Message-ID: <87ikhc7lxa.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=arc-20240116; t=1758418439; c=relaxed/simple;
+	bh=eum0Inf5j/D2wGDHed9Hse32BrSEDt04Tl9cEMDkgQQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qp2lc+8wSSq+5X0vdnrWpDXR3FO+EOySJDjvq1Ya+AqHtATu03i2Q2CwQ4hcqBeOJwHBcQFVaJcP4bJI8IIP0J6A/a5WOT8OnRHPHsH32PgdjOecBuF3uvH7sqgOi5iI7qG+d7KPh33/YuGmBH7Mh+3TTIhKk4bUR06NSRFkp7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=f8b1ZJl1; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cTpfz4Klcz9tDm;
+	Sun, 21 Sep 2025 03:33:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1758418427;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3f6t6vmBYye0E4WtFhp7B8gfy+AGUsrH5RjZcfPxWfE=;
+	b=f8b1ZJl1VflEK45c1k+XpXqo8jOv1O0XL2vgpmdxwO/Aue7t9Eju1URruWM5U+PqELbvB5
+	Cyv7oeJ6JcgpV6xLBbg4dphi8NNS0ibnUV8W+wZNgoim/HeaPGhLlGI+PpjMtWAUY/+Uxn
+	D326X+pWLLCWVI65Bi8ARRjMwLAzAihPFBemc0FGV8FZQ7OpjLHURpyxckPcl7KRZrWxTq
+	vLSqHIFq5/0xSKkApJw0GE5lAywZCLBTefql46t8cKTaOeF2AZ6g8QCECSl/B9zHAOkvMF
+	oRhfYoDpOK37ueq4DM13oe13Hn5JDyNj0CQbY9J6IxpA7ocpY2BI9zjkO4P7CQ==
+Date: Sun, 21 Sep 2025 11:33:34 +1000
+From: Aleksa Sarai <cyphar@cyphar.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v4 02/10] man/man2/fsopen.2: document "new" mount API
+Message-ID: <2025-09-21-washed-creative-tenure-nibs-hssPyL@cyphar.com>
+References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
+ <20250919-new-mount-api-v4-2-1261201ab562@cyphar.com>
+ <zrifsd6vqj6ve25uipyeteuztncgwtzfmfnfsxhcjwcnxf2wen@xjx3y2g77uin>
+ <2025-09-19-movable-minty-stopper-posse-7AufW3@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mwjb6nrzo6dxs3w5"
+Content-Disposition: inline
+In-Reply-To: <2025-09-19-movable-minty-stopper-posse-7AufW3@cyphar.com>
 
-William Bader <williambader@hotmail.com> writes:
 
->> I guess Markdown or reStructuredText would be more friendly to new contributors since many do not know Texinfo.
->
-> Pandoc https://pandoc.org/ can convert between a number of formats. In
-> theory, it can convert markdown and rst to texinfo. Maybe with care it
-> would be possible to come up with a set of conventions for markdown,
-> maybe with a preprocessing pass, to have pandoc produce texinfo that
-> can print well.
+--mwjb6nrzo6dxs3w5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 02/10] man/man2/fsopen.2: document "new" mount API
+MIME-Version: 1.0
 
-I have heard the name, but I have never used it.
+On 2025-09-20, Aleksa Sarai <cyphar@cyphar.com> wrote:
+> On 2025-09-19, Alejandro Colomar <alx@kernel.org> wrote:
+> > Hi Aleksa,
+> >=20
+> > On Fri, Sep 19, 2025 at 11:59:43AM +1000, Aleksa Sarai wrote:
+> > > This is loosely based on the original documentation written by David
+> > > Howells and later maintained by Christian Brauner, but has been
+> > > rewritten to be more from a user perspective (as well as fixing a few
+> > > critical mistakes).
+> > >=20
+> > > Co-authored-by: David Howells <dhowells@redhat.com>
+> > > Signed-off-by: David Howells <dhowells@redhat.com>
+> > > Co-authored-by: Christian Brauner <brauner@kernel.org>
+> > > Signed-off-by: Christian Brauner <brauner@kernel.org>
+> > > Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+> > > ---
+> > >  man/man2/fsopen.2 | 384 ++++++++++++++++++++++++++++++++++++++++++++=
+++++++++++
+> > >  1 file changed, 384 insertions(+)
+> > >=20
+> > > diff --git a/man/man2/fsopen.2 b/man/man2/fsopen.2
+> > > new file mode 100644
+> > > index 0000000000000000000000000000000000000000..7cdbeac7d64b7e5c969de=
+e619a039ec947d1e981
+> > > --- /dev/null
+> > > +++ b/man/man2/fsopen.2
+> > > @@ -0,0 +1,384 @@
+> > > +.\" Copyright, the authors of the Linux man-pages project
+> > > +.\"
+> > > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> > > +.\"
+> > > +.TH fsopen 2 (date) "Linux man-pages (unreleased)"
+> > > +.SH NAME
+> > > +fsopen \- create a new filesystem context
+> > > +.SH LIBRARY
+> > > +Standard C library
+> > > +.RI ( libc ,\~ \-lc )
+> > > +.SH SYNOPSIS
+> > > +.nf
+> > > +.B #include <sys/mount.h>
+> > > +.P
+> > > +.BI "int fsopen(const char *" fsname ", unsigned int " flags );
+> > > +.fi
+> > > +.SH DESCRIPTION
+> > > +The
+> > > +.BR fsopen ()
+> > > +system call is part of
+> > > +the suite of file descriptor based mount facilities in Linux.
+> >=20
+> > Minor nitpick (I can amend that; no worries):
+> >=20
+> > Because 'file-descriptor-based' works as a single modifier of
+> > facilities, it goes with hyphens.
+>=20
+> Will do for all of the new pages.
 
-Sphinx, used by Python [1] and the Linux Kernel [2], creates nice
-searchable HTML pages. Apparently there is an experimental Texinfo
-converter [3]. I don't see most GNU projects using anything that doesn't
-create good info pages, though. Although some have mentioned not liking
-the 'info' reader, I find the one in Emacs to be nice to use.
+By the way, I'll wait for your review of all of the remaining man-pages
+before sending v5. Thanks!
 
-GCC switched to Sphinx for a very short period and then reverted the
-pages, if I remember correctly. See mailing list drama involved in that
-change [4].
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+https://www.cyphar.com/
 
-Collin
+--mwjb6nrzo6dxs3w5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[1] https://docs.python.org/3/
-[2] https://www.kernel.org/doc/html/latest/
-[3] https://mysphinx.readthedocs.io/en/latest/faq.html#texinfo-info
-[4] https://inbox.sourceware.org/gcc/1a22bc37-3d48-132f-a3d5-219471cd443c@suse.cz/
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaM9V7RsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG8FaAEAgxt7i7KVC477icQ2nXee
++07Nb+PeRvd/n8f4bdYp2+kA/A9g0PdvLFdVscUKDlU4nGnZJRZsoP6OIyn3n79G
+TQ0L
+=Ebeq
+-----END PGP SIGNATURE-----
+
+--mwjb6nrzo6dxs3w5--
 
