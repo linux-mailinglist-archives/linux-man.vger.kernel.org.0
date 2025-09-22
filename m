@@ -1,194 +1,706 @@
-Return-Path: <linux-man+bounces-3942-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3943-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2240B8EE6E
-	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 06:01:13 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 41720B8FEFC
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 12:10:25 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 54A403A896B
-	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 04:01:12 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id EDEAD16B529
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 10:10:24 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27702246BB7;
-	Mon, 22 Sep 2025 04:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE2362ED16C;
+	Mon, 22 Sep 2025 10:10:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="CsGEaNpH"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="K+/aPYPn"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609851D88D0
-	for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 04:01:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1414213E9C;
+	Mon, 22 Sep 2025 10:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758513670; cv=none; b=fs8prxgzzMkOlJybGKJRmVuSTsf1OwgrlCwLhRotRmfb/QvqDrRvvep/jBvfTuWs4Dwz5pUgzANVJSp8kxy1yHwvNefNy4RwL1X3xRO9dW9sSiQ8r2X48DSsnDzU0wGVe/YwmLQ7ND6hGQJknRrALumc6WRU5Z9NIFeeWUVrpTw=
+	t=1758535816; cv=none; b=gPhxEn4DoYxNTahW0xc9qfO+fmPaOfIN/m4LkzSeXsqeR65hjm5BQZPa81xZqHDD7RvDsHSddhnupzXOtSD5V6UHMnw47eDdx+gEJh7HHus8oT4p42sdIkCZx/p26aIkUeRASplcbQgvhv+ckNHFb21QOZch0bolIeVQqjSqXsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758513670; c=relaxed/simple;
-	bh=i5A35fWUnpk/WiuICrXeJpE+Q52nzBSPnYLXaiPWi10=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BnINcAbSaeEmOspaV98o49pkAmHp4cbcaG3trfaxqsdjYKX6SW4fNP1AB8z/Nuqun2voqGhrenP1dHRFv2eLvJ19JdK+dDo9HhoKgLicPOpU1fv7vTUWzpRxX5aLChZ0axP247WQv8sqM8Qva83MHZ2slApFQ6DQ3abqN3dez4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=CsGEaNpH; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
-Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58M1MSK1008752
-	for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 00:01:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pps01; bh=7eaVpfR32ne4OnK
-	BmmLGoFu+EyCBGkFBR6e3kEVvCB4=; b=CsGEaNpH15rjpzXom5r5ypEj0Sh7RLi
-	xWu+Mtl1C8A4HWiWvxF3PDKaebjxmh2QzrlL0GhtASO8ITG3pqGGKwpZoaqw0nxF
-	9h8WYcTZbm6bUu3BKKTk2lR7oBLxwpXSEaY6zSOcsUfjp0qZRJ3JsWiFKmyAX2wT
-	U4/7F+leQm/H1Q9mN5XsYF+46ZL8v+hnlzcHMqhT/Oz3dneIQ6f/A3A6SJbSglof
-	+1HSjjgvxcg8yFjsWA4EaGM5Rl1HBTioIrL94dkkT3fNaKWvkZVbdzBbcRpHB04X
-	I4WSW+hLbnyk61FKgnbM5ak5XD7tLIHhUY08ezRaCXDu1KTbMRUYNbQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 49a9d5ngja-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 00:01:08 -0400 (EDT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-82e5940eef8so906910385a.1
-        for <linux-man@vger.kernel.org>; Sun, 21 Sep 2025 21:01:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758513667; x=1759118467;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7eaVpfR32ne4OnKBmmLGoFu+EyCBGkFBR6e3kEVvCB4=;
-        b=L24+7bDY3V2MWXNI7hecCh4ms3JcnQG5Q4XIoMXkkgKQ2AgCn/GzNTLnZffkGjkYsT
-         PTDzjgVE6KIuzY+T6S3b3ha30xZU4DsL/UdkJStx6OCE00V1XAfXnfY1Ikrhgs2SjJ+v
-         UOgUsrI+MxinpifWmoVbTitOhPKzbsBjjgseYg0muSRLM28ZVTrLFiVSCIa9L/kbuf4K
-         +L7C1nSmriD92sxh+3G/qC0bhf/lAo6wClktYoNpNmvhBDBg+tROLSZ6+HeulrcuGxkM
-         rjQebzIPgRMBQ7mdVdmOq7z1DW5lUDvH/Bp6opLQA2sW2IpXCqzICyarwQzILIXd5dIT
-         S6lA==
-X-Gm-Message-State: AOJu0Yz2oTjTuQV3lp2j1GYjucvFqtAI6WxrDHHDnhsnPlZbKuTqmyuJ
-	pz5QGd+n+fZ7ovixZ3MuD6HZqoYz91CQm1yEXwMyqZH5MCHkYuuV1MtW/XbCHxhuOAV0JtfA3cR
-	E+BqJpEuZ/HvX9w9+C5pu4dYf09vj+JdQWh92JmuSpupQDa36YGF/zfQSJQ==
-X-Gm-Gg: ASbGnctRY7QqdX7MvH84dW6h8wZ25HtnOq6vjnYRciH2gzw9WWlJUflMt95IfEjirpU
-	DbHikKt3zgOG4RKG5dwQdm6916yAgKN/3d3WXOvQMwQzm5vbmZJmUiblStBDcRsAxlXT6XvxwOb
-	A2qO0k52EGD7N97lWsm616O+mOcQe1sHpyyoaY0MZDfULhb1od0/oj7pa39ElkQBN9qASXfXJ3i
-	9gKnYBuQSooWg1sMLtUPCqXL0CijRrjK5PavfNQnPtVr7kIBBQz3+h+8CTCKxvyDKRwWcsflQ4i
-	g+w/QaqnkpSS4VnONCTL7VeKRjLqkDLIzYtFLCRyyvvfimc0g2w5bph7AZv1JMKXTkYCojUsMw=
-	=
-X-Received: by 2002:a05:6214:f01:b0:78f:145b:56cc with SMTP id 6a1803df08f44-7991cbb107bmr119601676d6.51.1758513667111;
-        Sun, 21 Sep 2025 21:01:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFTMhs6Rm9Rr4HhyRV1aKzXWjRmOKWw+6/CMvk8JR9kN+RD1Q1WvDtNVyfEU2A6FTmy6/f2rQ==
-X-Received: by 2002:a05:6214:f01:b0:78f:145b:56cc with SMTP id 6a1803df08f44-7991cbb107bmr119601486d6.51.1758513666720;
-        Sun, 21 Sep 2025 21:01:06 -0700 (PDT)
-Received: from rivalak.cs.columbia.edu (kele.cs.columbia.edu. [128.59.19.81])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-793469322f1sm67218036d6.20.2025.09.21.21.01.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Sep 2025 21:01:06 -0700 (PDT)
-From: Kele Huang <kele@cs.columbia.edu>
-To: alx@kernel.org
-Cc: linux-man@vger.kernel.org, Kele Huang <kele@cs.columbia.edu>
-Subject: [PATCH 6/6] man/man2/fanotify_mark.2: grfix
-Date: Sun, 21 Sep 2025 23:59:34 -0400
-Message-ID: <20250922035934.446271-7-kele@cs.columbia.edu>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250922035934.446271-1-kele@cs.columbia.edu>
-References: <20250922035934.446271-1-kele@cs.columbia.edu>
+	s=arc-20240116; t=1758535816; c=relaxed/simple;
+	bh=Gnl8d81npUmowlnMimOjhSPUdZifrwsWHCHqe1hZT34=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mBTynU8TvA4FW1zRXeVyYMzhsSOBStzHqUqPW5e1NhrwdMVMVj6pxFVdLTqM2gJ1enVsoYKS756LkPT5vf6BtV/9P4/VT/mI5CViItbFwEK0yKyIB7QD1dC2UY6wArXlHsYFQuzCbDZUbSDZjtqVAus7uEEOn/pZQfRiXtnmAxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=K+/aPYPn; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cVf4941wwz9t4V;
+	Mon, 22 Sep 2025 12:10:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1758535801;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7OkklCkeVDJf5W7aP+u5WY286GS1mgeg2/ZTMKUofh4=;
+	b=K+/aPYPng2cx4gE4MKY/El23a/aYBzQ3peiFEmy7HoNoMqgIQmgzC+xgBUnCzdyv876zsf
+	8DV09JOGj0n+r/0AnIGmJHnWub10zImj45HBkVySDeam6SKOOtCEyrf7J30KB6q2KMXEY7
+	d+CI0DCI1xhgwhiF0UEV+DbPKgj3uUjKMP1JBi6/n6INjmF1AGunjOeHgnPAyrmOgCxnZq
+	yq/cV1FvjzF1CyiiZFT7tz2hZEq1ENJnDspBAYTwsDb1xwfQOxvcu0ebqCo163ARrFXh9X
+	lrjhVtTKcXlA8vdv+Z9f3Ws5X/mLAgHBU1Z+LMLEjflHTBgG1cu1OHRcKwldYA==
+Date: Mon, 22 Sep 2025 20:09:47 +1000
+From: Aleksa Sarai <cyphar@cyphar.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
+Message-ID: <2025-09-22-sneaky-similar-mind-cilantro-u1EJJ2@cyphar.com>
+References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
+ <20250919-new-mount-api-v4-7-1261201ab562@cyphar.com>
+ <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTIxMDAzMSBTYWx0ZWRfX/RbZgs9kyjvr
- 8dim5IniXUIgz+cCFOOXuYMskT0oRiN2d9MxFcg5GcpmTgXJpRLr//DI8LTjfIu5HWtBkSOyFHk
- 8kmDBZAbOj4C3bOvlRxfJUQkbbYBFCA/dUjkg4/cTNWATBSrqHQVezxQmgyS74CvbV4LpswZPj3
- pSR4af9hM+e+NML9/GWcy5XAEJiojL0Vz8qstYNEDvcBBg7DTqKm7QxotJ/UI+cIFP7yx+copRE
- Tbf1VQ3Biiu+8Iw2wGB8UdOlbAToIten5rmocr7NNCY03PAK5NJXjuITl3uhhbia3gL53QFv1NL
- Y82ncr8zwb3yzaO0efRXh76ilf8fi2KgpOLllFoQuLnjCoYizTs2iF/tsk602GBueee2APIklP1
- oWv/34zt
-X-Proofpoint-GUID: Qf343UnRmfTL_au-2eODznPDgB4eJ99-
-X-Authority-Analysis: v=2.4 cv=SJtCVPvH c=1 sm=1 tr=0 ts=68d0ca04 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=3s50gvPmqPWyIM6FhyrXAw==:17
- a=yJojWOMRYYMA:10 a=mSxDhFL_xtvxtgIUEMEA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: Qf343UnRmfTL_au-2eODznPDgB4eJ99-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-21_10,2025-09-19_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 impostorscore=0 bulkscore=10
- clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509210031
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jaoc7bpsqumxw65g"
+Content-Disposition: inline
+In-Reply-To: <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
 
-Signed-off-by: Kele Huang <kele@cs.columbia.edu>
----
- man/man2/fanotify_mark.2 | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-index 6d191dfaa..6c4234947 100644
---- a/man/man2/fanotify_mark.2
-+++ b/man/man2/fanotify_mark.2
-@@ -4,7 +4,7 @@
- .\"
- .TH fanotify_mark 2 (date) "Linux man-pages (unreleased)"
- .SH NAME
--fanotify_mark \- add, remove, or modify an fanotify mark on a filesystem
-+fanotify_mark \- add, remove, or modify a fanotify mark on a filesystem
- object
- .SH LIBRARY
- Standard C library
-@@ -22,7 +22,7 @@ For an overview of the fanotify API, see
- .BR fanotify (7).
- .P
- .BR fanotify_mark ()
--adds, removes, or modifies an fanotify mark on a filesystem object.
-+adds, removes, or modifies a fanotify mark on a filesystem object.
- The caller must have read permission on the filesystem object that
- is to be marked.
- .P
-@@ -663,7 +663,7 @@ or
- .IR mask ,
- or
- .I fanotify_fd
--was not an fanotify file descriptor.
-+was not a fanotify file descriptor.
- .TP
- .B EINVAL
- The fanotify file descriptor was opened with
-@@ -713,7 +713,7 @@ is associated with a filesystem that reports zero
- .I fsid
- (e.g.,
- .BR fuse (4)).
--This error can be returned only with an fanotify group that identifies
-+This error can be returned only with a fanotify group that identifies
- filesystem objects by file handles.
- Since Linux 6.8,
- .\" commit 30ad1938326bf9303ca38090339d948975a626f5
-@@ -727,7 +727,7 @@ and
- .I path
- does not exist.
- This error also occurs when trying to remove a mark from an object
--which is not marked.
-+that is not marked.
- .TP
- .B ENOMEM
- The necessary memory could not be allocated.
-@@ -794,7 +794,7 @@ The object indicated by
- .I path
- is associated with a filesystem
- that does not support the encoding of file handles.
--This error can be returned only with an fanotify group that identifies
-+This error can be returned only with a fanotify group that identifies
- filesystem objects by file handles.
- Calling
- .BR name_to_handle_at (2)
-@@ -815,7 +815,7 @@ resides within a filesystem subvolume (e.g.,
- which uses a different
- .I fsid
- than its root superblock.
--This error can be returned only with an fanotify group that identifies
-+This error can be returned only with a fanotify group that identifies
- filesystem objects by file handles.
- Since Linux 6.8,
- .\" commit 30ad1938326bf9303ca38090339d948975a626f5
--- 
-2.51.0
+--jaoc7bpsqumxw65g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
+MIME-Version: 1.0
 
+On 2025-09-21, Alejandro Colomar <alx@kernel.org> wrote:
+> Hi Aleksa,
+>=20
+> On Fri, Sep 19, 2025 at 11:59:48AM +1000, Aleksa Sarai wrote:
+> > This is loosely based on the original documentation written by David
+> > Howells and later maintained by Christian Brauner, but has been
+> > rewritten to be more from a user perspective (as well as fixing a few
+> > critical mistakes).
+> >=20
+> > Co-authored-by: David Howells <dhowells@redhat.com>
+> > Signed-off-by: David Howells <dhowells@redhat.com>
+> > Co-authored-by: Christian Brauner <brauner@kernel.org>
+> > Signed-off-by: Christian Brauner <brauner@kernel.org>
+> > Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+> > ---
+> >  man/man2/open_tree.2 | 498 +++++++++++++++++++++++++++++++++++++++++++=
+++++++++
+> >  1 file changed, 498 insertions(+)
+> >=20
+> > diff --git a/man/man2/open_tree.2 b/man/man2/open_tree.2
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..7f85df08b43c7b48a9d021d=
+bbeb2c60092a2b2d4
+> > --- /dev/null
+> > +++ b/man/man2/open_tree.2
+> > @@ -0,0 +1,498 @@
+> > +.\" Copyright, the authors of the Linux man-pages project
+> > +.\"
+> > +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> > +.\"
+> > +.TH open_tree 2 (date) "Linux man-pages (unreleased)"
+> > +.SH NAME
+> > +open_tree \- open path or create detached mount object and attach to fd
+> > +.SH LIBRARY
+> > +Standard C library
+> > +.RI ( libc ,\~ \-lc )
+> > +.SH SYNOPSIS
+> > +.nf
+> > +.BR "#define _GNU_SOURCE         " "/* See feature_test_macros(7) */"
+> > +.BR "#include <fcntl.h>" "          /* Definition of " AT_* " constant=
+s */"
+> > +.B #include <sys/mount.h>
+> > +.P
+> > +.BI "int open_tree(int " dirfd ", const char *" path ", unsigned int "=
+ flags );
+> > +.fi
+> > +.SH DESCRIPTION
+> > +The
+> > +.BR open_tree ()
+> > +system call is part of
+> > +the suite of file descriptor based mount facilities in Linux.
+> > +.IP \[bu] 3
+> > +If
+> > +.I flags
+> > +contains
+> > +.BR \%OPEN_TREE_CLONE ,
+> > +.BR open_tree ()
+> > +creates a detached mount object
+> > +which consists of a bind-mount of
+> > +the path specified by the
+> > +.IR path .
+> > +A new file descriptor
+> > +associated with the detached mount object
+> > +is then returned.
+> > +The mount object is equivalent to a bind-mount
+> > +that would be created by
+> > +.BR mount (2)
+> > +called with
+> > +.BR MS_BIND ,
+> > +except that it is tied to a file descriptor
+> > +and is not mounted onto the filesystem.
+> > +.IP
+> > +As with file descriptors returned from
+> > +.BR fsmount (2),
+> > +the resultant file descriptor can then be used with
+> > +.BR move_mount (2),
+> > +.BR mount_setattr (2),
+> > +or other such system calls to do further mount operations.
+> > +This mount object will be unmounted and destroyed
+> > +when the file descriptor is closed
+> > +if it was not otherwise attached to a mount point
+> > +by calling
+> > +.BR move_mount (2).
+> > +(Note that the unmount operation on
+>=20
+> Maybe I would make this note a paragraph of its own; this would give it
+> more visibility, I think.  And I'd remove 'Note that', and start
+> directly with the noted contents (everything in a manual page must be
+> noteworthy, in general).
+>=20
+> > +.BR close (2)
+>=20
+> I'm a bit confused by the reference to close(2).  The previous text
+> mentions closing, but not close(2), so I'm not sure if this refers to
+> that or if it is comparing it to close(2).  Would you mind having a look
+> at the wording of this entire paragraph?
+
+Well, it's more that these kinds of file descriptors are marked with
+FMODE_NEEDS_UMOUNT which will cause dissolve_on_fput() to be called when
+they have no more references.
+
+So this could be through close(2) or any other condition that causes a
+file descriptor to be closed (dup2(2), process death, execve with
+O_CLOEXEC, etc). Maybe it's better to not mention close(2) explicitly...
+
+> > +is lazy\[em]akin to calling
+>=20
+> I prefer em dashes in both sides of the parenthetical; it more clearly
+> denotes where it ends.
+>=20
+> 	is lazy
+> 	\[em]akin to calling
+> 	.BR umount2 (2)
+> 	with
+> 	.BR MOUNT_DETACH \[em];
+
+An \[em] next to a ";"? Let me see if I can rewrite it to avoid this...
+
+> (I assume that's where it ends.)
+>=20
+> > +.BR umount2 (2)
+> > +with
+> > +.BR MOUNT_DETACH ;
+> > +any existing open references to files
+> > +from the mount object
+> > +will continue to work,
+> > +and the mount object will only be completely destroyed
+> > +once it ceases to be busy.)
+> > +.IP \[bu]
+> > +If
+> > +.I flags
+> > +does not contain
+> > +.BR \%OPEN_TREE_CLONE ,
+> > +.BR open_tree ()
+> > +returns a file descriptor
+> > +that is exactly equivalent to
+> > +one produced by
+> > +.BR openat (2)
+> > +when called with the same
+> > +.I dirfd
+> > +and
+> > +.IR path .
+> > +.P
+> > +In either case, the resultant file descriptor
+> > +acts the same as one produced by
+> > +.BR open (2)
+> > +with
+> > +.BR O_PATH ,
+> > +meaning it can also be used as a
+> > +.I dirfd
+> > +argument to
+> > +"*at()" system calls.
+> > +.P
+> > +As with "*at()" system calls,
+> > +.BR open_tree ()
+> > +uses the
+> > +.I dirfd
+> > +argument in conjunction with the
+> > +.I path
+> > +argument to determine the path to operate on, as follows:
+> > +.IP \[bu] 3
+> > +If the pathname given in
+> > +.I path
+> > +is absolute, then
+> > +.I dirfd
+> > +is ignored.
+> > +.IP \[bu]
+> > +If the pathname given in
+> > +.I path
+> > +is relative and
+> > +.I dirfd
+> > +is the special value
+> > +.BR \%AT_FDCWD ,
+> > +then
+> > +.I path
+> > +is interpreted relative to
+> > +the current working directory
+> > +of the calling process (like
+> > +.BR open (2)).
+> > +.IP \[bu]
+> > +If the pathname given in
+> > +.I path
+> > +is relative,
+> > +then it is interpreted relative to
+> > +the directory referred to by the file descriptor
+> > +.I dirfd
+> > +(rather than relative to
+> > +the current working directory
+> > +of the calling process,
+> > +as is done by
+> > +.BR open (2)
+> > +for a relative pathname).
+> > +In this case,
+> > +.I dirfd
+> > +must be a directory
+> > +that was opened for reading
+> > +.RB ( O_RDONLY )
+> > +or using the
+> > +.B O_PATH
+> > +flag.
+> > +.IP \[bu]
+> > +If
+> > +.I path
+> > +is an empty string,
+> > +and
+> > +.I flags
+> > +contains
+> > +.BR \%AT_EMPTY_PATH ,
+> > +then the file descriptor
+> > +.I dirfd
+> > +is operated on directly.
+> > +In this case,
+> > +.I dirfd
+> > +may refer to any type of file,
+> > +not just a directory.
+> > +.P
+> > +See
+> > +.BR openat (2)
+> > +for an explanation of why the
+> > +.I dirfd
+> > +argument is useful.
+> > +.P
+> > +.I flags
+> > +can be used to control aspects of the path lookup
+> > +and properties of the returned file descriptor.
+> > +A value for
+> > +.I flags
+> > +is constructed by bitwise ORing
+> > +zero or more of the following constants:
+> > +.RS
+> > +.TP
+> > +.B \%AT_EMPTY_PATH
+> > +If
+> > +.I path
+> > +is an empty string, operate on the file referred to by
+> > +.I dirfd
+> > +(which may have been obtained from
+> > +.BR open (2),
+> > +.BR fsmount(2),
+> > +or from another
+> > +.BR open_tree ()
+> > +call).
+> > +In this case,
+> > +.I dirfd
+> > +may refer to any type of file, not just a directory.
+> > +If
+> > +.I dirfd
+> > +is
+> > +.BR \%AT_FDCWD ,
+> > +.BR open_tree ()
+> > +will operate on the current working directory
+> > +of the calling process.
+> > +This flag is Linux-specific; define
+> > +.B \%_GNU_SOURCE
+> > +to obtain its definition.
+> > +.TP
+> > +.B \%AT_NO_AUTOMOUNT
+> > +Do not automount the terminal ("basename") component of
+> > +.I path
+> > +if it is a directory that is an automount point.
+> > +This allows you to create a handle to the automount point itself,
+> > +rather than the location it would mount.
+> > +This flag has no effect if the mount point has already been mounted ov=
+er.
+> > +This flag is Linux-specific; define
+> > +.B \%_GNU_SOURCE
+> > +to obtain its definition.
+> > +.TP
+> > +.B \%AT_SYMLINK_NOFOLLOW
+> > +If
+> > +.I path
+> > +is a symbolic link, do not dereference it; instead,
+> > +create either a handle to the link itself
+> > +or a bind-mount of it.
+> > +The resultant file descriptor is indistinguishable from one produced by
+> > +.BR openat (2)
+> > +with
+> > +.BR \%O_PATH | O_NOFOLLLOW .
+> > +.TP
+> > +.B \%OPEN_TREE_CLOEXEC
+> > +Set the close-on-exec
+> > +.RB ( FD_CLOEXEC )
+> > +flag on the new file descriptor.
+> > +See the description of the
+> > +.B O_CLOEXEC
+> > +flag in
+> > +.BR open (2)
+> > +for reasons why this may be useful.
+> > +.TP
+> > +.B \%OPEN_TREE_CLONE
+> > +Rather than creating an
+> > +.BR openat (2)-style
+> > +.B O_PATH
+> > +file descriptor,
+> > +create a bind-mount of
+> > +.I path
+> > +(akin to
+> > +.IR "mount --bind" )
+>=20
+> You need to escape dashes in manual pages.  Otherwise, they're formatted
+> as hyphens, which can't be pasted into the terminal (and another
+> consequence is not being able to search for them in the man(1) reader
+> with literal dashes).
+>=20
+> Depending on your system, you might be able to search for them or paste
+> them to the terminal, because some distros patch this in
+> /etc/local/an.tmac, at the expense of generating lower quality pages,
+> but in general don't rely on that.
+>=20
+> I've noticed now, but this probably also happens in previous pages in
+> this patch set.
+>=20
+> While at it, you should also use a non-breaking space, to keep the
+> entire command in the same line.
+>=20
+> 	.IR \%mount\~\-\-bind )
+
+My bad, I think my terminal font doesn't distinguish between them well
+enough for it to be obvious. I'll go through and fix up all of these
+cases.
+
+Thanks.
+
+> Cheers,
+> Alex
+>=20
+> > +as a detached mount object.
+> > +In order to do this operation,
+> > +the calling process must have the
+> > +.BR \%CAP_SYS_ADMIN
+> > +capability.
+> > +.TP
+> > +.B \%AT_RECURSIVE
+> > +Create a recursive bind-mount of the path
+> > +(akin to
+> > +.IR "mount --rbind" )
+> > +as a detached mount object.
+> > +This flag is only permitted in conjunction with
+> > +.BR \%OPEN_TREE_CLONE .
+> > +.SH RETURN VALUE
+> > +On success, a new file descriptor is returned.
+> > +On error, \-1 is returned, and
+> > +.I errno
+> > +is set to indicate the error.
+> > +.SH ERRORS
+> > +.TP
+> > +.B EACCES
+> > +Search permission is denied for one of the directories
+> > +in the path prefix of
+> > +.IR path .
+> > +(See also
+> > +.BR path_resolution (7).)
+> > +.TP
+> > +.B EBADF
+> > +.I path
+> > +is relative but
+> > +.I dirfd
+> > +is neither
+> > +.B \%AT_FDCWD
+> > +nor a valid file descriptor.
+> > +.TP
+> > +.B EFAULT
+> > +.I path
+> > +is NULL
+> > +or a pointer to a location
+> > +outside the calling process's accessible address space.
+> > +.TP
+> > +.B EINVAL
+> > +Invalid flag specified in
+> > +.IR flags .
+> > +.TP
+> > +.B ELOOP
+> > +Too many symbolic links encountered when resolving
+> > +.IR path .
+> > +.TP
+> > +.B EMFILE
+> > +The calling process has too many open files to create more.
+> > +.TP
+> > +.B ENAMETOOLONG
+> > +.I path
+> > +is longer than
+> > +.BR PATH_MAX .
+> > +.TP
+> > +.B ENFILE
+> > +The system has too many open files to create more.
+> > +.TP
+> > +.B ENOENT
+> > +A component of
+> > +.I path
+> > +does not exist, or is a dangling symbolic link.
+> > +.TP
+> > +.B ENOENT
+> > +.I path
+> > +is an empty string, but
+> > +.B AT_EMPTY_PATH
+> > +is not specified in
+> > +.IR flags .
+> > +.TP
+> > +.B ENOTDIR
+> > +A component of the path prefix of
+> > +.I path
+> > +is not a directory, or
+> > +.I path
+> > +is relative and
+> > +.I dirfd
+> > +is a file descriptor referring to a file other than a directory.
+> > +.TP
+> > +.B ENOSPC
+> > +The "anonymous" mount namespace
+> > +necessary to contain the
+> > +.B \%OPEN_TREE_CLONE
+> > +detached bind-mount mount object
+> > +could not be allocated,
+> > +as doing so would exceed
+> > +the configured per-user limit on
+> > +the number of mount namespaces in the current user namespace.
+> > +(See also
+> > +.BR namespaces (7).)
+> > +.TP
+> > +.B ENOMEM
+> > +The kernel could not allocate sufficient memory to complete the operat=
+ion.
+> > +.TP
+> > +.B EPERM
+> > +.I flags
+> > +contains
+> > +.B \%OPEN_TREE_CLONE
+> > +but the calling process does not have the required
+> > +.B CAP_SYS_ADMIN
+> > +capability.
+> > +.SH STANDARDS
+> > +Linux.
+> > +.SH HISTORY
+> > +Linux 5.2.
+> > +.\" commit a07b20004793d8926f78d63eb5980559f7813404
+> > +.\" commit 400913252d09f9cfb8cce33daee43167921fc343
+> > +glibc 2.36.
+> > +.SH NOTES
+> > +.SS Mount propagation
+> > +The bind-mount mount objects created by
+> > +.BR open_tree ()
+> > +with
+> > +.B \%OPEN_TREE_CLONE
+> > +are not associated with
+> > +the mount namespace of the calling process.
+> > +Instead, each mount object is placed
+> > +in a newly allocated "anonymous" mount namespace
+> > +associated with the calling process.
+> > +.P
+> > +One of the side-effects of this is that
+> > +(unlike bind-mounts created with
+> > +.BR mount (2)),
+> > +mount propagation
+> > +(as described in
+> > +.BR mount_namespaces (7))
+> > +will not be applied to bind-mounts created by
+> > +.BR open_tree ()
+> > +until the bind-mount is attached with
+> > +.BR move_mount (2),
+> > +at which point the mount object
+> > +will be associated with the mount namespace
+> > +where it was attached
+> > +and mount propagation will resume.
+> > +Note that any mount propagation events that occurred
+> > +before the mount object was attached
+> > +will
+> > +.I not
+> > +be propagated to the mount object,
+> > +even after it is attached.
+> > +.SH EXAMPLES
+> > +The following examples show how
+> > +.BR open_tree ()
+> > +can be used in place of more traditional
+> > +.BR mount (2)
+> > +calls with
+> > +.BR MS_BIND .
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +int srcfd =3D open_tree(AT_FDCWD, "/var", OPEN_TREE_CLONE);
+> > +move_mount(srcfd, "", AT_FDCWD, "/mnt", MOVE_MOUNT_F_EMPTY_PATH);
+> > +.EE
+> > +.in
+> > +.P
+> > +First,
+> > +a detached bind-mount mount object of
+> > +.I /var
+> > +is created
+> > +and associated with the file descriptor
+> > +.IR srcfd .
+> > +Then, the mount object is attached to
+> > +.I /mnt
+> > +using
+> > +.BR move_mount (2)
+> > +with
+> > +.B \%MOVE_MOUNT_F_EMPTY_PATH
+> > +to request that the detached mount object
+> > +associated with the file descriptor
+> > +.I srcfd
+> > +be moved (and thus attached) to
+> > +.IR /mnt .
+> > +.P
+> > +The above procedure is functionally equivalent to
+> > +the following mount operation using
+> > +.BR mount (2):
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +mount("/var", "/mnt", NULL, MS_BIND, NULL);
+> > +.EE
+> > +.in
+> > +.P
+> > +.B \%OPEN_TREE_CLONE
+> > +can be combined with
+> > +.B \%AT_RECURSIVE
+> > +to create recursive detached bind-mount mount objects,
+> > +which in turn can be attached to mount points
+> > +to create recursive bind-mounts.
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +int srcfd =3D open_tree(AT_FDCWD, "/var", OPEN_TREE_CLONE | AT_RECURSI=
+VE);
+> > +move_mount(srcfd, "", AT_FDCWD, "/mnt", MOVE_MOUNT_F_EMPTY_PATH);
+> > +.EE
+> > +.in
+> > +.P
+> > +The above procedure is functionally equivalent to
+> > +the following mount operation using
+> > +.BR mount (2):
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +mount("/var", "/mnt", NULL, MS_BIND | MS_REC, NULL);
+> > +.EE
+> > +.in
+> > +.P
+> > +One of the primary benefits of using
+> > +.BR open_tree ()
+> > +and
+> > +.BR move_mount (2)
+> > +over the traditional
+> > +.BR mount (2)
+> > +is that operating with
+> > +.IR dirfd -style
+> > +file descriptors is far easier and more intuitive.
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +int srcfd =3D open_tree(100, "", AT_EMPTY_PATH | OPEN_TREE_CLONE);
+> > +move_mount(srcfd, "", 200, "foo", MOVE_MOUNT_F_EMPTY_PATH);
+> > +.EE
+> > +.in
+> > +.P
+> > +The above procedure is roughly equivalent to
+> > +the following mount operation using
+> > +.BR mount (2):
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +mount("/proc/self/fd/100", "/proc/self/fd/200/foo", NULL, MS_BIND, NUL=
+L);
+> > +.EE
+> > +.in
+> > +.P
+> > +In addition, you can use the file descriptor returned by
+> > +.BR open_tree ()
+> > +as the
+> > +.I dirfd
+> > +argument to any "*at()" system calls:
+> > +.P
+> > +.in +4n
+> > +.EX
+> > +int dirfd, fd;
+> > +\&
+> > +dirfd =3D open_tree(AT_FDCWD, "/etc", OPEN_TREE_CLONE);
+> > +fd =3D openat(dirfd, "passwd", O_RDONLY);
+> > +fchmodat(dirfd, "shadow", 0000, 0);
+> > +close(dirfd);
+> > +close(fd);
+> > +/* The bind-mount is now destroyed. */
+> > +.EE
+> > +.in
+> > +.SH SEE ALSO
+> > +.BR fsconfig (2),
+> > +.BR fsmount (2),
+> > +.BR fsopen (2),
+> > +.BR fspick (2),
+> > +.BR mount (2),
+> > +.BR mount_setattr (2),
+> > +.BR move_mount (2),
+> > +.BR mount_namespaces (7)
+> >=20
+> > --=20
+> > 2.51.0
+> >=20
+> >=20
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
+> Use port 80 (that is, <...:80/>).
+
+
+
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+https://www.cyphar.com/
+
+--jaoc7bpsqumxw65g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaNEgaxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG9+hgD/TuomhYqM0TM6TFs1fSNR
+Bde7sq0gVnLRMyXZ2Z93saYA/1taQRvNF0c8zRE2hWfbiGHoOJf+sWEd5piCJ0tM
+PxIA
+=XJ+B
+-----END PGP SIGNATURE-----
+
+--jaoc7bpsqumxw65g--
 
