@@ -1,166 +1,141 @@
-Return-Path: <linux-man+bounces-3944-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3945-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4F66B91614
-	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 15:22:42 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C36B91D8B
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 17:06:28 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 5EC4B2A0764
-	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 13:22:42 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6D8141886E77
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 15:06:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7BCA30ACF7;
-	Mon, 22 Sep 2025 13:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED1362D6E7C;
+	Mon, 22 Sep 2025 15:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxMQ+NBa"
+	dkim=pass (2048-bit key) header.d=greenberg.science header.i=@greenberg.science header.b="lGyFZPlk";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AEEg0Ae8"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77169277CAE;
-	Mon, 22 Sep 2025 13:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E6426FA56
+	for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 15:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758547354; cv=none; b=edMSJoPXDK8KC+fCdVNRdIreB3niPyaIslWbqfsNoezfW22psEdHqkrbClTso78tWRgY4VITcna1Kih3flwTfM2bRnWPbNkBfkjcheRk/6cYxuUSwh3HIH6Hce34Ug3/7Q8QDEOmkCmpNd8zyXFFe0hE+1M0poicIMYYwOEgpQk=
+	t=1758553583; cv=none; b=RwzAFkKQQ8WFs07qLwvzjPJDO7CPjfGYlULdNjNKlyogyOd4JuhYVKqlyv8QQxEYj5LP22Wb761KIJjpWSu9qKadYApSN0w6TOv9rgnl9+RTHpNFjK6tiQ133lOvipWrmQRR3ONSqJOyjkzKck80A04bMifhJvS46tbCniyCu7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758547354; c=relaxed/simple;
-	bh=ZpKHIENUoUhwJkuDvGTZQgZeFO4daeKHvVKAGsIWa6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UWtViyf41VLzS8pzeqWASgM2qEAd3YFZXrZvucJY0FdwWkUmv6tCUbgXvdk+ngjJzQW0Ygz2L5bYrTfsYaMC+ZAlAQBgEyrpj0aoM1wb+KxnKPFsjcGRb2UNW9cHkcKmZTottwKBN79fXTvLRnNZGcWFcRZfgK4KDu41aVRpEpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxMQ+NBa; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE6CC4CEF0;
-	Mon, 22 Sep 2025 13:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758547354;
-	bh=ZpKHIENUoUhwJkuDvGTZQgZeFO4daeKHvVKAGsIWa6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YxMQ+NBaYfUgnSnuDkJYaXuxgtOBdZrWoJREzP8yz4GQab96ehxCmsrBMhRAexhbd
-	 AVY2Yu0ZfZcpCVvN/C4nr/4yhcYC+EjteZTvMibtAfkZEpIoTkWjm8xfyCp5DmUmLB
-	 qbZIGeBMteZsO/RMH7VTcMN4sRjNU6GBHDdgEtuS+4M0vcPODsApRuouimWs9xIl+I
-	 Qj1sntMi+lCClH8Q/tM89TjzY7Jq4MxM7iJw2HdQbQAj9K0r5kpT6Xn81kFPp7m3FC
-	 J9hjJ4wNlclaLmnRETExM1XMIkV30rlXMUS5wxlKMEHH3URNBR2DD5DlE2qSNB4pc2
-	 KqieoFBm+lNeQ==
-Date: Mon, 22 Sep 2025 15:22:27 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
-Message-ID: <aqhcwkln4fls44e2o6pwnepex6yec6lg2jnngrtck3g5pc6q5d@7zibx3l2vrjw>
-References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
- <20250919-new-mount-api-v4-7-1261201ab562@cyphar.com>
- <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
- <2025-09-22-sneaky-similar-mind-cilantro-u1EJJ2@cyphar.com>
+	s=arc-20240116; t=1758553583; c=relaxed/simple;
+	bh=+8hIL5KGNAJZlOZh4g/K9PyciOka61pPV9ze3TfUvik=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iAz/+xwM4U0bHHwpuPoCH2WHGEPKi0rP9rwqQa8xjWZb9undbZLGLziNyo0rA85upgKyOhTv8wrO35mzcYubvfu+iuW3oNu3WnX959qubk/pFoeJT1QMRfXNv8tvi/gU+fgXn0vsJQubhFua/nzl0icQWdGuRpXzqb2eLE428hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=greenberg.science; spf=pass smtp.mailfrom=greenberg.science; dkim=pass (2048-bit key) header.d=greenberg.science header.i=@greenberg.science header.b=lGyFZPlk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AEEg0Ae8; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=greenberg.science
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=greenberg.science
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id F387F1D0004C;
+	Mon, 22 Sep 2025 11:06:19 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 22 Sep 2025 11:06:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	greenberg.science; h=cc:cc:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1758553579;
+	 x=1758639979; bh=+8hIL5KGNAJZlOZh4g/K9PyciOka61pPV9ze3TfUvik=; b=
+	lGyFZPlkU43G33u80Fsw7R10DPdsN36O7R1l/+biaPL5oknWe94nr5ho1l43DRFn
+	INDlHCv791jnyr8lIeBXD3bHaqaAwMRhqzHccRq7tI4NqH71VJNWy/zT66RybCuw
+	uHq6fQ36bcJrs1U0UUuO5XT3X7uXIx2gfqYJx5r4Outdnzb1Bs9OK88pdH4KDPkM
+	aav7Z9KizpO/OZoZQixvQn4gCXbyz3OXSADKx6kDovMdYDL5mxfjTgkA0ZyzoHBN
+	o2VSzmUFG/EHBo4ZCD0PGcisxalnM1pzMUHunLgOZy77g99hALdo2+7hfOAtcdVs
+	y0wZoH6VGgSPccZRZA2mNA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1758553579; x=1758639979; bh=+8hIL5KGNAJZlOZh4g/K9PyciOka61pPV9z
+	e3TfUvik=; b=AEEg0Ae8nqd1gZ1JmXkJt5Q5XBUA/VbuHN8ZJC4NkCSsHIktZM5
+	DX7hCr+hGkbokR2JXSQ2Htstvd0LVhcJENyIpjIbpqaEf60/46rBRNxcS1goPgod
+	x9SAsshZZLW0p+Wqbp7/oN5LMC5bv/wx/1W0ItXUYfDO2P+TbpYMRvDPloTqQWpK
+	g1A2trms9bt+Gpe5h6o8Od+eosXd7aoRuQ6XJkSpFDXS6+pNvLsM+IkeCxVo3pZs
+	fkeNtERvKO8kfIr0J8o7e5BBa/jfmzCv3xUJP7+eRUR5P/pXWZZRW09W5p0zoRHO
+	nj/8GesovjomfYVuAGCqCJLWJNnhjxVx2pA==
+X-ME-Sender: <xms:62XRaLluZwacOtIRLjQVAHlc42ZsLS59-M3TJ-MXQ5Da-mGpCr22BA>
+    <xme:62XRaCicgR_MLIeFMKuI_pjpyPLTBECouictAAULewkgxHUvIHxQHqUT0XblBBJs9
+    KOLV7xv_jLYvV88ryms8QyG69op9nr_HXhbO0cOL_HQpeyQbL-_a9PO>
+X-ME-Received: <xmr:62XRaLfHHsq9fwshuTWPOLyB3Var1OykRrkfkYAOPtNxVmkgdmMYCedT7GxXJVd8h_onxz-1XRYSFJDQNVmK5yEgELfNNzAS9lpzzg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdehkedujecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpefhvfevufgjfhffkfggtgesthdtredttddttdenucfhrhhomhepofhitghhrggvlhcu
+    ifhrvggvnhgsvghrghcuoehmihgthhgrvghlsehgrhgvvghnsggvrhhgrdhstghivghntg
+    gvqeenucggtffrrghtthgvrhhnpeetleejfeeutddtgeehfedvfeeftdeuhfeltdetvdff
+    feeggefgfeekvdelteejffenucffohhmrghinhepphgrnhguohgtrdhorhhgpdhgihhthh
+    husgdrtghomhdpuddrmhgunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepmhhitghhrggvlhesghhrvggvnhgsvghrghdrshgtihgvnhgtvgdpnh
+    gspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepfihilhhl
+    ihgrmhgsrgguvghrsehhohhtmhgrihhlrdgtohhmpdhrtghpthhtoheptgholhhlihhnrd
+    hfuhhnkhdusehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghlgieskhgvrhhnvghlrdho
+    rhhgpdhrtghpthhtohepphesughrrghighgsrhgrugihrdgtohhmpdhrtghpthhtoheptg
+    horhgvuhhtihhlshesghhnuhdrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehv
+    ghgvrhdrkhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:62XRaKjiKmnKnl1B2wXoBNvp4_cDAu47wgpplgkVahAkPhSHjRZVJQ>
+    <xmx:62XRaLxAO1gIAn02_vDkQ0sDqj45ZFrULy9CtBsS3L8quZZrpp-HgQ>
+    <xmx:62XRaOOW4xGu5xaPcz0QRYPedLja6UScK_kMXKOlL6EdE3Ityzv1ew>
+    <xmx:62XRaEWnwxjYdEtl_uQKorZgA2TX2fYlA5LlQ_MKELIJjqegg6o9sg>
+    <xmx:62XRaA70TlBfcyCgX7c72HPRKtAcrqqOUDgcLFYcN0EC8cVUtX-_QPRs>
+Feedback-ID: ib2794684:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 22 Sep 2025 11:06:19 -0400 (EDT)
+From: Michael Greenberg <michael@greenberg.science>
+To: William Bader <williambader@hotmail.com>, Collin Funk
+ <collin.funk1@gmail.com>, Alejandro Colomar <alx@kernel.org>
+Cc: =?utf-8?Q?P=C3=A1draig?= Brady <P@draigbrady.com>, "coreutils@gnu.org"
+ <coreutils@gnu.org>, "linux-man@vger.kernel.org"
+ <linux-man@vger.kernel.org>
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+In-Reply-To: <PA3P190MB24382227EA61EC2758D5AA11C410A@PA3P190MB2438.EURP190.PROD.OUTLOOK.COM>
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+ <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
+ <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
+ <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
+ <jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
+ <87o6r4zy73.fsf@gmail.com>
+ <PA3P190MB24382227EA61EC2758D5AA11C410A@PA3P190MB2438.EURP190.PROD.OUTLOOK.COM>
+Date: Mon, 22 Sep 2025 11:06:18 -0400
+Message-ID: <87sege1q8l.fsf@hippogriff>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7gv4y3hrk7klyb5b"
-Content-Disposition: inline
-In-Reply-To: <2025-09-22-sneaky-similar-mind-cilantro-u1EJJ2@cyphar.com>
+Content-Type: text/plain
 
+On 2025-09-20 at 10:31:31 PM, William Bader wrote:
 
---7gv4y3hrk7klyb5b
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
-Message-ID: <aqhcwkln4fls44e2o6pwnepex6yec6lg2jnngrtck3g5pc6q5d@7zibx3l2vrjw>
-References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
- <20250919-new-mount-api-v4-7-1261201ab562@cyphar.com>
- <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
- <2025-09-22-sneaky-similar-mind-cilantro-u1EJJ2@cyphar.com>
-MIME-Version: 1.0
-In-Reply-To: <2025-09-22-sneaky-similar-mind-cilantro-u1EJJ2@cyphar.com>
+[snip]
+>> I guess Markdown or reStructuredText would be more friendly to new
+>> contributors since many do not know Texinfo.
+>
+> Pandoc https://pandoc.org/ can convert between a number of formats. In
+> theory, it can convert markdown and rst to texinfo. Maybe with care it
+> would be possible to come up with a set of conventions for markdown,
+> maybe with a preprocessing pass, to have pandoc produce texinfo that
+> can print well.
 
-Hi Aleksa,
+I've been very happy using pandoc to generate manpages from Markdown for
+ffs:
 
-On Mon, Sep 22, 2025 at 08:09:47PM +1000, Aleksa Sarai wrote:
-> > > +is lazy\[em]akin to calling
-> >=20
-> > I prefer em dashes in both sides of the parenthetical; it more clearly
-> > denotes where it ends.
-> >=20
-> > 	is lazy
-> > 	\[em]akin to calling
-> > 	.BR umount2 (2)
-> > 	with
-> > 	.BR MOUNT_DETACH \[em];
->=20
-> An \[em] next to a ";"? Let me see if I can rewrite it to avoid this...
+ - Markdown: <https://github.com/mgree/ffs/blob/main/docs/ffs.1.md>
+ - Makefile to generate manpage: <https://github.com/mgree/ffs/blob/main/man/Makefile>
+ - Output: <https://github.com/mgree/ffs/blob/main/man/ffs.1>
 
-You could use parentheses, maybe.
+I haven't tried generating texinfo (I quite dislike the info reader and
+avoid using it), but I suspect the output would be satisfactory. While I
+understand the GNU bias in favor of info, I would support any efforts to
+improve the manpages (which are, imo, more accessible).
 
-> > > +.IR "mount --bind" )
-> >=20
-> > You need to escape dashes in manual pages.  Otherwise, they're formatted
-> > as hyphens, which can't be pasted into the terminal (and another
-> > consequence is not being able to search for them in the man(1) reader
-> > with literal dashes).
-> >=20
-> > Depending on your system, you might be able to search for them or paste
-> > them to the terminal, because some distros patch this in
-> > /etc/local/an.tmac, at the expense of generating lower quality pages,
-> > but in general don't rely on that.
-> >=20
-> > I've noticed now, but this probably also happens in previous pages in
-> > this patch set.
-> >=20
-> > While at it, you should also use a non-breaking space, to keep the
-> > entire command in the same line.
-> >=20
-> > 	.IR \%mount\~\-\-bind )
->=20
-> My bad, I think my terminal font doesn't distinguish between them well
-> enough for it to be obvious. I'll go through and fix up all of these
-> cases.
-
-I should probably add an automated diagnostic.  At least the case of two
-'--' together, which I've never seen useful unescaped, should be
-diagnosed.  I'll add a make(1) 'lint-man-dash' target that catches this
-with a regex.
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---7gv4y3hrk7klyb5b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjRTYwACgkQ64mZXMKQ
-wqmm2A//QAHUgf3mNDz7yAdWfueHzIl/M5wGQa4+TZCh+4v+dwqkN7OFGtbtD42p
-LO4vBmhKrX32iPDMaLrK5Luj7t5IgSSSHi9ZbkN1stgl8ku+XIdpq3ApYPuYKKyB
-JecginBsLE9Z+tqRN5uzsLx+lyDdcPrq1F/5KVNCN53Dn1C9oz0+/tiWxNIQYo4Z
-s6gvyGMTuPB31WzTXI0dzb2JxT/Dw+19lGWUJnpMl1HzCKMWLf+YFKXkydNH+6NZ
-CDmX9DFPQsL/VIa9igU5jIyudpJs5kkH5dXqQHO3xbMS73OLjNhlJLeFLPNaXQa7
-idx+L873f+7DQ4dD8UPmlKn3uVn99DkXPcYzmqFaLS1pCuBag5Q8YQkBASd9VJZn
-bG/EhmKT0XhKkCj7ake/NraSmIPn1XO7IdwTS0S3vuZUqaHc9BW1zxisM116Qfbi
-Ht7f4a+T4vOuesk6IBdpLgc0p5ZyRiQAx70dAOmOgzSvGsmQvKY9R8xpElbyKW2v
-AixCwUXNzpga2TVI/eJb2KxcffSJk5WV/FYMyV3GpT+VieUcEcDzl9E3EpAiQWpO
-6BVQFsXP9PwtsyuGLbtKtpAd1M+5xNkysuIymBvFKB1ysDc6IgTte/QrD8qAJPu4
-JJozjcn5qG2NjWl22s5zSrmM83p/np56cGpQ15G3qTv+Sg9IJkQ=
-=DYOq
------END PGP SIGNATURE-----
-
---7gv4y3hrk7klyb5b--
+Cheers,
+Michael
 
