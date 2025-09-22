@@ -1,141 +1,119 @@
-Return-Path: <linux-man+bounces-3945-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3946-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59C36B91D8B
-	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 17:06:28 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63C5DB93258
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 21:53:13 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6D8141886E77
-	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 15:06:50 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 2C4E57B3BF1
+	for <lists+linux-man@lfdr.de>; Mon, 22 Sep 2025 19:51:32 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED1362D6E7C;
-	Mon, 22 Sep 2025 15:06:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B6B22F1FDA;
+	Mon, 22 Sep 2025 19:52:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=greenberg.science header.i=@greenberg.science header.b="lGyFZPlk";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AEEg0Ae8"
+	dkim=pass (2048-bit key) header.d=hypodyne.net header.i=@hypodyne.net header.b="JFTLQSlQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WSdjcxzU"
 X-Original-To: linux-man@vger.kernel.org
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E6426FA56
-	for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 15:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68CA2E765E
+	for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 19:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758553583; cv=none; b=RwzAFkKQQ8WFs07qLwvzjPJDO7CPjfGYlULdNjNKlyogyOd4JuhYVKqlyv8QQxEYj5LP22Wb761KIJjpWSu9qKadYApSN0w6TOv9rgnl9+RTHpNFjK6tiQ133lOvipWrmQRR3ONSqJOyjkzKck80A04bMifhJvS46tbCniyCu7E=
+	t=1758570776; cv=none; b=UEbuCwK5yMdzOPAlkSRQnZvXxW+FcRi8dkLBK+ksArSxmccd5GWCR2AHUk6ZYRoUkw/194+Yba+WFSHzdWf1oo/aNQL9wzjvKJXLoZg/Hzye1kQeiX8SqLxtBcX/3dlb27lHnScvB98b2YFMz8edV35K6G6yfTRv3YK7FkTzZrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758553583; c=relaxed/simple;
-	bh=+8hIL5KGNAJZlOZh4g/K9PyciOka61pPV9ze3TfUvik=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iAz/+xwM4U0bHHwpuPoCH2WHGEPKi0rP9rwqQa8xjWZb9undbZLGLziNyo0rA85upgKyOhTv8wrO35mzcYubvfu+iuW3oNu3WnX959qubk/pFoeJT1QMRfXNv8tvi/gU+fgXn0vsJQubhFua/nzl0icQWdGuRpXzqb2eLE428hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=greenberg.science; spf=pass smtp.mailfrom=greenberg.science; dkim=pass (2048-bit key) header.d=greenberg.science header.i=@greenberg.science header.b=lGyFZPlk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AEEg0Ae8; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=greenberg.science
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=greenberg.science
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id F387F1D0004C;
-	Mon, 22 Sep 2025 11:06:19 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Mon, 22 Sep 2025 11:06:20 -0400
+	s=arc-20240116; t=1758570776; c=relaxed/simple;
+	bh=m50LLab5z5KR/VuaXaW45MhNiJx6mrEPVjQFQzhlw/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hgPxiB+lkZrcNALFU8T8YtKzbGltiTbbXZYfJLJVrsiZED2K6S5xT5/WWOdGsOTNyawgJY5wiNT8AOEaKbrWNYbZE1uXYev2tWnV4i7HymqxO2S9rSYY7LHtrPHJhSM+m7pJpQL+0AVR9K4dAVlYTHfiACVDVcHyOlEjupmpAOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hypodyne.net; spf=pass smtp.mailfrom=hypodyne.net; dkim=pass (2048-bit key) header.d=hypodyne.net header.i=@hypodyne.net header.b=JFTLQSlQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WSdjcxzU; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hypodyne.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hypodyne.net
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id CCBFEEC02C2;
+	Mon, 22 Sep 2025 15:52:52 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Mon, 22 Sep 2025 15:52:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hypodyne.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1758570772; x=1758657172; bh=WxG4IaZU241WYzH1559ZI
+	ct7AUHIttDUtPFNz5OlLiI=; b=JFTLQSlQoDmf26hWpz5VnBvjTF4Nf0WNBscwh
+	MK3P+vk6ZM37sAiI8qj7JrXzlia9Yq7zLY7pT6K+XuFzmc1eWDcRrngPLgRblxqe
+	a8nPxa0BAJC04HV8ntrAwn4JvelC3dMHLnTgn43kDr0EozJwtMvLb/FQt54EfiIQ
+	RpkQY1zU285SgVWMUgykPG1bCC772N+qvk4KU0ZIMeiaqutMTlqSnP25Xcl+pAFX
+	+UJwKTgGsH9SK5gSpeqTl5eKQ5LF9z4ZCX5HeiP9eXjCt7+aUwCBbmizyspDkKtW
+	xiCg+I6/Zo6mpB2P59TVzeiRHUTLxF0rBxY2RZF5XWTzUdB2Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	greenberg.science; h=cc:cc:content-type:content-type:date:date
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1758553579;
-	 x=1758639979; bh=+8hIL5KGNAJZlOZh4g/K9PyciOka61pPV9ze3TfUvik=; b=
-	lGyFZPlkU43G33u80Fsw7R10DPdsN36O7R1l/+biaPL5oknWe94nr5ho1l43DRFn
-	INDlHCv791jnyr8lIeBXD3bHaqaAwMRhqzHccRq7tI4NqH71VJNWy/zT66RybCuw
-	uHq6fQ36bcJrs1U0UUuO5XT3X7uXIx2gfqYJx5r4Outdnzb1Bs9OK88pdH4KDPkM
-	aav7Z9KizpO/OZoZQixvQn4gCXbyz3OXSADKx6kDovMdYDL5mxfjTgkA0ZyzoHBN
-	o2VSzmUFG/EHBo4ZCD0PGcisxalnM1pzMUHunLgOZy77g99hALdo2+7hfOAtcdVs
-	y0wZoH6VGgSPccZRZA2mNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1758553579; x=1758639979; bh=+8hIL5KGNAJZlOZh4g/K9PyciOka61pPV9z
-	e3TfUvik=; b=AEEg0Ae8nqd1gZ1JmXkJt5Q5XBUA/VbuHN8ZJC4NkCSsHIktZM5
-	DX7hCr+hGkbokR2JXSQ2Htstvd0LVhcJENyIpjIbpqaEf60/46rBRNxcS1goPgod
-	x9SAsshZZLW0p+Wqbp7/oN5LMC5bv/wx/1W0ItXUYfDO2P+TbpYMRvDPloTqQWpK
-	g1A2trms9bt+Gpe5h6o8Od+eosXd7aoRuQ6XJkSpFDXS6+pNvLsM+IkeCxVo3pZs
-	fkeNtERvKO8kfIr0J8o7e5BBa/jfmzCv3xUJP7+eRUR5P/pXWZZRW09W5p0zoRHO
-	nj/8GesovjomfYVuAGCqCJLWJNnhjxVx2pA==
-X-ME-Sender: <xms:62XRaLluZwacOtIRLjQVAHlc42ZsLS59-M3TJ-MXQ5Da-mGpCr22BA>
-    <xme:62XRaCicgR_MLIeFMKuI_pjpyPLTBECouictAAULewkgxHUvIHxQHqUT0XblBBJs9
-    KOLV7xv_jLYvV88ryms8QyG69op9nr_HXhbO0cOL_HQpeyQbL-_a9PO>
-X-ME-Received: <xmr:62XRaLfHHsq9fwshuTWPOLyB3Var1OykRrkfkYAOPtNxVmkgdmMYCedT7GxXJVd8h_onxz-1XRYSFJDQNVmK5yEgELfNNzAS9lpzzg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdehkedujecutefuodetggdotefrod
+	1758570772; x=1758657172; bh=WxG4IaZU241WYzH1559ZIct7AUHIttDUtPF
+	Nz5OlLiI=; b=WSdjcxzUPHQ/gjsULjgVyd4JA1J9V4uzvYmKzeoojg9GxGdV9Z4
+	LSCm9r5v/IoBkmyowjJEIVYX298sZ3SLBlqilp9qnbJkEREdTBhVyB12ChvXJcaW
+	PGhrrXD+6OC+0Y/v+DPuDThtOZKJSmLAaKM2+47LuotOgrTSe92aGOJ0G6hxJPto
+	IOX0Ac3o4ltuT57PAxO8dFeZuMRC76//HFAVVshAvA64LcGmMUQBij1EYvLt45Um
+	oacj3PEbMCaj5s79B/2ZS56UxC7ZzVXItqToS6Lx9+t3V134RvfNcdHgjvL7emJy
+	60q88FnKB8x9L6Qm1EYDzULv1zGhXzncbMg==
+X-ME-Sender: <xms:FKnRaMILDzxbXXnKDAintT0AetHlnc3qiUXCIiqSoNdHuIdmF3KQCw>
+    <xme:FKnRaDlFotvjEY9gkc50ARK7-jawIjsDwsRLPUtzr90ALkGU3ZDX6Kk7d74bX_Jyu
+    WgpFl7v83fObq-hK6hOwlFuxzLFY4bZmlnvDlq1-ZnY5U1fw4ZYFg>
+X-ME-Received: <xmr:FKnRaKG3UsHjAm1lebgOOkg0Mlxp0zKXlQgsa7ToUx2GZQb2NyHXI2AhRZ-YHUlXQNEpK8qn2g-CFEMqtJdIaj9XnuilfKdN-mpoJRRpZWTiLulu>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdehkeejgecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpefhvfevufgjfhffkfggtgesthdtredttddttdenucfhrhhomhepofhitghhrggvlhcu
-    ifhrvggvnhgsvghrghcuoehmihgthhgrvghlsehgrhgvvghnsggvrhhgrdhstghivghntg
-    gvqeenucggtffrrghtthgvrhhnpeetleejfeeutddtgeehfedvfeeftdeuhfeltdetvdff
-    feeggefgfeekvdelteejffenucffohhmrghinhepphgrnhguohgtrdhorhhgpdhgihhthh
-    husgdrtghomhdpuddrmhgunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhhitghhrggvlhesghhrvggvnhgsvghrghdrshgtihgvnhgtvgdpnh
-    gspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepfihilhhl
-    ihgrmhgsrgguvghrsehhohhtmhgrihhlrdgtohhmpdhrtghpthhtoheptgholhhlihhnrd
-    hfuhhnkhdusehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghlgieskhgvrhhnvghlrdho
-    rhhgpdhrtghpthhtohepphesughrrghighgsrhgrugihrdgtohhmpdhrtghpthhtoheptg
-    horhgvuhhtihhlshesghhnuhdrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehv
-    ghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:62XRaKjiKmnKnl1B2wXoBNvp4_cDAu47wgpplgkVahAkPhSHjRZVJQ>
-    <xmx:62XRaLxAO1gIAn02_vDkQ0sDqj45ZFrULy9CtBsS3L8quZZrpp-HgQ>
-    <xmx:62XRaOOW4xGu5xaPcz0QRYPedLja6UScK_kMXKOlL6EdE3Ityzv1ew>
-    <xmx:62XRaEWnwxjYdEtl_uQKorZgA2TX2fYlA5LlQ_MKELIJjqegg6o9sg>
-    <xmx:62XRaA70TlBfcyCgX7c72HPRKtAcrqqOUDgcLFYcN0EC8cVUtX-_QPRs>
-Feedback-ID: ib2794684:Fastmail
+    ihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtredttd
+    enucfhrhhomhepvehougihucfjrghrrhhishcuoehgihhtsehhhihpohguhihnvgdrnhgv
+    theqnecuggftrfgrthhtvghrnheptdekgfekueefhfejleeihfeufeeileehueeigeekie
+    etkeffhfetffetteeggfeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepghhitheshhihphhougihnhgvrdhnvghtpdhnsggprhgtphhtthhope
+    efpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrlhigsehkvghrnhgvlhdrohhr
+    ghdprhgtphhtthhopehgihhtsehhhihpohguhihnvgdrnhgvthdprhgtphhtthhopehlih
+    hnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:FKnRaDFZaXDHvY_PwrgXH5KeCRjvNuuhS3nIXjJ0RgDu9zHu0MpS6A>
+    <xmx:FKnRaHN7iqTQ1oKM9YMC0uDavfSpOGIK6yXVwlpSZzm8B1ofRHlhSQ>
+    <xmx:FKnRaCFjdQzhXgJ3Uyb5cwaP0YsJZp6JgetVJcnaww_hbkoKdOnVAQ>
+    <xmx:FKnRaOPkSTPbdMSA6-sn3aMuAWtRGDFVRhSvM1_-vTcM3wsWX1ZnAA>
+    <xmx:FKnRaGVcd6MRyMLaWSt6UiUy7YedTkpoMbJblD0EU8YLGeiqn8_WehJa>
+Feedback-ID: i437146c8:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 22 Sep 2025 11:06:19 -0400 (EDT)
-From: Michael Greenberg <michael@greenberg.science>
-To: William Bader <williambader@hotmail.com>, Collin Funk
- <collin.funk1@gmail.com>, Alejandro Colomar <alx@kernel.org>
-Cc: =?utf-8?Q?P=C3=A1draig?= Brady <P@draigbrady.com>, "coreutils@gnu.org"
- <coreutils@gnu.org>, "linux-man@vger.kernel.org"
- <linux-man@vger.kernel.org>
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-In-Reply-To: <PA3P190MB24382227EA61EC2758D5AA11C410A@PA3P190MB2438.EURP190.PROD.OUTLOOK.COM>
-References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
- <e8152fd3-5095-4c5b-a52f-8451f67272de@draigBrady.com>
- <53jjjhuovjnbju4ex56hwoke2zz5rshxr6qjeqe3tidgcls4sw@zfnfbdktmtpb>
- <4e842b01-5251-495a-9a49-1ce59676acc9@draigBrady.com>
- <jcxx3nfilug5tfk7ktgr4n4sw3nsvympz7tslsblqlqxbm6ou3@hu34rdpdtajr>
- <87o6r4zy73.fsf@gmail.com>
- <PA3P190MB24382227EA61EC2758D5AA11C410A@PA3P190MB2438.EURP190.PROD.OUTLOOK.COM>
-Date: Mon, 22 Sep 2025 11:06:18 -0400
-Message-ID: <87sege1q8l.fsf@hippogriff>
+ 22 Sep 2025 15:52:52 -0400 (EDT)
+From: Cody Harris <git@hypodyne.net>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Cody Harris <git@hypodyne.net>,
+	linux-man@vger.kernel.org
+Subject: [PATCH] man/man2/getsockopt.2: tfix
+Date: Mon, 22 Sep 2025 15:52:25 -0400
+Message-ID: <3589b9717dacf9e21bea9317da0840ad9095d7f1.1758570745.git.git@hypodyne.net>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On 2025-09-20 at 10:31:31 PM, William Bader wrote:
+---
+ man/man2/getsockopt.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[snip]
->> I guess Markdown or reStructuredText would be more friendly to new
->> contributors since many do not know Texinfo.
->
-> Pandoc https://pandoc.org/ can convert between a number of formats. In
-> theory, it can convert markdown and rst to texinfo. Maybe with care it
-> would be possible to come up with a set of conventions for markdown,
-> maybe with a preprocessing pass, to have pandoc produce texinfo that
-> can print well.
+diff --git a/man/man2/getsockopt.2 b/man/man2/getsockopt.2
+index 27a088d1c..f37b87d20 100644
+--- a/man/man2/getsockopt.2
++++ b/man/man2/getsockopt.2
+@@ -13,7 +13,7 @@ .SH SYNOPSIS
+ .nf
+ .B #include <sys/socket.h>
+ .P
+-.BR "int getsockopt(" "socklen *restrict optlen;"
++.BR "int getsockopt(" "socklen_t *restrict optlen;"
+ .BI "               int " sockfd ", int " level ", int " optname ,
+ .BI "               void " optval "[_Nullable restrict *" optlen ],
+ .BI "               socklen_t *restrict " optlen );
+-- 
+2.51.0
 
-I've been very happy using pandoc to generate manpages from Markdown for
-ffs:
-
- - Markdown: <https://github.com/mgree/ffs/blob/main/docs/ffs.1.md>
- - Makefile to generate manpage: <https://github.com/mgree/ffs/blob/main/man/Makefile>
- - Output: <https://github.com/mgree/ffs/blob/main/man/ffs.1>
-
-I haven't tried generating texinfo (I quite dislike the info reader and
-avoid using it), but I suspect the output would be satisfactory. While I
-understand the GNU bias in favor of info, I would support any efforts to
-improve the manpages (which are, imo, more accessible).
-
-Cheers,
-Michael
 
