@@ -1,165 +1,192 @@
-Return-Path: <linux-man+bounces-3947-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3948-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38CBEB94449
-	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 07:02:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E1FB9583D
+	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 12:51:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E523C2A7B38
-	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 05:02:42 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3EEF71890D76
+	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 10:51:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ACC0C2594B9;
-	Tue, 23 Sep 2025 05:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4F13313D48;
+	Tue, 23 Sep 2025 10:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ko/hULtT"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCEcRj7Z"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com [209.85.219.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BC4266584
-	for <linux-man@vger.kernel.org>; Tue, 23 Sep 2025 05:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642252594BD
+	for <linux-man@vger.kernel.org>; Tue, 23 Sep 2025 10:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758603758; cv=none; b=q/RwxMevfmOyKEFGtYsDOYKY2F29DOuwmsSauTN5qRPX3tZY8blxVnhROgmQUf641ANEzumWTxTaOA0P0erdZjJjco33JDo/ngi1zFRLZSAtW1SgtPCEVV8HCXvK0dmtkyYDxP7BD7BPeVIk+gZV9lcTxJwQvKbIw8SQCmVMvlY=
+	t=1758624663; cv=none; b=GkvuiyQLN1W8SYJlFo6doqO4Y2MTkr3Wbw/Ql0W1EiqMtw5xVUYCKDqL9GnFlge2FpWmiJE7IxCOnxcjtmjoQ96gxSCoyC0rtQ0dpZeB5FeeiTfZpkFRRlXILIv1T2HvQ1KkTS9xODWRpkNzK9c6gr3AzUAA2IQankoIR7v//XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758603758; c=relaxed/simple;
-	bh=br5b5VigKLiWffbnT91+bSjiwBbq+GT3XTpSY38fb6Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bs2KfUcNT3jwI4T4coJFzMwCC8EidtYzt3qJfSSOXVTDvmQtIfVVtnkdh1xS3FU3RgCn0yL23sonF1JDCTvboJhkDokqjPSveg0vYU75f1cRNYZ2m3xH8zxOAO2dHrcd19t7CQMMsR9uFeSOpxSy9fbyYc6/fCUvh2mSs8B3DLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ko/hULtT; arc=none smtp.client-ip=209.85.219.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yb1-f169.google.com with SMTP id 3f1490d57ef6-ea5c9dcba4bso3240386276.3
-        for <linux-man@vger.kernel.org>; Mon, 22 Sep 2025 22:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758603756; x=1759208556; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=BhS2QBzRNP5lZnYkBBRmOyDX2SGB1d5O/y5DzZn8GrU=;
-        b=ko/hULtT9c6rG5yiKmRQcnn15Pp/2lwBfcb9LWq8TMER7zFSpQkfN4UoErkWmSGyJY
-         M5lZYPlK+xx49AT6fwyFt9p4N11SYpjGj+rYAFUIDBhAnDcz5j+beKDfMz5j0pqH8JKB
-         P3BOwlO9eCEW4RkADumtJebN2ATJvQxu9hmi78JJ1dw9IVg+/wC5M+8jcvfF2khZNeKy
-         URkQTznTR9qg8cIZcGALP2zODB2M/mAYYTQgcTDTLwsDCUq6ZvEXH9kg016thDE6iLi5
-         OayDf1WqTObD02tWsxC0qneiMpqbKePl/x+5sPmZJ+4aqyXJ1AfpuO0yedVDWgca1TEV
-         1tYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758603756; x=1759208556;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BhS2QBzRNP5lZnYkBBRmOyDX2SGB1d5O/y5DzZn8GrU=;
-        b=asOb6nm5omWr/K8TfOcikQjNKvO8K5EQxqGdlSg8lrtSHXY90/VkZg0MV9fqD0IUnH
-         OJyQ1jD7xav/IXXCHs6L32Cfmkc7giFg5kKfsTci9fbiCBvc5NvOc3D60hxHAy7v9i5Y
-         I61Y/jg+C3SnqZLd/YcQgCUiKzqZKp2ISKfs3mWxWpf4En27oRUuqS23xw+4SZ4h/so6
-         4zAtbk1OqxS7lbN4v22bIITATAUYSaD9DM8SwC+3a+jTF0iDgoifP+S+xU8DWZZpfWhB
-         sTy5KXmfgN17Xk7013mgOPpA/PCVzxgw0u6ZdrE6BAacD5+EDAChJXefmuhLNZqPK690
-         vOPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV8pYsRl93V7g/rV3yjoR/XEo5sBahdTaoD6yGXvIKfguZVglkLWYSo2FNkUfj3VV96cKvPdKmoEac=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQA/AmekK6zoLCz8flyvNk7/4My9joqxIzrlJ0YTDyM0LiqX+m
-	fW7mBNVXN1e0bqoGXiuxJVe+culia+dcq9nVTw97Q6NKqCh2S9wwM+XpdFaJ5g==
-X-Gm-Gg: ASbGnct8hoCQe3pzvFjup0rvF0eIeW15PlmGPE63TmsoBC/kgzrFPH+ig15iNXQqap7
-	diVIShYMZWLwQ+xMBTmbVpyMZoWYa0n2DDx4dKJTUkuONNV1EMcisjbQNpmvC/i9ZWGf2kpHknQ
-	FUL5hFvVN+6b0Cno7Mn9Fx+jrIecylE+jog4HxpV+Tg0NLvlXWieuSjCVN4QskndhyS09L9010s
-	SORp2KuJCe6KxjGgNNdW4wQd8mW6d0lknQbIPovkLvCQgeLt8y50Q3wO6rH2ObBfb5oXz9mUdv+
-	/q9KoBU86V4vr39HBOZBKp4g8vyashs5bxcTgCS9hhVZE3fLtFUvhPcDNTajRVvJGTpPdO+7CZz
-	/gA8bZAq+fuDQ
-X-Google-Smtp-Source: AGHT+IHpWpQiltP7TMl6r6ka5VCF6SLzA7TuPDrABIOfhYHG/v1JJXBB3qG4Y7O7VT8/ufT7qXBPKw==
-X-Received: by 2002:a05:6902:288c:b0:eac:c616:41b7 with SMTP id 3f1490d57ef6-eb32e72d5e8mr1199951276.19.1758603755743;
-        Mon, 22 Sep 2025 22:02:35 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::41])
-        by smtp.gmail.com with ESMTPSA id 3f1490d57ef6-ea5ce854219sm4708351276.16.2025.09.22.22.02.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Sep 2025 22:02:34 -0700 (PDT)
-Date: Tue, 23 Sep 2025 00:02:31 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Kele Huang <kele@cs.columbia.edu>
-Cc: alx@kernel.org, linux-man@vger.kernel.org
-Subject: Re: [PATCH 6/6] man/man2/fanotify_mark.2: grfix
-Message-ID: <20250923050231.3amllj7nlhh55mfd@illithid>
-References: <20250922035934.446271-1-kele@cs.columbia.edu>
- <20250922035934.446271-7-kele@cs.columbia.edu>
+	s=arc-20240116; t=1758624663; c=relaxed/simple;
+	bh=A6Z6BHJ82zOaGR03L+k2MKORnYnEwu5xiMMZMfgzd08=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=GZtSQO1XkyHX1BxVwchlFlOcTJSe+yR0U+6cA+w2X3ZI0cZ3vi0OppuRGzkn/GWsVqEcMxiLghNXjDTwGoOIJMYzjrmXglaJa9aQRXsWg2C+84y9k7YoiEsD6Ym9BCKyPmPS+KzE8/kEX1ciim/TBYMqaZw+110iIzBSiH+AjFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCEcRj7Z; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349D8C4CEF5;
+	Tue, 23 Sep 2025 10:50:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758624660;
+	bh=A6Z6BHJ82zOaGR03L+k2MKORnYnEwu5xiMMZMfgzd08=;
+	h=Date:From:To:Cc:Subject:From;
+	b=cCEcRj7ZDm+7h7MXnnFZcGlWq7/Y2Pdp0WA0RsE5SsYLtZ8lPY9fAaU9EvUhGJN0D
+	 xCHbrucnHvJYnfey2LpJ+vr+GIyvx8ysPjN9o7RL0L4DL83xLGesVxIi112tkT+DMV
+	 3Q8t1k9vlsv0PytSddBcAuJUvOLK/i7KZKkmj/efGhyV05OlVgK9s8K/KldXv/QhDc
+	 fi+OMfJicoWZ98I1WYqLhnU7cFHBdQ1LKTRWaHTb3E9K/q5IhWfDeAQno63iTeLLTZ
+	 CY5WwxQmZwgEdzgEQYa4H/8WdPcEYIRvDXvr5Q2bDItfLTGT6pVId7S6Cjl+3JEu04
+	 E70wxCi16PHhw==
+Date: Tue, 23 Sep 2025 12:50:54 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Doug McIlroy <douglas.mcilroy@dartmouth.edu>, 
+	Michael Kerrisk <mtk.manpages@gmail.com>, groff@gnu.org
+Subject: mini-book manual pages through multi-.so pages (i.e., the old
+ proc(5) page)
+Message-ID: <3cdmp5o65fcnrd7fdaziino6thqpnevsxfln5hku2fvbc2bk42@4ck2l5oyearq>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="jxfvdt733kpaxodr"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jgau6e4tvj27tne3"
 Content-Disposition: inline
-In-Reply-To: <20250922035934.446271-7-kele@cs.columbia.edu>
 
 
---jxfvdt733kpaxodr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--jgau6e4tvj27tne3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
-Subject: Re: [PATCH 6/6] man/man2/fanotify_mark.2: grfix
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-man@vger.kernel.org
+Cc: Doug McIlroy <douglas.mcilroy@dartmouth.edu>, 
+	Michael Kerrisk <mtk.manpages@gmail.com>, groff@gnu.org
+Subject: mini-book manual pages through multi-.so pages (i.e., the old
+ proc(5) page)
+Message-ID: <3cdmp5o65fcnrd7fdaziino6thqpnevsxfln5hku2fvbc2bk42@4ck2l5oyearq>
 MIME-Version: 1.0
 
-Hi Kele,
+Hi,
 
-At 2025-09-21T23:59:34-0400, Kele Huang wrote:
-[...]
-> -fanotify_mark \- add, remove, or modify an fanotify mark on a filesystem
-> +fanotify_mark \- add, remove, or modify a fanotify mark on a filesystem
-[...]
-> -adds, removes, or modifies an fanotify mark on a filesystem object.
-> +adds, removes, or modifies a fanotify mark on a filesystem object.
-[...]
-> -was not an fanotify file descriptor.
-> +was not a fanotify file descriptor.
-[...]
-> -This error can be returned only with an fanotify group that identifies
-> +This error can be returned only with a fanotify group that identifies
-[...]
-> -This error can be returned only with an fanotify group that identifies
-> +This error can be returned only with a fanotify group that identifies
-[...]
-> -This error can be returned only with an fanotify group that identifies
-> +This error can be returned only with a fanotify group that identifies
 
-The above revisions' correctness depends on how "fanotify" is
-idiomatically pronounced.  I checked, and Amir Golstein pronounces it
-"F. A. notify".
+Michael Kerrisk reported to me that he preferred the old proc(5) page,
+where everything under /proc was in a single page.
 
-https://youtu.be/PNZmegl63hM?t=94
+The rationale is that it was possible to search through that page with
+less(1), and you didn't need to know where it was what you were
+searching for.
 
-He seems to be an authoritative voice; I therefore think the foregoing
-revisions are incorrect.
+He proposed reverting the splits of proc(5), which I refuse to do, but
+I think he has a point.  I refuse to do so, because I agree with
+something Doug complained about, which is that some of the pages we have
+are not really pages, but rather entire books, and for me it has
+important maintenance costs (plus, it's easier for me to find stuff with
+small pages; but that seems to be subjective, depending on your
+specific needs and experience).
 
-[...]
->  This error also occurs when trying to remove a mark from an object
-> -which is not marked.
-> +that is not marked.
+Right now, the only way for searching something across several pages is
+going to /usr/share/man/, and doing a manual search there.  This was
+already true in the general case, before the split of pages.  For
+example, if one wanted (or wants) to know where FD_CLOEXEC is specified,
+one must know a little bit about Unix organization of manual pages, and
+use some pipes:
 
-Excellent catch!
+	alx@debian:/usr/share/man$ find man2 -type f | sort | xargs zgrep FD_CLOEX=
+EC -l
+	man2/accept.2.gz
+	man2/dup.2.gz
+	man2/epoll_create.2.gz
+	man2/eventfd.2.gz
+	man2/execve.2.gz
+	man2/fanotify_init.2.gz
+	man2/fcntl.2.gz
+	man2/inotify_init.2.gz
+	man2/memfd_create.2.gz
+	man2/memfd_secret.2.gz
+	man2/open.2.gz
+	man2/perf_event_open.2.gz
+	man2/pidfd_getfd.2.gz
+	man2/pipe.2.gz
+	man2/signalfd.2.gz
+	man2/socket.2.gz
+	man2/timerfd_create.2.gz
 
-https://owl.purdue.edu/owl/general_writing/grammar/that_vs_which.html
+(We may want for example an FD_CLOEXEC.2const manual page to link to the
+ canonical page for it, but I'm not yet decided, because that could mean
+ lots and lots of new link pages.  I'm open to comments about that.)
 
-Regards,
-Branden
+But I admit that the splitting of proc(5) and other pages has regressed
+this feature that was present, and in some sense, this is something that
+info(1) does right-ish: documentation is nested in levels, and you can
+start from the top level if you don't know what you're looking for.
 
---jxfvdt733kpaxodr
+I had an idea that somehow relates to the original format in which Unix
+documentation was presented, and which thanks to Deri James we have now
+again in this project: a typeset book covering the entire set of manual
+pages.  There, one can search for anything, and it will be found.
+
+We could also have something similar in the terminal, and not as huge as
+the entire book.  It would be mini-books, for some topics, such as
+proc(5).
+
+My idea is having a proc(7) page that would essentially be built as:
+
+	$ find man5/ | grep proc | sort | sed 's/^/.so /' > man7/proc.7;
+
+(Actually, I'd also build a proc_pid(7) page, which would include only
+ the proc_pid_*(5) pages, and similarly for other /proc/ subdirs.  And
+ then proc(7) would only source those subdir pages.)
+
+Then, one could consult proc(5) as documentation exclusively for the
+/proc directory itself, or one could consult proc(7) as a book that
+describes both /proc and its contents.
+
+And the maintenance would be as simple as it is now, because the
+contents are in the small pages only.  Updating the link books should be
+easy (and I'm thinking of a script to create them at build time, so it
+should be fine).
+
+What do you think?
+
+I'm CCing Doug, as he probably has an opinion as editor of the V7 Unix
+manual, and Michael as the reporter of the regression.  I'm also CCing
+groff@, as they probably have some opinion on multi-.so pages (and thus,
+multi-.TH pages).
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--jgau6e4tvj27tne3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmjSKeAACgkQ0Z6cfXEm
-bc6/3A//UsWjpihho7vVfU7folIj3zKId8rkVqqWFskwyIOlqT3rVpK0sPrbxdn6
-oiuW2IF/YDrCGAFxzE7tv5sY0plR2L2DOVFM4MWxe4uGQ0ASJt2wML8tR5aT9ytV
-CrqGeH47oXgfExehPvK5W9go2Wfq5myga+7+BDNRloqNkNIh1rmZbM/QuAR8jkSH
-S4QQqnzi4u37TtHmAOAEh1AjHBEl+LuWgd/cgwW10+wMTWS3LOiGrQ/h6vzk9Vlr
-1fISMxpWKqATfC9o/0YzYJ7bJztFdMjDwgh2k56js8Ay6uBPQ5FSU8huD+qX+/eB
-CEPt9fSLVOO21DFrCzdDkghs/Tw44JE46M5CMcdUVXrRTcjN2dhzHivg563TfFfX
-hSrSqdHefgZEj5jumuysLz3f5D+fv7k7ukKQbhZeSCvTm5QwaPk4mSdSiXAK5RG9
-HabgrvEgQ3ZjIVapQ8REVsVWJAu+KKYYXMBX+oHo5gReIheNIAuGah0tSgwJGBCd
-zF0v7muomupmPMBDp5hLiS7W8/qfORgcvmWOeGv2DYmYMHkeUmKESQHGGv8x3TMP
-64gPuq79wD7GSbp5znQttGlNZEOH2Ih5wYr1ngCg992sbMwizPjqtIQueqfXz5Hn
-1u6hjxVjZoGoy3iqWGL2yDZGny+D8flg7AGCWWU53vTm8AnTrUw=
-=UqLY
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjSe4MACgkQ64mZXMKQ
+wqketA//ZlpN3uzGgjdIi+iKiHZ5kZXbwK/G74SsHudVtvwbX27ND+HR6dluus7U
+43ROogLQZor3ZPgswNzT6Ecn+Ta2p9Z8UcZbt7dq1FJA5mkvMGjFHXKm7BZX7uKT
+DnSAYQIsXhyp0e/xT7duCqfezemhbcOKFWgDmSPQVU7zUOv+Aquk6AS8PXroOuKc
+lU42c5tivq2KPDyEF69MVBHhWsLHPGq8f5vh8GGE21zpNlIJy64wLQgnXeKwM6s1
+FWLIJESqLZcW6SC8YtUtlwzNFAFhm7T3FDE2fsq31sxUHw5PGUruQkfrOd7cuAp+
+97SJQ6vznhfKhOaGTcPnZOLBJ5Jdi18mO/E+QdzQqxenOEemdeLPvIEPOpnlPSn5
+5isICrVSsA23By1LBRinIa2SsSWYRW5qIeGIaLT03Si4G9RM1c9PAvr5StSlS4uZ
+DMQvNmoAC7i0a14NeoypHijYMg/sU8TEb5++o+ia4sXWvhQJnu/wBT8MMCi3ZZ7N
++fFqMt6Aw4PI0cgNBJtwVrez0f+WByccrM0eGXMoC7TOuztdxvOfw2QSr6ffUkNs
+QP5CUZwevp4JLmrditwNBf5VneaOqevblbH6xScOF0y7KntUGfhKc0CZO1KTVBwc
+j7JkAuKhrMKFn6tV9Sw1RsFO3Y0IVN8/HW5pvqVT/jVPMgSX8zU=
+=qN8G
 -----END PGP SIGNATURE-----
 
---jxfvdt733kpaxodr--
+--jgau6e4tvj27tne3--
 
