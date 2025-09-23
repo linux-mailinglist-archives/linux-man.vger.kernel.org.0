@@ -1,102 +1,126 @@
-Return-Path: <linux-man+bounces-3949-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3950-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A266B95D55
-	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 14:22:18 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C48B95E6E
+	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 14:57:21 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 43FFB19C1C2D
-	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 12:22:37 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 3314E2A5467
+	for <lists+linux-man@lfdr.de>; Tue, 23 Sep 2025 12:57:21 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45E87322743;
-	Tue, 23 Sep 2025 12:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F1FE322DBB;
+	Tue, 23 Sep 2025 12:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d1u+b/dc"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r2nNvYJk"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC31322DC3
-	for <linux-man@vger.kernel.org>; Tue, 23 Sep 2025 12:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEFB30DEAC
+	for <linux-man@vger.kernel.org>; Tue, 23 Sep 2025 12:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758630109; cv=none; b=geCRW2w43rPoV2+LtF86U3FtAS+fuEaAsVWAvYQktZ19JYHnSZP8EXJviS5TlK2kRZXiG+7arhhTH9ZJOqLGajdecb+OwQtGxGV7YB8rRkUOlLcistx/6Jh9lrPGOhcnzSyeGu4vrGGrDoV50Ym9HvdZLa1+foVd8/yyl/UVUgs=
+	t=1758632237; cv=none; b=EBMdkEbkIxhexiWoqB8TMfyUK51xZ09Fg/xBaTV51aa3nebwlluhSp36UYFXScvk7iT9WyL5GRczhG2FPA0X+PxI2DYjC2sFQcgM52fK6YutWNrhEDN6gEIp5MA8NfgWJYYhUAkgDT5BeG6eKdX9E0g4syGvvw0PCfXFv9szBbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758630109; c=relaxed/simple;
-	bh=7kfUIm6efLQvJG4+tkQUfGt3fWocFVFtJlWIbuDustk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KtDwdiSm7bBdDbI2qQWSfmAAbteApCzRg3jFcqhHmw41VOKWKFVKa7Xdlmr+kZ0zVZrq//InCHplK3zJAi+oFMXa1i7LHPYuFQD5LMfOVoPcJto6xvSGPy8hgIRp14Psc3ezbvO531BSxn8C+sgDNgs6pKS/Jy5rut0B48Ptjt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d1u+b/dc; arc=none smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-89018e9f902so2962324241.0
-        for <linux-man@vger.kernel.org>; Tue, 23 Sep 2025 05:21:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758630106; x=1759234906; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7kfUIm6efLQvJG4+tkQUfGt3fWocFVFtJlWIbuDustk=;
-        b=d1u+b/dcMmMH890EjDLAQ0pQbmy+izE6vNGzDW1tI3/1m8UW7fSJLMCUWWCNcS2sP3
-         2eKVEvSoi25/aO1oUDJYwYPMeqAsV/oB63u9D9TJBPPtMnA/k9jWsIg8B9D7+dWrjzK8
-         Jm2fmv9VgVrpI+iI3QP0d77NiB8LvxChWEEX7J5G2z/d0+m0b4LvAwSdsZLEz1lVnkoj
-         050Z6egARih8Up1Q5eaC9fLN2Sz1kegb1guq5DkK1wJYeaRoFOHrpDvlmvQ5lDxEweWG
-         S2NXvYSvLwdmkWXOvEGderukNzMLUhn1UeFYJ0f8L33TlV0V4W+YrfgzTTEuy3MG5FGl
-         TFug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758630106; x=1759234906;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7kfUIm6efLQvJG4+tkQUfGt3fWocFVFtJlWIbuDustk=;
-        b=SiMb8hBovGnxvgmk9aEfibsj3oE/9NY7byELml1Cpvk4J/7JX4B1IAwjhFHBFGeQyn
-         D8JbR6lfG9BoGjvAttr3C3tZmasyNnGtq2lUhP3W4bWrvokpnA1DbJh8gp4YO/IeylUT
-         yVv7Qn8/tntWmnK/zK8IbuV5E7RBQiTrtdfQ0PawnMBVhAXhLLNncns1K+60EYfpwevo
-         flbJb41G1glMhu8L1/o+UTYjlLZxdn7sFgivJJWtgA/29QFbvsGJMdAyetAM5MfZ7pWF
-         9QhGBh0fZdnsgQsVVAhDI+bond3Adsyq/9sHgYR8CCAhXp6m5imeGE1wALhJmLINqCFJ
-         rHEw==
-X-Gm-Message-State: AOJu0YwQuqzVSKuPTbp6d6K/JC5wLPYWfhbeoK/BmtD5Se3w5JuToWsP
-	XYx9ruKYLwTupcZixb6p6fB3zTunfgeg0EBfZaGshaK8Oz1M5DXgfNDjwQ6aKOWUvIcsiWTv4bX
-	8poylk46Kx2oBXumdb8H/s763oDwG73g=
-X-Gm-Gg: ASbGncvyrbv1RkRiu0M+dNsY54N07YxtF7hV2h7felUnVH+ZZETth2OBubSbD9OWsal
-	X3ZStmxaUzUfOG3LEAoiJJDDYkqW6fII1d9ugIv7vSnAUv3jx+O/T6D4uLMo8xjp0N72i3CL/AL
-	AF1KCv+vELA9rXUbmF+V0JQfHHEVygXSsIbuXSo1S0R2PgwVaVL8ocVvcRjTG8G/OUoRKkJI4OA
-	25H73ep9OYV3du6EVWujmyw+JHrxDLbhh53ikuLL9jzWOEv
-X-Google-Smtp-Source: AGHT+IF/bkkNR8c4e0AFBsXkzm++DGkJ/8yzeddfd5reuV86YvV+Z1EDijLk78X086OGMr+AV/CHn6B9TlFdbwQKHM8=
-X-Received: by 2002:a05:6102:3752:b0:520:3f1a:c533 with SMTP id
- ada2fe7eead31-5a58118f73amr720325137.21.1758630105800; Tue, 23 Sep 2025
- 05:21:45 -0700 (PDT)
+	s=arc-20240116; t=1758632237; c=relaxed/simple;
+	bh=am/DIuccizVgm8rC8I8T1d1tKZSa5YWDSBCQ6tYkc/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bo5YPbdwYQ12yJ9jlNZS9Qb0sP8HVW9YJ7/o7yt1bdBjOGFxuuYYRB+5m1xTmiGnpzKWNNDyeZNvqWP6lh5pgCpejf5QJCauUbDcIslzUJPyQyLrC74cMGADQkMZXe6cs3npp1pZ8H4thICrYhVCTE2lqJ4NXb1KjOel7o7MidM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r2nNvYJk; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11F7C4CEF5;
+	Tue, 23 Sep 2025 12:57:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758632236;
+	bh=am/DIuccizVgm8rC8I8T1d1tKZSa5YWDSBCQ6tYkc/c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=r2nNvYJk2UjCh7R/LoeUVsBMPxjT3kZWQ0B0xg82hB2jASR9LCRkka8azqhuXVW3o
+	 ONTYdhymgi/FKqasbqCODW0iNByBJHrOou64FXBPenFgIpnFNhRVbkYoH2eEYFofob
+	 VQfSOApD+kkO/vwIUuyUm3J9FRuvZ7AAXrs8AaawPX+8a8GJf0DZmM9ByTKvdYe9lA
+	 q68tmPiCLsNKDBLtER+emwUWcHwGvdptlm5nCqc6wzsvATdA0Eb6HqjQArrHllt89H
+	 ocqdssnS9xCPfi7BudB6kkqjzHgD9+VnJILq55XGt5eeOXb2FKx+s5gwQHCs0vPI5H
+	 rraoQ76XK+e8Q==
+Date: Tue, 23 Sep 2025 14:57:11 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	Doug McIlroy <douglas.mcilroy@dartmouth.edu>, Michael Kerrisk <mtk.manpages@gmail.com>, groff@gnu.org
+Subject: Re: mini-book manual pages through multi-.so pages (i.e., the old
+ proc(5) page)
+Message-ID: <vp6bq3yjezuk2btxklrcastfbt4szcyqcwsxjqzgvk7owpf4fg@yhgolzja72oj>
+References: <3cdmp5o65fcnrd7fdaziino6thqpnevsxfln5hku2fvbc2bk42@4ck2l5oyearq>
+ <CACGkJdtuDYoOsnxMhGxk5MP3WSxvBMvvhfbDck2C_nLRYdYYGg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <3cdmp5o65fcnrd7fdaziino6thqpnevsxfln5hku2fvbc2bk42@4ck2l5oyearq>
-In-Reply-To: <3cdmp5o65fcnrd7fdaziino6thqpnevsxfln5hku2fvbc2bk42@4ck2l5oyearq>
-From: Eugene Syromyatnikov <evgsyr@gmail.com>
-Date: Tue, 23 Sep 2025 14:21:29 +0200
-X-Gm-Features: AS18NWD1LdmRW7NCH2Bxg41Dn66ShkaUaBRmhWGe_u8Zo35RBigSg2sp39xrgRg
-Message-ID: <CACGkJdtuDYoOsnxMhGxk5MP3WSxvBMvvhfbDck2C_nLRYdYYGg@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6la4kulmh7kjtju6"
+Content-Disposition: inline
+In-Reply-To: <CACGkJdtuDYoOsnxMhGxk5MP3WSxvBMvvhfbDck2C_nLRYdYYGg@mail.gmail.com>
+
+
+--6la4kulmh7kjtju6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc: linux-man@vger.kernel.org, 
+	Doug McIlroy <douglas.mcilroy@dartmouth.edu>, Michael Kerrisk <mtk.manpages@gmail.com>, groff@gnu.org
 Subject: Re: mini-book manual pages through multi-.so pages (i.e., the old
  proc(5) page)
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Doug McIlroy <douglas.mcilroy@dartmouth.edu>, 
-	Michael Kerrisk <mtk.manpages@gmail.com>, groff@gnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <vp6bq3yjezuk2btxklrcastfbt4szcyqcwsxjqzgvk7owpf4fg@yhgolzja72oj>
+References: <3cdmp5o65fcnrd7fdaziino6thqpnevsxfln5hku2fvbc2bk42@4ck2l5oyearq>
+ <CACGkJdtuDYoOsnxMhGxk5MP3WSxvBMvvhfbDck2C_nLRYdYYGg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CACGkJdtuDYoOsnxMhGxk5MP3WSxvBMvvhfbDck2C_nLRYdYYGg@mail.gmail.com>
 
-On Tue, Sep 23, 2025 at 12:51=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
-> Right now, the only way for searching something across several pages is
-> going to /usr/share/man/, and doing a manual search there.
+Hi Eugene,
 
-I thought man -K existed specifically for that purpose.
+On Tue, Sep 23, 2025 at 02:21:29PM +0200, Eugene Syromyatnikov wrote:
+> On Tue, Sep 23, 2025 at 12:51=E2=80=AFPM Alejandro Colomar <alx@kernel.or=
+g> wrote:
+> > Right now, the only way for searching something across several pages is
+> > going to /usr/share/man/, and doing a manual search there.
+>=20
+> I thought man -K existed specifically for that purpose.
+
+Oh, and now I leark global apropos(1) exists!  :-)
+
+Or maybe I just forgot...  Anyway, yes, I agree.  That's better than
+putting together huge artificial pages just for searching.
+
+
+Cheers,
+Alex
 
 --=20
-Eugene Syromyatnikov
-mailto:evgsyr@gmail.com
-xmpp:esyr@jabber.{ru|org}
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--6la4kulmh7kjtju6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjSmR8ACgkQ64mZXMKQ
+wqk3OQ/+IjubABHvulJtycCm3JOYBEbInO11Sfmy/mpr8EZZj0cw72iQ3IYJVWaL
+vRguGLlA6alAcs9nBH5Rj4ffm74t+nebrN5Vl+KrizwZ3WLf711yFz+s5Buwh45U
+9wKA+RE4ceRxMiyQTC7Iw3Jf5HwvUm+88kKRmaADCGG+44MWhgU07nPqua2tuFjR
+ffn4+BDFHHW/DelykV0hG3friKWPP/qQDEYWnBincZ7WX7vTMwuSLk/vzZeYGcX0
+3M7EtZfNpgtXDwOffSrhE6Aq68J8vsLBsIm3tDR75zj/7WLQ5QoUNkmkwuubRymr
+ovc/KgggrTM0+xXm0UJN1dVoTj+sLN4b75l/Jq+Y02BWwPovJVzRk5LLtdm3KoLO
+xH/1wPGqvi4kehSnVH2TQRwqFe5BLAc6J+355ptGoA5bzFoMLmWwM1vULP9QERML
+ky1F/WcFYeCAZ9Mela6mZniQbU1FYB7soLx5JqqDQ77VnuiQuOsvz0qg1WrpNkMJ
+eXlvBi099WK/7/hgCuiUTMIPLB0rfoms948uHV4wsCwksjbtUy1Bsum/MwCLV19V
+cUHPBAwFIgfw7raU9bJKch30m03xp5poxk9DxubCO48b8N4w3p833t3bn00V3fP4
+Vs8dyHgxiGeLaa7aMk/uQQvL77mOGbDS+QfJejWA+rrT4t0kUAc=
+=Ak+7
+-----END PGP SIGNATURE-----
+
+--6la4kulmh7kjtju6--
 
