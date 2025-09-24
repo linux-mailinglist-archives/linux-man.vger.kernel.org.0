@@ -1,89 +1,144 @@
-Return-Path: <linux-man+bounces-3952-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3953-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27D51B97E6B
-	for <lists+linux-man@lfdr.de>; Wed, 24 Sep 2025 02:34:43 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F5EB98030
+	for <lists+linux-man@lfdr.de>; Wed, 24 Sep 2025 03:35:07 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DA5C34C0821
-	for <lists+linux-man@lfdr.de>; Wed, 24 Sep 2025 00:34:41 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 10FB54C3D25
+	for <lists+linux-man@lfdr.de>; Wed, 24 Sep 2025 01:35:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8585718C008;
-	Wed, 24 Sep 2025 00:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60E381F9EC0;
+	Wed, 24 Sep 2025 01:35:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=maguitec.com.mx header.i=@maguitec.com.mx header.b="GiZj/qCe"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="mqhLsynf"
 X-Original-To: linux-man@vger.kernel.org
-Received: from sender4-g3-154.zohomail360.com (sender4-g3-154.zohomail360.com [136.143.188.154])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB302347C7
-	for <linux-man@vger.kernel.org>; Wed, 24 Sep 2025 00:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.154
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758674079; cv=pass; b=bt+wj+K4dHQJinRZLm8ARGqGLZKgna+MnXCNTPxyAouS82XA3S6LQ54EiY/2xMZs0nXVInQxYZwmAPxmJwYCwRwN2JQD46VKS32pldfHUa0xZ7Ma6k+gHBmmltyAX9Q8VgfLghLuoNiLqid40L0NmV1XdXEMfF/zs0EfYet49sU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758674079; c=relaxed/simple;
-	bh=Y1DAdWGBsjIvMyxrGpXMwV3Lh7NlzGtkPSNeg95JYRA=;
-	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type; b=ECCjX8mkuZcvyU1q68TbkB7f3nw0+6LAthXzwIrtqGqUYjJMwlwexqYznyJjwqgtnJV19AXf2FT04gmswuBRsY+TklqcAQkDpX5M1i7/eHmGwCDmx/TzjgyqkaWEhOwm04+NduHlOrY4EciXNHCqOIBUJNyJmGzDZSNqQkwlCns=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maguitec.com.mx; spf=pass smtp.mailfrom=bounce-zem.maguitec.com.mx; dkim=pass (1024-bit key) header.d=maguitec.com.mx header.i=@maguitec.com.mx header.b=GiZj/qCe; arc=pass smtp.client-ip=136.143.188.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maguitec.com.mx
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce-zem.maguitec.com.mx
-ARC-Seal: i=1; a=rsa-sha256; t=1758674077; cv=none; 
-	d=us.zohomail360.com; s=zohoarc; 
-	b=c4lIBozNp7jxtgS4NTf9KLdjlgLDzIDhFxAZmkjprwsVZDUufVCkSDihyX91+V97gTfSSmY5n/z6zSQzckZV5odyKyC30D45048oHzBU1J6Lp3RtLJ9XXI2+IXfaNvx8Ueg5vruM63ubq4ukQIO5Xsm7yKGWGtOcU4P+K7xhniU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=us.zohomail360.com; s=zohoarc; 
-	t=1758674077; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Reply-To:Reply-To:Subject:Subject:To:To:Message-Id:Cc; 
-	bh=Y1DAdWGBsjIvMyxrGpXMwV3Lh7NlzGtkPSNeg95JYRA=; 
-	b=fbfUV1VGUMIPHoIMXBlmLs9t2J1TmT2aBajWs7QzRDHs8kJzDwL3taSBoxtmTxypGNZR+KuaImDve/6cAjA4DTPNo3YP50KuyXSI3NYYKVdk3DRorqUYDDv1V3tPHCl5FilpjkyW6m4X0b+bLjde3SZkpUzd+V4N0EPu2Njau8Q=
-ARC-Authentication-Results: i=1; mx.us.zohomail360.com;
-	dkim=pass  header.i=maguitec.com.mx;
-	spf=pass  smtp.mailfrom=investorrelations+9a837630-98d8-11f0-9ce0-52540088df93_vt1@bounce-zem.maguitec.com.mx;
-	dmarc=pass header.from=<investorrelations@maguitec.com.mx>
-Received: by mx.zohomail.com with SMTPS id 1758671653243218.41742380290168;
-	Tue, 23 Sep 2025 16:54:13 -0700 (PDT)
-DKIM-Signature: a=rsa-sha256; b=GiZj/qCe8z8GwIFoU5NSNRmPJS//puFKN43LrBI5Agi/jqFhF+P8W9J9K9xIiCEJRVVuD0EgjhWsoQKGVHIoPQQ71wf9ulL8oHaAUePWl0PnflXbP7oP3EN/LuhFvJ/UZAdUvDr2bPyne4MjrljL1Dy7+QFxFulNaQ1UL7yo0Vs=; c=relaxed/relaxed; s=15205840; d=maguitec.com.mx; v=1; bh=Y1DAdWGBsjIvMyxrGpXMwV3Lh7NlzGtkPSNeg95JYRA=; h=date:from:reply-to:to:message-id:subject:mime-version:content-type:content-transfer-encoding:date:from:reply-to:to:message-id:subject;
-Date: Tue, 23 Sep 2025 16:54:13 -0700 (PDT)
-From: Al Sayyid Sultan <investorrelations@maguitec.com.mx>
-Reply-To: investorrelations@alhaitham-investment.ae
-To: linux-man@vger.kernel.org
-Message-ID: <2d6f.1aedd99b146bc1ac.m1.9a837630-98d8-11f0-9ce0-52540088df93.19978ffc513@bounce-zem.maguitec.com.mx>
-Subject: Thematic Funds Letter Of Intent
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3127817BA6;
+	Wed, 24 Sep 2025 01:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1758677701; cv=none; b=kTtL2DaEhAj+jqt1ntMekA+XcUzhwqeetHPamdMJzFwSBCIWSmlK4TuMW5pVW3x84erpl71tY594aKFMzMZMyaJXJWcQgcuqKhEIRYgD8qvu0bzqABZ7TnlbkVHH9jh/SNvVKoyKI8e0WFrlMBhr5jNFokE8Ms9em5PqQjVKLPs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1758677701; c=relaxed/simple;
+	bh=lO9+ovq91/TgtqhbH25S7snsi4CVfNQT+eMpCTJ3S7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ca2fmbftKPMl68OFumoqFEjf1PA0OT7+XpU2izQvWP0WT5QFzISQJVoRvjBuGK19A7UtZF9LNQ+JhCKTKiJAnfxQ0Mr7mUix//XiSRNeVuq0+dt2wpkZHkktxKZcF2vtLPr8zLviB9GKpDS3h2pNKNgLgLw46llpssboiSzPzpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=mqhLsynf; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cWfXs0lRHz9tCC;
+	Wed, 24 Sep 2025 03:34:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1758677693;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FO/O1QYuK4rqB1hpgKUYhTN5JGnU9DG/xls0jzT16W8=;
+	b=mqhLsynfkRBszyHmspJqrLl0QQ6vTp+b+IijVtKNnaRvSqFBGXhhnQYhh2ITS6sEVrhN0e
+	9i+t6eScXLorl6CnVpdaXDAF7uavy0BwUlUp+a07TjDaFCtjJqQlhB1GR+ITvFuxBtf5HP
+	f651zc4bs8CjgVPiy+fynzKbbewZIa2LR4lhcY4qPY75n44Sx+GRgbbf5DKiF+ad1b+pOI
+	ObMfq8Pu1Iy7obuVEslD7jhSNVy7IUSS650wOcE8gHaRvGBDnC4cU0UMixJG1CS4620yIm
+	wls8pI1rwhcez34cewfgWhg85tev6esvAzquJnc0EaSYhjHAp1jgsnop/J+mWA==
+Date: Wed, 24 Sep 2025 11:34:40 +1000
+From: Aleksa Sarai <cyphar@cyphar.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
+Message-ID: <2025-09-24-marbled-ominous-skate-riches-QJMLCR@cyphar.com>
+References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
+ <20250919-new-mount-api-v4-7-1261201ab562@cyphar.com>
+ <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
+ <2025-09-22-sneaky-similar-mind-cilantro-u1EJJ2@cyphar.com>
+ <aqhcwkln4fls44e2o6pwnepex6yec6lg2jnngrtck3g5pc6q5d@7zibx3l2vrjw>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vfo47q5e4mux6kdu"
+Content-Disposition: inline
+In-Reply-To: <aqhcwkln4fls44e2o6pwnepex6yec6lg2jnngrtck3g5pc6q5d@7zibx3l2vrjw>
+
+
+--vfo47q5e4mux6kdu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-content-transfer-encoding-Orig: quoted-printable
-content-type-Orig: text/plain;\r\n\tcharset="utf-8"
-Original-Envelope-Id: 2d6f.1aedd99b146bc1ac.m1.9a837630-98d8-11f0-9ce0-52540088df93.19978ffc513
-X-JID: 2d6f.1aedd99b146bc1ac.s1.9a837630-98d8-11f0-9ce0-52540088df93.19978ffc513
-TM-MAIL-JID: 2d6f.1aedd99b146bc1ac.m1.9a837630-98d8-11f0-9ce0-52540088df93.19978ffc513
-X-App-Message-ID: 2d6f.1aedd99b146bc1ac.m1.9a837630-98d8-11f0-9ce0-52540088df93.19978ffc513
-X-Report-Abuse: <abuse+2d6f.1aedd99b146bc1ac.m1.9a837630-98d8-11f0-9ce0-52540088df93.19978ffc513@zeptomail.com>
-X-ZohoMailClient: External
+Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
+MIME-Version: 1.0
 
-To: linux-man@vger.kernel.org
-Date: 24-09-2025
-Thematic Funds Letter Of Intent
+On 2025-09-22, Alejandro Colomar <alx@kernel.org> wrote:
+> Hi Aleksa,
+>=20
+> On Mon, Sep 22, 2025 at 08:09:47PM +1000, Aleksa Sarai wrote:
+> > > > +is lazy\[em]akin to calling
+> > >=20
+> > > I prefer em dashes in both sides of the parenthetical; it more clearly
+> > > denotes where it ends.
+> > >=20
+> > > 	is lazy
+> > > 	\[em]akin to calling
+> > > 	.BR umount2 (2)
+> > > 	with
+> > > 	.BR MOUNT_DETACH \[em];
+> >=20
+> > An \[em] next to a ";"? Let me see if I can rewrite it to avoid this...
+>=20
+> You could use parentheses, maybe.
 
-It's a pleasure to connect with you
+I tried it a few different ways and I think it reads best with a single
+em dash as a parenthetical -- since ";" indicates the end of a clause I
+don't think you need to "close" the parenthetical with a corresponding
+em dash.
 
-Having been referred to your investment by my team, we would be=20
-honored to review your available investment projects for onward=20
-referral to my principal investors who can allocate capital for=20
-the financing of it.
+Here is the parentheses version, but I plan to just keep the em dash
+version in the patchset. If you really prefer the parenthesis version
+feel free to replace it.
 
-kindly advise at your convenience
+  This implicit unmount operation is lazy
+  (akin to calling
+  .BR umount2 (2)
+  with
+  .BR MNT_DETACH );
+  thus,
+  any existing open references to files
+  from the mount object
+  will continue to work,
+  and the mount object will only be completely destroyed
+  once it ceases to be busy.
 
-Best Regards,
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+https://www.cyphar.com/
 
-Respectfully,
-Al Sayyid Sultan Yarub Al Busaidi
-Director
+--vfo47q5e4mux6kdu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaNNKsBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG8h4AD/Wcoe7m37jWc/BhSAMmy7
+5J7v6RtMEVM6694cfozacuMA+wemOQKXKtYSNII11gxZCywch8PPbKMq1K5ure5X
+xDAA
+=W8YQ
+-----END PGP SIGNATURE-----
+
+--vfo47q5e4mux6kdu--
 
