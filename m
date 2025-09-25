@@ -1,53 +1,53 @@
-Return-Path: <linux-man+bounces-3976-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3977-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D15B9EF1E
-	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 13:39:12 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF714B9EF39
+	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 13:40:59 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id A3A093BF98B
-	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 11:39:11 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 13B7D1BC55F3
+	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 11:41:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEC662FB629;
-	Thu, 25 Sep 2025 11:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20FF12F7AB7;
+	Thu, 25 Sep 2025 11:40:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AO5fRZsz"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahlAZeuK"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0852EB5B5
-	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 11:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46BE1B21BD
+	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 11:40:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758800347; cv=none; b=Ei1wFbA6duvhuAA4ncnhi1ZjMZMUMFKtwWwfOLfA/aL4K8y2ClC38TckMJwFumPuMUjTidDs5BigHTdshgwmseeKaaWpy/imFOjvCJGpLOa00y0iRfWjVudgrcyDsFQ8xqg5wELOX8SNVMxEIidSRBNPRRNz/GHGndabE69YqrA=
+	t=1758800454; cv=none; b=CTt8AAKD4IVI93yTqSc72zChZRbyBqPuFm7ZLSTy+Qn1LBL6IxWmMQXITwBuTI5jYcmuY9SZvJQpg/XgFuSbf9Wq0+LUBBQxa2HAh8RbiTnZyNi6ZAJMUwZEy/Wpl70iDtoOXn4VCxyB5kN3CNiQRX6dwYoAfM42/xnjBNqbBZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758800347; c=relaxed/simple;
-	bh=97qZ6yMbRDlPftUfNpNRE9LxX4qIiiuDbU2rtZV0NuI=;
+	s=arc-20240116; t=1758800454; c=relaxed/simple;
+	bh=yQ5ZQ/20C1g2Y0iDJNbmHvUXjZ+t2QHI0zjGo7qZw3c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NQGfvzcv6gh2R4GIRLTuAYim758RvOF7Z0eGeLrdYgC3cvwKQsEWtoXvuaQZrfVuPprnSvOuFQgZL2zP/Ucg/kTVlBEXKx68TqOU5/ydexY+VmUeGuxHsT6yG4CMxz4ogZeJcRqoekk6P5maY72tbObK/R1TzLSknP87N1EvYd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AO5fRZsz; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391F0C4CEF0;
-	Thu, 25 Sep 2025 11:39:05 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=GNmgAhUYTEuRYAbxkzkzL5e+2SBnzJBzvH2XaP1w/PMQTQmQ1eTyQ6QALyUPMvOXUJf749TPvV4uwzTjtGLcwGiAVAhFmHLBjB4utJXzqlU+RafKYlSnxlKcDfZqCBFMq3YclNqCZhK1IrNZspcY17V8tCQwOQKgXit/roImpko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahlAZeuK; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781B5C4CEF7;
+	Thu, 25 Sep 2025 11:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758800347;
-	bh=97qZ6yMbRDlPftUfNpNRE9LxX4qIiiuDbU2rtZV0NuI=;
+	s=k20201202; t=1758800454;
+	bh=yQ5ZQ/20C1g2Y0iDJNbmHvUXjZ+t2QHI0zjGo7qZw3c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AO5fRZsz0MwN8E/Vz/7coP2MeClmA7tsUI1rvHo2LaMDSDb1YqmsfDZA1Sd+xhvHS
-	 UVVt5v4W4j4L3TWw116Up4wjX8ftcSSuJLX4MeSlBFKKacAS8iLCHj5dj7hqtHKj1Z
-	 n2WARaVJrdhMNRRYLf44/FsMG4TxF8vmv4IAJmZXTHua12dJTAhxxzbJfz3t88JkHv
-	 8Je06XEZxksKOC8P/zexAdj24jNhXiZBHtLVjRyvmMHpk9hcMt39LwLZLXrU5sAtPf
-	 h+hkzrx9I9oKhlOpc5x1/SvHig7hNu0SY3g8ZaDp7hvZiyua8DkV8dhtgXUkjxYLXI
-	 7M0DF/zwIOrPA==
-Date: Thu, 25 Sep 2025 13:39:03 +0200
+	b=ahlAZeuKh5jaJUV7ezK9wrJ4VVdiuUWGsnl6V2O0qcGkoFhjEJIS0rI2HQlKGcTne
+	 HWbeZxKgInZvFktBJm8ns9wkgsjxjnaqJ5iHW9wbi1C0Dv1EFd/WgBygnjM6mdfk7w
+	 GgAiZOldDyQyallVClinVD3cEqrQv8QNfA7O2K+VgheRIkNLRspKH7fth7xZKQcqHZ
+	 keYW2uTcqdcsJQNwXOuI91teKfhT7giJTXTrmJbmmh0kaJh/JxNWk3wui+v9beWAXD
+	 Rx1dJmlyMc39qRNXhqnUq1kUbdkskGV+u3yhaoR5pXJ5XLEb6zPdoc/MztRf10HXeQ
+	 GouFnjV/v8WBg==
+Date: Thu, 25 Sep 2025 13:40:51 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Kele Huang <kele@cs.columbia.edu>
+To: Cody Harris <git@hypodyne.net>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 0/6] This is a set of patches to fix grammar issues
-Message-ID: <zgsjt2kpddfcso3gpp4jns5bknrquclbaswxbzvtoqwpi4aug4@znkbh7nsxmua>
-References: <20250922035934.446271-1-kele@cs.columbia.edu>
+Subject: Re: [PATCH] man/man2/getsockopt.2: tfix
+Message-ID: <fhkkikoeey7ndai6zcq3gyoieg77ztu6rsfvbzeb4aj347rkms@wtqjyt2dqquf>
+References: <3589b9717dacf9e21bea9317da0840ad9095d7f1.1758570745.git.git@hypodyne.net>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,88 +55,78 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="k546d5dwnac2nfcp"
+	protocol="application/pgp-signature"; boundary="cfg7sbw2b34gzuaf"
 Content-Disposition: inline
-In-Reply-To: <20250922035934.446271-1-kele@cs.columbia.edu>
+In-Reply-To: <3589b9717dacf9e21bea9317da0840ad9095d7f1.1758570745.git.git@hypodyne.net>
 
 
---k546d5dwnac2nfcp
+--cfg7sbw2b34gzuaf
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Kele Huang <kele@cs.columbia.edu>
+To: Cody Harris <git@hypodyne.net>
 Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH 0/6] This is a set of patches to fix grammar issues
-Message-ID: <zgsjt2kpddfcso3gpp4jns5bknrquclbaswxbzvtoqwpi4aug4@znkbh7nsxmua>
-References: <20250922035934.446271-1-kele@cs.columbia.edu>
+Subject: Re: [PATCH] man/man2/getsockopt.2: tfix
+Message-ID: <fhkkikoeey7ndai6zcq3gyoieg77ztu6rsfvbzeb4aj347rkms@wtqjyt2dqquf>
+References: <3589b9717dacf9e21bea9317da0840ad9095d7f1.1758570745.git.git@hypodyne.net>
 MIME-Version: 1.0
-In-Reply-To: <20250922035934.446271-1-kele@cs.columbia.edu>
+In-Reply-To: <3589b9717dacf9e21bea9317da0840ad9095d7f1.1758570745.git.git@hypodyne.net>
 
-Hi Kele,
+Hi Cody,
 
-On Sun, Sep 21, 2025 at 11:59:28PM -0400, Kele Huang wrote:
-> - Patch 1: Fix grammar in man/man2/getitimer.2
-> - Patch 2: Fix grammar in man/man2/setns.2
-> - Patch 3: Fix grammar in man/man2/unshare.2
-> - Patch 4: Fix grammar in man/man2/rt_sigqueueinfo.2
-> - Patch 5: Fix grammar in man/man2/msgop.2
-> - Patch 6: Fix grammar in man/man2/fanotify_mark.2
+On Mon, Sep 22, 2025 at 03:52:25PM -0400, Cody Harris wrote:
+> ---
+>  man/man2/getsockopt.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man/man2/getsockopt.2 b/man/man2/getsockopt.2
+> index 27a088d1c..f37b87d20 100644
+> --- a/man/man2/getsockopt.2
+> +++ b/man/man2/getsockopt.2
+> @@ -13,7 +13,7 @@ .SH SYNOPSIS
+>  .nf
+>  .B #include <sys/socket.h>
+>  .P
+> -.BR "int getsockopt(" "socklen *restrict optlen;"
+> +.BR "int getsockopt(" "socklen_t *restrict optlen;"
 
-Thanks!  I've applied all except patch 6 (because of Branden's comment).
-If you want to re-submit part of patch 6, please do so.
+Thanks!  I've applied the patch.
 
 
 Have a lovely day!
 Alex
 
->=20
-> *** BLURB HERE ***
->=20
-> Kele Huang (6):
->   man/man2/getitimer.2: grfix
->   man/man2/setns.2: grfix
->   man/man2/unshare.2: grfix
->   man/man2/rt_sigqueueinfo.2: grfix
->   man/man2/msgop.2: grfix
->   man/man2/fanotify_mark.2: grfix
->=20
->  man/man2/fanotify_mark.2   | 14 +++++++-------
->  man/man2/getitimer.2       |  2 +-
->  man/man2/msgop.2           |  2 +-
->  man/man2/rt_sigqueueinfo.2 |  2 +-
->  man/man2/setns.2           |  2 +-
->  man/man2/unshare.2         |  2 +-
->  6 files changed, 12 insertions(+), 12 deletions(-)
->=20
+>  .BI "               int " sockfd ", int " level ", int " optname ,
+>  .BI "               void " optval "[_Nullable restrict *" optlen ],
+>  .BI "               socklen_t *restrict " optlen );
 > --=20
 > 2.51.0
->=20
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---k546d5dwnac2nfcp
+--cfg7sbw2b34gzuaf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjVKdYACgkQ64mZXMKQ
-wqlHfBAAgDfQADcUdrUZ3p+cXM5tHkjxJl/KGIiZRjUoXslXU9lqj0AVPfnrjbyl
-1LwqEtpEKzQ1zAUCvLmar9L16be2Dw6pEaiA66R82IPd7IrHrpRCPBKaxVC1rU+f
-0AKwWHnT/6eww3494XO7phCPxnpoLisLHBkS1OkpXUU9DYjODog9esw+DCOvw0qj
-RHHUqnYMg9igpXOOXqN6yxUXZWidVS/okGtpDudEMMEJGi1GQhZ7aYvVtCK+NI9J
-/rKwxpTC1ig7uoHKegjlQGN9pb+M9t7OorPSS6s8zeBYobgxqb+EHZhCYkfoDtQC
-XM5mPURS+n7RQkTI4+6r6B0tXTnVMjGhFQiUyN1nodpYHC9K3Ytnqd/QN34n23Sp
-7aesjHtDKf+Cqf6DBjHBCDXSn8U3DYMHiIjQKZpjyEJtzf3EbifmKVlEATN3uWnR
-4hRpuwTIw4s3WQk49G6aDJvCJUX3umZAlMkZwcrMvaPdWLUKubkn0j94Pt1hsE4b
-RI9vKBLqHwG46HNYBxS4+JsXbvvKtS5iVaZy6RTpZTgLPEZxTzXPIa/BWrm7nVCp
-kJEHK2Fr8gu+YdhnM8LI6zjFi2YhdTJyUOzYQ5qY+P9AMK6DVcHVaw7qAJXdsxG1
-sFligmueOkMndKKJhppcYAgyWFEzcQD0jBJhC2BC8D1yGOLFMgo=
-=Cq9w
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjVKkIACgkQ64mZXMKQ
+wqmBMg/9HyhStZBDc3lc2KCYjlOG6HLvgLon99b7oHgWiFh9QLzwwVRKd7qmguCD
+oUsU9eepuAf/LQrzled+BkZIYonphZXC8XMNGhzo/uEXoMt8BtrGOXSuoas5ojR5
+g4Z9W1clIW7MmrsyP3B5WT52mjl3vfJqz+7YPBQCTFty5Y6Zp5yFJ33ANLxfTYoZ
+v6OUJJvHt2PAXvflxXdz9MR8IuB0IrstW3ZKo009fAcKlIvgg7164uOG9BZ1uzjM
+BdMC86pif7O1ebEfILHWKFEqE1YY8Sa629MnlzZ3TSYfCv93owdi4xduc/X7XQ0D
+XAmAnskUfgc8OeiywPQjV0pDhEkH6/pHkW2UcB/6XXVrToyW43Jo1491KC/ZxcUK
+7eyydAUJmFxXbFb4RH4lMWBtD0vyLlrRRx4YFnGYsNexDCxyuRtTwKTsxoyrbW8o
+DNk9UVox40OFFFZbE0D7ap1l/kaRkDuUHSLfOjiNnLSi/iMYJ1Lglefigh/0tRqE
+Cj8aibpLrU1oasa2CXxEnDuNucY9vEnShWbwtxefAKdbRPFddSkDjRhFoN8idJpF
+JQ14h70Z9bpkQk9gugDalKRSbtjeRYcFCe9yrGF2wXibGRyhaljGLt355Wi2WPro
+SMDdCF8rhVqHE/8a8PF4fP2LoUblwMF+ETtJUgSmcylmfHtrQ1M=
+=9zRY
 -----END PGP SIGNATURE-----
 
---k546d5dwnac2nfcp--
+--cfg7sbw2b34gzuaf--
 
