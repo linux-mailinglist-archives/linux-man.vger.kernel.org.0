@@ -1,194 +1,143 @@
-Return-Path: <linux-man+bounces-3983-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3984-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 255C8BA0415
-	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 17:23:09 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D3B7BA0B3E
+	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 18:52:44 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 8115E1796BF
-	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 15:17:55 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 8362218932C4
+	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 16:53:06 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C41C12F3C00;
-	Thu, 25 Sep 2025 15:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 497C330597D;
+	Thu, 25 Sep 2025 16:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="06U/hKLJ"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQY23nqm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA6D2E229E
-	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 15:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDD6502BE;
+	Thu, 25 Sep 2025 16:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758813440; cv=none; b=RP6Y1OnWZwikKAAwKhmE/7QS/Cb+QAvq1Psog2klbxXLHydIosN1EATcAtItTul0fSxQvifg2Lxw/m4cIaGlxIU0BMku1RNMV9TmBidp62f+REVHkqyvFWJX1baLnDQZBQRbMII/fyfZ48rwS3XtQvyyotC5Xtd0Ch1PLbswSgA=
+	t=1758819157; cv=none; b=D3+F1S7Ldnc6kN2kyxewef0wl40JdHU9fvZM8QBSIIt3PeZR1HARbDdC4wsE4mAJMFOh2Zt9BMu0uV0D70SO6oxaBVVKsYy1e/ksPj68RVjNmH9TxEyacXYGyV4oXRzC49iAhZNhL9LB1B0IC0XnY93eXIrfg/X1lAlH85UcTYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758813440; c=relaxed/simple;
-	bh=2jiUpKEKr45arwSie/l9teH7tmcVs6hrWBJhneXKd9U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J8f5BIGb9u0+tY1tboksFV8M+s4FvZHibrB4y2yQPESrAb8gkIAi5A+rw1egaI3Di/a73lb+hw/AOSPBKA1BX2pA4Q8ctYKstOgwiKqckezbHMo+3UMCUOP+4KU4zHBx1PASlPSMFygGlr4uDk1ei4ihg+Sbh+2/3Qev1W1ru5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=06U/hKLJ; arc=none smtp.client-ip=209.85.160.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-30cce872d9cso1072685fac.1
-        for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 08:17:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1758813437; x=1759418237; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BOB3poAFyVxB4B/1wVuTVH1xJxjur2p8fw2Xhsq4JVc=;
-        b=06U/hKLJ5Qdy8F4SlmGVqFn7x97E2uX/aQ8aOimB+F4B0SD7uwLXVD+yUNKOBLvihQ
-         pR6BXbYjGfnCgfHssy+5rOHBEnOJKYtIMogZeC8r78RBeDiamR6UGfubzF8kAM7+dVYv
-         /xxFP6QYbMJ8CdDrKo9dX5bdO7fxaPtxuMNMLv30JMiNMNvsGxUR7BN284H5Cg66ShoO
-         nwDEPFAx3g/XGSVefV+8TodvARbPonbOW75nQWplDvioY1Cx1Cocf70dJdc5qbmEMZfO
-         u+UUd3mCcquD+p5qoNO4lcexEcknMb8NJ715NTxXLnN0vZsKuhVXanpujz9GVt0R9d33
-         5Y5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758813437; x=1759418237;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BOB3poAFyVxB4B/1wVuTVH1xJxjur2p8fw2Xhsq4JVc=;
-        b=nX5PTqxSsDm0Uq4yFCGL8z+RdVxHUTa5PG52tTWuZA7jV4WYc4RLXAD6QPhlTVwwR1
-         EVZ71z6ZmwrIYUPd6sqZLK4MYE5gGxPpcVNMgymnLggQh1seP1Sqqht3dnQBn+trxnST
-         f5g9FcZ1QIkQwcHTM8M4xHUiHPtS8mlnG1yzy4ibweBvUS1zbCzT0L8Bfp6+CmPUEUVK
-         KdWRPOptHr0wXSvy99tuSpfYFHrY3VCiha4NtRk7SRsYWZbeFNh/8UvNLFJY7PgHYnGV
-         G8raYi4vZOTjM1ma2yO7PA+5DtVQmEt9rXOs3SR9JLa1en3BZULHM2I2mZjejTTPQf8D
-         bpIA==
-X-Gm-Message-State: AOJu0Yy93Wh8u/YEw331qlRvp3/2hW/MWmiOzo1IZzVUSzT4XimIeRVU
-	v0khqgidKnLXRBDNStxR3aXfKr7gq7+PKCgUJyu7VeZZLv3p8KafY4FpYH+VfLCrA/s4za3lVjv
-	YwWWJmlIPXRVAaDSo/jedl3o7ybgO8IFkYfwL8Bn9
-X-Gm-Gg: ASbGncsT4wFZ6dZMCZDY34SIDMQDyqyuuLG1HMSOOI4/ystQN4T8FkabQlBaDgGVWCU
-	JYUl2+zmc4kRPZTYH/zU3/Jro13UXkMvXYi+HPD93e+YPVsYR1S3T5Zy+qtF4I3QQa22T23IyQs
-	E79vL9nubDM6SgBkylF1eIIvhS06zE7qq1P/QEY7XyataFtcY7pTRhHwtKgZFM/epyfUyBGxGuE
-	q/Lq0Q/ZPmAT3o=
-X-Google-Smtp-Source: AGHT+IHCf29Io85QsAB6tzTFV0gp96PzNVV2fNwa1LxWQaGA49lgtMlU6oUE8T66HESckrPCMbe20rTGLUlDfepxZNA=
-X-Received: by 2002:a05:6871:2b07:b0:321:558d:5bb2 with SMTP id
- 586e51a60fabf-35ebe95467dmr2138618fac.10.1758813437072; Thu, 25 Sep 2025
- 08:17:17 -0700 (PDT)
+	s=arc-20240116; t=1758819157; c=relaxed/simple;
+	bh=5+rHDwE9Z0JHu+1+8KwTTteIm1WSIP9vhsm0etHWnw0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QFwrV/Yctoj9KQHagbsuLpFYm8pnJ4du8NIDiGH5oD5Zotv4R0Py0UgmuxucGeDU9lZziUfzCne+SdbWXItDj+qGUV8og65BQcmSKoQPl1L1DPVUdSsmceyDvfF0dZYCsDEdG9hMLOBg77msN09FM49jlvIJ2lxf1XOxv8OrgHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQY23nqm; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3802C4CEF0;
+	Thu, 25 Sep 2025 16:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758819156;
+	bh=5+rHDwE9Z0JHu+1+8KwTTteIm1WSIP9vhsm0etHWnw0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eQY23nqmdocDy5mc8OUJkscBEokjauccN6uXf+QYKWIF6Ihrac0YjZssra44CGbOO
+	 9r341lHQ5w8VkPKaH2xpJkt8FCz1t1Vj5HkcIMkY1tVyHpqWodZ1O5vXQNwVT6UjiP
+	 TBmnoWK7I3dkXwOfGUlmltAmQO6NMKufAufgZFvhhnrWTDj5l/+0bx+Sa1oyXEegcS
+	 ETdAqo+oeLZqFXYdivQYwPKPQG2tcUaIjcpkAb8kob4dSYI0V6Kc9kM65DAjaU8WzR
+	 D589924zX3bh371xa5slUsPVNqUz+DfiLsq/AcU02RNQ46VTxUNaDvEj4+xEbPZNos
+	 KXN5F13FkGa8w==
+Date: Thu, 25 Sep 2025 18:52:28 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v5 3/8] man/man2/fsconfig.2: document "new" mount API
+Message-ID: <6yohe3iuycygxvwwxa3rkwcfqe7pe7z4x7g7enmyacjrthg6se@jw7cujrai2ht>
+References: <20250925-new-mount-api-v5-0-028fb88023f2@cyphar.com>
+ <20250925-new-mount-api-v5-3-028fb88023f2@cyphar.com>
+ <brqynohvpwo4hqdepvqks3hluq3jng6bnd7xtensee5adgtxem@3ughtcvv57si>
+ <2025-09-25-azure-rubber-flair-menus-42bRw8@cyphar.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250924152313.1902586-1-jrreinhart@google.com> <ssplut22iy7ipmbfkm57hfrzjq6ii3hjffvixddxs3yc3dui66@hhvb4lckwbzs>
-In-Reply-To: <ssplut22iy7ipmbfkm57hfrzjq6ii3hjffvixddxs3yc3dui66@hhvb4lckwbzs>
-From: Jonathon Reinhart <jrreinhart@google.com>
-Date: Thu, 25 Sep 2025 11:17:05 -0400
-X-Gm-Features: AS18NWBLBNK7X_Tp5iPJQojcdvkKo_skIQWP83ih8EydaXGQmOPhiFgHM0HL8XU
-Message-ID: <CAJJa5HwukWFWQHkZwVOhuXZyS_ZpYYNFZR4KR2xesak1uiP7Ww@mail.gmail.com>
-Subject: Re: [PATCH] capabilities.7: Expand CAP_SYS_PTRACE to include /proc
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>, 
-	Rishi Sikka <rishisikka@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="77tbv3jcbebrhxmc"
+Content-Disposition: inline
+In-Reply-To: <2025-09-25-azure-rubber-flair-menus-42bRw8@cyphar.com>
+
+
+--77tbv3jcbebrhxmc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Aleksa Sarai <cyphar@cyphar.com>
+Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
+	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH v5 3/8] man/man2/fsconfig.2: document "new" mount API
+Message-ID: <6yohe3iuycygxvwwxa3rkwcfqe7pe7z4x7g7enmyacjrthg6se@jw7cujrai2ht>
+References: <20250925-new-mount-api-v5-0-028fb88023f2@cyphar.com>
+ <20250925-new-mount-api-v5-3-028fb88023f2@cyphar.com>
+ <brqynohvpwo4hqdepvqks3hluq3jng6bnd7xtensee5adgtxem@3ughtcvv57si>
+ <2025-09-25-azure-rubber-flair-menus-42bRw8@cyphar.com>
+MIME-Version: 1.0
+In-Reply-To: <2025-09-25-azure-rubber-flair-menus-42bRw8@cyphar.com>
 
-Hi Alex,
+On Fri, Sep 26, 2025 at 01:15:14AM +1000, Aleksa Sarai wrote:
+> > > +.TP
+> > > +.B ENOTBLK
+> > > +The parameter named by
+> > > +.I name
+> >=20
+> > There's no such parameter.  (I guess you meant 'key'?)
+>=20
+> Ah yes, I did mean "key". The same mistake was repeated for two EINVAL
+> cases above as well:
 
-On Thu, Sep 25, 2025 at 7:35=E2=80=AFAM Alejandro Colomar <alx@kernel.org> =
-wrote:
->
-> Hi Jonathon,
->
-> On Wed, Sep 24, 2025 at 03:23:13PM +0000, Jonathon Reinhart wrote:
-> > CAP_SYS_PTRACE is required (via ptrace_may_access) for accessing variou=
-s
-> > things in /proc, so include it in the CAP_SYS_PTRACE bullet list.
->
-> Was it always needed?  Or when did this change?  Could you please
-> provide links to the relevant commits or source code (or any other
-> useful source of information)?
+Thanks!
 
-From what I can tell, these ptrace-associated restrictions on /proc have
-existed in some capacity ~forever.
+>=20
+>     EINVAL One of the values of *name*, value, and/or aux were set to a
+>            non-zero value when cmd required that they be zero (or NULL).
+>=20
+>     EINVAL The parameter named by *name* cannot be set using the type
+>            specified with cmd.
+>=20
+> Do you want me to send another version or would you able to fix it when
+> you apply?
 
-Even in the initial git commit (1da177e4c3f4 Linux-2.6.12-rc2), accesses
-to /proc/<pid>/{mem, environ} check may_ptrace_attach() which calls
-capable(CAP_SYS_PTRACE).
+I can fix it.
 
-The affected set of files in /proc and the exact semantics have changed
-over the years, but the general restriction has, AFAICT, always been there.
+Cheers,
+Alex
 
-A few more notes from my archaeological dig:
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
 
-The relevant functions have used different names (ptrace_may_access,
-ptrace_may_attach, may_ptrace_attach, MAY_PTRACE).
+--77tbv3jcbebrhxmc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Here are some relevant commits:
+-----BEGIN PGP SIGNATURE-----
 
-006ebb40d3d6 Security: split proc ptrace checking into read vs. attach
-831830b5a2b5 restrict reading from /proc/<pid>/maps to those who share
-->mm or can ptrace pid
-5096add84b9e proc: maps protection
-df26c40e5673 [PATCH] proc: Cleanup proc_fd_access_allowed
-778c1144771f [PATCH] proc: Use sane permission checks on the
-/proc/<pid>/fd/ symlinks
-1da177e4c3f4 Linux-2.6.12-rc2
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjVc0wACgkQ64mZXMKQ
+wqk/gw//f7pBPVJBqklCrSLPBh3CVterkUO1bMxlzsPi43dy6GpeWNgQZQUmW0Ar
+2ihji1PN96HLnHxsqjFVGKr37AL0jt/5MKMlxNGd3ee3vPwts/VezqmPe0KPACic
+Jp2rs77e98wjfXdTc/h9GUZ8hYlMqCAL9GUIIA0FU9B/E/C93i2uJdDhocGPBl1w
+NQf2uXV+dM7up3VSWoOEq75YddhsyXK8GBaXLN9AHPnzSrXVc7U4d+y15Madybcv
+JeW0CWpuUazXj1mkLTvxYbYgelXXDxH+wxH8cbB9Hno120dixAynevjT6Pq2pPI5
+dIhHOxqc7uO8by50516gwiDJ4TbsgkOfP4U8OremPDwPphghpZLEHpIFc+aKyOQP
+C32zZvdSrtXlyeIZ+e9sxEyv+LNgycaCkRNXNZ5QDB4vtAEbtE+o6zcJICwiDvCQ
+L4JtBci7tg2ObLDZkevP6dLjLcaf/MT6tGcwYnjbyTCGhO+knB/bkkxvRVFvCi2+
+PI4DKT81GkNhot3ajV+jTCBbUbqBCvwnrOdMs7f9EIll2T4Uu3qNxAGkF36oztvk
+ZNZhG0UamF8waovFpNungKK2Y+Ag0Ktt9spaiSzWv99JGzDRC++QepBTYhoCDzMU
+G14xV85LLUt6nLSf8mzUBe+5i8N4HKMvH175PaURHCB+wWgq5NM=
+=TrVs
+-----END PGP SIGNATURE-----
 
-I could include this in the commit message if you'd like, but after
-digging through this, I'm not sure it would really add much value.
-
-Thanks,
-Jonathon
-
->
->
-> Have a lovely day!
-> Alex
->
-> >
-> > Also, add a hint that other things throughout the kernel may check this
-> > via ptrace_may_access().
-> >
-> > Signed-off-by: Jonathon Reinhart <jrreinhart@google.com>
-> > ---
-> >  man/man7/capabilities.7 | 16 +++++++++++++++-
-> >  1 file changed, 15 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/man/man7/capabilities.7 b/man/man7/capabilities.7
-> > index f8b389f1e..f9b9bee23 100644
-> > --- a/man/man7/capabilities.7
-> > +++ b/man/man7/capabilities.7
-> > @@ -625,6 +625,15 @@ Use
-> >  Trace arbitrary processes using
-> >  .BR ptrace (2);
-> >  .IP \[bu]
-> > +inspect sensitive information of other processes via
-> > +.IR /proc
-> > +(e.g., reading
-> > +.IR /proc/ pid /maps ,
-> > +.IR /proc/ pid /mem ,
-> > +or reading symbolic links
-> > +.IR /proc/ pid /exe ,
-> > +.IR /proc/ pid /fd/* );
-> > +.IP \[bu]
-> >  apply
-> >  .BR get_robust_list (2)
-> >  to arbitrary processes;
-> > @@ -635,7 +644,12 @@ and
-> >  .BR process_vm_writev (2);
-> >  .IP \[bu]
-> >  inspect processes using
-> > -.BR kcmp (2).
-> > +.BR kcmp (2);
-> > +.IP \[bu]
-> > +perform other privileged process-inspection and debugging operations.
-> > +(See uses of the
-> > +.IR ptrace_may_access()
-> > +kernel function.)
-> >  .RE
-> >  .PD
-> >  .TP
-> > --
-> > 2.51.0.534.gc79095c0ca-goog
-> >
-> >
->
-> --
-> <https://www.alejandro-colomar.es>
-> Use port 80 (that is, <...:80/>).
+--77tbv3jcbebrhxmc--
 
