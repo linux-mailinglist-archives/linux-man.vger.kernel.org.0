@@ -1,146 +1,175 @@
-Return-Path: <linux-man+bounces-3978-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3979-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 593EFB9FAB5
-	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 15:52:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E5BCB9FD3A
+	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 16:08:03 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 6F9167A555E
-	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 13:51:01 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2D31E1C247FE
+	for <lists+linux-man@lfdr.de>; Thu, 25 Sep 2025 14:05:03 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 455A328506D;
-	Thu, 25 Sep 2025 13:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB904286426;
+	Thu, 25 Sep 2025 13:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="LwAX5ebW"
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="HJIeUBfy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE8821C9EA
-	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 13:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A3F2848A4
+	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 13:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1758808355; cv=none; b=M9cQJPzrNT0NkVCIYt5GgTPXJv2ABa+qZ6CvVjaiE+RGitdOmEqXJTHAo5I4kgidMm0D6Xz7+pSBUSH8nV/OsTxQJ/XJ0LQuQOGJ/6GA7fQg7jjfvlO0+17WDXZroVW1Je5adJcJGw/kDeHrmjCcrjsK1bgtV43LEaoeYsA5H80=
+	t=1758808658; cv=none; b=Q+jA/36es8b8dQ8v4skQBDbJkOv9lZzrDysmVuKC9w1BhRTF57ebJ66X0qAZrEZez7oJZY3g7C7HjvZg1ygR1lonjpf6+mWxLHGfxDJmHkbat+dTG0cuKmZW/DYPVK/Uu358lkeloYzjqa6MzNPnyLLCcKSAFe6BNvEidhyytP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1758808355; c=relaxed/simple;
-	bh=IcF9kAY7KPIrSpl2YrG9pWgSerJbb6OZGOb3MbGsl2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LAm7xJEb0mbkQbAVIe7X47Bvq0E5PVH4NqB29DZmaYUovGQV5qXYlKB/0oSfh3WRRe12rtlOe8KfN4zpuXTmKggI0Hqe6MEcgHH9nfC443jZhOY4hx7Vah7601z+lfl1LNrx0gMm4D29oak8RKsYoXiECbNEUmjttmQFzSYssMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=LwAX5ebW; arc=none smtp.client-ip=148.163.139.74
+	s=arc-20240116; t=1758808658; c=relaxed/simple;
+	bh=UUs44bT2Mv3L9v69mWFbaR+Qa4woF2m+o5xs/ajdGGo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mZsfNoePpvcRcrQnH/1On7JOdp0KaAmkUyd3sRXs2nYuPfwkoUdEzwByaFLxAo+ST16QBnwTT891gJSGUjOOVdOM/ttBuSxAQUW2rZ38HfDVPrZtLAIpZx1rJJT6kojplcr4sQgW/5GXIBlBOGbNxRj6T0vTg9EfzROe+vPpfFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=HJIeUBfy; arc=none smtp.client-ip=148.163.135.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58PDRCSa005966
-	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 09:52:26 -0400
+Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58PDSL3x028859
+	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 09:57:30 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pps01; bh=jC8pdNq5IAEDVoF
-	mmToHZpxqlzfm5jZUMMCI3dtcsVw=; b=LwAX5ebWR63OfT7mzVJDykf4PjBznTk
-	c8Z1Veh2Y7dmv+zA+OuJ+HvZ7KD433CEyZF9feejKpYN24gtfRYTKJrIU7CqANMo
-	Ji2zUjyNWesbElMuNK0X/gYOIhwCWKn9sKiFVAzXX2ROX/ARy0VAm4V7Nh/5l+UM
-	kJq03XJ+1ADkfD5fokqjF5oydElaOA6N5RAK8JA4vpAAsMqvXK7O0KVLY3PyZW4c
-	BUO67sYO9WYfTsooWfsfKzDHQ+mXPtUkyqoDrAl2JW6ZDmV9xXdnKqi1eVufGLY8
-	9ZMcOSec4xC/zrxtma8eR4CQABnkOD120EWaeMw/iOiJ1OdJP1T0vkg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 49ckr20ps8-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=ACL4
+	1nHkRnxFNxekdRO8UIr8suKD/pWs0Hxv8DsBC7k=; b=HJIeUBfylzGHCDCyYdKP
+	YZwk3ZoiRrWLYbz9mRAsC+9U0fw3QSURH4E9f56ZOmuJpEulMfla2mcHldFdIB7h
+	wQjHuqHaU7dCvnTF+ZV+8TYUtxkvXM1vJpjAtQVq84i44dxqDLgF6yizo3HRUimN
+	LQ5g6ADP6wKiueUDR20MfBCmIWgEYzhRX3zXitSlq7pyQ5JMU9KC8M9eNZ37FZA9
+	P4csGbGXndoI2blku8vHPVmVPT3ZW73uR8kTSAXSCjWshUHtwAFhkyV74RD4s8XP
+	Kr2V7itbjv5D0VoJUZsJEea8G2cEIyGZJatEvwt79jtNg+zY3YyYXBevz9ozXZn2
+	aw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 49ckqj0r59-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 09:52:26 -0400 (EDT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-4b78fb75a97so13486851cf.1
-        for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 06:52:25 -0700 (PDT)
+	for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 09:57:29 -0400 (EDT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-798ab08dde5so16272556d6.2
+        for <linux-man@vger.kernel.org>; Thu, 25 Sep 2025 06:57:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758808345; x=1759413145;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1758808648; x=1759413448;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=jC8pdNq5IAEDVoFmmToHZpxqlzfm5jZUMMCI3dtcsVw=;
-        b=jckNVZ9IVGlNzyxkUDmfWEsT+6B5rl0KB55q26WylUnsFEFL1/Wq5UT62+RD2GVeke
-         ziOfIHQSOE4pmZbcEGcCdFmLV8mPCv/yQcsEI0FTKMsB+9nfVgEB56TApcE/Y6LQ1PNA
-         deBOAeyr55IArGLnWOvyo553tZukAekdeMisoS7rlQN+ydeaFHtGDTMPeeHNGv3Y7ost
-         T2E2fZek+s3gGCbXeuilk1j4JNobO0cJyOFcVrGv1S6C16UnhlpP3YS8IQTsQPE8U50S
-         c4a5lWDo84Cu6pviKgc0o5Ce3wZhwqV6/coEu3R6A6sorw3I9A2jXJHwB5ylDXlUjFdD
-         kuSA==
-X-Forwarded-Encrypted: i=1; AJvYcCWqoj2Axs/TKiBL6Ms+X9zU1qLJuGxl3IrAWgBVkC/z4N63cB0xpRrCPtxJ4CuwLMXCrS9ItA5+Ql8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRyrHa4SDftYiQrmvAUP0lQks2JXAlVkTPkdljbzp4wpLbM8MM
-	aQniSqSAjii6octR6C+21qQeQRla7liVRa7KhGOA0QDT9KWG0P+lo95vIE9alr7O7mofmCAGzh7
-	wjiPW5cDFx6L6MsYvljJxHtUTfJtx0VFI8g8ZAK9RhlYT+lOSDhHI1nL3qw==
-X-Gm-Gg: ASbGnctwpm9RSKIXS4Vr5aApAQv+EuIxZAeHvPThlbmGzkD5PUK9wW87W46/M5i0MeA
-	I6XUweXIH0NI9byZF49UgIcbe5/7j9AwMJI5veq4zy8bodH8OdbC6FkiuN/8aS9auHksLTS7+Cw
-	dcnlizX35NAe1DwizMxebd4WdAb7n6pGzVdhL+XoKohGkS3PLAjhiriDO4unIy8twY/btxGeWqu
-	ZE+v//PMyKkH0kJFBxqvTS4CSKOqPu2w1lvgU/dW+mwJD2/Zly3QyMqBx3Y+TDRvjWxomCI+eFC
-	c8Oi1bxj5qgTZpuVX+qYUD4UQyaevPjtMtPwfrFjdTsRvpo2u4pyZH+ypYZSzvdfviD+AQ5UNg=
-	=
-X-Received: by 2002:a05:622a:5c95:b0:4cd:7c0f:96c4 with SMTP id d75a77b69052e-4da4d50a8c1mr43641161cf.84.1758808345126;
-        Thu, 25 Sep 2025 06:52:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF6yVdU+uopdlikVONfGl/GSeKVNRK7hLOQrMvILekG6KueIPWAWUV4EqqYy/fglbJ0Qkgudg==
-X-Received: by 2002:a05:622a:5c95:b0:4cd:7c0f:96c4 with SMTP id d75a77b69052e-4da4d50a8c1mr43640021cf.84.1758808343619;
-        Thu, 25 Sep 2025 06:52:23 -0700 (PDT)
-Received: from rivalak.cs.columbia.edu (kele.cs.columbia.edu. [128.59.19.81])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8016cf8f949sm11290986d6.54.2025.09.25.06.52.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Sep 2025 06:52:23 -0700 (PDT)
-From: Kele Huang <kele@cs.columbia.edu>
-To: alx@kernel.org
-Cc: g.branden.robinson@gmail.com, linux-man@vger.kernel.org,
-        Kele Huang <kele@cs.columbia.edu>
-Subject: [PATCH v2 6/6] man/man2/fanotify_mark.2: grfix
-Date: Thu, 25 Sep 2025 09:52:15 -0400
-Message-ID: <20250925135215.1648059-1-kele@cs.columbia.edu>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250922035934.446271-7-kele@cs.columbia.edu>
-References: <20250922035934.446271-7-kele@cs.columbia.edu>
+        bh=ACL41nHkRnxFNxekdRO8UIr8suKD/pWs0Hxv8DsBC7k=;
+        b=aN9tkdYZQuBIKgCbyP4Q3pjd0Arfuo5Q8MgJzazVlsFeOldWBzVKYuvEVRwfDgfYH3
+         UHKtZgtM3tZCqxQCFdUVipFJds5exE24rtg04lVBJD38CSozx4Bno8nTcsFLBv6MP7TN
+         0e0T7ijY9RZcI8RbP5nZtzJW2JDKfYQliMWJNW8qBnuCXVl1boQORqnXrffpqZMXVQKQ
+         mUeoGxfb2r5K9sAviqwc12xAzki8FDcBtKJ+rvaNsNzhOX6gjpdSB16X6PI4ms2Crh/K
+         +Wnqg6CKzvIgWNw0NIhPxekRnt9jZ6O/xN93wx6oVUSGkRIgaOJglVeX1HLMTxJc0ksu
+         OBJg==
+X-Gm-Message-State: AOJu0Yy+0zpwT6sStmGJrKN446MARkgUQIstEXQRVsEo9/TpPem6zAGA
+	bIMVTQVpO2bRRJyxv42Hd6fRt/nhxVuWW08NDFeAwojVj7nkQH5GmkTETQD4U9BH+DUMKZ5B/gl
+	W8ROeQ1v/KVisTlfG9jOlUi9GLy+lQd53u93esAXkUpTEJsM9hYLGhBDfY7HYvu65LYxLapOQ1Z
+	XFDp1d1Wk6pKnWdVYiug3nN31eKN4Wg3Bv
+X-Gm-Gg: ASbGncvfZDvJ/Wk9EY9U2oM0bgWCuLV0ywdo6YGfhRFDR5gcEtR4zS69nC0DICwcK5C
+	lzSxDeuqp928FCjJzDH2NCr5YtbPPehWItz+PTj3jDjHWZ8RMXrTvWBpuRdfCqGHBSxn1KpEyQb
+	bdh/XO5dI3WgFvjBMiiA==
+X-Received: by 2002:a05:6214:4c47:b0:802:ef74:d792 with SMTP id 6a1803df08f44-802ef74db6fmr28068146d6.67.1758808648158;
+        Thu, 25 Sep 2025 06:57:28 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFd8z+j7gTiL4HAR09oCy62kAXGT2Vb6Gkw1BaEnRfjsHlko+B5pDuw7mqfd0jApPK4uC3JpuDVwJBYMRhv4fk=
+X-Received: by 2002:a05:6214:4c47:b0:802:ef74:d792 with SMTP id
+ 6a1803df08f44-802ef74db6fmr28067796d6.67.1758808647727; Thu, 25 Sep 2025
+ 06:57:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: W9BErmakzolfA1GDEJpRghoJdIOXvlC0
-X-Proofpoint-ORIG-GUID: W9BErmakzolfA1GDEJpRghoJdIOXvlC0
-X-Authority-Analysis: v=2.4 cv=K/AiHzWI c=1 sm=1 tr=0 ts=68d5491a cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=3s50gvPmqPWyIM6FhyrXAw==:17
- a=yJojWOMRYYMA:10 a=GozpZ13YquPDOjToDPoA:9 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI0MDEzNyBTYWx0ZWRfXwmE/K2LOMsXp
- 8GO439YA0SC8qLwZX/Yafl8v9OIfGa+D/3Aio41Fdr6aTseap93p6Jmv5hIOmKj+d1mR0rSTI7+
- /tq5tNVUlihLfzDa3tdeOFr5jwvX9uRXaYhyXyp33pkb1IvNbwXOKMiX6r6T5GypeirIRxUUz9j
- ZFPg294XCI5EGWykhe9Ewy4H8VaNARa5HpjinDX4/GLiAvgj3uwpF5M7QcMPBeaIiJg3MnGM5Ot
- 3XeQPdR1ZKAerlUJaSIYyV8gQ28YtFGNPprOJy2ji7A/M29azmMwqhaETCEsP6tyHQQFqw7mEZ1
- WAMWhEv1fP8CLIQyIlX/j4n4Jqu+W7i3CxilfrXRZGuO9OqElUYSxoZaECTZPIen7j5/d9aazVj
- Qo4sBDTO
+References: <20250922035934.446271-1-kele@cs.columbia.edu> <zgsjt2kpddfcso3gpp4jns5bknrquclbaswxbzvtoqwpi4aug4@znkbh7nsxmua>
+In-Reply-To: <zgsjt2kpddfcso3gpp4jns5bknrquclbaswxbzvtoqwpi4aug4@znkbh7nsxmua>
+From: Kele Huang <kele@cs.columbia.edu>
+Date: Thu, 25 Sep 2025 09:57:16 -0400
+X-Gm-Features: AS18NWDJfzhmVhTaGyLNVLeungl3RKFCUJJsCoBmD-uoNSv1l6prZLTpK_vX7wY
+Message-ID: <CAOfLF_+0UbNedKgbNY+5W81WWgU7X+7yg4pzYD_5U4aJKybwsg@mail.gmail.com>
+Subject: Re: [PATCH 0/6] This is a set of patches to fix grammar issues
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI0MDEzNyBTYWx0ZWRfXyULJ5IRBzCUS
+ 43XpgGPbPDaSkCXF3CJ8r+p8iyqVeF3SKQpXHMjo0gKI8yWh1RdqsIXoKXwTnWBZISYrBFZvdTd
+ JWzChPGTkAeLRPcYGWEzcNygwbDwEdv6ZZILNn6Rwl9Z2gU3gd5ptDRWQ4YPuzbXpJ9XgKhu3ax
+ KzvABXxcve0uGsDOYtYETXesqrBL4YCBD7AEowHvA+muB4gbmYH2p0MI9qw2lepbJFrog+Ryow3
+ 9qGz0w8KYPlfFC1Okf2vH7rkC4MuA41fUOCGZdwAP1Umeeow4tgc3dF5gpWLEuukVtBn7BHt+NX
+ IA6DI9g5k0PXmr+MCRBx0kbU4LKcGLtxbBnn1PesjHMVtg3j9M7GMl4Hm8KbkMzV4Z+xQv6lVwd
+ tYMgep6+
+X-Proofpoint-GUID: KZw3CBTCrjSCbfg0GT-DU9CIRQQlkov-
+X-Authority-Analysis: v=2.4 cv=T9GMT+KQ c=1 sm=1 tr=0 ts=68d54a49 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=861-jTDryjZ0CTSc:21 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=MEjK9-KKAAAA:8 a=VwQbUJbxAAAA:8 a=0-GGiZ1G1WSh0m9nTg4A:9
+ a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=wDCLW6yMUrMVbYbmd6V3:22
+X-Proofpoint-ORIG-GUID: KZw3CBTCrjSCbfg0GT-DU9CIRQQlkov-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-25_01,2025-09-25_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0
- malwarescore=0 bulkscore=10 clxscore=1015 adultscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509240137
+ impostorscore=0 suspectscore=0 adultscore=0 bulkscore=10 malwarescore=0
+ clxscore=1015 priorityscore=1501 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509240137
 
----
-changes since v1:
-- revert "a fanotify" to "an fanotify" as suggested by G. Branden Robinson
+Hi Alex,
 
-Signed-off-by: Kele Huang <kele@cs.columbia.edu>
----
- man/man2/fanotify_mark.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks!  I have re-submitted patch 6 with the in-reply-to reference to
+the v1 patch.  Please let me know if it does not work as expected.
 
-diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-index 6d191dfaa..e561ffd21 100644
---- a/man/man2/fanotify_mark.2
-+++ b/man/man2/fanotify_mark.2
-@@ -727,7 +727,7 @@ and
- .I path
- does not exist.
- This error also occurs when trying to remove a mark from an object
--which is not marked.
-+that is not marked.
- .TP
- .B ENOMEM
- The necessary memory could not be allocated.
--- 
-2.51.0
+Have a lovely day!
 
+Regards,
+Kele
+
+
+On Thu, Sep 25, 2025 at 7:39=E2=80=AFAM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> Hi Kele,
+>
+> On Sun, Sep 21, 2025 at 11:59:28PM -0400, Kele Huang wrote:
+> > - Patch 1: Fix grammar in man/man2/getitimer.2
+> > - Patch 2: Fix grammar in man/man2/setns.2
+> > - Patch 3: Fix grammar in man/man2/unshare.2
+> > - Patch 4: Fix grammar in man/man2/rt_sigqueueinfo.2
+> > - Patch 5: Fix grammar in man/man2/msgop.2
+> > - Patch 6: Fix grammar in man/man2/fanotify_mark.2
+>
+> Thanks!  I've applied all except patch 6 (because of Branden's comment).
+> If you want to re-submit part of patch 6, please do so.
+>
+>
+> Have a lovely day!
+> Alex
+>
+> >
+> > *** BLURB HERE ***
+> >
+> > Kele Huang (6):
+> >   man/man2/getitimer.2: grfix
+> >   man/man2/setns.2: grfix
+> >   man/man2/unshare.2: grfix
+> >   man/man2/rt_sigqueueinfo.2: grfix
+> >   man/man2/msgop.2: grfix
+> >   man/man2/fanotify_mark.2: grfix
+> >
+> >  man/man2/fanotify_mark.2   | 14 +++++++-------
+> >  man/man2/getitimer.2       |  2 +-
+> >  man/man2/msgop.2           |  2 +-
+> >  man/man2/rt_sigqueueinfo.2 |  2 +-
+> >  man/man2/setns.2           |  2 +-
+> >  man/man2/unshare.2         |  2 +-
+> >  6 files changed, 12 insertions(+), 12 deletions(-)
+> >
+> > --
+> > 2.51.0
+> >
+> >
+>
+> --
+> <https://www.alejandro-colomar.es>
+> Use port 80 (that is, <...:80/>).
 
