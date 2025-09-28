@@ -1,153 +1,119 @@
-Return-Path: <linux-man+bounces-3996-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3997-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE97BA7904
-	for <lists+linux-man@lfdr.de>; Mon, 29 Sep 2025 00:25:18 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id B77EFBA7916
+	for <lists+linux-man@lfdr.de>; Mon, 29 Sep 2025 00:44:02 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 95FFD3A1119
-	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 22:25:16 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 0E2D7175E4D
+	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 22:44:02 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4AEE261B65;
-	Sun, 28 Sep 2025 22:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A4F728489B;
+	Sun, 28 Sep 2025 22:43:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ffLLEK/l"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LOKlvFwQ"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E9E257848
-	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 22:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD31D1D88A4
+	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 22:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759098313; cv=none; b=YpVm8yTxWrEXp8NOXVrB1wYOisyAH5x1XrM93ajdonofkmmfUtqRZgG+2MruLvDwc+xdg1Xudlw/ctq/hCFPQibdHMLWr2AaxGLsFWU1KQtCETWPXsKMdBq6XND9+0ylvniM+SiiIQ9d66NJYsH/DSu02mJIPY+sXwp48i4Nkoc=
+	t=1759099438; cv=none; b=FT3dWuMAju5flgsfsMMegjoJLs//nMDQTfvudUwbjW1dG7QG3Q58EuZ+mHY63secxiiY80rN5p5QNlUYUEka/J8T8pdkyq2i/X9BSR89cHQGQ1XWmb0N7tkYYSJ5JIKFKrzQ/poE84WyvcmkfmN5MhgX7jLexFZdXx+/j2VaiHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759098313; c=relaxed/simple;
-	bh=zFUDy2s+oOQSxmy6vY+biucqKitbOvSUQyK4jIyS17w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DupMPGusyt9HPGxrvgYwZbAJzNe4kJ+/AQCBr76CJnblHTLAaDRYWi29m7/ij6Vru9RaJ0dfddZYqLEYpgu/zW2wkw08zouFuyZILN5RYx6+VBVtNqthIorYVyBUHq2Zl6qh1ukOZtqRtLIDvMTCPIkFrqWlv95e+CIWWcql2f0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ffLLEK/l; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20233C4CEF0;
-	Sun, 28 Sep 2025 22:25:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759098311;
-	bh=zFUDy2s+oOQSxmy6vY+biucqKitbOvSUQyK4jIyS17w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ffLLEK/llnzJTSN5HKnce2VhyqocWnfg8bObPtWIybV5ip482xrtrkvEW0kk91Itt
-	 0G04aAe2zBJ3+VRz2aszPqjTw8IC0M45tf2i+VTvNwhS//DaRwga0Nx9rl4B+fV3Fq
-	 1oAND17yOaD41kXXbToYkfLpc8oPCPoHyf8/8V3sadPCL87baScrFu+rWzJuOXXwuM
-	 hzcMOrRDb1C4U/F2zqW6r1y4gEulPklR5Chur+jYG6bpKtnQ8Jbzc80pTcMVZnh9vl
-	 y2XiGs95jbjDya/OJcQBA8H1+rrM6GSMNquJeYsQhz2D/zVkIF8CbaccX9Pq4ijJAW
-	 wxFxsUumNixtA==
-Date: Mon, 29 Sep 2025 00:25:08 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
+	s=arc-20240116; t=1759099438; c=relaxed/simple;
+	bh=hvE9AH90aGN69Soj1MUX3Fd9OmjCRmhnBp9GoFLy5yA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WTwBb0PNAcRVgFTx/YR3bTX1kViZY8/vv/hgEVskC4UerdBSKwosZ7nkCnA+h9d0UsWq/U54rfvJAmcnhkYD0skhwb5VUKqt/FuC9ZEIYJH80kQt717dr/kmiUiSNxMUhy8PAmOwFzsc1IcRC0ZSR+xzsg5UHyVgqNVYab3tlAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LOKlvFwQ; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-b54dd647edcso3507079a12.1
+        for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 15:43:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759099436; x=1759704236; darn=vger.kernel.org;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vMPyegz/yEeNkDV+Gxx1snubMFQZ9Gjk2S+dbiqEkbE=;
+        b=LOKlvFwQq9+OT4z/c9fmvp1BmjZlmbccLRDP0kn2UclPDPfonwXyscqqVlPccDJn8X
+         z2MZHYuwddZOkSBJ/AAb+0zISfcjMC8GfwUZ6mIruVbuPU/z5rf+qHtQ4QoDnV9xyitB
+         tZbzOW2mQ2LQVKVqpSDM0u1w7CmOTrF3AMaKF89J6/HyLLn8kRnNDVwCy62kscEep9Cw
+         e8iiq0qTy0PO1k3uDR9Cbi66DfQ9j+o/DAchMqU0Pv51Xl0oW9LdSxh5WxSLkKTHIPpj
+         5o23O1ANU7FQ9544d/vMf54T08vIx9nT/B/i6kvWD9AF/DkBoPsTE0MtOqW/jTBEgRf3
+         Pwjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759099436; x=1759704236;
+        h=mime-version:user-agent:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vMPyegz/yEeNkDV+Gxx1snubMFQZ9Gjk2S+dbiqEkbE=;
+        b=gF9h8JzV3jOPQ08c5JVKiRM/xOEvkfA2gAdsXUQiHCwxp/GkKIQwJRvF5THHnLt8Zv
+         8hxwqDvXSJHcHcBnOmrE6efy9+lCRgfu/xYj0LewUX5c+qlNYgg6/gamqjhIRvY1JPlj
+         Lkp0BStaGkYe28JIFxxawmd3R8fxo4xc0H0FoOvotglM9n5Il3Qk8CtPl20Y5Bk7crMZ
+         sp5w5aQO0hf7+y1Gq8ypizREc81Qu5b1yXMFXo7+3dJQO391Acj3cB2Uw2V1lgzm0eU/
+         vVzxFA2uribssfiYHmvOjYrCcy3MOVWLkDQxh4CGQ8iX9HExEar4b6utHWso0jhzoSp8
+         GL9w==
+X-Forwarded-Encrypted: i=1; AJvYcCVgwd+JuMC3ZDNtrWABWR4GmVJCMq0wZ4EMNdXvMt8XHikIFA0+qg/55M5L9Dp7gK23Xu7WcIheR90=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqyP9ptVufP76JTQ4v3ni9fBjhseAZ65mdmlJKAvxvy3vD1lAI
+	S2pq/sx/py9yWEXrozrrnBjiV0FBDmPdlabBd7ReI0MhoCB9AC4MxePeYlTy7w==
+X-Gm-Gg: ASbGncvb6PIpeXqY4snuztennUPDK978EAszhvxCi4oDsi0P53HgVT4XEKRvtxE3bNj
+	BttFHSUNvXgdawhX8A1LHqhrF7jd2FqKdPoIEkkxpcmSp6EuDXIUs90FfTvUMuz1b4xbJK341gb
+	D2FgEQW+jWM3mnyB0BYLGRiaZTt8eVMzV0Aadb9box6nmrFScnOPIlebYd4gHJOFM3ai79TYCbX
+	o9Z5f4WKS14dysht37zVxDgWgpje05g2a7qVQUXxA6jETfFeg+8uJ76zJJ1DAvyiehL1h0YCuZo
+	opPI3hs5SerpwrtQgH4qTerU50iLPgkQEaIWDDMZ3j3z9SKY2yjzMq+yAWpfiab9ZL6YagGs+U1
+	h76/YftIOUWmQqlw=
+X-Google-Smtp-Source: AGHT+IFmIgoz/JkPL/+KNsUIRDT74GgVLlThVfYx5znMsVb65NIZucfP+xSZWAbB5IB9mOFLTlZg2A==
+X-Received: by 2002:a17:903:19ee:b0:269:b6c8:4a4b with SMTP id d9443c01a7336-27ed49c7798mr162258595ad.6.1759099435767;
+        Sun, 28 Sep 2025 15:43:55 -0700 (PDT)
+Received: from fedora ([2601:646:8081:3770::55b7])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-27ed69ba58csm111792415ad.121.2025.09.28.15.43.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Sep 2025 15:43:55 -0700 (PDT)
+From: Collin Funk <collin.funk1@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Mark Harris <mark.hsj@gmail.com>,  libc-alpha@sourceware.org,
+  linux-man@vger.kernel.org
 Subject: Re: getpwent_r(3) needs gr->gr_mem to be freed, but that's not
  documented
-Message-ID: <b27573pyyrcczzr2hu3rhlecxitsfygsxwkdar7r3o5plqzhc4@3hbylr4udhsy>
+In-Reply-To: <b27573pyyrcczzr2hu3rhlecxitsfygsxwkdar7r3o5plqzhc4@3hbylr4udhsy>
 References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
- <qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
- <CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
+	<qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
+	<CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
+	<b27573pyyrcczzr2hu3rhlecxitsfygsxwkdar7r3o5plqzhc4@3hbylr4udhsy>
+Date: Sun, 28 Sep 2025 15:43:54 -0700
+Message-ID: <87y0pynqol.fsf@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l2ngsgxtp5hflcmn"
-Content-Disposition: inline
-In-Reply-To: <CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
+Content-Type: text/plain
 
+Alejandro Colomar <alx@kernel.org> writes:
 
---l2ngsgxtp5hflcmn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Mark Harris <mark.hsj@gmail.com>
-Cc: libc-alpha@sourceware.org, linux-man@vger.kernel.org
-Subject: Re: getpwent_r(3) needs gr->gr_mem to be freed, but that's not
- documented
-Message-ID: <b27573pyyrcczzr2hu3rhlecxitsfygsxwkdar7r3o5plqzhc4@3hbylr4udhsy>
-References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
- <qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
- <CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
+> Hmmm, that's good.  Thanks!  At least, the user doesn't need to free(3)
+> anything weird.
+>
+> So, a good estimate of the size to be allocated prior to the
+> sgetgrent_r() call should be:
+>
+> 	size = strlen(s) + 1 + strchrcnt(s, ',') + 2;
+>
+> That would be wasting a little bit if there are any commas outside of
+> the fourth ':'-delimited field, but it should work.
 
-Hi Mark,
+You can guess a value and then grow the buffer as long as errno == ERANGE.
 
-On Sun, Sep 28, 2025 at 02:54:59PM -0700, Mark Harris wrote:
-> Alejandro Colomar wrote:
-> >
-> > On Sun, Sep 28, 2025 at 10:26:33PM +0200, Alejandro Colomar wrote:
-> > > Hi!
-> > >
-> > > Another thing I realized about getpwent_r(3) et al. is that gr->gr_mem
-> >
-> > Actually, getgrent_r(3).
-> >
-> > > is allocated by the function, but is expected to be freed by the call=
-er.
-> > >
-> > > I didn't find this documented, neither in the manual page nor in the
-> > > glibc manual.  Is it documented but I missed it?  Or did I misunderst=
-and
-> > > something?  Or is it just that nobody documented it?
->=20
-> All memory referenced by the structure, including gr_mem, comes out of
-> the buffer supplied to the function.  POSIX doesn't have getgrent_r,
-> but it has getgrgid_r, and says:
+> BTW, where's this exactly in the glibc source code?  It's a bit hard to
+> follow.
 
-Hmmm, that's good.  Thanks!  At least, the user doesn't need to free(3)
-anything weird.
+In nss you can find <FUNCTION-NAME>.c and then follow the includes and
+macros. I agree it is a bit hard to follow. :)
 
-So, a good estimate of the size to be allocated prior to the
-sgetgrent_r() call should be:
-
-	size =3D strlen(s) + 1 + strchrcnt(s, ',') + 2;
-
-That would be wasting a little bit if there are any commas outside of
-the fourth ':'-delimited field, but it should work.
-
-BTW, where's this exactly in the glibc source code?  It's a bit hard to
-follow.
-
-
-Have a lovely day!
-Alex
-
->     Storage referenced by the group structure is allocated from the
-> memory provided with the buffer parameter, which is bufsize bytes in
-> size.
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---l2ngsgxtp5hflcmn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjZtb0ACgkQ64mZXMKQ
-wqnW2g//Q7ZplnKe9/Zll5WBNlqVfVNubqovuesmn2QEKnugtNl3FTaSoDXXjm7F
-pB6saGINrGCi/U83xEa06rdbZabUSSl4jY3SuzPAwvvgjYvHKtrL98foURyzpoN2
-VfIaSgF6NSSzb+9CX6UoM05fXwDgHWzKj9FomKkzbnXNv4szugx6FineSZQTDwy9
-wc+bay0uUjSSt24omx+JgaldbVO8C0HujM2AtP4iRwdcIf9klk6UGutdAYrufXYk
-lL8i1tKjp+X0omYDad14hWu4wqhuOrj8jhQYmdj1I1FFz8ELSZ53Y3a70aAsn5/i
-AvzFx4UzoiB56kJ7WIYr75wdNhkISN4YbrjacXXvRO+iVvzxv2susGiLrBVXHtLQ
-hRWSH16ojgRE/HgVN+jXFkR/Fkurixzje84Zvjs0ZddQHcUZ327h+Dbl7F5KznkR
-iz1qPRYu7RZUGsKF9jP2fmfDkNifGQKsj/4jl9JSkVF+MjNcaQGlABT+VqqDkzct
-2syZZOy6dY9Dh+bxakVhTAwXiL3itGp2iGXzTRxiumfR5m3eaEV3pHFWgdy7xFOy
-hpS6lKeFHQOWNSl7ZbwkMLj0L+wppkErWI+WV3JIdI/NjJq07BAaFycMaijV07AT
-45jzXORHS9ddDim239v3E9Noas48gOfCN5Afzj3yyCnlCySTJH0=
-=C9z7
------END PGP SIGNATURE-----
-
---l2ngsgxtp5hflcmn--
+Collin
 
