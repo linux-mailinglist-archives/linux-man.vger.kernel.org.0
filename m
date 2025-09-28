@@ -1,52 +1,51 @@
-Return-Path: <linux-man+bounces-3989-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3990-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56828BA76EB
-	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 21:28:39 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id CFD64BA7795
+	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 22:26:38 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id DA79A3B9DCC
-	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 19:28:37 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 156E4160458
+	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 20:26:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB527261B64;
-	Sun, 28 Sep 2025 19:28:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C22727E1D5;
+	Sun, 28 Sep 2025 20:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Re3Enjs9"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXhTyy3I"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66109221F0A
-	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 19:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EF717B425
+	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 20:26:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759087714; cv=none; b=BfiM9Lc3+IXovgWRSTmQhMLAYE5of7ITNoNZPofPFR7Ad0aZxT8W3tEXlP7L04l8dI8VGdludHtvzcJtlaQ/hwwcE4kx3MCGylSBZwfnWzTLYdV5dvsFJYbIshpBAwS3Eh/I+JerJz8+DlkOuUUxoagl4jjFuCLvztzUvJhwCAA=
+	t=1759091194; cv=none; b=m6smKtqliiWphNIs1z9ZQO9BqMMUGjnDYEj2uc/vhj6jfP1X68mus7NhsNPw+JdzIEvpaSWxSwxcBtoaFWJVnlqPlVIPGeptPL2J6MDEx8DFEZMgHUSlmmZ6OqMx8kFfWE/EqXaB4Q6vdyLIWQtYiiIDDIOGiVbRT0MPozkQXPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759087714; c=relaxed/simple;
-	bh=rGfnOJS9+Ju9QulshMZuStVFYr/Byn13ZmxRIWb88Z4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=FVcQm53po+V2gidii9PHay4O+RZ4UpaUvZ6fbEt6uAd8DCHNzrSf6DxBNzet9d4vpOwsF7e3wwQq2VRqn9KLR9ZvlTK36QSZ1MQVEzLbw92q5CaAifgEHuXQJyWHokfby+aA5Kokl/RTT23g6M5PJDlld7aQZC8LlU7qSgyuhO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Re3Enjs9; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FECEC19421;
-	Sun, 28 Sep 2025 19:28:33 +0000 (UTC)
+	s=arc-20240116; t=1759091194; c=relaxed/simple;
+	bh=S6LABJtlB85u08nAuDFREO7GrHKToWma/ZQijTm+DV0=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=CrnBO6bI1w+rEPh9grGktpRbfhzqqwWvFVyA7/ILnuurjL0WFqbxWlI4I9/y/MM3EZnt6Ou1RZITzTaOIEWSMwZQ5XH4NCfJJGpMFfByNz58m3Xi5ARhBfVWLnEBQ1iGC6runyv+qoCopofUdnIL7yY5npf3LnRl/Bbi/z4krxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXhTyy3I; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFBEC4CEF0;
+	Sun, 28 Sep 2025 20:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759087713;
-	bh=rGfnOJS9+Ju9QulshMZuStVFYr/Byn13ZmxRIWb88Z4=;
-	h=Date:From:To:Cc:Subject:From;
-	b=Re3Enjs9nQ8wf9sKWN9czPnMlAXB3jzHJ+rv2odSOXfbwRHvECVTPbL1zsnf4/Z/j
-	 aI7AgxEufcoZ8eNGO1mVoMJemyvT1keZqYTRiSHrY5IYn38dPW4HH8aqlEZEEN3bBQ
-	 FIRgI9l2Nl+Ir+HwKpwD7j+BDtH1qQ8u0Q9Wx3YU4Qzj7CbJcrZkBqh7km2IT1J89M
-	 HfwguHMPP8vMqtP3t/wYNFVLt40RGDf8H8wGJ/Y/f1+nAD7qPAQq82/B27mzdjcpFQ
-	 HRz1ta6m4/ZATJWbZQfsyfgBHNPhV9HmiKClAMpclCokFxLq6hmdxJcT4289RfZ1KN
-	 sYvXZ2ni4qFag==
-Date: Sun, 28 Sep 2025 21:28:30 +0200
+	s=k20201202; t=1759091193;
+	bh=S6LABJtlB85u08nAuDFREO7GrHKToWma/ZQijTm+DV0=;
+	h=Date:From:To:Subject:From;
+	b=WXhTyy3IWOtH/tlYxS3gj/VaH6R+85D4qr8U6cUbg5TUn0lCV+lJUjCc2YAe48MuA
+	 6g461d43Sypnrl1i9TcD3LLSly527C9hHV5T2ch8Tde2ImybnloKrBdfJqGgiBlYlQ
+	 cgoWu69QHUHSjw2QxWu7h780u4NE8j1G2jIG22aTb/ViKoqpRq+QtJyWkGp49AHVXj
+	 w9hJMAFFL6S1KgYInLQTEBXyYPXCXx4cHJZAaziH4Iw9E6yPnLfTIqtPZAc0ukD040
+	 L8Sz6OaUxA1V/bAifGS7Z8dnO4veBtejVbQfBbatVBv//sbaWQmf9gn+23+lrg7hCL
+	 noPwn3FcfnGWA==
+Date: Sun, 28 Sep 2025 22:26:30 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: libc-alpha@sourceware.org
-Cc: linux-man@vger.kernel.org
-Subject: Last parameter of getpwent_r(3) family of functions is useless
-Message-ID: <2vi5vq4gvrfis3jdcgwni6xyxgeub5b44xptztkqve7bhemrtv@652ihd3hhivr>
+To: libc-alpha@sourceware.org, linux-man@vger.kernel.org
+Subject: getpwent_r(3) needs gr->gr_mem to be freed, but that's not documented
+Message-ID: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -54,63 +53,57 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4gbwuj56lckzkiua"
+	protocol="application/pgp-signature"; boundary="r53i4dt4ai7wjiir"
 Content-Disposition: inline
 
 
---4gbwuj56lckzkiua
+--r53i4dt4ai7wjiir
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: libc-alpha@sourceware.org
-Cc: linux-man@vger.kernel.org
-Subject: Last parameter of getpwent_r(3) family of functions is useless
-Message-ID: <2vi5vq4gvrfis3jdcgwni6xyxgeub5b44xptztkqve7bhemrtv@652ihd3hhivr>
+To: libc-alpha@sourceware.org, linux-man@vger.kernel.org
+Subject: getpwent_r(3) needs gr->gr_mem to be freed, but that's not documented
+Message-ID: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
 MIME-Version: 1.0
 
 Hi!
 
-I've never understood all the parameters of the getspent_r(3) family of
-functions.  Today, I've implemented one of these functions, and I
-realized the last one is entirely useless, and thus I haven't
-implemented it in my version (sgetsgent_r()).
+Another thing I realized about getpwent_r(3) et al. is that gr->gr_mem
+is allocated by the function, but is expected to be freed by the caller.
 
-I wonder if we could simplify the usage of these functions by allowing
-the last argument to be specified as NULL.  That would be a compatible
-change (although not usable by programs for many years).  In the long
-term, it would be an improvement.  Eventually (in a couple of decades),
-we'd be able to document that the last argument should be a NULL pointer
-for historic reasons (very much like time(2)), and simplify its
-documentation.
+I didn't find this documented, neither in the manual page nor in the
+glibc manual.  Is it documented but I missed it?  Or did I misunderstand
+something?  Or is it just that nobody documented it?
 
 
-Have a lovely day!
+Have a lovely night!
 Alex
+
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---4gbwuj56lckzkiua
+--r53i4dt4ai7wjiir
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjZjFgACgkQ64mZXMKQ
-wqnJDA//aRhg7BBnt3/nP8GH5THKR5fuM3X4jUPFWh6qtAXdyMipGxV3T0Ns3Lp+
-F4aMKoGTWqjq0alr07VgAXroJ/52EWiu/1/E5uIq8E9y4c0F31PoRlDvRU4GxaxS
-uegcPkw1kfwf1iolqNkCrjH+U9wuu81M0dMEhxC/jN6cQ7iUgMfitEY3/O2b90MT
-V7+RU1ZN9hZiopi+hBWCPUWsAqmya5dPzzebrrduqODXiFs6jXJn22d4TZwnm/PM
-WsAulai0JMGBCGmJ+0+YOw7XKtDETdq3iWhzDVfuwpkyEbGweYCAaSxBlUXefPCi
-zej/f9tCxnkEuY18XW8/IFHY/QE5ObIAlYBa9H+zTS9seJtNNi94kINbDTVOLZ0y
-BYpFTu9B+/Xyc/VN2x2mbmENtJqvChSstpcbsLcgzLWsGb/zcyzb5P4uZqwBTv32
-nWKyAT5SaijDCOC5jNOS/On39FpcHa1cGKP+41v4XD/TAbjdlAUl6MaOSDYVIv4S
-ACC8b5J25lwTTW9nbPnFuN/YdrBiRCw+Oy54PkV4zDnJa/L6JzIPiChfoBZLcAgx
-kJgRFEN4qiJIcNPxTZrvnwd/ObP41UWgrzU02asAog01gpDhGuYMcn2Mn2lX172K
-aGI+wsOXrb6b0+r4zG12OYnL9FqpO+xYcfIGMsmzcB7DaeHZuqM=
-=GRbv
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjZmfAACgkQ64mZXMKQ
+wqmDWQ/8C7VWceqXNO/AMQ0M6O9GkCWHD+XuH3wt13qUkK/f5UKihloDl8w4hUuM
+ZbBBgRImzR9kN7q/m1NzCphXQmLgq5CZBjKlNWgdx8d/lk5axM3HX7PTIr/qu8OU
+snTPW0h6IHeH4yalCXuM91plJztLSZsWZdt6RoA6bD1wmRq7tGBDFaT5BFmGYexz
+2ltOMdYAMPbz9yYW+vxLV2YKKgb+y5Vci/a26YgDv4ooK/5DpErkwiq0qb1iTrWP
+8P1RMG2fu1Q2P8YHrBBiJaLI1mA1yYl5lnqbnCjDOQJSepakKXOzMv8zBT//NoXL
+6zsoWl+0FwJta2RPoUFn4po+f1YQxxZQTq0N5RxR0cFetL3yVodFHwgeH7Ihk5S1
+eMeV4DTp0yBoLyDlkoJ1u/bj70tYIZ5mHLr2Rp1RZVTsA8u7IcLlEAVJjZS6HUIN
+YFZA+l7tNUd1nr23dKqAFqYLRUrfhmEsbG6/p/+i+JTs8X1d0/iaNjDkvIrVB3Nk
+Pd5DWD4rrfY4zRT8Wd8FbcO66qG8GNVjgz3pExH4fQ52vl6uDrTco6tlqz1JggY7
+P0eVcchhTN0WS5vk2xa62NHGL0d7WIUfR8Ii82pMFcR9lN3bHI1wrFs0Wx/4xqks
+X/CcxnKupBtoR3IWJOBroM7lHfk7GhLThBNFx0l8M16qx4BajqM=
+=yhZJ
 -----END PGP SIGNATURE-----
 
---4gbwuj56lckzkiua--
+--r53i4dt4ai7wjiir--
 
