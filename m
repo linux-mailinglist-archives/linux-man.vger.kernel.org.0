@@ -1,123 +1,153 @@
-Return-Path: <linux-man+bounces-3993-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-3994-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF50BA78BE
-	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 23:29:14 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C68ACBA78C1
+	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 23:34:14 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CE9023BABC7
-	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 21:28:50 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 7C5CC3A2DCE
+	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 21:34:13 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 860D82BEFE4;
-	Sun, 28 Sep 2025 21:27:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1434222127E;
+	Sun, 28 Sep 2025 21:34:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LUvFspDj"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8yHPNio"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D689429B764
-	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 21:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C548B5227
+	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 21:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759094876; cv=none; b=R+wBoyjPAwUGpQiCt5mr4T51rL9sQMFE5BDNutyySyw7wTlDaVtl5C8H+b18eEEbUy2ZNMZ0VlPEVoPoeybf3I8zAn2o6NedL/wuE209ZdE9L7DurPOrrarXOtSwF/cEjON1x+56qm1Gfl+vbtMwEfrFj5K1BJRkN4IaoqYg8cs=
+	t=1759095249; cv=none; b=ZdBl4lA3nLi3m5GTASbGFalRrjdcSYPqi6WUxNo05Mt48EncrkZBwWaj6Bdmld0K33xAZt2ZSeUwvX6hWC/RCtOgvxtH7M2eXel4bukcuuMTIsKnyfIlY87yuqKJLnKaxx/hA7ZqlaGEGdOQQojepLq8TfcsZ443vp/8AH2bSyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759094876; c=relaxed/simple;
-	bh=oMiEfmG+uMf/TPCoNvpkDWUdSUyFm8vTrbg/UTQLUXM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=IRMhSrLR0LUweg2ASuwXE5E/Iz2AOixHxy4O5OogV0roKZ2tThEifbbY8tknVRQhY3mMVqVAv3h280o//p01imBiV63yy7Q85fUShMhvDMSSOOjgdBsLoyc9mJjGyr/Vhi/YuQzrIA6KFxDEd2SeZlZl+He5U5ViVXKLnTTVqvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LUvFspDj; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-271067d66fbso41235475ad.3
-        for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 14:27:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759094874; x=1759699674; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:user-agent:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lSd7wyEuHnG5kMgnEueivf4J3bwwH8pyvY7jYwTfAQc=;
-        b=LUvFspDjA8uZxSyX9zasPN43Mo6bBB2iMVT5Fucara3utYRabq8dLyDwAXba/5480C
-         aNw5zI9a8NYhwS5/WYE5j3Weel6NzOUgqTOcQ5rIK5Bb21DT/B/Egul3clGCYqHlfO3O
-         j5/9vSfngtataCBcWF4f7BpsS6THs4v3xnAWsz3U6osacOXACcfUxJJ+F4H/TkrOIV6H
-         WUcU7RoPWz3NJDhQyzfR1Wm1F2L9TkIyMiE/yOmm0UiRJzH7fcyLn/5ruT8XnNDV0wYk
-         nY/PNQmC8SBbqFIdCaMXSNyFTvJhaW2R8gn9EQaceU76pEFKacflsaSB9YXV6yTBKejr
-         WFeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759094874; x=1759699674;
-        h=content-transfer-encoding:mime-version:user-agent:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=lSd7wyEuHnG5kMgnEueivf4J3bwwH8pyvY7jYwTfAQc=;
-        b=gPm+wb/85ZmbX/DzAmwUj5ACDzfnG52CBM/cP4DkMHu1PsQqQ0iR9VtjrhvTe1vGm+
-         xlJ+uSv/5CoiLh4bQ04xbtKt6OjbFx4mIMF1iCBXDyP07iWIN/CnK6fJBtpZOE6zvTYf
-         t9ZaeQ3KEYlwuxgZfib9p6498Y6eOmh/VTrqYbRm+jVGc5PqmI7GBmI9r+ITDiMqV9Kh
-         MrbfKAYNAoh6Td/bTeGqixn81wXjWHaJx4bbdiMSHpjV8Ga6AJPlsap9Fws1SOQJEoMp
-         sSwdnFbcPRKqRkQUzacGqH8vcYqwgzYUsig1qmDn7KbnVScsq4v8a4u8hw76FXmdOxMb
-         porw==
-X-Forwarded-Encrypted: i=1; AJvYcCWeLpaJKOxCD6W9XF58ZKk00+YEJOB+YaPw9dDWx1wMhx+8N1YgJK+zFKJS5YvB/7QA7YuulaqUzw0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoUEbiBZJoU+oiwa1iRMOqbQdCreVoS+uAfmiS/eoFc3hQK1RP
-	S9i4ZbGBei+eCQ1HfQPdWvCpHcAkT349gC5bjQDoXK9cVclYQwWifjnvn7BPXg==
-X-Gm-Gg: ASbGncsieMFd7Q8Q01KCBWdCG3lMj7qKTDSYucjSn2tH/ib6BK9D4MaKfVbYyYg5FUz
-	JNbo3k8Q+Ytn78RLgZHb1uhhgfKTYrkAa8XwveZmUd+jTHVmnQ6C5+J2PHbCJU09IMLTRCDjCpK
-	AyXJqGsdhRWLGWX2+Xxr0SMY/qE3kBSxLJ+1451Tphk8SbyZsnPdyiKSYZtRQFvut2eAy9o4vdr
-	kRQkkj92kiEzttAqMIWR9pK6APZ2blIzpEu5D/HhsJqflTHF5Cd1bfCNfpFsExYmI7Ld2Oq/gjs
-	WiTutyxmgsMej5KsK1EHr4u6D/AEGt9U9+RyzB/AeRexjpRxnqMODrWetLej5iG9Xbq+gKWQVmz
-	9xsc4
-X-Google-Smtp-Source: AGHT+IF9BG6Zi4zKJFRuGWmKd4mqSxprQB0DX/7VkPNNk4gxBlAD9kNzso+NWN8R9j3k0EyHcRqt7Q==
-X-Received: by 2002:a17:903:2b05:b0:274:746c:b09 with SMTP id d9443c01a7336-27ed4a89201mr142868035ad.55.1759094873879;
-        Sun, 28 Sep 2025 14:27:53 -0700 (PDT)
-Received: from fedora ([2601:646:8081:3770::55b7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-27ed69ab0aesm109098115ad.113.2025.09.28.14.27.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Sep 2025 14:27:53 -0700 (PDT)
-From: Collin Funk <collin.funk1@gmail.com>
-To: Cristian =?utf-8?Q?Rodr=C3=ADguez?= <cristian@rodriguez.im>
-Cc: Alejandro Colomar <alx@kernel.org>,  libc-alpha@sourceware.org,
-  linux-man@vger.kernel.org
+	s=arc-20240116; t=1759095249; c=relaxed/simple;
+	bh=rAGC51iaUVu9NRaAcNH/2ek+LtHZTDXdMWKWvxWNuF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gXElGXRw+d7Nv7Zk+QR7YnlK95/B8Xki2+uVa7L6RlAgjHmcauypOOWzKXSOn/O/cNh42lMNGk+NSRaBZgswQGfAOt5j85U9C2bEQ4PdLZ8qkbtDv2N4J0XIjlbINqbinfOlfBOfZ9l2isJ2D+2DaPalovSXh3xd/MeWCokrWqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8yHPNio; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D02C4CEF0;
+	Sun, 28 Sep 2025 21:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759095249;
+	bh=rAGC51iaUVu9NRaAcNH/2ek+LtHZTDXdMWKWvxWNuF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I8yHPNio5tt2P32G88j6Pm3D6KNgebbl6b5GBkY0GNcbc51HvwolNpbbHeIelJHd2
+	 KeXs6vZKjw8AwdalbwyG6a8y3ZDTeZbFl4L/zk7YY540xVDhAjiOUj6wK8g02tl78p
+	 qVpDZ/UOAIL1caMvGZF6o0O9pVS8mEqL7wHiz8cGBC2HlNL1j1/4K5Bfb626xKlg1q
+	 nGzkUxNsxrSLZulSOkZs0p4y1qSeuMAaavwTkIHj1w01MQZKHVWB1klFWLRrwAiee5
+	 frQGtrDtlHXJC3iVC4zVaiQrtblyEBeuSUzkujmOMjeG8zsNSiy2PADNHrnyIsrtOR
+	 Lz1Ml8DnOSHmw==
+Date: Sun, 28 Sep 2025 23:34:06 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Collin Funk <collin.funk1@gmail.com>
+Cc: Cristian =?utf-8?Q?Rodr=C3=ADguez?= <cristian@rodriguez.im>, 
+	libc-alpha@sourceware.org, linux-man@vger.kernel.org
 Subject: Re: getpwent_r(3) needs gr->gr_mem to be freed, but that's not
  documented
-In-Reply-To: <CAPBLoAd8bMrOLjURHRvVW4_eEJYgcA9Np0++YPG1dLJoWfcWWQ@mail.gmail.com>
+Message-ID: <dxbqajlyhtljtuqiyzp22gi6vgisqfsok37lagrzsm2x47e3mx@l65vynueagkg>
 References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
-	<qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
-	<CAPBLoAd8bMrOLjURHRvVW4_eEJYgcA9Np0++YPG1dLJoWfcWWQ@mail.gmail.com>
-Date: Sun, 28 Sep 2025 14:27:52 -0700
-Message-ID: <874ismp8rr.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ <qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
+ <CAPBLoAd8bMrOLjURHRvVW4_eEJYgcA9Np0++YPG1dLJoWfcWWQ@mail.gmail.com>
+ <874ismp8rr.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xlftywscpaf4cryu"
+Content-Disposition: inline
+In-Reply-To: <874ismp8rr.fsf@gmail.com>
+
+
+--xlftywscpaf4cryu
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Collin Funk <collin.funk1@gmail.com>
+Cc: Cristian =?utf-8?Q?Rodr=C3=ADguez?= <cristian@rodriguez.im>, 
+	libc-alpha@sourceware.org, linux-man@vger.kernel.org
+Subject: Re: getpwent_r(3) needs gr->gr_mem to be freed, but that's not
+ documented
+Message-ID: <dxbqajlyhtljtuqiyzp22gi6vgisqfsok37lagrzsm2x47e3mx@l65vynueagkg>
+References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
+ <qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
+ <CAPBLoAd8bMrOLjURHRvVW4_eEJYgcA9Np0++YPG1dLJoWfcWWQ@mail.gmail.com>
+ <874ismp8rr.fsf@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <874ismp8rr.fsf@gmail.com>
 
-Cristian Rodr=C3=ADguez <cristian@rodriguez.im> writes:
+Hi Collin,
 
-> On Sun, Sep 28, 2025 at 5:40=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
-> wrote:
->>
->> On Sun, Sep 28, 2025 at 10:26:33PM +0200, Alejandro Colomar wrote:
->> > Hi!
->> >
->> > Another thing I realized about getpwent_r(3) et al. is that gr->gr_mem
->>
->> Actually, getgrent_r(3).
->>
->> > is allocated by the function, but is expected to be freed by the calle=
-r.
->> >
->> > I didn't find this documented, neither in the manual page nor in the
->> > glibc manual.  Is it documented but I missed it?  Or did I misundersta=
-nd
->> > something?  Or is it just that nobody documented it?
->
-> It is just not documented it seems, that's great..another footgun..
+On Sun, Sep 28, 2025 at 02:27:52PM -0700, Collin Funk wrote:
+> Cristian Rodr=C3=ADguez <cristian@rodriguez.im> writes:
+>=20
+> > On Sun, Sep 28, 2025 at 5:40=E2=80=AFPM Alejandro Colomar <alx@kernel.o=
+rg> wrote:
+> >>
+> >> On Sun, Sep 28, 2025 at 10:26:33PM +0200, Alejandro Colomar wrote:
+> >> > Hi!
+> >> >
+> >> > Another thing I realized about getpwent_r(3) et al. is that gr->gr_m=
+em
+> >>
+> >> Actually, getgrent_r(3).
+> >>
+> >> > is allocated by the function, but is expected to be freed by the cal=
+ler.
+> >> >
+> >> > I didn't find this documented, neither in the manual page nor in the
+> >> > glibc manual.  Is it documented but I missed it?  Or did I misunders=
+tand
+> >> > something?  Or is it just that nobody documented it?
+> >
+> > It is just not documented it seems, that's great..another footgun..
+>=20
+> POSIX also doesn't require the gr_mem member be allocated using malloc.
 
-POSIX also doesn't require the gr_mem member be allocated using malloc.
+Unless I'm missing something, POSIX only defines getgrent(3), but not
+getgrent_r(3).  The former keeps track of the malloc(3)d pointer in the
+static structure, and thus can free internally; the user need not call
+free(3).  The latter can't keep track of that, and thus it's the user's
+problem.
 
-Collin
+
+Have a lovely night!
+Alex
+
+>=20
+> Collin
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--xlftywscpaf4cryu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjZqccACgkQ64mZXMKQ
+wql94A/+OAHm9Vt8fzLdic3uwFApPl216vhfK7dTmj0yjTaHlZczzN5t4ruX942+
+mWyoKWIDkESy06CzdIyoMpf+IywCVkI1SZGJcEIbOiJQzvFei5axRxwJwo1B9582
+gvYHr5ZO4JT1QDqfqbyeCjZlTthaj593khpqMZkEI2BaeK9BC9gvKSwpRMMSwsEk
+iuLjEwxsMXTGpmmivJHz+1FXwXqeduzhcAjh02symP2koIj8HuCaWbn4dTDQLTdS
+Q5jrNKbCyS+LbqJ/GM4qdfQW6uLvjufmymuJlPPx57vvoJHxwFJfHtQTqkwE9m6P
+AXuzMiS5lcrang100ZMLFE4uQU/SAE7Ri1wUKQ36Y6N8C3AmUeLgGN6w3J9BIg8H
+WmzFdCU3+2Qyigxjtm1QZeki8S7ebRto+64CZwVllw0rLR3MhkYUhrCTQP8ulFnp
+rL3XKqjVu0hhHojXGLCRsSNskRHy7GfVv1kqQKXmi2QWjIXifxbZZOhAqXF8ihsp
+E0YJXzvjgYNoKeE1vawnzY17z6dG8GImvmqryEmcAACKbpc3jIA0Z5pv1GLIc9p9
+sMbD6sDh5MhNUPC8bL85dLxqg1axwfYaSMoNoZHBEfr0e7dSX3tvmVIBDdGXcNnY
+Op5leF5QMFT5+m7J5F5bxo6Bjbwj7QmTuazXMyKU4En2VvmMLjU=
+=hZQy
+-----END PGP SIGNATURE-----
+
+--xlftywscpaf4cryu--
 
