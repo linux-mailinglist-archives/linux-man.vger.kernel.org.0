@@ -1,54 +1,54 @@
-Return-Path: <linux-man+bounces-3999-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4000-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B9FBA7937
-	for <lists+linux-man@lfdr.de>; Mon, 29 Sep 2025 01:01:28 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id A495FBA7C0E
+	for <lists+linux-man@lfdr.de>; Mon, 29 Sep 2025 03:22:30 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 0B8923B6EB2
-	for <lists+linux-man@lfdr.de>; Sun, 28 Sep 2025 23:01:27 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 288B44E0205
+	for <lists+linux-man@lfdr.de>; Mon, 29 Sep 2025 01:22:29 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EE351DEFE8;
-	Sun, 28 Sep 2025 23:01:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5622E1E00A0;
+	Mon, 29 Sep 2025 01:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv4oY2VG"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MV5iLegK"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBAD1AAE13
-	for <linux-man@vger.kernel.org>; Sun, 28 Sep 2025 23:01:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144371DF271
+	for <linux-man@vger.kernel.org>; Mon, 29 Sep 2025 01:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759100484; cv=none; b=jqOi3FBRx6JO2sJhsGNV/ZW+y/o7vCOEOMUxfNM7XL/5IcbZ540BDVgPzITnMsO6bmmVXoD8MLEc8KktgoRyor7oo1SamYYN6+++BzAZFtXKhcd8TNZoxhoP+RK14MjRKyFfqTYSnMuavhMLX4/aMetpiEI49zRtDw7YSIjRjtw=
+	t=1759108946; cv=none; b=BSnGgka6rW2ZoCFJiQ2nwh73G7bSRDkSte+qWu0C1y1D9zIRZAE8tYX61CusfaMliCnxwJlIAQauWZwI1oyWm4TDefGkB5mEACqY5UbHLNJ6Hig+pR4UpSXkKE0avQgCog9ny6cDhuCjx8xU5F4F5EmF4gRFVic2UHujWu9sqaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759100484; c=relaxed/simple;
-	bh=uwjAfAibiu5vJ2JnvjedDu6SpXmrlBCoAM3ylVHbI1o=;
+	s=arc-20240116; t=1759108946; c=relaxed/simple;
+	bh=B8hEuW87GjlAnQ2Jsp6ipXMooIXJGPLEtyWTjdtMWRI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=orlhDEZrDcYIUomQX6+vn0wE2JUX7sgWYrUU9LTNMf6gOmfrJtuuxbKigDM7PNAbdykDdneX/j9B2w396B1O52VbM/eht3ICshMSuZzs1gJN4KB8xRk05ZBDma4hAUjHyTBfCeAxGpL077Eo73CrbyPwyeR6z0X6VbwCIHyBdB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv4oY2VG; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78123C4CEF0;
-	Sun, 28 Sep 2025 23:01:21 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=PlK9xZAIng0K26YjZR1+NPnFWOX28y3idC2aPMf6y4sWP1r+EDJNYQwvZdtS7egxmTIBM//nvGsasQJ01HKMYdJwSq7+5yzJ3ttFBl9T3mHHLIQBKfL9xxXLMVR/0rMiNTzeIMwAfwd6w79x1fjv74cyMkCqNAvUu/zzqv5ef6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MV5iLegK; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73882C4CEF0;
+	Mon, 29 Sep 2025 01:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759100482;
-	bh=uwjAfAibiu5vJ2JnvjedDu6SpXmrlBCoAM3ylVHbI1o=;
+	s=k20201202; t=1759108945;
+	bh=B8hEuW87GjlAnQ2Jsp6ipXMooIXJGPLEtyWTjdtMWRI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Kv4oY2VGXvDYDTf0TUJXUo3NpdGSwCRb5HQd4tSXjz9XW31WXUcFjpJkeBuVvIdpa
-	 OVfjUGkFcWy5XLSrgOJyOpJEntdfxCSDCJiv1pmsX5UM38H4zlk1lDcd5CVZgcEZ7l
-	 PvXTnkqrm7SuStxav/NYL5qds+DNhq+2wGhfVPhPRO6VmxWtB1y3noOriY7ACFc9kl
-	 BNKJJ3c55n4xvZUZfHQX09uX3rN9ZbJV3E6JNMlIhcqSG+GBi9KfJLdByN0PEs59Bj
-	 WNsmG0xpzmP/kK0Peau+ayQ77I151fap3KKGLPVNfYccC38JmrQ3gsdQvMeHJ42+DE
-	 czfh/rBd814hA==
-Date: Mon, 29 Sep 2025 01:01:19 +0200
+	b=MV5iLegKhPCeps1FzFuJBtW/StbDs8msW9oYFSsbHzmI/TM0Laq2I6mI8bzTKZHK8
+	 bn9Oi52Stsn4y4ZNurl+fddvyJbSH1bVbzg0isWtWbfAJqs9LCQ8NFQKAVk2vm0K12
+	 gOQNxNnJOc2bxgzeEUeee7IYGza+X+IT3BQDvxkC7NNCp5auRdgw7MqTRhAXrWw/bR
+	 jg5hOdUZdWRih9rI8e/AYPfd0qRG0d6eyKa9DEaqB+6XSd8krvsbuW5M9rDfyGfCSK
+	 fUecQL3sjhgaOxPwdh4kjac0uO1BJ1Wq5M8efloMHkxAPSgdf4PbvbRaiwxEdBn2zI
+	 IUk5zo4lVgCew==
+Date: Mon, 29 Sep 2025 03:22:22 +0200
 From: Alejandro Colomar <alx@kernel.org>
 To: Collin Funk <collin.funk1@gmail.com>
 Cc: Mark Harris <mark.hsj@gmail.com>, libc-alpha@sourceware.org, 
 	linux-man@vger.kernel.org
 Subject: Re: getpwent_r(3) needs gr->gr_mem to be freed, but that's not
  documented
-Message-ID: <lqasgprx4hqhb6zywi4yzi64wjmwg5evg4p6azklw64rxmnnml@j5zin3gvozzc>
+Message-ID: <sajupzg7dniwzkonea5nstusmnul634etc2cag3k3abqfpa7wx@p3c7heylz45n>
 References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
  <qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
  <CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
@@ -62,12 +62,12 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="csmkeltjefkroydp"
+	protocol="application/pgp-signature"; boundary="gbzvfs7uc52tjzde"
 Content-Disposition: inline
 In-Reply-To: <hzkp5fsxvyuq6y7524ykvloi3jnnjtbqfs36ai7mt2cxw7miov@m4hrhkjj36xn>
 
 
---csmkeltjefkroydp
+--gbzvfs7uc52tjzde
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -77,7 +77,7 @@ Cc: Mark Harris <mark.hsj@gmail.com>, libc-alpha@sourceware.org,
 	linux-man@vger.kernel.org
 Subject: Re: getpwent_r(3) needs gr->gr_mem to be freed, but that's not
  documented
-Message-ID: <lqasgprx4hqhb6zywi4yzi64wjmwg5evg4p6azklw64rxmnnml@j5zin3gvozzc>
+Message-ID: <sajupzg7dniwzkonea5nstusmnul634etc2cag3k3abqfpa7wx@p3c7heylz45n>
 References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
  <qxojij46n3oofvv7nekkslfuxsbdcxinf2lo763242hfzwm3fe@un6wgjr34rku>
  <CAMdZqKGBW=7jAWwtQLFyMTcPC03Wz0cuCvys9Hg+9FCvhbC5UQ@mail.gmail.com>
@@ -87,170 +87,112 @@ References: <vy2burlsbramtt4oysq7gsesrytp47kkhmevlmgkxsktksjeit@7eenz2wnzkh7>
 MIME-Version: 1.0
 In-Reply-To: <hzkp5fsxvyuq6y7524ykvloi3jnnjtbqfs36ai7mt2cxw7miov@m4hrhkjj36xn>
 
-On Mon, Sep 29, 2025 at 01:00:09AM +0200, Alejandro Colomar wrote:
-> Hi Collin,
->=20
-> On Sun, Sep 28, 2025 at 03:43:54PM -0700, Collin Funk wrote:
-> > Alejandro Colomar <alx@kernel.org> writes:
-> >=20
-> > > Hmmm, that's good.  Thanks!  At least, the user doesn't need to free(=
-3)
-> > > anything weird.
-> > >
-> > > So, a good estimate of the size to be allocated prior to the
-> > > sgetgrent_r() call should be:
-> > >
-> > > 	size =3D strlen(s) + 1 + strchrcnt(s, ',') + 2;
->=20
-> Oops, actually:
->=20
-> 	size =3D strlen(s) + 1;
-> 	size +=3D (strchrcnt(s, ',') + 2) * sizeof(char *);
->=20
-> > > That would be wasting a little bit if there are any commas outside of
-> > > the fourth ':'-delimited field, but it should work.
-> >=20
-> > You can guess a value and then grow the buffer as long as errno =3D=3D =
-ERANGE.
->=20
-> TBH, I dislike that approach.  I prefer a good guess, and if that
-> doesn't work, I'll report an error.  It may be imperfect, but it's
-> simple, which means less bugs.  If I can have an upper bound, and the
-> wasted memory is reasonable (in this case, I'd say it's even
-> negligible), then we're fine.
->=20
+On Mon, Sep 29, 2025 at 01:00:06AM +0200, Alejandro Colomar wrote:
 > So far, I've written this:
->=20
-> 	// from-string get group entry
-> 	struct group *
-> 	sgetgrent(const char *s)
-> 	{
-> 		int                 e;
-> 		size_t              size;
-> 		static char         *buf =3D NULL;
-> 		static struct group grent =3D {};
->=20
-> 		free(buf);
->=20
-> 		size =3D strlen(s) + 1;
-> 		size +=3D sizeof(char *) * (strchrcnt(s, ',') + 2);  // For 'grent.gr_m=
-em'
->=20
-> 		buf =3D MALLOC(size, char);
-> 		if (buf =3D=3D NULL)
-> 			return NULL;
->=20
-> 		e =3D sgetgrent_r(s, &grent, buf, size);
-> 		if (e !=3D 0) {
-> 			errno =3D e;
-> 			return NULL;
-> 		}
->=20
-> 		return &grent;
-> 	}
->=20
->=20
-> 	// from-string get group entry re-entrant
-> 	int
-> 	sgetgrent_r(size_t size;
-> 	    const char *restrict s, struct group *restrict grent,
-> 	    char buf[restrict size], size_t size)
-> 	{
-> 		char  *p, *end;
-> 		char  *fields[4];
->=20
-> 		end =3D buf + size;
-> 		p =3D stpecpy(buf, end, s);
-> 		if (p =3D=3D NULL)
-> 			return errno;
 
-I forgot a p++ here.
+[...]
 
->=20
-> 		stpsep(buf, "\n");
->=20
-> 		if (STRSEP2ARR(buf, ":", fields) =3D=3D -1)
-> 			return EINVAL;
->=20
-> 		grent->gr_name =3D fields[0];
-> 		grent->gr_passwd =3D fields[1];
-> 		if (get_gid(fields[2], &grent->gr_gid) =3D=3D -1)
-> 			return errno;
->=20
-> 		grent->gr_mem =3D csv2ls(fields[3], end - p, p);
-> 		if (NULL =3D=3D grent->gr_mem)
-> 			return errno;
->=20
-> 		return 0;
-> 	}
->=20
-> Which I'm quite happy with.  It's simple, it's loop-less (well, it has
-> some necessary loops, but it doesn't retry anything), and it should work
-> just fine.
->=20
-> > > BTW, where's this exactly in the glibc source code?  It's a bit hard =
-to
-> > > follow.
-> >=20
-> > In nss you can find <FUNCTION-NAME>.c and then follow the includes and
-> > macros. I agree it is a bit hard to follow. :)
->=20
-> Especially, if we start here (omitting the copyright notice, for
-> brevity):
->=20
-> 	$ cat ./getgrent_r.c
-> 	/* Copyright [...]  */
->=20
-> 	#include <grp.h>
->=20
->=20
-> 	#define LOOKUP_TYPE	struct group
-> 	#define SETFUNC_NAME	setgrent
-> 	#define	GETFUNC_NAME	getgrent
-> 	#define	ENDFUNC_NAME	endgrent
-> 	#define DATABASE_NAME	group
-> 	#define BUFLEN		NSS_BUFLEN_GROUP
->=20
-> 	#include "../nss/getXXent_r.c"
->=20
-> And it doesn't get much better once I start following that.  I think
-> I'll just trust Mark.  :-)
->=20
->=20
-> > Collin
->=20
-> Cheers,
-> Alex
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
-> Use port 80 (that is, <...:80/>).
+I've applied some fixes to make sure that alignment is valid.  Now,
+gr_mem comes first in the buffer (which also allows freeing it more
+easily), and I added an explicit check about the alignment.
 
 
+	// from-string get group entry
+	struct group *
+	sgetgrent(const char *s)
+	{
+		int                  e;
+		size_t               n, lssize, size;
+		static char          *buf =3D NULL;
+		static struct group  grent =3D {};
+
+		n =3D strchrcnt(s, ',') + 2;
+		lssize =3D n * sizeof(char *);  // For 'grent.gr_mem'.
+		size =3D lssize + strlen(s) + 1;
+
+		free(buf);
+		buf =3D MALLOC(size, char);
+		if (buf =3D=3D NULL)
+			return NULL;
+
+		e =3D sgetgrent_r(s, &grent, buf, size);
+		if (e !=3D 0) {
+			errno =3D e;
+			return NULL;
+		}
+
+		return &grent;
+	}
+
+
+	// from-string get group entry re-entrant
+	int
+	sgetgrent_r(size_t size;
+	    const char *restrict s, struct group *restrict grent,
+	    char buf[restrict size], size_t size)
+	{
+		char    *p, *end;
+		char    *fields[4];
+		size_t  n, lssize;
+
+		if (!is_aligned(buf, char *))
+			return EINVAL;
+		grent->gr_mem =3D (char **) buf;
+
+		// The first 'lssize' bytes of 'buf' are used for 'grent->gr_mem'.
+		n =3D strchrcnt(s, ',') + 2;
+		lssize =3D n * sizeof(char *);
+		if (lssize >=3D size)
+			return E2BIG;
+
+		// The remaining bytes of 'buf' are used for a copy of 's'.
+		end =3D buf + size;
+		p =3D buf + lssize;
+		if (stpecpy(p, end, s) =3D=3D NULL)
+			return errno;
+
+		stpsep(p, "\n");
+
+		if (STRSEP2ARR(p, ":", fields) =3D=3D -1)
+			return EINVAL;
+
+		grent->gr_name =3D fields[0];
+		grent->gr_passwd =3D fields[1];
+		if (get_gid(fields[2], &grent->gr_gid) =3D=3D -1)
+			return errno;
+		if (csv2ls(fields[3], n, grent->gr_mem) =3D=3D -1)
+			return errno;
+
+		return 0;
+	}
+
+
+Cheers,
+Alex
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---csmkeltjefkroydp
+--gbzvfs7uc52tjzde
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjZvj8ACgkQ64mZXMKQ
-wql/YA//cGoS4Cw45ua7vR0BhQTc3+GCTP31hOkhls3DH6YFa5M31GSxDBLuB3Mq
-jhp/diXt4184kQ+7p+qRdo9TTUL9dT3hxmXpn+H33HOj/ONKudoYmwTyNi+IHYls
-swQRuHarQN0r16BuzTqFxVwMiLUNhAKuuaJDRzG9TrtZloWOUYKQbNMvRe/pWPzk
-5fIsprHt6FvQ2zl1EwAeGq5w9lzjmk+htFDDY3RoClTbaXQuEm7utsnuPbVhh2kc
-j5cjsjHQqnGS83Z0QIeU+2VfA1ujiSF6U0nloLcqmn9C2mtq3xlWNScpL1RbaPXW
-hh/Mj8WVsjho3sNTGdPhNN++REfSW02JWjeQzCF2qP5jBLsDu+aumZC4aKaX7oay
-Y7V+00HXYxLgmnz/0tzB7uwcRs56+x84E1hLyRqAxPI8idSDaAYrJX1En+IUJWb9
-Qp2MKtbd3ELNZft925dVVds3p61J4d0Rkn8z81kfkncwFlHqD569mgVNbj1Jzfl7
-5qLes9U8+EZTV01Gme3KWUn1rW0G+kJ6IdKDmP7cCUCWXVwqP8gToehFQHJEM2I/
-EyAOWlBJgIrPsLpxB1chQXg54CYF0ajvgjfx+7oPcsaV7B+HVVPx9sB2MUlR4CLQ
-yW3yqCsCPXRLhYIK0DqOd6kuU97SBnmLVDWcC0LUXWbccnaeQ+Q=
-=3Xss
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjZ30YACgkQ64mZXMKQ
+wqnIMxAAkFfxG1GpEIdkUkx77cy0UYS4PFmcth8V2OPRW2sWMsBIwhPNsxwBY7Fc
+SXSxgLi1s/7BG4sdtDtWv8FaHQNA4P+uaXseubOPxqt2woiDgY5HP50XqyRlZ96o
+es3i7hT0MjQh6CR6/yv7AphJTRvtGIxMzgXBuRxWHZdsvtJ0+LfZgwTG/LKTbzfz
+VmGAo/VJEYrRzNWVKBu1ggRuNwjuoiPiuMOTxXl/oX4f6I1QwBaGvZy29zJZT37p
++VR/s3XpTAHJe1ONptvpBhpMHjCtYXTBd2fQngUo8+bE3UjcnkkpMb4ZiyxGcMKw
+qiwTx6kA9fmt+MEfaInHjt2nfbzt6eDrnYZ9RXkAIhwgpvAqoy7f6fEuQ7kxtF3X
+xnvBFR815Z6WJpd1cMpvzxtMnlOj9R4ioMibRVPYvQovA0+N8jYmMIHHiJwOYsNr
+JMGbdS6oonTFrC2b24MCafQ/HAmpjjJZjg+BCdEOSHohmwm+pWvJfqhkxdes79C9
+/+tWcUZUDYZpEjhKEkx+AMpTikauoGgEwIVrSAgLRo4XRYFNBns8IPlFwUvD9meR
+vHbKs/0kHR+qphgBmOl1dl98zxsxr+8FpKKP2ErW9K0KZd089ATarUjSa48VFpMJ
+EfMXXMZHV3qpLMgq+Pq7E8tp6Js1scTJxSBL3GT32+9MuuQQojE=
+=VXCp
 -----END PGP SIGNATURE-----
 
---csmkeltjefkroydp--
+--gbzvfs7uc52tjzde--
 
