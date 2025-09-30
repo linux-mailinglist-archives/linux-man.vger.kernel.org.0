@@ -1,169 +1,123 @@
-Return-Path: <linux-man+bounces-4017-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4018-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1824CBAE9EB
-	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 23:28:28 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95EDABAEB55
+	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 00:37:28 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 710121943B82
-	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 21:28:50 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 4D08C3C4C11
+	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 22:37:27 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9300A29E0ED;
-	Tue, 30 Sep 2025 21:28:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FAB22C21FB;
+	Tue, 30 Sep 2025 22:37:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bernhard-voelker.de header.i=mail@bernhard-voelker.de header.b="qFQwaqBV"
+	dkim=pass (2048-bit key) header.d=simnet.is header.i=@simnet.is header.b="QFRApRPf"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+Received: from smtp-out2-03.simnet.is (smtp-out2-03.simnet.is [194.105.232.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54C4242D84
-	for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 21:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55CE3C1F
+	for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 22:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.105.232.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759267703; cv=none; b=IdqZ69ONIAVtmslLOA870WhPQvZMNeyKDp5t3PlgE13psBHGvbB9oXGscsSl8xX/ZfBT8qCh/gECp7VmyvM/ov4xSfZw3pEH3ITxcL6yUYnt2vjn/XXzNpT9crB17Ql3QcmHMdP4YAbnBMo5l3Db0ylJF6WL7cI/Blr5K1BJTJI=
+	t=1759271844; cv=none; b=K7zIKEyuehcJAVMJGK7KddrGpxemWSAUnzBUtbtvRHFrNLTRpNVgD2b8QoMxwPqP52kdCd1FN1R+kopFMRzJ88EUo7XMaXmac2JFHPUG5XVzFf4iDngFWoGAXWbgKFKEZ8jkZKgxO5BKzuWm+oBRI+qT3kZh8SZWJ7Ljk3h215o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759267703; c=relaxed/simple;
-	bh=gYUby2l3HxLVz95cOnX/kqhFPH1HEzRxCM+RtaqdaMU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ICMODkWopFcgOws4jt0Mn98jseH7lkSOtHN/onACVHXM+PMQ3fLhzsPw01SKdWN+GqroBfw5j1QUsGZo6FVRN/BGWSkmt26f0vhmb+9edtMp/gFUhBO9oppIzmkWePhNHtHqGcW+rMjowOe4J4geUJ+74M55rGj9f1HGp/LQjb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bernhard-voelker.de; spf=pass smtp.mailfrom=bernhard-voelker.de; dkim=pass (2048-bit key) header.d=bernhard-voelker.de header.i=mail@bernhard-voelker.de header.b=qFQwaqBV; arc=none smtp.client-ip=212.227.126.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bernhard-voelker.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bernhard-voelker.de
+	s=arc-20240116; t=1759271844; c=relaxed/simple;
+	bh=T52ckl2/xOnHpmArJQbcJvFB1vUY2g12DihytkfaJac=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=swKndH4oneNqoDjjHCDkbVzg38KdoRzdA+VovVfpmlswNkRHHRls9kw/XuqLXL1rhO0J9yOn9llFDZAyZdSvLlm+B6MSK8oSzkyDFifYOQbyJlN1JsXQ4eyJhgsmWtdsUtVwWNFYskhMurlODSOWnS3y3qle/KkH7zUVMNwSgn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=simnet.is; spf=pass smtp.mailfrom=simnet.is; dkim=pass (2048-bit key) header.d=simnet.is header.i=@simnet.is header.b=QFRApRPf; arc=none smtp.client-ip=194.105.232.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=simnet.is
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simnet.is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=bernhard-voelker.de; s=s1-ionos; t=1759267698; x=1759872498;
-	i=mail@bernhard-voelker.de;
-	bh=ONUu0STcT9torcsLYIVNJRyACBd30otdn4QEqGdenlM=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=qFQwaqBVG2Xy2V7BL5Z1na5c292DU+5kJoqkX0zd9A56ilRuZWaA4svXg4WUHLmq
-	 3M8+KpHL9G/jItfCFHRBKS8oeI8SH6sTafvXYE7OTPOCI92uztVQANn1TakGeofB4
-	 fIv9eAXg8nXG5/4c8zVC+DyW4mfeEkaPIgI4rcGhyQI9Cla2Apq9rULE5Fh4wwmvy
-	 id8WPzvoRd7KbqkW/XwQNutuXpN0hFLH8ZVWLdc1tSUSylWrbjrZNnVpEtOHvmpxk
-	 fo6Fcoyh3WxOjGB6k3fwnDaS/glK1UT87CTqYbv6ndUexkMnDkGnKlegEgzkqRKF0
-	 UdB1hv594fsJpLwwvQ==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from [10.0.2.15] ([212.10.125.97]) by mrelayeu.kundenserver.de
- (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MofLl-1uXA8S2vvN-00gx32; Tue, 30 Sep 2025 23:14:29 +0200
-Message-ID: <3be41127-4cc8-43bb-b276-771ae36753ad@bernhard-voelker.de>
-Date: Tue, 30 Sep 2025 23:14:22 +0200
+  d=simnet.is; i=@simnet.is; q=dns/txt; s=sel1;
+  t=1759271841; x=1790807841;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eVQkwN2MDwaMj+g8u+ZcJP9KTmyvjWKCN54ZYfA6vQo=;
+  b=QFRApRPfYqyhCwIgunDExwq6BNMI527JyrF4ogki3Ud3zxRjigsvFwKq
+   GOZ0lYmBKdQkxEPRXDX26mT8vzwxfM2zb+KWN1Byh9w79E4nKhuDw/VlD
+   4dQdPun1mcYSdh9V6ECUL8y/wF9M0aLwbMIvXtgvYrW1p9xOR+yvXpYu8
+   Rp49O9DpeTx+w/cmXslh/ouw5ZdsqmgJOVnFE/I5y2oBCshujbWzLbv38
+   uTRuBjqamQwDIHb8sN9YSOTC993mWuqoceunp6iOMxEBIvOfe0g5FFzJN
+   tTACmiiggPZpigqnbubLsktjfmzzzWIzUt26LWmC9LAN5D0vf5fQPW7Za
+   w==;
+X-CSE-ConnectionGUID: REzp0dR8Sa+7Uqq89/JTJQ==
+X-CSE-MsgGUID: T7VWDzTPQ32+kFSxfOzoJA==
+Authentication-Results: smtp-out-03.simnet.is; dkim=none (message not signed) header.i=none
+X-SBRS: 1.9
+X-IPAS-Result: =?us-ascii?q?A2HZAQD7WNxod9Viq09aHAEBAQEBAQcBARIBAQQEAQFAg?=
+ =?us-ascii?q?VOCQJkQoEgBAQEPUQQBAZFPKDgTAQIEAQEBAQMCAwEBAQEBAQEBAQEBCwEBB?=
+ =?us-ascii?q?gEBAQEBAQYHAhABQw47hglThmMGOj8QCw44EEYGhgi3EIE0gQHeOYFtgUmFb?=
+ =?us-ascii?q?YJkAYR8hWc8BoINgUqCdT6LBwSCIoEWkDGCe4wnUngcA1ksAVUTFwsHBYEgQ?=
+ =?us-ascii?q?wOBDyNLBS0dgSd3hBSEHitPghxygXRXQYNTHgZrDwaBFRlJAgICBQJDPoFrB?=
+ =?us-ascii?q?hwGHxICAwECAjpXDYF4AgIEgi+BEoIvD4EhAwttPTcUG50MymiEJqFxM4NxA?=
+ =?us-ascii?q?ZNgDJMNmQapQYF/gX8sBxoIMIMjURkPjnnMFoE0AgcLAQEDCZNpAQE?=
+IronPort-PHdr: A9a23:feZchBZ0PQFqEy3aSBrOJyb/LTAChN3EVzX9i7I8jq5WN6O+49G6Z
+ wrE5PBrgUOPXJ6Io/5Hiu+DtafmVCRA5Juaq3kNfdRKUANNksQZmQEsQYaFBET3IeSsbnk8G
+ 8JPPGI=
+IronPort-Data: A9a23:wPf1v6AyMkhi+BVW/z/jw5YqxClBgxIJ4kV8jS/XYbTApDIj0GEPx
+ 2JKXD3QafyNZmKgctl1PIu080gHuMLcm9VjOVdlrnsFo1Bi8JGcXYvDRqvT04J+CuWZESqLO
+ u1HMoGowPgcFyGa/lH1dOC88RGQ7InQLpLkEunIJyttcgFtTSYlmHpLlvUw6mJSqYHR7zil5
+ 5Wr86UzBHf/g2QpajNPs/rYwP9SlK2aVA0w7w1Wic9j5Dcyp1FNZLoDKKe4KWfPQ4U8NoaSW
+ +bZwbilyXjS9hErB8nNuu6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTaJLwXXxqZwChxLid/
+ jniWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5NLHNWr
+ fAieAsELU++nvvmkfWZdstV05FLwMnDZOvzu1l+zCrFSOQnRIjZRLXboIcGmikxndwIHO22i
+ 8gxNmspNUuZJUwffA1OU/rSn8/x7pX7WzdXgEmUoKw6/y7S12Sd1ZCzboOEI4DaHK25mG6k+
+ Vz503bFOihBbp+c5wGV/FW+gc3myHaTtIU6Tubmqq812TV/3Fc7ARkGfVi2u/+0jgi5Qd03A
+ 0gV/Dc+6K078mS1QdTnGR61uniJulgbQdU4LgEhwB+M0baR8QecHnIDXi8EMIJgqs4tWXorz
+ Tdlgu8FGxRVna+NEX6npoyd7myPIDFFfCggWQ09GF5tD8bYnKk/iRfGT9BGGaGzj8HoFTyY/
+ 9xshHNu71n0pZVQv5hX7Wz6bySQSo/hbzVd2+k6dnyk9R88do+gf5av+UmetagGMoeCUh+Ap
+ xDoevRyDshTU/lhdwTXGY3h+Y1FAd7eaFUwZnY1QfEcG8yFoSLLQGypyGgWyL1VGsgFYyT1R
+ 0TYpBlc4pReVFPzMvImOd/uUptxlvK+fTgAahwyRoYXCnSWXFTWlByCmWbJhggBbWBxyPtnU
+ XtlWZz1VR729piLPBLsHLlBgOByrszP7XjeQ4vyhxmn39KjiI29Fd843K+1Rrlhtsus+VyJm
+ +uzwuPTmn2zpsWnM3GPqeb+7DkicRAGOHwBg5cJLrDZclQ4STlJ5j246epJRrGJVp99zo/gl
+ kxRkGcBoLYjrRUr8Tm3V00=
+IronPort-HdrOrdr: A9a23:aIO0eawHv0O3UgbrY8DPKrPwIb1zdoMgy1knxilNoNJuEvBws/
+ re+sjztCWE7wr5N0tOpTntAse9qDbnhOdICOoqTNOftWvdyQmVxehZhOOIqVCNJ8S9zJ856U
+ 4KSdkcNDSfNzlHsfo=
+X-Talos-CUID: 9a23:uE2Urm0GajlInICxQzHsd7xfIO03aiXR9ifrKgznNH9wGOzSa2OywfYx
+X-Talos-MUID: =?us-ascii?q?9a23=3AGXs56QxEZuoYUxtzYPCUD0eBprSaqJjxNn8hg6k?=
+ =?us-ascii?q?+gpLedi9eACeTqyawYKZyfw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.18,305,1751241600"; 
+   d="scan'208";a="66191481"
+Received: from vist-zimproxy-06.vist.is ([79.171.98.213])
+  by smtp-out-03.simnet.is with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2025 22:36:08 +0000
+Received: from localhost (localhost [127.0.0.1])
+	by vist-zimproxy-06.vist.is (Postfix) with ESMTP id 1CF8120BFA9D;
+	Tue, 30 Sep 2025 22:36:08 +0000 (UTC)
+Received: from vist-zimproxy-06.vist.is ([127.0.0.1])
+ by localhost (vist-zimproxy-06.vist.is [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 0cJB2E4tvZTE; Tue, 30 Sep 2025 22:36:08 +0000 (UTC)
+Received: from kassi.invalid.is (85-220-33-163.dsl.dynamic.simnet.is [85.220.33.163])
+	by vist-zimproxy-06.vist.is (Postfix) with ESMTPS id E822220B1D7F;
+	Tue, 30 Sep 2025 22:36:07 +0000 (UTC)
+Received: from bg by kassi.invalid.is with local (Exim 4.98.2)
+	(envelope-from <bg@kassi.invalid.is>)
+	id 1v3ix5-000000001j9-1DAE;
+	Tue, 30 Sep 2025 22:36:07 +0000
+Date: Tue, 30 Sep 2025 22:36:07 +0000
+From: Bjarni Ingi Gislason <bjarniig@simnet.is>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: Re: '^\}$' is changed to a space character
+Message-ID: <aNxbV4rHn1LKPKBv@kassi.invalid.is>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <xvj6ylzxcbmr4wu3p73uylhb2sgyzx5egbukc4r745oosrvqc2@nka5rihouesp>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-To: =?UTF-8?Q?P=C3=A1draig_Brady?= <P@draigBrady.com>,
- Alejandro Colomar <alx@kernel.org>
-Cc: coreutils@gnu.org, linux-man@vger.kernel.org
-References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
- <87jz1sm2t3.fsf@aarsen.me>
- <fziyxvozscytwasmhtrpjfqbmldxmggjkdm4pzo7cupxhby422@czrmkask4xsc>
- <87cy7e7hml.fsf@aarsen.me>
- <sdprfcwwtirbygpx4pqcavchf7hl3ichxjcxsr6kn6pl3f2ri6@7mshrxxpjhn3>
- <86frc5zj4i.fsf@aarsen.me>
- <avcjkfibgplayxdpe4nisfpmtmlwdaubesdo6oj5qj2sxfqpsr@iypkg4k2fauv>
- <530c7a63-22ac-4d4b-a67d-09b21086207f@draigBrady.com>
- <m52fukfcpbd5gsloz3wiabytzebckrowm2xbjr5grgavsl5brd@qtm7gw3sekwo>
- <339404b9-3216-440e-a312-aec3f5be34cd@draigBrady.com>
-Content-Language: en-US
-From: Bernhard Voelker <mail@bernhard-voelker.de>
-In-Reply-To: <339404b9-3216-440e-a312-aec3f5be34cd@draigBrady.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:HEEXlZjJyHQf8/5lbJxJJaiYzLUeUFNSUxUp8N/0F4lYPq/4Q/o
- B+S9zx7V/ULbKEJdPM4TGSwN6QtiqM7JE9pFcNkDVlt5CvwafdRIHbuh6oendh8RQHe3GrL
- duys7Cm4YGOnwn4upiLFJhe99JuujRws6zE58+8SJb+4EPH6X0Fp9ILMaSr+//ab8wvyUTn
- ut0ohm8S0ODgs5A6i5kDA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:3WMNnQUM2nY=;1SoKtTge7kZT2e8ixN28oClJqPX
- DjLoXs1D9z7dKN2b7iLwIOEIeom23fuHQoUnDD6arzAac0P2Q14bojbqPE/cIHcFLSCwafE56
- p1uZiwdmSnsSc56J6ibqGN5+xno36nKMlGtiQk/mnjOYehI2chIb4GXBLItB5BXsNP0d8WmWZ
- pdIfgS3tBHGGRKKCptLPlJWzRL8yeQd9/VAHuNOffq+4nzVwJloNM/JCJJV0xlUt8NHOztxVE
- C7MGZPrcooD1z+YLgiooUWmWUl4Z/oBA+ObqEthOcEes/b+zLTmulIs3OmcnNQMpvRFOjsWKo
- XnMdeOBQ3v0GnAoIUTZDFNLJhCc6x99rYqnl2dlN+v/ZRYe068MOx2jOiMXb/9gp8nopVwIl5
- i63RPFIGOzntw6zSHcqibVjBnrYmVgRkCBZ02onYXb2s+JxdUHwpcsHpAid224bbzkDDg84/o
- zHWC/wc6SFwsptHiCHH0Kw2a4DsJtxthhPaqY2ESI5aNqOdzYDH2iGNlUFQ9Rs9Z9HmpkP+wq
- t4PhdwVtMnk6DPoIqh6ugglhTfSNDVHK5/YFUirh3RWAx3s/lBEbJ4gRvMBr9worx+OWcgrVS
- NBMIT+LLTB7PmyDPD2yMwVtFpslgmzYHXAul5Jj+KAVRK4+hRBi3nnNSLyny7kie80Rxc1T+G
- wdpFiCXqh73AUpsaeFvAwSQkHeQY+nfTUmYQYiq37ot4M63kGgwcc89n7bJuF6/UZAWE34yCB
- ZMkXsbRrTRSy4yqr+hlPKNOAdDkZKn1EU1BxtrCSO1v9SRDNj8iJw0Je3WysvjW+2M0z+ewro
- IVIsSHIUpXdUNIO1mZBT9Sc1FnH/NYRePKZIXZ4cgYrmxZDPkeenYjADZbggtJjWPpY3PXLcR
- SB5y8soXBqA3liAXj844xpocsK0WZvMw9URQnhfoKxhsaZXfzU1mOpXFWHG/uxqHV7hFugFeM
- yCC2rREA5GY09FZHTO5nLZyPOufeDJ9+LjBW3h8tSmOC6wMOpnS4NoVskyRnIKw6EKcuOtqMj
- d9TSkPKZXfPIBj1M2BI8NN6qIaJNLv8OcbJ4GSv5gj2VdNrVVzApLl6KR2k8AHzbilj16sV2L
- OJ3JkhRG7SK+BcU2fWvAo5EhP6eUg3SRjjqjmKPogHJPDWwKakwKtWVbcRZK9UMzQT4qCcpfn
- LzR9RawPgegNMW+Kk5hFIQzusxYmjQduCnm3PwSDlh1Tssia+uPikuAmZ6dMNRvoTroqa4bN9
- z0+lj6RqpfcYX8HnN3qt/uaHgVFrF/spy0t2GC4gtcSlgHPnk8xdhMlfJowrDxZXO1+unjhG5
- QUorhmvmFZHVlZM6mfmWmp4IAR7Rmo9V6iq/BYFdEqj2ANpHoox9RG/q+KgOcwqifApMLxP6N
- VChjKWsc5mJ01irOfjr8FKaoGICDIAhbsBGUY6rrk/9dvGCo2tis7LIXLXUcZ3Y0bSRMqGH5x
- 5L8UNM2lXJUUu6ahM3u2a7c8kMWdtYH4GNbOcJ0cxoXp2i1l1n98sNURV2AG+d5l2rep01N4f
- EVP/DT57JJ6nwkPevnjxyu2Ctnn2yPFkJ7OGHE9w7ILxd3B6AxXSgMuIN3et2OFPn+bIQkObM
- 1bXCSAT9MG02rn1/uqeTKlSGNfTKbm6/ZxVfYhCwPFnGEUtfjAW0B4qlCWPZnv8RtPW1iodg+
- I=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <xvj6ylzxcbmr4wu3p73uylhb2sgyzx5egbukc4r745oosrvqc2@nka5rihouesp>
 
-On 9/30/25 12:12 PM, P=C3=A1draig Brady wrote:
-> We'll incorporate any improvements.
->=20
-> Much appreciated.
+  A patch is superfluous
 
-yes, having people concentrating on the documentation is great.
-
- From a process perspective - sorry, business language -, what does this m=
-ean exactly?
-E.g. if we add a new option to the tool, i.e., to the sources, then the sa=
-me
-commit would add:
-[X] tests,
-[X] the NEWS entry,
-[X] amend the usage() string for --help,
-but leave man+texi left aside, and hope that the new option is not missed
-by the docs sub-team?
-
-Or do we adjust the texi manual as well, and only leave man behind?
-Or?
-
-I'm still not really convinced that having 3 formats for documentation (te=
-rse --help
-output, comprehensive man pages and the texinfo manual) is effectively usi=
-ng our resources,
-even with a docs sub-team.
-There'll be redundancy of documentation in man vs. texi which yields a lar=
-ge chance to
-diverge, i.e., to omit details in the one or the other format, or - even w=
-orse - that
-the content of one format contradict to the other.
-How do we ensure + verify that this doesn't happen?
-As long as there's no "single truth" of documentation, and all the other f=
-ormats
-(man, pdf, html, info, ...) get generated out of that, I don't see how we =
-could
-do that.
-And at least the given man structure (synopsis, ..., see also) seems to be=
- more
-limited than what the mor enatural navigation in Texinfo-based documentati=
-on (info,
-pdf, html, ...) allows.
-
-Finally, as someone mentioned: the translation results are linked somewher=
-e into the upstream
-release and the downstream build process.  How would that change?
-
-That said, I don't currently want to think where the man pages are stored =
-(separate git repo
-or included), and it's more important how such a documentation change modi=
-fies the
-development process, how it decreases effort while still improving the con=
-sistency of the
-documentation for the user.
-
-Have a nice day,
-Berny
+sed -e '/^\\\}$/ {s/^/./}'
 
