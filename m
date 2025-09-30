@@ -1,278 +1,215 @@
-Return-Path: <linux-man+bounces-4008-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4009-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BDAABACD90
-	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 14:33:11 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 111DBBAD0BE
+	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 15:23:26 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 6D4797A06D2
-	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 12:31:28 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 681D91889CA1
+	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 13:23:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1E432FB97E;
-	Tue, 30 Sep 2025 12:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FCAF2F3C3B;
+	Tue, 30 Sep 2025 13:23:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zek0OXg4"
+	dkim=pass (2048-bit key) header.d=landley.net header.i=@landley.net header.b="d7o4hzXR"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from seashell.cherry.relay.mailchannels.net (seashell.cherry.relay.mailchannels.net [23.83.223.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D2A2F5A11
-	for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 12:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759235572; cv=none; b=MR/WbUDwVv29yr94/OM/VFiqPOJGzNuNPEdjDYn3haZTz7P/Cx0ara6nihJPgEsQZlvgbihThjmPwUv20DHmlHlTiC8Rb7SUhtixr/sG73fju5oeVGrEwh6HzdEBbck+g0yZfohT8ni0qBFgkvHZnA39QKvVbMmiDibX/3GWPL0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759235572; c=relaxed/simple;
-	bh=D4blRUpq6e2Pv7FlqKq0TsEP1MEes++Dp5lZqW0K3qA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HS6ZiJm+SIIJuqsBYZBcDCY+GNyJhLge60JWfIE21n1lbwbjS7dYE+Z6g0Rpyx/F0lGbxqH/5JQOvRzs4p8f76cnf3sKUo6c/WjdKGFfIwgDztN56a3n0CREUqc3+kFyfJtLGksEdDNOYqRzGxsDQ0mBXYrL114056qd7Qtazs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zek0OXg4; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-71d71bcac45so58742507b3.0
-        for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 05:32:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759235570; x=1759840370; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=h37tpm60hTkRaxMSAb0sjTbQmjm6v9h3Uy+LNfOp/40=;
-        b=Zek0OXg4EglK8Lj3ebgJRQkIbp1PQvb1mOzbFGpl+RhOZjcpCFeh+fI3tB0W1Ifq7n
-         33e7z3j4TF2ci9zSbtEzwkDCyEtvyC+wqztqzUqNaMw6tCW4DRWeHefwYcy1pXEg1O+Y
-         iFGyPf8Q+dpCsjnXK8YyjRWfOu9jPKXs2vSeOkvZfAWP4yE6yJM4GF7rTtmIMs6Cnuoe
-         3AgRUVuCtGp878lRCH1anonXSoXm/u3uSx6bdU5fJnwx+EFA9aylCajKp39OyTMtmLex
-         qqu9qmZMCt6iy69js3Ym30gJ8TMEQULwgm+Aj6byLRhii/f6yovOkjdix9r1zVdIIT9i
-         Jxlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759235570; x=1759840370;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h37tpm60hTkRaxMSAb0sjTbQmjm6v9h3Uy+LNfOp/40=;
-        b=LQoctS1r44iQYtwekgoew5WcsUInV0v4BaUMjWN71mub4QoJ6zlwh1fiRMq8l6bsj8
-         QockwHxiorap83L8tAByAiL7vwK3B7T4zQnuk/lS5q0cKNLxhb11u3tBjSCnXlLDWlV4
-         n/VlTjRnpYpMb4b2dLW/u2PRalSXeKfPBGbiNs1ALuwXbmOPEacOx9CqcfcDLjJGlTiz
-         CR4uke4iG87OnAIBqddRleFOk9cMm4ezRPhpUhRKAZFIOLkeaUJ8v+/9Va+LYQL8x9ny
-         0S3BxfoOkAc0/XzJ+CBAQENIuxTHv89TokuWRTsgBeAz/05JcIcurPNGeNK3B7DooFUw
-         oVTg==
-X-Forwarded-Encrypted: i=1; AJvYcCUuHFR+6SfcqrikdMUx1ng2HTanh1OZk9koUMBS+2WzzZj59sqpdAXGQzByT0wqVFlCKg7+jFhkWtE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnZTM1zZkNoqGxkz9FR5C8o2bUV0yM5jTDzh3mIkSUjm8ALzVw
-	kJb9PLz3Ih60Ae87ZsyDE++0SjpLlBTAeey3WkRD/KRVruQ4sfFex11I
-X-Gm-Gg: ASbGncte8S9noJHm6o176nDx6+peFmPGxBr7rvScczMrIhrf+Cd/6cg6e5iubzp/uqC
-	wv9grV9dDlDmj8WqXCc6pLDMXlh5ELEYXZgLR+Ql4oMdyIa204+qxU61kAq9awugxD3X4cq0Jum
-	5yJiWqSR/DbB0l7Rt3GL4ujMEer00EKrxFViSRXaxkW5bxDkfO9q1xe1WJS/BPj2xbJJI8kfTTk
-	RO/m4B6CTSKjM8Zrv9q+zqsUlJWDsUPPdxomf0ncdNEBeUNG9MSYYURDc4d1pLhUw7otkg77B5v
-	26FMydf1cilUTpcFxZ1sNE/86/USQwE4J9KEKVbmhZX2jOCnAfKGKj04BQrMVrl2AGekaE/g3yV
-	1nCj5I/+v9Axzs5si0n8kK45I/+qcjoOmFJcG
-X-Google-Smtp-Source: AGHT+IEpjfemOqZCNCv46S6PuB0Hkn+5IB9tnyCKs/lM5n/BxpEouKXfc60j6L1ocsL17Crt9FjgjA==
-X-Received: by 2002:a05:690c:4908:b0:739:ca5d:d97c with SMTP id 00721157ae682-763fa52a40dmr227679657b3.15.1759235569586;
-        Tue, 30 Sep 2025 05:32:49 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-765c7ac669fsm36417067b3.58.2025.09.30.05.32.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Sep 2025 05:32:48 -0700 (PDT)
-Date: Tue, 30 Sep 2025 07:32:46 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Aleksa Sarai <cyphar@cyphar.com>, linux-man@vger.kernel.org,
-	groff@gnu.org
-Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
-Message-ID: <20250930123246.eq7alqia44wzxyw7@illithid>
-References: <20250919-new-mount-api-v4-0-1261201ab562@cyphar.com>
- <20250919-new-mount-api-v4-7-1261201ab562@cyphar.com>
- <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD814224AF0
+	for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 13:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.223.162
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1759238601; cv=pass; b=SivgXHKQwvjycGGOfYwsSsD1/mZtowvHv9ZZxoqMNGmEC36Wa15kHTn8r3DdU3nCMcSVjed6zr1kmRV+7DOwgT9EMlBHxPm7Y/I/zK7y4sKO0U8GUzJ7KuHtf9VTfgaFZrUuUAMhsNO8H0S08MKwhpRnKseN8yAXtd6QUuy2p7A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1759238601; c=relaxed/simple;
+	bh=ygXrloS4MLL1a/9NrDmrs3KYTkWaGm9wNDUDK9vfiEc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bfmF2jFimUlKG+kpGvexFJodfnvMLuITsFJNWU/Dilx3PIgjwh3GzkGm0nc7gluGt1MwcxkgUQhsxbEe+q/qZsc0TFtUHAN9Oirz3vNktXQQhNCqps6yqBbWFE8D4FUSLS8j8rgQsIoh4GGUwiCn8OUQhOw/EfDrSGDBZEaZcmY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=landley.net; spf=pass smtp.mailfrom=landley.net; dkim=pass (2048-bit key) header.d=landley.net header.i=@landley.net header.b=d7o4hzXR; arc=pass smtp.client-ip=23.83.223.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=landley.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=landley.net
+X-Sender-Id: dreamhost|x-authsender|rob@landley.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id D50B51E2345;
+	Tue, 30 Sep 2025 13:23:11 +0000 (UTC)
+Received: from pdx1-sub0-mail-a208.dreamhost.com (trex-blue-2.trex.outbound.svc.cluster.local [100.113.90.84])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 344CF1E1765;
+	Tue, 30 Sep 2025 13:23:11 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1759238591; a=rsa-sha256;
+	cv=none;
+	b=RPl8I9Yxd/LdBpEVcBwxtwr1zdzQAI+aIYG+BpPOJYg05r3td3PuaOQbejW9zytvZUBUlY
+	fl4+uXsP5NsvGZC4QlN+j3j1FnxyHaE8KK1/qyd9s9IvuniQc2A8fjNowjOThM7km2/yl8
+	YAbaAKbEjBeebj9ngfqmXbBXDGtMVPzRPr68tH940AsWhixUtsH4HACRF5OPv7TezBUlTO
+	VOyH1W2zvjjFaB1/uTaffmG1gULXeWd/S2YxCwESaM6jD57HrfArBXlW7LXWMkTmkJOmkU
+	Ao5z1uRXrE05dUENDyFjLPcEfx+cIq8KfDwwO21dYy4z5u3d7ub2+qX1xv6V5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1759238591;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=oC/N53qOtXaML061LPpBNpivOw77QZIJAlPhQw0xvLI=;
+	b=xZ7Y842T8uDUtPzyb1K8WqUAbM66NIlsdmzJy2gEwBFzxi6KmpjQy6oRkLFmqAfKAMhsW4
+	VDCiAbU6MpJJViuEFLMOV4lEMax4P1XChZB2lfVw4G2C2DVnGKVDsqsfQQMYgJzXv86mfj
+	W6cFRwcAXniTObPWlqLUNjalecxfQ+Lk3IOVIhYPJcIUCk5KCJ/dRu7AWneFolDx8BuVLT
+	nX5NHRNELAlHUArNuOnck7weWaCbTQvwd0nAdD/yqVQTpsgwLhCjHiYEK6HX9G5brdzdZF
+	m3kLNBqJWs9sYQJeCJ33dEVCeqmxjhITgRDkpub0vdXHcQQXl1TBt+9Zt0U9VA==
+ARC-Authentication-Results: i=1;
+	rspamd-9695c5dfc-4g9hb;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=rob@landley.net
+X-Sender-Id: dreamhost|x-authsender|rob@landley.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|rob@landley.net
+X-MailChannels-Auth-Id: dreamhost
+X-Coil-Shelf: 5c372e30770885c2_1759238591455_1919346677
+X-MC-Loop-Signature: 1759238591455:1121188794
+X-MC-Ingress-Time: 1759238591455
+Received: from pdx1-sub0-mail-a208.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.113.90.84 (trex/7.1.3);
+	Tue, 30 Sep 2025 13:23:11 +0000
+Received: from [192.168.88.7] (unknown [209.81.127.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	(Authenticated sender: rob@landley.net)
+	by pdx1-sub0-mail-a208.dreamhost.com (Postfix) with ESMTPSA id 4cbdzL5cGYzF0;
+	Tue, 30 Sep 2025 06:23:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=landley.net;
+	s=dreamhost; t=1759238591;
+	bh=oC/N53qOtXaML061LPpBNpivOw77QZIJAlPhQw0xvLI=;
+	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+	b=d7o4hzXRN8YcN7OYa/SRIGLa+A92aj6+rX15wlVUJ++5RTo6J4B9pBFQfpINkuHL4
+	 E7CEoPLn2DK/Boo8r/EWqBxPPacmvDxsS5+rUCnoqd/9vtFp6P7mEymu6GeYU2HGPM
+	 aYzDWOy6Y3RULaYW1DPaPVSx5AezyWkMUJLH1VzD5HqskwUD8hP1ctrHDgZr6mNxCd
+	 U1TMVnYXUb/4pZ5O2W7xd06PLU3A7Lb7K6uJMj1gS7k1Kc4ebyW/sE+BrSFVjKT5+f
+	 cyBotkp+57QxzIzSFtnx+m4w6AXmJI57rqcu6Zf4h7c+izjKpMCVlvFhiZ/uiXMjeI
+	 9Qi+QVauQOvIg==
+Message-ID: <e369c200-a7cd-4b92-b700-d9d48d347ce8@landley.net>
+Date: Tue, 30 Sep 2025 08:23:10 -0500
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="lpagfhsfhwovdqsk"
-Content-Disposition: inline
-In-Reply-To: <gyhtwwu7kgkaz5l5h46ll3voypfk74cahpfpmagbngj3va3x7c@pm3pssyst2al>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+To: =?UTF-8?Q?Arsen_Arsenovi=C4=87?= <arsen@aarsen.me>,
+ Alejandro Colomar <alx@kernel.org>
+Cc: coreutils@gnu.org, linux-man@vger.kernel.org
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+ <87jz1sm2t3.fsf@aarsen.me>
+ <fziyxvozscytwasmhtrpjfqbmldxmggjkdm4pzo7cupxhby422@czrmkask4xsc>
+ <87cy7e7hml.fsf@aarsen.me>
+Content-Language: en-US
+From: Rob Landley <rob@landley.net>
+In-Reply-To: <87cy7e7hml.fsf@aarsen.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 9/25/25 09:04, Arsen Arsenović wrote:
+> Unfortunately, it is.  A collection of linear mostly-unrelated pages in
+> predetermined shape simply cannot document complex software, a
+> hierarchical approach is non-negotiable.
+> 
+> libc, (most of) the syscall API and coreutils are a lucky case in that
+> they are, fundamentally, large collections of *very* simple bits
+> (functions and programs),
 
---lpagfhsfhwovdqsk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 07/10] man/man2/open_tree.2: document "new" mount API
-MIME-Version: 1.0
+It wasn't "lucky". "Do one thing and do it well" was an explicit design 
+decision the Bell Labs guys made in 1971. Doug McIlroy wrote about it in 
+1978 in the Forward to the article on "The Unix TimeSharing System" in 
+the Bell System Technical Journal in 1978: "do one thing and do it well" 
+and then compose more complicated things from simple parts. Peter Salus 
+reiterated it in "a quarter century of unix" (a book about the 
+anniversary), and Mike Gancarz' book "the unix philosophy" went into 
+this in some detail.
 
-[CC list trimmed since I'm covering only English style and typesetting
-issues here; adding groff@gnu accordingly]
+That's why they could get away with a flat namespace and simple man 
+pages and so on for decades.
 
-At 2025-09-21T11:47:21+0200, Alejandro Colomar wrote:
-> > +(Note that the unmount operation on
->=20
-> Maybe I would make this note a paragraph of its own; this would give
-> it more visibility, I think.  And I'd remove 'Note that', and start
-> directly with the noted contents (everything in a manual page must be
-> noteworthy, in general).
+Gnu's Not Unix in quite a number of ways.
 
-Good advice.  I call such removal a "Kemper notectomy", in honor of the
-groff colleague who brought the superfluity of such constructions to my
-attention.  Also see
-<https://en.wikipedia.org/wiki/Wikipedia:It_should_be_noted>.
+> but the fact that manpages are insufficient is
+> visible in everything about Linux other than the syscall API.  Finding
+> documentation for Linux cmdline parameters, pseudo-FSes and various
+> components is a Herculean task.
 
-> > +is lazy\[em]akin to calling
->=20
-> I prefer em dashes in both sides of the parenthetical; it more clearly
-> denotes where it ends.
->=20
-> 	is lazy
-> 	\[em]akin to calling
-> 	.BR umount2 (2)
-> 	with
-> 	.BR MOUNT_DETACH \[em];
->=20
-> (I assume that's where it ends.)
+The utility command line parameters are on the web at 
+https://man7.org/linux/man-pages/man1/intro.1.html which seemed 
+reasonably straightforward to me. (Over the years it's accumulated a lot 
+of extra crap from optional packages, but as failure modes go it could 
+be worse...)
 
-I'm uneasy about the acceptability of setting an em dash and semicolon
-adjacently like this.  I checked my copy of the Chicago Manual of Style
-(18th ed., 2024) and it has something close, but not squarely, on point.
+The kernel command line arguments are at 
+https://kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt 
+and filesystems are at 
+https://kernel.org/doc/Documentation/filesystems/squashfs.txt (first 
+I've heard pseudo, it's usually called "synthetic", ala 
+https://landley.net/toybox/doc/mount.html unless you have a reference I 
+don't?)
 
----snip---
-=C2=A76.95.  Em dashes and other punctuation.  In modern usage, a question
-mark or an exclamation point=E2=80=94but never a comma, a colon, or a semic=
-olon=E2=80=94
-may precede an em dash.  ... If the context calls for an em dash where a
-comma would ordinarily separate a dependent clause from an independent
-clause, the comma is omitted.
----end snip---
+But then I was briefly the linux kernel's Documentation maintainer in a 
+previous life so I may be biased. (Jonathan Corbet of lwn.net has that 
+position now, I believe.) I did a certain amount of analysis back when 
+it was my job, ala https://kernel.org/doc/ols/2008/ols2008v2-pages-7-18.pdf
 
-Here's the full sentence at issue.
+The man pages present simple text output created from text input. The 
+source is in a legacy typesetting format from 1971 (created for the AT&T 
+patent and licensing department and aimed at a brand of daisy-wheel 
+printer that no longer exists), but even 
+http://www.catb.org/~esr/doclifter/doclifter.html back in 2003 could 
+already migrate that to something else and people decided "nah, qwerty 
+ain't so bad, better the devil you know...".
 
->>> +(Note that the unmount operation on
->>> +.BR close (2)
->>> +is lazy\[em]akin to calling
->>> +.BR umount2 (2)
->>> +with
->>> +.BR MOUNT_DETACH ;
->>> +any existing open references to files
->>> +from the mount object
->>> +will continue to work,
->>> +and the mount object will only be completely destroyed
->>> +once it ceases to be busy.)
+> No, it's both.  The 'man' macro package is imperative and unstructured
+> rather than declarative and structured,
 
-This construction uses a semicolon rather than a comma, and that
-semicolon separates two independent clauses.  (Whether "Note that" is
-retained or deleted makes no difference.)
+People were offered docbook 20 years ago. It was worse. (There's no 
+docbook gui editor because it's TOO structured, in ways that are not 
+easily visually represented. It's an ivory tower academic solution.)
 
-CMoS therefore doesn't flag this as "wrong", but I think it'll look
-weird to a native English reader and maybe to non-native ones, too.
+> and 'roff' is quite cumbersome
+> to use.  The BSDs (I think?) have attempted to solve this partially with
+> mdoc.  I've found authoring with it slightly better.  Unfortunately,
+> however, it is still 'roff'.
+> 
+> But, indeed, pagers are inadequate viewers also.
 
-The best solution might be to recast.  It's seldom wrong to break a
-sentence using a semicolon into two sentences when the purpose of the
-prose is to explain rather than specify.
+The man package's build scripts have produced html output for many 
+years, you can do it on your laptop from a git clone.
 
-> You need to escape dashes in manual pages.  Otherwise, they're
-> formatted as hyphens,
+> OpenBSD, IIRC,
+> provided slight improvement in this regard by letting 'less' read some
+> type of list of tags that it produces out of the manual page, or
+> somesuch, to facilitate jumping.  This is a significant move in the
+> right direction, but it doesn't manage to address the fact that manpages
+> are non-hierarchical.
 
-s/they're/they can be/
+If I want "man insmod" I don't have to know it's in section 8. Making it 
+more granular turns out to be less useful.
 
-Some distributions, like Arch[1], Debian[2], and Fedora[3], won't
-exhibit this problem.  Why doesn't groff do this upstream?  Because some
-groff users _do_ care about correct typesetting, and it's more
-straightforward for distributors to patch their packages as the
-aforementioned have done than for groff to adopt that as a default and
-leave people to their own devices to revert it.[4]
+You're complaining about 40 year old design decisions that have 
+persisted for good reason. People have been free to change it all along.
 
-(Maybe I should copy some of that rationale into groff's "PROBLEMS"
-file.  Opinions?)
+> This addresses half of the issue (what if the pages are old?), and still
+> leaves the fact its a separate software distribution unsolved.
 
-> which can't be pasted into the terminal (and another consequence is
-> not being able to search for them in the man(1) reader with literal
-> dashes).
+Either people updated the docs or they didn't. Having an active 
+well-known place to go look and complain at is useful. Requiring 
+somebody to read the source code and provide a copyright assignment to 
+tweak documentation... well you've tried that since 1983, how did it go?
 
-=2E..but if you're looking for an incorrectly hyphenated term like
-"foo-bar", you _can_ search for "foo.bar".  Both the more(1) and less(1)
-in the (now over 2 years old) Debian Bookworm can manage this on
-UTF-8-encoded input.
+There may be some selection bias in the people who constantly read and 
+edit this source code finding this source code to be the best place to 
+put the docs. Learn to cook at the oven factory.
 
-> Depending on your system, you might be able to search for them or paste
-> them to the terminal, because some distros patch this in
-> /etc/local/an.tmac,
-
-That's not the file name any of the foregoing distributors use, but
-you've got the right idea.
-
-> at the expense of generating lower quality pages, but in general don't
-> rely on that.
->=20
-> I've noticed now, but this probably also happens in previous pages in
-> this patch set.
->=20
-> While at it, you should also use a non-breaking space, to keep the
-> entire command in the same line.
->=20
-> 	.IR \%mount\~\-\-bind )
-
-Here's where I disagree a little.  Lengthy unhyphenable character
-sequences like this can lead to ugly formatting, even when adjustment is
-disabled.  (A ragged right margin can get _really_ ragged.)
-
-While I personally would not use italics for inline examples (and don't
-in groff man pages), regardless of the font style you use, you can
-surround multi-word inline examples with quotation marks so that they
-are properly understood even if broken.  (Further, no font style
-selection survives copy-and-paste into plain text email.)
-
-The Linux man-pages don't require portability to AT&T troff, so you can
-achieve this with groff's `lq` and `rq` special characters.
-
-I therefore propose:
-
-=2ERI \[lq] \%mount
-=2EIR \-\-bind \[rq]
-
-If you _did_ require portability to AT&T troff, you could use the `lq`
-and `rq` _strings_ instead.
-
-=2ERI \*(lq \%mount
-=2EIR \-\-bind \*(rq
-
-These strings are _almost_ universally portable.  The only line of *roff
-descent that didn't incorporate them into man(7) was that of Research
-Unix, of which the only surviving specimen is Plan 9 troff.   In other
-words, BSD troff (1980), Unix System V Release 4 and its descendants
-(1988)--including Solaris 10, and groff (1989) all support them.  I'm
-working up a patch to add it to Plan 9 from User Space a.k.a. plan9port.
-
-Quotation is a useful and important linguistic facility.  It's a shame
-man page authors have neglected it so long.
-
-Regards,
-Branden
-
-[1] https://gitlab.archlinux.org/archlinux/packaging/packages/groff/-/commi=
-t/e474b541a32fc905b4f748de0313acfb8b98c081
-[2] https://salsa.debian.org/debian/groff/-/commit/d5394c68d70e6c5199b01d25=
-22e094c8fd52e64e
-[3] https://bodhi.fedoraproject.org/updates/FEDORA-2023-f5d1e63191
-[4] https://lwn.net/Articles/948616/
-
---lpagfhsfhwovdqsk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmjbzecACgkQ0Z6cfXEm
-bc6lyA//ZgdZkgDAzXJ5hsQOTa3TBPjvYCbBeS4h7Q1+MsI6Z006yFlgfCzIJ98d
-jnBXKy+hDJG5FQGzjjbMzpyP+lFne0nPxlbfnFZeQ57bFEjSIeE6XYjveQmidTOe
-l4ueLNIUv+QQ0UPHvkLueLN0MgK8a/8uPceIm9CuIGJ6geTfonTpEKX10GJC4met
-hEby+K4+lAFzM9/dStxv+gXv5aOcjUkyHbb4QqR/sMRyJ37Wyzbtbzii01Hn1R8x
-tZi3cVrftOscD42XjpG6DUGZnEGGPL8M8CEyb10uo2CmMIUitLV7B+1aslQqM1XL
-9FaSqK8DjLMgRO9gyTsxhTWrvWjTFiqe+O/mhJZOyfNZHtuw1Nk6dNAXMN6OXwo3
-fbx5YXf1a6A/vo4TJYxjojeNeKPXImuBFG58y119o+XMj8j85ahR2r/i9Ygkx+CY
-Vyj+DJOHLoF86ClzzhnCZEKzhcLylmpNjT9gUyqFD8a08ghc5eth7Uqmi4qpWkrF
-iH54xdoucHI+8LJFqTS2NkNMCnQnV3f8s79He///G9mexusm/OLKm7tFWXl2IwGw
-8izT3hMzXk44767nUgyINP2Kkq+FqEWqE/c9Ou9mdVtY8W1Lh0yZJogz7BkVjw+n
-02Ho8jX4o2y4liOMyxgWq1B4Xc/UjZ2kMenNg4Y5RzBEt2a4/fs=
-=ZOeL
------END PGP SIGNATURE-----
-
---lpagfhsfhwovdqsk--
+Rob
 
