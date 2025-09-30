@@ -1,145 +1,163 @@
-Return-Path: <linux-man+bounces-4010-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4011-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F763BAD157
-	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 15:35:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 850C1BAE490
+	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 20:18:47 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id EB17419401E1
-	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 13:36:20 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id C99F719244C4
+	for <lists+linux-man@lfdr.de>; Tue, 30 Sep 2025 18:19:09 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBB1E2F5301;
-	Tue, 30 Sep 2025 13:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 628092116E0;
+	Tue, 30 Sep 2025 18:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDI6xWVl"
+	dkim=pass (2048-bit key) header.d=simnet.is header.i=@simnet.is header.b="E8N5jQT1"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-out2-04.simnet.is (smtp-out2-04.simnet.is [194.105.232.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2602E4D8CE
-	for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 13:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2B91A9FAF
+	for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 18:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.105.232.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759239353; cv=none; b=VayyxyRBtVF/VaTnmO5kiKPI81vdF77lH23ntZ24fEJBYkkGgbHx7OMgnxoSerCStiGdfZ1tZ+Nqu89b4714dpYZ78Zr3eIebKXHuidGhDHtg9IXQ9sTzbLRexRWlYGplDoAF2kV3/eCV9JOeaLZwo2IUbDfExCQQI7XSZ7a/yo=
+	t=1759256322; cv=none; b=czJHKI92YsnrVEJLIoWeWJdY+0ilQknlApXe6SqPYL+kNXVQrfAmYMm8v7RYjrL2I97oboDAB+qONqVSD8C4O8YYHIqXNFs3p09KusX22ZelFMnVobwbYsaIgzGUZcx8yt2rRFJyAKbtDwCy7AhVPL9bZj3hEW4OsKPsLC6d3So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759239353; c=relaxed/simple;
-	bh=s5BXJm9OeGraYsslC6Uzmam4nwDUuVtulaUunn54okc=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S6iNvxm6p0/1SluYnl+ok7x1JPcRRniSbJcHTJTOz0MOMuz0l15gHIx9dZea0dcq5QPaj5plykTBHsjCBxuqsMxtTva/bTCi9+GBwrtzd3DlBaP4tG0iVCiAFMTi364yy+p1SxB+bnire88lIdQQRkavxoSMhlQDafoKvnUDRC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDI6xWVl; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-71d603b60cbso59849977b3.1
-        for <linux-man@vger.kernel.org>; Tue, 30 Sep 2025 06:35:51 -0700 (PDT)
+	s=arc-20240116; t=1759256322; c=relaxed/simple;
+	bh=7pdTL7Gy7QKo+amoZBMlTTfU0MRRsrUdo1SOG2UnFk4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=PFMpRPN3VECpZAJVHTH5apc17TIKdhL0ZScT/G71WzDNlt0UzrMlsZOTXzv74A6vLKFG+OMXekdAhaMtLOK7vEExHKGTqjX5utRUjudo4H2C3B/JOZ1NmrlCdD1yJmRjlxgJfAMpvk6BT1IYzMVdDIghu0GIsaTOH+uxggtrVvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=simnet.is; spf=pass smtp.mailfrom=simnet.is; dkim=pass (2048-bit key) header.d=simnet.is header.i=@simnet.is header.b=E8N5jQT1; arc=none smtp.client-ip=194.105.232.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=simnet.is
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simnet.is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759239351; x=1759844151; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=udjamWR5ZOh74txadpmYGFAgIxpLlaneT/Rp227mvF4=;
-        b=TDI6xWVlJonAfXGqq/PK6CoFjcIXBfkZnhbxdnmFQvHMW6cdgOjxwNVdZmI0kakmOm
-         ALuTD/zNb0KuU3O4moW+s9Fd07UyVXEAaw0Xf5Gi7j9tZXHNlmkBjH+1O6Ldn2sk3s1H
-         GvaB7eYZUMQoQyVmcVha+XbJN0S8uHlvBJgczXzayoDGRtZUklYKP41abw7jImp85cv7
-         m34FAOF8oLcWIr1wonDVc7tm9Z+zVo73kKXUF0OtCQP28Yc5SAruBEl8+LDPJbh13YZC
-         s6j2Wo+WafpEcshsaoaZBjYQyfuBbrqPhxyjBagCSC5aseo+LDGWHjxEkDCzcIBEoApI
-         bdSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759239351; x=1759844151;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=udjamWR5ZOh74txadpmYGFAgIxpLlaneT/Rp227mvF4=;
-        b=WvQ8uJ4O8trffH1bRGC6oO/WC3hpV+kMcc/NEikG+x6Z18xuqOb2dCWv3YcXCw5VR1
-         j/0k2aGbJlAyK6jnxyV4HyohQZYUFj7OxKEoglki91r4ioMfUXnWWT/l3eAr8e6mB2W8
-         6q/0i3ZOgLUC2Ant+sEMc/yjhYGEEu5KvLErLv5iWm5cPhG6Tmnlmp/65weCrrzuJ5Cq
-         Ar1PI+hp2w/6V//qiTUd3G1OHjORYh6InIGE32v0o+gFhCXkHmWSN9uUWJZgFRZYrGDv
-         NlzKIkD5TvCH8C8WEjI1ZojdqNtDoQhitAwL2T3EAq1AuS12QstQ172atR+Hi7hhExUK
-         VEMw==
-X-Forwarded-Encrypted: i=1; AJvYcCWKm3Rw109laUvjVMO6xL619U9j1I95xiIyHuRW02uTj5ZRc+yTdNXgl6p5Kbvaljtu+yT18FwNtwY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5wMKl5vM+0kFaax5El3jN0eV4qKbKzCRBx6oOpWEh3KJsBzIP
-	CSJIQME9SAI2mHnKX1ICbuHSeLKqgSK6sDEX4h67YhZrBqV405O1MLql
-X-Gm-Gg: ASbGnctJ4lC/pvybwjYcCMQIx8fUot3COMr56Tu4DlKELY6sCP/ORVM1pDMiXxyZa5z
-	bGG1nAHOFpusn2EdKXH+rUZx2H5W1SBCzn0Sezh22sHpo+mJ4Hz94pc7w6wTZsKDC4aytA/gVDf
-	b9sUowyfwIXF/K27uhM3BZf23gvS4URBavoP8hu+x1gBnXC+5uMvKzyeOqUFrO8/eH/jRLPjdrl
-	lHHc4H6G3A+Eo8Bs2evomWwSOzQ9kA+WseQUB/AmVSSbqpfS08kIIWzjIFcd8CJAerveHXMkNKl
-	Lmdo+4dUDF5oTCdQdPx5Z6/tLzhEvvf57rkt8BCH+jAnPjbtIVvsi6Hw2HH8XUZtPYQKKSg5Vsq
-	/Qbvrhaf+MfnOoz1VoNlLIf6T2b+B/vWnIJPVEY9Wvcb+uFg=
-X-Google-Smtp-Source: AGHT+IEZAqWgzv3z5F9s3XVQBedTdBf8qJjX4kjuIxf/hS00ugFqxBljwO4/9Enr59TH7boY0mcOMQ==
-X-Received: by 2002:a05:690e:5c7:b0:635:4ecc:fc21 with SMTP id 956f58d0204a3-6361a82e379mr20219129d50.41.1759239350992;
-        Tue, 30 Sep 2025 06:35:50 -0700 (PDT)
-Received: from illithid ([2600:1702:7cd0:e980::41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-765c91dd8c3sm37304927b3.64.2025.09.30.06.35.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Sep 2025 06:35:50 -0700 (PDT)
-Date: Tue, 30 Sep 2025 08:35:48 -0500
-From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To: coreutils@gnu.org, linux-man@vger.kernel.org
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-Message-ID: <20250930133548.6e33lxc6ptync2hd@illithid>
-References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
- <87jz1sm2t3.fsf@aarsen.me>
- <fziyxvozscytwasmhtrpjfqbmldxmggjkdm4pzo7cupxhby422@czrmkask4xsc>
- <87cy7e7hml.fsf@aarsen.me>
- <e369c200-a7cd-4b92-b700-d9d48d347ce8@landley.net>
+  d=simnet.is; i=@simnet.is; q=dns/txt; s=sel1;
+  t=1759256319; x=1790792319;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=xpoaSNNZwnps3hiGO1z4etBVBg6wL4hUlik+Y0z/wps=;
+  b=E8N5jQT1sZ6IloFhAPpjy4OYdAEiR/cbwlLtGjS/gT5uZ3gcO1JkVHVM
+   jdSYfiDGBP3Hv5ulkioZDnOXag/14I4UKqwujaWR1BKrj5ttLOpZZhDQp
+   +ifureBxvNIdi5vMIxgtiCoWbYWKkTJmaLGE2IEXJsjg1HICNYb/zQr9r
+   FHTMlsu2Bh09x8UfFhuIf1mARvOkJbBQlUwh5a+rVroevTMBr2f12qrz2
+   Zhfx+GkvrgaB9dydqDWzsx39H61Z/lt/R+J7gQ6n3RryjBCwwqBUdRjye
+   bWtQpCjfIVNF38Pa8yg4zhLkxRtFYVr8Wu3utXb7CTILF/lHs69dThqQx
+   w==;
+X-CSE-ConnectionGUID: lEQdWLRiTP+F6HYOob92cw==
+X-CSE-MsgGUID: f/imypTXQ2y6o/k6lIhpRA==
+Authentication-Results: smtp-out-04.simnet.is; dkim=none (message not signed) header.i=none
+X-SBRS: 1.9
+X-IPAS-Result: =?us-ascii?q?A2E3AwAoGdxod9Viq09agQmEE7lYAQEBD1EEAQGRTyg4E?=
+ =?us-ascii?q?wECBAEBAQEDAgMBAQEBAQEBAQEBAQsBAQYBAQEBAQEGBwIQAUMOO4YJU4cjP?=
+ =?us-ascii?q?ylITIMVgnO5dYE0gQHeOYFtgUmFbYJkAYsfBoINgUqOOgSCIoEWkDGCe4wdg?=
+ =?us-ascii?q?UocA1ksAVUTFwsHBYFjA4EPbjIdgSeFC4QeK0+FAoEYg1Mkaw8GgRWDWwaJa?=
+ =?us-ascii?q?w+BEQMLbT03FBucfAYBgQ4BtEKVF4QmoXEzl1IMkw2ZBqQhhSCBf4F/LAcaC?=
+ =?us-ascii?q?DCDI1EZD9pzgTQCBwsBAQMJk2kBAQ?=
+IronPort-PHdr: A9a23:EXc3NxCi45YPnRWysLC3UyQVQxdPi9zP1m898Z87k/dJb7jmp8ikJ
+ 03a4/hxyl7SDs3X6PNB3uzRta2oGWkN+o2Iv31KdptQHwQEhsMbk01oAMOMBUDhav+/aSs8E
+ ax/
+IronPort-Data: A9a23:hECS1aD5G90WDRVW/z/jw5YqxClBgxIJ4kV8jS/XYbTApDgihjBUy
+ GQXUT+CbPbYNjfwf94gPd6+/BsBsceGx9VrOVdlrnsFo1Bi8JGcXYvDRqvT04J+CuWZESqLO
+ u1HMoGowPgcFyGa/lH1dOC88RGQ7InQLpLkEunIJyttcgFtTSYlmHpLlvUw6mJSqYHR7zil5
+ 5Wr86UzBHf/g2QpajNPs/rZwP9SlK2aVA0w7w1Wic9j5Dcyp1FNZLoDKKe4KWfPQ4U8NoaSW
+ +bZwbilyXjS9hErB8nNuu6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTaJLwXXxqZwChxLid/
+ jniWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5zLFhCy
+ tgiKQw1LT7dp9ORx7jqEOJz05FLwMnDZOvzu1l+zCrFSOQnRIjZRLXboIcGmikxndwIHO22i
+ 8gxNmspNUuZJUwffA1OU/rSn8/x7pX7WzdXgEmUoKw6/y7S12Sd1ZCzboKLJIPaHa25mG6W4
+ WPD7nzFMihAJYKYjjnb9lOsntXmyHaTtIU6Tubmqq812TV/3Fc7ARkGfVi2u/+0jgi5Qd03A
+ 0gV/Dc+6K078mS1QdTnGR61uniJulgbQdU4LgEhwB+M0baR8QecHnIDXi8EMIJgqs4tWXorz
+ Tdlgu8FGxRrnYSZdlan94us7h3sGRkyKmVTPyQbGF5tD8bYnKk/iRfGT9BGGaGzj8HoFTyY/
+ 9xshHNj71n0pZVQv5hX7Wz6bySQSo/hbzVd2+k6dnyk9R88do+gf5av+UmetagGMoeCUh+Ap
+ xDoevRyDshTUvlhdwTXGY3h+Y1FAd7fbVUwZnY1QPEcG8yFoSLLQGypyGgWyL1VGsgFYyT1R
+ 0TYpBlc4pReVFPzMvImOt3pW55wkPK+fTgAahwyRoEeCnSWXFTWlByCmWbJhQgBbWBxyPtnU
+ XtlWZz1VB729piLPBLsHLlBgOByrszP7XjeQ4vyhxmn39KjiI29Fd843K+1Rrlhtsus+VyJm
+ +uzwuPTmn2zpsWnM3GPqeb+7DkicRAGOHwBg5UML7Xde1A5Rz5J5j246epJRrGJVp99zo/gl
+ kxRkGcBoLYjrRUr8Tm3V00=
+IronPort-HdrOrdr: A9a23:uATXdKjGxdsQPmd1GvX5LEkbpnBQXssji2hC6mlwRA09TyVXra
+ CTddAgpHjJYVcqKRUdcL+7V5VoLUmzyXcX2/h1AV7BZniFhILAFugLhuGOrwEIcBeOldK1u5
+ 0AT5RD
+X-Talos-CUID: =?us-ascii?q?9a23=3AzFciE2tCHeHk3t7Zk0WC6WnX6IshX0TR81PqInO?=
+ =?us-ascii?q?ASkg3aIyyTlXBoqh7xp8=3D?=
+X-Talos-MUID: =?us-ascii?q?9a23=3AdxOavwyJlaMkGJkd99x4Mq4CpoOaqKrpCUUciak?=
+ =?us-ascii?q?2gpOVays3OGmZrTSveKZyfw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.18,304,1751241600"; 
+   d="scan'208";a="66066780"
+Received: from vist-zimproxy-06.vist.is ([79.171.98.213])
+  by smtp-out-04.simnet.is with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2025 18:17:27 +0000
+Received: from localhost (localhost [127.0.0.1])
+	by vist-zimproxy-06.vist.is (Postfix) with ESMTP id 4D03120BFA9D;
+	Tue, 30 Sep 2025 18:17:27 +0000 (UTC)
+Received: from vist-zimproxy-06.vist.is ([127.0.0.1])
+ by localhost (vist-zimproxy-06.vist.is [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 7mlK3vVi38wU; Tue, 30 Sep 2025 18:17:27 +0000 (UTC)
+Received: from kassi.invalid.is (85-220-33-163.dsl.dynamic.simnet.is [85.220.33.163])
+	by vist-zimproxy-06.vist.is (Postfix) with ESMTPS id 2141220B1D7F;
+	Tue, 30 Sep 2025 18:17:27 +0000 (UTC)
+Received: from bg by kassi.invalid.is with local (Exim 4.98.2)
+	(envelope-from <bg@kassi.invalid.is>)
+	id 1v3euk-000000001Ah-2VhT;
+	Tue, 30 Sep 2025 18:17:26 +0000
+Date: Tue, 30 Sep 2025 18:17:26 +0000
+From: Bjarni Ingi Gislason <bjarniig@simnet.is>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-man@vger.kernel.org
+Subject: '^\}$' is changed to a space character
+Message-ID: <aNwetmt-I0cT-u93@kassi.invalid.is>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="s3uyciqpgum3hop6"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e369c200-a7cd-4b92-b700-d9d48d347ce8@landley.net>
 
+  This is shown with (my version of test-groff)
 
---s3uyciqpgum3hop6
-Content-Type: text/plain; charset=us-ascii; protected-headers=v1
-Content-Disposition: inline
-Subject: Re: Move GNU manual pages to the Linux man-pages project
-MIME-Version: 1.0
+test-groff -man -t -ww -b -z man7/vdso.7
 
-At 2025-09-30T08:23:10-0500, Rob Landley wrote:
-> Either people updated the docs or they didn't. Having an active
-> well-known place to go look and complain at is useful. Requiring
-> somebody to read the source code and provide a copyright assignment to
-                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> tweak documentation...  well you've tried that since 1983, how did it
-> go?
+troff: backtrace: file 'man7/vdso.7':146
+troff:man7/vdso.7:146: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':196
+troff:man7/vdso.7:196: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':225
+troff:man7/vdso.7:225: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':261
+troff:man7/vdso.7:261: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':279
+troff:man7/vdso.7:279: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':307
+troff:man7/vdso.7:307: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':369
+troff:man7/vdso.7:369: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':411
+troff:man7/vdso.7:411: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':451
+troff:man7/vdso.7:451: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':472
+troff:man7/vdso.7:472: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':490
+troff:man7/vdso.7:490: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':508
+troff:man7/vdso.7:508: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':526
+troff:man7/vdso.7:526: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':551
+troff:man7/vdso.7:551: warning: trailing space in the line
+troff: backtrace: file 'man7/vdso.7':570
+troff:man7/vdso.7:570: warning: trailing space in the line
 
-Wrong since (at least) 2013 and wrong today.
+  This result in an empty line.
 
-https://lists.gnu.org/archive/html/gnustandards-commit/2013-10/msg00000.html
+  Not all '^\}' lines are reported.
 
-> There may be some selection bias in the people who constantly read and
-> edit this source code finding this source code to be the best place to
-> put the docs. Learn to cook at the oven factory.
+  grep -n -e '^\\\}$' shows all lines.
 
-Or play ill-informed games in a toy box.
+  Visible change is two empty lines after a table instead of a single line.
 
-Regards,
-Branden
+  A full stop should be used in front of '\}' to make the line a control
+line.
 
---s3uyciqpgum3hop6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmjb3K0ACgkQ0Z6cfXEm
-bc5dSQ//S5BjlMssz3H++clmeLnycUqtmXYMKFheU1lgfJHUgLTY7PR/v11MJIS7
-dpxiSK3h0LUdjtIUMTA6CNa3+/tbFeDxOgWlDr23FxpqQiHRUtveV70biLloRSXw
-pme69jYtELMh48igE48iQt7ysxG2rKrVJVmtEqWY4dAopF195eKj2Eh1yVeMoDZm
-ZYGOPY1UIkwNVUHkzL17u3eukhFFwLA34xYgfUTVh2BL6zjBn+9SvdwUa7wsRQmF
-MpgGLOGbQ/Cb5MPh3fojfUfSV0S/KgidDUCgSoBjFyPtBP2UusArGJ7f+pEJIOUf
-SmqaY7NMNlLYhBvJ1UFUwWAskdR0DiNllOPq2hneaNwLi/8Q8+tZ0BBTxU9BY++3
-sz97DzdKiLH/HPuhnjyOqxqlB5fu2ZFrTaU2NekbK3bV4MDZI+KmUJSbPw2GMhwT
-3oJU7EOWYLTqiD8MZZC8KulqY23aEoPTiP28ki27un46kSVEj7K44xz436HZ7O+3
-Tinhfo2UhfUmjiNh1eK4bd5GINFsnoBim3V6QSMn7fgg8+mztA3kVdMMgGaU/VwO
-iX7SPmxOsINFTiIuZqa9WBbHE0yt401lWqJr+sCug0dFRDtVZkcalGT7SThzyuy5
-Sb1BTkbASFrqWKHAngw4Q+S/5Aae5rIcGUWmFgil1qvQaTEJFMw=
-=Dtk/
------END PGP SIGNATURE-----
-
---s3uyciqpgum3hop6--
+  This also the case in some other files.
 
