@@ -1,58 +1,55 @@
-Return-Path: <linux-man+bounces-4020-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4021-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 545C8BAF474
-	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 08:45:52 +0200 (CEST)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FABBAF4DA
+	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 08:49:46 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id F11491941069
-	for <lists+linux-man@lfdr.de>; Wed,  1 Oct 2025 06:46:14 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9FCFD164C76
+	for <lists+linux-man@lfdr.de>; Wed,  1 Oct 2025 06:49:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 900A721CC4D;
-	Wed,  1 Oct 2025 06:45:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BA52238D32;
+	Wed,  1 Oct 2025 06:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNWtR0hK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMs6a3Tr"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC9F1E51D;
-	Wed,  1 Oct 2025 06:45:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E008021B9F1
+	for <linux-man@vger.kernel.org>; Wed,  1 Oct 2025 06:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759301146; cv=none; b=ZpxF4Dqe5ztzEUcjxRW7/pU1mg+FD8AFKIcc+Snn3lXdOob9CH/ZWrfBlGOLFSThEF+Xy2nWMCYA8s4eAFeRjjGzeINj4k1WYoNMlzAe+46Cbazru52SXojI8/UdmGpwL3l3IxCe8mz8gkoOqhTO0erpgUQ48+uWCZBbFIqhlu0=
+	t=1759301382; cv=none; b=hZoLXrwrRVsOSAYqE+zAA2tRLUhoNJ1a5DuNGHQg2iFEiDMOeDpYWhM24jF1lY0rIMnSrnQMCk/0i1LVcQevrujwnKi+oKlWWn5fRQoX4id1lXxgbwY5VWf7+XRZ233igzl8HA63ioLImo51p3S2EeFbYPb3iiVDq7tp5krHJAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759301146; c=relaxed/simple;
-	bh=S3BBcYbHKl5+u2lBNg/DeL95jsSme/g+zCYH0vYca60=;
+	s=arc-20240116; t=1759301382; c=relaxed/simple;
+	bh=kbTV5hvFQ6+oWTHSvsmjj2MGFizC5VhyX8zjU9uUGUQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PcX5opF51cxLCkIpg0YaFM4a5DRv0L+0h2mBaPJT/FX2MeusKYIb7gju4dv4jeI9JahgvxVr2i5bLByT5IJXpBKkbtGWFz8bNlvAZx3pWTOzb/t3TGDZps7mod1fJQ5DvXMyqzkGo7wflyFROcVHO0yhSZKXtx7gIVAj82I6yXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNWtR0hK; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47337C4CEF4;
-	Wed,  1 Oct 2025 06:45:43 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=dcJsflUB8BEWBYW9Xb92/+XXXMm0nGs2fUZsOMmrHUehh3+g4k2XD4vtCPdJ/NOXyRMnsR7eEOp+2weo91N3O4ykjNB/oxUlu3NKi2DVwNQSrjnNSCvE97X/SHTUwYMYlZ0BY/ojBxvrcaa78MkR6OebTFgTWRL4Xnm35qFk9E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMs6a3Tr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9449DC4CEF4;
+	Wed,  1 Oct 2025 06:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759301145;
-	bh=S3BBcYbHKl5+u2lBNg/DeL95jsSme/g+zCYH0vYca60=;
+	s=k20201202; t=1759301381;
+	bh=kbTV5hvFQ6+oWTHSvsmjj2MGFizC5VhyX8zjU9uUGUQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MNWtR0hK0BKb5ys12O9iBwDqIe/9D/MRS8XILtSLBld4BKn96AYg9gZUoY7d+gXX0
-	 BF3pl2RDK3wb1/4WKglQrsRuITwRH3z540jXc1xaZMjfIuixbbVtxF+fRNozrccOKJ
-	 mD+0pn+G5Jf8EVGMX3dtDgT+QfAKe3dYgwgEOinrKV3KeFfdxlbTaHR5H8vCHuRfcC
-	 ZAoVS0yacqrtKEX49FzIVu8fBcuarS2wKdB9Y8wfNGLNQpiIZNoUuOLKNWcBDIHYo5
-	 zmGi76LH/Ycx8d+YJIOLjFnEvmF3om04yRrFoSwtjWftkIwxq8Kf+CEkPYGx8Dm1gL
-	 bwRdoO2nyuJxw==
-Date: Wed, 1 Oct 2025 08:45:40 +0200
+	b=OMs6a3TraeoXl0aUG3lpZlJPF45JmGG/gtTOSDWyzgHZVLMaNpTAfn67lyimDSEBm
+	 P8iwAG8NdTnyZ2A7b8Mrcd4pcm0lq3OOOE6I76xZVShr/dgbco8Y+BmJAVCS2fjHeQ
+	 qEYsuhAk4nnIXRJ18iyRCGhut1pTisb90LatFaTMBYU76yg/jKgbby7AhavZ1FVcpw
+	 psxTTntykXTMR+dmeYUE21DuW1ckvn4U7QpIVMbNVoAEH34HENzFSiiCFDLlSAkkuP
+	 v7RY55B8U5ClBxmhaHI/vsVKsKRNLdLOLh6Cin9jEaNrdd4V6uR1joGR4Dpi/DoSnV
+	 LkX8G3ncT3cgA==
+Date: Wed, 1 Oct 2025 08:49:38 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Askar Safin <safinaskar@gmail.com>
-Cc: cyphar@cyphar.com, brauner@kernel.org, dhowells@redhat.com, 
-	g.branden.robinson@gmail.com, jack@suse.cz, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
-	mtk.manpages@gmail.com, viro@zeniv.linux.org.uk
-Subject: Re: [PATCH v5 7/8] man/man2/open_tree{,_attr}.2: document new
- open_tree_attr() API
-Message-ID: <ugko3x7tuqrmbyb326aw3dvtvmdozvtps6hc6ff3lmtsijoube@aem2acyk6t2q>
-References: <20250925-new-mount-api-v5-7-028fb88023f2@cyphar.com>
- <20251001003841.510494-1-safinaskar@gmail.com>
+To: Bjarni Ingi Gislason <bjarniig@simnet.is>
+Cc: linux-man@vger.kernel.org, branden@debian.org
+Subject: Re: '^\}$' is changed to a space character
+Message-ID: <32j4rxtwivo2jafhq7fmtz4rk4kyhmv4ldzoq64757ercbiwxb@zfgmna4wiuvs>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <xvj6ylzxcbmr4wu3p73uylhb2sgyzx5egbukc4r745oosrvqc2@nka5rihouesp>
+ <aNxbV4rHn1LKPKBv@kassi.invalid.is>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -60,58 +57,38 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xmhs745kvpjmwrei"
+	protocol="application/pgp-signature"; boundary="r45rlr6slztbwbem"
 Content-Disposition: inline
-In-Reply-To: <20251001003841.510494-1-safinaskar@gmail.com>
+In-Reply-To: <aNxbV4rHn1LKPKBv@kassi.invalid.is>
 
 
---xmhs745kvpjmwrei
+--r45rlr6slztbwbem
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Askar Safin <safinaskar@gmail.com>
-Cc: cyphar@cyphar.com, brauner@kernel.org, dhowells@redhat.com, 
-	g.branden.robinson@gmail.com, jack@suse.cz, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
-	mtk.manpages@gmail.com, viro@zeniv.linux.org.uk
-Subject: Re: [PATCH v5 7/8] man/man2/open_tree{,_attr}.2: document new
- open_tree_attr() API
-Message-ID: <ugko3x7tuqrmbyb326aw3dvtvmdozvtps6hc6ff3lmtsijoube@aem2acyk6t2q>
-References: <20250925-new-mount-api-v5-7-028fb88023f2@cyphar.com>
- <20251001003841.510494-1-safinaskar@gmail.com>
+To: Bjarni Ingi Gislason <bjarniig@simnet.is>
+Cc: linux-man@vger.kernel.org, branden@debian.org
+Subject: Re: '^\}$' is changed to a space character
+Message-ID: <32j4rxtwivo2jafhq7fmtz4rk4kyhmv4ldzoq64757ercbiwxb@zfgmna4wiuvs>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <xvj6ylzxcbmr4wu3p73uylhb2sgyzx5egbukc4r745oosrvqc2@nka5rihouesp>
+ <aNxbV4rHn1LKPKBv@kassi.invalid.is>
 MIME-Version: 1.0
-In-Reply-To: <20251001003841.510494-1-safinaskar@gmail.com>
+In-Reply-To: <aNxbV4rHn1LKPKBv@kassi.invalid.is>
 
-Hi Askar,
+Hi Bjarni.
 
-On Wed, Oct 01, 2025 at 03:38:41AM +0300, Askar Safin wrote:
-> Aleksa Sarai <cyphar@cyphar.com>:
-> > +mntfd2 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
-> > +                   &attr, sizeof(attr));
+On Tue, Sep 30, 2025 at 10:36:07PM +0000, Bjarni Ingi Gislason wrote:
+>   A patch is superfluous
 >=20
-> Your whole so-called "open_tree_attr example" doesn't contain any open_tr=
-ee_attr
-> calls. :)
->=20
-> I think you meant open_tree_attr here.
+> sed -e '/^\\\}$/ {s/^/./}'
 
-I'll wait for Aleksa to confirm before applying and amending.
+This would also work; thanks!  After all, what I need is something I can
+run to get the page changed.
 
-> > +\&
-> > +/* Create a new copy with the id-mapping cleared */
-> > +memset(&attr, 0, sizeof(attr));
-> > +attr.attr_clr =3D MOUNT_ATTR_IDMAP;
-> > +mntfd3 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
-> > +                   &attr, sizeof(attr));
->=20
-> And here.
->=20
-> Otherwise your whole patchset looks good. Add to whole patchset:
-> Reviewed-by: Askar Safin <safinaskar@gmail.com>
-
-Thanks!  I'll retro-fit that to the commits I've aplied already too, as
-I haven't pushed them to master yet.
+On the other hand, I think I prefer Branden's approach, which entirely
+eliminates the low-level roff(7) there.  What do you think?
 
 
 Have a lovely day!
@@ -121,25 +98,25 @@ Alex
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---xmhs745kvpjmwrei
+--r45rlr6slztbwbem
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjczg0ACgkQ64mZXMKQ
-wqkQOxAAhBW2r6vgnhWSIcUgonkPBEki5gwvsq/37mKGIdH8p/5DDSaD/1165e62
-WnB/LE5dv+m6Qs79kKzswijiXv1sHyr3MmzDUhwq8P73+DrHbVJgKLBoFZIv8j+E
-YGbN7ZWT+/JbbpO3/tfoHRvfKZ4mbl5GXpu2VZBgD03+tAW1nzDrmoUwfscVgnGI
-USH40XEEAt1+OVwwHBWXyi+S/Pqml/RRmlKH3WXFVwnI+NoUHKKg6OYX7fKMuvr0
-HM2XZiemIrGuDHuXr1GA+U+dIVHQTk/6bFiad35lqAHwXWaZ6FodFF8+aUCOd06K
-Ao4Ay2foi9nsam3ZzEdwLS866z0Pv3sHshjmd+ALkfw9yEA8E9dGdLtpSX4PKbeD
-evKEZXhAXjGH+87oq+YnmsJ06qpM/wFYr1v1hmlo0SyfO2HYCusJU9MX2RRPye/S
-hQlRivZ29QvWOegQSRcOIolacow/Ol2wuPnxyLfUNywjO4dIwrec3PY4K1FMPGnb
-zITkySWMg4zEkxpzjD6+vh/TIuiKthKqV5AmPsGwlsU5qjzFE/wdIpuWED0fU9Rh
-9MK/cQu5x/6Z54t8RY7LaEtpW/krRY5uBgv4C6w2hDBtMTYLgQ0ecWKZZNiwFqfI
-hcDDbrYxvKV9gG0IkVtGk7DneDJ47+cxo/djy6cH1FPR7QVvC2E=
-=EEI7
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjczwIACgkQ64mZXMKQ
+wqkhmg//a0qev3XruRfSkFLQXszg4GE7wvn9KNeSivnxJiaBYRjzwVwjbJ7WHQ/3
+JNU+TYqUc0Defs6CdPVk/tkY/2WOWoYBr6aeh3tyUbvn7GomfBkAXhZ5Dbbx9ZmK
+rozpy71CeyXsn+iaW3ZLd9jjyE/nGBfAitvxc5qzYzzBOARUVSo4k1CgGR2+vXgd
+z31cZaNDYyYzIk+POD5MWuVp09vLNPSeq74Qqt2F+eFnkWJRCgwUl3dtJKf+W5sk
+dfRg/bwnl/IKICCcBRyUbTfZ3ZKs5GsnCkK5kRjk7QVxxTFlJl52HBCVgIA6tCk/
+SPnfFg22+NW2FD0rLcWoNOIF7Y3N63WyeSiPsxOXe7+FPe9SJEvlpJdMKCSNNWi2
+wFgTZQqc0WAkH1hkPmfmlKOWbfU27KU+uXHvJ0w9FYR9YDRQ32zpiYcRaxBBLURG
+4QuWTJVnc0SmGqpdszSmoMVnCyWpXL5fdQhpkhdp9GzGEZTD90eM6T2eFSZmV1Im
+12QS47M7fm7Jq5dG/nF6E3Y8eWC9qZfTg6DLX80SEYU2OijHmOw+iwVsNNGRswPZ
+VQgmR0GwpkWElmRq1AdZ8LKOIwrns7AuyyX5GEF4L4sLl7+SMu5bv4kaWKLPuEiz
+28Spfpd6vYKcWeVvQOIZbqaItsgZYK08ziuEiM4RX0yqZ3tN7ko=
+=5dGH
 -----END PGP SIGNATURE-----
 
---xmhs745kvpjmwrei--
+--r45rlr6slztbwbem--
 
