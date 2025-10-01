@@ -1,55 +1,68 @@
-Return-Path: <linux-man+bounces-4021-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4022-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FABBAF4DA
-	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 08:49:46 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3CDBAF6EA
+	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 09:36:17 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 9FCFD164C76
-	for <lists+linux-man@lfdr.de>; Wed,  1 Oct 2025 06:49:46 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C6E123AC51B
+	for <lists+linux-man@lfdr.de>; Wed,  1 Oct 2025 07:36:15 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BA52238D32;
-	Wed,  1 Oct 2025 06:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D967273811;
+	Wed,  1 Oct 2025 07:36:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMs6a3Tr"
+	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="vwmsyiQO"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E008021B9F1
-	for <linux-man@vger.kernel.org>; Wed,  1 Oct 2025 06:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A71271A6D;
+	Wed,  1 Oct 2025 07:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759301382; cv=none; b=hZoLXrwrRVsOSAYqE+zAA2tRLUhoNJ1a5DuNGHQg2iFEiDMOeDpYWhM24jF1lY0rIMnSrnQMCk/0i1LVcQevrujwnKi+oKlWWn5fRQoX4id1lXxgbwY5VWf7+XRZ233igzl8HA63ioLImo51p3S2EeFbYPb3iiVDq7tp5krHJAY=
+	t=1759304170; cv=none; b=dfx0Cfo4FuPMaRW/UPiOKUJL+fdFgFSgXmhIca5eK/8O+kN772+CkJLIaT+HQFCT+ZQKRswF64s1UGfW/kgJZGlvhvxBqPNoUn4u9oKxd109rnGoP9C4oephl88rX9FU5ZvQd/GgD//LzAMuMfEfwJdHPW8sluqjPHgSdD/cVF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759301382; c=relaxed/simple;
-	bh=kbTV5hvFQ6+oWTHSvsmjj2MGFizC5VhyX8zjU9uUGUQ=;
+	s=arc-20240116; t=1759304170; c=relaxed/simple;
+	bh=UsMNIjvGJVyJ7tDDftxNgWMz1WD7mTq1TrKVNfRAicc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dcJsflUB8BEWBYW9Xb92/+XXXMm0nGs2fUZsOMmrHUehh3+g4k2XD4vtCPdJ/NOXyRMnsR7eEOp+2weo91N3O4ykjNB/oxUlu3NKi2DVwNQSrjnNSCvE97X/SHTUwYMYlZ0BY/ojBxvrcaa78MkR6OebTFgTWRL4Xnm35qFk9E8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMs6a3Tr; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9449DC4CEF4;
-	Wed,  1 Oct 2025 06:49:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759301381;
-	bh=kbTV5hvFQ6+oWTHSvsmjj2MGFizC5VhyX8zjU9uUGUQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OMs6a3TraeoXl0aUG3lpZlJPF45JmGG/gtTOSDWyzgHZVLMaNpTAfn67lyimDSEBm
-	 P8iwAG8NdTnyZ2A7b8Mrcd4pcm0lq3OOOE6I76xZVShr/dgbco8Y+BmJAVCS2fjHeQ
-	 qEYsuhAk4nnIXRJ18iyRCGhut1pTisb90LatFaTMBYU76yg/jKgbby7AhavZ1FVcpw
-	 psxTTntykXTMR+dmeYUE21DuW1ckvn4U7QpIVMbNVoAEH34HENzFSiiCFDLlSAkkuP
-	 v7RY55B8U5ClBxmhaHI/vsVKsKRNLdLOLh6Cin9jEaNrdd4V6uR1joGR4Dpi/DoSnV
-	 LkX8G3ncT3cgA==
-Date: Wed, 1 Oct 2025 08:49:38 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Bjarni Ingi Gislason <bjarniig@simnet.is>
-Cc: linux-man@vger.kernel.org, branden@debian.org
-Subject: Re: '^\}$' is changed to a space character
-Message-ID: <32j4rxtwivo2jafhq7fmtz4rk4kyhmv4ldzoq64757ercbiwxb@zfgmna4wiuvs>
-References: <aNwetmt-I0cT-u93@kassi.invalid.is>
- <xvj6ylzxcbmr4wu3p73uylhb2sgyzx5egbukc4r745oosrvqc2@nka5rihouesp>
- <aNxbV4rHn1LKPKBv@kassi.invalid.is>
+	 Content-Type:Content-Disposition:In-Reply-To; b=gImdw3PTYV69lZV4JeW0hE5XU5RSSnlXIDuX39bjfuXFqVM9nBqUjKWEZg2R9wP8VJD/KAFgxKWH7hY0FaxUVR3qd/4NDGdbx0/MQxHVHRFn4GZ1EENhpzM+aMrbg6Dru4yHxDOdRZWqwb0O9hWLJIZBIaNrQF7AU+eBkgwg+RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=vwmsyiQO; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cc6DH3VL1z9sNr;
+	Wed,  1 Oct 2025 09:35:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
+	t=1759304159;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hcrsTh+hEPackjWv/9APJh7H0cTIxXTrQiTVJGyI2tg=;
+	b=vwmsyiQOwf8iOVBO0MmRrXqkCGzaMCJypcSlCaEyCN8oHLb88utiZtLR8uqfCkbajJCbnc
+	4dW5AqMcVR43OShY9zmuY6VE9+tAJsjZXWP5SSy2+fH/8U+uvmPEVhagyjmPnhy1KBTdFs
+	hP/1JTSipCHJnMQmGHsWWCHUpjd09euuI+Mp+qDZV3cYW7Q3aFJItnf/P+0TFZ/HA4LCfP
+	twP/LmbcGFi/FRiQcgNnAhWYGl27A0Gl4Z5dexJ2gNgjm37Ajq0L0q7Ms8FVIst9VcXVtr
+	Qfd9H9mlktM6gHfoJKbXaTm6/BjB37QqtVhEi4tgAJ8md4FzHt3IzlUf5Ef+yg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of cyphar@cyphar.com designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=cyphar@cyphar.com
+Date: Wed, 1 Oct 2025 17:35:45 +1000
+From: Aleksa Sarai <cyphar@cyphar.com>
+To: Askar Safin <safinaskar@gmail.com>
+Cc: alx@kernel.org, brauner@kernel.org, dhowells@redhat.com, 
+	g.branden.robinson@gmail.com, jack@suse.cz, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-man@vger.kernel.org, 
+	mtk.manpages@gmail.com, viro@zeniv.linux.org.uk
+Subject: Re: [PATCH v5 7/8] man/man2/open_tree{,_attr}.2: document new
+ open_tree_attr() API
+Message-ID: <2025-10-01-brawny-bronze-taste-mounds-zp8G2b@cyphar.com>
+References: <20250925-new-mount-api-v5-7-028fb88023f2@cyphar.com>
+ <20251001003841.510494-1-safinaskar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -57,66 +70,65 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r45rlr6slztbwbem"
+	protocol="application/pgp-signature"; boundary="q6bi4f7rvsmlajn7"
 Content-Disposition: inline
-In-Reply-To: <aNxbV4rHn1LKPKBv@kassi.invalid.is>
+In-Reply-To: <20251001003841.510494-1-safinaskar@gmail.com>
+X-Rspamd-Queue-Id: 4cc6DH3VL1z9sNr
 
 
---r45rlr6slztbwbem
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--q6bi4f7rvsmlajn7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Bjarni Ingi Gislason <bjarniig@simnet.is>
-Cc: linux-man@vger.kernel.org, branden@debian.org
-Subject: Re: '^\}$' is changed to a space character
-Message-ID: <32j4rxtwivo2jafhq7fmtz4rk4kyhmv4ldzoq64757ercbiwxb@zfgmna4wiuvs>
-References: <aNwetmt-I0cT-u93@kassi.invalid.is>
- <xvj6ylzxcbmr4wu3p73uylhb2sgyzx5egbukc4r745oosrvqc2@nka5rihouesp>
- <aNxbV4rHn1LKPKBv@kassi.invalid.is>
+Subject: Re: [PATCH v5 7/8] man/man2/open_tree{,_attr}.2: document new
+ open_tree_attr() API
 MIME-Version: 1.0
-In-Reply-To: <aNxbV4rHn1LKPKBv@kassi.invalid.is>
 
-Hi Bjarni.
-
-On Tue, Sep 30, 2025 at 10:36:07PM +0000, Bjarni Ingi Gislason wrote:
->   A patch is superfluous
+On 2025-10-01, Askar Safin <safinaskar@gmail.com> wrote:
+> Aleksa Sarai <cyphar@cyphar.com>:
+> > +mntfd2 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
+> > +                   &attr, sizeof(attr));
 >=20
-> sed -e '/^\\\}$/ {s/^/./}'
+> Your whole so-called "open_tree_attr example" doesn't contain any open_tr=
+ee_attr
+> calls. :)
+>=20
+> I think you meant open_tree_attr here.
 
-This would also work; thanks!  After all, what I need is something I can
-run to get the page changed.
+Oops.
 
-On the other hand, I think I prefer Branden's approach, which entirely
-eliminates the low-level roff(7) there.  What do you think?
+>=20
+> > +\&
+> > +/* Create a new copy with the id-mapping cleared */
+> > +memset(&attr, 0, sizeof(attr));
+> > +attr.attr_clr =3D MOUNT_ATTR_IDMAP;
+> > +mntfd3 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
+> > +                   &attr, sizeof(attr));
+>=20
+> And here.
 
+Oops x2.
 
-Have a lovely day!
-Alex
+> Otherwise your whole patchset looks good. Add to whole patchset:
+> Reviewed-by: Askar Safin <safinaskar@gmail.com>
 
 --=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+https://www.cyphar.com/
 
---r45rlr6slztbwbem
+--q6bi4f7rvsmlajn7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjczwIACgkQ64mZXMKQ
-wqkhmg//a0qev3XruRfSkFLQXszg4GE7wvn9KNeSivnxJiaBYRjzwVwjbJ7WHQ/3
-JNU+TYqUc0Defs6CdPVk/tkY/2WOWoYBr6aeh3tyUbvn7GomfBkAXhZ5Dbbx9ZmK
-rozpy71CeyXsn+iaW3ZLd9jjyE/nGBfAitvxc5qzYzzBOARUVSo4k1CgGR2+vXgd
-z31cZaNDYyYzIk+POD5MWuVp09vLNPSeq74Qqt2F+eFnkWJRCgwUl3dtJKf+W5sk
-dfRg/bwnl/IKICCcBRyUbTfZ3ZKs5GsnCkK5kRjk7QVxxTFlJl52HBCVgIA6tCk/
-SPnfFg22+NW2FD0rLcWoNOIF7Y3N63WyeSiPsxOXe7+FPe9SJEvlpJdMKCSNNWi2
-wFgTZQqc0WAkH1hkPmfmlKOWbfU27KU+uXHvJ0w9FYR9YDRQ32zpiYcRaxBBLURG
-4QuWTJVnc0SmGqpdszSmoMVnCyWpXL5fdQhpkhdp9GzGEZTD90eM6T2eFSZmV1Im
-12QS47M7fm7Jq5dG/nF6E3Y8eWC9qZfTg6DLX80SEYU2OijHmOw+iwVsNNGRswPZ
-VQgmR0GwpkWElmRq1AdZ8LKOIwrns7AuyyX5GEF4L4sLl7+SMu5bv4kaWKLPuEiz
-28Spfpd6vYKcWeVvQOIZbqaItsgZYK08ziuEiM4RX0yqZ3tN7ko=
-=5dGH
+iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaNzZ0RsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG/BEAEA6OtNrlmi0mI2ASXOWxjz
+PKAfbnGtZ1VdIfPzn0PtX4cA/jr8mhDIqP2v6TGtzHEo+O1PYFC3Oxg5LxdeT9G5
+VE8F
+=Dvsc
 -----END PGP SIGNATURE-----
 
---r45rlr6slztbwbem--
+--q6bi4f7rvsmlajn7--
 
