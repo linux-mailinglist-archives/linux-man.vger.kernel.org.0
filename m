@@ -1,328 +1,164 @@
-Return-Path: <linux-man+bounces-4027-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4028-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8F7BB179A
-	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 20:20:57 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A06BB1A0D
+	for <lists+linux-man@lfdr.de>; Wed, 01 Oct 2025 21:37:50 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 0AE6B19450F7
-	for <lists+linux-man@lfdr.de>; Wed,  1 Oct 2025 18:21:20 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id BD97E3BB4ED
+	for <lists+linux-man@lfdr.de>; Wed,  1 Oct 2025 19:37:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF3CA2D3EEB;
-	Wed,  1 Oct 2025 18:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 93503277CBF;
+	Wed,  1 Oct 2025 19:37:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRi0H01d"
+	dkim=pass (2048-bit key) header.d=landley.net header.i=@landley.net header.b="X1qY303Y"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from olivedrab.birch.relay.mailchannels.net (olivedrab.birch.relay.mailchannels.net [23.83.209.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA0049620;
-	Wed,  1 Oct 2025 18:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759342849; cv=none; b=ZO0/ZOFn/b3RsAtevLyypdOhjS1bZ40as45zLZri1QnIM8rPnLFNMtKZ0lDD+Ndr1ddPgj/ncMPHMtKT0GH2c+cFV2FWCjuikOEb+UU+NBVtQ+SepMmOb+38VgwK0+BwXpPzxsvMUXGXNe3Yp9vab2k1+fnl3vYQfirBCOJYpOw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759342849; c=relaxed/simple;
-	bh=RWkh2In6NeJlX7Zu0p4kcyT2zuEZ4+D6PLyRU9uV/bs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k2AwMmzFLF3kH2kfePx7k9gfxeamzTVUSAt0Vu+07i7nVgmJxNolCMQT9MUSE71AHMrr6jl1infxeOD6OOWE7HNAs17WW0X1Lf6vfOXV7dkPUfH/JtJ5nSOkT/1CMyFfxi5bfJXGjnFr/NMeC69ZE7slaogthp9xPpW2djUZ9Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRi0H01d; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29A0C4CEF1;
-	Wed,  1 Oct 2025 18:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759342849;
-	bh=RWkh2In6NeJlX7Zu0p4kcyT2zuEZ4+D6PLyRU9uV/bs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HRi0H01dAZGevaGb9Cj0CxImVQltEgXyMf+ZfzktHylR1bw52XHYzDWdxOaBfO7Wy
-	 30fcFKozjYFTSqimdBP8RwSRTZ4fkuLpnjz3P9/c8zdac1mIzOfmct+K8EBKatmxLd
-	 H6HRfuurqLWWZRnhcjZhGAL5UG2WQPKi4Z6HeraHKTThwLlH8sIIt/3+yM0bIfvZf7
-	 xN51x2OuFXos3Ja9EAKMnMWDK9QQCLrO+FCK0qqRiQo3eBGt5R5+Te8HVOoPhEzsx1
-	 MWUip2K41iroUltCCRLSX80nYu8VgQnX/SGgtThCnrY3IA/7vAFVtKP8kuMDEtMdpv
-	 NjKvXPub7lwDg==
-Date: Wed, 1 Oct 2025 20:20:44 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v5 0/8] man2: document "new" mount API
-Message-ID: <hk5kr2fbrpalyggobuz3zpqeekzqv7qlhfh6sjfifb6p5n5bjs@gjowkgi776ey>
-References: <20250925-new-mount-api-v5-0-028fb88023f2@cyphar.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AA0335C7
+	for <linux-man@vger.kernel.org>; Wed,  1 Oct 2025 19:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.209.135
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1759347465; cv=pass; b=QJNu6rVbGyNTqNVwiF5PV389T7fa1kIYDyNeR3RbPL5nYmTZppCc44Lq6E2NGEYCmbWi7AXEVyD6HxNt9CMmDxFoGgd83kA9TB3Wn4KEwW51/6riaKj9cWXCP4L5vYGmk8AKxlUJ+6nxzEYurW+ufgGdv2OUVvBFHvEwYC0+it4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1759347465; c=relaxed/simple;
+	bh=r9ijTdsiM75EyRv7al+7bBvUTwY6zdhEGwL+Z9UicLc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iryXimcXBTkYB3AZbSA6xf7qtkdcL7nRO6GUE0laIEhccQC7uzkiMvJSF4pVPmF5O/6+8ccB6ZjaGD07a2TjRyCcw3I/DIj7wOgM+p/sjsGor8FjF/T3nPZ86rXRjaszMC9VFseJJK7GHJfUTODcUdq1m7GEZKEJZCR8ulMXMuc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=landley.net; spf=pass smtp.mailfrom=landley.net; dkim=pass (2048-bit key) header.d=landley.net header.i=@landley.net header.b=X1qY303Y; arc=pass smtp.client-ip=23.83.209.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=landley.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=landley.net
+X-Sender-Id: dreamhost|x-authsender|rob@landley.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 17C4570230A;
+	Wed, 01 Oct 2025 19:37:36 +0000 (UTC)
+Received: from pdx1-sub0-mail-a237.dreamhost.com (100-110-226-221.trex-nlb.outbound.svc.cluster.local [100.110.226.221])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id B67B570203A;
+	Wed, 01 Oct 2025 19:37:33 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1759347453; a=rsa-sha256;
+	cv=none;
+	b=EU3c6BJy8gqnYNXqQUXBVBqYfEVjc7vl35X/7JpTkXB/gSaN7/SyjKBMWOgGS3ohkOGIDr
+	npKgfrna6DTzjAd1lACynIZZRCDmhhlpZ/oBBQXRfKOEm7Cu45+Fly7GVTXffHCjMZ0IYv
+	QJiocScq7x51/kO5QtGbOdQVz0axcm7WDc2HQUMLiw0YJrGd7z/XrqX8aW8zOvHiKxrvlV
+	YQDxTLlAy8zbTd1oAfpPS5mAH69Y9/x1Yh4+JyqknBbYX7fhHjCbG1IghFrrPFkUbZgDbe
+	ulHd6mJmR7u1E+mIg/ra6ZzfMnHXzE8vLUnDLDKa2dB3SU6BZIFW3GiokCL8nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1759347453;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=Z3DFN4BJPLDY4yfWjDkQ1JR/HUP5tcTmxcAIIrr1u7M=;
+	b=fSiiflyNCNb3ybvP+iMhO38JjEP9ebt1GtlCHmO3Zo3q1G1XTombH/NDBi4N7Wtz15EpGH
+	ycpXby/+Yn2gPWH4uDLGOj4kGVQtxbAkx/F9vyHPM7zNoONpekRjNHxmm32DGvMIVPp8yT
+	k/WEUOJRUNiFHEwEvbkRyysDluN8ES41kkA7fysab2YA3Vlvdhr3KReG9C5tl5NWO3dljo
+	uWPPrIkLhzXtbMGMcMJkNXZ+Xtb0Sqv5UvOj1ue8tY9RvjGw3NTkvHbaRiRTQL9HjZRiPB
+	Hi9OwqLBFWERUpA1NBxkxG7d+e+JQj3RI8kRvZ+R4M+vnfvqFmLciWUv27qh2w==
+ARC-Authentication-Results: i=1;
+	rspamd-ffff64c9c-nts7w;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=rob@landley.net
+X-Sender-Id: dreamhost|x-authsender|rob@landley.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|rob@landley.net
+X-MailChannels-Auth-Id: dreamhost
+X-Well-Made-Broad: 3143b81d3e3f8e07_1759347455904_1201572292
+X-MC-Loop-Signature: 1759347455904:498284359
+X-MC-Ingress-Time: 1759347455904
+Received: from pdx1-sub0-mail-a237.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.110.226.221 (trex/7.1.3);
+	Wed, 01 Oct 2025 19:37:35 +0000
+Received: from [IPV6:2607:fb91:b2c:cd6f:c548:cab3:3d03:f92f] (unknown [172.56.11.73])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	(Authenticated sender: rob@landley.net)
+	by pdx1-sub0-mail-a237.dreamhost.com (Postfix) with ESMTPSA id 4ccQDs12RBz5C;
+	Wed,  1 Oct 2025 12:37:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=landley.net;
+	s=dreamhost; t=1759347453;
+	bh=Z3DFN4BJPLDY4yfWjDkQ1JR/HUP5tcTmxcAIIrr1u7M=;
+	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+	b=X1qY303YfRA214dNteG9bQMgql3I3Rm+Pv69xz77llXcvzT2x4EF4NerpRhNTaE0a
+	 qMeTnPfi+sGS7MKmTgjY5LC2IbXeIOl/JANauEwTAA543Dtt75kZ6lQ2SsaT2yENdA
+	 Od8S3WHx6lFSOXMaKc0vdfs1c+soN2D9kMI7MuhIPCtKTHd2lsWJzNw6XtHFjElFJE
+	 8dhnMEpZTlnz5wYli8Lv+H6G1pcx/f5ps8hpwyofOY/PYocnrSYcQ4YoIyS68bwOPz
+	 j9tqfEAqTog6mT/5Cgsq2OaBzZUkMFqBmBApIPVsq8QkPM+7xifCu83fbD5zv80F3J
+	 AxYEp86K2QoQA==
+Message-ID: <60d83776-2873-4114-9647-0ec44120969a@landley.net>
+Date: Wed, 1 Oct 2025 14:37:31 -0500
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pvasxid6oblmeza6"
-Content-Disposition: inline
-In-Reply-To: <20250925-new-mount-api-v5-0-028fb88023f2@cyphar.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+To: =?UTF-8?Q?Arsen_Arsenovi=C4=87?= <arsen@aarsen.me>
+Cc: Alejandro Colomar <alx@kernel.org>, coreutils@gnu.org,
+ linux-man@vger.kernel.org
+References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
+ <87jz1sm2t3.fsf@aarsen.me>
+ <fziyxvozscytwasmhtrpjfqbmldxmggjkdm4pzo7cupxhby422@czrmkask4xsc>
+ <87cy7e7hml.fsf@aarsen.me> <e369c200-a7cd-4b92-b700-d9d48d347ce8@landley.net>
+ <86tt0jn27n.fsf@aarsen.me>
+Content-Language: en-US
+From: Rob Landley <rob@landley.net>
+In-Reply-To: <86tt0jn27n.fsf@aarsen.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 9/30/25 14:57, Arsen Arsenović wrote:
+> Rob Landley <rob@landley.net> writes:
+>> It wasn't "lucky".
+> 
+> It was, it was obvious even in first edition Unix - I'll come back to
+> that.
 
---pvasxid6oblmeza6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Aleksa Sarai <cyphar@cyphar.com>
-Cc: "Michael T. Kerrisk" <mtk.manpages@gmail.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Askar Safin <safinaskar@zohomail.com>, 
-	"G. Branden Robinson" <g.branden.robinson@gmail.com>, linux-man@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>
-Subject: Re: [PATCH v5 0/8] man2: document "new" mount API
-Message-ID: <hk5kr2fbrpalyggobuz3zpqeekzqv7qlhfh6sjfifb6p5n5bjs@gjowkgi776ey>
-References: <20250925-new-mount-api-v5-0-028fb88023f2@cyphar.com>
-MIME-Version: 1.0
-In-Reply-To: <20250925-new-mount-api-v5-0-028fb88023f2@cyphar.com>
+So obvious that you need to point it out 50 years later?
 
-Hi Aleksa, Askar,
+> When documetning, these more complex interfaces ought to be decomposed
+> into logical units for obvious reasons.  There are also overarching
+> themes that aren't simply attached to a single (or handful) of bits of
+> the interface.
 
-On Thu, Sep 25, 2025 at 01:31:22AM +1000, Aleksa Sarai wrote:
-> Back in 2019, the new mount API was merged[1]. David Howells then set
-> about writing man pages for these new APIs, and sent some patches back
-> in 2020[2].
->=20
+There's more than one way to explain almost anything.
 
-[...]
+> In the original Unix v1 programmers manual (or, at least, the copy I
+> could find), the term "file descriptor" is used 30 times, and defined
+> (poorly) twice.
 
->=20
-> In addition, I have also included a man page for open_tree_attr(2) (as a
-> subsection of the new open_tree(2) man page), which was merged in Linux
-> 6.15.
->=20
-> [1]: https://lore.kernel.org/all/20190507204921.GL23075@ZenIV.linux.org.u=
-k/
-> [2]: https://lore.kernel.org/linux-man/159680892602.29015.655186026043654=
-4999.stgit@warthog.procyon.org.uk/
-> [3]: https://github.com/brauner/man-pages-md
->=20
-> Co-authored-by: David Howells <dhowells@redhat.com>
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> Co-authored-by: Christian Brauner <brauner@kernel.org>
-> Signed-off-by: Christian Brauner <brauner@kernel.org>
-> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+And nobody ever bothered writing down what "inode" meant so I had to ask 
+Dennis Ritchie.
 
-The full patch set has been merged now.  I've done a merge commit where
-I've pasted this cover letter, and amended it so that Aleksa is the
-author of the merge commit.  I've also included Askar's Reviewed-by tag
-in the merge commit itself.
+https://lkml.iu.edu/hypermail/linux/kernel/0207.2/1182.html
 
-I'll have it in a separate branch for a few days, in case I need to fix
-anything.  You can check it here:
+The downside of documentation being written by people who already know 
+the material. "Beginner's mind" is hard to recapture after the fact. (I 
+say this as someone who's been trying for decades.)
 
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?h=3Dfs>
+> To clarify, I don't mean to imply that an OS-level manual should teach
+> the reader about basic networking concepts, but it is still useful to
+> briefly recap said concepts in order to clarify possibly-ambiguous
+> terminology and set up standards for your documentation.
 
-I editorialized the titles, but other than that, I didn't do much.
-I think I mentioned most of the changes in replies to each patch.
+A tutorial and a reference are not the same thing. That's tech writing 101.
 
-Thanks a lot for your contributions!
+Half of teaching is figuring out what your audience already knows so you 
+can connect to their knowledge base and fill in gaps without boring them 
+to tears repeating what they already know. It's _hard_, and no canned 
+source will get it right for every individual.
 
+> Also, in my opinion, it is obvious
 
-Have a lovely night!
-Alex
+No comment.
 
-> ---
-> Changes in v5:
-> - `sed -i s|file descriptor based|file-descriptor-based|`.
->   [Alejandro Colomar]
-> - fsconfig(2): use bullets instead of ordered list for workflow
->   description. [Alejandro Colomar]
-> - mount_setattr(2): fix minor wording nit in new attribute-parameter
->   subsection.
-> - fsopen(2): remove brackets around "message" for message retrieval
->   interface description. [Alejandro Colomar]
-> - {move_mount,fspick}(2): fix remaining incorrect no-automount text.
->   [Askar Safin]
-> - {fsmount,open_tree}(2): `sed -i s|MOUNT_DETACH|MNT_DETACH|g`.
->   [Askar Safin]
-> - mount_setattr(2): fix copy-paste snafu in attribute-parameter
->   subsection. [Askar Safin]
-> - *: clean `make -R build-catman-troff`. [Alejandro Colomar]
-> - *: switch to \[em]\c where appropriate.
-> - open_tree(2): clean up MNT_DETACH-on-close description and make it
->   slightly more prominent. [Alejandro Colomar]
-> - open_tree(2): mention the distinction from open(O_PATH) with regards
->   to automounts. Askar suggested it be put in the section about
->   ~OPEN_TREE_CLONE, but the change in behaviour also applies to
->   OPEN_TREE_CLONE and it looked awkward to include it in the
->   dentry_open() case because O_PATH only gets mentioned in the following
->   paragraph (where I've put the text now). [Askar Safin]
-> - {move_mount,open_tree{,_attr}}(2): fix column-width-related "make -R
->   check" failures.
-> - *: fix remaining "make -R lint" failures.
-> - open_tree_attr(2): add example using MOUNT_ATTR_IDMAP.
-> - v4: <https://lore.kernel.org/r/20250919-new-mount-api-v4-0-1261201ab562=
-@cyphar.com>
->=20
-> Changes in v4:
-> - `sed -i s|\\% |\\%|g`.
-> - Remove unneeded quotes in SYNOPSIS. [Alejandro Colomar]
-> - open_tree(2): fix leftover confusing usages of "attach" when referring
->   to file descriptors being associated with mount objects.
-> - open_tree(2): rename "Anonymous mount namespaces" NOTES subsection to
->   the far more informative "Mount propagation" and clean up the wording
->   a little.
-> - open_tree_attr(2): add a code comment about
->   <https://lore.kernel.org/all/20250808-open_tree_attr-bugfix-idmap-v1-0-=
-0ec7bc05646c@cyphar.com/>
-> - {fsconfig,open_tree_attr}(2): use _Nullable.
-> - {fsmount,open_tree}(2): mention the the unmount-on-close behaviour is
->   actually lazy (a-la MNT_DETACH).
-> - {fsconfig,mount_setattr}(2): improve "mount attributes and filesystem
->   parameters" wording to make it clearer that superblock and mount flags
->   are sibling properties, not the same thing.
-> - open_tree(2): mention that any mount propagation events while the
->   mount object is detached are completely lost -- i.e., they don't get
->   replayed once you attach the mount somewhere.
-> - fsconfig(2): fix minor grammatical / missing joining word issues.
-> - fsconfig(2): fix final leftover `.IR A " and " B` cases.
-> - fsconfig(2): explain that failed fsconfig(FSCONFIG_CMD_*) operations
->   render the filesystem context invalid.
-> - fsconfig(2): rework the description of superblock reuse, as the
->   previous text was very wrong. (Though there has been discussion about
->   changing this behaviour...)
-> - fsconfig(2): remove misleading wording in FSCONFIG_CMD_CREATE_EXCL
->   about how we are requesting a new filesystem instance -- in theory
->   filesystems could take this request into account but in practice none
->   do (and it seems unlikely any ever will).
-> - fsconfig(2): mention that key, value, and aux must be 0 or NULL for
->   FSCONFIG_CMD_RECONF.
-> - fsmount(2): fix usage of "filesystem instance" in relation to
->   fsmount() and open_tree() comparison. [Askar Safin]
-> - move_mount(2): "as attached" -> "as a detached" [Askar Safin]
-> - fspick(2): add note about filesystem parameter list being copied
->   rather than reset with FSCONFIG_CMD_RECONFIGURE. [Askar Safin]
-> - v3: <https://lore.kernel.org/r/20250809-new-mount-api-v3-0-f61405c80f34=
-@cyphar.com>
->=20
-> Changes in v3:
-> - `sed -i s|Co-developed-by|Co-authored-by|g`. [Alejandro Colomar]
->   - Add Signed-off-by for co-authors. [Christian Brauner]
-> - `sed -i s|needs-mount|awaiting-mount|g`, to match the kernel parlance.
-> - Fix VERSIONS/HISTORY mixup in mount_attr(2type) that was copied from
->   open_how(2type). [Alejandro Colomar]
-> - Fix incorrect .BR usage in SYNOPSIS.
-> - Some more semantic newlines fixes. [Alejandro Colomar]
-> - Minor fixes suggested by Alejandro. [Alejandro Colomar]
-> - open_tree_attr(2): heavily reword everything to be better formatted
->   and more explicit about its behaviour.
-> - open_tree(2): write proper explanatory paragraphs for the EXAMPLES.
-> - mount_setattr(2): fix stray doublequote in SYNOPSIS. [Askar Safin]
-> - fsopen(2): rework structure of the DESCRIPTION introduction.
-> - fsopen(2): explicitly say that read(2) errors in the message retrieval
->   interface are actual errors, not return 0. [Askar Safin]
-> - fsopen(2): add BUGS section to describe the unfortunate -ENODATA
->   message dropping behaviour that should be fixed by
->   <https://lore.kernel.org/r/20250807-fscontext-log-cleanups-v3-0-8d91d62=
-42dc3@cyphar.com/>.
-> - fsconfig(2): add a NOTES subsection about generic filesystem
->   parameters.
-> - fsconfig(2): add comment about the weirdness surrounding
->   FSCONFIG_SET_PATH.
-> - {fspick,open_tree}(2): Correct AT_NO_AUTOMOUNT description (copied
->   from David, who probably copied it from statx(2)) -- AT_NO_AUTOMOUNT
->   applies to all path components, not just the final one. [Christian
->   Brauner]
-> - statx(2): fix AT_NO_AUTOMOUNT documentation.
-> - open_tree(2): swap open(2) reference for openat(2) when saying that
->   the result is identical. [Askar Safin]
-> - fsmount(2): fix DESCRIPTION introduction, and rework attr_flags
->   description to better reference mount_setattr(2).
-> - {fsopen,fspick,fsmount,open_tree}(2): don't use "attach" when talking
->   about the file descriptors we return that reference in-kernel objects,
->   to avoid confusing readers with mount object attachment status.
-> - fsconfig(2): remove pidns argument example, as it was kind of unclear
->   and referenced kernel features not yet merged.
-> - fsconfig(2): remove rambling FSCONFIG_SET_PATH_EMPTY text (which
->   mostly describes an academic issue that doesn't apply to any existing
->   filesystem), and instead add a CAVEATS section which touches on the
->   weird type behaviour of fsconfig(2).
-> - v2: <https://lore.kernel.org/r/20250807-new-mount-api-v2-0-558a27b8068c=
-@cyphar.com>
->=20
-> Changes in v2:
-> - `make -R lint-man`. [Alejandro Colomar]
-> - `sed -i s|Glibc|glibc|g`. [Alejandro Colomar]
-> - `sed -i s|pathname|path|g` [Alejandro Colomar]
-> - Clean up macro usage, example code, and synopsis. [Alejandro Colomar]
-> - Try to use semantic newlines. [Alejandro Colomar]
-> - Make sure the usage of "filesystem context", "filesystem instance",
->   and "mount object" are consistent. [Askar Safin]
-> - Avoid referring to these syscalls without an "at" suffix as "*at()
->   syscalls". [Askar Safin]
-> - Use \% to avoid hyphenation of constants. [Askar Safin, G. Branden Robi=
-nson]
-> - Add a new subsection to mount_setattr(2) to describe the distinction
->   between mount attributes and filesystem parameters.
-> - (Under protest) double-space-after-period formatted commit messages.
-> - v1: <https://lore.kernel.org/r/20250806-new-mount-api-v1-0-8678f56c6ee0=
-@cyphar.com>
->=20
-> ---
-> Aleksa Sarai (8):
->       man/man2/fsopen.2: document "new" mount API
->       man/man2/fspick.2: document "new" mount API
->       man/man2/fsconfig.2: document "new" mount API
->       man/man2/fsmount.2: document "new" mount API
->       man/man2/move_mount.2: document "new" mount API
->       man/man2/open_tree.2: document "new" mount API
->       man/man2/open_tree{,_attr}.2: document new open_tree_attr() API
->       man/man2/{fsconfig,mount_setattr}.2: add note about attribute-param=
-eter distinction
->=20
->  man/man2/fsconfig.2       | 741 ++++++++++++++++++++++++++++++++++++++++=
-++++++
->  man/man2/fsmount.2        | 231 +++++++++++++++
->  man/man2/fsopen.2         | 385 ++++++++++++++++++++++++
->  man/man2/fspick.2         | 343 +++++++++++++++++++++
->  man/man2/mount_setattr.2  |  39 +++
->  man/man2/move_mount.2     | 646 ++++++++++++++++++++++++++++++++++++++++
->  man/man2/open_tree.2      | 709 ++++++++++++++++++++++++++++++++++++++++=
-++++
->  man/man2/open_tree_attr.2 |   1 +
->  8 files changed, 3095 insertions(+)
-> ---
-> base-commit: f17990c243eafc1891ff692f90b6ce42e6449be8
-> change-id: 20250802-new-mount-api-436db984f432
->=20
->=20
-> Kind regards,
-> --=20
-> Aleksa Sarai
-> Senior Software Engineer (Containers)
-> SUSE Linux GmbH
-> https://www.cyphar.com/
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---pvasxid6oblmeza6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjdcPsACgkQ64mZXMKQ
-wqke7BAAlcSpSz5fxY84SbRo4r0HZzq+N5BDpbcAasExUOGkCzIO/Nta/6tidFNA
-YcRvcidJWAJ0KvyFTXCVDT3DOd+A8jd7IDujWVdLBVBt1doslJaHheVticsBVQEE
-8+teyjEnyX8C0Mk5X+YSVvLwogqXIDHTkXLlfGAhrtpAQBbBnmBDZRRkBcUtqJMC
-XUO2CNPahKXI3nPUJbmmp8sq55c7Rpx16SrIzg5mYEDVEQb/HfIvpOfVeAGhtN+M
-L9bseUx0upAqTrSRm9bUIT6sf51poHqs2kTv6yX8Ay3/hXKC4Fnc/Zt4TU7kXLu6
-RWk73J1W6Pal7bVIyQmIxaCOhmjhzuLhiMtBeLuRZ9m20w2XbjpIZApoxYChAqIk
-9VdGq2Vh/HBker339iJl1J2U9Mjmc8gpWk3i1wNEZJ8ked1FRGfHIU8r3nFXPS8M
-JfmW/q1svdTjlwV8a9/SxQJeA0hvrhRQVX05oBGs6rJoSLU72darOpv2/dbxY4wG
-u4tNVOZ5qUcjZ9Y7io+7kI2uTrblqq52q2tDWDZ+zu6FVyW7wAbRDK3xPijuuCPq
-uLoFV2y3+dbJILGawdCi1M4s+MG9PPop0ldhLD//svuZWgxymochsh+LgkVwlCYS
-hhJN59qwuLzfSz/yYyb6nvgsDk72QdnVd496DF+uSJ/3NZhgkx8=
-=dJMv
------END PGP SIGNATURE-----
-
---pvasxid6oblmeza6--
+Rob
 
