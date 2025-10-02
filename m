@@ -1,204 +1,121 @@
-Return-Path: <linux-man+bounces-4030-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4031-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 239F2BB4419
-	for <lists+linux-man@lfdr.de>; Thu, 02 Oct 2025 17:02:06 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72C13BB4437
+	for <lists+linux-man@lfdr.de>; Thu, 02 Oct 2025 17:06:35 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id E7BCA3826C6
-	for <lists+linux-man@lfdr.de>; Thu,  2 Oct 2025 15:01:09 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 16FBD188B2EE
+	for <lists+linux-man@lfdr.de>; Thu,  2 Oct 2025 15:06:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AF7913A3ED;
-	Thu,  2 Oct 2025 14:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1830215A864;
+	Thu,  2 Oct 2025 15:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NnrGEyZc"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WRdQCzTg"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4CF136672
-	for <linux-man@vger.kernel.org>; Thu,  2 Oct 2025 14:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501D91B808
+	for <linux-man@vger.kernel.org>; Thu,  2 Oct 2025 15:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759417164; cv=none; b=pYahaA9YajOV5+c+7tGLahiqfowiTWyxBuiD7WH7HlgminBVohQWyhIHPv5xiY1Xv3pP+e78dpKXOP3x+LHN6V+IVzAGghU5V/1RSlvPlOYobczYEAcVJHXSH7qmo5DARKM9x5G109zpaDGtvsWVAU1ri4Ywpw1sX6+LoxO33J8=
+	t=1759417589; cv=none; b=bsPGcgDJByZMrcXPzAV/RYYlAdBHnhaWmkWElbX1Qi/zJBoQaNUb+55mRlmnUxXwlA95d5gGNqAPEPaa/FxGdUgDzSaTrg5SWip8cEO14TVKagn+pe0fMFRiZyaC4wD+bk61nnl41b+6oqoU6m4o0RsyW8DWXMhjtYFObear8Dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759417164; c=relaxed/simple;
-	bh=DTYJeRRuLDANpUbvVAHKcL35VnyXTh/RwU9kQkislaI=;
+	s=arc-20240116; t=1759417589; c=relaxed/simple;
+	bh=05ZRLGOYdqR09raubHrHyQadRDSOqMu62QU38BnrygQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rwDgE7Na3zlROwWtKOtBXMrZzOTTY7QMtwgci8ePGm21biilS36zrMD5VFUG0FWhPlRolJduG2N2MI0SUAi3OX7mCVmpxX/2hhs+D98O76C0hmONOqqUKRAth6AmhjA2xpVzkkGvOsa/0RsplkL/VJOcFsFnqfaXGLR0jegN4Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NnrGEyZc; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3822C4CEF4;
-	Thu,  2 Oct 2025 14:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759417164;
-	bh=DTYJeRRuLDANpUbvVAHKcL35VnyXTh/RwU9kQkislaI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NnrGEyZcG88nbkdxvmVMPILoCktqTrh+isYSY1nO4hG6if202z2MSi1AKf5XYQHpp
-	 bSkqjgaXs+idoLrhLYVx/HBhXcGjyeLysn2tNhOResmeC9sxZzIfm2dizOVxBYip/o
-	 5yTU3pSaLU0tXwwbn6p2hqr/4jUyZfmnWUKBuG4pXBGr5wOShNlnmSDZNxFc78jOcw
-	 BEeaHmbGdpT/1yLyQNWRvpIZd9kgBEiTimWT52fpmYva/cLT3gd7IG52mBLOj0Mw3x
-	 fuL85QzeVJ2zplAACjWPYhaGNpxpOOdU2GXzO4C/EMNHCPcrMOCF1aiPGSem6QnvjU
-	 iRE/4bWyzgPVw==
-Date: Thu, 2 Oct 2025 16:59:21 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Guillaume Nault <gnault@redhat.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=HNZXhoEq1OAcCUFtvtHZbZuAksGkwEi0LX6qAGpIP9UOyH9j6Ix3O4/3kaAt0t3Y7reIi9u0WAPE05eYlq0vGM30P+vvWNyQEVP4qn9ttZ2LfpJc+VVldFTF6VIN8sqsEsFEIRx3GmrYuhABiZth/D41uOj/sXv341sbSKZ7rIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WRdQCzTg; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1759417587;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rb6YHj4tcmAFWmqqVOSGI24I97PdR8EnoBI/OXR6d0k=;
+	b=WRdQCzTgENMppOTsVu9OK5/fGfH47UAQQksGkunT/yHXbnbOYpTA+pV1BMWLzN10eyOHP7
+	ycMHz01VF6lLJG2jsfAMnQaTdq9hgQddnJCmrP6ypRi/8NLp2LA0g/dtr10rrUCjWq4CSI
+	HOQwC2xTO+Vx87Tr3dTuJDeaKCZxUXo=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-693-yRn8j1gWO5yEzD4mZ5L3cQ-1; Thu, 02 Oct 2025 11:06:26 -0400
+X-MC-Unique: yRn8j1gWO5yEzD4mZ5L3cQ-1
+X-Mimecast-MFC-AGG-ID: yRn8j1gWO5yEzD4mZ5L3cQ_1759417584
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-46b303f6c9cso7864105e9.2
+        for <linux-man@vger.kernel.org>; Thu, 02 Oct 2025 08:06:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759417583; x=1760022383;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Rb6YHj4tcmAFWmqqVOSGI24I97PdR8EnoBI/OXR6d0k=;
+        b=LClE1WGd5XuUM/fxTXMiu3Cpz/X3Ewa+ZQBXJ9kuvlWCpuVK+PWzVkXrOF3kj78CGb
+         7GbMcJ5GLQ68s7mxi7QDnDSPkb2zTknvk/YCZXF6q0zLrrtBw09pQSHkv/naEdwNoxw/
+         WvNY97/o7jXHCw8iN26B1Z0yjrkk0JItmtMj2LINeRHRjCcP7RTEyurGoKthaTf+lSID
+         yP0DDZ03vvdQHLdn8e/6x8tmYmzn4JpVmE++v1WNbp3ZBq820ZVsJyQW1h03MldHb27e
+         VxvJsbepe4LfV9bkm6yYyGoHimYLsnwpLSsrvGZdBDZDZV+umKzvHTI186c9ErICbClp
+         oakA==
+X-Gm-Message-State: AOJu0YwmVRnE3rbkpzV2WnRrCkZeD65XGpOWZ5cPgIlf25ff/SPJi7WK
+	4lOGqe2KSyINr27A8NhUeaUynmw8vZ10N4UjKuxWeWbsCtOgjzfh4qLnGUayIGN3J0e0QLhEfwR
+	g8U18C/InItNoa2Dun9edYaFTJATuuarAEabc1dnTVN4s9inVo1w2VL3WVK4w1w==
+X-Gm-Gg: ASbGncsSnRq3+8LRNioUKGsHMFpkYrgA26iz90SowUtvqpFVRrP/BiA2P0HRSi+XApd
+	rBr7hMun7iK7xRJ6CkkQSaV2TjTrfcbddIFR8enhk7p4jyqtRyi56Qz3x73fjlQfuglKpzhgi6A
+	CqaUvGsrgRvNd18okM4WgoexphQVRenwX5zXTYrub0qvGNNrE4/Y/EDE4/ewdCrcjJ0IzA+kE8N
+	zZVhvYcZnrAb/ysd+SdZrYV00jPjunIYZjd8UPH1B4abtRk30FaBG6Z0kf1epUSJ5DFH5I5272F
+	Mo0dHtMliWDVNYpdMbwrApTHtC68rZ3WCIR0ZXcgVDGN8CQQnd9EIftEoyzFpadUxjaSL8wvEWD
+	xYI+ALNBK9ruRM4kO0Y+R2KuW
+X-Received: by 2002:a05:600c:4f93:b0:46d:fd71:f69 with SMTP id 5b1f17b1804b1-46e6127ba38mr62754135e9.14.1759417583587;
+        Thu, 02 Oct 2025 08:06:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHiTAWgJ93CUeW9ibqVXzaNLgayYZK6O9qG3bMmDhJ2oCyNP+XIZdUmm9zFbgEJjTxtbkI20A==
+X-Received: by 2002:a05:600c:4f93:b0:46d:fd71:f69 with SMTP id 5b1f17b1804b1-46e6127ba38mr62753905e9.14.1759417583173;
+        Thu, 02 Oct 2025 08:06:23 -0700 (PDT)
+Received: from debian (2a01cb058918ce00b1193b1af18e29db.ipv6.abo.wanadoo.fr. [2a01:cb05:8918:ce00:b119:3b1a:f18e:29db])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46e61a0204fsm87963635e9.14.2025.10.02.08.06.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Oct 2025 08:06:22 -0700 (PDT)
+Date: Thu, 2 Oct 2025 17:06:20 +0200
+From: Guillaume Nault <gnault@redhat.com>
+To: Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] rtnetlink.7: Document metrics attributes (RTAX_*).
-Message-ID: <k6gzpa3l7kux4j24jekirc2d2izvlizruk2iydst7w7hi542ev@qdvoql6ypykw>
+Message-ID: <aN6U7PkSopJdIB-9@debian>
 References: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
  <aN6PoAPSQYuy-kJV@debian>
+ <k6gzpa3l7kux4j24jekirc2d2izvlizruk2iydst7w7hi542ev@qdvoql6ypykw>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a2z7xsmz42xfceo2"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aN6PoAPSQYuy-kJV@debian>
+In-Reply-To: <k6gzpa3l7kux4j24jekirc2d2izvlizruk2iydst7w7hi542ev@qdvoql6ypykw>
 
+On Thu, Oct 02, 2025 at 04:59:21PM +0200, Alejandro Colomar wrote:
+> Hi Guillaume,
+> 
+> On Thu, Oct 02, 2025 at 04:43:44PM +0200, Guillaume Nault wrote:
+> > On Fri, Sep 19, 2025 at 12:54:01PM +0200, Guillaume Nault wrote:
+> > > Add a brief explanation of the RTAX attributes that can be used in
+> > > RTA_METRICS.
+> > 
+> > Hi,
+> > 
+> > I haven't got any feedback for this patch. Anything wrong with it?
+> 
+> Nope, I was attending a conference last week and didn't have time to
+> look at this patch.
 
---a2z7xsmz42xfceo2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Guillaume Nault <gnault@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Document metrics attributes (RTAX_*).
-Message-ID: <k6gzpa3l7kux4j24jekirc2d2izvlizruk2iydst7w7hi542ev@qdvoql6ypykw>
-References: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
- <aN6PoAPSQYuy-kJV@debian>
-MIME-Version: 1.0
-In-Reply-To: <aN6PoAPSQYuy-kJV@debian>
+No problem. I just wanted to make sure it didn't fall through the
+cracks. Thanks!
 
-Hi Guillaume,
+> I'll try to have a look later today.  Thanks for the ping!
+> 
 
-On Thu, Oct 02, 2025 at 04:43:44PM +0200, Guillaume Nault wrote:
-> On Fri, Sep 19, 2025 at 12:54:01PM +0200, Guillaume Nault wrote:
-> > Add a brief explanation of the RTAX attributes that can be used in
-> > RTA_METRICS.
->=20
-> Hi,
->=20
-> I haven't got any feedback for this patch. Anything wrong with it?
-
-Nope, I was attending a conference last week and didn't have time to
-look at this patch.
-
-I'll try to have a look later today.  Thanks for the ping!
-
-
-Have a lovely day!
-Alex
-
->=20
-> > Signed-off-by: Guillaume Nault <gnault@redhat.com>
-> > ---
-> >  man/man7/rtnetlink.7 | 49 +++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 48 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-> > index cb9f5155f..a04edce79 100644
-> > --- a/man/man7/rtnetlink.7
-> > +++ b/man/man7/rtnetlink.7
-> > @@ -342,7 +342,11 @@ RTA_OIF:int:Output interface index
-> >  RTA_GATEWAY:protocol address:The gateway of the route
-> >  RTA_PRIORITY:int:Priority of route
-> >  RTA_PREFSRC:protocol address:Preferred source address
-> > -RTA_METRICS:int:Route metric
-> > +RTA_METRICS::T{
-> > +Route metrics
-> > +.br
-> > +(see below).
-> > +T}
-> >  RTA_MULTIPATH::T{
-> >  Multipath nexthop data
-> >  .br
-> > @@ -384,6 +388,49 @@ routes (in seconds)
-> >  T}
-> >  .TE
-> >  .IP
-> > +.B RTA_METRICS
-> > +contains an array of
-> > +.I struct rtattr
-> > +with their corresponding attributes:
-> > +.IP
-> > +.in +4n
-> > +.TS
-> > +tab(:);
-> > +c s s
-> > +lb l l.
-> > +Attributes
-> > +rta_type:Value type:Description
-> > +_
-> > +RTAX_UNSPEC:-:unspecified
-> > +RTAX_LOCK:__u32:Bit field indicating which RTAX_* attributes are locked
-> > +RTAX_MTU:__u32:Maximum Transmission Unit for this route
-> > +RTAX_WINDOW:__u32:Maximum size of the receive window for this route
-> > +RTAX_RTT:__u32:Estimated round-trip time for this route
-> > +RTAX_RTTVAR:__u32:Estimated round-trip time variation for this route
-> > +RTAX_SSTHRESH:__u32:Slow start threshold to use for this route
-> > +RTAX_CWND:__u32:Maximum size of the congestion window for this route
-> > +RTAX_ADVMSS:__u32:Maximum Segment Size to advertise for this route
-> > +RTAX_REORDERING:__u32:Initial reordering level of packets for this rou=
-te
-> > +RTAX_HOPLIMIT:__u32:Hop limit (TTL) to use for this route
-> > +RTAX_INITCWND:__u32:Initial congestion window to use for this route
-> > +RTAX_FEATURES:__u32:Features to enable for this route specifically
-> > +RTAX_RTO_MIN:__u32:Minimum Retransmission TimeOut to use for this route
-> > +RTAX_INITRWND:__u32:Initial size of the receive window for this route
-> > +RTAX_QUICKACK:__u32:Use quick ack for this route
-> > +RTAX_CC_ALGO:asciiz string:Congestion Control algorithm to use for thi=
-s route
-> > +RTAX_FASTOPEN_NO_COOKIE:__u32:Allow TCP Fast Open without cookie
-> > +.TE
-> > +.IP
-> > +Metrics that are locked with
-> > +.B RTAX_LOCK
-> > +take precedence over the values normally used by the kernel
-> > +(computed or assigned by a sysctl or setsockopt(2)).
-> > +Therefore, some metrics, like
-> > +.BR RTAX_RTO_MIN ,
-> > +have no effect unless their bit is set in
-> > +.BR RTAX_LOCK .
-> > +.in
-> > +.IP
-> >  .B RTA_MULTIPATH
-> >  contains several packed instances of
-> >  .I struct rtnexthop
-> > --=20
-> > 2.47.3
-> >=20
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---a2z7xsmz42xfceo2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjek0MACgkQ64mZXMKQ
-wqlZhRAAksenM4bBL7VtHn9jE2cpGksQdF6cSPClNnoKOpwp7saIBGTQ99AgT/PS
-2rUQeAWxk+35yMl17UDdW5GuARbyb1CTcRn4yz0lxqBbPJOZPIT5acg+lU5T2drn
-f4upiL1ptygIYxQBFAB/I/ZXiCKDGItFKbf1QnDYu9eZjFIC2oYSs85Xb9j+uXJ7
-EUfJRe/YXqRYkAUQUEGPy0q4GdYn5zxIpsnOXANwhzfQb9zk19jKTUT0xlUWVUFe
-uxVGrQtaluYluP7cMlX+8IW19MBeBokosDtSlKO4PdSZCNn1TQ6EQsHxU1ZxYNrC
-mWnARGqpUNyLOKGQ685yNNc4pYyF6Yd7gB9mX101vwiAAno/Muy3UIeJey+2uubK
-67r13Ci/qhqsRRDJPBTPtvGxXre1vDo8jMow3To7sgzfXd5qJZ5L4R/iOFAsN0Ul
-P3YXB0mkvgHBZYOdXRwMvRF5AAwJhBiHqCnrHg+AXap9EvnRwYS/YU4dRJJtPh5n
-dHq0f9m2Wad2Y4ygBgrQIh+93o6MzuUkRxEgXu4cdtqytCJQ2zcy/vhOM03F2AZD
-JFZ4Q3ESXFY96gepyTQGlylV7noDmlLmYjZWvWvzttbGKSCE4d48xkTNP1NyUB8G
-b8PR7vAGgTVCHK9iTgJ6tV18FWjThH+k/EQugLo29+J+PkFJ/W8=
-=L1+g
------END PGP SIGNATURE-----
-
---a2z7xsmz42xfceo2--
 
