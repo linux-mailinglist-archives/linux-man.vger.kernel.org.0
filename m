@@ -1,154 +1,146 @@
-Return-Path: <linux-man+bounces-4032-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4033-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE9D8BB4EE2
-	for <lists+linux-man@lfdr.de>; Thu, 02 Oct 2025 20:47:04 +0200 (CEST)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
+	by mail.lfdr.de (Postfix) with ESMTPS id B55CDBB526B
+	for <lists+linux-man@lfdr.de>; Thu, 02 Oct 2025 22:48:19 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id F38681892984
-	for <lists+linux-man@lfdr.de>; Thu,  2 Oct 2025 18:47:02 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 5E91F341DC6
+	for <lists+linux-man@lfdr.de>; Thu,  2 Oct 2025 20:48:19 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52BE227B326;
-	Thu,  2 Oct 2025 18:46:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB8FC1B424F;
+	Thu,  2 Oct 2025 20:48:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aarsen.me header.i=@aarsen.me header.b="BLOUnoDg"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aa9YMv9Z"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57BF22DF95
-	for <linux-man@vger.kernel.org>; Thu,  2 Oct 2025 18:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B98379DA
+	for <linux-man@vger.kernel.org>; Thu,  2 Oct 2025 20:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759430786; cv=none; b=Pikbmd9Jyo0qIlQ5l/CUEpp9W2JV5zR/pqEa0m7+UnQPwVZ+SEG68kMsxBTP7ldGfYnQ6/iQWPvnWfk7TpiCLpwX6UvNGZKJcjQg1caOegaYHk2HgVpMcvHh5jNh43US+hzkq/FDgF9FUlBn3GzmeVALVubv5j899jyGlzrj8RU=
+	t=1759438094; cv=none; b=kX6odXVa+V9TPmGx2uCpLZxZxzLsYwXd5q8BYHuvJdeUHBRzjmniTA24FMrfCoXtr+pIOrXnOWIvC9HOjYHzfp7Zo5T7wsvY8FLwaIW4Nuf6C9PqFyZdBpfolsqSlR3zu1jtMWU19fefLOpbKl3ypP3bFIwEf17m69Yi1s1htSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759430786; c=relaxed/simple;
-	bh=qhUCBxRffAG57pLVqNNBl3VnqmecMjKC5vVjqg1yqu8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LHS2bYsJ1pkzND06EZL5/aFx5SEnAlGVZ1O6Wv5ogBcnz6RrhvzVObNGSzvRFcV+vAFOCY5OSA4WePUjruPeylzlbRrr/Nm6mtg7ctCmCjLd4u3b4/HHwy3kerrDGnhoQbqiTGaTlw74p0b5cJt0wpoAuIm6j+8WdMIwYL3dNU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aarsen.me; spf=pass smtp.mailfrom=aarsen.me; dkim=pass (2048-bit key) header.d=aarsen.me header.i=@aarsen.me header.b=BLOUnoDg; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aarsen.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aarsen.me
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4cd13973z4z9tKM;
-	Thu,  2 Oct 2025 20:46:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aarsen.me; s=MBO0001;
-	t=1759430774;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8V99IBIZhlouAeV7xZbbBZQJKM/Mz6/90/VhzJk1Bw0=;
-	b=BLOUnoDg1aSevGBYYos408PCDDHmmNihNnA5CuQL/43UJK3EuO10OJXjhsE+FVvd10xQix
-	cPjP0DayNygQXjpJMsVqfD2TJOojnGqIT7UMgV48zk0JY6K+pgVsfC3fI1I2HIHsyDmoPC
-	Zjs/LZTIRE1kbMtwt6bbFb8ukdV+Cw+iGQg2zJjqZNkP5RLN3iqubSUiW+3HBUM85HZ9KB
-	iyybqlUEnz+ud6bb7cbu7QCvUgKIjKBSXHSL7lYRXtPC2SRw/IMt1295LKNHrhRVmS9CBG
-	N4jkUsdT/5dUbZQDyZ7HHIOXYF6Bk51r87bn9mUOFBTTqOFrCjwbmHaOtrblvA==
-From: =?utf-8?Q?Arsen_Arsenovi=C4=87?= <arsen@aarsen.me>
-To: Rob Landley <rob@landley.net>
-Cc: Alejandro Colomar <alx@kernel.org>,  coreutils@gnu.org,
-  linux-man@vger.kernel.org
+	s=arc-20240116; t=1759438094; c=relaxed/simple;
+	bh=CMyrE1TGk0oxCF8iXmmKC29V9mHIgVUULA5irHVK1gY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aeOEmpklWfnnYTQccwPeXEyAbMNKEhJdAeIMWsFwdkfYyKltt6aN6dQEp36OF4rrAdxMd4Wla1DEmxDI6afVMRGzfSnwQgfoXADrnrVK6FK2IgyijzQg8YcdrPeFf/6gl0BcLj64lJzWVVZjpl081bLwi13tBjUPVpomKvtw3Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aa9YMv9Z; arc=none smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-72ce9790acdso16826987b3.0
+        for <linux-man@vger.kernel.org>; Thu, 02 Oct 2025 13:48:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759438091; x=1760042891; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=CMyrE1TGk0oxCF8iXmmKC29V9mHIgVUULA5irHVK1gY=;
+        b=Aa9YMv9ZXrrR1X3w19IiY5fToRrML6wFeJoYNlfAy+aRWngm8g2z/yFrjhmxwC3Chp
+         NdRJJ9SCC3WsGXnWieFIvwKE3/H4ww2HrVQJAz1b5ZfphwqptxoFMOulSopa806ztO11
+         9ZIOtBXvmRd7QlTMR7IjfB2j3hT7h1ib1BXCHX5OTRmmsMzSv3BPUMDH4ikNEdZw6Vfg
+         27ydUbjSaT1Gyf5yq6qK3FvG6G04LubtdM2N4Nym4lVizwTX/0DhQyGAbak4Z2ijNAhz
+         DQbwKi4qw5rvoybrigdcu67ktqQ4Vua2wU+/RHGW1IPCkeKb3+smT6AYBODoQxchB0Ax
+         e1lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759438091; x=1760042891;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CMyrE1TGk0oxCF8iXmmKC29V9mHIgVUULA5irHVK1gY=;
+        b=esEIgBO4L3fzV2cj1xwKMjHWY6vLTTJ/jXwa8CBbMnxZro4NM1+OHlOu2Aky1sXQ/G
+         Y+zv10KLADWFjWqPCDgB4L10GTLrdIuiiCOlci/PBZK8YClAQE9uaGHXVHE96XXuTCb2
+         cbEVXA5OjrzhUNZkEZBaU2rM7RZyqx3LXbGP/NmAf167qpBGps4Htuq/KEC+h+6XXdib
+         7z0C1WlfaFqL1sCpWzE6o9lZUuriBGvRhjo02SG8K2uzdZJ6vXwRvz0vGNnSsQ1NtJ2Y
+         gw6WbYhYqqMXEeMI7pffwa9vY/a67vOEH3w0KyQ6ks34sGGvY9lSxAOMXyWfFwGpZNA5
+         REgA==
+X-Forwarded-Encrypted: i=1; AJvYcCXLTdfU1HuXCMCAyRN57THIL+SXZLqFP7km5AXT6i3zJueWuUJQ7/OLAf53whOrHaZSkUCScf3AV0Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMMekvmn+gOL6+lZ32V6DqAFBgv2ZIprDVmS/7resGTQ36NYFx
+	T/Z7GjIdHZ6puMTsYE8+GlaewoMVWAWLXTpwM/OqnxcjxvpyeF3lV7SA
+X-Gm-Gg: ASbGncsFsC2ag9fxSlQscWJ1zBX+aPHCW5kWwQh6R3aVA+fSy8Xjb8jJ08VZJooKxNf
+	onGMClJPhSX0dBTGQHDj2XSb4TJ+Kq8ZPziYJU88acpruQ520mmBoyaTbGzzIExGN4ktKlcHTO9
+	6f65XVhkn2nLi9K97IuZixQMxmuH7lolRLiV8w60aa47eKpEabE6Tgo2g2FxsaTB7Q5zf3z6uYF
+	p0c0PfLQlVuymxrGXtBDwuAEuNlxDY/KZDI9rTw/87tyTLV+DYLmmPwUgFHJKxT5/4qa1j0RqSM
+	Km1E8fM27623MNZoS6+9+x3sYEv2mZepsXmi5nBWn3/j/rwKuSkclAc4dC8AAVgnXm/kJ6XngE4
+	vRRDXhlA/0SbZ8QidPFETXjbeqvCOjF9eXUs1b++ozGiHWxs=
+X-Google-Smtp-Source: AGHT+IGfvpvvRqpEG/Oex0N9tjfpRAZ025tsMHe6YeOAdDHHT3Zla9OI0VbMt0jbo/h5W2qIgGnlqg==
+X-Received: by 2002:a05:690c:2608:b0:739:b67c:fcc6 with SMTP id 00721157ae682-77f942b14e2mr12524787b3.17.1759438090917;
+        Thu, 02 Oct 2025 13:48:10 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::41])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-77f81c35c4csm11367167b3.25.2025.10.02.13.48.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Oct 2025 13:48:10 -0700 (PDT)
+Date: Thu, 2 Oct 2025 15:48:08 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Arsen =?utf-8?Q?Arsenovi=C4=87?= <arsen@aarsen.me>
+Cc: Rob Landley <rob@landley.net>, Alejandro Colomar <alx@kernel.org>,
+	coreutils@gnu.org, linux-man@vger.kernel.org
 Subject: Re: Move GNU manual pages to the Linux man-pages project
-In-Reply-To: <60d83776-2873-4114-9647-0ec44120969a@landley.net>
+Message-ID: <20251002204808.7ip6sl73rsczobsx@illithid>
 References: <wqfzoyixsh4l3wg7tkz3c4bjejy4wlski2s5g2pwoqiy2wg3ty@lkqy5semt757>
-	<87jz1sm2t3.fsf@aarsen.me>
-	<fziyxvozscytwasmhtrpjfqbmldxmggjkdm4pzo7cupxhby422@czrmkask4xsc>
-	<87cy7e7hml.fsf@aarsen.me>
-	<e369c200-a7cd-4b92-b700-d9d48d347ce8@landley.net>
-	<86tt0jn27n.fsf@aarsen.me>
-	<60d83776-2873-4114-9647-0ec44120969a@landley.net>
-Date: Thu, 02 Oct 2025 20:46:11 +0200
-Message-ID: <867bxdgn0s.fsf@aarsen.me>
+ <87jz1sm2t3.fsf@aarsen.me>
+ <fziyxvozscytwasmhtrpjfqbmldxmggjkdm4pzo7cupxhby422@czrmkask4xsc>
+ <87cy7e7hml.fsf@aarsen.me>
+ <e369c200-a7cd-4b92-b700-d9d48d347ce8@landley.net>
+ <86tt0jn27n.fsf@aarsen.me>
+ <60d83776-2873-4114-9647-0ec44120969a@landley.net>
+ <867bxdgn0s.fsf@aarsen.me>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="3lnvufisejzwmon4"
+Content-Disposition: inline
+In-Reply-To: <867bxdgn0s.fsf@aarsen.me>
 
---=-=-=
-Content-Type: text/plain; charset=utf-8
+
+--3lnvufisejzwmon4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: Move GNU manual pages to the Linux man-pages project
+MIME-Version: 1.0
 
-Rob Landley <rob@landley.net> writes:
+At 2025-10-02T20:46:11+0200, Arsen Arsenovi=C4=87 wrote:
+> As said, 'man' pages don't have the ability to provide context *at
+> all*, whichever context might be necessary.
 
-> On 9/30/25 14:57, Arsen Arsenovi=C4=87 wrote:
->> Rob Landley <rob@landley.net> writes:
->>> It wasn't "lucky".
->> It was, it was obvious even in first edition Unix - I'll come back to
->> that.
->
-> So obvious that you need to point it out 50 years later?
+"At all" is too strong a qualifier, I think.
 
-I don't know what you mean to imply here, but I doubt I'm the first.
+I think the ncurses main page in recent years offers the newcomer to the
+library sufficient context to get them spun up on basic concepts.
 
->> When documetning, these more complex interfaces ought to be
->> decomposed into logical units for obvious reasons.  There are also
->> overarching themes that aren't simply attached to a single (or
->> handful) of bits of the interface.
->
-> There's more than one way to explain almost anything.
+https://invisible-island.net/ncurses/man/ncurses.3x.html
 
-Okay?
+That said, I'm sure it could use further improvement.
 
->> In the original Unix v1 programmers manual (or, at least, the copy I
->> could find), the term "file descriptor" is used 30 times, and defined
->> (poorly) twice.
->
-> And nobody ever bothered writing down what "inode" meant so I had to
-> ask Dennis Ritchie.
->
-> https://lkml.iu.edu/hypermail/linux/kernel/0207.2/1182.html
->
-> The downside of documentation being written by people who already know
-> the material. "Beginner's mind" is hard to recapture after the
-> fact. (I say this as someone who's been trying for decades.)
->
->> To clarify, I don't mean to imply that an OS-level manual should teach
->> the reader about basic networking concepts, but it is still useful to
->> briefly recap said concepts in order to clarify possibly-ambiguous
->> terminology and set up standards for your documentation.
->
-> A tutorial and a reference are not the same thing. That's tech writing
-> 101.
->
-> Half of teaching is figuring out what your audience already knows so
-> you can connect to their knowledge base and fill in gaps without
-> boring them to tears repeating what they already know. It's _hard_,
-> and no canned source will get it right for every individual.
+Regards,
+Branden
 
-Okay?  I'm not sure I understand what that has to do with the paragraph
-you're responding to.
-
-As said, 'man' pages don't have the ability to provide context *at all*,
-whichever context might be necessary.
-
->> Also, in my opinion, it is obvious
->
-> No comment.
->
-> Rob
-
-=2D-=20
-Arsen Arsenovi=C4=87
-
---=-=-=
+--3lnvufisejzwmon4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iOYEARYKAI4WIQT+4rPRE/wAoxYtYGFSwpQwHqLEkwUCaN7Ic18UgAAAAAAuAChp
-c3N1ZXItZnByQG5vdGF0aW9ucy5vcGVucGdwLmZpZnRoaG9yc2VtYW4ubmV0RkVF
-MkIzRDExM0ZDMDBBMzE2MkQ2MDYxNTJDMjk0MzAxRUEyQzQ5MxAcYXJzZW5AYWFy
-c2VuLm1lAAoJEFLClDAeosSTu10BAMyJemGID86qq2VhqyvI6iPzNYk3ezH1xvnb
-n2vHirZwAP9mdwoOx3a5vyyD68hfhu4LV/2h3TLV0JmJHCEiq1S0Ag==
-=O7/u
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmje5QgACgkQ0Z6cfXEm
+bc67Ig/+O+aE5DrL39+9LZhSbJ/VlJ71DjpvxGqUMYgL62Z1+ntjGmLepkdeOjoR
+zVU+1n3iiNeKYgYhCDimCtQOKDFaRX4q1Dd46DE1Nzt8si2VWChv7LhbcJic1QuU
+McxgHW2bFFrvPiPYzr5XbbZ8H0kvt+61fFhDJwHa/iREA8NcqAA/s0gobPDeqk+1
+Vcj/1cuQ4L3FQ3kevYpmutxDY4uN8Qt3eO5hs+9plYE7kVhuO/V4jvtlnNm3A+PB
+fKJj4nLHg49tTVj+896bkHgfU0cHIPAc7+DiVQ6j/3PBBnAzjdLxjN+9Pl/77RVj
+i5WnAQe7vbZDUmKtgB1g/RDU6ZlJzmnlDk8C//BQEG74hxf29ZSgzW/TvpOoz3rG
+OyU9R+GYvEFdJ0KfFKnwVVcgV4W3DZ8K1VbsHWU7K9lpureHyifbggU8o5JZBWo9
+Lzuqh6YWS+vvwZ+RhamurJ+6fW//hOeOzRxgaIMtiH8AUV7MW+WREgr+33UwZ7TD
+m+s9qWATl7itZ8p0O07EULI88KdDYcaOiYGD9DDvQP7Tkhj66yTR7uCl6mE8IshF
+oNnNMUvACHQm+0UoVGlBGeDjsQO5CoL4F6JstfuOeg6O+XoC8PLeE5tcFT4wDA2v
+asBkfUkNbIouMj46nAdN1b0D/uddllvyE795kw2uKczLkqOysdA=
+=cjR0
 -----END PGP SIGNATURE-----
---=-=-=--
+
+--3lnvufisejzwmon4--
 
