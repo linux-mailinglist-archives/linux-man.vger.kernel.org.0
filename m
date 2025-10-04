@@ -1,67 +1,55 @@
-Return-Path: <linux-man+bounces-4038-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4039-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D18E0BB5E50
-	for <lists+linux-man@lfdr.de>; Fri, 03 Oct 2025 06:22:43 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF70BB8B82
+	for <lists+linux-man@lfdr.de>; Sat, 04 Oct 2025 11:16:14 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id E10314E3F2B
-	for <lists+linux-man@lfdr.de>; Fri,  3 Oct 2025 04:22:41 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 6B550188B340
+	for <lists+linux-man@lfdr.de>; Sat,  4 Oct 2025 09:16:37 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDEEA1DE2A5;
-	Fri,  3 Oct 2025 04:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9CF2B21ADCB;
+	Sat,  4 Oct 2025 09:16:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b="eTQQxV7C"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHYZ6lXm"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA4313A3ED;
-	Fri,  3 Oct 2025 04:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1151D90AD
+	for <linux-man@vger.kernel.org>; Sat,  4 Oct 2025 09:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759465357; cv=none; b=bvIfDZ0m3ZmYyHstgrYjgvDXlOW+rOKFvd5MrioPDFPIjkV6FrkW0dIZFUPLH5dLwAIvWi0Z7Sff1PDwbQu9SOO5uj9V+/QOxjZRNFuSUoghq0Dae3rQtEBnRU8aYlNUm8Vj4GwHfigQclemMgDapw7EsYpcZjUrILtOdWHVza0=
+	t=1759569370; cv=none; b=jl5/oKluvkCLnSgYsJXf9yZqPftW2cdizvvNU93BGurEQ9QpxsG9xa0YUVfLm5wX2d+KBJ9m5JZSRUy6R7emSignZRcbItxw9MOiFICwjwWHMjbOzccvfneod/2LY0A6EVMGyZFZG/QWPLVPmOQZdWAKF8V3ABAPV5Gd+qGoz34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759465357; c=relaxed/simple;
-	bh=BXBFE0zEH+OZh3PToClWUyja4fEYE0kkxq/gjiSlJOo=;
+	s=arc-20240116; t=1759569370; c=relaxed/simple;
+	bh=V82PgDKUJ6G6esEs3VxJI85IAIUmKK8Sos0kh/RR1L8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pJkibh7uqX8dqWYpTccT19/cchBUfVGHI7n6rUjkV/+AoNbze4HlQ0xrHzHV0txPly9QQ38X8TO/mv/zQ3wDhBLM/ss68hC1Z1Dj1DJEHLW0lSwN1nW1/03yeL1oYRu2Nhr5LK6j9b2HBW8yWRrtK1tTj09ryxRjcTH4vkxKo0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com; spf=pass smtp.mailfrom=cyphar.com; dkim=pass (2048-bit key) header.d=cyphar.com header.i=@cyphar.com header.b=eTQQxV7C; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyphar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyphar.com
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4cdFr14RHLz9tdV;
-	Fri,  3 Oct 2025 06:22:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyphar.com; s=MBO0001;
-	t=1759465345;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rfjajPgEwVLh4oTw1tl5i3Qwbh9BXtm5rODawyfaF28=;
-	b=eTQQxV7Cz6Zn3ryUrERVS4yq5ujsCo1hGdrYn+LQE/4HeM9IxZOaOoJWV8uOYIG8sDbGmn
-	XXEAqo8Bt9rTbvQw84t0LR80s0IUu85LKusdEYIm3HYX6dOlGIvUDQY/d7N1OwRaIJKGQL
-	22G8fVxTW55uSaM8YdkUkiGCS+IvMHCSK2Ytj4iscuvLpTxmErI4JvC2AXQsEhZllKasLI
-	b3UFlui+wFlTp8eZEJ8XMW4P7qNsBhnutRYOa/xqG3nOPWELDcPCnmGkg2Rs1Bk7WZyMkR
-	1BFH/x2X513K06iS6iP1tyzWTYdIMnSG+C+vfO+zHqcHcE7TwJnZg+2NKtFMOQ==
-Date: Fri, 3 Oct 2025 14:22:11 +1000
-From: Aleksa Sarai <cyphar@cyphar.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Askar Safin <safinaskar@gmail.com>, brauner@kernel.org, 
-	dhowells@redhat.com, g.branden.robinson@gmail.com, jack@suse.cz, 
-	linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-man@vger.kernel.org, mtk.manpages@gmail.com, viro@zeniv.linux.org.uk
-Subject: Re: [PATCH v5 7/8] man/man2/open_tree{,_attr}.2: document new
- open_tree_attr() API
-Message-ID: <2025-10-03-chosen-flabby-plunder-premises-hrf07h@cyphar.com>
-References: <20250925-new-mount-api-v5-7-028fb88023f2@cyphar.com>
- <20251001003841.510494-1-safinaskar@gmail.com>
- <2025-10-01-brawny-bronze-taste-mounds-zp8G2b@cyphar.com>
- <5ukckeqipdkz6aigdy7rmtsmy5zav5x4rw2hrgbxiwfflrcmgb@jy7yr34cwyat>
+	 Content-Type:Content-Disposition:In-Reply-To; b=rnrIVkWyN4LdP2CQycD/oLoqS6SObMa8mzGg2U2KkDJzr1zPQSJnM8vxfC1PsJUwPjWuKvb4udbO/SoJEGcgrwZV9/8k7RCKhbogqYXTjeINjUY3junAQM8Sc8O9Oky9CvWVQ4xD9xDKleJ/oGgOS+vFHTm4T/yI/1pYkdjANNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHYZ6lXm; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08292C4CEF1;
+	Sat,  4 Oct 2025 09:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759569369;
+	bh=V82PgDKUJ6G6esEs3VxJI85IAIUmKK8Sos0kh/RR1L8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WHYZ6lXmgRZ2QYshsEvYeYP65q4BAjU3jZuVb0HtL/TxMZ4HX22oTYONLtjvWjY9Q
+	 I0jnO5N+b6e63fWYzKhYhEUnZY3a+k7W5z/hIUeIkX8cSp79nM2W6PAP/TRMerUvVC
+	 QCWBSzRBOwMG0tRmVJYAGz3+smwT0ohWpQfmXQ/1uzk67HQFuvJoOw+cC2PSY9q2FI
+	 C3x8lLXNp9Efa6prFFSJ92ip0YmdY7wKNJuYkpmeOMU2TmcXGmPoNk751pdqBTGCcc
+	 Xswxq27+UFwW0BOlZouZABB0o5uAXOzLJ7+7naeED/rYGst+ZwFaBZAZIAlVe5dHjM
+	 cZqjK8SwJRShA==
+Date: Sat, 4 Oct 2025 11:16:06 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
+	Bjarni Ingi Gislason <bjarniig@simnet.is>
+Cc: linux-man@vger.kernel.org
+Subject: Re: '^\}$' is changed to a space character
+Message-ID: <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <20250930194004.btcbo4xspyo3j3ua@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -69,100 +57,155 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wybfpsl2p34qcvgm"
+	protocol="application/pgp-signature"; boundary="2pdafsnmq3lrf5y3"
 Content-Disposition: inline
-In-Reply-To: <5ukckeqipdkz6aigdy7rmtsmy5zav5x4rw2hrgbxiwfflrcmgb@jy7yr34cwyat>
+In-Reply-To: <20250930194004.btcbo4xspyo3j3ua@illithid>
 
 
---wybfpsl2p34qcvgm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--2pdafsnmq3lrf5y3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 7/8] man/man2/open_tree{,_attr}.2: document new
- open_tree_attr() API
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
+	Bjarni Ingi Gislason <bjarniig@simnet.is>
+Cc: linux-man@vger.kernel.org
+Subject: Re: '^\}$' is changed to a space character
+Message-ID: <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <20250930194004.btcbo4xspyo3j3ua@illithid>
 MIME-Version: 1.0
+In-Reply-To: <20250930194004.btcbo4xspyo3j3ua@illithid>
 
-On 2025-10-01, Alejandro Colomar <alx@kernel.org> wrote:
-> Hi Aleksa,
->=20
-> On Wed, Oct 01, 2025 at 05:35:45PM +1000, Aleksa Sarai wrote:
-> > On 2025-10-01, Askar Safin <safinaskar@gmail.com> wrote:
-> > > Aleksa Sarai <cyphar@cyphar.com>:
-> > > > +mntfd2 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
-> > > > +                   &attr, sizeof(attr));
-> > >=20
-> > > Your whole so-called "open_tree_attr example" doesn't contain any ope=
-n_tree_attr
-> > > calls. :)
-> > >=20
-> > > I think you meant open_tree_attr here.
-> >=20
-> > Oops.
-> >=20
-> > >=20
-> > > > +\&
-> > > > +/* Create a new copy with the id-mapping cleared */
-> > > > +memset(&attr, 0, sizeof(attr));
-> > > > +attr.attr_clr =3D MOUNT_ATTR_IDMAP;
-> > > > +mntfd3 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
-> > > > +                   &attr, sizeof(attr));
-> > >=20
-> > > And here.
-> >=20
-> > Oops x2.
-> >=20
-> > > Otherwise your whole patchset looks good. Add to whole patchset:
-> > > Reviewed-by: Askar Safin <safinaskar@gmail.com>
->=20
-> I've applied the patch, with the following amendment:
->=20
-> 	diff --git i/man/man2/open_tree.2 w/man/man2/open_tree.2
-> 	index 8b48f3b78..f6f2fbecd 100644
-> 	--- i/man/man2/open_tree.2
-> 	+++ w/man/man2/open_tree.2
-> 	@@ -683,14 +683,14 @@ .SS open_tree_attr()
-> 	 .\" Using .attr_clr is not strictly necessary but makes the intent clea=
-rer.
-> 	 attr.attr_set =3D MOUNT_ATTR_IDMAP;
-> 	 attr.userns_fd =3D nsfd2;
-> 	-mntfd2 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
-> 	-                   &attr, sizeof(attr));
-> 	+mntfd2 =3D open_tree_attr(mntfd1, "", OPEN_TREE_CLONE,
-> 	+                        &attr, sizeof(attr));
-> 	 \&
-> 	 /* Create a new copy with the id-mapping cleared */
-> 	 memset(&attr, 0, sizeof(attr));
-> 	 attr.attr_clr =3D MOUNT_ATTR_IDMAP;
-> 	-mntfd3 =3D open_tree(mntfd1, "", OPEN_TREE_CLONE,
-> 	-                   &attr, sizeof(attr));
-> 	+mntfd3 =3D open_tree_attr(mntfd1, "", OPEN_TREE_CLONE,
-> 	+                        &attr, sizeof(attr));
-> 	 .EE
-> 	 .in
-> 	 .P
->=20
->=20
-> (Hopefully I got it right.)
+Hi Branden,
 
-That looks correct -- thanks!
+On Tue, Sep 30, 2025 at 02:40:04PM -0500, G. Branden Robinson wrote:
+> ...but my recommendation is be the following.
+>=20
+> diff --git a/man/man7/vdso.7 b/man/man7/vdso.7
+> index 0dc8bf6f2..750119996 100644
+> --- a/man/man7/vdso.7
+> +++ b/man/man7/vdso.7
+> @@ -141,11 +141,10 @@ .SS vDSO names
+>  .BR ldd (1)
+>  output.
+>  The exact name should not matter to any code, so do not hardcode it.
+> -.if t \{\
+> -.ft CW
+> -\}
+> +.P
+>  .TS
+> -l l.
+> +Lb Lb
+> +L  L .o
+
+For consistency with the rest of the project, I've used 'lB' instead of
+'Lb'.
+
+>  user ABI       vDSO name
+>  _
+>  aarch64        linux\-vdso.so.1
+> @@ -162,10 +161,6 @@ .SS vDSO names
+>  x86-64 linux\-vdso.so.1
+>  x86/x32        linux\-vdso.so.1
+>  .TE
+> -.if t \{\
+> -.in
+> -.ft P
+> -\}
+>  .SS strace(1), seccomp(2), and the vDSO
+>  When tracing system calls with
+>  .BR strace (1),
+
+I like this change.  I've applied this commit:
+
+<https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
+mit/?h=3Dcontrib&id=3Dfa940b6d17791a166c793b74a50cd72926d14b50>
+
+Here's the head(1) of it:
+
+	$ git show | head -n40
+	commit fa940b6d17791a166c793b74a50cd72926d14b50
+	Author: Alejandro Colomar <alx@kernel.org>
+	Date:   Sat Oct 4 10:48:02 2025 +0200
+
+	    man/man7/vdso.7: ffix
+	   =20
+	    Reported-by: Bjarni Ingi Gislason <bjarniig@simnet.is>
+	    Suggested-by: "G. Branden Robinson" <branden@debian.org>
+	    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+	diff --git a/man/man7/vdso.7 b/man/man7/vdso.7
+	index 0dc8bf6f2..8c8d00514 100644
+	--- a/man/man7/vdso.7
+	+++ b/man/man7/vdso.7
+	@@ -141,11 +141,10 @@ .SS vDSO names
+	 .BR ldd (1)
+	 output.
+	 The exact name should not matter to any code, so do not hardcode it.
+	-.if t \{\
+	-.ft CW
+	-\}
+	+.P
+	 .TS
+	-l l.
+	+lB lB
+	+l  l .
+	 user ABI	vDSO name
+	 _
+	 aarch64	linux\-vdso.so.1
+	@@ -162,10 +161,6 @@ .SS vDSO names
+	 x86-64	linux\-vdso.so.1
+	 x86/x32	linux\-vdso.so.1
+	 .TE
+	-.if t \{\
+	-.in
+	-.ft P
+	-\}
+	 .SS strace(1), seccomp(2), and the vDSO
+	 When tracing system calls with
+	 .BR strace (1),
+
+BTW, in the PDF, the '.P' doesn't seem to be working.
+<https://www.alejandro-colomar.es:80/share/dist/man-pages/git/HEAD/man-page=
+s-HEAD.pdf#vdso.7>
+
+I don't see the space before the tables.  Compare with the old PDF:
+<https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/book/man-pages-6.=
+15.pdf#vdso.7>
+
+> ...and so on similarly for the rest of the tables in the document.
+
+The only other one I can see is syscalls(2).  That one is a bit weird,
+so I'd like you to have a look at it and tell me what you'd do.
+
+
+Have a lovely day!
+Alex
 
 --=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-https://www.cyphar.com/
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
 
---wybfpsl2p34qcvgm
+--2pdafsnmq3lrf5y3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABYKADkWIQS2TklVsp+j1GPyqQYol/rSt+lEbwUCaN9PcxsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMSwyLDIACgkQKJf60rfpRG841QD/aQiZQdLpxxn1Be+21pvf
-bXC7K4m0Tl12JBmevAxkfhAA/3deU7Zt6PHKGPssSrsI4P6icJWoYcVBvunm3LjI
-doEP
-=yX5i
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjg5c8ACgkQ64mZXMKQ
+wqlv6Q//fOgJTFsOwEjnMyX9tRhjDF/mSLb9QDzM5ihXNIjfhBevxwMJZLwycn9v
+85TfCPUEwL64JbfaAlZG9G7DWVg1E5a0fayCb3Qc++grH03ECJfIzZiVRGFZF+tv
+3TcLWRT+loiOBZ3bpZuDMv3z9c/Og+o8qpdGwpm87XzeKbxolA8qYgyWdVjhU05n
+CKBryxUa1OnKtponNScUF+cgib623P5hkfRizUrdbnqgInbUs1uurFQsWQjQZ6Oe
+1eINRfBZzwhFT8D1Jea1lfVeZOvcdpYDxrkN+uTtK9WN7vfXiSf9jR//UrTSpsW+
+A+6h3ADVNE46MvuYIv5iq2dWrRFz0f2783CexLj5zy1Td5uguaWw/QCohtR5whL8
+Z0pWrHSNEw/UsxRHNAZCJqZBux8SCX1UsbpfFpgmuqJGfirm06EXbqdwTLlQL9iz
+15c04iwLnwFAb9qP8u/pUSmLr/LcolvYZb1RCpOleM3SauGwdHsurj81FyrAufTU
+Yke6X+9U2/seZsFiGN2fIgoXRCmJA2p5vEkeXOp6k4izEzfEJ9w4hNxkhu9nf4D3
+FdmWMnavCawiYPL5FCwF8Tz0scMBFGU1ukGwzL+gFV7Fh0+28p8RFC+Lq+C0uGta
+1H5GaR/uqRsFGMigt44zS+fIsb5WzeBnfZOX/MOU24pZqKb6QAE=
+=Xnpi
 -----END PGP SIGNATURE-----
 
---wybfpsl2p34qcvgm--
+--2pdafsnmq3lrf5y3--
 
