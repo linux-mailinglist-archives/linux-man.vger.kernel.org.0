@@ -1,85 +1,87 @@
-Return-Path: <linux-man+bounces-4043-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4044-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B86BB9652
-	for <lists+linux-man@lfdr.de>; Sun, 05 Oct 2025 14:45:55 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1C6BB97BE
+	for <lists+linux-man@lfdr.de>; Sun, 05 Oct 2025 15:48:22 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id C215718969E2
-	for <lists+linux-man@lfdr.de>; Sun,  5 Oct 2025 12:46:15 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2859F1892F4A
+	for <lists+linux-man@lfdr.de>; Sun,  5 Oct 2025 13:48:45 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34E9F1C69D;
-	Sun,  5 Oct 2025 12:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C532C26C39E;
+	Sun,  5 Oct 2025 13:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O20S3wDa"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YcLWsUQ5"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3772D3D987
-	for <linux-man@vger.kernel.org>; Sun,  5 Oct 2025 12:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21357262F
+	for <linux-man@vger.kernel.org>; Sun,  5 Oct 2025 13:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759668351; cv=none; b=WqevhV+rxxtRW4LJAZQ8/7LAbuRZmFav0B1W1FfxzbGLnJtwljp71SG75UTiZ7n04qKMKOHCS+Iujm1wBxQGt3wOOty7y+r7JvL0W+NDLuGqMG8733KxABbTkcHYFeAA1fxHzpekoIueu9xBm3Jnm/F64zqwcK1nioiclwTQxsc=
+	t=1759672097; cv=none; b=mNvSVvOZ91KFrxWHJxxmzwmkej/VdydOh9cWgbsquZ8A65q2Iua7q6DOcwiD+KStLfbWD+4G1Vb6VqvdmAb2lrKaeCpUS77obS0Bbgvx9OjJCx/6Gx60Jp38T577nFAaB+A43MTLliBvX6dbuMqMXbm0DQigIiQmF6gI+booq44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759668351; c=relaxed/simple;
-	bh=fdo+pY4lQIdmTrZ/fPbAVzxndBOFuJ7wVIjifdMCb0g=;
+	s=arc-20240116; t=1759672097; c=relaxed/simple;
+	bh=qKD4I2/A1DA7J2E641VHjx5UE7zgnQHxHIEOqu42l0k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=acnH89KvifTj36FRjU5wyDAfwjWPZHuQWuBC4fPs/DUw9zj9JT2btEFgivG1yKbwj/b4s+aM+IEcVz051N9Au2iGl2GVDb5rgMca6hAI3e2OiSKeR6jZ9RaEKRb0wXGaTplkWCEKPAVhc2udI3naVkgy36CfvvI4PwpV0hIHqvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O20S3wDa; arc=none smtp.client-ip=209.85.128.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=SlZmGV6fK20pmhTrej0+q3qZeu+g/h8GPshmyfseY965LwACY919bB+ryDBRA5MfOH8+qlT4/fxbZR3R/vMDM04MMtgMOuWMUSyJpoSeIbOirN/aRPvc4q8W1nVwIQpRgsCmETqdX8d+MEWu3neycH21116vNF+Gbd1wJKncqnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YcLWsUQ5; arc=none smtp.client-ip=209.85.128.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-71d603cebd9so49741327b3.1
-        for <linux-man@vger.kernel.org>; Sun, 05 Oct 2025 05:45:48 -0700 (PDT)
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-71d603acc23so44029557b3.1
+        for <linux-man@vger.kernel.org>; Sun, 05 Oct 2025 06:48:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759668348; x=1760273148; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1759672095; x=1760276895; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=e5Koz0YOLclX1t3WEaj4LsQ/O5ymNRhhgN/FPWFX3M4=;
-        b=O20S3wDarxGyZ21T4AD1JP+NEYRfdLVwZkL/OtHI+8yZemfO1E1iPyipgZfjrO5ZuZ
-         3n/GQbQMXtGN2FIFShZKuZCglf58yBIO96F+zCnEJDe7howgr9VXGPva8nuO7Wu4hUhe
-         AFfU6/UZhHfeb3DKUgBFARe+ZAv15qkzGQItpx45JpmgRQZzo0nTC4u/GgqoTX1tW8Yp
-         dzi7Nwzg6l882vKf4uuCM6VbQ5bsnhQIajmdRvvd5iJarsUHHAd5v4GZV6fwwwgLXtDC
-         4vRJvUAXdt7GyblATuSYPaeYwTCCelmrB+27T6ifWCNwGt1KH1lF3ZUOSnh0Gy5gLBd4
-         0sWQ==
+        bh=wQr7bgg0z9GtK1kVzMqy2B/drJ2DKpABtZRgNjQY9LQ=;
+        b=YcLWsUQ5dIDDdgYAshdBrV6JBT+S2NeyI7WFKJsPl5gfQrQO8zpcq7hkFNc6FbxGYe
+         ePTe1dfROATqeRghSAPDDzCYRU6Y0eNNJfFc5KS9AV78UPeqPazKujhT1GfDHbOi6ymv
+         GvqfoZaB23xEXgNrsF655YWiH8xQC+7noZkrLHH3Lfs7ffjAVw0g24/0cHBQMo4xO368
+         GVPD605+u/5gJNsnU8rlcgX9OmG94fBSefuma73nbl8CAw0tW4ieNveoMlJbpcjWbIA5
+         IDYkiJSfLl30h8+nmzEkNVC7QLGptmSHjpLAgD7Paueiyv1pOb/NavABgglrOh7Ayy+x
+         QMPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759668348; x=1760273148;
+        d=1e100.net; s=20230601; t=1759672095; x=1760276895;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e5Koz0YOLclX1t3WEaj4LsQ/O5ymNRhhgN/FPWFX3M4=;
-        b=evTn/Uo6VooAFXBAw3YVPdzCzEbHlZQpI6+GKoeFU+SkzyRlp6hL4Dx2S11qG5+htL
-         w0yhyUOWOPzDJhxaY/Jdpi3b0U6SMH53L0fQlSka8SuoGlq67qaXC0fF1X/I125zCI+S
-         Kq4tjvB7Fwa4qlRNbo072OYKOiuxagaY20vE8cA9bYF/7GRICtNzjUgjjduUl536dOlC
-         77xsUUSoOkLz2B3Xl1WMn1gg1wjpuYdmtMuKUUOny3xDRH/6t4i9cVG8Z2pBBuhlXYUG
-         1seOd3OAtuX3fywOJX4WrABG38x85fiKQdjso74lILqmfLibOKKIircj1WPmIbf5ZGGk
-         EakQ==
-X-Gm-Message-State: AOJu0YwRMSCBv8BS7L4whl0TyKHaFjcomvrCqFWj9UmKHueT/BDNz6qa
-	dWqoJtfZgKam8QMLOM6UIKuTRKTb6hGCgO0zbZzoBbvBLBuCAd2Z7EJ5mypX6w==
-X-Gm-Gg: ASbGncstNgcgZOSUKmajYSYSCzQR5tSDN8FtWA+IQraNoHRI8+sZwGWGmlSdu30JKVg
-	XAqa3ZIcagrmoTM6+dRpk5ozz+f18erccL50KQpxMb3y8DPb/tKOmHhgSnKmLIcdHQQK0VLQB14
-	9HpKrM4kR4K0lufbRsBaetj8rHE0tDPft7yhlYHXQTS8M070RCp6xxem1kn3LonNS5henTeRYiR
-	KzBky+80QstCaDcrdnv8Kw5Y+NYbAsg4fBVh5b22DyHUc3vXxw4yOyqe9yJb4vLKQDN2nPXYpqz
-	jz4+E/jlXe1m2Vn7Vhwb8TUCo18LYMr1dn/2Sb1L1aKCqbT4np3pl4FJOWKZt9xtqU2hmUOpQYL
-	ye9LFo9nC5axxWfymcFWHWtugDE1ltReol+pM+EN3Sd8JE/w=
-X-Google-Smtp-Source: AGHT+IHNCyno7NI0LjLR3IDVWorxDgLLbdLe5a3eMth/WY5wwc8Sg0V6pzdET6MiEl818qTB/TWa6w==
-X-Received: by 2002:a05:690c:a90:b0:761:1488:99dd with SMTP id 00721157ae682-77f94564737mr99943717b3.4.1759668347759;
-        Sun, 05 Oct 2025 05:45:47 -0700 (PDT)
+        bh=wQr7bgg0z9GtK1kVzMqy2B/drJ2DKpABtZRgNjQY9LQ=;
+        b=sBjN9P7G7ScACQY2JUyFfYMz4ityOw5lh1lbRxW0bXixrHUyzrqAdn6GR2/zIEH2Oo
+         0LHC64gOWzW53l924M4Qt7qeUjHDAuOcBXaTHzVxKTmm7y9pRet3niM4D29GMqtZShZo
+         O9eIFu542tut38GOL497tGzimyHDPfH3nlCCIsBrcJQt34ciQR1QQOiEhl6agFnuPqIX
+         2O2oS0598upQAFXR1g0dWdD/sp2UhaHZsAM0cTbklcJDqIAinLJEhigZeAKFNvHG+jt3
+         95iAGMqdZ++cp+SLDQnBktBbZQCqJ+Q6EoKPguOwaHaojCP9dfdjA2G2GR8lxh2FrlXG
+         EvSg==
+X-Forwarded-Encrypted: i=1; AJvYcCUCOM5NMGT2ztZWWeuGGD95OnS7jNMm5O8qdnCa7DVQIDUbKOBYIsN2kP8NAiGxaiglENN/KrB7IZY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5gUCL9xNt06Nq8Sppezxnktf9eaOzZTTvYQu3LPX/4MyPcnyD
+	MtpLmp016yYBZTSntA88pw/+Ny2LpUvAjpFIoVqAiUz/BFG3o8Lo+lN+AMK4tg==
+X-Gm-Gg: ASbGnctzH4EKg6GxAc5JvD5q3oi3hEuEsi0/noStbT5GPYZvJDU9KVbXUcG0964YpKl
+	kWLBLQJlSlTyl8S0T6A0AEoXfMWwOP1rLTd8PWWoNkU3BoYAfBqWwyEmej7fHiy0NnWjYtOePb3
+	dsbsYxKvqsJnterpEgVrR6Tasd13AGAVi/TVVs2yrykoJz719vrUuWLAgmkzvBza9AfN/ZLwVHn
+	xFNCzxf2mk2FF/N4CB3qf2n+yDz60ZaGVn+S6wk+5c0VGiA+ktBG6wfUaLdi/S91meJgDm6m3ST
+	WtQ4bTpm4BW+YKo5jCMalwH5G7nFbWfchlzKEEITHtNB1tC2i9WGWXTiRiNwVCXq3wYW+fAVgjU
+	Zd2HYnL0tbN1UjsgySfVl31ljMQv55hXYPzvK
+X-Google-Smtp-Source: AGHT+IG0rFE4MB4EeupiYr9aFZlrWQET4zZXeBUWwg45mSY8EPS8lJRbANPKi2JzwKgpDnUGhSDqug==
+X-Received: by 2002:a05:690c:450a:b0:727:501e:9a4d with SMTP id 00721157ae682-77f944ad87fmr130706247b3.33.1759672094782;
+        Sun, 05 Oct 2025 06:48:14 -0700 (PDT)
 Received: from illithid ([2600:1702:7cd0:e980::41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-77f81e3bf45sm34352037b3.56.2025.10.05.05.45.46
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-77f81e4f013sm34458867b3.60.2025.10.05.06.48.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Oct 2025 05:45:46 -0700 (PDT)
-Date: Sun, 5 Oct 2025 07:45:45 -0500
+        Sun, 05 Oct 2025 06:48:13 -0700 (PDT)
+Date: Sun, 5 Oct 2025 08:48:12 -0500
 From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Subject: Re: tbl(1) issues in console_codes(4)
-Message-ID: <20251005124545.hagkbqas5devc3iz@illithid>
-References: <xl24ubmnak3ygqgnlh74z6gry4vi7dssvmuo2itsud6y3lirrd@cf74bnypoqmp>
- <20250925221012.lss5ixmixnqrnrwq@illithid>
- <yzqe6a4f4nvlto5pck454sc4l7vtakyot3qsq3bxu6dgscocdy@s7lzwinqdjsx>
+Cc: Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org
+Subject: Re: '^\}$' is (not) changed to a space character
+Message-ID: <20251005134812.jvwyjjklabmnzejp@illithid>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <20250930194004.btcbo4xspyo3j3ua@illithid>
+ <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
+ <20251004094243.avg4hvwwir7ink5u@illithid>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -87,237 +89,128 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="aa57pthcdarp76ja"
+	protocol="application/pgp-signature"; boundary="vfdunptz4c746qgl"
 Content-Disposition: inline
-In-Reply-To: <yzqe6a4f4nvlto5pck454sc4l7vtakyot3qsq3bxu6dgscocdy@s7lzwinqdjsx>
+In-Reply-To: <20251004094243.avg4hvwwir7ink5u@illithid>
 
 
---aa57pthcdarp76ja
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--vfdunptz4c746qgl
+Content-Type: text/plain; charset=us-ascii; protected-headers=v1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: tbl(1) issues in console_codes(4)
+Subject: Re: '^\}$' is (not) changed to a space character
 MIME-Version: 1.0
 
 Hi Alex,
 
-At 2025-10-05T13:09:25+0200, Alejandro Colomar wrote:
-> On Thu, Sep 25, 2025 at 05:10:12PM -0500, G. Branden Robinson wrote:
-[...]
-> > If you want to avoid overset lines with tbl(1), you must either
-[...]
-> > 2.  use text blocks.
+First I must correct the subject line.  '^\}$' is not "changed to a
+space character".  I explain below.
+
+At 2025-10-04T04:42:43-0500, G. Branden Robinson wrote:
+> At 2025-10-04T11:16:06+0200, Alejandro Colomar wrote:
+> > BTW, in the PDF, the '.P' doesn't seem to be working.
 >=20
-> Thanks!  I've done 2, of course.  :)
-
-Sometimes they're the best tool for the job.
-
-> > I would format the document with `MANWIDTH=3D65` and, for any line
-> > that still oversets, stuff the descriptive table entry into a text
-> > block.
+> > <https://www.alejandro-colomar.es:80/share/dist/man-pages/git/HEAD/man-=
+pages-HEAD.pdf#vdso.7>
 >=20
-> I've done it with MANWIDTH=3D72 for the commit above.  However, if I go
-> down to 64, I see some cases where we're using text blocks, and
-> groff(1) still doesn't do a good job:
-
-Well, first, I personally wouldn't ever take the MANWIDTH down below
-65n, except to troubleshoot a macro package or the formatter itself.
-
-A line length of 6.5 inches, or 65 ens on a typewriter using a "10
-pitch" font, which amounts to the same thing, is about a 55-year-old
-tradition in *roff.  Maybe longer, depending on what Jerry Salzer's
-default for "RUNOFF" was.  It's pretty deep in cement, like the
-presumption of U.S. letter paper size.  Of course these things are
-configurable (and I'm sad that the U.S. doesn't use ISO paper sizes),
-but due to inertia and the size of existing corpora of man pages,
-pursuing good formatting at a narrower line length than that seems like
-an unrewarding effort to me.
-
-Setting matters of style and strategy aside, I have a technical question
-to field.
-
-> 	$ MANWIDTH=3D80 man ./console_codes.4 | grep '.\{81\}'
-> 	$ MANWIDTH=3D72 man ./console_codes.4 | grep '.\{73\}'
-> 	<standard input>:130: warning: table wider than line length minus indent=
-ation
-> 	$ MANWIDTH=3D64 man ./console_codes.4 | grep '.\{65\}'
-> 	<standard input>:130: warning: table wider than line length minus indent=
-ation
-> 	     ESC Z     DECID    DEC private identification.  The kernel returns
-> 				the string ESC [ ? 6 c, claiming that it is a
-> 	     ESC 7     DECSC    Save current state (cursor coordinates, attrib=
-=E2=80=90
-> 				utes, character sets pointed at by G0, G1).
-> 	     ESC 8     DECRC    Restore state most recently saved by ESC 7.
-> 	     ESC % @               Select default (ISO/IEC 646 / ISO/IEC 8859=E2=
-=80=901)
-> 	     ESC # 8   DECALN   DEC screen alignment test - fill screen with
-> 	     ESC (              Start sequence defining G0 character set (fol=E2=
-=80=90
-> 	     ESC ( U            Select null mapping - straight to character ROM.
-> 	     ESC ( K            Select user mapping - the map that is loaded by
-> 	     ESC )              Start sequence defining G1 (followed by one of
-> 	     ESC ] P            Set palette, with parameter given in 7 hexadeci=
-=E2=80=90
-> 				mal digits nrrggbb after the final P.  Here n is
-> 				the color (0=E2=80=9315), and rrggbb indicates the
+> Hmm, yes that does look wrong.  Plus, I see too much vertical space
+> _after_ the "ARM functions" table.
 >=20
-> But if we check the source code for the first one, we see it's within
-> a text block:
->=20
-> 	$ grep -C2 'kernel returns' console_codes.4
-> 	ESC Z	DECID	T{
-> 	DEC private identification.
-> 	The kernel returns the string ESC [ ? 6 c,
-> 	claiming that it is a VT102.
-> 	T}
->=20
-> Why is that?
+> I'll get back to you on this.
 
-It's because of item 7 I mentioned:
+The problems are straightforward.  Here's the relevant source.
 
-> > 7.  Stop using `\0` escape sequences to achieve indentation of table
-> >     entries; favor `\ ` (an unbreakable space) instead.  We're not
-> >     laying out numeric data, and both are universally portable.  We
-> >     don't want to use groff's `\~` because we don't want these
-> >     spaces to adjust.  Really, we shouldn't be using space to indent
-> >     table entries at all.  That's what the `A` column classifier is
-> >     for.  Using `A` brings the additional advantage that if a text
-> >     block is in a column using that classifier, and it breaks,
-> >     subsequent lines are indented the same as the first.  This
-> >     advantage is unavailable with `\0` or `\ ` because you don't
-> >     know in the document source what the width (line length) of the
-> >     output device will be.  In fact, I'll attach a second version of
-> >     the diff capturing that reform too.
+---snip---
+=2ESS ARM functions
+=2E\" See linux/arch/arm/vdso/vdso.lds.S
+=2E\" Commit: 8512287a8165592466cb9cb347ba94892e9c56a5
+The table below lists the symbols exported by the vDSO.
+=2Eif t \{\
+=2Eft CW
+\}
+=2ETS
+l l.
+symbol	version
+_
+__vdso_gettimeofday	LINUX_2.6 (exported since Linux 4.1)
+__vdso_clock_gettime	LINUX_2.6 (exported since Linux 4.1)
+=2ETE
+=2Eif t \{\
+=2Ein
+=2Eft P
+\}
+=2EP
+=2E\" See linux/arch/arm/kernel/entry-armv.S
+=2E\" See linux/Documentation/arm/kernel_user_helpers.rst
+Additionally, the ARM port has a code page full of utility functions.
+---end snip---
 
-The troublesome line is this:
+As Bjarni pointed out, you probably want a *roff control character
+(typically `.`) before those closing brace escape sequences.  If the
+branch of the conditional is taken, the closing brace sequence has no
+effect itself on formatting, but the blank line that remains _does_,
+just as with a `\"` comment.
 
-$ sed -n 150p man4/console_codes.4
-ESC % @         \0\0\0Select default (ISO/IEC\~646 / ISO/IEC\~8859-1)
+https://www.gnu.org/software/groff/manual/groff.html.node/Comments.html
 
-> > Consulting my Git checkout of `man-pages`, I see that while some
-> > entries in this table use text blocks, others don't.
-> >=20
-> > $ nroff -t -rLL=3D65n -man -P-cbou man4/console_codes.4 | grep -E '.{66=
-}' | wc -l
-> > man4/console_codes.4:130: warning: table wider than line length minus i=
-ndentation
-> > man4/console_codes.4:330: warning: table wider than line length minus i=
-ndentation
-> > 29
-> >=20
-> > Those warnings will be wanting attention.  Also, I noticed that some
-> > of the table entries overset _even though_ they're already _in_ text
-> > blocks.  How is this possible?
->=20
-> Yup.  I'm intrigued.  That explains why the entry right after the one
-> I fixed was oversetting, even though it was in a text block.
->=20
-> But I don't think it explains the ones I'm showing above.  At least
-> not so obviously.  The entry for 'ESC Z' is the first one that
-> oversets, and it's within a text block.  Would you mind explaining
-> that?
+That explains the excessive vertical space after the table when
+rendering to PDF.  But what about the missing vertical space _before_
+it?  The same spurious blank line is there, too, when typesetting--why
+doesn't it have effect?
 
-It's the same problem with the same explanation.  The "ESC % @" blows
-out the table width, its column uses the `x` modifier, and that column
-is shared with text blocks.  Thus those text blocks greedily use the
-width of the "ESC % @" row.
+man(7), like other macro packages, employs a formatter feature called
+"no-space mode" in its sectioning macros.[1]  This means that attempts
+to put vertical space on the output fail until at least one glyph (or
+drawing primitive) is typeset.  Looking over groff_man(7), I don't see
+that I've actually documented this--so, homework for me.  (This is the
+reason that calling the `P`--or `LP` or `PP` macros-- immediately after
+`SH` or `SS` has no visible effect.  `HP`, `IP`, and `TP` work normally
+except for the inter-paragraph space they ordinarily apply.)
 
-> > Fixing up a couple of spots where text blocks should have been used
-> > but weren't (diff attached), I get the following result.
->=20
-> The diff changes more than I'd expect.
-
-To a man with a 10 kW clipper, everything looks like a yak...
-
-> > $ nroff -t -rLL=3D65n -man -P-cbou man4/console_codes.4 | grep -E '.{66=
-}'\
-> >     | wc -l
-> > 0
-> >=20
-> > I made several other changes to fix things that drive me crazy.  Most
-> > are cosmetic.
-> >=20
-> > 1.  Stop using `ad` requests.  They don't do what people think.[3]
-> >     However, _do_ use `na` requests _inside text blocks_ where
-> >     necessary to defeat adjustment, because they work reliably
-> >     there, and cannot damage the rest of the page.[5]
->=20
-> Would you mind suggesting a separate patch?
-
-Sure, I figured.  :)
-
-> And why do we want .na sometimes?
-
-If there's not a lot of real estate on the page/screen for a column
-using a text block, adjustment can look ugly.
-
-> Why is it necessary to not adjust sometimes?
-
-I don't know if it's ever _necessary_, but it can be appealing.
-
-> > 2.  Add paragraph macros before tables so that they set like
-> >     typographical "displays".  This is common (if not universal)
-> >     practice, sometimes done already in the Linux man-pages[6] and I
-> >     think it looks better.
->=20
-> I'll do this globally.  Would you also do that for 'allbox' tables?
-> Or should I keep those as an exception?  (See man3 pages; section
-> ATTRIBUTES.)
-
-I don't have an opinion there.  I _am_ pleased to report that you can
-exercise either choice and groff 1.23 will not betray you.
-
-https://savannah.gnu.org/bugs/?63749
-https://lists.gnu.org/archive/html/groff-commit/2022-07/msg00134.html
-
-[...]
-> > 5.  Remove trailing spaces from entries in the "Linux Console
-> >     Private CSI Sequences" table.  This makes more efficient use of
-> >     space and, for some screen widths, permits more table rows to
-> >     fit on the line.
->=20
-> Trailing spaces?  I can't find any:
->=20
-> 	$ grep -rn ' $'
-> 	man7/bpf-helpers.7:37:.\"=20
-> 	man7/bpf-helpers.7:41:.\"=20
-
-They trail the _table entry_, not the input line.
-
-Inspect the "ESC [ 8 ]", "ESC [ 13 ]", and "ESC [ 14 n ]" rows.
-
-What you want to look for are spaces followed by tabs--assuming the
-table uses tabs as its column separator in the data entries.
-
-> > so let me know which of the enumerated items you want
->=20
-> Possibly all of them.  I'm not 100% sure, but please send them all.
-
-Can do.
+You _can_ disable no-space mode with the `rs` request.  Other approaches
+would be to simply let the table abut the (sub)section heading, or
+precede the table with an explanatory sentence.
 
 Regards,
 Branden
 
---aa57pthcdarp76ja
+[1] Strictly, groff man(7) currently enables no-space mode in an
+    internal macro named `an*break-paragraph`, which all of the
+    sectioning and paragraphing macros call.  The consequence is that
+    the following input:
+
+    Foo.
+    .PP
+    .sp 3i
+    Bar.
+
+    ...does not put three inches of space between the paragraphs, but
+    only the configured inter-paragraph spacing amount.
+
+    The `TH` macro also (indirectly, via a trap macro that sets the page
+    header) enters no-space mode after writing the page header.  These
+    provisions are all to keep an inexpert man(7) document author from
+    making a hash of things.
+
+--vfdunptz4c746qgl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmjiaHAACgkQ0Z6cfXEm
-bc5zABAAmxrDyotf2KEkhzqcHEgUdWfIbUMcftowKP1fj4s30aLG0wPCgTKEHNOa
-Qi1K/196pW+829TCeZesHQ9CfnJFGjbOw8oyHRSSM4Sci5qpgOpu8MzhSFXfb3jU
-wMBtW9HJKd0RBJcQzleuH7JruCxLEMv2VFqmNnepQXkg7n3e187ByMlCcB7XwLlV
-YSxn3xwl9lNmtRWvEthcw2UhIxU8c3rEDJeB+P9qf8OSUCw0ZF3PSqZazSSr4iR4
-o1NkWsAy9i0vkB8dQs9I6HfEl4R3SqDB6CtQJVdR/xffaWlxGUdqBcoXJguGoh7C
-DH0O6iWSbKaQvATAZzf7zKEFz8Au9ZFE29L39osZriaEpbEm1FGL84gAVFD7/xMj
-p+jHlyWycSTBYoPo2JYS2eQlUicO0lZ2AbkvRVe01LvXuCc1ttZcYuca1CPLbl/B
-oRR1zgLrfzlud3U3+vlMbmnJ//LNq1LjGWAcEW9SzccJIExUmIs1XvzylKP7pYJu
-BalSfw3kRQ8KhDs+bvuy5lVlqSbS7l2IUM3CvzYIfGS38KaZGlWe077OF3zkleBE
-zRTj6KXJn454D1VP4NPI3eBTgAxlizdbzC/qath5DkuGoTbZ5pqwUmi3PmUwFMzF
-a1VYHGFn0WCrQkc5JMPJQr0PNXOYYoc1zmkfHIlE0ie1KRjOVBM=
-=d5jN
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmjidxQACgkQ0Z6cfXEm
+bc6ARA/7BZIAcvxwNib2YhZ8HTFQbrSiuJa/HYhwlOnMb97/Aj1gLzD/HMy0HEUC
+XV5cIGwhLs2gr75Cv68VCiiZsmuUjSfph/6CvUPMDE/KhHcnPIwFuN8MillqK47n
+DxCNSIXOvCgJeiEqGt4YCznY8ZIenIvSxRm8BNjk9MVcoC/hfEgK7B9Lf+y9a+Fh
+I1EFUBpSD4wPA7vrem0d5diIa5sExwZQn41x8B86AkPAAR+LEl+xaG29aND8Xyzx
+q1ft/7QKNOaRElar6brZKi8d3hOlsaXhdiqey7UFhm5CnN4bg+3UdTrKySGm2wOm
+Dn8vJ3iyq6Hn7SLBW/AkhiriiIu7ON5sP4GGHbB2eiZvy/p6t6Mu5PL9y6KZ9tJN
+2hVpO2bcig4R+0mCqO3oO/hZODMowzmxWLbK1bpW9JQwV6gW8jGUBtFsdk//hh/i
+MMewSQp+WFLPE0QfRd+1XhyzRhsU6K2CdiKJkT++0nY4Pc+ihr6sAFczTKeTzo+p
+aLNSeYUsguoBHLL2Rk5jem8O4Xipz46BR6EteesqtgodLlcxVQpjOB62mRQeI7LH
+Mj1zW9xDPAHZgJWnWTRqh5UQNxHBq/E/W919Avc9u/D509Dh5bWM7AQXrfkSpX5+
+jmr7r3qFAE/sl/H4SXdIN7YLK3SPGlzTWDa2XeL+0MU6YZv9jFU=
+=b/LJ
 -----END PGP SIGNATURE-----
 
---aa57pthcdarp76ja--
+--vfdunptz4c746qgl--
 
