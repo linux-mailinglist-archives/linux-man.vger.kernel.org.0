@@ -1,245 +1,124 @@
-Return-Path: <linux-man+bounces-4050-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4051-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92BDBBDAE8
-	for <lists+linux-man@lfdr.de>; Mon, 06 Oct 2025 12:25:32 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA454BBDB69
+	for <lists+linux-man@lfdr.de>; Mon, 06 Oct 2025 12:39:09 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 3A32134A4EA
-	for <lists+linux-man@lfdr.de>; Mon,  6 Oct 2025 10:25:32 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id B00074E5F6E
+	for <lists+linux-man@lfdr.de>; Mon,  6 Oct 2025 10:39:08 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1318233155;
-	Mon,  6 Oct 2025 10:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D76423D7FD;
+	Mon,  6 Oct 2025 10:39:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o6ivTT2k"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SW6hDbjw"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5DC23314B
-	for <linux-man@vger.kernel.org>; Mon,  6 Oct 2025 10:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8E8188000
+	for <linux-man@vger.kernel.org>; Mon,  6 Oct 2025 10:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759746326; cv=none; b=dkFN2xVWem6cn+rpesVprCltv+Q/quWabABaFjMhIax5ucAuPDRYl+F7C8HKJUZM7V54uGh91ZVSPostSx6S3U9kDD/O6KaLgqLZLR3X4324bmkGdZcPaqwHuEPBQW7u3FPKMCcyelPcHdYk/lxMPPsvRZ0aqPu9idnlmNEg3qo=
+	t=1759747145; cv=none; b=ghxj/AlJ143I3fSSxypaALR1whCW1pdqS89BPhjh22Cm34QZgLx60kGpHsNg3Ae5fdNAlz+T14BJPT7DTGRyPUZXvh2rmlGEpItoPVQkNhsl7f8Fi7ZLg6G2RVNvpY+6Wke2ci4hFq97VPNA1hhh3vmHBoFQoYArgoA41/KbAxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759746326; c=relaxed/simple;
-	bh=sZJAwYtjW21brwqLcvmF+mg+D3LfQxFTEv2kQtbMH+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hmvM9Z9mN7aXa0uaEhZrROcYjUkqfLXcY14oH4sYgRD+PRLAAMQ9i6Q5IjebY/rGxtpLmeqFwZgEm7+9tD320x1qcZH1F2blA2eMT3uT1E0RyVfWowbCjD6GiMhIa2ZmrJ9tgxIuwNuC4N0E6RvQHGV3vKh34YyeBIkQxvnYGVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o6ivTT2k; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AFFC4CEF5;
-	Mon,  6 Oct 2025 10:25:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759746326;
-	bh=sZJAwYtjW21brwqLcvmF+mg+D3LfQxFTEv2kQtbMH+c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=o6ivTT2kSnBCqSbHO++TtsJ/83R/HH86Mc/faEh7cNfpGmSsweZEptu2HAm6zPacQ
-	 hvWNLR+sNf/g9X8lOxoqjBjze4NDjmMBxdiMoY9Xslv/HcuVF4mYhULLf/iq2XMvor
-	 wTa94gc6Q3U88kUJIpR4138Mr3jHuNBn7rq4q7wqQaEhd46I9ddPTbB2dd8wCEoR1D
-	 /GHKPTQcjqzhj2NWsNJDfVy/Rq68QSmqwqVGfpMkcfzvATPObhH6Jrbe/5OuBzDan/
-	 BKTiWftB56UmfR+7qG+DMzg+W2cqcRO0CIj6aeAdgpl0vLgZWLAkVg8wutEzsz0tw0
-	 XwkK5SIZQjYjg==
-Date: Mon, 6 Oct 2025 12:25:23 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org
-Subject: Re: '^\}$' is (not) changed to a space character
-Message-ID: <bfl4642gesg23ysveu3dfbkzd4orct75malbxnyg7biud4aln7@mzh34qxcd65p>
-References: <aNwetmt-I0cT-u93@kassi.invalid.is>
- <20250930194004.btcbo4xspyo3j3ua@illithid>
- <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
- <20251004094243.avg4hvwwir7ink5u@illithid>
- <20251005134812.jvwyjjklabmnzejp@illithid>
- <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
- <20251006085149.oor3kddfih63yutt@illithid>
+	s=arc-20240116; t=1759747145; c=relaxed/simple;
+	bh=/fXQ5XInQW1njMKK6O/bP3kp1GO0POkzPukV2L7Qpzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QNqhnHHvf+q+3+3K6VowmTT26IBakUmVLm557U1WDGCPM57Y3OzKcQyCPXQcD2robTQ0IDBs9rEGAokXD0Q/gpB/Wg3BRj4c4pBNam2Rlbv39OISyuSmsbfJKhRqPNKurTvFk6rOG6wODsHXLyoXY/OVLDnQVJLuv3QQ8cnlCNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SW6hDbjw; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-3ecde0be34eso3012177f8f.1
+        for <linux-man@vger.kernel.org>; Mon, 06 Oct 2025 03:39:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759747142; x=1760351942; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ErX8TItfsgmG1vHuoN2fyENKCc1Za7ahSSoijSHXH64=;
+        b=SW6hDbjwaousPtojpNemhaRTtiWhQbUjA/pp6Uzdbvv6SLPfcUQCwlHB0m4tNV5uj9
+         5gUaU84Puu8zacbaasNf0z8XENyBGvbizBOYypyvzGTZrlQe0cjl3n4dQbm1qhsltzxx
+         tUTmhJu3boro9B+Db5E/PfiEEEqHJEjuT+lB5aReRP5sqSDnNAvm1DL4u2XExqX91c09
+         Viog275i5zGGksQL/pFoKE91BcbaNym1qb6ngNdEH/MYyR9zYReOzLShUyKi4nhQGdTU
+         Fi6/vbHP8XbLq51U99zJQm6CfDlBSmWFkVp5aSZ4OvYlSscfuxZlhH246w2OLO1mG6so
+         9H3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759747142; x=1760351942;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ErX8TItfsgmG1vHuoN2fyENKCc1Za7ahSSoijSHXH64=;
+        b=NOO+H2CY4m6Wzu9BHiME/anwKuKipuiiiLGi+tK7xT16djQLZy54gnCq2E1o8k6VmR
+         9EbIu2+q7fjddLnf2XCtUCabsMnPMLCdJhkyfhJpQbbe/k9RwagPeB28aQlO36kPKljw
+         Im4MMid+eKeeHcGDmfjNzXdoLqLPJAdsfJn6Da2s7bSQCntU2wRxw1dlqnMCXGe44sCz
+         4DcRtytiKVjX+knpbnCRXRUw15915frM6L6aF4e6gXno1HRlvXJy+i+PoUR9i4JZlSHR
+         DX5ft4AgnXfuWNypmjp/DZPfw+xTQ9QRjXCiwf0sPDUSCCxPlmp1uvJN3hMQtrONBIrn
+         xGGg==
+X-Forwarded-Encrypted: i=1; AJvYcCUhd6FjoomJRtEzU7EbTzInI59R/cyebtpQz/7d3H8xYCMAnwG+rDoeDm/kp+2dV/kFVWgFT9F+JQY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWdJlm3nT5sUGooTz021KbQhHlX935IOAcHIwAaq0BUKvV/t1R
+	3ZuUp9LIzKIyUVPt0GmB9PxX5OXwflAMOBAm8xO+7kb25gxMY9FWcBmP
+X-Gm-Gg: ASbGncsJ55mbpgPpsTWjRQ6LL8CptlwT0DsYkV+nh/Spu1fE3L8jgWLwlxcGgJbxO/T
+	5KIfDub9Ypb/4kThCRrw7BDqQ7YUqSPDjyd9c+1RVtYI6FTa0ZpKQZYgljxdc1QuKYx4tSwqXti
+	7g9wi+mzSzS/4IYjZqXSOyIbggpqxi8bW7BlLPS639XnvXnlfzKawEQqeHJWN4l7PiYTBCBJgff
+	Vp4EnEnXoL568DlXgwU0Tx2kBis7dodgsX2Wj8nbRagfWUQyunmiVpwQ1Ei10cEbIomTDX805rs
+	+D1VnqHtrr9w2AjGmmlUpTXhC0xc8Ejw/CP06bSiy5BpP9NonjTLp5KOqLW2+3msAIR6iyNjR1N
+	dEvECo5UtqAZ/hMG0jtpqxAUwrQUtyD0Gu9UJuhf4y7Y32IRJc5K0mrJ+18+p+qY=
+X-Google-Smtp-Source: AGHT+IEHcS0JZ0Tf55gdJtoK8pzvvqtMYbyxpIhtRL0YgJz6vL0VIB3vTc3qXBxYrvLXICcVxN+1Bg==
+X-Received: by 2002:a05:6000:2289:b0:3e9:b208:f2f1 with SMTP id ffacd0b85a97d-42566c556a9mr8095872f8f.29.1759747141407;
+        Mon, 06 Oct 2025 03:39:01 -0700 (PDT)
+Received: from localhost ([2a01:4b00:d036:ae00:7fdc:7a68:6e69:8671])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4255d8f01absm20128242f8f.44.2025.10.06.03.39.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Oct 2025 03:39:00 -0700 (PDT)
+From: luca.boccassi@gmail.com
+To: alx@kernel.org
+Cc: cyphar@cyphar.com,
+	linux-man@vger.kernel.org
+Subject: [PATCH] man/man2/move_mount.2: document EINVAL on multiple instances
+Date: Mon,  6 Oct 2025 11:38:12 +0100
+Message-ID: <20251006103852.506614-1-luca.boccassi@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wtjexi36hvqlacej"
-Content-Disposition: inline
-In-Reply-To: <20251006085149.oor3kddfih63yutt@illithid>
+Content-Transfer-Encoding: 8bit
 
+From: Luca Boccassi <luca.boccassi@gmail.com>
 
---wtjexi36hvqlacej
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org
-Subject: Re: '^\}$' is (not) changed to a space character
-Message-ID: <bfl4642gesg23ysveu3dfbkzd4orct75malbxnyg7biud4aln7@mzh34qxcd65p>
-References: <aNwetmt-I0cT-u93@kassi.invalid.is>
- <20250930194004.btcbo4xspyo3j3ua@illithid>
- <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
- <20251004094243.avg4hvwwir7ink5u@illithid>
- <20251005134812.jvwyjjklabmnzejp@illithid>
- <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
- <20251006085149.oor3kddfih63yutt@illithid>
-MIME-Version: 1.0
-In-Reply-To: <20251006085149.oor3kddfih63yutt@illithid>
+open_tree() with OPEN_TREE_CLONE is needed to apply a mount multiple
+times, otherwise EINVAL is returned by move_mount().
 
-Hi Branden,
+Signed-off-by: Luca Boccassi <luca.boccassi@gmail.com>
+---
+As requested by Aleksa on https://github.com/brauner/man-pages-md/pull/19
+and based on the 'fs' branch where move_mount(2) was added
 
-On Mon, Oct 06, 2025 at 03:51:49AM -0500, G. Branden Robinson wrote:
-> > 	-.if t \{\
-> > 	-.ft CW
-> > 	-\}
-> > 	+.P
-> [...]
->=20
-> > So, I expect the explanation shouldn't hold anymore, right?  There are
-> > no closing brace escape sequences anymore.
->=20
-> Right, but the excess space in the document should not still be present,
-> either.
+ man/man2/move_mount.2 | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Hmmm, it's weird.  If I produce the PDF in my computer, the space is
-now correct.  However, the PDF book served on my website still has the
-wrong space.  I know it has the correct source code, because it doesn't
-use CW anymore.
+diff --git a/man/man2/move_mount.2 b/man/man2/move_mount.2
+index 13063ac1f..e3dfc1ea8 100644
+--- a/man/man2/move_mount.2
++++ b/man/man2/move_mount.2
+@@ -457,6 +457,13 @@ which would otherwise cause the unbindable mounts to be propagated
+ was attempted,
+ but one of the listed restrictions was violated.
+ .TP
++.B EINVAL
++The source mount is already mounted somewhere else. Clone it via
++.BR open_tree (2)
++with
++.B \%OPEN_TREE_CLONE
++and use that as the source instead (since Linux 6.15).
++.TP
+ .B ELOOP
+ Too many symbolic links encountered
+ when resolving one of
+-- 
+2.47.3
 
-The only difference I can see is the groff(1) version.  In my computer,
-I have
-
-	GNU groff version 1.23.0.2695-49927
-
-but on my server I have
-
-	GNU groff version 1.23.0.1254-19a18
-
-But I also tested 1.23.0, and it does the right thing.
-Maybe the version on my server has a temporary bug that appeared after
-1.23.0 and was fixed before 1.23.0.2695-49927.
-
-I tried building groff from git HEAD to see if that fixed the issues in
-my server.  However, it seems groff doesn't build at the moment:
-
-	$ make=20
-	make  all-recursive
-	make[1]: Entering directory '/srv/alx/src/gnu/groff/master'
-	make[2]: Entering directory '/srv/alx/src/gnu/groff/master'
-	  CXX      src/roff/troff/div.o
-	In file included from src/roff/troff/div.cpp:29:
-	src/roff/troff/hvunits.h: In member function =E2=80=98units vunits::to_uni=
-ts()=E2=80=99:
-	src/roff/troff/hvunits.h:91:7: error: =E2=80=98ckd_mul=E2=80=99 was not de=
-clared in this scope
-	   91 |   if (ckd_mul(&r, n, vresolution))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98vunits operator+(const vuni=
-ts&, const vunits&)=E2=80=99:
-	src/roff/troff/hvunits.h:105:7: error: =E2=80=98ckd_add=E2=80=99 was not d=
-eclared in this scope
-	  105 |   if (ckd_add(&r.n, r.n, y.n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98vunits operator-(const vuni=
-ts&, const vunits&)=E2=80=99:
-	src/roff/troff/hvunits.h:114:7: error: =E2=80=98ckd_sub=E2=80=99 was not d=
-eclared in this scope
-	  114 |   if (ckd_sub(&r.n, r.n, y.n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98vunits operator-(const vuni=
-ts&)=E2=80=99:
-	src/roff/troff/hvunits.h:123:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  123 |   if (ckd_mul(&r.n, x.n, -1))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98vunits operator*(const vuni=
-ts&, int)=E2=80=99:
-	src/roff/troff/hvunits.h:145:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  145 |   if (ckd_mul(&r.n, x.n, n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98vunits operator*(int, const=
- vunits&)=E2=80=99:
-	src/roff/troff/hvunits.h:154:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  154 |   if (ckd_mul(&r.n, n, x.n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In member function =E2=80=98units hunits::to_uni=
-ts()=E2=80=99:
-	src/roff/troff/hvunits.h:208:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  208 |   if (ckd_mul(&r, n, hresolution))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98hunits operator+(const huni=
-ts&, const hunits&)=E2=80=99:
-	src/roff/troff/hvunits.h:222:7: error: =E2=80=98ckd_add=E2=80=99 was not d=
-eclared in this scope
-	  222 |   if (ckd_add(&r.n, r.n, y.n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98hunits operator-(const huni=
-ts&, const hunits&)=E2=80=99:
-	src/roff/troff/hvunits.h:231:7: error: =E2=80=98ckd_sub=E2=80=99 was not d=
-eclared in this scope
-	  231 |   if (ckd_sub(&r.n, r.n, y.n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98hunits operator-(const huni=
-ts&)=E2=80=99:
-	src/roff/troff/hvunits.h:241:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  241 |   if (ckd_mul(&r.n, x.n, -1))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98hunits operator*(const huni=
-ts&, int)=E2=80=99:
-	src/roff/troff/hvunits.h:263:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  263 |   if (ckd_mul(&r.n, x.n, n))
-	      |       ^~~~~~~
-	src/roff/troff/hvunits.h: In function =E2=80=98hunits operator*(int, const=
- hunits&)=E2=80=99:
-	src/roff/troff/hvunits.h:272:7: error: =E2=80=98ckd_mul=E2=80=99 was not d=
-eclared in this scope
-	  272 |   if (ckd_mul(&r.n, x.n, n))
-	      |       ^~~~~~~
-	src/roff/troff/div.cpp: In member function =E2=80=98virtual void macro_div=
-ersion::output(node*, bool, vunits, vunits, hunits)=E2=80=99:
-	src/roff/troff/div.cpp:325:7: error: =E2=80=98ckd_add=E2=80=99 was not dec=
-lared in this scope
-	  325 |   if (ckd_add(&new_vpos, vpos, lineht))
-	      |       ^~~~~~~
-	make[2]: *** [Makefile:9395: src/roff/troff/div.o] Error 1
-	make[2]: Leaving directory '/srv/alx/src/gnu/groff/master'
-	make[1]: *** [Makefile:11776: all-recursive] Error 1
-	make[1]: Leaving directory '/srv/alx/src/gnu/groff/master'
-	make: *** [Makefile:6977: all] Error 2
-
-Did you forget some #include?
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---wtjexi36hvqlacej
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjjmQwACgkQ64mZXMKQ
-wql2qxAAuuWY/nZl/8WBfmb/2PEdKTonpPWclFSCcVOzNdbybre3doCUtUQUmfW4
-dWoYP5xBvGHt6+cSxx8d8QVle2usxaNxpubD1iAwtAKc6U5LhmmLhcWsoCVj1aal
-H+DGK+RscSgziiTWdRvKzg/YRvx2B2SwmFLmKlR1JVSVvxp0GyQw+1M3JcJtWZPc
-2XYdBUZsEVDqFyP1mqqfd3t5Z/mGG1EfAoYlP8bWMtDR9rmSNT61co41S6p2a01B
-iL7eHaA2ZTt8NC5YAuI6JrxbzbZQgcjkRbXBjQk34iswALRerZAbtmx9924iDpPf
-5Dw49AoLyoJXTKrJJ25caM7CNi40+7P087RxQDMH32JMKmlNf5jTbHzjk8U2PxkJ
-0MR921mrudCRK/8KSm1pNSCkf5SRrEvparMU7z1ioodHK0DiHwfh7X6Pyr2bIUdA
-Hp4ZKSqQ1wSdpzdNSjGg2B0uKhS2QFlkO2Gj88ZF+83pi/PY2s8Q17+cgOpwQ5mW
-T8inzR7TgmJpGOq2FK3WDvg331dwZxdtNnGQ2vJezrHJ6qU/Fy+WOo/aAm4eyGg4
-ZbxCsxbjrT85X05+ulSeTMmmdbNwtd2izeQkSSXhBl6BytZDrSKD4wfM3noPNR6E
-QxIxaaZTSPbDimewi5XoEk7Ay3Reok2jl9EUlvQKpVtQSYk/JOs=
-=/rFR
------END PGP SIGNATURE-----
-
---wtjexi36hvqlacej--
 
