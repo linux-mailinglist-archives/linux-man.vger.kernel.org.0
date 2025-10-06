@@ -1,53 +1,87 @@
-Return-Path: <linux-man+bounces-4054-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4055-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BAFEBBDD81
-	for <lists+linux-man@lfdr.de>; Mon, 06 Oct 2025 13:19:30 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92085BBDDF5
+	for <lists+linux-man@lfdr.de>; Mon, 06 Oct 2025 13:31:37 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 1C7164E1966
-	for <lists+linux-man@lfdr.de>; Mon,  6 Oct 2025 11:19:29 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id BC7D04E9866
+	for <lists+linux-man@lfdr.de>; Mon,  6 Oct 2025 11:31:35 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3A77230BD5;
-	Mon,  6 Oct 2025 11:19:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB6C518FDBD;
+	Mon,  6 Oct 2025 11:31:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Unnaadgp"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxIc8WR3"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D40233155
-	for <linux-man@vger.kernel.org>; Mon,  6 Oct 2025 11:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF781CAA6C
+	for <linux-man@vger.kernel.org>; Mon,  6 Oct 2025 11:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759749566; cv=none; b=Dm/EFtkzsdVYqgxYmANMf+4uq1hxCr9r12oIuE2rA4aWBZkqfDCPXBMNU72IoimJVV5foCdv9oje0ZKMZcApPX5Fh9sigr4L+9Jj+sZ6NSSpv3qCWpaz3yM0rPky4JpQ40on15CI3BBtKrDTSky2CqLEKQAFe8mQvfSQ/PBwqeA=
+	t=1759750293; cv=none; b=gaai2wDNiXKI2/9vANpeEQdzLMoMzsB87nJWUFH916Vhb8qhbGeCu9zQ0gE3zCFFl+6aKXR4rxBdJk7A7QcfGpqchdplXQljT/jQVOUG0wLDW8ZtkOwEjI7BZDFyg5ymSNEqsvC4QqABUFr3tiOTVBgoyDjLN5V7o+p2MfxavX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759749566; c=relaxed/simple;
-	bh=V5Jpn0xyPtpum9W026WiftFCqLUQoUc95lnF+7349fs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cRM88CRo+ZfHZWcAg36y2/v9jCiL58jVsO/IN5/cZxd8rgH1Zvs2w98mjJ6CitMtNsT4ILQFrZ9aKKUVGdQqh5mYen2d0BmqzJS3dosBL4BGE8tkvviMzZ6XPfrBdDd8Xn02Q7LuHyDb+pHFKJwgvYcXO0TYLsVSPdp3yjQWRVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Unnaadgp; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7A4C4CEF5;
-	Mon,  6 Oct 2025 11:19:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759749565;
-	bh=V5Jpn0xyPtpum9W026WiftFCqLUQoUc95lnF+7349fs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UnnaadgpzEyPHzk5xlg/1LYVwNdIpYXbp6704OaIu5D+Mcan3qt3LzpYkWevF8RM6
-	 5GDOcBZg/D88vHTKZ9e1xOuqgkoHav8zoOPO+7feaEWRL8YfwsY2DDyJEC+2CT8Q22
-	 S91I8WaHO90UEDc7RFDEpISLvk198/QYFLmorvgWGDjx4VxQP+KqhhItYx+J3fojkP
-	 9yml8e338eJCeYhLgWEb8ABUmPF4IoZPfQUnEIR1m4e6VoZOW7ydpsd+aK70gO7oR2
-	 Osr6nqEO2lwlRZBcKz1H1OY1xwrDgeJYQj8KjSrStbUfq4nyqY1UuLXBe30A6fLwjH
-	 VemY40cHtC4hw==
-Date: Mon, 6 Oct 2025 13:19:22 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: luca.boccassi@gmail.com
-Cc: cyphar@cyphar.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple
- instances
-Message-ID: <2hg43wshc3iklydtwx25ulqadzyuldkyi6wylgztzwendi5zhw@kw223cxay7qn>
+	s=arc-20240116; t=1759750293; c=relaxed/simple;
+	bh=iMCAxmpVEVyPym+m4yuz+amTYDBF9AkLiYLCqrCDhlM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TFbLM1z7LH1anhxVJbg6aA2+dhqXuljatM/oFxfJ4CsUgIGzcGyNHwl39qqvcpVNklO1hmLnyxTK8LmuZ5MaPlRk4rzBIWbgHVm4XB3ErE6MLHW35fdr7FrR/5F95/l3EyEccLJgtjwXQ6AKCZAlwPVoV0oLKuuYKBYaS4DpBUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jxIc8WR3; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-46e2e363118so43652155e9.0
+        for <linux-man@vger.kernel.org>; Mon, 06 Oct 2025 04:31:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759750290; x=1760355090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eKyL808F/h4kMk/GMDWnxzUICy3Ew6wmsU8DkzaAgnw=;
+        b=jxIc8WR3F8aClftlQ51ODitOrmwBju92uz4fZVmBLuA94IFo0HJBI/aW3q4aO/JKiC
+         rBDswVsaLnmABlUd9TwrHzc1aSaHUg4+PeWfxsHZDge6+GwwQ3Iljt1GVk//t92fmxes
+         ifFNYpqDHMVNwP8Sz0dSe7vrCQfa8MR6FmeNnPCNpxN4CP75SQ26bzhuy0bGgIBElHQi
+         07D0sLYnWpnS3Ho6jx4B6zfZIQ+IkJtyXNS3GSKYFWya3smNQ5BhVTFoiMUeISZT679H
+         QsIcOleECPGZv0pp6n+rwpgg5JdHwwfEXwVB0G9NdWWV6PpgQEsoJXw5puqZgIOvfQ/c
+         rTxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759750290; x=1760355090;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eKyL808F/h4kMk/GMDWnxzUICy3Ew6wmsU8DkzaAgnw=;
+        b=rf8T/JKsBa2n4p/0/458I1EAty3Qs33WwjVmxg/T/+4kQuqIXK7xrzFgfZum4Gu1Fw
+         OOMF1UvY+ApjGY2KpFV8PF25DOpOcOdCPyZHazTz7KjHeAwmpqCgqnztP8hBHTxD0V9C
+         eR42u9UUMd1NIKLygm2Qu1ljOo3RN8mthertwgysvnLVx9rcEFpQPueaspMh53CjVVfm
+         xECr4WVzPWz1KizFcWzLbGVj6qTCwvxNyfqCq2b6mkDokUR4auYtrL9KGI9fjz/mtpxO
+         WMZvLJYdewTO96P/eR3ZfOCMmwnk8T0PVm+jaIB/5YlBfwYZemLGSPHeHGkoe0IDrTGQ
+         vKHw==
+X-Forwarded-Encrypted: i=1; AJvYcCWm19LB1TYFyoHwqtb0Ku3unssTsf4eCzwzUavyK78NV238zk7WQMYHidYSHlg84Ee9FDPtP6RI0N8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YydKV3b+7GUvUW92HgWthUhuC529AlENb2GFy4x2G5AXHDTrwWo
+	viiKlF9R6i7BXNLhJzVxKhdBaA/PVR1oFxDDzJtNEszyrXVcS7qGOoRrRfhz5V2v
+X-Gm-Gg: ASbGncsZQDf2kS60vv8ktpxIGZdqYE1oHAOMqvjtda11bsl95fG4FzfZCZSuKgh7aKI
+	+20z3n5Ohxc0On7X5IipM1AiOzkJimZdQHFNJXClEz/gI+7yKMurUlRfOL2zCA33SHdLD7QZUwf
+	oD5RDoByLmvqSU/YUJA6pdkLAJMR+OSxzwc2WdQkeb9hJ+6anPJtcvOjASyf6ps18sgH7sFFiiB
+	FyH1qCfiXkHCtNpL5VX9xqRfyVYsRS8kPgE3f5qU5Ke/VYArF0aa9AFRtVbSpJqniMK21qn7tIV
+	uBO7F8fw/+USGJnxKzHZjGkJIP4rA0XqvREMkKwRefulWwxQMKYHhPXTB0CXCUhErYmmAmweACD
+	ejVImdYk8RoHyHG9b7ridFwe3eAhFeNpEsq1Hi+p9MVX4ztaDTX29
+X-Google-Smtp-Source: AGHT+IHqfSFel30PCGjIqrDh1usA+Z4mhApZdT1Jtwcty60MMkd6iyVXtXnzBoZlSscrhaOjKjookA==
+X-Received: by 2002:a05:600c:8b65:b0:46e:5a5b:db60 with SMTP id 5b1f17b1804b1-46e71168c20mr88269085e9.31.1759750290316;
+        Mon, 06 Oct 2025 04:31:30 -0700 (PDT)
+Received: from localhost ([2a01:4b00:d036:ae00:7fdc:7a68:6e69:8671])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-46e5c40983asm146111975e9.3.2025.10.06.04.31.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Oct 2025 04:31:27 -0700 (PDT)
+From: luca.boccassi@gmail.com
+To: alx@kernel.org
+Cc: cyphar@cyphar.com,
+	linux-man@vger.kernel.org
+Subject: [PATCH v2] man/man2/move_mount.2: document EINVAL on multiple instances
+Date: Mon,  6 Oct 2025 12:29:58 +0100
+Message-ID: <20251006113122.511990-1-luca.boccassi@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251006103852.506614-1-luca.boccassi@gmail.com>
 References: <20251006103852.506614-1-luca.boccassi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
@@ -55,164 +89,43 @@ List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wj5mhthaa5rydx7n"
-Content-Disposition: inline
-In-Reply-To: <20251006103852.506614-1-luca.boccassi@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+From: Luca Boccassi <luca.boccassi@gmail.com>
 
---wj5mhthaa5rydx7n
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: luca.boccassi@gmail.com
-Cc: cyphar@cyphar.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple
- instances
-Message-ID: <2hg43wshc3iklydtwx25ulqadzyuldkyi6wylgztzwendi5zhw@kw223cxay7qn>
-References: <20251006103852.506614-1-luca.boccassi@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20251006103852.506614-1-luca.boccassi@gmail.com>
+open_tree() with OPEN_TREE_CLONE is needed to apply a mount multiple
+times, otherwise EINVAL is returned by move_mount(). Available since 6.15.
 
-Hi Luca,
+Signed-off-by: Luca Boccassi <luca.boccassi@gmail.com>
+---
+As requested by Aleksa on https://github.com/brauner/man-pages-md/pull/19
+and based on the 'fs' branch where move_mount(2) was added
 
-On Mon, Oct 06, 2025 at 11:38:12AM +0100, luca.boccassi@gmail.com wrote:
-> From: Luca Boccassi <luca.boccassi@gmail.com>
->=20
-> open_tree() with OPEN_TREE_CLONE is needed to apply a mount multiple
-> times, otherwise EINVAL is returned by move_mount().
->=20
-> Signed-off-by: Luca Boccassi <luca.boccassi@gmail.com>
-> ---
-> As requested by Aleksa on https://github.com/brauner/man-pages-md/pull/19
-> and based on the 'fs' branch where move_mount(2) was added
->=20
->  man/man2/move_mount.2 | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/man/man2/move_mount.2 b/man/man2/move_mount.2
-> index 13063ac1f..e3dfc1ea8 100644
-> --- a/man/man2/move_mount.2
-> +++ b/man/man2/move_mount.2
-> @@ -457,6 +457,13 @@ which would otherwise cause the unbindable mounts to=
- be propagated
->  was attempted,
->  but one of the listed restrictions was violated.
->  .TP
-> +.B EINVAL
-> +The source mount is already mounted somewhere else. Clone it via
+v2: semantic line break, clarify purpose of mentioning a version
 
-Please use semantic newlines.  See man-pages(7):
+ man/man2/move_mount.2 | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-$ MANWIDTH=3D72 man 7 man-pages | sed -n '/Use semantic newlines/,/^$/p'
-   Use semantic newlines
-     In the source of a manual page, new sentences should be started on
-     new lines, long sentences should be split  into  lines  at  clause
-     breaks  (commas,  semicolons, colons, and so on), and long clauses
-     should be split at phrase boundaries.  This convention,  sometimes
-     known as "semantic newlines", makes it easier to see the effect of
-     patches, which often operate at the level of individual sentences,
-     clauses, or phrases.
+diff --git a/man/man2/move_mount.2 b/man/man2/move_mount.2
+index 13063ac1f..968e6a81a 100644
+--- a/man/man2/move_mount.2
++++ b/man/man2/move_mount.2
+@@ -457,6 +457,14 @@ which would otherwise cause the unbindable mounts to be propagated
+ was attempted,
+ but one of the listed restrictions was violated.
+ .TP
++.B EINVAL
++The source mount is already mounted somewhere else.
++Since Linux 6.15 it is possible to clone the mount via
++.BR open_tree (2)
++with
++.B \%OPEN_TREE_CLONE
++and use that as the source to avoid this error.
++.TP
+ .B ELOOP
+ Too many symbolic links encountered
+ when resolving one of
+-- 
+2.47.3
 
-To be precise, that would mean breaking the line after period in this
-case.
-
-
-> +.BR open_tree (2)
-> +with
-> +.B \%OPEN_TREE_CLONE
-> +and use that as the source instead (since Linux 6.15).
-
-The parenthetical in that position makes it unclear if you're saying
-that one should use open_tree(2) with OPEN_TREE_CLONE since Linux 6.15,
-or if you're saying that this error can happen since that version.
-Would you mind clarifying?  I think if you mean that the error can
-happen since Linux 6.15, we could make it part of the paragraph tag, as
-in unshare(2).
-
-alx@devuan:~$ man -w 2 unshare
-/usr/local/man/man2/unshare.2
-alx@devuan:~$ MANWIDTH=3D72
-alx@devuan:~$ man -w 2 unshare | xargs mansect ERRORS | man /dev/stdin | gr=
-ep -C3 'since Linux'
-            Cannot allocate sufficient memory to copy parts of caller=E2=80=
-=99s context
-            that need to be unshared.
-
-     ENOSPC (since Linux 3.7)
-            CLONE_NEWPID  was  specified in flags, but the limit on the nes=
-ting
-            depth of PID namespaces would have  been  exceeded;  see  pid_n=
-ame=E2=80=90
-            spaces(7).
-
-     ENOSPC (since Linux 4.9; beforehand EUSERS)
-            CLONE_NEWUSER  was specified in flags, and the call would cause=
- the
-            limit on the number of nested user namespaces to be exceeded.  =
- See
-            user_namespaces(7).
---
-            From  Linux 3.11 to Linux 4.8, the error diagnosed in this case=
- was
-            EUSERS.
-
-     ENOSPC (since Linux 4.9)
-            One of the values in flags specified the creation  of  a  new  =
-user
-            namespace,  but doing so would have caused the limit defined by=
- the
-            corresponding file in /proc/sys/user to be exceeded.   For  fur=
-ther
---
-            ID or the effective group ID of the caller does not have a  map=
-ping
-            in the parent namespace (see user_namespaces(7)).
-
-     EPERM (since Linux 3.9)
-            CLONE_NEWUSER  was specified in flags and the caller is in a ch=
-root
-            environment (i.e., the caller=E2=80=99s root directory does not=
-  match  the
-            root directory of the mount namespace in which it resides).
-
-
-Have a lovely day!
-Alex
-
-
-> +.TP
->  .B ELOOP
->  Too many symbolic links encountered
->  when resolving one of
-> --=20
-> 2.47.3
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---wj5mhthaa5rydx7n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjjpboACgkQ64mZXMKQ
-wqltgg//SmTI0Pvs5d2yZtWDojE+YRDk7uqtpj2BBUf+oI8Wtl8OGM+yvf60I6KM
-a7yMM+hH0WR+7VbfL3Afp/iuElXl8gZMVuqdUo4xGe+2+DAsn3rg4Xt8fIIYVjSJ
-mH41TZL1xBix20ax/5VOiL/uYui3YaGxKOV5OcidzgfOIR63WFEUubVp2czjFyl8
-XrfYGrjmoxNDeIg7btoSfv62LUTVYjJsm+il1K3Ai0VJIlmcjENvCHyJdpvjFRkr
-d7A12FrW1aW+uIdB8ZeitGh7c4GVjd54VLo3oewC8//CpMHrkPphcxoy16wl87Do
-taq4mjS00p7wNSR70A965scTLfpQtQUdCo6J3lnEiAS63IB1MRYOs72DbK53/YtY
-gtB5rMpC7lko7Vw5/N6FO8iypkBWELT4J98ofUxJExD7Hz70fIwwnYyEZDD2zDvO
-nTWOhjuz4Z2c6qeWmZh9kTfYAI4oiaaZpZwvmgxcGThWZRb4pdYgt44ClX9GHJPi
-gppk94X3BUVUOaqJhV+5lMgwlN+SJOLq5YSNyZQQCUqtsTwJ1YU+CxPNhq+WkULB
-x3ev2dxez1WwPQEhcMxRnS7o/CFAHpUpv0YTMjO7sP8OHz7CPRSzUEWHatHu3rW/
-I8i4HxKOqn/vYb59B5zsiifFMyIK38bFpx8gG2JUzNOUtlZO19s=
-=Tbj0
------END PGP SIGNATURE-----
-
---wj5mhthaa5rydx7n--
 
