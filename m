@@ -1,139 +1,166 @@
-Return-Path: <linux-man+bounces-4048-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4049-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A572BB9CFB
-	for <lists+linux-man@lfdr.de>; Sun, 05 Oct 2025 22:33:28 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 957A8BBD63E
+	for <lists+linux-man@lfdr.de>; Mon, 06 Oct 2025 10:51:57 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 59B8F4E12DF
-	for <lists+linux-man@lfdr.de>; Sun,  5 Oct 2025 20:33:27 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 169AE3B4B4D
+	for <lists+linux-man@lfdr.de>; Mon,  6 Oct 2025 08:51:56 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B41818EFD1;
-	Sun,  5 Oct 2025 20:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62146262FD1;
+	Mon,  6 Oct 2025 08:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qYRblOOH"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z/xQt1qj"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DA8F510
-	for <linux-man@vger.kernel.org>; Sun,  5 Oct 2025 20:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8DD20311
+	for <linux-man@vger.kernel.org>; Mon,  6 Oct 2025 08:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759696403; cv=none; b=h9Zknkz5+m60dGytH7KP/Zq4pDlnxDWbYowE3AWWidCJZo/Ugm/zZyMVizh4168SKTP1O/2pmMLHUYUrKWW9XOHBPzMMplOD/cN/i1S4CKvJWAAKYryWqwVMWvRNfZfRu0n13beUNGWe7+v68bwFit+LAAtP1atRHJhMpqLwWfQ=
+	t=1759740715; cv=none; b=tOXbXJHF3cfB3VZ4DJanvSgNedO6/t0A0+hfvSisTK58Qe2vwAeCNU60ifEKrkoxqNdym4buSQorVlpHhZt9zsC0YxtcNvz7+NXBBjQuwqpCjER65l1hV2NvgiQyN8rJ9qyvIg1j7D0pNX/3aHoZT5+22D52w7W01pdMPd6Xy90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759696403; c=relaxed/simple;
-	bh=tiOlRTNW4TdWrfgBqGQ8s8+Y3dPnRM/srbRg7U6xDJw=;
+	s=arc-20240116; t=1759740715; c=relaxed/simple;
+	bh=lEoSN0OSdyBbqJDMYj6V7xeOag1uSfkjXgFBQjkAw7k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pWlQIO6kquzLuBF91hOqNMCX/397gH9Fq82eHbFZcK0sw9y+snoY96sIRx0Vi9u2r+lHawbneoyy6gYl7mVcwP6L7xHjluueo7bC/NH49O2JAO0jBW9tK6h9byeExP0pVmroEH6QiO/kt3L5UO50lIzsegGFARq3bIIusgW+ZCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qYRblOOH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC76C4CEF4;
-	Sun,  5 Oct 2025 20:33:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759696402;
-	bh=tiOlRTNW4TdWrfgBqGQ8s8+Y3dPnRM/srbRg7U6xDJw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qYRblOOHMpuCgBSZLG15I56voMC79+JaDscQIBfgVc/M1YIK/dUfD+V9zD6+05TKE
-	 jdX+i925fMYVoOAo1aWef/FB+/8WQFNzQpxgOMtDx4yg0ZmLDqd7DqrBbjWc5iY6EH
-	 L8BIt7U66biqz4AUAA6sYg00eV8si4pNd2ffBWCbCopx+2TvSzfB9EE8GpQ+gl7/8O
-	 x1KrzMc31JT3P7zWittzdx7jzPyaO3ZBwqVIqXGyeA0A5X3r0DOns5mg7TCq7pS7I9
-	 iIGeG6NGg8M51Exmi4+omCGCrhnWFq4zuK/7l+8glZ19mRpRyvVPt+IrGD9A2ZL47O
-	 NshbcoJLn0rAg==
-Date: Sun, 5 Oct 2025 22:33:19 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Kele Huang <kele@cs.columbia.edu>
-Cc: g.branden.robinson@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] man/man2/fanotify_mark.2: grfix
-Message-ID: <njkqx2zdmmhchxz7dcgbvswctbkami3engboefcu6tedkmrfc3@fplcivkm7grb>
-References: <20250922035934.446271-7-kele@cs.columbia.edu>
- <20250925135215.1648059-1-kele@cs.columbia.edu>
+	 Content-Type:Content-Disposition:In-Reply-To; b=DQZBETwZNF1pn1NHCQdSzISnaw9bRrPfbRFTLanpTQ0BhtJeNJNZQKTl9Rh2ZMWma2vGIfh1pRyCNgxXjow8yonnB/9yC0RZwj6rMN1RJEkAXgkT4yL/F3XdYyi5+3EF1RzN8oB6X7pGHgBjBcHFBSYRfq4TZ/bIL+ne2/Q4OrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z/xQt1qj; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-71d603a9cfaso49710347b3.1
+        for <linux-man@vger.kernel.org>; Mon, 06 Oct 2025 01:51:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759740712; x=1760345512; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3zNkANMFVfc+NB0xeESCIoI8o6DgyUgtJgoTscr9b9U=;
+        b=Z/xQt1qjx5klyb1HXIwwOyF/WPLYUl+oq+Gkll9bk5kx5rcqyesTWZCmrrUK1ZOics
+         w5/bjvAJ7D20BSAlh3jRWQ610Qa2T826oLJs+OySH0OKIS/WlhQ3K7juCGzuKhRM52KF
+         EsT2eB6sVtz2tdo2fc8BvKMz+VxlPlrLshYswJsYHco+SsEWI3E469yCayiSlfcrxKHn
+         hfLcfZTiiVsS+ixephIWhZItOJ4sdrrAUuhF2ZWNfzz/HUsiq1uiHkodERNFuwbV791C
+         pLYQr8e7Pcy3hIABRhTfZzoVd/Y3c/0Jrw7vb7Qh0D8djRu7HMGufqvgyyn5mgJBROsH
+         5/Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759740712; x=1760345512;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3zNkANMFVfc+NB0xeESCIoI8o6DgyUgtJgoTscr9b9U=;
+        b=dKI44wfpj7Zb/OScA2P72faRA4ku1Dpb9Izjdjf2HiaL3LOU+x5KlTXhjPnNHwzyQx
+         abuUdYN+kik94bfe6eHsexoU8mbneIcYcM5VB7yqFXahIp6goWf+muvMObUp0zpaJ8/L
+         syGgRwjM80EeCFcPp7mu/WYy77Oqh5IhXALu7QGy776h6mJp0OLIGEBvsel04oWL6ijF
+         b7OOFdMVv8OZ0zBnPyiJ41XBzvXr4eJbiA3+UUK5RQwrXWee79JgqB+ScBk4s6omwinA
+         urr79/ygSw+3G/IHHn9HpVlWIgHlBglRHxzfDlLpq7TRqOlfaRqaMHAHaHNopg+/jA/P
+         xXzw==
+X-Forwarded-Encrypted: i=1; AJvYcCWjiv97E8eO07vuYRrGE6xE8ovGYq+pnY4xq4YpP/sDlDwFmwnjUiSdhrHDfTqpDbgYaBtRj1M5jtE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7wogtVTIwTHL3rN/KBruGR1EHIF6kJKHpm4CCMIzB3E5q0c/F
+	Lv4QZybOgYUCqERpGP3rU+bHpHdF9EkZR3WG5WFzLS3hA9u6w8nCgGxdquAM4w==
+X-Gm-Gg: ASbGncs+OLZQZMotv3nw6rdlIVX4jgwom9i4XXlwn0vxkDHhu6Sgz9APUNZCir1y77X
+	nn6k9hS1aML7ZbBXv9JfDRl5Zlcvs6kcR71GHK0nbsIrQEzRdIgdwccQdv6HwLyC2dK1gKAAwVd
+	wSy6UHEogvEISxyFeCMLs5BbHiwkV5CAqWwFz713gDam+8bjPzHWexjZ72YE8Ty4ddDyIhReWBP
+	5qODCt2545y6E1QCpDbs/TEDAYh19zn2449gGNCfK4YmgL9e6BvcqtdUEMxOmvwN4PsJJsiX9ef
+	LPiJsCOGAA0Sp5+VRUAJToXJ8smNzM59QhxKiXX9o5Jeyeic1ocNneF/BnQQZdcrH9ondTim+Ya
+	GIUBTtLQM6HNvROn+QCgCuS3WLVRhWoph7yWGpaF6diwVThs=
+X-Google-Smtp-Source: AGHT+IE/J4QPVcofqTPEFLLACS1gCek/Pyv0KnMwaHaBWWbjkczDAhuKhY/NScNHQSDfdIX/AcPU/A==
+X-Received: by 2002:a53:d983:0:b0:631:559c:7417 with SMTP id 956f58d0204a3-63b99f3a4c0mr10996979d50.0.1759740712424;
+        Mon, 06 Oct 2025 01:51:52 -0700 (PDT)
+Received: from illithid ([2600:1702:7cd0:e980::41])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-77f81d117b6sm41521347b3.37.2025.10.06.01.51.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Oct 2025 01:51:51 -0700 (PDT)
+Date: Mon, 6 Oct 2025 03:51:49 -0500
+From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org
+Subject: Re: '^\}$' is (not) changed to a space character
+Message-ID: <20251006085149.oor3kddfih63yutt@illithid>
+References: <aNwetmt-I0cT-u93@kassi.invalid.is>
+ <20250930194004.btcbo4xspyo3j3ua@illithid>
+ <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
+ <20251004094243.avg4hvwwir7ink5u@illithid>
+ <20251005134812.jvwyjjklabmnzejp@illithid>
+ <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ypmey6p2k4nmbyo5"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="upuxopez74e3jc4x"
 Content-Disposition: inline
-In-Reply-To: <20250925135215.1648059-1-kele@cs.columbia.edu>
+In-Reply-To: <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
 
 
---ypmey6p2k4nmbyo5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--upuxopez74e3jc4x
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Kele Huang <kele@cs.columbia.edu>
-Cc: g.branden.robinson@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] man/man2/fanotify_mark.2: grfix
-Message-ID: <njkqx2zdmmhchxz7dcgbvswctbkami3engboefcu6tedkmrfc3@fplcivkm7grb>
-References: <20250922035934.446271-7-kele@cs.columbia.edu>
- <20250925135215.1648059-1-kele@cs.columbia.edu>
+Subject: Re: '^\}$' is (not) changed to a space character
 MIME-Version: 1.0
-In-Reply-To: <20250925135215.1648059-1-kele@cs.columbia.edu>
 
-On Thu, Sep 25, 2025 at 09:52:15AM -0400, Kele Huang wrote:
-> ---
-> changes since v1:
-> - revert "a fanotify" to "an fanotify" as suggested by G. Branden Robinson
+Hi Alex,
+
+At 2025-10-05T20:47:02+0200, Alejandro Colomar wrote:
+> URL edited:
 >=20
-> Signed-off-by: Kele Huang <kele@cs.columbia.edu>
-
-Hi Kele,
-
-I've applied the patch.  Thanks!
-
-
-Have a lovely night!
-Alex
-
-> ---
->  man/man2/fanotify_mark.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > <https://www.alejandro-colomar.es/share/dist/man-pages/git/HEAD/man=
+-pages-HEAD.pdf#vdso.7>
 >=20
-> diff --git a/man/man2/fanotify_mark.2 b/man/man2/fanotify_mark.2
-> index 6d191dfaa..e561ffd21 100644
-> --- a/man/man2/fanotify_mark.2
-> +++ b/man/man2/fanotify_mark.2
-> @@ -727,7 +727,7 @@ and
->  .I path
->  does not exist.
->  This error also occurs when trying to remove a mark from an object
-> -which is not marked.
-> +that is not marked.
->  .TP
->  .B ENOMEM
->  The necessary memory could not be allocated.
-> --=20
-> 2.51.0
+> Shit, I forgot to remove the port when pasting the URL.  Hopefully,
+> crawlers won't follow it and DDoS me again.  Otherwise I shall install
+> Anubis.
+
+As an obscure ficitious personage named Eadric of Deorham once said,
+"they'll always find a way".
+
+> > As Bjarni pointed out, you probably want a *roff control character
+> > (typically `.`) before those closing brace escape sequences.  If the
+> > branch of the conditional is taken, the closing brace sequence has
+> > no effect itself on formatting, but the blank line that remains
+> > _does_, just as with a `\"` comment.
 >=20
+> In that link I had already applied this commit:
+>=20
+[...]
+> 	-.if t \{\
+> 	-.ft CW
+> 	-\}
+> 	+.P
+[...]
 
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
+> So, I expect the explanation shouldn't hold anymore, right?  There are
+> no closing brace escape sequences anymore.
 
---ypmey6p2k4nmbyo5
+Right, but the excess space in the document should not still be present,
+either.
+
+Regards,
+Branden
+
+--upuxopez74e3jc4x
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmji1gYACgkQ64mZXMKQ
-wqmiKg//Z4V6gJe5ZXLreq1wdSl8IIWhcDel1aVNV7IKmZ7IF1xWc2LJzwLO8A4Q
-Se6sZ3MT9yyX+C9s4kJHQG/78OiMSFZOSI6dspJzmGaxVtqtUnyD093qn8epWV8p
-dpewqktnPPVbUZvskMsd/sVAVFAoAlOUL7uc/MMIK7547gdr+C4B8KKCctEvPGP3
-U6M9L9eyMEz5bo8WfjhgzGezxfRaLnkiBCqUXrWUfNrLMDb5vdZ7dZ3VjAGcEA7M
-AFZNf5EZ1WXbxm8GRF0l/OD3ONJ+4r40cIey+il3AhxRUEduMpi4Va4VAkbFkTZQ
-k0vnUVPfCJo5VMA1CesN2OGL5izoStREJG7PCa2zylPdpcX8eIDcIqlqYlpOEu0H
-PgnJDgF9AjjCUEi047mRy58ECWyNMNyYS6tMe2lZo/e0nVaj/aUX9b2w0qI2QuWH
-nxjpensuiBO1Uy80y3f/k5eVxlUEBwjD8Spro5CeuBOPrXW4RuAR1vNB1f4iyWit
-jNzTb0gt7HRjCEsFyVn2Nf1uwx8I5lJ8CmvozegdSG61yLBOwKO8M/DXs18CH1MR
-PKdtJawzPQ7axNsWtuOfv2bMQrzgBTKmm/e3DgA5IjU5VQdBT+Ek/6EC1qyJvMWN
-iWLXPZmPfWrUdeAWQchTrSkZ1wGWEnWRagGYgleWtwzSXv9yX2I=
-=QY/u
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmjjgx0ACgkQ0Z6cfXEm
+bc4UwRAAkSkXsBeTruf6fY0mJlV6Ao7VFz2iZY/K5YMmBpGHp4xQUn0BFD5aJ0Ts
+DjDN4WN3fFZAel5SLQ61Ilaj7YakYEdXVtpxIDLRKmY5l7Y8UB7OKYpmsYVtSpAc
+rkzfE0EM4Zg6MpcAR+j7pKWocAj5pq8IUJS+miv+fRxbakbBDZo7rap/4QLmA+Ox
+WT6p1K746OZpAddI9QU43ydM+tfhiDUaFsb/pNQKQbPWtSe0qoZaM3qu1oTlkKIk
+5T7lmuDH2j43qgnOAweLcwm8ATm25JgteokPltzfiOlM2bp4d0Yw1BT/b1OH86if
+D3PoZfsx7Fn9zWDscoQ3UjBk90qtmw73tGyqhHOfdlFlW3VvJV71RzgyV4Ncj+xT
+bUnG4TZwGK9vIkJ+nlBp3gkm0vg4syEVNZh313gxg5X1bMeinwJqK/QXzJbY5Gd0
+XaOj/pMQMgvfEb5Frw/apFNzTuQlmTLXMCbfhoeVR3i2SET2em17yCaWrJz2ET/O
+bFhsaCQOksinwFS1QnoFGbMRzBC/+mEkqeQFwToyCRo7uoMOh6oA+CpqKRLXp3vi
+qJ2Q8mQSt4AoKRAFvbO0yTIdOxYfJgKrD5jWStpbuj+MlHjmuzxR1EbmIsUMJXzY
+K3GOOievtpxDY47woaFASamgGYcrmB/ES8E52GL5gp1auOHhfco=
+=aAsN
 -----END PGP SIGNATURE-----
 
---ypmey6p2k4nmbyo5--
+--upuxopez74e3jc4x--
 
