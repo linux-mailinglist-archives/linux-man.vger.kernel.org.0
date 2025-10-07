@@ -1,63 +1,53 @@
-Return-Path: <linux-man+bounces-4066-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4067-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C81DBBC0C6A
-	for <lists+linux-man@lfdr.de>; Tue, 07 Oct 2025 10:48:00 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 324B9BC0DDC
+	for <lists+linux-man@lfdr.de>; Tue, 07 Oct 2025 11:37:32 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id A9D7F4F38E3
-	for <lists+linux-man@lfdr.de>; Tue,  7 Oct 2025 08:47:57 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 2A79E1898EEB
+	for <lists+linux-man@lfdr.de>; Tue,  7 Oct 2025 09:37:55 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E7872D661D;
-	Tue,  7 Oct 2025 08:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6351A2528FD;
+	Tue,  7 Oct 2025 09:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FPABTeBD"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGM0E9Wr"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEFC2D6409
-	for <linux-man@vger.kernel.org>; Tue,  7 Oct 2025 08:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209693207
+	for <linux-man@vger.kernel.org>; Tue,  7 Oct 2025 09:37:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759826869; cv=none; b=bmO3H5ZzxG3rNChg1yv9KeqtU1DQmhh+gcoe9bQX5Hy3e/HaQRM9U4jLbh/lpVejywAS83dds+Zh1sLwSZ2Cns/LbBJd6yVoKiJDy+7W8qVN3AH8lAX05QzblrIZ/3Mamyt5rzdfJueOyGXz8TAwnfdtkdQU7OLG0vvkZ7csA9s=
+	t=1759829848; cv=none; b=unhEBvpb/mpYkLMd8jjY6rVXRlhpAml7WcZyMlO41tGnFSryQmo4tMBZIGR+JjgnbKuZQJAMu/9Rpv5FQIQfRuqNedhFmdYAhRaTfEHsOPR5Yb3FSVExH9ZNhM1uQJo6v3W5bxIvBrF9JnQE5ReudD039sJKjNy/TcowOfFMb7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759826869; c=relaxed/simple;
-	bh=3RsKsTy9M0oOSK/NDpvN8mvDBcisaY3e1f5lbkhile4=;
+	s=arc-20240116; t=1759829848; c=relaxed/simple;
+	bh=g4CIALvEqEM5+puAj70m6cdlrrJdoZAy1xGozbZMddI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uGOwwAtc2eyf9KDLI6r8TEWK70EUNhpTq6/n4qhV3H9VIaY/UpW8fjCK9yXmsOhx/6vlnXN/wASlE/1t97NmOBvSYB3C9htfozzwpwRYvRTPSmMMLUl7nNyHEzCHXTg7mRA9mRbsbiCH7WjVavRybNpusFwzFSutVPY/WLLz+jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FPABTeBD; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626F7C113D0;
-	Tue,  7 Oct 2025 08:47:46 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=mz+TcDVL2vNzmv0K1kQKfpNS6D6N93cMWg51vWBeQKuM1D7eyAMVJzmhHlkMAGhxdH/ySfBiHbSnszNIiErnWFn4A2t2QLuQjBXk+9bPCzfbtnHKSFhx70RtOvQLZ/Aoxv9pj2EuVS7QRdUDKds2zvEbTIIK4RKUkfIfvEzwLp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGM0E9Wr; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2564C4CEFE;
+	Tue,  7 Oct 2025 09:37:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759826867;
-	bh=3RsKsTy9M0oOSK/NDpvN8mvDBcisaY3e1f5lbkhile4=;
+	s=k20201202; t=1759829847;
+	bh=g4CIALvEqEM5+puAj70m6cdlrrJdoZAy1xGozbZMddI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FPABTeBDZ/e4ECGDIZttPqTCK7tEJNQGBaQfTkQ/Wc1jV/4xuhnOK9DlwXZBfGf6U
-	 32yqgERx4XP97Fw4+vLd5lN42er16I4MzQtC1qQZMeeE3w/UIbDFiVo6o1vsAICT+L
-	 b/qGUh4hseKQaHYWs8YFZIuVFPR3OQI7DGCJLT+TogJSZjvF/RiPnmNYkOnNTmJtbU
-	 HqCxzz4eLib1jQ2H1ab21RLgpIB8CCg9FX24AmaAiFfpvpK79izpIbl/z+ujbx3zID
-	 c64g5KgS7ncEXT2zKUcwAsliEjM0Ao4Cdf5pV5YltIZgTekDwEMsDCUTjkTfNNuviO
-	 wtAbZZ90nxmpA==
-Date: Tue, 7 Oct 2025 10:47:43 +0200
+	b=KGM0E9WrR2V59vbQYS7dMADi7DlpBAvE93Mo3fXsv1JK3CJmtvWdox7dmFfoeiB2+
+	 HrB1Zm/eW/dFsxjNFjb8tdDzlf7xh07Rqd812WGbCDrqmOBMR9hN1qp4jczv8KHjIn
+	 GFzDT4RFR7sUiM0U5P5zMDKrTH/mkglMQVZmbAhdEeYgEe/IgnGUoo/QkgUHJrZa9Z
+	 WlXGAxIX/QewomETdjYWzqUxbr7UEaz4gejgUGxm0skbG7tC+DCmsjo8Eg7z1d2Rjd
+	 dcrT0Pe9reN/4KFQ7AYBt7wRxy6t3quZIszb8C0zOkpvjIuqGFl2s265U+3HdxIPDI
+	 haHnQ8vsi/hPg==
+Date: Tue, 7 Oct 2025 11:37:24 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: groff build problem involving "ckd_mul" and "ckd_add"
-Message-ID: <354kaidblgryvixec3l3fcs3vivg6i2xloyqiyzzrokp5cxlnl@d54fq3xdfep4>
-References: <20250930194004.btcbo4xspyo3j3ua@illithid>
- <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
- <20251004094243.avg4hvwwir7ink5u@illithid>
- <20251005134812.jvwyjjklabmnzejp@illithid>
- <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
- <20251006085149.oor3kddfih63yutt@illithid>
- <bfl4642gesg23ysveu3dfbkzd4orct75malbxnyg7biud4aln7@mzh34qxcd65p>
- <20251006104224.yw5dusvjjkw2ymnv@illithid>
- <yp5rnfroyllwzxnigmpofdtpycr6fakcytpp2jof2upemftn63@kcpoibftbp7w>
- <87frbvea8g.fsf@gmail.com>
+To: =?utf-8?Q?Micha=C5=82?= Kalenik <mchl.klnk@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Bug report
+Message-ID: <3tq3issiyu3opsfqj4zqjjbog36hdfscciioubdsoajimnv2pa@vh6hfvlzpd3n>
+References: <CAGZ+kfD9W1fU8FUDct3kbtDitXtTu=zeY_vqZzOJCwkjOYFM5A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -65,81 +55,37 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="s6jl6b7eocqqtlsy"
+	protocol="application/pgp-signature"; boundary="hyqvlhywen6sff3k"
 Content-Disposition: inline
-In-Reply-To: <87frbvea8g.fsf@gmail.com>
+In-Reply-To: <CAGZ+kfD9W1fU8FUDct3kbtDitXtTu=zeY_vqZzOJCwkjOYFM5A@mail.gmail.com>
 
 
---s6jl6b7eocqqtlsy
+--hyqvlhywen6sff3k
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>, 
-	Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: groff build problem involving "ckd_mul" and "ckd_add"
-Message-ID: <354kaidblgryvixec3l3fcs3vivg6i2xloyqiyzzrokp5cxlnl@d54fq3xdfep4>
-References: <20250930194004.btcbo4xspyo3j3ua@illithid>
- <6zdtfxpuemava6k4zecq5pfzjnothtlqckm5wn5d2b2vam5xtt@dkzgvtc5vzf4>
- <20251004094243.avg4hvwwir7ink5u@illithid>
- <20251005134812.jvwyjjklabmnzejp@illithid>
- <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
- <20251006085149.oor3kddfih63yutt@illithid>
- <bfl4642gesg23ysveu3dfbkzd4orct75malbxnyg7biud4aln7@mzh34qxcd65p>
- <20251006104224.yw5dusvjjkw2ymnv@illithid>
- <yp5rnfroyllwzxnigmpofdtpycr6fakcytpp2jof2upemftn63@kcpoibftbp7w>
- <87frbvea8g.fsf@gmail.com>
+To: =?utf-8?Q?Micha=C5=82?= Kalenik <mchl.klnk@gmail.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: Bug report
+Message-ID: <3tq3issiyu3opsfqj4zqjjbog36hdfscciioubdsoajimnv2pa@vh6hfvlzpd3n>
+References: <CAGZ+kfD9W1fU8FUDct3kbtDitXtTu=zeY_vqZzOJCwkjOYFM5A@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <87frbvea8g.fsf@gmail.com>
+In-Reply-To: <CAGZ+kfD9W1fU8FUDct3kbtDitXtTu=zeY_vqZzOJCwkjOYFM5A@mail.gmail.com>
 
-Hi Collin,
+Hi Micha=C5=82,
 
-On Mon, Oct 06, 2025 at 07:06:39PM -0700, Collin Funk wrote:
-> > I can reproduce both on my server (Debian) and on my desktop (Devuan).
-> > I'm using Sid, so that may have something to do (maybe I have a more
-> > recent compiler that errors where yours doesn't?).
->=20
-> This was discussed and fixed in Gnulib a few months ago [1]. I assume
-> you are using g++ 15 and the others are not.
+On Tue, Oct 07, 2025 at 11:21:21AM +0200, Micha=C5=82 Kalenik wrote:
+> Hi,
+> I want to report some bug:
+> On site: https://man7.org/linux/man-pages/man3/bzero.3.html
+> is:
+> [image: image.png]
+> When I call: 'man bzero' on my Ubuntu:
+> [image: image.png]
+> That's Typo
 
-Yup, that sounds like it.  I'm using
-
-	g++ (Debian 15.2.0-4) 15.2.0
-
-> Here are the relevant commits:
->=20
->     $ git branch --contains=3D7ee6e40b6730c87e5c1323bb5c2564bcb6eff9e4
->     * master
->       stable-202507
->     $ git branch --contains=3De331531a771443edae4135e6bcd016282cf1a3aa
->     * master
->       stable-202507
->=20
-> But groff is using a branch that does not contain them:
->=20
->     commit e3ff929ddea95e0fc9fe7ea3541d28665de42370
->     Author:     G. Branden Robinson <g.branden.robinson@gmail.com>
->     AuthorDate: Fri Mar 28 03:10:49 2025 -0500
->     Commit:     G. Branden Robinson <g.branden.robinson@gmail.com>
->     CommitDate: Sat Mar 29 22:27:32 2025 -0500
->    =20
->         gnulib: Update stable/2025-01 branch.
->        =20
->         ...to commit 3fbc2c7bb3, 3 March.
->=20
-> Using the following command I can make ./bootstrap use the master branch
-> from my local checkout to copy files:
->=20
->     $ env GNULIB_SRCDIR=3D$HOME/.local/src/gnulib ./bootstrap
->=20
-> Allows me to build groff fine with g++ 15.
-
-Thanks!
-
-Branden, would you mind bumping the gnulib version sooner than later to
-avoid using workarounds?  That would also allow us to use countof()
-sooner.
+Would you mind pasting text?  I'm not going to open PNG images, sorry.
 
 
 Have a lovely day!
@@ -149,25 +95,25 @@ Alex
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---s6jl6b7eocqqtlsy
+--hyqvlhywen6sff3k
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjk03YACgkQ64mZXMKQ
-wqkk3RAAukvtR2lJzKa6xHb4X912CzXHnVCY7EvFS1RXvPuFaan5/cREC4t7Lxzz
-cIVu3gDT0l7wmmWS+gR3XEkoxmlSB9RXLsftniP8GzuuYOvKzs7JrciYje8vjfcF
-L9FmbUflZMTttCat0pcOK+RxEGYSjDHSd+D2R3iUhAnZd6WZ4npormpn41JNk2AU
-il0juxGzj2yuUqNZYP/rA8FBIr7loW00R69H4zXrsYcligfs69UiEkWUuHO9MrhE
-cQ/x1zTzPb8kP11m/erKU+ZxwYMQVLf9nTS7RT6psf/k78XZrArnsW/xjIoQSiKm
-zIxywoW5aWL9HxsppIoJjydyaSzJsA0/VZhuJUFr+PLEB2LjHnMmdw++pw2dZSC4
-GAPlOLZU9ClOm1pOe5JJDPxIIOVzGk0RYZXB8xpAhfiJ2Jlux4j+AVCHblR5+ctO
-Qik+9WpQFxJtGX6SvE+Du1Wo/IaActFTfenJj9EqhQ4tCjTji5HyLvclW02tZcgI
-KaLC8Hj4aNqup0WAg59R0XfVAdXvrCPWt4y10MSIBG9o2JFW2S4+EQtIunelPfsJ
-EFqZK9McYmPGG2sDrfh+VVYEq2+xuNOk63Ww2jE0wmGG/jX5D0BJ42HQddgfMJE6
-7oFp5F3+9iDLWXUKI9fzHBW+HBMN4PWBgAGLqN/JtaMkA8k6pYw=
-=EJX0
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjk31QACgkQ64mZXMKQ
+wqlccBAApFwMarbTluhQEB4FqcLh6YwmB+umBCQMmoWajp8iGNYvjHrF/iWY2tJ8
+P5R1O4uQeKMHJvuaF0TzSPO6pi7v0TsvYnYTit7GzJ/n5Tr5DNMyFAprO4eQHNCI
+IobAHqpMwu6Nsi7738rHHrhChPhgGhKb0eI44wzDStLk2TFD5LkC038JqAYYSqRJ
+AOfRG8lyeiERASGKfSAgvhxtb5A3NdoU3itTkm62IfA5/B1ckIIclkBykGpx34XB
+X6BbHyv2cOEPGICOA61jPCKwPkh7fQxhE/PYoYoWHj5IRN8OtitOd4pwX9klruDO
+dtGYC78THB2Fp9ASsih/JtpJmtbbniIA/bSbyLhTqGsMRRMM7fVdFGqKdGBGjS0k
+ga0jPKn29xioR9EyALvnhnlchLdLFcef3MYGQpJg3uGZbrgYEU7vSMKpmvOXY6+x
+IadOpmUXHQmTbQ119GPZ2ODBhYk6pMFDzmRfl2XE6Qkq17BmKIE0w4x42KkL9QBY
+UbqJDYwJ/Kz8U+eKAtZOnyjsVIuoDWv/5cvy5HipsKHTt6cs5mY8IHmIdV3LpTpz
+BImbErlhEFr9RwpzH9DCPhTIE/IBS+pm4C0b/Os99mQTZeRbNutVzzy+kZzjBC8b
+xKtf9YMH486/uoKqTgk0zFhmvoaXpx99qKNTINVdTSh2vA9oS/M=
+=N4La
 -----END PGP SIGNATURE-----
 
---s6jl6b7eocqqtlsy--
+--hyqvlhywen6sff3k--
 
