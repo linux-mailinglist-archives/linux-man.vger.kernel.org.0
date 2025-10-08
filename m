@@ -1,271 +1,198 @@
-Return-Path: <linux-man+bounces-4080-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4081-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20671BC576F
-	for <lists+linux-man@lfdr.de>; Wed, 08 Oct 2025 16:41:35 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id B982FBC5FF8
+	for <lists+linux-man@lfdr.de>; Wed, 08 Oct 2025 18:20:04 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id CE2D73BDAEF
-	for <lists+linux-man@lfdr.de>; Wed,  8 Oct 2025 14:41:33 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 843B54249A7
+	for <lists+linux-man@lfdr.de>; Wed,  8 Oct 2025 16:05:51 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 74BEF2EBBA8;
-	Wed,  8 Oct 2025 14:41:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7C6C2BDC1B;
+	Wed,  8 Oct 2025 16:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cvhzkE1u"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjQA+SKx"
 X-Original-To: linux-man@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7937B2EBB9E
-	for <linux-man@vger.kernel.org>; Wed,  8 Oct 2025 14:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7750A2BD5BC
+	for <linux-man@vger.kernel.org>; Wed,  8 Oct 2025 16:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759934489; cv=none; b=SOxBhIdgJCgi1c3lz9/yEymvGsVLYn9LJ+W91DhE9ggHdne84hVjOLWB/MmEANOXd0gtbNKBYU7Xp1q3npqOlMcgFnSXGUtVG1n1bkWHMiykhUe35p0USk6LieGRt2UrdiO63NfFNkEuex3hLX8/AKJdOvNg0PUeS13yZfmjdEo=
+	t=1759939545; cv=none; b=qWU78+T/UgY3sKdVZwEDorcqEsO6VzBvb4rWSj6Vj5QA04B9nIur4wbnppuDtcsP8GFAVA3XnXUMcHsXnsTj/U0YcsYj6c/WiWA//3ixUiH4OfAXrIxN1f4xr65e9zUvK5yvML+IQmTl4J5aP38b062OfQAJlV14p6SjPr1plGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759934489; c=relaxed/simple;
-	bh=gw39v1AiHoehTDiloG3zFKeCTox6Be6Mqyc6l1LhPxg=;
+	s=arc-20240116; t=1759939545; c=relaxed/simple;
+	bh=cWEcVElVPA+fK8Bk7Jacj2o8j1WWdIUD8RDQkvbEQ8M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VfHvz/Cbk8qBXYti35TuF0j0cmqPSkQCXnTnyfrjGfUdVGQq5fXNY7MC696++ssRJzaN27ve70Ha9/RIAV366EyHTicFiANsrKjyvWFFk/q981Sw2DhJSdyU/TRzet4hraLAMrcBzJXZot7/avN3Dc1WcwNtVYJ8s3x7v1KRMwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cvhzkE1u; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1759934486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=89Wc9Ivif4WRL3FOjk+YsWveANwkvkWDmYkjT3g7II4=;
-	b=cvhzkE1uRdDcwVvqZpSevA3gHyRnbvobs9lo+hzWt0lf/oggOQP2VxeQKi0Nua5bRsOSPj
-	WcT1fezKL9PJuEmaPHgzHule8dZSddOSIIHEyee+bU3Xm2jiZEV+aWF/kXjGSpEqxj1AQb
-	JWwlwLGJjNzEudCsyOeFaeiF5hDbTE8=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-652-iPRp2yyKOWCPktL5Ej8qvQ-1; Wed, 08 Oct 2025 10:41:25 -0400
-X-MC-Unique: iPRp2yyKOWCPktL5Ej8qvQ-1
-X-Mimecast-MFC-AGG-ID: iPRp2yyKOWCPktL5Ej8qvQ_1759934484
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-426c4d733c4so357648f8f.3
-        for <linux-man@vger.kernel.org>; Wed, 08 Oct 2025 07:41:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759934483; x=1760539283;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=89Wc9Ivif4WRL3FOjk+YsWveANwkvkWDmYkjT3g7II4=;
-        b=RBIEy8vjbX0kv5+Ch605NawUGTHFE3Gnzu0Ju+SoJWCSavtRduh9lOT7D2zgOLsYPr
-         pJRRoKPE2gXATnyagxAQKloOMRUIAHU5IGizsGI0iHBDmf4WD0ek1G/jlDQI1PwyVbY/
-         7rtgl99Np0ZqDjLdaxcVXJ+f93os6i0AQF7HMR9koH+vxzuq8/+0Qpg0yfCh/0OoHFpA
-         zQQl7CTsmsqDwkOqN4ea0p+DJ4AfYtIHxgM+MDB+6rkpxW/phVmjY53uFSoQvFDiqOEP
-         E6Hwc30v4W3di59C1svASZvFgCpHN2fVY/04yZkREvjkh6ky2BgkILFaLGu3sTOpzq72
-         yAiQ==
-X-Gm-Message-State: AOJu0YztAmbyUpWJDLcn60/MJgm54gsj1wf7EKDY+zYk+AnA8VJ2FFnA
-	abIir1MUMSuKyCnfY/JpWMNa74ABPtPqlFhqUEBf1bZHYTqSqn5amC8tGNn6xy3BK+1TEp3jsH8
-	lo9dFkN1cuVjXtwcG50WhQWz4QIiV6CNR7iaNtLBqzrZcVGnxO0ycBjBKAOHwn4mM0vsHbg==
-X-Gm-Gg: ASbGncsRyGporkfDoeXmvnZ72UFx3mc3jc9L+3e7IfyAOY/YwWvVGwrSay3076HbN3I
-	As3jXmpEeN//gzA7bDGf3R5izG97nNIeoNCugX465vwl0bRweTxS1Jet+XUAXGxHGqbUqMSfHcj
-	uE8UxzDViYZkd/o0Tmpj6pbIazFg5g5jshMF1OZOJtloFOWfS8hXbtPInl5cZIGacHp7dabkCsw
-	lP7EghUtWcn1pscWRRRUePfLaucUKh04Pvu5mXMF4Yyk3/dn7hs+8kV2W1c3UKDL8Hd+wj7dKal
-	Xb4EHgqUvcI7W6e1zFILUgvOHhqu+D3b/EsJyt6eHNUqrrgroI9whIUJ04bIpxtqX2c7BwU+FGo
-	1tCLpkt3gYAWOEn0RCje4Nqxc
-X-Received: by 2002:a05:600c:4506:b0:45b:8a0e:cda9 with SMTP id 5b1f17b1804b1-46fa9a8638dmr28612885e9.2.1759934482674;
-        Wed, 08 Oct 2025 07:41:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGHspBHiNQCGH2JuQFadTTARyUePwa2tFxFsCBLCQtJJfnsJmTz4C3isey3iR7oVkXZcOML0Q==
-X-Received: by 2002:a05:600c:4506:b0:45b:8a0e:cda9 with SMTP id 5b1f17b1804b1-46fa9a8638dmr28612675e9.2.1759934482172;
-        Wed, 08 Oct 2025 07:41:22 -0700 (PDT)
-Received: from debian (2a01cb058d23d60063f64695c7af142f.ipv6.abo.wanadoo.fr. [2a01:cb05:8d23:d600:63f6:4695:c7af:142f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4255d8f0392sm30710583f8f.42.2025.10.08.07.41.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Oct 2025 07:41:21 -0700 (PDT)
-Date: Wed, 8 Oct 2025 16:41:19 +0200
-From: Guillaume Nault <gnault@redhat.com>
-To: Alejandro Colomar <alx@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=kL3NJ+4rzbCA9EqfsPep79UpL6kPADpJUegPDXG4nE/+uJa/C3wkN+69CqTIAq6LTk7eEV/CRSx5i+hT/Rjt6u7dCThn3lKIjRyG+PDZP3oWUvzGZ2To0k+hw+sCd0qFyaxv7xCuXPkpv4KIxFeN1+1j5j1P8TcZSxadm/FIYCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjQA+SKx; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E3EC4CEF5;
+	Wed,  8 Oct 2025 16:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759939544;
+	bh=cWEcVElVPA+fK8Bk7Jacj2o8j1WWdIUD8RDQkvbEQ8M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bjQA+SKxl9Y97iAuobmU44qh7/clqI1tPqhT0J/ZBHs0TgCAIylwVVL8KJxR0zlRA
+	 OxF+YcthMlNkvYm/wBJHSmynZkKgrUO3BcuIGoXWLhECAYJs847JMyt3ntx6MzhCbn
+	 735qNODYKZeBvWsY3cTgaSkSLaz24eMg8FR5t4tAV5bDXZtCTTiA8LFWn1Vf6kX5xc
+	 Goo+W1QeKOlYMnXUo/2OVSyZ5iWFwuS2JCr94F+7NUaoJ5gSXwMgzL+mr+1FfpH2F6
+	 FJFGwCk2U1lJskamspFTcNVroocaWWpg0xu5Ts/yXYuCAwaGy4VBzq3trrJtV1f1F9
+	 7aWVcd+EOF0iQ==
+Date: Wed, 8 Oct 2025 18:05:41 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Guillaume Nault <gnault@redhat.com>
 Cc: linux-man@vger.kernel.org
 Subject: Re: [PATCH] rtnetlink.7: Document metrics attributes (RTAX_*).
-Message-ID: <aOZ4D47TGxNPWqSE@debian>
+Message-ID: <z45wvnlrxlnrp367rgxotuieieyn7myfgct6lvjitn4igupo74@htps4hpfqamb>
 References: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
  <accjbqimswux57cgstzl2jrtqlnbxsuqhmmfjqguat7fk7kzlz@oy545lcy52to>
+ <aOZ4D47TGxNPWqSE@debian>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bxawkz54lhdqnpec"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <accjbqimswux57cgstzl2jrtqlnbxsuqhmmfjqguat7fk7kzlz@oy545lcy52to>
-
-On Thu, Oct 02, 2025 at 11:33:09PM +0200, Alejandro Colomar wrote:
-> Hi Guillaume,
-> 
-> On Fri, Sep 19, 2025 at 12:53:55PM +0200, Guillaume Nault wrote:
-> > Add a brief explanation of the RTAX attributes that can be used in
-> > RTA_METRICS.
-> > 
-> > Signed-off-by: Guillaume Nault <gnault@redhat.com>
-> > ---
-> >  man/man7/rtnetlink.7 | 49 +++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 48 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-> > index cb9f5155f..a04edce79 100644
-> > --- a/man/man7/rtnetlink.7
-> > +++ b/man/man7/rtnetlink.7
-> > @@ -342,7 +342,11 @@ RTA_OIF:int:Output interface index
-> >  RTA_GATEWAY:protocol address:The gateway of the route
-> >  RTA_PRIORITY:int:Priority of route
-> >  RTA_PREFSRC:protocol address:Preferred source address
-> > -RTA_METRICS:int:Route metric
-> > +RTA_METRICS::T{
-> > +Route metrics
-> > +.br
-> > +(see below).
-> > +T}
-> >  RTA_MULTIPATH::T{
-> >  Multipath nexthop data
-> >  .br
-> > @@ -384,6 +388,49 @@ routes (in seconds)
-> >  T}
-> >  .TE
-> >  .IP
-> > +.B RTA_METRICS
-> > +contains an array of
-> > +.I struct rtattr
-> > +with their corresponding attributes:
-> > +.IP
-> > +.in +4n
-> 
-> I would use
-> 
-> 	.RS
-> 	.IP
-> 
-> and get rid of the .in +4n.
-
-I have no preference, I was just following the commands used elsewhere
-in this man page.
-
-> > +.TS
-> > +tab(:);
-> > +c s s
-> > +lb l l.
-> > +Attributes
-> > +rta_type:Value type:Description
-> > +_
-> > +RTAX_UNSPEC:-:unspecified
-> > +RTAX_LOCK:__u32:Bit field indicating which RTAX_* attributes are locked
-> > +RTAX_MTU:__u32:Maximum Transmission Unit for this route
-> > +RTAX_WINDOW:__u32:Maximum size of the receive window for this route
-> > +RTAX_RTT:__u32:Estimated round-trip time for this route
-> > +RTAX_RTTVAR:__u32:Estimated round-trip time variation for this route
-> > +RTAX_SSTHRESH:__u32:Slow start threshold to use for this route
-> > +RTAX_CWND:__u32:Maximum size of the congestion window for this route
-> > +RTAX_ADVMSS:__u32:Maximum Segment Size to advertise for this route
-> > +RTAX_REORDERING:__u32:Initial reordering level of packets for this route
-> > +RTAX_HOPLIMIT:__u32:Hop limit (TTL) to use for this route
-> > +RTAX_INITCWND:__u32:Initial congestion window to use for this route
-> > +RTAX_FEATURES:__u32:Features to enable for this route specifically
-> > +RTAX_RTO_MIN:__u32:Minimum Retransmission TimeOut to use for this route
-> > +RTAX_INITRWND:__u32:Initial size of the receive window for this route
-> > +RTAX_QUICKACK:__u32:Use quick ack for this route
-> > +RTAX_CC_ALGO:asciiz string:Congestion Control algorithm to use for this route
-> > +RTAX_FASTOPEN_NO_COOKIE:__u32:Allow TCP Fast Open without cookie
-> > +.TE
-> 
-> And here use .RE.
-
-Okay, I'll use .RS/.RE in v2.
-
-> > +.IP
-> > +Metrics that are locked with
-> > +.B RTAX_LOCK
-> > +take precedence over the values normally used by the kernel
-> > +(computed or assigned by a sysctl or setsockopt(2)).
-> > +Therefore, some metrics, like
-> > +.BR RTAX_RTO_MIN ,
-> > +have no effect unless their bit is set in
-> > +.BR RTAX_LOCK .
-> > +.in
-> 
-> I find this placement of .in weird.  The preceding paragraph isn't
-> indented by it.  I think I prefer using .RS/.RE, and then you'd have to
-> put .RE before this paragraph to get the same indentation.
-> 
-> Here's how your patch looks like:
-> 
-> 	$ MANWIDTH=72 diffman-git HEAD 2>/dev/null
-> 	--- HEAD^:man/man7/rtnetlink.7
-> 	+++ HEAD:man/man7/rtnetlink.7
-> 	@@ -218,7 +218,8 @@ DESCRIPTION
-> 		     RTA_GATEWAY     protocol address      The gateway of the route
-> 		     RTA_PRIORITY    int                   Priority of route
-> 		     RTA_PREFSRC     protocol address      Preferred source address
-> 	-            RTA_METRICS     int                   Route metric
-> 	+            RTA_METRICS                           Route metrics
-> 	+                                                  (see below).
-> 		     RTA_MULTIPATH                         Multipath nexthop data
-> 							   (see below).
-> 		     RTA_PROTOINFO                         No longer used
-> 	@@ -242,6 +243,37 @@ DESCRIPTION
-> 		     RTA_EXPIRES     int                   Expire time for IPv6
-> 							   routes (in seconds)
-> 	 
-> 	+            RTA_METRICS contains an array of struct rtattr with their
-> 	+            corresponding attributes:
-> 	+
-> 	+                                                           Attributes
-> 	+                rta_type                  Value type      Description
-> 	+                ──────────────────────────────────────────────────────────────────────────────────────────────────
-> 	+                RTAX_UNSPEC               ‐               unspecified
-> 	+                RTAX_LOCK                 __u32           Bit field indicating which RTAX_* attributes are locked
-> 	+                RTAX_MTU                  __u32           Maximum Transmission Unit for this route
-> 	+                RTAX_WINDOW               __u32           Maximum size of the receive window for this route
-> 	+                RTAX_RTT                  __u32           Estimated round‐trip time for this route
-> 	+                RTAX_RTTVAR               __u32           Estimated round‐trip time variation for this route
-> 	+                RTAX_SSTHRESH             __u32           Slow start threshold to use for this route
-> 	+                RTAX_CWND                 __u32           Maximum size of the congestion window for this route
-> 	+                RTAX_ADVMSS               __u32           Maximum Segment Size to advertise for this route
-> 	+                RTAX_REORDERING           __u32           Initial reordering level of packets for this route
-> 	+                RTAX_HOPLIMIT             __u32           Hop limit (TTL) to use for this route
-> 	+                RTAX_INITCWND             __u32           Initial congestion window to use for this route
-> 	+                RTAX_FEATURES             __u32           Features to enable for this route specifically
-> 	+                RTAX_RTO_MIN              __u32           Minimum Retransmission TimeOut to use for this route
-> 	+                RTAX_INITRWND             __u32           Initial size of the receive window for this route
-> 	+                RTAX_QUICKACK             __u32           Use quick ack for this route
-> 	+                RTAX_CC_ALGO              asciiz string   Congestion Control algorithm to use for this route
-> 	+                RTAX_FASTOPEN_NO_COOKIE   __u32           Allow TCP Fast Open without cookie
-> 	+
-> 	+            Metrics that are locked with RTAX_LOCK take precedence over
-> 	+            the values normally used by the kernel (computed or as‐
-> 	+            signed by a sysctl or setsockopt(2)).  Therefore, some met‐
-> 	+            rics, like RTAX_RTO_MIN, have no effect unless their bit is
-> 	+            set in RTAX_LOCK.
-> 	+
-> 		     RTA_MULTIPATH contains several packed instances of struct
-> 		     rtnexthop together with nested RTAs (RTA_GATEWAY):
-> 	 
-> Is this indentation what you intended?
-
-Yes. Is that indentation confusing? I can change it if necessary.
-
-> 
-> Have a lovely night!
-> Alex
-> 
-> > +.IP
-> >  .B RTA_MULTIPATH
-> >  contains several packed instances of
-> >  .I struct rtnexthop
-> > -- 
-> > 2.47.3
-> > 
-> 
-> -- 
-> <https://www.alejandro-colomar.es>
-> Use port 80 (that is, <...:80/>).
+In-Reply-To: <aOZ4D47TGxNPWqSE@debian>
 
 
+--bxawkz54lhdqnpec
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Guillaume Nault <gnault@redhat.com>
+Cc: linux-man@vger.kernel.org
+Subject: Re: [PATCH] rtnetlink.7: Document metrics attributes (RTAX_*).
+Message-ID: <z45wvnlrxlnrp367rgxotuieieyn7myfgct6lvjitn4igupo74@htps4hpfqamb>
+References: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
+ <accjbqimswux57cgstzl2jrtqlnbxsuqhmmfjqguat7fk7kzlz@oy545lcy52to>
+ <aOZ4D47TGxNPWqSE@debian>
+MIME-Version: 1.0
+In-Reply-To: <aOZ4D47TGxNPWqSE@debian>
+
+Hi Guillaume,
+
+On Wed, Oct 08, 2025 at 04:41:19PM +0200, Guillaume Nault wrote:
+> > > +.IP
+> > > +.in +4n
+> >=20
+> > I would use
+> >=20
+> > 	.RS
+> > 	.IP
+> >=20
+> > and get rid of the .in +4n.
+>=20
+> I have no preference, I was just following the commands used elsewhere
+> in this man page.
+
+Hmmm, I'll have a look at the source of that page later.  Maybe I need
+to fix the existing code.
+
+> > > +.TE
+> >=20
+> > And here use .RE.
+>=20
+> Okay, I'll use .RS/.RE in v2.
+>=20
+> > > +.IP
+> > > +Metrics that are locked with
+> > > +.B RTAX_LOCK
+> > > +take precedence over the values normally used by the kernel
+> > > +(computed or assigned by a sysctl or setsockopt(2)).
+> > > +Therefore, some metrics, like
+> > > +.BR RTAX_RTO_MIN ,
+> > > +have no effect unless their bit is set in
+> > > +.BR RTAX_LOCK .
+> > > +.in
+> >=20
+> > I find this placement of .in weird.  The preceding paragraph isn't
+> > indented by it.  I think I prefer using .RS/.RE, and then you'd have to
+> > put .RE before this paragraph to get the same indentation.
+> >=20
+> > Here's how your patch looks like:
+> >=20
+> > 	$ MANWIDTH=3D72 diffman-git HEAD 2>/dev/null
+> > 	--- HEAD^:man/man7/rtnetlink.7
+> > 	+++ HEAD:man/man7/rtnetlink.7
+> > 	@@ -218,7 +218,8 @@ DESCRIPTION
+> > 		     RTA_GATEWAY     protocol address      The gateway of the route
+> > 		     RTA_PRIORITY    int                   Priority of route
+> > 		     RTA_PREFSRC     protocol address      Preferred source address
+
+[...]
+
+> > 	+                RTAX_RTO_MIN              __u32           Minimum Ret=
+ransmission TimeOut to use for this route
+> > 	+                RTAX_INITRWND             __u32           Initial siz=
+e of the receive window for this route
+> > 	+                RTAX_QUICKACK             __u32           Use quick a=
+ck for this route
+> > 	+                RTAX_CC_ALGO              asciiz string   Congestion =
+Control algorithm to use for this route
+> > 	+                RTAX_FASTOPEN_NO_COOKIE   __u32           Allow TCP F=
+ast Open without cookie
+> > 	+
+> > 	+            Metrics that are locked with RTAX_LOCK take precedence ov=
+er
+> > 	+            the values normally used by the kernel (computed or as=E2=
+=80=90
+> > 	+            signed by a sysctl or setsockopt(2)).  Therefore, some me=
+t=E2=80=90
+> > 	+            rics, like RTAX_RTO_MIN, have no effect unless their bit =
+is
+> > 	+            set in RTAX_LOCK.
+> > 	+
+> > 		     RTA_MULTIPATH contains several packed instances of struct
+> > 		     rtnexthop together with nested RTAs (RTA_GATEWAY):
+> > 	=20
+> > Is this indentation what you intended?
+>=20
+> Yes.
+
+Thanks!
+
+> Is that indentation confusing? I can change it if necessary.
+
+The indentation is fine.  Please keep it like that.  What's confusing is
+the source code, since the '.in' goes after the unindented paragraph,
+while I'd expect it to be the indentation terminator.  .RS/.RE is much
+more intuitive.
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+Use port 80 (that is, <...:80/>).
+
+--bxawkz54lhdqnpec
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjmi8MACgkQ64mZXMKQ
+wqmBUA/8CBVUa+5z587gtx1xsZu5NQk2k60BkM6Ci7HrQkLNJW9rnabbANreSbhK
+7oOAUdShF18207N912dcKdaLPDiYQMdzfsqXOGPjWb3TLfRffG/eij+GNUGWh9fe
+vUbOxXymiZ1V/hvllYiOK7QolTcvWXUBaziJpcT7CfBEtPkp380PQhzU1rPB6oCt
+Cmmap4umnwl0HpI5uUSWsry3yHvv+h1nsQRm/0RIyFPX5IhgYtFE9ouKqLVCW+rj
+Nba8jg+y0b21L9jzyR7zrfI8bi/wNvJ4xQeBhPVsQKH4JGRUEJuk+BrMXLfd5tbV
+k/IrQhfzWbwMnZLAC/R8zki0NzSu3SL5FwJbeLswJX5SAAN5Hcys1MyIQGpJhQ5p
+TMPBkVOLdiPBoQpUqTD/VJSbxpxKo+Xwb+vL2kevtgPavi/fBGxzgJbzZcp9L2bz
++Rg57sVt3wZw0lVDJOIFXgFM5cGcjUQMa4q0nyfYY1cgH4XQEmiRTLzSk3Z/WLOd
+Z/wa+quvBRyJx+BgoP/Ul6UiebUoa23QDGL8R2I9kQMiy9f9E6gZTfEpBEcBBML2
+A9wOrR3sKauGkBfuMIWLhgEoVeekUlnZawCxp0ug5amQTgxQVPARy3ktz4nmPl/R
+7jdX+/TG/NGmevMCFV9VoPzs39wlD066BqecSCa4psvD9HoQvc0=
+=r8fY
+-----END PGP SIGNATURE-----
+
+--bxawkz54lhdqnpec--
 
