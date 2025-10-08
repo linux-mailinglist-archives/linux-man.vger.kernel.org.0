@@ -1,142 +1,115 @@
-Return-Path: <linux-man+bounces-4075-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4076-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E26FBC2B9D
-	for <lists+linux-man@lfdr.de>; Tue, 07 Oct 2025 23:10:08 +0200 (CEST)
+Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD762BC323F
+	for <lists+linux-man@lfdr.de>; Wed, 08 Oct 2025 04:00:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 857354E37CE
-	for <lists+linux-man@lfdr.de>; Tue,  7 Oct 2025 21:10:07 +0000 (UTC)
+	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 8FC274E3D72
+	for <lists+linux-man@lfdr.de>; Wed,  8 Oct 2025 02:00:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA47723816C;
-	Tue,  7 Oct 2025 21:10:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C342D1F03D8;
+	Wed,  8 Oct 2025 02:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pwp3VAhs"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zt5akbgT"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7737378F59
-	for <linux-man@vger.kernel.org>; Tue,  7 Oct 2025 21:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E73534BA44
+	for <linux-man@vger.kernel.org>; Wed,  8 Oct 2025 02:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759871404; cv=none; b=dZGhnuYdYT9P6TD+NMY7Ah8Gv7K7wIPybMr+e7lA6EsBt1YzF0al0E7egCnvcmEL7fbNQjvOkbCetFWMmsYeBLB0CYn6pT0OSEK9zrudc6Y5EXnUcjmHRSw4j45QD95Z9LYKcD6YvE9IKNzBsjwo7x2GbWLHHdeuzCgtLHWG2GY=
+	t=1759888845; cv=none; b=neKNqTfgAaV2wRp6FjVc62RtYS7q9GBBZE9N+WE4+iggj88WjToV1ArvxzVjSPj3V8UzIJb4vQ5HXe9NvlUf7y8XZDEMgEPac5l2MkP4umsECgfq09feeELW6m4FnD3w0XVuNzoYu/1ameDgt+z6/G2rJdt5UHmUxXOlnn6Cb/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759871404; c=relaxed/simple;
-	bh=c3WcIDs2SrFwOW7lDgyWf36Xxgn9GVicF8BdNs1LjWI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uhTnhANoovPTImkoL43jRfldfJMYGhHvq8lQz4Cy8y1vFbbAJF9JDC1Ze/2rz4KJlzrFWDvZYUnRitMY9ji8gwEsC17WD7Gu+DrsVGDAY2fQiD/MODkQTim/fBf/uh1tuUY+RE3AaM+HfArm/rt73TIuQeLWFL2tJA8pA1Fnvu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pwp3VAhs; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0F0C4CEF1;
-	Tue,  7 Oct 2025 21:10:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759871404;
-	bh=c3WcIDs2SrFwOW7lDgyWf36Xxgn9GVicF8BdNs1LjWI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Pwp3VAhsZ6a+Bf5O282exL6WrbosH6780Q1lW2SOuodnBmaNYcpCGUUpZw9h9zMtX
-	 tOs9gK5HRDh2DNwKwihMTmcwjZ07n7eeI93v4vkyXzc8lArg2vhXHEcb7W5EBNNOFB
-	 7tUJpjk7N3pmqPzu65ZIg4NzP1TZYYowr+I5OikKS/gjoHXn3LJEyMLP+78MsLBGkC
-	 9+ugbZVxUd37sxjtZLLZFRLh3ldep8tuSebYk+DapQvYgWJV9bU4T8y2arZuSZkOkg
-	 TGu2D3XfNJdwdZjCPdOF8EnsrztXpv62RjOknZVNn7BusPExIWmwh7UGDHQRxUftaE
-	 FAtSgMGMrbE+Q==
-Date: Tue, 7 Oct 2025 23:10:00 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Collin Funk <collin.funk1@gmail.com>, 
-	Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: groff build problem involving "ckd_mul" and "ckd_add"
-Message-ID: <zvcmpbo42w245mnsjdvffro6q2ar3gh2bra5imoip2njzfo6ul@imoewzjedqgw>
-References: <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
- <20251006085149.oor3kddfih63yutt@illithid>
- <bfl4642gesg23ysveu3dfbkzd4orct75malbxnyg7biud4aln7@mzh34qxcd65p>
- <20251006104224.yw5dusvjjkw2ymnv@illithid>
- <yp5rnfroyllwzxnigmpofdtpycr6fakcytpp2jof2upemftn63@kcpoibftbp7w>
- <87frbvea8g.fsf@gmail.com>
- <354kaidblgryvixec3l3fcs3vivg6i2xloyqiyzzrokp5cxlnl@d54fq3xdfep4>
- <20251007200636.bmsiu5ci2ue25qkg@illithid>
- <bbhgwz5jtjpht6en27rjbydhk6zh3z3674wta5nytjfaugxhwk@hypmtgrinw7j>
- <20251007202928.d7vdj3x2tfdnreco@illithid>
+	s=arc-20240116; t=1759888845; c=relaxed/simple;
+	bh=2PsNaDuMhBMScSKwvMHBZPA2JJPtFDdafW49WxkZs5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bkpu1zmf2vBdwjW5HUu6MDVD6ZcbI/jL+0X9k4JoqHQvJKvUqaT3nuApxYrL0mUT/L37rRe+NIphbN2M77iG2mk8gAW6j5CdGveIFmMBjUXjK4zJ6NyWOiCmpU+kDsceqxbWS2aYzHdipFDwhkQrraUUDFS4Z31gmxb0gKKHCjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zt5akbgT; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-87db3aa478fso294780185a.2
+        for <linux-man@vger.kernel.org>; Tue, 07 Oct 2025 19:00:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759888843; x=1760493643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kNg0bipiGlmcv/0UPPh7uyEBGNBOqxqy5NZC0Q8AZFA=;
+        b=Zt5akbgT3f3wGrDFq7qA4Wx4h+MzyIlK4fiO+MRYLn8W8fNJm+JKE2ktnyd6b0CuW7
+         IfgkTf117QYNNq3vTabhTguQZDHDAG00bUYLUfohAhpbsc0CTXLZ/pVHs1MrGcA7CnL/
+         jcfqnvQz411G5+z2P5dd/bQ2hv0MdmtaRUYzfHLD589f1xX/L+51i3s0hSIKiM89SveB
+         Z6mHmt/8O5vYBKEkgQKJgkTciu+jXGRRxBB9tylifPoVLx46wuF1MR3K8Us+6VpudbHq
+         HKCx7iKe4uqGs3vFD37K6WORmF8R/t54r1COoJ3WvNVXALPnwecuKEZlNslSMcGeJXWA
+         shdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759888843; x=1760493643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kNg0bipiGlmcv/0UPPh7uyEBGNBOqxqy5NZC0Q8AZFA=;
+        b=MpHjmJr9mjSxon7BNUmGUD2TbvMQUUSfw2PtlYMrmxxxPk2J0NyKsrpNShkAFMpbfP
+         CyRdUBzZR9yIt7Kaxf9kAwud+YKNtyM+95hmIqVIqhKXtyTzxZutcXaaHN5I7dvVqM+q
+         vwRGgBFV+kLloKzyFhyBXJulcoGfWoKN6vnwTsS12olyFxN4J0md4fb8UFE9+pTawLZz
+         x9nO/uTtXUQzs9bLzEUUKDn3KfeKweifvQdk3wOuXeXLehp8b40mPDo9doJt4B7lWK5I
+         5OZ5pJa3LlYskeoZMC8EUL9UD6PJtJXSweHyJkrP9B2vbWI64lbWydge0c2dW6I45NuN
+         o+Rg==
+X-Forwarded-Encrypted: i=1; AJvYcCVR04V9/6KjaeIgumL3OultcSNiuoUNhBcC+8zUpI9AgeOy6AqOB/TyokuzxDClkiyDBmUeOuHrJYM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlROfgeZmRS6of4PhOZYkWP9aAG8BVxa+csFdEsMSuc1rEWjo/
+	nbSlfH+c63Qkdp9P7Dqgk/MKtbWzya+tjIvlEQPHkvmUYiLi36pmzpz+
+X-Gm-Gg: ASbGnctj/Lc4kPvf8UJn+13Cl2OtnlmWz9xmbJCh5ai1Ts5eV4NetfT6MaJsEQ0NRoQ
+	+tKn90We94oowZmbpIjVXq1c873uaaslARxiS0d1lJNmniXJvwzIYIF/VkOQ4zc5Yh5JM9L808O
+	BJU8CgIqF96IoQ/UrGj2/fRnNk8HkVXahsH/5SmxLmPTyEESVKzWb4iCVr1pzayUkTExRhU3Vmo
+	i4FvPnxDWAGTqm3fPzT1w49mHJiMNqy8abefwp5QY3/FXrgAY9eGR7BMabIea+rQghIfoue+7rW
+	7wECs6ggovGbQAwm4kMxddZtbQPhx0J1zPReoBLbaK/ylDE4AlydX4ab7yU7DVEihYT3pcizFRb
+	kHI8tFKdPJ95rF7EaNFlXBLGLSbZ/Bv60VJBxqMbS3Dp4MurCaPQo3zeXyFSTUW/5K04uRCaV7x
+	oFQH1XsE8VLmGD920muQ==
+X-Google-Smtp-Source: AGHT+IE4gbvX2chXQTabjvNbivKB9fhNqsaTuVpvWcsiLjg0oBw+wzbUnxp1LdREzEIhBV6VZk0/zg==
+X-Received: by 2002:a05:620a:450e:b0:85f:89:e0f7 with SMTP id af79cd13be357-883502b698bmr286292185a.16.1759888842738;
+        Tue, 07 Oct 2025 19:00:42 -0700 (PDT)
+Received: from kir-tp1.redhat.com (c-98-203-182-20.hsd1.wa.comcast.net. [98.203.182.20])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-87771129f41sm1621920085a.3.2025.10.07.19.00.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Oct 2025 19:00:42 -0700 (PDT)
+From: Kir Kolyshkin <kolyshkin@gmail.com>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: Kir Kolyshkin <kolyshkin@gmail.com>,
+	linux-man@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>
+Subject: [PATCH v2 0/3] man2: document Linux v6.9 pidfd-related changes
+Date: Tue,  7 Oct 2025 19:00:27 -0700
+Message-ID: <20251008020031.1215030-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xxwelvit7gbmuleb"
-Content-Disposition: inline
-In-Reply-To: <20251007202928.d7vdj3x2tfdnreco@illithid>
+Content-Transfer-Encoding: 8bit
 
+Linux 6.9 added support for PID file descriptors related to threads
+(rather than processes). This adds the appropriate bits and pieces,
+mostly taken from the https://github.com/brauner/man-pages-md project,
+but also from the kernel commit messages.
 
---xxwelvit7gbmuleb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Collin Funk <collin.funk1@gmail.com>, 
-	Bjarni Ingi Gislason <bjarniig@simnet.is>, linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: groff build problem involving "ckd_mul" and "ckd_add"
-Message-ID: <zvcmpbo42w245mnsjdvffro6q2ar3gh2bra5imoip2njzfo6ul@imoewzjedqgw>
-References: <66cvsf636zixy2o7inf7usaq4r56fiwaewfo7czjjbkv3hsqc2@vcxyruqmonxa>
- <20251006085149.oor3kddfih63yutt@illithid>
- <bfl4642gesg23ysveu3dfbkzd4orct75malbxnyg7biud4aln7@mzh34qxcd65p>
- <20251006104224.yw5dusvjjkw2ymnv@illithid>
- <yp5rnfroyllwzxnigmpofdtpycr6fakcytpp2jof2upemftn63@kcpoibftbp7w>
- <87frbvea8g.fsf@gmail.com>
- <354kaidblgryvixec3l3fcs3vivg6i2xloyqiyzzrokp5cxlnl@d54fq3xdfep4>
- <20251007200636.bmsiu5ci2ue25qkg@illithid>
- <bbhgwz5jtjpht6en27rjbydhk6zh3z3674wta5nytjfaugxhwk@hypmtgrinw7j>
- <20251007202928.d7vdj3x2tfdnreco@illithid>
-MIME-Version: 1.0
-In-Reply-To: <20251007202928.d7vdj3x2tfdnreco@illithid>
+For v1 of this patchset, see https://lore.kernel.org/linux-man/20240709021335.158849-1-kolyshkin@gmail.com/
 
-Hi Branden,
+[v2: added EPOLLHUP to pidfd_open.2, addressed Oleg's comments on v1]
 
-On Tue, Oct 07, 2025 at 03:29:28PM -0500, G. Branden Robinson wrote:
-> At 2025-10-07T22:24:19+0200, Alejandro Colomar wrote:
-> > Thanks!  Do you want a patch for using countof() tonight?
->=20
-> No hurry!  ;-)
+Kir Kolyshkin (3):
+  clone.2: document CLONE_PIDFD | CLONE_THREAD
+  pidfd_open.2: add PIDFD_THREAD and poll nuances
+  pidfd_send_signal.2: describe flags
 
-I have it almost ready.  I'll finish it in an hour or so.  If you're
-ready to apply it, I'd like to have it tonight if we can.  :-)
+ man/man2/clone.2             | 22 +++++++--------
+ man/man2/pidfd_open.2        | 35 ++++++++++++++++++++----
+ man/man2/pidfd_send_signal.2 | 53 ++++++++++++++++++++++++++++++++++--
+ 3 files changed, 89 insertions(+), 21 deletions(-)
 
+-- 
+2.51.0
 
-Have a lovely night!
-Alex
-
->=20
-> Regards,
-> Branden
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---xxwelvit7gbmuleb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjlgaIACgkQ64mZXMKQ
-wqmUAhAAhGWsbgLwYWueX0+2QwMetUQKn3nhrEK6MNtMXUeoM1209o8F8KYrktOV
-URE36VIRR0+lV2qAtXh0ELXWgBt/oy2O0HOgWbmzsIZuWOewF/Sv3/ctjeLxGia3
-mK+QTfMvjDWuxQN4EnofyBf7phWzMtOcmop0k90PSz8D4XJDtyaJyYqhAS7gIBDv
-SbmXL1h0Tk0PCtZfWpqVGJx8fQRiadR6zJ6t9NDxNQdEeXG5jHq+KI9Yw6DUtEHR
-GBAwU8gfdd51fXYefy9q+VsrtjblVivyAGBNiDWDeNTsg1uRaTApJL60kHMXD3Bo
-kNPqTNBdwBJVjMUtBDJIKqg7soICv5zTmSvWw2LU2Iza9mFZwPhCNi7Y6k2YFsOe
-DMXHCpz7ytlmMGbnMF4vmlTGyEkUHMO8GV2gQC4kyUS/1FKPXoiFL6ytUArNzYnW
-mKoJJMg7F6qETchzfStPYoKlJjWyhl3TSzLOsbo/UvOeo6ADgd7uYE7qBNeFS347
-a6wXey7DKmtMHe3SpLBnzg+uNRZzw41/MJg8l5nUCLlpYqhir/X7ExyfcYlR3Vto
-nraWP39j6yuJjUI291Sr5w0Qgp25YkRBU68f7kVlj6EjUjPViq4YUj9Vw0xpP4xZ
-wwFKD5vkEu75i3VuI+zDGFqWLccOXed+ronbnEcjwM9cHsci6Es=
-=Ohy1
------END PGP SIGNATURE-----
-
---xxwelvit7gbmuleb--
 
