@@ -1,109 +1,106 @@
-Return-Path: <linux-man+bounces-4101-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4102-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47579BCFFBB
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 08:14:51 +0200 (CEST)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF880BD00C3
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 11:41:00 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 081A83BB8D7
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 06:14:50 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id 35A6B3484CA
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 09:41:00 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1F3421254D;
-	Sun, 12 Oct 2025 06:14:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC34925BEFD;
+	Sun, 12 Oct 2025 09:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bN62wl3G"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G1XFtdMy"
 X-Original-To: linux-man@vger.kernel.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8F178F51
-	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 06:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA1325A2B4
+	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 09:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760249687; cv=none; b=BvqpcicpSogybUaFoyv2yVKn0zpK1TVjXWNArjdxmWTdvBnMIBFPyJvHM1dhS/+6RNC2uWdyr9CIiPCzMoKyHWonRMYBWRxTATePPs5I4+9MkdnxtEvu52Y0r1tyRn00anK95POfB7DaoBSgpsssrGwwoZKE8x29uF9/xkxZFpc=
+	t=1760262053; cv=none; b=Ockalzq/bXEDuX7OVEVpQ573svd7tsA47JokYYMtoyySRzl720efXcDNJxJ0uA1JoeaCiZeQ3YYPIXTchOYm5Tz9QadGW3RnzXmsJcLS8Hn7zsA10J6v/3+tiz9WCHVTPvIoylgobgNN07OENY/Fbaj5bK2/VuCUVt7vT3axsHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760249687; c=relaxed/simple;
-	bh=m+lgtySiSGGIWnsA66jgFuFum5hqvBvd8+jR6T+AGQU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gtHcnMYDgLnaXw5XIuY+v6y3nNpK//aK0sxRXc5qtZzJsZrYmkA2wNx4bGpxcWLRelPZ7w9d9gIxnYnY7bbb0hMi2fOVXqgo38NSuIOF56sC/iyh/QT/1I+DTOWU06IifOBpkXjgrU9OmHSk/BZbi9fXDXeqepCQJoF+5iNQrCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bN62wl3G; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1760262053; c=relaxed/simple;
+	bh=z7VfEU1r/Dsm5nX9xRER4JSx0tzCPxyJY1p/Ak7It8c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FRG+Uf9NvVPyW2wxYPaLpwJNYAPEyxnJA5PGBH4I4jpJPT2AO8cQxvgdntkxr+QZdJxzDre0R9b3kSX16bB1ddXPdi1IkIoEKCWh4CJhXzdefaD/5C0iMa72V1KsF27J+i1y2gI4PTHr6njl+xguLLa0lpPwJnPTZakEwu34vvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G1XFtdMy; arc=none smtp.client-ip=74.125.224.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-46e42deffa8so29674355e9.0
-        for <linux-man@vger.kernel.org>; Sat, 11 Oct 2025 23:14:45 -0700 (PDT)
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-63bcfcb800aso3617910d50.0
+        for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 02:40:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760249684; x=1760854484; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SAOrmio62U43guzG2eDGA1f1tCPBMTpqSZuJ65iOtN0=;
-        b=bN62wl3G9aJ4cFHvjdsCNuclz95UkSZ4tiJSzpbcPlQrY65LK+hJH408KNswZhby+L
-         ZVaPiVytDIY/hmS3y/GE2HoN+ECiF5+nnPfFTythRhAnYlCJrmP1+0QzVonYBxyvaXqx
-         rkh0rPBV6zkZZ5odUz1g8Wz/BQl/b9l+nUOe7SZd1Xk3eWj7xcmfcEYwQXyoVj4mY/1Y
-         MgcZoCa9XF3s3Wup0eBbz6gAEatekzQzzblZKI6jD9PE/Blrh2Cs+xvnpMBdoYJUPVVS
-         9IGEviITEmyzZD0Gbt6KlK7YIkE24TKm7DQSDE9DQ+C1FdlugFWaVLYP+TvEjnu4SmtF
-         sRfw==
+        d=gmail.com; s=20230601; t=1760262051; x=1760866851; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=z7VfEU1r/Dsm5nX9xRER4JSx0tzCPxyJY1p/Ak7It8c=;
+        b=G1XFtdMyksR1fYnplenpnBJg5rBXUydVHsla0P6iJNa24abdMdwoDlXEFMl4DTXxuK
+         vOM42xlKw9o8u6TNMVufuifNrKtXHoRLrptjjBKV19CJxnSFaJ6fdDNa8uIELOLlT+qa
+         AMxajuq51KVU2BjmcldJ85GiyPhC8xO/Cm/wxN5jR2kC9xWPJ4o7nLZrfH280OcmLGTr
+         pHmt4+S0u2p2SkDh/aoFiVxRuTy2mmA2FLzaxtcZfc0R4x8ymELgZwZ8OixTxnPrnfaA
+         kTqVrdbWrlaB/zrl+kf+AK/mmv5TMdaaLLFQ+N42Waj8bO8Djb4j29Bjb/cF0565bPUK
+         Kj0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760249684; x=1760854484;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SAOrmio62U43guzG2eDGA1f1tCPBMTpqSZuJ65iOtN0=;
-        b=GVIZd+XqE3AASc/BevB/wk6WH6hCSAwAmV9AI2YBgn5mxiPPqufTh++u2OTiiPHIq9
-         VHRo344nC3AA7JI+bALz9KybQ44Xey8AUow8cxt64gy9lcw35qo0aEWY7gGrGmn4SAvC
-         FdYfhVpFWmYatfAbzU7bGNtg520MEK9ZPo5r5czUAeaFJA5iU3ujkKZTbAPEgRfnwGji
-         AhYf+LGQnif96xsaIwrqG9RaX72r4uFEXlt+LO3cH6GSuQY7utj8etoCy36b2Ktot74g
-         qJoZEc7MqXIlibv3vrgEWwULT0f9OwpbihFV7ztfqzhskFYAMAkuMv9DmpzYY8V50Lxb
-         8n7A==
-X-Forwarded-Encrypted: i=1; AJvYcCVbh8YxioL7KzrlRPgJsin3iEZrdvYZCioOSoJMTVP8oUszZAqDGyDj9f+qWooaJve1n5g5gXo6rhw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGaG4aqRUEj16Qd5wAM2ga5SZ83M4iYUehjWhDY+ako3frtQB9
-	dmUH631jFvxk4DdWEgVlbp1NHYBfkQohXn1FOMLyrQBsp9to9f75CUq5
-X-Gm-Gg: ASbGncv8jRti4381GL/6QmCkIRoYnsqWwIC95YmOoRS9ElfdvoPX2ts/N3DkHosuDaw
-	TaAdxfFmpJ3yRb33w4OotanFvMjk2BqtFg1+kUAiDCQQ7W3bRPZBCvYYxQMOB4lv5DevvoUAiG7
-	q9pD7e46K4F5fKIc8oHijNT4BkC8beK1OdKgSR6sJzU56vtnSafYnXoCwIrhsKbrv2uW4ozdYuL
-	lIMpOl+SZ5kcKM8ReJqJrWQcUtPZ1bQmCMXzCTp2041oIrkEQX78jQh+1zvA0qLKu8/5HZHtbnz
-	j40XG1ZUrvGjZVECNtiUEecPSZRAnXz+cEipSUpXS4hiAG2u0zgTKUShZamgheQAkJhNIB1NavR
-	Ets+NYVUICIYgN5tcU1GdBMQzBHMvFng2YQrPGA==
-X-Google-Smtp-Source: AGHT+IE4rB4xnTmT6He562ThuiVG/pfm4Q/z2xiP28/GWf3Dt1Xuf0+3s0e0VYHIyISay5XLqOIEJg==
-X-Received: by 2002:a05:600c:8b5b:b0:46c:d6ed:2311 with SMTP id 5b1f17b1804b1-46fa9af2f4dmr116769955e9.19.1760249684140;
-        Sat, 11 Oct 2025 23:14:44 -0700 (PDT)
-Received: from localhost ([212.73.77.104])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-426ce583424sm11699282f8f.21.2025.10.11.23.14.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Oct 2025 23:14:43 -0700 (PDT)
-From: Askar Safin <safinaskar@gmail.com>
-To: luca.boccassi@gmail.com
-Cc: alx@kernel.org,
-	brauner@kernel.org,
-	cyphar@cyphar.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-man@vger.kernel.org
-Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple instances
-Date: Sun, 12 Oct 2025 09:14:38 +0300
-Message-ID: <20251012061438.283584-1-safinaskar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
-References: <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1760262051; x=1760866851;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=z7VfEU1r/Dsm5nX9xRER4JSx0tzCPxyJY1p/Ak7It8c=;
+        b=tuJq+DwNnYDFN7tZxqN8jqkeAngB5Ez7Y+6EdFg0U/8g0DfCCBWUQqb/v92batae9j
+         seIzloTQ/69ScL4bRuP9MCfjSKaXuj76J4sBuwbUhJp5P6db3zOh59atiAS8TGkDAQmj
+         UOFk8pVoZFV6Ke7y/fkv+yu0qOZAhvukXw3Gs2h3vBE6wB4XJ7+p/Zk8+mk8sq5cAtYh
+         lj+PDWIQ+lKGgyHcLKVv9RXiJhVcUCCKHkXsxzd2QXUfQcSQMVQdkAgzDunlLc7l+EJq
+         Ub7eyXH1IiaqqOyI1iLUo0OX8+V3SqbdVO7YL9OX4ahDHf2LEClKrtPLtu1rA0DSBQmg
+         LZPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXhprszweJDzdzC/EWAaa3G1uq7bi/pEiTvYTw14c6scMSXnAYUtUxF3VJRa73KnrFJilfKx+EeBvo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxZYtd7YX12O/kfK6nBNy4JGRm6o/y3xWPcH75pr0hwyo6lKCs
+	zPrm9ZaI+bhX63mei+ZGAKjyPimt2Pp7JDseS4MkRt7WdN8+KvyR46kUWfAbjf9FYW07FefQIQV
+	U8M5UTZn0N5JxDxiDvWvGaO1G6KTJHRIccg==
+X-Gm-Gg: ASbGncumAtPKerT0Jj6nQSaDztkxbOFvmwn73zTAGXbmu5l06z+f4LLQfyXkeL+8oZl
+	nK4CSfsX2+glXd1jniOxgRw41lmfdrLw7wy1IbcQLc+Hygo75Pv5Yzh0UZts13ekivQTghLAI7Y
+	4l2gQ9soO8QIHmE2ouJFUpGXLYpXeRi8OUiO3U8/h18QRenaeQZqpSUDHRV9XqRb5mUvv+LRPfc
+	W67aQiFhfd0iTvp7QtyTYf7PZ/zkaZYMdB6RPhj18I/di1X8R5mzbwc62F4YU5NDsqGQTg=
+X-Google-Smtp-Source: AGHT+IGHFLSueRL03cNaK2/yCt+aziBSAitQz5o5MUcbkq+Q30p3V5Ti/erI1KZyKhu3zJtqr6MsmGi4UpMb9vOyMVI=
+X-Received: by 2002:a53:b082:0:b0:632:ed6b:754 with SMTP id
+ 956f58d0204a3-63ccb825bc0mr11483728d50.9.1760262050847; Sun, 12 Oct 2025
+ 02:40:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
+ <20251012061438.283584-1-safinaskar@gmail.com>
+In-Reply-To: <20251012061438.283584-1-safinaskar@gmail.com>
+From: Luca Boccassi <luca.boccassi@gmail.com>
+Date: Sun, 12 Oct 2025 10:40:39 +0100
+X-Gm-Features: AS18NWBvP1QrZ3o2ndrItBzM4K3K3jc8q5I7qUu-9SsQvSSAU0AmLtP7SyKdnS0
+Message-ID: <CAMw=ZnSBMpQsuTu9Gv7T3JhrBQMgJQxhR7OP9H_cuF=St=SeMg@mail.gmail.com>
+Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple instances
+To: Askar Safin <safinaskar@gmail.com>
+Cc: alx@kernel.org, brauner@kernel.org, cyphar@cyphar.com, 
+	linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Luca Boccassi <luca.boccassi@gmail.com>:
-> Almost - the use case is that I prep an image as a detached mount, and
-> then I want to apply it multiple times, without having to reopen it
-> again and again. If I just do 'move_mount()' multiple times, the
-> second one returns EINVAL. From 6.15, I can do open_tree with
-> OPEN_TREE_CLONE before applying with move_mount, and everything works.
+On Sun, 12 Oct 2025 at 07:14, Askar Safin <safinaskar@gmail.com> wrote:
+>
+> Luca Boccassi <luca.boccassi@gmail.com>:
+> > Almost - the use case is that I prep an image as a detached mount, and
+> > then I want to apply it multiple times, without having to reopen it
+> > again and again. If I just do 'move_mount()' multiple times, the
+> > second one returns EINVAL. From 6.15, I can do open_tree with
+> > OPEN_TREE_CLONE before applying with move_mount, and everything works.
+>
+> This sounds like a bug. Please, give all reproduction steps. Both for
+> EINVAL and for non-working open_tree before 6.15. I want to reproduce it.
 
-This sounds like a bug. Please, give all reproduction steps. Both for
-EINVAL and for non-working open_tree before 6.15. I want to reproduce it.
-
--- 
-Askar Safin
+IIRC Christian said this was working as intended? Just fsmount() to
+create a detached mount, and then try to apply it multiple times with
+multiple move_mount(), and the second and subsequent ones will fail
+with EINVAL
 
