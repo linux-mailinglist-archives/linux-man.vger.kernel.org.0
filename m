@@ -1,153 +1,158 @@
-Return-Path: <linux-man+bounces-4104-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4105-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [IPv6:2605:f480:58:1:0:1994:3:14])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FBABBD010D
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 13:04:11 +0200 (CEST)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60558BD0181
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 13:27:36 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id CCC2D4E16CF
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 11:04:09 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 98ED41893A83
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 11:27:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84EDF1F790F;
-	Sun, 12 Oct 2025 11:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 74D6B246BDE;
+	Sun, 12 Oct 2025 11:27:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVmB7+PB"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAiUcBfK"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425F836124
-	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 11:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F2D1FE451
+	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 11:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760267047; cv=none; b=Vj63tncwEmcf1WSE61omgCWUTJDvuIA+em40Xv/ByxJ3TlUtJ3IjIsgD49kfG2AjruvFaf5L3UT1LSu1pK+mBllsaajOMDaGVKt+mioixg/o0vvkXIS+ugIcXH/CR+D/TUB8rKB2Taur06h/WS3ottNEZlSxW/wrKu2TCAfPu08=
+	t=1760268452; cv=none; b=lkEQqxNO8xaEGmnagEyZyIliaOpmSbFndg3pgy15vMOseXh8i4pHQlS7UdlQiIlWW5sI63rpqYpnG792xMgnWFH2m6q2JJ2EuFk+5Mh1Suq55ol7QJxvtmvatCE0xiZ98Bt2wetCy1H0NYSUnXsez4bzlsfJWj5oXEZ0zdNbj3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760267047; c=relaxed/simple;
-	bh=UAMWrGpYVtNt16QSPuH8TR2T+BHVw0OHOSS5XXqbZ1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZydyT0FlhKg+Tna1eeKGOp8yF2okDXvC7z6Cak9qXpEHvoc0NXXQAGZin8nx50ETx2x9/h7Cadh3ke1Q6B9chMgjPEjCImf33WJR4WRl1iXCXrGKzqAzQZofwaFWNBEgzv+xIPOJK4c8u2bmFNejvZIzkDr3HQTpcvjnm56332c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVmB7+PB; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB69AC4CEE7;
-	Sun, 12 Oct 2025 11:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760267046;
-	bh=UAMWrGpYVtNt16QSPuH8TR2T+BHVw0OHOSS5XXqbZ1w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CVmB7+PBKvNlpTWN01oGiz+5a5kIg65jM7XvGUhUHKMgZg+Wi4B9uOubsP9ZGI/Lm
-	 f6Vym7oG3vCFk6HzB9mLa7Exl2ArmBGAytB8QJWGygCwQ5fMi6o5BlQVU8m4jogXe/
-	 umDCM6RL0sBuN+z4aBF8JGYSK/UppKWrEDz4OBL4qTJ68NvyJrcop5HulFxYN/WFlU
-	 oklQ1N2vLSiUJbAHMw0+fRlOLupsfXpZmY4EBSt9SwWwVy8DQblB0vO2Fku/uxhhid
-	 mBNVvgK3URqZjI0yMI9qjifnnbvwqvsOrxJuxoCzkq9HRi93R907dkaCJczEHEFPBS
-	 Kczi2zrZwo1eQ==
-Date: Sun, 12 Oct 2025 13:04:03 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Sertonix <sertonix@posteo.net>
-Cc: Collin Funk <collin.funk1@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: swab.3: mention UB when from and to overlap
-Message-ID: <my657mhhrhydw7t2ovx2hidlleoyl2g4ou7tzdmb2zvqa42akz@dsufpqwrwidb>
-References: <DDFUAR7OXZ38.3SGS6R89CDDMD@posteo.net>
- <875xclm599.fsf@gmail.com>
- <yhsxo53mgu5pjfubjhuoeur2hcoyrof6rogh2neldclh6ji2gs@hx6lh7qguphi>
- <DDGA4WZCSZOS.1TW05RY1VQGGE@posteo.net>
+	s=arc-20240116; t=1760268452; c=relaxed/simple;
+	bh=mZuy+q7YShu9142s/CZ5ntCHum6xcITP08Ik5YtU3EY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sa+butlYGx+BsC9j9YzCNoMQPbQXK/fr7zq0Oe3cPClGq0D3FkizLSPhCIOgIibxSeCgoogup/JbakKVDIDtpgbIXy2ukl6fSj3pur6fHmzl+QAUqhjaslsBuPPAJFBqzPltlhH8gb1vVvG+rLoCQquaeGTUw8Ap9JPjBKlgIEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAiUcBfK; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-46e5980471eso17277095e9.2
+        for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 04:27:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760268449; x=1760873249; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HbO1RUDsAWDIoIlyeqIMdpVMOfB3YykkSikMqjPALEY=;
+        b=JAiUcBfKHCjNHNHxPKuPRoze+SkzuzVTr0GrVRbTyJOgsAR+BKeeXlVHXkMj0Hhf7B
+         eTfBPavylCLthPy1IUihmO1HTF9uc/rxw9mfaZJtrmOWmjQPK2toqqqM74ujqnt60Jox
+         Cn/GltExyIDYcapZev9uEkvtV6YOEtzgRWcyNpdVyrUy3KcxUEYVuoL+C71TcpXSlWRu
+         +n4yoQF7gKTqmAa6ZjKnqS3dOYJc6cyFAwkhR/1vKgtzX23hQ+Nnqjpt6WaZi7w0HBxY
+         CF+nt7vgmJKHQaPhTHvhjaoUnQhGL72pky/FM+1HdQm8QKFSExNuknaAgSy14++BrAn6
+         /99A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760268449; x=1760873249;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HbO1RUDsAWDIoIlyeqIMdpVMOfB3YykkSikMqjPALEY=;
+        b=o9X/GD0Cy4oHwClizreMjifph/bZryK0XwjvN1ZSBXQW1+t+3+krV3Lix72K8Yz3uw
+         h68cm8fIIaC1DsWfZHQuGO5IZxwGyjI5B9sSlFVzA0HYqCFiuX3rikzIIPn9VLyTrI65
+         KSFv024nk+1wtZ21HHXQM8Tm9cAD9S2Vd0cWVq7x2Q9oCbgEMId1ZF5nRuQL9L11/E2K
+         OxP+eLdyNl0lftGCSXRXJG066f1JxUEjIVEPOhTaxnWuyyR27w1UIn7Z5dglcf5Tm9Tq
+         FX2Ag5pUrcDc6NMMofmRiNwcPUXmHs07+8LPQM1cocbyW/FAkW+XOLHhnDpNhZ3CyLoB
+         QQbw==
+X-Forwarded-Encrypted: i=1; AJvYcCXGdRFq3Wa4ke2jYVDSjbwXidaDJzN9aGt0+BL1QTVFd0uTkIU4zxK2/xTshge6TMsypaSdGP3l+Sg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFFRSxhq+aIgPp7OS7F6L7xev5KT0WRlVId/0ScvaBVva2unGh
+	cMrKSYn/q6DIb5JD0o4Gh03u04wBkEZ3MvIyXIxYtcWr0bIzRTIJZfSL
+X-Gm-Gg: ASbGnctXkDpJryid9nyy57XCcq92AOC5X10Twp5cU0zUPbR7qxsAlB4wWm27WAqeETx
+	tC3mGV5L44g+XSYbX3ISAZP33owO99ndAV3zceL6A5jDb97mBM56yhN9DaYfBjyfAoD+nfLnB6k
+	0CMWgi8/8XdpaSXHWjviXUruBK2y/d3hJHMYNK4Z/hzVJLKC3eakTxM+09WTBuzH57Dt1p4/2jN
+	twMQVc6IVyShTT5KvkLYtk6GzZy2PeFpkANFVzEkCvwniVC0ahrVzY5YSwpiPdaBPbrixoo2P1S
+	D3uGJmFBd6MzX1u0nGpkRPh7VPJkRO/wUU9JfVWMfSuJnJ6sPoqIAYedgS1NYzpt3yCqO3fbe7x
+	ZEKKC68Wc+R08n9OlOfWx5Tqo0Ccwgu1KclvNhg==
+X-Google-Smtp-Source: AGHT+IF3pdCvcLd+Zp4Lzx7x8u0sYsLUwD2VM6/35sHH+5UsbHJ5uw2Ut7l9mdO5uCF+kgctu6up4Q==
+X-Received: by 2002:a05:600c:3b2a:b0:46e:3e63:9a8e with SMTP id 5b1f17b1804b1-46fa9b07717mr98919125e9.26.1760268448916;
+        Sun, 12 Oct 2025 04:27:28 -0700 (PDT)
+Received: from localhost ([212.73.77.104])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-46fb49c4027sm130749605e9.17.2025.10.12.04.27.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Oct 2025 04:27:27 -0700 (PDT)
+From: Askar Safin <safinaskar@gmail.com>
+To: luca.boccassi@gmail.com
+Cc: alx@kernel.org,
+	brauner@kernel.org,
+	cyphar@cyphar.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-man@vger.kernel.org,
+	safinaskar@gmail.com
+Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple instances
+Date: Sun, 12 Oct 2025 14:27:21 +0300
+Message-ID: <20251012112721.44974-1-safinaskar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAMw=ZnSBMpQsuTu9Gv7T3JhrBQMgJQxhR7OP9H_cuF=St=SeMg@mail.gmail.com>
+References: <CAMw=ZnSBMpQsuTu9Gv7T3JhrBQMgJQxhR7OP9H_cuF=St=SeMg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3c2chqxaodwrp2jj"
-Content-Disposition: inline
-In-Reply-To: <DDGA4WZCSZOS.1TW05RY1VQGGE@posteo.net>
+Content-Transfer-Encoding: 8bit
 
+Luca Boccassi <luca.boccassi@gmail.com>:
+> IIRC Christian said this was working as intended? Just fsmount() to
+> create a detached mount, and then try to apply it multiple times with
+> multiple move_mount(), and the second and subsequent ones will fail
+> with EINVAL
 
---3c2chqxaodwrp2jj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Sertonix <sertonix@posteo.net>
-Cc: Collin Funk <collin.funk1@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: swab.3: mention UB when from and to overlap
-Message-ID: <my657mhhrhydw7t2ovx2hidlleoyl2g4ou7tzdmb2zvqa42akz@dsufpqwrwidb>
-References: <DDFUAR7OXZ38.3SGS6R89CDDMD@posteo.net>
- <875xclm599.fsf@gmail.com>
- <yhsxo53mgu5pjfubjhuoeur2hcoyrof6rogh2neldclh6ji2gs@hx6lh7qguphi>
- <DDGA4WZCSZOS.1TW05RY1VQGGE@posteo.net>
-MIME-Version: 1.0
-In-Reply-To: <DDGA4WZCSZOS.1TW05RY1VQGGE@posteo.net>
+I just tested current mainline kernel (67029a49db6c).
+And move_mount doesn't return EINVAL in this case (move_mount succeds).
+This means that either EINVAL is not intended, either current mainline kernel
+is buggy.
 
-Hi Sertonix,
+I tested this in Qemu in very minimal environment (rdinit=/bin/busybox sh).
 
-On Sun, Oct 12, 2025 at 10:42:45AM +0000, Sertonix wrote:
-> > There are exceptions, such as the case when a function doesn't access
-> > such a pointer.  That's why strtol(3) is declared as
-> >
-> >      long strtol(const char *restrict s, char **restrict endp, int base=
-);
-> >
-> > even though one can (and usually do) call it as strtol(s, &s, 0), where
-> > 's' is indeed aliased by another pointer (*endp).  That's because *endp
-> > is never accessed within strtol(3).
->=20
-> If endp is considered to point to a 0 size block of memory it works ;)
+See C source below.
 
-Actually, it must be considered to point to a non-0 size block, because
-strtol(3) accesses 'endp' and writes to it.  It is '*endp' which is not
-accessed, which is why it doesn't matter what it points to.
+-- 
+Askar Safin
 
-This is how it should be declared (I wonder why glibc doesn't use the
-[[gnu::access()]] attribute):
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/mount.h>
 
+#define ASSERT(cond) if (!(cond)) { \
+    fprintf (stderr, "%s: assertion failed\n", #cond); \
+    exit (1); \
+}
 
-	[[gnu::access(read_only, 1)]]
-	[[gnu::access(write_only, 2)]]
-	[[gnu::null_terminated_string_arg(1)]]
-	[[gnu::leaf]]
-	[[gnu::nothrow]]
-	long
-	strtol(const char *restrict s, char **restrict endp, int base);
+#define ASSERT_ERRNO(cond) if (!(cond)) { \
+    fprintf (stderr, "%d: ", __LINE__); \
+    perror (#cond); \
+    exit (1); \
+}
 
-This gives enough information to the compiler to realize that a call
-strtol(s, &s, 0) is safe regardless of restrict, since the second
-argument won't be used to modify the string (but it will change where
-'s' points to after the call).
-
-However, actually using that information in the compiler won't be easy,
-I suspect.  That's why diagnostics about restrict are bad today.
-
-(Reminder to self: I need to write a gnu::access(3attr) manual page
- where I should explain this.)
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---3c2chqxaodwrp2jj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjrix0ACgkQ64mZXMKQ
-wqkOPQ/+Oe1chFwleFRtZ4VvH5GUZ0/YjTr+J2yW5eTZ9nQrjjQzWN0uqaPOFLlB
-8x6h4KKGiVJKjlt0oZiEUvAxCPqkdD4LFUv+T7mX4W2R6xX12Pxc22fqCYFQIJou
-cwc3atPZ5N16NFD0H6rqLMYmIULYaa8V6IhFVM6CaHbX44jBhNNqQNxAbv8tumuj
-mefooAAeg+0pN1jqA26TUSzpSZX4I1unYM9z5AgOM/LFVWlEPsybGKo9HINatjtG
-uhtrU/9vj8Zb2/TCUIzw1ZvC77t5fC0/VgvzlE7JY2Hxku04vV9ykS2EEw2di0Ko
-vv2YoV4b4iTFwbcqah0PvJm5UcSosa/iyvrSaS5bhysdltj40UTc5FtGlSj4S7dn
-Cu9wPVM83R+FZySiXnvGPljjoYztpfvm+gh+VP0JNUL0dF/qDBs1V+O+61sA9d4O
-YKexBkgYB+m5FidpThw43cAyzGT5ZM+/L2j9vLOqwJ4r9+Gguprf8IOBX8T2wZ4M
-WqdSdqTr5OgzxpH8R7XcID8dHTwo24joHsCKi9VnTGP1OWKumV9OGL4GlfCBm1j/
-2g54styH58Y6RlrXLTmQqPSKvKI+pFh8oenI0LyLW3Bf+MzIhsbg+DL69mR1yVq+
-l02ZY0ZNmqcBVekQ23iE6HuAs49Zjhu7fvxjLZq0D8Jgve+TZZ4=
-=Z40J
------END PGP SIGNATURE-----
-
---3c2chqxaodwrp2jj--
+int
+main (void)
+{
+    ASSERT_ERRNO (mkdir ("/a", 0777) == 0);
+    ASSERT_ERRNO (mkdir ("/b", 0777) == 0);
+    ASSERT_ERRNO (mkdir ("/c", 0777) == 0);
+    {
+        {
+            int fsfd = fsopen ("tmpfs", 0);
+            ASSERT_ERRNO (fsfd != -1);
+            ASSERT_ERRNO (fsconfig (fsfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0) == 0);
+            {
+                int mntfd = fsmount (fsfd, 0, 0);
+                ASSERT_ERRNO (mntfd != -1);
+                ASSERT_ERRNO (move_mount (mntfd, "", AT_FDCWD, "/a", MOVE_MOUNT_F_EMPTY_PATH) == 0);
+                ASSERT_ERRNO (move_mount (mntfd, "", AT_FDCWD, "/b", MOVE_MOUNT_F_EMPTY_PATH) == 0);
+                ASSERT_ERRNO (move_mount (mntfd, "", AT_FDCWD, "/c", MOVE_MOUNT_F_EMPTY_PATH) == 0);
+                ASSERT_ERRNO (close (mntfd) == 0);
+            }
+            ASSERT_ERRNO (close (fsfd) == 0);
+        }
+        ASSERT_ERRNO (umount ("/c") == 0);
+    }
+}
 
