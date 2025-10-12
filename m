@@ -1,53 +1,55 @@
-Return-Path: <linux-man+bounces-4111-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4112-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from dfw.mirrors.kernel.org (dfw.mirrors.kernel.org [142.0.200.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB57BBD0CB9
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 23:28:13 +0200 (CEST)
+Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [IPv6:2a01:60a::1994:3:14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C40EBD0CD4
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 23:35:49 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.mirrors.kernel.org (Postfix) with ESMTPS id 5C90C4E3848
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 21:28:12 +0000 (UTC)
+	by ams.mirrors.kernel.org (Postfix) with ESMTPS id CCA4C346500
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 21:35:48 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E6832264C7;
-	Sun, 12 Oct 2025 21:28:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7479D242D6C;
+	Sun, 12 Oct 2025 21:35:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtCgsg1P"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sPfZZtcF"
 X-Original-To: linux-man@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4DF1F8908
-	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 21:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334FA23BCE3
+	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 21:35:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760304488; cv=none; b=ciC/pcPKqXuy9K5pwIAXEOPEAQ+krQHvG0/d1Eb1dV94MUCeLYEVgceZJwdpfEwRzU6ReV75cACpNllEnb0LaI3AqUMX4XRzr0s+I6AOgA2WyZNb7QVdljUExR+kepwKWl8J8erdgiPqs95yaFVokmkB+hcgtdJxSU2HkfdqH2w=
+	t=1760304932; cv=none; b=GWWLae3qiCbm2Sems5BaFRAkoFdfAqcxTvCOIrBFIbugNUsP4WCUHk1wtZD/qW4hiSomIZWBeXYyZmndOW5C39AsHA0sl5D0RJzINlmfKlE3/d6b5OCWciGph5Dhc6Fm85CExpF7BilwSDV7NyIBd1cJUJqrZIojamP/4Bz0mTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760304488; c=relaxed/simple;
-	bh=OumZzbPRYQiVkw4nAUg/exhHCbCgUDcvZE0ufPVLkVA=;
+	s=arc-20240116; t=1760304932; c=relaxed/simple;
+	bh=2lWH+7xqUFKkgR34hK44OPjW2woiJLT2bItxiFjsov4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tBO8Hwv6fluSbg7ecr5rhaGTknxCg696IOpCRnzEJlKUPRX7Qgu7QThlpoCYuRYZrotquL+WTONoB73ZlWdYaQ584t6rgYcWhVPzuihTni/I7ROLcD8cfqK8ZVc3WguN4BgdlH5OByLd31CA42jm+UFHINLmgm8XOrPYcjnyvQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtCgsg1P; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CF4C4CEE7;
-	Sun, 12 Oct 2025 21:28:05 +0000 (UTC)
+	 Content-Type:Content-Disposition:In-Reply-To; b=G51NAha3ERF6GB6g1C6K8UfnRleexlg+YFchUNdzFXixQcUzSDZlGe74W7TUBsc3saZ+mkB/pLHXPFW9IcKzI8SUk64NYZX2Z0ZwipLBkQE4LBKfdfLi8hclv510eQQ1CtSwTosrBKkFz9KQobMjdP5aA/a1zACZYSMMy+RXw0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sPfZZtcF; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9711AC16AAE;
+	Sun, 12 Oct 2025 21:35:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760304486;
-	bh=OumZzbPRYQiVkw4nAUg/exhHCbCgUDcvZE0ufPVLkVA=;
+	s=k20201202; t=1760304931;
+	bh=2lWH+7xqUFKkgR34hK44OPjW2woiJLT2bItxiFjsov4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JtCgsg1PJs6atfXnFA/qu45aVoj+JNV7GRfgoqrIOT69+1SazIo051LEyYGZqUkKd
-	 AxAmbfk3EBjz8fnau/L/27s6zDNsBi/zOOnugvbLa7YGEqz9GFj8rVxO7LlMpoJnh5
-	 nUOn4/m3oqzK6pLx/HZoKaQdHwloqWqmMM1ivSZSzTLO4V0EFVmG2evCqmH8sQwXyB
-	 DVQdDpH88GuorW8vrj8KQI0E5Aapk4ertsoOJNwZ2oCme+HfW1FxkePV7QOdbnaryA
-	 SJVT34ibHW2bpF2f7tE+jDz4aqKwBWQvKhpXkquXMKPNN8onn42CpRyttMiRZAwufV
-	 7cVH0Zt8lRbJA==
-Date: Sun, 12 Oct 2025 23:28:03 +0200
+	b=sPfZZtcF3rBilfvC/o+Y/HiYdsu8WcadY17VbTyD6KeThlZIq6GUscIFgLljgcZHI
+	 OTbno83LckIha54YRV6F3FNJeaCPE5KLbT0FHONLfI7ZWufda/iLQfH7lBq71aL59U
+	 dnYgqyRq2kVMSa3BziRTIeoy0/VFo86ULqSNuK7QA9j5UX73+ONuOE0bPlwdv4BF7g
+	 mZc8DVVCQ1DW7iGvX9Mwsn/BYkXEUP/dheePvU/kCy7kGoONHAjXiSCt+nv1QlY1Ta
+	 pV65oCkgAyuTMKwiY6yrqncXPNcfQVtpoNQX0yuix9d0AuCFfnluAvcQFUzVIFn4ay
+	 YKT9g92NwDU+g==
+Date: Sun, 12 Oct 2025 23:35:28 +0200
 From: Alejandro Colomar <alx@kernel.org>
-To: Guillaume Nault <gnault@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Document metrics attributes (RTAX_*).
-Message-ID: <kt47a73coitnwp564fhij7tv5lwcp43rv2lyjwxyhh6b2tzst7@b52kcmtfwcys>
-References: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 1/3] clone.2: document CLONE_PIDFD | CLONE_THREAD
+Message-ID: <kusrjryyc3ebz5f6k4m4t3asgvrqer25brmyfy7jip2mkakpf6@6ply26n6a45y>
+References: <20251008020031.1215030-1-kolyshkin@gmail.com>
+ <20251008020031.1215030-2-kolyshkin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
@@ -55,36 +57,42 @@ List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zlrx7ckbb3etw5m5"
+	protocol="application/pgp-signature"; boundary="3zxkzo4mpebpjag2"
 Content-Disposition: inline
-In-Reply-To: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
+In-Reply-To: <20251008020031.1215030-2-kolyshkin@gmail.com>
 
 
---zlrx7ckbb3etw5m5
+--3zxkzo4mpebpjag2
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 From: Alejandro Colomar <alx@kernel.org>
-To: Guillaume Nault <gnault@redhat.com>
-Cc: linux-man@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: Document metrics attributes (RTAX_*).
-Message-ID: <kt47a73coitnwp564fhij7tv5lwcp43rv2lyjwxyhh6b2tzst7@b52kcmtfwcys>
-References: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 1/3] clone.2: document CLONE_PIDFD | CLONE_THREAD
+Message-ID: <kusrjryyc3ebz5f6k4m4t3asgvrqer25brmyfy7jip2mkakpf6@6ply26n6a45y>
+References: <20251008020031.1215030-1-kolyshkin@gmail.com>
+ <20251008020031.1215030-2-kolyshkin@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <550b1d8804698e9d71addb08a2bb377578c9c719.1758279191.git.gnault@redhat.com>
+In-Reply-To: <20251008020031.1215030-2-kolyshkin@gmail.com>
 
-Hi Guillaume,
+Hi Kir,
 
-On Fri, Sep 19, 2025 at 12:53:55PM +0200, Guillaume Nault wrote:
-> Add a brief explanation of the RTAX attributes that can be used in
-> RTA_METRICS.
+On Tue, Oct 07, 2025 at 07:00:28PM -0700, Kir Kolyshkin wrote:
+> Available since Linux 6.9 [1]. Documented in [2] (added by [3]).
 >=20
-> Signed-off-by: Guillaume Nault <gnault@redhat.com>
+> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
+ommit/?id=3D83b290c9e3b5d95891f
+> [2]: https://github.com/brauner/man-pages-md/blob/main/clone.md
+> [3]: https://github.com/brauner/man-pages-md/pull/4
+>=20
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 
-Thanks!  I've applied the patch.  I've amended it with some formatting
-fixes, to make the table fit in 80 columns.
+Thanks!  I've applied the patch.  However, I've amended it to keep the
+ERRORS entry, and noted that it can only happen before Linux 6.9.
 <https://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/com=
-mit/?h=3Dcontrib&id=3D6ad569611a1b5c7e4d8c2f019d04bacaa85dbbce>
+mit/?h=3Dcontrib&id=3Dac6f5c32b3fae7549c5a42d96a3273adc24e5023>
 (Use port 80.)
 
 
@@ -92,104 +100,76 @@ Have a lovely night!
 Alex
 
 > ---
->  man/man7/rtnetlink.7 | 49 +++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 48 insertions(+), 1 deletion(-)
+>  man/man2/clone.2 | 22 ++++++++++------------
+>  1 file changed, 10 insertions(+), 12 deletions(-)
 >=20
-> diff --git a/man/man7/rtnetlink.7 b/man/man7/rtnetlink.7
-> index cb9f5155f..a04edce79 100644
-> --- a/man/man7/rtnetlink.7
-> +++ b/man/man7/rtnetlink.7
-> @@ -342,7 +342,11 @@ RTA_OIF:int:Output interface index
->  RTA_GATEWAY:protocol address:The gateway of the route
->  RTA_PRIORITY:int:Priority of route
->  RTA_PREFSRC:protocol address:Preferred source address
-> -RTA_METRICS:int:Route metric
-> +RTA_METRICS::T{
-> +Route metrics
-> +.br
-> +(see below).
-> +T}
->  RTA_MULTIPATH::T{
->  Multipath nexthop data
->  .br
-> @@ -384,6 +388,49 @@ routes (in seconds)
->  T}
->  .TE
+> diff --git a/man/man2/clone.2 b/man/man2/clone.2
+> index 68f86a934..edccde742 100644
+> --- a/man/man2/clone.2
+> +++ b/man/man2/clone.2
+> @@ -864,10 +864,16 @@ .SS The flags mask
+>  .BR clone ().
+>  .RE
 >  .IP
-> +.B RTA_METRICS
-> +contains an array of
-> +.I struct rtattr
-> +with their corresponding attributes:
-> +.IP
-> +.in +4n
-> +.TS
-> +tab(:);
-> +c s s
-> +lb l l.
-> +Attributes
-> +rta_type:Value type:Description
-> +_
-> +RTAX_UNSPEC:-:unspecified
-> +RTAX_LOCK:__u32:Bit field indicating which RTAX_* attributes are locked
-> +RTAX_MTU:__u32:Maximum Transmission Unit for this route
-> +RTAX_WINDOW:__u32:Maximum size of the receive window for this route
-> +RTAX_RTT:__u32:Estimated round-trip time for this route
-> +RTAX_RTTVAR:__u32:Estimated round-trip time variation for this route
-> +RTAX_SSTHRESH:__u32:Slow start threshold to use for this route
-> +RTAX_CWND:__u32:Maximum size of the congestion window for this route
-> +RTAX_ADVMSS:__u32:Maximum Segment Size to advertise for this route
-> +RTAX_REORDERING:__u32:Initial reordering level of packets for this route
-> +RTAX_HOPLIMIT:__u32:Hop limit (TTL) to use for this route
-> +RTAX_INITCWND:__u32:Initial congestion window to use for this route
-> +RTAX_FEATURES:__u32:Features to enable for this route specifically
-> +RTAX_RTO_MIN:__u32:Minimum Retransmission TimeOut to use for this route
-> +RTAX_INITRWND:__u32:Initial size of the receive window for this route
-> +RTAX_QUICKACK:__u32:Use quick ack for this route
-> +RTAX_CC_ALGO:asciiz string:Congestion Control algorithm to use for this =
-route
-> +RTAX_FASTOPEN_NO_COOKIE:__u32:Allow TCP Fast Open without cookie
-> +.TE
-> +.IP
-> +Metrics that are locked with
-> +.B RTAX_LOCK
-> +take precedence over the values normally used by the kernel
-> +(computed or assigned by a sysctl or setsockopt(2)).
-> +Therefore, some metrics, like
-> +.BR RTAX_RTO_MIN ,
-> +have no effect unless their bit is set in
-> +.BR RTAX_LOCK .
-> +.in
-> +.IP
->  .B RTA_MULTIPATH
->  contains several packed instances of
->  .I struct rtnexthop
+> -It is currently not possible to use this flag together with
+> -.B CLONE_THREAD.
+> -This means that the process identified by the PID file descriptor
+> -will always be a thread group leader.
+> +If
+> +.B CLONE_PIDFD
+> +is specified together with
+> +.BR CLONE_THREAD ,
+> +the obtained PID file descriptor refers to a specific thread,
+> +as opposed to a thread-group leader if
+> +.B CLONE_THREAD
+> +is not specified.
+> +This feature is available since Linux 6.9.
+> +.\" commit 83b290c9e3b5d95891f43a4aeadf6071cbff25d3
+>  .IP
+>  If the obsolete
+>  .B CLONE_DETACHED
+> @@ -1386,14 +1392,6 @@ .SH ERRORS
+>  .I flags
+>  mask.
+>  .TP
+> -.B EINVAL
+> -.B CLONE_PIDFD
+> -was specified together with
+> -.B CLONE_THREAD
+> -in the
+> -.I flags
+> -mask.
+> -.TP
+>  .BR "EINVAL " "("  clone "() only)"
+>  .B CLONE_PIDFD
+>  was specified together with
 > --=20
-> 2.47.3
+> 2.51.0
 >=20
 
 --=20
 <https://www.alejandro-colomar.es>
 Use port 80 (that is, <...:80/>).
 
---zlrx7ckbb3etw5m5
+--3zxkzo4mpebpjag2
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjsHWMACgkQ64mZXMKQ
-wqm+OA/8C5MMBkxiAGMiMK6Awp+enBXeZroG7OsH7n+AjZplWLGd76Ws3IBDHL1b
-N0HmY1ApR7N4OCFIQILrl2yYr+3uRjC5wtfF0pyiEqb9a9+sX3v4tfcthpYZIwSU
-Xiy0BegvmXG2miSjvMi6OtCgO83hE7iGVVm3brx0g3WLjKN0JVaOKeVWNYhYXOeU
-BKaKYwwqIoohJn1AVrPqWBHy4Lr3l7x6Ctc/vJS4Qt/TPl91idvvwd9R+lx7OCNf
-/OgAQAuE2MU04NEXlHIOp9DNQ2k6SBcKJX99b2TXXk2jMeoHLzfKnVDXeEwLMkz+
-idMSyXYFudbvE4Zaw0fCCXIid46VvqueGvLJgEEf70K2Lz7k5gD+Fqx1zHyzATuY
-fYHUnyHt6cZJwg4t4jf+VWkDkGeljssOfa2zeOW9ErBYoVWAABvM0gaszkgGNbQK
-2Hs9hbJJfu3+67EeeWpB3dUYfYj8vn/nfV5Du0QCOeD+9PVdP0hn4kAFHi+kZCtq
-qRRRGC8YU5kPib5JpyT98LOMrKUfGhXbjqtN31klwub7Ki47nEExyyhekHfpKa6o
-yfKauKZtJpxqqb478gs77UoxgwSAjabdA0GmXrimeNgpl3E5zJ5B3c5o1MZE+qlV
-vQEtPjHYokZpGeGVHQRpJTiYCSXSROanpPnslbiYE5JCR9RoHDI=
-=Gkmj
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjsHyAACgkQ64mZXMKQ
+wql9Nw/+KKJpCw3VW0KP6en/amluT1JiklruL8rd+ym6M5PfGCAZ8beHUtwYxJJO
+sfaKBIaIwkYzq6C6dW05ZPbpVADptvUc+QQM5/2HLmcTieItFap6avrbatWaXpYl
+I19yArVEnSUM8VKY/lgi8+oL7SU1a4z1bfskEo0Mtub20FpguAjMUp8zbQNh7pkB
+jQGCXJ763k8NkbFpgeVN2gqGSkCsyzaBNSqhLzyuR1VbXpZDJRvCABEBEPZ60kHP
+7UgLsGVsp3rjJtDUKQurt09ReXokTZg+/0v+EgDZGuCu6QaZtOHrgli1ZU8R2OxU
+R6OKfXgVx59lmICHm70dbgZ0xedFXqmqK4pVShZraWKhjqZtphYXwvs5MPFHT6LL
+LWqcrUYgc6kINc6H5qv6KO8R2ApOykQK5ZfTNb14qIUFf9EBge/IWEb2/ZORbabs
+6HpiqPNGzMXb9NAG0sUq3FdrEhEGzWAdki9ymMvWEk31V5Xcj9mdDHkRC3PrCfgZ
+gy4giH2NlVxvHl2xTB2NxnL0HKfJojKdJIP9q4NEJbo0mT5/nTwkkIcSaJb8N4fH
+9Vpukt3vCAQnvXWaXqObAhVKC2RLxOFTzzpIXVQqhWKKhHo7KnSvcrIHDN5L2/W9
+ywvnu1PTxTArXsQUKvYJ2GFdCJwpVX+MBAKkwxbtYyFnI0d3308=
+=nZjT
 -----END PGP SIGNATURE-----
 
---zlrx7ckbb3etw5m5--
+--3zxkzo4mpebpjag2--
 
