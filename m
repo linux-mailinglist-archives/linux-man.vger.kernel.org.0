@@ -1,179 +1,109 @@
-Return-Path: <linux-man+bounces-4100-lists+linux-man=lfdr.de@vger.kernel.org>
+Return-Path: <linux-man+bounces-4101-lists+linux-man=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from ams.mirrors.kernel.org (ams.mirrors.kernel.org [213.196.21.55])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81FEEBCFE00
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 02:02:21 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47579BCFFBB
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 08:14:51 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.mirrors.kernel.org (Postfix) with ESMTPS id DBF1F3400B4
-	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 00:02:20 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 081A83BB8D7
+	for <lists+linux-man@lfdr.de>; Sun, 12 Oct 2025 06:14:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8409928FD;
-	Sun, 12 Oct 2025 00:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1F3421254D;
+	Sun, 12 Oct 2025 06:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVEFbJeE"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bN62wl3G"
 X-Original-To: linux-man@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4033D1FDA
-	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 00:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8F178F51
+	for <linux-man@vger.kernel.org>; Sun, 12 Oct 2025 06:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760227337; cv=none; b=E70NQtPXXRvYlq3T9NjTojTx6g4DmHShwU/wW6qEUbdQeOUNLwq9HFnaEYKpe12FYoB88CRZ9XTrDxYmylWrbeWSh4z1WaA5rx4SCJWAtZ3LgkVcDB+1OUZKsH4Wk7wHk9i5oTit+RsUeSxOrng8HSoIcRVeprEYkAJzljFdEOI=
+	t=1760249687; cv=none; b=BvqpcicpSogybUaFoyv2yVKn0zpK1TVjXWNArjdxmWTdvBnMIBFPyJvHM1dhS/+6RNC2uWdyr9CIiPCzMoKyHWonRMYBWRxTATePPs5I4+9MkdnxtEvu52Y0r1tyRn00anK95POfB7DaoBSgpsssrGwwoZKE8x29uF9/xkxZFpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760227337; c=relaxed/simple;
-	bh=q17sMpI5GH8r9ar91JvRKWDhd/UBEnv7rxMb3ggO5LU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BsCOq37qUogFLJmeith6kZ+32eEJaDo3gDmX205igRcf3HloBV2oolJqi+R/jLlKs3YwTU8Oy5+irGWBLgaJfCskIT++N8dNG5zGQ1uJUj5KaITSxDGXaBAN0EFEnOr45IuoEE9nGYaAMWjHR9Q4sBI+Pc+vMYEYXBkg7iL6wFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVEFbJeE; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71B8C4CEF4;
-	Sun, 12 Oct 2025 00:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760227336;
-	bh=q17sMpI5GH8r9ar91JvRKWDhd/UBEnv7rxMb3ggO5LU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VVEFbJeEGGPC3YlQUB3s/A4GiQTGYspPuELPIdRAOk1+Clwdec2I31gSddOpF0GcR
-	 9NpQ1pfYKNlO8VyCQebIRbGjkaTsfIb8VcpwWkN8JulY9LJmNv3d682WOf5g2sM5Ck
-	 mP1Lf56598dzio9yS4dSQfACSFbdzRGgnY0O2gZ3xN0esDyfPXrExp8PaPUcxlYT9f
-	 qQHGUpLK5xGN/2Rxv8O7ORU1xjEXBbR2Nw6tfaiIaok44kfyx+/jugq7Gfb+5RmLGk
-	 KZOI/q6UJMfIVYnz2SD1KHSsdmWpggyoiO4bgps2hplU7033AusvojFQ9SVJvyxzeq
-	 1FDwqZZGiBFrQ==
-Date: Sun, 12 Oct 2025 02:02:13 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: Sertonix <sertonix@posteo.net>, linux-man@vger.kernel.org
-Subject: Re: swab.3: mention UB when from and to overlap
-Message-ID: <yhsxo53mgu5pjfubjhuoeur2hcoyrof6rogh2neldclh6ji2gs@hx6lh7qguphi>
-References: <DDFUAR7OXZ38.3SGS6R89CDDMD@posteo.net>
- <875xclm599.fsf@gmail.com>
+	s=arc-20240116; t=1760249687; c=relaxed/simple;
+	bh=m+lgtySiSGGIWnsA66jgFuFum5hqvBvd8+jR6T+AGQU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gtHcnMYDgLnaXw5XIuY+v6y3nNpK//aK0sxRXc5qtZzJsZrYmkA2wNx4bGpxcWLRelPZ7w9d9gIxnYnY7bbb0hMi2fOVXqgo38NSuIOF56sC/iyh/QT/1I+DTOWU06IifOBpkXjgrU9OmHSk/BZbi9fXDXeqepCQJoF+5iNQrCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bN62wl3G; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-46e42deffa8so29674355e9.0
+        for <linux-man@vger.kernel.org>; Sat, 11 Oct 2025 23:14:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760249684; x=1760854484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SAOrmio62U43guzG2eDGA1f1tCPBMTpqSZuJ65iOtN0=;
+        b=bN62wl3G9aJ4cFHvjdsCNuclz95UkSZ4tiJSzpbcPlQrY65LK+hJH408KNswZhby+L
+         ZVaPiVytDIY/hmS3y/GE2HoN+ECiF5+nnPfFTythRhAnYlCJrmP1+0QzVonYBxyvaXqx
+         rkh0rPBV6zkZZ5odUz1g8Wz/BQl/b9l+nUOe7SZd1Xk3eWj7xcmfcEYwQXyoVj4mY/1Y
+         MgcZoCa9XF3s3Wup0eBbz6gAEatekzQzzblZKI6jD9PE/Blrh2Cs+xvnpMBdoYJUPVVS
+         9IGEviITEmyzZD0Gbt6KlK7YIkE24TKm7DQSDE9DQ+C1FdlugFWaVLYP+TvEjnu4SmtF
+         sRfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760249684; x=1760854484;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SAOrmio62U43guzG2eDGA1f1tCPBMTpqSZuJ65iOtN0=;
+        b=GVIZd+XqE3AASc/BevB/wk6WH6hCSAwAmV9AI2YBgn5mxiPPqufTh++u2OTiiPHIq9
+         VHRo344nC3AA7JI+bALz9KybQ44Xey8AUow8cxt64gy9lcw35qo0aEWY7gGrGmn4SAvC
+         FdYfhVpFWmYatfAbzU7bGNtg520MEK9ZPo5r5czUAeaFJA5iU3ujkKZTbAPEgRfnwGji
+         AhYf+LGQnif96xsaIwrqG9RaX72r4uFEXlt+LO3cH6GSuQY7utj8etoCy36b2Ktot74g
+         qJoZEc7MqXIlibv3vrgEWwULT0f9OwpbihFV7ztfqzhskFYAMAkuMv9DmpzYY8V50Lxb
+         8n7A==
+X-Forwarded-Encrypted: i=1; AJvYcCVbh8YxioL7KzrlRPgJsin3iEZrdvYZCioOSoJMTVP8oUszZAqDGyDj9f+qWooaJve1n5g5gXo6rhw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGaG4aqRUEj16Qd5wAM2ga5SZ83M4iYUehjWhDY+ako3frtQB9
+	dmUH631jFvxk4DdWEgVlbp1NHYBfkQohXn1FOMLyrQBsp9to9f75CUq5
+X-Gm-Gg: ASbGncv8jRti4381GL/6QmCkIRoYnsqWwIC95YmOoRS9ElfdvoPX2ts/N3DkHosuDaw
+	TaAdxfFmpJ3yRb33w4OotanFvMjk2BqtFg1+kUAiDCQQ7W3bRPZBCvYYxQMOB4lv5DevvoUAiG7
+	q9pD7e46K4F5fKIc8oHijNT4BkC8beK1OdKgSR6sJzU56vtnSafYnXoCwIrhsKbrv2uW4ozdYuL
+	lIMpOl+SZ5kcKM8ReJqJrWQcUtPZ1bQmCMXzCTp2041oIrkEQX78jQh+1zvA0qLKu8/5HZHtbnz
+	j40XG1ZUrvGjZVECNtiUEecPSZRAnXz+cEipSUpXS4hiAG2u0zgTKUShZamgheQAkJhNIB1NavR
+	Ets+NYVUICIYgN5tcU1GdBMQzBHMvFng2YQrPGA==
+X-Google-Smtp-Source: AGHT+IE4rB4xnTmT6He562ThuiVG/pfm4Q/z2xiP28/GWf3Dt1Xuf0+3s0e0VYHIyISay5XLqOIEJg==
+X-Received: by 2002:a05:600c:8b5b:b0:46c:d6ed:2311 with SMTP id 5b1f17b1804b1-46fa9af2f4dmr116769955e9.19.1760249684140;
+        Sat, 11 Oct 2025 23:14:44 -0700 (PDT)
+Received: from localhost ([212.73.77.104])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-426ce583424sm11699282f8f.21.2025.10.11.23.14.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Oct 2025 23:14:43 -0700 (PDT)
+From: Askar Safin <safinaskar@gmail.com>
+To: luca.boccassi@gmail.com
+Cc: alx@kernel.org,
+	brauner@kernel.org,
+	cyphar@cyphar.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-man@vger.kernel.org
+Subject: Re: [PATCH] man/man2/move_mount.2: document EINVAL on multiple instances
+Date: Sun, 12 Oct 2025 09:14:38 +0300
+Message-ID: <20251012061438.283584-1-safinaskar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
+References: <CAMw=ZnQki4YR24CfYJMAEWEAQ63yYer-YzSAeH+xFA-fNth-XQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-man@vger.kernel.org
 List-Id: <linux-man.vger.kernel.org>
 List-Subscribe: <mailto:linux-man+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-man+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xuayqtgpdfxx4vbt"
-Content-Disposition: inline
-In-Reply-To: <875xclm599.fsf@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Luca Boccassi <luca.boccassi@gmail.com>:
+> Almost - the use case is that I prep an image as a detached mount, and
+> then I want to apply it multiple times, without having to reopen it
+> again and again. If I just do 'move_mount()' multiple times, the
+> second one returns EINVAL. From 6.15, I can do open_tree with
+> OPEN_TREE_CLONE before applying with move_mount, and everything works.
 
---xuayqtgpdfxx4vbt
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Collin Funk <collin.funk1@gmail.com>
-Cc: Sertonix <sertonix@posteo.net>, linux-man@vger.kernel.org
-Subject: Re: swab.3: mention UB when from and to overlap
-Message-ID: <yhsxo53mgu5pjfubjhuoeur2hcoyrof6rogh2neldclh6ji2gs@hx6lh7qguphi>
-References: <DDFUAR7OXZ38.3SGS6R89CDDMD@posteo.net>
- <875xclm599.fsf@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <875xclm599.fsf@gmail.com>
+This sounds like a bug. Please, give all reproduction steps. Both for
+EINVAL and for non-working open_tree before 6.15. I want to reproduce it.
 
-Hi Sertonix, Collin,
-
-On Sat, Oct 11, 2025 at 03:40:34PM -0700, Collin Funk wrote:
-> "Sertonix" <sertonix@posteo.net> writes:
->=20
-> > The current swab.3 page doesn't seem to mention anything about what
-> > happens when from and to overlap. In POSIX any overlap is UB.
-> >
-> > glibc handles cases when from =3D=3D to but it will choke when for exam=
-ple
-> > from =3D=3D to+1. I am uncertain if from =3D=3D to is meant to be a fea=
-ture.
-> >
-> > If it is, would it be possible to mention that overlap is only safe when
-> > from =3D=3D to and it's glibc (not eg. musl)? If it's not intended woul=
-d it
-> > be possible to include the same information as in POSIX?
->=20
-> The prototype uses restrict for both pointers which is how you tell the
-> C compiler that two objects will not overlap.
-
-As Collin says, 'restrict' is there to document this.
-
-The 'restrict' keyword (theoretically, a qualifier, but it works more
-like an attribute) is difficult to explain (and the wording of the
-standard to describe it is quite difficult to follow).  However, the
-core idea is simple: nothing should overlap such a pointer.
-
-There are exceptions, such as the case when a function doesn't access
-such a pointer.  That's why strtol(3) is declared as
-
-     long strtol(const char *restrict s, char **restrict endp, int base);
-
-even though one can (and usually do) call it as strtol(s, &s, 0), where
-'s' is indeed aliased by another pointer (*endp).  That's because *endp
-is never accessed within strtol(3).
-
-This is somewhat unfortunate, as it doesn't allow the compiler to
-diagnose bad calls to restrict functions, as the compiler isn't able to
-know if the pointer is accessed or not, and thus it doesn't know if
-the call is valid or not.  One could use the [[gnu::access()]] attribute
-to give the compiler some extra information, which would allow it to
-diagnose.
-
-const-correct-ness would also help, but precisely, strtol(3) can't be
-const-correct, because of the issue with pointers to pointers to const.
-A better API would be a const-generic macro:
-
-     long strtol(QChar *restrict s, QChar **restrict endp, int base);
-
-(See the C23 standard for the meaning of QChar.)  When designing new
-APIs, we should make sure to not make this mistake.  But with old APIs,
-we're stuck with this problem.  I'm working on a replacement of
-strtol(3), which would allow adding a diagnostic in the compiler.  It
-would trigger on valid uses of strtol(3), but people will be able to
-either switch to the new API, or turn off the diagnostic.
-
-> But maybe it is better to be friendly to those new to see and state it
-> explicitly? Alex will know better than I.
-
-I hope we don't.  That would require a CAVEATS section in too many
-pages.
-
-	$ grep -rl '\<restrict\>' man | wc -l
-	156
-
-While the detail about strtol(3) is tricky, and could be worthy of
-documentation (most likely), the general idea behind 'restrict' is
-quite easy to understand, IMO, and I think documenting it in plain
-English would be too much.  Especially, since 'restrict' is a C99
-keyword, so I expect it to be more or less common knowledge.
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-Use port 80 (that is, <...:80/>).
-
---xuayqtgpdfxx4vbt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmjq7/8ACgkQ64mZXMKQ
-wqnAfw//SgSU9f+CLgckjEhvmDbTFa3DMB76Cpx9dmkmRAFDIKLWPdrf/OzIHDRv
-f02upMnfo7iQ6BTyOYz14J5gpNqJU/QBEQmBl5V7lV/pUTeesou0O9z0y7dIAcP+
-oVRFwUv2DSBnK4ZMUj0++KiGN8Ws37CIepojGoS6JIGMHgcBCjazkMoGUkRwE6ZI
-q7TYZnde4CrFkcUjr5t6ePc706JXtJ2rEwVOGaLBiJm05IYCs2cumTtuz6CYbPjO
-BziND4ObjolvTOIl3In6mgH7J16wLb46DFMnSJFmiEaxaZUpfv21iA13BO4QPQGT
-tOlO8l7GvXCtg18SRTZmUcR6Uc3/R9uBe2rpaALcDJC+ovlAeDvI0VLiwZh9dnBR
-cQ1GQN6PTffCljpadbs9GUR7+PpDPqAD4HTyrQzbdYnmYf+E5/X+d1p8rlyedJnZ
-uR3+fRxiY4HQ7d3GkZWgQ6XOOOyyuFDHuQ3BheXymgSxY5LZmL7zMgacB8qux/mK
-1WYDEa5We+TtJgywlaN+7ooRrS3RyH9YkyNd6gUBZpAJwK3gPsFapHy1tZ2vpQJV
-bCPgdz0PKMiFnatOx4KMCWwG9p/2kbRXJnyZ6mTjMgu7CcoNc1DsjcamHxV2iunp
-lz61eudjUPE24o+UOoIVKykAM0IQCbK44WavRsa0+6cUBy2Go/8=
-=t8FJ
------END PGP SIGNATURE-----
-
---xuayqtgpdfxx4vbt--
+-- 
+Askar Safin
 
